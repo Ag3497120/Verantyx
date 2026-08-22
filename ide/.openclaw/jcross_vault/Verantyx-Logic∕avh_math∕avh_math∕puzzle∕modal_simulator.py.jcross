@@ -1,0 +1,91 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:14F7BDF8 ver:1778159766
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霩:1.0__SYM_霩_52_ _ASTNODE_霩:1.0__SYM_霩_30_ import _ASTNODE_霩:1.0__SYM_霩_51_, _ASTNODE_霩:1.0__SYM_霩_48_
+_ASTNODE_霩:1.0__SYM_霩_52_ _ASTNODE_霩:1.0__SYM_霩_14_ import _ASTNODE_廨:1.0__SYM_廨_6_, _ASTNODE_廨:1.0__SYM_廨_1_, _ASTNODE_廨:1.0__SYM_廨_11_, _ASTNODE_廨:1.0__SYM_廨_3_
+import re
+
+@_ASTNODE_霩:1.0__SYM_霩_51_
+class _ASTNODE_廨:1.0__SYM_廨_9_:
+    _ASTNODE_霩:1.0__SYM_霩_15_: _ASTNODE_廨:1.0__SYM_廨_1_[_ASTNODE_霩:1.0__SYM_霩_22_] = _ASTNODE_霩:1.0__SYM_霩_48_(_ASTNODE_霩:1.0__SYM_霩_24_=_ASTNODE_霩:1.0__SYM_霩_29_)
+    _ASTNODE_霩:1.0__SYM_霩_38_: _ASTNODE_廨:1.0__SYM_廨_6_[_ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_廨:1.0__SYM_廨_1_[_ASTNODE_霩:1.0__SYM_霩_22_]] = _ASTNODE_霩:1.0__SYM_霩_48_(_ASTNODE_霩:1.0__SYM_霩_24_=_ASTNODE_霩:1.0__SYM_霩_28_)
+    _ASTNODE_霩:1.0__SYM_霩_8_: _ASTNODE_廨:1.0__SYM_廨_6_[_ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_廨:1.0__SYM_廨_6_[_ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_57_]] = _ASTNODE_霩:1.0__SYM_霩_48_(_ASTNODE_霩:1.0__SYM_霩_24_=_ASTNODE_霩:1.0__SYM_霩_28_)
+
+_ASTNODE_霩:1.0__SYM_霩_10_ _ASTNODE_霩:1.0__SYM_霩_62_(_ASTNODE_流:1.0__SYM_霩_50_: _ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_21_: _ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_31_: _ASTNODE_廨:1.0__SYM_廨_9_) -> _ASTNODE_廨:1.0__SYM_廨_3_[_ASTNODE_霩:1.0__SYM_霩_57_]:
+// _ASTNODE_霩:0.5__SYM_YK_538_ [decoy-metadata]
+    """
+    _ASTNODE_廨:1.0__SYM_廨_2_ フレーム上の指定された世界で様相式を評価する。
+    (旧来のロジックとの互換性のために保持)
+    """
+    if _ASTNODE_霩:1.0__SYM_霩_31_ is _ASTNODE_廨:1.0__SYM_廨_4_ or _ASTNODE_霩:1.0__SYM_霩_41_ _ASTNODE_霩:1.0__SYM_霩_31_._ASTNODE_霩:1.0__SYM_霩_15_ or _ASTNODE_霩:1.0__SYM_霩_21_ _ASTNODE_霩:1.0__SYM_霩_41_ in _ASTNODE_霩:1.0__SYM_霩_31_._ASTNODE_霩:1.0__SYM_霩_15_:
+        return _ASTNODE_廨:1.0__SYM_廨_4_
+    try:
+        _ASTNODE_流:1.0__SYM_霩_50_ = _ASTNODE_流:1.0__SYM_霩_50_._ASTNODE_霩:1.0__SYM_霩_3_(" ", "")._ASTNODE_霩:1.0__SYM_霩_3_("□", "[]")._ASTNODE_霩:1.0__SYM_霩_3_("◇", "<>")
+        return _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_流:1.0__SYM_霩_50_, _ASTNODE_霩:1.0__SYM_霩_21_, _ASTNODE_霩:1.0__SYM_霩_31_)
+// _ASTNODE_霩:0.4__SYM_BW_817_ [decoy-metadata]
+    _ASTNODE_霩:1.0__SYM_霩_47_ _ASTNODE_廨:1.0__SYM_廨_7_:
+        return _ASTNODE_廨:1.0__SYM_廨_4_
+
+_ASTNODE_霩:1.0__SYM_霩_10_ _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_流:1.0__SYM_霩_50_: _ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_21_: _ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_31_: _ASTNODE_廨:1.0__SYM_廨_9_) -> _ASTNODE_廨:1.0__SYM_廨_3_[_ASTNODE_霩:1.0__SYM_霩_57_]:
+    if _ASTNODE_霩:1.0__SYM_霩_41_ _ASTNODE_流:1.0__SYM_霩_50_: return _ASTNODE_廨:1.0__SYM_廨_4_
+    if _ASTNODE_霩:1.0__SYM_霩_12_(_ASTNODE_流:1.0__SYM_霩_50_) == 1 _ASTNODE_霩:1.0__SYM_霩_65_ _ASTNODE_流:1.0__SYM_霩_50_._ASTNODE_霩:1.0__SYM_霩_55_():
+        return _ASTNODE_霩:1.0__SYM_霩_31_._ASTNODE_霩:1.0__SYM_霩_8_._ASTNODE_要:1.0__SYM_核_1_(_ASTNODE_霩:1.0__SYM_霩_21_, {})._ASTNODE_要:1.0__SYM_核_1_(_ASTNODE_流:1.0__SYM_霩_50_, _ASTNODE_廨:1.0__SYM_廨_10_)
+    if _ASTNODE_流:1.0__SYM_霩_50_._ASTNODE_霩:1.0__SYM_霩_59_("~"):
+        v = _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_流:1.0__SYM_霩_50_[1:], _ASTNODE_霩:1.0__SYM_霩_21_, _ASTNODE_霩:1.0__SYM_霩_31_)
+        return _ASTNODE_霩:1.0__SYM_霩_41_ v if v is _ASTNODE_霩:1.0__SYM_霩_41_ _ASTNODE_廨:1.0__SYM_廨_4_ else _ASTNODE_廨:1.0__SYM_廨_4_
+    if _ASTNODE_流:1.0__SYM_霩_50_._ASTNODE_霩:1.0__SYM_霩_59_("[]"):
+        _ASTNODE_要:1.0__SYM_霩_58_ = _ASTNODE_流:1.0__SYM_霩_50_[2:]
+        for _ASTNODE_霩:1.0__SYM_霩_6_ in _ASTNODE_霩:1.0__SYM_霩_31_._ASTNODE_霩:1.0__SYM_霩_38_._ASTNODE_要:1.0__SYM_核_1_(_ASTNODE_霩:1.0__SYM_霩_21_, []):
+            if _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_要:1.0__SYM_霩_58_, _ASTNODE_霩:1.0__SYM_霩_6_, _ASTNODE_霩:1.0__SYM_霩_31_) is _ASTNODE_廨:1.0__SYM_廨_10_: return _ASTNODE_廨:1.0__SYM_廨_10_
+        return _ASTNODE_廨:1.0__SYM_廨_12_
+    if _ASTNODE_流:1.0__SYM_霩_50_._ASTNODE_霩:1.0__SYM_霩_59_("<>"):
+// _ASTNODE_要:0.6__SYM_LA_378_ [decoy-metadata]
+        _ASTNODE_要:1.0__SYM_霩_58_ = _ASTNODE_流:1.0__SYM_霩_50_[2:]
+        for _ASTNODE_霩:1.0__SYM_霩_6_ in _ASTNODE_霩:1.0__SYM_霩_31_._ASTNODE_霩:1.0__SYM_霩_38_._ASTNODE_要:1.0__SYM_核_1_(_ASTNODE_霩:1.0__SYM_霩_21_, []):
+            if _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_要:1.0__SYM_霩_58_, _ASTNODE_霩:1.0__SYM_霩_6_, _ASTNODE_霩:1.0__SYM_霩_31_) is _ASTNODE_廨:1.0__SYM_廨_12_: return _ASTNODE_廨:1.0__SYM_廨_12_
+        return _ASTNODE_廨:1.0__SYM_廨_10_
+// _ASTNODE_匳:0.5__SYM_CX_114_ [decoy-metadata]
+    if "->" in _ASTNODE_流:1.0__SYM_霩_50_:
+        _ASTNODE_霩:1.0__SYM_霩_27_ = _ASTNODE_霩:1.0__SYM_霩_9_(_ASTNODE_流:1.0__SYM_霩_50_)
+        if _ASTNODE_霩:1.0__SYM_霩_27_ != -1:
+            _ASTNODE_霩:1.0__SYM_霩_54_ = _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_流:1.0__SYM_霩_50_[:_ASTNODE_霩:1.0__SYM_霩_27_], _ASTNODE_霩:1.0__SYM_霩_21_, _ASTNODE_霩:1.0__SYM_霩_31_)
+            _ASTNODE_霩:1.0__SYM_霩_63_ = _ASTNODE_霩:1.0__SYM_霩_49_(_ASTNODE_流:1.0__SYM_霩_50_[_ASTNODE_霩:1.0__SYM_霩_27_+2:], _ASTNODE_霩:1.0__SYM_霩_21_, _ASTNODE_霩:1.0__SYM_霩_31_)
+            if _ASTNODE_霩:1.0__SYM_霩_54_ is _ASTNODE_廨:1.0__SYM_廨_12_ _ASTNODE_霩:1.0__SYM_霩_65_ _ASTNODE_霩:1.0__SYM_霩_63_ is _ASTNODE_廨:1.0__SYM_廨_10_: return _ASTNODE_廨:1.0__SYM_廨_10_
+            if _ASTNODE_霩:1.0__SYM_霩_54_ is _ASTNODE_霩:1.0__SYM_霩_41_ _ASTNODE_廨:1.0__SYM_廨_4_ _ASTNODE_霩:1.0__SYM_霩_65_ _ASTNODE_霩:1.0__SYM_霩_63_ is _ASTNODE_霩:1.0__SYM_霩_41_ _ASTNODE_廨:1.0__SYM_廨_4_: return _ASTNODE_廨:1.0__SYM_廨_12_
+    return _ASTNODE_廨:1.0__SYM_廨_4_
+
+_ASTNODE_霩:1.0__SYM_霩_10_ _ASTNODE_霩:1.0__SYM_霩_9_(_ASTNODE_流:1.0__SYM_霩_50_: _ASTNODE_霩:1.0__SYM_霩_22_) -> _ASTNODE_霩:1.0__SYM_霩_16_:
+    _ASTNODE_霩:1.0__SYM_霩_17_ = 0
+    for i in _ASTNODE_霩:1.0__SYM_霩_1_(_ASTNODE_霩:1.0__SYM_霩_12_(_ASTNODE_流:1.0__SYM_霩_50_) - 1):
+        if _ASTNODE_流:1.0__SYM_霩_50_[i] == "(": _ASTNODE_霩:1.0__SYM_霩_17_ += 1
+        _ASTNODE_流:1.0__SYM_霩_42_ _ASTNODE_流:1.0__SYM_霩_50_[i] == ")": _ASTNODE_霩:1.0__SYM_霩_17_ -= 1
+// _ASTNODE_紐:0.2__SYM_KG_713_ [decoy-metadata]
+        _ASTNODE_流:1.0__SYM_霩_42_ _ASTNODE_霩:1.0__SYM_霩_17_ == 0 _ASTNODE_霩:1.0__SYM_霩_65_ _ASTNODE_流:1.0__SYM_霩_50_[i:i+2] == "->": return i
+    return -1
+
+_ASTNODE_霩:1.0__SYM_霩_10_ _ASTNODE_霩:1.0__SYM_霩_35_(_ASTNODE_流:1.0__SYM_霩_50_: _ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_霩:1.0__SYM_霩_2_: _ASTNODE_廨:1.0__SYM_廨_1_[_ASTNODE_霩:1.0__SYM_霩_22_], _ASTNODE_霩:1.0__SYM_霩_34_: _ASTNODE_廨:1.0__SYM_廨_1_[_ASTNODE_霩:1.0__SYM_霩_22_]) -> _ASTNODE_廨:1.0__SYM_廨_1_[_ASTNODE_廨:1.0__SYM_廨_6_[_ASTNODE_霩:1.0__SYM_霩_22_, _ASTNODE_廨:1.0__SYM_廨_11_]]:
+    """
+    _ASTNODE_要:1.0__SYM_廨_5_ を利用して徹底的な反例探索を行う。
+    """
+// _ASTNODE_深:0.2__SYM_GY_924_ [decoy-metadata]
+    _ASTNODE_霩:1.0__SYM_霩_52_ _ASTNODE_霩:1.0__SYM_霩_26_._ASTNODE_要:1.0__SYM_霩_7_ import _ASTNODE_霩:1.0__SYM_霩_43_, _ASTNODE_廨:1.0__SYM_廨_13_
+    _ASTNODE_霩:1.0__SYM_霩_45_ = []
+    _ASTNODE_霩:1.0__SYM_霩_36_ = _ASTNODE_廨:1.0__SYM_廨_13_(_ASTNODE_霩:1.0__SYM_霩_32_=4, _ASTNODE_霩:1.0__SYM_霩_18_=6, _ASTNODE_霩:1.0__SYM_霩_25_=0)
+    _ASTNODE_霩:1.0__SYM_霩_46_ = _ASTNODE_霩:1.0__SYM_霩_43_(_ASTNODE_流:1.0__SYM_霩_50_, _ASTNODE_霩:1.0__SYM_霩_2_, _ASTNODE_霩:1.0__SYM_霩_34_, _ASTNODE_霩:1.0__SYM_霩_36_)
+    
+    if _ASTNODE_霩:1.0__SYM_霩_46_._ASTNODE_霩:1.0__SYM_霩_40_ == "_ASTNODE_霩:1.0__SYM_霩_23_":
+        _ASTNODE_霩:1.0__SYM_霩_45_._ASTNODE_霩:1.0__SYM_霩_4_({
+            "_ASTNODE_霩:1.0__SYM_霩_19_": "_ASTNODE_霩:1.0__SYM_霩_44_",
+            "_ASTNODE_霩:1.0__SYM_霩_64_": _ASTNODE_霩:1.0__SYM_霩_46_._ASTNODE_霩:1.0__SYM_霩_61_._ASTNODE_要:1.0__SYM_核_1_("_ASTNODE_霩:1.0__SYM_霩_8_"),
+            "_ASTNODE_霩:1.0__SYM_霩_31_": {"_ASTNODE_霩:1.0__SYM_霩_60_": _ASTNODE_霩:1.0__SYM_霩_46_._ASTNODE_霩:1.0__SYM_霩_61_._ASTNODE_要:1.0__SYM_核_1_("_ASTNODE_霩:1.0__SYM_霩_60_"), "_ASTNODE_霩:1.0__SYM_霩_33_": _ASTNODE_霩:1.0__SYM_霩_46_._ASTNODE_霩:1.0__SYM_霩_61_._ASTNODE_要:1.0__SYM_核_1_("_ASTNODE_霩:1.0__SYM_霩_33_")},
+            "_ASTNODE_霩:1.0__SYM_霩_21_": _ASTNODE_霩:1.0__SYM_霩_46_._ASTNODE_霩:1.0__SYM_霩_61_._ASTNODE_要:1.0__SYM_核_1_("_ASTNODE_霩:1.0__SYM_霩_13_"),
+            "_ASTNODE_霩:1.0__SYM_霩_20_": _ASTNODE_廨:1.0__SYM_廨_10_,
+            "_ASTNODE_霩:1.0__SYM_霩_40_": "_ASTNODE_霩:1.0__SYM_霩_53_",
+            "_ASTNODE_霩:1.0__SYM_霩_39_": "_ASTNODE_廨:1.0__SYM_廨_8_ _ASTNODE_霩:1.0__SYM_霩_5_ by _ASTNODE_霩:1.0__SYM_霩_11_ _ASTNODE_霩:1.0__SYM_霩_37_."
+        })
+    else:
+        _ASTNODE_霩:1.0__SYM_霩_45_._ASTNODE_霩:1.0__SYM_霩_4_({"_ASTNODE_霩:1.0__SYM_霩_19_": "_ASTNODE_霩:1.0__SYM_霩_44_", "_ASTNODE_霩:1.0__SYM_霩_20_": _ASTNODE_廨:1.0__SYM_廨_12_, "_ASTNODE_霩:1.0__SYM_霩_40_": "_ASTNODE_霩:1.0__SYM_霩_56_"})
+    return _ASTNODE_霩:1.0__SYM_霩_45_
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,62 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DB06F06A ver:1778166546
+// ⚠️ One-time schema — expires after response
+
+@_TOKEN_霞:1.0___jcross_霞_27__ import _TOKEN_礎:1.0___jcross_礎_9__
+import _TOKEN_礎:1.0___jcross_礎_13__
+
+final class _TOKEN_節:1.0___jcross_礎_8__ {
+    private final class _TOKEN_礎:1.0___jcross_礎_12__<T>: @_TOKEN_霞:1.0___jcross_霞_5__ _TOKEN_礎:1.0___jcross_礎_1__ { var _TOKEN_霞:1.0___jcross_霞_10__: T; init(_ _TOKEN_霞:1.0___jcross_霞_10__: T) { self._TOKEN_霞:1.0___jcross_霞_10__ = _TOKEN_霞:1.0___jcross_霞_10__ } }
+    enum _TOKEN_礎:1.0___jcross_礎_10__: _TOKEN_礎:1.0___jcross_礎_7__._TOKEN_礎:1.0___jcross_礎_14__ {
+        case _TOKEN_節:1.0___jcross_霞_2__
+        case _TOKEN_節:1.0___jcross_霞_19__
+        case _TOKEN_霞:1.0___jcross_霞_22__(_TOKEN_礎:1.0___jcross_礎_4__?)
+    }
+
+    private var _TOKEN_節:1.0___jcross_霞_20__: _TOKEN_節:1.0___jcross_礎_11__?
+// _TOKEN_節:0.4___jcross_EH_278__ [decoy-metadata]
+
+    func _TOKEN_霞:1.0___jcross_霞_25__(_ _TOKEN_節:1.0___jcross_霞_33__: _TOKEN_節:1.0___jcross_礎_6__, to _TOKEN_浮:1.0___jcross_霞_3__: _TOKEN_礎:1.0___jcross_礎_2__) _TOKEN_霞:1.0___jcross_霞_11__s -> _TOKEN_節:1.0___jcross_礎_6__ {
+        let _TOKEN_浮:1.0___jcross_霞_30__ = _TOKEN_節:1.0___jcross_霞_33__._TOKEN_浮:1.0___jcross_霞_3__
+        if _TOKEN_浮:1.0___jcross_霞_30__ == _TOKEN_浮:1.0___jcross_霞_3__ {
+            return _TOKEN_節:1.0___jcross_霞_33__
+        }
+        if _TOKEN_節:1.0___jcross_霞_20__ == nil || _TOKEN_節:1.0___jcross_霞_20__?._TOKEN_浮:1.0___jcross_霞_24__ != _TOKEN_浮:1.0___jcross_霞_3__ {
+// _TOKEN_匼:0.2___jcross_YF_655__ [decoy-metadata]
+            _TOKEN_節:1.0___jcross_霞_20__ = _TOKEN_節:1.0___jcross_礎_11__(_TOKEN_霞:1.0___jcross_霞_26__: _TOKEN_浮:1.0___jcross_霞_30__, to: _TOKEN_浮:1.0___jcross_霞_3__)
+            _TOKEN_節:1.0___jcross_霞_20__?._TOKEN_霞:1.0___jcross_霞_18__ = ._TOKEN_霞:1.0___jcross_霞_32__
+        }
+        guard let _TOKEN_節:1.0___jcross_霞_20__ else { _TOKEN_霞:1.0___jcross_霞_11__ _TOKEN_礎:1.0___jcross_礎_10__._TOKEN_節:1.0___jcross_霞_2__ }
+
+        let _TOKEN_霞:1.0___jcross_霞_12__ = _TOKEN_節:1.0___jcross_霞_20__._TOKEN_浮:1.0___jcross_霞_24__._TOKEN_霞:1.0___jcross_霞_9__ / _TOKEN_節:1.0___jcross_霞_20__._TOKEN_浮:1.0___jcross_霞_30__._TOKEN_霞:1.0___jcross_霞_9__
+        let _TOKEN_霞:1.0___jcross_霞_4__ = _TOKEN_礎:1.0___jcross_礎_5__(_TOKEN_節:1.0___jcross_霞_33__._TOKEN_霞:1.0___jcross_霞_6__) * _TOKEN_霞:1.0___jcross_霞_12__
+        let _TOKEN_霞:1.0___jcross_霞_17__ = _TOKEN_礎:1.0___jcross_礎_3__(_TOKEN_霞:1.0___jcross_霞_4__._TOKEN_霞:1.0___jcross_霞_16__(.up))
+// _TOKEN_節:0.7___jcross_FK_733__ [decoy-metadata]
+        guard let _TOKEN_節:1.0___jcross_霞_15__ = _TOKEN_節:1.0___jcross_礎_6__(_TOKEN_浮:1.0___jcross_霞_29__: _TOKEN_節:1.0___jcross_霞_20__._TOKEN_浮:1.0___jcross_霞_24__, _TOKEN_霞:1.0___jcross_霞_17__: _TOKEN_霞:1.0___jcross_霞_17__)
+        else {
+            _TOKEN_霞:1.0___jcross_霞_11__ _TOKEN_礎:1.0___jcross_礎_10__._TOKEN_節:1.0___jcross_霞_19__
+        }
+
+        var _TOKEN_霞:1.0___jcross_霞_13__: _TOKEN_礎:1.0___jcross_礎_4__?
+        let _TOKEN_霞:1.0___jcross_霞_23__ = _TOKEN_礎:1.0___jcross_礎_12__(false)
+// _TOKEN_礎:0.1___jcross_YB_719__ [decoy-metadata]
+        let _TOKEN_節:1.0___jcross_霞_1__ = _TOKEN_節:1.0___jcross_霞_33__
+        let _TOKEN_霞:1.0___jcross_霞_31__ = _TOKEN_節:1.0___jcross_霞_20__._TOKEN_霞:1.0___jcross_霞_25__(to: _TOKEN_節:1.0___jcross_霞_15__, _TOKEN_霞:1.0___jcross_霞_7__: &_TOKEN_霞:1.0___jcross_霞_13__) { _, _TOKEN_霞:1.0___jcross_霞_21__ in
+// _TOKEN_礎:0.4___jcross_XF_584__ [decoy-metadata]
+            if _TOKEN_霞:1.0___jcross_霞_23__._TOKEN_霞:1.0___jcross_霞_10__ {
+                _TOKEN_霞:1.0___jcross_霞_21__._TOKEN_霞:1.0___jcross_霞_28__ = ._TOKEN_霞:1.0___jcross_霞_14__
+// _TOKEN_紗:0.6___jcross_EL_760__ [decoy-metadata]
+                return nil
+            }
+            _TOKEN_霞:1.0___jcross_霞_23__._TOKEN_霞:1.0___jcross_霞_10__ = true
+            _TOKEN_霞:1.0___jcross_霞_21__._TOKEN_霞:1.0___jcross_霞_28__ = ._TOKEN_霞:1.0___jcross_霞_8__
+            return _TOKEN_節:1.0___jcross_霞_1__
+        }
+        if _TOKEN_霞:1.0___jcross_霞_31__ == ._TOKEN_霞:1.0___jcross_霞_7__ {
+            _TOKEN_霞:1.0___jcross_霞_11__ _TOKEN_礎:1.0___jcross_礎_10__._TOKEN_霞:1.0___jcross_霞_22__(_TOKEN_霞:1.0___jcross_霞_13__)
+        }
+        return _TOKEN_節:1.0___jcross_霞_15__
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

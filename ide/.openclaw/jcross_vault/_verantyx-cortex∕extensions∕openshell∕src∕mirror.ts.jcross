@@ -1,0 +1,59 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:29BEFB5A ver:1778167203
+// ⚠️ One-time schema — expires after response
+
+import fs __jcross_霰:1.0___OPAQUE_霰_12_ "__jcross_霰:1.0___OPAQUE_霰_19_:fs/__jcross_霰:1.0___OPAQUE_霰_13_";
+import __jcross_霰:1.0___OPAQUE_霰_26_ __jcross_霰:1.0___OPAQUE_霰_12_ "__jcross_霰:1.0___OPAQUE_霰_19_:__jcross_霰:1.0___OPAQUE_霰_26_";
+
+__jcross_霰:1.0___OPAQUE_霰_24_ async __jcross_霰:1.0___OPAQUE_霰_28_ __jcross_霰:1.0___OPAQUE_霰_15_(__jcross_霰:1.0___OPAQUE_霰_7_: {
+  __jcross_霰:1.0___OPAQUE_霰_9_: __jcross_霰:1.0___OPAQUE_霰_10_;
+  __jcross_霰:1.0___OPAQUE_霰_3_: __jcross_霰:1.0___OPAQUE_霰_10_;
+}): __jcross_廡:1.0___OPAQUE_廡_2_<__jcross_霰:1.0___OPAQUE_霰_11_> {
+// __jcross_窟:0.2___OPAQUE_EF_663_ [decoy-metadata]
+  await fs.__jcross_霰:1.0___OPAQUE_霰_23_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_3_, { __jcross_霰:1.0___OPAQUE_霰_5_: true });
+// __jcross_縺:0.4___OPAQUE_HK_133_ [decoy-metadata]
+// __jcross_匷:0.8___OPAQUE_CG_370_ [decoy-metadata]
+  __jcross_霰:1.0___OPAQUE_霰_17_ __jcross_霰:1.0___OPAQUE_霰_1_ = await fs.__jcross_霰:1.0___OPAQUE_霰_22_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_3_);
+  await __jcross_廡:1.0___OPAQUE_廡_2_.__jcross_霰:1.0___OPAQUE_霰_8_(
+    __jcross_霰:1.0___OPAQUE_霰_1_.__jcross_霰:1.0___OPAQUE_霰_21_((__jcross_霰:1.0___OPAQUE_霰_25_) =>
+// __jcross_技:0.9___OPAQUE_CH_563_ [decoy-metadata]
+      fs.rm(__jcross_霰:1.0___OPAQUE_霰_26_.__jcross_霰:1.0___OPAQUE_霰_14_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_3_, __jcross_霰:1.0___OPAQUE_霰_25_), {
+        __jcross_霰:1.0___OPAQUE_霰_5_: true,
+        __jcross_漕:1.0___OPAQUE_霰_30_: true,
+      }),
+    ),
+  );
+  __jcross_霰:1.0___OPAQUE_霰_17_ __jcross_霰:1.0___OPAQUE_霰_20_ = await fs.__jcross_霰:1.0___OPAQUE_霰_22_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_9_);
+  for (__jcross_霰:1.0___OPAQUE_霰_17_ __jcross_霰:1.0___OPAQUE_霰_25_ of __jcross_霰:1.0___OPAQUE_霰_20_) {
+    await fs.cp(__jcross_霰:1.0___OPAQUE_霰_26_.__jcross_霰:1.0___OPAQUE_霰_14_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_9_, __jcross_霰:1.0___OPAQUE_霰_25_), __jcross_霰:1.0___OPAQUE_霰_26_.__jcross_霰:1.0___OPAQUE_霰_14_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_3_, __jcross_霰:1.0___OPAQUE_霰_25_), {
+      __jcross_霰:1.0___OPAQUE_霰_5_: true,
+      __jcross_漕:1.0___OPAQUE_霰_30_: true,
+      __jcross_霰:1.0___OPAQUE_霰_18_: false,
+    });
+  }
+// __jcross_霰:0.1___OPAQUE_AW_898_ [decoy-metadata]
+}
+
+__jcross_霰:1.0___OPAQUE_霰_24_ async __jcross_霰:1.0___OPAQUE_霰_28_ __jcross_霰:1.0___OPAQUE_霰_4_(__jcross_霰:1.0___OPAQUE_霰_7_: {
+  __jcross_霰:1.0___OPAQUE_霰_12_: __jcross_霰:1.0___OPAQUE_霰_10_;
+  to: __jcross_霰:1.0___OPAQUE_霰_10_;
+}): __jcross_廡:1.0___OPAQUE_廡_2_<__jcross_霰:1.0___OPAQUE_霰_11_> {
+  try {
+    await fs.__jcross_霰:1.0___OPAQUE_霰_16_(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_12_, __jcross_霰:1.0___OPAQUE_霰_7_.to);
+    return;
+  } catch (__jcross_霰:1.0___OPAQUE_霰_6_) {
+    __jcross_霰:1.0___OPAQUE_霰_17_ __jcross_霰:1.0___OPAQUE_霰_27_ = (__jcross_霰:1.0___OPAQUE_霰_6_ as __jcross_廡:1.0___OPAQUE_廡_4_.__jcross_廡:1.0___OPAQUE_廡_1_ | __jcross_霰:1.0___OPAQUE_霰_2_)?.__jcross_霰:1.0___OPAQUE_霰_27_;
+    if (__jcross_霰:1.0___OPAQUE_霰_27_ !== "__jcross_廡:1.0___OPAQUE_廡_3_") {
+      __jcross_霰:1.0___OPAQUE_霰_29_ __jcross_霰:1.0___OPAQUE_霰_6_;
+    }
+  }
+  await fs.cp(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_12_, __jcross_霰:1.0___OPAQUE_霰_7_.to, {
+    __jcross_霰:1.0___OPAQUE_霰_5_: true,
+// __jcross_縺:0.8___OPAQUE_ZW_559_ [decoy-metadata]
+    __jcross_漕:1.0___OPAQUE_霰_30_: true,
+    __jcross_霰:1.0___OPAQUE_霰_18_: false,
+  });
+  await fs.rm(__jcross_霰:1.0___OPAQUE_霰_7_.__jcross_霰:1.0___OPAQUE_霰_12_, { __jcross_霰:1.0___OPAQUE_霰_5_: true, __jcross_漕:1.0___OPAQUE_霰_30_: true });
+}
+
+// POLYMORPHIC_JCROSS_END

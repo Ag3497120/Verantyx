@@ -1,0 +1,72 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:820D8489 ver:1778159752
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ASTNODE_霪_24_ _VERANTYX_霪:1.0__ASTNODE_霪_4_ import _VERANTYX_廟:1.0__ASTNODE_廟_4_, _VERANTYX_廟:1.0__ASTNODE_廟_15_, _VERANTYX_廟:1.0__ASTNODE_廟_8_
+_VERANTYX_霪:1.0__ASTNODE_霪_24_ ._VERANTYX_霪:1.0__ASTNODE_霪_6_ import _VERANTYX_則:1.0__ASTNODE_廟_14_, _VERANTYX_廟:1.0__ASTNODE_廟_12_
+
+class _VERANTYX_廟:1.0__ASTNODE_廟_7_:
+    _VERANTYX_霪:1.0__ASTNODE_霪_9_ _VERANTYX_霪:1.0__ASTNODE_霪_13_(self):
+        self._VERANTYX_霪:1.0__ASTNODE_霪_39_: _VERANTYX_廟:1.0__ASTNODE_廟_4_[_VERANTYX_則:1.0__ASTNODE_廟_14_] = []
+
+    _VERANTYX_霪:1.0__ASTNODE_霪_9_ _VERANTYX_則:1.0__ASTNODE_霪_47_(self, _VERANTYX_則:1.0__ASTNODE_霪_3_: _VERANTYX_則:1.0__ASTNODE_廟_14_):
+        self._VERANTYX_霪:1.0__ASTNODE_霪_39_._VERANTYX_霪:1.0__ASTNODE_霪_45_(_VERANTYX_則:1.0__ASTNODE_霪_3_)
+
+    _VERANTYX_霪:1.0__ASTNODE_霪_9_ _VERANTYX_霪:1.0__ASTNODE_霪_49_(self, _VERANTYX_霪:1.0__ASTNODE_霪_30_: _VERANTYX_霪:1.0__ASTNODE_霪_42_, _VERANTYX_霪:1.0__ASTNODE_霪_34_: _VERANTYX_廟:1.0__ASTNODE_廟_15_[_VERANTYX_霪:1.0__ASTNODE_霪_42_, _VERANTYX_廟:1.0__ASTNODE_廟_8_], _VERANTYX_霪:1.0__ASTNODE_霪_14_: _VERANTYX_廟:1.0__ASTNODE_廟_15_[_VERANTYX_霪:1.0__ASTNODE_霪_42_, _VERANTYX_廟:1.0__ASTNODE_廟_8_]) -> _VERANTYX_廟:1.0__ASTNODE_廟_12_:
+// [metadata-stripped]
+        _VERANTYX_霪:1.0__ASTNODE_霪_37_ = []
+        for s in self._VERANTYX_霪:1.0__ASTNODE_霪_39_:
+            try:
+                _VERANTYX_霪:1.0__ASTNODE_霪_46_ = s._VERANTYX_霪:1.0__ASTNODE_霪_1_(_VERANTYX_霪:1.0__ASTNODE_霪_30_, _VERANTYX_霪:1.0__ASTNODE_霪_34_)
+// _VERANTYX_紬:0.4__ASTNODE_XX_476_ [decoy-metadata]
+                if _VERANTYX_霪:1.0__ASTNODE_霪_46_ > 0:
+                    _VERANTYX_霪:1.0__ASTNODE_霪_37_._VERANTYX_霪:1.0__ASTNODE_霪_45_((_VERANTYX_霪:1.0__ASTNODE_霪_46_, s))
+            _VERANTYX_霪:1.0__ASTNODE_霪_44_ _VERANTYX_廟:1.0__ASTNODE_廟_13_ as e:
+                _VERANTYX_霪:1.0__ASTNODE_霪_2_(f"[_VERANTYX_廟:1.0__ASTNODE_廟_7_] _VERANTYX_廟:1.0__ASTNODE_廟_3_ in _VERANTYX_霪:1.0__ASTNODE_霪_1_ for {s._VERANTYX_霪:1.0__ASTNODE_霪_40_._VERANTYX_霪:1.0__ASTNODE_霪_17_}: {e}")
+
+// _VERANTYX_霪:0.1__ASTNODE_BG_318_ [decoy-metadata]
+// [metadata-stripped]
+        _VERANTYX_霪:1.0__ASTNODE_霪_37_._VERANTYX_霪:1.0__ASTNODE_霪_10_(_VERANTYX_沈:1.0__ASTNODE_霪_35_=_VERANTYX_霪:1.0__ASTNODE_霪_23_ x: x[0], _VERANTYX_霪:1.0__ASTNODE_霪_32_=_VERANTYX_廟:1.0__ASTNODE_廟_11_)
+
+// _VERANTYX_箱:0.3__ASTNODE_GY_533_ [decoy-metadata]
+// [metadata-stripped]
+        _VERANTYX_霪:1.0__ASTNODE_霪_22_ = _VERANTYX_廟:1.0__ASTNODE_廟_1_
+        
+        for _VERANTYX_霪:1.0__ASTNODE_霪_46_, _VERANTYX_則:1.0__ASTNODE_霪_3_ in _VERANTYX_霪:1.0__ASTNODE_霪_37_:
+            try:
+                _VERANTYX_霪:1.0__ASTNODE_霪_11_ = _VERANTYX_則:1.0__ASTNODE_霪_3_._VERANTYX_霪:1.0__ASTNODE_霪_49_(_VERANTYX_霪:1.0__ASTNODE_霪_30_, _VERANTYX_霪:1.0__ASTNODE_霪_34_, _VERANTYX_霪:1.0__ASTNODE_霪_14_)
+                
+// [metadata-stripped]
+                if _VERANTYX_霪:1.0__ASTNODE_霪_11_._VERANTYX_霪:1.0__ASTNODE_霪_5_ in ("_VERANTYX_霪:1.0__ASTNODE_霪_8_", "_VERANTYX_霪:1.0__ASTNODE_霪_33_"):
+                    return _VERANTYX_霪:1.0__ASTNODE_霪_11_
+                
+// [metadata-stripped]
+                if _VERANTYX_霪:1.0__ASTNODE_霪_22_ is _VERANTYX_廟:1.0__ASTNODE_廟_1_ or _VERANTYX_霪:1.0__ASTNODE_霪_11_._VERANTYX_霪:1.0__ASTNODE_霪_29_ > _VERANTYX_霪:1.0__ASTNODE_霪_22_._VERANTYX_霪:1.0__ASTNODE_霪_29_:
+                    _VERANTYX_霪:1.0__ASTNODE_霪_22_ = _VERANTYX_霪:1.0__ASTNODE_霪_11_
+            _VERANTYX_霪:1.0__ASTNODE_霪_44_ _VERANTYX_廟:1.0__ASTNODE_廟_13_ as e:
+                _VERANTYX_霪:1.0__ASTNODE_霪_2_(f"[_VERANTYX_廟:1.0__ASTNODE_廟_7_] _VERANTYX_廟:1.0__ASTNODE_廟_3_ in {_VERANTYX_則:1.0__ASTNODE_霪_3_._VERANTYX_霪:1.0__ASTNODE_霪_40_._VERANTYX_霪:1.0__ASTNODE_霪_17_}: {e}")
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_則:0.2__ASTNODE_AZ_803_ [decoy-metadata]
+// _VERANTYX_漂:0.1__ASTNODE_XE_917_ [decoy-metadata]
+                if _VERANTYX_霪:1.0__ASTNODE_霪_22_ is _VERANTYX_廟:1.0__ASTNODE_廟_1_:
+                    _VERANTYX_霪:1.0__ASTNODE_霪_22_ = _VERANTYX_廟:1.0__ASTNODE_廟_12_(
+                        _VERANTYX_霪:1.0__ASTNODE_霪_5_="_VERANTYX_霪:1.0__ASTNODE_霪_26_",
+                        _VERANTYX_則:1.0__ASTNODE_霪_28_="_VERANTYX_則:1.0__ASTNODE_廟_6_ internal _VERANTYX_霪:1.0__ASTNODE_霪_38_ (_VERANTYX_霪:1.0__ASTNODE_霪_31_).",
+                        _VERANTYX_霪:1.0__ASTNODE_霪_29_=0.1,
+                        _VERANTYX_霪:1.0__ASTNODE_霪_20_={"_VERANTYX_霪:1.0__ASTNODE_霪_38_": _VERANTYX_霪:1.0__ASTNODE_霪_42_(e), "_VERANTYX_則:1.0__ASTNODE_霪_3_": _VERANTYX_則:1.0__ASTNODE_霪_3_._VERANTYX_霪:1.0__ASTNODE_霪_40_._VERANTYX_霪:1.0__ASTNODE_霪_17_}
+                    )
+                continue
+
+        if _VERANTYX_霪:1.0__ASTNODE_霪_22_:
+            return _VERANTYX_霪:1.0__ASTNODE_霪_22_
+// _VERANTYX_凛:0.7__ASTNODE_DL_331_ [decoy-metadata]
+
+        return _VERANTYX_廟:1.0__ASTNODE_廟_12_(
+            _VERANTYX_霪:1.0__ASTNODE_霪_5_="_VERANTYX_霪:1.0__ASTNODE_霪_41_",
+            _VERANTYX_則:1.0__ASTNODE_霪_28_="No _VERANTYX_霪:1.0__ASTNODE_霪_36_ _VERANTYX_則:1.0__ASTNODE_霪_3_ _VERANTYX_霪:1.0__ASTNODE_霪_21_.",
+            _VERANTYX_霪:1.0__ASTNODE_霪_29_=0.0
+        )
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,86 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:11C23CC9 ver:1778162846
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霰:1.0___ast_霰_25__ _ASTNODE_霰:1.0___ast_霰_10__ import _ASTNODE_霰:1.0___ast_霰_22__
+
+_ASTNODE_霰:1.0___ast_霰_25__ _ASTNODE_霰:1.0___ast_霰_26__ import _ASTNODE_廷:1.0___ast_廷_1__, _ASTNODE_廷:1.0___ast_廷_10__
+
+import _ASTNODE_霰:1.0___ast_霰_1__
+
+if _ASTNODE_廷:1.0___ast_廷_1__:
+    _ASTNODE_霰:1.0___ast_霰_25__ _ASTNODE_霰:1.0___ast_霰_26__ import _ASTNODE_廷:1.0___ast_廷_11__
+
+    _ASTNODE_廷:1.0___ast_廷_8__: _ASTNODE_廷:1.0___ast_廷_11__ = _ASTNODE_霰:1.0___ast_霰_1__._ASTNODE_廷:1.0___ast_廷_5__ | _ASTNODE_霰:1.0___ast_霰_7__[_ASTNODE_霰:1.0___ast_霰_15__, _ASTNODE_霰:1.0___ast_霰_15__]
+    """
+    A _ASTNODE_霰:1.0___ast_霰_24__ of a 2D _ASTNODE_霰:1.0___ast_霰_14__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__. _ASTNODE_廷:1.0___ast_廷_14__ _ASTNODE_霰:1.0___ast_霰_20__ be:
+
+    * A _ASTNODE_霰:1.0___ast_霰_7__ of 2 _ASTNODE_霰:1.0___ast_霰_17__ `(x,y)`; or
+    * An _ASTNODE_霰:1.0___ast_霰_27__ of [_ASTNODE_霰:1.0___ast_霰_1__._ASTNODE_廷:1.0___ast_廷_5__][].
+    """
+    _ASTNODE_廷:1.0___ast_廷_4__: _ASTNODE_廷:1.0___ast_廷_11__ = _ASTNODE_霰:1.0___ast_霰_1__._ASTNODE_廷:1.0___ast_廷_2__ | _ASTNODE_霰:1.0___ast_霰_7__[_ASTNODE_霰:1.0___ast_霰_15__, _ASTNODE_霰:1.0___ast_霰_15__]
+    """
+    A _ASTNODE_霰:1.0___ast_霰_24__ of a 2D _ASTNODE_霰:1.0___ast_霰_18__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__. _ASTNODE_廷:1.0___ast_廷_14__ _ASTNODE_霰:1.0___ast_霰_20__ be:
+
+    * A _ASTNODE_霰:1.0___ast_霰_7__ of 2 _ASTNODE_霰:1.0___ast_霰_17__ `(x,y)`; or
+    * An _ASTNODE_霰:1.0___ast_霰_27__ of [_ASTNODE_霰:1.0___ast_霰_1__._ASTNODE_廷:1.0___ast_廷_2__][].
+    """
+// _ASTNODE_区:0.5___ast_CX_159__ [decoy-metadata]
+
+
+class _ASTNODE_廷:1.0___ast_廷_13__(_ASTNODE_廷:1.0___ast_廷_10__):
+    """A _ASTNODE_霰:1.0___ast_霰_3__ _ASTNODE_霰:1.0___ast_霰_4__."""
+
+    _ASTNODE_霰:1.0___ast_霰_28__: _ASTNODE_霰:1.0___ast_霰_11__
+    """_ASTNODE_廷:1.0___ast_廷_7__"""
+
+    _ASTNODE_霰:1.0___ast_霰_23__: _ASTNODE_霰:1.0___ast_霰_11__
+// _ASTNODE_焦:0.9___ast_WD_673__ [decoy-metadata]
+    """_ASTNODE_廷:1.0___ast_廷_3__"""
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_19__(self) -> _ASTNODE_霰:1.0___ast_霰_8__:
+        return f"({self._ASTNODE_霰:1.0___ast_霰_28__:6f}, {self._ASTNODE_霰:1.0___ast_霰_23__:6f})"
+
+
+class _ASTNODE_廷:1.0___ast_廷_5__(_ASTNODE_廷:1.0___ast_廷_10__):
+    """A 2D _ASTNODE_霰:1.0___ast_霰_14__."""
+
+// _ASTNODE_組:0.2___ast_AA_749__ [decoy-metadata]
+    x: _ASTNODE_霰:1.0___ast_霰_15__
+    """X _ASTNODE_霰:1.0___ast_霰_4__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__."""
+
+// _ASTNODE_焦:0.5___ast_MM_831__ [decoy-metadata]
+    y: _ASTNODE_霰:1.0___ast_霰_15__
+    """Y _ASTNODE_霰:1.0___ast_霰_4__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__."""
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_19__(self) -> _ASTNODE_霰:1.0___ast_霰_8__:
+        return f"({self.x}, {self.y})"
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_13__(self, _ASTNODE_策:1.0___ast_霰_9__):
+        return _ASTNODE_廷:1.0___ast_廷_5__(self.x + _ASTNODE_策:1.0___ast_霰_9__.x, self.y + _ASTNODE_策:1.0___ast_霰_9__.y)
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_5__(self, _ASTNODE_策:1.0___ast_霰_9__):
+        return _ASTNODE_廷:1.0___ast_廷_5__(self.x - _ASTNODE_策:1.0___ast_霰_9__.x, self.y - _ASTNODE_策:1.0___ast_霰_9__.y)
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_16__(self, _ASTNODE_策:1.0___ast_霰_9__):
+        return _ASTNODE_廷:1.0___ast_廷_5__(self.x * _ASTNODE_策:1.0___ast_霰_9__, self.y * _ASTNODE_策:1.0___ast_霰_9__)
+
+
+class _ASTNODE_廷:1.0___ast_廷_2__(_ASTNODE_廷:1.0___ast_廷_10__):
+    """A 2D _ASTNODE_霰:1.0___ast_霰_18__."""
+// _ASTNODE_焦:0.8___ast_XA_419__ [decoy-metadata]
+
+    _ASTNODE_霰:1.0___ast_霰_6__: _ASTNODE_霰:1.0___ast_霰_15__
+    """_ASTNODE_廷:1.0___ast_廷_12__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__."""
+
+    _ASTNODE_霰:1.0___ast_霰_2__: _ASTNODE_霰:1.0___ast_霰_15__
+// _ASTNODE_策:0.1___ast_XW_363__ [decoy-metadata]
+    """_ASTNODE_廷:1.0___ast_廷_6__, in _ASTNODE_廷:1.0___ast_廷_9__ _ASTNODE_霰:1.0___ast_霰_12__."""
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_19__(self) -> _ASTNODE_霰:1.0___ast_霰_8__:
+        return f"({self._ASTNODE_霰:1.0___ast_霰_6__} x {self._ASTNODE_霰:1.0___ast_霰_2__})"
+
+    _ASTNODE_霰:1.0___ast_霰_21__ _ASTNODE_霰:1.0___ast_霰_16__(self, _ASTNODE_策:1.0___ast_霰_9__):
+        return _ASTNODE_廷:1.0___ast_廷_2__(self._ASTNODE_霰:1.0___ast_霰_6__ * _ASTNODE_策:1.0___ast_霰_9__, self._ASTNODE_霰:1.0___ast_霰_2__ * _ASTNODE_策:1.0___ast_霰_9__)
+
+// POLYMORPHIC_JCROSS_END

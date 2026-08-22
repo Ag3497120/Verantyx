@@ -1,0 +1,197 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2A4562D3 ver:1778150900
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+__jcross_法:1.0____node_曠_1__ -__jcross_霤:1.0____node_霤_21__ __jcross_霤:1.0____node_霤_77__
+
+__jcross_廓:1.0____node_廓_61__="${1:-1.0.0}"
+__jcross_廓:1.0____node_廓_2__="${2:-}"
+__jcross_廓:1.0____node_廓_17__="${3:-}"
+__jcross_廓:1.0____node_廓_44__="${4:-}"
+
+__jcross_廓:1.0____node_廓_35__="__jcross_廓:1.0____node_廓_63__"
+// __jcross_紋:0.6____node_KF_762__ [decoy-metadata]
+__jcross_廓:1.0____node_廓_30__="__jcross_廓:1.0____node_廓_67__"
+__jcross_廓:1.0____node_廓_7__="__jcross_廓:1.0____node_廓_63__"
+__jcross_廓:1.0____node_廓_27__="__jcross_廓:1.0____node_廓_56__-${__jcross_廓:1.0____node_廓_61__}"
+__jcross_廓:1.0____node_廓_48__="$(__jcross_霤:1.0____node_霤_44__)/__jcross_霤:1.0____node_霤_4__"
+__jcross_廓:1.0____node_廓_9__="$(__jcross_霤:1.0____node_霤_44__)/__jcross_霤:1.0____node_霤_4__/.__jcross_霤:1.0____node_霤_80__"
+
+__jcross_霤:1.0____node_霤_52__ "▶ __jcross_廓:1.0____node_廓_63__ __jcross_廓:1.0____node_廓_59__ パッケージ作成 v${__jcross_廓:1.0____node_廓_61__}"
+__jcross_霤:1.0____node_霤_52__ "================================================"
+// __jcross_霤:0.3____node_EG_947__ [decoy-metadata]
+
+// [metadata-stripped]
+__jcross_廓:1.0____node_廓_69__=$(__jcross_霤:1.0____node_霤_69__ __jcross_霤:1.0____node_霤_55__-__jcross_霤:1.0____node_霤_63__ -v -p __jcross_霤:1.0____node_霤_66__ 2>/__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__ | __jcross_霤:1.0____node_霤_5__ "__jcross_法:1.0____node_廓_46__ ID __jcross_廓:1.0____node_廓_47__" | __jcross_霤:1.0____node_霤_15__ -1 | __jcross_霤:1.0____node_霤_5__ -oE '"__jcross_法:1.0____node_廓_46__ ID __jcross_廓:1.0____node_廓_47__: [^"]+?"' | tr -d '"' || __jcross_霤:1.0____node_霤_52__ "")
+
+if [ -n "$__jcross_廓:1.0____node_廓_69__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_52__ "✓ __jcross_法:1.0____node_廓_46__ ID __jcross_霤:1.0____node_霤_110__: $__jcross_廓:1.0____node_廓_69__"
+  __jcross_廓:1.0____node_廓_11__="__jcross_霤:1.0____node_霤_92__"
+  __jcross_廓:1.0____node_廓_50__="$__jcross_廓:1.0____node_廓_69__"
+else
+  __jcross_霤:1.0____node_霤_52__ "⚠️  No __jcross_法:1.0____node_廓_46__ ID __jcross_霤:1.0____node_霤_110__ __jcross_霤:1.0____node_霤_25__ — __jcross_霤:1.0____node_霤_9__ ad-__jcross_霤:1.0____node_霤_48__ __jcross_霤:1.0____node_霤_85__"
+  __jcross_廓:1.0____node_廓_11__="__jcross_霤:1.0____node_霤_105__"
+  __jcross_廓:1.0____node_廓_50__="-"
+fi
+
+// [metadata-stripped]
+__jcross_霤:1.0____node_霤_52__ "[1/7] クリーンアップ..."
+rm -rf "$__jcross_廓:1.0____node_廓_9__" "$__jcross_廓:1.0____node_廓_48__/${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__"
+__jcross_霤:1.0____node_霤_70__ -p "$__jcross_廓:1.0____node_廓_9__"
+
+// [metadata-stripped]
+__jcross_霤:1.0____node_霤_52__ "[2/7] __jcross_廓:1.0____node_廓_67__ ビルド中..."
+// __jcross_曠:0.5____node_VE_553__ [decoy-metadata]
+if [ "$__jcross_廓:1.0____node_廓_11__" = "__jcross_霤:1.0____node_霤_92__" ]; __jcross_霤:1.0____node_霤_101__
+// [metadata-stripped]
+  __jcross_廓:1.0____node_廓_16__=$(__jcross_霤:1.0____node_霤_52__ "$__jcross_廓:1.0____node_廓_69__" | __jcross_霤:1.0____node_霤_5__ -oE '\([A-Z0-9]{10}\)' | tr -d '()')
+  __jcross_霤:1.0____node_霤_52__ "   __jcross_廓:1.0____node_廓_37__ ID (__jcross_霤:1.0____node_霤_62__ __jcross_霤:1.0____node_霤_110__): $__jcross_廓:1.0____node_廓_16__"
+  __jcross_霤:1.0____node_霤_12__ \
+    -__jcross_霤:1.0____node_霤_67__ "$__jcross_廓:1.0____node_廓_35__" \
+    -__jcross_霤:1.0____node_霤_111__ "$__jcross_廓:1.0____node_廓_30__" \
+    -__jcross_霤:1.0____node_霤_65__ "__jcross_澎:1.0____node_霤_41__=__jcross_霤:1.0____node_霤_64__" \
+    __jcross_廓:1.0____node_廓_1__="__jcross_廓:1.0____node_廓_38__" \
+    __jcross_廓:1.0____node_廓_25__="$__jcross_廓:1.0____node_廓_69__" \
+    __jcross_廓:1.0____node_廓_55__="$__jcross_廓:1.0____node_廓_16__" \
+    __jcross_廓:1.0____node_廓_15__=__jcross_廓:1.0____node_廓_53__ \
+    __jcross_廓:1.0____node_廓_40__="--__jcross_霤:1.0____node_霤_81__" \
+    __jcross_廓:1.0____node_廓_62__="$(__jcross_霤:1.0____node_霤_44__)/__jcross_霤:1.0____node_霤_29__" \
+    __jcross_霤:1.0____node_霤_29__ 2>&1 | __jcross_霤:1.0____node_霤_5__ -E "__jcross_霤:1.0____node_霤_8__:|__jcross_霤:1.0____node_霤_6__:|__jcross_廓:1.0____node_廓_14__|__jcross_廓:1.0____node_廓_21__" | __jcross_霤:1.0____node_霤_43__ -10
+else
+  __jcross_霤:1.0____node_霤_12__ \
+    -__jcross_霤:1.0____node_霤_67__ "$__jcross_廓:1.0____node_廓_35__" \
+    -__jcross_霤:1.0____node_霤_111__ "$__jcross_廓:1.0____node_廓_30__" \
+    -__jcross_霤:1.0____node_霤_65__ "__jcross_澎:1.0____node_霤_41__=__jcross_霤:1.0____node_霤_64__" \
+    __jcross_廓:1.0____node_廓_1__="__jcross_廓:1.0____node_廓_38__" \
+    __jcross_廓:1.0____node_廓_25__="-" \
+    __jcross_廓:1.0____node_廓_15__=NO \
+    __jcross_廓:1.0____node_廓_36__=NO \
+    __jcross_廓:1.0____node_廓_62__="$(__jcross_霤:1.0____node_霤_44__)/__jcross_霤:1.0____node_霤_29__" \
+    __jcross_霤:1.0____node_霤_29__ 2>&1 | __jcross_霤:1.0____node_霤_5__ -E "__jcross_霤:1.0____node_霤_8__:|__jcross_霤:1.0____node_霤_6__:|__jcross_廓:1.0____node_廓_14__|__jcross_廓:1.0____node_廓_21__" | __jcross_霤:1.0____node_霤_43__ -10
+fi
+
+// [metadata-stripped]
+__jcross_霤:1.0____node_霤_52__ "[3/7] .__jcross_霤:1.0____node_霤_109__ バンドルを探索..."
+__jcross_廓:1.0____node_廓_20__=$(__jcross_霤:1.0____node_霤_55__ "$(__jcross_霤:1.0____node_霤_44__)/__jcross_霤:1.0____node_霤_29__" -__jcross_霤:1.0____node_霤_30__ "${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__" -__jcross_霤:1.0____node_霤_51__ 8 | __jcross_霤:1.0____node_霤_15__ -1)
+if [ -z "$__jcross_廓:1.0____node_廓_20__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_52__ "❌ __jcross_廓:1.0____node_廓_4__: ${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__ が見つかりません"
+  __jcross_霤:1.0____node_霤_14__ 1
+fi
+__jcross_霤:1.0____node_霤_52__ "   __jcross_廓:1.0____node_廓_12__: $__jcross_廓:1.0____node_廓_20__"
+
+// [metadata-stripped]
+if [ -f "$__jcross_廓:1.0____node_廓_20__/__jcross_廓:1.0____node_廓_19__/__jcross_廓:1.0____node_廓_41__/__jcross_廓:1.0____node_廓_42__.__jcross_霤:1.0____node_霤_10__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_52__ "   ✓ __jcross_廓:1.0____node_廓_42__.__jcross_霤:1.0____node_霤_10__ __jcross_霤:1.0____node_霤_100__"
+else
+  __jcross_霤:1.0____node_霤_52__ "   ⚠️  __jcross_廓:1.0____node_廓_42__.__jcross_霤:1.0____node_霤_10__ __jcross_霤:1.0____node_霤_45__ __jcross_霤:1.0____node_霤_25__ in __jcross_霤:1.0____node_霤_102__"
+fi
+
+// [metadata-stripped]
+__jcross_霤:1.0____node_霤_52__ "[4/7] ステージングにコピー..."
+cp -R "$__jcross_廓:1.0____node_廓_20__" "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__"
+__jcross_霤:1.0____node_霤_83__ -cr "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__" 2>/__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__ || true
+
+// [metadata-stripped]
+__jcross_霤:1.0____node_霤_52__ "[5/7] 署名中 (${__jcross_廓:1.0____node_廓_11__})..."
+if [ "$__jcross_廓:1.0____node_廓_11__" = "__jcross_霤:1.0____node_霤_92__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_40__ --__jcross_澎:1.0____node_霤_59__ --__jcross_霤:1.0____node_霤_34__ --__jcross_霤:1.0____node_霤_86__ "$__jcross_廓:1.0____node_廓_50__" \
+    --__jcross_霤:1.0____node_霤_27__ __jcross_霤:1.0____node_霤_99__ \
+    --__jcross_霤:1.0____node_霤_103__ "$(__jcross_霤:1.0____node_霤_44__)/__jcross_廓:1.0____node_廓_28__/__jcross_廓:1.0____node_廓_63__/__jcross_廓:1.0____node_廓_63__.__jcross_霤:1.0____node_霤_103__" \
+    "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__"
+  __jcross_霤:1.0____node_霤_52__ "   ✓ __jcross_法:1.0____node_廓_46__ ID 署名完了"
+else
+  __jcross_霤:1.0____node_霤_40__ --__jcross_澎:1.0____node_霤_59__ --__jcross_霤:1.0____node_霤_34__ --__jcross_霤:1.0____node_霤_86__ "-" \
+    "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__" 2>/__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__ || true
+  __jcross_霤:1.0____node_霤_52__ "   ✓ Ad-__jcross_霤:1.0____node_霤_48__ 署名完了 (初回起動時に右クリック→開く が必要)"
+fi
+
+// [metadata-stripped]
+if [ "$__jcross_廓:1.0____node_廓_11__" = "__jcross_霤:1.0____node_霤_92__" ] && [ -n "$__jcross_廓:1.0____node_廓_2__" ] && [ -n "$__jcross_廓:1.0____node_廓_44__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_52__ "[6/7] __jcross_廓:1.0____node_廓_64__ への公証（__jcross_廓:1.0____node_廓_66__）中..."
+// [metadata-stripped]
+  __jcross_霤:1.0____node_霤_2__ -c -k --__jcross_霤:1.0____node_霤_72__ "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__" "/__jcross_霤:1.0____node_霤_24__/${__jcross_廓:1.0____node_廓_7__}__jcross_霤:1.0____node_霤_42__.__jcross_霤:1.0____node_霤_88__"
+  
+  __jcross_霤:1.0____node_霤_93__ __jcross_霤:1.0____node_霤_19__ __jcross_霤:1.0____node_霤_13__ "/__jcross_霤:1.0____node_霤_24__/${__jcross_廓:1.0____node_廓_7__}__jcross_霤:1.0____node_霤_42__.__jcross_霤:1.0____node_霤_88__" \
+    --__jcross_霤:1.0____node_霤_90__-id "$__jcross_廓:1.0____node_廓_2__" \
+    --__jcross_霤:1.0____node_霤_46__-id "${__jcross_廓:1.0____node_廓_17__:-$__jcross_廓:1.0____node_廓_16__}" \
+    --__jcross_隠:1.0____node_霤_1__ "$__jcross_廓:1.0____node_廓_44__" \
+    --__jcross_霤:1.0____node_霤_56__
+  
+// [metadata-stripped]
+  __jcross_霤:1.0____node_霤_93__ __jcross_法:1.0____node_霤_112__ __jcross_霤:1.0____node_霤_54__ "$__jcross_廓:1.0____node_廓_9__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__"
+  rm -f "/__jcross_霤:1.0____node_霤_24__/${__jcross_廓:1.0____node_廓_7__}__jcross_霤:1.0____node_霤_42__.__jcross_霤:1.0____node_霤_88__"
+  __jcross_霤:1.0____node_霤_52__ "   ✓ 公証完了 — __jcross_法:1.0____node_廓_3__ 警告なしで起動できます"
+else
+  __jcross_霤:1.0____node_霤_52__ "[6/7] 公証スキップ (__jcross_法:1.0____node_廓_46__ ID + __jcross_廓:1.0____node_廓_64__ ID が必要)"
+fi
+
+// [metadata-stripped]
+// __jcross_紋:0.8____node_AC_358__ [decoy-metadata]
+__jcross_霤:1.0____node_霤_52__ "[7/7] __jcross_廓:1.0____node_廓_68__ を作成中..."
+__jcross_霤:1.0____node_霤_70__ -p "$__jcross_廓:1.0____node_廓_48__"
+__jcross_廓:1.0____node_廓_5__="$__jcross_廓:1.0____node_廓_48__/.__jcross_霤:1.0____node_霤_104__${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__"
+
+__jcross_霤:1.0____node_霤_108__ __jcross_霤:1.0____node_霤_113__ \
+  -__jcross_法:1.0____node_霤_16__ "$__jcross_廓:1.0____node_廓_9__" \
+  -__jcross_霤:1.0____node_霤_49__ "__jcross_廓:1.0____node_廓_63__ __jcross_廓:1.0____node_廓_59__ ${__jcross_廓:1.0____node_廓_61__}" \
+  -fs __jcross_廓:1.0____node_廓_51__+ \
+// __jcross_曠:0.3____node_FG_874__ [decoy-metadata]
+  -__jcross_霤:1.0____node_霤_87__ "-c c=64,a=16,b=16" \
+  -__jcross_澎:1.0____node_霤_82__ __jcross_廓:1.0____node_廓_49__ \
+  -__jcross_霤:1.0____node_霤_79__ 512m \
+  "$__jcross_廓:1.0____node_廓_5__" > /__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__
+
+__jcross_廓:1.0____node_廓_70__="/__jcross_廓:1.0____node_廓_24__/__jcross_廓:1.0____node_廓_45__${__jcross_廓:1.0____node_廓_61__}"
+__jcross_霤:1.0____node_霤_108__ __jcross_霤:1.0____node_霤_84__ "$__jcross_廓:1.0____node_廓_5__" -__jcross_霤:1.0____node_霤_11__ "$__jcross_廓:1.0____node_廓_70__" -__jcross_霤:1.0____node_霤_68__ -__jcross_霤:1.0____node_霤_61__
+ln -sf /__jcross_廓:1.0____node_廓_10__ "$__jcross_廓:1.0____node_廓_70__/__jcross_廓:1.0____node_廓_10__" 2>/__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__ || true
+__jcross_霤:1.0____node_霤_33__ 1
+__jcross_霤:1.0____node_霤_108__ __jcross_霤:1.0____node_霤_73__ "$__jcross_廓:1.0____node_廓_70__" -__jcross_霤:1.0____node_霤_61__
+
+__jcross_霤:1.0____node_霤_108__ __jcross_霤:1.0____node_霤_31__ "$__jcross_廓:1.0____node_廓_5__" \
+  -__jcross_澎:1.0____node_霤_82__ __jcross_廓:1.0____node_廓_54__ \
+  -__jcross_隠:1.0____node_霤_20__ "__jcross_霤:1.0____node_霤_3__-__jcross_霤:1.0____node_霤_17__=9" \
+  -o "$__jcross_廓:1.0____node_廓_48__/${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__" > /__jcross_霤:1.0____node_霤_32__/__jcross_霤:1.0____node_霤_57__
+
+rm -f "$__jcross_廓:1.0____node_廓_5__"
+// __jcross_法:0.2____node_MK_233__ [decoy-metadata]
+rm -rf "$__jcross_廓:1.0____node_廓_9__"
+
+// [metadata-stripped]
+__jcross_廓:1.0____node_廓_34__=$(du -sh "$__jcross_廓:1.0____node_廓_48__/${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__" | __jcross_霤:1.0____node_霤_50__ -f1)
+__jcross_霤:1.0____node_霤_52__ ""
+__jcross_霤:1.0____node_霤_52__ "================================================"
+__jcross_霤:1.0____node_霤_52__ "✅ 完了!"
+__jcross_霤:1.0____node_霤_52__ "   出力: __jcross_霤:1.0____node_霤_4__/${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__ (${__jcross_廓:1.0____node_廓_34__})"
+__jcross_霤:1.0____node_霤_52__ "   署名: ${__jcross_廓:1.0____node_廓_11__}"
+__jcross_霤:1.0____node_霤_52__ ""
+
+if [ "$__jcross_廓:1.0____node_廓_11__" = "__jcross_霤:1.0____node_霤_105__" ]; __jcross_霤:1.0____node_霤_101__
+  __jcross_霤:1.0____node_霤_52__ "📌 __jcross_法:1.0____node_廓_3__ を回避するには（ユーザー側の操作）:"
+  __jcross_霤:1.0____node_霤_52__ "   初回起動: __jcross_法:1.0____node_廓_60__ で右クリック → 「開く」"
+  __jcross_霤:1.0____node_霤_52__ "   または: __jcross_霤:1.0____node_霤_83__ -d __jcross_霤:1.0____node_霤_47__.__jcross_霤:1.0____node_霤_90__.__jcross_霤:1.0____node_霤_74__ /__jcross_廓:1.0____node_廓_10__/${__jcross_廓:1.0____node_廓_7__}.__jcross_霤:1.0____node_霤_109__"
+  __jcross_霤:1.0____node_霤_52__ ""
+  __jcross_霤:1.0____node_霤_52__ "💡 __jcross_法:1.0____node_廓_3__ 警告を完全になくすには:"
+  __jcross_霤:1.0____node_霤_52__ "   __jcross_法:1.0____node_廓_46__ ID 証明書が必要です:"
+  __jcross_霤:1.0____node_霤_52__ "   1. __jcross_紋:1.0____node_霤_36__://__jcross_法:1.0____node_霤_22__.__jcross_霤:1.0____node_霤_90__.__jcross_霤:1.0____node_霤_47__/__jcross_霤:1.0____node_霤_96__/ → __jcross_廓:1.0____node_廓_8__"
+  __jcross_霤:1.0____node_霤_52__ "   2. 「__jcross_法:1.0____node_廓_46__ ID __jcross_廓:1.0____node_廓_47__」証明書を作成・インストール"
+  __jcross_霤:1.0____node_霤_52__ "   3. アプリ専用パスワードを __jcross_紋:1.0____node_霤_36__://__jcross_霤:1.0____node_霤_18__.__jcross_霤:1.0____node_霤_90__.__jcross_霤:1.0____node_霤_47__ で発行"
+  __jcross_霤:1.0____node_霤_52__ "   4. __jcross_霤:1.0____node_霤_58__ __jcross_霤:1.0____node_霤_106__.sh ${__jcross_廓:1.0____node_廓_61__} __jcross_霤:1.0____node_霤_39__@__jcross_霤:1.0____node_霤_90__.__jcross_霤:1.0____node_霤_47__ __jcross_廓:1.0____node_廓_65__ __jcross_霤:1.0____node_霤_109__-__jcross_澎:1.0____node_霤_53__-__jcross_霤:1.0____node_霤_97__"
+fi
+
+__jcross_霤:1.0____node_霤_52__ ""
+__jcross_霤:1.0____node_霤_52__ "📌 __jcross_廓:1.0____node_廓_32__ __jcross_廓:1.0____node_廓_67__ に添付:"
+__jcross_霤:1.0____node_霤_52__ "   gh __jcross_霤:1.0____node_霤_26__ __jcross_霤:1.0____node_霤_113__ v${__jcross_廓:1.0____node_廓_61__} __jcross_霤:1.0____node_霤_4__/${__jcross_廓:1.0____node_廓_27__}.__jcross_霤:1.0____node_霤_91__ --__jcross_霤:1.0____node_霤_76__ __jcross_廓:1.0____node_廓_58__/__jcross_霤:1.0____node_霤_78__"
+__jcross_霤:1.0____node_霤_52__ "================================================"
+
+// POLYMORPHIC_JCROSS_END

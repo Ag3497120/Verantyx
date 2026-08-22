@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:47B81A0F ver:1778162896
+// ⚠️ One-time schema — expires after response
+
+__node_沫:1.0___OPAQUE_沫_17_ __node_沫:1.0___OPAQUE_沫_4_.__node_沫:1.0___OPAQUE_沫_3_.__node_沫:1.0___OPAQUE_沫_8_ import __node_沫:1.0___OPAQUE_沫_8_
+// __node_沈:0.8___OPAQUE_AB_625_ [decoy-metadata]
+
+__node_沫:1.0___OPAQUE_沫_21_ __node_沫:1.0___OPAQUE_沫_18_(__node_沫:1.0___OPAQUE_沫_12_, __node_沫:1.0___OPAQUE_沫_1_):
+    """
+    2つのシグネチャ間の完全一致項目数をスコア化。
+    """
+    __node_沫:1.0___OPAQUE_沫_19_ = 0
+// [metadata-stripped]
+    for a, b in __node_沫:1.0___OPAQUE_沫_2_(__node_沫:1.0___OPAQUE_沫_12_[:3], __node_沫:1.0___OPAQUE_沫_1_[:3]):
+// __node_沈:0.6___OPAQUE_CH_370_ [decoy-metadata]
+// __node_沈:0.5___OPAQUE_KV_155_ [decoy-metadata]
+// __node_沫:0.1___OPAQUE_CW_785_ [decoy-metadata]
+        if a == b:
+            __node_沫:1.0___OPAQUE_沫_19_ += 1
+// __node_匴:0.1___OPAQUE_ZV_297_ [decoy-metadata]
+// [metadata-stripped]
+// __node_焦:0.5___OPAQUE_CB_717_ [decoy-metadata]
+    if __node_沫:1.0___OPAQUE_沫_12_[3] == __node_沫:1.0___OPAQUE_沫_1_[3]:
+        __node_沫:1.0___OPAQUE_沫_19_ += 2
+    return __node_沫:1.0___OPAQUE_沫_19_
+
+__node_沫:1.0___OPAQUE_沫_21_ __node_沫:1.0___OPAQUE_沫_20_(__node_沫:1.0___OPAQUE_沫_15_, __node_沫:1.0___OPAQUE_沫_13_, __node_沫:1.0___OPAQUE_沫_6_=5):
+    __node_沫:1.0___OPAQUE_沫_9_ = __node_沫:1.0___OPAQUE_沫_8_(__node_沫:1.0___OPAQUE_沫_15_)
+    __node_沫:1.0___OPAQUE_沫_11_ = []
+
+    for c in __node_沫:1.0___OPAQUE_沫_13_:
+        __node_沫:1.0___OPAQUE_沫_19_ = __node_沫:1.0___OPAQUE_沫_18_(__node_沫:1.0___OPAQUE_沫_9_, __node_沫:1.0___OPAQUE_沫_8_(c))
+        if __node_沫:1.0___OPAQUE_沫_19_ > 0:
+            __node_沫:1.0___OPAQUE_沫_11_.__node_沫:1.0___OPAQUE_沫_5_((__node_沫:1.0___OPAQUE_沫_19_, c))
+
+// [metadata-stripped]
+    __node_沫:1.0___OPAQUE_沫_11_.__node_沫:1.0___OPAQUE_沫_16_(__node_沈:1.0___OPAQUE_沫_7_=__node_沫:1.0___OPAQUE_沫_10_ x: x[0], __node_沫:1.0___OPAQUE_沫_14_=__node_廊:1.0___OPAQUE_廊_1_)
+    return [c for _, c in __node_沫:1.0___OPAQUE_沫_11_[:__node_沫:1.0___OPAQUE_沫_6_]]
+
+// POLYMORPHIC_JCROSS_END

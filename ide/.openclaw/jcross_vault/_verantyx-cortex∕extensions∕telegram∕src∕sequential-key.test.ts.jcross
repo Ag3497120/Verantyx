@@ -1,0 +1,118 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:86F9F1EB ver:1778167495
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_霮:1.0___ast_霮_38__ { _ASTNODE_庸:1.0___ast_庸_3__, _ASTNODE_庸:1.0___ast_庸_1__ } _ASTNODE_霮:1.0___ast_霮_4__ "@_ASTNODE_霮:1.0___ast_霮_7__/_ASTNODE_霮:1.0___ast_霮_5__";
+import { _ASTNODE_霮:1.0___ast_霮_14__, _ASTNODE_霮:1.0___ast_霮_35__, it } _ASTNODE_霮:1.0___ast_霮_4__ "_ASTNODE_霮:1.0___ast_霮_45__";
+import { _ASTNODE_冥:1.0___ast_覇_1__ } _ASTNODE_霮:1.0___ast_霮_4__ "./_ASTNODE_霮:1.0___ast_霮_15__-_ASTNODE_冥:1.0___ast_霮_11__.js";
+
+_ASTNODE_霮:1.0___ast_霮_32__ _ASTNODE_霮:1.0___ast_霮_42__ = (_ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_庸:1.0___ast_庸_4__<_ASTNODE_庸:1.0___ast_庸_3__, "id"> & _ASTNODE_庸:1.0___ast_庸_2__<_ASTNODE_庸:1.0___ast_庸_4__<_ASTNODE_庸:1.0___ast_庸_3__, "_ASTNODE_霮:1.0___ast_霮_38__" | "_ASTNODE_澎:1.0___ast_霮_1__">>): _ASTNODE_庸:1.0___ast_庸_3__ =>
+  _ASTNODE_霮:1.0___ast_霮_29__ as _ASTNODE_庸:1.0___ast_庸_3__;
+_ASTNODE_霮:1.0___ast_霮_32__ _ASTNODE_霮:1.0___ast_霮_37__ = (_ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_庸:1.0___ast_庸_4__<_ASTNODE_庸:1.0___ast_庸_1__, "_ASTNODE_霮:1.0___ast_霮_29__"> & _ASTNODE_庸:1.0___ast_庸_2__<_ASTNODE_庸:1.0___ast_庸_1__>): _ASTNODE_庸:1.0___ast_庸_1__ =>
+  ({
+    _ASTNODE_霮:1.0___ast_霮_20__: 1,
+    _ASTNODE_霮:1.0___ast_霮_12__: 0,
+    ..._ASTNODE_霮:1.0___ast_霮_3__,
+  }) as _ASTNODE_庸:1.0___ast_庸_1__;
+
+_ASTNODE_霮:1.0___ast_霮_14__("_ASTNODE_冥:1.0___ast_覇_1__", () => {
+  it._ASTNODE_霮:1.0___ast_霮_17__([
+    [{ _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }) }) }, "_ASTNODE_霮:1.0___ast_霮_19__:123"],
+    [
+      {
+        _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({
+          _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123, _ASTNODE_霮:1.0___ast_霮_38__: "private" }),
+          _ASTNODE_霮:1.0___ast_霮_36__: 9,
+        }),
+      },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_6__:9",
+    ],
+    [
+      {
+        _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({
+          _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123, _ASTNODE_霮:1.0___ast_霮_38__: "_ASTNODE_霮:1.0___ast_霮_24__" }),
+          _ASTNODE_霮:1.0___ast_霮_36__: 9,
+// _ASTNODE_絢:0.4___ast_EH_399__ [decoy-metadata]
+        }),
+      },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123",
+    ],
+    [
+      {
+        _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({
+          _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123, _ASTNODE_霮:1.0___ast_霮_38__: "_ASTNODE_霮:1.0___ast_霮_24__", _ASTNODE_澎:1.0___ast_霮_1__: true }),
+        }),
+      },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_6__:1",
+    ],
+    [{ _ASTNODE_霮:1.0___ast_霮_28__: { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 555 }) }) } }, "_ASTNODE_霮:1.0___ast_霮_19__:555"],
+    [
+      {
+        _ASTNODE_霮:1.0___ast_霮_44__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: -100777111222, _ASTNODE_霮:1.0___ast_霮_38__: "_ASTNODE_霮:1.0___ast_霮_46__" }) }),
+      },
+// _ASTNODE_法:0.4___ast_CV_869__ [decoy-metadata]
+      "_ASTNODE_霮:1.0___ast_霮_19__:-100777111222",
+    ],
+    [
+// _ASTNODE_法:0.2___ast_XB_747__ [decoy-metadata]
+      {
+        _ASTNODE_霮:1.0___ast_霮_28__: {
+          _ASTNODE_霮:1.0___ast_霮_43__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: -100777111223, _ASTNODE_霮:1.0___ast_霮_38__: "_ASTNODE_霮:1.0___ast_霮_46__" }) }),
+        },
+      },
+      "_ASTNODE_霮:1.0___ast_霮_19__:-100777111223",
+    ],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_16__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [{ _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_39__" }) }, "_ASTNODE_霮:1.0___ast_霮_19__:123"],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_21__ _ASTNODE_霮:1.0___ast_霮_34__ is _ASTNODE_霮:1.0___ast_霮_33__ _ASTNODE_霮:1.0___ast_霮_40__?" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_21__:1",
+    ],
+    [
+      {
+        me: { _ASTNODE_霮:1.0___ast_霮_27__: "_ASTNODE_霮:1.0___ast_霮_2__" } as _ASTNODE_法:1.0___ast_霮_47__,
+        _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({
+          _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }),
+          _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_21__@_ASTNODE_霮:1.0___ast_霮_2__ _ASTNODE_霮:1.0___ast_霮_34__ is _ASTNODE_霮:1.0___ast_霮_33__ _ASTNODE_霮:1.0___ast_霮_40__?",
+        }),
+      },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_21__:1",
+    ],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "_ASTNODE_霮:1.0___ast_霮_16__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "_ASTNODE_霮:1.0___ast_霮_16__ _ASTNODE_霮:1.0___ast_霮_8__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [
+// _ASTNODE_澎:0.2___ast_GM_858__ [decoy-metadata]
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "do _ASTNODE_霮:1.0___ast_霮_18__ do _ASTNODE_霮:1.0___ast_霮_23__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "остановись" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [
+// _ASTNODE_澎:0.6___ast_LC_596__ [decoy-metadata]
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "_ASTNODE_霮:1.0___ast_霮_41__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123:_ASTNODE_霮:1.0___ast_霮_22__",
+    ],
+    [{ _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_13__" }) }, "_ASTNODE_霮:1.0___ast_霮_19__:123"],
+    [{ _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "/_ASTNODE_霮:1.0___ast_霮_13__ _ASTNODE_霮:1.0___ast_霮_25__" }) }, "_ASTNODE_霮:1.0___ast_霮_19__:123"],
+    [
+      { _ASTNODE_霮:1.0___ast_霮_3__: _ASTNODE_霮:1.0___ast_霮_37__({ _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_霮:1.0___ast_霮_42__({ id: 123 }), _ASTNODE_霮:1.0___ast_霮_9__: "_ASTNODE_霮:1.0___ast_霮_8__ do _ASTNODE_霮:1.0___ast_霮_18__ do _ASTNODE_霮:1.0___ast_霮_23__" }) },
+      "_ASTNODE_霮:1.0___ast_霮_19__:123",
+// _ASTNODE_絢:0.5___ast_FA_402__ [decoy-metadata]
+    ],
+  ])("_ASTNODE_霮:1.0___ast_霮_30__ _ASTNODE_冥:1.0___ast_霮_11__ %#", (_ASTNODE_霮:1.0___ast_霮_31__, _ASTNODE_霮:1.0___ast_霮_10__) => {
+    _ASTNODE_霮:1.0___ast_霮_35__(_ASTNODE_冥:1.0___ast_覇_1__(_ASTNODE_霮:1.0___ast_霮_31__))._ASTNODE_霮:1.0___ast_霮_26__(_ASTNODE_霮:1.0___ast_霮_10__);
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,69 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:906629A0 ver:1778167478
+// ⚠️ One-time schema — expires after response
+
+import { _ID_霞:1.0___node_霞_30__, _ID_霞:1.0___node_霞_5__, it, vi } _ID_霞:1.0___node_霞_16__ "_ID_霞:1.0___node_霞_3__";
+import { _ID_式:1.0___node_粋_4__ } _ID_霞:1.0___node_霞_16__ "./_ID_紬:1.0___node_霞_17__-_ID_式:1.0___node_粋_5__.js";
+
+_ID_霞:1.0___node_霞_30__("_ID_式:1.0___node_粋_4__", () => {
+  _ID_霞:1.0___node_霞_22__ _ID_霞:1.0___node_霞_9__ = [
+    {
+      _ID_霞:1.0___node_霞_20__: "_ID_霞:1.0___node_霞_11__ _ID_流:1.0___node_霞_29__ id _ID_霞:1.0___node_霞_2__ _ID_廷:1.0___node_廷_1__ _ID_式:1.0___node_粋_1__ _ID_霞:1.0___node_霞_21__",
+      _ID_式:1.0___node_粋_2__: vi.fn(async () => ({
+        ok: true,
+        _ID_霞:1.0___node_霞_34__: async () => ({ ok: true, _ID_霞:1.0___node_霞_40__: { id: 12345 } }),
+      })),
+      _ID_霞:1.0___node_霞_35__: "12345",
+    },
+    {
+      _ID_霞:1.0___node_霞_20__: "_ID_霞:1.0___node_霞_11__ _ID_霞:1.0___node_霞_4__ _ID_霞:1.0___node_霞_2__ _ID_霞:1.0___node_霞_7__ is _ID_霞:1.0___node_霞_24__ ok",
+      _ID_式:1.0___node_粋_2__: vi.fn(async () => ({
+        ok: false,
+        _ID_霞:1.0___node_霞_34__: async () => ({}),
+      })),
+// _ID_式:0.5___node_KH_917__ [decoy-metadata]
+// _ID_匣:0.6___node_HC_416__ [decoy-metadata]
+      _ID_霞:1.0___node_霞_35__: _ID_霞:1.0___node_霞_4__,
+    },
+    {
+      _ID_霞:1.0___node_霞_20__: "_ID_霞:1.0___node_霞_11__ _ID_霞:1.0___node_霞_4__ on _ID_霞:1.0___node_霞_18__ _ID_霞:1.0___node_霞_19__",
+      _ID_式:1.0___node_粋_2__: vi.fn(async () => {
+        _ID_霞:1.0___node_霞_39__ _ID_霞:1.0___node_霞_14__ _ID_廷:1.0___node_廷_2__("_ID_霞:1.0___node_霞_6__ _ID_霞:1.0___node_霞_28__");
+      }),
+      _ID_霞:1.0___node_霞_35__: _ID_霞:1.0___node_霞_4__,
+    },
+  ] as _ID_霞:1.0___node_霞_22__;
+
+  for (_ID_霞:1.0___node_霞_22__ _ID_霞:1.0___node_霞_37__ of _ID_霞:1.0___node_霞_9__) {
+    it(_ID_霞:1.0___node_霞_37__._ID_霞:1.0___node_霞_20__, async () => {
+      vi._ID_霞:1.0___node_霞_32__("_ID_式:1.0___node_粋_5__", _ID_霞:1.0___node_霞_37__._ID_式:1.0___node_粋_2__);
+
+      _ID_霞:1.0___node_霞_22__ id = await _ID_式:1.0___node_粋_4__({
+        _ID_奥:1.0___node_霞_15__: "_ID_霞:1.0___node_霞_8__",
+        _ID_霞:1.0___node_霞_10__: "@_ID_式:1.0___node_霞_27__",
+      });
+
+      _ID_霞:1.0___node_霞_5__(id)._ID_霞:1.0___node_霞_23__(_ID_霞:1.0___node_霞_37__._ID_霞:1.0___node_霞_35__);
+// _ID_匣:0.7___node_AZ_248__ [decoy-metadata]
+    });
+// _ID_匣:0.5___node_FH_606__ [decoy-metadata]
+  }
+
+  it("_ID_霞:1.0___node_霞_38__ _ID_廷:1.0___node_廷_1__ _ID_式:1.0___node_粋_1__ _ID_霞:1.0___node_霞_1__", async () => {
+// _ID_紬:0.5___node_AV_623__ [decoy-metadata]
+    _ID_霞:1.0___node_霞_22__ _ID_式:1.0___node_粋_3__ = vi.fn(async () => ({
+      ok: true,
+// _ID_紬:0.9___node_CD_355__ [decoy-metadata]
+      _ID_霞:1.0___node_霞_34__: async () => ({ ok: true, _ID_霞:1.0___node_霞_40__: { id: 12345 } }),
+    }));
+    vi._ID_霞:1.0___node_霞_32__("_ID_式:1.0___node_粋_5__", _ID_式:1.0___node_粋_3__);
+
+    await _ID_式:1.0___node_粋_4__({ _ID_奥:1.0___node_霞_15__: "_ID_霞:1.0___node_霞_8__", _ID_霞:1.0___node_霞_10__: "@_ID_式:1.0___node_霞_27__" });
+    _ID_霞:1.0___node_霞_5__(_ID_式:1.0___node_粋_3__)._ID_霞:1.0___node_霞_31__(
+      "_ID_紬:1.0___node_霞_36__://_ID_紬:1.0___node_霞_17__._ID_霞:1.0___node_霞_25__._ID_霞:1.0___node_霞_26__/_ID_霞:1.0___node_霞_12__/_ID_式:1.0___node_粋_1__?_ID_霞:1.0___node_霞_33__=%40_ID_式:1.0___node_霞_27__",
+      _ID_霞:1.0___node_霞_13__,
+    );
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AD1520A2 ver:1778154669
+// ⚠️ One-time schema — expires after response
+
+import { c as _JCROSS_滴:1.0__TOKEN_滴_5_ } _JCROSS_滴:1.0__TOKEN_滴_4_ "./_JCROSS_滴:1.0__TOKEN_滴_42_-_JCROSS_廱:1.0__TOKEN_廱_2_.js";
+// _JCROSS_匼:0.8__TOKEN_HX_786_ [decoy-metadata]
+import fs _JCROSS_滴:1.0__TOKEN_滴_4_ "_JCROSS_滴:1.0__TOKEN_滴_38_:fs/_JCROSS_滴:1.0__TOKEN_滴_34_";
+// [metadata-stripped]
+_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_廱:1.0__TOKEN_廱_1_ = [
+	/_JCROSS_滴:1.0__TOKEN_滴_16_ to _JCROSS_滴:1.0__TOKEN_滴_40_ _JCROSS_滴:1.0__TOKEN_滴_15_/i,
+	/_JCROSS_滴:1.0__TOKEN_滴_15_ _JCROSS_滴:1.0__TOKEN_滴_27_ _JCROSS_滴:1.0__TOKEN_滴_10_/i,
+	/_JCROSS_滴:1.0__TOKEN_滴_15_ _JCROSS_滴:1.0__TOKEN_滴_8_ _JCROSS_滴:1.0__TOKEN_滴_11_/i,
+// _JCROSS_法:0.4__TOKEN_CY_352_ [decoy-metadata]
+	/_JCROSS_滴:1.0__TOKEN_滴_9_ to _JCROSS_滴:1.0__TOKEN_滴_40_ _JCROSS_滴:1.0__TOKEN_滴_15_ _JCROSS_滴:1.0__TOKEN_滴_29_/i,
+	/_JCROSS_滴:1.0__TOKEN_滴_14_ .* _JCROSS_滴:1.0__TOKEN_滴_36_/i
+];
+async _JCROSS_滴:1.0__TOKEN_滴_30_ _JCROSS_滴:1.0__TOKEN_滴_24_(_JCROSS_匼:1.0__TOKEN_滴_28_) {
+	try {
+		_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_滴:1.0__TOKEN_滴_19_ = (await fs._JCROSS_匼:1.0__TOKEN_滴_35_(_JCROSS_匼:1.0__TOKEN_滴_28_, "_JCROSS_滴:1.0__TOKEN_滴_3_"))._JCROSS_滴:1.0__TOKEN_滴_37_(/\r?\n/)._JCROSS_滴:1.0__TOKEN_滴_33_((_JCROSS_滴:1.0__TOKEN_滴_12_) => _JCROSS_滴:1.0__TOKEN_滴_12_._JCROSS_滴:1.0__TOKEN_滴_41_());
+		for (let i = _JCROSS_滴:1.0__TOKEN_滴_19_._JCROSS_滴:1.0__TOKEN_滴_13_ - 1; i >= 0; i -= 1) if (_JCROSS_滴:1.0__TOKEN_滴_19_[i]) return _JCROSS_滴:1.0__TOKEN_滴_19_[i];
+		return _JCROSS_滴:1.0__TOKEN_滴_25_;
+	} catch {
+		return _JCROSS_滴:1.0__TOKEN_滴_25_;
+	}
+}
+async _JCROSS_滴:1.0__TOKEN_滴_30_ _JCROSS_滴:1.0__TOKEN_滴_6_(_JCROSS_滴:1.0__TOKEN_滴_20_) {
+	_JCROSS_滴:1.0__TOKEN_滴_43_ { _JCROSS_滴:1.0__TOKEN_滴_2_, _JCROSS_滴:1.0__TOKEN_滴_31_ } = _JCROSS_滴:1.0__TOKEN_滴_5_(_JCROSS_滴:1.0__TOKEN_滴_20_);
+	_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_滴:1.0__TOKEN_滴_32_ = await fs._JCROSS_匼:1.0__TOKEN_滴_35_(_JCROSS_滴:1.0__TOKEN_滴_31_, "_JCROSS_滴:1.0__TOKEN_滴_3_").catch(() => "");
+	_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_滴:1.0__TOKEN_滴_26_ = await fs._JCROSS_匼:1.0__TOKEN_滴_35_(_JCROSS_滴:1.0__TOKEN_滴_2_, "_JCROSS_滴:1.0__TOKEN_滴_3_").catch(() => "");
+// _JCROSS_滴:0.5__TOKEN_MD_355_ [decoy-metadata]
+	_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_滴:1.0__TOKEN_滴_19_ = [..._JCROSS_滴:1.0__TOKEN_滴_32_._JCROSS_滴:1.0__TOKEN_滴_37_(/\r?\n/), ..._JCROSS_滴:1.0__TOKEN_滴_26_._JCROSS_滴:1.0__TOKEN_滴_37_(/\r?\n/)]._JCROSS_滴:1.0__TOKEN_滴_33_((_JCROSS_滴:1.0__TOKEN_滴_12_) => _JCROSS_滴:1.0__TOKEN_滴_12_._JCROSS_滴:1.0__TOKEN_滴_41_());
+	for (let i = _JCROSS_滴:1.0__TOKEN_滴_19_._JCROSS_滴:1.0__TOKEN_滴_13_ - 1; i >= 0; i -= 1) {
+		_JCROSS_滴:1.0__TOKEN_滴_43_ _JCROSS_滴:1.0__TOKEN_滴_12_ = _JCROSS_滴:1.0__TOKEN_滴_19_[i];
+		if (!_JCROSS_滴:1.0__TOKEN_滴_12_) continue;
+		if (_JCROSS_廱:1.0__TOKEN_廱_1_.some((_JCROSS_滴:1.0__TOKEN_滴_18_) => _JCROSS_滴:1.0__TOKEN_滴_18_._JCROSS_滴:1.0__TOKEN_滴_21_(_JCROSS_滴:1.0__TOKEN_滴_12_))) return _JCROSS_滴:1.0__TOKEN_滴_12_;
+// _JCROSS_滴:0.4__TOKEN_WB_818_ [decoy-metadata]
+	}
+	return await _JCROSS_滴:1.0__TOKEN_滴_24_(_JCROSS_滴:1.0__TOKEN_滴_31_) ?? await _JCROSS_滴:1.0__TOKEN_滴_24_(_JCROSS_滴:1.0__TOKEN_滴_2_);
+}
+// _JCROSS_法:0.7__TOKEN_MK_479_ [decoy-metadata]
+// [metadata-stripped]
+// _JCROSS_廱:0.2__TOKEN_GB_335_ [decoy-metadata]
+_JCROSS_滴:1.0__TOKEN_滴_7_ { _JCROSS_滴:1.0__TOKEN_滴_6_ as t };
+
+// POLYMORPHIC_JCROSS_END

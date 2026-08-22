@@ -1,0 +1,73 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0B2AD8B7 ver:1778149962
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_霜:1.0__ASTNODE_霜_2_ _ID_霜:1.0__ASTNODE_霜_32_::_ID_霜:1.0__ASTNODE_霜_30_::_ID_庵:1.0__ASTNODE_庵_22_;
+_ID_霜:1.0__ASTNODE_霜_2_ _ID_霜:1.0__ASTNODE_霜_32_::_ID_霜:1.0__ASTNODE_霜_25_::{_ID_庵:1.0__ASTNODE_庵_17_, _ID_庵:1.0__ASTNODE_庵_1_};
+_ID_霜:1.0__ASTNODE_霜_2_ _ID_霜:1.0__ASTNODE_霜_37_::{_ID_庵:1.0__ASTNODE_庵_21_, _ID_霜:1.0__ASTNODE_霜_27_};
+
+// [metadata-stripped]
+_ID_霜:1.0__ASTNODE_霜_16_ _ID_霜:1.0__ASTNODE_霜_20_uct _ID_庵:1.0__ASTNODE_庵_7_ {
+    _ID_霜:1.0__ASTNODE_霜_16_ _ID_霜:1.0__ASTNODE_霜_1_: _ID_霜:1.0__ASTNODE_霜_21_,
+// _ID_則:0.6__ASTNODE_XF_396_ [decoy-metadata]
+    _ID_霜:1.0__ASTNODE_霜_16_ _ID_霜:1.0__ASTNODE_霜_39_: _ID_霜:1.0__ASTNODE_霜_21_,
+}
+
+_ID_霜:1.0__ASTNODE_霜_16_ _ID_霜:1.0__ASTNODE_霜_20_uct _ID_則:1.0__ASTNODE_庵_26_ {
+    _ID_霜:1.0__ASTNODE_霜_42_: _ID_庵:1.0__ASTNODE_庵_17_<_ID_庵:1.0__ASTNODE_庵_1_<_ID_庵:1.0__ASTNODE_庵_22_<_ID_庵:1.0__ASTNODE_庵_10_, _ID_庵:1.0__ASTNODE_庵_7_>>>,
+    _ID_霜:1.0__ASTNODE_霜_18_: _ID_霜:1.0__ASTNODE_霜_21_,
+}
+
+_ID_霜:1.0__ASTNODE_霜_19_ _ID_則:1.0__ASTNODE_庵_26_ {
+// _ID_涌:0.1__ASTNODE_KH_278_ [decoy-metadata]
+    _ID_霜:1.0__ASTNODE_霜_16_ fn _ID_霜:1.0__ASTNODE_霜_40_(_ID_霜:1.0__ASTNODE_霜_18_: _ID_霜:1.0__ASTNODE_霜_21_) -> _ID_庵:1.0__ASTNODE_庵_15_ {
+        _ID_庵:1.0__ASTNODE_庵_15_ {
+            _ID_霜:1.0__ASTNODE_霜_42_: _ID_庵:1.0__ASTNODE_庵_17_::_ID_霜:1.0__ASTNODE_霜_40_(_ID_庵:1.0__ASTNODE_庵_1_::_ID_霜:1.0__ASTNODE_霜_40_(_ID_庵:1.0__ASTNODE_庵_22_::_ID_霜:1.0__ASTNODE_霜_40_())),
+            _ID_霜:1.0__ASTNODE_霜_18_,
+        }
+    }
+// _ID_潜:0.6__ASTNODE_AG_527_ [decoy-metadata]
+
+// [metadata-stripped]
+    _ID_霜:1.0__ASTNODE_霜_16_ fn _ID_繍:1.0__ASTNODE_霜_12_(&self, _ID_霜:1.0__ASTNODE_霜_14_: &_ID_霜:1.0__ASTNODE_霜_20_, _ID_繍:1.0__ASTNODE_霜_15_: _ID_霜:1.0__ASTNODE_霜_21_) -> _ID_庵:1.0__ASTNODE_庵_21_<()> {
+        let _ID_霜:1.0__ASTNODE_霜_3_ _ID_霜:1.0__ASTNODE_霜_42_ = self._ID_霜:1.0__ASTNODE_霜_42_._ID_霜:1.0__ASTNODE_霜_41_()._ID_霜:1.0__ASTNODE_霜_4_();
+// _ID_繍:0.9__ASTNODE_XH_904_ [decoy-metadata]
+        let _ID_霜:1.0__ASTNODE_霜_23_ = _ID_霜:1.0__ASTNODE_霜_42_._ID_霜:1.0__ASTNODE_霜_6_(_ID_霜:1.0__ASTNODE_霜_14_._ID_霜:1.0__ASTNODE_霜_29_())._ID_霜:1.0__ASTNODE_霜_22_(_ID_庵:1.0__ASTNODE_庵_7_ {
+            _ID_霜:1.0__ASTNODE_霜_1_: 0,
+            _ID_霜:1.0__ASTNODE_霜_39_: self._ID_霜:1.0__ASTNODE_霜_18_,
+        });
+
+        if _ID_霜:1.0__ASTNODE_霜_23_._ID_霜:1.0__ASTNODE_霜_1_ + _ID_繍:1.0__ASTNODE_霜_15_ > _ID_霜:1.0__ASTNODE_霜_23_._ID_霜:1.0__ASTNODE_霜_39_ {
+            _ID_霜:1.0__ASTNODE_霜_27_!("_ID_庵:1.0__ASTNODE_庵_14_: _ID_庵:1.0__ASTNODE_庵_19_ _ID_霜:1.0__ASTNODE_霜_38_ for {} is _ID_霜:1.0__ASTNODE_霜_13_", _ID_霜:1.0__ASTNODE_霜_14_);
+        }
+
+        _ID_霜:1.0__ASTNODE_霜_23_._ID_霜:1.0__ASTNODE_霜_1_ += _ID_繍:1.0__ASTNODE_霜_15_;
+        Ok(())
+    }
+
+// [metadata-stripped]
+    _ID_霜:1.0__ASTNODE_霜_16_ fn _ID_霜:1.0__ASTNODE_霜_31_(&self, _ID_霜:1.0__ASTNODE_霜_14_: &_ID_霜:1.0__ASTNODE_霜_20_, _ID_霜:1.0__ASTNODE_霜_24_: _ID_霜:1.0__ASTNODE_霜_21_) {
+        let _ID_霜:1.0__ASTNODE_霜_3_ _ID_霜:1.0__ASTNODE_霜_42_ = self._ID_霜:1.0__ASTNODE_霜_42_._ID_霜:1.0__ASTNODE_霜_41_()._ID_霜:1.0__ASTNODE_霜_4_();
+        if let _ID_庵:1.0__ASTNODE_庵_12_(_ID_霜:1.0__ASTNODE_霜_23_) = _ID_霜:1.0__ASTNODE_霜_42_._ID_則:1.0__ASTNODE_礎_2_(_ID_霜:1.0__ASTNODE_霜_14_) {
+            _ID_霜:1.0__ASTNODE_霜_23_._ID_霜:1.0__ASTNODE_霜_1_ = _ID_霜:1.0__ASTNODE_霜_23_._ID_霜:1.0__ASTNODE_霜_1_._ID_霜:1.0__ASTNODE_霜_11_(_ID_霜:1.0__ASTNODE_霜_24_);
+        }
+    }
+
+    _ID_霜:1.0__ASTNODE_霜_16_ fn _ID_則:1.0__ASTNODE_礎_3_(&self, _ID_霜:1.0__ASTNODE_霜_14_: &_ID_霜:1.0__ASTNODE_霜_20_) -> _ID_庵:1.0__ASTNODE_庵_7_ {
+        let _ID_霜:1.0__ASTNODE_霜_42_ = self._ID_霜:1.0__ASTNODE_霜_42_._ID_霜:1.0__ASTNODE_霜_17_()._ID_霜:1.0__ASTNODE_霜_4_();
+        _ID_霜:1.0__ASTNODE_霜_42_._ID_則:1.0__ASTNODE_礎_1_(_ID_霜:1.0__ASTNODE_霜_14_)._ID_霜:1.0__ASTNODE_霜_28_()._ID_霜:1.0__ASTNODE_霜_5_(_ID_庵:1.0__ASTNODE_庵_7_ {
+// _ID_匣:0.3__ASTNODE_FX_515_ [decoy-metadata]
+            _ID_霜:1.0__ASTNODE_霜_1_: 0,
+// _ID_匣:0.6__ASTNODE_AC_662_ [decoy-metadata]
+            _ID_霜:1.0__ASTNODE_霜_39_: self._ID_霜:1.0__ASTNODE_霜_18_,
+        })
+    }
+}
+
+_ID_霜:1.0__ASTNODE_霜_16_ _ID_霜:1.0__ASTNODE_霜_9_ _ID_庵:1.0__ASTNODE_庵_3_: _ID_霜:1.0__ASTNODE_霜_21_ = 50 * 1024 * 1024; // 50MB
+
+// POLYMORPHIC_JCROSS_END

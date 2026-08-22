@@ -1,0 +1,66 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C2CAE369 ver:1778159754
+// ⚠️ One-time schema — expires after response
+
+_SYM_泡:1.0__ASTNODE_泡_11_ _SYM_泡:1.0__ASTNODE_泡_21_ import _SYM_廬:1.0__ASTNODE_廬_8_
+import _SYM_泡:1.0__ASTNODE_泡_9_
+import os
+_SYM_泡:1.0__ASTNODE_泡_11_ _SYM_泡:1.0__ASTNODE_泡_19_ import _SYM_廬:1.0__ASTNODE_廬_9_
+
+_SYM_泡:1.0__ASTNODE_泡_11_ ._SYM_泡:1.0__ASTNODE_泡_3_ import _SYM_廬:1.0__ASTNODE_廬_5_
+// _SYM_計:0.1__ASTNODE_GX_226_ [decoy-metadata]
+
+_SYM_廬:1.0__ASTNODE_廬_4_ = _SYM_廬:1.0__ASTNODE_廬_9_("_SYM_泡:1.0__ASTNODE_泡_22_/db/_SYM_泡:1.0__ASTNODE_泡_18_._SYM_泡:1.0__ASTNODE_泡_6_")
+// _SYM_潜:0.5__ASTNODE_ML_703_ [decoy-metadata]
+
+
+_SYM_泡:1.0__ASTNODE_泡_14_ _SYM_泡:1.0__ASTNODE_泡_32_(_SYM_泡:1.0__ASTNODE_泡_3_: _SYM_廬:1.0__ASTNODE_廬_5_) -> _SYM_廬:1.0__ASTNODE_廬_2_:
+    if os._SYM_泡:1.0__ASTNODE_泡_26_._SYM_計:1.0__ASTNODE_廉_1_("_SYM_廬:1.0__ASTNODE_廬_3_", "")._SYM_泡:1.0__ASTNODE_泡_10_() == "1":
+        return
+    _SYM_廬:1.0__ASTNODE_廬_4_._SYM_泡:1.0__ASTNODE_泡_4_._SYM_泡:1.0__ASTNODE_泡_28_(_SYM_泡:1.0__ASTNODE_泡_37_=_SYM_廬:1.0__ASTNODE_廬_7_, _SYM_泡:1.0__ASTNODE_泡_15_=_SYM_廬:1.0__ASTNODE_廬_7_)
+    _SYM_泡:1.0__ASTNODE_泡_36_ _SYM_廬:1.0__ASTNODE_廬_4_.open("a", _SYM_泡:1.0__ASTNODE_泡_5_="_SYM_泡:1.0__ASTNODE_泡_34_-8") as f:
+        f._SYM_泡:1.0__ASTNODE_泡_12_(_SYM_泡:1.0__ASTNODE_泡_9_._SYM_泡:1.0__ASTNODE_泡_8_(_SYM_泡:1.0__ASTNODE_泡_3_._SYM_泡:1.0__ASTNODE_泡_24_(), _SYM_泡:1.0__ASTNODE_泡_27_=_SYM_廬:1.0__ASTNODE_廬_1_) + "\n")
+// _SYM_廬:0.1__ASTNODE_BY_907_ [decoy-metadata]
+
+
+_SYM_泡:1.0__ASTNODE_泡_14_ _SYM_泡:1.0__ASTNODE_泡_38_(_SYM_泡:1.0__ASTNODE_泡_23_: _SYM_泡:1.0__ASTNODE_泡_7_ = 5000) -> _SYM_廬:1.0__ASTNODE_廬_8_[_SYM_廬:1.0__ASTNODE_廬_5_]:
+    if _SYM_泡:1.0__ASTNODE_泡_13_ _SYM_廬:1.0__ASTNODE_廬_4_._SYM_泡:1.0__ASTNODE_泡_29_():
+        return []
+    _SYM_泡:1.0__ASTNODE_泡_20_: _SYM_廬:1.0__ASTNODE_廬_8_[_SYM_廬:1.0__ASTNODE_廬_5_] = []
+    _SYM_泡:1.0__ASTNODE_泡_36_ _SYM_廬:1.0__ASTNODE_廬_4_.open("r", _SYM_泡:1.0__ASTNODE_泡_5_="_SYM_泡:1.0__ASTNODE_泡_34_-8") as f:
+        for i, _SYM_泡:1.0__ASTNODE_泡_16_ in _SYM_泡:1.0__ASTNODE_泡_25_(f):
+            if i >= _SYM_泡:1.0__ASTNODE_泡_23_:
+                break
+            _SYM_泡:1.0__ASTNODE_泡_16_ = _SYM_泡:1.0__ASTNODE_泡_16_._SYM_泡:1.0__ASTNODE_泡_10_()
+            if _SYM_泡:1.0__ASTNODE_泡_13_ _SYM_泡:1.0__ASTNODE_泡_16_:
+                continue
+            try:
+                _SYM_泡:1.0__ASTNODE_泡_39_ = _SYM_泡:1.0__ASTNODE_泡_9_._SYM_蔵:1.0__ASTNODE_泡_33_(_SYM_泡:1.0__ASTNODE_泡_16_)
+            _SYM_泡:1.0__ASTNODE_泡_17_ _SYM_廬:1.0__ASTNODE_廬_6_:
+                continue
+            _SYM_泡:1.0__ASTNODE_泡_20_._SYM_泡:1.0__ASTNODE_泡_1_(_SYM_廬:1.0__ASTNODE_廬_5_._SYM_泡:1.0__ASTNODE_泡_30_(_SYM_泡:1.0__ASTNODE_泡_39_))
+    return _SYM_泡:1.0__ASTNODE_泡_20_
+
+
+_SYM_泡:1.0__ASTNODE_泡_14_ _SYM_蔵:1.0__ASTNODE_泡_35_(_SYM_泡:1.0__ASTNODE_泡_2_: _SYM_泡:1.0__ASTNODE_泡_31_, _SYM_泡:1.0__ASTNODE_泡_23_: _SYM_泡:1.0__ASTNODE_泡_7_ = 200000) -> _SYM_廬:1.0__ASTNODE_廬_5_ | _SYM_廬:1.0__ASTNODE_廬_2_:
+    if _SYM_泡:1.0__ASTNODE_泡_13_ _SYM_廬:1.0__ASTNODE_廬_4_._SYM_泡:1.0__ASTNODE_泡_29_():
+        return _SYM_廬:1.0__ASTNODE_廬_2_
+// _SYM_廬:0.6__ASTNODE_YW_996_ [decoy-metadata]
+    _SYM_泡:1.0__ASTNODE_泡_36_ _SYM_廬:1.0__ASTNODE_廬_4_.open("r", _SYM_泡:1.0__ASTNODE_泡_5_="_SYM_泡:1.0__ASTNODE_泡_34_-8") as f:
+        for i, _SYM_泡:1.0__ASTNODE_泡_16_ in _SYM_泡:1.0__ASTNODE_泡_25_(f):
+// _SYM_廉:0.4__ASTNODE_ED_725_ [decoy-metadata]
+            if i >= _SYM_泡:1.0__ASTNODE_泡_23_:
+                break
+            _SYM_泡:1.0__ASTNODE_泡_16_ = _SYM_泡:1.0__ASTNODE_泡_16_._SYM_泡:1.0__ASTNODE_泡_10_()
+            if _SYM_泡:1.0__ASTNODE_泡_13_ _SYM_泡:1.0__ASTNODE_泡_16_:
+                continue
+            try:
+// _SYM_廉:0.5__ASTNODE_CG_175_ [decoy-metadata]
+                _SYM_泡:1.0__ASTNODE_泡_39_ = _SYM_泡:1.0__ASTNODE_泡_9_._SYM_蔵:1.0__ASTNODE_泡_33_(_SYM_泡:1.0__ASTNODE_泡_16_)
+            _SYM_泡:1.0__ASTNODE_泡_17_ _SYM_廬:1.0__ASTNODE_廬_6_:
+                continue
+            if _SYM_泡:1.0__ASTNODE_泡_39_._SYM_計:1.0__ASTNODE_廉_1_("_SYM_泡:1.0__ASTNODE_泡_2_") == _SYM_泡:1.0__ASTNODE_泡_2_:
+                return _SYM_廬:1.0__ASTNODE_廬_5_._SYM_泡:1.0__ASTNODE_泡_30_(_SYM_泡:1.0__ASTNODE_泡_39_)
+    return _SYM_廬:1.0__ASTNODE_廬_2_
+
+// POLYMORPHIC_JCROSS_END

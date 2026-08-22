@@ -1,0 +1,90 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:149D11BC ver:1778159616
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_礫:1.0__ASTNODE_礫_10_ _TOKEN_礫:1.0__ASTNODE_礫_30_ import _TOKEN_礫:1.0__ASTNODE_礫_6_
+
+_TOKEN_礫:1.0__ASTNODE_礫_10_ _TOKEN_礫:1.0__ASTNODE_礫_22_ import _TOKEN_礫:1.0__ASTNODE_礫_2_
+_TOKEN_礫:1.0__ASTNODE_礫_10_ _TOKEN_礫:1.0__ASTNODE_礫_20_ import _TOKEN_礫:1.0__ASTNODE_礫_35_
+// _TOKEN_縁:0.7__ASTNODE_CH_605_ [decoy-metadata]
+_TOKEN_礫:1.0__ASTNODE_礫_10_ _TOKEN_礫:1.0__ASTNODE_礫_27_ import _TOKEN_廟:1.0__ASTNODE_廟_2_, _TOKEN_廟:1.0__ASTNODE_廟_7_, _TOKEN_廟:1.0__ASTNODE_廟_5_, _TOKEN_廟:1.0__ASTNODE_廟_8_, _TOKEN_廟:1.0__ASTNODE_廟_9_, _TOKEN_廟:1.0__ASTNODE_廟_1_
+
+
+@_TOKEN_礫:1.0__ASTNODE_礫_2_
+class _TOKEN_廟:1.0__ASTNODE_廟_4_:
+    _TOKEN_礫:1.0__ASTNODE_礫_28_: _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_礫:1.0__ASTNODE_礫_33_]
+    _TOKEN_礫:1.0__ASTNODE_礫_21_: _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_礫:1.0__ASTNODE_礫_33_]
+    _TOKEN_礫:1.0__ASTNODE_礫_25_: _TOKEN_礫:1.0__ASTNODE_礫_42_
+    _TOKEN_礫:1.0__ASTNODE_礫_23_: _TOKEN_廟:1.0__ASTNODE_廟_9_[_TOKEN_廟:1.0__ASTNODE_廟_5_[_TOKEN_礫:1.0__ASTNODE_礫_33_, _TOKEN_廟:1.0__ASTNODE_廟_2_]]
+    _TOKEN_礫:1.0__ASTNODE_礫_26_: _TOKEN_礫:1.0__ASTNODE_礫_33_
+
+
+_TOKEN_礫:1.0__ASTNODE_礫_12_ _TOKEN_礫:1.0__ASTNODE_礫_41_(
+    _TOKEN_礫:1.0__ASTNODE_礫_37_: _TOKEN_廟:1.0__ASTNODE_廟_7_[[_TOKEN_礫:1.0__ASTNODE_礫_33_, _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_礫:1.0__ASTNODE_礫_33_]], _TOKEN_廟:1.0__ASTNODE_廟_5_[_TOKEN_礫:1.0__ASTNODE_礫_33_, _TOKEN_廟:1.0__ASTNODE_廟_2_]],
+    _TOKEN_游:1.0__ASTNODE_礫_44_: _TOKEN_礫:1.0__ASTNODE_礫_33_,
+    _TOKEN_礫:1.0__ASTNODE_礫_39_: _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_礫:1.0__ASTNODE_礫_33_],
+    _TOKEN_礫:1.0__ASTNODE_礫_34_: _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_礫:1.0__ASTNODE_礫_33_],
+    _TOKEN_礫:1.0__ASTNODE_礫_4_: _TOKEN_礫:1.0__ASTNODE_礫_7_ = 3,
+    _TOKEN_礫:1.0__ASTNODE_礫_9_: _TOKEN_礫:1.0__ASTNODE_礫_7_ = 5,
+) -> _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_廟:1.0__ASTNODE_廟_4_]:
+    """
+    最小の追加仮定集合（サイズ最小）を探す。
+    - _TOKEN_礫:1.0__ASTNODE_礫_37_(_TOKEN_游:1.0__ASTNODE_礫_44_, _TOKEN_礫:1.0__ASTNODE_礫_43_) -> _TOKEN_礫:1.0__ASTNODE_礫_29_
+        期待: {"_TOKEN_礫:1.0__ASTNODE_礫_25_": _TOKEN_礫:1.0__ASTNODE_礫_42_, "_TOKEN_礫:1.0__ASTNODE_礫_23_": {...} or _TOKEN_廟:1.0__ASTNODE_廟_3_, "_TOKEN_礫:1.0__ASTNODE_礫_26_": _TOKEN_礫:1.0__ASTNODE_礫_33_}
+    - _TOKEN_廟:1.0__ASTNODE_廟_10_: k=0.._TOKEN_礫:1.0__ASTNODE_礫_4_ の順に探索し、_TOKEN_礫:1.0__ASTNODE_礫_25_になった集合を集め、最小kの解だけ返す。
+    """
+// _TOKEN_廉:0.7__ASTNODE_CC_305_ [decoy-metadata]
+    _TOKEN_礫:1.0__ASTNODE_礫_31_ = _TOKEN_礫:1.0__ASTNODE_礫_18_(_TOKEN_礫:1.0__ASTNODE_礫_29_._TOKEN_幽:1.0__ASTNODE_礫_16_(_TOKEN_礫:1.0__ASTNODE_礫_39_))  # _TOKEN_礫:1.0__ASTNODE_礫_19_ _TOKEN_礫:1.0__ASTNODE_礫_3_ _TOKEN_式:1.0__ASTNODE_礫_36_
+    _TOKEN_礫:1.0__ASTNODE_礫_15_ = [u for u in _TOKEN_礫:1.0__ASTNODE_礫_34_ if u _TOKEN_礫:1.0__ASTNODE_礫_11_ in _TOKEN_礫:1.0__ASTNODE_礫_31_]  # _TOKEN_礫:1.0__ASTNODE_礫_31_と重複除去
+
+    _TOKEN_礫:1.0__ASTNODE_礫_32_: _TOKEN_廟:1.0__ASTNODE_廟_8_[_TOKEN_廟:1.0__ASTNODE_廟_4_] = []
+    _TOKEN_礫:1.0__ASTNODE_礫_40_: _TOKEN_廟:1.0__ASTNODE_廟_9_[_TOKEN_礫:1.0__ASTNODE_礫_7_] = _TOKEN_廟:1.0__ASTNODE_廟_3_
+
+    for k in _TOKEN_礫:1.0__ASTNODE_礫_38_(0, _TOKEN_礫:1.0__ASTNODE_礫_4_ + 1):
+        for _TOKEN_礫:1.0__ASTNODE_礫_17_ in _TOKEN_礫:1.0__ASTNODE_礫_35_(_TOKEN_礫:1.0__ASTNODE_礫_15_, k):
+            _TOKEN_礫:1.0__ASTNODE_礫_8_ = _TOKEN_礫:1.0__ASTNODE_礫_31_ + _TOKEN_礫:1.0__ASTNODE_礫_18_(_TOKEN_礫:1.0__ASTNODE_礫_17_)
+
+            _TOKEN_礫:1.0__ASTNODE_礫_5_ = _TOKEN_礫:1.0__ASTNODE_礫_37_(_TOKEN_游:1.0__ASTNODE_礫_44_, _TOKEN_礫:1.0__ASTNODE_礫_8_)
+
+            _TOKEN_礫:1.0__ASTNODE_礫_25_ = _TOKEN_礫:1.0__ASTNODE_礫_42_(_TOKEN_礫:1.0__ASTNODE_礫_5_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_25_"))
+            _TOKEN_礫:1.0__ASTNODE_礫_26_ = _TOKEN_礫:1.0__ASTNODE_礫_33_(_TOKEN_礫:1.0__ASTNODE_礫_5_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_26_", ""))
+            _TOKEN_礫:1.0__ASTNODE_礫_14_ = _TOKEN_礫:1.0__ASTNODE_礫_5_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_23_")
+
+            if _TOKEN_礫:1.0__ASTNODE_礫_25_:
+                if _TOKEN_礫:1.0__ASTNODE_礫_40_ is _TOKEN_廟:1.0__ASTNODE_廟_3_:
+                    _TOKEN_礫:1.0__ASTNODE_礫_40_ = k
+// [metadata-stripped]
+                if k != _TOKEN_礫:1.0__ASTNODE_礫_40_:
+                    continue
+
+// _TOKEN_匽:0.9__ASTNODE_MC_121_ [decoy-metadata]
+                _TOKEN_礫:1.0__ASTNODE_礫_32_._TOKEN_礫:1.0__ASTNODE_礫_1_(_TOKEN_廟:1.0__ASTNODE_廟_4_(
+                    _TOKEN_礫:1.0__ASTNODE_礫_28_=_TOKEN_礫:1.0__ASTNODE_礫_18_(_TOKEN_礫:1.0__ASTNODE_礫_17_),
+                    _TOKEN_礫:1.0__ASTNODE_礫_21_=_TOKEN_礫:1.0__ASTNODE_礫_8_,
+                    _TOKEN_礫:1.0__ASTNODE_礫_25_=_TOKEN_廟:1.0__ASTNODE_廟_6_,
+                    _TOKEN_礫:1.0__ASTNODE_礫_23_=_TOKEN_廟:1.0__ASTNODE_廟_3_,
+// _TOKEN_匽:0.1__ASTNODE_YZ_621_ [decoy-metadata]
+                    _TOKEN_礫:1.0__ASTNODE_礫_26_=_TOKEN_礫:1.0__ASTNODE_礫_26_,
+                ))
+                if _TOKEN_礫:1.0__ASTNODE_礫_13_(_TOKEN_礫:1.0__ASTNODE_礫_32_) >= _TOKEN_礫:1.0__ASTNODE_礫_9_:
+                    return _TOKEN_礫:1.0__ASTNODE_礫_32_
+
+        if _TOKEN_礫:1.0__ASTNODE_礫_40_ is _TOKEN_礫:1.0__ASTNODE_礫_11_ _TOKEN_廟:1.0__ASTNODE_廟_3_:
+// [metadata-stripped]
+            break
+
+// [metadata-stripped]
+    if _TOKEN_礫:1.0__ASTNODE_礫_11_ _TOKEN_礫:1.0__ASTNODE_礫_32_:
+// _TOKEN_匽:0.8__ASTNODE_EC_255_ [decoy-metadata]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_24_ = _TOKEN_礫:1.0__ASTNODE_礫_37_(_TOKEN_游:1.0__ASTNODE_礫_44_, _TOKEN_礫:1.0__ASTNODE_礫_31_)
+        _TOKEN_礫:1.0__ASTNODE_礫_32_._TOKEN_礫:1.0__ASTNODE_礫_1_(_TOKEN_廟:1.0__ASTNODE_廟_4_(
+            _TOKEN_礫:1.0__ASTNODE_礫_28_=[],
+            _TOKEN_礫:1.0__ASTNODE_礫_21_=_TOKEN_礫:1.0__ASTNODE_礫_31_,
+            _TOKEN_礫:1.0__ASTNODE_礫_25_=_TOKEN_礫:1.0__ASTNODE_礫_42_(_TOKEN_礫:1.0__ASTNODE_礫_24_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_25_")),
+            _TOKEN_礫:1.0__ASTNODE_礫_23_=_TOKEN_礫:1.0__ASTNODE_礫_24_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_23_"),
+            _TOKEN_礫:1.0__ASTNODE_礫_26_=_TOKEN_礫:1.0__ASTNODE_礫_33_(_TOKEN_礫:1.0__ASTNODE_礫_24_._TOKEN_式:1.0__ASTNODE_廉_1_("_TOKEN_礫:1.0__ASTNODE_礫_26_", "")),
+// _TOKEN_匽:0.4__ASTNODE_BK_323_ [decoy-metadata]
+        ))
+    return _TOKEN_礫:1.0__ASTNODE_礫_32_
+// POLYMORPHIC_JCROSS_END

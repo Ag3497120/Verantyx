@@ -1,0 +1,116 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D08B0C83 ver:1778159771
+// ⚠️ One-time schema — expires after response
+
+_ID_霾:1.0__JCROSS_霾_45_ _ID_霾:1.0__JCROSS_霾_23_ import _ID_霾:1.0__JCROSS_霾_12_
+
+_ID_霾:1.0__JCROSS_霾_45_ _ID_霾:1.0__JCROSS_霾_32_ import _ID_霾:1.0__JCROSS_霾_42_
+_ID_霾:1.0__JCROSS_霾_45_ _ID_霾:1.0__JCROSS_霾_17_ import _ID_庵:1.0__JCROSS_庵_4_, _ID_庵:1.0__JCROSS_庵_3_, _ID_庵:1.0__JCROSS_庵_2_
+
+
+@_ID_霾:1.0__JCROSS_霾_42_
+class _ID_庵:1.0__JCROSS_庵_1_:
+    _ID_霾:1.0__JCROSS_霾_51_: _ID_霾:1.0__JCROSS_霾_24_  # kb | _ID_霾:1.0__JCROSS_霾_10_ | _ID_霾:1.0__JCROSS_霾_52_ | _ID_霾:1.0__JCROSS_霾_36_ | _ID_霾:1.0__JCROSS_霾_47_
+    _ID_霾:1.0__JCROSS_霾_18_: _ID_霾:1.0__JCROSS_霾_24_
+    _ID_霾:1.0__JCROSS_霾_43_: _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_]
+    _ID_霾:1.0__JCROSS_霾_29_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_]
+
+
+@_ID_霾:1.0__JCROSS_霾_42_
+class _ID_庵:1.0__JCROSS_庵_5_:
+    _ID_霾:1.0__JCROSS_霾_8_: _ID_霾:1.0__JCROSS_霾_24_
+// _ID_庵:0.6__JCROSS_WF_599_ [decoy-metadata]
+    _ID_霾:1.0__JCROSS_霾_30_: _ID_霾:1.0__JCROSS_霾_24_
+    _ID_流:1.0__JCROSS_霾_40_: _ID_霾:1.0__JCROSS_霾_24_
+    _ID_霾:1.0__JCROSS_霾_2_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_]
+    _ID_霾:1.0__JCROSS_霾_34_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_]
+    _ID_流:1.0__JCROSS_霾_20_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_]
+    _ID_霾:1.0__JCROSS_霾_44_: _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_]
+    _ID_霾:1.0__JCROSS_霾_14_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_]
+    _ID_霾:1.0__JCROSS_霾_22_: _ID_霾:1.0__JCROSS_霾_24_
+
+
+_ID_霾:1.0__JCROSS_霾_13_ _ID_霾:1.0__JCROSS_霾_26_(_ID_霾:1.0__JCROSS_霾_21_: _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_]) -> _ID_庵:1.0__JCROSS_庵_2_[_ID_庵:1.0__JCROSS_庵_1_]:
+    _ID_霾:1.0__JCROSS_霾_35_: _ID_庵:1.0__JCROSS_庵_2_[_ID_庵:1.0__JCROSS_庵_1_] = []
+    for a in (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_34_") or []):
+        _ID_霾:1.0__JCROSS_霾_35_._ID_霾:1.0__JCROSS_霾_4_(_ID_庵:1.0__JCROSS_庵_1_(_ID_霾:1.0__JCROSS_霾_51_="_ID_霾:1.0__JCROSS_霾_36_", _ID_霾:1.0__JCROSS_霾_18_=a, _ID_霾:1.0__JCROSS_霾_43_={"_ID_霾:1.0__JCROSS_霾_36_": a}, _ID_霾:1.0__JCROSS_霾_29_=[]))
+
+    _ID_霾:1.0__JCROSS_霾_48_ = _ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_流:1.0__JCROSS_霾_40_") or ""
+    if _ID_霾:1.0__JCROSS_霾_48_:
+        _ID_霾:1.0__JCROSS_霾_35_._ID_霾:1.0__JCROSS_霾_4_(_ID_庵:1.0__JCROSS_庵_1_(_ID_霾:1.0__JCROSS_霾_51_="_ID_霾:1.0__JCROSS_霾_47_", _ID_霾:1.0__JCROSS_霾_18_="_ID_流:1.0__JCROSS_霾_40_", _ID_霾:1.0__JCROSS_霾_43_={"_ID_流:1.0__JCROSS_霾_41_": _ID_霾:1.0__JCROSS_霾_48_}, _ID_霾:1.0__JCROSS_霾_29_=[]))
+
+    for _ID_霾:1.0__JCROSS_霾_28_ in ["_ID_霾:1.0__JCROSS_霾_53_", "_ID_霾:1.0__JCROSS_霾_16_", "_ID_霾:1.0__JCROSS_霾_46_", "_ID_霾:1.0__JCROSS_霾_19_"]:
+        for n in (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_(_ID_霾:1.0__JCROSS_霾_28_) or []):
+            c = n._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_43_") or {}
+            if "id" in c:
+                _ID_霾:1.0__JCROSS_霾_35_._ID_霾:1.0__JCROSS_霾_4_(_ID_庵:1.0__JCROSS_庵_1_(_ID_霾:1.0__JCROSS_霾_51_="kb", _ID_霾:1.0__JCROSS_霾_18_=c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_18_", "kb"), _ID_霾:1.0__JCROSS_霾_43_=c, _ID_霾:1.0__JCROSS_霾_29_=c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_29_", []) or []))
+            if _ID_霾:1.0__JCROSS_霾_28_ == "_ID_霾:1.0__JCROSS_霾_46_" _ID_霾:1.0__JCROSS_霾_54_ c:
+                _ID_霾:1.0__JCROSS_霾_35_._ID_霾:1.0__JCROSS_霾_4_(_ID_庵:1.0__JCROSS_庵_1_(_ID_霾:1.0__JCROSS_霾_51_="_ID_霾:1.0__JCROSS_霾_52_", _ID_霾:1.0__JCROSS_霾_18_=c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_18_", "_ID_霾:1.0__JCROSS_霾_6_"), _ID_霾:1.0__JCROSS_霾_43_=c, _ID_霾:1.0__JCROSS_霾_29_=[]))
+
+    return _ID_霾:1.0__JCROSS_霾_35_
+// _ID_幽:0.5__JCROSS_HK_750_ [decoy-metadata]
+
+
+_ID_霾:1.0__JCROSS_霾_13_ _ID_霾:1.0__JCROSS_霾_25_(_ID_霾:1.0__JCROSS_霾_21_: _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_]) -> _ID_庵:1.0__JCROSS_庵_5_:
+    _ID_霾:1.0__JCROSS_霾_5_ = _ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_5_", {}) or {}
+    _ID_霾:1.0__JCROSS_霾_30_ = (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_30_") or _ID_霾:1.0__JCROSS_霾_5_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_30_") or "_ID_霾:1.0__JCROSS_霾_15_")
+    _ID_霾:1.0__JCROSS_霾_48_ = (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_流:1.0__JCROSS_霾_40_") or _ID_霾:1.0__JCROSS_霾_5_._ID_節:1.0__JCROSS_嵐_1_("_ID_流:1.0__JCROSS_霾_40_") or "")._ID_霾:1.0__JCROSS_霾_9_()
+
+    _ID_霾:1.0__JCROSS_霾_2_ = _ID_霾:1.0__JCROSS_霾_5_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_2_") or []
+    if _ID_霾:1.0__JCROSS_霾_37_ _ID_霾:1.0__JCROSS_霾_11_(_ID_霾:1.0__JCROSS_霾_2_, _ID_霾:1.0__JCROSS_霾_31_):
+        _ID_霾:1.0__JCROSS_霾_2_ = []
+
+// _ID_庵:0.8__JCROSS_MY_325_ [decoy-metadata]
+    _ID_霾:1.0__JCROSS_霾_34_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_] = []
+    for n in (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_50_") or []):
+        c = (n._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_43_") or {})
+// _ID_流:0.4__JCROSS_ZM_639_ [decoy-metadata]
+        _ID_霾:1.0__JCROSS_霾_33_ = c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_33_") or c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_36_") or ""
+        if _ID_霾:1.0__JCROSS_霾_33_:
+            _ID_霾:1.0__JCROSS_霾_34_._ID_霾:1.0__JCROSS_霾_4_(_ID_霾:1.0__JCROSS_霾_24_(_ID_霾:1.0__JCROSS_霾_33_))
+
+    _ID_流:1.0__JCROSS_霾_20_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_] = []
+    for n in (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_53_") or []):
+        c = (n._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_43_") or {})
+        f = c._ID_節:1.0__JCROSS_嵐_1_("_ID_流:1.0__JCROSS_霾_41_") or ""
+        if f:
+            _ID_流:1.0__JCROSS_霾_20_._ID_霾:1.0__JCROSS_霾_4_(_ID_霾:1.0__JCROSS_霾_24_(f)._ID_霾:1.0__JCROSS_霾_9_())
+
+    _ID_霾:1.0__JCROSS_霾_49_ = (_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_19_") or [])
+    _ID_霾:1.0__JCROSS_霾_44_: _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_] = {}
+    _ID_霾:1.0__JCROSS_霾_14_: _ID_庵:1.0__JCROSS_庵_2_[_ID_霾:1.0__JCROSS_霾_24_] = []
+    _ID_霾:1.0__JCROSS_霾_22_ = ""
+    for n in _ID_霾:1.0__JCROSS_霾_49_:
+        c = (n._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_43_") or {})
+        if c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_44_"):
+            _ID_霾:1.0__JCROSS_霾_44_._ID_霾:1.0__JCROSS_霾_39_(c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_44_") or {})
+// _ID_節:0.1__JCROSS_WF_948_ [decoy-metadata]
+        if c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_14_"):
+            _ID_霾:1.0__JCROSS_霾_14_._ID_霾:1.0__JCROSS_霾_1_(_ID_霾:1.0__JCROSS_霾_31_(c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_14_") or []))
+// _ID_流:0.4__JCROSS_MX_320_ [decoy-metadata]
+        if c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_22_") _ID_霾:1.0__JCROSS_霾_54_ _ID_霾:1.0__JCROSS_霾_37_ _ID_霾:1.0__JCROSS_霾_22_:
+            _ID_霾:1.0__JCROSS_霾_22_ = _ID_霾:1.0__JCROSS_霾_24_(c._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_22_"))
+
+    return _ID_庵:1.0__JCROSS_庵_5_(
+        _ID_霾:1.0__JCROSS_霾_8_=_ID_霾:1.0__JCROSS_霾_21_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_8_") or _ID_霾:1.0__JCROSS_霾_5_._ID_節:1.0__JCROSS_嵐_1_("_ID_霾:1.0__JCROSS_霾_8_") or "",
+        _ID_霾:1.0__JCROSS_霾_30_=_ID_霾:1.0__JCROSS_霾_30_,
+        _ID_流:1.0__JCROSS_霾_40_=_ID_霾:1.0__JCROSS_霾_48_,
+        _ID_霾:1.0__JCROSS_霾_2_=_ID_霾:1.0__JCROSS_霾_2_,
+        _ID_霾:1.0__JCROSS_霾_34_=_ID_霾:1.0__JCROSS_霾_3_(_ID_節:1.0__JCROSS_嵐_2_(_ID_霾:1.0__JCROSS_霾_34_)),
+        _ID_流:1.0__JCROSS_霾_20_=_ID_霾:1.0__JCROSS_霾_3_(_ID_節:1.0__JCROSS_嵐_2_(_ID_流:1.0__JCROSS_霾_20_)),
+        _ID_霾:1.0__JCROSS_霾_44_=_ID_霾:1.0__JCROSS_霾_44_,
+        _ID_霾:1.0__JCROSS_霾_14_=_ID_霾:1.0__JCROSS_霾_14_,
+        _ID_霾:1.0__JCROSS_霾_22_=_ID_霾:1.0__JCROSS_霾_22_,
+    )
+
+
+_ID_霾:1.0__JCROSS_霾_13_ _ID_霾:1.0__JCROSS_霾_7_(_ID_霾:1.0__JCROSS_霾_35_: _ID_庵:1.0__JCROSS_庵_2_[_ID_庵:1.0__JCROSS_庵_1_]) -> _ID_庵:1.0__JCROSS_庵_3_[_ID_霾:1.0__JCROSS_霾_24_, _ID_庵:1.0__JCROSS_庵_4_]:
+    _ID_霾:1.0__JCROSS_霾_38_ = []
+    for p in _ID_霾:1.0__JCROSS_霾_35_:
+        if p._ID_霾:1.0__JCROSS_霾_51_ == "kb":
+            _ID_霾:1.0__JCROSS_霾_27_ = p._ID_霾:1.0__JCROSS_霾_43_._ID_節:1.0__JCROSS_嵐_1_("id")
+            if _ID_霾:1.0__JCROSS_霾_27_:
+                _ID_霾:1.0__JCROSS_霾_38_._ID_霾:1.0__JCROSS_霾_4_(_ID_霾:1.0__JCROSS_霾_27_)
+    return {"_ID_霾:1.0__JCROSS_霾_38_": _ID_霾:1.0__JCROSS_霾_3_(_ID_節:1.0__JCROSS_嵐_2_(_ID_霾:1.0__JCROSS_霾_38_))}
+
+// POLYMORPHIC_JCROSS_END

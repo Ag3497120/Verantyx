@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:390F008D ver:1778162903
+// ⚠️ One-time schema — expires after response
+// _JCROSS_組:0.9__ID_YD_379_ [decoy-metadata]
+
+_JCROSS_霤:1.0__ID_霤_4_ _JCROSS_霤:1.0__ID_霤_14_ import _JCROSS_庸:1.0__ID_庸_2_, _JCROSS_庸:1.0__ID_庸_3_
+_JCROSS_霤:1.0__ID_霤_4_ _JCROSS_霤:1.0__ID_霤_7_._JCROSS_霤:1.0__ID_霤_9_._JCROSS_霤:1.0__ID_霤_11_ import _JCROSS_庸:1.0__ID_庸_4_, _JCROSS_庸:1.0__ID_庸_5_
+
+_JCROSS_霤:1.0__ID_霤_22_ _JCROSS_霤:1.0__ID_霤_18_(a: _JCROSS_庸:1.0__ID_庸_2_[_JCROSS_霤:1.0__ID_霤_21_], b: _JCROSS_庸:1.0__ID_庸_2_[_JCROSS_霤:1.0__ID_霤_21_]) -> _JCROSS_霤:1.0__ID_霤_17_:
+    """
+    2つの形状シーケンスの類似度を計算する（順序を重視）。
+    """
+// _JCROSS_組:0.6__ID_WF_922_ [decoy-metadata]
+    if _JCROSS_霤:1.0__ID_霤_13_ a or _JCROSS_霤:1.0__ID_霤_13_ b:
+        return 0.0
+    
+// _JCROSS_霤:0.7__ID_EY_684_ [decoy-metadata]
+// [metadata-stripped]
+    _JCROSS_霤:1.0__ID_霤_16_ = _JCROSS_霤:1.0__ID_霤_1_(1 for x, y in _JCROSS_霤:1.0__ID_霤_6_(a, b) if x == y)
+    return _JCROSS_霤:1.0__ID_霤_16_ / _JCROSS_霤:1.0__ID_霤_5_(_JCROSS_霤:1.0__ID_霤_8_(a), _JCROSS_霤:1.0__ID_霤_8_(b))
+
+_JCROSS_霤:1.0__ID_霤_22_ _JCROSS_霤:1.0__ID_霤_23_(_JCROSS_霤:1.0__ID_霤_12_: _JCROSS_庸:1.0__ID_庸_2_[_JCROSS_霤:1.0__ID_霤_21_], _JCROSS_霤:1.0__ID_霤_2_: _JCROSS_霤:1.0__ID_霤_17_ = 0.6) -> _JCROSS_庸:1.0__ID_庸_3_[_JCROSS_庸:1.0__ID_庸_5_]:
+    """
+    シグネチャから最適な問題パターンを返す。
+    """
+// _JCROSS_技:0.7__ID_GA_663_ [decoy-metadata]
+    _JCROSS_霤:1.0__ID_霤_3_ = _JCROSS_庸:1.0__ID_庸_1_
+// _JCROSS_組:0.6__ID_VE_753_ [decoy-metadata]
+    _JCROSS_霤:1.0__ID_霤_20_ = 0.0
+
+    for _JCROSS_霤:1.0__ID_霤_10_ in _JCROSS_庸:1.0__ID_庸_4_:
+// _JCROSS_組:0.6__ID_GE_246_ [decoy-metadata]
+        _JCROSS_霤:1.0__ID_霤_15_ = _JCROSS_霤:1.0__ID_霤_18_(_JCROSS_霤:1.0__ID_霤_12_, _JCROSS_霤:1.0__ID_霤_10_._JCROSS_霤:1.0__ID_霤_24_)
+        if _JCROSS_霤:1.0__ID_霤_15_ > _JCROSS_霤:1.0__ID_霤_20_ _JCROSS_霤:1.0__ID_霤_19_ _JCROSS_霤:1.0__ID_霤_15_ >= _JCROSS_霤:1.0__ID_霤_2_:
+            _JCROSS_霤:1.0__ID_霤_3_ = _JCROSS_霤:1.0__ID_霤_10_
+            _JCROSS_霤:1.0__ID_霤_20_ = _JCROSS_霤:1.0__ID_霤_15_
+
+    return _JCROSS_霤:1.0__ID_霤_3_
+
+// POLYMORPHIC_JCROSS_END

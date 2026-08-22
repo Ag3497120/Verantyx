@@ -1,0 +1,121 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EDAD622C ver:1778158792
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_霜:1.0__JCROSS_霜_41_ _TOKEN_霜:1.0__JCROSS_霜_49_::_TOKEN_霜:1.0__JCROSS_霜_39_::_TOKEN_廟:1.0__JCROSS_廟_13_;
+_TOKEN_霜:1.0__JCROSS_霜_41_ _TOKEN_霜:1.0__JCROSS_霜_49_::_TOKEN_霜:1.0__JCROSS_霜_51_::{_TOKEN_廟:1.0__JCROSS_廟_3_, _TOKEN_廟:1.0__JCROSS_廟_26_};
+// _TOKEN_煌:0.3__JCROSS_EE_984_ [decoy-metadata]
+_TOKEN_霜:1.0__JCROSS_霜_41_ _TOKEN_霜:1.0__JCROSS_霜_54_::_TOKEN_廟:1.0__JCROSS_廟_27_;
+_TOKEN_霜:1.0__JCROSS_霜_41_ _TOKEN_霜:1.0__JCROSS_霜_65_::{_TOKEN_廟:1.0__JCROSS_廟_11_, _TOKEN_廟:1.0__JCROSS_廟_10_};
+
+// [metadata-stripped]
+_TOKEN_霜:1.0__JCROSS_霜_44_ _TOKEN_霜:1.0__JCROSS_霜_29_uct _TOKEN_廟:1.0__JCROSS_廟_1_ {
+    _TOKEN_霜:1.0__JCROSS_霜_44_ _TOKEN_霜:1.0__JCROSS_霜_19_: _TOKEN_廟:1.0__JCROSS_廟_13_<_TOKEN_廟:1.0__JCROSS_廟_22_, _TOKEN_廟:1.0__JCROSS_廟_22_>,
+}
+
+_TOKEN_霜:1.0__JCROSS_霜_44_ _TOKEN_霜:1.0__JCROSS_霜_29_uct _TOKEN_廟:1.0__JCROSS_廟_19_ {
+    _TOKEN_霜:1.0__JCROSS_霜_31_: _TOKEN_廟:1.0__JCROSS_廟_22_,
+// _TOKEN_霜:0.5__JCROSS_GL_649_ [decoy-metadata]
+    _TOKEN_霜:1.0__JCROSS_霜_11_: _TOKEN_廟:1.0__JCROSS_廟_3_<_TOKEN_廟:1.0__JCROSS_廟_26_<_TOKEN_廟:1.0__JCROSS_廟_1_>>,
+    db: _TOKEN_霜:1.0__JCROSS_霜_53_::Db,
+}
+
+_TOKEN_霜:1.0__JCROSS_霜_45_ _TOKEN_廟:1.0__JCROSS_廟_19_ {
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_霜:1.0__JCROSS_霜_15_(_TOKEN_霜:1.0__JCROSS_霜_31_: &_TOKEN_霜:1.0__JCROSS_霜_29_, _TOKEN_霜:1.0__JCROSS_霜_62_: &_TOKEN_霜:1.0__JCROSS_霜_49_::_TOKEN_霜:1.0__JCROSS_霜_61_::_TOKEN_廟:1.0__JCROSS_廟_25_) -> _TOKEN_廟:1.0__JCROSS_廟_27_<_TOKEN_廟:1.0__JCROSS_廟_18_> {
+        let db = _TOKEN_霜:1.0__JCROSS_霜_53_::open(_TOKEN_霜:1.0__JCROSS_霜_62_)?;
+        let _TOKEN_沈:1.0__JCROSS_霜_23_ = _TOKEN_湧:1.0__JCROSS_霜_5_!("_TOKEN_霜:1.0__JCROSS_霜_2_{}", _TOKEN_霜:1.0__JCROSS_霜_31_);
+        
+        let _TOKEN_霜:1.0__JCROSS_霜_47_ = if let _TOKEN_廟:1.0__JCROSS_廟_14_(_TOKEN_霜:1.0__JCROSS_霜_63_) = db._TOKEN_要:1.0__JCROSS_煌_1_(&_TOKEN_沈:1.0__JCROSS_霜_23_)? {
+            _TOKEN_霜:1.0__JCROSS_霜_4_::_TOKEN_霜:1.0__JCROSS_霜_10_(&_TOKEN_霜:1.0__JCROSS_霜_63_)._TOKEN_霜:1.0__JCROSS_霜_27_()
+        } else {
+            _TOKEN_廟:1.0__JCROSS_廟_1_::_TOKEN_霜:1.0__JCROSS_霜_35_()
+        };
+
+        Ok(_TOKEN_廟:1.0__JCROSS_廟_18_ {
+            _TOKEN_霜:1.0__JCROSS_霜_31_: _TOKEN_霜:1.0__JCROSS_霜_31_._TOKEN_霜:1.0__JCROSS_霜_34_(),
+            _TOKEN_霜:1.0__JCROSS_霜_11_: _TOKEN_廟:1.0__JCROSS_廟_3_::_TOKEN_霜:1.0__JCROSS_霜_15_(_TOKEN_廟:1.0__JCROSS_廟_26_::_TOKEN_霜:1.0__JCROSS_霜_15_(_TOKEN_霜:1.0__JCROSS_霜_47_)),
+            db,
+        })
+// _TOKEN_廟:0.8__JCROSS_FB_745_ [decoy-metadata]
+    }
+
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_要:1.0__JCROSS_煌_2_(&self, _TOKEN_沈:1.0__JCROSS_霜_14_: &_TOKEN_霜:1.0__JCROSS_霜_29_, _TOKEN_霜:1.0__JCROSS_霜_12_: &_TOKEN_霜:1.0__JCROSS_霜_29_) -> _TOKEN_廟:1.0__JCROSS_廟_27_<()> {
+        {
+            let _TOKEN_霜:1.0__JCROSS_霜_1_ _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_57_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+            _TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_19_._TOKEN_霜:1.0__JCROSS_霜_22_(_TOKEN_沈:1.0__JCROSS_霜_14_._TOKEN_霜:1.0__JCROSS_霜_34_(), _TOKEN_霜:1.0__JCROSS_霜_12_._TOKEN_霜:1.0__JCROSS_霜_34_());
+        }
+        self._TOKEN_霜:1.0__JCROSS_霜_64_()
+    }
+
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_要:1.0__JCROSS_煌_3_(&self, _TOKEN_沈:1.0__JCROSS_霜_14_: &_TOKEN_霜:1.0__JCROSS_霜_29_) -> _TOKEN_廟:1.0__JCROSS_廟_20_<_TOKEN_廟:1.0__JCROSS_廟_22_> {
+        let _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_58_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+        _TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_19_._TOKEN_要:1.0__JCROSS_煌_1_(_TOKEN_沈:1.0__JCROSS_霜_14_)._TOKEN_霜:1.0__JCROSS_霜_50_()
+    }
+
+// _TOKEN_緋:0.6__JCROSS_KY_701_ [decoy-metadata]
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_霜:1.0__JCROSS_霜_32_(&self, _TOKEN_沈:1.0__JCROSS_霜_14_: &_TOKEN_霜:1.0__JCROSS_霜_29_) -> _TOKEN_廟:1.0__JCROSS_廟_27_<()> {
+        {
+            let _TOKEN_霜:1.0__JCROSS_霜_1_ _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_57_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+            _TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_19_._TOKEN_霜:1.0__JCROSS_霜_48_(_TOKEN_沈:1.0__JCROSS_霜_14_);
+        }
+        self._TOKEN_霜:1.0__JCROSS_霜_64_()
+    }
+
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_霜:1.0__JCROSS_霜_18_(&self) -> _TOKEN_廟:1.0__JCROSS_廟_27_<()> {
+        {
+            let _TOKEN_霜:1.0__JCROSS_霜_1_ _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_57_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+            _TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_19_._TOKEN_霜:1.0__JCROSS_霜_18_();
+        }
+        self._TOKEN_霜:1.0__JCROSS_霜_64_()
+    }
+
+    _TOKEN_霜:1.0__JCROSS_霜_44_ fn _TOKEN_霜:1.0__JCROSS_霜_8_(&self) -> _TOKEN_霜:1.0__JCROSS_霜_40_ {
+        let _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_58_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+        _TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_19_._TOKEN_霜:1.0__JCROSS_霜_20_()
+    }
+
+    fn _TOKEN_霜:1.0__JCROSS_霜_64_(&self) -> _TOKEN_廟:1.0__JCROSS_廟_27_<()> {
+        let _TOKEN_霜:1.0__JCROSS_霜_11_ = self._TOKEN_霜:1.0__JCROSS_霜_11_._TOKEN_霜:1.0__JCROSS_霜_58_()._TOKEN_霜:1.0__JCROSS_霜_52_();
+        let _TOKEN_霜:1.0__JCROSS_霜_63_ = _TOKEN_霜:1.0__JCROSS_霜_4_::_TOKEN_霜:1.0__JCROSS_霜_7_(&*_TOKEN_霜:1.0__JCROSS_霜_11_)?;
+// _TOKEN_箱:0.4__JCROSS_BM_297_ [decoy-metadata]
+        let _TOKEN_沈:1.0__JCROSS_霜_23_ = _TOKEN_湧:1.0__JCROSS_霜_5_!("_TOKEN_霜:1.0__JCROSS_霜_2_{}", self._TOKEN_霜:1.0__JCROSS_霜_31_);
+        self.db._TOKEN_霜:1.0__JCROSS_霜_22_(_TOKEN_沈:1.0__JCROSS_霜_23_, _TOKEN_霜:1.0__JCROSS_霜_63_)?;
+// _TOKEN_緋:0.9__JCROSS_LH_759_ [decoy-metadata]
+        self.db._TOKEN_霜:1.0__JCROSS_霜_59_()?;
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+_TOKEN_霜:1.0__JCROSS_霜_13_ _TOKEN_霜:1.0__JCROSS_霜_6_ {
+    _TOKEN_霜:1.0__JCROSS_霜_41_ super::*;
+    _TOKEN_霜:1.0__JCROSS_霜_41_ _TOKEN_箱:1.0__JCROSS_霜_42_::_TOKEN_霜:1.0__JCROSS_霜_25_;
+
+// [metadata-stripped]
+    fn _TOKEN_霜:1.0__JCROSS_霜_30_() -> _TOKEN_廟:1.0__JCROSS_廟_27_<()> {
+        let _TOKEN_霜:1.0__JCROSS_霜_9_ = _TOKEN_霜:1.0__JCROSS_霜_25_()?;
+        let _TOKEN_霜:1.0__JCROSS_霜_62_ = _TOKEN_霜:1.0__JCROSS_霜_9_._TOKEN_霜:1.0__JCROSS_霜_61_()._TOKEN_霜:1.0__JCROSS_霜_24_("_TOKEN_霜:1.0__JCROSS_霜_28_");
+        
+        {
+            let ls = _TOKEN_廟:1.0__JCROSS_廟_19_::_TOKEN_霜:1.0__JCROSS_霜_15_("_TOKEN_霜:1.0__JCROSS_霜_3_._TOKEN_霜:1.0__JCROSS_霜_38_", &_TOKEN_霜:1.0__JCROSS_霜_62_)?;
+            ls._TOKEN_要:1.0__JCROSS_煌_2_("_TOKEN_沈:1.0__JCROSS_霜_43_", "_TOKEN_霜:1.0__JCROSS_霜_66_")?;
+            _TOKEN_霜:1.0__JCROSS_霜_17_!(ls._TOKEN_要:1.0__JCROSS_煌_3_("_TOKEN_沈:1.0__JCROSS_霜_43_"), _TOKEN_廟:1.0__JCROSS_廟_14_("_TOKEN_霜:1.0__JCROSS_霜_66_"._TOKEN_霜:1.0__JCROSS_霜_34_()));
+        }
+
+// [metadata-stripped]
+        {
+            let ls = _TOKEN_廟:1.0__JCROSS_廟_19_::_TOKEN_霜:1.0__JCROSS_霜_15_("_TOKEN_霜:1.0__JCROSS_霜_3_._TOKEN_霜:1.0__JCROSS_霜_38_", &_TOKEN_霜:1.0__JCROSS_霜_62_)?;
+            _TOKEN_霜:1.0__JCROSS_霜_17_!(ls._TOKEN_要:1.0__JCROSS_煌_3_("_TOKEN_沈:1.0__JCROSS_霜_43_"), _TOKEN_廟:1.0__JCROSS_廟_14_("_TOKEN_霜:1.0__JCROSS_霜_66_"._TOKEN_霜:1.0__JCROSS_霜_34_()));
+            ls._TOKEN_霜:1.0__JCROSS_霜_32_("_TOKEN_沈:1.0__JCROSS_霜_43_")?;
+            _TOKEN_霜:1.0__JCROSS_霜_17_!(ls._TOKEN_要:1.0__JCROSS_煌_3_("_TOKEN_沈:1.0__JCROSS_霜_43_"), _TOKEN_廟:1.0__JCROSS_廟_17_);
+        }
+
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

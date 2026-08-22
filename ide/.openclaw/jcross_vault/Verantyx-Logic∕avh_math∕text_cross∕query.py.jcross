@@ -1,0 +1,50 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:36B70FA2 ver:1778159755
+// ⚠️ One-time schema — expires after response
+
+// _ASTNODE_粒:0.8__OPAQUE_FL_333_ [decoy-metadata]
+_ASTNODE_粒:1.0__OPAQUE_粒_2_ _ASTNODE_粒:1.0__OPAQUE_粒_13_ import _ASTNODE_廟:1.0__OPAQUE_廟_4_
+
+_ASTNODE_粒:1.0__OPAQUE_粒_2_ ._ASTNODE_粒:1.0__OPAQUE_粒_9_ import _ASTNODE_廟:1.0__OPAQUE_廟_2_
+// _ASTNODE_粒:0.9__OPAQUE_CL_258_ [decoy-metadata]
+// _ASTNODE_絡:0.4__OPAQUE_EC_682_ [decoy-metadata]
+_ASTNODE_粒:1.0__OPAQUE_粒_2_ ._ASTNODE_粒:1.0__OPAQUE_粒_4_ import _ASTNODE_粒:1.0__OPAQUE_粒_7_, _ASTNODE_箱:1.0__OPAQUE_粒_31_
+// _ASTNODE_箱:0.4__OPAQUE_EA_748_ [decoy-metadata]
+_ASTNODE_粒:1.0__OPAQUE_粒_2_ ._ASTNODE_粒:1.0__OPAQUE_粒_5_ import _ASTNODE_粒:1.0__OPAQUE_粒_5_
+_ASTNODE_粒:1.0__OPAQUE_粒_2_ ._ASTNODE_粒:1.0__OPAQUE_粒_37_ import _ASTNODE_箱:1.0__OPAQUE_粒_22_
+
+
+_ASTNODE_粒:1.0__OPAQUE_粒_26_ _ASTNODE_粒:1.0__OPAQUE_粒_14_(_ASTNODE_粒:1.0__OPAQUE_粒_9_: _ASTNODE_廟:1.0__OPAQUE_廟_2_, _ASTNODE_粒:1.0__OPAQUE_粒_15_: _ASTNODE_粒:1.0__OPAQUE_粒_16_ = 3) -> _ASTNODE_廟:1.0__OPAQUE_廟_4_[_ASTNODE_廟:1.0__OPAQUE_廟_2_]:
+    _ASTNODE_粒:1.0__OPAQUE_粒_37_ = _ASTNODE_箱:1.0__OPAQUE_粒_22_()
+    if _ASTNODE_粒:1.0__OPAQUE_粒_37_:
+// [metadata-stripped]
+        _ASTNODE_粒:1.0__OPAQUE_粒_11_ = {n._ASTNODE_粒:1.0__OPAQUE_粒_27_._ASTNODE_律:1.0__OPAQUE_粋_2_("_ASTNODE_粒:1.0__OPAQUE_粒_34_", "") for n in _ASTNODE_粒:1.0__OPAQUE_粒_9_._ASTNODE_粒:1.0__OPAQUE_粒_32_._ASTNODE_粒:1.0__OPAQUE_粒_8_()}
+        _ASTNODE_粒:1.0__OPAQUE_粒_25_ = []
+        for _ASTNODE_粒:1.0__OPAQUE_粒_36_, _ASTNODE_粒:1.0__OPAQUE_粒_6_ in _ASTNODE_粒:1.0__OPAQUE_粒_37_._ASTNODE_粒:1.0__OPAQUE_粒_20_():
+            _ASTNODE_粒:1.0__OPAQUE_粒_23_ = _ASTNODE_律:1.0__OPAQUE_粋_1_(_ASTNODE_粒:1.0__OPAQUE_粒_6_._ASTNODE_粒:1.0__OPAQUE_粒_17_("|")) if _ASTNODE_粒:1.0__OPAQUE_粒_6_ else _ASTNODE_律:1.0__OPAQUE_粋_1_()
+            if _ASTNODE_粒:1.0__OPAQUE_粒_24_ _ASTNODE_粒:1.0__OPAQUE_粒_23_:
+                continue
+            _ASTNODE_粒:1.0__OPAQUE_粒_33_ = _ASTNODE_粒:1.0__OPAQUE_粒_12_(_ASTNODE_粒:1.0__OPAQUE_粒_11_ & _ASTNODE_粒:1.0__OPAQUE_粒_23_) / _ASTNODE_粒:1.0__OPAQUE_粒_10_(_ASTNODE_粒:1.0__OPAQUE_粒_12_(_ASTNODE_粒:1.0__OPAQUE_粒_11_), 1)
+            if _ASTNODE_粒:1.0__OPAQUE_粒_33_ > 0:
+// _ASTNODE_箱:0.6__OPAQUE_LH_179_ [decoy-metadata]
+                _ASTNODE_粒:1.0__OPAQUE_粒_25_._ASTNODE_粒:1.0__OPAQUE_粒_38_((_ASTNODE_粒:1.0__OPAQUE_粒_33_, _ASTNODE_粒:1.0__OPAQUE_粒_36_))
+        _ASTNODE_粒:1.0__OPAQUE_粒_25_._ASTNODE_粒:1.0__OPAQUE_粒_19_(_ASTNODE_沈:1.0__OPAQUE_粒_29_=_ASTNODE_粒:1.0__OPAQUE_粒_18_ x: x[0], _ASTNODE_粒:1.0__OPAQUE_粒_30_=_ASTNODE_廟:1.0__OPAQUE_廟_3_)
+        _ASTNODE_粒:1.0__OPAQUE_粒_35_ = []
+        for _, _ASTNODE_粒:1.0__OPAQUE_粒_3_ in _ASTNODE_粒:1.0__OPAQUE_粒_25_[:_ASTNODE_粒:1.0__OPAQUE_粒_15_ * 4]:
+            c = _ASTNODE_箱:1.0__OPAQUE_粒_31_(_ASTNODE_粒:1.0__OPAQUE_粒_3_)
+            if c:
+                _ASTNODE_粒:1.0__OPAQUE_粒_35_._ASTNODE_粒:1.0__OPAQUE_粒_38_(c)
+            if _ASTNODE_粒:1.0__OPAQUE_粒_12_(_ASTNODE_粒:1.0__OPAQUE_粒_35_) >= _ASTNODE_粒:1.0__OPAQUE_粒_15_:
+// _ASTNODE_粋:0.2__OPAQUE_VB_923_ [decoy-metadata]
+                break
+        return _ASTNODE_粒:1.0__OPAQUE_粒_35_
+
+    _ASTNODE_粒:1.0__OPAQUE_粒_21_ = []
+    for c in _ASTNODE_粒:1.0__OPAQUE_粒_7_():
+        s = _ASTNODE_粒:1.0__OPAQUE_粒_5_(_ASTNODE_粒:1.0__OPAQUE_粒_9_, c)
+        if s > 0:
+            _ASTNODE_粒:1.0__OPAQUE_粒_21_._ASTNODE_粒:1.0__OPAQUE_粒_38_((s, c))
+    _ASTNODE_粒:1.0__OPAQUE_粒_21_._ASTNODE_粒:1.0__OPAQUE_粒_19_(_ASTNODE_沈:1.0__OPAQUE_粒_29_=_ASTNODE_粒:1.0__OPAQUE_粒_18_ x: x[0], _ASTNODE_粒:1.0__OPAQUE_粒_30_=_ASTNODE_廟:1.0__OPAQUE_廟_3_)
+    return [c for _, c in _ASTNODE_粒:1.0__OPAQUE_粒_21_[:_ASTNODE_粒:1.0__OPAQUE_粒_15_]]
+
+// POLYMORPHIC_JCROSS_END

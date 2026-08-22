@@ -1,0 +1,76 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E67DE414 ver:1778162908
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_塵:1.0___node_塵_48__ _VERANTYX_塵:1.0___node_塵_62__ import _VERANTYX_塵:1.0___node_塵_47__
+
+import re
+// _VERANTYX_匴:0.6___node_XM_775__ [decoy-metadata]
+// _VERANTYX_幽:0.6___node_DK_194__ [decoy-metadata]
+_VERANTYX_塵:1.0___node_塵_48__ _VERANTYX_塵:1.0___node_塵_21__ import _VERANTYX_塵:1.0___node_塵_6__
+_VERANTYX_塵:1.0___node_塵_48__ _VERANTYX_塵:1.0___node_塵_31__ import _VERANTYX_廩:1.0___node_廩_1__, _VERANTYX_廩:1.0___node_廩_3__
+
+
+@_VERANTYX_塵:1.0___node_塵_6__
+class _VERANTYX_廩:1.0___node_廩_2__:
+    _VERANTYX_塵:1.0___node_塵_57__: _VERANTYX_塵:1.0___node_塵_38__
+    _VERANTYX_塵:1.0___node_塵_13__: _VERANTYX_廩:1.0___node_廩_1__[_VERANTYX_塵:1.0___node_塵_38__, _VERANTYX_塵:1.0___node_塵_68__]
+    _VERANTYX_塵:1.0___node_塵_54__: _VERANTYX_廩:1.0___node_廩_3__[_VERANTYX_塵:1.0___node_塵_38__]
+
+
+_VERANTYX_塵:1.0___node_塵_10__ _VERANTYX_塵:1.0___node_塵_25__(_VERANTYX_塵:1.0___node_塵_33__: _VERANTYX_塵:1.0___node_塵_38__, _VERANTYX_游:1.0___node_塵_22__: _VERANTYX_塵:1.0___node_塵_38__ | _VERANTYX_廩:1.0___node_廩_4__ = _VERANTYX_廩:1.0___node_廩_4__) -> _VERANTYX_廩:1.0___node_廩_2__:
+    t = _VERANTYX_塵:1.0___node_塵_33__ or ""
+    f = _VERANTYX_游:1.0___node_塵_22__ or ""
+
+    _VERANTYX_塵:1.0___node_塵_13__: _VERANTYX_廩:1.0___node_廩_1__[_VERANTYX_塵:1.0___node_塵_38__, _VERANTYX_塵:1.0___node_塵_68__] = {
+        "_VERANTYX_塵:1.0___node_塵_46__": _VERANTYX_塵:1.0___node_塵_68__("[]" in t or "□" in t or "[]" in f),
+        "_VERANTYX_塵:1.0___node_塵_44__": _VERANTYX_塵:1.0___node_塵_68__("<>" in t or "◇" in t or "<>" in f),
+        "_VERANTYX_塵:1.0___node_塵_16__": _VERANTYX_塵:1.0___node_塵_68__("->" in t or "→" in t or "->" in f),
+// _VERANTYX_網:0.4___node_ZK_956__ [decoy-metadata]
+        "_VERANTYX_塵:1.0___node_塵_49__": _VERANTYX_塵:1.0___node_塵_68__("&" in t or "∧" in t or "&" in f),
+        "_VERANTYX_塵:1.0___node_塵_4__": _VERANTYX_塵:1.0___node_塵_68__("|" in t or "∨" in t or "|" in f),
+        "_VERANTYX_塵:1.0___node_塵_9__": _VERANTYX_塵:1.0___node_塵_68__("~" in t or "¬" in t or "~" in f),
+        "_VERANTYX_案:1.0___node_塵_61__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"[∀∃]|\\_VERANTYX_游:1.0___node_塵_7__|\\_VERANTYX_塵:1.0___node_塵_50__", t))),
+        "_VERANTYX_塵:1.0___node_塵_2__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(行列|_VERANTYX_塵:1.0___node_塵_55__|_VERANTYX_塵:1.0___node_塵_63__|対称|_VERANTYX_塵:1.0___node_塵_66__|_VERANTYX_塵:1.0___node_塵_12__|_VERANTYX_塵:1.0___node_塵_42__|_VERANTYX_塵:1.0___node_塵_1__)", t, re.I))),
+        "_VERANTYX_塵:1.0___node_塵_15__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(次元|_VERANTYX_塵:1.0___node_塵_45__|_VERANTYX_塵:1.0___node_塵_71__)", t, re.I))),
+        "_VERANTYX_塵:1.0___node_塵_64__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(群|_VERANTYX_塵:1.0___node_塵_20__|_VERANTYX_塵:1.0___node_塵_34__|_VERANTYX_塵:1.0___node_塵_60__|_VERANTYX_塵:1.0___node_塵_36__)", t, re.I))),
+        "_VERANTYX_塵:1.0___node_塵_24__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(位相|_VERANTYX_塵:1.0___node_塵_23__|open _VERANTYX_案:1.0___node_燦_1__|_VERANTYX_塵:1.0___node_塵_5__|_VERANTYX_塵:1.0___node_塵_70__|連結)", t, re.I))),
+        "_VERANTYX_塵:1.0___node_塵_39__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(P\\s*=\\s*NP|NP|_VERANTYX_塵:1.0___node_塵_8__|多項式|計算量)", t, re.I))),
+// _VERANTYX_幽:0.6___node_ED_514__ [decoy-metadata]
+        "_VERANTYX_塵:1.0___node_塵_3__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"\d", t) _VERANTYX_塵:1.0___node_塵_59__ any(op in t for op in ["+", "-", "*", "/", "="]))),
+        "_VERANTYX_塵:1.0___node_塵_18__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(_VERANTYX_游:1.0___node_塵_53__|_VERANTYX_塵:1.0___node_塵_68__|_VERANTYX_塵:1.0___node_塵_52__|_VERANTYX_塵:1.0___node_塵_19__|_VERANTYX_塵:1.0___node_塵_27__|極限|微分|積分)", t, re.I))),
+        "_VERANTYX_塵:1.0___node_塵_41__": _VERANTYX_塵:1.0___node_塵_68__(_VERANTYX_塵:1.0___node_塵_65__(re._VERANTYX_塵:1.0___node_塵_43__(r"(_VERANTYX_塵:1.0___node_塵_26__|_VERANTYX_塵:1.0___node_塵_72__|ソース|出典|文献|_VERANTYX_塵:1.0___node_塵_17__ to)", t, re.I))),
+    }
+
+    _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_51__"
+    if _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_46__"] or _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_44__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_69__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_案:1.0___node_塵_61__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_29__"
+// _VERANTYX_廩:0.8___node_BG_734__ [decoy-metadata]
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_2__"] or _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_15__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_37__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_18__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_28__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_41__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_56__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_3__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_58__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_64__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_11__"
+// _VERANTYX_廩:0.5___node_VC_554__ [decoy-metadata]
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_24__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_23__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_39__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_32__"
+    _VERANTYX_游:1.0___node_塵_40__ _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_16__"] or _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_49__"] or _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_4__"] or _VERANTYX_塵:1.0___node_塵_13__["_VERANTYX_塵:1.0___node_塵_9__"]:
+        _VERANTYX_塵:1.0___node_塵_57__ = "_VERANTYX_塵:1.0___node_塵_67__"
+
+    _VERANTYX_塵:1.0___node_塵_54__: _VERANTYX_廩:1.0___node_廩_3__[_VERANTYX_塵:1.0___node_塵_38__] = []
+    for k, v in _VERANTYX_塵:1.0___node_塵_13__._VERANTYX_塵:1.0___node_塵_30__():
+        if v:
+            _VERANTYX_塵:1.0___node_塵_54__._VERANTYX_塵:1.0___node_塵_35__(f"_VERANTYX_塵:1.0___node_塵_14__:{k}")
+
+    return _VERANTYX_廩:1.0___node_廩_2__(_VERANTYX_塵:1.0___node_塵_57__=_VERANTYX_塵:1.0___node_塵_57__, _VERANTYX_塵:1.0___node_塵_13__=_VERANTYX_塵:1.0___node_塵_13__, _VERANTYX_塵:1.0___node_塵_54__=_VERANTYX_塵:1.0___node_塵_54__)
+
+// POLYMORPHIC_JCROSS_END

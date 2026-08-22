@@ -1,0 +1,33 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C013B1E6 ver:1778159673
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霞:1.0__OPAQUE_霞_2_ _VERANTYX_霞:1.0__OPAQUE_霞_3_ import _VERANTYX_霞:1.0__OPAQUE_霞_15_
+
+_VERANTYX_霞:1.0__OPAQUE_霞_2_ _VERANTYX_霞:1.0__OPAQUE_霞_18_ import _VERANTYX_廂:1.0__OPAQUE_廂_2_
+import re
+
+
+_VERANTYX_廂:1.0__OPAQUE_廂_1_ = [
+// _VERANTYX_匽:0.6__OPAQUE_FK_499_ [decoy-metadata]
+// _VERANTYX_核:0.4__OPAQUE_GL_313_ [decoy-metadata]
+    (r"\[\]p->\[\]\[\]p", ["_VERANTYX_霞:1.0__OPAQUE_霞_17_:_VERANTYX_霞:1.0__OPAQUE_霞_1_"]),
+// _VERANTYX_法:0.3__OPAQUE_HB_130_ [decoy-metadata]
+    (r"\[\]p->p", ["_VERANTYX_霞:1.0__OPAQUE_霞_17_:_VERANTYX_霞:1.0__OPAQUE_霞_12_"]),
+]
+
+// _VERANTYX_滾:0.6__OPAQUE_GF_526_ [decoy-metadata]
+
+_VERANTYX_霞:1.0__OPAQUE_霞_9_ _VERANTYX_霞:1.0__OPAQUE_霞_19_(_VERANTYX_滾:1.0__OPAQUE_霞_7_: _VERANTYX_霞:1.0__OPAQUE_霞_16_, _VERANTYX_霞:1.0__OPAQUE_霞_4_: _VERANTYX_廂:1.0__OPAQUE_廂_2_[_VERANTYX_霞:1.0__OPAQUE_霞_16_]) -> _VERANTYX_廂:1.0__OPAQUE_廂_2_[_VERANTYX_霞:1.0__OPAQUE_霞_16_]:
+    f = (_VERANTYX_滾:1.0__OPAQUE_霞_7_ or "")._VERANTYX_霞:1.0__OPAQUE_霞_14_(" ", "")
+    _VERANTYX_霞:1.0__OPAQUE_霞_5_: _VERANTYX_廂:1.0__OPAQUE_廂_2_[_VERANTYX_霞:1.0__OPAQUE_霞_16_] = []
+    for _VERANTYX_霞:1.0__OPAQUE_霞_6_, _VERANTYX_霞:1.0__OPAQUE_霞_10_ in _VERANTYX_廂:1.0__OPAQUE_廂_1_:
+        if re._VERANTYX_霞:1.0__OPAQUE_霞_8_(_VERANTYX_霞:1.0__OPAQUE_霞_6_, f):
+            for r in _VERANTYX_霞:1.0__OPAQUE_霞_10_:
+// _VERANTYX_廂:0.9__OPAQUE_GL_882_ [decoy-metadata]
+                if r _VERANTYX_霞:1.0__OPAQUE_霞_11_ in _VERANTYX_霞:1.0__OPAQUE_霞_4_:
+                    _VERANTYX_霞:1.0__OPAQUE_霞_5_._VERANTYX_霞:1.0__OPAQUE_霞_13_(r)
+// _VERANTYX_核:0.8__OPAQUE_YL_294_ [decoy-metadata]
+    return _VERANTYX_霞:1.0__OPAQUE_霞_5_
+
+// POLYMORPHIC_JCROSS_END

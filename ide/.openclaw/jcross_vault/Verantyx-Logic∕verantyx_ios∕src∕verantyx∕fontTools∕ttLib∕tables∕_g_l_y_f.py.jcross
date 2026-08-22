@@ -1,0 +1,2323 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DB8A31B7 ver:1778162235
+// _JCROSS_碑:0.2__SYM_CL_483_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+"""_JCROSS_雰:1.0__SYM_雰_366_.py -- _JCROSS_謀:1.0__SYM_廬_40_ _JCROSS_雰:1.0__SYM_雰_685_ for _JCROSS_雰:1.0__SYM_雰_350_ '_JCROSS_雰:1.0__SYM_雰_662_' _JCROSS_雰:1.0__SYM_雰_117_."""
+
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_767_ import _JCROSS_雰:1.0__SYM_雰_466_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_ import _JCROSS_雰:1.0__SYM_雰_3_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_ import _JCROSS_雰:1.0__SYM_雰_633_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_ import _JCROSS_雰:1.0__SYM_雰_521_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_漂:1.0__SYM_雰_463_ import _JCROSS_廬:1.0__SYM_廬_16_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_65_ import _JCROSS_雰:1.0__SYM_雰_32_, _JCROSS_雰:1.0__SYM_雰_394_, _JCROSS_雰:1.0__SYM_雰_330_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_207_ import _JCROSS_雰:1.0__SYM_雰_871_, _JCROSS_雰:1.0__SYM_雰_358_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_147_ import _JCROSS_雰:1.0__SYM_雰_855_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_491_ import (
+    _JCROSS_雰:1.0__SYM_雰_587_ as _JCROSS_雰:1.0__SYM_雰_8_,
+    _JCROSS_雰:1.0__SYM_雰_818_ as _JCROSS_雰:1.0__SYM_雰_113_,
+    _JCROSS_雰:1.0__SYM_雰_873_ as _JCROSS_雰:1.0__SYM_雰_277_,
+    _JCROSS_雰:1.0__SYM_雰_597_ as _JCROSS_雰:1.0__SYM_雰_355_,
+)
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_99_ import _JCROSS_雰:1.0__SYM_雰_673_, _JCROSS_雰:1.0__SYM_雰_816_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_25_ import _JCROSS_廬:1.0__SYM_廬_21_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_229_ import _JCROSS_謀:1.0__SYM_廬_55_
+_JCROSS_雰:1.0__SYM_雰_312_ . import _JCROSS_廬:1.0__SYM_廬_94_
+_JCROSS_雰:1.0__SYM_雰_312_ . import _JCROSS_雰:1.0__SYM_雰_52_
+import _JCROSS_雰:1.0__SYM_雰_648_
+import _JCROSS_雰:1.0__SYM_雰_101_uct
+import _JCROSS_雰:1.0__SYM_雰_494_
+import _JCROSS_雰:1.0__SYM_雰_67_
+import _JCROSS_雰:1.0__SYM_雰_838_
+import os
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_ import _JCROSS_謀:1.0__SYM_雰_874_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_区:1.0__SYM_雰_51_ import _JCROSS_区:1.0__SYM_雰_777_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_340_._JCROSS_雰:1.0__SYM_雰_70_ import _JCROSS_雰:1.0__SYM_雰_622_
+_JCROSS_雰:1.0__SYM_雰_312_ enum import _JCROSS_廬:1.0__SYM_廬_37_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_652_ import _JCROSS_雰:1.0__SYM_雰_364_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_718_ import _JCROSS_廬:1.0__SYM_廬_51_
+_JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_780_ import _JCROSS_謀:1.0__SYM_碑_18_
+
+_JCROSS_雰:1.0__SYM_雰_843_ = _JCROSS_雰:1.0__SYM_雰_67_._JCROSS_謀:1.0__SYM_碑_1_(_JCROSS_雰:1.0__SYM_雰_320_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_雰:1.0__SYM_雰_521_ = "."._JCROSS_雰:1.0__SYM_雰_240_(_JCROSS_雰:1.0__SYM_雰_521_._JCROSS_雰:1.0__SYM_雰_76_(".")[:2])
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_廬:1.0__SYM_廬_65_ = 0  # 0 == MS, 1 == _JCROSS_廬:1.0__SYM_廬_39_
+
+
+class _JCROSS_雰:1.0__SYM_雰_575_(_JCROSS_廬:1.0__SYM_廬_94_._JCROSS_廬:1.0__SYM_廬_94_):
+    """_JCROSS_廬:1.0__SYM_廬_56_ _JCROSS_廬:1.0__SYM_廬_104_ _JCROSS_雰:1.0__SYM_雰_117_
+
+    _JCROSS_廬:1.0__SYM_廬_45_ class _JCROSS_雰:1.0__SYM_雰_555_ _JCROSS_雰:1.0__SYM_雰_350_ `_JCROSS_雰:1.0__SYM_雰_662_ <_JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_263_._JCROSS_雰:1.0__SYM_雰_125_._JCROSS_雰:1.0__SYM_雰_891_/en-us/_JCROSS_雰:1.0__SYM_雰_212_/_JCROSS_雰:1.0__SYM_雰_407_/_JCROSS_雰:1.0__SYM_雰_535_/_JCROSS_雰:1.0__SYM_雰_662_>`_
+    _JCROSS_雰:1.0__SYM_雰_117_, _JCROSS_雰:1.0__SYM_雰_258_ _JCROSS_雰:1.0__SYM_雰_38_ _JCROSS_雰:1.0__SYM_雰_605_ for _JCROSS_雰:1.0__SYM_雰_534_ in _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_漂:1.0__SYM_雰_300_. In _JCROSS_雰:1.0__SYM_雰_416_ _JCROSS_雰:1.0__SYM_雰_142_,
+    it is _JCROSS_謀:1.0__SYM_雰_585_ to _JCROSS_雰:1.0__SYM_雰_645_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_554_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_605_ _JCROSS_雰:1.0__SYM_雰_581_ _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_廬:1.0__SYM_廬_34_``
+    _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_291_ _JCROSS_雰:1.0__SYM_雰_312_ :py:_JCROSS_雰:1.0__SYM_雰_140_:`_JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_633_._JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_13_`::
+
+                    >> _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_408_._JCROSS_雰:1.0__SYM_雰_857_ import _JCROSS_廬:1.0__SYM_廬_53_
+                    >> _JCROSS_雰:1.0__SYM_雰_796_ = _JCROSS_雰:1.0__SYM_雰_801_._JCROSS_謀:1.0__SYM_碑_13_()
+                    >> bp = _JCROSS_廬:1.0__SYM_廬_53_(_JCROSS_雰:1.0__SYM_雰_796_)
+                    >> _JCROSS_雰:1.0__SYM_雰_796_["A"]._JCROSS_雰:1.0__SYM_雰_15_(bp)
+                    >> bp._JCROSS_雰:1.0__SYM_雰_127_
+                    (19, 0, 633, 716)
+
+    _JCROSS_謀:1.0__SYM_廬_41_, _JCROSS_雰:1.0__SYM_雰_92_ class _JCROSS_雰:1.0__SYM_雰_721_ be _JCROSS_雰:1.0__SYM_雰_566_ for _JCROSS_雰:1.0__SYM_雰_62_-_JCROSS_雰:1.0__SYM_雰_692_ _JCROSS_雰:1.0__SYM_雰_645_ to _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_雰:1.0__SYM_雰_662_`` _JCROSS_雰:1.0__SYM_雰_117_ _JCROSS_雰:1.0__SYM_雰_799_.
+    _JCROSS_廬:1.0__SYM_廬_70_ of _JCROSS_雰:1.0__SYM_雰_92_ class _JCROSS_雰:1.0__SYM_雰_772_ _JCROSS_雰:1.0__SYM_雰_635_-_JCROSS_雰:1.0__SYM_雰_390_ _JCROSS_雰:1.0__SYM_雰_645_, _JCROSS_雰:1.0__SYM_雰_213_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_812_ to
+    :py:class:`_JCROSS_廬:1.0__SYM_廬_56_` _JCROSS_雰:1.0__SYM_雰_674_::
+
+                    >> _JCROSS_雰:1.0__SYM_雰_662_ = _JCROSS_雰:1.0__SYM_雰_801_["_JCROSS_雰:1.0__SYM_雰_662_"]
+                    >> _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_662_["_JCROSS_廬:1.0__SYM_廬_31_"]._JCROSS_雰:1.0__SYM_雰_768_)
+                    2
+
+    _JCROSS_廬:1.0__SYM_廬_33_ _JCROSS_雰:1.0__SYM_雰_811_ _JCROSS_雰:1.0__SYM_雰_126_ _JCROSS_雰:1.0__SYM_雰_658_ _JCROSS_雰:1.0__SYM_雰_534_ to _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_801_ _JCROSS_雰:1.0__SYM_雰_479_ _JCROSS_雰:1.0__SYM_雰_62_-_JCROSS_雰:1.0__SYM_雰_692_ _JCROSS_雰:1.0__SYM_雰_645_ to _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_雰:1.0__SYM_雰_662_``
+    _JCROSS_雰:1.0__SYM_雰_117_, _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_866_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_220_ _JCROSS_雰:1.0__SYM_雰_724_ be _JCROSS_雰:1.0__SYM_雰_863_ to _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_雰:1.0__SYM_雰_614_``/``_JCROSS_雰:1.0__SYM_雰_175_`` _JCROSS_雰:1.0__SYM_雰_117_::
+
+                    >> _JCROSS_雰:1.0__SYM_雰_801_["_JCROSS_雰:1.0__SYM_雰_662_"]["_JCROSS_雰:1.0__SYM_雰_182_"] = _JCROSS_廬:1.0__SYM_廬_56_()
+                    >> _JCROSS_雰:1.0__SYM_雰_801_["_JCROSS_雰:1.0__SYM_雰_614_"]["_JCROSS_雰:1.0__SYM_雰_182_"] = (640, 0)
+
+    """
+
+    _JCROSS_雰:1.0__SYM_雰_782_ = ["_JCROSS_雰:1.0__SYM_雰_497_"]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_雰:1.0__SYM_雰_698_ = 1
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_608_(self, _JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_344_):
+        self._JCROSS_雰:1.0__SYM_雰_483_ = (
+            [_JCROSS_雰:1.0__SYM_雰_348_._JCROSS_雰:1.0__SYM_雰_564_ for _JCROSS_雰:1.0__SYM_雰_348_ in _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_497_"]._JCROSS_雰:1.0__SYM_雰_472_] if "_JCROSS_雰:1.0__SYM_雰_497_" in _JCROSS_雰:1.0__SYM_雰_344_ else []
+        )
+        _JCROSS_雰:1.0__SYM_雰_209_ = _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_209_"]
+        _JCROSS_雰:1.0__SYM_雰_547_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_209_[0])
+        _JCROSS_雰:1.0__SYM_雰_73_ = 0
+        _JCROSS_雰:1.0__SYM_雰_529_ = 0
+        self._JCROSS_雰:1.0__SYM_雰_534_ = {}
+        self._JCROSS_謀:1.0__SYM_雰_746_ = _JCROSS_謀:1.0__SYM_雰_746_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_16_()
+        self._JCROSS_謀:1.0__SYM_雰_738_ = {}
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_209_) - 1):
+            try:
+                _JCROSS_雰:1.0__SYM_雰_788_ = _JCROSS_謀:1.0__SYM_雰_746_[i]
+            _JCROSS_雰:1.0__SYM_雰_47_ _JCROSS_廬:1.0__SYM_廬_102_:
+                _JCROSS_雰:1.0__SYM_雰_529_ = _JCROSS_雰:1.0__SYM_雰_529_ + 1
+                _JCROSS_雰:1.0__SYM_雰_788_ = "_JCROSS_雰:1.0__SYM_雰_196_%s" % i
+            _JCROSS_雰:1.0__SYM_雰_73_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_209_[i + 1])
+            _JCROSS_雰:1.0__SYM_雰_571_ = _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_:_JCROSS_雰:1.0__SYM_雰_73_]
+            if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_571_) != (_JCROSS_雰:1.0__SYM_雰_73_ - _JCROSS_雰:1.0__SYM_雰_547_):
+                _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_雰:1.0__SYM_雰_633_._JCROSS_廬:1.0__SYM_廬_42_("_JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_396_ '_JCROSS_雰:1.0__SYM_雰_662_' _JCROSS_雰:1.0__SYM_雰_117_ _JCROSS_雰:1.0__SYM_雰_799_")
+            _JCROSS_雰:1.0__SYM_雰_851_ = _JCROSS_廬:1.0__SYM_廬_56_(_JCROSS_雰:1.0__SYM_雰_571_)
+            self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_851_
+            _JCROSS_雰:1.0__SYM_雰_547_ = _JCROSS_雰:1.0__SYM_雰_73_
+        if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_) - _JCROSS_雰:1.0__SYM_雰_73_ >= 4:
+            _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_861_(
+                "_JCROSS_雰:1.0__SYM_雰_550_ _JCROSS_雰:1.0__SYM_雰_797_ '_JCROSS_雰:1.0__SYM_雰_662_' _JCROSS_雰:1.0__SYM_雰_117_ _JCROSS_雰:1.0__SYM_雰_799_: _JCROSS_雰:1.0__SYM_雰_399_ %d, _JCROSS_雰:1.0__SYM_雰_151_ %d _JCROSS_雰:1.0__SYM_雰_163_",
+                _JCROSS_雰:1.0__SYM_雰_73_,
+                _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_),
+            )
+        if _JCROSS_雰:1.0__SYM_雰_529_:
+            _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_861_("%s _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_471_ no _JCROSS_雰:1.0__SYM_雰_405_", _JCROSS_雰:1.0__SYM_雰_529_)
+        if _JCROSS_雰:1.0__SYM_雰_344_.lazy is _JCROSS_廬:1.0__SYM_廬_47_:  # Be lazy for _JCROSS_廬:1.0__SYM_廬_60_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_廬:1.0__SYM_廬_71_
+            self._JCROSS_雰:1.0__SYM_雰_193_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_193_(self, _JCROSS_雰:1.0__SYM_雰_649_=_JCROSS_廬:1.0__SYM_廬_47_):
+// [metadata-stripped]
+// [metadata-stripped]
+        for _JCROSS_雰:1.0__SYM_雰_851_ in self._JCROSS_雰:1.0__SYM_雰_534_._JCROSS_雰:1.0__SYM_雰_827_():
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_421_(self)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_729_(self, _JCROSS_雰:1.0__SYM_雰_344_):
+        _JCROSS_雰:1.0__SYM_雰_639_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_雰:1.0__SYM_雰_376_[_JCROSS_雰:1.0__SYM_雰_633_._JCROSS_廬:1.0__SYM_廬_20_]
+
+        self._JCROSS_雰:1.0__SYM_雰_483_ = (
+            [_JCROSS_雰:1.0__SYM_雰_348_._JCROSS_雰:1.0__SYM_雰_564_ for _JCROSS_雰:1.0__SYM_雰_348_ in _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_497_"]._JCROSS_雰:1.0__SYM_雰_472_] if "_JCROSS_雰:1.0__SYM_雰_497_" in _JCROSS_雰:1.0__SYM_雰_344_ else []
+        )
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_謀:1.0__SYM_雰_746_"):
+            self._JCROSS_謀:1.0__SYM_雰_746_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_16_()
+        _JCROSS_雰:1.0__SYM_雰_698_ = self._JCROSS_雰:1.0__SYM_雰_698_
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_698_ in (0, 1, 2, 4)
+        _JCROSS_雰:1.0__SYM_雰_131_ = []
+        _JCROSS_雰:1.0__SYM_雰_713_ = 0
+        _JCROSS_雰:1.0__SYM_雰_103_ = []
+        _JCROSS_雰:1.0__SYM_雰_439_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_雰:1.0__SYM_雰_439_
+        _JCROSS_雰:1.0__SYM_雰_752_ = _JCROSS_謀:1.0__SYM_碑_21_()
+        for _JCROSS_雰:1.0__SYM_雰_788_ in self._JCROSS_謀:1.0__SYM_雰_746_:
+            _JCROSS_雰:1.0__SYM_雰_851_ = self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_]
+            _JCROSS_雰:1.0__SYM_雰_253_ = _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_729_(
+                self,
+                _JCROSS_雰:1.0__SYM_雰_439_,
+                _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_雰:1.0__SYM_雰_752_,
+                _JCROSS_雰:1.0__SYM_雰_305_=_JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_639_,
+            )
+            if _JCROSS_雰:1.0__SYM_雰_698_ > 1:
+                _JCROSS_雰:1.0__SYM_雰_253_ = _JCROSS_雰:1.0__SYM_雰_330_(_JCROSS_雰:1.0__SYM_雰_253_, _JCROSS_雰:1.0__SYM_雰_384_=_JCROSS_雰:1.0__SYM_雰_698_)
+            _JCROSS_雰:1.0__SYM_雰_131_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_713_)
+            _JCROSS_雰:1.0__SYM_雰_713_ = _JCROSS_雰:1.0__SYM_雰_713_ + _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_253_)
+            _JCROSS_雰:1.0__SYM_雰_103_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_253_)
+        _JCROSS_雰:1.0__SYM_雰_131_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_713_)
+
+        if _JCROSS_雰:1.0__SYM_雰_698_ == 1 _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_713_ < 0x20000:
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_629_ = [
+                i for i, _JCROSS_雰:1.0__SYM_雰_253_ in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_雰:1.0__SYM_雰_103_) if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_253_) % 2 == 1
+            ]
+            if _JCROSS_雰:1.0__SYM_雰_629_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_713_ + _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_629_) < 0x20000:
+// [metadata-stripped]
+                for i in _JCROSS_雰:1.0__SYM_雰_629_:
+                    _JCROSS_雰:1.0__SYM_雰_103_[i] += b"\0"
+                _JCROSS_雰:1.0__SYM_雰_713_ = 0
+                for i, _JCROSS_雰:1.0__SYM_雰_253_ in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_雰:1.0__SYM_雰_103_):
+                    _JCROSS_雰:1.0__SYM_雰_131_[i] = _JCROSS_雰:1.0__SYM_雰_713_
+                    _JCROSS_雰:1.0__SYM_雰_713_ += _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_253_)
+                _JCROSS_雰:1.0__SYM_雰_131_[_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_103_)] = _JCROSS_雰:1.0__SYM_雰_713_
+
+        _JCROSS_雰:1.0__SYM_雰_799_ = b""._JCROSS_雰:1.0__SYM_雰_240_(_JCROSS_雰:1.0__SYM_雰_103_)
+        if "_JCROSS_雰:1.0__SYM_雰_209_" in _JCROSS_雰:1.0__SYM_雰_344_:
+            _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_209_"]._JCROSS_謀:1.0__SYM_碑_21_(_JCROSS_雰:1.0__SYM_雰_131_)
+        if "_JCROSS_雰:1.0__SYM_雰_5_" in _JCROSS_雰:1.0__SYM_雰_344_:
+            _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_5_"]._JCROSS_雰:1.0__SYM_雰_542_ = _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_534_)
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_799_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_799_ = b"\0"
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_456_(self, _JCROSS_謀:1.0__SYM_雰_133_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_303_=_JCROSS_廬:1.0__SYM_廬_47_):
+        _JCROSS_雰:1.0__SYM_雰_441_ = (
+            "_JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_12_, _JCROSS_雰:1.0__SYM_雰_764_, _JCROSS_雰:1.0__SYM_雰_327_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_351_ _JCROSS_雰:1.0__SYM_雰_827_\n"
+            "_JCROSS_雰:1.0__SYM_雰_104_ be _JCROSS_雰:1.0__SYM_雰_249_ by _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_謀:1.0__SYM_雰_377_."
+        )
+        _JCROSS_雰:1.0__SYM_雰_149_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_8_()
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_303_:
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_611_(_JCROSS_雰:1.0__SYM_雰_441_)
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+        _JCROSS_雰:1.0__SYM_雰_542_ = _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_149_)
+        if _JCROSS_雰:1.0__SYM_雰_303_:
+            _JCROSS_雰:1.0__SYM_雰_706_, _JCROSS_雰:1.0__SYM_雰_298_ = os._JCROSS_雰:1.0__SYM_雰_706_._JCROSS_雰:1.0__SYM_雰_174_(_JCROSS_謀:1.0__SYM_雰_133_._JCROSS_区:1.0__SYM_雰_404_._JCROSS_雰:1.0__SYM_雰_405_)
+            _JCROSS_区:1.0__SYM_雰_572_ = _JCROSS_謀:1.0__SYM_碑_21_()
+        for _JCROSS_雰:1.0__SYM_雰_788_ in _JCROSS_雰:1.0__SYM_雰_149_:
+            _JCROSS_雰:1.0__SYM_雰_851_ = self._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_788_)
+            if _JCROSS_雰:1.0__SYM_雰_851_ is _JCROSS_廬:1.0__SYM_廬_60_:
+                _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_861_("_JCROSS_雰:1.0__SYM_雰_851_ '%s' _JCROSS_雰:1.0__SYM_雰_382_ _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_264_ in _JCROSS_雰:1.0__SYM_雰_662_ _JCROSS_雰:1.0__SYM_雰_117_", _JCROSS_雰:1.0__SYM_雰_788_)
+                continue
+            if _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_594_:
+                if _JCROSS_雰:1.0__SYM_雰_303_:
+                    _JCROSS_雰:1.0__SYM_雰_219_ = _JCROSS_区:1.0__SYM_雰_777_(
+                        _JCROSS_雰:1.0__SYM_雰_32_(_JCROSS_雰:1.0__SYM_雰_788_, "_JCROSS_雰:1.0__SYM_雰_723_-8"),
+                        _JCROSS_区:1.0__SYM_雰_572_,
+                        _JCROSS_雰:1.0__SYM_雰_557_=_JCROSS_雰:1.0__SYM_雰_706_ + ".",
+                        _JCROSS_雰:1.0__SYM_雰_352_=_JCROSS_雰:1.0__SYM_雰_298_,
+                    )
+                    _JCROSS_区:1.0__SYM_雰_572_._JCROSS_雰:1.0__SYM_雰_106_(_JCROSS_雰:1.0__SYM_雰_219_._JCROSS_謀:1.0__SYM_雰_359_())
+                    _JCROSS_謀:1.0__SYM_雰_646_ = _JCROSS_謀:1.0__SYM_雰_874_._JCROSS_謀:1.0__SYM_廬_79_(
+                        _JCROSS_雰:1.0__SYM_雰_219_,
+                        _JCROSS_雰:1.0__SYM_雰_201_=_JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_201_,
+                        _JCROSS_雰:1.0__SYM_雰_144_=_JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_144_,
+                    )
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_681_("_JCROSS_雰:1.0__SYM_雰_344_", _JCROSS_雰:1.0__SYM_雰_522_=_JCROSS_雰:1.0__SYM_雰_521_)
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_681_("_JCROSS_雰:1.0__SYM_雰_662_")
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_611_(_JCROSS_雰:1.0__SYM_雰_441_)
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                    _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_502_("_JCROSS_廬:1.0__SYM_廬_43_", _JCROSS_雰:1.0__SYM_雰_702_=os._JCROSS_雰:1.0__SYM_雰_706_._JCROSS_雰:1.0__SYM_雰_262_(_JCROSS_雰:1.0__SYM_雰_219_))
+                else:
+                    _JCROSS_謀:1.0__SYM_雰_646_ = _JCROSS_謀:1.0__SYM_雰_133_
+                _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_681_(
+                    "_JCROSS_廬:1.0__SYM_廬_43_",
+                    [
+                        ("_JCROSS_雰:1.0__SYM_雰_405_", _JCROSS_雰:1.0__SYM_雰_788_),
+                        ("_JCROSS_雰:1.0__SYM_雰_12_", _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_12_),
+                        ("_JCROSS_雰:1.0__SYM_雰_764_", _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_764_),
+                        ("_JCROSS_雰:1.0__SYM_雰_327_", _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_327_),
+                        ("_JCROSS_雰:1.0__SYM_雰_351_", _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_351_),
+                    ],
+                )
+                _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_456_(_JCROSS_謀:1.0__SYM_雰_646_, _JCROSS_雰:1.0__SYM_雰_344_)
+                _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_515_("_JCROSS_廬:1.0__SYM_廬_43_")
+                _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                if _JCROSS_雰:1.0__SYM_雰_303_:
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_515_("_JCROSS_雰:1.0__SYM_雰_662_")
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_515_("_JCROSS_雰:1.0__SYM_雰_344_")
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_89_()
+                    _JCROSS_謀:1.0__SYM_雰_646_._JCROSS_雰:1.0__SYM_雰_374_()
+            else:
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_502_("_JCROSS_廬:1.0__SYM_廬_43_", _JCROSS_雰:1.0__SYM_雰_405_=_JCROSS_雰:1.0__SYM_雰_788_)
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_611_("_JCROSS_雰:1.0__SYM_雰_38_ no _JCROSS_雰:1.0__SYM_雰_453_ _JCROSS_雰:1.0__SYM_雰_799_")
+                if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_303_:
+                    _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_167_(self, _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_):
+        if _JCROSS_雰:1.0__SYM_雰_405_ != "_JCROSS_廬:1.0__SYM_廬_43_":
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_534_"):
+            self._JCROSS_雰:1.0__SYM_雰_534_ = {}
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_謀:1.0__SYM_雰_746_"):
+            self._JCROSS_謀:1.0__SYM_雰_746_ = _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_16_()
+        _JCROSS_雰:1.0__SYM_雰_788_ = _JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_405_"]
+        _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_710_("_JCROSS_雰:1.0__SYM_雰_158_ _JCROSS_雰:1.0__SYM_雰_851_ '%s'", _JCROSS_雰:1.0__SYM_雰_788_)
+        _JCROSS_雰:1.0__SYM_雰_851_ = _JCROSS_廬:1.0__SYM_廬_56_()
+        for _JCROSS_雰:1.0__SYM_雰_567_ in ["_JCROSS_雰:1.0__SYM_雰_12_", "_JCROSS_雰:1.0__SYM_雰_764_", "_JCROSS_雰:1.0__SYM_雰_327_", "_JCROSS_雰:1.0__SYM_雰_351_"]:
+            _JCROSS_謀:1.0__SYM_碑_15_(_JCROSS_雰:1.0__SYM_雰_851_, _JCROSS_雰:1.0__SYM_雰_567_, _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_567_, "0")))
+        self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_851_
+        for _JCROSS_雰:1.0__SYM_雰_470_ in _JCROSS_雰:1.0__SYM_雰_385_:
+            if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_雰:1.0__SYM_雰_470_, _JCROSS_雰:1.0__SYM_雰_177_):
+                continue
+            _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_ = _JCROSS_雰:1.0__SYM_雰_470_
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_167_(_JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_)
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_344_._JCROSS_雰:1.0__SYM_雰_439_:
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_199_(self, 0)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_2_(self, _JCROSS_謀:1.0__SYM_雰_746_):
+        """_JCROSS_謀:1.0__SYM_碑_14_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_謀:1.0__SYM_雰_289_
+
+        _JCROSS_廬:1.0__SYM_廬_118_:
+                _JCROSS_謀:1.0__SYM_雰_746_ ([_JCROSS_雰:1.0__SYM_雰_101_]): _JCROSS_廬:1.0__SYM_廬_15_ of _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_812_ in _JCROSS_謀:1.0__SYM_雰_289_.
+        """
+        self._JCROSS_謀:1.0__SYM_雰_746_ = _JCROSS_謀:1.0__SYM_雰_746_
+        self._JCROSS_謀:1.0__SYM_雰_738_ = {}
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_20_(self, _JCROSS_雰:1.0__SYM_雰_888_):
+        """_JCROSS_廬:1.0__SYM_廬_32_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_405_ for _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_232_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_823_ ID.
+
+        _JCROSS_廬:1.0__SYM_廬_85_ a ``_JCROSS_奥:1.0__SYM_廬_88_`` if _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_405_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_595_ in _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_801_.
+        """
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_謀:1.0__SYM_雰_746_[_JCROSS_雰:1.0__SYM_雰_888_]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_252_(self):
+        self._JCROSS_謀:1.0__SYM_雰_738_ = d = {}
+        for _JCROSS_雰:1.0__SYM_雰_888_, _JCROSS_雰:1.0__SYM_雰_788_ in _JCROSS_雰:1.0__SYM_雰_54_(self._JCROSS_謀:1.0__SYM_雰_746_):
+            d[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_888_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_12_(self, _JCROSS_雰:1.0__SYM_雰_788_):
+        """_JCROSS_廬:1.0__SYM_廬_32_ _JCROSS_雰:1.0__SYM_雰_350_ ID of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_232_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_823_ _JCROSS_雰:1.0__SYM_雰_405_.
+
+        _JCROSS_廬:1.0__SYM_廬_85_ a ``_JCROSS_廬:1.0__SYM_廬_58_`` if _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_595_ in _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_801_.
+        """
+        _JCROSS_謀:1.0__SYM_雰_746_ = self._JCROSS_謀:1.0__SYM_雰_746_
+        id = _JCROSS_謀:1.0__SYM_碑_5_(self, "_JCROSS_謀:1.0__SYM_雰_738_", {})._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_788_)
+        if id is _JCROSS_廬:1.0__SYM_廬_60_ or id >= _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_746_) or _JCROSS_謀:1.0__SYM_雰_746_[id] != _JCROSS_雰:1.0__SYM_雰_788_:
+            self._JCROSS_雰:1.0__SYM_雰_252_()
+            id = self._JCROSS_謀:1.0__SYM_雰_738_._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_788_)
+        if id is _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_廬:1.0__SYM_廬_58_(_JCROSS_雰:1.0__SYM_雰_788_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn id
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_318_(self):
+        """_JCROSS_廬:1.0__SYM_廬_73_ _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_雰:1.0__SYM_雰_59_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_534_ in _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_796_.
+
+        _JCROSS_廬:1.0__SYM_廬_76_ :py:_JCROSS_雰:1.0__SYM_雰_140_:`_JCROSS_廬:1.0__SYM_廬_56_._JCROSS_雰:1.0__SYM_雰_318_`.
+        """
+        for _JCROSS_雰:1.0__SYM_雰_851_ in self._JCROSS_雰:1.0__SYM_雰_534_._JCROSS_雰:1.0__SYM_雰_827_():
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_318_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_奥:1.0__SYM_雰_11_(self):
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_534_._JCROSS_奥:1.0__SYM_雰_11_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_奥:1.0__SYM_雰_601_(self, _JCROSS_雰:1.0__SYM_雰_788_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_788_ in self._JCROSS_雰:1.0__SYM_雰_534_
+
+    _JCROSS_雰:1.0__SYM_雰_631_ = _JCROSS_奥:1.0__SYM_雰_601_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_19_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_844_=_JCROSS_廬:1.0__SYM_廬_60_):
+        _JCROSS_雰:1.0__SYM_雰_851_ = self._JCROSS_雰:1.0__SYM_雰_534_._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_844_)
+        if _JCROSS_雰:1.0__SYM_雰_851_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_421_(self)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_851_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_66_(self, _JCROSS_雰:1.0__SYM_雰_788_):
+        _JCROSS_雰:1.0__SYM_雰_851_ = self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_]
+        _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_421_(self)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_851_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_91_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_851_):
+        self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_851_
+        if _JCROSS_雰:1.0__SYM_雰_788_ _JCROSS_雰:1.0__SYM_雰_875_ in self._JCROSS_謀:1.0__SYM_雰_746_:
+            self._JCROSS_謀:1.0__SYM_雰_746_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_788_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_621_(self, _JCROSS_雰:1.0__SYM_雰_788_):
+        _JCROSS_雰:1.0__SYM_雰_590_ self._JCROSS_雰:1.0__SYM_雰_534_[_JCROSS_雰:1.0__SYM_雰_788_]
+        self._JCROSS_謀:1.0__SYM_雰_746_._JCROSS_雰:1.0__SYM_雰_281_(_JCROSS_雰:1.0__SYM_雰_788_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_369_(self):
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_謀:1.0__SYM_雰_746_) == _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_534_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_534_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_251_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_廬:1.0__SYM_廬_4_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_37_ "_JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_" for _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_823_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_2_ _JCROSS_雰:1.0__SYM_雰_493_ _JCROSS_雰:1.0__SYM_雰_543_
+        _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_512_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_45_ _JCROSS_雰:1.0__SYM_雰_217_ _JCROSS_雰:1.0__SYM_雰_671_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_739_ _JCROSS_雰:1.0__SYM_雰_835_ in _JCROSS_雰:1.0__SYM_雰_350_
+        _JCROSS_雰:1.0__SYM_雰_344_'s "_JCROSS_雰:1.0__SYM_雰_614_" _JCROSS_雰:1.0__SYM_雰_642_ "_JCROSS_雰:1.0__SYM_雰_175_" _JCROSS_雰:1.0__SYM_雰_684_.
+
+        '_JCROSS_雰:1.0__SYM_雰_694_' _JCROSS_雰:1.0__SYM_雰_707_ be _JCROSS_雰:1.0__SYM_雰_344_['_JCROSS_雰:1.0__SYM_雰_614_']._JCROSS_雰:1.0__SYM_雰_61_.
+
+        '_JCROSS_雰:1.0__SYM_雰_4_' _JCROSS_雰:1.0__SYM_雰_707_ be _JCROSS_雰:1.0__SYM_雰_344_['_JCROSS_雰:1.0__SYM_雰_175_']._JCROSS_雰:1.0__SYM_雰_61_ if _JCROSS_雰:1.0__SYM_雰_523_ is "_JCROSS_雰:1.0__SYM_雰_175_" or _JCROSS_廬:1.0__SYM_廬_60_ _JCROSS_雰:1.0__SYM_雰_574_.
+        If _JCROSS_雰:1.0__SYM_雰_523_ is no _JCROSS_雰:1.0__SYM_雰_4_ _JCROSS_雰:1.0__SYM_雰_454_ in, _JCROSS_雰:1.0__SYM_雰_45_ _JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_謀:1.0__SYM_碑_21_ to _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_221_ _JCROSS_雰:1.0__SYM_雰_301_.
+
+        _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_263_._JCROSS_雰:1.0__SYM_雰_125_._JCROSS_雰:1.0__SYM_雰_891_/en-us/_JCROSS_雰:1.0__SYM_雰_212_/_JCROSS_雰:1.0__SYM_雰_407_/_JCROSS_雰:1.0__SYM_雰_535_/_JCROSS_雰:1.0__SYM_雰_22_#_JCROSS_雰:1.0__SYM_雰_100_
+        """
+// _JCROSS_漂:0.5__SYM_YY_272_ [decoy-metadata]
+        _JCROSS_雰:1.0__SYM_雰_851_ = self[_JCROSS_雰:1.0__SYM_雰_788_]
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(_JCROSS_雰:1.0__SYM_雰_851_, "_JCROSS_雰:1.0__SYM_雰_12_"):
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_172_(self)
+
+        _JCROSS_雰:1.0__SYM_雰_616_, _JCROSS_雰:1.0__SYM_雰_634_ = _JCROSS_雰:1.0__SYM_雰_694_[_JCROSS_雰:1.0__SYM_雰_788_]
+        _JCROSS_雰:1.0__SYM_雰_115_ = _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_12_ - _JCROSS_雰:1.0__SYM_雰_634_
+        _JCROSS_雰:1.0__SYM_雰_513_ = _JCROSS_雰:1.0__SYM_雰_115_ + _JCROSS_雰:1.0__SYM_雰_616_
+
+        if _JCROSS_雰:1.0__SYM_雰_4_:
+            _JCROSS_雰:1.0__SYM_雰_636_, _JCROSS_雰:1.0__SYM_雰_810_ = _JCROSS_雰:1.0__SYM_雰_4_[_JCROSS_雰:1.0__SYM_雰_788_]
+            _JCROSS_雰:1.0__SYM_雰_563_ = _JCROSS_雰:1.0__SYM_雰_810_ + _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_351_
+            _JCROSS_雰:1.0__SYM_雰_475_ = _JCROSS_雰:1.0__SYM_雰_563_ - _JCROSS_雰:1.0__SYM_雰_636_
+        else:
+            _JCROSS_雰:1.0__SYM_雰_475_ = _JCROSS_雰:1.0__SYM_雰_563_ = 0
+
+        _JCROSS_雰:1.0__SYM_雰_286_urn [
+            (_JCROSS_雰:1.0__SYM_雰_115_, 0),
+            (_JCROSS_雰:1.0__SYM_雰_513_, 0),
+            (0, _JCROSS_雰:1.0__SYM_雰_563_),
+            (0, _JCROSS_雰:1.0__SYM_雰_475_),
+        ]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_675_(
+        self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_=_JCROSS_廬:1.0__SYM_廬_60_, *, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_
+    ):
+        """_JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_846_ as _JCROSS_雰:1.0__SYM_雰_399_ by "_JCROSS_雰:1.0__SYM_雰_130_" _JCROSS_雰:1.0__SYM_雰_117_.
+
+        _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_398_ _JCROSS_雰:1.0__SYM_雰_37_ "_JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_" for _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_61_,
+        as _JCROSS_雰:1.0__SYM_雰_830_ by _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_雰:1.0__SYM_雰_130_" _JCROSS_雰:1.0__SYM_雰_535_.
+
+        _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_846_ is a _JCROSS_雰:1.0__SYM_雰_466_ _JCROSS_雰:1.0__SYM_雰_232_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_161_ _JCROSS_雰:1.0__SYM_雰_824_:
+                - _JCROSS_雰:1.0__SYM_雰_594_: -1 for _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_.
+                - _JCROSS_雰:1.0__SYM_雰_383_: _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_629_ of _JCROSS_雰:1.0__SYM_雰_329_ _JCROSS_雰:1.0__SYM_雰_506_ for _JCROSS_雰:1.0__SYM_雰_197_ _JCROSS_雰:1.0__SYM_雰_630_ in _JCROSS_雰:1.0__SYM_雰_132_
+                _JCROSS_雰:1.0__SYM_雰_534_, or _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_629_ in _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_ (_JCROSS_雰:1.0__SYM_雰_566_ for _JCROSS_廬:1.0__SYM_廬_83_
+                _JCROSS_雰:1.0__SYM_雰_367_).
+                - _JCROSS_雰:1.0__SYM_雰_743_: _JCROSS_雰:1.0__SYM_雰_494_ of _JCROSS_雰:1.0__SYM_雰_630_ _JCROSS_雰:1.0__SYM_雰_319_ _JCROSS_雰:1.0__SYM_雰_743_ for _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_ (_JCROSS_廬:1.0__SYM_廬_60_ for
+                _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_).
+                - _JCROSS_雰:1.0__SYM_雰_768_: _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_403_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_812_ (_JCROSS_雰:1.0__SYM_雰_101_) for _JCROSS_雰:1.0__SYM_雰_197_ _JCROSS_雰:1.0__SYM_雰_653_ in
+                _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_ (_JCROSS_廬:1.0__SYM_廬_60_ for _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_).
+
+        _JCROSS_廬:1.0__SYM_廬_115_ "_JCROSS_雰:1.0__SYM_雰_694_" _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_4_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_566_ to _JCROSS_雰:1.0__SYM_雰_455_ _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_" (_JCROSS_雰:1.0__SYM_雰_331_
+        _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_雰:1.0__SYM_雰_251_" _JCROSS_雰:1.0__SYM_雰_603_).
+
+        _JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_廬:1.0__SYM_廬_60_ if _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_縺:1.0__SYM_雰_137_ _JCROSS_雰:1.0__SYM_雰_788_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_141_.
+        """
+        _JCROSS_雰:1.0__SYM_雰_851_ = self._JCROSS_謀:1.0__SYM_碑_19_(_JCROSS_雰:1.0__SYM_雰_788_)
+        if _JCROSS_雰:1.0__SYM_雰_851_ is _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_60_
+        if _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_146_():
+            _JCROSS_雰:1.0__SYM_雰_365_ = _JCROSS_廬:1.0__SYM_廬_101_(
+                [(_JCROSS_謀:1.0__SYM_碑_5_(c, "x", 0), _JCROSS_謀:1.0__SYM_碑_5_(c, "y", 0)) for c in _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_768_]
+            )
+            _JCROSS_雰:1.0__SYM_雰_846_ = _JCROSS_雰:1.0__SYM_雰_93_(
+                _JCROSS_雰:1.0__SYM_雰_594_=_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_594_,
+                _JCROSS_雰:1.0__SYM_雰_383_=_JCROSS_雰:1.0__SYM_雰_792_(_JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_768_))),
+                _JCROSS_雰:1.0__SYM_雰_743_=_JCROSS_廬:1.0__SYM_廬_60_,
+                _JCROSS_雰:1.0__SYM_雰_768_=[
+                    (c._JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_謀:1.0__SYM_碑_5_(c, "_JCROSS_漂:1.0__SYM_雰_463_", _JCROSS_廬:1.0__SYM_廬_60_))
+                    for c in _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_768_
+                ],
+            )
+        else:
+            _JCROSS_雰:1.0__SYM_雰_365_, _JCROSS_雰:1.0__SYM_雰_383_, _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_謀:1.0__SYM_碑_6_(self)
+            _JCROSS_雰:1.0__SYM_雰_365_ = _JCROSS_雰:1.0__SYM_雰_365_._JCROSS_雰:1.0__SYM_雰_228_()
+            _JCROSS_雰:1.0__SYM_雰_846_ = _JCROSS_雰:1.0__SYM_雰_93_(
+                _JCROSS_雰:1.0__SYM_雰_594_=_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_594_,
+                _JCROSS_雰:1.0__SYM_雰_383_=_JCROSS_雰:1.0__SYM_雰_383_,
+                _JCROSS_雰:1.0__SYM_雰_743_=_JCROSS_雰:1.0__SYM_雰_743_,
+                _JCROSS_雰:1.0__SYM_雰_768_=_JCROSS_廬:1.0__SYM_廬_60_,
+            )
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_766_ = self._JCROSS_雰:1.0__SYM_雰_251_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_)
+        _JCROSS_雰:1.0__SYM_雰_365_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_766_)
+        _JCROSS_雰:1.0__SYM_雰_365_._JCROSS_雰:1.0__SYM_雰_257_(_JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_24_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_365_, _JCROSS_雰:1.0__SYM_雰_846_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_850_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_488_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_謀:1.0__SYM_碑_18_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_61_ for _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_823_ _JCROSS_雰:1.0__SYM_雰_851_.
+
+        "_JCROSS_雰:1.0__SYM_雰_488_" is an _JCROSS_雰:1.0__SYM_雰_494_ of _JCROSS_廬:1.0__SYM_廬_101_ _JCROSS_雰:1.0__SYM_雰_258_ _JCROSS_雰:1.0__SYM_雰_220_ _JCROSS_雰:1.0__SYM_雰_307_ _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_雰:1.0__SYM_雰_185_
+        _JCROSS_雰:1.0__SYM_雰_506_" as _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_841_ _JCROSS_雰:1.0__SYM_雰_37_ _JCROSS_雰:1.0__SYM_雰_520_.
+
+        _JCROSS_廬:1.0__SYM_廬_122_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_512_/_JCROSS_雰:1.0__SYM_雰_45_ _JCROSS_雰:1.0__SYM_雰_282_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_445_/_JCROSS_雰:1.0__SYM_雰_16_ _JCROSS_雰:1.0__SYM_雰_739_ in "_JCROSS_雰:1.0__SYM_雰_614_"
+        _JCROSS_雰:1.0__SYM_雰_642_ "_JCROSS_雰:1.0__SYM_雰_175_" _JCROSS_雰:1.0__SYM_雰_684_ (if any) _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_363_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_37_ _JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_642_
+        _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_'s _JCROSS_雰:1.0__SYM_雰_493_ _JCROSS_雰:1.0__SYM_雰_235_.
+
+        _JCROSS_廬:1.0__SYM_廬_115_ "_JCROSS_雰:1.0__SYM_雰_694_" _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_4_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_566_ to _JCROSS_雰:1.0__SYM_雰_487_ "_JCROSS_雰:1.0__SYM_雰_185_ _JCROSS_雰:1.0__SYM_雰_506_"
+        _JCROSS_雰:1.0__SYM_雰_878_ "_JCROSS_雰:1.0__SYM_雰_614_" _JCROSS_雰:1.0__SYM_雰_642_ "_JCROSS_雰:1.0__SYM_雰_175_" _JCROSS_雰:1.0__SYM_雰_684_ if _JCROSS_雰:1.0__SYM_雰_617_.  (_JCROSS_雰:1.0__SYM_雰_331_ _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_雰:1.0__SYM_雰_251_"
+        _JCROSS_雰:1.0__SYM_雰_603_).
+        """
+        _JCROSS_雰:1.0__SYM_雰_851_ = self[_JCROSS_雰:1.0__SYM_雰_788_]
+
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_488_) >= 4
+        _JCROSS_雰:1.0__SYM_雰_115_ = _JCROSS_雰:1.0__SYM_雰_488_[-4][0]
+        _JCROSS_雰:1.0__SYM_雰_513_ = _JCROSS_雰:1.0__SYM_雰_488_[-3][0]
+        _JCROSS_雰:1.0__SYM_雰_563_ = _JCROSS_雰:1.0__SYM_雰_488_[-2][1]
+        _JCROSS_雰:1.0__SYM_雰_475_ = _JCROSS_雰:1.0__SYM_雰_488_[-1][1]
+
+        _JCROSS_雰:1.0__SYM_雰_488_ = _JCROSS_雰:1.0__SYM_雰_488_[:-4]
+
+        if _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_146_():
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_488_) == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_768_)
+            for p, _JCROSS_雰:1.0__SYM_雰_570_ in _JCROSS_雰:1.0__SYM_雰_243_(_JCROSS_雰:1.0__SYM_雰_488_, _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_768_):
+                if _JCROSS_雰:1.0__SYM_雰_356_(_JCROSS_雰:1.0__SYM_雰_570_, "x"):
+                    _JCROSS_雰:1.0__SYM_雰_570_.x, _JCROSS_雰:1.0__SYM_雰_570_.y = p
+        _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_594_ == 0:
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_488_) == 0
+        else:
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_488_) == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_520_)
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_廬:1.0__SYM_廬_101_(_JCROSS_雰:1.0__SYM_雰_488_)
+
+        _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_172_(self, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_謀:1.0__SYM_碑_21_())
+
+        _JCROSS_雰:1.0__SYM_雰_616_ = _JCROSS_雰:1.0__SYM_雰_816_(_JCROSS_雰:1.0__SYM_雰_513_ - _JCROSS_雰:1.0__SYM_雰_115_)
+        if _JCROSS_雰:1.0__SYM_雰_616_ < 0:
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_616_ = 0
+        _JCROSS_雰:1.0__SYM_雰_634_ = _JCROSS_雰:1.0__SYM_雰_816_(_JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_12_ - _JCROSS_雰:1.0__SYM_雰_115_)
+        _JCROSS_雰:1.0__SYM_雰_694_[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_616_, _JCROSS_雰:1.0__SYM_雰_634_
+
+        if _JCROSS_雰:1.0__SYM_雰_4_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_636_ = _JCROSS_雰:1.0__SYM_雰_816_(_JCROSS_雰:1.0__SYM_雰_563_ - _JCROSS_雰:1.0__SYM_雰_475_)
+            if _JCROSS_雰:1.0__SYM_雰_636_ < 0:  # _JCROSS_雰:1.0__SYM_雰_39_ _JCROSS_雰:1.0__SYM_雰_865_ do _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_528_ as _JCROSS_雰:1.0__SYM_雰_512_
+                _JCROSS_雰:1.0__SYM_雰_636_ = 0
+            _JCROSS_雰:1.0__SYM_雰_810_ = _JCROSS_雰:1.0__SYM_雰_816_(_JCROSS_雰:1.0__SYM_雰_563_ - _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_351_)
+            _JCROSS_雰:1.0__SYM_雰_4_[_JCROSS_雰:1.0__SYM_雰_788_] = _JCROSS_雰:1.0__SYM_雰_636_, _JCROSS_雰:1.0__SYM_雰_810_
+
+// [metadata-stripped]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_852_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_450_):
+        """_JCROSS_廬:1.0__SYM_廬_45_ _JCROSS_雰:1.0__SYM_雰_603_ is _JCROSS_雰:1.0__SYM_雰_568_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_885_.
+        _JCROSS_廬:1.0__SYM_廬_59_ _JCROSS_雰:1.0__SYM_雰_569_ _JCROSS_雰:1.0__SYM_雰_331_:
+        _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_656_._JCROSS_雰:1.0__SYM_雰_891_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_77_/2266/_JCROSS_区:1.0__SYM_雰_503_#_JCROSS_雰:1.0__SYM_雰_71_
+        """
+        _JCROSS_雰:1.0__SYM_雰_4_ = _JCROSS_謀:1.0__SYM_碑_5_(_JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_19_("_JCROSS_雰:1.0__SYM_雰_175_"), "_JCROSS_雰:1.0__SYM_雰_61_", _JCROSS_廬:1.0__SYM_廬_60_)
+        if _JCROSS_雰:1.0__SYM_雰_4_ is _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_636_ = _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_683_"]._JCROSS_雰:1.0__SYM_雰_798_
+            _JCROSS_雰:1.0__SYM_雰_563_ = _JCROSS_謀:1.0__SYM_碑_5_(_JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_19_("_JCROSS_雰:1.0__SYM_雰_7_"), "_JCROSS_雰:1.0__SYM_雰_499_", _JCROSS_廬:1.0__SYM_廬_60_)
+            if _JCROSS_雰:1.0__SYM_雰_563_ is _JCROSS_廬:1.0__SYM_廬_60_:
+                if _JCROSS_雰:1.0__SYM_雰_450_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_:
+                    _JCROSS_雰:1.0__SYM_雰_563_ = _JCROSS_雰:1.0__SYM_雰_450_
+                else:
+                    _JCROSS_雰:1.0__SYM_雰_563_ = _JCROSS_雰:1.0__SYM_雰_636_
+            _JCROSS_雰:1.0__SYM_雰_851_ = self[_JCROSS_雰:1.0__SYM_雰_788_]
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_172_(self)
+            _JCROSS_雰:1.0__SYM_雰_810_ = _JCROSS_雰:1.0__SYM_雰_816_(_JCROSS_雰:1.0__SYM_雰_563_ - _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_351_)
+            _JCROSS_雰:1.0__SYM_雰_4_ = {_JCROSS_雰:1.0__SYM_雰_788_: (_JCROSS_雰:1.0__SYM_雰_636_, _JCROSS_雰:1.0__SYM_雰_810_)}
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_4_
+
+    @_JCROSS_雰:1.0__SYM_雰_622_("_JCROSS_雰:1.0__SYM_雰_538_ '_JCROSS_雰:1.0__SYM_雰_251_' _JCROSS_雰:1.0__SYM_雰_293_", _JCROSS_雰:1.0__SYM_雰_484_=_JCROSS_廬:1.0__SYM_廬_61_)
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_22_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_450_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_廬:1.0__SYM_廬_80_ public _JCROSS_雰:1.0__SYM_雰_405_ for self._JCROSS_雰:1.0__SYM_雰_251_().
+        _JCROSS_廬:1.0__SYM_廬_76_: _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_656_._JCROSS_雰:1.0__SYM_雰_891_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_77_/2266"""
+        _JCROSS_雰:1.0__SYM_雰_694_ = _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_614_"]._JCROSS_雰:1.0__SYM_雰_61_
+        _JCROSS_雰:1.0__SYM_雰_4_ = self._JCROSS_雰:1.0__SYM_雰_852_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_450_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_251_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_)
+
+    @_JCROSS_雰:1.0__SYM_雰_622_(
+        "_JCROSS_雰:1.0__SYM_雰_538_ '_JCROSS_雰:1.0__SYM_雰_675_' _JCROSS_雰:1.0__SYM_雰_293_", _JCROSS_雰:1.0__SYM_雰_484_=_JCROSS_廬:1.0__SYM_廬_61_
+    )
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_3_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_450_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_廬:1.0__SYM_廬_80_ public _JCROSS_雰:1.0__SYM_雰_405_ for self._JCROSS_雰:1.0__SYM_雰_675_().
+        _JCROSS_廬:1.0__SYM_廬_76_: _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_656_._JCROSS_雰:1.0__SYM_雰_891_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_77_/2266"""
+        _JCROSS_雰:1.0__SYM_雰_694_ = _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_614_"]._JCROSS_雰:1.0__SYM_雰_61_
+        _JCROSS_雰:1.0__SYM_雰_4_ = self._JCROSS_雰:1.0__SYM_雰_852_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_, _JCROSS_雰:1.0__SYM_雰_450_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_675_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_)
+
+    @_JCROSS_雰:1.0__SYM_雰_622_("_JCROSS_雰:1.0__SYM_雰_538_ '_JCROSS_雰:1.0__SYM_雰_850_' _JCROSS_雰:1.0__SYM_雰_293_", _JCROSS_雰:1.0__SYM_雰_484_=_JCROSS_廬:1.0__SYM_廬_61_)
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_4_(self, _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_344_):
+        """_JCROSS_廬:1.0__SYM_廬_80_ public _JCROSS_雰:1.0__SYM_雰_405_ for self._JCROSS_雰:1.0__SYM_雰_850_().
+        _JCROSS_廬:1.0__SYM_廬_76_: _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_656_._JCROSS_雰:1.0__SYM_雰_891_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_241_/_JCROSS_雰:1.0__SYM_雰_77_/2266"""
+        _JCROSS_雰:1.0__SYM_雰_694_ = _JCROSS_雰:1.0__SYM_雰_344_["_JCROSS_雰:1.0__SYM_雰_614_"]._JCROSS_雰:1.0__SYM_雰_61_
+        _JCROSS_雰:1.0__SYM_雰_4_ = _JCROSS_謀:1.0__SYM_碑_5_(_JCROSS_雰:1.0__SYM_雰_344_._JCROSS_謀:1.0__SYM_碑_19_("_JCROSS_雰:1.0__SYM_雰_175_"), "_JCROSS_雰:1.0__SYM_雰_61_", _JCROSS_廬:1.0__SYM_廬_60_)
+        self._JCROSS_雰:1.0__SYM_雰_850_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_694_, _JCROSS_雰:1.0__SYM_雰_4_)
+
+
+_JCROSS_雰:1.0__SYM_雰_93_ = _JCROSS_雰:1.0__SYM_雰_466_(
+    "_JCROSS_雰:1.0__SYM_雰_93_", "_JCROSS_雰:1.0__SYM_雰_594_ _JCROSS_雰:1.0__SYM_雰_383_ _JCROSS_雰:1.0__SYM_雰_743_ _JCROSS_雰:1.0__SYM_雰_768_"
+)
+
+
+_JCROSS_漂:1.0__SYM_雰_627_ = """
+		>	# _JCROSS_雰:1.0__SYM_雰_552_ _JCROSS_雰:1.0__SYM_雰_802_
+		_JCROSS_雰:1.0__SYM_雰_594_:	h
+		_JCROSS_雰:1.0__SYM_雰_12_:				h
+		_JCROSS_雰:1.0__SYM_雰_764_:				h
+		_JCROSS_雰:1.0__SYM_雰_327_:				h
+		_JCROSS_雰:1.0__SYM_雰_351_:				h
+"""
+
+// [metadata-stripped]
+_JCROSS_雰:1.0__SYM_雰_13_ = 0x01
+_JCROSS_雰:1.0__SYM_雰_434_ = 0x02
+_JCROSS_雰:1.0__SYM_雰_480_ = 0x04
+_JCROSS_雰:1.0__SYM_雰_751_ = 0x08
+_JCROSS_雰:1.0__SYM_雰_270_ = 0x10
+_JCROSS_雰:1.0__SYM_雰_747_ = 0x20
+_JCROSS_雰:1.0__SYM_雰_580_ = 0x40
+_JCROSS_雰:1.0__SYM_雰_807_ = 0x80
+
+// [metadata-stripped]
+_JCROSS_雰:1.0__SYM_雰_129_ = _JCROSS_雰:1.0__SYM_雰_13_ + _JCROSS_雰:1.0__SYM_雰_580_ + _JCROSS_雰:1.0__SYM_雰_807_
+
+_JCROSS_雰:1.0__SYM_雰_853_ = {
+    0: 2,
+    _JCROSS_雰:1.0__SYM_雰_270_: 0,
+    _JCROSS_雰:1.0__SYM_雰_434_ | _JCROSS_雰:1.0__SYM_雰_270_: +1,
+    _JCROSS_雰:1.0__SYM_雰_434_: -1,
+    _JCROSS_雰:1.0__SYM_雰_747_: 0,
+    _JCROSS_雰:1.0__SYM_雰_480_ | _JCROSS_雰:1.0__SYM_雰_747_: +1,
+    _JCROSS_雰:1.0__SYM_雰_480_: -1,
+}
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_869_(x, y, _JCROSS_雰:1.0__SYM_雰_548_):
+    """_JCROSS_廬:1.0__SYM_廬_59_ a _JCROSS_雰:1.0__SYM_雰_823_ x,y _JCROSS_雰:1.0__SYM_雰_216_ _JCROSS_雰:1.0__SYM_雰_400_, _JCROSS_雰:1.0__SYM_雰_283_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_532_ _JCROSS_雰:1.0__SYM_雰_811_ _JCROSS_雰:1.0__SYM_雰_511_ _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_400_
+    _JCROSS_雰:1.0__SYM_雰_74_ _JCROSS_雰:1.0__SYM_雰_680_, as _JCROSS_雰:1.0__SYM_雰_406_ as _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_謀:1.0__SYM_雰_446_ of _JCROSS_雰:1.0__SYM_雰_279_ _JCROSS_雰:1.0__SYM_雰_442_ of _JCROSS_雰:1.0__SYM_雰_368_ _JCROSS_雰:1.0__SYM_雰_532_."""
+
+    _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_13_ if _JCROSS_雰:1.0__SYM_雰_548_ else 0
+    _JCROSS_雰:1.0__SYM_雰_442_ = 0
+// [metadata-stripped]
+    if x == 0:
+        _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+    _JCROSS_漂:1.0__SYM_雰_110_ -255 <= x <= 255:
+        _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_434_
+        if x > 0:
+            _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+        _JCROSS_雰:1.0__SYM_雰_442_ += 1
+    else:
+        _JCROSS_雰:1.0__SYM_雰_442_ += 2
+// [metadata-stripped]
+    if y == 0:
+        _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+    _JCROSS_漂:1.0__SYM_雰_110_ -255 <= y <= 255:
+        _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_480_
+        if y > 0:
+            _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+        _JCROSS_雰:1.0__SYM_雰_442_ += 1
+    else:
+        _JCROSS_雰:1.0__SYM_雰_442_ += 2
+    _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_442_
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_267_(_JCROSS_雰:1.0__SYM_雰_468_, _JCROSS_雰:1.0__SYM_雰_234_, _JCROSS_雰:1.0__SYM_雰_785_):
+    _JCROSS_雰:1.0__SYM_雰_886_ = _JCROSS_雰:1.0__SYM_雰_853_[_JCROSS_雰:1.0__SYM_雰_468_ & _JCROSS_雰:1.0__SYM_雰_785_]
+    _JCROSS_雰:1.0__SYM_雰_294_ = _JCROSS_雰:1.0__SYM_雰_853_[_JCROSS_雰:1.0__SYM_雰_234_ & _JCROSS_雰:1.0__SYM_雰_785_]
+    _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_886_ == _JCROSS_雰:1.0__SYM_雰_294_ or _JCROSS_雰:1.0__SYM_雰_637_(_JCROSS_雰:1.0__SYM_雰_886_) > _JCROSS_雰:1.0__SYM_雰_637_(_JCROSS_雰:1.0__SYM_雰_294_)
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_825_(_JCROSS_雰:1.0__SYM_雰_468_, _JCROSS_雰:1.0__SYM_雰_234_):
+    _JCROSS_雰:1.0__SYM_雰_286_urn (
+        (_JCROSS_雰:1.0__SYM_雰_234_ & _JCROSS_雰:1.0__SYM_雰_13_) == (_JCROSS_雰:1.0__SYM_雰_468_ & _JCROSS_雰:1.0__SYM_雰_13_)
+        _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_267_(_JCROSS_雰:1.0__SYM_雰_468_, _JCROSS_雰:1.0__SYM_雰_234_, _JCROSS_雰:1.0__SYM_雰_270_ | _JCROSS_雰:1.0__SYM_雰_434_)
+        _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_267_(_JCROSS_雰:1.0__SYM_雰_468_, _JCROSS_雰:1.0__SYM_雰_234_, _JCROSS_雰:1.0__SYM_雰_747_ | _JCROSS_雰:1.0__SYM_雰_480_)
+    )
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_831_(_JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_785_, _JCROSS_雰:1.0__SYM_雰_488_, _JCROSS_雰:1.0__SYM_雰_606_):
+    _JCROSS_雰:1.0__SYM_雰_887_ = _JCROSS_雰:1.0__SYM_雰_853_[_JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_785_]
+    if _JCROSS_雰:1.0__SYM_雰_887_ == 1:
+        _JCROSS_雰:1.0__SYM_雰_606_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_488_)
+    _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_887_ == -1:
+        _JCROSS_雰:1.0__SYM_雰_606_._JCROSS_雰:1.0__SYM_雰_159_(-_JCROSS_雰:1.0__SYM_雰_488_)
+    _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_887_ == 2:
+        _JCROSS_雰:1.0__SYM_雰_606_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", _JCROSS_雰:1.0__SYM_雰_488_))
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_245_(_JCROSS_雰:1.0__SYM_雰_532_, x, y, _JCROSS_雰:1.0__SYM_雰_322_, _JCROSS_雰:1.0__SYM_雰_184_):
+    _JCROSS_雰:1.0__SYM_雰_831_(_JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_270_ | _JCROSS_雰:1.0__SYM_雰_434_, x, _JCROSS_雰:1.0__SYM_雰_322_)
+    _JCROSS_雰:1.0__SYM_雰_831_(_JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_747_ | _JCROSS_雰:1.0__SYM_雰_480_, y, _JCROSS_雰:1.0__SYM_雰_184_)
+
+
+_JCROSS_廬:1.0__SYM_廬_67_ = 0x0001  # if _JCROSS_謀:1.0__SYM_碑_21_ _JCROSS_雰:1.0__SYM_雰_817_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_644_ _JCROSS_雰:1.0__SYM_雰_574_ _JCROSS_雰:1.0__SYM_雰_84_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_163_
+_JCROSS_廬:1.0__SYM_廬_113_ = 0x0002  # if _JCROSS_謀:1.0__SYM_碑_21_ _JCROSS_雰:1.0__SYM_雰_817_ _JCROSS_雰:1.0__SYM_雰_682_ xy _JCROSS_雰:1.0__SYM_雰_827_, _JCROSS_雰:1.0__SYM_雰_574_ _JCROSS_雰:1.0__SYM_雰_84_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_506_
+_JCROSS_廬:1.0__SYM_廬_96_ = 0x0004  # for _JCROSS_雰:1.0__SYM_雰_350_ xy _JCROSS_雰:1.0__SYM_雰_827_ if _JCROSS_雰:1.0__SYM_雰_170_ is true
+_JCROSS_廬:1.0__SYM_廬_114_ = 0x0008  # Sx = Sy, _JCROSS_雰:1.0__SYM_雰_574_ _JCROSS_雰:1.0__SYM_雰_647_ == 1.0
+_JCROSS_廬:1.0__SYM_廬_28_ = 0x0010  # _JCROSS_謀:1.0__SYM_碑_21_ to _JCROSS_雰:1.0__SYM_雰_528_ _JCROSS_雰:1.0__SYM_雰_429_ for _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_768_ (_JCROSS_雰:1.0__SYM_雰_191_!)
+_JCROSS_廬:1.0__SYM_廬_63_ = 0x0020  # _JCROSS_雰:1.0__SYM_雰_153_ at _JCROSS_雰:1.0__SYM_雰_116_ _JCROSS_雰:1.0__SYM_雰_165_ _JCROSS_雰:1.0__SYM_雰_868_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_謀:1.0__SYM_雰_558_ _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_165_
+_JCROSS_廬:1.0__SYM_廬_9_ = 0x0040  # Sx, Sy
+_JCROSS_廬:1.0__SYM_廬_5_ = 0x0080  # _JCROSS_雰:1.0__SYM_雰_343_, _JCROSS_雰:1.0__SYM_雰_593_, _JCROSS_雰:1.0__SYM_雰_178_, _JCROSS_雰:1.0__SYM_雰_381_
+_JCROSS_廬:1.0__SYM_廬_17_ = 0x0100  # _JCROSS_雰:1.0__SYM_雰_134_ _JCROSS_雰:1.0__SYM_雰_848_
+_JCROSS_廬:1.0__SYM_廬_29_ = 0x0200  # _JCROSS_雰:1.0__SYM_雰_338_ _JCROSS_雰:1.0__SYM_雰_19_ _JCROSS_雰:1.0__SYM_雰_61_ to _JCROSS_雰:1.0__SYM_雰_157_ _JCROSS_雰:1.0__SYM_雰_851_
+_JCROSS_廬:1.0__SYM_廬_82_ = 0x0400  # _JCROSS_雰:1.0__SYM_雰_566_ by _JCROSS_廬:1.0__SYM_廬_39_ in GX _JCROSS_雰:1.0__SYM_雰_353_
+_JCROSS_廬:1.0__SYM_廬_112_ = 0x0800  # _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_388_ to _JCROSS_雰:1.0__SYM_雰_471_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_551_ _JCROSS_雰:1.0__SYM_雰_248_ (_JCROSS_雰:1.0__SYM_雰_388_ for _JCROSS_廬:1.0__SYM_廬_39_)
+_JCROSS_廬:1.0__SYM_廬_116_ = 0x1000  # _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_388_ _JCROSS_雰:1.0__SYM_雰_875_ to _JCROSS_雰:1.0__SYM_雰_471_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_551_ _JCROSS_雰:1.0__SYM_雰_248_ (_JCROSS_雰:1.0__SYM_雰_388_ for MS)
+
+
+_JCROSS_廬:1.0__SYM_廬_46_ = _JCROSS_雰:1.0__SYM_雰_466_(
+    "_JCROSS_廬:1.0__SYM_廬_46_", ["_JCROSS_雰:1.0__SYM_雰_756_", "_JCROSS_雰:1.0__SYM_雰_236_", "_JCROSS_雰:1.0__SYM_雰_582_"]
+)
+
+
+class _JCROSS_廬:1.0__SYM_廬_56_(_JCROSS_雰:1.0__SYM_雰_735_):
+    """_JCROSS_廬:1.0__SYM_廬_45_ class _JCROSS_雰:1.0__SYM_雰_555_ an _JCROSS_雰:1.0__SYM_雰_481_ _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_雰:1.0__SYM_雰_851_.
+
+    _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_674_ _JCROSS_雰:1.0__SYM_雰_46_ in _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_44_: _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_845_. _JCROSS_廬:1.0__SYM_廬_22_
+    _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_674_ _JCROSS_雰:1.0__SYM_雰_143_ _JCROSS_雰:1.0__SYM_雰_460_, _JCROSS_雰:1.0__SYM_雰_461_ _JCROSS_雰:1.0__SYM_雰_479_ _JCROSS_雰:1.0__SYM_雰_350_ ``._JCROSS_雰:1.0__SYM_雰_520_``,
+    ``._JCROSS_雰:1.0__SYM_雰_743_``, ``._JCROSS_雰:1.0__SYM_雰_594_``, _JCROSS_雰:1.0__SYM_雰_642_ ``._JCROSS_雰:1.0__SYM_雰_432_`` _JCROSS_雰:1.0__SYM_雰_824_;
+    _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_143_ _JCROSS_雰:1.0__SYM_雰_768_, _JCROSS_雰:1.0__SYM_雰_111_ _JCROSS_雰:1.0__SYM_雰_581_ _JCROSS_雰:1.0__SYM_雰_350_ ``._JCROSS_雰:1.0__SYM_雰_768_``
+    _JCROSS_雰:1.0__SYM_雰_824_.
+
+    _JCROSS_廬:1.0__SYM_廬_108_ _JCROSS_雰:1.0__SYM_雰_350_ ``._JCROSS_雰:1.0__SYM_雰_520_`` _JCROSS_雰:1.0__SYM_雰_514_ (_JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_謀:1.0__SYM_雰_166_ _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_824_ _JCROSS_雰:1.0__SYM_雰_160_
+    _JCROSS_雰:1.0__SYM_雰_170_) is _JCROSS_雰:1.0__SYM_雰_736_ _JCROSS_謀:1.0__SYM_碑_21_ on _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_350_ ``._JCROSS_雰:1.0__SYM_雰_768_`` _JCROSS_雰:1.0__SYM_雰_514_ is _JCROSS_雰:1.0__SYM_雰_736_
+    _JCROSS_謀:1.0__SYM_碑_21_ on _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_, it is _JCROSS_雰:1.0__SYM_雰_433_ to _JCROSS_雰:1.0__SYM_雰_538_ _JCROSS_雰:1.0__SYM_雰_350_ :py:_JCROSS_雰:1.0__SYM_雰_140_:`_JCROSS_雰:1.0__SYM_雰_146_`
+    _JCROSS_雰:1.0__SYM_雰_603_ to _JCROSS_雰:1.0__SYM_雰_272_ _JCROSS_謀:1.0__SYM_雰_837_ a _JCROSS_雰:1.0__SYM_雰_851_ is _JCROSS_雰:1.0__SYM_雰_132_ or _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_漂:1.0__SYM_雰_530_ _JCROSS_雰:1.0__SYM_雰_655_ to
+    _JCROSS_雰:1.0__SYM_雰_645_ _JCROSS_雰:1.0__SYM_雰_2_ _JCROSS_雰:1.0__SYM_雰_799_.
+
+    _JCROSS_廬:1.0__SYM_廬_59_ a _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_851_, _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_768_ _JCROSS_雰:1.0__SYM_雰_721_ _JCROSS_雰:1.0__SYM_雰_724_ be _JCROSS_雰:1.0__SYM_雰_773_ _JCROSS_雰:1.0__SYM_雰_479_ _JCROSS_雰:1.0__SYM_雰_494_-_JCROSS_雰:1.0__SYM_雰_390_ _JCROSS_雰:1.0__SYM_雰_645_::
+
+            >> _JCROSS_雰:1.0__SYM_雰_829_(_JCROSS_雰:1.0__SYM_雰_801_["_JCROSS_雰:1.0__SYM_雰_662_"]["_JCROSS_廬:1.0__SYM_廬_31_"]._JCROSS_雰:1.0__SYM_雰_146_())
+            >> _JCROSS_雰:1.0__SYM_雰_801_["_JCROSS_雰:1.0__SYM_雰_662_"]["_JCROSS_廬:1.0__SYM_廬_31_"][0]
+            <_JCROSS_雰:1.0__SYM_雰_428_._JCROSS_雰:1.0__SYM_雰_633_._JCROSS_雰:1.0__SYM_雰_684_._JCROSS_雰:1.0__SYM_雰_366_._JCROSS_廬:1.0__SYM_廬_90_ at 0x1027b2ee0>
+
+    """
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_712_(self, _JCROSS_雰:1.0__SYM_雰_799_=b""):
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_799_:
+// [metadata-stripped]
+            self._JCROSS_雰:1.0__SYM_雰_594_ = 0
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        self._JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_199_(self, _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_439_=_JCROSS_廬:1.0__SYM_廬_71_):
+        _JCROSS_雰:1.0__SYM_雰_799_ = self._JCROSS_雰:1.0__SYM_雰_729_(_JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_439_)
+        self._JCROSS_雰:1.0__SYM_雰_761_._JCROSS_雰:1.0__SYM_雰_477_()
+        self._JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_421_(self, _JCROSS_雰:1.0__SYM_雰_540_):
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_799_"):
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        if _JCROSS_雰:1.0__SYM_雰_875_ self._JCROSS_雰:1.0__SYM_雰_799_:
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_590_ self._JCROSS_雰:1.0__SYM_雰_799_
+            self._JCROSS_雰:1.0__SYM_雰_594_ = 0
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        _JCROSS_雰:1.0__SYM_雰_624_, _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_3_._JCROSS_雰:1.0__SYM_雰_476_(_JCROSS_漂:1.0__SYM_雰_627_, self._JCROSS_雰:1.0__SYM_雰_799_, self)
+        _JCROSS_雰:1.0__SYM_雰_590_ self._JCROSS_雰:1.0__SYM_雰_799_
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if self._JCROSS_雰:1.0__SYM_雰_594_ == 0:
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        if self._JCROSS_雰:1.0__SYM_雰_146_():
+            self._JCROSS_雰:1.0__SYM_雰_183_(_JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_540_)
+        else:
+            self._JCROSS_雰:1.0__SYM_雰_302_(_JCROSS_雰:1.0__SYM_雰_799_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_729_(
+        self, _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_439_=_JCROSS_廬:1.0__SYM_廬_71_, *, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_廬:1.0__SYM_廬_60_, _JCROSS_雰:1.0__SYM_雰_305_=_JCROSS_廬:1.0__SYM_廬_71_
+    ):
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_799_"):
+            if _JCROSS_雰:1.0__SYM_雰_439_:
+// [metadata-stripped]
+                self._JCROSS_雰:1.0__SYM_雰_421_(_JCROSS_雰:1.0__SYM_雰_540_)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_799_
+        if self._JCROSS_雰:1.0__SYM_雰_594_ == 0:
+            _JCROSS_雰:1.0__SYM_雰_286_urn b""
+
+        if _JCROSS_雰:1.0__SYM_雰_439_:
+            self._JCROSS_雰:1.0__SYM_雰_172_(_JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_雰:1.0__SYM_雰_752_)
+
+        _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_3_._JCROSS_雰:1.0__SYM_雰_53_(_JCROSS_漂:1.0__SYM_雰_627_, self)
+        if self._JCROSS_雰:1.0__SYM_雰_146_():
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + self._JCROSS_雰:1.0__SYM_雰_619_(_JCROSS_雰:1.0__SYM_雰_540_)
+        else:
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + self._JCROSS_雰:1.0__SYM_雰_754_(_JCROSS_雰:1.0__SYM_雰_305_=_JCROSS_雰:1.0__SYM_雰_305_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_456_(self, _JCROSS_謀:1.0__SYM_雰_133_, _JCROSS_雰:1.0__SYM_雰_344_):
+        if self._JCROSS_雰:1.0__SYM_雰_146_():
+            for _JCROSS_雰:1.0__SYM_雰_422_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+                _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_456_(_JCROSS_謀:1.0__SYM_雰_133_, _JCROSS_雰:1.0__SYM_雰_344_)
+            _JCROSS_雰:1.0__SYM_雰_314_ = _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_448_")
+        else:
+            _JCROSS_雰:1.0__SYM_雰_841_ = 0
+            for i in _JCROSS_雰:1.0__SYM_雰_192_(self._JCROSS_雰:1.0__SYM_雰_594_):
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_681_("_JCROSS_雰:1.0__SYM_雰_630_")
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+                for j in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_841_, self._JCROSS_雰:1.0__SYM_雰_432_[i] + 1):
+                    _JCROSS_雰:1.0__SYM_雰_449_ = [
+                        ("x", self._JCROSS_雰:1.0__SYM_雰_520_[j][0]),
+                        ("y", self._JCROSS_雰:1.0__SYM_雰_520_[j][1]),
+                        ("on", self._JCROSS_雰:1.0__SYM_雰_743_[j] & _JCROSS_雰:1.0__SYM_雰_13_),
+                    ]
+                    if self._JCROSS_雰:1.0__SYM_雰_743_[j] & _JCROSS_雰:1.0__SYM_雰_580_:
+// [metadata-stripped]
+                        _JCROSS_雰:1.0__SYM_雰_449_._JCROSS_雰:1.0__SYM_雰_159_(("_JCROSS_雰:1.0__SYM_雰_700_", 1))
+// _JCROSS_廬:0.1__SYM_LZ_178_ [decoy-metadata]
+                    if self._JCROSS_雰:1.0__SYM_雰_743_[j] & _JCROSS_雰:1.0__SYM_雰_807_:
+                        _JCROSS_雰:1.0__SYM_雰_449_._JCROSS_雰:1.0__SYM_雰_159_(("_JCROSS_雰:1.0__SYM_雰_800_", 1))
+                    _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_502_("pt", _JCROSS_雰:1.0__SYM_雰_449_)
+                    _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+// _JCROSS_区:0.3__SYM_DG_742_ [decoy-metadata]
+                _JCROSS_雰:1.0__SYM_雰_841_ = self._JCROSS_雰:1.0__SYM_雰_432_[i] + 1
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_515_("_JCROSS_雰:1.0__SYM_雰_630_")
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+            _JCROSS_雰:1.0__SYM_雰_314_ = self._JCROSS_雰:1.0__SYM_雰_594_ > 0
+        if _JCROSS_雰:1.0__SYM_雰_314_:
+            if self._JCROSS_雰:1.0__SYM_雰_448_:
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_681_("_JCROSS_雰:1.0__SYM_雰_134_")
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+                self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_雰:1.0__SYM_雰_456_(_JCROSS_謀:1.0__SYM_雰_133_, _JCROSS_雰:1.0__SYM_雰_344_)
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_515_("_JCROSS_雰:1.0__SYM_雰_134_")
+            else:
+                _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_502_("_JCROSS_雰:1.0__SYM_雰_134_")
+            _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_167_(self, _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_):
+        if _JCROSS_雰:1.0__SYM_雰_405_ == "_JCROSS_雰:1.0__SYM_雰_630_":
+            if self._JCROSS_雰:1.0__SYM_雰_594_ < 0:
+                _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_雰:1.0__SYM_雰_633_._JCROSS_廬:1.0__SYM_廬_42_("_JCROSS_雰:1.0__SYM_雰_721_'t _JCROSS_雰:1.0__SYM_雰_410_ _JCROSS_雰:1.0__SYM_雰_203_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_460_ in _JCROSS_雰:1.0__SYM_雰_851_")
+            self._JCROSS_雰:1.0__SYM_雰_594_ = self._JCROSS_雰:1.0__SYM_雰_594_ + 1
+            _JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_廬:1.0__SYM_廬_101_()
+            _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_519_()
+            for _JCROSS_雰:1.0__SYM_雰_470_ in _JCROSS_雰:1.0__SYM_雰_385_:
+                if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_雰:1.0__SYM_雰_470_, _JCROSS_雰:1.0__SYM_雰_177_):
+                    continue
+                _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_ = _JCROSS_雰:1.0__SYM_雰_470_
+                if _JCROSS_雰:1.0__SYM_雰_405_ != "pt":
+                    continue  # _JCROSS_雰:1.0__SYM_雰_246_ _JCROSS_雰:1.0__SYM_雰_793_ _JCROSS_雰:1.0__SYM_雰_865_ "pt"
+                _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_159_((_JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["x"]), _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["y"])))
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_779_(_JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["on"]))
+                if "_JCROSS_雰:1.0__SYM_雰_700_" in _JCROSS_雰:1.0__SYM_雰_449_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_779_(_JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_700_"])):
+                    _JCROSS_雰:1.0__SYM_雰_532_ |= _JCROSS_雰:1.0__SYM_雰_580_
+                if "_JCROSS_雰:1.0__SYM_雰_800_" in _JCROSS_雰:1.0__SYM_雰_449_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_779_(_JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_800_"])):
+                    _JCROSS_雰:1.0__SYM_雰_532_ |= _JCROSS_雰:1.0__SYM_雰_807_
+                _JCROSS_雰:1.0__SYM_雰_743_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+// _JCROSS_漂:0.6__SYM_FY_737_ [decoy-metadata]
+            if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_520_"):
+                self._JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_雰:1.0__SYM_雰_520_
+                self._JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_
+                self._JCROSS_雰:1.0__SYM_雰_432_ = [_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_520_) - 1]
+            else:
+                self._JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_520_)
+                self._JCROSS_雰:1.0__SYM_雰_743_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_743_)
+                self._JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_520_) - 1)
+        _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_405_ == "_JCROSS_雰:1.0__SYM_雰_653_":
+            if self._JCROSS_雰:1.0__SYM_雰_594_ > 0:
+                _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_雰:1.0__SYM_雰_633_._JCROSS_廬:1.0__SYM_廬_42_("_JCROSS_雰:1.0__SYM_雰_721_'t _JCROSS_雰:1.0__SYM_雰_410_ _JCROSS_雰:1.0__SYM_雰_203_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_460_ in _JCROSS_雰:1.0__SYM_雰_851_")
+            self._JCROSS_雰:1.0__SYM_雰_594_ = -1
+            if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_768_"):
+                self._JCROSS_雰:1.0__SYM_雰_768_ = []
+            _JCROSS_雰:1.0__SYM_雰_653_ = _JCROSS_廬:1.0__SYM_廬_90_()
+            self._JCROSS_雰:1.0__SYM_雰_768_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_653_)
+            _JCROSS_雰:1.0__SYM_雰_653_._JCROSS_雰:1.0__SYM_雰_167_(_JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_)
+        _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_405_ == "_JCROSS_雰:1.0__SYM_雰_134_":
+            self._JCROSS_雰:1.0__SYM_雰_448_ = _JCROSS_雰:1.0__SYM_雰_52_._JCROSS_廬:1.0__SYM_廬_64_()
+            for _JCROSS_雰:1.0__SYM_雰_470_ in _JCROSS_雰:1.0__SYM_雰_385_:
+                if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_雰:1.0__SYM_雰_470_, _JCROSS_雰:1.0__SYM_雰_177_):
+                    continue
+                _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_ = _JCROSS_雰:1.0__SYM_雰_470_
+                self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_雰:1.0__SYM_雰_167_(_JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_10_(self, _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_582_=1):
+        _JCROSS_雰:1.0__SYM_雰_829_ self._JCROSS_雰:1.0__SYM_雰_146_()
+        _JCROSS_雰:1.0__SYM_雰_236_ = 0
+        _JCROSS_雰:1.0__SYM_雰_756_ = 0
+        _JCROSS_雰:1.0__SYM_雰_333_ = _JCROSS_雰:1.0__SYM_雰_582_
+        for _JCROSS_雰:1.0__SYM_雰_422_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+            _JCROSS_雰:1.0__SYM_雰_187_ = _JCROSS_雰:1.0__SYM_雰_540_[_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_788_]
+            if _JCROSS_雰:1.0__SYM_雰_187_._JCROSS_雰:1.0__SYM_雰_594_ == 0:
+                continue
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_187_._JCROSS_雰:1.0__SYM_雰_594_ > 0:
+                nP, nC = _JCROSS_雰:1.0__SYM_雰_187_._JCROSS_謀:1.0__SYM_碑_9_()
+            else:
+                nP, nC, _JCROSS_雰:1.0__SYM_雰_641_ = _JCROSS_雰:1.0__SYM_雰_187_._JCROSS_謀:1.0__SYM_碑_10_(
+                    _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_333_ + 1
+                )
+                _JCROSS_雰:1.0__SYM_雰_582_ = _JCROSS_雰:1.0__SYM_雰_783_(_JCROSS_雰:1.0__SYM_雰_582_, _JCROSS_雰:1.0__SYM_雰_641_)
+            _JCROSS_雰:1.0__SYM_雰_756_ = _JCROSS_雰:1.0__SYM_雰_756_ + nP
+            _JCROSS_雰:1.0__SYM_雰_236_ = _JCROSS_雰:1.0__SYM_雰_236_ + nC
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_46_(_JCROSS_雰:1.0__SYM_雰_756_, _JCROSS_雰:1.0__SYM_雰_236_, _JCROSS_雰:1.0__SYM_雰_582_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_9_(self):
+        _JCROSS_雰:1.0__SYM_雰_829_ self._JCROSS_雰:1.0__SYM_雰_594_ > 0
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_520_), _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_432_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_183_(self, _JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_540_):
+        self._JCROSS_雰:1.0__SYM_雰_768_ = []
+        _JCROSS_雰:1.0__SYM_雰_868_ = 1
+        _JCROSS_雰:1.0__SYM_雰_314_ = 0
+        while _JCROSS_雰:1.0__SYM_雰_868_:
+            _JCROSS_雰:1.0__SYM_雰_653_ = _JCROSS_廬:1.0__SYM_廬_90_()
+            _JCROSS_雰:1.0__SYM_雰_868_, _JCROSS_雰:1.0__SYM_雰_337_, _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_653_._JCROSS_雰:1.0__SYM_雰_608_(_JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_540_)
+            _JCROSS_雰:1.0__SYM_雰_314_ = _JCROSS_雰:1.0__SYM_雰_314_ | _JCROSS_雰:1.0__SYM_雰_337_
+            self._JCROSS_雰:1.0__SYM_雰_768_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_653_)
+        if _JCROSS_雰:1.0__SYM_雰_314_:
+            (_JCROSS_雰:1.0__SYM_雰_393_,) = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", _JCROSS_雰:1.0__SYM_雰_799_[:2])
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[2:]
+            self._JCROSS_雰:1.0__SYM_雰_448_ = _JCROSS_雰:1.0__SYM_雰_52_._JCROSS_廬:1.0__SYM_廬_64_()
+            self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_雰:1.0__SYM_雰_808_(_JCROSS_雰:1.0__SYM_雰_799_[:_JCROSS_雰:1.0__SYM_雰_393_])
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_393_:]
+            if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_) >= 4:
+                _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_861_(
+                    "_JCROSS_雰:1.0__SYM_雰_550_ _JCROSS_雰:1.0__SYM_雰_797_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_799_ at _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_329_ of _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_851_: %d _JCROSS_雰:1.0__SYM_雰_794_ _JCROSS_雰:1.0__SYM_雰_163_",
+                    _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_),
+                )
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_302_(self, _JCROSS_雰:1.0__SYM_雰_799_):
+        _JCROSS_雰:1.0__SYM_雰_432_ = _JCROSS_雰:1.0__SYM_雰_494_._JCROSS_雰:1.0__SYM_雰_494_("H")
+        _JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_839_(_JCROSS_雰:1.0__SYM_雰_799_[: 2 * self._JCROSS_雰:1.0__SYM_雰_594_])
+        if _JCROSS_雰:1.0__SYM_雰_648_._JCROSS_謀:1.0__SYM_雰_274_ != "_JCROSS_雰:1.0__SYM_雰_552_":
+            _JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_862_()
+        self._JCROSS_雰:1.0__SYM_雰_432_ = _JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_361_()
+
+        _JCROSS_雰:1.0__SYM_雰_547_ = 2 * self._JCROSS_雰:1.0__SYM_雰_594_
+        (_JCROSS_雰:1.0__SYM_雰_821_,) = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_ : _JCROSS_雰:1.0__SYM_雰_547_ + 2])
+        self._JCROSS_雰:1.0__SYM_雰_448_ = _JCROSS_雰:1.0__SYM_雰_52_._JCROSS_廬:1.0__SYM_廬_64_()
+        self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_雰:1.0__SYM_雰_808_(_JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_ + 2 : _JCROSS_雰:1.0__SYM_雰_547_ + 2 + _JCROSS_雰:1.0__SYM_雰_821_])
+        _JCROSS_雰:1.0__SYM_雰_547_ += 2 + _JCROSS_雰:1.0__SYM_雰_821_
+        _JCROSS_雰:1.0__SYM_雰_418_ = self._JCROSS_雰:1.0__SYM_雰_432_[-1] + 1
+        _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_431_, _JCROSS_雰:1.0__SYM_雰_668_ = self._JCROSS_雰:1.0__SYM_雰_156_(
+            _JCROSS_雰:1.0__SYM_雰_418_, _JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_547_
+        )
+
+// [metadata-stripped]
+        self._JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_廬:1.0__SYM_廬_101_._JCROSS_雰:1.0__SYM_雰_118_(_JCROSS_雰:1.0__SYM_雰_418_)
+        _JCROSS_雰:1.0__SYM_雰_588_ = 0
+        _JCROSS_雰:1.0__SYM_雰_425_ = 0
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_418_):
+            _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_743_[i]
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_434_:
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_270_:
+                    x = _JCROSS_雰:1.0__SYM_雰_431_[_JCROSS_雰:1.0__SYM_雰_588_]
+                else:
+                    x = -_JCROSS_雰:1.0__SYM_雰_431_[_JCROSS_雰:1.0__SYM_雰_588_]
+                _JCROSS_雰:1.0__SYM_雰_588_ = _JCROSS_雰:1.0__SYM_雰_588_ + 1
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_270_:
+                x = 0
+            else:
+                x = _JCROSS_雰:1.0__SYM_雰_431_[_JCROSS_雰:1.0__SYM_雰_588_]
+                _JCROSS_雰:1.0__SYM_雰_588_ = _JCROSS_雰:1.0__SYM_雰_588_ + 1
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_480_:
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_747_:
+                    y = _JCROSS_雰:1.0__SYM_雰_668_[_JCROSS_雰:1.0__SYM_雰_425_]
+                else:
+                    y = -_JCROSS_雰:1.0__SYM_雰_668_[_JCROSS_雰:1.0__SYM_雰_425_]
+                _JCROSS_雰:1.0__SYM_雰_425_ = _JCROSS_雰:1.0__SYM_雰_425_ + 1
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_747_:
+                y = 0
+            else:
+                y = _JCROSS_雰:1.0__SYM_雰_668_[_JCROSS_雰:1.0__SYM_雰_425_]
+                _JCROSS_雰:1.0__SYM_雰_425_ = _JCROSS_雰:1.0__SYM_雰_425_ + 1
+            _JCROSS_雰:1.0__SYM_雰_520_[i] = (x, y)
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_588_ == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_431_)
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_425_ == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_668_)
+        _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_87_()
+// [metadata-stripped]
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_743_)):
+            _JCROSS_雰:1.0__SYM_雰_743_[i] &= _JCROSS_雰:1.0__SYM_雰_129_
+        self._JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_156_(self, _JCROSS_雰:1.0__SYM_雰_418_, _JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_547_=0):
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_519_(_JCROSS_雰:1.0__SYM_雰_418_)
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_漂:1.0__SYM_雰_890_ = ">"  # _JCROSS_雰:1.0__SYM_雰_552_ _JCROSS_雰:1.0__SYM_雰_802_
+        _JCROSS_漂:1.0__SYM_雰_63_ = ">"  # _JCROSS_雰:1.0__SYM_雰_552_ _JCROSS_雰:1.0__SYM_雰_802_
+        j = 0
+        while _JCROSS_廬:1.0__SYM_廬_71_:
+            _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_]
+            _JCROSS_雰:1.0__SYM_雰_547_ += 1
+            _JCROSS_雰:1.0__SYM_雰_842_ = 1
+            if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_751_:
+                _JCROSS_雰:1.0__SYM_雰_842_ = _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_] + 1
+                _JCROSS_雰:1.0__SYM_雰_547_ += 1
+            for k in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_842_):
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_434_:
+                    _JCROSS_漂:1.0__SYM_雰_890_ = _JCROSS_漂:1.0__SYM_雰_890_ + "B"
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_270_):
+                    _JCROSS_漂:1.0__SYM_雰_890_ = _JCROSS_漂:1.0__SYM_雰_890_ + "h"
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_480_:
+                    _JCROSS_漂:1.0__SYM_雰_63_ = _JCROSS_漂:1.0__SYM_雰_63_ + "B"
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_747_):
+                    _JCROSS_漂:1.0__SYM_雰_63_ = _JCROSS_漂:1.0__SYM_雰_63_ + "h"
+                _JCROSS_雰:1.0__SYM_雰_743_[j] = _JCROSS_雰:1.0__SYM_雰_532_
+                j = j + 1
+            if j >= _JCROSS_雰:1.0__SYM_雰_418_:
+                break
+        _JCROSS_雰:1.0__SYM_雰_829_ j == _JCROSS_雰:1.0__SYM_雰_418_, "_JCROSS_雰:1.0__SYM_雰_880_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_743_"
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_867_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_492_(_JCROSS_漂:1.0__SYM_雰_890_)
+        _JCROSS_雰:1.0__SYM_雰_315_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_492_(_JCROSS_漂:1.0__SYM_雰_63_)
+        if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_) - _JCROSS_雰:1.0__SYM_雰_547_ - (_JCROSS_雰:1.0__SYM_雰_867_ + _JCROSS_雰:1.0__SYM_雰_315_) >= 4:
+            _JCROSS_雰:1.0__SYM_雰_843_._JCROSS_雰:1.0__SYM_雰_861_(
+                "_JCROSS_雰:1.0__SYM_雰_550_ _JCROSS_雰:1.0__SYM_雰_797_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_799_: %d _JCROSS_雰:1.0__SYM_雰_794_ _JCROSS_雰:1.0__SYM_雰_163_",
+                _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_799_) - _JCROSS_雰:1.0__SYM_雰_547_ - (_JCROSS_雰:1.0__SYM_雰_867_ + _JCROSS_雰:1.0__SYM_雰_315_),
+            )
+        _JCROSS_雰:1.0__SYM_雰_431_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(_JCROSS_漂:1.0__SYM_雰_890_, _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_ : _JCROSS_雰:1.0__SYM_雰_547_ + _JCROSS_雰:1.0__SYM_雰_867_])
+        _JCROSS_雰:1.0__SYM_雰_668_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(
+            _JCROSS_漂:1.0__SYM_雰_63_, _JCROSS_雰:1.0__SYM_雰_799_[_JCROSS_雰:1.0__SYM_雰_547_ + _JCROSS_雰:1.0__SYM_雰_867_ : _JCROSS_雰:1.0__SYM_雰_547_ + _JCROSS_雰:1.0__SYM_雰_867_ + _JCROSS_雰:1.0__SYM_雰_315_]
+        )
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_431_, _JCROSS_雰:1.0__SYM_雰_668_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_619_(self, _JCROSS_雰:1.0__SYM_雰_540_):
+        _JCROSS_雰:1.0__SYM_雰_799_ = b""
+        _JCROSS_雰:1.0__SYM_雰_285_ = _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_768_) - 1
+        _JCROSS_雰:1.0__SYM_雰_868_ = 1
+        _JCROSS_雰:1.0__SYM_雰_314_ = 0
+        for i, _JCROSS_雰:1.0__SYM_雰_422_ in _JCROSS_雰:1.0__SYM_雰_54_(self._JCROSS_雰:1.0__SYM_雰_768_):
+            if i == _JCROSS_雰:1.0__SYM_雰_285_:
+                _JCROSS_雰:1.0__SYM_雰_314_ = _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_448_")
+                _JCROSS_雰:1.0__SYM_雰_868_ = 0
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_729_(_JCROSS_雰:1.0__SYM_雰_868_, _JCROSS_雰:1.0__SYM_雰_314_, _JCROSS_雰:1.0__SYM_雰_540_)
+        if _JCROSS_雰:1.0__SYM_雰_314_:
+            _JCROSS_雰:1.0__SYM_雰_134_ = self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_謀:1.0__SYM_碑_17_()
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_134_)) + _JCROSS_雰:1.0__SYM_雰_134_
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_754_(self, *, _JCROSS_雰:1.0__SYM_雰_305_=_JCROSS_廬:1.0__SYM_廬_71_):
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_520_) == _JCROSS_雰:1.0__SYM_雰_473_(self._JCROSS_雰:1.0__SYM_雰_743_)
+        _JCROSS_雰:1.0__SYM_雰_799_ = []
+        _JCROSS_雰:1.0__SYM_雰_432_ = _JCROSS_雰:1.0__SYM_雰_494_._JCROSS_雰:1.0__SYM_雰_494_("H", self._JCROSS_雰:1.0__SYM_雰_432_)
+        if _JCROSS_雰:1.0__SYM_雰_648_._JCROSS_謀:1.0__SYM_雰_274_ != "_JCROSS_雰:1.0__SYM_雰_552_":
+            _JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_862_()
+        _JCROSS_雰:1.0__SYM_雰_799_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_432_._JCROSS_雰:1.0__SYM_雰_677_())
+        _JCROSS_雰:1.0__SYM_雰_134_ = self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_謀:1.0__SYM_碑_17_()
+        _JCROSS_雰:1.0__SYM_雰_799_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_134_)))
+        _JCROSS_雰:1.0__SYM_雰_799_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_134_)
+
+        _JCROSS_雰:1.0__SYM_雰_424_ = self._JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_228_()
+        _JCROSS_雰:1.0__SYM_雰_424_._JCROSS_雰:1.0__SYM_雰_257_()
+        _JCROSS_雰:1.0__SYM_雰_424_._JCROSS_雰:1.0__SYM_雰_145_()
+
+        if _JCROSS_雰:1.0__SYM_雰_305_:
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_424_ = self._JCROSS_雰:1.0__SYM_雰_107_(self._JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_)
+// [metadata-stripped]
+        else:
+            _JCROSS_雰:1.0__SYM_雰_424_ = self._JCROSS_漂:1.0__SYM_雰_781_(self._JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_)
+
+        _JCROSS_雰:1.0__SYM_雰_799_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_424_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn b""._JCROSS_雰:1.0__SYM_雰_240_(_JCROSS_雰:1.0__SYM_雰_799_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_107_(self, _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_731_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_592_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_720_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_164_ = _JCROSS_廬:1.0__SYM_廬_60_
+        _JCROSS_雰:1.0__SYM_雰_842_ = 0
+        for _JCROSS_雰:1.0__SYM_雰_532_, (x, y) in _JCROSS_雰:1.0__SYM_雰_243_(_JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+// [metadata-stripped]
+            if x == 0:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+            _JCROSS_漂:1.0__SYM_雰_110_ -255 <= x <= 255:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_434_
+                if x > 0:
+                    _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+                else:
+                    x = -x
+                _JCROSS_雰:1.0__SYM_雰_592_._JCROSS_雰:1.0__SYM_雰_159_(x)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_592_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", x))
+// [metadata-stripped]
+            if y == 0:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+            _JCROSS_漂:1.0__SYM_雰_110_ -255 <= y <= 255:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_480_
+                if y > 0:
+                    _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+                else:
+                    y = -y
+                _JCROSS_雰:1.0__SYM_雰_720_._JCROSS_雰:1.0__SYM_雰_159_(y)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_720_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", y))
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_532_ == _JCROSS_雰:1.0__SYM_雰_164_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_842_ != 255:
+                _JCROSS_雰:1.0__SYM_雰_842_ = _JCROSS_雰:1.0__SYM_雰_842_ + 1
+                if _JCROSS_雰:1.0__SYM_雰_842_ == 1:
+                    _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+                else:
+                    _JCROSS_雰:1.0__SYM_雰_731_[-2] = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_751_
+                    _JCROSS_雰:1.0__SYM_雰_731_[-1] = _JCROSS_雰:1.0__SYM_雰_842_
+            else:
+                _JCROSS_雰:1.0__SYM_雰_842_ = 0
+                _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+            _JCROSS_雰:1.0__SYM_雰_164_ = _JCROSS_雰:1.0__SYM_雰_532_
+        _JCROSS_雰:1.0__SYM_雰_286_urn (_JCROSS_雰:1.0__SYM_雰_731_, _JCROSS_雰:1.0__SYM_雰_592_, _JCROSS_雰:1.0__SYM_雰_720_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_309_(self, _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_120_ = []
+        _JCROSS_雰:1.0__SYM_雰_437_ = _JCROSS_廬:1.0__SYM_廬_60_
+        _JCROSS_雰:1.0__SYM_雰_559_ = 0
+        _JCROSS_雰:1.0__SYM_雰_842_ = 0
+        for _JCROSS_雰:1.0__SYM_雰_532_, (x, y) in _JCROSS_雰:1.0__SYM_雰_243_(_JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_606_ = _JCROSS_雰:1.0__SYM_雰_869_(x, y, _JCROSS_雰:1.0__SYM_雰_532_)
+            _JCROSS_雰:1.0__SYM_雰_559_ += 1 + _JCROSS_雰:1.0__SYM_雰_606_
+            _JCROSS_雰:1.0__SYM_雰_148_ = [
+                (_JCROSS_雰:1.0__SYM_雰_559_, _JCROSS_雰:1.0__SYM_雰_437_, _JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_606_),
+                (_JCROSS_雰:1.0__SYM_雰_559_ + 1, _JCROSS_雰:1.0__SYM_雰_437_, (_JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_751_), _JCROSS_雰:1.0__SYM_雰_606_),
+            ]
+            for _JCROSS_雰:1.0__SYM_雰_495_, _JCROSS_雰:1.0__SYM_雰_602_, _JCROSS_雰:1.0__SYM_雰_732_, _JCROSS_雰:1.0__SYM_雰_606_ in _JCROSS_雰:1.0__SYM_雰_120_:
+                if (
+                    _JCROSS_雰:1.0__SYM_雰_495_ + _JCROSS_雰:1.0__SYM_雰_606_ <= _JCROSS_雰:1.0__SYM_雰_559_ + 1
+                    _JCROSS_雰:1.0__SYM_雰_642_ (_JCROSS_雰:1.0__SYM_雰_732_ & _JCROSS_雰:1.0__SYM_雰_751_)
+                    _JCROSS_雰:1.0__SYM_雰_642_ (_JCROSS_雰:1.0__SYM_雰_732_ < 0xFF00)
+                    _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_825_(_JCROSS_雰:1.0__SYM_雰_732_, _JCROSS_雰:1.0__SYM_雰_532_)
+                ):
+                    if (_JCROSS_雰:1.0__SYM_雰_732_ & 0xFF) == (
+                        _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_751_
+                    ) _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_495_ == _JCROSS_雰:1.0__SYM_雰_559_ + 1:
+                        continue
+                    _JCROSS_雰:1.0__SYM_雰_148_._JCROSS_雰:1.0__SYM_雰_159_(
+                        (_JCROSS_雰:1.0__SYM_雰_495_ + _JCROSS_雰:1.0__SYM_雰_606_, _JCROSS_雰:1.0__SYM_雰_602_, _JCROSS_雰:1.0__SYM_雰_732_ + 256, _JCROSS_雰:1.0__SYM_雰_606_)
+                    )
+            _JCROSS_雰:1.0__SYM_雰_120_ = _JCROSS_雰:1.0__SYM_雰_148_
+            _JCROSS_雰:1.0__SYM_雰_437_ = _JCROSS_雰:1.0__SYM_雰_332_(_JCROSS_雰:1.0__SYM_雰_120_, _JCROSS_奥:1.0__SYM_雰_589_=_JCROSS_雰:1.0__SYM_雰_860_ t: t[0])
+            _JCROSS_雰:1.0__SYM_雰_559_ = _JCROSS_雰:1.0__SYM_雰_437_[0]
+
+        _JCROSS_雰:1.0__SYM_雰_743_ = []
+        while _JCROSS_雰:1.0__SYM_雰_437_:
+            _JCROSS_雰:1.0__SYM_雰_442_, _JCROSS_雰:1.0__SYM_雰_437_, _JCROSS_雰:1.0__SYM_雰_532_, _JCROSS_雰:1.0__SYM_雰_606_ = _JCROSS_雰:1.0__SYM_雰_437_
+            _JCROSS_雰:1.0__SYM_雰_743_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+        _JCROSS_雰:1.0__SYM_雰_743_._JCROSS_雰:1.0__SYM_雰_536_()
+
+        _JCROSS_雰:1.0__SYM_雰_731_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_592_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_720_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_365_ = _JCROSS_謀:1.0__SYM_雰_663_(_JCROSS_雰:1.0__SYM_雰_424_)
+        ff = []
+        for _JCROSS_雰:1.0__SYM_雰_532_ in _JCROSS_雰:1.0__SYM_雰_743_:
+            _JCROSS_雰:1.0__SYM_雰_667_, _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ >> 8, _JCROSS_雰:1.0__SYM_雰_532_ & 0xFF
+            _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+            if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_751_:
+                _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_667_ > 0
+                _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_667_)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_667_ == 0
+            for i in _JCROSS_雰:1.0__SYM_雰_192_(1 + _JCROSS_雰:1.0__SYM_雰_667_):
+                x, y = _JCROSS_雰:1.0__SYM_雰_238_(_JCROSS_雰:1.0__SYM_雰_365_)
+                _JCROSS_雰:1.0__SYM_雰_245_(_JCROSS_雰:1.0__SYM_雰_532_, x, y, _JCROSS_雰:1.0__SYM_雰_592_, _JCROSS_雰:1.0__SYM_雰_720_)
+                ff._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+        try:
+            _JCROSS_雰:1.0__SYM_雰_238_(_JCROSS_雰:1.0__SYM_雰_365_)
+            _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_廬:1.0__SYM_廬_26_("_JCROSS_雰:1.0__SYM_雰_525_ernal _JCROSS_雰:1.0__SYM_雰_33_")
+        _JCROSS_雰:1.0__SYM_雰_47_ _JCROSS_廬:1.0__SYM_廬_105_:
+            _JCROSS_雰:1.0__SYM_雰_584_
+
+        _JCROSS_雰:1.0__SYM_雰_286_urn (_JCROSS_雰:1.0__SYM_雰_731_, _JCROSS_雰:1.0__SYM_雰_592_, _JCROSS_雰:1.0__SYM_雰_720_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_漂:1.0__SYM_雰_781_(self, _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_731_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_592_ = _JCROSS_雰:1.0__SYM_雰_519_()
+        _JCROSS_雰:1.0__SYM_雰_720_ = _JCROSS_雰:1.0__SYM_雰_519_()
+
+// [metadata-stripped]
+        xs = [d[0] for d in _JCROSS_雰:1.0__SYM_雰_424_]
+        ys = [d[1] for d in _JCROSS_雰:1.0__SYM_雰_424_]
+        _JCROSS_雰:1.0__SYM_雰_864_, _JCROSS_雰:1.0__SYM_雰_85_, _JCROSS_雰:1.0__SYM_雰_370_, _JCROSS_雰:1.0__SYM_雰_280_ = _JCROSS_雰:1.0__SYM_雰_332_(xs), _JCROSS_雰:1.0__SYM_雰_332_(ys), _JCROSS_雰:1.0__SYM_雰_783_(xs), _JCROSS_雰:1.0__SYM_雰_783_(ys)
+        _JCROSS_雰:1.0__SYM_雰_676_ = _JCROSS_雰:1.0__SYM_雰_864_ == 0 _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_370_ == 0
+        _JCROSS_雰:1.0__SYM_雰_753_ = _JCROSS_雰:1.0__SYM_雰_85_ == 0 _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_280_ == 0
+        _JCROSS_雰:1.0__SYM_雰_30_ = -255 <= _JCROSS_雰:1.0__SYM_雰_864_ <= _JCROSS_雰:1.0__SYM_雰_370_ <= 255
+        _JCROSS_雰:1.0__SYM_雰_881_ = -255 <= _JCROSS_雰:1.0__SYM_雰_85_ <= _JCROSS_雰:1.0__SYM_雰_280_ <= 255
+
+        _JCROSS_雰:1.0__SYM_雰_164_ = _JCROSS_廬:1.0__SYM_廬_60_
+        _JCROSS_雰:1.0__SYM_雰_842_ = 0
+        for _JCROSS_雰:1.0__SYM_雰_532_, (x, y) in _JCROSS_雰:1.0__SYM_雰_243_(_JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_424_):
+// [metadata-stripped]
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_676_:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_30_:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_434_
+                if x > 0:
+                    _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_270_
+                else:
+                    x = -x
+                _JCROSS_雰:1.0__SYM_雰_592_._JCROSS_雰:1.0__SYM_雰_159_(x)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_592_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", x))
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_753_:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_881_:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_480_
+                if y > 0:
+                    _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_747_
+                else:
+                    y = -y
+                _JCROSS_雰:1.0__SYM_雰_720_._JCROSS_雰:1.0__SYM_雰_159_(y)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_720_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", y))
+// [metadata-stripped]
+            if _JCROSS_雰:1.0__SYM_雰_532_ == _JCROSS_雰:1.0__SYM_雰_164_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_842_ != 255:
+                _JCROSS_雰:1.0__SYM_雰_842_ = _JCROSS_雰:1.0__SYM_雰_842_ + 1
+                if _JCROSS_雰:1.0__SYM_雰_842_ == 1:
+                    _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+                else:
+                    _JCROSS_雰:1.0__SYM_雰_731_[-2] = _JCROSS_雰:1.0__SYM_雰_532_ | _JCROSS_雰:1.0__SYM_雰_751_
+                    _JCROSS_雰:1.0__SYM_雰_731_[-1] = _JCROSS_雰:1.0__SYM_雰_842_
+            else:
+                _JCROSS_雰:1.0__SYM_雰_842_ = 0
+                _JCROSS_雰:1.0__SYM_雰_731_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_532_)
+            _JCROSS_雰:1.0__SYM_雰_164_ = _JCROSS_雰:1.0__SYM_雰_532_
+        _JCROSS_雰:1.0__SYM_雰_286_urn (_JCROSS_雰:1.0__SYM_雰_731_, _JCROSS_雰:1.0__SYM_雰_592_, _JCROSS_雰:1.0__SYM_雰_720_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_172_(self, _JCROSS_雰:1.0__SYM_雰_540_, *, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_廬:1.0__SYM_廬_78_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_127_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_.
+
+        _JCROSS_廬:1.0__SYM_廬_52_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_717_ _JCROSS_雰:1.0__SYM_雰_2_ _JCROSS_雰:1.0__SYM_雰_493_ _JCROSS_雰:1.0__SYM_雰_543_ in _JCROSS_雰:1.0__SYM_雰_350_
+        ``_JCROSS_雰:1.0__SYM_雰_12_``/``_JCROSS_雰:1.0__SYM_雰_764_``/``_JCROSS_雰:1.0__SYM_雰_327_``/``_JCROSS_雰:1.0__SYM_雰_351_`` _JCROSS_雰:1.0__SYM_雰_824_. _JCROSS_廬:1.0__SYM_廬_44_ _JCROSS_雰:1.0__SYM_雰_127_ _JCROSS_雰:1.0__SYM_雰_220_ be
+        _JCROSS_雰:1.0__SYM_雰_295_ _JCROSS_雰:1.0__SYM_雰_126_ _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_雰:1.0__SYM_雰_520_`` _JCROSS_雰:1.0__SYM_雰_321_. _JCROSS_廬:1.0__SYM_廬_115_ ``_JCROSS_雰:1.0__SYM_雰_575_`` _JCROSS_雰:1.0__SYM_雰_127_
+        _JCROSS_雰:1.0__SYM_雰_220_ be _JCROSS_雰:1.0__SYM_雰_200_ to _JCROSS_雰:1.0__SYM_雰_620_ _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_127_.
+        """
+        if self._JCROSS_雰:1.0__SYM_雰_146_() _JCROSS_雰:1.0__SYM_雰_642_ self._JCROSS_雰:1.0__SYM_雰_378_(
+            _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_雰:1.0__SYM_雰_752_
+        ):
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        try:
+            _JCROSS_雰:1.0__SYM_雰_365_, _JCROSS_雰:1.0__SYM_雰_383_, _JCROSS_雰:1.0__SYM_雰_743_ = self._JCROSS_謀:1.0__SYM_碑_6_(_JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_)
+            self._JCROSS_雰:1.0__SYM_雰_12_, self._JCROSS_雰:1.0__SYM_雰_764_, self._JCROSS_雰:1.0__SYM_雰_327_, self._JCROSS_雰:1.0__SYM_雰_351_ = _JCROSS_雰:1.0__SYM_雰_365_._JCROSS_雰:1.0__SYM_雰_815_()
+        _JCROSS_雰:1.0__SYM_雰_47_ _JCROSS_廬:1.0__SYM_廬_100_:
+            _JCROSS_雰:1.0__SYM_雰_584_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_378_(self, _JCROSS_雰:1.0__SYM_雰_540_, *, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_廬:1.0__SYM_廬_60_):
+        """_JCROSS_廬:1.0__SYM_廬_25_ _JCROSS_雰:1.0__SYM_雰_81_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_127_ of a _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_811_ _JCROSS_雰:1.0__SYM_雰_544_
+        _JCROSS_雰:1.0__SYM_雰_467_ _JCROSS_雰:1.0__SYM_雰_728_ _JCROSS_雰:1.0__SYM_雰_417_. _JCROSS_廬:1.0__SYM_廬_27_, _JCROSS_雰:1.0__SYM_雰_612_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_768_
+        _JCROSS_雰:1.0__SYM_雰_471_ a _JCROSS_漂:1.0__SYM_雰_463_ _JCROSS_謀:1.0__SYM_雰_166_ _JCROSS_雰:1.0__SYM_雰_809_ an _JCROSS_謀:1.0__SYM_雰_190_ _JCROSS_雰:1.0__SYM_雰_296_, _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_612_
+        _JCROSS_雰:1.0__SYM_雰_328_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_889_ _JCROSS_雰:1.0__SYM_雰_506_.
+
+        _JCROSS_廬:1.0__SYM_廬_52_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_717_ _JCROSS_雰:1.0__SYM_雰_2_ _JCROSS_雰:1.0__SYM_雰_493_ _JCROSS_雰:1.0__SYM_雰_543_ in _JCROSS_雰:1.0__SYM_雰_350_
+        ``_JCROSS_雰:1.0__SYM_雰_12_``/``_JCROSS_雰:1.0__SYM_雰_764_``/``_JCROSS_雰:1.0__SYM_雰_327_``/``_JCROSS_雰:1.0__SYM_雰_351_`` _JCROSS_雰:1.0__SYM_雰_824_. _JCROSS_廬:1.0__SYM_廬_44_ _JCROSS_雰:1.0__SYM_雰_127_ _JCROSS_雰:1.0__SYM_雰_220_ be
+        _JCROSS_雰:1.0__SYM_雰_295_ _JCROSS_雰:1.0__SYM_雰_126_ _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_雰:1.0__SYM_雰_520_`` _JCROSS_雰:1.0__SYM_雰_321_. _JCROSS_廬:1.0__SYM_廬_115_ ``_JCROSS_雰:1.0__SYM_雰_575_`` _JCROSS_雰:1.0__SYM_雰_127_
+        _JCROSS_雰:1.0__SYM_雰_220_ be _JCROSS_雰:1.0__SYM_雰_200_ to _JCROSS_雰:1.0__SYM_雰_620_ _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_127_.
+
+        _JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_廬:1.0__SYM_廬_71_ if _JCROSS_雰:1.0__SYM_雰_127_ _JCROSS_雰:1.0__SYM_雰_509_ _JCROSS_雰:1.0__SYM_雰_730_, _JCROSS_廬:1.0__SYM_廬_47_ _JCROSS_雰:1.0__SYM_雰_574_.
+        """
+        for _JCROSS_雰:1.0__SYM_雰_422_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+            if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_688_():
+                _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_47_
+
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_127_ = _JCROSS_廬:1.0__SYM_廬_60_
+        for _JCROSS_雰:1.0__SYM_雰_422_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+            _JCROSS_雰:1.0__SYM_雰_788_ = _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_788_
+            g = _JCROSS_雰:1.0__SYM_雰_540_[_JCROSS_雰:1.0__SYM_雰_788_]
+
+            if _JCROSS_雰:1.0__SYM_雰_752_ is _JCROSS_廬:1.0__SYM_廬_60_ or _JCROSS_雰:1.0__SYM_雰_788_ _JCROSS_雰:1.0__SYM_雰_875_ in _JCROSS_雰:1.0__SYM_雰_752_:
+                g._JCROSS_雰:1.0__SYM_雰_172_(_JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_752_=_JCROSS_雰:1.0__SYM_雰_752_)
+                if _JCROSS_雰:1.0__SYM_雰_752_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_:
+                    _JCROSS_雰:1.0__SYM_雰_752_._JCROSS_雰:1.0__SYM_雰_106_(_JCROSS_雰:1.0__SYM_雰_788_)
+// [metadata-stripped]
+            if g._JCROSS_雰:1.0__SYM_雰_764_ == g._JCROSS_雰:1.0__SYM_雰_351_ _JCROSS_雰:1.0__SYM_雰_642_ g._JCROSS_雰:1.0__SYM_雰_12_ == g._JCROSS_雰:1.0__SYM_雰_327_:
+                continue
+
+            x, y = _JCROSS_雰:1.0__SYM_雰_422_.x, _JCROSS_雰:1.0__SYM_雰_422_.y
+            _JCROSS_雰:1.0__SYM_雰_127_ = _JCROSS_雰:1.0__SYM_雰_871_(_JCROSS_雰:1.0__SYM_雰_127_, (g._JCROSS_雰:1.0__SYM_雰_12_ + x, g._JCROSS_雰:1.0__SYM_雰_764_ + y))
+            _JCROSS_雰:1.0__SYM_雰_127_ = _JCROSS_雰:1.0__SYM_雰_871_(_JCROSS_雰:1.0__SYM_雰_127_, (g._JCROSS_雰:1.0__SYM_雰_327_ + x, g._JCROSS_雰:1.0__SYM_雰_351_ + y))
+
+        if _JCROSS_雰:1.0__SYM_雰_127_ is _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_127_ = (0, 0, 0, 0)
+        self._JCROSS_雰:1.0__SYM_雰_12_, self._JCROSS_雰:1.0__SYM_雰_764_, self._JCROSS_雰:1.0__SYM_雰_327_, self._JCROSS_雰:1.0__SYM_雰_351_ = _JCROSS_雰:1.0__SYM_雰_127_
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_71_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_146_(self):
+        """_JCROSS_廬:1.0__SYM_廬_103_ _JCROSS_謀:1.0__SYM_雰_837_ a _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_544_ _JCROSS_雰:1.0__SYM_雰_768_"""
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_799_"):
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", self._JCROSS_雰:1.0__SYM_雰_799_[:2])[0] == -1 if self._JCROSS_雰:1.0__SYM_雰_799_ else _JCROSS_廬:1.0__SYM_廬_47_
+        else:
+            _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_594_ == -1
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_6_(self, _JCROSS_雰:1.0__SYM_雰_540_, *, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_673_):
+        """_JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_520_, _JCROSS_雰:1.0__SYM_雰_329_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_743_
+
+        _JCROSS_廬:1.0__SYM_廬_45_ _JCROSS_雰:1.0__SYM_雰_603_ _JCROSS_雰:1.0__SYM_雰_283_ _JCROSS_雰:1.0__SYM_雰_391_ _JCROSS_雰:1.0__SYM_雰_827_: A :py:class:`_JCROSS_廬:1.0__SYM_廬_101_` _JCROSS_雰:1.0__SYM_雰_735_,
+        a _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_78_ of _JCROSS_雰:1.0__SYM_雰_350_ final _JCROSS_雰:1.0__SYM_雰_506_ of _JCROSS_雰:1.0__SYM_雰_197_ _JCROSS_雰:1.0__SYM_雰_630_ (_JCROSS_雰:1.0__SYM_雰_40_ _JCROSS_雰:1.0__SYM_雰_786_
+        to _JCROSS_雰:1.0__SYM_雰_76_ up _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_792_ _JCROSS_雰:1.0__SYM_雰_878_ _JCROSS_雰:1.0__SYM_雰_460_) _JCROSS_雰:1.0__SYM_雰_642_ a _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_743_.
+
+        On _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_, _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_603_ _JCROSS_雰:1.0__SYM_雰_283_ _JCROSS_漂:1.0__SYM_雰_415_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_'s _JCROSS_雰:1.0__SYM_雰_438_
+        _JCROSS_雰:1.0__SYM_雰_460_; on _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_, it "_JCROSS_雰:1.0__SYM_雰_638_" _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_768_ _JCROSS_雰:1.0__SYM_雰_447_
+        to _JCROSS_雰:1.0__SYM_雰_286_urn a _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_750_ _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_768_ _JCROSS_雰:1.0__SYM_雰_760_
+        in _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_.
+
+        To _JCROSS_雰:1.0__SYM_雰_444_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_743_ for _JCROSS_雰:1.0__SYM_雰_197_ _JCROSS_雰:1.0__SYM_雰_319_, _JCROSS_雰:1.0__SYM_雰_331_ _JCROSS_雰:1.0__SYM_雰_350_ "_JCROSS_廬:1.0__SYM_廬_22_ _JCROSS_廬:1.0__SYM_廬_56_ _JCROSS_廬:1.0__SYM_廬_123_"
+        _JCROSS_雰:1.0__SYM_雰_273_ of _JCROSS_雰:1.0__SYM_雰_350_ `_JCROSS_雰:1.0__SYM_雰_662_ _JCROSS_雰:1.0__SYM_雰_117_ _JCROSS_漂:1.0__SYM_雰_814_ <_JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_雰:1.0__SYM_雰_263_._JCROSS_雰:1.0__SYM_雰_125_._JCROSS_雰:1.0__SYM_雰_891_/en-us/_JCROSS_雰:1.0__SYM_雰_212_/_JCROSS_雰:1.0__SYM_雰_407_/_JCROSS_雰:1.0__SYM_雰_535_/_JCROSS_雰:1.0__SYM_雰_662_#_JCROSS_雰:1.0__SYM_雰_132_-_JCROSS_雰:1.0__SYM_雰_851_-_JCROSS_雰:1.0__SYM_雰_256_>`.
+        """
+
+        if self._JCROSS_雰:1.0__SYM_雰_594_ > 0:
+            _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_520_, self._JCROSS_雰:1.0__SYM_雰_432_, self._JCROSS_雰:1.0__SYM_雰_743_
+        _JCROSS_漂:1.0__SYM_雰_110_ self._JCROSS_雰:1.0__SYM_雰_146_():
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_451_ = _JCROSS_廬:1.0__SYM_廬_101_()
+            _JCROSS_雰:1.0__SYM_雰_227_ = _JCROSS_雰:1.0__SYM_雰_519_()
+            _JCROSS_雰:1.0__SYM_雰_618_ = []
+            for _JCROSS_雰:1.0__SYM_雰_422_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+                g = _JCROSS_雰:1.0__SYM_雰_540_[_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_788_]
+                try:
+                    _JCROSS_雰:1.0__SYM_雰_520_, _JCROSS_雰:1.0__SYM_雰_383_, _JCROSS_雰:1.0__SYM_雰_743_ = g._JCROSS_謀:1.0__SYM_碑_6_(
+                        _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_24_
+                    )
+                _JCROSS_雰:1.0__SYM_雰_47_ _JCROSS_廬:1.0__SYM_廬_24_:
+                    _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_雰:1.0__SYM_雰_633_._JCROSS_廬:1.0__SYM_廬_42_(
+                        "_JCROSS_雰:1.0__SYM_雰_851_ '%s' _JCROSS_雰:1.0__SYM_雰_38_ a _JCROSS_雰:1.0__SYM_雰_206_ _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_233_"
+                        % _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_788_
+                    )
+                _JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_廬:1.0__SYM_廬_101_(_JCROSS_雰:1.0__SYM_雰_520_)
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                if _JCROSS_雰:1.0__SYM_雰_24_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_673_ _JCROSS_雰:1.0__SYM_雰_642_ g._JCROSS_雰:1.0__SYM_雰_594_ > 0:
+                    _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_257_(_JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_24_)
+                if _JCROSS_雰:1.0__SYM_雰_356_(_JCROSS_雰:1.0__SYM_雰_422_, "_JCROSS_雰:1.0__SYM_雰_211_"):
+// [metadata-stripped]
+// [metadata-stripped]
+                    if _JCROSS_雰:1.0__SYM_雰_356_(_JCROSS_雰:1.0__SYM_雰_422_, "_JCROSS_漂:1.0__SYM_雰_463_"):
+                        _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_漂:1.0__SYM_雰_463_(_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_漂:1.0__SYM_雰_463_)
+                    x1, y1 = _JCROSS_雰:1.0__SYM_雰_451_[_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_211_]
+                    x2, y2 = _JCROSS_雰:1.0__SYM_雰_520_[_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_339_]
+                    _JCROSS_雰:1.0__SYM_雰_650_ = x1 - x2, y1 - y2
+                    _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_(_JCROSS_雰:1.0__SYM_雰_650_)
+                else:
+// [metadata-stripped]
+                    _JCROSS_雰:1.0__SYM_雰_650_ = _JCROSS_雰:1.0__SYM_雰_422_.x, _JCROSS_雰:1.0__SYM_雰_422_.y
+                    if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(_JCROSS_雰:1.0__SYM_雰_422_, "_JCROSS_漂:1.0__SYM_雰_463_"):
+                        _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_(_JCROSS_雰:1.0__SYM_雰_650_)
+                    else:
+                        _JCROSS_雰:1.0__SYM_雰_18_ = _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_112_
+                        _JCROSS_雰:1.0__SYM_雰_41_ = _JCROSS_雰:1.0__SYM_雰_422_._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_116_
+                        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_18_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_41_)
+                        if _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_18_ or _JCROSS_雰:1.0__SYM_雰_41_):
+                            _JCROSS_雰:1.0__SYM_雰_586_ = (
+                                _JCROSS_廬:1.0__SYM_廬_65_  # _JCROSS_雰:1.0__SYM_雰_331_ _JCROSS_雰:1.0__SYM_雰_16_ of _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_区:1.0__SYM_雰_404_
+                            )
+                        else:
+                            _JCROSS_雰:1.0__SYM_雰_586_ = _JCROSS_雰:1.0__SYM_雰_18_
+                        if _JCROSS_雰:1.0__SYM_雰_586_:
+// [metadata-stripped]
+                            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_(_JCROSS_雰:1.0__SYM_雰_650_)
+                            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_漂:1.0__SYM_雰_463_(_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_漂:1.0__SYM_雰_463_)
+                        else:
+// [metadata-stripped]
+                            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_漂:1.0__SYM_雰_463_(_JCROSS_雰:1.0__SYM_雰_422_._JCROSS_漂:1.0__SYM_雰_463_)
+                            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_(_JCROSS_雰:1.0__SYM_雰_650_)
+                _JCROSS_雰:1.0__SYM_雰_551_ = _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_451_)
+                _JCROSS_雰:1.0__SYM_雰_618_._JCROSS_雰:1.0__SYM_雰_334_(e + _JCROSS_雰:1.0__SYM_雰_551_ for e in _JCROSS_雰:1.0__SYM_雰_383_)
+                _JCROSS_雰:1.0__SYM_雰_451_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_520_)
+                _JCROSS_雰:1.0__SYM_雰_227_._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_743_)
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_451_, _JCROSS_雰:1.0__SYM_雰_618_, _JCROSS_雰:1.0__SYM_雰_227_
+        else:
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_101_(), [], _JCROSS_雰:1.0__SYM_雰_519_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_7_(self, _JCROSS_雰:1.0__SYM_雰_540_):
+        """_JCROSS_廬:1.0__SYM_廬_32_ a _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_812_ of _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_566_ in _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_851_
+
+        _JCROSS_廬:1.0__SYM_廬_45_ _JCROSS_雰:1.0__SYM_雰_603_ _JCROSS_雰:1.0__SYM_雰_721_ be _JCROSS_雰:1.0__SYM_雰_566_ on _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_ (in _JCROSS_雰:1.0__SYM_雰_258_ case it _JCROSS_雰:1.0__SYM_雰_283_ an
+        _JCROSS_雰:1.0__SYM_雰_50_ _JCROSS_雰:1.0__SYM_雰_792_) or _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_534_.
+        """
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_799_"):
+            if self._JCROSS_雰:1.0__SYM_雰_146_():
+                _JCROSS_雰:1.0__SYM_雰_286_urn [c._JCROSS_雰:1.0__SYM_雰_788_ for c in self._JCROSS_雰:1.0__SYM_雰_768_]
+            else:
+                _JCROSS_雰:1.0__SYM_雰_286_urn []
+
+// [metadata-stripped]
+
+        if _JCROSS_雰:1.0__SYM_雰_875_ self._JCROSS_雰:1.0__SYM_雰_799_ or _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", self._JCROSS_雰:1.0__SYM_雰_799_[:2])[0] >= 0:
+            _JCROSS_雰:1.0__SYM_雰_286_urn []  # _JCROSS_廬:1.0__SYM_廬_50_ _JCROSS_雰:1.0__SYM_雰_845_
+
+        _JCROSS_雰:1.0__SYM_雰_799_ = self._JCROSS_雰:1.0__SYM_雰_799_
+        i = 10
+        _JCROSS_雰:1.0__SYM_雰_768_ = []
+        _JCROSS_雰:1.0__SYM_雰_868_ = 1
+        while _JCROSS_雰:1.0__SYM_雰_868_:
+            _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_888_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">HH", _JCROSS_雰:1.0__SYM_雰_799_[i : i + 4])
+            i += 4
+            _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_743_)
+            _JCROSS_雰:1.0__SYM_雰_768_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_540_._JCROSS_謀:1.0__SYM_碑_20_(_JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_888_)))
+
+            if _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_67_:
+                i += 4
+            else:
+                i += 2
+            if _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_114_:
+                i += 2
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_9_:
+                i += 4
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_5_:
+                i += 8
+            _JCROSS_雰:1.0__SYM_雰_868_ = _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_63_
+
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_768_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_804_(self, _JCROSS_雰:1.0__SYM_雰_306_=_JCROSS_廬:1.0__SYM_廬_47_):
+        """_JCROSS_廬:1.0__SYM_廬_87_ _JCROSS_雰:1.0__SYM_雰_698_ _JCROSS_雰:1.0__SYM_雰_642_, if _JCROSS_縺:1.0__SYM_雰_137_, _JCROSS_雰:1.0__SYM_雰_452_, _JCROSS_雰:1.0__SYM_雰_312_ a _JCROSS_雰:1.0__SYM_雰_851_.
+        _JCROSS_廬:1.0__SYM_廬_45_ _JCROSS_雰:1.0__SYM_雰_29_ on _JCROSS_雰:1.0__SYM_雰_485_ _JCROSS_雰:1.0__SYM_雰_443_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_426_ _JCROSS_雰:1.0__SYM_雰_534_, _JCROSS_雰:1.0__SYM_雰_458_
+        _JCROSS_雰:1.0__SYM_雰_48_ it."""
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_799_"):
+            if _JCROSS_雰:1.0__SYM_雰_306_:
+                if self._JCROSS_雰:1.0__SYM_雰_146_():
+                    if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_448_"):
+                        _JCROSS_雰:1.0__SYM_雰_590_ self._JCROSS_雰:1.0__SYM_雰_448_
+                else:
+                    self._JCROSS_雰:1.0__SYM_雰_448_ = _JCROSS_雰:1.0__SYM_雰_52_._JCROSS_廬:1.0__SYM_廬_64_()
+                    self._JCROSS_雰:1.0__SYM_雰_448_._JCROSS_雰:1.0__SYM_雰_808_([])
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        if _JCROSS_雰:1.0__SYM_雰_875_ self._JCROSS_雰:1.0__SYM_雰_799_:
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        _JCROSS_雰:1.0__SYM_雰_95_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", self._JCROSS_雰:1.0__SYM_雰_799_[:2])[0]
+        _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_519_(self._JCROSS_雰:1.0__SYM_雰_799_)
+        i = 10
+        if _JCROSS_雰:1.0__SYM_雰_95_ >= 0:
+            i += 2 * _JCROSS_雰:1.0__SYM_雰_95_  # _JCROSS_雰:1.0__SYM_雰_432_
+            _JCROSS_雰:1.0__SYM_雰_418_ = ((_JCROSS_雰:1.0__SYM_雰_799_[i - 2] << 8) | _JCROSS_雰:1.0__SYM_雰_799_[i - 1]) + 1
+            _JCROSS_雰:1.0__SYM_雰_121_ = (_JCROSS_雰:1.0__SYM_雰_799_[i] << 8) | _JCROSS_雰:1.0__SYM_雰_799_[i + 1]
+            if _JCROSS_雰:1.0__SYM_雰_306_:
+// [metadata-stripped]
+                _JCROSS_雰:1.0__SYM_雰_799_[i] = _JCROSS_雰:1.0__SYM_雰_799_[i + 1] = 0
+                i += 2
+                if _JCROSS_雰:1.0__SYM_雰_121_:
+// [metadata-stripped]
+                    _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[:i] + _JCROSS_雰:1.0__SYM_雰_799_[i + _JCROSS_雰:1.0__SYM_雰_121_ :]
+                _JCROSS_雰:1.0__SYM_雰_121_ = 0
+            else:
+                i += 2 + _JCROSS_雰:1.0__SYM_雰_121_
+
+            _JCROSS_雰:1.0__SYM_雰_606_ = 0
+            j = 0
+            while _JCROSS_廬:1.0__SYM_廬_71_:
+                _JCROSS_雰:1.0__SYM_雰_532_ = _JCROSS_雰:1.0__SYM_雰_799_[i]
+                i = i + 1
+                _JCROSS_雰:1.0__SYM_雰_842_ = 1
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_751_:
+                    _JCROSS_雰:1.0__SYM_雰_842_ = _JCROSS_雰:1.0__SYM_雰_799_[i] + 1
+                    i = i + 1
+                _JCROSS_雰:1.0__SYM_雰_322_ = _JCROSS_雰:1.0__SYM_雰_184_ = 0
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_434_:
+                    _JCROSS_雰:1.0__SYM_雰_322_ = 1
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_270_):
+                    _JCROSS_雰:1.0__SYM_雰_322_ = 2
+                if _JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_480_:
+                    _JCROSS_雰:1.0__SYM_雰_184_ = 1
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_532_ & _JCROSS_雰:1.0__SYM_雰_747_):
+                    _JCROSS_雰:1.0__SYM_雰_184_ = 2
+                _JCROSS_雰:1.0__SYM_雰_606_ += (_JCROSS_雰:1.0__SYM_雰_322_ + _JCROSS_雰:1.0__SYM_雰_184_) * _JCROSS_雰:1.0__SYM_雰_842_
+                j += _JCROSS_雰:1.0__SYM_雰_842_
+                if j >= _JCROSS_雰:1.0__SYM_雰_418_:
+                    break
+            _JCROSS_雰:1.0__SYM_雰_829_ j == _JCROSS_雰:1.0__SYM_雰_418_, "_JCROSS_雰:1.0__SYM_雰_880_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_743_"
+            i += _JCROSS_雰:1.0__SYM_雰_606_
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[:i]
+        _JCROSS_漂:1.0__SYM_雰_110_ self._JCROSS_雰:1.0__SYM_雰_146_():
+            _JCROSS_雰:1.0__SYM_雰_868_ = 1
+            _JCROSS_雰:1.0__SYM_雰_420_ = _JCROSS_廬:1.0__SYM_廬_47_
+            while _JCROSS_雰:1.0__SYM_雰_868_:
+                _JCROSS_雰:1.0__SYM_雰_743_ = (_JCROSS_雰:1.0__SYM_雰_799_[i] << 8) | _JCROSS_雰:1.0__SYM_雰_799_[i + 1]
+                if _JCROSS_雰:1.0__SYM_雰_306_:
+                    _JCROSS_雰:1.0__SYM_雰_743_ &= ~_JCROSS_廬:1.0__SYM_廬_17_
+                if _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_17_:
+                    _JCROSS_雰:1.0__SYM_雰_420_ = _JCROSS_廬:1.0__SYM_廬_71_
+                _JCROSS_雰:1.0__SYM_雰_799_[i + 0] = _JCROSS_雰:1.0__SYM_雰_743_ >> 8
+                _JCROSS_雰:1.0__SYM_雰_799_[i + 1] = _JCROSS_雰:1.0__SYM_雰_743_ & 0xFF
+                i += 4
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_743_)
+
+                if _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_67_:
+                    i += 4
+                else:
+                    i += 2
+                if _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_114_:
+                    i += 2
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_9_:
+                    i += 4
+                _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_5_:
+                    i += 8
+                _JCROSS_雰:1.0__SYM_雰_868_ = _JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_63_
+            if _JCROSS_雰:1.0__SYM_雰_420_:
+                _JCROSS_雰:1.0__SYM_雰_121_ = (_JCROSS_雰:1.0__SYM_雰_799_[i] << 8) | _JCROSS_雰:1.0__SYM_雰_799_[i + 1]
+                i += 2 + _JCROSS_雰:1.0__SYM_雰_121_
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[:i]
+
+        self._JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_318_(self):
+        """_JCROSS_廬:1.0__SYM_廬_73_ _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_雰:1.0__SYM_雰_452_ _JCROSS_雰:1.0__SYM_雰_134_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_."""
+        self._JCROSS_雰:1.0__SYM_雰_804_(_JCROSS_雰:1.0__SYM_雰_306_=_JCROSS_廬:1.0__SYM_廬_71_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_15_(self, _JCROSS_雰:1.0__SYM_雰_531_, _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_551_=0):
+        """_JCROSS_廬:1.0__SYM_廬_35_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_223_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_604_ _JCROSS_雰:1.0__SYM_雰_531_ _JCROSS_雰:1.0__SYM_雰_735_.
+
+        _JCROSS_廬:1.0__SYM_廬_99_:
+                _JCROSS_雰:1.0__SYM_雰_531_: An _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_漂:1.0__SYM_雰_708_ to _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_531_ protocol.
+                _JCROSS_雰:1.0__SYM_雰_540_: A :py:class:`_JCROSS_雰:1.0__SYM_雰_575_` _JCROSS_雰:1.0__SYM_雰_735_, to _JCROSS_雰:1.0__SYM_雰_620_ _JCROSS_雰:1.0__SYM_雰_768_.
+                _JCROSS_雰:1.0__SYM_雰_551_ (_JCROSS_雰:1.0__SYM_雰_525_): A _JCROSS_雰:1.0__SYM_雰_512_ _JCROSS_雰:1.0__SYM_雰_551_. If _JCROSS_雰:1.0__SYM_雰_200_, _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_雰:1.0__SYM_雰_682_
+                        _JCROSS_雰:1.0__SYM_雰_598_ by _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_551_.
+        """
+
+        if self._JCROSS_雰:1.0__SYM_雰_146_():
+            for _JCROSS_雰:1.0__SYM_雰_653_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+                _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_漂:1.0__SYM_雰_463_ = _JCROSS_雰:1.0__SYM_雰_653_._JCROSS_謀:1.0__SYM_碑_11_()
+                _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_537_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_漂:1.0__SYM_雰_463_)
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+
+        self._JCROSS_雰:1.0__SYM_雰_421_(_JCROSS_雰:1.0__SYM_雰_540_)
+        _JCROSS_雰:1.0__SYM_雰_520_, _JCROSS_雰:1.0__SYM_雰_383_, _JCROSS_雰:1.0__SYM_雰_743_ = self._JCROSS_謀:1.0__SYM_碑_6_(_JCROSS_雰:1.0__SYM_雰_540_)
+        if _JCROSS_雰:1.0__SYM_雰_551_:
+            _JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_228_()
+            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_((_JCROSS_雰:1.0__SYM_雰_551_, 0))
+        _JCROSS_雰:1.0__SYM_雰_42_ = 0
+        _JCROSS_雰:1.0__SYM_雰_222_ = _JCROSS_雰:1.0__SYM_雰_860_ v: _JCROSS_雰:1.0__SYM_雰_525_(v) if v == _JCROSS_雰:1.0__SYM_雰_525_(v) else v
+        for _JCROSS_雰:1.0__SYM_雰_329_ in _JCROSS_雰:1.0__SYM_雰_383_:
+            _JCROSS_雰:1.0__SYM_雰_329_ = _JCROSS_雰:1.0__SYM_雰_329_ + 1
+            _JCROSS_雰:1.0__SYM_雰_630_ = _JCROSS_雰:1.0__SYM_雰_520_[_JCROSS_雰:1.0__SYM_雰_42_:_JCROSS_雰:1.0__SYM_雰_329_]
+            _JCROSS_雰:1.0__SYM_雰_607_ = [_JCROSS_雰:1.0__SYM_雰_13_ & f for f in _JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_42_:_JCROSS_雰:1.0__SYM_雰_329_]]
+            _JCROSS_雰:1.0__SYM_雰_883_ = [_JCROSS_雰:1.0__SYM_雰_807_ & f for f in _JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_42_:_JCROSS_雰:1.0__SYM_雰_329_]]
+            _JCROSS_雰:1.0__SYM_雰_42_ = _JCROSS_雰:1.0__SYM_雰_329_
+            if 1 _JCROSS_雰:1.0__SYM_雰_875_ in _JCROSS_雰:1.0__SYM_雰_607_:
+                _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_345_(_JCROSS_雰:1.0__SYM_雰_883_) or _JCROSS_雰:1.0__SYM_雰_875_ any(_JCROSS_雰:1.0__SYM_雰_883_)
+                _JCROSS_雰:1.0__SYM_雰_800_ = _JCROSS_雰:1.0__SYM_雰_345_(_JCROSS_雰:1.0__SYM_雰_883_)
+                if _JCROSS_雰:1.0__SYM_雰_800_:
+                    _JCROSS_雰:1.0__SYM_雰_517_ = _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_630_)
+                    _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_517_ % 2 == 0, "_JCROSS_廬:1.0__SYM_廬_6_ _JCROSS_謀:1.0__SYM_雰_446_ of _JCROSS_雰:1.0__SYM_雰_800_ _JCROSS_雰:1.0__SYM_雰_755_-_JCROSS_雰:1.0__SYM_雰_275_ _JCROSS_雰:1.0__SYM_雰_669_"
+                    l = _JCROSS_雰:1.0__SYM_雰_630_[-1]
+                    f = _JCROSS_雰:1.0__SYM_雰_630_[0]
+                    p0 = (_JCROSS_雰:1.0__SYM_雰_222_((l[0] + f[0]) * 0.5), _JCROSS_雰:1.0__SYM_雰_222_((l[1] + f[1]) * 0.5))
+                    _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_205_(p0)
+                    for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_517_, 2):
+                        p1 = _JCROSS_雰:1.0__SYM_雰_630_[i]
+                        p2 = _JCROSS_雰:1.0__SYM_雰_630_[i + 1]
+                        p4 = _JCROSS_雰:1.0__SYM_雰_630_[i + 2 if i + 2 < _JCROSS_雰:1.0__SYM_雰_517_ else 0]
+                        p3 = (
+                            _JCROSS_雰:1.0__SYM_雰_222_((p2[0] + p4[0]) * 0.5),
+                            _JCROSS_雰:1.0__SYM_雰_222_((p2[1] + p4[1]) * 0.5),
+                        )
+                        _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_395_(p1, p2, p3)
+                else:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    _JCROSS_雰:1.0__SYM_雰_630_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_廬:1.0__SYM_廬_60_)
+                    _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_714_(*_JCROSS_雰:1.0__SYM_雰_630_)
+            else:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                _JCROSS_雰:1.0__SYM_雰_583_ = _JCROSS_雰:1.0__SYM_雰_607_._JCROSS_雰:1.0__SYM_雰_654_(1) + 1
+                _JCROSS_雰:1.0__SYM_雰_630_ = _JCROSS_雰:1.0__SYM_雰_630_[_JCROSS_雰:1.0__SYM_雰_583_:] + _JCROSS_雰:1.0__SYM_雰_630_[:_JCROSS_雰:1.0__SYM_雰_583_]
+                _JCROSS_雰:1.0__SYM_雰_607_ = _JCROSS_雰:1.0__SYM_雰_607_[_JCROSS_雰:1.0__SYM_雰_583_:] + _JCROSS_雰:1.0__SYM_雰_607_[:_JCROSS_雰:1.0__SYM_雰_583_]
+                _JCROSS_雰:1.0__SYM_雰_883_ = _JCROSS_雰:1.0__SYM_雰_883_[_JCROSS_雰:1.0__SYM_雰_583_:] + _JCROSS_雰:1.0__SYM_雰_883_[:_JCROSS_雰:1.0__SYM_雰_583_]
+                _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_205_(_JCROSS_雰:1.0__SYM_雰_630_[-1])
+                while _JCROSS_雰:1.0__SYM_雰_630_:
+                    _JCROSS_雰:1.0__SYM_雰_577_ = _JCROSS_雰:1.0__SYM_雰_607_._JCROSS_雰:1.0__SYM_雰_654_(1) + 1
+                    if _JCROSS_雰:1.0__SYM_雰_577_ == 1:
+// [metadata-stripped]
+// [metadata-stripped]
+                        if _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_630_) > 1:
+                            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_226_(_JCROSS_雰:1.0__SYM_雰_630_[0])
+                    else:
+                        _JCROSS_雰:1.0__SYM_雰_610_ = [f for f in _JCROSS_雰:1.0__SYM_雰_883_[: _JCROSS_雰:1.0__SYM_雰_577_ - 1]]
+                        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_345_(_JCROSS_雰:1.0__SYM_雰_610_) or _JCROSS_雰:1.0__SYM_雰_875_ any(_JCROSS_雰:1.0__SYM_雰_610_)
+                        _JCROSS_雰:1.0__SYM_雰_800_ = any(_JCROSS_雰:1.0__SYM_雰_610_)
+                        if _JCROSS_雰:1.0__SYM_雰_800_:
+                            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_345_(
+                                _JCROSS_雰:1.0__SYM_雰_610_
+                            ), "_JCROSS_廬:1.0__SYM_廬_36_ _JCROSS_雰:1.0__SYM_雰_800_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_311_ _JCROSS_雰:1.0__SYM_雰_150_ _JCROSS_雰:1.0__SYM_雰_669_"
+
+                            _JCROSS_雰:1.0__SYM_雰_517_ = _JCROSS_雰:1.0__SYM_雰_577_
+                            _JCROSS_雰:1.0__SYM_雰_829_ (
+                                _JCROSS_雰:1.0__SYM_雰_517_ >= 3
+                            ), "At _JCROSS_雰:1.0__SYM_雰_116_ _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_800_ _JCROSS_雰:1.0__SYM_雰_755_-_JCROSS_雰:1.0__SYM_雰_705_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_265_"
+                            _JCROSS_雰:1.0__SYM_雰_829_ (
+                                _JCROSS_雰:1.0__SYM_雰_517_ - 1
+                            ) % 2 == 0, "_JCROSS_廬:1.0__SYM_廬_6_ _JCROSS_謀:1.0__SYM_雰_446_ of _JCROSS_雰:1.0__SYM_雰_800_ _JCROSS_雰:1.0__SYM_雰_755_-_JCROSS_雰:1.0__SYM_雰_275_ _JCROSS_雰:1.0__SYM_雰_669_"
+// _JCROSS_区:0.6__SYM_MC_840_ [decoy-metadata]
+                            for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_517_ - 3, 2):
+                                p1 = _JCROSS_雰:1.0__SYM_雰_630_[i]
+                                p2 = _JCROSS_雰:1.0__SYM_雰_630_[i + 1]
+                                p4 = _JCROSS_雰:1.0__SYM_雰_630_[i + 2]
+                                p3 = (
+                                    _JCROSS_雰:1.0__SYM_雰_222_((p2[0] + p4[0]) * 0.5),
+                                    _JCROSS_雰:1.0__SYM_雰_222_((p2[1] + p4[1]) * 0.5),
+                                )
+                                _JCROSS_雰:1.0__SYM_雰_462_ = p3
+                                _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_395_(p1, p2, p3)
+                            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_395_(*_JCROSS_雰:1.0__SYM_雰_630_[_JCROSS_雰:1.0__SYM_雰_517_ - 3 : _JCROSS_雰:1.0__SYM_雰_517_])
+                        else:
+                            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_714_(*_JCROSS_雰:1.0__SYM_雰_630_[:_JCROSS_雰:1.0__SYM_雰_577_])
+                    _JCROSS_雰:1.0__SYM_雰_630_ = _JCROSS_雰:1.0__SYM_雰_630_[_JCROSS_雰:1.0__SYM_雰_577_:]
+                    _JCROSS_雰:1.0__SYM_雰_607_ = _JCROSS_雰:1.0__SYM_雰_607_[_JCROSS_雰:1.0__SYM_雰_577_:]
+                    _JCROSS_雰:1.0__SYM_雰_883_ = _JCROSS_雰:1.0__SYM_雰_883_[_JCROSS_雰:1.0__SYM_雰_577_:]
+            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_9_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_214_(self, _JCROSS_雰:1.0__SYM_雰_531_, _JCROSS_雰:1.0__SYM_雰_540_, _JCROSS_雰:1.0__SYM_雰_551_=0):
+        """_JCROSS_廬:1.0__SYM_廬_92_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_223_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_604_ _JCROSS_雰:1.0__SYM_雰_787_. As _JCROSS_雰:1.0__SYM_雰_247_ to _JCROSS_廬:1.0__SYM_廬_56_._JCROSS_雰:1.0__SYM_雰_15_(),
+        _JCROSS_雰:1.0__SYM_雰_92_ _JCROSS_雰:1.0__SYM_雰_104_ _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_321_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_319_ _JCROSS_雰:1.0__SYM_雰_629_.
+        """
+
+        if self._JCROSS_雰:1.0__SYM_雰_146_():
+            for _JCROSS_雰:1.0__SYM_雰_653_ in self._JCROSS_雰:1.0__SYM_雰_768_:
+                _JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_漂:1.0__SYM_雰_463_ = _JCROSS_雰:1.0__SYM_雰_653_._JCROSS_謀:1.0__SYM_碑_11_()
+                _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_537_(_JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_漂:1.0__SYM_雰_463_)
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+
+        _JCROSS_雰:1.0__SYM_雰_520_, _JCROSS_雰:1.0__SYM_雰_383_, _JCROSS_雰:1.0__SYM_雰_743_ = self._JCROSS_謀:1.0__SYM_碑_6_(_JCROSS_雰:1.0__SYM_雰_540_)
+        if _JCROSS_雰:1.0__SYM_雰_551_:
+            _JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_228_()
+            _JCROSS_雰:1.0__SYM_雰_520_._JCROSS_雰:1.0__SYM_雰_296_((_JCROSS_雰:1.0__SYM_雰_551_, 0))
+        _JCROSS_雰:1.0__SYM_雰_42_ = 0
+        for _JCROSS_雰:1.0__SYM_雰_329_ in _JCROSS_雰:1.0__SYM_雰_383_:
+            _JCROSS_雰:1.0__SYM_雰_329_ = _JCROSS_雰:1.0__SYM_雰_329_ + 1
+            _JCROSS_雰:1.0__SYM_雰_630_ = _JCROSS_雰:1.0__SYM_雰_520_[_JCROSS_雰:1.0__SYM_雰_42_:_JCROSS_雰:1.0__SYM_雰_329_]
+            _JCROSS_雰:1.0__SYM_雰_607_ = _JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_42_:_JCROSS_雰:1.0__SYM_雰_329_]
+            _JCROSS_雰:1.0__SYM_雰_42_ = _JCROSS_雰:1.0__SYM_雰_329_
+            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_57_()
+// [metadata-stripped]
+
+            if _JCROSS_雰:1.0__SYM_雰_607_[-1] & _JCROSS_雰:1.0__SYM_雰_13_:
+                _JCROSS_雰:1.0__SYM_雰_591_ = "_JCROSS_雰:1.0__SYM_雰_500_"
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_607_[-1] & _JCROSS_雰:1.0__SYM_雰_807_:
+                _JCROSS_雰:1.0__SYM_雰_591_ = "_JCROSS_雰:1.0__SYM_雰_705_"
+            else:
+                _JCROSS_雰:1.0__SYM_雰_591_ = "_JCROSS_雰:1.0__SYM_雰_726_"
+            for i, pt in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_雰:1.0__SYM_雰_630_):
+                if _JCROSS_雰:1.0__SYM_雰_607_[i] & _JCROSS_雰:1.0__SYM_雰_13_:
+                    _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_379_(pt, _JCROSS_雰:1.0__SYM_雰_591_=_JCROSS_雰:1.0__SYM_雰_591_)
+                    _JCROSS_雰:1.0__SYM_雰_591_ = "_JCROSS_雰:1.0__SYM_雰_500_"
+                else:
+                    _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_379_(pt)
+                    _JCROSS_雰:1.0__SYM_雰_591_ = "_JCROSS_雰:1.0__SYM_雰_705_" if _JCROSS_雰:1.0__SYM_雰_607_[i] & _JCROSS_雰:1.0__SYM_雰_807_ else "_JCROSS_雰:1.0__SYM_雰_726_"
+            _JCROSS_雰:1.0__SYM_雰_531_._JCROSS_雰:1.0__SYM_雰_778_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_632_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        if _JCROSS_雰:1.0__SYM_雰_561_(self) != _JCROSS_雰:1.0__SYM_雰_561_(_JCROSS_謀:1.0__SYM_雰_166_):
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_761_ == _JCROSS_謀:1.0__SYM_雰_166_._JCROSS_雰:1.0__SYM_雰_761_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_69_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_879_ = self._JCROSS_雰:1.0__SYM_雰_632_(_JCROSS_謀:1.0__SYM_雰_166_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_879_ if _JCROSS_雰:1.0__SYM_雰_879_ is _JCROSS_廬:1.0__SYM_廬_66_ else _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_879_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_雰:1.0__SYM_雰_734_ = _JCROSS_雰:1.0__SYM_雰_364_(_JCROSS_廬:1.0__SYM_廬_21_._JCROSS_雰:1.0__SYM_雰_195_, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_)
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_776_(p0: _JCROSS_雰:1.0__SYM_雰_177_, p1: _JCROSS_雰:1.0__SYM_雰_177_, p2: _JCROSS_雰:1.0__SYM_雰_177_) -> _JCROSS_雰:1.0__SYM_雰_779_:
+// [metadata-stripped]
+    p0 = _JCROSS_廬:1.0__SYM_廬_21_(p0)
+    p1 = _JCROSS_廬:1.0__SYM_廬_21_(p1)
+    p2 = _JCROSS_廬:1.0__SYM_廬_21_(p2)
+    _JCROSS_雰:1.0__SYM_雰_286_urn ((p0 + p2) * 0.5)._JCROSS_雰:1.0__SYM_雰_679_(p1) or _JCROSS_雰:1.0__SYM_雰_734_(p0) + _JCROSS_雰:1.0__SYM_雰_734_(p2) == _JCROSS_雰:1.0__SYM_雰_734_(p1) * 2
+
+
+_JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_689_(*_JCROSS_雰:1.0__SYM_雰_354_: _JCROSS_廬:1.0__SYM_廬_56_) -> _JCROSS_謀:1.0__SYM_碑_18_[_JCROSS_雰:1.0__SYM_雰_525_]:
+    """_JCROSS_廬:1.0__SYM_廬_57_ _JCROSS_雰:1.0__SYM_雰_790_ on-_JCROSS_雰:1.0__SYM_雰_705_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_350_ (_JCROSS_雰:1.0__SYM_雰_132_) _JCROSS_雰:1.0__SYM_雰_851_ or _JCROSS_雰:1.0__SYM_雰_534_.
+
+    In _JCROSS_廬:1.0__SYM_廬_91_ _JCROSS_雰:1.0__SYM_雰_662_ _JCROSS_雰:1.0__SYM_雰_605_, on-_JCROSS_雰:1.0__SYM_雰_705_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_721_ be _JCROSS_雰:1.0__SYM_雰_28_ _JCROSS_雰:1.0__SYM_雰_126_ _JCROSS_雰:1.0__SYM_雰_84_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_49_ at
+    _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_565_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_500_ _JCROSS_雰:1.0__SYM_雰_139_ _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_287_ _JCROSS_雰:1.0__SYM_雰_755_-_JCROSS_雰:1.0__SYM_雰_705_ _JCROSS_雰:1.0__SYM_雰_506_.
+
+    If _JCROSS_雰:1.0__SYM_雰_868_ _JCROSS_雰:1.0__SYM_雰_809_ _JCROSS_雰:1.0__SYM_雰_165_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_454_, _JCROSS_雰:1.0__SYM_雰_19_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_660_ to be _JCROSS_雰:1.0__SYM_雰_346_ _JCROSS_雰:1.0__SYM_雰_210_
+    of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_528_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_790_, _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_119_ _JCROSS_雰:1.0__SYM_雰_736_ _JCROSS_雰:1.0__SYM_雰_350_ on-_JCROSS_雰:1.0__SYM_雰_705_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_811_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_790_
+    for _JCROSS_雰:1.0__SYM_雰_345_ of _JCROSS_雰:1.0__SYM_雰_72_ _JCROSS_雰:1.0__SYM_雰_104_ _JCROSS_雰:1.0__SYM_雰_562_ be _JCROSS_雰:1.0__SYM_雰_28_.
+    _JCROSS_廬:1.0__SYM_廬_74_ _JCROSS_雰:1.0__SYM_雰_534_ or _JCROSS_雰:1.0__SYM_雰_50_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_198_, _JCROSS_雰:1.0__SYM_雰_736_ _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_232_ 1 or _JCROSS_雰:1.0__SYM_雰_868_
+    _JCROSS_雰:1.0__SYM_雰_460_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_362_.
+    _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_173_ _JCROSS_雰:1.0__SYM_雰_851_(s) is/_JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_漂:1.0__SYM_雰_168_ in-_JCROSS_雰:1.0__SYM_雰_180_.
+
+    _JCROSS_廬:1.0__SYM_廬_118_:
+        _JCROSS_雰:1.0__SYM_雰_354_: _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_851_ or _JCROSS_雰:1.0__SYM_雰_534_ to _JCROSS_漂:1.0__SYM_雰_35_ in-_JCROSS_雰:1.0__SYM_雰_180_.
+
+    _JCROSS_廬:1.0__SYM_廬_32_:
+        _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_謀:1.0__SYM_碑_21_ of _JCROSS_雰:1.0__SYM_雰_319_ _JCROSS_雰:1.0__SYM_雰_629_ _JCROSS_雰:1.0__SYM_雰_811_ _JCROSS_雰:1.0__SYM_雰_509_ _JCROSS_雰:1.0__SYM_雰_215_ if any.
+
+    _JCROSS_廬:1.0__SYM_廬_85_:
+        _JCROSS_廬:1.0__SYM_廬_58_ if _JCROSS_雰:1.0__SYM_雰_132_ _JCROSS_雰:1.0__SYM_雰_534_ _JCROSS_雰:1.0__SYM_雰_682_ _JCROSS_雰:1.0__SYM_雰_875_ in _JCROSS_雰:1.0__SYM_雰_690_ _JCROSS_雰:1.0__SYM_雰_346_ _JCROSS_雰:1.0__SYM_雰_711_ _JCROSS_雰:1.0__SYM_雰_84_ _JCROSS_雰:1.0__SYM_雰_471_
+        _JCROSS_漂:1.0__SYM_雰_375_ _JCROSS_雰:1.0__SYM_雰_319_ _JCROSS_雰:1.0__SYM_雰_743_ or _JCROSS_謀:1.0__SYM_雰_446_ of _JCROSS_雰:1.0__SYM_雰_460_.
+
+    _JCROSS_廬:1.0__SYM_廬_109_:
+    _JCROSS_縺:1.0__SYM_雰_97_://_JCROSS_謀:1.0__SYM_雰_703_._JCROSS_雰:1.0__SYM_雰_313_._JCROSS_雰:1.0__SYM_雰_891_/_JCROSS_雰:1.0__SYM_雰_353_/_JCROSS_廬:1.0__SYM_廬_91_-_JCROSS_廬:1.0__SYM_廬_109_-_JCROSS_廬:1.0__SYM_廬_75_/_JCROSS_廬:1.0__SYM_廬_23_/_JCROSS_廬:1.0__SYM_廬_81_._JCROSS_雰:1.0__SYM_雰_791_
+    """
+    _JCROSS_雰:1.0__SYM_雰_269_ = _JCROSS_廬:1.0__SYM_廬_51_(
+        _JCROSS_雰:1.0__SYM_雰_594_=_JCROSS_廬:1.0__SYM_廬_60_, _JCROSS_雰:1.0__SYM_雰_743_=_JCROSS_廬:1.0__SYM_廬_60_, _JCROSS_雰:1.0__SYM_雰_432_=_JCROSS_廬:1.0__SYM_廬_60_
+    )
+    _JCROSS_雰:1.0__SYM_雰_545_ = _JCROSS_廬:1.0__SYM_廬_60_
+    _JCROSS_雰:1.0__SYM_雰_659_ = []
+    for i, _JCROSS_雰:1.0__SYM_雰_851_ in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_雰:1.0__SYM_雰_354_):
+        if _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_594_ < 1:
+// [metadata-stripped]
+            continue
+
+        for _JCROSS_雰:1.0__SYM_雰_567_ in _JCROSS_雰:1.0__SYM_雰_269_._JCROSS_雰:1.0__SYM_雰_761_:
+            _JCROSS_雰:1.0__SYM_雰_399_ = _JCROSS_謀:1.0__SYM_碑_5_(_JCROSS_雰:1.0__SYM_雰_269_, _JCROSS_雰:1.0__SYM_雰_567_)
+            _JCROSS_雰:1.0__SYM_雰_595_ = _JCROSS_謀:1.0__SYM_碑_5_(_JCROSS_雰:1.0__SYM_雰_851_, _JCROSS_雰:1.0__SYM_雰_567_)
+            if _JCROSS_雰:1.0__SYM_雰_399_ is _JCROSS_廬:1.0__SYM_廬_60_:
+                _JCROSS_謀:1.0__SYM_碑_15_(_JCROSS_雰:1.0__SYM_雰_269_, _JCROSS_雰:1.0__SYM_雰_567_, _JCROSS_雰:1.0__SYM_雰_595_)
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_雰:1.0__SYM_雰_399_ != _JCROSS_雰:1.0__SYM_雰_595_:
+                _JCROSS_雰:1.0__SYM_雰_323_ _JCROSS_廬:1.0__SYM_廬_58_(
+                    f"_JCROSS_廬:1.0__SYM_廬_93_ {_JCROSS_雰:1.0__SYM_雰_567_} for _JCROSS_雰:1.0__SYM_雰_851_ at _JCROSS_謀:1.0__SYM_雰_651_ _JCROSS_雰:1.0__SYM_雰_654_ {i}: "
+                    f"_JCROSS_雰:1.0__SYM_雰_399_ {_JCROSS_雰:1.0__SYM_雰_399_}, _JCROSS_雰:1.0__SYM_雰_595_ {_JCROSS_雰:1.0__SYM_雰_595_}"
+                )
+
+        _JCROSS_雰:1.0__SYM_雰_715_ = _JCROSS_謀:1.0__SYM_碑_21_()
+        _JCROSS_雰:1.0__SYM_雰_42_ = 0
+        _JCROSS_雰:1.0__SYM_雰_365_ = _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_520_
+        _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_269_._JCROSS_雰:1.0__SYM_雰_743_
+        _JCROSS_雰:1.0__SYM_雰_432_ = _JCROSS_雰:1.0__SYM_雰_269_._JCROSS_雰:1.0__SYM_雰_432_
+        for _JCROSS_雰:1.0__SYM_雰_841_ in _JCROSS_雰:1.0__SYM_雰_432_:
+            for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_42_, _JCROSS_雰:1.0__SYM_雰_841_ + 1):
+                if _JCROSS_雰:1.0__SYM_雰_875_ (_JCROSS_雰:1.0__SYM_雰_743_[i] & _JCROSS_雰:1.0__SYM_雰_13_):
+                    continue
+                _JCROSS_雰:1.0__SYM_雰_179_ = i - 1 if i > _JCROSS_雰:1.0__SYM_雰_42_ else _JCROSS_雰:1.0__SYM_雰_841_
+                _JCROSS_雰:1.0__SYM_雰_579_ = i + 1 if i < _JCROSS_雰:1.0__SYM_雰_841_ else _JCROSS_雰:1.0__SYM_雰_42_
+                if (_JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_179_] & _JCROSS_雰:1.0__SYM_雰_13_) or _JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_179_] != _JCROSS_雰:1.0__SYM_雰_743_[_JCROSS_雰:1.0__SYM_雰_579_]:
+                    continue
+// [metadata-stripped]
+                if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_776_(_JCROSS_雰:1.0__SYM_雰_365_[_JCROSS_雰:1.0__SYM_雰_179_], _JCROSS_雰:1.0__SYM_雰_365_[i], _JCROSS_雰:1.0__SYM_雰_365_[_JCROSS_雰:1.0__SYM_雰_579_]):
+                    continue
+
+                _JCROSS_雰:1.0__SYM_雰_715_._JCROSS_雰:1.0__SYM_雰_106_(i)
+            _JCROSS_雰:1.0__SYM_雰_42_ = _JCROSS_雰:1.0__SYM_雰_841_ + 1
+// [metadata-stripped]
+        if _JCROSS_雰:1.0__SYM_雰_545_ is _JCROSS_廬:1.0__SYM_廬_60_:
+            _JCROSS_雰:1.0__SYM_雰_545_ = _JCROSS_雰:1.0__SYM_雰_715_
+        else:
+            _JCROSS_雰:1.0__SYM_雰_545_._JCROSS_雰:1.0__SYM_雰_124_(_JCROSS_雰:1.0__SYM_雰_715_)
+
+        _JCROSS_雰:1.0__SYM_雰_659_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_851_)
+
+    if _JCROSS_雰:1.0__SYM_雰_545_:
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_269_._JCROSS_雰:1.0__SYM_雰_743_
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_743_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_
+        _JCROSS_雰:1.0__SYM_雰_88_ = _JCROSS_雰:1.0__SYM_雰_494_._JCROSS_雰:1.0__SYM_雰_494_(
+            "B", (_JCROSS_雰:1.0__SYM_雰_743_[i] for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_743_)) if i _JCROSS_雰:1.0__SYM_雰_875_ in _JCROSS_雰:1.0__SYM_雰_545_)
+        )
+
+        _JCROSS_雰:1.0__SYM_雰_383_ = _JCROSS_雰:1.0__SYM_雰_269_._JCROSS_雰:1.0__SYM_雰_432_
+        _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_383_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_
+        _JCROSS_雰:1.0__SYM_雰_640_ = []
+        i = 0
+        _JCROSS_雰:1.0__SYM_雰_216_ = 0
+        for d in _JCROSS_雰:1.0__SYM_雰_474_(_JCROSS_雰:1.0__SYM_雰_545_):
+            while d > _JCROSS_雰:1.0__SYM_雰_383_[i]:
+                _JCROSS_雰:1.0__SYM_雰_640_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_383_[i] - _JCROSS_雰:1.0__SYM_雰_216_)
+                i += 1
+            _JCROSS_雰:1.0__SYM_雰_216_ += 1
+        while i < _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_383_):
+            _JCROSS_雰:1.0__SYM_雰_640_._JCROSS_雰:1.0__SYM_雰_159_(_JCROSS_雰:1.0__SYM_雰_383_[i] - _JCROSS_雰:1.0__SYM_雰_216_)
+            i += 1
+
+        for _JCROSS_雰:1.0__SYM_雰_851_ in _JCROSS_雰:1.0__SYM_雰_659_:
+            _JCROSS_雰:1.0__SYM_雰_365_ = _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_520_
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_520_ = _JCROSS_廬:1.0__SYM_廬_101_(
+                _JCROSS_雰:1.0__SYM_雰_365_[i] for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_雰:1.0__SYM_雰_365_)) if i _JCROSS_雰:1.0__SYM_雰_875_ in _JCROSS_雰:1.0__SYM_雰_545_
+            )
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_88_
+            _JCROSS_雰:1.0__SYM_雰_851_._JCROSS_雰:1.0__SYM_雰_432_ = _JCROSS_雰:1.0__SYM_雰_640_
+
+    _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_545_ if _JCROSS_雰:1.0__SYM_雰_545_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_廬:1.0__SYM_廬_60_ else _JCROSS_謀:1.0__SYM_碑_21_()
+
+
+class _JCROSS_廬:1.0__SYM_廬_90_(_JCROSS_雰:1.0__SYM_雰_735_):
+    """_JCROSS_廬:1.0__SYM_廬_49_ a _JCROSS_雰:1.0__SYM_雰_653_ _JCROSS_雰:1.0__SYM_雰_250_ a _JCROSS_雰:1.0__SYM_雰_845_ _JCROSS_雰:1.0__SYM_雰_851_.
+
+    _JCROSS_廬:1.0__SYM_廬_115_ _JCROSS_雰:1.0__SYM_雰_653_ is _JCROSS_雰:1.0__SYM_雰_461_ _JCROSS_雰:1.0__SYM_雰_665_ _JCROSS_雰:1.0__SYM_雰_232_ _JCROSS_雰:1.0__SYM_雰_37_ _JCROSS_雰:1.0__SYM_雰_824_: ``_JCROSS_雰:1.0__SYM_雰_788_``,
+    ``x``, ``y`` _JCROSS_雰:1.0__SYM_雰_642_ ``_JCROSS_漂:1.0__SYM_雰_463_``. If _JCROSS_雰:1.0__SYM_雰_523_ is no "_JCROSS_雰:1.0__SYM_雰_759_-by-_JCROSS_雰:1.0__SYM_雰_759_" _JCROSS_雰:1.0__SYM_雰_176_ (i.e
+    no _JCROSS_雰:1.0__SYM_雰_696_, _JCROSS_雰:1.0__SYM_雰_34_, or _JCROSS_雰:1.0__SYM_雰_239_; _JCROSS_雰:1.0__SYM_雰_736_ _JCROSS_雰:1.0__SYM_雰_128_), _JCROSS_雰:1.0__SYM_雰_350_ ``_JCROSS_漂:1.0__SYM_雰_463_``
+    _JCROSS_雰:1.0__SYM_雰_514_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_141_.
+    """
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_712_(self):
+        _JCROSS_雰:1.0__SYM_雰_584_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_謀:1.0__SYM_碑_11_(self):
+        """_JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_漂:1.0__SYM_雰_415_ _JCROSS_雰:1.0__SYM_雰_310_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_653_
+
+        _JCROSS_廬:1.0__SYM_廬_45_ _JCROSS_雰:1.0__SYM_雰_603_ _JCROSS_雰:1.0__SYM_雰_283_ a _JCROSS_雰:1.0__SYM_雰_177_ of _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_827_: _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_405_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_653_'s
+        _JCROSS_雰:1.0__SYM_雰_403_ _JCROSS_雰:1.0__SYM_雰_851_, _JCROSS_雰:1.0__SYM_雰_642_ a _JCROSS_漂:1.0__SYM_雰_884_ _JCROSS_雰:1.0__SYM_雰_176_. As _JCROSS_雰:1.0__SYM_雰_247_ to _JCROSS_雰:1.0__SYM_雰_342_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_824_
+        _JCROSS_雰:1.0__SYM_雰_138_, ``_JCROSS_謀:1.0__SYM_碑_11_`` _JCROSS_雰:1.0__SYM_雰_26_ _JCROSS_雰:1.0__SYM_雰_283_ a _JCROSS_雰:1.0__SYM_雰_83_-_JCROSS_雰:1.0__SYM_雰_470_ _JCROSS_雰:1.0__SYM_雰_177_ of _JCROSS_雰:1.0__SYM_雰_350_
+        _JCROSS_雰:1.0__SYM_雰_653_'s _JCROSS_漂:1.0__SYM_雰_884_ _JCROSS_雰:1.0__SYM_雰_176_, _JCROSS_雰:1.0__SYM_雰_553_ _JCROSS_雰:1.0__SYM_雰_126_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_759_-by-_JCROSS_雰:1.0__SYM_雰_759_ ``._JCROSS_漂:1.0__SYM_雰_463_``
+        _JCROSS_雰:1.0__SYM_雰_176_ is _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_141_.
+        """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_漂:1.0__SYM_雰_463_"):
+            [[xx, xy], [yx, yy]] = self._JCROSS_漂:1.0__SYM_雰_463_
+            _JCROSS_雰:1.0__SYM_雰_882_ = (xx, xy, yx, yy, self.x, self.y)
+        else:
+            _JCROSS_雰:1.0__SYM_雰_882_ = (1, 0, 0, 1, self.x, self.y)
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_788_, _JCROSS_雰:1.0__SYM_雰_882_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_608_(self, _JCROSS_雰:1.0__SYM_雰_799_, _JCROSS_雰:1.0__SYM_雰_540_):
+        _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_888_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">HH", _JCROSS_雰:1.0__SYM_雰_799_[:4])
+        self._JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_743_)
+        _JCROSS_雰:1.0__SYM_雰_888_ = _JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_888_)
+        self._JCROSS_雰:1.0__SYM_雰_788_ = _JCROSS_雰:1.0__SYM_雰_540_._JCROSS_謀:1.0__SYM_碑_20_(_JCROSS_雰:1.0__SYM_雰_525_(_JCROSS_雰:1.0__SYM_雰_888_))
+        _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[4:]
+
+        if self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_67_:
+            if self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_113_:
+                self.x, self.y = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">hh", _JCROSS_雰:1.0__SYM_雰_799_[:4])
+            else:
+                x, y = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">HH", _JCROSS_雰:1.0__SYM_雰_799_[:4])
+                self._JCROSS_雰:1.0__SYM_雰_211_, self._JCROSS_雰:1.0__SYM_雰_339_ = _JCROSS_雰:1.0__SYM_雰_525_(x), _JCROSS_雰:1.0__SYM_雰_525_(y)
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[4:]
+        else:
+            if self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_113_:
+                self.x, self.y = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">bb", _JCROSS_雰:1.0__SYM_雰_799_[:2])
+            else:
+                x, y = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">BB", _JCROSS_雰:1.0__SYM_雰_799_[:2])
+                self._JCROSS_雰:1.0__SYM_雰_211_, self._JCROSS_雰:1.0__SYM_雰_339_ = _JCROSS_雰:1.0__SYM_雰_525_(x), _JCROSS_雰:1.0__SYM_雰_525_(y)
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[2:]
+
+        if self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_114_:
+            (_JCROSS_雰:1.0__SYM_雰_647_,) = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">h", _JCROSS_雰:1.0__SYM_雰_799_[:2])
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [
+                [_JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_647_, 14), 0],
+                [0, _JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_647_, 14)],
+            ]  # _JCROSS_雰:1.0__SYM_雰_828_ 2.14
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[2:]
+        _JCROSS_漂:1.0__SYM_雰_110_ self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_9_:
+            _JCROSS_雰:1.0__SYM_雰_836_, _JCROSS_雰:1.0__SYM_雰_349_ = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">hh", _JCROSS_雰:1.0__SYM_雰_799_[:4])
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [
+                [_JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_836_, 14), 0],
+                [0, _JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_349_, 14)],
+            ]  # _JCROSS_雰:1.0__SYM_雰_828_ 2.14
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[4:]
+        _JCROSS_漂:1.0__SYM_雰_110_ self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_5_:
+            (_JCROSS_雰:1.0__SYM_雰_836_, _JCROSS_雰:1.0__SYM_雰_278_, _JCROSS_雰:1.0__SYM_雰_826_, _JCROSS_雰:1.0__SYM_雰_349_) = _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_371_(">_JCROSS_雰:1.0__SYM_雰_628_", _JCROSS_雰:1.0__SYM_雰_799_[:8])
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [
+                [_JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_836_, 14), _JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_278_, 14)],
+                [_JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_826_, 14), _JCROSS_雰:1.0__SYM_雰_8_(_JCROSS_雰:1.0__SYM_雰_349_, 14)],
+            ]  # _JCROSS_雰:1.0__SYM_雰_828_ 2.14
+            _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_[8:]
+        _JCROSS_雰:1.0__SYM_雰_868_ = self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_63_
+        _JCROSS_雰:1.0__SYM_雰_314_ = self._JCROSS_雰:1.0__SYM_雰_743_ & _JCROSS_廬:1.0__SYM_廬_17_
+        self._JCROSS_雰:1.0__SYM_雰_743_ = self._JCROSS_雰:1.0__SYM_雰_743_ & (
+            _JCROSS_廬:1.0__SYM_廬_96_
+            | _JCROSS_廬:1.0__SYM_廬_29_
+            | _JCROSS_廬:1.0__SYM_廬_112_
+            | _JCROSS_廬:1.0__SYM_廬_116_
+            | _JCROSS_廬:1.0__SYM_廬_28_
+            | _JCROSS_廬:1.0__SYM_廬_82_
+        )
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_868_, _JCROSS_雰:1.0__SYM_雰_314_, _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_729_(self, _JCROSS_雰:1.0__SYM_雰_868_, _JCROSS_雰:1.0__SYM_雰_314_, _JCROSS_雰:1.0__SYM_雰_540_):
+        _JCROSS_雰:1.0__SYM_雰_799_ = b""
+
+// [metadata-stripped]
+        _JCROSS_雰:1.0__SYM_雰_743_ = self._JCROSS_雰:1.0__SYM_雰_743_ & (
+            _JCROSS_廬:1.0__SYM_廬_96_
+            | _JCROSS_廬:1.0__SYM_廬_29_
+            | _JCROSS_廬:1.0__SYM_廬_112_
+            | _JCROSS_廬:1.0__SYM_廬_116_
+            | _JCROSS_廬:1.0__SYM_廬_28_
+            | _JCROSS_廬:1.0__SYM_廬_82_
+        )
+        if _JCROSS_雰:1.0__SYM_雰_868_:
+            _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_63_
+        if _JCROSS_雰:1.0__SYM_雰_314_:
+            _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_17_
+
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_211_"):
+            if (0 <= self._JCROSS_雰:1.0__SYM_雰_211_ <= 255) _JCROSS_雰:1.0__SYM_雰_642_ (0 <= self._JCROSS_雰:1.0__SYM_雰_339_ <= 255):
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">BB", self._JCROSS_雰:1.0__SYM_雰_211_, self._JCROSS_雰:1.0__SYM_雰_339_)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">HH", self._JCROSS_雰:1.0__SYM_雰_211_, self._JCROSS_雰:1.0__SYM_雰_339_)
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_67_
+        else:
+            x = _JCROSS_雰:1.0__SYM_雰_816_(self.x)
+            y = _JCROSS_雰:1.0__SYM_雰_816_(self.y)
+            _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_113_
+            if (-128 <= x <= 127) _JCROSS_雰:1.0__SYM_雰_642_ (-128 <= y <= 127):
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">bb", x, y)
+            else:
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">hh", x, y)
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_67_
+
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_漂:1.0__SYM_雰_463_"):
+            _JCROSS_漂:1.0__SYM_雰_463_ = [[_JCROSS_雰:1.0__SYM_雰_113_(x, 14) for x in _JCROSS_雰:1.0__SYM_雰_397_] for _JCROSS_雰:1.0__SYM_雰_397_ in self._JCROSS_漂:1.0__SYM_雰_463_]
+            if _JCROSS_漂:1.0__SYM_雰_463_[0][1] or _JCROSS_漂:1.0__SYM_雰_463_[1][0]:
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_5_
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(
+                    ">_JCROSS_雰:1.0__SYM_雰_628_",
+                    _JCROSS_漂:1.0__SYM_雰_463_[0][0],
+                    _JCROSS_漂:1.0__SYM_雰_463_[0][1],
+                    _JCROSS_漂:1.0__SYM_雰_463_[1][0],
+                    _JCROSS_漂:1.0__SYM_雰_463_[1][1],
+                )
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_漂:1.0__SYM_雰_463_[0][0] != _JCROSS_漂:1.0__SYM_雰_463_[1][1]:
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_9_
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">hh", _JCROSS_漂:1.0__SYM_雰_463_[0][0], _JCROSS_漂:1.0__SYM_雰_463_[1][1])
+            else:
+                _JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_743_ | _JCROSS_廬:1.0__SYM_廬_114_
+                _JCROSS_雰:1.0__SYM_雰_799_ = _JCROSS_雰:1.0__SYM_雰_799_ + _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">h", _JCROSS_漂:1.0__SYM_雰_463_[0][0])
+
+        _JCROSS_雰:1.0__SYM_雰_888_ = _JCROSS_雰:1.0__SYM_雰_540_._JCROSS_謀:1.0__SYM_碑_12_(self._JCROSS_雰:1.0__SYM_雰_788_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_101_uct._JCROSS_雰:1.0__SYM_雰_53_(">HH", _JCROSS_雰:1.0__SYM_雰_743_, _JCROSS_雰:1.0__SYM_雰_888_) + _JCROSS_雰:1.0__SYM_雰_799_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_456_(self, _JCROSS_謀:1.0__SYM_雰_133_, _JCROSS_雰:1.0__SYM_雰_344_):
+        _JCROSS_雰:1.0__SYM_雰_449_ = [("_JCROSS_雰:1.0__SYM_雰_788_", self._JCROSS_雰:1.0__SYM_雰_788_)]
+        if _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_211_"):
+            _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [("x", self.x), ("y", self.y)]
+        else:
+            _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [("_JCROSS_雰:1.0__SYM_雰_211_", self._JCROSS_雰:1.0__SYM_雰_211_), ("_JCROSS_雰:1.0__SYM_雰_339_", self._JCROSS_雰:1.0__SYM_雰_339_)]
+
+        if _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_漂:1.0__SYM_雰_463_"):
+            _JCROSS_漂:1.0__SYM_雰_463_ = self._JCROSS_漂:1.0__SYM_雰_463_
+            if _JCROSS_漂:1.0__SYM_雰_463_[0][1] or _JCROSS_漂:1.0__SYM_雰_463_[1][0]:
+                _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [
+                    ("_JCROSS_雰:1.0__SYM_雰_325_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[0][0], 14)),
+                    ("_JCROSS_雰:1.0__SYM_雰_278_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[0][1], 14)),
+                    ("_JCROSS_雰:1.0__SYM_雰_826_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[1][0], 14)),
+                    ("_JCROSS_雰:1.0__SYM_雰_90_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[1][1], 14)),
+                ]
+            _JCROSS_漂:1.0__SYM_雰_110_ _JCROSS_漂:1.0__SYM_雰_463_[0][0] != _JCROSS_漂:1.0__SYM_雰_463_[1][1]:
+                _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [
+                    ("_JCROSS_雰:1.0__SYM_雰_325_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[0][0], 14)),
+                    ("_JCROSS_雰:1.0__SYM_雰_90_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[1][1], 14)),
+                ]
+            else:
+                _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [("_JCROSS_雰:1.0__SYM_雰_647_", _JCROSS_雰:1.0__SYM_雰_277_(_JCROSS_漂:1.0__SYM_雰_463_[0][0], 14))]
+        _JCROSS_雰:1.0__SYM_雰_449_ = _JCROSS_雰:1.0__SYM_雰_449_ + [("_JCROSS_雰:1.0__SYM_雰_743_", _JCROSS_雰:1.0__SYM_雰_292_(self._JCROSS_雰:1.0__SYM_雰_743_))]
+        _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_502_("_JCROSS_雰:1.0__SYM_雰_653_", _JCROSS_雰:1.0__SYM_雰_449_)
+        _JCROSS_謀:1.0__SYM_雰_133_._JCROSS_雰:1.0__SYM_雰_89_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_167_(self, _JCROSS_雰:1.0__SYM_雰_405_, _JCROSS_雰:1.0__SYM_雰_449_, _JCROSS_雰:1.0__SYM_雰_385_, _JCROSS_雰:1.0__SYM_雰_344_):
+        self._JCROSS_雰:1.0__SYM_雰_788_ = _JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_788_"]
+        if "_JCROSS_雰:1.0__SYM_雰_211_" in _JCROSS_雰:1.0__SYM_雰_449_:
+            self._JCROSS_雰:1.0__SYM_雰_211_ = _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_211_"])
+            self._JCROSS_雰:1.0__SYM_雰_339_ = _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_339_"])
+        else:
+            self.x = _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["x"])
+            self.y = _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["y"])
+        if "_JCROSS_雰:1.0__SYM_雰_278_" in _JCROSS_雰:1.0__SYM_雰_449_:
+            _JCROSS_雰:1.0__SYM_雰_325_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_325_"], 14)
+            _JCROSS_雰:1.0__SYM_雰_278_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_278_"], 14)
+            _JCROSS_雰:1.0__SYM_雰_826_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_826_"], 14)
+            _JCROSS_雰:1.0__SYM_雰_90_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_90_"], 14)
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [[_JCROSS_雰:1.0__SYM_雰_325_, _JCROSS_雰:1.0__SYM_雰_278_], [_JCROSS_雰:1.0__SYM_雰_826_, _JCROSS_雰:1.0__SYM_雰_90_]]
+        _JCROSS_漂:1.0__SYM_雰_110_ "_JCROSS_雰:1.0__SYM_雰_325_" in _JCROSS_雰:1.0__SYM_雰_449_:
+            _JCROSS_雰:1.0__SYM_雰_325_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_325_"], 14)
+            _JCROSS_雰:1.0__SYM_雰_90_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_90_"], 14)
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [[_JCROSS_雰:1.0__SYM_雰_325_, 0], [0, _JCROSS_雰:1.0__SYM_雰_90_]]
+        _JCROSS_漂:1.0__SYM_雰_110_ "_JCROSS_雰:1.0__SYM_雰_647_" in _JCROSS_雰:1.0__SYM_雰_449_:
+            _JCROSS_雰:1.0__SYM_雰_647_ = _JCROSS_雰:1.0__SYM_雰_355_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_647_"], 14)
+            self._JCROSS_漂:1.0__SYM_雰_463_ = [[_JCROSS_雰:1.0__SYM_雰_647_, 0], [0, _JCROSS_雰:1.0__SYM_雰_647_]]
+        self._JCROSS_雰:1.0__SYM_雰_743_ = _JCROSS_雰:1.0__SYM_雰_394_(_JCROSS_雰:1.0__SYM_雰_449_["_JCROSS_雰:1.0__SYM_雰_743_"])
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_632_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        if _JCROSS_雰:1.0__SYM_雰_561_(self) != _JCROSS_雰:1.0__SYM_雰_561_(_JCROSS_謀:1.0__SYM_雰_166_):
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_761_ == _JCROSS_謀:1.0__SYM_雰_166_._JCROSS_雰:1.0__SYM_雰_761_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_69_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_879_ = self._JCROSS_雰:1.0__SYM_雰_632_(_JCROSS_謀:1.0__SYM_雰_166_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_879_ if _JCROSS_雰:1.0__SYM_雰_879_ is _JCROSS_廬:1.0__SYM_廬_66_ else _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_879_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_688_(self):
+        """_JCROSS_廬:1.0__SYM_廬_18_ _JCROSS_廬:1.0__SYM_廬_71_ if it's a '_JCROSS_雰:1.0__SYM_雰_132_' _JCROSS_雰:1.0__SYM_雰_653_.
+
+        _JCROSS_廬:1.0__SYM_廬_14_ is, it _JCROSS_雰:1.0__SYM_雰_544_ no _JCROSS_雰:1.0__SYM_雰_889_ _JCROSS_雰:1.0__SYM_雰_506_ _JCROSS_雰:1.0__SYM_雰_642_ no _JCROSS_漂:1.0__SYM_雰_463_ _JCROSS_謀:1.0__SYM_雰_166_ _JCROSS_雰:1.0__SYM_雰_809_ _JCROSS_謀:1.0__SYM_雰_190_ _JCROSS_雰:1.0__SYM_雰_296_.
+        """
+        _JCROSS_雰:1.0__SYM_雰_286_urn (
+            _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_雰:1.0__SYM_雰_211_")
+            _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_356_(self, "_JCROSS_漂:1.0__SYM_雰_463_")
+            _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_261_(self.x)._JCROSS_謀:1.0__SYM_雰_79_()
+            _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_雰:1.0__SYM_雰_261_(self.y)._JCROSS_謀:1.0__SYM_雰_79_()
+        )
+
+
+class _JCROSS_廬:1.0__SYM_廬_101_(_JCROSS_雰:1.0__SYM_雰_735_):
+    """A _JCROSS_雰:1.0__SYM_雰_792_ of _JCROSS_雰:1.0__SYM_雰_851_ _JCROSS_雰:1.0__SYM_雰_520_.
+
+    _JCROSS_廬:1.0__SYM_廬_11_ an _JCROSS_雰:1.0__SYM_雰_672_ _JCROSS_雰:1.0__SYM_雰_792_, _JCROSS_雰:1.0__SYM_雰_92_ is a _JCROSS_雰:1.0__SYM_雰_699_-_JCROSS_雰:1.0__SYM_雰_390_ _JCROSS_雰:1.0__SYM_雰_176_ _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_258_ _JCROSS_雰:1.0__SYM_雰_533_
+    _JCROSS_雰:1.0__SYM_雰_176_ _JCROSS_雰:1.0__SYM_雰_171_, _JCROSS_雰:1.0__SYM_雰_722_ _JCROSS_雰:1.0__SYM_雰_75_ _JCROSS_雰:1.0__SYM_雰_642_ _JCROSS_謀:1.0__SYM_雰_166_ _JCROSS_雰:1.0__SYM_雰_373_ _JCROSS_雰:1.0__SYM_雰_613_ _JCROSS_雰:1.0__SYM_雰_186_.
+    """
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_712_(self, _JCROSS_雰:1.0__SYM_雰_489_=[]):
+        self._a = _JCROSS_雰:1.0__SYM_雰_494_._JCROSS_雰:1.0__SYM_雰_494_("d")
+        self._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_489_)
+
+    @_JCROSS_雰:1.0__SYM_雰_516_
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_494_(self):
+        """_JCROSS_廬:1.0__SYM_廬_32_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_459_ _JCROSS_雰:1.0__SYM_雰_494_ of _JCROSS_雰:1.0__SYM_雰_520_"""
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._a
+
+    @_JCROSS_雰:1.0__SYM_雰_666_
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_118_(_JCROSS_雰:1.0__SYM_雰_517_):
+        """_JCROSS_廬:1.0__SYM_廬_13_ a _JCROSS_雰:1.0__SYM_雰_866_ ``_JCROSS_廬:1.0__SYM_廬_101_`` _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_232_ _JCROSS_雰:1.0__SYM_雰_345_ _JCROSS_雰:1.0__SYM_雰_520_ _JCROSS_謀:1.0__SYM_碑_21_ to (0,0)"""
+        g = _JCROSS_廬:1.0__SYM_廬_101_()
+        g._a._JCROSS_雰:1.0__SYM_雰_839_(_JCROSS_雰:1.0__SYM_雰_163_(_JCROSS_雰:1.0__SYM_雰_517_ * 2 * g._a._JCROSS_雰:1.0__SYM_雰_849_))
+        _JCROSS_雰:1.0__SYM_雰_286_urn g
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_228_(self):
+        """_JCROSS_廬:1.0__SYM_廬_13_ a _JCROSS_雰:1.0__SYM_雰_866_ ``_JCROSS_廬:1.0__SYM_廬_101_`` _JCROSS_雰:1.0__SYM_雰_735_ _JCROSS_雰:1.0__SYM_雰_258_ is a _JCROSS_雰:1.0__SYM_雰_228_ of _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_856_ _JCROSS_雰:1.0__SYM_雰_165_."""
+        c = _JCROSS_廬:1.0__SYM_廬_101_()
+        c._a._JCROSS_雰:1.0__SYM_雰_334_(self._a)
+        _JCROSS_雰:1.0__SYM_雰_286_urn c
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_369_(self):
+        """_JCROSS_廬:1.0__SYM_廬_32_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_謀:1.0__SYM_雰_446_ of _JCROSS_雰:1.0__SYM_雰_520_ in _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_494_."""
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_473_(self._a) // 2
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_66_(self, k):
+        """_JCROSS_廬:1.0__SYM_廬_32_ a _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_470_ _JCROSS_雰:1.0__SYM_雰_177_ (x,y)"""
+        a = self._a
+        if _JCROSS_雰:1.0__SYM_雰_686_(k, _JCROSS_雰:1.0__SYM_雰_357_):
+            _JCROSS_雰:1.0__SYM_雰_629_ = _JCROSS_雰:1.0__SYM_雰_192_(*k._JCROSS_雰:1.0__SYM_雰_629_(_JCROSS_雰:1.0__SYM_雰_473_(self)))
+// [metadata-stripped]
+            _JCROSS_雰:1.0__SYM_雰_286_ = []
+            for k in _JCROSS_雰:1.0__SYM_雰_629_:
+                x = a[2 * k]
+                y = a[2 * k + 1]
+                _JCROSS_雰:1.0__SYM_雰_286_._JCROSS_雰:1.0__SYM_雰_159_(
+                    (_JCROSS_雰:1.0__SYM_雰_525_(x) if x._JCROSS_謀:1.0__SYM_雰_79_() else x, _JCROSS_雰:1.0__SYM_雰_525_(y) if y._JCROSS_謀:1.0__SYM_雰_79_() else y)
+                )
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_286_
+        x = a[2 * k]
+        y = a[2 * k + 1]
+        _JCROSS_雰:1.0__SYM_雰_286_urn (_JCROSS_雰:1.0__SYM_雰_525_(x) if x._JCROSS_謀:1.0__SYM_雰_79_() else x, _JCROSS_雰:1.0__SYM_雰_525_(y) if y._JCROSS_謀:1.0__SYM_雰_79_() else y)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_91_(self, k, v):
+        """_JCROSS_謀:1.0__SYM_碑_14_ a _JCROSS_雰:1.0__SYM_雰_319_'s _JCROSS_雰:1.0__SYM_雰_520_ to a _JCROSS_雰:1.0__SYM_雰_759_ _JCROSS_雰:1.0__SYM_雰_470_ _JCROSS_雰:1.0__SYM_雰_177_ (x,y)"""
+        if _JCROSS_雰:1.0__SYM_雰_686_(k, _JCROSS_雰:1.0__SYM_雰_357_):
+            _JCROSS_雰:1.0__SYM_雰_629_ = _JCROSS_雰:1.0__SYM_雰_192_(*k._JCROSS_雰:1.0__SYM_雰_629_(_JCROSS_雰:1.0__SYM_雰_473_(self)))
+// [metadata-stripped]
+            for j, i in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_雰:1.0__SYM_雰_629_):
+                self[i] = v[j]
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        self._a[2 * k], self._a[2 * k + 1] = v
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_621_(self, i):
+        """_JCROSS_廬:1.0__SYM_廬_73_ a _JCROSS_雰:1.0__SYM_雰_319_ _JCROSS_雰:1.0__SYM_雰_312_ _JCROSS_雰:1.0__SYM_雰_350_ _JCROSS_雰:1.0__SYM_雰_792_"""
+        i = (2 * i) % _JCROSS_雰:1.0__SYM_雰_473_(self._a)
+        _JCROSS_雰:1.0__SYM_雰_590_ self._a[i]
+        _JCROSS_雰:1.0__SYM_雰_590_ self._a[i]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_231_(self):
+        _JCROSS_雰:1.0__SYM_雰_286_urn "_JCROSS_廬:1.0__SYM_廬_101_([" + ","._JCROSS_雰:1.0__SYM_雰_240_(_JCROSS_雰:1.0__SYM_雰_101_(c) for c in self) + "])"
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_159_(self, p):
+        self._a._JCROSS_雰:1.0__SYM_雰_334_(_JCROSS_雰:1.0__SYM_雰_177_(p))
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_334_(self, _JCROSS_雰:1.0__SYM_雰_489_):
+        for p in _JCROSS_雰:1.0__SYM_雰_489_:
+            self._a._JCROSS_雰:1.0__SYM_雰_334_(p)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_257_(self, *, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_):
+        if _JCROSS_雰:1.0__SYM_雰_24_ is _JCROSS_雰:1.0__SYM_雰_673_:
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        a = self._a
+        for i, _JCROSS_雰:1.0__SYM_雰_429_ in _JCROSS_雰:1.0__SYM_雰_54_(a):
+            a[i] = _JCROSS_雰:1.0__SYM_雰_24_(_JCROSS_雰:1.0__SYM_雰_429_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_716_(self):
+        a = self._a
+        if _JCROSS_雰:1.0__SYM_雰_875_ a:
+            _JCROSS_雰:1.0__SYM_雰_286_urn 0, 0, 0, 0
+        xs = a[0::2]
+        ys = a[1::2]
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_332_(xs), _JCROSS_雰:1.0__SYM_雰_332_(ys), _JCROSS_雰:1.0__SYM_雰_783_(xs), _JCROSS_雰:1.0__SYM_雰_783_(ys)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_815_(self, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_177_(_JCROSS_雰:1.0__SYM_雰_24_(v) for v in self._JCROSS_雰:1.0__SYM_雰_716_())
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_87_(self):
+        a = self._a
+        x, y = 0, 0
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(a), 2):
+            a[i] = x = a[i] + x
+            a[i + 1] = y = a[i + 1] + y
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_145_(self):
+        a = self._a
+        x, y = 0, 0
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(a), 2):
+            nx = a[i]
+            ny = a[i + 1]
+            a[i] = nx - x
+            a[i + 1] = ny - y
+            x = nx
+            y = ny
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_296_(self, p):
+        """
+        >>> _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])._JCROSS_雰:1.0__SYM_雰_296_((.5,0))
+        """
+        x, y = p
+        if x == 0 _JCROSS_雰:1.0__SYM_雰_642_ y == 0:
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        a = self._a
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(a), 2):
+            a[i] += x
+            a[i + 1] += y
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_647_(self, p):
+        """
+        >>> _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])._JCROSS_雰:1.0__SYM_雰_647_((.5,0))
+        """
+        x, y = p
+        if x == 1 _JCROSS_雰:1.0__SYM_雰_642_ y == 1:
+            _JCROSS_雰:1.0__SYM_雰_286_urn
+        a = self._a
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(a), 2):
+            a[i] *= x
+            a[i + 1] *= y
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_漂:1.0__SYM_雰_463_(self, t):
+        """
+        >>> _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])._JCROSS_漂:1.0__SYM_雰_463_(((.5,0),(.2,.5)))
+        """
+        a = self._a
+        for i in _JCROSS_雰:1.0__SYM_雰_192_(0, _JCROSS_雰:1.0__SYM_雰_473_(a), 2):
+            x = a[i]
+            y = a[i + 1]
+            px = x * t[0][0] + y * t[1][0]
+            py = x * t[0][1] + y * t[1][1]
+            a[i] = px
+            a[i + 1] = py
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_632_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g2 = _JCROSS_廬:1.0__SYM_廬_101_([(1.0,2)])
+        >>> g3 = _JCROSS_廬:1.0__SYM_廬_101_([(1.5,2)])
+        >>> g == g2
+        _JCROSS_廬:1.0__SYM_廬_71_
+        >>> g == g3
+        _JCROSS_廬:1.0__SYM_廬_47_
+        >>> g2 == g3
+        _JCROSS_廬:1.0__SYM_廬_47_
+        """
+        if _JCROSS_雰:1.0__SYM_雰_561_(self) != _JCROSS_雰:1.0__SYM_雰_561_(_JCROSS_謀:1.0__SYM_雰_166_):
+            _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._a == _JCROSS_謀:1.0__SYM_雰_166_._a
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_69_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g2 = _JCROSS_廬:1.0__SYM_廬_101_([(1.0,2)])
+        >>> g3 = _JCROSS_廬:1.0__SYM_廬_101_([(1.5,2)])
+        >>> g != g2
+        _JCROSS_廬:1.0__SYM_廬_47_
+        >>> g != g3
+        _JCROSS_廬:1.0__SYM_廬_71_
+        >>> g2 != g3
+        _JCROSS_廬:1.0__SYM_廬_71_
+        """
+        _JCROSS_雰:1.0__SYM_雰_879_ = self._JCROSS_雰:1.0__SYM_雰_632_(_JCROSS_謀:1.0__SYM_雰_166_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_879_ if _JCROSS_雰:1.0__SYM_雰_879_ is _JCROSS_廬:1.0__SYM_廬_66_ else _JCROSS_雰:1.0__SYM_雰_875_ _JCROSS_雰:1.0__SYM_雰_879_
+
+// [metadata-stripped]
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_834_(self):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 2)])
+        >>> g2 = +g
+        >>> g2
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 2)])
+        >>> g2._JCROSS_雰:1.0__SYM_雰_296_((1,0))
+        >>> g2
+        _JCROSS_廬:1.0__SYM_廬_101_([(2, 2)])
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 2)])
+        """
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_228_()
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_387_(self):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 2)])
+        >>> g2 = -g
+        >>> g2
+        _JCROSS_廬:1.0__SYM_廬_101_([(-1, -2)])
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 2)])
+        """
+        r = self._JCROSS_雰:1.0__SYM_雰_228_()
+        a = r._a
+        for i, _JCROSS_雰:1.0__SYM_雰_429_ in _JCROSS_雰:1.0__SYM_雰_54_(a):
+            a[i] = -_JCROSS_雰:1.0__SYM_雰_429_
+        _JCROSS_雰:1.0__SYM_雰_286_urn r
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_195_(self, *, _JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_816_):
+        r = self._JCROSS_雰:1.0__SYM_雰_228_()
+        r._JCROSS_雰:1.0__SYM_雰_257_(_JCROSS_雰:1.0__SYM_雰_24_=_JCROSS_雰:1.0__SYM_雰_24_)
+        _JCROSS_雰:1.0__SYM_雰_286_urn r
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_657_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_228_()._JCROSS_雰:1.0__SYM_雰_10_(_JCROSS_謀:1.0__SYM_雰_166_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_806_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_228_()._JCROSS_雰:1.0__SYM_雰_68_(_JCROSS_謀:1.0__SYM_雰_166_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_123_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_228_()._JCROSS_雰:1.0__SYM_雰_237_(_JCROSS_謀:1.0__SYM_雰_166_)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_105_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn self._JCROSS_雰:1.0__SYM_雰_228_()._JCROSS_雰:1.0__SYM_雰_573_(_JCROSS_謀:1.0__SYM_雰_166_)
+
+    _JCROSS_雰:1.0__SYM_雰_98_ = _JCROSS_雰:1.0__SYM_雰_657_
+    _JCROSS_雰:1.0__SYM_雰_114_ = _JCROSS_雰:1.0__SYM_雰_123_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_541_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_謀:1.0__SYM_雰_166_ + (-self)
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_10_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g += (.5,0)
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1.5, 2)])
+        >>> g2 = _JCROSS_廬:1.0__SYM_廬_101_([(3,4)])
+        >>> g += g2
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(4.5, 6)])
+        """
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_雰:1.0__SYM_雰_177_):
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_) == 2
+            self._JCROSS_雰:1.0__SYM_雰_296_(_JCROSS_謀:1.0__SYM_雰_166_)
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_廬:1.0__SYM_廬_101_):
+            _JCROSS_謀:1.0__SYM_雰_166_ = _JCROSS_謀:1.0__SYM_雰_166_._a
+            a = self._a
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(a) == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_)
+            for i, _JCROSS_雰:1.0__SYM_雰_429_ in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_謀:1.0__SYM_雰_166_):
+                a[i] += _JCROSS_雰:1.0__SYM_雰_429_
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_68_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g -= (.5,0)
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(0.5, 2)])
+        >>> g2 = _JCROSS_廬:1.0__SYM_廬_101_([(3,4)])
+        >>> g -= g2
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(-2.5, -2)])
+        """
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_雰:1.0__SYM_雰_177_):
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_) == 2
+            self._JCROSS_雰:1.0__SYM_雰_296_((-_JCROSS_謀:1.0__SYM_雰_166_[0], -_JCROSS_謀:1.0__SYM_雰_166_[1]))
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_廬:1.0__SYM_廬_101_):
+            _JCROSS_謀:1.0__SYM_雰_166_ = _JCROSS_謀:1.0__SYM_雰_166_._a
+            a = self._a
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(a) == _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_)
+            for i, _JCROSS_雰:1.0__SYM_雰_429_ in _JCROSS_雰:1.0__SYM_雰_54_(_JCROSS_謀:1.0__SYM_雰_166_):
+                a[i] -= _JCROSS_雰:1.0__SYM_雰_429_
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_237_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g *= (2,.5)
+        >>> g *= 2
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(4, 2)])
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,2)])
+        >>> g *= 2
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(2, 4)])
+        """
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_雰:1.0__SYM_雰_177_):
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_) == 2
+            self._JCROSS_雰:1.0__SYM_雰_647_(_JCROSS_謀:1.0__SYM_雰_166_)
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_謀:1.0__SYM_廬_55_):
+            if _JCROSS_謀:1.0__SYM_雰_166_ == 1:
+                _JCROSS_雰:1.0__SYM_雰_286_urn self
+            a = self._a
+            for i in _JCROSS_雰:1.0__SYM_雰_192_(_JCROSS_雰:1.0__SYM_雰_473_(a)):
+                a[i] *= _JCROSS_謀:1.0__SYM_雰_166_
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_573_(self, _JCROSS_謀:1.0__SYM_雰_166_):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(1,3)])
+        >>> g /= (.5,1.5)
+        >>> g /= 2
+        >>> g
+        _JCROSS_廬:1.0__SYM_廬_101_([(1, 1)])
+        """
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_謀:1.0__SYM_廬_55_):
+            _JCROSS_謀:1.0__SYM_雰_166_ = (_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_謀:1.0__SYM_雰_166_)
+        if _JCROSS_雰:1.0__SYM_雰_686_(_JCROSS_謀:1.0__SYM_雰_166_, _JCROSS_雰:1.0__SYM_雰_177_):
+            if _JCROSS_謀:1.0__SYM_雰_166_ == (1, 1):
+                _JCROSS_雰:1.0__SYM_雰_286_urn self
+            _JCROSS_雰:1.0__SYM_雰_829_ _JCROSS_雰:1.0__SYM_雰_473_(_JCROSS_謀:1.0__SYM_雰_166_) == 2
+            self._JCROSS_雰:1.0__SYM_雰_647_((1.0 / _JCROSS_謀:1.0__SYM_雰_166_[0], 1.0 / _JCROSS_謀:1.0__SYM_雰_166_[1]))
+            _JCROSS_雰:1.0__SYM_雰_286_urn self
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_廬:1.0__SYM_廬_66_
+
+    _JCROSS_雰:1.0__SYM_雰_154_ _JCROSS_雰:1.0__SYM_雰_819_(self):
+        """
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([])
+        >>> _JCROSS_雰:1.0__SYM_雰_779_(g)
+        _JCROSS_廬:1.0__SYM_廬_47_
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(0,0), (0.,0)])
+        >>> _JCROSS_雰:1.0__SYM_雰_779_(g)
+        _JCROSS_廬:1.0__SYM_廬_71_
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(0,0), (1,0)])
+        >>> _JCROSS_雰:1.0__SYM_雰_779_(g)
+        _JCROSS_廬:1.0__SYM_廬_71_
+        >>> g = _JCROSS_廬:1.0__SYM_廬_101_([(0,.5), (0,0)])
+        >>> _JCROSS_雰:1.0__SYM_雰_779_(g)
+        _JCROSS_廬:1.0__SYM_廬_71_
+        """
+        _JCROSS_雰:1.0__SYM_雰_286_urn _JCROSS_雰:1.0__SYM_雰_779_(self._a)
+
+    _JCROSS_雰:1.0__SYM_雰_380_ = _JCROSS_雰:1.0__SYM_雰_819_
+
+
+if _JCROSS_雰:1.0__SYM_雰_320_ == "_JCROSS_雰:1.0__SYM_雰_670_":
+    import _JCROSS_雰:1.0__SYM_雰_112_, _JCROSS_雰:1.0__SYM_雰_648_
+
+    _JCROSS_雰:1.0__SYM_雰_648_._JCROSS_雰:1.0__SYM_雰_202_(_JCROSS_雰:1.0__SYM_雰_112_._JCROSS_雰:1.0__SYM_雰_501_()._JCROSS_雰:1.0__SYM_雰_326_)
+
+// POLYMORPHIC_JCROSS_END

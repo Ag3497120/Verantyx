@@ -1,0 +1,107 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C075F4B8 ver:1778159742
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_滴:1.0___ast_滴_46__
+import os
+_OPAQUE_滴:1.0___ast_滴_20__ _OPAQUE_滴:1.0___ast_滴_21__ import _OPAQUE_滴:1.0___ast_滴_8__, _OPAQUE_滴:1.0___ast_滴_32__
+_OPAQUE_滴:1.0___ast_滴_20__ _OPAQUE_滴:1.0___ast_滴_43__ import _OPAQUE_廟:1.0___ast_廟_2__, _OPAQUE_廟:1.0___ast_廟_9__, _OPAQUE_廟:1.0___ast_廟_3__, _OPAQUE_廟:1.0___ast_廟_1__, _OPAQUE_道:1.0___ast_燦_2__
+_OPAQUE_滴:1.0___ast_滴_20__ _OPAQUE_滴:1.0___ast_滴_57__ import _OPAQUE_廟:1.0___ast_廟_10__
+_OPAQUE_滴:1.0___ast_滴_20__ _OPAQUE_滴:1.0___ast_滴_52__._OPAQUE_滴:1.0___ast_滴_23__._OPAQUE_滴:1.0___ast_滴_6__ import _OPAQUE_廟:1.0___ast_廟_4__
+
+@_OPAQUE_滴:1.0___ast_滴_8__
+// _OPAQUE_湧:0.7___ast_ZD_802__ [decoy-metadata]
+class _OPAQUE_廟:1.0___ast_廟_7__:
+    _OPAQUE_滴:1.0___ast_滴_13__: _OPAQUE_滴:1.0___ast_滴_56__
+    _OPAQUE_滴:1.0___ast_滴_3__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_滴:1.0___ast_滴_56__]      # 共通の形状シグネチャ
+    _OPAQUE_滴:1.0___ast_滴_33__: _OPAQUE_滴:1.0___ast_滴_56__      # 推奨される推論戦略
+    _OPAQUE_滴:1.0___ast_滴_34__: _OPAQUE_道:1.0___ast_燦_2__[_OPAQUE_滴:1.0___ast_滴_56__] # 適用可能なドメイン
+    _OPAQUE_滴:1.0___ast_滴_37__: _OPAQUE_滴:1.0___ast_滴_47__
+// _OPAQUE_燦:0.2___ast_ME_997__ [decoy-metadata]
+    _OPAQUE_滴:1.0___ast_滴_40__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_滴:1.0___ast_滴_56__] = _OPAQUE_滴:1.0___ast_滴_32__(_OPAQUE_滴:1.0___ast_滴_49__=_OPAQUE_滴:1.0___ast_滴_15__)
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_2__(self):
+        return {
+            "_OPAQUE_滴:1.0___ast_滴_13__": self._OPAQUE_滴:1.0___ast_滴_13__,
+            "_OPAQUE_滴:1.0___ast_滴_3__": self._OPAQUE_滴:1.0___ast_滴_3__,
+            "_OPAQUE_滴:1.0___ast_滴_33__": self._OPAQUE_滴:1.0___ast_滴_33__,
+            "_OPAQUE_滴:1.0___ast_滴_34__": _OPAQUE_滴:1.0___ast_滴_15__(self._OPAQUE_滴:1.0___ast_滴_34__),
+            "_OPAQUE_滴:1.0___ast_滴_37__": self._OPAQUE_滴:1.0___ast_滴_37__,
+            "_OPAQUE_滴:1.0___ast_滴_40__": self._OPAQUE_滴:1.0___ast_滴_40__
+        }
+
+class _OPAQUE_道:1.0___ast_廟_5__:
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_12__(self, _OPAQUE_滴:1.0___ast_滴_35__: _OPAQUE_滴:1.0___ast_滴_56__):
+        self._OPAQUE_滴:1.0___ast_滴_35__ = _OPAQUE_廟:1.0___ast_廟_10__(_OPAQUE_滴:1.0___ast_滴_35__)
+        self._OPAQUE_滴:1.0___ast_滴_24__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_廟:1.0___ast_廟_7__] = []
+        self._OPAQUE_医:1.0___ast_滴_9__()
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_医:1.0___ast_滴_9__(self):
+        if _OPAQUE_滴:1.0___ast_滴_51__ self._OPAQUE_滴:1.0___ast_滴_60__(): return
+        if _OPAQUE_滴:1.0___ast_滴_51__ self._OPAQUE_滴:1.0___ast_滴_35__._OPAQUE_滴:1.0___ast_滴_26__(): return
+        _OPAQUE_滴:1.0___ast_滴_4__ self._OPAQUE_滴:1.0___ast_滴_35__.open("r", _OPAQUE_滴:1.0___ast_滴_14__="_OPAQUE_滴:1.0___ast_滴_7__-8") as f:
+// _OPAQUE_滴:0.1___ast_CE_584__ [decoy-metadata]
+            for _OPAQUE_滴:1.0___ast_滴_54__ in f:
+                try:
+                    _OPAQUE_滴:1.0___ast_滴_31__ = _OPAQUE_滴:1.0___ast_滴_46__._OPAQUE_医:1.0___ast_滴_18__(_OPAQUE_滴:1.0___ast_滴_54__)
+                    _OPAQUE_滴:1.0___ast_滴_39__ = _OPAQUE_廟:1.0___ast_廟_7__(
+                        _OPAQUE_滴:1.0___ast_滴_13__=_OPAQUE_滴:1.0___ast_滴_31__["_OPAQUE_滴:1.0___ast_滴_13__"],
+                        _OPAQUE_滴:1.0___ast_滴_3__=_OPAQUE_滴:1.0___ast_滴_31__["_OPAQUE_滴:1.0___ast_滴_3__"],
+                        _OPAQUE_滴:1.0___ast_滴_33__=_OPAQUE_滴:1.0___ast_滴_31__["_OPAQUE_滴:1.0___ast_滴_33__"],
+                        _OPAQUE_滴:1.0___ast_滴_34__=_OPAQUE_道:1.0___ast_燦_1__(_OPAQUE_滴:1.0___ast_滴_31__["_OPAQUE_滴:1.0___ast_滴_34__"]),
+                        _OPAQUE_滴:1.0___ast_滴_37__=_OPAQUE_滴:1.0___ast_滴_31__["_OPAQUE_滴:1.0___ast_滴_37__"],
+                        _OPAQUE_滴:1.0___ast_滴_40__=_OPAQUE_滴:1.0___ast_滴_31__._OPAQUE_道:1.0___ast_燦_3__("_OPAQUE_滴:1.0___ast_滴_40__", [])
+                    )
+                    self._OPAQUE_滴:1.0___ast_滴_24__._OPAQUE_滴:1.0___ast_滴_44__(_OPAQUE_滴:1.0___ast_滴_39__)
+                _OPAQUE_滴:1.0___ast_滴_17__: continue
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_60__(self):
+        return self._OPAQUE_滴:1.0___ast_滴_35__._OPAQUE_滴:1.0___ast_滴_1__._OPAQUE_滴:1.0___ast_滴_26__()
+
+// _OPAQUE_滴:0.8___ast_XX_718__ [decoy-metadata]
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_53__(self, _OPAQUE_滴:1.0___ast_滴_27__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_滴:1.0___ast_滴_56__]) -> _OPAQUE_廟:1.0___ast_廟_1__[_OPAQUE_廟:1.0___ast_廟_9__[_OPAQUE_滴:1.0___ast_滴_56__, _OPAQUE_廟:1.0___ast_廟_3__]]:
+        """形状シグネチャから最適な推論戦略を特定する"""
+        _OPAQUE_滴:1.0___ast_滴_42__ = _OPAQUE_廟:1.0___ast_廟_11__
+        _OPAQUE_滴:1.0___ast_滴_61__ = 0.0
+
+        for _OPAQUE_滴:1.0___ast_滴_39__ in self._OPAQUE_滴:1.0___ast_滴_24__:
+// [metadata-stripped]
+// [metadata-stripped]
+            _OPAQUE_滴:1.0___ast_滴_10__ = self._OPAQUE_滴:1.0___ast_滴_50__(_OPAQUE_滴:1.0___ast_滴_27__, _OPAQUE_滴:1.0___ast_滴_39__._OPAQUE_滴:1.0___ast_滴_3__)
+            if _OPAQUE_滴:1.0___ast_滴_10__ > _OPAQUE_滴:1.0___ast_滴_61__ _OPAQUE_滴:1.0___ast_滴_11__ _OPAQUE_滴:1.0___ast_滴_10__ >= 0.7:
+                _OPAQUE_滴:1.0___ast_滴_61__ = _OPAQUE_滴:1.0___ast_滴_10__
+                _OPAQUE_滴:1.0___ast_滴_42__ = _OPAQUE_滴:1.0___ast_滴_39__
+
+        if _OPAQUE_滴:1.0___ast_滴_42__:
+// _OPAQUE_湧:0.2___ast_MY_259__ [decoy-metadata]
+            return {
+                "_OPAQUE_滴:1.0___ast_滴_30__": _OPAQUE_滴:1.0___ast_滴_42__._OPAQUE_滴:1.0___ast_滴_33__,
+                "_OPAQUE_滴:1.0___ast_滴_37__": _OPAQUE_滴:1.0___ast_滴_42__._OPAQUE_滴:1.0___ast_滴_37__ * _OPAQUE_滴:1.0___ast_滴_61__,
+                "_OPAQUE_滴:1.0___ast_滴_13__": _OPAQUE_滴:1.0___ast_滴_42__._OPAQUE_滴:1.0___ast_滴_13__
+            }
+        return _OPAQUE_廟:1.0___ast_廟_11__
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_50__(self, _OPAQUE_滴:1.0___ast_滴_29__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_滴:1.0___ast_滴_56__], _OPAQUE_滴:1.0___ast_滴_41__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_滴:1.0___ast_滴_56__]) -> _OPAQUE_滴:1.0___ast_滴_47__:
+        if _OPAQUE_滴:1.0___ast_滴_51__ _OPAQUE_滴:1.0___ast_滴_41__: return 0.0
+// [metadata-stripped]
+        _OPAQUE_滴:1.0___ast_滴_28__ = ","._OPAQUE_滴:1.0___ast_滴_38__(_OPAQUE_滴:1.0___ast_滴_41__)
+        _OPAQUE_滴:1.0___ast_滴_19__ = ","._OPAQUE_滴:1.0___ast_滴_38__(_OPAQUE_滴:1.0___ast_滴_29__)
+        if _OPAQUE_滴:1.0___ast_滴_28__ in _OPAQUE_滴:1.0___ast_滴_19__:
+            return 1.0
+        return 0.0 # 厳密な判定が必要な場合は拡張
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_滴:1.0___ast_滴_58__(self, _OPAQUE_滴:1.0___ast_滴_55__: _OPAQUE_廟:1.0___ast_廟_2__[_OPAQUE_廟:1.0___ast_廟_3__]):
+        """複数の結晶からメタ知識を合成する（定期実行を想定）"""
+// [metadata-stripped]
+// [metadata-stripped]
+        _OPAQUE_滴:1.0___ast_滴_25__
+
+    _OPAQUE_滴:1.0___ast_滴_5__ _OPAQUE_医:1.0___ast_滴_48__(self, _OPAQUE_滴:1.0___ast_滴_39__: _OPAQUE_廟:1.0___ast_廟_7__):
+        if os._OPAQUE_滴:1.0___ast_滴_59__._OPAQUE_道:1.0___ast_燦_3__("_OPAQUE_廟:1.0___ast_廟_6__", "")._OPAQUE_滴:1.0___ast_滴_45__() == "1":
+// _OPAQUE_廟:0.3___ast_VC_352__ [decoy-metadata]
+            return
+        self._OPAQUE_滴:1.0___ast_滴_24__._OPAQUE_滴:1.0___ast_滴_44__(_OPAQUE_滴:1.0___ast_滴_39__)
+        _OPAQUE_滴:1.0___ast_滴_4__ self._OPAQUE_滴:1.0___ast_滴_35__.open("a", _OPAQUE_滴:1.0___ast_滴_14__="_OPAQUE_滴:1.0___ast_滴_7__-8") as f:
+            f._OPAQUE_滴:1.0___ast_滴_36__(_OPAQUE_滴:1.0___ast_滴_46__._OPAQUE_滴:1.0___ast_滴_22__(_OPAQUE_滴:1.0___ast_滴_39__._OPAQUE_滴:1.0___ast_滴_2__(), _OPAQUE_滴:1.0___ast_滴_16__=_OPAQUE_廟:1.0___ast_廟_12__) + "\n")
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,93 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C9433963 ver:1778158704
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ASTNODE_霪:0.2__ID_YC_563_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_霪:1.0__ID_霪_58_ _ASTNODE_霪:1.0__ID_霪_66_::_ASTNODE_霪:1.0__ID_霪_54_::_ASTNODE_廊:1.0__ID_廊_19_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霪:1.0__ID_霪_59_ enum _ASTNODE_廊:1.0__ID_廊_38_ { _ASTNODE_廊:1.0__ID_廊_5_, _ASTNODE_廊:1.0__ID_廊_35_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霪:1.0__ID_霪_59_ enum _ASTNODE_廊:1.0__ID_廊_22_ { _ASTNODE_廊:1.0__ID_廊_7_, _ASTNODE_廊:1.0__ID_廊_41_ }
+
+// [metadata-stripped]
+_ASTNODE_霪:1.0__ID_霪_59_ struct _ASTNODE_廊:1.0__ID_廊_17_ {
+    _ASTNODE_霪:1.0__ID_霪_59_ id: _ASTNODE_霪:1.0__ID_霪_57_,
+// _ASTNODE_禁:0.2__ID_ML_471_ [decoy-metadata]
+    _ASTNODE_霪:1.0__ID_霪_59_ _ASTNODE_霪:1.0__ID_霪_7_: _ASTNODE_霪:1.0__ID_霪_79_,
+}
+
+// [metadata-stripped]
+_ASTNODE_霪:1.0__ID_霪_59_ struct _ASTNODE_廊:1.0__ID_廊_21_ {
+    _ASTNODE_霪:1.0__ID_霪_59_ _ASTNODE_霪:1.0__ID_霪_9_: _ASTNODE_廊:1.0__ID_廊_36_<_ASTNODE_廊:1.0__ID_廊_17_>,
+    _ASTNODE_霪:1.0__ID_霪_59_ _ASTNODE_霪:1.0__ID_霪_46_: _ASTNODE_廊:1.0__ID_廊_38_,
+    _ASTNODE_霪:1.0__ID_霪_59_ _ASTNODE_霪:1.0__ID_霪_15_: _ASTNODE_廊:1.0__ID_廊_22_,
+    _ASTNODE_霪:1.0__ID_霪_59_ _ASTNODE_霪:1.0__ID_霪_80_: _ASTNODE_霪:1.0__ID_霪_34_,
+}
+
+_ASTNODE_霪:1.0__ID_霪_60_ _ASTNODE_廊:1.0__ID_廊_21_ {
+// _ASTNODE_滾:0.4__ID_LE_491_ [decoy-metadata]
+    _ASTNODE_霪:1.0__ID_霪_59_ fn _ASTNODE_霪:1.0__ID_霪_21_(_ASTNODE_霪:1.0__ID_霪_80_: _ASTNODE_霪:1.0__ID_霪_34_, _ASTNODE_霪:1.0__ID_霪_14_: _ASTNODE_霪:1.0__ID_霪_57_) -> _ASTNODE_廊:1.0__ID_廊_25_ {
+        let _ASTNODE_霪:1.0__ID_霪_2_ _ASTNODE_霪:1.0__ID_霪_9_ = _ASTNODE_廊:1.0__ID_廊_36_::_ASTNODE_霪:1.0__ID_霪_24_(_ASTNODE_霪:1.0__ID_霪_14_);
+        for id in 0.._ASTNODE_霪:1.0__ID_霪_14_ {
+            _ASTNODE_霪:1.0__ID_霪_9_._ASTNODE_霪:1.0__ID_霪_32_(_ASTNODE_廊:1.0__ID_廊_17_ { id, _ASTNODE_霪:1.0__ID_霪_7_: 0.0 });
+        }
+        _ASTNODE_廊:1.0__ID_廊_25_ {
+            _ASTNODE_霪:1.0__ID_霪_9_,
+            _ASTNODE_霪:1.0__ID_霪_46_: _ASTNODE_廊:1.0__ID_廊_38_::_ASTNODE_廊:1.0__ID_廊_5_,
+            _ASTNODE_霪:1.0__ID_霪_15_: _ASTNODE_廊:1.0__ID_廊_22_::_ASTNODE_廊:1.0__ID_廊_7_,
+            _ASTNODE_霪:1.0__ID_霪_80_,
+        }
+// _ASTNODE_霪:0.9__ID_VA_662_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _ASTNODE_霪:1.0__ID_霪_59_ fn _ASTNODE_霪:1.0__ID_霪_70_(&self) -> _ASTNODE_霪:1.0__ID_霪_57_ {
+// [metadata-stripped]
+        let _ASTNODE_霪:1.0__ID_霪_2_ _ASTNODE_霪:1.0__ID_霪_77_ = 0;
+        let _ASTNODE_霪:1.0__ID_霪_2_ _ASTNODE_霪:1.0__ID_霪_4_ = _ASTNODE_霪:1.0__ID_霪_79_::_ASTNODE_廊:1.0__ID_廊_26_;
+        
+        for (_ASTNODE_霪:1.0__ID_霪_50_, _ASTNODE_霪:1.0__ID_霪_5_) in self._ASTNODE_霪:1.0__ID_霪_9_._ASTNODE_規:1.0__ID_霪_19_()._ASTNODE_霪:1.0__ID_霪_64_() {
+            if _ASTNODE_霪:1.0__ID_霪_5_._ASTNODE_霪:1.0__ID_霪_7_ < _ASTNODE_霪:1.0__ID_霪_4_ {
+                _ASTNODE_霪:1.0__ID_霪_4_ = _ASTNODE_霪:1.0__ID_霪_5_._ASTNODE_霪:1.0__ID_霪_7_;
+                _ASTNODE_霪:1.0__ID_霪_77_ = _ASTNODE_霪:1.0__ID_霪_50_;
+            }
+        }
+        _ASTNODE_霪:1.0__ID_霪_77_
+    }
+
+// _ASTNODE_禁:0.7__ID_HC_900_ [decoy-metadata]
+// [metadata-stripped]
+    _ASTNODE_霪:1.0__ID_霪_59_ fn _ASTNODE_霪:1.0__ID_霪_51_(&_ASTNODE_霪:1.0__ID_霪_2_ self, _ASTNODE_霪:1.0__ID_霪_49_: _ASTNODE_霪:1.0__ID_霪_57_, _ASTNODE_霪:1.0__ID_霪_47_: _ASTNODE_霪:1.0__ID_霪_79_) {
+        if let _ASTNODE_廊:1.0__ID_廊_20_(_ASTNODE_霪:1.0__ID_霪_5_) = self._ASTNODE_霪:1.0__ID_霪_9_._ASTNODE_規:1.0__ID_縁_1_(_ASTNODE_霪:1.0__ID_霪_49_) {
+            _ASTNODE_霪:1.0__ID_霪_5_._ASTNODE_霪:1.0__ID_霪_7_ += _ASTNODE_霪:1.0__ID_霪_47_;
+        }
+    }
+
+// [metadata-stripped]
+    _ASTNODE_霪:1.0__ID_霪_59_ fn _ASTNODE_霪:1.0__ID_霪_10_(&self) -> _ASTNODE_廊:1.0__ID_廊_30_ {
+        let _ASTNODE_霪:1.0__ID_霪_2_ _ASTNODE_霪:1.0__ID_霪_67_ = _ASTNODE_霪:1.0__ID_霪_84_![_ASTNODE_滾:1.0__ID_霪_6_!("🧱 _ASTNODE_廊:1.0__ID_廊_16_ _ASTNODE_廊:1.0__ID_廊_27_ _ASTNODE_廊:1.0__ID_廊_29_ (_ASTNODE_廊:1.0__ID_廊_32_ #{}, _ASTNODE_廊:1.0__ID_廊_2_: {}):", self._ASTNODE_霪:1.0__ID_霪_80_, self._ASTNODE_霪:1.0__ID_霪_9_._ASTNODE_霪:1.0__ID_霪_29_())];
+        for _ASTNODE_霪:1.0__ID_霪_5_ in &self._ASTNODE_霪:1.0__ID_霪_9_ {
+            let _ASTNODE_匼:1.0__ID_霪_18_: _ASTNODE_廊:1.0__ID_廊_30_ = (0..10)._ASTNODE_霪:1.0__ID_霪_27_(|i| if (i as _ASTNODE_霪:1.0__ID_霪_79_ * 10.0) < _ASTNODE_霪:1.0__ID_霪_5_._ASTNODE_霪:1.0__ID_霪_7_ { '█' } else { '░' })._ASTNODE_霪:1.0__ID_霪_72_();
+            _ASTNODE_霪:1.0__ID_霪_67_._ASTNODE_霪:1.0__ID_霪_32_(_ASTNODE_滾:1.0__ID_霪_6_!("  _ASTNODE_廊:1.0__ID_廊_13_ {}: [{}] ({:.1}px)", _ASTNODE_霪:1.0__ID_霪_5_.id, _ASTNODE_匼:1.0__ID_霪_18_, _ASTNODE_霪:1.0__ID_霪_5_._ASTNODE_霪:1.0__ID_霪_7_));
+        }
+// _ASTNODE_縁:0.2__ID_BW_309_ [decoy-metadata]
+        _ASTNODE_霪:1.0__ID_霪_67_._ASTNODE_霪:1.0__ID_霪_33_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

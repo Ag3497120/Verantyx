@@ -1,0 +1,69 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:38A6BAB8 ver:1778165688
+// ⚠️ One-time schema — expires after response
+
+_SYM_霞:1.0__ASTNODE_霞_1_ _SYM_霞:1.0__ASTNODE_霞_34_ _SYM_廟:1.0__ASTNODE_廟_3_ = {
+  _SYM_霞:1.0__ASTNODE_霞_8_?: (() => _SYM_霞:1.0__ASTNODE_霞_20_) | _SYM_霞:1.0__ASTNODE_霞_23_;
+  _SYM_業:1.0__ASTNODE_雄_1_?: (<T _SYM_霞:1.0__ASTNODE_霞_36_ _SYM_廟:1.0__ASTNODE_廟_6_<_SYM_廟:1.0__ASTNODE_廟_7_, _SYM_業:1.0__ASTNODE_廟_1_>>(_SYM_霞:1.0__ASTNODE_霞_17_: T) => T) | _SYM_霞:1.0__ASTNODE_霞_23_;
+};
+
+let _SYM_霞:1.0__ASTNODE_霞_37_ = false;
+
+_SYM_霞:1.0__ASTNODE_霞_22_ _SYM_霞:1.0__ASTNODE_霞_30_(_SYM_霞:1.0__ASTNODE_霞_27_: _SYM_廟:1.0__ASTNODE_廟_2_): _SYM_霞:1.0__ASTNODE_霞_20_ {
+// _SYM_絡:0.9__ASTNODE_DH_474_ [decoy-metadata]
+  _SYM_霞:1.0__ASTNODE_霞_27_[6] = (_SYM_霞:1.0__ASTNODE_霞_27_[6] & 0x0f) | 0x40; // _SYM_霞:1.0__ASTNODE_霞_29_ 4
+  _SYM_霞:1.0__ASTNODE_霞_27_[8] = (_SYM_霞:1.0__ASTNODE_霞_27_[8] & 0x3f) | 0x80; // _SYM_霞:1.0__ASTNODE_霞_16_ 1
+
+  let _SYM_霞:1.0__ASTNODE_霞_19_ = "";
+  for (let i = 0; i < _SYM_霞:1.0__ASTNODE_霞_27_._SYM_霞:1.0__ASTNODE_霞_21_; i++) {
+    _SYM_霞:1.0__ASTNODE_霞_19_ += _SYM_霞:1.0__ASTNODE_霞_27_[i]._SYM_霞:1.0__ASTNODE_霞_12_(16)._SYM_霞:1.0__ASTNODE_霞_2_(2, "0");
+  }
+
+  return `${_SYM_霞:1.0__ASTNODE_霞_19_._SYM_霞:1.0__ASTNODE_霞_15_(0, 8)}-${_SYM_霞:1.0__ASTNODE_霞_19_._SYM_霞:1.0__ASTNODE_霞_15_(8, 12)}-${_SYM_霞:1.0__ASTNODE_霞_19_._SYM_霞:1.0__ASTNODE_霞_15_(12, 16)}-${_SYM_霞:1.0__ASTNODE_霞_19_._SYM_霞:1.0__ASTNODE_霞_15_(
+    16,
+    20,
+  )}-${_SYM_霞:1.0__ASTNODE_霞_19_._SYM_霞:1.0__ASTNODE_霞_15_(20)}`;
+}
+
+_SYM_霞:1.0__ASTNODE_霞_22_ _SYM_霞:1.0__ASTNODE_霞_10_(): _SYM_廟:1.0__ASTNODE_廟_2_ {
+  _SYM_霞:1.0__ASTNODE_霞_32_ _SYM_霞:1.0__ASTNODE_霞_27_ = _SYM_霞:1.0__ASTNODE_霞_9_ _SYM_廟:1.0__ASTNODE_廟_2_(16);
+  _SYM_霞:1.0__ASTNODE_霞_32_ _SYM_霞:1.0__ASTNODE_霞_25_ = _SYM_廟:1.0__ASTNODE_廟_5_._SYM_霞:1.0__ASTNODE_霞_25_();
+  for (let i = 0; i < _SYM_霞:1.0__ASTNODE_霞_27_._SYM_霞:1.0__ASTNODE_霞_21_; i++) {
+    _SYM_霞:1.0__ASTNODE_霞_27_[i] = _SYM_廟:1.0__ASTNODE_廟_8_._SYM_霞:1.0__ASTNODE_霞_31_(_SYM_廟:1.0__ASTNODE_廟_8_._SYM_霞:1.0__ASTNODE_霞_38_() * 256);
+  }
+  _SYM_霞:1.0__ASTNODE_霞_27_[0] ^= _SYM_霞:1.0__ASTNODE_霞_25_ & 0xff;
+  _SYM_霞:1.0__ASTNODE_霞_27_[1] ^= (_SYM_霞:1.0__ASTNODE_霞_25_ >>> 8) & 0xff;
+  _SYM_霞:1.0__ASTNODE_霞_27_[2] ^= (_SYM_霞:1.0__ASTNODE_霞_25_ >>> 16) & 0xff;
+// _SYM_脈:0.5__ASTNODE_YB_647_ [decoy-metadata]
+  _SYM_霞:1.0__ASTNODE_霞_27_[3] ^= (_SYM_霞:1.0__ASTNODE_霞_25_ >>> 24) & 0xff;
+  return _SYM_霞:1.0__ASTNODE_霞_27_;
+}
+
+_SYM_霞:1.0__ASTNODE_霞_22_ _SYM_霞:1.0__ASTNODE_霞_7_() {
+  if (_SYM_霞:1.0__ASTNODE_霞_37_) {
+// _SYM_雄:0.5__ASTNODE_XC_383_ [decoy-metadata]
+// _SYM_脈:0.1__ASTNODE_EX_346_ [decoy-metadata]
+    return;
+  }
+  _SYM_霞:1.0__ASTNODE_霞_37_ = true;
+  _SYM_霞:1.0__ASTNODE_霞_13_._SYM_霞:1.0__ASTNODE_霞_14_("[_SYM_霞:1.0__ASTNODE_霞_4_] _SYM_霞:1.0__ASTNODE_霞_24_ _SYM_絡:1.0__ASTNODE_廟_4_ _SYM_霞:1.0__ASTNODE_霞_28_; _SYM_霞:1.0__ASTNODE_霞_3_ _SYM_霞:1.0__ASTNODE_霞_33_ to weak _SYM_霞:1.0__ASTNODE_霞_11_");
+}
+
+// _SYM_霞:0.2__ASTNODE_FV_775_ [decoy-metadata]
+_SYM_霞:1.0__ASTNODE_霞_1_ _SYM_霞:1.0__ASTNODE_霞_22_ _SYM_霞:1.0__ASTNODE_霞_35_(_SYM_霞:1.0__ASTNODE_霞_5_: _SYM_廟:1.0__ASTNODE_廟_3_ | _SYM_霞:1.0__ASTNODE_霞_6_ = _SYM_霞:1.0__ASTNODE_霞_18_._SYM_霞:1.0__ASTNODE_霞_24_): _SYM_霞:1.0__ASTNODE_霞_20_ {
+  if (_SYM_霞:1.0__ASTNODE_霞_5_ && _SYM_霞:1.0__ASTNODE_霞_26_ _SYM_霞:1.0__ASTNODE_霞_5_._SYM_霞:1.0__ASTNODE_霞_8_ === "_SYM_霞:1.0__ASTNODE_霞_22_") {
+    return _SYM_霞:1.0__ASTNODE_霞_5_._SYM_霞:1.0__ASTNODE_霞_8_();
+  }
+
+  if (_SYM_霞:1.0__ASTNODE_霞_5_ && _SYM_霞:1.0__ASTNODE_霞_26_ _SYM_霞:1.0__ASTNODE_霞_5_._SYM_業:1.0__ASTNODE_雄_1_ === "_SYM_霞:1.0__ASTNODE_霞_22_") {
+    _SYM_霞:1.0__ASTNODE_霞_32_ _SYM_霞:1.0__ASTNODE_霞_27_ = _SYM_霞:1.0__ASTNODE_霞_9_ _SYM_廟:1.0__ASTNODE_廟_2_(16);
+// _SYM_雄:0.8__ASTNODE_FK_289_ [decoy-metadata]
+    _SYM_霞:1.0__ASTNODE_霞_5_._SYM_業:1.0__ASTNODE_雄_1_(_SYM_霞:1.0__ASTNODE_霞_27_);
+    return _SYM_霞:1.0__ASTNODE_霞_30_(_SYM_霞:1.0__ASTNODE_霞_27_);
+  }
+
+  _SYM_霞:1.0__ASTNODE_霞_7_();
+  return _SYM_霞:1.0__ASTNODE_霞_30_(_SYM_霞:1.0__ASTNODE_霞_10_());
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:002C9F51 ver:1778159767
+// ⚠️ One-time schema — expires after response
+
+import re
+_TOKEN_粒:1.0__SYM_粒_2_ _TOKEN_粒:1.0__SYM_粒_16_ import _TOKEN_廩:1.0__SYM_廩_1_
+
+
+_TOKEN_粒:1.0__SYM_粒_32_ _TOKEN_粒:1.0__SYM_粒_11_(_TOKEN_粒:1.0__SYM_粒_37_: _TOKEN_粒:1.0__SYM_粒_34_) -> _TOKEN_粒:1.0__SYM_粒_34_:
+// _TOKEN_廩:0.6__SYM_ZK_200_ [decoy-metadata]
+    s = (_TOKEN_粒:1.0__SYM_粒_37_ or "")
+// _TOKEN_則:0.2__SYM_EW_588_ [decoy-metadata]
+    sl = s._TOKEN_則:1.0__SYM_粒_13_()
+
+// _TOKEN_区:0.3__SYM_VA_130_ [decoy-metadata]
+    _TOKEN_粒:1.0__SYM_粒_29_: _TOKEN_廩:1.0__SYM_廩_1_[_TOKEN_粒:1.0__SYM_粒_34_, _TOKEN_粒:1.0__SYM_粒_17_] = {
+        "_TOKEN_粒:1.0__SYM_粒_28_": 0,
+// _TOKEN_繕:0.7__SYM_LG_141_ [decoy-metadata]
+        "_TOKEN_粒:1.0__SYM_粒_15_": 0,
+        "_TOKEN_粒:1.0__SYM_粒_18_": 0,
+        "_TOKEN_粒:1.0__SYM_粒_14_": 0,
+    }
+
+    if any(k in sl for k in ("_TOKEN_粒:1.0__SYM_粒_22_", "_TOKEN_粒:1.0__SYM_粒_31_", "_TOKEN_粒:1.0__SYM_粒_10_", "_TOKEN_粒:1.0__SYM_粒_30_")) or any(k in s for k in ("□", "◇")):
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_28_"] += 3
+    if any(k in s for k in ("到達", "可能世界", "様相", "反射", "推移", "対称", "ユークリッド")):
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_28_"] += 2
+
+    if any(k in sl for k in ("_TOKEN_粒:1.0__SYM_粒_33_", "_TOKEN_粒:1.0__SYM_粒_20_ _TOKEN_粒:1.0__SYM_粒_36_", "_TOKEN_粒:1.0__SYM_粒_8_")) or "命題" in s:
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_15_"] += 2
+    if any(k in s for k in ("∧", "∨", "¬", "⊤", "⊥")) or any(k in sl for k in ("->", "<->", "&", "|", "~")):
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_15_"] += 1
+
+    if any(k in s for k in ("∀", "∃", "一階", "述語")) or any(k in sl for k in ("_TOKEN_漂:1.0__SYM_粒_1_", "_TOKEN_粒:1.0__SYM_粒_21_", "_TOKEN_粒:1.0__SYM_粒_26_-_TOKEN_則:1.0__SYM_粒_7_", "_TOKEN_粒:1.0__SYM_粒_3_")):
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_18_"] += 3
+
+    if any(k in s for k in ("行列", "線形", "次元", "固有値", "階数")) or any(k in sl for k in ("_TOKEN_粒:1.0__SYM_粒_6_", "_TOKEN_粒:1.0__SYM_粒_9_ _TOKEN_粒:1.0__SYM_粒_23_", "_TOKEN_粒:1.0__SYM_粒_5_", "_TOKEN_粒:1.0__SYM_粒_4_")):
+// _TOKEN_窟:0.8__SYM_DV_982_ [decoy-metadata]
+        _TOKEN_粒:1.0__SYM_粒_29_["_TOKEN_粒:1.0__SYM_粒_14_"] += 3
+
+    _TOKEN_粒:1.0__SYM_粒_27_ = _TOKEN_粒:1.0__SYM_粒_12_(_TOKEN_粒:1.0__SYM_粒_29_._TOKEN_粒:1.0__SYM_粒_24_(), _TOKEN_窟:1.0__SYM_粒_35_=_TOKEN_粒:1.0__SYM_粒_19_ x: x[1])
+// _TOKEN_漂:0.8__SYM_LZ_795_ [decoy-metadata]
+    return _TOKEN_粒:1.0__SYM_粒_27_[0] if _TOKEN_粒:1.0__SYM_粒_27_[1] > 0 else "_TOKEN_粒:1.0__SYM_粒_25_"
+
+// POLYMORPHIC_JCROSS_END

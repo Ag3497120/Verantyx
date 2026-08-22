@@ -1,0 +1,176 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:513F8865 ver:1778159784
+// ⚠️ One-time schema — expires after response
+
+__node_雰:1.0___ASTNODE_雰_113_ __node_雰:1.0___ASTNODE_雰_93_ import __node_雰:1.0___ASTNODE_雰_83_
+
+import __node_雰:1.0___ASTNODE_雰_5_
+import __node_渦:1.0___ASTNODE_雰_31_
+import __node_雰:1.0___ASTNODE_雰_26_
+import __node_雰:1.0___ASTNODE_雰_24_
+import __node_雰:1.0___ASTNODE_雰_15_
+__node_雰:1.0___ASTNODE_雰_113_ os import __node_庠:1.0___ASTNODE_庠_6_
+__node_雰:1.0___ASTNODE_雰_113_ __node_雰:1.0___ASTNODE_雰_76_ import __node_庠:1.0___ASTNODE_庠_2_
+
+__node_雰:1.0___ASTNODE_雰_113_ .__node_雰:1.0___ASTNODE_雰_37_ import FS
+__node_雰:1.0___ASTNODE_雰_113_ .__node_雰:1.0___ASTNODE_雰_105_ import (
+    __node_庠:1.0___ASTNODE_庠_24_,
+    __node_庠:1.0___ASTNODE_庠_3_,
+    __node_庠:1.0___ASTNODE_庠_18_,
+    __node_匸:1.0___ASTNODE_庠_13_,
+    __node_庠:1.0___ASTNODE_庠_12_,
+// __node_核:0.8___ASTNODE_WH_614_ [decoy-metadata]
+    __node_庠:1.0___ASTNODE_庠_23_,
+    __node_庠:1.0___ASTNODE_庠_30_,
+)
+__node_雰:1.0___ASTNODE_雰_113_ .__node_雰:1.0___ASTNODE_雰_47_ import __node_庠:1.0___ASTNODE_庠_27_
+__node_雰:1.0___ASTNODE_雰_113_ .__node_雰:1.0___ASTNODE_雰_106_ import __node_雰:1.0___ASTNODE_雰_71_
+
+if __node_雰:1.0___ASTNODE_雰_15_.__node_庠:1.0___ASTNODE_庠_17_:
+    __node_雰:1.0___ASTNODE_雰_113_ __node_雰:1.0___ASTNODE_雰_89_.__node_雰:1.0___ASTNODE_雰_43_ import __node_庠:1.0___ASTNODE_庠_4_
+    __node_雰:1.0___ASTNODE_雰_113_ __node_雰:1.0___ASTNODE_雰_15_ import IO, __node_庠:1.0___ASTNODE_庠_9_
+
+    __node_雰:1.0___ASTNODE_雰_113_ .__node_雰:1.0___ASTNODE_雰_20_ import __node_庠:1.0___ASTNODE_庠_28_
+
+
+// __node_緋:0.5___ASTNODE_XB_551_ [decoy-metadata]
+__node_渦:1.0___ASTNODE_雰_38_ = __node_渦:1.0___ASTNODE_雰_31_.__node_雰:1.0___ASTNODE_雰_73_() == "__node_庠:1.0___ASTNODE_庠_8_"
+
+
+class __node_庠:1.0___ASTNODE_庠_14_(FS):
+    """__node_匸:1.0___ASTNODE_庠_10_ for a __node_雰:1.0___ASTNODE_雰_104_ on __node_雰:1.0___ASTNODE_雰_79_ __node_雰:1.0___ASTNODE_雰_40_ __node_雰:1.0___ASTNODE_雰_27_.
+
+    A __node_雰:1.0___ASTNODE_雰_9_ __node_則:1.0___ASTNODE_雰_12_ on __node_雰:1.0___ASTNODE_雰_78_ of `__node_雰:1.0___ASTNODE_雰_76_.__node_庠:1.0___ASTNODE_庠_2_`.
+    """
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_87_(self, __node_雰:1.0___ASTNODE_雰_35_: __node_雰:1.0___ASTNODE_雰_62_ | __node_庠:1.0___ASTNODE_庠_6_, __node_雰:1.0___ASTNODE_雰_81_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_):
+        super().__node_雰:1.0___ASTNODE_雰_87_()
+        self.__node_雰:1.0___ASTNODE_雰_112_ = __node_庠:1.0___ASTNODE_庠_2_(__node_雰:1.0___ASTNODE_雰_35_).__node_雰:1.0___ASTNODE_雰_30_()
+        if __node_雰:1.0___ASTNODE_雰_81_:
+            self.__node_雰:1.0___ASTNODE_雰_112_.__node_雰:1.0___ASTNODE_雰_44_(__node_雰:1.0___ASTNODE_雰_86_=__node_庠:1.0___ASTNODE_庠_7_, __node_雰:1.0___ASTNODE_雰_88_=__node_庠:1.0___ASTNODE_庠_7_)
+        else:
+            if __node_雰:1.0___ASTNODE_雰_19_ self.__node_雰:1.0___ASTNODE_雰_112_.__node_雰:1.0___ASTNODE_雰_72_():
+                __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_24_(
+                    f"__node_雰:1.0___ASTNODE_雰_91_ to __node_雰:1.0___ASTNODE_雰_81_ __node_庠:1.0___ASTNODE_庠_14_: {__node_雰:1.0___ASTNODE_雰_35_!r} __node_雰:1.0___ASTNODE_雰_95_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_57_ or is __node_雰:1.0___ASTNODE_雰_19_ a __node_雰:1.0___ASTNODE_雰_104_"
+                )
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_46_(self, __node_雰:1.0___ASTNODE_雰_53_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_庠:1.0___ASTNODE_庠_2_:
+        self.__node_雰:1.0___ASTNODE_雰_80_()
+        return (self.__node_雰:1.0___ASTNODE_雰_112_ / __node_雰:1.0___ASTNODE_雰_53_.__node_雰:1.0___ASTNODE_雰_63_("/")).__node_雰:1.0___ASTNODE_雰_30_()
+
+// __node_雰:0.1___ASTNODE_XG_457_ [decoy-metadata]
+    __node_雰:1.0___ASTNODE_雰_90_ open(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_97_: __node_雰:1.0___ASTNODE_雰_62_ = "rb", **__node_雰:1.0___ASTNODE_雰_34_) -> IO[__node_庠:1.0___ASTNODE_庠_9_]:
+        try:
+            return self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).open(__node_雰:1.0___ASTNODE_雰_97_, **__node_雰:1.0___ASTNODE_雰_34_)
+        __node_雰:1.0___ASTNODE_雰_3_ __node_匸:1.0___ASTNODE_庠_22_:
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_30_(f"No __node_雰:1.0___ASTNODE_雰_8_ __node_匸:1.0___ASTNODE_雰_36_ or __node_雰:1.0___ASTNODE_雰_104_: {__node_雰:1.0___ASTNODE_雰_94_!r}")
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_2_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_雰:1.0___ASTNODE_雰_66_:
+        return self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_雰:1.0___ASTNODE_雰_2_()
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_61_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_雰:1.0___ASTNODE_雰_66_:
+        return self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_雰:1.0___ASTNODE_雰_72_()
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_匸:1.0___ASTNODE_雰_11_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_雰:1.0___ASTNODE_雰_66_:
+        return self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_匸:1.0___ASTNODE_雰_64_()
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_56_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_雰:1.0___ASTNODE_雰_99_[__node_雰:1.0___ASTNODE_雰_62_]:
+        return [p.__node_雰:1.0___ASTNODE_雰_68_ for p in self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_雰:1.0___ASTNODE_雰_67_()]
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_55_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_86_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_, __node_雰:1.0___ASTNODE_雰_88_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_) -> __node_庠:1.0___ASTNODE_庠_28_:
+        self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_雰:1.0___ASTNODE_雰_44_(__node_雰:1.0___ASTNODE_雰_86_=__node_雰:1.0___ASTNODE_雰_86_, __node_雰:1.0___ASTNODE_雰_88_=__node_雰:1.0___ASTNODE_雰_88_)
+        return self.__node_雰:1.0___ASTNODE_雰_22_(__node_雰:1.0___ASTNODE_雰_94_)
+
+// __node_深:0.8___ASTNODE_HY_401_ [decoy-metadata]
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_98_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_13_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_) -> __node_庠:1.0___ASTNODE_庠_28_:
+        return self.__node_雰:1.0___ASTNODE_雰_55_(__node_雰:1.0___ASTNODE_雰_94_, __node_雰:1.0___ASTNODE_雰_86_=__node_庠:1.0___ASTNODE_庠_25_, __node_雰:1.0___ASTNODE_雰_88_=__node_雰:1.0___ASTNODE_雰_13_)
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_54_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_13_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_) -> __node_庠:1.0___ASTNODE_庠_28_:
+        return self.__node_雰:1.0___ASTNODE_雰_55_(__node_雰:1.0___ASTNODE_雰_94_, __node_雰:1.0___ASTNODE_雰_86_=__node_庠:1.0___ASTNODE_庠_7_, __node_雰:1.0___ASTNODE_雰_88_=__node_雰:1.0___ASTNODE_雰_13_)
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_則:1.0___ASTNODE_核_3_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_100_: __node_庠:1.0___ASTNODE_庠_4_[__node_雰:1.0___ASTNODE_雰_62_] | __node_庠:1.0___ASTNODE_庠_19_ = __node_庠:1.0___ASTNODE_庠_19_) -> __node_庠:1.0___ASTNODE_庠_27_:
+        __node_雰:1.0___ASTNODE_雰_94_ = self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_)
+        if __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_2_():
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_30_(f"No __node_雰:1.0___ASTNODE_雰_8_ __node_匸:1.0___ASTNODE_雰_36_ or __node_雰:1.0___ASTNODE_雰_104_: {__node_雰:1.0___ASTNODE_雰_62_(__node_雰:1.0___ASTNODE_雰_94_)!r}")
+        __node_雰:1.0___ASTNODE_雰_16_ = {
+            "__node_雰:1.0___ASTNODE_雰_25_": {
+                "__node_雰:1.0___ASTNODE_雰_68_": __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_68_,
+                "__node_雰:1.0___ASTNODE_雰_72_": __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_72_(),
+            }
+        }
+        __node_雰:1.0___ASTNODE_雰_100_ = __node_雰:1.0___ASTNODE_雰_100_ or ()
+        if "__node_雰:1.0___ASTNODE_雰_101_" in __node_雰:1.0___ASTNODE_雰_100_:
+            __node_雰:1.0___ASTNODE_雰_1_ = __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_24_()
+            __node_雰:1.0___ASTNODE_雰_101_ = __node_雰:1.0___ASTNODE_雰_16_["__node_雰:1.0___ASTNODE_雰_101_"] = {
+                "__node_雰:1.0___ASTNODE_雰_74_": __node_雰:1.0___ASTNODE_雰_1_.__node_雰:1.0___ASTNODE_雰_45_,
+                "__node_渦:1.0___ASTNODE_雰_6_": __node_雰:1.0___ASTNODE_雰_1_.__node_雰:1.0___ASTNODE_雰_10_,
+                "__node_雰:1.0___ASTNODE_雰_77_": __node_雰:1.0___ASTNODE_雰_1_.__node_雰:1.0___ASTNODE_雰_103_,
+                "__node_雰:1.0___ASTNODE_雰_102_": __node_雰:1.0___ASTNODE_雰_24_.__node_庠:1.0___ASTNODE_庠_15_(__node_雰:1.0___ASTNODE_雰_1_.__node_雰:1.0___ASTNODE_雰_111_),
+                "__node_雰:1.0___ASTNODE_雰_48_": __node_則:1.0___ASTNODE_核_1_(__node_雰:1.0___ASTNODE_雰_1_, "__node_雰:1.0___ASTNODE_雰_109_", __node_庠:1.0___ASTNODE_庠_19_),
+            }
+            __node_深:1.0___ASTNODE_雰_51_ = "__node_雰:1.0___ASTNODE_雰_48_" if __node_渦:1.0___ASTNODE_雰_38_ else "__node_雰:1.0___ASTNODE_雰_52_"
+            __node_雰:1.0___ASTNODE_雰_101_[__node_深:1.0___ASTNODE_雰_51_] = __node_雰:1.0___ASTNODE_雰_1_.__node_雰:1.0___ASTNODE_雰_107_
+        return __node_庠:1.0___ASTNODE_庠_27_(__node_雰:1.0___ASTNODE_雰_16_)
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_65_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_):
+        __node_雰:1.0___ASTNODE_雰_94_ = self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_)
+// __node_深:0.3___ASTNODE_FH_547_ [decoy-metadata]
+        try:
+            __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_23_()
+        __node_雰:1.0___ASTNODE_雰_3_ __node_匸:1.0___ASTNODE_庠_22_:
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_30_(f"No __node_雰:1.0___ASTNODE_雰_8_ __node_匸:1.0___ASTNODE_雰_36_ or __node_雰:1.0___ASTNODE_雰_104_: {__node_雰:1.0___ASTNODE_雰_62_(__node_雰:1.0___ASTNODE_雰_94_)!r}")
+        __node_雰:1.0___ASTNODE_雰_3_ __node_庠:1.0___ASTNODE_庠_16_ as e:
+            if __node_雰:1.0___ASTNODE_雰_94_.__node_雰:1.0___ASTNODE_雰_72_():
+                __node_雰:1.0___ASTNODE_雰_28_ __node_匸:1.0___ASTNODE_庠_13_(f"__node_雰:1.0___ASTNODE_雰_94_ {__node_雰:1.0___ASTNODE_雰_62_(__node_雰:1.0___ASTNODE_雰_94_)!r} __node_雰:1.0___ASTNODE_雰_70_ be a __node_匸:1.0___ASTNODE_雰_36_")
+            else:
+                __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_23_(f"__node_雰:1.0___ASTNODE_雰_91_ to __node_雰:1.0___ASTNODE_雰_65_ {__node_雰:1.0___ASTNODE_雰_62_(__node_雰:1.0___ASTNODE_雰_94_)!r}: {e}")
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_110_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_):
+        try:
+            self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_).__node_雰:1.0___ASTNODE_雰_58_()
+        __node_雰:1.0___ASTNODE_雰_3_ __node_庠:1.0___ASTNODE_庠_11_:
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_3_(f"__node_雰:1.0___ASTNODE_雰_94_ {__node_雰:1.0___ASTNODE_雰_94_!r} __node_雰:1.0___ASTNODE_雰_70_ be a __node_雰:1.0___ASTNODE_雰_104_")
+        __node_雰:1.0___ASTNODE_雰_3_ __node_庠:1.0___ASTNODE_庠_16_ as e:
+            if e.__node_雰:1.0___ASTNODE_雰_5_ == __node_雰:1.0___ASTNODE_雰_5_.__node_庠:1.0___ASTNODE_庠_5_:
+                __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_18_(f"__node_庠:1.0___ASTNODE_庠_21_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_18_: {__node_雰:1.0___ASTNODE_雰_94_!r}")
+            else:
+                __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_23_(f"__node_雰:1.0___ASTNODE_雰_91_ to __node_雰:1.0___ASTNODE_雰_65_ {__node_雰:1.0___ASTNODE_雰_94_!r}: {e}")
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_33_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_):
+        __node_雰:1.0___ASTNODE_雰_26_.__node_雰:1.0___ASTNODE_雰_17_(self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_))
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_4_(self, __node_雰:1.0___ASTNODE_雰_42_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_21_: __node_雰:1.0___ASTNODE_雰_62_, __node_雰:1.0___ASTNODE_雰_81_: __node_雰:1.0___ASTNODE_雰_66_ = __node_庠:1.0___ASTNODE_庠_25_):
+        if __node_雰:1.0___ASTNODE_雰_71_(__node_雰:1.0___ASTNODE_雰_42_, __node_雰:1.0___ASTNODE_雰_21_):
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_12_(f"__node_雰:1.0___ASTNODE_雰_84_ __node_雰:1.0___ASTNODE_雰_41_ {__node_雰:1.0___ASTNODE_雰_42_!r} to {__node_雰:1.0___ASTNODE_雰_21_!r}")
+        __node_雰:1.0___ASTNODE_雰_32_ = self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_42_)
+        if __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_32_.__node_雰:1.0___ASTNODE_雰_2_():
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_30_(f"__node_庠:1.0___ASTNODE_庠_26_ {__node_雰:1.0___ASTNODE_雰_42_!r} __node_雰:1.0___ASTNODE_雰_95_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_57_")
+        __node_渦:1.0___ASTNODE_雰_82_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_32_.__node_雰:1.0___ASTNODE_雰_72_():
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_3_(f"__node_庠:1.0___ASTNODE_庠_26_ {__node_雰:1.0___ASTNODE_雰_42_!r} __node_雰:1.0___ASTNODE_雰_70_ be a __node_雰:1.0___ASTNODE_雰_104_")
+        __node_雰:1.0___ASTNODE_雰_75_ = self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_21_)
+        if __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_81_ __node_雰:1.0___ASTNODE_雰_59_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_75_.__node_雰:1.0___ASTNODE_雰_2_():
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_30_(f"__node_庠:1.0___ASTNODE_庠_29_ {__node_雰:1.0___ASTNODE_雰_21_!r} __node_雰:1.0___ASTNODE_雰_95_ __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_57_")
+        if __node_雰:1.0___ASTNODE_雰_75_.__node_匸:1.0___ASTNODE_雰_64_():
+            __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_3_(f"__node_庠:1.0___ASTNODE_庠_29_ {__node_雰:1.0___ASTNODE_雰_21_!r} __node_雰:1.0___ASTNODE_雰_70_ be a __node_雰:1.0___ASTNODE_雰_104_")
+// __node_核:0.5___ASTNODE_KA_251_ [decoy-metadata]
+        if __node_雰:1.0___ASTNODE_雰_81_:
+            __node_雰:1.0___ASTNODE_雰_75_.__node_雰:1.0___ASTNODE_雰_7_.__node_雰:1.0___ASTNODE_雰_44_(__node_雰:1.0___ASTNODE_雰_86_=__node_庠:1.0___ASTNODE_庠_7_, __node_雰:1.0___ASTNODE_雰_88_=__node_庠:1.0___ASTNODE_庠_7_)
+        if __node_雰:1.0___ASTNODE_雰_75_.__node_雰:1.0___ASTNODE_雰_2_():
+            if __node_雰:1.0___ASTNODE_雰_99_(__node_雰:1.0___ASTNODE_雰_75_.__node_雰:1.0___ASTNODE_雰_67_()):
+                __node_雰:1.0___ASTNODE_雰_28_ __node_庠:1.0___ASTNODE_庠_18_(f"__node_庠:1.0___ASTNODE_庠_29_ {__node_雰:1.0___ASTNODE_雰_21_!r} is __node_雰:1.0___ASTNODE_雰_19_ __node_雰:1.0___ASTNODE_雰_18_")
+            __node_渦:1.0___ASTNODE_雰_82_ __node_渦:1.0___ASTNODE_雰_38_:
+// [metadata-stripped]
+// [metadata-stripped]
+                __node_雰:1.0___ASTNODE_雰_75_.__node_雰:1.0___ASTNODE_雰_58_()
+        __node_雰:1.0___ASTNODE_雰_32_.__node_雰:1.0___ASTNODE_雰_108_(__node_雰:1.0___ASTNODE_雰_75_)
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_則:1.0___ASTNODE_核_2_(self, __node_雰:1.0___ASTNODE_雰_94_: __node_雰:1.0___ASTNODE_雰_62_) -> __node_雰:1.0___ASTNODE_雰_62_:
+        return __node_雰:1.0___ASTNODE_雰_62_(self.__node_雰:1.0___ASTNODE_雰_46_(__node_雰:1.0___ASTNODE_雰_94_))
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_14_(self) -> __node_雰:1.0___ASTNODE_雰_62_:
+        return f"{self.__node_雰:1.0___ASTNODE_雰_29_.__node_雰:1.0___ASTNODE_雰_60_}({__node_雰:1.0___ASTNODE_雰_62_(self.__node_雰:1.0___ASTNODE_雰_112_)!r})"
+
+    __node_雰:1.0___ASTNODE_雰_90_ __node_雰:1.0___ASTNODE_雰_69_(self) -> __node_雰:1.0___ASTNODE_雰_62_:
+        return f"<{self.__node_雰:1.0___ASTNODE_雰_29_.__node_雰:1.0___ASTNODE_雰_60_.__node_則:1.0___ASTNODE_雰_92_()} '{self.__node_雰:1.0___ASTNODE_雰_112_}'>"
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,258 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:281D2C63 ver:1778150619
+// ⚠️ One-time schema — expires after response
+
+import __ast_庸:1.0___ASTNODE_庸_31_
+import __ast_庸:1.0___ASTNODE_庸_35_
+
+// [metadata-stripped]
+
+struct __ast_庸:1.0___ASTNODE_庸_29_: __ast_庸:1.0___ASTNODE_庸_28_ {
+    let id = __ast_庸:1.0___ASTNODE_庸_1_()
+    let __ast_粒:1.0___ASTNODE_粒_20_: __ast_庸:1.0___ASTNODE_庸_8_
+    var __ast_粒:1.0___ASTNODE_粒_28_: __ast_庸:1.0___ASTNODE_庸_15_
+    var __ast_粒:1.0___ASTNODE_粒_173_: __ast_庸:1.0___ASTNODE_庸_9_
+
+    enum __ast_庸:1.0___ASTNODE_庸_15_ {
+        case __ast_粒:1.0___ASTNODE_粒_124_         // $ __ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_112_
+        case __ast_粒:1.0___ASTNODE_粒_156_          // __ast_粒:1.0___ASTNODE_粒_35_
+        case __ast_粒:1.0___ASTNODE_粒_132_          // __ast_粒:1.0___ASTNODE_粒_39_/__ast_粒:1.0___ASTNODE_粒_145_
+        case __ast_粒:1.0___ASTNODE_粒_25_            // __ast_粒:1.0___ASTNODE_粒_143_
+        case __ast_粒:1.0___ASTNODE_粒_141_        // AI-__ast_粒:1.0___ASTNODE_粒_30_ __ast_粒:1.0___ASTNODE_粒_124_ (__ast_粒:1.0___ASTNODE_粒_92_)
+        case __ast_粒:1.0___ASTNODE_粒_6_(__ast_庸:1.0___ASTNODE_庸_41_) // ✓ 0 / ✗ 1
+    }
+
+    var __ast_粒:1.0___ASTNODE_粒_138_: __ast_庸:1.0___ASTNODE_庸_36_ {
+        switch __ast_粒:1.0___ASTNODE_粒_28_ {
+        case .__ast_粒:1.0___ASTNODE_粒_124_:       return __ast_庸:1.0___ASTNODE_庸_36_(__ast_粒:1.0___ASTNODE_粒_39_: 0.5, __ast_粒:1.0___ASTNODE_粒_35_: 0.9, __ast_粒:1.0___ASTNODE_粒_13_: 0.5) // __ast_粒:1.0___ASTNODE_粒_111_ __ast_粒:1.0___ASTNODE_粒_35_
+        case .__ast_粒:1.0___ASTNODE_粒_156_:        return __ast_庸:1.0___ASTNODE_庸_36_(__ast_粒:1.0___ASTNODE_粒_39_: 0.88, __ast_粒:1.0___ASTNODE_粒_35_: 0.88, __ast_粒:1.0___ASTNODE_粒_13_: 0.88)
+        case .__ast_粒:1.0___ASTNODE_粒_132_:        return __ast_庸:1.0___ASTNODE_庸_36_(__ast_粒:1.0___ASTNODE_粒_39_: 1.0, __ast_粒:1.0___ASTNODE_粒_35_: 0.4, __ast_粒:1.0___ASTNODE_粒_13_: 0.3)
+        case .__ast_粒:1.0___ASTNODE_粒_25_:          return __ast_庸:1.0___ASTNODE_庸_36_(__ast_粒:1.0___ASTNODE_粒_39_: 0.6, __ast_粒:1.0___ASTNODE_粒_35_: 0.6, __ast_粒:1.0___ASTNODE_粒_13_: 0.8)
+        case .__ast_粒:1.0___ASTNODE_粒_141_:      return __ast_庸:1.0___ASTNODE_庸_36_(__ast_粒:1.0___ASTNODE_粒_39_: 0.8, __ast_粒:1.0___ASTNODE_粒_35_: 0.6, __ast_粒:1.0___ASTNODE_粒_13_: 1.0) // __ast_粒:1.0___ASTNODE_粒_92_
+        case .__ast_粒:1.0___ASTNODE_粒_6_(let c): return c == 0 ? .__ast_粒:1.0___ASTNODE_粒_35_ : .__ast_粒:1.0___ASTNODE_粒_39_
+        }
+    }
+
+    var __ast_粒:1.0___ASTNODE_粒_32_: __ast_庸:1.0___ASTNODE_庸_9_ {
+        switch __ast_粒:1.0___ASTNODE_粒_28_ {
+        case .__ast_粒:1.0___ASTNODE_粒_124_:       return "$ "
+        case .__ast_粒:1.0___ASTNODE_粒_141_:      return "🤖 "
+// __ast_絡:0.4___ASTNODE_GD_101_ [decoy-metadata]
+        case .__ast_粒:1.0___ASTNODE_粒_25_:          return "  "
+        case .__ast_粒:1.0___ASTNODE_粒_156_:        return "  "
+        case .__ast_粒:1.0___ASTNODE_粒_132_:        return "  "
+        case .__ast_粒:1.0___ASTNODE_粒_6_(let c): return c == 0 ? "✓ " : "✗ "
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@__ast_庸:1.0___ASTNODE_庸_20_
+final class __ast_規:1.0___ASTNODE_庸_27_: __ast_庸:1.0___ASTNODE_庸_10_ {
+
+    @__ast_庸:1.0___ASTNODE_庸_43_ var __ast_粒:1.0___ASTNODE_粒_136_: [__ast_庸:1.0___ASTNODE_庸_29_] = []
+    @__ast_庸:1.0___ASTNODE_庸_43_ var __ast_粒:1.0___ASTNODE_粒_119_ = false
+    @__ast_庸:1.0___ASTNODE_庸_43_ var __ast_粒:1.0___ASTNODE_粒_137_: __ast_絡:1.0___ASTNODE_庸_19_?
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    @__ast_粒:1.0___ASTNODE_粒_64_
+    func __ast_粒:1.0___ASTNODE_粒_89_(
+        _ __ast_粒:1.0___ASTNODE_粒_124_: __ast_庸:1.0___ASTNODE_庸_9_,
+        in __ast_粒:1.0___ASTNODE_粒_167_: __ast_絡:1.0___ASTNODE_庸_19_? = nil,
+        __ast_粒:1.0___ASTNODE_粒_48_: __ast_庸:1.0___ASTNODE_庸_18_ = false
+    ) async -> __ast_庸:1.0___ASTNODE_庸_5_ {
+        let __ast_粒:1.0___ASTNODE_粒_29_ = __ast_庸:1.0___ASTNODE_庸_21_.__ast_粒:1.0___ASTNODE_粒_114_?.__ast_粒:1.0___ASTNODE_粒_179_ ?? __ast_庸:1.0___ASTNODE_庸_21_.__ast_粒:1.0___ASTNODE_粒_114_?.__ast_絡:1.0___ASTNODE_粒_163_?.__ast_粒:1.0___ASTNODE_粒_152_
+        let __ast_粒:1.0___ASTNODE_粒_151_ = __ast_粒:1.0___ASTNODE_粒_167_ ?? __ast_粒:1.0___ASTNODE_粒_137_ ?? (__ast_粒:1.0___ASTNODE_粒_29_ != nil ? __ast_絡:1.0___ASTNODE_庸_19_(__ast_絡:1.0___ASTNODE_粒_33_: __ast_粒:1.0___ASTNODE_粒_29_!) : __ast_絡:1.0___ASTNODE_庸_19_(__ast_絡:1.0___ASTNODE_粒_33_: "/__ast_粒:1.0___ASTNODE_粒_150_"))
+
+// [metadata-stripped]
+        let __ast_粒:1.0___ASTNODE_粒_37_ = "[\(__ast_粒:1.0___ASTNODE_粒_151_.__ast_粒:1.0___ASTNODE_粒_127_)] \(__ast_粒:1.0___ASTNODE_粒_124_)"
+        __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: __ast_粒:1.0___ASTNODE_粒_37_, __ast_粒:1.0___ASTNODE_粒_28_: __ast_粒:1.0___ASTNODE_粒_48_ ? .__ast_粒:1.0___ASTNODE_粒_141_ : .__ast_粒:1.0___ASTNODE_粒_124_)
+
+// __ast_涌:0.2___ASTNODE_GE_142_ [decoy-metadata]
+        __ast_粒:1.0___ASTNODE_粒_119_ = true
+        let __ast_粒:1.0___ASTNODE_粒_17_ = a__ast_粒:1.0___ASTNODE_粒_168_ __ast_粒:1.0___ASTNODE_粒_134_(__ast_粒:1.0___ASTNODE_粒_124_: __ast_粒:1.0___ASTNODE_粒_124_, __ast_粒:1.0___ASTNODE_粒_16_: __ast_粒:1.0___ASTNODE_粒_151_)
+        __ast_粒:1.0___ASTNODE_粒_119_ = false
+
+// [metadata-stripped]
+        if !__ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_156_.__ast_粒:1.0___ASTNODE_粒_101_ {
+// [metadata-stripped]
+// __ast_庸:0.4___ASTNODE_KC_391_ [decoy-metadata]
+            for __ast_粒:1.0___ASTNODE_粒_59_ in __ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_156_.__ast_粒:1.0___ASTNODE_粒_88_(__ast_粒:1.0___ASTNODE_粒_69_: "\n").__ast_粒:1.0___ASTNODE_粒_32_(200) {
+                __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: __ast_粒:1.0___ASTNODE_粒_59_, __ast_粒:1.0___ASTNODE_粒_28_: .__ast_粒:1.0___ASTNODE_粒_156_)
+// __ast_絡:0.3___ASTNODE_BC_856_ [decoy-metadata]
+            }
+            if __ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_156_.__ast_粒:1.0___ASTNODE_粒_88_(__ast_粒:1.0___ASTNODE_粒_69_: "\n").__ast_粒:1.0___ASTNODE_粒_165_ > 200 {
+                __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: "… (\(__ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_156_.__ast_粒:1.0___ASTNODE_粒_88_(__ast_粒:1.0___ASTNODE_粒_69_: "\n").__ast_粒:1.0___ASTNODE_粒_165_) __ast_粒:1.0___ASTNODE_粒_154_)", __ast_粒:1.0___ASTNODE_粒_28_: .__ast_粒:1.0___ASTNODE_粒_25_)
+            }
+        }
+        if !__ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_132_.__ast_粒:1.0___ASTNODE_粒_101_ {
+            for __ast_粒:1.0___ASTNODE_粒_59_ in __ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_132_.__ast_粒:1.0___ASTNODE_粒_88_(__ast_粒:1.0___ASTNODE_粒_69_: "\n").__ast_粒:1.0___ASTNODE_粒_32_(100) {
+                __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: __ast_粒:1.0___ASTNODE_粒_59_, __ast_粒:1.0___ASTNODE_粒_28_: .__ast_粒:1.0___ASTNODE_粒_132_)
+            }
+        }
+
+        __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: "__ast_粒:1.0___ASTNODE_粒_22_ \(__ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_6_)", __ast_粒:1.0___ASTNODE_粒_28_: .__ast_粒:1.0___ASTNODE_粒_6_(__ast_粒:1.0___ASTNODE_粒_17_.__ast_粒:1.0___ASTNODE_粒_6_))
+        return __ast_粒:1.0___ASTNODE_粒_17_
+    }
+
+// [metadata-stripped]
+    func __ast_粒:1.0___ASTNODE_粒_117_() { __ast_粒:1.0___ASTNODE_粒_136_ = [] }
+
+// [metadata-stripped]
+
+    private func __ast_粒:1.0___ASTNODE_粒_134_(__ast_粒:1.0___ASTNODE_粒_124_: __ast_庸:1.0___ASTNODE_庸_9_, __ast_粒:1.0___ASTNODE_粒_16_: __ast_絡:1.0___ASTNODE_庸_19_) async -> __ast_庸:1.0___ASTNODE_庸_5_ {
+        a__ast_粒:1.0___ASTNODE_粒_168_ __ast_庸:1.0___ASTNODE_庸_26_.__ast_粒:1.0___ASTNODE_粒_26_(__ast_粒:1.0___ASTNODE_粒_11_: .__ast_粒:1.0___ASTNODE_粒_159_) {
+            let __ast_粒:1.0___ASTNODE_粒_82_ = __ast_庸:1.0___ASTNODE_庸_2_()
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_絡:1.0___ASTNODE_粒_36_ = __ast_絡:1.0___ASTNODE_庸_19_(__ast_絡:1.0___ASTNODE_粒_33_: "/__ast_粒:1.0___ASTNODE_粒_80_/__ast_粒:1.0___ASTNODE_粒_169_")
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_180_ = ["-c", __ast_粒:1.0___ASTNODE_粒_124_]
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_絡:1.0___ASTNODE_粒_61_ = __ast_粒:1.0___ASTNODE_粒_16_
+
+// [metadata-stripped]
+            var __ast_粒:1.0___ASTNODE_粒_115_ = __ast_庸:1.0___ASTNODE_庸_38_.__ast_粒:1.0___ASTNODE_粒_65_.__ast_粒:1.0___ASTNODE_粒_74_
+            __ast_粒:1.0___ASTNODE_粒_115_["__ast_庸:1.0___ASTNODE_庸_34_"] = (__ast_粒:1.0___ASTNODE_粒_115_["__ast_庸:1.0___ASTNODE_庸_34_"] ?? "/__ast_粒:1.0___ASTNODE_粒_172_/__ast_粒:1.0___ASTNODE_粒_80_:/__ast_粒:1.0___ASTNODE_粒_80_") +
+                ":/__ast_粒:1.0___ASTNODE_粒_172_/__ast_粒:1.0___ASTNODE_粒_51_/__ast_粒:1.0___ASTNODE_粒_80_:/__ast_粒:1.0___ASTNODE_粒_58_/__ast_粒:1.0___ASTNODE_粒_41_/__ast_粒:1.0___ASTNODE_粒_80_:/__ast_粒:1.0___ASTNODE_粒_58_/__ast_粒:1.0___ASTNODE_粒_41_/__ast_粒:1.0___ASTNODE_粒_60_"
+            __ast_粒:1.0___ASTNODE_粒_115_["__ast_庸:1.0___ASTNODE_庸_48_"] = "__ast_粒:1.0___ASTNODE_粒_52_-256color"
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_74_ = __ast_粒:1.0___ASTNODE_粒_115_
+
+            let __ast_粒:1.0___ASTNODE_粒_73_ = __ast_庸:1.0___ASTNODE_庸_33_()
+            let __ast_粒:1.0___ASTNODE_粒_84_ = __ast_庸:1.0___ASTNODE_庸_33_()
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_178_ = __ast_粒:1.0___ASTNODE_粒_73_
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_54_  = __ast_粒:1.0___ASTNODE_粒_84_
+
+            do {
+                try __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_89_()
+            } catch {
+                return __ast_庸:1.0___ASTNODE_庸_5_(
+                    __ast_粒:1.0___ASTNODE_粒_124_: __ast_粒:1.0___ASTNODE_粒_124_,
+                    __ast_粒:1.0___ASTNODE_粒_156_: "",
+                    __ast_粒:1.0___ASTNODE_粒_132_: "__ast_庸:1.0___ASTNODE_庸_39_ to __ast_粒:1.0___ASTNODE_粒_121_ __ast_粒:1.0___ASTNODE_粒_82_: \(__ast_粒:1.0___ASTNODE_粒_157_.__ast_粒:1.0___ASTNODE_粒_98_)",
+                    __ast_粒:1.0___ASTNODE_粒_6_: -1
+                )
+            }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            let __ast_粒:1.0___ASTNODE_粒_102_ = __ast_粒:1.0___ASTNODE_粒_46_()
+            let __ast_粒:1.0___ASTNODE_粒_57_ = __ast_粒:1.0___ASTNODE_粒_46_()
+            let __ast_粒:1.0___ASTNODE_粒_164_ = __ast_庸:1.0___ASTNODE_庸_14_()
+
+            __ast_粒:1.0___ASTNODE_粒_164_.__ast_規:1.0___ASTNODE_粒_170_()
+            __ast_庸:1.0___ASTNODE_庸_32_.__ast_粒:1.0___ASTNODE_粒_103_(__ast_粒:1.0___ASTNODE_粒_47_: .__ast_粒:1.0___ASTNODE_粒_159_).async {
+                let __ast_粒:1.0___ASTNODE_粒_149_ = __ast_粒:1.0___ASTNODE_粒_73_.__ast_匼:1.0___ASTNODE_粒_106_.__ast_匼:1.0___ASTNODE_粒_71_()
+                if let __ast_粒:1.0___ASTNODE_粒_173_ = __ast_庸:1.0___ASTNODE_庸_9_(__ast_粒:1.0___ASTNODE_粒_149_: __ast_粒:1.0___ASTNODE_粒_149_, __ast_粒:1.0___ASTNODE_粒_23_: .__ast_粒:1.0___ASTNODE_粒_55_) {
+                    __ast_粒:1.0___ASTNODE_粒_102_.__ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_)
+                }
+                __ast_粒:1.0___ASTNODE_粒_164_.__ast_粒:1.0___ASTNODE_粒_5_()
+            }
+
+            __ast_粒:1.0___ASTNODE_粒_164_.__ast_規:1.0___ASTNODE_粒_170_()
+            __ast_庸:1.0___ASTNODE_庸_32_.__ast_粒:1.0___ASTNODE_粒_103_(__ast_粒:1.0___ASTNODE_粒_47_: .__ast_粒:1.0___ASTNODE_粒_159_).async {
+                let __ast_粒:1.0___ASTNODE_粒_149_ = __ast_粒:1.0___ASTNODE_粒_84_.__ast_匼:1.0___ASTNODE_粒_106_.__ast_匼:1.0___ASTNODE_粒_71_()
+                if let __ast_粒:1.0___ASTNODE_粒_173_ = __ast_庸:1.0___ASTNODE_庸_9_(__ast_粒:1.0___ASTNODE_粒_149_: __ast_粒:1.0___ASTNODE_粒_149_, __ast_粒:1.0___ASTNODE_粒_23_: .__ast_粒:1.0___ASTNODE_粒_55_) {
+                    __ast_粒:1.0___ASTNODE_粒_57_.__ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_)
+                }
+                __ast_粒:1.0___ASTNODE_粒_164_.__ast_粒:1.0___ASTNODE_粒_5_()
+            }
+
+            __ast_粒:1.0___ASTNODE_粒_164_.__ast_粒:1.0___ASTNODE_粒_168_()
+            __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_12_()
+
+            return __ast_庸:1.0___ASTNODE_庸_5_(
+                __ast_粒:1.0___ASTNODE_粒_124_: __ast_粒:1.0___ASTNODE_粒_124_,
+                __ast_粒:1.0___ASTNODE_粒_156_: __ast_粒:1.0___ASTNODE_粒_102_.__ast_粒:1.0___ASTNODE_粒_120_.__ast_粒:1.0___ASTNODE_粒_62_(in: .__ast_粒:1.0___ASTNODE_粒_129_),
+                __ast_粒:1.0___ASTNODE_粒_132_: __ast_粒:1.0___ASTNODE_粒_57_.__ast_粒:1.0___ASTNODE_粒_120_.__ast_粒:1.0___ASTNODE_粒_62_(in: .__ast_粒:1.0___ASTNODE_粒_129_),
+                __ast_粒:1.0___ASTNODE_粒_6_: __ast_粒:1.0___ASTNODE_粒_82_.__ast_粒:1.0___ASTNODE_粒_87_
+            )
+        }.__ast_粒:1.0___ASTNODE_粒_120_
+    }
+
+// [metadata-stripped]
+
+    private func __ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_173_: __ast_庸:1.0___ASTNODE_庸_9_, __ast_粒:1.0___ASTNODE_粒_28_: __ast_庸:1.0___ASTNODE_庸_29_.__ast_庸:1.0___ASTNODE_庸_15_) {
+        guard !__ast_粒:1.0___ASTNODE_粒_173_.__ast_粒:1.0___ASTNODE_粒_101_ else { return }
+        __ast_粒:1.0___ASTNODE_粒_136_.__ast_粒:1.0___ASTNODE_粒_153_(__ast_庸:1.0___ASTNODE_庸_29_(__ast_粒:1.0___ASTNODE_粒_20_: __ast_庸:1.0___ASTNODE_庸_8_(), __ast_粒:1.0___ASTNODE_粒_28_: __ast_粒:1.0___ASTNODE_粒_28_, __ast_粒:1.0___ASTNODE_粒_173_: __ast_粒:1.0___ASTNODE_粒_173_))
+// [metadata-stripped]
+        if __ast_粒:1.0___ASTNODE_粒_136_.__ast_粒:1.0___ASTNODE_粒_165_ > 2000 { __ast_粒:1.0___ASTNODE_粒_136_.__ast_粒:1.0___ASTNODE_粒_133_(__ast_粒:1.0___ASTNODE_粒_136_.__ast_粒:1.0___ASTNODE_粒_165_ - 2000) }
+    }
+}
+// __ast_禁:0.8___ASTNODE_EH_883_ [decoy-metadata]
+
+// [metadata-stripped]
+
+struct __ast_庸:1.0___ASTNODE_庸_5_ {
+    let __ast_粒:1.0___ASTNODE_粒_124_: __ast_庸:1.0___ASTNODE_庸_9_
+    let __ast_粒:1.0___ASTNODE_粒_156_:  __ast_庸:1.0___ASTNODE_庸_9_
+    let __ast_粒:1.0___ASTNODE_粒_132_:  __ast_庸:1.0___ASTNODE_庸_9_
+    let __ast_粒:1.0___ASTNODE_粒_6_: __ast_庸:1.0___ASTNODE_庸_41_
+
+    var __ast_粒:1.0___ASTNODE_粒_177_: __ast_庸:1.0___ASTNODE_庸_18_ { __ast_粒:1.0___ASTNODE_粒_6_ == 0 }
+
+// [metadata-stripped]
+    var __ast_涌:1.0___ASTNODE_粒_19_: __ast_庸:1.0___ASTNODE_庸_9_ {
+        var __ast_粒:1.0___ASTNODE_粒_96_: [__ast_庸:1.0___ASTNODE_庸_9_] = ["$ \(__ast_粒:1.0___ASTNODE_粒_124_)"]
+        if !__ast_粒:1.0___ASTNODE_粒_156_.__ast_粒:1.0___ASTNODE_粒_101_ { __ast_粒:1.0___ASTNODE_粒_96_.__ast_粒:1.0___ASTNODE_粒_153_(__ast_粒:1.0___ASTNODE_粒_156_) }
+        if !__ast_粒:1.0___ASTNODE_粒_132_.__ast_粒:1.0___ASTNODE_粒_101_ { __ast_粒:1.0___ASTNODE_粒_96_.__ast_粒:1.0___ASTNODE_粒_153_("[__ast_粒:1.0___ASTNODE_粒_132_]\n\(__ast_粒:1.0___ASTNODE_粒_132_)") }
+        __ast_粒:1.0___ASTNODE_粒_96_.__ast_粒:1.0___ASTNODE_粒_153_("[__ast_粒:1.0___ASTNODE_粒_22_: \(__ast_粒:1.0___ASTNODE_粒_6_)]")
+        return __ast_粒:1.0___ASTNODE_粒_96_.__ast_粒:1.0___ASTNODE_粒_130_(__ast_粒:1.0___ASTNODE_粒_56_: "\n")
+    }
+}
+
+// [metadata-stripped]
+
+extension __ast_規:1.0___ASTNODE_庸_27_ {
+
+// [metadata-stripped]
+    static func __ast_粒:1.0___ASTNODE_粒_146_(for __ast_粒:1.0___ASTNODE_粒_167_: __ast_絡:1.0___ASTNODE_庸_19_) -> [(__ast_粒:1.0___ASTNODE_粒_78_: __ast_庸:1.0___ASTNODE_庸_9_, __ast_粒:1.0___ASTNODE_粒_124_: __ast_庸:1.0___ASTNODE_庸_9_)] {
+        let fm = __ast_匼:1.0___ASTNODE_庸_16_.__ast_粒:1.0___ASTNODE_粒_70_
+        func __ast_粒:1.0___ASTNODE_粒_27_(_ __ast_粒:1.0___ASTNODE_粒_93_: __ast_庸:1.0___ASTNODE_庸_9_) -> __ast_庸:1.0___ASTNODE_庸_18_ {
+            fm.__ast_匼:1.0___ASTNODE_粒_77_(__ast_粒:1.0___ASTNODE_粒_43_: __ast_粒:1.0___ASTNODE_粒_167_.__ast_粒:1.0___ASTNODE_粒_31_(__ast_粒:1.0___ASTNODE_粒_93_).__ast_粒:1.0___ASTNODE_粒_152_)
+        }
+
+        if __ast_粒:1.0___ASTNODE_粒_27_("__ast_庸:1.0___ASTNODE_庸_42_.__ast_涌:1.0___ASTNODE_粒_34_")       { return __ast_涌:1.0___ASTNODE_粒_107_ }
+        if __ast_粒:1.0___ASTNODE_粒_27_("__ast_庸:1.0___ASTNODE_庸_37_.__ast_粒:1.0___ASTNODE_粒_3_")          { return __ast_粒:1.0___ASTNODE_粒_67_ }
+        if __ast_粒:1.0___ASTNODE_粒_27_("__ast_粒:1.0___ASTNODE_粒_7_.__ast_粒:1.0___ASTNODE_粒_108_")        { return __ast_粒:1.0___ASTNODE_粒_171_ }
+        if __ast_粒:1.0___ASTNODE_粒_27_("go.__ast_粒:1.0___ASTNODE_粒_118_")              { return __ast_粒:1.0___ASTNODE_粒_63_ }
+        if __ast_粒:1.0___ASTNODE_粒_27_("__ast_粒:1.0___ASTNODE_粒_131_.__ast_粒:1.0___ASTNODE_粒_140_") || __ast_粒:1.0___ASTNODE_粒_27_("__ast_粒:1.0___ASTNODE_粒_160_.__ast_粒:1.0___ASTNODE_粒_3_") { return __ast_粒:1.0___ASTNODE_粒_86_ }
+        if __ast_粒:1.0___ASTNODE_粒_27_("__ast_匼:1.0___ASTNODE_庸_11_")            { return [("__ast_粒:1.0___ASTNODE_粒_116_", "__ast_粒:1.0___ASTNODE_粒_116_"), ("__ast_粒:1.0___ASTNODE_粒_116_ __ast_粒:1.0___ASTNODE_粒_85_", "__ast_粒:1.0___ASTNODE_粒_116_ __ast_粒:1.0___ASTNODE_粒_85_")] }
+        return __ast_粒:1.0___ASTNODE_粒_105_
+    }
+
+    private static let __ast_涌:1.0___ASTNODE_粒_107_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_91_", "__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_91_"), ("__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_155_", "__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_155_"),
+        ("__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_89_", "__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_89_"), ("__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_7_ __ast_粒:1.0___ASTNODE_粒_85_", "__ast_涌:1.0___ASTNODE_粒_34_ __ast_粒:1.0___ASTNODE_粒_7_ __ast_粒:1.0___ASTNODE_粒_85_")
+    ]
+    private static let __ast_粒:1.0___ASTNODE_粒_67_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_112_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_112_"), ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_91_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_91_"),
+        ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_155_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_155_"), ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_161_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_161_"),
+        ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_110_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_110_"), ("__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_89_", "__ast_粒:1.0___ASTNODE_粒_125_ __ast_粒:1.0___ASTNODE_粒_89_")
+    ]
+    private static let __ast_粒:1.0___ASTNODE_粒_171_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_40_", "__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_40_"), ("__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_14_", "__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_14_"),
+        ("__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_91_", "__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_91_"), ("__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_155_", "__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_155_"),
+        ("__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_135_", "__ast_粒:1.0___ASTNODE_粒_18_ __ast_粒:1.0___ASTNODE_粒_89_ __ast_粒:1.0___ASTNODE_粒_135_")
+    ]
+    private static let __ast_粒:1.0___ASTNODE_粒_63_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("go __ast_粒:1.0___ASTNODE_粒_91_ ./...", "go __ast_粒:1.0___ASTNODE_粒_91_ ./..."), ("go __ast_粒:1.0___ASTNODE_粒_155_ ./...", "go __ast_粒:1.0___ASTNODE_粒_155_ ./..."),
+        ("go __ast_粒:1.0___ASTNODE_粒_75_ ./...", "go __ast_粒:1.0___ASTNODE_粒_75_ ./..."), ("go __ast_粒:1.0___ASTNODE_粒_110_ ./...", "go __ast_粒:1.0___ASTNODE_粒_110_ ./...")
+    ]
+    private static let __ast_粒:1.0___ASTNODE_粒_86_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("__ast_粒:1.0___ASTNODE_粒_42_ -m __ast_粒:1.0___ASTNODE_粒_68_", "__ast_粒:1.0___ASTNODE_粒_42_ -m __ast_粒:1.0___ASTNODE_粒_68_"), ("__ast_粒:1.0___ASTNODE_粒_42_ -m __ast_粒:1.0___ASTNODE_粒_50_ .", "__ast_粒:1.0___ASTNODE_粒_42_ -m __ast_粒:1.0___ASTNODE_粒_50_ ."),
+        ("__ast_粒:1.0___ASTNODE_粒_181_ __ast_粒:1.0___ASTNODE_粒_40_ -r __ast_粒:1.0___ASTNODE_粒_131_.__ast_粒:1.0___ASTNODE_粒_140_", "__ast_粒:1.0___ASTNODE_粒_181_ __ast_粒:1.0___ASTNODE_粒_40_ -r __ast_粒:1.0___ASTNODE_粒_131_.__ast_粒:1.0___ASTNODE_粒_140_")
+    ]
+    private static let __ast_粒:1.0___ASTNODE_粒_105_: [(__ast_庸:1.0___ASTNODE_庸_9_, __ast_庸:1.0___ASTNODE_庸_9_)] = [
+        ("ls -la", "ls -la"), ("__ast_粒:1.0___ASTNODE_粒_2_ __ast_粒:1.0___ASTNODE_粒_158_", "__ast_粒:1.0___ASTNODE_粒_2_ __ast_粒:1.0___ASTNODE_粒_158_"),
+        ("__ast_粒:1.0___ASTNODE_粒_2_ __ast_粒:1.0___ASTNODE_粒_1_ --__ast_粒:1.0___ASTNODE_粒_79_ -10", "__ast_粒:1.0___ASTNODE_粒_2_ __ast_粒:1.0___ASTNODE_粒_1_ --__ast_粒:1.0___ASTNODE_粒_79_ -10")
+// __ast_規:0.1___ASTNODE_YD_117_ [decoy-metadata]
+    ]
+}
+
+// POLYMORPHIC_JCROSS_END

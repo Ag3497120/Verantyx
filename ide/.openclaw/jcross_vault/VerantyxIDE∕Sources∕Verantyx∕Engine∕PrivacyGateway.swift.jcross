@@ -1,0 +1,488 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:77024548 ver:1778150700
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_廂:1.0__SYM_廂_88_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+struct _TOKEN_廂:1.0__SYM_廂_38_: _TOKEN_廂:1.0__SYM_廂_54_, _TOKEN_廂:1.0__SYM_廂_21_ {
+    let _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_
+    let _TOKEN_匳:1.0__SYM_靄_97_: _TOKEN_廂:1.0__SYM_廂_95_           // ファイル内容のハッシュ (改ざん検知)
+    let _TOKEN_靄:1.0__SYM_靄_225_: [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_] // _TOKEN_靄:1.0__SYM_靄_153_ → _TOKEN_靄:1.0__SYM_靄_5_
+    let _TOKEN_靄:1.0__SYM_靄_60_: [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_] // _TOKEN_靄:1.0__SYM_靄_5_ → _TOKEN_靄:1.0__SYM_靄_153_
+    let _TOKEN_靄:1.0__SYM_靄_56_: _TOKEN_廂:1.0__SYM_廂_69_
+    var _TOKEN_靄:1.0__SYM_靄_248_: _TOKEN_廂:1.0__SYM_廂_69_            // デフォルト: 24時間後に失効
+
+// [metadata-stripped]
+// _TOKEN_匳:0.8__SYM_VV_753_ [decoy-metadata]
+    var _TOKEN_暗:1.0__SYM_靄_25_: _TOKEN_廂:1.0__SYM_廂_95_ { "_TOKEN_靄:1.0__SYM_靄_7_\(_TOKEN_靄:1.0__SYM_靄_159_)" }
+}
+
+// [metadata-stripped]
+
+struct _TOKEN_廂:1.0__SYM_廂_66_: _TOKEN_廂:1.0__SYM_廂_21_ {
+    let _TOKEN_靄:1.0__SYM_靄_177_: _TOKEN_廂:1.0__SYM_廂_95_?
+    let _TOKEN_靄:1.0__SYM_靄_99_: _TOKEN_廂:1.0__SYM_廂_95_
+    let _TOKEN_靄:1.0__SYM_靄_217_: _TOKEN_廂:1.0__SYM_廂_78_
+    let _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_廂_79_
+    let _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_
+}
+
+struct _TOKEN_廂:1.0__SYM_廂_78_: _TOKEN_廂:1.0__SYM_廂_21_ {
+    let _TOKEN_靄:1.0__SYM_靄_10_: _TOKEN_廂:1.0__SYM_廂_58_    // 正規表現で検出した識別子数
+    let _TOKEN_靄:1.0__SYM_靄_14_: _TOKEN_廂:1.0__SYM_廂_58_ // _TOKEN_廂:1.0__SYM_廂_33_が追加で検出した識別子数
+    let _TOKEN_暗:1.0__SYM_靄_278_: _TOKEN_廂:1.0__SYM_廂_58_       // _TOKEN_絢:1.0__SYM_廂_68_キー・シークレット数
+    let _TOKEN_靄:1.0__SYM_靄_149_: _TOKEN_廂:1.0__SYM_廂_58_
+    var _TOKEN_靄:1.0__SYM_靄_222_: _TOKEN_廂:1.0__SYM_廂_58_ { _TOKEN_靄:1.0__SYM_靄_10_ + _TOKEN_靄:1.0__SYM_靄_14_ + _TOKEN_暗:1.0__SYM_靄_278_ + _TOKEN_靄:1.0__SYM_靄_149_ }
+    var _TOKEN_靄:1.0__SYM_靄_214_: _TOKEN_廂:1.0__SYM_廂_58_ { _TOKEN_靄:1.0__SYM_靄_279_(100, _TOKEN_廂:1.0__SYM_廂_58_(_TOKEN_廂:1.0__SYM_廂_99_(_TOKEN_靄:1.0__SYM_靄_222_) * 2.5)) }
+}
+
+// [metadata-stripped]
+
+actor _TOKEN_廂:1.0__SYM_廂_86_ {
+
+    static let _TOKEN_靄:1.0__SYM_靄_256_ = _TOKEN_廂:1.0__SYM_廂_86_()
+
+    private let _TOKEN_靄:1.0__SYM_靄_81_   = _TOKEN_廂:1.0__SYM_廂_90_._TOKEN_靄:1.0__SYM_靄_256_    // _TOKEN_廂:1.0__SYM_廂_15_ 1 正規表現マスキング
+    private let _TOKEN_靄:1.0__SYM_靄_85_   = _TOKEN_絢:1.0__SYM_廂_13_._TOKEN_靄:1.0__SYM_靄_256_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    private func _TOKEN_靄:1.0__SYM_靄_252_(
+        _TOKEN_靄:1.0__SYM_靄_191_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_靄:1.0__SYM_靄_106_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_靄:1.0__SYM_靄_232_: _TOKEN_廂:1.0__SYM_廂_92_,
+        _TOKEN_靄:1.0__SYM_靄_198_: _TOKEN_廂:1.0__SYM_廂_67_._TOKEN_廂:1.0__SYM_廂_70_,
+        _TOKEN_靄:1.0__SYM_靄_273_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_靄:1.0__SYM_靄_29_: @_TOKEN_絢:1.0__SYM_靄_1_ @_TOKEN_廂:1.0__SYM_廂_21_ (_TOKEN_廂:1.0__SYM_廂_95_) async -> _TOKEN_廂:1.0__SYM_廂_10_
+    ) async -> (_TOKEN_靄:1.0__SYM_靄_240_: _TOKEN_廂:1.0__SYM_廂_95_, _TOKEN_靄:1.0__SYM_靄_37_: [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_]) {
+
+        await _TOKEN_靄:1.0__SYM_靄_29_("🧠 _TOKEN_廂:1.0__SYM_廂_62_ _TOKEN_廂:1.0__SYM_廂_33_: _TOKEN_廂:1.0__SYM_廂_64_ _TOKEN_靄:1.0__SYM_靄_38_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_280_…")
+
+// [metadata-stripped]
+        let _TOKEN_靄:1.0__SYM_靄_112_ = """
+        _TOKEN_廂:1.0__SYM_廂_55_ _TOKEN_靄:1.0__SYM_靄_108_ a _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_靄:1.0__SYM_靄_244_ _TOKEN_規:1.0__SYM_靄_69_. _TOKEN_廂:1.0__SYM_廂_80_ _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_靄:1.0__SYM_靄_39_ _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_靄:1.0__SYM_靄_170_ _TOKEN_漕:1.0__SYM_靄_103_ _TOKEN_廂:1.0__SYM_廂_19_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_52_ _TOKEN_靄:1.0__SYM_靄_187_ be _TOKEN_靄:1.0__SYM_靄_274_ _TOKEN_漕:1.0__SYM_靄_263_ _TOKEN_靄:1.0__SYM_靄_231_ to an _TOKEN_靄:1.0__SYM_靄_95_ _TOKEN_絢:1.0__SYM_廂_68_.
+
+        _TOKEN_廂:1.0__SYM_廂_73_ _TOKEN_靄:1.0__SYM_靄_125_:
+        - _TOKEN_廂:1.0__SYM_廂_71_-_TOKEN_漕:1.0__SYM_靄_275_ _TOKEN_靄:1.0__SYM_靄_197_/_TOKEN_靄:1.0__SYM_靄_82_ _TOKEN_靄:1.0__SYM_靄_88_ (_TOKEN_靄:1.0__SYM_靄_173_ _TOKEN_靄:1.0__SYM_靄_66_ _TOKEN_靄:1.0__SYM_靄_31_)
+        - _TOKEN_廂:1.0__SYM_廂_29_-_TOKEN_漕:1.0__SYM_靄_275_ _TOKEN_靄:1.0__SYM_靄_196_ _TOKEN_靄:1.0__SYM_靄_88_ (e.g., _TOKEN_靄:1.0__SYM_靄_74_, _TOKEN_暗:1.0__SYM_靄_157_)
+        - _TOKEN_廂:1.0__SYM_廂_87_ class/struct _TOKEN_靄:1.0__SYM_靄_88_ _TOKEN_靄:1.0__SYM_靄_52_ _TOKEN_靄:1.0__SYM_靄_23_ _TOKEN_靄:1.0__SYM_靄_22_
+        - _TOKEN_廂:1.0__SYM_廂_95_ _TOKEN_靄:1.0__SYM_靄_114_ _TOKEN_靄:1.0__SYM_靄_117_ _TOKEN_靄:1.0__SYM_靄_203_, _TOKEN_暗:1.0__SYM_靄_210_, or _TOKEN_靄:1.0__SYM_靄_116_
+        - _TOKEN_廂:1.0__SYM_廂_60_ _TOKEN_靄:1.0__SYM_靄_167_ _TOKEN_靄:1.0__SYM_靄_52_ _TOKEN_靄:1.0__SYM_靄_135_ _TOKEN_靄:1.0__SYM_靄_48_ _TOKEN_靄:1.0__SYM_靄_66_
+
+        _TOKEN_廂:1.0__SYM_廂_96_ _TOKEN_廂:1.0__SYM_廂_9_ a _TOKEN_廂:1.0__SYM_廂_53_ _TOKEN_靄:1.0__SYM_靄_32_ of _TOKEN_靄:1.0__SYM_靄_20_ to _TOKEN_靄:1.0__SYM_靄_68_. No _TOKEN_靄:1.0__SYM_靄_99_.
+        _TOKEN_廂:1.0__SYM_廂_82_: ["_TOKEN_漕:1.0__SYM_靄_115_", "_TOKEN_漕:1.0__SYM_靄_238_", ...]
+
+        _TOKEN_廂:1.0__SYM_廂_83_:
+        ```
+        \(_TOKEN_靄:1.0__SYM_靄_106_._TOKEN_靄:1.0__SYM_靄_212_(6000))
+        ```
+
+        _TOKEN_廂:1.0__SYM_廂_53_ _TOKEN_靄:1.0__SYM_靄_32_:
+        """
+
+// [metadata-stripped]
+        let _TOKEN_靄:1.0__SYM_靄_45_: [_TOKEN_廂:1.0__SYM_廂_95_]
+        switch _TOKEN_靄:1.0__SYM_靄_198_ {
+        case ._TOKEN_靄:1.0__SYM_靄_154_(let _TOKEN_靄:1.0__SYM_靄_79_):
+            if let _TOKEN_靄:1.0__SYM_靄_152_ = await _TOKEN_廂:1.0__SYM_廂_22_._TOKEN_靄:1.0__SYM_靄_256_._TOKEN_靄:1.0__SYM_靄_104_(
+                _TOKEN_靄:1.0__SYM_靄_79_: _TOKEN_靄:1.0__SYM_靄_79_, _TOKEN_靄:1.0__SYM_靄_91_: _TOKEN_靄:1.0__SYM_靄_112_, _TOKEN_暗:1.0__SYM_靄_89_: 512, _TOKEN_靄:1.0__SYM_靄_26_: 0.05
+            ) {
+                _TOKEN_靄:1.0__SYM_靄_45_ = _TOKEN_漕:1.0__SYM_靄_131_(_TOKEN_靄:1.0__SYM_靄_184_: _TOKEN_靄:1.0__SYM_靄_152_)
+            } else {
+                _TOKEN_靄:1.0__SYM_靄_45_ = []
+            }
+        _TOKEN_靄:1.0__SYM_靄_186_:
+// [metadata-stripped]
+            _TOKEN_靄:1.0__SYM_靄_45_ = []
+// _TOKEN_規:0.1__SYM_VB_287_ [decoy-metadata]
+        }
+
+        if _TOKEN_靄:1.0__SYM_靄_45_._TOKEN_靄:1.0__SYM_靄_57_ {
+// [metadata-stripped]
+            var _TOKEN_靄:1.0__SYM_靄_37_ = [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_]()
+            for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_136_  { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+            for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_40_ { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+            for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_24_   { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+            for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_80_  { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+            return (_TOKEN_靄:1.0__SYM_靄_106_, _TOKEN_靄:1.0__SYM_靄_37_)
+        }
+
+        await _TOKEN_靄:1.0__SYM_靄_29_("🔍 _TOKEN_廂:1.0__SYM_廂_33_ _TOKEN_靄:1.0__SYM_靄_45_ \(_TOKEN_靄:1.0__SYM_靄_45_._TOKEN_靄:1.0__SYM_靄_150_) _TOKEN_靄:1.0__SYM_靄_253_ _TOKEN_靄:1.0__SYM_靄_38_ _TOKEN_漕:1.0__SYM_靄_6_")
+
+// [metadata-stripped]
+        var _TOKEN_靄:1.0__SYM_靄_109_ = _TOKEN_靄:1.0__SYM_靄_106_
+        var _TOKEN_靄:1.0__SYM_靄_37_ = [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_]()
+
+// [metadata-stripped]
+        for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_136_  { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+        for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_40_ { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+        for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_24_   { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+        for (_TOKEN_靄:1.0__SYM_靄_5_, _TOKEN_靄:1.0__SYM_靄_153_) in _TOKEN_靄:1.0__SYM_靄_232_._TOKEN_靄:1.0__SYM_靄_80_  { _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_靄:1.0__SYM_靄_5_] = _TOKEN_靄:1.0__SYM_靄_153_ }
+
+// [metadata-stripped]
+        var _TOKEN_規:1.0__SYM_靄_172_ = 0
+        for _TOKEN_規:1.0__SYM_靄_194_ in _TOKEN_靄:1.0__SYM_靄_45_._TOKEN_靄:1.0__SYM_靄_270_(by: { $0._TOKEN_靄:1.0__SYM_靄_150_ > $1._TOKEN_靄:1.0__SYM_靄_150_ }) {  // 長い方から置換
+            guard !_TOKEN_規:1.0__SYM_靄_194_._TOKEN_靄:1.0__SYM_靄_57_, _TOKEN_規:1.0__SYM_靄_194_._TOKEN_靄:1.0__SYM_靄_150_ >= 3 else { continue }
+            guard _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_規:1.0__SYM_靄_194_] == nil else { continue }  // 既マスク済みをスキップ
+
+            let _TOKEN_靄:1.0__SYM_靄_153_ = "_TOKEN_廂:1.0__SYM_廂_45_\(_TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_漕:1.0__SYM_靄_148_: "%03d", _TOKEN_規:1.0__SYM_靄_172_))"
+            _TOKEN_靄:1.0__SYM_靄_37_[_TOKEN_規:1.0__SYM_靄_194_] = _TOKEN_靄:1.0__SYM_靄_153_
+            _TOKEN_靄:1.0__SYM_靄_109_ = _TOKEN_靄:1.0__SYM_靄_109_._TOKEN_靄:1.0__SYM_靄_58_(of: _TOKEN_規:1.0__SYM_靄_194_, _TOKEN_靄:1.0__SYM_靄_266_: _TOKEN_靄:1.0__SYM_靄_153_)
+            _TOKEN_規:1.0__SYM_靄_172_ += 1
+        }
+
+        return (_TOKEN_靄:1.0__SYM_靄_109_, _TOKEN_靄:1.0__SYM_靄_37_)
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+    private func _TOKEN_靄:1.0__SYM_靄_128_(
+        _TOKEN_靄:1.0__SYM_靄_174_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_靄:1.0__SYM_靄_225_: [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_],
+        _TOKEN_靄:1.0__SYM_靄_198_: _TOKEN_廂:1.0__SYM_廂_67_._TOKEN_廂:1.0__SYM_廂_70_,
+        _TOKEN_靄:1.0__SYM_靄_29_: @_TOKEN_絢:1.0__SYM_靄_1_ @_TOKEN_廂:1.0__SYM_廂_21_ (_TOKEN_廂:1.0__SYM_廂_95_) async -> _TOKEN_廂:1.0__SYM_廂_10_
+    ) async -> _TOKEN_廂:1.0__SYM_廂_95_ {
+
+        await _TOKEN_靄:1.0__SYM_靄_29_("🔓 _TOKEN_廂:1.0__SYM_廂_62_ _TOKEN_廂:1.0__SYM_廂_33_: _TOKEN_廂:1.0__SYM_廂_3_ _TOKEN_靄:1.0__SYM_靄_5_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_184_ _TOKEN_廂:1.0__SYM_廂_35_ _TOKEN_靄:1.0__SYM_靄_216_…")
+
+// [metadata-stripped]
+        let _TOKEN_靄:1.0__SYM_靄_175_ = _TOKEN_廂:1.0__SYM_廂_72_(_TOKEN_暗:1.0__SYM_靄_211_: _TOKEN_靄:1.0__SYM_靄_225_._TOKEN_靄:1.0__SYM_靄_216_ { ($1, $0) })
+
+// [metadata-stripped]
+        var _TOKEN_靄:1.0__SYM_靄_109_ = _TOKEN_靄:1.0__SYM_靄_174_
+        for (_TOKEN_靄:1.0__SYM_靄_153_, _TOKEN_靄:1.0__SYM_靄_5_) in _TOKEN_靄:1.0__SYM_靄_175_._TOKEN_靄:1.0__SYM_靄_270_(by: { $0._TOKEN_暗:1.0__SYM_靄_182_._TOKEN_靄:1.0__SYM_靄_150_ > $1._TOKEN_暗:1.0__SYM_靄_182_._TOKEN_靄:1.0__SYM_靄_150_ }) {
+            _TOKEN_靄:1.0__SYM_靄_109_ = _TOKEN_靄:1.0__SYM_靄_109_._TOKEN_靄:1.0__SYM_靄_58_(of: _TOKEN_靄:1.0__SYM_靄_153_, _TOKEN_靄:1.0__SYM_靄_266_: _TOKEN_靄:1.0__SYM_靄_5_)
+        }
+
+// [metadata-stripped]
+        let _TOKEN_漕:1.0__SYM_靄_267_ = _TOKEN_靄:1.0__SYM_靄_175_._TOKEN_靄:1.0__SYM_靄_150_ > 20  // 20識別子以上の場合のみ
+        if _TOKEN_漕:1.0__SYM_靄_267_ {
+            switch _TOKEN_靄:1.0__SYM_靄_198_ {
+            case ._TOKEN_靄:1.0__SYM_靄_154_(let _TOKEN_靄:1.0__SYM_靄_79_):
+                let _TOKEN_漕:1.0__SYM_靄_204_ = """
+                _TOKEN_廂:1.0__SYM_廂_24_ _TOKEN_靄:1.0__SYM_靄_39_ _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_靄:1.0__SYM_靄_247_ _TOKEN_靄:1.0__SYM_靄_17_ _TOKEN_靄:1.0__SYM_靄_274_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_8_. _TOKEN_廂:1.0__SYM_廂_49_ if _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_靄:1.0__SYM_靄_33_ _TOKEN_靄:1.0__SYM_靄_124_ _TOKEN_靄:1.0__SYM_靄_30_ _TOKEN_靄:1.0__SYM_靄_65_. 
+                If _TOKEN_靄:1.0__SYM_靄_239_ _TOKEN_靄:1.0__SYM_靄_108_ _TOKEN_靄:1.0__SYM_靄_78_ _TOKEN_靄:1.0__SYM_靄_100_-_TOKEN_靄:1.0__SYM_靄_276_ (_TOKEN_靄:1.0__SYM_靄_264_ _TOKEN_廂:1.0__SYM_廂_45_ or _TOKEN_廂:1.0__SYM_廂_43_ _TOKEN_暗:1.0__SYM_靄_224_ _TOKEN_靄:1.0__SYM_靄_84_ _TOKEN_靄:1.0__SYM_靄_86_), _TOKEN_靄:1.0__SYM_靄_127_ _TOKEN_靄:1.0__SYM_靄_146_ by _TOKEN_靄:1.0__SYM_靄_63_ _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_靄:1.0__SYM_靄_212_.
+                _TOKEN_廂:1.0__SYM_廂_30_ _TOKEN_廂:1.0__SYM_廂_9_ _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_靄:1.0__SYM_靄_215_ _TOKEN_靄:1.0__SYM_靄_191_, no _TOKEN_靄:1.0__SYM_靄_99_.
+                
+                _TOKEN_廂:1.0__SYM_廂_83_:
+                ```
+                \(_TOKEN_靄:1.0__SYM_靄_109_._TOKEN_靄:1.0__SYM_靄_212_(8000))
+                ```
+                """
+                if let _TOKEN_漕:1.0__SYM_靄_67_ = await _TOKEN_廂:1.0__SYM_廂_22_._TOKEN_靄:1.0__SYM_靄_256_._TOKEN_靄:1.0__SYM_靄_104_(
+                    _TOKEN_靄:1.0__SYM_靄_79_: _TOKEN_靄:1.0__SYM_靄_79_, _TOKEN_靄:1.0__SYM_靄_91_: _TOKEN_漕:1.0__SYM_靄_204_, _TOKEN_暗:1.0__SYM_靄_89_: 2048, _TOKEN_靄:1.0__SYM_靄_26_: 0.05
+                ) {
+// [metadata-stripped]
+                    if !_TOKEN_漕:1.0__SYM_靄_67_._TOKEN_靄:1.0__SYM_靄_143_("_TOKEN_廂:1.0__SYM_廂_45_") && !_TOKEN_漕:1.0__SYM_靄_67_._TOKEN_靄:1.0__SYM_靄_143_("_TOKEN_廂:1.0__SYM_廂_43_") && !_TOKEN_漕:1.0__SYM_靄_67_._TOKEN_靄:1.0__SYM_靄_143_("_TOKEN_廂:1.0__SYM_廂_57_") {
+                        _TOKEN_靄:1.0__SYM_靄_109_ = _TOKEN_漕:1.0__SYM_靄_67_
+                    }
+                }
+            _TOKEN_靄:1.0__SYM_靄_186_: break
+            }
+        }
+
+        return _TOKEN_靄:1.0__SYM_靄_109_
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+    func _TOKEN_靄:1.0__SYM_靄_241_(
+        _TOKEN_靄:1.0__SYM_靄_64_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_匳:1.0__SYM_靄_176_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_匳:1.0__SYM_靄_181_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_絢:1.0__SYM_靄_3_: _TOKEN_絢:1.0__SYM_廂_48_?,
+        _TOKEN_靄:1.0__SYM_靄_198_: _TOKEN_廂:1.0__SYM_廂_67_._TOKEN_廂:1.0__SYM_廂_70_,
+        _TOKEN_靄:1.0__SYM_靄_273_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_廂_79_,
+        _TOKEN_靄:1.0__SYM_靄_269_: _TOKEN_廂:1.0__SYM_廂_7_,
+        _TOKEN_靄:1.0__SYM_靄_213_: _TOKEN_廂:1.0__SYM_廂_97_ = true,   // _TOKEN_廂:1.0__SYM_廂_67_._TOKEN_靄:1.0__SYM_靄_15_ で制御
+        _TOKEN_靄:1.0__SYM_靄_29_: @_TOKEN_絢:1.0__SYM_靄_1_ @_TOKEN_廂:1.0__SYM_廂_21_ (_TOKEN_廂:1.0__SYM_廂_95_) async -> _TOKEN_廂:1.0__SYM_廂_10_
+    ) async -> _TOKEN_廂:1.0__SYM_廂_66_ {
+
+        let _TOKEN_靄:1.0__SYM_靄_159_ = _TOKEN_廂:1.0__SYM_廂_20_()._TOKEN_靄:1.0__SYM_靄_169_._TOKEN_靄:1.0__SYM_靄_212_(8)._TOKEN_靄:1.0__SYM_靄_145_()
+        let _TOKEN_匳:1.0__SYM_靄_97_  = _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_匳:1.0__SYM_靄_176_._TOKEN_靄:1.0__SYM_靄_233_)
+
+// [metadata-stripped]
+        await _TOKEN_靄:1.0__SYM_靄_29_("🧠 _TOKEN_廂:1.0__SYM_廂_52_ 1/5: _TOKEN_廂:1.0__SYM_廂_81_ _TOKEN_廂:1.0__SYM_廂_35_ _TOKEN_靄:1.0__SYM_靄_51_ for _TOKEN_匳:1.0__SYM_靄_94_ _TOKEN_靄:1.0__SYM_靄_132_…")
+
+        let _TOKEN_靄:1.0__SYM_靄_228_ = await _TOKEN_靄:1.0__SYM_靄_269_._TOKEN_靄:1.0__SYM_靄_61_(for: "_TOKEN_匳:1.0__SYM_靄_94_:\(_TOKEN_匳:1.0__SYM_靄_181_) \(_TOKEN_靄:1.0__SYM_靄_64_)")
+        let _TOKEN_靄:1.0__SYM_靄_113_ = !_TOKEN_靄:1.0__SYM_靄_228_._TOKEN_靄:1.0__SYM_靄_57_
+        if _TOKEN_靄:1.0__SYM_靄_113_ {
+            await _TOKEN_靄:1.0__SYM_靄_29_("📖 _TOKEN_廂:1.0__SYM_廂_35_: _TOKEN_廂:1.0__SYM_廂_36_ \(_TOKEN_靄:1.0__SYM_靄_228_._TOKEN_靄:1.0__SYM_靄_150_) _TOKEN_靄:1.0__SYM_靄_268_ of _TOKEN_靄:1.0__SYM_靄_155_ _TOKEN_靄:1.0__SYM_靄_51_")
+        }
+
+// [metadata-stripped]
+        await _TOKEN_靄:1.0__SYM_靄_29_("🔒 _TOKEN_廂:1.0__SYM_廂_52_ 2/5: _TOKEN_廂:1.0__SYM_廂_15_ 1 — _TOKEN_廂:1.0__SYM_廂_91_ _TOKEN_靄:1.0__SYM_靄_165_ _TOKEN_靄:1.0__SYM_靄_38_ _TOKEN_漕:1.0__SYM_靄_6_…")
+
+        let _TOKEN_靄:1.0__SYM_靄_18_ = _TOKEN_匳:1.0__SYM_靄_134_(_TOKEN_匳:1.0__SYM_靄_181_)
+        let (_TOKEN_靄:1.0__SYM_靄_50_, _TOKEN_靄:1.0__SYM_靄_178_, _TOKEN_靄:1.0__SYM_靄_156_) = await _TOKEN_靄:1.0__SYM_靄_81_._TOKEN_靄:1.0__SYM_靄_251_(
+            _TOKEN_靄:1.0__SYM_靄_191_: _TOKEN_匳:1.0__SYM_靄_176_, _TOKEN_靄:1.0__SYM_靄_72_: _TOKEN_靄:1.0__SYM_靄_18_, _TOKEN_匳:1.0__SYM_靄_181_: _TOKEN_匳:1.0__SYM_靄_181_
+        )
+
+        await _TOKEN_靄:1.0__SYM_靄_29_("🔒 _TOKEN_廂:1.0__SYM_廂_15_ 1 _TOKEN_靄:1.0__SYM_靄_153_ \(_TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_223_) _TOKEN_漕:1.0__SYM_靄_6_ (_TOKEN_靄:1.0__SYM_靄_201_/_TOKEN_靄:1.0__SYM_靄_226_/_TOKEN_靄:1.0__SYM_靄_105_/_TOKEN_暗:1.0__SYM_靄_161_)")
+
+// [metadata-stripped]
+        let _TOKEN_靄:1.0__SYM_靄_190_: _TOKEN_廂:1.0__SYM_廂_95_
+        let _TOKEN_靄:1.0__SYM_靄_37_: [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_]
+
+        if _TOKEN_靄:1.0__SYM_靄_213_ {
+            await _TOKEN_靄:1.0__SYM_靄_29_("🧠 _TOKEN_廂:1.0__SYM_廂_52_ 3/5: _TOKEN_廂:1.0__SYM_廂_15_ 2 — _TOKEN_廂:1.0__SYM_廂_33_ _TOKEN_靄:1.0__SYM_靄_180_ _TOKEN_靄:1.0__SYM_靄_77_ _TOKEN_靄:1.0__SYM_靄_122_…")
+            (_TOKEN_靄:1.0__SYM_靄_190_, _TOKEN_靄:1.0__SYM_靄_37_) = await _TOKEN_靄:1.0__SYM_靄_252_(
+                _TOKEN_靄:1.0__SYM_靄_191_: _TOKEN_匳:1.0__SYM_靄_176_,
+                _TOKEN_靄:1.0__SYM_靄_106_: _TOKEN_靄:1.0__SYM_靄_50_,
+                _TOKEN_靄:1.0__SYM_靄_232_: _TOKEN_靄:1.0__SYM_靄_178_,
+                _TOKEN_靄:1.0__SYM_靄_198_: _TOKEN_靄:1.0__SYM_靄_198_,
+                _TOKEN_靄:1.0__SYM_靄_273_: _TOKEN_靄:1.0__SYM_靄_273_,
+                _TOKEN_靄:1.0__SYM_靄_29_: _TOKEN_靄:1.0__SYM_靄_29_
+            )
+        } else {
+            await _TOKEN_靄:1.0__SYM_靄_29_("⏩ _TOKEN_廂:1.0__SYM_廂_52_ 3/5: _TOKEN_廂:1.0__SYM_廂_33_ _TOKEN_靄:1.0__SYM_靄_180_ _TOKEN_靄:1.0__SYM_靄_122_ _TOKEN_靄:1.0__SYM_靄_19_ (_TOKEN_靄:1.0__SYM_靄_133_ in _TOKEN_規:1.0__SYM_曠_1_)")
+// [metadata-stripped]
+            var _TOKEN_靄:1.0__SYM_靄_54_ = [_TOKEN_廂:1.0__SYM_廂_95_: _TOKEN_廂:1.0__SYM_廂_95_]()
+            for (k, v) in _TOKEN_靄:1.0__SYM_靄_178_._TOKEN_靄:1.0__SYM_靄_136_  { _TOKEN_靄:1.0__SYM_靄_54_[k] = v }
+            for (k, v) in _TOKEN_靄:1.0__SYM_靄_178_._TOKEN_靄:1.0__SYM_靄_40_ { _TOKEN_靄:1.0__SYM_靄_54_[k] = v }
+            for (k, v) in _TOKEN_靄:1.0__SYM_靄_178_._TOKEN_靄:1.0__SYM_靄_24_   { _TOKEN_靄:1.0__SYM_靄_54_[k] = v }
+            for (k, v) in _TOKEN_靄:1.0__SYM_靄_178_._TOKEN_靄:1.0__SYM_靄_80_  { _TOKEN_靄:1.0__SYM_靄_54_[k] = v }
+            _TOKEN_靄:1.0__SYM_靄_190_ = _TOKEN_靄:1.0__SYM_靄_50_
+            _TOKEN_靄:1.0__SYM_靄_37_ = _TOKEN_靄:1.0__SYM_靄_54_
+        }
+
+        let _TOKEN_靄:1.0__SYM_靄_245_ = _TOKEN_靄:1.0__SYM_靄_213_ ? _TOKEN_靄:1.0__SYM_靄_37_._TOKEN_靄:1.0__SYM_靄_150_ - _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_223_ : 0
+
+// [metadata-stripped]
+        let _TOKEN_暗:1.0__SYM_靄_55_ = "_TOKEN_靄:1.0__SYM_靄_7_\(_TOKEN_靄:1.0__SYM_靄_159_)"
+        if let _TOKEN_靄:1.0__SYM_靄_142_ = try? _TOKEN_規:1.0__SYM_廂_47_()._TOKEN_靄:1.0__SYM_靄_277_(_TOKEN_靄:1.0__SYM_靄_37_),
+           let _TOKEN_靄:1.0__SYM_靄_101_ = _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_87_: _TOKEN_靄:1.0__SYM_靄_142_, _TOKEN_靄:1.0__SYM_靄_43_: ._TOKEN_靄:1.0__SYM_靄_70_) {
+            await _TOKEN_靄:1.0__SYM_靄_269_._TOKEN_規:1.0__SYM_靄_237_(
+                _TOKEN_暗:1.0__SYM_靄_182_: _TOKEN_暗:1.0__SYM_靄_55_,
+                _TOKEN_靄:1.0__SYM_靄_259_: "_TOKEN_匳:1.0__SYM_廂_28_:\(_TOKEN_匳:1.0__SYM_靄_181_) _TOKEN_廂:1.0__SYM_廂_56_:\(_TOKEN_匳:1.0__SYM_靄_97_) _TOKEN_廂:1.0__SYM_廂_8_:\(_TOKEN_靄:1.0__SYM_靄_101_._TOKEN_靄:1.0__SYM_靄_212_(2000))",
+                _TOKEN_靄:1.0__SYM_靄_218_: 1.0,  // 最高重要度 — GCで削除されない
+                _TOKEN_靄:1.0__SYM_靄_257_: ._TOKEN_靄:1.0__SYM_靄_98_
+            )
+        }
+
+        await _TOKEN_靄:1.0__SYM_靄_29_("📝 _TOKEN_廂:1.0__SYM_廂_35_: _TOKEN_廂:1.0__SYM_廂_4_ _TOKEN_靄:1.0__SYM_靄_164_ as '\(_TOKEN_暗:1.0__SYM_靄_55_)' (\(_TOKEN_靄:1.0__SYM_靄_37_._TOKEN_靄:1.0__SYM_靄_150_) _TOKEN_漕:1.0__SYM_靄_6_)")
+
+// [metadata-stripped]
+        await _TOKEN_靄:1.0__SYM_靄_29_("☁️ _TOKEN_廂:1.0__SYM_廂_52_ 4/5: _TOKEN_廂:1.0__SYM_廂_89_ _TOKEN_靄:1.0__SYM_靄_274_ _TOKEN_靄:1.0__SYM_靄_66_ to \(_TOKEN_規:1.0__SYM_靄_138_._TOKEN_靄:1.0__SYM_靄_11_)…")
+        await _TOKEN_靄:1.0__SYM_靄_29_("🔐 _TOKEN_廂:1.0__SYM_廂_65_ _TOKEN_靄:1.0__SYM_靄_5_ _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_規:1.0__SYM_廂_74_ _TOKEN_靄:1.0__SYM_靄_16_ _TOKEN_靄:1.0__SYM_靄_12_ _TOKEN_廂:1.0__SYM_廂_17_.")
+
+        let _TOKEN_靄:1.0__SYM_靄_62_ = _TOKEN_靄:1.0__SYM_靄_18_._TOKEN_靄:1.0__SYM_靄_11_  // _TOKEN_廂:1.0__SYM_廂_90_._TOKEN_廂:1.0__SYM_廂_84_._TOKEN_靄:1.0__SYM_靄_11_ = "_TOKEN_漕:1.0__SYM_靄_166_" _TOKEN_靄:1.0__SYM_靄_47_.
+        let _TOKEN_靄:1.0__SYM_靄_254_ = """
+        _TOKEN_廂:1.0__SYM_廂_55_ _TOKEN_靄:1.0__SYM_靄_108_ an _TOKEN_靄:1.0__SYM_靄_13_ _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_規:1.0__SYM_靄_185_ _TOKEN_靄:1.0__SYM_靄_162_ _TOKEN_靄:1.0__SYM_靄_266_ _TOKEN_靄:1.0__SYM_靄_274_ _TOKEN_靄:1.0__SYM_靄_191_.
+        _TOKEN_廂:1.0__SYM_廂_42_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_230_ _TOKEN_靄:1.0__SYM_靄_141_ _TOKEN_靄:1.0__SYM_靄_274_ (_TOKEN_廂:1.0__SYM_廂_98_, _TOKEN_廂:1.0__SYM_廂_63_, _TOKEN_廂:1.0__SYM_廂_100_, _TOKEN_廂:1.0__SYM_廂_39_).
+        _TOKEN_廂:1.0__SYM_廂_23_ _TOKEN_靄:1.0__SYM_靄_44_ _TOKEN_靄:1.0__SYM_靄_274_ _TOKEN_靄:1.0__SYM_靄_88_ _TOKEN_廂:1.0__SYM_廂_5_ in _TOKEN_靄:1.0__SYM_靄_107_ _TOKEN_靄:1.0__SYM_靄_160_ — do _TOKEN_廂:1.0__SYM_廂_11_ _TOKEN_靄:1.0__SYM_靄_209_ _TOKEN_靄:1.0__SYM_靄_146_.
+
+        _TOKEN_廂:1.0__SYM_廂_84_: \(_TOKEN_靄:1.0__SYM_靄_62_)
+        \(_TOKEN_靄:1.0__SYM_靄_113_ ? "_TOKEN_廂:1.0__SYM_廂_1_ _TOKEN_靄:1.0__SYM_靄_41_:\n\(_TOKEN_靄:1.0__SYM_靄_228_._TOKEN_靄:1.0__SYM_靄_212_(500))" : "")
+
+        _TOKEN_廂:1.0__SYM_廂_30_ _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_漕:1.0__SYM_靄_137_ _TOKEN_靄:1.0__SYM_靄_191_ in a ```\(_TOKEN_靄:1.0__SYM_靄_62_) _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_靄:1.0__SYM_靄_219_.
+        """
+
+// _TOKEN_暗:0.7__SYM_ZD_997_ [decoy-metadata]
+        let _TOKEN_靄:1.0__SYM_靄_147_ = """
+        \(_TOKEN_靄:1.0__SYM_靄_64_)
+
+        ```\(_TOKEN_靄:1.0__SYM_靄_62_)
+        \(_TOKEN_靄:1.0__SYM_靄_190_._TOKEN_靄:1.0__SYM_靄_212_(20000))
+        ```
+
+        _TOKEN_廂:1.0__SYM_廂_41_: _TOKEN_廂:1.0__SYM_廂_77_ _TOKEN_靄:1.0__SYM_靄_123_ _TOKEN_廂:1.0__SYM_廂_98_, _TOKEN_廂:1.0__SYM_廂_63_, _TOKEN_廂:1.0__SYM_廂_100_, _TOKEN_廂:1.0__SYM_廂_39_ _TOKEN_暗:1.0__SYM_靄_224_ _TOKEN_靄:1.0__SYM_靄_272_.
+        """
+// _TOKEN_漕:0.5__SYM_GM_643_ [decoy-metadata]
+
+        let _TOKEN_靄:1.0__SYM_靄_265_ = await _TOKEN_靄:1.0__SYM_靄_85_._TOKEN_靄:1.0__SYM_靄_234_(
+            _TOKEN_靄:1.0__SYM_靄_254_: _TOKEN_靄:1.0__SYM_靄_254_,
+            _TOKEN_靄:1.0__SYM_靄_147_: _TOKEN_靄:1.0__SYM_靄_147_,
+            _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_靄_138_
+        )
+
+        switch _TOKEN_靄:1.0__SYM_靄_265_ {
+        case ._TOKEN_靄:1.0__SYM_靄_130_(let _TOKEN_靄:1.0__SYM_靄_255_):
+            return _TOKEN_廂:1.0__SYM_廂_66_(
+                _TOKEN_靄:1.0__SYM_靄_177_: nil,
+                _TOKEN_靄:1.0__SYM_靄_99_: "❌ _TOKEN_廂:1.0__SYM_廂_46_ _TOKEN_絢:1.0__SYM_廂_68_ _TOKEN_靄:1.0__SYM_靄_255_: \(_TOKEN_靄:1.0__SYM_靄_255_._TOKEN_靄:1.0__SYM_靄_171_)\n\_TOKEN_靄:1.0__SYM_靄_93_ _TOKEN_靄:1.0__SYM_靄_191_ _TOKEN_靄:1.0__SYM_靄_144_ _TOKEN_靄:1.0__SYM_靄_189_ — _TOKEN_靄:1.0__SYM_靄_59_ _TOKEN_靄:1.0__SYM_靄_144_ _TOKEN_靄:1.0__SYM_靄_73_ _TOKEN_漕:1.0__SYM_靄_263_ _TOKEN_靄:1.0__SYM_靄_200_ _TOKEN_靄:1.0__SYM_靄_255_ _TOKEN_靄:1.0__SYM_靄_193_.",
+                _TOKEN_靄:1.0__SYM_靄_217_: _TOKEN_廂:1.0__SYM_廂_78_(
+                    _TOKEN_靄:1.0__SYM_靄_10_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_223_,
+                    _TOKEN_靄:1.0__SYM_靄_14_: _TOKEN_靄:1.0__SYM_靄_245_,
+                    _TOKEN_暗:1.0__SYM_靄_278_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_20_,
+                    _TOKEN_靄:1.0__SYM_靄_149_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_203_
+                ),
+                _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_靄_138_,
+                _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_159_)
+            )
+
+        case ._TOKEN_靄:1.0__SYM_靄_21_(let _TOKEN_靄:1.0__SYM_靄_110_):
+            await _TOKEN_靄:1.0__SYM_靄_29_("☁️ \(_TOKEN_規:1.0__SYM_靄_138_._TOKEN_靄:1.0__SYM_靄_11_) _TOKEN_靄:1.0__SYM_靄_96_ \(_TOKEN_靄:1.0__SYM_靄_190_._TOKEN_靄:1.0__SYM_靄_150_) _TOKEN_靄:1.0__SYM_靄_42_ _TOKEN_靄:1.0__SYM_靄_268_ — _TOKEN_靄:1.0__SYM_靄_242_ \(_TOKEN_靄:1.0__SYM_靄_110_._TOKEN_靄:1.0__SYM_靄_150_) _TOKEN_靄:1.0__SYM_靄_268_")
+
+// [metadata-stripped]
+            await _TOKEN_靄:1.0__SYM_靄_29_("🔓 _TOKEN_廂:1.0__SYM_廂_52_ 5/5: _TOKEN_廂:1.0__SYM_廂_3_ _TOKEN_靄:1.0__SYM_靄_5_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_53_ _TOKEN_廂:1.0__SYM_廂_35_ _TOKEN_靄:1.0__SYM_靄_216_…")
+
+// [metadata-stripped]
+            let _TOKEN_靄:1.0__SYM_靄_250_ = _TOKEN_靄:1.0__SYM_靄_246_(_TOKEN_靄:1.0__SYM_靄_184_: _TOKEN_靄:1.0__SYM_靄_110_)
+            guard let _TOKEN_靄:1.0__SYM_靄_240_ = _TOKEN_靄:1.0__SYM_靄_250_._TOKEN_靄:1.0__SYM_靄_191_ else {
+                return _TOKEN_廂:1.0__SYM_廂_66_(
+                    _TOKEN_靄:1.0__SYM_靄_177_: nil,
+                    _TOKEN_靄:1.0__SYM_靄_99_: _TOKEN_靄:1.0__SYM_靄_110_,
+                    _TOKEN_靄:1.0__SYM_靄_217_: _TOKEN_廂:1.0__SYM_廂_78_(
+                        _TOKEN_靄:1.0__SYM_靄_10_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_223_,
+                        _TOKEN_靄:1.0__SYM_靄_14_: _TOKEN_靄:1.0__SYM_靄_245_,
+                        _TOKEN_暗:1.0__SYM_靄_278_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_20_,
+                        _TOKEN_靄:1.0__SYM_靄_149_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_203_
+                    ),
+                    _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_靄_138_,
+                    _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_159_)
+                )
+            }
+
+            let _TOKEN_靄:1.0__SYM_靄_177_ = await _TOKEN_靄:1.0__SYM_靄_128_(
+                _TOKEN_靄:1.0__SYM_靄_174_: _TOKEN_靄:1.0__SYM_靄_240_,
+                _TOKEN_靄:1.0__SYM_靄_225_: _TOKEN_靄:1.0__SYM_靄_37_,
+                _TOKEN_靄:1.0__SYM_靄_198_: _TOKEN_靄:1.0__SYM_靄_198_,
+                _TOKEN_靄:1.0__SYM_靄_29_: _TOKEN_靄:1.0__SYM_靄_29_
+            )
+
+// [metadata-stripped]
+            await _TOKEN_靄:1.0__SYM_靄_269_._TOKEN_規:1.0__SYM_靄_237_(
+                _TOKEN_暗:1.0__SYM_靄_182_: "_TOKEN_靄:1.0__SYM_靄_258_\(_TOKEN_靄:1.0__SYM_靄_159_)",
+                _TOKEN_靄:1.0__SYM_靄_259_: "_TOKEN_匳:1.0__SYM_廂_28_:\(_TOKEN_匳:1.0__SYM_靄_181_) _TOKEN_廂:1.0__SYM_廂_14_:\(_TOKEN_靄:1.0__SYM_靄_64_._TOKEN_靄:1.0__SYM_靄_212_(100)) _TOKEN_廂:1.0__SYM_廂_61_:true _TOKEN_廂:1.0__SYM_廂_26_:\(_TOKEN_靄:1.0__SYM_靄_37_._TOKEN_靄:1.0__SYM_靄_150_)",
+                _TOKEN_靄:1.0__SYM_靄_218_: 0.7,
+                _TOKEN_靄:1.0__SYM_靄_257_: ._TOKEN_靄:1.0__SYM_靄_168_
+            )
+
+            let _TOKEN_靄:1.0__SYM_靄_183_ = _TOKEN_廂:1.0__SYM_廂_78_(
+                _TOKEN_靄:1.0__SYM_靄_10_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_223_,
+                _TOKEN_靄:1.0__SYM_靄_14_: _TOKEN_靄:1.0__SYM_靄_245_,
+                _TOKEN_暗:1.0__SYM_靄_278_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_20_,
+                _TOKEN_靄:1.0__SYM_靄_149_: _TOKEN_靄:1.0__SYM_靄_156_._TOKEN_靄:1.0__SYM_靄_203_
+            )
+
+            await _TOKEN_靄:1.0__SYM_靄_29_("✅ _TOKEN_廂:1.0__SYM_廂_76_ _TOKEN_廂:1.0__SYM_廂_16_ _TOKEN_靄:1.0__SYM_靄_102_! \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_222_) _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_189_. _TOKEN_廂:1.0__SYM_廂_76_ _TOKEN_靄:1.0__SYM_靄_202_: \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_214_)/100")
+
+            return _TOKEN_廂:1.0__SYM_廂_66_(
+                _TOKEN_靄:1.0__SYM_靄_177_: _TOKEN_靄:1.0__SYM_靄_177_,
+                _TOKEN_靄:1.0__SYM_靄_99_: _TOKEN_靄:1.0__SYM_靄_192_(
+                    _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_靄_138_,
+                    _TOKEN_靄:1.0__SYM_靄_183_: _TOKEN_靄:1.0__SYM_靄_183_,
+                    _TOKEN_靄:1.0__SYM_靄_207_: _TOKEN_靄:1.0__SYM_靄_250_._TOKEN_靄:1.0__SYM_靄_99_,
+                    _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_159_)
+                ),
+                _TOKEN_靄:1.0__SYM_靄_217_: _TOKEN_靄:1.0__SYM_靄_183_,
+                _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_靄_138_,
+                _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_159_)
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_漕:1.0__SYM_靄_131_(_TOKEN_靄:1.0__SYM_靄_184_ _TOKEN_靄:1.0__SYM_靄_152_: _TOKEN_廂:1.0__SYM_廂_95_) -> [_TOKEN_廂:1.0__SYM_廂_95_] {
+// [metadata-stripped]
+        guard let _TOKEN_靄:1.0__SYM_靄_151_ = _TOKEN_靄:1.0__SYM_靄_152_._TOKEN_靄:1.0__SYM_靄_195_(of: "["),
+              let _TOKEN_靄:1.0__SYM_靄_208_   = _TOKEN_靄:1.0__SYM_靄_152_._TOKEN_靄:1.0__SYM_靄_92_(of: "]") else { return [] }
+        let _TOKEN_靄:1.0__SYM_靄_46_ = _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_152_[_TOKEN_靄:1.0__SYM_靄_151_..._TOKEN_靄:1.0__SYM_靄_208_])
+        guard let _TOKEN_靄:1.0__SYM_靄_87_ = _TOKEN_靄:1.0__SYM_靄_46_._TOKEN_靄:1.0__SYM_靄_87_(_TOKEN_靄:1.0__SYM_靄_76_: ._TOKEN_靄:1.0__SYM_靄_70_),
+              let _TOKEN_靄:1.0__SYM_靄_126_  = try? _TOKEN_規:1.0__SYM_廂_6_()._TOKEN_靄:1.0__SYM_靄_229_([_TOKEN_廂:1.0__SYM_廂_95_].self, _TOKEN_靄:1.0__SYM_靄_184_: _TOKEN_靄:1.0__SYM_靄_87_)
+        else { return [] }
+// [metadata-stripped]
+        return _TOKEN_靄:1.0__SYM_靄_126_._TOKEN_規:1.0__SYM_靄_235_ { $0._TOKEN_靄:1.0__SYM_靄_150_ >= 3 && $0._TOKEN_靄:1.0__SYM_靄_129_ { $0._TOKEN_規:1.0__SYM_靄_221_ || $0._TOKEN_規:1.0__SYM_靄_271_ || $0 == "_" } }
+    }
+
+    private func _TOKEN_靄:1.0__SYM_靄_246_(_TOKEN_靄:1.0__SYM_靄_184_ _TOKEN_靄:1.0__SYM_靄_167_: _TOKEN_廂:1.0__SYM_廂_95_) -> (_TOKEN_靄:1.0__SYM_靄_191_: _TOKEN_廂:1.0__SYM_廂_95_?, _TOKEN_靄:1.0__SYM_靄_99_: _TOKEN_廂:1.0__SYM_廂_95_) {
+        let _TOKEN_靄:1.0__SYM_靄_27_ = #"```(?:\w+)?\n?([\s\S]*?)```"#
+        guard let _TOKEN_靄:1.0__SYM_靄_249_ = try? _TOKEN_廂:1.0__SYM_廂_2_(_TOKEN_靄:1.0__SYM_靄_27_: _TOKEN_靄:1.0__SYM_靄_27_),
+              let _TOKEN_靄:1.0__SYM_靄_188_ = _TOKEN_靄:1.0__SYM_靄_249_._TOKEN_靄:1.0__SYM_靄_262_(in: _TOKEN_靄:1.0__SYM_靄_167_, _TOKEN_靄:1.0__SYM_靄_206_: _TOKEN_廂:1.0__SYM_廂_51_(_TOKEN_靄:1.0__SYM_靄_167_._TOKEN_靄:1.0__SYM_靄_236_..., in: _TOKEN_靄:1.0__SYM_靄_167_)),
+// _TOKEN_暗:0.6__SYM_EH_157_ [decoy-metadata]
+              let _TOKEN_靄:1.0__SYM_靄_28_ = _TOKEN_廂:1.0__SYM_廂_37_(_TOKEN_靄:1.0__SYM_靄_188_._TOKEN_靄:1.0__SYM_靄_206_(at: 1), in: _TOKEN_靄:1.0__SYM_靄_167_)
+// _TOKEN_靄:0.5__SYM_HC_326_ [decoy-metadata]
+        else {
+            return (nil, _TOKEN_靄:1.0__SYM_靄_167_._TOKEN_靄:1.0__SYM_靄_49_(in: ._TOKEN_靄:1.0__SYM_靄_75_))
+        }
+        let _TOKEN_靄:1.0__SYM_靄_191_ = _TOKEN_廂:1.0__SYM_廂_95_(_TOKEN_靄:1.0__SYM_靄_167_[_TOKEN_靄:1.0__SYM_靄_28_])
+        let _TOKEN_靄:1.0__SYM_靄_90_ = _TOKEN_靄:1.0__SYM_靄_167_._TOKEN_靄:1.0__SYM_靄_2_(_TOKEN_靄:1.0__SYM_靄_163_: "```")._TOKEN_靄:1.0__SYM_靄_139_(2)._TOKEN_靄:1.0__SYM_靄_220_()._TOKEN_靄:1.0__SYM_靄_49_(in: ._TOKEN_靄:1.0__SYM_靄_75_)
+        return (_TOKEN_靄:1.0__SYM_靄_191_, _TOKEN_靄:1.0__SYM_靄_90_._TOKEN_靄:1.0__SYM_靄_57_ ? "_TOKEN_廂:1.0__SYM_廂_18_ _TOKEN_靄:1.0__SYM_靄_4_ _TOKEN_靄:1.0__SYM_靄_53_ _TOKEN_廂:1.0__SYM_廂_76_ _TOKEN_廂:1.0__SYM_廂_16_." : _TOKEN_靄:1.0__SYM_靄_90_)
+    }
+
+    private func _TOKEN_匳:1.0__SYM_靄_134_(_ _TOKEN_靄:1.0__SYM_靄_119_: _TOKEN_廂:1.0__SYM_廂_95_) -> _TOKEN_廂:1.0__SYM_廂_90_._TOKEN_廂:1.0__SYM_廂_84_ {
+        switch _TOKEN_絢:1.0__SYM_廂_48_(_TOKEN_絢:1.0__SYM_靄_35_: _TOKEN_靄:1.0__SYM_靄_119_)._TOKEN_靄:1.0__SYM_靄_179_._TOKEN_靄:1.0__SYM_靄_145_() {
+        case "_TOKEN_漕:1.0__SYM_靄_166_":          return ._TOKEN_漕:1.0__SYM_靄_166_
+        case "py":             return ._TOKEN_靄:1.0__SYM_靄_261_
+        case "ts", "_TOKEN_靄:1.0__SYM_靄_34_":      return ._TOKEN_靄:1.0__SYM_靄_199_
+        case "js", "_TOKEN_靄:1.0__SYM_靄_260_":      return ._TOKEN_靄:1.0__SYM_靄_227_
+        case "rs":             return ._TOKEN_靄:1.0__SYM_靄_118_
+        case "go":             return .go
+        case "_TOKEN_靄:1.0__SYM_靄_83_", "cc":      return ._TOKEN_靄:1.0__SYM_靄_83_
+        _TOKEN_靄:1.0__SYM_靄_186_:               return ._TOKEN_靄:1.0__SYM_靄_121_
+        }
+    }
+
+    private func _TOKEN_靄:1.0__SYM_靄_192_(
+        _TOKEN_規:1.0__SYM_靄_138_: _TOKEN_規:1.0__SYM_廂_79_,
+        _TOKEN_靄:1.0__SYM_靄_183_: _TOKEN_廂:1.0__SYM_廂_78_,
+        _TOKEN_靄:1.0__SYM_靄_207_: _TOKEN_廂:1.0__SYM_廂_95_,
+        _TOKEN_靄:1.0__SYM_靄_159_: _TOKEN_廂:1.0__SYM_廂_95_
+    ) -> _TOKEN_廂:1.0__SYM_廂_95_ {
+        """
+        🔐 **_TOKEN_廂:1.0__SYM_廂_76_ _TOKEN_廂:1.0__SYM_廂_16_** — _TOKEN_廂:1.0__SYM_廂_101_ `\(_TOKEN_靄:1.0__SYM_靄_159_)`
+
+        **_TOKEN_廂:1.0__SYM_廂_40_ _TOKEN_靄:1.0__SYM_靄_140_:**
+        • \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_10_) _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_71_ by _TOKEN_靄:1.0__SYM_靄_249_ _TOKEN_靄:1.0__SYM_靄_122_
+        • \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_14_) _TOKEN_靄:1.0__SYM_靄_253_ _TOKEN_漕:1.0__SYM_靄_6_ _TOKEN_靄:1.0__SYM_靄_71_ by _TOKEN_廂:1.0__SYM_廂_33_ _TOKEN_靄:1.0__SYM_靄_77_ _TOKEN_靄:1.0__SYM_靄_122_  
+        • \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_暗:1.0__SYM_靄_278_) _TOKEN_暗:1.0__SYM_靄_161_/_TOKEN_絢:1.0__SYM_廂_68_ _TOKEN_暗:1.0__SYM_靄_210_ _TOKEN_靄:1.0__SYM_靄_9_ _TOKEN_靄:1.0__SYM_靄_120_
+        • \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_149_) _TOKEN_匳:1.0__SYM_靄_94_ _TOKEN_靄:1.0__SYM_靄_203_ _TOKEN_靄:1.0__SYM_靄_274_
+        • **_TOKEN_廂:1.0__SYM_廂_59_: \(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_222_) _TOKEN_漕:1.0__SYM_靄_6_** — _TOKEN_廂:1.0__SYM_廂_76_ _TOKEN_靄:1.0__SYM_靄_202_: **\(_TOKEN_靄:1.0__SYM_靄_183_._TOKEN_靄:1.0__SYM_靄_214_)/100**
+
+        ✅ _TOKEN_廂:1.0__SYM_廂_65_ _TOKEN_靄:1.0__SYM_靄_48_ _TOKEN_靄:1.0__SYM_靄_191_, _TOKEN_靄:1.0__SYM_靄_196_ _TOKEN_靄:1.0__SYM_靄_88_, _TOKEN_靄:1.0__SYM_靄_170_ _TOKEN_靄:1.0__SYM_靄_22_ **_TOKEN_規:1.0__SYM_靄_111_ _TOKEN_靄:1.0__SYM_靄_205_ _TOKEN_靄:1.0__SYM_靄_107_ _TOKEN_廂:1.0__SYM_廂_17_**.
+        _TOKEN_廂:1.0__SYM_廂_34_ _TOKEN_靄:1.0__SYM_靄_42_ _TOKEN_靄:1.0__SYM_靄_66_ _TOKEN_靄:1.0__SYM_靄_144_ _TOKEN_靄:1.0__SYM_靄_96_ by \(_TOKEN_規:1.0__SYM_靄_138_._TOKEN_靄:1.0__SYM_靄_11_).
+
+        **_TOKEN_廂:1.0__SYM_廂_18_ _TOKEN_靄:1.0__SYM_靄_184_ \(_TOKEN_規:1.0__SYM_靄_138_._TOKEN_靄:1.0__SYM_靄_11_):**
+        \(_TOKEN_靄:1.0__SYM_靄_207_)
+        """
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,122 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4FFDAAE5 ver:1778159749
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import re
+_TOKEN_霤:1.0__VERANTYX_霤_42_ _TOKEN_霤:1.0__VERANTYX_霤_66_ import _TOKEN_廂:1.0__VERANTYX_廂_10_, _TOKEN_廂:1.0__VERANTYX_廂_4_
+import _TOKEN_霤:1.0__VERANTYX_霤_25_
+_TOKEN_霤:1.0__VERANTYX_霤_42_ _TOKEN_霤:1.0__VERANTYX_霤_25_._TOKEN_霤:1.0__VERANTYX_霤_56_._TOKEN_節:1.0__VERANTYX_霤_35_ import _TOKEN_霤:1.0__VERANTYX_霤_24_, _TOKEN_滾:1.0__VERANTYX_霤_11_, _TOKEN_霤:1.0__VERANTYX_霤_67_
+_TOKEN_霤:1.0__VERANTYX_霤_42_ ._TOKEN_霤:1.0__VERANTYX_霤_73_ import _TOKEN_節:1.0__VERANTYX_廂_16_, _TOKEN_廂:1.0__VERANTYX_廂_14_
+
+// _TOKEN_節:0.7__VERANTYX_FY_447_ [decoy-metadata]
+class _TOKEN_節:1.0__VERANTYX_廂_5_(_TOKEN_節:1.0__VERANTYX_廂_16_):
+    _TOKEN_霤:1.0__VERANTYX_霤_21_ _TOKEN_霤:1.0__VERANTYX_霤_36_(self):
+        self._TOKEN_滾:1.0__VERANTYX_霤_39_ = (_TOKEN_滾:1.0__VERANTYX_霤_11_ + (_TOKEN_霤:1.0__VERANTYX_霤_67_,))
+        self._TOKEN_霤:1.0__VERANTYX_霤_17_ = {
+            r"( 対称|交代|歪対称)行列.*(次元|成分|数)": 0.95,
+            r"実?n次.*対称行列": 0.95,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_37_.*_TOKEN_霤:1.0__VERANTYX_霤_26_": 0.95,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_29_.*_TOKEN_霤:1.0__VERANTYX_霤_78_.*(_TOKEN_霤:1.0__VERANTYX_霤_58_|_TOKEN_霤:1.0__VERANTYX_霤_26_)": 0.95,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_85_.*(_TOKEN_霤:1.0__VERANTYX_霤_1_|0)": 0.8,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_86_": 0.8,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_84_": 0.8,
+            r"_TOKEN_霤:1.0__VERANTYX_霤_44_": 0.8
+        }
+        self._TOKEN_滾:1.0__VERANTYX_霤_72_ = {
+            r"( 対称|_TOKEN_霤:1.0__VERANTYX_霤_29_).*行列.*(次元|成分|数|_TOKEN_霤:1.0__VERANTYX_霤_58_|_TOKEN_霤:1.0__VERANTYX_霤_26_)": "n*(n+1)/2",
+            r"(交代|_TOKEN_霤:1.0__VERANTYX_霤_27_|歪対称).*行列.*(次元|成分|数|_TOKEN_霤:1.0__VERANTYX_霤_58_|_TOKEN_霤:1.0__VERANTYX_霤_26_)": "n*(n-1)/2",
+            r"_TOKEN_霤:1.0__VERANTYX_霤_85_.*(_TOKEN_霤:1.0__VERANTYX_霤_1_|0)": "n*n - 1",
+        }
+
+    _TOKEN_霤:1.0__VERANTYX_霤_21_ _TOKEN_霤:1.0__VERANTYX_霤_47_(self, _TOKEN_霤:1.0__VERANTYX_霤_53_: _TOKEN_霤:1.0__VERANTYX_霤_81_, _TOKEN_霤:1.0__VERANTYX_霤_16_: _TOKEN_廂:1.0__VERANTYX_廂_10_[_TOKEN_霤:1.0__VERANTYX_霤_81_, _TOKEN_廂:1.0__VERANTYX_廂_4_]) -> _TOKEN_霤:1.0__VERANTYX_霤_71_:
+        if _TOKEN_霤:1.0__VERANTYX_霤_16_._TOKEN_節:1.0__VERANTYX_粋_1_("_TOKEN_霤:1.0__VERANTYX_霤_20_") in ["_TOKEN_霤:1.0__VERANTYX_霤_65_", "_TOKEN_霤:1.0__VERANTYX_霤_69_"]:
+            return 1.0
+            
+        _TOKEN_霤:1.0__VERANTYX_霤_89_ = 0.0
+        for _TOKEN_霤:1.0__VERANTYX_霤_82_, _TOKEN_霤:1.0__VERANTYX_霤_34_ in self._TOKEN_霤:1.0__VERANTYX_霤_17_._TOKEN_霤:1.0__VERANTYX_霤_9_():
+            if re._TOKEN_霤:1.0__VERANTYX_霤_43_(_TOKEN_霤:1.0__VERANTYX_霤_82_, _TOKEN_霤:1.0__VERANTYX_霤_53_, re._TOKEN_廂:1.0__VERANTYX_廂_6_):
+                _TOKEN_霤:1.0__VERANTYX_霤_89_ = _TOKEN_霤:1.0__VERANTYX_霤_51_(_TOKEN_霤:1.0__VERANTYX_霤_89_, _TOKEN_霤:1.0__VERANTYX_霤_34_)
+        return _TOKEN_霤:1.0__VERANTYX_霤_89_
+// _TOKEN_節:0.9__VERANTYX_GZ_390_ [decoy-metadata]
+
+    _TOKEN_霤:1.0__VERANTYX_霤_21_ _TOKEN_霤:1.0__VERANTYX_霤_52_(self, _TOKEN_霤:1.0__VERANTYX_霤_53_: _TOKEN_霤:1.0__VERANTYX_霤_81_, _TOKEN_霤:1.0__VERANTYX_霤_16_: _TOKEN_廂:1.0__VERANTYX_廂_10_[_TOKEN_霤:1.0__VERANTYX_霤_81_, _TOKEN_廂:1.0__VERANTYX_廂_4_], _TOKEN_霤:1.0__VERANTYX_霤_90_: _TOKEN_廂:1.0__VERANTYX_廂_10_[_TOKEN_霤:1.0__VERANTYX_霤_81_, _TOKEN_廂:1.0__VERANTYX_廂_4_]) -> _TOKEN_廂:1.0__VERANTYX_廂_14_:
+        _TOKEN_霤:1.0__VERANTYX_霤_8_ = _TOKEN_廂:1.0__VERANTYX_廂_12_
+        for _TOKEN_霤:1.0__VERANTYX_霤_82_, _TOKEN_霤:1.0__VERANTYX_霤_22_ in self._TOKEN_滾:1.0__VERANTYX_霤_72_._TOKEN_霤:1.0__VERANTYX_霤_9_():
+            if re._TOKEN_霤:1.0__VERANTYX_霤_43_(_TOKEN_霤:1.0__VERANTYX_霤_82_, _TOKEN_霤:1.0__VERANTYX_霤_53_, re._TOKEN_廂:1.0__VERANTYX_廂_6_):
+                _TOKEN_霤:1.0__VERANTYX_霤_8_ = _TOKEN_霤:1.0__VERANTYX_霤_22_
+                break
+
+// [metadata-stripped]
+        if _TOKEN_霤:1.0__VERANTYX_霤_76_ _TOKEN_霤:1.0__VERANTYX_霤_8_:
+            _TOKEN_霤:1.0__VERANTYX_霤_74_ = _TOKEN_霤:1.0__VERANTYX_霤_16_._TOKEN_節:1.0__VERANTYX_粋_1_("_TOKEN_霤:1.0__VERANTYX_霤_74_", []) or []
+            for _TOKEN_霤:1.0__VERANTYX_霤_30_ in _TOKEN_霤:1.0__VERANTYX_霤_74_:
+                c = re._TOKEN_霤:1.0__VERANTYX_霤_15_(r"\s+", "", _TOKEN_霤:1.0__VERANTYX_霤_81_(_TOKEN_霤:1.0__VERANTYX_霤_30_))
+                if re._TOKEN_霤:1.0__VERANTYX_霤_43_(r"_TOKEN_霤:1.0__VERANTYX_霤_54_\(", c, re._TOKEN_廂:1.0__VERANTYX_廂_6_):
+                    _TOKEN_霤:1.0__VERANTYX_霤_8_ = "n*(n+1)/2"
+                    break
+                if re._TOKEN_霤:1.0__VERANTYX_霤_43_(r"_TOKEN_霤:1.0__VERANTYX_霤_3_\(", c, re._TOKEN_廂:1.0__VERANTYX_廂_6_):
+                    _TOKEN_霤:1.0__VERANTYX_霤_8_ = "n*(n-1)/2"
+                    break
+                if re._TOKEN_霤:1.0__VERANTYX_霤_43_(r"_TOKEN_霤:1.0__VERANTYX_霤_60_\(", c, re._TOKEN_廂:1.0__VERANTYX_廂_6_):
+                    _TOKEN_霤:1.0__VERANTYX_霤_8_ = "n*n"
+                    break
+        
+        if _TOKEN_霤:1.0__VERANTYX_霤_76_ _TOKEN_霤:1.0__VERANTYX_霤_8_:
+            return _TOKEN_廂:1.0__VERANTYX_廂_14_("_TOKEN_霤:1.0__VERANTYX_霤_31_", "_TOKEN_廂:1.0__VERANTYX_廂_1_ _TOKEN_霤:1.0__VERANTYX_霤_76_ _TOKEN_霤:1.0__VERANTYX_霤_45_", 0.1)
+// _TOKEN_匣:0.3__VERANTYX_GF_705_ [decoy-metadata]
+// _TOKEN_粋:0.6__VERANTYX_BF_423_ [decoy-metadata]
+
+        try:
+            _TOKEN_霤:1.0__VERANTYX_霤_32_ = _TOKEN_霤:1.0__VERANTYX_霤_24_(_TOKEN_霤:1.0__VERANTYX_霤_8_, _TOKEN_滾:1.0__VERANTYX_霤_39_=self._TOKEN_滾:1.0__VERANTYX_霤_39_)
+        _TOKEN_霤:1.0__VERANTYX_霤_41_ _TOKEN_廂:1.0__VERANTYX_廂_7_ as e:
+            return _TOKEN_廂:1.0__VERANTYX_廂_14_("_TOKEN_霤:1.0__VERANTYX_霤_31_", f"_TOKEN_廂:1.0__VERANTYX_廂_1_ _TOKEN_霤:1.0__VERANTYX_霤_63_ _TOKEN_霤:1.0__VERANTYX_霤_13_: {e}", 0.0)
+
+        _TOKEN_霤:1.0__VERANTYX_霤_74_ = _TOKEN_霤:1.0__VERANTYX_霤_16_._TOKEN_節:1.0__VERANTYX_粋_1_("_TOKEN_霤:1.0__VERANTYX_霤_74_", [])
+        if _TOKEN_霤:1.0__VERANTYX_霤_76_ _TOKEN_霤:1.0__VERANTYX_霤_74_:
+             return _TOKEN_廂:1.0__VERANTYX_廂_14_("_TOKEN_霤:1.0__VERANTYX_霤_18_", f"_TOKEN_廂:1.0__VERANTYX_廂_8_ _TOKEN_滾:1.0__VERANTYX_霤_57_: {_TOKEN_霤:1.0__VERANTYX_霤_8_}", 0.8)
+
+// [metadata-stripped]
+        _TOKEN_霤:1.0__VERANTYX_霤_23_ = []
+        _TOKEN_霤:1.0__VERANTYX_霤_40_ = []
+// _TOKEN_渕:0.9__VERANTYX_XB_221_ [decoy-metadata]
+        for _TOKEN_霤:1.0__VERANTYX_霤_30_ in _TOKEN_霤:1.0__VERANTYX_霤_74_:
+// [metadata-stripped]
+            _TOKEN_霤:1.0__VERANTYX_霤_7_ = re._TOKEN_霤:1.0__VERANTYX_霤_15_(r"^[A-D]\s*[\.:]\s*", "", _TOKEN_霤:1.0__VERANTYX_霤_30_)
+            _TOKEN_霤:1.0__VERANTYX_霤_7_ = _TOKEN_霤:1.0__VERANTYX_霤_7_._TOKEN_霤:1.0__VERANTYX_霤_88_("\n", "")._TOKEN_霤:1.0__VERANTYX_霤_88_(" ", "")
+            
+            _TOKEN_霤:1.0__VERANTYX_霤_50_ = _TOKEN_廂:1.0__VERANTYX_廂_13_
+// _TOKEN_滾:0.8__VERANTYX_LL_637_ [decoy-metadata]
+            try:
+                _TOKEN_霤:1.0__VERANTYX_霤_14_ = _TOKEN_霤:1.0__VERANTYX_霤_24_(_TOKEN_霤:1.0__VERANTYX_霤_7_, _TOKEN_滾:1.0__VERANTYX_霤_39_=self._TOKEN_滾:1.0__VERANTYX_霤_39_)
+                if _TOKEN_霤:1.0__VERANTYX_霤_25_._TOKEN_滾:1.0__VERANTYX_霤_33_(_TOKEN_霤:1.0__VERANTYX_霤_32_ - _TOKEN_霤:1.0__VERANTYX_霤_14_) == 0:
+                    _TOKEN_霤:1.0__VERANTYX_霤_50_ = _TOKEN_廂:1.0__VERANTYX_廂_2_
+            _TOKEN_霤:1.0__VERANTYX_霤_41_:
+                _TOKEN_霤:1.0__VERANTYX_霤_48_
+            
+            if _TOKEN_霤:1.0__VERANTYX_霤_50_:
+                _TOKEN_霤:1.0__VERANTYX_霤_23_._TOKEN_霤:1.0__VERANTYX_霤_68_(_TOKEN_霤:1.0__VERANTYX_霤_30_)
+                _TOKEN_霤:1.0__VERANTYX_霤_40_._TOKEN_霤:1.0__VERANTYX_霤_68_({"_TOKEN_滾:1.0__VERANTYX_霤_57_": _TOKEN_霤:1.0__VERANTYX_霤_30_, "_TOKEN_霤:1.0__VERANTYX_霤_70_": "_TOKEN_霤:1.0__VERANTYX_霤_2_"})
+            else:
+                _TOKEN_霤:1.0__VERANTYX_霤_40_._TOKEN_霤:1.0__VERANTYX_霤_68_({"_TOKEN_滾:1.0__VERANTYX_霤_57_": _TOKEN_霤:1.0__VERANTYX_霤_30_, "_TOKEN_霤:1.0__VERANTYX_霤_70_": "_TOKEN_霤:1.0__VERANTYX_霤_10_"})
+
+        if _TOKEN_霤:1.0__VERANTYX_霤_23_:
+            return _TOKEN_廂:1.0__VERANTYX_廂_14_(
+                _TOKEN_霤:1.0__VERANTYX_霤_70_="_TOKEN_霤:1.0__VERANTYX_霤_2_",
+                _TOKEN_節:1.0__VERANTYX_霤_80_=f"_TOKEN_廂:1.0__VERANTYX_廂_17_ _TOKEN_廂:1.0__VERANTYX_廂_9_: {', '._TOKEN_霤:1.0__VERANTYX_霤_62_(_TOKEN_霤:1.0__VERANTYX_霤_23_)}",
+                _TOKEN_霤:1.0__VERANTYX_霤_61_=1.0,
+                _TOKEN_霤:1.0__VERANTYX_霤_4_={
+                    "_TOKEN_滾:1.0__VERANTYX_霤_57_": _TOKEN_霤:1.0__VERANTYX_霤_8_, 
+                    "_TOKEN_霤:1.0__VERANTYX_霤_46_": "_TOKEN_霤:1.0__VERANTYX_霤_38_",
+                    "_TOKEN_霤:1.0__VERANTYX_霤_40_": _TOKEN_霤:1.0__VERANTYX_霤_40_ # _TOKEN_廂:1.0__VERANTYX_廂_11_ _TOKEN_霤:1.0__VERANTYX_霤_28_ _TOKEN_霤:1.0__VERANTYX_霤_5_
+                }
+            )
+
+        return _TOKEN_廂:1.0__VERANTYX_廂_14_(
+            _TOKEN_霤:1.0__VERANTYX_霤_70_="_TOKEN_霤:1.0__VERANTYX_霤_10_", 
+            _TOKEN_節:1.0__VERANTYX_霤_80_="No _TOKEN_霤:1.0__VERANTYX_霤_74_ _TOKEN_霤:1.0__VERANTYX_霤_75_ _TOKEN_霤:1.0__VERANTYX_霤_55_ _TOKEN_霤:1.0__VERANTYX_霤_77_ _TOKEN_滾:1.0__VERANTYX_霤_57_.", 
+            _TOKEN_霤:1.0__VERANTYX_霤_61_=0.9,
+            _TOKEN_霤:1.0__VERANTYX_霤_4_={"_TOKEN_霤:1.0__VERANTYX_霤_64_": _TOKEN_霤:1.0__VERANTYX_霤_8_}
+        )
+
+// POLYMORPHIC_JCROSS_END

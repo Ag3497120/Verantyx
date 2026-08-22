@@ -1,0 +1,44 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2C69D259 ver:1778159756
+// ⚠️ One-time schema — expires after response
+
+_SYM_礫:1.0__JCROSS_礫_1_ _SYM_礫:1.0__JCROSS_礫_9_ import _SYM_廨:1.0__JCROSS_廨_2_, _SYM_廨:1.0__JCROSS_廨_3_, _SYM_廨:1.0__JCROSS_廨_1_
+import re
+_SYM_礫:1.0__JCROSS_礫_1_ _SYM_礫:1.0__JCROSS_礫_21_._SYM_礫:1.0__JCROSS_礫_10_._SYM_礫:1.0__JCROSS_礫_19_ import _SYM_業:1.0__JCROSS_廨_5_
+_SYM_礫:1.0__JCROSS_礫_1_ _SYM_礫:1.0__JCROSS_礫_21_._SYM_礫:1.0__JCROSS_礫_4_._SYM_潤:1.0__JCROSS_礫_2_ import _SYM_潤:1.0__JCROSS_礫_3_
+
+class _SYM_業:1.0__JCROSS_廨_6_(_SYM_業:1.0__JCROSS_廨_5_):
+// _SYM_廨:0.1__JCROSS_YW_909_ [decoy-metadata]
+    _SYM_礫:1.0__JCROSS_礫_18_ _SYM_礫:1.0__JCROSS_礫_11_(self, _SYM_礫:1.0__JCROSS_礫_26_: _SYM_礫:1.0__JCROSS_礫_20_) -> _SYM_礫:1.0__JCROSS_礫_7_:
+// [metadata-stripped]
+// _SYM_窟:0.4__JCROSS_FX_100_ [decoy-metadata]
+        _SYM_礫:1.0__JCROSS_礫_25_ = 0.0
+        if any(op in _SYM_礫:1.0__JCROSS_礫_26_ for op in ["->", "[]", "<>", "□", "◇", "∀", "∃"]):
+            _SYM_礫:1.0__JCROSS_礫_25_ += 0.6
+// _SYM_紐:0.9__JCROSS_DV_375_ [decoy-metadata]
+        
+// [metadata-stripped]
+        _SYM_礫:1.0__JCROSS_礫_23_ = re._SYM_礫:1.0__JCROSS_礫_14_(r"\s+", "", _SYM_礫:1.0__JCROSS_礫_26_)
+        if _SYM_礫:1.0__JCROSS_礫_17_ _SYM_礫:1.0__JCROSS_礫_23_:
+            return 0.0
+            
+        _SYM_礫:1.0__JCROSS_礫_5_ = _SYM_礫:1.0__JCROSS_礫_6_(re._SYM_礫:1.0__JCROSS_礫_27_(r"[A-Za-z0-9+\-*/=<>!&|~\[\]\(\)]", _SYM_礫:1.0__JCROSS_礫_23_))
+        _SYM_礫:1.0__JCROSS_礫_24_ = _SYM_礫:1.0__JCROSS_礫_5_ / _SYM_礫:1.0__JCROSS_礫_6_(_SYM_礫:1.0__JCROSS_礫_23_)
+        
+        if _SYM_礫:1.0__JCROSS_礫_24_ > 0.5:
+            _SYM_礫:1.0__JCROSS_礫_25_ += 0.4
+            
+        return _SYM_礫:1.0__JCROSS_礫_22_(_SYM_礫:1.0__JCROSS_礫_25_, 1.0)
+
+    _SYM_礫:1.0__JCROSS_礫_18_ _SYM_礫:1.0__JCROSS_礫_12_(self, _SYM_礫:1.0__JCROSS_礫_26_: _SYM_礫:1.0__JCROSS_礫_20_) -> _SYM_廨:1.0__JCROSS_廨_3_[_SYM_礫:1.0__JCROSS_礫_20_, _SYM_廨:1.0__JCROSS_廨_2_]:
+// _SYM_紐:0.8__JCROSS_HD_954_ [decoy-metadata]
+        _SYM_礫:1.0__JCROSS_礫_15_ = _SYM_潤:1.0__JCROSS_礫_3_(_SYM_礫:1.0__JCROSS_礫_26_)
+        return {
+            "_SYM_礫:1.0__JCROSS_礫_8_": "_SYM_潤:1.0__JCROSS_礫_16_",
+            "_SYM_礫:1.0__JCROSS_礫_15_": _SYM_礫:1.0__JCROSS_礫_15_,
+// _SYM_礎:0.2__JCROSS_LY_684_ [decoy-metadata]
+// _SYM_業:0.8__JCROSS_EB_434_ [decoy-metadata]
+            "_SYM_礫:1.0__JCROSS_礫_13_": _SYM_礫:1.0__JCROSS_礫_15_[0] if _SYM_礫:1.0__JCROSS_礫_15_ else _SYM_廨:1.0__JCROSS_廨_4_
+        }
+
+// POLYMORPHIC_JCROSS_END

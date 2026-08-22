@@ -1,0 +1,126 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:15046379 ver:1778162948
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _VERANTYX_泡:1.0__SYM_泡_7_
+import _VERANTYX_泡:1.0__SYM_泡_26_
+import _VERANTYX_泡:1.0__SYM_泡_44_
+import re
+import _VERANTYX_泡:1.0__SYM_泡_39_
+_VERANTYX_泡:1.0__SYM_泡_78_ _VERANTYX_泡:1.0__SYM_泡_9_ import _VERANTYX_廂:1.0__SYM_廂_10_
+_VERANTYX_泡:1.0__SYM_泡_78_ _VERANTYX_泡:1.0__SYM_泡_86_ import _VERANTYX_廂:1.0__SYM_廂_27_, _VERANTYX_廂:1.0__SYM_廂_21_, _VERANTYX_廂:1.0__SYM_廂_12_, _VERANTYX_廂:1.0__SYM_廂_18_, _VERANTYX_廂:1.0__SYM_廂_17_
+_VERANTYX_泡:1.0__SYM_泡_78_ _VERANTYX_泡:1.0__SYM_泡_79_ import _VERANTYX_泡:1.0__SYM_泡_23_, _VERANTYX_則:1.0__SYM_廂_5_
+
+_VERANTYX_奥:1.0__SYM_廂_7_ = ["_VERANTYX_廂:1.0__SYM_廂_8_:", "_VERANTYX_廂:1.0__SYM_廂_14_:", "_VERANTYX_廂:1.0__SYM_廂_1_ _VERANTYX_廂:1.0__SYM_廂_19_:", "_VERANTYX_廂:1.0__SYM_廂_2_ _VERANTYX_廂:1.0__SYM_廂_3_:", "_VERANTYX_廂:1.0__SYM_廂_26_:"]
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_10_() -> _VERANTYX_泡:1.0__SYM_泡_6_:
+    return _VERANTYX_泡:1.0__SYM_泡_39_._VERANTYX_泡:1.0__SYM_泡_88_("%Y-%m-%dT%H:%M:%S%z")
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_80_(_VERANTYX_泡:1.0__SYM_泡_45_: _VERANTYX_廂:1.0__SYM_廂_10_) -> _VERANTYX_廂:1.0__SYM_廂_12_[_VERANTYX_廂:1.0__SYM_廂_27_[_VERANTYX_泡:1.0__SYM_泡_6_, _VERANTYX_廂:1.0__SYM_廂_21_]]:
+    if _VERANTYX_泡:1.0__SYM_泡_19_ _VERANTYX_泡:1.0__SYM_泡_45_._VERANTYX_泡:1.0__SYM_泡_22_(): return []
+    _VERANTYX_泡:1.0__SYM_泡_57_ _VERANTYX_泡:1.0__SYM_泡_45_.open("r", _VERANTYX_泡:1.0__SYM_泡_71_="_VERANTYX_泡:1.0__SYM_泡_52_-8") as f:
+        return [_VERANTYX_泡:1.0__SYM_泡_26_._VERANTYX_函:1.0__SYM_泡_12_(_VERANTYX_泡:1.0__SYM_泡_68_) for _VERANTYX_泡:1.0__SYM_泡_68_ in f if _VERANTYX_泡:1.0__SYM_泡_68_._VERANTYX_泡:1.0__SYM_泡_47_()]
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_35_(_VERANTYX_泡:1.0__SYM_泡_4_: _VERANTYX_泡:1.0__SYM_泡_6_) -> _VERANTYX_泡:1.0__SYM_泡_21_:
+    _VERANTYX_奥:1.0__SYM_泡_81_ = re._VERANTYX_泡:1.0__SYM_泡_43_(r"[a-z0-9_]+", _VERANTYX_泡:1.0__SYM_泡_4_._VERANTYX_則:1.0__SYM_泡_54_())
+    v = [0]*64
+// _VERANTYX_涌:0.4__SYM_DV_716_ [decoy-metadata]
+    for t in _VERANTYX_奥:1.0__SYM_泡_81_:
+        h = _VERANTYX_泡:1.0__SYM_泡_105_(t) & ((1<<64)-1)
+// _VERANTYX_凛:0.1__SYM_AG_693_ [decoy-metadata]
+        for i in _VERANTYX_泡:1.0__SYM_泡_40_(64):
+            v[i] += 1 if (h >> i) & 1 else -1
+    _VERANTYX_泡:1.0__SYM_泡_70_ = 0
+    for i in _VERANTYX_泡:1.0__SYM_泡_40_(64):
+        if v[i] > 0: _VERANTYX_泡:1.0__SYM_泡_70_ |= (1<<i)
+    return _VERANTYX_泡:1.0__SYM_泡_70_
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_5_(a: _VERANTYX_泡:1.0__SYM_泡_21_, b: _VERANTYX_泡:1.0__SYM_泡_21_) -> _VERANTYX_泡:1.0__SYM_泡_21_:
+    return (a ^ b)._VERANTYX_泡:1.0__SYM_泡_72_()
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_32_(_VERANTYX_泡:1.0__SYM_泡_18_: _VERANTYX_廂:1.0__SYM_廂_27_[_VERANTYX_泡:1.0__SYM_泡_6_, _VERANTYX_廂:1.0__SYM_廂_21_], _VERANTYX_泡:1.0__SYM_泡_90_: _VERANTYX_廂:1.0__SYM_廂_27_[_VERANTYX_泡:1.0__SYM_泡_6_, _VERANTYX_則:1.0__SYM_廂_5_], _VERANTYX_泡:1.0__SYM_泡_56_: _VERANTYX_廂:1.0__SYM_廂_27_[_VERANTYX_泡:1.0__SYM_泡_6_, _VERANTYX_泡:1.0__SYM_泡_21_]) -> _VERANTYX_廂:1.0__SYM_廂_18_[_VERANTYX_泡:1.0__SYM_泡_15_, _VERANTYX_廂:1.0__SYM_廂_27_[_VERANTYX_泡:1.0__SYM_泡_6_, _VERANTYX_泡:1.0__SYM_泡_15_]]:
+    _VERANTYX_泡:1.0__SYM_泡_28_ = _VERANTYX_泡:1.0__SYM_泡_18_["id"]
+    _VERANTYX_泡:1.0__SYM_泡_95_ = _VERANTYX_泡:1.0__SYM_泡_18_._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_95_", "")
+// _VERANTYX_涌:0.8__SYM_WV_261_ [decoy-metadata]
+    
+// [metadata-stripped]
+    _VERANTYX_則:1.0__SYM_泡_8_ = 1.0 if "_VERANTYX_涌:1.0__SYM_泡_20_ _VERANTYX_泡:1.0__SYM_泡_50_ of" in _VERANTYX_泡:1.0__SYM_泡_18_._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_34_", "")._VERANTYX_則:1.0__SYM_泡_54_() else 0.0
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0__SYM_泡_48_ = _VERANTYX_泡:1.0__SYM_泡_6_(_VERANTYX_泡:1.0__SYM_泡_18_._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_25_", ""))
+    _VERANTYX_泡:1.0__SYM_泡_94_ = _VERANTYX_泡:1.0__SYM_泡_93_(1 for k in _VERANTYX_奥:1.0__SYM_廂_7_ if k in _VERANTYX_泡:1.0__SYM_泡_48_) / _VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_奥:1.0__SYM_廂_7_) if _VERANTYX_泡:1.0__SYM_泡_95_ == "_VERANTYX_泡:1.0__SYM_泡_75_" else 0.5
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0__SYM_泡_83_ = 1.0 - _VERANTYX_泡:1.0__SYM_泡_44_._VERANTYX_泡:1.0__SYM_泡_66_(-_VERANTYX_泡:1.0__SYM_泡_56_._VERANTYX_則:1.0__SYM_凛_1_(_VERANTYX_泡:1.0__SYM_泡_28_, 0) / 5.0)
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0__SYM_泡_58_ = _VERANTYX_泡:1.0__SYM_泡_90_._VERANTYX_則:1.0__SYM_凛_1_(_VERANTYX_泡:1.0__SYM_泡_28_, _VERANTYX_則:1.0__SYM_廂_5_())
+    _VERANTYX_泡:1.0__SYM_泡_49_ = _VERANTYX_泡:1.0__SYM_泡_93_(_VERANTYX_泡:1.0__SYM_泡_58_._VERANTYX_泡:1.0__SYM_泡_55_())
+    _VERANTYX_泡:1.0__SYM_泡_31_ = (_VERANTYX_泡:1.0__SYM_泡_58_["_VERANTYX_泡:1.0__SYM_泡_53_"] - _VERANTYX_泡:1.0__SYM_泡_58_["_VERANTYX_泡:1.0__SYM_泡_46_"]*1.5) / _VERANTYX_泡:1.0__SYM_泡_49_ if _VERANTYX_泡:1.0__SYM_泡_49_ > 0 else 0.0
+    _VERANTYX_泡:1.0__SYM_泡_73_ = 1.0 / (1.0 + _VERANTYX_泡:1.0__SYM_泡_44_._VERANTYX_泡:1.0__SYM_泡_66_(-_VERANTYX_泡:1.0__SYM_泡_31_)) # _VERANTYX_泡:1.0__SYM_泡_51_
+// _VERANTYX_則:0.6__SYM_VZ_584_ [decoy-metadata]
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0__SYM_泡_69_ = (_VERANTYX_泡:1.0__SYM_泡_94_ * 0.4 + _VERANTYX_泡:1.0__SYM_泡_83_ * 0.3 + _VERANTYX_泡:1.0__SYM_泡_73_ * 0.3) * (1.0 - _VERANTYX_則:1.0__SYM_泡_8_ * 0.5)
+    return _VERANTYX_泡:1.0__SYM_泡_16_(_VERANTYX_泡:1.0__SYM_泡_69_ * 100, 2), {"_VERANTYX_泡:1.0__SYM_泡_94_": _VERANTYX_泡:1.0__SYM_泡_94_, "_VERANTYX_泡:1.0__SYM_泡_13_": _VERANTYX_泡:1.0__SYM_泡_83_, "_VERANTYX_泡:1.0__SYM_泡_30_": _VERANTYX_泡:1.0__SYM_泡_73_, "_VERANTYX_則:1.0__SYM_泡_8_": _VERANTYX_則:1.0__SYM_泡_8_}
+
+_VERANTYX_泡:1.0__SYM_泡_67_ _VERANTYX_泡:1.0__SYM_泡_24_():
+    ap = _VERANTYX_泡:1.0__SYM_泡_7_._VERANTYX_則:1.0__SYM_廂_6_()
+    ap._VERANTYX_泡:1.0__SYM_泡_77_("--kb", _VERANTYX_泡:1.0__SYM_泡_62_=_VERANTYX_廂:1.0__SYM_廂_13_)
+    ap._VERANTYX_泡:1.0__SYM_泡_77_("--_VERANTYX_泡:1.0__SYM_泡_30_", _VERANTYX_泡:1.0__SYM_泡_91_="")
+    ap._VERANTYX_泡:1.0__SYM_泡_77_("--_VERANTYX_泡:1.0__SYM_泡_38_", _VERANTYX_泡:1.0__SYM_泡_62_=_VERANTYX_廂:1.0__SYM_廂_13_)
+    ap._VERANTYX_泡:1.0__SYM_泡_77_("--_VERANTYX_泡:1.0__SYM_泡_76_", _VERANTYX_泡:1.0__SYM_泡_62_=_VERANTYX_廂:1.0__SYM_廂_13_)
+    ap._VERANTYX_泡:1.0__SYM_泡_77_("--_VERANTYX_泡:1.0__SYM_泡_74_", _VERANTYX_泡:1.0__SYM_泡_62_=_VERANTYX_廂:1.0__SYM_廂_13_)
+    _VERANTYX_泡:1.0__SYM_泡_98_ = ap._VERANTYX_泡:1.0__SYM_泡_29_()
+
+    _VERANTYX_泡:1.0__SYM_泡_92_ = _VERANTYX_廂:1.0__SYM_廂_10_(_VERANTYX_泡:1.0__SYM_泡_98_.kb)
+    _VERANTYX_泡:1.0__SYM_泡_84_ = _VERANTYX_泡:1.0__SYM_泡_80_(_VERANTYX_泡:1.0__SYM_泡_92_)
+    _VERANTYX_泡:1.0__SYM_泡_89_ = _VERANTYX_泡:1.0__SYM_泡_80_(_VERANTYX_廂:1.0__SYM_廂_10_(_VERANTYX_泡:1.0__SYM_泡_98_._VERANTYX_泡:1.0__SYM_泡_30_)) if _VERANTYX_泡:1.0__SYM_泡_98_._VERANTYX_泡:1.0__SYM_泡_30_ else []
+    
+// _VERANTYX_廂:0.3__SYM_WA_174_ [decoy-metadata]
+    _VERANTYX_泡:1.0__SYM_泡_90_ = _VERANTYX_泡:1.0__SYM_泡_23_(_VERANTYX_則:1.0__SYM_廂_5_)
+    for r in _VERANTYX_泡:1.0__SYM_泡_89_: _VERANTYX_泡:1.0__SYM_泡_90_[r["id"]][r["_VERANTYX_泡:1.0__SYM_泡_36_"]] += 1
+    
+    _VERANTYX_泡:1.0__SYM_泡_56_ = _VERANTYX_則:1.0__SYM_廂_5_()
+    for e in _VERANTYX_泡:1.0__SYM_泡_84_:
+        for _VERANTYX_泡:1.0__SYM_泡_37_ in e._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_1_", []): _VERANTYX_泡:1.0__SYM_泡_56_[_VERANTYX_泡:1.0__SYM_泡_37_] += 1
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0__SYM_泡_38_ = []
+    _VERANTYX_泡:1.0__SYM_泡_64_ = _VERANTYX_泡:1.0__SYM_泡_23_(_VERANTYX_泡:1.0__SYM_泡_103_)
+    for e in _VERANTYX_泡:1.0__SYM_泡_84_:
+        _VERANTYX_泡:1.0__SYM_泡_63_, _VERANTYX_泡:1.0__SYM_泡_87_ = _VERANTYX_泡:1.0__SYM_泡_32_(e, _VERANTYX_泡:1.0__SYM_泡_90_, _VERANTYX_泡:1.0__SYM_泡_56_)
+        _VERANTYX_泡:1.0__SYM_泡_38_._VERANTYX_泡:1.0__SYM_泡_97_({"id": e["id"], "_VERANTYX_泡:1.0__SYM_泡_63_": _VERANTYX_泡:1.0__SYM_泡_63_, "_VERANTYX_泡:1.0__SYM_泡_87_": _VERANTYX_泡:1.0__SYM_泡_87_})
+        
+        h = _VERANTYX_泡:1.0__SYM_泡_35_(e._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_34_", "") + _VERANTYX_泡:1.0__SYM_泡_6_(e._VERANTYX_則:1.0__SYM_凛_1_("_VERANTYX_泡:1.0__SYM_泡_25_", "")))
+        _VERANTYX_泡:1.0__SYM_泡_64_[h >> 48]._VERANTYX_泡:1.0__SYM_泡_97_((e["id"], h)) # _VERANTYX_廂:1.0__SYM_廂_23_ by _VERANTYX_泡:1.0__SYM_泡_27_ for _VERANTYX_泡:1.0__SYM_泡_33_
+
+    _VERANTYX_泡:1.0__SYM_泡_76_ = []
+    for _VERANTYX_泡:1.0__SYM_泡_102_ in _VERANTYX_泡:1.0__SYM_泡_64_._VERANTYX_泡:1.0__SYM_泡_55_():
+        for i in _VERANTYX_泡:1.0__SYM_泡_40_(_VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_泡:1.0__SYM_泡_102_)):
+            for j in _VERANTYX_泡:1.0__SYM_泡_40_(i+1, _VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_泡:1.0__SYM_泡_102_)):
+                if _VERANTYX_泡:1.0__SYM_泡_5_(_VERANTYX_泡:1.0__SYM_泡_102_[i][1], _VERANTYX_泡:1.0__SYM_泡_102_[j][1]) < 5:
+                    _VERANTYX_泡:1.0__SYM_泡_76_._VERANTYX_泡:1.0__SYM_泡_97_([_VERANTYX_泡:1.0__SYM_泡_102_[i][0], _VERANTYX_泡:1.0__SYM_泡_102_[j][0]])
+
+    _VERANTYX_泡:1.0__SYM_泡_57_ _VERANTYX_廂:1.0__SYM_廂_10_(_VERANTYX_泡:1.0__SYM_泡_98_._VERANTYX_泡:1.0__SYM_泡_38_).open("w") as f:
+        for s in _VERANTYX_泡:1.0__SYM_泡_38_: f._VERANTYX_泡:1.0__SYM_泡_61_(_VERANTYX_泡:1.0__SYM_泡_26_._VERANTYX_泡:1.0__SYM_泡_17_(s) + "\n")
+    
+    _VERANTYX_泡:1.0__SYM_泡_74_ = {
+        "ts": _VERANTYX_泡:1.0__SYM_泡_10_(),
+        "_VERANTYX_泡:1.0__SYM_泡_2_": _VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_泡:1.0__SYM_泡_84_),
+        "_VERANTYX_泡:1.0__SYM_泡_82_": _VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_泡:1.0__SYM_泡_76_),
+        "_VERANTYX_泡:1.0__SYM_泡_11_": _VERANTYX_泡:1.0__SYM_泡_93_(1 for s in _VERANTYX_泡:1.0__SYM_泡_38_ if s["_VERANTYX_泡:1.0__SYM_泡_63_"] < 35),
+        "_VERANTYX_泡:1.0__SYM_泡_3_": _VERANTYX_泡:1.0__SYM_泡_16_(_VERANTYX_泡:1.0__SYM_泡_93_(s["_VERANTYX_泡:1.0__SYM_泡_63_"] for s in _VERANTYX_泡:1.0__SYM_泡_38_) / _VERANTYX_泡:1.0__SYM_泡_41_(_VERANTYX_泡:1.0__SYM_泡_38_), 2)
+    }
+    _VERANTYX_廂:1.0__SYM_廂_10_(_VERANTYX_泡:1.0__SYM_泡_98_._VERANTYX_泡:1.0__SYM_泡_76_)._VERANTYX_泡:1.0__SYM_泡_99_(_VERANTYX_泡:1.0__SYM_泡_26_._VERANTYX_泡:1.0__SYM_泡_17_(_VERANTYX_泡:1.0__SYM_泡_76_, _VERANTYX_泡:1.0__SYM_泡_96_=2))
+// _VERANTYX_則:0.7__SYM_ZE_142_ [decoy-metadata]
+    _VERANTYX_廂:1.0__SYM_廂_10_(_VERANTYX_泡:1.0__SYM_泡_98_._VERANTYX_泡:1.0__SYM_泡_74_)._VERANTYX_泡:1.0__SYM_泡_99_(_VERANTYX_泡:1.0__SYM_泡_26_._VERANTYX_泡:1.0__SYM_泡_17_(_VERANTYX_泡:1.0__SYM_泡_74_, _VERANTYX_泡:1.0__SYM_泡_96_=2))
+    _VERANTYX_泡:1.0__SYM_泡_59_(_VERANTYX_泡:1.0__SYM_泡_26_._VERANTYX_泡:1.0__SYM_泡_17_(_VERANTYX_泡:1.0__SYM_泡_74_, _VERANTYX_泡:1.0__SYM_泡_96_=2))
+
+if _VERANTYX_泡:1.0__SYM_泡_100_ == "_VERANTYX_泡:1.0__SYM_泡_104_":
+    _VERANTYX_泡:1.0__SYM_泡_24_()
+
+// POLYMORPHIC_JCROSS_END

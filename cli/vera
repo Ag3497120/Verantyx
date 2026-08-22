@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# vera — thin wrapper around cli/verantyx-cli (SwiftPM product `vera`).
-# Dual-track: does not launch or replace Verantyx IDE GUI.
-set -euo pipefail
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-PKG="$ROOT/verantyx-cli"
-cd "$PKG"
-exec swift run --skip-build vera "$@" 2>/dev/null || exec swift run vera "$@"

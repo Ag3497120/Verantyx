@@ -1,0 +1,200 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E682A2F5 ver:1778159791
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_68__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_121__ import _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_109__
+_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_68__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_121__._ASTNODE_霢:1.0___node_霢_33__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_44__ import _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_115__
+_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_68__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_121__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_109__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_112__._ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_12__ import _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_12__
+import _ASTNODE_霢:1.0___node_霢_70__
+import os
+import _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_57__
+
+
+_ASTNODE_霢:1.0___node_霢_58__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_57__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___凛_4__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_8__)
+// _ASTNODE_匸:0.3___node_HG_855__ [decoy-metadata]
+
+
+class _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_15__(_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_3__):
+    _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_111__
+
+
+_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_13__ = 0x4000
+
+
+class _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_5__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_51__):
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_87__(
+        self, _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_67__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_17__
+    ):
+        if _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__ == "-":
+            _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__ = _ASTNODE_霢:1.0___node_霢_70__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_96__
+        if _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_1__(_ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__, "_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_5__"):
+            self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__ = open(_ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__, "rb")
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_65__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_16__
+        else:
+// [metadata-stripped]
+            self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__ = _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_107__
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_65__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_17__
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__
+        if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_67__ is _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+            _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_68__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_121__._ASTNODE_霢:1.0___node_霢_33__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_53__ import _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_69__
+
+            _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_69__("_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_67__", "_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_27__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_57__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_56__")
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_67__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_67__
+        self._ASTNODE_霢:1.0___node_霢_60__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__ = []
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ = 0
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_5__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_11__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_17__):
+        if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_11__:
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ += 1
+        if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__:
+// _ASTNODE_匸:0.7___node_LW_141__ [decoy-metadata]
+            self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_104__(0, 2)
+            _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_50__ = self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_13__()
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__._ASTNODE_規:1.0___node_凛_6__(0, _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_50__ // 100 or 1)
+            self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_104__(0)
+        self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_17__(self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__)
+        if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_65__:
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_84__()
+        if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_11__:
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ -= 1
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_84__(self):
+        self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_84__()
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_17__(self, _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__):
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_68__ _ASTNODE_霢:1.0___node_霢_72__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_114__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_42__ import _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_4__
+
+        _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_4__()
+        _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_8__ = self._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_99__
+        _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_10__ = self._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_86__
+        _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_6__ = self._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_119__
+
+        _ASTNODE_霢:1.0___node_霢_62__ = 0
+        while _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_16__:
+            _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_79__ = _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_5__(_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_13__)
+// _ASTNODE_匸:0.7___node_FC_991__ [decoy-metadata]
+            if _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_79__:
+                _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__._ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_18__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_79__, 1)
+                break
+            _ASTNODE_霢:1.0___node_霢_62__ = _ASTNODE_霢:1.0___node_霢_62__ + _ASTNODE_霢:1.0___node_霢_89__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_79__)
+            if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__:
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__._ASTNODE_規:1.0___node_凛_6__(_ASTNODE_霢:1.0___node_霢_62__ // 100)
+            _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_124__._ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_18__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_79__, 0)
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_99__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__):
+        if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 1 _ASTNODE_霢:1.0___node_霢_29__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ = 2
+            return
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ = self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ + 1
+        _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__._ASTNODE_規:1.0___node_凛_1__("_ASTNODE_霢:1.0___node_霢_43__")
+        if _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__ is _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+            if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_1__(self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__, "_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__"):
+// [metadata-stripped]
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_94__ = os._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_82__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_94__(self._ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_15__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__)
+            else:
+// [metadata-stripped]
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_94__ = os._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___凛_2__()
+// _ASTNODE_匸:0.6___node_KL_993__ [decoy-metadata]
+            _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__ = os._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_82__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_100__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_94__, _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__)
+        if _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__:
+            if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__ != "_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__":
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_75__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_15__("_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_35__ _ASTNODE_霢:1.0___node_霢_60__ _ASTNODE_霢:1.0___node_霢_106__: %s" % _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__)
+            if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_59__ is _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__ _ASTNODE_霢:1.0___node_霢_29__ _ASTNODE_霢:1.0___node_霢_48__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_112__:
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__._ASTNODE_規:1.0___node_凛_1__("_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__")
+                if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__ is _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+// _ASTNODE_凛:0.8___node_ZY_320__ [decoy-metadata]
+                    if _ASTNODE_霢:1.0___node_霢_89__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__) != 4:
+                        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_115__('"' + _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__ + '"')
+                    self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_91__
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+        _ASTNODE_滴:1.0___node_霢_80__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 1:
+            if _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__ is _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+                _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_102__ = _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_5__(_ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__)
+                _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_102__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_5__()
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+                return
+            _ASTNODE_霢:1.0___node_霢_106__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_109__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_37__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__)
+            _ASTNODE_霢:1.0___node_霢_9__ = "_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_1__ '%s' _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_10__..." % _ASTNODE_霢:1.0___node_霢_106__
+            if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__:
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___凛_5__(_ASTNODE_霢:1.0___node_霢_9__)
+            _ASTNODE_霢:1.0___node_霢_58__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_73__(_ASTNODE_霢:1.0___node_霢_9__)
+            if _ASTNODE_霢:1.0___node_霢_106__ == "_ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_11__":
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_109__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_11__
+            _ASTNODE_滴:1.0___node_霢_80__ "_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_7__" in _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__ or ("_ASTNODE_霢:1.0___node_霢_7__" in _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__ _ASTNODE_霢:1.0___node_霢_29__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_115__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__["_ASTNODE_霢:1.0___node_霢_7__"])):
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_12__
+            else:
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_109__._ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___凛_3__(_ASTNODE_霢:1.0___node_霢_106__)
+                if _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__ is _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+                    _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_12__
+            if _ASTNODE_霢:1.0___node_霢_106__ == "_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_116__" _ASTNODE_霢:1.0___node_霢_29__ _ASTNODE_霢:1.0___node_霢_106__ in self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__:
+// [metadata-stripped]
+// [metadata-stripped]
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_3__ = self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__[_ASTNODE_霢:1.0___node_霢_106__]
+            else:
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_3__ = _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_63__(_ASTNODE_霢:1.0___node_霢_106__)
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__[_ASTNODE_霢:1.0___node_霢_106__] = self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_3__
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+        _ASTNODE_滴:1.0___node_霢_80__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 2 _ASTNODE_霢:1.0___node_霢_29__ _ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__ is _ASTNODE_霢:1.0___node_霢_48__ _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__:
+            _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_102__ = _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_5__(_ASTNODE_匸:1.0____ASTNODE_霢:1.0___node_霢_95___霢_120__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_2__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_16__)
+            _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_102__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_5__()
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+            self._ASTNODE_霢:1.0___node_霢_60__ = _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_102__._ASTNODE_霢:1.0___node_霢_60__
+        _ASTNODE_滴:1.0___node_霢_80__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 2:
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__([])
+            self._ASTNODE_霢:1.0___node_霢_60__ = (_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1])
+        else:
+            l = []
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1]._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__((_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__, l))
+            self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__(l)
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_119__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_34__):
+        if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ > 1:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            if (
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_34__ != "\n"
+                _ASTNODE_霢:1.0___node_霢_29__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1]
+                _ASTNODE_霢:1.0___node_霢_29__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_46__(self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1][-1], _ASTNODE_霢:1.0___node_霢_64__)
+                _ASTNODE_霢:1.0___node_霢_29__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1][-1] != "\n"
+            ):
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1][-1] += _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_34__
+            else:
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1]._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_47__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_34__)
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___霢_86__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__):
+        self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ = self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ - 1
+        _ASTNODE_霢:1.0___node_霢_118__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_117__[-1]
+        if _ASTNODE_霢:1.0___node_霢_48__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_21__:
+            if self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 1:
+                self._ASTNODE_霢:1.0___node_霢_60__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__
+// _ASTNODE_凛:0.5___node_GL_199__ [decoy-metadata]
+            _ASTNODE_滴:1.0___node_霢_80__ self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_45__ == 2:
+                _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_4__ = self._ASTNODE_霢:1.0___node_霢_60__
+                self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_3__._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_77__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_32__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_16__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_4__, self._ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_55__)
+                self._ASTNODE_霢:1.0___node_霢_60__ = _ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__
+
+
+class _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___廬_2__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_51__):
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_87__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_92__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_24__=100):
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_22__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_92__)
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_規:1.0___node_凛_6__(self, _ASTNODE_霢:1.0___node_霢_23__, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_24__=_ASTNODE_廬:1.0____ASTNODE_霢:1.0___node_霢_95___廬_9__):
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_111__
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_40__(self, _ASTNODE_霢:1.0___node_霢_23__=1):
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_111__
+
+    _ASTNODE_霢:1.0___node_霢_108__ _ASTNODE_規:1.0____ASTNODE_霢:1.0___node_霢_95___凛_5__(self, _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_88__):
+        _ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_22__(_ASTNODE_霢:1.0____ASTNODE_霢:1.0___node_霢_95___霢_88__)
+
+// POLYMORPHIC_JCROSS_END

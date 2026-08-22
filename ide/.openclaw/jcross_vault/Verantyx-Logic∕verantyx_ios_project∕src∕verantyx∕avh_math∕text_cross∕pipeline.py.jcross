@@ -1,0 +1,184 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B2B1CB26 ver:1778159687
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_霾:1.0__TOKEN_霾_111_ _OPAQUE_霾:1.0__TOKEN_霾_114_ import _OPAQUE_霾:1.0__TOKEN_霾_26_
+
+import _OPAQUE_霾:1.0__TOKEN_霾_78_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ _OPAQUE_霾:1.0__TOKEN_霾_39_ import _OPAQUE_廳:1.0__TOKEN_廳_8_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ _OPAQUE_霾:1.0__TOKEN_霾_6_ import _OPAQUE_廳:1.0__TOKEN_廳_11_, _OPAQUE_廳:1.0__TOKEN_廳_10_, _OPAQUE_廳:1.0__TOKEN_廳_12_
+
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_策:1.0__TOKEN_霾_12_ import _OPAQUE_霾:1.0__TOKEN_霾_29_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_霾:1.0__TOKEN_霾_41_ import _OPAQUE_霾:1.0__TOKEN_霾_45_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_霾:1.0__TOKEN_霾_107_ import _OPAQUE_霾:1.0__TOKEN_霾_54_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_霾:1.0__TOKEN_霾_88_ import _OPAQUE_霾:1.0__TOKEN_霾_88_
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_霾:1.0__TOKEN_霾_102_ import _OPAQUE_涌:1.0__TOKEN_霾_62_, _OPAQUE_涌:1.0__TOKEN_霾_55_, _OPAQUE_涌:1.0__TOKEN_霾_11_
+// _OPAQUE_匼:0.4__TOKEN_BK_398_ [decoy-metadata]
+_OPAQUE_霾:1.0__TOKEN_霾_111_ ._OPAQUE_霾:1.0__TOKEN_霾_37_ import (
+    _OPAQUE_霾:1.0__TOKEN_霾_94_,
+    _OPAQUE_霾:1.0__TOKEN_霾_73_,
+)
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_霾:1.0__TOKEN_霾_68_(_OPAQUE_霾:1.0__TOKEN_霾_52_: _OPAQUE_霾:1.0__TOKEN_霾_22_):
+    _OPAQUE_霾:1.0__TOKEN_霾_96_ = _OPAQUE_霾:1.0__TOKEN_霾_29_(_OPAQUE_霾:1.0__TOKEN_霾_52_)
+    _OPAQUE_霾:1.0__TOKEN_霾_106_ = _OPAQUE_霾:1.0__TOKEN_霾_54_(_OPAQUE_霾:1.0__TOKEN_霾_96_, _OPAQUE_霾:1.0__TOKEN_霾_91_=3)
+    _OPAQUE_霾:1.0__TOKEN_霾_88_(_OPAQUE_霾:1.0__TOKEN_霾_96_, _OPAQUE_霾:1.0__TOKEN_霾_106_)
+    _OPAQUE_霾:1.0__TOKEN_霾_45_(_OPAQUE_霾:1.0__TOKEN_霾_96_)
+    _OPAQUE_涌:1.0__TOKEN_霾_46_ = _OPAQUE_涌:1.0__TOKEN_霾_11_(_OPAQUE_霾:1.0__TOKEN_霾_96_)
+    if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_涌:1.0__TOKEN_霾_46_:
+        _OPAQUE_涌:1.0__TOKEN_霾_46_ = _OPAQUE_涌:1.0__TOKEN_霾_55_(_OPAQUE_霾:1.0__TOKEN_霾_106_)
+    if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_涌:1.0__TOKEN_霾_46_:
+        _OPAQUE_涌:1.0__TOKEN_霾_46_ = _OPAQUE_涌:1.0__TOKEN_霾_62_(_OPAQUE_霾:1.0__TOKEN_霾_96_)
+    return _OPAQUE_涌:1.0__TOKEN_霾_46_, _OPAQUE_霾:1.0__TOKEN_霾_96_, _OPAQUE_霾:1.0__TOKEN_霾_106_
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_霾:1.0__TOKEN_霾_112_(_OPAQUE_霾:1.0__TOKEN_霾_115_: _OPAQUE_霾:1.0__TOKEN_霾_22_):
+    _OPAQUE_涌:1.0__TOKEN_霾_46_, _OPAQUE_霾:1.0__TOKEN_霾_96_, _OPAQUE_霾:1.0__TOKEN_霾_106_ = _OPAQUE_霾:1.0__TOKEN_霾_68_(_OPAQUE_霾:1.0__TOKEN_霾_115_ or "")
+    _OPAQUE_霾:1.0__TOKEN_霾_38_ = {
+        "_OPAQUE_霾:1.0__TOKEN_霾_117_": _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_25_,
+        "_OPAQUE_涌:1.0__TOKEN_霾_35_": _OPAQUE_涌:1.0__TOKEN_霾_46_,
+    }
+    if _OPAQUE_涌:1.0__TOKEN_霾_46_ _OPAQUE_霾:1.0__TOKEN_霾_57_ '"' _OPAQUE_霾:1.0__TOKEN_霾_23_ in (_OPAQUE_霾:1.0__TOKEN_霾_115_ or ""):
+        return (f'{_OPAQUE_霾:1.0__TOKEN_霾_115_}\n"{_OPAQUE_涌:1.0__TOKEN_霾_46_}"'._OPAQUE_霾:1.0__TOKEN_霾_79_(), _OPAQUE_霾:1.0__TOKEN_霾_38_)
+    return _OPAQUE_霾:1.0__TOKEN_霾_115_, _OPAQUE_霾:1.0__TOKEN_霾_38_
+
+
+_OPAQUE_匼:1.0__TOKEN_霾_59_: _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]] | _OPAQUE_廳:1.0__TOKEN_廳_7_ = _OPAQUE_廳:1.0__TOKEN_廳_7_
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_匼:1.0__TOKEN_霾_64_(
+    _OPAQUE_霾:1.0__TOKEN_霾_119_: _OPAQUE_霾:1.0__TOKEN_霾_22_ = "_OPAQUE_霾:1.0__TOKEN_霾_80_/db/_OPAQUE_霾:1.0__TOKEN_霾_40_._OPAQUE_霾:1.0__TOKEN_霾_109_",
+) -> _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]]:
+    _OPAQUE_霾:1.0__TOKEN_霾_87_ _OPAQUE_匼:1.0__TOKEN_霾_59_
+    if _OPAQUE_匼:1.0__TOKEN_霾_59_ is _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_廳:1.0__TOKEN_廳_7_:
+        return _OPAQUE_匼:1.0__TOKEN_霾_59_
+    _OPAQUE_霾:1.0__TOKEN_霾_110_ = _OPAQUE_廳:1.0__TOKEN_廳_8_(_OPAQUE_霾:1.0__TOKEN_霾_119_)
+    if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_霾:1.0__TOKEN_霾_110_._OPAQUE_霾:1.0__TOKEN_霾_53_():
+        _OPAQUE_匼:1.0__TOKEN_霾_59_ = []
+        return _OPAQUE_匼:1.0__TOKEN_霾_59_
+    _OPAQUE_霾:1.0__TOKEN_霾_3_: _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]] = []
+    _OPAQUE_霾:1.0__TOKEN_霾_103_ _OPAQUE_霾:1.0__TOKEN_霾_110_.open("r", _OPAQUE_霾:1.0__TOKEN_霾_21_="_OPAQUE_霾:1.0__TOKEN_霾_43_-8") as _OPAQUE_霾:1.0__TOKEN_霾_13_:
+        for _OPAQUE_霾:1.0__TOKEN_霾_30_ in _OPAQUE_霾:1.0__TOKEN_霾_13_:
+            _OPAQUE_霾:1.0__TOKEN_霾_30_ = _OPAQUE_霾:1.0__TOKEN_霾_30_._OPAQUE_霾:1.0__TOKEN_霾_79_()
+            if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_霾:1.0__TOKEN_霾_30_:
+                continue
+            try:
+                _OPAQUE_霾:1.0__TOKEN_霾_3_._OPAQUE_霾:1.0__TOKEN_霾_2_(_OPAQUE_霾:1.0__TOKEN_霾_78_._OPAQUE_匼:1.0__TOKEN_霾_69_(_OPAQUE_霾:1.0__TOKEN_霾_30_))
+            _OPAQUE_霾:1.0__TOKEN_霾_28_ _OPAQUE_霾:1.0__TOKEN_霾_78_._OPAQUE_廳:1.0__TOKEN_廳_14_:
+                continue
+    _OPAQUE_匼:1.0__TOKEN_霾_59_ = _OPAQUE_霾:1.0__TOKEN_霾_3_
+    return _OPAQUE_霾:1.0__TOKEN_霾_3_
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_霾:1.0__TOKEN_霾_75_(_OPAQUE_霾:1.0__TOKEN_霾_96_: _OPAQUE_廳:1.0__TOKEN_廳_11_) -> _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_霾:1.0__TOKEN_霾_22_]:
+    return [
+        n._OPAQUE_霾:1.0__TOKEN_霾_74_._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_105_", "")
+        for n in _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_49_._OPAQUE_霾:1.0__TOKEN_霾_8_()
+        if _OPAQUE_霾:1.0__TOKEN_霾_44_(n._OPAQUE_霾:1.0__TOKEN_霾_74_, _OPAQUE_霾:1.0__TOKEN_霾_93_)
+    ]
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_鍵:1.0__TOKEN_霾_85_(_OPAQUE_霾:1.0__TOKEN_霾_52_: _OPAQUE_霾:1.0__TOKEN_霾_22_) -> _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_霾:1.0__TOKEN_霾_22_]:
+// [metadata-stripped]
+    _OPAQUE_霾:1.0__TOKEN_霾_3_: _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_霾:1.0__TOKEN_霾_22_] = []
+    _OPAQUE_霾:1.0__TOKEN_霾_86_ = []
+    for ch in _OPAQUE_霾:1.0__TOKEN_霾_52_:
+        if ch._OPAQUE_霾:1.0__TOKEN_霾_104_() or ch == "_":
+            _OPAQUE_霾:1.0__TOKEN_霾_86_._OPAQUE_霾:1.0__TOKEN_霾_2_(ch)
+        else:
+            if _OPAQUE_霾:1.0__TOKEN_霾_86_:
+                _OPAQUE_霾:1.0__TOKEN_霾_3_._OPAQUE_霾:1.0__TOKEN_霾_2_(""._OPAQUE_霾:1.0__TOKEN_霾_50_(_OPAQUE_霾:1.0__TOKEN_霾_86_))
+                _OPAQUE_霾:1.0__TOKEN_霾_86_ = []
+            if _OPAQUE_霾:1.0__TOKEN_霾_23_ ch._OPAQUE_霾:1.0__TOKEN_霾_9_():
+                _OPAQUE_霾:1.0__TOKEN_霾_3_._OPAQUE_霾:1.0__TOKEN_霾_2_(ch)
+    if _OPAQUE_霾:1.0__TOKEN_霾_86_:
+        _OPAQUE_霾:1.0__TOKEN_霾_3_._OPAQUE_霾:1.0__TOKEN_霾_2_(""._OPAQUE_霾:1.0__TOKEN_霾_50_(_OPAQUE_霾:1.0__TOKEN_霾_86_))
+    return _OPAQUE_霾:1.0__TOKEN_霾_3_
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_霾:1.0__TOKEN_霾_100_(
+    _OPAQUE_霾:1.0__TOKEN_霾_52_: _OPAQUE_霾:1.0__TOKEN_霾_22_,
+    *,
+    _OPAQUE_霾:1.0__TOKEN_霾_119_: _OPAQUE_霾:1.0__TOKEN_霾_22_ = "_OPAQUE_霾:1.0__TOKEN_霾_80_/db/_OPAQUE_霾:1.0__TOKEN_霾_40_._OPAQUE_霾:1.0__TOKEN_霾_109_",
+// _OPAQUE_涌:0.1__TOKEN_EH_720_ [decoy-metadata]
+    _OPAQUE_霾:1.0__TOKEN_霾_91_: _OPAQUE_霾:1.0__TOKEN_霾_89_ = 12,
+) -> _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]]:
+    kb = _OPAQUE_匼:1.0__TOKEN_霾_64_(_OPAQUE_霾:1.0__TOKEN_霾_119_)
+    if _OPAQUE_霾:1.0__TOKEN_霾_23_ kb:
+        return []
+    _OPAQUE_鍵:1.0__TOKEN_霾_70_ = _OPAQUE_策:1.0__TOKEN_焦_1_(_OPAQUE_鍵:1.0__TOKEN_霾_85_(_OPAQUE_霾:1.0__TOKEN_霾_52_))
+    if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_鍵:1.0__TOKEN_霾_70_:
+        return []
+    _OPAQUE_霾:1.0__TOKEN_霾_4_: _OPAQUE_廳:1.0__TOKEN_廳_12_[_OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]] = []
+    for _OPAQUE_霾:1.0__TOKEN_霾_27_ in kb:
+        _OPAQUE_霾:1.0__TOKEN_霾_72_ = _OPAQUE_霾:1.0__TOKEN_霾_27_._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_72_") or []
+        if _OPAQUE_霾:1.0__TOKEN_霾_23_ _OPAQUE_霾:1.0__TOKEN_霾_44_(_OPAQUE_霾:1.0__TOKEN_霾_72_, _OPAQUE_霾:1.0__TOKEN_霾_113_):
+            continue
+        _OPAQUE_鍵:1.0__TOKEN_霾_99_ = _OPAQUE_策:1.0__TOKEN_焦_1_(_OPAQUE_鍵:1.0__TOKEN_霾_85_(" "._OPAQUE_霾:1.0__TOKEN_霾_50_(_OPAQUE_霾:1.0__TOKEN_霾_72_)))
+        _OPAQUE_霾:1.0__TOKEN_霾_51_ = _OPAQUE_霾:1.0__TOKEN_霾_67_(_OPAQUE_鍵:1.0__TOKEN_霾_70_ & _OPAQUE_鍵:1.0__TOKEN_霾_99_)
+        if _OPAQUE_霾:1.0__TOKEN_霾_51_ <= 0:
+            continue
+        _OPAQUE_霾:1.0__TOKEN_霾_48_ = _OPAQUE_霾:1.0__TOKEN_霾_51_ / _OPAQUE_霾:1.0__TOKEN_霾_90_(_OPAQUE_霾:1.0__TOKEN_霾_67_(_OPAQUE_鍵:1.0__TOKEN_霾_70_), 1)
+        _OPAQUE_霾:1.0__TOKEN_霾_4_._OPAQUE_霾:1.0__TOKEN_霾_2_(
+            {
+                "id": _OPAQUE_霾:1.0__TOKEN_霾_27_._OPAQUE_策:1.0__TOKEN_焦_2_("id", ""),
+                "_OPAQUE_霾:1.0__TOKEN_霾_63_": _OPAQUE_霾:1.0__TOKEN_霾_27_._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_63_", "_OPAQUE_霾:1.0__TOKEN_霾_16_"),
+                "_OPAQUE_霾:1.0__TOKEN_霾_116_": _OPAQUE_霾:1.0__TOKEN_霾_27_._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_116_", ""),
+                "_OPAQUE_霾:1.0__TOKEN_霾_48_": _OPAQUE_霾:1.0__TOKEN_霾_48_,
+            }
+        )
+    _OPAQUE_霾:1.0__TOKEN_霾_4_._OPAQUE_霾:1.0__TOKEN_霾_1_(_OPAQUE_鍵:1.0__TOKEN_霾_118_=_OPAQUE_霾:1.0__TOKEN_霾_76_ x: x["_OPAQUE_霾:1.0__TOKEN_霾_48_"], _OPAQUE_霾:1.0__TOKEN_霾_42_=_OPAQUE_廳:1.0__TOKEN_廳_1_)
+    return _OPAQUE_霾:1.0__TOKEN_霾_4_[:_OPAQUE_霾:1.0__TOKEN_霾_91_]
+
+
+_OPAQUE_霾:1.0__TOKEN_霾_66_ _OPAQUE_霾:1.0__TOKEN_霾_31_(
+    _OPAQUE_霾:1.0__TOKEN_霾_52_: _OPAQUE_霾:1.0__TOKEN_霾_22_,
+    *,
+    _OPAQUE_霾:1.0__TOKEN_霾_119_: _OPAQUE_霾:1.0__TOKEN_霾_22_ = "_OPAQUE_霾:1.0__TOKEN_霾_80_/db/_OPAQUE_霾:1.0__TOKEN_霾_40_._OPAQUE_霾:1.0__TOKEN_霾_109_",
+    _OPAQUE_霾:1.0__TOKEN_霾_77_: _OPAQUE_霾:1.0__TOKEN_霾_22_ = "_OPAQUE_霾:1.0__TOKEN_霾_80_/db/_OPAQUE_霾:1.0__TOKEN_霾_97_._OPAQUE_霾:1.0__TOKEN_霾_109_",
+    _OPAQUE_霾:1.0__TOKEN_霾_91_: _OPAQUE_霾:1.0__TOKEN_霾_89_ = 3,
+) -> _OPAQUE_廳:1.0__TOKEN_廳_10_[_OPAQUE_霾:1.0__TOKEN_霾_22_, _OPAQUE_廳:1.0__TOKEN_廳_11_]:
+    """
+    _OPAQUE_廳:1.0__TOKEN_廳_13_-_OPAQUE_廳:1.0__TOKEN_廳_5_-_OPAQUE_霾:1.0__TOKEN_霾_98_ _OPAQUE_霾:1.0__TOKEN_霾_5_:
+    - _OPAQUE_廳:1.0__TOKEN_廳_6_ _OPAQUE_霾:1.0__TOKEN_霾_52_ _OPAQUE_霾:1.0__TOKEN_霾_96_
+    - _OPAQUE_廳:1.0__TOKEN_廳_4_ _OPAQUE_霾:1.0__TOKEN_霾_97_ by _OPAQUE_霾:1.0__TOKEN_霾_105_ _OPAQUE_霾:1.0__TOKEN_霾_36_
+    - _OPAQUE_廳:1.0__TOKEN_廳_4_ _OPAQUE_霾:1.0__TOKEN_霾_40_ by _OPAQUE_霾:1.0__TOKEN_霾_60_ _OPAQUE_鍵:1.0__TOKEN_霾_71_ _OPAQUE_霾:1.0__TOKEN_霾_51_
+    - _OPAQUE_廳:1.0__TOKEN_廳_9_ _OPAQUE_霾:1.0__TOKEN_霾_96_ _OPAQUE_霾:1.0__TOKEN_霾_19_ _OPAQUE_霾:1.0__TOKEN_霾_103_ _OPAQUE_霾:1.0__TOKEN_霾_92_ (no _OPAQUE_霾:1.0__TOKEN_霾_63_ _OPAQUE_霾:1.0__TOKEN_霾_20_ _OPAQUE_霾:1.0__TOKEN_霾_7_)
+    """
+    _OPAQUE_霾:1.0__TOKEN_霾_96_ = _OPAQUE_霾:1.0__TOKEN_霾_29_(_OPAQUE_霾:1.0__TOKEN_霾_52_ or "")
+    _OPAQUE_霾:1.0__TOKEN_霾_18_ = _OPAQUE_霾:1.0__TOKEN_霾_75_(_OPAQUE_霾:1.0__TOKEN_霾_96_)
+
+// _OPAQUE_焦:0.7__TOKEN_GH_119_ [decoy-metadata]
+// [metadata-stripped]
+    _OPAQUE_霾:1.0__TOKEN_霾_14_ = _OPAQUE_霾:1.0__TOKEN_霾_94_(
+// _OPAQUE_鍵:0.5__TOKEN_EK_818_ [decoy-metadata]
+        _OPAQUE_霾:1.0__TOKEN_霾_18_, _OPAQUE_霾:1.0__TOKEN_霾_119_=_OPAQUE_霾:1.0__TOKEN_霾_77_, _OPAQUE_霾:1.0__TOKEN_霾_91_=_OPAQUE_霾:1.0__TOKEN_霾_91_
+    )
+    _OPAQUE_霾:1.0__TOKEN_霾_34_ = [c._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_108_", 0.0) for c in _OPAQUE_霾:1.0__TOKEN_霾_14_]
+    _OPAQUE_霾:1.0__TOKEN_霾_81_ = _OPAQUE_霾:1.0__TOKEN_霾_73_(_OPAQUE_霾:1.0__TOKEN_霾_14_[0]) if _OPAQUE_霾:1.0__TOKEN_霾_14_ else ""
+
+// [metadata-stripped]
+    _OPAQUE_霾:1.0__TOKEN_霾_56_ = _OPAQUE_霾:1.0__TOKEN_霾_100_(
+        _OPAQUE_霾:1.0__TOKEN_霾_52_ or "", _OPAQUE_霾:1.0__TOKEN_霾_119_=_OPAQUE_霾:1.0__TOKEN_霾_119_, _OPAQUE_霾:1.0__TOKEN_霾_91_=_OPAQUE_霾:1.0__TOKEN_霾_91_ * 4
+    )
+
+    _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_19_._OPAQUE_策:1.0__TOKEN_焦_3_("_OPAQUE_霾:1.0__TOKEN_霾_61_", _OPAQUE_霾:1.0__TOKEN_霾_18_)
+    _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_19_._OPAQUE_策:1.0__TOKEN_焦_3_("_OPAQUE_霾:1.0__TOKEN_霾_17_", [c._OPAQUE_策:1.0__TOKEN_焦_2_("_OPAQUE_霾:1.0__TOKEN_霾_25_") for c in _OPAQUE_霾:1.0__TOKEN_霾_14_])
+    _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_19_._OPAQUE_策:1.0__TOKEN_焦_3_("_OPAQUE_霾:1.0__TOKEN_霾_47_", _OPAQUE_霾:1.0__TOKEN_霾_34_)
+    _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_19_._OPAQUE_策:1.0__TOKEN_焦_3_("_OPAQUE_霾:1.0__TOKEN_霾_84_", _OPAQUE_霾:1.0__TOKEN_霾_81_)
+    _OPAQUE_霾:1.0__TOKEN_霾_96_._OPAQUE_霾:1.0__TOKEN_霾_19_._OPAQUE_策:1.0__TOKEN_焦_3_("_OPAQUE_霾:1.0__TOKEN_霾_83_", _OPAQUE_霾:1.0__TOKEN_霾_56_)
+
+// [metadata-stripped]
+    _OPAQUE_霾:1.0__TOKEN_霾_45_(_OPAQUE_霾:1.0__TOKEN_霾_96_)
+
+    return {
+        "_OPAQUE_霾:1.0__TOKEN_霾_32_": _OPAQUE_霾:1.0__TOKEN_霾_96_,
+        "_OPAQUE_霾:1.0__TOKEN_霾_24_": _OPAQUE_霾:1.0__TOKEN_霾_14_,
+        "_OPAQUE_霾:1.0__TOKEN_霾_83_": _OPAQUE_霾:1.0__TOKEN_霾_56_,
+// _OPAQUE_焦:0.3__TOKEN_HY_995_ [decoy-metadata]
+        "_OPAQUE_涌:1.0__TOKEN_霾_35_": _OPAQUE_霾:1.0__TOKEN_霾_81_,
+// _OPAQUE_涌:0.2__TOKEN_MY_572_ [decoy-metadata]
+    }
+
+// POLYMORPHIC_JCROSS_END

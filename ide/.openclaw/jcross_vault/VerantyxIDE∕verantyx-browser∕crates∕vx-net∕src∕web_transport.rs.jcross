@@ -1,0 +1,92 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FB48DF57 ver:1778149943
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_SYM_靄:1.0___node_靄_44__ _SYM_靄:1.0___node_靄_54__::_SYM_靄:1.0___node_靄_41__::{_SYM_廬:1.0___node_廬_20__, _SYM_廬:1.0___node_廬_21__};
+
+// [metadata-stripped]
+// [metadata-stripped]
+_SYM_靄:1.0___node_靄_47__ enum _SYM_廬:1.0___node_廬_25__ { _SYM_廬:1.0___node_廬_3__, _SYM_廬:1.0___node_廬_28__, _SYM_廬:1.0___node_廬_4__, _SYM_廬:1.0___node_廬_10__, _SYM_廬:1.0___node_廬_27__ }
+
+// [metadata-stripped]
+_SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_26__uct _SYM_廬:1.0___node_廬_47__ {
+    _SYM_靄:1.0___node_靄_47__ id: _SYM_靄:1.0___node_靄_21__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_22__: _SYM_靄:1.0___node_靄_66__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_17__: _SYM_靄:1.0___node_靄_66__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_36__: _SYM_靄:1.0___node_靄_66__,
+}
+
+// [metadata-stripped]
+_SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_26__uct _SYM_法:1.0___node_廬_12__ {
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_62__: _SYM_廬:1.0___node_廬_20__<_SYM_靄:1.0___node_靄_21__, _SYM_廬:1.0___node_廬_42__>,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_31__: _SYM_靄:1.0___node_靄_21__,
+}
+
+_SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_26__uct _SYM_廬:1.0___node_廬_42__ {
+    _SYM_靄:1.0___node_靄_47__ id: _SYM_靄:1.0___node_靄_21__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_糸:1.0___node_靄_51__: _SYM_廬:1.0___node_廬_41__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_6__: _SYM_廬:1.0___node_廬_25__,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_37__: _SYM_廬:1.0___node_廬_20__<_SYM_靄:1.0___node_靄_21__, _SYM_廬:1.0___node_廬_47__>,
+    _SYM_靄:1.0___node_靄_47__ _SYM_靄:1.0___node_靄_39__: _SYM_廬:1.0___node_廬_21__<_SYM_靄:1.0___node_靄_43__>, // _SYM_廬:1.0___node_廬_14__ of _SYM_靄:1.0___node_靄_35__ _SYM_靄:1.0___node_靄_57__ _SYM_靄:1.0___node_靄_25__
+}
+
+_SYM_靄:1.0___node_靄_52__ _SYM_法:1.0___node_廬_12__ {
+    _SYM_靄:1.0___node_靄_47__ fn _SYM_靄:1.0___node_靄_11__() -> _SYM_廬:1.0___node_廬_30__ {
+        _SYM_廬:1.0___node_廬_30__ {
+            _SYM_靄:1.0___node_靄_62__: _SYM_廬:1.0___node_廬_20__::_SYM_靄:1.0___node_靄_11__(),
+// _SYM_法:0.9___node_ZF_236__ [decoy-metadata]
+            _SYM_靄:1.0___node_靄_31__: 1,
+        }
+    }
+// _SYM_糸:0.4___node_AG_704__ [decoy-metadata]
+
+// [metadata-stripped]
+    _SYM_靄:1.0___node_靄_47__ fn _SYM_靄:1.0___node_靄_61__(&_SYM_靄:1.0___node_靄_1__ self, _SYM_糸:1.0___node_靄_51__: &_SYM_靄:1.0___node_靄_26__) -> _SYM_靄:1.0___node_靄_21__ {
+        let id = self._SYM_靄:1.0___node_靄_31__;
+        self._SYM_靄:1.0___node_靄_31__ += 1;
+        
+        self._SYM_靄:1.0___node_靄_62__._SYM_靄:1.0___node_靄_19__(id, _SYM_廬:1.0___node_廬_42__ {
+// _SYM_錬:0.7___node_CV_414__ [decoy-metadata]
+            id,
+            _SYM_糸:1.0___node_靄_51__: _SYM_糸:1.0___node_靄_51__._SYM_靄:1.0___node_靄_40__(),
+            _SYM_靄:1.0___node_靄_6__: _SYM_廬:1.0___node_廬_25__::_SYM_廬:1.0___node_廬_3__,
+            _SYM_靄:1.0___node_靄_37__: _SYM_廬:1.0___node_廬_20__::_SYM_靄:1.0___node_靄_11__(),
+            _SYM_靄:1.0___node_靄_39__: _SYM_廬:1.0___node_廬_21__::_SYM_靄:1.0___node_靄_14__(100),
+        });
+        id
+    }
+
+    _SYM_靄:1.0___node_靄_47__ fn _SYM_靄:1.0___node_靄_45__(&_SYM_靄:1.0___node_靄_1__ self, _SYM_靄:1.0___node_靄_38__: _SYM_靄:1.0___node_靄_21__, _SYM_靄:1.0___node_靄_48__: _SYM_靄:1.0___node_靄_43__) {
+        if let _SYM_廬:1.0___node_廬_22__(_SYM_靄:1.0___node_靄_53__) = self._SYM_靄:1.0___node_靄_62__._SYM_法:1.0___node_錬_2__(&_SYM_靄:1.0___node_靄_38__) {
+            if _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_39__._SYM_靄:1.0___node_靄_16__() >= 100 { _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_39__._SYM_靄:1.0___node_靄_42__(); }
+            _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_39__._SYM_靄:1.0___node_靄_60__(_SYM_靄:1.0___node_靄_48__);
+        }
+    }
+
+// _SYM_筐:0.5___node_VL_682__ [decoy-metadata]
+// [metadata-stripped]
+    _SYM_靄:1.0___node_靄_47__ fn _SYM_靄:1.0___node_靄_55__(&self, _SYM_靄:1.0___node_靄_38__: _SYM_靄:1.0___node_靄_21__) -> _SYM_廬:1.0___node_廬_41__ {
+        if let _SYM_廬:1.0___node_廬_22__(_SYM_靄:1.0___node_靄_53__) = self._SYM_靄:1.0___node_靄_62__._SYM_法:1.0___node_錬_1__(&_SYM_靄:1.0___node_靄_38__) {
+            let _SYM_靄:1.0___node_靄_7__: _SYM_靄:1.0___node_靄_43__ = _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_39__._SYM_法:1.0___node_靄_10__()._SYM_靄:1.0___node_靄_63__();
+            _SYM_潤:1.0___node_靄_3__!("🛰️ _SYM_廬:1.0___node_廬_46__ _SYM_廬:1.0___node_廬_32__ {}: {} [{:?}] (_SYM_廬:1.0___node_廬_17__: {}, _SYM_廬:1.0___node_廬_16__ _SYM_靄:1.0___node_靄_68__: {})", 
+                _SYM_靄:1.0___node_靄_38__, _SYM_靄:1.0___node_靄_53__._SYM_糸:1.0___node_靄_51__, _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_6__, _SYM_靄:1.0___node_靄_53__._SYM_靄:1.0___node_靄_37__._SYM_靄:1.0___node_靄_16__(), _SYM_靄:1.0___node_靄_7__)
+        } else {
+            _SYM_潤:1.0___node_靄_3__!("_SYM_廬:1.0___node_廬_32__ #{} _SYM_靄:1.0___node_靄_50__ _SYM_靄:1.0___node_靄_5__", _SYM_靄:1.0___node_靄_38__)
+// _SYM_糸:0.2___node_AY_729__ [decoy-metadata]
+// _SYM_法:0.6___node_VF_106__ [decoy-metadata]
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

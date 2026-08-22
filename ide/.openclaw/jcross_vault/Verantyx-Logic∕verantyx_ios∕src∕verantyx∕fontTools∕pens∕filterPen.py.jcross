@@ -1,0 +1,445 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DD214582 ver:1778159928
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_176__ import _ASTNODE_滴:1.0___ast_滴_4__
+
+_ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_197__ import _ASTNODE_墟:1.0___ast_墟_5__, _ASTNODE_墟:1.0___ast_墟_35__
+_ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_82__ import (
+    _ASTNODE_墟:1.0___ast_墟_12__,
+    _ASTNODE_墟:1.0___ast_墟_10__,
+    _ASTNODE_墟:1.0___ast_墟_17__,
+)
+_ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_26__ import _ASTNODE_墟:1.0___ast_墟_13__
+
+
+class _ASTNODE_滴:1.0___ast_滴_127__(_ASTNODE_滴:1.0___ast_滴_83__):
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_93__(self, _ASTNODE_滴:1.0___ast_滴_167__, _ASTNODE_渦:1.0___ast_滴_153__, **_ASTNODE_滴:1.0___ast_滴_1__):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_93__(_ASTNODE_滴:1.0___ast_滴_167__, _ASTNODE_渦:1.0___ast_滴_153__, **_ASTNODE_滴:1.0___ast_滴_1__)
+
+
+class _ASTNODE_墟:1.0___ast_墟_4__(_ASTNODE_滴:1.0___ast_滴_127__, _ASTNODE_墟:1.0___ast_墟_5__):
+    """_ASTNODE_墟:1.0___ast_墟_7__ class for _ASTNODE_滴:1.0___ast_滴_114__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_156__ some _ASTNODE_渦:1.0___ast_滴_153__ to _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_110__
+    _ASTNODE_滴:1.0___ast_滴_3__ _ASTNODE_滴:1.0___ast_滴_55__ _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_62__ _ASTNODE_滴:1.0___ast_滴_113__ to _ASTNODE_律:1.0___ast_滴_164__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    _ASTNODE_墟:1.0___ast_墟_25__ _ASTNODE_滴:1.0___ast_滴_169__ override any of _ASTNODE_滴:1.0___ast_滴_118__ _ASTNODE_滴:1.0___ast_滴_52__. _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_165__ _ASTNODE_滴:1.0___ast_滴_137__ _ASTNODE_滴:1.0___ast_滴_32__
+    _ASTNODE_滴:1.0___ast_滴_11__, _ASTNODE_滴:1.0___ast_滴_74__ _ASTNODE_滴:1.0___ast_滴_101__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_198__ _ASTNODE_渦:1.0___ast_滴_199__ to _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_律:1.0___ast_滴_132__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    >>> _ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_26__ import _ASTNODE_墟:1.0___ast_墟_13__
+    >>> _ASTNODE_滴:1.0___ast_滴_7__ = _ASTNODE_墟:1.0___ast_墟_13__()
+    >>> _ASTNODE_滴:1.0___ast_滴_42__ = _ASTNODE_墟:1.0___ast_墟_4__(_ASTNODE_滴:1.0___ast_滴_7__)
+    >>> v = _ASTNODE_律:1.0___ast_滴_200__(_ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__)
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_187__((0, 0))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_187__', ((0, 0),))
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_2__((1, 1))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_2__', ((1, 1),))
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_178__((2, 2), (3, 3), (4, 4))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+// _ASTNODE_凱:0.6___ast_VK_886__ [decoy-metadata]
+    ('_ASTNODE_滴:1.0___ast_滴_178__', ((2, 2), (3, 3), (4, 4)))
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_194__((5, 5), (6, 6), (7, 7), (8, 8))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_194__', ((5, 5), (6, 6), (7, 7), (8, 8)))
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_98__()
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_98__', ())
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_187__((9, 9))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_187__', ((9, 9),))
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_201__()
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+// _ASTNODE_凱:0.8___ast_ZC_817__ [decoy-metadata]
+    ('_ASTNODE_滴:1.0___ast_滴_201__', ())
+
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_93__('_ASTNODE_滴:1.0___ast_滴_8__', (1, 0, 0, 1, 0, 0))
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_93__', ('_ASTNODE_滴:1.0___ast_滴_8__', (1, 0, 0, 1, 0, 0)))
+    """
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(self, _ASTNODE_滴:1.0___ast_滴_124__):
+        self._ASTNODE_滴:1.0___ast_滴_20__ = _ASTNODE_滴:1.0___ast_滴_124__
+        self._ASTNODE_滴:1.0___ast_滴_145__ = _ASTNODE_墟:1.0___ast_墟_16__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_187__(self, pt):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_187__(pt)
+        self._ASTNODE_滴:1.0___ast_滴_145__ = pt
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_2__(self, pt):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_2__(pt)
+        self._ASTNODE_滴:1.0___ast_滴_145__ = pt
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_178__(self, *_ASTNODE_滴:1.0___ast_滴_80__):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_178__(*_ASTNODE_滴:1.0___ast_滴_80__)
+        self._ASTNODE_滴:1.0___ast_滴_145__ = _ASTNODE_滴:1.0___ast_滴_80__[-1]
+
+// _ASTNODE_渦:0.8___ast_GV_865__ [decoy-metadata]
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_194__(self, *_ASTNODE_滴:1.0___ast_滴_80__):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_194__(*_ASTNODE_滴:1.0___ast_滴_80__)
+        self._ASTNODE_滴:1.0___ast_滴_145__ = _ASTNODE_滴:1.0___ast_滴_80__[-1]
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_98__(self):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_98__()
+        self._ASTNODE_滴:1.0___ast_滴_145__ = _ASTNODE_墟:1.0___ast_墟_16__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_201__(self):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_201__()
+        self._ASTNODE_滴:1.0___ast_滴_145__ = _ASTNODE_墟:1.0___ast_墟_16__
+
+
+class _ASTNODE_墟:1.0___ast_墟_20__(_ASTNODE_滴:1.0___ast_滴_127__, _ASTNODE_墟:1.0___ast_墟_13__):
+    """A "_ASTNODE_滴:1.0___ast_滴_92__" _ASTNODE_律:1.0___ast_滴_160__ _ASTNODE_滴:1.0___ast_滴_42__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_69__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_73__, _ASTNODE_滴:1.0___ast_滴_101__
+    it _ASTNODE_滴:1.0___ast_滴_68__ a ``_ASTNODE_滴:1.0___ast_滴_192__`` _ASTNODE_滴:1.0___ast_滴_96__ _ASTNODE_滴:1.0___ast_滴_115__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_65__ is _ASTNODE_滴:1.0___ast_滴_30__ or _ASTNODE_滴:1.0___ast_滴_149__,
+    _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_58__ _ASTNODE_滴:1.0___ast_滴_56__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_64__ _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_76__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    _ASTNODE_墟:1.0___ast_墟_11__ _ASTNODE_滴:1.0___ast_滴_53__ _ASTNODE_滴:1.0___ast_滴_75__ _ASTNODE_滴:1.0___ast_滴_68__ _ASTNODE_滴:1.0___ast_滴_72__.
+    """
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(self, _ASTNODE_滴:1.0___ast_滴_124__):
+        super(_ASTNODE_墟:1.0___ast_墟_20__, self)._ASTNODE_滴:1.0___ast_滴_51__()
+        self._ASTNODE_滴:1.0___ast_滴_20__ = _ASTNODE_滴:1.0___ast_滴_124__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_98__(self):
+        super(_ASTNODE_墟:1.0___ast_墟_20__, self)._ASTNODE_滴:1.0___ast_滴_98__()
+        self._ASTNODE_滴:1.0___ast_滴_24__()
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_201__(self):
+        super(_ASTNODE_墟:1.0___ast_墟_20__, self)._ASTNODE_滴:1.0___ast_滴_201__()
+        self._ASTNODE_滴:1.0___ast_滴_24__()
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_24__(self):
+        _ASTNODE_滴:1.0___ast_滴_64__ = self._ASTNODE_滴:1.0___ast_滴_192__(self._ASTNODE_滴:1.0___ast_滴_13__)
+        if _ASTNODE_滴:1.0___ast_滴_64__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            self._ASTNODE_滴:1.0___ast_滴_13__ = _ASTNODE_滴:1.0___ast_滴_64__
+        self._ASTNODE_滴:1.0___ast_滴_129__(self._ASTNODE_滴:1.0___ast_滴_20__)
+        self._ASTNODE_滴:1.0___ast_滴_13__ = []
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_192__(self, _ASTNODE_滴:1.0___ast_滴_65__):
+        """_ASTNODE_墟:1.0___ast_墟_34__ _ASTNODE_滴:1.0___ast_滴_104__ override _ASTNODE_滴:1.0___ast_滴_166__ to _ASTNODE_渦:1.0___ast_滴_17__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_25__.
+
+        _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_65__ is a _ASTNODE_滴:1.0___ast_滴_40__ of _ASTNODE_滴:1.0___ast_滴_42__ (_ASTNODE_滴:1.0___ast_滴_94__, _ASTNODE_滴:1.0___ast_滴_91__) _ASTNODE_滴:1.0___ast_滴_66__.
+        _ASTNODE_墟:1.0___ast_墟_14__ _ASTNODE_滴:1.0___ast_滴_53__ _ASTNODE_滴:1.0___ast_滴_81__ _ASTNODE_滴:1.0___ast_滴_111__ to _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_墟:1.0___ast_墟_5__ _ASTNODE_滴:1.0___ast_滴_52__:
+        "_ASTNODE_滴:1.0___ast_滴_187__", "_ASTNODE_滴:1.0___ast_滴_2__", "_ASTNODE_滴:1.0___ast_滴_178__", "_ASTNODE_滴:1.0___ast_滴_194__", "_ASTNODE_滴:1.0___ast_滴_98__" _ASTNODE_滴:1.0___ast_滴_193__
+        "_ASTNODE_滴:1.0___ast_滴_201__". _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_91__ _ASTNODE_滴:1.0___ast_滴_53__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_41__ _ASTNODE_滴:1.0___ast_滴_162__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_53__
+        _ASTNODE_滴:1.0___ast_滴_75__ to _ASTNODE_滴:1.0___ast_滴_90__ _ASTNODE_滴:1.0___ast_滴_96__.
+
+        If _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_96__ _ASTNODE_滴:1.0___ast_滴_22__'t return a _ASTNODE_滴:1.0___ast_滴_13__ (i.e. _ASTNODE_滴:1.0___ast_滴_191__ _ASTNODE_墟:1.0___ast_墟_16__), it's
+        _ASTNODE_滴:1.0___ast_滴_143__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_45__ _ASTNODE_滴:1.0___ast_滴_175__ _ASTNODE_渦:1.0___ast_滴_85__ in-_ASTNODE_滴:1.0___ast_滴_159__.
+        _ASTNODE_墟:1.0___ast_墟_8__, _ASTNODE_滴:1.0___ast_滴_183__ return _ASTNODE_滴:1.0___ast_滴_13__ is _ASTNODE_滴:1.0___ast_滴_12__ _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_76__ _ASTNODE_滴:1.0___ast_滴_42__.
+        """
+        return  # or return _ASTNODE_滴:1.0___ast_滴_65__
+
+
+class _ASTNODE_墟:1.0___ast_墟_32__(_ASTNODE_滴:1.0___ast_滴_127__, _ASTNODE_墟:1.0___ast_墟_12__):
+    """_ASTNODE_墟:1.0___ast_墟_31__ for _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_114__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_156__ some _ASTNODE_渦:1.0___ast_滴_153__ to _ASTNODE_滴:1.0___ast_滴_183__
+    _ASTNODE_滴:1.0___ast_滴_110__ _ASTNODE_滴:1.0___ast_滴_3__ _ASTNODE_滴:1.0___ast_滴_55__ _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_62__ _ASTNODE_滴:1.0___ast_滴_113__ to _ASTNODE_律:1.0___ast_滴_164__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    _ASTNODE_墟:1.0___ast_墟_25__ _ASTNODE_滴:1.0___ast_滴_169__ override any of _ASTNODE_滴:1.0___ast_滴_118__ _ASTNODE_滴:1.0___ast_滴_52__. _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_165__ _ASTNODE_滴:1.0___ast_滴_137__ _ASTNODE_滴:1.0___ast_滴_32__
+    _ASTNODE_滴:1.0___ast_滴_11__, _ASTNODE_滴:1.0___ast_滴_74__ _ASTNODE_滴:1.0___ast_滴_101__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_198__ _ASTNODE_渦:1.0___ast_滴_199__ to _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_律:1.0___ast_滴_132__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    >>> _ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_26__ import _ASTNODE_墟:1.0___ast_墟_38__
+    >>> _ASTNODE_滴:1.0___ast_滴_7__ = _ASTNODE_墟:1.0___ast_墟_38__()
+    >>> _ASTNODE_滴:1.0___ast_滴_42__ = _ASTNODE_墟:1.0___ast_墟_32__(_ASTNODE_滴:1.0___ast_滴_7__)
+    >>> v = _ASTNODE_律:1.0___ast_滴_200__(_ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__)
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_173__(_ASTNODE_律:1.0___ast_滴_135__="_ASTNODE_滴:1.0___ast_滴_29__")
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_173__', (), {'_ASTNODE_律:1.0___ast_滴_135__': '_ASTNODE_滴:1.0___ast_滴_29__'})
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_14__((1, 2), "_ASTNODE_滴:1.0___ast_滴_134__", _ASTNODE_墟:1.0___ast_墟_9__)
+// _ASTNODE_紋:0.9___ast_CA_993__ [decoy-metadata]
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_14__', ((1, 2), '_ASTNODE_滴:1.0___ast_滴_134__', _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_墟:1.0___ast_墟_16__), {})
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_93__("a", (2, 0, 0, 2, 10, -10), _ASTNODE_律:1.0___ast_滴_135__="0001")
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_93__', ('a', (2, 0, 0, 2, 10, -10)), {'_ASTNODE_律:1.0___ast_滴_135__': '0001'})
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_201__()
+    >>> _ASTNODE_滴:1.0___ast_滴_31__(v)
+    ('_ASTNODE_滴:1.0___ast_滴_201__', (), {})
+    """
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(self, _ASTNODE_滴:1.0___ast_滴_124__):
+        self._ASTNODE_滴:1.0___ast_滴_20__ = _ASTNODE_滴:1.0___ast_滴_124__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_173__(self, _ASTNODE_律:1.0___ast_滴_135__=_ASTNODE_墟:1.0___ast_墟_16__, **_ASTNODE_滴:1.0___ast_滴_1__):
+        _ASTNODE_滴:1.0___ast_滴_1__ = _ASTNODE_滴:1.0___ast_滴_84__(_ASTNODE_滴:1.0___ast_滴_1__)
+        if _ASTNODE_律:1.0___ast_滴_135__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_1__["_ASTNODE_律:1.0___ast_滴_135__"] = _ASTNODE_律:1.0___ast_滴_135__
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_173__(**_ASTNODE_滴:1.0___ast_滴_1__)
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_201__(self):
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_201__()
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_14__(
+        self,
+        pt,
+        _ASTNODE_滴:1.0___ast_滴_146__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_154__=_ASTNODE_墟:1.0___ast_墟_9__,
+        _ASTNODE_滴:1.0___ast_滴_5__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_律:1.0___ast_滴_135__=_ASTNODE_墟:1.0___ast_墟_16__,
+        **_ASTNODE_滴:1.0___ast_滴_1__,
+    ):
+        _ASTNODE_滴:1.0___ast_滴_1__ = _ASTNODE_滴:1.0___ast_滴_84__(_ASTNODE_滴:1.0___ast_滴_1__)
+        if _ASTNODE_律:1.0___ast_滴_135__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+// _ASTNODE_渦:0.5___ast_MC_937__ [decoy-metadata]
+            _ASTNODE_滴:1.0___ast_滴_1__["_ASTNODE_律:1.0___ast_滴_135__"] = _ASTNODE_律:1.0___ast_滴_135__
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_14__(pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, **_ASTNODE_滴:1.0___ast_滴_1__)
+
+
+class _ASTNODE_滴:1.0___ast_滴_138__:
+    """_ASTNODE_墟:1.0___ast_墟_7__ _ASTNODE_滴:1.0___ast_滴_186__ class _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_204__ `_ASTNODE_滴:1.0___ast_滴_93__` _ASTNODE_滴:1.0___ast_滴_117__ for _ASTNODE_滴:1.0___ast_滴_48__ _ASTNODE_律:1.0___ast_滴_160__ _ASTNODE_滴:1.0___ast_滴_114__."""
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_93__(self, _ASTNODE_滴:1.0___ast_滴_139__, _ASTNODE_渦:1.0___ast_滴_153__, **_ASTNODE_滴:1.0___ast_滴_1__):
+// [metadata-stripped]
+        if self._ASTNODE_滴:1.0___ast_滴_202__ is _ASTNODE_墟:1.0___ast_墟_16__ or _ASTNODE_滴:1.0___ast_滴_139__ in self._ASTNODE_滴:1.0___ast_滴_202__:
+// [metadata-stripped]
+            _ASTNODE_滴:1.0___ast_滴_130__ = self._ASTNODE_滴:1.0___ast_滴_202__
+            if self._ASTNODE_滴:1.0___ast_滴_141__ _ASTNODE_滴:1.0___ast_滴_193__ self._ASTNODE_滴:1.0___ast_滴_202__:
+                self._ASTNODE_滴:1.0___ast_滴_202__ = _ASTNODE_墟:1.0___ast_墟_16__
+            try:
+                super()._ASTNODE_滴:1.0___ast_滴_93__(_ASTNODE_滴:1.0___ast_滴_139__, _ASTNODE_渦:1.0___ast_滴_153__, **_ASTNODE_滴:1.0___ast_滴_1__)
+            _ASTNODE_滴:1.0___ast_滴_58__:
+                if self._ASTNODE_滴:1.0___ast_滴_202__ != _ASTNODE_滴:1.0___ast_滴_130__:
+                    self._ASTNODE_滴:1.0___ast_滴_202__ = _ASTNODE_滴:1.0___ast_滴_130__
+        else:
+            _ASTNODE_滴:1.0___ast_滴_127__._ASTNODE_滴:1.0___ast_滴_93__(
+                self, _ASTNODE_滴:1.0___ast_滴_139__, _ASTNODE_渦:1.0___ast_滴_153__, **_ASTNODE_滴:1.0___ast_滴_1__
+            )
+
+
+class _ASTNODE_滴:1.0___ast_滴_88__(_ASTNODE_滴:1.0___ast_滴_138__):
+    """_ASTNODE_墟:1.0___ast_墟_15__ class _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_61__ _ASTNODE_滴:1.0___ast_滴_131__ as _ASTNODE_滴:1.0___ast_滴_148__ _ASTNODE_滴:1.0___ast_滴_123__ for _ASTNODE_滴:1.0___ast_滴_171__ _ASTNODE_滴:1.0___ast_滴_114__.
+
+    _ASTNODE_墟:1.0___ast_墟_23__ by _ASTNODE_墟:1.0___ast_墟_21__.
+
+    _ASTNODE_墟:1.0___ast_墟_33__ _ASTNODE_滴:1.0___ast_滴_158__ _ASTNODE_滴:1.0___ast_滴_19__ _ASTNODE_滴:1.0___ast_滴_37__, _ASTNODE_律:1.0___ast_滴_164__ _ASTNODE_滴:1.0___ast_滴_171__ _ASTNODE_滴:1.0___ast_滴_42__ '_ASTNODE_滴:1.0___ast_滴_124__' to _ASTNODE_滴:1.0___ast_滴_105__
+    _ASTNODE_滴:1.0___ast_滴_155__, _ASTNODE_滴:1.0___ast_滴_193__ a '_ASTNODE_滴:1.0___ast_滴_70__' _ASTNODE_滴:1.0___ast_滴_84__ of _ASTNODE_滴:1.0___ast_滴_177__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_147__ to _ASTNODE_滴:1.0___ast_滴_105__ _ASTNODE_滴:1.0___ast_滴_131__ _ASTNODE_滴:1.0___ast_滴_121__.
+
+    _ASTNODE_墟:1.0___ast_墟_24__ '_ASTNODE_滴:1.0___ast_滴_150__' _ASTNODE_滴:1.0___ast_滴_193__ '_ASTNODE_滴:1.0___ast_滴_203__' _ASTNODE_滴:1.0___ast_滴_190__ _ASTNODE_滴:1.0___ast_滴_162__ _ASTNODE_滴:1.0___ast_滴_102__ _ASTNODE_滴:1.0___ast_滴_183__
+    _ASTNODE_滴:1.0___ast_滴_133__ as in _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_墟:1.0___ast_墟_35__. _ASTNODE_滴:1.0___ast_滴_203__ is _ASTNODE_滴:1.0___ast_滴_60__ _ASTNODE_滴:1.0___ast_滴_44__ (_ASTNODE_墟:1.0___ast_墟_28__/_ASTNODE_墟:1.0___ast_墟_9__).
+
+    In _ASTNODE_滴:1.0___ast_滴_119__, _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_48__ _ASTNODE_律:1.0___ast_滴_160__ _ASTNODE_滴:1.0___ast_滴_114__ _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_79__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_125__ _ASTNODE_滴:1.0___ast_滴_158__ _ASTNODE_滴:1.0___ast_滴_144__:
+
+    '_ASTNODE_滴:1.0___ast_滴_202__' is an _ASTNODE_滴:1.0___ast_滴_190__ _ASTNODE_律:1.0___ast_凱_1__ of _ASTNODE_滴:1.0___ast_滴_99__ _ASTNODE_滴:1.0___ast_滴_87__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_188__ to _ASTNODE_律:1.0___ast_滴_108__ for
+    _ASTNODE_滴:1.0___ast_滴_207__; _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_165__ _ASTNODE_滴:1.0___ast_滴_202__=_ASTNODE_墟:1.0___ast_墟_16__ _ASTNODE_滴:1.0___ast_滴_103__ _ASTNODE_滴:1.0___ast_滴_100__ _ASTNODE_滴:1.0___ast_滴_181__ _ASTNODE_滴:1.0___ast_滴_131__ no _ASTNODE_律:1.0___ast_滴_106__
+    _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_87__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_5__).
+
+    '_ASTNODE_滴:1.0___ast_滴_141__' (_ASTNODE_滴:1.0___ast_滴_60__) _ASTNODE_滴:1.0___ast_滴_95__ _ASTNODE_律:1.0___ast_滴_43__ to _ASTNODE_滴:1.0___ast_滴_120__ _ASTNODE_滴:1.0___ast_滴_207__ _ASTNODE_滴:1.0___ast_滴_180__ _ASTNODE_滴:1.0___ast_滴_142__
+    _ASTNODE_滴:1.0___ast_滴_131__ of _ASTNODE_滴:1.0___ast_滴_131__ (_ASTNODE_滴:1.0___ast_滴_166__ _ASTNODE_滴:1.0___ast_滴_44__ _ASTNODE_滴:1.0___ast_滴_206__ _ASTNODE_滴:1.0___ast_滴_115__ '_ASTNODE_滴:1.0___ast_滴_202__' _ASTNODE_滴:1.0___ast_滴_175__ _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_152__);
+    if _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_滴:1.0___ast_滴_44__ _ASTNODE_滴:1.0___ast_滴_100__ _ASTNODE_滴:1.0___ast_滴_33__-_ASTNODE_滴:1.0___ast_滴_170__ _ASTNODE_滴:1.0___ast_滴_131__ _ASTNODE_滴:1.0___ast_滴_21__ in _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_律:1.0___ast_凱_1__, _ASTNODE_滴:1.0___ast_滴_74__ _ASTNODE_滴:1.0___ast_滴_189__
+    _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_161__ _ASTNODE_滴:1.0___ast_滴_179__.
+    """
+
+// [metadata-stripped]
+    _ASTNODE_滴:1.0___ast_滴_150__ = _ASTNODE_墟:1.0___ast_墟_9__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(
+        self,
+        _ASTNODE_滴:1.0___ast_滴_124__,
+        _ASTNODE_滴:1.0___ast_滴_70__,
+        _ASTNODE_滴:1.0___ast_滴_150__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_203__: _ASTNODE_滴:1.0___ast_滴_60__ = _ASTNODE_墟:1.0___ast_墟_9__,
+        _ASTNODE_滴:1.0___ast_滴_202__: _ASTNODE_律:1.0___ast_凱_1__[_ASTNODE_滴:1.0___ast_滴_78__] | _ASTNODE_墟:1.0___ast_墟_16__ = _ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_滴:1.0___ast_滴_60__ = _ASTNODE_墟:1.0___ast_墟_28__,
+// _ASTNODE_紋:0.4___ast_GK_176__ [decoy-metadata]
+        **_ASTNODE_滴:1.0___ast_滴_1__,
+    ):
+        _ASTNODE_滴:1.0___ast_滴_163__ _ASTNODE_滴:1.0___ast_滴_23__(
+            _ASTNODE_滴:1.0___ast_滴_203__, _ASTNODE_滴:1.0___ast_滴_60__
+        ), f"_ASTNODE_墟:1.0___ast_墟_22__ _ASTNODE_滴:1.0___ast_滴_60__, _ASTNODE_滴:1.0___ast_滴_18__ {_ASTNODE_滴:1.0___ast_滴_27__(_ASTNODE_滴:1.0___ast_滴_203__)._ASTNODE_滴:1.0___ast_滴_77__}"
+        super()._ASTNODE_滴:1.0___ast_滴_51__(
+            _ASTNODE_滴:1.0___ast_滴_124__=_ASTNODE_滴:1.0___ast_滴_124__,
+            _ASTNODE_滴:1.0___ast_滴_70__=_ASTNODE_滴:1.0___ast_滴_70__,
+            _ASTNODE_滴:1.0___ast_滴_150__=_ASTNODE_滴:1.0___ast_滴_150__,
+            _ASTNODE_滴:1.0___ast_滴_203__=_ASTNODE_滴:1.0___ast_滴_203__,
+            **_ASTNODE_滴:1.0___ast_滴_1__,
+        )
+        self._ASTNODE_滴:1.0___ast_滴_202__ = _ASTNODE_滴:1.0___ast_滴_202__
+        self._ASTNODE_滴:1.0___ast_滴_141__ = _ASTNODE_滴:1.0___ast_滴_141__
+
+
+class _ASTNODE_滴:1.0___ast_滴_63__(_ASTNODE_滴:1.0___ast_滴_138__):
+    """_ASTNODE_墟:1.0___ast_墟_15__ class _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_61__ _ASTNODE_滴:1.0___ast_滴_131__ as _ASTNODE_滴:1.0___ast_滴_148__ _ASTNODE_滴:1.0___ast_滴_123__ for _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_114__.
+
+    _ASTNODE_墟:1.0___ast_墟_33__ _ASTNODE_滴:1.0___ast_滴_158__ _ASTNODE_滴:1.0___ast_滴_19__ _ASTNODE_滴:1.0___ast_滴_37__, _ASTNODE_律:1.0___ast_滴_164__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__ '_ASTNODE_滴:1.0___ast_滴_124__' to _ASTNODE_滴:1.0___ast_滴_105__
+    _ASTNODE_滴:1.0___ast_滴_155__, _ASTNODE_滴:1.0___ast_滴_193__ a '_ASTNODE_滴:1.0___ast_滴_70__' _ASTNODE_滴:1.0___ast_滴_84__ of _ASTNODE_滴:1.0___ast_滴_177__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_147__ to _ASTNODE_滴:1.0___ast_滴_105__ _ASTNODE_滴:1.0___ast_滴_131__ _ASTNODE_滴:1.0___ast_滴_121__.
+
+    _ASTNODE_墟:1.0___ast_墟_24__ '_ASTNODE_滴:1.0___ast_滴_150__' _ASTNODE_滴:1.0___ast_滴_193__ '_ASTNODE_滴:1.0___ast_滴_203__' _ASTNODE_滴:1.0___ast_滴_190__ _ASTNODE_滴:1.0___ast_滴_162__ _ASTNODE_滴:1.0___ast_滴_102__ _ASTNODE_滴:1.0___ast_滴_183__
+    _ASTNODE_滴:1.0___ast_滴_133__ as in _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_墟:1.0___ast_墟_10__. _ASTNODE_滴:1.0___ast_滴_203__ _ASTNODE_滴:1.0___ast_滴_97__ _ASTNODE_滴:1.0___ast_滴_60__ | _ASTNODE_墟:1.0___ast_墟_17__
+    (_ASTNODE_滴:1.0___ast_滴_168__ _ASTNODE_墟:1.0___ast_墟_10__).
+
+    In _ASTNODE_滴:1.0___ast_滴_119__, _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_48__ _ASTNODE_律:1.0___ast_滴_160__ _ASTNODE_滴:1.0___ast_滴_114__ _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_79__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_125__ _ASTNODE_滴:1.0___ast_滴_158__ _ASTNODE_滴:1.0___ast_滴_144__:
+
+    '_ASTNODE_滴:1.0___ast_滴_202__' is an _ASTNODE_滴:1.0___ast_滴_190__ _ASTNODE_律:1.0___ast_凱_1__ of _ASTNODE_滴:1.0___ast_滴_99__ _ASTNODE_滴:1.0___ast_滴_87__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_188__ to _ASTNODE_律:1.0___ast_滴_108__ for
+    _ASTNODE_滴:1.0___ast_滴_207__; _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_165__ _ASTNODE_滴:1.0___ast_滴_202__=_ASTNODE_墟:1.0___ast_墟_16__ _ASTNODE_滴:1.0___ast_滴_103__ _ASTNODE_滴:1.0___ast_滴_100__ _ASTNODE_滴:1.0___ast_滴_181__ _ASTNODE_滴:1.0___ast_滴_131__ no _ASTNODE_律:1.0___ast_滴_106__
+    _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_87__ _ASTNODE_滴:1.0___ast_滴_50__ _ASTNODE_滴:1.0___ast_滴_5__).
+
+    '_ASTNODE_滴:1.0___ast_滴_141__' (_ASTNODE_滴:1.0___ast_滴_60__) _ASTNODE_滴:1.0___ast_滴_95__ _ASTNODE_律:1.0___ast_滴_43__ to _ASTNODE_滴:1.0___ast_滴_120__ _ASTNODE_滴:1.0___ast_滴_207__ _ASTNODE_滴:1.0___ast_滴_180__ _ASTNODE_滴:1.0___ast_滴_142__
+    _ASTNODE_滴:1.0___ast_滴_131__ of _ASTNODE_滴:1.0___ast_滴_131__ (_ASTNODE_滴:1.0___ast_滴_166__ _ASTNODE_滴:1.0___ast_滴_44__ _ASTNODE_滴:1.0___ast_滴_206__ _ASTNODE_滴:1.0___ast_滴_115__ '_ASTNODE_滴:1.0___ast_滴_202__' _ASTNODE_滴:1.0___ast_滴_175__ _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_152__);
+    if _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_滴:1.0___ast_滴_44__ _ASTNODE_滴:1.0___ast_滴_100__ _ASTNODE_滴:1.0___ast_滴_33__-_ASTNODE_滴:1.0___ast_滴_170__ _ASTNODE_滴:1.0___ast_滴_131__ _ASTNODE_滴:1.0___ast_滴_21__ in _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_律:1.0___ast_凱_1__, _ASTNODE_滴:1.0___ast_滴_74__ _ASTNODE_滴:1.0___ast_滴_189__
+    _ASTNODE_滴:1.0___ast_滴_205__ _ASTNODE_滴:1.0___ast_滴_161__ _ASTNODE_滴:1.0___ast_滴_179__.
+    """
+
+// [metadata-stripped]
+    _ASTNODE_滴:1.0___ast_滴_150__ = _ASTNODE_墟:1.0___ast_墟_9__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(
+        self,
+        _ASTNODE_滴:1.0___ast_滴_124__,
+        _ASTNODE_滴:1.0___ast_滴_70__,
+        _ASTNODE_滴:1.0___ast_滴_150__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_203__: _ASTNODE_滴:1.0___ast_滴_60__ | _ASTNODE_墟:1.0___ast_墟_17__ = _ASTNODE_墟:1.0___ast_墟_9__,
+        _ASTNODE_滴:1.0___ast_滴_202__: _ASTNODE_律:1.0___ast_凱_1__[_ASTNODE_滴:1.0___ast_滴_78__] | _ASTNODE_墟:1.0___ast_墟_16__ = _ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_滴:1.0___ast_滴_60__ = _ASTNODE_墟:1.0___ast_墟_28__,
+        **_ASTNODE_滴:1.0___ast_滴_1__,
+    ):
+        super()._ASTNODE_滴:1.0___ast_滴_51__(
+            _ASTNODE_滴:1.0___ast_滴_124__=_ASTNODE_滴:1.0___ast_滴_124__,
+            _ASTNODE_滴:1.0___ast_滴_70__=_ASTNODE_滴:1.0___ast_滴_70__,
+            _ASTNODE_滴:1.0___ast_滴_150__=_ASTNODE_滴:1.0___ast_滴_150__,
+            _ASTNODE_滴:1.0___ast_滴_203__=_ASTNODE_滴:1.0___ast_滴_203__,
+            **_ASTNODE_滴:1.0___ast_滴_1__,
+        )
+        self._ASTNODE_滴:1.0___ast_滴_202__ = _ASTNODE_滴:1.0___ast_滴_202__
+        self._ASTNODE_滴:1.0___ast_滴_141__ = _ASTNODE_滴:1.0___ast_滴_141__
+
+
+class _ASTNODE_墟:1.0___ast_墟_21__(_ASTNODE_滴:1.0___ast_滴_88__, _ASTNODE_墟:1.0___ast_墟_35__, _ASTNODE_墟:1.0___ast_墟_4__):
+    """_ASTNODE_律:1.0___ast_墟_2__ _ASTNODE_滴:1.0___ast_滴_42__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_56__ _ASTNODE_滴:1.0___ast_滴_131__ as _ASTNODE_滴:1.0___ast_滴_148__ _ASTNODE_滴:1.0___ast_滴_123__."""
+
+    _ASTNODE_滴:1.0___ast_滴_62__
+
+
+class _ASTNODE_墟:1.0___ast_墟_40__(
+    _ASTNODE_滴:1.0___ast_滴_63__, _ASTNODE_墟:1.0___ast_墟_10__, _ASTNODE_墟:1.0___ast_墟_32__
+):
+    """_ASTNODE_律:1.0___ast_墟_2__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_56__ _ASTNODE_滴:1.0___ast_滴_131__ as _ASTNODE_滴:1.0___ast_滴_148__ _ASTNODE_滴:1.0___ast_滴_123__."""
+
+    _ASTNODE_滴:1.0___ast_滴_62__
+
+
+class _ASTNODE_墟:1.0___ast_墟_37__(_ASTNODE_滴:1.0___ast_滴_127__, _ASTNODE_墟:1.0___ast_墟_12__):
+    """A "_ASTNODE_滴:1.0___ast_滴_92__" _ASTNODE_律:1.0___ast_滴_160__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_69__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_73__, _ASTNODE_滴:1.0___ast_滴_101__
+    it _ASTNODE_滴:1.0___ast_滴_68__ a ``_ASTNODE_滴:1.0___ast_滴_192__`` _ASTNODE_滴:1.0___ast_滴_96__ _ASTNODE_滴:1.0___ast_滴_115__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_65__ is _ASTNODE_滴:1.0___ast_滴_30__ or _ASTNODE_滴:1.0___ast_滴_149__,
+    _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_58__ _ASTNODE_滴:1.0___ast_滴_56__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_64__ _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_76__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__.
+
+    _ASTNODE_墟:1.0___ast_墟_11__ _ASTNODE_滴:1.0___ast_滴_53__ _ASTNODE_滴:1.0___ast_滴_75__ _ASTNODE_滴:1.0___ast_滴_68__ _ASTNODE_滴:1.0___ast_滴_72__.
+
+    _ASTNODE_墟:1.0___ast_墟_24__ ``_ASTNODE_滴:1.0___ast_滴_192__`` _ASTNODE_滴:1.0___ast_滴_96__ _ASTNODE_滴:1.0___ast_滴_169__ _ASTNODE_渦:1.0___ast_滴_136__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_65__ in-_ASTNODE_滴:1.0___ast_滴_159__ (return _ASTNODE_墟:1.0___ast_墟_16__)
+    or return a _ASTNODE_滴:1.0___ast_滴_38__ _ASTNODE_滴:1.0___ast_滴_65__ to _ASTNODE_滴:1.0___ast_滴_47__ it.
+    """
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_51__(self, _ASTNODE_滴:1.0___ast_滴_124__):
+        self._ASTNODE_滴:1.0___ast_滴_20__ = _ASTNODE_滴:1.0___ast_滴_124__
+        self._ASTNODE_滴:1.0___ast_滴_10__ = _ASTNODE_墟:1.0___ast_墟_16__
+        self._ASTNODE_滴:1.0___ast_滴_112__ = _ASTNODE_墟:1.0___ast_墟_16__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_173__(self, _ASTNODE_律:1.0___ast_滴_135__=_ASTNODE_墟:1.0___ast_墟_16__, **_ASTNODE_滴:1.0___ast_滴_1__):
+        if self._ASTNODE_滴:1.0___ast_滴_10__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_49__ _ASTNODE_墟:1.0___ast_墟_39__("_ASTNODE_墟:1.0___ast_墟_36__ _ASTNODE_滴:1.0___ast_滴_89__ _ASTNODE_滴:1.0___ast_滴_16__")
+        _ASTNODE_滴:1.0___ast_滴_1__ = _ASTNODE_滴:1.0___ast_滴_84__(_ASTNODE_滴:1.0___ast_滴_1__)
+        if _ASTNODE_律:1.0___ast_滴_135__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_1__["_ASTNODE_律:1.0___ast_滴_135__"] = _ASTNODE_律:1.0___ast_滴_135__
+        self._ASTNODE_滴:1.0___ast_滴_10__ = []
+        self._ASTNODE_滴:1.0___ast_滴_112__ = _ASTNODE_滴:1.0___ast_滴_1__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_201__(self):
+        if self._ASTNODE_滴:1.0___ast_滴_10__ is _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_49__ _ASTNODE_墟:1.0___ast_墟_39__("_ASTNODE_墟:1.0___ast_墟_36__ _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_滴:1.0___ast_滴_16__")
+        self._ASTNODE_滴:1.0___ast_滴_24__()
+        self._ASTNODE_滴:1.0___ast_滴_10__ = _ASTNODE_墟:1.0___ast_墟_16__
+        self._ASTNODE_滴:1.0___ast_滴_112__ = _ASTNODE_墟:1.0___ast_墟_16__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_24__(self):
+        """_ASTNODE_墟:1.0___ast_墟_30__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_174__ _ASTNODE_滴:1.0___ast_滴_65__ to _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_76__ _ASTNODE_滴:1.0___ast_滴_42__."""
+        _ASTNODE_滴:1.0___ast_滴_64__ = self._ASTNODE_滴:1.0___ast_滴_192__(self._ASTNODE_滴:1.0___ast_滴_10__)
+        if _ASTNODE_滴:1.0___ast_滴_64__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            self._ASTNODE_滴:1.0___ast_滴_10__ = _ASTNODE_滴:1.0___ast_滴_64__
+
+// [metadata-stripped]
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_173__(**self._ASTNODE_滴:1.0___ast_滴_112__)
+        for pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, _ASTNODE_滴:1.0___ast_滴_1__ in self._ASTNODE_滴:1.0___ast_滴_10__:
+            self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_14__(pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, **_ASTNODE_滴:1.0___ast_滴_1__)
+        self._ASTNODE_滴:1.0___ast_滴_20__._ASTNODE_滴:1.0___ast_滴_201__()
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_192__(self, _ASTNODE_滴:1.0___ast_滴_65__):
+        """_ASTNODE_墟:1.0___ast_墟_34__ _ASTNODE_滴:1.0___ast_滴_104__ override _ASTNODE_滴:1.0___ast_滴_166__ to _ASTNODE_渦:1.0___ast_滴_17__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_25__.
+
+        _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_65__ is a _ASTNODE_滴:1.0___ast_滴_40__ of (pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, _ASTNODE_滴:1.0___ast_滴_1__) _ASTNODE_滴:1.0___ast_滴_66__.
+        If _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_96__ _ASTNODE_滴:1.0___ast_滴_22__'t return a _ASTNODE_滴:1.0___ast_滴_13__ (i.e. _ASTNODE_滴:1.0___ast_滴_191__ _ASTNODE_墟:1.0___ast_墟_16__), it's
+        _ASTNODE_滴:1.0___ast_滴_143__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_175__ _ASTNODE_渦:1.0___ast_滴_85__ in-_ASTNODE_滴:1.0___ast_滴_159__.
+        _ASTNODE_墟:1.0___ast_墟_8__, _ASTNODE_滴:1.0___ast_滴_183__ return _ASTNODE_滴:1.0___ast_滴_13__ _ASTNODE_滴:1.0___ast_滴_157__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_36__ _ASTNODE_滴:1.0___ast_滴_65__.
+        """
+        return  # or return _ASTNODE_滴:1.0___ast_滴_65__
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_14__(
+        self,
+        pt,
+        _ASTNODE_滴:1.0___ast_滴_146__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_滴:1.0___ast_滴_154__=_ASTNODE_墟:1.0___ast_墟_9__,
+        _ASTNODE_滴:1.0___ast_滴_5__=_ASTNODE_墟:1.0___ast_墟_16__,
+        _ASTNODE_律:1.0___ast_滴_135__=_ASTNODE_墟:1.0___ast_墟_16__,
+        **_ASTNODE_滴:1.0___ast_滴_1__,
+    ):
+        if self._ASTNODE_滴:1.0___ast_滴_10__ is _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_49__ _ASTNODE_墟:1.0___ast_墟_39__("_ASTNODE_墟:1.0___ast_墟_36__ _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_滴:1.0___ast_滴_16__")
+        _ASTNODE_滴:1.0___ast_滴_1__ = _ASTNODE_滴:1.0___ast_滴_84__(_ASTNODE_滴:1.0___ast_滴_1__)
+        if _ASTNODE_律:1.0___ast_滴_135__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+            _ASTNODE_滴:1.0___ast_滴_1__["_ASTNODE_律:1.0___ast_滴_135__"] = _ASTNODE_律:1.0___ast_滴_135__
+        self._ASTNODE_滴:1.0___ast_滴_10__._ASTNODE_滴:1.0___ast_滴_46__((pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, _ASTNODE_滴:1.0___ast_滴_1__))
+
+
+class _ASTNODE_墟:1.0___ast_墟_1__(_ASTNODE_墟:1.0___ast_墟_37__):
+    """_ASTNODE_律:1.0___ast_墟_2__ _ASTNODE_滴:1.0___ast_滴_151__ _ASTNODE_滴:1.0___ast_滴_42__ _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_126__ _ASTNODE_滴:1.0___ast_滴_30__ _ASTNODE_滴:1.0___ast_滴_123__ _ASTNODE_滴:1.0___ast_滴_195__ _ASTNODE_滴:1.0___ast_滴_155__ an on-_ASTNODE_滴:1.0___ast_滴_15__ _ASTNODE_滴:1.0___ast_滴_151__.
+
+    If a _ASTNODE_滴:1.0___ast_滴_30__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_9__ _ASTNODE_滴:1.0___ast_滴_155__ an _ASTNODE_滴:1.0___ast_滴_184__-_ASTNODE_滴:1.0___ast_滴_15__ _ASTNODE_滴:1.0___ast_滴_151__ (_ASTNODE_滴:1.0___ast_滴_146__=_ASTNODE_墟:1.0___ast_墟_16__), it _ASTNODE_滴:1.0___ast_滴_116__
+    _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_80__ _ASTNODE_滴:1.0___ast_滴_40__ so _ASTNODE_滴:1.0___ast_滴_6__ _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_128__ on-_ASTNODE_滴:1.0___ast_滴_15__ _ASTNODE_滴:1.0___ast_滴_151__ (_ASTNODE_滴:1.0___ast_滴_146__ != _ASTNODE_墟:1.0___ast_墟_16__) _ASTNODE_滴:1.0___ast_滴_182__
+    _ASTNODE_滴:1.0___ast_滴_183__ _ASTNODE_滴:1.0___ast_滴_195__ _ASTNODE_滴:1.0___ast_滴_151__. _ASTNODE_墟:1.0___ast_墟_26__ _ASTNODE_滴:1.0___ast_滴_123__ _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_123__ _ASTNODE_滴:1.0___ast_滴_89__ _ASTNODE_滴:1.0___ast_滴_54__ _ASTNODE_滴:1.0___ast_滴_155__ on-_ASTNODE_滴:1.0___ast_滴_15__ _ASTNODE_滴:1.0___ast_滴_80__
+    _ASTNODE_滴:1.0___ast_滴_53__ _ASTNODE_滴:1.0___ast_滴_75__ _ASTNODE_滴:1.0___ast_滴_68__ _ASTNODE_滴:1.0___ast_滴_72__.
+
+    >>> _ASTNODE_滴:1.0___ast_滴_121__ _ASTNODE_滴:1.0___ast_滴_59__._ASTNODE_滴:1.0___ast_滴_114__._ASTNODE_滴:1.0___ast_滴_26__ import _ASTNODE_墟:1.0___ast_墟_38__
+    >>> _ASTNODE_滴:1.0___ast_滴_7__ = _ASTNODE_墟:1.0___ast_墟_38__()
+    >>> _ASTNODE_滴:1.0___ast_滴_42__ = _ASTNODE_墟:1.0___ast_墟_1__(_ASTNODE_滴:1.0___ast_滴_7__)
+    >>> # _ASTNODE_墟:1.0___ast_墟_3__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_54__ _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_184__-_ASTNODE_滴:1.0___ast_滴_15__ - _ASTNODE_滴:1.0___ast_滴_122__ be _ASTNODE_滴:1.0___ast_滴_35__
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_173__()
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_14__((0, 0), _ASTNODE_墟:1.0___ast_墟_16__)  # _ASTNODE_滴:1.0___ast_滴_184__-_ASTNODE_滴:1.0___ast_滴_15__
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_14__((100, 100), "_ASTNODE_滴:1.0___ast_滴_134__")  # on-_ASTNODE_滴:1.0___ast_滴_15__ - _ASTNODE_滴:1.0___ast_滴_122__ _ASTNODE_滴:1.0___ast_滴_67__ _ASTNODE_滴:1.0___ast_滴_195__
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_14__((200, 0), _ASTNODE_墟:1.0___ast_墟_16__)  # _ASTNODE_滴:1.0___ast_滴_184__-_ASTNODE_滴:1.0___ast_滴_15__
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_14__((300, 100), "_ASTNODE_滴:1.0___ast_滴_15__")  # on-_ASTNODE_滴:1.0___ast_滴_15__
+    >>> _ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_201__()
+    >>> # _ASTNODE_墟:1.0___ast_墟_24__ _ASTNODE_滴:1.0___ast_滴_65__ _ASTNODE_滴:1.0___ast_滴_86__ _ASTNODE_滴:1.0___ast_滴_185__ _ASTNODE_滴:1.0___ast_滴_195__ _ASTNODE_滴:1.0___ast_滴_155__ (100, 100) "_ASTNODE_滴:1.0___ast_滴_134__"
+    >>> _ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__[0]
+    ('_ASTNODE_滴:1.0___ast_滴_173__', (), {})
+    >>> _ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__[1]
+    ('_ASTNODE_滴:1.0___ast_滴_14__', ((100, 100), '_ASTNODE_滴:1.0___ast_滴_134__', _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_墟:1.0___ast_墟_16__), {})
+    >>> _ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__[2]
+    ('_ASTNODE_滴:1.0___ast_滴_14__', ((200, 0), _ASTNODE_墟:1.0___ast_墟_16__, _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_墟:1.0___ast_墟_16__), {})
+    >>> _ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__[3]
+    ('_ASTNODE_滴:1.0___ast_滴_14__', ((300, 100), '_ASTNODE_滴:1.0___ast_滴_15__', _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_墟:1.0___ast_墟_16__), {})
+    >>> _ASTNODE_滴:1.0___ast_滴_7__._ASTNODE_滴:1.0___ast_滴_13__[4]
+    ('_ASTNODE_滴:1.0___ast_滴_14__', ((0, 0), _ASTNODE_墟:1.0___ast_墟_16__, _ASTNODE_墟:1.0___ast_墟_9__, _ASTNODE_墟:1.0___ast_墟_16__), {})
+    """
+
+    _ASTNODE_滴:1.0___ast_滴_196__ _ASTNODE_滴:1.0___ast_滴_192__(self, _ASTNODE_滴:1.0___ast_滴_65__):
+        """_ASTNODE_墟:1.0___ast_墟_6__ _ASTNODE_滴:1.0___ast_滴_30__ _ASTNODE_滴:1.0___ast_滴_65__ to _ASTNODE_滴:1.0___ast_滴_195__ _ASTNODE_滴:1.0___ast_滴_155__ _ASTNODE_滴:1.0___ast_滴_128__ on-_ASTNODE_滴:1.0___ast_滴_15__ _ASTNODE_滴:1.0___ast_滴_151__ if _ASTNODE_滴:1.0___ast_滴_57__."""
+        if _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_滴:1.0___ast_滴_65__:
+            return
+
+// [metadata-stripped]
+        _ASTNODE_滴:1.0___ast_滴_208__ = _ASTNODE_滴:1.0___ast_滴_65__[0][1] != "_ASTNODE_滴:1.0___ast_滴_34__"
+
+        if _ASTNODE_滴:1.0___ast_滴_208__ _ASTNODE_滴:1.0___ast_滴_193__ _ASTNODE_滴:1.0___ast_滴_65__[0][1] is _ASTNODE_墟:1.0___ast_墟_16__:
+// [metadata-stripped]
+// [metadata-stripped]
+            for i, (pt, _ASTNODE_滴:1.0___ast_滴_146__, _ASTNODE_滴:1.0___ast_滴_154__, _ASTNODE_滴:1.0___ast_滴_5__, _ASTNODE_滴:1.0___ast_滴_1__) in _ASTNODE_滴:1.0___ast_滴_140__(_ASTNODE_滴:1.0___ast_滴_65__):
+                if _ASTNODE_滴:1.0___ast_滴_146__ is _ASTNODE_滴:1.0___ast_滴_189__ _ASTNODE_墟:1.0___ast_墟_16__:
+// [metadata-stripped]
+                    return _ASTNODE_滴:1.0___ast_滴_65__[i:] + _ASTNODE_滴:1.0___ast_滴_65__[:i]
+
+// POLYMORPHIC_JCROSS_END

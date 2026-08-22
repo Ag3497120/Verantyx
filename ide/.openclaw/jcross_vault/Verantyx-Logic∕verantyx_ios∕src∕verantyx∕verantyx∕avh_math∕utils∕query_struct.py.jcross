@@ -1,0 +1,48 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:28DEF4E9 ver:1778162901
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import re
+// _OPAQUE_節:0.9__ID_FH_904_ [decoy-metadata]
+_OPAQUE_霮:1.0__ID_霮_34_ _OPAQUE_霮:1.0__ID_霮_13_ import _OPAQUE_霮:1.0__ID_霮_33_, _OPAQUE_霮:1.0__ID_霮_31_
+_OPAQUE_霮:1.0__ID_霮_34_ _OPAQUE_霮:1.0__ID_霮_36_ import _OPAQUE_廳:1.0__ID_廳_8_, _OPAQUE_廳:1.0__ID_廳_13_
+
+@_OPAQUE_霮:1.0__ID_霮_33_
+class _OPAQUE_廳:1.0__ID_廳_3_:
+    _OPAQUE_霮:1.0__ID_霮_17_: _OPAQUE_霮:1.0__ID_霮_9_
+    _OPAQUE_霮:1.0__ID_霮_21_: _OPAQUE_廳:1.0__ID_廳_8_[_OPAQUE_霮:1.0__ID_霮_9_] = _OPAQUE_廳:1.0__ID_廳_2_
+    _OPAQUE_霮:1.0__ID_霮_37_: _OPAQUE_廳:1.0__ID_廳_13_[_OPAQUE_霮:1.0__ID_霮_9_] = _OPAQUE_霮:1.0__ID_霮_31_(_OPAQUE_霮:1.0__ID_霮_20_=_OPAQUE_霮:1.0__ID_霮_10_)
+    _OPAQUE_滾:1.0__ID_霮_7_: _OPAQUE_廳:1.0__ID_廳_8_[_OPAQUE_霮:1.0__ID_霮_9_] = _OPAQUE_廳:1.0__ID_廳_2_
+
+// [metadata-stripped]
+_OPAQUE_廳:1.0__ID_廳_12_ = re._OPAQUE_霮:1.0__ID_霮_27_(r"(?im)^_OPAQUE_廳:1.0__ID_廳_5_\s*[:=]\s*([a-zA-Z0-9_]+)\s*$")
+_OPAQUE_廳:1.0__ID_廳_1_ = re._OPAQUE_霮:1.0__ID_霮_27_(r"(?im)^_OPAQUE_廳:1.0__ID_廳_4_(?:s)?\s*[:=]\s*(.+?)\s*$")
+_OPAQUE_廳:1.0__ID_廳_9_ = re._OPAQUE_霮:1.0__ID_霮_27_(r"(?im)^_OPAQUE_廳:1.0__ID_廳_10_\s*[:=]\s*(.+?)\s*$")
+// _OPAQUE_曠:0.5__ID_VV_836_ [decoy-metadata]
+
+_OPAQUE_霮:1.0__ID_霮_26_ _OPAQUE_霮:1.0__ID_霮_16_(_OPAQUE_霮:1.0__ID_霮_12_: _OPAQUE_霮:1.0__ID_霮_9_) -> _OPAQUE_廳:1.0__ID_廳_3_:
+    _OPAQUE_霮:1.0__ID_霮_21_ = _OPAQUE_廳:1.0__ID_廳_2_
+    m = _OPAQUE_廳:1.0__ID_廳_12_._OPAQUE_霮:1.0__ID_霮_18_(_OPAQUE_霮:1.0__ID_霮_12_)
+    if m:
+        _OPAQUE_霮:1.0__ID_霮_21_ = m._OPAQUE_霮:1.0__ID_霮_30_(1)._OPAQUE_霮:1.0__ID_霮_2_()
+// _OPAQUE_霮:0.3__ID_KW_378_ [decoy-metadata]
+
+    _OPAQUE_霮:1.0__ID_霮_37_: _OPAQUE_廳:1.0__ID_廳_13_[_OPAQUE_霮:1.0__ID_霮_9_] = []
+// [metadata-stripped]
+    for m in _OPAQUE_廳:1.0__ID_廳_1_._OPAQUE_節:1.0__ID_霮_25_(_OPAQUE_霮:1.0__ID_霮_12_):
+// _OPAQUE_滾:0.2__ID_BE_241_ [decoy-metadata]
+// [metadata-stripped]
+// _OPAQUE_玄:0.1__ID_VK_133_ [decoy-metadata]
+        _OPAQUE_霮:1.0__ID_霮_4_ = re._OPAQUE_霮:1.0__ID_霮_38_(r"[,\s]+", m._OPAQUE_霮:1.0__ID_霮_30_(1)._OPAQUE_霮:1.0__ID_霮_2_())
+        _OPAQUE_霮:1.0__ID_霮_37_._OPAQUE_霮:1.0__ID_霮_5_([p for p in _OPAQUE_霮:1.0__ID_霮_4_ if p])
+
+    _OPAQUE_滾:1.0__ID_霮_7_ = _OPAQUE_廳:1.0__ID_廳_2_
+// _OPAQUE_玄:0.6__ID_CX_353_ [decoy-metadata]
+    m = _OPAQUE_廳:1.0__ID_廳_9_._OPAQUE_霮:1.0__ID_霮_18_(_OPAQUE_霮:1.0__ID_霮_12_)
+    if m:
+        _OPAQUE_滾:1.0__ID_霮_7_ = m._OPAQUE_霮:1.0__ID_霮_30_(1)._OPAQUE_霮:1.0__ID_霮_2_()
+    
+    return _OPAQUE_廳:1.0__ID_廳_3_(_OPAQUE_霮:1.0__ID_霮_17_=_OPAQUE_霮:1.0__ID_霮_12_, _OPAQUE_霮:1.0__ID_霮_21_=_OPAQUE_霮:1.0__ID_霮_21_, _OPAQUE_霮:1.0__ID_霮_37_=_OPAQUE_霮:1.0__ID_霮_37_, _OPAQUE_滾:1.0__ID_霮_7_=_OPAQUE_滾:1.0__ID_霮_7_)
+
+// POLYMORPHIC_JCROSS_END

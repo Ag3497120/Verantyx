@@ -1,0 +1,102 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:770368D9 ver:1778167746
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_廡:1.0___node_廡_3__ = 8000;
+
+_ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_11__(_ASTNODE_霩:1.0___node_霩_30__: _ASTNODE_法:1.0___node_霩_24__): _ASTNODE_法:1.0___node_霩_24__ {
+  return _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_43__(-32768, _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_32__(32767, _ASTNODE_霩:1.0___node_霩_30__));
+}
+
+/**
+ * _ASTNODE_廡:1.0___node_廡_5__ 16-_ASTNODE_霩:1.0___node_霩_38__ _ASTNODE_廡:1.0___node_廡_9__ (_ASTNODE_霩:1.0___node_霩_3__-_ASTNODE_霩:1.0___node_霩_5__ _ASTNODE_霩:1.0___node_霩_49__) to 8kHz _ASTNODE_霩:1.0___node_霩_22__ _ASTNODE_霩:1.0___node_霩_52__ _ASTNODE_霩:1.0___node_霩_35__.
+ */
+_ASTNODE_霩:1.0___node_霩_33__ _ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_2__(_ASTNODE_霩:1.0___node_霩_37__: _ASTNODE_法:1.0___node_廡_1__, _ASTNODE_霩:1.0___node_霩_36__: _ASTNODE_法:1.0___node_霩_24__): _ASTNODE_法:1.0___node_廡_1__ {
+  if (_ASTNODE_霩:1.0___node_霩_36__ === _ASTNODE_廡:1.0___node_廡_3__) {
+    return _ASTNODE_霩:1.0___node_霩_37__;
+  }
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_53__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_18__(_ASTNODE_霩:1.0___node_霩_37__._ASTNODE_霩:1.0___node_霩_41__ / 2);
+  if (_ASTNODE_霩:1.0___node_霩_53__ === 0) {
+    return _ASTNODE_法:1.0___node_廡_1__._ASTNODE_霩:1.0___node_霩_34__(0);
+  }
+
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_29__ = _ASTNODE_霩:1.0___node_霩_36__ / _ASTNODE_廡:1.0___node_廡_3__;
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_8__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_18__(_ASTNODE_霩:1.0___node_霩_53__ / _ASTNODE_霩:1.0___node_霩_29__);
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_55__ = _ASTNODE_法:1.0___node_廡_1__._ASTNODE_霩:1.0___node_霩_34__(_ASTNODE_霩:1.0___node_霩_8__ * 2);
+
+  for (let i = 0; i < _ASTNODE_霩:1.0___node_霩_8__; i++) {
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_51__ = i * _ASTNODE_霩:1.0___node_霩_29__;
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_26__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_18__(_ASTNODE_霩:1.0___node_霩_51__);
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_13__ = _ASTNODE_霩:1.0___node_霩_51__ - _ASTNODE_霩:1.0___node_霩_26__;
+
+    _ASTNODE_霩:1.0___node_霩_42__ s0 = _ASTNODE_霩:1.0___node_霩_37__._ASTNODE_霩:1.0___node_霩_46__(_ASTNODE_霩:1.0___node_霩_26__ * 2);
+// _ASTNODE_匣:0.6___node_WC_637__ [decoy-metadata]
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_20__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_32__(_ASTNODE_霩:1.0___node_霩_26__ + 1, _ASTNODE_霩:1.0___node_霩_53__ - 1);
+    _ASTNODE_霩:1.0___node_霩_42__ s1 = _ASTNODE_霩:1.0___node_霩_37__._ASTNODE_霩:1.0___node_霩_46__(_ASTNODE_霩:1.0___node_霩_20__ * 2);
+
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_31__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_23__(s0 + _ASTNODE_霩:1.0___node_霩_13__ * (s1 - s0));
+    _ASTNODE_霩:1.0___node_霩_55__._ASTNODE_霩:1.0___node_霩_6__(_ASTNODE_霩:1.0___node_霩_11__(_ASTNODE_霩:1.0___node_霩_31__), i * 2);
+  }
+
+// _ASTNODE_霩:0.4___node_KC_837__ [decoy-metadata]
+  return _ASTNODE_霩:1.0___node_霩_55__;
+}
+
+/**
+ * _ASTNODE_廡:1.0___node_廡_8__ 16-_ASTNODE_霩:1.0___node_霩_38__ _ASTNODE_廡:1.0___node_廡_9__ to 8-_ASTNODE_霩:1.0___node_霩_38__ mu-_ASTNODE_霩:1.0___node_霩_40__ (G.711).
+ */
+_ASTNODE_霩:1.0___node_霩_33__ _ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_4__(_ASTNODE_霩:1.0___node_霩_44__: _ASTNODE_法:1.0___node_廡_1__): _ASTNODE_法:1.0___node_廡_1__ {
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_25__ = _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_18__(_ASTNODE_霩:1.0___node_霩_44__._ASTNODE_霩:1.0___node_霩_41__ / 2);
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_28__ = _ASTNODE_法:1.0___node_廡_1__._ASTNODE_霩:1.0___node_霩_34__(_ASTNODE_霩:1.0___node_霩_25__);
+
+  for (let i = 0; i < _ASTNODE_霩:1.0___node_霩_25__; i++) {
+    _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_31__ = _ASTNODE_霩:1.0___node_霩_44__._ASTNODE_霩:1.0___node_霩_46__(i * 2);
+    _ASTNODE_霩:1.0___node_霩_28__[i] = _ASTNODE_霩:1.0___node_霩_56__(_ASTNODE_霩:1.0___node_霩_31__);
+  }
+// _ASTNODE_霩:0.7___node_KM_244__ [decoy-metadata]
+// _ASTNODE_霩:0.2___node_YC_570__ [decoy-metadata]
+
+  return _ASTNODE_霩:1.0___node_霩_28__;
+}
+
+_ASTNODE_霩:1.0___node_霩_33__ _ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_48__(_ASTNODE_霩:1.0___node_霩_44__: _ASTNODE_法:1.0___node_廡_1__, _ASTNODE_霩:1.0___node_霩_36__: _ASTNODE_法:1.0___node_霩_24__): _ASTNODE_法:1.0___node_廡_1__ {
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_7__ = _ASTNODE_霩:1.0___node_霩_2__(_ASTNODE_霩:1.0___node_霩_44__, _ASTNODE_霩:1.0___node_霩_36__);
+  return _ASTNODE_霩:1.0___node_霩_4__(_ASTNODE_霩:1.0___node_霩_7__);
+}
+
+/**
+ * _ASTNODE_廡:1.0___node_廡_6__ _ASTNODE_霩:1.0___node_霩_27__ _ASTNODE_法:1.0___node_霩_15__ _ASTNODE_霩:1.0___node_霩_14__ 20ms _ASTNODE_霩:1.0___node_霩_19__ for _ASTNODE_霩:1.0___node_霩_47__ (8kHz _ASTNODE_霩:1.0___node_霩_49__ mu-_ASTNODE_霩:1.0___node_霩_40__).
+// _ASTNODE_霩:0.4___node_YC_393__ [decoy-metadata]
+ */
+_ASTNODE_霩:1.0___node_霩_33__ _ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_45__(_ASTNODE_霩:1.0___node_霩_27__: _ASTNODE_法:1.0___node_廡_1__, _ASTNODE_霩:1.0___node_霩_50__ = 160): _ASTNODE_廡:1.0___node_廡_2__<_ASTNODE_法:1.0___node_廡_1__, _ASTNODE_霩:1.0___node_霩_39__, _ASTNODE_霩:1.0___node_霩_54__> {
+  return (_ASTNODE_霩:1.0___node_霩_17__* () {
+    for (let i = 0; i < _ASTNODE_霩:1.0___node_霩_27__._ASTNODE_霩:1.0___node_霩_41__; i += _ASTNODE_霩:1.0___node_霩_50__) {
+      _ASTNODE_霩:1.0___node_霩_12__ _ASTNODE_霩:1.0___node_霩_27__._ASTNODE_霩:1.0___node_霩_10__(i, _ASTNODE_廡:1.0___node_廡_4__._ASTNODE_霩:1.0___node_霩_32__(i + _ASTNODE_霩:1.0___node_霩_50__, _ASTNODE_霩:1.0___node_霩_27__._ASTNODE_霩:1.0___node_霩_41__));
+    }
+// _ASTNODE_匣:0.2___node_VG_418__ [decoy-metadata]
+  })();
+}
+
+_ASTNODE_霩:1.0___node_霩_17__ _ASTNODE_霩:1.0___node_霩_56__(_ASTNODE_霩:1.0___node_霩_31__: _ASTNODE_法:1.0___node_霩_24__): _ASTNODE_法:1.0___node_霩_24__ {
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_廡:1.0___node_廡_10__ = 132;
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_廡:1.0___node_廡_7__ = 32635;
+
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_9__ = _ASTNODE_霩:1.0___node_霩_31__ < 0 ? 0x80 : 0;
+  if (_ASTNODE_霩:1.0___node_霩_31__ < 0) {
+    _ASTNODE_霩:1.0___node_霩_31__ = -_ASTNODE_霩:1.0___node_霩_31__;
+  }
+  if (_ASTNODE_霩:1.0___node_霩_31__ > _ASTNODE_廡:1.0___node_廡_7__) {
+    _ASTNODE_霩:1.0___node_霩_31__ = _ASTNODE_廡:1.0___node_廡_7__;
+  }
+
+  _ASTNODE_霩:1.0___node_霩_31__ += _ASTNODE_廡:1.0___node_廡_10__;
+  let _ASTNODE_霩:1.0___node_霩_16__ = 7;
+  for (let _ASTNODE_霩:1.0___node_霩_1__ = 0x4000; (_ASTNODE_霩:1.0___node_霩_31__ & _ASTNODE_霩:1.0___node_霩_1__) === 0 && _ASTNODE_霩:1.0___node_霩_16__ > 0; _ASTNODE_霩:1.0___node_霩_16__--) {
+    _ASTNODE_霩:1.0___node_霩_1__ >>= 1;
+  }
+
+  _ASTNODE_霩:1.0___node_霩_42__ _ASTNODE_霩:1.0___node_霩_21__ = (_ASTNODE_霩:1.0___node_霩_31__ >> (_ASTNODE_霩:1.0___node_霩_16__ + 3)) & 0x0f;
+  return ~(_ASTNODE_霩:1.0___node_霩_9__ | (_ASTNODE_霩:1.0___node_霩_16__ << 4) | _ASTNODE_霩:1.0___node_霩_21__) & 0xff;
+}
+
+// POLYMORPHIC_JCROSS_END

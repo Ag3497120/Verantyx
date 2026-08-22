@@ -1,0 +1,165 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D5A1CB1F ver:1778164051
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_廱:1.0___ast_廱_23__
+import _OPAQUE_廱:1.0___ast_廱_19__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@_OPAQUE_廱:1.0___ast_廱_20__
+final class _OPAQUE_廱:1.0___ast_廱_26__: _OPAQUE_廱:1.0___ast_廱_31__ {
+
+    static let _OPAQUE_礫:1.0___ast_礫_27__ = _OPAQUE_廱:1.0___ast_廱_26__()
+
+// [metadata-stripped]
+
+    @_OPAQUE_廱:1.0___ast_廱_9__ var _OPAQUE_礫:1.0___ast_礫_98__: [_OPAQUE_廱:1.0___ast_廱_24__] = []
+    @_OPAQUE_廱:1.0___ast_廱_9__ var _OPAQUE_礫:1.0___ast_礫_93__: _OPAQUE_廱:1.0___ast_廱_10__ = 0           // 全プロセス合計 _OPAQUE_廱:1.0___ast_廱_13__%
+    @_OPAQUE_廱:1.0___ast_廱_9__ var _OPAQUE_礫:1.0___ast_礫_37__: _OPAQUE_廱:1.0___ast_廱_10__ = 0        // _OPAQUE_廱:1.0___ast_廱_28__ 関連プロセスの _OPAQUE_廱:1.0___ast_廱_13__%
+    @_OPAQUE_廱:1.0___ast_廱_9__ var _OPAQUE_匣:1.0___ast_礫_92__: _OPAQUE_廱:1.0___ast_廱_17__ = false        // _OPAQUE_廱:1.0___ast_廱_13__ > 60% なら true
+
+    struct _OPAQUE_廱:1.0___ast_廱_24__: _OPAQUE_廱:1.0___ast_廱_8__ {
+        let id = _OPAQUE_廱:1.0___ast_廱_27__()
+        let _OPAQUE_礫:1.0___ast_礫_80__: _OPAQUE_廱:1.0___ast_廱_15__
+        let _OPAQUE_礫:1.0___ast_礫_69__: _OPAQUE_廱:1.0___ast_廱_14__
+        let _OPAQUE_礫:1.0___ast_礫_33__: _OPAQUE_廱:1.0___ast_廱_10__
+        let _OPAQUE_礫:1.0___ast_礫_74__: _OPAQUE_廱:1.0___ast_廱_10__
+        let _OPAQUE_礫:1.0___ast_礫_75__: _OPAQUE_廱:1.0___ast_廱_17__   // _OPAQUE_廱:1.0___ast_廱_2__/_OPAQUE_礫:1.0___ast_礫_1__/_OPAQUE_礫:1.0___ast_礫_88__/_OPAQUE_游:1.0___ast_礫_64__/_OPAQUE_礫:1.0___ast_礫_60__ 等
+        let _OPAQUE_礫:1.0___ast_礫_11__: _OPAQUE_廱:1.0___ast_廱_14__             // 表示用ラベル (絵文字付き)
+    }
+
+// [metadata-stripped]
+    private let _OPAQUE_礫:1.0___ast_礫_82__ = [
+        "_OPAQUE_礫:1.0___ast_礫_84__", "_OPAQUE_礫:1.0___ast_礫_34__", "_OPAQUE_礫:1.0___ast_礫_1__-lm", "_OPAQUE_礫:1.0___ast_礫_88__", "_OPAQUE_游:1.0___ast_礫_64__",
+// _OPAQUE_紋:0.6___ast_DK_173__ [decoy-metadata]
+        "_OPAQUE_礫:1.0___ast_礫_60__", "_OPAQUE_礫:1.0___ast_礫_3__", "_OPAQUE_礫:1.0___ast_礫_18__", "_OPAQUE_礫:1.0___ast_礫_99__", "_OPAQUE_廱:1.0___ast_廱_28__",
+        "_OPAQUE_礫:1.0___ast_礫_97__", "_OPAQUE_礫:1.0___ast_礫_87__", "_OPAQUE_礫:1.0___ast_礫_87__-_OPAQUE_礫:1.0___ast_礫_14__-_OPAQUE_規:1.0___ast_礫_8__"
+    ]
+
+    private var _OPAQUE_規:1.0___ast_礫_44__: _OPAQUE_規:1.0___ast_廱_30__?
+    private let _OPAQUE_礫:1.0___ast_礫_79__: _OPAQUE_廱:1.0___ast_廱_7__ = 2.0
+
+    private init() {}
+
+// [metadata-stripped]
+
+    func _OPAQUE_礫:1.0___ast_礫_52__() {
+        guard _OPAQUE_規:1.0___ast_礫_44__ == nil else { return }
+        _OPAQUE_廱:1.0___ast_廱_32__ { await self._OPAQUE_礫:1.0___ast_礫_68__() }  // 即時実行
+        _OPAQUE_規:1.0___ast_礫_44__ = _OPAQUE_規:1.0___ast_廱_30__._OPAQUE_規:1.0___ast_礫_83__(_OPAQUE_礫:1.0___ast_礫_17__: _OPAQUE_礫:1.0___ast_礫_79__, _OPAQUE_礫:1.0___ast_礫_54__: true) { [weak self] _ in
+            _OPAQUE_廱:1.0___ast_廱_32__ { @_OPAQUE_廱:1.0___ast_廱_20__ in await self?._OPAQUE_礫:1.0___ast_礫_68__() }
+        }
+    }
+
+    func _OPAQUE_礫:1.0___ast_礫_31__() {
+        _OPAQUE_規:1.0___ast_礫_44__?._OPAQUE_礫:1.0___ast_礫_22__()
+        _OPAQUE_規:1.0___ast_礫_44__ = nil
+    }
+
+// [metadata-stripped]
+// _OPAQUE_規:0.5___ast_VB_898__ [decoy-metadata]
+
+    private func _OPAQUE_礫:1.0___ast_礫_68__() async {
+        let _OPAQUE_礫:1.0___ast_礫_36__ = await _OPAQUE_礫:1.0___ast_礫_38__()
+        let _OPAQUE_礫:1.0___ast_礫_72__ = _OPAQUE_礫:1.0___ast_礫_43__(_OPAQUE_礫:1.0___ast_礫_36__)
+
+// [metadata-stripped]
+        let _OPAQUE_礫:1.0___ast_礫_9__ = _OPAQUE_礫:1.0___ast_礫_72__._OPAQUE_礫:1.0___ast_礫_15__(0.0) { $0 + $1._OPAQUE_礫:1.0___ast_礫_33__ }
+        let _OPAQUE_礫:1.0___ast_礫_25__  = _OPAQUE_礫:1.0___ast_礫_72__._OPAQUE_規:1.0___ast_礫_39__ { $0._OPAQUE_礫:1.0___ast_礫_75__ }._OPAQUE_礫:1.0___ast_礫_15__(0.0) { $0 + $1._OPAQUE_礫:1.0___ast_礫_33__ }
+
+        _OPAQUE_礫:1.0___ast_礫_98__ = _OPAQUE_廱:1.0___ast_廱_5__(_OPAQUE_礫:1.0___ast_礫_72__._OPAQUE_礫:1.0___ast_礫_40__(8))
+        _OPAQUE_礫:1.0___ast_礫_93__ = _OPAQUE_礫:1.0___ast_礫_9__
+        _OPAQUE_礫:1.0___ast_礫_37__ = _OPAQUE_礫:1.0___ast_礫_25__
+        _OPAQUE_匣:1.0___ast_礫_92__ = _OPAQUE_礫:1.0___ast_礫_9__ > 60.0
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_礫:1.0___ast_礫_38__() async -> _OPAQUE_廱:1.0___ast_廱_14__ {
+        await _OPAQUE_礫:1.0___ast_礫_89__ { _OPAQUE_礫:1.0___ast_礫_16__ in
+            _OPAQUE_廱:1.0___ast_廱_21__._OPAQUE_礫:1.0___ast_礫_70__(_OPAQUE_礫:1.0___ast_礫_67__: ._OPAQUE_礫:1.0___ast_礫_61__).async {
+                let _OPAQUE_礫:1.0___ast_礫_73__ = _OPAQUE_廱:1.0___ast_廱_33__()
+                _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_紋:1.0___ast_礫_58__ = _OPAQUE_紋:1.0___ast_廱_22__(_OPAQUE_紋:1.0___ast_礫_85__: "/_OPAQUE_礫:1.0___ast_礫_56__/ps")
+// [metadata-stripped]
+                _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_礫:1.0___ast_礫_57__ = ["-Ao", "_OPAQUE_礫:1.0___ast_礫_80__,_OPAQUE_礫:1.0___ast_礫_71__,_OPAQUE_礫:1.0___ast_礫_2__,_OPAQUE_礫:1.0___ast_礫_65__", "-r"]
+                let _OPAQUE_礫:1.0___ast_礫_7__ = _OPAQUE_廱:1.0___ast_廱_16__()
+                _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_礫:1.0___ast_礫_63__ = _OPAQUE_礫:1.0___ast_礫_7__
+                _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_礫:1.0___ast_礫_28__ = _OPAQUE_匣:1.0___ast_廱_6__._OPAQUE_礫:1.0___ast_礫_55__  // ⚠️ _OPAQUE_礫:1.0___ast_礫_48__ は不要 — 未読パイプの _OPAQUE_礫:1.0___ast_礫_24__ 防止
+                do {
+                    try _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_礫:1.0___ast_礫_86__()
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    let _OPAQUE_礫:1.0___ast_礫_49__ = _OPAQUE_礫:1.0___ast_礫_7__._OPAQUE_匣:1.0___ast_礫_45__._OPAQUE_匣:1.0___ast_礫_12__()
+                    _OPAQUE_礫:1.0___ast_礫_73__._OPAQUE_礫:1.0___ast_礫_66__()
+                    _OPAQUE_礫:1.0___ast_礫_16__._OPAQUE_礫:1.0___ast_礫_6__(_OPAQUE_礫:1.0___ast_礫_81__: _OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_礫:1.0___ast_礫_49__: _OPAQUE_礫:1.0___ast_礫_49__, _OPAQUE_礫:1.0___ast_礫_13__: ._OPAQUE_礫:1.0___ast_礫_30__) ?? "")
+                } catch {
+                    _OPAQUE_礫:1.0___ast_礫_16__._OPAQUE_礫:1.0___ast_礫_6__(_OPAQUE_礫:1.0___ast_礫_81__: "")
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_礫:1.0___ast_礫_43__(_ _OPAQUE_礫:1.0___ast_礫_95__: _OPAQUE_廱:1.0___ast_廱_14__) -> [_OPAQUE_廱:1.0___ast_廱_24__] {
+        var _OPAQUE_礫:1.0___ast_礫_90__: [_OPAQUE_廱:1.0___ast_廱_24__] = []
+        let _OPAQUE_礫:1.0___ast_礫_42__ = _OPAQUE_礫:1.0___ast_礫_95__._OPAQUE_礫:1.0___ast_礫_76__(_OPAQUE_礫:1.0___ast_礫_96__: "\n")._OPAQUE_礫:1.0___ast_礫_20__()  // ヘッダー行を除く
+
+        for _OPAQUE_礫:1.0___ast_礫_23__ in _OPAQUE_礫:1.0___ast_礫_42__._OPAQUE_礫:1.0___ast_礫_40__(20) {
+            let _OPAQUE_礫:1.0___ast_礫_26__ = _OPAQUE_礫:1.0___ast_礫_23__._OPAQUE_礫:1.0___ast_礫_29__(in: ._OPAQUE_礫:1.0___ast_礫_78__)
+                            ._OPAQUE_礫:1.0___ast_礫_76__(_OPAQUE_礫:1.0___ast_礫_96__: ._OPAQUE_礫:1.0___ast_礫_78__)
+                            ._OPAQUE_規:1.0___ast_礫_39__ { !$0._OPAQUE_礫:1.0___ast_礫_41__ }
+            guard _OPAQUE_礫:1.0___ast_礫_26__._OPAQUE_礫:1.0___ast_礫_5__ >= 4,
+                  let _OPAQUE_礫:1.0___ast_礫_80__ = _OPAQUE_廱:1.0___ast_廱_15__(_OPAQUE_礫:1.0___ast_礫_26__[0]),
+                  let _OPAQUE_礫:1.0___ast_礫_4__ = _OPAQUE_廱:1.0___ast_廱_10__(_OPAQUE_礫:1.0___ast_礫_26__[1]),
+                  let _OPAQUE_礫:1.0___ast_礫_51__ = _OPAQUE_廱:1.0___ast_廱_10__(_OPAQUE_礫:1.0___ast_礫_26__[2]) else { continue }
+
+            let _OPAQUE_礫:1.0___ast_礫_62__ = _OPAQUE_礫:1.0___ast_礫_26__[3...]._OPAQUE_礫:1.0___ast_礫_91__(_OPAQUE_礫:1.0___ast_礫_77__: " ")
+            let _OPAQUE_礫:1.0___ast_礫_69__ = _OPAQUE_紋:1.0___ast_廱_22__(_OPAQUE_紋:1.0___ast_礫_85__: _OPAQUE_礫:1.0___ast_礫_62__)._OPAQUE_礫:1.0___ast_礫_35__
+
+// [metadata-stripped]
+            guard _OPAQUE_礫:1.0___ast_礫_4__ >= 0.1 else { continue }
+
+            let _OPAQUE_礫:1.0___ast_礫_47__ = _OPAQUE_礫:1.0___ast_礫_82__._OPAQUE_礫:1.0___ast_礫_21__ { _OPAQUE_礫:1.0___ast_礫_69__._OPAQUE_礫:1.0___ast_礫_19__()._OPAQUE_礫:1.0___ast_礫_21__($0) }
+            let _OPAQUE_礫:1.0___ast_礫_11__ = _OPAQUE_礫:1.0___ast_礫_50__(_OPAQUE_礫:1.0___ast_礫_69__: _OPAQUE_礫:1.0___ast_礫_69__, _OPAQUE_礫:1.0___ast_礫_4__: _OPAQUE_礫:1.0___ast_礫_4__)
+
+            _OPAQUE_礫:1.0___ast_礫_90__._OPAQUE_礫:1.0___ast_礫_53__(_OPAQUE_廱:1.0___ast_廱_24__(
+                _OPAQUE_礫:1.0___ast_礫_80__: _OPAQUE_礫:1.0___ast_礫_80__,
+                _OPAQUE_礫:1.0___ast_礫_69__: _OPAQUE_礫:1.0___ast_礫_69__,
+                _OPAQUE_礫:1.0___ast_礫_33__: _OPAQUE_礫:1.0___ast_礫_4__,
+// _OPAQUE_規:0.5___ast_VV_797__ [decoy-metadata]
+                _OPAQUE_礫:1.0___ast_礫_74__: _OPAQUE_礫:1.0___ast_礫_51__,
+                _OPAQUE_礫:1.0___ast_礫_75__: _OPAQUE_礫:1.0___ast_礫_47__,
+                _OPAQUE_礫:1.0___ast_礫_11__: _OPAQUE_礫:1.0___ast_礫_11__
+// _OPAQUE_匣:0.4___ast_CX_328__ [decoy-metadata]
+            ))
+        }
+
+        return _OPAQUE_礫:1.0___ast_礫_90__._OPAQUE_礫:1.0___ast_礫_94__ { $0._OPAQUE_礫:1.0___ast_礫_33__ > $1._OPAQUE_礫:1.0___ast_礫_33__ }
+    }
+// _OPAQUE_凱:0.7___ast_VG_716__ [decoy-metadata]
+
+    private func _OPAQUE_礫:1.0___ast_礫_50__(_OPAQUE_礫:1.0___ast_礫_69__: _OPAQUE_廱:1.0___ast_廱_14__, _OPAQUE_礫:1.0___ast_礫_4__: _OPAQUE_廱:1.0___ast_廱_10__) -> _OPAQUE_廱:1.0___ast_廱_14__ {
+        let _OPAQUE_規:1.0___ast_礫_10__ = _OPAQUE_礫:1.0___ast_礫_69__._OPAQUE_礫:1.0___ast_礫_19__()
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_84__")    { return "🤖 _OPAQUE_廱:1.0___ast_廱_2__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_1__")       { return "⚡ _OPAQUE_廱:1.0___ast_廱_11__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_88__")    { return "⬡ _OPAQUE_廱:1.0___ast_廱_3__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_游:1.0___ast_礫_64__")     { return "🦅 _OPAQUE_廱:1.0___ast_廱_25__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_60__") || _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_3__") { return "🦀 _OPAQUE_廱:1.0___ast_廱_4__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_18__")    { return "🐍 _OPAQUE_廱:1.0___ast_廱_1__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_97__") { return "🔨 _OPAQUE_廱:1.0___ast_廱_29__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        if _OPAQUE_規:1.0___ast_礫_10__._OPAQUE_礫:1.0___ast_礫_21__("_OPAQUE_礫:1.0___ast_礫_46__")  { return "⟐ _OPAQUE_廱:1.0___ast_廱_28__ (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)" }
+        return "\(_OPAQUE_礫:1.0___ast_礫_69__) (\(_OPAQUE_廱:1.0___ast_廱_14__(_OPAQUE_游:1.0___ast_礫_59__: "%.1f", _OPAQUE_礫:1.0___ast_礫_4__))%)"
+    }
+}
+// _OPAQUE_游:0.8___ast_VA_437__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,53 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:722BE034 ver:1778159727
+// ⚠️ One-time schema — expires after response
+
+import _SYM_霡:1.0__ID_霡_43_
+_SYM_霡:1.0__ID_霡_6_ _SYM_霡:1.0__ID_霡_29_ import _SYM_廱:1.0__ID_廱_13_, _SYM_廱:1.0__ID_廱_11_, _SYM_廱:1.0__ID_廱_5_, _SYM_廱:1.0__ID_廱_12_
+_SYM_霡:1.0__ID_霡_6_ ._SYM_霡:1.0__ID_霡_33_ import _SYM_廱:1.0__ID_廱_3_, _SYM_廱:1.0__ID_廱_7_
+
+class _SYM_廱:1.0__ID_廱_8_:
+    _SYM_霡:1.0__ID_霡_40_ _SYM_霡:1.0__ID_霡_25_(self, _SYM_霡:1.0__ID_霡_23_: _SYM_霡:1.0__ID_霡_22_ = 10):
+        self._SYM_霡:1.0__ID_霡_23_ = _SYM_霡:1.0__ID_霡_23_
+
+    _SYM_霡:1.0__ID_霡_40_ _SYM_霡:1.0__ID_霡_5_(self, _SYM_霡:1.0__ID_霡_17_: _SYM_廱:1.0__ID_廱_3_, _SYM_霡:1.0__ID_霡_4_: _SYM_廱:1.0__ID_廱_13_[_SYM_霡:1.0__ID_霡_10_]) -> _SYM_廱:1.0__ID_廱_11_[_SYM_霡:1.0__ID_霡_10_, _SYM_廱:1.0__ID_廱_5_]:
+        """ベクトル化されたバッチ実行（_SYM_廱:1.0__ID_廱_10_ 擬似実装）"""
+// [metadata-stripped]
+        _SYM_霡:1.0__ID_霡_24_ = _SYM_霡:1.0__ID_霡_1_(_SYM_霡:1.0__ID_霡_43_._SYM_霡:1.0__ID_霡_16_([_SYM_廱:1.0__ID_廱_4_, _SYM_廱:1.0__ID_廱_9_], _SYM_霡:1.0__ID_霡_18_=_SYM_霡:1.0__ID_霡_14_(_SYM_霡:1.0__ID_霡_26_(_SYM_霡:1.0__ID_霡_4_), 10)))
+        _SYM_霡:1.0__ID_霡_36_ = [_SYM_霡:1.0__ID_霡_2_(_SYM_霡:1.0__ID_霡_11_(_SYM_霡:1.0__ID_霡_4_, _SYM_霡:1.0__ID_霡_41_)) for _SYM_霡:1.0__ID_霡_41_ in _SYM_霡:1.0__ID_霡_24_]
+        
+        _SYM_霡:1.0__ID_霡_31_ = {"_SYM_霡:1.0__ID_霡_28_": _SYM_霡:1.0__ID_霡_36_}
+// _SYM_伏:0.9__ID_DK_906_ [decoy-metadata]
+// [metadata-stripped]
+        for _SYM_霡:1.0__ID_霡_35_ in _SYM_霡:1.0__ID_霡_17_._SYM_霡:1.0__ID_霡_39_._SYM_霡:1.0__ID_霡_19_():
+            _SYM_霡:1.0__ID_霡_31_[_SYM_霡:1.0__ID_霡_35_.id] = self._SYM_霡:1.0__ID_霡_42_(_SYM_霡:1.0__ID_霡_35_, _SYM_霡:1.0__ID_霡_36_)
+// _SYM_紐:0.3__ID_ZM_175_ [decoy-metadata]
+            
+        return _SYM_霡:1.0__ID_霡_31_
+
+    _SYM_霡:1.0__ID_霡_40_ _SYM_霡:1.0__ID_霡_42_(self, _SYM_霡:1.0__ID_霡_35_: _SYM_廱:1.0__ID_廱_7_, _SYM_霡:1.0__ID_霡_36_: _SYM_廱:1.0__ID_廱_13_[_SYM_廱:1.0__ID_廱_11_[_SYM_霡:1.0__ID_霡_10_, _SYM_霡:1.0__ID_霡_9_]]) -> _SYM_廱:1.0__ID_廱_13_[_SYM_廱:1.0__ID_廱_12_[_SYM_霡:1.0__ID_霡_9_]]:
+        """特定の演算ユニットをバッチ全体に対して実行する"""
+        if _SYM_霡:1.0__ID_霡_35_.op == "_SYM_廱:1.0__ID_廱_1_":
+            _SYM_泳:1.0__ID_霡_27_ = _SYM_霡:1.0__ID_霡_35_._SYM_霡:1.0__ID_霡_38_["_SYM_泳:1.0__ID_霡_27_"]
+// [metadata-stripped]
+// [metadata-stripped]
+            _SYM_霡:1.0__ID_霡_3_ = _SYM_泳:1.0__ID_霡_27_._SYM_霡:1.0__ID_霡_32_("[]", "")._SYM_霡:1.0__ID_霡_32_("<>", "")._SYM_霡:1.0__ID_霡_32_("□", "")._SYM_霡:1.0__ID_霡_32_("◇", "")
+// _SYM_伏:0.3__ID_XL_626_ [decoy-metadata]
+            _SYM_霡:1.0__ID_霡_8_ = _SYM_霡:1.0__ID_霡_3_._SYM_霡:1.0__ID_霡_32_("->", "<=")._SYM_霡:1.0__ID_霡_32_("&", " _SYM_霡:1.0__ID_霡_20_ ")._SYM_霡:1.0__ID_霡_32_("|", " or ")._SYM_霡:1.0__ID_霡_32_("~", " _SYM_霡:1.0__ID_霡_21_ ")
+// _SYM_則:0.9__ID_KX_682_ [decoy-metadata]
+            
+            _SYM_霡:1.0__ID_霡_12_ = []
+// _SYM_煌:0.2__ID_XK_752_ [decoy-metadata]
+            for _SYM_霡:1.0__ID_霡_7_ in _SYM_霡:1.0__ID_霡_36_:
+                try:
+// [metadata-stripped]
+// _SYM_区:0.6__ID_XL_187_ [decoy-metadata]
+                    _SYM_霡:1.0__ID_霡_37_ = _SYM_霡:1.0__ID_霡_34_(_SYM_霡:1.0__ID_霡_8_, {"_SYM_霡:1.0__ID_霡_30_": _SYM_廱:1.0__ID_廱_6_}, _SYM_霡:1.0__ID_霡_7_)
+                    _SYM_霡:1.0__ID_霡_12_._SYM_霡:1.0__ID_霡_15_(_SYM_霡:1.0__ID_霡_9_(_SYM_霡:1.0__ID_霡_37_))
+                _SYM_霡:1.0__ID_霡_13_:
+// [metadata-stripped]
+                    _SYM_霡:1.0__ID_霡_12_._SYM_霡:1.0__ID_霡_15_(_SYM_廱:1.0__ID_廱_6_)
+            return _SYM_霡:1.0__ID_霡_12_
+        return []
+
+// POLYMORPHIC_JCROSS_END

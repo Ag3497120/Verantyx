@@ -1,0 +1,156 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6EE5C80E ver:1778149893
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_SYM_泡:1.0__OPAQUE_泡_61_ _SYM_泡:1.0__OPAQUE_泡_9_::_SYM_泡:1.0__OPAQUE_泡_44_::{_SYM_廟:1.0__OPAQUE_廟_3_, _SYM_廟:1.0__OPAQUE_廟_45_};
+
+// [metadata-stripped]
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ enum _SYM_廟:1.0__OPAQUE_廟_13_ { _SYM_廟:1.0__OPAQUE_廟_69_, _SYM_廟:1.0__OPAQUE_廟_35_, _SYM_廟:1.0__OPAQUE_廟_38_, _SYM_廟:1.0__OPAQUE_廟_41_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ struct _SYM_廟:1.0__OPAQUE_廟_25_ { _SYM_泡:1.0__OPAQUE_泡_6_ a: _SYM_泡:1.0__OPAQUE_泡_53_, _SYM_泡:1.0__OPAQUE_泡_6_ b: _SYM_泡:1.0__OPAQUE_泡_53_, _SYM_泡:1.0__OPAQUE_泡_6_ c: _SYM_泡:1.0__OPAQUE_泡_53_ }
+
+_SYM_泡:1.0__OPAQUE_泡_14_ _SYM_廟:1.0__OPAQUE_廟_25_ {
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泡:1.0__OPAQUE_泡_26_(a: _SYM_泡:1.0__OPAQUE_泡_53_, b: _SYM_泡:1.0__OPAQUE_泡_53_, c: _SYM_泡:1.0__OPAQUE_泡_53_) -> _SYM_廟:1.0__OPAQUE_廟_40_ { _SYM_廟:1.0__OPAQUE_廟_40_ { a, b, c } }
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泡:1.0__OPAQUE_泡_70_() -> _SYM_廟:1.0__OPAQUE_廟_40_ { _SYM_廟:1.0__OPAQUE_廟_40_ { a: 0, b: 0, c: 0 } }
+}
+
+_SYM_泡:1.0__OPAQUE_泡_14_ _SYM_泡:1.0__OPAQUE_泡_9_::_SYM_泡:1.0__OPAQUE_泡_58_::_SYM_廟:1.0__OPAQUE_廟_74_ for _SYM_廟:1.0__OPAQUE_廟_25_ {
+    _SYM_泡:1.0__OPAQUE_泡_40_ _SYM_廟:1.0__OPAQUE_廟_79_ = _SYM_廟:1.0__OPAQUE_廟_40_;
+    fn _SYM_泡:1.0__OPAQUE_泡_74_(_SYM_泡:1.0__OPAQUE_泡_80_f, _SYM_計:1.0__OPAQUE_泡_73_: _SYM_廟:1.0__OPAQUE_廟_40_) -> _SYM_廟:1.0__OPAQUE_廟_40_ {
+        _SYM_廟:1.0__OPAQUE_廟_40_ { a: _SYM_泡:1.0__OPAQUE_泡_80_f.a + _SYM_計:1.0__OPAQUE_泡_73_.a, b: _SYM_泡:1.0__OPAQUE_泡_80_f.b + _SYM_計:1.0__OPAQUE_泡_73_.b, c: _SYM_泡:1.0__OPAQUE_泡_80_f.c + _SYM_計:1.0__OPAQUE_泡_73_.c }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ enum _SYM_廟:1.0__OPAQUE_廟_39_ {
+    _SYM_廟:1.0__OPAQUE_廟_52_,
+    _SYM_廟:1.0__OPAQUE_廟_37_(_SYM_廟:1.0__OPAQUE_廟_12_),
+    Id(_SYM_廟:1.0__OPAQUE_廟_12_),
+    _SYM_廟:1.0__OPAQUE_廟_63_(_SYM_廟:1.0__OPAQUE_廟_12_),
+    _SYM_廟:1.0__OPAQUE_廟_23_ { _SYM_泡:1.0__OPAQUE_泡_23_: _SYM_廟:1.0__OPAQUE_廟_12_, _SYM_泡:1.0__OPAQUE_泡_36_: _SYM_廟:1.0__OPAQUE_廟_12_, _SYM_泡:1.0__OPAQUE_泡_48_: _SYM_廟:1.0__OPAQUE_廟_60_, _SYM_泡:1.0__OPAQUE_泡_83_: _SYM_泡:1.0__OPAQUE_泡_49_ },
+    _SYM_廟:1.0__OPAQUE_廟_19_(_SYM_廟:1.0__OPAQUE_廟_19_),
+    _SYM_廟:1.0__OPAQUE_廟_72_(_SYM_廟:1.0__OPAQUE_廟_12_),
+}
+
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ enum _SYM_廟:1.0__OPAQUE_廟_60_ { _SYM_廟:1.0__OPAQUE_廟_6_, _SYM_廟:1.0__OPAQUE_廟_73_, _SYM_廟:1.0__OPAQUE_廟_62_, _SYM_廟:1.0__OPAQUE_廟_65_, _SYM_廟:1.0__OPAQUE_廟_31_, _SYM_廟:1.0__OPAQUE_廟_17_, _SYM_廟:1.0__OPAQUE_廟_58_ }
+
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ enum _SYM_廟:1.0__OPAQUE_廟_19_ {
+    Is(_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_39_>>),
+    _SYM_廟:1.0__OPAQUE_廟_61_(_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_39_>>),
+    _SYM_廟:1.0__OPAQUE_廟_11_(_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_39_>>),
+    _SYM_廟:1.0__OPAQUE_廟_54_(_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_39_>>),
+    _SYM_廟:1.0__OPAQUE_廟_46_(_SYM_泡:1.0__OPAQUE_泡_54_, _SYM_泡:1.0__OPAQUE_泡_54_, _SYM_廟:1.0__OPAQUE_廟_44_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_64_<_SYM_廟:1.0__OPAQUE_廟_39_>>>), // An+B
+    _SYM_計:1.0__OPAQUE_廟_48_, _SYM_廟:1.0__OPAQUE_廟_34_, _SYM_廟:1.0__OPAQUE_廟_20_, _SYM_廟:1.0__OPAQUE_廟_7_, _SYM_廟:1.0__OPAQUE_廟_59_, _SYM_廟:1.0__OPAQUE_廟_43_, _SYM_廟:1.0__OPAQUE_廟_75_, _SYM_廟:1.0__OPAQUE_廟_32_,
+}
+
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ struct _SYM_廟:1.0__OPAQUE_廟_33_ {
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_19_: _SYM_廟:1.0__OPAQUE_廟_3_<_SYM_泡:1.0__OPAQUE_泡_29_>,
+}
+
+_SYM_泡:1.0__OPAQUE_泡_14_ _SYM_廟:1.0__OPAQUE_廟_33_ {
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泡:1.0__OPAQUE_泡_26_() -> _SYM_廟:1.0__OPAQUE_廟_40_ {
+        _SYM_廟:1.0__OPAQUE_廟_40_ { _SYM_泡:1.0__OPAQUE_泡_19_: _SYM_廟:1.0__OPAQUE_廟_3_::_SYM_泡:1.0__OPAQUE_泡_26_() }
+// _SYM_傑:0.6__OPAQUE_XB_125_ [decoy-metadata]
+// _SYM_泳:0.6__OPAQUE_XG_186_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泳:1.0__OPAQUE_泡_76_(&_SYM_泡:1.0__OPAQUE_泡_80_f, _SYM_泡:1.0__OPAQUE_泡_78_: &[_SYM_廟:1.0__OPAQUE_廟_39_]) -> _SYM_廟:1.0__OPAQUE_廟_25_ {
+        let _SYM_泡:1.0__OPAQUE_泡_42_ s = _SYM_廟:1.0__OPAQUE_廟_25_::_SYM_泡:1.0__OPAQUE_泡_70_();
+        for _SYM_泡:1.0__OPAQUE_泡_21_ in _SYM_泡:1.0__OPAQUE_泡_78_ {
+            _SYM_泡:1.0__OPAQUE_泡_46_ _SYM_泡:1.0__OPAQUE_泡_21_ {
+                _SYM_廟:1.0__OPAQUE_廟_39_::Id(_) => s.b += 1, // _SYM_廟:1.0__OPAQUE_廟_25_ A is for _SYM_泡:1.0__OPAQUE_泡_64_ _SYM_泡:1.0__OPAQUE_泡_37_
+                _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_63_(_) | _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_23_ { .. } | _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_19_(_) => {
+                    if let _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_19_(pc) = _SYM_泡:1.0__OPAQUE_泡_21_ {
+                        _SYM_泡:1.0__OPAQUE_泡_46_ pc {
+                            _SYM_廟:1.0__OPAQUE_廟_19_::Is(ss) | _SYM_廟:1.0__OPAQUE_廟_19_::_SYM_廟:1.0__OPAQUE_廟_11_(ss) | _SYM_廟:1.0__OPAQUE_廟_19_::_SYM_廟:1.0__OPAQUE_廟_54_(ss) => {
+// [metadata-stripped]
+                                let _SYM_泡:1.0__OPAQUE_泡_42_ _SYM_泡:1.0__OPAQUE_泡_68_ = _SYM_廟:1.0__OPAQUE_廟_25_::_SYM_泡:1.0__OPAQUE_泡_70_();
+                                for _SYM_泡:1.0__OPAQUE_泡_80_ in ss {
+                                    let _SYM_泡:1.0__OPAQUE_泡_45_ = _SYM_泡:1.0__OPAQUE_泡_80_f._SYM_泳:1.0__OPAQUE_泡_76_(_SYM_泡:1.0__OPAQUE_泡_80_);
+                                    if _SYM_泡:1.0__OPAQUE_泡_45_ > _SYM_泡:1.0__OPAQUE_泡_68_ { _SYM_泡:1.0__OPAQUE_泡_68_ = _SYM_泡:1.0__OPAQUE_泡_45_; }
+                                }
+                                s = s + _SYM_泡:1.0__OPAQUE_泡_68_;
+                            }
+                            _SYM_廟:1.0__OPAQUE_廟_19_::_SYM_廟:1.0__OPAQUE_廟_61_(_) => { /* :where() _SYM_泡:1.0__OPAQUE_泡_79_ 0 _SYM_泳:1.0__OPAQUE_泡_28_ */ }
+                            _ => s.b += 1,
+                        }
+                    } else {
+                        s.b += 1;
+                    }
+                }
+                _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_37_(_) | _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_72_(_) => s.c += 1,
+                _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_52_ => {}
+            }
+        }
+        s
+    }
+
+// [metadata-stripped]
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泡:1.0__OPAQUE_泡_20_(&_SYM_泡:1.0__OPAQUE_泡_80_f, _SYM_泡:1.0__OPAQUE_泡_78_: &[_SYM_廟:1.0__OPAQUE_廟_39_], _SYM_泡:1.0__OPAQUE_泡_56_: _SYM_泡:1.0__OPAQUE_泡_29_, _SYM_泡:1.0__OPAQUE_泡_43_: &_SYM_廟:1.0__OPAQUE_廟_45_<_SYM_泡:1.0__OPAQUE_泡_29_, _SYM_廟:1.0__OPAQUE_廟_78_>) -> _SYM_泡:1.0__OPAQUE_泡_49_ {
+        let _SYM_泡:1.0__OPAQUE_泡_71_ = _SYM_泡:1.0__OPAQUE_泡_43_._SYM_計:1.0__OPAQUE_傑_1_(&_SYM_泡:1.0__OPAQUE_泡_56_)._SYM_泡:1.0__OPAQUE_泡_63_();
+        
+        for _SYM_泡:1.0__OPAQUE_泡_21_ in _SYM_泡:1.0__OPAQUE_泡_78_ {
+            if !_SYM_泡:1.0__OPAQUE_泡_80_f._SYM_泡:1.0__OPAQUE_泡_65_(_SYM_泡:1.0__OPAQUE_泡_21_, _SYM_泡:1.0__OPAQUE_泡_71_, _SYM_泡:1.0__OPAQUE_泡_43_) { return false; }
+        }
+        true
+    }
+
+// _SYM_泳:0.4__OPAQUE_KL_396_ [decoy-metadata]
+    fn _SYM_泡:1.0__OPAQUE_泡_65_(&_SYM_泡:1.0__OPAQUE_泡_80_f, _SYM_泡:1.0__OPAQUE_泡_21_: &_SYM_廟:1.0__OPAQUE_廟_39_, _SYM_泡:1.0__OPAQUE_泡_71_: &_SYM_廟:1.0__OPAQUE_廟_78_, _SYM_泡:1.0__OPAQUE_泡_43_: &_SYM_廟:1.0__OPAQUE_廟_45_<_SYM_泡:1.0__OPAQUE_泡_29_, _SYM_廟:1.0__OPAQUE_廟_78_>) -> _SYM_泡:1.0__OPAQUE_泡_49_ {
+        _SYM_泡:1.0__OPAQUE_泡_46_ _SYM_泡:1.0__OPAQUE_泡_21_ {
+            _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_52_ => true,
+            _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_37_(t) => _SYM_泡:1.0__OPAQUE_泡_71_._SYM_泡:1.0__OPAQUE_泡_82_ == *t,
+            _SYM_廟:1.0__OPAQUE_廟_39_::Id(i) => _SYM_泡:1.0__OPAQUE_泡_71_._SYM_泡:1.0__OPAQUE_泡_10_ == *i,
+            _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_63_(c) => _SYM_泡:1.0__OPAQUE_泡_71_._SYM_泡:1.0__OPAQUE_泡_47_._SYM_泡:1.0__OPAQUE_泡_7_(c),
+            _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_23_ { _SYM_泡:1.0__OPAQUE_泡_23_, _SYM_泡:1.0__OPAQUE_泡_36_, .. } => _SYM_泡:1.0__OPAQUE_泡_71_._SYM_泡:1.0__OPAQUE_泡_38_._SYM_計:1.0__OPAQUE_傑_1_(_SYM_泡:1.0__OPAQUE_泡_23_) == _SYM_廟:1.0__OPAQUE_廟_42_(_SYM_泡:1.0__OPAQUE_泡_36_),
+            _SYM_廟:1.0__OPAQUE_廟_39_::_SYM_廟:1.0__OPAQUE_廟_19_(pc) => _SYM_泡:1.0__OPAQUE_泡_46_ pc {
+                _SYM_廟:1.0__OPAQUE_廟_19_::_SYM_廟:1.0__OPAQUE_廟_43_ => _SYM_泡:1.0__OPAQUE_泡_71_._SYM_泡:1.0__OPAQUE_泡_15_._SYM_泡:1.0__OPAQUE_泡_87_(),
+                _ => false, // _SYM_計:1.0__OPAQUE_廟_15_ for _SYM_泡:1.0__OPAQUE_泡_34_ _SYM_泡:1.0__OPAQUE_泡_62_-class _SYM_泡:1.0__OPAQUE_泡_33_
+            },
+            _ => false,
+        }
+    }
+
+// _SYM_計:0.2__OPAQUE_DK_295_ [decoy-metadata]
+// [metadata-stripped]
+    _SYM_泡:1.0__OPAQUE_泡_6_ fn _SYM_泳:1.0__OPAQUE_泡_32_(&_SYM_泡:1.0__OPAQUE_泡_80_f, _SYM_泡:1.0__OPAQUE_泡_78_: &[_SYM_廟:1.0__OPAQUE_廟_39_]) -> _SYM_廟:1.0__OPAQUE_廟_12_ {
+        let s = _SYM_泡:1.0__OPAQUE_泡_80_f._SYM_泳:1.0__OPAQUE_泡_76_(_SYM_泡:1.0__OPAQUE_泡_78_);
+// _SYM_計:0.5__OPAQUE_YG_807_ [decoy-metadata]
+        _SYM_泳:1.0__OPAQUE_泡_66_!("🧬 _SYM_廟:1.0__OPAQUE_廟_10_ _SYM_泳:1.0__OPAQUE_泡_28_: (ID:{}, _SYM_廟:1.0__OPAQUE_廟_63_/_SYM_廟:1.0__OPAQUE_廟_18_:{}, _SYM_廟:1.0__OPAQUE_廟_22_:{})", s.a, s.b, s.c)
+    }
+}
+// _SYM_計:0.7__OPAQUE_CG_280_ [decoy-metadata]
+
+// [metadata-stripped]
+_SYM_泡:1.0__OPAQUE_泡_6_ struct _SYM_廟:1.0__OPAQUE_廟_78_ {
+    _SYM_泡:1.0__OPAQUE_泡_6_ id: _SYM_泡:1.0__OPAQUE_泡_29_,
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_82_: _SYM_廟:1.0__OPAQUE_廟_12_,
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_10_: _SYM_廟:1.0__OPAQUE_廟_12_,
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_47_: _SYM_廟:1.0__OPAQUE_廟_3_<_SYM_廟:1.0__OPAQUE_廟_12_>,
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_38_: _SYM_廟:1.0__OPAQUE_廟_45_<_SYM_廟:1.0__OPAQUE_廟_12_, _SYM_廟:1.0__OPAQUE_廟_12_>,
+    _SYM_泡:1.0__OPAQUE_泡_6_ _SYM_泡:1.0__OPAQUE_泡_15_: _SYM_廟:1.0__OPAQUE_廟_44_<_SYM_泡:1.0__OPAQUE_泡_29_>,
+}
+
+// POLYMORPHIC_JCROSS_END

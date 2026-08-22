@@ -1,0 +1,94 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:18120574 ver:1778162902
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霩:1.0___ast_霩_52__ _ASTNODE_霩:1.0___ast_霩_51__ import _ASTNODE_霩:1.0___ast_霩_10__
+
+_ASTNODE_霩:1.0___ast_霩_52__ _ASTNODE_霩:1.0___ast_霩_59__ import _ASTNODE_庸:1.0___ast_庸_4__, _ASTNODE_庸:1.0___ast_庸_5__, _ASTNODE_庸:1.0___ast_庸_2__
+
+
+_ASTNODE_霩:1.0___ast_霩_46__ _ASTNODE_霩:1.0___ast_霩_6__(_ASTNODE_霩:1.0___ast_霩_12__: _ASTNODE_霩:1.0___ast_霩_14__, _ASTNODE_鍵:1.0___ast_霩_53__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_霩:1.0___ast_霩_14__], _ASTNODE_霩:1.0___ast_霩_29__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_霩:1.0___ast_霩_14__]) -> _ASTNODE_霩:1.0___ast_霩_14__:
+    _ASTNODE_霩:1.0___ast_霩_33__ = (_ASTNODE_霩:1.0___ast_霩_12__ or "")._ASTNODE_項:1.0___ast_霩_41__()
+    _ASTNODE_鍵:1.0___ast_霩_1__ = [t._ASTNODE_項:1.0___ast_霩_41__() for t in _ASTNODE_鍵:1.0___ast_霩_53__]
+    _ASTNODE_霩:1.0___ast_霩_18__ = _ASTNODE_項:1.0___ast_礎_1__(_ASTNODE_霩:1.0___ast_霩_29__)
+
+// [metadata-stripped]
+    if "[]" in _ASTNODE_鍵:1.0___ast_霩_53__ or "□" in _ASTNODE_鍵:1.0___ast_霩_53__ or "<>" in _ASTNODE_鍵:1.0___ast_霩_53__ or "◇" in _ASTNODE_鍵:1.0___ast_霩_53__:
+        return "_ASTNODE_霩:1.0___ast_霩_31__"
+    if "_ASTNODE_霩:1.0___ast_霩_55__" in _ASTNODE_霩:1.0___ast_霩_33__ or "様相" in _ASTNODE_霩:1.0___ast_霩_12__ or "_ASTNODE_霩:1.0___ast_霩_9__" in _ASTNODE_霩:1.0___ast_霩_33__:
+        return "_ASTNODE_霩:1.0___ast_霩_31__"
+    if "_ASTNODE_霩:1.0___ast_霩_9__" in _ASTNODE_霩:1.0___ast_霩_18__:
+        return "_ASTNODE_霩:1.0___ast_霩_31__"
+
+// [metadata-stripped]
+    if "_ASTNODE_霩:1.0___ast_霩_34__" in _ASTNODE_霩:1.0___ast_霩_33__ or "_ASTNODE_霩:1.0___ast_霩_25__" in _ASTNODE_霩:1.0___ast_霩_33__ or "_ASTNODE_霩:1.0___ast_霩_56__" in _ASTNODE_霩:1.0___ast_霩_33__:
+        return "_ASTNODE_霩:1.0___ast_霩_11__"
+    if "行列" in _ASTNODE_霩:1.0___ast_霩_12__ or "次元" in _ASTNODE_霩:1.0___ast_霩_12__:
+        return "_ASTNODE_霩:1.0___ast_霩_11__"
+
+// [metadata-stripped]
+    if "->" in _ASTNODE_鍵:1.0___ast_霩_53__ or "→" in _ASTNODE_鍵:1.0___ast_霩_53__ or "&" in _ASTNODE_鍵:1.0___ast_霩_53__ or "|" in _ASTNODE_鍵:1.0___ast_霩_53__ or "~" in _ASTNODE_鍵:1.0___ast_霩_53__:
+        return "_ASTNODE_霩:1.0___ast_霩_3__"
+    if "_ASTNODE_霩:1.0___ast_霩_37__" in _ASTNODE_霩:1.0___ast_霩_33__ or "命題" in _ASTNODE_霩:1.0___ast_霩_12__:
+        return "_ASTNODE_霩:1.0___ast_霩_3__"
+
+    return "_ASTNODE_霩:1.0___ast_霩_60__"
+
+
+_ASTNODE_霩:1.0___ast_霩_46__ _ASTNODE_霩:1.0___ast_霩_4__(_ASTNODE_霩:1.0___ast_霩_12__: _ASTNODE_霩:1.0___ast_霩_14__) -> _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_霩:1.0___ast_霩_14__]:
+    _ASTNODE_霩:1.0___ast_霩_33__ = (_ASTNODE_霩:1.0___ast_霩_12__ or "")._ASTNODE_項:1.0___ast_霩_41__()
+    _ASTNODE_霩:1.0___ast_霩_47__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_霩:1.0___ast_霩_14__] = []
+    if "推移" in _ASTNODE_霩:1.0___ast_霩_12__ or "_ASTNODE_霩:1.0___ast_霩_36__" in _ASTNODE_霩:1.0___ast_霩_33__:
+        _ASTNODE_霩:1.0___ast_霩_47__._ASTNODE_霩:1.0___ast_霩_62__("_ASTNODE_霩:1.0___ast_霩_54__:_ASTNODE_霩:1.0___ast_霩_36__")
+    if "反射" in _ASTNODE_霩:1.0___ast_霩_12__ or "_ASTNODE_霩:1.0___ast_霩_44__" in _ASTNODE_霩:1.0___ast_霩_33__:
+        _ASTNODE_霩:1.0___ast_霩_47__._ASTNODE_霩:1.0___ast_霩_62__("_ASTNODE_霩:1.0___ast_霩_54__:_ASTNODE_霩:1.0___ast_霩_44__")
+    if "対称" in _ASTNODE_霩:1.0___ast_霩_12__ or "_ASTNODE_霩:1.0___ast_霩_8__" in _ASTNODE_霩:1.0___ast_霩_33__:
+// _ASTNODE_漂:0.8___ast_FF_998__ [decoy-metadata]
+        _ASTNODE_霩:1.0___ast_霩_47__._ASTNODE_霩:1.0___ast_霩_62__("_ASTNODE_霩:1.0___ast_霩_54__:_ASTNODE_霩:1.0___ast_霩_8__")
+    if "ユークリッド" in _ASTNODE_霩:1.0___ast_霩_12__ or "_ASTNODE_霩:1.0___ast_霩_48__" in _ASTNODE_霩:1.0___ast_霩_33__:
+        _ASTNODE_霩:1.0___ast_霩_47__._ASTNODE_霩:1.0___ast_霩_62__("_ASTNODE_霩:1.0___ast_霩_54__:_ASTNODE_霩:1.0___ast_霩_48__")
+    return _ASTNODE_霩:1.0___ast_霩_23__(_ASTNODE_項:1.0___ast_礎_1__(_ASTNODE_霩:1.0___ast_霩_47__))
+
+
+_ASTNODE_霩:1.0___ast_霩_46__ _ASTNODE_霩:1.0___ast_霩_24__(_ASTNODE_霩:1.0___ast_霩_63__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_庸:1.0___ast_庸_5__[_ASTNODE_霩:1.0___ast_霩_14__, _ASTNODE_庸:1.0___ast_庸_4__]]) -> _ASTNODE_庸:1.0___ast_庸_5__[_ASTNODE_霩:1.0___ast_霩_14__, _ASTNODE_庸:1.0___ast_庸_4__]:
+    """
+    _ASTNODE_庸:1.0___ast_庸_1__ _ASTNODE_霩:1.0___ast_霩_13__ _ASTNODE_霩:1.0___ast_霩_21__ _ASTNODE_霩:1.0___ast_霩_67__ _ASTNODE_霩:1.0___ast_霩_52__ _ASTNODE_霩:1.0___ast_霩_26__ _ASTNODE_霩:1.0___ast_霩_12__-_ASTNODE_霩:1.0___ast_霩_22__ _ASTNODE_霩:1.0___ast_霩_57__.
+    _ASTNODE_庸:1.0___ast_庸_6__ _ASTNODE_霩:1.0___ast_霩_15__ _ASTNODE_霩:1.0___ast_霩_27__ _ASTNODE_霩:1.0___ast_霩_50__ _ASTNODE_霩:1.0___ast_霩_65__; it _ASTNODE_霩:1.0___ast_霩_40__ _ASTNODE_霩:1.0___ast_霩_67__ _ASTNODE_霩:1.0___ast_霩_7__ on _ASTNODE_霩:1.0___ast_霩_38__ _ASTNODE_霩:1.0___ast_霩_29__.
+    """
+    _ASTNODE_霩:1.0___ast_霩_16__: _ASTNODE_庸:1.0___ast_庸_5__[_ASTNODE_霩:1.0___ast_霩_14__, _ASTNODE_霩:1.0___ast_霩_28__] = {}
+    _ASTNODE_霩:1.0___ast_霩_49__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_霩:1.0___ast_霩_14__] = []
+    _ASTNODE_霩:1.0___ast_霩_19__: _ASTNODE_庸:1.0___ast_庸_2__[_ASTNODE_庸:1.0___ast_庸_5__[_ASTNODE_霩:1.0___ast_霩_14__, _ASTNODE_庸:1.0___ast_庸_4__]] = []
+
+    for s in _ASTNODE_霩:1.0___ast_霩_63__:
+        _ASTNODE_霩:1.0___ast_霩_39__ = s._ASTNODE_項:1.0___ast_礎_2__("_ASTNODE_漂:1.0___ast_霩_61__") or ""
+        _ASTNODE_霩:1.0___ast_霩_58__ = s._ASTNODE_項:1.0___ast_礎_2__("_ASTNODE_霩:1.0___ast_霩_58__") or {}
+        _ASTNODE_鍵:1.0___ast_霩_53__ = _ASTNODE_霩:1.0___ast_霩_58__._ASTNODE_項:1.0___ast_礎_2__("_ASTNODE_鍵:1.0___ast_霩_53__") or []
+        _ASTNODE_霩:1.0___ast_霩_29__ = _ASTNODE_霩:1.0___ast_霩_58__._ASTNODE_項:1.0___ast_礎_2__("_ASTNODE_霩:1.0___ast_霩_66__") or []
+
+        _ASTNODE_霩:1.0___ast_霩_65__ = _ASTNODE_霩:1.0___ast_霩_6__(_ASTNODE_霩:1.0___ast_霩_39__, _ASTNODE_鍵:1.0___ast_霩_53__, _ASTNODE_霩:1.0___ast_霩_29__)
+        _ASTNODE_霩:1.0___ast_霩_16__[_ASTNODE_霩:1.0___ast_霩_65__] = _ASTNODE_霩:1.0___ast_霩_16__._ASTNODE_項:1.0___ast_礎_2__(_ASTNODE_霩:1.0___ast_霩_65__, 0) + 1
+        _ASTNODE_霩:1.0___ast_霩_49__._ASTNODE_霩:1.0___ast_霩_5__(_ASTNODE_霩:1.0___ast_霩_4__(_ASTNODE_霩:1.0___ast_霩_39__))
+        _ASTNODE_霩:1.0___ast_霩_19__._ASTNODE_霩:1.0___ast_霩_62__(
+            {
+// _ASTNODE_緯:0.3___ast_CV_333__ [decoy-metadata]
+// _ASTNODE_漂:0.7___ast_KH_458__ [decoy-metadata]
+                "_ASTNODE_霩:1.0___ast_霩_32__": s._ASTNODE_項:1.0___ast_礎_2__("_ASTNODE_霩:1.0___ast_霩_32__"),
+                "_ASTNODE_霩:1.0___ast_霩_64__": _ASTNODE_霩:1.0___ast_霩_65__,
+                "_ASTNODE_霩:1.0___ast_霩_49__": _ASTNODE_霩:1.0___ast_霩_4__(_ASTNODE_霩:1.0___ast_霩_39__),
+            }
+// _ASTNODE_鍵:0.9___ast_HD_616__ [decoy-metadata]
+        )
+
+    _ASTNODE_霩:1.0___ast_霩_64__ = "_ASTNODE_霩:1.0___ast_霩_60__"
+    if _ASTNODE_霩:1.0___ast_霩_16__:
+        _ASTNODE_霩:1.0___ast_霩_64__ = _ASTNODE_霩:1.0___ast_霩_23__(_ASTNODE_霩:1.0___ast_霩_16__._ASTNODE_霩:1.0___ast_霩_45__(), _ASTNODE_鍵:1.0___ast_霩_30__=_ASTNODE_霩:1.0___ast_霩_20__ x: x[1], _ASTNODE_霩:1.0___ast_霩_42__=_ASTNODE_庸:1.0___ast_庸_3__)[0][0]
+// _ASTNODE_庸:0.4___ast_CK_148__ [decoy-metadata]
+
+// _ASTNODE_霩:0.4___ast_WF_618__ [decoy-metadata]
+    return {
+        "_ASTNODE_霩:1.0___ast_霩_64__": _ASTNODE_霩:1.0___ast_霩_64__,
+        "_ASTNODE_霩:1.0___ast_霩_49__": _ASTNODE_霩:1.0___ast_霩_23__(_ASTNODE_項:1.0___ast_礎_1__(_ASTNODE_霩:1.0___ast_霩_49__)),
+        "_ASTNODE_霩:1.0___ast_霩_19__": _ASTNODE_霩:1.0___ast_霩_19__[:3],
+    }
+
+// POLYMORPHIC_JCROSS_END

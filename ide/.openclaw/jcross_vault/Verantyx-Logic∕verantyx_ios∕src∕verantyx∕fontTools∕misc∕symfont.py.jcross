@@ -1,0 +1,254 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:95E15599 ver:1778159782
+// ⚠️ One-time schema — expires after response
+
+__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_94_.__ast_粒:1.0___TOKEN_粒_15_.__ast_粒:1.0___TOKEN_粒_34_ import __ast_礎:1.0___TOKEN_礎_1_
+__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_13_ import __ast_粒:1.0___TOKEN_粒_3_
+__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_92_ import __ast_粒:1.0___TOKEN_粒_107_
+import __ast_粒:1.0___TOKEN_粒_61_ as sp
+import __ast_粒:1.0___TOKEN_粒_72_
+
+n = 3  # __ast_礎:1.0___TOKEN_礎_29_ __ast_律:1.0___TOKEN_礎_22_ __ast_粒:1.0___TOKEN_粒_101_; 3 for __ast_粒:1.0___TOKEN_粒_30_, 2 for __ast_粒:1.0___TOKEN_粒_1_
+
+t, x, y = sp.__ast_粒:1.0___TOKEN_粒_31_("t x y", __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_9_)
+c = sp.__ast_粒:1.0___TOKEN_粒_31_("c", __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_28_)  # __ast_礎:1.0___TOKEN_礎_14_ __ast_粒:1.0___TOKEN_粒_67_ __ast_粒:1.0___TOKEN_粒_39_ of x/y
+
+X = __ast_粒:1.0___TOKEN_粒_17_(sp.__ast_粒:1.0___TOKEN_粒_31_("x:%d" % (n + 1), __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_9_))
+Y = __ast_粒:1.0___TOKEN_粒_17_(sp.__ast_粒:1.0___TOKEN_粒_31_("y:%d" % (n + 1), __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_9_))
+P = __ast_粒:1.0___TOKEN_粒_17_(__ast_粒:1.0___TOKEN_粒_112_(*(sp.__ast_粒:1.0___TOKEN_粒_31_("p:%d[%s]" % (n + 1, w), __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_9_) for w in "01")))
+C = __ast_粒:1.0___TOKEN_粒_17_(sp.__ast_粒:1.0___TOKEN_粒_31_("c:%d" % (n + 1), __ast_粒:1.0___TOKEN_粒_35_=__ast_礎:1.0___TOKEN_礎_28_))
+
+// [metadata-stripped]
+__ast_礎:1.0___TOKEN_礎_10_ = [(1, 0)]
+for i in __ast_粒:1.0___TOKEN_粒_43_(1, n + 1):
+    __ast_粒:1.0___TOKEN_粒_68_ = __ast_礎:1.0___TOKEN_礎_10_[-1]
+    __ast_粒:1.0___TOKEN_粒_36_ = __ast_粒:1.0___TOKEN_粒_17_(__ast_粒:1.0___TOKEN_粒_68_[j - 1] + __ast_粒:1.0___TOKEN_粒_68_[j] for j in __ast_粒:1.0___TOKEN_粒_43_(__ast_粒:1.0___TOKEN_粒_60_(__ast_粒:1.0___TOKEN_粒_68_))) + (0,)
+    __ast_礎:1.0___TOKEN_礎_10_.__ast_粒:1.0___TOKEN_粒_100_(__ast_粒:1.0___TOKEN_粒_36_)
+__ast_礎:1.0___TOKEN_礎_10_ = __ast_粒:1.0___TOKEN_粒_17_(__ast_粒:1.0___TOKEN_粒_17_(__ast_粒:1.0___TOKEN_粒_12_[:-1]) for __ast_粒:1.0___TOKEN_粒_12_ in __ast_礎:1.0___TOKEN_礎_10_)
+__ast_粒:1.0___TOKEN_粒_6_ __ast_粒:1.0___TOKEN_粒_68_, __ast_粒:1.0___TOKEN_粒_36_
+
+__ast_礎:1.0___TOKEN_礎_4_ = __ast_粒:1.0___TOKEN_粒_17_(
+    __ast_粒:1.0___TOKEN_粒_17_(c * t**i * (1 - t) ** (n - i) for i, c in __ast_粒:1.0___TOKEN_粒_71_(__ast_粒:1.0___TOKEN_粒_26_))
+    for n, __ast_粒:1.0___TOKEN_粒_26_ in __ast_粒:1.0___TOKEN_粒_71_(__ast_礎:1.0___TOKEN_礎_10_)
+// __ast_匾:0.6___TOKEN_YG_356_ [decoy-metadata]
+)
+
+__ast_礎:1.0___TOKEN_礎_17_ = __ast_粒:1.0___TOKEN_粒_17_(
+    __ast_粒:1.0___TOKEN_粒_17_(
+        __ast_粒:1.0___TOKEN_粒_70_(P[i][j] * __ast_粒:1.0___TOKEN_粒_27_ for i, __ast_粒:1.0___TOKEN_粒_27_ in __ast_粒:1.0___TOKEN_粒_71_(__ast_粒:1.0___TOKEN_粒_102_))
+        for j in __ast_粒:1.0___TOKEN_粒_43_(2)
+    )
+    for n, __ast_粒:1.0___TOKEN_粒_102_ in __ast_粒:1.0___TOKEN_粒_71_(__ast_礎:1.0___TOKEN_礎_4_)
+)
+__ast_礎:1.0___TOKEN_礎_13_ = __ast_粒:1.0___TOKEN_粒_17_(
+// __ast_網:0.7___TOKEN_ZX_655_ [decoy-metadata]
+    __ast_粒:1.0___TOKEN_粒_70_(C[i] * __ast_粒:1.0___TOKEN_粒_27_ for i, __ast_粒:1.0___TOKEN_粒_27_ in __ast_粒:1.0___TOKEN_粒_71_(__ast_粒:1.0___TOKEN_粒_102_))
+    for n, __ast_粒:1.0___TOKEN_粒_102_ in __ast_粒:1.0___TOKEN_粒_71_(__ast_礎:1.0___TOKEN_礎_4_)
+)
+
+
+__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_22_(f, __ast_粒:1.0___TOKEN_粒_88_):
+    f = -sp.__ast_粒:1.0___TOKEN_粒_55_(sp.__ast_渦:1.0___TOKEN_粒_98_(f), y)
+    f = f.__ast_粒:1.0___TOKEN_粒_52_({x: __ast_粒:1.0___TOKEN_粒_88_[0], y: __ast_粒:1.0___TOKEN_粒_88_[1]})
+    f = sp.__ast_粒:1.0___TOKEN_粒_55_(f * sp.__ast_渦:1.0___TOKEN_粒_23_(__ast_粒:1.0___TOKEN_粒_88_[0], t), (t, 0, 1))
+    return f
+
+
+class __ast_粒:1.0___TOKEN_粒_38_(__ast_粒:1.0___TOKEN_粒_11_):
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_87_(self, __ast_粒:1.0___TOKEN_粒_46_):
+        self.__ast_粒:1.0___TOKEN_粒_66_ = __ast_粒:1.0___TOKEN_粒_46_
+        self.__ast_粒:1.0___TOKEN_粒_4_ = {}
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_51_(self, i):
+        __ast_粒:1.0___TOKEN_粒_106_ = ["p%d" % d for d in __ast_粒:1.0___TOKEN_粒_43_(i + 1)]
+        f = __ast_粒:1.0___TOKEN_粒_22_(self.__ast_粒:1.0___TOKEN_粒_66_, __ast_礎:1.0___TOKEN_礎_17_[i])
+        f = sp.__ast_粒:1.0___TOKEN_粒_111_(f.__ast_粒:1.0___TOKEN_粒_2_(__ast_粒:1.0___TOKEN_粒_70_(P, ())))  # __ast_礎:1.0___TOKEN_礎_16_
+        return sp.__ast_渦:1.0___TOKEN_粒_73_(__ast_粒:1.0___TOKEN_粒_106_, f)
+
+
+class __ast_礎:1.0___TOKEN_礎_6_(__ast_礎:1.0___TOKEN_礎_1_):
+// __ast_礎:0.8___TOKEN_BV_656_ [decoy-metadata]
+    __ast_粒:1.0___TOKEN_粒_44_ = {}
+
+    @__ast_粒:1.0___TOKEN_粒_9_
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_82_(__ast_粒:1.0___TOKEN_粒_25_, func):
+        __ast_粒:1.0___TOKEN_粒_85_ = __ast_粒:1.0___TOKEN_粒_53_(func)
+        if __ast_粒:1.0___TOKEN_粒_20_ __ast_粒:1.0___TOKEN_粒_85_ in __ast_粒:1.0___TOKEN_粒_25_.__ast_粒:1.0___TOKEN_粒_44_:
+            __ast_粒:1.0___TOKEN_粒_25_.__ast_粒:1.0___TOKEN_粒_44_[__ast_粒:1.0___TOKEN_粒_85_] = __ast_粒:1.0___TOKEN_粒_38_(func)
+        return __ast_粒:1.0___TOKEN_粒_25_.__ast_粒:1.0___TOKEN_粒_44_[__ast_粒:1.0___TOKEN_粒_85_]
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_87_(self, func, __ast_粒:1.0___TOKEN_粒_32_=__ast_礎:1.0___TOKEN_礎_24_):
+        __ast_礎:1.0___TOKEN_礎_1_.__ast_粒:1.0___TOKEN_粒_87_(self, __ast_粒:1.0___TOKEN_粒_32_)
+        self.__ast_粒:1.0___TOKEN_粒_56_ = self.__ast_粒:1.0___TOKEN_粒_82_(func)
+        self.__ast_粒:1.0___TOKEN_粒_74_ = 0
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_28_(self, p0):
+        self.__ast_粒:1.0___TOKEN_粒_41_ = p0
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_40_(self):
+        p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+        if p0 != self.__ast_粒:1.0___TOKEN_粒_41_:
+            self.__ast_粒:1.0___TOKEN_粒_81_(self.__ast_粒:1.0___TOKEN_粒_41_)
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_63_(self):
+        p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+        if p0 != self.__ast_粒:1.0___TOKEN_粒_41_:
+// [metadata-stripped]
+            __ast_粒:1.0___TOKEN_粒_24_ __ast_礎:1.0___TOKEN_礎_26_
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_81_(self, p1):
+        p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+        self.__ast_粒:1.0___TOKEN_粒_74_ += self.__ast_粒:1.0___TOKEN_粒_56_[1](p0, p1)
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_108_(self, p1, p2):
+        p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+        self.__ast_粒:1.0___TOKEN_粒_74_ += self.__ast_粒:1.0___TOKEN_粒_56_[2](p0, p1, p2)
+
+    __ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_62_(self, p1, p2, p3):
+        p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+        self.__ast_粒:1.0___TOKEN_粒_74_ += self.__ast_粒:1.0___TOKEN_粒_56_[3](p0, p1, p2, p3)
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_礎:1.0___TOKEN_礎_25_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=1)
+__ast_礎:1.0___TOKEN_礎_31_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=x)
+__ast_礎:1.0___TOKEN_礎_2_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=y)
+__ast_礎:1.0___TOKEN_礎_32_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=x * x)
+__ast_礎:1.0___TOKEN_礎_7_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=y * y)
+__ast_礎:1.0___TOKEN_礎_15_ = __ast_粒:1.0___TOKEN_粒_3_(__ast_礎:1.0___TOKEN_礎_6_, func=x * y)
+
+
+__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_96_(__ast_粒:1.0___TOKEN_粒_105_, __ast_粒:1.0___TOKEN_粒_65_, __ast_匾:1.0___TOKEN_粒_33_=__ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_103_, __ast_粒:1.0___TOKEN_粒_10_=__ast_礎:1.0___TOKEN_礎_24_):
+    if __ast_粒:1.0___TOKEN_粒_10_ is __ast_粒:1.0___TOKEN_粒_20_ __ast_礎:1.0___TOKEN_礎_24_:
+        __ast_粒:1.0___TOKEN_粒_91_('"""%s"""' % __ast_粒:1.0___TOKEN_粒_10_)
+
+    __ast_粒:1.0___TOKEN_粒_91_(
+        """__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_94_.__ast_粒:1.0___TOKEN_粒_15_.__ast_粒:1.0___TOKEN_粒_34_ import __ast_礎:1.0___TOKEN_礎_1_, __ast_礎:1.0___TOKEN_礎_5_
+try:
+	import __ast_粒:1.0___TOKEN_粒_69_
+__ast_粒:1.0___TOKEN_粒_7_ (__ast_礎:1.0___TOKEN_礎_3_, __ast_礎:1.0___TOKEN_礎_18_):
+// [metadata-stripped]
+	__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_94_.__ast_粒:1.0___TOKEN_粒_76_ import __ast_粒:1.0___TOKEN_粒_69_
+__ast_礎:1.0___TOKEN_礎_23_ = __ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_89_
+
+
+__ast_粒:1.0___TOKEN_粒_59_ = ["%s"]
+
+class %s(__ast_礎:1.0___TOKEN_礎_1_):
+
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_87_(self, __ast_粒:1.0___TOKEN_粒_32_=__ast_礎:1.0___TOKEN_礎_24_):
+		__ast_礎:1.0___TOKEN_礎_1_.__ast_粒:1.0___TOKEN_粒_87_(self, __ast_粒:1.0___TOKEN_粒_32_)
+"""
+        % (__ast_粒:1.0___TOKEN_粒_105_, __ast_粒:1.0___TOKEN_粒_105_),
+        __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+    )
+    for __ast_粒:1.0___TOKEN_粒_57_, f in __ast_粒:1.0___TOKEN_粒_65_:
+        __ast_粒:1.0___TOKEN_粒_91_("		self.%s = 0" % __ast_粒:1.0___TOKEN_粒_57_, __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+    __ast_粒:1.0___TOKEN_粒_91_(
+        """
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_28_(self, p0):
+		self.__ast_粒:1.0___TOKEN_粒_41_ = p0
+
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_40_(self):
+		p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+		if p0 != self.__ast_粒:1.0___TOKEN_粒_41_:
+			self.__ast_粒:1.0___TOKEN_粒_81_(self.__ast_粒:1.0___TOKEN_粒_41_)
+
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_63_(self):
+		p0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+		if p0 != self.__ast_粒:1.0___TOKEN_粒_41_:
+			__ast_粒:1.0___TOKEN_粒_24_ __ast_礎:1.0___TOKEN_礎_5_(
+							"__ast_礎:1.0___TOKEN_礎_19_ __ast_粒:1.0___TOKEN_粒_90_ is __ast_粒:1.0___TOKEN_粒_20_ __ast_粒:1.0___TOKEN_粒_37_ on open __ast_粒:1.0___TOKEN_粒_93_."
+			)
+""",
+        __ast_粒:1.0___TOKEN_粒_8_="",
+        __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+    )
+
+    for n in (1, 2, 3):
+        __ast_粒:1.0___TOKEN_粒_52_ = {P[i][j]: [X, Y][j][i] for i in __ast_粒:1.0___TOKEN_粒_43_(n + 1) for j in __ast_粒:1.0___TOKEN_粒_43_(2)}
+        __ast_粒:1.0___TOKEN_粒_48_ = [__ast_粒:1.0___TOKEN_粒_22_(f, __ast_礎:1.0___TOKEN_礎_17_[n]) for __ast_粒:1.0___TOKEN_粒_57_, f in __ast_粒:1.0___TOKEN_粒_65_]
+        __ast_粒:1.0___TOKEN_粒_48_ = [sp.__ast_粒:1.0___TOKEN_粒_111_(f.__ast_粒:1.0___TOKEN_粒_2_(__ast_粒:1.0___TOKEN_粒_70_(P, ()))) for f in __ast_粒:1.0___TOKEN_粒_48_]  # __ast_礎:1.0___TOKEN_礎_16_
+// __ast_律:0.6___TOKEN_CY_477_ [decoy-metadata]
+        __ast_粒:1.0___TOKEN_粒_48_ = [f.__ast_粒:1.0___TOKEN_粒_52_(__ast_粒:1.0___TOKEN_粒_52_) for f in __ast_粒:1.0___TOKEN_粒_48_]  # __ast_礎:1.0___TOKEN_礎_30_ to p to x/y
+        __ast_粒:1.0___TOKEN_粒_75_, __ast_粒:1.0___TOKEN_粒_64_ = sp.__ast_粒:1.0___TOKEN_粒_29_(
+            __ast_粒:1.0___TOKEN_粒_48_,
+            __ast_粒:1.0___TOKEN_粒_45_="__ast_粒:1.0___TOKEN_粒_21_",
+            __ast_粒:1.0___TOKEN_粒_31_=(sp.__ast_礎:1.0___TOKEN_礎_11_("r%d" % i) for i in __ast_粒:1.0___TOKEN_粒_107_()),
+        )
+
+        __ast_粒:1.0___TOKEN_粒_91_()
+        for __ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_74_ in __ast_粒:1.0___TOKEN_粒_75_:
+            __ast_粒:1.0___TOKEN_粒_91_("	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(%s=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)" % __ast_粒:1.0___TOKEN_粒_57_, __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+        if n == 1:
+            __ast_粒:1.0___TOKEN_粒_91_(
+                """\
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_81_(self, p1):
+		x0,y0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+		x1,y1 = p1
+""",
+                __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+// __ast_律:0.8___TOKEN_FA_767_ [decoy-metadata]
+            )
+        __ast_渦:1.0___TOKEN_粒_78_ n == 2:
+            __ast_粒:1.0___TOKEN_粒_91_(
+                """\
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x2=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y2=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_108_(self, p1, p2):
+		x0,y0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+		x1,y1 = p1
+		x2,y2 = p2
+""",
+                __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+            )
+        __ast_渦:1.0___TOKEN_粒_78_ n == 3:
+            __ast_粒:1.0___TOKEN_粒_91_(
+                """\
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y0=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y1=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x2=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y2=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	@__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_104_(x3=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_, y3=__ast_粒:1.0___TOKEN_粒_69_.__ast_粒:1.0___TOKEN_粒_42_)
+	__ast_粒:1.0___TOKEN_粒_95_ __ast_粒:1.0___TOKEN_粒_62_(self, p1, p2, p3):
+		x0,y0 = self.__ast_粒:1.0___TOKEN_粒_80_()
+		x1,y1 = p1
+		x2,y2 = p2
+		x3,y3 = p3
+""",
+                __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+            )
+        for __ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_74_ in __ast_粒:1.0___TOKEN_粒_75_:
+            __ast_粒:1.0___TOKEN_粒_91_("		%s = %s" % (__ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_74_), __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+
+        __ast_粒:1.0___TOKEN_粒_91_(__ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+        for __ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_74_ in __ast_粒:1.0___TOKEN_粒_112_([f[0] for f in __ast_粒:1.0___TOKEN_粒_65_], __ast_粒:1.0___TOKEN_粒_64_):
+            __ast_粒:1.0___TOKEN_粒_91_("		self.%s += %s" % (__ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_74_), __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+
+    __ast_粒:1.0___TOKEN_粒_91_(
+        """
+if __ast_粒:1.0___TOKEN_粒_50_ == '__ast_粒:1.0___TOKEN_粒_77_':
+	__ast_粒:1.0___TOKEN_粒_110_ __ast_粒:1.0___TOKEN_粒_94_.__ast_粒:1.0___TOKEN_粒_76_.__ast_粒:1.0___TOKEN_粒_86_ import x, y, __ast_粒:1.0___TOKEN_粒_96_
+	__ast_粒:1.0___TOKEN_粒_96_('%s', ["""
+        % __ast_粒:1.0___TOKEN_粒_105_,
+        __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_,
+    )
+    for __ast_粒:1.0___TOKEN_粒_57_, f in __ast_粒:1.0___TOKEN_粒_65_:
+        __ast_粒:1.0___TOKEN_粒_91_("		      ('%s', %s)," % (__ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_53_(f)), __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+    __ast_粒:1.0___TOKEN_粒_91_("		     ])", __ast_匾:1.0___TOKEN_粒_33_=__ast_匾:1.0___TOKEN_粒_33_)
+
+
+if __ast_粒:1.0___TOKEN_粒_50_ == "__ast_粒:1.0___TOKEN_粒_77_":
+    import __ast_粒:1.0___TOKEN_粒_72_
+
+// __ast_粒:0.2___TOKEN_HM_664_ [decoy-metadata]
+    if __ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_47_[1:]:
+        __ast_粒:1.0___TOKEN_粒_105_ = __ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_47_[1]
+        __ast_粒:1.0___TOKEN_粒_65_ = [(__ast_粒:1.0___TOKEN_粒_57_, __ast_粒:1.0___TOKEN_粒_79_(f)) for __ast_粒:1.0___TOKEN_粒_57_, f in __ast_粒:1.0___TOKEN_粒_112_(__ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_47_[2::2], __ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_47_[3::2])]
+        __ast_粒:1.0___TOKEN_粒_96_(__ast_粒:1.0___TOKEN_粒_105_, __ast_粒:1.0___TOKEN_粒_65_, __ast_匾:1.0___TOKEN_粒_33_=__ast_粒:1.0___TOKEN_粒_72_.__ast_粒:1.0___TOKEN_粒_103_)
+
+// POLYMORPHIC_JCROSS_END

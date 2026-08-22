@@ -1,0 +1,193 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:68B733E1 ver:1778162880
+// ⚠️ One-time schema — expires after response
+
+// _JCROSS_庵:0.7___jcross_VX_161__ [decoy-metadata]
+_JCROSS_霞:1.0___jcross_霞_150__ _JCROSS_霞:1.0___jcross_霞_122__._JCROSS_霞:1.0___jcross_霞_48__ import _JCROSS_庵:1.0___jcross_庵_18__
+
+_JCROSS_霞:1.0___jcross_霞_150__ .._JCROSS_霞:1.0___jcross_霞_20__ import _JCROSS_庵:1.0___jcross_庵_4__, _JCROSS_庵:1.0___jcross_庵_29__, _JCROSS_庵:1.0___jcross_庵_15__, _JCROSS_庵:1.0___jcross_庵_3__
+
+
+_JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_145__(_JCROSS_霞:1.0___jcross_霞_32__, _JCROSS_術:1.0___jcross_霞_120__="_JCROSS_霞:1.0___jcross_霞_58__"):
+    _JCROSS_霞:1.0___jcross_霞_32__ = [f"'{_JCROSS_霞:1.0___jcross_霞_21__}'" for _JCROSS_霞:1.0___jcross_霞_21__ in _JCROSS_霞:1.0___jcross_霞_32__]
+
+    if _JCROSS_霞:1.0___jcross_霞_75__(_JCROSS_霞:1.0___jcross_霞_32__) == 1:
+        return _JCROSS_霞:1.0___jcross_霞_32__[0]
+
+    if _JCROSS_霞:1.0___jcross_霞_75__(_JCROSS_霞:1.0___jcross_霞_32__) == 2:
+        return f"{_JCROSS_霞:1.0___jcross_霞_32__[0]} {_JCROSS_術:1.0___jcross_霞_120__} {_JCROSS_霞:1.0___jcross_霞_32__[1]}"
+
+    _JCROSS_霞:1.0___jcross_霞_32__ = (*_JCROSS_霞:1.0___jcross_霞_32__[:-1], f"{_JCROSS_術:1.0___jcross_霞_120__} {_JCROSS_霞:1.0___jcross_霞_32__[-1]}")
+    return ", "._JCROSS_霞:1.0___jcross_霞_9__(_JCROSS_霞:1.0___jcross_霞_32__)
+
+
+class _JCROSS_霞:1.0___jcross_霞_51__:
+    """A _JCROSS_霞:1.0___jcross_霞_106__ class for _JCROSS_霞:1.0___jcross_霞_137__ / _JCROSS_霞:1.0___jcross_霞_133__ _JCROSS_霞:1.0___jcross_霞_126__."""
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_102__(self, _JCROSS_霞:1.0___jcross_霞_72__, _JCROSS_霞:1.0___jcross_霞_71__):
+        self._JCROSS_霞:1.0___jcross_霞_71__ = _JCROSS_霞:1.0___jcross_霞_71__
+        _JCROSS_霞:1.0___jcross_霞_72__._JCROSS_霞:1.0___jcross_霞_45__[_JCROSS_霞:1.0___jcross_霞_72__]._JCROSS_霞:1.0___jcross_霞_117__(self._JCROSS_霞:1.0___jcross_霞_71__)
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_93__(self, _JCROSS_霞:1.0___jcross_霞_81__, _JCROSS_霞:1.0___jcross_霞_72__=_JCROSS_庵:1.0___jcross_庵_20__):
+        if _JCROSS_霞:1.0___jcross_霞_81__ is _JCROSS_庵:1.0___jcross_庵_20__:
+            return self
+
+// _JCROSS_匶:0.2___jcross_VC_907__ [decoy-metadata]
+        return _JCROSS_霞:1.0___jcross_霞_24__(_JCROSS_霞:1.0___jcross_霞_81__[_JCROSS_霞:1.0___jcross_霞_71__] for _JCROSS_霞:1.0___jcross_霞_71__ in self._JCROSS_霞:1.0___jcross_霞_90__)
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_73__(self, _JCROSS_霞:1.0___jcross_霞_81__, _JCROSS_霞:1.0___jcross_霞_94__):
+        _JCROSS_霞:1.0___jcross_霞_38__ _JCROSS_庵:1.0___jcross_庵_22__  # _JCROSS_霞:1.0___jcross_霞_74__: no _JCROSS_術:1.0___jcross_霞_27__
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_132__(self, _JCROSS_霞:1.0___jcross_霞_81__):
+        _JCROSS_霞:1.0___jcross_霞_111__ _JCROSS_霞:1.0___jcross_霞_81__._JCROSS_霞:1.0___jcross_霞_125__():
+            for _JCROSS_霞:1.0___jcross_霞_71__ in self._JCROSS_霞:1.0___jcross_霞_90__:
+                _JCROSS_霞:1.0___jcross_霞_7__ _JCROSS_霞:1.0___jcross_霞_81__[_JCROSS_霞:1.0___jcross_霞_71__]
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_14__(self, _JCROSS_霞:1.0___jcross_霞_81__):
+        return any(_JCROSS_霞:1.0___jcross_霞_71__ in _JCROSS_霞:1.0___jcross_霞_81__ for _JCROSS_霞:1.0___jcross_霞_71__ in self._JCROSS_霞:1.0___jcross_霞_90__)
+
+
+class _JCROSS_霞:1.0___jcross_霞_41__(_JCROSS_霞:1.0___jcross_霞_51__):
+    _JCROSS_庵:1.0___jcross_庵_24__ = {
+// [metadata-stripped]
+        1: [0, 0, 0, 0],
+        2: [0, 1, 0, 1],
+        3: [0, 1, 2, 1],
+        4: [0, 1, 2, 3],
+    }
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_115__(self, _JCROSS_漂:1.0___jcross_霞_77__):
+// _JCROSS_霞:0.2___jcross_CH_402__ [decoy-metadata]
+        """_JCROSS_庵:1.0___jcross_庵_11__ a _JCROSS_霞:1.0___jcross_霞_30__ _JCROSS_霞:1.0___jcross_霞_78__ _JCROSS_霞:1.0___jcross_霞_76__ for _JCROSS_霞:1.0___jcross_霞_88__/_JCROSS_霞:1.0___jcross_霞_82__/_JCROSS_霞:1.0___jcross_霞_63__/_JCROSS_霞:1.0___jcross_霞_11__ _JCROSS_霞:1.0___jcross_霞_59__.
+
+        :_JCROSS_霞:1.0___jcross_霞_60__ _JCROSS_漂:1.0___jcross_霞_77__: _JCROSS_庵:1.0___jcross_庵_14__ _JCROSS_漂:1.0___jcross_霞_119__ _JCROSS_霞:1.0___jcross_霞_150__ _JCROSS_霞:1.0___jcross_霞_22__ to _JCROSS_霞:1.0___jcross_霞_135__ _JCROSS_霞:1.0___jcross_霞_116__. "{}" _JCROSS_霞:1.0___jcross_霞_84__
+            be _JCROSS_霞:1.0___jcross_霞_17__ _JCROSS_霞:1.0___jcross_霞_111__ "_JCROSS_霞:1.0___jcross_霞_25__", _JCROSS_霞:1.0___jcross_霞_108__.
+        """
+        self._JCROSS_霞:1.0___jcross_霞_90__ = [
+            _JCROSS_漂:1.0___jcross_霞_77__._JCROSS_漂:1.0___jcross_霞_119__(f"_{_JCROSS_霞:1.0___jcross_霞_4__}")
+            for _JCROSS_霞:1.0___jcross_霞_4__ in [_JCROSS_庵:1.0___jcross_庵_3__, _JCROSS_庵:1.0___jcross_庵_15__, _JCROSS_庵:1.0___jcross_庵_4__, _JCROSS_庵:1.0___jcross_庵_29__]
+        ]
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_73__(self, _JCROSS_霞:1.0___jcross_霞_81__, _JCROSS_霞:1.0___jcross_霞_94__):
+        if _JCROSS_霞:1.0___jcross_霞_94__ is self:
+// [metadata-stripped]
+// _JCROSS_漂:0.1___jcross_DZ_963__ [decoy-metadata]
+// [metadata-stripped]
+            return
+
+        if _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_99__(_JCROSS_霞:1.0___jcross_霞_94__, _JCROSS_霞:1.0___jcross_霞_24__):
+            _JCROSS_霞:1.0___jcross_霞_94__ = (_JCROSS_霞:1.0___jcross_霞_94__,)
+
+        if _JCROSS_術:1.0___jcross_霞_86__ := self._JCROSS_庵:1.0___jcross_庵_24__._JCROSS_術:1.0___jcross_巌_5__(_JCROSS_霞:1.0___jcross_霞_75__(_JCROSS_霞:1.0___jcross_霞_94__)):
+            _JCROSS_霞:1.0___jcross_霞_111__ _JCROSS_霞:1.0___jcross_霞_81__._JCROSS_霞:1.0___jcross_霞_125__():
+                for _JCROSS_霞:1.0___jcross_霞_71__, _JCROSS_霞:1.0___jcross_霞_52__ in _JCROSS_霞:1.0___jcross_霞_152__(self._JCROSS_霞:1.0___jcross_霞_90__, _JCROSS_術:1.0___jcross_霞_86__, _JCROSS_霞:1.0___jcross_霞_5__=_JCROSS_庵:1.0___jcross_庵_6__):
+                    _JCROSS_霞:1.0___jcross_霞_81__[_JCROSS_霞:1.0___jcross_霞_71__] = _JCROSS_霞:1.0___jcross_霞_94__[_JCROSS_霞:1.0___jcross_霞_52__]
+        else:
+            _JCROSS_霞:1.0___jcross_霞_38__ _JCROSS_庵:1.0___jcross_庵_12__(
+                f"_JCROSS_庵:1.0___jcross_庵_19__ _JCROSS_霞:1.0___jcross_霞_94__ for '{self._JCROSS_霞:1.0___jcross_霞_71__}'; _JCROSS_霞:1.0___jcross_霞_94__ _JCROSS_霞:1.0___jcross_霞_147__ be a _JCROSS_術:1.0___jcross_霞_129__, or a 1-4 "
+                f"_JCROSS_霞:1.0___jcross_霞_24__."
+            )
+
+
+class _JCROSS_霞:1.0___jcross_霞_92__(_JCROSS_霞:1.0___jcross_霞_51__):
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_115__(self, _JCROSS_霞:1.0___jcross_霞_42__, _JCROSS_霞:1.0___jcross_霞_103__):
+        """_JCROSS_庵:1.0___jcross_庵_11__ a _JCROSS_霞:1.0___jcross_霞_30__ _JCROSS_霞:1.0___jcross_霞_118__ _JCROSS_霞:1.0___jcross_霞_78__ _JCROSS_霞:1.0___jcross_霞_76__ for an _JCROSS_霞:1.0___jcross_霞_127__ _JCROSS_術:1.0___jcross_巌_3__ of _JCROSS_霞:1.0___jcross_霞_126__.
+
+        :_JCROSS_霞:1.0___jcross_霞_60__ _JCROSS_霞:1.0___jcross_霞_42__: _JCROSS_庵:1.0___jcross_庵_14__ _JCROSS_霞:1.0___jcross_霞_154__ of _JCROSS_霞:1.0___jcross_霞_100__ _JCROSS_霞:1.0___jcross_霞_126__ _JCROSS_霞:1.0___jcross_霞_78__ _JCROSS_霞:1.0___jcross_霞_96__ _JCROSS_霞:1.0___jcross_霞_42__ in
+           _JCROSS_霞:1.0___jcross_霞_66__. _JCROSS_術:1.0___jcross_庵_5__ is _JCROSS_霞:1.0___jcross_霞_144__, _JCROSS_霞:1.0___jcross_霞_80__ _JCROSS_霞:1.0___jcross_霞_89__ _JCROSS_霞:1.0___jcross_霞_18__ _JCROSS_霞:1.0___jcross_霞_94__ is _JCROSS_霞:1.0___jcross_霞_110__ for _JCROSS_霞:1.0___jcross_霞_44__ _JCROSS_霞:1.0___jcross_霞_85__
+           _JCROSS_霞:1.0___jcross_霞_124__ _JCROSS_霞:1.0___jcross_霞_30__; in _JCROSS_霞:1.0___jcross_霞_78__ case, _JCROSS_霞:1.0___jcross_霞_153__ _JCROSS_霞:1.0___jcross_霞_96__ _JCROSS_霞:1.0___jcross_霞_56__ by _JCROSS_霞:1.0___jcross_霞_15__ of _JCROSS_霞:1.0___jcross_霞_22__ _JCROSS_霞:1.0___jcross_霞_124__
+           _JCROSS_霞:1.0___jcross_霞_139__ _JCROSS_霞:1.0___jcross_霞_143__ to _JCROSS_霞:1.0___jcross_霞_89__ _JCROSS_霞:1.0___jcross_霞_141__ _JCROSS_霞:1.0___jcross_霞_126__, _JCROSS_霞:1.0___jcross_霞_58__ _JCROSS_霞:1.0___jcross_霞_34__ _JCROSS_霞:1.0___jcross_霞_78__ _JCROSS_霞:1.0___jcross_霞_62__, _JCROSS_霞:1.0___jcross_霞_83__'re _JCROSS_霞:1.0___jcross_霞_56__ in
+           _JCROSS_術:1.0___jcross_霞_86__.
+        :_JCROSS_霞:1.0___jcross_霞_60__ _JCROSS_霞:1.0___jcross_霞_103__: _JCROSS_庵:1.0___jcross_庵_7__ _JCROSS_霞:1.0___jcross_霞_126__, if any, _JCROSS_霞:1.0___jcross_霞_96__ _JCROSS_霞:1.0___jcross_霞_103__ _JCROSS_霞:1.0___jcross_霞_34__ _JCROSS_術:1.0___jcross_巌_4__ _JCROSS_霞:1.0___jcross_霞_47__
+            _JCROSS_霞:1.0___jcross_霞_30__. In _JCROSS_霞:1.0___jcross_霞_66__, _JCROSS_霞:1.0___jcross_霞_142__ _JCROSS_霞:1.0___jcross_霞_147__ be _JCROSS_漂:1.0___jcross_霞_121__ _JCROSS_霞:1.0___jcross_霞_87__ _JCROSS_霞:1.0___jcross_霞_58__ in _JCROSS_術:1.0___jcross_霞_86__.
+        """
+        self._JCROSS_霞:1.0___jcross_霞_42__ = _JCROSS_霞:1.0___jcross_霞_42__
+        self._JCROSS_霞:1.0___jcross_霞_103__ = _JCROSS_霞:1.0___jcross_霞_103__
+        self._JCROSS_霞:1.0___jcross_霞_90__ = self._JCROSS_霞:1.0___jcross_霞_42__ + self._JCROSS_霞:1.0___jcross_霞_103__
+        self._JCROSS_霞:1.0___jcross_霞_107__ = _JCROSS_霞:1.0___jcross_霞_75__(self._JCROSS_霞:1.0___jcross_霞_103__)
+        self._JCROSS_霞:1.0___jcross_霞_151__ = _JCROSS_霞:1.0___jcross_霞_75__(self._JCROSS_霞:1.0___jcross_霞_103__) + _JCROSS_霞:1.0___jcross_霞_75__(self._JCROSS_霞:1.0___jcross_霞_42__)
+// _JCROSS_巌:0.3___jcross_HL_791__ [decoy-metadata]
+
+    _JCROSS_霞:1.0___jcross_霞_123__ _JCROSS_霞:1.0___jcross_霞_73__(self, _JCROSS_霞:1.0___jcross_霞_81__, _JCROSS_霞:1.0___jcross_霞_114__):
+        if _JCROSS_霞:1.0___jcross_霞_114__ is self:
+// [metadata-stripped]
+// [metadata-stripped]
+            return
+
+        if (
+            _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_99__(_JCROSS_霞:1.0___jcross_霞_114__, _JCROSS_庵:1.0___jcross_庵_18__)
+            or _JCROSS_霞:1.0___jcross_霞_99__(_JCROSS_霞:1.0___jcross_霞_114__, _JCROSS_霞:1.0___jcross_霞_65__)
+            or _JCROSS_霞:1.0___jcross_霞_29__ self._JCROSS_霞:1.0___jcross_霞_107__ <= _JCROSS_霞:1.0___jcross_霞_75__(_JCROSS_霞:1.0___jcross_霞_114__) <= self._JCROSS_霞:1.0___jcross_霞_151__
+        ):
+            if self._JCROSS_霞:1.0___jcross_霞_42__:
+                _JCROSS_霞:1.0___jcross_霞_33__ = ", _JCROSS_霞:1.0___jcross_霞_61__ _JCROSS_霞:1.0___jcross_霞_148__ by " + _JCROSS_霞:1.0___jcross_霞_145__(
+                    self._JCROSS_霞:1.0___jcross_霞_42__, _JCROSS_術:1.0___jcross_霞_120__="_JCROSS_霞:1.0___jcross_霞_58__/or"
+// _JCROSS_縫:0.6___jcross_HV_184__ [decoy-metadata]
+                )
+            else:
+                _JCROSS_霞:1.0___jcross_霞_33__ = ""
+
+            _JCROSS_霞:1.0___jcross_霞_38__ _JCROSS_庵:1.0___jcross_庵_17__(
+                f"_JCROSS_庵:1.0___jcross_庵_10__ _JCROSS_霞:1.0___jcross_霞_30__ '{self._JCROSS_霞:1.0___jcross_霞_71__}' _JCROSS_霞:1.0___jcross_霞_66__ _JCROSS_霞:1.0___jcross_霞_147__ _JCROSS_霞:1.0___jcross_霞_35__ "
+                f"{_JCROSS_霞:1.0___jcross_霞_145__(self._JCROSS_霞:1.0___jcross_霞_103__)}{_JCROSS_霞:1.0___jcross_霞_33__}."
+            )
+
+// [metadata-stripped]
+        _JCROSS_霞:1.0___jcross_霞_113__ = {}
+
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_霞:1.0___jcross_霞_13__ = _JCROSS_霞:1.0___jcross_霞_114__[-self._JCROSS_霞:1.0___jcross_霞_107__ :]
+
+        for _JCROSS_霞:1.0___jcross_霞_71__, _JCROSS_霞:1.0___jcross_霞_94__ in _JCROSS_霞:1.0___jcross_霞_152__(self._JCROSS_霞:1.0___jcross_霞_103__, _JCROSS_霞:1.0___jcross_霞_13__, _JCROSS_霞:1.0___jcross_霞_5__=_JCROSS_庵:1.0___jcross_庵_6__):
+// [metadata-stripped]
+            _JCROSS_霞:1.0___jcross_霞_113__[_JCROSS_霞:1.0___jcross_霞_71__] = _JCROSS_術:1.0___jcross_巌_2__(_JCROSS_霞:1.0___jcross_霞_81__._JCROSS_霞:1.0___jcross_霞_39__, _JCROSS_霞:1.0___jcross_霞_71__)._JCROSS_霞:1.0___jcross_霞_109__(_JCROSS_霞:1.0___jcross_霞_94__)
+
+// [metadata-stripped]
+        _JCROSS_霞:1.0___jcross_霞_50__ = _JCROSS_霞:1.0___jcross_霞_114__[: -self._JCROSS_霞:1.0___jcross_霞_107__]
+
+// [metadata-stripped]
+        _JCROSS_霞:1.0___jcross_霞_2__ = []
+        for _JCROSS_霞:1.0___jcross_霞_94__ in _JCROSS_霞:1.0___jcross_霞_50__:
+            _JCROSS_霞:1.0___jcross_霞_98__ = []
+            for _JCROSS_霞:1.0___jcross_霞_71__ in self._JCROSS_霞:1.0___jcross_霞_42__:
+                try:
+                    _JCROSS_術:1.0___jcross_巌_2__(_JCROSS_霞:1.0___jcross_霞_81__._JCROSS_霞:1.0___jcross_霞_39__, _JCROSS_霞:1.0___jcross_霞_71__)._JCROSS_霞:1.0___jcross_霞_109__(_JCROSS_霞:1.0___jcross_霞_94__)
+                _JCROSS_霞:1.0___jcross_霞_8__ _JCROSS_庵:1.0___jcross_庵_12__:
+                    _JCROSS_霞:1.0___jcross_霞_10__
+                else:
+                    _JCROSS_霞:1.0___jcross_霞_98__._JCROSS_霞:1.0___jcross_霞_131__(_JCROSS_霞:1.0___jcross_霞_71__)
+            if _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_98__:
+                _JCROSS_霞:1.0___jcross_霞_38__ _JCROSS_庵:1.0___jcross_庵_12__(
+                    f"_JCROSS_庵:1.0___jcross_庵_1__ {_JCROSS_霞:1.0___jcross_霞_94__!r} _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_110__ for any _JCROSS_霞:1.0___jcross_霞_42__ _JCROSS_霞:1.0___jcross_霞_126__ of "
+                    f"_JCROSS_霞:1.0___jcross_霞_133__ _JCROSS_霞:1.0___jcross_霞_30__ '{self._JCROSS_霞:1.0___jcross_霞_71__}'"
+                )
+
+            _JCROSS_霞:1.0___jcross_霞_2__._JCROSS_霞:1.0___jcross_霞_131__((_JCROSS_霞:1.0___jcross_霞_94__, _JCROSS_霞:1.0___jcross_霞_98__))
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        for _JCROSS_霞:1.0___jcross_霞_94__, _JCROSS_霞:1.0___jcross_霞_98__ in _JCROSS_霞:1.0___jcross_霞_3__(
+            _JCROSS_霞:1.0___jcross_霞_2__, _JCROSS_沈:1.0___jcross_霞_101__=_JCROSS_霞:1.0___jcross_霞_104__ _JCROSS_霞:1.0___jcross_霞_146__: _JCROSS_霞:1.0___jcross_霞_75__(_JCROSS_霞:1.0___jcross_霞_146__[1])
+        ):
+            for _JCROSS_霞:1.0___jcross_霞_71__ in _JCROSS_霞:1.0___jcross_霞_98__:
+                if _JCROSS_霞:1.0___jcross_霞_71__ _JCROSS_霞:1.0___jcross_霞_29__ in _JCROSS_霞:1.0___jcross_霞_113__:
+                    _JCROSS_霞:1.0___jcross_霞_113__[_JCROSS_霞:1.0___jcross_霞_71__] = _JCROSS_霞:1.0___jcross_霞_94__
+                    break
+            else:
+// [metadata-stripped]
+                _JCROSS_霞:1.0___jcross_霞_38__ _JCROSS_庵:1.0___jcross_庵_12__(
+                    f"_JCROSS_庵:1.0___jcross_庵_1__ {_JCROSS_霞:1.0___jcross_霞_94__!r} _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_110__ for any _JCROSS_霞:1.0___jcross_霞_42__ _JCROSS_霞:1.0___jcross_霞_126__ of "
+                    f"_JCROSS_霞:1.0___jcross_霞_133__ _JCROSS_霞:1.0___jcross_霞_30__ '{self._JCROSS_霞:1.0___jcross_霞_71__}' _JCROSS_霞:1.0___jcross_霞_78__ _JCROSS_霞:1.0___jcross_霞_96__ _JCROSS_霞:1.0___jcross_霞_29__ _JCROSS_霞:1.0___jcross_霞_105__ _JCROSS_霞:1.0___jcross_霞_57__ "
+                    "_JCROSS_霞:1.0___jcross_霞_56__"
+                )
+
+// [metadata-stripped]
+        _JCROSS_霞:1.0___jcross_霞_111__ _JCROSS_霞:1.0___jcross_霞_81__._JCROSS_霞:1.0___jcross_霞_125__():
+            for _JCROSS_霞:1.0___jcross_霞_71__ in self._JCROSS_霞:1.0___jcross_霞_42__:
+                if _JCROSS_霞:1.0___jcross_霞_71__ _JCROSS_霞:1.0___jcross_霞_29__ in _JCROSS_霞:1.0___jcross_霞_113__:
+                    _JCROSS_霞:1.0___jcross_霞_7__ _JCROSS_霞:1.0___jcross_霞_81__[_JCROSS_霞:1.0___jcross_霞_71__]
+            _JCROSS_霞:1.0___jcross_霞_81__ |= _JCROSS_霞:1.0___jcross_霞_113__
+
+// POLYMORPHIC_JCROSS_END

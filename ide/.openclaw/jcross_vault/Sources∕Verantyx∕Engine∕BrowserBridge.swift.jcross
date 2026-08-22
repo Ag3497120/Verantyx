@@ -1,0 +1,761 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E53C00F4 ver:1778164027
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_礎:1.0__JCROSS_礎_72_
+import _OPAQUE_礎:1.0__JCROSS_礎_35_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+struct _OPAQUE_礎:1.0__JCROSS_礎_4_: _OPAQUE_礎:1.0__JCROSS_礎_32_ {
+    var _OPAQUE_雰:1.0__JCROSS_雰_235_:  _OPAQUE_礎:1.0__JCROSS_礎_91_
+    var _OPAQUE_緋:1.0__JCROSS_雰_307_:  _OPAQUE_礎:1.0__JCROSS_礎_91_?
+    var _OPAQUE_雰:1.0__JCROSS_雰_392_: _OPAQUE_礎:1.0__JCROSS_礎_91_?
+    var id:   _OPAQUE_礎:1.0__JCROSS_礎_50_?
+    var _OPAQUE_雰:1.0__JCROSS_雰_385_: [[_OPAQUE_礎:1.0__JCROSS_礎_88_]]?
+    var _OPAQUE_暗:1.0__JCROSS_雰_331_: [_OPAQUE_礎:1.0__JCROSS_礎_88_]?
+    var _OPAQUE_雰:1.0__JCROSS_雰_227_: [_OPAQUE_礎:1.0__JCROSS_礎_88_]?
+}
+
+struct _OPAQUE_礎:1.0__JCROSS_礎_62_: _OPAQUE_礎:1.0__JCROSS_礎_32_ {
+    var id:       _OPAQUE_礎:1.0__JCROSS_礎_50_?   // ← _OPAQUE_礎:1.0__JCROSS_礎_67_ 側からエコーバックされる
+    var _OPAQUE_雰:1.0__JCROSS_雰_299_:   _OPAQUE_礎:1.0__JCROSS_礎_91_
+    var _OPAQUE_雰:1.0__JCROSS_雰_13_:  _OPAQUE_礎:1.0__JCROSS_礎_91_?
+    var _OPAQUE_緋:1.0__JCROSS_雰_307_:      _OPAQUE_礎:1.0__JCROSS_礎_91_?
+    var _OPAQUE_雰:1.0__JCROSS_雰_172_: _OPAQUE_礎:1.0__JCROSS_礎_91_?
+    var _OPAQUE_雰:1.0__JCROSS_雰_259_:    _OPAQUE_礎:1.0__JCROSS_礎_91_?
+}
+
+enum _OPAQUE_礎:1.0__JCROSS_礎_5_: _OPAQUE_礎:1.0__JCROSS_礎_16_ {
+    case _OPAQUE_雰:1.0__JCROSS_雰_283_
+    case _OPAQUE_雰:1.0__JCROSS_雰_257_
+    case _OPAQUE_雰:1.0__JCROSS_雰_278_
+    case _OPAQUE_雰:1.0__JCROSS_雰_286_(_OPAQUE_礎:1.0__JCROSS_礎_91_)
+    case _OPAQUE_雰:1.0__JCROSS_雰_104_(_OPAQUE_礎:1.0__JCROSS_礎_91_)
+}
+
+// [metadata-stripped]
+
+private enum _OPAQUE_礎:1.0__JCROSS_礎_37_ {
+    case _OPAQUE_雰:1.0__JCROSS_雰_172_   // _OPAQUE_礎:1.0__JCROSS_礎_19_ / _OPAQUE_礎:1.0__JCROSS_礎_59_ → _OPAQUE_雰:1.0__JCROSS_雰_172_ を返す
+    case _OPAQUE_雰:1.0__JCROSS_雰_128_       // _OPAQUE_礎:1.0__JCROSS_礎_31_ / _OPAQUE_礎:1.0__JCROSS_礎_112_ → _OPAQUE_雰:1.0__JCROSS_雰_13_ を返す
+    case _OPAQUE_雰:1.0__JCROSS_雰_290_       // _OPAQUE_雰:1.0__JCROSS_雰_272_ → _OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_290_"
+}
+
+private struct _OPAQUE_緋:1.0__JCROSS_礎_15_ {
+    let _OPAQUE_雰:1.0__JCROSS_雰_366_: _OPAQUE_礎:1.0__JCROSS_礎_37_
+    let _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_礎:1.0__JCROSS_礎_6_<_OPAQUE_礎:1.0__JCROSS_礎_62_, _OPAQUE_礎:1.0__JCROSS_礎_116_>
+}
+
+// [metadata-stripped]
+
+actor _OPAQUE_礎:1.0__JCROSS_礎_13_ {
+
+    static let _OPAQUE_雰:1.0__JCROSS_雰_207_ = _OPAQUE_礎:1.0__JCROSS_礎_13_()
+
+// [metadata-stripped]
+    private var _OPAQUE_雰:1.0__JCROSS_雰_215_:      _OPAQUE_礎:1.0__JCROSS_礎_106_?
+    private var _OPAQUE_雰:1.0__JCROSS_雰_103_:    _OPAQUE_礎:1.0__JCROSS_礎_98_?
+    private var _OPAQUE_雰:1.0__JCROSS_雰_190_:   _OPAQUE_礎:1.0__JCROSS_礎_98_?
+    private var _OPAQUE_雰:1.0__JCROSS_雰_346_:   _OPAQUE_礎:1.0__JCROSS_礎_81_<_OPAQUE_礎:1.0__JCROSS_礎_55_, _OPAQUE_策:1.0__JCROSS_礎_65_>?
+
+// [metadata-stripped]
+    private var _OPAQUE_雰:1.0__JCROSS_雰_167_:    _OPAQUE_礎:1.0__JCROSS_礎_50_ = 1
+    private var _OPAQUE_雰:1.0__JCROSS_雰_23_:   [_OPAQUE_礎:1.0__JCROSS_礎_50_: _OPAQUE_緋:1.0__JCROSS_礎_15_] = [:]
+// [metadata-stripped]
+    private var _OPAQUE_雰:1.0__JCROSS_雰_41_: _OPAQUE_礎:1.0__JCROSS_礎_6_<_OPAQUE_礎:1.0__JCROSS_礎_55_, _OPAQUE_礎:1.0__JCROSS_礎_116_>?
+
+    private(_OPAQUE_策:1.0__JCROSS_曠_6_) var _OPAQUE_雰:1.0__JCROSS_雰_383_: _OPAQUE_礎:1.0__JCROSS_礎_5_ = ._OPAQUE_雰:1.0__JCROSS_雰_283_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    var _OPAQUE_雰:1.0__JCROSS_雰_246_: _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+// _OPAQUE_策:0.7__JCROSS_VZ_917_ [decoy-metadata]
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_332_ = _OPAQUE_礎:1.0__JCROSS_礎_18_._OPAQUE_雰:1.0__JCROSS_雰_106_._OPAQUE_緋:1.0__JCROSS_雰_212_
+            ._OPAQUE_雰:1.0__JCROSS_雰_123_("_OPAQUE_礎:1.0__JCROSS_礎_86_/_OPAQUE_礎:1.0__JCROSS_礎_113_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_")._OPAQUE_雰:1.0__JCROSS_雰_198_
+        if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_332_) { return _OPAQUE_雰:1.0__JCROSS_雰_332_ }
+
+// [metadata-stripped]
+        if let _OPAQUE_雰:1.0__JCROSS_雰_66_ = _OPAQUE_礎:1.0__JCROSS_礎_18_._OPAQUE_雰:1.0__JCROSS_雰_106_._OPAQUE_雰:1.0__JCROSS_雰_198_(_OPAQUE_漂:1.0__JCROSS_雰_159_: "_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_", _OPAQUE_雰:1.0__JCROSS_雰_312_: nil) {
+            return _OPAQUE_雰:1.0__JCROSS_雰_66_
+        }
+
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_277_    = _OPAQUE_雰:1.0__JCROSS_雰_258_
+        let _OPAQUE_雰:1.0__JCROSS_雰_12_   = "\(_OPAQUE_雰:1.0__JCROSS_雰_277_)/_OPAQUE_礎:1.0__JCROSS_礎_36_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_/_OPAQUE_雰:1.0__JCROSS_雰_227_/_OPAQUE_雰:1.0__JCROSS_雰_12_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_"
+        let _OPAQUE_雰:1.0__JCROSS_雰_21_ = "\(_OPAQUE_雰:1.0__JCROSS_雰_277_)/_OPAQUE_礎:1.0__JCROSS_礎_36_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_/_OPAQUE_雰:1.0__JCROSS_雰_227_/_OPAQUE_雰:1.0__JCROSS_雰_21_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_"
+        let _OPAQUE_雰:1.0__JCROSS_雰_310_ = "\(_OPAQUE_雰:1.0__JCROSS_雰_277_)/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_/_OPAQUE_雰:1.0__JCROSS_雰_227_/_OPAQUE_雰:1.0__JCROSS_雰_12_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_"
+        let _OPAQUE_雰:1.0__JCROSS_雰_284_ = "\(_OPAQUE_雰:1.0__JCROSS_雰_277_)/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_/_OPAQUE_雰:1.0__JCROSS_雰_227_/_OPAQUE_雰:1.0__JCROSS_雰_21_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_"
+
+        if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_12_)   { return _OPAQUE_雰:1.0__JCROSS_雰_12_ }
+        if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_21_) { return _OPAQUE_雰:1.0__JCROSS_雰_21_ }
+        if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_310_)   { return _OPAQUE_雰:1.0__JCROSS_雰_310_ }
+        if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_284_) { return _OPAQUE_雰:1.0__JCROSS_雰_284_ }
+
+// [metadata-stripped]
+        return _OPAQUE_雰:1.0__JCROSS_雰_12_
+    }
+
+    private var _OPAQUE_雰:1.0__JCROSS_雰_258_: _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        var _OPAQUE_緋:1.0__JCROSS_雰_307_ = _OPAQUE_礎:1.0__JCROSS_礎_18_._OPAQUE_雰:1.0__JCROSS_雰_106_._OPAQUE_緋:1.0__JCROSS_雰_212_
+        
+// [metadata-stripped]
+        for _ in 0..<8 {
+            _OPAQUE_緋:1.0__JCROSS_雰_307_ = _OPAQUE_緋:1.0__JCROSS_雰_307_._OPAQUE_雰:1.0__JCROSS_雰_33_()
+            if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_緋:1.0__JCROSS_雰_307_._OPAQUE_雰:1.0__JCROSS_雰_123_("_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_")._OPAQUE_雰:1.0__JCROSS_雰_198_) {
+                return _OPAQUE_緋:1.0__JCROSS_雰_307_._OPAQUE_雰:1.0__JCROSS_雰_198_
+            }
+            if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_緋:1.0__JCROSS_雰_307_._OPAQUE_雰:1.0__JCROSS_雰_123_("_OPAQUE_礎:1.0__JCROSS_礎_36_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_")._OPAQUE_雰:1.0__JCROSS_雰_198_) {
+                return _OPAQUE_緋:1.0__JCROSS_雰_307_._OPAQUE_雰:1.0__JCROSS_雰_198_
+            }
+        }
+        
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_177_ = _OPAQUE_緋:1.0__JCROSS_礎_66_(_OPAQUE_緋:1.0__JCROSS_雰_269_: #_OPAQUE_匳:1.0__JCROSS_雰_309_)
+        var _OPAQUE_雰:1.0__JCROSS_雰_217_ = _OPAQUE_雰:1.0__JCROSS_雰_177_
+        for _ in 0..<8 {
+            _OPAQUE_雰:1.0__JCROSS_雰_217_ = _OPAQUE_雰:1.0__JCROSS_雰_217_._OPAQUE_雰:1.0__JCROSS_雰_33_()
+            if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_217_._OPAQUE_雰:1.0__JCROSS_雰_123_("_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_")._OPAQUE_雰:1.0__JCROSS_雰_198_) {
+                return _OPAQUE_雰:1.0__JCROSS_雰_217_._OPAQUE_雰:1.0__JCROSS_雰_198_
+            }
+            if _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_217_._OPAQUE_雰:1.0__JCROSS_雰_123_("_OPAQUE_礎:1.0__JCROSS_礎_36_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_")._OPAQUE_雰:1.0__JCROSS_雰_198_) {
+                return _OPAQUE_雰:1.0__JCROSS_雰_217_._OPAQUE_雰:1.0__JCROSS_雰_198_
+            }
+        }
+        
+// [metadata-stripped]
+        return "/_OPAQUE_礎:1.0__JCROSS_礎_94_/_OPAQUE_雰:1.0__JCROSS_雰_249_/_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_雰:1.0__JCROSS_雰_349_"
+    }
+
+// _OPAQUE_緋:0.2__JCROSS_YA_526_ [decoy-metadata]
+// [metadata-stripped]
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_96_(_OPAQUE_雰:1.0__JCROSS_雰_350_: _OPAQUE_礎:1.0__JCROSS_礎_38_ = true) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+// [metadata-stripped]
+        if case ._OPAQUE_雰:1.0__JCROSS_雰_257_ = _OPAQUE_雰:1.0__JCROSS_雰_383_ { return }
+        if case ._OPAQUE_雰:1.0__JCROSS_雰_278_     = _OPAQUE_雰:1.0__JCROSS_雰_383_ { return }
+        _OPAQUE_雰:1.0__JCROSS_雰_383_ = ._OPAQUE_雰:1.0__JCROSS_雰_257_
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_198_ = _OPAQUE_雰:1.0__JCROSS_雰_246_
+        guard _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_匳:1.0__JCROSS_雰_107_(_OPAQUE_雰:1.0__JCROSS_雰_231_: _OPAQUE_雰:1.0__JCROSS_雰_198_) else {
+            let _OPAQUE_雰:1.0__JCROSS_雰_99_ = "_OPAQUE_礎:1.0__JCROSS_礎_45_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_97_: \(_OPAQUE_雰:1.0__JCROSS_雰_198_)"
+            _OPAQUE_雰:1.0__JCROSS_雰_383_ = ._OPAQUE_雰:1.0__JCROSS_雰_104_(_OPAQUE_雰:1.0__JCROSS_雰_99_)
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_327_(_OPAQUE_雰:1.0__JCROSS_雰_198_)
+        }
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_135_   = _OPAQUE_礎:1.0__JCROSS_礎_106_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_352_  = _OPAQUE_礎:1.0__JCROSS_礎_98_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_386_ = _OPAQUE_礎:1.0__JCROSS_礎_98_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_363_ = _OPAQUE_礎:1.0__JCROSS_礎_98_()
+
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_緋:1.0__JCROSS_雰_110_     = _OPAQUE_緋:1.0__JCROSS_礎_66_(_OPAQUE_緋:1.0__JCROSS_雰_269_: _OPAQUE_雰:1.0__JCROSS_雰_198_)
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_355_         = ["--_OPAQUE_雰:1.0__JCROSS_雰_18_"] + (_OPAQUE_雰:1.0__JCROSS_雰_350_ ? ["--_OPAQUE_雰:1.0__JCROSS_雰_350_"] : [])
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_221_     = _OPAQUE_雰:1.0__JCROSS_雰_352_
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_62_    = _OPAQUE_雰:1.0__JCROSS_雰_386_
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_5_     = _OPAQUE_雰:1.0__JCROSS_雰_363_
+        _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_295_  = ._OPAQUE_雰:1.0__JCROSS_雰_261_
+
+        try _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_109_()
+        
+        if _OPAQUE_雰:1.0__JCROSS_雰_350_ {
+            let _OPAQUE_雰:1.0__JCROSS_雰_300_ = _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_策:1.0__JCROSS_雰_31_
+            _OPAQUE_礎:1.0__JCROSS_礎_81_ { @_OPAQUE_礎:1.0__JCROSS_礎_54_ in
+                try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 500_000_000) // 0.5s _OPAQUE_雰:1.0__JCROSS_雰_76_
+                if let _OPAQUE_雰:1.0__JCROSS_雰_95_ = _OPAQUE_礎:1.0__JCROSS_礎_47_(_OPAQUE_策:1.0__JCROSS_雰_31_: _OPAQUE_雰:1.0__JCROSS_雰_300_) {
+                    _OPAQUE_雰:1.0__JCROSS_雰_95_._OPAQUE_雰:1.0__JCROSS_雰_275_(_OPAQUE_雰:1.0__JCROSS_雰_323_: [._OPAQUE_雰:1.0__JCROSS_雰_32_])
+                }
+            }
+        }
+
+        self._OPAQUE_雰:1.0__JCROSS_雰_215_   = _OPAQUE_雰:1.0__JCROSS_雰_135_
+        self._OPAQUE_雰:1.0__JCROSS_雰_103_ = _OPAQUE_雰:1.0__JCROSS_雰_352_
+        self._OPAQUE_雰:1.0__JCROSS_雰_190_ = _OPAQUE_雰:1.0__JCROSS_雰_386_
+
+// [metadata-stripped]
+        _OPAQUE_雰:1.0__JCROSS_雰_346_ = _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_267_(_OPAQUE_雰:1.0__JCROSS_雰_53_: ._OPAQUE_雰:1.0__JCROSS_雰_211_) { [weak self] in
+            let _OPAQUE_雰:1.0__JCROSS_雰_187_ = _OPAQUE_雰:1.0__JCROSS_雰_386_._OPAQUE_匳:1.0__JCROSS_雰_139_
+            var _OPAQUE_策:1.0__JCROSS_雰_391_ = ""
+            while true {
+                let _OPAQUE_雰:1.0__JCROSS_雰_306_ = _OPAQUE_雰:1.0__JCROSS_雰_187_._OPAQUE_雰:1.0__JCROSS_雰_239_
+                if _OPAQUE_雰:1.0__JCROSS_雰_306_._OPAQUE_雰:1.0__JCROSS_雰_54_ {
+                    try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 10_000_000)
+                    if _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_236_ { break }
+                    _OPAQUE_雰:1.0__JCROSS_雰_328_inue
+                }
+                guard let _OPAQUE_雰:1.0__JCROSS_雰_130_ = _OPAQUE_礎:1.0__JCROSS_礎_91_(_OPAQUE_雰:1.0__JCROSS_雰_306_: _OPAQUE_雰:1.0__JCROSS_雰_306_, _OPAQUE_雰:1.0__JCROSS_雰_73_: ._OPAQUE_雰:1.0__JCROSS_雰_192_) else { _OPAQUE_雰:1.0__JCROSS_雰_328_inue }
+                _OPAQUE_策:1.0__JCROSS_雰_391_ += _OPAQUE_雰:1.0__JCROSS_雰_130_
+                while let nl = _OPAQUE_策:1.0__JCROSS_雰_391_._OPAQUE_雰:1.0__JCROSS_雰_339_(of: "\n") {
+                    let _OPAQUE_雰:1.0__JCROSS_雰_379_ = _OPAQUE_礎:1.0__JCROSS_礎_91_(_OPAQUE_策:1.0__JCROSS_雰_391_[..<nl._OPAQUE_雰:1.0__JCROSS_雰_94_])._OPAQUE_雰:1.0__JCROSS_雰_162_(in: ._OPAQUE_雰:1.0__JCROSS_雰_134_)
+                    _OPAQUE_策:1.0__JCROSS_雰_391_._OPAQUE_雰:1.0__JCROSS_雰_210_(..<nl._OPAQUE_雰:1.0__JCROSS_雰_316_)
+                    guard !_OPAQUE_雰:1.0__JCROSS_雰_379_._OPAQUE_雰:1.0__JCROSS_雰_54_ else { _OPAQUE_雰:1.0__JCROSS_雰_328_inue }
+                    if let _OPAQUE_雰:1.0__JCROSS_雰_395_ = try? _OPAQUE_策:1.0__JCROSS_礎_24_()._OPAQUE_雰:1.0__JCROSS_雰_342_(_OPAQUE_礎:1.0__JCROSS_礎_62_.self, _OPAQUE_雰:1.0__JCROSS_雰_59_: _OPAQUE_礎:1.0__JCROSS_礎_53_(_OPAQUE_雰:1.0__JCROSS_雰_379_._OPAQUE_雰:1.0__JCROSS_雰_192_)) {
+                        a_OPAQUE_雰:1.0__JCROSS_雰_76_ self?._OPAQUE_雰:1.0__JCROSS_雰_191_(_OPAQUE_雰:1.0__JCROSS_雰_395_)
+                    }
+                }
+                if _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_236_ { break }
+            }
+        }
+
+// [metadata-stripped]
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_漂:1.0__JCROSS_雰_7_(_OPAQUE_雰:1.0__JCROSS_雰_9_: 6)
+        _OPAQUE_雰:1.0__JCROSS_雰_383_ = ._OPAQUE_雰:1.0__JCROSS_雰_278_
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _OPAQUE_策:1.0__JCROSS_曠_1_(_ _OPAQUE_緋:1.0__JCROSS_雰_307_: _OPAQUE_礎:1.0__JCROSS_礎_91_, _OPAQUE_雰:1.0__JCROSS_雰_385_: [[_OPAQUE_礎:1.0__JCROSS_礎_88_]]? = nil, _OPAQUE_暗:1.0__JCROSS_雰_152_: [_OPAQUE_礎:1.0__JCROSS_礎_88_]? = nil, _OPAQUE_雰:1.0__JCROSS_雰_227_: [_OPAQUE_礎:1.0__JCROSS_礎_88_]? = nil) async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_317_()
+        
+// [metadata-stripped]
+        if let _OPAQUE_雰:1.0__JCROSS_雰_300_ = self._OPAQUE_雰:1.0__JCROSS_雰_215_?._OPAQUE_策:1.0__JCROSS_雰_31_ {
+            a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_54_._OPAQUE_雰:1.0__JCROSS_雰_109_ {
+                if let _OPAQUE_雰:1.0__JCROSS_雰_95_ = _OPAQUE_礎:1.0__JCROSS_礎_47_(_OPAQUE_策:1.0__JCROSS_雰_31_: _OPAQUE_雰:1.0__JCROSS_雰_300_) {
+                    _OPAQUE_雰:1.0__JCROSS_雰_95_._OPAQUE_雰:1.0__JCROSS_雰_275_(_OPAQUE_雰:1.0__JCROSS_雰_323_: [._OPAQUE_雰:1.0__JCROSS_雰_32_])
+                }
+            }
+// [metadata-stripped]
+            try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 100_000_000)
+        }
+        
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_171_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_395_: _OPAQUE_礎:1.0__JCROSS_礎_62_ = try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_雰:1.0__JCROSS_雰_23_[id] = _OPAQUE_緋:1.0__JCROSS_礎_15_(_OPAQUE_雰:1.0__JCROSS_雰_366_: ._OPAQUE_雰:1.0__JCROSS_雰_172_, _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_雰:1.0__JCROSS_雰_328_)
+            try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_雰:1.0__JCROSS_雰_400_", _OPAQUE_緋:1.0__JCROSS_雰_307_: _OPAQUE_緋:1.0__JCROSS_雰_307_, id: id, _OPAQUE_雰:1.0__JCROSS_雰_385_: _OPAQUE_雰:1.0__JCROSS_雰_385_, _OPAQUE_暗:1.0__JCROSS_雰_331_: _OPAQUE_暗:1.0__JCROSS_雰_152_, _OPAQUE_雰:1.0__JCROSS_雰_227_: _OPAQUE_雰:1.0__JCROSS_雰_227_))
+// [metadata-stripped]
+            _OPAQUE_礎:1.0__JCROSS_礎_81_ { try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 20_000_000_000); self._OPAQUE_雰:1.0__JCROSS_雰_195_(id: id) }
+        }
+        return _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_172_ ?? ""
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_策:1.0__JCROSS_曠_4_() async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_317_()
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_171_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_395_: _OPAQUE_礎:1.0__JCROSS_礎_62_ = try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_雰:1.0__JCROSS_雰_23_[id] = _OPAQUE_緋:1.0__JCROSS_礎_15_(_OPAQUE_雰:1.0__JCROSS_雰_366_: ._OPAQUE_雰:1.0__JCROSS_雰_172_, _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_雰:1.0__JCROSS_雰_328_)
+            try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_策:1.0__JCROSS_曠_2_", id: id))
+            _OPAQUE_礎:1.0__JCROSS_礎_81_ { try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 12_000_000_000); self._OPAQUE_雰:1.0__JCROSS_雰_195_(id: id) }
+        }
+        return _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_172_ ?? ""
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_335_(_ _OPAQUE_雰:1.0__JCROSS_雰_15_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_317_()
+// _OPAQUE_礎:0.5__JCROSS_AD_569_ [decoy-metadata]
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_171_()
+        let _OPAQUE_雰:1.0__JCROSS_雰_395_: _OPAQUE_礎:1.0__JCROSS_礎_62_ = try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_雰:1.0__JCROSS_雰_23_[id] = _OPAQUE_緋:1.0__JCROSS_礎_15_(_OPAQUE_雰:1.0__JCROSS_雰_366_: ._OPAQUE_雰:1.0__JCROSS_雰_128_, _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_雰:1.0__JCROSS_雰_328_)
+            try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_雰:1.0__JCROSS_雰_282_", _OPAQUE_雰:1.0__JCROSS_雰_392_: _OPAQUE_雰:1.0__JCROSS_雰_15_, id: id))
+            _OPAQUE_礎:1.0__JCROSS_礎_81_ { try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 12_000_000_000); self._OPAQUE_雰:1.0__JCROSS_雰_195_(id: id) }
+        }
+        return _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_13_ ?? ""
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_337_(_ _OPAQUE_雰:1.0__JCROSS_雰_392_: _OPAQUE_礎:1.0__JCROSS_礎_91_, _OPAQUE_暗:1.0__JCROSS_雰_152_: [_OPAQUE_礎:1.0__JCROSS_礎_88_]? = nil) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_317_()
+        
+// [metadata-stripped]
+        if let _OPAQUE_雰:1.0__JCROSS_雰_300_ = self._OPAQUE_雰:1.0__JCROSS_雰_215_?._OPAQUE_策:1.0__JCROSS_雰_31_ {
+            a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_54_._OPAQUE_雰:1.0__JCROSS_雰_109_ {
+                if let _OPAQUE_雰:1.0__JCROSS_雰_95_ = _OPAQUE_礎:1.0__JCROSS_礎_47_(_OPAQUE_策:1.0__JCROSS_雰_31_: _OPAQUE_雰:1.0__JCROSS_雰_300_) {
+                    _OPAQUE_雰:1.0__JCROSS_雰_95_._OPAQUE_雰:1.0__JCROSS_雰_275_(_OPAQUE_雰:1.0__JCROSS_雰_323_: [._OPAQUE_雰:1.0__JCROSS_雰_32_])
+                }
+            }
+            try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 100_000_000)
+        }
+        
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_171_()
+        let _: _OPAQUE_礎:1.0__JCROSS_礎_62_ = try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_雰:1.0__JCROSS_雰_23_[id] = _OPAQUE_緋:1.0__JCROSS_礎_15_(_OPAQUE_雰:1.0__JCROSS_雰_366_: ._OPAQUE_雰:1.0__JCROSS_雰_128_, _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_雰:1.0__JCROSS_雰_328_)
+            try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_雰:1.0__JCROSS_雰_28_", _OPAQUE_雰:1.0__JCROSS_雰_392_: _OPAQUE_雰:1.0__JCROSS_雰_392_, id: id, _OPAQUE_暗:1.0__JCROSS_雰_331_: _OPAQUE_暗:1.0__JCROSS_雰_152_))
+// [metadata-stripped]
+// [metadata-stripped]
+            _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_140_(_OPAQUE_暗:1.0__JCROSS_雰_45_: id)
+            _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: _OPAQUE_礎:1.0__JCROSS_礎_62_(id: id, _OPAQUE_雰:1.0__JCROSS_雰_299_: "ok", _OPAQUE_雰:1.0__JCROSS_雰_13_: "_OPAQUE_雰:1.0__JCROSS_雰_241_"))
+        }
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_72_(x: _OPAQUE_礎:1.0__JCROSS_礎_88_, y: _OPAQUE_礎:1.0__JCROSS_礎_88_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_135_ = _OPAQUE_雰:1.0__JCROSS_雰_215_, _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_266_ else { _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_64_ }
+        let _OPAQUE_雰:1.0__JCROSS_雰_300_ = _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_策:1.0__JCROSS_雰_31_
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_323_ = _OPAQUE_礎:1.0__JCROSS_礎_8_(_OPAQUE_雰:1.0__JCROSS_雰_372_: ._OPAQUE_雰:1.0__JCROSS_雰_228_, ._OPAQUE_雰:1.0__JCROSS_雰_334_)
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_199_ = _OPAQUE_礎:1.0__JCROSS_礎_115_(_OPAQUE_雰:1.0__JCROSS_雰_323_, _OPAQUE_雰:1.0__JCROSS_雰_384_) as? [[_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_]],
+              let _OPAQUE_雰:1.0__JCROSS_雰_58_ = _OPAQUE_雰:1.0__JCROSS_雰_199_._OPAQUE_雰:1.0__JCROSS_雰_297_(where: { ($0[_OPAQUE_雰:1.0__JCROSS_雰_19_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_100_) == _OPAQUE_雰:1.0__JCROSS_雰_300_ }),
+              let _OPAQUE_雰:1.0__JCROSS_雰_48_ = _OPAQUE_雰:1.0__JCROSS_雰_58_[_OPAQUE_雰:1.0__JCROSS_雰_158_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? [_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_],
+              let _OPAQUE_雰:1.0__JCROSS_雰_354_ = _OPAQUE_雰:1.0__JCROSS_雰_48_["X"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_,
+              let _OPAQUE_雰:1.0__JCROSS_雰_121_ = _OPAQUE_雰:1.0__JCROSS_雰_48_["Y"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_ else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_105_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_89_ _OPAQUE_雰:1.0__JCROSS_雰_223_ _OPAQUE_雰:1.0__JCROSS_雰_49_ for _OPAQUE_礎:1.0__JCROSS_礎_22_ _OPAQUE_雰:1.0__JCROSS_雰_92_")
+        }
+
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_8_ = _OPAQUE_雰:1.0__JCROSS_雰_354_ + x
+        let _OPAQUE_雰:1.0__JCROSS_雰_174_ = _OPAQUE_雰:1.0__JCROSS_雰_121_ + y
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_356_ = _OPAQUE_礎:1.0__JCROSS_礎_61_(x: _OPAQUE_雰:1.0__JCROSS_雰_8_, y: _OPAQUE_雰:1.0__JCROSS_雰_174_)
+
+// [metadata-stripped]
+        a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_54_._OPAQUE_雰:1.0__JCROSS_雰_109_ {
+            if let _OPAQUE_雰:1.0__JCROSS_雰_95_ = _OPAQUE_礎:1.0__JCROSS_礎_47_(_OPAQUE_策:1.0__JCROSS_雰_31_: _OPAQUE_雰:1.0__JCROSS_雰_300_) {
+                _OPAQUE_雰:1.0__JCROSS_雰_95_._OPAQUE_雰:1.0__JCROSS_雰_275_(_OPAQUE_雰:1.0__JCROSS_雰_323_: [._OPAQUE_雰:1.0__JCROSS_雰_32_])
+            }
+        }
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 100_000_000)
+
+// [metadata-stripped]
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_69_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: nil, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_119_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_雰:1.0__JCROSS_雰_356_, _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_),
+              let _OPAQUE_雰:1.0__JCROSS_雰_146_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: nil, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_116_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_雰:1.0__JCROSS_雰_356_, _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_) else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_52_ _OPAQUE_礎:1.0__JCROSS_礎_118_")
+        }
+
+        _OPAQUE_雰:1.0__JCROSS_雰_69_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_265_)
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 50_000_000) // 50ms _OPAQUE_雰:1.0__JCROSS_雰_92_ _OPAQUE_雰:1.0__JCROSS_雰_16_
+        _OPAQUE_雰:1.0__JCROSS_雰_146_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_265_)
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_272_() async -> _OPAQUE_礎:1.0__JCROSS_礎_38_ {
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_135_ = _OPAQUE_雰:1.0__JCROSS_雰_215_, _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_266_ else { return false }
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_171_()
+        do {
+            return try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+                _OPAQUE_雰:1.0__JCROSS_雰_23_[id] = _OPAQUE_緋:1.0__JCROSS_礎_15_(_OPAQUE_雰:1.0__JCROSS_雰_366_: ._OPAQUE_雰:1.0__JCROSS_雰_290_, _OPAQUE_雰:1.0__JCROSS_雰_166_: _OPAQUE_雰:1.0__JCROSS_雰_328_)
+                try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_雰:1.0__JCROSS_雰_272_", id: id))
+                _OPAQUE_礎:1.0__JCROSS_礎_81_ {
+                    try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 3_000_000_000)
+                    self._OPAQUE_雰:1.0__JCROSS_雰_195_(id: id)
+                }
+            }._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_290_"
+        } catch {
+            return false
+        }
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_320_() {
+        try? _OPAQUE_雰:1.0__JCROSS_雰_29_(_OPAQUE_礎:1.0__JCROSS_礎_4_(_OPAQUE_雰:1.0__JCROSS_雰_235_: "_OPAQUE_雰:1.0__JCROSS_雰_320_"))
+        _OPAQUE_雰:1.0__JCROSS_雰_215_?._OPAQUE_雰:1.0__JCROSS_雰_83_()
+        _OPAQUE_雰:1.0__JCROSS_雰_215_    = nil
+        _OPAQUE_雰:1.0__JCROSS_雰_346_?._OPAQUE_雰:1.0__JCROSS_雰_218_()
+        _OPAQUE_雰:1.0__JCROSS_雰_346_ = nil
+        _OPAQUE_雰:1.0__JCROSS_雰_383_      = ._OPAQUE_雰:1.0__JCROSS_雰_283_
+// [metadata-stripped]
+        for (_, _OPAQUE_雰:1.0__JCROSS_雰_56_) in _OPAQUE_雰:1.0__JCROSS_雰_23_ {
+            _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_64_)
+        }
+        _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_244_()
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_191_(_ _OPAQUE_雰:1.0__JCROSS_雰_395_: _OPAQUE_礎:1.0__JCROSS_礎_62_) {
+// [metadata-stripped]
+        if _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "ok", _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_13_ == "_OPAQUE_雰:1.0__JCROSS_雰_278_" || _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_13_ == "_OPAQUE_雰:1.0__JCROSS_雰_137_" {
+            if let _OPAQUE_雰:1.0__JCROSS_雰_328_ = _OPAQUE_雰:1.0__JCROSS_雰_41_ {
+                _OPAQUE_雰:1.0__JCROSS_雰_41_ = nil
+                _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: ())
+                return
+            }
+        }
+
+        guard let id = _OPAQUE_雰:1.0__JCROSS_雰_395_.id, let _OPAQUE_雰:1.0__JCROSS_雰_56_ = _OPAQUE_雰:1.0__JCROSS_雰_23_[id] else { return }
+
+        switch _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_366_ {
+        case ._OPAQUE_雰:1.0__JCROSS_雰_172_:
+// [metadata-stripped]
+            if _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_286_" { return }
+            _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_140_(_OPAQUE_暗:1.0__JCROSS_雰_45_: id)
+            _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: _OPAQUE_雰:1.0__JCROSS_雰_395_)
+        case ._OPAQUE_雰:1.0__JCROSS_雰_128_:
+            guard _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_115_" || _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_281_" else { return }
+            _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_140_(_OPAQUE_暗:1.0__JCROSS_雰_45_: id)
+            if _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_281_" {
+                _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_131_(_OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_13_ ?? "_OPAQUE_雰:1.0__JCROSS_雰_242_"))
+            } else {
+                _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: _OPAQUE_雰:1.0__JCROSS_雰_395_)
+            }
+        case ._OPAQUE_雰:1.0__JCROSS_雰_290_:
+            guard _OPAQUE_雰:1.0__JCROSS_雰_395_._OPAQUE_雰:1.0__JCROSS_雰_299_ == "_OPAQUE_雰:1.0__JCROSS_雰_290_" else { return }
+            _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_140_(_OPAQUE_暗:1.0__JCROSS_雰_45_: id)
+            _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: _OPAQUE_雰:1.0__JCROSS_雰_395_)
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_171_() -> _OPAQUE_礎:1.0__JCROSS_礎_50_ {
+        let id = _OPAQUE_雰:1.0__JCROSS_雰_167_
+        _OPAQUE_雰:1.0__JCROSS_雰_167_ &+= 1
+        return id
+    }
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_29_(_ _OPAQUE_雰:1.0__JCROSS_雰_235_: _OPAQUE_礎:1.0__JCROSS_礎_4_) _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_348_ = _OPAQUE_雰:1.0__JCROSS_雰_103_ else { _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_64_ }
+        let _OPAQUE_雰:1.0__JCROSS_雰_306_ = try _OPAQUE_策:1.0__JCROSS_礎_20_()._OPAQUE_雰:1.0__JCROSS_雰_330_(_OPAQUE_雰:1.0__JCROSS_雰_235_)
+        var _OPAQUE_雰:1.0__JCROSS_雰_379_ = _OPAQUE_雰:1.0__JCROSS_雰_306_
+        _OPAQUE_雰:1.0__JCROSS_雰_379_._OPAQUE_雰:1.0__JCROSS_雰_388_(0x0A)  // _OPAQUE_雰:1.0__JCROSS_雰_26_ _OPAQUE_策:1.0__JCROSS_雰_213_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_漂:0.3__JCROSS_HK_299_ [decoy-metadata]
+        let fd = _OPAQUE_雰:1.0__JCROSS_雰_348_._OPAQUE_匳:1.0__JCROSS_雰_301_._OPAQUE_匳:1.0__JCROSS_雰_397_
+        var _OPAQUE_雰:1.0__JCROSS_雰_370_ = _OPAQUE_雰:1.0__JCROSS_雰_379_._OPAQUE_雰:1.0__JCROSS_雰_245_
+        var _OPAQUE_雰:1.0__JCROSS_雰_151_ = 0
+        
+        while _OPAQUE_雰:1.0__JCROSS_雰_370_ > 0 {
+            let _OPAQUE_雰:1.0__JCROSS_雰_24_ = _OPAQUE_雰:1.0__JCROSS_雰_379_._OPAQUE_雰:1.0__JCROSS_雰_186_ { _OPAQUE_雰:1.0__JCROSS_雰_237_ -> _OPAQUE_礎:1.0__JCROSS_礎_117_ in
+                _OPAQUE_礎:1.0__JCROSS_礎_109_._OPAQUE_雰:1.0__JCROSS_雰_304_(fd, _OPAQUE_雰:1.0__JCROSS_雰_237_._OPAQUE_雰:1.0__JCROSS_雰_176_! + _OPAQUE_雰:1.0__JCROSS_雰_151_, _OPAQUE_雰:1.0__JCROSS_雰_370_)
+            }
+            if _OPAQUE_雰:1.0__JCROSS_雰_24_ < 0 {
+                let _OPAQUE_雰:1.0__JCROSS_雰_157_ = _OPAQUE_雰:1.0__JCROSS_雰_6_
+                _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_雰:1.0__JCROSS_雰_157_ == _OPAQUE_礎:1.0__JCROSS_礎_79_
+                    ? _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_64_                          // プロセスが既に死んでいる
+                    : _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_雰:1.0__JCROSS_雰_304_(2) _OPAQUE_雰:1.0__JCROSS_雰_6_=\(_OPAQUE_雰:1.0__JCROSS_雰_157_)")  // その他 I/O エラー
+            }
+            _OPAQUE_雰:1.0__JCROSS_雰_370_ -= _OPAQUE_雰:1.0__JCROSS_雰_24_
+            _OPAQUE_雰:1.0__JCROSS_雰_151_ += _OPAQUE_雰:1.0__JCROSS_雰_24_
+        }
+    }
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_195_(id: _OPAQUE_礎:1.0__JCROSS_礎_50_) {
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_56_ = _OPAQUE_雰:1.0__JCROSS_雰_23_[id] else { return }
+        _OPAQUE_雰:1.0__JCROSS_雰_23_._OPAQUE_雰:1.0__JCROSS_雰_140_(_OPAQUE_暗:1.0__JCROSS_雰_45_: id)
+        _OPAQUE_雰:1.0__JCROSS_雰_56_._OPAQUE_雰:1.0__JCROSS_雰_166_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_9_)
+        self._OPAQUE_雰:1.0__JCROSS_雰_320_() // _OPAQUE_礎:1.0__JCROSS_礎_25_ _OPAQUE_雰:1.0__JCROSS_雰_83_ _OPAQUE_雰:1.0__JCROSS_雰_254_ _OPAQUE_雰:1.0__JCROSS_雰_20_ _OPAQUE_雰:1.0__JCROSS_雰_215_ so it _OPAQUE_雰:1.0__JCROSS_雰_27_ on _OPAQUE_雰:1.0__JCROSS_雰_203_ _OPAQUE_策:1.0__JCROSS_曠_1_
+    }
+
+    private func _OPAQUE_漂:1.0__JCROSS_雰_7_(_OPAQUE_雰:1.0__JCROSS_雰_9_: _OPAQUE_礎:1.0__JCROSS_礎_88_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+// [metadata-stripped]
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { (_OPAQUE_雰:1.0__JCROSS_雰_328_: _OPAQUE_礎:1.0__JCROSS_礎_6_<_OPAQUE_礎:1.0__JCROSS_礎_55_, _OPAQUE_礎:1.0__JCROSS_礎_116_>) in
+            self._OPAQUE_雰:1.0__JCROSS_雰_41_ = _OPAQUE_雰:1.0__JCROSS_雰_328_
+            _OPAQUE_礎:1.0__JCROSS_礎_81_ {
+                try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: _OPAQUE_礎:1.0__JCROSS_礎_50_(_OPAQUE_雰:1.0__JCROSS_雰_9_ * 1_000_000_000))
+                if self._OPAQUE_雰:1.0__JCROSS_雰_41_ != nil {
+                    self._OPAQUE_雰:1.0__JCROSS_雰_41_ = nil
+                    _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: ())
+                }
+            }
+        }
+    }
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_317_() async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        if let _OPAQUE_雰:1.0__JCROSS_雰_135_ = _OPAQUE_雰:1.0__JCROSS_雰_215_, _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_266_ { return }
+        _OPAQUE_雰:1.0__JCROSS_雰_383_ = ._OPAQUE_雰:1.0__JCROSS_雰_283_
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_96_()
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_雰:1.0__JCROSS_雰_226_() async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_135_ = _OPAQUE_雰:1.0__JCROSS_雰_215_, _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_雰:1.0__JCROSS_雰_266_ else { _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_64_ }
+        let _OPAQUE_雰:1.0__JCROSS_雰_300_ = _OPAQUE_雰:1.0__JCROSS_雰_135_._OPAQUE_策:1.0__JCROSS_雰_31_
+
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_323_ = _OPAQUE_礎:1.0__JCROSS_礎_8_(_OPAQUE_雰:1.0__JCROSS_雰_372_: ._OPAQUE_雰:1.0__JCROSS_雰_228_, ._OPAQUE_雰:1.0__JCROSS_雰_334_)
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_199_ = _OPAQUE_礎:1.0__JCROSS_礎_115_(_OPAQUE_雰:1.0__JCROSS_雰_323_, _OPAQUE_雰:1.0__JCROSS_雰_384_) as? [[_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_]] else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_策:1.0__JCROSS_曠_5_ _OPAQUE_雰:1.0__JCROSS_雰_223_ _OPAQUE_雰:1.0__JCROSS_雰_175_")
+        }
+
+// [metadata-stripped]
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_58_ = _OPAQUE_雰:1.0__JCROSS_雰_199_._OPAQUE_雰:1.0__JCROSS_雰_297_(where: { ($0[_OPAQUE_雰:1.0__JCROSS_雰_19_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_100_) == _OPAQUE_雰:1.0__JCROSS_雰_300_ }),
+              let _OPAQUE_雰:1.0__JCROSS_雰_86_ = _OPAQUE_雰:1.0__JCROSS_雰_58_[_OPAQUE_策:1.0__JCROSS_雰_268_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_108_ else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_105_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_89_ _OPAQUE_雰:1.0__JCROSS_雰_223_ for _OPAQUE_礎:1.0__JCROSS_礎_57_ \(_OPAQUE_雰:1.0__JCROSS_雰_300_)")
+        }
+
+// [metadata-stripped]
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_399_ = _OPAQUE_礎:1.0__JCROSS_礎_107_(._OPAQUE_雰:1.0__JCROSS_雰_382_, ._OPAQUE_雰:1.0__JCROSS_雰_333_, _OPAQUE_雰:1.0__JCROSS_雰_86_, ._OPAQUE_雰:1.0__JCROSS_雰_220_) else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_52_ _OPAQUE_雰:1.0__JCROSS_雰_399_ _OPAQUE_雰:1.0__JCROSS_雰_59_ _OPAQUE_雰:1.0__JCROSS_雰_223_")
+        }
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_138_ = _OPAQUE_緋:1.0__JCROSS_礎_43_(_OPAQUE_雰:1.0__JCROSS_雰_111_: _OPAQUE_雰:1.0__JCROSS_雰_399_)
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_154_ = _OPAQUE_雰:1.0__JCROSS_雰_138_._OPAQUE_雰:1.0__JCROSS_雰_340_(_OPAQUE_雰:1.0__JCROSS_雰_40_: ._OPAQUE_雰:1.0__JCROSS_雰_214_, _OPAQUE_雰:1.0__JCROSS_雰_387_: [._OPAQUE_雰:1.0__JCROSS_雰_200_: 0.8]) else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_330_ _OPAQUE_雰:1.0__JCROSS_雰_399_ to _OPAQUE_礎:1.0__JCROSS_礎_60_")
+        }
+
+        return _OPAQUE_雰:1.0__JCROSS_雰_154_._OPAQUE_雰:1.0__JCROSS_雰_238_()
+    }
+}
+
+// [metadata-stripped]
+
+enum _OPAQUE_礎:1.0__JCROSS_礎_97_: _OPAQUE_礎:1.0__JCROSS_礎_116_, _OPAQUE_礎:1.0__JCROSS_礎_27_ {
+    case _OPAQUE_雰:1.0__JCROSS_雰_327_(_OPAQUE_礎:1.0__JCROSS_礎_91_)
+    case _OPAQUE_雰:1.0__JCROSS_雰_64_
+    case _OPAQUE_雰:1.0__JCROSS_雰_9_
+    case _OPAQUE_雰:1.0__JCROSS_雰_131_(_OPAQUE_礎:1.0__JCROSS_礎_91_)
+    case _OPAQUE_雰:1.0__JCROSS_雰_321_(_OPAQUE_礎:1.0__JCROSS_礎_91_)           // _OPAQUE_雰:1.0__JCROSS_雰_304_(2) / _OPAQUE_雰:1.0__JCROSS_雰_348_ I/O _OPAQUE_雰:1.0__JCROSS_雰_251_
+
+    var _OPAQUE_雰:1.0__JCROSS_雰_129_: _OPAQUE_礎:1.0__JCROSS_礎_91_? {
+        switch self {
+        case ._OPAQUE_雰:1.0__JCROSS_雰_327_(let p): return "_OPAQUE_雰:1.0__JCROSS_雰_68_-_OPAQUE_策:1.0__JCROSS_雰_10_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_97_ at \(p). _OPAQUE_礎:1.0__JCROSS_礎_104_: _OPAQUE_雰:1.0__JCROSS_雰_136_ _OPAQUE_雰:1.0__JCROSS_雰_149_ -p vx-_OPAQUE_策:1.0__JCROSS_雰_10_"
+        case ._OPAQUE_雰:1.0__JCROSS_雰_64_:            return "_OPAQUE_策:1.0__JCROSS_礎_102_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_81_."
+        case ._OPAQUE_雰:1.0__JCROSS_雰_9_:               return "_OPAQUE_策:1.0__JCROSS_礎_102_ _OPAQUE_雰:1.0__JCROSS_雰_3_ _OPAQUE_雰:1.0__JCROSS_雰_373_ _OPAQUE_雰:1.0__JCROSS_雰_60_."
+        case ._OPAQUE_雰:1.0__JCROSS_雰_131_(let e):        return "JS _OPAQUE_雰:1.0__JCROSS_雰_104_: \(e)"
+        case ._OPAQUE_雰:1.0__JCROSS_雰_321_(let e):        return "_OPAQUE_策:1.0__JCROSS_礎_102_ I/O _OPAQUE_雰:1.0__JCROSS_雰_104_: \(e)"
+        }
+    }
+}
+
+// [metadata-stripped]
+
+class _OPAQUE_礎:1.0__JCROSS_礎_85_ {
+    static let _OPAQUE_雰:1.0__JCROSS_雰_207_ = _OPAQUE_礎:1.0__JCROSS_礎_85_()
+
+    private let _OPAQUE_雰:1.0__JCROSS_雰_75_ = "_OPAQUE_礎:1.0__JCROSS_礎_48_"
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_400_(_ _OPAQUE_緋:1.0__JCROSS_雰_307_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        let _OPAQUE_雰:1.0__JCROSS_雰_15_ = """
+        _OPAQUE_雰:1.0__JCROSS_雰_274_ _OPAQUE_雰:1.0__JCROSS_雰_2_ "_OPAQUE_礎:1.0__JCROSS_礎_48_"
+            _OPAQUE_雰:1.0__JCROSS_雰_275_
+            if (_OPAQUE_雰:1.0__JCROSS_雰_245_ _OPAQUE_雰:1.0__JCROSS_雰_222_ _OPAQUE_雰:1.0__JCROSS_雰_287_) = 0 _OPAQUE_雰:1.0__JCROSS_雰_188_
+                _OPAQUE_雰:1.0__JCROSS_雰_120_ _OPAQUE_雰:1.0__JCROSS_雰_302_ _OPAQUE_雰:1.0__JCROSS_雰_287_
+            _OPAQUE_雰:1.0__JCROSS_雰_260_ if
+            _OPAQUE_策:1.0__JCROSS_曠_6_ _OPAQUE_緋:1.0__JCROSS_礎_66_ of _OPAQUE_雰:1.0__JCROSS_雰_287_ 1 to "\(_OPAQUE_緋:1.0__JCROSS_雰_307_)"
+        _OPAQUE_雰:1.0__JCROSS_雰_260_ _OPAQUE_雰:1.0__JCROSS_雰_274_
+        """
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_324_(_OPAQUE_雰:1.0__JCROSS_雰_15_)
+        try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 2_000_000_000) // _OPAQUE_礎:1.0__JCROSS_礎_101_ for _OPAQUE_匳:1.0__JCROSS_雰_46_
+    }
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_226_() async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_323_ = _OPAQUE_礎:1.0__JCROSS_礎_8_(_OPAQUE_雰:1.0__JCROSS_雰_372_: ._OPAQUE_雰:1.0__JCROSS_雰_228_, ._OPAQUE_雰:1.0__JCROSS_雰_334_)
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_199_ = _OPAQUE_礎:1.0__JCROSS_礎_115_(_OPAQUE_雰:1.0__JCROSS_雰_323_, _OPAQUE_雰:1.0__JCROSS_雰_384_) as? [[_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_]] else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_策:1.0__JCROSS_曠_5_ _OPAQUE_雰:1.0__JCROSS_雰_223_ _OPAQUE_雰:1.0__JCROSS_雰_175_")
+        }
+
+// [metadata-stripped]
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_58_ = _OPAQUE_雰:1.0__JCROSS_雰_199_._OPAQUE_雰:1.0__JCROSS_雰_297_(where: { _OPAQUE_雰:1.0__JCROSS_雰_288_ in
+            guard (_OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_雰:1.0__JCROSS_雰_105_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_91_) == _OPAQUE_雰:1.0__JCROSS_雰_75_ else { return false }
+            guard let _OPAQUE_策:1.0__JCROSS_雰_98_ = _OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_策:1.0__JCROSS_雰_4_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_117_, _OPAQUE_策:1.0__JCROSS_雰_98_ == 0 else { return false }
+            guard let _OPAQUE_雰:1.0__JCROSS_雰_49_ = _OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_雰:1.0__JCROSS_雰_158_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? [_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_],
+                  let _OPAQUE_雰:1.0__JCROSS_雰_30_ = _OPAQUE_雰:1.0__JCROSS_雰_49_["_OPAQUE_礎:1.0__JCROSS_礎_80_"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_, _OPAQUE_雰:1.0__JCROSS_雰_30_ > 100 else { return false }
+            return true
+        }),
+              let _OPAQUE_雰:1.0__JCROSS_雰_86_ = _OPAQUE_雰:1.0__JCROSS_雰_58_[_OPAQUE_策:1.0__JCROSS_雰_268_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_108_ else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_105_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_89_ _OPAQUE_雰:1.0__JCROSS_雰_106_ _OPAQUE_雰:1.0__JCROSS_雰_223_ for \(_OPAQUE_雰:1.0__JCROSS_雰_75_)")
+        }
+// [metadata-stripped]
+// [metadata-stripped]
+        let _OPAQUE_緋:1.0__JCROSS_雰_197_ = _OPAQUE_緋:1.0__JCROSS_礎_66_(_OPAQUE_緋:1.0__JCROSS_雰_269_: _OPAQUE_礎:1.0__JCROSS_礎_39_())._OPAQUE_雰:1.0__JCROSS_雰_123_(_OPAQUE_礎:1.0__JCROSS_礎_93_()._OPAQUE_雰:1.0__JCROSS_雰_381_ + "._OPAQUE_雰:1.0__JCROSS_雰_402_")
+        
+        let _OPAQUE_雰:1.0__JCROSS_雰_215_ = _OPAQUE_礎:1.0__JCROSS_礎_106_()
+        _OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_緋:1.0__JCROSS_雰_110_ = _OPAQUE_緋:1.0__JCROSS_礎_66_(_OPAQUE_緋:1.0__JCROSS_雰_269_: "/_OPAQUE_雰:1.0__JCROSS_雰_377_/_OPAQUE_雰:1.0__JCROSS_雰_253_/_OPAQUE_雰:1.0__JCROSS_雰_148_")
+        _OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_雰:1.0__JCROSS_雰_355_ = ["-l\(_OPAQUE_雰:1.0__JCROSS_雰_86_)", "-t", "_OPAQUE_雰:1.0__JCROSS_雰_402_", "-x", _OPAQUE_緋:1.0__JCROSS_雰_197_._OPAQUE_雰:1.0__JCROSS_雰_198_]
+        
+        do {
+            try _OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_雰:1.0__JCROSS_雰_109_()
+            _OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_雰:1.0__JCROSS_雰_47_()
+            
+            if _OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_雰:1.0__JCROSS_雰_57_ != 0 {
+                _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_雰:1.0__JCROSS_雰_148_ _OPAQUE_雰:1.0__JCROSS_雰_160_ _OPAQUE_雰:1.0__JCROSS_雰_133_ _OPAQUE_雰:1.0__JCROSS_雰_39_ _OPAQUE_雰:1.0__JCROSS_雰_299_ \(_OPAQUE_雰:1.0__JCROSS_雰_215_._OPAQUE_雰:1.0__JCROSS_雰_57_). _OPAQUE_礎:1.0__JCROSS_礎_64_ _OPAQUE_雰:1.0__JCROSS_雰_289_ _OPAQUE_礎:1.0__JCROSS_礎_103_ _OPAQUE_礎:1.0__JCROSS_礎_34_ _OPAQUE_雰:1.0__JCROSS_雰_229_.")
+            }
+            
+            let _OPAQUE_雰:1.0__JCROSS_雰_306_ = try _OPAQUE_礎:1.0__JCROSS_礎_53_(_OPAQUE_雰:1.0__JCROSS_雰_263_: _OPAQUE_緋:1.0__JCROSS_雰_197_)
+            try? _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_雰:1.0__JCROSS_雰_74_(at: _OPAQUE_緋:1.0__JCROSS_雰_197_)
+            return _OPAQUE_雰:1.0__JCROSS_雰_306_._OPAQUE_雰:1.0__JCROSS_雰_238_()
+        } catch {
+            try? _OPAQUE_匳:1.0__JCROSS_礎_49_._OPAQUE_雰:1.0__JCROSS_雰_360_._OPAQUE_雰:1.0__JCROSS_雰_74_(at: _OPAQUE_緋:1.0__JCROSS_雰_197_)
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_178_ _OPAQUE_雰:1.0__JCROSS_雰_114_: \(_OPAQUE_雰:1.0__JCROSS_雰_104_._OPAQUE_雰:1.0__JCROSS_雰_1_)")
+        }
+    }
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_72_(x: _OPAQUE_礎:1.0__JCROSS_礎_88_, y: _OPAQUE_礎:1.0__JCROSS_礎_88_, _OPAQUE_雰:1.0__JCROSS_雰_385_: [[_OPAQUE_礎:1.0__JCROSS_礎_88_]]? = nil) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        let _OPAQUE_雰:1.0__JCROSS_雰_323_ = _OPAQUE_礎:1.0__JCROSS_礎_8_(_OPAQUE_雰:1.0__JCROSS_雰_372_: ._OPAQUE_雰:1.0__JCROSS_雰_228_, ._OPAQUE_雰:1.0__JCROSS_雰_334_)
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_199_ = _OPAQUE_礎:1.0__JCROSS_礎_115_(_OPAQUE_雰:1.0__JCROSS_雰_323_, _OPAQUE_雰:1.0__JCROSS_雰_384_) as? [[_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_]],
+              let _OPAQUE_雰:1.0__JCROSS_雰_58_ = _OPAQUE_雰:1.0__JCROSS_雰_199_._OPAQUE_雰:1.0__JCROSS_雰_297_(where: { _OPAQUE_雰:1.0__JCROSS_雰_288_ in
+                  guard (_OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_雰:1.0__JCROSS_雰_105_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_91_) == _OPAQUE_雰:1.0__JCROSS_雰_75_ else { return false }
+                  guard let _OPAQUE_策:1.0__JCROSS_雰_98_ = _OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_策:1.0__JCROSS_雰_4_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? _OPAQUE_礎:1.0__JCROSS_礎_117_, _OPAQUE_策:1.0__JCROSS_雰_98_ == 0 else { return false }
+                  guard let _OPAQUE_雰:1.0__JCROSS_雰_49_ = _OPAQUE_雰:1.0__JCROSS_雰_288_[_OPAQUE_雰:1.0__JCROSS_雰_158_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? [_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_],
+                        let _OPAQUE_雰:1.0__JCROSS_雰_30_ = _OPAQUE_雰:1.0__JCROSS_雰_49_["_OPAQUE_礎:1.0__JCROSS_礎_80_"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_, _OPAQUE_雰:1.0__JCROSS_雰_30_ > 100 else { return false }
+                  return true
+              }),
+              let _OPAQUE_雰:1.0__JCROSS_雰_48_ = _OPAQUE_雰:1.0__JCROSS_雰_58_[_OPAQUE_雰:1.0__JCROSS_雰_158_ as _OPAQUE_礎:1.0__JCROSS_礎_91_] as? [_OPAQUE_礎:1.0__JCROSS_礎_91_: _OPAQUE_礎:1.0__JCROSS_礎_58_],
+              let _OPAQUE_雰:1.0__JCROSS_雰_354_ = _OPAQUE_雰:1.0__JCROSS_雰_48_["X"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_,
+              let _OPAQUE_雰:1.0__JCROSS_雰_121_ = _OPAQUE_雰:1.0__JCROSS_雰_48_["Y"] as? _OPAQUE_礎:1.0__JCROSS_礎_88_ else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_105_ _OPAQUE_雰:1.0__JCROSS_雰_113_ _OPAQUE_雰:1.0__JCROSS_雰_89_ _OPAQUE_雰:1.0__JCROSS_雰_106_ _OPAQUE_雰:1.0__JCROSS_雰_223_ _OPAQUE_雰:1.0__JCROSS_雰_49_ for \(_OPAQUE_雰:1.0__JCROSS_雰_75_)")
+        }
+
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_15_ = """
+        _OPAQUE_雰:1.0__JCROSS_雰_274_ _OPAQUE_雰:1.0__JCROSS_雰_2_ "_OPAQUE_礎:1.0__JCROSS_礎_48_" to _OPAQUE_雰:1.0__JCROSS_雰_275_
+        """
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_324_(_OPAQUE_雰:1.0__JCROSS_雰_15_)
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 100_000_000)
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_8_ = _OPAQUE_雰:1.0__JCROSS_雰_354_ + x
+        let _OPAQUE_雰:1.0__JCROSS_雰_174_ = _OPAQUE_雰:1.0__JCROSS_雰_121_ + y
+        let _OPAQUE_雰:1.0__JCROSS_雰_356_ = _OPAQUE_礎:1.0__JCROSS_礎_61_(x: _OPAQUE_雰:1.0__JCROSS_雰_8_, y: _OPAQUE_雰:1.0__JCROSS_雰_174_)
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_368_ = _OPAQUE_礎:1.0__JCROSS_礎_17_(_OPAQUE_雰:1.0__JCROSS_雰_153_: ._OPAQUE_雰:1.0__JCROSS_雰_376_)
+        let _OPAQUE_雰:1.0__JCROSS_雰_85_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_368_: nil)?._OPAQUE_雰:1.0__JCROSS_雰_184_ ?? _OPAQUE_礎:1.0__JCROSS_礎_61_(x: _OPAQUE_雰:1.0__JCROSS_雰_8_ - 50, y: _OPAQUE_雰:1.0__JCROSS_雰_174_ - 50)
+        
+        if let _OPAQUE_雰:1.0__JCROSS_雰_375_ = _OPAQUE_雰:1.0__JCROSS_雰_385_, !_OPAQUE_雰:1.0__JCROSS_雰_375_._OPAQUE_雰:1.0__JCROSS_雰_54_ {
+// [metadata-stripped]
+            for pt in _OPAQUE_雰:1.0__JCROSS_雰_375_ {
+                guard pt._OPAQUE_雰:1.0__JCROSS_雰_245_ >= 2 else { _OPAQUE_雰:1.0__JCROSS_雰_328_inue }
+// [metadata-stripped]
+                let px = _OPAQUE_雰:1.0__JCROSS_雰_85_.x + (_OPAQUE_雰:1.0__JCROSS_雰_8_ - _OPAQUE_雰:1.0__JCROSS_雰_85_.x) * pt[0]
+                let py = _OPAQUE_雰:1.0__JCROSS_雰_85_.y + (_OPAQUE_雰:1.0__JCROSS_雰_174_ - _OPAQUE_雰:1.0__JCROSS_雰_85_.y) * pt[1]
+                
+                if let _OPAQUE_雰:1.0__JCROSS_雰_233_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_163_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_礎:1.0__JCROSS_礎_61_(x: px, y: py), _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_) {
+                    _OPAQUE_雰:1.0__JCROSS_雰_233_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+                }
+                
+// [metadata-stripped]
+                let _OPAQUE_雰:1.0__JCROSS_雰_378_ = pt._OPAQUE_雰:1.0__JCROSS_雰_245_ >= 3 ? _OPAQUE_礎:1.0__JCROSS_礎_50_(pt[2] * 1_000_000) : _OPAQUE_礎:1.0__JCROSS_礎_50_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: 8_000_000...22_000_000)
+                try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: _OPAQUE_雰:1.0__JCROSS_雰_378_)
+            }
+// [metadata-stripped]
+            if let _OPAQUE_雰:1.0__JCROSS_雰_67_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_163_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_雰:1.0__JCROSS_雰_356_, _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_) {
+                _OPAQUE_雰:1.0__JCROSS_雰_67_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+            }
+            try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 15_000_000)
+            
+        } else {
+// [metadata-stripped]
+            let _OPAQUE_雰:1.0__JCROSS_雰_90_ = _OPAQUE_礎:1.0__JCROSS_礎_117_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: 15...25)
+            let _OPAQUE_雰:1.0__JCROSS_雰_38_ = _OPAQUE_礎:1.0__JCROSS_礎_88_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: -30...30)
+            let _OPAQUE_雰:1.0__JCROSS_雰_202_ = _OPAQUE_礎:1.0__JCROSS_礎_88_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: -30...30)
+            
+            for i in 1..._OPAQUE_雰:1.0__JCROSS_雰_90_ {
+                let t = _OPAQUE_礎:1.0__JCROSS_礎_88_(i) / _OPAQUE_礎:1.0__JCROSS_礎_88_(_OPAQUE_雰:1.0__JCROSS_雰_90_)
+                let _OPAQUE_雰:1.0__JCROSS_雰_189_ = 0.5 * (1.0 - _OPAQUE_雰:1.0__JCROSS_雰_102_(.pi * t))
+                
+                let _OPAQUE_雰:1.0__JCROSS_雰_389_ = _OPAQUE_雰:1.0__JCROSS_雰_85_.x + (_OPAQUE_雰:1.0__JCROSS_雰_8_ - _OPAQUE_雰:1.0__JCROSS_雰_85_.x) * _OPAQUE_雰:1.0__JCROSS_雰_189_
+                let _OPAQUE_雰:1.0__JCROSS_雰_201_ = _OPAQUE_雰:1.0__JCROSS_雰_85_.y + (_OPAQUE_雰:1.0__JCROSS_雰_174_ - _OPAQUE_雰:1.0__JCROSS_雰_85_.y) * _OPAQUE_雰:1.0__JCROSS_雰_189_
+                
+                let _OPAQUE_雰:1.0__JCROSS_雰_144_ = _OPAQUE_雰:1.0__JCROSS_雰_256_(.pi * t)
+                let _OPAQUE_雰:1.0__JCROSS_雰_264_ = _OPAQUE_礎:1.0__JCROSS_礎_88_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: -1.5...1.5)
+                let _OPAQUE_雰:1.0__JCROSS_雰_315_ = _OPAQUE_礎:1.0__JCROSS_礎_88_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: -1.5...1.5)
+                
+                let px = _OPAQUE_雰:1.0__JCROSS_雰_389_ + (_OPAQUE_雰:1.0__JCROSS_雰_38_ * _OPAQUE_雰:1.0__JCROSS_雰_144_) + _OPAQUE_雰:1.0__JCROSS_雰_264_
+                let py = _OPAQUE_雰:1.0__JCROSS_雰_201_ + (_OPAQUE_雰:1.0__JCROSS_雰_202_ * _OPAQUE_雰:1.0__JCROSS_雰_144_) + _OPAQUE_雰:1.0__JCROSS_雰_315_
+                
+                if let _OPAQUE_雰:1.0__JCROSS_雰_233_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_163_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_礎:1.0__JCROSS_礎_61_(x: px, y: py), _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_) {
+                    _OPAQUE_雰:1.0__JCROSS_雰_233_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+                }
+                let _OPAQUE_雰:1.0__JCROSS_雰_378_ = _OPAQUE_礎:1.0__JCROSS_礎_50_._OPAQUE_雰:1.0__JCROSS_雰_224_(in: 8_000_000...22_000_000)
+                try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: _OPAQUE_雰:1.0__JCROSS_雰_378_)
+            }
+        }
+
+        guard let _OPAQUE_雰:1.0__JCROSS_雰_69_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_119_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_雰:1.0__JCROSS_雰_356_, _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_),
+              let _OPAQUE_雰:1.0__JCROSS_雰_146_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_雰:1.0__JCROSS_雰_78_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_雰:1.0__JCROSS_雰_380_: ._OPAQUE_雰:1.0__JCROSS_雰_116_, _OPAQUE_雰:1.0__JCROSS_雰_314_: _OPAQUE_雰:1.0__JCROSS_雰_356_, _OPAQUE_雰:1.0__JCROSS_雰_61_: ._OPAQUE_雰:1.0__JCROSS_雰_156_) else {
+            _OPAQUE_雰:1.0__JCROSS_雰_247_ _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_52_ _OPAQUE_礎:1.0__JCROSS_礎_118_")
+        }
+
+        _OPAQUE_雰:1.0__JCROSS_雰_69_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 80_000_000)
+        _OPAQUE_雰:1.0__JCROSS_雰_146_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+    }
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_337_(_ _OPAQUE_雰:1.0__JCROSS_雰_392_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_15_ = """
+        _OPAQUE_雰:1.0__JCROSS_雰_274_ _OPAQUE_雰:1.0__JCROSS_雰_2_ "_OPAQUE_礎:1.0__JCROSS_礎_48_" to _OPAQUE_雰:1.0__JCROSS_雰_275_
+        """
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_324_(_OPAQUE_雰:1.0__JCROSS_雰_15_)
+        try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 100_000_000)
+
+        let _OPAQUE_雰:1.0__JCROSS_雰_368_ = _OPAQUE_礎:1.0__JCROSS_礎_17_(_OPAQUE_雰:1.0__JCROSS_雰_153_: ._OPAQUE_雰:1.0__JCROSS_雰_376_)
+        for _OPAQUE_雰:1.0__JCROSS_雰_22_ in _OPAQUE_雰:1.0__JCROSS_雰_392_ {
+            let s = _OPAQUE_礎:1.0__JCROSS_礎_91_(_OPAQUE_雰:1.0__JCROSS_雰_22_)
+            var _OPAQUE_雰:1.0__JCROSS_雰_344_ = [_OPAQUE_礎:1.0__JCROSS_礎_26_](_OPAQUE_雰:1.0__JCROSS_雰_204_: 0, _OPAQUE_雰:1.0__JCROSS_雰_245_: s._OPAQUE_雰:1.0__JCROSS_雰_393_._OPAQUE_雰:1.0__JCROSS_雰_245_)
+            let _ = s._OPAQUE_雰:1.0__JCROSS_雰_393_._OPAQUE_雰:1.0__JCROSS_雰_294_ { $0 }._OPAQUE_策:1.0__JCROSS_雰_82_ { _OPAQUE_雰:1.0__JCROSS_雰_237_ in
+                for i in 0..<_OPAQUE_雰:1.0__JCROSS_雰_237_._OPAQUE_雰:1.0__JCROSS_雰_245_ { _OPAQUE_雰:1.0__JCROSS_雰_344_[i] = _OPAQUE_雰:1.0__JCROSS_雰_237_[i] }
+            }
+
+            if let _OPAQUE_雰:1.0__JCROSS_雰_71_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_暗:1.0__JCROSS_雰_91_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_暗:1.0__JCROSS_雰_343_: 0, _OPAQUE_暗:1.0__JCROSS_雰_118_: true) {
+                _OPAQUE_雰:1.0__JCROSS_雰_71_._OPAQUE_暗:1.0__JCROSS_雰_280_(_OPAQUE_雰:1.0__JCROSS_雰_357_: _OPAQUE_雰:1.0__JCROSS_雰_344_._OPAQUE_雰:1.0__JCROSS_雰_245_, _OPAQUE_雰:1.0__JCROSS_雰_84_: _OPAQUE_雰:1.0__JCROSS_雰_344_)
+                _OPAQUE_雰:1.0__JCROSS_雰_71_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+            }
+            try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 30_000_000)
+            if let _OPAQUE_雰:1.0__JCROSS_雰_374_ = _OPAQUE_礎:1.0__JCROSS_礎_118_(_OPAQUE_暗:1.0__JCROSS_雰_91_: _OPAQUE_雰:1.0__JCROSS_雰_368_, _OPAQUE_暗:1.0__JCROSS_雰_343_: 0, _OPAQUE_暗:1.0__JCROSS_雰_118_: false) {
+                _OPAQUE_雰:1.0__JCROSS_雰_374_._OPAQUE_暗:1.0__JCROSS_雰_280_(_OPAQUE_雰:1.0__JCROSS_雰_357_: _OPAQUE_雰:1.0__JCROSS_雰_344_._OPAQUE_雰:1.0__JCROSS_雰_245_, _OPAQUE_雰:1.0__JCROSS_雰_84_: _OPAQUE_雰:1.0__JCROSS_雰_344_)
+                _OPAQUE_雰:1.0__JCROSS_雰_374_._OPAQUE_雰:1.0__JCROSS_雰_43_(_OPAQUE_雰:1.0__JCROSS_雰_279_: ._OPAQUE_雰:1.0__JCROSS_雰_14_)
+            }
+            try? a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_礎:1.0__JCROSS_礎_81_._OPAQUE_雰:1.0__JCROSS_雰_325_(_OPAQUE_雰:1.0__JCROSS_雰_147_: 80_000_000)
+        }
+    }
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_324_(_ _OPAQUE_雰:1.0__JCROSS_雰_15_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s {
+        return try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_礎:1.0__JCROSS_礎_82_._OPAQUE_雰:1.0__JCROSS_雰_164_(_OPAQUE_雰:1.0__JCROSS_雰_37_: ._OPAQUE_雰:1.0__JCROSS_雰_261_).async {
+                if let _OPAQUE_雰:1.0__JCROSS_雰_252_ = _OPAQUE_礎:1.0__JCROSS_礎_3_(_OPAQUE_雰:1.0__JCROSS_雰_368_: _OPAQUE_雰:1.0__JCROSS_雰_15_) {
+// _OPAQUE_曠:0.1__JCROSS_WF_693_ [decoy-metadata]
+                    var _OPAQUE_雰:1.0__JCROSS_雰_161_: _OPAQUE_礎:1.0__JCROSS_礎_29_?
+                    _OPAQUE_雰:1.0__JCROSS_雰_252_._OPAQUE_雰:1.0__JCROSS_雰_347_(&_OPAQUE_雰:1.0__JCROSS_雰_161_)
+                    if let _OPAQUE_雰:1.0__JCROSS_雰_232_ = _OPAQUE_雰:1.0__JCROSS_雰_161_ {
+                        _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_114_ _OPAQUE_雰:1.0__JCROSS_雰_104_: \(_OPAQUE_雰:1.0__JCROSS_雰_232_)"))
+                    } else {
+                        _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: ())
+                    }
+                } else {
+                    _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_208_ _OPAQUE_礎:1.0__JCROSS_礎_114_"))
+                }
+            }
+        }
+    }
+
+    func _OPAQUE_雰:1.0__JCROSS_雰_335_(_ _OPAQUE_雰:1.0__JCROSS_雰_15_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+// [metadata-stripped]
+        let _OPAQUE_雰:1.0__JCROSS_雰_298_ = _OPAQUE_雰:1.0__JCROSS_雰_15_._OPAQUE_雰:1.0__JCROSS_雰_296_(of: "\\", _OPAQUE_雰:1.0__JCROSS_雰_39_: "\\\\")._OPAQUE_雰:1.0__JCROSS_雰_296_(of: "\"", _OPAQUE_雰:1.0__JCROSS_雰_39_: "\\\"")
+        let _OPAQUE_雰:1.0__JCROSS_雰_322_ = """
+        _OPAQUE_雰:1.0__JCROSS_雰_274_ _OPAQUE_雰:1.0__JCROSS_雰_2_ "_OPAQUE_礎:1.0__JCROSS_礎_48_"
+            if (_OPAQUE_雰:1.0__JCROSS_雰_245_ _OPAQUE_雰:1.0__JCROSS_雰_222_ _OPAQUE_雰:1.0__JCROSS_雰_287_) > 0 _OPAQUE_雰:1.0__JCROSS_雰_188_
+                return do _OPAQUE_礎:1.0__JCROSS_礎_30_ "\(_OPAQUE_雰:1.0__JCROSS_雰_298_)" in _OPAQUE_雰:1.0__JCROSS_雰_287_ 1
+            else
+                return ""
+            _OPAQUE_雰:1.0__JCROSS_雰_260_ if
+        _OPAQUE_雰:1.0__JCROSS_雰_260_ _OPAQUE_雰:1.0__JCROSS_雰_274_
+        """
+        return try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_122_(_OPAQUE_雰:1.0__JCROSS_雰_322_)
+    }
+
+    private func _OPAQUE_雰:1.0__JCROSS_雰_122_(_ _OPAQUE_雰:1.0__JCROSS_雰_15_: _OPAQUE_礎:1.0__JCROSS_礎_91_) async _OPAQUE_雰:1.0__JCROSS_雰_247_s -> _OPAQUE_礎:1.0__JCROSS_礎_91_ {
+        return try a_OPAQUE_雰:1.0__JCROSS_雰_76_ _OPAQUE_雰:1.0__JCROSS_雰_55_ { _OPAQUE_雰:1.0__JCROSS_雰_328_ in
+            _OPAQUE_礎:1.0__JCROSS_礎_82_._OPAQUE_雰:1.0__JCROSS_雰_164_(_OPAQUE_雰:1.0__JCROSS_雰_37_: ._OPAQUE_雰:1.0__JCROSS_雰_261_).async {
+                if let _OPAQUE_雰:1.0__JCROSS_雰_252_ = _OPAQUE_礎:1.0__JCROSS_礎_3_(_OPAQUE_雰:1.0__JCROSS_雰_368_: _OPAQUE_雰:1.0__JCROSS_雰_15_) {
+                    var _OPAQUE_雰:1.0__JCROSS_雰_161_: _OPAQUE_礎:1.0__JCROSS_礎_29_?
+                    let _OPAQUE_雰:1.0__JCROSS_雰_250_ = _OPAQUE_雰:1.0__JCROSS_雰_252_._OPAQUE_雰:1.0__JCROSS_雰_347_(&_OPAQUE_雰:1.0__JCROSS_雰_161_)
+                    if let _OPAQUE_雰:1.0__JCROSS_雰_232_ = _OPAQUE_雰:1.0__JCROSS_雰_161_ {
+// _OPAQUE_匳:0.8__JCROSS_FG_315_ [decoy-metadata]
+                        _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_114_ _OPAQUE_雰:1.0__JCROSS_雰_104_: \(_OPAQUE_雰:1.0__JCROSS_雰_232_)"))
+                    } else {
+                        _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_303_: _OPAQUE_雰:1.0__JCROSS_雰_250_._OPAQUE_雰:1.0__JCROSS_雰_179_ ?? "")
+                    }
+                } else {
+                    _OPAQUE_雰:1.0__JCROSS_雰_328_._OPAQUE_雰:1.0__JCROSS_雰_182_(_OPAQUE_雰:1.0__JCROSS_雰_51_: _OPAQUE_礎:1.0__JCROSS_礎_97_._OPAQUE_雰:1.0__JCROSS_雰_321_("_OPAQUE_礎:1.0__JCROSS_礎_70_ to _OPAQUE_雰:1.0__JCROSS_雰_208_ _OPAQUE_礎:1.0__JCROSS_礎_114_"))
+                }
+            }
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

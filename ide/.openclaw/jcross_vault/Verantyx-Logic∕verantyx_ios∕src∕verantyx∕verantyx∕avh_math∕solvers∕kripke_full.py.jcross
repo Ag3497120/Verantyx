@@ -1,0 +1,185 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EE3B9BC5 ver:1778162898
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霪:1.0___jcross_霪_44__ _ASTNODE_霪:1.0___jcross_霪_17__ import _ASTNODE_霪:1.0___jcross_霪_66__
+
+// _ASTNODE_規:0.1___jcross_BF_686__ [decoy-metadata]
+_ASTNODE_霪:1.0___jcross_霪_44__ _ASTNODE_霪:1.0___jcross_霪_25__ import _ASTNODE_霪:1.0___jcross_霪_12__
+_ASTNODE_霪:1.0___jcross_霪_44__ _ASTNODE_霪:1.0___jcross_霪_33__ import _ASTNODE_廟:1.0___jcross_廟_2__, _ASTNODE_廟:1.0___jcross_廟_6__, _ASTNODE_廟:1.0___jcross_廟_9__, _ASTNODE_規:1.0___jcross_核_2__, _ASTNODE_廟:1.0___jcross_廟_19__
+import _ASTNODE_霪:1.0___jcross_霪_86__
+
+_ASTNODE_霪:1.0___jcross_霪_44__ _ASTNODE_霪:1.0___jcross_霪_14__._ASTNODE_霪:1.0___jcross_霪_59__._ASTNODE_霪:1.0___jcross_霪_30__ import _ASTNODE_廟:1.0___jcross_廟_8__, _ASTNODE_廟:1.0___jcross_廟_4__, _ASTNODE_廟:1.0___jcross_廟_5__, Or, _ASTNODE_廟:1.0___jcross_廟_11__, _ASTNODE_廟:1.0___jcross_廟_12__, _ASTNODE_廟:1.0___jcross_廟_7__, _ASTNODE_廟:1.0___jcross_廟_16__, _ASTNODE_廟:1.0___jcross_廟_18__
+
+
+@_ASTNODE_霪:1.0___jcross_霪_12__
+class _ASTNODE_廟:1.0___jcross_廟_3__:
+    _ASTNODE_霪:1.0___jcross_霪_16__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_42__]
+    R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]]
+    V: _ASTNODE_廟:1.0___jcross_廟_2__[_ASTNODE_霪:1.0___jcross_霪_39__, _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_霪:1.0___jcross_霪_42__]]
+
+
+@_ASTNODE_霪:1.0___jcross_霪_12__
+class _ASTNODE_廟:1.0___jcross_廟_13__:
+    _ASTNODE_霪:1.0___jcross_霪_20__: _ASTNODE_霪:1.0___jcross_霪_39__  # _ASTNODE_霪:1.0___jcross_霪_9__ | _ASTNODE_霪:1.0___jcross_霪_75__ | _ASTNODE_霪:1.0___jcross_霪_6__
+    _ASTNODE_霪:1.0___jcross_霪_3__: _ASTNODE_廟:1.0___jcross_廟_9__[_ASTNODE_廟:1.0___jcross_廟_2__[_ASTNODE_霪:1.0___jcross_霪_39__, _ASTNODE_霪:1.0___jcross_霪_29__]] = _ASTNODE_廟:1.0___jcross_廟_10__
+    _ASTNODE_霪:1.0___jcross_霪_81__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_39__] = _ASTNODE_廟:1.0___jcross_廟_10__
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_19__(R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]], w: _ASTNODE_霪:1.0___jcross_霪_42__) -> _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_42__]:
+    return [v for (x, v) in R if x == w]
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__: _ASTNODE_廟:1.0___jcross_廟_18__, w: _ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_77__: _ASTNODE_廟:1.0___jcross_廟_3__) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_8__):
+        return w in _ASTNODE_霪:1.0___jcross_霪_77__.V._ASTNODE_規:1.0___jcross_核_1__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_13__, _ASTNODE_規:1.0___jcross_核_3__())
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_4__):
+        return _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_52__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_5__):
+        return _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_34__, w, _ASTNODE_霪:1.0___jcross_霪_77__) _ASTNODE_霪:1.0___jcross_霪_11__ _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_43__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, Or):
+        return _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_34__, w, _ASTNODE_霪:1.0___jcross_霪_77__) or _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_43__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_11__):
+        a = _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_34__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+        b = _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_43__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+        return (_ASTNODE_霪:1.0___jcross_霪_27__ a) or b
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_12__):
+        a = _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_34__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+        b = _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_43__, w, _ASTNODE_霪:1.0___jcross_霪_77__)
+        return a == b
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_7__):
+        _ASTNODE_霪:1.0___jcross_霪_15__ = _ASTNODE_霪:1.0___jcross_霪_19__(_ASTNODE_霪:1.0___jcross_霪_77__.R, w)
+        return _ASTNODE_霪:1.0___jcross_霪_2__(_ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_52__, v, _ASTNODE_霪:1.0___jcross_霪_77__) for v in _ASTNODE_霪:1.0___jcross_霪_15__)
+    if _ASTNODE_霪:1.0___jcross_霪_24__(_ASTNODE_霪:1.0___jcross_霪_47__, _ASTNODE_廟:1.0___jcross_廟_16__):
+        _ASTNODE_霪:1.0___jcross_霪_15__ = _ASTNODE_霪:1.0___jcross_霪_19__(_ASTNODE_霪:1.0___jcross_霪_77__.R, w)
+        return any(_ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__._ASTNODE_霪:1.0___jcross_霪_52__, v, _ASTNODE_霪:1.0___jcross_霪_77__) for v in _ASTNODE_霪:1.0___jcross_霪_15__)
+    return _ASTNODE_廟:1.0___jcross_廟_15__
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_1__(_ASTNODE_霪:1.0___jcross_霪_16__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_42__], R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]]) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    return _ASTNODE_霪:1.0___jcross_霪_2__((w, w) in R for w in _ASTNODE_霪:1.0___jcross_霪_16__)
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_57__(R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]]) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    return _ASTNODE_霪:1.0___jcross_霪_2__((b, a) in R for (a, b) in R)
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_8__(R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]]) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    for (a, b) in R:
+// _ASTNODE_廟:0.1___jcross_EA_870__ [decoy-metadata]
+        for (c, d) in R:
+            if b == c _ASTNODE_霪:1.0___jcross_霪_11__ (a, d) _ASTNODE_霪:1.0___jcross_霪_27__ in R:
+                return _ASTNODE_廟:1.0___jcross_廟_15__
+    return _ASTNODE_廟:1.0___jcross_廟_14__
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_55__(_ASTNODE_霪:1.0___jcross_霪_16__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_42__], R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]]) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    for w in _ASTNODE_霪:1.0___jcross_霪_16__:
+        if _ASTNODE_霪:1.0___jcross_霪_27__ any(x == w for (x, _) in R):
+            return _ASTNODE_廟:1.0___jcross_廟_15__
+    return _ASTNODE_廟:1.0___jcross_廟_14__
+
+// _ASTNODE_廟:0.3___jcross_FE_719__ [decoy-metadata]
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_46__(_ASTNODE_霪:1.0___jcross_霪_16__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_42__], R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]], _ASTNODE_霪:1.0___jcross_霪_68__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_39__]) -> _ASTNODE_霪:1.0___jcross_霪_45__:
+    if "_ASTNODE_霪:1.0___jcross_霪_53__" in _ASTNODE_霪:1.0___jcross_霪_68__ _ASTNODE_霪:1.0___jcross_霪_11__ _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_1__(_ASTNODE_霪:1.0___jcross_霪_16__, R):
+        return _ASTNODE_廟:1.0___jcross_廟_15__
+    if "_ASTNODE_霪:1.0___jcross_霪_71__" in _ASTNODE_霪:1.0___jcross_霪_68__ _ASTNODE_霪:1.0___jcross_霪_11__ _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_57__(R):
+        return _ASTNODE_廟:1.0___jcross_廟_15__
+// _ASTNODE_匣:0.8___jcross_LB_474__ [decoy-metadata]
+    if "_ASTNODE_霪:1.0___jcross_霪_85__" in _ASTNODE_霪:1.0___jcross_霪_68__ _ASTNODE_霪:1.0___jcross_霪_11__ _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_8__(R):
+        return _ASTNODE_廟:1.0___jcross_廟_15__
+    if "_ASTNODE_霪:1.0___jcross_霪_41__" in _ASTNODE_霪:1.0___jcross_霪_68__ _ASTNODE_霪:1.0___jcross_霪_11__ _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_55__(_ASTNODE_霪:1.0___jcross_霪_16__, R):
+        return _ASTNODE_廟:1.0___jcross_廟_15__
+    return _ASTNODE_廟:1.0___jcross_廟_14__
+
+
+_ASTNODE_霪:1.0___jcross_霪_79__ _ASTNODE_霪:1.0___jcross_霪_4__(
+// _ASTNODE_核:0.2___jcross_YF_362__ [decoy-metadata]
+    _ASTNODE_霪:1.0___jcross_霪_47__: _ASTNODE_廟:1.0___jcross_廟_18__,
+    _ASTNODE_霪:1.0___jcross_霪_56__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_39__],
+    _ASTNODE_霪:1.0___jcross_霪_68__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_39__],
+    _ASTNODE_霪:1.0___jcross_霪_60__: _ASTNODE_霪:1.0___jcross_霪_42__ = 3,
+    _ASTNODE_霪:1.0___jcross_霪_80__: _ASTNODE_霪:1.0___jcross_霪_42__ = 6,
+// _ASTNODE_廟:0.5___jcross_WY_575__ [decoy-metadata]
+) -> _ASTNODE_廟:1.0___jcross_廟_13__:
+    _ASTNODE_霪:1.0___jcross_霪_81__: _ASTNODE_廟:1.0___jcross_廟_6__[_ASTNODE_霪:1.0___jcross_霪_39__] = []
+    _ASTNODE_霪:1.0___jcross_霪_56__ = [a for a in _ASTNODE_霪:1.0___jcross_霪_56__ if a._ASTNODE_霪:1.0___jcross_霪_49__()]
+    if _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_56__:
+        _ASTNODE_霪:1.0___jcross_霪_56__ = ["p"]
+    
+// [metadata-stripped]
+    _ASTNODE_霪:1.0___jcross_霪_69__ = []
+    for a in _ASTNODE_霪:1.0___jcross_霪_68__:
+        _ASTNODE_霪:1.0___jcross_霪_67__ = a._ASTNODE_霪:1.0___jcross_霪_32__("_ASTNODE_霪:1.0___jcross_霪_62__:", "")._ASTNODE_霪:1.0___jcross_霪_74__()._ASTNODE_規:1.0___jcross_霪_7__()
+// [metadata-stripped]
+        if _ASTNODE_霪:1.0___jcross_霪_67__._ASTNODE_霪:1.0___jcross_霪_31__("_ASTNODE_霪:1.0___jcross_霪_77__:"):
+            _ASTNODE_霪:1.0___jcross_霪_54__ = _ASTNODE_霪:1.0___jcross_霪_67__._ASTNODE_霪:1.0___jcross_霪_5__(":")[1]
+            if _ASTNODE_霪:1.0___jcross_霪_54__ == "k4": _ASTNODE_霪:1.0___jcross_霪_69__._ASTNODE_霪:1.0___jcross_霪_26__("_ASTNODE_霪:1.0___jcross_霪_85__")
+            _ASTNODE_泳:1.0___jcross_霪_51__ _ASTNODE_霪:1.0___jcross_霪_54__ == "s4": _ASTNODE_霪:1.0___jcross_霪_69__._ASTNODE_霪:1.0___jcross_霪_18__(["_ASTNODE_霪:1.0___jcross_霪_53__", "_ASTNODE_霪:1.0___jcross_霪_85__"])
+            _ASTNODE_泳:1.0___jcross_霪_51__ _ASTNODE_霪:1.0___jcross_霪_54__ == "s5": _ASTNODE_霪:1.0___jcross_霪_69__._ASTNODE_霪:1.0___jcross_霪_18__(["_ASTNODE_霪:1.0___jcross_霪_53__", "_ASTNODE_霪:1.0___jcross_霪_85__", "_ASTNODE_霪:1.0___jcross_霪_48__"])
+        else:
+            _ASTNODE_霪:1.0___jcross_霪_69__._ASTNODE_霪:1.0___jcross_霪_26__(_ASTNODE_霪:1.0___jcross_霪_67__)
+    
+// [metadata-stripped]
+    _ASTNODE_霪:1.0___jcross_霪_69__ = _ASTNODE_霪:1.0___jcross_霪_22__(_ASTNODE_規:1.0___jcross_核_3__(_ASTNODE_霪:1.0___jcross_霪_69__))
+
+    for n in _ASTNODE_霪:1.0___jcross_霪_37__(1, _ASTNODE_霪:1.0___jcross_霪_60__ + 1):
+        _ASTNODE_霪:1.0___jcross_霪_16__ = _ASTNODE_霪:1.0___jcross_霪_22__(_ASTNODE_霪:1.0___jcross_霪_37__(n))
+        _ASTNODE_霪:1.0___jcross_霪_70__ = _ASTNODE_霪:1.0___jcross_霪_22__(_ASTNODE_霪:1.0___jcross_霪_86__._ASTNODE_霪:1.0___jcross_霪_35__(_ASTNODE_霪:1.0___jcross_霪_16__, _ASTNODE_霪:1.0___jcross_霪_16__))
+
+        for _ASTNODE_霪:1.0___jcross_霪_84__ in _ASTNODE_霪:1.0___jcross_霪_37__(1 << _ASTNODE_霪:1.0___jcross_霪_61__(_ASTNODE_霪:1.0___jcross_霪_70__)):
+            R: _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_廟:1.0___jcross_廟_19__[_ASTNODE_霪:1.0___jcross_霪_42__, _ASTNODE_霪:1.0___jcross_霪_42__]] = _ASTNODE_規:1.0___jcross_核_3__()
+            for i, _ASTNODE_霪:1.0___jcross_霪_40__ in _ASTNODE_霪:1.0___jcross_霪_63__(_ASTNODE_霪:1.0___jcross_霪_70__):
+                if (_ASTNODE_霪:1.0___jcross_霪_84__ >> i) & 1:
+                    R._ASTNODE_霪:1.0___jcross_霪_72__(_ASTNODE_霪:1.0___jcross_霪_40__)
+            
+// [metadata-stripped]
+            if "_ASTNODE_霪:1.0___jcross_霪_85__" in _ASTNODE_霪:1.0___jcross_霪_69__:
+// [metadata-stripped]
+                while _ASTNODE_廟:1.0___jcross_廟_14__:
+                    _ASTNODE_霪:1.0___jcross_霪_83__ = {(a, d) for (a, b) in R for (c, d) in R if b == c _ASTNODE_霪:1.0___jcross_霪_11__ (a, d) _ASTNODE_霪:1.0___jcross_霪_27__ in R}
+                    if _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_83__: break
+                    R._ASTNODE_霪:1.0___jcross_霪_50__(_ASTNODE_霪:1.0___jcross_霪_83__)
+            
+            if "_ASTNODE_霪:1.0___jcross_霪_53__" in _ASTNODE_霪:1.0___jcross_霪_69__:
+                for w in _ASTNODE_霪:1.0___jcross_霪_16__: R._ASTNODE_霪:1.0___jcross_霪_72__((w, w))
+
+            if _ASTNODE_霪:1.0___jcross_霪_61__(R) > _ASTNODE_霪:1.0___jcross_霪_80__:
+                continue
+            
+// [metadata-stripped]
+            if _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_46__(_ASTNODE_霪:1.0___jcross_霪_16__, R, _ASTNODE_霪:1.0___jcross_霪_69__):
+                continue
+
+// [metadata-stripped]
+            for _ASTNODE_霪:1.0___jcross_霪_10__ in _ASTNODE_霪:1.0___jcross_霪_37__(1 << (n * _ASTNODE_霪:1.0___jcross_霪_61__(_ASTNODE_霪:1.0___jcross_霪_56__))):
+                V: _ASTNODE_廟:1.0___jcross_廟_2__[_ASTNODE_霪:1.0___jcross_霪_39__, _ASTNODE_規:1.0___jcross_核_2__[_ASTNODE_霪:1.0___jcross_霪_42__]] = {a: _ASTNODE_規:1.0___jcross_核_3__() for a in _ASTNODE_霪:1.0___jcross_霪_56__}
+                _ASTNODE_霪:1.0___jcross_霪_38__ = 0
+                for a in _ASTNODE_霪:1.0___jcross_霪_56__:
+                    for w in _ASTNODE_霪:1.0___jcross_霪_16__:
+                        if (_ASTNODE_霪:1.0___jcross_霪_10__ >> _ASTNODE_霪:1.0___jcross_霪_38__) & 1:
+                            V[a]._ASTNODE_霪:1.0___jcross_霪_72__(w)
+                        _ASTNODE_霪:1.0___jcross_霪_38__ += 1
+                _ASTNODE_霪:1.0___jcross_霪_77__ = _ASTNODE_廟:1.0___jcross_廟_3__(_ASTNODE_霪:1.0___jcross_霪_16__=_ASTNODE_霪:1.0___jcross_霪_16__, R=R, V=V)
+                for w in _ASTNODE_霪:1.0___jcross_霪_16__:
+                    if _ASTNODE_霪:1.0___jcross_霪_27__ _ASTNODE_霪:1.0___jcross_霪_78__(_ASTNODE_霪:1.0___jcross_霪_47__, w, _ASTNODE_霪:1.0___jcross_霪_77__):
+                        _ASTNODE_霪:1.0___jcross_霪_81__._ASTNODE_霪:1.0___jcross_霪_26__("[CE] _ASTNODE_霪:1.0___jcross_霪_65__")
+// [metadata-stripped]
+                        return _ASTNODE_廟:1.0___jcross_廟_13__(
+                            _ASTNODE_霪:1.0___jcross_霪_20__="_ASTNODE_霪:1.0___jcross_霪_75__",
+                            _ASTNODE_霪:1.0___jcross_霪_3__={
+                                "_ASTNODE_霪:1.0___jcross_霪_36__": "_ASTNODE_霪:1.0___jcross_霪_82__",
+                                "_ASTNODE_霪:1.0___jcross_霪_16__": _ASTNODE_霪:1.0___jcross_霪_16__,
+                                "_ASTNODE_霪:1.0___jcross_霪_73__": _ASTNODE_霪:1.0___jcross_霪_58__(_ASTNODE_霪:1.0___jcross_霪_22__(R)),
+                                "_ASTNODE_霪:1.0___jcross_霪_76__": {k: _ASTNODE_霪:1.0___jcross_霪_58__(_ASTNODE_霪:1.0___jcross_霪_22__(v)) for k, v in V._ASTNODE_霪:1.0___jcross_霪_28__()},
+                                "_ASTNODE_泳:1.0___jcross_霪_64__": w,
+                                "_ASTNODE_霪:1.0___jcross_霪_23__": _ASTNODE_霪:1.0___jcross_霪_69__
+                            },
+                            _ASTNODE_霪:1.0___jcross_霪_81__=_ASTNODE_霪:1.0___jcross_霪_81__,
+                        )
+
+    _ASTNODE_霪:1.0___jcross_霪_81__._ASTNODE_霪:1.0___jcross_霪_26__("[OK] _ASTNODE_霪:1.0___jcross_霪_21__")
+    return _ASTNODE_廟:1.0___jcross_廟_13__(_ASTNODE_霪:1.0___jcross_霪_20__="_ASTNODE_霪:1.0___jcross_霪_9__", _ASTNODE_霪:1.0___jcross_霪_3__=_ASTNODE_廟:1.0___jcross_廟_10__, _ASTNODE_霪:1.0___jcross_霪_81__=_ASTNODE_霪:1.0___jcross_霪_81__)
+
+// POLYMORPHIC_JCROSS_END

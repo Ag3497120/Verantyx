@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:63B00946 ver:1778159754
+// ⚠️ One-time schema — expires after response
+// __ast_縫:0.7____node_BH_121__ [decoy-metadata]
+// __ast_法:0.9____node_WG_845__ [decoy-metadata]
+
+// [metadata-stripped]
+__ast_霞:1.0____node_霞_38__ __ast_霞:1.0____node_霞_8__ import __ast_霞:1.0____node_霞_68__
+import re
+__ast_霞:1.0____node_霞_38__ __ast_霞:1.0____node_霞_10__ import __ast_庭:1.0____node_庭_2__, __ast_庭:1.0____node_庭_15__, __ast_庭:1.0____node_庭_7__, __ast_庭:1.0____node_庭_6__
+import __ast_霞:1.0____node_霞_55__
+__ast_霞:1.0____node_霞_38__ __ast_霞:1.0____node_霞_55__.__ast_霞:1.0____node_霞_20__.__ast_法:1.0____node_霞_56__ import __ast_霞:1.0____node_霞_51__, __ast_潤:1.0____node_霞_45__, __ast_霞:1.0____node_霞_57__
+
+class __ast_法:1.0____node_庭_12__:
+    __ast_霞:1.0____node_霞_15__ __ast_霞:1.0____node_霞_22__(self):
+        self.__ast_潤:1.0____node_霞_72__ = (__ast_潤:1.0____node_霞_45__ + (__ast_霞:1.0____node_霞_57__,))
+
+    __ast_霞:1.0____node_霞_15__ __ast_霞:1.0____node_霞_33__(self, s: __ast_霞:1.0____node_霞_59__) -> __ast_霞:1.0____node_霞_59__:
+// [metadata-stripped]
+        s = s.__ast_霞:1.0____node_霞_30__("−", "-").__ast_霞:1.0____node_霞_30__("÷", "/")
+        s = re.__ast_霞:1.0____node_霞_71__(r"\s+", "", s)
+        return s
+
+    __ast_霞:1.0____node_霞_15__ __ast_霞:1.0____node_霞_36__(self, __ast_霞:1.0____node_霞_46__: __ast_霞:1.0____node_霞_59__, __ast_霞:1.0____node_霞_50__: __ast_庭:1.0____node_庭_2__[__ast_霞:1.0____node_霞_59__]) -> __ast_庭:1.0____node_庭_15__[__ast_霞:1.0____node_霞_59__, __ast_庭:1.0____node_庭_7__]:
+        """
+        __ast_庭:1.0____node_庭_9__ __ast_潤:1.0____node_霞_43__ __ast_霞:1.0____node_霞_38__ __ast_淵:1.0____node_霞_52__ __ast_霞:1.0____node_霞_69__ __ast_霞:1.0____node_霞_5__ __ast_霞:1.0____node_霞_35__ __ast_霞:1.0____node_霞_50__.
+        """
+// [metadata-stripped]
+        __ast_潤:1.0____node_霞_48__ = {
+            r"対称行列.*(次元|独立)": "n*(n+1)/2",
+            r"__ast_霞:1.0____node_霞_60__.*__ast_霞:1.0____node_霞_70__.*(__ast_霞:1.0____node_霞_21__|__ast_霞:1.0____node_霞_31__)": "n*(n+1)/2",
+            r"交代行列.*(次元|独立)": "n*(n-1)/2",
+            r"__ast_霞:1.0____node_霞_7__.*__ast_霞:1.0____node_霞_60__.*(__ast_霞:1.0____node_霞_21__|__ast_霞:1.0____node_霞_31__)": "n*(n-1)/2",
+            r"トレース.*0": "n*n - 1",
+        }
+
+        __ast_霞:1.0____node_霞_16__ = __ast_庭:1.0____node_庭_1__
+// __ast_霞:0.7____node_MB_190__ [decoy-metadata]
+        for __ast_霞:1.0____node_霞_1__, __ast_霞:1.0____node_霞_34__ in __ast_潤:1.0____node_霞_48__.__ast_霞:1.0____node_霞_3__():
+            if re.__ast_霞:1.0____node_霞_39__(__ast_霞:1.0____node_霞_1__, __ast_霞:1.0____node_霞_46__, re.__ast_庭:1.0____node_庭_4__):
+                __ast_霞:1.0____node_霞_16__ = __ast_霞:1.0____node_霞_34__
+// __ast_粋:0.7____node_KX_235__ [decoy-metadata]
+                break
+        
+        if __ast_霞:1.0____node_霞_65__ __ast_霞:1.0____node_霞_16__:
+            return {"__ast_霞:1.0____node_霞_13__": "__ast_霞:1.0____node_霞_58__", "__ast_霞:1.0____node_霞_9__": "No __ast_霞:1.0____node_霞_67__ __ast_霞:1.0____node_霞_47__ __ast_霞:1.0____node_霞_49__."}
+
+        try:
+            __ast_霞:1.0____node_霞_17__ = __ast_霞:1.0____node_霞_51__(__ast_霞:1.0____node_霞_16__, __ast_潤:1.0____node_霞_72__=self.__ast_潤:1.0____node_霞_72__)
+        __ast_霞:1.0____node_霞_61__ __ast_庭:1.0____node_庭_14__ as e:
+            return {"__ast_霞:1.0____node_霞_13__": "__ast_霞:1.0____node_霞_53__", "__ast_霞:1.0____node_霞_9__": f"__ast_庭:1.0____node_庭_8__ __ast_潤:1.0____node_霞_43__ __ast_霞:1.0____node_霞_26__ __ast_霞:1.0____node_霞_53__: {e}"}
+
+        __ast_霞:1.0____node_霞_12__ = []
+        for __ast_霞:1.0____node_霞_62__ in __ast_霞:1.0____node_霞_50__:
+// [metadata-stripped]
+            __ast_霞:1.0____node_霞_4__ = re.__ast_霞:1.0____node_霞_71__(r"^[A-D]\s*[\.:]\s*", "", __ast_霞:1.0____node_霞_62__)
+            __ast_霞:1.0____node_霞_4__ = self.__ast_霞:1.0____node_霞_33__(__ast_霞:1.0____node_霞_4__)
+            
+            try:
+                __ast_霞:1.0____node_霞_64__ = __ast_霞:1.0____node_霞_51__(__ast_霞:1.0____node_霞_4__, __ast_潤:1.0____node_霞_72__=self.__ast_潤:1.0____node_霞_72__)
+// [metadata-stripped]
+                if __ast_霞:1.0____node_霞_55__.__ast_潤:1.0____node_霞_29__(__ast_霞:1.0____node_霞_17__ - __ast_霞:1.0____node_霞_64__) == 0:
+                    __ast_霞:1.0____node_霞_12__.__ast_霞:1.0____node_霞_66__(__ast_霞:1.0____node_霞_62__)
+            __ast_霞:1.0____node_霞_61__ __ast_庭:1.0____node_庭_14__:
+// __ast_潤:0.3____node_AA_809__ [decoy-metadata]
+                continue
+
+        if __ast_霞:1.0____node_霞_12__:
+            return {
+                "__ast_霞:1.0____node_霞_13__": "__ast_霞:1.0____node_霞_19__",
+                "__ast_法:1.0____node_霞_42__": ", ".__ast_霞:1.0____node_霞_37__(__ast_霞:1.0____node_霞_12__),
+                "__ast_霞:1.0____node_霞_2__": {"__ast_潤:1.0____node_霞_43__": __ast_霞:1.0____node_霞_16__, "__ast_霞:1.0____node_霞_25__": "__ast_霞:1.0____node_霞_14__"}
+            }
+        
+// __ast_法:0.2____node_DL_941__ [decoy-metadata]
+        return {"__ast_霞:1.0____node_霞_13__": "__ast_霞:1.0____node_霞_18__", "__ast_霞:1.0____node_霞_9__": "__ast_庭:1.0____node_庭_10__ __ast_霞:1.0____node_霞_24__ __ast_霞:1.0____node_霞_65__ __ast_霞:1.0____node_霞_5__ __ast_霞:1.0____node_霞_6__ __ast_潤:1.0____node_霞_43__."}
+
+__ast_法:1.0____node_霞_28__ = __ast_法:1.0____node_庭_12__()
+
+__ast_霞:1.0____node_霞_15__ __ast_霞:1.0____node_霞_44__(__ast_霞:1.0____node_霞_46__: __ast_霞:1.0____node_霞_59__, __ast_霞:1.0____node_霞_50__: __ast_庭:1.0____node_庭_2__[__ast_霞:1.0____node_霞_59__]) -> __ast_庭:1.0____node_庭_15__[__ast_霞:1.0____node_霞_59__, __ast_庭:1.0____node_庭_7__]:
+    return __ast_法:1.0____node_霞_28__.__ast_霞:1.0____node_霞_36__(__ast_霞:1.0____node_霞_46__, __ast_霞:1.0____node_霞_50__)
+// POLYMORPHIC_JCROSS_END

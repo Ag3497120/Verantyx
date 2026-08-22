@@ -1,0 +1,62 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:351CF603 ver:1778163268
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_霮:1.0__VERANTYX_霮_35_
+import os
+import _ASTNODE_霮:1.0__VERANTYX_霮_4_
+_ASTNODE_霮:1.0__VERANTYX_霮_31_ _ASTNODE_霮:1.0__VERANTYX_霮_10_ import _ASTNODE_霮:1.0__VERANTYX_霮_10_
+
+// _ASTNODE_紗:0.6__VERANTYX_HY_163_ [decoy-metadata]
+_ASTNODE_医:1.0__VERANTYX_庖_12_ = "/_ASTNODE_庖:1.0__VERANTYX_庖_3_/_ASTNODE_霮:1.0__VERANTYX_霮_2_/_ASTNODE_霮:1.0__VERANTYX_霮_36_-_ASTNODE_霮:1.0__VERANTYX_霮_20_/_ASTNODE_霮:1.0__VERANTYX_霮_18_/_ASTNODE_庖:1.0__VERANTYX_庖_9_/_ASTNODE_霮:1.0__VERANTYX_霮_32_/_ASTNODE_霮:1.0__VERANTYX_霮_48_._ASTNODE_霮:1.0__VERANTYX_霮_35_"
+_ASTNODE_庖:1.0__VERANTYX_庖_11_ = "/_ASTNODE_庖:1.0__VERANTYX_庖_3_/_ASTNODE_霮:1.0__VERANTYX_霮_2_/_ASTNODE_霮:1.0__VERANTYX_霮_36_-_ASTNODE_霮:1.0__VERANTYX_霮_20_/_ASTNODE_霮:1.0__VERANTYX_霮_36_-_ASTNODE_式:1.0__VERANTYX_霮_49_/_ASTNODE_霮:1.0__VERANTYX_霮_28_/_ASTNODE_霮:1.0__VERANTYX_霮_34_/_ASTNODE_霮:1.0__VERANTYX_霮_11_/_ASTNODE_霮:1.0__VERANTYX_霮_7_"
+_ASTNODE_庖:1.0__VERANTYX_庖_8_ = 146
+// _ASTNODE_霮:0.8__VERANTYX_WG_178_ [decoy-metadata]
+
+_ASTNODE_霮:1.0__VERANTYX_霮_26_ _ASTNODE_霮:1.0__VERANTYX_霮_46_():
+    _ASTNODE_霮:1.0__VERANTYX_霮_53_ open(_ASTNODE_医:1.0__VERANTYX_庖_12_, 'r') as f:
+        _ASTNODE_霮:1.0__VERANTYX_霮_32_ = _ASTNODE_霮:1.0__VERANTYX_霮_35_._ASTNODE_医:1.0__VERANTYX_霮_33_(f)
+    
+    _ASTNODE_霮:1.0__VERANTYX_霮_16_ = 0
+    _ASTNODE_霮:1.0__VERANTYX_霮_40_ = []
+
+    _ASTNODE_霮:1.0__VERANTYX_霮_1_(f"_ASTNODE_庖:1.0__VERANTYX_庖_4_ _ASTNODE_庖:1.0__VERANTYX_庖_1_ _ASTNODE_庖:1.0__VERANTYX_庖_10_ _ASTNODE_庖:1.0__VERANTYX_庖_5_ for _ASTNODE_霮:1.0__VERANTYX_霮_39_ {_ASTNODE_庖:1.0__VERANTYX_庖_8_} _ASTNODE_霮:1.0__VERANTYX_霮_23_...")
+    
+    for i in _ASTNODE_霮:1.0__VERANTYX_霮_10_(_ASTNODE_霮:1.0__VERANTYX_霮_38_(_ASTNODE_庖:1.0__VERANTYX_庖_8_)):
+        _ASTNODE_霮:1.0__VERANTYX_霮_47_ = _ASTNODE_霮:1.0__VERANTYX_霮_32_[i]
+        _ASTNODE_霮:1.0__VERANTYX_霮_29_ = _ASTNODE_霮:1.0__VERANTYX_霮_47_['_ASTNODE_霮:1.0__VERANTYX_霮_29_']
+// _ASTNODE_紗:0.6__VERANTYX_YE_594_ [decoy-metadata]
+        _ASTNODE_霮:1.0__VERANTYX_霮_13_ = _ASTNODE_霮:1.0__VERANTYX_霮_47_['_ASTNODE_霮:1.0__VERANTYX_霮_17_']
+        
+        _ASTNODE_霮:1.0__VERANTYX_霮_15_ = {"_ASTNODE_霮:1.0__VERANTYX_霮_50_": [_ASTNODE_霮:1.0__VERANTYX_霮_29_], "_ASTNODE_霮:1.0__VERANTYX_霮_45_": 10}
+        
+        try:
+            _ASTNODE_霮:1.0__VERANTYX_霮_51_ = _ASTNODE_霮:1.0__VERANTYX_霮_4_._ASTNODE_霮:1.0__VERANTYX_霮_5_([_ASTNODE_庖:1.0__VERANTYX_庖_11_, _ASTNODE_霮:1.0__VERANTYX_霮_35_._ASTNODE_霮:1.0__VERANTYX_霮_22_(_ASTNODE_霮:1.0__VERANTYX_霮_15_)], _ASTNODE_霮:1.0__VERANTYX_霮_14_=_ASTNODE_庖:1.0__VERANTYX_庖_7_, _ASTNODE_霮:1.0__VERANTYX_霮_21_=_ASTNODE_庖:1.0__VERANTYX_庖_7_)
+            if _ASTNODE_霮:1.0__VERANTYX_霮_51_._ASTNODE_霮:1.0__VERANTYX_霮_27_ == 0:
+                _ASTNODE_霮:1.0__VERANTYX_霮_42_ = _ASTNODE_霮:1.0__VERANTYX_霮_35_._ASTNODE_医:1.0__VERANTYX_霮_43_(_ASTNODE_霮:1.0__VERANTYX_霮_51_._ASTNODE_霮:1.0__VERANTYX_霮_8_)
+                _ASTNODE_渕:1.0__VERANTYX_霮_37_ = [r['_ASTNODE_渕:1.0__VERANTYX_霮_44_'] for r in _ASTNODE_霮:1.0__VERANTYX_霮_42_._ASTNODE_式:1.0__VERANTYX_曠_1_('_ASTNODE_霮:1.0__VERANTYX_霮_40_', [])]
+                
+                _ASTNODE_霮:1.0__VERANTYX_霮_9_ = _ASTNODE_庖:1.0__VERANTYX_庖_2_
+                for _ASTNODE_霮:1.0__VERANTYX_霮_6_ in _ASTNODE_霮:1.0__VERANTYX_霮_13_:
+                    _ASTNODE_霮:1.0__VERANTYX_霮_30_ = _ASTNODE_霮:1.0__VERANTYX_霮_6_._ASTNODE_霮:1.0__VERANTYX_霮_52_('_ASTNODE_霮:1.0__VERANTYX_霮_25_', '')
+                    for k in _ASTNODE_渕:1.0__VERANTYX_霮_37_:
+                        if _ASTNODE_霮:1.0__VERANTYX_霮_30_ in k or k in _ASTNODE_霮:1.0__VERANTYX_霮_30_:
+                            _ASTNODE_霮:1.0__VERANTYX_霮_9_ = _ASTNODE_庖:1.0__VERANTYX_庖_7_
+                            break
+                    if _ASTNODE_霮:1.0__VERANTYX_霮_9_: break
+                
+// _ASTNODE_庖:0.6__VERANTYX_WE_176_ [decoy-metadata]
+                if _ASTNODE_霮:1.0__VERANTYX_霮_9_:
+                    _ASTNODE_霮:1.0__VERANTYX_霮_16_ += 1
+        _ASTNODE_霮:1.0__VERANTYX_霮_41_ _ASTNODE_庖:1.0__VERANTYX_庖_6_:
+            continue
+// _ASTNODE_霮:0.5__VERANTYX_DB_567_ [decoy-metadata]
+// _ASTNODE_曠:0.6__VERANTYX_LF_640_ [decoy-metadata]
+
+    _ASTNODE_霮:1.0__VERANTYX_霮_24_ = (_ASTNODE_霮:1.0__VERANTYX_霮_16_ / _ASTNODE_庖:1.0__VERANTYX_庖_8_) * 100 if _ASTNODE_庖:1.0__VERANTYX_庖_8_ > 0 else 0
+    _ASTNODE_霮:1.0__VERANTYX_霮_1_(f"\_ASTNODE_霮:1.0__VERANTYX_霮_3_ _ASTNODE_庖:1.0__VERANTYX_庖_10_ _ASTNODE_庖:1.0__VERANTYX_庖_5_: {_ASTNODE_霮:1.0__VERANTYX_霮_24_:.2f}% ({_ASTNODE_霮:1.0__VERANTYX_霮_16_}/{_ASTNODE_庖:1.0__VERANTYX_庖_8_})")
+
+if _ASTNODE_霮:1.0__VERANTYX_霮_12_ == "_ASTNODE_霮:1.0__VERANTYX_霮_19_":
+    _ASTNODE_霮:1.0__VERANTYX_霮_46_()
+
+// POLYMORPHIC_JCROSS_END

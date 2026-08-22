@@ -1,0 +1,114 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:093BD236 ver:1778165820
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_塵:1.0__JCROSS_塵_19_ _TOKEN_塵:1.0__JCROSS_塵_9_ _TOKEN_塵:1.0__JCROSS_塵_1_<T>(_TOKEN_塵:1.0__JCROSS_塵_18_: T): T {
+  if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_塵:1.0__JCROSS_塵_11_ === "_TOKEN_塵:1.0__JCROSS_塵_9_") {
+// _TOKEN_庵:0.3__JCROSS_XA_341_ [decoy-metadata]
+    return _TOKEN_塵:1.0__JCROSS_塵_11_(_TOKEN_塵:1.0__JCROSS_塵_18_);
+  }
+  return _TOKEN_庵:1.0__JCROSS_庵_3_._TOKEN_塵:1.0__JCROSS_塵_8_(_TOKEN_庵:1.0__JCROSS_庵_3_._TOKEN_浮:1.0__JCROSS_塵_3_(_TOKEN_塵:1.0__JCROSS_塵_18_)) as T;
+}
+
+_TOKEN_塵:1.0__JCROSS_塵_19_ _TOKEN_塵:1.0__JCROSS_塵_9_ _TOKEN_浮:1.0__JCROSS_塵_12_(_TOKEN_浮:1.0__JCROSS_塵_21_: _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>): _TOKEN_塵:1.0__JCROSS_塵_33_ {
+  return `${_TOKEN_庵:1.0__JCROSS_庵_3_._TOKEN_浮:1.0__JCROSS_塵_3_(_TOKEN_浮:1.0__JCROSS_塵_21_, _TOKEN_塵:1.0__JCROSS_塵_2_, 2)._TOKEN_塵:1.0__JCROSS_塵_31_()}\n`;
+}
+
+_TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_庵_4_ = _TOKEN_塵:1.0__JCROSS_塵_4_ _TOKEN_律:1.0__JCROSS_錬_2_(["_TOKEN_塵:1.0__JCROSS_塵_10_", "_TOKEN_塵:1.0__JCROSS_塵_28_", "_TOKEN_塵:1.0__JCROSS_塵_27_"]);
+
+_TOKEN_塵:1.0__JCROSS_塵_9_ _TOKEN_玄:1.0__JCROSS_塵_35_(_TOKEN_玄:1.0__JCROSS_塵_5_: _TOKEN_塵:1.0__JCROSS_塵_33_ | _TOKEN_律:1.0__JCROSS_塵_13_): _TOKEN_塵:1.0__JCROSS_塵_29_ {
+  return _TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_5_ === "_TOKEN_塵:1.0__JCROSS_塵_33_" && _TOKEN_玄:1.0__JCROSS_庵_4_._TOKEN_塵:1.0__JCROSS_塵_6_(_TOKEN_玄:1.0__JCROSS_塵_5_);
+}
+
+_TOKEN_塵:1.0__JCROSS_塵_19_ _TOKEN_塵:1.0__JCROSS_塵_9_ _TOKEN_律:1.0__JCROSS_錬_1_(
+  _TOKEN_塵:1.0__JCROSS_塵_15_: _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[],
+  _TOKEN_塵:1.0__JCROSS_塵_30_: _TOKEN_庵:1.0__JCROSS_庵_1_<_TOKEN_塵:1.0__JCROSS_塵_33_ | _TOKEN_律:1.0__JCROSS_塵_13_>,
+  _TOKEN_塵:1.0__JCROSS_塵_18_: _TOKEN_塵:1.0__JCROSS_塵_34_,
+) {
+  if (_TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ === 0) {
+    return;
+  }
+  if (_TOKEN_塵:1.0__JCROSS_塵_30_.some(_TOKEN_玄:1.0__JCROSS_塵_35_)) {
+    return;
+  }
+// _TOKEN_縁:0.4__JCROSS_MB_626_ [decoy-metadata]
+  let _TOKEN_塵:1.0__JCROSS_塵_22_: _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[] = _TOKEN_塵:1.0__JCROSS_塵_15_;
+  for (let i = 0; i < _TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ - 1; i += 1) {
+    _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_塵_5_ = _TOKEN_塵:1.0__JCROSS_塵_30_[i];
+    _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_塵_26_ = _TOKEN_塵:1.0__JCROSS_塵_30_[i + 1];
+    if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_5_ === "_TOKEN_律:1.0__JCROSS_塵_13_") {
+      if (!_TOKEN_庵:1.0__JCROSS_庵_1_._TOKEN_塵:1.0__JCROSS_塵_17_(_TOKEN_塵:1.0__JCROSS_塵_22_)) {
+        return;
+      }
+      if (_TOKEN_塵:1.0__JCROSS_塵_22_[_TOKEN_玄:1.0__JCROSS_塵_5_] == _TOKEN_塵:1.0__JCROSS_塵_2_) {
+        _TOKEN_塵:1.0__JCROSS_塵_22_[_TOKEN_玄:1.0__JCROSS_塵_5_] = _TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_26_ === "_TOKEN_律:1.0__JCROSS_塵_13_" ? [] : ({} as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>);
+      }
+      _TOKEN_塵:1.0__JCROSS_塵_22_ = _TOKEN_塵:1.0__JCROSS_塵_22_[_TOKEN_玄:1.0__JCROSS_塵_5_] as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[];
+    } else {
+      if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_塵:1.0__JCROSS_塵_22_ !== "_TOKEN_塵:1.0__JCROSS_塵_20_" || _TOKEN_塵:1.0__JCROSS_塵_22_ == _TOKEN_塵:1.0__JCROSS_塵_2_) {
+        return;
+      }
+      _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_塵:1.0__JCROSS_塵_7_ = _TOKEN_塵:1.0__JCROSS_塵_22_ as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>;
+      if (_TOKEN_塵:1.0__JCROSS_塵_7_[_TOKEN_玄:1.0__JCROSS_塵_5_] == _TOKEN_塵:1.0__JCROSS_塵_2_) {
+// _TOKEN_律:0.1__JCROSS_LD_638_ [decoy-metadata]
+        _TOKEN_塵:1.0__JCROSS_塵_7_[_TOKEN_玄:1.0__JCROSS_塵_5_] = _TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_26_ === "_TOKEN_律:1.0__JCROSS_塵_13_" ? [] : ({} as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>);
+      }
+      _TOKEN_塵:1.0__JCROSS_塵_22_ = _TOKEN_塵:1.0__JCROSS_塵_7_[_TOKEN_玄:1.0__JCROSS_塵_5_] as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[];
+    }
+  }
+  _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_塵_32_ = _TOKEN_塵:1.0__JCROSS_塵_30_[_TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ - 1];
+  if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_32_ === "_TOKEN_律:1.0__JCROSS_塵_13_") {
+    if (_TOKEN_庵:1.0__JCROSS_庵_1_._TOKEN_塵:1.0__JCROSS_塵_17_(_TOKEN_塵:1.0__JCROSS_塵_22_)) {
+      _TOKEN_塵:1.0__JCROSS_塵_22_[_TOKEN_玄:1.0__JCROSS_塵_32_] = _TOKEN_塵:1.0__JCROSS_塵_18_;
+    }
+    return;
+  }
+  if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_塵:1.0__JCROSS_塵_22_ === "_TOKEN_塵:1.0__JCROSS_塵_20_" && _TOKEN_塵:1.0__JCROSS_塵_22_ != _TOKEN_塵:1.0__JCROSS_塵_2_) {
+// _TOKEN_縁:0.6__JCROSS_ZE_151_ [decoy-metadata]
+// _TOKEN_庵:0.5__JCROSS_XD_940_ [decoy-metadata]
+    (_TOKEN_塵:1.0__JCROSS_塵_22_ as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>)[_TOKEN_玄:1.0__JCROSS_塵_32_] = _TOKEN_塵:1.0__JCROSS_塵_18_;
+  }
+}
+
+_TOKEN_塵:1.0__JCROSS_塵_19_ _TOKEN_塵:1.0__JCROSS_塵_9_ _TOKEN_塵:1.0__JCROSS_塵_16_(
+  _TOKEN_塵:1.0__JCROSS_塵_15_: _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[],
+  _TOKEN_塵:1.0__JCROSS_塵_30_: _TOKEN_庵:1.0__JCROSS_庵_1_<_TOKEN_塵:1.0__JCROSS_塵_33_ | _TOKEN_律:1.0__JCROSS_塵_13_>,
+) {
+  if (_TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ === 0) {
+    return;
+  }
+  if (_TOKEN_塵:1.0__JCROSS_塵_30_.some(_TOKEN_玄:1.0__JCROSS_塵_35_)) {
+    return;
+  }
+  let _TOKEN_塵:1.0__JCROSS_塵_22_: _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[] = _TOKEN_塵:1.0__JCROSS_塵_15_;
+// _TOKEN_塵:0.6__JCROSS_DD_129_ [decoy-metadata]
+  for (let i = 0; i < _TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ - 1; i += 1) {
+    _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_塵_5_ = _TOKEN_塵:1.0__JCROSS_塵_30_[i];
+    if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_5_ === "_TOKEN_律:1.0__JCROSS_塵_13_") {
+      if (!_TOKEN_庵:1.0__JCROSS_庵_1_._TOKEN_塵:1.0__JCROSS_塵_17_(_TOKEN_塵:1.0__JCROSS_塵_22_)) {
+        return;
+      }
+      _TOKEN_塵:1.0__JCROSS_塵_22_ = _TOKEN_塵:1.0__JCROSS_塵_22_[_TOKEN_玄:1.0__JCROSS_塵_5_] as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[];
+    } else {
+      if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_塵:1.0__JCROSS_塵_22_ !== "_TOKEN_塵:1.0__JCROSS_塵_20_" || _TOKEN_塵:1.0__JCROSS_塵_22_ == _TOKEN_塵:1.0__JCROSS_塵_2_) {
+        return;
+      }
+      _TOKEN_塵:1.0__JCROSS_塵_22_ = (_TOKEN_塵:1.0__JCROSS_塵_22_ as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>)[_TOKEN_玄:1.0__JCROSS_塵_5_] as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_> | _TOKEN_塵:1.0__JCROSS_塵_34_[];
+    }
+    if (_TOKEN_塵:1.0__JCROSS_塵_22_ == _TOKEN_塵:1.0__JCROSS_塵_2_) {
+      return;
+    }
+  }
+  _TOKEN_塵:1.0__JCROSS_塵_25_ _TOKEN_玄:1.0__JCROSS_塵_32_ = _TOKEN_塵:1.0__JCROSS_塵_30_[_TOKEN_塵:1.0__JCROSS_塵_30_._TOKEN_塵:1.0__JCROSS_塵_24_ - 1];
+  if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_玄:1.0__JCROSS_塵_32_ === "_TOKEN_律:1.0__JCROSS_塵_13_") {
+    if (_TOKEN_庵:1.0__JCROSS_庵_1_._TOKEN_塵:1.0__JCROSS_塵_17_(_TOKEN_塵:1.0__JCROSS_塵_22_)) {
+      _TOKEN_塵:1.0__JCROSS_塵_22_._TOKEN_塵:1.0__JCROSS_塵_23_(_TOKEN_玄:1.0__JCROSS_塵_32_, 1);
+    }
+    return;
+  }
+  if (_TOKEN_塵:1.0__JCROSS_塵_14_ _TOKEN_塵:1.0__JCROSS_塵_22_ === "_TOKEN_塵:1.0__JCROSS_塵_20_" && _TOKEN_塵:1.0__JCROSS_塵_22_ != _TOKEN_塵:1.0__JCROSS_塵_2_) {
+    _TOKEN_塵:1.0__JCROSS_塵_36_ (_TOKEN_塵:1.0__JCROSS_塵_22_ as _TOKEN_庵:1.0__JCROSS_庵_2_<_TOKEN_塵:1.0__JCROSS_塵_33_, _TOKEN_塵:1.0__JCROSS_塵_34_>)[_TOKEN_玄:1.0__JCROSS_塵_32_];
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

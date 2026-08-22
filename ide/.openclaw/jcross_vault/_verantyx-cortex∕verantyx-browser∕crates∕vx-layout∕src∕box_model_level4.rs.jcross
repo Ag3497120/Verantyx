@@ -1,0 +1,89 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B02E73B1 ver:1778166430
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __jcross_繍:0.2____node_LM_437__ [decoy-metadata]
+// [metadata-stripped]
+
+__jcross_霧:1.0____node_霧_33__ __jcross_霧:1.0____node_霧_65__::__jcross_霧:1.0____node_霧_73__::__jcross_庖:1.0____node_庖_23__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+__jcross_霧:1.0____node_霧_35__ enum __jcross_庖:1.0____node_庖_17__ { __jcross_庖:1.0____node_庖_24__, __jcross_庖:1.0____node_庖_38__, __jcross_庖:1.0____node_庖_15__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+__jcross_霧:1.0____node_霧_35__ struct __jcross_庖:1.0____node_庖_21__ {
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_72__: __jcross_霧:1.0____node_霧_39__,
+// [metadata-stripped]
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_62__: [__jcross_霧:1.0____node_霧_60__; 4],
+    __jcross_霧:1.0____node_霧_35__ __jcross_図:1.0____node_霧_49__: [__jcross_霧:1.0____node_霧_60__; 4],
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_18__: [__jcross_霧:1.0____node_霧_60__; 4],
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_8__: __jcross_霧:1.0____node_霧_60__,
+// __jcross_図:0.5____node_MC_159__ [decoy-metadata]
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_76__: __jcross_霧:1.0____node_霧_60__,
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_4__: __jcross_庖:1.0____node_庖_17__,
+}
+
+__jcross_霧:1.0____node_霧_1__ __jcross_庖:1.0____node_庖_21__ {
+// [metadata-stripped]
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_霧:1.0____node_霧_55__(&self) -> __jcross_霧:1.0____node_霧_60__ {
+        self.__jcross_霧:1.0____node_霧_62__[1] + self.__jcross_図:1.0____node_霧_49__[1] + self.__jcross_霧:1.0____node_霧_18__[1] + self.__jcross_霧:1.0____node_霧_8__ + self.__jcross_霧:1.0____node_霧_18__[3] + self.__jcross_図:1.0____node_霧_49__[3] + self.__jcross_霧:1.0____node_霧_62__[3]
+    }
+}
+
+// [metadata-stripped]
+__jcross_霧:1.0____node_霧_35__ struct __jcross_庖:1.0____node_庖_31__ {
+    __jcross_霧:1.0____node_霧_35__ __jcross_霧:1.0____node_霧_63__: __jcross_庖:1.0____node_庖_23__<__jcross_霧:1.0____node_霧_39__, __jcross_庖:1.0____node_庖_21__>,
+}
+
+__jcross_霧:1.0____node_霧_1__ __jcross_庖:1.0____node_庖_31__ {
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_霧:1.0____node_霧_13__() -> __jcross_庖:1.0____node_庖_33__ {
+// __jcross_匱:0.3____node_WM_370__ [decoy-metadata]
+        __jcross_庖:1.0____node_庖_33__ { __jcross_霧:1.0____node_霧_63__: __jcross_庖:1.0____node_庖_23__::__jcross_霧:1.0____node_霧_13__() }
+    }
+
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_図:1.0____node_凱_3__(&__jcross_霧:1.0____node_霧_68__ self, __jcross_霧:1.0____node_霧_72__: __jcross_霧:1.0____node_霧_39__, b: __jcross_庖:1.0____node_庖_21__) {
+        self.__jcross_霧:1.0____node_霧_63__.__jcross_霧:1.0____node_霧_29__(__jcross_霧:1.0____node_霧_72__, b);
+    }
+
+// [metadata-stripped]
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_図:1.0____node_凱_1__(&self, m1: __jcross_霧:1.0____node_霧_60__, m2: __jcross_霧:1.0____node_霧_60__) -> __jcross_霧:1.0____node_霧_60__ {
+// [metadata-stripped]
+        if m1 > 0.0 && m2 > 0.0 {
+            m1.__jcross_霧:1.0____node_霧_58__(m2)
+        } else if m1 < 0.0 && m2 < 0.0 {
+            m1.__jcross_霧:1.0____node_霧_11__(m2)
+// __jcross_澎:0.2____node_GK_439__ [decoy-metadata]
+        } else {
+            m1 + m2
+        }
+    }
+
+// [metadata-stripped]
+// __jcross_凱:0.1____node_EA_227__ [decoy-metadata]
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_霧:1.0____node_霧_30__(&__jcross_霧:1.0____node_霧_68__ self, __jcross_霧:1.0____node_霧_51__: __jcross_霧:1.0____node_霧_39__) {
+// [metadata-stripped]
+    }
+
+// [metadata-stripped]
+    __jcross_霧:1.0____node_霧_35__ fn __jcross_霧:1.0____node_霧_5__(&self, __jcross_霧:1.0____node_霧_72__: __jcross_霧:1.0____node_霧_39__) -> __jcross_庖:1.0____node_庖_8__ {
+        if let __jcross_庖:1.0____node_庖_19__(b) = self.__jcross_霧:1.0____node_霧_63__.__jcross_図:1.0____node_凱_4__(&__jcross_霧:1.0____node_霧_72__) {
+            __jcross_澎:1.0____node_霧_78__!("📦 __jcross_庖:1.0____node_庖_12__ __jcross_庖:1.0____node_庖_27__ (__jcross_庖:1.0____node_庖_5__ #{}): __jcross_庖:1.0____node_庖_18__({}×{}), __jcross_庖:1.0____node_庖_28__:{:?}, __jcross_庖:1.0____node_庖_39__: {:.1}", 
+                __jcross_霧:1.0____node_霧_72__, b.__jcross_霧:1.0____node_霧_8__, b.__jcross_霧:1.0____node_霧_76__, b.__jcross_霧:1.0____node_霧_4__, b.__jcross_霧:1.0____node_霧_55__())
+// __jcross_庖:0.7____node_CV_596__ [decoy-metadata]
+        } else {
+            __jcross_澎:1.0____node_霧_78__!("__jcross_庖:1.0____node_庖_5__ #{} __jcross_霧:1.0____node_霧_27__ no __jcross_霧:1.0____node_霧_23__ __jcross_霧:1.0____node_霧_31__ __jcross_霧:1.0____node_霧_42__", __jcross_霧:1.0____node_霧_72__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

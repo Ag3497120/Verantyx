@@ -1,0 +1,52 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A7410D85 ver:1778150468
+// ⚠️ One-time schema — expires after response
+
+import os
+import re
+
+_VERANTYX_雰:1.0__JCROSS_雰_27_ _VERANTYX_匷:1.0__JCROSS_雰_14_(_VERANTYX_雰:1.0__JCROSS_雰_35_):
+// _VERANTYX_匷:0.8__JCROSS_KF_865_ [decoy-metadata]
+    _VERANTYX_雰:1.0__JCROSS_雰_48_ open(_VERANTYX_雰:1.0__JCROSS_雰_35_, 'r') as f:
+// _VERANTYX_型:0.6__JCROSS_VA_981_ [decoy-metadata]
+        _VERANTYX_雰:1.0__JCROSS_雰_53_ = f._VERANTYX_雰:1.0__JCROSS_雰_16_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// _VERANTYX_庸:0.6__JCROSS_AK_633_ [decoy-metadata]
+    _VERANTYX_雰:1.0__JCROSS_雰_44_ = _VERANTYX_雰:1.0__JCROSS_雰_53_._VERANTYX_雰:1.0__JCROSS_雰_32_('\n')
+// _VERANTYX_庸:0.9__JCROSS_FZ_528_ [decoy-metadata]
+    _VERANTYX_雰:1.0__JCROSS_雰_15_ = _VERANTYX_庸:1.0__JCROSS_庸_4_
+    
+    for i in _VERANTYX_雰:1.0__JCROSS_雰_28_(_VERANTYX_雰:1.0__JCROSS_雰_38_(_VERANTYX_雰:1.0__JCROSS_雰_44_)):
+        _VERANTYX_雰:1.0__JCROSS_雰_30_ = _VERANTYX_雰:1.0__JCROSS_雰_44_[i]
+        if '._VERANTYX_雰:1.0__JCROSS_雰_33_(._VERANTYX_雰:1.0__JCROSS_雰_37_)' in _VERANTYX_雰:1.0__JCROSS_雰_30_:
+// [metadata-stripped]
+            _VERANTYX_雰:1.0__JCROSS_雰_7_ = _VERANTYX_雰:1.0__JCROSS_雰_44_[i-1] if i > 0 else ""
+            if '._VERANTYX_雰:1.0__JCROSS_雰_11_(_VERANTYX_庸:1.0__JCROSS_庸_6_())' _VERANTYX_雰:1.0__JCROSS_雰_21_ in _VERANTYX_雰:1.0__JCROSS_雰_7_ _VERANTYX_雰:1.0__JCROSS_雰_8_ '._VERANTYX_雰:1.0__JCROSS_雰_11_(_VERANTYX_庸:1.0__JCROSS_庸_6_())' _VERANTYX_雰:1.0__JCROSS_雰_21_ in _VERANTYX_雰:1.0__JCROSS_雰_30_:
+// _VERANTYX_庸:0.7__JCROSS_LA_338_ [decoy-metadata]
+// _VERANTYX_滾:0.6__JCROSS_MF_230_ [decoy-metadata]
+// [metadata-stripped]
+                _VERANTYX_雰:1.0__JCROSS_雰_5_ = _VERANTYX_雰:1.0__JCROSS_雰_38_(_VERANTYX_雰:1.0__JCROSS_雰_30_) - _VERANTYX_雰:1.0__JCROSS_雰_38_(_VERANTYX_雰:1.0__JCROSS_雰_30_._VERANTYX_雰:1.0__JCROSS_雰_31_())
+                _VERANTYX_雰:1.0__JCROSS_雰_47_ = " " * _VERANTYX_雰:1.0__JCROSS_雰_5_ + "._VERANTYX_雰:1.0__JCROSS_雰_11_(_VERANTYX_庸:1.0__JCROSS_庸_6_())"
+                
+// [metadata-stripped]
+                if '}._VERANTYX_雰:1.0__JCROSS_雰_33_(._VERANTYX_雰:1.0__JCROSS_雰_37_)' in _VERANTYX_雰:1.0__JCROSS_雰_30_:
+                    _VERANTYX_雰:1.0__JCROSS_雰_44_[i] = _VERANTYX_雰:1.0__JCROSS_雰_30_._VERANTYX_雰:1.0__JCROSS_雰_45_('}._VERANTYX_雰:1.0__JCROSS_雰_33_(._VERANTYX_雰:1.0__JCROSS_雰_37_)', '}\n' + _VERANTYX_雰:1.0__JCROSS_雰_47_ + '\n' + " " * _VERANTYX_雰:1.0__JCROSS_雰_5_ + '._VERANTYX_雰:1.0__JCROSS_雰_33_(._VERANTYX_雰:1.0__JCROSS_雰_37_)')
+                else:
+                    _VERANTYX_雰:1.0__JCROSS_雰_44_[i] = _VERANTYX_雰:1.0__JCROSS_雰_47_ + '\n' + _VERANTYX_雰:1.0__JCROSS_雰_30_
+                _VERANTYX_雰:1.0__JCROSS_雰_15_ = _VERANTYX_庸:1.0__JCROSS_庸_3_
+
+    if _VERANTYX_雰:1.0__JCROSS_雰_15_:
+        _VERANTYX_雰:1.0__JCROSS_雰_48_ open(_VERANTYX_雰:1.0__JCROSS_雰_35_, 'w') as f:
+            f._VERANTYX_雰:1.0__JCROSS_雰_52_('\n'._VERANTYX_雰:1.0__JCROSS_雰_41_(_VERANTYX_雰:1.0__JCROSS_雰_44_))
+        _VERANTYX_雰:1.0__JCROSS_雰_42_(f"_VERANTYX_庸:1.0__JCROSS_庸_2_ {_VERANTYX_雰:1.0__JCROSS_雰_35_}")
+
+for _VERANTYX_雰:1.0__JCROSS_雰_9_, _, _VERANTYX_匷:1.0__JCROSS_雰_55_ in os._VERANTYX_雰:1.0__JCROSS_雰_29_('.'):
+    for f in _VERANTYX_匷:1.0__JCROSS_雰_55_:
+        if f._VERANTYX_雰:1.0__JCROSS_雰_3_('._VERANTYX_滾:1.0__JCROSS_雰_46_'):
+            _VERANTYX_匷:1.0__JCROSS_雰_14_(os._VERANTYX_雰:1.0__JCROSS_雰_35_._VERANTYX_雰:1.0__JCROSS_雰_41_(_VERANTYX_雰:1.0__JCROSS_雰_9_, f))
+
+// POLYMORPHIC_JCROSS_END

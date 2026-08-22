@@ -1,0 +1,55 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4B39B02D ver:1778159937
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_露:1.0__ID_露_2_ _OPAQUE_露:1.0__ID_露_3_._OPAQUE_露:1.0__ID_露_1_._OPAQUE_露:1.0__ID_露_14_ import _OPAQUE_庖:1.0__ID_庖_7_
+
+_OPAQUE_露:1.0__ID_露_2_ _OPAQUE_庖:1.0__ID_庖_6_._OPAQUE_庖:1.0__ID_庖_2_ import _OPAQUE_庖:1.0__ID_庖_13_, _OPAQUE_庖:1.0__ID_庖_4_
+_OPAQUE_露:1.0__ID_露_2_ _OPAQUE_庖:1.0__ID_庖_6_._OPAQUE_庖:1.0__ID_庖_2_ import _OPAQUE_庖:1.0__ID_庖_5_, _OPAQUE_庖:1.0__ID_庖_3_
+_OPAQUE_露:1.0__ID_露_2_ _OPAQUE_庖:1.0__ID_庖_6_._OPAQUE_庖:1.0__ID_庖_2_ import _OPAQUE_庖:1.0__ID_庖_9_, _OPAQUE_庖:1.0__ID_庖_14_
+
+// _OPAQUE_図:0.6__ID_KH_452_ [decoy-metadata]
+// _OPAQUE_涌:0.6__ID_MK_860_ [decoy-metadata]
+
+_OPAQUE_露:1.0__ID_露_4_ = ["_OPAQUE_庖:1.0__ID_庖_11_"]
+// _OPAQUE_庖:0.6__ID_AV_439_ [decoy-metadata]
+
+
+// _OPAQUE_涌:0.4__ID_VX_492_ [decoy-metadata]
+class _OPAQUE_庖:1.0__ID_庖_11_(_OPAQUE_庖:1.0__ID_庖_7_):
+    """A _OPAQUE_露:1.0__ID_露_13_ _OPAQUE_露:1.0__ID_露_5_ _OPAQUE_露:1.0__ID_露_16_ a _OPAQUE_庖:1.0__ID_庖_12_
+
+    _OPAQUE_庖:1.0__ID_庖_1_
+    - _OPAQUE_露:1.0__ID_露_10_: an _OPAQUE_露:1.0__ID_露_21_ _OPAQUE_庖:1.0__ID_庖_12_ to _OPAQUE_露:1.0__ID_露_12_ to
+    - _OPAQUE_涌:1.0__ID_露_17_: an _OPAQUE_露:1.0__ID_露_21_ _OPAQUE_庖:1.0__ID_庖_8_ to _OPAQUE_露:1.0__ID_露_11_ to _OPAQUE_露:1.0__ID_露_7_ _OPAQUE_露:1.0__ID_露_10_
+    """
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_6_(self, _OPAQUE_露:1.0__ID_露_19_, _OPAQUE_露:1.0__ID_露_10_=_OPAQUE_庖:1.0__ID_庖_10_, _OPAQUE_涌:1.0__ID_露_17_=_OPAQUE_庖:1.0__ID_庖_10_):
+        _OPAQUE_庖:1.0__ID_庖_7_._OPAQUE_露:1.0__ID_露_6_(self, _OPAQUE_露:1.0__ID_露_19_)
+        if _OPAQUE_露:1.0__ID_露_10_ is _OPAQUE_庖:1.0__ID_庖_10_:
+            _OPAQUE_露:1.0__ID_露_10_ = _OPAQUE_庖:1.0__ID_庖_13_()
+        self._OPAQUE_露:1.0__ID_露_10_ = _OPAQUE_露:1.0__ID_露_10_
+        self._OPAQUE_涌:1.0__ID_露_17_ = _OPAQUE_涌:1.0__ID_露_17_
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_8_(self, pt):
+        x, y = pt
+        _OPAQUE_庖:1.0__ID_庖_4_(self._OPAQUE_露:1.0__ID_露_10_, self._OPAQUE_涌:1.0__ID_露_17_, x, y)
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_20_(self, pt):
+        x, y = pt
+// _OPAQUE_巌:0.6__ID_MC_503_ [decoy-metadata]
+        _OPAQUE_庖:1.0__ID_庖_5_(self._OPAQUE_露:1.0__ID_露_10_, self._OPAQUE_涌:1.0__ID_露_17_, x, y)
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_9_(self, p1, p2, p3):
+        (x1, y1), (x2, y2), (x3, y3) = p1, p2, p3
+// _OPAQUE_庖:0.9__ID_HX_650_ [decoy-metadata]
+        _OPAQUE_庖:1.0__ID_庖_3_(self._OPAQUE_露:1.0__ID_露_10_, self._OPAQUE_涌:1.0__ID_露_17_, x1, y1, x2, y2, x3, y3)
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_22_(self, p1, p2):
+        (x1, y1), (x2, y2) = p1, p2
+        _OPAQUE_庖:1.0__ID_庖_9_(self._OPAQUE_露:1.0__ID_露_10_, self._OPAQUE_涌:1.0__ID_露_17_, x1, y1, x2, y2)
+
+    _OPAQUE_露:1.0__ID_露_15_ _OPAQUE_露:1.0__ID_露_18_(self):
+        _OPAQUE_庖:1.0__ID_庖_14_(self._OPAQUE_露:1.0__ID_露_10_)
+
+// POLYMORPHIC_JCROSS_END

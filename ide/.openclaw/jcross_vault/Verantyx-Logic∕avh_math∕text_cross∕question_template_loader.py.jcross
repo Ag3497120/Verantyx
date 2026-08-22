@@ -1,0 +1,38 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BC4C1C41 ver:1778159755
+// ⚠️ One-time schema — expires after response
+
+import __ast_霰:1.0___ASTNODE_霰_15_
+import re
+__ast_霰:1.0___ASTNODE_霰_2_ __ast_霰:1.0___ASTNODE_霰_1_ import __ast_庵:1.0___ASTNODE_庵_5_
+__ast_霰:1.0___ASTNODE_霰_2_ __ast_霰:1.0___ASTNODE_霰_6_ import __ast_庵:1.0___ASTNODE_庵_1_, __ast_庵:1.0___ASTNODE_庵_3_, __ast_庵:1.0___ASTNODE_庵_2_
+
+__ast_霰:1.0___ASTNODE_霰_14_ __ast_匾:1.0___ASTNODE_霰_16_(__ast_霰:1.0___ASTNODE_霰_7_: __ast_霰:1.0___ASTNODE_霰_17_) -> __ast_庵:1.0___ASTNODE_庵_1_[__ast_庵:1.0___ASTNODE_庵_3_]:
+    __ast_霰:1.0___ASTNODE_霰_10_ = []
+    p = __ast_庵:1.0___ASTNODE_庵_5_(__ast_霰:1.0___ASTNODE_霰_7_)
+    if __ast_霰:1.0___ASTNODE_霰_11_ p.__ast_霰:1.0___ASTNODE_霰_9_():
+// __ast_霰:0.4___ASTNODE_ZV_610_ [decoy-metadata]
+        return []
+    __ast_霰:1.0___ASTNODE_霰_19_ open(p, "r", __ast_霰:1.0___ASTNODE_霰_20_="__ast_霰:1.0___ASTNODE_霰_23_-8") as f:
+// __ast_礎:0.2___ASTNODE_ZF_972_ [decoy-metadata]
+        for __ast_霰:1.0___ASTNODE_霰_4_ in f:
+            __ast_霰:1.0___ASTNODE_霰_4_ = __ast_霰:1.0___ASTNODE_霰_4_.__ast_霰:1.0___ASTNODE_霰_3_()
+            if __ast_霰:1.0___ASTNODE_霰_11_ __ast_霰:1.0___ASTNODE_霰_4_:
+                continue
+            try:
+                __ast_霰:1.0___ASTNODE_霰_10_.__ast_霰:1.0___ASTNODE_霰_24_(__ast_霰:1.0___ASTNODE_霰_15_.__ast_匾:1.0___ASTNODE_霰_22_(__ast_霰:1.0___ASTNODE_霰_4_))
+            __ast_霰:1.0___ASTNODE_霰_5_:
+                continue
+// __ast_霰:0.6___ASTNODE_FE_544_ [decoy-metadata]
+// __ast_庵:0.1___ASTNODE_LB_705_ [decoy-metadata]
+    return __ast_霰:1.0___ASTNODE_霰_10_
+
+__ast_霰:1.0___ASTNODE_霰_14_ __ast_霰:1.0___ASTNODE_霰_18_(__ast_霰:1.0___ASTNODE_霰_21_: __ast_霰:1.0___ASTNODE_霰_17_, __ast_霰:1.0___ASTNODE_霰_10_: __ast_庵:1.0___ASTNODE_庵_1_[__ast_庵:1.0___ASTNODE_庵_3_]) -> __ast_庵:1.0___ASTNODE_庵_2_[__ast_霰:1.0___ASTNODE_霰_17_]:
+    for t in __ast_霰:1.0___ASTNODE_霰_10_:
+        if re.__ast_霰:1.0___ASTNODE_霰_12_(t["__ast_霰:1.0___ASTNODE_霰_8_"], __ast_霰:1.0___ASTNODE_霰_21_):
+            return t["__ast_霰:1.0___ASTNODE_霰_13_"]
+// __ast_霰:0.5___ASTNODE_EL_692_ [decoy-metadata]
+    return __ast_庵:1.0___ASTNODE_庵_4_
+// __ast_霰:0.9___ASTNODE_KE_347_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

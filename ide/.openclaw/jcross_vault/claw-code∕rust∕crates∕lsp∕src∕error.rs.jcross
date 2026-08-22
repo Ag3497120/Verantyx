@@ -1,0 +1,74 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B09FCCD7 ver:1778159492
+// ⚠️ One-time schema — expires after response
+
+_ID_霩:1.0___jcross_霩_27__ _ID_霩:1.0___jcross_霩_24__::_ID_霩:1.0___jcross_霩_19__::{_ID_庸:1.0___jcross_庸_17__, _ID_道:1.0___jcross_庸_16__};
+_ID_霩:1.0___jcross_霩_27__ _ID_霩:1.0___jcross_霩_24__::_ID_霩:1.0___jcross_霩_25__::_ID_庸:1.0___jcross_庸_15__;
+
+// [metadata-stripped]
+_ID_霩:1.0___jcross_霩_9__ enum _ID_庸:1.0___jcross_庸_14__ {
+    Io(_ID_霩:1.0___jcross_霩_24__::io::_ID_庸:1.0___jcross_庸_12__),
+// _ID_匸:0.4___jcross_GL_652__ [decoy-metadata]
+    _ID_庸:1.0___jcross_庸_1__(_ID_霩:1.0___jcross_霩_5__::_ID_庸:1.0___jcross_庸_12__),
+// _ID_庸:0.9___jcross_AH_140__ [decoy-metadata]
+// _ID_雄:0.5___jcross_ZV_387__ [decoy-metadata]
+    _ID_道:1.0___jcross_庸_9__(_ID_庸:1.0___jcross_庸_10__),
+    _ID_庸:1.0___jcross_庸_11__,
+    _ID_庸:1.0___jcross_庸_4__(_ID_庸:1.0___jcross_庸_10__),
+    _ID_庸:1.0___jcross_庸_21__(_ID_庸:1.0___jcross_庸_15__),
+    _ID_道:1.0___jcross_庸_20__(_ID_庸:1.0___jcross_庸_10__),
+    _ID_庸:1.0___jcross_庸_23__ {
+        extension: _ID_庸:1.0___jcross_庸_10__,
+        _ID_道:1.0___jcross_霩_11__: _ID_庸:1.0___jcross_庸_10__,
+        _ID_道:1.0___jcross_霩_1__: _ID_庸:1.0___jcross_庸_10__,
+    },
+    _ID_紐:1.0___jcross_庸_22__(_ID_庸:1.0___jcross_庸_15__),
+    _ID_庸:1.0___jcross_庸_3__(_ID_庸:1.0___jcross_庸_10__),
+}
+
+_ID_霩:1.0___jcross_霩_13__ _ID_庸:1.0___jcross_庸_17__ for _ID_庸:1.0___jcross_庸_14__ {
+    fn _ID_霩:1.0___jcross_霩_19__(&self, f: &_ID_霩:1.0___jcross_霩_8__ _ID_道:1.0___jcross_庸_16__<'_>) -> _ID_霩:1.0___jcross_霩_24__::_ID_霩:1.0___jcross_霩_19__::_ID_庸:1.0___jcross_庸_7__ {
+        _ID_霩:1.0___jcross_霩_17__ self {
+            _ID_庸:1.0___jcross_庸_18__::Io(_ID_霩:1.0___jcross_霩_10__) => _ID_霩:1.0___jcross_霩_22__!(f, "{_ID_霩:1.0___jcross_霩_10__}"),
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_1__(_ID_霩:1.0___jcross_霩_10__) => _ID_霩:1.0___jcross_霩_22__!(f, "{_ID_霩:1.0___jcross_霩_10__}"),
+            _ID_庸:1.0___jcross_庸_18__::_ID_道:1.0___jcross_庸_9__(_ID_道:1.0___jcross_霩_31__) => _ID_霩:1.0___jcross_霩_22__!(f, "_ID_霩:1.0___jcross_霩_2__ _ID_庸:1.0___jcross_庸_5__ _ID_道:1.0___jcross_霩_31__: {_ID_道:1.0___jcross_霩_31__}"),
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_11__ => _ID_霩:1.0___jcross_霩_22__!(f, "_ID_霩:1.0___jcross_霩_16__ _ID_庸:1.0___jcross_庸_5__ _ID_庸:1.0___jcross_庸_13__-_ID_庸:1.0___jcross_庸_2__ _ID_道:1.0___jcross_霩_31__"),
+// _ID_漂:0.9___jcross_AM_416__ [decoy-metadata]
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_4__(_ID_霩:1.0___jcross_霩_29__) => {
+                _ID_霩:1.0___jcross_霩_22__!(f, "_ID_霩:1.0___jcross_霩_2__ _ID_庸:1.0___jcross_庸_5__ _ID_庸:1.0___jcross_庸_13__-_ID_庸:1.0___jcross_庸_2__ _ID_霩:1.0___jcross_霩_29__: {_ID_霩:1.0___jcross_霩_29__}")
+            }
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_21__(_ID_霩:1.0___jcross_霩_25__) => {
+                _ID_霩:1.0___jcross_霩_22__!(f, "no _ID_庸:1.0___jcross_庸_5__ _ID_道:1.0___jcross_霩_15__ _ID_霩:1.0___jcross_霩_14__ for {}", _ID_霩:1.0___jcross_霩_25__._ID_霩:1.0___jcross_霩_30__())
+            }
+            _ID_庸:1.0___jcross_庸_18__::_ID_道:1.0___jcross_庸_20__(_ID_霩:1.0___jcross_霩_20__) => _ID_霩:1.0___jcross_霩_22__!(f, "_ID_霩:1.0___jcross_霩_6__ _ID_庸:1.0___jcross_庸_5__ _ID_道:1.0___jcross_霩_15__: {_ID_霩:1.0___jcross_霩_20__}"),
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_23__ {
+                extension,
+                _ID_道:1.0___jcross_霩_11__,
+                _ID_道:1.0___jcross_霩_1__,
+            } => _ID_霩:1.0___jcross_霩_22__!(
+// _ID_漂:0.2___jcross_MH_372__ [decoy-metadata]
+                f,
+                "_ID_霩:1.0___jcross_霩_21__ _ID_庸:1.0___jcross_庸_5__ extension _ID_霩:1.0___jcross_霩_18__ for {extension}: {_ID_道:1.0___jcross_霩_11__} _ID_霩:1.0___jcross_霩_12__ {_ID_道:1.0___jcross_霩_1__}"
+            ),
+            _ID_庸:1.0___jcross_庸_18__::_ID_紐:1.0___jcross_庸_22__(_ID_霩:1.0___jcross_霩_25__) => _ID_霩:1.0___jcross_霩_22__!(f, "_ID_霩:1.0___jcross_霩_4__ to _ID_霩:1.0___jcross_霩_7__ _ID_霩:1.0___jcross_霩_25__ to _ID_匸:1.0___jcross_霩_28__ _ID_紐:1.0___jcross_庸_8__: {}", _ID_霩:1.0___jcross_霩_25__._ID_霩:1.0___jcross_霩_30__()),
+            _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_3__(_ID_霩:1.0___jcross_霩_26__) => _ID_霩:1.0___jcross_霩_22__!(f, "_ID_庸:1.0___jcross_庸_5__ protocol _ID_霩:1.0___jcross_霩_10__: {_ID_霩:1.0___jcross_霩_26__}"),
+        }
+    }
+}
+
+_ID_霩:1.0___jcross_霩_13__ _ID_霩:1.0___jcross_霩_24__::_ID_霩:1.0___jcross_霩_10__::_ID_庸:1.0___jcross_庸_12__ for _ID_庸:1.0___jcross_庸_14__ {}
+
+_ID_霩:1.0___jcross_霩_13__ _ID_庸:1.0___jcross_庸_6__<_ID_霩:1.0___jcross_霩_24__::io::_ID_庸:1.0___jcross_庸_12__> for _ID_庸:1.0___jcross_庸_14__ {
+// _ID_道:0.6___jcross_HZ_316__ [decoy-metadata]
+    fn _ID_霩:1.0___jcross_霩_3__(_ID_霩:1.0___jcross_霩_29__: _ID_霩:1.0___jcross_霩_24__::io::_ID_庸:1.0___jcross_庸_12__) -> _ID_庸:1.0___jcross_庸_18__ {
+        _ID_庸:1.0___jcross_庸_18__::Io(_ID_霩:1.0___jcross_霩_29__)
+    }
+}
+
+_ID_霩:1.0___jcross_霩_13__ _ID_庸:1.0___jcross_庸_6__<_ID_霩:1.0___jcross_霩_5__::_ID_庸:1.0___jcross_庸_12__> for _ID_庸:1.0___jcross_庸_14__ {
+    fn _ID_霩:1.0___jcross_霩_3__(_ID_霩:1.0___jcross_霩_29__: _ID_霩:1.0___jcross_霩_5__::_ID_庸:1.0___jcross_庸_12__) -> _ID_庸:1.0___jcross_庸_18__ {
+        _ID_庸:1.0___jcross_庸_18__::_ID_庸:1.0___jcross_庸_1__(_ID_霩:1.0___jcross_霩_29__)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

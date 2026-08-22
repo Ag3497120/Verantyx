@@ -1,0 +1,73 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0AE5496A ver:1778167587
+// _VERANTYX_廉:0.1__ID_FD_380_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_塵:1.0__ID_塵_1_ { _VERANTYX_廨:1.0__ID_廨_7_ } _VERANTYX_塵:1.0__ID_塵_42_ "../_VERANTYX_塵:1.0__ID_塵_13_-_VERANTYX_縁:1.0__ID_塵_7_.js";
+import { _VERANTYX_縁:1.0__ID_塵_40_, _VERANTYX_塵:1.0__ID_塵_22_, _VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_図:1.0__ID_廨_10_ } _VERANTYX_塵:1.0__ID_塵_42_ "./_VERANTYX_塵:1.0__ID_塵_9_.js";
+
+_VERANTYX_塵:1.0__ID_塵_15_ _VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_廨:1.0__ID_廨_3_ = _VERANTYX_廨:1.0__ID_廨_7_ & {
+  _VERANTYX_塵:1.0__ID_塵_21_?: _VERANTYX_図:1.0__ID_塵_41_ | _VERANTYX_塵:1.0__ID_塵_35_;
+  _VERANTYX_塵:1.0__ID_塵_27_?: _VERANTYX_図:1.0__ID_塵_41_ | _VERANTYX_塵:1.0__ID_塵_35_;
+  _VERANTYX_塵:1.0__ID_塵_37_?: _VERANTYX_図:1.0__ID_廨_10_;
+};
+
+_VERANTYX_塵:1.0__ID_塵_15_ async _VERANTYX_塵:1.0__ID_塵_2_ _VERANTYX_塵:1.0__ID_塵_19_(
+  _VERANTYX_縁:1.0__ID_塵_11_: _VERANTYX_塵:1.0__ID_塵_31_,
+  _VERANTYX_錠:1.0__ID_塵_30_: _VERANTYX_塵:1.0__ID_塵_31_,
+  _VERANTYX_塵:1.0__ID_塵_23_ = 2500,
+): _VERANTYX_廨:1.0__ID_廨_11_<_VERANTYX_廨:1.0__ID_廨_3_> {
+  _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_38_ = _VERANTYX_縁:1.0__ID_塵_40_(_VERANTYX_縁:1.0__ID_塵_11_);
+  if (!_VERANTYX_塵:1.0__ID_塵_38_) {
+    return { ok: false, _VERANTYX_塵:1.0__ID_塵_25_: "_VERANTYX_縁:1.0__ID_塵_11_ _VERANTYX_塵:1.0__ID_塵_43_" };
+  }
+  _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_縁:1.0__ID_塵_20_ = `${_VERANTYX_塵:1.0__ID_塵_38_}/_VERANTYX_縁:1.0__ID_塵_7_/v4/_VERANTYX_塵:1.0__ID_塵_39_/me`;
+// _VERANTYX_匹:0.8__ID_DB_552_ [decoy-metadata]
+  _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_17_ = _VERANTYX_廨:1.0__ID_廨_12_._VERANTYX_塵:1.0__ID_塵_32_();
+// _VERANTYX_図:0.7__ID_ZM_673_ [decoy-metadata]
+  _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_図:1.0__ID_塵_12_ = _VERANTYX_塵:1.0__ID_塵_23_ > 0 ? _VERANTYX_塵:1.0__ID_塵_36_ _VERANTYX_図:1.0__ID_廨_6_() : _VERANTYX_塵:1.0__ID_塵_8_;
+// _VERANTYX_廉:0.2__ID_YH_832_ [decoy-metadata]
+  let _VERANTYX_図:1.0__ID_塵_28_: _VERANTYX_廨:1.0__ID_廨_2_._VERANTYX_廨:1.0__ID_廨_1_ | _VERANTYX_塵:1.0__ID_塵_35_ = _VERANTYX_塵:1.0__ID_塵_35_;
+// _VERANTYX_錠:0.4__ID_EA_152_ [decoy-metadata]
+  if (_VERANTYX_図:1.0__ID_塵_12_) {
+    _VERANTYX_図:1.0__ID_塵_28_ = _VERANTYX_図:1.0__ID_廉_2_(() => _VERANTYX_図:1.0__ID_塵_12_._VERANTYX_塵:1.0__ID_塵_4_(), _VERANTYX_塵:1.0__ID_塵_23_);
+  }
+  try {
+    _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_34_ = await _VERANTYX_図:1.0__ID_廉_1_(_VERANTYX_縁:1.0__ID_塵_20_, {
+      _VERANTYX_塵:1.0__ID_塵_10_: { _VERANTYX_廨:1.0__ID_廨_9_: `_VERANTYX_図:1.0__ID_廨_4_ ${_VERANTYX_錠:1.0__ID_塵_30_}` },
+      _VERANTYX_塵:1.0__ID_塵_14_: _VERANTYX_図:1.0__ID_塵_12_?._VERANTYX_塵:1.0__ID_塵_14_,
+    });
+    _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_27_ = _VERANTYX_廨:1.0__ID_廨_12_._VERANTYX_塵:1.0__ID_塵_32_() - _VERANTYX_塵:1.0__ID_塵_17_;
+    if (!_VERANTYX_塵:1.0__ID_塵_34_.ok) {
+      _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_24_ = await _VERANTYX_塵:1.0__ID_塵_22_(_VERANTYX_塵:1.0__ID_塵_34_);
+      return {
+        ok: false,
+        _VERANTYX_塵:1.0__ID_塵_21_: _VERANTYX_塵:1.0__ID_塵_34_._VERANTYX_塵:1.0__ID_塵_21_,
+        _VERANTYX_塵:1.0__ID_塵_25_: _VERANTYX_塵:1.0__ID_塵_24_ || _VERANTYX_塵:1.0__ID_塵_34_._VERANTYX_塵:1.0__ID_塵_33_,
+        _VERANTYX_塵:1.0__ID_塵_27_,
+      };
+    }
+    _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_37_ = (await _VERANTYX_塵:1.0__ID_塵_34_._VERANTYX_塵:1.0__ID_塵_6_()) as _VERANTYX_図:1.0__ID_廨_10_;
+    return {
+      ok: true,
+      _VERANTYX_塵:1.0__ID_塵_21_: _VERANTYX_塵:1.0__ID_塵_34_._VERANTYX_塵:1.0__ID_塵_21_,
+// _VERANTYX_錠:0.7__ID_MG_844_ [decoy-metadata]
+      _VERANTYX_塵:1.0__ID_塵_27_,
+      _VERANTYX_塵:1.0__ID_塵_37_,
+    };
+  } catch (_VERANTYX_塵:1.0__ID_塵_29_) {
+    _VERANTYX_塵:1.0__ID_塵_5_ _VERANTYX_塵:1.0__ID_塵_16_ = _VERANTYX_塵:1.0__ID_塵_29_ _VERANTYX_塵:1.0__ID_塵_3_ _VERANTYX_廨:1.0__ID_廨_5_ ? _VERANTYX_塵:1.0__ID_塵_29_._VERANTYX_塵:1.0__ID_塵_16_ : _VERANTYX_廨:1.0__ID_廨_8_(_VERANTYX_塵:1.0__ID_塵_29_);
+    return {
+      ok: false,
+      _VERANTYX_塵:1.0__ID_塵_21_: _VERANTYX_塵:1.0__ID_塵_35_,
+      _VERANTYX_塵:1.0__ID_塵_25_: _VERANTYX_塵:1.0__ID_塵_16_,
+      _VERANTYX_塵:1.0__ID_塵_27_: _VERANTYX_廨:1.0__ID_廨_12_._VERANTYX_塵:1.0__ID_塵_32_() - _VERANTYX_塵:1.0__ID_塵_17_,
+    };
+  } _VERANTYX_塵:1.0__ID_塵_18_ {
+    if (_VERANTYX_図:1.0__ID_塵_28_) {
+      _VERANTYX_塵:1.0__ID_塵_26_(_VERANTYX_図:1.0__ID_塵_28_);
+    }
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

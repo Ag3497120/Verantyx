@@ -1,0 +1,78 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8CC80F91 ver:1778162887
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_霰:1.0__SYM_霰_42_ _OPAQUE_霰:1.0__SYM_霰_8_ import _OPAQUE_霰:1.0__SYM_霰_30_
+
+_OPAQUE_霰:1.0__SYM_霰_42_ _OPAQUE_霰:1.0__SYM_霰_38_ import _OPAQUE_廓:1.0__SYM_廓_6_
+_OPAQUE_霰:1.0__SYM_霰_42_ _OPAQUE_霰:1.0__SYM_霰_44_ import _OPAQUE_廓:1.0__SYM_廓_5_, _OPAQUE_廓:1.0__SYM_廓_4_, _OPAQUE_廓:1.0__SYM_廓_7_, _OPAQUE_廓:1.0__SYM_廓_2_
+import _OPAQUE_霰:1.0__SYM_霰_4_
+
+
+// _OPAQUE_霰:0.8__SYM_CE_695_ [decoy-metadata]
+// _OPAQUE_匵:0.9__SYM_YL_903_ [decoy-metadata]
+_OPAQUE_霰:1.0__SYM_霰_29_ _OPAQUE_湧:1.0__SYM_霰_11_(f: _OPAQUE_霰:1.0__SYM_霰_7_) -> _OPAQUE_霰:1.0__SYM_霰_7_:
+    return (
+        (f or "")
+        ._OPAQUE_霰:1.0__SYM_霰_32_(" ", "")
+        ._OPAQUE_霰:1.0__SYM_霰_32_("→", "->")
+        ._OPAQUE_霰:1.0__SYM_霰_32_("□", "[]")
+        ._OPAQUE_霰:1.0__SYM_霰_32_("◇", "<>")
+    )
+
+
+_OPAQUE_霰:1.0__SYM_霰_29_ _OPAQUE_霰:1.0__SYM_霰_17_(
+    _OPAQUE_湧:1.0__SYM_霰_23_: _OPAQUE_霰:1.0__SYM_霰_7_,
+    _OPAQUE_霰:1.0__SYM_霰_22_: _OPAQUE_廓:1.0__SYM_廓_6_,
+    *,
+    _OPAQUE_霰:1.0__SYM_霰_18_: _OPAQUE_廓:1.0__SYM_廓_5_[_OPAQUE_霰:1.0__SYM_霰_7_] = _OPAQUE_廓:1.0__SYM_廓_1_,
+    _OPAQUE_霰:1.0__SYM_霰_10_: _OPAQUE_霰:1.0__SYM_霰_12_ = 20000,
+// _OPAQUE_霰:0.1__SYM_GG_208_ [decoy-metadata]
+) -> _OPAQUE_廓:1.0__SYM_廓_5_[_OPAQUE_廓:1.0__SYM_廓_4_[_OPAQUE_霰:1.0__SYM_霰_7_, _OPAQUE_廓:1.0__SYM_廓_2_]]:
+    nf = _OPAQUE_湧:1.0__SYM_霰_11_(_OPAQUE_湧:1.0__SYM_霰_23_)
+    if _OPAQUE_霰:1.0__SYM_霰_26_ nf or _OPAQUE_霰:1.0__SYM_霰_26_ _OPAQUE_霰:1.0__SYM_霰_22_._OPAQUE_霰:1.0__SYM_霰_5_():
+        return _OPAQUE_廓:1.0__SYM_廓_1_
+// _OPAQUE_則:0.9__SYM_XV_939_ [decoy-metadata]
+
+    _OPAQUE_霰:1.0__SYM_霰_36_ = 0
+    _OPAQUE_霰:1.0__SYM_霰_9_ _OPAQUE_霰:1.0__SYM_霰_22_.open("r", _OPAQUE_霰:1.0__SYM_霰_3_="_OPAQUE_霰:1.0__SYM_霰_14_-8") as f:
+        for _OPAQUE_霰:1.0__SYM_霰_40_ in f:
+            if _OPAQUE_霰:1.0__SYM_霰_36_ >= _OPAQUE_霰:1.0__SYM_霰_10_:
+                break
+// _OPAQUE_則:0.8__SYM_HG_226_ [decoy-metadata]
+            _OPAQUE_霰:1.0__SYM_霰_40_ = _OPAQUE_霰:1.0__SYM_霰_40_._OPAQUE_霰:1.0__SYM_霰_1_()
+            if _OPAQUE_霰:1.0__SYM_霰_26_ _OPAQUE_霰:1.0__SYM_霰_40_:
+                continue
+            _OPAQUE_霰:1.0__SYM_霰_36_ += 1
+            try:
+                _OPAQUE_霰:1.0__SYM_霰_2_ = _OPAQUE_霰:1.0__SYM_霰_4_._OPAQUE_匵:1.0__SYM_霰_41_(_OPAQUE_霰:1.0__SYM_霰_40_)
+            _OPAQUE_霰:1.0__SYM_霰_39_ _OPAQUE_廓:1.0__SYM_廓_3_:
+                continue
+            if _OPAQUE_霰:1.0__SYM_霰_18_ _OPAQUE_霰:1.0__SYM_霰_6_ _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("_OPAQUE_霰:1.0__SYM_霰_18_") _OPAQUE_霰:1.0__SYM_霰_26_ in (_OPAQUE_霰:1.0__SYM_霰_18_, "_OPAQUE_霰:1.0__SYM_霰_21_"):
+// _OPAQUE_霰:0.7__SYM_ED_406_ [decoy-metadata]
+                continue
+            _OPAQUE_霰:1.0__SYM_霰_13_ = _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("_OPAQUE_霰:1.0__SYM_霰_37_") or ""
+            _OPAQUE_霰:1.0__SYM_霰_33_ = _OPAQUE_湧:1.0__SYM_霰_11_(_OPAQUE_霰:1.0__SYM_霰_13_)
+            if _OPAQUE_霰:1.0__SYM_霰_33_ != nf:
+                continue
+
+            _OPAQUE_霰:1.0__SYM_霰_31_ = _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("_OPAQUE_霰:1.0__SYM_霰_34_")
+            if _OPAQUE_霰:1.0__SYM_霰_31_ _OPAQUE_霰:1.0__SYM_霰_6_ _OPAQUE_霰:1.0__SYM_霰_31_._OPAQUE_則:1.0__SYM_傑_1_("_OPAQUE_霰:1.0__SYM_霰_16_"):
+                return {
+                    "_OPAQUE_霰:1.0__SYM_霰_19_": "_OPAQUE_霰:1.0__SYM_霰_28_",
+                    "_OPAQUE_霰:1.0__SYM_霰_15_": "_OPAQUE_霰:1.0__SYM_霰_27_",
+                    "_OPAQUE_霰:1.0__SYM_霰_25_": _OPAQUE_霰:1.0__SYM_霰_31_,
+                    "_OPAQUE_霰:1.0__SYM_霰_24_": _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("id"),
+                }
+
+            _OPAQUE_霰:1.0__SYM_霰_43_ = _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("_OPAQUE_霰:1.0__SYM_霰_43_") or []
+            if "_OPAQUE_湧:1.0__SYM_霰_20_:true" in _OPAQUE_霰:1.0__SYM_霰_43_:
+                return {
+                    "_OPAQUE_霰:1.0__SYM_霰_19_": "_OPAQUE_霰:1.0__SYM_霰_35_",
+                    "_OPAQUE_霰:1.0__SYM_霰_15_": "_OPAQUE_湧:1.0__SYM_霰_45_",
+                    "_OPAQUE_霰:1.0__SYM_霰_24_": _OPAQUE_霰:1.0__SYM_霰_2_._OPAQUE_則:1.0__SYM_傑_1_("id"),
+                }
+
+    return _OPAQUE_廓:1.0__SYM_廓_1_
+
+// POLYMORPHIC_JCROSS_END

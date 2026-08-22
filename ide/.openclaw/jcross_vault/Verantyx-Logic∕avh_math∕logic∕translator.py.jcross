@@ -1,0 +1,58 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BA3CCF01 ver:1778159748
+// ⚠️ One-time schema — expires after response
+
+import re
+// _OPAQUE_匵:0.2__VERANTYX_KB_469_ [decoy-metadata]
+_OPAQUE_礫:1.0__VERANTYX_礫_28_ _OPAQUE_礫:1.0__VERANTYX_礫_6_ import _OPAQUE_墟:1.0__VERANTYX_墟_5_
+
+// _OPAQUE_図:0.7__VERANTYX_HG_695_ [decoy-metadata]
+_OPAQUE_礫:1.0__VERANTYX_礫_11_ _OPAQUE_脈:1.0__VERANTYX_礫_49_(_OPAQUE_礫:1.0__VERANTYX_礫_25_: _OPAQUE_礫:1.0__VERANTYX_礫_45_) -> _OPAQUE_墟:1.0__VERANTYX_墟_5_[_OPAQUE_礫:1.0__VERANTYX_礫_45_]:
+    """
+    _OPAQUE_墟:1.0__VERANTYX_墟_8_ _OPAQUE_礫:1.0__VERANTYX_礫_46_ _OPAQUE_礫:1.0__VERANTYX_礫_19_ _OPAQUE_礫:1.0__VERANTYX_礫_25_ _OPAQUE_礫:1.0__VERANTYX_礫_43_ _OPAQUE_礫:1.0__VERANTYX_礫_33_ _OPAQUE_脈:1.0__VERANTYX_礫_30_ _OPAQUE_礫:1.0__VERANTYX_礫_38_ _OPAQUE_礫:1.0__VERANTYX_礫_13_ 
+    _OPAQUE_礫:1.0__VERANTYX_礫_42_ _OPAQUE_礫:1.0__VERANTYX_礫_26_ _OPAQUE_礫:1.0__VERANTYX_礫_50_ _OPAQUE_秘:1.0__VERANTYX_礫_5_ _OPAQUE_礫:1.0__VERANTYX_礫_20_.
+    _OPAQUE_墟:1.0__VERANTYX_墟_14_ _OPAQUE_礫:1.0__VERANTYX_礫_36_ as _OPAQUE_礫:1.0__VERANTYX_礫_52_ '_OPAQUE_墟:1.0__VERANTYX_墟_20_ _OPAQUE_墟:1.0__VERANTYX_墟_13_ _OPAQUE_図:1.0__VERANTYX_墟_9_' for _OPAQUE_礫:1.0__VERANTYX_礫_39_ _OPAQUE_礫:1.0__VERANTYX_礫_34_ _OPAQUE_礫:1.0__VERANTYX_礫_29_.
+    """
+    _OPAQUE_脈:1.0__VERANTYX_礫_7_ = []
+// _OPAQUE_図:0.6__VERANTYX_HZ_387_ [decoy-metadata]
+    _OPAQUE_図:1.0__VERANTYX_礫_41_ = _OPAQUE_礫:1.0__VERANTYX_礫_25_._OPAQUE_図:1.0__VERANTYX_礫_16_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_23_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("([]p -> [][]p)")
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_31_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("([]p -> p)")
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_47_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("(p -> []<>p)")
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_22_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("(<>p -> []<>p)")
+// _OPAQUE_図:0.6__VERANTYX_XW_344_ [decoy-metadata]
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_24_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("([]p -> <>p)")
+// _OPAQUE_墟:0.7__VERANTYX_BL_563_ [decoy-metadata]
+    
+// [metadata-stripped]
+    if "_OPAQUE_礫:1.0__VERANTYX_礫_18_" in _OPAQUE_図:1.0__VERANTYX_礫_41_ or "_OPAQUE_礫:1.0__VERANTYX_礫_51_" in _OPAQUE_図:1.0__VERANTYX_礫_41_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_("([](p->q) -> ([]p -> []q))")
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_脈:1.0__VERANTYX_礫_2_ = re._OPAQUE_礫:1.0__VERANTYX_礫_4_(r"if\s+([a-z0-9\(\)\s]+)\s+_OPAQUE_礫:1.0__VERANTYX_礫_3_\s+([a-z0-9\(\)\s]+)", _OPAQUE_図:1.0__VERANTYX_礫_41_)
+    for p, q in _OPAQUE_脈:1.0__VERANTYX_礫_2_:
+// [metadata-stripped]
+        p = p._OPAQUE_礫:1.0__VERANTYX_礫_32_()
+        q = q._OPAQUE_礫:1.0__VERANTYX_礫_32_()
+        if _OPAQUE_礫:1.0__VERANTYX_礫_27_(p) < 50 _OPAQUE_礫:1.0__VERANTYX_礫_50_ _OPAQUE_礫:1.0__VERANTYX_礫_27_(q) < 50: # _OPAQUE_墟:1.0__VERANTYX_墟_17_ _OPAQUE_礫:1.0__VERANTYX_礫_44_ _OPAQUE_礫:1.0__VERANTYX_礫_10_ _OPAQUE_礫:1.0__VERANTYX_礫_35_ _OPAQUE_礫:1.0__VERANTYX_礫_25_
+            _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_(f"({p}) -> ({q})")
+
+// [metadata-stripped]
+    _OPAQUE_礫:1.0__VERANTYX_礫_15_ = re._OPAQUE_礫:1.0__VERANTYX_礫_4_(r"([a-z0-9\(\)\s]+)\s+_OPAQUE_礫:1.0__VERANTYX_礫_40_\s+([a-z0-9\(\)\s]+)", _OPAQUE_図:1.0__VERANTYX_礫_41_)
+    for p, q in _OPAQUE_礫:1.0__VERANTYX_礫_15_:
+        _OPAQUE_脈:1.0__VERANTYX_礫_7_._OPAQUE_礫:1.0__VERANTYX_礫_48_(f"({p}) -> ({q})")
+// _OPAQUE_脈:0.2__VERANTYX_FF_704_ [decoy-metadata]
+
+    return _OPAQUE_礫:1.0__VERANTYX_礫_8_(_OPAQUE_図:1.0__VERANTYX_曠_1_(_OPAQUE_脈:1.0__VERANTYX_礫_7_))
+
+// POLYMORPHIC_JCROSS_END

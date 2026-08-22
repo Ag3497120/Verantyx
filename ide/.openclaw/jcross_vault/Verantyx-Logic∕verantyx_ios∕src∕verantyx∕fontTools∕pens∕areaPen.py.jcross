@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4B2131C1 ver:1778159929
+// ⚠️ One-time schema — expires after response
+
+"""_OPAQUE_庭:1.0__JCROSS_庭_1_ _OPAQUE_泡:1.0__JCROSS_泡_9_ _OPAQUE_泡:1.0__JCROSS_泡_20_ of a _OPAQUE_泡:1.0__JCROSS_泡_25_."""
+
+_OPAQUE_泡:1.0__JCROSS_泡_2_ _OPAQUE_泡:1.0__JCROSS_泡_4_._OPAQUE_泡:1.0__JCROSS_泡_1_._OPAQUE_泡:1.0__JCROSS_泡_21_ import _OPAQUE_庭:1.0__JCROSS_庭_3_
+
+
+_OPAQUE_泡:1.0__JCROSS_泡_5_ = ["_OPAQUE_庭:1.0__JCROSS_庭_2_"]
+
+
+class _OPAQUE_庭:1.0__JCROSS_庭_2_(_OPAQUE_庭:1.0__JCROSS_庭_3_):
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_8_(self, _OPAQUE_泡:1.0__JCROSS_泡_10_=_OPAQUE_庭:1.0__JCROSS_庭_5_):
+        _OPAQUE_庭:1.0__JCROSS_庭_3_._OPAQUE_泡:1.0__JCROSS_泡_8_(self, _OPAQUE_泡:1.0__JCROSS_泡_10_)
+        self._OPAQUE_泡:1.0__JCROSS_泡_13_ = 0
+
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_11_(self, p0):
+        self._OPAQUE_泡:1.0__JCROSS_泡_7_ = self._OPAQUE_泡:1.0__JCROSS_泡_15_ = p0
+
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_28_(self, p1):
+        x0, y0 = self._OPAQUE_泡:1.0__JCROSS_泡_7_
+        x1, y1 = p1
+        self._OPAQUE_泡:1.0__JCROSS_泡_13_ -= (x1 - x0) * (y1 + y0) * 0.5
+        self._OPAQUE_泡:1.0__JCROSS_泡_7_ = p1
+
+// _OPAQUE_彩:0.7__JCROSS_XG_888_ [decoy-metadata]
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_29_(self, p1, p2):
+// [metadata-stripped]
+        p0 = self._OPAQUE_泡:1.0__JCROSS_泡_7_
+        x0, y0 = p0[0], p0[1]
+        x1, y1 = p1[0] - x0, p1[1] - y0
+        x2, y2 = p2[0] - x0, p2[1] - y0
+        self._OPAQUE_泡:1.0__JCROSS_泡_13_ -= (x2 * y1 - x1 * y2) / 3
+        self._OPAQUE_泡:1.0__JCROSS_泡_28_(p2)
+        self._OPAQUE_泡:1.0__JCROSS_泡_7_ = p2
+// _OPAQUE_道:0.9__JCROSS_YB_942_ [decoy-metadata]
+
+// _OPAQUE_漂:0.7__JCROSS_HM_166_ [decoy-metadata]
+// _OPAQUE_漂:0.3__JCROSS_ZW_998_ [decoy-metadata]
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_14_(self, p1, p2, p3):
+// [metadata-stripped]
+        p0 = self._OPAQUE_泡:1.0__JCROSS_泡_7_
+        x0, y0 = p0[0], p0[1]
+        x1, y1 = p1[0] - x0, p1[1] - y0
+        x2, y2 = p2[0] - x0, p2[1] - y0
+        x3, y3 = p3[0] - x0, p3[1] - y0
+        self._OPAQUE_泡:1.0__JCROSS_泡_13_ -= (x1 * (-y2 - y3) + x2 * (y1 - 2 * y3) + x3 * (y1 + 2 * y2)) * 0.15
+        self._OPAQUE_泡:1.0__JCROSS_泡_28_(p3)
+// _OPAQUE_庭:0.9__JCROSS_KF_429_ [decoy-metadata]
+// _OPAQUE_庭:0.3__JCROSS_ED_507_ [decoy-metadata]
+        self._OPAQUE_泡:1.0__JCROSS_泡_7_ = p3
+
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_26_(self):
+        self._OPAQUE_泡:1.0__JCROSS_泡_28_(self._OPAQUE_泡:1.0__JCROSS_泡_15_)
+        _OPAQUE_泡:1.0__JCROSS_泡_3_ self._OPAQUE_泡:1.0__JCROSS_泡_7_, self._OPAQUE_泡:1.0__JCROSS_泡_15_
+
+    _OPAQUE_泡:1.0__JCROSS_泡_22_ _OPAQUE_泡:1.0__JCROSS_泡_12_(self):
+        if self._OPAQUE_泡:1.0__JCROSS_泡_7_ != self._OPAQUE_泡:1.0__JCROSS_泡_15_:
+// [metadata-stripped]
+            _OPAQUE_泡:1.0__JCROSS_泡_27_ _OPAQUE_庭:1.0__JCROSS_庭_7_
+        _OPAQUE_泡:1.0__JCROSS_泡_3_ self._OPAQUE_泡:1.0__JCROSS_泡_7_, self._OPAQUE_泡:1.0__JCROSS_泡_15_
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,58 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C4E501FB ver:1778159743
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_露:1.0___node_露_3__ _TOKEN_露:1.0___node_露_10__ import _TOKEN_廓:1.0___node_廓_2__, _TOKEN_廓:1.0___node_廓_8__, _TOKEN_廓:1.0___node_廓_11__, _TOKEN_廓:1.0___node_廓_4__, _TOKEN_廓:1.0___node_廓_6__
+_TOKEN_露:1.0___node_露_3__ _TOKEN_露:1.0___node_露_23__._TOKEN_露:1.0___node_露_1__._TOKEN_露:1.0___node_露_8__ import _TOKEN_露:1.0___node_露_24__, _TOKEN_廓:1.0___node_廓_13__
+
+_TOKEN_露:1.0___node_露_20__ _TOKEN_滲:1.0___node_露_19__(_TOKEN_滲:1.0___node_露_16__: _TOKEN_露:1.0___node_露_22__, _TOKEN_露:1.0___node_露_15__: _TOKEN_廓:1.0___node_廓_2__[_TOKEN_露:1.0___node_露_22__], _TOKEN_露:1.0___node_露_5__: _TOKEN_廓:1.0___node_廓_2__[_TOKEN_露:1.0___node_露_22__]) -> _TOKEN_廓:1.0___node_廓_11__[_TOKEN_露:1.0___node_露_22__, _TOKEN_廓:1.0___node_廓_6__[_TOKEN_廓:1.0___node_廓_8__[_TOKEN_露:1.0___node_露_22__, _TOKEN_廓:1.0___node_廓_4__]]]:
+    """
+    主要な _TOKEN_廓:1.0___node_廓_3__ フレームパターンにおいて検証を実行する。
+    """
+// [metadata-stripped]
+    _TOKEN_露:1.0___node_露_17__ = ["w0", "w1", "w2"]
+// _TOKEN_露:0.8___node_FB_528__ [decoy-metadata]
+// _TOKEN_露:0.8___node_GZ_419__ [decoy-metadata]
+// [metadata-stripped]
+    _TOKEN_露:1.0___node_露_9__ = {w: [] for w in _TOKEN_露:1.0___node_露_17__}
+    
+// [metadata-stripped]
+    _TOKEN_露:1.0___node_露_9__["w0"]._TOKEN_露:1.0___node_露_26__("w1")
+    _TOKEN_露:1.0___node_露_9__["w1"]._TOKEN_露:1.0___node_露_26__("w2")
+    
+// [metadata-stripped]
+    if any("_TOKEN_露:1.0___node_露_7__" in a for a in _TOKEN_露:1.0___node_露_15__):
+        _TOKEN_露:1.0___node_露_9__["w0"]._TOKEN_露:1.0___node_露_26__("w2")
+    if any("_TOKEN_露:1.0___node_露_13__" in a for a in _TOKEN_露:1.0___node_露_15__):
+        for w in _TOKEN_露:1.0___node_露_17__:
+            if w _TOKEN_露:1.0___node_露_18__ in _TOKEN_露:1.0___node_露_9__[w]:
+                _TOKEN_露:1.0___node_露_9__[w]._TOKEN_露:1.0___node_露_26__(w)
+
+// [metadata-stripped]
+    _TOKEN_露:1.0___node_露_14__ = [
+        {w: {a: _TOKEN_廓:1.0___node_廓_7__ for a in _TOKEN_露:1.0___node_露_5__} for w in _TOKEN_露:1.0___node_露_17__},
+// _TOKEN_緯:0.7___node_YK_373__ [decoy-metadata]
+// _TOKEN_覇:0.4___node_EZ_213__ [decoy-metadata]
+// _TOKEN_滲:0.9___node_HZ_938__ [decoy-metadata]
+        {w: {a: _TOKEN_廓:1.0___node_廓_1__ for a in _TOKEN_露:1.0___node_露_5__} for w in _TOKEN_露:1.0___node_露_17__},
+        {w: {a: (w == "w1") for a in _TOKEN_露:1.0___node_露_5__} for w in _TOKEN_露:1.0___node_露_17__} # 世界ごとに真理値を変えるパターン
+    ]
+
+    for _TOKEN_露:1.0___node_露_21__ in _TOKEN_露:1.0___node_露_14__:
+        _TOKEN_露:1.0___node_露_25__ = _TOKEN_廓:1.0___node_廓_13__(_TOKEN_露:1.0___node_露_17__, _TOKEN_露:1.0___node_露_9__, _TOKEN_露:1.0___node_露_21__)
+        for w in _TOKEN_露:1.0___node_露_17__:
+            _TOKEN_露:1.0___node_露_12__ = _TOKEN_露:1.0___node_露_24__(_TOKEN_滲:1.0___node_露_16__, w, _TOKEN_露:1.0___node_露_25__)
+            if _TOKEN_露:1.0___node_露_12__ is _TOKEN_廓:1.0___node_廓_7__:
+                return "_TOKEN_廓:1.0___node_廓_12__", {
+                    "_TOKEN_露:1.0___node_露_11__": w,
+                    "_TOKEN_露:1.0___node_露_25__": _TOKEN_露:1.0___node_露_9__,
+                    "_TOKEN_露:1.0___node_露_6__": _TOKEN_露:1.0___node_露_21__,
+                    "_TOKEN_露:1.0___node_露_2__": "_TOKEN_露:1.0___node_露_4__"
+                }
+
+// [metadata-stripped]
+// _TOKEN_深:0.7___node_XA_515__ [decoy-metadata]
+// [metadata-stripped]
+    return "_TOKEN_要:1.0___node_廓_10__", _TOKEN_廓:1.0___node_廓_9__
+
+// POLYMORPHIC_JCROSS_END

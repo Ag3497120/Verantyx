@@ -1,0 +1,36 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C761C05F ver:1778158381
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_廓:1.0__ID_廓_3_
+// _ASTNODE_凛:0.9__ID_GY_688_ [decoy-metadata]
+
+func _ASTNODE_霢:1.0__ID_霢_6_(_ _ASTNODE_霢:1.0__ID_霢_18_: _ASTNODE_廓:1.0__ID_廓_6_, _ASTNODE_霢:1.0__ID_霢_8_: _ASTNODE_廓:1.0__ID_廓_6_) -> _ASTNODE_廓:1.0__ID_廓_6_? {
+    guard let _ASTNODE_霢:1.0__ID_霢_9_ = try? _ASTNODE_廓:1.0__ID_廓_2_(_ASTNODE_霢:1.0__ID_霢_8_: _ASTNODE_霢:1.0__ID_霢_8_, _ASTNODE_霢:1.0__ID_霢_15_: []),
+          let m = _ASTNODE_霢:1.0__ID_霢_9_._ASTNODE_霢:1.0__ID_霢_12_(in: _ASTNODE_霢:1.0__ID_霢_18_, _ASTNODE_霢:1.0__ID_霢_17_: _ASTNODE_廓:1.0__ID_廓_4_(_ASTNODE_霢:1.0__ID_霢_18_._ASTNODE_霢:1.0__ID_霢_2_..., in: _ASTNODE_霢:1.0__ID_霢_18_)),
+          m._ASTNODE_霢:1.0__ID_霢_19_ > 1,
+          let r = _ASTNODE_廓:1.0__ID_廓_8_(m._ASTNODE_霢:1.0__ID_霢_17_(at: 1), in: _ASTNODE_霢:1.0__ID_霢_18_)
+    else { return nil }
+    return _ASTNODE_廓:1.0__ID_廓_6_(_ASTNODE_霢:1.0__ID_霢_18_[r])._ASTNODE_霢:1.0__ID_霢_3_(in: ._ASTNODE_霢:1.0__ID_霢_10_)
+}
+// _ASTNODE_漂:0.2__ID_LG_960_ [decoy-metadata]
+
+let _ASTNODE_霢:1.0__ID_霢_18_ = """
+[_ASTNODE_廓:1.0__ID_廓_7_: _ASTNODE_廓:1.0__ID_廓_1_]
+"""
+// _ASTNODE_廓:0.7__ID_XA_365_ [decoy-metadata]
+
+let _ASTNODE_霢:1.0__ID_霢_16_ = _ASTNODE_霢:1.0__ID_霢_18_._ASTNODE_霢:1.0__ID_霢_4_(_ASTNODE_霢:1.0__ID_霢_11_: "\n")
+var _ASTNODE_霢:1.0__ID_霢_1_ = [_ASTNODE_廓:1.0__ID_廓_6_]()
+for _ASTNODE_霢:1.0__ID_霢_5_ in _ASTNODE_霢:1.0__ID_霢_16_ {
+    let _ASTNODE_霢:1.0__ID_霢_14_ = _ASTNODE_霢:1.0__ID_霢_5_._ASTNODE_霢:1.0__ID_霢_3_(in: ._ASTNODE_霢:1.0__ID_霢_7_)
+// _ASTNODE_凛:0.9__ID_LX_661_ [decoy-metadata]
+// _ASTNODE_凛:0.5__ID_AB_507_ [decoy-metadata]
+    if let m = _ASTNODE_霢:1.0__ID_霢_6_(_ASTNODE_霢:1.0__ID_霢_14_, _ASTNODE_霢:1.0__ID_霢_8_: #"^\[_ASTNODE_廓:1.0__ID_廓_7_:\s*([^\]]+)\]$"#) {
+        _ASTNODE_霢:1.0__ID_霢_1_._ASTNODE_霢:1.0__ID_霢_20_(m)
+// _ASTNODE_鍵:0.7__ID_KA_656_ [decoy-metadata]
+    }
+}
+_ASTNODE_霢:1.0__ID_霢_13_("_ASTNODE_廓:1.0__ID_廓_5_: \(_ASTNODE_霢:1.0__ID_霢_1_)")
+
+// POLYMORPHIC_JCROSS_END

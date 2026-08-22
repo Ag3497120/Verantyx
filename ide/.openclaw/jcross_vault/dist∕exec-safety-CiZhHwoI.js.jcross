@@ -1,0 +1,36 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7E05DDAF ver:1778150926
+// ⚠️ One-time schema — expires after response
+
+// __jcross_雰:0.5____ast_YE_586__ [decoy-metadata]
+// [metadata-stripped]
+__jcross_雰:1.0____ast_雰_8__ __jcross_礎:1.0____ast_礎_2__ = /[;&|`$<>]/;
+__jcross_雰:1.0____ast_雰_8__ __jcross_礎:1.0____ast_礎_1__ = /[\r\n]/;
+// __jcross_潜:0.5____ast_CV_712__ [decoy-metadata]
+__jcross_雰:1.0____ast_雰_8__ __jcross_礎:1.0____ast_礎_4__ = /["']/;
+// __jcross_匯:0.7____ast_XL_314__ [decoy-metadata]
+__jcross_雰:1.0____ast_雰_8__ __jcross_礎:1.0____ast_礎_3__ = /^[A-Za-z0-9._+-]+$/;
+__jcross_雰:1.0____ast_雰_6__ __jcross_雰:1.0____ast_雰_5__(__jcross_雰:1.0____ast_雰_1__) {
+	if (__jcross_雰:1.0____ast_雰_1__.__jcross_雰:1.0____ast_雰_16__(".") || __jcross_雰:1.0____ast_雰_1__.__jcross_雰:1.0____ast_雰_16__("~")) return true;
+	if (__jcross_雰:1.0____ast_雰_1__.__jcross_雰:1.0____ast_雰_2__("/") || __jcross_雰:1.0____ast_雰_1__.__jcross_雰:1.0____ast_雰_2__("\\")) return true;
+	return /^[A-Za-z]:[\\/]/.__jcross_雰:1.0____ast_雰_9__(__jcross_雰:1.0____ast_雰_1__);
+}
+// __jcross_網:0.3____ast_ZF_356__ [decoy-metadata]
+__jcross_雰:1.0____ast_雰_6__ __jcross_雰:1.0____ast_雰_3__(__jcross_雰:1.0____ast_雰_1__) {
+	if (!__jcross_雰:1.0____ast_雰_1__) return false;
+	__jcross_雰:1.0____ast_雰_8__ __jcross_雰:1.0____ast_雰_15__ = __jcross_雰:1.0____ast_雰_1__.__jcross_雰:1.0____ast_雰_10__();
+	if (!__jcross_雰:1.0____ast_雰_15__) return false;
+	if (__jcross_雰:1.0____ast_雰_15__.__jcross_雰:1.0____ast_雰_2__("\0")) return false;
+	if (__jcross_礎:1.0____ast_礎_1__.__jcross_雰:1.0____ast_雰_9__(__jcross_雰:1.0____ast_雰_15__)) return false;
+	if (__jcross_礎:1.0____ast_礎_2__.__jcross_雰:1.0____ast_雰_9__(__jcross_雰:1.0____ast_雰_15__)) return false;
+	if (__jcross_礎:1.0____ast_礎_4__.__jcross_雰:1.0____ast_雰_9__(__jcross_雰:1.0____ast_雰_15__)) return false;
+	if (__jcross_雰:1.0____ast_雰_5__(__jcross_雰:1.0____ast_雰_15__)) return true;
+// __jcross_雰:0.2____ast_FX_220__ [decoy-metadata]
+// __jcross_浮:0.8____ast_YX_328__ [decoy-metadata]
+	if (__jcross_雰:1.0____ast_雰_15__.__jcross_雰:1.0____ast_雰_16__("-")) return false;
+	return __jcross_礎:1.0____ast_礎_3__.__jcross_雰:1.0____ast_雰_9__(__jcross_雰:1.0____ast_雰_15__);
+}
+// [metadata-stripped]
+__jcross_雰:1.0____ast_雰_13__ { __jcross_雰:1.0____ast_雰_3__ as t };
+
+// POLYMORPHIC_JCROSS_END

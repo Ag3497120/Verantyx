@@ -1,0 +1,83 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9F619262 ver:1778150721
+// ⚠️ One-time schema — expires after response
+
+import __jcross_殻:1.0___TOKEN_殻_13_
+import __jcross_殻:1.0___TOKEN_殻_7_
+
+// __jcross_処:0.9___TOKEN_KC_934_ [decoy-metadata]
+enum __jcross_殻:1.0___TOKEN_殻_6_ {
+    case __jcross_霧:1.0___TOKEN_霧_19_(__jcross_霧:1.0___TOKEN_霧_18_: [__jcross_殻:1.0___TOKEN_殻_5_], __jcross_霧:1.0___TOKEN_霧_22_: [__jcross_殻:1.0___TOKEN_殻_5_: __jcross_殻:1.0___TOKEN_殻_10_]?)
+    case __jcross_霧:1.0___TOKEN_霧_5_(__jcross_霧:1.0___TOKEN_霧_22_: [__jcross_殻:1.0___TOKEN_殻_5_: __jcross_殻:1.0___TOKEN_殻_10_]?)
+}
+
+@__jcross_殻:1.0___TOKEN_殻_11_
+final class __jcross_処:1.0___TOKEN_殻_15_: __jcross_殻:1.0___TOKEN_殻_14_ {
+    static let __jcross_霧:1.0___TOKEN_霧_9_ = __jcross_処:1.0___TOKEN_殻_15_()
+
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_16_: __jcross_殻:1.0___TOKEN_殻_8_ = false
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_2_: __jcross_殻:1.0___TOKEN_殻_6_? = nil
+    
+// __jcross_匹:0.5___TOKEN_VG_240_ [decoy-metadata]
+// [metadata-stripped]
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_10_: [__jcross_殻:1.0___TOKEN_殻_5_] = []
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_20_: [__jcross_殻:1.0___TOKEN_殻_5_] = []
+// __jcross_匹:0.3___TOKEN_EX_816_ [decoy-metadata]
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_17_: __jcross_殻:1.0___TOKEN_殻_5_ = ""
+    
+// [metadata-stripped]
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_11_: __jcross_殻:1.0___TOKEN_殻_5_ = ""
+    @__jcross_殻:1.0___TOKEN_殻_4_ var __jcross_霧:1.0___TOKEN_霧_12_: __jcross_殻:1.0___TOKEN_殻_5_ = ""
+    
+    private var __jcross_霧:1.0___TOKEN_霧_21_: __jcross_殻:1.0___TOKEN_殻_16_<__jcross_殻:1.0___TOKEN_殻_10_?, __jcross_処:1.0___TOKEN_殻_1_>?
+
+    private init() {}
+
+    func __jcross_霧:1.0___TOKEN_霧_8_(__jcross_霧:1.0___TOKEN_霧_18_: [__jcross_殻:1.0___TOKEN_殻_5_], __jcross_霧:1.0___TOKEN_霧_22_: [__jcross_殻:1.0___TOKEN_殻_5_: __jcross_殻:1.0___TOKEN_殻_10_]?) async -> __jcross_殻:1.0___TOKEN_殻_5_? {
+        self.__jcross_霧:1.0___TOKEN_霧_10_ = __jcross_霧:1.0___TOKEN_霧_18_
+        self.__jcross_霧:1.0___TOKEN_霧_20_ = __jcross_霧:1.0___TOKEN_霧_18_
+        self.__jcross_霧:1.0___TOKEN_霧_17_ = ""
+// __jcross_処:0.5___TOKEN_FD_950_ [decoy-metadata]
+        self.__jcross_霧:1.0___TOKEN_霧_2_ = .__jcross_霧:1.0___TOKEN_霧_19_(__jcross_霧:1.0___TOKEN_霧_18_: __jcross_霧:1.0___TOKEN_霧_18_, __jcross_霧:1.0___TOKEN_霧_22_: __jcross_霧:1.0___TOKEN_霧_22_)
+        self.__jcross_霧:1.0___TOKEN_霧_16_ = true
+        
+// __jcross_処:0.2___TOKEN_HW_624_ [decoy-metadata]
+        let __jcross_霧:1.0___TOKEN_霧_23_ = await __jcross_霧:1.0___TOKEN_霧_15_ { __jcross_霧:1.0___TOKEN_霧_24_ in
+            self.__jcross_霧:1.0___TOKEN_霧_21_ = __jcross_霧:1.0___TOKEN_霧_24_
+        }
+        
+        self.__jcross_霧:1.0___TOKEN_霧_16_ = false
+        self.__jcross_霧:1.0___TOKEN_霧_2_ = nil
+        return __jcross_霧:1.0___TOKEN_霧_23_ as? __jcross_殻:1.0___TOKEN_殻_5_
+    }
+
+    func __jcross_霧:1.0___TOKEN_霧_3_(__jcross_霧:1.0___TOKEN_霧_22_: [__jcross_殻:1.0___TOKEN_殻_5_: __jcross_殻:1.0___TOKEN_殻_10_]?) async -> __jcross_殻:1.0___TOKEN_殻_5_? {
+        self.__jcross_霧:1.0___TOKEN_霧_11_ = ""
+        self.__jcross_霧:1.0___TOKEN_霧_12_ = __jcross_霧:1.0___TOKEN_霧_22_?["__jcross_霧:1.0___TOKEN_霧_14_"] as? __jcross_殻:1.0___TOKEN_殻_5_ ?? "__jcross_処:1.0___TOKEN_殻_12_ __jcross_霧:1.0___TOKEN_霧_4_"
+        self.__jcross_霧:1.0___TOKEN_霧_2_ = .__jcross_霧:1.0___TOKEN_霧_5_(__jcross_霧:1.0___TOKEN_霧_22_: __jcross_霧:1.0___TOKEN_霧_22_)
+        self.__jcross_霧:1.0___TOKEN_霧_16_ = true
+        
+// __jcross_殻:0.5___TOKEN_ZX_525_ [decoy-metadata]
+        let __jcross_霧:1.0___TOKEN_霧_23_ = await __jcross_霧:1.0___TOKEN_霧_15_ { __jcross_霧:1.0___TOKEN_霧_24_ in
+            self.__jcross_霧:1.0___TOKEN_霧_21_ = __jcross_霧:1.0___TOKEN_霧_24_
+        }
+        
+        self.__jcross_霧:1.0___TOKEN_霧_16_ = false
+        self.__jcross_霧:1.0___TOKEN_霧_2_ = nil
+        return __jcross_霧:1.0___TOKEN_霧_23_ as? __jcross_殻:1.0___TOKEN_殻_5_
+    }
+
+    func __jcross_霧:1.0___TOKEN_霧_13_(__jcross_霧:1.0___TOKEN_霧_4_: __jcross_殻:1.0___TOKEN_殻_10_?) {
+        guard let __jcross_霧:1.0___TOKEN_霧_24_ = __jcross_霧:1.0___TOKEN_霧_21_ else { return }
+        self.__jcross_霧:1.0___TOKEN_霧_21_ = nil
+        __jcross_霧:1.0___TOKEN_霧_24_.__jcross_霧:1.0___TOKEN_霧_1_(__jcross_霧:1.0___TOKEN_霧_7_: __jcross_霧:1.0___TOKEN_霧_4_)
+    }
+
+    func __jcross_霧:1.0___TOKEN_霧_6_() {
+        guard let __jcross_霧:1.0___TOKEN_霧_24_ = __jcross_霧:1.0___TOKEN_霧_21_ else { return }
+        self.__jcross_霧:1.0___TOKEN_霧_21_ = nil
+        __jcross_霧:1.0___TOKEN_霧_24_.__jcross_霧:1.0___TOKEN_霧_1_(__jcross_霧:1.0___TOKEN_霧_7_: nil)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

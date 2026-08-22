@@ -1,0 +1,185 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E16F0EB4 ver:1778164284
+// ⚠️ One-time schema — expires after response
+
+/**
+ * _SYM_露:1.0__ASTNODE_露_63_.ts — _SYM_露:1.0__ASTNODE_露_59_-_SYM_露:1.0__ASTNODE_露_69_
+ *
+ * _SYM_廟:1.0__ASTNODE_廟_7_ベースのツール検索エンジン。
+ *
+ * 核心アイデア (_SYM_匼:1.0__ASTNODE_露_31_ パターン):
+ *   - LLMは最初に全ツール定義を受け取らない
+ *   - _SYM_露:1.0__ASTNODE_露_65_(_SYM_露:1.0__ASTNODE_露_34_) で上位N件だけ取得する
+ *   - コンテキスト使用量: 50ツール → 3〜5ツール = 最大85%削減
+ *
+ * 依存ゼロ。_SYM_露:1.0__ASTNODE_露_68_ TypeScript実装。
+ */
+
+_SYM_露:1.0__ASTNODE_露_67_ _SYM_露:1.0__ASTNODE_露_41_ _SYM_廟:1.0__ASTNODE_廟_9_ {
+    _SYM_露:1.0__ASTNODE_露_48_: _SYM_露:1.0__ASTNODE_露_55_;
+    _SYM_露:1.0__ASTNODE_露_26_: _SYM_露:1.0__ASTNODE_露_55_;
+    _SYM_露:1.0__ASTNODE_露_74_?: _SYM_廟:1.0__ASTNODE_廟_3_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_露:1.0__ASTNODE_露_70_>;
+    _SYM_露:1.0__ASTNODE_露_12_?: _SYM_露:1.0__ASTNODE_露_55_;
+    _SYM_露:1.0__ASTNODE_露_20_?: _SYM_露:1.0__ASTNODE_露_55_[];
+}
+
+_SYM_露:1.0__ASTNODE_露_67_ _SYM_露:1.0__ASTNODE_露_41_ _SYM_廟:1.0__ASTNODE_廟_8_ {
+    _SYM_露:1.0__ASTNODE_露_24_: _SYM_廟:1.0__ASTNODE_廟_9_;
+    _SYM_露:1.0__ASTNODE_露_57_: _SYM_術:1.0__ASTNODE_露_52_;
+    _SYM_露:1.0__ASTNODE_露_51_: _SYM_露:1.0__ASTNODE_露_55_[];
+}
+// _SYM_廟:0.1__ASTNODE_HM_748_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_SYM_露:1.0__ASTNODE_露_81_ K1 = 1.5;
+_SYM_露:1.0__ASTNODE_露_81_ B  = 0.75;
+
+// _SYM_隠:0.7__ASTNODE_VA_348_ [decoy-metadata]
+_SYM_露:1.0__ASTNODE_露_28_ _SYM_隠:1.0__ASTNODE_露_75_(_SYM_露:1.0__ASTNODE_露_8_: _SYM_露:1.0__ASTNODE_露_55_): _SYM_露:1.0__ASTNODE_露_55_[] {
+    return _SYM_露:1.0__ASTNODE_露_8_
+        ._SYM_露:1.0__ASTNODE_露_36_()
+        ._SYM_露:1.0__ASTNODE_露_49_(/[_\-\/\\]/g, " ")   // _SYM_露:1.0__ASTNODE_露_40_ / _SYM_露:1.0__ASTNODE_露_19_-case を分割
+        ._SYM_露:1.0__ASTNODE_露_49_(/([a-z])([A-Z])/g, "$1 $2")  // _SYM_露:1.0__ASTNODE_露_30_ を分割
+        ._SYM_露:1.0__ASTNODE_露_49_(/[^a-z0-9 ]/g, " ")
+        ._SYM_露:1.0__ASTNODE_露_3_(/\s+/)
+        ._SYM_術:1.0__ASTNODE_露_2_(t => t._SYM_露:1.0__ASTNODE_露_78_ > 1);
+}
+
+_SYM_露:1.0__ASTNODE_露_28_ _SYM_露:1.0__ASTNODE_露_35_(_SYM_露:1.0__ASTNODE_露_45_: _SYM_廟:1.0__ASTNODE_廟_9_[]): {
+    tf: _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>>;
+    df: _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>;
+    _SYM_露:1.0__ASTNODE_露_53_: _SYM_術:1.0__ASTNODE_露_52_;
+    _SYM_露:1.0__ASTNODE_露_37_: _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>;
+} {
+    _SYM_露:1.0__ASTNODE_露_81_ tf  = _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>>();  // _SYM_露:1.0__ASTNODE_露_39_ → _SYM_露:1.0__ASTNODE_露_72_ → _SYM_露:1.0__ASTNODE_露_5_
+    _SYM_露:1.0__ASTNODE_露_81_ df  = _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>();                // _SYM_露:1.0__ASTNODE_露_72_ → _SYM_露:1.0__ASTNODE_露_39_ _SYM_露:1.0__ASTNODE_露_11_
+    _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_37_ = _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>();
+
+    for (_SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_24_ of _SYM_露:1.0__ASTNODE_露_45_) {
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_8_ = [
+            _SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_48_,
+            _SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_26_,
+            _SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_12_ ?? "",
+            (_SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_20_ ?? [])._SYM_露:1.0__ASTNODE_露_10_(" "),
+        ]._SYM_露:1.0__ASTNODE_露_10_(" ");
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_隠:1.0__ASTNODE_露_66_ = _SYM_隠:1.0__ASTNODE_露_75_(_SYM_露:1.0__ASTNODE_露_8_);
+        _SYM_露:1.0__ASTNODE_露_37_._SYM_術:1.0__ASTNODE_傑_1_(_SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_48_, _SYM_隠:1.0__ASTNODE_露_66_._SYM_露:1.0__ASTNODE_露_78_);
+
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_77_ = _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_2_<_SYM_露:1.0__ASTNODE_露_55_, _SYM_術:1.0__ASTNODE_露_52_>();
+        for (_SYM_露:1.0__ASTNODE_露_81_ t of _SYM_隠:1.0__ASTNODE_露_66_) _SYM_露:1.0__ASTNODE_露_77_._SYM_術:1.0__ASTNODE_傑_1_(t, (_SYM_露:1.0__ASTNODE_露_77_._SYM_術:1.0__ASTNODE_傑_2_(t) ?? 0) + 1);
+        tf._SYM_術:1.0__ASTNODE_傑_1_(_SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_48_, _SYM_露:1.0__ASTNODE_露_77_);
+
+        for (_SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_72_ of _SYM_露:1.0__ASTNODE_露_77_._SYM_隠:1.0__ASTNODE_露_80_()) {
+            df._SYM_術:1.0__ASTNODE_傑_1_(_SYM_露:1.0__ASTNODE_露_72_, (df._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_72_) ?? 0) + 1);
+        }
+    }
+
+    _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_53_ = [..._SYM_露:1.0__ASTNODE_露_37_._SYM_露:1.0__ASTNODE_露_44_()]._SYM_露:1.0__ASTNODE_露_13_((a, b) => a + b, 0) / (_SYM_露:1.0__ASTNODE_露_37_._SYM_露:1.0__ASTNODE_露_27_ || 1);
+    return { tf, df, _SYM_露:1.0__ASTNODE_露_53_, _SYM_露:1.0__ASTNODE_露_37_ };
+}
+
+_SYM_露:1.0__ASTNODE_露_28_ _SYM_露:1.0__ASTNODE_露_38_(
+    _SYM_露:1.0__ASTNODE_露_34_: _SYM_露:1.0__ASTNODE_露_55_[],
+// _SYM_傑:0.5__ASTNODE_DY_403_ [decoy-metadata]
+    _SYM_露:1.0__ASTNODE_露_61_: _SYM_露:1.0__ASTNODE_露_55_,
+    _SYM_露:1.0__ASTNODE_露_22_: _SYM_廟:1.0__ASTNODE_廟_5_<_SYM_露:1.0__ASTNODE_露_29_ _SYM_露:1.0__ASTNODE_露_35_>,
+    N: _SYM_術:1.0__ASTNODE_露_52_
+// _SYM_廟:0.5__ASTNODE_EL_416_ [decoy-metadata]
+): { _SYM_露:1.0__ASTNODE_露_57_: _SYM_術:1.0__ASTNODE_露_52_; _SYM_露:1.0__ASTNODE_露_51_: _SYM_露:1.0__ASTNODE_露_55_[] } {
+// _SYM_傑:0.6__ASTNODE_FM_530_ [decoy-metadata]
+    _SYM_露:1.0__ASTNODE_露_81_ { tf, df, _SYM_露:1.0__ASTNODE_露_53_, _SYM_露:1.0__ASTNODE_露_37_ } = _SYM_露:1.0__ASTNODE_露_22_;
+    _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_46_ = tf._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_61_) ?? _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_2_();
+    _SYM_露:1.0__ASTNODE_露_81_ dl    = _SYM_露:1.0__ASTNODE_露_37_._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_61_) ?? 0;
+    _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_50_: _SYM_露:1.0__ASTNODE_露_55_[] = [];
+    let _SYM_露:1.0__ASTNODE_露_57_ = 0;
+
+    for (_SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_72_ of _SYM_露:1.0__ASTNODE_露_34_) {
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_5_ = _SYM_露:1.0__ASTNODE_露_46_._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_72_) ?? 0;
+        if (_SYM_露:1.0__ASTNODE_露_5_ === 0) continue;
+        _SYM_露:1.0__ASTNODE_露_50_._SYM_露:1.0__ASTNODE_露_76_(_SYM_露:1.0__ASTNODE_露_72_);
+
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_43_ = _SYM_廟:1.0__ASTNODE_廟_6_._SYM_露:1.0__ASTNODE_露_6_((N - (df._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_72_) ?? 0) + 0.5) / ((df._SYM_術:1.0__ASTNODE_傑_2_(_SYM_露:1.0__ASTNODE_露_72_) ?? 0) + 0.5) + 1);
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_21_ = (_SYM_露:1.0__ASTNODE_露_5_ * (K1 + 1)) / (_SYM_露:1.0__ASTNODE_露_5_ + K1 * (1 - B + B * (dl / _SYM_露:1.0__ASTNODE_露_53_)));
+        _SYM_露:1.0__ASTNODE_露_57_ += _SYM_露:1.0__ASTNODE_露_43_ * _SYM_露:1.0__ASTNODE_露_21_;
+    }
+
+    return { _SYM_露:1.0__ASTNODE_露_57_, _SYM_露:1.0__ASTNODE_露_51_: _SYM_露:1.0__ASTNODE_露_50_ };
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_SYM_露:1.0__ASTNODE_露_67_ class _SYM_廟:1.0__ASTNODE_廟_1_ {
+    private _SYM_露:1.0__ASTNODE_露_45_: _SYM_廟:1.0__ASTNODE_廟_9_[];
+    private _SYM_露:1.0__ASTNODE_露_22_: _SYM_廟:1.0__ASTNODE_廟_5_<_SYM_露:1.0__ASTNODE_露_29_ _SYM_露:1.0__ASTNODE_露_35_>;
+
+    _SYM_露:1.0__ASTNODE_露_1_(_SYM_露:1.0__ASTNODE_露_45_: _SYM_廟:1.0__ASTNODE_廟_9_[]) {
+        _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_  = _SYM_露:1.0__ASTNODE_露_45_;
+        _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_22_ = _SYM_露:1.0__ASTNODE_露_35_(_SYM_露:1.0__ASTNODE_露_45_);
+    }
+
+    /**
+     * クエリに最も合うツールを_SYM_廟:1.0__ASTNODE_廟_7_スコアで返す。
+     * _SYM_露:1.0__ASTNODE_露_15_: 返す件数 (_SYM_露:1.0__ASTNODE_露_73_: 5)
+     * _SYM_露:1.0__ASTNODE_露_9_: スコアがこれ未満のツールを除外 (_SYM_露:1.0__ASTNODE_露_73_: 0)
+     */
+    _SYM_露:1.0__ASTNODE_露_63_(_SYM_露:1.0__ASTNODE_露_34_: _SYM_露:1.0__ASTNODE_露_55_, _SYM_露:1.0__ASTNODE_露_15_ = 5, _SYM_露:1.0__ASTNODE_露_9_ = 0): _SYM_廟:1.0__ASTNODE_廟_8_[] {
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_23_ = _SYM_隠:1.0__ASTNODE_露_75_(_SYM_露:1.0__ASTNODE_露_34_);
+        _SYM_露:1.0__ASTNODE_露_81_ N = _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_露:1.0__ASTNODE_露_78_;
+
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_71_: _SYM_廟:1.0__ASTNODE_廟_8_[] = [];
+        for (_SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_24_ of _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_) {
+            _SYM_露:1.0__ASTNODE_露_81_ { _SYM_露:1.0__ASTNODE_露_57_, _SYM_露:1.0__ASTNODE_露_51_ } = _SYM_露:1.0__ASTNODE_露_38_(_SYM_露:1.0__ASTNODE_露_23_, _SYM_露:1.0__ASTNODE_露_24_._SYM_露:1.0__ASTNODE_露_48_, _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_22_, N);
+            if (_SYM_露:1.0__ASTNODE_露_57_ > _SYM_露:1.0__ASTNODE_露_9_) _SYM_露:1.0__ASTNODE_露_71_._SYM_露:1.0__ASTNODE_露_76_({ _SYM_露:1.0__ASTNODE_露_24_, _SYM_露:1.0__ASTNODE_露_57_, _SYM_露:1.0__ASTNODE_露_51_ });
+        }
+
+        return _SYM_露:1.0__ASTNODE_露_71_
+            ._SYM_露:1.0__ASTNODE_露_64_((a, b) => b._SYM_露:1.0__ASTNODE_露_57_ - a._SYM_露:1.0__ASTNODE_露_57_)
+            ._SYM_露:1.0__ASTNODE_露_79_(0, _SYM_露:1.0__ASTNODE_露_15_);
+    }
+
+    /**
+     * 正規表現による高速フィルタ (_SYM_廟:1.0__ASTNODE_廟_7_の前段階として使う)
+     */
+    _SYM_術:1.0__ASTNODE_露_42_(_SYM_露:1.0__ASTNODE_露_62_: _SYM_露:1.0__ASTNODE_露_55_): _SYM_廟:1.0__ASTNODE_廟_9_[] {
+        try {
+            _SYM_露:1.0__ASTNODE_露_81_ re = _SYM_露:1.0__ASTNODE_露_17_ _SYM_廟:1.0__ASTNODE_廟_4_(_SYM_露:1.0__ASTNODE_露_62_, "i");
+            return _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_術:1.0__ASTNODE_露_2_(t =>
+                re._SYM_露:1.0__ASTNODE_露_16_(t._SYM_露:1.0__ASTNODE_露_48_) || re._SYM_露:1.0__ASTNODE_露_16_(t._SYM_露:1.0__ASTNODE_露_26_) || re._SYM_露:1.0__ASTNODE_露_16_(t._SYM_露:1.0__ASTNODE_露_12_ ?? "")
+            );
+        } catch {
+// [metadata-stripped]
+            return _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_術:1.0__ASTNODE_露_2_(t =>
+                t._SYM_露:1.0__ASTNODE_露_48_._SYM_露:1.0__ASTNODE_露_36_()._SYM_露:1.0__ASTNODE_露_18_(_SYM_露:1.0__ASTNODE_露_62_._SYM_露:1.0__ASTNODE_露_36_()) ||
+                t._SYM_露:1.0__ASTNODE_露_26_._SYM_露:1.0__ASTNODE_露_36_()._SYM_露:1.0__ASTNODE_露_18_(_SYM_露:1.0__ASTNODE_露_62_._SYM_露:1.0__ASTNODE_露_36_())
+            );
+        }
+    }
+
+    /**
+     * _SYM_匼:1.0__ASTNODE_露_31_ パターン:
+     * 全ツールの「軽量サマリー」だけを返す (_SYM_露:1.0__ASTNODE_露_48_ + 1行説明のみ)
+     * これをLLMのコンテキストに入れ、次に _SYM_露:1.0__ASTNODE_露_63_() で絞り込む。
+     */
+    _SYM_露:1.0__ASTNODE_露_33_(_SYM_露:1.0__ASTNODE_露_60_ = 3000): _SYM_露:1.0__ASTNODE_露_55_ {
+        _SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_4_ = _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_露:1.0__ASTNODE_露_47_(t =>
+            `${t._SYM_露:1.0__ASTNODE_露_48_}: ${t._SYM_露:1.0__ASTNODE_露_26_._SYM_露:1.0__ASTNODE_露_79_(0, 60)}`
+        );
+        let _SYM_露:1.0__ASTNODE_露_58_ = "";
+        for (_SYM_露:1.0__ASTNODE_露_81_ _SYM_露:1.0__ASTNODE_露_56_ of _SYM_露:1.0__ASTNODE_露_4_) {
+            if ((_SYM_露:1.0__ASTNODE_露_58_ + _SYM_露:1.0__ASTNODE_露_56_)._SYM_露:1.0__ASTNODE_露_78_ > _SYM_露:1.0__ASTNODE_露_60_) { _SYM_露:1.0__ASTNODE_露_58_ += `\n... (${_SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_露:1.0__ASTNODE_露_78_} _SYM_露:1.0__ASTNODE_露_45_ _SYM_露:1.0__ASTNODE_露_54_, _SYM_露:1.0__ASTNODE_露_25_ _SYM_露:1.0__ASTNODE_露_65_ to _SYM_術:1.0__ASTNODE_露_2_)`; break; }
+            _SYM_露:1.0__ASTNODE_露_58_ += _SYM_露:1.0__ASTNODE_露_56_ + "\n";
+        }
+        return _SYM_露:1.0__ASTNODE_露_58_;
+    }
+
+    /** ツール数 */
+    _SYM_術:1.0__ASTNODE_傑_2_ _SYM_露:1.0__ASTNODE_露_27_() { return _SYM_露:1.0__ASTNODE_露_32_._SYM_露:1.0__ASTNODE_露_45_._SYM_露:1.0__ASTNODE_露_78_; }
+// _SYM_隠:0.2__ASTNODE_YG_103_ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

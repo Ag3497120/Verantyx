@@ -1,0 +1,105 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CC3F2361 ver:1778150746
+// ⚠️ One-time schema — expires after response
+
+import __node_礎:1.0____ast_礎_4__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_縁:0.8____ast_YA_809__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class __node_縁:1.0____ast_礎_15__: __node_礎:1.0____ast_礎_13__, @__node_霮:1.0____ast_霮_60__ __node_礎:1.0____ast_礎_14__ {
+
+// [metadata-stripped]
+
+    enum __node_礎:1.0____ast_礎_25__ {
+        case __node_霮:1.0____ast_霮_44__                          // __node_匯:1.0____ast_霮_70__ __node_霮:1.0____ast_霮_54__'t __node_霮:1.0____ast_霮_45__ __node_霮:1.0____ast_霮_19__
+        case __node_霮:1.0____ast_霮_15__                          // __node_霮:1.0____ast_霮_59__ __node_匯:1.0____ast_霮_70__ __node_霮:1.0____ast_霮_15__
+        case __node_霮:1.0____ast_霮_30__(__node_霮:1.0____ast_霮_42__: __node_礎:1.0____ast_礎_1__, __node_霮:1.0____ast_霮_57__: __node_礎:1.0____ast_礎_1__)    // __node_霮:1.0____ast_霮_9__ __node_霮:1.0____ast_霮_66__ __node_霮:1.0____ast_霮_6__ __node_霮:1.0____ast_霮_1__
+        case __node_霮:1.0____ast_霮_68__                      // __node_霮:1.0____ast_霮_69__
+        case __node_霮:1.0____ast_霮_14__                         // __node_礎:1.0____ast_礎_17__ (__node_霮:1.0____ast_霮_59__ __node_霮:1.0____ast_霮_78__)
+    }
+
+// [metadata-stripped]
+
+    let id = __node_礎:1.0____ast_礎_6__()
+// __node_縁:0.7____ast_CZ_679__ [decoy-metadata]
+    let __node_縁:1.0____ast_霮_27__: __node_縁:1.0____ast_礎_3__
+    let __node_霮:1.0____ast_霮_75__: __node_礎:1.0____ast_礎_9__
+    let __node_霮:1.0____ast_霮_49__: __node_礎:1.0____ast_礎_9__   // "" for __node_霮:1.0____ast_霮_50__ __node_匯:1.0____ast_霮_10__ / __node_霮:1.0____ast_霮_81__
+    let __node_霮:1.0____ast_霮_12__: __node_礎:1.0____ast_礎_25__
+
+    private var __node_霮:1.0____ast_霮_71__: __node_礎:1.0____ast_礎_12__<__node_礎:1.0____ast_礎_7__, __node_法:1.0____ast_礎_16__>?
+
+// [metadata-stripped]
+
+// __node_霮:0.9____ast_DY_434__ [decoy-metadata]
+    init(__node_縁:1.0____ast_霮_27__: __node_縁:1.0____ast_礎_3__, __node_霮:1.0____ast_霮_75__: __node_礎:1.0____ast_礎_9__, __node_霮:1.0____ast_霮_49__: __node_礎:1.0____ast_礎_9__, __node_霮:1.0____ast_霮_12__: __node_礎:1.0____ast_礎_25__) {
+        self.__node_縁:1.0____ast_霮_27__ = __node_縁:1.0____ast_霮_27__
+        self.__node_霮:1.0____ast_霮_75__ = __node_霮:1.0____ast_霮_75__
+        self.__node_霮:1.0____ast_霮_49__ = __node_霮:1.0____ast_霮_49__
+        self.__node_霮:1.0____ast_霮_12__ = __node_霮:1.0____ast_霮_12__
+    }
+
+// [metadata-stripped]
+
+    var __node_匯:1.0____ast_霮_62__: __node_礎:1.0____ast_礎_7__ {
+        switch __node_霮:1.0____ast_霮_12__ {
+// __node_淵:0.6____ast_AY_722__ [decoy-metadata]
+        case .__node_霮:1.0____ast_霮_44__, .__node_霮:1.0____ast_霮_68__: return true
+        case .__node_霮:1.0____ast_霮_14__: return __node_霮:1.0____ast_霮_49__.__node_霮:1.0____ast_霮_76__
+        __node_霮:1.0____ast_霮_51__: return false
+        }
+    }
+
+    var __node_霮:1.0____ast_霮_2__: __node_礎:1.0____ast_礎_9__ {
+        switch __node_霮:1.0____ast_霮_12__ {
+        case .__node_霮:1.0____ast_霮_44__:                 return "新しいファイルを作成"
+        case .__node_霮:1.0____ast_霮_15__:                 return "ファイルを上書き保存"
+        case .__node_霮:1.0____ast_霮_30__(let s, let e):   return "行 \(s)〜\(e) を編集"
+        case .__node_霮:1.0____ast_霮_68__:             return "ディレクトリを作成"
+        case .__node_霮:1.0____ast_霮_14__:                return "パッチを適用"
+        }
+// __node_法:0.1____ast_VZ_565__ [decoy-metadata]
+    }
+
+    var __node_匯:1.0____ast_霮_43__: __node_礎:1.0____ast_礎_9__ { __node_縁:1.0____ast_霮_27__.__node_霮:1.0____ast_霮_39__ }
+
+// [metadata-stripped]
+    var __node_霮:1.0____ast_霮_33__: __node_礎:1.0____ast_礎_9__ {
+        let __node_霮:1.0____ast_霮_11__ = __node_縁:1.0____ast_霮_27__.__node_霮:1.0____ast_霮_3__
+        let __node_霮:1.0____ast_霮_34__ = __node_霮:1.0____ast_霮_7__(3, __node_霮:1.0____ast_霮_11__.__node_霮:1.0____ast_霮_46__)
+        return __node_霮:1.0____ast_霮_11__.__node_霮:1.0____ast_霮_22__(__node_霮:1.0____ast_霮_34__).__node_霮:1.0____ast_霮_74__(__node_霮:1.0____ast_霮_4__: "/")
+    }
+
+// [metadata-stripped]
+
+// __node_縁:0.6____ast_HA_151__ [decoy-metadata]
+// [metadata-stripped]
+    func __node_霮:1.0____ast_霮_13__() {
+        __node_霮:1.0____ast_霮_71__?.__node_霮:1.0____ast_霮_52__(__node_霮:1.0____ast_霮_16__: true)
+        __node_霮:1.0____ast_霮_71__ = nil
+    }
+
+// [metadata-stripped]
+    func __node_霮:1.0____ast_霮_8__() {
+        __node_霮:1.0____ast_霮_71__?.__node_霮:1.0____ast_霮_52__(__node_霮:1.0____ast_霮_16__: false)
+        __node_霮:1.0____ast_霮_71__ = nil
+    }
+
+// [metadata-stripped]
+    func __node_涌:1.0____ast_霮_26__() async -> __node_礎:1.0____ast_礎_7__ {
+        await __node_霮:1.0____ast_霮_18__ { __node_霮:1.0____ast_霮_41__ in
+            self.__node_霮:1.0____ast_霮_71__ = __node_霮:1.0____ast_霮_41__
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

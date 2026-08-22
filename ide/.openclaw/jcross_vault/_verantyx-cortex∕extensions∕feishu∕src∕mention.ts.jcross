@@ -1,0 +1,145 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:813284A0 ver:1778166896
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_礫:1.0__SYM_礫_74_ { _JCROSS_殻:1.0__SYM_殻_8_ } _JCROSS_礫:1.0__SYM_礫_11_ "./_JCROSS_礫:1.0__SYM_礫_1_.js";
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_3_ _JCROSS_礫:1.0__SYM_礫_64_ _JCROSS_礫:1.0__SYM_礫_31_ so _JCROSS_法:1.0__SYM_礫_29_-_JCROSS_礫:1.0__SYM_礫_24_ _JCROSS_礫:1.0__SYM_礫_22_ _JCROSS_礫:1.0__SYM_礫_47_ _JCROSS_礫:1.0__SYM_礫_39_ _JCROSS_礫:1.0__SYM_礫_16_ _JCROSS_礫:1.0__SYM_礫_6_.
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_礫:1.0__SYM_礫_45_(_JCROSS_礫:1.0__SYM_礫_59_: _JCROSS_礫:1.0__SYM_礫_81_): _JCROSS_礫:1.0__SYM_礫_81_ {
+  return _JCROSS_礫:1.0__SYM_礫_59_._JCROSS_礫:1.0__SYM_礫_27_(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_11_ _JCROSS_礫:1.0__SYM_礫_84_ _JCROSS_法:1.0__SYM_礫_29_ _JCROSS_礫:1.0__SYM_礫_9_
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_74_ _JCROSS_殻:1.0__SYM_殻_10_ = {
+  _JCROSS_礫:1.0__SYM_礫_57_: _JCROSS_礫:1.0__SYM_礫_81_;
+  _JCROSS_礫:1.0__SYM_礫_55_: _JCROSS_礫:1.0__SYM_礫_81_;
+  _JCROSS_淵:1.0__SYM_礫_23_: _JCROSS_礫:1.0__SYM_礫_81_; // _JCROSS_法:1.0__SYM_殻_9_ in _JCROSS_礫:1.0__SYM_礫_79_ _JCROSS_礫:1.0__SYM_礫_4_, e.g. @_JCROSS_礫:1.0__SYM_礫_10_
+};
+
+/**
+// _JCROSS_淵:0.4__SYM_EX_209_ [decoy-metadata]
+ * _JCROSS_殻:1.0__SYM_殻_17_ _JCROSS_礫:1.0__SYM_礫_22_ _JCROSS_礫:1.0__SYM_礫_69_ _JCROSS_礫:1.0__SYM_礫_11_ _JCROSS_礫:1.0__SYM_礫_4_ _JCROSS_礫:1.0__SYM_礫_13_ (_JCROSS_礫:1.0__SYM_礫_21_ _JCROSS_礫:1.0__SYM_礫_66_ _JCROSS_礫:1.0__SYM_礫_1_ _JCROSS_礫:1.0__SYM_礫_46_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_礫:1.0__SYM_礫_37_(
+// _JCROSS_綾:0.3__SYM_XH_838_ [decoy-metadata]
+  _JCROSS_礫:1.0__SYM_礫_13_: _JCROSS_殻:1.0__SYM_殻_8_,
+// _JCROSS_礫:0.5__SYM_AY_226_ [decoy-metadata]
+  _JCROSS_礫:1.0__SYM_礫_3_?: _JCROSS_礫:1.0__SYM_礫_81_,
+): _JCROSS_殻:1.0__SYM_殻_10_[] {
+// _JCROSS_法:0.9__SYM_YA_208_ [decoy-metadata]
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_72_ = _JCROSS_礫:1.0__SYM_礫_13_._JCROSS_礫:1.0__SYM_礫_4_._JCROSS_礫:1.0__SYM_礫_72_ ?? [];
+
+  return _JCROSS_礫:1.0__SYM_礫_72_
+    ._JCROSS_法:1.0__SYM_礫_35_((m) => {
+// [metadata-stripped]
+      if (_JCROSS_礫:1.0__SYM_礫_3_ && m.id._JCROSS_礫:1.0__SYM_礫_36_ === _JCROSS_礫:1.0__SYM_礫_3_) {
+        return false;
+      }
+// _JCROSS_礫:0.6__SYM_WA_815_ [decoy-metadata]
+// [metadata-stripped]
+      return !!m.id._JCROSS_礫:1.0__SYM_礫_36_;
+    })
+    ._JCROSS_礫:1.0__SYM_礫_83_((m) => ({
+      _JCROSS_礫:1.0__SYM_礫_57_: m.id._JCROSS_礫:1.0__SYM_礫_36_!,
+      _JCROSS_礫:1.0__SYM_礫_55_: m._JCROSS_礫:1.0__SYM_礫_55_,
+      _JCROSS_淵:1.0__SYM_礫_23_: m._JCROSS_淵:1.0__SYM_礫_23_,
+    }));
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_16_ if _JCROSS_礫:1.0__SYM_礫_4_ is a _JCROSS_礫:1.0__SYM_礫_22_ _JCROSS_滾:1.0__SYM_礫_75_ _JCROSS_綾:1.0__SYM_礫_17_
+ * _JCROSS_殻:1.0__SYM_殻_6_:
+ * - _JCROSS_殻:1.0__SYM_殻_13_: _JCROSS_礫:1.0__SYM_礫_4_ _JCROSS_礫:1.0__SYM_礫_72_ _JCROSS_礫:1.0__SYM_礫_1_ + at _JCROSS_礫:1.0__SYM_礫_60_ _JCROSS_礫:1.0__SYM_礫_41_ _JCROSS_法:1.0__SYM_礫_50_ _JCROSS_法:1.0__SYM_礫_29_
+ * - DM: _JCROSS_礫:1.0__SYM_礫_4_ _JCROSS_礫:1.0__SYM_礫_72_ any _JCROSS_法:1.0__SYM_礫_29_ (no _JCROSS_礫:1.0__SYM_礫_26_ to _JCROSS_礫:1.0__SYM_礫_22_ _JCROSS_礫:1.0__SYM_礫_1_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_綾:1.0__SYM_礫_8_(_JCROSS_礫:1.0__SYM_礫_13_: _JCROSS_殻:1.0__SYM_殻_8_, _JCROSS_礫:1.0__SYM_礫_3_?: _JCROSS_礫:1.0__SYM_礫_81_): _JCROSS_礫:1.0__SYM_礫_73_ {
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_72_ = _JCROSS_礫:1.0__SYM_礫_13_._JCROSS_礫:1.0__SYM_礫_4_._JCROSS_礫:1.0__SYM_礫_72_ ?? [];
+  if (_JCROSS_礫:1.0__SYM_礫_72_._JCROSS_礫:1.0__SYM_礫_62_ === 0) {
+    return false;
+  }
+
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_15_ = _JCROSS_礫:1.0__SYM_礫_13_._JCROSS_礫:1.0__SYM_礫_4_._JCROSS_礫:1.0__SYM_礫_70_ !== "_JCROSS_礫:1.0__SYM_礫_43_";
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_78_ = _JCROSS_礫:1.0__SYM_礫_72_.some((m) => m.id._JCROSS_礫:1.0__SYM_礫_36_ !== _JCROSS_礫:1.0__SYM_礫_3_);
+
+  if (_JCROSS_礫:1.0__SYM_礫_15_) {
+// [metadata-stripped]
+    return _JCROSS_礫:1.0__SYM_礫_78_;
+  } else {
+// [metadata-stripped]
+    _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_61_ = _JCROSS_礫:1.0__SYM_礫_72_.some((m) => m.id._JCROSS_礫:1.0__SYM_礫_36_ === _JCROSS_礫:1.0__SYM_礫_3_);
+    return _JCROSS_礫:1.0__SYM_礫_61_ && _JCROSS_礫:1.0__SYM_礫_78_;
+  }
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_17_ _JCROSS_礫:1.0__SYM_礫_4_ _JCROSS_礫:1.0__SYM_礫_52_ _JCROSS_礫:1.0__SYM_礫_11_ _JCROSS_礫:1.0__SYM_礫_19_ (_JCROSS_礫:1.0__SYM_礫_85_ @ _JCROSS_礫:1.0__SYM_礫_53_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_礫:1.0__SYM_礫_7_(_JCROSS_礫:1.0__SYM_礫_19_: _JCROSS_礫:1.0__SYM_礫_81_, _JCROSS_淵:1.0__SYM_礫_56_: _JCROSS_礫:1.0__SYM_礫_81_[]): _JCROSS_礫:1.0__SYM_礫_81_ {
+  let _JCROSS_礫:1.0__SYM_礫_33_ = _JCROSS_礫:1.0__SYM_礫_19_;
+
+// [metadata-stripped]
+  for (_JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_淵:1.0__SYM_礫_23_ of _JCROSS_淵:1.0__SYM_礫_56_) {
+    _JCROSS_礫:1.0__SYM_礫_33_ = _JCROSS_礫:1.0__SYM_礫_33_._JCROSS_礫:1.0__SYM_礫_27_(_JCROSS_礫:1.0__SYM_礫_14_ _JCROSS_殻:1.0__SYM_殻_5_(_JCROSS_礫:1.0__SYM_礫_45_(_JCROSS_淵:1.0__SYM_礫_23_), "g"), "");
+  }
+
+  return _JCROSS_礫:1.0__SYM_礫_33_._JCROSS_礫:1.0__SYM_礫_27_(/\s+/g, " ")._JCROSS_礫:1.0__SYM_礫_76_();
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_4_ @_JCROSS_礫:1.0__SYM_礫_22_ for _JCROSS_礫:1.0__SYM_礫_19_ _JCROSS_礫:1.0__SYM_礫_4_
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_滾:1.0__SYM_礫_12_(_JCROSS_礫:1.0__SYM_礫_84_: _JCROSS_殻:1.0__SYM_殻_10_): _JCROSS_礫:1.0__SYM_礫_81_ {
+  return `<at _JCROSS_礫:1.0__SYM_礫_49_="${_JCROSS_礫:1.0__SYM_礫_84_._JCROSS_礫:1.0__SYM_礫_57_}">${_JCROSS_礫:1.0__SYM_礫_84_._JCROSS_礫:1.0__SYM_礫_55_}</at>`;
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_4_ @_JCROSS_礫:1.0__SYM_礫_58_ for _JCROSS_礫:1.0__SYM_礫_19_ _JCROSS_礫:1.0__SYM_礫_4_
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_滾:1.0__SYM_礫_40_(): _JCROSS_礫:1.0__SYM_礫_81_ {
+  return `<at _JCROSS_礫:1.0__SYM_礫_49_="_JCROSS_礫:1.0__SYM_礫_71_">_JCROSS_殻:1.0__SYM_殻_14_</at>`;
+}
+// _JCROSS_粋:0.8__SYM_HA_885_ [decoy-metadata]
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_4_ @_JCROSS_礫:1.0__SYM_礫_22_ for _JCROSS_礫:1.0__SYM_礫_2_ _JCROSS_礫:1.0__SYM_礫_4_ (_JCROSS_礫:1.0__SYM_礫_38_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_滾:1.0__SYM_礫_25_(_JCROSS_礫:1.0__SYM_礫_84_: _JCROSS_殻:1.0__SYM_殻_10_): _JCROSS_礫:1.0__SYM_礫_81_ {
+  return `<at id=${_JCROSS_礫:1.0__SYM_礫_84_._JCROSS_礫:1.0__SYM_礫_57_}></at>`;
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_4_ @_JCROSS_礫:1.0__SYM_礫_58_ for _JCROSS_礫:1.0__SYM_礫_2_ _JCROSS_礫:1.0__SYM_礫_4_
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_滾:1.0__SYM_礫_28_(): _JCROSS_礫:1.0__SYM_礫_81_ {
+  return `<at id=_JCROSS_礫:1.0__SYM_礫_71_></at>`;
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_2_ _JCROSS_礫:1.0__SYM_礫_34_ _JCROSS_礫:1.0__SYM_礫_4_ _JCROSS_礫:1.0__SYM_礫_30_ @_JCROSS_礫:1.0__SYM_礫_72_ (_JCROSS_礫:1.0__SYM_礫_19_ _JCROSS_滾:1.0__SYM_礫_44_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_礫:1.0__SYM_礫_5_(_JCROSS_礫:1.0__SYM_礫_69_: _JCROSS_殻:1.0__SYM_殻_10_[], _JCROSS_礫:1.0__SYM_礫_4_: _JCROSS_礫:1.0__SYM_礫_81_): _JCROSS_礫:1.0__SYM_礫_81_ {
+  if (_JCROSS_礫:1.0__SYM_礫_69_._JCROSS_礫:1.0__SYM_礫_62_ === 0) {
+    return _JCROSS_礫:1.0__SYM_礫_4_;
+  }
+
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_80_ = _JCROSS_礫:1.0__SYM_礫_69_._JCROSS_礫:1.0__SYM_礫_83_((t) => _JCROSS_滾:1.0__SYM_礫_12_(t));
+  return `${_JCROSS_礫:1.0__SYM_礫_80_._JCROSS_礫:1.0__SYM_礫_18_(" ")} ${_JCROSS_礫:1.0__SYM_礫_4_}`;
+}
+
+/**
+ * _JCROSS_殻:1.0__SYM_殻_2_ _JCROSS_礫:1.0__SYM_礫_2_ _JCROSS_礫:1.0__SYM_礫_54_ _JCROSS_礫:1.0__SYM_礫_30_ @_JCROSS_礫:1.0__SYM_礫_72_ (_JCROSS_殻:1.0__SYM_殻_7_ _JCROSS_滾:1.0__SYM_礫_44_)
+ */
+_JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_32_ _JCROSS_礫:1.0__SYM_礫_42_(_JCROSS_礫:1.0__SYM_礫_69_: _JCROSS_殻:1.0__SYM_殻_10_[], _JCROSS_礫:1.0__SYM_礫_4_: _JCROSS_礫:1.0__SYM_礫_81_): _JCROSS_礫:1.0__SYM_礫_81_ {
+  if (_JCROSS_礫:1.0__SYM_礫_69_._JCROSS_礫:1.0__SYM_礫_62_ === 0) {
+    return _JCROSS_礫:1.0__SYM_礫_4_;
+  }
+
+  _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_80_ = _JCROSS_礫:1.0__SYM_礫_69_._JCROSS_礫:1.0__SYM_礫_83_((t) => _JCROSS_滾:1.0__SYM_礫_25_(t));
+  return `${_JCROSS_礫:1.0__SYM_礫_80_._JCROSS_礫:1.0__SYM_礫_18_(" ")} ${_JCROSS_礫:1.0__SYM_礫_4_}`;
+}
+
+// POLYMORPHIC_JCROSS_END

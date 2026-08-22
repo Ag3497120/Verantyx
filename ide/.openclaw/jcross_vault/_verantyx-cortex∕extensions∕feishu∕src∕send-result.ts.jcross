@@ -1,0 +1,41 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BC28FB91 ver:1778167007
+// ⚠️ One-time schema — expires after response
+
+_ID_霾:1.0___jcross_霾_12__ _ID_霾:1.0___jcross_霾_17__ _ID_紐:1.0___jcross_廩_2__ = {
+  _ID_霾:1.0___jcross_霾_16__?: _ID_技:1.0___jcross_霾_15__;
+  _ID_霾:1.0___jcross_霾_8__?: _ID_霾:1.0___jcross_霾_9__;
+  _ID_霾:1.0___jcross_霾_13__?: {
+// _ID_技:0.3___jcross_EA_437__ [decoy-metadata]
+    _ID_霾:1.0___jcross_霾_2__?: _ID_霾:1.0___jcross_霾_9__;
+// _ID_浸:0.4___jcross_WG_520__ [decoy-metadata]
+  };
+};
+
+_ID_霾:1.0___jcross_霾_12__ _ID_霾:1.0___jcross_霾_10__ _ID_紐:1.0___jcross_霾_3__(
+  _ID_霾:1.0___jcross_霾_18__: _ID_紐:1.0___jcross_廩_2__,
+  _ID_霾:1.0___jcross_霾_11__: _ID_霾:1.0___jcross_霾_9__,
+) {
+  if (_ID_霾:1.0___jcross_霾_18__._ID_霾:1.0___jcross_霾_16__ !== 0) {
+// _ID_淵:0.3___jcross_CZ_538__ [decoy-metadata]
+    _ID_霾:1.0___jcross_霾_6__ _ID_霾:1.0___jcross_霾_7__ _ID_廩:1.0___jcross_廩_1__(`${_ID_霾:1.0___jcross_霾_11__}: ${_ID_霾:1.0___jcross_霾_18__._ID_霾:1.0___jcross_霾_8__ || `_ID_霾:1.0___jcross_霾_16__ ${_ID_霾:1.0___jcross_霾_18__._ID_霾:1.0___jcross_霾_16__}`}`);
+  }
+}
+
+_ID_霾:1.0___jcross_霾_12__ _ID_霾:1.0___jcross_霾_10__ _ID_霾:1.0___jcross_霾_4__(
+  _ID_霾:1.0___jcross_霾_18__: _ID_紐:1.0___jcross_廩_2__,
+  _ID_霾:1.0___jcross_霾_1__: _ID_霾:1.0___jcross_霾_9__,
+// _ID_霾:0.9___jcross_ZL_109__ [decoy-metadata]
+): {
+  _ID_霾:1.0___jcross_霾_14__: _ID_霾:1.0___jcross_霾_9__;
+// _ID_廩:0.7___jcross_ZK_199__ [decoy-metadata]
+  _ID_霾:1.0___jcross_霾_1__: _ID_霾:1.0___jcross_霾_9__;
+// _ID_紐:0.4___jcross_ZC_951__ [decoy-metadata]
+} {
+  return {
+    _ID_霾:1.0___jcross_霾_14__: _ID_霾:1.0___jcross_霾_18__._ID_霾:1.0___jcross_霾_13__?._ID_霾:1.0___jcross_霾_2__ ?? "_ID_霾:1.0___jcross_霾_5__",
+    _ID_霾:1.0___jcross_霾_1__,
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

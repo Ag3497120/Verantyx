@@ -1,0 +1,344 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:706038F7 ver:1778164041
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_廩:1.0__ASTNODE_廩_11_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _VERANTYX_廩:1.0__ASTNODE_廩_2_ {
+    let x: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+    let y: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+}
+
+// [metadata-stripped]
+
+struct _VERANTYX_廩:1.0__ASTNODE_廩_42_: _VERANTYX_廩:1.0__ASTNODE_廩_38_, _VERANTYX_廩:1.0__ASTNODE_廩_40_ {
+    let x: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+    let y: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+    let z: _VERANTYX_廩:1.0__ASTNODE_廩_3_
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_99_(to _VERANTYX_術:1.0__ASTNODE_霾_97_: _VERANTYX_廩:1.0__ASTNODE_廩_42_) -> _VERANTYX_廩:1.0__ASTNODE_廩_31_ {
+        let dx = x - _VERANTYX_術:1.0__ASTNODE_霾_97_.x
+        let dy = y - _VERANTYX_術:1.0__ASTNODE_霾_97_.y
+        return (dx * dx + dy * dy)._VERANTYX_霾:1.0__ASTNODE_霾_87_()
+    }
+}
+
+// [metadata-stripped]
+
+enum _VERANTYX_廩:1.0__ASTNODE_廩_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_, _VERANTYX_廩:1.0__ASTNODE_廩_37_, _VERANTYX_廩:1.0__ASTNODE_廩_40_ {
+    case _VERANTYX_霾:1.0__ASTNODE_霾_12_  = "→変換→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_33_   = "→依存→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_1_     = "→拡張→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_69_       = "→呼出→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_9_    = "→包含→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_20_    = "→継承→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_116_ = "→矛盾→"
+    case _VERANTYX_霾:1.0__ASTNODE_霾_25_    = "→時系列→"
+}
+
+struct _VERANTYX_廩:1.0__ASTNODE_廩_15_: _VERANTYX_廩:1.0__ASTNODE_廩_40_ {
+    let id: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_3_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_112_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_52_: _VERANTYX_廩:1.0__ASTNODE_廩_22_
+    var _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_39_: _VERANTYX_廩:1.0__ASTNODE_廩_3_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+}
+
+// [metadata-stripped]
+
+struct _VERANTYX_廩:1.0__ASTNODE_廩_5_: _VERANTYX_廩:1.0__ASTNODE_廩_40_ {
+    let id: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    let _VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    var _VERANTYX_霾:1.0__ASTNODE_霾_75_: _VERANTYX_廩:1.0__ASTNODE_廩_42_
+    var _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+    var _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    var _VERANTYX_霾:1.0__ASTNODE_霾_38_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_]
+    var _VERANTYX_霾:1.0__ASTNODE_霾_105_: [_VERANTYX_廩:1.0__ASTNODE_廩_9_]
+
+    var _VERANTYX_霾:1.0__ASTNODE_霾_64_: _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        "[\(_VERANTYX_霾:1.0__ASTNODE_霾_101_):\(_VERANTYX_廩:1.0__ASTNODE_廩_12_(_VERANTYX_浮:1.0__ASTNODE_霾_89_: "%.1f", _VERANTYX_霾:1.0__ASTNODE_霾_10_))] @(\(_VERANTYX_廩:1.0__ASTNODE_廩_12_(_VERANTYX_浮:1.0__ASTNODE_霾_89_: "%.1f", _VERANTYX_霾:1.0__ASTNODE_霾_75_.x)),\(_VERANTYX_廩:1.0__ASTNODE_廩_12_(_VERANTYX_浮:1.0__ASTNODE_霾_89_: "%.1f", _VERANTYX_霾:1.0__ASTNODE_霾_75_.y))) z=\(_VERANTYX_霾:1.0__ASTNODE_霾_75_.z) — \(_VERANTYX_霾:1.0__ASTNODE_霾_22_._VERANTYX_霾:1.0__ASTNODE_霾_24_(40))"
+    }
+
+    struct _VERANTYX_廩:1.0__ASTNODE_廩_9_: _VERANTYX_廩:1.0__ASTNODE_廩_40_ {
+        let z: _VERANTYX_廩:1.0__ASTNODE_廩_3_
+        let _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_
+        let _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    }
+
+    mutating func _VERANTYX_霾:1.0__ASTNODE_霾_113_(_ z: _VERANTYX_廩:1.0__ASTNODE_廩_3_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_) {
+        _VERANTYX_霾:1.0__ASTNODE_霾_105_._VERANTYX_霾:1.0__ASTNODE_霾_46_(_VERANTYX_廩:1.0__ASTNODE_廩_9_(z: z, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_22_))
+        self._VERANTYX_霾:1.0__ASTNODE_霾_10_ = _VERANTYX_霾:1.0__ASTNODE_霾_10_
+        self._VERANTYX_霾:1.0__ASTNODE_霾_22_  = _VERANTYX_霾:1.0__ASTNODE_霾_22_
+        self._VERANTYX_霾:1.0__ASTNODE_霾_75_  = _VERANTYX_廩:1.0__ASTNODE_廩_42_(x: _VERANTYX_霾:1.0__ASTNODE_霾_75_.x, y: _VERANTYX_霾:1.0__ASTNODE_霾_75_.y, z: z)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _VERANTYX_廩:1.0__ASTNODE_廩_25_ {
+// _VERANTYX_浮:0.7__ASTNODE_KK_704_ [decoy-metadata]
+
+// [metadata-stripped]
+    nonisolated(_VERANTYX_霾:1.0__ASTNODE_霾_90_) private static let _VERANTYX_霾:1.0__ASTNODE_霾_98_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_2_] = {
+        var d = [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_2_]()
+// [metadata-stripped]
+        d["迅"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 0)   // _VERANTYX_廩:1.0__ASTNODE_廩_21_
+        d["錆"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 1, y: 0)   // _VERANTYX_廩:1.0__ASTNODE_廩_26_
+        d["蛇"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 2, y: 0)   // _VERANTYX_廩:1.0__ASTNODE_廩_33_
+        d["型"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 3, y: 0)   // _VERANTYX_廩:1.0__ASTNODE_廩_34_
+        d["晶"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 4, y: 0)   // _VERANTYX_廩:1.0__ASTNODE_廩_20_
+        d["碁"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 0)   // Go
+        d["码"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 6, y: 0)   // 汎用
+// [metadata-stripped]
+        d["廻"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 1)   // _VERANTYX_廩:1.0__ASTNODE_廩_27_
+        d["条"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 2)   // _VERANTYX_廩:1.0__ASTNODE_廩_30_
+        d["並"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 3)   // _VERANTYX_廩:1.0__ASTNODE_廩_8_
+        d["捕"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 4)   // _VERANTYX_廩:1.0__ASTNODE_廩_1_
+        d["義"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 0, y: 5)   // _VERANTYX_廩:1.0__ASTNODE_廩_29_
+        d["構"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 1, y: 5)   // _VERANTYX_廩:1.0__ASTNODE_廩_6_
+        d["契"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 2, y: 5)   // _VERANTYX_廩:1.0__ASTNODE_廩_39_
+// [metadata-stripped]
+        d["変"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 1)
+        d["完"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 2)
+        d["失"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 3)
+        d["進"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 4)
+        d["記"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 5, y: 5)
+// [metadata-stripped]
+        d["始"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 3, y: 1)
+        d["済"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 3, y: 2)
+        d["待"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 3, y: 3)
+        d["中"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 3, y: 4)
+// [metadata-stripped]
+        d["秘"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 7, y: 0)
+        d["匿"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 7, y: 1)
+        d["守"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 7, y: 2)
+        d["鍵"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 7, y: 3)
+        d["壁"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 7, y: 4)
+// [metadata-stripped]
+        d["憶"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 8, y: 0)
+        d["核"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 8, y: 1)
+// _VERANTYX_幽:0.9__ASTNODE_XL_406_ [decoy-metadata]
+        d["標"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 8, y: 2)
+        d["索"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 8, y: 3)
+        d["脈"] = _VERANTYX_廩:1.0__ASTNODE_廩_2_(x: 8, y: 4)
+        return d
+    }()
+
+    static func xy(for _VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_廩:1.0__ASTNODE_廩_12_) -> _VERANTYX_廩:1.0__ASTNODE_廩_2_? {
+        _VERANTYX_霾:1.0__ASTNODE_霾_98_[_VERANTYX_霾:1.0__ASTNODE_霾_101_]
+    }
+
+    static func _VERANTYX_霾:1.0__ASTNODE_霾_75_(for _VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_廩:1.0__ASTNODE_廩_12_, z: _VERANTYX_廩:1.0__ASTNODE_廩_3_ = 0) -> _VERANTYX_廩:1.0__ASTNODE_廩_42_ {
+        if let d = _VERANTYX_霾:1.0__ASTNODE_霾_98_[_VERANTYX_霾:1.0__ASTNODE_霾_101_] {
+            return _VERANTYX_廩:1.0__ASTNODE_廩_42_(x: d.x, y: d.y, z: z)
+        }
+        let _VERANTYX_霾:1.0__ASTNODE_霾_28_ = _VERANTYX_霾:1.0__ASTNODE_霾_95_(_VERANTYX_霾:1.0__ASTNODE_霾_101_._VERANTYX_霾:1.0__ASTNODE_霾_4_._VERANTYX_霾:1.0__ASTNODE_霾_59_(0) { $0 &+ _VERANTYX_廩:1.0__ASTNODE_廩_3_($1._VERANTYX_霾:1.0__ASTNODE_霾_48_) })
+        return _VERANTYX_廩:1.0__ASTNODE_廩_42_(x: _VERANTYX_廩:1.0__ASTNODE_廩_31_(_VERANTYX_霾:1.0__ASTNODE_霾_28_ % 10), y: _VERANTYX_廩:1.0__ASTNODE_廩_31_((_VERANTYX_霾:1.0__ASTNODE_霾_28_ / 10) % 10), z: z)
+    }
+}
+
+// [metadata-stripped]
+
+actor _VERANTYX_廩:1.0__ASTNODE_廩_10_ {
+
+    private(_VERANTYX_術:1.0__ASTNODE_燦_1_) var _VERANTYX_霾:1.0__ASTNODE_霾_40_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_5_] = [:]
+    private(_VERANTYX_術:1.0__ASTNODE_燦_1_) var _VERANTYX_霾:1.0__ASTNODE_霾_96_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_15_] = [:]
+    private(_VERANTYX_術:1.0__ASTNODE_燦_1_) var _VERANTYX_霾:1.0__ASTNODE_霾_42_: _VERANTYX_廩:1.0__ASTNODE_廩_3_ = 0
+    let _VERANTYX_霾:1.0__ASTNODE_霾_91_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+
+    init(_VERANTYX_霾:1.0__ASTNODE_霾_91_: _VERANTYX_廩:1.0__ASTNODE_廩_12_ = _VERANTYX_廩:1.0__ASTNODE_廩_28_()._VERANTYX_霾:1.0__ASTNODE_霾_76_) {
+        self._VERANTYX_霾:1.0__ASTNODE_霾_91_ = _VERANTYX_霾:1.0__ASTNODE_霾_91_
+    }
+
+    @_VERANTYX_霾:1.0__ASTNODE_霾_26_
+    func _VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_廩:1.0__ASTNODE_廩_12_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_ = 1.0, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_ = "") -> _VERANTYX_廩:1.0__ASTNODE_廩_5_ {
+        let _VERANTYX_霾:1.0__ASTNODE_霾_117_ = "N_\(_VERANTYX_霾:1.0__ASTNODE_霾_101_)"
+        if var _VERANTYX_霾:1.0__ASTNODE_霾_118_ = _VERANTYX_霾:1.0__ASTNODE_霾_40_[_VERANTYX_霾:1.0__ASTNODE_霾_117_] {
+            _VERANTYX_霾:1.0__ASTNODE_霾_118_._VERANTYX_霾:1.0__ASTNODE_霾_113_(_VERANTYX_霾:1.0__ASTNODE_霾_42_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_22_._VERANTYX_霾:1.0__ASTNODE_霾_71_ ? _VERANTYX_霾:1.0__ASTNODE_霾_118_._VERANTYX_霾:1.0__ASTNODE_霾_22_ : _VERANTYX_霾:1.0__ASTNODE_霾_22_)
+            _VERANTYX_霾:1.0__ASTNODE_霾_40_[_VERANTYX_霾:1.0__ASTNODE_霾_117_] = _VERANTYX_霾:1.0__ASTNODE_霾_118_
+            return _VERANTYX_霾:1.0__ASTNODE_霾_118_
+        }
+        let _VERANTYX_霾:1.0__ASTNODE_霾_75_ = _VERANTYX_廩:1.0__ASTNODE_廩_25_._VERANTYX_霾:1.0__ASTNODE_霾_75_(for: _VERANTYX_霾:1.0__ASTNODE_霾_101_, z: _VERANTYX_霾:1.0__ASTNODE_霾_42_)
+        let _VERANTYX_霾:1.0__ASTNODE_霾_93_ = _VERANTYX_廩:1.0__ASTNODE_廩_5_(
+            id: _VERANTYX_霾:1.0__ASTNODE_霾_117_, _VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_霾:1.0__ASTNODE_霾_101_, _VERANTYX_霾:1.0__ASTNODE_霾_75_: _VERANTYX_霾:1.0__ASTNODE_霾_75_,
+            _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_22_, _VERANTYX_霾:1.0__ASTNODE_霾_38_: [],
+// _VERANTYX_幽:0.9__ASTNODE_AY_771_ [decoy-metadata]
+            _VERANTYX_霾:1.0__ASTNODE_霾_105_: [_VERANTYX_廩:1.0__ASTNODE_廩_5_._VERANTYX_廩:1.0__ASTNODE_廩_9_(z: _VERANTYX_霾:1.0__ASTNODE_霾_42_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_22_)]
+        )
+        _VERANTYX_霾:1.0__ASTNODE_霾_40_[_VERANTYX_霾:1.0__ASTNODE_霾_117_] = _VERANTYX_霾:1.0__ASTNODE_霾_93_
+        return _VERANTYX_霾:1.0__ASTNODE_霾_93_
+    }
+
+    @_VERANTYX_霾:1.0__ASTNODE_霾_26_
+    func _VERANTYX_霾:1.0__ASTNODE_霾_43_(_VERANTYX_霾:1.0__ASTNODE_霾_63_: _VERANTYX_廩:1.0__ASTNODE_廩_12_, to: _VERANTYX_廩:1.0__ASTNODE_廩_12_, _VERANTYX_霾:1.0__ASTNODE_霾_52_ _VERANTYX_霾:1.0__ASTNODE_霾_60_: _VERANTYX_廩:1.0__ASTNODE_廩_22_,
+                 _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_廩:1.0__ASTNODE_廩_31_ = 1.0, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_廩:1.0__ASTNODE_廩_12_ = "") -> _VERANTYX_廩:1.0__ASTNODE_廩_15_ {
+        let _VERANTYX_霾:1.0__ASTNODE_霾_23_ = "E_\(_VERANTYX_霾:1.0__ASTNODE_霾_63_)_\(_VERANTYX_霾:1.0__ASTNODE_霾_60_._VERANTYX_霾:1.0__ASTNODE_霾_108_)_\(to)_Z\(_VERANTYX_霾:1.0__ASTNODE_霾_42_)"
+        let _VERANTYX_霾:1.0__ASTNODE_霾_16_ = _VERANTYX_廩:1.0__ASTNODE_廩_15_(
+            id: _VERANTYX_霾:1.0__ASTNODE_霾_23_, _VERANTYX_霾:1.0__ASTNODE_霾_3_: "N_\(_VERANTYX_霾:1.0__ASTNODE_霾_63_)", _VERANTYX_霾:1.0__ASTNODE_霾_112_: "N_\(to)",
+            _VERANTYX_霾:1.0__ASTNODE_霾_52_: _VERANTYX_霾:1.0__ASTNODE_霾_60_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_39_: _VERANTYX_霾:1.0__ASTNODE_霾_42_,
+            _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_22_._VERANTYX_霾:1.0__ASTNODE_霾_71_ ? "\(_VERANTYX_霾:1.0__ASTNODE_霾_63_)\(_VERANTYX_霾:1.0__ASTNODE_霾_60_._VERANTYX_霾:1.0__ASTNODE_霾_108_)\(to)" : _VERANTYX_霾:1.0__ASTNODE_霾_22_
+        )
+// _VERANTYX_術:0.7__ASTNODE_CM_607_ [decoy-metadata]
+        _VERANTYX_霾:1.0__ASTNODE_霾_96_[_VERANTYX_霾:1.0__ASTNODE_霾_23_] = _VERANTYX_霾:1.0__ASTNODE_霾_16_
+// _VERANTYX_霾:0.4__ASTNODE_GX_719_ [decoy-metadata]
+        if var _VERANTYX_霾:1.0__ASTNODE_霾_58_ = _VERANTYX_霾:1.0__ASTNODE_霾_40_["N_\(_VERANTYX_霾:1.0__ASTNODE_霾_63_)"] {
+            _VERANTYX_霾:1.0__ASTNODE_霾_58_._VERANTYX_霾:1.0__ASTNODE_霾_38_._VERANTYX_霾:1.0__ASTNODE_霾_46_(_VERANTYX_霾:1.0__ASTNODE_霾_23_)
+            _VERANTYX_霾:1.0__ASTNODE_霾_40_["N_\(_VERANTYX_霾:1.0__ASTNODE_霾_63_)"] = _VERANTYX_霾:1.0__ASTNODE_霾_58_
+        }
+        return _VERANTYX_霾:1.0__ASTNODE_霾_16_
+    }
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_45_() { _VERANTYX_霾:1.0__ASTNODE_霾_42_ += 1 }
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_14_(_VERANTYX_霾:1.0__ASTNODE_霾_17_: _VERANTYX_廩:1.0__ASTNODE_廩_3_ = 5) -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        _VERANTYX_霾:1.0__ASTNODE_霾_40_._VERANTYX_霾:1.0__ASTNODE_霾_73_._VERANTYX_霾:1.0__ASTNODE_霾_82_ { $0._VERANTYX_霾:1.0__ASTNODE_霾_10_ > $1._VERANTYX_霾:1.0__ASTNODE_霾_10_ }
+            ._VERANTYX_霾:1.0__ASTNODE_霾_24_(_VERANTYX_霾:1.0__ASTNODE_霾_17_)
+            ._VERANTYX_霾:1.0__ASTNODE_霾_30_ { "[\($0._VERANTYX_霾:1.0__ASTNODE_霾_101_):\(_VERANTYX_廩:1.0__ASTNODE_廩_12_(_VERANTYX_浮:1.0__ASTNODE_霾_89_: "%.1f", $0._VERANTYX_霾:1.0__ASTNODE_霾_10_))]" }
+            ._VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_77_: " ")
+    }
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_74_() -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        let _VERANTYX_霾:1.0__ASTNODE_霾_78_ = _VERANTYX_霾:1.0__ASTNODE_霾_40_._VERANTYX_霾:1.0__ASTNODE_霾_73_._VERANTYX_霾:1.0__ASTNODE_霾_82_ { $0._VERANTYX_霾:1.0__ASTNODE_霾_10_ > $1._VERANTYX_霾:1.0__ASTNODE_霾_10_ }._VERANTYX_霾:1.0__ASTNODE_霾_24_(3)
+        let _VERANTYX_霾:1.0__ASTNODE_霾_65_ = _VERANTYX_霾:1.0__ASTNODE_霾_78_._VERANTYX_霾:1.0__ASTNODE_霾_30_ { $0._VERANTYX_霾:1.0__ASTNODE_霾_101_ }._VERANTYX_霾:1.0__ASTNODE_霾_29_()
+        let _VERANTYX_霾:1.0__ASTNODE_霾_22_ = _VERANTYX_霾:1.0__ASTNODE_霾_78_._VERANTYX_霾:1.0__ASTNODE_霾_31_ { $0._VERANTYX_霾:1.0__ASTNODE_霾_22_._VERANTYX_霾:1.0__ASTNODE_霾_71_ ? nil : $0._VERANTYX_霾:1.0__ASTNODE_霾_22_ }._VERANTYX_霾:1.0__ASTNODE_霾_36_ ?? ""
+        return "[\(_VERANTYX_霾:1.0__ASTNODE_霾_65_)] Z=\(_VERANTYX_霾:1.0__ASTNODE_霾_42_) — \(_VERANTYX_霾:1.0__ASTNODE_霾_22_._VERANTYX_霾:1.0__ASTNODE_霾_24_(60))"
+    }
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_37_() -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        var _VERANTYX_霾:1.0__ASTNODE_霾_5_ = ["// _VERANTYX_廩:1.0__ASTNODE_廩_17_ Z=\(_VERANTYX_霾:1.0__ASTNODE_霾_42_)",
+                     "// _VERANTYX_廩:1.0__ASTNODE_廩_32_: [漢字:_VERANTYX_霾:1.0__ASTNODE_霾_10_] @(x,y) | →_VERANTYX_霾:1.0__ASTNODE_霾_52_→隣接"]
+        for _VERANTYX_霾:1.0__ASTNODE_霾_93_ in _VERANTYX_霾:1.0__ASTNODE_霾_40_._VERANTYX_霾:1.0__ASTNODE_霾_73_._VERANTYX_霾:1.0__ASTNODE_霾_82_(by: { $0._VERANTYX_霾:1.0__ASTNODE_霾_10_ > $1._VERANTYX_霾:1.0__ASTNODE_霾_10_ })._VERANTYX_霾:1.0__ASTNODE_霾_24_(10) {
+            var _VERANTYX_霾:1.0__ASTNODE_霾_79_ = _VERANTYX_霾:1.0__ASTNODE_霾_93_._VERANTYX_霾:1.0__ASTNODE_霾_64_
+            let _VERANTYX_霾:1.0__ASTNODE_霾_72_ = _VERANTYX_霾:1.0__ASTNODE_霾_93_._VERANTYX_霾:1.0__ASTNODE_霾_38_._VERANTYX_霾:1.0__ASTNODE_霾_31_ { _VERANTYX_霾:1.0__ASTNODE_霾_96_[$0] }
+                ._VERANTYX_術:1.0__ASTNODE_霾_35_ { $0._VERANTYX_霾:1.0__ASTNODE_霾_3_ == _VERANTYX_霾:1.0__ASTNODE_霾_93_.id }
+                ._VERANTYX_霾:1.0__ASTNODE_霾_24_(3)
+                ._VERANTYX_霾:1.0__ASTNODE_霾_30_ { e -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ in
+                    let _VERANTYX_霾:1.0__ASTNODE_霾_67_ = _VERANTYX_霾:1.0__ASTNODE_霾_40_[e._VERANTYX_霾:1.0__ASTNODE_霾_112_]?._VERANTYX_霾:1.0__ASTNODE_霾_101_ ?? e._VERANTYX_霾:1.0__ASTNODE_霾_112_
+                    return "\(e._VERANTYX_霾:1.0__ASTNODE_霾_52_._VERANTYX_霾:1.0__ASTNODE_霾_108_)\(_VERANTYX_霾:1.0__ASTNODE_霾_67_)"
+                }
+            if !_VERANTYX_霾:1.0__ASTNODE_霾_72_._VERANTYX_霾:1.0__ASTNODE_霾_71_ { _VERANTYX_霾:1.0__ASTNODE_霾_79_ += " | " + _VERANTYX_霾:1.0__ASTNODE_霾_72_._VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_77_: " ") }
+            _VERANTYX_霾:1.0__ASTNODE_霾_5_._VERANTYX_霾:1.0__ASTNODE_霾_46_(_VERANTYX_霾:1.0__ASTNODE_霾_79_)
+        }
+        return _VERANTYX_霾:1.0__ASTNODE_霾_5_._VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_77_: "\n")
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// _VERANTYX_紗:0.2__ASTNODE_CE_520_ [decoy-metadata]
+actor _VERANTYX_廩:1.0__ASTNODE_廩_16_ {
+
+// [metadata-stripped]
+    nonisolated(_VERANTYX_霾:1.0__ASTNODE_霾_90_) static var _VERANTYX_霾:1.0__ASTNODE_霾_114_ = _VERANTYX_廩:1.0__ASTNODE_廩_16_()
+    private init() {}
+
+    private var _VERANTYX_霾:1.0__ASTNODE_霾_88_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_10_] = [:]
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_80_(for _VERANTYX_霾:1.0__ASTNODE_霾_53_: _VERANTYX_廩:1.0__ASTNODE_廩_12_) -> _VERANTYX_廩:1.0__ASTNODE_廩_10_ {
+        if let g = _VERANTYX_霾:1.0__ASTNODE_霾_88_[_VERANTYX_霾:1.0__ASTNODE_霾_53_] { return g }
+        let g = _VERANTYX_廩:1.0__ASTNODE_廩_10_(_VERANTYX_霾:1.0__ASTNODE_霾_91_: _VERANTYX_霾:1.0__ASTNODE_霾_53_)
+        _VERANTYX_霾:1.0__ASTNODE_霾_88_[_VERANTYX_霾:1.0__ASTNODE_霾_53_] = g
+        return g
+    }
+
+    func _VERANTYX_霾:1.0__ASTNODE_霾_55_(
+        _VERANTYX_霾:1.0__ASTNODE_霾_53_: _VERANTYX_廩:1.0__ASTNODE_廩_12_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_49_: _VERANTYX_廩:1.0__ASTNODE_廩_36_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_18_: _VERANTYX_廩:1.0__ASTNODE_廩_12_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_94_: _VERANTYX_廩:1.0__ASTNODE_廩_12_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_11_: _VERANTYX_廩:1.0__ASTNODE_廩_3_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_27_: _VERANTYX_廩:1.0__ASTNODE_廩_3_,
+        _VERANTYX_霾:1.0__ASTNODE_霾_85_: [_VERANTYX_廩:1.0__ASTNODE_廩_12_: _VERANTYX_廩:1.0__ASTNODE_廩_12_],
+        _VERANTYX_霾:1.0__ASTNODE_霾_70_: _VERANTYX_廩:1.0__ASTNODE_廩_12_
+    ) async {
+        let g = _VERANTYX_霾:1.0__ASTNODE_霾_80_(for: _VERANTYX_霾:1.0__ASTNODE_霾_53_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_45_()
+
+        let _VERANTYX_霾:1.0__ASTNODE_霾_34_ = _VERANTYX_霾:1.0__ASTNODE_霾_8_(_VERANTYX_霾:1.0__ASTNODE_霾_18_)
+        let _VERANTYX_霾:1.0__ASTNODE_霾_86_ = _VERANTYX_霾:1.0__ASTNODE_霾_8_(_VERANTYX_霾:1.0__ASTNODE_霾_94_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_霾:1.0__ASTNODE_霾_34_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 1.0, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_18_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_霾:1.0__ASTNODE_霾_86_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 1.0, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_94_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_43_(_VERANTYX_霾:1.0__ASTNODE_霾_63_: _VERANTYX_霾:1.0__ASTNODE_霾_34_, to: _VERANTYX_霾:1.0__ASTNODE_霾_86_, _VERANTYX_霾:1.0__ASTNODE_霾_52_: ._VERANTYX_霾:1.0__ASTNODE_霾_12_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 1.0,
+                        _VERANTYX_霾:1.0__ASTNODE_霾_22_: "\(_VERANTYX_霾:1.0__ASTNODE_霾_18_) → \(_VERANTYX_霾:1.0__ASTNODE_霾_94_)")
+
+        let _VERANTYX_霾:1.0__ASTNODE_霾_2_  = _VERANTYX_廩:1.0__ASTNODE_廩_31_(_VERANTYX_霾:1.0__ASTNODE_霾_11_) / _VERANTYX_廩:1.0__ASTNODE_廩_31_(_VERANTYX_霾:1.0__ASTNODE_霾_68_(_VERANTYX_霾:1.0__ASTNODE_霾_27_, 1))
+        let _VERANTYX_霾:1.0__ASTNODE_霾_102_ = _VERANTYX_霾:1.0__ASTNODE_霾_2_ >= 1.0 ? "完" : "進"
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_霾:1.0__ASTNODE_霾_102_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: _VERANTYX_霾:1.0__ASTNODE_霾_2_,
+                           _VERANTYX_霾:1.0__ASTNODE_霾_22_: "\(_VERANTYX_霾:1.0__ASTNODE_霾_11_)/\(_VERANTYX_霾:1.0__ASTNODE_霾_27_) \(_VERANTYX_霾:1.0__ASTNODE_霾_70_._VERANTYX_霾:1.0__ASTNODE_霾_24_(40))")
+
+        let _VERANTYX_霾:1.0__ASTNODE_霾_83_ = _VERANTYX_霾:1.0__ASTNODE_霾_66_(_VERANTYX_霾:1.0__ASTNODE_霾_49_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: _VERANTYX_霾:1.0__ASTNODE_霾_83_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 0.9, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_49_._VERANTYX_霾:1.0__ASTNODE_霾_108_)
+        await g._VERANTYX_霾:1.0__ASTNODE_霾_43_(_VERANTYX_霾:1.0__ASTNODE_霾_63_: _VERANTYX_霾:1.0__ASTNODE_霾_34_, to: _VERANTYX_霾:1.0__ASTNODE_霾_83_, _VERANTYX_霾:1.0__ASTNODE_霾_52_: ._VERANTYX_霾:1.0__ASTNODE_霾_25_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 0.8)
+
+        for (_VERANTYX_霾:1.0__ASTNODE_霾_63_, to) in _VERANTYX_霾:1.0__ASTNODE_霾_85_._VERANTYX_霾:1.0__ASTNODE_霾_24_(5) {
+            let fK = _VERANTYX_廩:1.0__ASTNODE_廩_12_(_VERANTYX_霾:1.0__ASTNODE_霾_63_._VERANTYX_霾:1.0__ASTNODE_霾_24_(2))
+            let tK = _VERANTYX_廩:1.0__ASTNODE_廩_12_(to._VERANTYX_霾:1.0__ASTNODE_霾_24_(2))
+            await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: fK, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 0.7, _VERANTYX_霾:1.0__ASTNODE_霾_22_: _VERANTYX_霾:1.0__ASTNODE_霾_63_)
+            await g._VERANTYX_霾:1.0__ASTNODE_霾_41_(_VERANTYX_霾:1.0__ASTNODE_霾_101_: tK, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 0.7, _VERANTYX_霾:1.0__ASTNODE_霾_22_: to)
+            await g._VERANTYX_霾:1.0__ASTNODE_霾_43_(_VERANTYX_霾:1.0__ASTNODE_霾_63_: fK, to: tK, _VERANTYX_霾:1.0__ASTNODE_霾_52_: ._VERANTYX_霾:1.0__ASTNODE_霾_12_, _VERANTYX_霾:1.0__ASTNODE_霾_10_: 0.9,
+                            _VERANTYX_霾:1.0__ASTNODE_霾_22_: "\(_VERANTYX_霾:1.0__ASTNODE_霾_63_) → \(to)")
+        }
+    }
+
+    func _VERANTYX_浮:1.0__ASTNODE_霾_7_(_VERANTYX_霾:1.0__ASTNODE_霾_53_: _VERANTYX_廩:1.0__ASTNODE_廩_12_) async -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        let g  = _VERANTYX_霾:1.0__ASTNODE_霾_80_(for: _VERANTYX_霾:1.0__ASTNODE_霾_53_)
+        let l1 = await g._VERANTYX_霾:1.0__ASTNODE_霾_14_()
+        let _VERANTYX_霾:1.0__ASTNODE_霾_106_ = await g._VERANTYX_霾:1.0__ASTNODE_霾_74_()
+        let _VERANTYX_霾:1.0__ASTNODE_霾_6_ = await g._VERANTYX_霾:1.0__ASTNODE_霾_37_()
+        return """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        \(_VERANTYX_霾:1.0__ASTNODE_霾_6_._VERANTYX_霾:1.0__ASTNODE_霾_51_(_VERANTYX_霾:1.0__ASTNODE_霾_56_: "\n")._VERANTYX_霾:1.0__ASTNODE_霾_30_ { "//   \($0)" }._VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_77_: "\n"))
+        """
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_霾:1.0__ASTNODE_霾_8_(_ _VERANTYX_霾:1.0__ASTNODE_霾_84_: _VERANTYX_廩:1.0__ASTNODE_廩_12_) -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        switch _VERANTYX_霾:1.0__ASTNODE_霾_84_._VERANTYX_霾:1.0__ASTNODE_霾_32_() {
+        case "_VERANTYX_浮:1.0__ASTNODE_霾_62_":      return "迅"
+        case "_VERANTYX_霾:1.0__ASTNODE_霾_61_":       return "錆"
+        case "_VERANTYX_霾:1.0__ASTNODE_霾_47_":     return "蛇"
+        case "_VERANTYX_霾:1.0__ASTNODE_霾_57_": return "型"
+        case "_VERANTYX_霾:1.0__ASTNODE_霾_13_":     return "晶"
+        case "go":         return "碁"
+        _VERANTYX_霾:1.0__ASTNODE_霾_15_:           return "码"
+        }
+    }
+
+    private func _VERANTYX_霾:1.0__ASTNODE_霾_66_(_ _VERANTYX_霾:1.0__ASTNODE_霾_49_: _VERANTYX_廩:1.0__ASTNODE_廩_36_) -> _VERANTYX_廩:1.0__ASTNODE_廩_12_ {
+        switch _VERANTYX_霾:1.0__ASTNODE_霾_49_ {
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_100_: return "守"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_111_:    return "構"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_21_: return "鍵"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_110_: return "義"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_115_:     return "標"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_50_:         return "網"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_44_:      return "索"
+        case ._VERANTYX_霾:1.0__ASTNODE_霾_92_:  return "完"
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

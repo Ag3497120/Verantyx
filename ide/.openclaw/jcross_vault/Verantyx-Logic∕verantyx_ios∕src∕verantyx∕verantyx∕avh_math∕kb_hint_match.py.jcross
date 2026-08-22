@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5EEBBE3F ver:1778162896
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霡:1.0___jcross_霡_24__ _ASTNODE_霡:1.0___jcross_霡_31__ import _ASTNODE_霡:1.0___jcross_霡_26__
+// _ASTNODE_淵:0.8___jcross_BC_534__ [decoy-metadata]
+
+import re
+_ASTNODE_霡:1.0___jcross_霡_24__ _ASTNODE_霡:1.0___jcross_霡_3__ import _ASTNODE_墟:1.0___jcross_墟_2__, _ASTNODE_墟:1.0___jcross_墟_1__, _ASTNODE_墟:1.0___jcross_墟_4__, _ASTNODE_墟:1.0___jcross_墟_5__
+
+
+_ASTNODE_霡:1.0___jcross_霡_17__ _ASTNODE_霡:1.0___jcross_霡_2__(s: _ASTNODE_霡:1.0___jcross_霡_33__) -> _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__]:
+    s = (s or "")._ASTNODE_計:1.0___jcross_霡_37__()
+    s = re._ASTNODE_霡:1.0___jcross_霡_4__(r"[^a-z0-9_\-\+\:\_ASTNODE_霡:1.0___jcross_霡_7__-\_ASTNODE_霡:1.0___jcross_霡_35__\_ASTNODE_霡:1.0___jcross_霡_41__-\_ASTNODE_霡:1.0___jcross_霡_12__]+", " ", s)
+    s = re._ASTNODE_霡:1.0___jcross_霡_4__(r"\s+", " ", s)._ASTNODE_霡:1.0___jcross_霡_15__()
+    _ASTNODE_霡:1.0___jcross_霡_40__ = [t for t in s._ASTNODE_霡:1.0___jcross_霡_11__(" ") if _ASTNODE_霡:1.0___jcross_霡_21__(t) >= 2]
+    return _ASTNODE_霡:1.0___jcross_霡_40__[:128]
+
+
+_ASTNODE_霡:1.0___jcross_霡_17__ _ASTNODE_霡:1.0___jcross_霡_9__(
+// _ASTNODE_緞:0.7___jcross_FA_218__ [decoy-metadata]
+// _ASTNODE_匱:0.5___jcross_LH_818__ [decoy-metadata]
+    _ASTNODE_霡:1.0___jcross_霡_6__: _ASTNODE_霡:1.0___jcross_霡_33__,
+    _ASTNODE_游:1.0___jcross_霡_44__: _ASTNODE_霡:1.0___jcross_霡_33__ | _ASTNODE_墟:1.0___jcross_墟_3__,
+    _ASTNODE_霡:1.0___jcross_霡_29__: _ASTNODE_墟:1.0___jcross_墟_2__[_ASTNODE_霡:1.0___jcross_霡_33__, _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__]],
+    _ASTNODE_霡:1.0___jcross_霡_22__: _ASTNODE_墟:1.0___jcross_墟_2__[_ASTNODE_霡:1.0___jcross_霡_33__, _ASTNODE_墟:1.0___jcross_墟_5__],
+    _ASTNODE_霡:1.0___jcross_霡_5__: _ASTNODE_霡:1.0___jcross_霡_32__ = 200,
+) -> _ASTNODE_墟:1.0___jcross_墟_4__[_ASTNODE_霡:1.0___jcross_霡_33__, _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__], _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__]]:
+    _ASTNODE_霡:1.0___jcross_霡_8__ = _ASTNODE_霡:1.0___jcross_霡_2__(_ASTNODE_霡:1.0___jcross_霡_6__) + _ASTNODE_霡:1.0___jcross_霡_2__(_ASTNODE_游:1.0___jcross_霡_44__ or "")
+    _ASTNODE_霡:1.0___jcross_霡_34__ = _ASTNODE_計:1.0___jcross_碑_1__()
+    _ASTNODE_霡:1.0___jcross_霡_42__: _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__] = []
+    for t in _ASTNODE_霡:1.0___jcross_霡_8__:
+        for _ASTNODE_霡:1.0___jcross_霡_39__ in _ASTNODE_霡:1.0___jcross_霡_29__._ASTNODE_計:1.0___jcross_碑_2__(t, []):
+            if _ASTNODE_霡:1.0___jcross_霡_39__ _ASTNODE_霡:1.0___jcross_霡_10__ in _ASTNODE_霡:1.0___jcross_霡_34__:
+                _ASTNODE_霡:1.0___jcross_霡_34__._ASTNODE_霡:1.0___jcross_霡_43__(_ASTNODE_霡:1.0___jcross_霡_39__)
+                _ASTNODE_霡:1.0___jcross_霡_42__._ASTNODE_霡:1.0___jcross_霡_25__(_ASTNODE_霡:1.0___jcross_霡_39__)
+                if _ASTNODE_霡:1.0___jcross_霡_21__(_ASTNODE_霡:1.0___jcross_霡_42__) >= _ASTNODE_霡:1.0___jcross_霡_5__:
+                    break
+        if _ASTNODE_霡:1.0___jcross_霡_21__(_ASTNODE_霡:1.0___jcross_霡_42__) >= _ASTNODE_霡:1.0___jcross_霡_5__:
+            break
+
+    _ASTNODE_霡:1.0___jcross_霡_19__: _ASTNODE_墟:1.0___jcross_墟_2__[_ASTNODE_霡:1.0___jcross_霡_33__, _ASTNODE_霡:1.0___jcross_霡_32__] = {}
+    for _ASTNODE_霡:1.0___jcross_霡_39__ in _ASTNODE_霡:1.0___jcross_霡_42__:
+        d = (_ASTNODE_霡:1.0___jcross_霡_22__._ASTNODE_計:1.0___jcross_碑_2__(_ASTNODE_霡:1.0___jcross_霡_39__) or {})._ASTNODE_計:1.0___jcross_碑_2__("_ASTNODE_霡:1.0___jcross_霡_20__", "_ASTNODE_霡:1.0___jcross_霡_38__")
+        _ASTNODE_霡:1.0___jcross_霡_19__[d] = _ASTNODE_霡:1.0___jcross_霡_19__._ASTNODE_計:1.0___jcross_碑_2__(d, 0) + 1
+    _ASTNODE_霡:1.0___jcross_霡_1__ = _ASTNODE_霡:1.0___jcross_霡_16__(_ASTNODE_霡:1.0___jcross_霡_19__, _ASTNODE_淵:1.0___jcross_霡_36__=_ASTNODE_霡:1.0___jcross_霡_19__._ASTNODE_計:1.0___jcross_碑_2__) if _ASTNODE_霡:1.0___jcross_霡_19__ else "_ASTNODE_霡:1.0___jcross_霡_38__"
+
+// _ASTNODE_碑:0.8___jcross_HH_835__ [decoy-metadata]
+    _ASTNODE_霡:1.0___jcross_霡_30__: _ASTNODE_墟:1.0___jcross_墟_1__[_ASTNODE_霡:1.0___jcross_霡_33__] = []
+    ql = (_ASTNODE_霡:1.0___jcross_霡_6__ or "")._ASTNODE_計:1.0___jcross_霡_37__()
+    if "推移" in _ASTNODE_霡:1.0___jcross_霡_6__ or "_ASTNODE_霡:1.0___jcross_霡_13__" in ql:
+        _ASTNODE_霡:1.0___jcross_霡_30__._ASTNODE_霡:1.0___jcross_霡_25__("_ASTNODE_霡:1.0___jcross_霡_27__:_ASTNODE_霡:1.0___jcross_霡_13__")
+// _ASTNODE_墟:0.5___jcross_EL_917__ [decoy-metadata]
+    if "反射" in _ASTNODE_霡:1.0___jcross_霡_6__ or "_ASTNODE_霡:1.0___jcross_霡_18__" in ql:
+        _ASTNODE_霡:1.0___jcross_霡_30__._ASTNODE_霡:1.0___jcross_霡_25__("_ASTNODE_霡:1.0___jcross_霡_27__:_ASTNODE_霡:1.0___jcross_霡_18__")
+    if "対称" in _ASTNODE_霡:1.0___jcross_霡_6__ or "_ASTNODE_霡:1.0___jcross_霡_23__" in ql:
+        _ASTNODE_霡:1.0___jcross_霡_30__._ASTNODE_霡:1.0___jcross_霡_25__("_ASTNODE_霡:1.0___jcross_霡_27__:_ASTNODE_霡:1.0___jcross_霡_23__")
+    if "ユークリッド" in _ASTNODE_霡:1.0___jcross_霡_6__ or "_ASTNODE_霡:1.0___jcross_霡_28__" in ql:
+        _ASTNODE_霡:1.0___jcross_霡_30__._ASTNODE_霡:1.0___jcross_霡_25__("_ASTNODE_霡:1.0___jcross_霡_27__:_ASTNODE_霡:1.0___jcross_霡_28__")
+
+// _ASTNODE_計:0.4___jcross_HB_140__ [decoy-metadata]
+    return _ASTNODE_霡:1.0___jcross_霡_1__, _ASTNODE_霡:1.0___jcross_霡_14__(_ASTNODE_計:1.0___jcross_碑_1__(_ASTNODE_霡:1.0___jcross_霡_30__)), _ASTNODE_霡:1.0___jcross_霡_42__[:30]
+
+// POLYMORPHIC_JCROSS_END

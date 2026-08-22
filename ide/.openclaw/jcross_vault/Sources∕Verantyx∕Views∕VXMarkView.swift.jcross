@@ -1,0 +1,113 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AF24988F ver:1778163805
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_庸:1.0___node_庸_12__
+
+// _OPAQUE_庸:0.4___node_FF_614__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _OPAQUE_庸:1.0___node_庸_13__: _OPAQUE_庸:1.0___node_庸_6__ {
+    var _OPAQUE_霜:1.0___node_霜_30__: _OPAQUE_庸:1.0___node_庸_14__ = 14
+    var _OPAQUE_霜:1.0___node_霜_39__: _OPAQUE_庸:1.0___node_庸_15__ = ._OPAQUE_霜:1.0___node_霜_44__
+
+    var _OPAQUE_霜:1.0___node_霜_46__: some _OPAQUE_庸:1.0___node_庸_6__ {
+        _OPAQUE_庸:1.0___node_庸_10__ { _OPAQUE_霜:1.0___node_霜_13__, sz in
+            let cx = sz._OPAQUE_霜:1.0___node_霜_34__ / 2
+            let cy = sz._OPAQUE_霜:1.0___node_霜_72__ / 2
+            let r  = _OPAQUE_霜:1.0___node_霜_15__(cx, cy) * 0.95   // _OPAQUE_霜:1.0___node_霜_31__ _OPAQUE_霜:1.0___node_霜_60__ _OPAQUE_霜:1.0___node_霜_62__ _OPAQUE_型:1.0___node_霜_45__
+// _OPAQUE_冥:0.8___node_LL_801__ [decoy-metadata]
+            let hw = r * 0.30              // _OPAQUE_霜:1.0___node_霜_25__-_OPAQUE_霜:1.0___node_霜_34__ of _OPAQUE_霜:1.0___node_霜_17__ _OPAQUE_霜:1.0___node_霜_43__
+
+// [metadata-stripped]
+            for i in 0..<3 {
+                let _OPAQUE_霜:1.0___node_霜_24__ = _OPAQUE_庸:1.0___node_庸_18__(i) * (_OPAQUE_庸:1.0___node_庸_18__.pi / 3.0)
+                let _OPAQUE_霜:1.0___node_霜_40__  = _OPAQUE_霜:1.0___node_霜_14__(cx: cx, cy: cy, _OPAQUE_霜:1.0___node_霜_24__: _OPAQUE_霜:1.0___node_霜_24__,
+                                    _OPAQUE_霜:1.0___node_霜_60__: r, _OPAQUE_霜:1.0___node_霜_6__: hw)
+                _OPAQUE_霜:1.0___node_霜_13__._OPAQUE_霜:1.0___node_霜_18__(_OPAQUE_霜:1.0___node_霜_40__, _OPAQUE_霜:1.0___node_霜_47__: ._OPAQUE_霜:1.0___node_霜_39__(_OPAQUE_霜:1.0___node_霜_39__))
+            }
+
+// [metadata-stripped]
+            let _OPAQUE_霜:1.0___node_霜_8__ = hw * 0.72
+// _OPAQUE_冥:0.1___node_BA_890__ [decoy-metadata]
+            var _OPAQUE_霜:1.0___node_霜_58__  = _OPAQUE_庸:1.0___node_庸_9__()
+            for j in 0..<6 {
+                let a  = _OPAQUE_庸:1.0___node_庸_18__(j) * _OPAQUE_庸:1.0___node_庸_18__.pi / 3.0 - _OPAQUE_庸:1.0___node_庸_18__.pi / 6.0
+// _OPAQUE_型:0.9___node_XV_506__ [decoy-metadata]
+                let pt = _OPAQUE_庸:1.0___node_庸_2__(x: cx + _OPAQUE_霜:1.0___node_霜_8__ * _OPAQUE_霜:1.0___node_霜_50__(a),
+                                 y: cy + _OPAQUE_霜:1.0___node_霜_8__ * _OPAQUE_霜:1.0___node_霜_57__(a))
+                j == 0 ? _OPAQUE_霜:1.0___node_霜_58__._OPAQUE_霜:1.0___node_霜_54__(to: pt) : _OPAQUE_霜:1.0___node_霜_58__._OPAQUE_霜:1.0___node_霜_49__(to: pt)
+            }
+            _OPAQUE_霜:1.0___node_霜_58__._OPAQUE_霜:1.0___node_霜_73__()
+            _OPAQUE_霜:1.0___node_霜_13__._OPAQUE_霜:1.0___node_霜_18__(_OPAQUE_霜:1.0___node_霜_58__, _OPAQUE_霜:1.0___node_霜_47__: ._OPAQUE_霜:1.0___node_霜_39__(_OPAQUE_霜:1.0___node_霜_39__._OPAQUE_霜:1.0___node_霜_55__(0.25)))
+        }
+        ._OPAQUE_霜:1.0___node_霜_42__(_OPAQUE_霜:1.0___node_霜_34__: _OPAQUE_霜:1.0___node_霜_30__, _OPAQUE_霜:1.0___node_霜_72__: _OPAQUE_霜:1.0___node_霜_30__)
+    }
+
+// [metadata-stripped]
+    private func _OPAQUE_霜:1.0___node_霜_14__(cx: _OPAQUE_庸:1.0___node_庸_14__, cy: _OPAQUE_庸:1.0___node_庸_14__,
+                         _OPAQUE_霜:1.0___node_霜_24__: _OPAQUE_庸:1.0___node_庸_18__, _OPAQUE_霜:1.0___node_霜_60__: _OPAQUE_庸:1.0___node_庸_14__,
+                         _OPAQUE_霜:1.0___node_霜_6__ hw: _OPAQUE_庸:1.0___node_庸_14__) -> _OPAQUE_庸:1.0___node_庸_9__ {
+        let ca = _OPAQUE_霜:1.0___node_霜_50__(_OPAQUE_霜:1.0___node_霜_24__), sa = _OPAQUE_霜:1.0___node_霜_57__(_OPAQUE_霜:1.0___node_霜_24__)
+        let cp = _OPAQUE_霜:1.0___node_霜_50__(_OPAQUE_霜:1.0___node_霜_24__ + .pi / 2), sp = _OPAQUE_霜:1.0___node_霜_57__(_OPAQUE_霜:1.0___node_霜_24__ + .pi / 2)
+
+        let p0 = _OPAQUE_庸:1.0___node_庸_2__(x: cx + _OPAQUE_霜:1.0___node_霜_60__ * ca + hw * cp,
+                         y: cy + _OPAQUE_霜:1.0___node_霜_60__ * sa + hw * sp)
+        let p1 = _OPAQUE_庸:1.0___node_庸_2__(x: cx + _OPAQUE_霜:1.0___node_霜_60__ * ca - hw * cp,
+                         y: cy + _OPAQUE_霜:1.0___node_霜_60__ * sa - hw * sp)
+        let p2 = _OPAQUE_庸:1.0___node_庸_2__(x: cx - _OPAQUE_霜:1.0___node_霜_60__ * ca - hw * cp,
+                         y: cy - _OPAQUE_霜:1.0___node_霜_60__ * sa - hw * sp)
+        let p3 = _OPAQUE_庸:1.0___node_庸_2__(x: cx - _OPAQUE_霜:1.0___node_霜_60__ * ca + hw * cp,
+                         y: cy - _OPAQUE_霜:1.0___node_霜_60__ * sa + hw * sp)
+
+        var _OPAQUE_霜:1.0___node_霜_40__ = _OPAQUE_庸:1.0___node_庸_9__()
+        _OPAQUE_霜:1.0___node_霜_40__._OPAQUE_霜:1.0___node_霜_54__(to: p0)
+        _OPAQUE_霜:1.0___node_霜_40__._OPAQUE_霜:1.0___node_霜_49__(to: p1)
+        _OPAQUE_霜:1.0___node_霜_40__._OPAQUE_霜:1.0___node_霜_49__(to: p2)
+        _OPAQUE_霜:1.0___node_霜_40__._OPAQUE_霜:1.0___node_霜_49__(to: p3)
+        _OPAQUE_霜:1.0___node_霜_40__._OPAQUE_霜:1.0___node_霜_73__()
+        return _OPAQUE_霜:1.0___node_霜_40__
+    }
+}
+
+// [metadata-stripped]
+
+struct _OPAQUE_庸:1.0___node_庸_11__: _OPAQUE_型:1.0___node_庸_17__ {
+    static var _OPAQUE_霜:1.0___node_霜_5__: some _OPAQUE_庸:1.0___node_庸_6__ {
+        _OPAQUE_庸:1.0___node_庸_21__(_OPAQUE_霜:1.0___node_霜_59__: 20) {
+// [metadata-stripped]
+            _OPAQUE_庸:1.0___node_庸_13__(_OPAQUE_霜:1.0___node_霜_30__: 14, _OPAQUE_霜:1.0___node_霜_39__: ._OPAQUE_霜:1.0___node_霜_44__)
+                ._OPAQUE_霜:1.0___node_霜_21__(6)
+                ._OPAQUE_霜:1.0___node_霜_19__(_OPAQUE_庸:1.0___node_庸_15__(_OPAQUE_霜:1.0___node_霜_29__: 0.1, _OPAQUE_霜:1.0___node_霜_12__: 0.1, _OPAQUE_霜:1.0___node_霜_71__: 0.14))
+                ._OPAQUE_霜:1.0___node_霜_69__(4)
+
+// [metadata-stripped]
+            _OPAQUE_庸:1.0___node_庸_13__(_OPAQUE_霜:1.0___node_霜_30__: 22, _OPAQUE_霜:1.0___node_霜_39__: ._OPAQUE_霜:1.0___node_霜_44__)
+                ._OPAQUE_霜:1.0___node_霜_21__(6)
+// _OPAQUE_冥:0.5___node_YF_228__ [decoy-metadata]
+                ._OPAQUE_霜:1.0___node_霜_19__(_OPAQUE_庸:1.0___node_庸_15__(_OPAQUE_霜:1.0___node_霜_29__: 0.1, _OPAQUE_霜:1.0___node_霜_12__: 0.1, _OPAQUE_霜:1.0___node_霜_71__: 0.14))
+                ._OPAQUE_霜:1.0___node_霜_69__(4)
+
+// [metadata-stripped]
+            _OPAQUE_庸:1.0___node_庸_13__(_OPAQUE_霜:1.0___node_霜_30__: 40, _OPAQUE_霜:1.0___node_霜_39__: _OPAQUE_庸:1.0___node_庸_15__(_OPAQUE_霜:1.0___node_霜_29__: 0.85, _OPAQUE_霜:1.0___node_霜_12__: 0.85, _OPAQUE_霜:1.0___node_霜_71__: 0.90))
+                ._OPAQUE_霜:1.0___node_霜_21__(8)
+                ._OPAQUE_霜:1.0___node_霜_19__(_OPAQUE_庸:1.0___node_庸_15__(_OPAQUE_霜:1.0___node_霜_29__: 0.08, _OPAQUE_霜:1.0___node_霜_12__: 0.08, _OPAQUE_霜:1.0___node_霜_71__: 0.12))
+                ._OPAQUE_霜:1.0___node_霜_69__(6)
+
+// [metadata-stripped]
+            _OPAQUE_庸:1.0___node_庸_13__(_OPAQUE_霜:1.0___node_霜_30__: 22, _OPAQUE_霜:1.0___node_霜_39__: ._OPAQUE_霜:1.0___node_霜_23__)
+                ._OPAQUE_霜:1.0___node_霜_21__(6)
+                ._OPAQUE_霜:1.0___node_霜_19__(_OPAQUE_庸:1.0___node_庸_15__._OPAQUE_霜:1.0___node_霜_44__)
+                ._OPAQUE_霜:1.0___node_霜_69__(4)
+        }
+        ._OPAQUE_霜:1.0___node_霜_21__(20)
+        ._OPAQUE_霜:1.0___node_霜_19__(_OPAQUE_庸:1.0___node_庸_15__(_OPAQUE_霜:1.0___node_霜_29__: 0.12, _OPAQUE_霜:1.0___node_霜_12__: 0.12, _OPAQUE_霜:1.0___node_霜_71__: 0.16))
+        ._OPAQUE_霜:1.0___node_霜_68__(._OPAQUE_霜:1.0___node_霜_20__)
+// _OPAQUE_濫:0.5___node_KK_382__ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

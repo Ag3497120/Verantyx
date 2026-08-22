@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6C775F56 ver:1778159740
+// ⚠️ One-time schema — expires after response
+
+__jcross_沫:1.0___TOKEN_沫_2_ __jcross_沫:1.0___TOKEN_沫_24_ import __jcross_沫:1.0___TOKEN_沫_6_
+
+__jcross_沫:1.0___TOKEN_沫_2_ __jcross_沫:1.0___TOKEN_沫_12_ import __jcross_沫:1.0___TOKEN_沫_5_
+__jcross_沫:1.0___TOKEN_沫_2_ __jcross_沫:1.0___TOKEN_沫_7_ import __jcross_廩:1.0___TOKEN_廩_6_, __jcross_廩:1.0___TOKEN_廩_5_, __jcross_廩:1.0___TOKEN_廩_4_
+import re
+
+
+@__jcross_沫:1.0___TOKEN_沫_5_
+class __jcross_廩:1.0___TOKEN_廩_7_:
+    __jcross_沫:1.0___TOKEN_沫_19_: __jcross_沫:1.0___TOKEN_沫_11_
+    __jcross_沫:1.0___TOKEN_沫_28_: __jcross_沫:1.0___TOKEN_沫_11_
+    __jcross_沫:1.0___TOKEN_沫_20_: __jcross_沫:1.0___TOKEN_沫_11_
+    __jcross_沫:1.0___TOKEN_沫_18_: __jcross_廩:1.0___TOKEN_廩_5_[__jcross_沫:1.0___TOKEN_沫_11_] = __jcross_廩:1.0___TOKEN_廩_2_
+
+
+__jcross_廩:1.0___TOKEN_廩_3_: __jcross_廩:1.0___TOKEN_廩_6_[__jcross_廩:1.0___TOKEN_廩_4_[__jcross_沫:1.0___TOKEN_沫_11_, __jcross_沫:1.0___TOKEN_沫_11_, __jcross_沫:1.0___TOKEN_沫_11_]] = [
+    ("__jcross_沫:1.0___TOKEN_沫_8_", r"^\[\]\(p->q\)->\(\[\]p->\[\]q\)$", "K"),
+    ("__jcross_沫:1.0___TOKEN_沫_8_", r"^\[\]p->p$", "T"),
+    ("__jcross_沫:1.0___TOKEN_沫_8_", r"^\[\]p->\[\]\[\]p$", "4"),
+    ("__jcross_沫:1.0___TOKEN_沫_8_", r"^<>p->\[\]<>p$", "5"),
+    ("__jcross_沫:1.0___TOKEN_沫_26_", r"^\(\(p->q\)&p\)->q$", "MP"),
+]
+
+
+__jcross_沫:1.0___TOKEN_沫_33_ __jcross_漂:1.0___TOKEN_沫_25_(__jcross_漂:1.0___TOKEN_沫_29_: __jcross_沫:1.0___TOKEN_沫_11_) -> __jcross_沫:1.0___TOKEN_沫_11_:
+    f = (__jcross_漂:1.0___TOKEN_沫_29_ or "").__jcross_沫:1.0___TOKEN_沫_23_(" ", "")
+    f = re.__jcross_沫:1.0___TOKEN_沫_16_(r"\b[A-Z]\b", "p", f)
+    f = re.__jcross_沫:1.0___TOKEN_沫_16_(r"\b[__jcross_沫:1.0___TOKEN_沫_10_]\b", "q", f)
+    if f.__jcross_沫:1.0___TOKEN_沫_9_("(") __jcross_沫:1.0___TOKEN_沫_14_ f.__jcross_沫:1.0___TOKEN_沫_13_(")"):
+        f = f[1:-1]
+    return f
+
+
+// __jcross_綾:0.7___TOKEN_YM_531_ [decoy-metadata]
+// __jcross_処:0.2___TOKEN_ZW_196_ [decoy-metadata]
+__jcross_沫:1.0___TOKEN_沫_33_ __jcross_沫:1.0___TOKEN_沫_30_(
+    __jcross_漂:1.0___TOKEN_沫_29_: __jcross_沫:1.0___TOKEN_沫_11_,
+    __jcross_沫:1.0___TOKEN_沫_27_: __jcross_沫:1.0___TOKEN_沫_11_,
+    __jcross_沫:1.0___TOKEN_沫_32_: __jcross_廩:1.0___TOKEN_廩_6_[__jcross_沫:1.0___TOKEN_沫_11_],
+) -> __jcross_廩:1.0___TOKEN_廩_5_[__jcross_廩:1.0___TOKEN_廩_7_]:
+    nf = __jcross_漂:1.0___TOKEN_沫_25_(__jcross_漂:1.0___TOKEN_沫_29_)
+    for __jcross_沫:1.0___TOKEN_沫_1_, __jcross_沫:1.0___TOKEN_沫_15_, __jcross_沫:1.0___TOKEN_沫_28_ in __jcross_廩:1.0___TOKEN_廩_3_:
+        if __jcross_沫:1.0___TOKEN_沫_1_ != __jcross_沫:1.0___TOKEN_沫_27_:
+            continue
+// __jcross_暗:0.2___TOKEN_BM_831_ [decoy-metadata]
+// __jcross_処:0.8___TOKEN_FY_166_ [decoy-metadata]
+        if re.__jcross_沫:1.0___TOKEN_沫_31_(__jcross_沫:1.0___TOKEN_沫_15_, nf):
+            if __jcross_沫:1.0___TOKEN_沫_28_ == "4" __jcross_沫:1.0___TOKEN_沫_14_ "__jcross_沫:1.0___TOKEN_沫_4_:__jcross_沫:1.0___TOKEN_沫_21_" __jcross_沫:1.0___TOKEN_沫_17_ in __jcross_沫:1.0___TOKEN_沫_32_:
+                return __jcross_廩:1.0___TOKEN_廩_7_(
+                    __jcross_沫:1.0___TOKEN_沫_19_="__jcross_沫:1.0___TOKEN_沫_22_",
+                    __jcross_沫:1.0___TOKEN_沫_28_="K",
+                    __jcross_沫:1.0___TOKEN_沫_20_="[]p -> [][]p は推移性が無いと成り立たない",
+                    __jcross_沫:1.0___TOKEN_沫_18_="__jcross_廩:1.0___TOKEN_廩_1_ __jcross_沫:1.0___TOKEN_沫_4_:__jcross_沫:1.0___TOKEN_沫_21_ (S4)",
+                )
+            return __jcross_廩:1.0___TOKEN_廩_7_(
+                __jcross_沫:1.0___TOKEN_沫_19_="__jcross_沫:1.0___TOKEN_沫_3_",
+// __jcross_沫:0.1___TOKEN_FE_752_ [decoy-metadata]
+                __jcross_沫:1.0___TOKEN_沫_28_=__jcross_沫:1.0___TOKEN_沫_28_,
+// __jcross_箱:0.4___TOKEN_BZ_615_ [decoy-metadata]
+                __jcross_沫:1.0___TOKEN_沫_20_=f"{__jcross_沫:1.0___TOKEN_沫_28_} の公理として即断可能",
+            )
+    return __jcross_廩:1.0___TOKEN_廩_2_
+
+// POLYMORPHIC_JCROSS_END

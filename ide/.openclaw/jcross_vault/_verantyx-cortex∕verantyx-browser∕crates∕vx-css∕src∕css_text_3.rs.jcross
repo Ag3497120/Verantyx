@@ -1,0 +1,114 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:10B6A313 ver:1778166283
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_霾:1.0__OPAQUE_霾_31_ _ID_霾:1.0__OPAQUE_霾_69_::_ID_霾:1.0__OPAQUE_霾_88_::_ID_庖:1.0__OPAQUE_庖_37_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_霾:1.0__OPAQUE_霾_32_ enum _ID_庖:1.0__OPAQUE_庖_42_ { _ID_庖:1.0__OPAQUE_庖_10_, _ID_庖:1.0__OPAQUE_庖_16_, _ID_庖:1.0__OPAQUE_庖_22_, _ID_庖:1.0__OPAQUE_庖_43_ }
+
+// [metadata-stripped]
+// _ID_秘:0.3__OPAQUE_CE_361_ [decoy-metadata]
+// [metadata-stripped]
+_ID_霾:1.0__OPAQUE_霾_32_ enum _ID_庖:1.0__OPAQUE_庖_53_ { _ID_庖:1.0__OPAQUE_庖_10_, _ID_庖:1.0__OPAQUE_庖_43_, _ID_庖:1.0__OPAQUE_庖_8_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_霾:1.0__OPAQUE_霾_32_ enum _ID_庖:1.0__OPAQUE_庖_45_ { _ID_庖:1.0__OPAQUE_庖_39_, _ID_庖:1.0__OPAQUE_庖_29_, _ID_庖:1.0__OPAQUE_庖_12_ }
+
+// [metadata-stripped]
+_ID_霾:1.0__OPAQUE_霾_32_ struct _ID_庖:1.0__OPAQUE_庖_18_ {
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_80_: _ID_庖:1.0__OPAQUE_庖_42_,
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_51_: _ID_庖:1.0__OPAQUE_庖_53_,
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_78_: _ID_庖:1.0__OPAQUE_庖_45_,
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_59_: _ID_霾:1.0__OPAQUE_霾_23_, // _ID_庖:1.0__OPAQUE_庖_50_-to-_ID_霾:1.0__OPAQUE_霾_42_ _ID_霾:1.0__OPAQUE_霾_60_ _ID_霾:1.0__OPAQUE_霾_41_ _ID_霾:1.0__OPAQUE_霾_81_ _ID_霾:1.0__OPAQUE_霾_96_
+// _ID_漂:0.5__OPAQUE_FF_362_ [decoy-metadata]
+}
+
+_ID_霾:1.0__OPAQUE_霾_1_ _ID_庖:1.0__OPAQUE_庖_41_ for _ID_庖:1.0__OPAQUE_庖_18_ {
+    fn _ID_霾:1.0__OPAQUE_霾_103_() -> _ID_庖:1.0__OPAQUE_庖_49_ {
+        _ID_庖:1.0__OPAQUE_庖_49_ {
+            _ID_霾:1.0__OPAQUE_霾_80_: _ID_庖:1.0__OPAQUE_庖_42_::_ID_庖:1.0__OPAQUE_庖_10_,
+            _ID_霾:1.0__OPAQUE_霾_51_: _ID_庖:1.0__OPAQUE_庖_53_::_ID_庖:1.0__OPAQUE_庖_10_,
+            _ID_霾:1.0__OPAQUE_霾_78_: _ID_庖:1.0__OPAQUE_庖_45_::_ID_庖:1.0__OPAQUE_庖_29_,
+            _ID_霾:1.0__OPAQUE_霾_59_: false,
+        }
+    }
+}
+
+// [metadata-stripped]
+_ID_霾:1.0__OPAQUE_霾_32_ struct _ID_庖:1.0__OPAQUE_庖_17_ {
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_79_: _ID_庖:1.0__OPAQUE_庖_37_<_ID_霾:1.0__OPAQUE_霾_35_, _ID_庖:1.0__OPAQUE_庖_18_>,
+    _ID_霾:1.0__OPAQUE_霾_32_ _ID_霾:1.0__OPAQUE_霾_72_: _ID_霾:1.0__OPAQUE_霾_35_,
+}
+
+_ID_霾:1.0__OPAQUE_霾_1_ _ID_庖:1.0__OPAQUE_庖_17_ {
+    _ID_霾:1.0__OPAQUE_霾_32_ fn _ID_霾:1.0__OPAQUE_霾_21_() -> _ID_庖:1.0__OPAQUE_庖_49_ {
+        _ID_庖:1.0__OPAQUE_庖_49_ {
+            _ID_霾:1.0__OPAQUE_霾_79_: _ID_庖:1.0__OPAQUE_庖_37_::_ID_霾:1.0__OPAQUE_霾_21_(),
+            _ID_霾:1.0__OPAQUE_霾_72_: 0,
+        }
+    }
+
+    _ID_霾:1.0__OPAQUE_霾_32_ fn _ID_項:1.0__OPAQUE_煌_1_(&_ID_霾:1.0__OPAQUE_霾_84_ self, _ID_霾:1.0__OPAQUE_霾_87_: _ID_霾:1.0__OPAQUE_霾_35_, _ID_霾:1.0__OPAQUE_霾_83_: _ID_庖:1.0__OPAQUE_庖_18_) {
+        self._ID_霾:1.0__OPAQUE_霾_79_._ID_霾:1.0__OPAQUE_霾_30_(_ID_霾:1.0__OPAQUE_霾_87_, _ID_霾:1.0__OPAQUE_霾_83_);
+    }
+
+// [metadata-stripped]
+    _ID_霾:1.0__OPAQUE_霾_32_ fn _ID_霾:1.0__OPAQUE_霾_89_(&_ID_霾:1.0__OPAQUE_霾_84_ self, _ID_霾:1.0__OPAQUE_霾_87_: _ID_霾:1.0__OPAQUE_霾_35_, _ID_霾:1.0__OPAQUE_霾_99_: _ID_霾:1.0__OPAQUE_霾_23_) -> _ID_霾:1.0__OPAQUE_霾_23_ {
+        if let _ID_庖:1.0__OPAQUE_庖_34_(_ID_霾:1.0__OPAQUE_霾_83_) = self._ID_霾:1.0__OPAQUE_霾_79_._ID_項:1.0__OPAQUE_煌_2_(&_ID_霾:1.0__OPAQUE_霾_87_) {
+            if _ID_霾:1.0__OPAQUE_霾_83_._ID_霾:1.0__OPAQUE_霾_80_ == _ID_庖:1.0__OPAQUE_庖_42_::_ID_庖:1.0__OPAQUE_庖_22_ {
+                self._ID_霾:1.0__OPAQUE_霾_72_ += 1;
+                return true;
+            }
+            if _ID_霾:1.0__OPAQUE_霾_83_._ID_霾:1.0__OPAQUE_霾_80_ == _ID_庖:1.0__OPAQUE_庖_42_::_ID_庖:1.0__OPAQUE_庖_16_ && _ID_霾:1.0__OPAQUE_霾_99_ {
+// [metadata-stripped]
+                return false;
+            }
+            if _ID_霾:1.0__OPAQUE_霾_83_._ID_霾:1.0__OPAQUE_霾_51_ == _ID_庖:1.0__OPAQUE_庖_53_::_ID_庖:1.0__OPAQUE_庖_8_ {
+                self._ID_霾:1.0__OPAQUE_霾_72_ += 1;
+                return true; // _ID_庖:1.0__OPAQUE_庖_27_ _ID_庖:1.0__OPAQUE_庖_31_/_ID_庖:1.0__OPAQUE_庖_6_ _ID_庖:1.0__OPAQUE_庖_33_ _ID_霾:1.0__OPAQUE_霾_61_ for _ID_霾:1.0__OPAQUE_霾_19_ _ID_霾:1.0__OPAQUE_霾_26_
+            }
+        }
+        false
+    }
+// _ID_霾:0.9__OPAQUE_AA_819_ [decoy-metadata]
+
+// [metadata-stripped]
+    _ID_霾:1.0__OPAQUE_霾_32_ fn _ID_霾:1.0__OPAQUE_霾_49_(&self, _ID_霾:1.0__OPAQUE_霾_87_: _ID_霾:1.0__OPAQUE_霾_35_, _ID_霾:1.0__OPAQUE_霾_39_: _ID_霾:1.0__OPAQUE_霾_23_) -> _ID_霾:1.0__OPAQUE_霾_23_ {
+        if let _ID_庖:1.0__OPAQUE_庖_34_(_ID_霾:1.0__OPAQUE_霾_83_) = self._ID_霾:1.0__OPAQUE_霾_79_._ID_項:1.0__OPAQUE_煌_2_(&_ID_霾:1.0__OPAQUE_霾_87_) {
+            _ID_霾:1.0__OPAQUE_霾_107_ _ID_霾:1.0__OPAQUE_霾_83_._ID_霾:1.0__OPAQUE_霾_78_ {
+                _ID_庖:1.0__OPAQUE_庖_45_::_ID_庖:1.0__OPAQUE_庖_39_ => return false,
+                _ID_庖:1.0__OPAQUE_庖_45_::_ID_庖:1.0__OPAQUE_庖_29_ => return true, // _ID_庖:1.0__OPAQUE_庖_25_ _ID_霾:1.0__OPAQUE_霾_36_ `&_ID_霾:1.0__OPAQUE_霾_15_;` _ID_霾:1.0__OPAQUE_霾_104_ _ID_霾:1.0__OPAQUE_霾_108_
+                _ID_庖:1.0__OPAQUE_庖_45_::_ID_庖:1.0__OPAQUE_庖_12_ => return _ID_霾:1.0__OPAQUE_霾_39_, // _ID_庖:1.0__OPAQUE_庖_30_ _ID_霾:1.0__OPAQUE_霾_7_ to _ID_霾:1.0__OPAQUE_霾_16_ if no OS _ID_霾:1.0__OPAQUE_霾_68_ _ID_霾:1.0__OPAQUE_霾_58_
+            }
+        }
+        false
+    }
+
+// [metadata-stripped]
+    _ID_霾:1.0__OPAQUE_霾_32_ fn _ID_霾:1.0__OPAQUE_霾_40_(&self, _ID_霾:1.0__OPAQUE_霾_87_: _ID_霾:1.0__OPAQUE_霾_35_) -> _ID_庖:1.0__OPAQUE_庖_13_ {
+        if let _ID_庖:1.0__OPAQUE_庖_34_(_ID_霾:1.0__OPAQUE_霾_76_) = self._ID_霾:1.0__OPAQUE_霾_79_._ID_項:1.0__OPAQUE_煌_2_(&_ID_霾:1.0__OPAQUE_霾_87_) {
+            _ID_漂:1.0__OPAQUE_霾_101_!("📜 _ID_庖:1.0__OPAQUE_庖_24_ _ID_庖:1.0__OPAQUE_庖_51_ 3 (_ID_庖:1.0__OPAQUE_庖_9_ #{}): _ID_庖:1.0__OPAQUE_庖_32_-_ID_庖:1.0__OPAQUE_庖_3_: {:?} | _ID_庖:1.0__OPAQUE_庖_5_: {:?} | _ID_庖:1.0__OPAQUE_庖_45_: {:?}", 
+                _ID_霾:1.0__OPAQUE_霾_87_, _ID_霾:1.0__OPAQUE_霾_76_._ID_霾:1.0__OPAQUE_霾_80_, _ID_霾:1.0__OPAQUE_霾_76_._ID_霾:1.0__OPAQUE_霾_51_, _ID_霾:1.0__OPAQUE_霾_76_._ID_霾:1.0__OPAQUE_霾_78_)
+// _ID_項:0.7__OPAQUE_GY_321_ [decoy-metadata]
+        } else {
+            _ID_漂:1.0__OPAQUE_霾_101_!("_ID_庖:1.0__OPAQUE_庖_9_ #{} _ID_霾:1.0__OPAQUE_霾_46_ _ID_霾:1.0__OPAQUE_霾_103_ _ID_霾:1.0__OPAQUE_霾_98_ _ID_霾:1.0__OPAQUE_霾_26_ _ID_霾:1.0__OPAQUE_霾_73_", _ID_霾:1.0__OPAQUE_霾_87_)
+        }
+    }
+// _ID_庖:0.5__OPAQUE_DY_161_ [decoy-metadata]
+// _ID_漂:0.4__OPAQUE_HM_718_ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

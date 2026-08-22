@@ -1,0 +1,382 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8D5E6563 ver:1778164107
+// ⚠️ One-time schema — expires after response
+
+import _ID_殻:1.0__VERANTYX_殻_22_
+import _ID_殻:1.0__VERANTYX_殻_37_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@_ID_殻:1.0__VERANTYX_殻_58_
+final class _ID_殻:1.0__VERANTYX_殻_20_: _ID_殻:1.0__VERANTYX_殻_21_ {
+
+    static let _ID_霪:1.0__VERANTYX_霪_34_ = _ID_殻:1.0__VERANTYX_殻_20_()
+
+// [metadata-stripped]
+
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_霪:1.0__VERANTYX_霪_17_ = false
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_霪:1.0__VERANTYX_霪_27_: _ID_殻:1.0__VERANTYX_殻_17_ = ._ID_霪:1.0__VERANTYX_霪_63_
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_霪:1.0__VERANTYX_霪_100_: [_ID_殻:1.0__VERANTYX_殻_29_] = []
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_霪:1.0__VERANTYX_霪_82_: [_ID_殻:1.0__VERANTYX_殻_9_] = []
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_匼:1.0__VERANTYX_霪_115_: _ID_殻:1.0__VERANTYX_殻_9_ = ""
+    @_ID_殻:1.0__VERANTYX_殻_42_ var _ID_霪:1.0__VERANTYX_霪_83_: _ID_殻:1.0__VERANTYX_殻_9_ = ""   // _ID_法:1.0__VERANTYX_殻_44_ 向け
+
+// [metadata-stripped]
+    var _ID_霪:1.0__VERANTYX_霪_32_: _ID_殻:1.0__VERANTYX_殻_9_ { _ID_霪:1.0__VERANTYX_霪_27_._ID_霪:1.0__VERANTYX_霪_155_ }
+
+    enum _ID_殻:1.0__VERANTYX_殻_17_ {
+        case _ID_霪:1.0__VERANTYX_霪_63_
+        case _ID_霪:1.0__VERANTYX_霪_169_
+        case _ID_霪:1.0__VERANTYX_霪_180_
+        case _ID_霪:1.0__VERANTYX_霪_150_
+        case _ID_霪:1.0__VERANTYX_霪_105_
+        case _ID_浮:1.0__VERANTYX_霪_10_
+        case _ID_霪:1.0__VERANTYX_霪_61_
+        case _ID_霪:1.0__VERANTYX_霪_119_
+        
+        var _ID_霪:1.0__VERANTYX_霪_155_: _ID_殻:1.0__VERANTYX_殻_9_ {
+            switch self {
+            case ._ID_霪:1.0__VERANTYX_霪_63_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_5_", "待機中")
+            case ._ID_霪:1.0__VERANTYX_霪_169_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_28_ L1 _ID_殻:1.0__VERANTYX_殻_8_", "L1漢字変換中")
+            case ._ID_霪:1.0__VERANTYX_霪_180_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_31_ L2.5 _ID_殻:1.0__VERANTYX_殻_33_", "L2.5地図構築中")
+            case ._ID_霪:1.0__VERANTYX_霪_150_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_53_ for _ID_殻:1.0__VERANTYX_殻_61_", "_ID_殻:1.0__VERANTYX_殻_16_待機中 (_ID_殻:1.0__VERANTYX_殻_55_計画中)")
+            case ._ID_霪:1.0__VERANTYX_霪_105_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_19_", "実行中")
+            case ._ID_浮:1.0__VERANTYX_霪_10_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_48_ _ID_殻:1.0__VERANTYX_殻_56_", "ビルド検証中")
+            case ._ID_霪:1.0__VERANTYX_霪_61_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_13_", "完了")
+            case ._ID_霪:1.0__VERANTYX_霪_119_: return _ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("_ID_殻:1.0__VERANTYX_殻_39_", "エラー")
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private let _ID_霪:1.0__VERANTYX_霪_108_ = _ID_殻:1.0__VERANTYX_殻_15_()
+    private let _ID_霪:1.0__VERANTYX_霪_12_ = _ID_殻:1.0__VERANTYX_殻_4_._ID_霪:1.0__VERANTYX_霪_34_
+    private let _ID_霪:1.0__VERANTYX_霪_92_ = _ID_殻:1.0__VERANTYX_殻_47_._ID_霪:1.0__VERANTYX_霪_34_
+    private var _ID_霪:1.0__VERANTYX_霪_94_: _ID_殻:1.0__VERANTYX_殻_11_ { _ID_殻:1.0__VERANTYX_殻_6_._ID_霪:1.0__VERANTYX_霪_34_._ID_霪:1.0__VERANTYX_霪_94_ }
+
+    private var _ID_霪:1.0__VERANTYX_霪_11_: _ID_殻:1.0__VERANTYX_殻_14_<_ID_殻:1.0__VERANTYX_殻_38_, _ID_法:1.0__VERANTYX_殻_7_>?
+    private var _ID_霪:1.0__VERANTYX_霪_172_: _ID_殻:1.0__VERANTYX_殻_14_<_ID_殻:1.0__VERANTYX_殻_38_, _ID_法:1.0__VERANTYX_殻_7_>?
+
+    private init() {}
+
+// [metadata-stripped]
+
+    func _ID_霪:1.0__VERANTYX_霪_75_(_ID_霪:1.0__VERANTYX_霪_76_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_) async {
+        guard !_ID_霪:1.0__VERANTYX_霪_17_ else { return }
+// _ID_紗:0.8__VERANTYX_BD_776_ [decoy-metadata]
+        _ID_霪:1.0__VERANTYX_霪_17_ = true
+        _ID_霪:1.0__VERANTYX_霪_82_._ID_霪:1.0__VERANTYX_霪_36_()
+// _ID_匼:0.2__VERANTYX_GK_664_ [decoy-metadata]
+        _ID_霪:1.0__VERANTYX_霪_100_._ID_霪:1.0__VERANTYX_霪_36_()
+        _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_169_
+        await _ID_霪:1.0__VERANTYX_霪_108_._ID_霪:1.0__VERANTYX_霪_70_()
+
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🚀 _ID_殻:1.0__VERANTYX_殻_27_ _ID_法:1.0__VERANTYX_殻_49_ _ID_霪:1.0__VERANTYX_霪_16_", "🚀 _ID_殻:1.0__VERANTYX_殻_27_ _ID_法:1.0__VERANTYX_殻_49_ 起動"))
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("📋 _ID_殻:1.0__VERANTYX_殻_14_: \(_ID_霪:1.0__VERANTYX_霪_76_._ID_霪:1.0__VERANTYX_霪_143_(80))", "📋 タスク: \(_ID_霪:1.0__VERANTYX_霪_76_._ID_霪:1.0__VERANTYX_霪_143_(80))"))
+
+// [metadata-stripped]
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🔤 _ID_殻:1.0__VERANTYX_殻_17_ 1: _ID_殻:1.0__VERANTYX_殻_28_ _ID_霪:1.0__VERANTYX_霪_179_ _ID_霪:1.0__VERANTYX_霪_9_ _ID_匼:1.0__VERANTYX_霪_107_ to L1 _ID_殻:1.0__VERANTYX_殻_8_ _ID_霪:1.0__VERANTYX_霪_114_...", "🔤 _ID_殻:1.0__VERANTYX_殻_17_ 1: 全ソースファイルを L1 漢字トポロジーに変換中..."))
+        await _ID_霪:1.0__VERANTYX_霪_35_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+        _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_180_
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🗺️ _ID_殻:1.0__VERANTYX_殻_17_ 2: _ID_殻:1.0__VERANTYX_殻_31_ L2.5 _ID_霪:1.0__VERANTYX_霪_181_ _ID_霪:1.0__VERANTYX_霪_93_...", "🗺️ _ID_殻:1.0__VERANTYX_殻_17_ 2: L2.5 索引地図を構築中..."))
+        await _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_54_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+
+        let _ID_霪:1.0__VERANTYX_霪_14_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_47_(_ID_匼:1.0__VERANTYX_霪_71_: 50)
+        let _ID_霪:1.0__VERANTYX_霪_181_  = _ID_霪:1.0__VERANTYX_霪_67_()
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("✅ L2.5 _ID_霪:1.0__VERANTYX_霪_93_ _ID_霪:1.0__VERANTYX_霪_61_: \(_ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_匼:1.0__VERANTYX_霪_142_ ?? 0) _ID_匼:1.0__VERANTYX_霪_107_", "✅ L2.5 地図完成: \(_ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_匼:1.0__VERANTYX_霪_142_ ?? 0) ファイル"))
+
+// [metadata-stripped]
+        _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_150_
+        await _ID_霪:1.0__VERANTYX_霪_108_._ID_霪:1.0__VERANTYX_霪_153_(._ID_霪:1.0__VERANTYX_霪_185_(_ID_霪:1.0__VERANTYX_霪_14_: _ID_霪:1.0__VERANTYX_霪_14_, _ID_霪:1.0__VERANTYX_霪_181_: _ID_霪:1.0__VERANTYX_霪_181_, _ID_霪:1.0__VERANTYX_霪_76_: _ID_霪:1.0__VERANTYX_霪_76_))
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("📤 _ID_殻:1.0__VERANTYX_殻_41_ _ID_霪:1.0__VERANTYX_霪_166_ _ID_霪:1.0__VERANTYX_霪_28_ _ID_霪:1.0__VERANTYX_霪_93_ to _ID_殻:1.0__VERANTYX_殻_55_. _ID_殻:1.0__VERANTYX_殻_53_ for _ID_殻:1.0__VERANTYX_殻_61_...", "📤 _ID_殻:1.0__VERANTYX_殻_55_ にタスクと地図を送信。_ID_殻:1.0__VERANTYX_殻_16_ 待機中..."))
+
+// [metadata-stripped]
+        let _ID_霪:1.0__VERANTYX_霪_191_ = _ID_殻:1.0__VERANTYX_殻_51_._ID_霪:1.0__VERANTYX_霪_34_
+        _ID_霪:1.0__VERANTYX_霪_11_ = _ID_殻:1.0__VERANTYX_殻_14_ {
+            await _ID_霪:1.0__VERANTYX_霪_191_._ID_霪:1.0__VERANTYX_霪_149_(_ID_霪:1.0__VERANTYX_霪_108_: _ID_霪:1.0__VERANTYX_霪_108_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+        }
+
+// [metadata-stripped]
+        _ID_霪:1.0__VERANTYX_霪_172_ = _ID_殻:1.0__VERANTYX_殻_14_ {
+            await self._ID_霪:1.0__VERANTYX_霪_6_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_, _ID_霪:1.0__VERANTYX_霪_76_: _ID_霪:1.0__VERANTYX_霪_76_)
+        }
+
+        await _ID_霪:1.0__VERANTYX_霪_172_?._ID_霪:1.0__VERANTYX_霪_95_
+        _ID_霪:1.0__VERANTYX_霪_11_?._ID_霪:1.0__VERANTYX_霪_81_()
+        _ID_霪:1.0__VERANTYX_霪_17_ = false
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🏁 _ID_法:1.0__VERANTYX_殻_49_ _ID_霪:1.0__VERANTYX_霪_33_ _ID_霪:1.0__VERANTYX_霪_188_", "🏁 _ID_法:1.0__VERANTYX_殻_49_ ループ終了"))
+    }
+
+// [metadata-stripped]
+
+    private func _ID_霪:1.0__VERANTYX_霪_6_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_, _ID_霪:1.0__VERANTYX_霪_76_: _ID_殻:1.0__VERANTYX_殻_9_) async {
+        while !_ID_殻:1.0__VERANTYX_殻_14_._ID_霪:1.0__VERANTYX_霪_186_ {
+            try? await _ID_殻:1.0__VERANTYX_殻_14_._ID_霪:1.0__VERANTYX_霪_98_(_ID_霪:1.0__VERANTYX_霪_78_: 200_000_000) // 200ms ポーリング
+
+            guard let _ID_霪:1.0__VERANTYX_霪_87_ = await _ID_霪:1.0__VERANTYX_霪_108_._ID_浮:1.0__VERANTYX_霪_125_() else { continue }
+
+            switch _ID_霪:1.0__VERANTYX_霪_87_ {
+
+// [metadata-stripped]
+            case ._ID_霪:1.0__VERANTYX_霪_140_(let _ID_霪:1.0__VERANTYX_霪_62_):
+                _ID_霪:1.0__VERANTYX_霪_100_ = _ID_霪:1.0__VERANTYX_霪_62_
+                _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_105_
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("📋 _ID_殻:1.0__VERANTYX_殻_59_ _ID_殻:1.0__VERANTYX_殻_61_: \(_ID_霪:1.0__VERANTYX_霪_62_._ID_霪:1.0__VERANTYX_霪_99_)", "📋 _ID_殻:1.0__VERANTYX_殻_16_受信: \(_ID_霪:1.0__VERANTYX_霪_62_._ID_霪:1.0__VERANTYX_霪_99_)件"))
+                for (i, _ID_霪:1.0__VERANTYX_霪_162_) in _ID_霪:1.0__VERANTYX_霪_62_._ID_霪:1.0__VERANTYX_霪_113_() {
+                    _ID_霪:1.0__VERANTYX_霪_2_("  [\(i+1)] \(_ID_霪:1.0__VERANTYX_霪_162_._ID_霪:1.0__VERANTYX_霪_163_._ID_霪:1.0__VERANTYX_霪_7_): \(_ID_霪:1.0__VERANTYX_霪_162_._ID_霪:1.0__VERANTYX_霪_158_)")
+                }
+
+// [metadata-stripped]
+            case ._ID_紗:1.0__VERANTYX_霪_1_(let _ID_霪:1.0__VERANTYX_霪_117_, let _ID_霪:1.0__VERANTYX_霪_135_):
+                _ID_匼:1.0__VERANTYX_霪_115_ = _ID_霪:1.0__VERANTYX_霪_117_
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("📁 _ID_匼:1.0__VERANTYX_殻_43_ _ID_紗:1.0__VERANTYX_霪_38_: \(_ID_霪:1.0__VERANTYX_霪_117_) (\(_ID_霪:1.0__VERANTYX_霪_135_._ID_霪:1.0__VERANTYX_霪_143_(40)))", "📁 ファイル要求: \(_ID_霪:1.0__VERANTYX_霪_117_) (\(_ID_霪:1.0__VERANTYX_霪_135_._ID_霪:1.0__VERANTYX_霪_143_(40)))"))
+                await _ID_匼:1.0__VERANTYX_霪_4_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_霪:1.0__VERANTYX_霪_117_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+
+// [metadata-stripped]
+            case ._ID_匼:1.0__VERANTYX_霪_106_(let _ID_霪:1.0__VERANTYX_霪_117_, let _ID_霪:1.0__VERANTYX_霪_56_, let _ID_霪:1.0__VERANTYX_霪_51_, let _ID_霪:1.0__VERANTYX_霪_134_):
+// _ID_浮:0.2__VERANTYX_KG_745_ [decoy-metadata]
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("📝 _ID_匼:1.0__VERANTYX_殻_43_ _ID_霪:1.0__VERANTYX_霪_178_: \(_ID_霪:1.0__VERANTYX_霪_117_)", "📝 ファイル受信: \(_ID_霪:1.0__VERANTYX_霪_117_)"))
+// [metadata-stripped]
+                let _ID_紗:1.0__VERANTYX_霪_138_ = _ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_(_ID_霪:1.0__VERANTYX_霪_117_)
+                try? _ID_匼:1.0__VERANTYX_殻_26_._ID_霪:1.0__VERANTYX_霪_126_._ID_霪:1.0__VERANTYX_霪_133_(
+                    at: _ID_紗:1.0__VERANTYX_霪_138_._ID_霪:1.0__VERANTYX_霪_156_(), _ID_霪:1.0__VERANTYX_霪_103_: true
+                )
+                try? _ID_霪:1.0__VERANTYX_霪_56_._ID_霪:1.0__VERANTYX_霪_171_(to: _ID_紗:1.0__VERANTYX_霪_138_, _ID_霪:1.0__VERANTYX_霪_69_: true, _ID_霪:1.0__VERANTYX_霪_26_: ._ID_霪:1.0__VERANTYX_霪_144_)
+
+// [metadata-stripped]
+                _ID_霪:1.0__VERANTYX_霪_159_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_霪:1.0__VERANTYX_霪_117_, _ID_霪:1.0__VERANTYX_霪_5_: _ID_霪:1.0__VERANTYX_霪_51_)
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("  🗺️ L2.5 _ID_霪:1.0__VERANTYX_霪_184_: \(_ID_霪:1.0__VERANTYX_霪_117_)", "  🗺️ L2.5 更新: \(_ID_霪:1.0__VERANTYX_霪_117_)"))
+
+// [metadata-stripped]
+                if _ID_霪:1.0__VERANTYX_霪_134_ {
+                    _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_浮:1.0__VERANTYX_霪_10_
+                    _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("  🔨 _ID_殻:1.0__VERANTYX_殻_48_ _ID_霪:1.0__VERANTYX_霪_40_: \(_ID_霪:1.0__VERANTYX_霪_117_)", "  🔨 ビルド検証中: \(_ID_霪:1.0__VERANTYX_霪_117_)"))
+                    let _ID_霪:1.0__VERANTYX_霪_43_ = _ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_(
+                        _ID_霪:1.0__VERANTYX_霪_117_._ID_霪:1.0__VERANTYX_霪_147_(_ID_霪:1.0__VERANTYX_霪_52_: "/")._ID_霪:1.0__VERANTYX_霪_102_ ?? "."
+                    )
+                    let (_ID_霪:1.0__VERANTYX_霪_48_, _ID_霪:1.0__VERANTYX_霪_109_) = await _ID_霪:1.0__VERANTYX_霪_92_._ID_霪:1.0__VERANTYX_霪_152_(
+                        _ID_紗:1.0__VERANTYX_霪_127_: _ID_霪:1.0__VERANTYX_霪_43_, _ID_紗:1.0__VERANTYX_霪_138_: _ID_紗:1.0__VERANTYX_霪_138_
+                    )
+                    let _ID_霪:1.0__VERANTYX_霪_148_ = _ID_霪:1.0__VERANTYX_霪_48_ ? [] : _ID_霪:1.0__VERANTYX_霪_109_._ID_霪:1.0__VERANTYX_霪_147_(_ID_霪:1.0__VERANTYX_霪_52_: "\n")._ID_法:1.0__VERANTYX_霪_24_ { !$0._ID_霪:1.0__VERANTYX_霪_129_ }
+                    await _ID_霪:1.0__VERANTYX_霪_108_._ID_霪:1.0__VERANTYX_霪_153_(._ID_霪:1.0__VERANTYX_霪_130_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_霪:1.0__VERANTYX_霪_117_, _ID_霪:1.0__VERANTYX_霪_48_: _ID_霪:1.0__VERANTYX_霪_48_, _ID_霪:1.0__VERANTYX_霪_109_: _ID_霪:1.0__VERANTYX_霪_148_))
+                    _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("  \(_ID_霪:1.0__VERANTYX_霪_48_ ? "✅" : "❌") _ID_殻:1.0__VERANTYX_殻_56_ _ID_霪:1.0__VERANTYX_霪_29_: \(_ID_霪:1.0__VERANTYX_霪_48_ ? "_ID_殻:1.0__VERANTYX_殻_62_" : "\(_ID_霪:1.0__VERANTYX_霪_148_._ID_霪:1.0__VERANTYX_霪_99_) _ID_霪:1.0__VERANTYX_霪_109_")", "  \(_ID_霪:1.0__VERANTYX_霪_48_ ? "✅" : "❌") ビルド結果: \(_ID_霪:1.0__VERANTYX_霪_48_ ? "成功" : "\(_ID_霪:1.0__VERANTYX_霪_148_._ID_霪:1.0__VERANTYX_霪_99_)エラー")"))
+                    _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_105_
+
+// [metadata-stripped]
+                    if _ID_霪:1.0__VERANTYX_霪_48_ {
+                        _ID_霪:1.0__VERANTYX_霪_94_._ID_浮:1.0__VERANTYX_霪_174_(_ID_霪:1.0__VERANTYX_霪_175_: _ID_霪:1.0__VERANTYX_霪_117_, _ID_霪:1.0__VERANTYX_霪_161_: "", _ID_霪:1.0__VERANTYX_霪_168_: _ID_霪:1.0__VERANTYX_霪_56_,
+                                            _ID_霪:1.0__VERANTYX_霪_22_: "_ID_法:1.0__VERANTYX_霪_131_: \(_ID_霪:1.0__VERANTYX_霪_76_._ID_霪:1.0__VERANTYX_霪_143_(50))")
+                    }
+                }
+
+// [metadata-stripped]
+                let _ID_霪:1.0__VERANTYX_霪_123_ = _ID_霪:1.0__VERANTYX_霪_164_(for: _ID_霪:1.0__VERANTYX_霪_117_)
+                if !_ID_霪:1.0__VERANTYX_霪_123_._ID_霪:1.0__VERANTYX_霪_56_._ID_霪:1.0__VERANTYX_霪_129_ {
+                    await _ID_霪:1.0__VERANTYX_霪_108_._ID_霪:1.0__VERANTYX_霪_153_(._ID_霪:1.0__VERANTYX_霪_58_(_ID_法:1.0__VERANTYX_霪_19_: _ID_霪:1.0__VERANTYX_霪_123_._ID_法:1.0__VERANTYX_霪_19_, _ID_霪:1.0__VERANTYX_霪_56_: _ID_霪:1.0__VERANTYX_霪_123_._ID_霪:1.0__VERANTYX_霪_56_))
+                }
+
+// [metadata-stripped]
+            case ._ID_霪:1.0__VERANTYX_霪_124_(let _ID_霪:1.0__VERANTYX_霪_184_):
+                _ID_霪:1.0__VERANTYX_霪_100_ = _ID_霪:1.0__VERANTYX_霪_184_
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🔄 _ID_殻:1.0__VERANTYX_殻_61_ _ID_霪:1.0__VERANTYX_霪_184_: \(_ID_霪:1.0__VERANTYX_霪_184_._ID_霪:1.0__VERANTYX_霪_99_) (_ID_殻:1.0__VERANTYX_殻_56_ _ID_霪:1.0__VERANTYX_霪_119_ _ID_霪:1.0__VERANTYX_霪_80_, _ID_霪:1.0__VERANTYX_霪_128_.)", "🔄 _ID_殻:1.0__VERANTYX_殻_16_更新: \(_ID_霪:1.0__VERANTYX_霪_184_._ID_霪:1.0__VERANTYX_霪_99_)件 (ビルドエラー対応等)"))
+
+// [metadata-stripped]
+            case ._ID_霪:1.0__VERANTYX_霪_31_(let _ID_霪:1.0__VERANTYX_霪_117_, let _ID_霪:1.0__VERANTYX_霪_119_, _):
+// _ID_浮:0.1__VERANTYX_CY_380_ [decoy-metadata]
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("⚠️ _ID_殻:1.0__VERANTYX_殻_55_ _ID_霪:1.0__VERANTYX_霪_119_ _ID_霪:1.0__VERANTYX_霪_111_: \(_ID_霪:1.0__VERANTYX_霪_117_): \(_ID_霪:1.0__VERANTYX_霪_119_._ID_霪:1.0__VERANTYX_霪_143_(60))", "⚠️ _ID_殻:1.0__VERANTYX_殻_55_エラー報告: \(_ID_霪:1.0__VERANTYX_霪_117_): \(_ID_霪:1.0__VERANTYX_霪_119_._ID_霪:1.0__VERANTYX_霪_143_(60))"))
+                await _ID_匼:1.0__VERANTYX_霪_183_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_霪:1.0__VERANTYX_霪_117_, _ID_霪:1.0__VERANTYX_霪_119_: _ID_霪:1.0__VERANTYX_霪_119_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+
+// [metadata-stripped]
+            case ._ID_霪:1.0__VERANTYX_霪_5_(let _ID_霪:1.0__VERANTYX_霪_112_):
+                _ID_霪:1.0__VERANTYX_霪_27_ = ._ID_霪:1.0__VERANTYX_霪_61_
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("🎉 _ID_殻:1.0__VERANTYX_殻_14_ _ID_霪:1.0__VERANTYX_霪_37_!", "🎉 タスク完了!"))
+                _ID_霪:1.0__VERANTYX_霪_2_("─────────────────────────────")
+                _ID_霪:1.0__VERANTYX_霪_2_(_ID_霪:1.0__VERANTYX_霪_112_)
+                _ID_霪:1.0__VERANTYX_霪_2_("─────────────────────────────")
+
+// [metadata-stripped]
+                await _ID_匼:1.0__VERANTYX_霪_96_(_ID_霪:1.0__VERANTYX_霪_112_: _ID_霪:1.0__VERANTYX_霪_112_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+
+// [metadata-stripped]
+                if let _ID_霪:1.0__VERANTYX_霪_50_ = _ID_殻:1.0__VERANTYX_殻_60_._ID_霪:1.0__VERANTYX_霪_34_ {
+                    _ID_霪:1.0__VERANTYX_霪_50_._ID_霪:1.0__VERANTYX_霪_60_._ID_霪:1.0__VERANTYX_霪_167_(_ID_殻:1.0__VERANTYX_殻_45_(_ID_霪:1.0__VERANTYX_霪_25_: ._ID_霪:1.0__VERANTYX_霪_42_, _ID_霪:1.0__VERANTYX_霪_56_: "✅ **タスク完了**\n\n\(_ID_霪:1.0__VERANTYX_霪_112_)"))
+                    _ID_霪:1.0__VERANTYX_霪_50_._ID_霪:1.0__VERANTYX_霪_157_ = false
+                }
+                return  // ループ終了
+
+            _ID_霪:1.0__VERANTYX_霪_126_:
+                break
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _ID_霪:1.0__VERANTYX_霪_35_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_) async {
+// [metadata-stripped]
+// [metadata-stripped]
+        await _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_54_(_ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_霪_127_)
+        let _ID_霪:1.0__VERANTYX_霪_99_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_匼:1.0__VERANTYX_霪_142_ ?? 0
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("  🔤 L1 _ID_霪:1.0__VERANTYX_霪_89_ _ID_霪:1.0__VERANTYX_霪_61_: \(_ID_霪:1.0__VERANTYX_霪_99_) _ID_匼:1.0__VERANTYX_霪_107_", "  🔤 L1 変換完了: \(_ID_霪:1.0__VERANTYX_霪_99_) ファイル"))
+    }
+
+// [metadata-stripped]
+
+    private func _ID_霪:1.0__VERANTYX_霪_67_() -> _ID_殻:1.0__VERANTYX_殻_9_ {
+        guard let _ID_霪:1.0__VERANTYX_霪_93_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_ else { return "(_ID_霪:1.0__VERANTYX_霪_44_)" }
+        let _ID_霪:1.0__VERANTYX_霪_8_ = _ID_霪:1.0__VERANTYX_霪_93_._ID_霪:1.0__VERANTYX_霪_41_._ID_霪:1.0__VERANTYX_霪_141_
+            ._ID_霪:1.0__VERANTYX_霪_116_ { $0._ID_霪:1.0__VERANTYX_霪_88_ < $1._ID_霪:1.0__VERANTYX_霪_88_ }
+            ._ID_霪:1.0__VERANTYX_霪_143_(100)
+            ._ID_霪:1.0__VERANTYX_霪_93_ { "[\($0._ID_霪:1.0__VERANTYX_霪_132_)] \($0._ID_霪:1.0__VERANTYX_霪_175_): \($0._ID_霪:1.0__VERANTYX_霪_90_)" }
+        return _ID_霪:1.0__VERANTYX_霪_8_._ID_霪:1.0__VERANTYX_霪_151_(_ID_霪:1.0__VERANTYX_霪_160_: "\n")
+    }
+
+// [metadata-stripped]
+
+    private func _ID_匼:1.0__VERANTYX_霪_4_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_) async {
+        let _ID_紗:1.0__VERANTYX_霪_138_ = _ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_(_ID_霪:1.0__VERANTYX_霪_117_)
+        let _ID_霪:1.0__VERANTYX_霪_56_ = (try? _ID_殻:1.0__VERANTYX_殻_9_(_ID_霪:1.0__VERANTYX_霪_73_: _ID_紗:1.0__VERANTYX_霪_138_, _ID_霪:1.0__VERANTYX_霪_26_: ._ID_霪:1.0__VERANTYX_霪_144_)) ?? ""
+        let _ID_霪:1.0__VERANTYX_霪_51_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_霪:1.0__VERANTYX_霪_41_[_ID_霪:1.0__VERANTYX_霪_117_]?._ID_霪:1.0__VERANTYX_霪_90_ ?? _ID_霪:1.0__VERANTYX_霪_117_
+
+// [metadata-stripped]
+        let _ID_霪:1.0__VERANTYX_霪_55_ = _ID_法:1.0__VERANTYX_殻_24_._ID_霪:1.0__VERANTYX_霪_55_(for: _ID_殻:1.0__VERANTYX_殻_6_._ID_霪:1.0__VERANTYX_霪_34_._ID_霪:1.0__VERANTYX_霪_137_)
+        let _ID_霪:1.0__VERANTYX_霪_72_ = _ID_殻:1.0__VERANTYX_殻_9_(_ID_霪:1.0__VERANTYX_霪_56_._ID_霪:1.0__VERANTYX_霪_143_(_ID_霪:1.0__VERANTYX_霪_55_._ID_霪:1.0__VERANTYX_霪_66_))
+
+// [metadata-stripped]
+        let _ID_霪:1.0__VERANTYX_霪_123_ = _ID_霪:1.0__VERANTYX_霪_164_(for: _ID_霪:1.0__VERANTYX_霪_117_)
+
+        await _ID_霪:1.0__VERANTYX_霪_108_._ID_霪:1.0__VERANTYX_霪_153_(._ID_匼:1.0__VERANTYX_霪_91_(
+            _ID_霪:1.0__VERANTYX_霪_117_: _ID_霪:1.0__VERANTYX_霪_117_,
+            _ID_霪:1.0__VERANTYX_霪_56_: _ID_霪:1.0__VERANTYX_霪_72_,
+            _ID_霪:1.0__VERANTYX_霪_51_: _ID_霪:1.0__VERANTYX_霪_51_,
+            _ID_霪:1.0__VERANTYX_霪_39_: _ID_霪:1.0__VERANTYX_霪_123_._ID_霪:1.0__VERANTYX_霪_56_
+        ))
+        _ID_霪:1.0__VERANTYX_霪_2_(_ID_殻:1.0__VERANTYX_殻_46_._ID_霪:1.0__VERANTYX_霪_34_.t("  📤 _ID_匼:1.0__VERANTYX_殻_43_ _ID_霪:1.0__VERANTYX_霪_176_: \(_ID_霪:1.0__VERANTYX_霪_117_) (\(_ID_霪:1.0__VERANTYX_霪_72_._ID_霪:1.0__VERANTYX_霪_99_)ch)", "  📤 ファイル配信: \(_ID_霪:1.0__VERANTYX_霪_117_) (\(_ID_霪:1.0__VERANTYX_霪_72_._ID_霪:1.0__VERANTYX_霪_99_)ch)"))
+    }
+
+// [metadata-stripped]
+
+    private struct _ID_殻:1.0__VERANTYX_殻_57_ { let _ID_法:1.0__VERANTYX_霪_19_: _ID_殻:1.0__VERANTYX_殻_9_; let _ID_霪:1.0__VERANTYX_霪_56_: _ID_殻:1.0__VERANTYX_殻_9_ }
+
+    private func _ID_霪:1.0__VERANTYX_霪_164_(for _ID_霪:1.0__VERANTYX_霪_117_: _ID_殻:1.0__VERANTYX_殻_9_) -> _ID_殻:1.0__VERANTYX_殻_57_ {
+        let _ID_匼:1.0__VERANTYX_霪_65_ = _ID_紗:1.0__VERANTYX_殻_34_(_ID_紗:1.0__VERANTYX_霪_45_: _ID_霪:1.0__VERANTYX_霪_117_)._ID_霪:1.0__VERANTYX_霪_118_
+
+// [metadata-stripped]
+        if let _ID_霪:1.0__VERANTYX_霪_181_ = _ID_霪:1.0__VERANTYX_霪_94_._ID_霪:1.0__VERANTYX_霪_20_ {
+            let _ID_霪:1.0__VERANTYX_霪_120_ = _ID_霪:1.0__VERANTYX_霪_181_._ID_霪:1.0__VERANTYX_霪_41_._ID_霪:1.0__VERANTYX_霪_141_
+                ._ID_法:1.0__VERANTYX_霪_24_ { $0._ID_霪:1.0__VERANTYX_霪_46_ != nil && $0._ID_霪:1.0__VERANTYX_霪_175_._ID_霪:1.0__VERANTYX_霪_182_(_ID_匼:1.0__VERANTYX_霪_65_) }
+                ._ID_霪:1.0__VERANTYX_霪_85_ { $0._ID_霪:1.0__VERANTYX_霪_46_?._ID_霪:1.0__VERANTYX_霪_90_ }
+                ._ID_霪:1.0__VERANTYX_霪_143_(5)
+                ._ID_霪:1.0__VERANTYX_霪_151_(_ID_霪:1.0__VERANTYX_霪_160_: "\n")
+            if !_ID_霪:1.0__VERANTYX_霪_120_._ID_霪:1.0__VERANTYX_霪_129_ {
+                return _ID_殻:1.0__VERANTYX_殻_57_(_ID_法:1.0__VERANTYX_霪_19_: "L1.5", _ID_霪:1.0__VERANTYX_霪_56_: "[_ID_殻:1.0__VERANTYX_殻_52_ _ID_殻:1.0__VERANTYX_殻_1_ - \(_ID_匼:1.0__VERANTYX_霪_65_)]\n\(_ID_霪:1.0__VERANTYX_霪_120_)")
+            }
+        }
+
+// _ID_渕:0.3__VERANTYX_ZE_301_ [decoy-metadata]
+// [metadata-stripped]
+        let _ID_霪:1.0__VERANTYX_霪_68_ = _ID_霪:1.0__VERANTYX_霪_94_._ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_("._ID_霪:1.0__VERANTYX_霪_79_/_ID_霪:1.0__VERANTYX_霪_145_")
+        if let _ID_匼:1.0__VERANTYX_霪_107_ = try? _ID_匼:1.0__VERANTYX_殻_26_._ID_霪:1.0__VERANTYX_霪_126_._ID_霪:1.0__VERANTYX_霪_18_(at: _ID_霪:1.0__VERANTYX_霪_68_, _ID_渕:1.0__VERANTYX_霪_165_: nil),
+           !_ID_匼:1.0__VERANTYX_霪_107_._ID_霪:1.0__VERANTYX_霪_129_ {
+            let _ID_霪:1.0__VERANTYX_霪_74_ = _ID_匼:1.0__VERANTYX_霪_107_._ID_霪:1.0__VERANTYX_霪_116_ { $0._ID_霪:1.0__VERANTYX_霪_97_ > $1._ID_霪:1.0__VERANTYX_霪_97_ }
+                ._ID_霪:1.0__VERANTYX_霪_143_(3)
+                ._ID_霪:1.0__VERANTYX_霪_85_ { try? _ID_殻:1.0__VERANTYX_殻_9_(_ID_霪:1.0__VERANTYX_霪_73_: $0, _ID_霪:1.0__VERANTYX_霪_26_: ._ID_霪:1.0__VERANTYX_霪_144_) }
+                ._ID_霪:1.0__VERANTYX_霪_93_ { _ID_殻:1.0__VERANTYX_殻_9_($0._ID_霪:1.0__VERANTYX_霪_143_(200)) }
+                ._ID_霪:1.0__VERANTYX_霪_151_(_ID_霪:1.0__VERANTYX_霪_160_: "\n---\n")
+            return _ID_殻:1.0__VERANTYX_殻_57_(_ID_法:1.0__VERANTYX_霪_19_: "L2", _ID_霪:1.0__VERANTYX_霪_56_: "[_ID_殻:1.0__VERANTYX_殻_32_ _ID_殻:1.0__VERANTYX_殻_56_ _ID_殻:1.0__VERANTYX_殻_18_]\n\(_ID_霪:1.0__VERANTYX_霪_74_)")
+        }
+
+// [metadata-stripped]
+        if let _ID_霪:1.0__VERANTYX_霪_93_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_,
+           let _ID_霪:1.0__VERANTYX_霪_189_ = _ID_霪:1.0__VERANTYX_霪_93_._ID_霪:1.0__VERANTYX_霪_41_[_ID_霪:1.0__VERANTYX_霪_117_] {
+            return _ID_殻:1.0__VERANTYX_殻_57_(_ID_法:1.0__VERANTYX_霪_19_: "L1", _ID_霪:1.0__VERANTYX_霪_56_: "[L1 _ID_殻:1.0__VERANTYX_殻_10_]\n\(_ID_霪:1.0__VERANTYX_霪_189_._ID_霪:1.0__VERANTYX_霪_90_)")
+        }
+
+        return _ID_殻:1.0__VERANTYX_殻_57_(_ID_法:1.0__VERANTYX_霪_19_: "_ID_霪:1.0__VERANTYX_霪_122_", _ID_霪:1.0__VERANTYX_霪_56_: "")
+    }
+
+// [metadata-stripped]
+
+    private func _ID_霪:1.0__VERANTYX_霪_159_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_霪:1.0__VERANTYX_霪_5_: _ID_殻:1.0__VERANTYX_殻_9_) {
+        guard let _ID_霪:1.0__VERANTYX_霪_93_ = _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_ else { return }
+        let _ID_霪:1.0__VERANTYX_霪_3_ = _ID_紗:1.0__VERANTYX_殻_34_(_ID_紗:1.0__VERANTYX_霪_45_: _ID_霪:1.0__VERANTYX_霪_117_)._ID_霪:1.0__VERANTYX_霪_118_._ID_霪:1.0__VERANTYX_霪_154_()
+        if let _ID_霪:1.0__VERANTYX_霪_15_ = _ID_霪:1.0__VERANTYX_霪_93_._ID_霪:1.0__VERANTYX_霪_41_[_ID_霪:1.0__VERANTYX_霪_117_] {
+            let _ID_霪:1.0__VERANTYX_霪_184_ = _ID_殻:1.0__VERANTYX_殻_30_(
+                _ID_霪:1.0__VERANTYX_霪_175_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_175_,
+                _ID_霪:1.0__VERANTYX_霪_132_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_132_,
+                _ID_霪:1.0__VERANTYX_霪_21_: _ID_霪:1.0__VERANTYX_霪_5_,
+                _ID_渕:1.0__VERANTYX_霪_49_: _ID_霪:1.0__VERANTYX_霪_15_._ID_渕:1.0__VERANTYX_霪_49_,
+                _ID_霪:1.0__VERANTYX_霪_146_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_146_,
+                _ID_霪:1.0__VERANTYX_霪_136_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_136_,
+                _ID_霪:1.0__VERANTYX_霪_187_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_187_,
+                _ID_霪:1.0__VERANTYX_霪_88_: _ID_霪:1.0__VERANTYX_霪_15_._ID_霪:1.0__VERANTYX_霪_88_
+            )
+            _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_霪:1.0__VERANTYX_霪_41_[_ID_霪:1.0__VERANTYX_霪_117_] = _ID_霪:1.0__VERANTYX_霪_184_
+        } else {
+            let _ID_霪:1.0__VERANTYX_霪_189_ = _ID_殻:1.0__VERANTYX_殻_30_(
+                _ID_霪:1.0__VERANTYX_霪_175_: _ID_霪:1.0__VERANTYX_霪_117_,
+                _ID_霪:1.0__VERANTYX_霪_132_: _ID_霪:1.0__VERANTYX_霪_3_,
+                _ID_霪:1.0__VERANTYX_霪_21_: _ID_霪:1.0__VERANTYX_霪_5_,
+                _ID_渕:1.0__VERANTYX_霪_49_: [],
+                _ID_霪:1.0__VERANTYX_霪_146_: [],
+                _ID_霪:1.0__VERANTYX_霪_136_: 0,
+                _ID_霪:1.0__VERANTYX_霪_187_: 0,
+                _ID_霪:1.0__VERANTYX_霪_88_: 1
+            )
+            _ID_霪:1.0__VERANTYX_霪_12_._ID_霪:1.0__VERANTYX_霪_77_?._ID_霪:1.0__VERANTYX_霪_41_[_ID_霪:1.0__VERANTYX_霪_117_] = _ID_霪:1.0__VERANTYX_霪_189_
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _ID_匼:1.0__VERANTYX_霪_183_(_ID_霪:1.0__VERANTYX_霪_117_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_霪:1.0__VERANTYX_霪_119_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_) async {
+        let _ID_霪:1.0__VERANTYX_霪_13_ = """
+        ■ _ID_殻:1.0__VERANTYX_殻_35_\(_ID_殻:1.0__VERANTYX_殻_50_(_ID_殻:1.0__VERANTYX_殻_23_()._ID_霪:1.0__VERANTYX_霪_86_))
+        【空間座相】[誤:1.0][変:0.9][捕:0.8]
+        【操作対応表】
+        OP._ID_殻:1.0__VERANTYX_殻_54_("_ID_霪:1.0__VERANTYX_霪_117_", "\(_ID_霪:1.0__VERANTYX_霪_117_)")
+// _ID_浮:0.8__VERANTYX_DB_382_ [decoy-metadata]
+        OP._ID_殻:1.0__VERANTYX_殻_54_("_ID_霪:1.0__VERANTYX_霪_119_", "\(_ID_霪:1.0__VERANTYX_霪_119_._ID_霪:1.0__VERANTYX_霪_143_(200)._ID_霪:1.0__VERANTYX_霪_84_(of: "\"", _ID_霪:1.0__VERANTYX_霪_101_: "'"))")
+        【原文】\(_ID_霪:1.0__VERANTYX_霪_119_._ID_霪:1.0__VERANTYX_霪_143_(500))
+        """
+        let _ID_霪:1.0__VERANTYX_霪_170_ = _ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_("._ID_霪:1.0__VERANTYX_霪_79_/_ID_霪:1.0__VERANTYX_霪_145_")
+        try? _ID_匼:1.0__VERANTYX_殻_26_._ID_霪:1.0__VERANTYX_霪_126_._ID_霪:1.0__VERANTYX_霪_133_(at: _ID_霪:1.0__VERANTYX_霪_170_, _ID_霪:1.0__VERANTYX_霪_103_: true)
+        try? _ID_霪:1.0__VERANTYX_霪_13_._ID_霪:1.0__VERANTYX_霪_171_(to: _ID_霪:1.0__VERANTYX_霪_170_._ID_霪:1.0__VERANTYX_霪_139_("_ID_霪:1.0__VERANTYX_霪_30_\(_ID_殻:1.0__VERANTYX_殻_50_(_ID_殻:1.0__VERANTYX_殻_23_()._ID_霪:1.0__VERANTYX_霪_86_))._ID_霪:1.0__VERANTYX_霪_110_"),
+                        _ID_霪:1.0__VERANTYX_霪_69_: true, _ID_霪:1.0__VERANTYX_霪_26_: ._ID_霪:1.0__VERANTYX_霪_144_)
+    }
+
+    private func _ID_匼:1.0__VERANTYX_霪_96_(_ID_霪:1.0__VERANTYX_霪_112_: _ID_殻:1.0__VERANTYX_殻_9_, _ID_紗:1.0__VERANTYX_霪_127_: _ID_紗:1.0__VERANTYX_殻_34_) async {
+        let _ID_霪:1.0__VERANTYX_霪_13_ = """
+        ■ _ID_殻:1.0__VERANTYX_殻_36_\(_ID_殻:1.0__VERANTYX_殻_50_(_ID_殻:1.0__VERANTYX_殻_23_()._ID_霪:1.0__VERANTYX_霪_86_))
+        【空間座相】[成:1.0][令:0.9][変:0.8]
+        【操作対応表】
+        OP._ID_殻:1.0__VERANTYX_殻_3_("_ID_霪:1.0__VERANTYX_霪_177_", "_ID_殻:1.0__VERANTYX_殻_25_")
+        OP._ID_殻:1.0__VERANTYX_殻_54_("_ID_霪:1.0__VERANTYX_霪_121_", "\(_ID_霪:1.0__VERANTYX_霪_112_._ID_霪:1.0__VERANTYX_霪_143_(100))")
+        【原文】\(_ID_霪:1.0__VERANTYX_霪_112_)
+        """
+        let _ID_霪:1.0__VERANTYX_霪_170_ = _ID_紗:1.0__VERANTYX_霪_127_._ID_霪:1.0__VERANTYX_霪_139_("._ID_霪:1.0__VERANTYX_霪_79_/_ID_霪:1.0__VERANTYX_霪_57_")
+        try? _ID_匼:1.0__VERANTYX_殻_26_._ID_霪:1.0__VERANTYX_霪_126_._ID_霪:1.0__VERANTYX_霪_133_(at: _ID_霪:1.0__VERANTYX_霪_170_, _ID_霪:1.0__VERANTYX_霪_103_: true)
+        try? _ID_霪:1.0__VERANTYX_霪_13_._ID_霪:1.0__VERANTYX_霪_171_(to: _ID_霪:1.0__VERANTYX_霪_170_._ID_霪:1.0__VERANTYX_霪_139_("_ID_霪:1.0__VERANTYX_霪_59_\(_ID_殻:1.0__VERANTYX_殻_50_(_ID_殻:1.0__VERANTYX_殻_23_()._ID_霪:1.0__VERANTYX_霪_86_))._ID_霪:1.0__VERANTYX_霪_110_"),
+                        _ID_霪:1.0__VERANTYX_霪_69_: true, _ID_霪:1.0__VERANTYX_霪_26_: ._ID_霪:1.0__VERANTYX_霪_144_)
+    }
+
+    private func _ID_霪:1.0__VERANTYX_霪_2_(_ _ID_霪:1.0__VERANTYX_霪_87_: _ID_殻:1.0__VERANTYX_殻_9_) {
+        _ID_霪:1.0__VERANTYX_霪_82_._ID_霪:1.0__VERANTYX_霪_167_("[\(_ID_殻:1.0__VERANTYX_殻_23_()._ID_浮:1.0__VERANTYX_霪_190_(._ID_霪:1.0__VERANTYX_霪_104_._ID_霪:1.0__VERANTYX_霪_64_()._ID_霪:1.0__VERANTYX_霪_53_()._ID_霪:1.0__VERANTYX_霪_173_()))] \(_ID_霪:1.0__VERANTYX_霪_87_)")
+        if _ID_霪:1.0__VERANTYX_霪_82_._ID_霪:1.0__VERANTYX_霪_99_ > 500 { _ID_霪:1.0__VERANTYX_霪_82_._ID_霪:1.0__VERANTYX_霪_23_(50) }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

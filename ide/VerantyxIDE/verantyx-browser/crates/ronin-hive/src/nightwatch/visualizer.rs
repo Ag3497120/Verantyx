@@ -1,0 +1,443 @@
+use ronin_core::memory_bridge::spatial_index::SpatialIndex;
+use serde_json::json;
+use std::path::Path;
+use tracing::{info, warn};
+
+pub struct VeraMemoryVisualizer;
+
+impl VeraMemoryVisualizer {
+    pub fn generate_html(spatial_index: &SpatialIndex, target_dir: &Path) {
+        let mut nodes = Vec::new();
+        let mut links = Vec::new();
+        
+        let all_keys = spatial_index.list_all_keys();
+        let now = chrono::Utc::now().timestamp() as f64;
+        let day_seconds = 86400.0;
+
+        for key in &all_keys {
+            if let Some(node) = spatial_index.read_node(key) {
+                // Determine CSS color based on Kanji Tags
+                let mut color = "#4fc3f7"; // Default Cyan
+                let mut has_red = false;
+                let mut has_gold = false;
+                
+                for tag in &node.kanji_tags {
+                    match tag.name.as_str() {
+                        "破" | "疑" | "偽" => has_red = true,
+                        "重" | "核" | "完" | "薦" => has_gold = true, // '薦' = Recommendation
+                        "創" | "新" => color = "#81c784", // Green/Growth
+                        _ => {}
+                    }
+                }
+                if has_red { color = "#e57373"; } // Red
+                else if has_gold { color = "#ffd54f"; } // Gold/Orange
+
+                let is_recent = (now - node.time_stamp) < day_seconds;
+                
+                nodes.push(json!({
+                    "id": node.key,
+                    "group": 1,
+                    "radius": 5.0 + (node.abstract_level * 15.0), // Abstract = larger
+                    "color": color,
+                    "is_recent": is_recent,
+                    "concept": node.concept,
+                    "filepath": node.env_hash,
+                    "tags": node.kanji_tags.iter().map(|t| t.name.clone()).collect::<Vec<_>>().join(", ")
+                }));
+
+                for rel in node.relations {
+                    // Check if target exists to prevent flying links
+                    if all_keys.contains(&rel.target_id) {
+                        links.push(json!({
+                            "source": node.key,
+                            "target": rel.target_id,
+                            "value": rel.strength * 2.0
+                        }));
+                    }
+                }
+            }
+        }
+
+        let graph_data = json!({
+            "nodes": nodes,
+            "links": links
+        });
+
+        let json_string = serde_json::to_string(&graph_data).unwrap_or_else(|_| "{}".to_string());
+
+        let html_content = format!(
+            r##"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vera Memory - Neural JCross Explorer</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {{
+            margin: 0;
+            overflow: hidden;
+            background-color: #0b0f19; /* Deep Cyberpunk Dark */
+            color: #eceff1;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }}
+        canvas, svg {{ width: 100vw; height: 100vh; }}
+        
+        #ui-panel {{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            pointer-events: none;
+            background: rgba(11, 15, 25, 0.85);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            max-width: 300px;
+        }}
+        h1 {{
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }}
+        .stat {{ font-size: 0.9rem; color: #b0bec5; margin-bottom: 5px; }}
+        
+        /* Node Animations */
+        .node-recent {{
+            animation: pulse-glow 2s infinite alternate;
+        }}
+        
+        @keyframes pulse-glow {{
+            0% {{ filter: drop-shadow(0 0 2px rgba(255,255,255,0.8)); }}
+            100% {{ filter: drop-shadow(0 0 15px rgba(255,255,255,1)); stroke: #fff; stroke-width: 2px; }}
+        }}
+
+        .link {{
+            stroke: rgba(176, 190, 197, 0.2);
+            stroke-width: 1.5px;
+        }}
+        
+        #tooltip {{
+            position: absolute;
+            background: rgba(15, 20, 30, 0.95);
+            color: #fff;
+            padding: 12px;
+            border: 1px solid #4fc3f7;
+            border-radius: 8px;
+            pointer-events: none;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 100;
+            max-width: 250px;
+        }}
+        .tt-title {{ font-weight: bold; color: #4fc3f7; margin-bottom: 4px; font-size: 14px; word-wrap: break-word; }}
+        .tt-tags {{ color: #ffd54f; font-size: 11px; margin-bottom: 4px; }}
+        .tt-desc {{ color: #cfd8dc; line-height: 1.4; }}
+        
+        #synth-btn {{
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 213, 79, 0.4);
+            display: none;
+            z-index: 200;
+            transition: all 0.2s;
+        }}
+        #synth-btn:hover {{
+            box-shadow: 0 6px 20px rgba(255, 213, 79, 0.6);
+            transform: translateX(-50%) scale(1.05);
+        }}
+
+        #finder-panel {{
+            position: absolute;
+            top: 0;
+            right: -600px;
+            width: 500px;
+            height: 100vh;
+            background: rgba(11, 15, 25, 0.95);
+            border-left: 1px solid rgba(79, 195, 247, 0.5);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }}
+        #finder-panel.open {{
+            right: 0;
+        }}
+        #finder-header {{
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }}
+        #finder-title {{
+            color: #4fc3f7;
+            font-weight: bold;
+            font-size: 1.2rem;
+            word-wrap: break-word;
+            flex: 1;
+        }}
+        #finder-close {{
+            background: none;
+            border: none;
+            color: #ff5252;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+        }}
+        #finder-meta {{
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }}
+        #finder-content {{
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            color: #c3e88d;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }}
+    </style>
+</head>
+<body>
+    <button id="synth-btn">SYNTHESIZE (0 Nodes)</button>
+    <div id="finder-panel">
+        <div id="finder-header">
+            <div id="finder-title">File Name</div>
+            <button id="finder-close">&times;</button>
+        </div>
+        <div id="finder-meta"></div>
+        <div id="finder-content">Loading...</div>
+    </div>
+    <div id="ui-panel">
+        <h1>VERA MEMORY</h1>
+        <div class="stat">Nodes: <span id="cc-nodes" style="color:#fff">{node_count}</span></div>
+        <div class="stat">Synapses: <span id="cc-links" style="color:#fff">{link_count}</span></div>
+        <div class="stat" style="margin-top:15px; font-size: 0.8rem; color: #81c784;">
+            ● Flashing nodes were forged within the last 24h.
+        </div>
+        <div class="stat" style="margin-top:5px; font-size: 0.8rem; color: #4fc3f7;">
+            ● Click a node to open it in Cursor IDE.
+        </div>
+    </div>
+    
+    <div id="tooltip">
+        <div class="tt-title" id="tt-title">Node ID</div>
+        <div class="tt-tags" id="tt-tags">[Tags]</div>
+        <div class="tt-desc" id="tt-desc">Description Concept</div>
+    </div>
+
+    <script>
+        const graph = {json_string};
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .call(d3.zoom().scaleExtent([0.1, 4]).on("zoom", (event) => {{
+                container.attr("transform", event.transform);
+            }}));
+
+        const container = svg.append("g");
+
+        const simulation = d3.forceSimulation(graph.nodes)
+            .force("link", d3.forceLink(graph.links).id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collide", d3.forceCollide().radius(d => d.radius + 10).iterations(2));
+
+        const link = container.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(graph.links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke-width", d => Math.sqrt(d.value));
+
+        const tooltip = d3.select("#tooltip");
+
+        const crucible_radius = 120;
+        const crucible = container.append("circle")
+            .attr("cx", width / 2)
+            .attr("cy", height / 2)
+            .attr("r", crucible_radius)
+            .attr("fill", "rgba(255, 213, 79, 0.05)")
+            .attr("stroke", "#ffd54f")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "5,5")
+            .attr("class", "")
+            .style("pointer-events", "none");
+
+        const crucible_text = container.append("text")
+            .attr("x", width / 2)
+            .attr("y", height / 2 - crucible_radius + 20)
+            .attr("text-anchor", "middle")
+            .attr("fill", "#ffd54f")
+            .text("CRUCIBLE REACTION ZONE (Drag 2 nodes here)")
+            .style("pointer-events", "none")
+            .style("font-size", "12px")
+            .style("opacity", 0.7);
+
+        let crucible_nodes = new Set();
+
+        const node = container.append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(graph.nodes)
+            .enter().append("circle")
+            .attr("r", d => d.radius)
+            .attr("fill", d => d.color)
+            .attr("class", d => d.is_recent ? "node-recent" : "")
+            .style("cursor", d => d.filepath ? "pointer" : "default")
+            .on("click", (event, d) => {{
+                if (d.filepath) {{
+                    const panel = document.getElementById("finder-panel");
+                    document.getElementById("finder-title").innerText = d.filepath;
+                    document.getElementById("finder-meta").innerHTML = `
+                        <div style="color:#ffd54f; font-size: 0.9rem; margin-bottom: 5px;">[${{d.tags}}]</div>
+                        <div style="color:#cfd8dc; font-size: 0.8rem;">Concept: ${{d.concept}}</div>
+                    `;
+                    document.getElementById("finder-content").innerText = "Loading raw file source...";
+                    panel.classList.add("open");
+
+                    fetch("http://127.0.0.1:3030/cat?file=" + encodeURIComponent(d.filepath))
+                        .then(res => res.text())
+                        .then(text => {{
+                            document.getElementById("finder-content").innerText = text;
+                        }})
+                        .catch(e => {{
+                            document.getElementById("finder-content").innerText = "Failed to load file content: " + e;
+                        }});
+                }}
+            }})
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended))
+            .on("mouseover", (event, d) => {{
+                tooltip.transition().duration(200).style("opacity", 1);
+                d3.select("#tt-title").text(d.id);
+                d3.select("#tt-tags").text("[" + d.tags + "]");
+                d3.select("#tt-desc").text(d.concept);
+                
+                tooltip.style("left", (event.pageX + 15) + "px")
+                       .style("top", (event.pageY - 28) + "px");
+            }})
+            .on("mouseout", (event, d) => {{
+                tooltip.transition().duration(500).style("opacity", 0);
+            }});
+
+        document.getElementById("finder-close").addEventListener("click", () => {{
+            document.getElementById("finder-panel").classList.remove("open");
+        }});
+
+        simulation.on("tick", () => {{
+            link.attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node.attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+        }});
+
+        function dragstarted(event, d) {{
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }}
+
+        function dragged(event, d) {{
+            d.fx = event.x;
+            d.fy = event.y;
+        }}
+
+        function dragended(event, d) {{
+            if (!event.active) simulation.alphaTarget(0);
+            
+            // Check if dropped inside Crucible
+            const dx = event.x - (width / 2);
+            const dy = event.y - (height / 2);
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            
+            if (dist < crucible_radius) {{
+                d.fx = event.x; // lock it in the crucible
+                d.fy = event.y;
+                crucible_nodes.add(d);
+                crucible.attr("fill", "rgba(255, 213, 79, 0.2)");
+                
+                if (crucible_nodes.size >= 2) {{
+                    crucible.attr("stroke", "#ff5252").attr("fill", "rgba(255, 82, 82, 0.3)");
+                    const btn = d3.select("#synth-btn");
+                    btn.style("display", "block");
+                    btn.text("SYNTHESIZE (" + crucible_nodes.size + " Nodes)");
+                }}
+            }} else {{
+                d.fx = null;
+                d.fy = null;
+                crucible_nodes.delete(d);
+                if (crucible_nodes.size < 2) {{
+                    d3.select("#synth-btn").style("display", "none");
+                    crucible.attr("stroke", "#ffd54f");
+                }}
+                if (crucible_nodes.size === 0) crucible.attr("fill", "rgba(255, 213, 79, 0.05)");
+            }}
+        }}
+
+        d3.select("#synth-btn").on("click", () => {{
+            const nodes_arr = Array.from(crucible_nodes);
+            const params = nodes_arr.map(n => "f=" + encodeURIComponent(n.filepath || n.id)).join("&");
+            fetch(`http://127.0.0.1:3030/crucible?${{params}}`).catch(e => console.log(e));
+            
+            // Reset state directly
+            crucible_nodes.forEach(n => {{ n.fx = null; n.fy = null; }});
+            crucible_nodes.clear();
+            crucible.attr("stroke", "#ffd54f").attr("fill", "rgba(255, 213, 79, 0.05)");
+            d3.select("#synth-btn").style("display", "none");
+            simulation.alphaTarget(0.3).restart();
+        }});
+    </script>
+</body>
+</html>"##,
+            json_string = json_string,
+            node_count = nodes.len(),
+            link_count = links.len()
+        );
+
+        let out_path = target_dir.join(".ronin").join("vera_memory.html");
+        
+        // Ensure dir exists
+        if let Some(parent) = out_path.parent() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+
+        if let Err(e) = std::fs::write(&out_path, html_content) {
+            warn!("[Vera Memory] Failed to write HTML visualizer: {}", e);
+        } else {
+            info!("[Vera Memory] Dashboard successfully generated at {:?}", out_path);
+        }
+    }
+}

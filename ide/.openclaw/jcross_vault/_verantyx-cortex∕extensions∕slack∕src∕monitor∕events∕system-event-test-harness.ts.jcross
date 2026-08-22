@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1808C29A ver:1778167539
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_霤:1.0__ID_霤_2_ { _VERANTYX_殻:1.0__ID_殻_1_ } _VERANTYX_霤:1.0__ID_霤_46_ "../_VERANTYX_霤:1.0__ID_霤_11_.js";
+
+_VERANTYX_霤:1.0__ID_霤_20_ _VERANTYX_霤:1.0__ID_霤_2_ _VERANTYX_型:1.0__ID_殻_3_ = (_VERANTYX_霤:1.0__ID_霤_26_: {
+// _VERANTYX_涌:0.5__ID_KM_122_ [decoy-metadata]
+  _VERANTYX_霤:1.0__ID_霤_18_: _VERANTYX_殻:1.0__ID_殻_5_<_VERANTYX_霤:1.0__ID_霤_38_, _VERANTYX_霤:1.0__ID_霤_27_>;
+// _VERANTYX_縁:0.6__ID_EF_549_ [decoy-metadata]
+  _VERANTYX_霤:1.0__ID_霤_24_: _VERANTYX_霤:1.0__ID_霤_27_;
+}) => _VERANTYX_殻:1.0__ID_殻_4_<_VERANTYX_霤:1.0__ID_霤_47_>;
+
+_VERANTYX_霤:1.0__ID_霤_20_ _VERANTYX_霤:1.0__ID_霤_2_ _VERANTYX_殻:1.0__ID_殻_2_ = {
+  _VERANTYX_霤:1.0__ID_霤_31_?: "open" | "_VERANTYX_霤:1.0__ID_霤_25_" | "_VERANTYX_霤:1.0__ID_霤_29_" | "_VERANTYX_霤:1.0__ID_霤_33_";
+  _VERANTYX_霤:1.0__ID_霤_9_?: _VERANTYX_霤:1.0__ID_霤_38_[];
+  _VERANTYX_霤:1.0__ID_霤_32_?: "im" | "_VERANTYX_霤:1.0__ID_霤_44_";
+  _VERANTYX_霤:1.0__ID_霤_1_?: _VERANTYX_霤:1.0__ID_霤_38_[];
+};
+
+_VERANTYX_霤:1.0__ID_霤_20_ _VERANTYX_霤:1.0__ID_霤_3_ _VERANTYX_霤:1.0__ID_霤_13_(_VERANTYX_霤:1.0__ID_霤_8_?: _VERANTYX_殻:1.0__ID_殻_2_) {
+// _VERANTYX_縁:0.4__ID_EZ_655_ [decoy-metadata]
+// _VERANTYX_匱:0.3__ID_ZE_301_ [decoy-metadata]
+  _VERANTYX_霤:1.0__ID_霤_4_ _VERANTYX_霤:1.0__ID_霤_30_: _VERANTYX_殻:1.0__ID_殻_5_<_VERANTYX_霤:1.0__ID_霤_38_, _VERANTYX_型:1.0__ID_殻_3_> = {};
+  _VERANTYX_霤:1.0__ID_霤_4_ _VERANTYX_霤:1.0__ID_霤_32_ = _VERANTYX_霤:1.0__ID_霤_8_?._VERANTYX_霤:1.0__ID_霤_32_ ?? "im";
+  _VERANTYX_霤:1.0__ID_霤_4_ _VERANTYX_霤:1.0__ID_霤_22_ = {
+    _VERANTYX_霤:1.0__ID_霤_18_: (_VERANTYX_霤:1.0__ID_霤_12_: _VERANTYX_霤:1.0__ID_霤_38_, _VERANTYX_型:1.0__ID_霤_36_: _VERANTYX_型:1.0__ID_殻_3_) => {
+      _VERANTYX_霤:1.0__ID_霤_30_[_VERANTYX_霤:1.0__ID_霤_12_] = _VERANTYX_型:1.0__ID_霤_36_;
+    },
+  };
+  _VERANTYX_霤:1.0__ID_霤_4_ _VERANTYX_霤:1.0__ID_霤_48_ = {
+    _VERANTYX_霤:1.0__ID_霤_22_,
+    _VERANTYX_霤:1.0__ID_霤_16_: { _VERANTYX_霤:1.0__ID_霤_34_: () => {} },
+    _VERANTYX_霤:1.0__ID_霤_5_: true,
+    _VERANTYX_霤:1.0__ID_霤_31_: _VERANTYX_霤:1.0__ID_霤_8_?._VERANTYX_霤:1.0__ID_霤_31_ ?? "open",
+    _VERANTYX_霤:1.0__ID_霤_10_: true,
+    _VERANTYX_霤:1.0__ID_霤_6_: _VERANTYX_霤:1.0__ID_霤_8_?._VERANTYX_霤:1.0__ID_霤_1_
+      ? {
+          C1: {
+            _VERANTYX_霤:1.0__ID_霤_43_: _VERANTYX_霤:1.0__ID_霤_8_._VERANTYX_霤:1.0__ID_霤_1_,
+            _VERANTYX_霤:1.0__ID_霤_37_: true,
+          },
+        }
+      : _VERANTYX_霤:1.0__ID_霤_7_,
+    _VERANTYX_霤:1.0__ID_霤_21_: "open",
+    _VERANTYX_霤:1.0__ID_霤_9_: _VERANTYX_霤:1.0__ID_霤_8_?._VERANTYX_霤:1.0__ID_霤_9_ ?? [],
+    _VERANTYX_霤:1.0__ID_霤_39_: false,
+    _VERANTYX_霤:1.0__ID_霤_14_: () => false,
+    _VERANTYX_霤:1.0__ID_霤_19_: () => true,
+    _VERANTYX_霤:1.0__ID_霤_40_: async () => ({
+      _VERANTYX_霤:1.0__ID_霤_12_: _VERANTYX_霤:1.0__ID_霤_32_ === "im" ? "_VERANTYX_霤:1.0__ID_霤_28_" : "_VERANTYX_霤:1.0__ID_霤_45_",
+      _VERANTYX_霤:1.0__ID_霤_2_: _VERANTYX_霤:1.0__ID_霤_32_,
+    }),
+    _VERANTYX_霤:1.0__ID_霤_35_: async () => ({ _VERANTYX_霤:1.0__ID_霤_12_: "_VERANTYX_霤:1.0__ID_霤_17_" }),
+    _VERANTYX_封:1.0__ID_霤_15_: () => "_VERANTYX_霤:1.0__ID_霤_41_:_VERANTYX_霤:1.0__ID_霤_23_:_VERANTYX_霤:1.0__ID_霤_23_",
+// _VERANTYX_匱:0.7__ID_MF_250_ [decoy-metadata]
+  } as _VERANTYX_霤:1.0__ID_霤_27_ as _VERANTYX_殻:1.0__ID_殻_1_;
+// _VERANTYX_封:0.6__ID_XG_828_ [decoy-metadata]
+
+  return {
+    _VERANTYX_霤:1.0__ID_霤_48_,
+    _VERANTYX_型:1.0__ID_縁_1_(_VERANTYX_霤:1.0__ID_霤_12_: _VERANTYX_霤:1.0__ID_霤_38_): _VERANTYX_型:1.0__ID_殻_3_ | _VERANTYX_霤:1.0__ID_霤_42_ {
+      return _VERANTYX_霤:1.0__ID_霤_30_[_VERANTYX_霤:1.0__ID_霤_12_] ?? _VERANTYX_霤:1.0__ID_霤_42_;
+    },
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

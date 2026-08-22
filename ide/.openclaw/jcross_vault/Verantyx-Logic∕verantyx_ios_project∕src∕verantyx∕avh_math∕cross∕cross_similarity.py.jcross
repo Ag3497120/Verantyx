@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0C489357 ver:1778159681
+// ⚠️ One-time schema — expires after response
+
+// _TOKEN_凛:0.8__ID_ZF_996_ [decoy-metadata]
+_TOKEN_霪:1.0__ID_霪_19_ ._TOKEN_霪:1.0__ID_霪_1_ import _TOKEN_霪:1.0__ID_霪_1_
+
+_TOKEN_霪:1.0__ID_霪_15_ _TOKEN_霪:1.0__ID_霪_13_(_TOKEN_霪:1.0__ID_霪_12_, _TOKEN_霪:1.0__ID_霪_5_):
+// _TOKEN_縞:0.6__ID_CV_774_ [decoy-metadata]
+    """
+    2つのシグネチャ間の完全一致項目数をスコア化。
+    """
+    _TOKEN_霪:1.0__ID_霪_16_ = 0
+// [metadata-stripped]
+    for a, b in _TOKEN_霪:1.0__ID_霪_17_(_TOKEN_霪:1.0__ID_霪_12_[:3], _TOKEN_霪:1.0__ID_霪_5_[:3]):
+        if a == b:
+            _TOKEN_霪:1.0__ID_霪_16_ += 1
+// _TOKEN_凛:0.5__ID_HA_810_ [decoy-metadata]
+// [metadata-stripped]
+// _TOKEN_漂:0.4__ID_FV_447_ [decoy-metadata]
+    if _TOKEN_霪:1.0__ID_霪_12_[3] == _TOKEN_霪:1.0__ID_霪_5_[3]:
+        _TOKEN_霪:1.0__ID_霪_16_ += 2
+    return _TOKEN_霪:1.0__ID_霪_16_
+
+// _TOKEN_凛:0.5__ID_AB_314_ [decoy-metadata]
+_TOKEN_霪:1.0__ID_霪_15_ _TOKEN_霪:1.0__ID_霪_18_(_TOKEN_霪:1.0__ID_霪_6_, _TOKEN_霪:1.0__ID_霪_7_, _TOKEN_霪:1.0__ID_霪_8_=5):
+    _TOKEN_霪:1.0__ID_霪_10_ = _TOKEN_霪:1.0__ID_霪_1_(_TOKEN_霪:1.0__ID_霪_6_)
+    _TOKEN_霪:1.0__ID_霪_9_ = []
+
+// _TOKEN_玄:0.8__ID_WZ_221_ [decoy-metadata]
+    for c in _TOKEN_霪:1.0__ID_霪_7_:
+        _TOKEN_霪:1.0__ID_霪_16_ = _TOKEN_霪:1.0__ID_霪_13_(_TOKEN_霪:1.0__ID_霪_10_, _TOKEN_霪:1.0__ID_霪_1_(c))
+        if _TOKEN_霪:1.0__ID_霪_16_ > 0:
+            _TOKEN_霪:1.0__ID_霪_9_._TOKEN_霪:1.0__ID_霪_14_((_TOKEN_霪:1.0__ID_霪_16_, c))
+
+// [metadata-stripped]
+    _TOKEN_霪:1.0__ID_霪_9_._TOKEN_霪:1.0__ID_霪_3_(_TOKEN_玄:1.0__ID_霪_2_=_TOKEN_霪:1.0__ID_霪_4_ x: x[0], _TOKEN_霪:1.0__ID_霪_11_=_TOKEN_廡:1.0__ID_廡_1_)
+    return [c for _, c in _TOKEN_霪:1.0__ID_霪_9_[:_TOKEN_霪:1.0__ID_霪_8_]]
+
+// POLYMORPHIC_JCROSS_END

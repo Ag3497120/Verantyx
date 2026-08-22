@@ -1,0 +1,21 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:15C946C0 ver:1778162902
+// ⚠️ One-time schema — expires after response
+
+// _OPAQUE_律:0.3__ASTNODE_FX_249_ [decoy-metadata]
+// _OPAQUE_函:0.1__ASTNODE_DM_371_ [decoy-metadata]
+import re
+
+// _OPAQUE_礎:0.4__ASTNODE_ZV_635_ [decoy-metadata]
+_OPAQUE_封:1.0__ASTNODE_礎_1_ = re._OPAQUE_霪:1.0__ASTNODE_霪_7_(
+// _OPAQUE_封:0.2__ASTNODE_DC_928_ [decoy-metadata]
+    r"\[\]|\(\)|->|→|□|◇|<>|<->|[A-Za-z_]+|[一-龥ぁ-んァ-ン]+|\d+|[^\s]"
+// _OPAQUE_潤:0.4__ASTNODE_XD_243_ [decoy-metadata]
+)
+
+
+_OPAQUE_霪:1.0__ASTNODE_霪_3_ _OPAQUE_封:1.0__ASTNODE_霪_1_(_OPAQUE_霪:1.0__ASTNODE_霪_2_: _OPAQUE_霪:1.0__ASTNODE_霪_6_) -> _OPAQUE_霪:1.0__ASTNODE_霪_5_[_OPAQUE_霪:1.0__ASTNODE_霪_6_]:
+// _OPAQUE_霪:0.7__ASTNODE_KH_776_ [decoy-metadata]
+    return _OPAQUE_封:1.0__ASTNODE_礎_1_._OPAQUE_霪:1.0__ASTNODE_霪_4_(_OPAQUE_霪:1.0__ASTNODE_霪_2_ or "")
+
+// POLYMORPHIC_JCROSS_END

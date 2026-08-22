@@ -1,0 +1,114 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:197E8162 ver:1778150720
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_殻:1.0__VERANTYX_殻_9_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _OPAQUE_殻:1.0__VERANTYX_殻_18_ {
+
+// [metadata-stripped]
+
+    static func _OPAQUE_霾:1.0__VERANTYX_霾_14_(_OPAQUE_霾:1.0__VERANTYX_霾_55_: _OPAQUE_殻:1.0__VERANTYX_殻_6_, _OPAQUE_漕:1.0__VERANTYX_霾_48_: _OPAQUE_殻:1.0__VERANTYX_殻_6_) -> [_OPAQUE_殻:1.0__VERANTYX_殻_13_] {
+        let _OPAQUE_霾:1.0__VERANTYX_霾_17_ = _OPAQUE_霾:1.0__VERANTYX_霾_55_._OPAQUE_霾:1.0__VERANTYX_霾_7_(_OPAQUE_霾:1.0__VERANTYX_霾_31_: "\n")
+        let _OPAQUE_霾:1.0__VERANTYX_霾_38_  = _OPAQUE_漕:1.0__VERANTYX_霾_48_._OPAQUE_霾:1.0__VERANTYX_霾_7_(_OPAQUE_霾:1.0__VERANTYX_霾_31_: "\n")
+
+        let _OPAQUE_霾:1.0__VERANTYX_霾_49_ = _OPAQUE_霾:1.0__VERANTYX_霾_58_(_OPAQUE_霾:1.0__VERANTYX_霾_17_, _OPAQUE_霾:1.0__VERANTYX_霾_38_)
+        return _OPAQUE_霾:1.0__VERANTYX_霾_64_(_OPAQUE_霾:1.0__VERANTYX_霾_49_, _OPAQUE_霾:1.0__VERANTYX_霾_62_: 3)
+// _OPAQUE_医:0.6__VERANTYX_HZ_637_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+
+    private enum _OPAQUE_殻:1.0__VERANTYX_殻_3_ {
+        case _OPAQUE_霾:1.0__VERANTYX_霾_43_(_OPAQUE_殻:1.0__VERANTYX_殻_6_)
+        case _OPAQUE_霾:1.0__VERANTYX_霾_22_(_OPAQUE_殻:1.0__VERANTYX_殻_6_)
+        case _OPAQUE_霾:1.0__VERANTYX_霾_5_(_OPAQUE_殻:1.0__VERANTYX_殻_6_)
+    }
+
+    private static func _OPAQUE_霾:1.0__VERANTYX_霾_58_(_ a: [_OPAQUE_殻:1.0__VERANTYX_殻_6_], _ b: [_OPAQUE_殻:1.0__VERANTYX_殻_6_]) -> [_OPAQUE_殻:1.0__VERANTYX_殻_3_] {
+        let m = a._OPAQUE_霾:1.0__VERANTYX_霾_12_, n = b._OPAQUE_霾:1.0__VERANTYX_霾_12_
+// [metadata-stripped]
+        var dp = _OPAQUE_殻:1.0__VERANTYX_殻_21_(_OPAQUE_霾:1.0__VERANTYX_霾_52_: _OPAQUE_殻:1.0__VERANTYX_殻_21_(_OPAQUE_霾:1.0__VERANTYX_霾_52_: 0, _OPAQUE_霾:1.0__VERANTYX_霾_12_: n + 1), _OPAQUE_霾:1.0__VERANTYX_霾_12_: m + 1)
+        for i in 1...m {
+            for j in 1...n {
+                if a[i-1] == b[j-1] {
+                    dp[i][j] = dp[i-1][j-1] + 1
+                } else {
+                    dp[i][j] = _OPAQUE_霾:1.0__VERANTYX_霾_41_(dp[i-1][j], dp[i][j-1])
+// _OPAQUE_霾:0.7__VERANTYX_CZ_249_ [decoy-metadata]
+                }
+            }
+        }
+// _OPAQUE_組:0.1__VERANTYX_WV_800_ [decoy-metadata]
+
+// [metadata-stripped]
+        var _OPAQUE_霾:1.0__VERANTYX_霾_30_: [_OPAQUE_殻:1.0__VERANTYX_殻_3_] = []
+        var i = m, j = n
+        while i > 0 || j > 0 {
+            if i > 0 && j > 0 && a[i-1] == b[j-1] {
+                _OPAQUE_霾:1.0__VERANTYX_霾_30_._OPAQUE_霾:1.0__VERANTYX_霾_59_(._OPAQUE_霾:1.0__VERANTYX_霾_43_(a[i-1]))
+                i -= 1; j -= 1
+            } else if j > 0 && (i == 0 || dp[i][j-1] >= dp[i-1][j]) {
+                _OPAQUE_霾:1.0__VERANTYX_霾_30_._OPAQUE_霾:1.0__VERANTYX_霾_59_(._OPAQUE_霾:1.0__VERANTYX_霾_22_(b[j-1]))
+                j -= 1
+            } else {
+                _OPAQUE_霾:1.0__VERANTYX_霾_30_._OPAQUE_霾:1.0__VERANTYX_霾_59_(._OPAQUE_霾:1.0__VERANTYX_霾_5_(a[i-1]))
+                i -= 1
+            }
+        }
+        return _OPAQUE_霾:1.0__VERANTYX_霾_30_._OPAQUE_霾:1.0__VERANTYX_霾_65_()
+    }
+
+// [metadata-stripped]
+
+    private static func _OPAQUE_霾:1.0__VERANTYX_霾_64_(_ _OPAQUE_霾:1.0__VERANTYX_霾_30_: [_OPAQUE_殻:1.0__VERANTYX_殻_3_], _OPAQUE_霾:1.0__VERANTYX_霾_62_: _OPAQUE_殻:1.0__VERANTYX_殻_14_) -> [_OPAQUE_殻:1.0__VERANTYX_殻_13_] {
+// [metadata-stripped]
+        let _OPAQUE_霾:1.0__VERANTYX_霾_8_: [_OPAQUE_殻:1.0__VERANTYX_殻_2_] = _OPAQUE_霾:1.0__VERANTYX_霾_30_._OPAQUE_霾:1.0__VERANTYX_霾_40_ { _OPAQUE_霾:1.0__VERANTYX_霾_32_ in
+// _OPAQUE_漕:0.7__VERANTYX_ZA_181_ [decoy-metadata]
+            switch _OPAQUE_霾:1.0__VERANTYX_霾_32_ {
+            case ._OPAQUE_霾:1.0__VERANTYX_霾_43_(let t):   return _OPAQUE_殻:1.0__VERANTYX_殻_2_(_OPAQUE_霾:1.0__VERANTYX_霾_57_: ._OPAQUE_霾:1.0__VERANTYX_霾_63_, _OPAQUE_霾:1.0__VERANTYX_霾_10_: t)
+            case ._OPAQUE_霾:1.0__VERANTYX_霾_22_(let t): return _OPAQUE_殻:1.0__VERANTYX_殻_2_(_OPAQUE_霾:1.0__VERANTYX_霾_57_: ._OPAQUE_霾:1.0__VERANTYX_霾_47_,   _OPAQUE_霾:1.0__VERANTYX_霾_10_: t)
+            case ._OPAQUE_霾:1.0__VERANTYX_霾_5_(let t): return _OPAQUE_殻:1.0__VERANTYX_殻_2_(_OPAQUE_霾:1.0__VERANTYX_霾_57_: ._OPAQUE_霾:1.0__VERANTYX_霾_11_,  _OPAQUE_霾:1.0__VERANTYX_霾_10_: t)
+            }
+        }
+
+// [metadata-stripped]
+        let _OPAQUE_霾:1.0__VERANTYX_霾_4_ = _OPAQUE_霾:1.0__VERANTYX_霾_8_._OPAQUE_霾:1.0__VERANTYX_霾_2_._OPAQUE_案:1.0__VERANTYX_霾_3_ { _OPAQUE_霾:1.0__VERANTYX_霾_8_[$0]._OPAQUE_霾:1.0__VERANTYX_霾_57_ != ._OPAQUE_霾:1.0__VERANTYX_霾_63_ }
+        guard !_OPAQUE_霾:1.0__VERANTYX_霾_4_._OPAQUE_霾:1.0__VERANTYX_霾_21_ else { return [] }
+
+// [metadata-stripped]
+        var _OPAQUE_霾:1.0__VERANTYX_霾_36_: [_OPAQUE_殻:1.0__VERANTYX_殻_13_] = []
+        var _OPAQUE_霾:1.0__VERANTYX_霾_24_: [_OPAQUE_殻:1.0__VERANTYX_殻_19_<_OPAQUE_殻:1.0__VERANTYX_殻_14_>] = []
+
+        for _OPAQUE_霾:1.0__VERANTYX_霾_18_ in _OPAQUE_霾:1.0__VERANTYX_霾_4_ {
+            let lo = _OPAQUE_霾:1.0__VERANTYX_霾_41_(0, _OPAQUE_霾:1.0__VERANTYX_霾_18_ - _OPAQUE_霾:1.0__VERANTYX_霾_62_)
+            let hi = _OPAQUE_霾:1.0__VERANTYX_霾_13_(_OPAQUE_霾:1.0__VERANTYX_霾_8_._OPAQUE_霾:1.0__VERANTYX_霾_12_ - 1, _OPAQUE_霾:1.0__VERANTYX_霾_18_ + _OPAQUE_霾:1.0__VERANTYX_霾_62_)
+            if let _OPAQUE_霾:1.0__VERANTYX_霾_44_ = _OPAQUE_霾:1.0__VERANTYX_霾_24_._OPAQUE_霾:1.0__VERANTYX_霾_44_, lo <= _OPAQUE_霾:1.0__VERANTYX_霾_44_._OPAQUE_霾:1.0__VERANTYX_霾_50_ + 1 {
+                _OPAQUE_霾:1.0__VERANTYX_霾_24_[_OPAQUE_霾:1.0__VERANTYX_霾_24_._OPAQUE_霾:1.0__VERANTYX_霾_12_ - 1] = _OPAQUE_霾:1.0__VERANTYX_霾_44_._OPAQUE_霾:1.0__VERANTYX_霾_35_...hi
+            } else {
+                _OPAQUE_霾:1.0__VERANTYX_霾_24_._OPAQUE_霾:1.0__VERANTYX_霾_59_(lo...hi)
+            }
+        }
+
+        for _OPAQUE_霾:1.0__VERANTYX_霾_29_ in _OPAQUE_霾:1.0__VERANTYX_霾_24_ {
+            let _OPAQUE_霾:1.0__VERANTYX_霾_26_ = _OPAQUE_殻:1.0__VERANTYX_殻_21_(_OPAQUE_霾:1.0__VERANTYX_霾_8_[_OPAQUE_霾:1.0__VERANTYX_霾_29_])
+            _OPAQUE_霾:1.0__VERANTYX_霾_36_._OPAQUE_霾:1.0__VERANTYX_霾_59_(_OPAQUE_殻:1.0__VERANTYX_殻_13_(_OPAQUE_霾:1.0__VERANTYX_霾_8_: _OPAQUE_霾:1.0__VERANTYX_霾_26_))
+        }
+        return _OPAQUE_霾:1.0__VERANTYX_霾_36_
+    }
+}
+// _OPAQUE_医:0.6__VERANTYX_ZG_351_ [decoy-metadata]
+
+// [metadata-stripped]
+// _OPAQUE_霾:0.7__VERANTYX_YV_891_ [decoy-metadata]
+
+extension _OPAQUE_医:1.0__VERANTYX_殻_20_ {
+    var _OPAQUE_霾:1.0__VERANTYX_霾_34_:   _OPAQUE_殻:1.0__VERANTYX_殻_14_ { _OPAQUE_霾:1.0__VERANTYX_霾_36_._OPAQUE_霾:1.0__VERANTYX_霾_54_(\._OPAQUE_霾:1.0__VERANTYX_霾_8_)._OPAQUE_案:1.0__VERANTYX_霾_3_ { $0._OPAQUE_霾:1.0__VERANTYX_霾_57_ == ._OPAQUE_霾:1.0__VERANTYX_霾_47_   }._OPAQUE_霾:1.0__VERANTYX_霾_12_ }
+    var _OPAQUE_霾:1.0__VERANTYX_霾_16_: _OPAQUE_殻:1.0__VERANTYX_殻_14_ { _OPAQUE_霾:1.0__VERANTYX_霾_36_._OPAQUE_霾:1.0__VERANTYX_霾_54_(\._OPAQUE_霾:1.0__VERANTYX_霾_8_)._OPAQUE_案:1.0__VERANTYX_霾_3_ { $0._OPAQUE_霾:1.0__VERANTYX_霾_57_ == ._OPAQUE_霾:1.0__VERANTYX_霾_11_ }._OPAQUE_霾:1.0__VERANTYX_霾_12_ }
+}
+
+// POLYMORPHIC_JCROSS_END

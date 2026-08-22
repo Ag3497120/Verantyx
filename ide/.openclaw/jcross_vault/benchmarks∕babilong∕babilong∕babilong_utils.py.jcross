@@ -1,0 +1,254 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:511262AA ver:1778162959
+// ⚠️ One-time schema — expires after response
+
+import __ast_泡:1.0___JCROSS_泡_85_ as pd
+import __ast_泡:1.0___JCROSS_泡_179_ as np
+import re
+import __ast_泡:1.0___JCROSS_泡_178_
+__ast_泡:1.0___JCROSS_泡_192_ __ast_泡:1.0___JCROSS_泡_65_.__ast_泡:1.0___JCROSS_泡_165_.__ast_泡:1.0___JCROSS_泡_156_ import __ast_殻:1.0___JCROSS_殻_1_
+
+
+__ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_24_(__ast_泡:1.0___JCROSS_泡_9_, __ast_泡:1.0___JCROSS_泡_155_):
+    __ast_泡:1.0___JCROSS_泡_9_ = __ast_泡:1.0___JCROSS_泡_9_.__ast_項:1.0___JCROSS_泡_157_()
+    __ast_泡:1.0___JCROSS_泡_155_ = __ast_泡:1.0___JCROSS_泡_155_.__ast_項:1.0___JCROSS_泡_157_()
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_155_ = __ast_泡:1.0___JCROSS_泡_155_.__ast_泡:1.0___JCROSS_泡_40_('.')[0]
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_155_ = __ast_泡:1.0___JCROSS_泡_155_.__ast_泡:1.0___JCROSS_泡_40_('<__ast_泡:1.0___JCROSS_泡_95_>')[0]
+    __ast_泡:1.0___JCROSS_泡_155_ = __ast_泡:1.0___JCROSS_泡_155_.__ast_泡:1.0___JCROSS_泡_40_('<__ast_泡:1.0___JCROSS_泡_75_>')[0]
+
+// [metadata-stripped]
+    if __ast_泡:1.0___JCROSS_泡_9_ in __ast_泡:1.0___JCROSS_泡_155_:
+        return __ast_殻:1.0___JCROSS_殻_4_
+
+    return __ast_殻:1.0___JCROSS_殻_11_
+
+
+// [metadata-stripped]
+// __ast_流:0.7___JCROSS_MW_975_ [decoy-metadata]
+__ast_泡:1.0___JCROSS_泡_153_ __ast_項:1.0___JCROSS_覇_2_(__ast_泡:1.0___JCROSS_泡_26_, __ast_泡:1.0___JCROSS_泡_91_=__ast_殻:1.0___JCROSS_殻_8_):
+    __ast_泡:1.0___JCROSS_泡_137_ open(__ast_泡:1.0___JCROSS_泡_26_, 'r') as f:
+        __ast_泡:1.0___JCROSS_泡_80_ = f.__ast_泡:1.0___JCROSS_泡_141_().__ast_泡:1.0___JCROSS_泡_84_()
+        __ast_泡:1.0___JCROSS_泡_80_ = __ast_泡:1.0___JCROSS_泡_80_.__ast_泡:1.0___JCROSS_泡_40_('\n')
+        df = pd.__ast_殻:1.0___JCROSS_殻_5_(__ast_泡:1.0___JCROSS_泡_80_, __ast_泡:1.0___JCROSS_泡_82_=['__ast_泡:1.0___JCROSS_泡_185_'])
+
+// [metadata-stripped]
+    df['__ast_泡:1.0___JCROSS_泡_10_'] = df.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: __ast_泡:1.0___JCROSS_泡_146_(x.__ast_泡:1.0___JCROSS_泡_40_(' ')[0]))
+    df.__ast_泡:1.0___JCROSS_泡_185_ = df.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: x[x.__ast_泡:1.0___JCROSS_泡_63_(' ') + 1:])
+    df['__ast_項:1.0___JCROSS_泡_56_'] = df.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: x[x.__ast_泡:1.0___JCROSS_泡_63_('\t') + 1:] if '\t' in x else __ast_殻:1.0___JCROSS_殻_8_)
+    df['__ast_泡:1.0___JCROSS_泡_27_'] = df.__ast_項:1.0___JCROSS_泡_56_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: x if x is __ast_殻:1.0___JCROSS_殻_8_ else [__ast_泡:1.0___JCROSS_泡_146_(n) for n in re.__ast_泡:1.0___JCROSS_泡_40_('\t| ', x)[1:]])
+    df.__ast_項:1.0___JCROSS_泡_56_ = df.__ast_項:1.0___JCROSS_泡_56_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: x if x is __ast_殻:1.0___JCROSS_殻_8_ else x.__ast_泡:1.0___JCROSS_泡_40_('\t')[0])
+    df.__ast_泡:1.0___JCROSS_泡_185_ = df.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_181_(__ast_泡:1.0___JCROSS_泡_129_ x: x.__ast_泡:1.0___JCROSS_泡_40_('\t')[0] if '\t' in x else x)
+
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_147_ = __ast_泡:1.0___JCROSS_泡_171_(np.where(df.__ast_泡:1.0___JCROSS_泡_10_ == 1)[0]) + [df.__ast_泡:1.0___JCROSS_泡_109_[0]]
+    for i, (__ast_泡:1.0___JCROSS_泡_51_, __ast_泡:1.0___JCROSS_泡_8_) in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_194_(__ast_泡:1.0___JCROSS_泡_147_, __ast_泡:1.0___JCROSS_泡_147_[1:])):
+        df.__ast_泡:1.0___JCROSS_泡_131_[__ast_泡:1.0___JCROSS_泡_51_:__ast_泡:1.0___JCROSS_泡_8_, '__ast_泡:1.0___JCROSS_泡_28_'] = i
+
+    df.__ast_泡:1.0___JCROSS_泡_28_ = df.__ast_泡:1.0___JCROSS_泡_28_.__ast_泡:1.0___JCROSS_泡_90_(__ast_泡:1.0___JCROSS_泡_146_)
+
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_47_ = [df[df.__ast_泡:1.0___JCROSS_泡_28_ == sn] for sn in df.__ast_泡:1.0___JCROSS_泡_28_.__ast_泡:1.0___JCROSS_泡_34_()]
+
+    __ast_泡:1.0___JCROSS_泡_176_ = []
+    for __ast_泡:1.0___JCROSS_泡_196_ in __ast_泡:1.0___JCROSS_泡_47_:
+        __ast_泡:1.0___JCROSS_泡_180_ = __ast_泡:1.0___JCROSS_泡_196_[~__ast_泡:1.0___JCROSS_泡_196_.__ast_項:1.0___JCROSS_泡_56_.__ast_泡:1.0___JCROSS_泡_25_()].__ast_泡:1.0___JCROSS_泡_63_
+        __ast_泡:1.0___JCROSS_泡_59_ = [__ast_泡:1.0___JCROSS_泡_196_.__ast_泡:1.0___JCROSS_泡_131_[:__ast_泡:1.0___JCROSS_泡_107_].__ast_泡:1.0___JCROSS_泡_14_() for __ast_泡:1.0___JCROSS_泡_107_ in __ast_泡:1.0___JCROSS_泡_180_]
+        for i, __ast_泡:1.0___JCROSS_泡_39_ in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_59_):
+            __ast_泡:1.0___JCROSS_泡_59_[i] = __ast_泡:1.0___JCROSS_泡_39_[(__ast_泡:1.0___JCROSS_泡_39_.__ast_項:1.0___JCROSS_泡_56_.__ast_泡:1.0___JCROSS_泡_25_()) | (__ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_63_ == __ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_63_[-1])]
+        if __ast_泡:1.0___JCROSS_泡_91_ is __ast_泡:1.0___JCROSS_泡_29_ __ast_殻:1.0___JCROSS_殻_8_:             # __ast_泡:1.0___JCROSS_泡_44_ __ast_泡:1.0___JCROSS_泡_143_ __ast_泡:1.0___JCROSS_泡_137_ __ast_泡:1.0___JCROSS_泡_71_ __ast_泡:1.0___JCROSS_泡_50_ __ast_泡:1.0___JCROSS_泡_121_
+            __ast_泡:1.0___JCROSS_泡_59_ = [__ast_泡:1.0___JCROSS_泡_39_ for __ast_泡:1.0___JCROSS_泡_39_ in __ast_泡:1.0___JCROSS_泡_59_ if __ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_109_[0] <= __ast_泡:1.0___JCROSS_泡_91_]
+        __ast_泡:1.0___JCROSS_泡_176_ += __ast_泡:1.0___JCROSS_泡_59_
+
+    df = pd.__ast_泡:1.0___JCROSS_泡_43_(__ast_泡:1.0___JCROSS_泡_176_).__ast_泡:1.0___JCROSS_泡_191_(__ast_泡:1.0___JCROSS_泡_44_=__ast_殻:1.0___JCROSS_殻_4_)
+
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_147_ = __ast_泡:1.0___JCROSS_泡_171_(np.where(df.__ast_泡:1.0___JCROSS_泡_10_ == 1)[0]) + [df.__ast_泡:1.0___JCROSS_泡_109_[0]]
+    for i, (__ast_泡:1.0___JCROSS_泡_51_, __ast_泡:1.0___JCROSS_泡_8_) in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_194_(__ast_泡:1.0___JCROSS_泡_147_, __ast_泡:1.0___JCROSS_泡_147_[1:])):
+        df.__ast_泡:1.0___JCROSS_泡_131_[__ast_泡:1.0___JCROSS_泡_51_:__ast_泡:1.0___JCROSS_泡_8_, '__ast_泡:1.0___JCROSS_泡_149_'] = i
+
+    df.__ast_泡:1.0___JCROSS_泡_149_ = df.__ast_泡:1.0___JCROSS_泡_149_.__ast_泡:1.0___JCROSS_泡_90_(__ast_泡:1.0___JCROSS_泡_146_)
+
+    return df
+
+
+// [metadata-stripped]
+class __ast_殻:1.0___JCROSS_殻_7_(__ast_殻:1.0___JCROSS_殻_1_):
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_139_(self, __ast_泡:1.0___JCROSS_泡_26_, __ast_泡:1.0___JCROSS_泡_91_=__ast_殻:1.0___JCROSS_殻_8_):
+        self.__ast_泡:1.0___JCROSS_泡_45_ = __ast_項:1.0___JCROSS_覇_2_(__ast_泡:1.0___JCROSS_泡_26_, __ast_泡:1.0___JCROSS_泡_91_=__ast_泡:1.0___JCROSS_泡_91_)
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_186_(self, __ast_泡:1.0___JCROSS_泡_108_):
+        __ast_泡:1.0___JCROSS_泡_39_ = self.__ast_泡:1.0___JCROSS_泡_45_[self.__ast_泡:1.0___JCROSS_泡_45_.__ast_泡:1.0___JCROSS_泡_149_ == __ast_泡:1.0___JCROSS_泡_108_]
+        __ast_泡:1.0___JCROSS_泡_99_ = __ast_泡:1.0___JCROSS_泡_39_[__ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_10_.__ast_泡:1.0___JCROSS_泡_102_(__ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_27_.__ast_泡:1.0___JCROSS_泡_195_[-1])].__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_195_
+        __ast_泡:1.0___JCROSS_泡_196_ = {'__ast_泡:1.0___JCROSS_泡_121_': __ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_195_[:-1],
+                  '__ast_泡:1.0___JCROSS_泡_52_': __ast_泡:1.0___JCROSS_泡_39_.__ast_泡:1.0___JCROSS_泡_185_.__ast_泡:1.0___JCROSS_泡_195_[-1],
+                  '__ast_項:1.0___JCROSS_泡_56_': __ast_泡:1.0___JCROSS_泡_39_.__ast_項:1.0___JCROSS_泡_56_.__ast_泡:1.0___JCROSS_泡_195_[-1],
+                  '__ast_泡:1.0___JCROSS_泡_99_': __ast_泡:1.0___JCROSS_泡_99_}
+        return __ast_泡:1.0___JCROSS_泡_196_
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_93_(self):
+        return self.__ast_泡:1.0___JCROSS_泡_45_.__ast_泡:1.0___JCROSS_泡_149_.__ast_泡:1.0___JCROSS_泡_88_()
+
+
+__ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_22_(__ast_泡:1.0___JCROSS_泡_104_):
+    return __ast_泡:1.0___JCROSS_泡_115_([__ast_泡:1.0___JCROSS_泡_89_(s) for s in __ast_泡:1.0___JCROSS_泡_104_])
+
+
+// [metadata-stripped]
+class __ast_項:1.0___JCROSS_殻_12_:
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_139_(self, __ast_泡:1.0___JCROSS_泡_169_, __ast_窟:1.0___JCROSS_泡_168_, __ast_泡:1.0___JCROSS_泡_12_=10, __ast_泡:1.0___JCROSS_泡_68_=__ast_殻:1.0___JCROSS_殻_8_, __ast_泡:1.0___JCROSS_泡_2_=__ast_殻:1.0___JCROSS_殻_11_, __ast_泡:1.0___JCROSS_泡_193_=42):
+        self.__ast_泡:1.0___JCROSS_泡_190_ = 0
+        self.__ast_泡:1.0___JCROSS_泡_169_ = __ast_泡:1.0___JCROSS_泡_169_
+        self.__ast_泡:1.0___JCROSS_泡_104_ = []
+        self.__ast_窟:1.0___JCROSS_泡_168_ = __ast_窟:1.0___JCROSS_泡_168_
+        self.__ast_泡:1.0___JCROSS_泡_12_ = __ast_泡:1.0___JCROSS_泡_12_
+        self.__ast_泡:1.0___JCROSS_泡_68_ = __ast_泡:1.0___JCROSS_泡_68_
+        self.__ast_窟:1.0___JCROSS_泡_30_ = __ast_泡:1.0___JCROSS_泡_178_.__ast_窟:1.0___JCROSS_殻_9_()
+        self.__ast_泡:1.0___JCROSS_泡_2_ = __ast_泡:1.0___JCROSS_泡_2_
+// __ast_絢:0.7___JCROSS_WV_247_ [decoy-metadata]
+        self.__ast_泡:1.0___JCROSS_泡_17_ = np.__ast_泡:1.0___JCROSS_泡_70_.__ast_泡:1.0___JCROSS_泡_78_(__ast_泡:1.0___JCROSS_泡_177_=__ast_泡:1.0___JCROSS_泡_193_)
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_項:1.0___JCROSS_覇_1_(self, __ast_泡:1.0___JCROSS_泡_58_):
+        __ast_泡:1.0___JCROSS_泡_196_ = []
+        __ast_泡:1.0___JCROSS_泡_64_ = 0
+        while __ast_殻:1.0___JCROSS_殻_4_:
+            __ast_泡:1.0___JCROSS_泡_104_ = __ast_泡:1.0___JCROSS_泡_171_(self.__ast_泡:1.0___JCROSS_泡_104_)
+            for i, __ast_泡:1.0___JCROSS_泡_23_ in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_104_):  # __ast_泡:1.0___JCROSS_泡_142_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_150_ __ast_泡:1.0___JCROSS_泡_124_ __ast_泡:1.0___JCROSS_泡_58_ is __ast_泡:1.0___JCROSS_泡_105_
+                __ast_窟:1.0___JCROSS_泡_86_ = self.__ast_窟:1.0___JCROSS_泡_168_.__ast_泡:1.0___JCROSS_泡_184_(' ' + __ast_泡:1.0___JCROSS_泡_23_, __ast_窟:1.0___JCROSS_泡_138_=__ast_殻:1.0___JCROSS_殻_11_)
+                if __ast_泡:1.0___JCROSS_泡_29_ self.__ast_泡:1.0___JCROSS_泡_19_(__ast_窟:1.0___JCROSS_泡_86_):
+                    continue
+                __ast_泡:1.0___JCROSS_泡_64_ += __ast_泡:1.0___JCROSS_泡_89_(__ast_窟:1.0___JCROSS_泡_86_)
+                __ast_泡:1.0___JCROSS_泡_196_.__ast_泡:1.0___JCROSS_泡_161_(__ast_窟:1.0___JCROSS_泡_86_)
+// __ast_流:0.6___JCROSS_VB_689_ [decoy-metadata]
+// __ast_項:0.8___JCROSS_XG_433_ [decoy-metadata]
+                if __ast_泡:1.0___JCROSS_泡_64_ >= __ast_泡:1.0___JCROSS_泡_58_:
+                    self.__ast_泡:1.0___JCROSS_泡_104_ = self.__ast_泡:1.0___JCROSS_泡_104_[i+1:]
+                    __ast_泡:1.0___JCROSS_泡_158_ = __ast_泡:1.0___JCROSS_泡_64_ - __ast_泡:1.0___JCROSS_泡_58_
+                    if __ast_泡:1.0___JCROSS_泡_158_ > 0:
+                        __ast_泡:1.0___JCROSS_泡_196_[-1] = __ast_泡:1.0___JCROSS_泡_196_[-1][:-__ast_泡:1.0___JCROSS_泡_158_]
+                    return __ast_泡:1.0___JCROSS_泡_196_
+
+            self.__ast_泡:1.0___JCROSS_泡_104_ = []
+            self.__ast_泡:1.0___JCROSS_泡_74_(__ast_泡:1.0___JCROSS_泡_58_)  # __ast_泡:1.0___JCROSS_泡_69_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_104_, __ast_泡:1.0___JCROSS_泡_125_ be __ast_泡:1.0___JCROSS_泡_103_ to __ast_泡:1.0___JCROSS_泡_126_ return __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_104_
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_74_(self, __ast_泡:1.0___JCROSS_泡_58_):
+        __ast_泡:1.0___JCROSS_泡_104_ = []
+        while __ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_104_) == 0:
+            __ast_泡:1.0___JCROSS_泡_185_ = self.__ast_泡:1.0___JCROSS_泡_41_()
+            if self.__ast_泡:1.0___JCROSS_泡_2_:
+                if __ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_185_) == 0:
+                    continue
+                __ast_泡:1.0___JCROSS_泡_185_ = __ast_泡:1.0___JCROSS_泡_185_[self.__ast_泡:1.0___JCROSS_泡_17_.__ast_泡:1.0___JCROSS_泡_7_(__ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_185_)):]  # __ast_泡:1.0___JCROSS_泡_51_ __ast_泡:1.0___JCROSS_泡_192_ __ast_泡:1.0___JCROSS_泡_70_ __ast_泡:1.0___JCROSS_泡_110_ in __ast_泡:1.0___JCROSS_泡_185_
+                __ast_泡:1.0___JCROSS_泡_185_ = __ast_泡:1.0___JCROSS_泡_185_[:__ast_泡:1.0___JCROSS_泡_58_ * 10]            # __ast_泡:1.0___JCROSS_泡_154_ __ast_泡:1.0___JCROSS_泡_71_ __ast_泡:1.0___JCROSS_泡_66_ __ast_泡:1.0___JCROSS_泡_80_ to __ast_泡:1.0___JCROSS_泡_140_ up __ast_窟:1.0___JCROSS_泡_87_
+            __ast_泡:1.0___JCROSS_泡_104_ += self.__ast_窟:1.0___JCROSS_泡_30_.__ast_窟:1.0___JCROSS_泡_119_(__ast_泡:1.0___JCROSS_泡_185_)
+            if self.__ast_泡:1.0___JCROSS_泡_2_:
+                __ast_泡:1.0___JCROSS_泡_104_ = __ast_泡:1.0___JCROSS_泡_104_[1:-1]
+        self.__ast_泡:1.0___JCROSS_泡_104_ += __ast_泡:1.0___JCROSS_泡_104_
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_41_(self):
+        if self.__ast_泡:1.0___JCROSS_泡_2_:
+            self.__ast_窟:1.0___JCROSS_泡_72_ = 0
+            __ast_泡:1.0___JCROSS_泡_190_ = self.__ast_泡:1.0___JCROSS_泡_17_.__ast_泡:1.0___JCROSS_泡_7_(__ast_泡:1.0___JCROSS_泡_89_(self.__ast_泡:1.0___JCROSS_泡_169_))
+            __ast_泡:1.0___JCROSS_泡_196_ = self.__ast_泡:1.0___JCROSS_泡_169_[__ast_泡:1.0___JCROSS_泡_146_(__ast_泡:1.0___JCROSS_泡_190_)]['__ast_泡:1.0___JCROSS_泡_185_']
+        else:
+            __ast_泡:1.0___JCROSS_泡_196_ = self.__ast_泡:1.0___JCROSS_泡_169_[__ast_泡:1.0___JCROSS_泡_146_(self.__ast_泡:1.0___JCROSS_泡_190_)]['__ast_泡:1.0___JCROSS_泡_185_']
+            self.__ast_泡:1.0___JCROSS_泡_190_ += 1
+            self.__ast_泡:1.0___JCROSS_泡_190_ = self.__ast_泡:1.0___JCROSS_泡_190_ % __ast_泡:1.0___JCROSS_泡_89_(self.__ast_泡:1.0___JCROSS_泡_169_)
+        return __ast_泡:1.0___JCROSS_泡_196_
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_19_(self, __ast_窟:1.0___JCROSS_泡_86_):
+        if self.__ast_泡:1.0___JCROSS_泡_68_ is __ast_泡:1.0___JCROSS_泡_29_ __ast_殻:1.0___JCROSS_殻_8_ __ast_泡:1.0___JCROSS_泡_81_ __ast_泡:1.0___JCROSS_泡_89_(__ast_窟:1.0___JCROSS_泡_86_) > self.__ast_泡:1.0___JCROSS_泡_68_:
+            return __ast_殻:1.0___JCROSS_殻_11_
+// __ast_流:0.8___JCROSS_BH_753_ [decoy-metadata]
+        if self.__ast_泡:1.0___JCROSS_泡_12_ is __ast_泡:1.0___JCROSS_泡_29_ __ast_殻:1.0___JCROSS_殻_8_ __ast_泡:1.0___JCROSS_泡_81_ __ast_泡:1.0___JCROSS_泡_89_(__ast_窟:1.0___JCROSS_泡_86_) < self.__ast_泡:1.0___JCROSS_泡_12_:
+            return __ast_殻:1.0___JCROSS_殻_11_
+        return __ast_殻:1.0___JCROSS_殻_4_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+class __ast_殻:1.0___JCROSS_殻_10_(__ast_殻:1.0___JCROSS_殻_1_):
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_139_(self, __ast_泡:1.0___JCROSS_泡_173_, __ast_項:1.0___JCROSS_泡_32_, __ast_窟:1.0___JCROSS_泡_168_,
+                 __ast_泡:1.0___JCROSS_泡_166_=__ast_殻:1.0___JCROSS_殻_8_,                   # __ast_泡:1.0___JCROSS_泡_16_ __ast_項:1.0___JCROSS_泡_144_ of __ast_泡:1.0___JCROSS_泡_121_ in __ast_泡:1.0___JCROSS_泡_196_, __ast_泡:1.0___JCROSS_泡_60_ 0 __ast_泡:1.0___JCROSS_泡_81_ 1
+                 __ast_泡:1.0___JCROSS_泡_57_=__ast_殻:1.0___JCROSS_殻_8_,                     # __ast_泡:1.0___JCROSS_泡_100_ __ast_項:1.0___JCROSS_泡_144_ of __ast_泡:1.0___JCROSS_泡_121_ in __ast_泡:1.0___JCROSS_泡_196_, __ast_泡:1.0___JCROSS_泡_60_ __ast_泡:1.0___JCROSS_泡_166_ __ast_泡:1.0___JCROSS_泡_81_ 1
+                 __ast_泡:1.0___JCROSS_泡_58_=1024,
+                 __ast_泡:1.0___JCROSS_泡_20_=0.0,                # __ast_泡:1.0___JCROSS_泡_53_ for __ast_泡:1.0___JCROSS_泡_160_ __ast_泡:1.0___JCROSS_泡_13_ __ast_泡:1.0___JCROSS_泡_134_, __ast_泡:1.0___JCROSS_泡_92_ for __ast_項:1.0___JCROSS_泡_164_ __ast_泡:1.0___JCROSS_泡_143_
+                 __ast_泡:1.0___JCROSS_泡_193_=42):
+        self.__ast_泡:1.0___JCROSS_泡_173_ = __ast_泡:1.0___JCROSS_泡_173_
+        self.__ast_項:1.0___JCROSS_泡_32_ = __ast_項:1.0___JCROSS_泡_32_
+        self.__ast_泡:1.0___JCROSS_泡_58_ = __ast_泡:1.0___JCROSS_泡_58_
+        self.__ast_泡:1.0___JCROSS_泡_20_ = __ast_泡:1.0___JCROSS_泡_20_
+        self.__ast_窟:1.0___JCROSS_泡_168_ = __ast_窟:1.0___JCROSS_泡_168_
+        self.__ast_泡:1.0___JCROSS_泡_166_ = __ast_泡:1.0___JCROSS_泡_166_
+        self.__ast_泡:1.0___JCROSS_泡_57_ = __ast_泡:1.0___JCROSS_泡_57_
+        if __ast_泡:1.0___JCROSS_泡_193_:
+            self.__ast_泡:1.0___JCROSS_泡_17_ = np.__ast_泡:1.0___JCROSS_泡_70_.__ast_泡:1.0___JCROSS_泡_78_(__ast_泡:1.0___JCROSS_泡_177_=__ast_泡:1.0___JCROSS_泡_193_)
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_186_(self, __ast_泡:1.0___JCROSS_泡_108_):
+        __ast_泡:1.0___JCROSS_泡_196_ = self.__ast_泡:1.0___JCROSS_泡_173_[__ast_泡:1.0___JCROSS_泡_108_]
+        __ast_泡:1.0___JCROSS_泡_121_ = __ast_泡:1.0___JCROSS_泡_171_(__ast_泡:1.0___JCROSS_泡_196_['__ast_泡:1.0___JCROSS_泡_121_'])
+        __ast_泡:1.0___JCROSS_泡_148_ = self.__ast_窟:1.0___JCROSS_泡_168_([' ' + f for f in __ast_泡:1.0___JCROSS_泡_121_], __ast_窟:1.0___JCROSS_泡_138_=__ast_殻:1.0___JCROSS_殻_11_)['__ast_泡:1.0___JCROSS_泡_188_']
+        __ast_泡:1.0___JCROSS_泡_73_ = self.__ast_窟:1.0___JCROSS_泡_168_(__ast_泡:1.0___JCROSS_泡_196_['__ast_泡:1.0___JCROSS_泡_52_'], __ast_窟:1.0___JCROSS_泡_138_=__ast_殻:1.0___JCROSS_殻_11_)['__ast_泡:1.0___JCROSS_泡_188_']
+        __ast_泡:1.0___JCROSS_泡_159_ = self.__ast_窟:1.0___JCROSS_泡_168_(__ast_泡:1.0___JCROSS_泡_196_['__ast_項:1.0___JCROSS_泡_56_'], __ast_窟:1.0___JCROSS_泡_138_=__ast_殻:1.0___JCROSS_殻_11_)['__ast_泡:1.0___JCROSS_泡_188_']
+
+// __ast_殻:0.3___JCROSS_CD_880_ [decoy-metadata]
+        __ast_泡:1.0___JCROSS_泡_58_ = self.__ast_項:1.0___JCROSS_覇_3_()
+        __ast_泡:1.0___JCROSS_泡_62_ = __ast_泡:1.0___JCROSS_泡_22_(__ast_泡:1.0___JCROSS_泡_148_)
+        __ast_泡:1.0___JCROSS_泡_96_ = __ast_泡:1.0___JCROSS_泡_58_ - __ast_泡:1.0___JCROSS_泡_62_
+        __ast_泡:1.0___JCROSS_泡_112_ = self.__ast_項:1.0___JCROSS_泡_32_.__ast_項:1.0___JCROSS_覇_1_(__ast_泡:1.0___JCROSS_泡_96_)
+        __ast_泡:1.0___JCROSS_泡_196_['__ast_泡:1.0___JCROSS_泡_112_'] = __ast_泡:1.0___JCROSS_泡_112_
+
+        if self.__ast_泡:1.0___JCROSS_泡_166_ is __ast_殻:1.0___JCROSS_殻_8_ __ast_泡:1.0___JCROSS_泡_81_ self.__ast_泡:1.0___JCROSS_泡_57_ is __ast_殻:1.0___JCROSS_殻_8_:     # if __ast_泡:1.0___JCROSS_泡_37_ __ast_泡:1.0___JCROSS_泡_110_ __ast_流:1.0___JCROSS_泡_49_
+            __ast_泡:1.0___JCROSS_泡_123_ = __ast_泡:1.0___JCROSS_泡_67_(__ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_112_) + 1) 
+        else:
+            __ast_泡:1.0___JCROSS_泡_77_ = __ast_泡:1.0___JCROSS_泡_146_(__ast_泡:1.0___JCROSS_泡_58_ * self.__ast_泡:1.0___JCROSS_泡_166_)
+            __ast_泡:1.0___JCROSS_泡_113_ = __ast_泡:1.0___JCROSS_泡_146_(__ast_泡:1.0___JCROSS_泡_58_ * self.__ast_泡:1.0___JCROSS_泡_57_)
+            __ast_泡:1.0___JCROSS_泡_33_ = __ast_泡:1.0___JCROSS_泡_22_(__ast_泡:1.0___JCROSS_泡_148_)
+
+            __ast_泡:1.0___JCROSS_泡_123_ = []                                       # where __ast_泡:1.0___JCROSS_泡_125_ we __ast_泡:1.0___JCROSS_泡_116_ __ast_泡:1.0___JCROSS_泡_121_?
+            __ast_泡:1.0___JCROSS_泡_163_ = 0
+            for i, __ast_泡:1.0___JCROSS_泡_185_ in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_112_):
+                if (__ast_泡:1.0___JCROSS_泡_163_ >= __ast_泡:1.0___JCROSS_泡_77_) __ast_泡:1.0___JCROSS_泡_81_ (__ast_泡:1.0___JCROSS_泡_163_ < __ast_泡:1.0___JCROSS_泡_113_ - __ast_泡:1.0___JCROSS_泡_33_):
+                    __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_161_(i)
+                __ast_泡:1.0___JCROSS_泡_163_ += __ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_185_)
+
+            if __ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_123_) == 0:
+                __ast_泡:1.0___JCROSS_泡_38_ __ast_殻:1.0___JCROSS_殻_3_(f"__ast_殻:1.0___JCROSS_殻_13_ to __ast_泡:1.0___JCROSS_泡_116_ __ast_泡:1.0___JCROSS_泡_121_ in __ast_流:1.0___JCROSS_泡_151_ __ast_泡:1.0___JCROSS_泡_48_: {self.__ast_泡:1.0___JCROSS_泡_166_, self.__ast_泡:1.0___JCROSS_泡_57_}."
+                                 f"__ast_殻:1.0___JCROSS_殻_2_ __ast_泡:1.0___JCROSS_泡_37_ __ast_泡:1.0___JCROSS_泡_13_: {__ast_泡:1.0___JCROSS_泡_33_}, "
+                                 f"__ast_泡:1.0___JCROSS_泡_104_ __ast_泡:1.0___JCROSS_泡_13_: {[__ast_泡:1.0___JCROSS_泡_89_(t) for t in __ast_泡:1.0___JCROSS_泡_112_]}. "
+                                 f"__ast_殻:1.0___JCROSS_殻_6_ __ast_泡:1.0___JCROSS_泡_114_ __ast_泡:1.0___JCROSS_泡_67_ __ast_項:1.0___JCROSS_泡_136_ or __ast_泡:1.0___JCROSS_泡_167_ __ast_泡:1.0___JCROSS_泡_114_ __ast_泡:1.0___JCROSS_泡_196_ __ast_泡:1.0___JCROSS_泡_111_.")
+
+        __ast_泡:1.0___JCROSS_泡_145_ = self.__ast_泡:1.0___JCROSS_泡_17_.__ast_泡:1.0___JCROSS_泡_7_(__ast_泡:1.0___JCROSS_泡_123_, __ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_148_))
+        __ast_泡:1.0___JCROSS_泡_145_.__ast_泡:1.0___JCROSS_泡_3_()
+        __ast_泡:1.0___JCROSS_泡_196_['__ast_泡:1.0___JCROSS_泡_145_'] = __ast_泡:1.0___JCROSS_泡_145_                  # __ast_泡:1.0___JCROSS_泡_55_ of __ast_泡:1.0___JCROSS_泡_121_ __ast_泡:1.0___JCROSS_泡_60_ __ast_泡:1.0___JCROSS_泡_21_ __ast_泡:1.0___JCROSS_泡_104_
+
+        __ast_泡:1.0___JCROSS_泡_183_ = [[] for _ in __ast_泡:1.0___JCROSS_泡_67_(__ast_泡:1.0___JCROSS_泡_89_(__ast_泡:1.0___JCROSS_泡_112_) + 1)]
+        for __ast_泡:1.0___JCROSS_泡_37_, __ast_泡:1.0___JCROSS_泡_189_ in __ast_泡:1.0___JCROSS_泡_194_(__ast_泡:1.0___JCROSS_泡_148_, __ast_泡:1.0___JCROSS_泡_145_):
+            __ast_泡:1.0___JCROSS_泡_183_[__ast_泡:1.0___JCROSS_泡_189_].__ast_泡:1.0___JCROSS_泡_161_(__ast_泡:1.0___JCROSS_泡_37_)
+
+        for i, s in __ast_泡:1.0___JCROSS_泡_118_(__ast_泡:1.0___JCROSS_泡_112_):
+            __ast_泡:1.0___JCROSS_泡_183_[i].__ast_泡:1.0___JCROSS_泡_161_(s)
+
+        __ast_泡:1.0___JCROSS_泡_172_ = [i for s in __ast_泡:1.0___JCROSS_泡_183_ for i in s]
+        __ast_窟:1.0___JCROSS_泡_15_ = [i for s in __ast_泡:1.0___JCROSS_泡_172_ for i in s]
+
+        __ast_泡:1.0___JCROSS_泡_196_['__ast_窟:1.0___JCROSS_泡_120_'] = __ast_窟:1.0___JCROSS_泡_15_
+        __ast_泡:1.0___JCROSS_泡_196_['__ast_窟:1.0___JCROSS_泡_132_'] = __ast_泡:1.0___JCROSS_泡_73_
+        __ast_泡:1.0___JCROSS_泡_196_['__ast_窟:1.0___JCROSS_泡_127_'] = __ast_泡:1.0___JCROSS_泡_159_
+
+        return __ast_泡:1.0___JCROSS_泡_196_
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_泡:1.0___JCROSS_泡_93_(self):
+        return __ast_泡:1.0___JCROSS_泡_89_(self.__ast_泡:1.0___JCROSS_泡_173_)
+
+    __ast_泡:1.0___JCROSS_泡_153_ __ast_項:1.0___JCROSS_覇_3_(self):
+        if __ast_泡:1.0___JCROSS_泡_128_(self.__ast_泡:1.0___JCROSS_泡_58_, __ast_泡:1.0___JCROSS_泡_171_):
+            if self.__ast_泡:1.0___JCROSS_泡_17_.__ast_泡:1.0___JCROSS_泡_70_() > self.__ast_泡:1.0___JCROSS_泡_20_:
+                return self.__ast_泡:1.0___JCROSS_泡_17_.__ast_泡:1.0___JCROSS_泡_7_(self.__ast_泡:1.0___JCROSS_泡_58_)
+            return __ast_泡:1.0___JCROSS_泡_88_(self.__ast_泡:1.0___JCROSS_泡_58_)
+        else:
+            return self.__ast_泡:1.0___JCROSS_泡_58_
+
+// POLYMORPHIC_JCROSS_END

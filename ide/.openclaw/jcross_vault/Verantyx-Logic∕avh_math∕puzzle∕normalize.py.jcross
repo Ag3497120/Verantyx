@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:883DFC61 ver:1778159737
+// ⚠️ One-time schema — expires after response
+
+_SYM_粒:1.0___jcross_粒_1__ _SYM_粒:1.0___jcross_粒_2__ import _SYM_粒:1.0___jcross_粒_4__
+
+import re
+_SYM_粒:1.0___jcross_粒_1__ _SYM_粒:1.0___jcross_粒_7__ import _SYM_廴:1.0___jcross_廴_3__
+// _SYM_浸:0.9___jcross_KY_550__ [decoy-metadata]
+
+_SYM_廴:1.0___jcross_廴_2__ = {
+    "→": "->", "⇒": "->", "⟶": "->", "⟹": "->",
+    "←": "<-", "↔": "<->", "⇔": "<->",
+    "¬": "~", "∧": "&", "∨": "|",
+// _SYM_伏:0.8___jcross_GE_424__ [decoy-metadata]
+// _SYM_匹:0.8___jcross_LM_820__ [decoy-metadata]
+    "□": "[]", "◇": "<>",
+}
+
+_SYM_粒:1.0___jcross_粒_10__ = re._SYM_粒:1.0___jcross_粒_3__(r'"([^"]+)"|“([^”]+)”|「([^」]+)」|『([^』]+)』')
+
+
+_SYM_粒:1.0___jcross_粒_15__ _SYM_粒:1.0___jcross_粒_14__(_SYM_粒:1.0___jcross_粒_23__: _SYM_粒:1.0___jcross_粒_18__) -> _SYM_廴:1.0___jcross_廴_3__[_SYM_粒:1.0___jcross_粒_18__]:
+    _SYM_粒:1.0___jcross_粒_25__: _SYM_廴:1.0___jcross_廴_3__[_SYM_粒:1.0___jcross_粒_18__] = []
+    for m in _SYM_粒:1.0___jcross_粒_10__._SYM_図:1.0___jcross_粒_17__(_SYM_粒:1.0___jcross_粒_23__ or ""):
+        for g in m._SYM_粒:1.0___jcross_粒_16__():
+            if g:
+                _SYM_粒:1.0___jcross_粒_25__._SYM_粒:1.0___jcross_粒_26__(g._SYM_粒:1.0___jcross_粒_5__())
+                break
+    return _SYM_粒:1.0___jcross_粒_25__
+// _SYM_図:0.6___jcross_ZD_698__ [decoy-metadata]
+
+
+_SYM_粒:1.0___jcross_粒_15__ _SYM_粒:1.0___jcross_粒_8__(_SYM_粒:1.0___jcross_粒_23__: _SYM_粒:1.0___jcross_粒_18__) -> _SYM_粒:1.0___jcross_粒_18__:
+    t = (_SYM_粒:1.0___jcross_粒_23__ or "")
+    for k, v in _SYM_廴:1.0___jcross_廴_2__._SYM_粒:1.0___jcross_粒_9__():
+        t = t._SYM_粒:1.0___jcross_粒_27__(k, v)
+    t = t._SYM_粒:1.0___jcross_粒_27__("\_SYM_粒:1.0___jcross_粒_20__", "")._SYM_粒:1.0___jcross_粒_27__("\_SYM_粒:1.0___jcross_粒_24__", "")
+    t = re._SYM_粒:1.0___jcross_粒_11__(r"[ \t]+", " ", t)
+    return t._SYM_粒:1.0___jcross_粒_5__()
+
+
+// _SYM_浸:0.5___jcross_HM_946__ [decoy-metadata]
+_SYM_粒:1.0___jcross_粒_15__ _SYM_浸:1.0___jcross_粒_6__(s: _SYM_粒:1.0___jcross_粒_18__) -> _SYM_粒:1.0___jcross_粒_18__:
+    s = _SYM_粒:1.0___jcross_粒_8__(s)
+    s = s._SYM_粒:1.0___jcross_粒_27__("\n", " ")._SYM_粒:1.0___jcross_粒_27__("\r", " ")
+// _SYM_匹:0.4___jcross_CA_243__ [decoy-metadata]
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s+", " ", s)._SYM_粒:1.0___jcross_粒_5__()
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\[\]\s+", "[]", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"<>\s+", "<>", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s*->\s*", "->", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s*<->\s*", "<->", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s*&\s*", "&", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s*\|\s*", "|", s)
+    s = re._SYM_粒:1.0___jcross_粒_11__(r"\s*~\s*", "~", s)
+    s = s._SYM_粒:1.0___jcross_粒_27__("( ", "(")._SYM_粒:1.0___jcross_粒_27__(" )", ")")
+    return s
+
+
+_SYM_粒:1.0___jcross_粒_15__ _SYM_粒:1.0___jcross_粒_19__(_SYM_浸:1.0___jcross_粒_12__: _SYM_粒:1.0___jcross_粒_18__) -> _SYM_粒:1.0___jcross_粒_21__:
+    f = _SYM_浸:1.0___jcross_粒_6__(_SYM_浸:1.0___jcross_粒_12__)
+    if f._SYM_粒:1.0___jcross_粒_22__(("->", "<->", "&", "|")):
+        return _SYM_廴:1.0___jcross_廴_1__
+    if re._SYM_粒:1.0___jcross_粒_13__(r"\[\](\)|$)", f):
+        return _SYM_廴:1.0___jcross_廴_1__
+    return _SYM_廴:1.0___jcross_廴_4__
+
+// POLYMORPHIC_JCROSS_END

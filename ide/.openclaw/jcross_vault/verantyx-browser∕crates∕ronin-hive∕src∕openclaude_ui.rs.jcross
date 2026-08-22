@@ -1,0 +1,269 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0DD26867 ver:1778158591
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_霾:1.0___node_霾_90__ _ASTNODE_霾:1.0___node_霾_77__::_ASTNODE_霾:1.0___node_霾_27__::_ASTNODE_技:1.0___node_廓_50__;
+_ASTNODE_霾:1.0___node_霾_90__ _ASTNODE_技:1.0___node_霾_75__::_ASTNODE_霾:1.0___node_霾_29__::_ASTNODE_廓:1.0___node_廓_49__;
+_ASTNODE_霾:1.0___node_霾_90__ _ASTNODE_霾:1.0___node_霾_14__::_ASTNODE_霾:1.0___node_霾_24__;
+
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_55__ _ASTNODE_廓:1.0___node_廓_57__ = (u8, u8, u8);
+
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_22__: _ASTNODE_廓:1.0___node_廓_57__ = (240, 148, 100);
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_54__: _ASTNODE_廓:1.0___node_廓_57__ = (220, 195, 170);
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_2__: _ASTNODE_廓:1.0___node_廓_57__ = (120, 100, 82);
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_技:1.0___node_廓_47__: _ASTNODE_廓:1.0___node_廓_57__ = (100, 80, 65);
+
+_ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_45__: &[_ASTNODE_廓:1.0___node_廓_57__] = &[
+    (255, 180, 100),
+    (240, 140, 80),
+    (217, 119, 87),
+    (193, 95, 60),
+    (160, 75, 55),
+    (130, 60, 50),
+];
+
+_ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_41__: &[&_ASTNODE_霾:1.0___node_霾_60__] = &[
+    "██╗   ██╗███████╗██████╗  █████╗ ███╗   ██╗████████╗██╗   ██╗██╗  ██╗",
+    "██║   ██║██╔════╝██╔══██╗██╔══██╗████╗  ██║╚══██╔══╝╚██╗ ██╔╝╚██╗██╔╝",
+    "██║   ██║█████╗  ██████╔╝███████║██╔██╗ ██║   ██║    ╚████╔╝  ╚███╔╝ ",
+    "╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██║██║╚██╗██║   ██║     ╚██╔╝   ██╔██╗ ",
+    " ╚████╔╝ ███████╗██║  ██║██║  ██║██║ ╚████║   ██║      ██║   ██╔╝ ██╗",
+    "  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝      ╚═╝   ╚═╝  ╚═╝",
+];
+
+// [metadata-stripped]
+
+_ASTNODE_霾:1.0___node_霾_5__ fn _ASTNODE_霾:1.0___node_霾_128__((r, g, b): _ASTNODE_廓:1.0___node_廓_57__) -> _ASTNODE_廓:1.0___node_廓_10__ {
+    _ASTNODE_滲:1.0___node_霾_93__!("\_ASTNODE_霾:1.0___node_霾_49__[38;2;{};{};{}m", r, g, b)
+}
+
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_37__: &_ASTNODE_霾:1.0___node_霾_60__ = "\_ASTNODE_霾:1.0___node_霾_49__[0m";
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_87__ _ASTNODE_廓:1.0___node_廓_26__: &_ASTNODE_霾:1.0___node_霾_60__ = "\_ASTNODE_霾:1.0___node_霾_49__[2m";
+
+_ASTNODE_霾:1.0___node_霾_5__ fn _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_96__: &_ASTNODE_霾:1.0___node_霾_60__, _ASTNODE_霾:1.0___node_霾_2__: _ASTNODE_廓:1.0___node_廓_57__) -> _ASTNODE_廓:1.0___node_廓_10__ {
+    _ASTNODE_滲:1.0___node_霾_93__!("{}{}{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_霾:1.0___node_霾_2__), _ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_廓:1.0___node_廓_37__)
+}
+
+_ASTNODE_霾:1.0___node_霾_5__ fn _ASTNODE_霾:1.0___node_霾_89__(_ASTNODE_霾:1.0___node_霾_96__: &_ASTNODE_霾:1.0___node_霾_60__) -> _ASTNODE_廓:1.0___node_廓_10__ {
+    _ASTNODE_滲:1.0___node_霾_93__!("{}{}{}", _ASTNODE_廓:1.0___node_廓_26__, _ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_廓:1.0___node_廓_37__)
+}
+
+// _ASTNODE_縞:0.2___node_DF_972__ [decoy-metadata]
+// [metadata-stripped]
+
+fn _ASTNODE_霾:1.0___node_霾_11__(a: _ASTNODE_廓:1.0___node_廓_57__, b: _ASTNODE_廓:1.0___node_廓_57__, t: _ASTNODE_霾:1.0___node_霾_79__) -> _ASTNODE_廓:1.0___node_廓_57__ {
+    (
+        (a.0 as _ASTNODE_霾:1.0___node_霾_79__ + (b.0 as _ASTNODE_霾:1.0___node_霾_79__ - a.0 as _ASTNODE_霾:1.0___node_霾_79__) * t)._ASTNODE_霾:1.0___node_霾_23__() as u8,
+        (a.1 as _ASTNODE_霾:1.0___node_霾_79__ + (b.1 as _ASTNODE_霾:1.0___node_霾_79__ - a.1 as _ASTNODE_霾:1.0___node_霾_79__) * t)._ASTNODE_霾:1.0___node_霾_23__() as u8,
+        (a.2 as _ASTNODE_霾:1.0___node_霾_79__ + (b.2 as _ASTNODE_霾:1.0___node_霾_79__ - a.2 as _ASTNODE_霾:1.0___node_霾_79__) * t)._ASTNODE_霾:1.0___node_霾_23__() as u8,
+// _ASTNODE_渕:0.2___node_VW_421__ [decoy-metadata]
+    )
+}
+
+fn _ASTNODE_霾:1.0___node_霾_65__(_ASTNODE_霾:1.0___node_霾_45__: &[_ASTNODE_廓:1.0___node_廓_57__], _ASTNODE_霾:1.0___node_霾_63__ t: _ASTNODE_霾:1.0___node_霾_79__) -> _ASTNODE_廓:1.0___node_廓_57__ {
+    if t < 0.0 { t = 0.0; }
+    if t > 1.0 { t = 1.0; }
+    let s = t * (_ASTNODE_霾:1.0___node_霾_45__._ASTNODE_霾:1.0___node_霾_98__() as _ASTNODE_霾:1.0___node_霾_79__ - 1.0);
+    let i = s._ASTNODE_霾:1.0___node_霾_19__() as _ASTNODE_霾:1.0___node_霾_6__;
+    if i >= _ASTNODE_霾:1.0___node_霾_45__._ASTNODE_霾:1.0___node_霾_98__() - 1 {
+        return _ASTNODE_霾:1.0___node_霾_45__[_ASTNODE_霾:1.0___node_霾_45__._ASTNODE_霾:1.0___node_霾_98__() - 1];
+    }
+    _ASTNODE_霾:1.0___node_霾_11__(_ASTNODE_霾:1.0___node_霾_45__[i], _ASTNODE_霾:1.0___node_霾_45__[i + 1], s - i as _ASTNODE_霾:1.0___node_霾_79__)
+}
+
+fn _ASTNODE_霾:1.0___node_霾_80__(_ASTNODE_霾:1.0___node_霾_96__: &_ASTNODE_霾:1.0___node_霾_60__, _ASTNODE_霾:1.0___node_霾_117__: _ASTNODE_霾:1.0___node_霾_79__) -> _ASTNODE_廓:1.0___node_廓_10__ {
+    let _ASTNODE_霾:1.0___node_霾_88__: _ASTNODE_廓:1.0___node_廓_48__<_ASTNODE_霾:1.0___node_霾_3__> = _ASTNODE_霾:1.0___node_霾_96__._ASTNODE_霾:1.0___node_霾_88__()._ASTNODE_霾:1.0___node_霾_1__();
+    let _ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_97__ = _ASTNODE_廓:1.0___node_廓_10__::_ASTNODE_霾:1.0___node_霾_40__();
+    let _ASTNODE_霾:1.0___node_霾_59__ = _ASTNODE_霾:1.0___node_霾_88__._ASTNODE_霾:1.0___node_霾_98__() as _ASTNODE_霾:1.0___node_霾_79__;
+    for (i, &c) in _ASTNODE_霾:1.0___node_霾_88__._ASTNODE_技:1.0___node_霾_44__()._ASTNODE_霾:1.0___node_霾_99__() {
+        let t = if _ASTNODE_霾:1.0___node_霾_59__ > 1.0 {
+            _ASTNODE_霾:1.0___node_霾_117__ * 0.5 + (i as _ASTNODE_霾:1.0___node_霾_79__ / (_ASTNODE_霾:1.0___node_霾_59__ - 1.0)) * 0.5
+        } else {
+            _ASTNODE_霾:1.0___node_霾_117__
+        };
+        let _ASTNODE_霾:1.0___node_霾_2__ = _ASTNODE_霾:1.0___node_霾_65__(_ASTNODE_廓:1.0___node_廓_45__, t);
+        _ASTNODE_霾:1.0___node_霾_97__._ASTNODE_霾:1.0___node_霾_17__(&_ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_霾:1.0___node_霾_2__));
+        _ASTNODE_霾:1.0___node_霾_97__._ASTNODE_霾:1.0___node_霾_7__(c);
+    }
+    _ASTNODE_霾:1.0___node_霾_97__._ASTNODE_霾:1.0___node_霾_17__(_ASTNODE_廓:1.0___node_廓_37__);
+    _ASTNODE_霾:1.0___node_霾_97__
+}
+
+// [metadata-stripped]
+
+fn _ASTNODE_霾:1.0___node_霾_42__(_ASTNODE_霾:1.0___node_霾_4__: &_ASTNODE_霾:1.0___node_霾_60__, _ASTNODE_霾:1.0___node_霾_25__: _ASTNODE_霾:1.0___node_霾_6__, _ASTNODE_霾:1.0___node_霾_39__: _ASTNODE_霾:1.0___node_霾_6__) -> _ASTNODE_廓:1.0___node_廓_10__ {
+    let _ASTNODE_霾:1.0___node_霾_84__ = if _ASTNODE_霾:1.0___node_霾_25__ > _ASTNODE_霾:1.0___node_霾_39__ + 2 { _ASTNODE_霾:1.0___node_霾_25__ - 2 - _ASTNODE_霾:1.0___node_霾_39__ } else { 0 };
+    _ASTNODE_滲:1.0___node_霾_93__!("{}│{}{}{}{}│{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_技:1.0___node_廓_47__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_4__, " "._ASTNODE_霾:1.0___node_霾_12__(_ASTNODE_霾:1.0___node_霾_84__), _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_技:1.0___node_廓_47__), _ASTNODE_廓:1.0___node_廓_37__)
+}
+
+// [metadata-stripped]
+
+_ASTNODE_霾:1.0___node_霾_5__ fn _ASTNODE_霾:1.0___node_霾_107__(_ASTNODE_技:1.0___node_霾_56__: &_ASTNODE_技:1.0___node_廓_50__, _ASTNODE_霾:1.0___node_霾_115__: _ASTNODE_霾:1.0___node_霾_67__) {
+    let w = 62;
+    _ASTNODE_霾:1.0___node_霾_106__!();
+    
+// [metadata-stripped]
+    let _ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_95__ = _ASTNODE_廓:1.0___node_廓_48__::_ASTNODE_霾:1.0___node_霾_40__();
+    _ASTNODE_霾:1.0___node_霾_95__._ASTNODE_霾:1.0___node_霾_122__(_ASTNODE_廓:1.0___node_廓_41__);
+    
+    let _ASTNODE_霾:1.0___node_霾_108__ = _ASTNODE_霾:1.0___node_霾_95__._ASTNODE_霾:1.0___node_霾_98__() as _ASTNODE_霾:1.0___node_霾_79__;
+    for (i, _ASTNODE_霾:1.0___node_霾_86__) in _ASTNODE_霾:1.0___node_霾_95__._ASTNODE_技:1.0___node_霾_44__()._ASTNODE_霾:1.0___node_霾_99__() {
+        if _ASTNODE_霾:1.0___node_霾_86__._ASTNODE_霾:1.0___node_霾_92__() {
+// _ASTNODE_燦:0.7___node_EM_771__ [decoy-metadata]
+            _ASTNODE_霾:1.0___node_霾_106__!();
+        } else {
+            let t = if _ASTNODE_霾:1.0___node_霾_108__ > 1.0 { i as _ASTNODE_霾:1.0___node_霾_79__ / (_ASTNODE_霾:1.0___node_霾_108__ - 1.0) } else { 0.0 };
+            _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_80__(_ASTNODE_霾:1.0___node_霾_86__, t));
+        }
+    }
+    
+    _ASTNODE_霾:1.0___node_霾_106__!();
+    let _ASTNODE_霾:1.0___node_霾_46__ = _ASTNODE_滲:1.0___node_霾_93__!("  {}✦{} {}_ASTNODE_廓:1.0___node_廓_51__ _ASTNODE_霾:1.0___node_霾_126__. _ASTNODE_廓:1.0___node_廓_28__ _ASTNODE_霾:1.0___node_霾_70__. _ASTNODE_廓:1.0___node_廓_56__ _ASTNODE_霾:1.0___node_霾_37__.{} {}✦{}", 
+        _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_54__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__);
+    _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_46__);
+    _ASTNODE_霾:1.0___node_霾_106__!();
+
+// [metadata-stripped]
+    let (_ASTNODE_霾:1.0___node_霾_129__, _ASTNODE_霾:1.0___node_霾_85__, _ASTNODE_霾:1.0___node_霾_41__) = _ASTNODE_霾:1.0___node_霾_66__ _ASTNODE_技:1.0___node_霾_56__ {
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_廓:1.0___node_廓_44__ => ("_ASTNODE_廓:1.0___node_廓_29__ _ASTNODE_廓:1.0___node_廓_44__", "_ASTNODE_霾:1.0___node_霾_61__-2.5-_ASTNODE_霾:1.0___node_霾_113__", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_霾:1.0___node_霾_71__._ASTNODE_縞:1.0___node_霾_112__._ASTNODE_霾:1.0___node_霾_47__"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_廓:1.0___node_廓_43__ => ("_ASTNODE_廓:1.0___node_廓_4__", "_ASTNODE_霾:1.0___node_霾_38__-4o", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_縞:1.0___node_霾_43__._ASTNODE_霾:1.0___node_霾_100__._ASTNODE_霾:1.0___node_霾_47__/v1"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_廓:1.0___node_廓_38__ => ("_ASTNODE_廓:1.0___node_廓_38__", "_ASTNODE_霾:1.0___node_霾_73__-3-5-_ASTNODE_霾:1.0___node_霾_110__", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_縞:1.0___node_霾_43__._ASTNODE_霾:1.0___node_霾_26__._ASTNODE_霾:1.0___node_霾_47__"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_廓:1.0___node_廓_15__ => ("_ASTNODE_廓:1.0___node_廓_15__", "_ASTNODE_霾:1.0___node_霾_34__-_ASTNODE_技:1.0___node_霾_48__", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_縞:1.0___node_霾_43__._ASTNODE_霾:1.0___node_霾_34__._ASTNODE_霾:1.0___node_霾_47__"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_技:1.0___node_廓_11__ => ("_ASTNODE_技:1.0___node_廓_11__", "_ASTNODE_霾:1.0___node_霾_103__/_ASTNODE_霾:1.0___node_霾_61__-2.5-_ASTNODE_霾:1.0___node_霾_113__", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_技:1.0___node_霾_51__.ai/_ASTNODE_縞:1.0___node_霾_43__/v1"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_廓:1.0___node_廓_12__ => ("_ASTNODE_廓:1.0___node_廓_12__", "_ASTNODE_霾:1.0___node_霾_118__-70b-8192", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_縞:1.0___node_霾_43__._ASTNODE_霾:1.0___node_霾_125__._ASTNODE_霾:1.0___node_霾_47__/_ASTNODE_霾:1.0___node_霾_100__/v1"),
+        _ASTNODE_技:1.0___node_廓_50__::_ASTNODE_技:1.0___node_廓_16__ => ("_ASTNODE_技:1.0___node_廓_16__ AI", "_ASTNODE_霾:1.0___node_霾_82__-_ASTNODE_霾:1.0___node_霾_62__/_ASTNODE_廓:1.0___node_廓_36__-3.3-70B", "_ASTNODE_縞:1.0___node_霾_36__://_ASTNODE_縞:1.0___node_霾_43__._ASTNODE_技:1.0___node_霾_127__._ASTNODE_霾:1.0___node_霾_83__/v1"),
+    };
+
+    _ASTNODE_霾:1.0___node_霾_106__!("{}╔{}╗{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_技:1.0___node_廓_47__), "═"._ASTNODE_霾:1.0___node_霾_12__(w - 2), _ASTNODE_廓:1.0___node_廓_37__);
+
+    let _ASTNODE_霾:1.0___node_霾_64__ = |k: &_ASTNODE_霾:1.0___node_霾_60__, v: &_ASTNODE_霾:1.0___node_霾_60__, c: _ASTNODE_廓:1.0___node_廓_57__| -> (_ASTNODE_廓:1.0___node_廓_10__, _ASTNODE_霾:1.0___node_霾_6__) {
+        let _ASTNODE_霾:1.0___node_霾_74__ = _ASTNODE_滲:1.0___node_霾_93__!("{:_ASTNODE_霾:1.0___node_霾_25__$}", k, _ASTNODE_霾:1.0___node_霾_25__ = 9);
+        let _ASTNODE_霾:1.0___node_霾_96__ = _ASTNODE_滲:1.0___node_霾_93__!(" {}{}{}{} {}{}{}", _ASTNODE_廓:1.0___node_廓_26__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_74__, _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_128__(c), v, _ASTNODE_廓:1.0___node_廓_37__);
+        let _ASTNODE_霾:1.0___node_霾_39__ = _ASTNODE_滲:1.0___node_霾_93__!(" {} {}", _ASTNODE_霾:1.0___node_霾_74__, v)._ASTNODE_霾:1.0___node_霾_88__()._ASTNODE_霾:1.0___node_霾_69__();
+        (_ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_霾:1.0___node_霾_39__)
+    };
+
+    let _ASTNODE_霾:1.0___node_霾_54__ = if _ASTNODE_霾:1.0___node_霾_115__ { (130, 175, 130) } else { _ASTNODE_廓:1.0___node_廓_22__ };
+    let (r, l) = _ASTNODE_霾:1.0___node_霾_64__("_ASTNODE_技:1.0___node_廓_3__", _ASTNODE_霾:1.0___node_霾_129__, _ASTNODE_霾:1.0___node_霾_54__);
+    _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_42__(&r, w, l));
+
+    let (r, l) = _ASTNODE_霾:1.0___node_霾_64__("_ASTNODE_廓:1.0___node_廓_46__", _ASTNODE_霾:1.0___node_霾_85__, _ASTNODE_廓:1.0___node_廓_54__);
+    _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_42__(&r, w, l));
+
+    let _ASTNODE_霾:1.0___node_霾_32__ = if _ASTNODE_霾:1.0___node_霾_41__._ASTNODE_霾:1.0___node_霾_98__() > 38 { _ASTNODE_滲:1.0___node_霾_93__!("{}...", &_ASTNODE_霾:1.0___node_霾_41__[0..35]) } else { _ASTNODE_霾:1.0___node_霾_41__._ASTNODE_霾:1.0___node_霾_121__() };
+    let (r, l) = _ASTNODE_霾:1.0___node_霾_64__("_ASTNODE_廓:1.0___node_廓_35__", &_ASTNODE_霾:1.0___node_霾_32__, _ASTNODE_廓:1.0___node_廓_54__);
+    _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_42__(&r, w, l));
+
+    _ASTNODE_霾:1.0___node_霾_106__!("{}╠{}╣{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_技:1.0___node_廓_47__), "═"._ASTNODE_霾:1.0___node_霾_12__(w - 2), _ASTNODE_廓:1.0___node_廓_37__);
+
+    let _ASTNODE_霾:1.0___node_霾_124__ = if _ASTNODE_霾:1.0___node_霾_115__ { (130, 175, 130) } else { _ASTNODE_廓:1.0___node_廓_22__ };
+    let _ASTNODE_霾:1.0___node_霾_30__ = if _ASTNODE_霾:1.0___node_霾_115__ { "_ASTNODE_霾:1.0___node_霾_115__" } else { "_ASTNODE_霾:1.0___node_霾_15__" };
+    
+    let _ASTNODE_霾:1.0___node_霾_20__ = _ASTNODE_滲:1.0___node_霾_93__!(" {}●{} {}{}{}{}    {}_ASTNODE_廓:1.0___node_廓_8__ — _ASTNODE_霾:1.0___node_霾_55__ {}_ASTNODE_廓:1.0___node_廓_52__{} to _ASTNODE_霾:1.0___node_霾_31__", 
+        _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_霾:1.0___node_霾_124__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_廓:1.0___node_廓_26__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_30__, _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__("", _ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__);
+    let _ASTNODE_霾:1.0___node_霾_52__ = _ASTNODE_滲:1.0___node_霾_93__!(" ● {}    _ASTNODE_廓:1.0___node_廓_8__ — _ASTNODE_霾:1.0___node_霾_55__ _ASTNODE_廓:1.0___node_廓_52__ to _ASTNODE_霾:1.0___node_霾_31__", _ASTNODE_霾:1.0___node_霾_30__)._ASTNODE_霾:1.0___node_霾_88__()._ASTNODE_霾:1.0___node_霾_69__();
+    _ASTNODE_霾:1.0___node_霾_106__!("{}", _ASTNODE_霾:1.0___node_霾_42__(&_ASTNODE_霾:1.0___node_霾_20__, w, _ASTNODE_霾:1.0___node_霾_52__));
+
+    _ASTNODE_霾:1.0___node_霾_106__!("{}╚{}╝{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_技:1.0___node_廓_47__), "═"._ASTNODE_霾:1.0___node_霾_12__(w - 2), _ASTNODE_廓:1.0___node_廓_37__);
+    _ASTNODE_霾:1.0___node_霾_106__!("  {}{}_ASTNODE_霾:1.0___node_霾_91__ {}{}{}", _ASTNODE_廓:1.0___node_廓_26__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), "v0.1.0");
+    _ASTNODE_霾:1.0___node_霾_106__!();
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+_ASTNODE_霾:1.0___node_霾_5__ _ASTNODE_霾:1.0___node_霾_60__uct _ASTNODE_廓:1.0___node_廓_53__;
+
+_ASTNODE_霾:1.0___node_霾_22__ _ASTNODE_廓:1.0___node_廓_49__ for _ASTNODE_廓:1.0___node_廓_53__ {
+    fn _ASTNODE_滲:1.0___node_霾_28__(&_ASTNODE_霾:1.0___node_霾_114__f, f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__, _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}?{} {} ›", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_54__))
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_16__(&_ASTNODE_霾:1.0___node_霾_114__f, f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__, _ASTNODE_霾:1.0___node_霾_58__: &_ASTNODE_霾:1.0___node_霾_60__) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}✖{} {}", _ASTNODE_霾:1.0___node_霾_128__((255, 100, 100)), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_58__)
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_109__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_21__: _ASTNODE_廓:1.0___node_廓_34__<_ASTNODE_霾:1.0___node_霾_67__>,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}?{} {} ", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_54__))?;
+        _ASTNODE_霾:1.0___node_霾_66__ _ASTNODE_霾:1.0___node_霾_21__ {
+// _ASTNODE_縞:0.6___node_BY_750__ [decoy-metadata]
+            _ASTNODE_廓:1.0___node_廓_33__(true) => _ASTNODE_霾:1.0___node_霾_72__!(f, "{}Y/n{} ›", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_廓:1.0___node_廓_37__),
+            _ASTNODE_廓:1.0___node_廓_33__(false) => _ASTNODE_霾:1.0___node_霾_72__!(f, "{}y/N{} ›", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_廓:1.0___node_廓_37__),
+            _ASTNODE_廓:1.0___node_廓_32__ => _ASTNODE_霾:1.0___node_霾_72__!(f, "{}y/n{} ›", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_廓:1.0___node_廓_37__),
+        }
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_35__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+// _ASTNODE_滲:0.9___node_DM_464__ [decoy-metadata]
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_116__: _ASTNODE_廓:1.0___node_廓_34__<_ASTNODE_霾:1.0___node_霾_67__>,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        let _ASTNODE_霾:1.0___node_霾_96__ = _ASTNODE_霾:1.0___node_霾_66__ _ASTNODE_霾:1.0___node_霾_116__ {
+            _ASTNODE_廓:1.0___node_廓_33__(true) => "_ASTNODE_廓:1.0___node_廓_55__",
+            _ASTNODE_廓:1.0___node_廓_33__(false) => "No",
+            _ASTNODE_廓:1.0___node_廓_32__ => "",
+        };
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}✔{} {} · {}", _ASTNODE_霾:1.0___node_霾_128__((130, 175, 130)), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_廓:1.0___node_廓_22__))
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_53__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_21__: _ASTNODE_廓:1.0___node_廓_34__<&_ASTNODE_霾:1.0___node_霾_60__>,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}?{} {} ", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_54__))?;
+        if let _ASTNODE_廓:1.0___node_廓_33__(d) = _ASTNODE_霾:1.0___node_霾_21__ {
+            _ASTNODE_霾:1.0___node_霾_72__!(f, "{}({}){} ", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_2__), d, _ASTNODE_廓:1.0___node_廓_37__)?;
+        }
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "›")
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_78__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_114__: &_ASTNODE_霾:1.0___node_霾_60__,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}✔{} {} · {}", _ASTNODE_霾:1.0___node_霾_128__((130, 175, 130)), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_114__, _ASTNODE_廓:1.0___node_廓_22__))
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_119__(&_ASTNODE_霾:1.0___node_霾_114__f, f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__, _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}?{} {} ›", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_54__))
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_9__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_94__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_114__: &_ASTNODE_霾:1.0___node_霾_60__,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        _ASTNODE_霾:1.0___node_霾_72__!(f, "{}✔{} {} · {}", _ASTNODE_霾:1.0___node_霾_128__((130, 175, 130)), _ASTNODE_廓:1.0___node_廓_37__, _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_94__, _ASTNODE_廓:1.0___node_廓_2__), _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_114__, _ASTNODE_廓:1.0___node_廓_22__))
+    }
+
+    fn _ASTNODE_滲:1.0___node_霾_8__(
+        &_ASTNODE_霾:1.0___node_霾_114__f,
+        f: &_ASTNODE_霾:1.0___node_霾_63__ _ASTNODE_霾:1.0___node_霾_68__ _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_27__,
+        _ASTNODE_霾:1.0___node_霾_96__: &_ASTNODE_霾:1.0___node_霾_60__,
+        _ASTNODE_霾:1.0___node_霾_120__: _ASTNODE_霾:1.0___node_霾_67__,
+    ) -> _ASTNODE_霾:1.0___node_霾_24__::_ASTNODE_廓:1.0___node_廓_5__ {
+        if _ASTNODE_霾:1.0___node_霾_120__ {
+            _ASTNODE_霾:1.0___node_霾_72__!(f, "  {}❯ {}{}", _ASTNODE_霾:1.0___node_霾_128__(_ASTNODE_廓:1.0___node_廓_22__), _ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_廓:1.0___node_廓_37__)
+        } else {
+            _ASTNODE_霾:1.0___node_霾_72__!(f, "    {}{}", _ASTNODE_霾:1.0___node_霾_101__(_ASTNODE_霾:1.0___node_霾_96__, _ASTNODE_廓:1.0___node_廓_54__), _ASTNODE_廓:1.0___node_廓_37__)
+// _ASTNODE_霾:0.4___node_BB_634__ [decoy-metadata]
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

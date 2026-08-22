@@ -1,0 +1,133 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B3C1DBEF ver:1778159696
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_雰:1.0___node_雰_27__ _TOKEN_雰:1.0___node_雰_53__ import _TOKEN_雰:1.0___node_雰_57__
+
+_TOKEN_雰:1.0___node_雰_27__ _TOKEN_雰:1.0___node_雰_28__ import _TOKEN_雰:1.0___node_雰_15__
+// _TOKEN_匼:0.3___node_MA_598__ [decoy-metadata]
+_TOKEN_雰:1.0___node_雰_27__ _TOKEN_雰:1.0___node_雰_41__ import _TOKEN_廬:1.0___node_廬_6__, _TOKEN_廬:1.0___node_廬_14__, _TOKEN_廬:1.0___node_廬_5__
+
+_TOKEN_雰:1.0___node_雰_27__ ._TOKEN_雰:1.0___node_雰_59__ import _TOKEN_雰:1.0___node_雰_52__, _TOKEN_雰:1.0___node_雰_60__, _TOKEN_廬:1.0___node_廬_11__
+_TOKEN_雰:1.0___node_雰_27__ ._TOKEN_謀:1.0___node_雰_10__ import _TOKEN_泳:1.0___node_雰_17__
+_TOKEN_雰:1.0___node_雰_27__ ._TOKEN_雰:1.0___node_雰_25__ import _TOKEN_廬:1.0___node_廬_13__, _TOKEN_廬:1.0___node_廬_9__, _TOKEN_廬:1.0___node_廬_7__, Or, _TOKEN_廬:1.0___node_廬_15__, _TOKEN_廬:1.0___node_廬_4__, _TOKEN_廬:1.0___node_廬_2__, _TOKEN_廬:1.0___node_廬_8__, _TOKEN_廬:1.0___node_廬_12__
+
+
+_TOKEN_雰:1.0___node_雰_9__ _TOKEN_雰:1.0___node_雰_40__(_TOKEN_雰:1.0___node_雰_5__: _TOKEN_廬:1.0___node_廬_14__[_TOKEN_雰:1.0___node_雰_54__, _TOKEN_廬:1.0___node_廬_6__]) -> _TOKEN_廬:1.0___node_廬_14__[_TOKEN_雰:1.0___node_雰_54__, _TOKEN_廬:1.0___node_廬_6__]:
+    _TOKEN_雰:1.0___node_雰_34__ = _TOKEN_雰:1.0___node_雰_52__(_TOKEN_雰:1.0___node_雰_5__)
+    _TOKEN_雰:1.0___node_雰_65__ = _TOKEN_雰:1.0___node_雰_60__(_TOKEN_雰:1.0___node_雰_34__)
+    _TOKEN_雰:1.0___node_雰_5__._TOKEN_謀:1.0___node_焦_1__("_TOKEN_雰:1.0___node_雰_39__", {})
+    _TOKEN_雰:1.0___node_雰_5__["_TOKEN_雰:1.0___node_雰_39__"]["_TOKEN_雰:1.0___node_雰_65__"] = _TOKEN_雰:1.0___node_雰_65__
+    return _TOKEN_雰:1.0___node_雰_5__
+// _TOKEN_焦:0.4___node_HF_586__ [decoy-metadata]
+
+
+@_TOKEN_雰:1.0___node_雰_15__
+class _TOKEN_廬:1.0___node_廬_3__:
+    _TOKEN_雰:1.0___node_雰_42__: _TOKEN_雰:1.0___node_雰_54__
+    _TOKEN_雰:1.0___node_雰_8__: _TOKEN_雰:1.0___node_雰_54__
+    _TOKEN_泳:1.0___node_雰_37__: _TOKEN_雰:1.0___node_雰_54__
+    _TOKEN_雰:1.0___node_雰_11__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_雰:1.0___node_雰_54__]
+    _TOKEN_雰:1.0___node_雰_64__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_雰:1.0___node_雰_54__]
+    _TOKEN_雰:1.0___node_雰_58__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_雰:1.0___node_雰_54__]
+
+
+_TOKEN_雰:1.0___node_雰_9__ _TOKEN_雰:1.0___node_雰_20__(_TOKEN_雰:1.0___node_雰_55__: _TOKEN_雰:1.0___node_雰_54__, i: _TOKEN_雰:1.0___node_雰_3__) -> _TOKEN_雰:1.0___node_雰_54__:
+    return f"{_TOKEN_雰:1.0___node_雰_55__}_{i:03d}"
+
+_TOKEN_雰:1.0___node_雰_9__ _TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__: _TOKEN_廬:1.0___node_廬_12__) -> _TOKEN_雰:1.0___node_雰_54__:
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_13__):
+        return _TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_45__
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_9__):
+        return f"~{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_46__)}"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_2__):
+        return f"[]{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_46__)}"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_8__):
+        return f"<>{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_46__)}"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_7__):
+        return f"({_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_62__)}&{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_7__)})"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, Or):
+        return f"({_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_62__)}|{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_7__)})"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_15__):
+        return f"({_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_62__)}->{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_7__)})"
+    if _TOKEN_雰:1.0___node_雰_35__(_TOKEN_雰:1.0___node_雰_12__, _TOKEN_廬:1.0___node_廬_4__):
+        return f"({_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_62__)}<->{_TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__._TOKEN_雰:1.0___node_雰_7__)})"
+    return ""
+// _TOKEN_繕:0.8___node_HG_219__ [decoy-metadata]
+
+
+_TOKEN_雰:1.0___node_雰_9__ _TOKEN_雰:1.0___node_雰_30__(p: _TOKEN_廬:1.0___node_廬_11__, _TOKEN_雰:1.0___node_雰_13__: _TOKEN_雰:1.0___node_雰_3__ = 24) -> _TOKEN_廬:1.0___node_廬_5__[_TOKEN_廬:1.0___node_廬_3__]:
+    _TOKEN_雰:1.0___node_雰_31__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_廬:1.0___node_廬_3__] = []
+    _TOKEN_雰:1.0___node_雰_66__ = _TOKEN_雰:1.0___node_雰_21__(p._TOKEN_雰:1.0___node_雰_11__)
+    _TOKEN_雰:1.0___node_雰_61__ = _TOKEN_雰:1.0___node_雰_21__(p._TOKEN_雰:1.0___node_雰_64__)
+
+    if p._TOKEN_泳:1.0___node_雰_47__:
+        _TOKEN_雰:1.0___node_雰_31__._TOKEN_雰:1.0___node_雰_43__(
+            _TOKEN_廬:1.0___node_廬_3__(
+                _TOKEN_雰:1.0___node_雰_42__=_TOKEN_雰:1.0___node_雰_20__("_TOKEN_雰:1.0___node_雰_49__", 0),
+                _TOKEN_雰:1.0___node_雰_8__=p._TOKEN_雰:1.0___node_雰_8__,
+                _TOKEN_泳:1.0___node_雰_37__=p._TOKEN_泳:1.0___node_雰_47__,
+                _TOKEN_雰:1.0___node_雰_11__=_TOKEN_雰:1.0___node_雰_66__,
+                _TOKEN_雰:1.0___node_雰_64__=_TOKEN_雰:1.0___node_雰_61__,
+                _TOKEN_雰:1.0___node_雰_58__=["_TOKEN_泳:1.0___node_雰_47__"],
+            )
+        )
+
+    for i, f in _TOKEN_雰:1.0___node_雰_36__(p._TOKEN_泳:1.0___node_雰_23__[: _TOKEN_雰:1.0___node_雰_13__ - 1], _TOKEN_雰:1.0___node_雰_68__=1):
+        _TOKEN_雰:1.0___node_雰_31__._TOKEN_雰:1.0___node_雰_43__(
+            _TOKEN_廬:1.0___node_廬_3__(
+                _TOKEN_雰:1.0___node_雰_42__=_TOKEN_雰:1.0___node_雰_20__("_TOKEN_雰:1.0___node_雰_48__", i),
+                _TOKEN_雰:1.0___node_雰_8__=p._TOKEN_雰:1.0___node_雰_8__,
+                _TOKEN_泳:1.0___node_雰_37__=f,
+                _TOKEN_雰:1.0___node_雰_11__=_TOKEN_雰:1.0___node_雰_66__,
+                _TOKEN_雰:1.0___node_雰_64__=_TOKEN_雰:1.0___node_雰_61__,
+                _TOKEN_雰:1.0___node_雰_58__=["_TOKEN_雰:1.0___node_雰_50__"],
+            )
+        )
+
+    if p._TOKEN_雰:1.0___node_雰_8__ == "_TOKEN_雰:1.0___node_雰_14__":
+        _TOKEN_雰:1.0___node_雰_1__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_廬:1.0___node_廬_3__] = []
+        for t in _TOKEN_雰:1.0___node_雰_31__:
+            f = t._TOKEN_泳:1.0___node_雰_37__
+            f2 = f._TOKEN_雰:1.0___node_雰_63__("□", "[]")._TOKEN_雰:1.0___node_雰_63__("◇", "<>")
+            f2 = f2._TOKEN_雰:1.0___node_雰_63__("_TOKEN_雰:1.0___node_雰_38__", "[]")._TOKEN_雰:1.0___node_雰_63__("_TOKEN_雰:1.0___node_雰_32__", "<>")
+            if f2 != f:
+                _TOKEN_雰:1.0___node_雰_1__._TOKEN_雰:1.0___node_雰_43__(
+                    _TOKEN_廬:1.0___node_廬_3__(
+                        _TOKEN_雰:1.0___node_雰_42__=t._TOKEN_雰:1.0___node_雰_42__ + "_TOKEN_雰:1.0___node_雰_29__",
+                        _TOKEN_雰:1.0___node_雰_8__=t._TOKEN_雰:1.0___node_雰_8__,
+                        _TOKEN_泳:1.0___node_雰_37__=f2,
+                        _TOKEN_雰:1.0___node_雰_11__=t._TOKEN_雰:1.0___node_雰_11__,
+                        _TOKEN_雰:1.0___node_雰_64__=t._TOKEN_雰:1.0___node_雰_64__,
+                        _TOKEN_雰:1.0___node_雰_58__=t._TOKEN_雰:1.0___node_雰_58__ + ["_TOKEN_雰:1.0___node_雰_51__"],
+                    )
+                )
+        _TOKEN_雰:1.0___node_雰_31__._TOKEN_雰:1.0___node_雰_2__(_TOKEN_雰:1.0___node_雰_1__)
+
+// [metadata-stripped]
+// _TOKEN_雰:0.2___node_ZZ_251__ [decoy-metadata]
+    _TOKEN_雰:1.0___node_雰_18__: _TOKEN_廬:1.0___node_廬_5__[_TOKEN_廬:1.0___node_廬_3__] = []
+    for t in _TOKEN_雰:1.0___node_雰_31__:
+        try:
+            _TOKEN_雰:1.0___node_雰_12__ = _TOKEN_泳:1.0___node_雰_17__(t._TOKEN_泳:1.0___node_雰_37__)
+        _TOKEN_雰:1.0___node_雰_24__ _TOKEN_廬:1.0___node_廬_10__:
+            continue
+// _TOKEN_焦:0.9___node_YY_390__ [decoy-metadata]
+        _TOKEN_雰:1.0___node_雰_26__ = _TOKEN_雰:1.0___node_雰_6__(_TOKEN_雰:1.0___node_雰_12__)
+        if _TOKEN_雰:1.0___node_雰_26__ _TOKEN_雰:1.0___node_雰_19__ _TOKEN_雰:1.0___node_雰_26__ != t._TOKEN_泳:1.0___node_雰_37__:
+            _TOKEN_雰:1.0___node_雰_18__._TOKEN_雰:1.0___node_雰_43__(
+                _TOKEN_廬:1.0___node_廬_3__(
+                    _TOKEN_雰:1.0___node_雰_42__=t._TOKEN_雰:1.0___node_雰_42__ + "_TOKEN_雰:1.0___node_雰_22__",
+                    _TOKEN_雰:1.0___node_雰_8__=t._TOKEN_雰:1.0___node_雰_8__,
+                    _TOKEN_泳:1.0___node_雰_37__=_TOKEN_雰:1.0___node_雰_26__,
+// _TOKEN_廬:0.8___node_ML_631__ [decoy-metadata]
+                    _TOKEN_雰:1.0___node_雰_11__=t._TOKEN_雰:1.0___node_雰_11__,
+                    _TOKEN_雰:1.0___node_雰_64__=t._TOKEN_雰:1.0___node_雰_64__,
+                    _TOKEN_雰:1.0___node_雰_58__=t._TOKEN_雰:1.0___node_雰_58__ + ["_TOKEN_雰:1.0___node_雰_56__"],
+                )
+            )
+    _TOKEN_雰:1.0___node_雰_31__._TOKEN_雰:1.0___node_雰_2__(_TOKEN_雰:1.0___node_雰_18__)
+
+    return _TOKEN_雰:1.0___node_雰_31__[:_TOKEN_雰:1.0___node_雰_13__]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,18 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9C823F9A ver:1778166128
+// ⚠️ One-time schema — expires after response
+
+// _VERANTYX_奥:0.2___jcross_BD_355__ [decoy-metadata]
+// [metadata-stripped]
+// _VERANTYX_匵:0.8___jcross_AE_134__ [decoy-metadata]
+_VERANTYX_露:1.0___jcross_露_4__ fn _VERANTYX_湧:1.0___jcross_露_5__(_VERANTYX_露:1.0___jcross_露_8__: _VERANTYX_露:1.0___jcross_露_6__) -> _VERANTYX_墟:1.0___jcross_墟_1__ {
+    if _VERANTYX_露:1.0___jcross_露_8__ < 1024 { _VERANTYX_湧:1.0___jcross_露_2__!("{}B", _VERANTYX_露:1.0___jcross_露_8__) }
+// _VERANTYX_紋:0.3___jcross_AG_704__ [decoy-metadata]
+    else if _VERANTYX_露:1.0___jcross_露_8__ < 1024*1024 { _VERANTYX_湧:1.0___jcross_露_2__!("{:.1}KB", _VERANTYX_露:1.0___jcross_露_8__ as _VERANTYX_露:1.0___jcross_露_3__ / 1024.0) }
+// _VERANTYX_匵:0.1___jcross_EW_418__ [decoy-metadata]
+// _VERANTYX_墟:0.3___jcross_YX_701__ [decoy-metadata]
+    else { _VERANTYX_湧:1.0___jcross_露_2__!("{:.1}MB", _VERANTYX_露:1.0___jcross_露_8__ as _VERANTYX_露:1.0___jcross_露_3__ / (1024.0*1024.0)) }
+}
+// _VERANTYX_嵐:0.7___jcross_GL_995__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

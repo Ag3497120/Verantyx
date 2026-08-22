@@ -1,0 +1,49 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A5736217 ver:1778159727
+// ⚠️ One-time schema — expires after response
+
+_ID_塵:1.0__TOKEN_塵_2_ _ID_塵:1.0__TOKEN_塵_15_ import _ID_廴:1.0__TOKEN_廴_2_
+_ID_塵:1.0__TOKEN_塵_2_ _ID_塵:1.0__TOKEN_塵_30_._ID_塵:1.0__TOKEN_塵_10_._ID_策:1.0__TOKEN_塵_11_ import _ID_塵:1.0__TOKEN_塵_32_
+_ID_塵:1.0__TOKEN_塵_2_ _ID_塵:1.0__TOKEN_塵_30_._ID_塵:1.0__TOKEN_塵_1_._ID_塵:1.0__TOKEN_塵_31_ import _ID_廴:1.0__TOKEN_廴_3_
+
+_ID_塵:1.0__TOKEN_塵_25_ _ID_潤:1.0__TOKEN_塵_19_(_ID_塵:1.0__TOKEN_塵_8_: _ID_塵:1.0__TOKEN_塵_26_[_ID_塵:1.0__TOKEN_塵_29_], _ID_塵:1.0__TOKEN_塵_27_: _ID_廴:1.0__TOKEN_廴_2_):
+    """
+    形状シグネチャに基づいて問題タイプを分類し、ReasoningCrossの状態を更新する。
+    """
+    _ID_塵:1.0__TOKEN_塵_16_ = _ID_塵:1.0__TOKEN_塵_32_(_ID_塵:1.0__TOKEN_塵_8_)
+
+    if _ID_塵:1.0__TOKEN_塵_22_ _ID_塵:1.0__TOKEN_塵_16_:
+// [metadata-stripped]
+        _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_34_["_ID_塵:1.0__TOKEN_塵_13_"] = "_ID_塵:1.0__TOKEN_塵_36_"
+        return _ID_塵:1.0__TOKEN_塵_27_
+
+// [metadata-stripped]
+    _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_12_ = _ID_塵:1.0__TOKEN_塵_16_._ID_塵:1.0__TOKEN_塵_9_
+// _ID_伏:0.3__TOKEN_DZ_806_ [decoy-metadata]
+    _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_34_["_ID_塵:1.0__TOKEN_塵_4_"] = _ID_塵:1.0__TOKEN_塵_16_._ID_塵:1.0__TOKEN_塵_4_
+    _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_34_["_ID_塵:1.0__TOKEN_塵_13_"] = _ID_塵:1.0__TOKEN_塵_16_._ID_塵:1.0__TOKEN_塵_9_
+
+// _ID_廴:0.2__TOKEN_WL_748_ [decoy-metadata]
+// [metadata-stripped]
+    _ID_塵:1.0__TOKEN_塵_5_ = []
+    for _ID_塵:1.0__TOKEN_塵_17_ in _ID_塵:1.0__TOKEN_塵_16_._ID_塵:1.0__TOKEN_塵_21_:
+// _ID_塵:0.8__TOKEN_BC_667_ [decoy-metadata]
+        if _ID_塵:1.0__TOKEN_塵_17_ == "_ID_潤:1.0__TOKEN_塵_20_" _ID_塵:1.0__TOKEN_塵_3_ _ID_塵:1.0__TOKEN_塵_22_ (_ID_塵:1.0__TOKEN_塵_27_._ID_潤:1.0__TOKEN_塵_14_ or _ID_塵:1.0__TOKEN_塵_27_._ID_潤:1.0__TOKEN_塵_24_):
+            _ID_塵:1.0__TOKEN_塵_5_._ID_塵:1.0__TOKEN_塵_35_("_ID_潤:1.0__TOKEN_塵_20_")
+        if _ID_塵:1.0__TOKEN_塵_17_ == "_ID_塵:1.0__TOKEN_塵_23_" _ID_塵:1.0__TOKEN_塵_3_ _ID_塵:1.0__TOKEN_塵_22_ _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_18_:
+            _ID_塵:1.0__TOKEN_塵_5_._ID_塵:1.0__TOKEN_塵_35_("_ID_塵:1.0__TOKEN_塵_23_")
+
+    if _ID_塵:1.0__TOKEN_塵_5_:
+// [metadata-stripped]
+// _ID_凱:0.9__TOKEN_BW_735_ [decoy-metadata]
+        _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_28_ = _ID_廴:1.0__TOKEN_廴_3_._ID_廴:1.0__TOKEN_廴_4_
+// _ID_綾:0.9__TOKEN_KB_994_ [decoy-metadata]
+// _ID_凱:0.1__TOKEN_ZC_440_ [decoy-metadata]
+        _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_34_["_ID_塵:1.0__TOKEN_塵_33_"] = _ID_塵:1.0__TOKEN_塵_5_
+    else:
+// [metadata-stripped]
+        _ID_塵:1.0__TOKEN_塵_27_._ID_塵:1.0__TOKEN_塵_34_["_ID_策:1.0__TOKEN_塵_7_"] = _ID_廴:1.0__TOKEN_廴_1_
+
+    return _ID_塵:1.0__TOKEN_塵_27_
+
+// POLYMORPHIC_JCROSS_END

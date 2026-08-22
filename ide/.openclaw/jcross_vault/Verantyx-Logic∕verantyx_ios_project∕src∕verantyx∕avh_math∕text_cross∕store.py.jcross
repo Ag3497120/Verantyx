@@ -1,0 +1,63 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6A0C0CE5 ver:1778159687
+// _ASTNODE_庵:0.7__ID_GZ_286_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// _ASTNODE_錬:0.4__ID_KX_256_ [decoy-metadata]
+_ASTNODE_沫:1.0__ID_沫_3_ _ASTNODE_沫:1.0__ID_沫_23_ import _ASTNODE_庵:1.0__ID_庵_8_
+import _ASTNODE_沫:1.0__ID_沫_18_
+_ASTNODE_沫:1.0__ID_沫_3_ _ASTNODE_沫:1.0__ID_沫_34_ import _ASTNODE_庵:1.0__ID_庵_6_
+
+_ASTNODE_沫:1.0__ID_沫_3_ ._ASTNODE_沫:1.0__ID_沫_11_ import _ASTNODE_庵:1.0__ID_庵_5_
+
+_ASTNODE_庵:1.0__ID_庵_7_ = _ASTNODE_庵:1.0__ID_庵_6_("_ASTNODE_沫:1.0__ID_沫_24_/db/_ASTNODE_沫:1.0__ID_沫_28_._ASTNODE_沫:1.0__ID_沫_21_")
+
+
+_ASTNODE_沫:1.0__ID_沫_35_ _ASTNODE_沫:1.0__ID_沫_13_(_ASTNODE_沫:1.0__ID_沫_11_: _ASTNODE_庵:1.0__ID_庵_5_) -> _ASTNODE_庵:1.0__ID_庵_2_:
+    _ASTNODE_庵:1.0__ID_庵_7_._ASTNODE_沫:1.0__ID_沫_22_._ASTNODE_沫:1.0__ID_沫_38_(_ASTNODE_沫:1.0__ID_沫_10_=_ASTNODE_庵:1.0__ID_庵_1_, _ASTNODE_沫:1.0__ID_沫_2_=_ASTNODE_庵:1.0__ID_庵_1_)
+    _ASTNODE_沫:1.0__ID_沫_20_ _ASTNODE_庵:1.0__ID_庵_7_.open("a", _ASTNODE_沫:1.0__ID_沫_1_="_ASTNODE_沫:1.0__ID_沫_14_-8") as f:
+        f._ASTNODE_沫:1.0__ID_沫_27_(_ASTNODE_沫:1.0__ID_沫_18_._ASTNODE_沫:1.0__ID_沫_36_(_ASTNODE_沫:1.0__ID_沫_11_._ASTNODE_沫:1.0__ID_沫_29_(), _ASTNODE_沫:1.0__ID_沫_37_=_ASTNODE_庵:1.0__ID_庵_4_) + "\n")
+
+// _ASTNODE_律:0.7__ID_ML_941_ [decoy-metadata]
+
+_ASTNODE_沫:1.0__ID_沫_35_ _ASTNODE_沫:1.0__ID_沫_32_(_ASTNODE_沫:1.0__ID_沫_5_: _ASTNODE_沫:1.0__ID_沫_17_ = 5000) -> _ASTNODE_庵:1.0__ID_庵_8_[_ASTNODE_庵:1.0__ID_庵_5_]:
+    if _ASTNODE_沫:1.0__ID_沫_15_ _ASTNODE_庵:1.0__ID_庵_7_._ASTNODE_沫:1.0__ID_沫_31_():
+        return []
+    _ASTNODE_沫:1.0__ID_沫_6_: _ASTNODE_庵:1.0__ID_庵_8_[_ASTNODE_庵:1.0__ID_庵_5_] = []
+    _ASTNODE_沫:1.0__ID_沫_20_ _ASTNODE_庵:1.0__ID_庵_7_.open("r", _ASTNODE_沫:1.0__ID_沫_1_="_ASTNODE_沫:1.0__ID_沫_14_-8") as f:
+        for i, _ASTNODE_沫:1.0__ID_沫_26_ in _ASTNODE_沫:1.0__ID_沫_4_(f):
+            if i >= _ASTNODE_沫:1.0__ID_沫_5_:
+                break
+            _ASTNODE_沫:1.0__ID_沫_26_ = _ASTNODE_沫:1.0__ID_沫_26_._ASTNODE_沫:1.0__ID_沫_19_()
+            if _ASTNODE_沫:1.0__ID_沫_15_ _ASTNODE_沫:1.0__ID_沫_26_:
+                continue
+            try:
+                _ASTNODE_沫:1.0__ID_沫_30_ = _ASTNODE_沫:1.0__ID_沫_18_._ASTNODE_匯:1.0__ID_沫_25_(_ASTNODE_沫:1.0__ID_沫_26_)
+            _ASTNODE_沫:1.0__ID_沫_8_ _ASTNODE_庵:1.0__ID_庵_3_:
+                continue
+            _ASTNODE_沫:1.0__ID_沫_6_._ASTNODE_沫:1.0__ID_沫_9_(_ASTNODE_庵:1.0__ID_庵_5_._ASTNODE_沫:1.0__ID_沫_16_(_ASTNODE_沫:1.0__ID_沫_30_))
+    return _ASTNODE_沫:1.0__ID_沫_6_
+// _ASTNODE_緯:0.2__ID_AF_330_ [decoy-metadata]
+
+
+_ASTNODE_沫:1.0__ID_沫_35_ _ASTNODE_匯:1.0__ID_沫_33_(_ASTNODE_沫:1.0__ID_沫_12_: _ASTNODE_沫:1.0__ID_沫_7_, _ASTNODE_沫:1.0__ID_沫_5_: _ASTNODE_沫:1.0__ID_沫_17_ = 200000) -> _ASTNODE_庵:1.0__ID_庵_5_ | _ASTNODE_庵:1.0__ID_庵_2_:
+    if _ASTNODE_沫:1.0__ID_沫_15_ _ASTNODE_庵:1.0__ID_庵_7_._ASTNODE_沫:1.0__ID_沫_31_():
+// _ASTNODE_庵:0.2__ID_AX_976_ [decoy-metadata]
+        return _ASTNODE_庵:1.0__ID_庵_2_
+    _ASTNODE_沫:1.0__ID_沫_20_ _ASTNODE_庵:1.0__ID_庵_7_.open("r", _ASTNODE_沫:1.0__ID_沫_1_="_ASTNODE_沫:1.0__ID_沫_14_-8") as f:
+        for i, _ASTNODE_沫:1.0__ID_沫_26_ in _ASTNODE_沫:1.0__ID_沫_4_(f):
+// _ASTNODE_庵:0.4__ID_XC_530_ [decoy-metadata]
+            if i >= _ASTNODE_沫:1.0__ID_沫_5_:
+                break
+            _ASTNODE_沫:1.0__ID_沫_26_ = _ASTNODE_沫:1.0__ID_沫_26_._ASTNODE_沫:1.0__ID_沫_19_()
+            if _ASTNODE_沫:1.0__ID_沫_15_ _ASTNODE_沫:1.0__ID_沫_26_:
+                continue
+            try:
+                _ASTNODE_沫:1.0__ID_沫_30_ = _ASTNODE_沫:1.0__ID_沫_18_._ASTNODE_匯:1.0__ID_沫_25_(_ASTNODE_沫:1.0__ID_沫_26_)
+            _ASTNODE_沫:1.0__ID_沫_8_ _ASTNODE_庵:1.0__ID_庵_3_:
+                continue
+            if _ASTNODE_沫:1.0__ID_沫_30_._ASTNODE_律:1.0__ID_錬_1_("_ASTNODE_沫:1.0__ID_沫_12_") == _ASTNODE_沫:1.0__ID_沫_12_:
+                return _ASTNODE_庵:1.0__ID_庵_5_._ASTNODE_沫:1.0__ID_沫_16_(_ASTNODE_沫:1.0__ID_沫_30_)
+    return _ASTNODE_庵:1.0__ID_庵_2_
+
+// POLYMORPHIC_JCROSS_END

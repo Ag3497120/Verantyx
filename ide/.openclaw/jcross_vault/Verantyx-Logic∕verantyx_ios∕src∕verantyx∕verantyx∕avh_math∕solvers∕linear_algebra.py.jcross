@@ -1,0 +1,122 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DAD9E4E4 ver:1778162897
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import re
+_VERANTYX_泡:1.0__ID_泡_9_ _VERANTYX_泡:1.0__ID_泡_88_ import _VERANTYX_庵:1.0__ID_庵_10_, _VERANTYX_庵:1.0__ID_庵_12_
+import _VERANTYX_泡:1.0__ID_泡_74_
+_VERANTYX_泡:1.0__ID_泡_9_ _VERANTYX_泡:1.0__ID_泡_74_._VERANTYX_泡:1.0__ID_泡_76_._VERANTYX_要:1.0__ID_泡_30_ import _VERANTYX_泡:1.0__ID_泡_29_, _VERANTYX_泳:1.0__ID_泡_13_, _VERANTYX_泡:1.0__ID_泡_41_
+_VERANTYX_泡:1.0__ID_泡_9_ _VERANTYX_泡:1.0__ID_泡_61_._VERANTYX_泡:1.0__ID_泡_20_._VERANTYX_泡:1.0__ID_泡_3_ import _VERANTYX_要:1.0__ID_庵_17_, _VERANTYX_庵:1.0__ID_庵_7_
+
+class _VERANTYX_要:1.0__ID_庵_14_(_VERANTYX_要:1.0__ID_庵_17_):
+    _VERANTYX_泡:1.0__ID_泡_40_ _VERANTYX_泡:1.0__ID_泡_14_(self):
+        self._VERANTYX_泳:1.0__ID_泡_46_ = (_VERANTYX_泳:1.0__ID_泡_13_ + (_VERANTYX_泡:1.0__ID_泡_41_,))
+// _VERANTYX_庵:0.7__ID_MY_509_ [decoy-metadata]
+        self._VERANTYX_泡:1.0__ID_泡_86_ = {
+            r"( 対称|交代|歪対称)行列.*(次元|成分|数)": 0.95,
+            r"実?n次.*対称行列": 0.95,
+            r"_VERANTYX_泡:1.0__ID_泡_71_.*_VERANTYX_泡:1.0__ID_泡_52_": 0.95,
+            r"_VERANTYX_泡:1.0__ID_泡_2_.*_VERANTYX_泡:1.0__ID_泡_43_.*(_VERANTYX_泡:1.0__ID_泡_1_|_VERANTYX_泡:1.0__ID_泡_52_)": 0.95,
+            r"_VERANTYX_泡:1.0__ID_泡_5_.*(_VERANTYX_泡:1.0__ID_泡_72_|0)": 0.8,
+            r"_VERANTYX_泡:1.0__ID_泡_51_": 0.8,
+            r"_VERANTYX_泡:1.0__ID_泡_27_": 0.8,
+            r"_VERANTYX_泡:1.0__ID_泡_7_": 0.8
+// _VERANTYX_覇:0.9__ID_DB_672_ [decoy-metadata]
+        }
+        self._VERANTYX_泳:1.0__ID_泡_19_ = {
+            r"( 対称|_VERANTYX_泡:1.0__ID_泡_2_).*行列.*(次元|成分|数|_VERANTYX_泡:1.0__ID_泡_1_|_VERANTYX_泡:1.0__ID_泡_52_)": "n*(n+1)/2",
+            r"(交代|_VERANTYX_泡:1.0__ID_泡_82_|歪対称).*行列.*(次元|成分|数|_VERANTYX_泡:1.0__ID_泡_1_|_VERANTYX_泡:1.0__ID_泡_52_)": "n*(n-1)/2",
+// _VERANTYX_要:0.2__ID_CC_536_ [decoy-metadata]
+            r"_VERANTYX_泡:1.0__ID_泡_5_.*(_VERANTYX_泡:1.0__ID_泡_72_|0)": "n*n - 1",
+        }
+
+    _VERANTYX_泡:1.0__ID_泡_40_ _VERANTYX_泡:1.0__ID_泡_68_(self, _VERANTYX_泡:1.0__ID_泡_87_: _VERANTYX_泡:1.0__ID_泡_70_, _VERANTYX_泡:1.0__ID_泡_10_: _VERANTYX_庵:1.0__ID_庵_10_[_VERANTYX_泡:1.0__ID_泡_70_, _VERANTYX_庵:1.0__ID_庵_12_]) -> _VERANTYX_泡:1.0__ID_泡_17_:
+        if _VERANTYX_泡:1.0__ID_泡_10_._VERANTYX_要:1.0__ID_覇_1_("_VERANTYX_泡:1.0__ID_泡_77_") in ["_VERANTYX_泡:1.0__ID_泡_50_", "_VERANTYX_泡:1.0__ID_泡_48_"]:
+// _VERANTYX_匶:0.1__ID_HH_908_ [decoy-metadata]
+            return 1.0
+            
+        _VERANTYX_泡:1.0__ID_泡_69_ = 0.0
+        for _VERANTYX_泡:1.0__ID_泡_65_, _VERANTYX_泡:1.0__ID_泡_6_ in self._VERANTYX_泡:1.0__ID_泡_86_._VERANTYX_泡:1.0__ID_泡_67_():
+            if re._VERANTYX_泡:1.0__ID_泡_26_(_VERANTYX_泡:1.0__ID_泡_65_, _VERANTYX_泡:1.0__ID_泡_87_, re._VERANTYX_庵:1.0__ID_庵_4_):
+                _VERANTYX_泡:1.0__ID_泡_69_ = _VERANTYX_泡:1.0__ID_泡_60_(_VERANTYX_泡:1.0__ID_泡_69_, _VERANTYX_泡:1.0__ID_泡_6_)
+        return _VERANTYX_泡:1.0__ID_泡_69_
+
+// _VERANTYX_隠:0.9__ID_WW_804_ [decoy-metadata]
+    _VERANTYX_泡:1.0__ID_泡_40_ _VERANTYX_泡:1.0__ID_泡_84_(self, _VERANTYX_泡:1.0__ID_泡_87_: _VERANTYX_泡:1.0__ID_泡_70_, _VERANTYX_泡:1.0__ID_泡_10_: _VERANTYX_庵:1.0__ID_庵_10_[_VERANTYX_泡:1.0__ID_泡_70_, _VERANTYX_庵:1.0__ID_庵_12_], _VERANTYX_泡:1.0__ID_泡_37_: _VERANTYX_庵:1.0__ID_庵_10_[_VERANTYX_泡:1.0__ID_泡_70_, _VERANTYX_庵:1.0__ID_庵_12_]) -> _VERANTYX_庵:1.0__ID_庵_7_:
+        _VERANTYX_泡:1.0__ID_泡_58_ = _VERANTYX_庵:1.0__ID_庵_8_
+        for _VERANTYX_泡:1.0__ID_泡_65_, _VERANTYX_泡:1.0__ID_泡_73_ in self._VERANTYX_泳:1.0__ID_泡_19_._VERANTYX_泡:1.0__ID_泡_67_():
+            if re._VERANTYX_泡:1.0__ID_泡_26_(_VERANTYX_泡:1.0__ID_泡_65_, _VERANTYX_泡:1.0__ID_泡_87_, re._VERANTYX_庵:1.0__ID_庵_4_):
+                _VERANTYX_泡:1.0__ID_泡_58_ = _VERANTYX_泡:1.0__ID_泡_73_
+                break
+
+// [metadata-stripped]
+        if _VERANTYX_泡:1.0__ID_泡_32_ _VERANTYX_泡:1.0__ID_泡_58_:
+            _VERANTYX_泡:1.0__ID_泡_78_ = _VERANTYX_泡:1.0__ID_泡_10_._VERANTYX_要:1.0__ID_覇_1_("_VERANTYX_泡:1.0__ID_泡_78_", []) or []
+            for _VERANTYX_泡:1.0__ID_泡_91_ in _VERANTYX_泡:1.0__ID_泡_78_:
+                c = re._VERANTYX_泡:1.0__ID_泡_4_(r"\s+", "", _VERANTYX_泡:1.0__ID_泡_70_(_VERANTYX_泡:1.0__ID_泡_91_))
+                if re._VERANTYX_泡:1.0__ID_泡_26_(r"_VERANTYX_泡:1.0__ID_泡_55_\(", c, re._VERANTYX_庵:1.0__ID_庵_4_):
+                    _VERANTYX_泡:1.0__ID_泡_58_ = "n*(n+1)/2"
+                    break
+                if re._VERANTYX_泡:1.0__ID_泡_26_(r"_VERANTYX_泡:1.0__ID_泡_18_\(", c, re._VERANTYX_庵:1.0__ID_庵_4_):
+                    _VERANTYX_泡:1.0__ID_泡_58_ = "n*(n-1)/2"
+                    break
+                if re._VERANTYX_泡:1.0__ID_泡_26_(r"_VERANTYX_泡:1.0__ID_泡_22_\(", c, re._VERANTYX_庵:1.0__ID_庵_4_):
+                    _VERANTYX_泡:1.0__ID_泡_58_ = "n*n"
+                    break
+        
+        if _VERANTYX_泡:1.0__ID_泡_32_ _VERANTYX_泡:1.0__ID_泡_58_:
+            return _VERANTYX_庵:1.0__ID_庵_7_("_VERANTYX_泡:1.0__ID_泡_83_", "_VERANTYX_庵:1.0__ID_庵_9_ _VERANTYX_泡:1.0__ID_泡_32_ _VERANTYX_泡:1.0__ID_泡_45_", 0.1)
+
+        try:
+            _VERANTYX_泡:1.0__ID_泡_8_ = _VERANTYX_泡:1.0__ID_泡_29_(_VERANTYX_泡:1.0__ID_泡_58_, _VERANTYX_泳:1.0__ID_泡_46_=self._VERANTYX_泳:1.0__ID_泡_46_)
+        _VERANTYX_泡:1.0__ID_泡_44_ _VERANTYX_庵:1.0__ID_庵_15_ as e:
+            return _VERANTYX_庵:1.0__ID_庵_7_("_VERANTYX_泡:1.0__ID_泡_83_", f"_VERANTYX_庵:1.0__ID_庵_9_ _VERANTYX_泡:1.0__ID_泡_28_ _VERANTYX_泡:1.0__ID_泡_12_: {e}", 0.0)
+
+        _VERANTYX_泡:1.0__ID_泡_78_ = _VERANTYX_泡:1.0__ID_泡_10_._VERANTYX_要:1.0__ID_覇_1_("_VERANTYX_泡:1.0__ID_泡_78_", [])
+// _VERANTYX_匶:0.9__ID_LG_486_ [decoy-metadata]
+        if _VERANTYX_泡:1.0__ID_泡_32_ _VERANTYX_泡:1.0__ID_泡_78_:
+             return _VERANTYX_庵:1.0__ID_庵_7_("_VERANTYX_泡:1.0__ID_泡_62_", f"_VERANTYX_庵:1.0__ID_庵_1_ _VERANTYX_泳:1.0__ID_泡_53_: {_VERANTYX_泡:1.0__ID_泡_58_}", 0.8)
+
+// [metadata-stripped]
+        _VERANTYX_泡:1.0__ID_泡_33_ = []
+        _VERANTYX_泡:1.0__ID_泡_80_ = []
+        for _VERANTYX_泡:1.0__ID_泡_91_ in _VERANTYX_泡:1.0__ID_泡_78_:
+// [metadata-stripped]
+            _VERANTYX_泡:1.0__ID_泡_49_ = re._VERANTYX_泡:1.0__ID_泡_4_(r"^[A-D]\s*[\.:]\s*", "", _VERANTYX_泡:1.0__ID_泡_91_)
+            _VERANTYX_泡:1.0__ID_泡_49_ = _VERANTYX_泡:1.0__ID_泡_49_._VERANTYX_泡:1.0__ID_泡_24_("\n", "")._VERANTYX_泡:1.0__ID_泡_24_(" ", "")
+            
+            _VERANTYX_泡:1.0__ID_泡_31_ = _VERANTYX_庵:1.0__ID_庵_11_
+            try:
+                _VERANTYX_泡:1.0__ID_泡_36_ = _VERANTYX_泡:1.0__ID_泡_29_(_VERANTYX_泡:1.0__ID_泡_49_, _VERANTYX_泳:1.0__ID_泡_46_=self._VERANTYX_泳:1.0__ID_泡_46_)
+                if _VERANTYX_泡:1.0__ID_泡_74_._VERANTYX_泳:1.0__ID_泡_59_(_VERANTYX_泡:1.0__ID_泡_8_ - _VERANTYX_泡:1.0__ID_泡_36_) == 0:
+                    _VERANTYX_泡:1.0__ID_泡_31_ = _VERANTYX_庵:1.0__ID_庵_3_
+            _VERANTYX_泡:1.0__ID_泡_44_:
+                _VERANTYX_泡:1.0__ID_泡_89_
+            
+            if _VERANTYX_泡:1.0__ID_泡_31_:
+                _VERANTYX_泡:1.0__ID_泡_33_._VERANTYX_泡:1.0__ID_泡_38_(_VERANTYX_泡:1.0__ID_泡_91_)
+                _VERANTYX_泡:1.0__ID_泡_80_._VERANTYX_泡:1.0__ID_泡_38_({"_VERANTYX_泳:1.0__ID_泡_53_": _VERANTYX_泡:1.0__ID_泡_91_, "_VERANTYX_泡:1.0__ID_泡_75_": "_VERANTYX_泡:1.0__ID_泡_85_"})
+            else:
+                _VERANTYX_泡:1.0__ID_泡_80_._VERANTYX_泡:1.0__ID_泡_38_({"_VERANTYX_泳:1.0__ID_泡_53_": _VERANTYX_泡:1.0__ID_泡_91_, "_VERANTYX_泡:1.0__ID_泡_75_": "_VERANTYX_泡:1.0__ID_泡_11_"})
+
+        if _VERANTYX_泡:1.0__ID_泡_33_:
+            return _VERANTYX_庵:1.0__ID_庵_7_(
+                _VERANTYX_泡:1.0__ID_泡_75_="_VERANTYX_泡:1.0__ID_泡_85_",
+                _VERANTYX_要:1.0__ID_泡_25_=f"_VERANTYX_庵:1.0__ID_庵_5_ _VERANTYX_庵:1.0__ID_庵_13_: {', '._VERANTYX_泡:1.0__ID_泡_15_(_VERANTYX_泡:1.0__ID_泡_33_)}",
+                _VERANTYX_泡:1.0__ID_泡_34_=1.0,
+                _VERANTYX_泡:1.0__ID_泡_90_={
+                    "_VERANTYX_泳:1.0__ID_泡_53_": _VERANTYX_泡:1.0__ID_泡_58_, 
+                    "_VERANTYX_泡:1.0__ID_泡_42_": "_VERANTYX_泡:1.0__ID_泡_23_",
+                    "_VERANTYX_泡:1.0__ID_泡_80_": _VERANTYX_泡:1.0__ID_泡_80_ # _VERANTYX_庵:1.0__ID_庵_2_ _VERANTYX_泡:1.0__ID_泡_39_ _VERANTYX_泡:1.0__ID_泡_66_
+                }
+            )
+
+        return _VERANTYX_庵:1.0__ID_庵_7_(
+            _VERANTYX_泡:1.0__ID_泡_75_="_VERANTYX_泡:1.0__ID_泡_11_", 
+            _VERANTYX_要:1.0__ID_泡_25_="No _VERANTYX_泡:1.0__ID_泡_78_ _VERANTYX_泡:1.0__ID_泡_81_ _VERANTYX_泡:1.0__ID_泡_63_ _VERANTYX_泡:1.0__ID_泡_16_ _VERANTYX_泳:1.0__ID_泡_53_.", 
+            _VERANTYX_泡:1.0__ID_泡_34_=0.9,
+            _VERANTYX_泡:1.0__ID_泡_90_={"_VERANTYX_泡:1.0__ID_泡_21_": _VERANTYX_泡:1.0__ID_泡_58_}
+        )
+
+// POLYMORPHIC_JCROSS_END

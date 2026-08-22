@@ -1,0 +1,79 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FCC892E9 ver:1778159783
+// ⚠️ One-time schema — expires after response
+
+import os
+import _VERANTYX_漂:1.0__OPAQUE_霞_54_
+
+_VERANTYX_漂:1.0__OPAQUE_霞_56_ = _VERANTYX_漂:1.0__OPAQUE_霞_54_._VERANTYX_霞:1.0__OPAQUE_霞_48_() == "_VERANTYX_廊:1.0__OPAQUE_廊_2_"
+
+// _VERANTYX_紋:0.7__OPAQUE_AZ_841_ [decoy-metadata]
+// _VERANTYX_錬:0.7__OPAQUE_YL_729_ [decoy-metadata]
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_39_(_VERANTYX_霞:1.0__OPAQUE_霞_9_: _VERANTYX_霞:1.0__OPAQUE_霞_41_, _VERANTYX_霞:1.0__OPAQUE_霞_6_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+    if _VERANTYX_霞:1.0__OPAQUE_霞_18_ _VERANTYX_霞:1.0__OPAQUE_霞_9_:
+        return _VERANTYX_霞:1.0__OPAQUE_霞_6_
+    return "{}/{}"._VERANTYX_漂:1.0__OPAQUE_霞_59_(_VERANTYX_霞:1.0__OPAQUE_霞_9_._VERANTYX_霞:1.0__OPAQUE_霞_42_("/"), _VERANTYX_霞:1.0__OPAQUE_霞_6_._VERANTYX_霞:1.0__OPAQUE_霞_15_("/"))
+
+
+// _VERANTYX_紋:0.5__OPAQUE_AX_117_ [decoy-metadata]
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_10_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_49_[_VERANTYX_霞:1.0__OPAQUE_霞_41_, _VERANTYX_霞:1.0__OPAQUE_霞_41_]:
+// _VERANTYX_錬:0.1__OPAQUE_BF_138_ [decoy-metadata]
+    if "/" _VERANTYX_霞:1.0__OPAQUE_霞_18_ in _VERANTYX_霞:1.0__OPAQUE_霞_28_:
+        return ("", _VERANTYX_霞:1.0__OPAQUE_霞_28_)
+    _VERANTYX_霞:1.0__OPAQUE_霞_10_ = _VERANTYX_霞:1.0__OPAQUE_霞_28_._VERANTYX_霞:1.0__OPAQUE_霞_52_("/", 1)
+    return (_VERANTYX_霞:1.0__OPAQUE_霞_10_[0] or "/", _VERANTYX_霞:1.0__OPAQUE_霞_10_[1])
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_29_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+    return _VERANTYX_霞:1.0__OPAQUE_霞_10_(_VERANTYX_霞:1.0__OPAQUE_霞_28_)[0]
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_2_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+    return _VERANTYX_霞:1.0__OPAQUE_霞_10_(_VERANTYX_霞:1.0__OPAQUE_霞_28_)[1]
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_漂:1.0__OPAQUE_霞_12_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+// [metadata-stripped]
+    if _VERANTYX_霞:1.0__OPAQUE_霞_18_ _VERANTYX_霞:1.0__OPAQUE_霞_28_._VERANTYX_霞:1.0__OPAQUE_霞_38_("/"):
+        return _VERANTYX_霞:1.0__OPAQUE_霞_28_ + "/"
+    return _VERANTYX_霞:1.0__OPAQUE_霞_28_
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_24_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_霞:0.6__OPAQUE_WZ_709_ [decoy-metadata]
+    if _VERANTYX_霞:1.0__OPAQUE_霞_18_ _VERANTYX_霞:1.0__OPAQUE_霞_28_._VERANTYX_霞:1.0__OPAQUE_霞_26_("/"):
+        return "/" + _VERANTYX_霞:1.0__OPAQUE_霞_28_
+    return _VERANTYX_霞:1.0__OPAQUE_霞_28_
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_19_(_VERANTYX_霞:1.0__OPAQUE_霞_9_: _VERANTYX_霞:1.0__OPAQUE_霞_41_, _VERANTYX_霞:1.0__OPAQUE_霞_6_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_55_:
+// [metadata-stripped]
+    _VERANTYX_霞:1.0__OPAQUE_霞_22_ = _VERANTYX_漂:1.0__OPAQUE_霞_12_(_VERANTYX_霞:1.0__OPAQUE_霞_24_(_VERANTYX_霞:1.0__OPAQUE_霞_9_))
+    _VERANTYX_霞:1.0__OPAQUE_霞_17_ = _VERANTYX_漂:1.0__OPAQUE_霞_12_(_VERANTYX_霞:1.0__OPAQUE_霞_24_(_VERANTYX_霞:1.0__OPAQUE_霞_6_))
+    return _VERANTYX_霞:1.0__OPAQUE_霞_17_._VERANTYX_霞:1.0__OPAQUE_霞_26_(_VERANTYX_霞:1.0__OPAQUE_霞_22_)
+
+
+// _VERANTYX_謀:0.3__OPAQUE_FE_652_ [decoy-metadata]
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_30_(_VERANTYX_霞:1.0__OPAQUE_霞_9_: _VERANTYX_霞:1.0__OPAQUE_霞_41_, _VERANTYX_霞:1.0__OPAQUE_霞_6_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+// [metadata-stripped]
+    if _VERANTYX_霞:1.0__OPAQUE_霞_18_ _VERANTYX_霞:1.0__OPAQUE_霞_19_(_VERANTYX_霞:1.0__OPAQUE_霞_9_, _VERANTYX_霞:1.0__OPAQUE_霞_6_):
+        _VERANTYX_霞:1.0__OPAQUE_霞_47_ _VERANTYX_廊:1.0__OPAQUE_廊_5_(f"_VERANTYX_霞:1.0__OPAQUE_霞_9_ _VERANTYX_霞:1.0__OPAQUE_霞_57_ be a _VERANTYX_霞:1.0__OPAQUE_霞_3_ of _VERANTYX_霞:1.0__OPAQUE_霞_6_: {_VERANTYX_霞:1.0__OPAQUE_霞_9_!r} vs {_VERANTYX_霞:1.0__OPAQUE_霞_6_!r}")
+    return _VERANTYX_霞:1.0__OPAQUE_霞_6_[_VERANTYX_霞:1.0__OPAQUE_霞_21_(_VERANTYX_霞:1.0__OPAQUE_霞_9_) :]
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_11_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+    return _VERANTYX_霞:1.0__OPAQUE_霞_28_._VERANTYX_霞:1.0__OPAQUE_霞_15_("/")
+
+
+_VERANTYX_霞:1.0__OPAQUE_霞_20_ _VERANTYX_霞:1.0__OPAQUE_霞_27_(_VERANTYX_霞:1.0__OPAQUE_霞_28_: _VERANTYX_霞:1.0__OPAQUE_霞_41_) -> _VERANTYX_霞:1.0__OPAQUE_霞_41_:
+    _VERANTYX_霞:1.0__OPAQUE_霞_31_ = os._VERANTYX_霞:1.0__OPAQUE_霞_28_._VERANTYX_霞:1.0__OPAQUE_霞_27_(_VERANTYX_霞:1.0__OPAQUE_霞_28_)
+    if _VERANTYX_漂:1.0__OPAQUE_霞_56_:
+// [metadata-stripped]
+// [metadata-stripped]
+        _VERANTYX_霞:1.0__OPAQUE_霞_31_ = _VERANTYX_霞:1.0__OPAQUE_霞_31_._VERANTYX_霞:1.0__OPAQUE_霞_14_("\\", "/")
+    return _VERANTYX_霞:1.0__OPAQUE_霞_31_
+
+// POLYMORPHIC_JCROSS_END

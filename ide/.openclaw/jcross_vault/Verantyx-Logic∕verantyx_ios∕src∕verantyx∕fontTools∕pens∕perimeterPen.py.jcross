@@ -1,0 +1,81 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:419FECC1 ver:1778159930
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""_SYM_礎:1.0___jcross_礎_3__ _SYM_霧:1.0___jcross_霧_58__ _SYM_計:1.0___jcross_霧_49__ of a _SYM_霧:1.0___jcross_霧_18__."""
+
+_SYM_霧:1.0___jcross_霧_26__ _SYM_霧:1.0___jcross_霧_39__._SYM_霧:1.0___jcross_霧_7__._SYM_霧:1.0___jcross_霧_34__ import _SYM_礎:1.0___jcross_礎_4__
+_SYM_霧:1.0___jcross_霧_26__ _SYM_霧:1.0___jcross_霧_39__._SYM_霧:1.0___jcross_霧_21__._SYM_霧:1.0___jcross_霧_23__ import (
+    _SYM_霧:1.0___jcross_霧_43__,
+    _SYM_霧:1.0___jcross_霧_53__,
+    _SYM_霧:1.0___jcross_霧_12__,
+    _SYM_霧:1.0___jcross_霧_52__,
+)
+import _SYM_霧:1.0___jcross_霧_29__
+
+
+// _SYM_漕:0.2___jcross_MA_265__ [decoy-metadata]
+_SYM_霧:1.0___jcross_霧_8__ = ["_SYM_礎:1.0___jcross_礎_1__"]
+
+
+_SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_50__(p0, p1):
+    return _SYM_霧:1.0___jcross_霧_29__._SYM_霧:1.0___jcross_霧_31__(p0[0] - p1[0], p0[1] - p1[1])
+
+
+class _SYM_礎:1.0___jcross_礎_1__(_SYM_礎:1.0___jcross_礎_4__):
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_14__(self, _SYM_霧:1.0___jcross_霧_27__=_SYM_礎:1.0___jcross_礎_2__, _SYM_霧:1.0___jcross_霧_17__=0.005):
+        _SYM_礎:1.0___jcross_礎_4__._SYM_霧:1.0___jcross_霧_14__(self, _SYM_霧:1.0___jcross_霧_27__)
+        self._SYM_霧:1.0___jcross_霧_46__ = 0
+        self._SYM_霧:1.0___jcross_霧_17__ = _SYM_霧:1.0___jcross_霧_17__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _SYM_漕:0.6___jcross_XW_641__ [decoy-metadata]
+// _SYM_霧:0.8___jcross_VD_465__ [decoy-metadata]
+// [metadata-stripped]
+        self._SYM_霧:1.0___jcross_霧_1__ = (
+            self._SYM_霧:1.0___jcross_霧_57__ if _SYM_霧:1.0___jcross_霧_17__ >= 0.0015 else self._SYM_霧:1.0___jcross_霧_6__
+        )
+        self._SYM_霧:1.0___jcross_霧_25__ = (
+            self._SYM_霧:1.0___jcross_霧_24__
+            if _SYM_霧:1.0___jcross_霧_17__ >= 0.00075
+            else self._SYM_霧:1.0___jcross_霧_47__
+        )
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_19__(self, p0):
+        self._SYM_霧:1.0___jcross_霧_28__ = p0
+// _SYM_計:0.5___jcross_GM_888__ [decoy-metadata]
+// _SYM_計:0.8___jcross_ZL_813__ [decoy-metadata]
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_41__(self):
+        p0 = self._SYM_霧:1.0___jcross_霧_10__()
+        if p0 != self._SYM_霧:1.0___jcross_霧_28__:
+            self._SYM_霧:1.0___jcross_霧_22__(self._SYM_霧:1.0___jcross_霧_28__)
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_22__(self, p1):
+        p0 = self._SYM_霧:1.0___jcross_霧_10__()
+        self._SYM_霧:1.0___jcross_霧_46__ += _SYM_霧:1.0___jcross_霧_50__(p0, p1)
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_47__(self, c0, c1, c2):
+        self._SYM_霧:1.0___jcross_霧_46__ += _SYM_霧:1.0___jcross_霧_53__(c0, c1, c2)
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_24__(self, c0, c1, c2):
+        self._SYM_霧:1.0___jcross_霧_46__ += _SYM_霧:1.0___jcross_霧_43__(c0, c1, c2)
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_13__(self, p1, p2):
+        p0 = self._SYM_霧:1.0___jcross_霧_10__()
+        self._SYM_霧:1.0___jcross_霧_25__(_SYM_霧:1.0___jcross_霧_42__(*p0), _SYM_霧:1.0___jcross_霧_42__(*p1), _SYM_霧:1.0___jcross_霧_42__(*p2))
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_6__(self, c0, c1, c2, c3):
+        self._SYM_霧:1.0___jcross_霧_46__ += _SYM_霧:1.0___jcross_霧_52__(c0, c1, c2, c3, self._SYM_霧:1.0___jcross_霧_17__)
+
+// _SYM_暗:0.7___jcross_GA_409__ [decoy-metadata]
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_57__(self, c0, c1, c2, c3):
+        self._SYM_霧:1.0___jcross_霧_46__ += _SYM_霧:1.0___jcross_霧_12__(c0, c1, c2, c3)
+
+    _SYM_霧:1.0___jcross_霧_9__ _SYM_霧:1.0___jcross_霧_15__(self, p1, p2, p3):
+        p0 = self._SYM_霧:1.0___jcross_霧_10__()
+        self._SYM_霧:1.0___jcross_霧_1__(_SYM_霧:1.0___jcross_霧_42__(*p0), _SYM_霧:1.0___jcross_霧_42__(*p1), _SYM_霧:1.0___jcross_霧_42__(*p2), _SYM_霧:1.0___jcross_霧_42__(*p3))
+
+// POLYMORPHIC_JCROSS_END

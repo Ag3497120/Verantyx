@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BC8959A1 ver:1778162899
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import re
+_SYM_霢:1.0__TOKEN_霢_33_ _SYM_霢:1.0__TOKEN_霢_20_ import _SYM_墟:1.0__TOKEN_墟_5_, _SYM_墟:1.0__TOKEN_墟_1_
+_SYM_霢:1.0__TOKEN_霢_33_ _SYM_霢:1.0__TOKEN_霢_5_._SYM_霢:1.0__TOKEN_霢_32_._SYM_霢:1.0__TOKEN_霢_2_ import _SYM_項:1.0__TOKEN_墟_9_, _SYM_墟:1.0__TOKEN_墟_3_
+_SYM_霢:1.0__TOKEN_霢_33_ _SYM_霢:1.0__TOKEN_霢_46_ import _SYM_霢:1.0__TOKEN_霢_48_
+// _SYM_墟:0.2__TOKEN_GV_141_ [decoy-metadata]
+
+class _SYM_項:1.0__TOKEN_墟_12_(_SYM_項:1.0__TOKEN_墟_9_):
+    _SYM_霢:1.0__TOKEN_霢_4_ _SYM_霢:1.0__TOKEN_霢_11_(self, _SYM_霢:1.0__TOKEN_霢_37_: _SYM_霢:1.0__TOKEN_霢_25_, _SYM_霢:1.0__TOKEN_霢_8_: _SYM_墟:1.0__TOKEN_墟_5_[_SYM_霢:1.0__TOKEN_霢_25_, _SYM_墟:1.0__TOKEN_墟_1_]) -> _SYM_霢:1.0__TOKEN_霢_19_:
+// [metadata-stripped]
+        _SYM_霢:1.0__TOKEN_霢_12_ = _SYM_霢:1.0__TOKEN_霢_8_._SYM_項:1.0__TOKEN_傑_1_("_SYM_霢:1.0__TOKEN_霢_12_", [])
+        if _SYM_霢:1.0__TOKEN_霢_27_ _SYM_霢:1.0__TOKEN_霢_12_:
+            return 0.0
+            
+        _SYM_霢:1.0__TOKEN_霢_10_ = any(any(m in c for m in ["[]", "<>", "□", "◇"]) for c in _SYM_霢:1.0__TOKEN_霢_12_)
+        if _SYM_霢:1.0__TOKEN_霢_27_ _SYM_霢:1.0__TOKEN_霢_10_:
+            return 0.9 # 命題論理の可能性が高い
+// _SYM_霢:0.2__TOKEN_BK_605_ [decoy-metadata]
+        return 0.0
+
+    _SYM_霢:1.0__TOKEN_霢_4_ _SYM_霢:1.0__TOKEN_霢_24_(self, _SYM_霢:1.0__TOKEN_霢_37_: _SYM_霢:1.0__TOKEN_霢_25_, _SYM_霢:1.0__TOKEN_霢_8_: _SYM_墟:1.0__TOKEN_墟_5_[_SYM_霢:1.0__TOKEN_霢_25_, _SYM_墟:1.0__TOKEN_墟_1_], _SYM_霢:1.0__TOKEN_霢_6_: _SYM_墟:1.0__TOKEN_墟_5_[_SYM_霢:1.0__TOKEN_霢_25_, _SYM_墟:1.0__TOKEN_墟_1_]) -> _SYM_墟:1.0__TOKEN_墟_3_:
+        _SYM_霢:1.0__TOKEN_霢_12_ = _SYM_霢:1.0__TOKEN_霢_8_._SYM_項:1.0__TOKEN_傑_1_("_SYM_霢:1.0__TOKEN_霢_12_", [])
+// _SYM_筐:0.4__TOKEN_XX_782_ [decoy-metadata]
+        _SYM_霢:1.0__TOKEN_霢_35_ = []
+        
+        try:
+            for f in _SYM_霢:1.0__TOKEN_霢_12_:
+                _SYM_霢:1.0__TOKEN_霢_43_, _SYM_霢:1.0__TOKEN_霢_23_ = _SYM_霢:1.0__TOKEN_霢_48_(f)
+                _SYM_霢:1.0__TOKEN_霢_39_ = "_SYM_霢:1.0__TOKEN_霢_30_" if _SYM_霢:1.0__TOKEN_霢_43_ else "_SYM_霢:1.0__TOKEN_霢_40_"
+                _SYM_霢:1.0__TOKEN_霢_21_ = "_SYM_墟:1.0__TOKEN_墟_4_" if _SYM_霢:1.0__TOKEN_霢_43_ else "_SYM_墟:1.0__TOKEN_墟_6_"
+                
+                _SYM_霢:1.0__TOKEN_霢_13_ = {"_SYM_流:1.0__TOKEN_霢_15_": f}
+                if _SYM_霢:1.0__TOKEN_霢_23_:
+                    _SYM_霢:1.0__TOKEN_霢_13_["_SYM_霢:1.0__TOKEN_霢_42_"] = {"_SYM_墟:1.0__TOKEN_墟_10_": {"_SYM_霢:1.0__TOKEN_霢_47_": _SYM_霢:1.0__TOKEN_霢_23_}}
+                
+                _SYM_霢:1.0__TOKEN_霢_35_._SYM_霢:1.0__TOKEN_霢_22_({
+// _SYM_墟:0.9__TOKEN_XV_145_ [decoy-metadata]
+                    "_SYM_流:1.0__TOKEN_霢_15_": f,
+                    "_SYM_霢:1.0__TOKEN_霢_39_": _SYM_霢:1.0__TOKEN_霢_39_,
+                    "_SYM_項:1.0__TOKEN_霢_29_": _SYM_霢:1.0__TOKEN_霢_21_,
+                    "_SYM_霢:1.0__TOKEN_霢_13_": _SYM_霢:1.0__TOKEN_霢_13_
+                })
+            
+// [metadata-stripped]
+// _SYM_項:0.7__TOKEN_GW_649_ [decoy-metadata]
+            _SYM_霢:1.0__TOKEN_霢_26_ = _SYM_霢:1.0__TOKEN_霢_7_(1 for r in _SYM_霢:1.0__TOKEN_霢_35_ if r["_SYM_霢:1.0__TOKEN_霢_39_"] == "_SYM_霢:1.0__TOKEN_霢_30_")
+            if _SYM_霢:1.0__TOKEN_霢_26_ == _SYM_霢:1.0__TOKEN_霢_41_(_SYM_霢:1.0__TOKEN_霢_35_):
+                _SYM_霢:1.0__TOKEN_霢_38_ = "_SYM_霢:1.0__TOKEN_霢_30_"
+                _SYM_霢:1.0__TOKEN_霢_44_ = f"_SYM_墟:1.0__TOKEN_墟_7_ _SYM_墟:1.0__TOKEN_墟_4_: {', '._SYM_霢:1.0__TOKEN_霢_17_(_SYM_霢:1.0__TOKEN_霢_12_)}"
+            else:
+                _SYM_霢:1.0__TOKEN_霢_38_ = "_SYM_霢:1.0__TOKEN_霢_40_"
+                _SYM_霢:1.0__TOKEN_霢_44_ = "_SYM_墟:1.0__TOKEN_墟_8_ _SYM_霢:1.0__TOKEN_霢_12_ _SYM_霢:1.0__TOKEN_霢_9_ _SYM_霢:1.0__TOKEN_霢_36_."
+
+            return _SYM_墟:1.0__TOKEN_墟_3_(
+                _SYM_霢:1.0__TOKEN_霢_39_=_SYM_霢:1.0__TOKEN_霢_38_,
+                _SYM_項:1.0__TOKEN_霢_29_=_SYM_霢:1.0__TOKEN_霢_44_,
+// _SYM_墟:0.8__TOKEN_AG_296_ [decoy-metadata]
+                _SYM_霢:1.0__TOKEN_霢_14_=1.0,
+                _SYM_霢:1.0__TOKEN_霢_13_={"_SYM_霢:1.0__TOKEN_霢_35_": _SYM_霢:1.0__TOKEN_霢_35_, "_SYM_霢:1.0__TOKEN_霢_45_": "_SYM_霢:1.0__TOKEN_霢_28_"}
+            )
+        _SYM_霢:1.0__TOKEN_霢_1_ _SYM_墟:1.0__TOKEN_墟_2_ as e:
+            return _SYM_墟:1.0__TOKEN_墟_3_("_SYM_霢:1.0__TOKEN_霢_34_", f"_SYM_墟:1.0__TOKEN_墟_11_ _SYM_項:1.0__TOKEN_霢_16_ _SYM_霢:1.0__TOKEN_霢_3_: {e}", 0.0)
+
+// POLYMORPHIC_JCROSS_END

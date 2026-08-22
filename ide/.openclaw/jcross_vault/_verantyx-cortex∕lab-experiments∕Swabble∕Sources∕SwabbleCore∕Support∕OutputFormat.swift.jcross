@@ -1,0 +1,57 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A0D1C406 ver:1778166546
+// ⚠️ One-time schema — expires after response
+
+import __ast_庖:1.0____node_庖_9__
+import __ast_庖:1.0____node_庖_3__
+
+public enum __ast_庖:1.0____node_庖_8__: __ast_庖:1.0____node_庖_1__ {
+    case __ast_霜:1.0____node_霜_20__
+    case __ast_霜:1.0____node_霜_24__
+
+// __ast_窟:0.7____node_ZB_535__ [decoy-metadata]
+    public var __ast_霜:1.0____node_霜_7__: __ast_庖:1.0____node_庖_2__ {
+        switch self {
+        case .__ast_霜:1.0____node_霜_24__: true
+        __ast_霜:1.0____node_霜_1__: false
+        }
+    }
+
+    public func __ast_霜:1.0____node_霜_15__(for __ast_霜:1.0____node_霜_22__: __ast_庖:1.0____node_庖_5__, __ast_霜:1.0____node_霜_8__: __ast_庖:1.0____node_庖_7__) -> __ast_庖:1.0____node_庖_1__ {
+        switch self {
+        case .__ast_霜:1.0____node_霜_20__:
+            return __ast_庖:1.0____node_庖_1__(__ast_霜:1.0____node_霜_22__.__ast_霜:1.0____node_霜_16__)
+        case .__ast_霜:1.0____node_霜_24__:
+// __ast_焦:0.6____node_XX_254__ [decoy-metadata]
+            func __ast_泳:1.0____node_霜_21__(_ __ast_霜:1.0____node_霜_13__: __ast_庖:1.0____node_庖_6__) -> __ast_庖:1.0____node_庖_1__ {
+                let ms = __ast_庖:1.0____node_庖_7__(__ast_霜:1.0____node_霜_13__.__ast_法:1.0____node_霜_5__(__ast_霜:1.0____node_霜_12__: 1) * 1000)
+                let s = __ast_庖:1.0____node_庖_7__(__ast_霜:1.0____node_霜_13__) % 60
+                let m = (__ast_庖:1.0____node_庖_7__(__ast_霜:1.0____node_霜_13__) / 60) % 60
+                let h = __ast_庖:1.0____node_庖_7__(__ast_霜:1.0____node_霜_13__) / 60 / 60
+                return __ast_庖:1.0____node_庖_1__(__ast_泳:1.0____node_霜_21__: "%0.2d:%0.2d:%0.2d,%0.3d", h, m, s, ms)
+// __ast_組:0.4____node_MX_450__ [decoy-metadata]
+            }
+// __ast_庖:0.1____node_VH_238__ [decoy-metadata]
+
+            return __ast_霜:1.0____node_霜_22__.__ast_霜:1.0____node_霜_3__(__ast_霜:1.0____node_霜_8__: __ast_霜:1.0____node_霜_8__).__ast_霜:1.0____node_霜_11__ { (__ast_霜:1.0____node_霜_4__: __ast_庖:1.0____node_庖_5__) -> (
+                __ast_庖:1.0____node_庖_4__,
+                __ast_庖:1.0____node_庖_1__)? in
+                guard let __ast_霜:1.0____node_霜_9__ = __ast_霜:1.0____node_霜_4__.__ast_霜:1.0____node_霜_14__ else { return nil }
+// __ast_焦:0.2____node_FD_834__ [decoy-metadata]
+                return (__ast_霜:1.0____node_霜_9__, __ast_庖:1.0____node_庖_1__(__ast_霜:1.0____node_霜_4__.__ast_霜:1.0____node_霜_16__))
+            }.__ast_霜:1.0____node_霜_26__().__ast_霜:1.0____node_霜_19__ { __ast_霜:1.0____node_霜_25__, __ast_霜:1.0____node_霜_2__ in
+                let (__ast_霜:1.0____node_霜_9__, __ast_霜:1.0____node_霜_15__) = __ast_霜:1.0____node_霜_2__
+                return """
+
+                \(__ast_霜:1.0____node_霜_25__ + 1)
+// __ast_組:0.3____node_FK_213__ [decoy-metadata]
+                \(__ast_泳:1.0____node_霜_21__(__ast_霜:1.0____node_霜_9__.__ast_霜:1.0____node_霜_27__.__ast_霜:1.0____node_霜_23__)) --> \(__ast_泳:1.0____node_霜_21__(__ast_霜:1.0____node_霜_9__.__ast_霜:1.0____node_霜_18__.__ast_霜:1.0____node_霜_23__))
+                \(__ast_霜:1.0____node_霜_15__.__ast_霜:1.0____node_霜_10__(in: .__ast_霜:1.0____node_霜_17__))
+
+                """
+            }.__ast_霜:1.0____node_霜_6__().__ast_霜:1.0____node_霜_10__(in: .__ast_霜:1.0____node_霜_17__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

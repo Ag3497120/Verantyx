@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:56CB4A1A ver:1778166637
+// ⚠️ One-time schema — expires after response
+
+import { __ast_匼:1.0____jcross_霜_19__ } __ast_霜:1.0____jcross_霜_8__ "../../__ast_絵:1.0____jcross_霜_9__.js";
+
+__ast_霜:1.0____jcross_霜_20__ __ast_霜:1.0____jcross_霜_11__ __ast_要:1.0____jcross_礎_1__ = {
+  __ast_霜:1.0____jcross_霜_1__: (id?: __ast_霜:1.0____jcross_霜_7__ | __ast_霜:1.0____jcross_霜_2__) => __ast_霜:1.0____jcross_霜_15__;
+// __ast_絵:0.2____jcross_WD_957__ [decoy-metadata]
+// __ast_匼:0.8____jcross_GK_499__ [decoy-metadata]
+  __ast_霜:1.0____jcross_霜_5__: (id?: __ast_霜:1.0____jcross_霜_7__ | __ast_霜:1.0____jcross_霜_2__) => __ast_霜:1.0____jcross_霜_15__;
+  __ast_霜:1.0____jcross_霜_18__: () => __ast_要:1.0____jcross_霜_6__;
+// __ast_絵:0.6____jcross_GB_993__ [decoy-metadata]
+};
+
+// __ast_霜:0.3____jcross_XL_779__ [decoy-metadata]
+__ast_霜:1.0____jcross_霜_20__ __ast_霜:1.0____jcross_霜_23__ __ast_要:1.0____jcross_霜_17__(__ast_霜:1.0____jcross_霜_16__ = 2000): __ast_要:1.0____jcross_礎_1__ {
+// __ast_霜:0.9____jcross_XC_576__ [decoy-metadata]
+  __ast_霜:1.0____jcross_霜_12__ __ast_霜:1.0____jcross_霜_10__ = __ast_匼:1.0____jcross_霜_19__({ __ast_霜:1.0____jcross_霜_22__: 0, __ast_霜:1.0____jcross_霜_4__: __ast_霜:1.0____jcross_霜_16__ });
+
+  __ast_霜:1.0____jcross_霜_12__ __ast_霜:1.0____jcross_霜_1__ = (id?: __ast_霜:1.0____jcross_霜_7__ | __ast_霜:1.0____jcross_霜_2__) => {
+    __ast_霜:1.0____jcross_霜_12__ __ast_霜:1.0____jcross_霜_21__ = id?.__ast_霜:1.0____jcross_霜_14__();
+    if (!__ast_霜:1.0____jcross_霜_21__) {
+      return true;
+    }
+    return !__ast_霜:1.0____jcross_霜_10__.__ast_霜:1.0____jcross_霜_3__(__ast_霜:1.0____jcross_霜_21__);
+  };
+
+  __ast_霜:1.0____jcross_霜_12__ __ast_霜:1.0____jcross_霜_5__ = (id?: __ast_霜:1.0____jcross_霜_7__ | __ast_霜:1.0____jcross_霜_2__) => {
+    __ast_霜:1.0____jcross_霜_12__ __ast_霜:1.0____jcross_霜_21__ = id?.__ast_霜:1.0____jcross_霜_14__();
+    if (!__ast_霜:1.0____jcross_霜_21__) {
+      return false;
+    }
+    return __ast_霜:1.0____jcross_霜_10__.__ast_霜:1.0____jcross_霜_13__(__ast_霜:1.0____jcross_霜_21__);
+  };
+
+  return {
+    __ast_霜:1.0____jcross_霜_1__,
+    __ast_霜:1.0____jcross_霜_5__,
+    __ast_霜:1.0____jcross_霜_18__: () => __ast_霜:1.0____jcross_霜_10__.__ast_霜:1.0____jcross_霜_18__(),
+  };
+// __ast_要:0.3____jcross_EM_486__ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

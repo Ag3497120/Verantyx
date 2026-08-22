@@ -1,0 +1,924 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2A7638B7 ver:1778167482
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_靄:1.0___node_靄_60__ { _ASTNODE_墟:1.0___node_墟_2__ } _ASTNODE_靄:1.0___node_靄_183__ "_ASTNODE_靄:1.0___node_靄_257__";
+import { _ASTNODE_湧:1.0___node_靄_10__, _ASTNODE_靄:1.0___node_靄_55__, _ASTNODE_靄:1.0___node_靄_228__, it, vi } _ASTNODE_靄:1.0___node_靄_183__ "_ASTNODE_靄:1.0___node_靄_131__";
+import _ASTNODE_靄:1.0___node_靄_60__ { _ASTNODE_墟:1.0___node_墟_28__ } _ASTNODE_靄:1.0___node_靄_183__ "../../../../_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_102__.js";
+import { _ASTNODE_靄:1.0___node_靄_99__ } _ASTNODE_靄:1.0___node_靄_183__ "./_ASTNODE_靄:1.0___node_靄_37__.js";
+
+_ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_匾:1.0___node_靄_173__ = vi.fn();
+_ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_145__ = vi._ASTNODE_靄:1.0___node_靄_22__(() => vi.fn(async () => {}));
+_ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_要:1.0___node_靄_192__ = vi._ASTNODE_靄:1.0___node_靄_22__(() => ({
+  _ASTNODE_靄:1.0___node_靄_133__: vi.fn<(_ASTNODE_靄:1.0___node_靄_168__: _ASTNODE_靄:1.0___node_靄_181__) => _ASTNODE_靄:1.0___node_靄_57__>(() => false),
+  _ASTNODE_靄:1.0___node_靄_210__: vi.fn(),
+  _ASTNODE_靄:1.0___node_靄_193__: vi.fn(),
+}));
+_ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_48__ = {
+  _ASTNODE_靄:1.0___node_靄_235__: "123",
+  _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+  _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_159__",
+  _ASTNODE_靄:1.0___node_靄_39__: 4000,
+} as _ASTNODE_靄:1.0___node_靄_180__;
+_ASTNODE_靄:1.0___node_靄_60__ _ASTNODE_墟:1.0___node_墟_8__ = _ASTNODE_墟:1.0___node_墟_9__<_ASTNODE_靄:1.0___node_靄_260__ _ASTNODE_靄:1.0___node_靄_99__>[0];
+_ASTNODE_靄:1.0___node_靄_60__ _ASTNODE_墟:1.0___node_墟_10__ = _ASTNODE_墟:1.0___node_墟_29__<
+  _ASTNODE_墟:1.0___node_墟_8__,
+  "_ASTNODE_靄:1.0___node_靄_235__" | "_ASTNODE_暗:1.0___node_靄_176__" | "_ASTNODE_靄:1.0___node_靄_19__" | "_ASTNODE_靄:1.0___node_靄_39__"
+> &
+  _ASTNODE_墟:1.0___node_墟_25__<_ASTNODE_墟:1.0___node_墟_32__<_ASTNODE_墟:1.0___node_墟_8__, "_ASTNODE_靄:1.0___node_靄_19__" | "_ASTNODE_靄:1.0___node_靄_39__">>;
+_ASTNODE_靄:1.0___node_靄_60__ _ASTNODE_墟:1.0___node_墟_14__ = _ASTNODE_墟:1.0___node_墟_32__<_ASTNODE_墟:1.0___node_墟_28__, "_ASTNODE_靄:1.0___node_靄_113__" | "_ASTNODE_靄:1.0___node_靄_147__" | "_ASTNODE_靄:1.0___node_靄_115__">;
+
+vi._ASTNODE_靄:1.0___node_靄_93__("../../../_ASTNODE_靄:1.0___node_靄_234__/_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_78__.js", () => ({
+  _ASTNODE_匾:1.0___node_靄_173__: (..._ASTNODE_靄:1.0___node_靄_263__: _ASTNODE_靄:1.0___node_靄_139__[]) => _ASTNODE_匾:1.0___node_靄_173__(..._ASTNODE_靄:1.0___node_靄_263__),
+}));
+
+vi._ASTNODE_靄:1.0___node_靄_93__("../../../../_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_208__/_ASTNODE_靄:1.0___node_靄_177__-_ASTNODE_要:1.0___node_靄_194__-_ASTNODE_靄:1.0___node_靄_225__.js", () => ({
+  _ASTNODE_要:1.0___node_礎_2__: () => _ASTNODE_要:1.0___node_靄_192__,
+}));
+
+vi._ASTNODE_靄:1.0___node_靄_93__("../../../../_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_112__/internal-_ASTNODE_靄:1.0___node_靄_112__.js", async () => {
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_98__ = await vi._ASTNODE_靄:1.0___node_靄_15__<_ASTNODE_靄:1.0___node_靄_260__ import("../../../../_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_112__/internal-_ASTNODE_靄:1.0___node_靄_112__.js")>(
+    "../../../../_ASTNODE_靄:1.0___node_靄_44__/_ASTNODE_靄:1.0___node_靄_112__/internal-_ASTNODE_靄:1.0___node_靄_112__.js",
+  );
+  return {
+    ..._ASTNODE_靄:1.0___node_靄_98__,
+    _ASTNODE_靄:1.0___node_靄_145__,
+  };
+});
+
+vi._ASTNODE_靄:1.0___node_靄_93__("_ASTNODE_靄:1.0___node_靄_257__", () => ({
+  _ASTNODE_匾:1.0___node_墟_4__: class {
+    _ASTNODE_靄:1.0___node_靄_226__(
+      public _ASTNODE_要:1.0___node_靄_11__: _ASTNODE_要:1.0___node_墟_19__,
+      public _ASTNODE_匾:1.0___node_靄_36__?: _ASTNODE_靄:1.0___node_靄_181__,
+    ) {}
+  },
+  _ASTNODE_墟:1.0___node_墟_33__: class _ASTNODE_墟:1.0___node_墟_33__ _ASTNODE_靄:1.0___node_靄_91__ _ASTNODE_墟:1.0___node_墟_30__ {
+    _ASTNODE_靄:1.0___node_靄_215__ = "";
+  },
+}));
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_108__(_ASTNODE_靄:1.0___node_靄_201__ = true): _ASTNODE_墟:1.0___node_墟_14__ {
+  return {
+    _ASTNODE_靄:1.0___node_靄_113__: vi.fn(),
+    _ASTNODE_靄:1.0___node_靄_147__: _ASTNODE_靄:1.0___node_靄_201__ ? vi.fn() : vi.fn(),
+    _ASTNODE_靄:1.0___node_靄_115__: vi.fn(),
+  };
+}
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_118__(_ASTNODE_縁:1.0___node_靄_211__: _ASTNODE_墟:1.0___node_墟_18__<_ASTNODE_靄:1.0___node_靄_181__, _ASTNODE_靄:1.0___node_靄_139__> = {}): _ASTNODE_墟:1.0___node_墟_2__ {
+  return { _ASTNODE_縁:1.0___node_靄_211__ } as _ASTNODE_靄:1.0___node_靄_139__ as _ASTNODE_墟:1.0___node_墟_2__;
+}
+
+async _ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_150__(_ASTNODE_靄:1.0___node_靄_4__: _ASTNODE_墟:1.0___node_墟_10__) {
+  await _ASTNODE_靄:1.0___node_靄_99__({
+    ..._ASTNODE_靄:1.0___node_靄_48__,
+    ..._ASTNODE_靄:1.0___node_靄_4__,
+  });
+}
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_匾:1.0___node_靄_127__(_ASTNODE_匾:1.0___node_靄_36__: _ASTNODE_靄:1.0___node_靄_181__, _ASTNODE_靄:1.0___node_靄_32__: _ASTNODE_靄:1.0___node_靄_181__, _ASTNODE_靄:1.0___node_靄_56__: _ASTNODE_靄:1.0___node_靄_181__) {
+  _ASTNODE_匾:1.0___node_靄_173__._ASTNODE_靄:1.0___node_靄_83__({
+    _ASTNODE_要:1.0___node_靄_11__: _ASTNODE_要:1.0___node_墟_19__._ASTNODE_靄:1.0___node_靄_183__(_ASTNODE_靄:1.0___node_靄_56__),
+    _ASTNODE_靄:1.0___node_靄_32__,
+    _ASTNODE_匾:1.0___node_靄_36__,
+  });
+}
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_1__(_ASTNODE_靄:1.0___node_靄_29__ = 4) {
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+    _ASTNODE_靄:1.0___node_靄_246__: _ASTNODE_靄:1.0___node_靄_29__,
+    _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+  });
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+  return { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ };
+}
+// _ASTNODE_匾:0.2___node_FM_561__ [decoy-metadata]
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_湧:1.0___node_靄_142__() {
+  return _ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__(
+    "_ASTNODE_墟:1.0___node_墟_33__: _ASTNODE_墟:1.0___node_墟_12__ to '_ASTNODE_靄:1.0___node_靄_253__' _ASTNODE_靄:1.0___node_靄_213__! (400: _ASTNODE_墟:1.0___node_墟_23__ _ASTNODE_縁:1.0___node_墟_27__: _ASTNODE_墟:1.0___node_墟_24__)",
+  );
+}
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_97__(_ASTNODE_靄:1.0___node_靄_50__ = "_ASTNODE_靄:1.0___node_靄_61__") {
+  return _ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__(
+    `_ASTNODE_墟:1.0___node_墟_33__: _ASTNODE_墟:1.0___node_墟_12__ to '${_ASTNODE_靄:1.0___node_靄_50__}' _ASTNODE_靄:1.0___node_靄_213__! (400: _ASTNODE_墟:1.0___node_墟_23__ _ASTNODE_縁:1.0___node_墟_27__: _ASTNODE_靄:1.0___node_靄_252__ _ASTNODE_靄:1.0___node_靄_166__ _ASTNODE_靄:1.0___node_靄_143__ _ASTNODE_靄:1.0___node_靄_209__)`,
+  );
+}
+
+_ASTNODE_靄:1.0___node_靄_231__ _ASTNODE_靄:1.0___node_靄_21__(_ASTNODE_靄:1.0___node_靄_4__: {
+  _ASTNODE_靄:1.0___node_靄_129__: _ASTNODE_墟:1.0___node_墟_30__;
+  _ASTNODE_靄:1.0___node_靄_144__?: { _ASTNODE_靄:1.0___node_靄_246__: _ASTNODE_要:1.0___node_靄_261__; _ASTNODE_靄:1.0___node_靄_66__: { id: _ASTNODE_靄:1.0___node_靄_181__ } };
+}) {
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_253__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_靄:1.0___node_靄_4__._ASTNODE_靄:1.0___node_靄_129__);
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = _ASTNODE_靄:1.0___node_靄_4__._ASTNODE_靄:1.0___node_靄_144__
+    ? vi.fn()._ASTNODE_靄:1.0___node_靄_214__(_ASTNODE_靄:1.0___node_靄_4__._ASTNODE_靄:1.0___node_靄_144__)
+    : vi.fn();
+  _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__ });
+  return { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ };
+}
+
+_ASTNODE_靄:1.0___node_靄_55__("_ASTNODE_靄:1.0___node_靄_99__", () => {
+  _ASTNODE_湧:1.0___node_靄_10__(() => {
+    _ASTNODE_匾:1.0___node_靄_173__._ASTNODE_靄:1.0___node_靄_229__();
+    _ASTNODE_靄:1.0___node_靄_145__._ASTNODE_靄:1.0___node_靄_202__();
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_133__._ASTNODE_靄:1.0___node_靄_202__();
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_133__._ASTNODE_靄:1.0___node_靄_92__(false);
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_210__._ASTNODE_靄:1.0___node_靄_202__();
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_193__._ASTNODE_靄:1.0___node_靄_202__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_16__ _ASTNODE_靄:1.0___node_靄_42__-_ASTNODE_靄:1.0___node_靄_140__ _ASTNODE_匾:1.0___node_靄_155__ _ASTNODE_靄:1.0___node_靄_255__ _ASTNODE_靄:1.0___node_靄_212__ an _ASTNODE_靄:1.0___node_靄_113__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_42__: true }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__: _ASTNODE_靄:1.0___node_靄_118__(),
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_102__._ASTNODE_靄:1.0___node_靄_113__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_16__ _ASTNODE_湧:1.0___node_靄_88__ _ASTNODE_靄:1.0___node_靄_195__ _ASTNODE_靄:1.0___node_靄_104__ _ASTNODE_靄:1.0___node_靄_74__ _ASTNODE_靄:1.0___node_靄_241__ _ASTNODE_靄:1.0___node_靄_12__ _ASTNODE_靄:1.0___node_靄_227__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 1, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [_ASTNODE_靄:1.0___node_靄_254__, { _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }] as _ASTNODE_靄:1.0___node_靄_139__ as _ASTNODE_墟:1.0___node_墟_8__["_ASTNODE_靄:1.0___node_靄_195__"],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_102__._ASTNODE_靄:1.0___node_靄_113__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0]?.[1])._ASTNODE_靄:1.0___node_靄_35__("_ASTNODE_靄:1.0___node_靄_169__");
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_51__ _ASTNODE_靄:1.0___node_靄_100__ _ASTNODE_靄:1.0___node_靄_73__=false _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_112__ _ASTNODE_靄:1.0___node_靄_222__ _ASTNODE_靄:1.0___node_靄_89__ a _ASTNODE_靄:1.0___node_靄_54__-_ASTNODE_靄:1.0___node_靄_140__ _ASTNODE_靄:1.0___node_靄_95__", async () => {
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_133__._ASTNODE_靄:1.0___node_靄_178__(
+      (_ASTNODE_靄:1.0___node_靄_168__: _ASTNODE_靄:1.0___node_靄_181__) => _ASTNODE_靄:1.0___node_靄_168__ === "_ASTNODE_靄:1.0___node_靄_206__" || _ASTNODE_靄:1.0___node_靄_168__ === "_ASTNODE_靄:1.0___node_靄_100__",
+    );
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_210__._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_230__: "" });
+
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_193__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_73__: false, _ASTNODE_靄:1.0___node_靄_230__: "" }),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__", _ASTNODE_靄:1.0___node_靄_158__: "123" }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_71__ _ASTNODE_靄:1.0___node_靄_116__ _ASTNODE_靄:1.0___node_靄_251__ _ASTNODE_靄:1.0___node_靄_252__ _ASTNODE_靄:1.0___node_靄_112__", async () => {
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_133__._ASTNODE_靄:1.0___node_靄_178__(
+      (_ASTNODE_靄:1.0___node_靄_168__: _ASTNODE_靄:1.0___node_靄_181__) => _ASTNODE_靄:1.0___node_靄_168__ === "_ASTNODE_靄:1.0___node_靄_206__" || _ASTNODE_靄:1.0___node_靄_168__ === "_ASTNODE_靄:1.0___node_靄_100__",
+    );
+
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+// _ASTNODE_縁:0.3___node_XW_987__ [decoy-metadata]
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 9, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_116__: "_ASTNODE_靄:1.0___node_靄_43__",
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_210__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_11__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__",
+        _ASTNODE_靄:1.0___node_靄_116__: "_ASTNODE_靄:1.0___node_靄_43__",
+        _ASTNODE_靄:1.0___node_靄_158__: "123",
+      }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_193__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_73__: true }),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__",
+        _ASTNODE_靄:1.0___node_靄_116__: "_ASTNODE_靄:1.0___node_靄_43__",
+        _ASTNODE_靄:1.0___node_靄_158__: "123",
+      }),
+    );
+  });
+
+  it("_ASTNODE_要:1.0___node_礎_1__ _ASTNODE_湧:1.0___node_靄_110__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_128__ is true", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 5,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_128__: true,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_湧:1.0___node_靄_110__: true,
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_23__ internal _ASTNODE_靄:1.0___node_靄_252__:_ASTNODE_靄:1.0___node_靄_87__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_224__ _ASTNODE_靄:1.0___node_靄_177__ _ASTNODE_靄:1.0___node_靄_240__ is _ASTNODE_靄:1.0___node_靄_30__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 9, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_暗:1.0___node_靄_196__: "_ASTNODE_靄:1.0___node_靄_119__:_ASTNODE_靄:1.0___node_靄_172__:_ASTNODE_靄:1.0___node_靄_244__:123",
+      _ASTNODE_靄:1.0___node_靄_233__: true,
+      _ASTNODE_靄:1.0___node_靄_189__: "123",
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_145__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_60__: "_ASTNODE_靄:1.0___node_靄_252__",
+        _ASTNODE_靄:1.0___node_靄_262__: "_ASTNODE_靄:1.0___node_靄_87__",
+        _ASTNODE_暗:1.0___node_靄_40__: "_ASTNODE_靄:1.0___node_靄_119__:_ASTNODE_靄:1.0___node_靄_172__:_ASTNODE_靄:1.0___node_靄_244__:123",
+        _ASTNODE_靄:1.0___node_靄_240__: _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+          to: "123",
+          _ASTNODE_靄:1.0___node_靄_230__: "_ASTNODE_靄:1.0___node_靄_169__",
+          _ASTNODE_靄:1.0___node_靄_73__: true,
+          _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__",
+          _ASTNODE_靄:1.0___node_靄_158__: "123",
+          _ASTNODE_靄:1.0___node_靄_29__: "9",
+          _ASTNODE_靄:1.0___node_靄_64__: true,
+          _ASTNODE_靄:1.0___node_靄_9__: "123",
+        }),
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_81__ _ASTNODE_靄:1.0___node_靄_143__ _ASTNODE_靄:1.0___node_靄_38__ internal _ASTNODE_靄:1.0___node_靄_252__:_ASTNODE_靄:1.0___node_靄_87__ _ASTNODE_靄:1.0___node_靄_255__ a _ASTNODE_靄:1.0___node_靄_224__ _ASTNODE_暗:1.0___node_靄_165__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 11, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_145__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_23__ internal _ASTNODE_靄:1.0___node_靄_252__:_ASTNODE_靄:1.0___node_靄_87__ _ASTNODE_靄:1.0___node_靄_241__ _ASTNODE_靄:1.0___node_靄_73__=false on _ASTNODE_靄:1.0___node_靄_37__ _ASTNODE_靄:1.0___node_靄_243__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__("_ASTNODE_靄:1.0___node_靄_236__ _ASTNODE_靄:1.0___node_靄_113__"));
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_228__(
+      _ASTNODE_靄:1.0___node_靄_150__({
+        _ASTNODE_暗:1.0___node_靄_196__: "_ASTNODE_靄:1.0___node_靄_119__:_ASTNODE_靄:1.0___node_靄_172__:_ASTNODE_靄:1.0___node_靄_244__:123",
+        _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+        _ASTNODE_靄:1.0___node_靄_102__,
+        _ASTNODE_靄:1.0___node_靄_84__,
+      }),
+    )._ASTNODE_靄:1.0___node_靄_7__._ASTNODE_靄:1.0___node_靄_146__("_ASTNODE_靄:1.0___node_靄_236__ _ASTNODE_靄:1.0___node_靄_113__");
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_145__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_60__: "_ASTNODE_靄:1.0___node_靄_252__",
+        _ASTNODE_靄:1.0___node_靄_262__: "_ASTNODE_靄:1.0___node_靄_87__",
+        _ASTNODE_暗:1.0___node_靄_40__: "_ASTNODE_靄:1.0___node_靄_119__:_ASTNODE_靄:1.0___node_靄_172__:_ASTNODE_靄:1.0___node_靄_244__:123",
+        _ASTNODE_靄:1.0___node_靄_240__: _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+          to: "123",
+          _ASTNODE_靄:1.0___node_靄_230__: "_ASTNODE_靄:1.0___node_靄_169__",
+          _ASTNODE_靄:1.0___node_靄_73__: false,
+          _ASTNODE_靄:1.0___node_靄_113__: "_ASTNODE_靄:1.0___node_靄_236__ _ASTNODE_靄:1.0___node_靄_113__",
+          _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__",
+          _ASTNODE_靄:1.0___node_靄_158__: "123",
+        }),
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_71__ _ASTNODE_靄:1.0___node_靄_78__ _ASTNODE_靄:1.0___node_靄_197__ to _ASTNODE_靄:1.0___node_靄_206__ _ASTNODE_靄:1.0___node_靄_112__", async () => {
+    _ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_133__._ASTNODE_靄:1.0___node_靄_178__((_ASTNODE_靄:1.0___node_靄_168__: _ASTNODE_靄:1.0___node_靄_181__) => _ASTNODE_靄:1.0___node_靄_168__ === "_ASTNODE_靄:1.0___node_靄_206__");
+
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_204__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 2, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_204__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_18__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_80__", _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_要:1.0___node_靄_192__._ASTNODE_靄:1.0___node_靄_210__)._ASTNODE_靄:1.0___node_靄_207__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        to: "123",
+        _ASTNODE_靄:1.0___node_靄_230__: "_ASTNODE_靄:1.0___node_靄_80__",
+        _ASTNODE_靄:1.0___node_靄_197__: _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+          _ASTNODE_靄:1.0___node_靄_85__: "_ASTNODE_靄:1.0___node_靄_244__",
+          _ASTNODE_縁:1.0___node_靄_3__: ["_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__"],
+        }),
+      }),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_151__: "_ASTNODE_靄:1.0___node_靄_244__", _ASTNODE_靄:1.0___node_靄_158__: "123" }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_47__ _ASTNODE_靄:1.0___node_靄_205__ _ASTNODE_湧:1.0___node_靄_242__ _ASTNODE_靄:1.0___node_靄_105__ a _ASTNODE_靄:1.0___node_靄_103__ _ASTNODE_靄:1.0___node_靄_33__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_70__: _ASTNODE_靄:1.0___node_靄_181__[] = [];
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__(false);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_253__ = vi.fn(async () => {
+      _ASTNODE_靄:1.0___node_靄_70__._ASTNODE_靄:1.0___node_靄_46__("_ASTNODE_靄:1.0___node_靄_253__");
+      return { _ASTNODE_靄:1.0___node_靄_246__: 1, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } };
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_253__ });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_205__ = vi.fn(async () => {
+      _ASTNODE_靄:1.0___node_靄_70__._ASTNODE_靄:1.0___node_靄_46__("_ASTNODE_靄:1.0___node_靄_199__");
+    });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", _ASTNODE_靄:1.0___node_靄_42__: true }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_205__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_205__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_70__)._ASTNODE_靄:1.0___node_靄_157__(["_ASTNODE_靄:1.0___node_靄_199__", "_ASTNODE_靄:1.0___node_靄_253__"]);
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_28__ _ASTNODE_靄:1.0___node_靄_141__ in _ASTNODE_靄:1.0___node_靄_78__ _ASTNODE_靄:1.0___node_靄_34__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_204__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 2,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_204__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_18__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", _ASTNODE_靄:1.0___node_靄_54__: "hi **_ASTNODE_靄:1.0___node_靄_256__**" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_238__(),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+// _ASTNODE_縁:0.2___node_XG_530__ [decoy-metadata]
+        _ASTNODE_靄:1.0___node_靄_80__: "hi <b>_ASTNODE_靄:1.0___node_靄_256__</b>",
+        _ASTNODE_靄:1.0___node_靄_5__: "_ASTNODE_墟:1.0___node_墟_13__",
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_71__ _ASTNODE_靄:1.0___node_靄_137__ to _ASTNODE_靄:1.0___node_靄_78__ _ASTNODE_匾:1.0___node_靄_106__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_204__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 12,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_204__ });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_137__ = ["/_ASTNODE_靄:1.0___node_靄_163__/_ASTNODE_靄:1.0___node_靄_132__-_ASTNODE_靄:1.0___node_靄_43__"];
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_18__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "/_ASTNODE_靄:1.0___node_靄_163__/_ASTNODE_靄:1.0___node_靄_132__-_ASTNODE_靄:1.0___node_靄_43__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_137__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_匾:1.0___node_靄_173__)._ASTNODE_靄:1.0___node_靄_207__("/_ASTNODE_靄:1.0___node_靄_163__/_ASTNODE_靄:1.0___node_靄_132__-_ASTNODE_靄:1.0___node_靄_43__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", {
+      _ASTNODE_靄:1.0___node_靄_101__: _ASTNODE_靄:1.0___node_靄_137__,
+    });
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_218__ _ASTNODE_靄:1.0___node_靄_124__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_160__ is false", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 3,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_22__ _ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_160__: false,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+// _ASTNODE_暗:0.1___node_CD_440__ [decoy-metadata]
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_124__: { _ASTNODE_靄:1.0___node_靄_25__: true },
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_218__ _ASTNODE_靄:1.0___node_靄_79__ for DM _ASTNODE_靄:1.0___node_靄_221__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ } = _ASTNODE_靄:1.0___node_靄_1__();
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_7__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+// _ASTNODE_墟:0.5___node_ZY_329__ [decoy-metadata]
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_166__: { id: 42, _ASTNODE_靄:1.0___node_靄_75__: "dm" },
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_79__: 42,
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_264__ DM _ASTNODE_靄:1.0___node_靄_49__ _ASTNODE_靄:1.0___node_靄_121__ _ASTNODE_靄:1.0___node_靄_255__ _ASTNODE_靄:1.0___node_靄_79__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_166__ is _ASTNODE_靄:1.0___node_靄_185__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi
+      .fn()
+      ._ASTNODE_靄:1.0___node_靄_190__(_ASTNODE_靄:1.0___node_靄_97__("_ASTNODE_靄:1.0___node_靄_61__"))
+      ._ASTNODE_靄:1.0___node_靄_83__({
+        _ASTNODE_靄:1.0___node_靄_246__: 7,
+        _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+      });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_166__: { id: 42, _ASTNODE_靄:1.0___node_靄_75__: "dm" },
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(2);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0]?.[2])._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_79__: 42,
+      }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1]?.[2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_79__");
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_102__._ASTNODE_靄:1.0___node_靄_113__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_81__ _ASTNODE_靄:1.0___node_靄_143__ _ASTNODE_靄:1.0___node_靄_174__ _ASTNODE_湧:1.0___node_靄_125__ _ASTNODE_靄:1.0___node_靄_121__ _ASTNODE_靄:1.0___node_靄_255__ _ASTNODE_靄:1.0___node_靄_79__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_靄:1.0___node_靄_97__("_ASTNODE_靄:1.0___node_靄_61__"));
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_228__(
+      _ASTNODE_靄:1.0___node_靄_150__({
+        _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__" }],
+        _ASTNODE_靄:1.0___node_靄_102__,
+        _ASTNODE_靄:1.0___node_靄_84__,
+        _ASTNODE_靄:1.0___node_靄_166__: { id: 42, _ASTNODE_靄:1.0___node_靄_75__: "_ASTNODE_湧:1.0___node_靄_125__" },
+      }),
+    )._ASTNODE_靄:1.0___node_靄_7__._ASTNODE_靄:1.0___node_靄_146__("_ASTNODE_靄:1.0___node_靄_252__ _ASTNODE_靄:1.0___node_靄_166__ _ASTNODE_靄:1.0___node_靄_143__ _ASTNODE_靄:1.0___node_靄_209__");
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_102__._ASTNODE_靄:1.0___node_靄_113__)._ASTNODE_靄:1.0___node_靄_59__(1);
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_264__ _ASTNODE_靄:1.0___node_靄_78__ _ASTNODE_靄:1.0___node_靄_121__ _ASTNODE_靄:1.0___node_靄_255__ _ASTNODE_靄:1.0___node_靄_79__ for DM _ASTNODE_靄:1.0___node_靄_221__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_204__ = vi
+      .fn()
+      ._ASTNODE_靄:1.0___node_靄_190__(_ASTNODE_靄:1.0___node_靄_97__("_ASTNODE_靄:1.0___node_靄_204__"))
+      ._ASTNODE_靄:1.0___node_靄_83__({
+        _ASTNODE_靄:1.0___node_靄_246__: 8,
+        _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+      });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_204__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_18__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_134__._ASTNODE_靄:1.0___node_靄_24__", _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_80__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_166__: { id: 42, _ASTNODE_靄:1.0___node_靄_75__: "dm" },
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__)._ASTNODE_靄:1.0___node_靄_59__(2);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0]?.[2])._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_79__: 42,
+      }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1]?.[2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_79__");
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_102__._ASTNODE_靄:1.0___node_靄_113__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_81__ _ASTNODE_靄:1.0___node_靄_143__ _ASTNODE_靄:1.0___node_靄_239__ _ASTNODE_靄:1.0___node_靄_124__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_160__ is true", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ } = _ASTNODE_靄:1.0___node_靄_1__();
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_22__ _ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_160__: true,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_124__: _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_238__(),
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_217__ _ASTNODE_靄:1.0___node_靄_126__ to _ASTNODE_靄:1.0___node_靄_8__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_141__ _ASTNODE_靄:1.0___node_靄_28__ to _ASTNODE_靄:1.0___node_靄_65__ _ASTNODE_墟:1.0___node_墟_13__ in _ASTNODE_靄:1.0___node_靄_216__ _ASTNODE_靄:1.0___node_靄_248__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn(async (_ASTNODE_靄:1.0___node_靄_94__: _ASTNODE_靄:1.0___node_靄_181__, _ASTNODE_靄:1.0___node_靄_54__: _ASTNODE_靄:1.0___node_靄_181__) => {
+      if (_ASTNODE_靄:1.0___node_靄_54__ === "") {
+        _ASTNODE_靄:1.0___node_靄_149__ _ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__("400: _ASTNODE_墟:1.0___node_墟_23__ _ASTNODE_縁:1.0___node_墟_27__: _ASTNODE_靄:1.0___node_靄_252__ _ASTNODE_靄:1.0___node_靄_54__ is _ASTNODE_靄:1.0___node_靄_65__");
+      }
+      return {
+        _ASTNODE_靄:1.0___node_靄_246__: 6,
+        _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+      };
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = { _ASTNODE_縁:1.0___node_靄_211__: { _ASTNODE_靄:1.0___node_靄_61__ } } as _ASTNODE_靄:1.0___node_靄_139__ as _ASTNODE_墟:1.0___node_墟_2__;
+
+    await _ASTNODE_靄:1.0___node_靄_99__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: ">" }],
+      _ASTNODE_靄:1.0___node_靄_235__: "123",
+      _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_159__",
+      _ASTNODE_靄:1.0___node_靄_39__: 4000,
+      _ASTNODE_靄:1.0___node_靄_166__: { id: 42, _ASTNODE_靄:1.0___node_靄_75__: "_ASTNODE_湧:1.0___node_靄_125__" },
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      ">",
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_79__: 42,
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_149__s _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_湧:1.0___node_靄_17__ _ASTNODE_靄:1.0___node_靄_104__ _ASTNODE_靄:1.0___node_靄_8__ _ASTNODE_靄:1.0___node_靄_14__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_58__ _ASTNODE_靄:1.0___node_靄_114__ _ASTNODE_靄:1.0___node_靄_65__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = { _ASTNODE_縁:1.0___node_靄_211__: { _ASTNODE_靄:1.0___node_靄_61__ } } as _ASTNODE_靄:1.0___node_靄_139__ as _ASTNODE_墟:1.0___node_墟_2__;
+
+    await _ASTNODE_靄:1.0___node_靄_228__(
+      _ASTNODE_靄:1.0___node_靄_99__({
+        _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "   " }],
+        _ASTNODE_靄:1.0___node_靄_235__: "123",
+        _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+        _ASTNODE_靄:1.0___node_靄_102__,
+        _ASTNODE_靄:1.0___node_靄_84__,
+        _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_159__",
+        _ASTNODE_靄:1.0___node_靄_39__: 4000,
+      }),
+    )._ASTNODE_靄:1.0___node_靄_7__._ASTNODE_靄:1.0___node_靄_146__("_ASTNODE_靄:1.0___node_靄_65__ _ASTNODE_湧:1.0___node_靄_17__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_104__ _ASTNODE_靄:1.0___node_靄_65__ _ASTNODE_靄:1.0___node_靄_8__ _ASTNODE_靄:1.0___node_靄_14__");
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_63__ _ASTNODE_靄:1.0___node_靄_2__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_164__ _ASTNODE_靄:1.0___node_靄_54__ is _ASTNODE_靄:1.0___node_靄_69__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 10,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_7__ _ASTNODE_靄:1.0___node_靄_154__", _ASTNODE_靄:1.0___node_靄_26__: "500" }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_247__",
+      _ASTNODE_靄:1.0___node_靄_219__: "_ASTNODE_靄:1.0___node_靄_156__ _ASTNODE_靄:1.0___node_靄_54__",
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_2__: 500,
+      }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_16__),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_167__: _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_238__(),
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_217__ _ASTNODE_靄:1.0___node_靄_126__ to _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_253__ _ASTNODE_靄:1.0___node_靄_171__ _ASTNODE_靄:1.0___node_靄_241__ _ASTNODE_墟:1.0___node_墟_24__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ } = _ASTNODE_靄:1.0___node_靄_21__({
+      _ASTNODE_靄:1.0___node_靄_129__: _ASTNODE_湧:1.0___node_靄_142__(),
+      _ASTNODE_靄:1.0___node_靄_144__: {
+        _ASTNODE_靄:1.0___node_靄_246__: 5,
+        _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+      },
+    });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [
+        { _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_7__ _ASTNODE_靄:1.0___node_靄_154__", _ASTNODE_靄:1.0___node_靄_42__: true },
+      ],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_191__("_ASTNODE_墟:1.0___node_墟_7__ _ASTNODE_靄:1.0___node_靄_154__"),
+      _ASTNODE_靄:1.0___node_靄_228__.any(_ASTNODE_墟:1.0___node_墟_11__),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_162__ _ASTNODE_湧:1.0___node_靄_110__ on _ASTNODE_靄:1.0___node_靄_103__ _ASTNODE_靄:1.0___node_靄_14__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_128__ is true", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_253__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_湧:1.0___node_靄_142__());
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 5,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [
+        { _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_7__ _ASTNODE_靄:1.0___node_靄_154__", _ASTNODE_靄:1.0___node_靄_42__: true },
+      ],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_128__: true,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_207__(
+      "123",
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_191__("_ASTNODE_墟:1.0___node_墟_7__ _ASTNODE_靄:1.0___node_靄_154__"),
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_湧:1.0___node_靄_110__: true,
+      }),
+    );
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_103__ _ASTNODE_靄:1.0___node_靄_14__ _ASTNODE_靄:1.0___node_靄_82__ _ASTNODE_靄:1.0___node_靄_95__-to _ASTNODE_靄:1.0___node_靄_140__ on _ASTNODE_靄:1.0___node_靄_77__ _ASTNODE_靄:1.0___node_靄_6__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_19__ is _ASTNODE_靄:1.0___node_靄_77__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ } = _ASTNODE_靄:1.0___node_靄_21__({
+      _ASTNODE_靄:1.0___node_靄_129__: _ASTNODE_湧:1.0___node_靄_142__(),
+      _ASTNODE_靄:1.0___node_靄_144__: {
+        _ASTNODE_靄:1.0___node_靄_246__: 6,
+        _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+      },
+    });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [
+        {
+          _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__",
+          _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_6__-_ASTNODE_靄:1.0___node_靄_148__\n\_ASTNODE_靄:1.0___node_靄_90__-_ASTNODE_靄:1.0___node_靄_203__",
+          _ASTNODE_靄:1.0___node_靄_26__: "77",
+          _ASTNODE_靄:1.0___node_靄_42__: true,
+          _ASTNODE_靄:1.0___node_靄_259__: {
+            _ASTNODE_靄:1.0___node_靄_244__: {
+              _ASTNODE_靄:1.0___node_靄_179__: [[{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_17__", _ASTNODE_靄:1.0___node_靄_96__: "_ASTNODE_靄:1.0___node_靄_86__" }]],
+            },
+          },
+        },
+      ],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_77__",
+      _ASTNODE_靄:1.0___node_靄_219__: "_ASTNODE_靄:1.0___node_靄_156__ _ASTNODE_靄:1.0___node_靄_240__",
+      _ASTNODE_靄:1.0___node_靄_39__: 12,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__._ASTNODE_靄:1.0___node_靄_135__)._ASTNODE_靄:1.0___node_靄_122__(2);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0][2])._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({
+        _ASTNODE_靄:1.0___node_靄_2__: 77,
+        _ASTNODE_靄:1.0___node_靄_117__: {
+          _ASTNODE_暗:1.0___node_靄_250__: [[{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_17__", _ASTNODE_靄:1.0___node_靄_96__: "_ASTNODE_靄:1.0___node_靄_86__" }]],
+        },
+      }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1][2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_2__: 77 }),
+    );
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1][2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_167__");
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1][2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_117__");
+  });
+
+  it("re_ASTNODE_靄:1.0___node_靄_149__s _ASTNODE_靄:1.0___node_靄_187__-_ASTNODE_墟:1.0___node_墟_24__ _ASTNODE_靄:1.0___node_靄_138__ _ASTNODE_靄:1.0___node_靄_183__ _ASTNODE_靄:1.0___node_靄_253__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_253__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__("_ASTNODE_墟:1.0___node_墟_20__ _ASTNODE_靄:1.0___node_靄_113__"));
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_228__(
+      _ASTNODE_靄:1.0___node_靄_150__({
+        _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_墟:1.0___node_墟_7__", _ASTNODE_靄:1.0___node_靄_42__: true }],
+        _ASTNODE_靄:1.0___node_靄_102__,
+        _ASTNODE_靄:1.0___node_靄_84__,
+      }),
+    )._ASTNODE_靄:1.0___node_靄_7__._ASTNODE_靄:1.0___node_靄_146__("_ASTNODE_墟:1.0___node_墟_20__ _ASTNODE_靄:1.0___node_靄_113__");
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_19__ '_ASTNODE_靄:1.0___node_靄_77__' _ASTNODE_靄:1.0___node_靄_140__ _ASTNODE_靄:1.0___node_靄_82__ _ASTNODE_靄:1.0___node_靄_95__-to to _ASTNODE_靄:1.0___node_靄_130__ _ASTNODE_靄:1.0___node_靄_77__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_6__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 20,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+// [metadata-stripped]
+    await _ASTNODE_靄:1.0___node_靄_99__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_6__-_ASTNODE_靄:1.0___node_靄_148__\n\_ASTNODE_靄:1.0___node_靄_90__-_ASTNODE_靄:1.0___node_靄_203__", _ASTNODE_靄:1.0___node_靄_26__: "700" }],
+      _ASTNODE_靄:1.0___node_靄_235__: "123",
+      _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_77__",
+      _ASTNODE_靄:1.0___node_靄_39__: 12,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__._ASTNODE_靄:1.0___node_靄_135__)._ASTNODE_靄:1.0___node_靄_122__(2);
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0][2])._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_2__: 700 }),
+    );
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1][2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_2__");
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_19__ '_ASTNODE_靄:1.0___node_靄_247__' _ASTNODE_靄:1.0___node_靄_82__ _ASTNODE_靄:1.0___node_靄_95__-to to _ASTNODE_靄:1.0___node_靄_27__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_6__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 21,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__ });
+
+    await _ASTNODE_靄:1.0___node_靄_99__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_6__-_ASTNODE_靄:1.0___node_靄_148__\n\_ASTNODE_靄:1.0___node_靄_90__-_ASTNODE_靄:1.0___node_靄_203__", _ASTNODE_靄:1.0___node_靄_26__: "800" }],
+      _ASTNODE_靄:1.0___node_靄_235__: "123",
+      _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_247__",
+      _ASTNODE_靄:1.0___node_靄_39__: 12,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__._ASTNODE_靄:1.0___node_靄_135__)._ASTNODE_靄:1.0___node_靄_122__(2);
+// [metadata-stripped]
+    for (_ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_232__ of _ASTNODE_靄:1.0___node_靄_61__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__) {
+      _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_232__[2])._ASTNODE_靄:1.0___node_靄_157__(_ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_2__: 800 }));
+    }
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_19__ '_ASTNODE_靄:1.0___node_靄_77__' _ASTNODE_靄:1.0___node_靄_140__ _ASTNODE_靄:1.0___node_靄_82__ _ASTNODE_靄:1.0___node_靄_95__-to to _ASTNODE_靄:1.0___node_靄_77__ _ASTNODE_靄:1.0___node_靄_78__ _ASTNODE_靄:1.0___node_靄_152__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_204__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({
+      _ASTNODE_靄:1.0___node_靄_246__: 30,
+      _ASTNODE_靄:1.0___node_靄_66__: { id: "123" },
+    });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_204__ });
+
+    _ASTNODE_匾:1.0___node_靄_127__("a._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_109__");
+    _ASTNODE_匾:1.0___node_靄_127__("b._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_靄:1.0___node_靄_18__/_ASTNODE_靄:1.0___node_靄_136__", "_ASTNODE_靄:1.0___node_靄_170__");
+
+    await _ASTNODE_靄:1.0___node_靄_99__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_3__: ["_ASTNODE_縁:1.0___node_靄_68__://a._ASTNODE_靄:1.0___node_靄_24__", "_ASTNODE_縁:1.0___node_靄_68__://b._ASTNODE_靄:1.0___node_靄_24__"], _ASTNODE_靄:1.0___node_靄_26__: "900" }],
+      _ASTNODE_靄:1.0___node_靄_235__: "123",
+      _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_77__",
+      _ASTNODE_靄:1.0___node_靄_39__: 4000,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__)._ASTNODE_靄:1.0___node_靄_59__(2);
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[0][2])._ASTNODE_靄:1.0___node_靄_157__(
+      _ASTNODE_靄:1.0___node_靄_228__._ASTNODE_靄:1.0___node_靄_188__({ _ASTNODE_靄:1.0___node_靄_2__: 900 }),
+    );
+// [metadata-stripped]
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_204__._ASTNODE_靄:1.0___node_靄_93__._ASTNODE_靄:1.0___node_靄_153__[1][2])._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_20__("_ASTNODE_靄:1.0___node_靄_2__");
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_249__ _ASTNODE_靄:1.0___node_靄_130__ _ASTNODE_靄:1.0___node_靄_77__ _ASTNODE_靄:1.0___node_靄_223__ _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_252__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_244__ _ASTNODE_靄:1.0___node_靄_31__ is _ASTNODE_縁:1.0___node_靄_182__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi
+      .fn()
+      ._ASTNODE_靄:1.0___node_靄_83__({ _ASTNODE_靄:1.0___node_靄_246__: 101, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } })
+      ._ASTNODE_靄:1.0___node_靄_83__({ _ASTNODE_靄:1.0___node_靄_246__: 102, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_245__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__(true);
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_245__ });
+
+    await _ASTNODE_靄:1.0___node_靄_99__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_6__-_ASTNODE_靄:1.0___node_靄_148__\n\_ASTNODE_靄:1.0___node_靄_90__-_ASTNODE_靄:1.0___node_靄_203__", _ASTNODE_靄:1.0___node_靄_259__: { _ASTNODE_靄:1.0___node_靄_244__: { _ASTNODE_靄:1.0___node_靄_31__: true } } }],
+      _ASTNODE_靄:1.0___node_靄_235__: "123",
+      _ASTNODE_暗:1.0___node_靄_176__: "_ASTNODE_靄:1.0___node_靄_41__",
+// _ASTNODE_靄:0.8___node_LM_211__ [decoy-metadata]
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+      _ASTNODE_靄:1.0___node_靄_19__: "_ASTNODE_靄:1.0___node_靄_159__",
+      _ASTNODE_靄:1.0___node_靄_39__: 12,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_245__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_245__)._ASTNODE_靄:1.0___node_靄_207__("123", 101, { _ASTNODE_湧:1.0___node_靄_110__: true });
+  });
+
+  it("_ASTNODE_靄:1.0___node_靄_74__ _ASTNODE_靄:1.0___node_靄_120__ _ASTNODE_靄:1.0___node_靄_67__ _ASTNODE_靄:1.0___node_靄_171__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_102__ = _ASTNODE_靄:1.0___node_靄_108__();
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_61__ = vi.fn()._ASTNODE_靄:1.0___node_靄_214__({ _ASTNODE_靄:1.0___node_靄_246__: 201, _ASTNODE_靄:1.0___node_靄_66__: { id: "123" } });
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_245__ = vi.fn()._ASTNODE_靄:1.0___node_靄_53__(_ASTNODE_靄:1.0___node_靄_52__ _ASTNODE_墟:1.0___node_墟_30__("_ASTNODE_靄:1.0___node_靄_31__ _ASTNODE_靄:1.0___node_靄_213__"));
+    _ASTNODE_靄:1.0___node_靄_180__ _ASTNODE_靄:1.0___node_靄_84__ = _ASTNODE_靄:1.0___node_靄_118__({ _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_245__ });
+
+    await _ASTNODE_靄:1.0___node_靄_150__({
+      _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_靄:1.0___node_靄_54__: "_ASTNODE_靄:1.0___node_靄_169__", _ASTNODE_靄:1.0___node_靄_259__: { _ASTNODE_靄:1.0___node_靄_244__: { _ASTNODE_靄:1.0___node_靄_31__: true } } }],
+      _ASTNODE_靄:1.0___node_靄_102__,
+      _ASTNODE_靄:1.0___node_靄_84__,
+    });
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_245__)._ASTNODE_靄:1.0___node_靄_59__(1);
+  });
+
+  it("re_ASTNODE_靄:1.0___node_靄_149__s _ASTNODE_墟:1.0___node_墟_24__ _ASTNODE_靄:1.0___node_靄_120__ no _ASTNODE_靄:1.0___node_靄_54__ _ASTNODE_靄:1.0___node_靄_14__ is _ASTNODE_靄:1.0___node_靄_30__", async () => {
+    _ASTNODE_靄:1.0___node_靄_180__ { _ASTNODE_靄:1.0___node_靄_102__, _ASTNODE_靄:1.0___node_靄_253__, _ASTNODE_靄:1.0___node_靄_61__, _ASTNODE_靄:1.0___node_靄_84__ } = _ASTNODE_靄:1.0___node_靄_21__({
+      _ASTNODE_靄:1.0___node_靄_129__: _ASTNODE_湧:1.0___node_靄_142__(),
+    });
+
+    _ASTNODE_匾:1.0___node_靄_127__("_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_186__/_ASTNODE_靄:1.0___node_靄_220__", "_ASTNODE_靄:1.0___node_靄_103__");
+
+    await _ASTNODE_靄:1.0___node_靄_228__(
+      _ASTNODE_靄:1.0___node_靄_150__({
+        _ASTNODE_靄:1.0___node_靄_195__: [{ _ASTNODE_縁:1.0___node_靄_200__: "_ASTNODE_縁:1.0___node_靄_68__://_ASTNODE_靄:1.0___node_靄_258__._ASTNODE_靄:1.0___node_靄_13__/_ASTNODE_靄:1.0___node_靄_33__._ASTNODE_靄:1.0___node_靄_220__", _ASTNODE_靄:1.0___node_靄_42__: true }],
+        _ASTNODE_靄:1.0___node_靄_102__,
+        _ASTNODE_靄:1.0___node_靄_84__,
+      }),
+    )._ASTNODE_靄:1.0___node_靄_7__._ASTNODE_靄:1.0___node_靄_146__("_ASTNODE_墟:1.0___node_墟_24__");
+
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_253__)._ASTNODE_靄:1.0___node_靄_59__(1);
+    _ASTNODE_靄:1.0___node_靄_228__(_ASTNODE_靄:1.0___node_靄_61__)._ASTNODE_靄:1.0___node_靄_143__._ASTNODE_靄:1.0___node_靄_45__();
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

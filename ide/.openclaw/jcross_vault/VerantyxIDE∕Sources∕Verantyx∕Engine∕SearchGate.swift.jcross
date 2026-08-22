@@ -1,0 +1,328 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A4C050A9 ver:1778150704
+// ⚠️ One-time schema — expires after response
+
+import _SYM_廩:1.0__TOKEN_廩_40_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _SYM_廩:1.0__TOKEN_廩_48_ {
+    let _SYM_塵:1.0__TOKEN_塵_54_: _SYM_廩:1.0__TOKEN_廩_26_
+    let _SYM_塵:1.0__TOKEN_塵_48_: _SYM_廩:1.0__TOKEN_廩_19_
+    let _SYM_塵:1.0__TOKEN_塵_37_: _SYM_廩:1.0__TOKEN_廩_30_
+// _SYM_技:0.3__TOKEN_BY_141_ [decoy-metadata]
+
+    enum _SYM_廩:1.0__TOKEN_廩_30_: _SYM_廩:1.0__TOKEN_廩_19_ {
+        case _SYM_塵:1.0__TOKEN_塵_34_ = "_SYM_塵:1.0__TOKEN_塵_34_"
+// _SYM_凛:0.8__TOKEN_FD_358_ [decoy-metadata]
+        case _SYM_塵:1.0__TOKEN_塵_60_    = "_SYM_塵:1.0__TOKEN_塵_60_"
+    }
+}
+
+actor _SYM_廩:1.0__TOKEN_廩_47_ {
+
+    static let _SYM_塵:1.0__TOKEN_塵_84_ = _SYM_廩:1.0__TOKEN_廩_47_()
+    private init() {}
+
+// [metadata-stripped]
+
+    static func _SYM_塵:1.0__TOKEN_塵_120_(_SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_廩_46_) -> _SYM_廩:1.0__TOKEN_廩_19_ {
+        switch _SYM_技:1.0__TOKEN_塵_63_ {
+        case ._SYM_塵:1.0__TOKEN_塵_5_, ._SYM_塵:1.0__TOKEN_塵_36_:
+            re_SYM_塵:1.0__TOKEN_塵_58_ """
+
+// [metadata-stripped]
+            回答の最後の行に必ず以下のいずれかを出力してください:
+            [_SYM_廩:1.0__TOKEN_廩_52_: {"_SYM_塵:1.0__TOKEN_塵_28_": true, "_SYM_塵:1.0__TOKEN_塵_119_": "_SYM_塵:1.0__TOKEN_塵_34_", "_SYM_塵:1.0__TOKEN_塵_48_": "記憶検索ワード"}]
+            [_SYM_廩:1.0__TOKEN_廩_52_: {"_SYM_塵:1.0__TOKEN_塵_28_": true, "_SYM_塵:1.0__TOKEN_塵_119_": "_SYM_塵:1.0__TOKEN_塵_60_",    "_SYM_塵:1.0__TOKEN_塵_48_": "_SYM_塵:1.0__TOKEN_塵_60_検索ワード"}]
+            [_SYM_廩:1.0__TOKEN_廩_52_: {"_SYM_塵:1.0__TOKEN_塵_28_": false}]
+
+            使い分け:
+            - _SYM_塵:1.0__TOKEN_塵_119_="_SYM_塵:1.0__TOKEN_塵_34_": 過去の会話・個人情報が必要なとき
+            - _SYM_塵:1.0__TOKEN_塵_119_="_SYM_塵:1.0__TOKEN_塵_60_":    _SYM_廩:1.0__TOKEN_廩_57_・最新情報・外部データが必要なとき（_SYM_廩:1.0__TOKEN_廩_57_リポジトリの状況、最新ニュース、公式ドキュメント等）
+            - _SYM_塵:1.0__TOKEN_塵_28_=false: 今の質問だけで十分なとき
+            - _SYM_塵:1.0__TOKEN_塵_48_: 10語以内
+            """
+        case ._SYM_塵:1.0__TOKEN_塵_50_, ._SYM_塵:1.0__TOKEN_塵_53_, ._SYM_塵:1.0__TOKEN_塵_74_:
+            re_SYM_塵:1.0__TOKEN_塵_58_ """
+
+// [metadata-stripped]
+            応答の最後の行に必ず出力してください（UIには表示されません）:
+            [_SYM_廩:1.0__TOKEN_廩_52_: {"_SYM_塵:1.0__TOKEN_塵_28_": true, "_SYM_塵:1.0__TOKEN_塵_119_": "_SYM_塵:1.0__TOKEN_塵_34_"|"_SYM_塵:1.0__TOKEN_塵_60_", "_SYM_塵:1.0__TOKEN_塵_48_": "キーワード"}]
+            または [_SYM_廩:1.0__TOKEN_廩_52_: {"_SYM_塵:1.0__TOKEN_塵_28_": false}]
+            _SYM_塵:1.0__TOKEN_塵_119_="_SYM_塵:1.0__TOKEN_塵_60_" は _SYM_廩:1.0__TOKEN_廩_57_/最新情報/外部_SYM_紗:1.0__TOKEN_廩_27_が必要なとき。
+            【重要】あなたの知識カットオフ（2024〜2025年）以降の話題については、推測で回答せず必ず _SYM_塵:1.0__TOKEN_塵_119_="_SYM_塵:1.0__TOKEN_塵_60_" で検索を実行してください。
+            """
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _SYM_塵:1.0__TOKEN_塵_72_(_SYM_塵:1.0__TOKEN_塵_128_ _SYM_塵:1.0__TOKEN_塵_3_: _SYM_廩:1.0__TOKEN_廩_19_) -> _SYM_廩:1.0__TOKEN_廩_48_ {
+        let _SYM_塵:1.0__TOKEN_塵_57_ = #"\[_SYM_廩:1.0__TOKEN_廩_52_:\s*\{([^}]+)\}\]"#
+        guard let _SYM_塵:1.0__TOKEN_塵_91_ = try? _SYM_廩:1.0__TOKEN_廩_9_(_SYM_塵:1.0__TOKEN_塵_57_: _SYM_塵:1.0__TOKEN_塵_57_),
+              let _SYM_塵:1.0__TOKEN_塵_11_ = _SYM_塵:1.0__TOKEN_塵_91_._SYM_塵:1.0__TOKEN_塵_90_(
+                in: _SYM_塵:1.0__TOKEN_塵_3_,
+                _SYM_塵:1.0__TOKEN_塵_45_: _SYM_廩:1.0__TOKEN_廩_4_(_SYM_塵:1.0__TOKEN_塵_3_._SYM_塵:1.0__TOKEN_塵_100_..., in: _SYM_塵:1.0__TOKEN_塵_3_)
+              ),
+              let _SYM_塵:1.0__TOKEN_塵_45_ = _SYM_廩:1.0__TOKEN_廩_49_(_SYM_塵:1.0__TOKEN_塵_11_._SYM_塵:1.0__TOKEN_塵_45_(at: 1), in: _SYM_塵:1.0__TOKEN_塵_3_)
+        else {
+            re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_廩:1.0__TOKEN_廩_48_(_SYM_塵:1.0__TOKEN_塵_54_: false, _SYM_塵:1.0__TOKEN_塵_48_: "", _SYM_塵:1.0__TOKEN_塵_37_: ._SYM_塵:1.0__TOKEN_塵_34_)
+        }
+
+        let _SYM_塵:1.0__TOKEN_塵_82_ = "{\(_SYM_塵:1.0__TOKEN_塵_3_[_SYM_塵:1.0__TOKEN_塵_45_])}"
+        guard let _SYM_塵:1.0__TOKEN_塵_110_ = _SYM_塵:1.0__TOKEN_塵_82_._SYM_塵:1.0__TOKEN_塵_110_(_SYM_塵:1.0__TOKEN_塵_31_: ._SYM_塵:1.0__TOKEN_塵_38_),
+              let _SYM_塵:1.0__TOKEN_塵_8_ = try? _SYM_廩:1.0__TOKEN_廩_23_._SYM_塵:1.0__TOKEN_塵_2_(_SYM_塵:1.0__TOKEN_塵_99_: _SYM_塵:1.0__TOKEN_塵_110_) as? [_SYM_廩:1.0__TOKEN_廩_19_: _SYM_廩:1.0__TOKEN_廩_15_]
+        else {
+            re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_廩:1.0__TOKEN_廩_48_(_SYM_塵:1.0__TOKEN_塵_54_: false, _SYM_塵:1.0__TOKEN_塵_48_: "", _SYM_塵:1.0__TOKEN_塵_37_: ._SYM_塵:1.0__TOKEN_塵_34_)
+        }
+
+        let _SYM_塵:1.0__TOKEN_塵_28_      = _SYM_塵:1.0__TOKEN_塵_8_["_SYM_塵:1.0__TOKEN_塵_28_"]  as? _SYM_廩:1.0__TOKEN_廩_26_   ?? false
+        let _SYM_塵:1.0__TOKEN_塵_48_      = _SYM_塵:1.0__TOKEN_塵_8_["_SYM_塵:1.0__TOKEN_塵_48_"]  as? _SYM_廩:1.0__TOKEN_廩_19_ ?? ""
+        let _SYM_塵:1.0__TOKEN_塵_69_    = _SYM_塵:1.0__TOKEN_塵_8_["_SYM_塵:1.0__TOKEN_塵_119_"]   as? _SYM_廩:1.0__TOKEN_廩_19_ ?? "_SYM_塵:1.0__TOKEN_塵_34_"
+        let _SYM_塵:1.0__TOKEN_塵_37_ = _SYM_廩:1.0__TOKEN_廩_48_._SYM_廩:1.0__TOKEN_廩_30_(_SYM_塵:1.0__TOKEN_塵_29_: _SYM_塵:1.0__TOKEN_塵_69_) ?? ._SYM_塵:1.0__TOKEN_塵_34_
+        re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_廩:1.0__TOKEN_廩_48_(_SYM_塵:1.0__TOKEN_塵_54_: _SYM_塵:1.0__TOKEN_塵_28_, _SYM_塵:1.0__TOKEN_塵_48_: _SYM_塵:1.0__TOKEN_塵_48_, _SYM_塵:1.0__TOKEN_塵_37_: _SYM_塵:1.0__TOKEN_塵_37_)
+    }
+
+// [metadata-stripped]
+    func _SYM_沈:1.0__TOKEN_塵_79_(_SYM_塵:1.0__TOKEN_塵_128_ _SYM_塵:1.0__TOKEN_塵_3_: _SYM_廩:1.0__TOKEN_廩_19_) -> _SYM_廩:1.0__TOKEN_廩_19_ {
+        let _SYM_塵:1.0__TOKEN_塵_57_ = #"\n?\[_SYM_廩:1.0__TOKEN_廩_52_:\s*\{[^}]+\}\]"#
+        guard let _SYM_塵:1.0__TOKEN_塵_91_ = try? _SYM_廩:1.0__TOKEN_廩_9_(_SYM_塵:1.0__TOKEN_塵_57_: _SYM_塵:1.0__TOKEN_塵_57_) else { re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_塵:1.0__TOKEN_塵_3_ }
+        let _SYM_塵:1.0__TOKEN_塵_45_ = _SYM_廩:1.0__TOKEN_廩_4_(_SYM_塵:1.0__TOKEN_塵_3_._SYM_塵:1.0__TOKEN_塵_100_..., in: _SYM_塵:1.0__TOKEN_塵_3_)
+        re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_塵:1.0__TOKEN_塵_91_._SYM_塵:1.0__TOKEN_塵_117_(in: _SYM_塵:1.0__TOKEN_塵_3_, _SYM_塵:1.0__TOKEN_塵_45_: _SYM_塵:1.0__TOKEN_塵_45_, _SYM_塵:1.0__TOKEN_塵_95_: "")
+            ._SYM_塵:1.0__TOKEN_塵_42_(in: ._SYM_塵:1.0__TOKEN_塵_94_)
+    }
+
+// [metadata-stripped]
+
+    @_SYM_塵:1.0__TOKEN_塵_43_
+    func _SYM_塵:1.0__TOKEN_塵_26_(
+        _SYM_塵:1.0__TOKEN_塵_40_: _SYM_廩:1.0__TOKEN_廩_48_,
+        _SYM_塵:1.0__TOKEN_塵_65_: _SYM_廩:1.0__TOKEN_廩_19_,
+        _SYM_技:1.0__TOKEN_塵_18_: _SYM_廩:1.0__TOKEN_廩_35_,
+        _SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_廩_46_,
+        _SYM_塵:1.0__TOKEN_塵_87_: _SYM_廩:1.0__TOKEN_廩_25_ = ._SYM_塵:1.0__TOKEN_塵_67_,
+        _SYM_塵:1.0__TOKEN_塵_122_: [[_SYM_廩:1.0__TOKEN_廩_58_]]? = nil
+    ) async -> _SYM_廩:1.0__TOKEN_廩_19_ {
+        guard _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_54_, !_SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_48_._SYM_塵:1.0__TOKEN_塵_75_ else { re_SYM_塵:1.0__TOKEN_塵_58_ "" }
+
+        switch _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_37_ {
+        case ._SYM_塵:1.0__TOKEN_塵_34_:
+            re_SYM_塵:1.0__TOKEN_塵_58_ await _SYM_塵:1.0__TOKEN_塵_46_(
+                _SYM_塵:1.0__TOKEN_塵_40_: _SYM_塵:1.0__TOKEN_塵_40_, _SYM_塵:1.0__TOKEN_塵_65_: _SYM_塵:1.0__TOKEN_塵_65_,
+                _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_, _SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_塵_63_
+            )
+        case ._SYM_塵:1.0__TOKEN_塵_60_:
+            re_SYM_塵:1.0__TOKEN_塵_58_ await _SYM_塵:1.0__TOKEN_塵_98_(
+                _SYM_塵:1.0__TOKEN_塵_40_: _SYM_塵:1.0__TOKEN_塵_40_, _SYM_塵:1.0__TOKEN_塵_65_: _SYM_塵:1.0__TOKEN_塵_65_,
+                _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_, _SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_塵_63_,
+                _SYM_塵:1.0__TOKEN_塵_87_: _SYM_塵:1.0__TOKEN_塵_87_,
+                _SYM_塵:1.0__TOKEN_塵_122_: _SYM_塵:1.0__TOKEN_塵_122_
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _SYM_塵:1.0__TOKEN_塵_46_(
+        _SYM_塵:1.0__TOKEN_塵_40_: _SYM_廩:1.0__TOKEN_廩_48_,
+        _SYM_塵:1.0__TOKEN_塵_65_: _SYM_廩:1.0__TOKEN_廩_19_,
+        _SYM_技:1.0__TOKEN_塵_18_: _SYM_廩:1.0__TOKEN_廩_35_,
+        _SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_廩_46_
+    ) async -> _SYM_廩:1.0__TOKEN_廩_19_ {
+        let _SYM_塵:1.0__TOKEN_塵_76_: _SYM_廩:1.0__TOKEN_廩_35_
+        let _SYM_塵:1.0__TOKEN_塵_41_: _SYM_廩:1.0__TOKEN_廩_35_
+        switch _SYM_技:1.0__TOKEN_塵_63_ {
+        case ._SYM_塵:1.0__TOKEN_塵_5_:          _SYM_塵:1.0__TOKEN_塵_76_ = 300;  _SYM_塵:1.0__TOKEN_塵_41_ = 2
+        case ._SYM_塵:1.0__TOKEN_塵_36_:         _SYM_塵:1.0__TOKEN_塵_76_ = 500;  _SYM_塵:1.0__TOKEN_塵_41_ = 3
+        case ._SYM_塵:1.0__TOKEN_塵_50_:           _SYM_塵:1.0__TOKEN_塵_76_ = 700;  _SYM_塵:1.0__TOKEN_塵_41_ = 4
+        case ._SYM_塵:1.0__TOKEN_塵_53_, ._SYM_塵:1.0__TOKEN_塵_74_: _SYM_塵:1.0__TOKEN_塵_76_ = 1000; _SYM_塵:1.0__TOKEN_塵_41_ = 5
+        }
+// _SYM_塵:0.2__TOKEN_AD_703_ [decoy-metadata]
+        let _SYM_技:1.0__TOKEN_塵_12_: _SYM_技:1.0__TOKEN_廩_2_ = _SYM_技:1.0__TOKEN_塵_63_ == ._SYM_塵:1.0__TOKEN_塵_5_ ? .l1 : .l2
+
+// _SYM_技:0.2__TOKEN_BW_855_ [decoy-metadata]
+        let _SYM_塵:1.0__TOKEN_塵_127_ = _SYM_技:1.0__TOKEN_廩_41_._SYM_塵:1.0__TOKEN_塵_84_._SYM_塵:1.0__TOKEN_塵_77_(
+            _SYM_塵:1.0__TOKEN_塵_48_: _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_48_, _SYM_塵:1.0__TOKEN_塵_41_: _SYM_塵:1.0__TOKEN_塵_41_, _SYM_技:1.0__TOKEN_塵_12_: _SYM_技:1.0__TOKEN_塵_12_, _SYM_塵:1.0__TOKEN_塵_76_: _SYM_塵:1.0__TOKEN_塵_76_
+        )
+// _SYM_脈:0.2__TOKEN_XA_246_ [decoy-metadata]
+        guard !_SYM_塵:1.0__TOKEN_塵_127_._SYM_塵:1.0__TOKEN_塵_75_ else { re_SYM_塵:1.0__TOKEN_塵_58_ "" }
+
+        await _SYM_塵:1.0__TOKEN_塵_24_(
+            _SYM_塵:1.0__TOKEN_塵_127_: _SYM_塵:1.0__TOKEN_塵_127_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_, _SYM_塵:1.0__TOKEN_塵_70_: _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_48_
+        )
+        await _SYM_匣:1.0__TOKEN_塵_52_(
+            _SYM_塵:1.0__TOKEN_塵_65_: _SYM_塵:1.0__TOKEN_塵_65_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_,
+            _SYM_塵:1.0__TOKEN_塵_48_: _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_48_, _SYM_塵:1.0__TOKEN_塵_9_: _SYM_塵:1.0__TOKEN_塵_127_, _SYM_塵:1.0__TOKEN_塵_119_: "_SYM_塵:1.0__TOKEN_塵_34_"
+        )
+        re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_塵:1.0__TOKEN_塵_127_
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _SYM_塵:1.0__TOKEN_塵_98_(
+        _SYM_塵:1.0__TOKEN_塵_40_: _SYM_廩:1.0__TOKEN_廩_48_,
+        _SYM_塵:1.0__TOKEN_塵_65_: _SYM_廩:1.0__TOKEN_廩_19_,
+        _SYM_技:1.0__TOKEN_塵_18_: _SYM_廩:1.0__TOKEN_廩_35_,
+        _SYM_技:1.0__TOKEN_塵_63_: _SYM_技:1.0__TOKEN_廩_46_,
+        _SYM_塵:1.0__TOKEN_塵_87_: _SYM_廩:1.0__TOKEN_廩_25_,
+        _SYM_塵:1.0__TOKEN_塵_122_: [[_SYM_廩:1.0__TOKEN_廩_58_]]? = nil
+    ) async -> _SYM_廩:1.0__TOKEN_廩_19_ {
+        let _SYM_塵:1.0__TOKEN_塵_48_ = _SYM_塵:1.0__TOKEN_塵_40_._SYM_塵:1.0__TOKEN_塵_48_
+
+        let _SYM_塵:1.0__TOKEN_塵_76_: _SYM_廩:1.0__TOKEN_廩_35_
+        switch _SYM_技:1.0__TOKEN_塵_63_ {
+        case ._SYM_塵:1.0__TOKEN_塵_5_:          _SYM_塵:1.0__TOKEN_塵_76_ = 2000
+        case ._SYM_塵:1.0__TOKEN_塵_36_:         _SYM_塵:1.0__TOKEN_塵_76_ = 2500
+        case ._SYM_塵:1.0__TOKEN_塵_50_:           _SYM_塵:1.0__TOKEN_塵_76_ = 3000
+        case ._SYM_塵:1.0__TOKEN_塵_53_, ._SYM_塵:1.0__TOKEN_塵_74_: _SYM_塵:1.0__TOKEN_塵_76_ = 4000
+        }
+
+        let _SYM_塵:1.0__TOKEN_塵_9_ = await _SYM_廩:1.0__TOKEN_廩_16_._SYM_塵:1.0__TOKEN_塵_84_._SYM_塵:1.0__TOKEN_塵_30_(
+            _SYM_塵:1.0__TOKEN_塵_48_: _SYM_塵:1.0__TOKEN_塵_48_,
+            _SYM_塵:1.0__TOKEN_塵_114_: ._SYM_塵:1.0__TOKEN_塵_32_,
+            _SYM_塵:1.0__TOKEN_塵_87_: _SYM_塵:1.0__TOKEN_塵_87_,
+            _SYM_塵:1.0__TOKEN_塵_122_: _SYM_塵:1.0__TOKEN_塵_122_
+        )
+
+        let _SYM_塵:1.0__TOKEN_塵_101_ = _SYM_廩:1.0__TOKEN_廩_19_(_SYM_塵:1.0__TOKEN_塵_9_._SYM_塵:1.0__TOKEN_塵_102_._SYM_塵:1.0__TOKEN_塵_21_(_SYM_塵:1.0__TOKEN_塵_76_))
+        guard !_SYM_塵:1.0__TOKEN_塵_101_._SYM_塵:1.0__TOKEN_塵_75_ else { re_SYM_塵:1.0__TOKEN_塵_58_ "" }
+
+        let _SYM_塵:1.0__TOKEN_塵_126_ = "[_SYM_廩:1.0__TOKEN_廩_12_ _SYM_廩:1.0__TOKEN_廩_22_: \"\(_SYM_廩:1.0__TOKEN_廩_19_(_SYM_塵:1.0__TOKEN_塵_48_._SYM_塵:1.0__TOKEN_塵_21_(60)))\"\n\(_SYM_塵:1.0__TOKEN_塵_101_)\n[/_SYM_廩:1.0__TOKEN_廩_12_ _SYM_廩:1.0__TOKEN_廩_22_]"
+
+        await _SYM_匣:1.0__TOKEN_塵_52_(
+            _SYM_塵:1.0__TOKEN_塵_65_: _SYM_塵:1.0__TOKEN_塵_65_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_,
+            _SYM_塵:1.0__TOKEN_塵_48_: _SYM_塵:1.0__TOKEN_塵_48_, _SYM_塵:1.0__TOKEN_塵_9_: _SYM_塵:1.0__TOKEN_塵_126_, _SYM_塵:1.0__TOKEN_塵_119_: "_SYM_塵:1.0__TOKEN_塵_60_"
+        )
+        re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_塵:1.0__TOKEN_塵_126_
+    }
+
+// [metadata-stripped]
+
+    private func _SYM_塵:1.0__TOKEN_塵_24_(_SYM_塵:1.0__TOKEN_塵_127_: _SYM_廩:1.0__TOKEN_廩_19_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_廩:1.0__TOKEN_廩_35_, _SYM_塵:1.0__TOKEN_塵_70_: _SYM_廩:1.0__TOKEN_廩_19_) async {
+        let _SYM_塵:1.0__TOKEN_塵_89_ = await _SYM_廩:1.0__TOKEN_廩_31_._SYM_塵:1.0__TOKEN_塵_59_ { _SYM_廩:1.0__TOKEN_廩_32_._SYM_塵:1.0__TOKEN_塵_84_?._SYM_塵:1.0__TOKEN_塵_130_ ?? _SYM_廩:1.0__TOKEN_廩_32_._SYM_塵:1.0__TOKEN_塵_84_?._SYM_紗:1.0__TOKEN_塵_116_?._SYM_塵:1.0__TOKEN_塵_111_ }
+        guard let ws = _SYM_塵:1.0__TOKEN_塵_89_ else { re_SYM_塵:1.0__TOKEN_塵_58_ }
+        let _SYM_塵:1.0__TOKEN_塵_44_ = _SYM_紗:1.0__TOKEN_廩_27_(_SYM_紗:1.0__TOKEN_塵_22_: ws)
+        
+        let _SYM_塵:1.0__TOKEN_塵_39_: [_SYM_紗:1.0__TOKEN_廩_27_] = [
+            _SYM_塵:1.0__TOKEN_塵_44_._SYM_塵:1.0__TOKEN_塵_19_("._SYM_塵:1.0__TOKEN_塵_66_/_SYM_塵:1.0__TOKEN_塵_34_/_SYM_塵:1.0__TOKEN_塵_125_"),
+            _SYM_塵:1.0__TOKEN_塵_44_._SYM_塵:1.0__TOKEN_塵_19_("._SYM_塵:1.0__TOKEN_塵_66_/_SYM_塵:1.0__TOKEN_塵_34_/_SYM_塵:1.0__TOKEN_塵_81_"),
+            _SYM_塵:1.0__TOKEN_塵_44_._SYM_塵:1.0__TOKEN_塵_19_("._SYM_塵:1.0__TOKEN_塵_66_/_SYM_塵:1.0__TOKEN_塵_34_/_SYM_塵:1.0__TOKEN_塵_50_"),
+        ]
+
+        let _SYM_塵:1.0__TOKEN_塵_33_ = #"_SYM_廩:1.0__TOKEN_廩_45_[A-Za-z0-9_]+|_SYM_廩:1.0__TOKEN_廩_21_[A-Za-z0-9_]+|_SYM_廩:1.0__TOKEN_廩_50_[A-Za-z0-9_]+"#
+        guard let _SYM_塵:1.0__TOKEN_塵_91_ = try? _SYM_廩:1.0__TOKEN_廩_9_(_SYM_塵:1.0__TOKEN_塵_57_: _SYM_塵:1.0__TOKEN_塵_33_) else { re_SYM_塵:1.0__TOKEN_塵_58_ }
+        let _SYM_塵:1.0__TOKEN_塵_10_ = _SYM_塵:1.0__TOKEN_塵_91_._SYM_塵:1.0__TOKEN_塵_10_(
+            in: _SYM_塵:1.0__TOKEN_塵_127_, _SYM_塵:1.0__TOKEN_塵_45_: _SYM_廩:1.0__TOKEN_廩_4_(_SYM_塵:1.0__TOKEN_塵_127_._SYM_塵:1.0__TOKEN_塵_100_..., in: _SYM_塵:1.0__TOKEN_塵_127_)
+        )
+        let _SYM_塵:1.0__TOKEN_塵_129_ = _SYM_技:1.0__TOKEN_凛_1_(_SYM_塵:1.0__TOKEN_塵_10_._SYM_塵:1.0__TOKEN_塵_106_ {
+            _SYM_廩:1.0__TOKEN_廩_49_($0._SYM_塵:1.0__TOKEN_塵_45_, in: _SYM_塵:1.0__TOKEN_塵_127_)._SYM_塵:1.0__TOKEN_塵_103_ { _SYM_廩:1.0__TOKEN_廩_19_(_SYM_塵:1.0__TOKEN_塵_127_[$0]) }
+        })
+        guard !_SYM_塵:1.0__TOKEN_塵_129_._SYM_塵:1.0__TOKEN_塵_75_ else { re_SYM_塵:1.0__TOKEN_塵_58_ }
+
+        for _SYM_塵:1.0__TOKEN_塵_68_ in _SYM_塵:1.0__TOKEN_塵_39_ {
+            let _SYM_匣:1.0__TOKEN_塵_96_ = (try? _SYM_匣:1.0__TOKEN_廩_24_._SYM_塵:1.0__TOKEN_塵_49_._SYM_塵:1.0__TOKEN_塵_112_(
+                at: _SYM_塵:1.0__TOKEN_塵_68_, _SYM_沈:1.0__TOKEN_塵_124_: nil
+            )) ?? []
+            for _SYM_匣:1.0__TOKEN_塵_35_ in _SYM_匣:1.0__TOKEN_塵_96_ where _SYM_匣:1.0__TOKEN_塵_35_._SYM_塵:1.0__TOKEN_塵_108_ == "_SYM_塵:1.0__TOKEN_塵_27_" {
+                let _SYM_塵:1.0__TOKEN_塵_92_ = _SYM_匣:1.0__TOKEN_塵_35_._SYM_塵:1.0__TOKEN_塵_104_()._SYM_塵:1.0__TOKEN_塵_93_
+                if _SYM_塵:1.0__TOKEN_塵_129_._SYM_塵:1.0__TOKEN_塵_61_(where: { _SYM_塵:1.0__TOKEN_塵_92_._SYM_塵:1.0__TOKEN_塵_113_($0) || $0._SYM_塵:1.0__TOKEN_塵_113_(_SYM_塵:1.0__TOKEN_塵_92_._SYM_塵:1.0__TOKEN_塵_21_(20)) }) {
+                    _SYM_廩:1.0__TOKEN_廩_39_._SYM_塵:1.0__TOKEN_塵_84_._SYM_塵:1.0__TOKEN_塵_15_(
+                        _SYM_紗:1.0__TOKEN_塵_6_: _SYM_匣:1.0__TOKEN_塵_35_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_技:1.0__TOKEN_塵_18_, _SYM_塵:1.0__TOKEN_塵_70_: _SYM_塵:1.0__TOKEN_塵_70_
+                    )
+                }
+            }
+        }
+    }
+
+    private func _SYM_匣:1.0__TOKEN_塵_52_(
+        _SYM_塵:1.0__TOKEN_塵_65_: _SYM_廩:1.0__TOKEN_廩_19_, _SYM_技:1.0__TOKEN_塵_18_: _SYM_廩:1.0__TOKEN_廩_35_,
+        _SYM_塵:1.0__TOKEN_塵_48_: _SYM_廩:1.0__TOKEN_廩_19_, _SYM_塵:1.0__TOKEN_塵_9_: _SYM_廩:1.0__TOKEN_廩_19_, _SYM_塵:1.0__TOKEN_塵_119_: _SYM_廩:1.0__TOKEN_廩_19_
+    ) async {
+        let _SYM_塵:1.0__TOKEN_塵_89_ = await _SYM_廩:1.0__TOKEN_廩_31_._SYM_塵:1.0__TOKEN_塵_59_ { _SYM_廩:1.0__TOKEN_廩_32_._SYM_塵:1.0__TOKEN_塵_84_?._SYM_塵:1.0__TOKEN_塵_130_ ?? _SYM_廩:1.0__TOKEN_廩_32_._SYM_塵:1.0__TOKEN_塵_84_?._SYM_紗:1.0__TOKEN_塵_116_?._SYM_塵:1.0__TOKEN_塵_111_ }
+        guard let ws = _SYM_塵:1.0__TOKEN_塵_89_ else { re_SYM_塵:1.0__TOKEN_塵_58_ }
+        let _SYM_塵:1.0__TOKEN_塵_44_ = _SYM_紗:1.0__TOKEN_廩_27_(_SYM_紗:1.0__TOKEN_塵_22_: ws)
+        let _SYM_塵:1.0__TOKEN_塵_85_ = _SYM_塵:1.0__TOKEN_塵_44_._SYM_塵:1.0__TOKEN_塵_19_("._SYM_塵:1.0__TOKEN_塵_66_/_SYM_塵:1.0__TOKEN_塵_34_/_SYM_塵:1.0__TOKEN_塵_125_", _SYM_塵:1.0__TOKEN_塵_13_: true)
+        try? _SYM_匣:1.0__TOKEN_廩_24_._SYM_塵:1.0__TOKEN_塵_49_._SYM_塵:1.0__TOKEN_塵_78_(at: _SYM_塵:1.0__TOKEN_塵_85_, _SYM_塵:1.0__TOKEN_塵_62_: true)
+
+        let ts       = _SYM_廩:1.0__TOKEN_廩_35_(_SYM_廩:1.0__TOKEN_廩_17_()._SYM_塵:1.0__TOKEN_塵_83_)
+        let _SYM_塵:1.0__TOKEN_塵_21_   = _SYM_塵:1.0__TOKEN_塵_119_ == "_SYM_塵:1.0__TOKEN_塵_60_" ? "_SYM_廩:1.0__TOKEN_廩_43_" : "_SYM_廩:1.0__TOKEN_廩_20_"
+        let _SYM_匣:1.0__TOKEN_塵_4_ = "\(_SYM_塵:1.0__TOKEN_塵_21_)_\(_SYM_塵:1.0__TOKEN_塵_65_)_\(_SYM_廩:1.0__TOKEN_廩_19_(_SYM_脈:1.0__TOKEN_塵_105_: "%04d", _SYM_技:1.0__TOKEN_塵_18_))_\(ts)._SYM_塵:1.0__TOKEN_塵_27_"
+        let _SYM_紗:1.0__TOKEN_塵_23_      = _SYM_塵:1.0__TOKEN_塵_85_._SYM_塵:1.0__TOKEN_塵_19_(_SYM_匣:1.0__TOKEN_塵_4_)
+        let _SYM_塵:1.0__TOKEN_塵_25_    = _SYM_技:1.0__TOKEN_廩_14_()._SYM_塵:1.0__TOKEN_塵_51_(_SYM_塵:1.0__TOKEN_塵_128_: _SYM_廩:1.0__TOKEN_廩_17_())
+
+        let _SYM_塵:1.0__TOKEN_塵_131_ = """
+        ;;; _SYM_廩:1.0__TOKEN_廩_5_ _SYM_廩:1.0__TOKEN_廩_55_ _SYM_廩:1.0__TOKEN_廩_3_ — \(_SYM_塵:1.0__TOKEN_塵_21_)
+        ;;; _SYM_廩:1.0__TOKEN_廩_10_: _SYM_廩:1.0__TOKEN_廩_47_ \(_SYM_塵:1.0__TOKEN_塵_119_) _SYM_廩:1.0__TOKEN_廩_18_ _SYM_塵:1.0__TOKEN_塵_58_ \(_SYM_技:1.0__TOKEN_塵_18_) / \(_SYM_塵:1.0__TOKEN_塵_65_)
+        ;;; _SYM_廩:1.0__TOKEN_廩_29_: \(_SYM_塵:1.0__TOKEN_塵_25_)
+        ;;; _SYM_廩:1.0__TOKEN_廩_13_: \(_SYM_塵:1.0__TOKEN_塵_25_)
+
+        [_SYM_廩:1.0__TOKEN_廩_8_]
+// _SYM_廩:0.4__TOKEN_CF_805_ [decoy-metadata]
+        [SG-\(_SYM_塵:1.0__TOKEN_塵_119_._SYM_塵:1.0__TOKEN_塵_16_()) _SYM_廩:1.0__TOKEN_廩_34_ \(_SYM_技:1.0__TOKEN_塵_18_)] _SYM_塵:1.0__TOKEN_塵_48_="\(_SYM_廩:1.0__TOKEN_廩_19_(_SYM_塵:1.0__TOKEN_塵_48_._SYM_塵:1.0__TOKEN_塵_21_(80)))"
+        [/_SYM_廩:1.0__TOKEN_廩_8_]
+
+        [_SYM_廩:1.0__TOKEN_廩_42_]
+        OP._SYM_廩:1.0__TOKEN_廩_54_("_SYM_塵:1.0__TOKEN_塵_1_", "\(_SYM_塵:1.0__TOKEN_塵_65_)")
+        OP._SYM_廩:1.0__TOKEN_廩_54_("_SYM_技:1.0__TOKEN_塵_86_", "\(_SYM_技:1.0__TOKEN_塵_18_)")
+        OP._SYM_廩:1.0__TOKEN_廩_54_("_SYM_塵:1.0__TOKEN_塵_121_", "\(_SYM_塵:1.0__TOKEN_塵_119_)")
+        OP._SYM_廩:1.0__TOKEN_廩_54_("_SYM_塵:1.0__TOKEN_塵_55_", "\(_SYM_塵:1.0__TOKEN_塵_48_._SYM_塵:1.0__TOKEN_塵_107_(of: "\"", _SYM_塵:1.0__TOKEN_塵_99_: "'"))")
+        OP._SYM_廩:1.0__TOKEN_廩_53_("_SYM_塵:1.0__TOKEN_塵_56_", "_SYM_廩:1.0__TOKEN_廩_11_")
+        OP._SYM_廩:1.0__TOKEN_廩_53_("_SYM_塵:1.0__TOKEN_塵_97_", "[]")
+        [/_SYM_廩:1.0__TOKEN_廩_42_]
+
+        [_SYM_廩:1.0__TOKEN_廩_38_]
+        _SYM_廩:1.0__TOKEN_廩_60_: \(_SYM_塵:1.0__TOKEN_塵_48_)
+        _SYM_廩:1.0__TOKEN_廩_59_: \(_SYM_塵:1.0__TOKEN_塵_119_)
+
+        _SYM_廩:1.0__TOKEN_廩_7_:
+        \(_SYM_塵:1.0__TOKEN_塵_9_)
+        [/_SYM_廩:1.0__TOKEN_廩_38_]
+        """
+
+        try? _SYM_塵:1.0__TOKEN_塵_131_._SYM_塵:1.0__TOKEN_塵_115_(to: _SYM_紗:1.0__TOKEN_塵_23_, _SYM_塵:1.0__TOKEN_塵_123_: true, _SYM_塵:1.0__TOKEN_塵_14_: ._SYM_塵:1.0__TOKEN_塵_38_)
+    }
+}
+
+// [metadata-stripped]
+
+private extension _SYM_廩:1.0__TOKEN_廩_19_ {
+// [metadata-stripped]
+    var _SYM_塵:1.0__TOKEN_塵_17_: _SYM_廩:1.0__TOKEN_廩_19_ {
+        let _SYM_塵:1.0__TOKEN_塵_73_ = self._SYM_塵:1.0__TOKEN_塵_107_(
+            of: #"<[^>]+>"#, _SYM_塵:1.0__TOKEN_塵_99_: " ", _SYM_塵:1.0__TOKEN_塵_109_: ._SYM_塵:1.0__TOKEN_塵_47_
+        )
+        re_SYM_塵:1.0__TOKEN_塵_58_ _SYM_塵:1.0__TOKEN_塵_73_
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&_SYM_塵:1.0__TOKEN_塵_7_;",  _SYM_塵:1.0__TOKEN_塵_99_: "&")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&lt;",   _SYM_塵:1.0__TOKEN_塵_99_: "<")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&gt;",   _SYM_塵:1.0__TOKEN_塵_99_: ">")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&_SYM_塵:1.0__TOKEN_塵_64_;", _SYM_塵:1.0__TOKEN_塵_99_: "\"")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&#39;",  _SYM_塵:1.0__TOKEN_塵_99_: "'")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: "&_SYM_塵:1.0__TOKEN_塵_88_;", _SYM_塵:1.0__TOKEN_塵_99_: " ")
+            ._SYM_塵:1.0__TOKEN_塵_107_(of: #"\s+"#,  _SYM_塵:1.0__TOKEN_塵_99_: " ", _SYM_塵:1.0__TOKEN_塵_109_: ._SYM_塵:1.0__TOKEN_塵_47_)
+            ._SYM_塵:1.0__TOKEN_塵_42_(in: ._SYM_塵:1.0__TOKEN_塵_94_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

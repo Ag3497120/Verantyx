@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:63823366 ver:1778159748
+// ⚠️ One-time schema — expires after response
+
+__node_雰:1.0___OPAQUE_雰_25_ __node_雰:1.0___OPAQUE_雰_4_ import __node_雰:1.0___OPAQUE_雰_43_
+
+import re
+__node_雰:1.0___OPAQUE_雰_25_ __node_雰:1.0___OPAQUE_雰_6_ import __node_殻:1.0___OPAQUE_殻_5_, __node_殻:1.0___OPAQUE_殻_2_, __node_殻:1.0___OPAQUE_殻_3_, __node_殻:1.0___OPAQUE_殻_4_
+
+
+__node_雰:1.0___OPAQUE_雰_7_ __node_雰:1.0___OPAQUE_雰_5_(s: __node_雰:1.0___OPAQUE_雰_35_) -> __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_]:
+    s = (s or "").__node_格:1.0___OPAQUE_雰_15_()
+    s = re.__node_雰:1.0___OPAQUE_雰_44_(r"[^a-z0-9_\-\+\:\__node_雰:1.0___OPAQUE_雰_14_-\__node_雰:1.0___OPAQUE_雰_2_\__node_雰:1.0___OPAQUE_雰_42_-\__node_雰:1.0___OPAQUE_雰_22_]+", " ", s)
+    s = re.__node_雰:1.0___OPAQUE_雰_44_(r"\s+", " ", s).__node_雰:1.0___OPAQUE_雰_29_()
+    __node_雰:1.0___OPAQUE_雰_20_ = [t for t in s.__node_雰:1.0___OPAQUE_雰_9_(" ") if __node_雰:1.0___OPAQUE_雰_23_(t) >= 2]
+    return __node_雰:1.0___OPAQUE_雰_20_[:128]
+
+
+__node_雰:1.0___OPAQUE_雰_7_ __node_雰:1.0___OPAQUE_雰_31_(
+    __node_雰:1.0___OPAQUE_雰_36_: __node_雰:1.0___OPAQUE_雰_35_,
+    __node_游:1.0___OPAQUE_雰_21_: __node_雰:1.0___OPAQUE_雰_35_ | __node_殻:1.0___OPAQUE_殻_1_,
+    __node_雰:1.0___OPAQUE_雰_8_: __node_殻:1.0___OPAQUE_殻_5_[__node_雰:1.0___OPAQUE_雰_35_, __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_]],
+    __node_雰:1.0___OPAQUE_雰_26_: __node_殻:1.0___OPAQUE_殻_5_[__node_雰:1.0___OPAQUE_雰_35_, __node_殻:1.0___OPAQUE_殻_4_],
+// __node_匴:0.5___OPAQUE_CM_584_ [decoy-metadata]
+    __node_雰:1.0___OPAQUE_雰_18_: __node_雰:1.0___OPAQUE_雰_11_ = 200,
+) -> __node_殻:1.0___OPAQUE_殻_3_[__node_雰:1.0___OPAQUE_雰_35_, __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_], __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_]]:
+    __node_雰:1.0___OPAQUE_雰_10_ = __node_雰:1.0___OPAQUE_雰_5_(__node_雰:1.0___OPAQUE_雰_36_) + __node_雰:1.0___OPAQUE_雰_5_(__node_游:1.0___OPAQUE_雰_21_ or "")
+    __node_雰:1.0___OPAQUE_雰_38_ = __node_格:1.0___OPAQUE_嵐_2_()
+    __node_雰:1.0___OPAQUE_雰_40_: __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_] = []
+    for t in __node_雰:1.0___OPAQUE_雰_10_:
+        for __node_雰:1.0___OPAQUE_雰_27_ in __node_雰:1.0___OPAQUE_雰_8_.__node_格:1.0___OPAQUE_嵐_1_(t, []):
+            if __node_雰:1.0___OPAQUE_雰_27_ __node_雰:1.0___OPAQUE_雰_39_ in __node_雰:1.0___OPAQUE_雰_38_:
+// __node_格:0.7___OPAQUE_CH_544_ [decoy-metadata]
+                __node_雰:1.0___OPAQUE_雰_38_.__node_雰:1.0___OPAQUE_雰_3_(__node_雰:1.0___OPAQUE_雰_27_)
+// __node_殻:0.3___OPAQUE_GM_809_ [decoy-metadata]
+                __node_雰:1.0___OPAQUE_雰_40_.__node_雰:1.0___OPAQUE_雰_41_(__node_雰:1.0___OPAQUE_雰_27_)
+                if __node_雰:1.0___OPAQUE_雰_23_(__node_雰:1.0___OPAQUE_雰_40_) >= __node_雰:1.0___OPAQUE_雰_18_:
+// __node_格:0.5___OPAQUE_GL_754_ [decoy-metadata]
+                    break
+        if __node_雰:1.0___OPAQUE_雰_23_(__node_雰:1.0___OPAQUE_雰_40_) >= __node_雰:1.0___OPAQUE_雰_18_:
+            break
+
+    __node_雰:1.0___OPAQUE_雰_1_: __node_殻:1.0___OPAQUE_殻_5_[__node_雰:1.0___OPAQUE_雰_35_, __node_雰:1.0___OPAQUE_雰_11_] = {}
+    for __node_雰:1.0___OPAQUE_雰_27_ in __node_雰:1.0___OPAQUE_雰_40_:
+        d = (__node_雰:1.0___OPAQUE_雰_26_.__node_格:1.0___OPAQUE_嵐_1_(__node_雰:1.0___OPAQUE_雰_27_) or {}).__node_格:1.0___OPAQUE_嵐_1_("__node_雰:1.0___OPAQUE_雰_16_", "__node_雰:1.0___OPAQUE_雰_33_")
+        __node_雰:1.0___OPAQUE_雰_1_[d] = __node_雰:1.0___OPAQUE_雰_1_.__node_格:1.0___OPAQUE_嵐_1_(d, 0) + 1
+    __node_雰:1.0___OPAQUE_雰_32_ = __node_雰:1.0___OPAQUE_雰_12_(__node_雰:1.0___OPAQUE_雰_1_, __node_潜:1.0___OPAQUE_雰_30_=__node_雰:1.0___OPAQUE_雰_1_.__node_格:1.0___OPAQUE_嵐_1_) if __node_雰:1.0___OPAQUE_雰_1_ else "__node_雰:1.0___OPAQUE_雰_33_"
+// __node_嵐:0.4___OPAQUE_YV_950_ [decoy-metadata]
+
+    __node_雰:1.0___OPAQUE_雰_34_: __node_殻:1.0___OPAQUE_殻_2_[__node_雰:1.0___OPAQUE_雰_35_] = []
+    ql = (__node_雰:1.0___OPAQUE_雰_36_ or "").__node_格:1.0___OPAQUE_雰_15_()
+    if "推移" in __node_雰:1.0___OPAQUE_雰_36_ or "__node_雰:1.0___OPAQUE_雰_19_" in ql:
+        __node_雰:1.0___OPAQUE_雰_34_.__node_雰:1.0___OPAQUE_雰_41_("__node_雰:1.0___OPAQUE_雰_24_:__node_雰:1.0___OPAQUE_雰_19_")
+    if "反射" in __node_雰:1.0___OPAQUE_雰_36_ or "__node_雰:1.0___OPAQUE_雰_28_" in ql:
+        __node_雰:1.0___OPAQUE_雰_34_.__node_雰:1.0___OPAQUE_雰_41_("__node_雰:1.0___OPAQUE_雰_24_:__node_雰:1.0___OPAQUE_雰_28_")
+    if "対称" in __node_雰:1.0___OPAQUE_雰_36_ or "__node_雰:1.0___OPAQUE_雰_37_" in ql:
+        __node_雰:1.0___OPAQUE_雰_34_.__node_雰:1.0___OPAQUE_雰_41_("__node_雰:1.0___OPAQUE_雰_24_:__node_雰:1.0___OPAQUE_雰_37_")
+    if "ユークリッド" in __node_雰:1.0___OPAQUE_雰_36_ or "__node_雰:1.0___OPAQUE_雰_17_" in ql:
+        __node_雰:1.0___OPAQUE_雰_34_.__node_雰:1.0___OPAQUE_雰_41_("__node_雰:1.0___OPAQUE_雰_24_:__node_雰:1.0___OPAQUE_雰_17_")
+
+    return __node_雰:1.0___OPAQUE_雰_32_, __node_雰:1.0___OPAQUE_雰_13_(__node_格:1.0___OPAQUE_嵐_2_(__node_雰:1.0___OPAQUE_雰_34_)), __node_雰:1.0___OPAQUE_雰_40_[:30]
+// __node_匴:0.2___OPAQUE_AX_606_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:512C3BE1 ver:1778149909
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_深:0.1__TOKEN_WF_340_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_霪:1.0__TOKEN_霪_49_ _ID_霪:1.0__TOKEN_霪_62_::_ID_霪:1.0__TOKEN_霪_47_::_ID_庖:1.0__TOKEN_庖_31_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_霪:1.0__TOKEN_霪_51_ enum _ID_庖:1.0__TOKEN_庖_45_ { _ID_庖:1.0__TOKEN_庖_4_, _ID_庖:1.0__TOKEN_庖_30_, _ID_庖:1.0__TOKEN_庖_48_, _ID_庖:1.0__TOKEN_庖_38_ }
+
+// [metadata-stripped]
+_ID_霪:1.0__TOKEN_霪_51_ _ID_霪:1.0__TOKEN_霪_36_uct _ID_庖:1.0__TOKEN_庖_46_ {
+// _ID_焦:0.2__TOKEN_KK_652_ [decoy-metadata]
+// _ID_深:0.8__TOKEN_GD_600_ [decoy-metadata]
+    _ID_霪:1.0__TOKEN_霪_51_ _ID_箱:1.0__TOKEN_霪_77_: _ID_庖:1.0__TOKEN_庖_31_<_ID_庖:1.0__TOKEN_庖_50_, _ID_庖:1.0__TOKEN_庖_45_>, // IP -> _ID_庖:1.0__TOKEN_庖_27_
+    _ID_霪:1.0__TOKEN_霪_51_ _ID_組:1.0__TOKEN_霪_70_: _ID_庖:1.0__TOKEN_庖_55_<_ID_庖:1.0__TOKEN_庖_50_>, // _ID_庖:1.0__TOKEN_庖_9_ of _ID_庖:1.0__TOKEN_庖_7_ _ID_霪:1.0__TOKEN_霪_9_
+}
+
+_ID_霪:1.0__TOKEN_霪_54_ _ID_庖:1.0__TOKEN_庖_46_ {
+    _ID_霪:1.0__TOKEN_霪_51_ fn _ID_霪:1.0__TOKEN_霪_17_() -> _ID_庖:1.0__TOKEN_庖_41_ {
+        _ID_庖:1.0__TOKEN_庖_41_ {
+            _ID_箱:1.0__TOKEN_霪_77_: _ID_庖:1.0__TOKEN_庖_31_::_ID_霪:1.0__TOKEN_霪_17_(),
+            _ID_組:1.0__TOKEN_霪_70_: _ID_庖:1.0__TOKEN_庖_55_::_ID_霪:1.0__TOKEN_霪_17_(),
+        }
+    }
+
+// [metadata-stripped]
+    _ID_霪:1.0__TOKEN_霪_51_ fn _ID_霪:1.0__TOKEN_霪_30_(&_ID_霪:1.0__TOKEN_霪_1_ self, ip: &_ID_霪:1.0__TOKEN_霪_36_) -> _ID_庖:1.0__TOKEN_庖_45_ {
+        if let _ID_庖:1.0__TOKEN_庖_32_(_ID_霪:1.0__TOKEN_霪_45_) = self._ID_箱:1.0__TOKEN_霪_77_._ID_項:1.0__TOKEN_焦_2_(ip) {
+            return *_ID_霪:1.0__TOKEN_霪_45_;
+        }
+
+// [metadata-stripped]
+// _ID_庖:0.1__TOKEN_MM_337_ [decoy-metadata]
+        let _ID_霪:1.0__TOKEN_霪_45_ = if ip == "127.0.0.1" || ip == "::1" {
+            _ID_庖:1.0__TOKEN_庖_45_::_ID_庖:1.0__TOKEN_庖_4_
+        } else if ip._ID_霪:1.0__TOKEN_霪_34_("192.168.") || ip._ID_霪:1.0__TOKEN_霪_34_("10.") {
+            _ID_庖:1.0__TOKEN_庖_45_::_ID_庖:1.0__TOKEN_庖_30_
+        } else {
+            _ID_庖:1.0__TOKEN_庖_45_::_ID_庖:1.0__TOKEN_庖_48_
+// _ID_項:0.9__TOKEN_AB_652_ [decoy-metadata]
+        };
+
+        self._ID_箱:1.0__TOKEN_霪_77_._ID_霪:1.0__TOKEN_霪_24_(ip._ID_霪:1.0__TOKEN_霪_43_(), _ID_霪:1.0__TOKEN_霪_45_);
+        _ID_霪:1.0__TOKEN_霪_45_
+    }
+
+// [metadata-stripped]
+    _ID_霪:1.0__TOKEN_霪_51_ fn _ID_霪:1.0__TOKEN_霪_67_(&_ID_霪:1.0__TOKEN_霪_1_ self, _ID_霪:1.0__TOKEN_霪_19_: _ID_庖:1.0__TOKEN_庖_45_, _ID_霪:1.0__TOKEN_霪_83_: _ID_庖:1.0__TOKEN_庖_45_, _ID_霪:1.0__TOKEN_霪_64_: _ID_霪:1.0__TOKEN_霪_79_) -> _ID_庖:1.0__TOKEN_庖_61_<_ID_霪:1.0__TOKEN_霪_79_, _ID_庖:1.0__TOKEN_庖_50_> {
+// [metadata-stripped]
+        if _ID_霪:1.0__TOKEN_霪_19_ > _ID_霪:1.0__TOKEN_霪_83_ {
+            if !_ID_霪:1.0__TOKEN_霪_64_ {
+                self._ID_霪:1.0__TOKEN_霪_72_(_ID_漂:1.0__TOKEN_霪_4_!("_ID_庖:1.0__TOKEN_庖_16_ _ID_霪:1.0__TOKEN_霪_51_lic _ID_霪:1.0__TOKEN_霪_55_ _ID_霪:1.0__TOKEN_霪_86_ _ID_庖:1.0__TOKEN_庖_7_ to {:?}", _ID_霪:1.0__TOKEN_霪_83_));
+                return _ID_庖:1.0__TOKEN_庖_33_("_ID_庖:1.0__TOKEN_庖_7_ _ID_霪:1.0__TOKEN_霪_11_ a _ID_庖:1.0__TOKEN_庖_5_ _ID_庖:1.0__TOKEN_庖_43_"._ID_霪:1.0__TOKEN_霪_71_());
+            }
+// [metadata-stripped]
+            return Ok(true);
+        }
+// [metadata-stripped]
+        Ok(false)
+    }
+
+// [metadata-stripped]
+    _ID_霪:1.0__TOKEN_霪_51_ fn _ID_霪:1.0__TOKEN_霪_65_(&_ID_霪:1.0__TOKEN_霪_1_ self, _ID_霪:1.0__TOKEN_霪_56_: _ID_庖:1.0__TOKEN_庖_42_<&_ID_霪:1.0__TOKEN_霪_36_>) -> _ID_霪:1.0__TOKEN_霪_79_ {
+        if let _ID_庖:1.0__TOKEN_庖_32_(_ID_霪:1.0__TOKEN_霪_82_) = _ID_霪:1.0__TOKEN_霪_56_ {
+            _ID_霪:1.0__TOKEN_霪_82_._ID_霪:1.0__TOKEN_霪_3_()._ID_霪:1.0__TOKEN_霪_41_("true")
+        } else {
+            self._ID_霪:1.0__TOKEN_霪_72_("_ID_庖:1.0__TOKEN_庖_7_ _ID_庖:1.0__TOKEN_庖_56_ _ID_霪:1.0__TOKEN_霪_74_: _ID_霪:1.0__TOKEN_霪_8_ _ID_庖:1.0__TOKEN_庖_11_-_ID_庖:1.0__TOKEN_庖_6_-_ID_庖:1.0__TOKEN_庖_13_-_ID_庖:1.0__TOKEN_庖_30_-_ID_庖:1.0__TOKEN_庖_58_ _ID_項:1.0__TOKEN_霪_27_"._ID_霪:1.0__TOKEN_霪_71_());
+            false
+        }
+    }
+
+    fn _ID_霪:1.0__TOKEN_霪_72_(&_ID_霪:1.0__TOKEN_霪_1_ self, _ID_霪:1.0__TOKEN_霪_85_: _ID_庖:1.0__TOKEN_庖_50_) {
+        if self._ID_組:1.0__TOKEN_霪_70_._ID_霪:1.0__TOKEN_霪_21_() >= 100 { self._ID_組:1.0__TOKEN_霪_70_._ID_霪:1.0__TOKEN_霪_61_(0); }
+        self._ID_組:1.0__TOKEN_霪_70_._ID_霪:1.0__TOKEN_霪_25_(_ID_霪:1.0__TOKEN_霪_85_);
+    }
+
+// [metadata-stripped]
+    _ID_霪:1.0__TOKEN_霪_51_ fn _ID_霪:1.0__TOKEN_霪_20_(&self) -> _ID_庖:1.0__TOKEN_庖_50_ {
+        let _ID_霪:1.0__TOKEN_霪_1_ _ID_霪:1.0__TOKEN_霪_63_ = _ID_霪:1.0__TOKEN_霪_87_![_ID_漂:1.0__TOKEN_霪_4_!("🔒 _ID_庖:1.0__TOKEN_庖_30_ _ID_庖:1.0__TOKEN_庖_58_ _ID_庖:1.0__TOKEN_庖_11_ (_ID_庖:1.0__TOKEN_庖_28_: {})", self._ID_組:1.0__TOKEN_霪_70_._ID_霪:1.0__TOKEN_霪_21_())];
+        for (_ID_霪:1.0__TOKEN_霪_39_, _ID_霪:1.0__TOKEN_霪_10_) in self._ID_組:1.0__TOKEN_霪_70_._ID_項:1.0__TOKEN_霪_12_()._ID_霪:1.0__TOKEN_霪_5_()._ID_霪:1.0__TOKEN_霪_60_(5)._ID_霪:1.0__TOKEN_霪_58_() {
+            _ID_霪:1.0__TOKEN_霪_63_._ID_霪:1.0__TOKEN_霪_25_(_ID_漂:1.0__TOKEN_霪_4_!("  [{}] {}", _ID_霪:1.0__TOKEN_霪_39_, _ID_霪:1.0__TOKEN_霪_10_));
+        }
+        _ID_霪:1.0__TOKEN_霪_63_._ID_霪:1.0__TOKEN_霪_26_("\n")
+// _ID_箱:0.1__TOKEN_GA_793_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

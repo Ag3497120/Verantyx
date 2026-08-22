@@ -1,0 +1,122 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D3D87381 ver:1778159682
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import re
+__jcross_霤:1.0___SYM_霤_42_ __jcross_霤:1.0___SYM_霤_66_ import __jcross_庵:1.0___SYM_庵_10_, __jcross_庵:1.0___SYM_庵_4_
+import __jcross_霤:1.0___SYM_霤_25_
+__jcross_霤:1.0___SYM_霤_42_ __jcross_霤:1.0___SYM_霤_25_.__jcross_霤:1.0___SYM_霤_56_.__jcross_道:1.0___SYM_霤_35_ import __jcross_霤:1.0___SYM_霤_24_, __jcross_游:1.0___SYM_霤_11_, __jcross_霤:1.0___SYM_霤_67_
+__jcross_霤:1.0___SYM_霤_42_ .__jcross_霤:1.0___SYM_霤_73_ import __jcross_道:1.0___SYM_庵_16_, __jcross_庵:1.0___SYM_庵_14_
+
+class __jcross_道:1.0___SYM_庵_5_(__jcross_道:1.0___SYM_庵_16_):
+// __jcross_游:0.8___SYM_EZ_761_ [decoy-metadata]
+    __jcross_霤:1.0___SYM_霤_21_ __jcross_霤:1.0___SYM_霤_36_(self):
+        self.__jcross_游:1.0___SYM_霤_39_ = (__jcross_游:1.0___SYM_霤_11_ + (__jcross_霤:1.0___SYM_霤_67_,))
+        self.__jcross_霤:1.0___SYM_霤_17_ = {
+// __jcross_冥:0.5___SYM_DY_424_ [decoy-metadata]
+            r"( 対称|交代|歪対称)行列.*(次元|成分|数)": 0.95,
+            r"実?n次.*対称行列": 0.95,
+            r"__jcross_霤:1.0___SYM_霤_37_.*__jcross_霤:1.0___SYM_霤_26_": 0.95,
+            r"__jcross_霤:1.0___SYM_霤_29_.*__jcross_霤:1.0___SYM_霤_78_.*(__jcross_霤:1.0___SYM_霤_58_|__jcross_霤:1.0___SYM_霤_26_)": 0.95,
+            r"__jcross_霤:1.0___SYM_霤_85_.*(__jcross_霤:1.0___SYM_霤_1_|0)": 0.8,
+            r"__jcross_霤:1.0___SYM_霤_86_": 0.8,
+            r"__jcross_霤:1.0___SYM_霤_84_": 0.8,
+            r"__jcross_霤:1.0___SYM_霤_44_": 0.8
+        }
+        self.__jcross_游:1.0___SYM_霤_72_ = {
+            r"( 対称|__jcross_霤:1.0___SYM_霤_29_).*行列.*(次元|成分|数|__jcross_霤:1.0___SYM_霤_58_|__jcross_霤:1.0___SYM_霤_26_)": "n*(n+1)/2",
+            r"(交代|__jcross_霤:1.0___SYM_霤_27_|歪対称).*行列.*(次元|成分|数|__jcross_霤:1.0___SYM_霤_58_|__jcross_霤:1.0___SYM_霤_26_)": "n*(n-1)/2",
+            r"__jcross_霤:1.0___SYM_霤_85_.*(__jcross_霤:1.0___SYM_霤_1_|0)": "n*n - 1",
+        }
+
+// __jcross_冥:0.8___SYM_GG_304_ [decoy-metadata]
+    __jcross_霤:1.0___SYM_霤_21_ __jcross_霤:1.0___SYM_霤_47_(self, __jcross_霤:1.0___SYM_霤_53_: __jcross_霤:1.0___SYM_霤_81_, __jcross_霤:1.0___SYM_霤_16_: __jcross_庵:1.0___SYM_庵_10_[__jcross_霤:1.0___SYM_霤_81_, __jcross_庵:1.0___SYM_庵_4_]) -> __jcross_霤:1.0___SYM_霤_71_:
+        if __jcross_霤:1.0___SYM_霤_16_.__jcross_道:1.0___SYM_核_1_("__jcross_霤:1.0___SYM_霤_20_") in ["__jcross_霤:1.0___SYM_霤_65_", "__jcross_霤:1.0___SYM_霤_69_"]:
+            return 1.0
+            
+        __jcross_霤:1.0___SYM_霤_89_ = 0.0
+        for __jcross_霤:1.0___SYM_霤_82_, __jcross_霤:1.0___SYM_霤_34_ in self.__jcross_霤:1.0___SYM_霤_17_.__jcross_霤:1.0___SYM_霤_9_():
+            if re.__jcross_霤:1.0___SYM_霤_43_(__jcross_霤:1.0___SYM_霤_82_, __jcross_霤:1.0___SYM_霤_53_, re.__jcross_庵:1.0___SYM_庵_6_):
+                __jcross_霤:1.0___SYM_霤_89_ = __jcross_霤:1.0___SYM_霤_51_(__jcross_霤:1.0___SYM_霤_89_, __jcross_霤:1.0___SYM_霤_34_)
+        return __jcross_霤:1.0___SYM_霤_89_
+
+    __jcross_霤:1.0___SYM_霤_21_ __jcross_霤:1.0___SYM_霤_52_(self, __jcross_霤:1.0___SYM_霤_53_: __jcross_霤:1.0___SYM_霤_81_, __jcross_霤:1.0___SYM_霤_16_: __jcross_庵:1.0___SYM_庵_10_[__jcross_霤:1.0___SYM_霤_81_, __jcross_庵:1.0___SYM_庵_4_], __jcross_霤:1.0___SYM_霤_90_: __jcross_庵:1.0___SYM_庵_10_[__jcross_霤:1.0___SYM_霤_81_, __jcross_庵:1.0___SYM_庵_4_]) -> __jcross_庵:1.0___SYM_庵_14_:
+        __jcross_霤:1.0___SYM_霤_8_ = __jcross_庵:1.0___SYM_庵_12_
+        for __jcross_霤:1.0___SYM_霤_82_, __jcross_霤:1.0___SYM_霤_22_ in self.__jcross_游:1.0___SYM_霤_72_.__jcross_霤:1.0___SYM_霤_9_():
+            if re.__jcross_霤:1.0___SYM_霤_43_(__jcross_霤:1.0___SYM_霤_82_, __jcross_霤:1.0___SYM_霤_53_, re.__jcross_庵:1.0___SYM_庵_6_):
+                __jcross_霤:1.0___SYM_霤_8_ = __jcross_霤:1.0___SYM_霤_22_
+                break
+
+// [metadata-stripped]
+        if __jcross_霤:1.0___SYM_霤_76_ __jcross_霤:1.0___SYM_霤_8_:
+            __jcross_霤:1.0___SYM_霤_74_ = __jcross_霤:1.0___SYM_霤_16_.__jcross_道:1.0___SYM_核_1_("__jcross_霤:1.0___SYM_霤_74_", []) or []
+            for __jcross_霤:1.0___SYM_霤_30_ in __jcross_霤:1.0___SYM_霤_74_:
+                c = re.__jcross_霤:1.0___SYM_霤_15_(r"\s+", "", __jcross_霤:1.0___SYM_霤_81_(__jcross_霤:1.0___SYM_霤_30_))
+                if re.__jcross_霤:1.0___SYM_霤_43_(r"__jcross_霤:1.0___SYM_霤_54_\(", c, re.__jcross_庵:1.0___SYM_庵_6_):
+                    __jcross_霤:1.0___SYM_霤_8_ = "n*(n+1)/2"
+                    break
+                if re.__jcross_霤:1.0___SYM_霤_43_(r"__jcross_霤:1.0___SYM_霤_3_\(", c, re.__jcross_庵:1.0___SYM_庵_6_):
+                    __jcross_霤:1.0___SYM_霤_8_ = "n*(n-1)/2"
+                    break
+// __jcross_道:0.1___SYM_MM_193_ [decoy-metadata]
+                if re.__jcross_霤:1.0___SYM_霤_43_(r"__jcross_霤:1.0___SYM_霤_60_\(", c, re.__jcross_庵:1.0___SYM_庵_6_):
+                    __jcross_霤:1.0___SYM_霤_8_ = "n*n"
+                    break
+        
+        if __jcross_霤:1.0___SYM_霤_76_ __jcross_霤:1.0___SYM_霤_8_:
+            return __jcross_庵:1.0___SYM_庵_14_("__jcross_霤:1.0___SYM_霤_31_", "__jcross_庵:1.0___SYM_庵_1_ __jcross_霤:1.0___SYM_霤_76_ __jcross_霤:1.0___SYM_霤_45_", 0.1)
+
+        try:
+            __jcross_霤:1.0___SYM_霤_32_ = __jcross_霤:1.0___SYM_霤_24_(__jcross_霤:1.0___SYM_霤_8_, __jcross_游:1.0___SYM_霤_39_=self.__jcross_游:1.0___SYM_霤_39_)
+        __jcross_霤:1.0___SYM_霤_41_ __jcross_庵:1.0___SYM_庵_7_ as e:
+            return __jcross_庵:1.0___SYM_庵_14_("__jcross_霤:1.0___SYM_霤_31_", f"__jcross_庵:1.0___SYM_庵_1_ __jcross_霤:1.0___SYM_霤_63_ __jcross_霤:1.0___SYM_霤_13_: {e}", 0.0)
+
+// __jcross_庵:0.5___SYM_YA_630_ [decoy-metadata]
+        __jcross_霤:1.0___SYM_霤_74_ = __jcross_霤:1.0___SYM_霤_16_.__jcross_道:1.0___SYM_核_1_("__jcross_霤:1.0___SYM_霤_74_", [])
+        if __jcross_霤:1.0___SYM_霤_76_ __jcross_霤:1.0___SYM_霤_74_:
+             return __jcross_庵:1.0___SYM_庵_14_("__jcross_霤:1.0___SYM_霤_18_", f"__jcross_庵:1.0___SYM_庵_8_ __jcross_游:1.0___SYM_霤_57_: {__jcross_霤:1.0___SYM_霤_8_}", 0.8)
+
+// [metadata-stripped]
+        __jcross_霤:1.0___SYM_霤_23_ = []
+        __jcross_霤:1.0___SYM_霤_40_ = []
+// __jcross_核:0.4___SYM_MD_635_ [decoy-metadata]
+        for __jcross_霤:1.0___SYM_霤_30_ in __jcross_霤:1.0___SYM_霤_74_:
+// [metadata-stripped]
+            __jcross_霤:1.0___SYM_霤_7_ = re.__jcross_霤:1.0___SYM_霤_15_(r"^[A-D]\s*[\.:]\s*", "", __jcross_霤:1.0___SYM_霤_30_)
+            __jcross_霤:1.0___SYM_霤_7_ = __jcross_霤:1.0___SYM_霤_7_.__jcross_霤:1.0___SYM_霤_88_("\n", "").__jcross_霤:1.0___SYM_霤_88_(" ", "")
+            
+            __jcross_霤:1.0___SYM_霤_50_ = __jcross_庵:1.0___SYM_庵_13_
+            try:
+                __jcross_霤:1.0___SYM_霤_14_ = __jcross_霤:1.0___SYM_霤_24_(__jcross_霤:1.0___SYM_霤_7_, __jcross_游:1.0___SYM_霤_39_=self.__jcross_游:1.0___SYM_霤_39_)
+                if __jcross_霤:1.0___SYM_霤_25_.__jcross_游:1.0___SYM_霤_33_(__jcross_霤:1.0___SYM_霤_32_ - __jcross_霤:1.0___SYM_霤_14_) == 0:
+                    __jcross_霤:1.0___SYM_霤_50_ = __jcross_庵:1.0___SYM_庵_2_
+            __jcross_霤:1.0___SYM_霤_41_:
+                __jcross_霤:1.0___SYM_霤_48_
+            
+            if __jcross_霤:1.0___SYM_霤_50_:
+                __jcross_霤:1.0___SYM_霤_23_.__jcross_霤:1.0___SYM_霤_68_(__jcross_霤:1.0___SYM_霤_30_)
+                __jcross_霤:1.0___SYM_霤_40_.__jcross_霤:1.0___SYM_霤_68_({"__jcross_游:1.0___SYM_霤_57_": __jcross_霤:1.0___SYM_霤_30_, "__jcross_霤:1.0___SYM_霤_70_": "__jcross_霤:1.0___SYM_霤_2_"})
+            else:
+                __jcross_霤:1.0___SYM_霤_40_.__jcross_霤:1.0___SYM_霤_68_({"__jcross_游:1.0___SYM_霤_57_": __jcross_霤:1.0___SYM_霤_30_, "__jcross_霤:1.0___SYM_霤_70_": "__jcross_霤:1.0___SYM_霤_10_"})
+
+        if __jcross_霤:1.0___SYM_霤_23_:
+            return __jcross_庵:1.0___SYM_庵_14_(
+                __jcross_霤:1.0___SYM_霤_70_="__jcross_霤:1.0___SYM_霤_2_",
+                __jcross_道:1.0___SYM_霤_80_=f"__jcross_庵:1.0___SYM_庵_17_ __jcross_庵:1.0___SYM_庵_9_: {', '.__jcross_霤:1.0___SYM_霤_62_(__jcross_霤:1.0___SYM_霤_23_)}",
+                __jcross_霤:1.0___SYM_霤_61_=1.0,
+                __jcross_霤:1.0___SYM_霤_4_={
+                    "__jcross_游:1.0___SYM_霤_57_": __jcross_霤:1.0___SYM_霤_8_, 
+                    "__jcross_霤:1.0___SYM_霤_46_": "__jcross_霤:1.0___SYM_霤_38_",
+                    "__jcross_霤:1.0___SYM_霤_40_": __jcross_霤:1.0___SYM_霤_40_ # __jcross_庵:1.0___SYM_庵_11_ __jcross_霤:1.0___SYM_霤_28_ __jcross_霤:1.0___SYM_霤_5_
+                }
+            )
+
+        return __jcross_庵:1.0___SYM_庵_14_(
+            __jcross_霤:1.0___SYM_霤_70_="__jcross_霤:1.0___SYM_霤_10_", 
+            __jcross_道:1.0___SYM_霤_80_="No __jcross_霤:1.0___SYM_霤_74_ __jcross_霤:1.0___SYM_霤_75_ __jcross_霤:1.0___SYM_霤_55_ __jcross_霤:1.0___SYM_霤_77_ __jcross_游:1.0___SYM_霤_57_.", 
+            __jcross_霤:1.0___SYM_霤_61_=0.9,
+            __jcross_霤:1.0___SYM_霤_4_={"__jcross_霤:1.0___SYM_霤_64_": __jcross_霤:1.0___SYM_霤_8_}
+        )
+
+// POLYMORPHIC_JCROSS_END

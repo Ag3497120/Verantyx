@@ -1,0 +1,344 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:578B583C ver:1778150656
+// ⚠️ One-time schema — expires after response
+
+import _ID_廱:1.0__ASTNODE_廱_27_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _ID_廱:1.0__ASTNODE_廱_28_ {
+    let x: _ID_廱:1.0__ASTNODE_廱_40_
+    let y: _ID_廱:1.0__ASTNODE_廱_40_
+}
+
+// [metadata-stripped]
+
+struct _ID_廱:1.0__ASTNODE_廱_10_: _ID_廱:1.0__ASTNODE_廱_18_, _ID_廱:1.0__ASTNODE_廱_1_ {
+    let x: _ID_廱:1.0__ASTNODE_廱_40_
+    let y: _ID_廱:1.0__ASTNODE_廱_40_
+    let z: _ID_廱:1.0__ASTNODE_廱_21_
+
+    func _ID_霩:1.0__ASTNODE_霩_38_(to _ID_業:1.0__ASTNODE_霩_27_: _ID_廱:1.0__ASTNODE_廱_10_) -> _ID_廱:1.0__ASTNODE_廱_40_ {
+        let dx = x - _ID_業:1.0__ASTNODE_霩_27_.x
+        let dy = y - _ID_業:1.0__ASTNODE_霩_27_.y
+        return (dx * dx + dy * dy)._ID_霩:1.0__ASTNODE_霩_85_()
+    }
+}
+
+// [metadata-stripped]
+
+enum _ID_廱:1.0__ASTNODE_廱_39_: _ID_廱:1.0__ASTNODE_廱_14_, _ID_廱:1.0__ASTNODE_廱_15_, _ID_廱:1.0__ASTNODE_廱_1_ {
+    case _ID_霩:1.0__ASTNODE_霩_43_  = "→変換→"
+    case _ID_霩:1.0__ASTNODE_霩_112_   = "→依存→"
+    case _ID_霩:1.0__ASTNODE_霩_76_     = "→拡張→"
+    case _ID_霩:1.0__ASTNODE_霩_53_       = "→呼出→"
+    case _ID_霩:1.0__ASTNODE_霩_63_    = "→包含→"
+    case _ID_霩:1.0__ASTNODE_霩_44_    = "→継承→"
+    case _ID_霩:1.0__ASTNODE_霩_7_ = "→矛盾→"
+    case _ID_霩:1.0__ASTNODE_霩_93_    = "→時系列→"
+}
+
+struct _ID_廱:1.0__ASTNODE_廱_9_: _ID_廱:1.0__ASTNODE_廱_1_ {
+    let id: _ID_廱:1.0__ASTNODE_廱_14_
+    let _ID_霩:1.0__ASTNODE_霩_78_: _ID_廱:1.0__ASTNODE_廱_14_
+    let _ID_霩:1.0__ASTNODE_霩_98_: _ID_廱:1.0__ASTNODE_廱_14_
+    let _ID_霩:1.0__ASTNODE_霩_108_: _ID_廱:1.0__ASTNODE_廱_39_
+    var _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_
+    let _ID_霩:1.0__ASTNODE_霩_89_: _ID_廱:1.0__ASTNODE_廱_21_
+    let _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_
+}
+
+// [metadata-stripped]
+
+struct _ID_廱:1.0__ASTNODE_廱_38_: _ID_廱:1.0__ASTNODE_廱_1_ {
+    let id: _ID_廱:1.0__ASTNODE_廱_14_
+    let _ID_霩:1.0__ASTNODE_霩_16_: _ID_廱:1.0__ASTNODE_廱_14_
+    var _ID_霩:1.0__ASTNODE_霩_55_: _ID_廱:1.0__ASTNODE_廱_10_
+    var _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_
+    var _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_
+    var _ID_霩:1.0__ASTNODE_霩_104_: [_ID_廱:1.0__ASTNODE_廱_14_]
+    var _ID_霩:1.0__ASTNODE_霩_13_: [_ID_廱:1.0__ASTNODE_廱_29_]
+
+    var _ID_霩:1.0__ASTNODE_霩_21_: _ID_廱:1.0__ASTNODE_廱_14_ {
+        "[\(_ID_霩:1.0__ASTNODE_霩_16_):\(_ID_廱:1.0__ASTNODE_廱_14_(_ID_泳:1.0__ASTNODE_霩_96_: "%.1f", _ID_霩:1.0__ASTNODE_霩_39_))] @(\(_ID_廱:1.0__ASTNODE_廱_14_(_ID_泳:1.0__ASTNODE_霩_96_: "%.1f", _ID_霩:1.0__ASTNODE_霩_55_.x)),\(_ID_廱:1.0__ASTNODE_廱_14_(_ID_泳:1.0__ASTNODE_霩_96_: "%.1f", _ID_霩:1.0__ASTNODE_霩_55_.y))) z=\(_ID_霩:1.0__ASTNODE_霩_55_.z) — \(_ID_霩:1.0__ASTNODE_霩_54_._ID_霩:1.0__ASTNODE_霩_19_(40))"
+    }
+
+    struct _ID_廱:1.0__ASTNODE_廱_29_: _ID_廱:1.0__ASTNODE_廱_1_ {
+        let z: _ID_廱:1.0__ASTNODE_廱_21_
+        let _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_
+        let _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_
+    }
+// _ID_縞:0.3__ASTNODE_AW_740_ [decoy-metadata]
+
+    mutating func _ID_霩:1.0__ASTNODE_霩_17_(_ z: _ID_廱:1.0__ASTNODE_廱_21_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_, _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_) {
+        _ID_霩:1.0__ASTNODE_霩_13_._ID_霩:1.0__ASTNODE_霩_102_(_ID_廱:1.0__ASTNODE_廱_29_(z: z, _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_39_, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_54_))
+        self._ID_霩:1.0__ASTNODE_霩_39_ = _ID_霩:1.0__ASTNODE_霩_39_
+        self._ID_霩:1.0__ASTNODE_霩_54_  = _ID_霩:1.0__ASTNODE_霩_54_
+        self._ID_霩:1.0__ASTNODE_霩_55_  = _ID_廱:1.0__ASTNODE_廱_10_(x: _ID_霩:1.0__ASTNODE_霩_55_.x, y: _ID_霩:1.0__ASTNODE_霩_55_.y, z: z)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _ID_廱:1.0__ASTNODE_廱_2_ {
+
+// [metadata-stripped]
+    nonisolated(_ID_霩:1.0__ASTNODE_霩_4_) private static let _ID_霩:1.0__ASTNODE_霩_71_: [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_28_] = {
+        var d = [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_28_]()
+// [metadata-stripped]
+        d["迅"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 0)   // _ID_廱:1.0__ASTNODE_廱_12_
+        d["錆"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 1, y: 0)   // _ID_廱:1.0__ASTNODE_廱_4_
+        d["蛇"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 2, y: 0)   // _ID_廱:1.0__ASTNODE_廱_25_
+        d["型"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 3, y: 0)   // _ID_廱:1.0__ASTNODE_廱_37_
+        d["晶"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 4, y: 0)   // _ID_廱:1.0__ASTNODE_廱_23_
+        d["碁"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 0)   // Go
+        d["码"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 6, y: 0)   // 汎用
+// [metadata-stripped]
+        d["廻"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 1)   // _ID_廱:1.0__ASTNODE_廱_42_
+        d["条"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 2)   // _ID_廱:1.0__ASTNODE_廱_22_
+        d["並"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 3)   // _ID_廱:1.0__ASTNODE_廱_20_
+        d["捕"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 4)   // _ID_廱:1.0__ASTNODE_廱_30_
+        d["義"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 0, y: 5)   // _ID_廱:1.0__ASTNODE_廱_26_
+        d["構"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 1, y: 5)   // _ID_廱:1.0__ASTNODE_廱_33_
+        d["契"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 2, y: 5)   // _ID_廱:1.0__ASTNODE_廱_8_
+// [metadata-stripped]
+        d["変"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 1)
+        d["完"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 2)
+        d["失"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 3)
+        d["進"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 4)
+        d["記"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 5, y: 5)
+// [metadata-stripped]
+        d["始"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 3, y: 1)
+        d["済"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 3, y: 2)
+        d["待"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 3, y: 3)
+        d["中"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 3, y: 4)
+// [metadata-stripped]
+        d["秘"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 7, y: 0)
+        d["匿"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 7, y: 1)
+        d["守"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 7, y: 2)
+        d["鍵"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 7, y: 3)
+        d["壁"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 7, y: 4)
+// [metadata-stripped]
+        d["憶"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 8, y: 0)
+        d["核"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 8, y: 1)
+        d["標"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 8, y: 2)
+        d["索"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 8, y: 3)
+        d["脈"] = _ID_廱:1.0__ASTNODE_廱_28_(x: 8, y: 4)
+        return d
+    }()
+
+    static func xy(for _ID_霩:1.0__ASTNODE_霩_16_: _ID_廱:1.0__ASTNODE_廱_14_) -> _ID_廱:1.0__ASTNODE_廱_28_? {
+        _ID_霩:1.0__ASTNODE_霩_71_[_ID_霩:1.0__ASTNODE_霩_16_]
+    }
+
+    static func _ID_霩:1.0__ASTNODE_霩_55_(for _ID_霩:1.0__ASTNODE_霩_16_: _ID_廱:1.0__ASTNODE_廱_14_, z: _ID_廱:1.0__ASTNODE_廱_21_ = 0) -> _ID_廱:1.0__ASTNODE_廱_10_ {
+        if let d = _ID_霩:1.0__ASTNODE_霩_71_[_ID_霩:1.0__ASTNODE_霩_16_] {
+            return _ID_廱:1.0__ASTNODE_廱_10_(x: d.x, y: d.y, z: z)
+        }
+        let _ID_霩:1.0__ASTNODE_霩_49_ = _ID_霩:1.0__ASTNODE_霩_45_(_ID_霩:1.0__ASTNODE_霩_16_._ID_霩:1.0__ASTNODE_霩_105_._ID_霩:1.0__ASTNODE_霩_99_(0) { $0 &+ _ID_廱:1.0__ASTNODE_廱_21_($1._ID_霩:1.0__ASTNODE_霩_83_) })
+        return _ID_廱:1.0__ASTNODE_廱_10_(x: _ID_廱:1.0__ASTNODE_廱_40_(_ID_霩:1.0__ASTNODE_霩_49_ % 10), y: _ID_廱:1.0__ASTNODE_廱_40_((_ID_霩:1.0__ASTNODE_霩_49_ / 10) % 10), z: z)
+    }
+// _ID_匼:0.9__ASTNODE_CH_205_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+
+actor _ID_廱:1.0__ASTNODE_廱_24_ {
+
+    private(_ID_業:1.0__ASTNODE_焦_1_) var _ID_霩:1.0__ASTNODE_霩_84_: [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_38_] = [:]
+    private(_ID_業:1.0__ASTNODE_焦_1_) var _ID_霩:1.0__ASTNODE_霩_10_: [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_9_] = [:]
+    private(_ID_業:1.0__ASTNODE_焦_1_) var _ID_霩:1.0__ASTNODE_霩_74_: _ID_廱:1.0__ASTNODE_廱_21_ = 0
+    let _ID_霩:1.0__ASTNODE_霩_9_: _ID_廱:1.0__ASTNODE_廱_14_
+
+    init(_ID_霩:1.0__ASTNODE_霩_9_: _ID_廱:1.0__ASTNODE_廱_14_ = _ID_廱:1.0__ASTNODE_廱_3_()._ID_霩:1.0__ASTNODE_霩_68_) {
+        self._ID_霩:1.0__ASTNODE_霩_9_ = _ID_霩:1.0__ASTNODE_霩_9_
+    }
+
+    @_ID_霩:1.0__ASTNODE_霩_46_
+    func _ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: _ID_廱:1.0__ASTNODE_廱_14_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_ = 1.0, _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_ = "") -> _ID_廱:1.0__ASTNODE_廱_38_ {
+        let _ID_霩:1.0__ASTNODE_霩_24_ = "N_\(_ID_霩:1.0__ASTNODE_霩_16_)"
+        if var _ID_霩:1.0__ASTNODE_霩_31_ = _ID_霩:1.0__ASTNODE_霩_84_[_ID_霩:1.0__ASTNODE_霩_24_] {
+            _ID_霩:1.0__ASTNODE_霩_31_._ID_霩:1.0__ASTNODE_霩_17_(_ID_霩:1.0__ASTNODE_霩_74_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_39_, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_54_._ID_霩:1.0__ASTNODE_霩_73_ ? _ID_霩:1.0__ASTNODE_霩_31_._ID_霩:1.0__ASTNODE_霩_54_ : _ID_霩:1.0__ASTNODE_霩_54_)
+            _ID_霩:1.0__ASTNODE_霩_84_[_ID_霩:1.0__ASTNODE_霩_24_] = _ID_霩:1.0__ASTNODE_霩_31_
+            return _ID_霩:1.0__ASTNODE_霩_31_
+        }
+        let _ID_霩:1.0__ASTNODE_霩_55_ = _ID_廱:1.0__ASTNODE_廱_2_._ID_霩:1.0__ASTNODE_霩_55_(for: _ID_霩:1.0__ASTNODE_霩_16_, z: _ID_霩:1.0__ASTNODE_霩_74_)
+        let _ID_霩:1.0__ASTNODE_霩_6_ = _ID_廱:1.0__ASTNODE_廱_38_(
+            id: _ID_霩:1.0__ASTNODE_霩_24_, _ID_霩:1.0__ASTNODE_霩_16_: _ID_霩:1.0__ASTNODE_霩_16_, _ID_霩:1.0__ASTNODE_霩_55_: _ID_霩:1.0__ASTNODE_霩_55_,
+            _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_39_, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_54_, _ID_霩:1.0__ASTNODE_霩_104_: [],
+            _ID_霩:1.0__ASTNODE_霩_13_: [_ID_廱:1.0__ASTNODE_廱_38_._ID_廱:1.0__ASTNODE_廱_29_(z: _ID_霩:1.0__ASTNODE_霩_74_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_39_, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_54_)]
+        )
+        _ID_霩:1.0__ASTNODE_霩_84_[_ID_霩:1.0__ASTNODE_霩_24_] = _ID_霩:1.0__ASTNODE_霩_6_
+        return _ID_霩:1.0__ASTNODE_霩_6_
+    }
+
+    @_ID_霩:1.0__ASTNODE_霩_46_
+    func _ID_霩:1.0__ASTNODE_霩_58_(_ID_霩:1.0__ASTNODE_霩_117_: _ID_廱:1.0__ASTNODE_廱_14_, to: _ID_廱:1.0__ASTNODE_廱_14_, _ID_霩:1.0__ASTNODE_霩_108_ _ID_霩:1.0__ASTNODE_霩_60_: _ID_廱:1.0__ASTNODE_廱_39_,
+                 _ID_霩:1.0__ASTNODE_霩_39_: _ID_廱:1.0__ASTNODE_廱_40_ = 1.0, _ID_霩:1.0__ASTNODE_霩_54_: _ID_廱:1.0__ASTNODE_廱_14_ = "") -> _ID_廱:1.0__ASTNODE_廱_9_ {
+        let _ID_霩:1.0__ASTNODE_霩_12_ = "E_\(_ID_霩:1.0__ASTNODE_霩_117_)_\(_ID_霩:1.0__ASTNODE_霩_60_._ID_霩:1.0__ASTNODE_霩_28_)_\(to)_Z\(_ID_霩:1.0__ASTNODE_霩_74_)"
+        let _ID_霩:1.0__ASTNODE_霩_86_ = _ID_廱:1.0__ASTNODE_廱_9_(
+            id: _ID_霩:1.0__ASTNODE_霩_12_, _ID_霩:1.0__ASTNODE_霩_78_: "N_\(_ID_霩:1.0__ASTNODE_霩_117_)", _ID_霩:1.0__ASTNODE_霩_98_: "N_\(to)",
+            _ID_霩:1.0__ASTNODE_霩_108_: _ID_霩:1.0__ASTNODE_霩_60_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_39_, _ID_霩:1.0__ASTNODE_霩_89_: _ID_霩:1.0__ASTNODE_霩_74_,
+            _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_54_._ID_霩:1.0__ASTNODE_霩_73_ ? "\(_ID_霩:1.0__ASTNODE_霩_117_)\(_ID_霩:1.0__ASTNODE_霩_60_._ID_霩:1.0__ASTNODE_霩_28_)\(to)" : _ID_霩:1.0__ASTNODE_霩_54_
+        )
+        _ID_霩:1.0__ASTNODE_霩_10_[_ID_霩:1.0__ASTNODE_霩_12_] = _ID_霩:1.0__ASTNODE_霩_86_
+        if var _ID_霩:1.0__ASTNODE_霩_34_ = _ID_霩:1.0__ASTNODE_霩_84_["N_\(_ID_霩:1.0__ASTNODE_霩_117_)"] {
+            _ID_霩:1.0__ASTNODE_霩_34_._ID_霩:1.0__ASTNODE_霩_104_._ID_霩:1.0__ASTNODE_霩_102_(_ID_霩:1.0__ASTNODE_霩_12_)
+            _ID_霩:1.0__ASTNODE_霩_84_["N_\(_ID_霩:1.0__ASTNODE_霩_117_)"] = _ID_霩:1.0__ASTNODE_霩_34_
+        }
+        return _ID_霩:1.0__ASTNODE_霩_86_
+// _ID_渕:0.8__ASTNODE_YZ_795_ [decoy-metadata]
+    }
+
+    func _ID_霩:1.0__ASTNODE_霩_101_() { _ID_霩:1.0__ASTNODE_霩_74_ += 1 }
+
+    func _ID_霩:1.0__ASTNODE_霩_8_(_ID_霩:1.0__ASTNODE_霩_40_: _ID_廱:1.0__ASTNODE_廱_21_ = 5) -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        _ID_霩:1.0__ASTNODE_霩_84_._ID_霩:1.0__ASTNODE_霩_118_._ID_霩:1.0__ASTNODE_霩_3_ { $0._ID_霩:1.0__ASTNODE_霩_39_ > $1._ID_霩:1.0__ASTNODE_霩_39_ }
+            ._ID_霩:1.0__ASTNODE_霩_19_(_ID_霩:1.0__ASTNODE_霩_40_)
+            ._ID_霩:1.0__ASTNODE_霩_94_ { "[\($0._ID_霩:1.0__ASTNODE_霩_16_):\(_ID_廱:1.0__ASTNODE_廱_14_(_ID_泳:1.0__ASTNODE_霩_96_: "%.1f", $0._ID_霩:1.0__ASTNODE_霩_39_))]" }
+            ._ID_霩:1.0__ASTNODE_霩_90_(_ID_霩:1.0__ASTNODE_霩_37_: " ")
+    }
+// _ID_縞:0.8__ASTNODE_WM_290_ [decoy-metadata]
+
+    func _ID_霩:1.0__ASTNODE_霩_50_() -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        let _ID_霩:1.0__ASTNODE_霩_80_ = _ID_霩:1.0__ASTNODE_霩_84_._ID_霩:1.0__ASTNODE_霩_118_._ID_霩:1.0__ASTNODE_霩_3_ { $0._ID_霩:1.0__ASTNODE_霩_39_ > $1._ID_霩:1.0__ASTNODE_霩_39_ }._ID_霩:1.0__ASTNODE_霩_19_(3)
+        let _ID_霩:1.0__ASTNODE_霩_87_ = _ID_霩:1.0__ASTNODE_霩_80_._ID_霩:1.0__ASTNODE_霩_94_ { $0._ID_霩:1.0__ASTNODE_霩_16_ }._ID_霩:1.0__ASTNODE_霩_90_()
+        let _ID_霩:1.0__ASTNODE_霩_54_ = _ID_霩:1.0__ASTNODE_霩_80_._ID_霩:1.0__ASTNODE_霩_97_ { $0._ID_霩:1.0__ASTNODE_霩_54_._ID_霩:1.0__ASTNODE_霩_73_ ? nil : $0._ID_霩:1.0__ASTNODE_霩_54_ }._ID_霩:1.0__ASTNODE_霩_107_ ?? ""
+        return "[\(_ID_霩:1.0__ASTNODE_霩_87_)] Z=\(_ID_霩:1.0__ASTNODE_霩_74_) — \(_ID_霩:1.0__ASTNODE_霩_54_._ID_霩:1.0__ASTNODE_霩_19_(60))"
+    }
+
+// _ID_焦:0.3__ASTNODE_CK_339_ [decoy-metadata]
+    func _ID_霩:1.0__ASTNODE_霩_56_() -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        var _ID_霩:1.0__ASTNODE_霩_103_ = ["// _ID_廱:1.0__ASTNODE_廱_31_ Z=\(_ID_霩:1.0__ASTNODE_霩_74_)",
+                     "// _ID_廱:1.0__ASTNODE_廱_19_: [漢字:_ID_霩:1.0__ASTNODE_霩_39_] @(x,y) | →_ID_霩:1.0__ASTNODE_霩_108_→隣接"]
+        for _ID_霩:1.0__ASTNODE_霩_6_ in _ID_霩:1.0__ASTNODE_霩_84_._ID_霩:1.0__ASTNODE_霩_118_._ID_霩:1.0__ASTNODE_霩_3_(by: { $0._ID_霩:1.0__ASTNODE_霩_39_ > $1._ID_霩:1.0__ASTNODE_霩_39_ })._ID_霩:1.0__ASTNODE_霩_19_(10) {
+            var _ID_霩:1.0__ASTNODE_霩_41_ = _ID_霩:1.0__ASTNODE_霩_6_._ID_霩:1.0__ASTNODE_霩_21_
+            let _ID_霩:1.0__ASTNODE_霩_25_ = _ID_霩:1.0__ASTNODE_霩_6_._ID_霩:1.0__ASTNODE_霩_104_._ID_霩:1.0__ASTNODE_霩_97_ { _ID_霩:1.0__ASTNODE_霩_10_[$0] }
+                ._ID_業:1.0__ASTNODE_霩_2_ { $0._ID_霩:1.0__ASTNODE_霩_78_ == _ID_霩:1.0__ASTNODE_霩_6_.id }
+                ._ID_霩:1.0__ASTNODE_霩_19_(3)
+                ._ID_霩:1.0__ASTNODE_霩_94_ { e -> _ID_廱:1.0__ASTNODE_廱_14_ in
+                    let _ID_霩:1.0__ASTNODE_霩_110_ = _ID_霩:1.0__ASTNODE_霩_84_[e._ID_霩:1.0__ASTNODE_霩_98_]?._ID_霩:1.0__ASTNODE_霩_16_ ?? e._ID_霩:1.0__ASTNODE_霩_98_
+                    return "\(e._ID_霩:1.0__ASTNODE_霩_108_._ID_霩:1.0__ASTNODE_霩_28_)\(_ID_霩:1.0__ASTNODE_霩_110_)"
+                }
+            if !_ID_霩:1.0__ASTNODE_霩_25_._ID_霩:1.0__ASTNODE_霩_73_ { _ID_霩:1.0__ASTNODE_霩_41_ += " | " + _ID_霩:1.0__ASTNODE_霩_25_._ID_霩:1.0__ASTNODE_霩_90_(_ID_霩:1.0__ASTNODE_霩_37_: " ") }
+            _ID_霩:1.0__ASTNODE_霩_103_._ID_霩:1.0__ASTNODE_霩_102_(_ID_霩:1.0__ASTNODE_霩_41_)
+        }
+        return _ID_霩:1.0__ASTNODE_霩_103_._ID_霩:1.0__ASTNODE_霩_90_(_ID_霩:1.0__ASTNODE_霩_37_: "\n")
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+actor _ID_廱:1.0__ASTNODE_廱_36_ {
+
+// [metadata-stripped]
+    nonisolated(_ID_霩:1.0__ASTNODE_霩_4_) static var _ID_霩:1.0__ASTNODE_霩_81_ = _ID_廱:1.0__ASTNODE_廱_36_()
+    private init() {}
+
+    private var _ID_霩:1.0__ASTNODE_霩_79_: [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_24_] = [:]
+
+    func _ID_霩:1.0__ASTNODE_霩_11_(for _ID_霩:1.0__ASTNODE_霩_51_: _ID_廱:1.0__ASTNODE_廱_14_) -> _ID_廱:1.0__ASTNODE_廱_24_ {
+        if let g = _ID_霩:1.0__ASTNODE_霩_79_[_ID_霩:1.0__ASTNODE_霩_51_] { return g }
+        let g = _ID_廱:1.0__ASTNODE_廱_24_(_ID_霩:1.0__ASTNODE_霩_9_: _ID_霩:1.0__ASTNODE_霩_51_)
+        _ID_霩:1.0__ASTNODE_霩_79_[_ID_霩:1.0__ASTNODE_霩_51_] = g
+        return g
+    }
+
+    func _ID_霩:1.0__ASTNODE_霩_106_(
+        _ID_霩:1.0__ASTNODE_霩_51_: _ID_廱:1.0__ASTNODE_廱_14_,
+        _ID_霩:1.0__ASTNODE_霩_18_: _ID_廱:1.0__ASTNODE_廱_6_,
+        _ID_霩:1.0__ASTNODE_霩_92_: _ID_廱:1.0__ASTNODE_廱_14_,
+        _ID_霩:1.0__ASTNODE_霩_29_: _ID_廱:1.0__ASTNODE_廱_14_,
+        _ID_霩:1.0__ASTNODE_霩_65_: _ID_廱:1.0__ASTNODE_廱_21_,
+        _ID_霩:1.0__ASTNODE_霩_23_: _ID_廱:1.0__ASTNODE_廱_21_,
+        _ID_霩:1.0__ASTNODE_霩_113_: [_ID_廱:1.0__ASTNODE_廱_14_: _ID_廱:1.0__ASTNODE_廱_14_],
+        _ID_霩:1.0__ASTNODE_霩_67_: _ID_廱:1.0__ASTNODE_廱_14_
+    ) async {
+        let g = _ID_霩:1.0__ASTNODE_霩_11_(for: _ID_霩:1.0__ASTNODE_霩_51_)
+        await g._ID_霩:1.0__ASTNODE_霩_101_()
+
+        let _ID_霩:1.0__ASTNODE_霩_109_ = _ID_霩:1.0__ASTNODE_霩_91_(_ID_霩:1.0__ASTNODE_霩_92_)
+        let _ID_霩:1.0__ASTNODE_霩_75_ = _ID_霩:1.0__ASTNODE_霩_91_(_ID_霩:1.0__ASTNODE_霩_29_)
+        await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: _ID_霩:1.0__ASTNODE_霩_109_, _ID_霩:1.0__ASTNODE_霩_39_: 1.0, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_92_)
+        await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: _ID_霩:1.0__ASTNODE_霩_75_, _ID_霩:1.0__ASTNODE_霩_39_: 1.0, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_29_)
+        await g._ID_霩:1.0__ASTNODE_霩_58_(_ID_霩:1.0__ASTNODE_霩_117_: _ID_霩:1.0__ASTNODE_霩_109_, to: _ID_霩:1.0__ASTNODE_霩_75_, _ID_霩:1.0__ASTNODE_霩_108_: ._ID_霩:1.0__ASTNODE_霩_43_, _ID_霩:1.0__ASTNODE_霩_39_: 1.0,
+                        _ID_霩:1.0__ASTNODE_霩_54_: "\(_ID_霩:1.0__ASTNODE_霩_92_) → \(_ID_霩:1.0__ASTNODE_霩_29_)")
+
+        let _ID_霩:1.0__ASTNODE_霩_62_  = _ID_廱:1.0__ASTNODE_廱_40_(_ID_霩:1.0__ASTNODE_霩_65_) / _ID_廱:1.0__ASTNODE_廱_40_(_ID_霩:1.0__ASTNODE_霩_66_(_ID_霩:1.0__ASTNODE_霩_23_, 1))
+        let _ID_霩:1.0__ASTNODE_霩_64_ = _ID_霩:1.0__ASTNODE_霩_62_ >= 1.0 ? "完" : "進"
+        await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: _ID_霩:1.0__ASTNODE_霩_64_, _ID_霩:1.0__ASTNODE_霩_39_: _ID_霩:1.0__ASTNODE_霩_62_,
+                           _ID_霩:1.0__ASTNODE_霩_54_: "\(_ID_霩:1.0__ASTNODE_霩_65_)/\(_ID_霩:1.0__ASTNODE_霩_23_) \(_ID_霩:1.0__ASTNODE_霩_67_._ID_霩:1.0__ASTNODE_霩_19_(40))")
+
+        let _ID_霩:1.0__ASTNODE_霩_77_ = _ID_霩:1.0__ASTNODE_霩_72_(_ID_霩:1.0__ASTNODE_霩_18_)
+        await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: _ID_霩:1.0__ASTNODE_霩_77_, _ID_霩:1.0__ASTNODE_霩_39_: 0.9, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_18_._ID_霩:1.0__ASTNODE_霩_28_)
+        await g._ID_霩:1.0__ASTNODE_霩_58_(_ID_霩:1.0__ASTNODE_霩_117_: _ID_霩:1.0__ASTNODE_霩_109_, to: _ID_霩:1.0__ASTNODE_霩_77_, _ID_霩:1.0__ASTNODE_霩_108_: ._ID_霩:1.0__ASTNODE_霩_93_, _ID_霩:1.0__ASTNODE_霩_39_: 0.8)
+
+        for (_ID_霩:1.0__ASTNODE_霩_117_, to) in _ID_霩:1.0__ASTNODE_霩_113_._ID_霩:1.0__ASTNODE_霩_19_(5) {
+            let fK = _ID_廱:1.0__ASTNODE_廱_14_(_ID_霩:1.0__ASTNODE_霩_117_._ID_霩:1.0__ASTNODE_霩_19_(2))
+            let tK = _ID_廱:1.0__ASTNODE_廱_14_(to._ID_霩:1.0__ASTNODE_霩_19_(2))
+            await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: fK, _ID_霩:1.0__ASTNODE_霩_39_: 0.7, _ID_霩:1.0__ASTNODE_霩_54_: _ID_霩:1.0__ASTNODE_霩_117_)
+            await g._ID_霩:1.0__ASTNODE_霩_115_(_ID_霩:1.0__ASTNODE_霩_16_: tK, _ID_霩:1.0__ASTNODE_霩_39_: 0.7, _ID_霩:1.0__ASTNODE_霩_54_: to)
+            await g._ID_霩:1.0__ASTNODE_霩_58_(_ID_霩:1.0__ASTNODE_霩_117_: fK, to: tK, _ID_霩:1.0__ASTNODE_霩_108_: ._ID_霩:1.0__ASTNODE_霩_43_, _ID_霩:1.0__ASTNODE_霩_39_: 0.9,
+                            _ID_霩:1.0__ASTNODE_霩_54_: "\(_ID_霩:1.0__ASTNODE_霩_117_) → \(to)")
+        }
+    }
+
+    func _ID_泳:1.0__ASTNODE_霩_114_(_ID_霩:1.0__ASTNODE_霩_51_: _ID_廱:1.0__ASTNODE_廱_14_) async -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        let g  = _ID_霩:1.0__ASTNODE_霩_11_(for: _ID_霩:1.0__ASTNODE_霩_51_)
+        let l1 = await g._ID_霩:1.0__ASTNODE_霩_8_()
+        let _ID_霩:1.0__ASTNODE_霩_15_ = await g._ID_霩:1.0__ASTNODE_霩_50_()
+        let _ID_霩:1.0__ASTNODE_霩_111_ = await g._ID_霩:1.0__ASTNODE_霩_56_()
+        return """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        \(_ID_霩:1.0__ASTNODE_霩_111_._ID_霩:1.0__ASTNODE_霩_61_(_ID_霩:1.0__ASTNODE_霩_47_: "\n")._ID_霩:1.0__ASTNODE_霩_94_ { "//   \($0)" }._ID_霩:1.0__ASTNODE_霩_90_(_ID_霩:1.0__ASTNODE_霩_37_: "\n"))
+        """
+    }
+
+// [metadata-stripped]
+
+    private func _ID_霩:1.0__ASTNODE_霩_91_(_ _ID_霩:1.0__ASTNODE_霩_14_: _ID_廱:1.0__ASTNODE_廱_14_) -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        switch _ID_霩:1.0__ASTNODE_霩_14_._ID_霩:1.0__ASTNODE_霩_36_() {
+        case "_ID_泳:1.0__ASTNODE_霩_22_":      return "迅"
+        case "_ID_霩:1.0__ASTNODE_霩_32_":       return "錆"
+        case "_ID_霩:1.0__ASTNODE_霩_30_":     return "蛇"
+        case "_ID_霩:1.0__ASTNODE_霩_100_": return "型"
+        case "_ID_霩:1.0__ASTNODE_霩_33_":     return "晶"
+        case "go":         return "碁"
+        _ID_霩:1.0__ASTNODE_霩_48_:           return "码"
+        }
+    }
+
+    private func _ID_霩:1.0__ASTNODE_霩_72_(_ _ID_霩:1.0__ASTNODE_霩_18_: _ID_廱:1.0__ASTNODE_廱_6_) -> _ID_廱:1.0__ASTNODE_廱_14_ {
+        switch _ID_霩:1.0__ASTNODE_霩_18_ {
+        case ._ID_霩:1.0__ASTNODE_霩_20_: return "守"
+        case ._ID_霩:1.0__ASTNODE_霩_70_:    return "構"
+        case ._ID_霩:1.0__ASTNODE_霩_88_: return "鍵"
+        case ._ID_霩:1.0__ASTNODE_霩_42_: return "義"
+// _ID_縞:0.2__ASTNODE_GZ_881_ [decoy-metadata]
+        case ._ID_霩:1.0__ASTNODE_霩_82_:     return "標"
+        case ._ID_霩:1.0__ASTNODE_霩_52_:         return "網"
+        case ._ID_霩:1.0__ASTNODE_霩_35_:      return "索"
+        case ._ID_霩:1.0__ASTNODE_霩_1_:  return "完"
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

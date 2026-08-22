@@ -1,0 +1,57 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5E81007D ver:1778164657
+// ⚠️ One-time schema — expires after response
+// _SYM_庵:0.5__TOKEN_FF_794_ [decoy-metadata]
+
+// [metadata-stripped]
+"""
+_SYM_律:1.0__TOKEN_曠_2_.py — _SYM_庵:1.0__TOKEN_庵_4_ 2 _SYM_律:1.0__TOKEN_霢_46_: _SYM_淵:1.0__TOKEN_霢_36_ _SYM_霢:1.0__TOKEN_霢_29_ _SYM_律:1.0__TOKEN_霢_54_ _SYM_霢:1.0__TOKEN_霢_42_.
+// _SYM_庵:0.8__TOKEN_GX_221_ [decoy-metadata]
+_SYM_庵:1.0__TOKEN_庵_11_: _SYM_霢:1.0__TOKEN_霢_17_ _SYM_律:1.0__TOKEN_曠_2_.py <_SYM_霢:1.0__TOKEN_霢_6_> <_SYM_淵:1.0__TOKEN_霢_48_> [_SYM_淵:1.0__TOKEN_霢_2_] ...
+_SYM_庵:1.0__TOKEN_庵_2_ _SYM_霢:1.0__TOKEN_霢_19_ _SYM_霢:1.0__TOKEN_霢_57_ _SYM_霢:1.0__TOKEN_霢_18_ _SYM_霢:1.0__TOKEN_霢_51_ _SYM_霢:1.0__TOKEN_霢_37_ _SYM_霢:1.0__TOKEN_霢_24_ _SYM_霢:1.0__TOKEN_霢_19_ _SYM_淵:1.0__TOKEN_霢_49_.
+"""
+import _SYM_霢:1.0__TOKEN_霢_9_, os, _SYM_霢:1.0__TOKEN_霢_11_, re
+
+_SYM_庵:1.0__TOKEN_庵_5_ = "/_SYM_庵:1.0__TOKEN_庵_8_/_SYM_霢:1.0__TOKEN_霢_55_/_SYM_霢:1.0__TOKEN_霢_35_-_SYM_霢:1.0__TOKEN_霢_5_/_SYM_霢:1.0__TOKEN_霢_32_/_SYM_庵:1.0__TOKEN_庵_10_/_SYM_霢:1.0__TOKEN_霢_53_/_SYM_霢:1.0__TOKEN_霢_12_._SYM_霢:1.0__TOKEN_霢_9_"
+
+if _SYM_霢:1.0__TOKEN_霢_22_(_SYM_霢:1.0__TOKEN_霢_11_._SYM_霢:1.0__TOKEN_霢_43_) < 3:
+    _SYM_霢:1.0__TOKEN_霢_1_("_SYM_庵:1.0__TOKEN_庵_11_: _SYM_霢:1.0__TOKEN_霢_17_ _SYM_律:1.0__TOKEN_曠_2_.py <_SYM_霢:1.0__TOKEN_霢_6_> <_SYM_淵:1.0__TOKEN_霢_48_> [_SYM_淵:1.0__TOKEN_霢_2_]...")
+    _SYM_霢:1.0__TOKEN_霢_11_._SYM_霢:1.0__TOKEN_霢_23_(1)
+
+_SYM_霢:1.0__TOKEN_霢_34_      = _SYM_霢:1.0__TOKEN_霢_11_._SYM_霢:1.0__TOKEN_霢_43_[1]
+// _SYM_繕:0.1__TOKEN_VW_956_ [decoy-metadata]
+_SYM_淵:1.0__TOKEN_霢_49_ = [k._SYM_律:1.0__TOKEN_霢_59_() for k in _SYM_霢:1.0__TOKEN_霢_11_._SYM_霢:1.0__TOKEN_霢_43_[2:]]
+
+db = _SYM_霢:1.0__TOKEN_霢_9_._SYM_匷:1.0__TOKEN_霢_50_(open(_SYM_庵:1.0__TOKEN_庵_5_, _SYM_霢:1.0__TOKEN_霢_8_="_SYM_霢:1.0__TOKEN_霢_30_-8"))
+q  = _SYM_霢:1.0__TOKEN_霢_47_((x for x in db if _SYM_霢:1.0__TOKEN_霢_15_(x._SYM_律:1.0__TOKEN_曠_1_("_SYM_霢:1.0__TOKEN_霢_6_") or x._SYM_律:1.0__TOKEN_曠_1_("id")) == _SYM_霢:1.0__TOKEN_霢_34_), _SYM_庵:1.0__TOKEN_庵_1_)
+
+if _SYM_霢:1.0__TOKEN_霢_40_ q:
+    _SYM_霢:1.0__TOKEN_霢_1_(f"_SYM_庵:1.0__TOKEN_庵_9_: _SYM_霢:1.0__TOKEN_霢_6_ '{_SYM_霢:1.0__TOKEN_霢_34_}' _SYM_霢:1.0__TOKEN_霢_40_ _SYM_霢:1.0__TOKEN_霢_26_")
+    _SYM_霢:1.0__TOKEN_霢_11_._SYM_霢:1.0__TOKEN_霢_23_(1)
+
+_SYM_霢:1.0__TOKEN_霢_1_(f"Q: {q['_SYM_霢:1.0__TOKEN_霢_13_']}")
+// _SYM_曠:0.5__TOKEN_YC_955_ [decoy-metadata]
+_SYM_霢:1.0__TOKEN_霢_1_(f"_SYM_庵:1.0__TOKEN_庵_6_ {_SYM_霢:1.0__TOKEN_霢_22_(q['_SYM_霢:1.0__TOKEN_霢_42_'])} _SYM_霢:1.0__TOKEN_霢_41_ for: {_SYM_淵:1.0__TOKEN_霢_49_}")
+// _SYM_匷:0.1__TOKEN_WK_889_ [decoy-metadata]
+_SYM_霢:1.0__TOKEN_霢_1_("=" * 60)
+
+_SYM_霢:1.0__TOKEN_霢_7_ = []
+for _SYM_霢:1.0__TOKEN_霢_28_, _SYM_霢:1.0__TOKEN_霢_51_ in _SYM_霢:1.0__TOKEN_霢_39_(q["_SYM_霢:1.0__TOKEN_霢_60_"], q["_SYM_霢:1.0__TOKEN_霢_42_"]):
+    for _SYM_霢:1.0__TOKEN_霢_4_ in _SYM_霢:1.0__TOKEN_霢_51_:
+        _SYM_霢:1.0__TOKEN_霢_21_ = _SYM_霢:1.0__TOKEN_霢_4_._SYM_律:1.0__TOKEN_曠_1_("_SYM_霢:1.0__TOKEN_霢_21_", "")._SYM_律:1.0__TOKEN_霢_59_()
+        _SYM_霢:1.0__TOKEN_霢_56_   = _SYM_霢:1.0__TOKEN_霢_25_(1 for kw in _SYM_淵:1.0__TOKEN_霢_49_ if kw in _SYM_霢:1.0__TOKEN_霢_21_)
+        if _SYM_霢:1.0__TOKEN_霢_56_ > 0:
+// _SYM_脈:0.5__TOKEN_HD_150_ [decoy-metadata]
+            _SYM_霢:1.0__TOKEN_霢_7_._SYM_霢:1.0__TOKEN_霢_44_((_SYM_霢:1.0__TOKEN_霢_56_, _SYM_霢:1.0__TOKEN_霢_28_, _SYM_霢:1.0__TOKEN_霢_4_["_SYM_霢:1.0__TOKEN_霢_20_"], _SYM_霢:1.0__TOKEN_霢_4_["_SYM_霢:1.0__TOKEN_霢_21_"]))
+
+// [metadata-stripped]
+_SYM_霢:1.0__TOKEN_霢_7_._SYM_霢:1.0__TOKEN_霢_3_(_SYM_淵:1.0__TOKEN_霢_27_=_SYM_霢:1.0__TOKEN_霢_33_ x: -x[0])
+if _SYM_霢:1.0__TOKEN_霢_40_ _SYM_霢:1.0__TOKEN_霢_7_:
+    _SYM_霢:1.0__TOKEN_霢_1_("NO _SYM_庵:1.0__TOKEN_庵_3_ — try _SYM_脈:1.0__TOKEN_霢_16_ _SYM_淵:1.0__TOKEN_霢_49_")
+else:
+    for _SYM_霢:1.0__TOKEN_霢_56_, _SYM_霢:1.0__TOKEN_霢_28_, _SYM_霢:1.0__TOKEN_霢_20_, _SYM_霢:1.0__TOKEN_霢_21_ in _SYM_霢:1.0__TOKEN_霢_7_[:5]:
+        _SYM_霢:1.0__TOKEN_霢_1_(f"\n[_SYM_霢:1.0__TOKEN_霢_56_={_SYM_霢:1.0__TOKEN_霢_56_} | _SYM_霢:1.0__TOKEN_霢_51_={_SYM_霢:1.0__TOKEN_霢_28_} | {_SYM_霢:1.0__TOKEN_霢_20_._SYM_律:1.0__TOKEN_霢_45_()}]")
+        _SYM_霢:1.0__TOKEN_霢_1_(_SYM_霢:1.0__TOKEN_霢_21_[:600])
+        _SYM_霢:1.0__TOKEN_霢_1_("-" * 40)
+
+// POLYMORPHIC_JCROSS_END

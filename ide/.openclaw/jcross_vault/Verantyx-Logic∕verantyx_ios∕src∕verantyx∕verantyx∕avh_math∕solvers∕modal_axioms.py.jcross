@@ -1,0 +1,109 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7EBC4ACC ver:1778162897
+// ⚠️ One-time schema — expires after response
+
+_SYM_霤:1.0__JCROSS_霤_5_ _SYM_霤:1.0__JCROSS_霤_13_ import _SYM_霤:1.0__JCROSS_霤_31_
+// _SYM_匼:0.2__JCROSS_GX_110_ [decoy-metadata]
+
+import re
+_SYM_霤:1.0__JCROSS_霤_5_ _SYM_霤:1.0__JCROSS_霤_47_ import _SYM_廂:1.0__JCROSS_廂_13_, _SYM_廂:1.0__JCROSS_廂_14_
+
+_SYM_霤:1.0__JCROSS_霤_26_ _SYM_霤:1.0__JCROSS_霤_21_(s: _SYM_霤:1.0__JCROSS_霤_43_) -> _SYM_霤:1.0__JCROSS_霤_48_[_SYM_霤:1.0__JCROSS_霤_43_, _SYM_霤:1.0__JCROSS_霤_43_] | _SYM_廂:1.0__JCROSS_廂_11_:
+    """最上位の含意 '->' で分割する（括弧のネストを考慮）"""
+// _SYM_匼:0.3__JCROSS_HG_311_ [decoy-metadata]
+    _SYM_霤:1.0__JCROSS_霤_36_ = 0
+    for i in _SYM_霤:1.0__JCROSS_霤_9_(_SYM_霤:1.0__JCROSS_霤_28_(s) - 1):
+        ch = s[i]
+        if ch == '(': _SYM_霤:1.0__JCROSS_霤_36_ += 1
+        _SYM_滲:1.0__JCROSS_霤_29_ ch == ')': _SYM_霤:1.0__JCROSS_霤_36_ -= 1
+        _SYM_滲:1.0__JCROSS_霤_29_ _SYM_霤:1.0__JCROSS_霤_36_ == 0 _SYM_霤:1.0__JCROSS_霤_39_ s[i:i+2] == '->':
+            return s[:i], s[i+2:]
+    return _SYM_廂:1.0__JCROSS_廂_11_
+
+_SYM_霤:1.0__JCROSS_霤_26_ _SYM_霤:1.0__JCROSS_霤_14_(s: _SYM_霤:1.0__JCROSS_霤_43_) -> _SYM_霤:1.0__JCROSS_霤_43_:
+    while s._SYM_霤:1.0__JCROSS_霤_23_('(') _SYM_霤:1.0__JCROSS_霤_39_ s._SYM_霤:1.0__JCROSS_霤_6_(')') _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_21_(s[1:-1]) is _SYM_廂:1.0__JCROSS_廂_11_:
+// [metadata-stripped]
+        s = s[1:-1]
+    return s
+
+_SYM_霤:1.0__JCROSS_霤_26_ _SYM_霤:1.0__JCROSS_霤_25_(_SYM_滲:1.0__JCROSS_霤_37_: _SYM_霤:1.0__JCROSS_霤_43_, _SYM_霤:1.0__JCROSS_霤_30_: _SYM_霤:1.0__JCROSS_霤_7_[_SYM_霤:1.0__JCROSS_霤_43_] | _SYM_廂:1.0__JCROSS_廂_11_ = _SYM_廂:1.0__JCROSS_廂_11_) -> _SYM_廂:1.0__JCROSS_廂_13_[_SYM_霤:1.0__JCROSS_霤_43_, _SYM_廂:1.0__JCROSS_廂_14_] | _SYM_廂:1.0__JCROSS_廂_11_:
+    f = (_SYM_滲:1.0__JCROSS_霤_37_ or "")._SYM_霤:1.0__JCROSS_霤_11_(" ", "")
+// [metadata-stripped]
+// _SYM_匼:0.6__JCROSS_KY_558_ [decoy-metadata]
+    f = _SYM_霤:1.0__JCROSS_霤_14_(f)
+    
+// [metadata-stripped]
+    _SYM_霤:1.0__JCROSS_霤_30_ = [a._SYM_霤:1.0__JCROSS_霤_11_("_SYM_霤:1.0__JCROSS_霤_8_:", "")._SYM_霤:1.0__JCROSS_霤_16_()._SYM_格:1.0__JCROSS_霤_4_() for a in (_SYM_霤:1.0__JCROSS_霤_30_ or [])]
+    
+    _SYM_霤:1.0__JCROSS_霤_20_(f"[_SYM_廂:1.0__JCROSS_廂_8_ _SYM_廂:1.0__JCROSS_廂_5_] _SYM_廂:1.0__JCROSS_廂_16_: {f} _SYM_霤:1.0__JCROSS_霤_15_ {_SYM_霤:1.0__JCROSS_霤_30_}")
+
+    if "_SYM_霤:1.0__JCROSS_霤_44_" in _SYM_霤:1.0__JCROSS_霤_30_:
+        return _SYM_廂:1.0__JCROSS_廂_11_
+
+// [metadata-stripped]
+    _SYM_霤:1.0__JCROSS_霤_10_ = _SYM_霤:1.0__JCROSS_霤_21_(f)
+    if _SYM_霤:1.0__JCROSS_霤_18_ _SYM_霤:1.0__JCROSS_霤_10_:
+        _SYM_霤:1.0__JCROSS_霤_20_("[_SYM_廂:1.0__JCROSS_廂_8_ _SYM_廂:1.0__JCROSS_廂_5_] _SYM_廂:1.0__JCROSS_廂_9_ _SYM_霤:1.0__JCROSS_霤_35_ (no _SYM_霤:1.0__JCROSS_霤_17_)")
+        return _SYM_廂:1.0__JCROSS_廂_11_
+// _SYM_匼:0.6__JCROSS_ZH_696_ [decoy-metadata]
+    _SYM_霤:1.0__JCROSS_霤_24_, _SYM_霤:1.0__JCROSS_霤_27_ = _SYM_霤:1.0__JCROSS_霤_14_(_SYM_霤:1.0__JCROSS_霤_10_[0]), _SYM_霤:1.0__JCROSS_霤_14_(_SYM_霤:1.0__JCROSS_霤_10_[1])
+    _SYM_霤:1.0__JCROSS_霤_20_(f"[_SYM_廂:1.0__JCROSS_廂_8_ _SYM_廂:1.0__JCROSS_廂_5_] _SYM_廂:1.0__JCROSS_廂_7_: {_SYM_霤:1.0__JCROSS_霤_24_}, _SYM_廂:1.0__JCROSS_廂_12_: {_SYM_霤:1.0__JCROSS_霤_27_}")
+
+// [metadata-stripped]
+    if _SYM_霤:1.0__JCROSS_霤_24_._SYM_霤:1.0__JCROSS_霤_23_("[]") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_24_[2:] == _SYM_霤:1.0__JCROSS_霤_27_:
+        if "_SYM_霤:1.0__JCROSS_霤_41_" in _SYM_霤:1.0__JCROSS_霤_30_:
+            return {
+// _SYM_絡:0.1__JCROSS_VY_718_ [decoy-metadata]
+                "_SYM_霤:1.0__JCROSS_霤_45_": "_SYM_霤:1.0__JCROSS_霤_32_",
+                "_SYM_霤:1.0__JCROSS_霤_40_": "T",
+                "_SYM_霤:1.0__JCROSS_霤_2_": "_SYM_廂:1.0__JCROSS_廂_6_ _SYM_霤:1.0__JCROSS_霤_40_: □p → p is _SYM_霤:1.0__JCROSS_霤_32_ on _SYM_霤:1.0__JCROSS_霤_41_ _SYM_霤:1.0__JCROSS_霤_19_.",
+            }
+
+// [metadata-stripped]
+    if _SYM_霤:1.0__JCROSS_霤_24_._SYM_霤:1.0__JCROSS_霤_23_("[]") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_27_._SYM_霤:1.0__JCROSS_霤_23_("[][]") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_24_[2:] == _SYM_霤:1.0__JCROSS_霤_27_[4:]:
+        if "_SYM_霤:1.0__JCROSS_霤_46_" in _SYM_霤:1.0__JCROSS_霤_30_:
+            return {
+                "_SYM_霤:1.0__JCROSS_霤_45_": "_SYM_霤:1.0__JCROSS_霤_32_",
+                "_SYM_霤:1.0__JCROSS_霤_40_": "4",
+                "_SYM_霤:1.0__JCROSS_霤_2_": "_SYM_廂:1.0__JCROSS_廂_3_ _SYM_霤:1.0__JCROSS_霤_40_: □p → □□p is _SYM_霤:1.0__JCROSS_霤_32_ on _SYM_霤:1.0__JCROSS_霤_46_ _SYM_霤:1.0__JCROSS_霤_19_.",
+            }
+
+// [metadata-stripped]
+    if _SYM_霤:1.0__JCROSS_霤_27_._SYM_霤:1.0__JCROSS_霤_23_("[]<>") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_24_ == _SYM_霤:1.0__JCROSS_霤_27_[4:]:
+        if "_SYM_霤:1.0__JCROSS_霤_1_" in _SYM_霤:1.0__JCROSS_霤_30_:
+            return {
+                "_SYM_霤:1.0__JCROSS_霤_45_": "_SYM_霤:1.0__JCROSS_霤_32_",
+                "_SYM_霤:1.0__JCROSS_霤_40_": "B",
+                "_SYM_霤:1.0__JCROSS_霤_2_": "_SYM_廂:1.0__JCROSS_廂_1_ _SYM_霤:1.0__JCROSS_霤_40_: p → □◇p is _SYM_霤:1.0__JCROSS_霤_32_ on _SYM_霤:1.0__JCROSS_霤_1_ _SYM_霤:1.0__JCROSS_霤_19_.",
+// _SYM_滲:0.8__JCROSS_GD_415_ [decoy-metadata]
+            }
+
+// [metadata-stripped]
+    if _SYM_霤:1.0__JCROSS_霤_24_._SYM_霤:1.0__JCROSS_霤_23_("<>") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_27_._SYM_霤:1.0__JCROSS_霤_23_("[]<>") _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_24_[2:] == _SYM_霤:1.0__JCROSS_霤_27_[4:]:
+        if "_SYM_霤:1.0__JCROSS_霤_33_" in _SYM_霤:1.0__JCROSS_霤_30_:
+            return {
+                "_SYM_霤:1.0__JCROSS_霤_45_": "_SYM_霤:1.0__JCROSS_霤_32_",
+                "_SYM_霤:1.0__JCROSS_霤_40_": "5",
+                "_SYM_霤:1.0__JCROSS_霤_2_": "_SYM_廂:1.0__JCROSS_廂_4_ _SYM_霤:1.0__JCROSS_霤_40_: ◇p → □◇p is _SYM_霤:1.0__JCROSS_霤_32_ on _SYM_霤:1.0__JCROSS_霤_33_ _SYM_霤:1.0__JCROSS_霤_19_.",
+            }
+
+// [metadata-stripped]
+    if _SYM_霤:1.0__JCROSS_霤_24_._SYM_霤:1.0__JCROSS_霤_23_("[]") _SYM_霤:1.0__JCROSS_霤_39_ "(" in _SYM_霤:1.0__JCROSS_霤_24_:
+        _SYM_霤:1.0__JCROSS_霤_22_ = _SYM_霤:1.0__JCROSS_霤_24_[2:]._SYM_霤:1.0__JCROSS_霤_16_("()")
+        _SYM_霤:1.0__JCROSS_霤_38_ = _SYM_霤:1.0__JCROSS_霤_21_(_SYM_霤:1.0__JCROSS_霤_22_)
+        if _SYM_霤:1.0__JCROSS_霤_38_:
+            p, q = _SYM_霤:1.0__JCROSS_霤_38_
+// [metadata-stripped]
+            _SYM_霤:1.0__JCROSS_霤_3_ = _SYM_霤:1.0__JCROSS_霤_21_(_SYM_霤:1.0__JCROSS_霤_27_)
+            if _SYM_霤:1.0__JCROSS_霤_3_:
+                _SYM_霤:1.0__JCROSS_霤_34_, _SYM_霤:1.0__JCROSS_霤_12_ = _SYM_霤:1.0__JCROSS_霤_14_(_SYM_霤:1.0__JCROSS_霤_3_[0]), _SYM_霤:1.0__JCROSS_霤_14_(_SYM_霤:1.0__JCROSS_霤_3_[1])
+                if _SYM_霤:1.0__JCROSS_霤_34_ == f"[]{p}" _SYM_霤:1.0__JCROSS_霤_39_ _SYM_霤:1.0__JCROSS_霤_12_ == f"[]{q}":
+                    return {
+                        "_SYM_霤:1.0__JCROSS_霤_45_": "_SYM_霤:1.0__JCROSS_霤_32_",
+                        "_SYM_霤:1.0__JCROSS_霤_40_": "K",
+                        "_SYM_霤:1.0__JCROSS_霤_2_": "_SYM_廂:1.0__JCROSS_廂_15_ _SYM_霤:1.0__JCROSS_霤_40_: □(p→q) → (□p→□q) is _SYM_霤:1.0__JCROSS_霤_32_ on _SYM_霤:1.0__JCROSS_霤_42_ _SYM_廂:1.0__JCROSS_廂_10_ _SYM_霤:1.0__JCROSS_霤_19_.",
+                    }
+            
+    return _SYM_廂:1.0__JCROSS_廂_11_
+
+// POLYMORPHIC_JCROSS_END

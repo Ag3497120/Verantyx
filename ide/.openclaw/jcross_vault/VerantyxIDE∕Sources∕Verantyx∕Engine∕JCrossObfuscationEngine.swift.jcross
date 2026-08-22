@@ -1,0 +1,467 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C9CFF473 ver:1778150657
+// ⚠️ One-time schema — expires after response
+
+import __jcross_廡:1.0___VERANTYX_廡_71_
+import __jcross_廡:1.0___VERANTYX_廡_46_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+enum __jcross_廡:1.0___VERANTYX_廡_38_: __jcross_廡:1.0___VERANTYX_廡_68_, __jcross_廡:1.0___VERANTYX_廡_44_, __jcross_廡:1.0___VERANTYX_廡_13_ {
+    case __jcross_霢:1.0___VERANTYX_霢_50_   // 0入力
+    case __jcross_霢:1.0___VERANTYX_霢_163_   // 1入力
+    case __jcross_霢:1.0___VERANTYX_霢_187_  // 2〜3入力（意図的に曖昧化）
+    case __jcross_霢:1.0___VERANTYX_霢_36_  // 4以上
+
+    static func __jcross_霢:1.0___VERANTYX_霢_165_(_ __jcross_霢:1.0___VERANTYX_霢_149_: __jcross_廡:1.0___VERANTYX_廡_22_, __jcross_澎:1.0___VERANTYX_霢_95_: __jcross_廡:1.0___VERANTYX_廡_35_ = 0.20) -> __jcross_廡:1.0___VERANTYX_廡_38_ {
+        let __jcross_霢:1.0___VERANTYX_霢_26_: __jcross_廡:1.0___VERANTYX_廡_38_
+        switch __jcross_霢:1.0___VERANTYX_霢_149_ {
+        case 0:       __jcross_霢:1.0___VERANTYX_霢_26_ = .__jcross_霢:1.0___VERANTYX_霢_50_
+        case 1:       __jcross_霢:1.0___VERANTYX_霢_26_ = .__jcross_霢:1.0___VERANTYX_霢_163_
+        case 2, 3:    __jcross_霢:1.0___VERANTYX_霢_26_ = .__jcross_霢:1.0___VERANTYX_霢_187_
+        __jcross_霢:1.0___VERANTYX_霢_17_:      __jcross_霢:1.0___VERANTYX_霢_26_ = .__jcross_霢:1.0___VERANTYX_霢_36_
+        }
+        guard __jcross_廡:1.0___VERANTYX_廡_35_.__jcross_霢:1.0___VERANTYX_霢_160_(in: 0..<1) < __jcross_澎:1.0___VERANTYX_霢_95_ else { return __jcross_霢:1.0___VERANTYX_霢_26_ }
+        return __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_9_.__jcross_霢:1.0___VERANTYX_霢_59_() ?? __jcross_霢:1.0___VERANTYX_霢_26_
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+enum __jcross_廡:1.0___VERANTYX_廡_17_: __jcross_廡:1.0___VERANTYX_廡_68_, __jcross_廡:1.0___VERANTYX_廡_44_, __jcross_廡:1.0___VERANTYX_廡_13_ {
+    case __jcross_霢:1.0___VERANTYX_霢_108_   // 算術演算全般
+    case __jcross_霢:1.0___VERANTYX_霢_19_    // 関数呼び出し全般
+    case __jcross_業:1.0___VERANTYX_霢_57_  // メモリ/状態操作
+    case __jcross_霢:1.0___VERANTYX_霢_177_  // 判定・論理演算
+    case __jcross_霢:1.0___VERANTYX_霢_161_   // ノイズ / 不明
+
+    static func __jcross_霢:1.0___VERANTYX_霢_142_(
+        __jcross_霢:1.0___VERANTYX_霢_34_: __jcross_廡:1.0___VERANTYX_廡_33_.__jcross_廡:1.0___VERANTYX_廡_2_,
+        __jcross_霢:1.0___VERANTYX_霢_126_ __jcross_霢:1.0___VERANTYX_霢_41_: __jcross_廡:1.0___VERANTYX_廡_33_.__jcross_廡:1.0___VERANTYX_廡_41_
+    ) -> __jcross_廡:1.0___VERANTYX_廡_17_ {
+        switch __jcross_霢:1.0___VERANTYX_霢_34_ {
+        case .__jcross_霢:1.0___VERANTYX_霢_35_:           return .__jcross_霢:1.0___VERANTYX_霢_108_
+        case .__jcross_霢:1.0___VERANTYX_霢_175_:           return .__jcross_霢:1.0___VERANTYX_霢_19_
+        case .__jcross_霢:1.0___VERANTYX_霢_171_:               return .__jcross_業:1.0___VERANTYX_霢_57_
+        case .__jcross_霢:1.0___VERANTYX_霢_80_, .__jcross_霢:1.0___VERANTYX_霢_141_: return .__jcross_霢:1.0___VERANTYX_霢_177_
+        case .__jcross_霢:1.0___VERANTYX_霢_56_:           return .__jcross_業:1.0___VERANTYX_霢_57_
+        case .__jcross_霢:1.0___VERANTYX_霢_49_:          return .__jcross_霢:1.0___VERANTYX_霢_108_
+        case .io:                   return .__jcross_業:1.0___VERANTYX_霢_57_
+        case .__jcross_霢:1.0___VERANTYX_霢_161_:              return .__jcross_霢:1.0___VERANTYX_霢_161_
+        }
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct __jcross_廡:1.0___VERANTYX_廡_19_: __jcross_廡:1.0___VERANTYX_廡_44_ {
+// [metadata-stripped]
+    let id: __jcross_廡:1.0___VERANTYX_廡_68_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_178_: __jcross_廡:1.0___VERANTYX_廡_27_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_97_:  __jcross_廡:1.0___VERANTYX_廡_38_?
+    let __jcross_霢:1.0___VERANTYX_霢_40_: __jcross_廡:1.0___VERANTYX_廡_38_?
+
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_159_: __jcross_廡:1.0___VERANTYX_廡_68_
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+private func __jcross_霢:1.0___VERANTYX_霢_46_() -> __jcross_廡:1.0___VERANTYX_廡_68_ {
+    var __jcross_霢:1.0___VERANTYX_霢_145_ = [__jcross_廡:1.0___VERANTYX_廡_5_](__jcross_霢:1.0___VERANTYX_霢_114_: 0, __jcross_霢:1.0___VERANTYX_霢_149_: 4)
+    _ = __jcross_廡:1.0___VERANTYX_廡_23_(__jcross_霢:1.0___VERANTYX_霢_75_, __jcross_霢:1.0___VERANTYX_霢_145_.__jcross_霢:1.0___VERANTYX_霢_149_, &__jcross_霢:1.0___VERANTYX_霢_145_)
+    let __jcross_霢:1.0___VERANTYX_霢_43_ = __jcross_霢:1.0___VERANTYX_霢_145_.__jcross_霢:1.0___VERANTYX_霢_150_ { __jcross_廡:1.0___VERANTYX_廡_68_(__jcross_澎:1.0___VERANTYX_霢_13_: "%02x", $0) }.__jcross_霢:1.0___VERANTYX_霢_169_()
+    return "0x\(__jcross_霢:1.0___VERANTYX_霢_43_)"
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct __jcross_業:1.0___VERANTYX_廡_74_ {
+
+// [metadata-stripped]
+    var __jcross_霢:1.0___VERANTYX_霢_132_: __jcross_廡:1.0___VERANTYX_廡_76_<__jcross_廡:1.0___VERANTYX_廡_22_> = 1...3
+
+// [metadata-stripped]
+    var __jcross_霢:1.0___VERANTYX_霢_130_: __jcross_廡:1.0___VERANTYX_廡_35_ = 0.45
+
+// [metadata-stripped]
+    func __jcross_霢:1.0___VERANTYX_霢_167_(__jcross_霢:1.0___VERANTYX_霢_158_: [__jcross_廡:1.0___VERANTYX_廡_9_: __jcross_廡:1.0___VERANTYX_廡_79_]) -> [__jcross_廡:1.0___VERANTYX_廡_68_: __jcross_廡:1.0___VERANTYX_廡_19_] {
+        var __jcross_霢:1.0___VERANTYX_霢_12_: [__jcross_廡:1.0___VERANTYX_廡_68_: __jcross_廡:1.0___VERANTYX_廡_19_] = [:]
+
+// [metadata-stripped]
+        var __jcross_霢:1.0___VERANTYX_霢_152_: [__jcross_廡:1.0___VERANTYX_廡_38_: __jcross_廡:1.0___VERANTYX_廡_22_] = [:]
+
+        for (_, __jcross_霢:1.0___VERANTYX_霢_90_) in __jcross_霢:1.0___VERANTYX_霢_158_ {
+            let __jcross_沈:1.0___VERANTYX_霢_190_ = "N_\(__jcross_廡:1.0___VERANTYX_廡_20_().__jcross_霢:1.0___VERANTYX_霢_131_.__jcross_霢:1.0___VERANTYX_霢_139_(8))"
+            let __jcross_霢:1.0___VERANTYX_霢_66_    = __jcross_霢:1.0___VERANTYX_霢_153_(__jcross_霢:1.0___VERANTYX_霢_90_, __jcross_沈:1.0___VERANTYX_霢_104_: __jcross_沈:1.0___VERANTYX_霢_190_)
+            __jcross_霢:1.0___VERANTYX_霢_12_[__jcross_沈:1.0___VERANTYX_霢_190_] = __jcross_霢:1.0___VERANTYX_霢_66_
+// __jcross_匸:0.8___VERANTYX_AC_540_ [decoy-metadata]
+
+// [metadata-stripped]
+            if let __jcross_霢:1.0___VERANTYX_霢_166_ = __jcross_霢:1.0___VERANTYX_霢_66_.__jcross_霢:1.0___VERANTYX_霢_97_ {
+// __jcross_焦:0.2___VERANTYX_FD_684_ [decoy-metadata]
+                __jcross_霢:1.0___VERANTYX_霢_152_[__jcross_霢:1.0___VERANTYX_霢_166_, __jcross_霢:1.0___VERANTYX_霢_17_: 0] += 1
+            }
+        }
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let __jcross_霢:1.0___VERANTYX_霢_30_ = __jcross_霢:1.0___VERANTYX_霢_158_.__jcross_霢:1.0___VERANTYX_霢_149_
+        let __jcross_霢:1.0___VERANTYX_霢_85_ = __jcross_霢:1.0___VERANTYX_霢_30_ / 3
+        for _ in 0..<__jcross_霢:1.0___VERANTYX_霢_85_ {
+            let __jcross_霢:1.0___VERANTYX_霢_89_ = __jcross_廡:1.0___VERANTYX_廡_22_.__jcross_霢:1.0___VERANTYX_霢_160_(in: __jcross_霢:1.0___VERANTYX_霢_132_)
+            for _ in 0..<__jcross_霢:1.0___VERANTYX_霢_89_ {
+                let ph = __jcross_霢:1.0___VERANTYX_霢_179_()
+                __jcross_霢:1.0___VERANTYX_霢_12_[ph.id] = ph
+            }
+        }
+
+// [metadata-stripped]
+        let __jcross_霢:1.0___VERANTYX_霢_3_ = __jcross_廡:1.0___VERANTYX_廡_22_(__jcross_廡:1.0___VERANTYX_廡_35_(__jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_149_) * __jcross_霢:1.0___VERANTYX_霢_130_)
+        for _ in 0..<__jcross_霢:1.0___VERANTYX_霢_3_ {
+            let ph = __jcross_霢:1.0___VERANTYX_霢_179_()
+            __jcross_霢:1.0___VERANTYX_霢_12_[ph.id] = ph
+        }
+
+        return __jcross_霢:1.0___VERANTYX_霢_12_
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func __jcross_霢:1.0___VERANTYX_霢_153_(_ __jcross_霢:1.0___VERANTYX_霢_90_: __jcross_廡:1.0___VERANTYX_廡_79_, __jcross_沈:1.0___VERANTYX_霢_104_: __jcross_廡:1.0___VERANTYX_廡_68_) -> __jcross_廡:1.0___VERANTYX_廡_19_ {
+// [metadata-stripped]
+        let __jcross_霢:1.0___VERANTYX_霢_74_  = __jcross_霢:1.0___VERANTYX_霢_90_.__jcross_霢:1.0___VERANTYX_霢_21_.__jcross_霢:1.0___VERANTYX_霢_150_ { __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_165_($0.__jcross_霢:1.0___VERANTYX_霢_74_) }
+        let __jcross_霢:1.0___VERANTYX_霢_81_ = __jcross_霢:1.0___VERANTYX_霢_90_.__jcross_霢:1.0___VERANTYX_霢_21_.__jcross_霢:1.0___VERANTYX_霢_150_ { __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_165_($0.__jcross_霢:1.0___VERANTYX_霢_81_) }
+
+        return __jcross_廡:1.0___VERANTYX_廡_19_(
+            id:               __jcross_沈:1.0___VERANTYX_霢_104_,
+            __jcross_霢:1.0___VERANTYX_霢_178_:        false,
+            __jcross_霢:1.0___VERANTYX_霢_97_:  __jcross_霢:1.0___VERANTYX_霢_74_,
+            __jcross_霢:1.0___VERANTYX_霢_40_: __jcross_霢:1.0___VERANTYX_霢_81_,
+            __jcross_霢:1.0___VERANTYX_霢_159_:       __jcross_霢:1.0___VERANTYX_霢_46_()  // 毎回異なる値
+        )
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    private func __jcross_霢:1.0___VERANTYX_霢_179_() -> __jcross_廡:1.0___VERANTYX_廡_19_ {
+        let __jcross_霢:1.0___VERANTYX_霢_47_: [__jcross_廡:1.0___VERANTYX_廡_38_] = __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_9_
+        return __jcross_廡:1.0___VERANTYX_廡_19_(
+            id:               "N_\(__jcross_廡:1.0___VERANTYX_廡_20_().__jcross_霢:1.0___VERANTYX_霢_131_.__jcross_霢:1.0___VERANTYX_霢_139_(8))",  // Φ_ プレフィックスを廃止
+            __jcross_霢:1.0___VERANTYX_霢_178_:        true,
+            __jcross_霢:1.0___VERANTYX_霢_97_:  __jcross_霢:1.0___VERANTYX_霢_47_.__jcross_霢:1.0___VERANTYX_霢_59_(),
+            __jcross_霢:1.0___VERANTYX_霢_40_: __jcross_霢:1.0___VERANTYX_霢_47_.__jcross_霢:1.0___VERANTYX_霢_59_(),
+            __jcross_霢:1.0___VERANTYX_霢_159_:       __jcross_霢:1.0___VERANTYX_霢_46_()  // ファントムも毎回異なる
+        )
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct __jcross_廡:1.0___VERANTYX_廡_14_: __jcross_廡:1.0___VERANTYX_廡_44_ {
+    let __jcross_霢:1.0___VERANTYX_霢_128_: __jcross_廡:1.0___VERANTYX_廡_68_
+    let __jcross_霢:1.0___VERANTYX_霢_134_: __jcross_廡:1.0___VERANTYX_廡_68_
+    let __jcross_霢:1.0___VERANTYX_霢_174_: __jcross_廡:1.0___VERANTYX_廡_18_
+
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_188_: __jcross_廡:1.0___VERANTYX_廡_22_
+
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_158_: [__jcross_廡:1.0___VERANTYX_廡_68_: __jcross_廡:1.0___VERANTYX_廡_19_]
+
+// [metadata-stripped]
+    let __jcross_霢:1.0___VERANTYX_霢_4_: [__jcross_廡:1.0___VERANTYX_廡_68_]
+
+    func __jcross_霢:1.0___VERANTYX_霢_25_() throws -> __jcross_廡:1.0___VERANTYX_廡_59_ {
+        let __jcross_業:1.0___VERANTYX_霢_1_ = __jcross_業:1.0___VERANTYX_廡_80_()
+        __jcross_業:1.0___VERANTYX_霢_1_.__jcross_澎:1.0___VERANTYX_霢_156_ = [.__jcross_霢:1.0___VERANTYX_霢_135_, .__jcross_沈:1.0___VERANTYX_霢_39_]
+        __jcross_業:1.0___VERANTYX_霢_1_.__jcross_霢:1.0___VERANTYX_霢_72_ = .__jcross_霢:1.0___VERANTYX_霢_123_
+        return try __jcross_業:1.0___VERANTYX_霢_1_.__jcross_霢:1.0___VERANTYX_霢_10_(self)
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct __jcross_廡:1.0___VERANTYX_廡_10_ {
+
+    var __jcross_業:1.0___VERANTYX_霢_68_ = __jcross_業:1.0___VERANTYX_廡_74_()
+
+// [metadata-stripped]
+
+    func __jcross_霢:1.0___VERANTYX_霢_151_(__jcross_霢:1.0___VERANTYX_霢_37_: __jcross_廡:1.0___VERANTYX_廡_8_) -> __jcross_廡:1.0___VERANTYX_廡_14_ {
+        let __jcross_霢:1.0___VERANTYX_霢_86_ = __jcross_業:1.0___VERANTYX_霢_68_.__jcross_霢:1.0___VERANTYX_霢_167_(__jcross_霢:1.0___VERANTYX_霢_158_: __jcross_霢:1.0___VERANTYX_霢_37_.__jcross_霢:1.0___VERANTYX_霢_158_)
+        return __jcross_廡:1.0___VERANTYX_廡_14_(
+            __jcross_霢:1.0___VERANTYX_霢_128_:         "__jcross_廡:1.0___VERANTYX_廡_58_\(__jcross_廡:1.0___VERANTYX_廡_20_().__jcross_霢:1.0___VERANTYX_霢_131_.__jcross_霢:1.0___VERANTYX_霢_139_(12))",
+            __jcross_霢:1.0___VERANTYX_霢_134_:    "2.2-__jcross_霢:1.0___VERANTYX_霢_173_",
+            __jcross_霢:1.0___VERANTYX_霢_174_:        __jcross_霢:1.0___VERANTYX_霢_37_.__jcross_霢:1.0___VERANTYX_霢_174_,
+            __jcross_霢:1.0___VERANTYX_霢_188_:      __jcross_霢:1.0___VERANTYX_霢_37_.__jcross_霢:1.0___VERANTYX_霢_107_.__jcross_霢:1.0___VERANTYX_霢_149_,
+            __jcross_霢:1.0___VERANTYX_霢_158_:              __jcross_霢:1.0___VERANTYX_霢_86_,
+            __jcross_霢:1.0___VERANTYX_霢_4_:  [
+                "__jcross_霢:1.0___VERANTYX_霢_155_",
+                "__jcross_澎:1.0___VERANTYX_霢_189_",   // v2.2 新規: __jcross_霢:1.0___VERANTYX_霢_143_/__jcross_廡:1.0___VERANTYX_廡_64_/__jcross_廡:1.0___VERANTYX_廡_45_ を__jcross_霢:1.0___VERANTYX_霢_173_統一
+                "__jcross_霢:1.0___VERANTYX_霢_7_",      // v2.2 新規: ハッシュ重複を排除
+                "__jcross_霢:1.0___VERANTYX_霢_154_",
+                "__jcross_霢:1.0___VERANTYX_霢_92_"
+            ]
+        )
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func __jcross_霢:1.0___VERANTYX_霢_118_(_ __jcross_霢:1.0___VERANTYX_霢_62_: __jcross_廡:1.0___VERANTYX_廡_68_) -> __jcross_廡:1.0___VERANTYX_廡_68_ {
+        var __jcross_霢:1.0___VERANTYX_霢_98_ = __jcross_霢:1.0___VERANTYX_霢_62_.__jcross_霢:1.0___VERANTYX_霢_14_(__jcross_霢:1.0___VERANTYX_霢_182_: "\n")
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let __jcross_霢:1.0___VERANTYX_霢_144_: [(__jcross_霢:1.0___VERANTYX_霢_22_: __jcross_廡:1.0___VERANTYX_廡_68_, __jcross_霢:1.0___VERANTYX_霢_147_: __jcross_廡:1.0___VERANTYX_廡_68_)] = [
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_63_:(?!__jcross_霢:1.0___VERANTYX_霢_173_)\S+"#, "__jcross_霢:1.0___VERANTYX_霢_143_:__jcross_霢:1.0___VERANTYX_霢_173_"),
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_122_:(?!__jcross_霢:1.0___VERANTYX_霢_173_)\S+"#, "__jcross_廡:1.0___VERANTYX_廡_64_:__jcross_霢:1.0___VERANTYX_霢_173_"),
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_79_:(?!__jcross_霢:1.0___VERANTYX_霢_173_)\S+"#, "__jcross_廡:1.0___VERANTYX_廡_45_:__jcross_霢:1.0___VERANTYX_霢_173_"),
+// __jcross_焦:0.9___VERANTYX_XM_626_ [decoy-metadata]
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_15_:(?!__jcross_霢:1.0___VERANTYX_霢_173_)\S+"#, "OP:__jcross_霢:1.0___VERANTYX_霢_173_"),
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_24_:(?!__jcross_霢:1.0___VERANTYX_霢_173_)\S+"#, "__jcross_廡:1.0___VERANTYX_廡_51_:__jcross_霢:1.0___VERANTYX_霢_173_"),
+// [metadata-stripped]
+            (#"\__jcross_霢:1.0___VERANTYX_霢_170_:0x[0-9a-fA-F]+"#, "__jcross_廡:1.0___VERANTYX_廡_66_:__jcross_廡:1.0___VERANTYX_廡_3_"),
+        ]
+
+        __jcross_霢:1.0___VERANTYX_霢_98_ = __jcross_霢:1.0___VERANTYX_霢_98_.__jcross_霢:1.0___VERANTYX_霢_150_ { __jcross_霢:1.0___VERANTYX_霢_93_ in
+            var __jcross_霢:1.0___VERANTYX_霢_12_ = __jcross_霢:1.0___VERANTYX_霢_93_
+            for (__jcross_霢:1.0___VERANTYX_霢_22_, __jcross_霢:1.0___VERANTYX_霢_147_) in __jcross_霢:1.0___VERANTYX_霢_144_ {
+                if let __jcross_霢:1.0___VERANTYX_霢_162_ = try? __jcross_廡:1.0___VERANTYX_廡_78_(__jcross_霢:1.0___VERANTYX_霢_22_: __jcross_霢:1.0___VERANTYX_霢_22_, __jcross_霢:1.0___VERANTYX_霢_168_: .__jcross_霢:1.0___VERANTYX_霢_103_) {
+                    let __jcross_霢:1.0___VERANTYX_霢_138_ = __jcross_廡:1.0___VERANTYX_廡_15_(__jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_11_..., in: __jcross_霢:1.0___VERANTYX_霢_12_)
+                    __jcross_霢:1.0___VERANTYX_霢_12_ = __jcross_霢:1.0___VERANTYX_霢_162_.__jcross_霢:1.0___VERANTYX_霢_109_(
+                        in: __jcross_霢:1.0___VERANTYX_霢_12_, __jcross_霢:1.0___VERANTYX_霢_138_: __jcross_霢:1.0___VERANTYX_霢_138_, __jcross_霢:1.0___VERANTYX_霢_65_: __jcross_霢:1.0___VERANTYX_霢_147_
+                    )
+                }
+            }
+// [metadata-stripped]
+            while __jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_172_("__jcross_廡:1.0___VERANTYX_廡_66_:__jcross_廡:1.0___VERANTYX_廡_3_") {
+                __jcross_霢:1.0___VERANTYX_霢_12_ = __jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_55_(
+                    of: "__jcross_廡:1.0___VERANTYX_廡_66_:__jcross_廡:1.0___VERANTYX_廡_3_",
+                    __jcross_霢:1.0___VERANTYX_霢_94_: "__jcross_廡:1.0___VERANTYX_廡_66_:\(__jcross_霢:1.0___VERANTYX_霢_46_())",
+                    __jcross_霢:1.0___VERANTYX_霢_138_: __jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_138_(of: "__jcross_廡:1.0___VERANTYX_廡_66_:__jcross_廡:1.0___VERANTYX_廡_3_")
+                )
+            }
+            return __jcross_霢:1.0___VERANTYX_霢_12_
+        }
+
+// [metadata-stripped]
+        __jcross_霢:1.0___VERANTYX_霢_98_ = __jcross_霢:1.0___VERANTYX_霢_98_.__jcross_霢:1.0___VERANTYX_霢_150_ { __jcross_霢:1.0___VERANTYX_霢_93_ in
+            var __jcross_霢:1.0___VERANTYX_霢_12_ = __jcross_霢:1.0___VERANTYX_霢_93_
+            let __jcross_霢:1.0___VERANTYX_霢_61_ = #"(__jcross_廡:1.0___VERANTYX_廡_73_|__jcross_霢:1.0___VERANTYX_霢_166_|__jcross_霢:1.0___VERANTYX_霢_6_?|__jcross_霢:1.0___VERANTYX_霢_16_?)[:=]\s*(\d+)"#
+            if let __jcross_霢:1.0___VERANTYX_霢_162_ = try? __jcross_廡:1.0___VERANTYX_廡_78_(__jcross_霢:1.0___VERANTYX_霢_22_: __jcross_霢:1.0___VERANTYX_霢_61_, __jcross_霢:1.0___VERANTYX_霢_168_: .__jcross_霢:1.0___VERANTYX_霢_103_) {
+                let __jcross_霢:1.0___VERANTYX_霢_176_ = __jcross_霢:1.0___VERANTYX_霢_12_ as __jcross_廡:1.0___VERANTYX_廡_11_
+                let __jcross_霢:1.0___VERANTYX_霢_181_ = __jcross_霢:1.0___VERANTYX_霢_162_.__jcross_霢:1.0___VERANTYX_霢_181_(in: __jcross_霢:1.0___VERANTYX_霢_12_, __jcross_霢:1.0___VERANTYX_霢_138_: __jcross_廡:1.0___VERANTYX_廡_15_(__jcross_霢:1.0___VERANTYX_霢_146_: 0, __jcross_霢:1.0___VERANTYX_霢_124_: __jcross_霢:1.0___VERANTYX_霢_176_.__jcross_霢:1.0___VERANTYX_霢_124_))
+                for __jcross_霢:1.0___VERANTYX_霢_184_ in __jcross_霢:1.0___VERANTYX_霢_181_.__jcross_霢:1.0___VERANTYX_霢_157_() {
+                    if let __jcross_霢:1.0___VERANTYX_霢_53_ = __jcross_廡:1.0___VERANTYX_廡_28_(__jcross_霢:1.0___VERANTYX_霢_184_.__jcross_霢:1.0___VERANTYX_霢_138_(at: 2), in: __jcross_霢:1.0___VERANTYX_霢_12_),
+                       let __jcross_霢:1.0___VERANTYX_霢_149_ = __jcross_廡:1.0___VERANTYX_廡_22_(__jcross_霢:1.0___VERANTYX_霢_12_[__jcross_霢:1.0___VERANTYX_霢_53_]) {
+                        let __jcross_霢:1.0___VERANTYX_霢_119_ = __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_165_(__jcross_霢:1.0___VERANTYX_霢_149_).__jcross_霢:1.0___VERANTYX_霢_136_
+                        if let __jcross_霢:1.0___VERANTYX_霢_185_ = __jcross_廡:1.0___VERANTYX_廡_28_(__jcross_霢:1.0___VERANTYX_霢_184_.__jcross_霢:1.0___VERANTYX_霢_138_, in: __jcross_霢:1.0___VERANTYX_霢_12_) {
+                            let __jcross_沈:1.0___VERANTYX_霢_183_ = __jcross_廡:1.0___VERANTYX_廡_68_(__jcross_霢:1.0___VERANTYX_霢_12_[__jcross_霢:1.0___VERANTYX_霢_185_].__jcross_霢:1.0___VERANTYX_霢_139_(while: { $0 != ":" && $0 != "=" }))
+                            __jcross_霢:1.0___VERANTYX_霢_12_ = __jcross_霢:1.0___VERANTYX_霢_12_.__jcross_霢:1.0___VERANTYX_霢_82_(in: __jcross_霢:1.0___VERANTYX_霢_185_, __jcross_霢:1.0___VERANTYX_霢_94_: "\(__jcross_沈:1.0___VERANTYX_霢_183_):class.\(__jcross_霢:1.0___VERANTYX_霢_119_)")
+                        }
+                    }
+                }
+            }
+            return __jcross_霢:1.0___VERANTYX_霢_12_
+        }
+
+// [metadata-stripped]
+        var __jcross_霢:1.0___VERANTYX_霢_28_: [__jcross_廡:1.0___VERANTYX_廡_68_] = []
+        for __jcross_霢:1.0___VERANTYX_霢_93_ in __jcross_霢:1.0___VERANTYX_霢_98_ {
+            __jcross_霢:1.0___VERANTYX_霢_28_.__jcross_霢:1.0___VERANTYX_霢_20_(__jcross_霢:1.0___VERANTYX_霢_93_)
+// [metadata-stripped]
+            if __jcross_廡:1.0___VERANTYX_廡_35_.__jcross_霢:1.0___VERANTYX_霢_160_(in: 0..<1) < 0.20 && !__jcross_霢:1.0___VERANTYX_霢_93_.__jcross_霢:1.0___VERANTYX_霢_100_(in: .__jcross_霢:1.0___VERANTYX_霢_38_).__jcross_霢:1.0___VERANTYX_霢_87_ {
+                __jcross_霢:1.0___VERANTYX_霢_28_.__jcross_霢:1.0___VERANTYX_霢_20_(__jcross_霢:1.0___VERANTYX_霢_18_())
+            }
+        }
+
+        return __jcross_霢:1.0___VERANTYX_霢_28_.__jcross_霢:1.0___VERANTYX_霢_169_(__jcross_霢:1.0___VERANTYX_霢_88_: "\n")
+    }
+
+// [metadata-stripped]
+
+    private func __jcross_霢:1.0___VERANTYX_霢_18_() -> __jcross_廡:1.0___VERANTYX_廡_68_ {
+        let id = "N_\(__jcross_廡:1.0___VERANTYX_廡_20_().__jcross_霢:1.0___VERANTYX_霢_131_.__jcross_霢:1.0___VERANTYX_霢_139_(8))"
+        let __jcross_霢:1.0___VERANTYX_霢_23_ = __jcross_霢:1.0___VERANTYX_霢_46_()
+        let __jcross_霢:1.0___VERANTYX_霢_47_: [__jcross_廡:1.0___VERANTYX_廡_38_] = __jcross_廡:1.0___VERANTYX_廡_38_.__jcross_霢:1.0___VERANTYX_霢_9_
+        let __jcross_霢:1.0___VERANTYX_霢_166_ = __jcross_霢:1.0___VERANTYX_霢_47_.__jcross_霢:1.0___VERANTYX_霢_59_()?.__jcross_霢:1.0___VERANTYX_霢_136_ ?? "__jcross_霢:1.0___VERANTYX_霢_187_"
+        return "  \(id) __jcross_霢:1.0___VERANTYX_霢_143_:__jcross_霢:1.0___VERANTYX_霢_173_ __jcross_廡:1.0___VERANTYX_廡_64_:__jcross_霢:1.0___VERANTYX_霢_173_ __jcross_廡:1.0___VERANTYX_廡_45_:__jcross_霢:1.0___VERANTYX_霢_173_ __jcross_廡:1.0___VERANTYX_廡_66_:\(__jcross_霢:1.0___VERANTYX_霢_23_) __jcross_廡:1.0___VERANTYX_廡_73_:class.\(__jcross_霢:1.0___VERANTYX_霢_166_)  // ⟨__jcross_霢:1.0___VERANTYX_霢_73_⟩"
+    }
+}
+
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct __jcross_業:1.0___VERANTYX_廡_34_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __jcross_澎:1.0___VERANTYX_霢_8_() -> __jcross_廡:1.0___VERANTYX_廡_36_ {
+        let __jcross_霢:1.0___VERANTYX_霢_111_ = __jcross_廡:1.0___VERANTYX_廡_79_(
+            id: __jcross_廡:1.0___VERANTYX_廡_9_(),
+            __jcross_霢:1.0___VERANTYX_霢_64_: .__jcross_霢:1.0___VERANTYX_霢_60_,
+            __jcross_霢:1.0___VERANTYX_霢_32_: nil,
+            __jcross_霢:1.0___VERANTYX_霢_21_: __jcross_廡:1.0___VERANTYX_廡_33_(
+                __jcross_霢:1.0___VERANTYX_霢_74_: 2, __jcross_霢:1.0___VERANTYX_霢_81_: 1,
+                __jcross_霢:1.0___VERANTYX_霢_27_: .__jcross_霢:1.0___VERANTYX_霢_35_,
+                __jcross_霢:1.0___VERANTYX_霢_41_: .__jcross_霢:1.0___VERANTYX_霢_71_,
+                __jcross_霢:1.0___VERANTYX_霢_101_: [__jcross_廡:1.0___VERANTYX_廡_9_(), __jcross_廡:1.0___VERANTYX_廡_9_()],
+                __jcross_霢:1.0___VERANTYX_霢_117_: [__jcross_廡:1.0___VERANTYX_廡_9_()]
+            ),
+            __jcross_霢:1.0___VERANTYX_霢_45_: __jcross_廡:1.0___VERANTYX_廡_21_(
+                __jcross_霢:1.0___VERANTYX_霢_34_: .__jcross_霢:1.0___VERANTYX_霢_2_,
+                __jcross_霢:1.0___VERANTYX_霢_51_: .__jcross_霢:1.0___VERANTYX_霢_48_,
+                __jcross_霢:1.0___VERANTYX_霢_112_: "0xDEAD1234"
+            ),
+            __jcross_澎:1.0___VERANTYX_霢_44_: nil, __jcross_霢:1.0___VERANTYX_霢_116_: nil
+        )
+
+        let __jcross_霢:1.0___VERANTYX_霢_67_ = __jcross_廡:1.0___VERANTYX_廡_79_(
+            id: __jcross_廡:1.0___VERANTYX_廡_9_(),
+            __jcross_霢:1.0___VERANTYX_霢_64_: .__jcross_霢:1.0___VERANTYX_霢_180_,
+            __jcross_霢:1.0___VERANTYX_霢_32_: nil,
+            __jcross_霢:1.0___VERANTYX_霢_21_: __jcross_廡:1.0___VERANTYX_廡_33_(
+                __jcross_霢:1.0___VERANTYX_霢_74_: 2, __jcross_霢:1.0___VERANTYX_霢_81_: 1,
+                __jcross_霢:1.0___VERANTYX_霢_27_: .__jcross_霢:1.0___VERANTYX_霢_175_,
+                __jcross_霢:1.0___VERANTYX_霢_41_: .__jcross_霢:1.0___VERANTYX_霢_120_,
+                __jcross_霢:1.0___VERANTYX_霢_101_: [__jcross_廡:1.0___VERANTYX_廡_9_(), __jcross_廡:1.0___VERANTYX_廡_9_()],
+                __jcross_霢:1.0___VERANTYX_霢_117_: [__jcross_廡:1.0___VERANTYX_廡_9_()]
+            ),
+            __jcross_霢:1.0___VERANTYX_霢_45_: nil, __jcross_澎:1.0___VERANTYX_霢_44_: nil, __jcross_霢:1.0___VERANTYX_霢_116_: nil
+        )
+
+        let __jcross_霢:1.0___VERANTYX_霢_33_ = __jcross_廡:1.0___VERANTYX_廡_8_(
+            __jcross_霢:1.0___VERANTYX_霢_128_: __jcross_廡:1.0___VERANTYX_廡_9_(),
+            __jcross_霢:1.0___VERANTYX_霢_84_: "__jcross_澎:1.0___VERANTYX_霢_148_",
+            __jcross_霢:1.0___VERANTYX_霢_134_: "2.2",
+            __jcross_霢:1.0___VERANTYX_霢_174_: __jcross_廡:1.0___VERANTYX_廡_18_(),
+            __jcross_霢:1.0___VERANTYX_霢_107_: [],
+            __jcross_霢:1.0___VERANTYX_霢_158_: [__jcross_霢:1.0___VERANTYX_霢_111_.id: __jcross_霢:1.0___VERANTYX_霢_111_, __jcross_霢:1.0___VERANTYX_霢_67_.id: __jcross_霢:1.0___VERANTYX_霢_67_]
+// __jcross_匸:0.4___VERANTYX_MH_816_ [decoy-metadata]
+        )
+
+        let __jcross_霢:1.0___VERANTYX_霢_91_ = __jcross_廡:1.0___VERANTYX_廡_10_()
+        let __jcross_霢:1.0___VERANTYX_霢_77_   = __jcross_霢:1.0___VERANTYX_霢_91_.__jcross_霢:1.0___VERANTYX_霢_151_(__jcross_霢:1.0___VERANTYX_霢_37_: __jcross_霢:1.0___VERANTYX_霢_33_)
+
+        let __jcross_霢:1.0___VERANTYX_霢_83_     = __jcross_廡:1.0___VERANTYX_廡_25_(__jcross_霢:1.0___VERANTYX_霢_77_.__jcross_霢:1.0___VERANTYX_霢_158_.__jcross_霢:1.0___VERANTYX_霢_96_)
+        let __jcross_霢:1.0___VERANTYX_霢_102_     = __jcross_霢:1.0___VERANTYX_霢_83_.__jcross_業:1.0___VERANTYX_霢_106_ { $0.__jcross_霢:1.0___VERANTYX_霢_178_ }
+        let __jcross_霢:1.0___VERANTYX_霢_105_    = __jcross_霢:1.0___VERANTYX_霢_83_.__jcross_霢:1.0___VERANTYX_霢_150_ { $0.__jcross_霢:1.0___VERANTYX_霢_159_ }
+        let __jcross_霢:1.0___VERANTYX_霢_113_ = __jcross_業:1.0___VERANTYX_焦_1_(__jcross_霢:1.0___VERANTYX_霢_105_)
+// __jcross_業:0.8___VERANTYX_KD_748_ [decoy-metadata]
+
+// [metadata-stripped]
+        let __jcross_霢:1.0___VERANTYX_霢_133_ = __jcross_霢:1.0___VERANTYX_霢_113_.__jcross_霢:1.0___VERANTYX_霢_149_ == __jcross_霢:1.0___VERANTYX_霢_105_.__jcross_霢:1.0___VERANTYX_霢_149_
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+        return __jcross_廡:1.0___VERANTYX_廡_36_(
+            __jcross_霢:1.0___VERANTYX_霢_52_:  2,
+// __jcross_廡:0.1___VERANTYX_DK_107_ [decoy-metadata]
+            __jcross_霢:1.0___VERANTYX_霢_78_: __jcross_霢:1.0___VERANTYX_霢_83_.__jcross_霢:1.0___VERANTYX_霢_149_,
+            __jcross_霢:1.0___VERANTYX_霢_186_:   __jcross_霢:1.0___VERANTYX_霢_102_.__jcross_霢:1.0___VERANTYX_霢_149_,
+            __jcross_霢:1.0___VERANTYX_霢_137_:    __jcross_霢:1.0___VERANTYX_霢_113_.__jcross_霢:1.0___VERANTYX_霢_149_,
+            __jcross_霢:1.0___VERANTYX_霢_133_:    __jcross_霢:1.0___VERANTYX_霢_133_,
+            __jcross_霢:1.0___VERANTYX_霢_42_:       !__jcross_霢:1.0___VERANTYX_霢_133_ || __jcross_霢:1.0___VERANTYX_霢_102_.__jcross_霢:1.0___VERANTYX_霢_87_
+        )
+    }
+
+    struct __jcross_廡:1.0___VERANTYX_廡_36_ {
+        let __jcross_霢:1.0___VERANTYX_霢_52_:   __jcross_廡:1.0___VERANTYX_廡_22_
+        let __jcross_霢:1.0___VERANTYX_霢_78_: __jcross_廡:1.0___VERANTYX_廡_22_
+        let __jcross_霢:1.0___VERANTYX_霢_186_:    __jcross_廡:1.0___VERANTYX_廡_22_
+        let __jcross_霢:1.0___VERANTYX_霢_137_:     __jcross_廡:1.0___VERANTYX_廡_22_
+        let __jcross_霢:1.0___VERANTYX_霢_133_:     __jcross_廡:1.0___VERANTYX_廡_27_
+        let __jcross_霢:1.0___VERANTYX_霢_42_:        __jcross_廡:1.0___VERANTYX_廡_27_
+
+        var __jcross_霢:1.0___VERANTYX_霢_127_: __jcross_廡:1.0___VERANTYX_廡_68_ {
+            """
+            [__jcross_業:1.0___VERANTYX_廡_34_ v2.2]
+              __jcross_廡:1.0___VERANTYX_廡_43_ __jcross_霢:1.0___VERANTYX_霢_158_  : \(__jcross_霢:1.0___VERANTYX_霢_52_)
+              __jcross_廡:1.0___VERANTYX_廡_50_ __jcross_霢:1.0___VERANTYX_霢_158_: \(__jcross_霢:1.0___VERANTYX_霢_78_) (\(__jcross_霢:1.0___VERANTYX_霢_186_) __jcross_霢:1.0___VERANTYX_霢_102_)
+              __jcross_廡:1.0___VERANTYX_廡_60_ __jcross_霢:1.0___VERANTYX_霢_76_   : \(__jcross_霢:1.0___VERANTYX_霢_137_) / \(__jcross_霢:1.0___VERANTYX_霢_78_)
+              __jcross_廡:1.0___VERANTYX_廡_52_ __jcross_霢:1.0___VERANTYX_霢_70_   : \(__jcross_霢:1.0___VERANTYX_霢_133_ ? "✅ __jcross_廡:1.0___VERANTYX_廡_53_" : "❌ NO — __jcross_廡:1.0___VERANTYX_廡_42_")
+              __jcross_廡:1.0___VERANTYX_廡_24_      : \(__jcross_霢:1.0___VERANTYX_霢_42_ ? "⚠️ __jcross_廡:1.0___VERANTYX_廡_53_" : "✅ NO")
+              __jcross_廡:1.0___VERANTYX_廡_77_ __jcross_霢:1.0___VERANTYX_霢_129_: \(__jcross_霢:1.0___VERANTYX_霢_42_ ? "5-10%" : "<2%")
+            """
+        }
+    }
+}
+// [metadata-stripped]
+
+// POLYMORPHIC_JCROSS_END

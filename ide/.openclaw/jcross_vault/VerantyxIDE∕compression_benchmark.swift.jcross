@@ -1,0 +1,146 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:160E8F51 ver:1778149623
+// ⚠️ One-time schema — expires after response
+
+import __ast_庠:1.0___TOKEN_庠_19_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_庠:0.2___TOKEN_DG_152_ [decoy-metadata]
+public struct __ast_庠:1.0___TOKEN_庠_39_ {
+    
+// [metadata-stripped]
+    private let __ast_雰:1.0___TOKEN_雰_49_: __ast_庠:1.0___TOKEN_庠_25_
+// [metadata-stripped]
+    private let __ast_雰:1.0___TOKEN_雰_68_: __ast_庠:1.0___TOKEN_庠_25_
+    
+    public init(__ast_雰:1.0___TOKEN_雰_49_: __ast_庠:1.0___TOKEN_庠_25_ = 4096, __ast_雰:1.0___TOKEN_雰_68_: __ast_庠:1.0___TOKEN_庠_25_ = 15) {
+        self.__ast_雰:1.0___TOKEN_雰_49_ = __ast_雰:1.0___TOKEN_雰_49_
+        self.__ast_雰:1.0___TOKEN_雰_68_ = __ast_雰:1.0___TOKEN_雰_68_
+    }
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    public func __ast_雰:1.0___TOKEN_雰_40_(__ast_雰:1.0___TOKEN_雰_31_: __ast_庠:1.0___TOKEN_庠_12_) -> __ast_庠:1.0___TOKEN_庠_12_ {
+        var __ast_雰:1.0___TOKEN_雰_20_ = __ast_庠:1.0___TOKEN_庠_12_()
+// __ast_弧:0.4___TOKEN_ZW_624_ [decoy-metadata]
+        var __ast_雰:1.0___TOKEN_雰_38_ = 0
+        let __ast_雰:1.0___TOKEN_雰_48_ = [__ast_庠:1.0___TOKEN_庠_4_](__ast_雰:1.0___TOKEN_雰_31_)
+        
+        while __ast_雰:1.0___TOKEN_雰_38_ < __ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_ {
+            var __ast_雰:1.0___TOKEN_雰_12_ = 0
+            var __ast_雰:1.0___TOKEN_雰_77_ = 0
+            
+// [metadata-stripped]
+            let __ast_雰:1.0___TOKEN_雰_46_ = __ast_雰:1.0___TOKEN_雰_62_(0, __ast_雰:1.0___TOKEN_雰_38_ - __ast_雰:1.0___TOKEN_雰_49_)
+            let __ast_雰:1.0___TOKEN_雰_91_ = __ast_雰:1.0___TOKEN_雰_19_(__ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_, __ast_雰:1.0___TOKEN_雰_38_ + __ast_雰:1.0___TOKEN_雰_68_)
+            
+// [metadata-stripped]
+            for i in __ast_雰:1.0___TOKEN_雰_46_..<__ast_雰:1.0___TOKEN_雰_38_ {
+                var __ast_雰:1.0___TOKEN_雰_99_ = 0
+                while (__ast_雰:1.0___TOKEN_雰_38_ + __ast_雰:1.0___TOKEN_雰_99_) < __ast_雰:1.0___TOKEN_雰_91_ && 
+                      __ast_雰:1.0___TOKEN_雰_48_[i + __ast_雰:1.0___TOKEN_雰_99_] == __ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_38_ + __ast_雰:1.0___TOKEN_雰_99_] {
+                    __ast_雰:1.0___TOKEN_雰_99_ += 1
+                }
+                
+                if __ast_雰:1.0___TOKEN_雰_99_ > __ast_雰:1.0___TOKEN_雰_77_ {
+                    __ast_雰:1.0___TOKEN_雰_77_ = __ast_雰:1.0___TOKEN_雰_99_
+                    __ast_雰:1.0___TOKEN_雰_12_ = __ast_雰:1.0___TOKEN_雰_38_ - i
+                }
+            }
+            
+// [metadata-stripped]
+            let __ast_雰:1.0___TOKEN_雰_44_ = __ast_雰:1.0___TOKEN_雰_38_ + __ast_雰:1.0___TOKEN_雰_77_
+            let __ast_雰:1.0___TOKEN_雰_32_: __ast_庠:1.0___TOKEN_庠_4_ = __ast_雰:1.0___TOKEN_雰_44_ < __ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_ ? __ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_44_] : 0
+            
+// __ast_弧:0.9___TOKEN_BW_965_ [decoy-metadata]
+// [metadata-stripped]
+            var __ast_雰:1.0___TOKEN_雰_8_ = __ast_庠:1.0___TOKEN_庠_15_(__ast_雰:1.0___TOKEN_雰_12_).__ast_雰:1.0___TOKEN_雰_9_
+            var __ast_雰:1.0___TOKEN_雰_53_ = __ast_庠:1.0___TOKEN_庠_4_(__ast_雰:1.0___TOKEN_雰_77_)
+            
+            __ast_雰:1.0___TOKEN_雰_20_.__ast_雰:1.0___TOKEN_雰_94_(__ast_庠:1.0___TOKEN_庠_12_(__ast_雰:1.0___TOKEN_雰_30_: &__ast_雰:1.0___TOKEN_雰_8_, __ast_雰:1.0___TOKEN_雰_18_: __ast_庠:1.0___TOKEN_庠_2_<__ast_庠:1.0___TOKEN_庠_15_>.__ast_雰:1.0___TOKEN_雰_33_))
+            __ast_雰:1.0___TOKEN_雰_20_.__ast_雰:1.0___TOKEN_雰_94_(__ast_庠:1.0___TOKEN_庠_12_(__ast_雰:1.0___TOKEN_雰_30_: &__ast_雰:1.0___TOKEN_雰_53_, __ast_雰:1.0___TOKEN_雰_18_: __ast_庠:1.0___TOKEN_庠_2_<__ast_庠:1.0___TOKEN_庠_4_>.__ast_雰:1.0___TOKEN_雰_33_))
+            __ast_雰:1.0___TOKEN_雰_20_.__ast_雰:1.0___TOKEN_雰_94_(__ast_雰:1.0___TOKEN_雰_32_)
+            
+// [metadata-stripped]
+            __ast_雰:1.0___TOKEN_雰_38_ += __ast_雰:1.0___TOKEN_雰_77_ + 1
+        }
+        
+        return __ast_雰:1.0___TOKEN_雰_20_
+    }
+    
+// [metadata-stripped]
+    public func __ast_雰:1.0___TOKEN_雰_102_(__ast_雰:1.0___TOKEN_雰_31_: __ast_庠:1.0___TOKEN_庠_12_) -> __ast_庠:1.0___TOKEN_庠_12_ {
+        var __ast_雰:1.0___TOKEN_雰_2_ = [__ast_庠:1.0___TOKEN_庠_4_]()
+        var __ast_雰:1.0___TOKEN_雰_38_ = 0
+        let __ast_雰:1.0___TOKEN_雰_48_ = [__ast_庠:1.0___TOKEN_庠_4_](__ast_雰:1.0___TOKEN_雰_31_)
+// __ast_式:0.5___TOKEN_YH_900_ [decoy-metadata]
+        
+        while __ast_雰:1.0___TOKEN_雰_38_ < __ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_ {
+            guard __ast_雰:1.0___TOKEN_雰_38_ + 3 < __ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_ else { break }
+            
+// [metadata-stripped]
+            let __ast_雰:1.0___TOKEN_雰_93_ = [__ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_38_], __ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_38_ + 1]]
+            let __ast_雰:1.0___TOKEN_雰_8_ = __ast_雰:1.0___TOKEN_雰_93_.__ast_雰:1.0___TOKEN_雰_34_ { $0.__ast_匵:1.0___TOKEN_雰_65_(as: __ast_庠:1.0___TOKEN_庠_15_.self) }.__ast_雰:1.0___TOKEN_雰_9_
+            let __ast_雰:1.0___TOKEN_雰_12_ = __ast_庠:1.0___TOKEN_庠_25_(__ast_雰:1.0___TOKEN_雰_8_)
+            
+            let __ast_雰:1.0___TOKEN_雰_77_ = __ast_庠:1.0___TOKEN_庠_25_(__ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_38_ + 2])
+            let __ast_雰:1.0___TOKEN_雰_32_ = __ast_雰:1.0___TOKEN_雰_48_[__ast_雰:1.0___TOKEN_雰_38_ + 3]
+            __ast_雰:1.0___TOKEN_雰_38_ += 4
+            
+// [metadata-stripped]
+            if __ast_雰:1.0___TOKEN_雰_77_ > 0 && __ast_雰:1.0___TOKEN_雰_12_ > 0 {
+                let __ast_雰:1.0___TOKEN_雰_10_ = __ast_雰:1.0___TOKEN_雰_2_.__ast_雰:1.0___TOKEN_雰_18_ - __ast_雰:1.0___TOKEN_雰_12_
+                for i in 0..<__ast_雰:1.0___TOKEN_雰_77_ {
+                    if __ast_雰:1.0___TOKEN_雰_10_ + i < __ast_雰:1.0___TOKEN_雰_2_.__ast_雰:1.0___TOKEN_雰_18_ {
+                        __ast_雰:1.0___TOKEN_雰_2_.__ast_雰:1.0___TOKEN_雰_94_(__ast_雰:1.0___TOKEN_雰_2_[__ast_雰:1.0___TOKEN_雰_10_ + i])
+                    }
+                }
+            }
+            
+// [metadata-stripped]
+            if __ast_雰:1.0___TOKEN_雰_38_ <= __ast_雰:1.0___TOKEN_雰_48_.__ast_雰:1.0___TOKEN_雰_18_ || __ast_雰:1.0___TOKEN_雰_32_ != 0 {
+                __ast_雰:1.0___TOKEN_雰_2_.__ast_雰:1.0___TOKEN_雰_94_(__ast_雰:1.0___TOKEN_雰_32_)
+            }
+        }
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        return __ast_庠:1.0___TOKEN_庠_12_(__ast_雰:1.0___TOKEN_雰_2_)
+    }
+}
+
+// __ast_滴:0.7___TOKEN_DA_819_ [decoy-metadata]
+// [metadata-stripped]
+// __ast_伏:0.2___TOKEN_CW_654_ [decoy-metadata]
+func __ast_雰:1.0___TOKEN_雰_15_() {
+    let __ast_雰:1.0___TOKEN_雰_56_ = "__ast_庠:1.0___TOKEN_庠_1_ __ast_雰:1.0___TOKEN_雰_79_ __ast_雰:1.0___TOKEN_雰_86_ __ast_雰:1.0___TOKEN_雰_43_ __ast_雰:1.0___TOKEN_雰_28_ __ast_雰:1.0___TOKEN_雰_80_ __ast_雰:1.0___TOKEN_雰_50_! __ast_庠:1.0___TOKEN_庠_1_ __ast_雰:1.0___TOKEN_雰_79_ __ast_雰:1.0___TOKEN_雰_86_ __ast_雰:1.0___TOKEN_雰_43_ __ast_雰:1.0___TOKEN_雰_28_ __ast_雰:1.0___TOKEN_雰_80_ __ast_雰:1.0___TOKEN_雰_50_!"
+    guard let __ast_雰:1.0___TOKEN_雰_59_ = __ast_雰:1.0___TOKEN_雰_56_.__ast_雰:1.0___TOKEN_雰_31_(__ast_雰:1.0___TOKEN_雰_69_: .__ast_雰:1.0___TOKEN_雰_6_) else { return }
+    
+    let __ast_雰:1.0___TOKEN_雰_61_ = __ast_庠:1.0___TOKEN_庠_39_()
+    
+    __ast_雰:1.0___TOKEN_雰_64_("--- __ast_庠:1.0___TOKEN_庠_38_ __ast_庠:1.0___TOKEN_庠_6_ ---")
+    __ast_雰:1.0___TOKEN_雰_64_("__ast_庠:1.0___TOKEN_庠_28_ __ast_雰:1.0___TOKEN_雰_33_: \(__ast_雰:1.0___TOKEN_雰_59_.__ast_雰:1.0___TOKEN_雰_18_) __ast_雰:1.0___TOKEN_雰_30_")
+    
+    let __ast_雰:1.0___TOKEN_雰_75_ = __ast_庠:1.0___TOKEN_庠_29_()
+    let __ast_雰:1.0___TOKEN_雰_1_ = __ast_雰:1.0___TOKEN_雰_61_.__ast_雰:1.0___TOKEN_雰_40_(__ast_雰:1.0___TOKEN_雰_31_: __ast_雰:1.0___TOKEN_雰_59_)
+    let __ast_雰:1.0___TOKEN_雰_92_ = __ast_庠:1.0___TOKEN_庠_29_().__ast_雰:1.0___TOKEN_雰_7_(__ast_雰:1.0___TOKEN_雰_75_)
+    __ast_雰:1.0___TOKEN_雰_64_("__ast_庠:1.0___TOKEN_庠_18_ __ast_雰:1.0___TOKEN_雰_33_: \(__ast_雰:1.0___TOKEN_雰_1_.__ast_雰:1.0___TOKEN_雰_18_) __ast_雰:1.0___TOKEN_雰_30_")
+    __ast_雰:1.0___TOKEN_雰_64_("__ast_庠:1.0___TOKEN_庠_38_ __ast_雰:1.0___TOKEN_雰_39_: \(__ast_雰:1.0___TOKEN_雰_92_) s")
+    
+    let __ast_雰:1.0___TOKEN_雰_36_ = __ast_庠:1.0___TOKEN_庠_29_()
+    let __ast_雰:1.0___TOKEN_雰_88_ = __ast_雰:1.0___TOKEN_雰_61_.__ast_雰:1.0___TOKEN_雰_102_(__ast_雰:1.0___TOKEN_雰_31_: __ast_雰:1.0___TOKEN_雰_1_)
+    let __ast_雰:1.0___TOKEN_雰_16_ = __ast_庠:1.0___TOKEN_庠_29_().__ast_雰:1.0___TOKEN_雰_7_(__ast_雰:1.0___TOKEN_雰_36_)
+    __ast_雰:1.0___TOKEN_雰_64_("__ast_庠:1.0___TOKEN_庠_17_ __ast_雰:1.0___TOKEN_雰_39_: \(__ast_雰:1.0___TOKEN_雰_16_) s")
+    
+    let __ast_雰:1.0___TOKEN_雰_60_ = __ast_庠:1.0___TOKEN_庠_14_(__ast_雰:1.0___TOKEN_雰_31_: __ast_雰:1.0___TOKEN_雰_88_, __ast_雰:1.0___TOKEN_雰_71_: .__ast_雰:1.0___TOKEN_雰_6_)?.__ast_雰:1.0___TOKEN_雰_29_(in: __ast_庠:1.0___TOKEN_庠_32_(__ast_雰:1.0___TOKEN_雰_23_: "\0"))
+    
+    let __ast_雰:1.0___TOKEN_雰_51_ = (__ast_雰:1.0___TOKEN_雰_56_ == __ast_雰:1.0___TOKEN_雰_60_) ? "__ast_庠:1.0___TOKEN_庠_11_" : "NO"
+    __ast_雰:1.0___TOKEN_雰_64_("__ast_庠:1.0___TOKEN_庠_31_: \(__ast_雰:1.0___TOKEN_雰_51_)")
+}
+
+__ast_雰:1.0___TOKEN_雰_15_()
+
+// POLYMORPHIC_JCROSS_END

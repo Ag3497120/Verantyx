@@ -1,0 +1,244 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:171915F2 ver:1778159582
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_雰:1.0__ASTNODE_雰_60_
+import _VERANTYX_雰:1.0__ASTNODE_雰_99_
+import re
+_VERANTYX_雰:1.0__ASTNODE_雰_70_ _VERANTYX_雰:1.0__ASTNODE_雰_80_ import _VERANTYX_庠:1.0__ASTNODE_庠_22_
+
+// [metadata-stripped]
+_VERANTYX_庠:1.0__ASTNODE_庠_19_ = _VERANTYX_庠:1.0__ASTNODE_庠_22_("/_VERANTYX_庠:1.0__ASTNODE_庠_21_/_VERANTYX_雰:1.0__ASTNODE_雰_79_/_VERANTYX_雰:1.0__ASTNODE_雰_44_/_VERANTYX_雰:1.0__ASTNODE_雰_44_/db/_VERANTYX_雰:1.0__ASTNODE_雰_124_._VERANTYX_雰:1.0__ASTNODE_雰_120_")
+
+_VERANTYX_雰:1.0__ASTNODE_雰_112_ _VERANTYX_区:1.0__ASTNODE_雰_38_():
+    _VERANTYX_雰:1.0__ASTNODE_雰_5_ = _VERANTYX_技:1.0__ASTNODE_碑_3_()
+    if _VERANTYX_雰:1.0__ASTNODE_雰_51_ _VERANTYX_庠:1.0__ASTNODE_庠_19_._VERANTYX_雰:1.0__ASTNODE_雰_69_():
+        return _VERANTYX_雰:1.0__ASTNODE_雰_5_
+    _VERANTYX_雰:1.0__ASTNODE_雰_33_ _VERANTYX_庠:1.0__ASTNODE_庠_19_.open("r", _VERANTYX_雰:1.0__ASTNODE_雰_87_="_VERANTYX_雰:1.0__ASTNODE_雰_78_-8") as f:
+        for _VERANTYX_雰:1.0__ASTNODE_雰_85_ in f:
+            try:
+                _VERANTYX_雰:1.0__ASTNODE_雰_49_ = _VERANTYX_雰:1.0__ASTNODE_雰_60_._VERANTYX_区:1.0__ASTNODE_雰_48_(_VERANTYX_雰:1.0__ASTNODE_雰_85_)
+            _VERANTYX_雰:1.0__ASTNODE_雰_63_ _VERANTYX_庠:1.0__ASTNODE_庠_7_:
+                continue
+            _VERANTYX_雰:1.0__ASTNODE_雰_100_ = (_VERANTYX_雰:1.0__ASTNODE_雰_49_._VERANTYX_技:1.0__ASTNODE_碑_1_("_VERANTYX_雰:1.0__ASTNODE_雰_98_") or "")._VERANTYX_雰:1.0__ASTNODE_雰_104_()
+            if _VERANTYX_雰:1.0__ASTNODE_雰_100_:
+                _VERANTYX_雰:1.0__ASTNODE_雰_5_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+    return _VERANTYX_雰:1.0__ASTNODE_雰_5_
+
+_VERANTYX_雰:1.0__ASTNODE_雰_112_ _VERANTYX_技:1.0__ASTNODE_碑_2_():
+    _VERANTYX_雰:1.0__ASTNODE_雰_34_ = {"_VERANTYX_雰:1.0__ASTNODE_雰_57_": 1, "_VERANTYX_雰:1.0__ASTNODE_雰_23_": 1, "_VERANTYX_雰:1.0__ASTNODE_雰_17_": 1, "_VERANTYX_雰:1.0__ASTNODE_雰_40_": 1, "_VERANTYX_雰:1.0__ASTNODE_雰_116_": 1}
+    if _VERANTYX_雰:1.0__ASTNODE_雰_51_ _VERANTYX_庠:1.0__ASTNODE_庠_19_._VERANTYX_雰:1.0__ASTNODE_雰_69_():
+        return _VERANTYX_雰:1.0__ASTNODE_雰_34_
+    
+    _VERANTYX_雰:1.0__ASTNODE_雰_33_ _VERANTYX_庠:1.0__ASTNODE_庠_19_.open("r", _VERANTYX_雰:1.0__ASTNODE_雰_87_="_VERANTYX_雰:1.0__ASTNODE_雰_78_-8") as f:
+        for _VERANTYX_雰:1.0__ASTNODE_雰_85_ in f:
+            try:
+                _VERANTYX_雰:1.0__ASTNODE_雰_49_ = _VERANTYX_雰:1.0__ASTNODE_雰_60_._VERANTYX_区:1.0__ASTNODE_雰_48_(_VERANTYX_雰:1.0__ASTNODE_雰_85_)
+                if _VERANTYX_雰:1.0__ASTNODE_雰_49_._VERANTYX_技:1.0__ASTNODE_碑_1_("_VERANTYX_雰:1.0__ASTNODE_雰_65_") != "_VERANTYX_雰:1.0__ASTNODE_雰_29_":
+                    continue
+// [metadata-stripped]
+                _VERANTYX_雰:1.0__ASTNODE_雰_109_ = _VERANTYX_雰:1.0__ASTNODE_雰_49_["id"]._VERANTYX_雰:1.0__ASTNODE_雰_20_(".")
+                if _VERANTYX_雰:1.0__ASTNODE_雰_96_(_VERANTYX_雰:1.0__ASTNODE_雰_109_) == 3:
+                    k = _VERANTYX_雰:1.0__ASTNODE_雰_109_[1]
+                    _VERANTYX_雰:1.0__ASTNODE_雰_117_ = _VERANTYX_雰:1.0__ASTNODE_雰_67_(_VERANTYX_雰:1.0__ASTNODE_雰_109_[2])
+                    if k in _VERANTYX_雰:1.0__ASTNODE_雰_34_:
+                        _VERANTYX_雰:1.0__ASTNODE_雰_34_[k] = _VERANTYX_雰:1.0__ASTNODE_雰_75_(_VERANTYX_雰:1.0__ASTNODE_雰_34_[k], _VERANTYX_雰:1.0__ASTNODE_雰_117_ + 1)
+            _VERANTYX_雰:1.0__ASTNODE_雰_63_:
+                continue
+    return _VERANTYX_雰:1.0__ASTNODE_雰_34_
+
+// [metadata-stripped]
+_VERANTYX_庠:1.0__ASTNODE_庠_16_ = ["p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] + [f"p{i}" for i in _VERANTYX_雰:1.0__ASTNODE_雰_64_(1, 50)] + [f"q{i}" for i in _VERANTYX_雰:1.0__ASTNODE_雰_64_(1, 50)]
+_VERANTYX_庠:1.0__ASTNODE_庠_32_ = [r"\_VERANTYX_雰:1.0__ASTNODE_雰_21_", r"\_VERANTYX_雰:1.0__ASTNODE_雰_30_", r"\to", r"\_VERANTYX_雰:1.0__ASTNODE_雰_68_", r"\_VERANTYX_雰:1.0__ASTNODE_雰_53_"]
+_VERANTYX_庠:1.0__ASTNODE_庠_31_ = [r"\_VERANTYX_雰:1.0__ASTNODE_雰_82_", r"\_VERANTYX_雰:1.0__ASTNODE_雰_42_"]
+
+_VERANTYX_雰:1.0__ASTNODE_雰_112_ _VERANTYX_滴:1.0__ASTNODE_雰_59_(_VERANTYX_雰:1.0__ASTNODE_雰_36_=0):
+    if _VERANTYX_雰:1.0__ASTNODE_雰_36_ > 2 or _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_99_() < 0.3:
+        if _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_99_() < 0.1:
+            return _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_庠:1.0__ASTNODE_庠_31_)
+        return _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_庠:1.0__ASTNODE_庠_16_)
+    
+    r = _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_99_()
+    if r < 0.2:
+        return f"\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {_VERANTYX_滴:1.0__ASTNODE_雰_59_(_VERANTYX_雰:1.0__ASTNODE_雰_36_ + 1)}"
+    else:
+        op = _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_庠:1.0__ASTNODE_庠_32_)
+        return f"({_VERANTYX_滴:1.0__ASTNODE_雰_59_(_VERANTYX_雰:1.0__ASTNODE_雰_36_ + 1)} {op} {_VERANTYX_滴:1.0__ASTNODE_雰_59_(_VERANTYX_雰:1.0__ASTNODE_雰_36_ + 1)})"
+
+_VERANTYX_雰:1.0__ASTNODE_雰_112_ _VERANTYX_雰:1.0__ASTNODE_雰_101_():
+    _VERANTYX_雰:1.0__ASTNODE_雰_12_ = _VERANTYX_技:1.0__ASTNODE_碑_2_()
+    _VERANTYX_雰:1.0__ASTNODE_雰_107_ = []
+    _VERANTYX_雰:1.0__ASTNODE_雰_74_ = _VERANTYX_区:1.0__ASTNODE_雰_38_()
+    
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_102_ = {
+// _VERANTYX_庠:0.4__ASTNODE_LZ_883_ [decoy-metadata]
+        "_VERANTYX_雰:1.0__ASTNODE_雰_57_": 2000,
+        "_VERANTYX_雰:1.0__ASTNODE_雰_23_": 1000,
+        "_VERANTYX_雰:1.0__ASTNODE_雰_17_": 3500,
+        "_VERANTYX_雰:1.0__ASTNODE_雰_40_": 2000,
+        "_VERANTYX_雰:1.0__ASTNODE_雰_116_": 1500
+    }
+    
+// _VERANTYX_底:0.7__ASTNODE_XL_620_ [decoy-metadata]
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_22_ = [
+        "_VERANTYX_庠:1.0__ASTNODE_庠_66_ of {} in {}", "_VERANTYX_庠:1.0__ASTNODE_庠_3_ _VERANTYX_庠:1.0__ASTNODE_庠_23_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_52_ _VERANTYX_雰:1.0__ASTNODE_雰_54_ of {}", 
+        "_VERANTYX_庠:1.0__ASTNODE_庠_53_ _VERANTYX_雰:1.0__ASTNODE_雰_16_ for {}", "_VERANTYX_庠:1.0__ASTNODE_庠_9_ _VERANTYX_雰:1.0__ASTNODE_雰_72_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_38_ of {}", 
+        "_VERANTYX_庠:1.0__ASTNODE_庠_51_ _VERANTYX_雰:1.0__ASTNODE_雰_47_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_46_ _VERANTYX_滴:1.0__ASTNODE_雰_73_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_27_ _VERANTYX_滴:1.0__ASTNODE_雰_13_ {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_64_ _VERANTYX_雰:1.0__ASTNODE_雰_86_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_41_ in {}", "_VERANTYX_庠:1.0__ASTNODE_庠_45_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_40_ _VERANTYX_滴:1.0__ASTNODE_雰_73_ of {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_29_ _VERANTYX_雰:1.0__ASTNODE_雰_28_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_67_ _VERANTYX_雰:1.0__ASTNODE_雰_121_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_42_ _VERANTYX_雰:1.0__ASTNODE_雰_1_ for {}",
+// _VERANTYX_組:0.2__ASTNODE_YH_163_ [decoy-metadata]
+        "_VERANTYX_庠:1.0__ASTNODE_庠_59_ of {} _VERANTYX_雰:1.0__ASTNODE_雰_32_ {}", "_VERANTYX_庠:1.0__ASTNODE_庠_39_ of {} _VERANTYX_雰:1.0__ASTNODE_雰_15_ {}", "_VERANTYX_庠:1.0__ASTNODE_庠_18_ of {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_5_ _VERANTYX_雰:1.0__ASTNODE_雰_36_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_55_ _VERANTYX_技:1.0__ASTNODE_碑_3_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_62_ _VERANTYX_雰:1.0__ASTNODE_雰_61_ for {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_2_ _VERANTYX_雰:1.0__ASTNODE_雰_118_ _VERANTYX_雰:1.0__ASTNODE_雰_45_ by {}", "_VERANTYX_庠:1.0__ASTNODE_庠_36_ _VERANTYX_雰:1.0__ASTNODE_雰_10_ _VERANTYX_技:1.0__ASTNODE_雰_11_ {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_13_ _VERANTYX_雰:1.0__ASTNODE_雰_119_ for {}", "_VERANTYX_庠:1.0__ASTNODE_庠_15_ _VERANTYX_雰:1.0__ASTNODE_雰_66_ of {}", "_VERANTYX_庠:1.0__ASTNODE_庠_6_ of {}",
+        "_VERANTYX_庠:1.0__ASTNODE_庠_26_ of {} in L3 _VERANTYX_雰:1.0__ASTNODE_雰_55_", "_VERANTYX_庠:1.0__ASTNODE_庠_30_ _VERANTYX_雰:1.0__ASTNODE_雰_123_ _VERANTYX_雰:1.0__ASTNODE_雰_81_ for {}", "_VERANTYX_庠:1.0__ASTNODE_庠_66_ _VERANTYX_滴:1.0__ASTNODE_雰_19_ in {}"
+    ]
+    
+    _VERANTYX_雰:1.0__ASTNODE_雰_113_ = 0
+    while _VERANTYX_雰:1.0__ASTNODE_雰_113_ < _VERANTYX_雰:1.0__ASTNODE_雰_102_["_VERANTYX_雰:1.0__ASTNODE_雰_57_"]:
+        _VERANTYX_雰:1.0__ASTNODE_雰_46_ = _VERANTYX_滴:1.0__ASTNODE_雰_59_(1)
+        _VERANTYX_雰:1.0__ASTNODE_雰_94_ = _VERANTYX_滴:1.0__ASTNODE_雰_59_(1)
+        _VERANTYX_雰:1.0__ASTNODE_雰_88_ = _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_雰:1.0__ASTNODE_雰_22_)._VERANTYX_滴:1.0__ASTNODE_雰_93_(_VERANTYX_雰:1.0__ASTNODE_雰_46_, _VERANTYX_雰:1.0__ASTNODE_雰_94_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_100_ = f"In _VERANTYX_雰:1.0__ASTNODE_雰_77_ _VERANTYX_雰:1.0__ASTNODE_雰_55_, {_VERANTYX_雰:1.0__ASTNODE_雰_88_} _VERANTYX_雰:1.0__ASTNODE_雰_43_ to _VERANTYX_雰:1.0__ASTNODE_雰_108_ _VERANTYX_雰:1.0__ASTNODE_雰_66_ where {_VERANTYX_滴:1.0__ASTNODE_雰_59_(1)} is _VERANTYX_雰:1.0__ASTNODE_雰_71_ _VERANTYX_雰:1.0__ASTNODE_雰_111_ _VERANTYX_雰:1.0__ASTNODE_雰_108_ _VERANTYX_雰:1.0__ASTNODE_雰_24_ of {_VERANTYX_滴:1.0__ASTNODE_雰_59_(1)}."
+        if _VERANTYX_雰:1.0__ASTNODE_雰_100_ in _VERANTYX_雰:1.0__ASTNODE_雰_74_:
+            continue
+        _VERANTYX_雰:1.0__ASTNODE_雰_74_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_107_._VERANTYX_雰:1.0__ASTNODE_雰_50_({
+            "id": f"_VERANTYX_雰:1.0__ASTNODE_雰_41_._VERANTYX_雰:1.0__ASTNODE_雰_57_.{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_57_']:05d}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_65_": "_VERANTYX_雰:1.0__ASTNODE_雰_29_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_83_": "_VERANTYX_雰:1.0__ASTNODE_雰_57_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_97_": f"_VERANTYX_庠:1.0__ASTNODE_庠_56_: {_VERANTYX_雰:1.0__ASTNODE_雰_88_}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_98_": _VERANTYX_雰:1.0__ASTNODE_雰_100_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_114_": ["_VERANTYX_雰:1.0__ASTNODE_雰_41_:_VERANTYX_雰:1.0__ASTNODE_雰_122_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_14_": [f"_VERANTYX_雰:1.0__ASTNODE_雰_110_:{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_57_']}"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_92_": _VERANTYX_庠:1.0__ASTNODE_庠_33_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_95_": [f"_VERANTYX_庠:1.0__ASTNODE_庠_1_ {_VERANTYX_雰:1.0__ASTNODE_雰_88_}", f"_VERANTYX_庠:1.0__ASTNODE_庠_54_ is {_VERANTYX_雰:1.0__ASTNODE_雰_88_}?"] ,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_3_": []
+        })
+        _VERANTYX_雰:1.0__ASTNODE_雰_12_["_VERANTYX_雰:1.0__ASTNODE_雰_57_"] += 1
+        _VERANTYX_雰:1.0__ASTNODE_雰_113_ += 1
+
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_113_ = 0
+    while _VERANTYX_雰:1.0__ASTNODE_雰_113_ < _VERANTYX_雰:1.0__ASTNODE_雰_102_["_VERANTYX_雰:1.0__ASTNODE_雰_23_"]:
+        a, b, c = _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0)
+        _VERANTYX_雰:1.0__ASTNODE_雰_90_ = [
+            (f"({a} \\to ({b} \\to {a}))", "_VERANTYX_庠:1.0__ASTNODE_庠_12_ K"),
+            (f"((({a} \\to ({b} \\to {c})) \\to (({a} \\to {b}) \\to ({a} \\to {c}))))", "_VERANTYX_庠:1.0__ASTNODE_庠_12_ S"),
+            (f"(((\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {b} \\to \\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {a}) \\to ((\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {b} \\to {a}) \\to {b})))", "_VERANTYX_庠:1.0__ASTNODE_庠_12_ _VERANTYX_庠:1.0__ASTNODE_庠_35_"),
+            (f"(({a} \\_VERANTYX_雰:1.0__ASTNODE_雰_21_ {b}) \\to {a})", "_VERANTYX_庠:1.0__ASTNODE_庠_4_ Ax"),
+            (f"({a} \\to ({a} \\_VERANTYX_雰:1.0__ASTNODE_雰_30_ {b}))", "_VERANTYX_庠:1.0__ASTNODE_庠_48_ Ax")
+        ]
+        _VERANTYX_雰:1.0__ASTNODE_雰_100_, _VERANTYX_雰:1.0__ASTNODE_雰_39_ = _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_雰:1.0__ASTNODE_雰_90_)
+        if _VERANTYX_雰:1.0__ASTNODE_雰_100_ in _VERANTYX_雰:1.0__ASTNODE_雰_74_:
+            continue
+        _VERANTYX_雰:1.0__ASTNODE_雰_74_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_107_._VERANTYX_雰:1.0__ASTNODE_雰_50_({
+            "id": f"_VERANTYX_雰:1.0__ASTNODE_雰_41_._VERANTYX_雰:1.0__ASTNODE_雰_23_.{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_23_']:05d}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_65_": "_VERANTYX_雰:1.0__ASTNODE_雰_29_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_83_": "_VERANTYX_雰:1.0__ASTNODE_雰_23_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_97_": f"_VERANTYX_庠:1.0__ASTNODE_庠_58_ {_VERANTYX_雰:1.0__ASTNODE_雰_39_} _VERANTYX_庠:1.0__ASTNODE_庠_44_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_98_": _VERANTYX_雰:1.0__ASTNODE_雰_100_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_114_": ["_VERANTYX_雰:1.0__ASTNODE_雰_41_:_VERANTYX_雰:1.0__ASTNODE_雰_84_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_14_": ["_VERANTYX_雰:1.0__ASTNODE_雰_110_:_VERANTYX_雰:1.0__ASTNODE_雰_23_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_92_": _VERANTYX_庠:1.0__ASTNODE_庠_33_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_95_": [_VERANTYX_雰:1.0__ASTNODE_雰_100_],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_3_": []
+        })
+        _VERANTYX_雰:1.0__ASTNODE_雰_12_["_VERANTYX_雰:1.0__ASTNODE_雰_23_"] += 1
+        _VERANTYX_雰:1.0__ASTNODE_雰_113_ += 1
+
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_113_ = 0
+    while _VERANTYX_雰:1.0__ASTNODE_雰_113_ < _VERANTYX_雰:1.0__ASTNODE_雰_102_["_VERANTYX_雰:1.0__ASTNODE_雰_17_"]:
+        a, b, c = _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0)
+        _VERANTYX_雰:1.0__ASTNODE_雰_37_ = [
+            f"\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ ({a} \\_VERANTYX_雰:1.0__ASTNODE_雰_21_ {b}) \\_VERANTYX_雰:1.0__ASTNODE_雰_68_ (\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {a} \\_VERANTYX_雰:1.0__ASTNODE_雰_30_ \\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {b})",
+            f"\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ ({a} \\_VERANTYX_雰:1.0__ASTNODE_雰_30_ {b}) \\_VERANTYX_雰:1.0__ASTNODE_雰_68_ (\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {a} \\_VERANTYX_雰:1.0__ASTNODE_雰_21_ \\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {b})",
+            f"({a} \\to {b}) \\_VERANTYX_雰:1.0__ASTNODE_雰_68_ (\\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {a} \\_VERANTYX_雰:1.0__ASTNODE_雰_30_ {b})",
+            f"{a} \\_VERANTYX_雰:1.0__ASTNODE_雰_68_ \\_VERANTYX_雰:1.0__ASTNODE_雰_8_ \\_VERANTYX_雰:1.0__ASTNODE_雰_8_ {a}",
+            f"((({a} \\to {b}) \\_VERANTYX_雰:1.0__ASTNODE_雰_21_ ({b} \\to {c})) \\to ({a} \\to {c}))"
+        ]
+        _VERANTYX_雰:1.0__ASTNODE_雰_100_ = _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_31_(_VERANTYX_雰:1.0__ASTNODE_雰_37_)
+        if _VERANTYX_雰:1.0__ASTNODE_雰_100_ in _VERANTYX_雰:1.0__ASTNODE_雰_74_:
+            continue
+        _VERANTYX_雰:1.0__ASTNODE_雰_74_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_107_._VERANTYX_雰:1.0__ASTNODE_雰_50_({
+            "id": f"_VERANTYX_雰:1.0__ASTNODE_雰_41_._VERANTYX_雰:1.0__ASTNODE_雰_17_.{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_17_']:05d}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_65_": "_VERANTYX_雰:1.0__ASTNODE_雰_29_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_83_": "_VERANTYX_雰:1.0__ASTNODE_雰_17_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_97_": f"_VERANTYX_庠:1.0__ASTNODE_庠_8_: {_VERANTYX_雰:1.0__ASTNODE_雰_100_[:40]}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_98_": _VERANTYX_雰:1.0__ASTNODE_雰_100_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_114_": ["_VERANTYX_雰:1.0__ASTNODE_雰_41_:_VERANTYX_雰:1.0__ASTNODE_雰_25_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_14_": ["_VERANTYX_雰:1.0__ASTNODE_雰_110_:_VERANTYX_雰:1.0__ASTNODE_雰_115_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_92_": _VERANTYX_庠:1.0__ASTNODE_庠_33_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_95_": [_VERANTYX_雰:1.0__ASTNODE_雰_100_],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_3_": []
+        })
+        _VERANTYX_雰:1.0__ASTNODE_雰_12_["_VERANTYX_雰:1.0__ASTNODE_雰_17_"] += 1
+        _VERANTYX_雰:1.0__ASTNODE_雰_113_ += 1
+
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_113_ = 0
+// _VERANTYX_組:0.9__ASTNODE_AY_871_ [decoy-metadata]
+    while _VERANTYX_雰:1.0__ASTNODE_雰_113_ < _VERANTYX_雰:1.0__ASTNODE_雰_102_["_VERANTYX_雰:1.0__ASTNODE_雰_40_"]:
+// _VERANTYX_組:0.1__ASTNODE_CV_214_ [decoy-metadata]
+        a, b = _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0)
+        _VERANTYX_雰:1.0__ASTNODE_雰_100_ = f"\\{{ {a}, {a} \\to {b} \\}} \\_VERANTYX_雰:1.0__ASTNODE_雰_7_ {b}"
+        if _VERANTYX_雰:1.0__ASTNODE_雰_100_ in _VERANTYX_雰:1.0__ASTNODE_雰_74_:
+            continue
+        _VERANTYX_雰:1.0__ASTNODE_雰_74_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_107_._VERANTYX_雰:1.0__ASTNODE_雰_50_({
+            "id": f"_VERANTYX_雰:1.0__ASTNODE_雰_41_._VERANTYX_雰:1.0__ASTNODE_雰_40_.{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_40_']:05d}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_65_": "_VERANTYX_雰:1.0__ASTNODE_雰_29_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_83_": "_VERANTYX_雰:1.0__ASTNODE_雰_40_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_97_": f"_VERANTYX_庠:1.0__ASTNODE_庠_43_ _VERANTYX_庠:1.0__ASTNODE_庠_10_ {_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_40_']}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_98_": _VERANTYX_雰:1.0__ASTNODE_雰_100_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_114_": ["_VERANTYX_雰:1.0__ASTNODE_雰_41_:_VERANTYX_雰:1.0__ASTNODE_雰_62_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_14_": ["_VERANTYX_雰:1.0__ASTNODE_雰_110_:mp"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_92_": _VERANTYX_庠:1.0__ASTNODE_庠_33_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_95_": [f"_VERANTYX_庠:1.0__ASTNODE_庠_24_ {b} _VERANTYX_雰:1.0__ASTNODE_雰_70_ {a}"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_3_": []
+        })
+        _VERANTYX_雰:1.0__ASTNODE_雰_12_["_VERANTYX_雰:1.0__ASTNODE_雰_40_"] += 1
+        _VERANTYX_雰:1.0__ASTNODE_雰_113_ += 1
+
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_113_ = 0
+    while _VERANTYX_雰:1.0__ASTNODE_雰_113_ < _VERANTYX_雰:1.0__ASTNODE_雰_102_["_VERANTYX_雰:1.0__ASTNODE_雰_116_"]:
+        a, b = _VERANTYX_滴:1.0__ASTNODE_雰_59_(0), _VERANTYX_滴:1.0__ASTNODE_雰_59_(0)
+        _VERANTYX_雰:1.0__ASTNODE_雰_100_ = f"((({a} \\to {b}) \\_VERANTYX_雰:1.0__ASTNODE_雰_21_ {b}) \\to {a})"
+        if _VERANTYX_雰:1.0__ASTNODE_雰_100_ in _VERANTYX_雰:1.0__ASTNODE_雰_74_:
+// _VERANTYX_庠:0.3__ASTNODE_ZM_783_ [decoy-metadata]
+            continue
+        _VERANTYX_雰:1.0__ASTNODE_雰_74_._VERANTYX_雰:1.0__ASTNODE_雰_103_(_VERANTYX_雰:1.0__ASTNODE_雰_100_)
+        _VERANTYX_雰:1.0__ASTNODE_雰_107_._VERANTYX_雰:1.0__ASTNODE_雰_50_({
+            "id": f"_VERANTYX_雰:1.0__ASTNODE_雰_41_._VERANTYX_雰:1.0__ASTNODE_雰_116_.{_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_116_']:05d}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_65_": "_VERANTYX_雰:1.0__ASTNODE_雰_29_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_83_": "_VERANTYX_雰:1.0__ASTNODE_雰_116_",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_97_": f"_VERANTYX_庠:1.0__ASTNODE_庠_63_ _VERANTYX_雰:1.0__ASTNODE_雰_89_ {_VERANTYX_雰:1.0__ASTNODE_雰_12_['_VERANTYX_雰:1.0__ASTNODE_雰_116_']}",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_98_": _VERANTYX_雰:1.0__ASTNODE_雰_100_,
+            "_VERANTYX_雰:1.0__ASTNODE_雰_114_": ["_VERANTYX_雰:1.0__ASTNODE_雰_41_:_VERANTYX_雰:1.0__ASTNODE_雰_18_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_14_": ["_VERANTYX_雰:1.0__ASTNODE_雰_110_:_VERANTYX_雰:1.0__ASTNODE_雰_106_"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_92_": f"v({a})=F, v({b})=T",
+            "_VERANTYX_雰:1.0__ASTNODE_雰_95_": [f"_VERANTYX_庠:1.0__ASTNODE_庠_34_ is {_VERANTYX_雰:1.0__ASTNODE_雰_100_} _VERANTYX_雰:1.0__ASTNODE_雰_106_?"],
+            "_VERANTYX_雰:1.0__ASTNODE_雰_3_": []
+        })
+        _VERANTYX_雰:1.0__ASTNODE_雰_12_["_VERANTYX_雰:1.0__ASTNODE_雰_116_"] += 1
+
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_99_._VERANTYX_雰:1.0__ASTNODE_雰_4_(_VERANTYX_雰:1.0__ASTNODE_雰_107_)
+    
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__ASTNODE_雰_33_ _VERANTYX_庠:1.0__ASTNODE_庠_19_.open("a", _VERANTYX_雰:1.0__ASTNODE_雰_87_="_VERANTYX_雰:1.0__ASTNODE_雰_78_-8") as f:
+        for _VERANTYX_雰:1.0__ASTNODE_雰_58_ in _VERANTYX_雰:1.0__ASTNODE_雰_107_:
+            f._VERANTYX_雰:1.0__ASTNODE_雰_76_(_VERANTYX_雰:1.0__ASTNODE_雰_60_._VERANTYX_雰:1.0__ASTNODE_雰_56_(_VERANTYX_雰:1.0__ASTNODE_雰_58_, _VERANTYX_雰:1.0__ASTNODE_雰_35_=_VERANTYX_庠:1.0__ASTNODE_庠_57_) + "\n")
+    
+    _VERANTYX_雰:1.0__ASTNODE_雰_26_(f"_VERANTYX_庠:1.0__ASTNODE_庠_49_ {_VERANTYX_雰:1.0__ASTNODE_雰_96_(_VERANTYX_雰:1.0__ASTNODE_雰_107_)} _VERANTYX_雰:1.0__ASTNODE_雰_52_.")
+
+if _VERANTYX_雰:1.0__ASTNODE_雰_9_ == "_VERANTYX_雰:1.0__ASTNODE_雰_27_":
+    _VERANTYX_雰:1.0__ASTNODE_雰_101_()
+
+// POLYMORPHIC_JCROSS_END

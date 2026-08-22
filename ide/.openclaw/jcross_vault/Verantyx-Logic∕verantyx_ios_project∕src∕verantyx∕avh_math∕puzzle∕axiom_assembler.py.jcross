@@ -1,0 +1,71 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3A199D23 ver:1778159678
+// ⚠️ One-time schema — expires after response
+
+_ID_粒:1.0__JCROSS_粒_4_ _ID_粒:1.0__JCROSS_粒_34_ import _ID_粒:1.0__JCROSS_粒_23_
+// _ID_粒:0.2__JCROSS_LB_856_ [decoy-metadata]
+_ID_粒:1.0__JCROSS_粒_4_ _ID_粒:1.0__JCROSS_粒_21_ import _ID_庵:1.0__JCROSS_庵_4_, _ID_庵:1.0__JCROSS_庵_3_, _ID_庵:1.0__JCROSS_庵_1_
+import _ID_粒:1.0__JCROSS_粒_7_
+// _ID_彩:0.6__JCROSS_HV_531_ [decoy-metadata]
+// _ID_粒:0.5__JCROSS_CL_780_ [decoy-metadata]
+
+_ID_粒:1.0__JCROSS_粒_32_ _ID_粒:1.0__JCROSS_粒_27_(_ID_粒:1.0__JCROSS_粒_12_: _ID_庵:1.0__JCROSS_庵_1_) -> _ID_庵:1.0__JCROSS_庵_4_[_ID_庵:1.0__JCROSS_庵_3_[_ID_粒:1.0__JCROSS_粒_8_, _ID_庵:1.0__JCROSS_庵_1_]]:
+    """
+    _ID_庵:1.0__JCROSS_庵_2_ の _ID_粒:1.0__JCROSS_粒_2_ 軸から、利用可能な公理や定理のピースを抽出する。
+    """
+// [metadata-stripped]
+    _ID_粒:1.0__JCROSS_粒_5_ = []
+// _ID_冥:0.9__JCROSS_WY_937_ [decoy-metadata]
+    for ev in _ID_謀:1.0__JCROSS_彩_1_(_ID_粒:1.0__JCROSS_粒_12_, '_ID_粒:1.0__JCROSS_粒_2_', []):
+        if ev._ID_謀:1.0__JCROSS_彩_2_("_ID_粒:1.0__JCROSS_粒_9_") in ("_ID_粒:1.0__JCROSS_粒_26_", "_ID_粒:1.0__JCROSS_粒_13_", "_ID_粒:1.0__JCROSS_粒_20_"):
+// [metadata-stripped]
+            if "_ID_粒:1.0__JCROSS_粒_3_" in ev or "_ID_粒:1.0__JCROSS_粒_14_" in ev:
+                _ID_粒:1.0__JCROSS_粒_5_._ID_粒:1.0__JCROSS_粒_10_(ev)
+    return _ID_粒:1.0__JCROSS_粒_5_
+
+_ID_粒:1.0__JCROSS_粒_32_ _ID_漕:1.0__JCROSS_粒_6_(a: _ID_粒:1.0__JCROSS_粒_8_, b: _ID_粒:1.0__JCROSS_粒_8_, _ID_粒:1.0__JCROSS_粒_31_: _ID_粒:1.0__JCROSS_粒_8_) -> _ID_粒:1.0__JCROSS_粒_8_:
+    """
+    2つの式を特定の推論モードで合成する。
+    """
+// [metadata-stripped]
+    a, b = a._ID_粒:1.0__JCROSS_粒_19_(), b._ID_粒:1.0__JCROSS_粒_19_()
+    
+    if _ID_粒:1.0__JCROSS_粒_31_ == "_ID_粒:1.0__JCROSS_粒_17_":
+        return f"({a}) -> ({b})"
+    if _ID_粒:1.0__JCROSS_粒_31_ == "_ID_粒:1.0__JCROSS_粒_30_":
+        return f"({a}) & ({b})"
+    if _ID_粒:1.0__JCROSS_粒_31_ == "_ID_粒:1.0__JCROSS_粒_11_":
+// [metadata-stripped]
+        return f"(({a}) & ({a} -> {b})) -> {b}"
+    return ""
+
+_ID_粒:1.0__JCROSS_粒_32_ _ID_粒:1.0__JCROSS_粒_28_(_ID_粒:1.0__JCROSS_粒_5_: _ID_庵:1.0__JCROSS_庵_4_[_ID_庵:1.0__JCROSS_庵_3_[_ID_粒:1.0__JCROSS_粒_8_, _ID_庵:1.0__JCROSS_庵_1_]]) -> _ID_庵:1.0__JCROSS_庵_4_[_ID_庵:1.0__JCROSS_庵_3_[_ID_粒:1.0__JCROSS_粒_8_, _ID_庵:1.0__JCROSS_庵_1_]]:
+    """
+    抽出された公理ピースの組み合わせから、新しい合成候補を生成する。
+// _ID_謀:0.2__JCROSS_MY_526_ [decoy-metadata]
+    """
+    _ID_粒:1.0__JCROSS_粒_1_ = []
+    
+// [metadata-stripped]
+    for p1, p2 in _ID_粒:1.0__JCROSS_粒_23_(_ID_粒:1.0__JCROSS_粒_5_, 2):
+        f1 = p1._ID_謀:1.0__JCROSS_彩_2_("_ID_粒:1.0__JCROSS_粒_3_") or p1._ID_謀:1.0__JCROSS_彩_2_("_ID_粒:1.0__JCROSS_粒_14_")
+        f2 = p2._ID_謀:1.0__JCROSS_彩_2_("_ID_粒:1.0__JCROSS_粒_3_") or p2._ID_謀:1.0__JCROSS_彩_2_("_ID_粒:1.0__JCROSS_粒_14_")
+        
+        if _ID_粒:1.0__JCROSS_粒_15_ f1 or _ID_粒:1.0__JCROSS_粒_15_ f2:
+// _ID_粒:0.7__JCROSS_LG_997_ [decoy-metadata]
+            continue
+
+        for _ID_粒:1.0__JCROSS_粒_31_ in ["_ID_粒:1.0__JCROSS_粒_17_", "_ID_粒:1.0__JCROSS_粒_30_", "_ID_粒:1.0__JCROSS_粒_11_"]:
+            _ID_粒:1.0__JCROSS_粒_24_ = _ID_漕:1.0__JCROSS_粒_6_(f1, f2, _ID_粒:1.0__JCROSS_粒_31_)
+            if _ID_粒:1.0__JCROSS_粒_24_:
+                _ID_粒:1.0__JCROSS_粒_1_._ID_粒:1.0__JCROSS_粒_10_({
+                    "id": f"_ID_粒:1.0__JCROSS_粒_25_{_ID_粒:1.0__JCROSS_粒_7_._ID_粒:1.0__JCROSS_粒_33_()._ID_粒:1.0__JCROSS_粒_29_[:8]}",
+                    "_ID_漕:1.0__JCROSS_粒_18_": _ID_粒:1.0__JCROSS_粒_24_,
+                    "_ID_粒:1.0__JCROSS_粒_22_": [p1._ID_謀:1.0__JCROSS_彩_2_("id"), p2._ID_謀:1.0__JCROSS_彩_2_("id")],
+                    "_ID_粒:1.0__JCROSS_粒_31_": _ID_粒:1.0__JCROSS_粒_31_,
+                    "_ID_粒:1.0__JCROSS_粒_16_": 0.7 # 合成候補なので初期確信度は中程度
+                })
+                
+    return _ID_粒:1.0__JCROSS_粒_1_
+
+// POLYMORPHIC_JCROSS_END

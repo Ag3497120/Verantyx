@@ -1,0 +1,88 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3B60F056 ver:1778166506
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霜:1.0__OPAQUE_霜_39_ _ASTNODE_霜:1.0__OPAQUE_霜_77_::{_ASTNODE_廳:1.0__OPAQUE_廳_29_, _ASTNODE_廳:1.0__OPAQUE_廳_22_};
+
+// [metadata-stripped]
+// _ASTNODE_霜:0.4__OPAQUE_GF_406_ [decoy-metadata]
+_ASTNODE_霜:1.0__OPAQUE_霜_41_ enum _ASTNODE_規:1.0__OPAQUE_廳_26_ {
+    _ASTNODE_廳:1.0__OPAQUE_廳_11_, // <= 10B _ASTNODE_霜:1.0__OPAQUE_霜_3_
+    _ASTNODE_廳:1.0__OPAQUE_廳_35_,   // 11B - 35B _ASTNODE_霜:1.0__OPAQUE_霜_3_
+    _ASTNODE_廳:1.0__OPAQUE_廳_12_, // > 35B _ASTNODE_霜:1.0__OPAQUE_霜_3_ or _ASTNODE_廳:1.0__OPAQUE_廳_32_
+}
+
+// [metadata-stripped]
+_ASTNODE_霜:1.0__OPAQUE_霜_41_ _ASTNODE_霜:1.0__OPAQUE_霜_14_uct _ASTNODE_匵:1.0__OPAQUE_廳_9_ {
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ _ASTNODE_霜:1.0__OPAQUE_霜_62_: _ASTNODE_廳:1.0__OPAQUE_廳_10_,
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ _ASTNODE_霜:1.0__OPAQUE_霜_75_: u8,
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ _ASTNODE_滲:1.0__OPAQUE_霜_95_: _ASTNODE_霜:1.0__OPAQUE_霜_23_,
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ _ASTNODE_霜:1.0__OPAQUE_霜_64_: _ASTNODE_廳:1.0__OPAQUE_廳_10_,
+}
+
+_ASTNODE_霜:1.0__OPAQUE_霜_1_ _ASTNODE_匵:1.0__OPAQUE_廳_9_ {
+// [metadata-stripped]
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ fn _ASTNODE_霜:1.0__OPAQUE_霜_79_(_ASTNODE_霜:1.0__OPAQUE_霜_28_: _ASTNODE_霜:1.0__OPAQUE_霜_89_) -> _ASTNODE_廳:1.0__OPAQUE_廳_31_ {
+// _ASTNODE_滲:0.8__OPAQUE_GL_561_ [decoy-metadata]
+        if _ASTNODE_霜:1.0__OPAQUE_霜_28_ <= 10 {
+            _ASTNODE_廳:1.0__OPAQUE_廳_31_ {
+                _ASTNODE_霜:1.0__OPAQUE_霜_62_: "_ASTNODE_廳:1.0__OPAQUE_廳_11_ _ASTNODE_廳:1.0__OPAQUE_廳_15_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+                _ASTNODE_霜:1.0__OPAQUE_霜_75_: 1,
+                _ASTNODE_滲:1.0__OPAQUE_霜_95_: true,
+                _ASTNODE_霜:1.0__OPAQUE_霜_64_: "_ASTNODE_霜:1.0__OPAQUE_霜_11_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+            }
+        } else if _ASTNODE_霜:1.0__OPAQUE_霜_28_ <= 35 {
+            _ASTNODE_廳:1.0__OPAQUE_廳_31_ {
+                _ASTNODE_霜:1.0__OPAQUE_霜_62_: "_ASTNODE_廳:1.0__OPAQUE_廳_35_ _ASTNODE_廳:1.0__OPAQUE_廳_15_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+                _ASTNODE_霜:1.0__OPAQUE_霜_75_: 2,
+                _ASTNODE_滲:1.0__OPAQUE_霜_95_: false,
+                _ASTNODE_霜:1.0__OPAQUE_霜_64_: "_ASTNODE_霜:1.0__OPAQUE_霜_35_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+            }
+// _ASTNODE_匵:0.3__OPAQUE_LA_500_ [decoy-metadata]
+        } else {
+            _ASTNODE_廳:1.0__OPAQUE_廳_31_ {
+                _ASTNODE_霜:1.0__OPAQUE_霜_62_: "_ASTNODE_廳:1.0__OPAQUE_廳_12_ _ASTNODE_廳:1.0__OPAQUE_廳_15_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+                _ASTNODE_霜:1.0__OPAQUE_霜_75_: 10,
+                _ASTNODE_滲:1.0__OPAQUE_霜_95_: false,
+                _ASTNODE_霜:1.0__OPAQUE_霜_64_: "_ASTNODE_霜:1.0__OPAQUE_霜_22_"._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+            }
+        }
+    }
+
+// [metadata-stripped]
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ fn _ASTNODE_霜:1.0__OPAQUE_霜_2_(_ASTNODE_霜:1.0__OPAQUE_霜_88_: &_ASTNODE_霜:1.0__OPAQUE_霜_14_) -> _ASTNODE_廳:1.0__OPAQUE_廳_31_ {
+        let _ASTNODE_霜:1.0__OPAQUE_霜_28_ = if let _ASTNODE_廳:1.0__OPAQUE_廳_23_(_ASTNODE_霜:1.0__OPAQUE_霜_30_) = _ASTNODE_霜:1.0__OPAQUE_霜_88_._ASTNODE_霜:1.0__OPAQUE_霜_12_('b') {
+            let _ASTNODE_霜:1.0__OPAQUE_霜_26_: _ASTNODE_廳:1.0__OPAQUE_廳_10_ = _ASTNODE_霜:1.0__OPAQUE_霜_88_[.._ASTNODE_霜:1.0__OPAQUE_霜_30_]._ASTNODE_霜:1.0__OPAQUE_霜_27_()._ASTNODE_霜:1.0__OPAQUE_霜_57_()._ASTNODE_滲:1.0__OPAQUE_霜_83_(|c| c._ASTNODE_霜:1.0__OPAQUE_霜_94_())._ASTNODE_霜:1.0__OPAQUE_霜_16_();
+            let _ASTNODE_霜:1.0__OPAQUE_霜_24_: _ASTNODE_廳:1.0__OPAQUE_廳_10_ = _ASTNODE_霜:1.0__OPAQUE_霜_26_._ASTNODE_霜:1.0__OPAQUE_霜_27_()._ASTNODE_霜:1.0__OPAQUE_霜_57_()._ASTNODE_霜:1.0__OPAQUE_霜_16_();
+            _ASTNODE_霜:1.0__OPAQUE_霜_24_._ASTNODE_霜:1.0__OPAQUE_霜_48_::<_ASTNODE_霜:1.0__OPAQUE_霜_89_>()._ASTNODE_霜:1.0__OPAQUE_霜_52_(0)
+        } else {
+            0
+        };
+        _ASTNODE_廳:1.0__OPAQUE_廳_31_::_ASTNODE_霜:1.0__OPAQUE_霜_79_(_ASTNODE_霜:1.0__OPAQUE_霜_28_)
+    }
+
+// _ASTNODE_霜:0.1__OPAQUE_BY_540_ [decoy-metadata]
+    _ASTNODE_霜:1.0__OPAQUE_霜_41_ fn _ASTNODE_霜:1.0__OPAQUE_霜_5_(&self) -> _ASTNODE_廳:1.0__OPAQUE_廳_10_ {
+        _ASTNODE_霜:1.0__OPAQUE_霜_96_ self._ASTNODE_霜:1.0__OPAQUE_霜_64_._ASTNODE_霜:1.0__OPAQUE_霜_72_() {
+            "_ASTNODE_霜:1.0__OPAQUE_霜_11_" => "[_ASTNODE_廳:1.0__OPAQUE_廳_16_ _ASTNODE_廳:1.0__OPAQUE_廳_13_ _ASTNODE_廳:1.0__OPAQUE_廳_2_]\n\
+                              _ASTNODE_廳:1.0__OPAQUE_廳_33_ _ASTNODE_規:1.0__OPAQUE_霜_60_ _ASTNODE_霜:1.0__OPAQUE_霜_40_ _ASTNODE_霜:1.0__OPAQUE_霜_76_ _ASTNODE_霜:1.0__OPAQUE_霜_84_ _ASTNODE_霜:1.0__OPAQUE_霜_91_ _ASTNODE_霜:1.0__OPAQUE_霜_42_.\n\
+                              1. DO _ASTNODE_廳:1.0__OPAQUE_廳_19_ _ASTNODE_霜:1.0__OPAQUE_霜_71_ _ASTNODE_霜:1.0__OPAQUE_霜_73_.\n\
+                              2. _ASTNODE_廳:1.0__OPAQUE_廳_20_ _ASTNODE_廳:1.0__OPAQUE_廳_27_ <_ASTNODE_霜:1.0__OPAQUE_霜_90_> at a _ASTNODE_霜:1.0__OPAQUE_霜_46_.\n\
+                              3. _ASTNODE_廳:1.0__OPAQUE_廳_24_ _ASTNODE_霜:1.0__OPAQUE_霜_66_ for _ASTNODE_霜:1.0__OPAQUE_霜_82_ <_ASTNODE_霜:1.0__OPAQUE_霜_81_> _ASTNODE_霜:1.0__OPAQUE_霜_50_ _ASTNODE_霜:1.0__OPAQUE_霜_7_ _ASTNODE_滲:1.0__OPAQUE_霜_17_ _ASTNODE_霜:1.0__OPAQUE_霜_65_.\n\
+                              _ASTNODE_廳:1.0__OPAQUE_廳_7_ to do so _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_6_ in an OS _ASTNODE_霜:1.0__OPAQUE_霜_67_ _ASTNODE_霜:1.0__OPAQUE_霜_13_."
+                ._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+            "_ASTNODE_霜:1.0__OPAQUE_霜_35_" => "[_ASTNODE_廳:1.0__OPAQUE_廳_16_ _ASTNODE_廳:1.0__OPAQUE_廳_13_ _ASTNODE_廳:1.0__OPAQUE_廳_2_]\n\
+                           _ASTNODE_廳:1.0__OPAQUE_廳_34_ _ASTNODE_霜:1.0__OPAQUE_霜_42_ _ASTNODE_霜:1.0__OPAQUE_霜_25_. _ASTNODE_廳:1.0__OPAQUE_廳_4_ _ASTNODE_霜:1.0__OPAQUE_霜_63_ _ASTNODE_霜:1.0__OPAQUE_霜_69_ _ASTNODE_霜:1.0__OPAQUE_霜_92_ _ASTNODE_霜:1.0__OPAQUE_霜_85_ _ASTNODE_霜:1.0__OPAQUE_霜_50_ _ASTNODE_滲:1.0__OPAQUE_霜_61_ _ASTNODE_規:1.0__OPAQUE_霜_19_ _ASTNODE_霜:1.0__OPAQUE_霜_87_ if _ASTNODE_霜:1.0__OPAQUE_霜_43_.\n\
+                           _ASTNODE_廳:1.0__OPAQUE_廳_18_ [_ASTNODE_廳:1.0__OPAQUE_廳_5_ _ASTNODE_廳:1.0__OPAQUE_廳_8_] _ASTNODE_霜:1.0__OPAQUE_霜_68_ for _ASTNODE_霜:1.0__OPAQUE_霜_44_ _ASTNODE_匵:1.0__OPAQUE_霜_20_."
+                ._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+            _ => "[_ASTNODE_廳:1.0__OPAQUE_廳_16_ _ASTNODE_廳:1.0__OPAQUE_廳_13_ _ASTNODE_廳:1.0__OPAQUE_廳_2_ - _ASTNODE_廳:1.0__OPAQUE_廳_17_]\n\
+                  _ASTNODE_廳:1.0__OPAQUE_廳_21_ _ASTNODE_霜:1.0__OPAQUE_霜_56_ _ASTNODE_霜:1.0__OPAQUE_霜_53_. _ASTNODE_廳:1.0__OPAQUE_廳_4_ _ASTNODE_霜:1.0__OPAQUE_霜_93_ _ASTNODE_霜:1.0__OPAQUE_霜_49_ _ASTNODE_霜:1.0__OPAQUE_霜_21_-_ASTNODE_霜:1.0__OPAQUE_霜_80_ _ASTNODE_霜:1.0__OPAQUE_霜_29_ _ASTNODE_霜:1.0__OPAQUE_霜_59_ _ASTNODE_霜:1.0__OPAQUE_霜_54_.\n\
+                  _ASTNODE_廳:1.0__OPAQUE_廳_20_ _ASTNODE_霜:1.0__OPAQUE_霜_86_ _ASTNODE_廳:1.0__OPAQUE_廳_30_ _ASTNODE_霜:1.0__OPAQUE_霜_47_ or _ASTNODE_霜:1.0__OPAQUE_霜_38_ _ASTNODE_霜:1.0__OPAQUE_霜_50_ _ASTNODE_霜:1.0__OPAQUE_霜_8_ as _ASTNODE_霜:1.0__OPAQUE_霜_70_ _ASTNODE_霜:1.0__OPAQUE_霜_10_ _ASTNODE_霜:1.0__OPAQUE_霜_18_."
+// _ASTNODE_規:0.1__OPAQUE_BL_997_ [decoy-metadata]
+// _ASTNODE_霜:0.1__OPAQUE_GD_918_ [decoy-metadata]
+                ._ASTNODE_霜:1.0__OPAQUE_霜_51_(),
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,52 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:57784E46 ver:1778166266
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霮:1.0___node_霮_34__ super::_ASTNODE_霮:1.0___node_霮_41__::_ASTNODE_廴:1.0___node_廴_7__;
+
+_ASTNODE_霮:1.0___node_霮_53__ struct _ASTNODE_廴:1.0___node_廴_9__ {
+    _ASTNODE_霮:1.0___node_霮_53__ _ASTNODE_霮:1.0___node_霮_22__: _ASTNODE_廴:1.0___node_廴_8__,
+    _ASTNODE_霮:1.0___node_霮_53__ _ASTNODE_霮:1.0___node_霮_13__: _ASTNODE_廴:1.0___node_廴_8__,
+}
+// _ASTNODE_錬:0.9___node_YB_345__ [decoy-metadata]
+
+_ASTNODE_霮:1.0___node_霮_53__ struct _ASTNODE_廴:1.0___node_廴_13__;
+
+_ASTNODE_霮:1.0___node_霮_29__ _ASTNODE_廴:1.0___node_廴_13__ {
+// [metadata-stripped]
+    _ASTNODE_霮:1.0___node_霮_53__ fn _ASTNODE_霮:1.0___node_霮_62__(_ASTNODE_霮:1.0___node_霮_39__: &_ASTNODE_廴:1.0___node_廴_7__, _ASTNODE_霮:1.0___node_霮_9__: &_ASTNODE_廴:1.0___node_廴_9__) -> _ASTNODE_霮:1.0___node_霮_12__ {
+// _ASTNODE_縺:0.6___node_BB_148__ [decoy-metadata]
+// [metadata-stripped]
+        let _ASTNODE_霮:1.0___node_霮_37__ = if _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_22__._ASTNODE_霮:1.0___node_霮_45__(&_ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_22__) || _ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_22__._ASTNODE_霮:1.0___node_霮_45__(&_ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_22__) { 1.0 } else { 0.1 };
+        let _ASTNODE_霮:1.0___node_霮_46__ = if _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_13__ == _ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_13__ { 1.0 } else { 0.2 };
+        
+// [metadata-stripped]
+        let _ASTNODE_霮:1.0___node_霮_10__ = _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_44__ * 0.1;
+        
+        (_ASTNODE_霮:1.0___node_霮_37__ * 0.4) +
+        (_ASTNODE_霮:1.0___node_霮_46__ * 0.2) +
+        (_ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_27__ * 0.2) +
+        (_ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_26__ * 0.2) -
+        _ASTNODE_霮:1.0___node_霮_10__
+// _ASTNODE_錬:0.5___node_KH_894__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _ASTNODE_霮:1.0___node_霮_53__ fn _ASTNODE_浸:1.0___node_霮_1__(_ASTNODE_霮:1.0___node_霮_39__: &_ASTNODE_霮:1.0___node_霮_38__ _ASTNODE_廴:1.0___node_廴_7__) {
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_27__ *= 0.5; // _ASTNODE_霮:1.0___node_霮_59__ _ASTNODE_霮:1.0___node_霮_24__
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_26__ *= 0.2; // _ASTNODE_霮:1.0___node_霮_14__ _ASTNODE_霮:1.0___node_霮_48__ _ASTNODE_霮:1.0___node_霮_33__
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_44__ += 1.0; // _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_56__
+    }
+
+// [metadata-stripped]
+    _ASTNODE_霮:1.0___node_霮_53__ fn _ASTNODE_霮:1.0___node_霮_55__(_ASTNODE_霮:1.0___node_霮_39__: &_ASTNODE_霮:1.0___node_霮_38__ _ASTNODE_廴:1.0___node_廴_7__) {
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_27__ = (_ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_27__ + 1.0)._ASTNODE_霮:1.0___node_霮_31__(1.0);
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_26__ = (_ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_26__ + 1.0)._ASTNODE_霮:1.0___node_霮_31__(1.0);
+// _ASTNODE_蔽:0.4___node_DB_343__ [decoy-metadata]
+        _ASTNODE_霮:1.0___node_霮_39__._ASTNODE_霮:1.0___node_霮_44__ = 0.0; // _ASTNODE_霮:1.0___node_霮_28__ to '_ASTNODE_霮:1.0___node_霮_52__'
+    }
+// _ASTNODE_縺:0.7___node_WM_876__ [decoy-metadata]
+}
+// _ASTNODE_錬:0.1___node_EC_730__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

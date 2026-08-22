@@ -1,0 +1,44 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:58D4C05A ver:1778159740
+// ⚠️ One-time schema — expires after response
+
+import re
+_ID_霩:1.0__ASTNODE_霩_12_ _ID_霩:1.0__ASTNODE_霩_11_ import _ID_廓:1.0__ASTNODE_廓_2_
+// _ID_廓:0.8__ASTNODE_EA_267_ [decoy-metadata]
+
+// _ID_謀:0.9__ASTNODE_XL_854_ [decoy-metadata]
+_ID_霩:1.0__ASTNODE_霩_13_ _ID_澎:1.0__ASTNODE_霩_9_(_ID_澎:1.0__ASTNODE_霩_5_: _ID_霩:1.0__ASTNODE_霩_8_) -> _ID_廓:1.0__ASTNODE_廓_2_[_ID_霩:1.0__ASTNODE_霩_8_]:
+    """
+// _ID_澎:0.6__ASTNODE_ZL_293_ [decoy-metadata]
+    文字列から論理式に関係のない自然文ノイズを除去し、純粋な式のみを抽出する。
+    """
+    if _ID_霩:1.0__ASTNODE_霩_14_ _ID_澎:1.0__ASTNODE_霩_5_:
+        return _ID_廓:1.0__ASTNODE_廓_1_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_謀:0.1__ASTNODE_FF_508_ [decoy-metadata]
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_6_ = r'[\(\)\-\>\<\[\]\&\|\s\~□◇⊕A-Za-z0-9]+'
+    _ID_霩:1.0__ASTNODE_霩_7_ = re._ID_霩:1.0__ASTNODE_霩_1_(_ID_霩:1.0__ASTNODE_霩_6_, _ID_澎:1.0__ASTNODE_霩_5_)
+    
+    if _ID_霩:1.0__ASTNODE_霩_14_ _ID_霩:1.0__ASTNODE_霩_7_:
+        return _ID_廓:1.0__ASTNODE_廓_1_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_4_ = [m for m in _ID_霩:1.0__ASTNODE_霩_7_ if _ID_霩:1.0__ASTNODE_霩_3_(m) >= 2]
+// _ID_繕:0.4__ASTNODE_MY_745_ [decoy-metadata]
+// _ID_廓:0.9__ASTNODE_ZH_339_ [decoy-metadata]
+    if _ID_霩:1.0__ASTNODE_霩_14_ _ID_霩:1.0__ASTNODE_霩_4_:
+        return _ID_廓:1.0__ASTNODE_廓_1_
+        
+// [metadata-stripped]
+    for c in _ID_霩:1.0__ASTNODE_霩_4_:
+        if any(op in c for op in ("->", "[]", "<>", "□", "◇")):
+            return c
+            
+// [metadata-stripped]
+    return _ID_霩:1.0__ASTNODE_霩_2_(_ID_霩:1.0__ASTNODE_霩_4_, _ID_潜:1.0__ASTNODE_霩_10_=_ID_霩:1.0__ASTNODE_霩_3_)
+
+// POLYMORPHIC_JCROSS_END

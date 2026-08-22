@@ -1,0 +1,178 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0668D3AB ver:1778150534
+// ⚠️ One-time schema — expires after response
+
+import _SYM_廓:1.0___node_廓_5__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _SYM_廓:0.8___node_MV_830__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+enum _SYM_廓:1.0___node_廓_6__ {
+    case _SYM_浪:1.0___node_霰_23__(_SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__, _SYM_霰:1.0___node_霰_22__: _SYM_廓:1.0___node_廓_4__)       // 照合成功: 証拠テキスト付き
+    case _SYM_浪:1.0___node_霰_33__(_SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__)                       // 照合不能: 記憶補完が必要
+    case _SYM_霰:1.0___node_霰_30__(_SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__, _SYM_霰:1.0___node_霰_31__: _SYM_廓:1.0___node_廓_4__)      // 矛盾検知: 実際の値と異なる
+}
+
+// [metadata-stripped]
+
+actor _SYM_廓:1.0___node_廓_2__ {
+
+    static let _SYM_霰:1.0___node_霰_39__ = _SYM_廓:1.0___node_廓_2__()
+// _SYM_匶:0.7___node_HA_697__ [decoy-metadata]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _SYM_匶:0.5___node_CE_370__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _SYM_浪:1.0___node_霰_59__(
+        _SYM_霰:1.0___node_霰_43__: [_SYM_廓:1.0___node_廓_4__],
+        _SYM_霰:1.0___node_霰_46__ _SYM_霰:1.0___node_霰_10__: [(_SYM_霰:1.0___node_霰_58__: _SYM_廓:1.0___node_廓_4__, _SYM_霰:1.0___node_霰_42__: _SYM_廓:1.0___node_廓_4__)],
+        _SYM_式:1.0___node_霰_26__: (_SYM_廓:1.0___node_廓_4__) async -> _SYM_廓:1.0___node_廓_4__
+    ) async -> [_SYM_廓:1.0___node_廓_6__] {
+        var _SYM_霰:1.0___node_霰_51__: [_SYM_廓:1.0___node_廓_6__] = []
+
+        for _SYM_霰:1.0___node_霰_8__ in _SYM_霰:1.0___node_霰_43__ {
+            let _SYM_霰:1.0___node_霰_7__ = await _SYM_浪:1.0___node_霰_56__(_SYM_霰:1.0___node_霰_8__: _SYM_霰:1.0___node_霰_8__, in: _SYM_霰:1.0___node_霰_10__, _SYM_式:1.0___node_霰_48__: _SYM_式:1.0___node_霰_26__)
+            _SYM_霰:1.0___node_霰_51__._SYM_霰:1.0___node_霰_54__(_SYM_霰:1.0___node_霰_7__)
+        }
+
+        return _SYM_霰:1.0___node_霰_51__
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _SYM_浪:1.0___node_霰_16__(_ _SYM_霰:1.0___node_霰_51__: [_SYM_廓:1.0___node_廓_6__]) -> _SYM_廓:1.0___node_廓_8__ {
+        _SYM_霰:1.0___node_霰_51__._SYM_霰:1.0___node_霰_55__ {
+            if case ._SYM_浪:1.0___node_霰_23__ = $0 { return true }
+            return false
+        }
+    }
+
+// [metadata-stripped]
+    func _SYM_霰:1.0___node_霰_52__(_ _SYM_霰:1.0___node_霰_51__: [_SYM_廓:1.0___node_廓_6__]) -> [_SYM_廓:1.0___node_廓_4__] {
+        _SYM_霰:1.0___node_霰_51__._SYM_霰:1.0___node_霰_49__ {
+            switch $0 {
+            case ._SYM_浪:1.0___node_霰_33__(let c):       return c
+            case ._SYM_霰:1.0___node_霰_30__(let c, _):   return c
+            case ._SYM_浪:1.0___node_霰_23__:                return nil
+            }
+// _SYM_綾:0.2___node_VK_561__ [decoy-metadata]
+        }
+    }
+
+// [metadata-stripped]
+    func _SYM_霰:1.0___node_霰_20__(_ _SYM_霰:1.0___node_霰_51__: [_SYM_廓:1.0___node_廓_6__]) -> [(_SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__, _SYM_霰:1.0___node_霰_31__: _SYM_廓:1.0___node_廓_4__)] {
+        _SYM_霰:1.0___node_霰_51__._SYM_霰:1.0___node_霰_49__ {
+            if case ._SYM_霰:1.0___node_霰_30__(let c, let a) = $0 { return (c, a) }
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+
+    func _SYM_霰:1.0___node_霰_57__(_ _SYM_霰:1.0___node_霰_51__: [_SYM_廓:1.0___node_廓_6__]) -> _SYM_廓:1.0___node_廓_4__ {
+        _SYM_霰:1.0___node_霰_51__._SYM_霰:1.0___node_霰_36__ { _SYM_霰:1.0___node_霰_7__ -> _SYM_廓:1.0___node_廓_4__ in
+            switch _SYM_霰:1.0___node_霰_7__ {
+            case ._SYM_浪:1.0___node_霰_23__(let c, _):        return "✅ 確:\(c)"
+            case ._SYM_浪:1.0___node_霰_33__(let c):         return "❓ 確:\(c) — 照合不能"
+            case ._SYM_霰:1.0___node_霰_30__(let c, let a): return "⚠️ 確:\(c) vs 実:\(a)"
+            }
+// _SYM_匶:0.1___node_WK_918__ [decoy-metadata]
+        }._SYM_霰:1.0___node_霰_6__(_SYM_霰:1.0___node_霰_13__: " / ")
+    }
+
+// [metadata-stripped]
+
+    private func _SYM_浪:1.0___node_霰_56__(
+        _SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__,
+        in _SYM_霰:1.0___node_霰_10__: [(_SYM_霰:1.0___node_霰_58__: _SYM_廓:1.0___node_廓_4__, _SYM_霰:1.0___node_霰_42__: _SYM_廓:1.0___node_廓_4__)],
+        _SYM_式:1.0___node_霰_48__: (_SYM_廓:1.0___node_廓_4__) async -> _SYM_廓:1.0___node_廓_4__
+    ) async -> _SYM_廓:1.0___node_廓_6__ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _SYM_伏:1.0___node_霰_41__ = _SYM_伏:1.0___node_霰_32__(_SYM_霰:1.0___node_霰_50__: _SYM_霰:1.0___node_霰_8__)
+
+        for _SYM_霰:1.0___node_霰_3__ in _SYM_霰:1.0___node_霰_10__._SYM_霰:1.0___node_霰_60__() {  // 新しい順で検索（最近の発言を優先）
+            let _SYM_霰:1.0___node_霰_42__ = _SYM_霰:1.0___node_霰_3__._SYM_霰:1.0___node_霰_42__._SYM_霰:1.0___node_霰_38__()
+            let _SYM_伏:1.0___node_霰_18__ = _SYM_伏:1.0___node_霰_41__._SYM_式:1.0___node_霰_2__ { _SYM_霰:1.0___node_霰_42__._SYM_霰:1.0___node_霰_12__($0._SYM_霰:1.0___node_霰_38__()) }
+
+            if _SYM_伏:1.0___node_霰_18__._SYM_霰:1.0___node_霰_11__ == _SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_11__ && !_SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_17__ {
+// [metadata-stripped]
+                let _SYM_霰:1.0___node_霰_29__ = _SYM_廓:1.0___node_廓_4__(_SYM_霰:1.0___node_霰_3__._SYM_霰:1.0___node_霰_42__._SYM_霰:1.0___node_霰_24__(100))
+                return ._SYM_浪:1.0___node_霰_23__(_SYM_霰:1.0___node_霰_8__: _SYM_霰:1.0___node_霰_8__, _SYM_霰:1.0___node_霰_22__: _SYM_霰:1.0___node_霰_29__)
+            }
+
+// [metadata-stripped]
+            if _SYM_伏:1.0___node_霰_18__._SYM_霰:1.0___node_霰_11__ >= _SYM_霰:1.0___node_霰_37__(1, _SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_11__ / 2) {
+                let _SYM_霰:1.0___node_霰_29__ = _SYM_廓:1.0___node_廓_4__(_SYM_霰:1.0___node_霰_3__._SYM_霰:1.0___node_霰_42__._SYM_霰:1.0___node_霰_24__(100))
+                return ._SYM_浪:1.0___node_霰_23__(_SYM_霰:1.0___node_霰_8__: _SYM_霰:1.0___node_霰_8__, _SYM_霰:1.0___node_霰_22__: "_SYM_霰:1.0___node_霰_44__: \(_SYM_霰:1.0___node_霰_29__)")
+            }
+        }
+
+// [metadata-stripped]
+        let _SYM_霰:1.0___node_霰_28__ = await _SYM_式:1.0___node_霰_48__(_SYM_霰:1.0___node_霰_8__)
+        if !_SYM_霰:1.0___node_霰_28__._SYM_霰:1.0___node_霰_17__ && !_SYM_霰:1.0___node_霰_28__._SYM_霰:1.0___node_霰_12__("0 _SYM_霰:1.0___node_霰_14__") {
+            return ._SYM_浪:1.0___node_霰_23__(_SYM_霰:1.0___node_霰_8__: _SYM_霰:1.0___node_霰_8__, _SYM_霰:1.0___node_霰_22__: _SYM_霰:1.0___node_霰_28__)
+        }
+
+// [metadata-stripped]
+        return ._SYM_浪:1.0___node_霰_33__(_SYM_霰:1.0___node_霰_8__: _SYM_霰:1.0___node_霰_8__)
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _SYM_伏:0.5___node_BV_814__ [decoy-metadata]
+// [metadata-stripped]
+    private func _SYM_伏:1.0___node_霰_32__(_SYM_霰:1.0___node_霰_50__ _SYM_霰:1.0___node_霰_8__: _SYM_廓:1.0___node_廓_4__) -> [_SYM_廓:1.0___node_廓_4__] {
+        var _SYM_伏:1.0___node_霰_41__: [_SYM_廓:1.0___node_廓_4__] = []
+
+// [metadata-stripped]
+        if _SYM_霰:1.0___node_霰_8__._SYM_霰:1.0___node_霰_12__("=") {
+            let _SYM_霰:1.0___node_霰_9__ = _SYM_霰:1.0___node_霰_8__._SYM_霰:1.0___node_霰_5__(_SYM_霰:1.0___node_霰_27__: "=")
+            if let _SYM_霰:1.0___node_霰_19__ = _SYM_霰:1.0___node_霰_9__._SYM_霰:1.0___node_霰_40__, !_SYM_霰:1.0___node_霰_19__._SYM_霰:1.0___node_霰_17__ {
+                _SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_54__(_SYM_霰:1.0___node_霰_19__._SYM_霰:1.0___node_霰_21__(in: ._SYM_霰:1.0___node_霰_1__))
+            }
+// [metadata-stripped]
+            if let _SYM_伏:1.0___node_霰_25__ = _SYM_霰:1.0___node_霰_9__._SYM_霰:1.0___node_霰_47__ {
+                let _SYM_霰:1.0___node_霰_4__ = _SYM_伏:1.0___node_霰_25__._SYM_霰:1.0___node_霰_21__(in: ._SYM_霰:1.0___node_霰_1__)
+                    ._SYM_霰:1.0___node_霰_34__(of: "U", _SYM_霰:1.0___node_霰_35__: "")  // "U" _SYM_霰:1.0___node_霰_24__（_SYM_式:1.0___node_廓_14__）を除去
+                    ._SYM_霰:1.0___node_霰_34__(of: ":", _SYM_霰:1.0___node_霰_35__: "")
+                if !_SYM_霰:1.0___node_霰_4__._SYM_霰:1.0___node_霰_17__ { _SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_54__(_SYM_霰:1.0___node_霰_4__) }
+            }
+        } else {
+// [metadata-stripped]
+            _SYM_伏:1.0___node_霰_41__._SYM_霰:1.0___node_霰_54__(_SYM_霰:1.0___node_霰_8__._SYM_霰:1.0___node_霰_21__(in: ._SYM_霰:1.0___node_霰_1__))
+        }
+
+        return _SYM_伏:1.0___node_霰_41__._SYM_式:1.0___node_霰_2__ { !$0._SYM_霰:1.0___node_霰_17__ }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

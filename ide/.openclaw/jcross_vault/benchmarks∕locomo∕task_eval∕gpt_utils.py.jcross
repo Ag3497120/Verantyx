@@ -1,0 +1,361 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C81A403B ver:1778162963
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_泡:1.0___ast_泡_156__
+_ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_69__ import _ASTNODE_庵:1.0___ast_庵_39__
+_ASTNODE_泡:1.0___ast_泡_156__._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_18__(0, _ASTNODE_泡:1.0___ast_泡_93__(_ASTNODE_庵:1.0___ast_庵_39__(_ASTNODE_匵:1.0___ast_泡_179__)._ASTNODE_泡:1.0___ast_泡_169__._ASTNODE_泡:1.0___ast_泡_169__))
+
+import _ASTNODE_泡:1.0___ast_泡_176__
+import _ASTNODE_泡:1.0___ast_泡_180__
+import os, _ASTNODE_泡:1.0___ast_泡_195__
+_ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_209__ import _ASTNODE_泡:1.0___ast_泡_209__
+import _ASTNODE_泡:1.0___ast_泡_154__
+_ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_138__ import _ASTNODE_泡:1.0___ast_泡_5__
+_ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_204__._ASTNODE_泡:1.0___ast_泡_193__ import _ASTNODE_型:1.0___ast_彩_6__
+import _ASTNODE_錠:1.0___ast_泡_206__
+import _ASTNODE_泡:1.0___ast_泡_119__ as np
+
+_ASTNODE_庵:1.0___ast_庵_24__={'_ASTNODE_泡:1.0___ast_泡_48__-4-_ASTNODE_泡:1.0___ast_泡_40__': 128000,
+            '_ASTNODE_泡:1.0___ast_泡_48__-4': 4096,
+            '_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__-16k': 16000,
+            '_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__-12k': 12000,
+            '_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__-8k': 8000,
+            '_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__-4k': 4000,
+            '_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__': 4096,
+            '_ASTNODE_泡:1.0___ast_泡_48__-4-32k': 320000}
+_ASTNODE_錠:1.0___ast_庵_1__ = 50
+
+// _ASTNODE_濫:0.5___ast_GL_456__ [decoy-metadata]
+_ASTNODE_庵:1.0___ast_庵_26__ = """
+_ASTNODE_庵:1.0___ast_庵_34__ on _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_117__ _ASTNODE_泡:1.0___ast_泡_227__, _ASTNODE_泡:1.0___ast_泡_198__ an _ASTNODE_型:1.0___ast_泡_172__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_濫:1.0___ast_泡_112__ of a _ASTNODE_泡:1.0___ast_泡_107__ _ASTNODE_泡:1.0___ast_泡_13__ for _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_66__ _ASTNODE_泡:1.0___ast_泡_178__. _ASTNODE_型:1.0___ast_庵_20__ _ASTNODE_泡:1.0___ast_泡_213__ _ASTNODE_泡:1.0___ast_泡_141__ _ASTNODE_泡:1.0___ast_泡_150__ _ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_227__ _ASTNODE_型:1.0___ast_泡_97__ _ASTNODE_泡:1.0___ast_泡_44__.
+
+_ASTNODE_庵:1.0___ast_庵_14__: {} _ASTNODE_庵:1.0___ast_庵_38__ _ASTNODE_型:1.0___ast_泡_172__:
+"""
+
+_ASTNODE_庵:1.0___ast_庵_23__ = """
+_ASTNODE_庵:1.0___ast_庵_34__ on _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_117__ _ASTNODE_泡:1.0___ast_泡_227__, _ASTNODE_型:1.0___ast_泡_172__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_66__ _ASTNODE_泡:1.0___ast_泡_178__.
+
+_ASTNODE_庵:1.0___ast_庵_14__: {} _ASTNODE_庵:1.0___ast_庵_38__ _ASTNODE_型:1.0___ast_泡_172__:
+"""
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+_ASTNODE_庵:1.0___ast_庵_7__ = """
+_ASTNODE_庵:1.0___ast_庵_34__ on _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_117__ _ASTNODE_泡:1.0___ast_泡_10__, _ASTNODE_泡:1.0___ast_泡_198__ _ASTNODE_泡:1.0___ast_泡_107__ _ASTNODE_泡:1.0___ast_泡_132__ for _ASTNODE_泡:1.0___ast_泡_73__ of _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_66__ _ASTNODE_泡:1.0___ast_泡_215__ in a _ASTNODE_泡:1.0___ast_泡_8__ _ASTNODE_泡:1.0___ast_泡_150__. 
+_ASTNODE_庵:1.0___ast_庵_32__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_132__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_濫:1.0___ast_泡_112__ of a _ASTNODE_泡:1.0___ast_泡_195__ _ASTNODE_泡:1.0___ast_泡_63__ where _ASTNODE_泡:1.0___ast_泡_73__ _ASTNODE_泡:1.0___ast_泡_164__ _ASTNODE_泡:1.0___ast_泡_17__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_178__ _ASTNODE_型:1.0___ast_泡_168__ as "_ASTNODE_錠:1.0___ast_泡_142__" _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_107__ _ASTNODE_型:1.0___ast_泡_172__ as "_ASTNODE_泡:1.0___ast_泡_39__". 
+_ASTNODE_庵:1.0___ast_庵_4__ _ASTNODE_泡:1.0___ast_泡_58__-_ASTNODE_泡:1.0___ast_泡_200__ _ASTNODE_泡:1.0___ast_泡_67__ for _ASTNODE_泡:1.0___ast_泡_218__ _ASTNODE_泡:1.0___ast_泡_203__ _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_42__-_ASTNODE_泡:1.0___ast_泡_200__ _ASTNODE_泡:1.0___ast_泡_67__ for _ASTNODE_泡:1.0___ast_泡_72__ _ASTNODE_泡:1.0___ast_泡_195__ _ASTNODE_泡:1.0___ast_泡_153__. _ASTNODE_型:1.0___ast_庵_20__ _ASTNODE_泡:1.0___ast_泡_213__ _ASTNODE_泡:1.0___ast_泡_141__ _ASTNODE_泡:1.0___ast_泡_150__ _ASTNODE_泡:1.0___ast_泡_12__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_10__ _ASTNODE_型:1.0___ast_泡_97__ _ASTNODE_泡:1.0___ast_泡_44__.
+
+"""
+
+// [metadata-stripped]
+
+// _ASTNODE_匵:0.2___ast_MB_813__ [decoy-metadata]
+_ASTNODE_庵:1.0___ast_庵_28__ = "_ASTNODE_庵:1.0___ast_庵_9__ is a _ASTNODE_泡:1.0___ast_泡_217__ _ASTNODE_泡:1.0___ast_泡_210__ _ASTNODE_泡:1.0___ast_泡_136__ _ASTNODE_泡:1.0___ast_泡_224__: {} _ASTNODE_泡:1.0___ast_泡_166__ {}. _ASTNODE_庵:1.0___ast_庵_18__ _ASTNODE_泡:1.0___ast_泡_217__ _ASTNODE_泡:1.0___ast_泡_124__ _ASTNODE_泡:1.0___ast_泡_177__ _ASTNODE_型:1.0___ast_泡_191__ _ASTNODE_泡:1.0___ast_泡_158__ _ASTNODE_泡:1.0___ast_泡_152__ _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_85__ of _ASTNODE_泡:1.0___ast_泡_73__ _ASTNODE_泡:1.0___ast_泡_217__ is _ASTNODE_泡:1.0___ast_泡_37__ at _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_121__ of _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_217__.\n\n"
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_泡:1.0___ast_泡_20__(_ASTNODE_泡:1.0___ast_泡_114__):
+
+    _ASTNODE_泡:1.0___ast_泡_59__ = _ASTNODE_泡:1.0___ast_泡_114__._ASTNODE_泡:1.0___ast_泡_38__("'")
+    _ASTNODE_泡:1.0___ast_泡_23__ = _ASTNODE_泡:1.0___ast_泡_114__._ASTNODE_泡:1.0___ast_泡_38__('"')
+    if _ASTNODE_泡:1.0___ast_泡_59__ > _ASTNODE_泡:1.0___ast_泡_23__:
+        _ASTNODE_泡:1.0___ast_泡_114__ = _ASTNODE_泡:1.0___ast_泡_114__._ASTNODE_泡:1.0___ast_泡_9__('"', "")
+        _ASTNODE_泡:1.0___ast_泡_114__ = _ASTNODE_泡:1.0___ast_泡_114__._ASTNODE_泡:1.0___ast_泡_9__("'", '"')
+// [metadata-stripped]
+        re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_195__._ASTNODE_匵:1.0___ast_泡_64__(_ASTNODE_泡:1.0___ast_泡_114__)
+    else:
+        re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_195__._ASTNODE_匵:1.0___ast_泡_64__(_ASTNODE_泡:1.0___ast_泡_114__)
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_濫:1.0___ast_泡_104__(_ASTNODE_泡:1.0___ast_泡_187__, _ASTNODE_泡:1.0___ast_泡_183__):
+
+    _ASTNODE_泡:1.0___ast_泡_205__ = os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_140__(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_106__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_匵:1.0___ast_泡_50__)[-1])[0]
+
+    if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_155__ == "_ASTNODE_泡:1.0___ast_泡_95__":
+
+// [metadata-stripped]
+        _ASTNODE_泡:1.0___ast_泡_101__ os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_137__(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_192__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__']))), "_ASTNODE_庵:1.0___ast_庵_22__ _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_7__ do _ASTNODE_泡:1.0___ast_泡_30__ _ASTNODE_泡:1.0___ast_泡_91__ for %s" % _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__']
+        _ASTNODE_泡:1.0___ast_泡_98__ = _ASTNODE_泡:1.0___ast_泡_176__._ASTNODE_匵:1.0___ast_泡_33__(open(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_192__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__'])), 'rb'))
+
+
+    _ASTNODE_濫:1.0___ast_泡_181__ _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_155__ == '_ASTNODE_泡:1.0___ast_泡_49__':
+// [metadata-stripped]
+        if _ASTNODE_泡:1.0___ast_泡_30__ os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_137__(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_185__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__']))):
+
+            _ASTNODE_泡:1.0___ast_泡_35__ = []
+            _ASTNODE_泡:1.0___ast_泡_135__ = []
+            _ASTNODE_泡:1.0___ast_泡_170__ = []
+            _ASTNODE_泡:1.0___ast_泡_19__ = [_ASTNODE_泡:1.0___ast_泡_196__(k._ASTNODE_泡:1.0___ast_泡_106__('_')[-1]) for k in _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_217__']._ASTNODE_錠:1.0___ast_泡_51__() if '_ASTNODE_泡:1.0___ast_泡_47__' in k _ASTNODE_泡:1.0___ast_泡_166__ '_ASTNODE_泡:1.0___ast_泡_147__' _ASTNODE_泡:1.0___ast_泡_30__ in k]
+            for i in _ASTNODE_泡:1.0___ast_泡_22__(_ASTNODE_泡:1.0___ast_泡_79__(_ASTNODE_泡:1.0___ast_泡_19__), _ASTNODE_泡:1.0___ast_泡_161__(_ASTNODE_泡:1.0___ast_泡_19__) + 1):
+            
+                _ASTNODE_泡:1.0___ast_泡_147__ = _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_217__']['_ASTNODE_泡:1.0___ast_泡_41__%_ASTNODE_泡:1.0___ast_泡_146__' % i]
+                for _ASTNODE_泡:1.0___ast_泡_49__ in _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_217__']['_ASTNODE_泡:1.0___ast_泡_41__%s' % i]:
+                    _ASTNODE_泡:1.0___ast_泡_170__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_泡:1.0___ast_泡_225__'])
+                    _ASTNODE_泡:1.0___ast_泡_135__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_147__)
+                    if '_ASTNODE_泡:1.0___ast_泡_94__' in _ASTNODE_泡:1.0___ast_泡_49__:
+                        _ASTNODE_泡:1.0___ast_泡_35__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_型:1.0___ast_泡_163__'] + ' _ASTNODE_泡:1.0___ast_泡_32__, \"' + _ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_泡:1.0___ast_泡_114__'] + '\"' + ' _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_6__ ' + _ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_泡:1.0___ast_泡_94__'])
+                    else:
+                        _ASTNODE_泡:1.0___ast_泡_35__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_型:1.0___ast_泡_163__'] + ' _ASTNODE_泡:1.0___ast_泡_32__, \"' + _ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_泡:1.0___ast_泡_114__'] + '\"')
+
+            _ASTNODE_泡:1.0___ast_泡_88__("_ASTNODE_型:1.0___ast_彩_1__ _ASTNODE_泡:1.0___ast_泡_7__ for %s _ASTNODE_泡:1.0___ast_泡_35__" % _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_35__))
+            _ASTNODE_泡:1.0___ast_泡_7__ = _ASTNODE_型:1.0___ast_彩_6__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_型:1.0___ast_泡_1__, _ASTNODE_泡:1.0___ast_泡_35__, '_ASTNODE_泡:1.0___ast_泡_227__')
+// _ASTNODE_緋:0.1___ast_FK_482__ [decoy-metadata]
+            _ASTNODE_泡:1.0___ast_泡_101__ _ASTNODE_泡:1.0___ast_泡_7__._ASTNODE_泡:1.0___ast_泡_15__[0] == _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_35__), "_ASTNODE_庵:1.0___ast_庵_30__ of _ASTNODE_泡:1.0___ast_泡_7__ _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_35__ do _ASTNODE_泡:1.0___ast_泡_30__ _ASTNODE_泡:1.0___ast_泡_60__"
+            _ASTNODE_泡:1.0___ast_泡_98__ = {'_ASTNODE_泡:1.0___ast_泡_7__': _ASTNODE_泡:1.0___ast_泡_7__,
+                             '_ASTNODE_泡:1.0___ast_泡_147__': _ASTNODE_泡:1.0___ast_泡_135__,
+                             '_ASTNODE_泡:1.0___ast_泡_225__': _ASTNODE_泡:1.0___ast_泡_170__,
+                             '_ASTNODE_泡:1.0___ast_泡_227__': _ASTNODE_泡:1.0___ast_泡_35__}
+
+            _ASTNODE_泡:1.0___ast_泡_213__ open(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_185__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__'])), 'wb') as f:
+                _ASTNODE_泡:1.0___ast_泡_176__._ASTNODE_泡:1.0___ast_泡_130__(_ASTNODE_泡:1.0___ast_泡_98__, f)
+
+        else:
+            _ASTNODE_泡:1.0___ast_泡_98__ = _ASTNODE_泡:1.0___ast_泡_176__._ASTNODE_匵:1.0___ast_泡_33__(open(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_185__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__'])), 'rb'))
+
+
+    _ASTNODE_濫:1.0___ast_泡_181__ _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_155__ == '_ASTNODE_泡:1.0___ast_泡_28__':
+        
+// [metadata-stripped]
+        _ASTNODE_泡:1.0___ast_泡_101__ os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_137__(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_90__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__']))), "_ASTNODE_庵:1.0___ast_庵_27__ _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_7__ do _ASTNODE_泡:1.0___ast_泡_30__ _ASTNODE_泡:1.0___ast_泡_91__ for %s" % _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__']
+        _ASTNODE_泡:1.0___ast_泡_98__ = _ASTNODE_泡:1.0___ast_泡_176__._ASTNODE_匵:1.0___ast_泡_33__(open(os._ASTNODE_泡:1.0___ast_泡_219__._ASTNODE_泡:1.0___ast_泡_83__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_76__, '%_ASTNODE_泡:1.0___ast_泡_90__%s._ASTNODE_泡:1.0___ast_泡_4__' % (_ASTNODE_泡:1.0___ast_泡_205__, _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_108__'])), 'rb'))
+
+
+// _ASTNODE_匵:0.7___ast_HZ_987__ [decoy-metadata]
+    else:
+        _ASTNODE_泡:1.0___ast_泡_115__ _ASTNODE_庵:1.0___ast_庵_31__
+    
+    _ASTNODE_泡:1.0___ast_泡_88__("_ASTNODE_型:1.0___ast_彩_1__ _ASTNODE_泡:1.0___ast_泡_7__ for %s _ASTNODE_泡:1.0___ast_泡_215__" % _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_183__['qa']))
+    _ASTNODE_泡:1.0___ast_泡_222__ = _ASTNODE_型:1.0___ast_彩_6__(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_型:1.0___ast_泡_1__, [q['_ASTNODE_泡:1.0___ast_泡_178__'] for q in _ASTNODE_泡:1.0___ast_泡_183__['qa']], '_ASTNODE_泡:1.0___ast_泡_110__')
+
+    re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_98__, _ASTNODE_泡:1.0___ast_泡_222__
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_型:1.0___ast_彩_2__(_ASTNODE_泡:1.0___ast_泡_199__, _ASTNODE_錠:1.0___ast_泡_165__):
+
+    _ASTNODE_泡:1.0___ast_泡_199__ = _ASTNODE_泡:1.0___ast_泡_199__._ASTNODE_泡:1.0___ast_泡_2__()._ASTNODE_型:1.0___ast_泡_127__()
+    if _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_199__) == 1:
+        if 'a' in _ASTNODE_泡:1.0___ast_泡_199__:
+            re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_錠:1.0___ast_泡_165__['a']
+        else:
+            re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_錠:1.0___ast_泡_165__['b']
+    _ASTNODE_濫:1.0___ast_泡_181__ _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_199__) == 3:
+        if '(a)' in _ASTNODE_泡:1.0___ast_泡_199__:
+            re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_錠:1.0___ast_泡_165__['a']
+        else:
+            re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_錠:1.0___ast_泡_165__['b']
+    else:
+        re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_199__
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_型:1.0___ast_彩_4__(_ASTNODE_泡:1.0___ast_泡_3__, _ASTNODE_泡:1.0___ast_泡_128__, _ASTNODE_泡:1.0___ast_泡_187__):
+
+    _ASTNODE_泡:1.0___ast_泡_194__ = np._ASTNODE_泡:1.0___ast_泡_86__(_ASTNODE_泡:1.0___ast_泡_128__, _ASTNODE_泡:1.0___ast_泡_3__['_ASTNODE_泡:1.0___ast_泡_7__'].T)
+    _ASTNODE_泡:1.0___ast_泡_125__ = np._ASTNODE_泡:1.0___ast_泡_26__(_ASTNODE_泡:1.0___ast_泡_194__)[::-1]
+    _ASTNODE_泡:1.0___ast_泡_212__ = [_ASTNODE_泡:1.0___ast_泡_3__['_ASTNODE_泡:1.0___ast_泡_227__'][_ASTNODE_泡:1.0___ast_泡_186__] for _ASTNODE_泡:1.0___ast_泡_186__ in _ASTNODE_泡:1.0___ast_泡_125__[:_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_74__]]
+    
+    _ASTNODE_泡:1.0___ast_泡_43__ = []
+    for _ASTNODE_泡:1.0___ast_泡_186__ in _ASTNODE_泡:1.0___ast_泡_125__[:_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_74__]:
+        _ASTNODE_泡:1.0___ast_泡_201__ = _ASTNODE_泡:1.0___ast_泡_3__['_ASTNODE_泡:1.0___ast_泡_225__'][_ASTNODE_泡:1.0___ast_泡_186__]
+        if _ASTNODE_泡:1.0___ast_泡_62__(_ASTNODE_泡:1.0___ast_泡_201__) == _ASTNODE_泡:1.0___ast_泡_93__:
+            if ',' in _ASTNODE_泡:1.0___ast_泡_201__:
+                _ASTNODE_泡:1.0___ast_泡_201__ = [s._ASTNODE_泡:1.0___ast_泡_2__() for s in _ASTNODE_泡:1.0___ast_泡_201__._ASTNODE_泡:1.0___ast_泡_106__(',')]
+        if _ASTNODE_泡:1.0___ast_泡_62__(_ASTNODE_泡:1.0___ast_泡_201__) == _ASTNODE_泡:1.0___ast_泡_82__:
+            _ASTNODE_泡:1.0___ast_泡_43__._ASTNODE_泡:1.0___ast_泡_143__(_ASTNODE_泡:1.0___ast_泡_201__)
+        else:
+            _ASTNODE_泡:1.0___ast_泡_43__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_201__)
+
+// [metadata-stripped]
+    _ASTNODE_泡:1.0___ast_泡_220__ = [_ASTNODE_泡:1.0___ast_泡_3__['_ASTNODE_泡:1.0___ast_泡_147__'][_ASTNODE_泡:1.0___ast_泡_186__] for _ASTNODE_泡:1.0___ast_泡_186__ in _ASTNODE_泡:1.0___ast_泡_125__[:_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_74__]]
+    if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_155__ in ['_ASTNODE_泡:1.0___ast_泡_49__', '_ASTNODE_泡:1.0___ast_泡_28__']:
+        _ASTNODE_泡:1.0___ast_泡_226__ = '\n'._ASTNODE_泡:1.0___ast_泡_83__([_ASTNODE_泡:1.0___ast_泡_147__ + ': ' + _ASTNODE_泡:1.0___ast_泡_227__ for _ASTNODE_泡:1.0___ast_泡_147__, _ASTNODE_泡:1.0___ast_泡_227__ in _ASTNODE_泡:1.0___ast_泡_45__(_ASTNODE_泡:1.0___ast_泡_220__, _ASTNODE_泡:1.0___ast_泡_212__)])
+    else:
+        _ASTNODE_泡:1.0___ast_泡_226__ = '\n\n'._ASTNODE_泡:1.0___ast_泡_83__([_ASTNODE_泡:1.0___ast_泡_147__ + ': ' + _ASTNODE_泡:1.0___ast_泡_227__ for _ASTNODE_泡:1.0___ast_泡_147__, _ASTNODE_泡:1.0___ast_泡_227__ in _ASTNODE_泡:1.0___ast_泡_45__(_ASTNODE_泡:1.0___ast_泡_220__, _ASTNODE_泡:1.0___ast_泡_212__)])
+
+    re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_226__, _ASTNODE_泡:1.0___ast_泡_43__
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_型:1.0___ast_彩_3__(_ASTNODE_泡:1.0___ast_泡_183__, _ASTNODE_錠:1.0___ast_泡_157__, _ASTNODE_泡:1.0___ast_泡_126__, _ASTNODE_泡:1.0___ast_泡_187__):
+
+    _ASTNODE_泡:1.0___ast_泡_52__ = ''
+    _ASTNODE_泡:1.0___ast_泡_162__ = -1
+    _ASTNODE_泡:1.0___ast_泡_84__ = _ASTNODE_庵:1.0___ast_庵_19__
+    _ASTNODE_泡:1.0___ast_泡_19__ = [_ASTNODE_泡:1.0___ast_泡_196__(k._ASTNODE_泡:1.0___ast_泡_106__('_')[-1]) for k in _ASTNODE_泡:1.0___ast_泡_183__._ASTNODE_錠:1.0___ast_泡_51__() if '_ASTNODE_泡:1.0___ast_泡_47__' in k _ASTNODE_泡:1.0___ast_泡_166__ '_ASTNODE_泡:1.0___ast_泡_147__' _ASTNODE_泡:1.0___ast_泡_30__ in k]
+    for i in _ASTNODE_泡:1.0___ast_泡_22__(_ASTNODE_泡:1.0___ast_泡_79__(_ASTNODE_泡:1.0___ast_泡_19__), _ASTNODE_泡:1.0___ast_泡_161__(_ASTNODE_泡:1.0___ast_泡_19__) + 1):
+        if '_ASTNODE_泡:1.0___ast_泡_41__%s' % i in _ASTNODE_泡:1.0___ast_泡_183__:
+            _ASTNODE_泡:1.0___ast_泡_52__ += "\n\n"
+            for _ASTNODE_泡:1.0___ast_泡_49__ in _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_41__%s' % i][::-1]:
+                _ASTNODE_泡:1.0___ast_泡_57__ = ''
+                _ASTNODE_泡:1.0___ast_泡_57__ = _ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_型:1.0___ast_泡_163__'] + ' _ASTNODE_泡:1.0___ast_泡_32__, \"' + _ASTNODE_泡:1.0___ast_泡_49__['_ASTNODE_泡:1.0___ast_泡_114__'] + '\"' + '\n'
+                if "_ASTNODE_泡:1.0___ast_泡_94__" in _ASTNODE_泡:1.0___ast_泡_49__:
+                    _ASTNODE_泡:1.0___ast_泡_57__ += ' _ASTNODE_泡:1.0___ast_泡_166__ _ASTNODE_泡:1.0___ast_泡_6__ %s.' % _ASTNODE_泡:1.0___ast_泡_49__["_ASTNODE_泡:1.0___ast_泡_94__"]
+                _ASTNODE_泡:1.0___ast_泡_57__ += '\n'
+        
+                _ASTNODE_錠:1.0___ast_泡_151__ = _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_126__._ASTNODE_泡:1.0___ast_泡_208__('_ASTNODE_庵:1.0___ast_庵_8__: ' + _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_41__%_ASTNODE_泡:1.0___ast_泡_146__' % i] + '\n' + '_ASTNODE_庵:1.0___ast_庵_29__:\n' + _ASTNODE_泡:1.0___ast_泡_57__))
+                if (_ASTNODE_錠:1.0___ast_泡_151__ + _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_126__._ASTNODE_泡:1.0___ast_泡_208__(_ASTNODE_泡:1.0___ast_泡_52__)) + _ASTNODE_錠:1.0___ast_泡_157__) < (_ASTNODE_庵:1.0___ast_庵_24__[_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__]-(_ASTNODE_錠:1.0___ast_庵_1__*(_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__))): # 20 _ASTNODE_錠:1.0___ast_泡_197__ _ASTNODE_泡:1.0___ast_泡_223__ for _ASTNODE_泡:1.0___ast_泡_132__
+                    _ASTNODE_泡:1.0___ast_泡_52__ = _ASTNODE_泡:1.0___ast_泡_57__ + _ASTNODE_泡:1.0___ast_泡_52__
+                else:
+                    _ASTNODE_泡:1.0___ast_泡_162__ = i
+                    _ASTNODE_泡:1.0___ast_泡_84__ = _ASTNODE_庵:1.0___ast_庵_2__
+                    break
+            _ASTNODE_泡:1.0___ast_泡_52__ = '_ASTNODE_庵:1.0___ast_庵_8__: ' + _ASTNODE_泡:1.0___ast_泡_183__['_ASTNODE_泡:1.0___ast_泡_41__%_ASTNODE_泡:1.0___ast_泡_146__' % i] + '\n' + '_ASTNODE_庵:1.0___ast_庵_29__:\n' + _ASTNODE_泡:1.0___ast_泡_52__
+        if _ASTNODE_泡:1.0___ast_泡_84__:
+            break
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_52__
+
+
+_ASTNODE_泡:1.0___ast_泡_148__ _ASTNODE_型:1.0___ast_彩_7__(_ASTNODE_泡:1.0___ast_泡_25__, _ASTNODE_泡:1.0___ast_泡_53__, _ASTNODE_錠:1.0___ast_泡_54__, _ASTNODE_泡:1.0___ast_泡_187__):
+
+
+    _ASTNODE_泡:1.0___ast_泡_126__ = _ASTNODE_錠:1.0___ast_泡_206__._ASTNODE_濫:1.0___ast_泡_228__('_ASTNODE_泡:1.0___ast_泡_48__-3.5-_ASTNODE_泡:1.0___ast_泡_40__-16k' if any([k in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__ for k in ['16k', '12k', '8k', '4k']]) else _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__)
+    _ASTNODE_泡:1.0___ast_泡_101__ _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_25__['qa']) == _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_53__['qa']), (_ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_25__['qa']), _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_53__['qa']))
+
+// [metadata-stripped]
+    _ASTNODE_泡:1.0___ast_泡_131__ = _ASTNODE_泡:1.0___ast_泡_82__(_ASTNODE_型:1.0___ast_彩_5__([d['_ASTNODE_型:1.0___ast_泡_163__'] for d in _ASTNODE_泡:1.0___ast_泡_25__['_ASTNODE_泡:1.0___ast_泡_217__']['_ASTNODE_泡:1.0___ast_泡_87__']]))
+    _ASTNODE_泡:1.0___ast_泡_29__ = _ASTNODE_庵:1.0___ast_庵_28__._ASTNODE_濫:1.0___ast_泡_174__(_ASTNODE_泡:1.0___ast_泡_131__[0], _ASTNODE_泡:1.0___ast_泡_131__[1])
+    _ASTNODE_錠:1.0___ast_泡_171__ = _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_126__._ASTNODE_泡:1.0___ast_泡_208__(_ASTNODE_泡:1.0___ast_泡_29__))
+
+    if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_27__:
+        _ASTNODE_泡:1.0___ast_泡_101__ _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__ == 1, "_ASTNODE_庵:1.0___ast_庵_35__ _ASTNODE_泡:1.0___ast_泡_80__ _ASTNODE_泡:1.0___ast_泡_109__ to be 1 for _ASTNODE_庵:1.0___ast_庵_3__-_ASTNODE_泡:1.0___ast_泡_175__ _ASTNODE_泡:1.0___ast_泡_173__."
+        _ASTNODE_泡:1.0___ast_泡_3__, _ASTNODE_泡:1.0___ast_泡_78__ = _ASTNODE_濫:1.0___ast_泡_104__(_ASTNODE_泡:1.0___ast_泡_187__, _ASTNODE_泡:1.0___ast_泡_25__)
+    else:
+        _ASTNODE_泡:1.0___ast_泡_3__, _ASTNODE_泡:1.0___ast_泡_78__ = _ASTNODE_庵:1.0___ast_庵_12__, _ASTNODE_庵:1.0___ast_庵_12__
+
+
+    for _ASTNODE_泡:1.0___ast_泡_122__ in _ASTNODE_泡:1.0___ast_泡_209__(_ASTNODE_泡:1.0___ast_泡_22__(0, _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_25__['qa']), _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__), _ASTNODE_泡:1.0___ast_泡_120__='_ASTNODE_庵:1.0___ast_庵_10__ _ASTNODE_泡:1.0___ast_泡_132__'):
+
+        _ASTNODE_泡:1.0___ast_泡_215__ = []
+        _ASTNODE_泡:1.0___ast_泡_118__ = []
+        _ASTNODE_泡:1.0___ast_泡_190__ = []
+        _ASTNODE_泡:1.0___ast_泡_71__ = []
+        for i in _ASTNODE_泡:1.0___ast_泡_22__(_ASTNODE_泡:1.0___ast_泡_122__, _ASTNODE_泡:1.0___ast_泡_122__ + _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__):
+
+            if i>=_ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_25__['qa']):
+                break
+
+            qa = _ASTNODE_泡:1.0___ast_泡_25__['qa'][i]
+            
+            if _ASTNODE_錠:1.0___ast_泡_54__ _ASTNODE_泡:1.0___ast_泡_30__ in _ASTNODE_泡:1.0___ast_泡_53__['qa'][i] or _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_116__:
+                _ASTNODE_泡:1.0___ast_泡_118__._ASTNODE_泡:1.0___ast_泡_123__(i)
+            else:
+                continue
+
+            if qa['_ASTNODE_泡:1.0___ast_泡_202__'] == 2:
+                _ASTNODE_泡:1.0___ast_泡_215__._ASTNODE_泡:1.0___ast_泡_123__(qa['_ASTNODE_泡:1.0___ast_泡_178__'] + ' _ASTNODE_庵:1.0___ast_庵_4__ _ASTNODE_庵:1.0___ast_庵_8__ of _ASTNODE_庵:1.0___ast_庵_29__ to _ASTNODE_型:1.0___ast_泡_172__ _ASTNODE_泡:1.0___ast_泡_213__ an _ASTNODE_泡:1.0___ast_泡_207__ _ASTNODE_泡:1.0___ast_泡_85__.')
+            _ASTNODE_濫:1.0___ast_泡_181__ qa['_ASTNODE_泡:1.0___ast_泡_202__'] == 5:
+                _ASTNODE_泡:1.0___ast_泡_178__ = qa['_ASTNODE_泡:1.0___ast_泡_178__'] + " _ASTNODE_庵:1.0___ast_庵_15__ _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_46__ _ASTNODE_型:1.0___ast_泡_172__: (a) {} (b) {}. "
+                if _ASTNODE_泡:1.0___ast_泡_180__._ASTNODE_泡:1.0___ast_泡_180__() < 0.5:
+                    _ASTNODE_泡:1.0___ast_泡_178__ = _ASTNODE_泡:1.0___ast_泡_178__._ASTNODE_濫:1.0___ast_泡_174__('_ASTNODE_庵:1.0___ast_庵_33__ _ASTNODE_泡:1.0___ast_泡_77__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_217__', qa['_ASTNODE_型:1.0___ast_泡_172__'])
+                    _ASTNODE_型:1.0___ast_泡_172__ = {'a': '_ASTNODE_庵:1.0___ast_庵_33__ _ASTNODE_泡:1.0___ast_泡_77__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_217__', 'b': qa['_ASTNODE_型:1.0___ast_泡_172__']}
+                else:
+                    _ASTNODE_泡:1.0___ast_泡_178__ = _ASTNODE_泡:1.0___ast_泡_178__._ASTNODE_濫:1.0___ast_泡_174__(qa['_ASTNODE_型:1.0___ast_泡_172__'], '_ASTNODE_庵:1.0___ast_庵_33__ _ASTNODE_泡:1.0___ast_泡_77__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_217__')
+                    _ASTNODE_型:1.0___ast_泡_172__ = {'b': '_ASTNODE_庵:1.0___ast_庵_33__ _ASTNODE_泡:1.0___ast_泡_77__ in _ASTNODE_泡:1.0___ast_泡_111__ _ASTNODE_泡:1.0___ast_泡_217__', 'a': qa['_ASTNODE_型:1.0___ast_泡_172__']}
+
+                _ASTNODE_泡:1.0___ast_泡_190__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_215__))
+                _ASTNODE_泡:1.0___ast_泡_215__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_泡:1.0___ast_泡_178__)
+                _ASTNODE_泡:1.0___ast_泡_71__._ASTNODE_泡:1.0___ast_泡_123__(_ASTNODE_型:1.0___ast_泡_172__)
+// [metadata-stripped]
+            else:
+                _ASTNODE_泡:1.0___ast_泡_215__._ASTNODE_泡:1.0___ast_泡_123__(qa['_ASTNODE_泡:1.0___ast_泡_178__'])
+
+
+        if _ASTNODE_泡:1.0___ast_泡_215__ == []:
+            continue
+
+
+        if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_27__:
+            _ASTNODE_泡:1.0___ast_泡_52__, _ASTNODE_泡:1.0___ast_泡_170__ = _ASTNODE_型:1.0___ast_彩_4__(_ASTNODE_泡:1.0___ast_泡_3__, _ASTNODE_泡:1.0___ast_泡_78__[_ASTNODE_泡:1.0___ast_泡_118__][0], _ASTNODE_泡:1.0___ast_泡_187__) # _ASTNODE_泡:1.0___ast_泡_36__ _ASTNODE_泡:1.0___ast_泡_92__ is _ASTNODE_型:1.0___ast_彩_5__ to _ASTNODE_泡:1.0___ast_泡_99__ _ASTNODE_泡:1.0___ast_泡_80__ 1
+        else:
+            _ASTNODE_泡:1.0___ast_泡_134__ =  _ASTNODE_庵:1.0___ast_庵_7__ + "\n"._ASTNODE_泡:1.0___ast_泡_83__(["%s: %s" % (k, q) for k, q in _ASTNODE_泡:1.0___ast_泡_89__(_ASTNODE_泡:1.0___ast_泡_215__)])
+            _ASTNODE_錠:1.0___ast_泡_157__ = _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_126__._ASTNODE_泡:1.0___ast_泡_208__(_ASTNODE_泡:1.0___ast_泡_134__))
+            _ASTNODE_泡:1.0___ast_泡_52__ = _ASTNODE_型:1.0___ast_彩_3__(_ASTNODE_泡:1.0___ast_泡_25__['_ASTNODE_泡:1.0___ast_泡_217__'], _ASTNODE_錠:1.0___ast_泡_157__ + _ASTNODE_錠:1.0___ast_泡_171__, _ASTNODE_泡:1.0___ast_泡_126__, _ASTNODE_泡:1.0___ast_泡_187__)
+            _ASTNODE_泡:1.0___ast_泡_52__ = _ASTNODE_泡:1.0___ast_泡_29__ + _ASTNODE_泡:1.0___ast_泡_52__
+        
+// _ASTNODE_錠:0.8___ast_ZK_115__ [decoy-metadata]
+
+// [metadata-stripped]
+
+        if '_ASTNODE_泡:1.0___ast_泡_48__-4' in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__:
+            _ASTNODE_泡:1.0___ast_泡_154__._ASTNODE_泡:1.0___ast_泡_129__(5)
+
+        _ASTNODE_濫:1.0___ast_泡_181__ '_ASTNODE_泡:1.0___ast_泡_48__-4' in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__:
+            _ASTNODE_泡:1.0___ast_泡_154__._ASTNODE_泡:1.0___ast_泡_129__(1)
+
+        if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__ == 1:
+
+            _ASTNODE_泡:1.0___ast_泡_110__ = _ASTNODE_泡:1.0___ast_泡_52__ + '\n\n' + _ASTNODE_庵:1.0___ast_庵_26__._ASTNODE_濫:1.0___ast_泡_174__(_ASTNODE_泡:1.0___ast_泡_215__[0]) if _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_190__) == 0 else _ASTNODE_泡:1.0___ast_泡_52__ + '\n\n' + _ASTNODE_庵:1.0___ast_庵_23__._ASTNODE_濫:1.0___ast_泡_174__(_ASTNODE_泡:1.0___ast_泡_215__[0])
+            _ASTNODE_型:1.0___ast_泡_172__ = _ASTNODE_泡:1.0___ast_泡_5__(_ASTNODE_泡:1.0___ast_泡_110__, _ASTNODE_泡:1.0___ast_泡_16__=1, _ASTNODE_錠:1.0___ast_泡_21__=32, 
+                    _ASTNODE_泡:1.0___ast_泡_105__='_ASTNODE_泡:1.0___ast_泡_81__' if '_ASTNODE_泡:1.0___ast_泡_48__-3.5' in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__ else _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__, 
+                    _ASTNODE_泡:1.0___ast_泡_103__=_ASTNODE_庵:1.0___ast_庵_2__ if any([k in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__ for k in ['16k', '12k', '8k', '4k']]) else _ASTNODE_庵:1.0___ast_庵_19__, 
+                    _ASTNODE_泡:1.0___ast_泡_24__=0, _ASTNODE_泡:1.0___ast_泡_139__=2)
+            
+            if _ASTNODE_泡:1.0___ast_泡_189__(_ASTNODE_泡:1.0___ast_泡_190__) > 0:
+                _ASTNODE_型:1.0___ast_泡_172__ = _ASTNODE_型:1.0___ast_彩_2__(_ASTNODE_型:1.0___ast_泡_172__, _ASTNODE_泡:1.0___ast_泡_71__[0])
+
+            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_118__[0]][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__()
+            if _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_27__:
+                _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_118__[0]][_ASTNODE_錠:1.0___ast_泡_54__ + '_ASTNODE_泡:1.0___ast_泡_149__'] = _ASTNODE_泡:1.0___ast_泡_170__
+
+        else:
+// [metadata-stripped]
+            _ASTNODE_泡:1.0___ast_泡_110__ = _ASTNODE_泡:1.0___ast_泡_52__ + '\n' + _ASTNODE_泡:1.0___ast_泡_134__
+            
+            _ASTNODE_泡:1.0___ast_泡_55__ = 0
+            while _ASTNODE_泡:1.0___ast_泡_55__ < 3:
+                try:
+                    _ASTNODE_泡:1.0___ast_泡_55__ += 1
+                    _ASTNODE_泡:1.0___ast_泡_88__("_ASTNODE_庵:1.0___ast_庵_25__ %s/3" % _ASTNODE_泡:1.0___ast_泡_55__)
+// [metadata-stripped]
+// [metadata-stripped]
+                    _ASTNODE_型:1.0___ast_泡_172__ = _ASTNODE_泡:1.0___ast_泡_5__(_ASTNODE_泡:1.0___ast_泡_110__, _ASTNODE_泡:1.0___ast_泡_16__=1, _ASTNODE_錠:1.0___ast_泡_21__=_ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_216__*_ASTNODE_錠:1.0___ast_庵_1__, 
+                            _ASTNODE_泡:1.0___ast_泡_105__='_ASTNODE_泡:1.0___ast_泡_81__' if '_ASTNODE_泡:1.0___ast_泡_48__-3.5' in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__ else _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__, 
+                            _ASTNODE_泡:1.0___ast_泡_103__=_ASTNODE_庵:1.0___ast_庵_2__ if any([k in _ASTNODE_泡:1.0___ast_泡_187__._ASTNODE_泡:1.0___ast_泡_105__ for k in ['16k', '12k', '8k', '4k']]) else _ASTNODE_庵:1.0___ast_庵_19__, 
+                            _ASTNODE_泡:1.0___ast_泡_24__=0, _ASTNODE_泡:1.0___ast_泡_139__=2)
+                    _ASTNODE_型:1.0___ast_泡_172__ = _ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_9__('\\"', "'")._ASTNODE_泡:1.0___ast_泡_9__('_ASTNODE_泡:1.0___ast_泡_195__','')._ASTNODE_泡:1.0___ast_泡_9__('`','')._ASTNODE_泡:1.0___ast_泡_2__()._ASTNODE_泡:1.0___ast_泡_9__("\\'", "")
+                    _ASTNODE_泡:1.0___ast_泡_132__ = _ASTNODE_泡:1.0___ast_泡_20__(_ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__())
+                    break
+
+// _ASTNODE_緋:0.3___ast_XC_891__ [decoy-metadata]
+                _ASTNODE_泡:1.0___ast_泡_144__ _ASTNODE_庵:1.0___ast_庵_21__ as e:
+                    _ASTNODE_泡:1.0___ast_泡_88__('_ASTNODE_庵:1.0___ast_庵_37__ at _ASTNODE_泡:1.0___ast_泡_221__ %s/3' % _ASTNODE_泡:1.0___ast_泡_55__, e)
+                    _ASTNODE_泡:1.0___ast_泡_115__ _ASTNODE_庵:1.0___ast_庵_31__
+            
+            for k, _ASTNODE_泡:1.0___ast_泡_186__ in _ASTNODE_泡:1.0___ast_泡_89__(_ASTNODE_泡:1.0___ast_泡_118__):
+                try:
+                    _ASTNODE_泡:1.0___ast_泡_132__ = _ASTNODE_泡:1.0___ast_泡_20__(_ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__())
+// [metadata-stripped]
+// [metadata-stripped]
+                    if k in _ASTNODE_泡:1.0___ast_泡_190__:
+                        _ASTNODE_型:1.0___ast_泡_133__ = _ASTNODE_型:1.0___ast_彩_2__(_ASTNODE_泡:1.0___ast_泡_132__[_ASTNODE_泡:1.0___ast_泡_93__(k)], _ASTNODE_泡:1.0___ast_泡_71__[_ASTNODE_泡:1.0___ast_泡_190__._ASTNODE_泡:1.0___ast_泡_14__(k)])
+                        _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_型:1.0___ast_泡_133__
+                    else:
+                        try:
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_泡:1.0___ast_泡_93__(_ASTNODE_泡:1.0___ast_泡_132__[_ASTNODE_泡:1.0___ast_泡_93__(k)])._ASTNODE_泡:1.0___ast_泡_9__('(a)', '')._ASTNODE_泡:1.0___ast_泡_9__('(b)', '')._ASTNODE_泡:1.0___ast_泡_2__()
+                        _ASTNODE_泡:1.0___ast_泡_144__:
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = ', '._ASTNODE_泡:1.0___ast_泡_83__([_ASTNODE_泡:1.0___ast_泡_93__(n) for n in _ASTNODE_泡:1.0___ast_泡_82__(_ASTNODE_泡:1.0___ast_泡_132__[_ASTNODE_泡:1.0___ast_泡_93__(k)]._ASTNODE_泡:1.0___ast_泡_75__())])
+                _ASTNODE_泡:1.0___ast_泡_144__:
+                    try:
+                        _ASTNODE_泡:1.0___ast_泡_132__ = _ASTNODE_泡:1.0___ast_泡_195__._ASTNODE_匵:1.0___ast_泡_64__(_ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__())
+                        if k in _ASTNODE_泡:1.0___ast_泡_190__:
+                            _ASTNODE_型:1.0___ast_泡_133__ = _ASTNODE_型:1.0___ast_彩_2__(_ASTNODE_泡:1.0___ast_泡_132__[k], _ASTNODE_泡:1.0___ast_泡_71__[_ASTNODE_泡:1.0___ast_泡_190__._ASTNODE_泡:1.0___ast_泡_14__(k)])
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_型:1.0___ast_泡_133__
+                        else:
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_泡:1.0___ast_泡_132__[k]._ASTNODE_泡:1.0___ast_泡_9__('(a)', '')._ASTNODE_泡:1.0___ast_泡_9__('(b)', '')._ASTNODE_泡:1.0___ast_泡_2__()
+                    _ASTNODE_泡:1.0___ast_泡_144__:
+                        if k in _ASTNODE_泡:1.0___ast_泡_190__:
+                            _ASTNODE_型:1.0___ast_泡_133__ = _ASTNODE_型:1.0___ast_彩_2__(_ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__(), _ASTNODE_泡:1.0___ast_泡_71__[_ASTNODE_泡:1.0___ast_泡_190__._ASTNODE_泡:1.0___ast_泡_14__(k)])
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_型:1.0___ast_泡_133__
+                        else:
+                            _ASTNODE_泡:1.0___ast_泡_53__['qa'][_ASTNODE_泡:1.0___ast_泡_186__][_ASTNODE_錠:1.0___ast_泡_54__] = _ASTNODE_泡:1.0___ast_泡_195__._ASTNODE_匵:1.0___ast_泡_64__(_ASTNODE_型:1.0___ast_泡_172__._ASTNODE_泡:1.0___ast_泡_2__()._ASTNODE_泡:1.0___ast_泡_9__('(a)', '')._ASTNODE_泡:1.0___ast_泡_9__('(b)', '')._ASTNODE_泡:1.0___ast_泡_106__('\n')[k])[0]
+
+    re_ASTNODE_泡:1.0___ast_泡_57__ _ASTNODE_泡:1.0___ast_泡_53__
+
+// POLYMORPHIC_JCROSS_END

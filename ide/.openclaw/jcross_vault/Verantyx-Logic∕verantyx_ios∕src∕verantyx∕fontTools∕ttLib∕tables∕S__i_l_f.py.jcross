@@ -1,0 +1,1052 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:54566F38 ver:1778162126
+// ⚠️ One-time schema — expires after response
+
+_SYM_霩:1.0__ASTNODE_霩_2_ _SYM_霩:1.0__ASTNODE_霩_90_._SYM_霩:1.0__ASTNODE_霩_172_ import _SYM_霩:1.0__ASTNODE_霩_230_
+_SYM_霩:1.0__ASTNODE_霩_2_ _SYM_霩:1.0__ASTNODE_霩_90_._SYM_霩:1.0__ASTNODE_霩_172_._SYM_霩:1.0__ASTNODE_霩_21_ import _SYM_霩:1.0__ASTNODE_霩_210_
+_SYM_霩:1.0__ASTNODE_霩_2_ _SYM_霩:1.0__ASTNODE_霩_90_._SYM_霩:1.0__ASTNODE_霩_172_._SYM_霩:1.0__ASTNODE_霩_3_ import _SYM_霩:1.0__ASTNODE_霩_17_, _SYM_霩:1.0__ASTNODE_霩_293_
+
+// [metadata-stripped]
+_SYM_霩:1.0__ASTNODE_霩_2_ . import _SYM_廂:1.0__ASTNODE_廂_40_
+_SYM_霩:1.0__ASTNODE_霩_2_ . import _SYM_霩:1.0__ASTNODE_霩_102_
+_SYM_霩:1.0__ASTNODE_霩_2_ _SYM_霩:1.0__ASTNODE_霩_155_ import _SYM_霩:1.0__ASTNODE_霩_155_
+_SYM_霩:1.0__ASTNODE_霩_2_ _SYM_霩:1.0__ASTNODE_霩_53_ import _SYM_霩:1.0__ASTNODE_霩_290_
+import _SYM_霩:1.0__ASTNODE_霩_237_uct, re, _SYM_霩:1.0__ASTNODE_霩_174_
+
+_SYM_廂:1.0__ASTNODE_廂_11_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_43_:            16.16F
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_53_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_43_:            16.16F
+    _SYM_霩:1.0__ASTNODE_霩_262_:    L
+    _SYM_霩:1.0__ASTNODE_霩_154_:            H
+                        x
+                        x
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_20_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_104_:        16.16F
+    _SYM_霩:1.0__ASTNODE_霩_217_:         H
+    _SYM_霩:1.0__ASTNODE_霩_113_:      H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_67_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_128_:         H
+    _SYM_霩:1.0__ASTNODE_霩_215_:        h
+    _SYM_霩:1.0__ASTNODE_霩_182_:       h
+    _SYM_霩:1.0__ASTNODE_霩_139_:          B
+    _SYM_霩:1.0__ASTNODE_霩_287_:             B
+    _SYM_霩:1.0__ASTNODE_霩_187_:               B
+    _SYM_霩:1.0__ASTNODE_霩_4_:              B
+    _SYM_霩:1.0__ASTNODE_霩_39_:              B
+    _SYM_霩:1.0__ASTNODE_霩_239_:              B
+    _SYM_霩:1.0__ASTNODE_霩_10_:      B
+    _SYM_霩:1.0__ASTNODE_霩_51_:     B
+    _SYM_霩:1.0__ASTNODE_霩_152_:         B
+    _SYM_霩:1.0__ASTNODE_霩_81_:    B
+    _SYM_霩:1.0__ASTNODE_霩_32_: B
+    _SYM_霩:1.0__ASTNODE_霩_98_:      B
+    _SYM_霩:1.0__ASTNODE_霩_89_:     B
+    _SYM_霩:1.0__ASTNODE_霩_233_:         B
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_59_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_86_:        B
+    _SYM_霩:1.0__ASTNODE_霩_240_:         B
+    _SYM_霩:1.0__ASTNODE_霩_101_:           B
+    _SYM_霩:1.0__ASTNODE_霩_120_:         B
+    _SYM_霩:1.0__ASTNODE_霩_78_:              B
+                        x
+                        x
+                        x
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_35_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_198_:         H
+    _SYM_霩:1.0__ASTNODE_霩_190_:        B
+    _SYM_霩:1.0__ASTNODE_霩_144_:      B
+    _SYM_霩:1.0__ASTNODE_霩_243_:          B
+    _SYM_霩:1.0__ASTNODE_霩_256_:      B
+                        x
+                        x
+                        x
+    _SYM_霩:1.0__ASTNODE_霩_177_:    B
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_84_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_105_:            L
+    _SYM_霩:1.0__ASTNODE_霩_229_:            H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_52_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_105_:            H
+    _SYM_霩:1.0__ASTNODE_霩_229_:            H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_1_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_292_:           H
+    _SYM_霩:1.0__ASTNODE_霩_245_:          H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_25_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_125_:             H
+    _SYM_霩:1.0__ASTNODE_霩_22_:        H
+    _SYM_霩:1.0__ASTNODE_霩_171_:      H
+    _SYM_滾:1.0__ASTNODE_霩_221_:         H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_57_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_88_:            H
+    _SYM_霩:1.0__ASTNODE_霩_223_:              H
+"""
+
+_SYM_廂:1.0__ASTNODE_廂_77_ = """
+    >
+    _SYM_霩:1.0__ASTNODE_霩_239_:              B
+    _SYM_霩:1.0__ASTNODE_霩_93_:        B
+    _SYM_霩:1.0__ASTNODE_霩_295_:     B
+    _SYM_霩:1.0__ASTNODE_霩_161_:          B
+    _SYM_霩:1.0__ASTNODE_霩_37_:           H
+    _SYM_霩:1.0__ASTNODE_霩_40_:          H
+    _SYM_霩:1.0__ASTNODE_霩_76_:             L
+    _SYM_霩:1.0__ASTNODE_霩_124_:             L
+    _SYM_霩:1.0__ASTNODE_霩_151_:              L
+    _SYM_霩:1.0__ASTNODE_霩_251_:             L
+    _SYM_霩:1.0__ASTNODE_霩_19_:            H
+    _SYM_霩:1.0__ASTNODE_霩_127_:    H
+    _SYM_霩:1.0__ASTNODE_霩_103_:         H
+    _SYM_霩:1.0__ASTNODE_霩_109_:         H
+"""
+
+_SYM_霩:1.0__ASTNODE_霩_241_ = (
+    ("_SYM_廂:1.0__ASTNODE_廂_7_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_45_", "b"),
+    ("_SYM_廂:1.0__ASTNODE_廂_3_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_28_", ">h"),
+    ("_SYM_廂:1.0__ASTNODE_廂_19_", ">H"),
+    ("_SYM_廂:1.0__ASTNODE_廂_69_", ">L"),
+    ("_SYM_廂:1.0__ASTNODE_廂_44_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_12_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_10_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_17_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_18_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_85_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_5_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_74_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_60_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_83_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_36_", 0),  # _SYM_霩:1.0__ASTNODE_霩_205_
+    ("OR", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_78_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_87_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_48_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_86_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_9_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_72_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_47_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_65_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_15_", "b"),
+    ("_SYM_廂:1.0__ASTNODE_廂_82_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_14_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_64_", "_SYM_霩:1.0__ASTNODE_霩_65_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_32_", "b"),
+    ("_SYM_廂:1.0__ASTNODE_廂_4_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_62_", 0),  # _SYM_霩:1.0__ASTNODE_霩_11_
+    ("_SYM_廂:1.0__ASTNODE_廂_37_", -1),
+    ("_SYM_廂:1.0__ASTNODE_廂_76_", "bB"),
+    ("_SYM_廂:1.0__ASTNODE_廂_79_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_29_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_61_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_24_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_42_", "BB"),
+    ("_SYM_廂:1.0__ASTNODE_廂_38_", "Bb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_81_", "Bb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_88_", "_SYM_廂:1.0__ASTNODE_廂_39_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_80_", "Bb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_50_", "Bb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_34_", "_SYM_廂:1.0__ASTNODE_廂_39_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_31_", "_SYM_廂:1.0__ASTNODE_廂_39_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_2_", "_SYM_廂:1.0__ASTNODE_廂_39_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_68_", 0),  # _SYM_霩:1.0__ASTNODE_霩_289_
+    ("_SYM_廂:1.0__ASTNODE_廂_41_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_16_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_27_", "BB"),
+    ("_SYM_廂:1.0__ASTNODE_廂_8_", "BB"),
+    ("_SYM_廂:1.0__ASTNODE_廂_26_", "BB"),
+    ("_SYM_廂:1.0__ASTNODE_廂_23_", "B"),
+    ("_SYM_廂:1.0__ASTNODE_廂_21_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_6_", ">_SYM_霩:1.0__ASTNODE_霩_24_"),
+    ("_SYM_廂:1.0__ASTNODE_廂_71_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_22_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_54_", ">H"),
+    ("_SYM_廂:1.0__ASTNODE_廂_33_", ">Hb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_70_", ">Hb"),
+    ("_SYM_廂:1.0__ASTNODE_廂_75_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_63_", 0),
+    ("_SYM_廂:1.0__ASTNODE_廂_55_", 0),  # _SYM_霩:1.0__ASTNODE_霩_247_
+    ("_SYM_廂:1.0__ASTNODE_廂_46_", ">HH"),
+    ("_SYM_節:1.0__ASTNODE_縁_1_", "Bb"),
+)
+_SYM_霩:1.0__ASTNODE_霩_257_ = _SYM_霩:1.0__ASTNODE_霩_41_([(x[0], (i, x[1])) for i, x in _SYM_霩:1.0__ASTNODE_霩_56_(_SYM_霩:1.0__ASTNODE_霩_241_)])
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_270_(_SYM_霩:1.0__ASTNODE_霩_151_):
+    _SYM_霩:1.0__ASTNODE_霩_23_ = _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_151_)
+    pc = 0
+    _SYM_霩:1.0__ASTNODE_霩_201_ = []
+    while pc < _SYM_霩:1.0__ASTNODE_霩_23_:
+        _SYM_霩:1.0__ASTNODE_霩_12_ = _SYM_霩:1.0__ASTNODE_霩_17_(_SYM_霩:1.0__ASTNODE_霩_151_[pc : pc + 1])
+        if _SYM_霩:1.0__ASTNODE_霩_12_ > _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_241_):
+            _SYM_霩:1.0__ASTNODE_霩_220_ = _SYM_霩:1.0__ASTNODE_霩_241_[0]
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_220_ = _SYM_霩:1.0__ASTNODE_霩_241_[_SYM_霩:1.0__ASTNODE_霩_12_]
+        pc += 1
+        if _SYM_霩:1.0__ASTNODE_霩_220_[1] != 0 _SYM_霩:1.0__ASTNODE_霩_272_ pc >= _SYM_霩:1.0__ASTNODE_霩_23_:
+            return _SYM_霩:1.0__ASTNODE_霩_201_
+        if _SYM_霩:1.0__ASTNODE_霩_220_[1] == -1:
+            _SYM_霩:1.0__ASTNODE_霩_299_ = _SYM_霩:1.0__ASTNODE_霩_17_(_SYM_霩:1.0__ASTNODE_霩_151_[pc])
+            _SYM_霩:1.0__ASTNODE_霩_288_ = "%dB" % _SYM_霩:1.0__ASTNODE_霩_299_
+            pc += 1
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_220_[1] == 0:
+            _SYM_霩:1.0__ASTNODE_霩_288_ = ""
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_288_ = _SYM_霩:1.0__ASTNODE_霩_220_[1]
+        if _SYM_霩:1.0__ASTNODE_霩_288_ == "":
+            _SYM_霩:1.0__ASTNODE_霩_201_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_220_[0])
+            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+        _SYM_霩:1.0__ASTNODE_霩_15_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_(_SYM_霩:1.0__ASTNODE_霩_288_, _SYM_霩:1.0__ASTNODE_霩_151_[pc:])
+        _SYM_霩:1.0__ASTNODE_霩_201_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_220_[0] + "(" + ", "._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_237_, _SYM_霩:1.0__ASTNODE_霩_15_)) + ")")
+        pc += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_霩:1.0__ASTNODE_霩_288_)
+    return _SYM_霩:1.0__ASTNODE_霩_201_
+
+
+_SYM_霩:1.0__ASTNODE_霩_87_ = re._SYM_霩:1.0__ASTNODE_霩_138_(r"^\s*([^(]+)\s*(?:\(([^)]+)\))?")
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_181_(_SYM_霩:1.0__ASTNODE_霩_117_):
+    _SYM_霩:1.0__ASTNODE_霩_201_ = b""
+    for _SYM_霩:1.0__ASTNODE_霩_60_ in _SYM_霩:1.0__ASTNODE_霩_117_:
+        m = _SYM_霩:1.0__ASTNODE_霩_87_._SYM_霩:1.0__ASTNODE_霩_179_(_SYM_霩:1.0__ASTNODE_霩_60_)
+        if _SYM_霩:1.0__ASTNODE_霩_280_ m or _SYM_霩:1.0__ASTNODE_霩_280_ m._SYM_霩:1.0__ASTNODE_霩_118_(1) in _SYM_霩:1.0__ASTNODE_霩_257_:
+            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+        _SYM_霩:1.0__ASTNODE_霩_12_, _SYM_霩:1.0__ASTNODE_霩_202_ = _SYM_霩:1.0__ASTNODE_霩_257_[m._SYM_霩:1.0__ASTNODE_霩_118_(1)]
+        _SYM_霩:1.0__ASTNODE_霩_201_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_("B", _SYM_霩:1.0__ASTNODE_霩_12_)
+        if m._SYM_霩:1.0__ASTNODE_霩_118_(2):
+            if _SYM_霩:1.0__ASTNODE_霩_202_ == 0:
+                _SYM_霩:1.0__ASTNODE_霩_150_tinue
+            _SYM_霩:1.0__ASTNODE_霩_15_ = [_SYM_霩:1.0__ASTNODE_霩_79_(x) for x in re._SYM_霩:1.0__ASTNODE_霩_121_(r",\s*", m._SYM_霩:1.0__ASTNODE_霩_118_(2))]
+            if _SYM_霩:1.0__ASTNODE_霩_202_ == -1:
+                l = _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_15_)
+                _SYM_霩:1.0__ASTNODE_霩_201_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(("%dB" % (l + 1)), l, *_SYM_霩:1.0__ASTNODE_霩_15_)
+            else:
+                _SYM_霩:1.0__ASTNODE_霩_201_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_霩:1.0__ASTNODE_霩_202_, *_SYM_霩:1.0__ASTNODE_霩_15_)
+    return _SYM_霩:1.0__ASTNODE_霩_201_
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_170_(_SYM_霩:1.0__ASTNODE_霩_261_, _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_117_):
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_(_SYM_霩:1.0__ASTNODE_霩_261_)
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+    for l in _SYM_霩:1.0__ASTNODE_霩_270_(_SYM_霩:1.0__ASTNODE_霩_117_):
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(l)
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_(_SYM_霩:1.0__ASTNODE_霩_261_)
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_115_(_SYM_霩:1.0__ASTNODE_霩_130_):
+    _SYM_霩:1.0__ASTNODE_霩_201_ = []
+    for e in _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_130_)._SYM_霩:1.0__ASTNODE_霩_121_("\n"):
+        e = e._SYM_霩:1.0__ASTNODE_霩_258_()
+        if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_73_(e):
+            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+        _SYM_霩:1.0__ASTNODE_霩_201_._SYM_霩:1.0__ASTNODE_霩_226_(e)
+    return _SYM_霩:1.0__ASTNODE_霩_181_(_SYM_霩:1.0__ASTNODE_霩_201_)
+
+
+_SYM_霩:1.0__ASTNODE_霩_110_ = (
+    "_SYM_霩:1.0__ASTNODE_霩_239_",
+    "_SYM_霩:1.0__ASTNODE_霩_215_",
+    "_SYM_霩:1.0__ASTNODE_霩_182_",
+    "_SYM_霩:1.0__ASTNODE_霩_128_",
+    "_SYM_霩:1.0__ASTNODE_霩_198_",
+    "_SYM_霩:1.0__ASTNODE_霩_190_",
+    "_SYM_霩:1.0__ASTNODE_霩_144_",
+    "_SYM_霩:1.0__ASTNODE_霩_243_",
+    "_SYM_霩:1.0__ASTNODE_霩_91_",
+)
+_SYM_霩:1.0__ASTNODE_霩_285_ = ("_SYM_霩:1.0__ASTNODE_霩_287_", "_SYM_霩:1.0__ASTNODE_霩_187_", "_SYM_霩:1.0__ASTNODE_霩_4_", "_SYM_霩:1.0__ASTNODE_霩_39_")
+_SYM_霩:1.0__ASTNODE_霩_234_ = ("_SYM_霩:1.0__ASTNODE_霩_10_", "_SYM_霩:1.0__ASTNODE_霩_51_")
+_SYM_霩:1.0__ASTNODE_霩_294_ = (
+    "_SYM_霩:1.0__ASTNODE_霩_152_",
+    "_SYM_霩:1.0__ASTNODE_霩_81_",
+    "_SYM_霩:1.0__ASTNODE_霩_32_",
+    "_SYM_霩:1.0__ASTNODE_霩_98_",
+    "_SYM_霩:1.0__ASTNODE_霩_89_",
+    "_SYM_霩:1.0__ASTNODE_霩_256_",
+)
+_SYM_霩:1.0__ASTNODE_霩_29_ = (
+    "_SYM_霩:1.0__ASTNODE_霩_239_",
+    "_SYM_霩:1.0__ASTNODE_霩_93_",
+    "_SYM_霩:1.0__ASTNODE_霩_295_",
+// _SYM_渕:0.1__ASTNODE_KC_670_ [decoy-metadata]
+    "_SYM_霩:1.0__ASTNODE_霩_161_",
+    "_SYM_霩:1.0__ASTNODE_霩_132_",
+    "_SYM_霩:1.0__ASTNODE_霩_30_",
+    "_SYM_霩:1.0__ASTNODE_霩_281_",
+)
+_SYM_霩:1.0__ASTNODE_霩_277_ = ("_SYM_霩:1.0__ASTNODE_霩_19_", "_SYM_霩:1.0__ASTNODE_霩_127_", "_SYM_霩:1.0__ASTNODE_霩_103_", "_SYM_霩:1.0__ASTNODE_霩_109_")
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_163_(_SYM_霩:1.0__ASTNODE_霩_261_, self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_渕:1.0__ASTNODE_霩_34_):
+    _SYM_霩:1.0__ASTNODE_霩_82_ = _SYM_霩:1.0__ASTNODE_霩_41_([(k, _SYM_節:1.0__ASTNODE_縁_7_(self, k)) for k in _SYM_渕:1.0__ASTNODE_霩_34_])
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_(_SYM_霩:1.0__ASTNODE_霩_261_, **_SYM_霩:1.0__ASTNODE_霩_82_)
+    _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_173_):
+    for k in _SYM_霩:1.0__ASTNODE_霩_173_:
+        if k in _SYM_霩:1.0__ASTNODE_霩_82_:
+            _SYM_節:1.0__ASTNODE_縁_2_(self, k, _SYM_霩:1.0__ASTNODE_霩_79_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_[k])))
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_136_):
+    _SYM_霩:1.0__ASTNODE_霩_201_ = ""
+    for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_136_:
+        if _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+        _SYM_霩:1.0__ASTNODE_霩_201_ += _SYM_霩:1.0__ASTNODE_霩_69_
+    return _SYM_霩:1.0__ASTNODE_霩_201_._SYM_霩:1.0__ASTNODE_霩_258_()
+
+
+_SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_48_(_SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_133_, _SYM_霩:1.0__ASTNODE_霩_49_=80):
+    _SYM_霩:1.0__ASTNODE_霩_61_ = ""
+    for d in _SYM_霩:1.0__ASTNODE_霩_133_:
+        if _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_61_) > _SYM_霩:1.0__ASTNODE_霩_49_:
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(_SYM_霩:1.0__ASTNODE_霩_61_[:-1])
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_霩:1.0__ASTNODE_霩_61_ = ""
+        _SYM_霩:1.0__ASTNODE_霩_61_ += d + " "
+    if _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_61_):
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(_SYM_霩:1.0__ASTNODE_霩_61_[:-1])
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+
+class _SYM_霩:1.0__ASTNODE_霩_160_:
+    _SYM_霩:1.0__ASTNODE_霩_112_
+
+
+class _SYM_霩:1.0__ASTNODE_霩_16_(_SYM_廂:1.0__ASTNODE_廂_40_._SYM_廂:1.0__ASTNODE_廂_40_):
+    """_SYM_廂:1.0__ASTNODE_廂_66_ _SYM_廂:1.0__ASTNODE_廂_30_ _SYM_霩:1.0__ASTNODE_霩_25_
+
+    _SYM_廂:1.0__ASTNODE_廂_73_ _SYM_霩:1.0__ASTNODE_霩_166_ _SYM_組:1.0__ASTNODE_霩_211_://_SYM_霩:1.0__ASTNODE_霩_38_._SYM_霩:1.0__ASTNODE_霩_84_._SYM_霩:1.0__ASTNODE_霩_100_/_SYM_霩:1.0__ASTNODE_霩_248_#_SYM_霩:1.0__ASTNODE_霩_38_-_SYM_霩:1.0__ASTNODE_霩_85_-_SYM_霩:1.0__ASTNODE_霩_184_
+    """
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_196_(self, _SYM_霩:1.0__ASTNODE_霩_261_=_SYM_廂:1.0__ASTNODE_廂_56_):
+        _SYM_廂:1.0__ASTNODE_廂_40_._SYM_廂:1.0__ASTNODE_廂_40_._SYM_霩:1.0__ASTNODE_霩_196_(self, _SYM_霩:1.0__ASTNODE_霩_261_)
+        self._SYM_霩:1.0__ASTNODE_霩_213_ = []
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_236_(self, _SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_186_):
+        _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_11_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+        self._SYM_霩:1.0__ASTNODE_霩_43_ = _SYM_霩:1.0__ASTNODE_霩_253_(_SYM_霩:1.0__ASTNODE_霩_210_(self._SYM_霩:1.0__ASTNODE_霩_43_, _SYM_霩:1.0__ASTNODE_霩_222_=16))
+        if self._SYM_霩:1.0__ASTNODE_霩_43_ >= 5.0:
+            (_SYM_霩:1.0__ASTNODE_霩_153_, self._SYM_霩:1.0__ASTNODE_霩_28_) = _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_162_(_SYM_霩:1.0__ASTNODE_霩_153_)
+            _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_53_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+            _SYM_霩:1.0__ASTNODE_霩_219_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_53_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ self._SYM_霩:1.0__ASTNODE_霩_43_ < 3.0:
+            self._SYM_霩:1.0__ASTNODE_霩_154_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">H", _SYM_霩:1.0__ASTNODE_霩_153_[4:6])
+            self._SYM_霩:1.0__ASTNODE_霩_28_ = 0
+            self._SYM_霩:1.0__ASTNODE_霩_262_ = 0
+            _SYM_霩:1.0__ASTNODE_霩_219_ = 8
+        else:
+            self._SYM_霩:1.0__ASTNODE_霩_28_ = 0
+            _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_53_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+            _SYM_霩:1.0__ASTNODE_霩_219_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_53_)
+
+        _SYM_霩:1.0__ASTNODE_霩_108_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_((">%dL" % self._SYM_霩:1.0__ASTNODE_霩_154_), _SYM_霩:1.0__ASTNODE_霩_153_[_SYM_霩:1.0__ASTNODE_霩_219_:])
+        for _SYM_霩:1.0__ASTNODE_霩_265_ in _SYM_霩:1.0__ASTNODE_霩_108_:
+            s = _SYM_廂:1.0__ASTNODE_廂_49_()
+            self._SYM_霩:1.0__ASTNODE_霩_213_._SYM_霩:1.0__ASTNODE_霩_226_(s)
+            s._SYM_霩:1.0__ASTNODE_霩_236_(_SYM_霩:1.0__ASTNODE_霩_153_[_SYM_霩:1.0__ASTNODE_霩_265_:], _SYM_霩:1.0__ASTNODE_霩_186_, self._SYM_霩:1.0__ASTNODE_霩_43_)
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_138_(self, _SYM_霩:1.0__ASTNODE_霩_186_):
+        self._SYM_霩:1.0__ASTNODE_霩_154_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_213_)
+        if self._SYM_霩:1.0__ASTNODE_霩_43_ < 3.0:
+            _SYM_霩:1.0__ASTNODE_霩_218_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_11_, self)
+            _SYM_霩:1.0__ASTNODE_霩_218_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">HH", self._SYM_霩:1.0__ASTNODE_霩_154_, 0)
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_218_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_53_, self)
+        _SYM_霩:1.0__ASTNODE_霩_265_ = _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_218_) + 4 * self._SYM_霩:1.0__ASTNODE_霩_154_
+        _SYM_霩:1.0__ASTNODE_霩_153_ = b""
+        for s in self._SYM_霩:1.0__ASTNODE_霩_213_:
+            _SYM_霩:1.0__ASTNODE_霩_218_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">L", _SYM_霩:1.0__ASTNODE_霩_265_)
+            _SYM_霩:1.0__ASTNODE_霩_131_ = s._SYM_霩:1.0__ASTNODE_霩_138_(_SYM_霩:1.0__ASTNODE_霩_186_, self._SYM_霩:1.0__ASTNODE_霩_43_)
+            _SYM_霩:1.0__ASTNODE_霩_265_ += _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_131_)
+            _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_131_
+        if self._SYM_霩:1.0__ASTNODE_霩_43_ >= 5.0:
+            return _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_64_(self._SYM_霩:1.0__ASTNODE_霩_28_, _SYM_霩:1.0__ASTNODE_霩_218_ + _SYM_霩:1.0__ASTNODE_霩_153_)
+        return _SYM_霩:1.0__ASTNODE_霩_218_ + _SYM_霩:1.0__ASTNODE_霩_153_
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_57_(self, _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_):
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_149_("_SYM_廂:1.0__ASTNODE_廂_43_ _SYM_霩:1.0__ASTNODE_霩_183_ _SYM_霩:1.0__ASTNODE_霩_212_ _ _SYM_霩:1.0__ASTNODE_霩_55_ _SYM_滾:1.0__ASTNODE_霩_6_ _SYM_霩:1.0__ASTNODE_霩_114_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_(
+            "_SYM_霩:1.0__ASTNODE_霩_43_",
+            _SYM_霩:1.0__ASTNODE_霩_43_=self._SYM_霩:1.0__ASTNODE_霩_43_,
+            _SYM_霩:1.0__ASTNODE_霩_262_=self._SYM_霩:1.0__ASTNODE_霩_262_,
+            _SYM_霩:1.0__ASTNODE_霩_96_=self._SYM_霩:1.0__ASTNODE_霩_28_,
+        )
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        for s in self._SYM_霩:1.0__ASTNODE_霩_213_:
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_145_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            s._SYM_霩:1.0__ASTNODE_霩_57_(_SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, self._SYM_霩:1.0__ASTNODE_霩_43_)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_145_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_208_(self, _SYM_霩:1.0__ASTNODE_霩_137_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_130_, _SYM_霩:1.0__ASTNODE_霩_186_):
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_43_":
+            self._SYM_霩:1.0__ASTNODE_霩_28_ = _SYM_霩:1.0__ASTNODE_霩_79_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_96_"]))
+// _SYM_滾:0.4__ASTNODE_AH_235_ [decoy-metadata]
+            self._SYM_霩:1.0__ASTNODE_霩_43_ = _SYM_霩:1.0__ASTNODE_霩_253_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_43_"]))
+            self._SYM_霩:1.0__ASTNODE_霩_262_ = _SYM_霩:1.0__ASTNODE_霩_79_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_262_"]))
+            return
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_145_":
+            s = _SYM_廂:1.0__ASTNODE_廂_49_()
+            self._SYM_霩:1.0__ASTNODE_霩_213_._SYM_霩:1.0__ASTNODE_霩_226_(s)
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_ = _SYM_霩:1.0__ASTNODE_霩_69_
+                s._SYM_霩:1.0__ASTNODE_霩_208_(_SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_, _SYM_霩:1.0__ASTNODE_霩_186_, self._SYM_霩:1.0__ASTNODE_霩_43_)
+
+
+class _SYM_廂:1.0__ASTNODE_廂_49_(_SYM_霩:1.0__ASTNODE_霩_106_):
+    """A _SYM_霩:1.0__ASTNODE_霩_249_ _SYM_廂:1.0__ASTNODE_廂_49_ _SYM_霩:1.0__ASTNODE_霩_147_"""
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_196_(self):
+        self._SYM_霩:1.0__ASTNODE_霩_199_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_271_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_168_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_185_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_33_ = {}
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_236_(self, _SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+            _, _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_20_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+            self._SYM_霩:1.0__ASTNODE_霩_104_ = _SYM_霩:1.0__ASTNODE_霩_253_(
+                _SYM_霩:1.0__ASTNODE_霩_210_(self._SYM_霩:1.0__ASTNODE_霩_104_, _SYM_霩:1.0__ASTNODE_霩_222_=16)
+            )
+        _, _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_67_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+        for _SYM_霩:1.0__ASTNODE_霩_242_ in _SYM_霩:1.0__ASTNODE_霩_80_(self._SYM_霩:1.0__ASTNODE_霩_233_):
+            j, _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_59_, _SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_160_())
+            self._SYM_霩:1.0__ASTNODE_霩_185_._SYM_霩:1.0__ASTNODE_霩_226_(j)
+        _, _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_35_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+        if self._SYM_霩:1.0__ASTNODE_霩_177_:
+            self._SYM_霩:1.0__ASTNODE_霩_168_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_(
+                (">%dH" % self._SYM_霩:1.0__ASTNODE_霩_177_), _SYM_霩:1.0__ASTNODE_霩_153_
+// _SYM_渕:0.1__ASTNODE_MV_415_ [decoy-metadata]
+            )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[self._SYM_霩:1.0__ASTNODE_霩_177_ * 2 + 1 :]
+        (_SYM_霩:1.0__ASTNODE_霩_246_,) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_("B", _SYM_霩:1.0__ASTNODE_霩_153_)
+        if _SYM_霩:1.0__ASTNODE_霩_246_:
+            self._SYM_霩:1.0__ASTNODE_霩_271_ = [
+                _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_("4s", _SYM_霩:1.0__ASTNODE_霩_153_[x : x + 4])[0]._SYM_霩:1.0__ASTNODE_霩_126_("_SYM_霩:1.0__ASTNODE_霩_50_")
+                for x in _SYM_霩:1.0__ASTNODE_霩_80_(1, 1 + 4 * _SYM_霩:1.0__ASTNODE_霩_246_, 4)
+            ]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[1 + 4 * _SYM_霩:1.0__ASTNODE_霩_246_ :]
+        (self._SYM_霩:1.0__ASTNODE_霩_91_,) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">H", _SYM_霩:1.0__ASTNODE_霩_153_[:2])
+        if self._SYM_霩:1.0__ASTNODE_霩_139_:
+            self._SYM_霩:1.0__ASTNODE_霩_194_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+                (">%dL" % (self._SYM_霩:1.0__ASTNODE_霩_139_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_[2 : 6 + 4 * self._SYM_霩:1.0__ASTNODE_霩_139_]
+            )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[6 + 4 * self._SYM_霩:1.0__ASTNODE_霩_139_ :]
+        (_SYM_霩:1.0__ASTNODE_霩_18_,) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">H", _SYM_霩:1.0__ASTNODE_霩_153_[:2])
+        for i in _SYM_霩:1.0__ASTNODE_霩_80_(_SYM_霩:1.0__ASTNODE_霩_18_):
+            if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+                _SYM_霩:1.0__ASTNODE_霩_244_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_123_(
+                    _SYM_廂:1.0__ASTNODE_廂_84_, _SYM_霩:1.0__ASTNODE_霩_153_[8 + 6 * i : 14 + 6 * i], _SYM_霩:1.0__ASTNODE_霩_160_()
+                )
+            else:
+                _SYM_霩:1.0__ASTNODE_霩_244_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_123_(
+                    _SYM_廂:1.0__ASTNODE_廂_52_, _SYM_霩:1.0__ASTNODE_霩_153_[8 + 4 * i : 12 + 4 * i], _SYM_霩:1.0__ASTNODE_霩_160_()
+                )
+            self._SYM_霩:1.0__ASTNODE_霩_33_[_SYM_霩:1.0__ASTNODE_霩_244_._SYM_霩:1.0__ASTNODE_霩_105_] = _SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_5_(_SYM_霩:1.0__ASTNODE_霩_244_._SYM_霩:1.0__ASTNODE_霩_229_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[8 + 6 * _SYM_霩:1.0__ASTNODE_霩_18_ :]
+        _SYM_霩:1.0__ASTNODE_霩_157_ = (
+            _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_67_)
+            + _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_59_) * self._SYM_霩:1.0__ASTNODE_霩_233_
+            + _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_35_)
+            + 2 * self._SYM_霩:1.0__ASTNODE_霩_177_
+            + 1
+            + 1
+            + 4 * _SYM_霩:1.0__ASTNODE_霩_246_
+            + 6
+            + 4 * self._SYM_霩:1.0__ASTNODE_霩_139_
+            + 8
+            + 6 * _SYM_霩:1.0__ASTNODE_霩_18_
+        )
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+            _SYM_霩:1.0__ASTNODE_霩_157_ += _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_20_)
+        self._SYM_霩:1.0__ASTNODE_霩_191_ = _SYM_廂:1.0__ASTNODE_廂_51_()
+        self._SYM_霩:1.0__ASTNODE_霩_191_._SYM_霩:1.0__ASTNODE_霩_236_(_SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+        for i in _SYM_霩:1.0__ASTNODE_霩_80_(self._SYM_霩:1.0__ASTNODE_霩_139_):
+            p = _SYM_廂:1.0__ASTNODE_廂_13_()
+            self._SYM_霩:1.0__ASTNODE_霩_199_._SYM_霩:1.0__ASTNODE_霩_226_(p)
+            p._SYM_霩:1.0__ASTNODE_霩_236_(
+                _SYM_霩:1.0__ASTNODE_霩_153_[self._SYM_霩:1.0__ASTNODE_霩_194_[i] - _SYM_霩:1.0__ASTNODE_霩_157_ : self._SYM_霩:1.0__ASTNODE_霩_194_[i + 1] - _SYM_霩:1.0__ASTNODE_霩_157_],
+                _SYM_霩:1.0__ASTNODE_霩_186_,
+                _SYM_霩:1.0__ASTNODE_霩_43_,
+            )
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_138_(self, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        self._SYM_霩:1.0__ASTNODE_霩_139_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_199_)
+        self._SYM_霩:1.0__ASTNODE_霩_233_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_185_)
+        self._SYM_霩:1.0__ASTNODE_霩_177_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_168_)
+        _SYM_霩:1.0__ASTNODE_霩_18_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_33_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ = b""
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+            _SYM_霩:1.0__ASTNODE_霩_301_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_20_)
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_301_ = 0
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_67_, self)
+        for j in self._SYM_霩:1.0__ASTNODE_霩_185_:
+            _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_59_, j)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_35_, self)
+        if self._SYM_霩:1.0__ASTNODE_霩_177_:
+            _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % self._SYM_霩:1.0__ASTNODE_霩_266_), *self._SYM_霩:1.0__ASTNODE_霩_168_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_("BB", 0, _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_271_))
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_271_):
+            _SYM_霩:1.0__ASTNODE_霩_8_ = [_SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_("4s", x._SYM_霩:1.0__ASTNODE_霩_13_("_SYM_霩:1.0__ASTNODE_霩_50_")) for x in self._SYM_霩:1.0__ASTNODE_霩_271_]
+            _SYM_霩:1.0__ASTNODE_霩_153_ += b""._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_8_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">H", self._SYM_霩:1.0__ASTNODE_霩_91_)
+        self._SYM_霩:1.0__ASTNODE_霩_217_ = _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_153_)
+
+        _SYM_霩:1.0__ASTNODE_霩_71_ = _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_260_(_SYM_霩:1.0__ASTNODE_霩_18_, 6)
+        _SYM_霩:1.0__ASTNODE_霩_157_ = _SYM_霩:1.0__ASTNODE_霩_301_ + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_153_) + 4 * (self._SYM_霩:1.0__ASTNODE_霩_139_ + 1)
+        self._SYM_霩:1.0__ASTNODE_霩_113_ = _SYM_霩:1.0__ASTNODE_霩_157_ + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_71_)
+        for u, p in _SYM_霩:1.0__ASTNODE_霩_159_(self._SYM_霩:1.0__ASTNODE_霩_33_._SYM_霩:1.0__ASTNODE_霩_193_()):
+            _SYM_霩:1.0__ASTNODE_霩_71_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(
+                (">LH" if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0 else ">HH"), u, _SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_4_(p)
+            )
+        _SYM_霩:1.0__ASTNODE_霩_71_ += self._SYM_霩:1.0__ASTNODE_霩_191_._SYM_霩:1.0__ASTNODE_霩_138_(_SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+        _SYM_霩:1.0__ASTNODE_霩_157_ += _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_71_)
+        _SYM_霩:1.0__ASTNODE_霩_119_ = b""
+        _SYM_霩:1.0__ASTNODE_霩_140_ = b""
+        for i, p in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_199_):
+            _SYM_霩:1.0__ASTNODE_霩_219_ = _SYM_霩:1.0__ASTNODE_霩_157_ + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_119_)
+            _SYM_霩:1.0__ASTNODE_霩_140_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">L", _SYM_霩:1.0__ASTNODE_霩_219_)
+            _SYM_霩:1.0__ASTNODE_霩_119_ += p._SYM_霩:1.0__ASTNODE_霩_138_(_SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_219_, _SYM_霩:1.0__ASTNODE_霩_43_)
+        _SYM_霩:1.0__ASTNODE_霩_140_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">L", _SYM_霩:1.0__ASTNODE_霩_157_ + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_119_))
+
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+            _SYM_霩:1.0__ASTNODE_霩_134_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_20_, self)
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_134_ = b""
+        return _SYM_霩:1.0__ASTNODE_霩_134_ + _SYM_霩:1.0__ASTNODE_霩_153_ + _SYM_霩:1.0__ASTNODE_霩_140_ + _SYM_霩:1.0__ASTNODE_霩_71_ + _SYM_霩:1.0__ASTNODE_霩_119_
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_57_(self, _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 3.0:
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_("_SYM_霩:1.0__ASTNODE_霩_43_", _SYM_霩:1.0__ASTNODE_霩_104_=self._SYM_霩:1.0__ASTNODE_霩_104_)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_156_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_110_)
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_235_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_285_)
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_92_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_234_)
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_267_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_294_)
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_185_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_滾:1.0__ASTNODE_霩_224_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_滾:1.0__ASTNODE_霩_58_, _SYM_霩:1.0__ASTNODE_霩_283_, _SYM_霩:1.0__ASTNODE_霩_107_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_節:1.0__ASTNODE_縁_8_(_SYM_廂:1.0__ASTNODE_廂_59_)
+            for i, j in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_185_):
+                _SYM_霩:1.0__ASTNODE_霩_82_ = _SYM_霩:1.0__ASTNODE_霩_41_([(k, _SYM_節:1.0__ASTNODE_縁_7_(j, k)) for k in _SYM_霩:1.0__ASTNODE_霩_283_])
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_("_SYM_滾:1.0__ASTNODE_霩_66_", **_SYM_霩:1.0__ASTNODE_霩_82_)
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_滾:1.0__ASTNODE_霩_224_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_168_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_168_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(" "._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_237_, self._SYM_霩:1.0__ASTNODE_霩_168_)))
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_168_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_271_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_271_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(" "._SYM_霩:1.0__ASTNODE_霩_214_(self._SYM_霩:1.0__ASTNODE_霩_271_))
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_271_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        if self._SYM_霩:1.0__ASTNODE_霩_33_:
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_238_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            for k, v in _SYM_霩:1.0__ASTNODE_霩_159_(self._SYM_霩:1.0__ASTNODE_霩_33_._SYM_霩:1.0__ASTNODE_霩_193_()):
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_("_SYM_霩:1.0__ASTNODE_霩_244_", _SYM_霩:1.0__ASTNODE_霩_105_=_SYM_霩:1.0__ASTNODE_霩_97_(k), _SYM_霩:1.0__ASTNODE_霩_244_=v)
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_238_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        self._SYM_霩:1.0__ASTNODE_霩_191_._SYM_霩:1.0__ASTNODE_霩_57_(_SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_199_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_199_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            for i, p in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_199_):
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_112_", _SYM_霩:1.0__ASTNODE_霩_67_=i)
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+                p._SYM_霩:1.0__ASTNODE_霩_57_(_SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_112_")
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_199_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_208_(self, _SYM_霩:1.0__ASTNODE_霩_137_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_130_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_43_":
+            self._SYM_霩:1.0__ASTNODE_霩_104_ = _SYM_霩:1.0__ASTNODE_霩_253_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_._SYM_節:1.0__ASTNODE_縁_3_("_SYM_霩:1.0__ASTNODE_霩_104_", "0")))
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_156_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_110_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_235_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_285_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_92_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_234_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_267_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_294_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_滾:1.0__ASTNODE_霩_224_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                (_SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_) = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_滾:1.0__ASTNODE_霩_66_":
+                    j = _SYM_霩:1.0__ASTNODE_霩_160_()
+                    for k, v in _SYM_霩:1.0__ASTNODE_霩_82_._SYM_霩:1.0__ASTNODE_霩_193_():
+                        _SYM_節:1.0__ASTNODE_縁_2_(j, k, _SYM_霩:1.0__ASTNODE_霩_79_(v))
+                    self._SYM_霩:1.0__ASTNODE_霩_185_._SYM_霩:1.0__ASTNODE_霩_226_(j)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_168_":
+            self._SYM_霩:1.0__ASTNODE_霩_168_ = []
+            _SYM_霩:1.0__ASTNODE_霩_69_ = _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_130_)
+            self._SYM_霩:1.0__ASTNODE_霩_168_._SYM_霩:1.0__ASTNODE_霩_207_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_79_, _SYM_霩:1.0__ASTNODE_霩_69_._SYM_霩:1.0__ASTNODE_霩_121_()))
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_271_":
+            self._SYM_霩:1.0__ASTNODE_霩_271_ = []
+            _SYM_霩:1.0__ASTNODE_霩_69_ = _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_130_)
+            for n in _SYM_霩:1.0__ASTNODE_霩_69_._SYM_霩:1.0__ASTNODE_霩_121_():
+                self._SYM_霩:1.0__ASTNODE_霩_271_._SYM_霩:1.0__ASTNODE_霩_226_(n)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_238_":
+            self._SYM_霩:1.0__ASTNODE_霩_33_ = {}
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                (_SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_) = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_244_":
+                    k = _SYM_霩:1.0__ASTNODE_霩_79_(_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_105_"], 16)
+                    v = _SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_244_"]
+                self._SYM_霩:1.0__ASTNODE_霩_33_[k] = v
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_191_":
+            self._SYM_霩:1.0__ASTNODE_霩_191_ = _SYM_廂:1.0__ASTNODE_廂_51_()
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_ = _SYM_霩:1.0__ASTNODE_霩_69_
+                self._SYM_霩:1.0__ASTNODE_霩_191_._SYM_霩:1.0__ASTNODE_霩_208_(_SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_199_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_ = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_112_":
+                    p = _SYM_廂:1.0__ASTNODE_廂_13_()
+                    for e in _SYM_霩:1.0__ASTNODE_霩_178_:
+                        if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(e, _SYM_霩:1.0__ASTNODE_霩_94_):
+                            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                        p._SYM_霩:1.0__ASTNODE_霩_208_(e[0], e[1], e[2], _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_)
+                    self._SYM_霩:1.0__ASTNODE_霩_199_._SYM_霩:1.0__ASTNODE_霩_226_(p)
+
+
+class _SYM_廂:1.0__ASTNODE_廂_51_(_SYM_霩:1.0__ASTNODE_霩_106_):
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_196_(self):
+        self._SYM_霩:1.0__ASTNODE_霩_188_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_216_ = []
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_236_(self, _SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_1_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 4.0:
+            _SYM_霩:1.0__ASTNODE_霩_225_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+                (">%dL" % (self._SYM_霩:1.0__ASTNODE_霩_292_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_[4 : 8 + 4 * self._SYM_霩:1.0__ASTNODE_霩_292_]
+            )
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_225_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+                (">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_292_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_[4 : 6 + 2 * self._SYM_霩:1.0__ASTNODE_霩_292_]
+            )
+        for s, e in _SYM_霩:1.0__ASTNODE_霩_27_(_SYM_霩:1.0__ASTNODE_霩_225_[: self._SYM_霩:1.0__ASTNODE_霩_245_], _SYM_霩:1.0__ASTNODE_霩_225_[1 : self._SYM_霩:1.0__ASTNODE_霩_245_ + 1]):
+            self._SYM_霩:1.0__ASTNODE_霩_188_._SYM_霩:1.0__ASTNODE_霩_226_(
+                _SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_5_(x)
+                for x in _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_((">%dH" % ((e - s) / 2)), _SYM_霩:1.0__ASTNODE_霩_153_[s:e])
+            )
+        for s, e in _SYM_霩:1.0__ASTNODE_霩_27_(
+            _SYM_霩:1.0__ASTNODE_霩_225_[self._SYM_霩:1.0__ASTNODE_霩_245_ : self._SYM_霩:1.0__ASTNODE_霩_292_],
+            _SYM_霩:1.0__ASTNODE_霩_225_[self._SYM_霩:1.0__ASTNODE_霩_245_ + 1 : self._SYM_霩:1.0__ASTNODE_霩_292_ + 1],
+        ):
+            _SYM_霩:1.0__ASTNODE_霩_273_ = [
+                _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">HH", _SYM_霩:1.0__ASTNODE_霩_153_[x : x + 4]) for x in _SYM_霩:1.0__ASTNODE_霩_80_(s + 8, e, 4)
+            ]
+            _SYM_霩:1.0__ASTNODE_霩_228_ = _SYM_霩:1.0__ASTNODE_霩_41_([(_SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_5_(x[0]), x[1]) for x in _SYM_霩:1.0__ASTNODE_霩_273_])
+            self._SYM_霩:1.0__ASTNODE_霩_216_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_228_)
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_138_(self, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        _SYM_霩:1.0__ASTNODE_霩_153_ = b""
+        _SYM_霩:1.0__ASTNODE_霩_225_ = []
+        if _SYM_霩:1.0__ASTNODE_霩_43_ >= 4.0:
+            _SYM_霩:1.0__ASTNODE_霩_265_ = 8 + 4 * (_SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_188_) + _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_216_))
+        else:
+            _SYM_霩:1.0__ASTNODE_霩_265_ = 6 + 2 * (_SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_188_) + _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_216_))
+        for l in self._SYM_霩:1.0__ASTNODE_霩_188_:
+            _SYM_霩:1.0__ASTNODE_霩_225_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_153_) + _SYM_霩:1.0__ASTNODE_霩_265_)
+            gs = [_SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_4_(x) for x in l]
+            _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % _SYM_霩:1.0__ASTNODE_霩_73_(l)), *gs)
+        for l in self._SYM_霩:1.0__ASTNODE_霩_216_:
+            _SYM_霩:1.0__ASTNODE_霩_225_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_153_) + _SYM_霩:1.0__ASTNODE_霩_265_)
+            gs = [(_SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_4_(x[0]), x[1]) for x in l._SYM_霩:1.0__ASTNODE_霩_193_()]
+            _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_260_(_SYM_霩:1.0__ASTNODE_霩_73_(gs))
+            _SYM_霩:1.0__ASTNODE_霩_153_ += b""._SYM_霩:1.0__ASTNODE_霩_214_([_SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">HH", *x) for x in _SYM_霩:1.0__ASTNODE_霩_159_(gs)])
+        _SYM_霩:1.0__ASTNODE_霩_225_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_153_) + _SYM_霩:1.0__ASTNODE_霩_265_)
+        self._SYM_霩:1.0__ASTNODE_霩_292_ = _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_225_) - 1
+        self._SYM_霩:1.0__ASTNODE_霩_245_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_188_)
+        return (
+            _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_1_, self)
+            + _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(
+                ((">%dL" if _SYM_霩:1.0__ASTNODE_霩_43_ >= 4.0 else ">%dH") % _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_225_)), *_SYM_霩:1.0__ASTNODE_霩_225_
+            )
+            + _SYM_霩:1.0__ASTNODE_霩_153_
+        )
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_57_(self, _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_191_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_264_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        for i, l in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_188_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_188_", _SYM_霩:1.0__ASTNODE_霩_67_=i)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_霩:1.0__ASTNODE_霩_48_(_SYM_節:1.0__ASTNODE_霩_164_, l)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_188_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_264_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_74_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        for i, l in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_216_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_216_", _SYM_霩:1.0__ASTNODE_霩_67_=i + self._SYM_霩:1.0__ASTNODE_霩_245_)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            for _SYM_霩:1.0__ASTNODE_霩_111_, _SYM_霩:1.0__ASTNODE_霩_279_ in l._SYM_霩:1.0__ASTNODE_霩_193_():
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_("_SYM_霩:1.0__ASTNODE_霩_231_", _SYM_霩:1.0__ASTNODE_霩_77_=_SYM_霩:1.0__ASTNODE_霩_111_, _SYM_霩:1.0__ASTNODE_霩_223_=_SYM_霩:1.0__ASTNODE_霩_279_)
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_216_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_74_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_191_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_208_(self, _SYM_霩:1.0__ASTNODE_霩_137_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_130_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_264_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_ = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_188_":
+                    l = _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_178_)._SYM_霩:1.0__ASTNODE_霩_121_()
+                    self._SYM_霩:1.0__ASTNODE_霩_188_._SYM_霩:1.0__ASTNODE_霩_226_(l)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_74_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_178_ = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_216_":
+                    l = {}
+                    for e in _SYM_霩:1.0__ASTNODE_霩_178_:
+                        if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(e, _SYM_霩:1.0__ASTNODE_霩_94_):
+                            _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                        _SYM_霩:1.0__ASTNODE_霩_261_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_141_ = e
+                        if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_231_":
+                            l[_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_77_"]] = _SYM_霩:1.0__ASTNODE_霩_79_(_SYM_霩:1.0__ASTNODE_霩_293_(_SYM_霩:1.0__ASTNODE_霩_82_["_SYM_霩:1.0__ASTNODE_霩_223_"]))
+                    self._SYM_霩:1.0__ASTNODE_霩_216_._SYM_霩:1.0__ASTNODE_霩_226_(l)
+
+
+class _SYM_廂:1.0__ASTNODE_廂_13_(_SYM_霩:1.0__ASTNODE_霩_106_):
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_196_(self):
+        self._SYM_霩:1.0__ASTNODE_霩_72_ = {}
+        self._SYM_霩:1.0__ASTNODE_霩_252_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_300_ = []
+        self._SYM_渕:1.0__ASTNODE_霩_68_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_46_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_192_ = b""
+        self._SYM_霩:1.0__ASTNODE_霩_59_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_35_ = []
+        self._SYM_霩:1.0__ASTNODE_霩_298_ = []
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_236_(self, _SYM_霩:1.0__ASTNODE_霩_153_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        _, _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_20_(_SYM_廂:1.0__ASTNODE_廂_77_, _SYM_霩:1.0__ASTNODE_霩_153_, self)
+        (_SYM_霩:1.0__ASTNODE_霩_52_, _, _, _) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">4H", _SYM_霩:1.0__ASTNODE_霩_153_[:8])
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[8:]
+        for i in _SYM_霩:1.0__ASTNODE_霩_80_(_SYM_霩:1.0__ASTNODE_霩_52_):
+            (_SYM_霩:1.0__ASTNODE_霩_200_, _SYM_霩:1.0__ASTNODE_霩_44_, _SYM_霩:1.0__ASTNODE_霩_70_) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">3H", _SYM_霩:1.0__ASTNODE_霩_153_[6 * i : 6 * i + 6])
+            for g in _SYM_霩:1.0__ASTNODE_霩_80_(_SYM_霩:1.0__ASTNODE_霩_200_, _SYM_霩:1.0__ASTNODE_霩_44_ + 1):
+                self._SYM_霩:1.0__ASTNODE_霩_72_[_SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_5_(g)] = _SYM_霩:1.0__ASTNODE_霩_70_
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[6 * _SYM_霩:1.0__ASTNODE_霩_52_ :]
+        _SYM_霩:1.0__ASTNODE_霩_63_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_((">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_103_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[2 + 2 * self._SYM_霩:1.0__ASTNODE_霩_103_ :]
+        _SYM_霩:1.0__ASTNODE_霩_252_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_167_((">%dH" % _SYM_霩:1.0__ASTNODE_霩_63_[-1]), _SYM_霩:1.0__ASTNODE_霩_153_)
+        self._SYM_霩:1.0__ASTNODE_霩_252_ = [_SYM_霩:1.0__ASTNODE_霩_252_[s:e] for (s, e) in _SYM_霩:1.0__ASTNODE_霩_27_(_SYM_霩:1.0__ASTNODE_霩_63_, _SYM_霩:1.0__ASTNODE_霩_63_[1:])]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[2 * _SYM_霩:1.0__ASTNODE_霩_63_[-1] :]
+        (self._SYM_霩:1.0__ASTNODE_霩_132_, self._SYM_霩:1.0__ASTNODE_霩_30_) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_("BB", _SYM_霩:1.0__ASTNODE_霩_153_[:2])
+        _SYM_霩:1.0__ASTNODE_霩_175_ = self._SYM_霩:1.0__ASTNODE_霩_30_ - self._SYM_霩:1.0__ASTNODE_霩_132_ + 1
+        self._SYM_霩:1.0__ASTNODE_霩_298_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+            (">%dH" % _SYM_霩:1.0__ASTNODE_霩_175_), _SYM_霩:1.0__ASTNODE_霩_153_[2 : 2 + _SYM_霩:1.0__ASTNODE_霩_175_ * 2]
+        )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[2 + _SYM_霩:1.0__ASTNODE_霩_175_ * 2 :]
+        self._SYM_渕:1.0__ASTNODE_霩_68_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+            (">%dH" % self._SYM_霩:1.0__ASTNODE_霩_37_), _SYM_霩:1.0__ASTNODE_霩_153_[: 2 * self._SYM_霩:1.0__ASTNODE_霩_37_]
+        )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[2 * self._SYM_霩:1.0__ASTNODE_霩_37_ :]
+        self._SYM_霩:1.0__ASTNODE_霩_300_ = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+            ("%dB" % self._SYM_霩:1.0__ASTNODE_霩_37_), _SYM_霩:1.0__ASTNODE_霩_153_[: self._SYM_霩:1.0__ASTNODE_霩_37_]
+        )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[self._SYM_霩:1.0__ASTNODE_霩_37_ :]
+        (self._SYM_霩:1.0__ASTNODE_霩_281_, _SYM_霩:1.0__ASTNODE_霩_116_) = _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(">BH", _SYM_霩:1.0__ASTNODE_霩_153_[:3])
+        _SYM_霩:1.0__ASTNODE_霩_169_ = _SYM_霩:1.0__ASTNODE_霩_26_(
+            _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_(
+                (">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_37_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_[3 : 5 + self._SYM_霩:1.0__ASTNODE_霩_37_ * 2]
+            )
+        )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[5 + self._SYM_霩:1.0__ASTNODE_霩_37_ * 2 :]
+        _SYM_霩:1.0__ASTNODE_霩_209_ = _SYM_霩:1.0__ASTNODE_霩_26_(
+            _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_123_((">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_37_ + 1)), _SYM_霩:1.0__ASTNODE_霩_153_[: 2 + self._SYM_霩:1.0__ASTNODE_霩_37_ * 2])
+        )
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[2 * self._SYM_霩:1.0__ASTNODE_霩_37_ + 2 :]
+        for i in _SYM_霩:1.0__ASTNODE_霩_80_(self._SYM_霩:1.0__ASTNODE_霩_127_):
+            a = _SYM_霩:1.0__ASTNODE_霩_155_(
+                "H", _SYM_霩:1.0__ASTNODE_霩_153_[i * self._SYM_霩:1.0__ASTNODE_霩_109_ * 2 : (i + 1) * self._SYM_霩:1.0__ASTNODE_霩_109_ * 2]
+            )
+            if _SYM_霩:1.0__ASTNODE_霩_174_._SYM_節:1.0__ASTNODE_霩_275_ != "_SYM_霩:1.0__ASTNODE_霩_122_":
+                a._SYM_霩:1.0__ASTNODE_霩_42_()
+            self._SYM_霩:1.0__ASTNODE_霩_35_._SYM_霩:1.0__ASTNODE_霩_226_(a)
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[self._SYM_霩:1.0__ASTNODE_霩_127_ * self._SYM_霩:1.0__ASTNODE_霩_109_ * 2 + 1 :]
+        self._SYM_霩:1.0__ASTNODE_霩_192_ = _SYM_霩:1.0__ASTNODE_霩_153_[:_SYM_霩:1.0__ASTNODE_霩_116_]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[_SYM_霩:1.0__ASTNODE_霩_116_:]
+        for i in _SYM_霩:1.0__ASTNODE_霩_80_(_SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_169_) - 2, -1, -1):
+            if _SYM_霩:1.0__ASTNODE_霩_169_[i] == 0:
+                _SYM_霩:1.0__ASTNODE_霩_169_[i] = _SYM_霩:1.0__ASTNODE_霩_169_[i + 1]
+        self._SYM_霩:1.0__ASTNODE_霩_46_ = [
+            (_SYM_霩:1.0__ASTNODE_霩_153_[s:e] if (e - s > 1) else b"")
+            for (s, e) in _SYM_霩:1.0__ASTNODE_霩_27_(_SYM_霩:1.0__ASTNODE_霩_169_, _SYM_霩:1.0__ASTNODE_霩_169_[1:])
+        ]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[_SYM_霩:1.0__ASTNODE_霩_169_[-1] :]
+        self._SYM_霩:1.0__ASTNODE_霩_59_ = [
+            (_SYM_霩:1.0__ASTNODE_霩_153_[s:e] if (e - s > 1) else "") for (s, e) in _SYM_霩:1.0__ASTNODE_霩_27_(_SYM_霩:1.0__ASTNODE_霩_209_, _SYM_霩:1.0__ASTNODE_霩_209_[1:])
+        ]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_153_[_SYM_霩:1.0__ASTNODE_霩_209_[-1] :]
+// [metadata-stripped]
+
+// _SYM_渕:0.2__ASTNODE_LM_220_ [decoy-metadata]
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_138_(self, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_219_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+// [metadata-stripped]
+        _SYM_霩:1.0__ASTNODE_霩_209_ = _SYM_霩:1.0__ASTNODE_霩_290_(
+            _SYM_霩:1.0__ASTNODE_霩_143_ a, x: (a[0] + _SYM_霩:1.0__ASTNODE_霩_73_(x), a[1] + [a[0]]), self._SYM_霩:1.0__ASTNODE_霩_59_ + [b""], (0, [])
+        )[1]
+        _SYM_霩:1.0__ASTNODE_霩_169_ = _SYM_霩:1.0__ASTNODE_霩_290_(
+            _SYM_霩:1.0__ASTNODE_霩_143_ a, x: (a[0] + _SYM_霩:1.0__ASTNODE_霩_73_(x), a[1] + [a[0]]),
+            self._SYM_霩:1.0__ASTNODE_霩_46_ + [b""],
+            (1, []),
+        )[1]
+        _SYM_霩:1.0__ASTNODE_霩_203_ = b"\000" + b""._SYM_霩:1.0__ASTNODE_霩_214_(self._SYM_霩:1.0__ASTNODE_霩_46_)
+        _SYM_霩:1.0__ASTNODE_霩_9_ = []
+        for t in self._SYM_霩:1.0__ASTNODE_霩_35_:
+            if _SYM_霩:1.0__ASTNODE_霩_174_._SYM_節:1.0__ASTNODE_霩_275_ != "_SYM_霩:1.0__ASTNODE_霩_122_":
+                t._SYM_霩:1.0__ASTNODE_霩_42_()
+            _SYM_霩:1.0__ASTNODE_霩_9_._SYM_霩:1.0__ASTNODE_霩_226_(t._SYM_霩:1.0__ASTNODE_霩_255_())
+            if _SYM_霩:1.0__ASTNODE_霩_174_._SYM_節:1.0__ASTNODE_霩_275_ != "_SYM_霩:1.0__ASTNODE_霩_122_":
+                t._SYM_霩:1.0__ASTNODE_霩_42_()
+        if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_9_):
+            self._SYM_霩:1.0__ASTNODE_霩_298_ = [0]
+        _SYM_霩:1.0__ASTNODE_霩_63_ = _SYM_霩:1.0__ASTNODE_霩_290_(
+            _SYM_霩:1.0__ASTNODE_霩_143_ a, x: (a[0] + _SYM_霩:1.0__ASTNODE_霩_73_(x), a[1] + [a[0]]), self._SYM_霩:1.0__ASTNODE_霩_252_ + [[]], (0, [])
+        )[1]
+        _SYM_霩:1.0__ASTNODE_霩_47_ = []
+        _SYM_霩:1.0__ASTNODE_霩_278_ = _SYM_霩:1.0__ASTNODE_霩_41_([(_SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_4_(x[0]), x[1]) for x in self._SYM_霩:1.0__ASTNODE_霩_72_._SYM_霩:1.0__ASTNODE_霩_193_()])
+        for e in _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_274_(_SYM_霩:1.0__ASTNODE_霩_278_, _SYM_霩:1.0__ASTNODE_霩_31_=_SYM_廂:1.0__ASTNODE_廂_58_):
+            if e[1]:
+                _SYM_霩:1.0__ASTNODE_霩_47_._SYM_霩:1.0__ASTNODE_霩_226_((e[0], e[0] + e[1] - 1, e[2][0]))
+        self._SYM_霩:1.0__ASTNODE_霩_37_ = _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_59_)
+        self._SYM_霩:1.0__ASTNODE_霩_40_ = (
+            _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_206_(_SYM_廂:1.0__ASTNODE_廂_77_)
+            + 8
+            + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_47_) * 6
+            + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_63_) * 2
+            + 2 * _SYM_霩:1.0__ASTNODE_霩_63_[-1]
+            + 2
+            + 2 * _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_298_)
+// _SYM_霩:0.1__ASTNODE_AA_866_ [decoy-metadata]
+            + 3 * self._SYM_霩:1.0__ASTNODE_霩_37_
+            + 3
+            + 4 * self._SYM_霩:1.0__ASTNODE_霩_37_
+            + 4
+        )
+        self._SYM_霩:1.0__ASTNODE_霩_76_ = (
+            self._SYM_霩:1.0__ASTNODE_霩_40_ + 2 * self._SYM_霩:1.0__ASTNODE_霩_127_ * self._SYM_霩:1.0__ASTNODE_霩_109_ + 1 + _SYM_霩:1.0__ASTNODE_霩_219_
+        )
+        self._SYM_霩:1.0__ASTNODE_霩_124_ = self._SYM_霩:1.0__ASTNODE_霩_76_ + _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_192_)
+        self._SYM_霩:1.0__ASTNODE_霩_151_ = self._SYM_霩:1.0__ASTNODE_霩_124_ + _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_203_)
+        self._SYM_霩:1.0__ASTNODE_霩_251_ = 0
+// [metadata-stripped]
+        _SYM_霩:1.0__ASTNODE_霩_153_ = _SYM_霩:1.0__ASTNODE_霩_230_._SYM_霩:1.0__ASTNODE_霩_227_(_SYM_廂:1.0__ASTNODE_廂_77_, self)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_102_._SYM_霩:1.0__ASTNODE_霩_260_(_SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_47_), 6)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += b""._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">3H", *p) for p in _SYM_霩:1.0__ASTNODE_霩_47_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % _SYM_霩:1.0__ASTNODE_霩_73_(_SYM_霩:1.0__ASTNODE_霩_63_)), *_SYM_霩:1.0__ASTNODE_霩_63_)
+        _SYM_霩:1.0__ASTNODE_霩_148_ = _SYM_霩:1.0__ASTNODE_霩_290_(_SYM_霩:1.0__ASTNODE_霩_143_ a, x: a + x, self._SYM_霩:1.0__ASTNODE_霩_252_, [])
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % _SYM_霩:1.0__ASTNODE_霩_63_[-1]), *_SYM_霩:1.0__ASTNODE_霩_148_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_("BB", self._SYM_霩:1.0__ASTNODE_霩_132_, self._SYM_霩:1.0__ASTNODE_霩_30_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_298_)), *self._SYM_霩:1.0__ASTNODE_霩_298_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % self._SYM_霩:1.0__ASTNODE_霩_37_), *self._SYM_渕:1.0__ASTNODE_霩_68_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(("%dB" % self._SYM_霩:1.0__ASTNODE_霩_37_), *self._SYM_霩:1.0__ASTNODE_霩_300_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_(">BH", self._SYM_霩:1.0__ASTNODE_霩_281_, _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_192_))
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_37_ + 1)), *_SYM_霩:1.0__ASTNODE_霩_169_)
+        _SYM_霩:1.0__ASTNODE_霩_153_ += _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_((">%dH" % (self._SYM_霩:1.0__ASTNODE_霩_37_ + 1)), *_SYM_霩:1.0__ASTNODE_霩_209_)
+        return (
+            _SYM_霩:1.0__ASTNODE_霩_153_
+            + b""._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_9_)
+            + _SYM_霩:1.0__ASTNODE_霩_237_uct._SYM_霩:1.0__ASTNODE_霩_227_("B", 0)
+            + self._SYM_霩:1.0__ASTNODE_霩_192_
+            + _SYM_霩:1.0__ASTNODE_霩_203_
+            + b""._SYM_霩:1.0__ASTNODE_霩_214_(self._SYM_霩:1.0__ASTNODE_霩_59_)
+        )
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_57_(self, _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_156_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_29_)
+        _SYM_霩:1.0__ASTNODE_霩_163_("_SYM_霩:1.0__ASTNODE_霩_263_", self, _SYM_節:1.0__ASTNODE_霩_164_, *_SYM_霩:1.0__ASTNODE_霩_277_)
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_7_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_霩:1.0__ASTNODE_霩_48_(
+            _SYM_節:1.0__ASTNODE_霩_164_,
+            [
+                "{}={}"._SYM_滾:1.0__ASTNODE_霩_276_(*x)
+                for x in _SYM_霩:1.0__ASTNODE_霩_159_(
+                    self._SYM_霩:1.0__ASTNODE_霩_72_._SYM_霩:1.0__ASTNODE_霩_193_(), _SYM_渕:1.0__ASTNODE_霩_297_=_SYM_霩:1.0__ASTNODE_霩_143_ x: _SYM_霩:1.0__ASTNODE_霩_186_._SYM_節:1.0__ASTNODE_縁_4_(x[0])
+                )
+            ],
+        )
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_7_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_204_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        for i, r in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_252_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_259_(
+                "_SYM_霩:1.0__ASTNODE_霩_142_",
+                _SYM_節:1.0__ASTNODE_霩_282_=self._SYM_霩:1.0__ASTNODE_霩_19_ - self._SYM_霩:1.0__ASTNODE_霩_103_ + i,
+                _SYM_霩:1.0__ASTNODE_霩_252_=" "._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_237_, r)),
+            )
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_204_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_252_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        for i, _SYM_霩:1.0__ASTNODE_霩_1_ in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_59_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_(
+                "_SYM_霩:1.0__ASTNODE_霩_189_",
+                _SYM_霩:1.0__ASTNODE_霩_223_=i,
+                _SYM_霩:1.0__ASTNODE_霩_250_=self._SYM_霩:1.0__ASTNODE_霩_300_[i],
+                _SYM_渕:1.0__ASTNODE_霩_95_=self._SYM_渕:1.0__ASTNODE_霩_68_[i],
+            )
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_46_[i]):
+                _SYM_霩:1.0__ASTNODE_霩_170_("_SYM_霩:1.0__ASTNODE_霩_158_", _SYM_節:1.0__ASTNODE_霩_164_, self._SYM_霩:1.0__ASTNODE_霩_46_[i])
+            _SYM_霩:1.0__ASTNODE_霩_170_("_SYM_霩:1.0__ASTNODE_霩_1_", _SYM_節:1.0__ASTNODE_霩_164_, _SYM_霩:1.0__ASTNODE_霩_1_)
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_189_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_252_")
+        _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_192_):
+            _SYM_霩:1.0__ASTNODE_霩_170_("_SYM_霩:1.0__ASTNODE_霩_129_", _SYM_節:1.0__ASTNODE_霩_164_, self._SYM_霩:1.0__ASTNODE_霩_192_)
+        if _SYM_霩:1.0__ASTNODE_霩_73_(self._SYM_霩:1.0__ASTNODE_霩_35_):
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_135_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_146_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(" "._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_237_, self._SYM_霩:1.0__ASTNODE_霩_298_)))
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_146_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            for i, s in _SYM_霩:1.0__ASTNODE_霩_56_(self._SYM_霩:1.0__ASTNODE_霩_35_):
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_14_("_SYM_霩:1.0__ASTNODE_霩_5_", _i=i)
+// [metadata-stripped]
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_197_(" "._SYM_霩:1.0__ASTNODE_霩_214_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_237_, s)))
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_5_")
+                _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_54_("_SYM_霩:1.0__ASTNODE_霩_135_")
+            _SYM_節:1.0__ASTNODE_霩_164_._SYM_霩:1.0__ASTNODE_霩_195_()
+
+    _SYM_霩:1.0__ASTNODE_霩_62_ _SYM_霩:1.0__ASTNODE_霩_208_(self, _SYM_霩:1.0__ASTNODE_霩_137_, _SYM_霩:1.0__ASTNODE_霩_82_, _SYM_霩:1.0__ASTNODE_霩_130_, _SYM_霩:1.0__ASTNODE_霩_186_, _SYM_霩:1.0__ASTNODE_霩_43_=2.0):
+        if _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_156_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_29_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_263_":
+            _SYM_節:1.0__ASTNODE_縁_6_(self, _SYM_霩:1.0__ASTNODE_霩_82_, *_SYM_霩:1.0__ASTNODE_霩_277_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_7_":
+            e = _SYM_霩:1.0__ASTNODE_霩_291_(_SYM_霩:1.0__ASTNODE_霩_130_)
+            for w in e._SYM_霩:1.0__ASTNODE_霩_121_():
+                x = w._SYM_霩:1.0__ASTNODE_霩_121_("=")
+                if _SYM_霩:1.0__ASTNODE_霩_73_(x) != 2 or x[0] == "" or x[1] == "":
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                self._SYM_霩:1.0__ASTNODE_霩_72_[x[0]] = _SYM_霩:1.0__ASTNODE_霩_79_(x[1])
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_204_":
+            for e in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(e, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, a, c = e
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_142_":
+                    self._SYM_霩:1.0__ASTNODE_霩_252_._SYM_霩:1.0__ASTNODE_霩_226_([_SYM_霩:1.0__ASTNODE_霩_79_(x) for x in a["_SYM_霩:1.0__ASTNODE_霩_252_"]._SYM_霩:1.0__ASTNODE_霩_121_(" ")])
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_252_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, a, c = _SYM_霩:1.0__ASTNODE_霩_69_
+// _SYM_蔵:0.2__ASTNODE_HK_784_ [decoy-metadata]
+                if _SYM_霩:1.0__ASTNODE_霩_261_ != "_SYM_霩:1.0__ASTNODE_霩_189_":
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                self._SYM_霩:1.0__ASTNODE_霩_300_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_79_(a["_SYM_霩:1.0__ASTNODE_霩_250_"]))
+                self._SYM_渕:1.0__ASTNODE_霩_68_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_79_(a["_SYM_渕:1.0__ASTNODE_霩_95_"]))
+                _SYM_霩:1.0__ASTNODE_霩_150_ = b""
+                _SYM_霩:1.0__ASTNODE_霩_36_ = b""
+                for e in c:
+                    if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(e, _SYM_霩:1.0__ASTNODE_霩_94_):
+                        _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                    _SYM_霩:1.0__ASTNODE_霩_261_, a, _SYM_霩:1.0__ASTNODE_霩_269_ = e
+                    if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_158_":
+                        _SYM_霩:1.0__ASTNODE_霩_150_ = _SYM_霩:1.0__ASTNODE_霩_115_(_SYM_霩:1.0__ASTNODE_霩_269_)
+                    _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_1_":
+                        _SYM_霩:1.0__ASTNODE_霩_36_ = _SYM_霩:1.0__ASTNODE_霩_115_(_SYM_霩:1.0__ASTNODE_霩_269_)
+                self._SYM_霩:1.0__ASTNODE_霩_59_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_36_)
+                self._SYM_霩:1.0__ASTNODE_霩_46_._SYM_霩:1.0__ASTNODE_霩_226_(_SYM_霩:1.0__ASTNODE_霩_150_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_129_":
+            self._SYM_霩:1.0__ASTNODE_霩_192_ = _SYM_霩:1.0__ASTNODE_霩_115_(_SYM_霩:1.0__ASTNODE_霩_130_)
+        _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_137_ == "_SYM_霩:1.0__ASTNODE_霩_135_":
+            for _SYM_霩:1.0__ASTNODE_霩_69_ in _SYM_霩:1.0__ASTNODE_霩_130_:
+                if _SYM_霩:1.0__ASTNODE_霩_280_ _SYM_霩:1.0__ASTNODE_霩_254_(_SYM_霩:1.0__ASTNODE_霩_69_, _SYM_霩:1.0__ASTNODE_霩_94_):
+                    _SYM_霩:1.0__ASTNODE_霩_150_tinue
+                _SYM_霩:1.0__ASTNODE_霩_261_, a, c = _SYM_霩:1.0__ASTNODE_霩_69_
+                if _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_5_":
+                    s = _SYM_霩:1.0__ASTNODE_霩_155_("H")
+                    e = _SYM_霩:1.0__ASTNODE_霩_291_(c)
+                    s._SYM_霩:1.0__ASTNODE_霩_207_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_79_, e._SYM_霩:1.0__ASTNODE_霩_121_()))
+                    self._SYM_霩:1.0__ASTNODE_霩_35_._SYM_霩:1.0__ASTNODE_霩_226_(s)
+                _SYM_滾:1.0__ASTNODE_霩_232_ _SYM_霩:1.0__ASTNODE_霩_261_ == "_SYM_霩:1.0__ASTNODE_霩_146_":
+                    s = []
+                    e = _SYM_霩:1.0__ASTNODE_霩_291_(c)
+                    s._SYM_霩:1.0__ASTNODE_霩_207_(_SYM_霩:1.0__ASTNODE_霩_231_(_SYM_霩:1.0__ASTNODE_霩_79_, e._SYM_霩:1.0__ASTNODE_霩_121_()))
+                    self._SYM_霩:1.0__ASTNODE_霩_298_ = s
+
+// POLYMORPHIC_JCROSS_END

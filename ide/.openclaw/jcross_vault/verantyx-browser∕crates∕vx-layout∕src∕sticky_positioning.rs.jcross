@@ -1,0 +1,360 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:28BD51A8 ver:1778158794
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_VERANTYX_霧:1.0__TOKEN_霧_1_ _VERANTYX_霧:1.0__TOKEN_霧_74_::_VERANTYX_霧:1.0__TOKEN_霧_6_::_VERANTYX_庖:1.0__TOKEN_庖_9_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ struct _VERANTYX_庖:1.0__TOKEN_庖_39_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ x: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ y: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_91_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_70_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+}
+
+_VERANTYX_霧:1.0__TOKEN_霧_110_ _VERANTYX_庖:1.0__TOKEN_庖_39_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_46_(x: _VERANTYX_霧:1.0__TOKEN_霧_116_, y: _VERANTYX_霧:1.0__TOKEN_霧_116_, w: _VERANTYX_霧:1.0__TOKEN_霧_116_, h: _VERANTYX_霧:1.0__TOKEN_霧_116_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { x, y, _VERANTYX_霧:1.0__TOKEN_霧_91_: w, _VERANTYX_霧:1.0__TOKEN_霧_70_: h } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_14_() -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { x: 0.0, y: 0.0, _VERANTYX_霧:1.0__TOKEN_霧_91_: 0.0, _VERANTYX_霧:1.0__TOKEN_霧_70_: 0.0 } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_120_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { self.y }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_2_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { self.x }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_138_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { self.y + self._VERANTYX_霧:1.0__TOKEN_霧_70_ }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_167_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { self.x + self._VERANTYX_霧:1.0__TOKEN_霧_91_ }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_11_(&self, dx: _VERANTYX_霧:1.0__TOKEN_霧_116_, dy: _VERANTYX_霧:1.0__TOKEN_霧_116_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+        _VERANTYX_庖:1.0__TOKEN_庖_6_ { x: self.x + dx, y: self.y + dy, ..*self }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ struct _VERANTYX_庖:1.0__TOKEN_庖_48_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_120_: _VERANTYX_庖:1.0__TOKEN_庖_37_<_VERANTYX_霧:1.0__TOKEN_霧_116_>,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_167_: _VERANTYX_庖:1.0__TOKEN_庖_37_<_VERANTYX_霧:1.0__TOKEN_霧_116_>,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_138_: _VERANTYX_庖:1.0__TOKEN_庖_37_<_VERANTYX_霧:1.0__TOKEN_霧_116_>,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_2_: _VERANTYX_庖:1.0__TOKEN_庖_37_<_VERANTYX_霧:1.0__TOKEN_霧_116_>,
+}
+
+_VERANTYX_霧:1.0__TOKEN_霧_110_ _VERANTYX_庖:1.0__TOKEN_庖_48_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_46_() -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_霧:1.0__TOKEN_霧_120_: _VERANTYX_庖:1.0__TOKEN_庖_12_, _VERANTYX_霧:1.0__TOKEN_霧_167_: _VERANTYX_庖:1.0__TOKEN_庖_12_, _VERANTYX_霧:1.0__TOKEN_霧_138_: _VERANTYX_庖:1.0__TOKEN_庖_12_, _VERANTYX_霧:1.0__TOKEN_霧_2_: _VERANTYX_庖:1.0__TOKEN_庖_12_ } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_120_(px: _VERANTYX_霧:1.0__TOKEN_霧_116_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_霧:1.0__TOKEN_霧_120_: _VERANTYX_庖:1.0__TOKEN_庖_50_(px), .._VERANTYX_庖:1.0__TOKEN_庖_6_::_VERANTYX_霧:1.0__TOKEN_霧_46_() } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_138_(px: _VERANTYX_霧:1.0__TOKEN_霧_116_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_霧:1.0__TOKEN_霧_138_: _VERANTYX_庖:1.0__TOKEN_庖_50_(px), .._VERANTYX_庖:1.0__TOKEN_庖_6_::_VERANTYX_霧:1.0__TOKEN_霧_46_() } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_13_(t: _VERANTYX_霧:1.0__TOKEN_霧_116_, b: _VERANTYX_霧:1.0__TOKEN_霧_116_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_霧:1.0__TOKEN_霧_120_: _VERANTYX_庖:1.0__TOKEN_庖_50_(t), _VERANTYX_霧:1.0__TOKEN_霧_138_: _VERANTYX_庖:1.0__TOKEN_庖_50_(b), .._VERANTYX_庖:1.0__TOKEN_庖_6_::_VERANTYX_霧:1.0__TOKEN_霧_46_() } }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_144_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_19_ {
+        self._VERANTYX_霧:1.0__TOKEN_霧_120_._VERANTYX_霧:1.0__TOKEN_霧_57_() || self._VERANTYX_霧:1.0__TOKEN_霧_167_._VERANTYX_霧:1.0__TOKEN_霧_57_() || self._VERANTYX_霧:1.0__TOKEN_霧_138_._VERANTYX_霧:1.0__TOKEN_霧_57_() || self._VERANTYX_霧:1.0__TOKEN_霧_2_._VERANTYX_霧:1.0__TOKEN_霧_57_()
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ enum _VERANTYX_庖:1.0__TOKEN_庖_4_ {
+// [metadata-stripped]
+    _VERANTYX_庖:1.0__TOKEN_庖_19_,
+// [metadata-stripped]
+    _VERANTYX_庖:1.0__TOKEN_庖_49_,
+// [metadata-stripped]
+    _VERANTYX_庖:1.0__TOKEN_庖_32_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ struct _VERANTYX_庖:1.0__TOKEN_庖_45_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_164_: _VERANTYX_庖:1.0__TOKEN_庖_39_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_7_: _VERANTYX_庖:1.0__TOKEN_庖_39_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_15_: _VERANTYX_庖:1.0__TOKEN_庖_48_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_66_: _VERANTYX_霧:1.0__TOKEN_霧_173_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_155_: _VERANTYX_霧:1.0__TOKEN_霧_22_,
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_28_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_87_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_171_: _VERANTYX_庖:1.0__TOKEN_庖_4_,
+}
+
+_VERANTYX_霧:1.0__TOKEN_霧_110_ _VERANTYX_庖:1.0__TOKEN_庖_45_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_46_(
+        _VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_,
+        _VERANTYX_霧:1.0__TOKEN_霧_164_: _VERANTYX_庖:1.0__TOKEN_庖_39_,
+        _VERANTYX_霧:1.0__TOKEN_霧_7_: _VERANTYX_庖:1.0__TOKEN_庖_39_,
+        _VERANTYX_霧:1.0__TOKEN_霧_15_: _VERANTYX_庖:1.0__TOKEN_庖_48_,
+        _VERANTYX_霧:1.0__TOKEN_霧_66_: _VERANTYX_霧:1.0__TOKEN_霧_173_,
+    ) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+        _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+            _VERANTYX_霧:1.0__TOKEN_霧_106_, _VERANTYX_霧:1.0__TOKEN_霧_164_, _VERANTYX_霧:1.0__TOKEN_霧_7_, _VERANTYX_霧:1.0__TOKEN_霧_15_, _VERANTYX_霧:1.0__TOKEN_霧_66_,
+            _VERANTYX_霧:1.0__TOKEN_霧_155_: 0,
+            _VERANTYX_霧:1.0__TOKEN_霧_28_: 0.0,
+            _VERANTYX_霧:1.0__TOKEN_霧_87_: 0.0,
+            _VERANTYX_霧:1.0__TOKEN_霧_171_: _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_19_,
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_98_(&self) -> _VERANTYX_庖:1.0__TOKEN_庖_39_ {
+        self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_11_(self._VERANTYX_霧:1.0__TOKEN_霧_87_, self._VERANTYX_霧:1.0__TOKEN_霧_28_)
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_185_(
+        &_VERANTYX_霧:1.0__TOKEN_霧_156_ self,
+        _VERANTYX_霧:1.0__TOKEN_霧_115_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+        _VERANTYX_霧:1.0__TOKEN_霧_8_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+        _VERANTYX_霧:1.0__TOKEN_霧_137_: _VERANTYX_庖:1.0__TOKEN_庖_39_,  // _VERANTYX_庖:1.0__TOKEN_庖_36_ _VERANTYX_霧:1.0__TOKEN_霧_21_ of _VERANTYX_霧:1.0__TOKEN_霧_54_ _VERANTYX_霧:1.0__TOKEN_霧_42_ _VERANTYX_処:1.0__TOKEN_霧_147_
+    ) {
+        let _VERANTYX_霧:1.0__TOKEN_霧_156_ _VERANTYX_霧:1.0__TOKEN_霧_29_ = 0.0_VERANTYX_霧:1.0__TOKEN_霧_116_;
+        let _VERANTYX_霧:1.0__TOKEN_霧_156_ _VERANTYX_霧:1.0__TOKEN_霧_179_ = 0.0_VERANTYX_霧:1.0__TOKEN_霧_116_;
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_処:1.0__TOKEN_霧_119_ = self._VERANTYX_霧:1.0__TOKEN_霧_164_.y - _VERANTYX_霧:1.0__TOKEN_霧_8_;
+        let _VERANTYX_処:1.0__TOKEN_霧_163_ = self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_138_() - _VERANTYX_霧:1.0__TOKEN_霧_8_;
+        let _VERANTYX_処:1.0__TOKEN_霧_136_ = self._VERANTYX_霧:1.0__TOKEN_霧_7_._VERANTYX_霧:1.0__TOKEN_霧_138_() - _VERANTYX_霧:1.0__TOKEN_霧_8_;
+        let _VERANTYX_霧:1.0__TOKEN_霧_68_ = _VERANTYX_霧:1.0__TOKEN_霧_137_._VERANTYX_霧:1.0__TOKEN_霧_120_();
+        
+        if let _VERANTYX_庖:1.0__TOKEN_庖_50_(_VERANTYX_霧:1.0__TOKEN_霧_47_) = self._VERANTYX_霧:1.0__TOKEN_霧_15_._VERANTYX_霧:1.0__TOKEN_霧_120_ {
+            let _VERANTYX_霧:1.0__TOKEN_霧_39_ = _VERANTYX_霧:1.0__TOKEN_霧_68_ + _VERANTYX_霧:1.0__TOKEN_霧_47_;
+            
+            if _VERANTYX_処:1.0__TOKEN_霧_119_ < _VERANTYX_霧:1.0__TOKEN_霧_39_ {
+// [metadata-stripped]
+                let _VERANTYX_霧:1.0__TOKEN_霧_94_ = _VERANTYX_霧:1.0__TOKEN_霧_39_ - _VERANTYX_処:1.0__TOKEN_霧_119_;
+                
+// [metadata-stripped]
+                let _VERANTYX_霧:1.0__TOKEN_霧_27_ = (_VERANTYX_処:1.0__TOKEN_霧_136_ - _VERANTYX_霧:1.0__TOKEN_霧_68_ - _VERANTYX_霧:1.0__TOKEN_霧_47_ - self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_70_)._VERANTYX_霧:1.0__TOKEN_霧_108_(0.0);
+                _VERANTYX_霧:1.0__TOKEN_霧_29_ = _VERANTYX_霧:1.0__TOKEN_霧_94_._VERANTYX_霧:1.0__TOKEN_霧_86_(_VERANTYX_霧:1.0__TOKEN_霧_27_);
+                
+                self._VERANTYX_霧:1.0__TOKEN_霧_171_ = if _VERANTYX_霧:1.0__TOKEN_霧_29_ >= _VERANTYX_霧:1.0__TOKEN_霧_27_ {
+                    _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_32_
+                } else {
+// _VERANTYX_濫:0.7__TOKEN_YC_910_ [decoy-metadata]
+                    _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_49_
+                };
+            } else {
+                self._VERANTYX_霧:1.0__TOKEN_霧_171_ = _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_19_;
+            }
+        }
+        
+        if let _VERANTYX_庖:1.0__TOKEN_庖_50_(_VERANTYX_霧:1.0__TOKEN_霧_176_) = self._VERANTYX_霧:1.0__TOKEN_霧_15_._VERANTYX_霧:1.0__TOKEN_霧_138_ {
+            let _VERANTYX_霧:1.0__TOKEN_霧_174_ = _VERANTYX_霧:1.0__TOKEN_霧_137_._VERANTYX_霧:1.0__TOKEN_霧_138_();
+            let _VERANTYX_霧:1.0__TOKEN_霧_39_ = _VERANTYX_霧:1.0__TOKEN_霧_174_ - _VERANTYX_霧:1.0__TOKEN_霧_176_ - self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_70_;
+            
+            if _VERANTYX_処:1.0__TOKEN_霧_119_ > _VERANTYX_霧:1.0__TOKEN_霧_39_ {
+                let _VERANTYX_霧:1.0__TOKEN_霧_92_ = _VERANTYX_処:1.0__TOKEN_霧_119_ - _VERANTYX_霧:1.0__TOKEN_霧_39_;
+                let _VERANTYX_霧:1.0__TOKEN_霧_180_ = if self._VERANTYX_霧:1.0__TOKEN_霧_164_.y > self._VERANTYX_霧:1.0__TOKEN_霧_7_.y {
+                    (self._VERANTYX_霧:1.0__TOKEN_霧_164_.y - self._VERANTYX_霧:1.0__TOKEN_霧_7_.y)
+                } else { 0.0 };
+                _VERANTYX_霧:1.0__TOKEN_霧_29_ = -_VERANTYX_霧:1.0__TOKEN_霧_92_._VERANTYX_霧:1.0__TOKEN_霧_86_(_VERANTYX_霧:1.0__TOKEN_霧_180_);
+                
+                if self._VERANTYX_霧:1.0__TOKEN_霧_171_ == _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_19_ {
+                    self._VERANTYX_霧:1.0__TOKEN_霧_171_ = _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_49_;
+                }
+            }
+        }
+        
+// [metadata-stripped]
+        let _VERANTYX_処:1.0__TOKEN_霧_102_ = self._VERANTYX_霧:1.0__TOKEN_霧_164_.x - _VERANTYX_霧:1.0__TOKEN_霧_115_;
+        let _VERANTYX_霧:1.0__TOKEN_霧_154_ = _VERANTYX_霧:1.0__TOKEN_霧_137_._VERANTYX_霧:1.0__TOKEN_霧_2_();
+        
+        if let _VERANTYX_庖:1.0__TOKEN_庖_50_(_VERANTYX_霧:1.0__TOKEN_霧_80_) = self._VERANTYX_霧:1.0__TOKEN_霧_15_._VERANTYX_霧:1.0__TOKEN_霧_2_ {
+            let _VERANTYX_霧:1.0__TOKEN_霧_39_ = _VERANTYX_霧:1.0__TOKEN_霧_154_ + _VERANTYX_霧:1.0__TOKEN_霧_80_;
+            if _VERANTYX_処:1.0__TOKEN_霧_102_ < _VERANTYX_霧:1.0__TOKEN_霧_39_ {
+                let _VERANTYX_霧:1.0__TOKEN_霧_94_ = _VERANTYX_霧:1.0__TOKEN_霧_39_ - _VERANTYX_処:1.0__TOKEN_霧_102_;
+                let _VERANTYX_霧:1.0__TOKEN_霧_27_ = (self._VERANTYX_霧:1.0__TOKEN_霧_7_._VERANTYX_霧:1.0__TOKEN_霧_167_() - self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_167_() - _VERANTYX_霧:1.0__TOKEN_霧_80_)._VERANTYX_霧:1.0__TOKEN_霧_108_(0.0);
+                _VERANTYX_霧:1.0__TOKEN_霧_179_ = _VERANTYX_霧:1.0__TOKEN_霧_94_._VERANTYX_霧:1.0__TOKEN_霧_86_(_VERANTYX_霧:1.0__TOKEN_霧_27_);
+            }
+        }
+        
+        if let _VERANTYX_庖:1.0__TOKEN_庖_50_(_VERANTYX_霧:1.0__TOKEN_霧_175_) = self._VERANTYX_霧:1.0__TOKEN_霧_15_._VERANTYX_霧:1.0__TOKEN_霧_167_ {
+            let _VERANTYX_霧:1.0__TOKEN_霧_183_ = _VERANTYX_霧:1.0__TOKEN_霧_137_._VERANTYX_霧:1.0__TOKEN_霧_167_();
+            let _VERANTYX_霧:1.0__TOKEN_霧_39_ = _VERANTYX_霧:1.0__TOKEN_霧_183_ - _VERANTYX_霧:1.0__TOKEN_霧_175_ - self._VERANTYX_霧:1.0__TOKEN_霧_164_._VERANTYX_霧:1.0__TOKEN_霧_91_;
+            if _VERANTYX_処:1.0__TOKEN_霧_102_ > _VERANTYX_霧:1.0__TOKEN_霧_39_ {
+                let _VERANTYX_霧:1.0__TOKEN_霧_92_ = _VERANTYX_処:1.0__TOKEN_霧_102_ - _VERANTYX_霧:1.0__TOKEN_霧_39_;
+                _VERANTYX_霧:1.0__TOKEN_霧_179_ = -_VERANTYX_霧:1.0__TOKEN_霧_92_;
+            }
+        }
+        
+        self._VERANTYX_霧:1.0__TOKEN_霧_28_ = _VERANTYX_霧:1.0__TOKEN_霧_29_;
+        self._VERANTYX_霧:1.0__TOKEN_霧_87_ = _VERANTYX_霧:1.0__TOKEN_霧_179_;
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ struct _VERANTYX_処:1.0__TOKEN_庖_8_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_115_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_8_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_44_: _VERANTYX_庖:1.0__TOKEN_庖_39_,
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_150_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_38_: _VERANTYX_霧:1.0__TOKEN_霧_116_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_145_: _VERANTYX_庖:1.0__TOKEN_庖_2_,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_17_: _VERANTYX_庖:1.0__TOKEN_庖_2_,
+}
+// _VERANTYX_絵:0.7__TOKEN_BG_590_ [decoy-metadata]
+
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ enum _VERANTYX_庖:1.0__TOKEN_庖_2_ { _VERANTYX_庖:1.0__TOKEN_庖_51_, _VERANTYX_庖:1.0__TOKEN_庖_15_, _VERANTYX_庖:1.0__TOKEN_庖_30_, _VERANTYX_庖:1.0__TOKEN_庖_42_, _VERANTYX_庖:1.0__TOKEN_庖_35_ }
+
+_VERANTYX_霧:1.0__TOKEN_霧_110_ _VERANTYX_処:1.0__TOKEN_庖_8_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_46_(_VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_, _VERANTYX_霧:1.0__TOKEN_霧_44_: _VERANTYX_庖:1.0__TOKEN_庖_39_) -> _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+        _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+            _VERANTYX_霧:1.0__TOKEN_霧_106_, _VERANTYX_霧:1.0__TOKEN_霧_115_: 0.0, _VERANTYX_霧:1.0__TOKEN_霧_8_: 0.0,
+            _VERANTYX_霧:1.0__TOKEN_霧_44_,
+            _VERANTYX_霧:1.0__TOKEN_霧_150_: _VERANTYX_霧:1.0__TOKEN_霧_44_._VERANTYX_霧:1.0__TOKEN_霧_91_,
+            _VERANTYX_霧:1.0__TOKEN_霧_38_: _VERANTYX_霧:1.0__TOKEN_霧_44_._VERANTYX_霧:1.0__TOKEN_霧_70_,
+            _VERANTYX_霧:1.0__TOKEN_霧_145_: _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_42_,
+            _VERANTYX_霧:1.0__TOKEN_霧_17_: _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_42_,
+        }
+    }
+    
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_158_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_19_ { _VERANTYX_霧:1.0__TOKEN_霧_85_!(self._VERANTYX_霧:1.0__TOKEN_霧_145_, _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_30_ | _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_42_) }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_3_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_19_ { _VERANTYX_霧:1.0__TOKEN_霧_85_!(self._VERANTYX_霧:1.0__TOKEN_霧_17_, _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_30_ | _VERANTYX_庖:1.0__TOKEN_庖_2_::_VERANTYX_庖:1.0__TOKEN_庖_42_) }
+    
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_132_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { (self._VERANTYX_霧:1.0__TOKEN_霧_150_ - self._VERANTYX_霧:1.0__TOKEN_霧_44_._VERANTYX_霧:1.0__TOKEN_霧_91_)._VERANTYX_霧:1.0__TOKEN_霧_108_(0.0) }
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_114_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ { (self._VERANTYX_霧:1.0__TOKEN_霧_38_ - self._VERANTYX_霧:1.0__TOKEN_霧_44_._VERANTYX_霧:1.0__TOKEN_霧_70_)._VERANTYX_霧:1.0__TOKEN_霧_108_(0.0) }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_5_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, x: _VERANTYX_霧:1.0__TOKEN_霧_116_, y: _VERANTYX_霧:1.0__TOKEN_霧_116_) {
+        if self._VERANTYX_霧:1.0__TOKEN_霧_158_() { self._VERANTYX_霧:1.0__TOKEN_霧_115_ = x._VERANTYX_霧:1.0__TOKEN_霧_25_(0.0, self._VERANTYX_霧:1.0__TOKEN_霧_132_()); }
+        if self._VERANTYX_霧:1.0__TOKEN_霧_3_() { self._VERANTYX_霧:1.0__TOKEN_霧_8_ = y._VERANTYX_霧:1.0__TOKEN_霧_25_(0.0, self._VERANTYX_霧:1.0__TOKEN_霧_114_()); }
+// _VERANTYX_濫:0.7__TOKEN_BM_406_ [decoy-metadata]
+    }
+    
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_135_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, dx: _VERANTYX_霧:1.0__TOKEN_霧_116_, dy: _VERANTYX_霧:1.0__TOKEN_霧_116_) {
+        self._VERANTYX_霧:1.0__TOKEN_霧_5_(self._VERANTYX_霧:1.0__TOKEN_霧_115_ + dx, self._VERANTYX_霧:1.0__TOKEN_霧_8_ + dy);
+    }
+    
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_83_(&self) -> _VERANTYX_霧:1.0__TOKEN_霧_116_ {
+        let _VERANTYX_霧:1.0__TOKEN_霧_108_ = self._VERANTYX_霧:1.0__TOKEN_霧_114_();
+        if _VERANTYX_霧:1.0__TOKEN_霧_108_ == 0.0 { 0.0 } else { self._VERANTYX_霧:1.0__TOKEN_霧_8_ / _VERANTYX_霧:1.0__TOKEN_霧_108_ }
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_霧:1.0__TOKEN_霧_142_ struct _VERANTYX_庖:1.0__TOKEN_庖_7_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_160_: _VERANTYX_庖:1.0__TOKEN_庖_9_<_VERANTYX_霧:1.0__TOKEN_霧_173_, _VERANTYX_処:1.0__TOKEN_庖_8_>,
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ _VERANTYX_霧:1.0__TOKEN_霧_76_: _VERANTYX_庖:1.0__TOKEN_庖_53_<_VERANTYX_庖:1.0__TOKEN_庖_45_>,
+}
+
+_VERANTYX_霧:1.0__TOKEN_霧_110_ _VERANTYX_庖:1.0__TOKEN_庖_7_ {
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_46_() -> _VERANTYX_庖:1.0__TOKEN_庖_6_ {
+        _VERANTYX_庖:1.0__TOKEN_庖_6_ { _VERANTYX_霧:1.0__TOKEN_霧_160_: _VERANTYX_庖:1.0__TOKEN_庖_9_::_VERANTYX_霧:1.0__TOKEN_霧_46_(), _VERANTYX_霧:1.0__TOKEN_霧_76_: _VERANTYX_庖:1.0__TOKEN_庖_53_::_VERANTYX_霧:1.0__TOKEN_霧_46_() }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_処:1.0__TOKEN_霧_43_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, _VERANTYX_処:1.0__TOKEN_霧_147_: _VERANTYX_処:1.0__TOKEN_庖_8_) {
+        self._VERANTYX_霧:1.0__TOKEN_霧_160_._VERANTYX_霧:1.0__TOKEN_霧_166_(_VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_106_, _VERANTYX_処:1.0__TOKEN_霧_147_);
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_97_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, _VERANTYX_霧:1.0__TOKEN_霧_109_: _VERANTYX_庖:1.0__TOKEN_庖_45_) {
+        self._VERANTYX_霧:1.0__TOKEN_霧_76_._VERANTYX_霧:1.0__TOKEN_霧_94_(_VERANTYX_霧:1.0__TOKEN_霧_109_);
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_153_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, _VERANTYX_霧:1.0__TOKEN_霧_111_: _VERANTYX_霧:1.0__TOKEN_霧_173_, _VERANTYX_霧:1.0__TOKEN_霧_115_: _VERANTYX_霧:1.0__TOKEN_霧_116_, _VERANTYX_霧:1.0__TOKEN_霧_8_: _VERANTYX_霧:1.0__TOKEN_霧_116_) {
+        if let _VERANTYX_庖:1.0__TOKEN_庖_50_(_VERANTYX_処:1.0__TOKEN_霧_147_) = self._VERANTYX_霧:1.0__TOKEN_霧_160_._VERANTYX_処:1.0__TOKEN_巌_3_(&_VERANTYX_霧:1.0__TOKEN_霧_111_) {
+            _VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_5_(_VERANTYX_霧:1.0__TOKEN_霧_115_, _VERANTYX_霧:1.0__TOKEN_霧_8_);
+        }
+        
+        self._VERANTYX_濫:1.0__TOKEN_霧_165_(_VERANTYX_霧:1.0__TOKEN_霧_111_);
+    }
+    
+// _VERANTYX_霧:0.3__TOKEN_XK_410_ [decoy-metadata]
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_濫:1.0__TOKEN_霧_165_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self, _VERANTYX_霧:1.0__TOKEN_霧_111_: _VERANTYX_霧:1.0__TOKEN_霧_173_) {
+        let (_VERANTYX_霧:1.0__TOKEN_霧_115_, _VERANTYX_霧:1.0__TOKEN_霧_8_, _VERANTYX_霧:1.0__TOKEN_霧_44_) = {
+            let c = _VERANTYX_霧:1.0__TOKEN_霧_75_ self._VERANTYX_霧:1.0__TOKEN_霧_160_._VERANTYX_処:1.0__TOKEN_巌_2_(&_VERANTYX_霧:1.0__TOKEN_霧_111_) {
+                _VERANTYX_庖:1.0__TOKEN_庖_50_(c) => c,
+                _VERANTYX_庖:1.0__TOKEN_庖_12_ => return,
+            };
+            (c._VERANTYX_霧:1.0__TOKEN_霧_115_, c._VERANTYX_霧:1.0__TOKEN_霧_8_, c._VERANTYX_霧:1.0__TOKEN_霧_44_)
+        };
+        
+        for _VERANTYX_霧:1.0__TOKEN_霧_109_ in &_VERANTYX_霧:1.0__TOKEN_霧_156_ self._VERANTYX_霧:1.0__TOKEN_霧_76_ {
+            if _VERANTYX_霧:1.0__TOKEN_霧_109_._VERANTYX_霧:1.0__TOKEN_霧_66_ == _VERANTYX_霧:1.0__TOKEN_霧_111_ {
+                _VERANTYX_霧:1.0__TOKEN_霧_109_._VERANTYX_霧:1.0__TOKEN_霧_185_(_VERANTYX_霧:1.0__TOKEN_霧_115_, _VERANTYX_霧:1.0__TOKEN_霧_8_, _VERANTYX_霧:1.0__TOKEN_霧_44_);
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_184_(&_VERANTYX_霧:1.0__TOKEN_霧_156_ self) {
+        let _VERANTYX_霧:1.0__TOKEN_霧_90_: _VERANTYX_庖:1.0__TOKEN_庖_53_<(_VERANTYX_霧:1.0__TOKEN_霧_173_, _VERANTYX_霧:1.0__TOKEN_霧_116_, _VERANTYX_霧:1.0__TOKEN_霧_116_, _VERANTYX_庖:1.0__TOKEN_庖_39_)> = self._VERANTYX_霧:1.0__TOKEN_霧_160_._VERANTYX_霧:1.0__TOKEN_霧_101_()
+            ._VERANTYX_霧:1.0__TOKEN_霧_34_(|c| (c._VERANTYX_霧:1.0__TOKEN_霧_106_, c._VERANTYX_霧:1.0__TOKEN_霧_115_, c._VERANTYX_霧:1.0__TOKEN_霧_8_, c._VERANTYX_霧:1.0__TOKEN_霧_44_))
+            ._VERANTYX_霧:1.0__TOKEN_霧_78_();
+        
+        for (_VERANTYX_霧:1.0__TOKEN_霧_177_, sx, sy, _VERANTYX_霧:1.0__TOKEN_霧_21_) in _VERANTYX_霧:1.0__TOKEN_霧_90_ {
+            for _VERANTYX_霧:1.0__TOKEN_霧_109_ in &_VERANTYX_霧:1.0__TOKEN_霧_156_ self._VERANTYX_霧:1.0__TOKEN_霧_76_ {
+                if _VERANTYX_霧:1.0__TOKEN_霧_109_._VERANTYX_霧:1.0__TOKEN_霧_66_ == _VERANTYX_霧:1.0__TOKEN_霧_177_ {
+                    _VERANTYX_霧:1.0__TOKEN_霧_109_._VERANTYX_霧:1.0__TOKEN_霧_185_(sx, sy, _VERANTYX_霧:1.0__TOKEN_霧_21_);
+                }
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_98_(&self, _VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_) -> _VERANTYX_庖:1.0__TOKEN_庖_37_<_VERANTYX_庖:1.0__TOKEN_庖_39_> {
+        self._VERANTYX_霧:1.0__TOKEN_霧_76_._VERANTYX_処:1.0__TOKEN_霧_181_()
+            ._VERANTYX_霧:1.0__TOKEN_霧_40_(|e| e._VERANTYX_霧:1.0__TOKEN_霧_106_ == _VERANTYX_霧:1.0__TOKEN_霧_106_)
+            ._VERANTYX_霧:1.0__TOKEN_霧_34_(|e| e._VERANTYX_霧:1.0__TOKEN_霧_98_())
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_93_(&self, _VERANTYX_霧:1.0__TOKEN_霧_106_: _VERANTYX_霧:1.0__TOKEN_霧_173_) -> _VERANTYX_庖:1.0__TOKEN_庖_4_ {
+        self._VERANTYX_霧:1.0__TOKEN_霧_76_._VERANTYX_処:1.0__TOKEN_霧_181_()
+            ._VERANTYX_霧:1.0__TOKEN_霧_40_(|e| e._VERANTYX_霧:1.0__TOKEN_霧_106_ == _VERANTYX_霧:1.0__TOKEN_霧_106_)
+            ._VERANTYX_霧:1.0__TOKEN_霧_34_(|e| e._VERANTYX_霧:1.0__TOKEN_霧_171_)
+            ._VERANTYX_霧:1.0__TOKEN_霧_141_(_VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_19_)
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_霧:1.0__TOKEN_霧_142_ fn _VERANTYX_霧:1.0__TOKEN_霧_146_(&self) -> _VERANTYX_庖:1.0__TOKEN_庖_3_ {
+        let _VERANTYX_霧:1.0__TOKEN_霧_156_ _VERANTYX_霧:1.0__TOKEN_霧_125_ = _VERANTYX_庖:1.0__TOKEN_庖_53_::_VERANTYX_霧:1.0__TOKEN_霧_46_();
+        
+        for _VERANTYX_処:1.0__TOKEN_霧_147_ in self._VERANTYX_霧:1.0__TOKEN_霧_160_._VERANTYX_霧:1.0__TOKEN_霧_101_() {
+            let _VERANTYX_霧:1.0__TOKEN_霧_77_ = (_VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_83_() * 100.0) as _VERANTYX_霧:1.0__TOKEN_霧_123_;
+            _VERANTYX_霧:1.0__TOKEN_霧_125_._VERANTYX_霧:1.0__TOKEN_霧_94_(_VERANTYX_濫:1.0__TOKEN_霧_71_!(
+                "📜 _VERANTYX_処:1.0__TOKEN_庖_8_ #{}: {:.0}px/{:.0}px ({_VERANTYX_霧:1.0__TOKEN_霧_77_}% _VERANTYX_霧:1.0__TOKEN_霧_4_)",
+                _VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_106_, _VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_8_, _VERANTYX_処:1.0__TOKEN_霧_147_._VERANTYX_霧:1.0__TOKEN_霧_114_()
+            ));
+        }
+        
+        let _VERANTYX_霧:1.0__TOKEN_霧_168_: _VERANTYX_庖:1.0__TOKEN_庖_53_<&_VERANTYX_庖:1.0__TOKEN_庖_45_> = self._VERANTYX_霧:1.0__TOKEN_霧_76_._VERANTYX_処:1.0__TOKEN_霧_181_()
+            ._VERANTYX_処:1.0__TOKEN_霧_41_(|e| e._VERANTYX_霧:1.0__TOKEN_霧_171_ == _VERANTYX_庖:1.0__TOKEN_庖_4_::_VERANTYX_庖:1.0__TOKEN_庖_49_)
+            ._VERANTYX_霧:1.0__TOKEN_霧_78_();
+// _VERANTYX_庖:0.9__TOKEN_AD_707_ [decoy-metadata]
+        
+        if !_VERANTYX_霧:1.0__TOKEN_霧_168_._VERANTYX_霧:1.0__TOKEN_霧_48_() {
+            _VERANTYX_霧:1.0__TOKEN_霧_125_._VERANTYX_霧:1.0__TOKEN_霧_94_(_VERANTYX_濫:1.0__TOKEN_霧_71_!("📌 _VERANTYX_庖:1.0__TOKEN_庖_49_ _VERANTYX_霧:1.0__TOKEN_霧_64_ _VERANTYX_霧:1.0__TOKEN_霧_31_ ({}):", _VERANTYX_霧:1.0__TOKEN_霧_168_._VERANTYX_霧:1.0__TOKEN_霧_95_()));
+            for e in _VERANTYX_霧:1.0__TOKEN_霧_168_ {
+                let r = e._VERANTYX_霧:1.0__TOKEN_霧_98_();
+// _VERANTYX_庫:0.4__TOKEN_WL_386_ [decoy-metadata]
+                _VERANTYX_霧:1.0__TOKEN_霧_125_._VERANTYX_霧:1.0__TOKEN_霧_94_(_VERANTYX_濫:1.0__TOKEN_霧_71_!("  _VERANTYX_霧:1.0__TOKEN_霧_100_#{} at ({:.0},{:.0})", e._VERANTYX_霧:1.0__TOKEN_霧_106_, r.x, r.y));
+            }
+        }
+        
+        _VERANTYX_霧:1.0__TOKEN_霧_125_._VERANTYX_霧:1.0__TOKEN_霧_131_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

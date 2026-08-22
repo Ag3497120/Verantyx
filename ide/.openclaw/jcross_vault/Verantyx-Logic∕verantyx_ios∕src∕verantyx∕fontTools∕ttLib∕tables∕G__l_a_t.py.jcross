@@ -1,0 +1,247 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2BEFCFC0 ver:1778162656
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霤:1.0__OPAQUE_霤_113_ _JCROSS_霤:1.0__OPAQUE_霤_32_._JCROSS_霤:1.0__OPAQUE_霤_7_ import _JCROSS_霤:1.0__OPAQUE_霤_118_
+_JCROSS_霤:1.0__OPAQUE_霤_113_ _JCROSS_霤:1.0__OPAQUE_霤_32_._JCROSS_霤:1.0__OPAQUE_霤_7_._JCROSS_霤:1.0__OPAQUE_霤_30_ import _JCROSS_霤:1.0__OPAQUE_霤_64_
+_JCROSS_霤:1.0__OPAQUE_霤_113_ _JCROSS_霤:1.0__OPAQUE_霤_32_._JCROSS_霤:1.0__OPAQUE_霤_7_._JCROSS_霤:1.0__OPAQUE_霤_107_ import _JCROSS_霤:1.0__OPAQUE_霤_15_
+
+// [metadata-stripped]
+_JCROSS_霤:1.0__OPAQUE_霤_113_ _JCROSS_霤:1.0__OPAQUE_霤_119_ import _JCROSS_霤:1.0__OPAQUE_霤_116_
+_JCROSS_霤:1.0__OPAQUE_霤_113_ . import _JCROSS_廴:1.0__OPAQUE_廴_10_
+_JCROSS_霤:1.0__OPAQUE_霤_113_ . import _JCROSS_霤:1.0__OPAQUE_霤_86_
+import struct
+
+
+_JCROSS_廴:1.0__OPAQUE_廴_12_ = """
+    >        # _JCROSS_霤:1.0__OPAQUE_霤_67_ _JCROSS_霤:1.0__OPAQUE_霤_93_
+    _JCROSS_霤:1.0__OPAQUE_霤_53_: 16.16F
+"""
+
+_JCROSS_廴:1.0__OPAQUE_廴_9_ = """
+    >
+    _JCROSS_霤:1.0__OPAQUE_霤_53_: 16.16F
+    _JCROSS_霤:1.0__OPAQUE_霤_82_:L    # _JCROSS_霤:1.0__OPAQUE_霤_82_ _JCROSS_霤:1.0__OPAQUE_霤_16_ or _JCROSS_霤:1.0__OPAQUE_霤_25_ 
+"""
+
+_JCROSS_廴:1.0__OPAQUE_廴_16_ = """
+    >
+    _JCROSS_霤:1.0__OPAQUE_霤_35_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_7_ _JCROSS_型:1.0__OPAQUE_霤_128_ of _JCROSS_霤:1.0__OPAQUE_霤_34_ _JCROSS_霤:1.0__OPAQUE_霤_114_
+    _JCROSS_霤:1.0__OPAQUE_霤_24_:        B    # _JCROSS_型:1.0__OPAQUE_廴_6_ of _JCROSS_霤:1.0__OPAQUE_霤_125_ in _JCROSS_霤:1.0__OPAQUE_霤_123_ _JCROSS_霤:1.0__OPAQUE_霤_71_
+"""
+_JCROSS_廴:1.0__OPAQUE_廴_17_ = """
+    >
+    _JCROSS_霤:1.0__OPAQUE_霤_35_:     H    # _JCROSS_廴:1.0__OPAQUE_廴_7_ _JCROSS_型:1.0__OPAQUE_霤_128_ of _JCROSS_霤:1.0__OPAQUE_霤_34_ _JCROSS_霤:1.0__OPAQUE_霤_114_
+    _JCROSS_霤:1.0__OPAQUE_霤_24_:        H    # _JCROSS_型:1.0__OPAQUE_廴_6_ of _JCROSS_霤:1.0__OPAQUE_霤_125_ in _JCROSS_霤:1.0__OPAQUE_霤_123_ _JCROSS_霤:1.0__OPAQUE_霤_71_
+"""
+
+_JCROSS_廴:1.0__OPAQUE_廴_3_ = """
+    >
+    _JCROSS_霤:1.0__OPAQUE_霤_68_:   H    # _JCROSS_廴:1.0__OPAQUE_廴_5_ _JCROSS_霤:1.0__OPAQUE_霤_40_ _JCROSS_霤:1.0__OPAQUE_霤_76_ on 4x4 _JCROSS_霤:1.0__OPAQUE_霤_58_
+    _JCROSS_霤:1.0__OPAQUE_霤_39_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_63_ _JCROSS_霤:1.0__OPAQUE_霤_47_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (si)
+    _JCROSS_霤:1.0__OPAQUE_霤_69_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_27_ _JCROSS_霤:1.0__OPAQUE_霤_47_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (sa)
+    _JCROSS_霤:1.0__OPAQUE_霤_19_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_63_ _JCROSS_霤:1.0__OPAQUE_霤_85_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (di)
+    _JCROSS_霤:1.0__OPAQUE_霤_104_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_27_ _JCROSS_霤:1.0__OPAQUE_霤_85_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (da)
+"""
+
+// _JCROSS_霤:0.7__OPAQUE_KH_532_ [decoy-metadata]
+_JCROSS_廴:1.0__OPAQUE_廴_14_ = """
+    >
+    _JCROSS_霤:1.0__OPAQUE_霤_48_:           B    # xi
+    _JCROSS_霤:1.0__OPAQUE_霤_26_:          B    # xa
+    _JCROSS_霤:1.0__OPAQUE_霤_65_:         B    # yi
+    _JCROSS_霤:1.0__OPAQUE_霤_99_:            B    # ya
+    _JCROSS_霤:1.0__OPAQUE_霤_39_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_63_ _JCROSS_霤:1.0__OPAQUE_霤_47_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (si)
+    _JCROSS_霤:1.0__OPAQUE_霤_69_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_27_ _JCROSS_霤:1.0__OPAQUE_霤_47_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (sa)
+    _JCROSS_霤:1.0__OPAQUE_霤_19_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_63_ _JCROSS_霤:1.0__OPAQUE_霤_85_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (di)
+    _JCROSS_霤:1.0__OPAQUE_霤_104_:     B    # _JCROSS_廴:1.0__OPAQUE_廴_8_ _JCROSS_霤:1.0__OPAQUE_霤_27_ _JCROSS_霤:1.0__OPAQUE_霤_85_-_JCROSS_霤:1.0__OPAQUE_霤_36_ _JCROSS_霤:1.0__OPAQUE_霤_8_ (da)
+"""
+
+
+class _JCROSS_霤:1.0__OPAQUE_霤_96_:
+    _JCROSS_霤:1.0__OPAQUE_霤_49_
+
+
+class _JCROSS_霤:1.0__OPAQUE_霤_81_(_JCROSS_霤:1.0__OPAQUE_霤_94_):
+    _JCROSS_霤:1.0__OPAQUE_霤_49_
+
+// _JCROSS_深:0.6__OPAQUE_KM_473_ [decoy-metadata]
+
+class _JCROSS_霤:1.0__OPAQUE_霤_92_(_JCROSS_廴:1.0__OPAQUE_廴_10_._JCROSS_廴:1.0__OPAQUE_廴_10_):
+    """_JCROSS_廴:1.0__OPAQUE_廴_18_ _JCROSS_廴:1.0__OPAQUE_廴_13_ _JCROSS_廴:1.0__OPAQUE_廴_4_ _JCROSS_霤:1.0__OPAQUE_霤_11_
+
+    _JCROSS_廴:1.0__OPAQUE_廴_2_ _JCROSS_霤:1.0__OPAQUE_霤_37_ _JCROSS_縫:1.0__OPAQUE_霤_51_://_JCROSS_霤:1.0__OPAQUE_霤_72_._JCROSS_霤:1.0__OPAQUE_霤_121_._JCROSS_霤:1.0__OPAQUE_霤_6_/_JCROSS_霤:1.0__OPAQUE_霤_60_#_JCROSS_霤:1.0__OPAQUE_霤_72_-_JCROSS_霤:1.0__OPAQUE_霤_129_-_JCROSS_霤:1.0__OPAQUE_霤_117_
+    """
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_31_(self, _JCROSS_霤:1.0__OPAQUE_霤_44_=_JCROSS_廴:1.0__OPAQUE_廴_11_):
+        _JCROSS_廴:1.0__OPAQUE_廴_10_._JCROSS_廴:1.0__OPAQUE_廴_10_._JCROSS_霤:1.0__OPAQUE_霤_31_(self, _JCROSS_霤:1.0__OPAQUE_霤_44_)
+        self._JCROSS_霤:1.0__OPAQUE_霤_16_ = 0
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_101_(self, _JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_霤:1.0__OPAQUE_霤_105_):
+        _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_10_(_JCROSS_廴:1.0__OPAQUE_廴_12_, _JCROSS_霤:1.0__OPAQUE_霤_103_, self)
+        self._JCROSS_霤:1.0__OPAQUE_霤_53_ = _JCROSS_霤:1.0__OPAQUE_霤_126_(_JCROSS_霤:1.0__OPAQUE_霤_64_(self._JCROSS_霤:1.0__OPAQUE_霤_53_, _JCROSS_霤:1.0__OPAQUE_霤_97_=16))
+        if self._JCROSS_霤:1.0__OPAQUE_霤_53_ <= 1.9:
+            _JCROSS_型:1.0__OPAQUE_霤_66_ = _JCROSS_霤:1.0__OPAQUE_霤_116_(self._JCROSS_霤:1.0__OPAQUE_霤_127_, _JCROSS_霤:1.0__OPAQUE_霤_41_=_JCROSS_廴:1.0__OPAQUE_廴_16_)
+        _JCROSS_潤:1.0__OPAQUE_霤_112_ self._JCROSS_霤:1.0__OPAQUE_霤_53_ <= 2.9:
+            _JCROSS_型:1.0__OPAQUE_霤_66_ = _JCROSS_霤:1.0__OPAQUE_霤_116_(self._JCROSS_霤:1.0__OPAQUE_霤_127_, _JCROSS_霤:1.0__OPAQUE_霤_41_=_JCROSS_廴:1.0__OPAQUE_廴_17_)
+        _JCROSS_潤:1.0__OPAQUE_霤_112_ self._JCROSS_霤:1.0__OPAQUE_霤_53_ >= 3.0:
+            (_JCROSS_霤:1.0__OPAQUE_霤_103_, self._JCROSS_霤:1.0__OPAQUE_霤_16_) = _JCROSS_霤:1.0__OPAQUE_霤_86_._JCROSS_霤:1.0__OPAQUE_霤_22_(_JCROSS_霤:1.0__OPAQUE_霤_103_)
+            _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_10_(_JCROSS_廴:1.0__OPAQUE_廴_9_, _JCROSS_霤:1.0__OPAQUE_霤_103_, self)
+            self._JCROSS_霤:1.0__OPAQUE_霤_5_ = (self._JCROSS_霤:1.0__OPAQUE_霤_82_ & 1) == 1
+            _JCROSS_型:1.0__OPAQUE_霤_66_ = self._JCROSS_霤:1.0__OPAQUE_霤_100_
+
+        _JCROSS_霤:1.0__OPAQUE_霤_73_ = _JCROSS_霤:1.0__OPAQUE_霤_105_["_JCROSS_廴:1.0__OPAQUE_廴_15_"]
+        self._JCROSS_霤:1.0__OPAQUE_霤_125_ = {}
+        _JCROSS_霤:1.0__OPAQUE_霤_95_ = 0
+        for s, e in _JCROSS_霤:1.0__OPAQUE_霤_61_(_JCROSS_霤:1.0__OPAQUE_霤_73_, _JCROSS_霤:1.0__OPAQUE_霤_73_[1:]):
+            self._JCROSS_霤:1.0__OPAQUE_霤_125_[_JCROSS_霤:1.0__OPAQUE_霤_105_._JCROSS_型:1.0__OPAQUE_嵐_3_(_JCROSS_霤:1.0__OPAQUE_霤_95_)] = _JCROSS_型:1.0__OPAQUE_霤_66_(_JCROSS_霤:1.0__OPAQUE_霤_103_[s:e])
+            _JCROSS_霤:1.0__OPAQUE_霤_95_ += 1
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_127_(self, _JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_霤:1.0__OPAQUE_霤_41_):
+        _JCROSS_霤:1.0__OPAQUE_霤_125_ = _JCROSS_霤:1.0__OPAQUE_霤_81_()
+        while _JCROSS_霤:1.0__OPAQUE_霤_74_(_JCROSS_霤:1.0__OPAQUE_霤_103_) > 3:
+            e, _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_10_(_JCROSS_霤:1.0__OPAQUE_霤_41_, _JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_霤:1.0__OPAQUE_霤_96_())
+            _JCROSS_深:1.0__OPAQUE_霤_33_ = _JCROSS_霤:1.0__OPAQUE_霤_77_(e._JCROSS_霤:1.0__OPAQUE_霤_35_, e._JCROSS_霤:1.0__OPAQUE_霤_35_ + e._JCROSS_霤:1.0__OPAQUE_霤_24_)
+            if _JCROSS_霤:1.0__OPAQUE_霤_74_(_JCROSS_霤:1.0__OPAQUE_霤_103_) >= 2 * e._JCROSS_霤:1.0__OPAQUE_霤_24_:
+                _JCROSS_霤:1.0__OPAQUE_霤_84_ = struct._JCROSS_霤:1.0__OPAQUE_霤_4_((">%dh" % e._JCROSS_霤:1.0__OPAQUE_霤_24_), _JCROSS_霤:1.0__OPAQUE_霤_103_)
+                _JCROSS_霤:1.0__OPAQUE_霤_125_._JCROSS_霤:1.0__OPAQUE_霤_108_(_JCROSS_霤:1.0__OPAQUE_霤_61_(_JCROSS_深:1.0__OPAQUE_霤_33_, _JCROSS_霤:1.0__OPAQUE_霤_84_))
+                _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_103_[2 * e._JCROSS_霤:1.0__OPAQUE_霤_24_ :]
+        return _JCROSS_霤:1.0__OPAQUE_霤_125_
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_100_(self, _JCROSS_霤:1.0__OPAQUE_霤_103_):
+        if self._JCROSS_霤:1.0__OPAQUE_霤_5_:
+            o, _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_10_(_JCROSS_廴:1.0__OPAQUE_廴_3_, _JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_霤:1.0__OPAQUE_霤_96_())
+            _JCROSS_霤:1.0__OPAQUE_霤_98_ = _JCROSS_霤:1.0__OPAQUE_霤_43_(o._JCROSS_霤:1.0__OPAQUE_霤_68_)._JCROSS_霤:1.0__OPAQUE_霤_95_("1")
+            o._JCROSS_霤:1.0__OPAQUE_霤_40_ = []
+            for b in _JCROSS_霤:1.0__OPAQUE_霤_77_(_JCROSS_霤:1.0__OPAQUE_霤_98_):
+                if _JCROSS_霤:1.0__OPAQUE_霤_74_(_JCROSS_霤:1.0__OPAQUE_霤_103_) >= 8:
+                    _JCROSS_霤:1.0__OPAQUE_霤_13_, _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_10_(
+                        _JCROSS_廴:1.0__OPAQUE_廴_14_, _JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_霤:1.0__OPAQUE_霤_96_()
+                    )
+                    o._JCROSS_霤:1.0__OPAQUE_霤_40_._JCROSS_霤:1.0__OPAQUE_霤_1_(_JCROSS_霤:1.0__OPAQUE_霤_13_)
+        _JCROSS_霤:1.0__OPAQUE_霤_106_ = self._JCROSS_霤:1.0__OPAQUE_霤_127_(_JCROSS_霤:1.0__OPAQUE_霤_103_, _JCROSS_廴:1.0__OPAQUE_廴_17_)
+        if self._JCROSS_霤:1.0__OPAQUE_霤_5_:
+            _JCROSS_霤:1.0__OPAQUE_霤_106_._JCROSS_霤:1.0__OPAQUE_霤_109_ = o
+        return _JCROSS_霤:1.0__OPAQUE_霤_106_
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_91_(self, _JCROSS_霤:1.0__OPAQUE_霤_105_):
+        _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_42_(_JCROSS_廴:1.0__OPAQUE_廴_12_, self)
+        if self._JCROSS_霤:1.0__OPAQUE_霤_53_ <= 1.9:
+            _JCROSS_型:1.0__OPAQUE_霤_21_ = _JCROSS_霤:1.0__OPAQUE_霤_116_(self._JCROSS_霤:1.0__OPAQUE_霤_111_, _JCROSS_霤:1.0__OPAQUE_霤_41_=_JCROSS_廴:1.0__OPAQUE_廴_16_)
+// _JCROSS_廴:0.4__OPAQUE_GY_768_ [decoy-metadata]
+// _JCROSS_潤:0.3__OPAQUE_XE_856_ [decoy-metadata]
+        _JCROSS_潤:1.0__OPAQUE_霤_112_ self._JCROSS_霤:1.0__OPAQUE_霤_53_ <= 2.9:
+            _JCROSS_型:1.0__OPAQUE_霤_21_ = _JCROSS_霤:1.0__OPAQUE_霤_116_(self._JCROSS_霤:1.0__OPAQUE_霤_111_, _JCROSS_霤:1.0__OPAQUE_霤_41_=_JCROSS_廴:1.0__OPAQUE_廴_16_)
+        _JCROSS_潤:1.0__OPAQUE_霤_112_ self._JCROSS_霤:1.0__OPAQUE_霤_53_ >= 3.0:
+            self._JCROSS_霤:1.0__OPAQUE_霤_82_ = (self._JCROSS_霤:1.0__OPAQUE_霤_16_ << 27) + (1 if self._JCROSS_霤:1.0__OPAQUE_霤_5_ else 0)
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_42_(_JCROSS_廴:1.0__OPAQUE_廴_9_, self)
+            _JCROSS_型:1.0__OPAQUE_霤_21_ = self._JCROSS_霤:1.0__OPAQUE_霤_23_
+
+        _JCROSS_霤:1.0__OPAQUE_霤_29_ = []
+        for n in _JCROSS_霤:1.0__OPAQUE_霤_77_(_JCROSS_霤:1.0__OPAQUE_霤_74_(self._JCROSS_霤:1.0__OPAQUE_霤_125_)):
+            _JCROSS_霤:1.0__OPAQUE_霤_29_._JCROSS_霤:1.0__OPAQUE_霤_1_(_JCROSS_霤:1.0__OPAQUE_霤_74_(_JCROSS_霤:1.0__OPAQUE_霤_103_))
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ += _JCROSS_型:1.0__OPAQUE_霤_21_(self._JCROSS_霤:1.0__OPAQUE_霤_125_[_JCROSS_霤:1.0__OPAQUE_霤_105_._JCROSS_型:1.0__OPAQUE_嵐_3_(n)])
+        _JCROSS_霤:1.0__OPAQUE_霤_29_._JCROSS_霤:1.0__OPAQUE_霤_1_(_JCROSS_霤:1.0__OPAQUE_霤_74_(_JCROSS_霤:1.0__OPAQUE_霤_103_))
+        _JCROSS_霤:1.0__OPAQUE_霤_105_["_JCROSS_廴:1.0__OPAQUE_廴_15_"]._JCROSS_型:1.0__OPAQUE_嵐_2_(_JCROSS_霤:1.0__OPAQUE_霤_29_)
+
+        if self._JCROSS_霤:1.0__OPAQUE_霤_53_ >= 3.0:
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_86_._JCROSS_霤:1.0__OPAQUE_霤_50_(self._JCROSS_霤:1.0__OPAQUE_霤_16_, _JCROSS_霤:1.0__OPAQUE_霤_103_)
+        return _JCROSS_霤:1.0__OPAQUE_霤_103_
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_111_(self, _JCROSS_霤:1.0__OPAQUE_霤_106_, _JCROSS_霤:1.0__OPAQUE_霤_41_):
+        _JCROSS_霤:1.0__OPAQUE_霤_103_ = b""
+        for e in _JCROSS_霤:1.0__OPAQUE_霤_86_._JCROSS_霤:1.0__OPAQUE_霤_18_(_JCROSS_霤:1.0__OPAQUE_霤_106_):
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ += _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_42_(_JCROSS_霤:1.0__OPAQUE_霤_41_, {"_JCROSS_霤:1.0__OPAQUE_霤_35_": e[0], "_JCROSS_霤:1.0__OPAQUE_霤_24_": e[1]}) + struct._JCROSS_霤:1.0__OPAQUE_霤_42_(
+                (">%dh" % _JCROSS_霤:1.0__OPAQUE_霤_74_(e[2])), *e[2]
+            )
+        return _JCROSS_霤:1.0__OPAQUE_霤_103_
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_23_(self, _JCROSS_霤:1.0__OPAQUE_霤_106_):
+        if self._JCROSS_霤:1.0__OPAQUE_霤_5_:
+            o = _JCROSS_霤:1.0__OPAQUE_霤_106_._JCROSS_霤:1.0__OPAQUE_霤_109_
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_42_(_JCROSS_廴:1.0__OPAQUE_廴_3_, o)
+            _JCROSS_霤:1.0__OPAQUE_霤_98_ = _JCROSS_霤:1.0__OPAQUE_霤_43_(o._JCROSS_霤:1.0__OPAQUE_霤_68_)._JCROSS_霤:1.0__OPAQUE_霤_95_("1")
+            for b in _JCROSS_霤:1.0__OPAQUE_霤_77_(_JCROSS_霤:1.0__OPAQUE_霤_98_):
+                _JCROSS_霤:1.0__OPAQUE_霤_103_ += _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_霤:1.0__OPAQUE_霤_42_(_JCROSS_廴:1.0__OPAQUE_廴_14_, o._JCROSS_霤:1.0__OPAQUE_霤_40_[b])
+        else:
+            _JCROSS_霤:1.0__OPAQUE_霤_103_ = ""
+        return _JCROSS_霤:1.0__OPAQUE_霤_103_ + self._JCROSS_霤:1.0__OPAQUE_霤_111_(_JCROSS_霤:1.0__OPAQUE_霤_106_, _JCROSS_廴:1.0__OPAQUE_廴_17_)
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_12_(self, _JCROSS_型:1.0__OPAQUE_霤_56_, _JCROSS_霤:1.0__OPAQUE_霤_105_):
+        _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_78_("_JCROSS_霤:1.0__OPAQUE_霤_53_", _JCROSS_霤:1.0__OPAQUE_霤_53_=self._JCROSS_霤:1.0__OPAQUE_霤_53_, _JCROSS_霤:1.0__OPAQUE_霤_120_=self._JCROSS_霤:1.0__OPAQUE_霤_16_)
+        _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+        for n, a in _JCROSS_霤:1.0__OPAQUE_霤_28_(
+            self._JCROSS_霤:1.0__OPAQUE_霤_125_._JCROSS_霤:1.0__OPAQUE_霤_14_(), _JCROSS_深:1.0__OPAQUE_霤_124_=_JCROSS_霤:1.0__OPAQUE_霤_80_ x: _JCROSS_霤:1.0__OPAQUE_霤_105_._JCROSS_型:1.0__OPAQUE_嵐_4_(x[0])
+        ):
+            _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_54_("_JCROSS_霤:1.0__OPAQUE_霤_55_", _JCROSS_霤:1.0__OPAQUE_霤_20_=n)
+            _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+            if _JCROSS_霤:1.0__OPAQUE_霤_90_(a, "_JCROSS_霤:1.0__OPAQUE_霤_109_"):
+// _JCROSS_廴:0.5__OPAQUE_KZ_374_ [decoy-metadata]
+                o = a._JCROSS_霤:1.0__OPAQUE_霤_109_
+                _JCROSS_潤:1.0__OPAQUE_霤_62_, _JCROSS_霤:1.0__OPAQUE_霤_83_, _JCROSS_霤:1.0__OPAQUE_霤_38_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_型:1.0__OPAQUE_嵐_1_(
+                    _JCROSS_廴:1.0__OPAQUE_廴_3_
+                )
+                _JCROSS_霤:1.0__OPAQUE_霤_84_ = {}
+                for k in _JCROSS_霤:1.0__OPAQUE_霤_83_:
+                    if k == "_JCROSS_霤:1.0__OPAQUE_霤_68_":
+                        continue
+                    _JCROSS_霤:1.0__OPAQUE_霤_84_[k] = "{:.3f}%"._JCROSS_潤:1.0__OPAQUE_霤_2_(_JCROSS_型:1.0__OPAQUE_嵐_6_(o, k) * 100.0 / 255)
+                _JCROSS_霤:1.0__OPAQUE_霤_84_["_JCROSS_霤:1.0__OPAQUE_霤_102_"] = "{:0X}"._JCROSS_潤:1.0__OPAQUE_霤_2_(o._JCROSS_霤:1.0__OPAQUE_霤_68_)
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_54_("_JCROSS_霤:1.0__OPAQUE_霤_59_", **_JCROSS_霤:1.0__OPAQUE_霤_84_)
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+                _JCROSS_潤:1.0__OPAQUE_霤_62_, _JCROSS_霤:1.0__OPAQUE_霤_83_, _JCROSS_霤:1.0__OPAQUE_霤_38_ = _JCROSS_霤:1.0__OPAQUE_霤_118_._JCROSS_型:1.0__OPAQUE_嵐_1_(
+                    _JCROSS_廴:1.0__OPAQUE_廴_14_
+                )
+                for s in o._JCROSS_霤:1.0__OPAQUE_霤_40_:
+                    _JCROSS_霤:1.0__OPAQUE_霤_84_ = {}
+                    for k in _JCROSS_霤:1.0__OPAQUE_霤_83_:
+                        _JCROSS_霤:1.0__OPAQUE_霤_84_[k] = "{:.3f}%"._JCROSS_潤:1.0__OPAQUE_霤_2_(_JCROSS_型:1.0__OPAQUE_嵐_6_(s, k) * 100.0 / 255)
+                    _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_78_("_JCROSS_霤:1.0__OPAQUE_霤_109_", **_JCROSS_霤:1.0__OPAQUE_霤_84_)
+                    _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_52_("_JCROSS_霤:1.0__OPAQUE_霤_59_")
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+            for k, v in _JCROSS_霤:1.0__OPAQUE_霤_28_(a._JCROSS_霤:1.0__OPAQUE_霤_14_()):
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_78_("_JCROSS_霤:1.0__OPAQUE_霤_114_", _JCROSS_霤:1.0__OPAQUE_霤_87_=k, _JCROSS_霤:1.0__OPAQUE_霤_122_=v)
+                _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+            _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_52_("_JCROSS_霤:1.0__OPAQUE_霤_55_")
+            _JCROSS_型:1.0__OPAQUE_霤_56_._JCROSS_霤:1.0__OPAQUE_霤_110_()
+
+    _JCROSS_霤:1.0__OPAQUE_霤_70_ _JCROSS_霤:1.0__OPAQUE_霤_75_(self, _JCROSS_霤:1.0__OPAQUE_霤_20_, _JCROSS_霤:1.0__OPAQUE_霤_106_, _JCROSS_霤:1.0__OPAQUE_霤_79_, _JCROSS_霤:1.0__OPAQUE_霤_105_):
+        if _JCROSS_霤:1.0__OPAQUE_霤_20_ == "_JCROSS_霤:1.0__OPAQUE_霤_53_":
+            self._JCROSS_霤:1.0__OPAQUE_霤_53_ = _JCROSS_霤:1.0__OPAQUE_霤_126_(_JCROSS_霤:1.0__OPAQUE_霤_15_(_JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_53_"]))
+            self._JCROSS_霤:1.0__OPAQUE_霤_16_ = _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_15_(_JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_120_"]))
+        if _JCROSS_霤:1.0__OPAQUE_霤_20_ != "_JCROSS_霤:1.0__OPAQUE_霤_55_":
+            return
+        if _JCROSS_霤:1.0__OPAQUE_霤_17_ _JCROSS_霤:1.0__OPAQUE_霤_90_(self, "_JCROSS_霤:1.0__OPAQUE_霤_125_"):
+            self._JCROSS_霤:1.0__OPAQUE_霤_125_ = {}
+        _JCROSS_霤:1.0__OPAQUE_霤_88_ = _JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_20_"]
+        _JCROSS_霤:1.0__OPAQUE_霤_125_ = _JCROSS_霤:1.0__OPAQUE_霤_81_()
+        for _JCROSS_霤:1.0__OPAQUE_霤_46_ in _JCROSS_霤:1.0__OPAQUE_霤_79_:
+            if _JCROSS_霤:1.0__OPAQUE_霤_17_ _JCROSS_霤:1.0__OPAQUE_霤_45_(_JCROSS_霤:1.0__OPAQUE_霤_46_, _JCROSS_霤:1.0__OPAQUE_霤_9_):
+                continue
+            _JCROSS_霤:1.0__OPAQUE_霤_44_, _JCROSS_霤:1.0__OPAQUE_霤_106_, _JCROSS_霤:1.0__OPAQUE_霤_3_ = _JCROSS_霤:1.0__OPAQUE_霤_46_
+            if _JCROSS_霤:1.0__OPAQUE_霤_44_ == "_JCROSS_霤:1.0__OPAQUE_霤_114_":
+                k = _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_15_(_JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_87_"]))
+                v = _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_15_(_JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_122_"]))
+                _JCROSS_霤:1.0__OPAQUE_霤_125_[k] = v
+            _JCROSS_潤:1.0__OPAQUE_霤_112_ _JCROSS_霤:1.0__OPAQUE_霤_44_ == "_JCROSS_霤:1.0__OPAQUE_霤_59_":
+                self._JCROSS_霤:1.0__OPAQUE_霤_5_ = _JCROSS_廴:1.0__OPAQUE_廴_1_
+                o = _JCROSS_霤:1.0__OPAQUE_霤_96_()
+                o._JCROSS_霤:1.0__OPAQUE_霤_68_ = _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_102_"], 16)
+                o._JCROSS_霤:1.0__OPAQUE_霤_40_ = []
+                _JCROSS_霤:1.0__OPAQUE_霤_115_ _JCROSS_霤:1.0__OPAQUE_霤_106_["_JCROSS_霤:1.0__OPAQUE_霤_102_"]
+                for k, v in _JCROSS_霤:1.0__OPAQUE_霤_106_._JCROSS_霤:1.0__OPAQUE_霤_14_():
+                    _JCROSS_型:1.0__OPAQUE_嵐_5_(o, k, _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_126_(v[:-1]) * 255.0 / 100.0 + 0.5))
+                for _JCROSS_霤:1.0__OPAQUE_霤_46_ in _JCROSS_霤:1.0__OPAQUE_霤_3_:
+                    if _JCROSS_霤:1.0__OPAQUE_霤_17_ _JCROSS_霤:1.0__OPAQUE_霤_45_(_JCROSS_霤:1.0__OPAQUE_霤_46_, _JCROSS_霤:1.0__OPAQUE_霤_9_):
+                        continue
+                    (_JCROSS_霤:1.0__OPAQUE_霤_44_, _JCROSS_霤:1.0__OPAQUE_霤_106_, _JCROSS_霤:1.0__OPAQUE_霤_3_) = _JCROSS_霤:1.0__OPAQUE_霤_46_
+// _JCROSS_型:0.6__OPAQUE_YG_656_ [decoy-metadata]
+                    so = _JCROSS_霤:1.0__OPAQUE_霤_96_()
+                    for k, v in _JCROSS_霤:1.0__OPAQUE_霤_106_._JCROSS_霤:1.0__OPAQUE_霤_14_():
+                        _JCROSS_型:1.0__OPAQUE_嵐_5_(so, k, _JCROSS_霤:1.0__OPAQUE_霤_89_(_JCROSS_霤:1.0__OPAQUE_霤_126_(v[:-1]) * 255.0 / 100.0 + 0.5))
+                    o._JCROSS_霤:1.0__OPAQUE_霤_40_._JCROSS_霤:1.0__OPAQUE_霤_1_(so)
+                _JCROSS_霤:1.0__OPAQUE_霤_125_._JCROSS_霤:1.0__OPAQUE_霤_109_ = o
+        self._JCROSS_霤:1.0__OPAQUE_霤_125_[_JCROSS_霤:1.0__OPAQUE_霤_88_] = _JCROSS_霤:1.0__OPAQUE_霤_125_
+
+// POLYMORPHIC_JCROSS_END

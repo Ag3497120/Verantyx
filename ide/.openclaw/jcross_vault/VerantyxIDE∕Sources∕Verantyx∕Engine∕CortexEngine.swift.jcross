@@ -1,0 +1,749 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:48DFE769 ver:1778150713
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_滴:1.0___ast_滴_256__ort _ASTNODE_廨:1.0___ast_廨_94__
+_ASTNODE_滴:1.0___ast_滴_256__ort _ASTNODE_廨:1.0___ast_廨_53__
+
+// [metadata-stripped]
+
+struct _ASTNODE_廨:1.0___ast_廨_115__: _ASTNODE_廨:1.0___ast_廨_37__, _ASTNODE_廨:1.0___ast_廨_92__ {
+    var id: _ASTNODE_廨:1.0___ast_廨_118__
+    let _ASTNODE_滴:1.0___ast_滴_243__: _ASTNODE_廨:1.0___ast_廨_16__
+    var _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__
+    var _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__
+    var _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__
+    var _ASTNODE_滴:1.0___ast_滴_247__: _ASTNODE_廨:1.0___ast_廨_14__
+    var _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_廨:1.0___ast_廨_77__
+    var _ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    enum _ASTNODE_廨:1.0___ast_廨_77__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_廨:1.0___ast_廨_92__, _ASTNODE_廨:1.0___ast_廨_25__ {
+        case _ASTNODE_滴:1.0___ast_滴_353__, _ASTNODE_滴:1.0___ast_滴_362__, _ASTNODE_滴:1.0___ast_滴_279__, _ASTNODE_滴:1.0___ast_滴_340__
+
+// [metadata-stripped]
+        var _ASTNODE_滴:1.0___ast_滴_369__: _ASTNODE_廨:1.0___ast_廨_65__ { _ASTNODE_滴:1.0___ast_滴_209__ }
+
+// [metadata-stripped]
+        var _ASTNODE_滴:1.0___ast_滴_135__: _ASTNODE_廨:1.0___ast_廨_14__ {
+            switch self {
+            case ._ASTNODE_滴:1.0___ast_滴_353__: return 100
+            case ._ASTNODE_滴:1.0___ast_滴_362__:  return 1000
+            case ._ASTNODE_滴:1.0___ast_滴_279__:   return 5000
+            case ._ASTNODE_滴:1.0___ast_滴_340__:  return 0
+            }
+// _ASTNODE_緯:0.8___ast_GX_313__ [decoy-metadata]
+        }
+
+// [metadata-stripped]
+        var _ASTNODE_滴:1.0___ast_滴_139__: _ASTNODE_廨:1.0___ast_廨_77__? {
+            switch self {
+            case ._ASTNODE_滴:1.0___ast_滴_353__: return ._ASTNODE_滴:1.0___ast_滴_362__
+            case ._ASTNODE_滴:1.0___ast_滴_362__:  return ._ASTNODE_滴:1.0___ast_滴_279__
+            case ._ASTNODE_滴:1.0___ast_滴_279__:   return ._ASTNODE_滴:1.0___ast_滴_340__
+            case ._ASTNODE_滴:1.0___ast_滴_340__:  return nil
+            }
+        }
+    }
+
+    init(id: _ASTNODE_廨:1.0___ast_廨_118__ = _ASTNODE_廨:1.0___ast_廨_118__(), _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__,
+         _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__ = 0.5, _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_廨:1.0___ast_廨_77__ = ._ASTNODE_滴:1.0___ast_滴_362__, _ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__] = []) {
+// _ASTNODE_匹:0.9___ast_LH_840__ [decoy-metadata]
+        self.id          = id
+        self._ASTNODE_滴:1.0___ast_滴_243__   = _ASTNODE_廨:1.0___ast_廨_16__()
+        self._ASTNODE_隠:1.0___ast_滴_93__         = _ASTNODE_隠:1.0___ast_滴_93__
+        self._ASTNODE_滴:1.0___ast_滴_178__       = _ASTNODE_滴:1.0___ast_滴_178__
+        self._ASTNODE_滴:1.0___ast_滴_128__  = _ASTNODE_滴:1.0___ast_滴_128__
+        self._ASTNODE_滴:1.0___ast_滴_247__ = 0
+        self._ASTNODE_滴:1.0___ast_滴_141__        = _ASTNODE_滴:1.0___ast_滴_141__
+        self._ASTNODE_滴:1.0___ast_滴_174__   = _ASTNODE_滴:1.0___ast_滴_174__
+    }
+}
+
+// [metadata-stripped]
+
+@_ASTNODE_廨:1.0___ast_廨_82__
+final class _ASTNODE_廨:1.0___ast_廨_2__: _ASTNODE_廨:1.0___ast_廨_50__ {
+
+    static weak var _ASTNODE_滴:1.0___ast_滴_193__: _ASTNODE_廨:1.0___ast_廨_2__?
+
+// [metadata-stripped]
+    @_ASTNODE_廨:1.0___ast_廨_66__ var _ASTNODE_滴:1.0___ast_滴_291__: [_ASTNODE_廨:1.0___ast_廨_115__] = []
+    @_ASTNODE_廨:1.0___ast_廨_66__ var _ASTNODE_滴:1.0___ast_滴_86__: _ASTNODE_廨:1.0___ast_廨_14__ = 0
+    @_ASTNODE_廨:1.0___ast_廨_66__ var _ASTNODE_滴:1.0___ast_滴_232__: _ASTNODE_廨:1.0___ast_廨_89__ {
+        _ASTNODE_滴:1.0___ast_滴_329__ { _ASTNODE_廨:1.0___ast_廨_76__._ASTNODE_滴:1.0___ast_滴_146__._ASTNODE_型:1.0___ast_巌_1__(_ASTNODE_滴:1.0___ast_滴_232__, _ASTNODE_隠:1.0___ast_滴_233__: "_ASTNODE_滴:1.0___ast_滴_294__") }
+    }
+    @_ASTNODE_廨:1.0___ast_廨_66__ var _ASTNODE_滴:1.0___ast_滴_189__: _ASTNODE_廨:1.0___ast_廨_14__ {
+        _ASTNODE_滴:1.0___ast_滴_329__ { _ASTNODE_廨:1.0___ast_廨_76__._ASTNODE_滴:1.0___ast_滴_146__._ASTNODE_型:1.0___ast_巌_1__(_ASTNODE_滴:1.0___ast_滴_189__, _ASTNODE_隠:1.0___ast_滴_233__: "_ASTNODE_滴:1.0___ast_滴_356__") }
+    }
+
+    var _ASTNODE_滴:1.0___ast_滴_144__: _ASTNODE_廨:1.0___ast_廨_14__ = 100  // _ASTNODE_滴:1.0___ast_滴_201__ for _ASTNODE_滴:1.0___ast_滴_137__ _ASTNODE_滴:1.0___ast_滴_214__; _ASTNODE_滴:1.0___ast_滴_69__ _ASTNODE_滴:1.0___ast_滴_187__ _ASTNODE_滴:1.0___ast_滴_186__ _ASTNODE_滴:1.0___ast_滴_267__
+
+// [metadata-stripped]
+    @_ASTNODE_廨:1.0___ast_廨_66__ private(_ASTNODE_型:1.0___ast_巌_1__) var _ASTNODE_匹:1.0___ast_滴_226__: _ASTNODE_廨:1.0___ast_廨_89__ = false
+
+// [metadata-stripped]
+
+    private var _ASTNODE_滴:1.0___ast_滴_131__: _ASTNODE_緯:1.0___ast_廨_84__ {
+        let _ASTNODE_滴:1.0___ast_滴_65__ = _ASTNODE_廨:1.0___ast_廨_88__._ASTNODE_滴:1.0___ast_滴_193__?._ASTNODE_滴:1.0___ast_滴_13__ ?? _ASTNODE_廨:1.0___ast_廨_88__._ASTNODE_滴:1.0___ast_滴_193__?._ASTNODE_緯:1.0___ast_滴_46__?._ASTNODE_滴:1.0___ast_滴_385__
+        let _ASTNODE_滴:1.0___ast_滴_212__: _ASTNODE_緯:1.0___ast_廨_84__
+        if let _ASTNODE_滴:1.0___ast_滴_65__ = _ASTNODE_滴:1.0___ast_滴_65__ {
+            _ASTNODE_滴:1.0___ast_滴_212__ = _ASTNODE_緯:1.0___ast_廨_84__(_ASTNODE_緯:1.0___ast_滴_343__: _ASTNODE_滴:1.0___ast_滴_65__)._ASTNODE_滴:1.0___ast_滴_99__("._ASTNODE_滴:1.0___ast_滴_55__/_ASTNODE_滴:1.0___ast_滴_203__", _ASTNODE_滴:1.0___ast_滴_250__: true)
+        } else {
+            _ASTNODE_滴:1.0___ast_滴_212__ = _ASTNODE_緯:1.0___ast_廨_84__(_ASTNODE_緯:1.0___ast_滴_343__: "/_ASTNODE_滴:1.0___ast_滴_205__")._ASTNODE_滴:1.0___ast_滴_99__("._ASTNODE_滴:1.0___ast_滴_55__/_ASTNODE_滴:1.0___ast_滴_203__", _ASTNODE_滴:1.0___ast_滴_250__: true)
+        }
+        for _ASTNODE_滴:1.0___ast_滴_141__ in _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_110__ {
+            let _ASTNODE_滴:1.0___ast_滴_371__ = _ASTNODE_滴:1.0___ast_滴_212__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__, _ASTNODE_滴:1.0___ast_滴_250__: true)
+            try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_181__(at: _ASTNODE_滴:1.0___ast_滴_371__, _ASTNODE_滴:1.0___ast_滴_177__: true)
+        }
+// [metadata-stripped]
+        try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_181__(
+            at: _ASTNODE_滴:1.0___ast_滴_212__._ASTNODE_滴:1.0___ast_滴_99__("_ASTNODE_滴:1.0___ast_滴_246__", _ASTNODE_滴:1.0___ast_滴_250__: true),
+            _ASTNODE_滴:1.0___ast_滴_177__: true
+        )
+        return _ASTNODE_滴:1.0___ast_滴_212__
+    }
+
+// [metadata-stripped]
+    private let _ASTNODE_緯:1.0___ast_滴_217__: _ASTNODE_緯:1.0___ast_廨_84__ = {
+        let _ASTNODE_滴:1.0___ast_滴_212__ = _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_緯:1.0___ast_滴_388__(for: ._ASTNODE_滴:1.0___ast_滴_188__, in: ._ASTNODE_滴:1.0___ast_滴_50__)[0]
+            ._ASTNODE_滴:1.0___ast_滴_99__("_ASTNODE_廨:1.0___ast_廨_17__/_ASTNODE_滴:1.0___ast_滴_91__")
+        try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_181__(at: _ASTNODE_滴:1.0___ast_滴_212__, _ASTNODE_滴:1.0___ast_滴_177__: true)
+        return _ASTNODE_滴:1.0___ast_滴_212__._ASTNODE_滴:1.0___ast_滴_99__("_ASTNODE_滴:1.0___ast_滴_203__._ASTNODE_滴:1.0___ast_滴_335__")
+    }()
+
+// [metadata-stripped]
+    private var _ASTNODE_滴:1.0___ast_滴_326__: [_ASTNODE_匹:1.0___ast_廨_96__] = []
+
+    init() {
+        self._ASTNODE_滴:1.0___ast_滴_232__        = _ASTNODE_廨:1.0___ast_廨_76__._ASTNODE_滴:1.0___ast_滴_146__._ASTNODE_滴:1.0___ast_滴_391__(_ASTNODE_隠:1.0___ast_滴_233__: "_ASTNODE_滴:1.0___ast_滴_294__")  as? _ASTNODE_廨:1.0___ast_廨_89__ ?? true
+        self._ASTNODE_滴:1.0___ast_滴_189__ = _ASTNODE_廨:1.0___ast_廨_76__._ASTNODE_滴:1.0___ast_滴_146__._ASTNODE_滴:1.0___ast_滴_391__(_ASTNODE_隠:1.0___ast_滴_233__: "_ASTNODE_滴:1.0___ast_滴_356__") as? _ASTNODE_廨:1.0___ast_廨_14__  ?? 3000
+        _ASTNODE_廨:1.0___ast_廨_2__._ASTNODE_滴:1.0___ast_滴_193__ = self
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _ASTNODE_廨:1.0___ast_廨_80__ {
+            await _ASTNODE_匹:1.0___ast_滴_323__()
+            _ASTNODE_滴:1.0___ast_滴_322__()
+        }
+    }
+
+// [metadata-stripped]
+    
+    private func _ASTNODE_滴:1.0___ast_滴_322__() {
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_352__: [_ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__] = [._ASTNODE_滴:1.0___ast_滴_353__, ._ASTNODE_滴:1.0___ast_滴_362__]
+        
+        for _ASTNODE_滴:1.0___ast_滴_141__ in _ASTNODE_滴:1.0___ast_滴_352__ {
+            let _ASTNODE_緯:1.0___ast_滴_100__ = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+            let fd = open(_ASTNODE_緯:1.0___ast_滴_100__._ASTNODE_滴:1.0___ast_滴_385__, _ASTNODE_廨:1.0___ast_廨_1__)
+            guard fd >= 0 else { continue }
+            
+            let _ASTNODE_滴:1.0___ast_滴_143__ = _ASTNODE_廨:1.0___ast_廨_47__._ASTNODE_匹:1.0___ast_滴_220__(_ASTNODE_匹:1.0___ast_滴_82__: fd, _ASTNODE_滴:1.0___ast_滴_4__: ._ASTNODE_滴:1.0___ast_滴_368__, _ASTNODE_滴:1.0___ast_滴_19__: ._ASTNODE_滴:1.0___ast_滴_132__(_ASTNODE_滴:1.0___ast_滴_224__: ._ASTNODE_滴:1.0___ast_滴_357__))
+            
+// [metadata-stripped]
+            var _ASTNODE_匹:1.0___ast_滴_197__ = false
+            
+            _ASTNODE_滴:1.0___ast_滴_143__._ASTNODE_型:1.0___ast_巌_4__ { [weak self] in
+                guard let self = self, !_ASTNODE_匹:1.0___ast_滴_197__ else { return }
+                _ASTNODE_匹:1.0___ast_滴_197__ = true
+                _ASTNODE_廨:1.0___ast_廨_80__ {
+// [metadata-stripped]
+                    try? await _ASTNODE_廨:1.0___ast_廨_80__._ASTNODE_滴:1.0___ast_滴_33__(_ASTNODE_滴:1.0___ast_滴_331__: 500_000_000)
+                    await self._ASTNODE_滴:1.0___ast_滴_10__(for: _ASTNODE_滴:1.0___ast_滴_141__)
+                    _ASTNODE_匹:1.0___ast_滴_197__ = false
+                }
+            }
+            
+            _ASTNODE_滴:1.0___ast_滴_143__._ASTNODE_型:1.0___ast_巌_5__ {
+                _ASTNODE_滴:1.0___ast_滴_8__(fd)
+            }
+            
+            _ASTNODE_滴:1.0___ast_滴_143__._ASTNODE_滴:1.0___ast_滴_164__()
+            _ASTNODE_滴:1.0___ast_滴_326__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_143__)
+        }
+    }
+    
+    private func _ASTNODE_滴:1.0___ast_滴_10__(for _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__) async {
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_38__ = await _ASTNODE_廨:1.0___ast_廨_80__._ASTNODE_滴:1.0___ast_滴_123__(_ASTNODE_滴:1.0___ast_滴_149__: ._ASTNODE_滴:1.0___ast_滴_90__) { [_ASTNODE_滴:1.0___ast_滴_131__] in
+            _ASTNODE_廨:1.0___ast_廨_33__._ASTNODE_滴:1.0___ast_滴_9__([_ASTNODE_滴:1.0___ast_滴_141__], _ASTNODE_滴:1.0___ast_滴_119__: _ASTNODE_滴:1.0___ast_滴_131__)
+        }._ASTNODE_滴:1.0___ast_滴_178__
+        
+// [metadata-stripped]
+        var _ASTNODE_滴:1.0___ast_滴_295__ = [_ASTNODE_廨:1.0___ast_廨_65__: _ASTNODE_廨:1.0___ast_廨_115__]()
+        for _ASTNODE_滴:1.0___ast_滴_298__ in _ASTNODE_滴:1.0___ast_滴_291__ {
+            _ASTNODE_滴:1.0___ast_滴_295__[_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__] = _ASTNODE_滴:1.0___ast_滴_298__
+        }
+        
+// [metadata-stripped]
+        _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_264__(where: { $0._ASTNODE_滴:1.0___ast_滴_141__ == _ASTNODE_滴:1.0___ast_滴_141__ })
+        
+// [metadata-stripped]
+        for var _ASTNODE_滴:1.0___ast_滴_154__ in _ASTNODE_滴:1.0___ast_滴_38__ {
+            if let _ASTNODE_滴:1.0___ast_滴_372__ = _ASTNODE_滴:1.0___ast_滴_295__[_ASTNODE_滴:1.0___ast_滴_154__._ASTNODE_隠:1.0___ast_滴_93__] {
+                _ASTNODE_滴:1.0___ast_滴_154__.id = _ASTNODE_滴:1.0___ast_滴_372__.id
+                _ASTNODE_滴:1.0___ast_滴_154__._ASTNODE_滴:1.0___ast_滴_247__ = _ASTNODE_滴:1.0___ast_滴_372__._ASTNODE_滴:1.0___ast_滴_247__
+                _ASTNODE_滴:1.0___ast_滴_154__._ASTNODE_滴:1.0___ast_滴_128__ = _ASTNODE_滴:1.0___ast_滴_372__._ASTNODE_滴:1.0___ast_滴_128__
+            }
+            _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_154__)
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _ASTNODE_型:1.0___ast_滴_36__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__ = 0.5, _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__? = nil) {
+        guard _ASTNODE_滴:1.0___ast_滴_232__ else { return }
+        let _ASTNODE_滴:1.0___ast_滴_111__ = _ASTNODE_滴:1.0___ast_滴_141__ ?? _ASTNODE_涌:1.0___ast_滴_244__(_ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_128__)
+
+        if let _ASTNODE_滴:1.0___ast_滴_129__ = _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_223__(where: { $0._ASTNODE_隠:1.0___ast_滴_93__ == _ASTNODE_隠:1.0___ast_滴_93__ }) {
+            _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_178__       = _ASTNODE_滴:1.0___ast_滴_178__
+            _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_128__  = _ASTNODE_滴:1.0___ast_滴_169__(_ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_128__, _ASTNODE_滴:1.0___ast_滴_128__)
+            _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_247__ += 1
+// [metadata-stripped]
+            let _ASTNODE_滴:1.0___ast_滴_60__ = _ASTNODE_涌:1.0___ast_滴_244__(_ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_128__)
+            if _ASTNODE_滴:1.0___ast_滴_60__ == ._ASTNODE_滴:1.0___ast_滴_353__ && _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_141__ != ._ASTNODE_滴:1.0___ast_滴_353__ {
+                _ASTNODE_滴:1.0___ast_滴_66__(&_ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__], to: ._ASTNODE_滴:1.0___ast_滴_353__)
+            }
+            _ASTNODE_滴:1.0___ast_滴_303__(_ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__])
+        } else {
+            var _ASTNODE_滴:1.0___ast_滴_298__ = _ASTNODE_廨:1.0___ast_廨_115__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_178__, _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_128__,
+                                  _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_滴:1.0___ast_滴_111__, _ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_325__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_178__))
+            _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_298__)
+            _ASTNODE_滴:1.0___ast_滴_303__(_ASTNODE_滴:1.0___ast_滴_298__)
+        }
+
+        _ASTNODE_滴:1.0___ast_滴_332__()
+    }
+
+// [metadata-stripped]
+    func _ASTNODE_滴:1.0___ast_滴_190__(for _ASTNODE_滴:1.0___ast_滴_292__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_34__: _ASTNODE_廨:1.0___ast_廨_14__ = 8) -> [_ASTNODE_廨:1.0___ast_廨_115__] {
+        guard _ASTNODE_滴:1.0___ast_滴_232__, !_ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_78__ else { return [] }
+        let _ASTNODE_滴:1.0___ast_滴_166__ = _ASTNODE_滴:1.0___ast_滴_292__._ASTNODE_滴:1.0___ast_滴_261__()._ASTNODE_滴:1.0___ast_滴_216__(_ASTNODE_滴:1.0___ast_滴_96__: ._ASTNODE_滴:1.0___ast_滴_337__)
+            ._ASTNODE_型:1.0___ast_滴_61__ { $0._ASTNODE_滴:1.0___ast_滴_22__ > 2 }
+
+        let _ASTNODE_滴:1.0___ast_滴_47__ = _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_198__ { _ASTNODE_滴:1.0___ast_滴_298__ -> (_ASTNODE_廨:1.0___ast_廨_115__, _ASTNODE_廨:1.0___ast_廨_52__) in
+            let _ASTNODE_滴:1.0___ast_滴_365__ = (_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__ + " " + _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__ + " " + _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_37__())._ASTNODE_滴:1.0___ast_滴_261__()
+            let _ASTNODE_滴:1.0___ast_滴_127__ = _ASTNODE_滴:1.0___ast_滴_166__._ASTNODE_型:1.0___ast_滴_61__ { _ASTNODE_滴:1.0___ast_滴_365__._ASTNODE_滴:1.0___ast_滴_20__($0) }._ASTNODE_滴:1.0___ast_滴_22__
+// [metadata-stripped]
+            let _ASTNODE_滴:1.0___ast_滴_370__: _ASTNODE_廨:1.0___ast_廨_52__ = _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__ == ._ASTNODE_滴:1.0___ast_滴_353__ ? 0.3 : _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__ == ._ASTNODE_滴:1.0___ast_滴_362__ ? 0.15 : 0.0
+            let _ASTNODE_滴:1.0___ast_滴_282__ = _ASTNODE_廨:1.0___ast_廨_52__(_ASTNODE_滴:1.0___ast_滴_127__) * _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_128__ + _ASTNODE_廨:1.0___ast_廨_52__(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_247__) * 0.1 + _ASTNODE_滴:1.0___ast_滴_370__
+            return (_ASTNODE_滴:1.0___ast_滴_298__, _ASTNODE_滴:1.0___ast_滴_282__)
+        }
+
+        var _ASTNODE_滴:1.0___ast_滴_313__ = _ASTNODE_滴:1.0___ast_滴_47__._ASTNODE_滴:1.0___ast_滴_133__ { $0.1 > $1.1 }._ASTNODE_滴:1.0___ast_滴_184__(_ASTNODE_滴:1.0___ast_滴_34__)._ASTNODE_滴:1.0___ast_滴_198__ { $0.0 }
+// [metadata-stripped]
+        for i in 0..<_ASTNODE_滴:1.0___ast_滴_313__._ASTNODE_滴:1.0___ast_滴_22__ {
+            if let _ASTNODE_滴:1.0___ast_滴_129__ = _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_223__(where: { $0.id == _ASTNODE_滴:1.0___ast_滴_313__[i].id }) {
+                _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_247__ += 1
+            }
+        }
+        return _ASTNODE_滴:1.0___ast_滴_313__
+    }
+
+// [metadata-stripped]
+    func _ASTNODE_滴:1.0___ast_滴_359__(for _ASTNODE_滴:1.0___ast_滴_292__: _ASTNODE_廨:1.0___ast_廨_65__) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        guard _ASTNODE_滴:1.0___ast_滴_232__ else { return "" }
+        let _ASTNODE_滴:1.0___ast_滴_18__ = _ASTNODE_滴:1.0___ast_滴_190__(for: _ASTNODE_滴:1.0___ast_滴_292__, _ASTNODE_滴:1.0___ast_滴_34__: 10)
+        guard !_ASTNODE_滴:1.0___ast_滴_18__._ASTNODE_滴:1.0___ast_滴_78__ else { 
+            return """
+
+            [_ASTNODE_廨:1.0___ast_廨_30__ _ASTNODE_廨:1.0___ast_廨_51__ — _ASTNODE_廨:1.0___ast_廨_105__ _ASTNODE_廨:1.0___ast_廨_75__]
+            No _ASTNODE_滴:1.0___ast_滴_18__ L1-L3 _ASTNODE_滴:1.0___ast_滴_203__ _ASTNODE_滴:1.0___ast_滴_249__ for _ASTNODE_滴:1.0___ast_滴_117__ _ASTNODE_滴:1.0___ast_滴_134__.
+            _ASTNODE_廨:1.0___ast_廨_109__ _ASTNODE_廨:1.0___ast_廨_117__: _ASTNODE_廨:1.0___ast_廨_32__ _ASTNODE_廨:1.0___ast_廨_57__ _ASTNODE_滴:1.0___ast_滴_301__ [_ASTNODE_廨:1.0___ast_廨_120__] or [_ASTNODE_廨:1.0___ast_廨_62__] to _ASTNODE_型:1.0___ast_滴_81__ _ASTNODE_滴:1.0___ast_滴_227__ _ASTNODE_滴:1.0___ast_滴_299__ _ASTNODE_涌:1.0___ast_滴_208__ _ASTNODE_滴:1.0___ast_滴_72__. Do _ASTNODE_廨:1.0___ast_廨_97__ _ASTNODE_滴:1.0___ast_滴_74__.
+            [/_ASTNODE_廨:1.0___ast_廨_30__ _ASTNODE_廨:1.0___ast_廨_51__]
+            """
+        }
+
+        let _ASTNODE_滴:1.0___ast_滴_321__ = _ASTNODE_滴:1.0___ast_滴_18__._ASTNODE_滴:1.0___ast_滴_198__ { _ASTNODE_滴:1.0___ast_滴_298__ in
+            let _ASTNODE_滴:1.0___ast_滴_268__ = _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__ == ._ASTNODE_滴:1.0___ast_滴_353__ ? "⚡" : _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__ == ._ASTNODE_滴:1.0___ast_滴_362__ ? "🔵" : "💾"
+            
+// [metadata-stripped]
+            let gk = _ASTNODE_廨:1.0___ast_廨_48__._ASTNODE_滴:1.0___ast_滴_193__
+            if !gk._ASTNODE_型:1.0___ast_滴_390__ && gk._ASTNODE_滴:1.0___ast_滴_95__ == ._ASTNODE_滴:1.0___ast_滴_228__ {
+                let _ASTNODE_滴:1.0___ast_滴_379__ = _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_78__ ? "技標" : _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_184__(3)._ASTNODE_滴:1.0___ast_滴_37__()
+                return "  \(_ASTNODE_滴:1.0___ast_滴_268__) [\(_ASTNODE_滴:1.0___ast_滴_379__)] \(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__._ASTNODE_滴:1.0___ast_滴_184__(40))"
+            } else {
+                let _ASTNODE_滴:1.0___ast_滴_379__ = _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_78__ ? "技標" : _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_184__(2)._ASTNODE_滴:1.0___ast_滴_37__()
+                return "  \(_ASTNODE_滴:1.0___ast_滴_268__) [\(_ASTNODE_滴:1.0___ast_滴_379__)] \(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__): \(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__)"
+            }
+        }._ASTNODE_滴:1.0___ast_滴_37__(_ASTNODE_滴:1.0___ast_滴_84__: "\n")
+
+        return """
+
+        [_ASTNODE_廨:1.0___ast_廨_30__ _ASTNODE_廨:1.0___ast_廨_51__ — _ASTNODE_滴:1.0___ast_滴_52__ _ASTNODE_滴:1.0___ast_滴_299__ to _ASTNODE_滴:1.0___ast_滴_351__ _ASTNODE_涌:1.0___ast_滴_126__]
+        \(_ASTNODE_滴:1.0___ast_滴_321__)
+        [/_ASTNODE_廨:1.0___ast_廨_30__ _ASTNODE_廨:1.0___ast_廨_51__]
+        """
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ASTNODE_涌:1.0___ast_滴_45__(_ASTNODE_滴:1.0___ast_滴_239__: [_ASTNODE_廨:1.0___ast_廨_31__]) -> [_ASTNODE_廨:1.0___ast_廨_31__] {
+        guard _ASTNODE_滴:1.0___ast_滴_232__ else { return _ASTNODE_滴:1.0___ast_滴_239__ }
+        let _ASTNODE_滴:1.0___ast_滴_309__ = _ASTNODE_滴:1.0___ast_滴_239__._ASTNODE_滴:1.0___ast_滴_374__(0) { $0 + $1._ASTNODE_滴:1.0___ast_滴_151__._ASTNODE_滴:1.0___ast_滴_22__ }
+// [metadata-stripped]
+        guard _ASTNODE_滴:1.0___ast_滴_309__ > _ASTNODE_滴:1.0___ast_滴_189__ * 8 else { return _ASTNODE_滴:1.0___ast_滴_239__ }
+
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_380__ = 20
+        guard _ASTNODE_滴:1.0___ast_滴_239__._ASTNODE_滴:1.0___ast_滴_22__ > _ASTNODE_滴:1.0___ast_滴_380__ + 2 else { return _ASTNODE_滴:1.0___ast_滴_239__ }
+
+        let _ASTNODE_滴:1.0___ast_滴_42__ = _ASTNODE_廨:1.0___ast_廨_85__(_ASTNODE_滴:1.0___ast_滴_239__._ASTNODE_滴:1.0___ast_滴_64__(_ASTNODE_滴:1.0___ast_滴_380__))
+        let _ASTNODE_滴:1.0___ast_滴_153__     = _ASTNODE_廨:1.0___ast_廨_85__(_ASTNODE_滴:1.0___ast_滴_239__._ASTNODE_滴:1.0___ast_滴_102__(_ASTNODE_滴:1.0___ast_滴_380__))
+        let _ASTNODE_滴:1.0___ast_滴_115__    = _ASTNODE_滴:1.0___ast_滴_317__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_42__)
+
+        _ASTNODE_型:1.0___ast_滴_36__(_ASTNODE_隠:1.0___ast_滴_93__: "_ASTNODE_滴:1.0___ast_滴_106__\(_ASTNODE_滴:1.0___ast_滴_86__)", _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_115__,
+                 _ASTNODE_滴:1.0___ast_滴_128__: 0.9, _ASTNODE_滴:1.0___ast_滴_141__: ._ASTNODE_滴:1.0___ast_滴_362__)
+        _ASTNODE_滴:1.0___ast_滴_86__ += 1
+
+        let _ASTNODE_滴:1.0___ast_滴_339__ = _ASTNODE_廨:1.0___ast_廨_31__(
+            _ASTNODE_滴:1.0___ast_滴_274__: ._ASTNODE_滴:1.0___ast_滴_85__,
+            _ASTNODE_滴:1.0___ast_滴_151__: "🧠 [_ASTNODE_廨:1.0___ast_廨_101__] \(_ASTNODE_滴:1.0___ast_滴_42__._ASTNODE_滴:1.0___ast_滴_22__) 件のメッセージをメモリに圧縮しました。直近の \(_ASTNODE_滴:1.0___ast_滴_380__) 件は全て表示されています。"
+        )
+        return [_ASTNODE_滴:1.0___ast_滴_339__] + _ASTNODE_滴:1.0___ast_滴_153__
+    }
+
+// [metadata-stripped]
+    func _ASTNODE_滴:1.0___ast_滴_89__(_ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_376__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_87__: _ASTNODE_廨:1.0___ast_廨_65__) {
+        guard _ASTNODE_滴:1.0___ast_滴_232__ else { return }
+
+        let _ASTNODE_匹:1.0___ast_滴_62__ = [
+            (#"\[_ASTNODE_廨:1.0___ast_廨_119__:\s*([^\]]+)\]"#, "_ASTNODE_匹:1.0___ast_滴_176__", _ASTNODE_廨:1.0___ast_廨_52__(0.8), _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_362__),
+            (#"\[_ASTNODE_匹:1.0___ast_廨_70__:\s*([^\]]+)\]"#, "_ASTNODE_匹:1.0___ast_滴_150__", _ASTNODE_廨:1.0___ast_廨_52__(0.85), _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_362__),
+            (#"\[_ASTNODE_廨:1.0___ast_廨_6__:\s*([^\]]+)\]"#, "_ASTNODE_滴:1.0___ast_滴_206__", _ASTNODE_廨:1.0___ast_廨_52__(0.85), _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_362__),
+            (#"\[_ASTNODE_廨:1.0___ast_廨_5__:\s*([^\]]+)\]"#, "_ASTNODE_滴:1.0___ast_滴_297__", _ASTNODE_廨:1.0___ast_廨_52__(0.95), _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_353__),
+        ]
+
+        for (_ASTNODE_滴:1.0___ast_滴_35__, _ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_256__, _ASTNODE_滴:1.0___ast_滴_141__) in _ASTNODE_匹:1.0___ast_滴_62__ {
+            if let _ASTNODE_滴:1.0___ast_滴_12__ = try? _ASTNODE_廨:1.0___ast_廨_44__(_ASTNODE_滴:1.0___ast_滴_35__: _ASTNODE_滴:1.0___ast_滴_35__) {
+                let _ASTNODE_滴:1.0___ast_滴_156__ = _ASTNODE_滴:1.0___ast_滴_12__._ASTNODE_滴:1.0___ast_滴_156__(in: _ASTNODE_滴:1.0___ast_滴_376__, _ASTNODE_滴:1.0___ast_滴_53__: _ASTNODE_廨:1.0___ast_廨_7__(_ASTNODE_滴:1.0___ast_滴_376__._ASTNODE_滴:1.0___ast_滴_236__..., in: _ASTNODE_滴:1.0___ast_滴_376__))
+                let _ASTNODE_滴:1.0___ast_滴_152__ = _ASTNODE_滴:1.0___ast_滴_156__._ASTNODE_滴:1.0___ast_滴_170__ { m -> _ASTNODE_廨:1.0___ast_廨_65__? in
+                    _ASTNODE_廨:1.0___ast_廨_87__(m._ASTNODE_滴:1.0___ast_滴_53__(at: 1), in: _ASTNODE_滴:1.0___ast_滴_376__)._ASTNODE_滴:1.0___ast_滴_198__ {
+                        _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_376__[$0])._ASTNODE_滴:1.0___ast_滴_230__(in: ._ASTNODE_滴:1.0___ast_滴_76__)
+                    }
+                }
+// _ASTNODE_隠:0.6___ast_ZH_568__ [decoy-metadata]
+                if !_ASTNODE_滴:1.0___ast_滴_152__._ASTNODE_滴:1.0___ast_滴_78__ { _ASTNODE_型:1.0___ast_滴_36__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_152__._ASTNODE_滴:1.0___ast_滴_37__(_ASTNODE_滴:1.0___ast_滴_84__: ", "), _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_256__, _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_滴:1.0___ast_滴_141__) }
+            }
+        }
+
+// [metadata-stripped]
+        let _ASTNODE_型:1.0___ast_滴_185__ = _ASTNODE_滴:1.0___ast_滴_87__._ASTNODE_滴:1.0___ast_滴_261__()
+        let _ASTNODE_滴:1.0___ast_滴_3__: [(_ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_廨:1.0___ast_廨_65__)] = [
+            ("_ASTNODE_涌:1.0___ast_滴_238__", "_ASTNODE_廨:1.0___ast_廨_38__"), ("_ASTNODE_滴:1.0___ast_滴_58__", "_ASTNODE_廨:1.0___ast_廨_110__"), ("_ASTNODE_滴:1.0___ast_滴_83__", "_ASTNODE_廨:1.0___ast_廨_74__"),
+            ("_ASTNODE_滴:1.0___ast_滴_306__", "_ASTNODE_廨:1.0___ast_廨_42__"), ("_ASTNODE_滴:1.0___ast_滴_336__", "_ASTNODE_廨:1.0___ast_廨_72__"), ("_ASTNODE_滴:1.0___ast_滴_373__", "_ASTNODE_廨:1.0___ast_廨_91__"),
+        ]
+        for (_ASTNODE_隠:1.0___ast_滴_125__, _ASTNODE_滴:1.0___ast_滴_242__) in _ASTNODE_滴:1.0___ast_滴_3__ {
+            if _ASTNODE_型:1.0___ast_滴_185__._ASTNODE_滴:1.0___ast_滴_20__(_ASTNODE_隠:1.0___ast_滴_125__) {
+                _ASTNODE_型:1.0___ast_滴_36__(_ASTNODE_隠:1.0___ast_滴_93__: "_ASTNODE_滴:1.0___ast_滴_355__", _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_242__, _ASTNODE_滴:1.0___ast_滴_128__: 0.7, _ASTNODE_滴:1.0___ast_滴_141__: ._ASTNODE_滴:1.0___ast_滴_362__)
+                break
+            }
+        }
+
+        if _ASTNODE_滴:1.0___ast_滴_87__._ASTNODE_滴:1.0___ast_滴_22__ > 10 {
+            _ASTNODE_型:1.0___ast_滴_36__(_ASTNODE_隠:1.0___ast_滴_93__: "_ASTNODE_滴:1.0___ast_滴_31__", _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_87__._ASTNODE_滴:1.0___ast_滴_184__(200)),
+                     _ASTNODE_滴:1.0___ast_滴_128__: 0.6, _ASTNODE_滴:1.0___ast_滴_141__: ._ASTNODE_滴:1.0___ast_滴_362__)
+        }
+    }
+
+    func _ASTNODE_滴:1.0___ast_滴_255__() {
+// [metadata-stripped]
+        for _ASTNODE_滴:1.0___ast_滴_141__ in _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_110__ {
+            let _ASTNODE_滴:1.0___ast_滴_212__ = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+            let _ASTNODE_匹:1.0___ast_滴_300__ = (try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_280__(at: _ASTNODE_滴:1.0___ast_滴_212__,
+                                                                       _ASTNODE_隠:1.0___ast_滴_378__: nil)) ?? []
+            for _ASTNODE_匹:1.0___ast_滴_215__ in _ASTNODE_匹:1.0___ast_滴_300__ where _ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_273__ == "_ASTNODE_滴:1.0___ast_滴_195__" && !_ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_302__._ASTNODE_滴:1.0___ast_滴_27__("_ASTNODE_廨:1.0___ast_廨_15__") {
+                try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_136__(at: _ASTNODE_匹:1.0___ast_滴_215__)
+            }
+        }
+        _ASTNODE_滴:1.0___ast_滴_291__ = []
+        _ASTNODE_滴:1.0___ast_滴_86__ = 0
+    }
+
+// [metadata-stripped]
+
+    func _ASTNODE_涌:1.0___ast_滴_244__(_ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__) -> _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__ {
+        switch _ASTNODE_滴:1.0___ast_滴_128__ {
+        case 0.9...: return ._ASTNODE_滴:1.0___ast_滴_353__
+        case 0.7..<0.9: return ._ASTNODE_滴:1.0___ast_滴_362__
+        case 0.4..<0.7: return ._ASTNODE_滴:1.0___ast_滴_279__
+        _ASTNODE_滴:1.0___ast_滴_347__:        return ._ASTNODE_滴:1.0___ast_滴_340__
+        }
+    }
+
+// [metadata-stripped]
+
+    func _ASTNODE_滴:1.0___ast_滴_332__() {
+        for _ASTNODE_滴:1.0___ast_滴_141__ in [_ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_353__, ._ASTNODE_滴:1.0___ast_滴_362__, ._ASTNODE_滴:1.0___ast_滴_279__] {
+            guard let _ASTNODE_滴:1.0___ast_滴_135__ = _ASTNODE_廨:1.0___ast_廨_41__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_135__), _ASTNODE_滴:1.0___ast_滴_135__ > 0 else { continue }
+            let _ASTNODE_滴:1.0___ast_滴_229__ = _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_型:1.0___ast_滴_61__ { $0._ASTNODE_滴:1.0___ast_滴_141__ == _ASTNODE_滴:1.0___ast_滴_141__ }
+            guard _ASTNODE_滴:1.0___ast_滴_229__._ASTNODE_滴:1.0___ast_滴_22__ > _ASTNODE_滴:1.0___ast_滴_135__ else { continue }
+
+// [metadata-stripped]
+            let _ASTNODE_滴:1.0___ast_滴_133__ = _ASTNODE_滴:1.0___ast_滴_229__._ASTNODE_滴:1.0___ast_滴_133__ {
+                ($0._ASTNODE_滴:1.0___ast_滴_128__ * _ASTNODE_廨:1.0___ast_廨_52__($0._ASTNODE_滴:1.0___ast_滴_247__ + 1)) < ($1._ASTNODE_滴:1.0___ast_滴_128__ * _ASTNODE_廨:1.0___ast_廨_52__($1._ASTNODE_滴:1.0___ast_滴_247__ + 1))
+            }
+            let _ASTNODE_滴:1.0___ast_滴_114__ = _ASTNODE_廨:1.0___ast_廨_85__(_ASTNODE_滴:1.0___ast_滴_133__._ASTNODE_滴:1.0___ast_滴_184__(_ASTNODE_滴:1.0___ast_滴_229__._ASTNODE_滴:1.0___ast_滴_22__ - _ASTNODE_滴:1.0___ast_滴_135__))
+
+            for var _ASTNODE_滴:1.0___ast_滴_298__ in _ASTNODE_滴:1.0___ast_滴_114__ {
+                guard let _ASTNODE_滴:1.0___ast_滴_40__ = _ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_139__ else { continue }
+// [metadata-stripped]
+                _ASTNODE_滴:1.0___ast_滴_240__(for: _ASTNODE_滴:1.0___ast_滴_298__, _ASTNODE_滴:1.0___ast_滴_94__: _ASTNODE_滴:1.0___ast_滴_40__)
+// [metadata-stripped]
+                _ASTNODE_匹:1.0___ast_滴_328__(_ASTNODE_滴:1.0___ast_滴_298__, _ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_141__)
+                _ASTNODE_滴:1.0___ast_滴_66__(&_ASTNODE_滴:1.0___ast_滴_298__, to: _ASTNODE_滴:1.0___ast_滴_40__)
+                _ASTNODE_滴:1.0___ast_滴_303__(_ASTNODE_滴:1.0___ast_滴_298__)
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    func _ASTNODE_滴:1.0___ast_滴_66__(_ _ASTNODE_滴:1.0___ast_滴_298__: _ASTNODE_滴:1.0___ast_滴_252__ _ASTNODE_廨:1.0___ast_廨_115__, to _ASTNODE_滴:1.0___ast_滴_60__: _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__) {
+        if let _ASTNODE_滴:1.0___ast_滴_129__ = _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_223__(where: { $0.id == _ASTNODE_滴:1.0___ast_滴_298__.id }) {
+            _ASTNODE_滴:1.0___ast_滴_291__[_ASTNODE_滴:1.0___ast_滴_129__]._ASTNODE_滴:1.0___ast_滴_141__ = _ASTNODE_滴:1.0___ast_滴_60__
+        }
+        _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__ = _ASTNODE_滴:1.0___ast_滴_60__
+    }
+
+// [metadata-stripped]
+
+    private func _ASTNODE_匹:1.0___ast_滴_155__(_ _ASTNODE_滴:1.0___ast_滴_298__: _ASTNODE_廨:1.0___ast_廨_115__) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+// _ASTNODE_隠:0.7___ast_FB_945__ [decoy-metadata]
+        let _ASTNODE_滴:1.0___ast_滴_6__ = _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_298__.id._ASTNODE_滴:1.0___ast_滴_288__._ASTNODE_滴:1.0___ast_滴_184__(8)._ASTNODE_滴:1.0___ast_滴_261__())
+        return "\(_ASTNODE_滴:1.0___ast_滴_6__)._ASTNODE_滴:1.0___ast_滴_195__"
+    }
+
+    func _ASTNODE_滴:1.0___ast_滴_303__(_ _ASTNODE_滴:1.0___ast_滴_298__: _ASTNODE_廨:1.0___ast_廨_115__) {
+        let _ASTNODE_滴:1.0___ast_滴_212__      = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+        let _ASTNODE_匹:1.0___ast_滴_211__ = _ASTNODE_匹:1.0___ast_滴_155__(_ASTNODE_滴:1.0___ast_滴_298__)
+        let _ASTNODE_滴:1.0___ast_滴_151__  = _ASTNODE_型:1.0___ast_廨_45__._ASTNODE_滴:1.0___ast_滴_41__(
+            id: _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_廨:1.0___ast_廨_14__(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_243__._ASTNODE_滴:1.0___ast_滴_147__ * 1000)),
+            _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__,
+            _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__,
+            _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_128__,
+            _ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_78__ ? _ASTNODE_滴:1.0___ast_滴_325__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__) : _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__,
+            _ASTNODE_滴:1.0___ast_滴_363__: "\(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__): \(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__)"
+        )
+        try? _ASTNODE_滴:1.0___ast_滴_151__._ASTNODE_滴:1.0___ast_滴_368__(to: _ASTNODE_滴:1.0___ast_滴_212__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_匹:1.0___ast_滴_211__), _ASTNODE_滴:1.0___ast_滴_103__: true, _ASTNODE_滴:1.0___ast_滴_234__: ._ASTNODE_滴:1.0___ast_滴_39__)
+    }
+
+    private func _ASTNODE_匹:1.0___ast_滴_328__(_ _ASTNODE_滴:1.0___ast_滴_298__: _ASTNODE_廨:1.0___ast_廨_115__, _ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__) {
+        let _ASTNODE_滴:1.0___ast_滴_212__      = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+        let _ASTNODE_匹:1.0___ast_滴_211__ = _ASTNODE_匹:1.0___ast_滴_155__(_ASTNODE_滴:1.0___ast_滴_298__)
+        try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_136__(at: _ASTNODE_滴:1.0___ast_滴_212__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_匹:1.0___ast_滴_211__))
+    }
+
+    private func _ASTNODE_滴:1.0___ast_滴_240__(for _ASTNODE_滴:1.0___ast_滴_298__: _ASTNODE_廨:1.0___ast_廨_115__, _ASTNODE_滴:1.0___ast_滴_94__ _ASTNODE_滴:1.0___ast_滴_40__: _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__) {
+        let _ASTNODE_滴:1.0___ast_滴_272__ = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+        let _ASTNODE_匹:1.0___ast_滴_211__   = _ASTNODE_匹:1.0___ast_滴_155__(_ASTNODE_滴:1.0___ast_滴_298__)
+        let _ASTNODE_滴:1.0___ast_滴_344__ = _ASTNODE_型:1.0___ast_廨_45__._ASTNODE_滴:1.0___ast_滴_2__(
+            _ASTNODE_匹:1.0___ast_滴_211__: _ASTNODE_匹:1.0___ast_滴_211__,
+            _ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__,
+            _ASTNODE_滴:1.0___ast_滴_94__: "\(_ASTNODE_滴:1.0___ast_滴_40__._ASTNODE_滴:1.0___ast_滴_209__)/\(_ASTNODE_匹:1.0___ast_滴_211__)"
+        )
+        let _ASTNODE_匹:1.0___ast_滴_157__ = "_ASTNODE_廨:1.0___ast_廨_22__\(_ASTNODE_匹:1.0___ast_滴_211__)"
+        try? _ASTNODE_滴:1.0___ast_滴_344__._ASTNODE_滴:1.0___ast_滴_368__(to: _ASTNODE_滴:1.0___ast_滴_272__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_匹:1.0___ast_滴_157__), _ASTNODE_滴:1.0___ast_滴_103__: true, _ASTNODE_滴:1.0___ast_滴_234__: ._ASTNODE_滴:1.0___ast_滴_39__)
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _ASTNODE_匹:1.0___ast_滴_323__() async {
+        _ASTNODE_匹:1.0___ast_滴_226__ = true
+        defer { _ASTNODE_匹:1.0___ast_滴_226__ = false }
+
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_361__: [_ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__] = [._ASTNODE_滴:1.0___ast_滴_353__, ._ASTNODE_滴:1.0___ast_滴_362__]
+        let _ASTNODE_滴:1.0___ast_滴_222__ = await _ASTNODE_廨:1.0___ast_廨_80__._ASTNODE_滴:1.0___ast_滴_123__(_ASTNODE_滴:1.0___ast_滴_149__: ._ASTNODE_滴:1.0___ast_滴_90__) { [_ASTNODE_滴:1.0___ast_滴_131__] in
+            _ASTNODE_廨:1.0___ast_廨_33__._ASTNODE_滴:1.0___ast_滴_9__(_ASTNODE_滴:1.0___ast_滴_361__, _ASTNODE_滴:1.0___ast_滴_119__: _ASTNODE_滴:1.0___ast_滴_131__)
+        }._ASTNODE_滴:1.0___ast_滴_178__
+
+// [metadata-stripped]
+        if !_ASTNODE_滴:1.0___ast_滴_222__._ASTNODE_滴:1.0___ast_滴_78__ {
+            _ASTNODE_滴:1.0___ast_滴_291__ = _ASTNODE_滴:1.0___ast_滴_222__
+        } else {
+// [metadata-stripped]
+            _ASTNODE_滴:1.0___ast_滴_381__()
+        }
+
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_43__: [_ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__] = [._ASTNODE_滴:1.0___ast_滴_279__]
+        let _ASTNODE_滴:1.0___ast_滴_183__ = await _ASTNODE_廨:1.0___ast_廨_80__._ASTNODE_滴:1.0___ast_滴_123__(_ASTNODE_滴:1.0___ast_滴_149__: ._ASTNODE_滴:1.0___ast_滴_357__) { [_ASTNODE_滴:1.0___ast_滴_131__] in
+            _ASTNODE_廨:1.0___ast_廨_33__._ASTNODE_滴:1.0___ast_滴_9__(_ASTNODE_滴:1.0___ast_滴_43__, _ASTNODE_滴:1.0___ast_滴_119__: _ASTNODE_滴:1.0___ast_滴_131__)
+        }._ASTNODE_滴:1.0___ast_滴_178__
+
+        if !_ASTNODE_滴:1.0___ast_滴_183__._ASTNODE_滴:1.0___ast_滴_78__ {
+            _ASTNODE_滴:1.0___ast_滴_291__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_241__: _ASTNODE_滴:1.0___ast_滴_183__)
+        }
+    }
+
+// [metadata-stripped]
+    private nonisolated static func _ASTNODE_滴:1.0___ast_滴_9__(_ _ASTNODE_滴:1.0___ast_滴_69__: [_ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__], _ASTNODE_滴:1.0___ast_滴_119__: _ASTNODE_緯:1.0___ast_廨_84__) -> [_ASTNODE_廨:1.0___ast_廨_115__] {
+        var _ASTNODE_匹:1.0___ast_滴_21__: [_ASTNODE_廨:1.0___ast_廨_115__] = []
+        let fm = _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__
+        for _ASTNODE_滴:1.0___ast_滴_141__ in _ASTNODE_滴:1.0___ast_滴_69__ {
+            let _ASTNODE_滴:1.0___ast_滴_212__   = _ASTNODE_滴:1.0___ast_滴_119__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+            let _ASTNODE_匹:1.0___ast_滴_300__ = (try? fm._ASTNODE_滴:1.0___ast_滴_280__(
+                at: _ASTNODE_滴:1.0___ast_滴_212__, _ASTNODE_隠:1.0___ast_滴_378__: nil
+            )) ?? []
+
+            for _ASTNODE_匹:1.0___ast_滴_215__ in _ASTNODE_匹:1.0___ast_滴_300__
+                where _ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_273__ == "_ASTNODE_滴:1.0___ast_滴_195__"
+                   && !_ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_302__._ASTNODE_滴:1.0___ast_滴_27__("_ASTNODE_廨:1.0___ast_廨_15__") {
+                guard let _ASTNODE_滴:1.0___ast_滴_26__    = try? _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_241__: _ASTNODE_匹:1.0___ast_滴_215__, _ASTNODE_滴:1.0___ast_滴_234__: ._ASTNODE_滴:1.0___ast_滴_39__),
+                      let _ASTNODE_滴:1.0___ast_滴_30__ = _ASTNODE_型:1.0___ast_廨_45__._ASTNODE_滴:1.0___ast_滴_327__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_26__)
+                else { continue }
+
+                _ASTNODE_匹:1.0___ast_滴_21__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_廨:1.0___ast_廨_115__(
+                    _ASTNODE_隠:1.0___ast_滴_93__:        _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_隠:1.0___ast_滴_93__,
+                    _ASTNODE_滴:1.0___ast_滴_178__:      _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_滴:1.0___ast_滴_178__,
+                    _ASTNODE_滴:1.0___ast_滴_128__: 0.6,
+                    _ASTNODE_滴:1.0___ast_滴_141__:       _ASTNODE_滴:1.0___ast_滴_141__,
+                    _ASTNODE_滴:1.0___ast_滴_174__:  _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_滴:1.0___ast_滴_174__
+                ))
+            }
+        }
+        return _ASTNODE_匹:1.0___ast_滴_21__
+    }
+
+// [metadata-stripped]
+    private func _ASTNODE_匹:1.0___ast_滴_269__() {
+        var _ASTNODE_匹:1.0___ast_滴_21__: [_ASTNODE_廨:1.0___ast_廨_115__] = []
+
+        for _ASTNODE_滴:1.0___ast_滴_141__ in _ASTNODE_廨:1.0___ast_廨_115__._ASTNODE_廨:1.0___ast_廨_77__._ASTNODE_滴:1.0___ast_滴_110__ {
+            let _ASTNODE_滴:1.0___ast_滴_212__   = _ASTNODE_滴:1.0___ast_滴_131__._ASTNODE_滴:1.0___ast_滴_99__(_ASTNODE_滴:1.0___ast_滴_141__._ASTNODE_滴:1.0___ast_滴_209__)
+            let _ASTNODE_匹:1.0___ast_滴_300__ = (try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_280__(
+                at: _ASTNODE_滴:1.0___ast_滴_212__, _ASTNODE_隠:1.0___ast_滴_378__: nil
+            )) ?? []
+
+            for _ASTNODE_匹:1.0___ast_滴_215__ in _ASTNODE_匹:1.0___ast_滴_300__ where _ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_273__ == "_ASTNODE_滴:1.0___ast_滴_195__"
+                                 && !_ASTNODE_匹:1.0___ast_滴_215__._ASTNODE_滴:1.0___ast_滴_302__._ASTNODE_滴:1.0___ast_滴_27__("_ASTNODE_廨:1.0___ast_廨_15__") {
+                guard let _ASTNODE_滴:1.0___ast_滴_26__ = try? _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_241__: _ASTNODE_匹:1.0___ast_滴_215__, _ASTNODE_滴:1.0___ast_滴_234__: ._ASTNODE_滴:1.0___ast_滴_39__),
+                      let _ASTNODE_滴:1.0___ast_滴_30__ = _ASTNODE_型:1.0___ast_廨_45__._ASTNODE_滴:1.0___ast_滴_327__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_26__)
+                else { continue }
+
+                let _ASTNODE_滴:1.0___ast_滴_298__ = _ASTNODE_廨:1.0___ast_廨_115__(
+                    _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_隠:1.0___ast_滴_93__,
+                    _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_滴:1.0___ast_滴_178__,
+                    _ASTNODE_滴:1.0___ast_滴_128__: 0.6,
+                    _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_滴:1.0___ast_滴_141__,
+                    _ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_30__._ASTNODE_滴:1.0___ast_滴_174__
+                )
+                _ASTNODE_匹:1.0___ast_滴_21__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_298__)
+            }
+        }
+
+// [metadata-stripped]
+        if _ASTNODE_匹:1.0___ast_滴_21__._ASTNODE_滴:1.0___ast_滴_78__ {
+            _ASTNODE_滴:1.0___ast_滴_381__()
+        } else {
+            _ASTNODE_滴:1.0___ast_滴_291__ = _ASTNODE_匹:1.0___ast_滴_21__
+        }
+    }
+
+// [metadata-stripped]
+    private func _ASTNODE_滴:1.0___ast_滴_381__() {
+        guard let _ASTNODE_滴:1.0___ast_滴_270__    = try? _ASTNODE_廨:1.0___ast_廨_61__(_ASTNODE_滴:1.0___ast_滴_241__: _ASTNODE_緯:1.0___ast_滴_217__),
+              let _ASTNODE_滴:1.0___ast_滴_138__ = try? _ASTNODE_型:1.0___ast_廨_100__()._ASTNODE_滴:1.0___ast_滴_310__([_ASTNODE_廨:1.0___ast_廨_115__].self, _ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_270__),
+              !_ASTNODE_滴:1.0___ast_滴_138__._ASTNODE_滴:1.0___ast_滴_78__
+        else { return }
+
+        _ASTNODE_滴:1.0___ast_滴_291__ = _ASTNODE_滴:1.0___ast_滴_138__
+// [metadata-stripped]
+        for _ASTNODE_滴:1.0___ast_滴_298__ in _ASTNODE_滴:1.0___ast_滴_138__ {
+            var n = _ASTNODE_滴:1.0___ast_滴_298__
+            n = _ASTNODE_廨:1.0___ast_廨_115__(id: _ASTNODE_滴:1.0___ast_滴_298__.id, _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_178__,
+                           _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_128__,
+                           _ASTNODE_滴:1.0___ast_滴_141__: _ASTNODE_涌:1.0___ast_滴_244__(_ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_128__),
+                           _ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_298__._ASTNODE_滴:1.0___ast_滴_174__)
+            _ASTNODE_滴:1.0___ast_滴_303__(n)
+        }
+// [metadata-stripped]
+        let _ASTNODE_滴:1.0___ast_滴_271__ = _ASTNODE_緯:1.0___ast_滴_217__._ASTNODE_滴:1.0___ast_滴_44__()
+            ._ASTNODE_滴:1.0___ast_滴_99__("_ASTNODE_滴:1.0___ast_滴_290__._ASTNODE_滴:1.0___ast_滴_335__")
+        try? _ASTNODE_匹:1.0___ast_廨_18__._ASTNODE_滴:1.0___ast_滴_347__._ASTNODE_滴:1.0___ast_滴_57__(at: _ASTNODE_緯:1.0___ast_滴_217__, to: _ASTNODE_滴:1.0___ast_滴_271__)
+    }
+
+// [metadata-stripped]
+
+    private func _ASTNODE_滴:1.0___ast_滴_325__(_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__) -> [_ASTNODE_廨:1.0___ast_廨_65__] {
+        let _ASTNODE_滴:1.0___ast_滴_365__ = (_ASTNODE_隠:1.0___ast_滴_93__ + " " + _ASTNODE_滴:1.0___ast_滴_178__)._ASTNODE_滴:1.0___ast_滴_261__()
+        var _ASTNODE_滴:1.0___ast_滴_118__: [_ASTNODE_廨:1.0___ast_廨_65__] = []
+        let _ASTNODE_滴:1.0___ast_滴_198__: [(_ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_廨:1.0___ast_廨_65__)] = [
+            ("_ASTNODE_涌:1.0___ast_滴_238__", "技"), ("_ASTNODE_滴:1.0___ast_滴_120__", "技"), ("_ASTNODE_滴:1.0___ast_滴_32__", "技"), ("_ASTNODE_匹:1.0___ast_滴_215__", "技"),
+            ("_ASTNODE_滴:1.0___ast_滴_80__", "会"), ("_ASTNODE_滴:1.0___ast_滴_203__", "憶"), ("_ASTNODE_滴:1.0___ast_滴_311__", "場"),
+            ("_ASTNODE_滴:1.0___ast_滴_191__", "実"), ("_ASTNODE_滴:1.0___ast_滴_210__", "模"), ("ui", "画"), ("_ASTNODE_滴:1.0___ast_滴_92__", "視"),
+            ("_ASTNODE_滴:1.0___ast_滴_1__", "障"), ("_ASTNODE_滴:1.0___ast_滴_350__", "修"), ("_ASTNODE_滴:1.0___ast_滴_167__", "修"),
+        ]
+        for (_ASTNODE_隠:1.0___ast_滴_125__, _ASTNODE_滴:1.0___ast_滴_379__) in _ASTNODE_滴:1.0___ast_滴_198__ {
+            if _ASTNODE_滴:1.0___ast_滴_365__._ASTNODE_滴:1.0___ast_滴_20__(_ASTNODE_隠:1.0___ast_滴_125__) && !_ASTNODE_滴:1.0___ast_滴_118__._ASTNODE_滴:1.0___ast_滴_20__(_ASTNODE_滴:1.0___ast_滴_379__) { _ASTNODE_滴:1.0___ast_滴_118__._ASTNODE_滴:1.0___ast_滴_386__(_ASTNODE_滴:1.0___ast_滴_379__) }
+        }
+        if _ASTNODE_滴:1.0___ast_滴_118__._ASTNODE_滴:1.0___ast_滴_78__ { _ASTNODE_滴:1.0___ast_滴_118__ = ["技", "標"] }
+        return _ASTNODE_廨:1.0___ast_廨_85__(_ASTNODE_滴:1.0___ast_滴_118__._ASTNODE_滴:1.0___ast_滴_184__(4))
+    }
+
+// [metadata-stripped]
+
+    private func _ASTNODE_滴:1.0___ast_滴_317__(_ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_239__: [_ASTNODE_廨:1.0___ast_廨_31__]) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        _ASTNODE_滴:1.0___ast_滴_239__._ASTNODE_滴:1.0___ast_滴_170__ { _ASTNODE_滴:1.0___ast_滴_104__ -> _ASTNODE_廨:1.0___ast_廨_65__? in
+            switch _ASTNODE_滴:1.0___ast_滴_104__._ASTNODE_滴:1.0___ast_滴_274__ {
+            case ._ASTNODE_型:1.0___ast_滴_358__:      return "U: \(_ASTNODE_滴:1.0___ast_滴_104__._ASTNODE_滴:1.0___ast_滴_151__._ASTNODE_滴:1.0___ast_滴_184__(100))"
+            case ._ASTNODE_滴:1.0___ast_滴_318__: return "A: \(_ASTNODE_滴:1.0___ast_滴_104__._ASTNODE_滴:1.0___ast_滴_151__._ASTNODE_滴:1.0___ast_滴_184__(200))"
+            case ._ASTNODE_滴:1.0___ast_滴_85__:    return nil
+            }
+        }._ASTNODE_滴:1.0___ast_滴_37__(_ASTNODE_滴:1.0___ast_滴_84__: " | ")
+    }
+}
+_ASTNODE_滴:1.0___ast_滴_256__ort _ASTNODE_廨:1.0___ast_廨_94__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _ASTNODE_型:1.0___ast_廨_45__ {
+
+// [metadata-stripped]
+
+    static func _ASTNODE_滴:1.0___ast_滴_41__(
+        id: _ASTNODE_廨:1.0___ast_廨_65__,
+        _ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__,
+        _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__,
+        _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__,
+        _ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__],
+        _ASTNODE_滴:1.0___ast_滴_363__: _ASTNODE_廨:1.0___ast_廨_65__? = nil
+    ) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        let ts = _ASTNODE_廨:1.0___ast_廨_14__(_ASTNODE_廨:1.0___ast_廨_16__()._ASTNODE_滴:1.0___ast_滴_147__ * 1000)
+        let _ASTNODE_滴:1.0___ast_滴_237__ = "_ASTNODE_廨:1.0___ast_廨_29__\(id._ASTNODE_滴:1.0___ast_滴_78__ ? "\(ts)" : id)"
+        let _ASTNODE_滴:1.0___ast_滴_384__ = _ASTNODE_滴:1.0___ast_滴_179__(_ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_174__, _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_滴:1.0___ast_滴_128__)
+        let _ASTNODE_滴:1.0___ast_滴_56__ = _ASTNODE_滴:1.0___ast_滴_330__(_ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_174__, _ASTNODE_滴:1.0___ast_滴_115__: _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_178__._ASTNODE_滴:1.0___ast_滴_184__(64)))
+        let _ASTNODE_滴:1.0___ast_滴_107__ = "OP._ASTNODE_廨:1.0___ast_廨_107__(\"\(_ASTNODE_滴:1.0___ast_滴_304__(_ASTNODE_隠:1.0___ast_滴_93__))\", \"\(_ASTNODE_滴:1.0___ast_滴_304__(_ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_178__._ASTNODE_滴:1.0___ast_滴_184__(200))))\")"
+        let _ASTNODE_滴:1.0___ast_滴_161__ = _ASTNODE_滴:1.0___ast_滴_363__ ?? "\(_ASTNODE_隠:1.0___ast_滴_93__): \(_ASTNODE_滴:1.0___ast_滴_178__)"
+
+        return """
+        ■ \(_ASTNODE_滴:1.0___ast_滴_237__)
+        【空間座相】
+        \(_ASTNODE_滴:1.0___ast_滴_384__)
+
+        【L1.5索引】
+        \(_ASTNODE_滴:1.0___ast_滴_56__)
+
+        【位相対応表】
+        [標] := "\(_ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_178__._ASTNODE_滴:1.0___ast_滴_184__(80))._ASTNODE_滴:1.0___ast_滴_383__(of: "\n", _ASTNODE_滴:1.0___ast_滴_168__: " "))"
+
+        【操作対応表】
+        \(_ASTNODE_滴:1.0___ast_滴_107__)
+
+        【原文】
+        \(_ASTNODE_滴:1.0___ast_滴_161__)
+        """
+    }
+
+// [metadata-stripped]
+
+    static func _ASTNODE_滴:1.0___ast_滴_2__(
+        _ASTNODE_匹:1.0___ast_滴_211__: _ASTNODE_廨:1.0___ast_廨_65__,
+        _ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__],
+        _ASTNODE_滴:1.0___ast_滴_94__: _ASTNODE_廨:1.0___ast_廨_65__
+// _ASTNODE_隠:0.9___ast_ZE_241__ [decoy-metadata]
+    ) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        let _ASTNODE_滴:1.0___ast_滴_384__ = _ASTNODE_滴:1.0___ast_滴_179__(_ASTNODE_滴:1.0___ast_滴_174__: _ASTNODE_滴:1.0___ast_滴_174__, _ASTNODE_滴:1.0___ast_滴_128__: 0.5)
+        let _ASTNODE_滴:1.0___ast_滴_49__ = _ASTNODE_型:1.0___ast_廨_46__()._ASTNODE_滴:1.0___ast_滴_284__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_廨:1.0___ast_廨_16__())
+        return """
+        ■ _ASTNODE_廨:1.0___ast_廨_22__\(_ASTNODE_匹:1.0___ast_滴_211__)
+        【空間座相】
+        \(_ASTNODE_滴:1.0___ast_滴_384__)
+
+        【_ASTNODE_廨:1.0___ast_廨_95__】
+        \(_ASTNODE_滴:1.0___ast_滴_94__)
+
+        【_ASTNODE_廨:1.0___ast_廨_28__】
+        \(_ASTNODE_滴:1.0___ast_滴_49__)
+        """
+    }
+
+// [metadata-stripped]
+
+    static func _ASTNODE_滴:1.0___ast_滴_327__(_ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_26__: _ASTNODE_廨:1.0___ast_廨_65__) -> (_ASTNODE_隠:1.0___ast_滴_93__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_178__: _ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__])? {
+// [metadata-stripped]
+        if let _ASTNODE_滴:1.0___ast_滴_121__ = _ASTNODE_滴:1.0___ast_滴_26__._ASTNODE_滴:1.0___ast_滴_53__(of: #"OP\._ASTNODE_廨:1.0___ast_廨_107__\("([^"]+)",\s*"([^"]*)"\)"#,
+                                      _ASTNODE_滴:1.0___ast_滴_70__: ._ASTNODE_滴:1.0___ast_滴_75__) {
+            let _ASTNODE_滴:1.0___ast_滴_324__ = _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_26__[_ASTNODE_滴:1.0___ast_滴_121__])
+            let _ASTNODE_滴:1.0___ast_滴_35__ = #"OP\._ASTNODE_廨:1.0___ast_廨_107__\("([^"]+)",\s*"([^"]*)"\)"#
+            if let _ASTNODE_滴:1.0___ast_滴_12__ = try? _ASTNODE_廨:1.0___ast_廨_44__(_ASTNODE_滴:1.0___ast_滴_35__: _ASTNODE_滴:1.0___ast_滴_35__),
+               let _ASTNODE_滴:1.0___ast_滴_182__ = _ASTNODE_滴:1.0___ast_滴_12__._ASTNODE_滴:1.0___ast_滴_342__(in: _ASTNODE_滴:1.0___ast_滴_324__, _ASTNODE_滴:1.0___ast_滴_53__: _ASTNODE_廨:1.0___ast_廨_7__(_ASTNODE_滴:1.0___ast_滴_324__._ASTNODE_滴:1.0___ast_滴_236__..., in: _ASTNODE_滴:1.0___ast_滴_324__)) {
+                let _ASTNODE_隠:1.0___ast_滴_93__   = _ASTNODE_廨:1.0___ast_廨_87__(_ASTNODE_滴:1.0___ast_滴_182__._ASTNODE_滴:1.0___ast_滴_53__(at: 1), in: _ASTNODE_滴:1.0___ast_滴_324__)._ASTNODE_滴:1.0___ast_滴_198__ { _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_324__[$0]) } ?? ""
+                let _ASTNODE_滴:1.0___ast_滴_178__ = _ASTNODE_廨:1.0___ast_廨_87__(_ASTNODE_滴:1.0___ast_滴_182__._ASTNODE_滴:1.0___ast_滴_53__(at: 2), in: _ASTNODE_滴:1.0___ast_滴_324__)._ASTNODE_滴:1.0___ast_滴_198__ { _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_324__[$0]) } ?? ""
+                let _ASTNODE_滴:1.0___ast_滴_118__  = _ASTNODE_滴:1.0___ast_滴_263__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_26__)
+                return (_ASTNODE_隠:1.0___ast_滴_93__, _ASTNODE_滴:1.0___ast_滴_178__, _ASTNODE_滴:1.0___ast_滴_118__)
+            }
+        }
+
+// [metadata-stripped]
+        if let _ASTNODE_滴:1.0___ast_滴_23__ = _ASTNODE_滴:1.0___ast_滴_26__._ASTNODE_滴:1.0___ast_滴_216__(_ASTNODE_滴:1.0___ast_滴_96__: "\n")._ASTNODE_滴:1.0___ast_滴_287__(where: { $0._ASTNODE_滴:1.0___ast_滴_27__("[標]") }) {
+            let _ASTNODE_滴:1.0___ast_滴_178__ = _ASTNODE_滴:1.0___ast_滴_23__
+                ._ASTNODE_滴:1.0___ast_滴_383__(of: #"\[標\] := ""#, _ASTNODE_滴:1.0___ast_滴_168__: "", _ASTNODE_滴:1.0___ast_滴_70__: ._ASTNODE_滴:1.0___ast_滴_75__)
+                ._ASTNODE_滴:1.0___ast_滴_383__(of: "\"", _ASTNODE_滴:1.0___ast_滴_168__: "")
+                ._ASTNODE_滴:1.0___ast_滴_230__(in: ._ASTNODE_滴:1.0___ast_滴_76__)
+            return ("_ASTNODE_滴:1.0___ast_滴_289__", _ASTNODE_滴:1.0___ast_滴_178__, _ASTNODE_滴:1.0___ast_滴_263__(_ASTNODE_滴:1.0___ast_滴_235__: _ASTNODE_滴:1.0___ast_滴_26__))
+        }
+        return nil
+    }
+
+// [metadata-stripped]
+
+    static func _ASTNODE_滴:1.0___ast_滴_17__(_ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_26__: _ASTNODE_廨:1.0___ast_廨_65__) -> _ASTNODE_廨:1.0___ast_廨_65__? {
+        guard let _ASTNODE_滴:1.0___ast_滴_53__ = _ASTNODE_滴:1.0___ast_滴_26__._ASTNODE_滴:1.0___ast_滴_53__(of: "【原文】") else { return nil }
+        return _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_26__[_ASTNODE_滴:1.0___ast_滴_53__._ASTNODE_滴:1.0___ast_滴_248__...])._ASTNODE_滴:1.0___ast_滴_230__(in: ._ASTNODE_滴:1.0___ast_滴_337__)
+    }
+
+// [metadata-stripped]
+
+    private static func _ASTNODE_滴:1.0___ast_滴_179__(_ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__], _ASTNODE_滴:1.0___ast_滴_128__: _ASTNODE_廨:1.0___ast_廨_52__) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        let _ASTNODE_滴:1.0___ast_滴_278__: [(_ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_廨:1.0___ast_廨_52__)] = [("技", 0.8), ("標", 0.7), ("認", 0.6)]
+        var _ASTNODE_滴:1.0___ast_滴_265__: [(_ASTNODE_廨:1.0___ast_廨_65__, _ASTNODE_廨:1.0___ast_廨_52__)] = _ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_346__()._ASTNODE_滴:1.0___ast_滴_198__ { i, k in
+            (k, _ASTNODE_滴:1.0___ast_滴_169__(0.1, _ASTNODE_滴:1.0___ast_滴_128__ - _ASTNODE_廨:1.0___ast_廨_52__(i) * 0.1))
+        }
+        if _ASTNODE_滴:1.0___ast_滴_265__._ASTNODE_滴:1.0___ast_滴_78__ { _ASTNODE_滴:1.0___ast_滴_265__ = _ASTNODE_滴:1.0___ast_滴_278__ }
+        return _ASTNODE_滴:1.0___ast_滴_265__._ASTNODE_滴:1.0___ast_滴_198__ { "[\($0.0): \(_ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_涌:1.0___ast_滴_101__: "%.1f", $0.1))]" }._ASTNODE_滴:1.0___ast_滴_37__(_ASTNODE_滴:1.0___ast_滴_84__: " ")
+    }
+
+    private static func _ASTNODE_滴:1.0___ast_滴_330__(_ASTNODE_滴:1.0___ast_滴_174__: [_ASTNODE_廨:1.0___ast_廨_65__], _ASTNODE_滴:1.0___ast_滴_115__: _ASTNODE_廨:1.0___ast_廨_65__) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        let _ASTNODE_滴:1.0___ast_滴_202__ = _ASTNODE_滴:1.0___ast_滴_174__._ASTNODE_滴:1.0___ast_滴_184__(3)._ASTNODE_滴:1.0___ast_滴_37__()
+        let _ASTNODE_滴:1.0___ast_滴_54__ = _ASTNODE_滴:1.0___ast_滴_115__._ASTNODE_滴:1.0___ast_滴_383__(of: "\n", _ASTNODE_滴:1.0___ast_滴_168__: " ")
+        return "[\(_ASTNODE_滴:1.0___ast_滴_202__._ASTNODE_滴:1.0___ast_滴_78__ ? "技標認" : _ASTNODE_滴:1.0___ast_滴_202__)] | \"\(_ASTNODE_滴:1.0___ast_滴_54__)\""
+    }
+
+    private static func _ASTNODE_滴:1.0___ast_滴_263__(_ASTNODE_滴:1.0___ast_滴_235__ _ASTNODE_滴:1.0___ast_滴_26__: _ASTNODE_廨:1.0___ast_廨_65__) -> [_ASTNODE_廨:1.0___ast_廨_65__] {
+        guard let _ASTNODE_滴:1.0___ast_滴_23__ = _ASTNODE_滴:1.0___ast_滴_26__._ASTNODE_滴:1.0___ast_滴_216__(_ASTNODE_滴:1.0___ast_滴_96__: "\n")
+            ._ASTNODE_滴:1.0___ast_滴_287__(where: { $0._ASTNODE_滴:1.0___ast_滴_20__("[") && $0._ASTNODE_滴:1.0___ast_滴_20__(":") && !$0._ASTNODE_滴:1.0___ast_滴_20__("】") })
+        else { return [] }
+        let _ASTNODE_滴:1.0___ast_滴_35__ = #"\[([^\]:]+):\s*[\d.]+\]"#
+// _ASTNODE_匹:0.8___ast_EX_932__ [decoy-metadata]
+        guard let _ASTNODE_滴:1.0___ast_滴_12__ = try? _ASTNODE_廨:1.0___ast_廨_44__(_ASTNODE_滴:1.0___ast_滴_35__: _ASTNODE_滴:1.0___ast_滴_35__) else { return [] }
+        let _ASTNODE_滴:1.0___ast_滴_156__ = _ASTNODE_滴:1.0___ast_滴_12__._ASTNODE_滴:1.0___ast_滴_156__(in: _ASTNODE_滴:1.0___ast_滴_23__, _ASTNODE_滴:1.0___ast_滴_53__: _ASTNODE_廨:1.0___ast_廨_7__(_ASTNODE_滴:1.0___ast_滴_23__._ASTNODE_滴:1.0___ast_滴_236__..., in: _ASTNODE_滴:1.0___ast_滴_23__))
+        return _ASTNODE_滴:1.0___ast_滴_156__._ASTNODE_滴:1.0___ast_滴_170__ { m -> _ASTNODE_廨:1.0___ast_廨_65__? in
+            _ASTNODE_廨:1.0___ast_廨_87__(m._ASTNODE_滴:1.0___ast_滴_53__(at: 1), in: _ASTNODE_滴:1.0___ast_滴_23__)._ASTNODE_滴:1.0___ast_滴_198__ { _ASTNODE_廨:1.0___ast_廨_65__(_ASTNODE_滴:1.0___ast_滴_23__[$0])._ASTNODE_滴:1.0___ast_滴_230__(in: ._ASTNODE_滴:1.0___ast_滴_76__) }
+        }
+    }
+
+    private static func _ASTNODE_滴:1.0___ast_滴_304__(_ s: _ASTNODE_廨:1.0___ast_廨_65__) -> _ASTNODE_廨:1.0___ast_廨_65__ {
+        s._ASTNODE_滴:1.0___ast_滴_383__(of: "\\", _ASTNODE_滴:1.0___ast_滴_168__: "\\\\")
+         ._ASTNODE_滴:1.0___ast_滴_383__(of: "\"", _ASTNODE_滴:1.0___ast_滴_168__: "\\\"")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

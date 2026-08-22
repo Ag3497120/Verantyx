@@ -1,0 +1,244 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E4087BFF ver:1778166841
+// ⚠️ One-time schema — expires after response
+
+import __jcross_霩:1.0____node_霩_39__ { __jcross_繕:1.0____node_庖_29__ } __jcross_霩:1.0____node_霩_49__ "@__jcross_霩:1.0____node_霩_3__/__jcross_霩:1.0____node_霩_5__";
+import __jcross_霩:1.0____node_霩_39__ { __jcross_繕:1.0____node_庖_24__, __jcross_繕:1.0____node_庖_10__, __jcross_繕:1.0____node_庖_19__, __jcross_繕:1.0____node_庖_12__ } __jcross_霩:1.0____node_霩_49__ "__jcross_霩:1.0____node_霩_82__-__jcross_繕:1.0____node_霩_29__-__jcross_霩:1.0____node_霩_62__/__jcross_霩:1.0____node_霩_64__";
+import { __jcross_庖:1.0____node_庖_25__, __jcross_庖:1.0____node_庖_15__, __jcross_庖:1.0____node_庖_2__ } __jcross_霩:1.0____node_霩_49__ "__jcross_霩:1.0____node_霩_82__-__jcross_繕:1.0____node_霩_29__-__jcross_霩:1.0____node_霩_62__/__jcross_霩:1.0____node_霩_64__";
+import { __jcross_霩:1.0____node_霩_8__ } __jcross_霩:1.0____node_霩_49__ "./__jcross_霩:1.0____node_霩_34__.js";
+import __jcross_霩:1.0____node_霩_39__ { __jcross_庖:1.0____node_庖_4__, __jcross_庖:1.0____node_庖_21__ } __jcross_霩:1.0____node_霩_49__ "./__jcross_霩:1.0____node_霩_25__.__jcross_霩:1.0____node_霩_62__.js";
+
+__jcross_霩:1.0____node_霩_60__ __jcross_庖:1.0____node_庖_23__ = __jcross_庖:1.0____node_庖_18__.__jcross_霩:1.0____node_霩_58__(__jcross_庖:1.0____node_庖_15__).__jcross_法:1.0____node_霩_22__(
+  ([, __jcross_霩:1.0____node_霩_36__]) => __jcross_霩:1.0____node_霩_88__ __jcross_霩:1.0____node_霩_36__ === "__jcross_霩:1.0____node_霩_53__",
+);
+__jcross_霩:1.0____node_霩_60__ __jcross_庖:1.0____node_庖_6__ = __jcross_庖:1.0____node_庖_23__.__jcross_霩:1.0____node_霩_44__((__jcross_霩:1.0____node_霩_63__, [, __jcross_霩:1.0____node_霩_36__]) => __jcross_霩:1.0____node_霩_63__ | __jcross_霩:1.0____node_霩_36__, 0n);
+__jcross_霩:1.0____node_霩_60__ __jcross_庖:1.0____node_庖_22__ = __jcross_庖:1.0____node_庖_15__.__jcross_庖:1.0____node_庖_16__;
+
+__jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_92__: __jcross_霩:1.0____node_霩_53__, __jcross_霩:1.0____node_霩_75__?: __jcross_霩:1.0____node_霩_71__) {
+  if (!__jcross_霩:1.0____node_霩_75__) {
+    return __jcross_霩:1.0____node_霩_92__;
+  }
+  return __jcross_霩:1.0____node_霩_92__ | __jcross_庖:1.0____node_庖_5__(__jcross_霩:1.0____node_霩_75__);
+}
+
+__jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_35__(__jcross_霩:1.0____node_霩_92__: __jcross_霩:1.0____node_霩_53__, __jcross_霩:1.0____node_霩_86__?: __jcross_霩:1.0____node_霩_71__) {
+  if (!__jcross_霩:1.0____node_霩_86__) {
+    return __jcross_霩:1.0____node_霩_92__;
+  }
+  return __jcross_霩:1.0____node_霩_92__ & ~__jcross_庖:1.0____node_庖_5__(__jcross_霩:1.0____node_霩_86__);
+}
+
+__jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_55__(__jcross_霩:1.0____node_霩_30__: __jcross_霩:1.0____node_霩_53__) {
+  return __jcross_庖:1.0____node_庖_23__.__jcross_法:1.0____node_霩_22__(([, __jcross_霩:1.0____node_霩_36__]) => (__jcross_霩:1.0____node_霩_30__ & __jcross_霩:1.0____node_霩_36__) === __jcross_霩:1.0____node_霩_36__)
+    .__jcross_霩:1.0____node_霩_19__(([__jcross_霩:1.0____node_霩_21__]) => __jcross_霩:1.0____node_霩_21__)
+    .__jcross_霩:1.0____node_霩_52__();
+}
+
+__jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_13__(__jcross_霩:1.0____node_霩_30__: __jcross_霩:1.0____node_霩_53__) {
+  return (__jcross_霩:1.0____node_霩_30__ & __jcross_庖:1.0____node_庖_22__) === __jcross_庖:1.0____node_庖_22__;
+}
+
+__jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_23__(__jcross_霩:1.0____node_霩_30__: __jcross_霩:1.0____node_霩_53__, __jcross_霩:1.0____node_霩_95__: __jcross_霩:1.0____node_霩_53__) {
+  return (__jcross_霩:1.0____node_霩_30__ & __jcross_霩:1.0____node_霩_95__) === __jcross_霩:1.0____node_霩_95__;
+}
+
+__jcross_霩:1.0____node_霩_41__ __jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_68__(__jcross_霩:1.0____node_霩_38__?: __jcross_法:1.0____node_霩_26__) {
+  return (
+    __jcross_霩:1.0____node_霩_38__ === __jcross_庖:1.0____node_庖_25__.__jcross_庖:1.0____node_庖_9__ ||
+    __jcross_霩:1.0____node_霩_38__ === __jcross_庖:1.0____node_庖_25__.__jcross_庖:1.0____node_庖_7__ ||
+    __jcross_霩:1.0____node_霩_38__ === __jcross_庖:1.0____node_庖_25__.__jcross_庖:1.0____node_庖_14__
+  );
+}
+
+async __jcross_霩:1.0____node_霩_89__ __jcross_法:1.0____node_彩_5__(__jcross_霩:1.0____node_霩_47__: __jcross_繕:1.0____node_庖_29__) {
+  __jcross_霩:1.0____node_霩_60__ me = (await __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_法:1.0____node_霩_43__("@me"))) as { id?: __jcross_霩:1.0____node_霩_71__ };
+  if (!me?.id) {
+    __jcross_霩:1.0____node_霩_48__ __jcross_霩:1.0____node_霩_28__ __jcross_庖:1.0____node_庖_1__("__jcross_庖:1.0____node_庖_28__ to __jcross_霩:1.0____node_霩_80__ __jcross_霩:1.0____node_霩_27__ __jcross_法:1.0____node_霩_43__ id");
+  }
+  return me.id;
+}
+
+/**
+ * __jcross_法:1.0____node_彩_4__ __jcross_霩:1.0____node_霩_77__-__jcross_霩:1.0____node_霩_12__ __jcross_霩:1.0____node_霩_97__ for a __jcross_法:1.0____node_霩_43__. __jcross_庖:1.0____node_庖_27__ __jcross_霩:1.0____node_霩_78__ __jcross_霩:1.0____node_霩_31__ __jcross_霩:1.0____node_霩_9__ __jcross_霩:1.0____node_霩_2__-__jcross_漂:1.0____node_霩_40__ __jcross_霩:1.0____node_霩_16__.
+ */
+__jcross_霩:1.0____node_霩_41__ async __jcross_霩:1.0____node_霩_89__ __jcross_法:1.0____node_彩_3__(
+  __jcross_霩:1.0____node_霩_69__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_87__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_45__: __jcross_庖:1.0____node_庖_21__ = {},
+): __jcross_庖:1.0____node_庖_17__<__jcross_霩:1.0____node_霩_53__ | __jcross_霩:1.0____node_霩_46__> {
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_47__ = __jcross_霩:1.0____node_霩_8__(__jcross_霩:1.0____node_霩_45__);
+// __jcross_匹:0.7____node_FB_855__ [decoy-metadata]
+  try {
+    __jcross_霩:1.0____node_霩_60__ [__jcross_霩:1.0____node_霩_77__, __jcross_法:1.0____node_霩_1__] = await __jcross_庖:1.0____node_庖_17__.__jcross_霩:1.0____node_霩_6__([
+      __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_霩:1.0____node_霩_77__(__jcross_霩:1.0____node_霩_69__)) as __jcross_庖:1.0____node_庖_17__<__jcross_繕:1.0____node_庖_10__>,
+      __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_法:1.0____node_霩_72__(__jcross_霩:1.0____node_霩_69__, __jcross_霩:1.0____node_霩_87__)) as __jcross_庖:1.0____node_庖_17__<__jcross_繕:1.0____node_庖_19__>,
+    ]);
+    __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_15__ = __jcross_霩:1.0____node_霩_28__ __jcross_庖:1.0____node_庖_3__<__jcross_霩:1.0____node_霩_71__, __jcross_繕:1.0____node_庖_12__>((__jcross_霩:1.0____node_霩_77__.__jcross_霩:1.0____node_霩_56__ ?? []).__jcross_霩:1.0____node_霩_19__((__jcross_霩:1.0____node_霩_94__) => [__jcross_霩:1.0____node_霩_94__.id, __jcross_霩:1.0____node_霩_94__]));
+    __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_66__ = __jcross_霩:1.0____node_霩_15__.__jcross_法:1.0____node_彩_2__(__jcross_霩:1.0____node_霩_69__);
+    let __jcross_霩:1.0____node_霩_97__ = 0n;
+    if (__jcross_霩:1.0____node_霩_66__?.__jcross_霩:1.0____node_霩_97__) {
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_66__.__jcross_霩:1.0____node_霩_97__);
+    }
+    for (__jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_91__ of __jcross_法:1.0____node_霩_1__.__jcross_霩:1.0____node_霩_56__ ?? []) {
+      __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_94__ = __jcross_霩:1.0____node_霩_15__.__jcross_法:1.0____node_彩_2__(__jcross_霩:1.0____node_霩_91__);
+      if (__jcross_霩:1.0____node_霩_94__?.__jcross_霩:1.0____node_霩_97__) {
+        __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_94__.__jcross_霩:1.0____node_霩_97__);
+// __jcross_鍵:0.3____node_WM_338__ [decoy-metadata]
+      }
+    }
+    return __jcross_霩:1.0____node_霩_97__;
+  } catch {
+// [metadata-stripped]
+    return __jcross_霩:1.0____node_霩_46__;
+  }
+}
+
+/**
+ * __jcross_庖:1.0____node_庖_26__ true __jcross_霩:1.0____node_霩_84__ __jcross_霩:1.0____node_霩_79__ __jcross_法:1.0____node_霩_43__ __jcross_霩:1.0____node_霩_81__ __jcross_庖:1.0____node_庖_13__ or __jcross_霩:1.0____node_霩_59__ __jcross_霩:1.0____node_霩_95__ __jcross_霩:1.0____node_霩_18__
+ * __jcross_霩:1.0____node_霩_85__ __jcross_霩:1.0____node_霩_79__ __jcross_霩:1.0____node_霩_67__ __jcross_霩:1.0____node_霩_33__.
+ */
+async __jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_61__(
+  __jcross_霩:1.0____node_霩_69__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_87__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_57__: __jcross_霩:1.0____node_霩_53__[],
+  __jcross_霩:1.0____node_霩_90__: (__jcross_霩:1.0____node_霩_97__: __jcross_霩:1.0____node_霩_53__, __jcross_霩:1.0____node_霩_57__: __jcross_霩:1.0____node_霩_53__[]) => __jcross_霩:1.0____node_霩_51__,
+  __jcross_霩:1.0____node_霩_45__: __jcross_庖:1.0____node_庖_21__ = {},
+): __jcross_庖:1.0____node_庖_17__<__jcross_霩:1.0____node_霩_51__> {
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_97__ = await __jcross_法:1.0____node_彩_3__(__jcross_霩:1.0____node_霩_69__, __jcross_霩:1.0____node_霩_87__, __jcross_霩:1.0____node_霩_45__);
+  if (__jcross_霩:1.0____node_霩_97__ === __jcross_霩:1.0____node_霩_46__) {
+    return false;
+  }
+  if (__jcross_霩:1.0____node_霩_13__(__jcross_霩:1.0____node_霩_97__)) {
+    return true;
+  }
+  return __jcross_霩:1.0____node_霩_90__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_57__);
+}
+
+/**
+ * __jcross_庖:1.0____node_庖_26__ true __jcross_霩:1.0____node_霩_84__ __jcross_霩:1.0____node_霩_79__ __jcross_法:1.0____node_霩_43__ __jcross_霩:1.0____node_霩_81__ __jcross_庖:1.0____node_庖_13__ or any __jcross_霩:1.0____node_霩_59__ __jcross_霩:1.0____node_霩_95__ __jcross_霩:1.0____node_霩_42__.
+ */
+__jcross_霩:1.0____node_霩_41__ async __jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_83__(
+  __jcross_霩:1.0____node_霩_69__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_87__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_57__: __jcross_霩:1.0____node_霩_53__[],
+  __jcross_霩:1.0____node_霩_45__: __jcross_庖:1.0____node_庖_21__ = {},
+): __jcross_庖:1.0____node_庖_17__<__jcross_霩:1.0____node_霩_51__> {
+  return await __jcross_霩:1.0____node_霩_61__(
+// __jcross_漂:0.3____node_XF_527__ [decoy-metadata]
+    __jcross_霩:1.0____node_霩_69__,
+    __jcross_霩:1.0____node_霩_87__,
+    __jcross_霩:1.0____node_霩_57__,
+    (__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_59__) =>
+      __jcross_霩:1.0____node_霩_59__.some((__jcross_霩:1.0____node_霩_95__) => __jcross_霩:1.0____node_霩_23__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_95__)),
+    __jcross_霩:1.0____node_霩_45__,
+  );
+}
+
+/**
+ * __jcross_庖:1.0____node_庖_26__ true __jcross_霩:1.0____node_霩_84__ __jcross_霩:1.0____node_霩_79__ __jcross_法:1.0____node_霩_43__ __jcross_霩:1.0____node_霩_81__ __jcross_庖:1.0____node_庖_13__ or __jcross_霩:1.0____node_霩_6__ __jcross_霩:1.0____node_霩_59__ __jcross_霩:1.0____node_霩_95__ __jcross_霩:1.0____node_霩_18__.
+ */
+__jcross_霩:1.0____node_霩_41__ async __jcross_霩:1.0____node_霩_89__ __jcross_霩:1.0____node_霩_54__(
+  __jcross_霩:1.0____node_霩_69__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_87__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_57__: __jcross_霩:1.0____node_霩_53__[],
+  __jcross_霩:1.0____node_霩_45__: __jcross_庖:1.0____node_庖_21__ = {},
+): __jcross_庖:1.0____node_庖_17__<__jcross_霩:1.0____node_霩_51__> {
+  return await __jcross_霩:1.0____node_霩_61__(
+    __jcross_霩:1.0____node_霩_69__,
+    __jcross_霩:1.0____node_霩_87__,
+    __jcross_霩:1.0____node_霩_57__,
+    (__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_59__) =>
+      __jcross_霩:1.0____node_霩_59__.__jcross_霩:1.0____node_霩_76__((__jcross_霩:1.0____node_霩_95__) => __jcross_霩:1.0____node_霩_23__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_95__)),
+    __jcross_霩:1.0____node_霩_45__,
+  );
+}
+// __jcross_鍵:0.3____node_KB_748__ [decoy-metadata]
+
+/**
+ * @__jcross_霩:1.0____node_霩_17__ __jcross_法:1.0____node_庖_11__ __jcross_霩:1.0____node_霩_83__ or __jcross_霩:1.0____node_霩_54__ for __jcross_霩:1.0____node_霩_50__.
+ */
+__jcross_霩:1.0____node_霩_41__ __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_32__ = __jcross_霩:1.0____node_霩_83__;
+
+__jcross_霩:1.0____node_霩_41__ async __jcross_霩:1.0____node_霩_89__ __jcross_法:1.0____node_彩_1__(
+  __jcross_霩:1.0____node_霩_11__: __jcross_霩:1.0____node_霩_71__,
+  __jcross_霩:1.0____node_霩_45__: __jcross_庖:1.0____node_庖_21__ = {},
+): __jcross_庖:1.0____node_庖_17__<__jcross_庖:1.0____node_庖_4__> {
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_47__ = __jcross_霩:1.0____node_霩_8__(__jcross_霩:1.0____node_霩_45__);
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_2__ = (await __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_霩:1.0____node_霩_2__(__jcross_霩:1.0____node_霩_11__))) as __jcross_繕:1.0____node_庖_24__;
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_38__ = "__jcross_霩:1.0____node_霩_39__" in __jcross_霩:1.0____node_霩_2__ ? __jcross_霩:1.0____node_霩_2__.__jcross_霩:1.0____node_霩_39__ : __jcross_霩:1.0____node_霩_24__;
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_69__ = "__jcross_霩:1.0____node_霩_65__" in __jcross_霩:1.0____node_霩_2__ ? __jcross_霩:1.0____node_霩_2__.__jcross_霩:1.0____node_霩_65__ : __jcross_霩:1.0____node_霩_24__;
+  if (!__jcross_霩:1.0____node_霩_69__) {
+    return {
+      __jcross_霩:1.0____node_霩_11__,
+      __jcross_霩:1.0____node_霩_97__: [],
+      __jcross_霩:1.0____node_霩_4__: "0",
+      __jcross_霩:1.0____node_霩_74__: true,
+      __jcross_霩:1.0____node_霩_38__,
+    };
+  }
+
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_93__ = await __jcross_法:1.0____node_彩_5__(__jcross_霩:1.0____node_霩_47__);
+  __jcross_霩:1.0____node_霩_60__ [__jcross_霩:1.0____node_霩_77__, __jcross_法:1.0____node_霩_1__] = await __jcross_庖:1.0____node_庖_17__.__jcross_霩:1.0____node_霩_6__([
+    __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_霩:1.0____node_霩_77__(__jcross_霩:1.0____node_霩_69__)) as __jcross_庖:1.0____node_庖_17__<__jcross_繕:1.0____node_庖_10__>,
+    __jcross_霩:1.0____node_霩_47__.__jcross_法:1.0____node_彩_2__(__jcross_庖:1.0____node_庖_2__.__jcross_法:1.0____node_霩_72__(__jcross_霩:1.0____node_霩_69__, __jcross_霩:1.0____node_霩_93__)) as __jcross_庖:1.0____node_庖_17__<__jcross_繕:1.0____node_庖_19__>,
+  ]);
+
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_15__ = __jcross_霩:1.0____node_霩_28__ __jcross_庖:1.0____node_庖_3__<__jcross_霩:1.0____node_霩_71__, __jcross_繕:1.0____node_庖_12__>((__jcross_霩:1.0____node_霩_77__.__jcross_霩:1.0____node_霩_56__ ?? []).__jcross_霩:1.0____node_霩_19__((__jcross_霩:1.0____node_霩_94__) => [__jcross_霩:1.0____node_霩_94__.id, __jcross_霩:1.0____node_霩_94__]));
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_66__ = __jcross_霩:1.0____node_霩_15__.__jcross_法:1.0____node_彩_2__(__jcross_霩:1.0____node_霩_69__);
+  let __jcross_霩:1.0____node_霩_92__ = 0n;
+  if (__jcross_霩:1.0____node_霩_66__?.__jcross_霩:1.0____node_霩_97__) {
+    __jcross_霩:1.0____node_霩_92__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_92__, __jcross_霩:1.0____node_霩_66__.__jcross_霩:1.0____node_霩_97__);
+  }
+  for (__jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_91__ of __jcross_法:1.0____node_霩_1__.__jcross_霩:1.0____node_霩_56__ ?? []) {
+    __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_94__ = __jcross_霩:1.0____node_霩_15__.__jcross_法:1.0____node_彩_2__(__jcross_霩:1.0____node_霩_91__);
+    if (__jcross_霩:1.0____node_霩_94__?.__jcross_霩:1.0____node_霩_97__) {
+      __jcross_霩:1.0____node_霩_92__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_92__, __jcross_霩:1.0____node_霩_94__.__jcross_霩:1.0____node_霩_97__);
+// __jcross_漂:0.9____node_VF_756__ [decoy-metadata]
+    }
+  }
+
+  if (__jcross_霩:1.0____node_霩_13__(__jcross_霩:1.0____node_霩_92__)) {
+    return {
+      __jcross_霩:1.0____node_霩_11__,
+      __jcross_霩:1.0____node_霩_69__,
+      __jcross_霩:1.0____node_霩_97__: __jcross_霩:1.0____node_霩_55__(__jcross_庖:1.0____node_庖_6__),
+      __jcross_霩:1.0____node_霩_4__: __jcross_庖:1.0____node_庖_6__.__jcross_霩:1.0____node_霩_10__(),
+      __jcross_霩:1.0____node_霩_74__: false,
+      __jcross_霩:1.0____node_霩_38__,
+    };
+  }
+
+  let __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_92__;
+  __jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_16__ =
+    "__jcross_霩:1.0____node_霩_7__" in __jcross_霩:1.0____node_霩_2__ ? (__jcross_霩:1.0____node_霩_2__.__jcross_霩:1.0____node_霩_7__ ?? []) : [];
+  for (__jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_96__ of __jcross_霩:1.0____node_霩_16__) {
+    if (__jcross_霩:1.0____node_霩_96__.id === __jcross_霩:1.0____node_霩_69__) {
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_35__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_86__ ?? "0");
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_20__ ?? "0");
+    }
+  }
+  for (__jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_96__ of __jcross_霩:1.0____node_霩_16__) {
+    if (__jcross_法:1.0____node_霩_1__.__jcross_霩:1.0____node_霩_56__?.__jcross_霩:1.0____node_霩_73__(__jcross_霩:1.0____node_霩_96__.id)) {
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_35__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_86__ ?? "0");
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_20__ ?? "0");
+    }
+  }
+  for (__jcross_霩:1.0____node_霩_60__ __jcross_霩:1.0____node_霩_96__ of __jcross_霩:1.0____node_霩_16__) {
+    if (__jcross_霩:1.0____node_霩_96__.id === __jcross_霩:1.0____node_霩_93__) {
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_35__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_86__ ?? "0");
+      __jcross_霩:1.0____node_霩_97__ = __jcross_霩:1.0____node_霩_37__(__jcross_霩:1.0____node_霩_97__, __jcross_霩:1.0____node_霩_96__.__jcross_霩:1.0____node_霩_20__ ?? "0");
+    }
+  }
+
+  return {
+    __jcross_霩:1.0____node_霩_11__,
+    __jcross_霩:1.0____node_霩_69__,
+    __jcross_霩:1.0____node_霩_97__: __jcross_霩:1.0____node_霩_55__(__jcross_霩:1.0____node_霩_97__),
+    __jcross_霩:1.0____node_霩_4__: __jcross_霩:1.0____node_霩_97__.__jcross_霩:1.0____node_霩_10__(),
+    __jcross_霩:1.0____node_霩_74__: false,
+    __jcross_霩:1.0____node_霩_38__,
+  };
+// __jcross_法:0.3____node_CX_347__ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

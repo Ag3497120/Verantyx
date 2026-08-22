@@ -1,0 +1,78 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E191B98A ver:1778167567
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霰:1.0___node_霰_1__ { _TOKEN_廓:1.0___node_廓_2__ } _TOKEN_霰:1.0___node_霰_42__ "@_TOKEN_霰:1.0___node_霰_18__/_TOKEN_霰:1.0___node_霰_14__-_TOKEN_綾:1.0___node_霰_4__";
+import { _TOKEN_霰:1.0___node_霰_37__, _TOKEN_霰:1.0___node_霰_31__, it, vi } _TOKEN_霰:1.0___node_霰_42__ "_TOKEN_霰:1.0___node_霰_43__";
+import { _TOKEN_霰:1.0___node_霰_32__ } _TOKEN_霰:1.0___node_霰_42__ "./_TOKEN_霰:1.0___node_霰_16__.js";
+
+_TOKEN_霰:1.0___node_霰_2__ _TOKEN_霰:1.0___node_霰_36__() {
+  return {
+    _TOKEN_霰:1.0___node_霰_15__: {
+      _TOKEN_霰:1.0___node_霰_22__: vi.fn(async () => ({ _TOKEN_霰:1.0___node_霰_28__: [], _TOKEN_霰:1.0___node_霰_29__: false })),
+      _TOKEN_霰:1.0___node_霰_34__: vi.fn(async () => ({ _TOKEN_霰:1.0___node_霰_28__: [], _TOKEN_霰:1.0___node_霰_29__: false })),
+    },
+  } as _TOKEN_霰:1.0___node_霰_27__ as _TOKEN_廓:1.0___node_廓_2__ & {
+    _TOKEN_霰:1.0___node_霰_15__: {
+      _TOKEN_霰:1.0___node_霰_22__: _TOKEN_廓:1.0___node_廓_1__<_TOKEN_霰:1.0___node_霰_20__ vi.fn>;
+      _TOKEN_霰:1.0___node_霰_34__: _TOKEN_廓:1.0___node_廓_1__<_TOKEN_霰:1.0___node_霰_20__ vi.fn>;
+    };
+  };
+}
+// _TOKEN_区:0.2___node_LD_740__ [decoy-metadata]
+
+_TOKEN_霰:1.0___node_霰_37__("_TOKEN_霰:1.0___node_霰_32__", () => {
+  it("_TOKEN_霰:1.0___node_霰_9__ _TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_22__ _TOKEN_霰:1.0___node_霰_8__ _TOKEN_霰:1.0___node_霰_17__ _TOKEN_霰:1.0___node_霰_11__ _TOKEN_霰:1.0___node_霰_24__ _TOKEN_霰:1.0___node_霰_21__", async () => {
+    _TOKEN_霰:1.0___node_霰_3__ _TOKEN_霰:1.0___node_霰_7__ = _TOKEN_霰:1.0___node_霰_36__();
+    _TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_22__._TOKEN_霰:1.0___node_霰_40__({
+      _TOKEN_霰:1.0___node_霰_28__: [{ ts: "171234.567" }, { ts: "171234.890" }, { ts: "171235.000" }],
+      _TOKEN_霰:1.0___node_霰_29__: true,
+    });
+
+    _TOKEN_霰:1.0___node_霰_3__ _TOKEN_霰:1.0___node_霰_38__ = await _TOKEN_霰:1.0___node_霰_32__("C1", {
+      _TOKEN_霰:1.0___node_霰_7__,
+      _TOKEN_霰:1.0___node_霰_30__: "171234.567",
+      _TOKEN_秘:1.0___node_霰_45__: "_TOKEN_霰:1.0___node_霰_6__-_TOKEN_霰:1.0___node_霰_10__",
+// _TOKEN_綾:0.8___node_BX_631__ [decoy-metadata]
+    });
+
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_22__)._TOKEN_霰:1.0___node_霰_12__({
+      _TOKEN_霰:1.0___node_霰_41__: "C1",
+      ts: "171234.567",
+      _TOKEN_霰:1.0___node_霰_19__: _TOKEN_霰:1.0___node_霰_5__,
+      _TOKEN_霰:1.0___node_霰_39__: _TOKEN_霰:1.0___node_霰_5__,
+      _TOKEN_霰:1.0___node_霰_13__: _TOKEN_霰:1.0___node_霰_5__,
+    });
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_34__)._TOKEN_霰:1.0___node_霰_33__._TOKEN_霰:1.0___node_霰_26__();
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_38__._TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_35__((_TOKEN_霰:1.0___node_霰_21__) => _TOKEN_霰:1.0___node_霰_21__.ts))._TOKEN_霰:1.0___node_霰_25__(["171234.890", "171235.000"]);
+  });
+
+  it("_TOKEN_霰:1.0___node_霰_9__ _TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_34__ _TOKEN_霰:1.0___node_霰_23__ _TOKEN_霰:1.0___node_霰_30__ is _TOKEN_霰:1.0___node_霰_44__", async () => {
+// _TOKEN_区:0.4___node_WZ_508__ [decoy-metadata]
+// _TOKEN_要:0.2___node_GL_685__ [decoy-metadata]
+// _TOKEN_廓:0.4___node_AD_249__ [decoy-metadata]
+    _TOKEN_霰:1.0___node_霰_3__ _TOKEN_霰:1.0___node_霰_7__ = _TOKEN_霰:1.0___node_霰_36__();
+    _TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_34__._TOKEN_霰:1.0___node_霰_40__({
+      _TOKEN_霰:1.0___node_霰_28__: [{ ts: "1" }],
+      _TOKEN_霰:1.0___node_霰_29__: false,
+    });
+
+    _TOKEN_霰:1.0___node_霰_3__ _TOKEN_霰:1.0___node_霰_38__ = await _TOKEN_霰:1.0___node_霰_32__("C1", {
+      _TOKEN_霰:1.0___node_霰_7__,
+      _TOKEN_霰:1.0___node_霰_19__: 20,
+      _TOKEN_秘:1.0___node_霰_45__: "_TOKEN_霰:1.0___node_霰_6__-_TOKEN_霰:1.0___node_霰_10__",
+    });
+
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_34__)._TOKEN_霰:1.0___node_霰_12__({
+      _TOKEN_霰:1.0___node_霰_41__: "C1",
+      _TOKEN_霰:1.0___node_霰_19__: 20,
+// _TOKEN_秘:0.9___node_ZV_620__ [decoy-metadata]
+      _TOKEN_霰:1.0___node_霰_39__: _TOKEN_霰:1.0___node_霰_5__,
+      _TOKEN_霰:1.0___node_霰_13__: _TOKEN_霰:1.0___node_霰_5__,
+    });
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_7__._TOKEN_霰:1.0___node_霰_15__._TOKEN_霰:1.0___node_霰_22__)._TOKEN_霰:1.0___node_霰_33__._TOKEN_霰:1.0___node_霰_26__();
+    _TOKEN_霰:1.0___node_霰_31__(_TOKEN_霰:1.0___node_霰_38__._TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_35__((_TOKEN_霰:1.0___node_霰_21__) => _TOKEN_霰:1.0___node_霰_21__.ts))._TOKEN_霰:1.0___node_霰_25__(["1"]);
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

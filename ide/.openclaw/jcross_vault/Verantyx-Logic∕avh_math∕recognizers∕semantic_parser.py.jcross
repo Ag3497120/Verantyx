@@ -1,0 +1,129 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3C0F278D ver:1778159757
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_霤:1.0___jcross_霤_4__
+import re
+_JCROSS_霤:1.0___jcross_霤_81__ _JCROSS_霤:1.0___jcross_霤_54__ import _JCROSS_廩:1.0___jcross_廩_13__
+_JCROSS_霤:1.0___jcross_霤_81__ _JCROSS_霤:1.0___jcross_霤_32__ import _JCROSS_廩:1.0___jcross_廩_9__, _JCROSS_廩:1.0___jcross_廩_16__, _JCROSS_廩:1.0___jcross_廩_7__, _JCROSS_廩:1.0___jcross_廩_6__
+// _JCROSS_廩:0.4___jcross_KD_163__ [decoy-metadata]
+// _JCROSS_綾:0.7___jcross_GL_822__ [decoy-metadata]
+
+class _JCROSS_案:1.0___jcross_廩_3__:
+    _JCROSS_霤:1.0___jcross_霤_27__ _JCROSS_霤:1.0___jcross_霤_50__(self, _JCROSS_霤:1.0___jcross_霤_61__: _JCROSS_霤:1.0___jcross_霤_41__ = "_JCROSS_霤:1.0___jcross_霤_46__/db/_JCROSS_霤:1.0___jcross_霤_74__._JCROSS_霤:1.0___jcross_霤_4__"):
+        self._JCROSS_霤:1.0___jcross_霤_55__ = {}
+        self._JCROSS_霤:1.0___jcross_霤_72__ = {}
+        self._JCROSS_医:1.0___jcross_霤_13__(_JCROSS_霤:1.0___jcross_霤_61__)
+
+    _JCROSS_霤:1.0___jcross_霤_27__ _JCROSS_医:1.0___jcross_霤_13__(self, _JCROSS_霤:1.0___jcross_霤_57__: _JCROSS_霤:1.0___jcross_霤_41__):
+        _JCROSS_霤:1.0___jcross_霤_89__ = _JCROSS_廩:1.0___jcross_廩_13__(_JCROSS_霤:1.0___jcross_霤_57__)
+        if _JCROSS_霤:1.0___jcross_霤_64__ _JCROSS_霤:1.0___jcross_霤_89__._JCROSS_霤:1.0___jcross_霤_33__(): return
+        _JCROSS_霤:1.0___jcross_霤_75__ _JCROSS_霤:1.0___jcross_霤_89__.open("r", _JCROSS_霤:1.0___jcross_霤_73__="_JCROSS_霤:1.0___jcross_霤_83__-8") as f:
+            _JCROSS_霤:1.0___jcross_霤_15__ = _JCROSS_霤:1.0___jcross_霤_4__._JCROSS_医:1.0___jcross_霤_82__(f)
+            for _JCROSS_霤:1.0___jcross_霤_23__, _JCROSS_霤:1.0___jcross_霤_80__ in _JCROSS_霤:1.0___jcross_霤_15__._JCROSS_霤:1.0___jcross_霤_3__():
+                if _JCROSS_霤:1.0___jcross_霤_23__ == "_JCROSS_廩:1.0___jcross_廩_10__":
+                    self._JCROSS_霤:1.0___jcross_霤_72__ = _JCROSS_霤:1.0___jcross_霤_80__
+                _JCROSS_涌:1.0___jcross_霤_65__ _JCROSS_霤:1.0___jcross_霤_26__(_JCROSS_霤:1.0___jcross_霤_80__, _JCROSS_霤:1.0___jcross_霤_47__):
+                    for w in _JCROSS_霤:1.0___jcross_霤_80__:
+                        self._JCROSS_霤:1.0___jcross_霤_55__[w._JCROSS_案:1.0___jcross_霤_58__()] = _JCROSS_霤:1.0___jcross_霤_23__
+
+// _JCROSS_案:0.8___jcross_WC_852__ [decoy-metadata]
+    _JCROSS_霤:1.0___jcross_霤_27__ _JCROSS_霤:1.0___jcross_霤_76__(self, _JCROSS_霤:1.0___jcross_霤_29__: _JCROSS_霤:1.0___jcross_霤_41__) -> _JCROSS_廩:1.0___jcross_廩_6__[_JCROSS_霤:1.0___jcross_霤_41__]:
+        """
+        _JCROSS_廩:1.0___jcross_廩_4__ _JCROSS_霤:1.0___jcross_霤_29__ for _JCROSS_霤:1.0___jcross_霤_2__ _JCROSS_霤:1.0___jcross_霤_14__ in _JCROSS_廩:1.0___jcross_廩_10__.
+        _JCROSS_廩:1.0___jcross_廩_5__ a _JCROSS_霤:1.0___jcross_霤_47__ of _JCROSS_霤:1.0___jcross_霤_34__ _JCROSS_霤:1.0___jcross_霤_38__ (e.g. '_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_17__', '_JCROSS_霤:1.0___jcross_霤_45__:_JCROSS_霤:1.0___jcross_霤_7__').
+        """
+        _JCROSS_霤:1.0___jcross_霤_34__ = []
+        _JCROSS_霤:1.0___jcross_霤_28__ = _JCROSS_霤:1.0___jcross_霤_29__._JCROSS_案:1.0___jcross_霤_58__()
+        
+        for _JCROSS_霤:1.0___jcross_霤_48__, _JCROSS_霤:1.0___jcross_霤_14__ in self._JCROSS_霤:1.0___jcross_霤_72__._JCROSS_霤:1.0___jcross_霤_3__():
+            for _JCROSS_霤:1.0___jcross_霤_11__ in _JCROSS_霤:1.0___jcross_霤_14__:
+// [metadata-stripped]
+                if _JCROSS_霤:1.0___jcross_霤_11__._JCROSS_案:1.0___jcross_霤_58__() in _JCROSS_霤:1.0___jcross_霤_28__:
+                    _JCROSS_霤:1.0___jcross_霤_34__._JCROSS_霤:1.0___jcross_霤_8__(_JCROSS_霤:1.0___jcross_霤_48__)
+                    break
+        return _JCROSS_霤:1.0___jcross_霤_34__
+
+// _JCROSS_案:0.9___jcross_HM_351__ [decoy-metadata]
+    _JCROSS_霤:1.0___jcross_霤_27__ _JCROSS_霤:1.0___jcross_霤_22__(self, _JCROSS_霤:1.0___jcross_霤_29__: _JCROSS_霤:1.0___jcross_霤_41__) -> _JCROSS_廩:1.0___jcross_廩_9__[_JCROSS_霤:1.0___jcross_霤_41__, _JCROSS_廩:1.0___jcross_廩_16__]:
+        """
+        ユーザーが入力したクォート（"..."）を式として認識し、
+        それ以外の部分を単語記憶DBに基づいて役割付けする。
+        """
+// [metadata-stripped]
+        _JCROSS_涌:1.0___jcross_霤_30__ = re._JCROSS_霤:1.0___jcross_霤_71__(r'"([^"]+)"', _JCROSS_霤:1.0___jcross_霤_29__)
+        
+// [metadata-stripped]
+        _JCROSS_涌:1.0___jcross_霤_69__ = re._JCROSS_霤:1.0___jcross_霤_19__(r'"[^"]+"', " _JCROSS_案:1.0___jcross_廩_12__ ", _JCROSS_霤:1.0___jcross_霤_29__)
+        _JCROSS_封:1.0___jcross_霤_85__ = re._JCROSS_霤:1.0___jcross_霤_71__(r"[A-Za-z0-9_]+|[^\w\s]", _JCROSS_涌:1.0___jcross_霤_69__)
+// _JCROSS_霤:0.3___jcross_XH_446__ [decoy-metadata]
+        
+        _JCROSS_霤:1.0___jcross_霤_16__ = []
+        for t in _JCROSS_封:1.0___jcross_霤_85__:
+            _JCROSS_霤:1.0___jcross_霤_53__ = t._JCROSS_案:1.0___jcross_霤_58__()
+            _JCROSS_霤:1.0___jcross_霤_23__ = self._JCROSS_霤:1.0___jcross_霤_55__._JCROSS_案:1.0___jcross_傑_1__(_JCROSS_霤:1.0___jcross_霤_53__, "_JCROSS_霤:1.0___jcross_霤_31__")
+            _JCROSS_霤:1.0___jcross_霤_16__._JCROSS_霤:1.0___jcross_霤_8__({"_JCROSS_封:1.0___jcross_霤_6__": t, "_JCROSS_霤:1.0___jcross_霤_23__": _JCROSS_霤:1.0___jcross_霤_23__})
+            
+        return {
+            "_JCROSS_霤:1.0___jcross_霤_66__": _JCROSS_霤:1.0___jcross_霤_16__,
+            "_JCROSS_涌:1.0___jcross_霤_30__": _JCROSS_涌:1.0___jcross_霤_30__,
+            "_JCROSS_涌:1.0___jcross_霤_39__": _JCROSS_涌:1.0___jcross_霤_30__[0] if _JCROSS_涌:1.0___jcross_霤_30__ else _JCROSS_廩:1.0___jcross_廩_8__,
+            "_JCROSS_涌:1.0___jcross_霤_69__": _JCROSS_涌:1.0___jcross_霤_69__
+        }
+
+    _JCROSS_霤:1.0___jcross_霤_27__ _JCROSS_霤:1.0___jcross_霤_35__(self, _JCROSS_霤:1.0___jcross_霤_29__: _JCROSS_霤:1.0___jcross_霤_41__) -> _JCROSS_廩:1.0___jcross_廩_7__[_JCROSS_廩:1.0___jcross_廩_9__[_JCROSS_霤:1.0___jcross_霤_41__, _JCROSS_廩:1.0___jcross_廩_16__]]:
+        _JCROSS_霤:1.0___jcross_霤_77__ = self._JCROSS_霤:1.0___jcross_霤_22__(_JCROSS_霤:1.0___jcross_霤_29__)
+        if _JCROSS_霤:1.0___jcross_霤_64__ _JCROSS_霤:1.0___jcross_霤_77__["_JCROSS_涌:1.0___jcross_霤_39__"] _JCROSS_霤:1.0___jcross_霤_91__ _JCROSS_霤:1.0___jcross_霤_64__ _JCROSS_霤:1.0___jcross_霤_77__["_JCROSS_涌:1.0___jcross_霤_30__"]: return _JCROSS_廩:1.0___jcross_廩_8__
+        
+        _JCROSS_涌:1.0___jcross_霤_39__ = _JCROSS_霤:1.0___jcross_霤_77__["_JCROSS_涌:1.0___jcross_霤_39__"] or (_JCROSS_霤:1.0___jcross_霤_77__["_JCROSS_涌:1.0___jcross_霤_30__"][0] if _JCROSS_霤:1.0___jcross_霤_77__["_JCROSS_涌:1.0___jcross_霤_30__"] else "")
+
+// [metadata-stripped]
+        _JCROSS_霤:1.0___jcross_霤_38__ = self._JCROSS_霤:1.0___jcross_霤_76__(_JCROSS_霤:1.0___jcross_霤_29__)
+        
+        _JCROSS_霤:1.0___jcross_霤_67__ = _JCROSS_霤:1.0___jcross_霤_29__._JCROSS_案:1.0___jcross_霤_58__()
+        _JCROSS_霤:1.0___jcross_霤_62__ = "_JCROSS_案:1.0___jcross_傑_2__" if any(w in _JCROSS_霤:1.0___jcross_霤_67__ for w in ["_JCROSS_霤:1.0___jcross_霤_43__", "_JCROSS_霤:1.0___jcross_霤_12__", "_JCROSS_霤:1.0___jcross_霤_18__", "_JCROSS_霤:1.0___jcross_霤_40__", "_JCROSS_霤:1.0___jcross_霤_51__"]) else "_JCROSS_廩:1.0___jcross_廩_1__"
+// _JCROSS_廩:0.5___jcross_GX_833__ [decoy-metadata]
+        
+// [metadata-stripped]
+        _JCROSS_霤:1.0___jcross_霤_45__ = _JCROSS_廩:1.0___jcross_廩_8__
+        for c in _JCROSS_霤:1.0___jcross_霤_38__:
+            if c._JCROSS_霤:1.0___jcross_霤_88__("_JCROSS_霤:1.0___jcross_霤_45__:"):
+                _JCROSS_霤:1.0___jcross_霤_45__ = c._JCROSS_霤:1.0___jcross_霤_5__("_JCROSS_霤:1.0___jcross_霤_45__:", "")
+                break
+        
+        if _JCROSS_霤:1.0___jcross_霤_64__ _JCROSS_霤:1.0___jcross_霤_45__:
+            if any(w in _JCROSS_霤:1.0___jcross_霤_67__ for w in ["_JCROSS_霤:1.0___jcross_霤_9__", "_JCROSS_霤:1.0___jcross_霤_78__", "_JCROSS_霤:1.0___jcross_霤_49__", "_JCROSS_霤:1.0___jcross_霤_59__"]):
+                _JCROSS_霤:1.0___jcross_霤_45__ = "_JCROSS_霤:1.0___jcross_霤_7__"
+            _JCROSS_涌:1.0___jcross_霤_65__ "_JCROSS_霤:1.0___jcross_霤_87__" in _JCROSS_霤:1.0___jcross_霤_67__:
+                _JCROSS_霤:1.0___jcross_霤_45__ = "_JCROSS_霤:1.0___jcross_霤_20__"
+            _JCROSS_涌:1.0___jcross_霤_65__ "_JCROSS_霤:1.0___jcross_霤_25__" in _JCROSS_霤:1.0___jcross_霤_67__ or "_JCROSS_霤:1.0___jcross_霤_56__" in _JCROSS_霤:1.0___jcross_霤_67__:
+                _JCROSS_霤:1.0___jcross_霤_45__ = "_JCROSS_霤:1.0___jcross_霤_86__"
+        
+// [metadata-stripped]
+        _JCROSS_霤:1.0___jcross_霤_52__ = []
+// [metadata-stripped]
+        for c in _JCROSS_霤:1.0___jcross_霤_38__:
+            if c._JCROSS_霤:1.0___jcross_霤_88__("_JCROSS_霤:1.0___jcross_霤_60__:"):
+                _JCROSS_霤:1.0___jcross_霤_52__._JCROSS_霤:1.0___jcross_霤_8__(c)
+        
+// [metadata-stripped]
+        if "_JCROSS_霤:1.0___jcross_霤_17__" in _JCROSS_霤:1.0___jcross_霤_67__ _JCROSS_霤:1.0___jcross_霤_91__ "_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_17__" _JCROSS_霤:1.0___jcross_霤_64__ in _JCROSS_霤:1.0___jcross_霤_52__: _JCROSS_霤:1.0___jcross_霤_52__._JCROSS_霤:1.0___jcross_霤_8__("_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_17__")
+        if "_JCROSS_霤:1.0___jcross_霤_42__" in _JCROSS_霤:1.0___jcross_霤_67__ _JCROSS_霤:1.0___jcross_霤_91__ "_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_42__" _JCROSS_霤:1.0___jcross_霤_64__ in _JCROSS_霤:1.0___jcross_霤_52__: _JCROSS_霤:1.0___jcross_霤_52__._JCROSS_霤:1.0___jcross_霤_8__("_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_42__")
+        if "_JCROSS_霤:1.0___jcross_霤_79__" in _JCROSS_霤:1.0___jcross_霤_67__ _JCROSS_霤:1.0___jcross_霤_91__ "_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_79__" _JCROSS_霤:1.0___jcross_霤_64__ in _JCROSS_霤:1.0___jcross_霤_52__: _JCROSS_霤:1.0___jcross_霤_52__._JCROSS_霤:1.0___jcross_霤_8__("_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_79__")
+        if "_JCROSS_霤:1.0___jcross_霤_68__" in _JCROSS_霤:1.0___jcross_霤_67__ _JCROSS_霤:1.0___jcross_霤_91__ "_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_68__" _JCROSS_霤:1.0___jcross_霤_64__ in _JCROSS_霤:1.0___jcross_霤_52__: _JCROSS_霤:1.0___jcross_霤_52__._JCROSS_霤:1.0___jcross_霤_8__("_JCROSS_霤:1.0___jcross_霤_60__:_JCROSS_霤:1.0___jcross_霤_68__")
+        
+        return {
+            "_JCROSS_霤:1.0___jcross_霤_36__": "_JCROSS_霤:1.0___jcross_霤_84__",
+            "_JCROSS_霤:1.0___jcross_霤_90__": "_JCROSS_廩:1.0___jcross_廩_14__",
+            "_JCROSS_霤:1.0___jcross_霤_62__": _JCROSS_霤:1.0___jcross_霤_62__,
+            "_JCROSS_霤:1.0___jcross_霤_45__": _JCROSS_霤:1.0___jcross_霤_45__,
+            "_JCROSS_霤:1.0___jcross_霤_21__": { "_JCROSS_廩:1.0___jcross_廩_2__": _JCROSS_涌:1.0___jcross_霤_39__ },
+            "_JCROSS_霤:1.0___jcross_霤_70__": _JCROSS_霤:1.0___jcross_霤_52__,
+            "_JCROSS_霤:1.0___jcross_霤_63__": [{
+                "_JCROSS_霤:1.0___jcross_霤_10__": _JCROSS_涌:1.0___jcross_霤_39__,
+                "_JCROSS_霤:1.0___jcross_霤_37__": _JCROSS_涌:1.0___jcross_霤_39__,
+                "_JCROSS_霤:1.0___jcross_霤_24__": 10.0
+            }]
+        }
+
+// POLYMORPHIC_JCROSS_END

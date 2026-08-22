@@ -1,0 +1,248 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:905FB86B ver:1778164279
+// ⚠️ One-time schema — expires after response
+
+"""
+_ASTNODE_沫:1.0___ast_沫_94__.py — _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__ _ASTNODE_廡:1.0___ast_廡_45__実測ベンチマーク
+
+_ASTNODE_廡:1.0___ast_廡_6__ _ASTNODE_沫:1.0___ast_沫_64__ _ASTNODE_網:1.0___ast_廡_26__ を使って実際に_ASTNODE_廡:1.0___ast_廡_45__を計測する。
+// _ASTNODE_沫:0.6___ast_AB_191__ [decoy-metadata]
+_ASTNODE_廡:1.0___ast_廡_42__: 50ツール全定義をプロンプトに入れてLLMに投げる
+// _ASTNODE_巌:0.7___ast_GY_373__ [decoy-metadata]
+_ASTNODE_廡:1.0___ast_廡_34__:    _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__で_ASTNODE_沫:1.0___ast_沫_134__-3に絞ってからLLMに投げる
+
+使い方:
+    _ASTNODE_沫:1.0___ast_沫_161__ _ASTNODE_沫:1.0___ast_沫_82__/_ASTNODE_沫:1.0___ast_沫_158__/_ASTNODE_沫:1.0___ast_沫_94__.py
+    _ASTNODE_沫:1.0___ast_沫_161__ _ASTNODE_沫:1.0___ast_沫_82__/_ASTNODE_沫:1.0___ast_沫_158__/_ASTNODE_沫:1.0___ast_沫_94__.py --_ASTNODE_沫:1.0___ast_沫_23__ _ASTNODE_沫:1.0___ast_沫_111__:_ASTNODE_沫:1.0___ast_沫_18__
+    _ASTNODE_沫:1.0___ast_沫_161__ _ASTNODE_沫:1.0___ast_沫_82__/_ASTNODE_沫:1.0___ast_沫_158__/_ASTNODE_沫:1.0___ast_沫_94__.py --_ASTNODE_沫:1.0___ast_沫_23__ _ASTNODE_沫:1.0___ast_沫_109__.5:1.5b --_ASTNODE_沫:1.0___ast_沫_15__ 5
+"""
+
+_ASTNODE_沫:1.0___ast_沫_149__ _ASTNODE_沫:1.0___ast_沫_157__ import _ASTNODE_沫:1.0___ast_沫_31__
+
+import _ASTNODE_沫:1.0___ast_沫_58__
+import _ASTNODE_沫:1.0___ast_沫_106__
+import _ASTNODE_沫:1.0___ast_沫_162__
+import _ASTNODE_沫:1.0___ast_沫_105__
+import _ASTNODE_網:1.0___ast_沫_122__._ASTNODE_網:1.0___ast_沫_132__
+import _ASTNODE_網:1.0___ast_沫_122__._ASTNODE_沫:1.0___ast_沫_155__
+_ASTNODE_沫:1.0___ast_沫_149__ _ASTNODE_沫:1.0___ast_沫_49__ import _ASTNODE_廡:1.0___ast_廡_37__
+
+_ASTNODE_沫:1.0___ast_沫_162__._ASTNODE_沫:1.0___ast_沫_148__._ASTNODE_沫:1.0___ast_沫_145__(0, _ASTNODE_沫:1.0___ast_沫_16__(_ASTNODE_廡:1.0___ast_廡_37__(_ASTNODE_函:1.0___ast_沫_154__)._ASTNODE_沫:1.0___ast_沫_51__._ASTNODE_沫:1.0___ast_沫_51__))
+_ASTNODE_沫:1.0___ast_沫_149__ _ASTNODE_沫:1.0___ast_沫_35__._ASTNODE_格:1.0___ast_沫_52__ import _ASTNODE_格:1.0___ast_廡_50__
+
+_ASTNODE_廡:1.0___ast_廡_33__: _ASTNODE_沫:1.0___ast_沫_153__[_ASTNODE_沫:1.0___ast_沫_129__] = _ASTNODE_沫:1.0___ast_沫_106__._ASTNODE_函:1.0___ast_沫_92__(
+    (_ASTNODE_廡:1.0___ast_廡_37__(_ASTNODE_函:1.0___ast_沫_154__)._ASTNODE_沫:1.0___ast_沫_51__._ASTNODE_沫:1.0___ast_沫_51__ / "_ASTNODE_沫:1.0___ast_沫_13__" / "_ASTNODE_沫:1.0___ast_沫_22__._ASTNODE_沫:1.0___ast_沫_106__")._ASTNODE_沫:1.0___ast_沫_29__()
+)
+
+_ASTNODE_網:1.0___ast_廡_12__ = "_ASTNODE_網:1.0___ast_沫_20__://_ASTNODE_沫:1.0___ast_沫_110__:11434/_ASTNODE_網:1.0___ast_沫_83__/_ASTNODE_沫:1.0___ast_沫_117__"
+
+_ASTNODE_廡:1.0___ast_廡_27__ = "_ASTNODE_廡:1.0___ast_廡_18__ _ASTNODE_沫:1.0___ast_沫_9__ _ASTNODE_沫:1.0___ast_沫_103__ I _ASTNODE_沫:1.0___ast_沫_139__ to _ASTNODE_沫:1.0___ast_沫_151__ a _ASTNODE_函:1.0___ast_沫_113__ _ASTNODE_沫:1.0___ast_沫_149__ _ASTNODE_沫:1.0___ast_沫_68__? _ASTNODE_格:1.0___ast_廡_17__ _ASTNODE_沫:1.0___ast_沫_146__ _ASTNODE_沫:1.0___ast_沫_5__ _ASTNODE_沫:1.0___ast_沫_90__ _ASTNODE_沫:1.0___ast_沫_9__ _ASTNODE_沫:1.0___ast_沫_27__."
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_116__(_ASTNODE_沫:1.0___ast_沫_115__: _ASTNODE_沫:1.0___ast_沫_16__) -> _ASTNODE_沫:1.0___ast_沫_16__:
+    """全50ツール定義をそのままプロンプトに入れる（ルーターなし）"""
+    _ASTNODE_沫:1.0___ast_沫_55__ = [
+        "_ASTNODE_廡:1.0___ast_廡_5__ _ASTNODE_沫:1.0___ast_沫_108__ a _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_26__ _ASTNODE_沫:1.0___ast_沫_119__.",
+        f"_ASTNODE_廡:1.0___ast_廡_5__ _ASTNODE_沫:1.0___ast_沫_118__ _ASTNODE_沫:1.0___ast_沫_136__ to {_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_廡:1.0___ast_廡_33__)} _ASTNODE_沫:1.0___ast_沫_22__:\n",
+    ]
+    for t in _ASTNODE_廡:1.0___ast_廡_33__:
+        _ASTNODE_沫:1.0___ast_沫_55__._ASTNODE_沫:1.0___ast_沫_2__(f"- {t['_ASTNODE_沫:1.0___ast_沫_27__']}: {t['_ASTNODE_沫:1.0___ast_沫_81__']}")
+    _ASTNODE_沫:1.0___ast_沫_55__ += ["", f"_ASTNODE_廡:1.0___ast_廡_51__: {_ASTNODE_沫:1.0___ast_沫_115__}", "_ASTNODE_格:1.0___ast_廡_17__:"]
+    return "\n"._ASTNODE_沫:1.0___ast_沫_63__(_ASTNODE_沫:1.0___ast_沫_55__)
+
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_165__(_ASTNODE_沫:1.0___ast_沫_115__: _ASTNODE_沫:1.0___ast_沫_16__) -> _ASTNODE_沫:1.0___ast_沫_16__:
+    """_ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__で_ASTNODE_沫:1.0___ast_沫_134__-3に絞ってからプロンプトに入れる（ルーターあり）"""
+    _ASTNODE_格:1.0___ast_沫_52__ = _ASTNODE_格:1.0___ast_廡_50__()
+    _ASTNODE_沫:1.0___ast_沫_42__ = _ASTNODE_格:1.0___ast_沫_52__._ASTNODE_沫:1.0___ast_沫_7__(_ASTNODE_沫:1.0___ast_沫_115__, _ASTNODE_廡:1.0___ast_廡_33__, _ASTNODE_沫:1.0___ast_沫_123__=3)
+
+    _ASTNODE_沫:1.0___ast_沫_55__ = [
+        "_ASTNODE_廡:1.0___ast_廡_5__ _ASTNODE_沫:1.0___ast_沫_108__ a _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_26__ _ASTNODE_沫:1.0___ast_沫_119__.",
+        f"_ASTNODE_廡:1.0___ast_廡_15__ _ASTNODE_沫:1.0___ast_沫_22__ for _ASTNODE_沫:1.0___ast_沫_163__ _ASTNODE_沫:1.0___ast_沫_115__ ({_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_42__)} of {_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_廡:1.0___ast_廡_33__)} _ASTNODE_沫:1.0___ast_沫_170__):\n",
+    ]
+    for r in _ASTNODE_沫:1.0___ast_沫_42__:
+        _ASTNODE_沫:1.0___ast_沫_55__._ASTNODE_沫:1.0___ast_沫_2__(f"- {r['_ASTNODE_沫:1.0___ast_沫_27__']}: {r['_ASTNODE_沫:1.0___ast_沫_81__']}")
+    _ASTNODE_沫:1.0___ast_沫_55__ += ["", f"_ASTNODE_廡:1.0___ast_廡_51__: {_ASTNODE_沫:1.0___ast_沫_115__}", "_ASTNODE_格:1.0___ast_廡_17__:"]
+    return "\n"._ASTNODE_沫:1.0___ast_沫_63__(_ASTNODE_沫:1.0___ast_沫_55__)
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ASTNODE_浪:0.4___ast_CZ_345__ [decoy-metadata]
+// [metadata-stripped]
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_59__(_ASTNODE_沫:1.0___ast_沫_23__: _ASTNODE_沫:1.0___ast_沫_16__, _ASTNODE_沫:1.0___ast_沫_21__: _ASTNODE_沫:1.0___ast_沫_16__) -> _ASTNODE_沫:1.0___ast_沫_12__[_ASTNODE_沫:1.0___ast_沫_169__, _ASTNODE_沫:1.0___ast_沫_169__, _ASTNODE_沫:1.0___ast_沫_16__]:
+    """
+    _ASTNODE_廡:1.0___ast_廡_10__: (_ASTNODE_沫:1.0___ast_沫_37__, _ASTNODE_沫:1.0___ast_沫_144__, _ASTNODE_鍵:1.0___ast_沫_61__)
+    _ASTNODE_廡:1.0___ast_廡_43__ _ASTNODE_沫:1.0___ast_沫_14__ _ASTNODE_沫:1.0___ast_沫_149__ _ASTNODE_廡:1.0___ast_廡_6__ _ASTNODE_沫:1.0___ast_沫_79__ _ASTNODE_沫:1.0___ast_沫_67__ _ASTNODE_沫:1.0___ast_沫_105__ to _ASTNODE_沫:1.0___ast_沫_44__ _ASTNODE_鍵:1.0___ast_沫_101__.
+    """
+    _ASTNODE_函:1.0___ast_沫_60__ = _ASTNODE_沫:1.0___ast_沫_106__._ASTNODE_沫:1.0___ast_沫_160__({
+        "_ASTNODE_沫:1.0___ast_沫_23__":  _ASTNODE_沫:1.0___ast_沫_23__,
+        "_ASTNODE_沫:1.0___ast_沫_21__": _ASTNODE_沫:1.0___ast_沫_21__,
+        "_ASTNODE_沫:1.0___ast_沫_73__": _ASTNODE_廡:1.0___ast_廡_1__,
+        "_ASTNODE_沫:1.0___ast_沫_112__": {
+// _ASTNODE_巌:0.6___ast_KA_212__ [decoy-metadata]
+            "_ASTNODE_沫:1.0___ast_沫_24__": 0,
+            "_ASTNODE_沫:1.0___ast_沫_127__": 20,   # 最初の20トークンだけ生成
+        },
+    })._ASTNODE_沫:1.0___ast_沫_62__()
+
+    _ASTNODE_沫:1.0___ast_沫_98__ = _ASTNODE_網:1.0___ast_沫_122__._ASTNODE_網:1.0___ast_沫_132__._ASTNODE_網:1.0___ast_廡_13__(
+        _ASTNODE_網:1.0___ast_廡_12__,
+        _ASTNODE_沫:1.0___ast_沫_141__=_ASTNODE_函:1.0___ast_沫_60__,
+        _ASTNODE_沫:1.0___ast_沫_8__={"_ASTNODE_廡:1.0___ast_廡_39__-_ASTNODE_廡:1.0___ast_廡_35__": "_ASTNODE_沫:1.0___ast_沫_46__/_ASTNODE_沫:1.0___ast_沫_106__"},
+        _ASTNODE_沫:1.0___ast_沫_54__="_ASTNODE_廡:1.0___ast_廡_30__",
+    )
+
+    _ASTNODE_沫:1.0___ast_沫_91__ = _ASTNODE_沫:1.0___ast_沫_105__._ASTNODE_格:1.0___ast_沫_25__()
+    _ASTNODE_沫:1.0___ast_沫_128__    = _ASTNODE_廡:1.0___ast_廡_36__
+    _ASTNODE_鍵:1.0___ast_沫_61__ = ""
+    _ASTNODE_沫:1.0___ast_沫_71__ = ""
+
+    try:
+        _ASTNODE_沫:1.0___ast_沫_146__ _ASTNODE_網:1.0___ast_沫_122__._ASTNODE_網:1.0___ast_沫_132__._ASTNODE_網:1.0___ast_沫_45__(_ASTNODE_沫:1.0___ast_沫_98__, _ASTNODE_沫:1.0___ast_沫_150__=120) as _ASTNODE_沫:1.0___ast_沫_93__:
+            for _ASTNODE_沫:1.0___ast_沫_28__ in _ASTNODE_沫:1.0___ast_沫_93__:
+                _ASTNODE_沫:1.0___ast_沫_38__ = _ASTNODE_沫:1.0___ast_沫_28__._ASTNODE_沫:1.0___ast_沫_152__()._ASTNODE_沫:1.0___ast_沫_107__()
+                if _ASTNODE_沫:1.0___ast_沫_19__ _ASTNODE_沫:1.0___ast_沫_38__:
+                    continue
+                _ASTNODE_沫:1.0___ast_沫_156__ = _ASTNODE_沫:1.0___ast_沫_106__._ASTNODE_函:1.0___ast_沫_92__(_ASTNODE_沫:1.0___ast_沫_38__)
+                _ASTNODE_鍵:1.0___ast_沫_101__ = _ASTNODE_沫:1.0___ast_沫_156__._ASTNODE_格:1.0___ast_巌_1__("_ASTNODE_沫:1.0___ast_沫_14__", "")
+                if _ASTNODE_鍵:1.0___ast_沫_101__ _ASTNODE_沫:1.0___ast_沫_79__ _ASTNODE_沫:1.0___ast_沫_128__ is _ASTNODE_廡:1.0___ast_廡_36__:
+                    _ASTNODE_沫:1.0___ast_沫_128__ = _ASTNODE_沫:1.0___ast_沫_105__._ASTNODE_格:1.0___ast_沫_25__() - _ASTNODE_沫:1.0___ast_沫_91__
+                    _ASTNODE_鍵:1.0___ast_沫_61__ = _ASTNODE_沫:1.0___ast_沫_166__(_ASTNODE_鍵:1.0___ast_沫_101__)
+                _ASTNODE_沫:1.0___ast_沫_71__ += _ASTNODE_鍵:1.0___ast_沫_101__
+                if _ASTNODE_沫:1.0___ast_沫_156__._ASTNODE_格:1.0___ast_巌_1__("_ASTNODE_沫:1.0___ast_沫_171__"):
+                    break
+    _ASTNODE_沫:1.0___ast_沫_34__ _ASTNODE_網:1.0___ast_沫_122__._ASTNODE_沫:1.0___ast_沫_155__._ASTNODE_網:1.0___ast_廡_28__ as e:
+        return -1, -1, f"_ASTNODE_廡:1.0___ast_廡_47__: {e}"
+
+    _ASTNODE_沫:1.0___ast_沫_170__ = _ASTNODE_沫:1.0___ast_沫_105__._ASTNODE_格:1.0___ast_沫_25__() - _ASTNODE_沫:1.0___ast_沫_91__
+    return _ASTNODE_沫:1.0___ast_沫_128__ or _ASTNODE_沫:1.0___ast_沫_170__, _ASTNODE_沫:1.0___ast_沫_170__, _ASTNODE_鍵:1.0___ast_沫_61__
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_廡:1.0___ast_廡_52__  = "\033[0m"
+// _ASTNODE_函:0.4___ast_XF_884__ [decoy-metadata]
+_ASTNODE_廡:1.0___ast_廡_11__    = "\033[91m"
+_ASTNODE_廡:1.0___ast_廡_20__  = "\033[92m"
+_ASTNODE_廡:1.0___ast_廡_9__ = "\033[93m"
+_ASTNODE_廡:1.0___ast_廡_31__   = "\033[96m"
+_ASTNODE_廡:1.0___ast_廡_49__   = "\033[1m"
+
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_75__(_ASTNODE_沫:1.0___ast_沫_147__: _ASTNODE_沫:1.0___ast_沫_169__, _ASTNODE_沫:1.0___ast_沫_40__: _ASTNODE_沫:1.0___ast_沫_169__, _ASTNODE_沫:1.0___ast_沫_1__: _ASTNODE_沫:1.0___ast_沫_120__ = 40, _ASTNODE_沫:1.0___ast_沫_167__: _ASTNODE_沫:1.0___ast_沫_16__ = _ASTNODE_廡:1.0___ast_廡_20__) -> _ASTNODE_沫:1.0___ast_沫_16__:
+    _ASTNODE_沫:1.0___ast_沫_137__ = _ASTNODE_沫:1.0___ast_沫_120__((_ASTNODE_沫:1.0___ast_沫_147__ / _ASTNODE_沫:1.0___ast_沫_121__(_ASTNODE_沫:1.0___ast_沫_40__, 0.001)) * _ASTNODE_沫:1.0___ast_沫_1__)
+    return _ASTNODE_沫:1.0___ast_沫_167__ + "█" * _ASTNODE_沫:1.0___ast_沫_137__ + "░" * (_ASTNODE_沫:1.0___ast_沫_1__ - _ASTNODE_沫:1.0___ast_沫_137__) + _ASTNODE_廡:1.0___ast_廡_52__
+
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_133__(_ASTNODE_沫:1.0___ast_沫_23__: _ASTNODE_沫:1.0___ast_沫_16__, _ASTNODE_沫:1.0___ast_沫_15__: _ASTNODE_沫:1.0___ast_沫_120__, _ASTNODE_沫:1.0___ast_沫_115__: _ASTNODE_沫:1.0___ast_沫_16__) -> _ASTNODE_廡:1.0___ast_廡_36__:
+    _ASTNODE_沫:1.0___ast_沫_124__ = _ASTNODE_沫:1.0___ast_沫_116__(_ASTNODE_沫:1.0___ast_沫_115__)
+    _ASTNODE_沫:1.0___ast_沫_138__    = _ASTNODE_沫:1.0___ast_沫_165__(_ASTNODE_沫:1.0___ast_沫_115__)
+
+    _ASTNODE_鍵:1.0___ast_沫_72__ = _ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_124__._ASTNODE_沫:1.0___ast_沫_140__())
+    _ASTNODE_鍵:1.0___ast_沫_126__    = _ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_138__._ASTNODE_沫:1.0___ast_沫_140__())
+
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n{_ASTNODE_廡:1.0___ast_廡_49__}{'═'*65}{_ASTNODE_廡:1.0___ast_廡_52__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"{_ASTNODE_廡:1.0___ast_廡_49__}  _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__ _ASTNODE_廡:1.0___ast_廡_45__ _ASTNODE_廡:1.0___ast_廡_25__ — _ASTNODE_廡:1.0___ast_廡_38__ _ASTNODE_廡:1.0___ast_廡_6__ _ASTNODE_廡:1.0___ast_廡_23__{_ASTNODE_廡:1.0___ast_廡_52__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"{'═'*65}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_41__   : {_ASTNODE_廡:1.0___ast_廡_31__}{_ASTNODE_沫:1.0___ast_沫_23__}{_ASTNODE_廡:1.0___ast_廡_52__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_51__    : {_ASTNODE_沫:1.0___ast_沫_115__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_22__    : {_ASTNODE_沫:1.0___ast_沫_15__} _ASTNODE_格:1.0___ast_沫_88__ _ASTNODE_沫:1.0___ast_沫_84__")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_24__  _ASTNODE_廡:1.0___ast_廡_42__ _ASTNODE_格:1.0___ast_沫_52__ : ~{_ASTNODE_鍵:1.0___ast_沫_72__:,} _ASTNODE_沫:1.0___ast_沫_41__")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_24__  _ASTNODE_廡:1.0___ast_廡_34__ _ASTNODE_格:1.0___ast_沫_52__    : ~{_ASTNODE_鍵:1.0___ast_沫_126__:,} _ASTNODE_沫:1.0___ast_沫_41__  ({_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_138__._ASTNODE_沫:1.0___ast_沫_140__())/_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_124__._ASTNODE_沫:1.0___ast_沫_140__())*100:.0f}% of _ASTNODE_沫:1.0___ast_沫_74__)")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"{'─'*65}\n")
+
+// [metadata-stripped]
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_9__}⟳ _ASTNODE_廡:1.0___ast_廡_16__ up _ASTNODE_沫:1.0___ast_沫_23__...{_ASTNODE_廡:1.0___ast_廡_52__}", _ASTNODE_沫:1.0___ast_沫_99__="", _ASTNODE_沫:1.0___ast_沫_39__=_ASTNODE_廡:1.0___ast_廡_1__)
+    _ASTNODE_沫:1.0___ast_沫_59__(_ASTNODE_沫:1.0___ast_沫_23__, "_ASTNODE_廡:1.0___ast_廡_8__")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_20__}✓ _ASTNODE_廡:1.0___ast_廡_32__{_ASTNODE_廡:1.0___ast_廡_52__}\n")
+
+// [metadata-stripped]
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_11__}{_ASTNODE_廡:1.0___ast_廡_49__}_ASTNODE_廡:1.0___ast_廡_42__ _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__{_ASTNODE_廡:1.0___ast_廡_52__}  (_ASTNODE_沫:1.0___ast_沫_87__ {_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_廡:1.0___ast_廡_33__)} _ASTNODE_沫:1.0___ast_沫_9__ _ASTNODE_沫:1.0___ast_沫_80__ in _ASTNODE_沫:1.0___ast_沫_69__)")
+    _ASTNODE_沫:1.0___ast_沫_6__ = []
+    for i in _ASTNODE_沫:1.0___ast_沫_100__(_ASTNODE_沫:1.0___ast_沫_15__):
+        _ASTNODE_沫:1.0___ast_沫_128__, _ASTNODE_沫:1.0___ast_沫_170__, _ASTNODE_沫:1.0___ast_沫_44__ = _ASTNODE_沫:1.0___ast_沫_59__(_ASTNODE_沫:1.0___ast_沫_23__, _ASTNODE_沫:1.0___ast_沫_124__)
+        if _ASTNODE_沫:1.0___ast_沫_128__ < 0:
+            _ASTNODE_沫:1.0___ast_沫_43__(f"    _ASTNODE_廡:1.0___ast_廡_29__ {i+1}: {_ASTNODE_廡:1.0___ast_廡_11__}_ASTNODE_廡:1.0___ast_廡_47__{_ASTNODE_廡:1.0___ast_廡_52__}")
+            continue
+        _ASTNODE_沫:1.0___ast_沫_6__._ASTNODE_沫:1.0___ast_沫_2__(_ASTNODE_沫:1.0___ast_沫_128__)
+        _ASTNODE_沫:1.0___ast_沫_43__(f"    _ASTNODE_廡:1.0___ast_廡_29__ {i+1}: _ASTNODE_廡:1.0___ast_廡_45__={_ASTNODE_廡:1.0___ast_廡_11__}{_ASTNODE_沫:1.0___ast_沫_128__*1000:>7.0f}ms{_ASTNODE_廡:1.0___ast_廡_52__}  _ASTNODE_沫:1.0___ast_沫_170__={_ASTNODE_沫:1.0___ast_沫_170__:.2f}s  _ASTNODE_沫:1.0___ast_沫_44__={_ASTNODE_沫:1.0___ast_沫_44__}")
+        _ASTNODE_沫:1.0___ast_沫_105__._ASTNODE_沫:1.0___ast_沫_159__(0.5)
+
+// [metadata-stripped]
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n  {_ASTNODE_廡:1.0___ast_廡_20__}{_ASTNODE_廡:1.0___ast_廡_49__}_ASTNODE_廡:1.0___ast_廡_34__ _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__{_ASTNODE_廡:1.0___ast_廡_52__}     (_ASTNODE_沫:1.0___ast_沫_134__-3 _ASTNODE_沫:1.0___ast_沫_22__ _ASTNODE_沫:1.0___ast_沫_135__ in _ASTNODE_沫:1.0___ast_沫_69__)")
+    _ASTNODE_沫:1.0___ast_沫_50__ = []
+    for i in _ASTNODE_沫:1.0___ast_沫_100__(_ASTNODE_沫:1.0___ast_沫_15__):
+        _ASTNODE_沫:1.0___ast_沫_128__, _ASTNODE_沫:1.0___ast_沫_170__, _ASTNODE_沫:1.0___ast_沫_44__ = _ASTNODE_沫:1.0___ast_沫_59__(_ASTNODE_沫:1.0___ast_沫_23__, _ASTNODE_沫:1.0___ast_沫_138__)
+        if _ASTNODE_沫:1.0___ast_沫_128__ < 0:
+            _ASTNODE_沫:1.0___ast_沫_43__(f"    _ASTNODE_廡:1.0___ast_廡_29__ {i+1}: {_ASTNODE_廡:1.0___ast_廡_11__}_ASTNODE_廡:1.0___ast_廡_47__{_ASTNODE_廡:1.0___ast_廡_52__}")
+            continue
+        _ASTNODE_沫:1.0___ast_沫_50__._ASTNODE_沫:1.0___ast_沫_2__(_ASTNODE_沫:1.0___ast_沫_128__)
+        _ASTNODE_沫:1.0___ast_沫_43__(f"    _ASTNODE_廡:1.0___ast_廡_29__ {i+1}: _ASTNODE_廡:1.0___ast_廡_45__={_ASTNODE_廡:1.0___ast_廡_20__}{_ASTNODE_沫:1.0___ast_沫_128__*1000:>7.0f}ms{_ASTNODE_廡:1.0___ast_廡_52__}  _ASTNODE_沫:1.0___ast_沫_170__={_ASTNODE_沫:1.0___ast_沫_170__:.2f}s  _ASTNODE_沫:1.0___ast_沫_44__={_ASTNODE_沫:1.0___ast_沫_44__}")
+        _ASTNODE_沫:1.0___ast_沫_105__._ASTNODE_沫:1.0___ast_沫_159__(0.5)
+
+    if _ASTNODE_沫:1.0___ast_沫_19__ _ASTNODE_沫:1.0___ast_沫_6__ or _ASTNODE_沫:1.0___ast_沫_19__ _ASTNODE_沫:1.0___ast_沫_50__:
+        _ASTNODE_沫:1.0___ast_沫_43__(f"\n{_ASTNODE_廡:1.0___ast_廡_11__}_ASTNODE_廡:1.0___ast_廡_47__: No _ASTNODE_沫:1.0___ast_沫_36__ _ASTNODE_沫:1.0___ast_沫_53__. Is _ASTNODE_廡:1.0___ast_廡_6__ _ASTNODE_沫:1.0___ast_沫_104__?{_ASTNODE_廡:1.0___ast_廡_52__}")
+        _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_14__: _ASTNODE_沫:1.0___ast_沫_76__ _ASTNODE_沫:1.0___ast_沫_30__")
+        return
+
+// [metadata-stripped]
+    _ASTNODE_沫:1.0___ast_沫_4__ = _ASTNODE_沫:1.0___ast_沫_97__(_ASTNODE_沫:1.0___ast_沫_6__) / _ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_6__)
+// _ASTNODE_廡:0.9___ast_CH_786__ [decoy-metadata]
+    _ASTNODE_沫:1.0___ast_沫_17__    = _ASTNODE_沫:1.0___ast_沫_97__(_ASTNODE_沫:1.0___ast_沫_50__)    / _ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_沫:1.0___ast_沫_50__)
+    _ASTNODE_沫:1.0___ast_沫_32__ = _ASTNODE_沫:1.0___ast_沫_125__(_ASTNODE_沫:1.0___ast_沫_6__)
+    _ASTNODE_沫:1.0___ast_沫_131__    = _ASTNODE_沫:1.0___ast_沫_125__(_ASTNODE_沫:1.0___ast_沫_50__)
+    _ASTNODE_沫:1.0___ast_沫_143__     = _ASTNODE_沫:1.0___ast_沫_4__ / _ASTNODE_沫:1.0___ast_沫_121__(_ASTNODE_沫:1.0___ast_沫_17__, 0.001)
+    _ASTNODE_函:1.0___ast_沫_164__    = (_ASTNODE_沫:1.0___ast_沫_4__ - _ASTNODE_沫:1.0___ast_沫_17__) * 1000
+
+    _ASTNODE_沫:1.0___ast_沫_114__ = _ASTNODE_沫:1.0___ast_沫_4__ * 1000
+
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n{'═'*65}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"{_ASTNODE_廡:1.0___ast_廡_49__}  _ASTNODE_廡:1.0___ast_廡_4__{_ASTNODE_廡:1.0___ast_廡_52__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"{'─'*65}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n  _ASTNODE_廡:1.0___ast_廡_42__  {_ASTNODE_沫:1.0___ast_沫_75__(_ASTNODE_沫:1.0___ast_沫_4__*1000, _ASTNODE_沫:1.0___ast_沫_114__, 40, _ASTNODE_廡:1.0___ast_廡_11__)}  _ASTNODE_沫:1.0___ast_沫_47__ {_ASTNODE_廡:1.0___ast_廡_11__}{_ASTNODE_沫:1.0___ast_沫_4__*1000:.0f}ms{_ASTNODE_廡:1.0___ast_廡_52__}  _ASTNODE_沫:1.0___ast_沫_125__ {_ASTNODE_沫:1.0___ast_沫_32__*1000:.0f}ms")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  _ASTNODE_廡:1.0___ast_廡_34__     {_ASTNODE_沫:1.0___ast_沫_75__(_ASTNODE_沫:1.0___ast_沫_17__*1000, _ASTNODE_沫:1.0___ast_沫_114__, 40, _ASTNODE_廡:1.0___ast_廡_20__)}  _ASTNODE_沫:1.0___ast_沫_47__ {_ASTNODE_廡:1.0___ast_廡_20__}{_ASTNODE_沫:1.0___ast_沫_17__*1000:.0f}ms{_ASTNODE_廡:1.0___ast_廡_52__}  _ASTNODE_沫:1.0___ast_沫_125__ {_ASTNODE_沫:1.0___ast_沫_131__*1000:.0f}ms")
+    _ASTNODE_沫:1.0___ast_沫_43__()
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_49__}_ASTNODE_廡:1.0___ast_廡_45__ _ASTNODE_函:1.0___ast_沫_33__  : {_ASTNODE_廡:1.0___ast_廡_9__}{_ASTNODE_函:1.0___ast_沫_164__:.0f}ms{_ASTNODE_廡:1.0___ast_廡_52__} _ASTNODE_格:1.0___ast_沫_88__ _ASTNODE_網:1.0___ast_沫_132__")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_49__}_ASTNODE_廡:1.0___ast_廡_48__     : {_ASTNODE_廡:1.0___ast_廡_9__}{_ASTNODE_沫:1.0___ast_沫_143__:.1f}x{_ASTNODE_廡:1.0___ast_廡_52__} _ASTNODE_格:1.0___ast_沫_56__ _ASTNODE_沫:1.0___ast_沫_44__ _ASTNODE_鍵:1.0___ast_沫_101__")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"  {_ASTNODE_廡:1.0___ast_廡_49__}_ASTNODE_廡:1.0___ast_廡_7__     : {_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_廡:1.0___ast_廡_33__)} _ASTNODE_沫:1.0___ast_沫_22__ → _ASTNODE_沫:1.0___ast_沫_134__-3 ({_ASTNODE_鍵:1.0___ast_沫_126__/_ASTNODE_鍵:1.0___ast_沫_72__*100:.0f}% of _ASTNODE_沫:1.0___ast_沫_74__){_ASTNODE_廡:1.0___ast_廡_52__}")
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n{'═'*65}")
+
+// [metadata-stripped]
+    md = f"""
+// [metadata-stripped]
+
+| _ASTNODE_廡:1.0___ast_廡_46__ | _ASTNODE_廡:1.0___ast_廡_44__ _ASTNODE_廡:1.0___ast_廡_45__ | _ASTNODE_廡:1.0___ast_廡_53__ _ASTNODE_廡:1.0___ast_廡_45__ |
+|---|---|---|
+| _ASTNODE_廡:1.0___ast_廡_42__ _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__ ({_ASTNODE_沫:1.0___ast_沫_89__(_ASTNODE_廡:1.0___ast_廡_33__)} _ASTNODE_沫:1.0___ast_沫_22__) | {_ASTNODE_沫:1.0___ast_沫_4__*1000:.0f}ms | {_ASTNODE_沫:1.0___ast_沫_32__*1000:.0f}ms |
+| _ASTNODE_廡:1.0___ast_廡_34__ _ASTNODE_沫:1.0___ast_沫_9__-_ASTNODE_沫:1.0___ast_沫_11__-_ASTNODE_沫:1.0___ast_沫_95__ (_ASTNODE_沫:1.0___ast_沫_134__-3 _ASTNODE_沫:1.0___ast_沫_135__) | {_ASTNODE_沫:1.0___ast_沫_17__*1000:.0f}ms | {_ASTNODE_沫:1.0___ast_沫_131__*1000:.0f}ms |
+| **_ASTNODE_廡:1.0___ast_廡_48__** | **{_ASTNODE_沫:1.0___ast_沫_143__:.1f}x** | — |
+"""
+    _ASTNODE_沫:1.0___ast_沫_3__ = _ASTNODE_廡:1.0___ast_廡_37__(_ASTNODE_函:1.0___ast_沫_154__)._ASTNODE_沫:1.0___ast_沫_51__ / "_ASTNODE_沫:1.0___ast_沫_85__.md"
+    _ASTNODE_沫:1.0___ast_沫_3__._ASTNODE_沫:1.0___ast_沫_102__(md)
+    _ASTNODE_沫:1.0___ast_沫_43__(f"\n  _ASTNODE_廡:1.0___ast_廡_4__ _ASTNODE_函:1.0___ast_沫_33__: {_ASTNODE_沫:1.0___ast_沫_3__}")
+
+
+_ASTNODE_沫:1.0___ast_沫_86__ _ASTNODE_沫:1.0___ast_沫_130__() -> _ASTNODE_廡:1.0___ast_廡_36__:
+    _ASTNODE_格:1.0___ast_沫_173__ = _ASTNODE_沫:1.0___ast_沫_58__._ASTNODE_格:1.0___ast_廡_19__()
+    _ASTNODE_格:1.0___ast_沫_173__._ASTNODE_沫:1.0___ast_沫_70__("--_ASTNODE_沫:1.0___ast_沫_23__", _ASTNODE_沫:1.0___ast_沫_10__="_ASTNODE_沫:1.0___ast_沫_111__:_ASTNODE_沫:1.0___ast_沫_18__",
+                        _ASTNODE_沫:1.0___ast_沫_66__="_ASTNODE_廡:1.0___ast_廡_6__ _ASTNODE_沫:1.0___ast_沫_23__ _ASTNODE_沫:1.0___ast_沫_27__ (_ASTNODE_沫:1.0___ast_沫_10__: _ASTNODE_沫:1.0___ast_沫_111__:_ASTNODE_沫:1.0___ast_沫_18__)")
+    _ASTNODE_格:1.0___ast_沫_173__._ASTNODE_沫:1.0___ast_沫_70__("--_ASTNODE_沫:1.0___ast_沫_15__",  _ASTNODE_沫:1.0___ast_沫_96__=_ASTNODE_沫:1.0___ast_沫_120__, _ASTNODE_沫:1.0___ast_沫_10__=3,
+                        _ASTNODE_沫:1.0___ast_沫_66__="_ASTNODE_廡:1.0___ast_廡_22__ _ASTNODE_格:1.0___ast_沫_88__ _ASTNODE_沫:1.0___ast_沫_84__ (_ASTNODE_沫:1.0___ast_沫_10__: 3)")
+    _ASTNODE_格:1.0___ast_沫_173__._ASTNODE_沫:1.0___ast_沫_70__("--_ASTNODE_沫:1.0___ast_沫_115__",  _ASTNODE_沫:1.0___ast_沫_10__=_ASTNODE_廡:1.0___ast_廡_27__,
+                        _ASTNODE_沫:1.0___ast_沫_66__="_ASTNODE_廡:1.0___ast_廡_51__ _ASTNODE_沫:1.0___ast_沫_81__ for _ASTNODE_沫:1.0___ast_沫_9__ _ASTNODE_沫:1.0___ast_沫_26__")
+    _ASTNODE_沫:1.0___ast_沫_172__ = _ASTNODE_格:1.0___ast_沫_173__._ASTNODE_沫:1.0___ast_沫_65__()
+
+    _ASTNODE_沫:1.0___ast_沫_133__(_ASTNODE_沫:1.0___ast_沫_172__._ASTNODE_沫:1.0___ast_沫_23__, _ASTNODE_沫:1.0___ast_沫_172__._ASTNODE_沫:1.0___ast_沫_15__, _ASTNODE_沫:1.0___ast_沫_172__._ASTNODE_沫:1.0___ast_沫_115__)
+
+
+if _ASTNODE_沫:1.0___ast_沫_168__ == "_ASTNODE_沫:1.0___ast_沫_142__":
+    _ASTNODE_沫:1.0___ast_沫_130__()
+
+// POLYMORPHIC_JCROSS_END

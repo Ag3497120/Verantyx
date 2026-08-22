@@ -1,0 +1,305 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DD4EB2D2 ver:1778162963
+// ⚠️ One-time schema — expires after response
+
+import _SYM_霞:1.0___jcross_霞_71__
+import _SYM_霞:1.0___jcross_霞_107__
+import _SYM_霞:1.0___jcross_霞_94__
+import _SYM_霞:1.0___jcross_霞_117__
+_SYM_霞:1.0___jcross_霞_146__ _SYM_霞:1.0___jcross_霞_10__ import _SYM_庠:1.0___jcross_庠_19__
+import _SYM_霞:1.0___jcross_霞_43__ as np
+_SYM_霞:1.0___jcross_霞_146__ _SYM_霞:1.0___jcross_霞_68__ import _SYM_術:1.0___jcross_庠_18__
+import os
+_SYM_霞:1.0___jcross_霞_146__ _SYM_霞:1.0___jcross_霞_46__ import _SYM_霞:1.0___jcross_霞_60__
+_SYM_霞:1.0___jcross_霞_146__ _SYM_霞:1.0___jcross_霞_159__._SYM_霞:1.0___jcross_霞_153__ import _SYM_術:1.0___jcross_庠_17__
+ps = _SYM_術:1.0___jcross_庠_17__()
+
+_SYM_庠:1.0___jcross_庠_8__ = 5
+
+class _SYM_玄:1.0___jcross_庠_10__(_SYM_霞:1.0___jcross_霞_106__):
+    _SYM_庠:1.0___jcross_庠_20__ = r'[\p{L}\p{N}\p{M}]+'
+    _SYM_庠:1.0___jcross_庠_3__ = r'[^\p{Z}\p{C}]'
+
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_35__(self):
+        """
+        _SYM_庠:1.0___jcross_庠_9__:
+            _SYM_霞:1.0___jcross_霞_4__: _SYM_庠:1.0___jcross_庠_13__ or _SYM_霞:1.0___jcross_霞_27__ _SYM_術:1.0___jcross_核_2__ (_SYM_霞:1.0___jcross_霞_131__ _SYM_玄:1.0___jcross_霞_166__).
+        """
+        self._SYM_霞:1.0___jcross_霞_147__ = _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_123__(
+            '(%s)|(%s)' % (self._SYM_庠:1.0___jcross_庠_20__, self._SYM_庠:1.0___jcross_庠_3__),
+            _SYM_霞:1.0___jcross_霞_139__=_SYM_霞:1.0___jcross_霞_71__._SYM_庠:1.0___jcross_庠_4__ + _SYM_霞:1.0___jcross_霞_71__._SYM_庠:1.0___jcross_庠_15__ + _SYM_霞:1.0___jcross_霞_71__._SYM_庠:1.0___jcross_庠_12__
+        )
+
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_玄:1.0___jcross_霞_24__(self, _SYM_霞:1.0___jcross_霞_65__, _SYM_霞:1.0___jcross_霞_111__=_SYM_庠:1.0___jcross_庠_21__):
+        _SYM_霞:1.0___jcross_霞_81__ = [m for m in self._SYM_霞:1.0___jcross_霞_147__._SYM_術:1.0___jcross_霞_129__(_SYM_霞:1.0___jcross_霞_65__)]
+        if _SYM_霞:1.0___jcross_霞_111__:
+            _SYM_玄:1.0___jcross_霞_100__ = [m._SYM_霞:1.0___jcross_霞_137__()._SYM_術:1.0___jcross_霞_40__() for m in _SYM_霞:1.0___jcross_霞_81__]
+        else:
+            _SYM_玄:1.0___jcross_霞_100__ = [m._SYM_霞:1.0___jcross_霞_137__() for m in _SYM_霞:1.0___jcross_霞_81__]
+        return _SYM_玄:1.0___jcross_霞_100__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_術:1.0___jcross_霞_80__(_SYM_霞:1.0___jcross_霞_150__, _SYM_玄:1.0___jcross_霞_78__) -> _SYM_庠:1.0___jcross_庠_19__[_SYM_霞:1.0___jcross_霞_44__]:
+    """_SYM_庠:1.0___jcross_庠_6__ _SYM_霞:1.0___jcross_霞_164__ _SYM_霞:1.0___jcross_霞_87__ _SYM_霞:1.0___jcross_霞_91__ _SYM_霞:1.0___jcross_霞_130__ _SYM_霞:1.0___jcross_霞_26__ to _SYM_霞:1.0___jcross_霞_113__ if _SYM_霞:1.0___jcross_霞_54__ _SYM_霞:1.0___jcross_霞_119__ any of _SYM_霞:1.0___jcross_霞_91__ _SYM_霞:1.0___jcross_霞_154__."""
+    _SYM_霞:1.0___jcross_霞_154__ = _SYM_霞:1.0___jcross_霞_150__['_SYM_霞:1.0___jcross_霞_154__']
+    _SYM_霞:1.0___jcross_霞_31__ = _SYM_霞:1.0___jcross_霞_150__['_SYM_霞:1.0___jcross_霞_31__']
+
+    _SYM_霞:1.0___jcross_霞_126__ = []
+
+    for _, _SYM_霞:1.0___jcross_霞_73__ in _SYM_霞:1.0___jcross_霞_169__(_SYM_霞:1.0___jcross_霞_31__):
+// _SYM_匣:0.2___jcross_HE_643__ [decoy-metadata]
+        _SYM_霞:1.0___jcross_霞_65__ = _SYM_霞:1.0___jcross_霞_73__['_SYM_霞:1.0___jcross_霞_65__']
+
+        if _SYM_霞:1.0___jcross_霞_65__ is _SYM_庠:1.0___jcross_庠_13__:  # _SYM_霞:1.0___jcross_霞_140__ _SYM_霞:1.0___jcross_霞_85__ _SYM_霞:1.0___jcross_霞_91__ _SYM_霞:1.0___jcross_霞_74__ for some _SYM_霞:1.0___jcross_霞_62__
+            _SYM_霞:1.0___jcross_霞_126__._SYM_霞:1.0___jcross_霞_1__(_SYM_庠:1.0___jcross_庠_21__)
+            continue
+
+        _SYM_霞:1.0___jcross_霞_126__._SYM_霞:1.0___jcross_霞_1__(_SYM_術:1.0___jcross_霞_33__(_SYM_霞:1.0___jcross_霞_154__, _SYM_霞:1.0___jcross_霞_65__, _SYM_玄:1.0___jcross_霞_78__))
+
+    return _SYM_霞:1.0___jcross_霞_126__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_術:1.0___jcross_霞_33__(_SYM_霞:1.0___jcross_霞_154__, _SYM_霞:1.0___jcross_霞_65__, _SYM_玄:1.0___jcross_霞_78__=_SYM_玄:1.0___jcross_庠_10__()) -> _SYM_霞:1.0___jcross_霞_44__:
+    """_SYM_庠:1.0___jcross_庠_7__ if a _SYM_霞:1.0___jcross_霞_74__ _SYM_霞:1.0___jcross_霞_16__ an _SYM_術:1.0___jcross_霞_25__ _SYM_霞:1.0___jcross_霞_94__."""
+    _SYM_霞:1.0___jcross_霞_65__ = _SYM_霞:1.0___jcross_霞_156__(_SYM_霞:1.0___jcross_霞_65__)
+    _SYM_霞:1.0___jcross_霞_65__ = _SYM_玄:1.0___jcross_霞_78__._SYM_玄:1.0___jcross_霞_24__(_SYM_霞:1.0___jcross_霞_65__, _SYM_霞:1.0___jcross_霞_111__=_SYM_庠:1.0___jcross_庠_1__)
+
+    for _SYM_術:1.0___jcross_霞_25__ in _SYM_霞:1.0___jcross_霞_154__:
+        _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_156__(_SYM_術:1.0___jcross_霞_25__)
+// _SYM_霞:0.7___jcross_WC_247__ [decoy-metadata]
+        _SYM_術:1.0___jcross_霞_25__ = _SYM_玄:1.0___jcross_霞_78__._SYM_玄:1.0___jcross_霞_24__(_SYM_術:1.0___jcross_霞_25__, _SYM_霞:1.0___jcross_霞_111__=_SYM_庠:1.0___jcross_庠_1__)
+        for i in _SYM_霞:1.0___jcross_霞_101__(0, _SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_65__) - _SYM_霞:1.0___jcross_霞_88__(_SYM_術:1.0___jcross_霞_25__) + 1):
+            if _SYM_術:1.0___jcross_霞_25__ == _SYM_霞:1.0___jcross_霞_65__[i: i + _SYM_霞:1.0___jcross_霞_88__(_SYM_術:1.0___jcross_霞_25__)]:
+                return _SYM_庠:1.0___jcross_庠_1__
+// _SYM_玄:0.1___jcross_XG_798__ [decoy-metadata]
+    return _SYM_庠:1.0___jcross_庠_21__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_156__(_SYM_霞:1.0___jcross_霞_65__):
+    return _SYM_霞:1.0___jcross_霞_117__._SYM_霞:1.0___jcross_霞_66__('_SYM_庠:1.0___jcross_庠_5__', _SYM_霞:1.0___jcross_霞_65__)
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_術:1.0___jcross_霞_103__(s):
+
+    s = s._SYM_霞:1.0___jcross_霞_19__(',', "")
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_47__(_SYM_霞:1.0___jcross_霞_65__):
+// [metadata-stripped]
+        return _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_57__(r'\b(a|an|_SYM_霞:1.0___jcross_霞_91__|_SYM_霞:1.0___jcross_霞_75__)\b', ' ', _SYM_霞:1.0___jcross_霞_65__)
+
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_114__(_SYM_霞:1.0___jcross_霞_65__):
+        return ' '._SYM_霞:1.0___jcross_霞_63__(_SYM_霞:1.0___jcross_霞_65__._SYM_霞:1.0___jcross_霞_135__())
+
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_11__(_SYM_霞:1.0___jcross_霞_65__):
+        _SYM_霞:1.0___jcross_霞_162__ = _SYM_術:1.0___jcross_核_2__(_SYM_霞:1.0___jcross_霞_94__._SYM_霞:1.0___jcross_霞_121__)
+        return ''._SYM_霞:1.0___jcross_霞_63__(ch for ch in _SYM_霞:1.0___jcross_霞_65__ if ch _SYM_霞:1.0___jcross_霞_18__ in _SYM_霞:1.0___jcross_霞_162__)
+
+    _SYM_霞:1.0___jcross_霞_86__ _SYM_術:1.0___jcross_霞_40__(_SYM_霞:1.0___jcross_霞_65__):
+        return _SYM_霞:1.0___jcross_霞_65__._SYM_術:1.0___jcross_霞_40__()
+
+    return _SYM_霞:1.0___jcross_霞_114__(_SYM_霞:1.0___jcross_霞_47__(_SYM_霞:1.0___jcross_霞_11__(_SYM_術:1.0___jcross_霞_40__(s))))
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_72__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__):
+
+    _SYM_霞:1.0___jcross_霞_109__ = _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_109__)
+    _SYM_霞:1.0___jcross_霞_158__ = _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_158__)
+// [metadata-stripped]
+// [metadata-stripped]
+    return _SYM_術:1.0___jcross_核_2__(_SYM_霞:1.0___jcross_霞_109__._SYM_霞:1.0___jcross_霞_135__()) == _SYM_術:1.0___jcross_核_2__(_SYM_霞:1.0___jcross_霞_158__._SYM_霞:1.0___jcross_霞_135__())
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_46__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__):
+    _SYM_霞:1.0___jcross_霞_109__ = _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_109__)
+    _SYM_霞:1.0___jcross_霞_158__ = _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_158__)
+// _SYM_玄:0.1___jcross_VZ_994__ [decoy-metadata]
+    P, R, F1 = _SYM_霞:1.0___jcross_霞_60__([_SYM_霞:1.0___jcross_霞_109__], [_SYM_霞:1.0___jcross_霞_158__], _SYM_霞:1.0___jcross_霞_133__='en', _SYM_霞:1.0___jcross_霞_55__=_SYM_庠:1.0___jcross_庠_21__, _SYM_霞:1.0___jcross_霞_89__=_SYM_庠:1.0___jcross_庠_1__)
+// [metadata-stripped]
+    return _SYM_霞:1.0___jcross_霞_124__(0, F1[0]._SYM_霞:1.0___jcross_霞_144__())
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_127__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_142__):
+    return _SYM_霞:1.0___jcross_霞_124__([_SYM_霞:1.0___jcross_霞_72__(_SYM_霞:1.0___jcross_霞_109__, gt) for gt in _SYM_霞:1.0___jcross_霞_142__])
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_21__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__):
+    _SYM_玄:1.0___jcross_霞_128__ = [ps._SYM_霞:1.0___jcross_霞_153__(w) for w in _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_109__)._SYM_霞:1.0___jcross_霞_135__()]
+    _SYM_玄:1.0___jcross_霞_99__ = [ps._SYM_霞:1.0___jcross_霞_153__(w) for w in _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_158__)._SYM_霞:1.0___jcross_霞_135__()]
+    _SYM_霞:1.0___jcross_霞_37__ = _SYM_術:1.0___jcross_庠_18__(_SYM_玄:1.0___jcross_霞_128__) & _SYM_術:1.0___jcross_庠_18__(_SYM_玄:1.0___jcross_霞_99__)
+    _SYM_霞:1.0___jcross_霞_82__ = _SYM_霞:1.0___jcross_霞_96__(_SYM_霞:1.0___jcross_霞_37__._SYM_霞:1.0___jcross_霞_12__())
+    if _SYM_霞:1.0___jcross_霞_82__ == 0:
+        return 0
+    _SYM_霞:1.0___jcross_霞_120__ = 1.0 * _SYM_霞:1.0___jcross_霞_82__ / _SYM_霞:1.0___jcross_霞_88__(_SYM_玄:1.0___jcross_霞_128__)
+    _SYM_霞:1.0___jcross_霞_64__ = 1.0 * _SYM_霞:1.0___jcross_霞_82__ / _SYM_霞:1.0___jcross_霞_88__(_SYM_玄:1.0___jcross_霞_99__)
+    f1 = (2 * _SYM_霞:1.0___jcross_霞_120__ * _SYM_霞:1.0___jcross_霞_64__) / (_SYM_霞:1.0___jcross_霞_120__ + _SYM_霞:1.0___jcross_霞_64__)
+// [metadata-stripped]
+// [metadata-stripped]
+    return f1
+
+
+_SYM_霞:1.0___jcross_霞_86__ f1(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__):
+    _SYM_霞:1.0___jcross_霞_23__ = [p._SYM_霞:1.0___jcross_霞_108__() for p in _SYM_霞:1.0___jcross_霞_109__._SYM_霞:1.0___jcross_霞_135__(',')]
+    _SYM_霞:1.0___jcross_霞_142__ = [g._SYM_霞:1.0___jcross_霞_108__() for g in _SYM_霞:1.0___jcross_霞_158__._SYM_霞:1.0___jcross_霞_135__(',')]
+// [metadata-stripped]
+    return np._SYM_霞:1.0___jcross_霞_79__([_SYM_霞:1.0___jcross_霞_124__([_SYM_霞:1.0___jcross_霞_21__(_SYM_霞:1.0___jcross_霞_109__, gt) for _SYM_霞:1.0___jcross_霞_109__ in _SYM_霞:1.0___jcross_霞_23__]) for gt in _SYM_霞:1.0___jcross_霞_142__])
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_61__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__):
+    _SYM_霞:1.0___jcross_霞_146__ _SYM_霞:1.0___jcross_霞_136__ import _SYM_庠:1.0___jcross_庠_16__
+    _SYM_霞:1.0___jcross_霞_136__ = _SYM_庠:1.0___jcross_庠_16__()
+    _SYM_霞:1.0___jcross_霞_109__ = ' '._SYM_霞:1.0___jcross_霞_63__([ps._SYM_霞:1.0___jcross_霞_153__(w) for w in _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_109__)._SYM_霞:1.0___jcross_霞_135__()])
+    _SYM_霞:1.0___jcross_霞_158__ = ' '._SYM_霞:1.0___jcross_霞_63__([ps._SYM_霞:1.0___jcross_霞_153__(w) for w in _SYM_術:1.0___jcross_霞_103__(_SYM_霞:1.0___jcross_霞_158__)._SYM_霞:1.0___jcross_霞_135__()])
+// [metadata-stripped]
+    try:
+        _SYM_霞:1.0___jcross_霞_160__ = _SYM_霞:1.0___jcross_霞_136__._SYM_術:1.0___jcross_核_1__(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_158__, _SYM_霞:1.0___jcross_霞_42__=_SYM_庠:1.0___jcross_庠_1__)
+    _SYM_霞:1.0___jcross_霞_29__ _SYM_庠:1.0___jcross_庠_14__:  # "_SYM_庠:1.0___jcross_庠_11__ is _SYM_霞:1.0___jcross_霞_27__."
+        return 0.0
+    return _SYM_霞:1.0___jcross_霞_160__["_SYM_霞:1.0___jcross_霞_136__-1"]["f"]
+
+
+_SYM_霞:1.0___jcross_霞_86__ rl(_SYM_霞:1.0___jcross_霞_109__, _SYM_霞:1.0___jcross_霞_142__):
+    return _SYM_霞:1.0___jcross_霞_124__([_SYM_霞:1.0___jcross_霞_61__(_SYM_霞:1.0___jcross_霞_109__, gt) for gt in _SYM_霞:1.0___jcross_霞_142__])
+
+
+// [metadata-stripped]
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_116__(_SYM_匣:1.0___jcross_霞_122__):
+
+    _SYM_玄:1.0___jcross_霞_78__ = _SYM_玄:1.0___jcross_庠_10__()
+    _SYM_霞:1.0___jcross_霞_53__ = open(_SYM_匣:1.0___jcross_霞_122__, 'r')._SYM_霞:1.0___jcross_霞_97__()[1:]
+
+    _SYM_霞:1.0___jcross_霞_98__ = 0
+    _SYM_霞:1.0___jcross_霞_48__ = []
+    for _SYM_霞:1.0___jcross_霞_34__ in _SYM_霞:1.0___jcross_霞_53__:
+        _SYM_霞:1.0___jcross_霞_34__ = _SYM_霞:1.0___jcross_霞_107__._SYM_匣:1.0___jcross_霞_93__(_SYM_霞:1.0___jcross_霞_34__)
+// _SYM_核:0.3___jcross_HG_915__ [decoy-metadata]
+        _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_術:1.0___jcross_霞_25__']
+        _SYM_霞:1.0___jcross_霞_56__ = ' || '._SYM_霞:1.0___jcross_霞_63__(_SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_56__'])
+
+        if _SYM_術:1.0___jcross_霞_33__(_SYM_術:1.0___jcross_霞_25__, _SYM_霞:1.0___jcross_霞_56__, _SYM_玄:1.0___jcross_霞_78__):
+            _SYM_霞:1.0___jcross_霞_98__ += 1
+
+        _SYM_霞:1.0___jcross_霞_48__._SYM_霞:1.0___jcross_霞_1__(_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_56__._SYM_霞:1.0___jcross_霞_135__()))
+
+    _SYM_霞:1.0___jcross_霞_64__ = _SYM_霞:1.0___jcross_霞_104__(_SYM_霞:1.0___jcross_霞_98__/_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_53__), 4)
+    _SYM_霞:1.0___jcross_霞_110__ = _SYM_霞:1.0___jcross_霞_104__(np._SYM_霞:1.0___jcross_霞_79__(_SYM_霞:1.0___jcross_霞_48__), 4)
+
+    return _SYM_霞:1.0___jcross_霞_64__, _SYM_霞:1.0___jcross_霞_110__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_28__(_SYM_霞:1.0___jcross_霞_13__, _SYM_玄:1.0___jcross_霞_49__='_SYM_霞:1.0___jcross_霞_109__', _SYM_霞:1.0___jcross_霞_14__='f1'):
+
+
+    _SYM_霞:1.0___jcross_霞_141__ = []
+    _SYM_霞:1.0___jcross_霞_32__ = []
+    _SYM_霞:1.0___jcross_霞_102__ = 0
+    _SYM_霞:1.0___jcross_霞_9__ = 0
+    _SYM_霞:1.0___jcross_霞_48__ = []
+    for i, _SYM_霞:1.0___jcross_霞_34__ in _SYM_霞:1.0___jcross_霞_169__(_SYM_霞:1.0___jcross_霞_13__):
+// [metadata-stripped]
+        if _SYM_霞:1.0___jcross_霞_95__(_SYM_霞:1.0___jcross_霞_34__[_SYM_玄:1.0___jcross_霞_49__]) == _SYM_霞:1.0___jcross_霞_151__:
+            _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_術:1.0___jcross_霞_25__']
+        else:
+            _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_15__(_SYM_霞:1.0___jcross_霞_34__['_SYM_術:1.0___jcross_霞_25__'])
+        if _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_163__'] == 3:
+            _SYM_術:1.0___jcross_霞_25__ = _SYM_術:1.0___jcross_霞_25__._SYM_霞:1.0___jcross_霞_135__(';')[0]._SYM_霞:1.0___jcross_霞_108__()
+        
+        _SYM_霞:1.0___jcross_霞_56__ = _SYM_霞:1.0___jcross_霞_34__[_SYM_玄:1.0___jcross_霞_49__]
+        
+// [metadata-stripped]
+        if _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_163__'] in [2, 3, 4]:
+            _SYM_霞:1.0___jcross_霞_141__._SYM_霞:1.0___jcross_霞_1__(_SYM_霞:1.0___jcross_霞_21__(_SYM_霞:1.0___jcross_霞_56__, _SYM_術:1.0___jcross_霞_25__))
+        
+// [metadata-stripped]
+        _SYM_泳:1.0___jcross_霞_145__ _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_163__'] in [1]:
+            _SYM_霞:1.0___jcross_霞_141__._SYM_霞:1.0___jcross_霞_1__(f1(_SYM_霞:1.0___jcross_霞_56__, _SYM_術:1.0___jcross_霞_25__))
+
+// [metadata-stripped]
+        _SYM_泳:1.0___jcross_霞_145__ _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_163__'] in [5]:
+            if 'no _SYM_泳:1.0___jcross_霞_69__ _SYM_霞:1.0___jcross_霞_157__' in _SYM_霞:1.0___jcross_霞_56__._SYM_術:1.0___jcross_霞_40__() or '_SYM_霞:1.0___jcross_霞_18__ _SYM_霞:1.0___jcross_霞_5__' in _SYM_霞:1.0___jcross_霞_56__._SYM_術:1.0___jcross_霞_40__():
+                _SYM_霞:1.0___jcross_霞_141__._SYM_霞:1.0___jcross_霞_1__(1)
+            else:
+                _SYM_霞:1.0___jcross_霞_141__._SYM_霞:1.0___jcross_霞_1__(0)
+        else:
+            _SYM_霞:1.0___jcross_霞_36__(_SYM_霞:1.0___jcross_霞_34__)
+            _SYM_霞:1.0___jcross_霞_148__ _SYM_庠:1.0___jcross_庠_14__
+        
+        _SYM_霞:1.0___jcross_霞_67__ i+1 == _SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_141__), _SYM_霞:1.0___jcross_霞_141__
+
+        if _SYM_玄:1.0___jcross_霞_49__ + '_SYM_霞:1.0___jcross_霞_2__' in _SYM_霞:1.0___jcross_霞_34__ _SYM_霞:1.0___jcross_霞_75__ _SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_90__']) > 0:
+// [metadata-stripped]
+            if _SYM_霞:1.0___jcross_霞_34__[_SYM_玄:1.0___jcross_霞_49__ + '_SYM_霞:1.0___jcross_霞_2__'][0]._SYM_霞:1.0___jcross_霞_112__('S'):
+                _SYM_霞:1.0___jcross_霞_20__ = [e[1:] for e in _SYM_霞:1.0___jcross_霞_34__[_SYM_玄:1.0___jcross_霞_49__ + '_SYM_霞:1.0___jcross_霞_2__']]
+                _SYM_霞:1.0___jcross_霞_118__ = _SYM_霞:1.0___jcross_霞_168__(_SYM_霞:1.0___jcross_霞_96__([ev._SYM_霞:1.0___jcross_霞_135__(':')[0][1:] in _SYM_霞:1.0___jcross_霞_20__ for ev in _SYM_霞:1.0___jcross_霞_34__["_SYM_霞:1.0___jcross_霞_90__"]]))/_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_90__'])
+            else:
+                _SYM_霞:1.0___jcross_霞_118__ = _SYM_霞:1.0___jcross_霞_168__(_SYM_霞:1.0___jcross_霞_96__([ev in _SYM_霞:1.0___jcross_霞_34__[_SYM_玄:1.0___jcross_霞_49__ + '_SYM_霞:1.0___jcross_霞_2__'] for ev in _SYM_霞:1.0___jcross_霞_34__["_SYM_霞:1.0___jcross_霞_90__"]]))/_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_90__'])
+            _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_1__(_SYM_霞:1.0___jcross_霞_118__)
+        else:
+            _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_1__(1)
+
+    _SYM_霞:1.0___jcross_霞_36__("{} QA _SYM_霞:1.0___jcross_霞_6__ _SYM_霞:1.0___jcross_霞_165__; {} _SYM_霞:1.0___jcross_霞_152__ _SYM_霞:1.0___jcross_霞_12__"._SYM_泳:1.0___jcross_霞_7__(_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_13__), _SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_141__)))
+    _SYM_霞:1.0___jcross_霞_110__ = 0.0
+    return _SYM_霞:1.0___jcross_霞_141__, _SYM_霞:1.0___jcross_霞_110__, _SYM_霞:1.0___jcross_霞_32__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_58__(_SYM_匣:1.0___jcross_霞_122__):
+
+    _SYM_玄:1.0___jcross_霞_78__ = _SYM_玄:1.0___jcross_庠_10__()
+    _SYM_霞:1.0___jcross_霞_53__ = open(_SYM_匣:1.0___jcross_霞_122__, 'r')._SYM_霞:1.0___jcross_霞_97__()[1:]
+
+    _SYM_霞:1.0___jcross_霞_102__ = 0
+    _SYM_霞:1.0___jcross_霞_48__ = []
+    for _SYM_霞:1.0___jcross_霞_34__ in _SYM_霞:1.0___jcross_霞_53__:
+        _SYM_霞:1.0___jcross_霞_34__ = _SYM_霞:1.0___jcross_霞_107__._SYM_匣:1.0___jcross_霞_93__(_SYM_霞:1.0___jcross_霞_34__)
+        _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_術:1.0___jcross_霞_25__']
+        _SYM_霞:1.0___jcross_霞_56__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_56__'][0]
+
+        if _SYM_術:1.0___jcross_霞_25__ == ["_SYM_霞:1.0___jcross_霞_125__"]:
+            _SYM_術:1.0___jcross_霞_25__ = ["_SYM_霞:1.0___jcross_霞_125__", "no", "false"]
+        if _SYM_術:1.0___jcross_霞_25__ == ["_SYM_霞:1.0___jcross_霞_83__"]:
+            _SYM_術:1.0___jcross_霞_25__ = ["_SYM_霞:1.0___jcross_霞_83__", "_SYM_霞:1.0___jcross_霞_30__", "true"]
+
+        if _SYM_術:1.0___jcross_霞_33__(_SYM_術:1.0___jcross_霞_25__, _SYM_霞:1.0___jcross_霞_56__, _SYM_玄:1.0___jcross_霞_78__):
+            _SYM_霞:1.0___jcross_霞_102__ += 1
+        
+        _SYM_霞:1.0___jcross_霞_48__._SYM_霞:1.0___jcross_霞_1__(_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_56__._SYM_霞:1.0___jcross_霞_135__()))
+
+    em = _SYM_霞:1.0___jcross_霞_104__(_SYM_霞:1.0___jcross_霞_102__/_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_53__), 4)
+    _SYM_霞:1.0___jcross_霞_110__ = _SYM_霞:1.0___jcross_霞_104__(np._SYM_霞:1.0___jcross_霞_79__(_SYM_霞:1.0___jcross_霞_48__), 4)
+
+    return em, _SYM_霞:1.0___jcross_霞_110__
+
+
+_SYM_霞:1.0___jcross_霞_86__ _SYM_霞:1.0___jcross_霞_45__(_SYM_匣:1.0___jcross_霞_122__):
+
+    _SYM_霞:1.0___jcross_霞_53__ = open(_SYM_匣:1.0___jcross_霞_122__, 'r')._SYM_霞:1.0___jcross_霞_97__()[1:]
+
+    _SYM_霞:1.0___jcross_霞_51__ = []
+    _SYM_霞:1.0___jcross_霞_50__ = []
+    _SYM_霞:1.0___jcross_霞_48__ = []
+    for _SYM_霞:1.0___jcross_霞_34__ in _SYM_霞:1.0___jcross_霞_53__:
+        _SYM_霞:1.0___jcross_霞_34__ = _SYM_霞:1.0___jcross_霞_107__._SYM_匣:1.0___jcross_霞_93__(_SYM_霞:1.0___jcross_霞_34__)
+        _SYM_術:1.0___jcross_霞_25__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_術:1.0___jcross_霞_25__']
+        _SYM_霞:1.0___jcross_霞_56__ = _SYM_霞:1.0___jcross_霞_34__['_SYM_霞:1.0___jcross_霞_56__'][0]
+
+        _SYM_霞:1.0___jcross_霞_51__._SYM_霞:1.0___jcross_霞_1__(f1(_SYM_霞:1.0___jcross_霞_56__, _SYM_術:1.0___jcross_霞_25__))
+        _SYM_霞:1.0___jcross_霞_50__._SYM_霞:1.0___jcross_霞_1__(rl(_SYM_霞:1.0___jcross_霞_56__, _SYM_術:1.0___jcross_霞_25__))
+        _SYM_霞:1.0___jcross_霞_48__._SYM_霞:1.0___jcross_霞_1__(_SYM_霞:1.0___jcross_霞_88__(_SYM_霞:1.0___jcross_霞_56__._SYM_霞:1.0___jcross_霞_135__()))
+// _SYM_庠:0.5___jcross_XE_278__ [decoy-metadata]
+
+    F1 = _SYM_霞:1.0___jcross_霞_104__(np._SYM_霞:1.0___jcross_霞_79__(_SYM_霞:1.0___jcross_霞_51__), 4)
+    RL = _SYM_霞:1.0___jcross_霞_104__(np._SYM_霞:1.0___jcross_霞_79__(_SYM_霞:1.0___jcross_霞_50__), 4)
+    _SYM_霞:1.0___jcross_霞_110__ = _SYM_霞:1.0___jcross_霞_104__(np._SYM_霞:1.0___jcross_霞_79__(_SYM_霞:1.0___jcross_霞_48__), 4)
+
+    return F1, RL, _SYM_霞:1.0___jcross_霞_110__
+
+
+// POLYMORPHIC_JCROSS_END

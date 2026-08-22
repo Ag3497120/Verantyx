@@ -1,0 +1,60 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:28B89BE8 ver:1778167093
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_塵:1.0__ASTNODE_塵_9_ _OPAQUE_廂:1.0__ASTNODE_廂_4_ = {
+  _OPAQUE_塵:1.0__ASTNODE_塵_13_?: _OPAQUE_塵:1.0__ASTNODE_塵_5_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_22_?: _OPAQUE_塵:1.0__ASTNODE_塵_5_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_19_?: _OPAQUE_計:1.0__ASTNODE_塵_15_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_17_?: _OPAQUE_計:1.0__ASTNODE_塵_15_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_2_?: _OPAQUE_塵:1.0__ASTNODE_塵_1_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_20_?: _OPAQUE_塵:1.0__ASTNODE_塵_18_;
+// _OPAQUE_計:0.6__ASTNODE_KG_336_ [decoy-metadata]
+  _OPAQUE_塵:1.0__ASTNODE_塵_21_?: _OPAQUE_計:1.0__ASTNODE_塵_15_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+};
+
+_OPAQUE_塵:1.0__ASTNODE_塵_9_ _OPAQUE_廂:1.0__ASTNODE_廂_1_ = {
+  _OPAQUE_塵:1.0__ASTNODE_塵_6_?: _OPAQUE_計:1.0__ASTNODE_塵_15_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+  _OPAQUE_塵:1.0__ASTNODE_塵_14_?: _OPAQUE_計:1.0__ASTNODE_塵_15_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_;
+};
+
+_OPAQUE_塵:1.0__ASTNODE_塵_10_ _OPAQUE_塵:1.0__ASTNODE_塵_23_ _OPAQUE_塵:1.0__ASTNODE_塵_4_<_OPAQUE_廂:1.0__ASTNODE_廂_3_ _OPAQUE_塵:1.0__ASTNODE_塵_7_ _OPAQUE_塵:1.0__ASTNODE_塵_12_>(
+  _OPAQUE_塵:1.0__ASTNODE_塵_11_: _OPAQUE_廂:1.0__ASTNODE_廂_4_,
+// _OPAQUE_潜:0.2__ASTNODE_MW_257_ [decoy-metadata]
+  _OPAQUE_塵:1.0__ASTNODE_塵_24_?: _OPAQUE_廂:1.0__ASTNODE_廂_3_,
+) {
+  return {
+// _OPAQUE_計:0.4__ASTNODE_XX_401_ [decoy-metadata]
+// _OPAQUE_計:0.7__ASTNODE_CF_291_ [decoy-metadata]
+    _OPAQUE_塵:1.0__ASTNODE_塵_13_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_13_ ?? false,
+// _OPAQUE_潜:0.3__ASTNODE_LG_485_ [decoy-metadata]
+    ...(_OPAQUE_塵:1.0__ASTNODE_塵_24_ ?? ({} as _OPAQUE_廂:1.0__ASTNODE_廂_3_)),
+    _OPAQUE_塵:1.0__ASTNODE_塵_22_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_22_ ?? false,
+    _OPAQUE_塵:1.0__ASTNODE_塵_19_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_19_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+    _OPAQUE_塵:1.0__ASTNODE_塵_17_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_17_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+    _OPAQUE_塵:1.0__ASTNODE_塵_2_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_2_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+  };
+}
+
+_OPAQUE_塵:1.0__ASTNODE_塵_10_ _OPAQUE_塵:1.0__ASTNODE_塵_23_ _OPAQUE_塵:1.0__ASTNODE_塵_16_<_OPAQUE_廂:1.0__ASTNODE_廂_3_ _OPAQUE_塵:1.0__ASTNODE_塵_7_ _OPAQUE_塵:1.0__ASTNODE_塵_12_>(
+  _OPAQUE_塵:1.0__ASTNODE_塵_11_: _OPAQUE_廂:1.0__ASTNODE_廂_4_,
+  _OPAQUE_塵:1.0__ASTNODE_塵_24_?: _OPAQUE_廂:1.0__ASTNODE_廂_3_,
+) {
+  return {
+    ..._OPAQUE_塵:1.0__ASTNODE_塵_4_(_OPAQUE_塵:1.0__ASTNODE_塵_11_, _OPAQUE_塵:1.0__ASTNODE_塵_24_),
+    _OPAQUE_塵:1.0__ASTNODE_塵_20_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_20_,
+    _OPAQUE_塵:1.0__ASTNODE_塵_21_: _OPAQUE_塵:1.0__ASTNODE_塵_11_._OPAQUE_塵:1.0__ASTNODE_塵_21_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+  };
+}
+
+_OPAQUE_塵:1.0__ASTNODE_塵_10_ _OPAQUE_塵:1.0__ASTNODE_塵_23_ _OPAQUE_塵:1.0__ASTNODE_塵_3_<_OPAQUE_廂:1.0__ASTNODE_廂_2_ _OPAQUE_塵:1.0__ASTNODE_塵_7_ _OPAQUE_廂:1.0__ASTNODE_廂_1_>(
+  _OPAQUE_塵:1.0__ASTNODE_塵_11_?: _OPAQUE_廂:1.0__ASTNODE_廂_2_ | _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+) {
+  return {
+// _OPAQUE_計:0.9__ASTNODE_KM_654_ [decoy-metadata]
+    _OPAQUE_塵:1.0__ASTNODE_塵_6_: _OPAQUE_塵:1.0__ASTNODE_塵_11_?._OPAQUE_塵:1.0__ASTNODE_塵_6_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+    _OPAQUE_塵:1.0__ASTNODE_塵_14_: _OPAQUE_塵:1.0__ASTNODE_塵_11_?._OPAQUE_塵:1.0__ASTNODE_塵_14_ ?? _OPAQUE_塵:1.0__ASTNODE_塵_8_,
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

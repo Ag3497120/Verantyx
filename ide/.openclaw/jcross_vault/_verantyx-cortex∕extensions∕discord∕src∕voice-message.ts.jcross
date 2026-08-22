@@ -1,0 +1,380 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:811B5D2A ver:1778166840
+// ⚠️ One-time schema — expires after response
+
+/**
+ * _VERANTYX_廟:1.0__TOKEN_廟_65_ _VERANTYX_廟:1.0__TOKEN_廟_61_ _VERANTYX_廟:1.0__TOKEN_廟_32_ _VERANTYX_廟:1.0__TOKEN_廟_58_
+ *
+ * _VERANTYX_廟:1.0__TOKEN_廟_26_ _VERANTYX_霪:1.0__TOKEN_霪_141_ _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_180_ _VERANTYX_霪:1.0__TOKEN_霪_113_ _VERANTYX_廟:1.0__TOKEN_廟_65_'s _VERANTYX_縫:1.0__TOKEN_廟_20_.
+ * _VERANTYX_廟:1.0__TOKEN_廟_61_ _VERANTYX_霪:1.0__TOKEN_霪_180_ _VERANTYX_霪:1.0__TOKEN_霪_219_:
+ * - _VERANTYX_廟:1.0__TOKEN_廟_36_/_VERANTYX_廟:1.0__TOKEN_廟_44_ _VERANTYX_浸:1.0__TOKEN_霪_223_ _VERANTYX_霪:1.0__TOKEN_霪_211_
+ * - _VERANTYX_廟:1.0__TOKEN_廟_12_ _VERANTYX_霪:1.0__TOKEN_霪_157_ (_VERANTYX_霪:1.0__TOKEN_霪_254_ _VERANTYX_霪:1.0__TOKEN_霪_165_, up to 256 _VERANTYX_霪:1.0__TOKEN_霪_132_, 0-255 _VERANTYX_霪:1.0__TOKEN_霪_45_)
+ * - _VERANTYX_廟:1.0__TOKEN_廟_51_ in _VERANTYX_霪:1.0__TOKEN_霪_14_
+ * - _VERANTYX_廟:1.0__TOKEN_廟_32_ _VERANTYX_霪:1.0__TOKEN_霪_97_ 8192 (_VERANTYX_廟:1.0__TOKEN_廟_64_)
+ * - No _VERANTYX_図:1.0__TOKEN_霪_140_ _VERANTYX_霪:1.0__TOKEN_霪_93_ (_VERANTYX_霪:1.0__TOKEN_霪_53_, _VERANTYX_霪:1.0__TOKEN_霪_185_, _VERANTYX_霪:1.0__TOKEN_霪_29_.)
+ */
+
+import _VERANTYX_霪:1.0__TOKEN_霪_190_ _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_105_:_VERANTYX_霪:1.0__TOKEN_霪_190_";
+import fs _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_105_:fs/_VERANTYX_霪:1.0__TOKEN_霪_166_";
+import _VERANTYX_霪:1.0__TOKEN_霪_249_ _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_105_:_VERANTYX_霪:1.0__TOKEN_霪_249_";
+import { _VERANTYX_廟:1.0__TOKEN_廟_59_, _VERANTYX_霪:1.0__TOKEN_霪_54_ _VERANTYX_縫:1.0__TOKEN_廟_35_ } _VERANTYX_霪:1.0__TOKEN_霪_241_ "@_VERANTYX_霪:1.0__TOKEN_霪_32_/_VERANTYX_霪:1.0__TOKEN_霪_70_";
+import _VERANTYX_霪:1.0__TOKEN_霪_54_ { _VERANTYX_図:1.0__TOKEN_廟_33_ } _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_252_/_VERANTYX_霪:1.0__TOKEN_霪_27_-_VERANTYX_霪:1.0__TOKEN_霪_220_/_VERANTYX_霪:1.0__TOKEN_霪_204_-_VERANTYX_霪:1.0__TOKEN_霪_192_";
+import { _VERANTYX_霪:1.0__TOKEN_霪_104_ } _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_252_/_VERANTYX_霪:1.0__TOKEN_霪_27_-_VERANTYX_霪:1.0__TOKEN_霪_220_/_VERANTYX_霪:1.0__TOKEN_霪_204_-_VERANTYX_霪:1.0__TOKEN_霪_192_";
+import {
+  _VERANTYX_霪:1.0__TOKEN_霪_92_,
+  _VERANTYX_霪:1.0__TOKEN_霪_21_,
+  _VERANTYX_霪:1.0__TOKEN_霪_62_,
+} _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_252_/_VERANTYX_霪:1.0__TOKEN_霪_27_-_VERANTYX_霪:1.0__TOKEN_霪_220_/_VERANTYX_霪:1.0__TOKEN_霪_253_-_VERANTYX_霪:1.0__TOKEN_霪_192_";
+import { _VERANTYX_廟:1.0__TOKEN_廟_66_ } _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_252_/_VERANTYX_霪:1.0__TOKEN_霪_27_-_VERANTYX_霪:1.0__TOKEN_霪_220_/_VERANTYX_霪:1.0__TOKEN_霪_253_-_VERANTYX_霪:1.0__TOKEN_霪_192_";
+import { _VERANTYX_浸:1.0__TOKEN_霪_66_ } _VERANTYX_霪:1.0__TOKEN_霪_241_ "_VERANTYX_霪:1.0__TOKEN_霪_252_/_VERANTYX_霪:1.0__TOKEN_霪_27_-_VERANTYX_霪:1.0__TOKEN_霪_220_/_VERANTYX_霪:1.0__TOKEN_霪_253_-_VERANTYX_霪:1.0__TOKEN_霪_192_";
+
+_VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_廟:1.0__TOKEN_廟_27_ = 1 << 13;
+_VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_廟:1.0__TOKEN_廟_57_ = 1 << 12;
+_VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_廟:1.0__TOKEN_廟_16_ = 256;
+_VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_廟:1.0__TOKEN_廟_48_ = 48_000;
+
+_VERANTYX_霪:1.0__TOKEN_霪_235_ _VERANTYX_霪:1.0__TOKEN_霪_54_ _VERANTYX_廟:1.0__TOKEN_廟_24_ = {
+  _VERANTYX_霪:1.0__TOKEN_霪_95_: _VERANTYX_図:1.0__TOKEN_霪_31_;
+  _VERANTYX_浸:1.0__TOKEN_霪_155_: _VERANTYX_霪:1.0__TOKEN_霪_135_; // _VERANTYX_霪:1.0__TOKEN_霪_254_ _VERANTYX_霪:1.0__TOKEN_霪_165_
+};
+
+/**
+ * _VERANTYX_図:1.0__TOKEN_焦_2_ _VERANTYX_霪:1.0__TOKEN_霪_211_ _VERANTYX_霪:1.0__TOKEN_霪_19_ _VERANTYX_霪:1.0__TOKEN_霪_58_ _VERANTYX_霪:1.0__TOKEN_霪_5_
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_235_ async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_図:1.0__TOKEN_焦_4_(_VERANTYX_匽:1.0__TOKEN_霪_179_: _VERANTYX_霪:1.0__TOKEN_霪_135_): _VERANTYX_廟:1.0__TOKEN_廟_4_<_VERANTYX_図:1.0__TOKEN_霪_31_> {
+  try {
+// _VERANTYX_図:0.6__TOKEN_XG_453_ [decoy-metadata]
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_195_ = await _VERANTYX_霪:1.0__TOKEN_霪_62_([
+      "-v",
+      "_VERANTYX_霪:1.0__TOKEN_霪_13_",
+      "-_VERANTYX_霪:1.0__TOKEN_霪_197_",
+      "_VERANTYX_浸:1.0__TOKEN_霪_223_=_VERANTYX_霪:1.0__TOKEN_霪_19_",
+      "-of",
+      "_VERANTYX_霪:1.0__TOKEN_霪_246_=p=0",
+      _VERANTYX_匽:1.0__TOKEN_霪_179_,
+    ]);
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_19_ = _VERANTYX_霪:1.0__TOKEN_霪_116_(_VERANTYX_霪:1.0__TOKEN_霪_195_._VERANTYX_霪:1.0__TOKEN_霪_255_());
+    if (_VERANTYX_霪:1.0__TOKEN_霪_207_(_VERANTYX_霪:1.0__TOKEN_霪_19_)) {
+      _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_("_VERANTYX_廟:1.0__TOKEN_廟_18_ _VERANTYX_霪:1.0__TOKEN_霪_122_ _VERANTYX_霪:1.0__TOKEN_霪_148_ _VERANTYX_霪:1.0__TOKEN_霪_19_");
+    }
+    return _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_234_(_VERANTYX_霪:1.0__TOKEN_霪_19_ * 100) / 100; // _VERANTYX_廟:1.0__TOKEN_廟_49_ to 2 _VERANTYX_霪:1.0__TOKEN_霪_52_ _VERANTYX_霪:1.0__TOKEN_霪_159_
+  } catch (_VERANTYX_霪:1.0__TOKEN_霪_232_) {
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_80_ = _VERANTYX_霪:1.0__TOKEN_霪_232_ _VERANTYX_霪:1.0__TOKEN_霪_237_ _VERANTYX_廟:1.0__TOKEN_廟_40_ ? _VERANTYX_霪:1.0__TOKEN_霪_232_._VERANTYX_霪:1.0__TOKEN_霪_30_ : _VERANTYX_廟:1.0__TOKEN_廟_60_(_VERANTYX_霪:1.0__TOKEN_霪_232_);
+    _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_(`_VERANTYX_廟:1.0__TOKEN_廟_39_ to _VERANTYX_図:1.0__TOKEN_焦_1_ _VERANTYX_霪:1.0__TOKEN_霪_211_ _VERANTYX_霪:1.0__TOKEN_霪_19_: ${_VERANTYX_霪:1.0__TOKEN_霪_80_}`, { _VERANTYX_霪:1.0__TOKEN_霪_96_: _VERANTYX_霪:1.0__TOKEN_霪_232_ });
+  }
+}
+
+/**
+// _VERANTYX_浸:0.8__TOKEN_KY_688_ [decoy-metadata]
+ * _VERANTYX_廟:1.0__TOKEN_廟_63_ _VERANTYX_浸:1.0__TOKEN_霪_155_ _VERANTYX_霪:1.0__TOKEN_霪_157_ _VERANTYX_霪:1.0__TOKEN_霪_241_ _VERANTYX_霪:1.0__TOKEN_霪_211_ _VERANTYX_匽:1.0__TOKEN_霪_120_ _VERANTYX_霪:1.0__TOKEN_霪_58_ _VERANTYX_霪:1.0__TOKEN_霪_75_
+ * _VERANTYX_廟:1.0__TOKEN_廟_17_ _VERANTYX_霪:1.0__TOKEN_霪_254_ _VERANTYX_霪:1.0__TOKEN_霪_165_ _VERANTYX_霪:1.0__TOKEN_霪_72_ _VERANTYX_霪:1.0__TOKEN_霪_139_ of _VERANTYX_霪:1.0__TOKEN_霪_193_ _VERANTYX_霪:1.0__TOKEN_霪_132_ (0-255)
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_235_ async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_浸:1.0__TOKEN_霪_59_(_VERANTYX_匽:1.0__TOKEN_霪_179_: _VERANTYX_霪:1.0__TOKEN_霪_135_): _VERANTYX_廟:1.0__TOKEN_廟_4_<_VERANTYX_霪:1.0__TOKEN_霪_135_> {
+  try {
+// [metadata-stripped]
+    return await _VERANTYX_浸:1.0__TOKEN_霪_208_(_VERANTYX_匽:1.0__TOKEN_霪_179_);
+  } catch {
+// [metadata-stripped]
+    return _VERANTYX_浸:1.0__TOKEN_霪_20_();
+  }
+}
+
+/**
+ * _VERANTYX_廟:1.0__TOKEN_廟_63_ _VERANTYX_浸:1.0__TOKEN_霪_155_ by _VERANTYX_霪:1.0__TOKEN_霪_242_ _VERANTYX_霪:1.0__TOKEN_霪_8_ _VERANTYX_廟:1.0__TOKEN_廟_47_ _VERANTYX_霪:1.0__TOKEN_霪_157_ _VERANTYX_霪:1.0__TOKEN_霪_205_ _VERANTYX_霪:1.0__TOKEN_霪_215_ _VERANTYX_霪:1.0__TOKEN_霪_153_
+ */
+async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_浸:1.0__TOKEN_霪_208_(_VERANTYX_匽:1.0__TOKEN_霪_179_: _VERANTYX_霪:1.0__TOKEN_霪_135_): _VERANTYX_廟:1.0__TOKEN_廟_4_<_VERANTYX_霪:1.0__TOKEN_霪_135_> {
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_145_ = _VERANTYX_霪:1.0__TOKEN_霪_104_();
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_84_ = _VERANTYX_霪:1.0__TOKEN_霪_249_._VERANTYX_霪:1.0__TOKEN_霪_228_(_VERANTYX_霪:1.0__TOKEN_霪_145_, `_VERANTYX_浸:1.0__TOKEN_霪_155_-${_VERANTYX_霪:1.0__TOKEN_霪_190_._VERANTYX_霪:1.0__TOKEN_霪_167_()}._VERANTYX_霪:1.0__TOKEN_霪_8_`);
+
+  try {
+// [metadata-stripped]
+    await _VERANTYX_霪:1.0__TOKEN_霪_21_([
+      "-y",
+      "-i",
+      _VERANTYX_匽:1.0__TOKEN_霪_179_,
+      "-vn",
+      "-sn",
+      "-dn",
+      "-t",
+      _VERANTYX_廟:1.0__TOKEN_廟_60_(_VERANTYX_廟:1.0__TOKEN_廟_66_),
+      "-f",
+      "_VERANTYX_霪:1.0__TOKEN_霪_206_",
+      "-_VERANTYX_霪:1.0__TOKEN_霪_119_",
+      "_VERANTYX_霪:1.0__TOKEN_霪_216_",
+      "-ac",
+      "1",
+      "-ar",
+      "8000",
+      _VERANTYX_霪:1.0__TOKEN_霪_84_,
+    ]);
+
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_244_ = await fs._VERANTYX_匽:1.0__TOKEN_霪_107_(_VERANTYX_霪:1.0__TOKEN_霪_84_);
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_132_ = _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_5_(_VERANTYX_霪:1.0__TOKEN_霪_244_._VERANTYX_図:1.0__TOKEN_霪_94_, _VERANTYX_霪:1.0__TOKEN_霪_244_._VERANTYX_霪:1.0__TOKEN_霪_146_, _VERANTYX_霪:1.0__TOKEN_霪_244_._VERANTYX_霪:1.0__TOKEN_霪_37_ / 2);
+
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_25_ = _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_138_(1, _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_187_(_VERANTYX_霪:1.0__TOKEN_霪_132_._VERANTYX_霪:1.0__TOKEN_霪_114_ / _VERANTYX_廟:1.0__TOKEN_廟_16_));
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_浸:1.0__TOKEN_霪_155_: _VERANTYX_図:1.0__TOKEN_霪_31_[] = [];
+
+    for (let i = 0; i < _VERANTYX_廟:1.0__TOKEN_廟_16_ && i * _VERANTYX_霪:1.0__TOKEN_霪_25_ < _VERANTYX_霪:1.0__TOKEN_霪_132_._VERANTYX_霪:1.0__TOKEN_霪_114_; i++) {
+// [metadata-stripped]
+      let _VERANTYX_霪:1.0__TOKEN_霪_36_ = 0;
+      let _VERANTYX_霪:1.0__TOKEN_霪_224_ = 0;
+      for (let j = 0; j < _VERANTYX_霪:1.0__TOKEN_霪_25_ && i * _VERANTYX_霪:1.0__TOKEN_霪_25_ + j < _VERANTYX_霪:1.0__TOKEN_霪_132_._VERANTYX_霪:1.0__TOKEN_霪_114_; j++) {
+        _VERANTYX_霪:1.0__TOKEN_霪_36_ += _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_127_(_VERANTYX_霪:1.0__TOKEN_霪_132_[i * _VERANTYX_霪:1.0__TOKEN_霪_25_ + j]);
+        _VERANTYX_霪:1.0__TOKEN_霪_224_++;
+      }
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_256_ = _VERANTYX_霪:1.0__TOKEN_霪_224_ > 0 ? _VERANTYX_霪:1.0__TOKEN_霪_36_ / _VERANTYX_霪:1.0__TOKEN_霪_224_ : 0;
+// [metadata-stripped]
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_262_ = _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_102_(255, _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_234_((_VERANTYX_霪:1.0__TOKEN_霪_256_ / 32767) * 255));
+      _VERANTYX_浸:1.0__TOKEN_霪_155_._VERANTYX_霪:1.0__TOKEN_霪_51_(_VERANTYX_霪:1.0__TOKEN_霪_262_);
+    }
+
+// [metadata-stripped]
+    while (_VERANTYX_浸:1.0__TOKEN_霪_155_._VERANTYX_霪:1.0__TOKEN_霪_114_ < _VERANTYX_廟:1.0__TOKEN_廟_16_) {
+      _VERANTYX_浸:1.0__TOKEN_霪_155_._VERANTYX_霪:1.0__TOKEN_霪_51_(0);
+    }
+
+    return _VERANTYX_図:1.0__TOKEN_廟_43_._VERANTYX_霪:1.0__TOKEN_霪_241_(_VERANTYX_浸:1.0__TOKEN_霪_155_)._VERANTYX_霪:1.0__TOKEN_霪_245_("_VERANTYX_霪:1.0__TOKEN_霪_254_");
+  } _VERANTYX_霪:1.0__TOKEN_霪_61_ {
+    await _VERANTYX_浸:1.0__TOKEN_霪_66_(_VERANTYX_霪:1.0__TOKEN_霪_84_);
+  }
+}
+
+/**
+ * _VERANTYX_廟:1.0__TOKEN_廟_63_ a _VERANTYX_図:1.0__TOKEN_霪_217_ _VERANTYX_浸:1.0__TOKEN_霪_155_ (for _VERANTYX_霪:1.0__TOKEN_霪_22_ _VERANTYX_霪:1.0__TOKEN_霪_211_ _VERANTYX_霪:1.0__TOKEN_霪_188_ _VERANTYX_霪:1.0__TOKEN_霪_213_)
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_浸:1.0__TOKEN_霪_20_(): _VERANTYX_霪:1.0__TOKEN_霪_135_ {
+// [metadata-stripped]
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_浸:1.0__TOKEN_霪_155_: _VERANTYX_図:1.0__TOKEN_霪_31_[] = [];
+  for (let i = 0; i < _VERANTYX_廟:1.0__TOKEN_廟_16_; i++) {
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_101_ = _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_234_(128 + 64 * _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_268_((i / _VERANTYX_廟:1.0__TOKEN_廟_16_) * _VERANTYX_廟:1.0__TOKEN_廟_37_.PI * 8));
+    _VERANTYX_浸:1.0__TOKEN_霪_155_._VERANTYX_霪:1.0__TOKEN_霪_51_(_VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_102_(255, _VERANTYX_廟:1.0__TOKEN_廟_37_._VERANTYX_霪:1.0__TOKEN_霪_138_(0, _VERANTYX_霪:1.0__TOKEN_霪_101_)));
+  }
+  return _VERANTYX_図:1.0__TOKEN_廟_43_._VERANTYX_霪:1.0__TOKEN_霪_241_(_VERANTYX_浸:1.0__TOKEN_霪_155_)._VERANTYX_霪:1.0__TOKEN_霪_245_("_VERANTYX_霪:1.0__TOKEN_霪_254_");
+}
+
+/**
+ * _VERANTYX_廟:1.0__TOKEN_廟_31_ _VERANTYX_霪:1.0__TOKEN_霪_211_ _VERANTYX_匽:1.0__TOKEN_霪_120_ to _VERANTYX_廟:1.0__TOKEN_廟_36_/_VERANTYX_廟:1.0__TOKEN_廟_44_ _VERANTYX_浸:1.0__TOKEN_霪_223_ if _VERANTYX_霪:1.0__TOKEN_霪_39_
+ * _VERANTYX_廟:1.0__TOKEN_廟_17_ _VERANTYX_霪:1.0__TOKEN_霪_249_ to _VERANTYX_霪:1.0__TOKEN_霪_149_ _VERANTYX_廟:1.0__TOKEN_廟_36_ _VERANTYX_匽:1.0__TOKEN_霪_120_ (_VERANTYX_霪:1.0__TOKEN_霪_56_ be _VERANTYX_霪:1.0__TOKEN_霪_68_ as _VERANTYX_霪:1.0__TOKEN_霪_74_ if _VERANTYX_霪:1.0__TOKEN_霪_218_ _VERANTYX_廟:1.0__TOKEN_廟_36_/_VERANTYX_廟:1.0__TOKEN_廟_44_)
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_235_ async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_霪:1.0__TOKEN_霪_4_(_VERANTYX_匽:1.0__TOKEN_霪_179_: _VERANTYX_霪:1.0__TOKEN_霪_135_): _VERANTYX_廟:1.0__TOKEN_廟_4_<{ _VERANTYX_霪:1.0__TOKEN_霪_249_: _VERANTYX_霪:1.0__TOKEN_霪_135_; _VERANTYX_霪:1.0__TOKEN_霪_261_: _VERANTYX_霪:1.0__TOKEN_霪_50_ }> {
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_110_ = _VERANTYX_匽:1.0__TOKEN_霪_179_._VERANTYX_霪:1.0__TOKEN_霪_255_();
+// [metadata-stripped]
+  if (/^[a-z][a-z0-9+.-]*:\/\//i._VERANTYX_霪:1.0__TOKEN_霪_47_(_VERANTYX_霪:1.0__TOKEN_霪_110_)) {
+    _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_(
+      `_VERANTYX_廟:1.0__TOKEN_廟_61_ _VERANTYX_霪:1.0__TOKEN_霪_30_ _VERANTYX_霪:1.0__TOKEN_霪_258_ _VERANTYX_霪:1.0__TOKEN_霪_108_ a _VERANTYX_霪:1.0__TOKEN_霪_34_ _VERANTYX_匽:1.0__TOKEN_霪_120_ _VERANTYX_霪:1.0__TOKEN_霪_249_; _VERANTYX_霪:1.0__TOKEN_霪_263_ a _VERANTYX_縫:1.0__TOKEN_廟_54_/protocol _VERANTYX_霪:1.0__TOKEN_霪_196_: ${_VERANTYX_霪:1.0__TOKEN_霪_110_}`,
+    );
+  }
+
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_103_ = _VERANTYX_霪:1.0__TOKEN_霪_249_._VERANTYX_霪:1.0__TOKEN_霪_152_(_VERANTYX_匽:1.0__TOKEN_霪_179_)._VERANTYX_霪:1.0__TOKEN_霪_40_();
+
+// [metadata-stripped]
+  if (_VERANTYX_霪:1.0__TOKEN_霪_103_ === "._VERANTYX_霪:1.0__TOKEN_霪_147_") {
+// [metadata-stripped]
+    try {
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_195_ = await _VERANTYX_霪:1.0__TOKEN_霪_62_([
+        "-v",
+        "_VERANTYX_霪:1.0__TOKEN_霪_13_",
+        "-_VERANTYX_霪:1.0__TOKEN_霪_160_",
+        "a:0",
+        "-_VERANTYX_霪:1.0__TOKEN_霪_197_",
+        "_VERANTYX_霪:1.0__TOKEN_霪_170_=_VERANTYX_霪:1.0__TOKEN_霪_233_,_VERANTYX_霪:1.0__TOKEN_霪_222_",
+        "-of",
+        "_VERANTYX_霪:1.0__TOKEN_霪_246_=p=0",
+        _VERANTYX_匽:1.0__TOKEN_霪_179_,
+      ]);
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ { _VERANTYX_霪:1.0__TOKEN_霪_78_, _VERANTYX_霪:1.0__TOKEN_霪_151_ } = _VERANTYX_霪:1.0__TOKEN_霪_92_(_VERANTYX_霪:1.0__TOKEN_霪_195_);
+      if (_VERANTYX_霪:1.0__TOKEN_霪_78_ === "_VERANTYX_霪:1.0__TOKEN_霪_42_" && _VERANTYX_霪:1.0__TOKEN_霪_151_ === _VERANTYX_廟:1.0__TOKEN_廟_48_) {
+        return { _VERANTYX_霪:1.0__TOKEN_霪_249_: _VERANTYX_匽:1.0__TOKEN_霪_179_, _VERANTYX_霪:1.0__TOKEN_霪_261_: false };
+      }
+    } catch {
+// [metadata-stripped]
+    }
+  }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_145_ = _VERANTYX_霪:1.0__TOKEN_霪_104_();
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_57_ = _VERANTYX_霪:1.0__TOKEN_霪_249_._VERANTYX_霪:1.0__TOKEN_霪_228_(_VERANTYX_霪:1.0__TOKEN_霪_145_, `_VERANTYX_霪:1.0__TOKEN_霪_163_-${_VERANTYX_霪:1.0__TOKEN_霪_190_._VERANTYX_霪:1.0__TOKEN_霪_167_()}._VERANTYX_霪:1.0__TOKEN_霪_147_`);
+
+  await _VERANTYX_霪:1.0__TOKEN_霪_21_([
+    "-y",
+    "-i",
+    _VERANTYX_匽:1.0__TOKEN_霪_179_,
+    "-vn",
+    "-sn",
+    "-dn",
+    "-t",
+    _VERANTYX_廟:1.0__TOKEN_廟_60_(_VERANTYX_廟:1.0__TOKEN_廟_66_),
+    "-ar",
+    _VERANTYX_廟:1.0__TOKEN_廟_60_(_VERANTYX_廟:1.0__TOKEN_廟_48_),
+    "-c:a",
+    "_VERANTYX_霪:1.0__TOKEN_霪_133_",
+    "-b:a",
+    "64k",
+    _VERANTYX_霪:1.0__TOKEN_霪_57_,
+  ]);
+
+  return { _VERANTYX_霪:1.0__TOKEN_霪_249_: _VERANTYX_霪:1.0__TOKEN_霪_57_, _VERANTYX_霪:1.0__TOKEN_霪_261_: true };
+}
+
+/**
+ * _VERANTYX_図:1.0__TOKEN_焦_2_ _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_ _VERANTYX_霪:1.0__TOKEN_霪_171_ (_VERANTYX_霪:1.0__TOKEN_霪_19_ _VERANTYX_霪:1.0__TOKEN_霪_205_ _VERANTYX_浸:1.0__TOKEN_霪_155_)
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_235_ async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_図:1.0__TOKEN_焦_3_(_VERANTYX_匽:1.0__TOKEN_霪_179_: _VERANTYX_霪:1.0__TOKEN_霪_135_): _VERANTYX_廟:1.0__TOKEN_廟_4_<_VERANTYX_廟:1.0__TOKEN_廟_24_> {
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ [_VERANTYX_霪:1.0__TOKEN_霪_95_, _VERANTYX_浸:1.0__TOKEN_霪_155_] = await _VERANTYX_廟:1.0__TOKEN_廟_4_._VERANTYX_霪:1.0__TOKEN_霪_88_([
+    _VERANTYX_図:1.0__TOKEN_焦_4_(_VERANTYX_匽:1.0__TOKEN_霪_179_),
+    _VERANTYX_浸:1.0__TOKEN_霪_59_(_VERANTYX_匽:1.0__TOKEN_霪_179_),
+  ]);
+
+  return { _VERANTYX_霪:1.0__TOKEN_霪_95_, _VERANTYX_浸:1.0__TOKEN_霪_155_ };
+}
+
+_VERANTYX_霪:1.0__TOKEN_霪_54_ _VERANTYX_縫:1.0__TOKEN_廟_9_ = {
+  _VERANTYX_霪:1.0__TOKEN_霪_143_: _VERANTYX_廟:1.0__TOKEN_廟_56_<{
+    id: _VERANTYX_図:1.0__TOKEN_霪_31_;
+    _VERANTYX_縫:1.0__TOKEN_霪_198_: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+    _VERANTYX_匽:1.0__TOKEN_霪_26_: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+  }>;
+};
+
+/**
+ * _VERANTYX_廟:1.0__TOKEN_廟_3_ a _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_ to _VERANTYX_廟:1.0__TOKEN_廟_65_
+ *
+ * _VERANTYX_廟:1.0__TOKEN_廟_6_ _VERANTYX_霪:1.0__TOKEN_霪_169_ _VERANTYX_廟:1.0__TOKEN_廟_65_'s _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_ protocol:
+ * 1. _VERANTYX_縫:1.0__TOKEN_廟_55_ _VERANTYX_匽:1.0__TOKEN_霪_247_ _VERANTYX_縫:1.0__TOKEN_廟_54_ _VERANTYX_霪:1.0__TOKEN_霪_241_ _VERANTYX_廟:1.0__TOKEN_廟_65_
+ * 2. _VERANTYX_匽:1.0__TOKEN_廟_8_ _VERANTYX_霪:1.0__TOKEN_霪_149_ _VERANTYX_廟:1.0__TOKEN_廟_36_ _VERANTYX_匽:1.0__TOKEN_霪_120_ to _VERANTYX_霪:1.0__TOKEN_霪_149_ _VERANTYX_霪:1.0__TOKEN_霪_81_ _VERANTYX_縫:1.0__TOKEN_廟_54_
+ * 3. _VERANTYX_廟:1.0__TOKEN_廟_3_ _VERANTYX_霪:1.0__TOKEN_霪_149_ _VERANTYX_霪:1.0__TOKEN_霪_30_ _VERANTYX_霪:1.0__TOKEN_霪_257_ _VERANTYX_霪:1.0__TOKEN_霪_97_ 8192 _VERANTYX_霪:1.0__TOKEN_霪_205_ _VERANTYX_霪:1.0__TOKEN_霪_73_ _VERANTYX_霪:1.0__TOKEN_霪_171_
+ */
+_VERANTYX_霪:1.0__TOKEN_霪_235_ async _VERANTYX_霪:1.0__TOKEN_霪_15_ _VERANTYX_霪:1.0__TOKEN_霪_184_(
+  _VERANTYX_霪:1.0__TOKEN_霪_183_: _VERANTYX_縫:1.0__TOKEN_廟_35_,
+  _VERANTYX_霪:1.0__TOKEN_霪_178_: _VERANTYX_霪:1.0__TOKEN_霪_135_,
+  _VERANTYX_図:1.0__TOKEN_霪_69_: _VERANTYX_図:1.0__TOKEN_廟_43_,
+// _VERANTYX_図:0.5__TOKEN_KF_361_ [decoy-metadata]
+  _VERANTYX_霪:1.0__TOKEN_霪_171_: _VERANTYX_廟:1.0__TOKEN_廟_24_,
+  _VERANTYX_霪:1.0__TOKEN_霪_123_: _VERANTYX_霪:1.0__TOKEN_霪_135_ | _VERANTYX_霪:1.0__TOKEN_霪_134_,
+  _VERANTYX_縫:1.0__TOKEN_霪_265_: _VERANTYX_図:1.0__TOKEN_廟_33_,
+  _VERANTYX_霪:1.0__TOKEN_霪_46_?: _VERANTYX_霪:1.0__TOKEN_霪_50_,
+  _VERANTYX_窟:1.0__TOKEN_霪_267_?: _VERANTYX_霪:1.0__TOKEN_霪_135_,
+): _VERANTYX_廟:1.0__TOKEN_廟_4_<{ id: _VERANTYX_霪:1.0__TOKEN_霪_135_; _VERANTYX_霪:1.0__TOKEN_霪_2_: _VERANTYX_霪:1.0__TOKEN_霪_135_ }> {
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_匽:1.0__TOKEN_霪_67_ = "_VERANTYX_霪:1.0__TOKEN_霪_163_-_VERANTYX_霪:1.0__TOKEN_霪_30_._VERANTYX_霪:1.0__TOKEN_霪_147_";
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_匽:1.0__TOKEN_霪_144_ = _VERANTYX_図:1.0__TOKEN_霪_69_._VERANTYX_霪:1.0__TOKEN_霪_37_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_窟:1.0__TOKEN_霪_86_ = _VERANTYX_窟:1.0__TOKEN_霪_267_;
+  if (!_VERANTYX_窟:1.0__TOKEN_霪_86_) {
+    _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_("_VERANTYX_廟:1.0__TOKEN_廟_65_ _VERANTYX_霪:1.0__TOKEN_霪_112_ _VERANTYX_窟:1.0__TOKEN_霪_267_ is _VERANTYX_霪:1.0__TOKEN_霪_71_ for _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_ _VERANTYX_匽:1.0__TOKEN_霪_247_");
+  }
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_縫:1.0__TOKEN_霪_227_ = await _VERANTYX_縫:1.0__TOKEN_霪_265_(async () => {
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_縫:1.0__TOKEN_霪_79_ = `${_VERANTYX_霪:1.0__TOKEN_霪_183_._VERANTYX_霪:1.0__TOKEN_霪_35_?._VERANTYX_縫:1.0__TOKEN_霪_191_ ?? "_VERANTYX_縫:1.0__TOKEN_霪_85_://_VERANTYX_霪:1.0__TOKEN_霪_266_._VERANTYX_霪:1.0__TOKEN_霪_251_/_VERANTYX_縫:1.0__TOKEN_霪_125_"}/_VERANTYX_霪:1.0__TOKEN_霪_1_/${_VERANTYX_霪:1.0__TOKEN_霪_178_}/_VERANTYX_霪:1.0__TOKEN_霪_143_`;
+    _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_243_ = await _VERANTYX_図:1.0__TOKEN_焦_5_(_VERANTYX_縫:1.0__TOKEN_霪_79_, {
+      _VERANTYX_霪:1.0__TOKEN_霪_209_: "_VERANTYX_廟:1.0__TOKEN_廟_34_",
+      _VERANTYX_霪:1.0__TOKEN_霪_11_: {
+        _VERANTYX_廟:1.0__TOKEN_廟_41_: `_VERANTYX_廟:1.0__TOKEN_廟_10_ ${_VERANTYX_窟:1.0__TOKEN_霪_86_}`,
+        "_VERANTYX_廟:1.0__TOKEN_廟_52_-_VERANTYX_廟:1.0__TOKEN_廟_29_": "_VERANTYX_霪:1.0__TOKEN_霪_136_/_VERANTYX_霪:1.0__TOKEN_霪_87_",
+      },
+      _VERANTYX_霪:1.0__TOKEN_霪_64_: _VERANTYX_廟:1.0__TOKEN_廟_38_._VERANTYX_浸:1.0__TOKEN_霪_128_({
+        _VERANTYX_匽:1.0__TOKEN_霪_248_: [{ _VERANTYX_匽:1.0__TOKEN_霪_67_, _VERANTYX_匽:1.0__TOKEN_霪_164_: _VERANTYX_匽:1.0__TOKEN_霪_144_, id: "0" }],
+      }),
+    });
+    if (!_VERANTYX_霪:1.0__TOKEN_霪_243_.ok) {
+      if (_VERANTYX_霪:1.0__TOKEN_霪_243_._VERANTYX_霪:1.0__TOKEN_霪_156_ === 429) {
+        _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_130_ = (await _VERANTYX_霪:1.0__TOKEN_霪_243_._VERANTYX_霪:1.0__TOKEN_霪_87_().catch(() => ({}))) as {
+          _VERANTYX_霪:1.0__TOKEN_霪_30_?: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+// _VERANTYX_廟:0.9__TOKEN_KZ_559_ [decoy-metadata]
+          _VERANTYX_図:1.0__TOKEN_霪_109_?: _VERANTYX_図:1.0__TOKEN_霪_31_;
+          _VERANTYX_霪:1.0__TOKEN_霪_210_?: _VERANTYX_霪:1.0__TOKEN_霪_50_;
+        };
+        _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_59_(_VERANTYX_霪:1.0__TOKEN_霪_243_, {
+          _VERANTYX_霪:1.0__TOKEN_霪_30_: _VERANTYX_霪:1.0__TOKEN_霪_130_._VERANTYX_霪:1.0__TOKEN_霪_30_ ?? "_VERANTYX_廟:1.0__TOKEN_廟_22_ _VERANTYX_霪:1.0__TOKEN_霪_77_ _VERANTYX_霪:1.0__TOKEN_霪_129_ _VERANTYX_霪:1.0__TOKEN_霪_106_ _VERANTYX_霪:1.0__TOKEN_霪_173_.",
+          _VERANTYX_図:1.0__TOKEN_霪_109_: _VERANTYX_霪:1.0__TOKEN_霪_130_._VERANTYX_図:1.0__TOKEN_霪_109_ ?? 1,
+          _VERANTYX_霪:1.0__TOKEN_霪_210_: _VERANTYX_霪:1.0__TOKEN_霪_130_._VERANTYX_霪:1.0__TOKEN_霪_210_ ?? false,
+        });
+      }
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_6_ = (await _VERANTYX_霪:1.0__TOKEN_霪_243_._VERANTYX_霪:1.0__TOKEN_霪_87_().catch(() => _VERANTYX_霪:1.0__TOKEN_霪_162_)) as {
+        _VERANTYX_霪:1.0__TOKEN_霪_212_?: _VERANTYX_図:1.0__TOKEN_霪_31_;
+        _VERANTYX_霪:1.0__TOKEN_霪_30_?: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+      } | _VERANTYX_霪:1.0__TOKEN_霪_162_;
+      _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_232_ = _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_(`_VERANTYX_匽:1.0__TOKEN_廟_8_ _VERANTYX_縫:1.0__TOKEN_廟_54_ _VERANTYX_縫:1.0__TOKEN_霪_265_ _VERANTYX_霪:1.0__TOKEN_霪_200_: ${_VERANTYX_霪:1.0__TOKEN_霪_243_._VERANTYX_霪:1.0__TOKEN_霪_156_} ${_VERANTYX_霪:1.0__TOKEN_霪_6_?._VERANTYX_霪:1.0__TOKEN_霪_30_ ?? ""}`);
+      if (_VERANTYX_霪:1.0__TOKEN_霪_6_?._VERANTYX_霪:1.0__TOKEN_霪_212_ !== _VERANTYX_霪:1.0__TOKEN_霪_134_) {
+        (_VERANTYX_霪:1.0__TOKEN_霪_232_ as _VERANTYX_廟:1.0__TOKEN_廟_40_ & { _VERANTYX_霪:1.0__TOKEN_霪_212_: _VERANTYX_図:1.0__TOKEN_霪_31_ })._VERANTYX_霪:1.0__TOKEN_霪_212_ = _VERANTYX_霪:1.0__TOKEN_霪_6_._VERANTYX_霪:1.0__TOKEN_霪_212_;
+      }
+      _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_232_;
+    }
+    return (await _VERANTYX_霪:1.0__TOKEN_霪_243_._VERANTYX_霪:1.0__TOKEN_霪_87_()) as _VERANTYX_縫:1.0__TOKEN_廟_9_;
+  }, "_VERANTYX_霪:1.0__TOKEN_霪_163_-_VERANTYX_匽:1.0__TOKEN_霪_247_-_VERANTYX_縫:1.0__TOKEN_霪_79_");
+
+  if (!_VERANTYX_縫:1.0__TOKEN_霪_227_._VERANTYX_霪:1.0__TOKEN_霪_143_?.[0]) {
+// _VERANTYX_焦:0.9__TOKEN_ZZ_866_ [decoy-metadata]
+    _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_("_VERANTYX_廟:1.0__TOKEN_廟_39_ to _VERANTYX_図:1.0__TOKEN_焦_1_ _VERANTYX_匽:1.0__TOKEN_霪_247_ _VERANTYX_縫:1.0__TOKEN_廟_54_ for _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_");
+  }
+
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ { _VERANTYX_縫:1.0__TOKEN_霪_198_, _VERANTYX_匽:1.0__TOKEN_霪_26_ } = _VERANTYX_縫:1.0__TOKEN_霪_227_._VERANTYX_霪:1.0__TOKEN_霪_143_[0];
+
+// [metadata-stripped]
+// [metadata-stripped]
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_匽:1.0__TOKEN_霪_137_ = await _VERANTYX_図:1.0__TOKEN_焦_5_(_VERANTYX_縫:1.0__TOKEN_霪_198_, {
+    _VERANTYX_霪:1.0__TOKEN_霪_209_: "_VERANTYX_廟:1.0__TOKEN_廟_46_",
+    _VERANTYX_霪:1.0__TOKEN_霪_11_: {
+      "_VERANTYX_廟:1.0__TOKEN_廟_52_-_VERANTYX_廟:1.0__TOKEN_廟_29_": "_VERANTYX_霪:1.0__TOKEN_霪_211_/_VERANTYX_霪:1.0__TOKEN_霪_147_",
+    },
+    _VERANTYX_霪:1.0__TOKEN_霪_64_: _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_19_(_VERANTYX_図:1.0__TOKEN_霪_69_),
+  });
+
+  if (!_VERANTYX_匽:1.0__TOKEN_霪_137_.ok) {
+    _VERANTYX_霪:1.0__TOKEN_霪_9_ _VERANTYX_霪:1.0__TOKEN_霪_111_ _VERANTYX_廟:1.0__TOKEN_廟_40_(`_VERANTYX_廟:1.0__TOKEN_廟_39_ to _VERANTYX_匽:1.0__TOKEN_霪_247_ _VERANTYX_霪:1.0__TOKEN_霪_163_ _VERANTYX_霪:1.0__TOKEN_霪_30_: ${_VERANTYX_匽:1.0__TOKEN_霪_137_._VERANTYX_霪:1.0__TOKEN_霪_156_}`);
+  }
+
+// [metadata-stripped]
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_100_ = _VERANTYX_霪:1.0__TOKEN_霪_46_
+    ? _VERANTYX_廟:1.0__TOKEN_廟_27_ | _VERANTYX_廟:1.0__TOKEN_廟_57_
+    : _VERANTYX_廟:1.0__TOKEN_廟_27_;
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_匽:1.0__TOKEN_霪_199_: {
+    _VERANTYX_霪:1.0__TOKEN_霪_100_: _VERANTYX_図:1.0__TOKEN_霪_31_;
+    _VERANTYX_霪:1.0__TOKEN_霪_143_: _VERANTYX_廟:1.0__TOKEN_廟_56_<{
+      id: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+      _VERANTYX_匽:1.0__TOKEN_霪_67_: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+      _VERANTYX_匽:1.0__TOKEN_霪_60_: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+      _VERANTYX_霪:1.0__TOKEN_霪_83_: _VERANTYX_図:1.0__TOKEN_霪_31_;
+      _VERANTYX_浸:1.0__TOKEN_霪_155_: _VERANTYX_霪:1.0__TOKEN_霪_135_;
+    }>;
+    _VERANTYX_霪:1.0__TOKEN_霪_131_?: { _VERANTYX_霪:1.0__TOKEN_霪_230_: _VERANTYX_霪:1.0__TOKEN_霪_135_; _VERANTYX_浸:1.0__TOKEN_霪_91_: _VERANTYX_霪:1.0__TOKEN_霪_50_ };
+  } = {
+    _VERANTYX_霪:1.0__TOKEN_霪_100_,
+    _VERANTYX_霪:1.0__TOKEN_霪_143_: [
+      {
+        id: "0",
+        _VERANTYX_匽:1.0__TOKEN_霪_67_,
+        _VERANTYX_匽:1.0__TOKEN_霪_60_: _VERANTYX_匽:1.0__TOKEN_霪_26_,
+        _VERANTYX_霪:1.0__TOKEN_霪_83_: _VERANTYX_霪:1.0__TOKEN_霪_171_._VERANTYX_霪:1.0__TOKEN_霪_95_,
+        _VERANTYX_浸:1.0__TOKEN_霪_155_: _VERANTYX_霪:1.0__TOKEN_霪_171_._VERANTYX_浸:1.0__TOKEN_霪_155_,
+      },
+    ],
+  };
+
+// [metadata-stripped]
+  if (_VERANTYX_霪:1.0__TOKEN_霪_123_) {
+    _VERANTYX_匽:1.0__TOKEN_霪_199_._VERANTYX_霪:1.0__TOKEN_霪_131_ = {
+      _VERANTYX_霪:1.0__TOKEN_霪_230_: _VERANTYX_霪:1.0__TOKEN_霪_123_,
+      _VERANTYX_浸:1.0__TOKEN_霪_91_: false,
+    };
+  }
+
+  _VERANTYX_霪:1.0__TOKEN_霪_55_ _VERANTYX_霪:1.0__TOKEN_霪_243_ = (await _VERANTYX_縫:1.0__TOKEN_霪_265_(
+// _VERANTYX_窟:0.9__TOKEN_AE_421_ [decoy-metadata]
+    () =>
+      _VERANTYX_霪:1.0__TOKEN_霪_183_._VERANTYX_霪:1.0__TOKEN_霪_250_(`/_VERANTYX_霪:1.0__TOKEN_霪_1_/${_VERANTYX_霪:1.0__TOKEN_霪_178_}/_VERANTYX_霪:1.0__TOKEN_霪_180_`, {
+        _VERANTYX_霪:1.0__TOKEN_霪_64_: _VERANTYX_匽:1.0__TOKEN_霪_199_,
+      }) as _VERANTYX_廟:1.0__TOKEN_廟_4_<{ id: _VERANTYX_霪:1.0__TOKEN_霪_135_; _VERANTYX_霪:1.0__TOKEN_霪_2_: _VERANTYX_霪:1.0__TOKEN_霪_135_ }>,
+    "_VERANTYX_霪:1.0__TOKEN_霪_163_-_VERANTYX_霪:1.0__TOKEN_霪_30_",
+  )) as { id: _VERANTYX_霪:1.0__TOKEN_霪_135_; _VERANTYX_霪:1.0__TOKEN_霪_2_: _VERANTYX_霪:1.0__TOKEN_霪_135_ };
+
+  return _VERANTYX_霪:1.0__TOKEN_霪_243_;
+}
+
+// POLYMORPHIC_JCROSS_END

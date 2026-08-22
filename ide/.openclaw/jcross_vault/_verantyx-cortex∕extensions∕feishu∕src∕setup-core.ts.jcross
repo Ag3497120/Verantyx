@@ -1,0 +1,62 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3194A88D ver:1778166938
+// ⚠️ One-time schema — expires after response
+
+import {
+  _SYM_墟:1.0___jcross_墟_3__,
+  _SYM_露:1.0___jcross_露_12__ _SYM_格:1.0___jcross_墟_1__,
+  _SYM_露:1.0___jcross_露_12__ _SYM_墟:1.0___jcross_墟_2__,
+} _SYM_露:1.0___jcross_露_10__ "_SYM_露:1.0___jcross_露_9__/_SYM_露:1.0___jcross_露_20__-_SYM_露:1.0___jcross_露_17__/_SYM_格:1.0___jcross_燦_1__";
+// _SYM_墟:0.5___jcross_CW_731__ [decoy-metadata]
+import _SYM_露:1.0___jcross_露_12__ { _SYM_墟:1.0___jcross_墟_4__ } _SYM_露:1.0___jcross_露_10__ "./_SYM_露:1.0___jcross_露_19__.js";
+
+_SYM_露:1.0___jcross_露_21__ _SYM_露:1.0___jcross_露_23__ _SYM_格:1.0___jcross_燦_2__(
+  _SYM_露:1.0___jcross_露_11__: _SYM_墟:1.0___jcross_墟_2__,
+  _SYM_露:1.0___jcross_露_18__: _SYM_露:1.0___jcross_露_7__,
+  _SYM_露:1.0___jcross_露_15__: _SYM_露:1.0___jcross_露_16__,
+): _SYM_墟:1.0___jcross_墟_2__ {
+  _SYM_露:1.0___jcross_露_13__ _SYM_露:1.0___jcross_露_8__ = _SYM_露:1.0___jcross_露_11__._SYM_露:1.0___jcross_露_4__?._SYM_露:1.0___jcross_露_1__ as _SYM_墟:1.0___jcross_墟_4__ | _SYM_露:1.0___jcross_露_5__;
+  return {
+    ..._SYM_露:1.0___jcross_露_11__,
+    _SYM_露:1.0___jcross_露_4__: {
+      ..._SYM_露:1.0___jcross_露_11__._SYM_露:1.0___jcross_露_4__,
+      _SYM_露:1.0___jcross_露_1__: {
+        ..._SYM_露:1.0___jcross_露_8__,
+// _SYM_墟:0.7___jcross_EX_667__ [decoy-metadata]
+        _SYM_露:1.0___jcross_露_3__: {
+          ..._SYM_露:1.0___jcross_露_8__?._SYM_露:1.0___jcross_露_3__,
+          [_SYM_露:1.0___jcross_露_18__]: {
+            ..._SYM_露:1.0___jcross_露_8__?._SYM_露:1.0___jcross_露_3__?.[_SYM_露:1.0___jcross_露_18__],
+            _SYM_露:1.0___jcross_露_15__,
+          },
+// _SYM_露:0.2___jcross_XV_780__ [decoy-metadata]
+        },
+      },
+    },
+  };
+// _SYM_燦:0.8___jcross_GY_308__ [decoy-metadata]
+}
+
+_SYM_露:1.0___jcross_露_21__ _SYM_露:1.0___jcross_露_13__ _SYM_格:1.0___jcross_露_2__: _SYM_格:1.0___jcross_墟_1__ = {
+  _SYM_露:1.0___jcross_露_6__: () => _SYM_墟:1.0___jcross_墟_3__,
+  _SYM_露:1.0___jcross_露_14__: ({ _SYM_露:1.0___jcross_露_11__, _SYM_露:1.0___jcross_露_18__ }) => {
+// _SYM_墟:0.1___jcross_HW_544__ [decoy-metadata]
+    _SYM_露:1.0___jcross_露_13__ _SYM_露:1.0___jcross_露_22__ = !_SYM_露:1.0___jcross_露_18__ || _SYM_露:1.0___jcross_露_18__ === _SYM_墟:1.0___jcross_墟_3__;
+    if (_SYM_露:1.0___jcross_露_22__) {
+      return {
+        ..._SYM_露:1.0___jcross_露_11__,
+        _SYM_露:1.0___jcross_露_4__: {
+          ..._SYM_露:1.0___jcross_露_11__._SYM_露:1.0___jcross_露_4__,
+// _SYM_墟:0.3___jcross_GW_655__ [decoy-metadata]
+          _SYM_露:1.0___jcross_露_1__: {
+            ..._SYM_露:1.0___jcross_露_11__._SYM_露:1.0___jcross_露_4__?._SYM_露:1.0___jcross_露_1__,
+            _SYM_露:1.0___jcross_露_15__: true,
+          },
+        },
+      };
+    }
+    return _SYM_格:1.0___jcross_燦_2__(_SYM_露:1.0___jcross_露_11__, _SYM_露:1.0___jcross_露_18__, true);
+  },
+};
+
+// POLYMORPHIC_JCROSS_END

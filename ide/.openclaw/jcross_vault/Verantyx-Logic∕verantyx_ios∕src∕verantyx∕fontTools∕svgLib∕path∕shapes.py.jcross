@@ -1,0 +1,195 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8CA75D99 ver:1778159868
+// ⚠️ One-time schema — expires after response
+
+import re
+
+
+_SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_24_(*_SYM_霤:1.0__JCROSS_霤_61_):
+    for _SYM_霤:1.0__JCROSS_霤_81_ in _SYM_霤:1.0__JCROSS_霤_61_:
+        if _SYM_霤:1.0__JCROSS_霤_81_ != 0:
+            return _SYM_霤:1.0__JCROSS_霤_81_
+    return 0.0
+
+
+_SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_54_(n):
+// [metadata-stripped]
+// _SYM_廉:0.5__JCROSS_DA_284_ [decoy-metadata]
+    return ("%.3f" % n)._SYM_霤:1.0__JCROSS_霤_86_("0")._SYM_霤:1.0__JCROSS_霤_86_(".")
+
+
+_SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_96_(_SYM_霤:1.0__JCROSS_霤_67_):
+// [metadata-stripped]
+// [metadata-stripped]
+    return _SYM_霤:1.0__JCROSS_霤_67_._SYM_霤:1.0__JCROSS_霤_12_("}", 1)[1] if "}" in _SYM_霤:1.0__JCROSS_霤_67_ else _SYM_霤:1.0__JCROSS_霤_67_
+
+
+_SYM_霤:1.0__JCROSS_霤_23_ _SYM_潤:1.0__JCROSS_霤_95_(_SYM_霤:1.0__JCROSS_霤_73_):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _SYM_霤:1.0__JCROSS_霤_56_ = re._SYM_霤:1.0__JCROSS_霤_56_(r"_SYM_霤:1.0__JCROSS_霤_72_\((.*)\)", _SYM_霤:1.0__JCROSS_霤_73_)
+    if _SYM_霤:1.0__JCROSS_霤_78_ _SYM_霤:1.0__JCROSS_霤_56_:
+        _SYM_霤:1.0__JCROSS_霤_4_ _SYM_廬:1.0__JCROSS_廬_3_
+    _SYM_霤:1.0__JCROSS_霤_72_ = _SYM_霤:1.0__JCROSS_霤_13_(_SYM_霤:1.0__JCROSS_霤_70_(p) for p in re._SYM_霤:1.0__JCROSS_霤_12_(r"\s+|,", _SYM_霤:1.0__JCROSS_霤_56_._SYM_霤:1.0__JCROSS_霤_83_(1)))
+    if _SYM_霤:1.0__JCROSS_霤_30_(_SYM_霤:1.0__JCROSS_霤_72_) != 6:
+        _SYM_霤:1.0__JCROSS_霤_4_ _SYM_廬:1.0__JCROSS_廬_9_("_SYM_霤:1.0__JCROSS_霤_44_ # of _SYM_霤:1.0__JCROSS_霤_85_ in %s" % _SYM_霤:1.0__JCROSS_霤_73_)
+    return _SYM_霤:1.0__JCROSS_霤_72_
+
+
+class _SYM_法:1.0__JCROSS_廬_6_(_SYM_霤:1.0__JCROSS_霤_33_):
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_63_(self):
+        self._SYM_霤:1.0__JCROSS_霤_16_ = []
+        self._SYM_潤:1.0__JCROSS_霤_5_ = []
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_35_(self, _SYM_霤:1.0__JCROSS_霤_65_=""):
+        self._SYM_霤:1.0__JCROSS_霤_16_._SYM_霤:1.0__JCROSS_霤_9_(_SYM_霤:1.0__JCROSS_霤_65_)
+        self._SYM_潤:1.0__JCROSS_霤_5_._SYM_霤:1.0__JCROSS_霤_9_(_SYM_廬:1.0__JCROSS_廬_8_)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_60_(self):
+        self._SYM_霤:1.0__JCROSS_霤_111_("z")
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_111_(self, _SYM_霤:1.0__JCROSS_霤_71_):
+        _SYM_霤:1.0__JCROSS_霤_104_ = self._SYM_霤:1.0__JCROSS_霤_16_[-1]
+        if _SYM_霤:1.0__JCROSS_霤_104_:
+            _SYM_霤:1.0__JCROSS_霤_104_ += " " + _SYM_霤:1.0__JCROSS_霤_71_
+        else:
+            _SYM_霤:1.0__JCROSS_霤_104_ = _SYM_霤:1.0__JCROSS_霤_71_
+        self._SYM_霤:1.0__JCROSS_霤_16_[-1] = _SYM_霤:1.0__JCROSS_霤_104_
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_10_(self, c, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_111_("%s%s,%s" % (c, _SYM_霤:1.0__JCROSS_霤_54_(x), _SYM_霤:1.0__JCROSS_霤_54_(y)))
+
+    _SYM_霤:1.0__JCROSS_霤_23_ M(self, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_10_("M", x, y)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ m(self, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_10_("m", x, y)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_43_(self, c, rx, ry, x, y, _SYM_霤:1.0__JCROSS_霤_107_):
+        self._SYM_霤:1.0__JCROSS_霤_111_(
+            "%s%s,%s 0 %d 1 %s,%s"
+            % (c, _SYM_霤:1.0__JCROSS_霤_54_(rx), _SYM_霤:1.0__JCROSS_霤_54_(ry), _SYM_霤:1.0__JCROSS_霤_107_, _SYM_霤:1.0__JCROSS_霤_54_(x), _SYM_霤:1.0__JCROSS_霤_54_(y))
+        )
+
+    _SYM_霤:1.0__JCROSS_霤_23_ A(self, rx, ry, x, y, _SYM_霤:1.0__JCROSS_霤_107_=0):
+        self._SYM_霤:1.0__JCROSS_霤_43_("A", rx, ry, x, y, _SYM_霤:1.0__JCROSS_霤_107_)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ a(self, rx, ry, x, y, _SYM_霤:1.0__JCROSS_霤_107_=0):
+// _SYM_紬:0.8__JCROSS_EC_947_ [decoy-metadata]
+        self._SYM_霤:1.0__JCROSS_霤_43_("a", rx, ry, x, y, _SYM_霤:1.0__JCROSS_霤_107_)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_109_(self, c, x):
+        self._SYM_霤:1.0__JCROSS_霤_111_("%s%s" % (c, _SYM_霤:1.0__JCROSS_霤_54_(x)))
+
+    _SYM_霤:1.0__JCROSS_霤_23_ H(self, x):
+        self._SYM_霤:1.0__JCROSS_霤_109_("H", x)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ h(self, x):
+        self._SYM_霤:1.0__JCROSS_霤_109_("h", x)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ V(self, y):
+        self._SYM_霤:1.0__JCROSS_霤_109_("V", y)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ v(self, y):
+        self._SYM_霤:1.0__JCROSS_霤_109_("v", y)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_49_(self, c, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_111_("%s%s,%s" % (c, _SYM_霤:1.0__JCROSS_霤_54_(x), _SYM_霤:1.0__JCROSS_霤_54_(y)))
+
+    _SYM_霤:1.0__JCROSS_霤_23_ L(self, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_49_("L", x, y)
+// _SYM_潤:0.4__JCROSS_BZ_241_ [decoy-metadata]
+
+    _SYM_霤:1.0__JCROSS_霤_23_ l(self, x, y):
+        self._SYM_霤:1.0__JCROSS_霤_49_("l", x, y)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_93_(self, _SYM_霤:1.0__JCROSS_霤_26_):
+        x1 = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_26_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("x1", 0))
+        y1 = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_26_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("y1", 0))
+        x2 = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_26_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("x2", 0))
+        y2 = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_26_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("y2", 0))
+
+        self._SYM_霤:1.0__JCROSS_霤_35_()
+        self.M(x1, y1)
+        self.L(x2, y2)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_17_(self, _SYM_霤:1.0__JCROSS_霤_53_):
+        x = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("x", 0))
+        y = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("y", 0))
+        w = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("_SYM_霤:1.0__JCROSS_霤_38_"))
+        h = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("_SYM_霤:1.0__JCROSS_霤_51_"))
+        rx = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("rx", 0))
+        ry = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_53_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("ry", 0))
+
+        rx = _SYM_霤:1.0__JCROSS_霤_24_(rx, ry)
+        ry = _SYM_霤:1.0__JCROSS_霤_24_(ry, rx)
+// [metadata-stripped]
+
+        self._SYM_霤:1.0__JCROSS_霤_35_()
+        self.M(x + rx, y)
+        self.H(x + w - rx)
+        if rx > 0:
+            self.A(rx, ry, x + w, y + ry)
+// _SYM_法:0.1__JCROSS_FW_847_ [decoy-metadata]
+        self.V(y + h - ry)
+// _SYM_廬:0.1__JCROSS_ZL_617_ [decoy-metadata]
+        if rx > 0:
+            self.A(rx, ry, x + w - rx, y + h)
+        self.H(x + rx)
+        if rx > 0:
+            self.A(rx, ry, x, y + h - ry)
+        self.V(y + ry)
+        if rx > 0:
+            self.A(rx, ry, x + rx, y)
+        self._SYM_霤:1.0__JCROSS_霤_60_()
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_76_(self, _SYM_霤:1.0__JCROSS_霤_104_):
+        if "d" in _SYM_霤:1.0__JCROSS_霤_104_._SYM_霤:1.0__JCROSS_霤_48_:
+            self._SYM_霤:1.0__JCROSS_霤_35_(_SYM_霤:1.0__JCROSS_霤_65_=_SYM_霤:1.0__JCROSS_霤_104_._SYM_霤:1.0__JCROSS_霤_48_["d"])
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_21_(self, _SYM_霤:1.0__JCROSS_霤_103_):
+        if "_SYM_霤:1.0__JCROSS_霤_34_" in _SYM_霤:1.0__JCROSS_霤_103_._SYM_霤:1.0__JCROSS_霤_48_:
+            self._SYM_霤:1.0__JCROSS_霤_35_("M" + _SYM_霤:1.0__JCROSS_霤_103_._SYM_霤:1.0__JCROSS_霤_48_["_SYM_霤:1.0__JCROSS_霤_34_"])
+            self._SYM_霤:1.0__JCROSS_霤_60_()
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_39_(self, _SYM_霤:1.0__JCROSS_霤_103_):
+        if "_SYM_霤:1.0__JCROSS_霤_34_" in _SYM_霤:1.0__JCROSS_霤_103_._SYM_霤:1.0__JCROSS_霤_48_:
+            self._SYM_霤:1.0__JCROSS_霤_35_("M" + _SYM_霤:1.0__JCROSS_霤_103_._SYM_霤:1.0__JCROSS_霤_48_["_SYM_霤:1.0__JCROSS_霤_34_"])
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_47_(self, _SYM_霤:1.0__JCROSS_霤_97_):
+        cx = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_97_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("cx", 0))
+        cy = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_97_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("cy", 0))
+        r = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_97_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("r"))
+
+// [metadata-stripped]
+        self._SYM_霤:1.0__JCROSS_霤_35_()
+// _SYM_法:0.3__JCROSS_EV_593_ [decoy-metadata]
+        self.M(cx - r, cy)
+        self.A(r, r, cx + r, cy, _SYM_霤:1.0__JCROSS_霤_107_=1)
+        self.A(r, r, cx - r, cy, _SYM_霤:1.0__JCROSS_霤_107_=1)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_59_(self, _SYM_霤:1.0__JCROSS_霤_106_):
+        cx = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_106_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("cx", 0))
+        cy = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_106_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("cy", 0))
+        rx = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_106_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("rx"))
+        ry = _SYM_霤:1.0__JCROSS_霤_70_(_SYM_霤:1.0__JCROSS_霤_106_._SYM_霤:1.0__JCROSS_霤_48_._SYM_法:1.0__JCROSS_廉_1_("ry"))
+
+// [metadata-stripped]
+        self._SYM_霤:1.0__JCROSS_霤_35_()
+        self.M(cx - rx, cy)
+        self.A(rx, ry, cx + rx, cy, _SYM_霤:1.0__JCROSS_霤_107_=1)
+        self.A(rx, ry, cx - rx, cy, _SYM_霤:1.0__JCROSS_霤_107_=1)
+
+    _SYM_霤:1.0__JCROSS_霤_23_ _SYM_霤:1.0__JCROSS_霤_37_(self, el):
+        _SYM_霤:1.0__JCROSS_霤_67_ = _SYM_霤:1.0__JCROSS_霤_96_(el._SYM_霤:1.0__JCROSS_霤_67_)
+        _SYM_霤:1.0__JCROSS_霤_2_ = _SYM_法:1.0__JCROSS_廉_2_(self, "_SYM_霤:1.0__JCROSS_霤_80_%s" % _SYM_霤:1.0__JCROSS_霤_67_._SYM_法:1.0__JCROSS_霤_74_(), _SYM_廬:1.0__JCROSS_廬_8_)
+        if _SYM_霤:1.0__JCROSS_霤_78_ _SYM_霤:1.0__JCROSS_霤_102_(_SYM_霤:1.0__JCROSS_霤_2_):
+            return _SYM_廬:1.0__JCROSS_廬_11_
+        _SYM_霤:1.0__JCROSS_霤_2_(el)
+        if "_SYM_潤:1.0__JCROSS_霤_1_" in el._SYM_霤:1.0__JCROSS_霤_48_:
+            self._SYM_潤:1.0__JCROSS_霤_5_[-1] = _SYM_潤:1.0__JCROSS_霤_95_(el._SYM_霤:1.0__JCROSS_霤_48_["_SYM_潤:1.0__JCROSS_霤_1_"])
+        return _SYM_廬:1.0__JCROSS_廬_13_
+
+// POLYMORPHIC_JCROSS_END

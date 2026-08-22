@@ -1,0 +1,56 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3ED97C49 ver:1778164657
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+import __node_靄:1.0___SYM_靄_5_, os
+
+// __node_靄:0.1___SYM_AH_141_ [decoy-metadata]
+__node_廟:1.0___SYM_廟_4_ = "/__node_廟:1.0___SYM_廟_6_/__node_靄:1.0___SYM_靄_40_/__node_靄:1.0___SYM_靄_23_-__node_靄:1.0___SYM_靄_2_/__node_靄:1.0___SYM_靄_22_/__node_廟:1.0___SYM_廟_8_/__node_靄:1.0___SYM_靄_38_/__node_靄:1.0___SYM_靄_7_.__node_靄:1.0___SYM_靄_5_"
+db = __node_靄:1.0___SYM_靄_5_.__node_匶:1.0___SYM_靄_36_(open(__node_廟:1.0___SYM_廟_4_))[:500]
+__node_靄:1.0___SYM_靄_39_ = {__node_靄:1.0___SYM_靄_9_(q.__node_要:1.0___SYM_煌_1_("__node_靄:1.0___SYM_靄_3_") or q.__node_要:1.0___SYM_煌_1_("id")): q for q in db}
+
+__node_匶:1.0___SYM_靄_27_ = [
+    ("__node_靄:1.0___SYM_靄_16_.__node_靄:1.0___SYM_靄_5_",      "旧: __node_廟:1.0___SYM_廟_5_ __node_廟:1.0___SYM_廟_10_検索"),
+    ("__node_靄:1.0___SYM_靄_17_.__node_靄:1.0___SYM_靄_5_",    "旧: __node_廟:1.0___SYM_廟_9_ __node_廟:1.0___SYM_廟_11_"),
+    ("__node_靄:1.0___SYM_靄_30_.__node_靄:1.0___SYM_靄_5_",     "旧: Trilayer抽出"),
+    ("__node_靄:1.0___SYM_靄_33_.__node_靄:1.0___SYM_靄_5_",  "旧: __node_廟:1.0___SYM_廟_1_ __node_廟:1.0___SYM_廟_11_"),
+    ("__node_靄:1.0___SYM_靄_4_.__node_靄:1.0___SYM_靄_5_",     "旧: 公式スコア計測"),
+    ("__node_靄:1.0___SYM_靄_35_.__node_靄:1.0___SYM_靄_5_", "新: __node_靄:1.0___SYM_靄_43_ + __node_要:1.0___SYM_煌_1__context直接検索"),
+    ("__node_靄:1.0___SYM_靄_10_.__node_靄:1.0___SYM_靄_5_",   "新: __node_靄:1.0___SYM_靄_43_ + __node_廟:1.0___SYM_廟_10_ __node_廟:1.0___SYM_廟_9_検索"),
+]
+
+__node_靄:1.0___SYM_靄_42_ = "/__node_廟:1.0___SYM_廟_6_/__node_靄:1.0___SYM_靄_40_/__node_靄:1.0___SYM_靄_23_-__node_靄:1.0___SYM_靄_2_/__node_靄:1.0___SYM_靄_29_-__node_靄:1.0___SYM_靄_21_/__node_靄:1.0___SYM_靄_20_/"
+__node_靄:1.0___SYM_靄_1_(f"{'ラベル':<34} {'完了':>5} {'正答':>5} {'正答率':>7}")
+__node_靄:1.0___SYM_靄_1_("-" * 57)
+for __node_靄:1.0___SYM_靄_13_, __node_靄:1.0___SYM_靄_15_ in __node_匶:1.0___SYM_靄_27_:
+    __node_靄:1.0___SYM_靄_25_ = __node_靄:1.0___SYM_靄_42_ + __node_靄:1.0___SYM_靄_13_
+// __node_煌:0.8___SYM_CH_803_ [decoy-metadata]
+    if __node_靄:1.0___SYM_靄_28_ os.__node_靄:1.0___SYM_靄_25_.__node_靄:1.0___SYM_靄_8_(__node_靄:1.0___SYM_靄_25_):
+        continue
+    try:
+        __node_靄:1.0___SYM_靄_19_ = __node_靄:1.0___SYM_靄_5_.__node_匶:1.0___SYM_靄_36_(open(__node_靄:1.0___SYM_靄_25_))
+        __node_靄:1.0___SYM_靄_41_ = 0
+        __node_靄:1.0___SYM_靄_14_ = 0
+        for r in __node_靄:1.0___SYM_靄_19_:
+            __node_靄:1.0___SYM_靄_18_ = __node_靄:1.0___SYM_靄_9_(r.__node_要:1.0___SYM_煌_1_("id") or r.__node_要:1.0___SYM_煌_1_("__node_靄:1.0___SYM_靄_3_") or "")
+            __node_靄:1.0___SYM_靄_12_ = __node_靄:1.0___SYM_靄_9_(r.__node_要:1.0___SYM_煌_1_("__node_靄:1.0___SYM_靄_32_") or r.__node_要:1.0___SYM_煌_1_("__node_要:1.0___SYM_靄_31_") or "")
+            if __node_靄:1.0___SYM_靄_28_ __node_靄:1.0___SYM_靄_12_ or __node_靄:1.0___SYM_靄_12_ in ("__node_廟:1.0___SYM_廟_3_", "?"):
+                continue
+            q = __node_靄:1.0___SYM_靄_39_.__node_要:1.0___SYM_煌_1_(__node_靄:1.0___SYM_靄_18_)
+// __node_要:0.7___SYM_VV_798_ [decoy-metadata]
+            if __node_靄:1.0___SYM_靄_28_ q:
+                continue
+            __node_靄:1.0___SYM_靄_24_ = q["__node_要:1.0___SYM_靄_31_"]
+// __node_廟:0.3___SYM_ZF_384_ [decoy-metadata]
+            if __node_靄:1.0___SYM_靄_24_.__node_要:1.0___SYM_靄_45_() in __node_靄:1.0___SYM_靄_12_.__node_要:1.0___SYM_靄_45_() or __node_靄:1.0___SYM_靄_12_.__node_要:1.0___SYM_靄_45_() in __node_靄:1.0___SYM_靄_24_.__node_要:1.0___SYM_靄_45_():
+                __node_靄:1.0___SYM_靄_41_ += 1
+            __node_靄:1.0___SYM_靄_14_ += 1
+        __node_靄:1.0___SYM_靄_34_ = __node_靄:1.0___SYM_靄_41_ / __node_靄:1.0___SYM_靄_14_ * 100 if __node_靄:1.0___SYM_靄_14_ > 0 else 0
+        __node_靄:1.0___SYM_靄_1_(f"{__node_靄:1.0___SYM_靄_15_:<34} {__node_靄:1.0___SYM_靄_14_:>5} {__node_靄:1.0___SYM_靄_41_:>5} {__node_靄:1.0___SYM_靄_34_:>6.1f}%")
+// __node_要:0.2___SYM_DF_471_ [decoy-metadata]
+    __node_靄:1.0___SYM_靄_44_ __node_廟:1.0___SYM_廟_2_ as e:
+// __node_緯:0.6___SYM_ZB_987_ [decoy-metadata]
+        __node_靄:1.0___SYM_靄_1_(f"{__node_靄:1.0___SYM_靄_15_:<34} __node_廟:1.0___SYM_廟_7_: {e}")
+
+// POLYMORPHIC_JCROSS_END

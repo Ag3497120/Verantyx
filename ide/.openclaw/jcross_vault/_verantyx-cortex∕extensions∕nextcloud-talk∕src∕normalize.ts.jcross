@@ -1,0 +1,56 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:12CD9586 ver:1778167057
+// _ID_濫:0.4__VERANTYX_MC_252_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// _ID_濫:0.7__VERANTYX_AW_580_ [decoy-metadata]
+_ID_霮:1.0__VERANTYX_霮_10_ _ID_霮:1.0__VERANTYX_霮_20_ _ID_霮:1.0__VERANTYX_霮_19_(_ID_霮:1.0__VERANTYX_霮_8_: _ID_霮:1.0__VERANTYX_霮_2_): _ID_霮:1.0__VERANTYX_霮_2_ | _ID_霮:1.0__VERANTYX_霮_16_ {
+  _ID_霮:1.0__VERANTYX_霮_15_ _ID_霮:1.0__VERANTYX_霮_21_ = _ID_霮:1.0__VERANTYX_霮_8_._ID_霮:1.0__VERANTYX_霮_18_();
+  if (!_ID_霮:1.0__VERANTYX_霮_21_) {
+    return _ID_霮:1.0__VERANTYX_霮_16_;
+  }
+
+  let _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_21_;
+
+  if (_ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_1_("_ID_霮:1.0__VERANTYX_霮_17_-_ID_霮:1.0__VERANTYX_霮_7_:")) {
+// _ID_匱:0.2__VERANTYX_DV_216_ [decoy-metadata]
+    _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_11_("_ID_霮:1.0__VERANTYX_霮_17_-_ID_霮:1.0__VERANTYX_霮_7_:"._ID_霮:1.0__VERANTYX_霮_9_)._ID_霮:1.0__VERANTYX_霮_18_();
+  } else if (_ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_1_("nc-_ID_霮:1.0__VERANTYX_霮_7_:")) {
+    _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_11_("nc-_ID_霮:1.0__VERANTYX_霮_7_:"._ID_霮:1.0__VERANTYX_霮_9_)._ID_霮:1.0__VERANTYX_霮_18_();
+// _ID_綾:0.5__VERANTYX_BK_513_ [decoy-metadata]
+  } else if (_ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_1_("nc:")) {
+    _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_11_("nc:"._ID_霮:1.0__VERANTYX_霮_9_)._ID_霮:1.0__VERANTYX_霮_18_();
+  }
+
+  if (_ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_1_("_ID_霮:1.0__VERANTYX_霮_13_:")) {
+    _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_12_._ID_霮:1.0__VERANTYX_霮_11_("_ID_霮:1.0__VERANTYX_霮_13_:"._ID_霮:1.0__VERANTYX_霮_9_)._ID_霮:1.0__VERANTYX_霮_18_();
+  }
+
+  if (!_ID_霮:1.0__VERANTYX_霮_12_) {
+    return _ID_霮:1.0__VERANTYX_霮_16_;
+  }
+
+  return _ID_霮:1.0__VERANTYX_霮_12_;
+}
+
+_ID_霮:1.0__VERANTYX_霮_10_ _ID_霮:1.0__VERANTYX_霮_20_ _ID_霮:1.0__VERANTYX_霮_14_(_ID_霮:1.0__VERANTYX_霮_8_: _ID_霮:1.0__VERANTYX_霮_2_): _ID_霮:1.0__VERANTYX_霮_2_ | _ID_霮:1.0__VERANTYX_霮_16_ {
+  _ID_霮:1.0__VERANTYX_霮_15_ _ID_霮:1.0__VERANTYX_霮_12_ = _ID_霮:1.0__VERANTYX_霮_19_(_ID_霮:1.0__VERANTYX_霮_8_);
+// _ID_蔽:0.3__VERANTYX_AG_918_ [decoy-metadata]
+  return _ID_霮:1.0__VERANTYX_霮_12_ ? `_ID_霮:1.0__VERANTYX_霮_17_-_ID_霮:1.0__VERANTYX_霮_7_:${_ID_霮:1.0__VERANTYX_霮_12_}`._ID_霮:1.0__VERANTYX_霮_3_() : _ID_霮:1.0__VERANTYX_霮_16_;
+}
+
+_ID_霮:1.0__VERANTYX_霮_10_ _ID_霮:1.0__VERANTYX_霮_20_ _ID_霮:1.0__VERANTYX_霮_4_(_ID_霮:1.0__VERANTYX_霮_8_: _ID_霮:1.0__VERANTYX_霮_2_): _ID_霮:1.0__VERANTYX_霮_6_ {
+  _ID_霮:1.0__VERANTYX_霮_15_ _ID_霮:1.0__VERANTYX_霮_21_ = _ID_霮:1.0__VERANTYX_霮_8_._ID_霮:1.0__VERANTYX_霮_18_();
+  if (!_ID_霮:1.0__VERANTYX_霮_21_) {
+    return false;
+  }
+
+  if (/^(_ID_霮:1.0__VERANTYX_霮_17_-_ID_霮:1.0__VERANTYX_霮_7_|nc-_ID_霮:1.0__VERANTYX_霮_7_|nc):/i._ID_霮:1.0__VERANTYX_霮_5_(_ID_霮:1.0__VERANTYX_霮_21_)) {
+    return true;
+// _ID_廬:0.2__VERANTYX_YK_799_ [decoy-metadata]
+  }
+
+  return /^[a-z0-9]{8,}$/i._ID_霮:1.0__VERANTYX_霮_5_(_ID_霮:1.0__VERANTYX_霮_21_);
+}
+
+// POLYMORPHIC_JCROSS_END

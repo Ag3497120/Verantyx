@@ -1,0 +1,775 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CFAA306A ver:1778151350
+// ⚠️ One-time schema — expires after response
+
+import { c as _ASTNODE_泡:1.0___jcross_泡_145__, g as _ASTNODE_泡:1.0___jcross_泡_206__, y as _ASTNODE_泡:1.0___jcross_泡_4__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_364__-_ASTNODE_礎:1.0___jcross_礎_43__.js";
+import { n as _ASTNODE_泡:1.0___jcross_泡_280__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_10__-_ASTNODE_礎:1.0___jcross_礎_37__.js";
+import { f as _ASTNODE_泡:1.0___jcross_泡_340__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_規:1.0___jcross_泡_204__-_ASTNODE_礎:1.0___jcross_礎_11__.js";
+import { f as _ASTNODE_鍵:1.0___jcross_泡_193__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_96__-_ASTNODE_泡:1.0___jcross_泡_225__-_ASTNODE_礎:1.0___jcross_礎_36__-.js";
+import { o as _ASTNODE_匵:1.0___jcross_泡_45__, t as _ASTNODE_泡:1.0___jcross_泡_202__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_30__-7A_y_wee.js";
+import { d as _ASTNODE_匵:1.0___jcross_泡_196__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./fs-_ASTNODE_泡:1.0___jcross_泡_247__-_ASTNODE_礎:1.0___jcross_礎_27__.js";
+import { n as _ASTNODE_規:1.0___jcross_縁_4__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_規:1.0___jcross_縁_2__-guard-_ASTNODE_泡:1.0___jcross_泡_265__.js";
+import { c as _ASTNODE_泡:1.0___jcross_泡_40__, d as _ASTNODE_泡:1.0___jcross_泡_131__, f as _ASTNODE_泡:1.0___jcross_泡_288__, l as _ASTNODE_泡:1.0___jcross_泡_237__, n as _ASTNODE_規:1.0___jcross_泡_47__, r as _ASTNODE_泡:1.0___jcross_泡_332__$1, u as _ASTNODE_泡:1.0___jcross_泡_334__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_207__-_ASTNODE_泡:1.0___jcross_泡_13__-_ASTNODE_泡:1.0___jcross_泡_343__-_ASTNODE_礎:1.0___jcross_礎_42__.js";
+import { t as _ASTNODE_泡:1.0___jcross_泡_256__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_136__-_ASTNODE_礎:1.0___jcross_礎_39__.js";
+import { t as _ASTNODE_泡:1.0___jcross_泡_144__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_349__-_ASTNODE_規:1.0___jcross_泡_328__-_ASTNODE_礎:1.0___jcross_礎_29__.js";
+import { i as _ASTNODE_泡:1.0___jcross_泡_330__, t as _ASTNODE_泡:1.0___jcross_泡_257__ } _ASTNODE_泡:1.0___jcross_泡_79__ "./_ASTNODE_泡:1.0___jcross_泡_343__-_ASTNODE_泡:1.0___jcross_泡_247__-_ASTNODE_泡:1.0___jcross_泡_167__-_ASTNODE_礎:1.0___jcross_礎_22__.js";
+import fs _ASTNODE_泡:1.0___jcross_泡_79__ "_ASTNODE_泡:1.0___jcross_泡_92__:fs";
+import _ASTNODE_泡:1.0___jcross_泡_167__ _ASTNODE_泡:1.0___jcross_泡_79__ "_ASTNODE_泡:1.0___jcross_泡_92__:_ASTNODE_泡:1.0___jcross_泡_167__";
+import { _ASTNODE_泡:1.0___jcross_泡_80__, _ASTNODE_泡:1.0___jcross_泡_284__ } _ASTNODE_泡:1.0___jcross_泡_79__ "_ASTNODE_泡:1.0___jcross_泡_92__:_ASTNODE_泡:1.0___jcross_泡_111__";
+import { _ASTNODE_泡:1.0___jcross_泡_153__ } _ASTNODE_泡:1.0___jcross_泡_79__ "_ASTNODE_泡:1.0___jcross_泡_92__:_ASTNODE_泡:1.0___jcross_泡_304__/_ASTNODE_泡:1.0___jcross_泡_205__";
+import { _ASTNODE_礎:1.0___jcross_礎_47__ } _ASTNODE_泡:1.0___jcross_泡_79__ "_ASTNODE_泡:1.0___jcross_泡_92__:_ASTNODE_泡:1.0___jcross_泡_304__";
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_礎:1.0___jcross_礎_33__ = _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_規:1.0___jcross_縁_5__([
+	"_ASTNODE_礎:1.0___jcross_礎_46__",
+	"_ASTNODE_礎:1.0___jcross_礎_4__",
+	"_ASTNODE_礎:1.0___jcross_礎_49__",
+	"_ASTNODE_礎:1.0___jcross_礎_7__",
+	"_ASTNODE_礎:1.0___jcross_礎_34__",
+	"_ASTNODE_礎:1.0___jcross_礎_17__",
+	"_ASTNODE_礎:1.0___jcross_礎_3__",
+	"_ASTNODE_礎:1.0___jcross_礎_6__",
+	"_ASTNODE_礎:1.0___jcross_礎_15__",
+	"_ASTNODE_礎:1.0___jcross_礎_8__",
+	"_ASTNODE_礎:1.0___jcross_礎_28__",
+	"_ASTNODE_礎:1.0___jcross_礎_24__"
+]);
+_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_礎:1.0___jcross_礎_53__ = /^\d{4}-\d{2}-\d{2}$/;
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_23__(_ASTNODE_泡:1.0___jcross_泡_83__) {
+	switch (_ASTNODE_泡:1.0___jcross_泡_83__) {
+		case "l": return "_ASTNODE_礎:1.0___jcross_礎_32__";
+		case "h": return "_ASTNODE_礎:1.0___jcross_礎_26__";
+		case "b": return "_ASTNODE_礎:1.0___jcross_礎_52__";
+		case "c": return "_ASTNODE_礎:1.0___jcross_礎_2__";
+		case "p": return "_ASTNODE_礎:1.0___jcross_礎_44__";
+		case "s": return "_ASTNODE_礎:1.0___jcross_礎_40__";
+		case "d": return "_ASTNODE_礎:1.0___jcross_礎_55__";
+		_ASTNODE_泡:1.0___jcross_泡_33__: return "_ASTNODE_匵:1.0___jcross_礎_30__";
+	}
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_273__(_ASTNODE_泡:1.0___jcross_泡_199__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_鍵:1.0___jcross_泡_20__ = _ASTNODE_泡:1.0___jcross_泡_199__._ASTNODE_泡:1.0___jcross_泡_89__()._ASTNODE_泡:1.0___jcross_泡_41__(/\s+/)._ASTNODE_規:1.0___jcross_泡_331__(_ASTNODE_礎:1.0___jcross_礎_19__);
+	if (_ASTNODE_鍵:1.0___jcross_泡_20__._ASTNODE_泡:1.0___jcross_泡_217__ < 6) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_泡:1.0___jcross_泡_28__ to _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_292__ _ASTNODE_泡:1.0___jcross_泡_118__: ${_ASTNODE_泡:1.0___jcross_泡_199__}`);
+	let _ASTNODE_泡:1.0___jcross_泡_308__ = _ASTNODE_鍵:1.0___jcross_泡_20__._ASTNODE_泡:1.0___jcross_泡_164__((_ASTNODE_鍵:1.0___jcross_泡_312__) => _ASTNODE_礎:1.0___jcross_礎_33__._ASTNODE_泡:1.0___jcross_泡_6__(_ASTNODE_鍵:1.0___jcross_泡_312__));
+	if (_ASTNODE_泡:1.0___jcross_泡_308__ > 0) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_88__ = _ASTNODE_規:1.0___jcross_礎_50__._ASTNODE_泡:1.0___jcross_泡_48__(_ASTNODE_鍵:1.0___jcross_泡_20__[_ASTNODE_泡:1.0___jcross_泡_308__ - 1] ?? "", 10);
+		if (!_ASTNODE_規:1.0___jcross_礎_50__._ASTNODE_泡:1.0___jcross_泡_152__(_ASTNODE_泡:1.0___jcross_泡_88__) || _ASTNODE_泡:1.0___jcross_泡_88__ < 0) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_泡:1.0___jcross_泡_28__ to _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_192__ _ASTNODE_泡:1.0___jcross_泡_88__: ${_ASTNODE_泡:1.0___jcross_泡_199__}`);
+		return _ASTNODE_泡:1.0___jcross_泡_88__;
+	}
+	_ASTNODE_泡:1.0___jcross_泡_308__ = _ASTNODE_鍵:1.0___jcross_泡_20__._ASTNODE_泡:1.0___jcross_泡_164__((_ASTNODE_鍵:1.0___jcross_泡_312__) => _ASTNODE_礎:1.0___jcross_礎_53__._ASTNODE_泡:1.0___jcross_泡_355__(_ASTNODE_鍵:1.0___jcross_泡_312__));
+	if (_ASTNODE_泡:1.0___jcross_泡_308__ > 0) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_88__ = _ASTNODE_規:1.0___jcross_礎_50__._ASTNODE_泡:1.0___jcross_泡_48__(_ASTNODE_鍵:1.0___jcross_泡_20__[_ASTNODE_泡:1.0___jcross_泡_308__ - 1] ?? "", 10);
+		if (!_ASTNODE_規:1.0___jcross_礎_50__._ASTNODE_泡:1.0___jcross_泡_152__(_ASTNODE_泡:1.0___jcross_泡_88__) || _ASTNODE_泡:1.0___jcross_泡_88__ < 0) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_泡:1.0___jcross_泡_28__ to _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_192__ _ASTNODE_泡:1.0___jcross_泡_88__: ${_ASTNODE_泡:1.0___jcross_泡_199__}`);
+		return _ASTNODE_泡:1.0___jcross_泡_88__;
+	}
+	_ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_泡:1.0___jcross_泡_28__ to _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_292__ _ASTNODE_泡:1.0___jcross_泡_118__: ${_ASTNODE_泡:1.0___jcross_泡_199__}`);
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_35__(_ASTNODE_泡:1.0___jcross_泡_36__) {
+	return _ASTNODE_泡:1.0___jcross_泡_36__._ASTNODE_泡:1.0___jcross_泡_41__("\n")._ASTNODE_泡:1.0___jcross_泡_277__((_ASTNODE_泡:1.0___jcross_泡_199__) => _ASTNODE_泡:1.0___jcross_泡_199__._ASTNODE_泡:1.0___jcross_泡_89__())._ASTNODE_規:1.0___jcross_泡_331__(_ASTNODE_礎:1.0___jcross_礎_19__)._ASTNODE_泡:1.0___jcross_泡_277__((_ASTNODE_泡:1.0___jcross_泡_199__) => {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_83__ = _ASTNODE_泡:1.0___jcross_泡_199__[0] ?? "";
+		if (!_ASTNODE_泡:1.0___jcross_泡_83__) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__("_ASTNODE_泡:1.0___jcross_泡_28__ to _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_192__ _ASTNODE_泡:1.0___jcross_泡_262__");
+		return {
+			_ASTNODE_泡:1.0___jcross_泡_262__: _ASTNODE_泡:1.0___jcross_泡_23__(_ASTNODE_泡:1.0___jcross_泡_83__),
+			_ASTNODE_泡:1.0___jcross_泡_88__: _ASTNODE_泡:1.0___jcross_泡_273__(_ASTNODE_泡:1.0___jcross_泡_199__)
+		};
+	});
+}
+// [metadata-stripped]
+// [metadata-stripped]
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_匵:1.0___jcross_泡_2__(_ASTNODE_匵:1.0___jcross_泡_243__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_67__ = _ASTNODE_泡:1.0___jcross_泡_80__("_ASTNODE_泡:1.0___jcross_泡_116__");
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_304__ = fs._ASTNODE_泡:1.0___jcross_泡_147__(_ASTNODE_匵:1.0___jcross_泡_243__);
+	return await _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_18__((_ASTNODE_泡:1.0___jcross_泡_119__, _ASTNODE_泡:1.0___jcross_泡_85__) => {
+		_ASTNODE_泡:1.0___jcross_泡_304__.on("_ASTNODE_泡:1.0___jcross_泡_11__", (_ASTNODE_泡:1.0___jcross_泡_86__) => {
+			_ASTNODE_泡:1.0___jcross_泡_67__._ASTNODE_泡:1.0___jcross_泡_123__(_ASTNODE_泡:1.0___jcross_泡_86__);
+		});
+		_ASTNODE_泡:1.0___jcross_泡_304__.on("_ASTNODE_泡:1.0___jcross_泡_72__", _ASTNODE_泡:1.0___jcross_泡_85__);
+		_ASTNODE_泡:1.0___jcross_泡_304__.on("_ASTNODE_泡:1.0___jcross_泡_268__", () => {
+			_ASTNODE_泡:1.0___jcross_泡_119__(_ASTNODE_泡:1.0___jcross_泡_67__._ASTNODE_泡:1.0___jcross_泡_191__("_ASTNODE_泡:1.0___jcross_泡_14__"));
+		});
+	});
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_3__(_ASTNODE_泡:1.0___jcross_泡_335__, _ASTNODE_泡:1.0___jcross_泡_230__) {
+	return {
+		_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_36__,
+		_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_309__ || _ASTNODE_泡:1.0___jcross_泡_230__,
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__
+	};
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_76__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_286__ = [
+		"_ASTNODE_泡:1.0___jcross_泡_75__",
+		"xf",
+		_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_29__,
+		"-C",
+		_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_212__
+	];
+	if (_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_56__ > 0) _ASTNODE_泡:1.0___jcross_泡_286__._ASTNODE_泡:1.0___jcross_泡_8__("--_ASTNODE_泡:1.0___jcross_泡_358__-_ASTNODE_泡:1.0___jcross_泡_42__", _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_56__));
+	return _ASTNODE_泡:1.0___jcross_泡_286__;
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_172__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_174__ = await _ASTNODE_泡:1.0___jcross_泡_280__([
+		"_ASTNODE_泡:1.0___jcross_泡_75__",
+		"tf",
+		_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_29__
+	], { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ });
+	if (_ASTNODE_泡:1.0___jcross_泡_174__._ASTNODE_泡:1.0___jcross_泡_12__ !== 0) return _ASTNODE_泡:1.0___jcross_泡_3__(_ASTNODE_泡:1.0___jcross_泡_174__, "_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_218__ _ASTNODE_泡:1.0___jcross_泡_303__");
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_133__ = _ASTNODE_泡:1.0___jcross_泡_174__._ASTNODE_泡:1.0___jcross_泡_36__._ASTNODE_泡:1.0___jcross_泡_41__("\n")._ASTNODE_泡:1.0___jcross_泡_277__((_ASTNODE_泡:1.0___jcross_泡_199__) => _ASTNODE_泡:1.0___jcross_泡_199__._ASTNODE_泡:1.0___jcross_泡_89__())._ASTNODE_規:1.0___jcross_泡_331__(_ASTNODE_礎:1.0___jcross_礎_19__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_157__ = await _ASTNODE_泡:1.0___jcross_泡_280__([
+		"_ASTNODE_泡:1.0___jcross_泡_75__",
+		"_ASTNODE_泡:1.0___jcross_泡_279__",
+		_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_29__
+	], { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ });
+	if (_ASTNODE_泡:1.0___jcross_泡_157__._ASTNODE_泡:1.0___jcross_泡_12__ !== 0) return _ASTNODE_泡:1.0___jcross_泡_3__(_ASTNODE_泡:1.0___jcross_泡_157__, "_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_292__ _ASTNODE_泡:1.0___jcross_泡_218__ _ASTNODE_泡:1.0___jcross_泡_303__");
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_118__ = _ASTNODE_泡:1.0___jcross_泡_35__(_ASTNODE_泡:1.0___jcross_泡_157__._ASTNODE_泡:1.0___jcross_泡_36__);
+	if (_ASTNODE_泡:1.0___jcross_泡_118__._ASTNODE_泡:1.0___jcross_泡_217__ !== _ASTNODE_泡:1.0___jcross_泡_133__._ASTNODE_泡:1.0___jcross_泡_217__) return {
+		_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_157__._ASTNODE_泡:1.0___jcross_泡_36__,
+		_ASTNODE_泡:1.0___jcross_泡_309__: `_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_292__/_ASTNODE_泡:1.0___jcross_泡_218__ _ASTNODE_泡:1.0___jcross_泡_192__ _ASTNODE_泡:1.0___jcross_泡_101__ _ASTNODE_泡:1.0___jcross_泡_156__ (${_ASTNODE_泡:1.0___jcross_泡_118__._ASTNODE_泡:1.0___jcross_泡_217__} vs ${_ASTNODE_泡:1.0___jcross_泡_133__._ASTNODE_泡:1.0___jcross_泡_217__})`,
+		_ASTNODE_泡:1.0___jcross_泡_12__: 1
+	};
+	return {
+		_ASTNODE_泡:1.0___jcross_泡_133__,
+		_ASTNODE_泡:1.0___jcross_泡_118__
+	};
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_333__(_ASTNODE_泡:1.0___jcross_泡_38__) {
+	return "_ASTNODE_泡:1.0___jcross_泡_12__" in _ASTNODE_泡:1.0___jcross_泡_38__;
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_滾:1.0___jcross_泡_216__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	if (await _ASTNODE_匵:1.0___jcross_泡_2__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_29__) === _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_232__) return _ASTNODE_泡:1.0___jcross_泡_281__;
+	return {
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_254__ _ASTNODE_泡:1.0___jcross_泡_326__ _ASTNODE_泡:1.0___jcross_泡_49__ _ASTNODE_泡:1.0___jcross_泡_245__ _ASTNODE_泡:1.0___jcross_泡_37__; _ASTNODE_泡:1.0___jcross_泡_363__ to _ASTNODE_泡:1.0___jcross_泡_97__",
+		_ASTNODE_泡:1.0___jcross_泡_12__: 1
+	};
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_27__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	return await _ASTNODE_泡:1.0___jcross_泡_334__({
+		_ASTNODE_泡:1.0___jcross_泡_91__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_91__,
+		_ASTNODE_泡:1.0___jcross_泡_94__: async (_ASTNODE_泡:1.0___jcross_泡_187__) => {
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_103__ = await _ASTNODE_泡:1.0___jcross_泡_280__(_ASTNODE_泡:1.0___jcross_泡_76__({
+				_ASTNODE_泡:1.0___jcross_泡_29__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_212__: _ASTNODE_泡:1.0___jcross_泡_187__,
+				_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_56__
+			}), { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ });
+			if (_ASTNODE_泡:1.0___jcross_泡_103__._ASTNODE_泡:1.0___jcross_泡_12__ !== 0) return _ASTNODE_泡:1.0___jcross_泡_103__;
+			await _ASTNODE_泡:1.0___jcross_泡_40__({
+				_ASTNODE_泡:1.0___jcross_泡_189__: _ASTNODE_泡:1.0___jcross_泡_187__,
+				_ASTNODE_泡:1.0___jcross_泡_66__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_91__,
+				_ASTNODE_泡:1.0___jcross_泡_91__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_91__
+			});
+			return _ASTNODE_泡:1.0___jcross_泡_103__;
+		}
+	});
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_332__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ { _ASTNODE_泡:1.0___jcross_泡_29__, _ASTNODE_泡:1.0___jcross_泡_158__, _ASTNODE_泡:1.0___jcross_泡_212__, _ASTNODE_泡:1.0___jcross_泡_56__, _ASTNODE_泡:1.0___jcross_泡_342__ } = _ASTNODE_泡:1.0___jcross_泡_240__;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_358__ = _ASTNODE_泡:1.0___jcross_泡_203__ _ASTNODE_泡:1.0___jcross_泡_56__ === "_ASTNODE_規:1.0___jcross_泡_228__" && _ASTNODE_規:1.0___jcross_礎_50__._ASTNODE_泡:1.0___jcross_泡_152__(_ASTNODE_泡:1.0___jcross_泡_56__) ? _ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_39__(0, _ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_159__(_ASTNODE_泡:1.0___jcross_泡_56__)) : 0;
+	try {
+		if (_ASTNODE_泡:1.0___jcross_泡_158__ === "_ASTNODE_泡:1.0___jcross_泡_241__") {
+			await _ASTNODE_泡:1.0___jcross_泡_332__$1({
+				_ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_69__: _ASTNODE_泡:1.0___jcross_泡_212__,
+				_ASTNODE_泡:1.0___jcross_泡_342__,
+				_ASTNODE_泡:1.0___jcross_泡_348__: "_ASTNODE_泡:1.0___jcross_泡_241__",
+				_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_358__
+			});
+			return {
+				_ASTNODE_泡:1.0___jcross_泡_36__: "",
+// _ASTNODE_匵:0.4___jcross_YA_663__ [decoy-metadata]
+				_ASTNODE_泡:1.0___jcross_泡_309__: "",
+				_ASTNODE_泡:1.0___jcross_泡_12__: 0
+			};
+		}
+		if (_ASTNODE_泡:1.0___jcross_泡_158__ === "_ASTNODE_泡:1.0___jcross_泡_75__.gz") {
+			await _ASTNODE_泡:1.0___jcross_泡_332__$1({
+				_ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_69__: _ASTNODE_泡:1.0___jcross_泡_212__,
+				_ASTNODE_泡:1.0___jcross_泡_342__,
+				_ASTNODE_泡:1.0___jcross_泡_348__: "_ASTNODE_泡:1.0___jcross_泡_75__",
+				_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_358__,
+				_ASTNODE_泡:1.0___jcross_泡_314__: true
+			});
+			return {
+				_ASTNODE_泡:1.0___jcross_泡_36__: "",
+				_ASTNODE_泡:1.0___jcross_泡_309__: "",
+				_ASTNODE_泡:1.0___jcross_泡_12__: 0
+			};
+		}
+		if (_ASTNODE_泡:1.0___jcross_泡_158__ === "_ASTNODE_泡:1.0___jcross_泡_75__._ASTNODE_泡:1.0___jcross_泡_98__") {
+			if (!_ASTNODE_泡:1.0___jcross_泡_340__("_ASTNODE_泡:1.0___jcross_泡_75__")) return {
+				_ASTNODE_泡:1.0___jcross_泡_36__: "",
+				_ASTNODE_泡:1.0___jcross_泡_309__: "_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_135__ on _ASTNODE_礎:1.0___jcross_礎_9__",
+				_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+			};
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_91__ = await _ASTNODE_泡:1.0___jcross_泡_237__(_ASTNODE_泡:1.0___jcross_泡_212__);
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_58__ = await _ASTNODE_匵:1.0___jcross_泡_2__(_ASTNODE_泡:1.0___jcross_泡_29__);
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_37__ = await _ASTNODE_泡:1.0___jcross_泡_172__({
+				_ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_342__
+			});
+			if (_ASTNODE_泡:1.0___jcross_泡_333__(_ASTNODE_泡:1.0___jcross_泡_37__)) return _ASTNODE_泡:1.0___jcross_泡_37__;
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_293__ = _ASTNODE_規:1.0___jcross_泡_47__({
+				_ASTNODE_泡:1.0___jcross_泡_361__: _ASTNODE_泡:1.0___jcross_泡_91__,
+				_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_358__,
+				_ASTNODE_泡:1.0___jcross_泡_51__: "_ASTNODE_泡:1.0___jcross_泡_212__"
+			});
+			for (let i = 0; i < _ASTNODE_泡:1.0___jcross_泡_37__._ASTNODE_泡:1.0___jcross_泡_133__._ASTNODE_泡:1.0___jcross_泡_217__; i += 1) {
+				_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_100__ = _ASTNODE_泡:1.0___jcross_泡_37__._ASTNODE_泡:1.0___jcross_泡_133__[i];
+				_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_173__ = _ASTNODE_泡:1.0___jcross_泡_37__._ASTNODE_泡:1.0___jcross_泡_118__[i];
+				if (!_ASTNODE_泡:1.0___jcross_泡_100__ || !_ASTNODE_泡:1.0___jcross_泡_173__) return {
+					_ASTNODE_泡:1.0___jcross_泡_36__: "",
+					_ASTNODE_泡:1.0___jcross_泡_309__: "_ASTNODE_泡:1.0___jcross_泡_75__ _ASTNODE_泡:1.0___jcross_泡_118__ _ASTNODE_泡:1.0___jcross_泡_365__ _ASTNODE_泡:1.0___jcross_泡_356__",
+					_ASTNODE_泡:1.0___jcross_泡_12__: 1
+				};
+				_ASTNODE_泡:1.0___jcross_泡_293__({
+					_ASTNODE_泡:1.0___jcross_泡_167__: _ASTNODE_泡:1.0___jcross_泡_100__,
+					_ASTNODE_泡:1.0___jcross_泡_262__: _ASTNODE_泡:1.0___jcross_泡_173__._ASTNODE_泡:1.0___jcross_泡_262__,
+					_ASTNODE_泡:1.0___jcross_泡_88__: _ASTNODE_泡:1.0___jcross_泡_173__._ASTNODE_泡:1.0___jcross_泡_88__
+				});
+			}
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_70__ = await _ASTNODE_滾:1.0___jcross_泡_216__({
+				_ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_232__: _ASTNODE_泡:1.0___jcross_泡_58__
+			});
+			if (_ASTNODE_泡:1.0___jcross_泡_70__) return _ASTNODE_泡:1.0___jcross_泡_70__;
+			return await _ASTNODE_泡:1.0___jcross_泡_27__({
+				_ASTNODE_泡:1.0___jcross_泡_29__,
+				_ASTNODE_泡:1.0___jcross_泡_91__,
+				_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_358__,
+				_ASTNODE_泡:1.0___jcross_泡_342__
+			});
+		}
+		return {
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: `_ASTNODE_泡:1.0___jcross_泡_78__ _ASTNODE_泡:1.0___jcross_泡_254__ _ASTNODE_泡:1.0___jcross_泡_262__: ${_ASTNODE_泡:1.0___jcross_泡_158__}`,
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+		};
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		return {
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_285__ _ASTNODE_泡:1.0___jcross_泡_290__ _ASTNODE_礎:1.0___jcross_礎_21__ ? _ASTNODE_泡:1.0___jcross_泡_285__._ASTNODE_泡:1.0___jcross_泡_95__ : _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__),
+			_ASTNODE_泡:1.0___jcross_泡_12__: 1
+		};
+	}
+}
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_180__(_ASTNODE_泡:1.0___jcross_泡_291__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_296__ = _ASTNODE_泡:1.0___jcross_泡_291__._ASTNODE_泡:1.0___jcross_泡_89__();
+	if (!_ASTNODE_泡:1.0___jcross_泡_296__) return;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_44__ = _ASTNODE_泡:1.0___jcross_泡_296__._ASTNODE_泡:1.0___jcross_泡_41__("\n")._ASTNODE_泡:1.0___jcross_泡_277__((_ASTNODE_泡:1.0___jcross_泡_199__) => _ASTNODE_泡:1.0___jcross_泡_199__._ASTNODE_泡:1.0___jcross_泡_89__())._ASTNODE_規:1.0___jcross_泡_331__(_ASTNODE_礎:1.0___jcross_礎_19__);
+	if (_ASTNODE_泡:1.0___jcross_泡_44__._ASTNODE_泡:1.0___jcross_泡_217__ === 0) return;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_188__ = _ASTNODE_泡:1.0___jcross_泡_44__._ASTNODE_泡:1.0___jcross_泡_259__((_ASTNODE_泡:1.0___jcross_泡_199__) => /^_ASTNODE_泡:1.0___jcross_泡_72__\b/i._ASTNODE_泡:1.0___jcross_泡_355__(_ASTNODE_泡:1.0___jcross_泡_199__)) ?? _ASTNODE_泡:1.0___jcross_泡_44__._ASTNODE_泡:1.0___jcross_泡_259__((_ASTNODE_泡:1.0___jcross_泡_199__) => /\b(_ASTNODE_泡:1.0___jcross_泡_285__!|_ASTNODE_泡:1.0___jcross_泡_72__:|_ASTNODE_泡:1.0___jcross_泡_303__)\b/i._ASTNODE_泡:1.0___jcross_泡_355__(_ASTNODE_泡:1.0___jcross_泡_199__)) ?? _ASTNODE_泡:1.0___jcross_泡_44__.at(-1);
+	if (!_ASTNODE_泡:1.0___jcross_泡_188__) return;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_351__ = _ASTNODE_泡:1.0___jcross_泡_188__._ASTNODE_泡:1.0___jcross_泡_115__(/\s+/g, " ")._ASTNODE_泡:1.0___jcross_泡_89__();
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_219__ = 200;
+	return _ASTNODE_泡:1.0___jcross_泡_351__._ASTNODE_泡:1.0___jcross_泡_217__ > _ASTNODE_泡:1.0___jcross_泡_219__ ? `${_ASTNODE_泡:1.0___jcross_泡_351__._ASTNODE_泡:1.0___jcross_泡_266__(0, _ASTNODE_泡:1.0___jcross_泡_219__ - 1)}…` : _ASTNODE_泡:1.0___jcross_泡_351__;
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_滾:1.0___jcross_泡_313__(_ASTNODE_泡:1.0___jcross_泡_335__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_12__ = _ASTNODE_泡:1.0___jcross_泡_203__ _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__ === "_ASTNODE_規:1.0___jcross_泡_228__" ? `_ASTNODE_泡:1.0___jcross_泡_200__ ${_ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__}` : "_ASTNODE_泡:1.0___jcross_泡_283__ _ASTNODE_泡:1.0___jcross_泡_200__";
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_210__ = _ASTNODE_泡:1.0___jcross_泡_180__(_ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_309__) ?? _ASTNODE_泡:1.0___jcross_泡_180__(_ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_36__);
+	if (!_ASTNODE_泡:1.0___jcross_泡_210__) return `_ASTNODE_礎:1.0___jcross_礎_14__ _ASTNODE_泡:1.0___jcross_泡_303__ (${_ASTNODE_泡:1.0___jcross_泡_12__})`;
+	return `_ASTNODE_礎:1.0___jcross_礎_14__ _ASTNODE_泡:1.0___jcross_泡_303__ (${_ASTNODE_泡:1.0___jcross_泡_12__}): ${_ASTNODE_泡:1.0___jcross_泡_210__}`;
+}
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_18__(_ASTNODE_泡:1.0___jcross_泡_192__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_鍵:1.0___jcross_泡_302__ = _ASTNODE_泡:1.0___jcross_泡_330__(_ASTNODE_鍵:1.0___jcross_泡_193__(_ASTNODE_泡:1.0___jcross_泡_192__._ASTNODE_泡:1.0___jcross_泡_349__, _ASTNODE_泡:1.0___jcross_泡_192__));
+	return _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_206__(), "_ASTNODE_泡:1.0___jcross_泡_339__", _ASTNODE_鍵:1.0___jcross_泡_302__);
+}
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_17__(_ASTNODE_泡:1.0___jcross_泡_38__) {
+	return _ASTNODE_礎:1.0___jcross_礎_19__(_ASTNODE_泡:1.0___jcross_泡_38__ && _ASTNODE_泡:1.0___jcross_泡_203__ _ASTNODE_泡:1.0___jcross_泡_38__._ASTNODE_泡:1.0___jcross_泡_60__ === "_ASTNODE_泡:1.0___jcross_泡_185__");
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_匵:1.0___jcross_泡_52__(_ASTNODE_泡:1.0___jcross_泡_192__, _ASTNODE_泡:1.0___jcross_泡_22__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_148__ = _ASTNODE_泡:1.0___jcross_泡_18__(_ASTNODE_泡:1.0___jcross_泡_192__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_296__ = _ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_212__?._ASTNODE_泡:1.0___jcross_泡_89__();
+	if (!_ASTNODE_泡:1.0___jcross_泡_296__) return _ASTNODE_泡:1.0___jcross_泡_148__;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_163__ = _ASTNODE_泡:1.0___jcross_泡_296__._ASTNODE_泡:1.0___jcross_泡_165__("~") || _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_338__(_ASTNODE_泡:1.0___jcross_泡_296__) || _ASTNODE_泡:1.0___jcross_泡_131__(_ASTNODE_泡:1.0___jcross_泡_296__) ? _ASTNODE_泡:1.0___jcross_泡_4__(_ASTNODE_泡:1.0___jcross_泡_296__) : _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_119__(_ASTNODE_泡:1.0___jcross_泡_148__, _ASTNODE_泡:1.0___jcross_泡_296__);
+	if (!_ASTNODE_泡:1.0___jcross_泡_288__(_ASTNODE_泡:1.0___jcross_泡_148__, _ASTNODE_泡:1.0___jcross_泡_163__)) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_礎:1.0___jcross_礎_23__ to _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_109__ _ASTNODE_泡:1.0___jcross_泡_90__ _ASTNODE_泡:1.0___jcross_泡_349__ _ASTNODE_泡:1.0___jcross_泡_339__ _ASTNODE_泡:1.0___jcross_泡_221__. _ASTNODE_泡:1.0___jcross_泡_212__="${_ASTNODE_泡:1.0___jcross_泡_296__}" _ASTNODE_泡:1.0___jcross_泡_34__ to "${_ASTNODE_泡:1.0___jcross_泡_163__}". _ASTNODE_礎:1.0___jcross_礎_20__ _ASTNODE_泡:1.0___jcross_泡_21__: "${_ASTNODE_泡:1.0___jcross_泡_148__}".`);
+	return _ASTNODE_泡:1.0___jcross_泡_163__;
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_186__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_匵:1.0___jcross_泡_68__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_171__ = _ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_254__?._ASTNODE_泡:1.0___jcross_泡_89__()._ASTNODE_泡:1.0___jcross_泡_120__();
+	if (_ASTNODE_泡:1.0___jcross_泡_171__) return _ASTNODE_泡:1.0___jcross_泡_171__;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_規:1.0___jcross_泡_250__ = _ASTNODE_匵:1.0___jcross_泡_68__._ASTNODE_泡:1.0___jcross_泡_120__();
+	if (_ASTNODE_規:1.0___jcross_泡_250__._ASTNODE_泡:1.0___jcross_泡_7__("._ASTNODE_泡:1.0___jcross_泡_75__.gz") || _ASTNODE_規:1.0___jcross_泡_250__._ASTNODE_泡:1.0___jcross_泡_7__("._ASTNODE_泡:1.0___jcross_泡_261__")) return "_ASTNODE_泡:1.0___jcross_泡_75__.gz";
+	if (_ASTNODE_規:1.0___jcross_泡_250__._ASTNODE_泡:1.0___jcross_泡_7__("._ASTNODE_泡:1.0___jcross_泡_75__._ASTNODE_泡:1.0___jcross_泡_98__") || _ASTNODE_規:1.0___jcross_泡_250__._ASTNODE_泡:1.0___jcross_泡_7__("._ASTNODE_泡:1.0___jcross_泡_211__")) return "_ASTNODE_泡:1.0___jcross_泡_75__._ASTNODE_泡:1.0___jcross_泡_98__";
+	if (_ASTNODE_規:1.0___jcross_泡_250__._ASTNODE_泡:1.0___jcross_泡_7__("._ASTNODE_泡:1.0___jcross_泡_241__")) return "_ASTNODE_泡:1.0___jcross_泡_241__";
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_匵:1.0___jcross_泡_61__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_32__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_119__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_361__, _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_322__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_187__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_361__, "._ASTNODE_泡:1.0___jcross_泡_179__-_ASTNODE_匵:1.0___jcross_泡_15__-_ASTNODE_泡:1.0___jcross_泡_270__");
+	await _ASTNODE_泡:1.0___jcross_泡_145__(_ASTNODE_泡:1.0___jcross_泡_187__);
+	await _ASTNODE_泡:1.0___jcross_泡_257__({
+		_ASTNODE_泡:1.0___jcross_泡_294__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_361__,
+		_ASTNODE_泡:1.0___jcross_泡_154__: _ASTNODE_泡:1.0___jcross_泡_187__,
+		_ASTNODE_泡:1.0___jcross_泡_139__: "_ASTNODE_泡:1.0___jcross_泡_349__ _ASTNODE_泡:1.0___jcross_泡_339__ _ASTNODE_泡:1.0___jcross_泡_221__"
+	});
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_325__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_187__, `${_ASTNODE_泡:1.0___jcross_泡_284__()}._ASTNODE_泡:1.0___jcross_泡_65__`);
+	_ASTNODE_泡:1.0___jcross_泡_107__ { _ASTNODE_泡:1.0___jcross_泡_104__, _ASTNODE_泡:1.0___jcross_泡_344__ } = await _ASTNODE_規:1.0___jcross_縁_4__({
+		_ASTNODE_繕:1.0___jcross_泡_354__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_繕:1.0___jcross_泡_354__,
+		_ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_39__(1e3, _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__)
+	});
+	try {
+		if (!_ASTNODE_泡:1.0___jcross_泡_104__.ok || !_ASTNODE_泡:1.0___jcross_泡_104__._ASTNODE_泡:1.0___jcross_泡_54__) _ASTNODE_泡:1.0___jcross_泡_160__ _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_礎:1.0___jcross_礎_21__(`_ASTNODE_匵:1.0___jcross_礎_41__ _ASTNODE_泡:1.0___jcross_泡_303__ (${_ASTNODE_泡:1.0___jcross_泡_104__._ASTNODE_泡:1.0___jcross_泡_169__} ${_ASTNODE_泡:1.0___jcross_泡_104__._ASTNODE_泡:1.0___jcross_泡_327__})`);
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_匵:1.0___jcross_泡_71__ = fs._ASTNODE_泡:1.0___jcross_泡_321__(_ASTNODE_泡:1.0___jcross_泡_325__);
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_54__ = _ASTNODE_泡:1.0___jcross_泡_104__._ASTNODE_泡:1.0___jcross_泡_54__;
+		await _ASTNODE_泡:1.0___jcross_泡_153__(_ASTNODE_泡:1.0___jcross_泡_17__(_ASTNODE_泡:1.0___jcross_泡_54__) ? _ASTNODE_泡:1.0___jcross_泡_54__ : _ASTNODE_礎:1.0___jcross_礎_47__._ASTNODE_泡:1.0___jcross_泡_324__(_ASTNODE_泡:1.0___jcross_泡_54__), _ASTNODE_匵:1.0___jcross_泡_71__);
+		await _ASTNODE_匵:1.0___jcross_泡_196__({
+			_ASTNODE_泡:1.0___jcross_泡_361__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_361__,
+			_ASTNODE_泡:1.0___jcross_泡_322__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_322__,
+			_ASTNODE_泡:1.0___jcross_泡_226__: _ASTNODE_泡:1.0___jcross_泡_325__
+		});
+		return { _ASTNODE_泡:1.0___jcross_泡_289__: (await fs._ASTNODE_泡:1.0___jcross_泡_205__._ASTNODE_泡:1.0___jcross_泡_140__(_ASTNODE_泡:1.0___jcross_泡_32__))._ASTNODE_泡:1.0___jcross_泡_88__ };
+	} _ASTNODE_泡:1.0___jcross_泡_5__ {
+		await fs._ASTNODE_泡:1.0___jcross_泡_205__.rm(_ASTNODE_泡:1.0___jcross_泡_325__, { _ASTNODE_滾:1.0___jcross_泡_146__: true }).catch(() => _ASTNODE_泡:1.0___jcross_泡_128__ 0);
+		await _ASTNODE_泡:1.0___jcross_泡_344__();
+	}
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_匵:1.0___jcross_泡_198__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ { _ASTNODE_泡:1.0___jcross_泡_192__, _ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_泡:1.0___jcross_泡_342__ } = _ASTNODE_泡:1.0___jcross_泡_240__;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_148__ = _ASTNODE_泡:1.0___jcross_泡_18__(_ASTNODE_泡:1.0___jcross_泡_192__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_繕:1.0___jcross_泡_354__ = _ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_繕:1.0___jcross_泡_354__?._ASTNODE_泡:1.0___jcross_泡_89__();
+	if (!_ASTNODE_繕:1.0___jcross_泡_354__) return {
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_泡:1.0___jcross_泡_50__ _ASTNODE_匵:1.0___jcross_泡_15__ _ASTNODE_繕:1.0___jcross_泡_354__",
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	};
+	let _ASTNODE_匵:1.0___jcross_泡_68__ = "";
+	try {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_182__ = _ASTNODE_泡:1.0___jcross_泡_1__ _ASTNODE_繕:1.0___jcross_礎_1__(_ASTNODE_繕:1.0___jcross_泡_354__);
+		_ASTNODE_匵:1.0___jcross_泡_68__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_82__(_ASTNODE_泡:1.0___jcross_泡_182__._ASTNODE_泡:1.0___jcross_泡_155__);
+	} catch {
+		_ASTNODE_匵:1.0___jcross_泡_68__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_82__(_ASTNODE_繕:1.0___jcross_泡_354__);
+	}
+	if (!_ASTNODE_匵:1.0___jcross_泡_68__) _ASTNODE_匵:1.0___jcross_泡_68__ = "_ASTNODE_匵:1.0___jcross_泡_15__";
+	let _ASTNODE_泡:1.0___jcross_泡_248__ = "";
+	let _ASTNODE_泡:1.0___jcross_泡_212__ = "";
+	try {
+		await _ASTNODE_泡:1.0___jcross_泡_145__(_ASTNODE_泡:1.0___jcross_泡_148__);
+		await _ASTNODE_泡:1.0___jcross_泡_257__({
+			_ASTNODE_泡:1.0___jcross_泡_294__: _ASTNODE_泡:1.0___jcross_泡_148__,
+			_ASTNODE_泡:1.0___jcross_泡_154__: _ASTNODE_泡:1.0___jcross_泡_148__,
+			_ASTNODE_泡:1.0___jcross_泡_139__: "_ASTNODE_泡:1.0___jcross_泡_349__ _ASTNODE_泡:1.0___jcross_泡_339__ _ASTNODE_泡:1.0___jcross_泡_221__"
+		});
+		_ASTNODE_泡:1.0___jcross_泡_248__ = await fs._ASTNODE_泡:1.0___jcross_泡_205__._ASTNODE_泡:1.0___jcross_泡_224__(_ASTNODE_泡:1.0___jcross_泡_148__);
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_繕:1.0___jcross_泡_181__ = _ASTNODE_匵:1.0___jcross_泡_52__(_ASTNODE_泡:1.0___jcross_泡_192__, _ASTNODE_泡:1.0___jcross_泡_22__);
+// _ASTNODE_匵:0.1___jcross_VY_871__ [decoy-metadata]
+		await _ASTNODE_泡:1.0___jcross_泡_145__(_ASTNODE_繕:1.0___jcross_泡_181__);
+		await _ASTNODE_泡:1.0___jcross_泡_257__({
+			_ASTNODE_泡:1.0___jcross_泡_294__: _ASTNODE_泡:1.0___jcross_泡_148__,
+			_ASTNODE_泡:1.0___jcross_泡_154__: _ASTNODE_繕:1.0___jcross_泡_181__,
+			_ASTNODE_泡:1.0___jcross_泡_139__: "_ASTNODE_泡:1.0___jcross_泡_349__ _ASTNODE_泡:1.0___jcross_泡_339__ _ASTNODE_泡:1.0___jcross_泡_221__"
+		});
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_236__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_87__(_ASTNODE_泡:1.0___jcross_泡_148__, _ASTNODE_繕:1.0___jcross_泡_181__);
+		_ASTNODE_泡:1.0___jcross_泡_212__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_248__, _ASTNODE_泡:1.0___jcross_泡_236__);
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_95__ = _ASTNODE_泡:1.0___jcross_泡_285__ _ASTNODE_泡:1.0___jcross_泡_290__ _ASTNODE_礎:1.0___jcross_礎_21__ ? _ASTNODE_泡:1.0___jcross_泡_285__._ASTNODE_泡:1.0___jcross_泡_95__ : _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__);
+		return {
+			ok: false,
+			_ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+		};
+	}
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_29__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_212__, _ASTNODE_匵:1.0___jcross_泡_68__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_311__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_87__(_ASTNODE_泡:1.0___jcross_泡_248__, _ASTNODE_泡:1.0___jcross_泡_29__);
+	if (!_ASTNODE_泡:1.0___jcross_泡_311__ || _ASTNODE_泡:1.0___jcross_泡_311__ === ".." || _ASTNODE_泡:1.0___jcross_泡_311__._ASTNODE_泡:1.0___jcross_泡_165__(`..${_ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_362__}`) || _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_338__(_ASTNODE_泡:1.0___jcross_泡_311__)) return {
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_泡:1.0___jcross_泡_360__ _ASTNODE_匵:1.0___jcross_泡_15__ _ASTNODE_泡:1.0___jcross_泡_254__ _ASTNODE_泡:1.0___jcross_泡_167__",
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "_ASTNODE_泡:1.0___jcross_泡_360__ _ASTNODE_匵:1.0___jcross_泡_15__ _ASTNODE_泡:1.0___jcross_泡_254__ _ASTNODE_泡:1.0___jcross_泡_167__",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	};
+	let _ASTNODE_匵:1.0___jcross_泡_195__ = 0;
+	try {
+		_ASTNODE_匵:1.0___jcross_泡_195__ = (await _ASTNODE_匵:1.0___jcross_泡_61__({
+			_ASTNODE_繕:1.0___jcross_泡_354__,
+			_ASTNODE_泡:1.0___jcross_泡_361__: _ASTNODE_泡:1.0___jcross_泡_248__,
+			_ASTNODE_泡:1.0___jcross_泡_322__: _ASTNODE_泡:1.0___jcross_泡_311__,
+			_ASTNODE_泡:1.0___jcross_泡_342__
+		}))._ASTNODE_泡:1.0___jcross_泡_289__;
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_95__ = _ASTNODE_泡:1.0___jcross_泡_285__ _ASTNODE_泡:1.0___jcross_泡_290__ _ASTNODE_礎:1.0___jcross_礎_21__ ? _ASTNODE_泡:1.0___jcross_泡_285__._ASTNODE_泡:1.0___jcross_泡_95__ : _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__);
+		return {
+			ok: false,
+			_ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+		};
+	}
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_158__ = _ASTNODE_泡:1.0___jcross_泡_186__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_匵:1.0___jcross_泡_68__);
+	if (!(_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_97__ ?? _ASTNODE_礎:1.0___jcross_礎_19__(_ASTNODE_泡:1.0___jcross_泡_158__))) return {
+		ok: true,
+		_ASTNODE_泡:1.0___jcross_泡_95__: `_ASTNODE_匵:1.0___jcross_礎_31__ to ${_ASTNODE_泡:1.0___jcross_泡_29__}`,
+		_ASTNODE_泡:1.0___jcross_泡_36__: `_ASTNODE_匵:1.0___jcross_泡_195__=${_ASTNODE_匵:1.0___jcross_泡_195__}`,
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: 0
+	};
+	if (!_ASTNODE_泡:1.0___jcross_泡_158__) return {
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_泡:1.0___jcross_泡_97__ _ASTNODE_繕:1.0___jcross_泡_59__ _ASTNODE_泡:1.0___jcross_泡_77__ _ASTNODE_泡:1.0___jcross_泡_254__ _ASTNODE_泡:1.0___jcross_泡_262__ _ASTNODE_泡:1.0___jcross_泡_263__ _ASTNODE_泡:1.0___jcross_泡_253__ be _ASTNODE_泡:1.0___jcross_泡_223__",
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	};
+	try {
+		await _ASTNODE_泡:1.0___jcross_泡_257__({
+			_ASTNODE_泡:1.0___jcross_泡_294__: _ASTNODE_泡:1.0___jcross_泡_248__,
+			_ASTNODE_泡:1.0___jcross_泡_154__: _ASTNODE_泡:1.0___jcross_泡_212__,
+			_ASTNODE_泡:1.0___jcross_泡_139__: "_ASTNODE_泡:1.0___jcross_泡_349__ _ASTNODE_泡:1.0___jcross_泡_339__ _ASTNODE_泡:1.0___jcross_泡_221__"
+		});
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_95__ = _ASTNODE_泡:1.0___jcross_泡_285__ _ASTNODE_泡:1.0___jcross_泡_290__ _ASTNODE_礎:1.0___jcross_礎_21__ ? _ASTNODE_泡:1.0___jcross_泡_285__._ASTNODE_泡:1.0___jcross_泡_95__ : _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__);
+		return {
+			ok: false,
+			_ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_95__,
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+		};
+	}
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_103__ = await _ASTNODE_泡:1.0___jcross_泡_332__({
+		_ASTNODE_泡:1.0___jcross_泡_29__,
+		_ASTNODE_泡:1.0___jcross_泡_158__,
+		_ASTNODE_泡:1.0___jcross_泡_212__,
+		_ASTNODE_泡:1.0___jcross_泡_56__: _ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_56__,
+		_ASTNODE_泡:1.0___jcross_泡_342__
+	});
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_62__ = _ASTNODE_泡:1.0___jcross_泡_103__._ASTNODE_泡:1.0___jcross_泡_12__ === 0;
+	return {
+		ok: _ASTNODE_泡:1.0___jcross_泡_62__,
+		_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_泡:1.0___jcross_泡_62__ ? `_ASTNODE_匵:1.0___jcross_礎_31__ _ASTNODE_泡:1.0___jcross_泡_235__ _ASTNODE_泡:1.0___jcross_泡_252__ to ${_ASTNODE_泡:1.0___jcross_泡_212__}` : _ASTNODE_滾:1.0___jcross_泡_313__(_ASTNODE_泡:1.0___jcross_泡_103__),
+		_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_103__._ASTNODE_泡:1.0___jcross_泡_36__._ASTNODE_泡:1.0___jcross_泡_89__(),
+		_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_103__._ASTNODE_泡:1.0___jcross_泡_309__._ASTNODE_泡:1.0___jcross_泡_89__(),
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_103__._ASTNODE_泡:1.0___jcross_泡_12__
+	};
+}
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_229__(_ASTNODE_泡:1.0___jcross_泡_335__, _ASTNODE_泡:1.0___jcross_泡_214__) {
+	if (_ASTNODE_泡:1.0___jcross_泡_214__._ASTNODE_泡:1.0___jcross_泡_217__ === 0) return _ASTNODE_泡:1.0___jcross_泡_335__;
+	return {
+		..._ASTNODE_泡:1.0___jcross_泡_335__,
+		_ASTNODE_泡:1.0___jcross_泡_214__: _ASTNODE_泡:1.0___jcross_泡_214__._ASTNODE_泡:1.0___jcross_泡_266__()
+	};
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_滾:1.0___jcross_泡_99__(_ASTNODE_泡:1.0___jcross_泡_361__, _ASTNODE_泡:1.0___jcross_泡_102__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_322__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_87__(_ASTNODE_泡:1.0___jcross_泡_361__, _ASTNODE_泡:1.0___jcross_泡_102__._ASTNODE_匵:1.0___jcross_泡_71__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_匵:1.0___jcross_泡_243__ = _ASTNODE_泡:1.0___jcross_泡_322__ && _ASTNODE_泡:1.0___jcross_泡_322__ !== "." && !_ASTNODE_泡:1.0___jcross_泡_322__._ASTNODE_泡:1.0___jcross_泡_165__("..") ? _ASTNODE_泡:1.0___jcross_泡_322__ : _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_82__(_ASTNODE_泡:1.0___jcross_泡_102__._ASTNODE_匵:1.0___jcross_泡_71__);
+	return `${_ASTNODE_泡:1.0___jcross_泡_102__._ASTNODE_泡:1.0___jcross_泡_95__} (${_ASTNODE_匵:1.0___jcross_泡_243__}:${_ASTNODE_泡:1.0___jcross_泡_102__._ASTNODE_泡:1.0___jcross_泡_199__})`;
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_222__(_ASTNODE_泡:1.0___jcross_泡_192__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_214__ = [];
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_246__ = _ASTNODE_泡:1.0___jcross_泡_192__._ASTNODE_泡:1.0___jcross_泡_349__._ASTNODE_泡:1.0___jcross_泡_53__;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_170__ = _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_119__(_ASTNODE_泡:1.0___jcross_泡_192__._ASTNODE_泡:1.0___jcross_泡_349__._ASTNODE_泡:1.0___jcross_泡_294__);
+	try {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_210__ = await _ASTNODE_泡:1.0___jcross_泡_144__(_ASTNODE_泡:1.0___jcross_泡_170__);
+		if (_ASTNODE_泡:1.0___jcross_泡_210__._ASTNODE_泡:1.0___jcross_泡_63__ > 0) {
+			_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_233__ = _ASTNODE_泡:1.0___jcross_泡_210__._ASTNODE_泡:1.0___jcross_泡_150__._ASTNODE_規:1.0___jcross_泡_331__((_ASTNODE_泡:1.0___jcross_泡_102__) => _ASTNODE_泡:1.0___jcross_泡_102__._ASTNODE_泡:1.0___jcross_泡_238__ === "_ASTNODE_泡:1.0___jcross_泡_63__")._ASTNODE_泡:1.0___jcross_泡_277__((_ASTNODE_泡:1.0___jcross_泡_102__) => _ASTNODE_滾:1.0___jcross_泡_99__(_ASTNODE_泡:1.0___jcross_泡_170__, _ASTNODE_泡:1.0___jcross_泡_102__))._ASTNODE_泡:1.0___jcross_泡_231__("; ");
+			_ASTNODE_泡:1.0___jcross_泡_214__._ASTNODE_泡:1.0___jcross_泡_8__(`_ASTNODE_礎:1.0___jcross_礎_35__: _ASTNODE_礎:1.0___jcross_礎_5__ "${_ASTNODE_泡:1.0___jcross_泡_246__}" _ASTNODE_泡:1.0___jcross_泡_129__ _ASTNODE_泡:1.0___jcross_泡_43__ _ASTNODE_泡:1.0___jcross_泡_12__ _ASTNODE_泡:1.0___jcross_泡_106__: ${_ASTNODE_泡:1.0___jcross_泡_233__}`);
+		} else if (_ASTNODE_泡:1.0___jcross_泡_210__._ASTNODE_泡:1.0___jcross_泡_315__ > 0) _ASTNODE_泡:1.0___jcross_泡_214__._ASTNODE_泡:1.0___jcross_泡_8__(`_ASTNODE_礎:1.0___jcross_礎_5__ "${_ASTNODE_泡:1.0___jcross_泡_246__}" _ASTNODE_泡:1.0___jcross_泡_6__ ${_ASTNODE_泡:1.0___jcross_泡_210__._ASTNODE_泡:1.0___jcross_泡_315__} _ASTNODE_泡:1.0___jcross_泡_317__ _ASTNODE_泡:1.0___jcross_泡_12__ _ASTNODE_泡:1.0___jcross_泡_197__(s). _ASTNODE_礎:1.0___jcross_礎_48__ "_ASTNODE_泡:1.0___jcross_泡_179__ _ASTNODE_泡:1.0___jcross_泡_316__ _ASTNODE_泡:1.0___jcross_泡_141__ --_ASTNODE_泡:1.0___jcross_泡_105__" for _ASTNODE_泡:1.0___jcross_泡_121__.`);
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		_ASTNODE_泡:1.0___jcross_泡_214__._ASTNODE_泡:1.0___jcross_泡_8__(`_ASTNODE_礎:1.0___jcross_礎_5__ "${_ASTNODE_泡:1.0___jcross_泡_246__}" _ASTNODE_泡:1.0___jcross_泡_12__ _ASTNODE_泡:1.0___jcross_泡_245__ _ASTNODE_泡:1.0___jcross_泡_112__ _ASTNODE_泡:1.0___jcross_泡_303__ (${_ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__)}). _ASTNODE_礎:1.0___jcross_礎_38__ _ASTNODE_泡:1.0___jcross_泡_81__; _ASTNODE_泡:1.0___jcross_泡_94__ "_ASTNODE_泡:1.0___jcross_泡_179__ _ASTNODE_泡:1.0___jcross_泡_316__ _ASTNODE_泡:1.0___jcross_泡_141__ --_ASTNODE_泡:1.0___jcross_泡_105__" _ASTNODE_規:1.0___jcross_泡_275__ _ASTNODE_泡:1.0___jcross_泡_343__.`);
+	}
+	return _ASTNODE_泡:1.0___jcross_泡_214__;
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_176__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_泡:1.0___jcross_泡_108__) {
+	return (_ASTNODE_泡:1.0___jcross_泡_22__.id ?? `${_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__}-${_ASTNODE_泡:1.0___jcross_泡_108__}`)._ASTNODE_泡:1.0___jcross_泡_89__();
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_110__(_ASTNODE_泡:1.0___jcross_泡_192__, _ASTNODE_泡:1.0___jcross_泡_306__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_242__ = _ASTNODE_泡:1.0___jcross_泡_192__._ASTNODE_泡:1.0___jcross_泡_118__?._ASTNODE_泡:1.0___jcross_泡_343__ ?? [];
+	for (_ASTNODE_泡:1.0___jcross_泡_107__ [_ASTNODE_泡:1.0___jcross_泡_108__, _ASTNODE_泡:1.0___jcross_泡_22__] of _ASTNODE_泡:1.0___jcross_泡_242__._ASTNODE_泡:1.0___jcross_泡_133__()) if (_ASTNODE_泡:1.0___jcross_泡_176__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_泡:1.0___jcross_泡_108__) === _ASTNODE_泡:1.0___jcross_泡_306__) return _ASTNODE_泡:1.0___jcross_泡_22__;
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_260__(_ASTNODE_泡:1.0___jcross_泡_25__, _ASTNODE_泡:1.0___jcross_泡_269__) {
+	switch (_ASTNODE_泡:1.0___jcross_泡_269__._ASTNODE_規:1.0___jcross_泡_346__) {
+		case "_ASTNODE_泡:1.0___jcross_泡_57__": return [
+			"_ASTNODE_泡:1.0___jcross_泡_57__",
+			"_ASTNODE_泡:1.0___jcross_泡_298__",
+			"-g",
+			"--_ASTNODE_泡:1.0___jcross_泡_93__-_ASTNODE_泡:1.0___jcross_泡_341__",
+			_ASTNODE_泡:1.0___jcross_泡_25__
+		];
+		case "_ASTNODE_泡:1.0___jcross_泡_287__": return [
+			"_ASTNODE_泡:1.0___jcross_泡_287__",
+			"_ASTNODE_泡:1.0___jcross_泡_220__",
+			"_ASTNODE_泡:1.0___jcross_泡_298__",
+			"--_ASTNODE_泡:1.0___jcross_泡_93__-_ASTNODE_泡:1.0___jcross_泡_341__",
+			_ASTNODE_泡:1.0___jcross_泡_25__
+		];
+		case "_ASTNODE_泡:1.0___jcross_泡_73__": return [
+			"_ASTNODE_泡:1.0___jcross_泡_73__",
+			"_ASTNODE_泡:1.0___jcross_泡_298__",
+			"-g",
+			"--_ASTNODE_泡:1.0___jcross_泡_93__-_ASTNODE_泡:1.0___jcross_泡_341__",
+			_ASTNODE_泡:1.0___jcross_泡_25__
+		];
+		_ASTNODE_泡:1.0___jcross_泡_33__: return [
+			"_ASTNODE_泡:1.0___jcross_泡_272__",
+			"_ASTNODE_泡:1.0___jcross_泡_343__",
+			"-g",
+			"--_ASTNODE_泡:1.0___jcross_泡_93__-_ASTNODE_泡:1.0___jcross_泡_341__",
+			_ASTNODE_泡:1.0___jcross_泡_25__
+		];
+	}
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_251__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_泡:1.0___jcross_泡_269__) {
+	switch (_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__) {
+		case "_ASTNODE_泡:1.0___jcross_泡_136__":
+			if (!_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_滾:1.0___jcross_泡_127__) return {
+				_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+				_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_泡:1.0___jcross_泡_50__ _ASTNODE_泡:1.0___jcross_泡_136__ _ASTNODE_滾:1.0___jcross_泡_127__"
+			};
+			return { _ASTNODE_泡:1.0___jcross_泡_286__: [
+				"_ASTNODE_泡:1.0___jcross_泡_136__",
+				"_ASTNODE_泡:1.0___jcross_泡_343__",
+				_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_滾:1.0___jcross_泡_127__
+			] };
+		case "_ASTNODE_泡:1.0___jcross_泡_92__":
+			if (!_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_137__) return {
+				_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+				_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_泡:1.0___jcross_泡_50__ _ASTNODE_泡:1.0___jcross_泡_92__ _ASTNODE_泡:1.0___jcross_泡_137__"
+			};
+			return { _ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_260__(_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_137__, _ASTNODE_泡:1.0___jcross_泡_269__) };
+		case "go":
+			if (!_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_142__) return {
+				_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+				_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_泡:1.0___jcross_泡_50__ go _ASTNODE_泡:1.0___jcross_泡_142__"
+			};
+			return { _ASTNODE_泡:1.0___jcross_泡_286__: [
+				"go",
+				"_ASTNODE_泡:1.0___jcross_泡_343__",
+				_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_142__
+			] };
+		case "uv":
+			if (!_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_137__) return {
+				_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+				_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_泡:1.0___jcross_泡_50__ uv _ASTNODE_泡:1.0___jcross_泡_137__"
+			};
+			return { _ASTNODE_泡:1.0___jcross_泡_286__: [
+				"uv",
+				"_ASTNODE_泡:1.0___jcross_泡_166__",
+				"_ASTNODE_泡:1.0___jcross_泡_343__",
+				_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_137__
+			] };
+// _ASTNODE_泡:0.2___jcross_WW_106__ [decoy-metadata]
+		case "_ASTNODE_匵:1.0___jcross_泡_15__": return {
+			_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+			_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_匵:1.0___jcross_泡_15__ _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_297__ _ASTNODE_泡:1.0___jcross_泡_345__"
+		};
+		_ASTNODE_泡:1.0___jcross_泡_33__: return {
+			_ASTNODE_泡:1.0___jcross_泡_286__: _ASTNODE_泡:1.0___jcross_泡_281__,
+			_ASTNODE_泡:1.0___jcross_泡_72__: "_ASTNODE_泡:1.0___jcross_泡_78__ _ASTNODE_規:1.0___jcross_泡_130__"
+		};
+	}
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_323__(_ASTNODE_泡:1.0___jcross_泡_342__, _ASTNODE_泡:1.0___jcross_泡_301__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_132__ = _ASTNODE_泡:1.0___jcross_泡_301__ ?? (_ASTNODE_泡:1.0___jcross_泡_340__("_ASTNODE_泡:1.0___jcross_泡_136__") ? "_ASTNODE_泡:1.0___jcross_泡_136__" : _ASTNODE_泡:1.0___jcross_泡_256__());
+	if (!_ASTNODE_泡:1.0___jcross_泡_132__) return;
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_353__ = await _ASTNODE_泡:1.0___jcross_泡_280__([_ASTNODE_泡:1.0___jcross_泡_132__, "--_ASTNODE_泡:1.0___jcross_泡_31__"], { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_64__(_ASTNODE_泡:1.0___jcross_泡_342__, 3e4) });
+	if (_ASTNODE_泡:1.0___jcross_泡_353__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_31__ = _ASTNODE_泡:1.0___jcross_泡_353__._ASTNODE_泡:1.0___jcross_泡_36__._ASTNODE_泡:1.0___jcross_泡_89__();
+		if (_ASTNODE_泡:1.0___jcross_泡_31__) return _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_31__, "_ASTNODE_泡:1.0___jcross_泡_124__");
+	}
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_329__ = _ASTNODE_泡:1.0___jcross_泡_149__._ASTNODE_泡:1.0___jcross_泡_96__._ASTNODE_礎:1.0___jcross_礎_45__?._ASTNODE_泡:1.0___jcross_泡_89__();
+	if (_ASTNODE_泡:1.0___jcross_泡_329__) return _ASTNODE_泡:1.0___jcross_泡_167__._ASTNODE_泡:1.0___jcross_泡_231__(_ASTNODE_泡:1.0___jcross_泡_329__, "_ASTNODE_泡:1.0___jcross_泡_124__");
+	for (_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_134__ of ["/_ASTNODE_泡:1.0___jcross_泡_347__/_ASTNODE_泡:1.0___jcross_泡_122__/_ASTNODE_泡:1.0___jcross_泡_124__", "/_ASTNODE_泡:1.0___jcross_泡_161__/_ASTNODE_泡:1.0___jcross_泡_244__/_ASTNODE_泡:1.0___jcross_泡_124__"]) try {
+		if (fs._ASTNODE_泡:1.0___jcross_泡_177__(_ASTNODE_泡:1.0___jcross_泡_134__)) return _ASTNODE_泡:1.0___jcross_泡_134__;
+// _ASTNODE_繕:0.4___jcross_EY_944__ [decoy-metadata]
+	} catch {}
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_276__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	return {
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_95__,
+		_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_36__?._ASTNODE_泡:1.0___jcross_泡_89__() ?? "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_309__?._ASTNODE_泡:1.0___jcross_泡_89__() ?? "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_12__ ?? _ASTNODE_泡:1.0___jcross_泡_281__
+	};
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_84__(_ASTNODE_泡:1.0___jcross_泡_335__) {
+// _ASTNODE_鍵:0.2___jcross_DB_765__ [decoy-metadata]
+	return {
+		ok: true,
+		_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_礎:1.0___jcross_礎_10__",
+		_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_36__._ASTNODE_泡:1.0___jcross_泡_89__(),
+		_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_309__._ASTNODE_泡:1.0___jcross_泡_89__(),
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__
+	};
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_300__(_ASTNODE_泡:1.0___jcross_泡_286__, _ASTNODE_泡:1.0___jcross_泡_74__) {
+	try {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_335__ = await _ASTNODE_泡:1.0___jcross_泡_280__(_ASTNODE_泡:1.0___jcross_泡_286__, _ASTNODE_泡:1.0___jcross_泡_74__);
+		return {
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__,
+			_ASTNODE_泡:1.0___jcross_泡_36__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_36__,
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_309__
+		};
+	} catch (_ASTNODE_泡:1.0___jcross_泡_285__) {
+		return {
+			_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__,
+			_ASTNODE_泡:1.0___jcross_泡_36__: "",
+			_ASTNODE_泡:1.0___jcross_泡_309__: _ASTNODE_泡:1.0___jcross_泡_285__ _ASTNODE_泡:1.0___jcross_泡_290__ _ASTNODE_礎:1.0___jcross_礎_21__ ? _ASTNODE_泡:1.0___jcross_泡_285__._ASTNODE_泡:1.0___jcross_泡_95__ : _ASTNODE_礎:1.0___jcross_礎_12__(_ASTNODE_泡:1.0___jcross_泡_285__)
+		};
+	}
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_滾:1.0___jcross_泡_271__(_ASTNODE_泡:1.0___jcross_泡_286__, _ASTNODE_泡:1.0___jcross_泡_74__) {
+	await _ASTNODE_泡:1.0___jcross_泡_300__(_ASTNODE_泡:1.0___jcross_泡_286__, _ASTNODE_泡:1.0___jcross_泡_74__);
+}
+_ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_184__(_ASTNODE_泡:1.0___jcross_泡_22__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_滾:1.0___jcross_泡_127__ = _ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_滾:1.0___jcross_泡_127__ ?? "_ASTNODE_泡:1.0___jcross_泡_143__ _ASTNODE_泡:1.0___jcross_泡_137__";
+	return _ASTNODE_泡:1.0___jcross_泡_276__({ _ASTNODE_泡:1.0___jcross_泡_95__: `_ASTNODE_泡:1.0___jcross_泡_136__ _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — ${_ASTNODE_泡:1.0___jcross_泡_149__._ASTNODE_滾:1.0___jcross_泡_258__ === "_ASTNODE_泡:1.0___jcross_泡_357__" ? `_ASTNODE_礎:1.0___jcross_礎_16__ is _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__. _ASTNODE_礎:1.0___jcross_礎_14__ it _ASTNODE_泡:1.0___jcross_泡_79__ _ASTNODE_繕:1.0___jcross_泡_125__://_ASTNODE_泡:1.0___jcross_泡_136__.sh or _ASTNODE_泡:1.0___jcross_泡_343__ "${_ASTNODE_滾:1.0___jcross_泡_127__}" _ASTNODE_泡:1.0___jcross_泡_319__ _ASTNODE_泡:1.0___jcross_泡_175__ _ASTNODE_泡:1.0___jcross_泡_19__ _ASTNODE_泡:1.0___jcross_泡_278__ _ASTNODE_泡:1.0___jcross_泡_137__ _ASTNODE_規:1.0___jcross_泡_249__ (e.g. _ASTNODE_泡:1.0___jcross_泡_307__, _ASTNODE_泡:1.0___jcross_泡_320__, _ASTNODE_泡:1.0___jcross_泡_213__).` : "_ASTNODE_礎:1.0___jcross_礎_16__ is _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__. _ASTNODE_礎:1.0___jcross_礎_14__ it _ASTNODE_泡:1.0___jcross_泡_79__ _ASTNODE_繕:1.0___jcross_泡_125__://_ASTNODE_泡:1.0___jcross_泡_136__.sh"}` });
+// _ASTNODE_滾:0.2___jcross_LB_515__ [decoy-metadata]
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_318__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	if (_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ !== "uv" || _ASTNODE_泡:1.0___jcross_泡_340__("uv")) return;
+	if (!_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_301__) return _ASTNODE_泡:1.0___jcross_泡_276__({ _ASTNODE_泡:1.0___jcross_泡_95__: "uv _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_319__: _ASTNODE_繕:1.0___jcross_泡_125__://_ASTNODE_泡:1.0___jcross_泡_24__._ASTNODE_泡:1.0___jcross_泡_359__.sh/uv/_ASTNODE_規:1.0___jcross_縁_1__-_ASTNODE_泡:1.0___jcross_泡_183__/_ASTNODE_泡:1.0___jcross_泡_337__/" });
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_138__ = await _ASTNODE_泡:1.0___jcross_泡_300__([
+		_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_301__,
+		"_ASTNODE_泡:1.0___jcross_泡_343__",
+		"uv"
+	], { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ });
+	if (_ASTNODE_泡:1.0___jcross_泡_138__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) return;
+	return _ASTNODE_泡:1.0___jcross_泡_276__({
+		_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_礎:1.0___jcross_礎_25__ to _ASTNODE_泡:1.0___jcross_泡_343__ uv (_ASTNODE_泡:1.0___jcross_泡_136__)",
+		..._ASTNODE_泡:1.0___jcross_泡_138__
+	});
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_209__(_ASTNODE_泡:1.0___jcross_泡_342__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_299__ = [
+		"_ASTNODE_泡:1.0___jcross_泡_307__-_ASTNODE_規:1.0___jcross_縁_3__",
+		"_ASTNODE_泡:1.0___jcross_泡_343__",
+		"-y",
+		"_ASTNODE_泡:1.0___jcross_泡_234__-go"
+	];
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_162__ = [
+		"_ASTNODE_泡:1.0___jcross_泡_307__-_ASTNODE_規:1.0___jcross_縁_3__",
+		"_ASTNODE_泡:1.0___jcross_泡_123__",
+		"-qq"
+	];
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_168__ = "go _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — _ASTNODE_泡:1.0___jcross_泡_190__ _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_55__ _ASTNODE_泡:1.0___jcross_泡_307__ _ASTNODE_泡:1.0___jcross_泡_303__. _ASTNODE_礎:1.0___jcross_礎_14__ _ASTNODE_泡:1.0___jcross_泡_319__: _ASTNODE_繕:1.0___jcross_泡_125__://go._ASTNODE_泡:1.0___jcross_泡_117__/_ASTNODE_泡:1.0___jcross_泡_151__/_ASTNODE_泡:1.0___jcross_泡_343__";
+	if (_ASTNODE_泡:1.0___jcross_泡_203__ _ASTNODE_泡:1.0___jcross_泡_149__._ASTNODE_規:1.0___jcross_縁_6__ === "_ASTNODE_泡:1.0___jcross_泡_185__" && _ASTNODE_泡:1.0___jcross_泡_149__._ASTNODE_規:1.0___jcross_縁_6__() === 0) {
+		await _ASTNODE_滾:1.0___jcross_泡_271__(_ASTNODE_泡:1.0___jcross_泡_162__, { _ASTNODE_泡:1.0___jcross_泡_342__ });
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_26__ = await _ASTNODE_泡:1.0___jcross_泡_300__(_ASTNODE_泡:1.0___jcross_泡_299__, { _ASTNODE_泡:1.0___jcross_泡_342__ });
+		if (_ASTNODE_泡:1.0___jcross_泡_26__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) return;
+		return _ASTNODE_泡:1.0___jcross_泡_276__({
+			_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_泡:1.0___jcross_泡_168__,
+			..._ASTNODE_泡:1.0___jcross_泡_26__
+		});
+	}
+	if (!_ASTNODE_泡:1.0___jcross_泡_340__("_ASTNODE_泡:1.0___jcross_泡_255__")) return _ASTNODE_泡:1.0___jcross_泡_276__({ _ASTNODE_泡:1.0___jcross_泡_95__: "go _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — _ASTNODE_泡:1.0___jcross_泡_307__-_ASTNODE_規:1.0___jcross_縁_3__ is _ASTNODE_泡:1.0___jcross_泡_178__ _ASTNODE_泡:1.0___jcross_泡_77__ _ASTNODE_泡:1.0___jcross_泡_255__ is _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__. _ASTNODE_礎:1.0___jcross_礎_14__ _ASTNODE_泡:1.0___jcross_泡_319__: _ASTNODE_繕:1.0___jcross_泡_125__://go._ASTNODE_泡:1.0___jcross_泡_117__/_ASTNODE_泡:1.0___jcross_泡_151__/_ASTNODE_泡:1.0___jcross_泡_343__" });
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_208__ = await _ASTNODE_泡:1.0___jcross_泡_300__([
+		"_ASTNODE_泡:1.0___jcross_泡_255__",
+		"-n",
+		"true"
+	], { _ASTNODE_泡:1.0___jcross_泡_342__: 5e3 });
+	if (_ASTNODE_泡:1.0___jcross_泡_208__._ASTNODE_泡:1.0___jcross_泡_12__ !== 0) return _ASTNODE_泡:1.0___jcross_泡_276__({
+		_ASTNODE_泡:1.0___jcross_泡_95__: "go _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — _ASTNODE_泡:1.0___jcross_泡_307__-_ASTNODE_規:1.0___jcross_縁_3__ is _ASTNODE_泡:1.0___jcross_泡_178__ _ASTNODE_泡:1.0___jcross_泡_77__ _ASTNODE_泡:1.0___jcross_泡_255__ is _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_215__ (_ASTNODE_泡:1.0___jcross_泡_50__ or _ASTNODE_泡:1.0___jcross_泡_305__ a _ASTNODE_鍵:1.0___jcross_泡_46__). _ASTNODE_礎:1.0___jcross_礎_14__ _ASTNODE_泡:1.0___jcross_泡_319__: _ASTNODE_繕:1.0___jcross_泡_125__://go._ASTNODE_泡:1.0___jcross_泡_117__/_ASTNODE_泡:1.0___jcross_泡_151__/_ASTNODE_泡:1.0___jcross_泡_343__",
+		..._ASTNODE_泡:1.0___jcross_泡_208__
+	});
+	await _ASTNODE_滾:1.0___jcross_泡_271__(["_ASTNODE_泡:1.0___jcross_泡_255__", ..._ASTNODE_泡:1.0___jcross_泡_162__], { _ASTNODE_泡:1.0___jcross_泡_342__ });
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_26__ = await _ASTNODE_泡:1.0___jcross_泡_300__(["_ASTNODE_泡:1.0___jcross_泡_255__", ..._ASTNODE_泡:1.0___jcross_泡_299__], { _ASTNODE_泡:1.0___jcross_泡_342__ });
+	if (_ASTNODE_泡:1.0___jcross_泡_26__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) return;
+	return _ASTNODE_泡:1.0___jcross_泡_276__({
+		_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_泡:1.0___jcross_泡_168__,
+		..._ASTNODE_泡:1.0___jcross_泡_26__
+	});
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_113__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	if (_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ !== "go" || _ASTNODE_泡:1.0___jcross_泡_340__("go")) return;
+	if (_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_301__) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_138__ = await _ASTNODE_泡:1.0___jcross_泡_300__([
+			_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_301__,
+			"_ASTNODE_泡:1.0___jcross_泡_343__",
+			"go"
+		], { _ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ });
+		if (_ASTNODE_泡:1.0___jcross_泡_138__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) return;
+		return _ASTNODE_泡:1.0___jcross_泡_276__({
+			_ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_礎:1.0___jcross_礎_25__ to _ASTNODE_泡:1.0___jcross_泡_343__ go (_ASTNODE_泡:1.0___jcross_泡_136__)",
+			..._ASTNODE_泡:1.0___jcross_泡_138__
+		});
+	}
+	if (_ASTNODE_泡:1.0___jcross_泡_340__("_ASTNODE_泡:1.0___jcross_泡_307__-_ASTNODE_規:1.0___jcross_縁_3__")) return _ASTNODE_泡:1.0___jcross_泡_209__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__);
+	return _ASTNODE_泡:1.0___jcross_泡_276__({ _ASTNODE_泡:1.0___jcross_泡_95__: "go _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_295__ — _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_319__: _ASTNODE_繕:1.0___jcross_泡_125__://go._ASTNODE_泡:1.0___jcross_泡_117__/_ASTNODE_泡:1.0___jcross_泡_151__/_ASTNODE_泡:1.0___jcross_泡_343__" });
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_126__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	if (!_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_286__ || _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_286__._ASTNODE_泡:1.0___jcross_泡_217__ === 0) return _ASTNODE_泡:1.0___jcross_泡_276__({ _ASTNODE_泡:1.0___jcross_泡_95__: "_ASTNODE_泡:1.0___jcross_泡_360__ _ASTNODE_泡:1.0___jcross_泡_343__ _ASTNODE_泡:1.0___jcross_泡_114__" });
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_335__ = await _ASTNODE_泡:1.0___jcross_泡_300__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_286__, {
+		_ASTNODE_泡:1.0___jcross_泡_342__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__,
+		_ASTNODE_泡:1.0___jcross_泡_96__: _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_96__
+	});
+	if (_ASTNODE_泡:1.0___jcross_泡_335__._ASTNODE_泡:1.0___jcross_泡_12__ === 0) return _ASTNODE_泡:1.0___jcross_泡_84__(_ASTNODE_泡:1.0___jcross_泡_335__);
+	return _ASTNODE_泡:1.0___jcross_泡_276__({
+		_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_滾:1.0___jcross_泡_313__(_ASTNODE_泡:1.0___jcross_泡_335__),
+		..._ASTNODE_泡:1.0___jcross_泡_335__
+	});
+}
+async _ASTNODE_泡:1.0___jcross_泡_185__ _ASTNODE_泡:1.0___jcross_泡_336__(_ASTNODE_泡:1.0___jcross_泡_240__) {
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_342__ = _ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_64__(_ASTNODE_礎:1.0___jcross_礎_13__._ASTNODE_泡:1.0___jcross_泡_39__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_342__ ?? 3e5, 1e3), 9e5);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_192__ = _ASTNODE_匵:1.0___jcross_泡_45__(_ASTNODE_泡:1.0___jcross_泡_4__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_310__))._ASTNODE_泡:1.0___jcross_泡_259__((_ASTNODE_泡:1.0___jcross_泡_264__) => _ASTNODE_泡:1.0___jcross_泡_264__._ASTNODE_泡:1.0___jcross_泡_349__._ASTNODE_泡:1.0___jcross_泡_53__ === _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_246__);
+	if (!_ASTNODE_泡:1.0___jcross_泡_192__) return {
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: `_ASTNODE_礎:1.0___jcross_礎_5__ _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_135__: ${_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_246__}`,
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	};
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_22__ = _ASTNODE_泡:1.0___jcross_泡_110__(_ASTNODE_泡:1.0___jcross_泡_192__, _ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_306__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_214__ = await _ASTNODE_泡:1.0___jcross_泡_222__(_ASTNODE_泡:1.0___jcross_泡_192__);
+	if (!_ASTNODE_泡:1.0___jcross_泡_22__) return _ASTNODE_泡:1.0___jcross_泡_229__({
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: `_ASTNODE_規:1.0___jcross_礎_54__ _ASTNODE_泡:1.0___jcross_泡_253__ _ASTNODE_泡:1.0___jcross_泡_135__: ${_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_306__}`,
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	}, _ASTNODE_泡:1.0___jcross_泡_214__);
+	if (_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ === "_ASTNODE_匵:1.0___jcross_泡_15__") return _ASTNODE_泡:1.0___jcross_泡_229__(await _ASTNODE_匵:1.0___jcross_泡_198__({
+		_ASTNODE_泡:1.0___jcross_泡_192__,
+		_ASTNODE_泡:1.0___jcross_泡_22__,
+		_ASTNODE_泡:1.0___jcross_泡_342__
+	}), _ASTNODE_泡:1.0___jcross_泡_214__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_114__ = _ASTNODE_泡:1.0___jcross_泡_251__(_ASTNODE_泡:1.0___jcross_泡_22__, _ASTNODE_泡:1.0___jcross_泡_202__(_ASTNODE_泡:1.0___jcross_泡_240__._ASTNODE_泡:1.0___jcross_泡_282__));
+	if (_ASTNODE_泡:1.0___jcross_泡_114__._ASTNODE_泡:1.0___jcross_泡_72__) return _ASTNODE_泡:1.0___jcross_泡_229__({
+		ok: false,
+		_ASTNODE_泡:1.0___jcross_泡_95__: _ASTNODE_泡:1.0___jcross_泡_114__._ASTNODE_泡:1.0___jcross_泡_72__,
+		_ASTNODE_泡:1.0___jcross_泡_36__: "",
+		_ASTNODE_泡:1.0___jcross_泡_309__: "",
+		_ASTNODE_泡:1.0___jcross_泡_12__: _ASTNODE_泡:1.0___jcross_泡_281__
+	}, _ASTNODE_泡:1.0___jcross_泡_214__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_301__ = _ASTNODE_泡:1.0___jcross_泡_340__("_ASTNODE_泡:1.0___jcross_泡_136__") ? "_ASTNODE_泡:1.0___jcross_泡_136__" : _ASTNODE_泡:1.0___jcross_泡_256__();
+	if (_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ === "_ASTNODE_泡:1.0___jcross_泡_136__" && !_ASTNODE_泡:1.0___jcross_泡_301__) return _ASTNODE_泡:1.0___jcross_泡_229__(_ASTNODE_泡:1.0___jcross_泡_184__(_ASTNODE_泡:1.0___jcross_泡_22__), _ASTNODE_泡:1.0___jcross_泡_214__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_194__ = await _ASTNODE_泡:1.0___jcross_泡_318__({
+		_ASTNODE_泡:1.0___jcross_泡_22__,
+		_ASTNODE_泡:1.0___jcross_泡_301__,
+		_ASTNODE_泡:1.0___jcross_泡_342__
+	});
+	if (_ASTNODE_泡:1.0___jcross_泡_194__) return _ASTNODE_泡:1.0___jcross_泡_229__(_ASTNODE_泡:1.0___jcross_泡_194__, _ASTNODE_泡:1.0___jcross_泡_214__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_16__ = await _ASTNODE_泡:1.0___jcross_泡_113__({
+		_ASTNODE_泡:1.0___jcross_泡_22__,
+		_ASTNODE_泡:1.0___jcross_泡_301__,
+		_ASTNODE_泡:1.0___jcross_泡_342__
+	});
+	if (_ASTNODE_泡:1.0___jcross_泡_16__) return _ASTNODE_泡:1.0___jcross_泡_229__(_ASTNODE_泡:1.0___jcross_泡_16__, _ASTNODE_泡:1.0___jcross_泡_214__);
+	_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_286__ = _ASTNODE_泡:1.0___jcross_泡_114__._ASTNODE_泡:1.0___jcross_泡_286__ ? [..._ASTNODE_泡:1.0___jcross_泡_114__._ASTNODE_泡:1.0___jcross_泡_286__] : _ASTNODE_泡:1.0___jcross_泡_281__;
+	if (_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ === "_ASTNODE_泡:1.0___jcross_泡_136__" && _ASTNODE_泡:1.0___jcross_泡_301__ && _ASTNODE_泡:1.0___jcross_泡_286__?.[0] === "_ASTNODE_泡:1.0___jcross_泡_136__") _ASTNODE_泡:1.0___jcross_泡_286__[0] = _ASTNODE_泡:1.0___jcross_泡_301__;
+	let _ASTNODE_泡:1.0___jcross_泡_96__;
+	if (_ASTNODE_泡:1.0___jcross_泡_22__._ASTNODE_泡:1.0___jcross_泡_348__ === "go" && _ASTNODE_泡:1.0___jcross_泡_301__) {
+		_ASTNODE_泡:1.0___jcross_泡_107__ _ASTNODE_泡:1.0___jcross_泡_350__ = await _ASTNODE_泡:1.0___jcross_泡_323__(_ASTNODE_泡:1.0___jcross_泡_342__, _ASTNODE_泡:1.0___jcross_泡_301__);
+		if (_ASTNODE_泡:1.0___jcross_泡_350__) _ASTNODE_泡:1.0___jcross_泡_96__ = { _ASTNODE_礎:1.0___jcross_礎_51__: _ASTNODE_泡:1.0___jcross_泡_350__ };
+	}
+	return _ASTNODE_泡:1.0___jcross_泡_229__(await _ASTNODE_泡:1.0___jcross_泡_126__({
+		_ASTNODE_泡:1.0___jcross_泡_286__,
+		_ASTNODE_泡:1.0___jcross_泡_342__,
+		_ASTNODE_泡:1.0___jcross_泡_96__
+	}), _ASTNODE_泡:1.0___jcross_泡_214__);
+}
+// [metadata-stripped]
+_ASTNODE_泡:1.0___jcross_泡_267__ { _ASTNODE_泡:1.0___jcross_泡_336__ as t };
+
+// POLYMORPHIC_JCROSS_END

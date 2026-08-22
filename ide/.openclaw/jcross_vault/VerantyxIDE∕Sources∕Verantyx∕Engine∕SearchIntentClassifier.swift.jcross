@@ -1,0 +1,423 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6F2807D4 ver:1778150711
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_廡:1.0___ast_廡_23__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _TOKEN_廡:1.0___ast_廡_3__ {
+
+// [metadata-stripped]
+
+    enum _TOKEN_廡:1.0___ast_廡_11__ {
+        case _TOKEN_霤:1.0___ast_霤_37__(_TOKEN_霤:1.0___ast_霤_95__: _TOKEN_廡:1.0___ast_廡_4__)       // _TOKEN_廡:1.0___ast_廡_2__ リポジトリ参照
+        case _TOKEN_緋:1.0___ast_霤_89__(_TOKEN_緋:1.0___ast_霤_146__: _TOKEN_廡:1.0___ast_廡_4__)           // 直接 _TOKEN_緋:1.0___ast_廡_13__ 参照
+        case _TOKEN_律:1.0___ast_霤_78__(_TOKEN_霤:1.0___ast_霤_79__: _TOKEN_廡:1.0___ast_廡_4__)         // 天気情報
+        case _TOKEN_霤:1.0___ast_霤_59__(_TOKEN_霤:1.0___ast_霤_81__: _TOKEN_廡:1.0___ast_廡_4__)          // ニュース・最新情報
+        case _TOKEN_霤:1.0___ast_霤_36__(_TOKEN_霤:1.0___ast_霤_33__: _TOKEN_廡:1.0___ast_廡_4__)       // 公式ドキュメント参照
+        case _TOKEN_霤:1.0___ast_霤_41__(_TOKEN_霤:1.0___ast_霤_81__: _TOKEN_廡:1.0___ast_廡_4__)            // 汎用外部情報
+        case _TOKEN_霤:1.0___ast_霤_30__                          // 検索不要
+    }
+
+    let _TOKEN_霤:1.0___ast_霤_150__: _TOKEN_廡:1.0___ast_廡_18__
+    let _TOKEN_霤:1.0___ast_霤_100__: [_TOKEN_廡:1.0___ast_廡_4__]                      // 最大3クエリ（優先度順）
+    let _TOKEN_霤:1.0___ast_霤_84__: _TOKEN_廡:1.0___ast_廡_11__
+    let _TOKEN_霤:1.0___ast_霤_119__: _TOKEN_廡:1.0___ast_廡_18__                // 「現在・最新」系キーワードを検出
+
+// [metadata-stripped]
+
+    static let _TOKEN_霤:1.0___ast_霤_30__ = _TOKEN_廡:1.0___ast_廡_3__(
+        _TOKEN_霤:1.0___ast_霤_150__: false,
+        _TOKEN_霤:1.0___ast_霤_100__: [],
+        _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_30__,
+        _TOKEN_霤:1.0___ast_霤_119__: false
+    )
+
+// [metadata-stripped]
+
+    var _TOKEN_霤:1.0___ast_霤_29__: _TOKEN_廡:1.0___ast_廡_4__ {
+        switch _TOKEN_霤:1.0___ast_霤_84__ {
+        case ._TOKEN_霤:1.0___ast_霤_37__(let _TOKEN_霤:1.0___ast_霤_95__): return "🔍 _TOKEN_廡:1.0___ast_廡_2__: \(_TOKEN_霤:1.0___ast_霤_95__)"
+        case ._TOKEN_緋:1.0___ast_霤_89__(let _TOKEN_緋:1.0___ast_霤_146__):     return "🌐 _TOKEN_緋:1.0___ast_廡_13__: \(_TOKEN_緋:1.0___ast_霤_146__._TOKEN_霤:1.0___ast_霤_56__(50))"
+        case ._TOKEN_律:1.0___ast_霤_78__(let _TOKEN_霤:1.0___ast_霤_23__):        return "☀️ 天気: \(_TOKEN_霤:1.0___ast_霤_23__._TOKEN_霤:1.0___ast_霤_56__(30))"
+        case ._TOKEN_霤:1.0___ast_霤_59__(let _TOKEN_霤:1.0___ast_霤_81__):    return "📰 ニュース: \(_TOKEN_霤:1.0___ast_霤_81__._TOKEN_霤:1.0___ast_霤_56__(40))"
+        case ._TOKEN_霤:1.0___ast_霤_36__(let t):    return "📚 ドキュメント: \(t._TOKEN_霤:1.0___ast_霤_56__(40))"
+        case ._TOKEN_霤:1.0___ast_霤_41__(let t):          return "🌐 Web検索: \(t._TOKEN_霤:1.0___ast_霤_56__(40))"
+        case ._TOKEN_霤:1.0___ast_霤_30__:                return ""
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_律:0.8___ast_CE_738__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    var _TOKEN_霤:1.0___ast_霤_27__: _TOKEN_廡:1.0___ast_廡_4__ {
+        let _TOKEN_霤:1.0___ast_霤_15__ = _TOKEN_霤:1.0___ast_霤_119__ ? " [新:0.75] [時:0.7]" : ""
+        switch _TOKEN_霤:1.0___ast_霤_84__ {
+        case ._TOKEN_霤:1.0___ast_霤_37__:
+            return "[技:1.0] [開:0.9] [版:0.85] [証:0.8] [存:0.75]\(_TOKEN_霤:1.0___ast_霤_15__)"
+// _TOKEN_秘:0.7___ast_KM_719__ [decoy-metadata]
+        case ._TOKEN_緋:1.0___ast_霤_89__:
+            return "[網:1.0] [参:0.9] [照:0.85] [証:0.8] [外:0.75]\(_TOKEN_霤:1.0___ast_霤_15__)"
+        case ._TOKEN_律:1.0___ast_霤_78__:
+// [metadata-stripped]
+            return "[天:1.0] [気:0.95] [地:0.85] [時:0.8] [予:0.75]"
+        case ._TOKEN_霤:1.0___ast_霤_59__:
+            return "[報:1.0] [新:0.95] [時:0.85] [証:0.8] [変:0.7]\(_TOKEN_霤:1.0___ast_霤_15__)"
+        case ._TOKEN_霤:1.0___ast_霤_36__:
+            return "[書:1.0] [式:0.9] [技:0.85] [証:0.8] [参:0.75]\(_TOKEN_霤:1.0___ast_霤_15__)"
+        case ._TOKEN_霤:1.0___ast_霤_41__:
+            return "[検:1.0] [情:0.9] [証:0.85] [外:0.8] [新:0.75]\(_TOKEN_霤:1.0___ast_霤_15__)"
+        case ._TOKEN_霤:1.0___ast_霤_30__:
+            return ""
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+actor _TOKEN_律:1.0___ast_廡_21__ {
+
+    static let _TOKEN_霤:1.0___ast_霤_70__ = _TOKEN_律:1.0___ast_廡_21__()
+    private init() {}
+
+// [metadata-stripped]
+// _TOKEN_秘:0.2___ast_LY_883__ [decoy-metadata]
+
+    func _TOKEN_漕:1.0___ast_霤_131__(_TOKEN_霤:1.0___ast_霤_73__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__ {
+        let _TOKEN_霤:1.0___ast_霤_4__ = _TOKEN_霤:1.0___ast_霤_73__._TOKEN_霤:1.0___ast_霤_19__(in: ._TOKEN_霤:1.0___ast_霤_25__)
+        let _TOKEN_律:1.0___ast_霤_154__  = _TOKEN_霤:1.0___ast_霤_4__._TOKEN_霤:1.0___ast_霤_161__()
+
+// [metadata-stripped]
+        if let _TOKEN_霤:1.0___ast_霤_108__ = _TOKEN_律:1.0___ast_霤_64__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__)       { return _TOKEN_霤:1.0___ast_霤_108__ } // 必ず_TOKEN_霤:1.0___ast_霤_149__の前に
+        if let _TOKEN_霤:1.0___ast_霤_108__ = _TOKEN_漕:1.0___ast_霤_124__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__)        { return _TOKEN_霤:1.0___ast_霤_108__ }
+        if let _TOKEN_霤:1.0___ast_霤_108__ = _TOKEN_緋:1.0___ast_霤_11__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__)     { return _TOKEN_霤:1.0___ast_霤_108__ }
+        if let _TOKEN_霤:1.0___ast_霤_108__ = _TOKEN_漕:1.0___ast_霤_20__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__)          { return _TOKEN_霤:1.0___ast_霤_108__ }
+        if let _TOKEN_霤:1.0___ast_霤_108__ = _TOKEN_漕:1.0___ast_霤_47__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__) { return _TOKEN_霤:1.0___ast_霤_108__ }
+        if _TOKEN_秘:1.0___ast_霤_88__(_TOKEN_律:1.0___ast_霤_154__) {
+            let _TOKEN_霤:1.0___ast_霤_81__   = _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__)
+            let _TOKEN_霤:1.0___ast_霤_100__ = [_TOKEN_霤:1.0___ast_霤_81__, "\(_TOKEN_霤:1.0___ast_霤_81__) 最新情報", "\(_TOKEN_霤:1.0___ast_霤_81__) _TOKEN_霤:1.0___ast_霤_58__"]._TOKEN_律:1.0___ast_霤_44__ { !$0._TOKEN_霤:1.0___ast_霤_157__ }
+            return _TOKEN_廡:1.0___ast_廡_3__(
+                _TOKEN_霤:1.0___ast_霤_150__: true,
+                _TOKEN_霤:1.0___ast_霤_100__: _TOKEN_廡:1.0___ast_廡_28__(_TOKEN_霤:1.0___ast_霤_100__._TOKEN_霤:1.0___ast_霤_56__(3)),
+                _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_41__(_TOKEN_霤:1.0___ast_霤_81__: _TOKEN_霤:1.0___ast_霤_81__),
+                _TOKEN_霤:1.0___ast_霤_119__: true
+            )
+        }
+        return ._TOKEN_霤:1.0___ast_霤_30__
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_律:1.0___ast_霤_64__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__? {
+        let _TOKEN_秘:1.0___ast_霤_7__ = [
+            "天気", "気温", "降水", "雨", "晴れ", "曇り", "雪", "台風", "気象",
+            "_TOKEN_律:1.0___ast_霤_78__", "_TOKEN_漕:1.0___ast_霤_121__", "_TOKEN_霤:1.0___ast_霤_105__", "_TOKEN_霤:1.0___ast_霤_111__", "_TOKEN_霤:1.0___ast_霤_52__",
+            "最高気温", "最低気温", "湿度", "風速", "予報",
+        ]
+        guard _TOKEN_秘:1.0___ast_霤_7__._TOKEN_霤:1.0___ast_霤_106__(where: { _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__($0) }) else { return nil }
+
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_79__ = _TOKEN_霤:1.0___ast_霤_143__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_律:1.0___ast_霤_154__)
+        let _TOKEN_霤:1.0___ast_霤_77__ = _TOKEN_霤:1.0___ast_霤_26__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_律:1.0___ast_霤_154__) // "今日", "明日", "今週" 等
+
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_135__   = _TOKEN_霤:1.0___ast_霤_79__._TOKEN_霤:1.0___ast_霤_66__(_TOKEN_霤:1.0___ast_霤_71__: ._TOKEN_緋:1.0___ast_霤_17__) ?? _TOKEN_霤:1.0___ast_霤_79__
+        let _TOKEN_霤:1.0___ast_霤_138__     = "_TOKEN_緋:1.0___ast_霤_48__://_TOKEN_霤:1.0___ast_霤_138__.jp/_TOKEN_霤:1.0___ast_霤_92__/?_TOKEN_秘:1.0___ast_霤_145__=\(_TOKEN_霤:1.0___ast_霤_135__)"
+        let _TOKEN_霤:1.0___ast_霤_125__     = "_TOKEN_緋:1.0___ast_霤_48__://_TOKEN_律:1.0___ast_霤_78__._TOKEN_霤:1.0___ast_霤_125__.co.jp/_TOKEN_律:1.0___ast_霤_78__/_TOKEN_霤:1.0___ast_霤_92__/?p=\(_TOKEN_霤:1.0___ast_霤_135__)"
+        let _TOKEN_霤:1.0___ast_霤_35__  = "\(_TOKEN_霤:1.0___ast_霤_79__) \(_TOKEN_霤:1.0___ast_霤_77__)天気 予報"
+
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: [_TOKEN_霤:1.0___ast_霤_138__, _TOKEN_霤:1.0___ast_霤_125__, _TOKEN_霤:1.0___ast_霤_35__],
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_律:1.0___ast_霤_78__(_TOKEN_霤:1.0___ast_霤_79__: "\(_TOKEN_霤:1.0___ast_霤_77__)\(_TOKEN_霤:1.0___ast_霤_79__)"),
+            _TOKEN_霤:1.0___ast_霤_119__: true
+        )
+    }
+
+    private func _TOKEN_霤:1.0___ast_霤_143__(_TOKEN_霤:1.0___ast_霤_148__ _TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_4__ {
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_126__ = [
+// [metadata-stripped]
+// [metadata-stripped]
+        ]
+        for _TOKEN_霤:1.0___ast_霤_31__ in _TOKEN_霤:1.0___ast_霤_126__ {
+            if let re = try? _TOKEN_廡:1.0___ast_廡_6__(_TOKEN_霤:1.0___ast_霤_31__: _TOKEN_霤:1.0___ast_霤_31__),
+               let m  = re._TOKEN_霤:1.0___ast_霤_83__(in: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_霤:1.0___ast_霤_8__: _TOKEN_廡:1.0___ast_廡_1__(_TOKEN_霤:1.0___ast_霤_4__._TOKEN_霤:1.0___ast_霤_99__..., in: _TOKEN_霤:1.0___ast_霤_4__)),
+               let r  = _TOKEN_廡:1.0___ast_廡_10__(m._TOKEN_霤:1.0___ast_霤_8__(at: 1), in: _TOKEN_霤:1.0___ast_霤_4__) {
+                let _TOKEN_霤:1.0___ast_霤_23__ = _TOKEN_廡:1.0___ast_廡_4__(_TOKEN_霤:1.0___ast_霤_4__[r])._TOKEN_霤:1.0___ast_霤_19__(in: ._TOKEN_霤:1.0___ast_霤_25__)
+                if !_TOKEN_霤:1.0___ast_霤_23__._TOKEN_霤:1.0___ast_霤_157__ { return _TOKEN_霤:1.0___ast_霤_23__ }
+            }
+        }
+// [metadata-stripped]
+        return _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__)
+    }
+
+    private func _TOKEN_霤:1.0___ast_霤_26__(_TOKEN_霤:1.0___ast_霤_148__ _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_4__ {
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("今日") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_109__")   { return "今日の" }
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("明日") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_98__") { return "明日の" }
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("明後日")                              { return "明後日の" }
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("今週") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_151__ _TOKEN_霤:1.0___ast_霤_10__") { return "今週の" }
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("週間") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_24__")   { return "週間" }
+        return ""
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_漕:1.0___ast_霤_124__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__? {
+// [metadata-stripped]
+        let _TOKEN_緋:1.0___ast_霤_155__ = #"_TOKEN_霤:1.0___ast_霤_118__\._TOKEN_霤:1.0___ast_霤_115__/([a-zA-Z0-9_\-\.]+/[a-zA-Z0-9_\-\.]+)"#
+        if let _TOKEN_霤:1.0___ast_霤_22__ = try? _TOKEN_廡:1.0___ast_廡_6__(_TOKEN_霤:1.0___ast_霤_31__: _TOKEN_緋:1.0___ast_霤_155__, _TOKEN_霤:1.0___ast_霤_133__: ._TOKEN_霤:1.0___ast_霤_74__),
+           let _TOKEN_霤:1.0___ast_霤_112__ = _TOKEN_霤:1.0___ast_霤_22__._TOKEN_霤:1.0___ast_霤_83__(in: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_霤:1.0___ast_霤_8__: _TOKEN_廡:1.0___ast_廡_1__(_TOKEN_霤:1.0___ast_霤_4__._TOKEN_霤:1.0___ast_霤_99__..., in: _TOKEN_霤:1.0___ast_霤_4__)),
+           let r = _TOKEN_廡:1.0___ast_廡_10__(_TOKEN_霤:1.0___ast_霤_112__._TOKEN_霤:1.0___ast_霤_8__(at: 1), in: _TOKEN_霤:1.0___ast_霤_4__) {
+            let _TOKEN_霤:1.0___ast_霤_102__ = _TOKEN_廡:1.0___ast_廡_4__(_TOKEN_霤:1.0___ast_霤_4__[r])
+            let _TOKEN_霤:1.0___ast_霤_95__     = _TOKEN_霤:1.0___ast_霤_102__._TOKEN_霤:1.0___ast_霤_103__(_TOKEN_霤:1.0___ast_霤_87__: "/")._TOKEN_霤:1.0___ast_霤_75__ ?? _TOKEN_霤:1.0___ast_霤_102__
+            return _TOKEN_霤:1.0___ast_霤_152__(_TOKEN_霤:1.0___ast_霤_102__: _TOKEN_霤:1.0___ast_霤_102__, _TOKEN_霤:1.0___ast_霤_62__: _TOKEN_霤:1.0___ast_霤_95__)
+        }
+
+// [metadata-stripped]
+        let _TOKEN_秘:1.0___ast_霤_39__ = ["_TOKEN_霤:1.0___ast_霤_118__", "ギットハブ", "リポジトリ", "_TOKEN_霤:1.0___ast_霤_55__", "_TOKEN_霤:1.0___ast_霤_129__"]
+        guard _TOKEN_秘:1.0___ast_霤_39__._TOKEN_霤:1.0___ast_霤_106__(where: { _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__($0) }) else { return nil }
+
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_134__ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        ]
+// _TOKEN_秘:0.6___ast_XH_762__ [decoy-metadata]
+        for _TOKEN_霤:1.0___ast_霤_31__ in _TOKEN_霤:1.0___ast_霤_134__ {
+            if let _TOKEN_霤:1.0___ast_霤_22__ = try? _TOKEN_廡:1.0___ast_廡_6__(_TOKEN_霤:1.0___ast_霤_31__: _TOKEN_霤:1.0___ast_霤_31__, _TOKEN_霤:1.0___ast_霤_133__: ._TOKEN_霤:1.0___ast_霤_74__),
+               let _TOKEN_霤:1.0___ast_霤_112__ = _TOKEN_霤:1.0___ast_霤_22__._TOKEN_霤:1.0___ast_霤_83__(in: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_霤:1.0___ast_霤_8__: _TOKEN_廡:1.0___ast_廡_1__(_TOKEN_霤:1.0___ast_霤_4__._TOKEN_霤:1.0___ast_霤_99__..., in: _TOKEN_霤:1.0___ast_霤_4__)),
+               _TOKEN_霤:1.0___ast_霤_112__._TOKEN_霤:1.0___ast_霤_6__ > 1,
+               let r = _TOKEN_廡:1.0___ast_廡_10__(_TOKEN_霤:1.0___ast_霤_112__._TOKEN_霤:1.0___ast_霤_8__(at: 1), in: _TOKEN_霤:1.0___ast_霤_4__) {
+                let _TOKEN_霤:1.0___ast_霤_95__ = _TOKEN_廡:1.0___ast_廡_4__(_TOKEN_霤:1.0___ast_霤_4__[r])._TOKEN_霤:1.0___ast_霤_19__(in: ._TOKEN_霤:1.0___ast_霤_25__)
+                if !_TOKEN_霤:1.0___ast_霤_95__._TOKEN_霤:1.0___ast_霤_157__ && _TOKEN_霤:1.0___ast_霤_95__._TOKEN_霤:1.0___ast_霤_45__ > 1 {
+                    return _TOKEN_霤:1.0___ast_霤_152__(_TOKEN_霤:1.0___ast_霤_102__: nil, _TOKEN_霤:1.0___ast_霤_62__: _TOKEN_霤:1.0___ast_霤_95__)
+                }
+            }
+        }
+
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_81__ = _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__)
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: ["_TOKEN_霤:1.0___ast_霤_140__:_TOKEN_霤:1.0___ast_霤_118__._TOKEN_霤:1.0___ast_霤_115__ \(_TOKEN_霤:1.0___ast_霤_81__)", "_TOKEN_霤:1.0___ast_霤_118__ \(_TOKEN_霤:1.0___ast_霤_81__)"],
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_37__(_TOKEN_霤:1.0___ast_霤_95__: _TOKEN_霤:1.0___ast_霤_81__),
+            _TOKEN_霤:1.0___ast_霤_119__: _TOKEN_秘:1.0___ast_霤_88__(_TOKEN_律:1.0___ast_霤_154__)
+        )
+    }
+
+    private func _TOKEN_霤:1.0___ast_霤_152__(_TOKEN_霤:1.0___ast_霤_102__: _TOKEN_廡:1.0___ast_廡_4__?, _TOKEN_霤:1.0___ast_霤_62__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__ {
+        var _TOKEN_霤:1.0___ast_霤_100__: [_TOKEN_廡:1.0___ast_廡_4__]
+        if let _TOKEN_霤:1.0___ast_霤_5__ = _TOKEN_霤:1.0___ast_霤_102__ {
+            _TOKEN_霤:1.0___ast_霤_100__ = [
+                "_TOKEN_霤:1.0___ast_霤_140__:_TOKEN_霤:1.0___ast_霤_118__._TOKEN_霤:1.0___ast_霤_115__/\(_TOKEN_霤:1.0___ast_霤_5__)",
+                "_TOKEN_霤:1.0___ast_霤_118__ \(_TOKEN_霤:1.0___ast_霤_62__) _TOKEN_霤:1.0___ast_霤_32__ _TOKEN_霤:1.0___ast_霤_85__ OR _TOKEN_霤:1.0___ast_霤_1__",
+                "\(_TOKEN_霤:1.0___ast_霤_62__) _TOKEN_霤:1.0___ast_霤_118__ _TOKEN_霤:1.0___ast_霤_144__ _TOKEN_霤:1.0___ast_霤_113__ _TOKEN_霤:1.0___ast_霤_57__",
+            ]
+        } else {
+            _TOKEN_霤:1.0___ast_霤_100__ = [
+                "_TOKEN_霤:1.0___ast_霤_140__:_TOKEN_霤:1.0___ast_霤_118__._TOKEN_霤:1.0___ast_霤_115__ \(_TOKEN_霤:1.0___ast_霤_62__)",
+                "_TOKEN_霤:1.0___ast_霤_118__._TOKEN_霤:1.0___ast_霤_115__ \(_TOKEN_霤:1.0___ast_霤_62__) _TOKEN_霤:1.0___ast_霤_55__ _TOKEN_廡:1.0___ast_廡_19__",
+                "\(_TOKEN_霤:1.0___ast_霤_62__) _TOKEN_霤:1.0___ast_霤_118__ _TOKEN_霤:1.0___ast_霤_80__ _TOKEN_霤:1.0___ast_霤_61__ _TOKEN_霤:1.0___ast_霤_63__",
+            ]
+        }
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: _TOKEN_廡:1.0___ast_廡_28__(_TOKEN_霤:1.0___ast_霤_100__._TOKEN_霤:1.0___ast_霤_56__(3)),
+// _TOKEN_律:0.8___ast_GA_672__ [decoy-metadata]
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_37__(_TOKEN_霤:1.0___ast_霤_95__: _TOKEN_霤:1.0___ast_霤_62__),
+            _TOKEN_霤:1.0___ast_霤_119__: true
+        )
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_緋:1.0___ast_霤_11__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__? {
+        let _TOKEN_緋:1.0___ast_霤_155__ = #"_TOKEN_緋:1.0___ast_霤_48__?://[^\s\_TOKEN_霤:1.0___ast_霤_127__-\_TOKEN_霤:1.0___ast_霤_16__\_TOKEN_霤:1.0___ast_霤_116__-\_TOKEN_霤:1.0___ast_霤_128__]+"#
+        guard let _TOKEN_霤:1.0___ast_霤_22__ = try? _TOKEN_廡:1.0___ast_廡_6__(_TOKEN_霤:1.0___ast_霤_31__: _TOKEN_緋:1.0___ast_霤_155__),
+              let _TOKEN_霤:1.0___ast_霤_112__ = _TOKEN_霤:1.0___ast_霤_22__._TOKEN_霤:1.0___ast_霤_83__(in: _TOKEN_霤:1.0___ast_霤_4__, _TOKEN_霤:1.0___ast_霤_8__: _TOKEN_廡:1.0___ast_廡_1__(_TOKEN_霤:1.0___ast_霤_4__._TOKEN_霤:1.0___ast_霤_99__..., in: _TOKEN_霤:1.0___ast_霤_4__)),
+              let r = _TOKEN_廡:1.0___ast_廡_10__(_TOKEN_霤:1.0___ast_霤_112__._TOKEN_霤:1.0___ast_霤_8__, in: _TOKEN_霤:1.0___ast_霤_4__) else { return nil }
+        let _TOKEN_緋:1.0___ast_霤_146__ = _TOKEN_廡:1.0___ast_廡_4__(_TOKEN_霤:1.0___ast_霤_4__[r])._TOKEN_霤:1.0___ast_霤_19__(in: _TOKEN_廡:1.0___ast_廡_12__(_TOKEN_霤:1.0___ast_霤_14__: "。、．，）)」』"))
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: [_TOKEN_緋:1.0___ast_霤_146__],
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_緋:1.0___ast_霤_89__(_TOKEN_緋:1.0___ast_霤_146__: _TOKEN_緋:1.0___ast_霤_146__),
+            _TOKEN_霤:1.0___ast_霤_119__: _TOKEN_秘:1.0___ast_霤_88__(_TOKEN_律:1.0___ast_霤_154__)
+        )
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    private func _TOKEN_漕:1.0___ast_霤_20__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__? {
+        let _TOKEN_秘:1.0___ast_霤_101__ = [
+// [metadata-stripped]
+            "ニュース", "最新", "最近", "今日", "今週", "今月", "今年",
+            "現在", "情勢", "状況", "速報", "記事",
+            "発表", "リリース", "アップデート", "新機能", "障害",
+            "戦争", "事件", "問題",
+// [metadata-stripped]
+            "_TOKEN_霤:1.0___ast_霤_149__", "_TOKEN_霤:1.0___ast_霤_58__", "_TOKEN_霤:1.0___ast_霤_80__", "_TOKEN_霤:1.0___ast_霤_109__", "_TOKEN_霤:1.0___ast_霤_110__",
+            "_TOKEN_霤:1.0___ast_霤_147__", "_TOKEN_霤:1.0___ast_霤_32__", "_TOKEN_霤:1.0___ast_霤_51__", "_TOKEN_霤:1.0___ast_霤_82__",
+        ]
+        guard _TOKEN_秘:1.0___ast_霤_101__._TOKEN_霤:1.0___ast_霤_106__(where: { _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__($0) }) else { return nil }
+
+        let _TOKEN_霤:1.0___ast_霤_81__ = _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__)
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_13__ = _TOKEN_霤:1.0___ast_霤_81__._TOKEN_霤:1.0___ast_霤_157__ ? "最新ニュース" : _TOKEN_霤:1.0___ast_霤_81__
+
+// [metadata-stripped]
+// _TOKEN_律:0.3___ast_HM_354__ [decoy-metadata]
+        let _TOKEN_霤:1.0___ast_霤_104__ = _TOKEN_霤:1.0___ast_霤_139__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_律:1.0___ast_霤_154__)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        let _TOKEN_緋:1.0___ast_霤_9__ = "_TOKEN_緋:1.0___ast_霤_48__://_TOKEN_霤:1.0___ast_霤_18__._TOKEN_霤:1.0___ast_霤_141__.or.jp/_TOKEN_霤:1.0___ast_霤_90__/_TOKEN_霤:1.0___ast_霤_149__/_TOKEN_霤:1.0___ast_霤_114__._TOKEN_霤:1.0___ast_霤_34__"
+        let q1 = _TOKEN_緋:1.0___ast_霤_9__
+        let q2 = "\(_TOKEN_霤:1.0___ast_霤_13__) \(_TOKEN_霤:1.0___ast_霤_104__._TOKEN_霤:1.0___ast_霤_68__)"
+        let q3 = "\(_TOKEN_霤:1.0___ast_霤_13__) \(_TOKEN_霤:1.0___ast_霤_104__._TOKEN_霤:1.0___ast_霤_122__) \(_TOKEN_霤:1.0___ast_霤_104__._TOKEN_霤:1.0___ast_霤_160__) _TOKEN_霤:1.0___ast_霤_149__"
+
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: [q1, q2, q3],
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_59__(_TOKEN_霤:1.0___ast_霤_81__: _TOKEN_霤:1.0___ast_霤_13__),
+            _TOKEN_霤:1.0___ast_霤_119__: true
+        )
+    }
+
+// [metadata-stripped]
+
+    private struct _TOKEN_廡:1.0___ast_廡_24__ {
+        let _TOKEN_霤:1.0___ast_霤_68__:  _TOKEN_廡:1.0___ast_廡_4__   // "2026年4月25日" など
+        let _TOKEN_霤:1.0___ast_霤_122__:  _TOKEN_廡:1.0___ast_廡_4__   // "2026"
+        let _TOKEN_霤:1.0___ast_霤_160__: _TOKEN_廡:1.0___ast_廡_4__   // "4月"
+    }
+
+// [metadata-stripped]
+    private func _TOKEN_霤:1.0___ast_霤_139__(_TOKEN_霤:1.0___ast_霤_148__ _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_24__ {
+        let _TOKEN_霤:1.0___ast_霤_50__ = _TOKEN_廡:1.0___ast_廡_26__()
+        let _TOKEN_霤:1.0___ast_霤_72__ = _TOKEN_廡:1.0___ast_廡_15__._TOKEN_霤:1.0___ast_霤_110__
+        let _TOKEN_霤:1.0___ast_霤_43__  = _TOKEN_霤:1.0___ast_霤_72__._TOKEN_霤:1.0___ast_霤_2__(._TOKEN_霤:1.0___ast_霤_43__,  _TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_50__)
+        let _TOKEN_霤:1.0___ast_霤_46__ = _TOKEN_霤:1.0___ast_霤_72__._TOKEN_霤:1.0___ast_霤_2__(._TOKEN_霤:1.0___ast_霤_46__, _TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_50__)
+        let _TOKEN_霤:1.0___ast_霤_3__   = _TOKEN_霤:1.0___ast_霤_72__._TOKEN_霤:1.0___ast_霤_2__(._TOKEN_霤:1.0___ast_霤_3__,   _TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_50__)
+        let _TOKEN_霤:1.0___ast_霤_10__  = _TOKEN_霤:1.0___ast_霤_72__._TOKEN_霤:1.0___ast_霤_2__(._TOKEN_霤:1.0___ast_霤_132__, _TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_50__)
+
+        let _TOKEN_霤:1.0___ast_霤_122__  = "\(_TOKEN_霤:1.0___ast_霤_43__)"
+        let _TOKEN_霤:1.0___ast_霤_160__ = "\(_TOKEN_霤:1.0___ast_霤_46__)月"
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_68__: _TOKEN_廡:1.0___ast_廡_4__
+        if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("今日") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_109__") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("本日") {
+            _TOKEN_霤:1.0___ast_霤_68__ = "\(_TOKEN_霤:1.0___ast_霤_43__)年\(_TOKEN_霤:1.0___ast_霤_46__)月\(_TOKEN_霤:1.0___ast_霤_3__)日"
+        } else if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("今週") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_151__ _TOKEN_霤:1.0___ast_霤_10__") {
+            _TOKEN_霤:1.0___ast_霤_68__ = "\(_TOKEN_霤:1.0___ast_霤_43__)年第\(_TOKEN_霤:1.0___ast_霤_10__)週"
+        } else if _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("今月") || _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__("_TOKEN_霤:1.0___ast_霤_151__ _TOKEN_霤:1.0___ast_霤_46__") {
+            _TOKEN_霤:1.0___ast_霤_68__ = "\(_TOKEN_霤:1.0___ast_霤_43__)年\(_TOKEN_霤:1.0___ast_霤_46__)月"
+        } else {
+            _TOKEN_霤:1.0___ast_霤_68__ = "\(_TOKEN_霤:1.0___ast_霤_43__)年"
+        }
+
+        return _TOKEN_廡:1.0___ast_廡_24__(_TOKEN_霤:1.0___ast_霤_68__: _TOKEN_霤:1.0___ast_霤_68__, _TOKEN_霤:1.0___ast_霤_122__: _TOKEN_霤:1.0___ast_霤_122__, _TOKEN_霤:1.0___ast_霤_160__: _TOKEN_霤:1.0___ast_霤_160__)
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_漕:1.0___ast_霤_47__(_TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__, _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_3__? {
+        let _TOKEN_秘:1.0___ast_霤_130__ = [
+            "ドキュメント", "_TOKEN_霤:1.0___ast_霤_36__", "_TOKEN_霤:1.0___ast_霤_60__",
+            "公式", "_TOKEN_霤:1.0___ast_霤_28__", "仕様", "_TOKEN_漕:1.0___ast_霤_97__", "_TOKEN_霤:1.0___ast_霤_69__",
+            "使い方", "_TOKEN_霤:1.0___ast_霤_96__ to", "_TOKEN_霤:1.0___ast_霤_142__", "チュートリアル", "_TOKEN_霤:1.0___ast_霤_65__",
+            "_TOKEN_緋:1.0___ast_霤_93__ _TOKEN_霤:1.0___ast_霤_54__", "マニュアル", "_TOKEN_霤:1.0___ast_霤_159__",
+        ]
+        guard _TOKEN_秘:1.0___ast_霤_130__._TOKEN_霤:1.0___ast_霤_106__(where: { _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__($0) }) else { return nil }
+
+        let _TOKEN_霤:1.0___ast_霤_81__ = _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__: _TOKEN_霤:1.0___ast_霤_4__)
+        guard !_TOKEN_霤:1.0___ast_霤_81__._TOKEN_霤:1.0___ast_霤_157__ else { return nil }
+
+        return _TOKEN_廡:1.0___ast_廡_3__(
+            _TOKEN_霤:1.0___ast_霤_150__: true,
+            _TOKEN_霤:1.0___ast_霤_100__: [
+                "\(_TOKEN_霤:1.0___ast_霤_81__) _TOKEN_霤:1.0___ast_霤_28__ _TOKEN_霤:1.0___ast_霤_36__ _TOKEN_霤:1.0___ast_霤_140__:_TOKEN_霤:1.0___ast_霤_60__.",
+                "\(_TOKEN_霤:1.0___ast_霤_81__) _TOKEN_霤:1.0___ast_霤_28__ _TOKEN_霤:1.0___ast_霤_60__ OR _TOKEN_廡:1.0___ast_廡_19__ _TOKEN_霤:1.0___ast_霤_140__:_TOKEN_霤:1.0___ast_霤_118__._TOKEN_霤:1.0___ast_霤_115__",
+            ],
+            _TOKEN_霤:1.0___ast_霤_84__: ._TOKEN_霤:1.0___ast_霤_36__(_TOKEN_霤:1.0___ast_霤_33__: _TOKEN_霤:1.0___ast_霤_81__),
+            _TOKEN_霤:1.0___ast_霤_119__: false
+        )
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_秘:1.0___ast_霤_88__(_ _TOKEN_律:1.0___ast_霤_154__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_18__ {
+        let _TOKEN_秘:1.0___ast_霤_123__ = [
+            "現在", "最新", "最近", "今", "今日", "今週", "今月",
+            "_TOKEN_霤:1.0___ast_霤_110__", "_TOKEN_霤:1.0___ast_霤_58__", "_TOKEN_霤:1.0___ast_霤_80__", "_TOKEN_霤:1.0___ast_霤_50__", "_TOKEN_霤:1.0___ast_霤_109__",
+            "状況", "状態", "_TOKEN_霤:1.0___ast_霤_113__", "どうなって",
+        ]
+        return _TOKEN_秘:1.0___ast_霤_123__._TOKEN_霤:1.0___ast_霤_106__(where: { _TOKEN_律:1.0___ast_霤_154__._TOKEN_霤:1.0___ast_霤_106__($0) })
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _TOKEN_霤:1.0___ast_霤_42__(_TOKEN_霤:1.0___ast_霤_148__ _TOKEN_霤:1.0___ast_霤_4__: _TOKEN_廡:1.0___ast_廡_4__) -> _TOKEN_廡:1.0___ast_廡_4__ {
+        var s = _TOKEN_霤:1.0___ast_霤_4__
+
+// [metadata-stripped]
+        let _TOKEN_霤:1.0___ast_霤_117__ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        ]
+        for _TOKEN_霤:1.0___ast_霤_31__ in _TOKEN_霤:1.0___ast_霤_117__ {
+            if let re = try? _TOKEN_廡:1.0___ast_廡_6__(_TOKEN_霤:1.0___ast_霤_31__: _TOKEN_霤:1.0___ast_霤_31__) {
+                let _TOKEN_霤:1.0___ast_霤_8__ = _TOKEN_廡:1.0___ast_廡_1__(s._TOKEN_霤:1.0___ast_霤_99__..., in: s)
+                s = re._TOKEN_霤:1.0___ast_霤_120__(in: s, _TOKEN_霤:1.0___ast_霤_8__: _TOKEN_霤:1.0___ast_霤_8__, _TOKEN_霤:1.0___ast_霤_67__: " ")
+            }
+        }
+
+        let _TOKEN_霤:1.0___ast_霤_94__ = s._TOKEN_霤:1.0___ast_霤_103__(_TOKEN_霤:1.0___ast_霤_87__: _TOKEN_廡:1.0___ast_廡_12__._TOKEN_霤:1.0___ast_霤_25__._TOKEN_霤:1.0___ast_霤_86__(.init(_TOKEN_霤:1.0___ast_霤_14__: "　、。，．")))
+                     ._TOKEN_霤:1.0___ast_霤_158__ { $0._TOKEN_霤:1.0___ast_霤_19__(in: ._TOKEN_霤:1.0___ast_霤_107__) }
+                     ._TOKEN_律:1.0___ast_霤_44__ { $0._TOKEN_霤:1.0___ast_霤_45__ > 1 }
+
+        return _TOKEN_霤:1.0___ast_霤_94__._TOKEN_霤:1.0___ast_霤_56__(6)._TOKEN_霤:1.0___ast_霤_156__(_TOKEN_霤:1.0___ast_霤_21__: " ")._TOKEN_霤:1.0___ast_霤_19__(in: ._TOKEN_霤:1.0___ast_霤_40__)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,80 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:028280B8 ver:1778163940
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_廳:1.0__OPAQUE_廳_19_
+
+struct _ASTNODE_廳:1.0__OPAQUE_廳_1_ {
+    let id: _ASTNODE_廳:1.0__OPAQUE_廳_12_
+    let _ASTNODE_霤:1.0__OPAQUE_霤_1_: _ASTNODE_廳:1.0__OPAQUE_廳_12_
+    let _ASTNODE_霤:1.0__OPAQUE_霤_14_: _ASTNODE_廳:1.0__OPAQUE_廳_5_?
+}
+
+struct _ASTNODE_廳:1.0__OPAQUE_廳_8_ {
+    let _ASTNODE_霤:1.0__OPAQUE_霤_40_: _ASTNODE_廳:1.0__OPAQUE_廳_17_
+    let _ASTNODE_則:1.0__OPAQUE_霤_20_: _ASTNODE_廳:1.0__OPAQUE_廳_17_
+}
+
+@_ASTNODE_廳:1.0__OPAQUE_廳_2_
+final class _ASTNODE_則:1.0__OPAQUE_廳_6_: _ASTNODE_廳:1.0__OPAQUE_廳_3_ {
+    static let _ASTNODE_霤:1.0__OPAQUE_霤_19_ = _ASTNODE_則:1.0__OPAQUE_廳_6_()
+
+    @_ASTNODE_廳:1.0__OPAQUE_廳_18_ var _ASTNODE_霤:1.0__OPAQUE_霤_2_: [_ASTNODE_廳:1.0__OPAQUE_廳_12_: _ASTNODE_廳:1.0__OPAQUE_廳_1_] = [:]
+
+    private init() {}
+
+    func _ASTNODE_則:1.0__OPAQUE_霤_9_(id: _ASTNODE_廳:1.0__OPAQUE_廳_12_, _ASTNODE_霤:1.0__OPAQUE_霤_1_: _ASTNODE_廳:1.0__OPAQUE_廳_12_, _ASTNODE_霤:1.0__OPAQUE_霤_14_: _ASTNODE_廳:1.0__OPAQUE_廳_5_?) {
+        _ASTNODE_霤:1.0__OPAQUE_霤_2_[id] = _ASTNODE_廳:1.0__OPAQUE_廳_1_(id: id, _ASTNODE_霤:1.0__OPAQUE_霤_1_: _ASTNODE_霤:1.0__OPAQUE_霤_1_, _ASTNODE_霤:1.0__OPAQUE_霤_14_: _ASTNODE_霤:1.0__OPAQUE_霤_14_)
+    }
+
+    func _ASTNODE_則:1.0__OPAQUE_霤_37_(id: _ASTNODE_廳:1.0__OPAQUE_廳_12_) {
+        _ASTNODE_霤:1.0__OPAQUE_霤_2_._ASTNODE_霤:1.0__OPAQUE_霤_23_(_ASTNODE_封:1.0__OPAQUE_霤_21_: id)
+    }
+
+// [metadata-stripped]
+    func _ASTNODE_霤:1.0__OPAQUE_霤_4_(for _ASTNODE_霤:1.0__OPAQUE_霤_3_: _ASTNODE_綾:1.0__OPAQUE_廳_9_, at _ASTNODE_霤:1.0__OPAQUE_霤_15_: _ASTNODE_廳:1.0__OPAQUE_廳_8_) async throws -> _ASTNODE_廳:1.0__OPAQUE_廳_4_? {
+// [metadata-stripped]
+        let _ASTNODE_霤:1.0__OPAQUE_霤_10_ = _ASTNODE_霤:1.0__OPAQUE_霤_2_._ASTNODE_霤:1.0__OPAQUE_霤_12_._ASTNODE_則:1.0__OPAQUE_霤_34_ { $0._ASTNODE_霤:1.0__OPAQUE_霤_1_ == "_ASTNODE_則:1.0__OPAQUE_廳_7_" }
+        
+// [metadata-stripped]
+        guard let _ASTNODE_則:1.0__OPAQUE_霤_17_ = _ASTNODE_霤:1.0__OPAQUE_霤_10_._ASTNODE_霤:1.0__OPAQUE_霤_29_ else { return nil }
+// _ASTNODE_綾:0.8__OPAQUE_LG_404_ [decoy-metadata]
+// _ASTNODE_則:0.6__OPAQUE_KX_622_ [decoy-metadata]
+        
+        return try await _ASTNODE_則:1.0__OPAQUE_廳_15_._ASTNODE_霤:1.0__OPAQUE_霤_19_._ASTNODE_綾:1.0__OPAQUE_霤_35_(_ASTNODE_霤:1.0__OPAQUE_霤_22_: "_ASTNODE_霤:1.0__OPAQUE_霤_18_._ASTNODE_則:1.0__OPAQUE_霤_36_", _ASTNODE_霤:1.0__OPAQUE_霤_6_: [
+            "_ASTNODE_霤:1.0__OPAQUE_霤_28_": _ASTNODE_則:1.0__OPAQUE_霤_17_.id,
+            "_ASTNODE_霤:1.0__OPAQUE_霤_22_": "_ASTNODE_霤:1.0__OPAQUE_霤_4_",
+// _ASTNODE_則:0.6__OPAQUE_KK_632_ [decoy-metadata]
+            "_ASTNODE_霤:1.0__OPAQUE_霤_25_": [
+                "_ASTNODE_霤:1.0__OPAQUE_霤_3_": _ASTNODE_霤:1.0__OPAQUE_霤_3_._ASTNODE_霤:1.0__OPAQUE_霤_30_,
+                "_ASTNODE_霤:1.0__OPAQUE_霤_15_": [
+// _ASTNODE_則:0.5__OPAQUE_XL_188_ [decoy-metadata]
+// _ASTNODE_霤:0.7__OPAQUE_HY_606_ [decoy-metadata]
+                    "_ASTNODE_霤:1.0__OPAQUE_霤_40_": _ASTNODE_霤:1.0__OPAQUE_霤_15_._ASTNODE_霤:1.0__OPAQUE_霤_40_,
+                    "_ASTNODE_則:1.0__OPAQUE_霤_20_": _ASTNODE_霤:1.0__OPAQUE_霤_15_._ASTNODE_則:1.0__OPAQUE_霤_20_
+                ]
+            ]
+        ])
+    }
+    
+// [metadata-stripped]
+    func _ASTNODE_則:1.0__OPAQUE_霤_32_(for _ASTNODE_霤:1.0__OPAQUE_霤_3_: _ASTNODE_綾:1.0__OPAQUE_廳_9_, at _ASTNODE_霤:1.0__OPAQUE_霤_15_: _ASTNODE_廳:1.0__OPAQUE_廳_8_) async throws -> _ASTNODE_廳:1.0__OPAQUE_廳_4_? {
+        let _ASTNODE_霤:1.0__OPAQUE_霤_10_ = _ASTNODE_霤:1.0__OPAQUE_霤_2_._ASTNODE_霤:1.0__OPAQUE_霤_12_._ASTNODE_則:1.0__OPAQUE_霤_34_ { $0._ASTNODE_霤:1.0__OPAQUE_霤_1_ == "_ASTNODE_則:1.0__OPAQUE_廳_10_" }
+        guard let _ASTNODE_則:1.0__OPAQUE_霤_17_ = _ASTNODE_霤:1.0__OPAQUE_霤_10_._ASTNODE_霤:1.0__OPAQUE_霤_29_ else { return nil }
+        
+        return try await _ASTNODE_則:1.0__OPAQUE_廳_15_._ASTNODE_霤:1.0__OPAQUE_霤_19_._ASTNODE_綾:1.0__OPAQUE_霤_35_(_ASTNODE_霤:1.0__OPAQUE_霤_22_: "_ASTNODE_霤:1.0__OPAQUE_霤_18_._ASTNODE_則:1.0__OPAQUE_霤_36_", _ASTNODE_霤:1.0__OPAQUE_霤_6_: [
+            "_ASTNODE_霤:1.0__OPAQUE_霤_28_": _ASTNODE_則:1.0__OPAQUE_霤_17_.id,
+            "_ASTNODE_霤:1.0__OPAQUE_霤_22_": "_ASTNODE_則:1.0__OPAQUE_霤_32_",
+            "_ASTNODE_霤:1.0__OPAQUE_霤_25_": [
+                "_ASTNODE_霤:1.0__OPAQUE_霤_3_": _ASTNODE_霤:1.0__OPAQUE_霤_3_._ASTNODE_霤:1.0__OPAQUE_霤_30_,
+                "_ASTNODE_霤:1.0__OPAQUE_霤_15_": [
+                    "_ASTNODE_霤:1.0__OPAQUE_霤_40_": _ASTNODE_霤:1.0__OPAQUE_霤_15_._ASTNODE_霤:1.0__OPAQUE_霤_40_,
+                    "_ASTNODE_則:1.0__OPAQUE_霤_20_": _ASTNODE_霤:1.0__OPAQUE_霤_15_._ASTNODE_則:1.0__OPAQUE_霤_20_
+                ]
+            ]
+        ])
+    }
+}
+// _ASTNODE_則:0.8__OPAQUE_HK_261_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,104 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7331D609 ver:1778159676
+// ⚠️ One-time schema — expires after response
+
+// _ASTNODE_沈:0.4__OPAQUE_BG_416_ [decoy-metadata]
+import _ASTNODE_靄:1.0__OPAQUE_靄_45_
+_ASTNODE_靄:1.0__OPAQUE_靄_20_ _ASTNODE_靄:1.0__OPAQUE_靄_21_ import _ASTNODE_靄:1.0__OPAQUE_靄_8_, _ASTNODE_靄:1.0__OPAQUE_靄_32_
+_ASTNODE_靄:1.0__OPAQUE_靄_20_ _ASTNODE_靄:1.0__OPAQUE_靄_43_ import _ASTNODE_礎:1.0__OPAQUE_礎_2_, _ASTNODE_礎:1.0__OPAQUE_礎_8_, _ASTNODE_礎:1.0__OPAQUE_礎_3_, _ASTNODE_礎:1.0__OPAQUE_礎_1_, _ASTNODE_格:1.0__OPAQUE_碑_2_
+_ASTNODE_靄:1.0__OPAQUE_靄_20_ _ASTNODE_靄:1.0__OPAQUE_靄_56_ import _ASTNODE_礎:1.0__OPAQUE_礎_9_
+_ASTNODE_靄:1.0__OPAQUE_靄_20_ _ASTNODE_靄:1.0__OPAQUE_靄_51_._ASTNODE_靄:1.0__OPAQUE_靄_23_._ASTNODE_靄:1.0__OPAQUE_靄_6_ import _ASTNODE_礎:1.0__OPAQUE_礎_4_
+
+@_ASTNODE_靄:1.0__OPAQUE_靄_8_
+class _ASTNODE_礎:1.0__OPAQUE_礎_6_:
+    _ASTNODE_靄:1.0__OPAQUE_靄_13_: _ASTNODE_靄:1.0__OPAQUE_靄_55_
+    _ASTNODE_靄:1.0__OPAQUE_靄_3_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_]      # 共通の形状シグネチャ
+    _ASTNODE_靄:1.0__OPAQUE_靄_33_: _ASTNODE_靄:1.0__OPAQUE_靄_55_      # 推奨される推論戦略
+    _ASTNODE_靄:1.0__OPAQUE_靄_34_: _ASTNODE_格:1.0__OPAQUE_碑_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_] # 適用可能なドメイン
+    _ASTNODE_靄:1.0__OPAQUE_靄_37_: _ASTNODE_靄:1.0__OPAQUE_靄_46_
+    _ASTNODE_靄:1.0__OPAQUE_靄_40_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_] = _ASTNODE_靄:1.0__OPAQUE_靄_32_(_ASTNODE_靄:1.0__OPAQUE_靄_48_=_ASTNODE_靄:1.0__OPAQUE_靄_15_)
+
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_2_(self):
+        return {
+            "_ASTNODE_靄:1.0__OPAQUE_靄_13_": self._ASTNODE_靄:1.0__OPAQUE_靄_13_,
+            "_ASTNODE_靄:1.0__OPAQUE_靄_3_": self._ASTNODE_靄:1.0__OPAQUE_靄_3_,
+            "_ASTNODE_靄:1.0__OPAQUE_靄_33_": self._ASTNODE_靄:1.0__OPAQUE_靄_33_,
+            "_ASTNODE_靄:1.0__OPAQUE_靄_34_": _ASTNODE_靄:1.0__OPAQUE_靄_15_(self._ASTNODE_靄:1.0__OPAQUE_靄_34_),
+            "_ASTNODE_靄:1.0__OPAQUE_靄_37_": self._ASTNODE_靄:1.0__OPAQUE_靄_37_,
+            "_ASTNODE_靄:1.0__OPAQUE_靄_40_": self._ASTNODE_靄:1.0__OPAQUE_靄_40_
+        }
+
+class _ASTNODE_格:1.0__OPAQUE_礎_5_:
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_12_(self, _ASTNODE_靄:1.0__OPAQUE_靄_35_: _ASTNODE_靄:1.0__OPAQUE_靄_55_):
+        self._ASTNODE_靄:1.0__OPAQUE_靄_35_ = _ASTNODE_礎:1.0__OPAQUE_礎_9_(_ASTNODE_靄:1.0__OPAQUE_靄_35_)
+        self._ASTNODE_靄:1.0__OPAQUE_靄_24_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_礎:1.0__OPAQUE_礎_6_] = []
+        self._ASTNODE_匾:1.0__OPAQUE_靄_9_()
+
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_匾:1.0__OPAQUE_靄_9_(self):
+        if _ASTNODE_靄:1.0__OPAQUE_靄_50_ self._ASTNODE_靄:1.0__OPAQUE_靄_58_(): return
+        if _ASTNODE_靄:1.0__OPAQUE_靄_50_ self._ASTNODE_靄:1.0__OPAQUE_靄_35_._ASTNODE_靄:1.0__OPAQUE_靄_26_(): return
+        _ASTNODE_靄:1.0__OPAQUE_靄_4_ self._ASTNODE_靄:1.0__OPAQUE_靄_35_.open("r", _ASTNODE_靄:1.0__OPAQUE_靄_14_="_ASTNODE_靄:1.0__OPAQUE_靄_7_-8") as f:
+            for _ASTNODE_靄:1.0__OPAQUE_靄_53_ in f:
+                try:
+                    _ASTNODE_靄:1.0__OPAQUE_靄_31_ = _ASTNODE_靄:1.0__OPAQUE_靄_45_._ASTNODE_匾:1.0__OPAQUE_靄_18_(_ASTNODE_靄:1.0__OPAQUE_靄_53_)
+                    _ASTNODE_靄:1.0__OPAQUE_靄_39_ = _ASTNODE_礎:1.0__OPAQUE_礎_6_(
+                        _ASTNODE_靄:1.0__OPAQUE_靄_13_=_ASTNODE_靄:1.0__OPAQUE_靄_31_["_ASTNODE_靄:1.0__OPAQUE_靄_13_"],
+                        _ASTNODE_靄:1.0__OPAQUE_靄_3_=_ASTNODE_靄:1.0__OPAQUE_靄_31_["_ASTNODE_靄:1.0__OPAQUE_靄_3_"],
+                        _ASTNODE_靄:1.0__OPAQUE_靄_33_=_ASTNODE_靄:1.0__OPAQUE_靄_31_["_ASTNODE_靄:1.0__OPAQUE_靄_33_"],
+                        _ASTNODE_靄:1.0__OPAQUE_靄_34_=_ASTNODE_格:1.0__OPAQUE_碑_1_(_ASTNODE_靄:1.0__OPAQUE_靄_31_["_ASTNODE_靄:1.0__OPAQUE_靄_34_"]),
+                        _ASTNODE_靄:1.0__OPAQUE_靄_37_=_ASTNODE_靄:1.0__OPAQUE_靄_31_["_ASTNODE_靄:1.0__OPAQUE_靄_37_"],
+                        _ASTNODE_靄:1.0__OPAQUE_靄_40_=_ASTNODE_靄:1.0__OPAQUE_靄_31_._ASTNODE_格:1.0__OPAQUE_碑_3_("_ASTNODE_靄:1.0__OPAQUE_靄_40_", [])
+                    )
+                    self._ASTNODE_靄:1.0__OPAQUE_靄_24_._ASTNODE_靄:1.0__OPAQUE_靄_44_(_ASTNODE_靄:1.0__OPAQUE_靄_39_)
+                _ASTNODE_靄:1.0__OPAQUE_靄_17_: continue
+
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_58_(self):
+        return self._ASTNODE_靄:1.0__OPAQUE_靄_35_._ASTNODE_靄:1.0__OPAQUE_靄_1_._ASTNODE_靄:1.0__OPAQUE_靄_26_()
+
+// _ASTNODE_格:0.3__OPAQUE_MB_255_ [decoy-metadata]
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_52_(self, _ASTNODE_靄:1.0__OPAQUE_靄_27_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_]) -> _ASTNODE_礎:1.0__OPAQUE_礎_1_[_ASTNODE_礎:1.0__OPAQUE_礎_8_[_ASTNODE_靄:1.0__OPAQUE_靄_55_, _ASTNODE_礎:1.0__OPAQUE_礎_3_]]:
+        """形状シグネチャから最適な推論戦略を特定する"""
+        _ASTNODE_靄:1.0__OPAQUE_靄_42_ = _ASTNODE_礎:1.0__OPAQUE_礎_10_
+        _ASTNODE_靄:1.0__OPAQUE_靄_59_ = 0.0
+
+        for _ASTNODE_靄:1.0__OPAQUE_靄_39_ in self._ASTNODE_靄:1.0__OPAQUE_靄_24_:
+// [metadata-stripped]
+// [metadata-stripped]
+            _ASTNODE_靄:1.0__OPAQUE_靄_10_ = self._ASTNODE_靄:1.0__OPAQUE_靄_49_(_ASTNODE_靄:1.0__OPAQUE_靄_27_, _ASTNODE_靄:1.0__OPAQUE_靄_39_._ASTNODE_靄:1.0__OPAQUE_靄_3_)
+            if _ASTNODE_靄:1.0__OPAQUE_靄_10_ > _ASTNODE_靄:1.0__OPAQUE_靄_59_ _ASTNODE_靄:1.0__OPAQUE_靄_11_ _ASTNODE_靄:1.0__OPAQUE_靄_10_ >= 0.7:
+                _ASTNODE_靄:1.0__OPAQUE_靄_59_ = _ASTNODE_靄:1.0__OPAQUE_靄_10_
+                _ASTNODE_靄:1.0__OPAQUE_靄_42_ = _ASTNODE_靄:1.0__OPAQUE_靄_39_
+
+        if _ASTNODE_靄:1.0__OPAQUE_靄_42_:
+            return {
+                "_ASTNODE_靄:1.0__OPAQUE_靄_30_": _ASTNODE_靄:1.0__OPAQUE_靄_42_._ASTNODE_靄:1.0__OPAQUE_靄_33_,
+                "_ASTNODE_靄:1.0__OPAQUE_靄_37_": _ASTNODE_靄:1.0__OPAQUE_靄_42_._ASTNODE_靄:1.0__OPAQUE_靄_37_ * _ASTNODE_靄:1.0__OPAQUE_靄_59_,
+                "_ASTNODE_靄:1.0__OPAQUE_靄_13_": _ASTNODE_靄:1.0__OPAQUE_靄_42_._ASTNODE_靄:1.0__OPAQUE_靄_13_
+            }
+// _ASTNODE_靄:0.2__OPAQUE_HW_267_ [decoy-metadata]
+// _ASTNODE_格:0.8__OPAQUE_FM_772_ [decoy-metadata]
+        return _ASTNODE_礎:1.0__OPAQUE_礎_10_
+// _ASTNODE_縺:0.2__OPAQUE_DB_835_ [decoy-metadata]
+
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_49_(self, _ASTNODE_靄:1.0__OPAQUE_靄_29_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_], _ASTNODE_靄:1.0__OPAQUE_靄_41_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_靄:1.0__OPAQUE_靄_55_]) -> _ASTNODE_靄:1.0__OPAQUE_靄_46_:
+        if _ASTNODE_靄:1.0__OPAQUE_靄_50_ _ASTNODE_靄:1.0__OPAQUE_靄_41_: return 0.0
+// [metadata-stripped]
+        _ASTNODE_靄:1.0__OPAQUE_靄_28_ = ","._ASTNODE_靄:1.0__OPAQUE_靄_38_(_ASTNODE_靄:1.0__OPAQUE_靄_41_)
+        _ASTNODE_靄:1.0__OPAQUE_靄_19_ = ","._ASTNODE_靄:1.0__OPAQUE_靄_38_(_ASTNODE_靄:1.0__OPAQUE_靄_29_)
+        if _ASTNODE_靄:1.0__OPAQUE_靄_28_ in _ASTNODE_靄:1.0__OPAQUE_靄_19_:
+            return 1.0
+        return 0.0 # 厳密な判定が必要な場合は拡張
+
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_靄:1.0__OPAQUE_靄_57_(self, _ASTNODE_靄:1.0__OPAQUE_靄_54_: _ASTNODE_礎:1.0__OPAQUE_礎_2_[_ASTNODE_礎:1.0__OPAQUE_礎_3_]):
+        """複数の結晶からメタ知識を合成する（定期実行を想定）"""
+// [metadata-stripped]
+// [metadata-stripped]
+        _ASTNODE_靄:1.0__OPAQUE_靄_25_
+
+// _ASTNODE_格:0.6__OPAQUE_FL_112_ [decoy-metadata]
+    _ASTNODE_靄:1.0__OPAQUE_靄_5_ _ASTNODE_匾:1.0__OPAQUE_靄_47_(self, _ASTNODE_靄:1.0__OPAQUE_靄_39_: _ASTNODE_礎:1.0__OPAQUE_礎_6_):
+        self._ASTNODE_靄:1.0__OPAQUE_靄_24_._ASTNODE_靄:1.0__OPAQUE_靄_44_(_ASTNODE_靄:1.0__OPAQUE_靄_39_)
+        _ASTNODE_靄:1.0__OPAQUE_靄_4_ self._ASTNODE_靄:1.0__OPAQUE_靄_35_.open("a", _ASTNODE_靄:1.0__OPAQUE_靄_14_="_ASTNODE_靄:1.0__OPAQUE_靄_7_-8") as f:
+            f._ASTNODE_靄:1.0__OPAQUE_靄_36_(_ASTNODE_靄:1.0__OPAQUE_靄_45_._ASTNODE_靄:1.0__OPAQUE_靄_22_(_ASTNODE_靄:1.0__OPAQUE_靄_39_._ASTNODE_靄:1.0__OPAQUE_靄_2_(), _ASTNODE_靄:1.0__OPAQUE_靄_16_=_ASTNODE_礎:1.0__OPAQUE_礎_11_) + "\n")
+
+// POLYMORPHIC_JCROSS_END

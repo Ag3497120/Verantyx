@@ -1,0 +1,87 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E5216026 ver:1778166418
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_沫:1.0__SYM_沫_31_ _JCROSS_沫:1.0__SYM_沫_60_::_JCROSS_沫:1.0__SYM_沫_70_::_JCROSS_廩:1.0__SYM_廩_30_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_沫:1.0__SYM_沫_33_ enum _JCROSS_廩:1.0__SYM_廩_25_ { _JCROSS_廩:1.0__SYM_廩_33_, _JCROSS_廩:1.0__SYM_廩_22_ }
+
+// [metadata-stripped]
+_JCROSS_沫:1.0__SYM_沫_33_ struct _JCROSS_廩:1.0__SYM_廩_17_ {
+    _JCROSS_沫:1.0__SYM_沫_33_ _JCROSS_沫:1.0__SYM_沫_83_: _JCROSS_廩:1.0__SYM_廩_25_,
+    _JCROSS_沫:1.0__SYM_沫_33_ _JCROSS_沫:1.0__SYM_沫_3_: _JCROSS_沫:1.0__SYM_沫_55_,
+// _JCROSS_縞:0.9__SYM_HW_705_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+_JCROSS_沫:1.0__SYM_沫_33_ struct _JCROSS_廩:1.0__SYM_廩_11_ {
+    _JCROSS_沫:1.0__SYM_沫_33_ _JCROSS_沫:1.0__SYM_沫_34_: _JCROSS_廩:1.0__SYM_廩_17_,
+    _JCROSS_沫:1.0__SYM_沫_33_ _JCROSS_沫:1.0__SYM_沫_1_: _JCROSS_沫:1.0__SYM_沫_35_,
+}
+
+_JCROSS_沫:1.0__SYM_沫_2_ _JCROSS_廩:1.0__SYM_廩_11_ {
+    _JCROSS_沫:1.0__SYM_沫_33_ fn _JCROSS_沫:1.0__SYM_沫_16_() -> _JCROSS_廩:1.0__SYM_廩_41_ {
+        _JCROSS_廩:1.0__SYM_廩_41_ {
+            _JCROSS_沫:1.0__SYM_沫_34_: _JCROSS_廩:1.0__SYM_廩_17_ {
+                _JCROSS_沫:1.0__SYM_沫_83_: _JCROSS_廩:1.0__SYM_廩_25_::_JCROSS_廩:1.0__SYM_廩_33_,
+                _JCROSS_沫:1.0__SYM_沫_3_: 0.0,
+            },
+            _JCROSS_沫:1.0__SYM_沫_1_: 0,
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_沫:1.0__SYM_沫_33_ fn _JCROSS_沫:1.0__SYM_沫_69_(&_JCROSS_沫:1.0__SYM_沫_68_ self, _JCROSS_沫:1.0__SYM_沫_17_: _JCROSS_沫:1.0__SYM_沫_55_, _JCROSS_沫:1.0__SYM_沫_14_: _JCROSS_沫:1.0__SYM_沫_55_) -> _JCROSS_沫:1.0__SYM_沫_55_ {
+        if self._JCROSS_沫:1.0__SYM_沫_34_._JCROSS_沫:1.0__SYM_沫_83_ == _JCROSS_廩:1.0__SYM_廩_25_::_JCROSS_廩:1.0__SYM_廩_33_ {
+            return _JCROSS_沫:1.0__SYM_沫_17_; // _JCROSS_廩:1.0__SYM_廩_45_ _JCROSS_沫:1.0__SYM_沫_43_ _JCROSS_沫:1.0__SYM_沫_58_
+        }
+        
+// _JCROSS_要:0.5__SYM_WE_889_ [decoy-metadata]
+        let r = self._JCROSS_沫:1.0__SYM_沫_34_._JCROSS_沫:1.0__SYM_沫_3_;
+// [metadata-stripped]
+        let _JCROSS_要:1.0__SYM_沫_51_ = (_JCROSS_沫:1.0__SYM_沫_14_ - r)._JCROSS_沫:1.0__SYM_沫_22_();
+// _JCROSS_廩:0.3__SYM_HB_534_ [decoy-metadata]
+        
+        if _JCROSS_要:1.0__SYM_沫_51_ >= r {
+             self._JCROSS_沫:1.0__SYM_沫_1_ += 1;
+             return 0.0; // _JCROSS_廩:1.0__SYM_廩_37_ of _JCROSS_沫:1.0__SYM_沫_72_ of _JCROSS_沫:1.0__SYM_沫_74_ _JCROSS_沫:1.0__SYM_沫_15_ _JCROSS_沫:1.0__SYM_沫_49_
+        }
+        
+// [metadata-stripped]
+        let _JCROSS_沫:1.0__SYM_沫_7_ = 2.0 * (r * r - _JCROSS_要:1.0__SYM_沫_51_ * _JCROSS_要:1.0__SYM_沫_51_)._JCROSS_沫:1.0__SYM_沫_45_();
+        
+        if _JCROSS_沫:1.0__SYM_沫_7_ < _JCROSS_沫:1.0__SYM_沫_17_ {
+             self._JCROSS_沫:1.0__SYM_沫_1_ += 1;
+             return _JCROSS_沫:1.0__SYM_沫_7_;
+// _JCROSS_匵:0.1__SYM_ZH_209_ [decoy-metadata]
+        }
+        
+// _JCROSS_要:0.9__SYM_HE_318_ [decoy-metadata]
+        _JCROSS_沫:1.0__SYM_沫_17_
+    }
+
+// [metadata-stripped]
+    _JCROSS_沫:1.0__SYM_沫_33_ fn _JCROSS_沫:1.0__SYM_沫_50_(&self) -> _JCROSS_沫:1.0__SYM_沫_19_ {
+        self._JCROSS_沫:1.0__SYM_沫_34_._JCROSS_沫:1.0__SYM_沫_83_ == _JCROSS_廩:1.0__SYM_廩_25_::_JCROSS_廩:1.0__SYM_廩_22_
+    }
+
+// [metadata-stripped]
+// _JCROSS_匵:0.8__SYM_WF_327_ [decoy-metadata]
+    _JCROSS_沫:1.0__SYM_沫_33_ fn _JCROSS_沫:1.0__SYM_沫_77_(&self) -> _JCROSS_廩:1.0__SYM_廩_6_ {
+        _JCROSS_潤:1.0__SYM_沫_82_!("⌚ _JCROSS_廩:1.0__SYM_廩_20_ _JCROSS_廩:1.0__SYM_廩_22_ _JCROSS_廩:1.0__SYM_廩_15_ 1: _JCROSS_廩:1.0__SYM_廩_39_ _JCROSS_廩:1.0__SYM_廩_29_: {:?} | _JCROSS_廩:1.0__SYM_廩_36_ _JCROSS_廩:1.0__SYM_廩_19_ _JCROSS_廩:1.0__SYM_廩_12_: {}px | _JCROSS_廩:1.0__SYM_廩_47_ _JCROSS_廩:1.0__SYM_廩_31_ _JCROSS_廩:1.0__SYM_廩_14_ _JCROSS_廩:1.0__SYM_廩_5_: {}", 
+            self._JCROSS_沫:1.0__SYM_沫_34_._JCROSS_沫:1.0__SYM_沫_83_, self._JCROSS_沫:1.0__SYM_沫_34_._JCROSS_沫:1.0__SYM_沫_3_, self._JCROSS_沫:1.0__SYM_沫_1_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

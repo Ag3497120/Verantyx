@@ -1,0 +1,110 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1E259727 ver:1778150660
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_廊:1.0___ast_廊_5__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _OPAQUE_廊:1.0___ast_廊_6__: _OPAQUE_廊:1.0___ast_廊_4__ {
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_17__(_OPAQUE_霩:1.0___ast_霩_26__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_3__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_51__: _OPAQUE_廊:1.0___ast_廊_8__)
+
+// [metadata-stripped]
+// [metadata-stripped]
+    case _OPAQUE_蔵:1.0___ast_霩_39__(_OPAQUE_霩:1.0___ast_霩_24__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_55__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_1__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_14__: _OPAQUE_廊:1.0___ast_廊_8__)
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_19__(_OPAQUE_霩:1.0___ast_霩_24__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_20__: _OPAQUE_廊:1.0___ast_廊_7__, _OPAQUE_霩:1.0___ast_霩_53__: [_OPAQUE_廊:1.0___ast_廊_8__])
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_25__(_OPAQUE_謀:1.0___ast_霩_22__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_55__: _OPAQUE_廊:1.0___ast_廊_8__)
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_42__([_OPAQUE_廊:1.0___ast_廊_17__])
+
+// [metadata-stripped]
+    case _OPAQUE_縫:1.0___ast_霩_48__(_OPAQUE_霩:1.0___ast_霩_24__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_56__: _OPAQUE_廊:1.0___ast_廊_8__)
+
+// [metadata-stripped]
+    case _OPAQUE_蔵:1.0___ast_霩_7__(_OPAQUE_霩:1.0___ast_霩_24__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_55__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_1__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_54__: _OPAQUE_廊:1.0___ast_廊_7__)
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_34__([_OPAQUE_廊:1.0___ast_廊_17__])
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_2__(_OPAQUE_霩:1.0___ast_霩_37__: _OPAQUE_廊:1.0___ast_廊_8__)
+
+// [metadata-stripped]
+    case _OPAQUE_霩:1.0___ast_霩_58__(_OPAQUE_霩:1.0___ast_霩_24__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_52__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_霩:1.0___ast_霩_8__: _OPAQUE_廊:1.0___ast_廊_8__)
+}
+
+// [metadata-stripped]
+
+struct _OPAQUE_廊:1.0___ast_廊_17__: _OPAQUE_廊:1.0___ast_廊_4__, _OPAQUE_廊:1.0___ast_廊_9__ {
+    let id: _OPAQUE_廊:1.0___ast_廊_8__
+    let _OPAQUE_霩:1.0___ast_霩_44__: _OPAQUE_廊:1.0___ast_廊_14__
+    let _OPAQUE_霩:1.0___ast_霩_38__: _OPAQUE_廊:1.0___ast_廊_8__        // 対象ファイルパス
+    let _OPAQUE_霩:1.0___ast_霩_21__: _OPAQUE_廊:1.0___ast_廊_8__?       // 変換元 (変換タスクの場合)
+    let _OPAQUE_霩:1.0___ast_霩_40__: _OPAQUE_廊:1.0___ast_廊_8__       // _OPAQUE_廊:1.0___ast_廊_10__が作った説明
+    let _OPAQUE_霩:1.0___ast_霩_41__: [_OPAQUE_廊:1.0___ast_廊_8__]       // 依存するTodoのid
+    var _OPAQUE_霩:1.0___ast_霩_5__: _OPAQUE_廊:1.0___ast_廊_11__
+
+    enum _OPAQUE_廊:1.0___ast_廊_14__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_廊:1.0___ast_廊_4__ {
+// _OPAQUE_渕:0.6___ast_HY_804__ [decoy-metadata]
+        case _OPAQUE_蔵:1.0___ast_霩_31__     // 新規ファイル作成
+        case _OPAQUE_蔵:1.0___ast_霩_30__     // 既存ファイル変更
+        case _OPAQUE_蔵:1.0___ast_霩_13__     // ファイル削除
+        case _OPAQUE_泡:1.0___ast_霩_16__    // ビルド検証のみ
+        case _OPAQUE_霩:1.0___ast_霩_28__        // テスト実行
+    }
+
+    enum _OPAQUE_廊:1.0___ast_廊_11__: _OPAQUE_廊:1.0___ast_廊_8__, _OPAQUE_廊:1.0___ast_廊_4__ {
+        case _OPAQUE_霩:1.0___ast_霩_6__, _OPAQUE_霩:1.0___ast_霩_9__, _OPAQUE_霩:1.0___ast_霩_18__, _OPAQUE_霩:1.0___ast_霩_45__, _OPAQUE_霩:1.0___ast_霩_29__, _OPAQUE_霩:1.0___ast_霩_12__
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+actor _OPAQUE_廊:1.0___ast_廊_13__ {
+
+    private var _OPAQUE_霩:1.0___ast_霩_43__: [_OPAQUE_廊:1.0___ast_廊_6__] = []
+    private var _OPAQUE_霩:1.0___ast_霩_32__: [_OPAQUE_廊:1.0___ast_廊_6__] = []
+// _OPAQUE_燦:0.4___ast_AB_965__ [decoy-metadata]
+// _OPAQUE_縫:0.8___ast_KC_607__ [decoy-metadata]
+
+// _OPAQUE_廊:0.2___ast_BX_579__ [decoy-metadata]
+// [metadata-stripped]
+    func _OPAQUE_霩:1.0___ast_霩_35__(_ _OPAQUE_霩:1.0___ast_霩_33__: _OPAQUE_廊:1.0___ast_廊_6__) { _OPAQUE_霩:1.0___ast_霩_43__._OPAQUE_霩:1.0___ast_霩_46__(_OPAQUE_霩:1.0___ast_霩_33__) }
+    func _OPAQUE_霩:1.0___ast_霩_10__(_ _OPAQUE_霩:1.0___ast_霩_33__: _OPAQUE_廊:1.0___ast_廊_6__) { _OPAQUE_霩:1.0___ast_霩_32__._OPAQUE_霩:1.0___ast_霩_46__(_OPAQUE_霩:1.0___ast_霩_33__) }
+
+// [metadata-stripped]
+    func _OPAQUE_泡:1.0___ast_霩_47__() -> _OPAQUE_廊:1.0___ast_廊_6__? {
+        guard !_OPAQUE_霩:1.0___ast_霩_43__._OPAQUE_霩:1.0___ast_霩_50__ else { return nil }
+// _OPAQUE_廊:0.8___ast_WA_858__ [decoy-metadata]
+        return _OPAQUE_霩:1.0___ast_霩_43__._OPAQUE_霩:1.0___ast_霩_23__()
+    }
+
+// _OPAQUE_謀:0.9___ast_KK_435__ [decoy-metadata]
+    func _OPAQUE_泡:1.0___ast_霩_4__() -> _OPAQUE_廊:1.0___ast_廊_6__? {
+        guard !_OPAQUE_霩:1.0___ast_霩_32__._OPAQUE_霩:1.0___ast_霩_50__ else { return nil }
+        return _OPAQUE_霩:1.0___ast_霩_32__._OPAQUE_霩:1.0___ast_霩_23__()
+    }
+
+    func _OPAQUE_泡:1.0___ast_霩_36__() -> _OPAQUE_廊:1.0___ast_廊_7__ { !_OPAQUE_霩:1.0___ast_霩_43__._OPAQUE_霩:1.0___ast_霩_50__ }
+    func _OPAQUE_泡:1.0___ast_霩_49__() -> _OPAQUE_廊:1.0___ast_廊_7__ { !_OPAQUE_霩:1.0___ast_霩_32__._OPAQUE_霩:1.0___ast_霩_50__ }
+    func _OPAQUE_霩:1.0___ast_霩_11__() { _OPAQUE_霩:1.0___ast_霩_43__._OPAQUE_霩:1.0___ast_霩_57__(); _OPAQUE_霩:1.0___ast_霩_32__._OPAQUE_霩:1.0___ast_霩_57__() }
+}
+
+// POLYMORPHIC_JCROSS_END

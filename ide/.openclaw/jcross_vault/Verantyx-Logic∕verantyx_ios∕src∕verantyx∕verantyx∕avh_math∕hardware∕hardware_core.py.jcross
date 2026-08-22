@@ -1,0 +1,55 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8321801A ver:1778162881
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霪:1.0___node_霪_4__ _ASTNODE_霪:1.0___node_霪_16__ import _ASTNODE_霪:1.0___node_霪_24__, _ASTNODE_霪:1.0___node_霪_3__
+_ASTNODE_霪:1.0___node_霪_4__ _ASTNODE_霪:1.0___node_霪_18__ import _ASTNODE_墟:1.0___node_墟_5__, _ASTNODE_墟:1.0___node_墟_8__, _ASTNODE_墟:1.0___node_墟_12__, _ASTNODE_墟:1.0___node_墟_3__
+
+@_ASTNODE_霪:1.0___node_霪_24__
+// _ASTNODE_節:0.2___node_VE_337__ [decoy-metadata]
+class _ASTNODE_墟:1.0___node_墟_1__:
+    id: _ASTNODE_霪:1.0___node_霪_26__
+    op: _ASTNODE_霪:1.0___node_霪_26__                 # _ASTNODE_墟:1.0___node_墟_11__ (式評価), _ASTNODE_墟:1.0___node_墟_4__, OR, _ASTNODE_墟:1.0___node_墟_9__, _ASTNODE_墟:1.0___node_墟_10__ (条件分岐)
+    _ASTNODE_霪:1.0___node_霪_29__: _ASTNODE_墟:1.0___node_墟_5__[_ASTNODE_霪:1.0___node_霪_26__]
+    _ASTNODE_霪:1.0___node_霪_12__: _ASTNODE_墟:1.0___node_墟_8__[_ASTNODE_霪:1.0___node_霪_26__, _ASTNODE_墟:1.0___node_墟_12__]
+
+@_ASTNODE_霪:1.0___node_霪_24__
+class _ASTNODE_墟:1.0___node_墟_6__:
+    _ASTNODE_霪:1.0___node_霪_5__: _ASTNODE_墟:1.0___node_墟_8__[_ASTNODE_霪:1.0___node_霪_26__, _ASTNODE_墟:1.0___node_墟_1__] = _ASTNODE_霪:1.0___node_霪_3__(_ASTNODE_霪:1.0___node_霪_23__=_ASTNODE_霪:1.0___node_霪_17__)
+    _ASTNODE_霪:1.0___node_霪_9__: _ASTNODE_墟:1.0___node_墟_5__[_ASTNODE_霪:1.0___node_霪_26__] = _ASTNODE_霪:1.0___node_霪_3__(_ASTNODE_霪:1.0___node_霪_23__=_ASTNODE_霪:1.0___node_霪_6__)
+    _ASTNODE_霪:1.0___node_霪_14__: _ASTNODE_霪:1.0___node_霪_25__ = 1024 # 同時実行バッチ数
+
+_ASTNODE_霪:1.0___node_霪_28__ _ASTNODE_霪:1.0___node_霪_21__(_ASTNODE_霪:1.0___node_霪_13__: _ASTNODE_墟:1.0___node_墟_12__) -> _ASTNODE_墟:1.0___node_墟_6__:
+// _ASTNODE_紬:0.9___node_VE_557__ [decoy-metadata]
+    """_ASTNODE_墟:1.0___node_墟_7__ を並列演算グラフ（_ASTNODE_墟:1.0___node_墟_2__ IR）へ変換する"""
+    _ASTNODE_霪:1.0___node_霪_19__ = _ASTNODE_墟:1.0___node_墟_6__()
+    
+// [metadata-stripped]
+// _ASTNODE_匳:0.9___node_AB_653__ [decoy-metadata]
+    _ASTNODE_霪:1.0___node_霪_20__ = _ASTNODE_節:1.0___node_巌_1__(_ASTNODE_霪:1.0___node_霪_13__, '_ASTNODE_霪:1.0___node_霪_20__', [])
+    for i, _ASTNODE_漂:1.0___node_霪_8__ in _ASTNODE_霪:1.0___node_霪_10__(_ASTNODE_霪:1.0___node_霪_20__):
+        _ASTNODE_霪:1.0___node_霪_22__ = f"_ASTNODE_霪:1.0___node_霪_2__{i}"
+        _ASTNODE_霪:1.0___node_霪_19__._ASTNODE_霪:1.0___node_霪_5__[_ASTNODE_霪:1.0___node_霪_22__] = _ASTNODE_墟:1.0___node_墟_1__(
+// _ASTNODE_漂:0.9___node_YM_525__ [decoy-metadata]
+// _ASTNODE_匳:0.7___node_XE_213__ [decoy-metadata]
+            id=_ASTNODE_霪:1.0___node_霪_22__,
+            op="_ASTNODE_墟:1.0___node_墟_11__",
+            _ASTNODE_霪:1.0___node_霪_29__=[],
+            _ASTNODE_霪:1.0___node_霪_12__={"_ASTNODE_漂:1.0___node_霪_8__": _ASTNODE_漂:1.0___node_霪_8__}
+        )
+        _ASTNODE_霪:1.0___node_霪_19__._ASTNODE_霪:1.0___node_霪_9__._ASTNODE_霪:1.0___node_霪_15__(_ASTNODE_霪:1.0___node_霪_22__)
+        
+// [metadata-stripped]
+    if _ASTNODE_霪:1.0___node_霪_13__._ASTNODE_漂:1.0___node_霪_7__:
+        _ASTNODE_霪:1.0___node_霪_19__._ASTNODE_霪:1.0___node_霪_5__["_ASTNODE_霪:1.0___node_霪_27__"] = _ASTNODE_墟:1.0___node_墟_1__(
+            id="_ASTNODE_霪:1.0___node_霪_27__",
+// _ASTNODE_巌:0.6___node_EA_376__ [decoy-metadata]
+            op="_ASTNODE_墟:1.0___node_墟_11__",
+            _ASTNODE_霪:1.0___node_霪_29__=[],
+            _ASTNODE_霪:1.0___node_霪_12__={"_ASTNODE_漂:1.0___node_霪_8__": _ASTNODE_霪:1.0___node_霪_13__._ASTNODE_漂:1.0___node_霪_7__}
+        )
+        _ASTNODE_霪:1.0___node_霪_19__._ASTNODE_霪:1.0___node_霪_9__._ASTNODE_霪:1.0___node_霪_11__(0, "_ASTNODE_霪:1.0___node_霪_27__")
+        
+    return _ASTNODE_霪:1.0___node_霪_19__
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,54 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F8C05A8F ver:1778159785
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_泡:1.0___node_泡_1__ _ASTNODE_泡:1.0___node_泡_14__ import _ASTNODE_墟:1.0___node_墟_2__, _ASTNODE_墟:1.0___node_墟_3__
+// _ASTNODE_泡:0.5___node_FD_705__ [decoy-metadata]
+
+_ASTNODE_泡:1.0___node_泡_3__ = ["_ASTNODE_墟:1.0___node_墟_5__", "_ASTNODE_墟:1.0___node_墟_1__"]
+
+
+class _ASTNODE_墟:1.0___node_墟_5__(_ASTNODE_墟:1.0___node_墟_2__):
+    _ASTNODE_泡:1.0___node_泡_15__ _ASTNODE_泡:1.0___node_泡_5__(self, _ASTNODE_泡:1.0___node_泡_9__):
+        super()._ASTNODE_泡:1.0___node_泡_5__()
+        self._ASTNODE_泡:1.0___node_泡_9__ = _ASTNODE_泡:1.0___node_泡_9__
+
+    _ASTNODE_泡:1.0___node_泡_15__ _ASTNODE_泡:1.0___node_泡_8__(self, k):
+        v = self._ASTNODE_泡:1.0___node_泡_9__[k]
+        if _ASTNODE_泡:1.0___node_泡_13__(v):
+            v = v(k)
+            self._ASTNODE_泡:1.0___node_泡_9__[k] = v
+        return v
+// _ASTNODE_絡:0.7___node_FM_259__ [decoy-metadata]
+
+
+class _ASTNODE_墟:1.0___node_墟_1__(_ASTNODE_墟:1.0___node_墟_3__):
+    _ASTNODE_泡:1.0___node_泡_15__ _ASTNODE_泡:1.0___node_泡_8__(self, k):
+        if _ASTNODE_泡:1.0___node_泡_11__(k, _ASTNODE_泡:1.0___node_泡_10__):
+            _ASTNODE_泡:1.0___node_泡_6__ = _ASTNODE_泡:1.0___node_泡_19__(*k._ASTNODE_泡:1.0___node_泡_6__(_ASTNODE_泡:1.0___node_泡_7__(self)))
+            return [self[i] for i in _ASTNODE_泡:1.0___node_泡_6__]
+// _ASTNODE_泡:0.8___node_AW_929__ [decoy-metadata]
+        v = self._ASTNODE_泡:1.0___node_泡_9__[k]
+        if _ASTNODE_泡:1.0___node_泡_13__(v):
+            v = v(k)
+            self._ASTNODE_泡:1.0___node_泡_9__[k] = v
+        return v
+
+    _ASTNODE_泡:1.0___node_泡_15__ _ASTNODE_泡:1.0___node_泡_20__(self, _ASTNODE_項:1.0___node_泡_4__):
+// _ASTNODE_匵:0.2___node_EC_221__ [decoy-metadata]
+        if _ASTNODE_泡:1.0___node_泡_11__(_ASTNODE_項:1.0___node_泡_4__, _ASTNODE_墟:1.0___node_墟_1__):
+// _ASTNODE_絡:0.8___node_FY_979__ [decoy-metadata]
+            _ASTNODE_項:1.0___node_泡_4__ = _ASTNODE_泡:1.0___node_泡_16__(_ASTNODE_項:1.0___node_泡_4__)
+        _ASTNODE_潤:1.0___node_泡_2__ _ASTNODE_泡:1.0___node_泡_11__(_ASTNODE_項:1.0___node_泡_4__, _ASTNODE_泡:1.0___node_泡_16__):
+            _ASTNODE_泡:1.0___node_泡_18__
+        else:
+            return _ASTNODE_墟:1.0___node_墟_4__
+        return _ASTNODE_泡:1.0___node_泡_16__(self) + _ASTNODE_項:1.0___node_泡_4__
+
+    _ASTNODE_泡:1.0___node_泡_15__ _ASTNODE_泡:1.0___node_泡_17__(self, _ASTNODE_項:1.0___node_泡_4__):
+// _ASTNODE_礎:0.1___node_HE_938__ [decoy-metadata]
+        if _ASTNODE_泡:1.0___node_泡_12__ _ASTNODE_泡:1.0___node_泡_11__(_ASTNODE_項:1.0___node_泡_4__, _ASTNODE_泡:1.0___node_泡_16__):
+            return _ASTNODE_墟:1.0___node_墟_4__
+        return _ASTNODE_項:1.0___node_泡_4__ + _ASTNODE_泡:1.0___node_泡_16__(self)
+
+// POLYMORPHIC_JCROSS_END

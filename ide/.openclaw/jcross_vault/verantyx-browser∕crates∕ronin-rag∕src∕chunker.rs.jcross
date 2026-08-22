@@ -1,0 +1,52 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:37EE1DA2 ver:1778158438
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霮:1.0___ast_霮_4__ _ASTNODE_霮:1.0___ast_霮_10__::{_ASTNODE_霮:1.0___ast_霮_19__, _ASTNODE_霮:1.0___ast_霮_42__};
+
+_ASTNODE_霮:1.0___ast_霮_34__ _ASTNODE_霮:1.0___ast_霮_35__uct _ASTNODE_式:1.0___ast_廂_1__ {
+    _ASTNODE_霮:1.0___ast_霮_41__: _ASTNODE_霮:1.0___ast_霮_22__,
+    _ASTNODE_霮:1.0___ast_霮_25__: _ASTNODE_霮:1.0___ast_霮_22__,
+}
+
+// _ASTNODE_核:0.5___ast_VV_984__ [decoy-metadata]
+_ASTNODE_霮:1.0___ast_霮_12__ _ASTNODE_式:1.0___ast_廂_1__ {
+    _ASTNODE_霮:1.0___ast_霮_34__ _ASTNODE_霮:1.0___ast_霮_18__ fn _ASTNODE_霮:1.0___ast_霮_24__(_ASTNODE_霮:1.0___ast_霮_41__: _ASTNODE_霮:1.0___ast_霮_22__, _ASTNODE_霮:1.0___ast_霮_25__: _ASTNODE_霮:1.0___ast_霮_22__) -> _ASTNODE_廂:1.0___ast_廂_9__ {
+        _ASTNODE_廂:1.0___ast_廂_9__ { _ASTNODE_霮:1.0___ast_霮_41__, _ASTNODE_霮:1.0___ast_霮_25__ }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _ASTNODE_霮:1.0___ast_霮_34__ fn _ASTNODE_霮:1.0___ast_霮_6__(&self, _ASTNODE_函:1.0___ast_霮_40__: &_ASTNODE_霮:1.0___ast_霮_35__) -> _ASTNODE_廂:1.0___ast_廂_2__<_ASTNODE_廂:1.0___ast_廂_4__> {
+        let _ASTNODE_霮:1.0___ast_霮_1__ _ASTNODE_霮:1.0___ast_霮_32__ = _ASTNODE_廂:1.0___ast_廂_2__::_ASTNODE_霮:1.0___ast_霮_24__();
+        let _ASTNODE_霮:1.0___ast_霮_29__: _ASTNODE_廂:1.0___ast_廂_2__<_ASTNODE_霮:1.0___ast_霮_3__> = _ASTNODE_函:1.0___ast_霮_40__._ASTNODE_霮:1.0___ast_霮_29__()._ASTNODE_霮:1.0___ast_霮_44__();
+        let _ASTNODE_霮:1.0___ast_霮_14__ = _ASTNODE_霮:1.0___ast_霮_29__._ASTNODE_霮:1.0___ast_霮_14__();
+        
+        if _ASTNODE_霮:1.0___ast_霮_14__ == 0 {
+// _ASTNODE_幽:0.3___ast_FY_306__ [decoy-metadata]
+// _ASTNODE_幽:0.1___ast_FG_827__ [decoy-metadata]
+            return _ASTNODE_霮:1.0___ast_霮_32__;
+        }
+        
+        let _ASTNODE_霮:1.0___ast_霮_1__ i = 0;
+        while i < _ASTNODE_霮:1.0___ast_霮_14__ {
+            let _ASTNODE_霮:1.0___ast_霮_43__ = _ASTNODE_霮:1.0___ast_霮_16__::_ASTNODE_霮:1.0___ast_霮_9__::_ASTNODE_霮:1.0___ast_霮_23__(i + self._ASTNODE_霮:1.0___ast_霮_41__, _ASTNODE_霮:1.0___ast_霮_14__);
+// _ASTNODE_廂:0.6___ast_GA_765__ [decoy-metadata]
+            let _ASTNODE_霮:1.0___ast_霮_8__: _ASTNODE_廂:1.0___ast_廂_4__ = _ASTNODE_霮:1.0___ast_霮_29__[i.._ASTNODE_霮:1.0___ast_霮_43__]._ASTNODE_式:1.0___ast_霮_36__()._ASTNODE_霮:1.0___ast_霮_44__();
+            _ASTNODE_霮:1.0___ast_霮_32__._ASTNODE_霮:1.0___ast_霮_7__(_ASTNODE_霮:1.0___ast_霮_8__);
+// _ASTNODE_式:0.8___ast_YH_195__ [decoy-metadata]
+            
+            if _ASTNODE_霮:1.0___ast_霮_43__ == _ASTNODE_霮:1.0___ast_霮_14__ {
+// _ASTNODE_函:0.1___ast_CM_986__ [decoy-metadata]
+                break;
+            }
+// [metadata-stripped]
+            i = _ASTNODE_霮:1.0___ast_霮_43__ - self._ASTNODE_霮:1.0___ast_霮_25__;
+        }
+
+        _ASTNODE_霮:1.0___ast_霮_42__!("[_ASTNODE_廂:1.0___ast_廂_3__ _ASTNODE_式:1.0___ast_廂_7__] _ASTNODE_廂:1.0___ast_廂_8__ _ASTNODE_霮:1.0___ast_霮_33__ _ASTNODE_霮:1.0___ast_霮_26__ {} _ASTNODE_霮:1.0___ast_霮_32__ (_ASTNODE_霮:1.0___ast_霮_39__: {}, _ASTNODE_霮:1.0___ast_霮_25__: {})", _ASTNODE_霮:1.0___ast_霮_32__._ASTNODE_霮:1.0___ast_霮_14__(), self._ASTNODE_霮:1.0___ast_霮_41__, self._ASTNODE_霮:1.0___ast_霮_25__);
+        _ASTNODE_霮:1.0___ast_霮_32__
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

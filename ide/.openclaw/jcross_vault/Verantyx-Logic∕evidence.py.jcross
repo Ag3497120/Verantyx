@@ -1,0 +1,61 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B1A0EC4B ver:1778162953
+// __ast_浪:0.2____node_CZ_438__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+__ast_雰:1.0____node_雰_33__ __ast_雰:1.0____node_雰_38__ import __ast_雰:1.0____node_雰_32__
+__ast_雰:1.0____node_雰_33__ __ast_雰:1.0____node_雰_14__ import __ast_雰:1.0____node_雰_4__
+__ast_雰:1.0____node_雰_33__ __ast_雰:1.0____node_雰_22__ import __ast_廨:1.0____node_廨_6__, __ast_廨:1.0____node_廨_9__, __ast_廨:1.0____node_廨_2__
+
+
+// __ast_計:0.4____node_KL_949__ [decoy-metadata]
+@__ast_雰:1.0____node_雰_4__(__ast_雰:1.0____node_雰_15__=__ast_廨:1.0____node_廨_1__)
+class __ast_廨:1.0____node_廨_8__:
+    __ast_雰:1.0____node_雰_39__: __ast_雰:1.0____node_雰_45__
+    __ast_雰:1.0____node_雰_31__: __ast_雰:1.0____node_雰_45__
+    __ast_雰:1.0____node_雰_24__: __ast_雰:1.0____node_雰_27__
+// __ast_計:0.9____node_ZM_317__ [decoy-metadata]
+
+
+__ast_雰:1.0____node_雰_7__ __ast_雰:1.0____node_雰_19__(__ast_雰:1.0____node_雰_24__: __ast_雰:1.0____node_雰_27__, __ast_雰:1.0____node_雰_46__: __ast_廨:1.0____node_廨_9__[__ast_雰:1.0____node_雰_27__]) -> __ast_廨:1.0____node_廨_9__[__ast_廨:1.0____node_廨_8__]:
+    """
+    超軽量: __ast_雰:1.0____node_雰_46__ の出現を拾う（単純な__ast_雰:1.0____node_雰_2__）
+    """
+    __ast_雰:1.0____node_雰_16__: __ast_廨:1.0____node_廨_9__[__ast_廨:1.0____node_廨_8__] = []
+    __ast_雰:1.0____node_雰_40__ = __ast_雰:1.0____node_雰_24__.__ast_計:1.0____node_雰_44__()
+    for __ast_雰:1.0____node_雰_11__ in __ast_雰:1.0____node_雰_46__:
+        if __ast_雰:1.0____node_雰_29__ __ast_雰:1.0____node_雰_11__: continue
+        __ast_計:1.0____node_雰_36__ = __ast_雰:1.0____node_雰_11__.__ast_計:1.0____node_雰_44__()
+        __ast_雰:1.0____node_雰_28__ = __ast_雰:1.0____node_雰_40__.__ast_雰:1.0____node_雰_2__(__ast_計:1.0____node_雰_36__)
+// [metadata-stripped]
+// [metadata-stripped]
+        while __ast_雰:1.0____node_雰_28__ >= 0:
+            __ast_雰:1.0____node_雰_16__.__ast_雰:1.0____node_雰_25__(__ast_廨:1.0____node_廨_8__(__ast_雰:1.0____node_雰_39__=__ast_雰:1.0____node_雰_28__, __ast_雰:1.0____node_雰_31__=__ast_雰:1.0____node_雰_28__ + __ast_雰:1.0____node_雰_41__(__ast_雰:1.0____node_雰_11__), __ast_雰:1.0____node_雰_24__=__ast_雰:1.0____node_雰_24__[__ast_雰:1.0____node_雰_28__:__ast_雰:1.0____node_雰_28__+__ast_雰:1.0____node_雰_41__(__ast_雰:1.0____node_雰_11__)]))
+            __ast_雰:1.0____node_雰_28__ = __ast_雰:1.0____node_雰_40__.__ast_雰:1.0____node_雰_2__(__ast_計:1.0____node_雰_36__, __ast_雰:1.0____node_雰_28__ + 1)
+    return __ast_雰:1.0____node_雰_16__
+
+
+// __ast_冥:0.9____node_EY_293__ [decoy-metadata]
+// __ast_雰:0.4____node_CG_232__ [decoy-metadata]
+__ast_雰:1.0____node_雰_7__ __ast_雰:1.0____node_雰_13__(
+    __ast_雰:1.0____node_雰_6__: __ast_廨:1.0____node_廨_6__[__ast_雰:1.0____node_雰_27__, __ast_廨:1.0____node_廨_9__[__ast_廨:1.0____node_廨_8__]],
+// __ast_匱:0.1____node_VZ_139__ [decoy-metadata]
+    __ast_雰:1.0____node_雰_37__: __ast_廨:1.0____node_廨_6__[__ast_雰:1.0____node_雰_27__, __ast_廨:1.0____node_廨_9__[__ast_廨:1.0____node_廨_8__]],
+) -> __ast_廨:1.0____node_廨_6__[__ast_雰:1.0____node_雰_27__, __ast_廨:1.0____node_廨_9__[__ast_廨:1.0____node_廨_8__]]:
+    __ast_雰:1.0____node_雰_21__ = {k: __ast_雰:1.0____node_雰_12__(v) for k, v in __ast_雰:1.0____node_雰_6__.__ast_雰:1.0____node_雰_18__()}
+    for k, __ast_雰:1.0____node_雰_16__ in __ast_雰:1.0____node_雰_37__.__ast_雰:1.0____node_雰_18__():
+        __ast_雰:1.0____node_雰_21__.__ast_計:1.0____node_碑_2__(k, [])
+        __ast_雰:1.0____node_雰_21__[k].__ast_雰:1.0____node_雰_26__(__ast_雰:1.0____node_雰_16__)
+// [metadata-stripped]
+        __ast_雰:1.0____node_雰_42__ = __ast_計:1.0____node_碑_1__()
+        __ast_雰:1.0____node_雰_8__ = []
+// [metadata-stripped]
+        for s in __ast_雰:1.0____node_雰_17__(__ast_雰:1.0____node_雰_21__[k], __ast_冥:1.0____node_雰_20__=__ast_雰:1.0____node_雰_43__ x: (x.__ast_雰:1.0____node_雰_39__, x.__ast_雰:1.0____node_雰_31__)):
+            __ast_冥:1.0____node_雰_20__ = (s.__ast_雰:1.0____node_雰_39__, s.__ast_雰:1.0____node_雰_31__)
+            if __ast_冥:1.0____node_雰_20__ in __ast_雰:1.0____node_雰_42__:
+                continue
+            __ast_雰:1.0____node_雰_42__.__ast_雰:1.0____node_雰_37__(__ast_冥:1.0____node_雰_20__)
+            __ast_雰:1.0____node_雰_8__.__ast_雰:1.0____node_雰_25__(s)
+        __ast_雰:1.0____node_雰_21__[k] = __ast_雰:1.0____node_雰_8__
+    return __ast_雰:1.0____node_雰_21__
+// POLYMORPHIC_JCROSS_END

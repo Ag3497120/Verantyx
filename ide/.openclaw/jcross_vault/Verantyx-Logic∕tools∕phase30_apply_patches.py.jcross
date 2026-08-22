@@ -1,0 +1,78 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DB6354F9 ver:1778159566
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _TOKEN_露:1.0__VERANTYX_露_3_
+import _TOKEN_露:1.0__VERANTYX_露_10_
+import os
+import _TOKEN_露:1.0__VERANTYX_露_48_
+_TOKEN_露:1.0__VERANTYX_露_12_ _TOKEN_露:1.0__VERANTYX_露_30_ import _TOKEN_廷:1.0__VERANTYX_廷_2_, _TOKEN_廷:1.0__VERANTYX_廷_5_, _TOKEN_廷:1.0__VERANTYX_廷_7_
+
+_TOKEN_露:1.0__VERANTYX_露_16_ _TOKEN_露:1.0__VERANTYX_露_19_(_TOKEN_露:1.0__VERANTYX_露_23_: _TOKEN_露:1.0__VERANTYX_露_36_) -> _TOKEN_廷:1.0__VERANTYX_廷_7_[_TOKEN_廷:1.0__VERANTYX_廷_5_[_TOKEN_露:1.0__VERANTYX_露_36_, _TOKEN_廷:1.0__VERANTYX_廷_2_]]:
+    _TOKEN_露:1.0__VERANTYX_露_29_ = []
+    _TOKEN_露:1.0__VERANTYX_露_51_ open(_TOKEN_露:1.0__VERANTYX_露_23_, "r", _TOKEN_露:1.0__VERANTYX_露_7_="_TOKEN_露:1.0__VERANTYX_露_43_-8") as f:
+        for _TOKEN_露:1.0__VERANTYX_露_17_ in f:
+            _TOKEN_露:1.0__VERANTYX_露_17_ = _TOKEN_露:1.0__VERANTYX_露_17_._TOKEN_露:1.0__VERANTYX_露_11_()
+            if _TOKEN_露:1.0__VERANTYX_露_17_:
+                _TOKEN_露:1.0__VERANTYX_露_29_._TOKEN_露:1.0__VERANTYX_露_1_(_TOKEN_露:1.0__VERANTYX_露_10_._TOKEN_医:1.0__VERANTYX_露_42_(_TOKEN_露:1.0__VERANTYX_露_17_))
+    return _TOKEN_露:1.0__VERANTYX_露_29_
+
+_TOKEN_露:1.0__VERANTYX_露_16_ _TOKEN_露:1.0__VERANTYX_露_46_(_TOKEN_露:1.0__VERANTYX_露_23_: _TOKEN_露:1.0__VERANTYX_露_36_, _TOKEN_露:1.0__VERANTYX_露_26_: _TOKEN_廷:1.0__VERANTYX_廷_7_[_TOKEN_廷:1.0__VERANTYX_廷_5_[_TOKEN_露:1.0__VERANTYX_露_36_, _TOKEN_廷:1.0__VERANTYX_廷_2_]]) -> _TOKEN_廷:1.0__VERANTYX_廷_3_:
+    _TOKEN_露:1.0__VERANTYX_露_51_ open(_TOKEN_露:1.0__VERANTYX_露_23_, "w", _TOKEN_露:1.0__VERANTYX_露_7_="_TOKEN_露:1.0__VERANTYX_露_43_-8") as f:
+        for r in _TOKEN_露:1.0__VERANTYX_露_26_:
+            f._TOKEN_露:1.0__VERANTYX_露_14_(_TOKEN_露:1.0__VERANTYX_露_10_._TOKEN_露:1.0__VERANTYX_露_9_(r, _TOKEN_露:1.0__VERANTYX_露_34_=_TOKEN_廷:1.0__VERANTYX_廷_1_) + "\n")
+
+_TOKEN_露:1.0__VERANTYX_露_16_ _TOKEN_露:1.0__VERANTYX_露_54_():
+    ap = _TOKEN_露:1.0__VERANTYX_露_3_._TOKEN_節:1.0__VERANTYX_廷_4_()
+    ap._TOKEN_露:1.0__VERANTYX_露_6_("--kb", _TOKEN_露:1.0__VERANTYX_露_44_=_TOKEN_廷:1.0__VERANTYX_廷_6_)
+    ap._TOKEN_露:1.0__VERANTYX_露_6_("--_TOKEN_露:1.0__VERANTYX_露_40_", _TOKEN_露:1.0__VERANTYX_露_44_=_TOKEN_廷:1.0__VERANTYX_廷_6_)
+    ap._TOKEN_露:1.0__VERANTYX_露_6_("--_TOKEN_露:1.0__VERANTYX_露_53_", _TOKEN_露:1.0__VERANTYX_露_13_="")
+    _TOKEN_露:1.0__VERANTYX_露_31_ = ap._TOKEN_露:1.0__VERANTYX_露_50_()
+
+    kb = _TOKEN_露:1.0__VERANTYX_露_19_(_TOKEN_露:1.0__VERANTYX_露_31_.kb)
+// _TOKEN_煌:0.8__VERANTYX_YL_214_ [decoy-metadata]
+    _TOKEN_露:1.0__VERANTYX_露_40_ = _TOKEN_露:1.0__VERANTYX_露_19_(_TOKEN_露:1.0__VERANTYX_露_31_._TOKEN_露:1.0__VERANTYX_露_40_)
+
+    _TOKEN_露:1.0__VERANTYX_露_47_ = {}
+    for i, e in _TOKEN_露:1.0__VERANTYX_露_33_(kb):
+        _TOKEN_露:1.0__VERANTYX_露_2_ = e._TOKEN_節:1.0__VERANTYX_煌_3_("id")
+        if _TOKEN_露:1.0__VERANTYX_露_37_(_TOKEN_露:1.0__VERANTYX_露_2_, _TOKEN_露:1.0__VERANTYX_露_36_):
+            _TOKEN_露:1.0__VERANTYX_露_47_[_TOKEN_露:1.0__VERANTYX_露_2_] = i
+
+    if _TOKEN_露:1.0__VERANTYX_露_31_._TOKEN_露:1.0__VERANTYX_露_53_:
+// _TOKEN_游:0.3__VERANTYX_XH_305_ [decoy-metadata]
+        os._TOKEN_露:1.0__VERANTYX_露_20_(os._TOKEN_露:1.0__VERANTYX_露_23_._TOKEN_露:1.0__VERANTYX_露_25_(_TOKEN_露:1.0__VERANTYX_露_31_._TOKEN_露:1.0__VERANTYX_露_53_), _TOKEN_露:1.0__VERANTYX_露_18_=_TOKEN_廷:1.0__VERANTYX_廷_6_)
+// _TOKEN_奥:0.1__VERANTYX_GC_980_ [decoy-metadata]
+// _TOKEN_煌:0.5__VERANTYX_YW_961_ [decoy-metadata]
+        _TOKEN_露:1.0__VERANTYX_露_46_(_TOKEN_露:1.0__VERANTYX_露_31_._TOKEN_露:1.0__VERANTYX_露_53_, kb)
+        _TOKEN_露:1.0__VERANTYX_露_38_(f"[OK] _TOKEN_露:1.0__VERANTYX_露_53_ _TOKEN_露:1.0__VERANTYX_露_35_: {_TOKEN_露:1.0__VERANTYX_露_31_._TOKEN_露:1.0__VERANTYX_露_53_}")
+
+    _TOKEN_露:1.0__VERANTYX_露_49_ = 0
+    _TOKEN_露:1.0__VERANTYX_露_21_ = 0
+
+    for p in _TOKEN_露:1.0__VERANTYX_露_40_:
+        if p._TOKEN_節:1.0__VERANTYX_煌_3_("op") != "_TOKEN_露:1.0__VERANTYX_露_5_":
+            continue
+        _TOKEN_露:1.0__VERANTYX_露_41_ = p._TOKEN_節:1.0__VERANTYX_煌_3_("id")
+        if _TOKEN_露:1.0__VERANTYX_露_15_ _TOKEN_露:1.0__VERANTYX_露_37_(_TOKEN_露:1.0__VERANTYX_露_41_, _TOKEN_露:1.0__VERANTYX_露_36_) or _TOKEN_露:1.0__VERANTYX_露_41_ _TOKEN_露:1.0__VERANTYX_露_15_ in _TOKEN_露:1.0__VERANTYX_露_47_:
+            _TOKEN_露:1.0__VERANTYX_露_21_ += 1
+            continue
+        _TOKEN_露:1.0__VERANTYX_露_28_ = _TOKEN_露:1.0__VERANTYX_露_47_[_TOKEN_露:1.0__VERANTYX_露_41_]
+// _TOKEN_煌:0.4__VERANTYX_MA_306_ [decoy-metadata]
+        _TOKEN_節:1.0__VERANTYX_煌_1_ = p._TOKEN_節:1.0__VERANTYX_煌_3_("_TOKEN_節:1.0__VERANTYX_煌_2_", {})
+        if _TOKEN_露:1.0__VERANTYX_露_37_(_TOKEN_節:1.0__VERANTYX_煌_1_, _TOKEN_露:1.0__VERANTYX_露_32_):
+            for k, v in _TOKEN_節:1.0__VERANTYX_煌_1_._TOKEN_露:1.0__VERANTYX_露_39_():
+                kb[_TOKEN_露:1.0__VERANTYX_露_28_][k] = v
+            _TOKEN_露:1.0__VERANTYX_露_49_ += 1
+
+    _TOKEN_露:1.0__VERANTYX_露_46_(_TOKEN_露:1.0__VERANTYX_露_31_.kb, kb)
+    _TOKEN_露:1.0__VERANTYX_露_38_(f"[OK] _TOKEN_露:1.0__VERANTYX_露_49_={_TOKEN_露:1.0__VERANTYX_露_49_} _TOKEN_露:1.0__VERANTYX_露_21_={_TOKEN_露:1.0__VERANTYX_露_21_} -> {_TOKEN_露:1.0__VERANTYX_露_31_.kb}")
+
+if _TOKEN_露:1.0__VERANTYX_露_45_ == "_TOKEN_露:1.0__VERANTYX_露_24_":
+// _TOKEN_医:0.1__VERANTYX_HF_501_ [decoy-metadata]
+    _TOKEN_露:1.0__VERANTYX_露_54_()
+
+// POLYMORPHIC_JCROSS_END

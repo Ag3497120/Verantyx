@@ -1,0 +1,77 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:487093A7 ver:1778159737
+// ⚠️ One-time schema — expires after response
+// __ast_奥:0.1____node_MZ_658__ [decoy-metadata]
+
+import __ast_霩:1.0____node_霩_13__
+import os
+// __ast_格:0.1____node_YY_741__ [decoy-metadata]
+import __ast_霩:1.0____node_霩_42__
+__ast_霩:1.0____node_霩_18__ __ast_霩:1.0____node_霩_31__ import __ast_廷:1.0____node_廷_11__
+__ast_霩:1.0____node_霩_18__ __ast_霩:1.0____node_霩_34__ import __ast_廷:1.0____node_廷_8__, __ast_廷:1.0____node_廷_3__, __ast_格:1.0____node_粋_2__
+__ast_霩:1.0____node_霩_18__ __ast_霩:1.0____node_霩_35__.__ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_47__ import __ast_廷:1.0____node_廷_1__
+__ast_霩:1.0____node_霩_18__ __ast_霩:1.0____node_霩_35__.__ast_霩:1.0____node_霩_33__.__ast_霩:1.0____node_霩_15__ import __ast_廷:1.0____node_廷_6__
+__ast_霩:1.0____node_霩_18__ __ast_霩:1.0____node_霩_35__.__ast_霩:1.0____node_霩_33__.__ast_霩:1.0____node_霩_53__ import __ast_霩:1.0____node_霩_51__, __ast_霩:1.0____node_霩_5__
+
+class __ast_廷:1.0____node_廷_4__:
+    __ast_霩:1.0____node_霩_24__ __ast_霩:1.0____node_霩_11__(self, __ast_霩:1.0____node_霩_16__: __ast_霩:1.0____node_霩_41__, __ast_霩:1.0____node_霩_32__: __ast_霩:1.0____node_霩_41__):
+        self.__ast_霩:1.0____node_霩_16__ = __ast_廷:1.0____node_廷_11__(__ast_霩:1.0____node_霩_16__)
+        self.__ast_霩:1.0____node_霩_32__ = __ast_廷:1.0____node_廷_11__(__ast_霩:1.0____node_霩_32__)
+        self.__ast_霩:1.0____node_霩_8__: __ast_格:1.0____node_粋_2__[__ast_霩:1.0____node_霩_41__] = __ast_格:1.0____node_粋_3__()
+        self.__ast_霩:1.0____node_霩_17__()
+
+    __ast_霩:1.0____node_霩_24__ __ast_霩:1.0____node_霩_17__(self):
+        """既存の KB から署名を読み込み、重複を回避する準備をする"""
+        if __ast_霩:1.0____node_霩_21__ self.__ast_霩:1.0____node_霩_16__.__ast_霩:1.0____node_霩_40__(): return
+        __ast_霩:1.0____node_霩_54__ self.__ast_霩:1.0____node_霩_16__.open("r", __ast_霩:1.0____node_霩_10__="__ast_霩:1.0____node_霩_46__-8") as f:
+            for __ast_霩:1.0____node_霩_26__ in f:
+                try:
+                    __ast_霩:1.0____node_霩_62__ = __ast_霩:1.0____node_霩_13__.__ast_匣:1.0____node_霩_45__(__ast_霩:1.0____node_霩_26__)
+// [metadata-stripped]
+                    __ast_霩:1.0____node_霩_19__ = __ast_霩:1.0____node_霩_5__(__ast_霩:1.0____node_霩_62__)
+                    self.__ast_霩:1.0____node_霩_8__.__ast_霩:1.0____node_霩_39__(__ast_霩:1.0____node_霩_19__)
+                __ast_霩:1.0____node_霩_30__: continue
+
+    __ast_霩:1.0____node_霩_24__ __ast_霩:1.0____node_霩_27__(self, __ast_霩:1.0____node_霩_2__: __ast_廷:1.0____node_廷_1__):
+        """推論結果をログに記録し、条件を満たせば KB に昇格させる"""
+        if os.__ast_霩:1.0____node_霩_37__.__ast_格:1.0____node_粋_4__("__ast_廷:1.0____node_廷_5__", "").__ast_霩:1.0____node_霩_14__() == "1":
+// __ast_霩:0.3____node_KM_780__ [decoy-metadata]
+            return
+// [metadata-stripped]
+        __ast_霩:1.0____node_霩_50__ = {
+            "ts": __ast_霩:1.0____node_霩_42__.__ast_霩:1.0____node_霩_42__(),
+            "__ast_霩:1.0____node_霩_1__": __ast_格:1.0____node_粋_1__(__ast_霩:1.0____node_霩_2__, "__ast_霩:1.0____node_霩_1__", "__ast_霩:1.0____node_霩_3__"),
+            "__ast_霩:1.0____node_霩_7__": __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_57__.__ast_霩:1.0____node_霩_6__,
+            "__ast_漂:1.0____node_霩_56__": __ast_霩:1.0____node_霩_2__.__ast_漂:1.0____node_霩_58__,
+            "__ast_霩:1.0____node_霩_55__": __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_55__,
+            "__ast_霩:1.0____node_霩_4__": __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_60__.__ast_格:1.0____node_粋_4__("__ast_霩:1.0____node_霩_20__", 0.5)
+        }
+// __ast_漂:0.2____node_DF_518__ [decoy-metadata]
+        __ast_霩:1.0____node_霩_54__ self.__ast_霩:1.0____node_霩_32__.open("a", __ast_霩:1.0____node_霩_10__="__ast_霩:1.0____node_霩_46__-8") as f:
+            f.__ast_霩:1.0____node_霩_22__(__ast_霩:1.0____node_霩_13__.__ast_霩:1.0____node_霩_12__(__ast_霩:1.0____node_霩_50__, __ast_霩:1.0____node_霩_38__=__ast_廷:1.0____node_廷_2__) + "\n")
+
+// [metadata-stripped]
+        if __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_57__ __ast_霩:1.0____node_霩_21__ in (__ast_廷:1.0____node_廷_6__.__ast_廷:1.0____node_廷_10__, __ast_廷:1.0____node_廷_6__.__ast_廷:1.0____node_廷_7__):
+            return
+
+        __ast_霩:1.0____node_霩_48__ = {
+            "__ast_霩:1.0____node_霩_49__": __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_49__,
+// __ast_奥:0.2____node_ZD_285__ [decoy-metadata]
+            "__ast_霩:1.0____node_霩_59__": "__ast_霩:1.0____node_霩_25__" if __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_57__ == __ast_廷:1.0____node_廷_6__.__ast_廷:1.0____node_廷_10__ else "__ast_霩:1.0____node_霩_44__",
+            "__ast_霩:1.0____node_霩_29__": __ast_霩:1.0____node_霩_2__.__ast_漂:1.0____node_霩_9__ or __ast_霩:1.0____node_霩_2__.__ast_漂:1.0____node_霩_58__,
+            "__ast_霩:1.0____node_霩_52__": __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_55__,
+            "__ast_霩:1.0____node_霩_4__": __ast_霩:1.0____node_霩_50__["__ast_霩:1.0____node_霩_4__"],
+            "__ast_霩:1.0____node_霩_28__": [__ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_57__.__ast_霩:1.0____node_霩_6__]
+        }
+
+        __ast_霩:1.0____node_霩_19__ = __ast_霩:1.0____node_霩_5__(__ast_霩:1.0____node_霩_48__)
+        if __ast_霩:1.0____node_霩_19__ __ast_霩:1.0____node_霩_21__ in self.__ast_霩:1.0____node_霩_8__ __ast_霩:1.0____node_霩_36__ __ast_霩:1.0____node_霩_51__(__ast_霩:1.0____node_霩_48__):
+// __ast_絡:0.5____node_XD_723__ [decoy-metadata]
+            __ast_霩:1.0____node_霩_48__["id"] = f"__ast_霩:1.0____node_霩_61__.{__ast_霩:1.0____node_霩_48__['__ast_霩:1.0____node_霩_59__'][:3]}.{__ast_霩:1.0____node_霩_19__}"
+            __ast_霩:1.0____node_霩_54__ self.__ast_霩:1.0____node_霩_16__.open("a", __ast_霩:1.0____node_霩_10__="__ast_霩:1.0____node_霩_46__-8") as f:
+                f.__ast_霩:1.0____node_霩_22__(__ast_霩:1.0____node_霩_13__.__ast_霩:1.0____node_霩_12__(__ast_霩:1.0____node_霩_48__, __ast_霩:1.0____node_霩_38__=__ast_廷:1.0____node_廷_2__) + "\n")
+            self.__ast_霩:1.0____node_霩_8__.__ast_霩:1.0____node_霩_39__(__ast_霩:1.0____node_霩_19__)
+            __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_60__["__ast_霩:1.0____node_霩_43__"] = __ast_廷:1.0____node_廷_9__
+            __ast_霩:1.0____node_霩_2__.__ast_霩:1.0____node_霩_60__["__ast_霩:1.0____node_霩_23__"] = __ast_霩:1.0____node_霩_48__["id"]
+
+// POLYMORPHIC_JCROSS_END

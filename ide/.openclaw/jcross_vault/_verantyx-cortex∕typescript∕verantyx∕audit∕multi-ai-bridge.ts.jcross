@@ -1,0 +1,360 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E8B2FCB5 ver:1778166086
+// ⚠️ One-time schema — expires after response
+
+/**
+ * _OPAQUE_廱:1.0__TOKEN_廱_8_ — 複数AIをプライベートブラウザでサブエージェントとして管理
+ *
+ * _OPAQUE_廱:1.0__TOKEN_廱_46_の管理下で、_OPAQUE_廱:1.0__TOKEN_廱_38_/_OPAQUE_廱:1.0__TOKEN_廱_20_/その他のAIを
+ * プライベートブラウザ経由でサブエージェントとして呼び出す。
+ *
+ * 各AIは独立したプライベートウィンドウで動作し、
+ * 相互のコンテキスト汚染がない。
+ *
+ * 使い分け:
+ *   _OPAQUE_廱:1.0__TOKEN_廱_38_ — 監査・検証（クリーンな判定）
+ *   _OPAQUE_廱:1.0__TOKEN_廱_20_ — コード生成・実装（実装力が高い）
+ *   両方 — クロスバリデーション（2つの独立した意見を比較）
+ */
+
+import { _OPAQUE_律:1.0__TOKEN_廱_24_, _OPAQUE_廱:1.0__TOKEN_廱_18_ } _OPAQUE_霞:1.0__TOKEN_霞_85_ "./_OPAQUE_霞:1.0__TOKEN_霞_29_-_OPAQUE_律:1.0__TOKEN_霞_28_.js";
+
+// [metadata-stripped]
+
+_OPAQUE_霞:1.0__TOKEN_霞_73_ _OPAQUE_律:1.0__TOKEN_廱_29_ = "_OPAQUE_霞:1.0__TOKEN_霞_78_" | "_OPAQUE_霞:1.0__TOKEN_霞_100_";
+
+_OPAQUE_霞:1.0__TOKEN_霞_20_ _OPAQUE_廱:1.0__TOKEN_廱_32_ {
+  _OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_;
+  _OPAQUE_縁:1.0__TOKEN_霞_46_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_36_: _OPAQUE_霞:1.0__TOKEN_霞_87_;
+  _OPAQUE_霞:1.0__TOKEN_霞_35_: _OPAQUE_律:1.0__TOKEN_霞_52_;
+  _OPAQUE_霞:1.0__TOKEN_霞_58_: _OPAQUE_律:1.0__TOKEN_霞_52_;
+}
+
+_OPAQUE_霞:1.0__TOKEN_霞_20_ _OPAQUE_廱:1.0__TOKEN_廱_44_ {
+  _OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_;
+  _OPAQUE_霞:1.0__TOKEN_霞_118_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_26_?: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_72_?: _OPAQUE_律:1.0__TOKEN_霞_52_;
+}
+
+_OPAQUE_霞:1.0__TOKEN_霞_20_ _OPAQUE_廱:1.0__TOKEN_廱_21_ {
+  _OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_;
+  _OPAQUE_霞:1.0__TOKEN_霞_60_: _OPAQUE_廱:1.0__TOKEN_廱_18_["_OPAQUE_霞:1.0__TOKEN_霞_60_"];
+  _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+// _OPAQUE_廱:0.1__TOKEN_LB_572_ [decoy-metadata]
+  _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_律:1.0__TOKEN_霞_52_;
+  _OPAQUE_霞:1.0__TOKEN_霞_35_: _OPAQUE_律:1.0__TOKEN_霞_52_;
+}
+
+// [metadata-stripped]
+
+_OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_廱:1.0__TOKEN_廱_27_: _OPAQUE_廱:1.0__TOKEN_廱_39_<_OPAQUE_律:1.0__TOKEN_廱_29_, {
+  _OPAQUE_縁:1.0__TOKEN_霞_46_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_132_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_156_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_136_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_律:1.0__TOKEN_霞_2_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  _OPAQUE_霞:1.0__TOKEN_霞_37_: _OPAQUE_霞:1.0__TOKEN_霞_130_[];
+}> = {
+  _OPAQUE_霞:1.0__TOKEN_霞_78_: {
+    _OPAQUE_縁:1.0__TOKEN_霞_46_: "_OPAQUE_縁:1.0__TOKEN_霞_50_://_OPAQUE_霞:1.0__TOKEN_霞_78_._OPAQUE_霞:1.0__TOKEN_霞_129_._OPAQUE_霞:1.0__TOKEN_霞_65_",
+    _OPAQUE_霞:1.0__TOKEN_霞_132_: "あなたは_OPAQUE_廱:1.0__TOKEN_廱_46_サブエージェントです。簡潔にコードや分析を返してください。理解したら「OK」とだけ返答してください。",
+    _OPAQUE_霞:1.0__TOKEN_霞_156_: "_OPAQUE_霞:1.0__TOKEN_霞_89_.ql-_OPAQUE_霞:1.0__TOKEN_霞_30_[_OPAQUE_霞:1.0__TOKEN_霞_32_=true]",
+    _OPAQUE_霞:1.0__TOKEN_霞_136_: '_OPAQUE_霞:1.0__TOKEN_霞_81_[_OPAQUE_霞:1.0__TOKEN_霞_141_-_OPAQUE_霞:1.0__TOKEN_霞_31_*="プロンプトを送信"], _OPAQUE_霞:1.0__TOKEN_霞_81_[_OPAQUE_霞:1.0__TOKEN_霞_141_-_OPAQUE_霞:1.0__TOKEN_霞_31_*="_OPAQUE_廱:1.0__TOKEN_廱_37_"]',
+    _OPAQUE_律:1.0__TOKEN_霞_2_: "_OPAQUE_廱:1.0__TOKEN_廱_38_ の回答",
+    _OPAQUE_霞:1.0__TOKEN_霞_37_: ["_OPAQUE_廱:1.0__TOKEN_廱_38_ は AI であり", "ツール", "あなたのプロンプト", "回答案を表示"],
+  },
+  _OPAQUE_霞:1.0__TOKEN_霞_100_: {
+    _OPAQUE_縁:1.0__TOKEN_霞_46_: "_OPAQUE_縁:1.0__TOKEN_霞_50_://_OPAQUE_霞:1.0__TOKEN_霞_100_._OPAQUE_霞:1.0__TOKEN_霞_65_",
+    _OPAQUE_霞:1.0__TOKEN_霞_132_: "_OPAQUE_廱:1.0__TOKEN_廱_42_ _OPAQUE_霞:1.0__TOKEN_霞_114_ a _OPAQUE_廱:1.0__TOKEN_廱_46_ _OPAQUE_霞:1.0__TOKEN_霞_39_-_OPAQUE_霞:1.0__TOKEN_霞_54_. _OPAQUE_廱:1.0__TOKEN_廱_47_ _OPAQUE_霞:1.0__TOKEN_霞_86_ _OPAQUE_霞:1.0__TOKEN_霞_23_ _OPAQUE_霞:1.0__TOKEN_霞_41_ _OPAQUE_霞:1.0__TOKEN_霞_143_. _OPAQUE_廱:1.0__TOKEN_廱_48_ 'OK' to _OPAQUE_霞:1.0__TOKEN_霞_120_.",
+    _OPAQUE_霞:1.0__TOKEN_霞_156_: "#_OPAQUE_霞:1.0__TOKEN_霞_118_-_OPAQUE_霞:1.0__TOKEN_霞_122_, _OPAQUE_霞:1.0__TOKEN_霞_122_[_OPAQUE_霞:1.0__TOKEN_霞_45_-id], _OPAQUE_霞:1.0__TOKEN_霞_89_[_OPAQUE_霞:1.0__TOKEN_霞_32_=true]",
+    _OPAQUE_霞:1.0__TOKEN_霞_136_: '_OPAQUE_霞:1.0__TOKEN_霞_81_[_OPAQUE_霞:1.0__TOKEN_霞_45_-_OPAQUE_霞:1.0__TOKEN_霞_131_="_OPAQUE_霞:1.0__TOKEN_霞_49_-_OPAQUE_霞:1.0__TOKEN_霞_81_"], _OPAQUE_霞:1.0__TOKEN_霞_81_[_OPAQUE_霞:1.0__TOKEN_霞_141_-_OPAQUE_霞:1.0__TOKEN_霞_31_="_OPAQUE_廱:1.0__TOKEN_廱_37_ _OPAQUE_霞:1.0__TOKEN_霞_118_"]',
+    _OPAQUE_律:1.0__TOKEN_霞_2_: "_OPAQUE_廱:1.0__TOKEN_廱_20_",
+    _OPAQUE_霞:1.0__TOKEN_霞_37_: ["_OPAQUE_廱:1.0__TOKEN_廱_20_ _OPAQUE_霞:1.0__TOKEN_霞_154_ _OPAQUE_霞:1.0__TOKEN_霞_69_ _OPAQUE_霞:1.0__TOKEN_霞_21_", "_OPAQUE_廱:1.0__TOKEN_廱_20_は間違えることがあります"],
+  },
+};
+
+// [metadata-stripped]
+
+_OPAQUE_霞:1.0__TOKEN_霞_76_ class _OPAQUE_廱:1.0__TOKEN_廱_8_ {
+  private _OPAQUE_霞:1.0__TOKEN_霞_29_: _OPAQUE_律:1.0__TOKEN_廱_24_;
+  private _OPAQUE_霞:1.0__TOKEN_霞_42_: _OPAQUE_廱:1.0__TOKEN_廱_7_<_OPAQUE_律:1.0__TOKEN_廱_29_, _OPAQUE_廱:1.0__TOKEN_廱_32_> = _OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_7_();
+
+  _OPAQUE_霞:1.0__TOKEN_霞_80_() {
+    _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_ = _OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_律:1.0__TOKEN_廱_24_();
+  }
+
+  /**
+   * AIプロバイダーを初期化（プライベートウィンドウで開く）
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_146_(_OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_霞:1.0__TOKEN_霞_61_> {
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_34_ = _OPAQUE_廱:1.0__TOKEN_廱_27_[_OPAQUE_律:1.0__TOKEN_霞_74_];
+
+// [metadata-stripped]
+    await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_3_(_OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_縁:1.0__TOKEN_霞_46_);
+    await _OPAQUE_霞:1.0__TOKEN_霞_47_(5000); // ページロード待ち
+
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_128_ = await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_律:1.0__TOKEN_霞_97_(_OPAQUE_律:1.0__TOKEN_霞_74_, _OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_霞:1.0__TOKEN_霞_132_);
+    if (_OPAQUE_霞:1.0__TOKEN_霞_128_._OPAQUE_霞:1.0__TOKEN_霞_60_ !== "_OPAQUE_霞:1.0__TOKEN_霞_117_") {
+      _OPAQUE_霞:1.0__TOKEN_霞_84_ _OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_2_(`${_OPAQUE_律:1.0__TOKEN_霞_74_} init _OPAQUE_霞:1.0__TOKEN_霞_116_: ${_OPAQUE_霞:1.0__TOKEN_霞_128_._OPAQUE_霞:1.0__TOKEN_霞_60_}`);
+    }
+
+    _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_律:1.0__TOKEN_覇_6_(_OPAQUE_律:1.0__TOKEN_霞_74_, {
+      _OPAQUE_律:1.0__TOKEN_霞_74_,
+      _OPAQUE_縁:1.0__TOKEN_霞_46_: _OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_縁:1.0__TOKEN_霞_46_,
+      _OPAQUE_霞:1.0__TOKEN_霞_36_: true,
+      _OPAQUE_霞:1.0__TOKEN_霞_35_: 0,
+      _OPAQUE_霞:1.0__TOKEN_霞_58_: 5, // _OPAQUE_廱:1.0__TOKEN_廱_43_-Through準拠
+    });
+  }
+
+  /**
+   * 特定のAIプロバイダーに質問
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_14_(_OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_, _OPAQUE_霞:1.0__TOKEN_霞_118_: _OPAQUE_霞:1.0__TOKEN_霞_130_, _OPAQUE_霞:1.0__TOKEN_霞_72_ = 60_000): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_廱:1.0__TOKEN_廱_21_> {
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_66_ = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_律:1.0__TOKEN_覇_1_(_OPAQUE_律:1.0__TOKEN_霞_74_);
+    if (!_OPAQUE_霞:1.0__TOKEN_霞_66_?._OPAQUE_霞:1.0__TOKEN_霞_36_) {
+      await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_146_(_OPAQUE_律:1.0__TOKEN_霞_74_);
+    }
+
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ t0 = _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_();
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_128_ = await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_律:1.0__TOKEN_霞_97_(_OPAQUE_律:1.0__TOKEN_霞_74_, _OPAQUE_霞:1.0__TOKEN_霞_118_, _OPAQUE_霞:1.0__TOKEN_霞_72_);
+
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ s = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_律:1.0__TOKEN_覇_1_(_OPAQUE_律:1.0__TOKEN_霞_74_)!;
+    s._OPAQUE_霞:1.0__TOKEN_霞_35_++;
+
+// [metadata-stripped]
+    if (s._OPAQUE_霞:1.0__TOKEN_霞_35_ >= s._OPAQUE_霞:1.0__TOKEN_霞_58_) {
+      await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_律:1.0__TOKEN_霞_105_(_OPAQUE_律:1.0__TOKEN_霞_74_);
+    }
+
+    return {
+      _OPAQUE_律:1.0__TOKEN_霞_74_,
+      _OPAQUE_霞:1.0__TOKEN_霞_60_: _OPAQUE_霞:1.0__TOKEN_霞_128_._OPAQUE_霞:1.0__TOKEN_霞_60_,
+      _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_128_._OPAQUE_霞:1.0__TOKEN_霞_92_,
+      _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0,
+      _OPAQUE_霞:1.0__TOKEN_霞_35_: s._OPAQUE_霞:1.0__TOKEN_霞_35_,
+    };
+  }
+
+  /**
+   * サブエージェントタスクを実行（_OPAQUE_廱:1.0__TOKEN_廱_46_管理下）
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_11_(_OPAQUE_霞:1.0__TOKEN_霞_38_: _OPAQUE_廱:1.0__TOKEN_廱_44_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_廱:1.0__TOKEN_廱_21_> {
+// _OPAQUE_縁:0.7__TOKEN_KB_344_ [decoy-metadata]
+    let _OPAQUE_霞:1.0__TOKEN_霞_118_ = _OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_霞:1.0__TOKEN_霞_118_;
+    if (_OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_霞:1.0__TOKEN_霞_26_) {
+      _OPAQUE_霞:1.0__TOKEN_霞_118_ = `コンテキスト:\n${_OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_霞:1.0__TOKEN_霞_26_}\n\nタスク:\n${_OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_霞:1.0__TOKEN_霞_118_}`;
+    }
+    return _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_14_(_OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_律:1.0__TOKEN_霞_74_, _OPAQUE_霞:1.0__TOKEN_霞_118_, _OPAQUE_霞:1.0__TOKEN_霞_38_._OPAQUE_霞:1.0__TOKEN_霞_72_);
+  }
+
+  /**
+   * 複数AIでクロスバリデーション
+   * 同じ質問を両方に投げて、結果を比較
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_115_(_OPAQUE_霞:1.0__TOKEN_霞_118_: _OPAQUE_霞:1.0__TOKEN_霞_130_): _OPAQUE_廱:1.0__TOKEN_廱_31_<{
+    _OPAQUE_霞:1.0__TOKEN_霞_78_: _OPAQUE_廱:1.0__TOKEN_廱_21_;
+    _OPAQUE_霞:1.0__TOKEN_霞_100_: _OPAQUE_廱:1.0__TOKEN_廱_21_;
+    _OPAQUE_霞:1.0__TOKEN_霞_140_: _OPAQUE_霞:1.0__TOKEN_霞_87_;
+    _OPAQUE_霞:1.0__TOKEN_霞_95_: _OPAQUE_霞:1.0__TOKEN_霞_130_;
+  }> {
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_142_ = await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_14_("_OPAQUE_霞:1.0__TOKEN_霞_78_", _OPAQUE_霞:1.0__TOKEN_霞_118_);
+// _OPAQUE_覇:0.4__TOKEN_AV_393_ [decoy-metadata]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_62_ = await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_14_("_OPAQUE_霞:1.0__TOKEN_霞_100_", _OPAQUE_霞:1.0__TOKEN_霞_118_);
+
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ g = _OPAQUE_霞:1.0__TOKEN_霞_142_._OPAQUE_霞:1.0__TOKEN_霞_92_._OPAQUE_霞:1.0__TOKEN_霞_123_();
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ c = _OPAQUE_霞:1.0__TOKEN_霞_62_._OPAQUE_霞:1.0__TOKEN_霞_92_._OPAQUE_霞:1.0__TOKEN_霞_123_();
+
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_158_ = g._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_104_") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("true") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("正確") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_漂:1.0__TOKEN_霞_24_");
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_109_ = c._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_104_") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("true") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_159_") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_漂:1.0__TOKEN_霞_24_");
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_153_ = g._OPAQUE_霞:1.0__TOKEN_霞_134_("no") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("false") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("誤り") || g._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_1_");
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_16_ = c._OPAQUE_霞:1.0__TOKEN_霞_134_("no") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("false") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_126_") || c._OPAQUE_霞:1.0__TOKEN_霞_134_("_OPAQUE_霞:1.0__TOKEN_霞_1_");
+// _OPAQUE_錠:0.2__TOKEN_CV_225_ [decoy-metadata]
+
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_140_ = (_OPAQUE_霞:1.0__TOKEN_霞_158_ && _OPAQUE_霞:1.0__TOKEN_霞_109_) || (_OPAQUE_霞:1.0__TOKEN_霞_153_ && _OPAQUE_霞:1.0__TOKEN_霞_16_);
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_95_ = _OPAQUE_霞:1.0__TOKEN_霞_140_
+      ? `_OPAQUE_廱:1.0__TOKEN_廱_30_ _OPAQUE_霞:1.0__TOKEN_霞_56_: ${_OPAQUE_霞:1.0__TOKEN_霞_158_ ? "_OPAQUE_廱:1.0__TOKEN_廱_41_/_OPAQUE_廱:1.0__TOKEN_廱_16_" : "NO/_OPAQUE_廱:1.0__TOKEN_廱_1_"}`
+      : `_OPAQUE_廱:1.0__TOKEN_廱_9_: _OPAQUE_廱:1.0__TOKEN_廱_38_=${_OPAQUE_霞:1.0__TOKEN_霞_158_ ? "_OPAQUE_廱:1.0__TOKEN_廱_41_" : _OPAQUE_霞:1.0__TOKEN_霞_153_ ? "NO" : "_OPAQUE_廱:1.0__TOKEN_廱_14_"}, _OPAQUE_廱:1.0__TOKEN_廱_20_=${_OPAQUE_霞:1.0__TOKEN_霞_109_ ? "_OPAQUE_廱:1.0__TOKEN_廱_41_" : _OPAQUE_霞:1.0__TOKEN_霞_16_ ? "NO" : "_OPAQUE_廱:1.0__TOKEN_廱_14_"}`;
+
+    return { _OPAQUE_霞:1.0__TOKEN_霞_78_: _OPAQUE_霞:1.0__TOKEN_霞_142_, _OPAQUE_霞:1.0__TOKEN_霞_100_: _OPAQUE_霞:1.0__TOKEN_霞_62_, _OPAQUE_霞:1.0__TOKEN_霞_140_, _OPAQUE_霞:1.0__TOKEN_霞_95_ };
+  }
+
+  /**
+   * コード生成タスクを_OPAQUE_廱:1.0__TOKEN_廱_20_に委譲
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_138_(_OPAQUE_霞:1.0__TOKEN_霞_38_: _OPAQUE_霞:1.0__TOKEN_霞_130_, _OPAQUE_霞:1.0__TOKEN_霞_147_: _OPAQUE_霞:1.0__TOKEN_霞_130_, _OPAQUE_霞:1.0__TOKEN_霞_26_?: _OPAQUE_霞:1.0__TOKEN_霞_130_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_廱:1.0__TOKEN_廱_21_> {
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_118_ = `_OPAQUE_廱:1.0__TOKEN_廱_15_ ${_OPAQUE_霞:1.0__TOKEN_霞_147_} _OPAQUE_霞:1.0__TOKEN_霞_23_ for _OPAQUE_霞:1.0__TOKEN_霞_144_ _OPAQUE_霞:1.0__TOKEN_霞_94_ _OPAQUE_霞:1.0__TOKEN_霞_38_. _OPAQUE_廱:1.0__TOKEN_廱_47_ _OPAQUE_廱:1.0__TOKEN_廱_25_ _OPAQUE_霞:1.0__TOKEN_霞_144_ _OPAQUE_霞:1.0__TOKEN_霞_23_, no _OPAQUE_霞:1.0__TOKEN_霞_17_.
+
+_OPAQUE_廱:1.0__TOKEN_廱_40_: ${_OPAQUE_霞:1.0__TOKEN_霞_38_}
+${_OPAQUE_霞:1.0__TOKEN_霞_26_ ? `\_OPAQUE_霞:1.0__TOKEN_霞_133_:\n${_OPAQUE_霞:1.0__TOKEN_霞_26_}` : ""}`;
+
+    return _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_11_({
+      _OPAQUE_律:1.0__TOKEN_霞_74_: "_OPAQUE_霞:1.0__TOKEN_霞_100_",
+      _OPAQUE_霞:1.0__TOKEN_霞_118_,
+      _OPAQUE_霞:1.0__TOKEN_霞_72_: 90_000,
+    });
+  }
+
+  /**
+   * _OPAQUE_廱:1.0__TOKEN_廱_38_で監査（コードレビュー等）
+   */
+  async _OPAQUE_霞:1.0__TOKEN_霞_101_(_OPAQUE_霞:1.0__TOKEN_霞_23_: _OPAQUE_霞:1.0__TOKEN_霞_130_, _OPAQUE_霞:1.0__TOKEN_霞_110_: _OPAQUE_霞:1.0__TOKEN_霞_130_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_廱:1.0__TOKEN_廱_21_> {
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_118_ = `_OPAQUE_廱:1.0__TOKEN_廱_17_ _OPAQUE_霞:1.0__TOKEN_霞_144_ _OPAQUE_霞:1.0__TOKEN_霞_94_ _OPAQUE_霞:1.0__TOKEN_霞_23_ for: ${_OPAQUE_霞:1.0__TOKEN_霞_110_}
+
+\`\`\`
+${_OPAQUE_霞:1.0__TOKEN_霞_23_}
+\`\`\`
+
+_OPAQUE_廱:1.0__TOKEN_廱_48_ _OPAQUE_霞:1.0__TOKEN_霞_43_:
+1. _OPAQUE_廱:1.0__TOKEN_廱_34_: _OPAQUE_廱:1.0__TOKEN_廱_11_ or _OPAQUE_廱:1.0__TOKEN_廱_4_
+2. _OPAQUE_廱:1.0__TOKEN_廱_22_ (if any)
+3. _OPAQUE_廱:1.0__TOKEN_廱_26_`;
+
+    return _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_11_({
+      _OPAQUE_律:1.0__TOKEN_霞_74_: "_OPAQUE_霞:1.0__TOKEN_霞_78_",
+      _OPAQUE_霞:1.0__TOKEN_霞_118_,
+      _OPAQUE_霞:1.0__TOKEN_霞_72_: 60_000,
+    });
+  }
+
+// [metadata-stripped]
+
+  private async _OPAQUE_律:1.0__TOKEN_霞_97_(_OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_, _OPAQUE_霞:1.0__TOKEN_霞_118_: _OPAQUE_霞:1.0__TOKEN_霞_130_, _OPAQUE_霞:1.0__TOKEN_霞_72_ = 60_000): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_廱:1.0__TOKEN_廱_18_> {
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_34_ = _OPAQUE_廱:1.0__TOKEN_廱_27_[_OPAQUE_律:1.0__TOKEN_霞_74_];
+
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_93_ = _OPAQUE_律:1.0__TOKEN_廱_50_._OPAQUE_霞:1.0__TOKEN_霞_85_(_OPAQUE_霞:1.0__TOKEN_霞_118_, "_OPAQUE_霞:1.0__TOKEN_霞_99_-8")._OPAQUE_霞:1.0__TOKEN_霞_18_("_OPAQUE_霞:1.0__TOKEN_霞_106_");
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_160_ = `(_OPAQUE_霞:1.0__TOKEN_霞_152_(){
+  var _OPAQUE_霞:1.0__TOKEN_霞_7_='${_OPAQUE_霞:1.0__TOKEN_霞_93_}';
+  var _OPAQUE_霞:1.0__TOKEN_霞_157_=_OPAQUE_霞:1.0__TOKEN_霞_5_(_OPAQUE_霞:1.0__TOKEN_霞_53_(_OPAQUE_霞:1.0__TOKEN_霞_57_(_OPAQUE_霞:1.0__TOKEN_霞_7_)));
+  var _OPAQUE_霞:1.0__TOKEN_霞_4_='${_OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_霞:1.0__TOKEN_霞_156_}'._OPAQUE_霞:1.0__TOKEN_霞_19_(', ');
+  var el=_OPAQUE_霞:1.0__TOKEN_霞_82_;
+  for(var s of _OPAQUE_霞:1.0__TOKEN_霞_4_){el=_OPAQUE_霞:1.0__TOKEN_霞_75_._OPAQUE_霞:1.0__TOKEN_霞_59_(s);if(el)break;}
+  if(!el) return '_OPAQUE_廱:1.0__TOKEN_廱_23_: _OPAQUE_霞:1.0__TOKEN_霞_124_ _OPAQUE_霞:1.0__TOKEN_霞_63_ _OPAQUE_霞:1.0__TOKEN_霞_33_';
+  el._OPAQUE_霞:1.0__TOKEN_霞_90_(); el._OPAQUE_霞:1.0__TOKEN_霞_70_();
+  if(el._OPAQUE_霞:1.0__TOKEN_霞_96_==='_OPAQUE_廱:1.0__TOKEN_廱_13_'||el._OPAQUE_霞:1.0__TOKEN_霞_96_==='_OPAQUE_廱:1.0__TOKEN_廱_35_'){
+    var ns=_OPAQUE_廱:1.0__TOKEN_廱_33_._OPAQUE_律:1.0__TOKEN_覇_4_(_OPAQUE_霞:1.0__TOKEN_霞_25_._OPAQUE_廱:1.0__TOKEN_廱_3_._OPAQUE_霞:1.0__TOKEN_霞_150_,'_OPAQUE_霞:1.0__TOKEN_霞_68_')._OPAQUE_律:1.0__TOKEN_覇_6_;
+    if(ns){ns._OPAQUE_霞:1.0__TOKEN_霞_8_(el,_OPAQUE_霞:1.0__TOKEN_霞_157_);}else{el._OPAQUE_霞:1.0__TOKEN_霞_68_=_OPAQUE_霞:1.0__TOKEN_霞_157_;}
+    el._OPAQUE_霞:1.0__TOKEN_霞_44_(_OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_5_('_OPAQUE_霞:1.0__TOKEN_霞_124_',{_OPAQUE_霞:1.0__TOKEN_霞_10_:true}));
+  }else if(el._OPAQUE_霞:1.0__TOKEN_霞_121_&&el._OPAQUE_霞:1.0__TOKEN_霞_121_._OPAQUE_霞:1.0__TOKEN_霞_9_('ql-_OPAQUE_霞:1.0__TOKEN_霞_30_')){
+// _OPAQUE_律:0.1__TOKEN_YA_935_ [decoy-metadata]
+    var c=el._OPAQUE_霞:1.0__TOKEN_霞_162_('.ql-_OPAQUE_律:1.0__TOKEN_霞_88_');
+    var q=c&&c._OPAQUE_霞:1.0__TOKEN_霞_79_;
+    if(q){q._OPAQUE_律:1.0__TOKEN_覇_2_(_OPAQUE_霞:1.0__TOKEN_霞_157_);}else{el._OPAQUE_霞:1.0__TOKEN_霞_6_=_OPAQUE_霞:1.0__TOKEN_霞_157_;el._OPAQUE_霞:1.0__TOKEN_霞_44_(_OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_5_('_OPAQUE_霞:1.0__TOKEN_霞_124_',{_OPAQUE_霞:1.0__TOKEN_霞_10_:true}));}
+  }else{
+    el._OPAQUE_霞:1.0__TOKEN_霞_6_=_OPAQUE_霞:1.0__TOKEN_霞_157_;
+    el._OPAQUE_霞:1.0__TOKEN_霞_44_(_OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_5_('_OPAQUE_霞:1.0__TOKEN_霞_124_',{_OPAQUE_霞:1.0__TOKEN_霞_10_:true}));
+  }
+  return 'OK:'+el._OPAQUE_霞:1.0__TOKEN_霞_96_;
+})()`;
+
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ t0 = _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_();
+    try {
+      _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_67_ = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_149_(_OPAQUE_霞:1.0__TOKEN_霞_160_);
+      if (_OPAQUE_霞:1.0__TOKEN_霞_67_._OPAQUE_霞:1.0__TOKEN_霞_107_("_OPAQUE_廱:1.0__TOKEN_廱_23_")) {
+        return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_13_", _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_67_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+      }
+    } catch (e: any) {
+      return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_13_", _OPAQUE_霞:1.0__TOKEN_霞_92_: e._OPAQUE_霞:1.0__TOKEN_霞_151_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+    }
+
+    await _OPAQUE_霞:1.0__TOKEN_霞_47_(800);
+// _OPAQUE_箱:0.7__TOKEN_CH_550_ [decoy-metadata]
+
+// [metadata-stripped]
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_155_ = `(_OPAQUE_霞:1.0__TOKEN_霞_152_(){
+  var _OPAQUE_霞:1.0__TOKEN_霞_4_='${_OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_霞:1.0__TOKEN_霞_136_}'._OPAQUE_霞:1.0__TOKEN_霞_19_(', ');
+  var _OPAQUE_霞:1.0__TOKEN_霞_71_=_OPAQUE_霞:1.0__TOKEN_霞_82_;
+  for(var s of _OPAQUE_霞:1.0__TOKEN_霞_4_){_OPAQUE_霞:1.0__TOKEN_霞_71_=_OPAQUE_霞:1.0__TOKEN_霞_75_._OPAQUE_霞:1.0__TOKEN_霞_59_(s);if(_OPAQUE_霞:1.0__TOKEN_霞_71_)break;}
+  if(!_OPAQUE_霞:1.0__TOKEN_霞_71_) return '_OPAQUE_廱:1.0__TOKEN_廱_23_: _OPAQUE_霞:1.0__TOKEN_霞_49_ _OPAQUE_霞:1.0__TOKEN_霞_63_ _OPAQUE_霞:1.0__TOKEN_霞_33_';
+  _OPAQUE_霞:1.0__TOKEN_霞_71_._OPAQUE_霞:1.0__TOKEN_霞_70_(); return 'OK';
+})()`;
+
+    try {
+      _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_15_ = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_149_(_OPAQUE_霞:1.0__TOKEN_霞_155_);
+      if (_OPAQUE_霞:1.0__TOKEN_霞_15_._OPAQUE_霞:1.0__TOKEN_霞_107_("_OPAQUE_廱:1.0__TOKEN_廱_23_")) {
+        return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_13_", _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_15_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+      }
+    } catch (e: any) {
+      return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_13_", _OPAQUE_霞:1.0__TOKEN_霞_92_: e._OPAQUE_霞:1.0__TOKEN_霞_151_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+    }
+
+// [metadata-stripped]
+    await _OPAQUE_霞:1.0__TOKEN_霞_47_(3000);
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_51_ = `(_OPAQUE_霞:1.0__TOKEN_霞_152_(){
+  var _OPAQUE_霞:1.0__TOKEN_霞_119_=_OPAQUE_霞:1.0__TOKEN_霞_75_._OPAQUE_霞:1.0__TOKEN_霞_77_._OPAQUE_霞:1.0__TOKEN_霞_6_;
+  var _OPAQUE_律:1.0__TOKEN_霞_161_='${_OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_律:1.0__TOKEN_霞_2_}';
+  var _OPAQUE_霞:1.0__TOKEN_霞_145_=_OPAQUE_霞:1.0__TOKEN_霞_119_._OPAQUE_霞:1.0__TOKEN_霞_19_(_OPAQUE_律:1.0__TOKEN_霞_161_);
+  if(_OPAQUE_霞:1.0__TOKEN_霞_145_._OPAQUE_霞:1.0__TOKEN_霞_48_>1){
+    var _OPAQUE_霞:1.0__TOKEN_霞_27_=_OPAQUE_霞:1.0__TOKEN_霞_145_[_OPAQUE_霞:1.0__TOKEN_霞_145_._OPAQUE_霞:1.0__TOKEN_霞_48_-1];
+    ${_OPAQUE_霞:1.0__TOKEN_霞_34_._OPAQUE_霞:1.0__TOKEN_霞_37_._OPAQUE_霞:1.0__TOKEN_霞_40_(s => `var _OPAQUE_霞:1.0__TOKEN_霞_148_=_OPAQUE_霞:1.0__TOKEN_霞_27_._OPAQUE_霞:1.0__TOKEN_霞_102_('${s}'); if(_OPAQUE_霞:1.0__TOKEN_霞_148_>0) _OPAQUE_霞:1.0__TOKEN_霞_27_=_OPAQUE_霞:1.0__TOKEN_霞_27_._OPAQUE_霞:1.0__TOKEN_霞_64_(0,_OPAQUE_霞:1.0__TOKEN_霞_148_);`)._OPAQUE_霞:1.0__TOKEN_霞_135_("\n    ")}
+    return _OPAQUE_霞:1.0__TOKEN_霞_27_._OPAQUE_霞:1.0__TOKEN_霞_22_();
+  }
+  return '';
+})()`;
+
+    let _OPAQUE_霞:1.0__TOKEN_霞_111_ = "";
+    let _OPAQUE_霞:1.0__TOKEN_霞_103_ = 0;
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_127_ = _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() + _OPAQUE_霞:1.0__TOKEN_霞_72_;
+
+    while (_OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() < _OPAQUE_霞:1.0__TOKEN_霞_127_) {
+      try {
+        _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_83_ = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_149_(_OPAQUE_霞:1.0__TOKEN_霞_51_);
+        if (_OPAQUE_霞:1.0__TOKEN_霞_83_._OPAQUE_霞:1.0__TOKEN_霞_48_ > 0) {
+          if (_OPAQUE_霞:1.0__TOKEN_霞_83_ === _OPAQUE_霞:1.0__TOKEN_霞_111_) {
+            _OPAQUE_霞:1.0__TOKEN_霞_103_++;
+            if (_OPAQUE_霞:1.0__TOKEN_霞_103_ >= 2) {
+              return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_117_", _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_83_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+            }
+          } else {
+            _OPAQUE_霞:1.0__TOKEN_霞_103_ = 0;
+            _OPAQUE_霞:1.0__TOKEN_霞_111_ = _OPAQUE_霞:1.0__TOKEN_霞_83_;
+          }
+        }
+      } catch {}
+      await _OPAQUE_霞:1.0__TOKEN_霞_47_(2000);
+    }
+
+    if (_OPAQUE_霞:1.0__TOKEN_霞_111_) {
+      return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_117_", _OPAQUE_霞:1.0__TOKEN_霞_92_: _OPAQUE_霞:1.0__TOKEN_霞_111_, _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+    }
+    return { _OPAQUE_霞:1.0__TOKEN_霞_60_: "_OPAQUE_霞:1.0__TOKEN_霞_72_", _OPAQUE_霞:1.0__TOKEN_霞_92_: "", _OPAQUE_霞:1.0__TOKEN_霞_125_: _OPAQUE_廱:1.0__TOKEN_廱_28_._OPAQUE_霞:1.0__TOKEN_霞_108_() - t0 };
+  }
+
+  private async _OPAQUE_律:1.0__TOKEN_霞_105_(_OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_霞:1.0__TOKEN_霞_61_> {
+// [metadata-stripped]
+    await _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_12_();
+    await _OPAQUE_霞:1.0__TOKEN_霞_47_(1000);
+
+    _OPAQUE_霞:1.0__TOKEN_霞_112_ _OPAQUE_霞:1.0__TOKEN_霞_66_ = _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_律:1.0__TOKEN_覇_1_(_OPAQUE_律:1.0__TOKEN_霞_74_)!;
+    _OPAQUE_霞:1.0__TOKEN_霞_66_._OPAQUE_霞:1.0__TOKEN_霞_35_ = 0;
+    _OPAQUE_霞:1.0__TOKEN_霞_66_._OPAQUE_霞:1.0__TOKEN_霞_36_ = false;
+
+// [metadata-stripped]
+  }
+
+  _OPAQUE_霞:1.0__TOKEN_霞_139_(): _OPAQUE_霞:1.0__TOKEN_霞_61_ {
+    try { _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_29_._OPAQUE_霞:1.0__TOKEN_霞_12_(); } catch {}
+    _OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_霞:1.0__TOKEN_霞_91_();
+  }
+
+  _OPAQUE_律:1.0__TOKEN_覇_3_(): _OPAQUE_廱:1.0__TOKEN_廱_49_<{ _OPAQUE_律:1.0__TOKEN_霞_74_: _OPAQUE_律:1.0__TOKEN_廱_29_; _OPAQUE_霞:1.0__TOKEN_霞_35_: _OPAQUE_律:1.0__TOKEN_霞_52_; _OPAQUE_霞:1.0__TOKEN_霞_113_: _OPAQUE_霞:1.0__TOKEN_霞_87_ }> {
+    return _OPAQUE_廱:1.0__TOKEN_廱_49_._OPAQUE_霞:1.0__TOKEN_霞_85_(_OPAQUE_霞:1.0__TOKEN_霞_137_._OPAQUE_霞:1.0__TOKEN_霞_42_._OPAQUE_霞:1.0__TOKEN_霞_98_())._OPAQUE_霞:1.0__TOKEN_霞_40_(s => ({
+      _OPAQUE_律:1.0__TOKEN_霞_74_: s._OPAQUE_律:1.0__TOKEN_霞_74_,
+      _OPAQUE_霞:1.0__TOKEN_霞_35_: s._OPAQUE_霞:1.0__TOKEN_霞_35_,
+      _OPAQUE_霞:1.0__TOKEN_霞_113_: s._OPAQUE_霞:1.0__TOKEN_霞_36_,
+    }));
+  }
+}
+
+_OPAQUE_霞:1.0__TOKEN_霞_152_ _OPAQUE_霞:1.0__TOKEN_霞_47_(ms: _OPAQUE_律:1.0__TOKEN_霞_52_): _OPAQUE_廱:1.0__TOKEN_廱_31_<_OPAQUE_霞:1.0__TOKEN_霞_61_> {
+  return _OPAQUE_霞:1.0__TOKEN_霞_55_ _OPAQUE_廱:1.0__TOKEN_廱_31_(r => _OPAQUE_律:1.0__TOKEN_覇_5_(r, ms));
+}
+
+// POLYMORPHIC_JCROSS_END

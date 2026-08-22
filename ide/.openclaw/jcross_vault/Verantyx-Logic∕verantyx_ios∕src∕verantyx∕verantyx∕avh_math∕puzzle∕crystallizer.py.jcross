@@ -1,0 +1,122 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C2D0C279 ver:1778162893
+// ⚠️ One-time schema — expires after response
+// __ast_謀:0.3___JCROSS_CX_263_ [decoy-metadata]
+
+import __ast_塵:1.0___JCROSS_塵_26_
+import os
+__ast_塵:1.0___JCROSS_塵_58_ __ast_塵:1.0___JCROSS_塵_24_ import __ast_塵:1.0___JCROSS_塵_52_, __ast_塵:1.0___JCROSS_塵_39_
+__ast_塵:1.0___JCROSS_塵_58_ __ast_塵:1.0___JCROSS_塵_60_ import __ast_廱:1.0___JCROSS_廱_6_, __ast_廱:1.0___JCROSS_廱_14_, __ast_廱:1.0___JCROSS_廱_12_, __ast_廱:1.0___JCROSS_廱_10_
+__ast_塵:1.0___JCROSS_塵_58_ __ast_塵:1.0___JCROSS_塵_12_ import __ast_廱:1.0___JCROSS_廱_5_
+// __ast_廱:0.2___JCROSS_BL_687_ [decoy-metadata]
+__ast_塵:1.0___JCROSS_塵_58_ __ast_塵:1.0___JCROSS_塵_42_.__ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_1_ import __ast_廱:1.0___JCROSS_廱_8_
+__ast_塵:1.0___JCROSS_塵_58_ __ast_塵:1.0___JCROSS_塵_42_.__ast_塵:1.0___JCROSS_塵_11_.__ast_塵:1.0___JCROSS_塵_31_ import __ast_廱:1.0___JCROSS_廱_3_
+
+@__ast_塵:1.0___JCROSS_塵_52_
+class __ast_廱:1.0___JCROSS_廱_7_:
+    __ast_塵:1.0___JCROSS_塵_64_: __ast_塵:1.0___JCROSS_塵_4_
+    __ast_塵:1.0___JCROSS_塵_55_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_] # 構造シグネチャ (__ast_塵:1.0___JCROSS_塵_47_)
+    __ast_塵:1.0___JCROSS_塵_54_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_]
+    __ast_塵:1.0___JCROSS_塵_29_: __ast_塵:1.0___JCROSS_塵_4_
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_5_(self):
+        return (self.__ast_塵:1.0___JCROSS_塵_64_, __ast_塵:1.0___JCROSS_塵_57_(self.__ast_塵:1.0___JCROSS_塵_55_), __ast_塵:1.0___JCROSS_塵_57_(__ast_塵:1.0___JCROSS_塵_16_(self.__ast_塵:1.0___JCROSS_塵_54_)), self.__ast_塵:1.0___JCROSS_塵_29_)
+
+class __ast_廱:1.0___JCROSS_廱_2_:
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_13_(self, __ast_塵:1.0___JCROSS_塵_53_: __ast_廱:1.0___JCROSS_廱_7_):
+        self.__ast_塵:1.0___JCROSS_塵_53_ = __ast_塵:1.0___JCROSS_塵_53_
+        self.__ast_塵:1.0___JCROSS_塵_6_ = 0
+        self.__ast_塵:1.0___JCROSS_塵_33_ = 0.0
+        self.__ast_塵:1.0___JCROSS_塵_38_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_] = []
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_37_(self, __ast_塵:1.0___JCROSS_塵_14_: __ast_廱:1.0___JCROSS_廱_8_):
+        self.__ast_塵:1.0___JCROSS_塵_6_ += 1
+// [metadata-stripped]
+        self.__ast_塵:1.0___JCROSS_塵_33_ = __ast_塵:1.0___JCROSS_塵_8_(1.0, self.__ast_塵:1.0___JCROSS_塵_33_ + 1.0 / (self.__ast_塵:1.0___JCROSS_塵_6_ + 1))
+// [metadata-stripped]
+        if "__ast_塵:1.0___JCROSS_塵_27_" in __ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_28_:
+            self.__ast_塵:1.0___JCROSS_塵_38_.__ast_塵:1.0___JCROSS_塵_62_(__ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_28_["__ast_塵:1.0___JCROSS_塵_27_"])
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_3_(self):
+        return {
+            "__ast_塵:1.0___JCROSS_塵_53_": {
+                "__ast_塵:1.0___JCROSS_塵_64_": self.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_64_,
+                "__ast_塵:1.0___JCROSS_塵_55_": self.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_55_,
+                "__ast_塵:1.0___JCROSS_塵_54_": self.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_54_,
+                "__ast_塵:1.0___JCROSS_塵_29_": self.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_29_
+            },
+            "__ast_塵:1.0___JCROSS_塵_6_": self.__ast_塵:1.0___JCROSS_塵_6_,
+            "__ast_塵:1.0___JCROSS_塵_33_": self.__ast_塵:1.0___JCROSS_塵_33_,
+            "__ast_塵:1.0___JCROSS_塵_38_": __ast_塵:1.0___JCROSS_塵_63_(__ast_謀:1.0___JCROSS_核_1_(self.__ast_塵:1.0___JCROSS_塵_38_))
+        }
+
+class __ast_謀:1.0___JCROSS_廱_13_:
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_13_(self, __ast_塵:1.0___JCROSS_塵_48_: __ast_塵:1.0___JCROSS_塵_4_):
+        self.__ast_塵:1.0___JCROSS_塵_48_ = __ast_廱:1.0___JCROSS_廱_5_(__ast_塵:1.0___JCROSS_塵_48_)
+        self.__ast_塵:1.0___JCROSS_塵_23_: __ast_廱:1.0___JCROSS_廱_14_[__ast_塵:1.0___JCROSS_塵_57_, __ast_廱:1.0___JCROSS_廱_2_] = {}
+        self.__ast_匷:1.0___JCROSS_塵_2_()
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_匷:1.0___JCROSS_塵_2_(self):
+        if __ast_塵:1.0___JCROSS_塵_20_ self.__ast_塵:1.0___JCROSS_塵_48_.__ast_塵:1.0___JCROSS_塵_22_(): return
+        __ast_塵:1.0___JCROSS_塵_41_ self.__ast_塵:1.0___JCROSS_塵_48_.open("r", __ast_塵:1.0___JCROSS_塵_51_="__ast_塵:1.0___JCROSS_塵_36_-8") as f:
+            for __ast_塵:1.0___JCROSS_塵_50_ in f:
+                try:
+                    __ast_塵:1.0___JCROSS_塵_21_ = __ast_塵:1.0___JCROSS_塵_26_.__ast_匷:1.0___JCROSS_塵_15_(__ast_塵:1.0___JCROSS_塵_50_)
+                    __ast_塵:1.0___JCROSS_塵_10_ = __ast_塵:1.0___JCROSS_塵_21_["__ast_塵:1.0___JCROSS_塵_53_"]
+                    fp = __ast_廱:1.0___JCROSS_廱_7_(
+                        __ast_塵:1.0___JCROSS_塵_64_=__ast_塵:1.0___JCROSS_塵_10_["__ast_塵:1.0___JCROSS_塵_64_"],
+                        __ast_塵:1.0___JCROSS_塵_55_=__ast_塵:1.0___JCROSS_塵_10_["__ast_塵:1.0___JCROSS_塵_55_"],
+                        __ast_塵:1.0___JCROSS_塵_54_=__ast_塵:1.0___JCROSS_塵_10_["__ast_塵:1.0___JCROSS_塵_54_"],
+// __ast_底:0.4___JCROSS_FA_539_ [decoy-metadata]
+                        __ast_塵:1.0___JCROSS_塵_29_=__ast_塵:1.0___JCROSS_塵_10_["__ast_塵:1.0___JCROSS_塵_29_"]
+                    )
+                    __ast_塵:1.0___JCROSS_塵_25_ = __ast_廱:1.0___JCROSS_廱_2_(fp)
+                    __ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_6_ = __ast_塵:1.0___JCROSS_塵_21_["__ast_塵:1.0___JCROSS_塵_6_"]
+                    __ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_33_ = __ast_塵:1.0___JCROSS_塵_21_["__ast_塵:1.0___JCROSS_塵_33_"]
+                    __ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_38_ = __ast_塵:1.0___JCROSS_塵_21_.__ast_謀:1.0___JCROSS_核_2_("__ast_塵:1.0___JCROSS_塵_38_", [])
+                    self.__ast_塵:1.0___JCROSS_塵_23_[fp.__ast_塵:1.0___JCROSS_塵_5_()] = __ast_塵:1.0___JCROSS_塵_25_
+                __ast_塵:1.0___JCROSS_塵_32_: continue
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_61_(self, __ast_塵:1.0___JCROSS_塵_14_: __ast_廱:1.0___JCROSS_廱_8_, __ast_塵:1.0___JCROSS_塵_34_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_]):
+        """推論結果を結晶化プロセスに投入する"""
+        if __ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_65_ __ast_塵:1.0___JCROSS_塵_20_ in (__ast_廱:1.0___JCROSS_廱_3_.__ast_廱:1.0___JCROSS_廱_15_, __ast_廱:1.0___JCROSS_廱_3_.__ast_廱:1.0___JCROSS_廱_4_):
+            return
+
+        fp = __ast_廱:1.0___JCROSS_廱_7_(
+            __ast_塵:1.0___JCROSS_塵_64_=__ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_64_,
+            __ast_塵:1.0___JCROSS_塵_55_=__ast_塵:1.0___JCROSS_塵_34_,
+            __ast_塵:1.0___JCROSS_塵_54_=__ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_54_,
+            __ast_塵:1.0___JCROSS_塵_29_=__ast_塵:1.0___JCROSS_塵_14_.__ast_塵:1.0___JCROSS_塵_65_.__ast_塵:1.0___JCROSS_塵_18_
+        )
+        
+        __ast_塵:1.0___JCROSS_塵_56_ = fp.__ast_塵:1.0___JCROSS_塵_5_()
+        if __ast_塵:1.0___JCROSS_塵_56_ __ast_塵:1.0___JCROSS_塵_20_ in self.__ast_塵:1.0___JCROSS_塵_23_:
+            self.__ast_塵:1.0___JCROSS_塵_23_[__ast_塵:1.0___JCROSS_塵_56_] = __ast_廱:1.0___JCROSS_廱_2_(fp)
+// __ast_謀:0.1___JCROSS_WB_454_ [decoy-metadata]
+        
+        self.__ast_塵:1.0___JCROSS_塵_23_[__ast_塵:1.0___JCROSS_塵_56_].__ast_塵:1.0___JCROSS_塵_37_(__ast_塵:1.0___JCROSS_塵_14_)
+// __ast_塵:0.9___JCROSS_LF_290_ [decoy-metadata]
+        self.__ast_匷:1.0___JCROSS_塵_7_()
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_塵:1.0___JCROSS_塵_44_(self, __ast_塵:1.0___JCROSS_塵_34_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_], __ast_塵:1.0___JCROSS_塵_54_: __ast_廱:1.0___JCROSS_廱_6_[__ast_塵:1.0___JCROSS_塵_4_]) -> __ast_廱:1.0___JCROSS_廱_10_[__ast_廱:1.0___JCROSS_廱_14_[__ast_塵:1.0___JCROSS_塵_4_, __ast_廱:1.0___JCROSS_廱_12_]]:
+        """形状と仮定から、既存の結晶（確定知見）を照会する"""
+// [metadata-stripped]
+        for __ast_塵:1.0___JCROSS_塵_25_ in self.__ast_塵:1.0___JCROSS_塵_23_.__ast_塵:1.0___JCROSS_塵_40_():
+            if __ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_55_ == __ast_塵:1.0___JCROSS_塵_34_ __ast_塵:1.0___JCROSS_塵_45_ \
+               __ast_謀:1.0___JCROSS_核_1_(__ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_54_) == __ast_謀:1.0___JCROSS_核_1_(__ast_塵:1.0___JCROSS_塵_54_):
+                return {
+// __ast_底:0.3___JCROSS_XV_622_ [decoy-metadata]
+                    "__ast_塵:1.0___JCROSS_塵_29_": __ast_廱:1.0___JCROSS_廱_3_.__ast_塵:1.0___JCROSS_塵_59_(__ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_53_.__ast_塵:1.0___JCROSS_塵_29_),
+                    "__ast_塵:1.0___JCROSS_塵_33_": __ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_33_,
+                    "__ast_塵:1.0___JCROSS_塵_9_": "__ast_塵:1.0___JCROSS_塵_17_"
+                }
+        return __ast_廱:1.0___JCROSS_廱_11_
+
+    __ast_塵:1.0___JCROSS_塵_49_ __ast_匷:1.0___JCROSS_塵_7_(self):
+        if os.__ast_塵:1.0___JCROSS_塵_30_.__ast_謀:1.0___JCROSS_核_2_("__ast_廱:1.0___JCROSS_廱_1_", "").__ast_塵:1.0___JCROSS_塵_35_() == "1":
+            return
+        __ast_塵:1.0___JCROSS_塵_41_ self.__ast_塵:1.0___JCROSS_塵_48_.open("w", __ast_塵:1.0___JCROSS_塵_51_="__ast_塵:1.0___JCROSS_塵_36_-8") as f:
+            for __ast_塵:1.0___JCROSS_塵_25_ in self.__ast_塵:1.0___JCROSS_塵_23_.__ast_塵:1.0___JCROSS_塵_40_():
+                f.__ast_塵:1.0___JCROSS_塵_46_(__ast_塵:1.0___JCROSS_塵_26_.__ast_塵:1.0___JCROSS_塵_19_(__ast_塵:1.0___JCROSS_塵_25_.__ast_塵:1.0___JCROSS_塵_3_(), __ast_塵:1.0___JCROSS_塵_43_=__ast_廱:1.0___JCROSS_廱_9_) + "\n")
+
+// POLYMORPHIC_JCROSS_END

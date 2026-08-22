@@ -1,0 +1,198 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2E94C838 ver:1778162897
+// ⚠️ One-time schema — expires after response
+
+_SYM_塵:1.0__TOKEN_塵_61_ _SYM_塵:1.0__TOKEN_塵_31_ import _SYM_塵:1.0__TOKEN_塵_84_
+_SYM_塵:1.0__TOKEN_塵_61_ _SYM_塵:1.0__TOKEN_塵_39_ import _SYM_塵:1.0__TOKEN_塵_25_
+_SYM_塵:1.0__TOKEN_塵_61_ _SYM_塵:1.0__TOKEN_塵_47_ import _SYM_廓:1.0__TOKEN_廓_5_, _SYM_廓:1.0__TOKEN_廓_9_, _SYM_廓:1.0__TOKEN_廓_48_, _SYM_廓:1.0__TOKEN_廓_24_
+import _SYM_塵:1.0__TOKEN_塵_107_
+import re
+
+// [metadata-stripped]
+// _SYM_則:0.8__TOKEN_LG_898_ [decoy-metadata]
+// _SYM_浸:0.3__TOKEN_AK_540_ [decoy-metadata]
+@_SYM_塵:1.0__TOKEN_塵_25_
+class _SYM_廓:1.0__TOKEN_廓_54_:
+    _SYM_塵:1.0__TOKEN_塵_72_: _SYM_塵:1.0__TOKEN_塵_55_
+    _SYM_塵:1.0__TOKEN_塵_45_: _SYM_塵:1.0__TOKEN_塵_55_ | _SYM_廓:1.0__TOKEN_廓_26_ = _SYM_廓:1.0__TOKEN_廓_26_
+    _SYM_塵:1.0__TOKEN_塵_49_: "_SYM_廓:1.0__TOKEN_廓_54_ | _SYM_廓:1.0__TOKEN_廓_26_" = _SYM_廓:1.0__TOKEN_廓_26_
+    _SYM_塵:1.0__TOKEN_塵_60_: "_SYM_廓:1.0__TOKEN_廓_54_ | _SYM_廓:1.0__TOKEN_廓_26_" = _SYM_廓:1.0__TOKEN_廓_26_
+
+_SYM_塵:1.0__TOKEN_塵_61_ _SYM_塵:1.0__TOKEN_塵_30_._SYM_塵:1.0__TOKEN_塵_42_._SYM_塵:1.0__TOKEN_塵_23_ import _SYM_廓:1.0__TOKEN_廓_31_, _SYM_廓:1.0__TOKEN_廓_11_
+
+@_SYM_廓:1.0__TOKEN_廓_31_._SYM_則:1.0__TOKEN_塵_16_(_SYM_廓:1.0__TOKEN_廓_11_(
+    id="_SYM_塵:1.0__TOKEN_塵_43_:_SYM_塵:1.0__TOKEN_塵_29_",
+    _SYM_塵:1.0__TOKEN_塵_54_="_SYM_塵:1.0__TOKEN_塵_21_",
+    _SYM_塵:1.0__TOKEN_塵_44_="_SYM_廓:1.0__TOKEN_廓_25_ _SYM_廓:1.0__TOKEN_廓_52_ _SYM_廓:1.0__TOKEN_廓_43_ _SYM_廓:1.0__TOKEN_廓_21_ / _SYM_廓:1.0__TOKEN_廓_50_",
+    _SYM_塵:1.0__TOKEN_塵_32_=[r"->", r"&", r"|", r"~", r"true", r"false", r"_SYM_塵:1.0__TOKEN_塵_19_", r"_SYM_塵:1.0__TOKEN_塵_99_"],
+    _SYM_塵:1.0__TOKEN_塵_91_=2,
+    _SYM_塵:1.0__TOKEN_塵_2_=500,
+    _SYM_塵:1.0__TOKEN_塵_13_=["_SYM_浸:1.0__TOKEN_塵_7_", "_SYM_塵:1.0__TOKEN_塵_74_"]
+))
+class _SYM_則:1.0__TOKEN_廓_39_:
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_80_(self):
+// [metadata-stripped]
+        self._SYM_錠:1.0__TOKEN_塵_17_ = re._SYM_塵:1.0__TOKEN_塵_94_(
+            r"\s+|"
+            r"(<->|↔)|(->|→)|"
+            r"(∧|&)|(∨|\|)|(¬|~|!)|"
+            r"([()])|"
+            r"([A-Za-z][A-Za-z0-9_]*)"
+// _SYM_則:0.8__TOKEN_MH_166_ [decoy-metadata]
+        )
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_33_(self, _SYM_浸:1.0__TOKEN_塵_7_: _SYM_塵:1.0__TOKEN_塵_55_) -> _SYM_廓:1.0__TOKEN_廓_5_[_SYM_塵:1.0__TOKEN_塵_55_, _SYM_廓:1.0__TOKEN_廓_48_]:
+        try:
+            _SYM_塵:1.0__TOKEN_塵_70_, _SYM_塵:1.0__TOKEN_塵_74_ = self._SYM_塵:1.0__TOKEN_塵_20_(_SYM_浸:1.0__TOKEN_塵_7_)
+            
+// [metadata-stripped]
+            if _SYM_塵:1.0__TOKEN_塵_82_(_SYM_塵:1.0__TOKEN_塵_74_) > 10:
+                return {
+                    "_SYM_塵:1.0__TOKEN_塵_34_": "_SYM_則:1.0__TOKEN_塵_102_",
+                    "_SYM_塵:1.0__TOKEN_塵_14_": "_SYM_廓:1.0__TOKEN_廓_3_ _SYM_塵:1.0__TOKEN_塵_57_ _SYM_塵:1.0__TOKEN_塵_74_ for _SYM_塵:1.0__TOKEN_塵_68_ _SYM_塵:1.0__TOKEN_塵_5_."
+                }
+
+            _SYM_塵:1.0__TOKEN_塵_12_ = _SYM_廓:1.0__TOKEN_廓_26_
+            
+// [metadata-stripped]
+            for _SYM_塵:1.0__TOKEN_塵_22_ in _SYM_塵:1.0__TOKEN_塵_107_._SYM_塵:1.0__TOKEN_塵_51_([_SYM_廓:1.0__TOKEN_廓_47_, _SYM_廓:1.0__TOKEN_廓_42_], _SYM_塵:1.0__TOKEN_塵_11_=_SYM_塵:1.0__TOKEN_塵_82_(_SYM_塵:1.0__TOKEN_塵_74_)):
+                _SYM_塵:1.0__TOKEN_塵_93_ = _SYM_塵:1.0__TOKEN_塵_103_(_SYM_塵:1.0__TOKEN_塵_88_(_SYM_塵:1.0__TOKEN_塵_74_, _SYM_塵:1.0__TOKEN_塵_22_))
+                _SYM_塵:1.0__TOKEN_塵_86_ = self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_70_, _SYM_塵:1.0__TOKEN_塵_93_)
+                
+                if _SYM_塵:1.0__TOKEN_塵_41_ _SYM_塵:1.0__TOKEN_塵_86_:
+                    _SYM_塵:1.0__TOKEN_塵_12_ = _SYM_塵:1.0__TOKEN_塵_93_
+                    break
+            
+            if _SYM_塵:1.0__TOKEN_塵_12_:
+                return {
+                    "_SYM_塵:1.0__TOKEN_塵_34_": "_SYM_塵:1.0__TOKEN_塵_104_",
+                    "_SYM_塵:1.0__TOKEN_塵_36_": "_SYM_塵:1.0__TOKEN_塵_58_",
+                    "_SYM_塵:1.0__TOKEN_塵_12_": _SYM_塵:1.0__TOKEN_塵_12_,
+                    "_SYM_塵:1.0__TOKEN_塵_15_": 1.0,
+                    "_SYM_塵:1.0__TOKEN_塵_90_": f"_SYM_廓:1.0__TOKEN_廓_37_ by _SYM_塵:1.0__TOKEN_塵_10_: {_SYM_塵:1.0__TOKEN_塵_12_}"
+                }
+            else:
+                return {
+                    "_SYM_塵:1.0__TOKEN_塵_34_": "_SYM_塵:1.0__TOKEN_塵_98_",
+                    "_SYM_塵:1.0__TOKEN_塵_36_": "_SYM_塵:1.0__TOKEN_塵_58_",
+                    "_SYM_塵:1.0__TOKEN_塵_15_": 1.0,
+                    "_SYM_塵:1.0__TOKEN_塵_90_": f"_SYM_廓:1.0__TOKEN_廓_34_ _SYM_塵:1.0__TOKEN_塵_99_ ({2**_SYM_塵:1.0__TOKEN_塵_82_(_SYM_塵:1.0__TOKEN_塵_74_)} _SYM_塵:1.0__TOKEN_塵_35_ _SYM_塵:1.0__TOKEN_塵_27_)."
+                }
+
+        _SYM_塵:1.0__TOKEN_塵_50_ _SYM_廓:1.0__TOKEN_廓_7_ as e:
+            return {
+                "_SYM_塵:1.0__TOKEN_塵_34_": "_SYM_塵:1.0__TOKEN_塵_8_",
+                "_SYM_塵:1.0__TOKEN_塵_8_": _SYM_塵:1.0__TOKEN_塵_55_(e)
+            }
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_20_(self, _SYM_浸:1.0__TOKEN_塵_7_: _SYM_塵:1.0__TOKEN_塵_55_) -> _SYM_塵:1.0__TOKEN_塵_46_[_SYM_廓:1.0__TOKEN_廓_54_, _SYM_廓:1.0__TOKEN_廓_9_[_SYM_塵:1.0__TOKEN_塵_55_]]:
+        _SYM_錠:1.0__TOKEN_塵_4_ = self._SYM_錠:1.0__TOKEN_塵_66_(_SYM_浸:1.0__TOKEN_塵_7_)
+// [metadata-stripped]
+        self._SYM_塵:1.0__TOKEN_塵_105_ = 0
+        self._SYM_錠:1.0__TOKEN_塵_101_ = _SYM_錠:1.0__TOKEN_塵_4_
+        
+        _SYM_塵:1.0__TOKEN_塵_70_ = self._SYM_塵:1.0__TOKEN_塵_73_()
+        if self._SYM_塵:1.0__TOKEN_塵_105_ < _SYM_塵:1.0__TOKEN_塵_82_(_SYM_錠:1.0__TOKEN_塵_4_):
+            _SYM_塵:1.0__TOKEN_塵_67_ _SYM_廓:1.0__TOKEN_廓_4_("_SYM_廓:1.0__TOKEN_廓_12_ _SYM_錠:1.0__TOKEN_塵_4_ at _SYM_塵:1.0__TOKEN_塵_85_")
+            
+        _SYM_塵:1.0__TOKEN_塵_74_ = _SYM_塵:1.0__TOKEN_塵_77_(_SYM_塵:1.0__TOKEN_塵_37_(_SYM_則:1.0__TOKEN_凱_1_(t for t in _SYM_錠:1.0__TOKEN_塵_4_ if t _SYM_塵:1.0__TOKEN_塵_41_ in ("_SYM_廓:1.0__TOKEN_廓_49_", "OR", "_SYM_廓:1.0__TOKEN_廓_18_", "_SYM_廓:1.0__TOKEN_廓_33_", "_SYM_廓:1.0__TOKEN_廓_13_", "(", ")"))))
+        return _SYM_塵:1.0__TOKEN_塵_70_, _SYM_塵:1.0__TOKEN_塵_74_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_錠:1.0__TOKEN_塵_66_(self, s: _SYM_塵:1.0__TOKEN_塵_55_) -> _SYM_廓:1.0__TOKEN_廓_9_[_SYM_塵:1.0__TOKEN_塵_55_]:
+        _SYM_塵:1.0__TOKEN_塵_81_ = []
+        for m in self._SYM_錠:1.0__TOKEN_塵_17_._SYM_則:1.0__TOKEN_塵_48_(s):
+            if m._SYM_塵:1.0__TOKEN_塵_1_(0)._SYM_塵:1.0__TOKEN_塵_106_(): continue
+            if m._SYM_塵:1.0__TOKEN_塵_1_(1): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_("_SYM_廓:1.0__TOKEN_廓_13_")
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(2): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_("_SYM_廓:1.0__TOKEN_廓_33_")
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(3): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_("_SYM_廓:1.0__TOKEN_廓_49_")
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(4): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_("OR")
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(5): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_("_SYM_廓:1.0__TOKEN_廓_18_")
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(6): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_(m._SYM_塵:1.0__TOKEN_塵_1_(6)) # ( )
+            _SYM_浸:1.0__TOKEN_塵_71_ m._SYM_塵:1.0__TOKEN_塵_1_(7): _SYM_塵:1.0__TOKEN_塵_81_._SYM_塵:1.0__TOKEN_塵_40_(m._SYM_塵:1.0__TOKEN_塵_1_(7)) # _SYM_廓:1.0__TOKEN_廓_29_
+        return _SYM_塵:1.0__TOKEN_塵_81_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_79_(self):
+        return self._SYM_錠:1.0__TOKEN_塵_101_[self._SYM_塵:1.0__TOKEN_塵_105_] if self._SYM_塵:1.0__TOKEN_塵_105_ < _SYM_塵:1.0__TOKEN_塵_82_(self._SYM_錠:1.0__TOKEN_塵_101_) else _SYM_廓:1.0__TOKEN_廓_26_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_89_(self, _SYM_塵:1.0__TOKEN_塵_69_=_SYM_廓:1.0__TOKEN_廓_26_):
+        t = self._SYM_塵:1.0__TOKEN_塵_79_()
+        if _SYM_塵:1.0__TOKEN_塵_69_ _SYM_塵:1.0__TOKEN_塵_24_ t != _SYM_塵:1.0__TOKEN_塵_69_:
+            _SYM_塵:1.0__TOKEN_塵_67_ _SYM_廓:1.0__TOKEN_廓_4_(f"_SYM_廓:1.0__TOKEN_廓_17_ {_SYM_塵:1.0__TOKEN_塵_69_}, _SYM_塵:1.0__TOKEN_塵_76_ {t}")
+        self._SYM_塵:1.0__TOKEN_塵_105_ += 1
+        return t
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_73_(self): return self._SYM_浸:1.0__TOKEN_塵_28_()
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_浸:1.0__TOKEN_塵_28_(self):
+        _SYM_塵:1.0__TOKEN_塵_87_ = self._SYM_塵:1.0__TOKEN_塵_26_()
+        while self._SYM_塵:1.0__TOKEN_塵_79_() == "_SYM_廓:1.0__TOKEN_廓_13_":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+            _SYM_塵:1.0__TOKEN_塵_60_ = self._SYM_塵:1.0__TOKEN_塵_26_()
+            _SYM_塵:1.0__TOKEN_塵_87_ = _SYM_廓:1.0__TOKEN_廓_54_("_SYM_廓:1.0__TOKEN_廓_13_", _SYM_塵:1.0__TOKEN_塵_49_=_SYM_塵:1.0__TOKEN_塵_87_, _SYM_塵:1.0__TOKEN_塵_60_=_SYM_塵:1.0__TOKEN_塵_60_)
+        return _SYM_塵:1.0__TOKEN_塵_87_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_26_(self):
+        _SYM_塵:1.0__TOKEN_塵_87_ = self._SYM_塵:1.0__TOKEN_塵_59_()
+        while self._SYM_塵:1.0__TOKEN_塵_79_() == "_SYM_廓:1.0__TOKEN_廓_33_":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+            _SYM_塵:1.0__TOKEN_塵_60_ = self._SYM_塵:1.0__TOKEN_塵_26_() # _SYM_廓:1.0__TOKEN_廓_32_ _SYM_塵:1.0__TOKEN_塵_75_: A->(B->C)
+            _SYM_塵:1.0__TOKEN_塵_87_ = _SYM_廓:1.0__TOKEN_廓_54_("_SYM_廓:1.0__TOKEN_廓_33_", _SYM_塵:1.0__TOKEN_塵_49_=_SYM_塵:1.0__TOKEN_塵_87_, _SYM_塵:1.0__TOKEN_塵_60_=_SYM_塵:1.0__TOKEN_塵_60_)
+        return _SYM_塵:1.0__TOKEN_塵_87_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_59_(self):
+        _SYM_塵:1.0__TOKEN_塵_87_ = self._SYM_塵:1.0__TOKEN_塵_9_()
+        while self._SYM_塵:1.0__TOKEN_塵_79_() == "OR":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+            _SYM_塵:1.0__TOKEN_塵_60_ = self._SYM_塵:1.0__TOKEN_塵_9_()
+            _SYM_塵:1.0__TOKEN_塵_87_ = _SYM_廓:1.0__TOKEN_廓_54_("OR", _SYM_塵:1.0__TOKEN_塵_49_=_SYM_塵:1.0__TOKEN_塵_87_, _SYM_塵:1.0__TOKEN_塵_60_=_SYM_塵:1.0__TOKEN_塵_60_)
+        return _SYM_塵:1.0__TOKEN_塵_87_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_9_(self):
+        _SYM_塵:1.0__TOKEN_塵_87_ = self._SYM_塵:1.0__TOKEN_塵_38_()
+// _SYM_浸:0.2__TOKEN_AG_354_ [decoy-metadata]
+        while self._SYM_塵:1.0__TOKEN_塵_79_() == "_SYM_廓:1.0__TOKEN_廓_49_":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+            _SYM_塵:1.0__TOKEN_塵_60_ = self._SYM_塵:1.0__TOKEN_塵_38_()
+            _SYM_塵:1.0__TOKEN_塵_87_ = _SYM_廓:1.0__TOKEN_廓_54_("_SYM_廓:1.0__TOKEN_廓_49_", _SYM_塵:1.0__TOKEN_塵_49_=_SYM_塵:1.0__TOKEN_塵_87_, _SYM_塵:1.0__TOKEN_塵_60_=_SYM_塵:1.0__TOKEN_塵_60_)
+        return _SYM_塵:1.0__TOKEN_塵_87_
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_38_(self):
+        if self._SYM_塵:1.0__TOKEN_塵_79_() == "_SYM_廓:1.0__TOKEN_廓_18_":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+// _SYM_緯:0.6__TOKEN_XY_167_ [decoy-metadata]
+            return _SYM_廓:1.0__TOKEN_廓_54_("_SYM_廓:1.0__TOKEN_廓_18_", _SYM_塵:1.0__TOKEN_塵_49_=self._SYM_塵:1.0__TOKEN_塵_38_())
+        return self._SYM_塵:1.0__TOKEN_塵_6_()
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_6_(self):
+        t = self._SYM_塵:1.0__TOKEN_塵_79_()
+        if t == "(":
+            self._SYM_塵:1.0__TOKEN_塵_89_()
+            n = self._SYM_塵:1.0__TOKEN_塵_73_()
+            self._SYM_塵:1.0__TOKEN_塵_89_(")")
+            return n
+        if t in ("_SYM_廓:1.0__TOKEN_廓_49_", "OR", "_SYM_廓:1.0__TOKEN_廓_33_", "_SYM_廓:1.0__TOKEN_廓_13_", "_SYM_廓:1.0__TOKEN_廓_18_", ")", _SYM_廓:1.0__TOKEN_廓_26_):
+            _SYM_塵:1.0__TOKEN_塵_67_ _SYM_廓:1.0__TOKEN_廓_4_(f"_SYM_廓:1.0__TOKEN_廓_12_ _SYM_錠:1.0__TOKEN_塵_52_: {t}")
+        self._SYM_塵:1.0__TOKEN_塵_89_()
+// _SYM_浸:0.8__TOKEN_BE_979_ [decoy-metadata]
+        return _SYM_廓:1.0__TOKEN_廓_54_("_SYM_廓:1.0__TOKEN_廓_16_", _SYM_塵:1.0__TOKEN_塵_45_=t)
+
+    _SYM_塵:1.0__TOKEN_塵_95_ _SYM_塵:1.0__TOKEN_塵_100_(self, _SYM_塵:1.0__TOKEN_塵_87_: _SYM_廓:1.0__TOKEN_廓_54_, _SYM_塵:1.0__TOKEN_塵_18_: _SYM_廓:1.0__TOKEN_廓_5_[_SYM_塵:1.0__TOKEN_塵_55_, _SYM_塵:1.0__TOKEN_塵_63_]) -> _SYM_塵:1.0__TOKEN_塵_63_:
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "_SYM_廓:1.0__TOKEN_廓_16_": return _SYM_塵:1.0__TOKEN_塵_18_[_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_45_]
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "_SYM_廓:1.0__TOKEN_廓_18_": return _SYM_塵:1.0__TOKEN_塵_41_ self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_49_, _SYM_塵:1.0__TOKEN_塵_18_)
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "_SYM_廓:1.0__TOKEN_廓_49_": return self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_49_, _SYM_塵:1.0__TOKEN_塵_18_) _SYM_塵:1.0__TOKEN_塵_24_ self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_60_, _SYM_塵:1.0__TOKEN_塵_18_)
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "OR": return self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_49_, _SYM_塵:1.0__TOKEN_塵_18_) or self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_60_, _SYM_塵:1.0__TOKEN_塵_18_)
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "_SYM_廓:1.0__TOKEN_廓_33_": return (_SYM_塵:1.0__TOKEN_塵_41_ self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_49_, _SYM_塵:1.0__TOKEN_塵_18_)) or self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_60_, _SYM_塵:1.0__TOKEN_塵_18_)
+        if _SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_72_ == "_SYM_廓:1.0__TOKEN_廓_13_": return self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_49_, _SYM_塵:1.0__TOKEN_塵_18_) == self._SYM_塵:1.0__TOKEN_塵_100_(_SYM_塵:1.0__TOKEN_塵_87_._SYM_塵:1.0__TOKEN_塵_60_, _SYM_塵:1.0__TOKEN_塵_18_)
+        return _SYM_廓:1.0__TOKEN_廓_47_
+// POLYMORPHIC_JCROSS_END

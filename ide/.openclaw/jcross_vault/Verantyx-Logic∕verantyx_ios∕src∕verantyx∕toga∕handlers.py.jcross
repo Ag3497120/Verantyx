@@ -1,0 +1,300 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:354E9C74 ver:1778162844
+// ⚠️ One-time schema — expires after response
+
+__ast_泡:1.0___JCROSS_泡_96_ __ast_泡:1.0___JCROSS_泡_63_ import __ast_泡:1.0___JCROSS_泡_136_
+
+import __ast_泡:1.0___JCROSS_泡_48_
+import __ast_泡:1.0___JCROSS_泡_74_
+import __ast_泡:1.0___JCROSS_泡_101_
+import __ast_泡:1.0___JCROSS_泡_123_
+import __ast_泡:1.0___JCROSS_泡_7_
+import __ast_泡:1.0___JCROSS_泡_84_
+__ast_泡:1.0___JCROSS_泡_96_ __ast_泡:1.0___JCROSS_泡_68_ import __ast_廊:1.0___JCROSS_廊_15_
+__ast_泡:1.0___JCROSS_泡_96_ __ast_泡:1.0___JCROSS_泡_93_.__ast_泡:1.0___JCROSS_泡_68_ import __ast_廊:1.0___JCROSS_廊_33_, __ast_廊:1.0___JCROSS_廊_43_, __ast_廊:1.0___JCROSS_廊_55_
+__ast_泡:1.0___JCROSS_泡_96_ __ast_泡:1.0___JCROSS_泡_82_ import __ast_廊:1.0___JCROSS_廊_20_, __ast_廊:1.0___JCROSS_廊_50_, __ast_廊:1.0___JCROSS_廊_11_, __ast_廊:1.0___JCROSS_廊_51_, __ast_廊:1.0___JCROSS_廊_9_
+
+if __ast_廊:1.0___JCROSS_廊_20_:
+    __ast_泡:1.0___JCROSS_泡_96_ __ast_泡:1.0___JCROSS_泡_82_ import __ast_廊:1.0___JCROSS_廊_21_
+
+    T = __ast_廊:1.0___JCROSS_廊_9_("T")
+
+    __ast_廊:1.0___JCROSS_廊_32_ = __ast_廊:1.0___JCROSS_廊_9_("__ast_廊:1.0___JCROSS_廊_32_")
+    __ast_廊:1.0___JCROSS_廊_6_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_55_[
+        __ast_泡:1.0___JCROSS_泡_65_ | __ast_廊:1.0___JCROSS_廊_26_, __ast_泡:1.0___JCROSS_泡_72_, __ast_廊:1.0___JCROSS_廊_32_
+    ]
+
+    __ast_廊:1.0___JCROSS_廊_22_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_43_[..., __ast_泡:1.0___JCROSS_泡_72_]
+    __ast_廊:1.0___JCROSS_廊_49_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_43_[..., __ast_廊:1.0___JCROSS_廊_33_[__ast_泡:1.0___JCROSS_泡_72_]]
+    __ast_廊:1.0___JCROSS_廊_4_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_43_[..., __ast_廊:1.0___JCROSS_廊_6_[__ast_泡:1.0___JCROSS_泡_72_]]
+    __ast_廊:1.0___JCROSS_廊_27_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_22_ | __ast_廊:1.0___JCROSS_廊_49_ | __ast_廊:1.0___JCROSS_廊_4_
+    __ast_廊:1.0___JCROSS_廊_52_: __ast_廊:1.0___JCROSS_廊_21_ = __ast_廊:1.0___JCROSS_廊_43_[..., __ast_泡:1.0___JCROSS_泡_72_]
+
+
+class __ast_謀:1.0___JCROSS_廊_38_:
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_133_(self, __ast_謀:1.0___JCROSS_泡_9_: __ast_廊:1.0___JCROSS_廊_43_[..., __ast_泡:1.0___JCROSS_泡_72_]):
+        self.__ast_泡:1.0___JCROSS_泡_160_ = __ast_謀:1.0___JCROSS_泡_9_
+
+
+async __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_58_(
+    __ast_泡:1.0___JCROSS_泡_22_: __ast_泡:1.0___JCROSS_泡_72_,
+    __ast_泡:1.0___JCROSS_泡_5_: __ast_廊:1.0___JCROSS_廊_6_[__ast_泡:1.0___JCROSS_泡_72_],
+    __ast_泡:1.0___JCROSS_泡_149_: __ast_廊:1.0___JCROSS_廊_22_ | __ast_廊:1.0___JCROSS_廊_26_,
+) -> __ast_泡:1.0___JCROSS_泡_72_ | __ast_廊:1.0___JCROSS_廊_26_:
+    """__ast_廊:1.0___JCROSS_廊_41_ a __ast_泡:1.0___JCROSS_泡_5_ as an __ast_泡:1.0___JCROSS_泡_100_ __ast_泡:1.0___JCROSS_泡_37_.
+
+    **__ast_廊:1.0___JCROSS_廊_45_** - __ast_泡:1.0___JCROSS_泡_126_ async co-__ast_泡:1.0___JCROSS_泡_51_ __ast_泡:1.0___JCROSS_泡_83_ of __ast_泡:1.0___JCROSS_泡_118_.
+    """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_7_.__ast_泡:1.0___JCROSS_泡_24_(
+        (
+            "__ast_廊:1.0___JCROSS_廊_25_ of __ast_泡:1.0___JCROSS_泡_118_ for async __ast_泡:1.0___JCROSS_泡_62_ __ast_泡:1.0___JCROSS_泡_155_ __ast_泡:1.0___JCROSS_泡_95_ __ast_泡:1.0___JCROSS_泡_40_; __ast_泡:1.0___JCROSS_泡_47_ "
+            "__ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ to an async co-__ast_泡:1.0___JCROSS_泡_75_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_97_ `__ast_泡:1.0___JCROSS_泡_48_.__ast_泡:1.0___JCROSS_泡_49_()`."
+        ),
+        __ast_廊:1.0___JCROSS_廊_37_,
+        __ast_泡:1.0___JCROSS_泡_6_=2,
+    )
+    try:
+        try:
+            while __ast_廊:1.0___JCROSS_廊_46_:
+                __ast_泡:1.0___JCROSS_泡_19_ = __ast_泡:1.0___JCROSS_泡_111_(__ast_泡:1.0___JCROSS_泡_5_)
+                await __ast_泡:1.0___JCROSS_泡_48_.__ast_泡:1.0___JCROSS_泡_49_(__ast_泡:1.0___JCROSS_泡_19_ if __ast_泡:1.0___JCROSS_泡_19_ else 0)
+        __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_47_ as e:
+            __ast_泡:1.0___JCROSS_泡_140_ = e.__ast_泡:1.0___JCROSS_泡_78_
+    __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+        __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in __ast_泡:1.0___JCROSS_泡_10_ __ast_泡:1.0___JCROSS_泡_94_ __ast_謀:1.0___JCROSS_泡_9_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+// __ast_廊:0.8___JCROSS_MD_633_ [decoy-metadata]
+        __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+    else:
+        if __ast_泡:1.0___JCROSS_泡_149_:
+            try:
+                __ast_泡:1.0___JCROSS_泡_149_(__ast_泡:1.0___JCROSS_泡_22_, __ast_泡:1.0___JCROSS_泡_140_)
+            __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+                __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in __ast_泡:1.0___JCROSS_泡_10_ __ast_泡:1.0___JCROSS_泡_94_ __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_149_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+                __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+        return __ast_泡:1.0___JCROSS_泡_140_
+
+
+async __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_119_(
+// __ast_謀:0.5___JCROSS_LB_531_ [decoy-metadata]
+    __ast_謀:1.0___JCROSS_泡_9_: __ast_廊:1.0___JCROSS_廊_49_,
+    __ast_泡:1.0___JCROSS_泡_149_: __ast_廊:1.0___JCROSS_廊_22_ | __ast_廊:1.0___JCROSS_廊_26_,
+    __ast_泡:1.0___JCROSS_泡_22_: __ast_泡:1.0___JCROSS_泡_72_,
+    *__ast_泡:1.0___JCROSS_泡_61_: __ast_泡:1.0___JCROSS_泡_72_,
+    **__ast_泡:1.0___JCROSS_泡_77_: __ast_泡:1.0___JCROSS_泡_72_,
+) -> __ast_泡:1.0___JCROSS_泡_72_ | __ast_廊:1.0___JCROSS_廊_26_:
+    try:
+        __ast_泡:1.0___JCROSS_泡_140_ = await __ast_謀:1.0___JCROSS_泡_9_(__ast_泡:1.0___JCROSS_泡_22_, *__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+    __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+        __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in async __ast_謀:1.0___JCROSS_泡_9_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+        __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+    else:
+        if __ast_泡:1.0___JCROSS_泡_149_:
+            try:
+                __ast_泡:1.0___JCROSS_泡_149_(__ast_泡:1.0___JCROSS_泡_22_, __ast_泡:1.0___JCROSS_泡_140_)
+            __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+                __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in async __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_149_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+                __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+        return __ast_泡:1.0___JCROSS_泡_140_
+
+
+__ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_175_(fn: T, *__ast_泡:1.0___JCROSS_泡_61_: __ast_泡:1.0___JCROSS_泡_72_, **__ast_泡:1.0___JCROSS_泡_77_: __ast_泡:1.0___JCROSS_泡_72_) -> T:
+    """__ast_廊:1.0___JCROSS_廊_19_ a __ast_泡:1.0___JCROSS_泡_165_ (__ast_泡:1.0___JCROSS_泡_45_ __ast_泡:1.0___JCROSS_泡_61_ __ast_泡:1.0___JCROSS_泡_43_ __ast_泡:1.0___JCROSS_泡_77_) so it __ast_泡:1.0___JCROSS_泡_170_ be __ast_泡:1.0___JCROSS_泡_18_ as a __ast_泡:1.0___JCROSS_泡_99_ __ast_謀:1.0___JCROSS_泡_9_.
+
+    __ast_廊:1.0___JCROSS_廊_42_ __ast_泡:1.0___JCROSS_泡_98_ __ast_泡:1.0___JCROSS_泡_4_ __ast_泡:1.0___JCROSS_泡_43_ __ast_泡:1.0___JCROSS_泡_103_ __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_-__ast_泡:1.0___JCROSS_泡_14_ __ast_泡:1.0___JCROSS_泡_33_ (i.e., __ast_泡:1.0___JCROSS_泡_152_
+    __ast_泡:1.0___JCROSS_泡_116_ `__ast_泡:1.0___JCROSS_泡_99_` __ast_泡:1.0___JCROSS_泡_164_ __ast_泡:1.0___JCROSS_泡_28_ to __ast_泡:1.0___JCROSS_泡_62_), so __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_59_ __ast_泡:1.0___JCROSS_泡_170_ __ast_泡:1.0___JCROSS_泡_126_ a __ast_泡:1.0___JCROSS_泡_66_ __ast_泡:1.0___JCROSS_泡_142_
+    [`__ast_廊:1.0___JCROSS_廊_31_.__ast_泡:1.0___JCROSS_泡_114_()`][__ast_泡:1.0___JCROSS_泡_81_.__ast_廊:1.0___JCROSS_廊_31_.__ast_泡:1.0___JCROSS_泡_114_] as a __ast_泡:1.0___JCROSS_泡_99_ __ast_謀:1.0___JCROSS_泡_9_.
+
+    It __ast_泡:1.0___JCROSS_泡_170_ __ast_泡:1.0___JCROSS_泡_52_ __ast_謀:1.0___JCROSS_泡_128_ a __ast_泡:1.0___JCROSS_泡_165_ or a __ast_泡:1.0___JCROSS_泡_37_. __ast_廊:1.0___JCROSS_廊_44_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_41_ be __ast_泡:1.0___JCROSS_泡_28_ to __ast_泡:1.0___JCROSS_泡_152_
+    __ast_泡:1.0___JCROSS_泡_165_/__ast_泡:1.0___JCROSS_泡_37_ __ast_泡:1.0___JCROSS_泡_120_ __ast_泡:1.0___JCROSS_泡_137_ at __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_141_ __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_153_ is __ast_泡:1.0___JCROSS_泡_15_. It is __ast_泡:1.0___JCROSS_泡_148_
+    __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_29_ __ast_泡:1.0___JCROSS_泡_76_ __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_41_ __ast_泡:1.0___JCROSS_泡_147_ no __ast_泡:1.0___JCROSS_泡_21_ __ast_泡:1.0___JCROSS_泡_33_ __ast_謀:1.0___JCROSS_泡_144_ __ast_泡:1.0___JCROSS_泡_109_
+    __ast_泡:1.0___JCROSS_泡_152_ `__ast_泡:1.0___JCROSS_泡_99_` __ast_泡:1.0___JCROSS_泡_173_ is __ast_泡:1.0___JCROSS_泡_76_ __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_.
+
+    :__ast_泡:1.0___JCROSS_泡_146_ fn: __ast_廊:1.0___JCROSS_廊_30_ __ast_泡:1.0___JCROSS_泡_42_ to __ast_泡:1.0___JCROSS_泡_87_ as a __ast_謀:1.0___JCROSS_泡_9_.
+// __ast_謀:0.6___JCROSS_CK_576_ [decoy-metadata]
+    :__ast_泡:1.0___JCROSS_泡_146_ __ast_泡:1.0___JCROSS_泡_61_: __ast_廊:1.0___JCROSS_廊_10_ __ast_泡:1.0___JCROSS_泡_33_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_34_ be __ast_泡:1.0___JCROSS_泡_28_ to __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_171_ __ast_謀:1.0___JCROSS_泡_9_.
+    :__ast_泡:1.0___JCROSS_泡_146_ __ast_泡:1.0___JCROSS_泡_77_: __ast_蔽:1.0___JCROSS_廊_39_ __ast_泡:1.0___JCROSS_泡_33_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_34_ be __ast_泡:1.0___JCROSS_泡_28_ to __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_171_ __ast_謀:1.0___JCROSS_泡_9_.
+    :__ast_泡:1.0___JCROSS_泡_12_: A __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_41_ __ast_泡:1.0___JCROSS_泡_87_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_42_.
+    """
+    if __ast_泡:1.0___JCROSS_泡_74_.__ast_泡:1.0___JCROSS_泡_157_(fn):
+
+        async __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_54_(__ast_泡:1.0___JCROSS_泡_99_):
+            return await fn(*__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+
+    else:
+
+        __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_54_(__ast_泡:1.0___JCROSS_泡_99_):
+            return fn(*__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+
+// [metadata-stripped]
+    __ast_謀:1.0___JCROSS_泡_54_.__ast_泡:1.0___JCROSS_泡_36_ = fn
+    return __ast_謀:1.0___JCROSS_泡_54_
+
+
+__ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_138_(
+    __ast_泡:1.0___JCROSS_泡_22_: __ast_泡:1.0___JCROSS_泡_72_,
+    __ast_謀:1.0___JCROSS_泡_9_: __ast_廊:1.0___JCROSS_廊_27_ | __ast_謀:1.0___JCROSS_廊_38_ | __ast_廊:1.0___JCROSS_廊_26_,
+    __ast_泡:1.0___JCROSS_泡_149_: __ast_廊:1.0___JCROSS_廊_22_ | __ast_廊:1.0___JCROSS_廊_26_ = __ast_廊:1.0___JCROSS_廊_26_,
+) -> __ast_廊:1.0___JCROSS_廊_52_:
+    """__ast_廊:1.0___JCROSS_廊_19_ a __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_137_ by __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_89_, so it __ast_泡:1.0___JCROSS_泡_170_ be __ast_泡:1.0___JCROSS_泡_171_.
+
+    If __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ is a __ast_謀:1.0___JCROSS_廊_38_, return __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_72_ __ast_泡:1.0___JCROSS_泡_107_ in __ast_泡:1.0___JCROSS_泡_152_
+    __ast_謀:1.0___JCROSS_廊_38_.
+
+    If __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ is a __ast_泡:1.0___JCROSS_泡_3_ __ast_泡:1.0___JCROSS_泡_66_, or __ast_泡:1.0___JCROSS_泡_165_, __ast_泡:1.0___JCROSS_泡_87_ it as it, __ast_泡:1.0___JCROSS_泡_43_ return __ast_泡:1.0___JCROSS_泡_152_
+    __ast_泡:1.0___JCROSS_泡_140_.
+
+    If __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ is a __ast_泡:1.0___JCROSS_泡_5_, __ast_泡:1.0___JCROSS_泡_87_ it __ast_泡:1.0___JCROSS_泡_127_, __ast_泡:1.0___JCROSS_泡_45_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_150_ __ast_泡:1.0___JCROSS_泡_106_ __ast_泡:1.0___JCROSS_泡_96_
+    __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_5_ __ast_泡:1.0___JCROSS_泡_71_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_44_ to __ast_泡:1.0___JCROSS_泡_49_ __ast_泡:1.0___JCROSS_泡_169_ __ast_泡:1.0___JCROSS_泡_163_.
+
+    If __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_9_ is a __ast_泡:1.0___JCROSS_泡_37_, __ast_泡:1.0___JCROSS_泡_104_ it on __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_100_ __ast_泡:1.0___JCROSS_泡_60_ __ast_泡:1.0___JCROSS_泡_23_.
+
+    __ast_廊:1.0___JCROSS_廊_36_ __ast_謀:1.0___JCROSS_泡_128_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_160_ __ast_謀:1.0___JCROSS_泡_9_, or a __ast_泡:1.0___JCROSS_泡_70_ __ast_泡:1.0___JCROSS_泡_165_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_41_ __ast_泡:1.0___JCROSS_泡_87_ __ast_泡:1.0___JCROSS_泡_152_
+    __ast_謀:1.0___JCROSS_泡_9_, __ast_泡:1.0___JCROSS_泡_11_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_22_ as __ast_泡:1.0___JCROSS_泡_26_. If a __ast_泡:1.0___JCROSS_泡_174_-__ast_泡:1.0___JCROSS_泡_160_ __ast_謀:1.0___JCROSS_泡_9_, __ast_泡:1.0___JCROSS_泡_152_ __ast_謀:1.0___JCROSS_泡_153_
+    __ast_泡:1.0___JCROSS_泡_165_ is __ast_泡:1.0___JCROSS_泡_35_ __ast_泡:1.0___JCROSS_泡_45_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_125_ __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_165_ on __ast_泡:1.0___JCROSS_泡_152_ `__ast_泡:1.0___JCROSS_泡_36_` __ast_泡:1.0___JCROSS_泡_64_.
+    """
+    if __ast_謀:1.0___JCROSS_泡_9_:
+        if __ast_泡:1.0___JCROSS_泡_67_(__ast_謀:1.0___JCROSS_泡_9_, __ast_謀:1.0___JCROSS_廊_38_):
+            return __ast_謀:1.0___JCROSS_泡_9_.__ast_泡:1.0___JCROSS_泡_160_
+
+        __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_54_(*__ast_泡:1.0___JCROSS_泡_61_: __ast_泡:1.0___JCROSS_泡_72_, **__ast_泡:1.0___JCROSS_泡_77_: __ast_泡:1.0___JCROSS_泡_72_) -> __ast_泡:1.0___JCROSS_泡_72_:
+            if __ast_泡:1.0___JCROSS_泡_74_.__ast_泡:1.0___JCROSS_泡_157_(__ast_謀:1.0___JCROSS_泡_9_):
+                return __ast_泡:1.0___JCROSS_泡_48_.__ast_泡:1.0___JCROSS_泡_20_(
+                    __ast_泡:1.0___JCROSS_泡_119_(__ast_謀:1.0___JCROSS_泡_9_, __ast_泡:1.0___JCROSS_泡_149_, __ast_泡:1.0___JCROSS_泡_22_, *__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+                )
+            else:
+                try:
+                    __ast_泡:1.0___JCROSS_泡_140_ = __ast_謀:1.0___JCROSS_泡_9_(__ast_泡:1.0___JCROSS_泡_22_, *__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+                __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+                    __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in __ast_謀:1.0___JCROSS_泡_9_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+                    __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+                else:
+                    if __ast_泡:1.0___JCROSS_泡_74_.__ast_泡:1.0___JCROSS_泡_167_(__ast_泡:1.0___JCROSS_泡_140_):
+                        return __ast_泡:1.0___JCROSS_泡_48_.__ast_泡:1.0___JCROSS_泡_20_(
+                            __ast_泡:1.0___JCROSS_泡_58_(__ast_泡:1.0___JCROSS_泡_22_, __ast_泡:1.0___JCROSS_泡_140_, __ast_泡:1.0___JCROSS_泡_149_)
+                        )
+                    else:
+                        try:
+                            if __ast_泡:1.0___JCROSS_泡_149_:
+                                __ast_泡:1.0___JCROSS_泡_149_(__ast_泡:1.0___JCROSS_泡_22_, __ast_泡:1.0___JCROSS_泡_140_)
+                            return __ast_泡:1.0___JCROSS_泡_140_
+                        __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+                            __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_149_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+                            __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+                    return __ast_泡:1.0___JCROSS_泡_140_
+
+        __ast_謀:1.0___JCROSS_泡_54_.__ast_泡:1.0___JCROSS_泡_36_ = __ast_謀:1.0___JCROSS_泡_9_
+
+    else:
+// [metadata-stripped]
+        __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_泡_54_(*__ast_泡:1.0___JCROSS_泡_61_: __ast_泡:1.0___JCROSS_泡_72_, **__ast_泡:1.0___JCROSS_泡_77_: __ast_泡:1.0___JCROSS_泡_72_) -> __ast_泡:1.0___JCROSS_泡_72_:
+// __ast_蔽:0.2___JCROSS_AK_454_ [decoy-metadata]
+            try:
+                if __ast_泡:1.0___JCROSS_泡_149_:
+                    __ast_泡:1.0___JCROSS_泡_149_(__ast_泡:1.0___JCROSS_泡_22_, __ast_廊:1.0___JCROSS_廊_26_)
+            __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_5_ as e:
+                __ast_泡:1.0___JCROSS_泡_30_("__ast_廊:1.0___JCROSS_廊_2_ in __ast_謀:1.0___JCROSS_泡_9_ __ast_泡:1.0___JCROSS_泡_149_:", e, __ast_匼:1.0___JCROSS_泡_13_=__ast_泡:1.0___JCROSS_泡_101_.__ast_泡:1.0___JCROSS_泡_102_)
+                __ast_泡:1.0___JCROSS_泡_123_.__ast_泡:1.0___JCROSS_泡_80_()
+            return __ast_廊:1.0___JCROSS_廊_26_
+
+        __ast_謀:1.0___JCROSS_泡_54_.__ast_泡:1.0___JCROSS_泡_36_ = __ast_廊:1.0___JCROSS_廊_26_
+
+    return __ast_謀:1.0___JCROSS_泡_54_
+
+
+class __ast_廊:1.0___JCROSS_廊_16_(__ast_廊:1.0___JCROSS_廊_51_):
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_151_(self, __ast_泡:1.0___JCROSS_泡_140_: __ast_廊:1.0___JCROSS_廊_50_, __ast_泡:1.0___JCROSS_泡_122_: __ast_廊:1.0___JCROSS_廊_5_ | __ast_廊:1.0___JCROSS_廊_26_ = __ast_廊:1.0___JCROSS_廊_26_) -> __ast_泡:1.0___JCROSS_泡_72_: ...
+
+
+class __ast_廊:1.0___JCROSS_廊_1_(__ast_廊:1.0___JCROSS_廊_15_):
+    __ast_廊:1.0___JCROSS_廊_3_: __ast_泡:1.0___JCROSS_泡_90_
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_133_(self, __ast_泡:1.0___JCROSS_泡_86_: __ast_廊:1.0___JCROSS_廊_16_ | __ast_廊:1.0___JCROSS_廊_26_ = __ast_廊:1.0___JCROSS_廊_26_) -> __ast_廊:1.0___JCROSS_廊_26_:
+        __ast_泡:1.0___JCROSS_泡_23_ = __ast_泡:1.0___JCROSS_泡_48_.__ast_謀:1.0___JCROSS_曠_2_()
+        self.__ast_泡:1.0___JCROSS_泡_145_ = __ast_泡:1.0___JCROSS_泡_23_.__ast_泡:1.0___JCROSS_泡_2_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        self.__ast_泡:1.0___JCROSS_泡_86_: __ast_廊:1.0___JCROSS_廊_16_ | __ast_廊:1.0___JCROSS_廊_26_
+        if __ast_泡:1.0___JCROSS_泡_86_:
+            __ast_泡:1.0___JCROSS_泡_7_.__ast_泡:1.0___JCROSS_泡_24_(
+                (
+                    "__ast_廊:1.0___JCROSS_廊_40_ `__ast_泡:1.0___JCROSS_泡_86_` __ast_泡:1.0___JCROSS_泡_62_ __ast_泡:1.0___JCROSS_泡_139_ __ast_泡:1.0___JCROSS_泡_95_ __ast_泡:1.0___JCROSS_泡_40_; "
+                    "__ast_泡:1.0___JCROSS_泡_126_ `await` on __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_100_ __ast_泡:1.0___JCROSS_泡_140_"
+                ),
+                __ast_廊:1.0___JCROSS_廊_37_,
+                __ast_泡:1.0___JCROSS_泡_6_=2,
+            )
+
+            self.__ast_泡:1.0___JCROSS_泡_86_ = __ast_泡:1.0___JCROSS_泡_86_
+        else:
+            self.__ast_泡:1.0___JCROSS_泡_86_ = __ast_廊:1.0___JCROSS_廊_26_
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_曠_4_(self, __ast_泡:1.0___JCROSS_泡_140_: __ast_泡:1.0___JCROSS_泡_72_) -> __ast_廊:1.0___JCROSS_廊_26_:
+        if __ast_泡:1.0___JCROSS_泡_69_ self.__ast_泡:1.0___JCROSS_泡_145_.__ast_泡:1.0___JCROSS_泡_27_():
+            self.__ast_泡:1.0___JCROSS_泡_145_.__ast_謀:1.0___JCROSS_曠_4_(__ast_泡:1.0___JCROSS_泡_140_)
+            if self.__ast_泡:1.0___JCROSS_泡_86_:
+                self.__ast_泡:1.0___JCROSS_泡_86_(__ast_泡:1.0___JCROSS_泡_140_)
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_謀:1.0___JCROSS_曠_3_(self, __ast_泡:1.0___JCROSS_泡_16_: __ast_廊:1.0___JCROSS_廊_5_) -> __ast_廊:1.0___JCROSS_廊_26_:
+        if __ast_泡:1.0___JCROSS_泡_69_ self.__ast_泡:1.0___JCROSS_泡_145_.__ast_泡:1.0___JCROSS_泡_27_():
+            self.__ast_泡:1.0___JCROSS_泡_145_.__ast_謀:1.0___JCROSS_曠_3_(__ast_泡:1.0___JCROSS_泡_16_)
+            if self.__ast_泡:1.0___JCROSS_泡_86_:
+                self.__ast_泡:1.0___JCROSS_泡_86_(__ast_廊:1.0___JCROSS_廊_26_, __ast_泡:1.0___JCROSS_泡_122_=__ast_泡:1.0___JCROSS_泡_16_)
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_92_(self) -> __ast_泡:1.0___JCROSS_泡_90_:
+        return f"<__ast_廊:1.0___JCROSS_廊_7_ {self.__ast_廊:1.0___JCROSS_廊_3_} __ast_泡:1.0___JCROSS_泡_140_; __ast_泡:1.0___JCROSS_泡_145_={self.__ast_泡:1.0___JCROSS_泡_145_}>"
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_168_(self) -> __ast_廊:1.0___JCROSS_廊_55_[__ast_廊:1.0___JCROSS_廊_50_, __ast_廊:1.0___JCROSS_廊_26_, __ast_廊:1.0___JCROSS_廊_50_]:
+        return self.__ast_泡:1.0___JCROSS_泡_145_.__ast_泡:1.0___JCROSS_泡_168_()
+
+// [metadata-stripped]
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_1_(self, __ast_謀:1.0___JCROSS_泡_144_: __ast_泡:1.0___JCROSS_泡_72_) -> __ast_廊:1.0___JCROSS_廊_11_:
+        __ast_泡:1.0___JCROSS_泡_108_ __ast_廊:1.0___JCROSS_廊_24_(
+            f"__ast_廊:1.0___JCROSS_廊_17_'t __ast_泡:1.0___JCROSS_泡_166_ {self.__ast_廊:1.0___JCROSS_廊_3_} __ast_泡:1.0___JCROSS_泡_140_ __ast_泡:1.0___JCROSS_泡_53_; "
+            "__ast_泡:1.0___JCROSS_泡_126_ await or an __ast_泡:1.0___JCROSS_泡_86_ __ast_謀:1.0___JCROSS_泡_9_"
+        )
+
+    __ast_泡:1.0___JCROSS_泡_112_ = __ast_泡:1.0___JCROSS_泡_1_
+    __ast_泡:1.0___JCROSS_泡_131_ = __ast_泡:1.0___JCROSS_泡_1_
+    __ast_泡:1.0___JCROSS_泡_73_ = __ast_泡:1.0___JCROSS_泡_1_
+    __ast_泡:1.0___JCROSS_泡_56_ = __ast_泡:1.0___JCROSS_泡_1_
+    __ast_泡:1.0___JCROSS_泡_134_ = __ast_泡:1.0___JCROSS_泡_1_
+    __ast_泡:1.0___JCROSS_泡_91_ = __ast_泡:1.0___JCROSS_泡_1_
+
+
+class __ast_廊:1.0___JCROSS_廊_48_(__ast_廊:1.0___JCROSS_廊_1_):
+    __ast_廊:1.0___JCROSS_廊_3_ = "__ast_泡:1.0___JCROSS_泡_172_"
+
+
+class __ast_廊:1.0___JCROSS_廊_23_:
+    """
+// __ast_漂:0.2___JCROSS_AE_291_ [decoy-metadata]
+    A __ast_謀:1.0___JCROSS_泡_153_ for __ast_泡:1.0___JCROSS_泡_42_ __ast_泡:1.0___JCROSS_泡_173_ __ast_泡:1.0___JCROSS_泡_124_ a weak __ast_泡:1.0___JCROSS_泡_8_ to it.
+// __ast_匼:0.3___JCROSS_HE_732_ [decoy-metadata]
+
+    __ast_廊:1.0___JCROSS_廊_42_ is __ast_泡:1.0___JCROSS_泡_105_ __ast_泡:1.0___JCROSS_泡_115_ __ast_泡:1.0___JCROSS_泡_161_ __ast_謀:1.0___JCROSS_曠_1_ __ast_泡:1.0___JCROSS_泡_60_ or __ast_泡:1.0___JCROSS_泡_113_ __ast_泡:1.0___JCROSS_泡_165_ __ast_泡:1.0___JCROSS_泡_62_,
+    to __ast_泡:1.0___JCROSS_泡_130_ __ast_泡:1.0___JCROSS_泡_39_ __ast_泡:1.0___JCROSS_泡_8_ __ast_泡:1.0___JCROSS_泡_110_ __ast_泡:1.0___JCROSS_泡_169_ __ast_廊:1.0___JCROSS_廊_35_ __ast_泡:1.0___JCROSS_泡_43_ __ast_泡:1.0___JCROSS_泡_117_ __ast_泡:1.0___JCROSS_泡_32_
+    (e.g., .__ast_廊:1.0___JCROSS_廊_53_ __ast_廊:1.0___JCROSS_廊_34_ or GI). __ast_廊:1.0___JCROSS_廊_8_ __ast_泡:1.0___JCROSS_泡_39_ __ast_泡:1.0___JCROSS_泡_162_ __ast_泡:1.0___JCROSS_泡_46_ __ast_泡:1.0___JCROSS_泡_69_ be __ast_泡:1.0___JCROSS_泡_55_ __ast_謀:1.0___JCROSS_泡_128_
+    by __ast_泡:1.0___JCROSS_泡_152_ __ast_廊:1.0___JCROSS_廊_35_ __ast_泡:1.0___JCROSS_泡_154_ __ast_泡:1.0___JCROSS_泡_25_ __ast_泡:1.0___JCROSS_泡_79_ __ast_泡:1.0___JCROSS_泡_152_ __ast_泡:1.0___JCROSS_泡_117_ __ast_泡:1.0___JCROSS_泡_158_'s __ast_泡:1.0___JCROSS_泡_154_ __ast_泡:1.0___JCROSS_泡_25_,
+    __ast_泡:1.0___JCROSS_泡_38_ __ast_泡:1.0___JCROSS_泡_17_ to __ast_泡:1.0___JCROSS_泡_143_ __ast_泡:1.0___JCROSS_泡_132_.
+    """
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_133_(self, __ast_泡:1.0___JCROSS_泡_165_):
+        try:
+            self.__ast_泡:1.0___JCROSS_泡_57_ = __ast_泡:1.0___JCROSS_泡_84_.__ast_廊:1.0___JCROSS_廊_29_(__ast_泡:1.0___JCROSS_泡_165_)
+        __ast_泡:1.0___JCROSS_泡_85_ __ast_廊:1.0___JCROSS_廊_14_:
+            self.__ast_泡:1.0___JCROSS_泡_57_ = __ast_泡:1.0___JCROSS_泡_84_.__ast_泡:1.0___JCROSS_泡_57_(__ast_泡:1.0___JCROSS_泡_165_)
+
+    __ast_泡:1.0___JCROSS_泡_156_ __ast_泡:1.0___JCROSS_泡_151_(self, *__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_):
+        __ast_泡:1.0___JCROSS_泡_165_ = self.__ast_泡:1.0___JCROSS_泡_57_()
+        if __ast_泡:1.0___JCROSS_泡_165_:
+            return __ast_泡:1.0___JCROSS_泡_165_(*__ast_泡:1.0___JCROSS_泡_61_, **__ast_泡:1.0___JCROSS_泡_77_)
+
+// POLYMORPHIC_JCROSS_END

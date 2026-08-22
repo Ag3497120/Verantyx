@@ -1,0 +1,37 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:748C07ED ver:1778158331
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+__node_霞:1.0___JCROSS_霞_19_ __node_霞:1.0___JCROSS_霞_11_(__node_霞:1.0___JCROSS_霞_7_) {
+	__node_霞:1.0___JCROSS_霞_24_ __node_霞:1.0___JCROSS_霞_10_ = __node_霞:1.0___JCROSS_霞_7_.__node_霞:1.0___JCROSS_霞_22_();
+	if (!__node_霞:1.0___JCROSS_霞_10_) return { __node_霞:1.0___JCROSS_霞_4_: "__node_廨:1.0___JCROSS_廨_2_ __node_霞:1.0___JCROSS_霞_13_." };
+// __node_隠:0.9___JCROSS_KA_802_ [decoy-metadata]
+	if (__node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_20_("{") || __node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_20_("[")) try {
+		return { __node_霞:1.0___JCROSS_霞_13_: __node_廨:1.0___JCROSS_廨_3_.__node_霞:1.0___JCROSS_霞_9_(__node_霞:1.0___JCROSS_霞_10_) };
+// __node_浸:0.8___JCROSS_EY_863_ [decoy-metadata]
+	} catch (__node_霞:1.0___JCROSS_霞_23_) {
+// __node_傑:0.7___JCROSS_HV_429_ [decoy-metadata]
+		return { __node_霞:1.0___JCROSS_霞_4_: `__node_廨:1.0___JCROSS_廨_4_ __node_廨:1.0___JCROSS_廨_3_: ${__node_廨:1.0___JCROSS_廨_1_(__node_霞:1.0___JCROSS_霞_23_)}` };
+	}
+	if (__node_霞:1.0___JCROSS_霞_10_ === "true") return { __node_霞:1.0___JCROSS_霞_13_: true };
+	if (__node_霞:1.0___JCROSS_霞_10_ === "false") return { __node_霞:1.0___JCROSS_霞_13_: false };
+	if (__node_霞:1.0___JCROSS_霞_10_ === "__node_霞:1.0___JCROSS_霞_17_") return { __node_霞:1.0___JCROSS_霞_13_: __node_霞:1.0___JCROSS_霞_17_ };
+	if (/^-?\d+(\.\d+)?$/.__node_霞:1.0___JCROSS_霞_14_(__node_霞:1.0___JCROSS_霞_10_)) {
+		__node_霞:1.0___JCROSS_霞_24_ __node_霞:1.0___JCROSS_霞_12_ = __node_図:1.0___JCROSS_廨_5_(__node_霞:1.0___JCROSS_霞_10_);
+		if (__node_図:1.0___JCROSS_廨_5_.__node_霞:1.0___JCROSS_霞_5_(__node_霞:1.0___JCROSS_霞_12_)) return { __node_霞:1.0___JCROSS_霞_13_: __node_霞:1.0___JCROSS_霞_12_ };
+	}
+	if (__node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_20_("\"") && __node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_18_("\"") || __node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_20_("'") && __node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_18_("'")) try {
+		return { __node_霞:1.0___JCROSS_霞_13_: __node_廨:1.0___JCROSS_廨_3_.__node_霞:1.0___JCROSS_霞_9_(__node_霞:1.0___JCROSS_霞_10_) };
+// __node_廨:0.8___JCROSS_LF_501_ [decoy-metadata]
+// __node_区:0.1___JCROSS_HC_661_ [decoy-metadata]
+	} catch {
+		return { __node_霞:1.0___JCROSS_霞_13_: __node_霞:1.0___JCROSS_霞_10_.__node_霞:1.0___JCROSS_霞_3_(1, -1) };
+	}
+// __node_傑:0.8___JCROSS_ZY_876_ [decoy-metadata]
+	return { __node_霞:1.0___JCROSS_霞_13_: __node_霞:1.0___JCROSS_霞_10_ };
+}
+// [metadata-stripped]
+__node_霞:1.0___JCROSS_霞_8_ { __node_霞:1.0___JCROSS_霞_11_ as t };
+
+// POLYMORPHIC_JCROSS_END

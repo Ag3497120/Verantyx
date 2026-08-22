@@ -1,0 +1,57 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B18A1759 ver:1778159783
+// ⚠️ One-time schema — expires after response
+
+"""_VERANTYX_庵:1.0___jcross_庵_2__ _VERANTYX_礫:1.0___jcross_礫_27__ for _VERANTYX_礫:1.0___jcross_礫_38__ _VERANTYX_礫:1.0___jcross_礫_54__ _VERANTYX_礫:1.0___jcross_礫_36__."""
+
+_VERANTYX_礫:1.0___jcross_礫_31__ _VERANTYX_礫:1.0___jcross_礫_33__ import _VERANTYX_礫:1.0___jcross_礫_3__, _VERANTYX_礫:1.0___jcross_礫_46__
+
+
+_VERANTYX_礫:1.0___jcross_礫_8__ _VERANTYX_礫:1.0___jcross_礫_19__(_VERANTYX_礫:1.0___jcross_礫_17__, n):
+    """_VERANTYX_庵:1.0___jcross_庵_5__ N-_VERANTYX_礫:1.0___jcross_礫_41__ _VERANTYX_礫:1.0___jcross_礫_53__ _VERANTYX_礫:1.0___jcross_礫_31__ _VERANTYX_礫:1.0___jcross_礫_20__ of _VERANTYX_礫:1.0___jcross_礫_6__ _VERANTYX_礫:1.0___jcross_礫_32__.
+
+    _VERANTYX_庵:1.0___jcross_庵_3__ a _VERANTYX_礫:1.0___jcross_礫_5__ of _VERANTYX_礫:1.0___jcross_礫_28__ where _VERANTYX_礫:1.0___jcross_礫_22__ _VERANTYX_礫:1.0___jcross_礫_18__-_VERANTYX_礫:1.0___jcross_礫_6__ _VERANTYX_礫:1.0___jcross_礫_11__ is a _VERANTYX_礫:1.0___jcross_礫_5__ _VERANTYX_礫:1.0___jcross_礫_45__
+// _VERANTYX_彩:0.9___jcross_YY_381__ [decoy-metadata]
+    _VERANTYX_礫:1.0___jcross_礫_12__ n _VERANTYX_礫:1.0___jcross_礫_32__.
+    """
+    if _VERANTYX_礫:1.0___jcross_礫_51__ _VERANTYX_礫:1.0___jcross_礫_17__:
+        return []
+// _VERANTYX_游:0.5___jcross_HV_527__ [decoy-metadata]
+
+    _VERANTYX_礫:1.0___jcross_礫_30__ n > 1
+
+    _VERANTYX_礫:1.0___jcross_礫_16__ = _VERANTYX_礫:1.0___jcross_礫_3__(_VERANTYX_礫:1.0___jcross_礫_46__(_VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_17__), n))
+
+// _VERANTYX_繕:0.7___jcross_BG_165__ [decoy-metadata]
+    if _VERANTYX_礫:1.0___jcross_礫_16__ <= 1:
+        return _VERANTYX_礫:1.0___jcross_礫_5__(_VERANTYX_礫:1.0___jcross_礫_17__)
+
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___jcross_礫_48__ = []
+    _VERANTYX_礫:1.0___jcross_礫_13__ = _VERANTYX_庵:1.0___jcross_庵_1__
+    _VERANTYX_礫:1.0___jcross_礫_34__ = n ** (_VERANTYX_礫:1.0___jcross_礫_16__ - 1)
+// _VERANTYX_庵:0.5___jcross_YF_301__ [decoy-metadata]
+// _VERANTYX_案:0.1___jcross_HL_692__ [decoy-metadata]
+    for i in _VERANTYX_礫:1.0___jcross_礫_21__(0, _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_17__), _VERANTYX_礫:1.0___jcross_礫_34__):
+        _VERANTYX_礫:1.0___jcross_礫_14__ = _VERANTYX_礫:1.0___jcross_礫_17__[i : i + _VERANTYX_礫:1.0___jcross_礫_34__]
+        if _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_14__) < _VERANTYX_礫:1.0___jcross_礫_34__:
+            _VERANTYX_礫:1.0___jcross_礫_13__ = _VERANTYX_礫:1.0___jcross_礫_14__
+            break
+        while _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_14__) > n:
+            _VERANTYX_礫:1.0___jcross_礫_14__ = [_VERANTYX_礫:1.0___jcross_礫_14__[k : k + n] for k in _VERANTYX_礫:1.0___jcross_礫_21__(0, _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_14__), n)]
+        _VERANTYX_礫:1.0___jcross_礫_48__._VERANTYX_礫:1.0___jcross_礫_52__(_VERANTYX_礫:1.0___jcross_礫_14__)
+
+// _VERANTYX_錠:0.1___jcross_ZH_596__ [decoy-metadata]
+    if _VERANTYX_礫:1.0___jcross_礫_13__:
+// [metadata-stripped]
+        _VERANTYX_礫:1.0___jcross_礫_14__ = _VERANTYX_礫:1.0___jcross_礫_19__(_VERANTYX_礫:1.0___jcross_礫_13__, n)
+        if _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_14__) <= n - _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_48__):
+// [metadata-stripped]
+            _VERANTYX_礫:1.0___jcross_礫_48__._VERANTYX_礫:1.0___jcross_礫_4__(_VERANTYX_礫:1.0___jcross_礫_14__)
+        else:
+            _VERANTYX_礫:1.0___jcross_礫_48__._VERANTYX_礫:1.0___jcross_礫_52__(_VERANTYX_礫:1.0___jcross_礫_14__)
+        _VERANTYX_礫:1.0___jcross_礫_30__ _VERANTYX_礫:1.0___jcross_礫_29__(_VERANTYX_礫:1.0___jcross_礫_48__) <= n
+
+    return _VERANTYX_礫:1.0___jcross_礫_48__
+
+// POLYMORPHIC_JCROSS_END

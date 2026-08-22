@@ -1,0 +1,71 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D99F7AAD ver:1778159745
+// ⚠️ One-time schema — expires after response
+// __jcross_匳:0.3___ID_ZG_164_ [decoy-metadata]
+
+__jcross_滴:1.0___ID_滴_26_ __jcross_滴:1.0___ID_滴_18_ import __jcross_滴:1.0___ID_滴_20_, __jcross_滴:1.0___ID_滴_14_
+// __jcross_滴:0.3___ID_LL_144_ [decoy-metadata]
+__jcross_滴:1.0___ID_滴_26_ __jcross_滴:1.0___ID_滴_6_ import __jcross_庸:1.0___ID_庸_3_, __jcross_庸:1.0___ID_庸_21_, __jcross_庸:1.0___ID_庸_15_, __jcross_庸:1.0___ID_庸_18_, __jcross_庸:1.0___ID_庸_5_
+import re
+
+@__jcross_滴:1.0___ID_滴_20_
+class __jcross_庸:1.0___ID_庸_23_:
+    id: __jcross_滴:1.0___ID_滴_41_
+    __jcross_滴:1.0___ID_滴_15_: __jcross_滴:1.0___ID_滴_41_
+    __jcross_滴:1.0___ID_滴_29_: __jcross_滴:1.0___ID_滴_41_
+    __jcross_滴:1.0___ID_滴_16_: __jcross_庸:1.0___ID_庸_3_[__jcross_滴:1.0___ID_滴_41_]  # __jcross_庸:1.0___ID_庸_22_ __jcross_滴:1.0___ID_滴_23_ or __jcross_幽:1.0___ID_滴_38_
+    __jcross_滴:1.0___ID_滴_37_: __jcross_滴:1.0___ID_滴_12_      # 1: __jcross_庸:1.0___ID_庸_6_, 2: __jcross_庸:1.0___ID_庸_8_, 3: __jcross_庸:1.0___ID_庸_4_
+// __jcross_紐:0.4___ID_AB_736_ [decoy-metadata]
+    __jcross_滴:1.0___ID_滴_40_: __jcross_滴:1.0___ID_滴_12_      # __jcross_庸:1.0___ID_庸_11_ __jcross_滴:1.0___ID_滴_42_
+    __jcross_滴:1.0___ID_滴_49_: __jcross_庸:1.0___ID_庸_3_[__jcross_滴:1.0___ID_滴_41_] # e.g. ["__jcross_脈:1.0___ID_滴_31_", "__jcross_滴:1.0___ID_滴_5_"]
+// __jcross_庸:0.5___ID_XV_302_ [decoy-metadata]
+
+class __jcross_庸:1.0___ID_庸_9_:
+    __jcross_滴:1.0___ID_滴_10_: __jcross_庸:1.0___ID_庸_21_[__jcross_滴:1.0___ID_滴_41_, __jcross_庸:1.0___ID_庸_23_] = {}
+    __jcross_滴:1.0___ID_滴_19_: __jcross_庸:1.0___ID_庸_21_[__jcross_滴:1.0___ID_滴_41_, __jcross_庸:1.0___ID_庸_5_] = {}
+
+    @__jcross_滴:1.0___ID_滴_11_
+    __jcross_滴:1.0___ID_滴_8_ __jcross_則:1.0___ID_滴_47_(__jcross_滴:1.0___ID_滴_43_, __jcross_滴:1.0___ID_滴_27_: __jcross_庸:1.0___ID_庸_23_):
+        __jcross_滴:1.0___ID_滴_8_ __jcross_則:1.0___ID_滴_25_(__jcross_滴:1.0___ID_滴_39_):
+            __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_10_[__jcross_滴:1.0___ID_滴_27_.id] = __jcross_滴:1.0___ID_滴_27_
+            __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_19_[__jcross_滴:1.0___ID_滴_27_.id] = __jcross_滴:1.0___ID_滴_39_
+            return __jcross_滴:1.0___ID_滴_39_
+        return __jcross_則:1.0___ID_滴_25_
+
+    @__jcross_滴:1.0___ID_滴_11_
+// __jcross_則:0.6___ID_AW_601_ [decoy-metadata]
+    __jcross_滴:1.0___ID_滴_8_ __jcross_則:1.0___ID_縁_3_(__jcross_滴:1.0___ID_滴_43_, __jcross_滴:1.0___ID_滴_30_: __jcross_滴:1.0___ID_滴_41_) -> __jcross_庸:1.0___ID_庸_5_:
+        return __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_19_.__jcross_則:1.0___ID_縁_1_(__jcross_滴:1.0___ID_滴_30_)
+
+    @__jcross_滴:1.0___ID_滴_11_
+    __jcross_滴:1.0___ID_滴_8_ __jcross_則:1.0___ID_滴_35_(__jcross_滴:1.0___ID_滴_43_, __jcross_滴:1.0___ID_滴_32_: __jcross_滴:1.0___ID_滴_41_, __jcross_滴:1.0___ID_滴_17_: __jcross_滴:1.0___ID_滴_41_ = __jcross_庸:1.0___ID_庸_1_) -> __jcross_庸:1.0___ID_庸_3_[__jcross_滴:1.0___ID_滴_41_]:
+        """
+        クエリとドメインヒントに基づいて、適切なソルバーIDのリストを優先度順に返す。
+        """
+        __jcross_滴:1.0___ID_滴_36_ = []
+        
+// [metadata-stripped]
+        if __jcross_滴:1.0___ID_滴_17_:
+            for __jcross_滴:1.0___ID_滴_22_, __jcross_滴:1.0___ID_滴_27_ in __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_10_.__jcross_滴:1.0___ID_滴_1_():
+                if __jcross_滴:1.0___ID_滴_27_.__jcross_滴:1.0___ID_滴_15_ == __jcross_滴:1.0___ID_滴_17_:
+                    __jcross_滴:1.0___ID_滴_36_.__jcross_滴:1.0___ID_滴_44_((__jcross_滴:1.0___ID_滴_22_, 100)) # __jcross_庸:1.0___ID_庸_2_ __jcross_滴:1.0___ID_滴_46_
+
+// [metadata-stripped]
+        for __jcross_滴:1.0___ID_滴_22_, __jcross_滴:1.0___ID_滴_27_ in __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_10_.__jcross_滴:1.0___ID_滴_1_():
+            for __jcross_則:1.0___ID_滴_4_ in __jcross_滴:1.0___ID_滴_27_.__jcross_滴:1.0___ID_滴_16_:
+                if re.__jcross_滴:1.0___ID_滴_28_(__jcross_則:1.0___ID_滴_4_, __jcross_滴:1.0___ID_滴_32_, re.__jcross_庸:1.0___ID_庸_7_):
+// __jcross_匳:0.9___ID_ME_737_ [decoy-metadata]
+// [metadata-stripped]
+                    if __jcross_滴:1.0___ID_滴_45_ any(c[0] == __jcross_滴:1.0___ID_滴_22_ for c in __jcross_滴:1.0___ID_滴_36_):
+                        __jcross_滴:1.0___ID_滴_36_.__jcross_滴:1.0___ID_滴_44_((__jcross_滴:1.0___ID_滴_22_, 50))
+                    break
+        
+// [metadata-stripped]
+        __jcross_滴:1.0___ID_滴_36_.__jcross_滴:1.0___ID_滴_9_(__jcross_幽:1.0___ID_滴_34_=__jcross_滴:1.0___ID_滴_24_ x: (x[1], -__jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_10_[x[0]].__jcross_滴:1.0___ID_滴_37_), __jcross_滴:1.0___ID_滴_33_=__jcross_庸:1.0___ID_庸_19_)
+        return [c[0] for c in __jcross_滴:1.0___ID_滴_36_]
+
+    @__jcross_滴:1.0___ID_滴_11_
+    __jcross_滴:1.0___ID_滴_8_ __jcross_則:1.0___ID_縁_2_(__jcross_滴:1.0___ID_滴_43_, __jcross_滴:1.0___ID_滴_30_: __jcross_滴:1.0___ID_滴_41_) -> __jcross_庸:1.0___ID_庸_23_:
+        return __jcross_滴:1.0___ID_滴_43_.__jcross_滴:1.0___ID_滴_10_.__jcross_則:1.0___ID_縁_1_(__jcross_滴:1.0___ID_滴_30_)
+
+// POLYMORPHIC_JCROSS_END

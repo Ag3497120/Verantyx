@@ -1,0 +1,65 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2B373130 ver:1778149802
+// ⚠️ One-time schema — expires after response
+
+_SYM_霩:1.0___ast_霩_1__ _SYM_霩:1.0___ast_霩_27__::_SYM_霩:1.0___ast_霩_24__::_SYM_廷:1.0___ast_廷_17__;
+_SYM_霩:1.0___ast_霩_1__ _SYM_霩:1.0___ast_霩_40__::_SYM_霩:1.0___ast_霩_20__::_SYM_霩:1.0___ast_霩_5__;
+_SYM_霩:1.0___ast_霩_1__ _SYM_霩:1.0___ast_霩_33__::{_SYM_霩:1.0___ast_霩_18__, _SYM_霩:1.0___ast_霩_4__};
+_SYM_霩:1.0___ast_霩_1__ _SYM_霩:1.0___ast_霩_8__::actor::{_SYM_廷:1.0___ast_廷_21__, _SYM_廷:1.0___ast_廷_1__};
+
+_SYM_霩:1.0___ast_霩_14__ struct _SYM_廷:1.0___ast_廷_20__ {
+    _SYM_霩:1.0___ast_霩_41__: _SYM_廷:1.0___ast_廷_17__<_SYM_廷:1.0___ast_廷_8__, _SYM_廷:1.0___ast_廷_13__<_SYM_霩:1.0___ast_霩_42__ _SYM_廷:1.0___ast_廷_21__>>,
+    _SYM_霩:1.0___ast_霩_10__: _SYM_霩:1.0___ast_霩_5__::_SYM_格:1.0___ast_廷_14__<_SYM_廷:1.0___ast_廷_1__>,
+    _SYM_霩:1.0___ast_霩_46__: _SYM_霩:1.0___ast_霩_5__::_SYM_格:1.0___ast_廷_12__<_SYM_廷:1.0___ast_廷_1__>,
+}
+// _SYM_霩:0.1___ast_FH_830__ [decoy-metadata]
+
+_SYM_霩:1.0___ast_霩_19__ _SYM_廷:1.0___ast_廷_20__ {
+    _SYM_霩:1.0___ast_霩_14__ fn _SYM_霩:1.0___ast_霩_38__() -> _SYM_廷:1.0___ast_廷_11__ {
+        let (tx, rx) = _SYM_霩:1.0___ast_霩_5__::_SYM_霩:1.0___ast_霩_22__(100);
+        _SYM_廷:1.0___ast_廷_11__ {
+            _SYM_霩:1.0___ast_霩_41__: _SYM_廷:1.0___ast_廷_17__::_SYM_霩:1.0___ast_霩_38__(),
+            _SYM_霩:1.0___ast_霩_10__: tx,
+// _SYM_格:0.1___ast_KH_745__ [decoy-metadata]
+            _SYM_霩:1.0___ast_霩_46__: rx,
+        }
+    }
+
+    _SYM_霩:1.0___ast_霩_14__ fn _SYM_霩:1.0___ast_霩_36__(&_SYM_霩:1.0___ast_霩_2__ self, _SYM_霩:1.0___ast_霩_3__: _SYM_廷:1.0___ast_廷_13__<_SYM_霩:1.0___ast_霩_42__ _SYM_廷:1.0___ast_廷_21__>) {
+        _SYM_霩:1.0___ast_霩_18__!("[_SYM_廷:1.0___ast_廷_20__] _SYM_廷:1.0___ast_廷_10__ _SYM_霩:1.0___ast_霩_3__ _SYM_霩:1.0___ast_霩_11__: {}", _SYM_霩:1.0___ast_霩_3__._SYM_霩:1.0___ast_霩_34__());
+        self._SYM_霩:1.0___ast_霩_41__._SYM_霩:1.0___ast_霩_31__(_SYM_霩:1.0___ast_霩_3__._SYM_霩:1.0___ast_霩_34__()._SYM_霩:1.0___ast_霩_23__(), _SYM_霩:1.0___ast_霩_3__);
+    }
+
+// _SYM_傑:0.4___ast_BC_273__ [decoy-metadata]
+    _SYM_霩:1.0___ast_霩_14__ fn _SYM_格:1.0___ast_傑_2__(&self) -> _SYM_霩:1.0___ast_霩_5__::_SYM_格:1.0___ast_廷_14__<_SYM_廷:1.0___ast_廷_1__> {
+        self._SYM_霩:1.0___ast_霩_10__._SYM_霩:1.0___ast_霩_28__()
+// _SYM_傑:0.1___ast_CW_282__ [decoy-metadata]
+    }
+
+    _SYM_霩:1.0___ast_霩_14__ a_SYM_霩:1.0___ast_霩_20__ fn _SYM_霩:1.0___ast_霩_43__(&_SYM_霩:1.0___ast_霩_2__ self) -> _SYM_霩:1.0___ast_霩_35__::_SYM_廷:1.0___ast_廷_15__<()> {
+        _SYM_霩:1.0___ast_霩_18__!("[_SYM_廷:1.0___ast_廷_20__] _SYM_廷:1.0___ast_廷_6__ _SYM_霩:1.0___ast_霩_7__ _SYM_霩:1.0___ast_霩_21__.");
+        
+        while let _SYM_廷:1.0___ast_廷_9__(_SYM_霩:1.0___ast_霩_29__) = self._SYM_霩:1.0___ast_霩_46__._SYM_霩:1.0___ast_霩_17__().await {
+            _SYM_霩:1.0___ast_霩_4__!("[_SYM_廷:1.0___ast_廷_20__] _SYM_廷:1.0___ast_廷_16__ _SYM_霩:1.0___ast_霩_44__ _SYM_霩:1.0___ast_霩_30__ {} to {}", _SYM_霩:1.0___ast_霩_29__._SYM_格:1.0___ast_霩_32__, _SYM_霩:1.0___ast_霩_29__._SYM_霩:1.0___ast_霩_12__);
+            
+// [metadata-stripped]
+            if let _SYM_廷:1.0___ast_廷_9__(actor) = self._SYM_霩:1.0___ast_霩_41__._SYM_格:1.0___ast_傑_1__(&_SYM_霩:1.0___ast_霩_29__._SYM_霩:1.0___ast_霩_12__) {
+                if let Ok(_SYM_廷:1.0___ast_廷_9__(_SYM_霩:1.0___ast_霩_16__)) = actor._SYM_霩:1.0___ast_霩_45__(_SYM_霩:1.0___ast_霩_29__).await {
+                    let _ = self._SYM_霩:1.0___ast_霩_10__._SYM_霩:1.0___ast_霩_26__(_SYM_霩:1.0___ast_霩_16__).await;
+                }
+            } else if _SYM_霩:1.0___ast_霩_29__._SYM_霩:1.0___ast_霩_12__ == "_SYM_廷:1.0___ast_廷_18__" {
+// [metadata-stripped]
+// _SYM_箱:0.2___ast_FG_966__ [decoy-metadata]
+            } else if _SYM_霩:1.0___ast_霩_29__._SYM_霩:1.0___ast_霩_12__ == "_SYM_廷:1.0___ast_廷_2__" && _SYM_霩:1.0___ast_霩_29__._SYM_箱:1.0___ast_霩_37__ == "_SYM_廷:1.0___ast_廷_4__" {
+                _SYM_霩:1.0___ast_霩_18__!("[_SYM_廷:1.0___ast_廷_20__] _SYM_廷:1.0___ast_廷_7__ _SYM_霩:1.0___ast_霩_13__ _SYM_霩:1.0___ast_霩_39__.");
+                break;
+            } else {
+                _SYM_霩:1.0___ast_霩_4__!("[_SYM_廷:1.0___ast_廷_20__] _SYM_廷:1.0___ast_廷_19__ _SYM_霩:1.0___ast_霩_12__: {}", _SYM_霩:1.0___ast_霩_29__._SYM_霩:1.0___ast_霩_12__);
+// _SYM_繕:0.4___ast_AH_710__ [decoy-metadata]
+            }
+        }
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

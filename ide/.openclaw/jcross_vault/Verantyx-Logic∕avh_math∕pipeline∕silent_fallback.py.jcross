@@ -1,0 +1,61 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B4794B72 ver:1778159727
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霡:1.0___ast_霡_2__ _JCROSS_霡:1.0___ast_霡_23__._JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_24__ import _JCROSS_礎:1.0___ast_礎_9__
+_JCROSS_霡:1.0___ast_霡_2__ _JCROSS_霡:1.0___ast_霡_23__._JCROSS_霡:1.0___ast_霡_26__._JCROSS_霡:1.0___ast_霡_7__ import _JCROSS_礎:1.0___ast_礎_8__
+
+_JCROSS_霡:1.0___ast_霡_29__ _JCROSS_濫:1.0___ast_霡_9__(_JCROSS_霡:1.0___ast_霡_28__: _JCROSS_礎:1.0___ast_礎_9__) -> _JCROSS_礎:1.0___ast_礎_9__:
+    """
+    _JCROSS_礎:1.0___ast_礎_9__ 内の各軸を走査し、最良の候補を _JCROSS_礎:1.0___ast_礎_7__ として強制的に出力する。
+// _JCROSS_巌:0.3___ast_EE_598__ [decoy-metadata]
+    """
+// _JCROSS_格:0.9___ast_BY_301__ [decoy-metadata]
+    if _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_21__ != _JCROSS_礎:1.0___ast_礎_8__._JCROSS_礎:1.0___ast_礎_4__ _JCROSS_霡:1.0___ast_霡_12__ _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_21__ != _JCROSS_礎:1.0___ast_礎_8__._JCROSS_礎:1.0___ast_礎_3__:
+        return _JCROSS_霡:1.0___ast_霡_28__
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_濫:1.0___ast_霡_13__ = _JCROSS_礎:1.0___ast_礎_2__
+    _JCROSS_霡:1.0___ast_霡_20__ = _JCROSS_礎:1.0___ast_礎_2__
+
+    if _JCROSS_霡:1.0___ast_霡_28__._JCROSS_濫:1.0___ast_霡_8__:
+        _JCROSS_濫:1.0___ast_霡_13__ = _JCROSS_霡:1.0___ast_霡_28__._JCROSS_濫:1.0___ast_霡_8__
+// _JCROSS_格:0.5___ast_YV_244__ [decoy-metadata]
+        _JCROSS_霡:1.0___ast_霡_20__ = "_JCROSS_霡:1.0___ast_霡_5__"
+    _JCROSS_濫:1.0___ast_霡_3__ _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_10__:
+        _JCROSS_濫:1.0___ast_霡_13__ = _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_10__[0]
+        _JCROSS_霡:1.0___ast_霡_20__ = "_JCROSS_霡:1.0___ast_霡_18__"
+    _JCROSS_濫:1.0___ast_霡_3__ _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_14__:
+// [metadata-stripped]
+        for ev in _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_14__:
+            if ev._JCROSS_格:1.0___ast_巌_1__("_JCROSS_霡:1.0___ast_霡_16__"):
+// _JCROSS_礎:0.4___ast_KD_509__ [decoy-metadata]
+                _JCROSS_濫:1.0___ast_霡_13__ = ev["_JCROSS_霡:1.0___ast_霡_16__"]
+                _JCROSS_霡:1.0___ast_霡_20__ = "_JCROSS_霡:1.0___ast_霡_14__"
+                break
+
+    if _JCROSS_濫:1.0___ast_霡_13__:
+        _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_21__ = _JCROSS_礎:1.0___ast_礎_8__._JCROSS_格:1.0___ast_礎_5__
+// _JCROSS_箱:0.6___ast_CZ_669__ [decoy-metadata]
+        _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_1__["_JCROSS_格:1.0___ast_霡_11__"] = {
+            "_JCROSS_濫:1.0___ast_霡_25__": _JCROSS_濫:1.0___ast_霡_13__,
+            "_JCROSS_霡:1.0___ast_霡_4__": _JCROSS_霡:1.0___ast_霡_20__,
+            "_JCROSS_霡:1.0___ast_霡_19__": "構造的な類推に基づく仮回答（検証未完了）",
+            "_JCROSS_霡:1.0___ast_霡_6__": "_JCROSS_霡:1.0___ast_霡_15__"
+        }
+        _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_1__["_JCROSS_濫:1.0___ast_霡_17__"] = _JCROSS_礎:1.0___ast_礎_1__
+    else:
+// _JCROSS_巌:0.3___ast_MW_773__ [decoy-metadata]
+// [metadata-stripped]
+        _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_21__ = _JCROSS_礎:1.0___ast_礎_8__._JCROSS_礎:1.0___ast_礎_3__
+        _JCROSS_霡:1.0___ast_霡_28__._JCROSS_霡:1.0___ast_霡_1__["_JCROSS_霡:1.0___ast_霡_22__"] = "構成可能な構造が見つかりませんでした。"
+
+    return _JCROSS_霡:1.0___ast_霡_28__
+
+_JCROSS_霡:1.0___ast_霡_29__ _JCROSS_霡:1.0___ast_霡_27__(_JCROSS_霡:1.0___ast_霡_28__: _JCROSS_礎:1.0___ast_礎_9__) -> _JCROSS_礎:1.0___ast_礎_9__:
+    """
+    既存のフォールバック処理を、強制昇格ロジックでラップする。
+    """
+    return _JCROSS_濫:1.0___ast_霡_9__(_JCROSS_霡:1.0___ast_霡_28__)
+// POLYMORPHIC_JCROSS_END

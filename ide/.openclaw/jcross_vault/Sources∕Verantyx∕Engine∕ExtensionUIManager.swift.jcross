@@ -1,0 +1,83 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BB311922 ver:1778164102
+// _JCROSS_縁:0.1__ID_GL_859_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_廷:1.0__ID_廷_15_
+import _JCROSS_廷:1.0__ID_廷_1_
+
+enum _JCROSS_廷:1.0__ID_廷_11_ {
+    case _JCROSS_霮:1.0__ID_霮_6_(_JCROSS_霮:1.0__ID_霮_14_: [_JCROSS_廷:1.0__ID_廷_10_], _JCROSS_霮:1.0__ID_霮_2_: [_JCROSS_廷:1.0__ID_廷_10_: _JCROSS_廷:1.0__ID_廷_5_]?)
+    case _JCROSS_霮:1.0__ID_霮_17_(_JCROSS_霮:1.0__ID_霮_2_: [_JCROSS_廷:1.0__ID_廷_10_: _JCROSS_廷:1.0__ID_廷_5_]?)
+}
+
+@_JCROSS_廷:1.0__ID_廷_4_
+final class _JCROSS_道:1.0__ID_廷_2_: _JCROSS_廷:1.0__ID_廷_6_ {
+    static let _JCROSS_霮:1.0__ID_霮_11_ = _JCROSS_道:1.0__ID_廷_2_()
+
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_24_: _JCROSS_廷:1.0__ID_廷_16_ = false
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_12_: _JCROSS_廷:1.0__ID_廷_11_? = nil
+    
+// [metadata-stripped]
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_5_: [_JCROSS_廷:1.0__ID_廷_10_] = []
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_15_: [_JCROSS_廷:1.0__ID_廷_10_] = []
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_1_: _JCROSS_廷:1.0__ID_廷_10_ = ""
+    
+// [metadata-stripped]
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_20_: _JCROSS_廷:1.0__ID_廷_10_ = ""
+    @_JCROSS_廷:1.0__ID_廷_14_ var _JCROSS_霮:1.0__ID_霮_9_: _JCROSS_廷:1.0__ID_廷_10_ = ""
+    
+    private var _JCROSS_霮:1.0__ID_霮_3_: _JCROSS_廷:1.0__ID_廷_9_<_JCROSS_廷:1.0__ID_廷_5_?, _JCROSS_道:1.0__ID_廷_7_>?
+
+    private init() {}
+
+    func _JCROSS_霮:1.0__ID_霮_21_(_JCROSS_霮:1.0__ID_霮_14_: [_JCROSS_廷:1.0__ID_廷_10_], _JCROSS_霮:1.0__ID_霮_2_: [_JCROSS_廷:1.0__ID_廷_10_: _JCROSS_廷:1.0__ID_廷_5_]?) async -> _JCROSS_廷:1.0__ID_廷_10_? {
+        self._JCROSS_霮:1.0__ID_霮_5_ = _JCROSS_霮:1.0__ID_霮_14_
+        self._JCROSS_霮:1.0__ID_霮_15_ = _JCROSS_霮:1.0__ID_霮_14_
+// _JCROSS_道:0.8__ID_HV_251_ [decoy-metadata]
+        self._JCROSS_霮:1.0__ID_霮_1_ = ""
+        self._JCROSS_霮:1.0__ID_霮_12_ = ._JCROSS_霮:1.0__ID_霮_6_(_JCROSS_霮:1.0__ID_霮_14_: _JCROSS_霮:1.0__ID_霮_14_, _JCROSS_霮:1.0__ID_霮_2_: _JCROSS_霮:1.0__ID_霮_2_)
+        self._JCROSS_霮:1.0__ID_霮_24_ = true
+// _JCROSS_廷:0.7__ID_HB_531_ [decoy-metadata]
+        
+        let _JCROSS_霮:1.0__ID_霮_22_ = await _JCROSS_霮:1.0__ID_霮_7_ { _JCROSS_霮:1.0__ID_霮_13_ in
+// _JCROSS_廷:0.5__ID_KV_307_ [decoy-metadata]
+            self._JCROSS_霮:1.0__ID_霮_3_ = _JCROSS_霮:1.0__ID_霮_13_
+        }
+        
+        self._JCROSS_霮:1.0__ID_霮_24_ = false
+        self._JCROSS_霮:1.0__ID_霮_12_ = nil
+        return _JCROSS_霮:1.0__ID_霮_22_ as? _JCROSS_廷:1.0__ID_廷_10_
+    }
+
+    func _JCROSS_霮:1.0__ID_霮_8_(_JCROSS_霮:1.0__ID_霮_2_: [_JCROSS_廷:1.0__ID_廷_10_: _JCROSS_廷:1.0__ID_廷_5_]?) async -> _JCROSS_廷:1.0__ID_廷_10_? {
+        self._JCROSS_霮:1.0__ID_霮_20_ = ""
+        self._JCROSS_霮:1.0__ID_霮_9_ = _JCROSS_霮:1.0__ID_霮_2_?["_JCROSS_霮:1.0__ID_霮_10_"] as? _JCROSS_廷:1.0__ID_廷_10_ ?? "_JCROSS_道:1.0__ID_廷_12_ _JCROSS_霮:1.0__ID_霮_18_"
+        self._JCROSS_霮:1.0__ID_霮_12_ = ._JCROSS_霮:1.0__ID_霮_17_(_JCROSS_霮:1.0__ID_霮_2_: _JCROSS_霮:1.0__ID_霮_2_)
+        self._JCROSS_霮:1.0__ID_霮_24_ = true
+        
+        let _JCROSS_霮:1.0__ID_霮_22_ = await _JCROSS_霮:1.0__ID_霮_7_ { _JCROSS_霮:1.0__ID_霮_13_ in
+            self._JCROSS_霮:1.0__ID_霮_3_ = _JCROSS_霮:1.0__ID_霮_13_
+        }
+        
+        self._JCROSS_霮:1.0__ID_霮_24_ = false
+        self._JCROSS_霮:1.0__ID_霮_12_ = nil
+        return _JCROSS_霮:1.0__ID_霮_22_ as? _JCROSS_廷:1.0__ID_廷_10_
+    }
+
+    func _JCROSS_霮:1.0__ID_霮_23_(_JCROSS_霮:1.0__ID_霮_18_: _JCROSS_廷:1.0__ID_廷_5_?) {
+        guard let _JCROSS_霮:1.0__ID_霮_13_ = _JCROSS_霮:1.0__ID_霮_3_ else { return }
+        self._JCROSS_霮:1.0__ID_霮_3_ = nil
+        _JCROSS_霮:1.0__ID_霮_13_._JCROSS_霮:1.0__ID_霮_19_(_JCROSS_霮:1.0__ID_霮_4_: _JCROSS_霮:1.0__ID_霮_18_)
+    }
+
+    func _JCROSS_霮:1.0__ID_霮_16_() {
+        guard let _JCROSS_霮:1.0__ID_霮_13_ = _JCROSS_霮:1.0__ID_霮_3_ else { return }
+// _JCROSS_霮:0.4__ID_ZL_786_ [decoy-metadata]
+        self._JCROSS_霮:1.0__ID_霮_3_ = nil
+        _JCROSS_霮:1.0__ID_霮_13_._JCROSS_霮:1.0__ID_霮_19_(_JCROSS_霮:1.0__ID_霮_4_: nil)
+// _JCROSS_道:0.8__ID_HC_875_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

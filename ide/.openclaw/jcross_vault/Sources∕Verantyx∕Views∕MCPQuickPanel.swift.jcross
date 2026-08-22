@@ -1,0 +1,973 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:24E2C9A5 ver:1778163810
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_廟:1.0___ast_廟_36__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _TOKEN_廟:1.0___ast_廟_53__: _TOKEN_廟:1.0___ast_廟_31__ {
+    @_TOKEN_廟:1.0___ast_廟_107__ var _TOKEN_霾:1.0___ast_霾_163__: _TOKEN_廟:1.0___ast_廟_28__
+    @_TOKEN_廟:1.0___ast_廟_141__ var _TOKEN_霾:1.0___ast_霾_191__ = _TOKEN_廟:1.0___ast_廟_13__._TOKEN_霾:1.0___ast_霾_62__
+    @_TOKEN_廟:1.0___ast_廟_121__ var _TOKEN_霾:1.0___ast_霾_250__: _TOKEN_廟:1.0___ast_廟_21__
+
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_134__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_103__ = 0     // _TOKEN_淵:1.0___ast_霾_118__-_TOKEN_霾:1.0___ast_霾_258__ _TOKEN_霾:1.0___ast_霾_72__
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_210__: _TOKEN_廟:1.0___ast_廟_132__? = nil  // _TOKEN_霾:1.0___ast_霾_97__-_TOKEN_策:1.0___ast_霾_253__ _TOKEN_霾:1.0___ast_霾_133__ (no _TOKEN_霾:1.0___ast_霾_156__)
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_282__: _TOKEN_廟:1.0___ast_廟_110__ = ._TOKEN_霾:1.0___ast_霾_228__
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_193__ = ""         // _TOKEN_廟:1.0___ast_廟_52__ _TOKEN_霾:1.0___ast_霾_151__ _TOKEN_霾:1.0___ast_霾_223__ for _TOKEN_霾:1.0___ast_霾_74__ _TOKEN_霾:1.0___ast_霾_114__
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_53__: _TOKEN_廟:1.0___ast_廟_126__?
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_304__ = false
+    @_TOKEN_廟:1.0___ast_廟_51__ private var _TOKEN_霾:1.0___ast_霾_125__: _TOKEN_廟:1.0___ast_廟_21__
+
+    enum _TOKEN_廟:1.0___ast_廟_110__ {
+        case _TOKEN_霾:1.0___ast_霾_228__             // _TOKEN_霾:1.0___ast_霾_257__ _TOKEN_霾:1.0___ast_霾_216__ & _TOKEN_霾:1.0___ast_霾_7__
+        case _TOKEN_霾:1.0___ast_霾_77__          // _TOKEN_霾:1.0___ast_霾_82__ _TOKEN_霾:1.0___ast_霾_43__ _TOKEN_霾:1.0___ast_霾_27__ _TOKEN_策:1.0___ast_霾_148__
+        case _TOKEN_霾:1.0___ast_霾_26__        // _TOKEN_霾:1.0___ast_霾_201__ _TOKEN_霾:1.0___ast_霾_195__ _TOKEN_霾:1.0___ast_霾_102__ _TOKEN_霾:1.0___ast_霾_33__
+        case _TOKEN_霾:1.0___ast_霾_186__(_TOKEN_廟:1.0___ast_廟_24__, _TOKEN_廟:1.0___ast_廟_5__)  // _TOKEN_霾:1.0___ast_霾_80__ _TOKEN_霾:1.0___ast_霾_284__ _TOKEN_霾:1.0___ast_霾_223__
+    }
+
+// [metadata-stripped]
+
+    enum _TOKEN_廟:1.0___ast_廟_114__: _TOKEN_廟:1.0___ast_廟_22__ {
+        case _TOKEN_策:1.0___ast_霾_148__(_TOKEN_廟:1.0___ast_廟_5__, _TOKEN_廟:1.0___ast_廟_13__._TOKEN_廟:1.0___ast_廟_70__)
+        case _TOKEN_霾:1.0___ast_霾_80__(_TOKEN_廟:1.0___ast_廟_24__, _TOKEN_廟:1.0___ast_廟_5__)
+        case _TOKEN_霾:1.0___ast_霾_102__(_TOKEN_廟:1.0___ast_廟_5__)
+        case _TOKEN_霾:1.0___ast_霾_9__(_TOKEN_廟:1.0___ast_廟_6__)
+
+        var id: _TOKEN_廟:1.0___ast_廟_126__ {
+            switch self {
+            case ._TOKEN_策:1.0___ast_霾_148__(let s, _):  return "_TOKEN_霾:1.0___ast_霾_85__\(s.id)"
+            case ._TOKEN_霾:1.0___ast_霾_80__(let t, _):   return "_TOKEN_霾:1.0___ast_霾_5__\(t.id)"
+            case ._TOKEN_霾:1.0___ast_霾_102__(let t):  return "_TOKEN_霾:1.0___ast_霾_315__\(t.id)"
+            case ._TOKEN_霾:1.0___ast_霾_9__(let a):    return "_TOKEN_霾:1.0___ast_霾_174__\(a._TOKEN_霾:1.0___ast_霾_81__)"
+            }
+        }
+
+        var _TOKEN_霾:1.0___ast_霾_205__: _TOKEN_廟:1.0___ast_廟_126__ {
+            switch self {
+            case ._TOKEN_策:1.0___ast_霾_148__(let s, let st):
+                switch st {
+                case ._TOKEN_霾:1.0___ast_霾_179__:   return "_TOKEN_霾:1.0___ast_霾_307__._TOKEN_霾:1.0___ast_霾_24__"
+                case ._TOKEN_霾:1.0___ast_霾_159__:  return "_TOKEN_霾:1.0___ast_霾_307__._TOKEN_霾:1.0___ast_霾_281__"
+                case ._TOKEN_霾:1.0___ast_霾_290__:       return "_TOKEN_霾:1.0___ast_霾_35__._TOKEN_霾:1.0___ast_霾_307__._TOKEN_霾:1.0___ast_霾_24__"
+                case ._TOKEN_霾:1.0___ast_霾_34__: return "_TOKEN_霾:1.0___ast_霾_307__"
+                }
+            case ._TOKEN_霾:1.0___ast_霾_80__:     return "_TOKEN_霾:1.0___ast_霾_129__"
+            case ._TOKEN_霾:1.0___ast_霾_102__: return "_TOKEN_霾:1.0___ast_霾_235__.on._TOKEN_霾:1.0___ast_霾_235__"
+            case ._TOKEN_霾:1.0___ast_霾_9__:   return "_TOKEN_霾:1.0___ast_霾_268__._TOKEN_霾:1.0___ast_霾_307__._TOKEN_霾:1.0___ast_霾_24__"
+            }
+        }
+
+        var _TOKEN_霾:1.0___ast_霾_11__: _TOKEN_廟:1.0___ast_廟_4__ {
+            switch self {
+            case ._TOKEN_策:1.0___ast_霾_148__(_, let st):
+                switch st {
+                case ._TOKEN_霾:1.0___ast_霾_179__:    return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.3, _TOKEN_霾:1.0___ast_霾_237__: 0.9, _TOKEN_霾:1.0___ast_霾_135__: 0.5)
+                case ._TOKEN_霾:1.0___ast_霾_159__:   return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.7, _TOKEN_霾:1.0___ast_霾_135__: 0.3)
+                case ._TOKEN_霾:1.0___ast_霾_290__:        return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.4, _TOKEN_霾:1.0___ast_霾_135__: 0.4)
+                case ._TOKEN_霾:1.0___ast_霾_34__: return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.4, _TOKEN_霾:1.0___ast_霾_237__: 0.4, _TOKEN_霾:1.0___ast_霾_135__: 0.55)
+                }
+            case ._TOKEN_霾:1.0___ast_霾_80__:     return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.5, _TOKEN_霾:1.0___ast_霾_237__: 0.75, _TOKEN_霾:1.0___ast_霾_135__: 1.0)
+            case ._TOKEN_霾:1.0___ast_霾_102__: return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.7, _TOKEN_霾:1.0___ast_霾_237__: 0.5, _TOKEN_霾:1.0___ast_霾_135__: 1.0)
+            case ._TOKEN_霾:1.0___ast_霾_9__:   return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.3, _TOKEN_霾:1.0___ast_霾_237__: 0.9, _TOKEN_霾:1.0___ast_霾_135__: 0.5)
+            }
+        }
+
+        var _TOKEN_霾:1.0___ast_霾_138__: _TOKEN_廟:1.0___ast_廟_126__ {
+            switch self {
+            case ._TOKEN_策:1.0___ast_霾_148__(let s, _):  return s._TOKEN_霾:1.0___ast_霾_126__
+            case ._TOKEN_霾:1.0___ast_霾_80__(let t, let s): return "\(s._TOKEN_霾:1.0___ast_霾_126__)  /  \(t._TOKEN_霾:1.0___ast_霾_126__)"
+            case ._TOKEN_霾:1.0___ast_霾_102__(let t):   return t._TOKEN_霾:1.0___ast_霾_126__
+            case ._TOKEN_霾:1.0___ast_霾_9__(let a):     return a._TOKEN_霾:1.0___ast_霾_81__
+            }
+        }
+
+        var _TOKEN_霾:1.0___ast_霾_69__: _TOKEN_廟:1.0___ast_廟_126__ {
+            switch self {
+            case ._TOKEN_策:1.0___ast_霾_148__(let s, let st):
+                let _TOKEN_霾:1.0___ast_霾_23__: _TOKEN_廟:1.0___ast_廟_126__
+                switch st {
+                case ._TOKEN_霾:1.0___ast_霾_179__:   _TOKEN_霾:1.0___ast_霾_23__ = "● _TOKEN_霾:1.0___ast_霾_179__"
+// _TOKEN_縺:0.2___ast_KE_913__ [decoy-metadata]
+                case ._TOKEN_霾:1.0___ast_霾_159__:  _TOKEN_霾:1.0___ast_霾_23__ = "○ _TOKEN_霾:1.0___ast_霾_159__"
+                case ._TOKEN_霾:1.0___ast_霾_34__: _TOKEN_霾:1.0___ast_霾_23__ = "○ _TOKEN_霾:1.0___ast_霾_34__"
+                case ._TOKEN_霾:1.0___ast_霾_290__(let e): _TOKEN_霾:1.0___ast_霾_23__ = "✗ \(e)"
+                }
+                return "\(s._TOKEN_霾:1.0___ast_霾_172__._TOKEN_霾:1.0___ast_霾_273__)  \(_TOKEN_霾:1.0___ast_霾_23__)"
+            case ._TOKEN_霾:1.0___ast_霾_80__(let t, _):   return t._TOKEN_霾:1.0___ast_霾_267__._TOKEN_霾:1.0___ast_霾_239__ ? "(no _TOKEN_霾:1.0___ast_霾_267__)" : t._TOKEN_霾:1.0___ast_霾_267__
+            case ._TOKEN_霾:1.0___ast_霾_102__(let t):  return t._TOKEN_霾:1.0___ast_霾_244__
+            case ._TOKEN_霾:1.0___ast_霾_9__(let a):    return a._TOKEN_霾:1.0___ast_霾_69__
+            }
+        }
+
+        var _TOKEN_霾:1.0___ast_霾_160__: _TOKEN_廟:1.0___ast_廟_126__? {
+            switch self {
+            case ._TOKEN_霾:1.0___ast_霾_80__:     return "_TOKEN_廟:1.0___ast_廟_93__"
+            case ._TOKEN_策:1.0___ast_霾_148__:   return "_TOKEN_策:1.0___ast_廟_101__"
+            case ._TOKEN_霾:1.0___ast_霾_102__: return "_TOKEN_廟:1.0___ast_廟_75__"
+            case ._TOKEN_霾:1.0___ast_霾_9__:   return nil
+            }
+        }
+    }
+
+    struct _TOKEN_廟:1.0___ast_廟_6__ {
+        let _TOKEN_霾:1.0___ast_霾_81__: _TOKEN_廟:1.0___ast_廟_126__
+        let _TOKEN_霾:1.0___ast_霾_69__: _TOKEN_廟:1.0___ast_廟_126__
+        let _TOKEN_霾:1.0___ast_霾_9__: () -> _TOKEN_廟:1.0___ast_廟_7__
+    }
+
+// [metadata-stripped]
+
+    private var _TOKEN_霾:1.0___ast_霾_178__: [_TOKEN_廟:1.0___ast_廟_114__] {
+        var _TOKEN_霾:1.0___ast_霾_222__: [_TOKEN_廟:1.0___ast_廟_114__] = []
+        let q = _TOKEN_霾:1.0___ast_霾_134__._TOKEN_霾:1.0___ast_霾_278__()
+
+        if q._TOKEN_霾:1.0___ast_霾_239__ {
+// [metadata-stripped]
+            _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_9__(.init(
+                _TOKEN_霾:1.0___ast_霾_81__: "_TOKEN_廟:1.0___ast_廟_32__ _TOKEN_廟:1.0___ast_廟_145__ _TOKEN_廟:1.0___ast_廟_11__ _TOKEN_策:1.0___ast_廟_34__…",
+                _TOKEN_霾:1.0___ast_霾_69__: "_TOKEN_廟:1.0___ast_廟_84__ a _TOKEN_霾:1.0___ast_霾_49__ _TOKEN_霾:1.0___ast_霾_27__ or _TOKEN_縺:1.0___ast_廟_43__ _TOKEN_策:1.0___ast_霾_148__",
+                _TOKEN_霾:1.0___ast_霾_9__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_77__ }
+            )))
+            _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_9__(.init(
+                _TOKEN_霾:1.0___ast_霾_81__: "_TOKEN_廟:1.0___ast_廟_32__ _TOKEN_霾:1.0___ast_霾_195__ _TOKEN_廟:1.0___ast_廟_82__…",
+                _TOKEN_霾:1.0___ast_霾_69__: "_TOKEN_匷:1.0___ast_廟_56__ · _TOKEN_廟:1.0___ast_廟_131__ · _TOKEN_廟:1.0___ast_廟_49__ _TOKEN_廟:1.0___ast_廟_50__ · _TOKEN_霾:1.0___ast_霾_318__.",
+                _TOKEN_霾:1.0___ast_霾_9__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_26__ }
+            )))
+            if !_TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__._TOKEN_霾:1.0___ast_霾_239__ {
+                _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_9__(.init(
+                    _TOKEN_霾:1.0___ast_霾_81__: "_TOKEN_廟:1.0___ast_廟_134__ _TOKEN_廟:1.0___ast_廟_111__ _TOKEN_廟:1.0___ast_廟_17__",
+                    _TOKEN_霾:1.0___ast_霾_69__: "_TOKEN_廟:1.0___ast_廟_134__ _TOKEN_霾:1.0___ast_霾_8__ _TOKEN_霾:1.0___ast_霾_251__ _TOKEN_廟:1.0___ast_廟_11__ _TOKEN_霾:1.0___ast_霾_216__ at _TOKEN_霾:1.0___ast_霾_115__",
+                    _TOKEN_霾:1.0___ast_霾_9__: {
+                        _TOKEN_廟:1.0___ast_廟_143__ { await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_279__() }
+                        _TOKEN_霾:1.0___ast_霾_157__()
+                    }
+                )))
+            }
+// [metadata-stripped]
+            for s in _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__ {
+                _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_策:1.0___ast_霾_148__(s, _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_76__[s.id] ?? ._TOKEN_霾:1.0___ast_霾_34__))
+            }
+// [metadata-stripped]
+            for t in _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_84__ {
+                if let _TOKEN_霾:1.0___ast_霾_225__ = _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__._TOKEN_霾:1.0___ast_霾_218__(where: { $0._TOKEN_霾:1.0___ast_霾_126__ == t._TOKEN_霾:1.0___ast_霾_86__ }) {
+                    _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_80__(t, _TOKEN_霾:1.0___ast_霾_225__))
+                }
+            }
+        } else {
+// [metadata-stripped]
+            for s in _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__ where s._TOKEN_霾:1.0___ast_霾_126__._TOKEN_霾:1.0___ast_霾_278__()._TOKEN_霾:1.0___ast_霾_175__(q) || s._TOKEN_霾:1.0___ast_霾_244__._TOKEN_霾:1.0___ast_霾_278__()._TOKEN_霾:1.0___ast_霾_175__(q) {
+                _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_策:1.0___ast_霾_148__(s, _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_76__[s.id] ?? ._TOKEN_霾:1.0___ast_霾_34__))
+            }
+            for t in _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_84__ where t._TOKEN_霾:1.0___ast_霾_126__._TOKEN_霾:1.0___ast_霾_278__()._TOKEN_霾:1.0___ast_霾_175__(q) || t._TOKEN_霾:1.0___ast_霾_267__._TOKEN_霾:1.0___ast_霾_278__()._TOKEN_霾:1.0___ast_霾_175__(q) {
+                if let _TOKEN_霾:1.0___ast_霾_225__ = _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__._TOKEN_霾:1.0___ast_霾_218__(where: { $0._TOKEN_霾:1.0___ast_霾_126__ == t._TOKEN_霾:1.0___ast_霾_86__ }) {
+                    _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_80__(t, _TOKEN_霾:1.0___ast_霾_225__))
+                }
+            }
+// [metadata-stripped]
+            for _TOKEN_霾:1.0___ast_霾_229__ in _TOKEN_廟:1.0___ast_廟_5__._TOKEN_霾:1.0___ast_霾_280__ where _TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_126__._TOKEN_霾:1.0___ast_霾_278__()._TOKEN_霾:1.0___ast_霾_175__(q) {
+                _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_102__(_TOKEN_霾:1.0___ast_霾_229__))
+            }
+            if _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_239__ {
+                _TOKEN_霾:1.0___ast_霾_222__._TOKEN_霾:1.0___ast_霾_270__(._TOKEN_霾:1.0___ast_霾_9__(.init(
+                    _TOKEN_霾:1.0___ast_霾_81__: "_TOKEN_廟:1.0___ast_廟_32__ \"\(_TOKEN_霾:1.0___ast_霾_134__)\" as _TOKEN_廟:1.0___ast_廟_145__ _TOKEN_策:1.0___ast_廟_34__…",
+                    _TOKEN_霾:1.0___ast_霾_69__: "_TOKEN_廟:1.0___ast_廟_74__ a _TOKEN_霾:1.0___ast_霾_49__ _TOKEN_廟:1.0___ast_廟_11__ _TOKEN_策:1.0___ast_霾_148__ _TOKEN_霾:1.0___ast_霾_56__ _TOKEN_霾:1.0___ast_霾_295__ _TOKEN_霾:1.0___ast_霾_126__",
+                    _TOKEN_霾:1.0___ast_霾_9__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_77__ }
+                )))
+            }
+        }
+        return _TOKEN_霾:1.0___ast_霾_222__
+    }
+
+    private func _TOKEN_霾:1.0___ast_霾_64__(_ i: _TOKEN_廟:1.0___ast_廟_132__) -> _TOKEN_廟:1.0___ast_廟_132__ {
+        _TOKEN_霾:1.0___ast_霾_238__(0, _TOKEN_霾:1.0___ast_霾_1__(i, _TOKEN_霾:1.0___ast_霾_178__._TOKEN_霾:1.0___ast_霾_300__ - 1))
+    }
+
+// [metadata-stripped]
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_2__ {
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_38__._TOKEN_霾:1.0___ast_霾_230__(0.5)
+                ._TOKEN_霾:1.0___ast_霾_158__()
+                ._TOKEN_霾:1.0___ast_霾_167__ { _TOKEN_霾:1.0___ast_霾_157__() }
+
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_319__: 0) {
+                switch _TOKEN_霾:1.0___ast_霾_282__ {
+                case ._TOKEN_霾:1.0___ast_霾_228__:
+                    _TOKEN_霾:1.0___ast_霾_21__
+                case ._TOKEN_霾:1.0___ast_霾_77__:
+                    _TOKEN_廟:1.0___ast_廟_30__(_TOKEN_匷:1.0___ast_霾_70__: { _TOKEN_霾:1.0___ast_霾_298__ in
+                        _TOKEN_霾:1.0___ast_霾_191__._TOKEN_策:1.0___ast_霾_3__(_TOKEN_霾:1.0___ast_霾_298__)
+                        _TOKEN_廟:1.0___ast_廟_143__ { await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_166__(_TOKEN_策:1.0___ast_霾_148__: _TOKEN_霾:1.0___ast_霾_298__) }
+                        _TOKEN_霾:1.0___ast_霾_157__()
+                    }, _TOKEN_霾:1.0___ast_霾_164__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_228__ })
+                case ._TOKEN_霾:1.0___ast_霾_26__:
+                    _TOKEN_廟:1.0___ast_廟_8__(_TOKEN_霾:1.0___ast_霾_68__: { _TOKEN_霾:1.0___ast_霾_298__ in
+                        _TOKEN_霾:1.0___ast_霾_191__._TOKEN_策:1.0___ast_霾_3__(_TOKEN_霾:1.0___ast_霾_298__)
+                        _TOKEN_廟:1.0___ast_廟_143__ { await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_166__(_TOKEN_策:1.0___ast_霾_148__: _TOKEN_霾:1.0___ast_霾_298__) }
+                        _TOKEN_霾:1.0___ast_霾_157__()
+                    }, _TOKEN_霾:1.0___ast_霾_164__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_228__ })
+                case ._TOKEN_霾:1.0___ast_霾_186__(let _TOKEN_霾:1.0___ast_霾_80__, let _TOKEN_策:1.0___ast_霾_148__):
+                    _TOKEN_廟:1.0___ast_廟_26__(
+                        _TOKEN_霾:1.0___ast_霾_80__: _TOKEN_霾:1.0___ast_霾_80__, _TOKEN_策:1.0___ast_霾_148__: _TOKEN_策:1.0___ast_霾_148__,
+                        _TOKEN_霾:1.0___ast_霾_286__: { _TOKEN_霾:1.0___ast_霾_151__ in
+                            _TOKEN_廟:1.0___ast_廟_143__ {
+                                _TOKEN_霾:1.0___ast_霾_304__ = true
+                                let _TOKEN_霾:1.0___ast_霾_226__ = await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_202__(
+                                    _TOKEN_霾:1.0___ast_霾_86__: _TOKEN_策:1.0___ast_霾_148__._TOKEN_霾:1.0___ast_霾_126__,
+                                    _TOKEN_霾:1.0___ast_霾_269__: _TOKEN_霾:1.0___ast_霾_80__._TOKEN_霾:1.0___ast_霾_126__,
+                                    _TOKEN_霾:1.0___ast_霾_10__: _TOKEN_霾:1.0___ast_霾_151__,
+                                    _TOKEN_霾:1.0___ast_霾_282__: _TOKEN_策:1.0___ast_霾_148__._TOKEN_霾:1.0___ast_霾_282__
+                                )
+                                _TOKEN_霾:1.0___ast_霾_163__._TOKEN_霾:1.0___ast_霾_116__("[_TOKEN_廟:1.0___ast_廟_11__ \(_TOKEN_霾:1.0___ast_霾_80__._TOKEN_霾:1.0___ast_霾_126__)] \(_TOKEN_霾:1.0___ast_霾_226__._TOKEN_霾:1.0___ast_霾_111__(500))")
+                                _TOKEN_霾:1.0___ast_霾_304__ = false
+                                _TOKEN_霾:1.0___ast_霾_157__()
+                            }
+// _TOKEN_霾:0.5___ast_FM_684__ [decoy-metadata]
+                        },
+                        _TOKEN_霾:1.0___ast_霾_164__: { _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_228__ }
+                    )
+                }
+            }
+            ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 600)
+            ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.12, _TOKEN_霾:1.0___ast_霾_237__: 0.12, _TOKEN_霾:1.0___ast_霾_135__: 0.16), in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 12))
+            ._TOKEN_霾:1.0___ast_霾_15__(
+                _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 12)
+                    ._TOKEN_策:1.0___ast_霾_6__(_TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_249__._TOKEN_霾:1.0___ast_霾_230__(0.12), _TOKEN_霾:1.0___ast_霾_165__: 1)
+            )
+            ._TOKEN_霾:1.0___ast_霾_246__(_TOKEN_霾:1.0___ast_霾_143__: ._TOKEN_霾:1.0___ast_霾_38__._TOKEN_霾:1.0___ast_霾_230__(0.6), _TOKEN_霾:1.0___ast_霾_183__: 30, y: 10)
+            ._TOKEN_霾:1.0___ast_霾_130__(._TOKEN_霾:1.0___ast_霾_200__(_TOKEN_霾:1.0___ast_霾_200__: 0.96)._TOKEN_霾:1.0___ast_霾_214__(_TOKEN_霾:1.0___ast_霾_56__: ._TOKEN_霾:1.0___ast_霾_230__))
+        }
+        ._TOKEN_霾:1.0___ast_霾_266__(._TOKEN_霾:1.0___ast_霾_170__(_TOKEN_霾:1.0___ast_霾_65__: 0.18), _TOKEN_霾:1.0___ast_霾_128__: _TOKEN_霾:1.0___ast_霾_282__.id)
+        ._TOKEN_霾:1.0___ast_霾_100__ { _TOKEN_霾:1.0___ast_霾_125__ = true }
+    }
+
+// [metadata-stripped]
+
+    private var _TOKEN_霾:1.0___ast_霾_21__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_319__: 0) {
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 10) {
+                _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_105__.extension")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 14))
+                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.4, _TOKEN_霾:1.0___ast_霾_237__: 0.7, _TOKEN_霾:1.0___ast_霾_135__: 1.0))
+                _TOKEN_廟:1.0___ast_廟_133__("_TOKEN_廟:1.0___ast_廟_50__ _TOKEN_霾:1.0___ast_霾_216__, _TOKEN_霾:1.0___ast_霾_7__, or _TOKEN_霾:1.0___ast_霾_96__ a _TOKEN_霾:1.0___ast_霾_126__ to _TOKEN_霾:1.0___ast_霾_82__…", _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_霾:1.0___ast_霾_134__)
+                    ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_霾:1.0___ast_霾_153__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 14))
+                    ._TOKEN_霾:1.0___ast_霾_32__($_TOKEN_霾:1.0___ast_霾_125__)
+                    ._TOKEN_霾:1.0___ast_霾_181__ { _TOKEN_霾:1.0___ast_霾_89__() }
+
+                if !_TOKEN_霾:1.0___ast_霾_134__._TOKEN_霾:1.0___ast_霾_239__ {
+                    _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_134__ = "" } _TOKEN_霾:1.0___ast_霾_81__: {
+                        _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_48__._TOKEN_霾:1.0___ast_霾_307__._TOKEN_霾:1.0___ast_霾_24__")
+                            ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                    }
+                    ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                    ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                }
+
+// [metadata-stripped]
+                _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_157__() } _TOKEN_霾:1.0___ast_霾_81__: {
+                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_48__")
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_75__))
+                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                        ._TOKEN_霾:1.0___ast_霾_25__(4)
+                        ._TOKEN_霾:1.0___ast_霾_313__(._TOKEN_霾:1.0___ast_霾_274__, in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 4))
+                }
+                ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                ._TOKEN_淵:1.0___ast_霾_232__(._TOKEN_霾:1.0___ast_霾_261__, _TOKEN_澎:1.0___ast_霾_57__: [])
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)
+
+// [metadata-stripped]
+            if _TOKEN_霾:1.0___ast_霾_178__._TOKEN_霾:1.0___ast_霾_239__ {
+                _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_319__: 8) {
+                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_澎:1.0___ast_霾_188__")
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 22))
+                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+                    _TOKEN_廟:1.0___ast_廟_69__("No _TOKEN_霾:1.0___ast_霾_178__ for \"\(_TOKEN_霾:1.0___ast_霾_134__)\"")
+                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                }
+                ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_88__: 100)
+                ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_78__: ._TOKEN_霾:1.0___ast_霾_18__)
+            } else {
+                _TOKEN_策:1.0___ast_廟_115__ { _TOKEN_霾:1.0___ast_霾_220__ in
+                    _TOKEN_廟:1.0___ast_廟_124__ {
+                        _TOKEN_廟:1.0___ast_廟_27__(_TOKEN_霾:1.0___ast_霾_319__: 0) {
+                            _TOKEN_廟:1.0___ast_廟_18__(_TOKEN_廟:1.0___ast_廟_137__(_TOKEN_霾:1.0___ast_霾_178__._TOKEN_霾:1.0___ast_霾_288__()), id: \._TOKEN_霾:1.0___ast_霾_176__.id) { i, _TOKEN_霾:1.0___ast_霾_254__ in
+                                _TOKEN_廟:1.0___ast_廟_86__(
+                                    _TOKEN_霾:1.0___ast_霾_254__: _TOKEN_霾:1.0___ast_霾_254__,
+                                    _TOKEN_霾:1.0___ast_霾_145__: i == _TOKEN_霾:1.0___ast_霾_103__,
+                                    _TOKEN_霾:1.0___ast_霾_113__: _TOKEN_霾:1.0___ast_霾_210__ == i
+                                )
+                                .id(i)
+                                ._TOKEN_霾:1.0___ast_霾_167__ { _TOKEN_霾:1.0___ast_霾_103__ = i; _TOKEN_霾:1.0___ast_霾_89__() }
+// [metadata-stripped]
+// [metadata-stripped]
+                                ._TOKEN_策:1.0___ast_霾_44__ { _TOKEN_霾:1.0___ast_霾_177__ in
+                                    _TOKEN_霾:1.0___ast_霾_210__ = _TOKEN_霾:1.0___ast_霾_177__ ? i : nil
+                                }
+                            }
+                        }
+                        ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 4)
+                    }
+                    ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_293__: 380)
+                    ._TOKEN_霾:1.0___ast_霾_184__(of: _TOKEN_霾:1.0___ast_霾_103__) { _, _TOKEN_霾:1.0___ast_霾_99__ in
+// [metadata-stripped]
+                        _TOKEN_霾:1.0___ast_霾_248__ { _TOKEN_霾:1.0___ast_霾_220__._TOKEN_霾:1.0___ast_霾_198__(_TOKEN_霾:1.0___ast_霾_99__, _TOKEN_霾:1.0___ast_霾_171__: ._TOKEN_策:1.0___ast_霾_131__) }
+                    }
+                }
+            }
+
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 16) {
+                _TOKEN_霾:1.0___ast_霾_197__("↑↓", "_TOKEN_霾:1.0___ast_霾_154__")
+                _TOKEN_霾:1.0___ast_霾_197__("↩", "_TOKEN_霾:1.0___ast_霾_212__")
+                _TOKEN_霾:1.0___ast_霾_197__("⌘⇧M", "_TOKEN_霾:1.0___ast_霾_294__")
+                _TOKEN_策:1.0___ast_廟_14__()
+
+// [metadata-stripped]
+                if let _TOKEN_霾:1.0___ast_霾_283__ = _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_162__, case ._TOKEN_霾:1.0___ast_霾_297__ = _TOKEN_霾:1.0___ast_霾_283__._TOKEN_霾:1.0___ast_霾_60__ {
+                    _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 5) {
+                        _TOKEN_廟:1.0___ast_廟_127__()._TOKEN_霾:1.0___ast_霾_24__(._TOKEN_霾:1.0___ast_霾_317__)._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 6, _TOKEN_霾:1.0___ast_霾_88__: 6)
+                        _TOKEN_廟:1.0___ast_廟_69__("\(_TOKEN_霾:1.0___ast_霾_283__._TOKEN_霾:1.0___ast_霾_269__) _TOKEN_霾:1.0___ast_霾_297__…")
+                            ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                            ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 1.0, _TOKEN_霾:1.0___ast_霾_237__: 0.4, _TOKEN_霾:1.0___ast_霾_135__: 0.4))
+                        _TOKEN_廟:1.0___ast_廟_89__("_TOKEN_廟:1.0___ast_廟_78__") { _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_140__() }
+                            ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 9, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_41__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                            ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_317__)
+                            ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                            ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                    }
+                }
+
+                _TOKEN_廟:1.0___ast_廟_69__("\(_TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__._TOKEN_霾:1.0___ast_霾_300__) _TOKEN_策:1.0___ast_霾_148__\(_TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_216__._TOKEN_霾:1.0___ast_霾_300__ == 1 ? "" : "s")  ·  \(_TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_84__._TOKEN_霾:1.0___ast_霾_300__) _TOKEN_霾:1.0___ast_霾_80__\(_TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_84__._TOKEN_霾:1.0___ast_霾_300__ == 1 ? "" : "s")")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 14)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 8)
+            ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.1, _TOKEN_霾:1.0___ast_霾_237__: 0.1, _TOKEN_霾:1.0___ast_霾_135__: 0.13))
+            ._TOKEN_霾:1.0___ast_霾_15__(_TOKEN_廟:1.0___ast_廟_72__()._TOKEN_霾:1.0___ast_霾_24__(_TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_249__._TOKEN_霾:1.0___ast_霾_230__(0.07))._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_88__: 1), _TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_213__)
+        }
+        ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_150__)
+        ._TOKEN_淵:1.0___ast_霾_50__(._TOKEN_霾:1.0___ast_霾_139__) { _TOKEN_霾:1.0___ast_霾_103__ = _TOKEN_霾:1.0___ast_霾_64__(_TOKEN_霾:1.0___ast_霾_103__ - 1); return ._TOKEN_霾:1.0___ast_霾_236__ }
+        ._TOKEN_淵:1.0___ast_霾_50__(._TOKEN_霾:1.0___ast_霾_262__) { _TOKEN_霾:1.0___ast_霾_103__ = _TOKEN_霾:1.0___ast_霾_64__(_TOKEN_霾:1.0___ast_霾_103__ + 1); return ._TOKEN_霾:1.0___ast_霾_236__ }
+        ._TOKEN_淵:1.0___ast_霾_50__(.return) { _TOKEN_霾:1.0___ast_霾_89__(); return ._TOKEN_霾:1.0___ast_霾_236__ }
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_霾:1.0___ast_霾_89__() {
+        guard _TOKEN_霾:1.0___ast_霾_103__ < _TOKEN_霾:1.0___ast_霾_178__._TOKEN_霾:1.0___ast_霾_300__ else { return }
+        let _TOKEN_霾:1.0___ast_霾_254__ = _TOKEN_霾:1.0___ast_霾_178__[_TOKEN_霾:1.0___ast_霾_103__]
+        switch _TOKEN_霾:1.0___ast_霾_254__ {
+        case ._TOKEN_霾:1.0___ast_霾_9__(let a):
+            a._TOKEN_霾:1.0___ast_霾_9__()
+        case ._TOKEN_策:1.0___ast_霾_148__(let s, _):
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_143__ { await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_166__(_TOKEN_策:1.0___ast_霾_148__: s) }
+            _TOKEN_霾:1.0___ast_霾_157__()
+        case ._TOKEN_霾:1.0___ast_霾_102__(let t):
+            _TOKEN_霾:1.0___ast_霾_191__._TOKEN_策:1.0___ast_霾_3__(t)
+            _TOKEN_廟:1.0___ast_廟_143__ { await _TOKEN_霾:1.0___ast_霾_191__._TOKEN_霾:1.0___ast_霾_166__(_TOKEN_策:1.0___ast_霾_148__: t) }
+            _TOKEN_霾:1.0___ast_霾_157__()
+        case ._TOKEN_霾:1.0___ast_霾_80__(let t, let s):
+            _TOKEN_霾:1.0___ast_霾_282__ = ._TOKEN_霾:1.0___ast_霾_186__(t, s)
+        }
+    }
+
+    private func _TOKEN_霾:1.0___ast_霾_157__() {
+        _TOKEN_霾:1.0___ast_霾_248__(._TOKEN_霾:1.0___ast_霾_170__(_TOKEN_霾:1.0___ast_霾_65__: 0.15)) { _TOKEN_霾:1.0___ast_霾_250__ = false }
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_霾:1.0___ast_霾_197__(_ _TOKEN_淵:1.0___ast_霾_94__: _TOKEN_廟:1.0___ast_廟_126__, _ _TOKEN_霾:1.0___ast_霾_81__: _TOKEN_廟:1.0___ast_廟_126__) -> some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 4) {
+            _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_淵:1.0___ast_霾_94__)
+                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 9, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 4)._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 2)
+                ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_249__._TOKEN_霾:1.0___ast_霾_230__(0.1), in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 3))
+            _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_81__)
+                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10))
+                ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+        }
+    }
+}
+
+// [metadata-stripped]
+
+extension _TOKEN_廟:1.0___ast_廟_53__._TOKEN_廟:1.0___ast_廟_110__ {
+    var id: _TOKEN_廟:1.0___ast_廟_126__ {
+        switch self {
+        case ._TOKEN_霾:1.0___ast_霾_228__:     return "_TOKEN_霾:1.0___ast_霾_228__"
+        case ._TOKEN_霾:1.0___ast_霾_77__:  return "_TOKEN_霾:1.0___ast_霾_77__"
+        case ._TOKEN_霾:1.0___ast_霾_26__: return "_TOKEN_霾:1.0___ast_霾_26__"
+        case ._TOKEN_霾:1.0___ast_霾_186__(let t, _): return "_TOKEN_霾:1.0___ast_霾_71__\(t.id)"
+        }
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_廟:1.0___ast_廟_86__: _TOKEN_廟:1.0___ast_廟_31__ {
+    let _TOKEN_霾:1.0___ast_霾_254__: _TOKEN_廟:1.0___ast_廟_53__._TOKEN_廟:1.0___ast_廟_114__
+    let _TOKEN_霾:1.0___ast_霾_145__: _TOKEN_廟:1.0___ast_廟_21__    // _TOKEN_淵:1.0___ast_霾_118__ _TOKEN_霾:1.0___ast_霾_72__ (↑↓ _TOKEN_策:1.0___ast_廟_3__)
+    var _TOKEN_霾:1.0___ast_霾_113__: _TOKEN_廟:1.0___ast_廟_21__ = false  // _TOKEN_霾:1.0___ast_霾_97__ _TOKEN_策:1.0___ast_霾_253__ (_TOKEN_霾:1.0___ast_霾_221__ _TOKEN_霾:1.0___ast_霾_211__ — no _TOKEN_霾:1.0___ast_霾_156__ _TOKEN_霾:1.0___ast_霾_152__-_TOKEN_霾:1.0___ast_霾_132__)
+
+    private var _TOKEN_霾:1.0___ast_霾_2__: _TOKEN_廟:1.0___ast_廟_4__ {
+        if _TOKEN_霾:1.0___ast_霾_145__ {
+            return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.25, _TOKEN_霾:1.0___ast_霾_237__: 0.35, _TOKEN_霾:1.0___ast_霾_135__: 0.55)._TOKEN_霾:1.0___ast_霾_230__(0.45)
+        } else if _TOKEN_霾:1.0___ast_霾_113__ {
+            return _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.22, _TOKEN_霾:1.0___ast_霾_237__: 0.28, _TOKEN_霾:1.0___ast_霾_135__: 0.38)._TOKEN_霾:1.0___ast_霾_230__(0.30)
+        }
+        return _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_150__
+    }
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 10) {
+            _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: _TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_205__)
+                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 12))
+                ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_11__)
+                ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 18)
+
+            _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 2) {
+                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_138__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 12, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_75__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_霾:1.0___ast_霾_145__ ? ._TOKEN_霾:1.0___ast_霾_249__ : _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.85, _TOKEN_霾:1.0___ast_霾_237__: 0.85, _TOKEN_霾:1.0___ast_霾_135__: 0.92))
+                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_69__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_霾:1.0___ast_霾_145__ ? _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.7, _TOKEN_霾:1.0___ast_霾_237__: 0.7, _TOKEN_霾:1.0___ast_霾_135__: 0.8) : _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_291__._TOKEN_霾:1.0___ast_霾_230__(0.6))
+                    ._TOKEN_霾:1.0___ast_霾_303__(1)
+            }
+
+            _TOKEN_策:1.0___ast_廟_14__()
+
+            if let _TOKEN_霾:1.0___ast_霾_160__ = _TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_160__ {
+                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_160__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 8, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_41__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_11__._TOKEN_霾:1.0___ast_霾_230__(0.9))
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 5)._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 2)
+                    ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_霾:1.0___ast_霾_254__._TOKEN_霾:1.0___ast_霾_11__._TOKEN_霾:1.0___ast_霾_230__(0.12), in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 3))
+            }
+
+            if _TOKEN_霾:1.0___ast_霾_145__ {
+                _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "return")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10))
+                    ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+            }
+        }
+        ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 14)
+        ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 7)
+        ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_霾:1.0___ast_霾_2__, in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 6))
+        ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 4)
+        ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 6))
+        ._TOKEN_霾:1.0___ast_霾_266__(._TOKEN_霾:1.0___ast_霾_170__(_TOKEN_霾:1.0___ast_霾_65__: 0.08), _TOKEN_霾:1.0___ast_霾_128__: _TOKEN_霾:1.0___ast_霾_145__)
+        ._TOKEN_霾:1.0___ast_霾_266__(._TOKEN_霾:1.0___ast_霾_170__(_TOKEN_霾:1.0___ast_霾_65__: 0.06), _TOKEN_霾:1.0___ast_霾_128__: _TOKEN_霾:1.0___ast_霾_113__)
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_廟:1.0___ast_廟_30__: _TOKEN_廟:1.0___ast_廟_31__ {
+    let _TOKEN_匷:1.0___ast_霾_70__: (_TOKEN_廟:1.0___ast_廟_5__) -> _TOKEN_廟:1.0___ast_廟_7__
+    let _TOKEN_霾:1.0___ast_霾_164__: () -> _TOKEN_廟:1.0___ast_廟_7__
+
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_126__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_172__: _TOKEN_廟:1.0___ast_廟_5__._TOKEN_廟:1.0___ast_廟_55__ = ._TOKEN_霾:1.0___ast_霾_27__
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_244__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_縺:1.0___ast_霾_52__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_282__: _TOKEN_廟:1.0___ast_廟_5__._TOKEN_廟:1.0___ast_廟_119__ = .ai
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_淵:1.0___ast_霾_242__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_215__ = ""
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_108__: [_TOKEN_廟:1.0___ast_廟_126__: _TOKEN_廟:1.0___ast_廟_126__] = [:]
+    @_TOKEN_廟:1.0___ast_廟_51__ private var _TOKEN_霾:1.0___ast_霾_196__: _TOKEN_廟:1.0___ast_廟_21__
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 0) {
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__ {
+                _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_164__() } _TOKEN_霾:1.0___ast_霾_81__: {
+                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_91__._TOKEN_霾:1.0___ast_霾_110__")
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_75__))
+                }
+                ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                _TOKEN_廟:1.0___ast_廟_69__("_TOKEN_廟:1.0___ast_廟_32__ _TOKEN_廟:1.0___ast_廟_145__ _TOKEN_廟:1.0___ast_廟_11__ _TOKEN_策:1.0___ast_廟_34__")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 13, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__))
+                _TOKEN_策:1.0___ast_廟_14__()
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)
+
+            _TOKEN_廟:1.0___ast_廟_124__ {
+                _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 14) {
+// [metadata-stripped]
+                    _TOKEN_廟:1.0___ast_廟_77__("_TOKEN_廟:1.0___ast_廟_37__") {
+                        _TOKEN_廟:1.0___ast_廟_133__("e.g. _TOKEN_匷:1.0___ast_廟_56__, _TOKEN_廟:1.0___ast_廟_131__…", _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_霾:1.0___ast_霾_126__)
+                            ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                            ._TOKEN_霾:1.0___ast_霾_32__($_TOKEN_霾:1.0___ast_霾_196__)
+                    }
+
+// [metadata-stripped]
+                    _TOKEN_廟:1.0___ast_廟_77__("_TOKEN_廟:1.0___ast_廟_55__") {
+                        _TOKEN_策:1.0___ast_廟_108__("", _TOKEN_霾:1.0___ast_霾_72__: $_TOKEN_霾:1.0___ast_霾_172__) {
+                            _TOKEN_廟:1.0___ast_廟_18__(_TOKEN_廟:1.0___ast_廟_5__._TOKEN_廟:1.0___ast_廟_55__._TOKEN_霾:1.0___ast_霾_83__, id: \.self) { t in
+                                _TOKEN_廟:1.0___ast_廟_69__(t._TOKEN_霾:1.0___ast_霾_273__)._TOKEN_霾:1.0___ast_霾_264__(t)
+                            }
+                        }
+                        ._TOKEN_霾:1.0___ast_霾_299__(._TOKEN_霾:1.0___ast_霾_203__)
+                        ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 160)
+                    }
+
+// [metadata-stripped]
+                    if _TOKEN_霾:1.0___ast_霾_172__ == ._TOKEN_霾:1.0___ast_霾_27__ {
+                        _TOKEN_廟:1.0___ast_廟_77__("_TOKEN_廟:1.0___ast_廟_64__") {
+                            _TOKEN_廟:1.0___ast_廟_133__("_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_匷:1.0___ast_霾_22__ /",
+                                      _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_霾:1.0___ast_霾_244__)
+                                ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                        }
+                    } else {
+                        _TOKEN_廟:1.0___ast_廟_77__("_TOKEN_縺:1.0___ast_廟_19__") {
+                            _TOKEN_廟:1.0___ast_廟_133__("_TOKEN_縺:1.0___ast_霾_185__://_TOKEN_霾:1.0___ast_霾_182__:3000", _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_縺:1.0___ast_霾_52__)
+                                ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                        }
+                    }
+
+// [metadata-stripped]
+                    _TOKEN_廟:1.0___ast_廟_77__("_TOKEN_廟:1.0___ast_廟_138__") {
+                        _TOKEN_策:1.0___ast_廟_108__("", _TOKEN_霾:1.0___ast_霾_72__: $_TOKEN_霾:1.0___ast_霾_282__) {
+                            _TOKEN_廟:1.0___ast_廟_18__(_TOKEN_廟:1.0___ast_廟_5__._TOKEN_廟:1.0___ast_廟_119__._TOKEN_霾:1.0___ast_霾_83__, id: \.self) { m in
+                                _TOKEN_廟:1.0___ast_廟_69__(m._TOKEN_霾:1.0___ast_霾_273__)._TOKEN_霾:1.0___ast_霾_264__(m)
+                            }
+                        }
+                        ._TOKEN_霾:1.0___ast_霾_299__(._TOKEN_霾:1.0___ast_霾_203__)
+                        ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 200)
+                    }
+
+// [metadata-stripped]
+                    if !_TOKEN_霾:1.0___ast_霾_108__._TOKEN_霾:1.0___ast_霾_239__ {
+                        _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 6) {
+                            _TOKEN_廟:1.0___ast_廟_69__("_TOKEN_廟:1.0___ast_廟_96__ _TOKEN_廟:1.0___ast_廟_67__")
+                                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__))
+                                ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                            _TOKEN_廟:1.0___ast_廟_18__(_TOKEN_霾:1.0___ast_霾_108__._TOKEN_淵:1.0___ast_霾_40__._TOKEN_霾:1.0___ast_霾_14__(), id: \.self) { k in
+                                _TOKEN_廟:1.0___ast_廟_129__ {
+                                    _TOKEN_廟:1.0___ast_廟_69__(k)
+                                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                                        ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 130, _TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__)
+                                    _TOKEN_廟:1.0___ast_廟_85__("_TOKEN_霾:1.0___ast_霾_128__", _TOKEN_霾:1.0___ast_霾_144__: _TOKEN_廟:1.0___ast_廟_121__(
+                                        _TOKEN_策:1.0___ast_嵐_4__: { _TOKEN_霾:1.0___ast_霾_108__[k] ?? "" },
+                                        _TOKEN_策:1.0___ast_嵐_3__: { _TOKEN_霾:1.0___ast_霾_108__[k] = $0 }
+                                    ))
+                                    ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                                    _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_108__._TOKEN_霾:1.0___ast_霾_316__(_TOKEN_淵:1.0___ast_霾_217__: k) } _TOKEN_霾:1.0___ast_霾_81__: {
+                                        _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_305__._TOKEN_霾:1.0___ast_霾_307__")._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_317__)
+                                    }
+// _TOKEN_廟:0.4___ast_XX_344__ [decoy-metadata]
+                                    ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                                    ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                                }
+                            }
+                        }
+                    }
+
+// [metadata-stripped]
+                    _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 6) {
+                        _TOKEN_廟:1.0___ast_廟_133__("_TOKEN_淵:1.0___ast_廟_140__", _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_淵:1.0___ast_霾_242__)
+                            ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                            ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                            ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 120)
+                        _TOKEN_廟:1.0___ast_廟_133__("_TOKEN_霾:1.0___ast_霾_128__", _TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_霾:1.0___ast_霾_215__)
+                            ._TOKEN_霾:1.0___ast_霾_117__(._TOKEN_策:1.0___ast_霾_119__)
+                            ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                        _TOKEN_廟:1.0___ast_廟_89__("+ _TOKEN_廟:1.0___ast_廟_122__") {
+                            guard !_TOKEN_淵:1.0___ast_霾_242__._TOKEN_霾:1.0___ast_霾_239__ else { return }
+                            _TOKEN_霾:1.0___ast_霾_108__[_TOKEN_淵:1.0___ast_霾_242__] = _TOKEN_霾:1.0___ast_霾_215__
+                            _TOKEN_淵:1.0___ast_霾_242__ = ""; _TOKEN_霾:1.0___ast_霾_215__ = ""
+                        }
+                        ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_224__)
+                        ._TOKEN_霾:1.0___ast_霾_29__(._TOKEN_霾:1.0___ast_霾_199__)
+                        ._TOKEN_霾:1.0___ast_霾_275__(_TOKEN_淵:1.0___ast_霾_242__._TOKEN_霾:1.0___ast_霾_239__)
+                    }
+                }
+                ._TOKEN_霾:1.0___ast_霾_25__(16)
+            }
+            ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_293__: 340)
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)
+
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__ {
+// _TOKEN_嵐:0.8___ast_KB_443__ [decoy-metadata]
+                _TOKEN_廟:1.0___ast_廟_89__("_TOKEN_廟:1.0___ast_廟_99__") { _TOKEN_霾:1.0___ast_霾_164__() }
+                    ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_224__)
+                _TOKEN_策:1.0___ast_廟_14__()
+                _TOKEN_廟:1.0___ast_廟_89__("_TOKEN_廟:1.0___ast_廟_32__ & _TOKEN_廟:1.0___ast_廟_134__") {
+                    var _TOKEN_霾:1.0___ast_霾_98__ = _TOKEN_廟:1.0___ast_廟_5__(
+                        _TOKEN_霾:1.0___ast_霾_126__: _TOKEN_霾:1.0___ast_霾_126__, _TOKEN_霾:1.0___ast_霾_172__: _TOKEN_霾:1.0___ast_霾_172__,
+                        _TOKEN_霾:1.0___ast_霾_244__: _TOKEN_霾:1.0___ast_霾_244__, _TOKEN_縺:1.0___ast_霾_52__: _TOKEN_縺:1.0___ast_霾_52__,
+                        _TOKEN_霾:1.0___ast_霾_108__: _TOKEN_霾:1.0___ast_霾_108__, _TOKEN_霾:1.0___ast_霾_282__: _TOKEN_霾:1.0___ast_霾_282__
+                    )
+                    _TOKEN_匷:1.0___ast_霾_70__(_TOKEN_霾:1.0___ast_霾_98__)
+                }
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_120__)
+                ._TOKEN_霾:1.0___ast_霾_275__(_TOKEN_霾:1.0___ast_霾_126__._TOKEN_霾:1.0___ast_霾_239__ || (_TOKEN_霾:1.0___ast_霾_172__ == ._TOKEN_霾:1.0___ast_霾_27__ && _TOKEN_霾:1.0___ast_霾_244__._TOKEN_霾:1.0___ast_霾_239__) || (_TOKEN_霾:1.0___ast_霾_172__ == ._TOKEN_縺:1.0___ast_霾_185__ && _TOKEN_縺:1.0___ast_霾_52__._TOKEN_霾:1.0___ast_霾_239__))
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+            ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.1, _TOKEN_霾:1.0___ast_霾_237__: 0.1, _TOKEN_霾:1.0___ast_霾_135__: 0.13))
+        }
+        ._TOKEN_霾:1.0___ast_霾_100__ { _TOKEN_霾:1.0___ast_霾_196__ = true }
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_廟:1.0___ast_廟_8__: _TOKEN_廟:1.0___ast_廟_31__ {
+    let _TOKEN_霾:1.0___ast_霾_68__: (_TOKEN_廟:1.0___ast_廟_5__) -> _TOKEN_廟:1.0___ast_廟_7__
+    let _TOKEN_霾:1.0___ast_霾_164__: () -> _TOKEN_廟:1.0___ast_廟_7__
+
+// [metadata-stripped]
+    private static let _TOKEN_霾:1.0___ast_霾_46__: [_TOKEN_廟:1.0___ast_廟_5__] = [
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_匷:1.0___ast_廟_56__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_匷:1.0___ast_霾_22__ /", _TOKEN_霾:1.0___ast_霾_282__: .ai),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_131__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_霾:1.0___ast_霾_137__",
+                        _TOKEN_霾:1.0___ast_霾_108__: ["_TOKEN_淵:1.0___ast_廟_35__": ""], _TOKEN_霾:1.0___ast_霾_282__: .ai),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_49__ _TOKEN_廟:1.0___ast_廟_50__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_霾:1.0___ast_霾_168__-_TOKEN_霾:1.0___ast_霾_257__",
+                        _TOKEN_霾:1.0___ast_霾_108__: ["_TOKEN_淵:1.0___ast_廟_123__": ""], _TOKEN_霾:1.0___ast_霾_282__: ._TOKEN_霾:1.0___ast_霾_180__),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_81__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_霾:1.0___ast_霾_73__",
+                        _TOKEN_霾:1.0___ast_霾_108__: ["_TOKEN_淵:1.0___ast_廟_62__": "", "_TOKEN_廟:1.0___ast_廟_44__": ""], _TOKEN_霾:1.0___ast_霾_282__: .ai),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_88__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_霾:1.0___ast_霾_66__",
+                        _TOKEN_霾:1.0___ast_霾_108__: ["_TOKEN_縺:1.0___ast_廟_80__": ""], _TOKEN_霾:1.0___ast_霾_282__: ._TOKEN_霾:1.0___ast_霾_180__),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_策:1.0___ast_廟_136__ (_TOKEN_策:1.0___ast_廟_73__)", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_策:1.0___ast_霾_308__", _TOKEN_霾:1.0___ast_霾_282__: .ai),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_29__ (KV _TOKEN_廟:1.0___ast_廟_130__)", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_霾:1.0___ast_霾_36__", _TOKEN_霾:1.0___ast_霾_282__: .ai),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_策:1.0___ast_嵐_2__ (_TOKEN_廟:1.0___ast_廟_25__ _TOKEN_策:1.0___ast_廟_87__)", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_霾:1.0___ast_霾_27__,
+                        _TOKEN_霾:1.0___ast_霾_244__: "_TOKEN_霾:1.0___ast_霾_227__ -y @_TOKEN_霾:1.0___ast_霾_189__/_TOKEN_策:1.0___ast_霾_148__-_TOKEN_策:1.0___ast_嵐_1__", _TOKEN_霾:1.0___ast_霾_282__: ._TOKEN_霾:1.0___ast_霾_180__),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_23__ _TOKEN_縺:1.0___ast_廟_43__", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_縺:1.0___ast_霾_185__,
+                        _TOKEN_縺:1.0___ast_霾_52__: "_TOKEN_縺:1.0___ast_霾_185__://_TOKEN_霾:1.0___ast_霾_182__:3000", _TOKEN_霾:1.0___ast_霾_282__: ._TOKEN_霾:1.0___ast_霾_180__),
+        _TOKEN_廟:1.0___ast_廟_5__(_TOKEN_霾:1.0___ast_霾_126__: "_TOKEN_廟:1.0___ast_廟_118__ _TOKEN_廟:1.0___ast_廟_100__ (_TOKEN_廟:1.0___ast_廟_23__)", _TOKEN_霾:1.0___ast_霾_172__: ._TOKEN_縺:1.0___ast_霾_185__,
+                        _TOKEN_縺:1.0___ast_霾_52__: "_TOKEN_縺:1.0___ast_霾_185__://_TOKEN_霾:1.0___ast_霾_182__:7331", _TOKEN_霾:1.0___ast_霾_282__: .ai),
+    ]
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 0) {
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__ {
+                _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_164__() } _TOKEN_霾:1.0___ast_霾_81__: {
+                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_91__._TOKEN_霾:1.0___ast_霾_110__")
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_75__))
+                }
+                ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                _TOKEN_廟:1.0___ast_廟_69__("_TOKEN_廟:1.0___ast_廟_32__ _TOKEN_霾:1.0___ast_霾_195__ _TOKEN_廟:1.0___ast_廟_82__")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 13, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__))
+                _TOKEN_策:1.0___ast_廟_14__()
+                _TOKEN_廟:1.0___ast_廟_69__("\(_TOKEN_廟:1.0___ast_廟_76__._TOKEN_霾:1.0___ast_霾_46__._TOKEN_霾:1.0___ast_霾_300__) _TOKEN_霾:1.0___ast_霾_46__")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)
+
+            _TOKEN_廟:1.0___ast_廟_124__ {
+                _TOKEN_廟:1.0___ast_廟_27__(_TOKEN_霾:1.0___ast_霾_319__: 2) {
+                    _TOKEN_廟:1.0___ast_廟_18__(_TOKEN_廟:1.0___ast_廟_76__._TOKEN_霾:1.0___ast_霾_46__) { _TOKEN_霾:1.0___ast_霾_229__ in
+                        _TOKEN_廟:1.0___ast_廟_89__ {
+                            _TOKEN_霾:1.0___ast_霾_68__(_TOKEN_霾:1.0___ast_霾_229__)
+                        } _TOKEN_霾:1.0___ast_霾_81__: {
+                            _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 12) {
+                                _TOKEN_廟:1.0___ast_廟_2__ {
+                                    _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 7)
+                                        ._TOKEN_霾:1.0___ast_霾_24__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.2, _TOKEN_霾:1.0___ast_霾_237__: 0.3, _TOKEN_霾:1.0___ast_霾_135__: 0.5)._TOKEN_霾:1.0___ast_霾_230__(0.4))
+                                        ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 32, _TOKEN_霾:1.0___ast_霾_88__: 32)
+                                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: _TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_172__ == ._TOKEN_霾:1.0___ast_霾_27__ ? "_TOKEN_霾:1.0___ast_霾_136__" : "_TOKEN_霾:1.0___ast_霾_90__")
+                                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 14))
+                                        ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.4, _TOKEN_霾:1.0___ast_霾_237__: 0.75, _TOKEN_霾:1.0___ast_霾_135__: 1.0))
+                                }
+
+                                _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 2) {
+                                    _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_126__)
+                                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 12, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__))
+                                        ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.9, _TOKEN_霾:1.0___ast_霾_135__: 0.95))
+                                    _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_172__ == ._TOKEN_霾:1.0___ast_霾_27__
+                                         ? _TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_244__._TOKEN_霾:1.0___ast_霾_92__(_TOKEN_霾:1.0___ast_霾_79__: " ")._TOKEN_霾:1.0___ast_霾_310__(3)._TOKEN_霾:1.0___ast_霾_146__(_TOKEN_霾:1.0___ast_霾_16__: " ")
+                                         : _TOKEN_霾:1.0___ast_霾_229__._TOKEN_縺:1.0___ast_霾_52__)
+                                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+                                        ._TOKEN_霾:1.0___ast_霾_303__(1)
+                                    if !_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_108__._TOKEN_霾:1.0___ast_霾_239__ {
+                                        _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 4) {
+                                            _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_淵:1.0___ast_霾_94__._TOKEN_霾:1.0___ast_霾_24__")
+                                                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 8))
+                                            _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_108__._TOKEN_淵:1.0___ast_霾_40__._TOKEN_霾:1.0___ast_霾_146__(_TOKEN_霾:1.0___ast_霾_16__: ", "))
+                                                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 9))
+                                        }
+                                        ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.75, _TOKEN_霾:1.0___ast_霾_135__: 0.3))
+                                    }
+                                }
+                                _TOKEN_策:1.0___ast_廟_14__()
+
+// [metadata-stripped]
+                                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_282__ == .ai ? "AI" : "60s")
+                                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 8, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_41__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_霾:1.0___ast_霾_229__._TOKEN_霾:1.0___ast_霾_282__ == .ai
+                                                     ? _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.3, _TOKEN_霾:1.0___ast_霾_237__: 0.9, _TOKEN_霾:1.0___ast_霾_135__: 0.5)
+                                                     : _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.7, _TOKEN_霾:1.0___ast_霾_135__: 0.3))
+                                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 5)._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 2)
+                                    ._TOKEN_霾:1.0___ast_霾_313__(._TOKEN_霾:1.0___ast_霾_274__, in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 3))
+
+                                _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_268__._TOKEN_霾:1.0___ast_霾_307__")
+                                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 14))
+                                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.4, _TOKEN_霾:1.0___ast_霾_237__: 0.8, _TOKEN_霾:1.0___ast_霾_135__: 0.5))
+                            }
+                            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 14)
+                            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 8)
+                        }
+                        ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                        ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                        ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_249__._TOKEN_霾:1.0___ast_霾_230__(0.0))
+                        ._TOKEN_霾:1.0___ast_霾_122__ { _TOKEN_霾:1.0___ast_霾_113__ in
+                            _TOKEN_霾:1.0___ast_霾_113__
+                                ? _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.22, _TOKEN_霾:1.0___ast_霾_237__: 0.32, _TOKEN_霾:1.0___ast_霾_135__: 0.50)._TOKEN_霾:1.0___ast_霾_230__(0.3)
+                                : _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_150__
+                        }
+                    }
+                }
+                ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 4)
+            }
+            ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_293__: 360)
+        }
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_廟:1.0___ast_廟_26__: _TOKEN_廟:1.0___ast_廟_31__ {
+    let _TOKEN_霾:1.0___ast_霾_80__: _TOKEN_廟:1.0___ast_廟_24__
+    let _TOKEN_策:1.0___ast_霾_148__: _TOKEN_廟:1.0___ast_廟_5__
+    let _TOKEN_霾:1.0___ast_霾_286__: ([_TOKEN_廟:1.0___ast_廟_126__: _TOKEN_廟:1.0___ast_廟_47__]) -> _TOKEN_廟:1.0___ast_廟_7__
+    let _TOKEN_霾:1.0___ast_霾_164__: () -> _TOKEN_廟:1.0___ast_廟_7__
+
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_207__ = "{}"
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_309__: _TOKEN_廟:1.0___ast_廟_126__?
+    @_TOKEN_廟:1.0___ast_廟_51__ private var _TOKEN_霾:1.0___ast_霾_61__: _TOKEN_廟:1.0___ast_廟_21__
+
+    private var _TOKEN_霾:1.0___ast_霾_276__: [_TOKEN_廟:1.0___ast_廟_126__: _TOKEN_廟:1.0___ast_廟_47__]? {
+        guard let _TOKEN_霾:1.0___ast_霾_263__ = _TOKEN_霾:1.0___ast_霾_207__._TOKEN_霾:1.0___ast_霾_263__(_TOKEN_霾:1.0___ast_霾_169__: ._TOKEN_霾:1.0___ast_霾_231__),
+              let _TOKEN_霾:1.0___ast_霾_272__ = try? _TOKEN_廟:1.0___ast_廟_65__._TOKEN_霾:1.0___ast_霾_187__(_TOKEN_霾:1.0___ast_霾_56__: _TOKEN_霾:1.0___ast_霾_263__) as? [_TOKEN_廟:1.0___ast_廟_126__: _TOKEN_廟:1.0___ast_廟_47__]
+        else { return nil }
+        return _TOKEN_霾:1.0___ast_霾_272__
+    }
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 0) {
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 10) {
+                _TOKEN_廟:1.0___ast_廟_89__ { _TOKEN_霾:1.0___ast_霾_164__() } _TOKEN_霾:1.0___ast_霾_81__: {
+                    _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_91__._TOKEN_霾:1.0___ast_霾_110__")
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_75__))
+                }
+                ._TOKEN_霾:1.0___ast_霾_123__(_TOKEN_廟:1.0___ast_廟_72__())
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_153__)
+                ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+
+                _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 2) {
+                    _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_80__._TOKEN_霾:1.0___ast_霾_126__)
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 13, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_策:1.0___ast_霾_148__._TOKEN_霾:1.0___ast_霾_126__)
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10))
+                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                }
+                _TOKEN_策:1.0___ast_廟_14__()
+                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_策:1.0___ast_霾_148__._TOKEN_霾:1.0___ast_霾_282__ == .ai ? "AI _TOKEN_霾:1.0___ast_霾_282__ · no _TOKEN_霾:1.0___ast_霾_12__" : "_TOKEN_廟:1.0___ast_廟_106__ _TOKEN_霾:1.0___ast_霾_282__ · 60s")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 9, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_策:1.0___ast_霾_148__._TOKEN_霾:1.0___ast_霾_282__ == .ai
+                                     ? _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.3, _TOKEN_霾:1.0___ast_霾_237__: 0.9, _TOKEN_霾:1.0___ast_霾_135__: 0.5)
+                                     : _TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.9, _TOKEN_霾:1.0___ast_霾_237__: 0.7, _TOKEN_霾:1.0___ast_霾_135__: 0.3))
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)
+
+// [metadata-stripped]
+            if !_TOKEN_霾:1.0___ast_霾_80__._TOKEN_霾:1.0___ast_霾_267__._TOKEN_霾:1.0___ast_霾_239__ {
+                _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_80__._TOKEN_霾:1.0___ast_霾_267__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11))
+                    ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_291__)
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_213__, 8)
+            }
+
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_40__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__, _TOKEN_霾:1.0___ast_霾_319__: 6) {
+                _TOKEN_廟:1.0___ast_廟_69__("_TOKEN_廟:1.0___ast_廟_92__ (_TOKEN_廟:1.0___ast_廟_52__)")
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 9, _TOKEN_霾:1.0___ast_霾_289__: ._TOKEN_霾:1.0___ast_霾_93__, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_37__)
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_213__, 10)
+
+                _TOKEN_廟:1.0___ast_廟_112__(_TOKEN_霾:1.0___ast_霾_144__: $_TOKEN_霾:1.0___ast_霾_207__)
+                    ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 12, _TOKEN_霾:1.0___ast_霾_204__: ._TOKEN_霾:1.0___ast_霾_13__))
+                    ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_88__: 120)
+                    ._TOKEN_霾:1.0___ast_霾_25__(8)
+                    ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.07, _TOKEN_霾:1.0___ast_霾_237__: 0.07, _TOKEN_霾:1.0___ast_霾_135__: 0.10),
+                                in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 6))
+                    ._TOKEN_霾:1.0___ast_霾_15__(
+                        _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 6)
+                            ._TOKEN_策:1.0___ast_霾_6__(
+                                _TOKEN_霾:1.0___ast_霾_309__ != nil
+                                    ? _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_317__._TOKEN_霾:1.0___ast_霾_230__(0.5)
+// _TOKEN_嵐:0.8___ast_BY_749__ [decoy-metadata]
+                                    : _TOKEN_廟:1.0___ast_廟_4__._TOKEN_霾:1.0___ast_霾_249__._TOKEN_霾:1.0___ast_霾_230__(0.08),
+                                _TOKEN_霾:1.0___ast_霾_165__: 1
+                            )
+                    )
+                    ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+                    ._TOKEN_霾:1.0___ast_霾_32__($_TOKEN_霾:1.0___ast_霾_61__)
+                    ._TOKEN_霾:1.0___ast_霾_184__(of: _TOKEN_霾:1.0___ast_霾_207__) { _, _ in
+                        _TOKEN_霾:1.0___ast_霾_309__ = _TOKEN_霾:1.0___ast_霾_276__ == nil && _TOKEN_霾:1.0___ast_霾_207__ != "{}" ? "_TOKEN_廟:1.0___ast_廟_39__ _TOKEN_廟:1.0___ast_廟_52__" : nil
+                    }
+
+                if let _TOKEN_霾:1.0___ast_霾_45__ = _TOKEN_霾:1.0___ast_霾_309__ {
+                    _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_45__)
+                        ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10))
+                        ._TOKEN_澎:1.0___ast_霾_59__(._TOKEN_霾:1.0___ast_霾_317__)
+                        ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+                }
+            }
+
+            _TOKEN_策:1.0___ast_廟_46__()._TOKEN_霾:1.0___ast_霾_230__(0.2)._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_213__, 12)
+
+// [metadata-stripped]
+            _TOKEN_廟:1.0___ast_廟_129__ {
+                _TOKEN_廟:1.0___ast_廟_89__("_TOKEN_廟:1.0___ast_廟_99__") { _TOKEN_霾:1.0___ast_霾_164__() }
+                    ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_224__)
+                _TOKEN_策:1.0___ast_廟_14__()
+                _TOKEN_廟:1.0___ast_廟_89__ {
+                    if let _TOKEN_霾:1.0___ast_霾_151__ = _TOKEN_霾:1.0___ast_霾_276__ {
+                        _TOKEN_霾:1.0___ast_霾_286__(_TOKEN_霾:1.0___ast_霾_151__)
+                    }
+                } _TOKEN_霾:1.0___ast_霾_81__: {
+                    _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_319__: 6) {
+                        _TOKEN_廟:1.0___ast_廟_142__(_TOKEN_霾:1.0___ast_霾_265__: "_TOKEN_霾:1.0___ast_霾_121__._TOKEN_霾:1.0___ast_霾_24__")._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 10))
+                        _TOKEN_廟:1.0___ast_廟_69__("_TOKEN_廟:1.0___ast_廟_38__ _TOKEN_廟:1.0___ast_廟_79__")
+                    }
+                }
+                ._TOKEN_霾:1.0___ast_霾_141__(._TOKEN_霾:1.0___ast_霾_120__)
+                ._TOKEN_霾:1.0___ast_霾_275__(_TOKEN_霾:1.0___ast_霾_276__ == nil)
+                ._TOKEN_淵:1.0___ast_霾_232__(.return, _TOKEN_澎:1.0___ast_霾_57__: ._TOKEN_霾:1.0___ast_霾_244__)
+            }
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_87__, 16)
+            ._TOKEN_霾:1.0___ast_霾_25__(._TOKEN_霾:1.0___ast_霾_259__, 12)
+            ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.1, _TOKEN_霾:1.0___ast_霾_237__: 0.1, _TOKEN_霾:1.0___ast_霾_135__: 0.13))
+        }
+        ._TOKEN_霾:1.0___ast_霾_100__ { _TOKEN_霾:1.0___ast_霾_61__ = true }
+    }
+}
+
+// [metadata-stripped]
+
+private extension _TOKEN_廟:1.0___ast_廟_31__ {
+    @_TOKEN_策:1.0___ast_廟_109__
+    func _TOKEN_霾:1.0___ast_霾_122__(_TOKEN_霾:1.0___ast_霾_313__: @_TOKEN_縺:1.0___ast_霾_147__ (_TOKEN_廟:1.0___ast_廟_21__) -> _TOKEN_廟:1.0___ast_廟_4__) -> some _TOKEN_廟:1.0___ast_廟_31__ {
+        self._TOKEN_策:1.0___ast_霾_42__(_TOKEN_策:1.0___ast_廟_54__(_TOKEN_霾:1.0___ast_霾_313__: _TOKEN_霾:1.0___ast_霾_313__))
+    }
+}
+
+private struct _TOKEN_策:1.0___ast_廟_54__: _TOKEN_策:1.0___ast_廟_139__ {
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_101__ = false
+    let _TOKEN_霾:1.0___ast_霾_313__: (_TOKEN_廟:1.0___ast_廟_21__) -> _TOKEN_廟:1.0___ast_廟_4__
+
+    func _TOKEN_霾:1.0___ast_霾_208__(_TOKEN_霾:1.0___ast_霾_106__: _TOKEN_廟:1.0___ast_廟_41__) -> some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_霾:1.0___ast_霾_106__
+            ._TOKEN_霾:1.0___ast_霾_313__(_TOKEN_霾:1.0___ast_霾_313__(_TOKEN_霾:1.0___ast_霾_101__), in: _TOKEN_廟:1.0___ast_廟_102__(_TOKEN_霾:1.0___ast_霾_206__: 6))
+            ._TOKEN_策:1.0___ast_霾_44__ { _TOKEN_霾:1.0___ast_霾_101__ = $0 }
+            ._TOKEN_霾:1.0___ast_霾_266__(._TOKEN_霾:1.0___ast_霾_170__(_TOKEN_霾:1.0___ast_霾_65__: 0.1), _TOKEN_霾:1.0___ast_霾_128__: _TOKEN_霾:1.0___ast_霾_101__)
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_廟:1.0___ast_廟_77__<_TOKEN_廟:1.0___ast_廟_41__: _TOKEN_廟:1.0___ast_廟_31__>: _TOKEN_廟:1.0___ast_廟_31__ {
+    let _TOKEN_霾:1.0___ast_霾_81__: _TOKEN_廟:1.0___ast_廟_126__
+    let _TOKEN_霾:1.0___ast_霾_106__: _TOKEN_廟:1.0___ast_廟_41__
+
+    init(_ _TOKEN_霾:1.0___ast_霾_81__: _TOKEN_廟:1.0___ast_廟_126__, @_TOKEN_策:1.0___ast_廟_109__ _TOKEN_霾:1.0___ast_霾_106__: () -> _TOKEN_廟:1.0___ast_廟_41__) {
+        self._TOKEN_霾:1.0___ast_霾_81__ = _TOKEN_霾:1.0___ast_霾_81__
+        self._TOKEN_霾:1.0___ast_霾_106__ = _TOKEN_霾:1.0___ast_霾_106__()
+    }
+
+    var _TOKEN_霾:1.0___ast_霾_208__: some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_129__(_TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_213__, _TOKEN_霾:1.0___ast_霾_319__: 10) {
+            _TOKEN_廟:1.0___ast_廟_69__(_TOKEN_霾:1.0___ast_霾_81__)
+                ._TOKEN_霾:1.0___ast_霾_314__(._TOKEN_霾:1.0___ast_霾_17__(_TOKEN_霾:1.0___ast_霾_39__: 11))
+                ._TOKEN_澎:1.0___ast_霾_59__(_TOKEN_廟:1.0___ast_廟_4__(_TOKEN_霾:1.0___ast_霾_317__: 0.65, _TOKEN_霾:1.0___ast_霾_237__: 0.65, _TOKEN_霾:1.0___ast_霾_135__: 0.80))
+                ._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_241__: 80, _TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_247__)
+            _TOKEN_霾:1.0___ast_霾_106__._TOKEN_霾:1.0___ast_霾_292__(_TOKEN_霾:1.0___ast_霾_78__: ._TOKEN_霾:1.0___ast_霾_18__, _TOKEN_霾:1.0___ast_霾_240__: ._TOKEN_霾:1.0___ast_霾_190__)
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct _TOKEN_廟:1.0___ast_廟_105__: _TOKEN_策:1.0___ast_廟_139__ {
+    @_TOKEN_廟:1.0___ast_廟_58__ private var _TOKEN_霾:1.0___ast_霾_245__ = false
+    @_TOKEN_廟:1.0___ast_廟_107__ var _TOKEN_霾:1.0___ast_霾_163__: _TOKEN_廟:1.0___ast_廟_28__
+
+    func _TOKEN_霾:1.0___ast_霾_208__(_TOKEN_霾:1.0___ast_霾_106__: _TOKEN_廟:1.0___ast_廟_41__) -> some _TOKEN_廟:1.0___ast_廟_31__ {
+        _TOKEN_廟:1.0___ast_廟_2__ {
+            _TOKEN_霾:1.0___ast_霾_106__
+            if _TOKEN_霾:1.0___ast_霾_245__ {
+                _TOKEN_廟:1.0___ast_廟_53__(_TOKEN_霾:1.0___ast_霾_250__: $_TOKEN_霾:1.0___ast_霾_245__)
+                    ._TOKEN_霾:1.0___ast_霾_31__(_TOKEN_霾:1.0___ast_霾_163__)
+                    ._TOKEN_霾:1.0___ast_霾_55__(99)
+            }
+        }
+// [metadata-stripped]
+    }
+}
+
+extension _TOKEN_廟:1.0___ast_廟_31__ {
+    func _TOKEN_霾:1.0___ast_霾_63__() -> some _TOKEN_廟:1.0___ast_廟_31__ {
+        self._TOKEN_策:1.0___ast_霾_42__(_TOKEN_廟:1.0___ast_廟_105__())
+    }
+// _TOKEN_淵:0.9___ast_DG_610__ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

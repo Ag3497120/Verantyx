@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AC21BC0E ver:1778158792
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_紋:0.2___OPAQUE_CB_613_ [decoy-metadata]
+// [metadata-stripped]
+
+__node_霞:1.0___OPAQUE_霞_31_ __node_霞:1.0___OPAQUE_霞_37_::__node_霞:1.0___OPAQUE_霞_30_::__node_礎:1.0___OPAQUE_礎_16_;
+__node_霞:1.0___OPAQUE_霞_31_ __node_霞:1.0___OPAQUE_霞_41_::__node_礎:1.0___OPAQUE_礎_37_;
+__node_霞:1.0___OPAQUE_霞_31_ __node_霞:1.0___OPAQUE_霞_51_::{__node_礎:1.0___OPAQUE_礎_12_, __node_礎:1.0___OPAQUE_礎_9_};
+
+// [metadata-stripped]
+__node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_22_uct __node_礎:1.0___OPAQUE_礎_14_ {
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_26_: __node_礎:1.0___OPAQUE_礎_27_,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_42_: __node_霞:1.0___OPAQUE_霞_18_,
+// __node_嵐:0.8___OPAQUE_BY_121_ [decoy-metadata]
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_47_: __node_礎:1.0___OPAQUE_礎_16_<__node_礎:1.0___OPAQUE_礎_27_, __node_礎:1.0___OPAQUE_礎_24_>,
+}
+
+// [metadata-stripped]
+__node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_22_uct __node_礎:1.0___OPAQUE_礎_24_ {
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_26_: __node_礎:1.0___OPAQUE_礎_27_,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_鍵:1.0___OPAQUE_霞_39_: __node_礎:1.0___OPAQUE_礎_25_<__node_礎:1.0___OPAQUE_礎_27_>,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_38_: __node_霞:1.0___OPAQUE_霞_46_,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_8_: __node_礎:1.0___OPAQUE_礎_16_<__node_礎:1.0___OPAQUE_礎_27_, __node_霞:1.0___OPAQUE_霞_2_::__node_礎:1.0___OPAQUE_礎_18_>,
+}
+
+__node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_22_uct __node_要:1.0___OPAQUE_礎_7_ {
+    __node_霞:1.0___OPAQUE_霞_24_: __node_礎:1.0___OPAQUE_礎_27_,
+    db: __node_霞:1.0___OPAQUE_霞_40_::Db,
+}
+
+__node_霞:1.0___OPAQUE_霞_33_ __node_要:1.0___OPAQUE_礎_7_ {
+    __node_霞:1.0___OPAQUE_霞_32_ fn __node_霞:1.0___OPAQUE_霞_13_(__node_霞:1.0___OPAQUE_霞_24_: &__node_霞:1.0___OPAQUE_霞_22_, __node_霞:1.0___OPAQUE_霞_49_: &__node_霞:1.0___OPAQUE_霞_37_::__node_霞:1.0___OPAQUE_霞_48_::__node_礎:1.0___OPAQUE_礎_32_) -> __node_礎:1.0___OPAQUE_礎_37_<__node_礎:1.0___OPAQUE_礎_21_> {
+        let db = __node_霞:1.0___OPAQUE_霞_40_::open(__node_霞:1.0___OPAQUE_霞_49_)?;
+        Ok(__node_礎:1.0___OPAQUE_礎_21_ {
+            __node_霞:1.0___OPAQUE_霞_24_: __node_霞:1.0___OPAQUE_霞_24_.__node_霞:1.0___OPAQUE_霞_27_(),
+            db,
+        })
+    }
+
+    __node_霞:1.0___OPAQUE_霞_32_ async fn __node_霞:1.0___OPAQUE_霞_6_(&self, __node_霞:1.0___OPAQUE_霞_26_: &__node_霞:1.0___OPAQUE_霞_22_, __node_霞:1.0___OPAQUE_霞_42_: __node_霞:1.0___OPAQUE_霞_18_) -> __node_礎:1.0___OPAQUE_礎_37_<__node_礎:1.0___OPAQUE_礎_14_> {
+        let __node_鍵:1.0___OPAQUE_霞_12_ = __node_澎:1.0___OPAQUE_霞_3_!("__node_霞:1.0___OPAQUE_霞_10_{}_{}", self.__node_霞:1.0___OPAQUE_霞_24_, __node_霞:1.0___OPAQUE_霞_26_);
+        if let __node_礎:1.0___OPAQUE_礎_17_(__node_霞:1.0___OPAQUE_霞_50_) = self.db.__node_要:1.0___OPAQUE_嵐_1_(&__node_鍵:1.0___OPAQUE_霞_12_)? {
+            let __node_霞:1.0___OPAQUE_霞_1_ __node_霞:1.0___OPAQUE_霞_21_: __node_礎:1.0___OPAQUE_礎_14_ = __node_霞:1.0___OPAQUE_霞_2_::__node_霞:1.0___OPAQUE_霞_5_(&__node_霞:1.0___OPAQUE_霞_50_)?;
+            if __node_霞:1.0___OPAQUE_霞_21_.__node_霞:1.0___OPAQUE_霞_42_ < __node_霞:1.0___OPAQUE_霞_42_ {
+// [metadata-stripped]
+                __node_霞:1.0___OPAQUE_霞_21_.__node_霞:1.0___OPAQUE_霞_42_ = __node_霞:1.0___OPAQUE_霞_42_;
+// __node_嵐:0.4___OPAQUE_WE_562_ [decoy-metadata]
+                self.__node_匽:1.0___OPAQUE_霞_52_(&__node_霞:1.0___OPAQUE_霞_21_)?;
+            }
+            Ok(__node_霞:1.0___OPAQUE_霞_21_)
+        } else {
+            let __node_霞:1.0___OPAQUE_霞_21_ = __node_礎:1.0___OPAQUE_礎_14_ {
+                __node_霞:1.0___OPAQUE_霞_26_: __node_霞:1.0___OPAQUE_霞_26_.__node_霞:1.0___OPAQUE_霞_27_(),
+                __node_霞:1.0___OPAQUE_霞_42_,
+// __node_要:0.8___OPAQUE_WH_172_ [decoy-metadata]
+                __node_霞:1.0___OPAQUE_霞_47_: __node_礎:1.0___OPAQUE_礎_16_::__node_霞:1.0___OPAQUE_霞_13_(),
+            };
+            self.__node_匽:1.0___OPAQUE_霞_52_(&__node_霞:1.0___OPAQUE_霞_21_)?;
+            Ok(__node_霞:1.0___OPAQUE_霞_21_)
+        }
+    }
+
+    __node_霞:1.0___OPAQUE_霞_32_ fn __node_匽:1.0___OPAQUE_霞_52_(&self, __node_霞:1.0___OPAQUE_霞_21_: &__node_礎:1.0___OPAQUE_礎_14_) -> __node_礎:1.0___OPAQUE_礎_37_<()> {
+        let __node_鍵:1.0___OPAQUE_霞_12_ = __node_澎:1.0___OPAQUE_霞_3_!("__node_霞:1.0___OPAQUE_霞_10_{}_{}", self.__node_霞:1.0___OPAQUE_霞_24_, __node_霞:1.0___OPAQUE_霞_21_.__node_霞:1.0___OPAQUE_霞_26_);
+        let __node_霞:1.0___OPAQUE_霞_50_ = __node_霞:1.0___OPAQUE_霞_2_::__node_霞:1.0___OPAQUE_霞_4_(__node_霞:1.0___OPAQUE_霞_21_)?;
+        self.db.__node_霞:1.0___OPAQUE_霞_15_(__node_鍵:1.0___OPAQUE_霞_12_, __node_霞:1.0___OPAQUE_霞_50_)?;
+        self.db.__node_霞:1.0___OPAQUE_霞_45_()?;
+        Ok(())
+// __node_匽:0.5___OPAQUE_ZD_616_ [decoy-metadata]
+    }
+
+    __node_霞:1.0___OPAQUE_霞_32_ fn __node_霞:1.0___OPAQUE_霞_20_(&self, __node_霞:1.0___OPAQUE_霞_26_: &__node_霞:1.0___OPAQUE_霞_22_) -> __node_礎:1.0___OPAQUE_礎_37_<()> {
+// __node_礎:0.2___OPAQUE_DX_890_ [decoy-metadata]
+        let __node_鍵:1.0___OPAQUE_霞_12_ = __node_澎:1.0___OPAQUE_霞_3_!("__node_霞:1.0___OPAQUE_霞_10_{}_{}", self.__node_霞:1.0___OPAQUE_霞_24_, __node_霞:1.0___OPAQUE_霞_26_);
+        self.db.__node_霞:1.0___OPAQUE_霞_36_(__node_鍵:1.0___OPAQUE_霞_12_)?;
+        self.db.__node_霞:1.0___OPAQUE_霞_45_()?;
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+__node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_22_uct __node_礎:1.0___OPAQUE_礎_26_ {
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_17_: __node_礎:1.0___OPAQUE_礎_27_,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_23_: __node_礎:1.0___OPAQUE_礎_4_,
+    __node_霞:1.0___OPAQUE_霞_32_ __node_霞:1.0___OPAQUE_霞_47_: __node_礎:1.0___OPAQUE_礎_33_<__node_礎:1.0___OPAQUE_礎_27_>,
+}
+
+// [metadata-stripped]
+__node_霞:1.0___OPAQUE_霞_32_ enum __node_礎:1.0___OPAQUE_礎_4_ {
+    __node_礎:1.0___OPAQUE_礎_6_,
+    __node_礎:1.0___OPAQUE_礎_30_,
+    __node_礎:1.0___OPAQUE_礎_5_,
+}
+
+// POLYMORPHIC_JCROSS_END

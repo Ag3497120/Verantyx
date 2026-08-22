@@ -1,0 +1,78 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:819573C8 ver:1778159670
+// ⚠️ One-time schema — expires after response
+
+_ID_雰:1.0__VERANTYX_雰_4_ _ID_雰:1.0__VERANTYX_雰_33_ import _ID_雰:1.0__VERANTYX_雰_11_
+
+_ID_雰:1.0__VERANTYX_雰_4_ _ID_雰:1.0__VERANTYX_雰_34_ import _ID_廓:1.0__VERANTYX_廓_4_
+_ID_雰:1.0__VERANTYX_雰_4_ _ID_雰:1.0__VERANTYX_雰_22_ import _ID_廓:1.0__VERANTYX_廓_6_, _ID_廓:1.0__VERANTYX_廓_5_, _ID_廓:1.0__VERANTYX_廓_7_, _ID_廓:1.0__VERANTYX_廓_1_
+import _ID_雰:1.0__VERANTYX_雰_16_
+// _ID_区:0.3__VERANTYX_YV_757_ [decoy-metadata]
+
+
+_ID_雰:1.0__VERANTYX_雰_39_ _ID_澎:1.0__VERANTYX_雰_35_(f: _ID_雰:1.0__VERANTYX_雰_8_) -> _ID_雰:1.0__VERANTYX_雰_8_:
+    return (
+        (f or "")
+        ._ID_雰:1.0__VERANTYX_雰_29_(" ", "")
+        ._ID_雰:1.0__VERANTYX_雰_29_("→", "->")
+        ._ID_雰:1.0__VERANTYX_雰_29_("□", "[]")
+        ._ID_雰:1.0__VERANTYX_雰_29_("◇", "<>")
+// _ID_凛:0.6__VERANTYX_LA_849_ [decoy-metadata]
+    )
+
+
+_ID_雰:1.0__VERANTYX_雰_39_ _ID_雰:1.0__VERANTYX_雰_40_(
+    _ID_澎:1.0__VERANTYX_雰_26_: _ID_雰:1.0__VERANTYX_雰_8_,
+    _ID_雰:1.0__VERANTYX_雰_5_: _ID_廓:1.0__VERANTYX_廓_4_,
+    *,
+    _ID_雰:1.0__VERANTYX_雰_41_: _ID_廓:1.0__VERANTYX_廓_6_[_ID_雰:1.0__VERANTYX_雰_8_] = _ID_廓:1.0__VERANTYX_廓_2_,
+    _ID_雰:1.0__VERANTYX_雰_43_: _ID_雰:1.0__VERANTYX_雰_15_ = 20000,
+) -> _ID_廓:1.0__VERANTYX_廓_6_[_ID_廓:1.0__VERANTYX_廓_5_[_ID_雰:1.0__VERANTYX_雰_8_, _ID_廓:1.0__VERANTYX_廓_1_]]:
+    nf = _ID_澎:1.0__VERANTYX_雰_35_(_ID_澎:1.0__VERANTYX_雰_26_)
+// _ID_律:0.5__VERANTYX_LH_967_ [decoy-metadata]
+    if _ID_雰:1.0__VERANTYX_雰_14_ nf or _ID_雰:1.0__VERANTYX_雰_14_ _ID_雰:1.0__VERANTYX_雰_5_._ID_雰:1.0__VERANTYX_雰_31_():
+// _ID_底:0.4__VERANTYX_CC_774_ [decoy-metadata]
+        return _ID_廓:1.0__VERANTYX_廓_2_
+
+    _ID_雰:1.0__VERANTYX_雰_10_ = 0
+    _ID_雰:1.0__VERANTYX_雰_19_ _ID_雰:1.0__VERANTYX_雰_5_.open("r", _ID_雰:1.0__VERANTYX_雰_2_="_ID_雰:1.0__VERANTYX_雰_13_-8") as f:
+// _ID_廓:0.9__VERANTYX_KV_972_ [decoy-metadata]
+        for _ID_雰:1.0__VERANTYX_雰_28_ in f:
+            if _ID_雰:1.0__VERANTYX_雰_10_ >= _ID_雰:1.0__VERANTYX_雰_43_:
+                break
+            _ID_雰:1.0__VERANTYX_雰_28_ = _ID_雰:1.0__VERANTYX_雰_28_._ID_雰:1.0__VERANTYX_雰_18_()
+            if _ID_雰:1.0__VERANTYX_雰_14_ _ID_雰:1.0__VERANTYX_雰_28_:
+                continue
+            _ID_雰:1.0__VERANTYX_雰_10_ += 1
+            try:
+                _ID_雰:1.0__VERANTYX_雰_30_ = _ID_雰:1.0__VERANTYX_雰_16_._ID_区:1.0__VERANTYX_雰_27_(_ID_雰:1.0__VERANTYX_雰_28_)
+            _ID_雰:1.0__VERANTYX_雰_9_ _ID_廓:1.0__VERANTYX_廓_3_:
+                continue
+            if _ID_雰:1.0__VERANTYX_雰_41_ _ID_雰:1.0__VERANTYX_雰_12_ _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("_ID_雰:1.0__VERANTYX_雰_41_") _ID_雰:1.0__VERANTYX_雰_14_ in (_ID_雰:1.0__VERANTYX_雰_41_, "_ID_雰:1.0__VERANTYX_雰_7_"):
+                continue
+            _ID_雰:1.0__VERANTYX_雰_21_ = _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("_ID_雰:1.0__VERANTYX_雰_1_") or ""
+            _ID_雰:1.0__VERANTYX_雰_36_ = _ID_澎:1.0__VERANTYX_雰_35_(_ID_雰:1.0__VERANTYX_雰_21_)
+            if _ID_雰:1.0__VERANTYX_雰_36_ != nf:
+                continue
+
+            _ID_雰:1.0__VERANTYX_雰_6_ = _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("_ID_雰:1.0__VERANTYX_雰_37_")
+            if _ID_雰:1.0__VERANTYX_雰_6_ _ID_雰:1.0__VERANTYX_雰_12_ _ID_雰:1.0__VERANTYX_雰_6_._ID_律:1.0__VERANTYX_凛_1_("_ID_雰:1.0__VERANTYX_雰_42_"):
+                return {
+                    "_ID_雰:1.0__VERANTYX_雰_25_": "_ID_雰:1.0__VERANTYX_雰_17_",
+                    "_ID_雰:1.0__VERANTYX_雰_38_": "_ID_雰:1.0__VERANTYX_雰_23_",
+// _ID_縞:0.5__VERANTYX_FW_990_ [decoy-metadata]
+                    "_ID_雰:1.0__VERANTYX_雰_44_": _ID_雰:1.0__VERANTYX_雰_6_,
+                    "_ID_雰:1.0__VERANTYX_雰_45_": _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("id"),
+                }
+
+            _ID_雰:1.0__VERANTYX_雰_32_ = _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("_ID_雰:1.0__VERANTYX_雰_32_") or []
+            if "_ID_澎:1.0__VERANTYX_雰_3_:true" in _ID_雰:1.0__VERANTYX_雰_32_:
+                return {
+                    "_ID_雰:1.0__VERANTYX_雰_25_": "_ID_雰:1.0__VERANTYX_雰_20_",
+                    "_ID_雰:1.0__VERANTYX_雰_38_": "_ID_澎:1.0__VERANTYX_雰_24_",
+                    "_ID_雰:1.0__VERANTYX_雰_45_": _ID_雰:1.0__VERANTYX_雰_30_._ID_律:1.0__VERANTYX_凛_1_("id"),
+                }
+
+    return _ID_廓:1.0__VERANTYX_廓_2_
+
+// POLYMORPHIC_JCROSS_END

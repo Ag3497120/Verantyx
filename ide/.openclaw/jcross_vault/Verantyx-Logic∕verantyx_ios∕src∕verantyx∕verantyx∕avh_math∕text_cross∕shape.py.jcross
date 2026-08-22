@@ -1,0 +1,26 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9AB4210E ver:1778162902
+// _ID_浪:0.3__TOKEN_FV_303_ [decoy-metadata]
+// _ID_紗:0.3__TOKEN_CG_707_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+// _ID_粋:0.6__TOKEN_KE_726_ [decoy-metadata]
+
+_ID_霡:1.0__TOKEN_霡_9_ _ID_浪:1.0__TOKEN_霡_7_(_ID_底:1.0__TOKEN_霡_4_: _ID_霡:1.0__TOKEN_霡_8_) -> _ID_霡:1.0__TOKEN_霡_8_:
+    if _ID_底:1.0__TOKEN_霡_4_ in {"->", "→", "<->"}:
+        return "_ID_霡:1.0__TOKEN_霡_13_"
+// _ID_浪:0.2__TOKEN_GD_370_ [decoy-metadata]
+// _ID_底:0.7__TOKEN_XE_161_ [decoy-metadata]
+    if _ID_底:1.0__TOKEN_霡_4_ in {"[]", "□"}:
+        return "_ID_霡:1.0__TOKEN_霡_5_"
+    if _ID_底:1.0__TOKEN_霡_4_ in {"<>", "◇"}:
+        return "_ID_霡:1.0__TOKEN_霡_6_"
+    if _ID_底:1.0__TOKEN_霡_4_._ID_霡:1.0__TOKEN_霡_10_():
+// _ID_紗:0.6__TOKEN_AK_420_ [decoy-metadata]
+        return "_ID_霡:1.0__TOKEN_霡_1_"
+    if _ID_底:1.0__TOKEN_霡_4_._ID_霡:1.0__TOKEN_霡_12_():
+        return "_ID_処:1.0__TOKEN_霡_11_"
+    if _ID_底:1.0__TOKEN_霡_4_ in {"&", "|", "~"}:
+        return "_ID_霡:1.0__TOKEN_霡_3_"
+    return "_ID_処:1.0__TOKEN_霡_2_"
+
+// POLYMORPHIC_JCROSS_END

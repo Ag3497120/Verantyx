@@ -1,0 +1,126 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5843ED10 ver:1778166311
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霜:1.0___node_霜_27__ _OPAQUE_霜:1.0___node_霜_62__::_OPAQUE_霜:1.0___node_霜_73__::_OPAQUE_廂:1.0___node_廂_34__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霜:1.0___node_霜_28__ enum _OPAQUE_廂:1.0___node_廂_25__ { _OPAQUE_廂:1.0___node_廂_7__, _OPAQUE_廂:1.0___node_廂_32__, _OPAQUE_廂:1.0___node_廂_18__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霜:1.0___node_霜_28__ enum _OPAQUE_廂:1.0___node_廂_21__ { _OPAQUE_廂:1.0___node_廂_7__, _OPAQUE_廂:1.0___node_廂_46__ }
+// _OPAQUE_計:0.6___node_YL_350__ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霜:1.0___node_霜_28__ enum _OPAQUE_廂:1.0___node_廂_45__ { Up, _OPAQUE_廂:1.0___node_廂_19__, _OPAQUE_廂:1.0___node_廂_28__, _OPAQUE_廂:1.0___node_廂_44__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_渕:0.2___node_FZ_182__ [decoy-metadata]
+_OPAQUE_霜:1.0___node_霜_28__ struct _OPAQUE_廂:1.0___node_廂_13__ {
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_71__: _OPAQUE_霜:1.0___node_霜_31__,
+    _OPAQUE_霜:1.0___node_霜_28__ x: _OPAQUE_霜:1.0___node_霜_55__,
+    _OPAQUE_霜:1.0___node_霜_28__ y: _OPAQUE_霜:1.0___node_霜_55__,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_34__: _OPAQUE_霜:1.0___node_霜_55__,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_94__: _OPAQUE_霜:1.0___node_霜_55__,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_20__: _OPAQUE_霜:1.0___node_霜_19__,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_86__: _OPAQUE_廂:1.0___node_廂_25__,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_9__: _OPAQUE_廂:1.0___node_廂_21__,
+}
+
+_OPAQUE_霜:1.0___node_霜_1__ _OPAQUE_廂:1.0___node_廂_13__ {
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_計:1.0___node_霜_49__(&self) -> (_OPAQUE_霜:1.0___node_霜_55__, _OPAQUE_霜:1.0___node_霜_55__) {
+        (self.x + self._OPAQUE_霜:1.0___node_霜_34__ / 2.0, self.y + self._OPAQUE_霜:1.0___node_霜_94__ / 2.0)
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_霜:1.0___node_霜_28__ struct _OPAQUE_廂:1.0___node_廂_43__ {
+// _OPAQUE_泡:0.4___node_DA_464__ [decoy-metadata]
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_11__: _OPAQUE_廂:1.0___node_廂_34__<_OPAQUE_霜:1.0___node_霜_31__, _OPAQUE_廂:1.0___node_廂_13__>,
+    _OPAQUE_霜:1.0___node_霜_28__ _OPAQUE_霜:1.0___node_霜_70__: _OPAQUE_廂:1.0___node_廂_22__<_OPAQUE_霜:1.0___node_霜_31__>,
+}
+// _OPAQUE_匯:0.3___node_EH_154__ [decoy-metadata]
+
+_OPAQUE_霜:1.0___node_霜_1__ _OPAQUE_廂:1.0___node_廂_43__ {
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_霜:1.0___node_霜_18__() -> _OPAQUE_廂:1.0___node_廂_42__ {
+        _OPAQUE_廂:1.0___node_廂_42__ {
+            _OPAQUE_霜:1.0___node_霜_11__: _OPAQUE_廂:1.0___node_廂_34__::_OPAQUE_霜:1.0___node_霜_18__(),
+            _OPAQUE_霜:1.0___node_霜_70__: _OPAQUE_廂:1.0___node_廂_35__,
+        }
+    }
+
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_霜:1.0___node_霜_29__(&_OPAQUE_霜:1.0___node_霜_67__ self, b: _OPAQUE_廂:1.0___node_廂_13__) {
+        self._OPAQUE_霜:1.0___node_霜_11__._OPAQUE_霜:1.0___node_霜_25__(b._OPAQUE_霜:1.0___node_霜_71__, b);
+// _OPAQUE_渕:0.4___node_GK_287__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_霜:1.0___node_霜_47__(&self, _OPAQUE_霜:1.0___node_霜_72__: &_OPAQUE_廂:1.0___node_廂_13__, to: &_OPAQUE_廂:1.0___node_廂_13__, _OPAQUE_霜:1.0___node_霜_40__: _OPAQUE_廂:1.0___node_廂_45__) -> _OPAQUE_霜:1.0___node_霜_55__ {
+        let (_OPAQUE_霜:1.0___node_霜_92__, _OPAQUE_霜:1.0___node_霜_66__) = _OPAQUE_霜:1.0___node_霜_72__._OPAQUE_計:1.0___node_霜_49__();
+        let (_OPAQUE_霜:1.0___node_霜_81__, _OPAQUE_霜:1.0___node_霜_8__) = to._OPAQUE_計:1.0___node_霜_49__();
+
+        let (dx, dy) = _OPAQUE_霜:1.0___node_霜_95__ _OPAQUE_霜:1.0___node_霜_40__ {
+            _OPAQUE_廂:1.0___node_廂_45__::Up => (0.0, _OPAQUE_霜:1.0___node_霜_66__ - _OPAQUE_霜:1.0___node_霜_8__),
+            _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_19__ => (0.0, _OPAQUE_霜:1.0___node_霜_8__ - _OPAQUE_霜:1.0___node_霜_66__),
+            _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_28__ => (_OPAQUE_霜:1.0___node_霜_92__ - _OPAQUE_霜:1.0___node_霜_81__, 0.0),
+            _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_44__ => (_OPAQUE_霜:1.0___node_霜_81__ - _OPAQUE_霜:1.0___node_霜_92__, 0.0),
+        };
+
+// [metadata-stripped]
+        if (_OPAQUE_霜:1.0___node_霜_40__ == _OPAQUE_廂:1.0___node_廂_45__::Up || _OPAQUE_霜:1.0___node_霜_40__ == _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_19__) && dy <= 0.0 { return _OPAQUE_霜:1.0___node_霜_55__::_OPAQUE_廂:1.0___node_廂_4__; }
+        if (_OPAQUE_霜:1.0___node_霜_40__ == _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_28__ || _OPAQUE_霜:1.0___node_霜_40__ == _OPAQUE_廂:1.0___node_廂_45__::_OPAQUE_廂:1.0___node_廂_44__) && dx <= 0.0 { return _OPAQUE_霜:1.0___node_霜_55__::_OPAQUE_廂:1.0___node_廂_4__; }
+
+        let _OPAQUE_霜:1.0___node_霜_61__ = _OPAQUE_霜:1.0___node_霜_81__ - _OPAQUE_霜:1.0___node_霜_92__;
+        let _OPAQUE_霜:1.0___node_霜_35__ = _OPAQUE_霜:1.0___node_霜_8__ - _OPAQUE_霜:1.0___node_霜_66__;
+        (_OPAQUE_霜:1.0___node_霜_61__ * _OPAQUE_霜:1.0___node_霜_61__ + _OPAQUE_霜:1.0___node_霜_35__ * _OPAQUE_霜:1.0___node_霜_35__)._OPAQUE_霜:1.0___node_霜_42__() // _OPAQUE_廂:1.0___node_廂_27__ _OPAQUE_霜:1.0___node_霜_15__
+    }
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_霜:1.0___node_霜_59__(&_OPAQUE_霜:1.0___node_霜_67__ self, _OPAQUE_霜:1.0___node_霜_40__: _OPAQUE_廂:1.0___node_廂_45__) -> _OPAQUE_廂:1.0___node_廂_22__<_OPAQUE_霜:1.0___node_霜_31__> {
+        let _OPAQUE_霜:1.0___node_霜_3__ = self._OPAQUE_霜:1.0___node_霜_70__?;
+        let _OPAQUE_霜:1.0___node_霜_65__ = self._OPAQUE_霜:1.0___node_霜_11__._OPAQUE_計:1.0___node_凱_1__(&_OPAQUE_霜:1.0___node_霜_3__)?;
+
+        let _OPAQUE_霜:1.0___node_霜_67__ _OPAQUE_霜:1.0___node_霜_78__ = _OPAQUE_廂:1.0___node_廂_35__;
+        let _OPAQUE_霜:1.0___node_霜_67__ _OPAQUE_霜:1.0___node_霜_89__ = _OPAQUE_霜:1.0___node_霜_55__::_OPAQUE_廂:1.0___node_廂_4__;
+
+        for (id, _OPAQUE_霜:1.0___node_霜_52__) in &self._OPAQUE_霜:1.0___node_霜_11__ {
+            if *id == _OPAQUE_霜:1.0___node_霜_3__ || !_OPAQUE_霜:1.0___node_霜_52__._OPAQUE_霜:1.0___node_霜_20__ { continue; }
+            let _OPAQUE_霜:1.0___node_霜_39__ = self._OPAQUE_霜:1.0___node_霜_47__(_OPAQUE_霜:1.0___node_霜_65__, _OPAQUE_霜:1.0___node_霜_52__, _OPAQUE_霜:1.0___node_霜_40__);
+            if _OPAQUE_霜:1.0___node_霜_39__ < _OPAQUE_霜:1.0___node_霜_89__ {
+                _OPAQUE_霜:1.0___node_霜_89__ = _OPAQUE_霜:1.0___node_霜_39__;
+                _OPAQUE_霜:1.0___node_霜_78__ = _OPAQUE_廂:1.0___node_廂_30__(*id);
+            }
+        }
+
+        if let _OPAQUE_廂:1.0___node_廂_30__(id) = _OPAQUE_霜:1.0___node_霜_78__ {
+            self._OPAQUE_霜:1.0___node_霜_70__ = _OPAQUE_廂:1.0___node_廂_30__(id);
+        }
+        _OPAQUE_霜:1.0___node_霜_78__
+    }
+// _OPAQUE_泡:0.1___node_BL_600__ [decoy-metadata]
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0___node_霜_28__ fn _OPAQUE_霜:1.0___node_霜_50__(&self) -> _OPAQUE_廂:1.0___node_廂_8__ {
+        let _OPAQUE_霜:1.0___node_霜_6__ = _OPAQUE_霜:1.0___node_霜_95__ self._OPAQUE_霜:1.0___node_霜_70__ {
+            _OPAQUE_廂:1.0___node_廂_30__(id) => _OPAQUE_泡:1.0___node_霜_82__!("_OPAQUE_廂:1.0___node_廂_5__ #{}", id),
+            _OPAQUE_廂:1.0___node_廂_35__ => "_OPAQUE_廂:1.0___node_廂_35__"._OPAQUE_霜:1.0___node_霜_45__(),
+        };
+        _OPAQUE_泡:1.0___node_霜_82__!("🧭 _OPAQUE_廂:1.0___node_廂_48__ _OPAQUE_廂:1.0___node_廂_26__: _OPAQUE_廂:1.0___node_廂_31__={} (_OPAQUE_廂:1.0___node_廂_33__ _OPAQUE_霜:1.0___node_霜_36__: {})", _OPAQUE_霜:1.0___node_霜_6__, self._OPAQUE_霜:1.0___node_霜_11__._OPAQUE_霜:1.0___node_霜_53__()._OPAQUE_計:1.0___node_霜_4__(|b| b._OPAQUE_霜:1.0___node_霜_20__)._OPAQUE_霜:1.0___node_霜_14__())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,175 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8A52CFAC ver:1778159586
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_霡:1.0___jcross_霡_117__
+import _VERANTYX_霡:1.0___jcross_霡_168__
+import re
+import _VERANTYX_霡:1.0___jcross_霡_172__
+_VERANTYX_霡:1.0___jcross_霡_162__ _VERANTYX_霡:1.0___jcross_霡_50__ import _VERANTYX_廂:1.0___jcross_廂_25__
+
+// [metadata-stripped]
+_VERANTYX_廂:1.0___jcross_廂_28__ = 2000
+_VERANTYX_匵:1.0___jcross_廂_8__ = _VERANTYX_廂:1.0___jcross_廂_25__("/_VERANTYX_廂:1.0___jcross_廂_11__/_VERANTYX_霡:1.0___jcross_霡_29__/_VERANTYX_霡:1.0___jcross_霡_119__/_VERANTYX_霡:1.0___jcross_霡_119__/db/_VERANTYX_霡:1.0___jcross_霡_165__._VERANTYX_霡:1.0___jcross_霡_159__")
+
+// [metadata-stripped]
+_VERANTYX_匵:1.0___jcross_廂_8__._VERANTYX_霡:1.0___jcross_霡_53__._VERANTYX_霡:1.0___jcross_霡_179__(_VERANTYX_霡:1.0___jcross_霡_152__=_VERANTYX_廂:1.0___jcross_廂_1__, _VERANTYX_霡:1.0___jcross_霡_68__=_VERANTYX_廂:1.0___jcross_廂_1__)
+
+// [metadata-stripped]
+
+_VERANTYX_廂:1.0___jcross_廂_5__ = ["ならば", "とき", "である", "について", "仮定する", "示せ", "次の", "条件", "定義", "集合", "関数", "論理"]
+_VERANTYX_廂:1.0___jcross_廂_23__ = ["if", "_VERANTYX_霡:1.0___jcross_霡_103__", "_VERANTYX_霡:1.0___jcross_霡_161__", "let", "_VERANTYX_霡:1.0___jcross_霡_47__", "_VERANTYX_霡:1.0___jcross_霡_138__", "_VERANTYX_霡:1.0___jcross_霡_98__", "_VERANTYX_涌:1.0___jcross_霡_7__", "is", "_VERANTYX_霡:1.0___jcross_霡_67__", "_VERANTYX_処:1.0___jcross_核_1__", "_VERANTYX_霡:1.0___jcross_霡_127__"]
+_VERANTYX_廂:1.0___jcross_廂_36__ = ["A", "B", "p", "q", "x", "y", "0", "1", "_VERANTYX_霡:1.0___jcross_霡_90__", "_VERANTYX_霡:1.0___jcross_霡_26__"]
+_VERANTYX_廂:1.0___jcross_廂_16__ = ["->", "→", "=>", "<->"]
+// _VERANTYX_霡:0.9___jcross_WA_462__ [decoy-metadata]
+_VERANTYX_廂:1.0___jcross_廂_12__ = ["[]", "□", "<>", "_VERANTYX_廂:1.0___jcross_廂_2__", "_VERANTYX_廂:1.0___jcross_廂_48__"]
+_VERANTYX_廂:1.0___jcross_廂_9__ = ["(", ")", "[", "]", "{", "}", "\"", "'", "`"]
+_VERANTYX_廂:1.0___jcross_廂_44__ = ["+", "-", "*", "=", "!=", ":", ";", ",", ".", "?", "!", "\\"]
+
+_VERANTYX_霡:1.0___jcross_霡_91__ _VERANTYX_霡:1.0___jcross_霡_43__():
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_171__ = _VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(["jp", "en", "_VERANTYX_霡:1.0___jcross_霡_130__", "_VERANTYX_霡:1.0___jcross_霡_113__", "_VERANTYX_霡:1.0___jcross_霡_16__"])
+    
+    _VERANTYX_霡:1.0___jcross_霡_73__ = []
+    _VERANTYX_霡:1.0___jcross_霡_20__ = _VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_82__(3, 15)
+    
+    for _ in _VERANTYX_霡:1.0___jcross_霡_110__(_VERANTYX_霡:1.0___jcross_霡_20__):
+        r = _VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_168__()
+        if _VERANTYX_霡:1.0___jcross_霡_171__ == "jp" or (_VERANTYX_霡:1.0___jcross_霡_171__ == "_VERANTYX_霡:1.0___jcross_霡_130__" _VERANTYX_霡:1.0___jcross_霡_83__ r < 0.4):
+            _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_5__))
+        _VERANTYX_涌:1.0___jcross_霡_160__ _VERANTYX_霡:1.0___jcross_霡_171__ == "en" or (_VERANTYX_霡:1.0___jcross_霡_171__ == "_VERANTYX_霡:1.0___jcross_霡_130__" _VERANTYX_霡:1.0___jcross_霡_83__ r < 0.8):
+            _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_23__))
+        _VERANTYX_涌:1.0___jcross_霡_160__ r < 0.9:
+            _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_36__))
+        else:
+// [metadata-stripped]
+            rr = _VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_168__()
+            if rr < 0.3: _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_16__))
+            _VERANTYX_涌:1.0___jcross_霡_160__ rr < 0.6: _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_12__))
+            _VERANTYX_涌:1.0___jcross_霡_160__ rr < 0.8: _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_9__))
+            else: _VERANTYX_霡:1.0___jcross_霡_73__._VERANTYX_霡:1.0___jcross_霡_2__(_VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_140__(_VERANTYX_廂:1.0___jcross_廂_44__))
+            
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_66__ = ""
+    for p in _VERANTYX_霡:1.0___jcross_霡_73__:
+        if _VERANTYX_霡:1.0___jcross_霡_168__._VERANTYX_霡:1.0___jcross_霡_168__() < 0.7:
+            _VERANTYX_霡:1.0___jcross_霡_66__ += " " + p
+        else:
+            _VERANTYX_霡:1.0___jcross_霡_66__ += p
+            
+    return _VERANTYX_霡:1.0___jcross_霡_66__._VERANTYX_霡:1.0___jcross_霡_118__()
+
+// [metadata-stripped]
+
+_VERANTYX_霡:1.0___jcross_霡_91__ _VERANTYX_涌:1.0___jcross_霡_35__(_VERANTYX_沈:1.0___jcross_霡_112__):
+    if _VERANTYX_沈:1.0___jcross_霡_112__ in ["->", "→"]: return "_VERANTYX_霡:1.0___jcross_霡_135__"
+    if _VERANTYX_沈:1.0___jcross_霡_112__ in ["[]", "□"]: return "_VERANTYX_霡:1.0___jcross_霡_75__"
+    if _VERANTYX_沈:1.0___jcross_霡_112__ in ["(", ")", "[", "]", "{", "}"]:
+        return "_VERANTYX_霡:1.0___jcross_霡_76__"
+    if re._VERANTYX_霡:1.0___jcross_霡_30__(r"^[A-Za-z0-9]+$", _VERANTYX_沈:1.0___jcross_霡_112__) _VERANTYX_霡:1.0___jcross_霡_83__ _VERANTYX_霡:1.0___jcross_霡_94__(_VERANTYX_沈:1.0___jcross_霡_112__) == 1: return "_VERANTYX_霡:1.0___jcross_霡_136__" # _VERANTYX_廂:1.0___jcross_廂_30__ _VERANTYX_霡:1.0___jcross_霡_38__
+    if re._VERANTYX_霡:1.0___jcross_霡_30__(r"^[A-Za-z]+$", _VERANTYX_沈:1.0___jcross_霡_112__) _VERANTYX_霡:1.0___jcross_霡_83__ _VERANTYX_霡:1.0___jcross_霡_94__(_VERANTYX_沈:1.0___jcross_霡_112__) > 1: return "_VERANTYX_霡:1.0___jcross_霡_178__"
+// [metadata-stripped]
+    if any("\_VERANTYX_霡:1.0___jcross_霡_153__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_131__" or "\_VERANTYX_霡:1.0___jcross_霡_32__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_106__" or "\_VERANTYX_霡:1.0___jcross_霡_34__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_116__" or "\_VERANTYX_霡:1.0___jcross_霡_163__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_5__" for c in _VERANTYX_沈:1.0___jcross_霡_112__):
+        return "_VERANTYX_霡:1.0___jcross_霡_178__"
+    return "_VERANTYX_処:1.0___jcross_霡_175__"
+
+_VERANTYX_霡:1.0___jcross_霡_91__ _VERANTYX_霡:1.0___jcross_霡_81__(_VERANTYX_霡:1.0___jcross_霡_66__):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+// [metadata-stripped]
+    _VERANTYX_沈:1.0___jcross_霡_147__ = _VERANTYX_霡:1.0___jcross_霡_66__._VERANTYX_霡:1.0___jcross_霡_148__()
+    _VERANTYX_沈:1.0___jcross_霡_109__ = []
+    
+    for t in _VERANTYX_沈:1.0___jcross_霡_147__:
+// _VERANTYX_涌:0.8___jcross_LF_796__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        
+// [metadata-stripped]
+        _VERANTYX_沈:1.0___jcross_霡_177__ = re._VERANTYX_霡:1.0___jcross_霡_101__(r"->|→|\[\]|□|[a-zA-Z0-9]+|[^\s\w]", t)
+        
+// [metadata-stripped]
+        if _VERANTYX_霡:1.0___jcross_霡_21__ _VERANTYX_沈:1.0___jcross_霡_177__:
+            _VERANTYX_沈:1.0___jcross_霡_177__ = [t]
+// _VERANTYX_廂:0.2___jcross_AH_454__ [decoy-metadata]
+            
+        _VERANTYX_沈:1.0___jcross_霡_109__._VERANTYX_霡:1.0___jcross_霡_87__(_VERANTYX_沈:1.0___jcross_霡_177__)
+
+    _VERANTYX_霡:1.0___jcross_霡_111__ = []
+    for i, t in _VERANTYX_霡:1.0___jcross_霡_180__(_VERANTYX_沈:1.0___jcross_霡_109__):
+        _VERANTYX_霡:1.0___jcross_霡_111__._VERANTYX_霡:1.0___jcross_霡_2__({
+            "_VERANTYX_沈:1.0___jcross_霡_112__": t,
+            "_VERANTYX_霡:1.0___jcross_霡_155__": _VERANTYX_涌:1.0___jcross_霡_35__(t),
+            "_VERANTYX_霡:1.0___jcross_霡_1__": i
+        })
+        
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_105__ = []
+    if any(s["_VERANTYX_霡:1.0___jcross_霡_155__"] == "_VERANTYX_霡:1.0___jcross_霡_135__" for s in _VERANTYX_霡:1.0___jcross_霡_111__): _VERANTYX_霡:1.0___jcross_霡_105__._VERANTYX_霡:1.0___jcross_霡_2__("_VERANTYX_霡:1.0___jcross_霡_65__")
+    if any(s["_VERANTYX_霡:1.0___jcross_霡_155__"] == "_VERANTYX_霡:1.0___jcross_霡_75__" for s in _VERANTYX_霡:1.0___jcross_霡_111__): _VERANTYX_霡:1.0___jcross_霡_105__._VERANTYX_霡:1.0___jcross_霡_2__("_VERANTYX_霡:1.0___jcross_霡_150__")
+    if "\"" in _VERANTYX_霡:1.0___jcross_霡_66__: _VERANTYX_霡:1.0___jcross_霡_105__._VERANTYX_霡:1.0___jcross_霡_2__("_VERANTYX_霡:1.0___jcross_霡_59__")
+    
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_11__ = any(s["_VERANTYX_霡:1.0___jcross_霡_155__"] == "_VERANTYX_霡:1.0___jcross_霡_178__" _VERANTYX_霡:1.0___jcross_霡_83__ any("\_VERANTYX_霡:1.0___jcross_霡_153__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_131__" or "\_VERANTYX_霡:1.0___jcross_霡_32__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_106__" or "\_VERANTYX_霡:1.0___jcross_霡_34__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_116__" or "\_VERANTYX_霡:1.0___jcross_霡_163__" <= c <= "\_VERANTYX_霡:1.0___jcross_霡_5__" for c in s["_VERANTYX_沈:1.0___jcross_霡_112__"]) for s in _VERANTYX_霡:1.0___jcross_霡_111__)
+    _VERANTYX_霡:1.0___jcross_霡_124__ = any(s["_VERANTYX_霡:1.0___jcross_霡_155__"] == "_VERANTYX_霡:1.0___jcross_霡_178__" _VERANTYX_霡:1.0___jcross_霡_83__ re._VERANTYX_霡:1.0___jcross_霡_30__(r"^[A-Za-z]+$", s["_VERANTYX_沈:1.0___jcross_霡_112__"]) for s in _VERANTYX_霡:1.0___jcross_霡_111__)
+    if _VERANTYX_霡:1.0___jcross_霡_11__ _VERANTYX_霡:1.0___jcross_霡_83__ _VERANTYX_霡:1.0___jcross_霡_124__: _VERANTYX_霡:1.0___jcross_霡_105__._VERANTYX_霡:1.0___jcross_霡_2__("_VERANTYX_霡:1.0___jcross_霡_54__")
+    
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_72__ = [s["_VERANTYX_沈:1.0___jcross_霡_112__"] for s in _VERANTYX_霡:1.0___jcross_霡_111__ if s["_VERANTYX_霡:1.0___jcross_霡_155__"] == "_VERANTYX_霡:1.0___jcross_霡_76__"]
+    _VERANTYX_霡:1.0___jcross_霡_28__ = []
+    _VERANTYX_霡:1.0___jcross_霡_74__ = _VERANTYX_廂:1.0___jcross_廂_45__
+    _VERANTYX_霡:1.0___jcross_霡_6__ = {")": "(", "]": "[", "}": "{"} 
+    for b in _VERANTYX_霡:1.0___jcross_霡_72__:
+        if b in ["(", "[", "{"]:
+// _VERANTYX_紬:0.7___jcross_CM_555__ [decoy-metadata]
+            _VERANTYX_霡:1.0___jcross_霡_28__._VERANTYX_霡:1.0___jcross_霡_2__(b)
+        _VERANTYX_涌:1.0___jcross_霡_160__ b in _VERANTYX_霡:1.0___jcross_霡_6__:
+// _VERANTYX_核:0.9___jcross_CK_991__ [decoy-metadata]
+            if _VERANTYX_霡:1.0___jcross_霡_21__ _VERANTYX_霡:1.0___jcross_霡_28__ or _VERANTYX_霡:1.0___jcross_霡_28__[-1] != _VERANTYX_霡:1.0___jcross_霡_6__[b]:
+                _VERANTYX_霡:1.0___jcross_霡_74__ = _VERANTYX_廂:1.0___jcross_廂_1__
+                break
+            _VERANTYX_霡:1.0___jcross_霡_28__._VERANTYX_霡:1.0___jcross_霡_60__()
+// _VERANTYX_核:0.2___jcross_VK_203__ [decoy-metadata]
+    if _VERANTYX_霡:1.0___jcross_霡_28__: _VERANTYX_霡:1.0___jcross_霡_74__ = _VERANTYX_廂:1.0___jcross_廂_1__
+    if _VERANTYX_霡:1.0___jcross_霡_74__: _VERANTYX_霡:1.0___jcross_霡_105__._VERANTYX_霡:1.0___jcross_霡_2__("_VERANTYX_霡:1.0___jcross_霡_107__")
+    
+// [metadata-stripped]
+    _VERANTYX_霡:1.0___jcross_霡_102__ = [s["_VERANTYX_霡:1.0___jcross_霡_155__"] for s in _VERANTYX_霡:1.0___jcross_霡_111__]
+    
+    return {
+        "_VERANTYX_霡:1.0___jcross_霡_170__": _VERANTYX_霡:1.0___jcross_霡_66__,
+        "_VERANTYX_沈:1.0___jcross_霡_109__": _VERANTYX_沈:1.0___jcross_霡_109__,
+        "_VERANTYX_霡:1.0___jcross_霡_111__": _VERANTYX_霡:1.0___jcross_霡_111__,
+        "_VERANTYX_霡:1.0___jcross_霡_27__": _VERANTYX_霡:1.0___jcross_霡_102__,
+        "_VERANTYX_霡:1.0___jcross_霡_105__": _VERANTYX_霡:1.0___jcross_霡_105__
+    }
+
+_VERANTYX_霡:1.0___jcross_霡_91__ _VERANTYX_霡:1.0___jcross_霡_139__():
+    _VERANTYX_霡:1.0___jcross_霡_42__(f"_VERANTYX_廂:1.0___jcross_廂_32__ {_VERANTYX_廂:1.0___jcross_廂_28__} _VERANTYX_霡:1.0___jcross_霡_129__ _VERANTYX_霡:1.0___jcross_霡_22__...")
+    
+    _VERANTYX_霡:1.0___jcross_霡_154__ _VERANTYX_匵:1.0___jcross_廂_8__.open("a", _VERANTYX_霡:1.0___jcross_霡_18__="_VERANTYX_霡:1.0___jcross_霡_57__-8") as f:
+        for _ in _VERANTYX_霡:1.0___jcross_霡_110__(_VERANTYX_廂:1.0___jcross_廂_28__):
+            _VERANTYX_霡:1.0___jcross_霡_71__ = _VERANTYX_霡:1.0___jcross_霡_43__()
+            _VERANTYX_霡:1.0___jcross_霡_149__ = _VERANTYX_霡:1.0___jcross_霡_81__(_VERANTYX_霡:1.0___jcross_霡_71__)
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            
+// [metadata-stripped]
+// [metadata-stripped]
+            
+            f._VERANTYX_霡:1.0___jcross_霡_132__(_VERANTYX_霡:1.0___jcross_霡_117__._VERANTYX_霡:1.0___jcross_霡_167__(_VERANTYX_霡:1.0___jcross_霡_149__, _VERANTYX_霡:1.0___jcross_霡_64__=_VERANTYX_廂:1.0___jcross_廂_45__) + "\n")
+            
+    _VERANTYX_霡:1.0___jcross_霡_42__(f"_VERANTYX_廂:1.0___jcross_廂_38__. _VERANTYX_廂:1.0___jcross_廂_14__ to {_VERANTYX_匵:1.0___jcross_廂_8__}")
+
+if _VERANTYX_霡:1.0___jcross_霡_176__ == "_VERANTYX_霡:1.0___jcross_霡_151__":
+    _VERANTYX_霡:1.0___jcross_霡_139__()
+
+// POLYMORPHIC_JCROSS_END

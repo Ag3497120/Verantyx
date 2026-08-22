@@ -1,0 +1,110 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F223AB8A ver:1778166472
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_VERANTYX_塵:1.0__ID_塵_31_ _VERANTYX_塵:1.0__ID_塵_68_::_VERANTYX_塵:1.0__ID_塵_74_::_VERANTYX_廬:1.0__ID_廬_28_;
+_VERANTYX_塵:1.0__ID_塵_31_ _VERANTYX_塵:1.0__ID_塵_68_::_VERANTYX_塵:1.0__ID_塵_17_::_VERANTYX_廬:1.0__ID_廬_42_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_塵:1.0__ID_塵_33_ enum _VERANTYX_廬:1.0__ID_廬_14_ { _VERANTYX_廬:1.0__ID_廬_44_ = 1, _VERANTYX_廬:1.0__ID_廬_24_ = 2, _VERANTYX_廬:1.0__ID_廬_30_ = 3 }
+
+// _VERANTYX_絡:0.3__ID_YV_639_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_塵:1.0__ID_塵_33_ struct _VERANTYX_廬:1.0__ID_廬_36_ {
+    _VERANTYX_塵:1.0__ID_塵_33_ id: _VERANTYX_塵:1.0__ID_塵_35_,
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_46_: _VERANTYX_廬:1.0__ID_廬_14_,
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_23_: _VERANTYX_塵:1.0__ID_塵_35_,
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_41_: _VERANTYX_塵:1.0__ID_塵_20_,
+}
+// _VERANTYX_潤:0.1__ID_GB_119_ [decoy-metadata]
+// _VERANTYX_廬:0.9__ID_VA_597_ [decoy-metadata]
+
+// [metadata-stripped]
+_VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_廬:1.0__ID_廬_3_ for _VERANTYX_廬:1.0__ID_廬_36_ {
+    fn eq(&self, _VERANTYX_項:1.0__ID_塵_86_: &_VERANTYX_廬:1.0__ID_廬_38_) -> _VERANTYX_塵:1.0__ID_塵_20_ { self.id == _VERANTYX_項:1.0__ID_塵_86_.id }
+}
+_VERANTYX_塵:1.0__ID_塵_1_ Eq for _VERANTYX_廬:1.0__ID_廬_36_ {}
+_VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_廬:1.0__ID_廬_51_ for _VERANTYX_廬:1.0__ID_廬_36_ {
+    fn _VERANTYX_塵:1.0__ID_塵_82_(&self, _VERANTYX_項:1.0__ID_塵_86_: &_VERANTYX_廬:1.0__ID_廬_38_) -> _VERANTYX_廬:1.0__ID_廬_26_<_VERANTYX_廬:1.0__ID_廬_42_> { _VERANTYX_廬:1.0__ID_廬_29_(self._VERANTYX_塵:1.0__ID_塵_17_(_VERANTYX_項:1.0__ID_塵_86_)) }
+}
+_VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_廬:1.0__ID_廬_2_ for _VERANTYX_廬:1.0__ID_廬_36_ {
+    fn _VERANTYX_塵:1.0__ID_塵_17_(&self, _VERANTYX_項:1.0__ID_塵_86_: &_VERANTYX_廬:1.0__ID_廬_38_) -> _VERANTYX_廬:1.0__ID_廬_42_ {
+// [metadata-stripped]
+        self._VERANTYX_塵:1.0__ID_塵_46_._VERANTYX_塵:1.0__ID_塵_17_(&_VERANTYX_項:1.0__ID_塵_86_._VERANTYX_塵:1.0__ID_塵_46_)._VERANTYX_塵:1.0__ID_塵_10_(|| _VERANTYX_項:1.0__ID_塵_86_.id._VERANTYX_塵:1.0__ID_塵_17_(&self.id))
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_塵:1.0__ID_塵_33_ struct _VERANTYX_廬:1.0__ID_廬_21_ {
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_48_: _VERANTYX_廬:1.0__ID_廬_28_<_VERANTYX_廬:1.0__ID_廬_36_>,
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_66_: _VERANTYX_塵:1.0__ID_塵_35_,
+    _VERANTYX_塵:1.0__ID_塵_33_ _VERANTYX_塵:1.0__ID_塵_52_: _VERANTYX_廬:1.0__ID_廬_6_<(_VERANTYX_塵:1.0__ID_塵_35_, _VERANTYX_廬:1.0__ID_廬_14_)>, // _VERANTYX_廬:1.0__ID_廬_9_ _VERANTYX_塵:1.0__ID_塵_47_ _VERANTYX_塵:1.0__ID_塵_84_ for UI
+}
+
+_VERANTYX_塵:1.0__ID_塵_1_ _VERANTYX_廬:1.0__ID_廬_21_ {
+    _VERANTYX_塵:1.0__ID_塵_33_ fn _VERANTYX_塵:1.0__ID_塵_18_() -> _VERANTYX_廬:1.0__ID_廬_38_ {
+        _VERANTYX_廬:1.0__ID_廬_38_ {
+            _VERANTYX_塵:1.0__ID_塵_48_: _VERANTYX_廬:1.0__ID_廬_28_::_VERANTYX_塵:1.0__ID_塵_18_(),
+            _VERANTYX_塵:1.0__ID_塵_66_: 1,
+            _VERANTYX_塵:1.0__ID_塵_52_: _VERANTYX_廬:1.0__ID_廬_6_::_VERANTYX_塵:1.0__ID_塵_18_(),
+        }
+    }
+
+// _VERANTYX_項:0.3__ID_CD_807_ [decoy-metadata]
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__ID_塵_33_ fn _VERANTYX_塵:1.0__ID_塵_45_(&_VERANTYX_塵:1.0__ID_塵_72_ self, _VERANTYX_塵:1.0__ID_塵_46_: _VERANTYX_廬:1.0__ID_廬_14_, _VERANTYX_塵:1.0__ID_塵_23_: _VERANTYX_塵:1.0__ID_塵_35_) -> _VERANTYX_塵:1.0__ID_塵_35_ {
+        let id = self._VERANTYX_塵:1.0__ID_塵_66_;
+        let _VERANTYX_塵:1.0__ID_塵_51_ = _VERANTYX_廬:1.0__ID_廬_36_ {
+            id,
+            _VERANTYX_塵:1.0__ID_塵_46_,
+            _VERANTYX_塵:1.0__ID_塵_23_,
+            _VERANTYX_塵:1.0__ID_塵_41_: false,
+        };
+        self._VERANTYX_塵:1.0__ID_塵_66_ += 1;
+        self._VERANTYX_塵:1.0__ID_塵_48_._VERANTYX_塵:1.0__ID_塵_83_(_VERANTYX_塵:1.0__ID_塵_51_);
+        id
+    }
+
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__ID_塵_33_ fn _VERANTYX_塵:1.0__ID_塵_64_(&_VERANTYX_塵:1.0__ID_塵_72_ self, _VERANTYX_塵:1.0__ID_塵_6_: _VERANTYX_塵:1.0__ID_塵_35_, _VERANTYX_塵:1.0__ID_塵_11_: _VERANTYX_廬:1.0__ID_廬_14_) {
+// [metadata-stripped]
+        let _VERANTYX_塵:1.0__ID_塵_72_ _VERANTYX_塵:1.0__ID_塵_53_: _VERANTYX_廬:1.0__ID_廬_6_<_VERANTYX_廬:1.0__ID_廬_36_> = self._VERANTYX_塵:1.0__ID_塵_48_._VERANTYX_塵:1.0__ID_塵_54_()._VERANTYX_塵:1.0__ID_塵_14_();
+// _VERANTYX_塵:0.1__ID_GX_661_ [decoy-metadata]
+        for _VERANTYX_塵:1.0__ID_塵_51_ in &_VERANTYX_塵:1.0__ID_塵_72_ _VERANTYX_塵:1.0__ID_塵_53_ {
+            if _VERANTYX_塵:1.0__ID_塵_51_.id == _VERANTYX_塵:1.0__ID_塵_6_ {
+                _VERANTYX_塵:1.0__ID_塵_51_._VERANTYX_塵:1.0__ID_塵_46_ = _VERANTYX_塵:1.0__ID_塵_11_;
+            }
+        }
+        self._VERANTYX_塵:1.0__ID_塵_48_ = _VERANTYX_廬:1.0__ID_廬_28_::_VERANTYX_塵:1.0__ID_塵_75_(_VERANTYX_塵:1.0__ID_塵_53_);
+    }
+
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__ID_塵_33_ fn _VERANTYX_塵:1.0__ID_塵_2_(&self) -> _VERANTYX_廬:1.0__ID_廬_12_ {
+        let _VERANTYX_塵:1.0__ID_塵_72_ _VERANTYX_塵:1.0__ID_塵_13_ = [0, 0, 0]; // bg, _VERANTYX_塵:1.0__ID_塵_61_, _VERANTYX_塵:1.0__ID_塵_29_
+        for t in &self._VERANTYX_塵:1.0__ID_塵_48_ {
+            _VERANTYX_塵:1.0__ID_塵_90_ t._VERANTYX_塵:1.0__ID_塵_46_ {
+// _VERANTYX_庫:0.6__ID_FY_910_ [decoy-metadata]
+                _VERANTYX_廬:1.0__ID_廬_14_::_VERANTYX_廬:1.0__ID_廬_44_ => _VERANTYX_塵:1.0__ID_塵_13_[0] += 1,
+                _VERANTYX_廬:1.0__ID_廬_14_::_VERANTYX_廬:1.0__ID_廬_24_ => _VERANTYX_塵:1.0__ID_塵_13_[1] += 1,
+                _VERANTYX_廬:1.0__ID_廬_14_::_VERANTYX_廬:1.0__ID_廬_30_ => _VERANTYX_塵:1.0__ID_塵_13_[2] += 1,
+            }
+        }
+        
+        _VERANTYX_潤:1.0__ID_塵_80_!("⏱️ _VERANTYX_廬:1.0__ID_廬_47_ _VERANTYX_項:1.0__ID_廬_7_ (_VERANTYX_廬:1.0__ID_廬_31_: {}): _VERANTYX_廬:1.0__ID_廬_10_: {}, _VERANTYX_廬:1.0__ID_廬_25_: {}, _VERANTYX_廬:1.0__ID_廬_44_: {}", 
+            self._VERANTYX_塵:1.0__ID_塵_48_._VERANTYX_塵:1.0__ID_塵_42_(), _VERANTYX_塵:1.0__ID_塵_13_[2], _VERANTYX_塵:1.0__ID_塵_13_[1], _VERANTYX_塵:1.0__ID_塵_13_[0])
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

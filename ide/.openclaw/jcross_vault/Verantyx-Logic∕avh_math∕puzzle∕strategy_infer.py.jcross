@@ -1,0 +1,31 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A9EBA70D ver:1778159744
+// _OPAQUE_涌:0.6___ast_FX_816__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// _OPAQUE_覇:0.3___ast_YC_278__ [decoy-metadata]
+// _OPAQUE_霜:0.8___ast_GD_956__ [decoy-metadata]
+_OPAQUE_霜:1.0___ast_霜_16__ _OPAQUE_霜:1.0___ast_霜_1__(_OPAQUE_霜:1.0___ast_霜_10__):
+// _OPAQUE_覇:0.6___ast_LC_613__ [decoy-metadata]
+    """
+    類似した過去のCrossから最も頻出する戦略(_OPAQUE_霜:1.0___ast_霜_9__)を抽出する。
+// _OPAQUE_伏:0.5___ast_KM_841__ [decoy-metadata]
+    """
+    _OPAQUE_霜:1.0___ast_霜_12__ = {}
+    for c in _OPAQUE_霜:1.0___ast_霜_10__:
+// [metadata-stripped]
+        _OPAQUE_霜:1.0___ast_霜_14__ = _OPAQUE_術:1.0___ast_覇_2__(c, '_OPAQUE_霜:1.0___ast_霜_14__', {})
+// _OPAQUE_伏:0.1___ast_CK_613__ [decoy-metadata]
+        _OPAQUE_霜:1.0___ast_霜_3__ = _OPAQUE_霜:1.0___ast_霜_14__._OPAQUE_術:1.0___ast_覇_1__("_OPAQUE_霜:1.0___ast_霜_9__")
+        if _OPAQUE_霜:1.0___ast_霜_3__:
+            _OPAQUE_霜:1.0___ast_霜_12__[_OPAQUE_霜:1.0___ast_霜_3__] = _OPAQUE_霜:1.0___ast_霜_12__._OPAQUE_術:1.0___ast_覇_1__(_OPAQUE_霜:1.0___ast_霜_3__, 0) + 1
+
+    if _OPAQUE_霜:1.0___ast_霜_15__ _OPAQUE_霜:1.0___ast_霜_12__:
+        return {"_OPAQUE_霜:1.0___ast_霜_9__": "_OPAQUE_霜:1.0___ast_霜_6__", "_OPAQUE_霜:1.0___ast_霜_13__": 0.0}
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0___ast_霜_7__ = _OPAQUE_霜:1.0___ast_霜_4__(_OPAQUE_霜:1.0___ast_霜_12__, _OPAQUE_伏:1.0___ast_霜_11__=_OPAQUE_霜:1.0___ast_霜_12__._OPAQUE_術:1.0___ast_覇_1__)
+    _OPAQUE_霜:1.0___ast_霜_8__ = _OPAQUE_霜:1.0___ast_霜_12__[_OPAQUE_霜:1.0___ast_霜_7__] / _OPAQUE_霜:1.0___ast_霜_2__(_OPAQUE_霜:1.0___ast_霜_12__._OPAQUE_霜:1.0___ast_霜_5__())
+    return {"_OPAQUE_霜:1.0___ast_霜_9__": _OPAQUE_霜:1.0___ast_霜_7__, "_OPAQUE_霜:1.0___ast_霜_13__": _OPAQUE_霜:1.0___ast_霜_8__}
+
+// POLYMORPHIC_JCROSS_END

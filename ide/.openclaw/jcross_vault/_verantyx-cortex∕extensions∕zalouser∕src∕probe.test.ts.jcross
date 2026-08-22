@@ -1,0 +1,72 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CD2827D4 ver:1778166574
+// ⚠️ One-time schema — expires after response
+
+import { _VERANTYX_塵:1.0__ASTNODE_塵_43_, _VERANTYX_澎:1.0__ASTNODE_塵_38_, _VERANTYX_塵:1.0__ASTNODE_塵_11_, _VERANTYX_塵:1.0__ASTNODE_塵_40_, it, vi } _VERANTYX_塵:1.0__ASTNODE_塵_31_ "_VERANTYX_塵:1.0__ASTNODE_塵_32_";
+import { _VERANTYX_律:1.0__ASTNODE_塵_34_ } _VERANTYX_塵:1.0__ASTNODE_塵_31_ "./_VERANTYX_塵:1.0__ASTNODE_塵_13_.js";
+import { _VERANTYX_律:1.0__ASTNODE_縁_1_ } _VERANTYX_塵:1.0__ASTNODE_塵_31_ "./_VERANTYX_塵:1.0__ASTNODE_塵_35_-js.js";
+
+// _VERANTYX_縁:0.8__ASTNODE_HM_225_ [decoy-metadata]
+vi._VERANTYX_塵:1.0__ASTNODE_塵_5_("./_VERANTYX_塵:1.0__ASTNODE_塵_35_-js.js", () => ({
+  _VERANTYX_律:1.0__ASTNODE_縁_1_: vi.fn(),
+}));
+
+_VERANTYX_塵:1.0__ASTNODE_塵_36_ _VERANTYX_塵:1.0__ASTNODE_塵_41_ = vi._VERANTYX_塵:1.0__ASTNODE_塵_20_(_VERANTYX_律:1.0__ASTNODE_縁_1_);
+
+// _VERANTYX_綾:0.9__ASTNODE_WK_581_ [decoy-metadata]
+_VERANTYX_塵:1.0__ASTNODE_塵_11_("_VERANTYX_律:1.0__ASTNODE_塵_34_", () => {
+  _VERANTYX_澎:1.0__ASTNODE_塵_38_(() => {
+    _VERANTYX_塵:1.0__ASTNODE_塵_41_._VERANTYX_塵:1.0__ASTNODE_塵_18_();
+  });
+// _VERANTYX_律:0.8__ASTNODE_EC_996_ [decoy-metadata]
+
+  _VERANTYX_塵:1.0__ASTNODE_塵_43_(() => {
+    vi._VERANTYX_塵:1.0__ASTNODE_塵_3_();
+  });
+// _VERANTYX_綾:0.6__ASTNODE_WF_863_ [decoy-metadata]
+
+  it("_VERANTYX_塵:1.0__ASTNODE_塵_24_ ok=true _VERANTYX_塵:1.0__ASTNODE_塵_37_ _VERANTYX_律:1.0__ASTNODE_塵_8_ _VERANTYX_塵:1.0__ASTNODE_塵_7_ _VERANTYX_塵:1.0__ASTNODE_塵_45_", async () => {
+    _VERANTYX_塵:1.0__ASTNODE_塵_41_._VERANTYX_塵:1.0__ASTNODE_塵_25_({
+      _VERANTYX_塵:1.0__ASTNODE_塵_2_: "123",
+      _VERANTYX_塵:1.0__ASTNODE_塵_16_: "_VERANTYX_廴:1.0__ASTNODE_廴_3_",
+    });
+
+    await _VERANTYX_塵:1.0__ASTNODE_塵_40_(_VERANTYX_律:1.0__ASTNODE_塵_34_("_VERANTYX_塵:1.0__ASTNODE_塵_33_"))._VERANTYX_塵:1.0__ASTNODE_塵_46_._VERANTYX_塵:1.0__ASTNODE_塵_29_({
+      ok: true,
+      _VERANTYX_律:1.0__ASTNODE_塵_8_: { _VERANTYX_塵:1.0__ASTNODE_塵_2_: "123", _VERANTYX_塵:1.0__ASTNODE_塵_16_: "_VERANTYX_廴:1.0__ASTNODE_廴_3_" },
+    });
+  });
+
+  it("_VERANTYX_塵:1.0__ASTNODE_塵_24_ _VERANTYX_塵:1.0__ASTNODE_塵_28_ _VERANTYX_塵:1.0__ASTNODE_塵_45_ _VERANTYX_塵:1.0__ASTNODE_塵_7_ no _VERANTYX_律:1.0__ASTNODE_塵_8_ _VERANTYX_塵:1.0__ASTNODE_塵_39_ is _VERANTYX_塵:1.0__ASTNODE_塵_23_", async () => {
+    _VERANTYX_塵:1.0__ASTNODE_塵_41_._VERANTYX_塵:1.0__ASTNODE_塵_25_(_VERANTYX_塵:1.0__ASTNODE_塵_12_);
+    await _VERANTYX_塵:1.0__ASTNODE_塵_40_(_VERANTYX_律:1.0__ASTNODE_塵_34_("_VERANTYX_塵:1.0__ASTNODE_塵_33_"))._VERANTYX_塵:1.0__ASTNODE_塵_46_._VERANTYX_塵:1.0__ASTNODE_塵_29_({
+      ok: false,
+      _VERANTYX_塵:1.0__ASTNODE_塵_4_: "_VERANTYX_廴:1.0__ASTNODE_廴_2_ _VERANTYX_塵:1.0__ASTNODE_塵_45_",
+    });
+  });
+// _VERANTYX_綾:0.4__ASTNODE_CW_150_ [decoy-metadata]
+
+  it("_VERANTYX_塵:1.0__ASTNODE_塵_24_ _VERANTYX_塵:1.0__ASTNODE_塵_4_ _VERANTYX_塵:1.0__ASTNODE_塵_7_ _VERANTYX_律:1.0__ASTNODE_塵_8_ _VERANTYX_塵:1.0__ASTNODE_塵_15_ throws", async () => {
+    _VERANTYX_塵:1.0__ASTNODE_塵_41_._VERANTYX_塵:1.0__ASTNODE_塵_19_(_VERANTYX_塵:1.0__ASTNODE_塵_14_ _VERANTYX_廴:1.0__ASTNODE_廴_4_("_VERANTYX_塵:1.0__ASTNODE_塵_10_ _VERANTYX_塵:1.0__ASTNODE_塵_42_"));
+    await _VERANTYX_塵:1.0__ASTNODE_塵_40_(_VERANTYX_律:1.0__ASTNODE_塵_34_("_VERANTYX_塵:1.0__ASTNODE_塵_33_"))._VERANTYX_塵:1.0__ASTNODE_塵_46_._VERANTYX_塵:1.0__ASTNODE_塵_29_({
+      ok: false,
+      _VERANTYX_塵:1.0__ASTNODE_塵_4_: "_VERANTYX_塵:1.0__ASTNODE_塵_10_ _VERANTYX_塵:1.0__ASTNODE_塵_42_",
+    });
+  });
+
+// _VERANTYX_縁:0.1__ASTNODE_DY_181_ [decoy-metadata]
+  it("_VERANTYX_塵:1.0__ASTNODE_塵_21_ _VERANTYX_塵:1.0__ASTNODE_塵_17_ _VERANTYX_塵:1.0__ASTNODE_塵_7_ _VERANTYX_塵:1.0__ASTNODE_塵_15_ _VERANTYX_塵:1.0__ASTNODE_塵_44_ _VERANTYX_塵:1.0__ASTNODE_塵_22_ _VERANTYX_塵:1.0__ASTNODE_塵_6_", async () => {
+    vi._VERANTYX_塵:1.0__ASTNODE_塵_26_();
+    _VERANTYX_塵:1.0__ASTNODE_塵_41_._VERANTYX_塵:1.0__ASTNODE_塵_9_(_VERANTYX_塵:1.0__ASTNODE_塵_14_ _VERANTYX_廴:1.0__ASTNODE_廴_1_(() => _VERANTYX_塵:1.0__ASTNODE_塵_27_));
+
+    _VERANTYX_塵:1.0__ASTNODE_塵_36_ _VERANTYX_塵:1.0__ASTNODE_塵_30_ = _VERANTYX_律:1.0__ASTNODE_塵_34_("_VERANTYX_塵:1.0__ASTNODE_塵_33_", 10);
+    await vi._VERANTYX_塵:1.0__ASTNODE_塵_1_(1000);
+
+    await _VERANTYX_塵:1.0__ASTNODE_塵_40_(_VERANTYX_塵:1.0__ASTNODE_塵_30_)._VERANTYX_塵:1.0__ASTNODE_塵_46_._VERANTYX_塵:1.0__ASTNODE_塵_29_({
+      ok: false,
+      _VERANTYX_塵:1.0__ASTNODE_塵_4_: "_VERANTYX_廴:1.0__ASTNODE_廴_2_ _VERANTYX_塵:1.0__ASTNODE_塵_45_",
+    });
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,137 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:82EDC8FC ver:1778167744
+// ⚠️ One-time schema — expires after response
+
+import fs _SYM_雰:1.0__OPAQUE_雰_73_ "_SYM_雰:1.0__OPAQUE_雰_25_:fs";
+import os _SYM_雰:1.0__OPAQUE_雰_73_ "_SYM_雰:1.0__OPAQUE_雰_25_:os";
+import _SYM_雰:1.0__OPAQUE_雰_48_ _SYM_雰:1.0__OPAQUE_雰_73_ "_SYM_雰:1.0__OPAQUE_雰_25_:_SYM_雰:1.0__OPAQUE_雰_48_";
+import { _SYM_礎:1.0__OPAQUE_礎_14_ } _SYM_雰:1.0__OPAQUE_雰_73_ "./_SYM_雰:1.0__OPAQUE_雰_67_.js";
+import { _SYM_節:1.0__OPAQUE_礎_2_ } _SYM_雰:1.0__OPAQUE_雰_73_ "./_SYM_節:1.0__OPAQUE_雰_53_.js";
+import _SYM_雰:1.0__OPAQUE_雰_19_ { _SYM_節:1.0__OPAQUE_礎_1_ } _SYM_雰:1.0__OPAQUE_雰_73_ "./_SYM_雰:1.0__OPAQUE_雰_77_/_SYM_雰:1.0__OPAQUE_雰_29_.js";
+import _SYM_雰:1.0__OPAQUE_雰_19_ {
+  _SYM_節:1.0__OPAQUE_縁_4_,
+// _SYM_渕:0.4__OPAQUE_FK_436_ [decoy-metadata]
+  _SYM_節:1.0__OPAQUE_縁_1_,
+  _SYM_礎:1.0__OPAQUE_礎_18_,
+// _SYM_筐:0.3__OPAQUE_MB_944_ [decoy-metadata]
+  _SYM_礎:1.0__OPAQUE_礎_7_,
+  _SYM_礎:1.0__OPAQUE_礎_13_,
+  _SYM_礎:1.0__OPAQUE_礎_8_,
+  _SYM_礎:1.0__OPAQUE_礎_10_,
+  _SYM_礎:1.0__OPAQUE_礎_4_,
+  _SYM_礎:1.0__OPAQUE_礎_5_,
+  _SYM_礎:1.0__OPAQUE_礎_6_,
+  _SYM_礎:1.0__OPAQUE_礎_3_,
+} _SYM_雰:1.0__OPAQUE_雰_73_ "./_SYM_雰:1.0__OPAQUE_雰_72_.js";
+
+_SYM_雰:1.0__OPAQUE_雰_78_ class _SYM_節:1.0__OPAQUE_礎_15_ _SYM_雰:1.0__OPAQUE_雰_71_ _SYM_節:1.0__OPAQUE_礎_1_ {
+  _SYM_雰:1.0__OPAQUE_雰_59_ _SYM_雰:1.0__OPAQUE_雰_60_: "_SYM_雰:1.0__OPAQUE_雰_35_" | "_SYM_雰:1.0__OPAQUE_雰_42_";
+  _SYM_雰:1.0__OPAQUE_雰_59_ _SYM_雰:1.0__OPAQUE_雰_37_: _SYM_礎:1.0__OPAQUE_礎_8_[] = [];
+  _SYM_雰:1.0__OPAQUE_雰_59_ _SYM_雰:1.0__OPAQUE_雰_41_: _SYM_礎:1.0__OPAQUE_礎_18_[] = [];
+  _SYM_雰:1.0__OPAQUE_雰_59_ _SYM_雰:1.0__OPAQUE_雰_27_: _SYM_礎:1.0__OPAQUE_礎_4_[] = [];
+  _SYM_雰:1.0__OPAQUE_雰_59_ _SYM_雰:1.0__OPAQUE_雰_36_: _SYM_礎:1.0__OPAQUE_礎_5_[] = [];
+  _SYM_節:1.0__OPAQUE_縁_3_: _SYM_節:1.0__OPAQUE_縁_1_ = { _SYM_雰:1.0__OPAQUE_雰_94_: "in-_SYM_雰:1.0__OPAQUE_雰_49_", _SYM_雰:1.0__OPAQUE_雰_6_: false };
+
+  _SYM_雰:1.0__OPAQUE_雰_1_(_SYM_雰:1.0__OPAQUE_雰_60_: "_SYM_雰:1.0__OPAQUE_雰_35_" | "_SYM_雰:1.0__OPAQUE_雰_42_" = "_SYM_雰:1.0__OPAQUE_雰_35_") {
+    _SYM_雰:1.0__OPAQUE_雰_39_._SYM_雰:1.0__OPAQUE_雰_60_ = _SYM_雰:1.0__OPAQUE_雰_60_;
+  }
+
+  _SYM_滲:1.0__OPAQUE_雰_15_(_SYM_雰:1.0__OPAQUE_雰_95_: _SYM_礎:1.0__OPAQUE_礎_6_): _SYM_礎:1.0__OPAQUE_礎_3_ {
+    return { ok: true };
+  }
+
+  _SYM_雰:1.0__OPAQUE_雰_46_(_SYM_雰:1.0__OPAQUE_雰_95_: _SYM_礎:1.0__OPAQUE_礎_6_): _SYM_礎:1.0__OPAQUE_礎_10_ {
+    return { _SYM_雰:1.0__OPAQUE_雰_34_: [], _SYM_雰:1.0__OPAQUE_雰_21_: 200 };
+  }
+
+  async _SYM_雰:1.0__OPAQUE_雰_10_(_SYM_雰:1.0__OPAQUE_雰_22_: _SYM_礎:1.0__OPAQUE_礎_7_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_礎:1.0__OPAQUE_礎_13_> {
+    return { _SYM_雰:1.0__OPAQUE_雰_38_: "_SYM_紋:1.0__OPAQUE_雰_30_-_SYM_雰:1.0__OPAQUE_雰_50_", _SYM_雰:1.0__OPAQUE_雰_94_: "_SYM_雰:1.0__OPAQUE_雰_86_" };
+  }
+
+  async _SYM_雰:1.0__OPAQUE_雰_57_(_SYM_雰:1.0__OPAQUE_雰_84_: _SYM_礎:1.0__OPAQUE_礎_18_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_雰:1.0__OPAQUE_雰_96_> {
+    _SYM_雰:1.0__OPAQUE_雰_39_._SYM_雰:1.0__OPAQUE_雰_41_._SYM_雰:1.0__OPAQUE_雰_89_(_SYM_雰:1.0__OPAQUE_雰_84_);
+  }
+
+  async _SYM_雰:1.0__OPAQUE_雰_92_(_SYM_雰:1.0__OPAQUE_雰_84_: _SYM_礎:1.0__OPAQUE_礎_8_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_雰:1.0__OPAQUE_雰_96_> {
+    _SYM_雰:1.0__OPAQUE_雰_39_._SYM_雰:1.0__OPAQUE_雰_37_._SYM_雰:1.0__OPAQUE_雰_89_(_SYM_雰:1.0__OPAQUE_雰_84_);
+  }
+
+  async _SYM_雰:1.0__OPAQUE_雰_70_(_SYM_雰:1.0__OPAQUE_雰_84_: _SYM_礎:1.0__OPAQUE_礎_4_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_雰:1.0__OPAQUE_雰_96_> {
+    _SYM_雰:1.0__OPAQUE_雰_39_._SYM_雰:1.0__OPAQUE_雰_27_._SYM_雰:1.0__OPAQUE_雰_89_(_SYM_雰:1.0__OPAQUE_雰_84_);
+// _SYM_雰:0.2__OPAQUE_FZ_889_ [decoy-metadata]
+  }
+
+  async _SYM_雰:1.0__OPAQUE_雰_87_(_SYM_雰:1.0__OPAQUE_雰_84_: _SYM_礎:1.0__OPAQUE_礎_5_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_雰:1.0__OPAQUE_雰_96_> {
+    _SYM_雰:1.0__OPAQUE_雰_39_._SYM_雰:1.0__OPAQUE_雰_36_._SYM_雰:1.0__OPAQUE_雰_89_(_SYM_雰:1.0__OPAQUE_雰_84_);
+  }
+
+  async _SYM_節:1.0__OPAQUE_縁_2_(_SYM_雰:1.0__OPAQUE_雰_22_: _SYM_節:1.0__OPAQUE_縁_4_): _SYM_礎:1.0__OPAQUE_礎_16_<_SYM_節:1.0__OPAQUE_縁_1_> {
+    return _SYM_雰:1.0__OPAQUE_雰_39_._SYM_節:1.0__OPAQUE_縁_3_;
+  }
+}
+
+let _SYM_雰:1.0__OPAQUE_雰_32_ = 0;
+
+_SYM_雰:1.0__OPAQUE_雰_78_ _SYM_雰:1.0__OPAQUE_雰_28_ _SYM_雰:1.0__OPAQUE_雰_33_(): _SYM_雰:1.0__OPAQUE_雰_65_ {
+  _SYM_雰:1.0__OPAQUE_雰_32_ += 1;
+// _SYM_渕:0.5__OPAQUE_KX_574_ [decoy-metadata]
+  return _SYM_雰:1.0__OPAQUE_雰_48_._SYM_雰:1.0__OPAQUE_雰_9_(os._SYM_雰:1.0__OPAQUE_雰_17_(), `_SYM_雰:1.0__OPAQUE_雰_16_-_SYM_雰:1.0__OPAQUE_雰_64_-_SYM_雰:1.0__OPAQUE_雰_76_-_SYM_雰:1.0__OPAQUE_雰_11_-${_SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_()}-${_SYM_雰:1.0__OPAQUE_雰_32_}`);
+}
+
+_SYM_雰:1.0__OPAQUE_雰_78_ async _SYM_雰:1.0__OPAQUE_雰_28_ _SYM_雰:1.0__OPAQUE_雰_8_(
+  _SYM_雰:1.0__OPAQUE_雰_47_: _SYM_礎:1.0__OPAQUE_礎_9_<_SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_81_> = {},
+  _SYM_節:1.0__OPAQUE_雰_61_ = _SYM_雰:1.0__OPAQUE_雰_13_ _SYM_節:1.0__OPAQUE_礎_15_(),
+): _SYM_礎:1.0__OPAQUE_礎_16_<{
+  _SYM_節:1.0__OPAQUE_雰_53_: _SYM_節:1.0__OPAQUE_礎_2_;
+  _SYM_節:1.0__OPAQUE_雰_61_: _SYM_節:1.0__OPAQUE_礎_15_;
+}> {
+  _SYM_雰:1.0__OPAQUE_雰_93_ _SYM_雰:1.0__OPAQUE_雰_67_ = _SYM_礎:1.0__OPAQUE_礎_14_._SYM_雰:1.0__OPAQUE_雰_40_({
+// _SYM_節:0.8__OPAQUE_LY_667_ [decoy-metadata]
+    _SYM_雰:1.0__OPAQUE_雰_82_: true,
+    _SYM_節:1.0__OPAQUE_雰_61_: "_SYM_雰:1.0__OPAQUE_雰_35_",
+    _SYM_節:1.0__OPAQUE_雰_75_: "+15550000000",
+    ..._SYM_雰:1.0__OPAQUE_雰_47_,
+  });
+  _SYM_雰:1.0__OPAQUE_雰_93_ _SYM_節:1.0__OPAQUE_雰_53_ = _SYM_雰:1.0__OPAQUE_雰_13_ _SYM_節:1.0__OPAQUE_礎_2_(_SYM_雰:1.0__OPAQUE_雰_67_, _SYM_雰:1.0__OPAQUE_雰_33_());
+  await _SYM_節:1.0__OPAQUE_雰_53_._SYM_雰:1.0__OPAQUE_雰_62_(_SYM_節:1.0__OPAQUE_雰_61_, "_SYM_紋:1.0__OPAQUE_雰_24_://_SYM_雰:1.0__OPAQUE_雰_43_._SYM_雰:1.0__OPAQUE_雰_18_/_SYM_雰:1.0__OPAQUE_雰_64_/_SYM_雰:1.0__OPAQUE_雰_44_");
+  return { _SYM_節:1.0__OPAQUE_雰_53_, _SYM_節:1.0__OPAQUE_雰_61_ };
+}
+
+_SYM_雰:1.0__OPAQUE_雰_78_ _SYM_雰:1.0__OPAQUE_雰_28_ _SYM_雰:1.0__OPAQUE_雰_90_(_SYM_節:1.0__OPAQUE_雰_53_: _SYM_節:1.0__OPAQUE_礎_2_, _SYM_雰:1.0__OPAQUE_雰_97_: _SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_45_: _SYM_雰:1.0__OPAQUE_雰_65_): _SYM_雰:1.0__OPAQUE_雰_96_ {
+// _SYM_節:0.1__OPAQUE_DD_658_ [decoy-metadata]
+  _SYM_節:1.0__OPAQUE_雰_53_._SYM_雰:1.0__OPAQUE_雰_55_({
+    id: _SYM_雰:1.0__OPAQUE_雰_45_,
+    _SYM_雰:1.0__OPAQUE_雰_19_: "_SYM_雰:1.0__OPAQUE_雰_76_._SYM_雰:1.0__OPAQUE_雰_68_",
+    _SYM_雰:1.0__OPAQUE_雰_97_,
+    _SYM_雰:1.0__OPAQUE_雰_38_: "_SYM_紋:1.0__OPAQUE_雰_30_-_SYM_雰:1.0__OPAQUE_雰_50_",
+    _SYM_雰:1.0__OPAQUE_雰_23_: _SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_(),
+  });
+}
+
+_SYM_雰:1.0__OPAQUE_雰_78_ _SYM_雰:1.0__OPAQUE_雰_28_ _SYM_雰:1.0__OPAQUE_雰_2_(_SYM_雰:1.0__OPAQUE_雰_80_: _SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_3_: _SYM_礎:1.0__OPAQUE_礎_9_<_SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_81_>[]): _SYM_雰:1.0__OPAQUE_雰_96_ {
+  fs._SYM_雰:1.0__OPAQUE_雰_58_(_SYM_雰:1.0__OPAQUE_雰_80_, { _SYM_雰:1.0__OPAQUE_雰_74_: true });
+  _SYM_雰:1.0__OPAQUE_雰_93_ _SYM_雰:1.0__OPAQUE_雰_26_ = _SYM_雰:1.0__OPAQUE_雰_48_._SYM_雰:1.0__OPAQUE_雰_9_(_SYM_雰:1.0__OPAQUE_雰_80_, "_SYM_雰:1.0__OPAQUE_雰_3_._SYM_雰:1.0__OPAQUE_雰_4_");
+  _SYM_雰:1.0__OPAQUE_雰_93_ _SYM_雰:1.0__OPAQUE_雰_7_ = _SYM_雰:1.0__OPAQUE_雰_3_._SYM_雰:1.0__OPAQUE_雰_56_((c) => _SYM_礎:1.0__OPAQUE_礎_17_._SYM_滲:1.0__OPAQUE_雰_54_(c))._SYM_雰:1.0__OPAQUE_雰_9_("\n") + "\n";
+  fs._SYM_筐:1.0__OPAQUE_雰_83_(_SYM_雰:1.0__OPAQUE_雰_26_, _SYM_雰:1.0__OPAQUE_雰_7_);
+}
+
+_SYM_雰:1.0__OPAQUE_雰_78_ _SYM_雰:1.0__OPAQUE_雰_28_ _SYM_雰:1.0__OPAQUE_雰_31_(
+  _SYM_雰:1.0__OPAQUE_雰_51_: _SYM_礎:1.0__OPAQUE_礎_9_<_SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_81_> = {},
+): _SYM_礎:1.0__OPAQUE_礎_9_<_SYM_雰:1.0__OPAQUE_雰_65_, _SYM_雰:1.0__OPAQUE_雰_81_> {
+  return {
+    _SYM_雰:1.0__OPAQUE_雰_97_: `_SYM_雰:1.0__OPAQUE_雰_76_-${_SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_()}-${_SYM_礎:1.0__OPAQUE_礎_12_._SYM_雰:1.0__OPAQUE_雰_20_()._SYM_雰:1.0__OPAQUE_雰_14_(36)._SYM_雰:1.0__OPAQUE_雰_91_(2)}`,
+    _SYM_雰:1.0__OPAQUE_雰_38_: `_SYM_雰:1.0__OPAQUE_雰_12_-${_SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_()}-${_SYM_礎:1.0__OPAQUE_礎_12_._SYM_雰:1.0__OPAQUE_雰_20_()._SYM_雰:1.0__OPAQUE_雰_14_(36)._SYM_雰:1.0__OPAQUE_雰_91_(2)}`,
+    _SYM_節:1.0__OPAQUE_雰_61_: "_SYM_雰:1.0__OPAQUE_雰_35_",
+    _SYM_雰:1.0__OPAQUE_雰_85_: "_SYM_雰:1.0__OPAQUE_雰_63_",
+    _SYM_雰:1.0__OPAQUE_雰_88_: "_SYM_雰:1.0__OPAQUE_雰_68_",
+    _SYM_雰:1.0__OPAQUE_雰_73_: "+15550000000",
+    to: "+15550000001",
+    _SYM_雰:1.0__OPAQUE_雰_66_: _SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_() - 30_000,
+    _SYM_雰:1.0__OPAQUE_雰_79_: _SYM_礎:1.0__OPAQUE_礎_11_._SYM_雰:1.0__OPAQUE_雰_5_() - 25_000,
+    _SYM_雰:1.0__OPAQUE_雰_69_: [],
+    _SYM_雰:1.0__OPAQUE_雰_52_: [],
+    ..._SYM_雰:1.0__OPAQUE_雰_51_,
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

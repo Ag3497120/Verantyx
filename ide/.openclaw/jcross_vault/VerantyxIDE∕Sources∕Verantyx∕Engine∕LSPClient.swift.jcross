@@ -1,0 +1,420 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D254890D ver:1778150697
+// ⚠️ One-time schema — expires after response
+
+import __node_廷:1.0____ast_廷_49__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@__node_廷:1.0____ast_廷_23__
+final class __node_廷:1.0____ast_廷_13__: __node_廷:1.0____ast_廷_3__ {
+
+// [metadata-stripped]
+
+    @__node_廷:1.0____ast_廷_42__ var __node_泡:1.0____ast_泡_203__: __node_廷:1.0____ast_廷_38__ = false
+    @__node_廷:1.0____ast_廷_42__ var __node_泡:1.0____ast_泡_183__: [__node_廷:1.0____ast_廷_9__: [__node_廷:1.0____ast_廷_33__]] = [:]  // __node_泡:1.0____ast_泡_17__ → __node_泡:1.0____ast_泡_183__
+    @__node_廷:1.0____ast_廷_42__ var __node_泡:1.0____ast_泡_202__: [__node_廷:1.0____ast_廷_44__] = []
+    @__node_廷:1.0____ast_廷_42__ var __node_泡:1.0____ast_泡_99__: __node_廷:1.0____ast_廷_9__? = nil
+
+// __node_燦:0.5____ast_VH_873__ [decoy-metadata]
+// [metadata-stripped]
+
+    enum __node_廷:1.0____ast_廷_8__: __node_廷:1.0____ast_廷_9__, __node_廷:1.0____ast_廷_18__ {
+        case __node_滲:1.0____ast_泡_64__      = "__node_滲:1.0____ast_泡_64__"
+        case __node_泡:1.0____ast_泡_128__     = "__node_泡:1.0____ast_泡_128__"
+        case __node_泡:1.0____ast_泡_96__ = "__node_泡:1.0____ast_泡_96__"
+        case __node_泡:1.0____ast_泡_80__ = "__node_泡:1.0____ast_泡_80__"
+
+        var __node_泡:1.0____ast_泡_26__: [__node_廷:1.0____ast_廷_9__] {
+            switch self {
+            case .__node_滲:1.0____ast_泡_64__:
+                return ["/__node_泡:1.0____ast_泡_176__/__node_泡:1.0____ast_泡_147__/__node_泡:1.0____ast_泡_157__", "__node_泡:1.0____ast_泡_51__-__node_泡:1.0____ast_泡_104__"]
+            case .__node_泡:1.0____ast_泡_128__:
+                return ["/__node_泡:1.0____ast_泡_176__/__node_泡:1.0____ast_泡_147__/__node_泡:1.0____ast_泡_131__", "__node_泡:1.0____ast_泡_71__"]
+            case .__node_泡:1.0____ast_泡_96__, .__node_泡:1.0____ast_泡_80__:
+                return ["/__node_泡:1.0____ast_泡_176__/__node_泡:1.0____ast_泡_147__/__node_泡:1.0____ast_泡_131__", "__node_泡:1.0____ast_泡_96__-__node_泡:1.0____ast_泡_39__-__node_節:1.0____ast_泡_10__", "--__node_泡:1.0____ast_泡_66__"]
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private var __node_泡:1.0____ast_泡_35__: __node_廷:1.0____ast_廷_26__?
+    private var __node_泡:1.0____ast_泡_43__  = __node_廷:1.0____ast_廷_57__()
+// __node_奥:0.9____ast_WG_952__ [decoy-metadata]
+    private var __node_泡:1.0____ast_泡_14__ = __node_廷:1.0____ast_廷_57__()
+    private var __node_節:1.0____ast_泡_49__ = __node_廷:1.0____ast_廷_29__()
+    private var __node_縫:1.0____ast_泡_155__  = 0
+    private var __node_泡:1.0____ast_泡_160__: [__node_廷:1.0____ast_廷_37__: __node_廷:1.0____ast_廷_1__<__node_廷:1.0____ast_廷_50__, __node_廷:1.0____ast_廷_51__>] = [:]
+    private var __node_泡:1.0____ast_泡_31__: __node_廷:1.0____ast_廷_37__ { __node_縫:1.0____ast_泡_155__ += 1; return __node_縫:1.0____ast_泡_155__ }
+    private var __node_泡:1.0____ast_泡_3__: __node_廷:1.0____ast_廷_9__ = ""
+    private var __node_泡:1.0____ast_泡_39__: __node_廷:1.0____ast_廷_8__ = .__node_滲:1.0____ast_泡_64__
+
+// [metadata-stripped]
+
+    func __node_泡:1.0____ast_泡_129__(__node_泡:1.0____ast_泡_39__: __node_廷:1.0____ast_廷_8__, __node_縫:1.0____ast_泡_16__: __node_縫:1.0____ast_廷_24__) async {
+        self.__node_泡:1.0____ast_泡_39__ = __node_泡:1.0____ast_泡_39__
+        self.__node_泡:1.0____ast_泡_3__ = __node_縫:1.0____ast_泡_16__.__node_泡:1.0____ast_泡_132__
+
+        let __node_泡:1.0____ast_泡_209__ = __node_泡:1.0____ast_泡_39__.__node_泡:1.0____ast_泡_26__
+        guard !__node_泡:1.0____ast_泡_209__.__node_泡:1.0____ast_泡_210__ else { return }
+
+        let __node_泡:1.0____ast_泡_61__ = __node_廷:1.0____ast_廷_26__()
+        __node_泡:1.0____ast_泡_61__.__node_縫:1.0____ast_泡_108__ = __node_縫:1.0____ast_廷_24__(__node_縫:1.0____ast_泡_150__: __node_泡:1.0____ast_泡_209__[0])
+        __node_泡:1.0____ast_泡_61__.__node_泡:1.0____ast_泡_29__ = __node_廷:1.0____ast_廷_60__(__node_泡:1.0____ast_泡_209__.__node_泡:1.0____ast_泡_33__())
+        __node_泡:1.0____ast_泡_61__.__node_泡:1.0____ast_泡_181__  = __node_泡:1.0____ast_泡_43__
+        __node_泡:1.0____ast_泡_61__.__node_泡:1.0____ast_泡_169__ = __node_泡:1.0____ast_泡_14__
+        __node_泡:1.0____ast_泡_61__.__node_泡:1.0____ast_泡_120__  = __node_廷:1.0____ast_廷_57__()  // __node_泡:1.0____ast_泡_184__
+
+        do {
+            try __node_泡:1.0____ast_泡_61__.__node_泡:1.0____ast_泡_92__()
+        } catch {
+            __node_泡:1.0____ast_泡_186__("__node_廷:1.0____ast_廷_46__: __node_泡:1.0____ast_泡_213__ to __node_泡:1.0____ast_泡_129__ \(__node_泡:1.0____ast_泡_39__.__node_泡:1.0____ast_泡_36__): \(__node_泡:1.0____ast_泡_63__)")
+            return
+        }
+
+        self.__node_泡:1.0____ast_泡_35__ = __node_泡:1.0____ast_泡_61__
+        __node_泡:1.0____ast_泡_12__()
+
+// [metadata-stripped]
+        let __node_泡:1.0____ast_泡_192__ = try? await __node_縫:1.0____ast_泡_172__(__node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_133__", __node_泡:1.0____ast_泡_82__: __node_泡:1.0____ast_泡_34__(__node_縫:1.0____ast_泡_16__))
+        _ = __node_泡:1.0____ast_泡_192__
+        __node_滲:1.0____ast_泡_90__(__node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_138__", __node_泡:1.0____ast_泡_82__: [:] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_9__])
+        __node_泡:1.0____ast_泡_203__ = true
+    }
+
+    func __node_泡:1.0____ast_泡_187__() {
+        __node_泡:1.0____ast_泡_35__?.__node_泡:1.0____ast_泡_122__()
+        __node_泡:1.0____ast_泡_35__ = nil
+        __node_泡:1.0____ast_泡_203__ = false
+        __node_泡:1.0____ast_泡_183__ = [:]
+    }
+
+// [metadata-stripped]
+
+    func __node_泡:1.0____ast_泡_97__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__, __node_泡:1.0____ast_泡_193__: __node_廷:1.0____ast_廷_9__) {
+        let __node_泡:1.0____ast_泡_17__ = __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__
+        let __node_泡:1.0____ast_泡_189__ = __node_泡:1.0____ast_泡_46__(for: __node_縫:1.0____ast_泡_191__)
+        __node_滲:1.0____ast_泡_90__(__node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_97__", __node_泡:1.0____ast_泡_82__: [
+            "__node_泡:1.0____ast_泡_32__": [
+                "__node_泡:1.0____ast_泡_17__": __node_泡:1.0____ast_泡_17__,
+                "__node_泡:1.0____ast_泡_195__": __node_泡:1.0____ast_泡_189__,
+                "__node_泡:1.0____ast_泡_110__": 1,
+                "__node_泡:1.0____ast_泡_180__": __node_泡:1.0____ast_泡_193__
+            ]
+        ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__])
+    }
+
+    func __node_泡:1.0____ast_泡_127__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__, __node_泡:1.0____ast_泡_193__: __node_廷:1.0____ast_廷_9__, __node_泡:1.0____ast_泡_110__: __node_廷:1.0____ast_廷_37__) {
+        __node_滲:1.0____ast_泡_90__(__node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_127__", __node_泡:1.0____ast_泡_82__: [
+            "__node_泡:1.0____ast_泡_32__": ["__node_泡:1.0____ast_泡_17__": __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__, "__node_泡:1.0____ast_泡_110__": __node_泡:1.0____ast_泡_110__],
+            "__node_泡:1.0____ast_泡_119__": [["__node_泡:1.0____ast_泡_180__": __node_泡:1.0____ast_泡_193__]]
+        ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__])
+    }
+
+    func __node_泡:1.0____ast_泡_118__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__) {
+        __node_滲:1.0____ast_泡_90__(__node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_118__", __node_泡:1.0____ast_泡_82__: [
+            "__node_泡:1.0____ast_泡_32__": ["__node_泡:1.0____ast_泡_17__": __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__]
+        ])
+    }
+
+// [metadata-stripped]
+
+    func __node_縫:1.0____ast_泡_88__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__, __node_泡:1.0____ast_泡_40__: __node_廷:1.0____ast_廷_37__, __node_節:1.0____ast_泡_48__: __node_廷:1.0____ast_廷_37__) async -> [__node_廷:1.0____ast_廷_44__] {
+        guard __node_泡:1.0____ast_泡_203__ else { return [] }
+        guard let __node_泡:1.0____ast_泡_75__ = try? await __node_縫:1.0____ast_泡_172__(
+            __node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_59__",
+            __node_泡:1.0____ast_泡_82__: [
+                "__node_泡:1.0____ast_泡_32__": ["__node_泡:1.0____ast_泡_17__": __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__],
+                "__node_泡:1.0____ast_泡_50__": ["__node_泡:1.0____ast_泡_40__": __node_泡:1.0____ast_泡_40__, "__node_節:1.0____ast_泡_48__": __node_節:1.0____ast_泡_48__]
+            ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]
+        ) else { return [] }
+
+        return __node_泡:1.0____ast_泡_65__(__node_泡:1.0____ast_泡_196__: __node_泡:1.0____ast_泡_75__.__node_泡:1.0____ast_泡_211__)
+    }
+
+// [metadata-stripped]
+
+    func __node_縫:1.0____ast_泡_73__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__, __node_泡:1.0____ast_泡_40__: __node_廷:1.0____ast_廷_37__, __node_節:1.0____ast_泡_48__: __node_廷:1.0____ast_廷_37__) async -> __node_廷:1.0____ast_廷_9__? {
+        guard __node_泡:1.0____ast_泡_203__ else { return nil }
+        guard let __node_泡:1.0____ast_泡_75__ = try? await __node_縫:1.0____ast_泡_172__(
+            __node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_節:1.0____ast_泡_45__",
+            __node_泡:1.0____ast_泡_82__: [
+                "__node_泡:1.0____ast_泡_32__": ["__node_泡:1.0____ast_泡_17__": __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__],
+                "__node_泡:1.0____ast_泡_50__": ["__node_泡:1.0____ast_泡_40__": __node_泡:1.0____ast_泡_40__, "__node_節:1.0____ast_泡_48__": __node_節:1.0____ast_泡_48__]
+            ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]
+        ) else { return nil }
+
+        if let __node_泡:1.0____ast_泡_211__ = __node_泡:1.0____ast_泡_75__.__node_泡:1.0____ast_泡_211__ as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+           let __node_泡:1.0____ast_泡_37__ = __node_泡:1.0____ast_泡_211__["__node_泡:1.0____ast_泡_37__"] as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+           let __node_泡:1.0____ast_泡_58__ = __node_泡:1.0____ast_泡_37__["__node_泡:1.0____ast_泡_58__"] as? __node_廷:1.0____ast_廷_9__ {
+            return __node_泡:1.0____ast_泡_58__
+        }
+        return nil
+    }
+
+// [metadata-stripped]
+
+    func __node_縫:1.0____ast_泡_136__(__node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__, __node_泡:1.0____ast_泡_40__: __node_廷:1.0____ast_廷_37__, __node_節:1.0____ast_泡_48__: __node_廷:1.0____ast_廷_37__) async -> __node_縫:1.0____ast_廷_24__? {
+        guard __node_泡:1.0____ast_泡_203__ else { return nil }
+        guard let __node_泡:1.0____ast_泡_75__ = try? await __node_縫:1.0____ast_泡_172__(
+            __node_泡:1.0____ast_泡_69__: "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_124__",
+            __node_泡:1.0____ast_泡_82__: [
+                "__node_泡:1.0____ast_泡_32__": ["__node_泡:1.0____ast_泡_17__": __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_132__],
+                "__node_泡:1.0____ast_泡_50__": ["__node_泡:1.0____ast_泡_40__": __node_泡:1.0____ast_泡_40__, "__node_節:1.0____ast_泡_48__": __node_節:1.0____ast_泡_48__]
+            ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]
+        ) else { return nil }
+
+        if let __node_泡:1.0____ast_泡_211__ = __node_泡:1.0____ast_泡_75__.__node_泡:1.0____ast_泡_211__ as? [[__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]],
+           let __node_泡:1.0____ast_泡_141__ = __node_泡:1.0____ast_泡_211__.__node_泡:1.0____ast_泡_141__,
+           let __node_泡:1.0____ast_泡_81__ = __node_泡:1.0____ast_泡_141__["__node_泡:1.0____ast_泡_17__"] as? __node_廷:1.0____ast_廷_9__ {
+            return __node_縫:1.0____ast_廷_24__(__node_泡:1.0____ast_泡_156__: __node_泡:1.0____ast_泡_81__)
+        }
+        return nil
+    }
+
+// [metadata-stripped]
+
+    private func __node_縫:1.0____ast_泡_172__(__node_泡:1.0____ast_泡_69__: __node_廷:1.0____ast_廷_9__, __node_泡:1.0____ast_泡_82__: __node_廷:1.0____ast_廷_55__) async throws -> __node_廷:1.0____ast_廷_50__ {
+        let id = __node_泡:1.0____ast_泡_31__
+        let __node_泡:1.0____ast_泡_76__ = __node_泡:1.0____ast_泡_79__(id: id, __node_泡:1.0____ast_泡_69__: __node_泡:1.0____ast_泡_69__, __node_泡:1.0____ast_泡_82__: __node_泡:1.0____ast_泡_82__)
+        return try await __node_泡:1.0____ast_泡_114__ { (__node_泡:1.0____ast_泡_7__: __node_廷:1.0____ast_廷_1__<__node_廷:1.0____ast_廷_50__, __node_廷:1.0____ast_廷_51__>) in
+            __node_泡:1.0____ast_泡_160__[id] = __node_泡:1.0____ast_泡_7__
+            __node_泡:1.0____ast_泡_18__(__node_泡:1.0____ast_泡_76__)
+        }
+    }
+
+    private func __node_滲:1.0____ast_泡_90__(__node_泡:1.0____ast_泡_69__: __node_廷:1.0____ast_廷_9__, __node_泡:1.0____ast_泡_82__: __node_廷:1.0____ast_廷_55__) {
+        let __node_泡:1.0____ast_泡_76__ = __node_泡:1.0____ast_泡_79__(id: nil, __node_泡:1.0____ast_泡_69__: __node_泡:1.0____ast_泡_69__, __node_泡:1.0____ast_泡_82__: __node_泡:1.0____ast_泡_82__)
+        __node_泡:1.0____ast_泡_18__(__node_泡:1.0____ast_泡_76__)
+    }
+
+    private func __node_泡:1.0____ast_泡_18__(_ __node_筐:1.0____ast_泡_173__: __node_廷:1.0____ast_廷_29__) {
+        let __node_節:1.0____ast_泡_144__ = "__node_廷:1.0____ast_廷_15__-__node_廷:1.0____ast_廷_58__: \(__node_筐:1.0____ast_泡_173__.__node_泡:1.0____ast_泡_72__)\r\n\r\n"
+        let __node_泡:1.0____ast_泡_38__ = __node_節:1.0____ast_泡_144__.__node_泡:1.0____ast_泡_145__(__node_泡:1.0____ast_泡_198__: .__node_泡:1.0____ast_泡_20__)!
+        let __node_泡:1.0____ast_泡_113__ = __node_泡:1.0____ast_泡_38__ + __node_筐:1.0____ast_泡_173__
+        (__node_泡:1.0____ast_泡_35__?.__node_泡:1.0____ast_泡_181__ as? __node_廷:1.0____ast_廷_57__)?.__node_筐:1.0____ast_泡_23__.__node_泡:1.0____ast_泡_5__(__node_泡:1.0____ast_泡_113__)
+    }
+
+    private func __node_泡:1.0____ast_泡_12__() {
+        __node_泡:1.0____ast_泡_14__.__node_筐:1.0____ast_泡_111__.__node_節:1.0____ast_泡_100__ = { [weak self] __node_泡:1.0____ast_泡_47__ in
+            guard let self else { return }
+            let __node_泡:1.0____ast_泡_145__ = __node_泡:1.0____ast_泡_47__.__node_泡:1.0____ast_泡_162__
+            guard !__node_泡:1.0____ast_泡_145__.__node_泡:1.0____ast_泡_210__ else { return }
+            __node_廷:1.0____ast_廷_28__ { @__node_廷:1.0____ast_廷_23__ in
+                self.__node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_4__(__node_泡:1.0____ast_泡_145__)
+                self.__node_節:1.0____ast_泡_179__()
+            }
+        }
+    }
+
+    private func __node_節:1.0____ast_泡_179__() {
+        while true {
+            guard let __node_泡:1.0____ast_泡_107__ = __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_13__(of: __node_廷:1.0____ast_廷_29__("\r\n\r\n".__node_泡:1.0____ast_泡_20__)) else { break }
+            let __node_泡:1.0____ast_泡_38__ = __node_節:1.0____ast_泡_49__[__node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_139__..<__node_泡:1.0____ast_泡_107__.__node_泡:1.0____ast_泡_83__]
+            guard let __node_泡:1.0____ast_泡_44__ = __node_廷:1.0____ast_廷_9__(__node_泡:1.0____ast_泡_145__: __node_泡:1.0____ast_泡_38__, __node_泡:1.0____ast_泡_143__: .__node_泡:1.0____ast_泡_20__),
+                  let __node_泡:1.0____ast_泡_116__ = __node_泡:1.0____ast_泡_44__.__node_泡:1.0____ast_泡_148__(__node_泡:1.0____ast_泡_123__: "\r\n")
+                    .__node_泡:1.0____ast_泡_141__(where: { $0.__node_泡:1.0____ast_泡_30__("__node_廷:1.0____ast_廷_15__-__node_廷:1.0____ast_廷_58__:") })?
+                    .__node_泡:1.0____ast_泡_148__(__node_泡:1.0____ast_泡_123__: ":").__node_泡:1.0____ast_泡_112__?.__node_泡:1.0____ast_泡_28__(in: .__node_泡:1.0____ast_泡_62__),
+                  let __node_泡:1.0____ast_泡_98__ = __node_廷:1.0____ast_廷_37__(__node_泡:1.0____ast_泡_116__) else { break }
+
+            let __node_泡:1.0____ast_泡_41__ = __node_泡:1.0____ast_泡_107__.__node_泡:1.0____ast_泡_9__
+            let __node_泡:1.0____ast_泡_78__ = __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_89__(__node_泡:1.0____ast_泡_41__, __node_泡:1.0____ast_泡_115__: __node_泡:1.0____ast_泡_98__, __node_泡:1.0____ast_泡_194__: __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_153__) ?? __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_153__
+            guard __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_11__(__node_泡:1.0____ast_泡_196__: __node_泡:1.0____ast_泡_41__, to: __node_節:1.0____ast_泡_49__.__node_泡:1.0____ast_泡_153__) >= __node_泡:1.0____ast_泡_98__ else { break }
+
+            let __node_泡:1.0____ast_泡_103__ = __node_節:1.0____ast_泡_49__[__node_泡:1.0____ast_泡_41__..<__node_泡:1.0____ast_泡_78__]
+            __node_節:1.0____ast_泡_49__ = __node_節:1.0____ast_泡_49__[__node_泡:1.0____ast_泡_78__...]
+
+            if let __node_泡:1.0____ast_泡_117__ = try? __node_廷:1.0____ast_廷_16__.__node_泡:1.0____ast_泡_205__(__node_泡:1.0____ast_泡_163__: __node_泡:1.0____ast_泡_103__) as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__] {
+                __node_泡:1.0____ast_泡_93__(__node_泡:1.0____ast_泡_117__)
+            }
+        }
+    }
+
+    private func __node_泡:1.0____ast_泡_93__(_ __node_泡:1.0____ast_泡_117__: [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]) {
+// [metadata-stripped]
+        if let __node_泡:1.0____ast_泡_21__ = __node_泡:1.0____ast_泡_117__["id"] {
+            let id = (__node_泡:1.0____ast_泡_21__ as? __node_廷:1.0____ast_廷_37__) ?? __node_廷:1.0____ast_廷_37__((__node_泡:1.0____ast_泡_21__ as? __node_廷:1.0____ast_廷_9__) ?? "") ?? -1
+            let __node_泡:1.0____ast_泡_75__ = __node_廷:1.0____ast_廷_50__(id: id, __node_泡:1.0____ast_泡_211__: __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_211__"], __node_泡:1.0____ast_泡_63__: __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_63__"])
+            if let __node_泡:1.0____ast_泡_7__ = __node_泡:1.0____ast_泡_160__.__node_泡:1.0____ast_泡_130__(__node_奥:1.0____ast_泡_15__: id) {
+                if __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_63__"] != nil {
+                    __node_泡:1.0____ast_泡_7__.__node_泡:1.0____ast_泡_54__(__node_泡:1.0____ast_泡_22__: __node_廷:1.0____ast_廷_31__.__node_泡:1.0____ast_泡_151__(__node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_63__"].__node_泡:1.0____ast_泡_178__))
+                } else {
+                    __node_泡:1.0____ast_泡_7__.__node_泡:1.0____ast_泡_54__(__node_泡:1.0____ast_泡_149__: __node_泡:1.0____ast_泡_75__)
+                }
+            }
+            return
+        }
+
+// [metadata-stripped]
+        if let __node_泡:1.0____ast_泡_69__ = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_69__"] as? __node_廷:1.0____ast_廷_9__ {
+            __node_滲:1.0____ast_泡_207__(__node_泡:1.0____ast_泡_69__: __node_泡:1.0____ast_泡_69__, __node_泡:1.0____ast_泡_82__: __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_82__"])
+        }
+    }
+
+    private func __node_滲:1.0____ast_泡_207__(__node_泡:1.0____ast_泡_69__: __node_廷:1.0____ast_廷_9__, __node_泡:1.0____ast_泡_82__: __node_廷:1.0____ast_廷_55__?) {
+        switch __node_泡:1.0____ast_泡_69__ {
+        case "__node_泡:1.0____ast_泡_32__/__node_泡:1.0____ast_泡_185__":
+            if let p = __node_泡:1.0____ast_泡_82__ as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+               let __node_泡:1.0____ast_泡_17__ = p["__node_泡:1.0____ast_泡_17__"] as? __node_廷:1.0____ast_廷_9__,
+               let __node_泡:1.0____ast_泡_135__ = p["__node_泡:1.0____ast_泡_183__"] as? [[__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]] {
+                let __node_泡:1.0____ast_泡_70__ = __node_泡:1.0____ast_泡_135__.__node_泡:1.0____ast_泡_77__(__node_廷:1.0____ast_廷_33__.init)
+                __node_廷:1.0____ast_廷_36__.__node_泡:1.0____ast_泡_2__.async { self.__node_泡:1.0____ast_泡_183__[__node_泡:1.0____ast_泡_17__] = __node_泡:1.0____ast_泡_70__ }
+            }
+        __node_泡:1.0____ast_泡_167__:
+            break
+        }
+    }
+
+// [metadata-stripped]
+
+    private func __node_泡:1.0____ast_泡_79__(id: __node_廷:1.0____ast_廷_37__?, __node_泡:1.0____ast_泡_69__: __node_廷:1.0____ast_廷_9__, __node_泡:1.0____ast_泡_82__: __node_廷:1.0____ast_廷_55__) -> __node_廷:1.0____ast_廷_29__ {
+        var __node_泡:1.0____ast_泡_154__: [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__] = [
+            "__node_泡:1.0____ast_泡_190__": "2.0",
+            "__node_泡:1.0____ast_泡_69__": __node_泡:1.0____ast_泡_69__,
+            "__node_泡:1.0____ast_泡_82__": __node_泡:1.0____ast_泡_82__
+        ]
+        if let id { __node_泡:1.0____ast_泡_154__["id"] = id }
+        return (try? __node_廷:1.0____ast_廷_16__.__node_泡:1.0____ast_泡_145__(__node_泡:1.0____ast_泡_109__: __node_泡:1.0____ast_泡_154__)) ?? __node_廷:1.0____ast_廷_29__()
+    }
+
+    private func __node_泡:1.0____ast_泡_34__(_ __node_泡:1.0____ast_泡_164__: __node_縫:1.0____ast_廷_24__) -> [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__] {
+        [
+            "__node_泡:1.0____ast_泡_174__": __node_廷:1.0____ast_廷_39__.__node_泡:1.0____ast_泡_27__.__node_節:1.0____ast_泡_67__,
+            "__node_泡:1.0____ast_泡_101__": __node_泡:1.0____ast_泡_164__.__node_泡:1.0____ast_泡_132__,
+            "__node_泡:1.0____ast_泡_84__": [
+                "__node_泡:1.0____ast_泡_32__": [
+                    "__node_泡:1.0____ast_泡_59__": ["__node_泡:1.0____ast_泡_137__": ["__node_泡:1.0____ast_泡_200__": false]],
+                    "__node_節:1.0____ast_泡_45__": ["__node_滲:1.0____ast_泡_159__": ["__node_泡:1.0____ast_泡_170__"]],
+                    "__node_泡:1.0____ast_泡_185__": ["__node_滲:1.0____ast_泡_53__": true]
+                ]
+            ],
+            "__node_泡:1.0____ast_泡_102__": [:]
+        ] as [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]
+    }
+
+    private func __node_泡:1.0____ast_泡_46__(for __node_縫:1.0____ast_泡_191__: __node_縫:1.0____ast_廷_24__) -> __node_廷:1.0____ast_廷_9__ {
+        switch __node_縫:1.0____ast_泡_191__.__node_泡:1.0____ast_泡_42__.__node_泡:1.0____ast_泡_212__() {
+        case "__node_滲:1.0____ast_泡_64__":        return "__node_滲:1.0____ast_泡_64__"
+        case "py":           return "__node_泡:1.0____ast_泡_128__"
+        case "ts", "__node_泡:1.0____ast_泡_204__":    return "__node_泡:1.0____ast_泡_96__"
+        case "js", "__node_泡:1.0____ast_泡_91__":    return "__node_泡:1.0____ast_泡_80__"
+        case "rs":           return "__node_泡:1.0____ast_泡_52__"
+        case "go":           return "go"
+        case "kt":           return "__node_泡:1.0____ast_泡_206__"
+        case "__node_泡:1.0____ast_泡_168__":         return "__node_泡:1.0____ast_泡_168__"
+        case "c", "h":       return "c"
+        case "__node_泡:1.0____ast_泡_68__", "__node_泡:1.0____ast_泡_55__":   return "__node_泡:1.0____ast_泡_68__"
+        __node_泡:1.0____ast_泡_167__:             return "__node_泡:1.0____ast_泡_170__"
+        }
+    }
+
+    private func __node_泡:1.0____ast_泡_65__(__node_泡:1.0____ast_泡_196__ __node_泡:1.0____ast_泡_211__: __node_廷:1.0____ast_廷_55__?) -> [__node_廷:1.0____ast_廷_44__] {
+        var __node_泡:1.0____ast_泡_142__: [[__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]] = []
+        if let __node_泡:1.0____ast_泡_161__ = __node_泡:1.0____ast_泡_211__ as? [[__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]] {
+            __node_泡:1.0____ast_泡_142__ = __node_泡:1.0____ast_泡_161__
+        } else if let __node_泡:1.0____ast_泡_197__ = __node_泡:1.0____ast_泡_211__ as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+                  let __node_泡:1.0____ast_泡_85__ = __node_泡:1.0____ast_泡_197__["__node_泡:1.0____ast_泡_85__"] as? [[__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]] {
+            __node_泡:1.0____ast_泡_142__ = __node_泡:1.0____ast_泡_85__
+        }
+// __node_縫:0.9____ast_CF_107__ [decoy-metadata]
+        return __node_泡:1.0____ast_泡_142__.__node_泡:1.0____ast_泡_77__(__node_廷:1.0____ast_廷_44__.init)
+    }
+
+    enum __node_廷:1.0____ast_廷_31__: __node_廷:1.0____ast_廷_51__ {
+        case __node_泡:1.0____ast_泡_151__(__node_廷:1.0____ast_廷_9__)
+        case __node_泡:1.0____ast_泡_8__
+    }
+}
+
+// [metadata-stripped]
+// __node_燦:0.1____ast_MV_922__ [decoy-metadata]
+
+struct __node_廷:1.0____ast_廷_50__ {
+    let id: __node_廷:1.0____ast_廷_37__
+    let __node_泡:1.0____ast_泡_211__: __node_廷:1.0____ast_廷_55__?
+    let __node_泡:1.0____ast_泡_63__: __node_廷:1.0____ast_廷_55__?
+}
+
+struct __node_廷:1.0____ast_廷_33__: __node_廷:1.0____ast_廷_27__ {
+    let id: __node_廷:1.0____ast_廷_35__
+    let __node_泡:1.0____ast_泡_76__: __node_廷:1.0____ast_廷_9__
+    let __node_泡:1.0____ast_泡_158__: __node_廷:1.0____ast_廷_45__
+    let __node_泡:1.0____ast_泡_121__: __node_廷:1.0____ast_廷_37__
+    let __node_節:1.0____ast_泡_87__: __node_廷:1.0____ast_廷_37__
+    let __node_泡:1.0____ast_泡_125__: __node_廷:1.0____ast_廷_37__
+    let __node_節:1.0____ast_泡_177__: __node_廷:1.0____ast_廷_37__
+
+    enum __node_廷:1.0____ast_廷_45__: __node_廷:1.0____ast_廷_37__ {
+        case __node_泡:1.0____ast_泡_63__   = 1
+        case __node_泡:1.0____ast_泡_126__ = 2
+        case __node_泡:1.0____ast_泡_152__    = 3
+        case __node_泡:1.0____ast_泡_57__    = 4
+    }
+
+    init?(_ __node_泡:1.0____ast_泡_117__: [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]) {
+// __node_滲:0.2____ast_LH_794__ [decoy-metadata]
+        guard let __node_泡:1.0____ast_泡_154__ = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_76__"] as? __node_廷:1.0____ast_廷_9__,
+              let __node_泡:1.0____ast_泡_13__ = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_13__"] as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+              let __node_泡:1.0____ast_泡_129__ = __node_泡:1.0____ast_泡_13__["__node_泡:1.0____ast_泡_129__"] as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__],
+              let __node_泡:1.0____ast_泡_95__   = __node_泡:1.0____ast_泡_13__["__node_泡:1.0____ast_泡_95__"]   as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]
+        else { return nil }
+
+        self.id             = __node_廷:1.0____ast_廷_35__()
+        self.__node_泡:1.0____ast_泡_76__        = __node_泡:1.0____ast_泡_154__
+        self.__node_泡:1.0____ast_泡_158__       = __node_廷:1.0____ast_廷_45__(__node_泡:1.0____ast_泡_36__: __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_158__"] as? __node_廷:1.0____ast_廷_37__ ?? 1) ?? .__node_泡:1.0____ast_泡_63__
+        self.__node_泡:1.0____ast_泡_121__      = __node_泡:1.0____ast_泡_129__["__node_泡:1.0____ast_泡_40__"]      as? __node_廷:1.0____ast_廷_37__ ?? 0
+        self.__node_節:1.0____ast_泡_87__ = __node_泡:1.0____ast_泡_129__["__node_節:1.0____ast_泡_48__"] as? __node_廷:1.0____ast_廷_37__ ?? 0
+        self.__node_泡:1.0____ast_泡_125__        = __node_泡:1.0____ast_泡_95__["__node_泡:1.0____ast_泡_40__"]        as? __node_廷:1.0____ast_廷_37__ ?? 0
+        self.__node_節:1.0____ast_泡_177__   = __node_泡:1.0____ast_泡_95__["__node_節:1.0____ast_泡_48__"]   as? __node_廷:1.0____ast_廷_37__ ?? 0
+    }
+}
+
+struct __node_廷:1.0____ast_廷_44__: __node_廷:1.0____ast_廷_27__ {
+    let id: __node_廷:1.0____ast_廷_35__
+    let __node_泡:1.0____ast_泡_182__: __node_廷:1.0____ast_廷_9__
+    let __node_泡:1.0____ast_泡_56__: __node_廷:1.0____ast_廷_37__
+    let __node_泡:1.0____ast_泡_175__: __node_廷:1.0____ast_廷_9__?
+    let __node_泡:1.0____ast_泡_60__: __node_廷:1.0____ast_廷_9__?
+    let __node_泡:1.0____ast_泡_19__: __node_廷:1.0____ast_廷_9__?
+
+    var __node_泡:1.0____ast_泡_199__: __node_廷:1.0____ast_廷_9__ {
+        switch __node_泡:1.0____ast_泡_56__ {
+        case 2:  return "__node_泡:1.0____ast_泡_105__"     // __node_廷:1.0____ast_廷_30__
+        case 3:  return "__node_泡:1.0____ast_泡_105__"     // __node_廷:1.0____ast_廷_47__
+        case 4:  return "__node_泡:1.0____ast_泡_94__"  // __node_廷:1.0____ast_廷_53__
+        case 5:  return "__node_泡:1.0____ast_泡_165__"        // __node_廷:1.0____ast_廷_22__
+        case 6:  return "__node_泡:1.0____ast_泡_201__"     // __node_廷:1.0____ast_廷_32__
+        case 7:  return "class"        // __node_廷:1.0____ast_廷_2__
+        case 8:  return "__node_泡:1.0____ast_泡_25__"    // __node_廷:1.0____ast_廷_10__
+        case 9:  return "__node_泡:1.0____ast_泡_86__"       // __node_廷:1.0____ast_廷_4__
+        case 10: return "__node_泡:1.0____ast_泡_140__"     // __node_廷:1.0____ast_廷_48__
+        case 14: return "__node_奥:1.0____ast_泡_188__"      // __node_奥:1.0____ast_廷_61__
+        __node_泡:1.0____ast_泡_167__: return "__node_泡:1.0____ast_泡_180__"
+        }
+    }
+
+    init?(_ __node_泡:1.0____ast_泡_117__: [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__]) {
+        guard let __node_泡:1.0____ast_泡_182__ = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_182__"] as? __node_廷:1.0____ast_廷_9__ else { return nil }
+        self.id            = __node_廷:1.0____ast_廷_35__()
+        self.__node_泡:1.0____ast_泡_182__         = __node_泡:1.0____ast_泡_182__
+        self.__node_泡:1.0____ast_泡_56__          = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_56__"] as? __node_廷:1.0____ast_廷_37__ ?? 1
+        self.__node_泡:1.0____ast_泡_175__        = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_175__"] as? __node_廷:1.0____ast_廷_9__
+        self.__node_泡:1.0____ast_泡_60__ = (__node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_60__"] as? [__node_廷:1.0____ast_廷_9__: __node_廷:1.0____ast_廷_55__])?["__node_泡:1.0____ast_泡_58__"] as? __node_廷:1.0____ast_廷_9__
+                          ?? __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_60__"] as? __node_廷:1.0____ast_廷_9__
+        self.__node_泡:1.0____ast_泡_19__    = __node_泡:1.0____ast_泡_117__["__node_泡:1.0____ast_泡_19__"] as? __node_廷:1.0____ast_廷_9__ ?? __node_泡:1.0____ast_泡_182__
+// __node_節:0.2____ast_VB_846__ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

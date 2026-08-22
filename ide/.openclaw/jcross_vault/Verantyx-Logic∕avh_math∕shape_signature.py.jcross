@@ -1,0 +1,70 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:43D76274 ver:1778159773
+// ⚠️ One-time schema — expires after response
+
+__jcross_霾:1.0____ast_霾_18__ __jcross_霾:1.0____ast_霾_36__ import __jcross_霾:1.0____ast_霾_12__
+
+import re
+__jcross_霾:1.0____ast_霾_18__ __jcross_霾:1.0____ast_霾_26__ import __jcross_霾:1.0____ast_霾_4__
+__jcross_霾:1.0____ast_霾_18__ __jcross_霾:1.0____ast_霾_31__ import __jcross_廊:1.0____ast_廊_3__, __jcross_廊:1.0____ast_廊_4__
+
+
+@__jcross_霾:1.0____ast_霾_4__
+class __jcross_廊:1.0____ast_廊_1__:
+// __jcross_霾:0.6____ast_DB_958__ [decoy-metadata]
+    __jcross_霾:1.0____ast_霾_61__: __jcross_霾:1.0____ast_霾_39__
+    __jcross_霾:1.0____ast_霾_21__: __jcross_廊:1.0____ast_廊_3__[__jcross_霾:1.0____ast_霾_39__, __jcross_霾:1.0____ast_霾_13__]
+// __jcross_廊:0.8____ast_BL_973__ [decoy-metadata]
+    __jcross_霾:1.0____ast_霾_25__: __jcross_廊:1.0____ast_廊_4__[__jcross_霾:1.0____ast_霾_39__]
+
+
+__jcross_霾:1.0____ast_霾_19__ __jcross_霾:1.0____ast_霾_45__(__jcross_霾:1.0____ast_霾_58__: __jcross_霾:1.0____ast_霾_39__, __jcross_湧:1.0____ast_霾_59__: __jcross_霾:1.0____ast_霾_39__ | __jcross_廊:1.0____ast_廊_2__ = __jcross_廊:1.0____ast_廊_2__) -> __jcross_廊:1.0____ast_廊_1__:
+    t = __jcross_霾:1.0____ast_霾_58__ or ""
+// __jcross_廊:0.6____ast_WF_669__ [decoy-metadata]
+    f = __jcross_湧:1.0____ast_霾_59__ or ""
+
+    __jcross_霾:1.0____ast_霾_21__: __jcross_廊:1.0____ast_廊_3__[__jcross_霾:1.0____ast_霾_39__, __jcross_霾:1.0____ast_霾_13__] = {
+        "__jcross_霾:1.0____ast_霾_10__": __jcross_霾:1.0____ast_霾_13__("[]" in t or "□" in t or "[]" in f),
+        "__jcross_霾:1.0____ast_霾_11__": __jcross_霾:1.0____ast_霾_13__("<>" in t or "◇" in t or "<>" in f),
+        "__jcross_霾:1.0____ast_霾_24__": __jcross_霾:1.0____ast_霾_13__("->" in t or "→" in t or "->" in f),
+        "__jcross_霾:1.0____ast_霾_7__": __jcross_霾:1.0____ast_霾_13__("&" in t or "∧" in t or "&" in f),
+        "__jcross_霾:1.0____ast_霾_22__": __jcross_霾:1.0____ast_霾_13__("|" in t or "∨" in t or "|" in f),
+        "__jcross_霾:1.0____ast_霾_35__": __jcross_霾:1.0____ast_霾_13__("~" in t or "¬" in t or "~" in f),
+        "__jcross_格:1.0____ast_霾_14__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"[∀∃]|\\__jcross_湧:1.0____ast_霾_51__|\\__jcross_霾:1.0____ast_霾_38__", t))),
+        "__jcross_霾:1.0____ast_霾_49__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"(行列|__jcross_霾:1.0____ast_霾_41__|__jcross_霾:1.0____ast_霾_8__|対称|__jcross_霾:1.0____ast_霾_60__|__jcross_霾:1.0____ast_霾_34__|__jcross_霾:1.0____ast_霾_47__|__jcross_霾:1.0____ast_霾_40__)", t, re.I))),
+        "__jcross_霾:1.0____ast_霾_2__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"(次元|__jcross_霾:1.0____ast_霾_29__|__jcross_霾:1.0____ast_霾_3__)", t, re.I))),
+        "__jcross_霾:1.0____ast_霾_48__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"(群|__jcross_霾:1.0____ast_霾_9__|__jcross_霾:1.0____ast_霾_37__|__jcross_霾:1.0____ast_霾_27__|__jcross_霾:1.0____ast_霾_28__)", t, re.I))),
+        "__jcross_霾:1.0____ast_霾_30__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"(位相|__jcross_霾:1.0____ast_霾_16__|open __jcross_格:1.0____ast_彩_1__|__jcross_霾:1.0____ast_霾_20__|__jcross_霾:1.0____ast_霾_6__|連結)", t, re.I))),
+        "__jcross_霾:1.0____ast_霾_52__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"(P\\s*=\\s*NP|NP|__jcross_霾:1.0____ast_霾_32__|多項式|計算量)", t, re.I))),
+        "__jcross_霾:1.0____ast_霾_17__": __jcross_霾:1.0____ast_霾_13__(__jcross_霾:1.0____ast_霾_57__(re.__jcross_霾:1.0____ast_霾_43__(r"\d", t) __jcross_霾:1.0____ast_霾_33__ any(op in t for op in ["+", "-", "*", "/", "="]))),
+    }
+// __jcross_緞:0.8____ast_AW_108__ [decoy-metadata]
+
+    __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_5__"
+    if __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_10__"] or __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_11__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_53__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_格:1.0____ast_霾_14__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_55__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_49__"] or __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_2__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_23__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_48__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_56__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_30__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_16__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_52__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_44__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_17__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_42__"
+    __jcross_湧:1.0____ast_霾_54__ __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_24__"] or __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_7__"] or __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_22__"] or __jcross_霾:1.0____ast_霾_21__["__jcross_霾:1.0____ast_霾_35__"]:
+        __jcross_霾:1.0____ast_霾_61__ = "__jcross_霾:1.0____ast_霾_50__"
+
+    __jcross_霾:1.0____ast_霾_25__: __jcross_廊:1.0____ast_廊_4__[__jcross_霾:1.0____ast_霾_39__] = []
+    for k, v in __jcross_霾:1.0____ast_霾_21__.__jcross_霾:1.0____ast_霾_46__():
+        if v:
+            __jcross_霾:1.0____ast_霾_25__.__jcross_霾:1.0____ast_霾_1__(f"__jcross_霾:1.0____ast_霾_15__:{k}")
+// __jcross_廊:0.1____ast_GM_914__ [decoy-metadata]
+
+    return __jcross_廊:1.0____ast_廊_1__(__jcross_霾:1.0____ast_霾_61__=__jcross_霾:1.0____ast_霾_61__, __jcross_霾:1.0____ast_霾_21__=__jcross_霾:1.0____ast_霾_21__, __jcross_霾:1.0____ast_霾_25__=__jcross_霾:1.0____ast_霾_25__)
+// __jcross_廊:0.2____ast_MZ_106__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

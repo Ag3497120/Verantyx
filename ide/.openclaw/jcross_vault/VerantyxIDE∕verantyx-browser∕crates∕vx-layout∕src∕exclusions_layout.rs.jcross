@@ -1,0 +1,88 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:677C29B6 ver:1778150005
+// ⚠️ One-time schema — expires after response
+
+// __ast_匾:0.8___ID_YM_192_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_鍵:0.5___ID_BL_369_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_脈:0.6___ID_MM_631_ [decoy-metadata]
+
+__ast_粒:1.0___ID_粒_52_ __ast_粒:1.0___ID_粒_65_::__ast_粒:1.0___ID_粒_49_::__ast_廂:1.0___ID_廂_24_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_粒:1.0___ID_粒_54_ enum __ast_廂:1.0___ID_廂_9_ { __ast_廂:1.0___ID_廂_6_, __ast_廂:1.0___ID_廂_1_, __ast_廂:1.0___ID_廂_33_, __ast_廂:1.0___ID_廂_7_, __ast_廂:1.0___ID_廂_35_, __ast_廂:1.0___ID_廂_14_ }
+// __ast_型:0.2___ID_VG_175_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_粒:1.0___ID_粒_54_ enum __ast_廂:1.0___ID_廂_17_ { __ast_廂:1.0___ID_廂_19_, __ast_廂:1.0___ID_廂_26_ }
+
+// [metadata-stripped]
+__ast_粒:1.0___ID_粒_54_ struct __ast_廂:1.0___ID_廂_41_ {
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_80_: __ast_粒:1.0___ID_粒_29_,
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_32_: __ast_廂:1.0___ID_廂_9_,
+    __ast_粒:1.0___ID_粒_54_ x: __ast_粒:1.0___ID_粒_77_,
+    __ast_粒:1.0___ID_粒_54_ y: __ast_粒:1.0___ID_粒_77_,
+// __ast_廂:0.3___ID_ML_583_ [decoy-metadata]
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_26_: __ast_粒:1.0___ID_粒_77_,
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_34_: __ast_粒:1.0___ID_粒_77_,
+}
+
+// [metadata-stripped]
+__ast_粒:1.0___ID_粒_54_ struct __ast_廂:1.0___ID_廂_43_ {
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_20_: __ast_廂:1.0___ID_廂_24_<__ast_粒:1.0___ID_粒_29_, __ast_廂:1.0___ID_廂_41_>,
+// __ast_廂:0.9___ID_HG_366_ [decoy-metadata]
+    __ast_粒:1.0___ID_粒_54_ __ast_粒:1.0___ID_粒_69_: __ast_廂:1.0___ID_廂_24_<__ast_粒:1.0___ID_粒_29_, __ast_廂:1.0___ID_廂_17_>,
+}
+
+__ast_粒:1.0___ID_粒_57_ __ast_廂:1.0___ID_廂_43_ {
+    __ast_粒:1.0___ID_粒_54_ fn __ast_粒:1.0___ID_粒_12_() -> __ast_廂:1.0___ID_廂_30_ {
+        __ast_廂:1.0___ID_廂_30_ {
+            __ast_粒:1.0___ID_粒_20_: __ast_廂:1.0___ID_廂_24_::__ast_粒:1.0___ID_粒_12_(),
+            __ast_粒:1.0___ID_粒_69_: __ast_廂:1.0___ID_廂_24_::__ast_粒:1.0___ID_粒_12_(),
+        }
+    }
+
+// [metadata-stripped]
+    __ast_粒:1.0___ID_粒_54_ fn __ast_型:1.0___ID_煌_1_(&self, y: __ast_粒:1.0___ID_粒_77_, __ast_粒:1.0___ID_粒_3_: __ast_粒:1.0___ID_粒_77_) -> __ast_廂:1.0___ID_廂_44_<(__ast_粒:1.0___ID_粒_77_, __ast_粒:1.0___ID_粒_77_)> {
+        let __ast_粒:1.0___ID_粒_1_ __ast_粒:1.0___ID_粒_19_ = __ast_粒:1.0___ID_粒_86_![(0.0, __ast_粒:1.0___ID_粒_3_)];
+        
+        for ex in self.__ast_粒:1.0___ID_粒_20_.__ast_粒:1.0___ID_粒_9_() {
+            if y >= ex.y && y < ex.y + ex.__ast_粒:1.0___ID_粒_34_ {
+// [metadata-stripped]
+                __ast_粒:1.0___ID_粒_43_ ex.__ast_粒:1.0___ID_粒_32_ {
+                    __ast_廂:1.0___ID_廂_9_::__ast_廂:1.0___ID_廂_1_ => {
+// [metadata-stripped]
+                    }
+                    __ast_廂:1.0___ID_廂_9_::__ast_廂:1.0___ID_廂_33_ => {
+// [metadata-stripped]
+                    }
+                    _ => {}
+                }
+            }
+        }
+        __ast_粒:1.0___ID_粒_19_
+    }
+
+// [metadata-stripped]
+    __ast_粒:1.0___ID_粒_54_ fn __ast_粒:1.0___ID_粒_15_(&self) -> __ast_廂:1.0___ID_廂_36_ {
+        let __ast_粒:1.0___ID_粒_1_ __ast_粒:1.0___ID_粒_66_ = __ast_粒:1.0___ID_粒_86_![__ast_脈:1.0___ID_粒_2_!("🚧 __ast_廂:1.0___ID_廂_18_ __ast_廂:1.0___ID_廂_27_ __ast_廂:1.0___ID_廂_40_ (__ast_廂:1.0___ID_廂_5_: {}):", self.__ast_粒:1.0___ID_粒_20_.__ast_粒:1.0___ID_粒_21_())];
+        for (id, ex) in &self.__ast_粒:1.0___ID_粒_20_ {
+            __ast_粒:1.0___ID_粒_66_.__ast_粒:1.0___ID_粒_27_(__ast_脈:1.0___ID_粒_2_!("  - __ast_廂:1.0___ID_廂_37_ #{}: (x:{:.1}, y:{:.1}, w:{:.1}, h:{:.1}) [__ast_廂:1.0___ID_廂_31_: {:?}]", 
+                id, ex.x, ex.y, ex.__ast_粒:1.0___ID_粒_26_, ex.__ast_粒:1.0___ID_粒_34_, ex.__ast_粒:1.0___ID_粒_32_));
+        }
+        __ast_粒:1.0___ID_粒_66_.__ast_粒:1.0___ID_粒_28_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

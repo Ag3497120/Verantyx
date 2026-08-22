@@ -1,0 +1,110 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D8BF765E ver:1778158861
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_靄:1.0___node_靄_50__ _TOKEN_靄:1.0___node_靄_58__::_TOKEN_靄:1.0___node_靄_48__::_TOKEN_礎:1.0___node_礎_34__;
+_TOKEN_靄:1.0___node_靄_50__ _TOKEN_靄:1.0___node_靄_58__::_TOKEN_靄:1.0___node_靄_9__::_TOKEN_礎:1.0___node_礎_44__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_靄:1.0___node_靄_51__ enum _TOKEN_礎:1.0___node_礎_28__ { _TOKEN_礎:1.0___node_礎_23__ = 1, _TOKEN_礎:1.0___node_礎_35__ = 2, _TOKEN_礎:1.0___node_礎_6__ = 3 }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_靄:1.0___node_靄_51__ struct _TOKEN_礎:1.0___node_礎_13__ {
+    _TOKEN_靄:1.0___node_靄_51__ id: _TOKEN_靄:1.0___node_靄_31__,
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_84__: _TOKEN_礎:1.0___node_礎_28__,
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_59__: _TOKEN_靄:1.0___node_靄_31__,
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_32__: _TOKEN_靄:1.0___node_靄_78__,
+}
+
+// [metadata-stripped]
+// _TOKEN_礎:0.2___node_XX_328__ [decoy-metadata]
+_TOKEN_靄:1.0___node_靄_53__ _TOKEN_礎:1.0___node_礎_24__ for _TOKEN_礎:1.0___node_礎_13__ {
+    fn eq(&self, _TOKEN_図:1.0___node_靄_46__: &_TOKEN_礎:1.0___node_礎_30__) -> _TOKEN_靄:1.0___node_靄_78__ { self.id == _TOKEN_図:1.0___node_靄_46__.id }
+}
+_TOKEN_靄:1.0___node_靄_53__ Eq for _TOKEN_礎:1.0___node_礎_13__ {}
+_TOKEN_靄:1.0___node_靄_53__ _TOKEN_礎:1.0___node_礎_45__ for _TOKEN_礎:1.0___node_礎_13__ {
+    fn _TOKEN_靄:1.0___node_靄_10__(&self, _TOKEN_図:1.0___node_靄_46__: &_TOKEN_礎:1.0___node_礎_30__) -> _TOKEN_礎:1.0___node_礎_32__<_TOKEN_礎:1.0___node_礎_44__> { _TOKEN_礎:1.0___node_礎_25__(self._TOKEN_靄:1.0___node_靄_9__(_TOKEN_図:1.0___node_靄_46__)) }
+// _TOKEN_図:0.1___node_AW_260__ [decoy-metadata]
+}
+_TOKEN_靄:1.0___node_靄_53__ _TOKEN_礎:1.0___node_礎_51__ for _TOKEN_礎:1.0___node_礎_13__ {
+    fn _TOKEN_靄:1.0___node_靄_9__(&self, _TOKEN_図:1.0___node_靄_46__: &_TOKEN_礎:1.0___node_礎_30__) -> _TOKEN_礎:1.0___node_礎_44__ {
+// [metadata-stripped]
+// _TOKEN_靄:0.7___node_DC_207__ [decoy-metadata]
+        self._TOKEN_靄:1.0___node_靄_84__._TOKEN_靄:1.0___node_靄_9__(&_TOKEN_図:1.0___node_靄_46__._TOKEN_靄:1.0___node_靄_84__)._TOKEN_靄:1.0___node_靄_64__(|| _TOKEN_図:1.0___node_靄_46__.id._TOKEN_靄:1.0___node_靄_9__(&self.id))
+    }
+}
+
+// [metadata-stripped]
+_TOKEN_靄:1.0___node_靄_51__ struct _TOKEN_礎:1.0___node_礎_12__ {
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_68__: _TOKEN_礎:1.0___node_礎_34__<_TOKEN_礎:1.0___node_礎_13__>,
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_77__: _TOKEN_靄:1.0___node_靄_31__,
+    _TOKEN_靄:1.0___node_靄_51__ _TOKEN_靄:1.0___node_靄_61__: _TOKEN_礎:1.0___node_礎_47__<(_TOKEN_靄:1.0___node_靄_31__, _TOKEN_礎:1.0___node_礎_28__)>, // _TOKEN_礎:1.0___node_礎_22__ _TOKEN_靄:1.0___node_靄_63__ _TOKEN_靄:1.0___node_靄_5__ for UI
+}
+
+_TOKEN_靄:1.0___node_靄_53__ _TOKEN_礎:1.0___node_礎_12__ {
+    _TOKEN_靄:1.0___node_靄_51__ fn _TOKEN_靄:1.0___node_靄_17__() -> _TOKEN_礎:1.0___node_礎_30__ {
+        _TOKEN_礎:1.0___node_礎_30__ {
+            _TOKEN_靄:1.0___node_靄_68__: _TOKEN_礎:1.0___node_礎_34__::_TOKEN_靄:1.0___node_靄_17__(),
+            _TOKEN_靄:1.0___node_靄_77__: 1,
+            _TOKEN_靄:1.0___node_靄_61__: _TOKEN_礎:1.0___node_礎_47__::_TOKEN_靄:1.0___node_靄_17__(),
+        }
+    }
+
+// _TOKEN_図:0.8___node_YX_447__ [decoy-metadata]
+// [metadata-stripped]
+    _TOKEN_靄:1.0___node_靄_51__ fn _TOKEN_靄:1.0___node_靄_91__(&_TOKEN_靄:1.0___node_靄_1__ self, _TOKEN_靄:1.0___node_靄_84__: _TOKEN_礎:1.0___node_礎_28__, _TOKEN_靄:1.0___node_靄_59__: _TOKEN_靄:1.0___node_靄_31__) -> _TOKEN_靄:1.0___node_靄_31__ {
+        let id = self._TOKEN_靄:1.0___node_靄_77__;
+        let _TOKEN_靄:1.0___node_靄_86__ = _TOKEN_礎:1.0___node_礎_13__ {
+            id,
+            _TOKEN_靄:1.0___node_靄_84__,
+            _TOKEN_靄:1.0___node_靄_59__,
+            _TOKEN_靄:1.0___node_靄_32__: false,
+        };
+        self._TOKEN_靄:1.0___node_靄_77__ += 1;
+        self._TOKEN_靄:1.0___node_靄_68__._TOKEN_靄:1.0___node_靄_26__(_TOKEN_靄:1.0___node_靄_86__);
+        id
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0___node_靄_51__ fn _TOKEN_靄:1.0___node_靄_72__(&_TOKEN_靄:1.0___node_靄_1__ self, _TOKEN_靄:1.0___node_靄_85__: _TOKEN_靄:1.0___node_靄_31__, _TOKEN_靄:1.0___node_靄_36__: _TOKEN_礎:1.0___node_礎_28__) {
+// [metadata-stripped]
+        let _TOKEN_靄:1.0___node_靄_1__ _TOKEN_靄:1.0___node_靄_81__: _TOKEN_礎:1.0___node_礎_47__<_TOKEN_礎:1.0___node_礎_13__> = self._TOKEN_靄:1.0___node_靄_68__._TOKEN_靄:1.0___node_靄_62__()._TOKEN_靄:1.0___node_靄_65__();
+        for _TOKEN_靄:1.0___node_靄_86__ in &_TOKEN_靄:1.0___node_靄_1__ _TOKEN_靄:1.0___node_靄_81__ {
+            if _TOKEN_靄:1.0___node_靄_86__.id == _TOKEN_靄:1.0___node_靄_85__ {
+                _TOKEN_靄:1.0___node_靄_86__._TOKEN_靄:1.0___node_靄_84__ = _TOKEN_靄:1.0___node_靄_36__;
+            }
+        }
+        self._TOKEN_靄:1.0___node_靄_68__ = _TOKEN_礎:1.0___node_礎_34__::_TOKEN_靄:1.0___node_靄_67__(_TOKEN_靄:1.0___node_靄_81__);
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0___node_靄_51__ fn _TOKEN_靄:1.0___node_靄_74__(&self) -> _TOKEN_礎:1.0___node_礎_39__ {
+        let _TOKEN_靄:1.0___node_靄_1__ _TOKEN_靄:1.0___node_靄_56__ = [0, 0, 0]; // bg, _TOKEN_靄:1.0___node_靄_16__, _TOKEN_靄:1.0___node_靄_14__
+// _TOKEN_匵:0.8___node_XV_326__ [decoy-metadata]
+        for t in &self._TOKEN_靄:1.0___node_靄_68__ {
+            _TOKEN_靄:1.0___node_靄_41__ t._TOKEN_靄:1.0___node_靄_84__ {
+                _TOKEN_礎:1.0___node_礎_28__::_TOKEN_礎:1.0___node_礎_23__ => _TOKEN_靄:1.0___node_靄_56__[0] += 1,
+                _TOKEN_礎:1.0___node_礎_28__::_TOKEN_礎:1.0___node_礎_35__ => _TOKEN_靄:1.0___node_靄_56__[1] += 1,
+                _TOKEN_礎:1.0___node_礎_28__::_TOKEN_礎:1.0___node_礎_6__ => _TOKEN_靄:1.0___node_靄_56__[2] += 1,
+            }
+        }
+        
+        _TOKEN_滾:1.0___node_靄_6__!("⏱️ _TOKEN_礎:1.0___node_礎_1__ _TOKEN_図:1.0___node_礎_52__ (_TOKEN_礎:1.0___node_礎_19__: {}): _TOKEN_礎:1.0___node_礎_49__: {}, _TOKEN_礎:1.0___node_礎_38__: {}, _TOKEN_礎:1.0___node_礎_23__: {}", 
+            self._TOKEN_靄:1.0___node_靄_68__._TOKEN_靄:1.0___node_靄_23__(), _TOKEN_靄:1.0___node_靄_56__[2], _TOKEN_靄:1.0___node_靄_56__[1], _TOKEN_靄:1.0___node_靄_56__[0])
+    }
+// _TOKEN_図:0.6___node_VD_406__ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

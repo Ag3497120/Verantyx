@@ -1,0 +1,149 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:59116F82 ver:1778149893
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_礎:0.9__SYM_XX_960_ [decoy-metadata]
+
+// [metadata-stripped]
+_VERANTYX_塵:1.0__SYM_塵_5_ fn _VERANTYX_鍵:1.0__SYM_塵_52_(_VERANTYX_塵:1.0__SYM_塵_51_: &_VERANTYX_塵:1.0__SYM_塵_37_) -> _VERANTYX_庖:1.0__SYM_庖_34_<_VERANTYX_鍵:1.0__SYM_庖_4_> {
+    let _VERANTYX_塵:1.0__SYM_塵_39_ _VERANTYX_鍵:1.0__SYM_塵_6_ = _VERANTYX_庖:1.0__SYM_庖_34_::_VERANTYX_塵:1.0__SYM_塵_27_();
+    let _VERANTYX_塵:1.0__SYM_塵_39_ _VERANTYX_塵:1.0__SYM_塵_34_ = 0;
+    let _VERANTYX_塵:1.0__SYM_塵_11_ = _VERANTYX_塵:1.0__SYM_塵_51_._VERANTYX_塵:1.0__SYM_塵_18_();
+
+    while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() {
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_14_() {
+            let _VERANTYX_塵:1.0__SYM_塵_35_ = _VERANTYX_塵:1.0__SYM_塵_34_;
+            while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_14_() { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_8_);
+            continue;
+        }
+
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_34_..]._VERANTYX_塵:1.0__SYM_塵_22_("/*") {
+            if let _VERANTYX_庖:1.0__SYM_庖_23_(_VERANTYX_塵:1.0__SYM_塵_53_) = _VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_34_+2..]._VERANTYX_塵:1.0__SYM_塵_38_("*/") {
+                let _VERANTYX_塵:1.0__SYM_塵_46_ = &_VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_34_+2.._VERANTYX_塵:1.0__SYM_塵_34_+2+_VERANTYX_塵:1.0__SYM_塵_53_];
+                _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_39_(_VERANTYX_塵:1.0__SYM_塵_46_._VERANTYX_塵:1.0__SYM_塵_60_()));
+                _VERANTYX_塵:1.0__SYM_塵_34_ += _VERANTYX_塵:1.0__SYM_塵_53_ + 4;
+                continue;
+            }
+            break;
+        }
+
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'"' || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'\'' {
+            let _VERANTYX_塵:1.0__SYM_塵_12_ = _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] as _VERANTYX_塵:1.0__SYM_塵_2_;
+            _VERANTYX_塵:1.0__SYM_塵_34_ += 1;
+            let _VERANTYX_塵:1.0__SYM_塵_35_ = _VERANTYX_塵:1.0__SYM_塵_34_;
+            while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] as _VERANTYX_塵:1.0__SYM_塵_2_ != _VERANTYX_塵:1.0__SYM_塵_12_ { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_7_(_VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_35_.._VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_60_()));
+            _VERANTYX_塵:1.0__SYM_塵_34_ += 1;
+            continue;
+        }
+
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_26_() || (_VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'-' && _VERANTYX_塵:1.0__SYM_塵_34_ + 1 < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_+1]._VERANTYX_塵:1.0__SYM_塵_26_()) {
+            let _VERANTYX_塵:1.0__SYM_塵_35_ = _VERANTYX_塵:1.0__SYM_塵_34_;
+            if _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'-' { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && (_VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_26_() || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'.') { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            let _VERANTYX_塵:1.0__SYM_塵_59_ = &_VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_35_.._VERANTYX_塵:1.0__SYM_塵_34_];
+// [metadata-stripped]
+            let _VERANTYX_塵:1.0__SYM_塵_13_ = _VERANTYX_塵:1.0__SYM_塵_34_;
+            while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && (_VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_24_() || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'%') { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            let _VERANTYX_塵:1.0__SYM_塵_44_ = &_VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_13_.._VERANTYX_塵:1.0__SYM_塵_34_];
+            _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_13_(_VERANTYX_塵:1.0__SYM_塵_59_._VERANTYX_塵:1.0__SYM_塵_10_()._VERANTYX_塵:1.0__SYM_塵_19_(0.0), _VERANTYX_塵:1.0__SYM_塵_44_._VERANTYX_塵:1.0__SYM_塵_60_()));
+            continue;
+        }
+
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_24_() || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'-' || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'_' {
+            let _VERANTYX_塵:1.0__SYM_塵_35_ = _VERANTYX_塵:1.0__SYM_塵_34_;
+            while _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && (_VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_]._VERANTYX_塵:1.0__SYM_塵_54_() || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'-' || _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'_') { _VERANTYX_塵:1.0__SYM_塵_34_ += 1; }
+            let _VERANTYX_塵:1.0__SYM_塵_30_ = &_VERANTYX_塵:1.0__SYM_塵_51_[_VERANTYX_塵:1.0__SYM_塵_35_.._VERANTYX_塵:1.0__SYM_塵_34_];
+            if _VERANTYX_塵:1.0__SYM_塵_34_ < _VERANTYX_塵:1.0__SYM_塵_11_._VERANTYX_塵:1.0__SYM_塵_50_() && _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] == b'(' {
+                _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_27_(_VERANTYX_塵:1.0__SYM_塵_30_._VERANTYX_塵:1.0__SYM_塵_60_()));
+                _VERANTYX_塵:1.0__SYM_塵_34_ += 1;
+// _VERANTYX_庖:0.3__SYM_GC_512_ [decoy-metadata]
+            } else {
+                _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_38_(_VERANTYX_塵:1.0__SYM_塵_30_._VERANTYX_塵:1.0__SYM_塵_60_()));
+            }
+            continue;
+        }
+
+// [metadata-stripped]
+        _VERANTYX_塵:1.0__SYM_塵_40_ _VERANTYX_塵:1.0__SYM_塵_11_[_VERANTYX_塵:1.0__SYM_塵_34_] {
+            b'{' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_12_),
+            b'}' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_5_),
+            b'(' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_37_),
+            b')' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_21_),
+            b'[' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_14_),
+            b']' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_3_),
+            b':' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_40_),
+            b';' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_20_),
+            b',' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_17_),
+            b'.' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_22_),
+            b'#' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_10_),
+            b'@' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::At),
+            b'!' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_25_),
+// _VERANTYX_鍵:0.5__SYM_EL_767_ [decoy-metadata]
+            b'*' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_2_),
+            b'>' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_法:1.0__SYM_庖_16_),
+            b'+' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_24_),
+            b'~' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_26_),
+// _VERANTYX_塵:0.6__SYM_ZV_871_ [decoy-metadata]
+            b'|' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_6_),
+            b'/' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_19_),
+            b'%' => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_33_),
+            _VERANTYX_法:1.0__SYM_塵_56_ => _VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_塵:1.0__SYM_塵_8_(_VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_11_(_VERANTYX_法:1.0__SYM_塵_56_ as _VERANTYX_塵:1.0__SYM_塵_2_)),
+        }
+        _VERANTYX_塵:1.0__SYM_塵_34_ += 1;
+    }
+
+    _VERANTYX_鍵:1.0__SYM_塵_6_
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_塵:1.0__SYM_塵_5_ enum _VERANTYX_鍵:1.0__SYM_庖_4_ {
+    _VERANTYX_庖:1.0__SYM_庖_38_(_VERANTYX_庖:1.0__SYM_庖_7_),
+    _VERANTYX_庖:1.0__SYM_庖_27_(_VERANTYX_庖:1.0__SYM_庖_7_),
+    _VERANTYX_庖:1.0__SYM_庖_7_(_VERANTYX_庖:1.0__SYM_庖_7_),
+    _VERANTYX_庖:1.0__SYM_庖_13_(_VERANTYX_塵:1.0__SYM_塵_45_, _VERANTYX_庖:1.0__SYM_庖_7_),
+    _VERANTYX_法:1.0__SYM_庖_18_(_VERANTYX_塵:1.0__SYM_塵_45_),
+    _VERANTYX_庖:1.0__SYM_庖_15_(_VERANTYX_塵:1.0__SYM_塵_45_),
+    _VERANTYX_庖:1.0__SYM_庖_39_(_VERANTYX_庖:1.0__SYM_庖_7_),
+    _VERANTYX_庖:1.0__SYM_庖_8_,
+    _VERANTYX_庖:1.0__SYM_庖_12_, _VERANTYX_庖:1.0__SYM_庖_5_,
+    _VERANTYX_庖:1.0__SYM_庖_37_, _VERANTYX_庖:1.0__SYM_庖_21_,
+    _VERANTYX_庖:1.0__SYM_庖_14_, _VERANTYX_庖:1.0__SYM_庖_3_,
+    _VERANTYX_庖:1.0__SYM_庖_40_, _VERANTYX_庖:1.0__SYM_庖_20_, _VERANTYX_庖:1.0__SYM_庖_17_,
+    _VERANTYX_庖:1.0__SYM_庖_22_, _VERANTYX_庖:1.0__SYM_庖_10_, At, _VERANTYX_庖:1.0__SYM_庖_25_,
+    _VERANTYX_庖:1.0__SYM_庖_2_, _VERANTYX_法:1.0__SYM_庖_16_, _VERANTYX_庖:1.0__SYM_庖_24_, _VERANTYX_庖:1.0__SYM_庖_26_, _VERANTYX_庖:1.0__SYM_庖_6_, _VERANTYX_庖:1.0__SYM_庖_19_, _VERANTYX_庖:1.0__SYM_庖_33_,
+    _VERANTYX_庖:1.0__SYM_庖_11_(_VERANTYX_塵:1.0__SYM_塵_2_),
+    _VERANTYX_庖:1.0__SYM_庖_42_,
+}
+
+// [metadata-stripped]
+_VERANTYX_塵:1.0__SYM_塵_23_ _VERANTYX_塵:1.0__SYM_塵_15_ {
+    _VERANTYX_塵:1.0__SYM_塵_49_ super::*;
+// _VERANTYX_塵:0.1__SYM_BZ_626_ [decoy-metadata]
+
+// [metadata-stripped]
+    fn _VERANTYX_鍵:1.0__SYM_塵_58_() {
+        let _VERANTYX_鍵:1.0__SYM_塵_6_ = _VERANTYX_鍵:1.0__SYM_塵_52_("_VERANTYX_塵:1.0__SYM_塵_41_ { _VERANTYX_塵:1.0__SYM_塵_1_: _VERANTYX_塵:1.0__SYM_塵_29_; }");
+        _VERANTYX_塵:1.0__SYM_塵_42_!(_VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_法:1.0__SYM_塵_28_().any(|t| _VERANTYX_塵:1.0__SYM_塵_20_!(t, _VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_38_(s) if s == "_VERANTYX_塵:1.0__SYM_塵_41_")));
+// _VERANTYX_泡:0.1__SYM_KE_957_ [decoy-metadata]
+        _VERANTYX_塵:1.0__SYM_塵_42_!(_VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_法:1.0__SYM_塵_28_().any(|t| _VERANTYX_塵:1.0__SYM_塵_20_!(t, _VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_12_)));
+        _VERANTYX_塵:1.0__SYM_塵_42_!(_VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_法:1.0__SYM_塵_28_().any(|t| _VERANTYX_塵:1.0__SYM_塵_20_!(t, _VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_38_(s) if s == "_VERANTYX_塵:1.0__SYM_塵_1_")));
+    }
+
+// [metadata-stripped]
+    fn _VERANTYX_鍵:1.0__SYM_塵_7_() {
+        let _VERANTYX_鍵:1.0__SYM_塵_6_ = _VERANTYX_鍵:1.0__SYM_塵_52_("16px");
+        _VERANTYX_塵:1.0__SYM_塵_42_!(_VERANTYX_鍵:1.0__SYM_塵_6_._VERANTYX_法:1.0__SYM_塵_28_().any(|t| _VERANTYX_塵:1.0__SYM_塵_20_!(t, _VERANTYX_鍵:1.0__SYM_庖_4_::_VERANTYX_庖:1.0__SYM_庖_13_(16.0, s) if s == "px")));
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

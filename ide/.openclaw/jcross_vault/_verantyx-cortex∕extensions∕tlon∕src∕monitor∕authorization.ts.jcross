@@ -1,0 +1,42 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0D755B11 ver:1778166605
+// ⚠️ One-time schema — expires after response
+
+import _SYM_泡:1.0__VERANTYX_泡_16_ { _SYM_廟:1.0__VERANTYX_廟_3_ } _SYM_泡:1.0__VERANTYX_泡_13_ "../../_SYM_紗:1.0__VERANTYX_泡_14_.js";
+// _SYM_紗:0.9__VERANTYX_BW_635_ [decoy-metadata]
+// _SYM_廟:0.1__VERANTYX_GL_417_ [decoy-metadata]
+import _SYM_泡:1.0__VERANTYX_泡_16_ { _SYM_廟:1.0__VERANTYX_廟_4_ } _SYM_泡:1.0__VERANTYX_泡_13_ "../_SYM_要:1.0__VERANTYX_嵐_2_.js";
+// _SYM_沈:0.2__VERANTYX_XY_840_ [decoy-metadata]
+
+_SYM_泡:1.0__VERANTYX_泡_16_ _SYM_廟:1.0__VERANTYX_廟_1_ = {
+  _SYM_泡:1.0__VERANTYX_泡_20_?: "_SYM_泡:1.0__VERANTYX_泡_10_" | "open";
+  _SYM_泡:1.0__VERANTYX_泡_1_?: _SYM_泡:1.0__VERANTYX_泡_9_[];
+};
+
+_SYM_泡:1.0__VERANTYX_泡_22_ _SYM_泡:1.0__VERANTYX_泡_23_ _SYM_泡:1.0__VERANTYX_泡_7_(
+  _SYM_泡:1.0__VERANTYX_泡_15_: _SYM_廟:1.0__VERANTYX_廟_3_,
+  _SYM_泡:1.0__VERANTYX_泡_18_: _SYM_泡:1.0__VERANTYX_泡_9_,
+// _SYM_紗:0.7__VERANTYX_HK_203_ [decoy-metadata]
+  _SYM_要:1.0__VERANTYX_嵐_2_?: _SYM_廟:1.0__VERANTYX_廟_4_,
+): { _SYM_泡:1.0__VERANTYX_泡_20_: "_SYM_泡:1.0__VERANTYX_泡_10_" | "open"; _SYM_泡:1.0__VERANTYX_泡_1_: _SYM_泡:1.0__VERANTYX_泡_9_[] } {
+  _SYM_泡:1.0__VERANTYX_泡_17_ _SYM_泡:1.0__VERANTYX_泡_5_ = _SYM_泡:1.0__VERANTYX_泡_15_._SYM_泡:1.0__VERANTYX_泡_6_?._SYM_泡:1.0__VERANTYX_泡_4_ as
+    | {
+        _SYM_泡:1.0__VERANTYX_泡_12_?: { _SYM_泡:1.0__VERANTYX_泡_3_?: _SYM_廟:1.0__VERANTYX_廟_2_<_SYM_泡:1.0__VERANTYX_泡_9_, _SYM_廟:1.0__VERANTYX_廟_1_> };
+        _SYM_泡:1.0__VERANTYX_泡_21_?: _SYM_泡:1.0__VERANTYX_泡_9_[];
+      }
+// _SYM_紗:0.5__VERANTYX_ZV_712_ [decoy-metadata]
+    | _SYM_泡:1.0__VERANTYX_泡_8_;
+
+  _SYM_泡:1.0__VERANTYX_泡_17_ _SYM_匴:1.0__VERANTYX_泡_19_ = _SYM_泡:1.0__VERANTYX_泡_5_?._SYM_泡:1.0__VERANTYX_泡_12_?._SYM_泡:1.0__VERANTYX_泡_3_ ?? {};
+  _SYM_泡:1.0__VERANTYX_泡_17_ _SYM_要:1.0__VERANTYX_嵐_1_ = _SYM_要:1.0__VERANTYX_嵐_2_?._SYM_泡:1.0__VERANTYX_泡_3_ ?? {};
+  _SYM_泡:1.0__VERANTYX_泡_17_ _SYM_泡:1.0__VERANTYX_泡_11_ = _SYM_要:1.0__VERANTYX_嵐_1_[_SYM_泡:1.0__VERANTYX_泡_18_] ?? _SYM_匴:1.0__VERANTYX_泡_19_[_SYM_泡:1.0__VERANTYX_泡_18_];
+  _SYM_泡:1.0__VERANTYX_泡_17_ _SYM_泡:1.0__VERANTYX_泡_2_ = _SYM_要:1.0__VERANTYX_嵐_2_?._SYM_泡:1.0__VERANTYX_泡_21_ ?? _SYM_泡:1.0__VERANTYX_泡_5_?._SYM_泡:1.0__VERANTYX_泡_21_ ?? [];
+
+  return {
+    _SYM_泡:1.0__VERANTYX_泡_20_: _SYM_泡:1.0__VERANTYX_泡_11_?._SYM_泡:1.0__VERANTYX_泡_20_ ?? "_SYM_泡:1.0__VERANTYX_泡_10_",
+    _SYM_泡:1.0__VERANTYX_泡_1_: _SYM_泡:1.0__VERANTYX_泡_11_?._SYM_泡:1.0__VERANTYX_泡_1_ ?? _SYM_泡:1.0__VERANTYX_泡_2_,
+  };
+}
+// _SYM_潤:0.7__VERANTYX_MM_177_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

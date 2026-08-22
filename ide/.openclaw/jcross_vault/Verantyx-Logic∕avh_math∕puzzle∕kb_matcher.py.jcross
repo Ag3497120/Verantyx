@@ -1,0 +1,165 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4FDAEF05 ver:1778159742
+// ⚠️ One-time schema — expires after response
+
+import __jcross_露:1.0____ast_露_2__
+__jcross_露:1.0____ast_露_72__ __jcross_露:1.0____ast_露_49__ import __jcross_廱:1.0____ast_廱_17__
+__jcross_露:1.0____ast_露_72__ __jcross_露:1.0____ast_露_21__ import __jcross_廱:1.0____ast_廱_6__, __jcross_廱:1.0____ast_廱_14__, __jcross_廱:1.0____ast_廱_20__, __jcross_廱:1.0____ast_廱_9__
+__jcross_露:1.0____ast_露_72__ __jcross_露:1.0____ast_露_41__.__jcross_露:1.0____ast_露_41__.__jcross_露:1.0____ast_露_71__.__jcross_露:1.0____ast_露_55__ import __jcross_廱:1.0____ast_廱_10__
+
+__jcross_露:1.0____ast_露_15__ __jcross_露:1.0____ast_露_19__(f1: __jcross_露:1.0____ast_露_28__, f2: __jcross_露:1.0____ast_露_28__) -> __jcross_露:1.0____ast_露_82__:
+// __jcross_露:0.2____ast_EE_464__ [decoy-metadata]
+    """
+    2つの論理式の構造が一致するかを判定する。
+    ここでは空白や括弧の揺れを排除した完全一致を基本とする。
+    """
+    __jcross_露:1.0____ast_露_15__ __jcross_露:1.0____ast_露_11__(s):
+        return s.__jcross_露:1.0____ast_露_4__(" ", "").__jcross_露:1.0____ast_露_4__("→", "->").__jcross_露:1.0____ast_露_4__("□", "[]").__jcross_露:1.0____ast_露_4__("◇", "<>")
+
+    return __jcross_露:1.0____ast_露_11__(f1) == __jcross_露:1.0____ast_露_11__(f2)
+
+__jcross_露:1.0____ast_露_15__ __jcross_露:1.0____ast_露_37__(__jcross_露:1.0____ast_露_79__: __jcross_廱:1.0____ast_廱_14__[__jcross_露:1.0____ast_露_28__, __jcross_廱:1.0____ast_廱_20__], __jcross_露:1.0____ast_露_55__: __jcross_廱:1.0____ast_廱_10__) -> __jcross_露:1.0____ast_露_82__:
+    """
+    このKBエントリが現在の問いの意図（__jcross_露:1.0____ast_露_55__）に適用可能か判定する。
+    適用可能リスト（__jcross_露:1.0____ast_露_74__）がない場合は、後方互換性のため許可する。
+    """
+    __jcross_露:1.0____ast_露_58__ = __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_74__")
+    if __jcross_露:1.0____ast_露_63__ __jcross_露:1.0____ast_露_58__:
+        return __jcross_廱:1.0____ast_廱_21__
+    
+// [metadata-stripped]
+    return __jcross_露:1.0____ast_露_55__.__jcross_露:1.0____ast_露_9__ in __jcross_露:1.0____ast_露_58__
+
+class __jcross_謀:1.0____ast_廱_2__:
+    __jcross_露:1.0____ast_露_15__ __jcross_露:1.0____ast_露_44__(self, __jcross_露:1.0____ast_露_89__: __jcross_露:1.0____ast_露_28__):
+        self.__jcross_露:1.0____ast_露_89__ = __jcross_廱:1.0____ast_廱_17__(__jcross_露:1.0____ast_露_89__)
+        self.__jcross_露:1.0____ast_露_61__: __jcross_廱:1.0____ast_廱_6__[__jcross_廱:1.0____ast_廱_14__[__jcross_露:1.0____ast_露_28__, __jcross_廱:1.0____ast_廱_20__]] = []
+        self.__jcross_蔵:1.0____ast_露_46__()
+
+    __jcross_露:1.0____ast_露_15__ __jcross_蔵:1.0____ast_露_36__(self):
+// [metadata-stripped]
+        if __jcross_露:1.0____ast_露_63__ self.__jcross_露:1.0____ast_露_89__.__jcross_露:1.0____ast_露_22__():
+            return
+        __jcross_露:1.0____ast_露_68__ self.__jcross_露:1.0____ast_露_89__.open("r", __jcross_露:1.0____ast_露_67__="__jcross_露:1.0____ast_露_75__-8") as f:
+            for __jcross_露:1.0____ast_露_16__ in f:
+                try:
+                    __jcross_露:1.0____ast_露_26__ = __jcross_露:1.0____ast_露_2__.__jcross_蔵:1.0____ast_露_43__(__jcross_露:1.0____ast_露_16__)
+                    if __jcross_露:1.0____ast_露_26__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_81__") in ("__jcross_露:1.0____ast_露_8__", "__jcross_露:1.0____ast_露_42__", "__jcross_露:1.0____ast_露_38__"):
+                        self.__jcross_露:1.0____ast_露_61__.__jcross_露:1.0____ast_露_5__(__jcross_露:1.0____ast_露_26__)
+                __jcross_露:1.0____ast_露_69__:
+                    continue
+
+// [metadata-stripped]
+        __jcross_露:1.0____ast_露_65__ = self.__jcross_露:1.0____ast_露_89__.__jcross_露:1.0____ast_露_80__ / "__jcross_露:1.0____ast_露_78__.__jcross_露:1.0____ast_露_25__"
+        if __jcross_露:1.0____ast_露_65__.__jcross_露:1.0____ast_露_22__():
+            __jcross_露:1.0____ast_露_68__ __jcross_露:1.0____ast_露_65__.open("r", __jcross_露:1.0____ast_露_67__="__jcross_露:1.0____ast_露_75__-8") as f:
+                for __jcross_露:1.0____ast_露_16__ in f:
+                    try:
+                        __jcross_露:1.0____ast_露_26__ = __jcross_露:1.0____ast_露_2__.__jcross_蔵:1.0____ast_露_43__(__jcross_露:1.0____ast_露_16__)
+// [metadata-stripped]
+                        if __jcross_露:1.0____ast_露_26__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_81__") in ("__jcross_露:1.0____ast_露_8__", "__jcross_露:1.0____ast_露_42__", "__jcross_露:1.0____ast_露_38__", "__jcross_露:1.0____ast_露_45__", "__jcross_露:1.0____ast_露_56__", "__jcross_露:1.0____ast_露_77__"):
+                            self.__jcross_露:1.0____ast_露_61__.__jcross_露:1.0____ast_露_5__(__jcross_露:1.0____ast_露_26__)
+                    __jcross_露:1.0____ast_露_69__:
+// __jcross_謀:0.4____ast_AF_552__ [decoy-metadata]
+                        continue
+
+    __jcross_露:1.0____ast_露_15__ __jcross_蔵:1.0____ast_露_46__(self):
+        self.__jcross_蔵:1.0____ast_露_36__()
+
+    __jcross_露:1.0____ast_露_15__ __jcross_露:1.0____ast_露_51__(self, __jcross_滴:1.0____ast_露_70__: __jcross_露:1.0____ast_露_28__, __jcross_露:1.0____ast_露_48__: __jcross_廱:1.0____ast_廱_6__[__jcross_露:1.0____ast_露_28__] = __jcross_廱:1.0____ast_廱_13__, __jcross_露:1.0____ast_露_55__: __jcross_廱:1.0____ast_廱_10__ = __jcross_廱:1.0____ast_廱_10__.__jcross_廱:1.0____ast_廱_1__) -> __jcross_廱:1.0____ast_廱_14__[__jcross_露:1.0____ast_露_28__, __jcross_廱:1.0____ast_廱_20__]:
+        """
+// __jcross_冥:0.6____ast_LF_234__ [decoy-metadata]
+        式に一致する確実な知見を KB から探し出す。
+        返り値は {'__jcross_露:1.0____ast_露_20__': __jcross_廱:1.0____ast_廱_9__[__jcross_廱:1.0____ast_廱_14__], '__jcross_露:1.0____ast_露_24__': __jcross_廱:1.0____ast_廱_6__[__jcross_露:1.0____ast_露_28__]} の形式。
+        """
+        if __jcross_露:1.0____ast_露_48__ is __jcross_廱:1.0____ast_廱_13__:
+            __jcross_露:1.0____ast_露_48__ = []
+        
+        __jcross_露:1.0____ast_露_14__ = {a.__jcross_露:1.0____ast_露_4__("__jcross_露:1.0____ast_露_54__:", "").__jcross_露:1.0____ast_露_12__().__jcross_謀:1.0____ast_露_52__() for a in __jcross_露:1.0____ast_露_48__}
+        __jcross_露:1.0____ast_露_24__ = []
+
+        for __jcross_露:1.0____ast_露_79__ in self.__jcross_露:1.0____ast_露_61__:
+            __jcross_露:1.0____ast_露_27__ = __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_27__")
+            if __jcross_露:1.0____ast_露_63__ __jcross_露:1.0____ast_露_27__:
+                continue
+            
+            __jcross_露:1.0____ast_露_35__ = __jcross_廱:1.0____ast_廱_19__
+// __jcross_雄:0.1____ast_ZH_676__ [decoy-metadata]
+// [metadata-stripped]
+            if __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_40__") == "__jcross_露:1.0____ast_露_53__":
+// [metadata-stripped]
+// [metadata-stripped]
+// __jcross_廱:0.1____ast_VL_327__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+                __jcross_露:1.0____ast_露_23__ = __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_23__", [])
+                if __jcross_露:1.0____ast_露_23__ __jcross_露:1.0____ast_露_90__ __jcross_露:1.0____ast_露_7__(t in __jcross_滴:1.0____ast_露_70__ for t in __jcross_露:1.0____ast_露_23__[:2]): # 最初の2つのタグがあればマッチとみなす（仮）
+                     __jcross_露:1.0____ast_露_35__ = __jcross_廱:1.0____ast_廱_21__
+// [metadata-stripped]
+                __jcross_滴:1.0____ast_露_64__ __jcross_露:1.0____ast_露_27__ in __jcross_滴:1.0____ast_露_70__ or __jcross_滴:1.0____ast_露_70__ in __jcross_露:1.0____ast_露_27__:
+// __jcross_滴:0.7____ast_ML_909__ [decoy-metadata]
+                     __jcross_露:1.0____ast_露_35__ = __jcross_廱:1.0____ast_廱_21__
+            else:
+                __jcross_露:1.0____ast_露_35__ = __jcross_露:1.0____ast_露_19__(__jcross_滴:1.0____ast_露_70__, __jcross_露:1.0____ast_露_27__)
+
+            if __jcross_露:1.0____ast_露_35__:
+// [metadata-stripped]
+                if __jcross_露:1.0____ast_露_63__ __jcross_露:1.0____ast_露_37__(__jcross_露:1.0____ast_露_79__, __jcross_露:1.0____ast_露_55__):
+                    __jcross_露:1.0____ast_露_24__.__jcross_露:1.0____ast_露_5__(f"__jcross_廱:1.0____ast_廱_11__ '{__jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__('id')}' (__jcross_露:1.0____ast_露_55__ __jcross_露:1.0____ast_露_17__: {__jcross_露:1.0____ast_露_55__.__jcross_露:1.0____ast_露_9__} __jcross_露:1.0____ast_露_63__ in {__jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__('__jcross_露:1.0____ast_露_74__')})")
+                    continue
+
+                __jcross_露:1.0____ast_露_81__ = __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_81__")
+                __jcross_露:1.0____ast_露_50__ = __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_50__", "__jcross_露:1.0____ast_露_73__") # デフォルト
+                
+// [metadata-stripped]
+                if __jcross_露:1.0____ast_露_81__ in ("__jcross_露:1.0____ast_露_8__", "__jcross_露:1.0____ast_露_42__", "__jcross_露:1.0____ast_露_45__", "__jcross_露:1.0____ast_露_77__"):
+// [metadata-stripped]
+// [metadata-stripped]
+                    __jcross_露:1.0____ast_露_6__ = {p.__jcross_露:1.0____ast_露_4__("__jcross_露:1.0____ast_露_54__:", "").__jcross_露:1.0____ast_露_12__().__jcross_謀:1.0____ast_露_52__() for p in __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_18__", [])}
+                    if __jcross_露:1.0____ast_露_63__ __jcross_露:1.0____ast_露_6__ or __jcross_露:1.0____ast_露_6__.__jcross_露:1.0____ast_露_57__(__jcross_露:1.0____ast_露_14__):
+                        return {
+                            "__jcross_露:1.0____ast_露_20__": {
+                                "__jcross_露:1.0____ast_露_62__": "__jcross_露:1.0____ast_露_3__", # 決定打：条件を満たせば __jcross_廱:1.0____ast_廱_7__ (適法/肯定)
+                                "__jcross_露:1.0____ast_露_33__": "__jcross_露:1.0____ast_露_83__",
+                                "__jcross_露:1.0____ast_露_50__": __jcross_露:1.0____ast_露_50__,
+                                "__jcross_露:1.0____ast_露_76__": __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("id"),
+                                "__jcross_露:1.0____ast_露_59__": f"__jcross_廱:1.0____ast_廱_15__ __jcross_露:1.0____ast_露_1__ {__jcross_露:1.0____ast_露_81__}: {__jcross_露:1.0____ast_露_27__}",
+                                "__jcross_露:1.0____ast_露_34__": 1.0 if __jcross_露:1.0____ast_露_50__ == "__jcross_露:1.0____ast_露_47__" else 0.9
+                            },
+                            "__jcross_露:1.0____ast_露_24__": __jcross_露:1.0____ast_露_24__
+                        }
+                    else:
+                        __jcross_露:1.0____ast_露_24__.__jcross_露:1.0____ast_露_5__(f"__jcross_廱:1.0____ast_廱_11__ {__jcross_露:1.0____ast_露_81__} '{__jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__('id')}': __jcross_露:1.0____ast_露_10__ __jcross_露:1.0____ast_露_6__ {__jcross_露:1.0____ast_露_6__ - __jcross_露:1.0____ast_露_14__}")
+                
+// [metadata-stripped]
+                __jcross_滴:1.0____ast_露_64__ __jcross_露:1.0____ast_露_81__ in ("__jcross_露:1.0____ast_露_38__", "__jcross_露:1.0____ast_露_56__"):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    
+                    __jcross_露:1.0____ast_露_30__ = {c.__jcross_露:1.0____ast_露_4__("__jcross_露:1.0____ast_露_54__:", "").__jcross_露:1.0____ast_露_12__().__jcross_謀:1.0____ast_露_52__() for c in __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_滴:1.0____ast_露_87__", [])}
+                    
+// [metadata-stripped]
+                    __jcross_露:1.0____ast_露_91__ = __jcross_露:1.0____ast_露_30__.__jcross_露:1.0____ast_露_13__(__jcross_露:1.0____ast_露_14__)
+                    if __jcross_露:1.0____ast_露_91__:
+                        __jcross_露:1.0____ast_露_24__.__jcross_露:1.0____ast_露_5__(f"__jcross_廱:1.0____ast_廱_11__ __jcross_廱:1.0____ast_廱_3__ '{__jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__('id')}': __jcross_露:1.0____ast_露_66__ by __jcross_露:1.0____ast_露_48__ {__jcross_露:1.0____ast_露_91__}")
+                        continue
+                    
+// [metadata-stripped]
+                    return {
+                        "__jcross_露:1.0____ast_露_20__": {
+                            "__jcross_露:1.0____ast_露_62__": "__jcross_露:1.0____ast_露_88__",
+                            "__jcross_露:1.0____ast_露_33__": "__jcross_露:1.0____ast_露_83__",
+                            "__jcross_露:1.0____ast_露_50__": __jcross_露:1.0____ast_露_50__,
+                            "__jcross_露:1.0____ast_露_76__": __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("id"),
+                            "__jcross_露:1.0____ast_露_84__": __jcross_露:1.0____ast_露_79__.__jcross_謀:1.0____ast_雄_1__("__jcross_露:1.0____ast_露_39__"),
+                            "__jcross_露:1.0____ast_露_59__": f"__jcross_廱:1.0____ast_廱_15__ __jcross_露:1.0____ast_露_1__ __jcross_露:1.0____ast_露_31__ __jcross_露:1.0____ast_露_85__: {__jcross_露:1.0____ast_露_27__}",
+                            "__jcross_露:1.0____ast_露_34__": 1.0 if __jcross_露:1.0____ast_露_50__ == "__jcross_露:1.0____ast_露_47__" else 0.9
+                        },
+                        "__jcross_露:1.0____ast_露_24__": __jcross_露:1.0____ast_露_24__
+                    }
+        
+        return {"__jcross_露:1.0____ast_露_20__": __jcross_廱:1.0____ast_廱_13__, "__jcross_露:1.0____ast_露_24__": __jcross_露:1.0____ast_露_24__}
+
+// POLYMORPHIC_JCROSS_END

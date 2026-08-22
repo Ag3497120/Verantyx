@@ -1,0 +1,199 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:91686725 ver:1778162971
+// ⚠️ One-time schema — expires after response
+
+import _SYM_靄:1.0___jcross_靄_40__
+import os, re
+import _SYM_靄:1.0___jcross_靄_75__
+
+_SYM_法:1.0___jcross_靄_20__ = """
+<!_SYM_礎:1.0___jcross_礎_6__ _SYM_靄:1.0___jcross_靄_107__>
+<_SYM_靄:1.0___jcross_靄_107__>
+<_SYM_靄:1.0___jcross_靄_111__>
+// _SYM_礎:0.5___jcross_MH_113__ [decoy-metadata]
+    <_SYM_靄:1.0___jcross_靄_92__>_SYM_礎:1.0___jcross_礎_2__ _SYM_礎:1.0___jcross_礎_4__</_SYM_靄:1.0___jcross_靄_92__>
+    <_SYM_靄:1.0___jcross_靄_112__>
+        _SYM_靄:1.0___jcross_靄_69__ {
+            _SYM_靄:1.0___jcross_靄_119__-_SYM_靄:1.0___jcross_靄_31__: _SYM_礎:1.0___jcross_礎_15__, _SYM_靄:1.0___jcross_靄_55__-_SYM_漕:1.0___jcross_靄_26__;
+            _SYM_靄:1.0___jcross_靄_62__-_SYM_靄:1.0___jcross_靄_43__: #_SYM_靄:1.0___jcross_靄_84__;
+// _SYM_法:0.1___jcross_AY_949__ [decoy-metadata]
+        }
+        ._SYM_法:1.0___jcross_靄_19__ {
+            _SYM_靄:1.0___jcross_靄_94__-_SYM_靄:1.0___jcross_靄_7__: 900px;
+            _SYM_靄:1.0___jcross_靄_89__: 0 _SYM_靄:1.0___jcross_靄_5__;
+            _SYM_靄:1.0___jcross_靄_87__: 20px;
+        }
+        ._SYM_靄:1.0___jcross_靄_78__ {
+            _SYM_靄:1.0___jcross_靄_70__: _SYM_靄:1.0___jcross_靄_45__;
+            _SYM_靄:1.0___jcross_靄_45__-_SYM_靄:1.0___jcross_靄_100__: _SYM_靄:1.0___jcross_靄_3__;
+        }
+        ._SYM_靄:1.0___jcross_靄_4__ {
+            _SYM_靄:1.0___jcross_靄_89__-_SYM_靄:1.0___jcross_靄_85__: 10px;
+            _SYM_靄:1.0___jcross_靄_87__: 10px;
+            _SYM_法:1.0___jcross_靄_108__-_SYM_靄:1.0___jcross_靄_46__: 10px;
+            _SYM_靄:1.0___jcross_靄_119__-_SYM_靄:1.0___jcross_靄_35__: 16px;
+            _SYM_靄:1.0___jcross_靄_94__-_SYM_靄:1.0___jcross_靄_7__: 80%;
+            _SYM_靄:1.0___jcross_靄_29__-_SYM_靄:1.0___jcross_靄_71__: break-_SYM_靄:1.0___jcross_靄_29__;
+        }
+        ._SYM_靄:1.0___jcross_靄_77__ {
+            _SYM_靄:1.0___jcross_靄_62__-_SYM_靄:1.0___jcross_靄_43__: #_SYM_靄:1.0___jcross_靄_74__;
+            _SYM_靄:1.0___jcross_靄_83__-self: _SYM_靄:1.0___jcross_靄_45__-_SYM_靄:1.0___jcross_靄_54__;
+        }
+        ._SYM_靄:1.0___jcross_靄_91__ {
+            _SYM_靄:1.0___jcross_靄_62__-_SYM_靄:1.0___jcross_靄_43__: #_SYM_靄:1.0___jcross_靄_38__;
+            _SYM_靄:1.0___jcross_靄_83__-self: _SYM_靄:1.0___jcross_靄_45__-_SYM_靄:1.0___jcross_靄_48__;
+        }
+        ._SYM_靄:1.0___jcross_靄_25__ {
+            _SYM_靄:1.0___jcross_靄_62__-_SYM_靄:1.0___jcross_靄_43__: #_SYM_靄:1.0___jcross_靄_72__;
+            _SYM_靄:1.0___jcross_靄_83__-self: _SYM_法:1.0___jcross_靄_81__;
+        }
+        ._SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_34__ {
+            _SYM_靄:1.0___jcross_靄_94__-_SYM_靄:1.0___jcross_靄_7__: 100%;
+            _SYM_靄:1.0___jcross_靄_109__: _SYM_靄:1.0___jcross_靄_5__;
+            _SYM_靄:1.0___jcross_靄_89__-_SYM_靄:1.0___jcross_靄_30__: 10px;
+            _SYM_法:1.0___jcross_靄_108__-_SYM_靄:1.0___jcross_靄_46__: 5px;
+        }
+// _SYM_綾:0.1___jcross_DF_806__ [decoy-metadata]
+    </_SYM_靄:1.0___jcross_靄_112__>
+</_SYM_靄:1.0___jcross_靄_111__>
+<_SYM_靄:1.0___jcross_靄_69__>
+    <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_法:1.0___jcross_靄_19__">
+        <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_78__">
+    """
+
+_SYM_靄:1.0___jcross_靄_82__ = """
+        <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_77__">
+            <p>%s</p>
+        </_SYM_靄:1.0___jcross_靄_47__>
+"""
+    
+_SYM_靄:1.0___jcross_靄_13__ = """
+        <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_77__">
+            <p>%s</p>
+// _SYM_法:0.9___jcross_AH_124__ [decoy-metadata]
+            <_SYM_靄:1.0___jcross_靄_34__ _SYM_靄:1.0___jcross_靄_56__="%s" _SYM_靄:1.0___jcross_靄_53__="_SYM_礎:1.0___jcross_礎_13__ 1" _SYM_靄:1.0___jcross_靄_112__="_SYM_靄:1.0___jcross_靄_7__:300px;">
+            <p>%s</p>
+        </_SYM_靄:1.0___jcross_靄_47__>
+"""
+    
+_SYM_靄:1.0___jcross_靄_14__ = """
+        <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_91__">
+            <p>%s</p>
+        </_SYM_靄:1.0___jcross_靄_47__>
+"""
+
+_SYM_靄:1.0___jcross_靄_117__ = """
+        <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_91__">
+            <p>%s</p>
+            <_SYM_靄:1.0___jcross_靄_34__ _SYM_靄:1.0___jcross_靄_56__="%s" _SYM_靄:1.0___jcross_靄_53__="_SYM_礎:1.0___jcross_礎_13__ 2" _SYM_靄:1.0___jcross_靄_112__="_SYM_靄:1.0___jcross_靄_7__:300px;">
+            <p>%s</p>
+        </_SYM_靄:1.0___jcross_靄_47__>
+"""
+
+_SYM_靄:1.0___jcross_靄_88__ = """
+            <_SYM_靄:1.0___jcross_靄_47__ class="_SYM_靄:1.0___jcross_靄_4__ _SYM_靄:1.0___jcross_靄_25__">
+                <p> &_SYM_靄:1.0___jcross_靄_2__; &_SYM_靄:1.0___jcross_靄_2__;%s&_SYM_靄:1.0___jcross_靄_2__; &_SYM_靄:1.0___jcross_靄_2__;</p>
+            </_SYM_靄:1.0___jcross_靄_47__>
+"""
+
+_SYM_靄:1.0___jcross_靄_59__ _SYM_法:1.0___jcross_巌_1__(_SYM_法:1.0___jcross_靄_80__, _SYM_靄:1.0___jcross_靄_64__=_SYM_礎:1.0___jcross_礎_10__):
+
+    _SYM_靄:1.0___jcross_靄_118__ = ""
+    _SYM_靄:1.0___jcross_靄_118__ += "<b>_SYM_礎:1.0___jcross_礎_5__</b>: " + _SYM_法:1.0___jcross_靄_80__["_SYM_靄:1.0___jcross_靄_73__"] + '<br>'
+// [metadata-stripped]
+// [metadata-stripped]
+    if '_SYM_靄:1.0___jcross_靄_115__' in _SYM_法:1.0___jcross_靄_80__:
+        _SYM_靄:1.0___jcross_靄_118__ += "<b>_SYM_礎:1.0___jcross_礎_8__</b>: " + _SYM_法:1.0___jcross_靄_80__["_SYM_靄:1.0___jcross_靄_115__"] + '<br>'
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    return _SYM_靄:1.0___jcross_靄_118__
+
+_SYM_靄:1.0___jcross_靄_59__ _SYM_法:1.0___jcross_巌_2__(_SYM_靄:1.0___jcross_靄_39__):
+
+    _SYM_靄:1.0___jcross_靄_118__ = '<b>' + '_SYM_礎:1.0___jcross_礎_3__' + '</b>' + '<br>'
+    for e in _SYM_靄:1.0___jcross_靄_39__:
+        _SYM_靄:1.0___jcross_靄_118__ += '<b>' + e['_SYM_靄:1.0___jcross_靄_25__'] + '</b>' + ': ' + e['_SYM_靄:1.0___jcross_靄_6__-_SYM_靄:1.0___jcross_靄_12__'] + '<br>'
+    return _SYM_靄:1.0___jcross_靄_118__
+
+
+_SYM_靄:1.0___jcross_靄_59__ _SYM_靄:1.0___jcross_靄_27__(_SYM_匶:1.0___jcross_靄_103__):
+    _SYM_靄:1.0___jcross_靄_32__ open(_SYM_匶:1.0___jcross_靄_103__, "rb") as _SYM_匶:1.0___jcross_靄_1__:
+        _SYM_靄:1.0___jcross_靄_104__ = _SYM_靄:1.0___jcross_靄_75__._SYM_靄:1.0___jcross_靄_67__(_SYM_匶:1.0___jcross_靄_1__._SYM_靄:1.0___jcross_靄_10__())
+    return _SYM_靄:1.0___jcross_靄_104__._SYM_靄:1.0___jcross_靄_11__("_SYM_靄:1.0___jcross_靄_114__-8")
+
+
+_SYM_靄:1.0___jcross_靄_59__ _SYM_靄:1.0___jcross_靄_51__(_SYM_靄:1.0___jcross_靄_101__, _SYM_靄:1.0___jcross_靄_28__, _SYM_匶:1.0___jcross_靄_33__="", _SYM_靄:1.0___jcross_靄_64__=_SYM_礎:1.0___jcross_礎_10__, _SYM_靄:1.0___jcross_靄_21__=_SYM_礎:1.0___jcross_礎_7__):
+
+    _SYM_靄:1.0___jcross_靄_69__ = _SYM_法:1.0___jcross_靄_20__
+// [metadata-stripped]
+    
+    _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_82__ % _SYM_法:1.0___jcross_巌_1__(_SYM_靄:1.0___jcross_靄_101__, _SYM_靄:1.0___jcross_靄_64__=_SYM_靄:1.0___jcross_靄_64__)
+    _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_14__ % _SYM_法:1.0___jcross_巌_1__(_SYM_靄:1.0___jcross_靄_28__, _SYM_靄:1.0___jcross_靄_64__=_SYM_靄:1.0___jcross_靄_64__)
+
+// [metadata-stripped]
+    for _SYM_靄:1.0___jcross_靄_8__ in _SYM_靄:1.0___jcross_靄_15__(1, 50):
+        
+        if '_SYM_靄:1.0___jcross_靄_17__%s' % _SYM_靄:1.0___jcross_靄_8__ _SYM_靄:1.0___jcross_靄_36__ in _SYM_靄:1.0___jcross_靄_101__:
+            break
+        
+        if '_SYM_靄:1.0___jcross_靄_17__%_SYM_靄:1.0___jcross_靄_105__' % _SYM_靄:1.0___jcross_靄_8__ in _SYM_靄:1.0___jcross_靄_101__:
+            _SYM_靄:1.0___jcross_靄_65__ = _SYM_靄:1.0___jcross_靄_101__['_SYM_靄:1.0___jcross_靄_17__%_SYM_靄:1.0___jcross_靄_105__' % _SYM_靄:1.0___jcross_靄_8__]
+        _SYM_漕:1.0___jcross_靄_66__ '_SYM_靄:1.0___jcross_靄_17__%_SYM_靄:1.0___jcross_靄_58__' % _SYM_靄:1.0___jcross_靄_8__ in _SYM_靄:1.0___jcross_靄_101__:
+            _SYM_靄:1.0___jcross_靄_65__ = _SYM_靄:1.0___jcross_靄_101__['_SYM_靄:1.0___jcross_靄_17__%_SYM_靄:1.0___jcross_靄_58__' % _SYM_靄:1.0___jcross_靄_8__]
+        else:
+            _SYM_靄:1.0___jcross_靄_76__ _SYM_礎:1.0___jcross_礎_14__
+        
+        _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_88__ % ("_SYM_礎:1.0___jcross_礎_11__ %s [ %s ]" % (_SYM_靄:1.0___jcross_靄_8__, _SYM_靄:1.0___jcross_靄_65__))
+
+        if '_SYM_靄:1.0___jcross_靄_79__%s' % _SYM_靄:1.0___jcross_靄_8__ in _SYM_靄:1.0___jcross_靄_101__ _SYM_靄:1.0___jcross_靄_90__ '_SYM_靄:1.0___jcross_靄_79__%s' % _SYM_靄:1.0___jcross_靄_8__ in _SYM_靄:1.0___jcross_靄_28__:
+            _SYM_靄:1.0___jcross_靄_42__ = _SYM_靄:1.0___jcross_靄_101__['_SYM_靄:1.0___jcross_靄_79__%s' % _SYM_靄:1.0___jcross_靄_8__]
+            _SYM_靄:1.0___jcross_靄_23__ = _SYM_靄:1.0___jcross_靄_28__['_SYM_靄:1.0___jcross_靄_79__%s' % _SYM_靄:1.0___jcross_靄_8__]
+
+            _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_82__ % _SYM_法:1.0___jcross_巌_2__(_SYM_靄:1.0___jcross_靄_42__)
+// _SYM_靄:0.5___jcross_WY_128__ [decoy-metadata]
+            _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_14__ % _SYM_法:1.0___jcross_巌_2__(_SYM_靄:1.0___jcross_靄_23__)
+
+        for _SYM_靄:1.0___jcross_靄_49__ in _SYM_靄:1.0___jcross_靄_101__['_SYM_靄:1.0___jcross_靄_17__%s' % _SYM_靄:1.0___jcross_靄_8__]:
+            _SYM_靄:1.0___jcross_靄_18__ = _SYM_靄:1.0___jcross_靄_49__["_SYM_靄:1.0___jcross_靄_116__"]
+            if "_SYM_綾:1.0___jcross_靄_57__" in _SYM_靄:1.0___jcross_靄_49__:
+                try:
+
+                    _SYM_靄:1.0___jcross_靄_41__ = _SYM_靄:1.0___jcross_靄_13__ if _SYM_靄:1.0___jcross_靄_49__["_SYM_法:1.0___jcross_靄_80__"] == _SYM_靄:1.0___jcross_靄_101__["_SYM_靄:1.0___jcross_靄_73__"] else _SYM_靄:1.0___jcross_靄_117__
+                    _SYM_綾:1.0___jcross_靄_97__ = _SYM_靄:1.0___jcross_靄_49__["_SYM_綾:1.0___jcross_靄_57__"]
+                    if _SYM_靄:1.0___jcross_靄_110__(_SYM_綾:1.0___jcross_靄_97__) == _SYM_靄:1.0___jcross_靄_9__:
+                        _SYM_綾:1.0___jcross_靄_97__ = _SYM_綾:1.0___jcross_靄_97__[0]
+                    _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_41__ % (_SYM_靄:1.0___jcross_靄_18__, _SYM_綾:1.0___jcross_靄_97__, _SYM_靄:1.0___jcross_靄_49__['_SYM_靄:1.0___jcross_靄_106__'])
+
+// [metadata-stripped]
+// [metadata-stripped]
+                    
+                _SYM_靄:1.0___jcross_靄_61__ _SYM_礎:1.0___jcross_礎_12__ as e:
+                    _SYM_靄:1.0___jcross_靄_37__(e)
+// _SYM_渕:0.4___jcross_DY_611__ [decoy-metadata]
+                    _SYM_靄:1.0___jcross_靄_41__ = _SYM_靄:1.0___jcross_靄_82__ if _SYM_靄:1.0___jcross_靄_49__["_SYM_法:1.0___jcross_靄_80__"] == _SYM_靄:1.0___jcross_靄_101__["_SYM_靄:1.0___jcross_靄_73__"] else _SYM_靄:1.0___jcross_靄_14__
+                    _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_41__ % _SYM_靄:1.0___jcross_靄_18__
+            else:
+                _SYM_靄:1.0___jcross_靄_41__ = _SYM_靄:1.0___jcross_靄_82__ if _SYM_靄:1.0___jcross_靄_49__["_SYM_法:1.0___jcross_靄_80__"] == _SYM_靄:1.0___jcross_靄_101__["_SYM_靄:1.0___jcross_靄_73__"] else _SYM_靄:1.0___jcross_靄_14__
+                _SYM_靄:1.0___jcross_靄_69__ += _SYM_靄:1.0___jcross_靄_41__ % _SYM_靄:1.0___jcross_靄_18__
+    _SYM_靄:1.0___jcross_靄_69__ += """
+        </_SYM_靄:1.0___jcross_靄_47__>
+    </_SYM_靄:1.0___jcross_靄_47__>
+</_SYM_靄:1.0___jcross_靄_69__>
+</_SYM_靄:1.0___jcross_靄_107__>
+"""
+    _SYM_靄:1.0___jcross_靄_32__ open(_SYM_匶:1.0___jcross_靄_33__, 'w') as _SYM_靄:1.0___jcross_靄_68__:
+        _SYM_靄:1.0___jcross_靄_68__._SYM_靄:1.0___jcross_靄_44__(_SYM_靄:1.0___jcross_靄_69__)
+
+
+// POLYMORPHIC_JCROSS_END

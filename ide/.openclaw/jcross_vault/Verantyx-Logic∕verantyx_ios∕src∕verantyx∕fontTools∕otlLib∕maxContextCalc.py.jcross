@@ -1,0 +1,108 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0CFDE7B9 ver:1778160468
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霾:1.0__ASTNODE_霾_20_ = ["_VERANTYX_霾:1.0__ASTNODE_霾_24_"]
+
+
+_VERANTYX_霾:1.0__ASTNODE_霾_42_ _VERANTYX_霾:1.0__ASTNODE_霾_24_(_VERANTYX_霾:1.0__ASTNODE_霾_13_):
+    """_VERANTYX_墟:1.0__ASTNODE_墟_1_ _VERANTYX_霾:1.0__ASTNODE_霾_28_ _VERANTYX_霾:1.0__ASTNODE_霾_39_ _VERANTYX_霾:1.0__ASTNODE_霾_12_ for an _VERANTYX_霾:1.0__ASTNODE_霾_32_ _VERANTYX_霾:1.0__ASTNODE_霾_13_."""
+
+    _VERANTYX_霾:1.0__ASTNODE_霾_44_ = 0
+    for _VERANTYX_霾:1.0__ASTNODE_霾_6_ in ("_VERANTYX_墟:1.0__ASTNODE_墟_10_", "_VERANTYX_墟:1.0__ASTNODE_墟_11_"):
+        if _VERANTYX_霾:1.0__ASTNODE_霾_6_ _VERANTYX_霾:1.0__ASTNODE_霾_21_ in _VERANTYX_霾:1.0__ASTNODE_霾_13_:
+            continue
+        _VERANTYX_霾:1.0__ASTNODE_霾_30_ = _VERANTYX_霾:1.0__ASTNODE_霾_13_[_VERANTYX_霾:1.0__ASTNODE_霾_6_]._VERANTYX_霾:1.0__ASTNODE_霾_30_
+        if _VERANTYX_霾:1.0__ASTNODE_霾_21_ _VERANTYX_霾:1.0__ASTNODE_霾_30_._VERANTYX_墟:1.0__ASTNODE_墟_3_:
+            continue
+        for _VERANTYX_霾:1.0__ASTNODE_霾_40_ in _VERANTYX_霾:1.0__ASTNODE_霾_30_._VERANTYX_墟:1.0__ASTNODE_墟_3_._VERANTYX_墟:1.0__ASTNODE_墟_13_:
+            for st in _VERANTYX_霾:1.0__ASTNODE_霾_40_._VERANTYX_墟:1.0__ASTNODE_墟_4_:
+                _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_22_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_6_, _VERANTYX_霾:1.0__ASTNODE_霾_40_._VERANTYX_墟:1.0__ASTNODE_墟_18_, st)
+    return _VERANTYX_霾:1.0__ASTNODE_霾_44_
+
+
+_VERANTYX_霾:1.0__ASTNODE_霾_42_ _VERANTYX_霾:1.0__ASTNODE_霾_22_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_6_, _VERANTYX_霾:1.0__ASTNODE_霾_35_, st):
+    """_VERANTYX_墟:1.0__ASTNODE_墟_1_ _VERANTYX_霾:1.0__ASTNODE_霾_39_ _VERANTYX_霾:1.0__ASTNODE_霾_36_ on a _VERANTYX_霾:1.0__ASTNODE_霾_27_ _VERANTYX_霾:1.0__ASTNODE_霾_40_ _VERANTYX_霾:1.0__ASTNODE_霾_30_ (_VERANTYX_霾:1.0__ASTNODE_霾_19_ an _VERANTYX_霾:1.0__ASTNODE_霾_15_
+    _VERANTYX_霾:1.0__ASTNODE_霾_29_ _VERANTYX_霾:1.0__ASTNODE_霾_12_).
+    """
+
+// [metadata-stripped]
+    if (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 1) or (
+        _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ in (1, 2, 3)
+    ):
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, 1)
+
+// [metadata-stripped]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 2:
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, 2)
+
+// [metadata-stripped]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 4:
+        for _VERANTYX_霾:1.0__ASTNODE_霾_14_ in st._VERANTYX_霾:1.0__ASTNODE_霾_14_._VERANTYX_霾:1.0__ASTNODE_霾_11_():
+            for _VERANTYX_霾:1.0__ASTNODE_霾_25_ in _VERANTYX_霾:1.0__ASTNODE_霾_14_:
+                _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_25_._VERANTYX_墟:1.0__ASTNODE_墟_6_)
+// _VERANTYX_霾:0.3__ASTNODE_EL_695_ [decoy-metadata]
+
+// [metadata-stripped]
+// _VERANTYX_滲:0.7__ASTNODE_VY_894_ [decoy-metadata]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 7) or (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 5):
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_31_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st, "_VERANTYX_墟:1.0__ASTNODE_墟_19_" if _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" else "_VERANTYX_墟:1.0__ASTNODE_墟_8_")
+
+// [metadata-stripped]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 8) or (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 6):
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_31_(
+            _VERANTYX_霾:1.0__ASTNODE_霾_44_, st, "_VERANTYX_墟:1.0__ASTNODE_墟_19_" if _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" else "_VERANTYX_墟:1.0__ASTNODE_墟_8_", "_VERANTYX_墟:1.0__ASTNODE_墟_15_"
+        )
+
+// [metadata-stripped]
+// _VERANTYX_紗:0.9__ASTNODE_YB_265_ [decoy-metadata]
+// _VERANTYX_紗:0.9__ASTNODE_XH_303_ [decoy-metadata]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_11_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 9) or (_VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 7):
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_22_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_6_, st._VERANTYX_墟:1.0__ASTNODE_墟_7_, st._VERANTYX_墟:1.0__ASTNODE_墟_2_)
+
+// [metadata-stripped]
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ _VERANTYX_霾:1.0__ASTNODE_霾_6_ == "_VERANTYX_墟:1.0__ASTNODE_墟_10_" _VERANTYX_霾:1.0__ASTNODE_霾_19_ _VERANTYX_霾:1.0__ASTNODE_霾_35_ == 8:
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_37_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st, "_VERANTYX_墟:1.0__ASTNODE_墟_9_")
+
+    return _VERANTYX_霾:1.0__ASTNODE_霾_44_
+
+// _VERANTYX_則:0.3__ASTNODE_KE_568_ [decoy-metadata]
+
+_VERANTYX_霾:1.0__ASTNODE_霾_42_ _VERANTYX_霾:1.0__ASTNODE_霾_31_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st, _VERANTYX_霾:1.0__ASTNODE_霾_10_, _VERANTYX_霾:1.0__ASTNODE_霾_1_=""):
+    """_VERANTYX_墟:1.0__ASTNODE_墟_1_ _VERANTYX_霾:1.0__ASTNODE_霾_39_ _VERANTYX_霾:1.0__ASTNODE_霾_36_ on a _VERANTYX_霾:1.0__ASTNODE_霾_34_ _VERANTYX_霾:1.0__ASTNODE_霾_8_ _VERANTYX_霾:1.0__ASTNODE_霾_43_."""
+
+    if st._VERANTYX_墟:1.0__ASTNODE_墟_17_ == 1:
+        for _VERANTYX_霾:1.0__ASTNODE_霾_17_ in _VERANTYX_則:1.0__ASTNODE_煌_1_(st, "%s%_VERANTYX_霾:1.0__ASTNODE_霾_26_" % (_VERANTYX_霾:1.0__ASTNODE_霾_1_, _VERANTYX_霾:1.0__ASTNODE_霾_10_)):
+            if _VERANTYX_霾:1.0__ASTNODE_霾_17_ is _VERANTYX_墟:1.0__ASTNODE_墟_16_:
+                continue
+            for _VERANTYX_霾:1.0__ASTNODE_霾_4_ in _VERANTYX_則:1.0__ASTNODE_煌_1_(_VERANTYX_霾:1.0__ASTNODE_霾_17_, "%s%_VERANTYX_霾:1.0__ASTNODE_霾_23_" % (_VERANTYX_霾:1.0__ASTNODE_霾_1_, _VERANTYX_霾:1.0__ASTNODE_霾_10_)):
+// _VERANTYX_煌:0.3__ASTNODE_LD_871_ [decoy-metadata]
+                if _VERANTYX_霾:1.0__ASTNODE_霾_4_ is _VERANTYX_墟:1.0__ASTNODE_墟_16_:
+                    continue
+                _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_37_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_4_, _VERANTYX_霾:1.0__ASTNODE_霾_1_)
+
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ st._VERANTYX_墟:1.0__ASTNODE_墟_17_ == 2:
+        for _VERANTYX_霾:1.0__ASTNODE_霾_17_ in _VERANTYX_則:1.0__ASTNODE_煌_1_(st, "%s%_VERANTYX_霾:1.0__ASTNODE_霾_18_" % (_VERANTYX_霾:1.0__ASTNODE_霾_1_, _VERANTYX_霾:1.0__ASTNODE_霾_10_)):
+            if _VERANTYX_霾:1.0__ASTNODE_霾_17_ is _VERANTYX_墟:1.0__ASTNODE_墟_16_:
+                continue
+            for _VERANTYX_霾:1.0__ASTNODE_霾_4_ in _VERANTYX_則:1.0__ASTNODE_煌_1_(_VERANTYX_霾:1.0__ASTNODE_霾_17_, "%s%_VERANTYX_霾:1.0__ASTNODE_霾_33_" % (_VERANTYX_霾:1.0__ASTNODE_霾_1_, _VERANTYX_霾:1.0__ASTNODE_霾_10_)):
+                if _VERANTYX_霾:1.0__ASTNODE_霾_4_ is _VERANTYX_墟:1.0__ASTNODE_墟_16_:
+                    continue
+                _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_37_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, _VERANTYX_霾:1.0__ASTNODE_霾_4_, _VERANTYX_霾:1.0__ASTNODE_霾_1_)
+
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ st._VERANTYX_墟:1.0__ASTNODE_墟_17_ == 3:
+        _VERANTYX_霾:1.0__ASTNODE_霾_44_ = _VERANTYX_霾:1.0__ASTNODE_霾_37_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st, _VERANTYX_霾:1.0__ASTNODE_霾_1_)
+
+    return _VERANTYX_霾:1.0__ASTNODE_霾_44_
+
+
+_VERANTYX_霾:1.0__ASTNODE_霾_42_ _VERANTYX_霾:1.0__ASTNODE_霾_37_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st, _VERANTYX_霾:1.0__ASTNODE_霾_1_):
+    """_VERANTYX_墟:1.0__ASTNODE_墟_1_ _VERANTYX_霾:1.0__ASTNODE_霾_39_ _VERANTYX_霾:1.0__ASTNODE_霾_36_ on a _VERANTYX_霾:1.0__ASTNODE_霾_34_ _VERANTYX_霾:1.0__ASTNODE_霾_8_ _VERANTYX_霾:1.0__ASTNODE_霾_4_."""
+
+    if _VERANTYX_霾:1.0__ASTNODE_霾_21_ _VERANTYX_霾:1.0__ASTNODE_霾_1_:
+        return _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st._VERANTYX_墟:1.0__ASTNODE_墟_5_)
+    _VERANTYX_滲:1.0__ASTNODE_霾_7_ _VERANTYX_霾:1.0__ASTNODE_霾_1_ == "_VERANTYX_墟:1.0__ASTNODE_墟_9_":
+        return _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, 1 + st._VERANTYX_墟:1.0__ASTNODE_墟_12_)
+    return _VERANTYX_霾:1.0__ASTNODE_霾_29_(_VERANTYX_霾:1.0__ASTNODE_霾_44_, st._VERANTYX_墟:1.0__ASTNODE_墟_14_ + st._VERANTYX_墟:1.0__ASTNODE_墟_12_)
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,80 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9EBF7CAA ver:1778162894
+// ⚠️ One-time schema — expires after response
+
+import __jcross_霡:1.0____node_霡_20__
+import os
+__jcross_霡:1.0____node_霡_31__ __jcross_霡:1.0____node_霡_18__ import __jcross_廷:1.0____node_廷_9__
+__jcross_霡:1.0____node_霡_31__ __jcross_霡:1.0____node_霡_17__ import __jcross_廷:1.0____node_廷_6__, __jcross_廷:1.0____node_廷_5__, __jcross_廷:1.0____node_廷_1__, __jcross_廷:1.0____node_廷_2__
+
+class __jcross_要:1.0____node_廷_3__:
+    __jcross_霡:1.0____node_霡_5__ __jcross_霡:1.0____node_霡_21__(self, __jcross_霡:1.0____node_霡_4__: __jcross_霡:1.0____node_霡_24__):
+        self.__jcross_霡:1.0____node_霡_4__ = __jcross_廷:1.0____node_廷_9__(__jcross_霡:1.0____node_霡_4__)
+// __jcross_匷:0.8____node_AV_603__ [decoy-metadata]
+        self.__jcross_霡:1.0____node_霡_8__: __jcross_廷:1.0____node_廷_6__[__jcross_廷:1.0____node_廷_5__[__jcross_霡:1.0____node_霡_24__, __jcross_廷:1.0____node_廷_1__]] = []
+        self.__jcross_匷:1.0____node_霡_2__()
+// __jcross_縁:0.7____node_MY_320__ [decoy-metadata]
+
+    __jcross_霡:1.0____node_霡_5__ __jcross_匷:1.0____node_霡_2__(self):
+        if __jcross_霡:1.0____node_霡_27__ self.__jcross_霡:1.0____node_霡_4__.__jcross_霡:1.0____node_霡_32__():
+            return
+        __jcross_霡:1.0____node_霡_40__ self.__jcross_霡:1.0____node_霡_4__.open("r", __jcross_霡:1.0____node_霡_45__="__jcross_霡:1.0____node_霡_25__-8") as f:
+            for __jcross_霡:1.0____node_霡_30__ in f:
+                try:
+                    self.__jcross_霡:1.0____node_霡_8__.__jcross_霡:1.0____node_霡_22__(__jcross_霡:1.0____node_霡_20__.__jcross_匷:1.0____node_霡_11__(__jcross_霡:1.0____node_霡_30__))
+                __jcross_霡:1.0____node_霡_1__:
+                    continue
+
+    __jcross_霡:1.0____node_霡_5__ __jcross_霡:1.0____node_霡_13__(self, __jcross_霡:1.0____node_霡_36__: __jcross_廷:1.0____node_廷_6__[__jcross_霡:1.0____node_霡_24__], __jcross_霡:1.0____node_霡_29__: __jcross_霡:1.0____node_霡_16__ = 0.9) -> __jcross_廷:1.0____node_廷_2__[__jcross_廷:1.0____node_廷_5__[__jcross_霡:1.0____node_霡_24__, __jcross_廷:1.0____node_廷_1__]]:
+        """シグネチャの完全一致または高類似度一致を探す"""
+        __jcross_霡:1.0____node_霡_34__ = __jcross_廷:1.0____node_廷_8__
+        __jcross_霡:1.0____node_霡_15__ = 0.0
+
+        for m in self.__jcross_霡:1.0____node_霡_8__:
+            __jcross_霡:1.0____node_霡_35__ = m.__jcross_要:1.0____node_縁_1__("__jcross_霡:1.0____node_霡_44__", [])
+            if __jcross_霡:1.0____node_霡_27__ __jcross_霡:1.0____node_霡_35__: continue
+            
+// [metadata-stripped]
+            __jcross_霡:1.0____node_霡_39__ = __jcross_霡:1.0____node_霡_6__(1 for x, y in __jcross_霡:1.0____node_霡_38__(__jcross_霡:1.0____node_霡_36__, __jcross_霡:1.0____node_霡_35__) if x == y)
+            __jcross_霡:1.0____node_霡_9__ = __jcross_霡:1.0____node_霡_39__ / __jcross_霡:1.0____node_霡_23__(__jcross_霡:1.0____node_霡_41__(__jcross_霡:1.0____node_霡_36__), __jcross_霡:1.0____node_霡_41__(__jcross_霡:1.0____node_霡_35__))
+            
+            if __jcross_霡:1.0____node_霡_9__ > __jcross_霡:1.0____node_霡_15__ __jcross_霡:1.0____node_霡_37__ __jcross_霡:1.0____node_霡_9__ >= __jcross_霡:1.0____node_霡_29__:
+// __jcross_廷:0.2____node_MX_993__ [decoy-metadata]
+                __jcross_霡:1.0____node_霡_15__ = __jcross_霡:1.0____node_霡_9__
+                __jcross_霡:1.0____node_霡_34__ = m
+
+        return __jcross_霡:1.0____node_霡_34__
+
+    __jcross_霡:1.0____node_霡_5__ __jcross_霡:1.0____node_霡_43__(self, __jcross_霡:1.0____node_霡_36__: __jcross_廷:1.0____node_廷_6__[__jcross_霡:1.0____node_霡_24__], __jcross_霡:1.0____node_霡_14__: __jcross_霡:1.0____node_霡_24__, __jcross_霡:1.0____node_霡_26__: __jcross_廷:1.0____node_廷_5__[__jcross_霡:1.0____node_霡_24__, __jcross_廷:1.0____node_廷_1__]):
+// __jcross_廷:0.8____node_KG_575__ [decoy-metadata]
+        """新しいマッピングを学習し、永続化する"""
+        if os.__jcross_霡:1.0____node_霡_3__.__jcross_要:1.0____node_縁_1__("__jcross_廷:1.0____node_廷_4__", "").__jcross_霡:1.0____node_霡_28__() == "1":
+            return
+// [metadata-stripped]
+        for m in self.__jcross_霡:1.0____node_霡_8__:
+            if m.__jcross_要:1.0____node_縁_1__("__jcross_霡:1.0____node_霡_44__") == __jcross_霡:1.0____node_霡_36__:
+// __jcross_絡:0.3____node_HD_573__ [decoy-metadata]
+                m["__jcross_霡:1.0____node_霡_10__"] = __jcross_霡:1.0____node_霡_26__
+                m["__jcross_霡:1.0____node_霡_12__"] = __jcross_霡:1.0____node_霡_42__(1.0, m.__jcross_要:1.0____node_縁_1__("__jcross_霡:1.0____node_霡_12__", 0.5) + 0.1)
+                self.__jcross_匷:1.0____node_霡_46__() # 本来はアペンドが望ましいが、小規模なら再書き込み
+                return
+
+        __jcross_霡:1.0____node_霡_47__ = {
+            "__jcross_霡:1.0____node_霡_44__": __jcross_霡:1.0____node_霡_36__,
+            "__jcross_霡:1.0____node_霡_14__": __jcross_霡:1.0____node_霡_14__,
+            "__jcross_霡:1.0____node_霡_10__": __jcross_霡:1.0____node_霡_26__,
+            "__jcross_霡:1.0____node_霡_12__": 0.8
+        }
+        self.__jcross_霡:1.0____node_霡_8__.__jcross_霡:1.0____node_霡_22__(__jcross_霡:1.0____node_霡_47__)
+        __jcross_霡:1.0____node_霡_40__ self.__jcross_霡:1.0____node_霡_4__.open("a", __jcross_霡:1.0____node_霡_45__="__jcross_霡:1.0____node_霡_25__-8") as f:
+            f.__jcross_霡:1.0____node_霡_19__(__jcross_霡:1.0____node_霡_20__.__jcross_霡:1.0____node_霡_33__(__jcross_霡:1.0____node_霡_47__, __jcross_霡:1.0____node_霡_7__=__jcross_廷:1.0____node_廷_7__) + "\n")
+
+    __jcross_霡:1.0____node_霡_5__ __jcross_匷:1.0____node_霡_46__(self):
+        if os.__jcross_霡:1.0____node_霡_3__.__jcross_要:1.0____node_縁_1__("__jcross_廷:1.0____node_廷_4__", "").__jcross_霡:1.0____node_霡_28__() == "1":
+// __jcross_滾:0.3____node_GC_218__ [decoy-metadata]
+            return
+        __jcross_霡:1.0____node_霡_40__ self.__jcross_霡:1.0____node_霡_4__.open("w", __jcross_霡:1.0____node_霡_45__="__jcross_霡:1.0____node_霡_25__-8") as f:
+            for m in self.__jcross_霡:1.0____node_霡_8__:
+                f.__jcross_霡:1.0____node_霡_19__(__jcross_霡:1.0____node_霡_20__.__jcross_霡:1.0____node_霡_33__(m, __jcross_霡:1.0____node_霡_7__=__jcross_廷:1.0____node_廷_7__) + "\n")
+
+// POLYMORPHIC_JCROSS_END

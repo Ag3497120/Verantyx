@@ -1,0 +1,55 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4B20CE6C ver:1778159650
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_霪:1.0__ID_霪_2_ _TOKEN_霪:1.0__ID_霪_4_ import _TOKEN_霪:1.0__ID_霪_5_, _TOKEN_霪:1.0__ID_霪_1_
+_TOKEN_霪:1.0__ID_霪_2_ _TOKEN_霪:1.0__ID_霪_11_ import _TOKEN_廂:1.0__ID_廂_2_, _TOKEN_廂:1.0__ID_廂_5_, _TOKEN_廂:1.0__ID_廂_3_, _TOKEN_廂:1.0__ID_廂_7_
+
+@_TOKEN_霪:1.0__ID_霪_5_
+// _TOKEN_法:0.4__ID_GG_100_ [decoy-metadata]
+class _TOKEN_廂:1.0__ID_廂_12_:
+    id: _TOKEN_霪:1.0__ID_霪_23_
+    op: _TOKEN_霪:1.0__ID_霪_23_                 # _TOKEN_廂:1.0__ID_廂_4_ (式評価), _TOKEN_廂:1.0__ID_廂_6_, OR, _TOKEN_廂:1.0__ID_廂_8_, _TOKEN_廂:1.0__ID_廂_10_ (条件分岐)
+    _TOKEN_霪:1.0__ID_霪_12_: _TOKEN_廂:1.0__ID_廂_2_[_TOKEN_霪:1.0__ID_霪_23_]
+    _TOKEN_霪:1.0__ID_霪_14_: _TOKEN_廂:1.0__ID_廂_5_[_TOKEN_霪:1.0__ID_霪_23_, _TOKEN_廂:1.0__ID_廂_3_]
+
+@_TOKEN_霪:1.0__ID_霪_5_
+class _TOKEN_廂:1.0__ID_廂_11_:
+    _TOKEN_霪:1.0__ID_霪_28_: _TOKEN_廂:1.0__ID_廂_5_[_TOKEN_霪:1.0__ID_霪_23_, _TOKEN_廂:1.0__ID_廂_12_] = _TOKEN_霪:1.0__ID_霪_1_(_TOKEN_霪:1.0__ID_霪_9_=_TOKEN_霪:1.0__ID_霪_15_)
+    _TOKEN_霪:1.0__ID_霪_26_: _TOKEN_廂:1.0__ID_廂_2_[_TOKEN_霪:1.0__ID_霪_23_] = _TOKEN_霪:1.0__ID_霪_1_(_TOKEN_霪:1.0__ID_霪_9_=_TOKEN_霪:1.0__ID_霪_21_)
+    _TOKEN_霪:1.0__ID_霪_6_: _TOKEN_霪:1.0__ID_霪_13_ = 1024 # 同時実行バッチ数
+
+_TOKEN_霪:1.0__ID_霪_20_ _TOKEN_霪:1.0__ID_霪_16_(_TOKEN_霪:1.0__ID_霪_7_: _TOKEN_廂:1.0__ID_廂_3_) -> _TOKEN_廂:1.0__ID_廂_11_:
+    """_TOKEN_廂:1.0__ID_廂_1_ を並列演算グラフ（_TOKEN_廂:1.0__ID_廂_9_ IR）へ変換する"""
+    _TOKEN_霪:1.0__ID_霪_18_ = _TOKEN_廂:1.0__ID_廂_11_()
+// _TOKEN_冥:0.9__ID_WH_321_ [decoy-metadata]
+    
+// [metadata-stripped]
+    _TOKEN_霪:1.0__ID_霪_3_ = _TOKEN_法:1.0__ID_彩_1_(_TOKEN_霪:1.0__ID_霪_7_, '_TOKEN_霪:1.0__ID_霪_3_', [])
+// _TOKEN_霪:0.7__ID_ML_948_ [decoy-metadata]
+    for i, _TOKEN_漂:1.0__ID_霪_17_ in _TOKEN_霪:1.0__ID_霪_25_(_TOKEN_霪:1.0__ID_霪_3_):
+// _TOKEN_法:0.8__ID_MM_474_ [decoy-metadata]
+// _TOKEN_冥:0.4__ID_CW_748_ [decoy-metadata]
+        _TOKEN_霪:1.0__ID_霪_27_ = f"_TOKEN_霪:1.0__ID_霪_22_{i}"
+        _TOKEN_霪:1.0__ID_霪_18_._TOKEN_霪:1.0__ID_霪_28_[_TOKEN_霪:1.0__ID_霪_27_] = _TOKEN_廂:1.0__ID_廂_12_(
+            id=_TOKEN_霪:1.0__ID_霪_27_,
+// _TOKEN_彩:0.2__ID_VM_314_ [decoy-metadata]
+            op="_TOKEN_廂:1.0__ID_廂_4_",
+            _TOKEN_霪:1.0__ID_霪_12_=[],
+            _TOKEN_霪:1.0__ID_霪_14_={"_TOKEN_漂:1.0__ID_霪_17_": _TOKEN_漂:1.0__ID_霪_17_}
+        )
+        _TOKEN_霪:1.0__ID_霪_18_._TOKEN_霪:1.0__ID_霪_26_._TOKEN_霪:1.0__ID_霪_29_(_TOKEN_霪:1.0__ID_霪_27_)
+        
+// [metadata-stripped]
+    if _TOKEN_霪:1.0__ID_霪_7_._TOKEN_漂:1.0__ID_霪_19_:
+        _TOKEN_霪:1.0__ID_霪_18_._TOKEN_霪:1.0__ID_霪_28_["_TOKEN_霪:1.0__ID_霪_24_"] = _TOKEN_廂:1.0__ID_廂_12_(
+            id="_TOKEN_霪:1.0__ID_霪_24_",
+            op="_TOKEN_廂:1.0__ID_廂_4_",
+            _TOKEN_霪:1.0__ID_霪_12_=[],
+            _TOKEN_霪:1.0__ID_霪_14_={"_TOKEN_漂:1.0__ID_霪_17_": _TOKEN_霪:1.0__ID_霪_7_._TOKEN_漂:1.0__ID_霪_19_}
+        )
+        _TOKEN_霪:1.0__ID_霪_18_._TOKEN_霪:1.0__ID_霪_26_._TOKEN_霪:1.0__ID_霪_10_(0, "_TOKEN_霪:1.0__ID_霪_24_")
+        
+    return _TOKEN_霪:1.0__ID_霪_18_
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,606 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:05E63A6A ver:1778162671
+// ⚠️ One-time schema — expires after response
+
+"""_TOKEN_霮:1.0__ASTNODE_霮_185_._TOKEN_霮:1.0__ASTNODE_霮_44_._TOKEN_霮:1.0__ASTNODE_霮_198_.py -- _TOKEN_術:1.0__ASTNODE_墟_9_/_TOKEN_術:1.0__ASTNODE_霮_68_ for _TOKEN_墟:1.0__ASTNODE_墟_84_ _TOKEN_霮:1.0__ASTNODE_霮_18_ _TOKEN_霮:1.0__ASTNODE_霮_48_."""
+
+_TOKEN_霮:1.0__ASTNODE_霮_85_ _TOKEN_霮:1.0__ASTNODE_霮_177_ import _TOKEN_霮:1.0__ASTNODE_霮_8_
+
+_TOKEN_霮:1.0__ASTNODE_霮_85_ _TOKEN_霮:1.0__ASTNODE_霮_137_._TOKEN_霮:1.0__ASTNODE_霮_191_._TOKEN_霮:1.0__ASTNODE_霮_179_ import _TOKEN_霮:1.0__ASTNODE_霮_154_, _TOKEN_霮:1.0__ASTNODE_霮_105_, _TOKEN_霮:1.0__ASTNODE_霮_30_, _TOKEN_霮:1.0__ASTNODE_霮_6_
+import _TOKEN_霮:1.0__ASTNODE_霮_71_
+_TOKEN_霮:1.0__ASTNODE_霮_85_ io import _TOKEN_墟:1.0__ASTNODE_墟_144_
+_TOKEN_霮:1.0__ASTNODE_霮_85_ _TOKEN_霮:1.0__ASTNODE_霮_39_ import _TOKEN_墟:1.0__ASTNODE_墟_118_
+import re
+import _TOKEN_霮:1.0__ASTNODE_霮_135_
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_41_ = _TOKEN_霮:1.0__ASTNODE_霮_135_._TOKEN_術:1.0__ASTNODE_碑_8_(_TOKEN_霮:1.0__ASTNODE_霮_26_)
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+_TOKEN_霮:1.0__ASTNODE_霮_192_ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    (0x40,  '_TOKEN_墟:1.0__ASTNODE_墟_197_',        0,   '_TOKEN_墟:1.0__ASTNODE_墟_81_',              0, -1),    #                      n, b1, b2,...bn      b1,b2...bn
+    (0x41,  '_TOKEN_墟:1.0__ASTNODE_墟_70_',        0,   '_TOKEN_墟:1.0__ASTNODE_墟_79_',              0, -1),    #                       n, w1, w2,...w      w1,w2...wn
+    (0xb0,  '_TOKEN_墟:1.0__ASTNODE_墟_109_',         3,   '_TOKEN_墟:1.0__ASTNODE_墟_27_',               0, -1),    #                          b0, b1,..bn  b0, b1, ...,bn
+    (0xb8,  '_TOKEN_墟:1.0__ASTNODE_墟_157_',         3,   '_TOKEN_墟:1.0__ASTNODE_墟_49_',               0, -1),    #                           w0,w1,..wn   w0 ,w1, ...wn
+]
+
+
+// [metadata-stripped]
+
+_TOKEN_霮:1.0__ASTNODE_霮_5_ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    (0x7f,  'AA',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_171_',            1,  0),    #                                    p               -
+    (0x64,  '_TOKEN_墟:1.0__ASTNODE_墟_228_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_170_',               1,  1),    #                                    n             |n|
+    (0x60,  '_TOKEN_墟:1.0__ASTNODE_墟_71_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_17_',                    2,  1),    #                               n2, n1       (n1 + n2)
+    (0x27,  '_TOKEN_墟:1.0__ASTNODE_墟_193_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_147_',               2,  0),    #                               p2, p1               -
+    (0x3c,  '_TOKEN_墟:1.0__ASTNODE_墟_73_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_204_',       -1,  0),    #             p1, p2, ... , _TOKEN_霮:1.0__ASTNODE_霮_25_               -
+    (0x5a,  '_TOKEN_墟:1.0__ASTNODE_墟_125_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_18_',             2,  1),    #                               e2, e1               b
+    (0x2b,  '_TOKEN_墟:1.0__ASTNODE_墟_19_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_25_',           1,  0),    #                                    f               -
+    (0x67,  '_TOKEN_墟:1.0__ASTNODE_墟_180_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_93_',                1,  1),    #                                    n         _TOKEN_霮:1.0__ASTNODE_霮_31_(n)
+    (0x25,  '_TOKEN_墟:1.0__ASTNODE_墟_221_',        0,    '_TOKEN_墟:1.0__ASTNODE_墟_189_',        1,  1),    #                                    k              ek
+    (0x22,  '_TOKEN_墟:1.0__ASTNODE_墟_4_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_88_',            -1,  0),    #               _TOKEN_霮:1.0__ASTNODE_霮_96_ _TOKEN_霮:1.0__ASTNODE_霮_53_ on _TOKEN_霮:1.0__ASTNODE_霮_115_ _TOKEN_霮:1.0__ASTNODE_霮_171_               -
+    (0x4f,  '_TOKEN_墟:1.0__ASTNODE_墟_103_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_48_',              1,  0),    #                                    n               -
+    (0x73,  '_TOKEN_墟:1.0__ASTNODE_墟_195_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_202_',      -1,  0),    #    _TOKEN_霮:1.0__ASTNODE_霮_158_, cn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1,cn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, c1               -
+    (0x74,  '_TOKEN_墟:1.0__ASTNODE_墟_57_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_14_',      -1,  0),    #    _TOKEN_霮:1.0__ASTNODE_霮_158_, cn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1,cn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, c1               -
+    (0x75,  '_TOKEN_墟:1.0__ASTNODE_墟_134_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_26_',      -1,  0),    #    _TOKEN_霮:1.0__ASTNODE_霮_158_, cn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1,cn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, c1               -
+    (0x5d,  '_TOKEN_墟:1.0__ASTNODE_墟_187_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_124_',      -1,  0),    #   _TOKEN_霮:1.0__ASTNODE_霮_158_, pn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1, pn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, p1               -
+    (0x71,  '_TOKEN_墟:1.0__ASTNODE_墟_205_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_110_',      -1,  0),    #   _TOKEN_霮:1.0__ASTNODE_霮_158_, pn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1, pn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, p1               -
+    (0x72,  '_TOKEN_墟:1.0__ASTNODE_墟_60_',       0,    '_TOKEN_墟:1.0__ASTNODE_墟_203_',      -1,  0),    #   _TOKEN_霮:1.0__ASTNODE_霮_158_, pn, _TOKEN_霮:1.0__ASTNODE_霮_158_-1, pn-1, , _TOKEN_霮:1.0__ASTNODE_霮_10_, p1               -
+    (0x24,  '_TOKEN_墟:1.0__ASTNODE_墟_53_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_28_',          0,  1),    #                                    -               n
+    (0x62,  '_TOKEN_墟:1.0__ASTNODE_墟_5_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_54_',                 2,  1),    #                               n2, n1   (n1 * 64)/ n2
+    (0x20,  '_TOKEN_墟:1.0__ASTNODE_墟_85_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_119_',      1,  2),    #                                    e            e, e
+    (0x59,  '_TOKEN_墟:1.0__ASTNODE_墟_229_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_80_',                  0,  0),    #                                    -               -
+    (0x1b,  '_TOKEN_墟:1.0__ASTNODE_墟_36_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_224_',                   0,  0),    #                                    -               -
+    (0x2d,  '_TOKEN_墟:1.0__ASTNODE_墟_65_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_143_',  0,  0),    #                                    -               -
+    (0x54,  'EQ',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_47_',                  2,  1),    #                               e2, e1               b
+    (0x57,  '_TOKEN_墟:1.0__ASTNODE_墟_235_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_241_',                   1,  1),    #                                    e               b
+    (0x2c,  '_TOKEN_墟:1.0__ASTNODE_墟_128_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_90_',     1,  0),    #                                    f               -
+    (0x4e,  '_TOKEN_墟:1.0__ASTNODE_墟_142_',       0,    '_TOKEN_術:1.0__ASTNODE_碑_13_',         0,  0),    #                                    -               -
+    (0x4d,  '_TOKEN_墟:1.0__ASTNODE_墟_82_',        0,    '_TOKEN_術:1.0__ASTNODE_碑_29_',          0,  0),    #                                    -               -
+    (0x80,  '_TOKEN_墟:1.0__ASTNODE_墟_216_',        0,    '_TOKEN_墟:1.0__ASTNODE_墟_206_',             -1,  0),    #              p1, p2, ..., _TOKEN_霮:1.0__ASTNODE_霮_25_               -
+    (0x82,  '_TOKEN_墟:1.0__ASTNODE_墟_55_',     0,    '_TOKEN_墟:1.0__ASTNODE_墟_42_',           2,  0),    #                                 h, l               -
+    (0x81,  '_TOKEN_墟:1.0__ASTNODE_墟_33_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_117_',            2,  0),    #                                 h, l               -
+    (0x66,  '_TOKEN_墟:1.0__ASTNODE_墟_230_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_166_',                  1,  1),    #                                    n        _TOKEN_霮:1.0__ASTNODE_霮_52_(n)
+    (0x46,  'GC',            1,    '_TOKEN_術:1.0__ASTNODE_碑_1_',      1,  1),    #                                    p               c
+    (0x88,  '_TOKEN_術:1.0__ASTNODE_碑_9_',       0,    '_TOKEN_術:1.0__ASTNODE_碑_2_',                1,  1),    #                             _TOKEN_霮:1.0__ASTNODE_霮_178_          _TOKEN_霮:1.0__ASTNODE_霮_129_
+    (0x91,  '_TOKEN_術:1.0__ASTNODE_碑_24_',  0,    '_TOKEN_術:1.0__ASTNODE_碑_37_',           0, -1),    #                                    -        a1,..,an
+    (0x0d,  '_TOKEN_墟:1.0__ASTNODE_墟_213_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_6_',             0,  2),    #                                    -          px, py
+    (0x0c,  '_TOKEN_墟:1.0__ASTNODE_墟_39_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_3_',             0,  2),    #                                    -          px, py
+    (0x52,  'GT',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_102_',            2,  1),    #                               e2, e1               b
+    (0x53,  '_TOKEN_墟:1.0__ASTNODE_墟_51_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_89_',     2,  1),    #                               e2, e1               b
+    (0x89,  '_TOKEN_墟:1.0__ASTNODE_墟_96_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_91_',  1,  0),    #                                    f               -
+    (0x58,  'IF',            0,    'If',                     1,  0),    #                                    e               -
+    (0x8e,  '_TOKEN_墟:1.0__ASTNODE_墟_155_',      0,    '_TOKEN_術:1.0__ASTNODE_碑_40_',    2,  0),    #                                 s, v               -
+    (0x39,  'IP',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_123_',        -1,  0),    #             p1, p2, ... , _TOKEN_霮:1.0__ASTNODE_霮_25_               -
+    (0x0f,  '_TOKEN_墟:1.0__ASTNODE_墟_158_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_239_',      5,  0),    #                    a1, a0, b1, b0, p               -
+    (0x30,  '_TOKEN_墟:1.0__ASTNODE_墟_101_',           1,    '_TOKEN_墟:1.0__ASTNODE_墟_219_',      0,  0),    #                                    -               -
+    (0x1c,  '_TOKEN_墟:1.0__ASTNODE_墟_16_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_68_',                   1,  0),    #                               _TOKEN_霮:1.0__ASTNODE_霮_167_               -
+    (0x79,  '_TOKEN_墟:1.0__ASTNODE_墟_200_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_56_',    2,  0),    #                            e, _TOKEN_霮:1.0__ASTNODE_霮_167_               -
+    (0x78,  '_TOKEN_墟:1.0__ASTNODE_墟_188_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_168_',     2,  0),    #                            e, _TOKEN_霮:1.0__ASTNODE_霮_167_               -
+    (0x2a,  '_TOKEN_墟:1.0__ASTNODE_墟_190_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_98_',    2,  0),    #                             f, _TOKEN_霮:1.0__ASTNODE_霮_90_               -
+    (0x50,  'LT',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_100_',               2,  1),    #                               e2, e1               b
+    (0x51,  '_TOKEN_墟:1.0__ASTNODE_墟_177_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_209_',        2,  1),    #                               e2, e1               b
+    (0x8b,  '_TOKEN_墟:1.0__ASTNODE_墟_194_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_191_',                2,  1),    #                               e2, e1     _TOKEN_霮:1.0__ASTNODE_霮_37_(e1, e2)
+    (0x49,  'MD',            1,    '_TOKEN_墟:1.0__ASTNODE_墟_115_',        2,  1),    #                                p2,p1               d
+    (0x2e,  '_TOKEN_墟:1.0__ASTNODE_墟_52_',          1,    '_TOKEN_墟:1.0__ASTNODE_墟_74_',        1,  0),    #                                    p               -
+    (0xc0,  '_TOKEN_墟:1.0__ASTNODE_墟_126_',          5,    '_TOKEN_墟:1.0__ASTNODE_墟_92_',        1,  0),    #                                    p               -
+    (0x3e,  '_TOKEN_墟:1.0__ASTNODE_墟_210_',          1,    '_TOKEN_墟:1.0__ASTNODE_墟_185_',      2,  0),    #                                 n, p               -
+    (0x8c,  '_TOKEN_墟:1.0__ASTNODE_墟_127_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_133_',                2,  1),    #                               e2, e1     _TOKEN_霮:1.0__ASTNODE_霮_33_(e1, e2)
+    (0x26,  '_TOKEN_墟:1.0__ASTNODE_墟_130_',        0,    '_TOKEN_墟:1.0__ASTNODE_墟_136_',        1,  1),    #                                    k              ek
+    (0xe0,  '_TOKEN_墟:1.0__ASTNODE_墟_29_',          5,    '_TOKEN_墟:1.0__ASTNODE_墟_172_',      2,  0),    #                                 n, p               -
+    (0x4b,  '_TOKEN_墟:1.0__ASTNODE_墟_174_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_186_',      0,  1),    #                                    -            _TOKEN_霮:1.0__ASTNODE_霮_20_
+    (0x4c,  '_TOKEN_墟:1.0__ASTNODE_墟_58_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_75_',       0,  1),    #                                    -       _TOKEN_霮:1.0__ASTNODE_霮_143_
+    (0x3a,  '_TOKEN_墟:1.0__ASTNODE_墟_104_',         1,    '_TOKEN_墟:1.0__ASTNODE_墟_237_',    2,  0),    #                                 d, p               -
+    (0x63,  '_TOKEN_墟:1.0__ASTNODE_墟_2_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_231_',               2,  1),    #                               n2, n1    (n1 * n2)/64
+    (0x65,  '_TOKEN_墟:1.0__ASTNODE_墟_218_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_105_',                 1,  1),    #                                    n              -n
+    (0x55,  '_TOKEN_墟:1.0__ASTNODE_墟_12_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_114_',               2,  1),    #                               e2, e1               b
+    (0x5c,  '_TOKEN_墟:1.0__ASTNODE_墟_129_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_225_',             1,  1),    #                                    e       ( _TOKEN_霮:1.0__ASTNODE_霮_140_ e )
+    (0x6c,  '_TOKEN_墟:1.0__ASTNODE_墟_83_',        2,    '_TOKEN_墟:1.0__ASTNODE_墟_152_',                1,  1),    #                                   n1              n2
+    (0x56,  '_TOKEN_墟:1.0__ASTNODE_墟_50_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_40_',                    1,  1),    #                                    e               b
+    (0x5b,  'OR',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_162_',              2,  1),    #                               e2, e1               b
+    (0x21,  '_TOKEN_墟:1.0__ASTNODE_墟_236_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_72_',            1,  0),    #                                    e               -
+    (0x45,  '_TOKEN_墟:1.0__ASTNODE_墟_226_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_238_',                1,  1),    #                             _TOKEN_霮:1.0__ASTNODE_霮_46_           _TOKEN_霮:1.0__ASTNODE_霮_57_
+    (0x7d,  '_TOKEN_墟:1.0__ASTNODE_墟_6_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_121_',        0,  0),    #                                    -               -
+    (0x7a,  '_TOKEN_墟:1.0__ASTNODE_墟_232_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_37_',               0,  0),    #                                    -               -
+    (0x8a,  '_TOKEN_墟:1.0__ASTNODE_墟_8_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_148_',      3,  3),    #                                a,b,c           b,a,c
+    (0x68,  '_TOKEN_墟:1.0__ASTNODE_墟_95_',         2,    '_TOKEN_墟:1.0__ASTNODE_墟_146_',                  1,  1),    #                                   n1              n2
+    (0x43,  'RS',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_22_',              1,  1),    #                                    n               v
+    (0x3d,  '_TOKEN_墟:1.0__ASTNODE_墟_97_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_215_',      0,  0),    #                                    -               -
+    (0x18,  '_TOKEN_墟:1.0__ASTNODE_墟_23_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_135_',            0,  0),    #                                    -               -
+    (0x19,  '_TOKEN_墟:1.0__ASTNODE_墟_99_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_21_',        0,  0),    #                                    -               -
+// _TOKEN_筐:0.3__ASTNODE_KK_435_ [decoy-metadata]
+    (0x7c,  '_TOKEN_墟:1.0__ASTNODE_墟_165_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_32_',          0,  0),    #                                    -               -
+    (0x77,  '_TOKEN_墟:1.0__ASTNODE_墟_3_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_175_',    1,  0),    #                                    n               -
+    (0x7e,  '_TOKEN_墟:1.0__ASTNODE_墟_78_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_31_',         1,  0),    #                               _TOKEN_霮:1.0__ASTNODE_霮_1_               -
+    (0x85,  '_TOKEN_墟:1.0__ASTNODE_墟_233_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_137_',  1,  0),    #                                    n               -
+    (0x8d,  '_TOKEN_墟:1.0__ASTNODE_墟_44_',      0,    '_TOKEN_墟:1.0__ASTNODE_墟_132_',               1,  0),    #                                    n               -
+    (0x48,  '_TOKEN_墟:1.0__ASTNODE_墟_122_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_4_',    2,  0),    #                                 c, p               -
+    (0x1d,  '_TOKEN_墟:1.0__ASTNODE_墟_198_',        0,    '_TOKEN_術:1.0__ASTNODE_碑_41_',            1,  0),    #                                    n               -
+    (0x5e,  '_TOKEN_墟:1.0__ASTNODE_墟_173_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_25_',   1,  0),    #                                    n               -
+    (0x86,  '_TOKEN_墟:1.0__ASTNODE_墟_163_',        1,    '_TOKEN_術:1.0__ASTNODE_碑_16_',   2,  0),    #                               p2, p1               -
+    (0x5f,  '_TOKEN_墟:1.0__ASTNODE_墟_61_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_10_',  1,  0),    #                                    n               -
+    (0x0b,  '_TOKEN_墟:1.0__ASTNODE_墟_223_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_33_',    2,  0),    #                                 y, x               -
+    (0x04,  '_TOKEN_墟:1.0__ASTNODE_墟_208_',        1,    '_TOKEN_術:1.0__ASTNODE_碑_7_',       0,  0),    #                                    -               -
+    (0x08,  '_TOKEN_墟:1.0__ASTNODE_墟_120_',         1,    '_TOKEN_術:1.0__ASTNODE_碑_15_',       2,  0),    #                               p2, p1               -
+    (0x0e,  '_TOKEN_墟:1.0__ASTNODE_墟_161_',        0,    '_TOKEN_術:1.0__ASTNODE_碑_17_',    0,  0),    #                                    -               -
+    (0x34,  '_TOKEN_墟:1.0__ASTNODE_墟_181_',           1,    '_TOKEN_墟:1.0__ASTNODE_墟_212_',   1,  0),    #                                    c               -
+    (0x32,  '_TOKEN_墟:1.0__ASTNODE_墟_164_',           1,    '_TOKEN_墟:1.0__ASTNODE_墟_201_', -1,  0),    #              p1, p2, ..., _TOKEN_霮:1.0__ASTNODE_霮_25_               -
+    (0x38,  '_TOKEN_墟:1.0__ASTNODE_墟_234_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_46_',      -1,  0),    #           d, p1, p2, ..., _TOKEN_霮:1.0__ASTNODE_霮_25_               -
+    (0x36,  '_TOKEN_墟:1.0__ASTNODE_墟_113_',           1,    '_TOKEN_墟:1.0__ASTNODE_墟_199_',   1,  0),    #                                    e               -
+    (0x17,  '_TOKEN_墟:1.0__ASTNODE_墟_13_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_19_',        1,  0),    #                                    n               -
+    (0x1a,  '_TOKEN_墟:1.0__ASTNODE_墟_35_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_18_',     1,  0),    #                             _TOKEN_霮:1.0__ASTNODE_霮_205_               -
+    (0x0a,  '_TOKEN_墟:1.0__ASTNODE_墟_141_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_27_',    2,  0),    #                                 y, x               -
+    (0x02,  '_TOKEN_墟:1.0__ASTNODE_墟_139_',        1,    '_TOKEN_術:1.0__ASTNODE_碑_26_',       0,  0),    #                                    -               -
+    (0x06,  '_TOKEN_墟:1.0__ASTNODE_墟_43_',         1,    '_TOKEN_術:1.0__ASTNODE_碑_5_',       2,  0),    #                               p2, p1               -
+    (0x76,  '_TOKEN_墟:1.0__ASTNODE_墟_145_',        0,    '_TOKEN_墟:1.0__ASTNODE_墟_214_',             1,  0),    #                                    n               -
+    (0x10,  '_TOKEN_墟:1.0__ASTNODE_墟_207_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_34_',           1,  0),    #                                    p               -
+    (0x11,  '_TOKEN_墟:1.0__ASTNODE_墟_7_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_38_',           1,  0),    #                                    p               -
+    (0x12,  '_TOKEN_墟:1.0__ASTNODE_墟_86_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_21_',           1,  0),    #                                    p               -
+    (0x1f,  '_TOKEN_墟:1.0__ASTNODE_墟_106_',           0,    '_TOKEN_術:1.0__ASTNODE_碑_14_',         1,  0),    #                                    n               -
+    (0x1e,  '_TOKEN_墟:1.0__ASTNODE_墟_87_',         0,    '_TOKEN_術:1.0__ASTNODE_碑_23_',    1,  0),    #                                    n               -
+    (0x61,  '_TOKEN_墟:1.0__ASTNODE_墟_242_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_217_',               2,  1),    #                               n2, n1       (n1 - n2)
+    (0x00,  '_TOKEN_墟:1.0__ASTNODE_墟_62_',         1,    '_TOKEN_術:1.0__ASTNODE_碑_30_',      0,  0),    #                                    -               -
+    (0x23,  '_TOKEN_墟:1.0__ASTNODE_墟_34_',          0,    '_TOKEN_墟:1.0__ASTNODE_墟_10_',           2,  2),    #                               e2, e1          e1, e2
+    (0x13,  '_TOKEN_墟:1.0__ASTNODE_墟_167_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_36_',        1,  0),    #                                    n               -
+    (0x14,  '_TOKEN_墟:1.0__ASTNODE_墟_77_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_35_',        1,  0),    #                                    n               -
+    (0x15,  '_TOKEN_墟:1.0__ASTNODE_墟_150_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_12_',        1,  0),    #                                    n               -
+    (0x16,  '_TOKEN_墟:1.0__ASTNODE_墟_20_',          0,    '_TOKEN_術:1.0__ASTNODE_碑_11_',        1,  0),    #                                    n               -
+    (0x29,  '_TOKEN_墟:1.0__ASTNODE_墟_154_',           0,    '_TOKEN_墟:1.0__ASTNODE_墟_63_',              1,  0),    #                                    p               -
+    (0x70,  '_TOKEN_墟:1.0__ASTNODE_墟_107_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_38_',       2,  0),    #                                 n, l               -
+    (0x44,  '_TOKEN_墟:1.0__ASTNODE_墟_222_',         0,    '_TOKEN_墟:1.0__ASTNODE_墟_66_',       2,  0),    #                                 v, l               -
+    (0x42,  'WS',            0,    '_TOKEN_墟:1.0__ASTNODE_墟_67_',             2,  0),    #                                 v, l               -
+]
+
+// [metadata-stripped]
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_77_(_TOKEN_霮:1.0__ASTNODE_霮_57_, _TOKEN_霮:1.0__ASTNODE_霮_184_):
+    s = ""
+    for i in _TOKEN_霮:1.0__ASTNODE_霮_16_(_TOKEN_霮:1.0__ASTNODE_霮_184_):
+        s = "01"[_TOKEN_霮:1.0__ASTNODE_霮_57_ & 0x1] + s
+        _TOKEN_霮:1.0__ASTNODE_霮_57_ = _TOKEN_霮:1.0__ASTNODE_霮_57_ >> 1
+    return s
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_203_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(r"[A-Z][A-Z0-9]*$")
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_123_(_TOKEN_霮:1.0__ASTNODE_霮_32_):
+    _TOKEN_霮:1.0__ASTNODE_霮_157_ = {}
+    _TOKEN_霮:1.0__ASTNODE_霮_193_ = {}
+    for op, _TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_, _TOKEN_霮:1.0__ASTNODE_霮_49_, _TOKEN_霮:1.0__ASTNODE_霮_114_ in _TOKEN_霮:1.0__ASTNODE_霮_32_:
+        _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_203_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_29_)
+        _TOKEN_霮:1.0__ASTNODE_霮_193_[_TOKEN_霮:1.0__ASTNODE_霮_29_] = op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_
+        if _TOKEN_霮:1.0__ASTNODE_霮_146_:
+            _TOKEN_霮:1.0__ASTNODE_霮_45_ = op
+            for i in _TOKEN_霮:1.0__ASTNODE_霮_16_(1 << _TOKEN_霮:1.0__ASTNODE_霮_146_):
+                _TOKEN_霮:1.0__ASTNODE_霮_157_[op + i] = _TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_45_, _TOKEN_霮:1.0__ASTNODE_霮_189_
+        else:
+            _TOKEN_霮:1.0__ASTNODE_霮_157_[op] = _TOKEN_霮:1.0__ASTNODE_霮_29_, 0, 0, _TOKEN_霮:1.0__ASTNODE_霮_189_
+    return _TOKEN_霮:1.0__ASTNODE_霮_157_, _TOKEN_霮:1.0__ASTNODE_霮_193_
+// _TOKEN_霮:0.2__ASTNODE_CC_183_ [decoy-metadata]
+// _TOKEN_筐:0.1__ASTNODE_WA_115_ [decoy-metadata]
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_36_, _TOKEN_霮:1.0__ASTNODE_霮_100_ = _TOKEN_霮:1.0__ASTNODE_霮_123_(_TOKEN_霮:1.0__ASTNODE_霮_192_)
+_TOKEN_霮:1.0__ASTNODE_霮_157_, _TOKEN_霮:1.0__ASTNODE_霮_193_ = _TOKEN_霮:1.0__ASTNODE_霮_123_(_TOKEN_霮:1.0__ASTNODE_霮_5_)
+
+
+class _TOKEN_霮:1.0__ASTNODE_霮_202_(_TOKEN_墟:1.0__ASTNODE_墟_28_):
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_74_(self, _TOKEN_霮:1.0__ASTNODE_霮_93_):
+        self._TOKEN_霮:1.0__ASTNODE_霮_93_ = _TOKEN_霮:1.0__ASTNODE_霮_93_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_117_(self):
+        return "TT _TOKEN_霮:1.0__ASTNODE_霮_5_ _TOKEN_霮:1.0__ASTNODE_霮_93_: %s" % _TOKEN_霮:1.0__ASTNODE_霮_103_(self._TOKEN_霮:1.0__ASTNODE_霮_93_)
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_3_ = r"/\*.*?\*/"
+_TOKEN_霮:1.0__ASTNODE_霮_173_ = r"([A-Z][A-Z0-9]*)\s*\[(.*?)\]"
+_TOKEN_術:1.0__ASTNODE_霮_42_ = r"-?[0-9]+"
+_TOKEN_禁:1.0__ASTNODE_霮_40_ = "(%s)|(%s)|(%s)" % (_TOKEN_霮:1.0__ASTNODE_霮_173_, _TOKEN_術:1.0__ASTNODE_霮_42_, _TOKEN_霮:1.0__ASTNODE_霮_3_)
+
+_TOKEN_禁:1.0__ASTNODE_霮_73_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(_TOKEN_禁:1.0__ASTNODE_霮_40_)
+_TOKEN_霮:1.0__ASTNODE_霮_67_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(r"\s*")
+
+_TOKEN_霮:1.0__ASTNODE_霮_43_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(r"[A-Z][A-Z0-9]*\s*\[.*?\]\s*/\* ([0-9]+).*?\*/")
+
+_TOKEN_霮:1.0__ASTNODE_霮_170_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(r"^_TOKEN_墟:1.0__ASTNODE_墟_128_|IF|_TOKEN_墟:1.0__ASTNODE_墟_36_\[ \]\t.+")
+_TOKEN_霮:1.0__ASTNODE_霮_88_ = re._TOKEN_霮:1.0__ASTNODE_霮_19_(r"^_TOKEN_墟:1.0__ASTNODE_墟_36_|_TOKEN_墟:1.0__ASTNODE_墟_65_|_TOKEN_墟:1.0__ASTNODE_墟_229_\[ \]\t.+")
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_182_, _TOKEN_霮:1.0__ASTNODE_霮_161_):
+    m = _TOKEN_霮:1.0__ASTNODE_霮_67_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_182_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+    _TOKEN_霮:1.0__ASTNODE_霮_104_ = m._TOKEN_霮:1.0__ASTNODE_霮_164_[0][1]
+    _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_104_ >= _TOKEN_霮:1.0__ASTNODE_霮_161_
+    return _TOKEN_霮:1.0__ASTNODE_霮_104_
+
+
+class _TOKEN_墟:1.0__ASTNODE_墟_59_(_TOKEN_霮:1.0__ASTNODE_霮_132_):
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_74_(self) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        _TOKEN_霮:1.0__ASTNODE_霮_38_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_196_(self, _TOKEN_霮:1.0__ASTNODE_霮_18_: _TOKEN_霮:1.0__ASTNODE_霮_23_) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        self._TOKEN_霮:1.0__ASTNODE_霮_18_ = _TOKEN_霮:1.0__ASTNODE_霮_71_._TOKEN_霮:1.0__ASTNODE_霮_71_("B", _TOKEN_霮:1.0__ASTNODE_霮_18_)
+        if _TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_17_"):
+            _TOKEN_霮:1.0__ASTNODE_霮_79_ self._TOKEN_霮:1.0__ASTNODE_霮_17_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_86_(self, _TOKEN_霮:1.0__ASTNODE_霮_17_: _TOKEN_墟:1.0__ASTNODE_墟_118_[_TOKEN_霮:1.0__ASTNODE_霮_27_] | _TOKEN_霮:1.0__ASTNODE_霮_27_) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        if _TOKEN_霮:1.0__ASTNODE_霮_133_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_97_):
+            self._TOKEN_霮:1.0__ASTNODE_霮_17_ = _TOKEN_霮:1.0__ASTNODE_霮_17_
+        _TOKEN_泡:1.0__ASTNODE_霮_109_ _TOKEN_霮:1.0__ASTNODE_霮_133_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_27_):
+            self._TOKEN_霮:1.0__ASTNODE_霮_17_ = _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_64_()
+        else:
+            _TOKEN_霮:1.0__ASTNODE_霮_118_ _TOKEN_墟:1.0__ASTNODE_墟_183_(f"_TOKEN_霮:1.0__ASTNODE_霮_113_ _TOKEN_霮:1.0__ASTNODE_霮_27_ or _TOKEN_墟:1.0__ASTNODE_墟_118_[_TOKEN_霮:1.0__ASTNODE_霮_27_], _TOKEN_霮:1.0__ASTNODE_霮_181_ {_TOKEN_霮:1.0__ASTNODE_霮_95_(_TOKEN_霮:1.0__ASTNODE_霮_17_)._TOKEN_霮:1.0__ASTNODE_霮_26_}")
+        if _TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_18_"):
+            _TOKEN_霮:1.0__ASTNODE_霮_79_ self._TOKEN_霮:1.0__ASTNODE_霮_18_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_術:1.0__ASTNODE_碑_39_(self) -> _TOKEN_霮:1.0__ASTNODE_霮_23_:
+        if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_18_"):
+            self._TOKEN_霮:1.0__ASTNODE_霮_127_()
+        return self._TOKEN_霮:1.0__ASTNODE_霮_18_._TOKEN_霮:1.0__ASTNODE_霮_176_()
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_術:1.0__ASTNODE_碑_20_(self, _TOKEN_霮:1.0__ASTNODE_霮_91_=_TOKEN_墟:1.0__ASTNODE_墟_240_) -> _TOKEN_墟:1.0__ASTNODE_墟_118_[_TOKEN_霮:1.0__ASTNODE_霮_27_]:
+        if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_17_"):
+            self._TOKEN_霮:1.0__ASTNODE_霮_92_(_TOKEN_霮:1.0__ASTNODE_霮_91_=_TOKEN_霮:1.0__ASTNODE_霮_91_)
+        return self._TOKEN_霮:1.0__ASTNODE_霮_17_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_172_(self, _TOKEN_術:1.0__ASTNODE_霮_139_, _TOKEN_霮:1.0__ASTNODE_霮_58_) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        if (
+            _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_59_(_TOKEN_霮:1.0__ASTNODE_霮_58_, "_TOKEN_霮:1.0__ASTNODE_霮_76_")
+            or _TOKEN_霮:1.0__ASTNODE_霮_58_._TOKEN_霮:1.0__ASTNODE_霮_76_
+        ):
+            try:
+                _TOKEN_霮:1.0__ASTNODE_霮_17_ = self._TOKEN_術:1.0__ASTNODE_碑_20_()
+            _TOKEN_霮:1.0__ASTNODE_霮_24_:
+                import _TOKEN_霮:1.0__ASTNODE_霮_190_
+
+                _TOKEN_霮:1.0__ASTNODE_霮_94_ = _TOKEN_墟:1.0__ASTNODE_墟_144_()
+                _TOKEN_霮:1.0__ASTNODE_霮_190_._TOKEN_霮:1.0__ASTNODE_霮_107_(_TOKEN_筐:1.0__ASTNODE_霮_136_=_TOKEN_霮:1.0__ASTNODE_霮_94_)
+                _TOKEN_霮:1.0__ASTNODE_霮_160_ = "An _TOKEN_霮:1.0__ASTNODE_霮_62_ _TOKEN_霮:1.0__ASTNODE_霮_159_ _TOKEN_霮:1.0__ASTNODE_霮_156_ _TOKEN_霮:1.0__ASTNODE_霮_115_ _TOKEN_霮:1.0__ASTNODE_霮_87_ of _TOKEN_霮:1.0__ASTNODE_霮_165_ _TOKEN_霮:1.0__ASTNODE_霮_152_:\n\n"
+                _TOKEN_霮:1.0__ASTNODE_霮_160_ += _TOKEN_霮:1.0__ASTNODE_霮_94_._TOKEN_術:1.0__ASTNODE_碑_22_()
+                _TOKEN_霮:1.0__ASTNODE_霮_41_._TOKEN_霮:1.0__ASTNODE_霮_93_(_TOKEN_霮:1.0__ASTNODE_霮_160_)
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_131_("_TOKEN_霮:1.0__ASTNODE_霮_18_")
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_197_(_TOKEN_霮:1.0__ASTNODE_霮_160_._TOKEN_霮:1.0__ASTNODE_霮_148_())
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_35_(self._TOKEN_術:1.0__ASTNODE_碑_39_())
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_78_("_TOKEN_霮:1.0__ASTNODE_霮_18_")
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+            else:
+                if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_17_:
+                    return
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_131_("_TOKEN_霮:1.0__ASTNODE_霮_17_")
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                i = 0
+                _TOKEN_霮:1.0__ASTNODE_霮_108_ = 0
+                _TOKEN_霮:1.0__ASTNODE_霮_60_ = _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_17_)
+                while i < _TOKEN_霮:1.0__ASTNODE_霮_60_:
+                    _TOKEN_霮:1.0__ASTNODE_霮_128_ = _TOKEN_霮:1.0__ASTNODE_霮_17_[i]
+                    if _TOKEN_霮:1.0__ASTNODE_霮_88_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_128_):
+                        _TOKEN_霮:1.0__ASTNODE_霮_108_ -= 1
+                    _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(_TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_54_ * _TOKEN_霮:1.0__ASTNODE_霮_108_)
+                    _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(_TOKEN_霮:1.0__ASTNODE_霮_128_)
+                    _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                    m = _TOKEN_霮:1.0__ASTNODE_霮_43_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_128_)
+                    i = i + 1
+                    if m:
+                        _TOKEN_霮:1.0__ASTNODE_霮_66_ = _TOKEN_霮:1.0__ASTNODE_霮_144_(m._TOKEN_霮:1.0__ASTNODE_霮_83_(1))
+                        _TOKEN_霮:1.0__ASTNODE_霮_112_: _TOKEN_墟:1.0__ASTNODE_墟_118_[_TOKEN_霮:1.0__ASTNODE_霮_27_] = []
+                        j = 0
+                        for j in _TOKEN_霮:1.0__ASTNODE_霮_16_(_TOKEN_霮:1.0__ASTNODE_霮_66_):
+                            if j _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_140_ (j % 25):
+                                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(_TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_54_ * _TOKEN_霮:1.0__ASTNODE_霮_108_)
+                                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(" "._TOKEN_霮:1.0__ASTNODE_霮_169_(_TOKEN_霮:1.0__ASTNODE_霮_112_))
+                                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                                _TOKEN_霮:1.0__ASTNODE_霮_112_ = []
+                            _TOKEN_霮:1.0__ASTNODE_霮_112_._TOKEN_霮:1.0__ASTNODE_霮_50_(_TOKEN_霮:1.0__ASTNODE_霮_17_[i + j])
+                        _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(_TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_54_ * _TOKEN_霮:1.0__ASTNODE_霮_108_)
+                        _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_75_(" "._TOKEN_霮:1.0__ASTNODE_霮_169_(_TOKEN_霮:1.0__ASTNODE_霮_112_))
+                        _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+                        i = i + j + 1
+// _TOKEN_霮:0.6__ASTNODE_AY_246_ [decoy-metadata]
+                    if _TOKEN_霮:1.0__ASTNODE_霮_170_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_128_):
+                        _TOKEN_霮:1.0__ASTNODE_霮_108_ += 1
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_78_("_TOKEN_霮:1.0__ASTNODE_霮_17_")
+                _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+        else:
+            _TOKEN_霮:1.0__ASTNODE_霮_18_ = self._TOKEN_術:1.0__ASTNODE_碑_39_()
+            if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_18_:
+                return
+            _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_131_("_TOKEN_霮:1.0__ASTNODE_霮_18_")
+            _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+            _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_35_(_TOKEN_霮:1.0__ASTNODE_霮_18_)
+            _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_78_("_TOKEN_霮:1.0__ASTNODE_霮_18_")
+            _TOKEN_術:1.0__ASTNODE_霮_139_._TOKEN_霮:1.0__ASTNODE_霮_89_()
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_151_(self, _TOKEN_霮:1.0__ASTNODE_霮_189_, _TOKEN_霮:1.0__ASTNODE_霮_65_, _TOKEN_霮:1.0__ASTNODE_霮_145_, _TOKEN_霮:1.0__ASTNODE_霮_58_) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        if _TOKEN_霮:1.0__ASTNODE_霮_189_ == "_TOKEN_霮:1.0__ASTNODE_霮_17_":
+            self._TOKEN_霮:1.0__ASTNODE_霮_86_(_TOKEN_霮:1.0__ASTNODE_霮_6_(_TOKEN_霮:1.0__ASTNODE_霮_145_))
+            self._TOKEN_霮:1.0__ASTNODE_霮_127_()
+            _TOKEN_霮:1.0__ASTNODE_霮_79_ self._TOKEN_霮:1.0__ASTNODE_霮_17_
+        else:
+            _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_189_ == "_TOKEN_霮:1.0__ASTNODE_霮_18_"
+            self._TOKEN_霮:1.0__ASTNODE_霮_196_(_TOKEN_霮:1.0__ASTNODE_霮_30_(_TOKEN_霮:1.0__ASTNODE_霮_145_))
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_127_(self) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        _TOKEN_霮:1.0__ASTNODE_霮_17_ = " "._TOKEN_霮:1.0__ASTNODE_霮_169_(_TOKEN_術:1.0__ASTNODE_碑_32_(self, "_TOKEN_霮:1.0__ASTNODE_霮_17_", []))
+        _TOKEN_霮:1.0__ASTNODE_霮_18_: _TOKEN_墟:1.0__ASTNODE_墟_118_[_TOKEN_霮:1.0__ASTNODE_霮_144_] = []
+        _TOKEN_霮:1.0__ASTNODE_霮_186_ = _TOKEN_霮:1.0__ASTNODE_霮_18_._TOKEN_霮:1.0__ASTNODE_霮_50_
+        _TOKEN_霮:1.0__ASTNODE_霮_70_ = _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_17_)
+        _TOKEN_霮:1.0__ASTNODE_霮_161_ = _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_17_, 0)
+        while _TOKEN_霮:1.0__ASTNODE_霮_161_ < _TOKEN_霮:1.0__ASTNODE_霮_70_:
+            m = _TOKEN_禁:1.0__ASTNODE_霮_73_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+            if m is _TOKEN_墟:1.0__ASTNODE_墟_24_:
+                _TOKEN_霮:1.0__ASTNODE_霮_118_ _TOKEN_霮:1.0__ASTNODE_霮_202_(
+                    "_TOKEN_墟:1.0__ASTNODE_墟_153_ _TOKEN_霮:1.0__ASTNODE_霮_93_ in TT _TOKEN_霮:1.0__ASTNODE_霮_152_ (%s)" % _TOKEN_霮:1.0__ASTNODE_霮_17_[_TOKEN_霮:1.0__ASTNODE_霮_161_ - 5 : _TOKEN_霮:1.0__ASTNODE_霮_161_ + 15]
+                )
+            _TOKEN_霮:1.0__ASTNODE_霮_183_, _TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_106_, _TOKEN_術:1.0__ASTNODE_霮_47_, _TOKEN_霮:1.0__ASTNODE_霮_197_ = m._TOKEN_霮:1.0__ASTNODE_霮_175_()
+            _TOKEN_霮:1.0__ASTNODE_霮_161_ = m._TOKEN_霮:1.0__ASTNODE_霮_164_[0][1]
+            if _TOKEN_霮:1.0__ASTNODE_霮_197_:
+                _TOKEN_霮:1.0__ASTNODE_霮_161_ = _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+                continue
+
+            _TOKEN_霮:1.0__ASTNODE_霮_106_ = _TOKEN_霮:1.0__ASTNODE_霮_106_._TOKEN_霮:1.0__ASTNODE_霮_148_()
+            if _TOKEN_霮:1.0__ASTNODE_霮_29_._TOKEN_霮:1.0__ASTNODE_霮_28_("_TOKEN_墟:1.0__ASTNODE_墟_192_"):
+// [metadata-stripped]
+                op = _TOKEN_霮:1.0__ASTNODE_霮_144_(_TOKEN_霮:1.0__ASTNODE_霮_29_[5:])
+                _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+            _TOKEN_泡:1.0__ASTNODE_霮_109_ _TOKEN_霮:1.0__ASTNODE_霮_29_ _TOKEN_霮:1.0__ASTNODE_霮_140_ in ("_TOKEN_墟:1.0__ASTNODE_墟_76_", "_TOKEN_墟:1.0__ASTNODE_墟_197_", "_TOKEN_墟:1.0__ASTNODE_墟_70_", "_TOKEN_墟:1.0__ASTNODE_墟_109_", "_TOKEN_墟:1.0__ASTNODE_墟_157_"):
+                op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_193_[_TOKEN_霮:1.0__ASTNODE_霮_29_]
+                if _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_106_) != _TOKEN_霮:1.0__ASTNODE_霮_146_:
+                    _TOKEN_霮:1.0__ASTNODE_霮_118_ _TOKEN_霮:1.0__ASTNODE_霮_202_(
+                        "_TOKEN_墟:1.0__ASTNODE_墟_138_ _TOKEN_術:1.0__ASTNODE_霮_47_ of _TOKEN_霮:1.0__ASTNODE_霮_12_ _TOKEN_霮:1.0__ASTNODE_霮_184_ (%s[%s])" % (_TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_106_)
+                    )
+                if _TOKEN_霮:1.0__ASTNODE_霮_106_:
+                    _TOKEN_霮:1.0__ASTNODE_霮_106_ = _TOKEN_霮:1.0__ASTNODE_霮_105_(_TOKEN_霮:1.0__ASTNODE_霮_106_)
+                    _TOKEN_霮:1.0__ASTNODE_霮_186_(op + _TOKEN_霮:1.0__ASTNODE_霮_106_)
+                else:
+                    _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+            else:
+                _TOKEN_霮:1.0__ASTNODE_霮_155_ = []
+                _TOKEN_霮:1.0__ASTNODE_霮_161_ = _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+                while _TOKEN_霮:1.0__ASTNODE_霮_161_ < _TOKEN_霮:1.0__ASTNODE_霮_70_:
+                    m = _TOKEN_禁:1.0__ASTNODE_霮_73_._TOKEN_霮:1.0__ASTNODE_霮_162_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+                    if m is _TOKEN_墟:1.0__ASTNODE_墟_24_:
+                        _TOKEN_霮:1.0__ASTNODE_霮_118_ _TOKEN_霮:1.0__ASTNODE_霮_202_(
+                            "_TOKEN_墟:1.0__ASTNODE_墟_153_ _TOKEN_霮:1.0__ASTNODE_霮_93_ in TT _TOKEN_霮:1.0__ASTNODE_霮_152_ (%s)" % _TOKEN_霮:1.0__ASTNODE_霮_17_[_TOKEN_霮:1.0__ASTNODE_霮_161_ : _TOKEN_霮:1.0__ASTNODE_霮_161_ + 15]
+                        )
+                    _TOKEN_霮:1.0__ASTNODE_霮_183_, _TOKEN_霮:1.0__ASTNODE_霮_13_, _TOKEN_霮:1.0__ASTNODE_霮_106_, _TOKEN_術:1.0__ASTNODE_霮_47_, _TOKEN_霮:1.0__ASTNODE_霮_197_ = m._TOKEN_霮:1.0__ASTNODE_霮_175_()
+                    if _TOKEN_術:1.0__ASTNODE_霮_47_ is _TOKEN_墟:1.0__ASTNODE_墟_24_ _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_197_ is _TOKEN_墟:1.0__ASTNODE_墟_24_:
+                        break
+                    _TOKEN_霮:1.0__ASTNODE_霮_161_ = m._TOKEN_霮:1.0__ASTNODE_霮_164_[0][1]
+                    _TOKEN_霮:1.0__ASTNODE_霮_161_ = _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+                    if _TOKEN_霮:1.0__ASTNODE_霮_197_ is _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_墟:1.0__ASTNODE_墟_24_:
+                        continue
+                    _TOKEN_霮:1.0__ASTNODE_霮_155_._TOKEN_霮:1.0__ASTNODE_霮_50_(_TOKEN_霮:1.0__ASTNODE_霮_144_(_TOKEN_術:1.0__ASTNODE_霮_47_))
+                _TOKEN_霮:1.0__ASTNODE_霮_2_ = _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_155_)
+                if _TOKEN_霮:1.0__ASTNODE_霮_29_ == "_TOKEN_墟:1.0__ASTNODE_墟_76_":
+// [metadata-stripped]
+                    _TOKEN_霮:1.0__ASTNODE_霮_116_ = 0
+                    while _TOKEN_霮:1.0__ASTNODE_霮_2_:
+                        while (
+                            _TOKEN_霮:1.0__ASTNODE_霮_116_ < _TOKEN_霮:1.0__ASTNODE_霮_2_
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_116_ < 255
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_140_ (0 <= _TOKEN_霮:1.0__ASTNODE_霮_155_[_TOKEN_霮:1.0__ASTNODE_霮_116_] <= 255)
+                        ):
+                            _TOKEN_霮:1.0__ASTNODE_霮_116_ += 1
+                        _TOKEN_霮:1.0__ASTNODE_霮_187_ = 0
+                        while (
+                            _TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_ < _TOKEN_霮:1.0__ASTNODE_霮_2_
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_187_ < 255
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ 0 <= _TOKEN_霮:1.0__ASTNODE_霮_155_[_TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_] <= 255
+                        ):
+                            _TOKEN_霮:1.0__ASTNODE_霮_187_ += 1
+                        if (
+// _TOKEN_術:0.9__ASTNODE_XL_185_ [decoy-metadata]
+                            _TOKEN_霮:1.0__ASTNODE_霮_187_ < 2
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_ < 255
+                            _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_ != _TOKEN_霮:1.0__ASTNODE_霮_2_
+                        ):
+// [metadata-stripped]
+                            _TOKEN_霮:1.0__ASTNODE_霮_116_ += _TOKEN_霮:1.0__ASTNODE_霮_187_
+                            continue
+
+// [metadata-stripped]
+                        if _TOKEN_霮:1.0__ASTNODE_霮_116_:
+                            if _TOKEN_霮:1.0__ASTNODE_霮_116_ <= 8:
+                                op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_100_["_TOKEN_墟:1.0__ASTNODE_墟_157_"]
+                                op = op + _TOKEN_霮:1.0__ASTNODE_霮_116_ - 1
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                            else:
+                                op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_100_["_TOKEN_墟:1.0__ASTNODE_墟_70_"]
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_116_)
+                            for _TOKEN_霮:1.0__ASTNODE_霮_57_ in _TOKEN_霮:1.0__ASTNODE_霮_155_[:_TOKEN_霮:1.0__ASTNODE_霮_116_]:
+                                _TOKEN_霮:1.0__ASTNODE_霮_122_ -32768 <= _TOKEN_霮:1.0__ASTNODE_霮_57_ < 32768, (
+                                    "_TOKEN_墟:1.0__ASTNODE_墟_76_ _TOKEN_霮:1.0__ASTNODE_霮_57_ _TOKEN_霮:1.0__ASTNODE_霮_15_ of _TOKEN_霮:1.0__ASTNODE_霮_16_ %d" % _TOKEN_霮:1.0__ASTNODE_霮_57_
+                                )
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_((_TOKEN_霮:1.0__ASTNODE_霮_57_ >> 8) & 0xFF)
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_57_ & 0xFF)
+
+// [metadata-stripped]
+                        if _TOKEN_霮:1.0__ASTNODE_霮_187_:
+                            _TOKEN_霮:1.0__ASTNODE_霮_38_
+                            if _TOKEN_霮:1.0__ASTNODE_霮_187_ <= 8:
+                                op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_100_["_TOKEN_墟:1.0__ASTNODE_墟_109_"]
+                                op = op + _TOKEN_霮:1.0__ASTNODE_霮_187_ - 1
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                            else:
+                                op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_100_["_TOKEN_墟:1.0__ASTNODE_墟_197_"]
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_187_)
+                            for _TOKEN_霮:1.0__ASTNODE_霮_57_ in _TOKEN_霮:1.0__ASTNODE_霮_155_[_TOKEN_霮:1.0__ASTNODE_霮_116_ : _TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_]:
+                                _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_57_)
+
+                        _TOKEN_霮:1.0__ASTNODE_霮_110_ = _TOKEN_霮:1.0__ASTNODE_霮_116_ + _TOKEN_霮:1.0__ASTNODE_霮_187_
+                        _TOKEN_霮:1.0__ASTNODE_霮_155_ = _TOKEN_霮:1.0__ASTNODE_霮_155_[_TOKEN_霮:1.0__ASTNODE_霮_110_:]
+                        _TOKEN_霮:1.0__ASTNODE_霮_2_ -= _TOKEN_霮:1.0__ASTNODE_霮_110_
+                        _TOKEN_霮:1.0__ASTNODE_霮_116_ = 0
+                else:
+// [metadata-stripped]
+                    _TOKEN_霮:1.0__ASTNODE_霮_138_ = _TOKEN_霮:1.0__ASTNODE_霮_29_[-1] == "W"
+                    op, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_100_[_TOKEN_霮:1.0__ASTNODE_霮_29_]
+                    if _TOKEN_霮:1.0__ASTNODE_霮_29_[0] != "N":
+                        _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_2_ <= 8, _TOKEN_霮:1.0__ASTNODE_霮_2_
+                        op = op + _TOKEN_霮:1.0__ASTNODE_霮_2_ - 1
+                        _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                    else:
+                        _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_2_ < 256
+                        _TOKEN_霮:1.0__ASTNODE_霮_186_(op)
+                        _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_2_)
+                    if _TOKEN_霮:1.0__ASTNODE_霮_138_:
+                        for _TOKEN_霮:1.0__ASTNODE_霮_57_ in _TOKEN_霮:1.0__ASTNODE_霮_155_:
+                            _TOKEN_霮:1.0__ASTNODE_霮_122_ -32768 <= _TOKEN_霮:1.0__ASTNODE_霮_57_ < 32768, (
+                                "_TOKEN_墟:1.0__ASTNODE_墟_157_ _TOKEN_霮:1.0__ASTNODE_霮_57_ _TOKEN_霮:1.0__ASTNODE_霮_15_ of _TOKEN_霮:1.0__ASTNODE_霮_16_ %d" % _TOKEN_霮:1.0__ASTNODE_霮_57_
+                            )
+                            _TOKEN_霮:1.0__ASTNODE_霮_186_((_TOKEN_霮:1.0__ASTNODE_霮_57_ >> 8) & 0xFF)
+                            _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_57_ & 0xFF)
+                    else:
+                        for _TOKEN_霮:1.0__ASTNODE_霮_57_ in _TOKEN_霮:1.0__ASTNODE_霮_155_:
+                            _TOKEN_霮:1.0__ASTNODE_霮_122_ 0 <= _TOKEN_霮:1.0__ASTNODE_霮_57_ < 256, (
+                                "_TOKEN_墟:1.0__ASTNODE_墟_109_ _TOKEN_霮:1.0__ASTNODE_霮_57_ _TOKEN_霮:1.0__ASTNODE_霮_15_ of _TOKEN_霮:1.0__ASTNODE_霮_16_ %d" % _TOKEN_霮:1.0__ASTNODE_霮_57_
+                            )
+                            _TOKEN_霮:1.0__ASTNODE_霮_186_(_TOKEN_霮:1.0__ASTNODE_霮_57_)
+
+            _TOKEN_霮:1.0__ASTNODE_霮_161_ = _TOKEN_霮:1.0__ASTNODE_霮_99_(_TOKEN_霮:1.0__ASTNODE_霮_17_, _TOKEN_霮:1.0__ASTNODE_霮_161_)
+
+        if _TOKEN_霮:1.0__ASTNODE_霮_18_:
+            _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_37_(_TOKEN_霮:1.0__ASTNODE_霮_18_) < 256 _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_33_(_TOKEN_霮:1.0__ASTNODE_霮_18_) >= 0
+        self._TOKEN_霮:1.0__ASTNODE_霮_18_ = _TOKEN_霮:1.0__ASTNODE_霮_71_._TOKEN_霮:1.0__ASTNODE_霮_71_("B", _TOKEN_霮:1.0__ASTNODE_霮_18_)
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_92_(self, _TOKEN_霮:1.0__ASTNODE_霮_91_=_TOKEN_墟:1.0__ASTNODE_墟_169_) -> _TOKEN_墟:1.0__ASTNODE_墟_24_:
+        _TOKEN_霮:1.0__ASTNODE_霮_17_ = []
+        i = 0
+        _TOKEN_霮:1.0__ASTNODE_霮_18_ = _TOKEN_術:1.0__ASTNODE_碑_32_(self, "_TOKEN_霮:1.0__ASTNODE_霮_18_", [])
+        _TOKEN_霮:1.0__ASTNODE_霮_119_ = _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_18_)
+        while i < _TOKEN_霮:1.0__ASTNODE_霮_119_:
+            op = _TOKEN_霮:1.0__ASTNODE_霮_18_[i]
+            try:
+                _TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_45_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_157_[op]
+            _TOKEN_霮:1.0__ASTNODE_霮_24_ _TOKEN_禁:1.0__ASTNODE_墟_69_:
+                if op in _TOKEN_霮:1.0__ASTNODE_霮_36_:
+                    _TOKEN_霮:1.0__ASTNODE_霮_150_ = []
+
+// [metadata-stripped]
+                    while _TOKEN_霮:1.0__ASTNODE_霮_18_[i] in _TOKEN_霮:1.0__ASTNODE_霮_36_:
+                        op = _TOKEN_霮:1.0__ASTNODE_霮_18_[i]
+                        _TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_146_, _TOKEN_霮:1.0__ASTNODE_霮_45_, _TOKEN_霮:1.0__ASTNODE_霮_189_ = _TOKEN_霮:1.0__ASTNODE_霮_36_[op]
+                        _TOKEN_霮:1.0__ASTNODE_霮_138_ = _TOKEN_霮:1.0__ASTNODE_霮_29_[-1] == "W"
+                        if _TOKEN_霮:1.0__ASTNODE_霮_146_:
+                            _TOKEN_霮:1.0__ASTNODE_霮_66_ = op - _TOKEN_霮:1.0__ASTNODE_霮_45_ + 1
+                        else:
+                            i = i + 1
+                            _TOKEN_霮:1.0__ASTNODE_霮_66_ = _TOKEN_霮:1.0__ASTNODE_霮_18_[i]
+                        i = i + 1
+                        _TOKEN_霮:1.0__ASTNODE_霮_122_ _TOKEN_霮:1.0__ASTNODE_霮_66_ > 0
+                        if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_138_:
+                            for j in _TOKEN_霮:1.0__ASTNODE_霮_16_(_TOKEN_霮:1.0__ASTNODE_霮_66_):
+                                _TOKEN_霮:1.0__ASTNODE_霮_57_ = _TOKEN_霮:1.0__ASTNODE_霮_18_[i]
+                                _TOKEN_霮:1.0__ASTNODE_霮_150_._TOKEN_霮:1.0__ASTNODE_霮_50_(_TOKEN_霮:1.0__ASTNODE_霮_103_(_TOKEN_霮:1.0__ASTNODE_霮_57_))
+                                i = i + 1
+                        else:
+                            for j in _TOKEN_霮:1.0__ASTNODE_霮_16_(_TOKEN_霮:1.0__ASTNODE_霮_66_):
+// [metadata-stripped]
+                                _TOKEN_霮:1.0__ASTNODE_霮_57_ = (_TOKEN_霮:1.0__ASTNODE_霮_18_[i] << 8) | _TOKEN_霮:1.0__ASTNODE_霮_18_[i + 1]
+                                if _TOKEN_霮:1.0__ASTNODE_霮_57_ >= 0x8000:
+                                    _TOKEN_霮:1.0__ASTNODE_霮_57_ = _TOKEN_霮:1.0__ASTNODE_霮_57_ - 0x10000
+                                _TOKEN_霮:1.0__ASTNODE_霮_150_._TOKEN_霮:1.0__ASTNODE_霮_50_(_TOKEN_霮:1.0__ASTNODE_霮_103_(_TOKEN_霮:1.0__ASTNODE_霮_57_))
+                                i = i + 2
+                        if _TOKEN_霮:1.0__ASTNODE_霮_91_:
+                            break
+
+                    if _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_91_:
+                        _TOKEN_霮:1.0__ASTNODE_霮_29_ = "_TOKEN_墟:1.0__ASTNODE_墟_76_"
+                    _TOKEN_霮:1.0__ASTNODE_霮_66_ = _TOKEN_霮:1.0__ASTNODE_霮_80_(_TOKEN_霮:1.0__ASTNODE_霮_150_)
+                    if _TOKEN_霮:1.0__ASTNODE_霮_66_ == 1:
+                        _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_50_("%s[ ]	/* 1 _TOKEN_霮:1.0__ASTNODE_霮_57_ _TOKEN_霮:1.0__ASTNODE_霮_101_ */" % _TOKEN_霮:1.0__ASTNODE_霮_29_)
+                    else:
+                        _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_50_(
+                            "%s[ ]	/* %s _TOKEN_霮:1.0__ASTNODE_霮_150_ _TOKEN_霮:1.0__ASTNODE_霮_101_ */" % (_TOKEN_霮:1.0__ASTNODE_霮_29_, _TOKEN_霮:1.0__ASTNODE_霮_66_)
+                        )
+                    _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_153_(_TOKEN_霮:1.0__ASTNODE_霮_150_)
+                else:
+                    _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_50_("_TOKEN_墟:1.0__ASTNODE_墟_192_%d[ ]" % op)
+                    i = i + 1
+            else:
+                if _TOKEN_霮:1.0__ASTNODE_霮_146_:
+                    _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_50_(
+                        _TOKEN_霮:1.0__ASTNODE_霮_29_
+                        + "[%s]	/* %s */" % (_TOKEN_霮:1.0__ASTNODE_霮_154_(op - _TOKEN_霮:1.0__ASTNODE_霮_45_, _TOKEN_霮:1.0__ASTNODE_霮_146_), _TOKEN_霮:1.0__ASTNODE_霮_189_)
+                    )
+                else:
+                    _TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_50_(_TOKEN_霮:1.0__ASTNODE_霮_29_ + "[ ]	/* %s */" % _TOKEN_霮:1.0__ASTNODE_霮_189_)
+                i = i + 1
+        self._TOKEN_霮:1.0__ASTNODE_霮_17_ = _TOKEN_霮:1.0__ASTNODE_霮_17_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_141_(self) -> _TOKEN_霮:1.0__ASTNODE_霮_125_:
+        """
+        >>> p = _TOKEN_墟:1.0__ASTNODE_墟_59_()
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_125_(p)
+        _TOKEN_墟:1.0__ASTNODE_墟_169_
+        >>> bc = _TOKEN_霮:1.0__ASTNODE_霮_71_._TOKEN_霮:1.0__ASTNODE_霮_71_("B", [0])
+        >>> p._TOKEN_霮:1.0__ASTNODE_霮_196_(bc)
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_125_(p)
+        _TOKEN_墟:1.0__ASTNODE_墟_240_
+        >>> p._TOKEN_霮:1.0__ASTNODE_霮_18_._TOKEN_霮:1.0__ASTNODE_霮_124_()
+        0
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_125_(p)
+        _TOKEN_墟:1.0__ASTNODE_墟_169_
+
+        >>> p = _TOKEN_墟:1.0__ASTNODE_墟_59_()
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_56_ = ['_TOKEN_墟:1.0__ASTNODE_墟_62_[0]']
+        >>> p._TOKEN_霮:1.0__ASTNODE_霮_86_(_TOKEN_霮:1.0__ASTNODE_霮_56_)
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_125_(p)
+        _TOKEN_墟:1.0__ASTNODE_墟_240_
+        >>> p._TOKEN_霮:1.0__ASTNODE_霮_17_._TOKEN_霮:1.0__ASTNODE_霮_124_()
+        '_TOKEN_墟:1.0__ASTNODE_墟_62_[0]'
+        >>> _TOKEN_霮:1.0__ASTNODE_霮_125_(p)
+        _TOKEN_墟:1.0__ASTNODE_墟_169_
+        """
+        return (_TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_17_") _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_80_(self._TOKEN_霮:1.0__ASTNODE_霮_17_) > 0) or (
+            _TOKEN_霮:1.0__ASTNODE_霮_59_(self, "_TOKEN_霮:1.0__ASTNODE_霮_18_") _TOKEN_霮:1.0__ASTNODE_霮_55_ _TOKEN_霮:1.0__ASTNODE_霮_80_(self._TOKEN_霮:1.0__ASTNODE_霮_18_) > 0
+        )
+
+    _TOKEN_霮:1.0__ASTNODE_霮_34_ = _TOKEN_霮:1.0__ASTNODE_霮_141_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_11_(self, _TOKEN_術:1.0__ASTNODE_霮_120_) -> _TOKEN_霮:1.0__ASTNODE_霮_125_:
+        if _TOKEN_霮:1.0__ASTNODE_霮_95_(self) != _TOKEN_霮:1.0__ASTNODE_霮_95_(_TOKEN_術:1.0__ASTNODE_霮_120_):
+            return _TOKEN_墟:1.0__ASTNODE_墟_160_
+// _TOKEN_墟:0.2__ASTNODE_WG_772_ [decoy-metadata]
+        return self._TOKEN_霮:1.0__ASTNODE_霮_134_ == _TOKEN_術:1.0__ASTNODE_霮_120_._TOKEN_霮:1.0__ASTNODE_霮_134_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_69_(self, _TOKEN_術:1.0__ASTNODE_霮_120_) -> _TOKEN_霮:1.0__ASTNODE_霮_125_:
+        _TOKEN_霮:1.0__ASTNODE_霮_129_ = self._TOKEN_霮:1.0__ASTNODE_霮_11_(_TOKEN_術:1.0__ASTNODE_霮_120_)
+        return _TOKEN_霮:1.0__ASTNODE_霮_129_ if _TOKEN_霮:1.0__ASTNODE_霮_129_ is _TOKEN_墟:1.0__ASTNODE_墟_160_ else _TOKEN_霮:1.0__ASTNODE_霮_140_ _TOKEN_霮:1.0__ASTNODE_霮_129_
+
+
+_TOKEN_霮:1.0__ASTNODE_霮_22_ _TOKEN_霮:1.0__ASTNODE_霮_63_():
+    """
+    >>> _TOKEN_霮:1.0__ASTNODE_霮_63_()
+    _TOKEN_墟:1.0__ASTNODE_墟_240_
+    """
+
+    bc = b"""@;:9876543210/.-,+*)(\'&%$#"! \037\036\035\034\033\032\031\030\027\026\025\024\023\022\021\020\017\016\015\014\013\012\011\010\007\006\005\004\003\002\001\000,\001\260\030CXEj\260\031C`\260F#D#\020 \260FN\360M/\260\000\022\033!#\0213Y-,\001\260\030CX\260\005+\260\000\023K\260\024PX\261\000@8Y\260\006+\033!#\0213Y-,\001\260\030CXN\260\003%\020\362!\260\000\022M\033 E\260\004%\260\004%#_TOKEN_墟:1.0__ASTNODE_墟_151_\260(RX!#\020\326\033\260\003%\020\362!\260\000\022YY-,\260\032CX!!\033\260\002%\260\002%I\260\003%\260\003%Ja d\260\020PX!!!\033\260\003%\260\003%I\260\000PX\260\000PX\270\377\3428!\033\260\0208!Y\033\260\000RX\260\0368!\033\270\377\3608!_TOKEN_墟:1.0__ASTNODE_墟_211_-,\001\260\030CX\260\005+\260\000\023K\260\024PX\271\000\000\377\3008Y\260\006+\033!#\0213Y-,N\001\212\020\261F\031CD\260\000\024\261\000F\342\260\000\025\271\000\000\377\3608\000\260\000<\260(+\260\002%\020\260\000<-,\001\030\260\000/\260\001\024\362\260\001\023\260\001\025M\260\000\022-,\001\260\030CX\260\005+\260\000\023\271\000\000\377\3408\260\006+\033!#\0213Y-,\001\260\030CXEdj#_TOKEN_墟:1.0__ASTNODE_墟_179_\260\031Cd``\260F#D#\020 \260F\360/\260\000\022\033!! \212 \212RX\0213\033!!YY-,\001\261\013\012C#Ce\012-,\000\261\012\013C#C\013-,\000\260F#p\261\001F>\001\260F#p\261\002FE:\261\002\000\010\015-,\260\022+\260\002%E\260\002%Ej\260@\213`\260\002%#D!!!-,\260\023+\260\002%E\260\002%Ej\270\377\300\214`\260\002%#D!!!-,\260\000\260\022+!!!-,\260\000\260\023+!!!-,\001\260\006C\260\007Ce\012-, i\260@a\260\000\213 \261,\300\212\214\270\020\000b`+\014d#da\\X\260\003aY-,\261\000\003%_TOKEN_墟:1.0__ASTNODE_墟_227_\260\034KPZX\260\003%E\260\003%E`h \260\004%#D\260\004%#D\033\260\003% Eh \212#D\260\003%Eh`\260\003%#DY-,\260\003% Eh \212#D\260\003%_TOKEN_墟:1.0__ASTNODE_墟_108_`\260\004%\260\001`#D-,\260\011CX\207!\300\033\260\022CX\207E\260\021+\260G#D\260Gz\344\033\003\212E\030i \260G#D\212\212\207 \260\240QX\260\021+\260G#D\260Gz\344\033!\260Gz\344YYY\030-, \212E#Eh`D-,_TOKEN_墟:1.0__ASTNODE_墟_111_-,\001\030/-,\001\260\030CX\260\004%\260\004%Id#_TOKEN_墟:1.0__ASTNODE_墟_179_\260@\213a \260\200bj\260\002%\260\002%a\214\260\031C`\260F#D!\212\020\260F\366!\033!!!!Y-,\001\260\030CX\260\002%E\260\002%Ed`j\260\003%_TOKEN_墟:1.0__ASTNODE_墟_116_ \260\004%Ej \212\213e\260\004%#D\214\260\003%#D!!\033 _TOKEN_墟:1.0__ASTNODE_墟_156_ _TOKEN_墟:1.0__ASTNODE_墟_30_-,\001 E\260\000U\260\030CZXEh#Ei\260@\213a \260\200bj \212#a \260\003%\213e\260\004%#D\214\260\003%#D!!\033!!\260\031+Y-,\001\212\212Ed#_TOKEN_墟:1.0__ASTNODE_墟_196_-,\260\004%\260\004%\260\031+\260\030CX\260\004%\260\004%\260\003%\260\033+\001\260\002%C\260@T\260\002%C\260\000_TOKEN_墟:1.0__ASTNODE_墟_31_\260\003% E\260@_TOKEN_霮:1.0__ASTNODE_霮_168_\260\002%C\260\000T\260\002%C\260@_TOKEN_墟:1.0__ASTNODE_墟_31_\260\004% E\260@`_TOKEN_墟:1.0__ASTNODE_墟_131_!!!!-,\001KRXC\260\002%E#aD\033!!Y-,\001KRXC\260\002%E#`D\033!!Y-,_TOKEN_墟:1.0__ASTNODE_墟_182_\033!!Y-,\001 \260\003%#I\260@`\260 c \260\000RX#\260\002%8#\260\002%e8\000\212c8\033!!!!!Y\001-,_TOKEN_墟:1.0__ASTNODE_墟_41_\033!!Y-,\001\260\005%\020# \212\365\000\260\001`#\355\354-,\001\260\005%\020# \212\365\000\260\001a#\355\354-,\001\260\006%\020\365\000\355\354-,F#F`\212\212F# F\212`\212a\270\377\200b# \020#\212\261KK\212pE` \260\000PX\260\001a\270\377\272\213\033\260F\214Y\260\020`h\001:-, E\260\003%_TOKEN_墟:1.0__ASTNODE_墟_149_\260\002%F ha\260\003%\260\003%?#!8\033!\021Y-, E\260\003%_TOKEN_墟:1.0__ASTNODE_墟_45_\260\002%F ha\260\003%\260\003%?#!8\033!\021Y-,\000\260\007C\260\006C\013-,\212\020\354-,\260\014CX!\033 F\260\000RX\270\377\3608\033\260\0208YY-, \260\000UX\270\020\000c\260\003%Ed\260\003%_TOKEN_墟:1.0__ASTNODE_墟_15_\260\000SX\260\002\033\260@a\260\003Y%_TOKEN_墟:1.0__ASTNODE_墟_11_\033!!Y\033!\260\002%E\260\002%_TOKEN_墟:1.0__ASTNODE_墟_64_\260(_TOKEN_墟:1.0__ASTNODE_墟_220_\033!!YY-,!!\014d#d\213\270@\000b-,!\260\200QX\014d#d\213\270 \000b\033\262\000@/+Y\260\002`-,!\260\300QX\014d#d\213\270\025Ub\033\262\000\200/+Y\260\002`-,\014d#d\213\270@\000b`#!-,_TOKEN_墟:1.0__ASTNODE_墟_176_\260\004%\260\004%Id#_TOKEN_墟:1.0__ASTNODE_墟_179_\260@\213a \260\200bj\260\002%\260\002%a\214\260F#D!\212\020\260F\366!\033!\212\021#\022 9/Y-,\260\002%\260\002%Id\260\300TX\270\377\3708\260\0108\033!!Y-,\260\023CX\003\033\002Y-,\260\023CX\002\033\003Y-,\260\012+#\020 <\260\027+-,\260\002%\270\377\3608\260(+\212\020# \320#\260\020+\260\005CX\300\033<Y \020\021\260\000\022\001-,KS#_TOKEN_墟:1.0__ASTNODE_墟_112_\033!!Y-,\001\260\002%\020\320#\311\001\260\001\023\260\000\024\020\260\001<\260\001\026-,\001\260\000\023\260\001\260\003%I\260\003\0278\260\001\023-,KS#_TOKEN_墟:1.0__ASTNODE_墟_178_ E\212`D\033!!Y-, 9/-"""
+
+    p = _TOKEN_墟:1.0__ASTNODE_墟_59_()
+    p._TOKEN_霮:1.0__ASTNODE_霮_196_(bc)
+    _TOKEN_霮:1.0__ASTNODE_霮_56_ = p._TOKEN_術:1.0__ASTNODE_碑_20_(_TOKEN_霮:1.0__ASTNODE_霮_91_=_TOKEN_墟:1.0__ASTNODE_墟_240_)
+    p._TOKEN_霮:1.0__ASTNODE_霮_86_(_TOKEN_霮:1.0__ASTNODE_霮_56_)
+    _TOKEN_霮:1.0__ASTNODE_霮_201_(bc == p._TOKEN_術:1.0__ASTNODE_碑_39_())
+
+
+if _TOKEN_霮:1.0__ASTNODE_霮_26_ == "_TOKEN_霮:1.0__ASTNODE_霮_142_":
+    import _TOKEN_霮:1.0__ASTNODE_霮_149_
+    import _TOKEN_霮:1.0__ASTNODE_霮_84_
+
+    _TOKEN_霮:1.0__ASTNODE_霮_149_._TOKEN_霮:1.0__ASTNODE_霮_9_(_TOKEN_霮:1.0__ASTNODE_霮_84_._TOKEN_霮:1.0__ASTNODE_霮_61_()._TOKEN_霮:1.0__ASTNODE_霮_188_)
+
+// POLYMORPHIC_JCROSS_END

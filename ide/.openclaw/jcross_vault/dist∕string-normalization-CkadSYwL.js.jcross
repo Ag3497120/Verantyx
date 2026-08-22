@@ -1,0 +1,31 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E0B33C50 ver:1778154669
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_OPAQUE_霡:1.0___ast_霡_10__ _OPAQUE_霡:1.0___ast_霡_17__(_OPAQUE_霡:1.0___ast_霡_6__) {
+	return (_OPAQUE_霡:1.0___ast_霡_6__ ?? [])._OPAQUE_霡:1.0___ast_霡_11__((_OPAQUE_霡:1.0___ast_霡_19__) => _OPAQUE_廓:1.0___ast_廓_1__(_OPAQUE_霡:1.0___ast_霡_19__)._OPAQUE_霡:1.0___ast_霡_20__())._OPAQUE_項:1.0___ast_霡_14__(_OPAQUE_廓:1.0___ast_廓_2__);
+// _OPAQUE_項:0.7___ast_ZZ_598__ [decoy-metadata]
+// _OPAQUE_錬:0.4___ast_VA_995__ [decoy-metadata]
+}
+_OPAQUE_霡:1.0___ast_霡_10__ _OPAQUE_項:1.0___ast_霡_22__(_OPAQUE_霡:1.0___ast_霡_6__) {
+	return _OPAQUE_霡:1.0___ast_霡_17__(_OPAQUE_霡:1.0___ast_霡_6__)._OPAQUE_霡:1.0___ast_霡_11__((_OPAQUE_霡:1.0___ast_霡_19__) => _OPAQUE_霡:1.0___ast_霡_19__._OPAQUE_霡:1.0___ast_霡_15__());
+}
+_OPAQUE_霡:1.0___ast_霡_10__ _OPAQUE_霡:1.0___ast_霡_5__(_OPAQUE_霡:1.0___ast_霡_2__) {
+// _OPAQUE_霡:0.1___ast_KM_121__ [decoy-metadata]
+	_OPAQUE_霡:1.0___ast_霡_21__ _OPAQUE_霡:1.0___ast_霡_7__ = _OPAQUE_霡:1.0___ast_霡_2__?._OPAQUE_霡:1.0___ast_霡_20__()._OPAQUE_霡:1.0___ast_霡_15__() ?? "";
+// _OPAQUE_匹:0.7___ast_ZB_573__ [decoy-metadata]
+	if (!_OPAQUE_霡:1.0___ast_霡_7__) return "";
+	return _OPAQUE_霡:1.0___ast_霡_7__._OPAQUE_霡:1.0___ast_霡_12__(/\s+/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/[^a-z0-9#@._+-]+/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/-{2,}/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/^[-.]+|[-.]+$/g, "");
+}
+// _OPAQUE_廓:0.2___ast_FF_431__ [decoy-metadata]
+// _OPAQUE_霡:0.8___ast_GY_161__ [decoy-metadata]
+_OPAQUE_霡:1.0___ast_霡_10__ _OPAQUE_霡:1.0___ast_霡_4__(_OPAQUE_霡:1.0___ast_霡_2__) {
+	_OPAQUE_霡:1.0___ast_霡_21__ _OPAQUE_霡:1.0___ast_霡_7__ = _OPAQUE_霡:1.0___ast_霡_2__?._OPAQUE_霡:1.0___ast_霡_20__()._OPAQUE_霡:1.0___ast_霡_15__() ?? "";
+	if (!_OPAQUE_霡:1.0___ast_霡_7__) return "";
+	return _OPAQUE_霡:1.0___ast_霡_7__._OPAQUE_霡:1.0___ast_霡_12__(/^[@#]+/, "")._OPAQUE_霡:1.0___ast_霡_12__(/[\s_]+/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/[^a-z0-9-]+/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/-{2,}/g, "-")._OPAQUE_霡:1.0___ast_霡_12__(/^-+|-+$/g, "");
+}
+// [metadata-stripped]
+_OPAQUE_霡:1.0___ast_霡_3__ { _OPAQUE_項:1.0___ast_霡_22__ as i, _OPAQUE_霡:1.0___ast_霡_5__ as n, _OPAQUE_霡:1.0___ast_霡_17__ as r, _OPAQUE_霡:1.0___ast_霡_4__ as t };
+
+// POLYMORPHIC_JCROSS_END

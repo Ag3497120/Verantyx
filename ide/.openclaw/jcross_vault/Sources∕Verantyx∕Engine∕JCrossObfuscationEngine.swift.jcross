@@ -1,0 +1,467 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CAE00837 ver:1778164042
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_廳:1.0___jcross_廳_46__
+import _VERANTYX_廳:1.0___jcross_廳_6__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+enum _VERANTYX_廳:1.0___jcross_廳_35__: _VERANTYX_廳:1.0___jcross_廳_23__, _VERANTYX_廳:1.0___jcross_廳_32__, _VERANTYX_廳:1.0___jcross_廳_53__ {
+    case _VERANTYX_泡:1.0___jcross_泡_131__   // 0入力
+    case _VERANTYX_泡:1.0___jcross_泡_5__   // 1入力
+    case _VERANTYX_泡:1.0___jcross_泡_59__  // 2〜3入力（意図的に曖昧化）
+    case _VERANTYX_泡:1.0___jcross_泡_158__  // 4以上
+
+    static func _VERANTYX_泡:1.0___jcross_泡_111__(_ _VERANTYX_泡:1.0___jcross_泡_115__: _VERANTYX_廳:1.0___jcross_廳_44__, _VERANTYX_浸:1.0___jcross_泡_188__: _VERANTYX_廳:1.0___jcross_廳_22__ = 0.20) -> _VERANTYX_廳:1.0___jcross_廳_35__ {
+        let _VERANTYX_泡:1.0___jcross_泡_175__: _VERANTYX_廳:1.0___jcross_廳_35__
+        switch _VERANTYX_泡:1.0___jcross_泡_115__ {
+        case 0:       _VERANTYX_泡:1.0___jcross_泡_175__ = ._VERANTYX_泡:1.0___jcross_泡_131__
+        case 1:       _VERANTYX_泡:1.0___jcross_泡_175__ = ._VERANTYX_泡:1.0___jcross_泡_5__
+        case 2, 3:    _VERANTYX_泡:1.0___jcross_泡_175__ = ._VERANTYX_泡:1.0___jcross_泡_59__
+        _VERANTYX_泡:1.0___jcross_泡_108__:      _VERANTYX_泡:1.0___jcross_泡_175__ = ._VERANTYX_泡:1.0___jcross_泡_158__
+        }
+        guard _VERANTYX_廳:1.0___jcross_廳_22__._VERANTYX_泡:1.0___jcross_泡_101__(in: 0..<1) < _VERANTYX_浸:1.0___jcross_泡_188__ else { return _VERANTYX_泡:1.0___jcross_泡_175__ }
+        return _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_149__._VERANTYX_泡:1.0___jcross_泡_172__() ?? _VERANTYX_泡:1.0___jcross_泡_175__
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+enum _VERANTYX_廳:1.0___jcross_廳_29__: _VERANTYX_廳:1.0___jcross_廳_23__, _VERANTYX_廳:1.0___jcross_廳_32__, _VERANTYX_廳:1.0___jcross_廳_53__ {
+// _VERANTYX_庫:0.3___jcross_BL_907__ [decoy-metadata]
+    case _VERANTYX_泡:1.0___jcross_泡_145__   // 算術演算全般
+    case _VERANTYX_泡:1.0___jcross_泡_39__    // 関数呼び出し全般
+    case _VERANTYX_業:1.0___jcross_泡_55__  // メモリ/状態操作
+    case _VERANTYX_泡:1.0___jcross_泡_179__  // 判定・論理演算
+    case _VERANTYX_泡:1.0___jcross_泡_10__   // ノイズ / 不明
+
+    static func _VERANTYX_泡:1.0___jcross_泡_34__(
+        _VERANTYX_泡:1.0___jcross_泡_65__: _VERANTYX_廳:1.0___jcross_廳_71__._VERANTYX_廳:1.0___jcross_廳_26__,
+        _VERANTYX_泡:1.0___jcross_泡_182__ _VERANTYX_泡:1.0___jcross_泡_60__: _VERANTYX_廳:1.0___jcross_廳_71__._VERANTYX_廳:1.0___jcross_廳_30__
+    ) -> _VERANTYX_廳:1.0___jcross_廳_29__ {
+        switch _VERANTYX_泡:1.0___jcross_泡_65__ {
+        case ._VERANTYX_泡:1.0___jcross_泡_135__:           return ._VERANTYX_泡:1.0___jcross_泡_145__
+        case ._VERANTYX_泡:1.0___jcross_泡_141__:           return ._VERANTYX_泡:1.0___jcross_泡_39__
+        case ._VERANTYX_泡:1.0___jcross_泡_100__:               return ._VERANTYX_業:1.0___jcross_泡_55__
+        case ._VERANTYX_泡:1.0___jcross_泡_63__, ._VERANTYX_泡:1.0___jcross_泡_129__: return ._VERANTYX_泡:1.0___jcross_泡_179__
+        case ._VERANTYX_泡:1.0___jcross_泡_18__:           return ._VERANTYX_業:1.0___jcross_泡_55__
+        case ._VERANTYX_泡:1.0___jcross_泡_96__:          return ._VERANTYX_泡:1.0___jcross_泡_145__
+        case .io:                   return ._VERANTYX_業:1.0___jcross_泡_55__
+        case ._VERANTYX_泡:1.0___jcross_泡_10__:              return ._VERANTYX_泡:1.0___jcross_泡_10__
+        }
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _VERANTYX_廳:1.0___jcross_廳_20__: _VERANTYX_廳:1.0___jcross_廳_32__ {
+// [metadata-stripped]
+    let id: _VERANTYX_廳:1.0___jcross_廳_23__
+
+// [metadata-stripped]
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_48__: _VERANTYX_廳:1.0___jcross_廳_18__
+
+// [metadata-stripped]
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_163__:  _VERANTYX_廳:1.0___jcross_廳_35__?
+    let _VERANTYX_泡:1.0___jcross_泡_174__: _VERANTYX_廳:1.0___jcross_廳_35__?
+
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_61__: _VERANTYX_廳:1.0___jcross_廳_23__
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+private func _VERANTYX_泡:1.0___jcross_泡_107__() -> _VERANTYX_廳:1.0___jcross_廳_23__ {
+    var _VERANTYX_泡:1.0___jcross_泡_87__ = [_VERANTYX_廳:1.0___jcross_廳_37__](_VERANTYX_泡:1.0___jcross_泡_22__: 0, _VERANTYX_泡:1.0___jcross_泡_115__: 4)
+    _ = _VERANTYX_廳:1.0___jcross_廳_39__(_VERANTYX_泡:1.0___jcross_泡_94__, _VERANTYX_泡:1.0___jcross_泡_87__._VERANTYX_泡:1.0___jcross_泡_115__, &_VERANTYX_泡:1.0___jcross_泡_87__)
+    let _VERANTYX_泡:1.0___jcross_泡_169__ = _VERANTYX_泡:1.0___jcross_泡_87__._VERANTYX_泡:1.0___jcross_泡_56__ { _VERANTYX_廳:1.0___jcross_廳_23__(_VERANTYX_浸:1.0___jcross_泡_45__: "%02x", $0) }._VERANTYX_泡:1.0___jcross_泡_42__()
+    return "0x\(_VERANTYX_泡:1.0___jcross_泡_169__)"
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _VERANTYX_業:1.0___jcross_廳_78__ {
+
+// [metadata-stripped]
+    var _VERANTYX_泡:1.0___jcross_泡_88__: _VERANTYX_廳:1.0___jcross_廳_15__<_VERANTYX_廳:1.0___jcross_廳_44__> = 1...3
+
+// [metadata-stripped]
+    var _VERANTYX_泡:1.0___jcross_泡_190__: _VERANTYX_廳:1.0___jcross_廳_22__ = 0.45
+
+// [metadata-stripped]
+    func _VERANTYX_泡:1.0___jcross_泡_97__(_VERANTYX_泡:1.0___jcross_泡_57__: [_VERANTYX_廳:1.0___jcross_廳_61__: _VERANTYX_廳:1.0___jcross_廳_63__]) -> [_VERANTYX_廳:1.0___jcross_廳_23__: _VERANTYX_廳:1.0___jcross_廳_20__] {
+        var _VERANTYX_泡:1.0___jcross_泡_183__: [_VERANTYX_廳:1.0___jcross_廳_23__: _VERANTYX_廳:1.0___jcross_廳_20__] = [:]
+
+// [metadata-stripped]
+        var _VERANTYX_泡:1.0___jcross_泡_54__: [_VERANTYX_廳:1.0___jcross_廳_35__: _VERANTYX_廳:1.0___jcross_廳_44__] = [:]
+
+        for (_, _VERANTYX_泡:1.0___jcross_泡_126__) in _VERANTYX_泡:1.0___jcross_泡_57__ {
+            let _VERANTYX_蔽:1.0___jcross_泡_16__ = "N_\(_VERANTYX_廳:1.0___jcross_廳_19__()._VERANTYX_泡:1.0___jcross_泡_43__._VERANTYX_泡:1.0___jcross_泡_68__(8))"
+            let _VERANTYX_泡:1.0___jcross_泡_62__    = _VERANTYX_泡:1.0___jcross_泡_119__(_VERANTYX_泡:1.0___jcross_泡_126__, _VERANTYX_蔽:1.0___jcross_泡_86__: _VERANTYX_蔽:1.0___jcross_泡_16__)
+            _VERANTYX_泡:1.0___jcross_泡_183__[_VERANTYX_蔽:1.0___jcross_泡_16__] = _VERANTYX_泡:1.0___jcross_泡_62__
+
+// [metadata-stripped]
+            if let _VERANTYX_泡:1.0___jcross_泡_67__ = _VERANTYX_泡:1.0___jcross_泡_62__._VERANTYX_泡:1.0___jcross_泡_163__ {
+                _VERANTYX_泡:1.0___jcross_泡_54__[_VERANTYX_泡:1.0___jcross_泡_67__, _VERANTYX_泡:1.0___jcross_泡_108__: 0] += 1
+            }
+        }
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___jcross_泡_80__ = _VERANTYX_泡:1.0___jcross_泡_57__._VERANTYX_泡:1.0___jcross_泡_115__
+        let _VERANTYX_泡:1.0___jcross_泡_21__ = _VERANTYX_泡:1.0___jcross_泡_80__ / 3
+        for _ in 0..<_VERANTYX_泡:1.0___jcross_泡_21__ {
+            let _VERANTYX_泡:1.0___jcross_泡_106__ = _VERANTYX_廳:1.0___jcross_廳_44__._VERANTYX_泡:1.0___jcross_泡_101__(in: _VERANTYX_泡:1.0___jcross_泡_88__)
+            for _ in 0..<_VERANTYX_泡:1.0___jcross_泡_106__ {
+                let ph = _VERANTYX_泡:1.0___jcross_泡_117__()
+                _VERANTYX_泡:1.0___jcross_泡_183__[ph.id] = ph
+            }
+        }
+// _VERANTYX_泡:0.7___jcross_CC_211__ [decoy-metadata]
+
+// _VERANTYX_礎:0.1___jcross_AZ_713__ [decoy-metadata]
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___jcross_泡_155__ = _VERANTYX_廳:1.0___jcross_廳_44__(_VERANTYX_廳:1.0___jcross_廳_22__(_VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_115__) * _VERANTYX_泡:1.0___jcross_泡_190__)
+        for _ in 0..<_VERANTYX_泡:1.0___jcross_泡_155__ {
+            let ph = _VERANTYX_泡:1.0___jcross_泡_117__()
+            _VERANTYX_泡:1.0___jcross_泡_183__[ph.id] = ph
+        }
+
+        return _VERANTYX_泡:1.0___jcross_泡_183__
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _VERANTYX_泡:1.0___jcross_泡_119__(_ _VERANTYX_泡:1.0___jcross_泡_126__: _VERANTYX_廳:1.0___jcross_廳_63__, _VERANTYX_蔽:1.0___jcross_泡_86__: _VERANTYX_廳:1.0___jcross_廳_23__) -> _VERANTYX_廳:1.0___jcross_廳_20__ {
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___jcross_泡_85__  = _VERANTYX_泡:1.0___jcross_泡_126__._VERANTYX_泡:1.0___jcross_泡_120__._VERANTYX_泡:1.0___jcross_泡_56__ { _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_111__($0._VERANTYX_泡:1.0___jcross_泡_85__) }
+        let _VERANTYX_泡:1.0___jcross_泡_76__ = _VERANTYX_泡:1.0___jcross_泡_126__._VERANTYX_泡:1.0___jcross_泡_120__._VERANTYX_泡:1.0___jcross_泡_56__ { _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_111__($0._VERANTYX_泡:1.0___jcross_泡_76__) }
+
+        return _VERANTYX_廳:1.0___jcross_廳_20__(
+            id:               _VERANTYX_蔽:1.0___jcross_泡_86__,
+            _VERANTYX_泡:1.0___jcross_泡_48__:        false,
+            _VERANTYX_泡:1.0___jcross_泡_163__:  _VERANTYX_泡:1.0___jcross_泡_85__,
+            _VERANTYX_泡:1.0___jcross_泡_174__: _VERANTYX_泡:1.0___jcross_泡_76__,
+            _VERANTYX_泡:1.0___jcross_泡_61__:       _VERANTYX_泡:1.0___jcross_泡_107__()  // 毎回異なる値
+        )
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _VERANTYX_泡:1.0___jcross_泡_117__() -> _VERANTYX_廳:1.0___jcross_廳_20__ {
+        let _VERANTYX_泡:1.0___jcross_泡_83__: [_VERANTYX_廳:1.0___jcross_廳_35__] = _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_149__
+        return _VERANTYX_廳:1.0___jcross_廳_20__(
+            id:               "N_\(_VERANTYX_廳:1.0___jcross_廳_19__()._VERANTYX_泡:1.0___jcross_泡_43__._VERANTYX_泡:1.0___jcross_泡_68__(8))",  // Φ_ プレフィックスを廃止
+            _VERANTYX_泡:1.0___jcross_泡_48__:        true,
+            _VERANTYX_泡:1.0___jcross_泡_163__:  _VERANTYX_泡:1.0___jcross_泡_83__._VERANTYX_泡:1.0___jcross_泡_172__(),
+            _VERANTYX_泡:1.0___jcross_泡_174__: _VERANTYX_泡:1.0___jcross_泡_83__._VERANTYX_泡:1.0___jcross_泡_172__(),
+            _VERANTYX_泡:1.0___jcross_泡_61__:       _VERANTYX_泡:1.0___jcross_泡_107__()  // ファントムも毎回異なる
+        )
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct _VERANTYX_廳:1.0___jcross_廳_70__: _VERANTYX_廳:1.0___jcross_廳_32__ {
+    let _VERANTYX_泡:1.0___jcross_泡_130__: _VERANTYX_廳:1.0___jcross_廳_23__
+    let _VERANTYX_泡:1.0___jcross_泡_112__: _VERANTYX_廳:1.0___jcross_廳_23__
+    let _VERANTYX_泡:1.0___jcross_泡_92__: _VERANTYX_廳:1.0___jcross_廳_24__
+
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_44__: _VERANTYX_廳:1.0___jcross_廳_44__
+
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_57__: [_VERANTYX_廳:1.0___jcross_廳_23__: _VERANTYX_廳:1.0___jcross_廳_20__]
+
+// [metadata-stripped]
+    let _VERANTYX_泡:1.0___jcross_泡_187__: [_VERANTYX_廳:1.0___jcross_廳_23__]
+
+    func _VERANTYX_泡:1.0___jcross_泡_122__() throws -> _VERANTYX_廳:1.0___jcross_廳_67__ {
+        let _VERANTYX_業:1.0___jcross_泡_177__ = _VERANTYX_業:1.0___jcross_廳_75__()
+        _VERANTYX_業:1.0___jcross_泡_177__._VERANTYX_浸:1.0___jcross_泡_137__ = [._VERANTYX_泡:1.0___jcross_泡_132__, ._VERANTYX_蔽:1.0___jcross_泡_6__]
+        _VERANTYX_業:1.0___jcross_泡_177__._VERANTYX_泡:1.0___jcross_泡_176__ = ._VERANTYX_泡:1.0___jcross_泡_139__
+        return try _VERANTYX_業:1.0___jcross_泡_177__._VERANTYX_泡:1.0___jcross_泡_160__(self)
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_庫:0.4___jcross_GM_970__ [decoy-metadata]
+struct _VERANTYX_廳:1.0___jcross_廳_3__ {
+
+    var _VERANTYX_業:1.0___jcross_泡_84__ = _VERANTYX_業:1.0___jcross_廳_78__()
+
+// [metadata-stripped]
+
+    func _VERANTYX_泡:1.0___jcross_泡_113__(_VERANTYX_泡:1.0___jcross_泡_99__: _VERANTYX_廳:1.0___jcross_廳_36__) -> _VERANTYX_廳:1.0___jcross_廳_70__ {
+        let _VERANTYX_泡:1.0___jcross_泡_82__ = _VERANTYX_業:1.0___jcross_泡_84__._VERANTYX_泡:1.0___jcross_泡_97__(_VERANTYX_泡:1.0___jcross_泡_57__: _VERANTYX_泡:1.0___jcross_泡_99__._VERANTYX_泡:1.0___jcross_泡_57__)
+        return _VERANTYX_廳:1.0___jcross_廳_70__(
+            _VERANTYX_泡:1.0___jcross_泡_130__:         "_VERANTYX_廳:1.0___jcross_廳_62__\(_VERANTYX_廳:1.0___jcross_廳_19__()._VERANTYX_泡:1.0___jcross_泡_43__._VERANTYX_泡:1.0___jcross_泡_68__(12))",
+            _VERANTYX_泡:1.0___jcross_泡_112__:    "2.2-_VERANTYX_泡:1.0___jcross_泡_29__",
+            _VERANTYX_泡:1.0___jcross_泡_92__:        _VERANTYX_泡:1.0___jcross_泡_99__._VERANTYX_泡:1.0___jcross_泡_92__,
+            _VERANTYX_泡:1.0___jcross_泡_44__:      _VERANTYX_泡:1.0___jcross_泡_99__._VERANTYX_泡:1.0___jcross_泡_90__._VERANTYX_泡:1.0___jcross_泡_115__,
+            _VERANTYX_泡:1.0___jcross_泡_57__:              _VERANTYX_泡:1.0___jcross_泡_82__,
+            _VERANTYX_泡:1.0___jcross_泡_187__:  [
+                "_VERANTYX_泡:1.0___jcross_泡_79__",
+                "_VERANTYX_浸:1.0___jcross_泡_151__",   // v2.2 新規: _VERANTYX_泡:1.0___jcross_泡_3__/_VERANTYX_廳:1.0___jcross_廳_60__/_VERANTYX_廳:1.0___jcross_廳_48__ を_VERANTYX_泡:1.0___jcross_泡_29__統一
+                "_VERANTYX_泡:1.0___jcross_泡_127__",      // v2.2 新規: ハッシュ重複を排除
+                "_VERANTYX_泡:1.0___jcross_泡_173__",
+                "_VERANTYX_泡:1.0___jcross_泡_109__"
+            ]
+        )
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _VERANTYX_泡:1.0___jcross_泡_8__(_ _VERANTYX_泡:1.0___jcross_泡_74__: _VERANTYX_廳:1.0___jcross_廳_23__) -> _VERANTYX_廳:1.0___jcross_廳_23__ {
+        var _VERANTYX_泡:1.0___jcross_泡_93__ = _VERANTYX_泡:1.0___jcross_泡_74__._VERANTYX_泡:1.0___jcross_泡_77__(_VERANTYX_泡:1.0___jcross_泡_32__: "\n")
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___jcross_泡_138__: [(_VERANTYX_泡:1.0___jcross_泡_38__: _VERANTYX_廳:1.0___jcross_廳_23__, _VERANTYX_泡:1.0___jcross_泡_140__: _VERANTYX_廳:1.0___jcross_廳_23__)] = [
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_1__:(?!_VERANTYX_泡:1.0___jcross_泡_29__)\S+"#, "_VERANTYX_泡:1.0___jcross_泡_3__:_VERANTYX_泡:1.0___jcross_泡_29__"),
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_98__:(?!_VERANTYX_泡:1.0___jcross_泡_29__)\S+"#, "_VERANTYX_廳:1.0___jcross_廳_60__:_VERANTYX_泡:1.0___jcross_泡_29__"),
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_66__:(?!_VERANTYX_泡:1.0___jcross_泡_29__)\S+"#, "_VERANTYX_廳:1.0___jcross_廳_48__:_VERANTYX_泡:1.0___jcross_泡_29__"),
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_162__:(?!_VERANTYX_泡:1.0___jcross_泡_29__)\S+"#, "OP:_VERANTYX_泡:1.0___jcross_泡_29__"),
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_148__:(?!_VERANTYX_泡:1.0___jcross_泡_29__)\S+"#, "_VERANTYX_廳:1.0___jcross_廳_14__:_VERANTYX_泡:1.0___jcross_泡_29__"),
+// [metadata-stripped]
+            (#"\_VERANTYX_泡:1.0___jcross_泡_24__:0x[0-9a-fA-F]+"#, "_VERANTYX_廳:1.0___jcross_廳_77__:_VERANTYX_廳:1.0___jcross_廳_28__"),
+        ]
+
+        _VERANTYX_泡:1.0___jcross_泡_93__ = _VERANTYX_泡:1.0___jcross_泡_93__._VERANTYX_泡:1.0___jcross_泡_56__ { _VERANTYX_泡:1.0___jcross_泡_165__ in
+            var _VERANTYX_泡:1.0___jcross_泡_183__ = _VERANTYX_泡:1.0___jcross_泡_165__
+            for (_VERANTYX_泡:1.0___jcross_泡_38__, _VERANTYX_泡:1.0___jcross_泡_140__) in _VERANTYX_泡:1.0___jcross_泡_138__ {
+                if let _VERANTYX_泡:1.0___jcross_泡_35__ = try? _VERANTYX_廳:1.0___jcross_廳_59__(_VERANTYX_泡:1.0___jcross_泡_38__: _VERANTYX_泡:1.0___jcross_泡_38__, _VERANTYX_泡:1.0___jcross_泡_142__: ._VERANTYX_泡:1.0___jcross_泡_73__) {
+                    let _VERANTYX_泡:1.0___jcross_泡_4__ = _VERANTYX_廳:1.0___jcross_廳_55__(_VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_167__..., in: _VERANTYX_泡:1.0___jcross_泡_183__)
+                    _VERANTYX_泡:1.0___jcross_泡_183__ = _VERANTYX_泡:1.0___jcross_泡_35__._VERANTYX_泡:1.0___jcross_泡_123__(
+                        in: _VERANTYX_泡:1.0___jcross_泡_183__, _VERANTYX_泡:1.0___jcross_泡_4__: _VERANTYX_泡:1.0___jcross_泡_4__, _VERANTYX_泡:1.0___jcross_泡_75__: _VERANTYX_泡:1.0___jcross_泡_140__
+                    )
+// _VERANTYX_庫:0.1___jcross_YV_970__ [decoy-metadata]
+                }
+            }
+// [metadata-stripped]
+            while _VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_146__("_VERANTYX_廳:1.0___jcross_廳_77__:_VERANTYX_廳:1.0___jcross_廳_28__") {
+                _VERANTYX_泡:1.0___jcross_泡_183__ = _VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_25__(
+                    of: "_VERANTYX_廳:1.0___jcross_廳_77__:_VERANTYX_廳:1.0___jcross_廳_28__",
+                    _VERANTYX_泡:1.0___jcross_泡_184__: "_VERANTYX_廳:1.0___jcross_廳_77__:\(_VERANTYX_泡:1.0___jcross_泡_107__())",
+                    _VERANTYX_泡:1.0___jcross_泡_4__: _VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_4__(of: "_VERANTYX_廳:1.0___jcross_廳_77__:_VERANTYX_廳:1.0___jcross_廳_28__")
+                )
+            }
+            return _VERANTYX_泡:1.0___jcross_泡_183__
+        }
+
+// [metadata-stripped]
+        _VERANTYX_泡:1.0___jcross_泡_93__ = _VERANTYX_泡:1.0___jcross_泡_93__._VERANTYX_泡:1.0___jcross_泡_56__ { _VERANTYX_泡:1.0___jcross_泡_165__ in
+            var _VERANTYX_泡:1.0___jcross_泡_183__ = _VERANTYX_泡:1.0___jcross_泡_165__
+            let _VERANTYX_泡:1.0___jcross_泡_23__ = #"(_VERANTYX_廳:1.0___jcross_廳_52__|_VERANTYX_泡:1.0___jcross_泡_67__|_VERANTYX_泡:1.0___jcross_泡_52__?|_VERANTYX_泡:1.0___jcross_泡_161__?)[:=]\s*(\d+)"#
+            if let _VERANTYX_泡:1.0___jcross_泡_35__ = try? _VERANTYX_廳:1.0___jcross_廳_59__(_VERANTYX_泡:1.0___jcross_泡_38__: _VERANTYX_泡:1.0___jcross_泡_23__, _VERANTYX_泡:1.0___jcross_泡_142__: ._VERANTYX_泡:1.0___jcross_泡_73__) {
+                let _VERANTYX_泡:1.0___jcross_泡_47__ = _VERANTYX_泡:1.0___jcross_泡_183__ as _VERANTYX_廳:1.0___jcross_廳_21__
+                let _VERANTYX_泡:1.0___jcross_泡_53__ = _VERANTYX_泡:1.0___jcross_泡_35__._VERANTYX_泡:1.0___jcross_泡_53__(in: _VERANTYX_泡:1.0___jcross_泡_183__, _VERANTYX_泡:1.0___jcross_泡_4__: _VERANTYX_廳:1.0___jcross_廳_55__(_VERANTYX_泡:1.0___jcross_泡_46__: 0, _VERANTYX_泡:1.0___jcross_泡_147__: _VERANTYX_泡:1.0___jcross_泡_47__._VERANTYX_泡:1.0___jcross_泡_147__))
+                for _VERANTYX_泡:1.0___jcross_泡_28__ in _VERANTYX_泡:1.0___jcross_泡_53__._VERANTYX_泡:1.0___jcross_泡_64__() {
+                    if let _VERANTYX_泡:1.0___jcross_泡_58__ = _VERANTYX_廳:1.0___jcross_廳_2__(_VERANTYX_泡:1.0___jcross_泡_28__._VERANTYX_泡:1.0___jcross_泡_4__(at: 2), in: _VERANTYX_泡:1.0___jcross_泡_183__),
+                       let _VERANTYX_泡:1.0___jcross_泡_115__ = _VERANTYX_廳:1.0___jcross_廳_44__(_VERANTYX_泡:1.0___jcross_泡_183__[_VERANTYX_泡:1.0___jcross_泡_58__]) {
+                        let _VERANTYX_泡:1.0___jcross_泡_17__ = _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_111__(_VERANTYX_泡:1.0___jcross_泡_115__)._VERANTYX_泡:1.0___jcross_泡_144__
+                        if let _VERANTYX_泡:1.0___jcross_泡_171__ = _VERANTYX_廳:1.0___jcross_廳_2__(_VERANTYX_泡:1.0___jcross_泡_28__._VERANTYX_泡:1.0___jcross_泡_4__, in: _VERANTYX_泡:1.0___jcross_泡_183__) {
+                            let _VERANTYX_蔽:1.0___jcross_泡_103__ = _VERANTYX_廳:1.0___jcross_廳_23__(_VERANTYX_泡:1.0___jcross_泡_183__[_VERANTYX_泡:1.0___jcross_泡_171__]._VERANTYX_泡:1.0___jcross_泡_68__(while: { $0 != ":" && $0 != "=" }))
+                            _VERANTYX_泡:1.0___jcross_泡_183__ = _VERANTYX_泡:1.0___jcross_泡_183__._VERANTYX_泡:1.0___jcross_泡_78__(in: _VERANTYX_泡:1.0___jcross_泡_171__, _VERANTYX_泡:1.0___jcross_泡_184__: "\(_VERANTYX_蔽:1.0___jcross_泡_103__):class.\(_VERANTYX_泡:1.0___jcross_泡_17__)")
+                        }
+                    }
+                }
+            }
+            return _VERANTYX_泡:1.0___jcross_泡_183__
+        }
+
+// [metadata-stripped]
+        var _VERANTYX_泡:1.0___jcross_泡_81__: [_VERANTYX_廳:1.0___jcross_廳_23__] = []
+        for _VERANTYX_泡:1.0___jcross_泡_165__ in _VERANTYX_泡:1.0___jcross_泡_93__ {
+// _VERANTYX_泡:0.4___jcross_VA_511__ [decoy-metadata]
+            _VERANTYX_泡:1.0___jcross_泡_81__._VERANTYX_泡:1.0___jcross_泡_143__(_VERANTYX_泡:1.0___jcross_泡_165__)
+// [metadata-stripped]
+            if _VERANTYX_廳:1.0___jcross_廳_22__._VERANTYX_泡:1.0___jcross_泡_101__(in: 0..<1) < 0.20 && !_VERANTYX_泡:1.0___jcross_泡_165__._VERANTYX_泡:1.0___jcross_泡_70__(in: ._VERANTYX_泡:1.0___jcross_泡_72__)._VERANTYX_泡:1.0___jcross_泡_37__ {
+                _VERANTYX_泡:1.0___jcross_泡_81__._VERANTYX_泡:1.0___jcross_泡_143__(_VERANTYX_泡:1.0___jcross_泡_150__())
+            }
+        }
+
+        return _VERANTYX_泡:1.0___jcross_泡_81__._VERANTYX_泡:1.0___jcross_泡_42__(_VERANTYX_泡:1.0___jcross_泡_19__: "\n")
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_泡:1.0___jcross_泡_150__() -> _VERANTYX_廳:1.0___jcross_廳_23__ {
+        let id = "N_\(_VERANTYX_廳:1.0___jcross_廳_19__()._VERANTYX_泡:1.0___jcross_泡_43__._VERANTYX_泡:1.0___jcross_泡_68__(8))"
+        let _VERANTYX_泡:1.0___jcross_泡_124__ = _VERANTYX_泡:1.0___jcross_泡_107__()
+        let _VERANTYX_泡:1.0___jcross_泡_83__: [_VERANTYX_廳:1.0___jcross_廳_35__] = _VERANTYX_廳:1.0___jcross_廳_35__._VERANTYX_泡:1.0___jcross_泡_149__
+        let _VERANTYX_泡:1.0___jcross_泡_67__ = _VERANTYX_泡:1.0___jcross_泡_83__._VERANTYX_泡:1.0___jcross_泡_172__()?._VERANTYX_泡:1.0___jcross_泡_144__ ?? "_VERANTYX_泡:1.0___jcross_泡_59__"
+        return "  \(id) _VERANTYX_泡:1.0___jcross_泡_3__:_VERANTYX_泡:1.0___jcross_泡_29__ _VERANTYX_廳:1.0___jcross_廳_60__:_VERANTYX_泡:1.0___jcross_泡_29__ _VERANTYX_廳:1.0___jcross_廳_48__:_VERANTYX_泡:1.0___jcross_泡_29__ _VERANTYX_廳:1.0___jcross_廳_77__:\(_VERANTYX_泡:1.0___jcross_泡_124__) _VERANTYX_廳:1.0___jcross_廳_52__:class.\(_VERANTYX_泡:1.0___jcross_泡_67__)  // ⟨_VERANTYX_泡:1.0___jcross_泡_157__⟩"
+    }
+}
+
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct _VERANTYX_業:1.0___jcross_廳_33__ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    static func _VERANTYX_浸:1.0___jcross_泡_154__() -> _VERANTYX_廳:1.0___jcross_廳_41__ {
+        let _VERANTYX_泡:1.0___jcross_泡_159__ = _VERANTYX_廳:1.0___jcross_廳_63__(
+            id: _VERANTYX_廳:1.0___jcross_廳_61__(),
+            _VERANTYX_泡:1.0___jcross_泡_30__: ._VERANTYX_泡:1.0___jcross_泡_91__,
+            _VERANTYX_泡:1.0___jcross_泡_11__: nil,
+            _VERANTYX_泡:1.0___jcross_泡_120__: _VERANTYX_廳:1.0___jcross_廳_71__(
+                _VERANTYX_泡:1.0___jcross_泡_85__: 2, _VERANTYX_泡:1.0___jcross_泡_76__: 1,
+                _VERANTYX_泡:1.0___jcross_泡_152__: ._VERANTYX_泡:1.0___jcross_泡_135__,
+                _VERANTYX_泡:1.0___jcross_泡_60__: ._VERANTYX_泡:1.0___jcross_泡_170__,
+                _VERANTYX_泡:1.0___jcross_泡_26__: [_VERANTYX_廳:1.0___jcross_廳_61__(), _VERANTYX_廳:1.0___jcross_廳_61__()],
+                _VERANTYX_泡:1.0___jcross_泡_133__: [_VERANTYX_廳:1.0___jcross_廳_61__()]
+            ),
+            _VERANTYX_泡:1.0___jcross_泡_125__: _VERANTYX_廳:1.0___jcross_廳_13__(
+                _VERANTYX_泡:1.0___jcross_泡_65__: ._VERANTYX_泡:1.0___jcross_泡_69__,
+                _VERANTYX_泡:1.0___jcross_泡_14__: ._VERANTYX_泡:1.0___jcross_泡_13__,
+                _VERANTYX_泡:1.0___jcross_泡_178__: "0xDEAD1234"
+            ),
+            _VERANTYX_浸:1.0___jcross_泡_168__: nil, _VERANTYX_泡:1.0___jcross_泡_180__: nil
+        )
+
+        let _VERANTYX_泡:1.0___jcross_泡_102__ = _VERANTYX_廳:1.0___jcross_廳_63__(
+            id: _VERANTYX_廳:1.0___jcross_廳_61__(),
+            _VERANTYX_泡:1.0___jcross_泡_30__: ._VERANTYX_泡:1.0___jcross_泡_33__,
+            _VERANTYX_泡:1.0___jcross_泡_11__: nil,
+            _VERANTYX_泡:1.0___jcross_泡_120__: _VERANTYX_廳:1.0___jcross_廳_71__(
+                _VERANTYX_泡:1.0___jcross_泡_85__: 2, _VERANTYX_泡:1.0___jcross_泡_76__: 1,
+                _VERANTYX_泡:1.0___jcross_泡_152__: ._VERANTYX_泡:1.0___jcross_泡_141__,
+                _VERANTYX_泡:1.0___jcross_泡_60__: ._VERANTYX_泡:1.0___jcross_泡_185__,
+                _VERANTYX_泡:1.0___jcross_泡_26__: [_VERANTYX_廳:1.0___jcross_廳_61__(), _VERANTYX_廳:1.0___jcross_廳_61__()],
+                _VERANTYX_泡:1.0___jcross_泡_133__: [_VERANTYX_廳:1.0___jcross_廳_61__()]
+            ),
+            _VERANTYX_泡:1.0___jcross_泡_125__: nil, _VERANTYX_浸:1.0___jcross_泡_168__: nil, _VERANTYX_泡:1.0___jcross_泡_180__: nil
+        )
+
+        let _VERANTYX_泡:1.0___jcross_泡_114__ = _VERANTYX_廳:1.0___jcross_廳_36__(
+            _VERANTYX_泡:1.0___jcross_泡_130__: _VERANTYX_廳:1.0___jcross_廳_61__(),
+            _VERANTYX_泡:1.0___jcross_泡_136__: "_VERANTYX_浸:1.0___jcross_泡_15__",
+            _VERANTYX_泡:1.0___jcross_泡_112__: "2.2",
+            _VERANTYX_泡:1.0___jcross_泡_92__: _VERANTYX_廳:1.0___jcross_廳_24__(),
+            _VERANTYX_泡:1.0___jcross_泡_90__: [],
+            _VERANTYX_泡:1.0___jcross_泡_57__: [_VERANTYX_泡:1.0___jcross_泡_159__.id: _VERANTYX_泡:1.0___jcross_泡_159__, _VERANTYX_泡:1.0___jcross_泡_102__.id: _VERANTYX_泡:1.0___jcross_泡_102__]
+        )
+
+        let _VERANTYX_泡:1.0___jcross_泡_12__ = _VERANTYX_廳:1.0___jcross_廳_3__()
+        let _VERANTYX_泡:1.0___jcross_泡_40__   = _VERANTYX_泡:1.0___jcross_泡_12__._VERANTYX_泡:1.0___jcross_泡_113__(_VERANTYX_泡:1.0___jcross_泡_99__: _VERANTYX_泡:1.0___jcross_泡_114__)
+
+        let _VERANTYX_泡:1.0___jcross_泡_71__     = _VERANTYX_廳:1.0___jcross_廳_38__(_VERANTYX_泡:1.0___jcross_泡_40__._VERANTYX_泡:1.0___jcross_泡_57__._VERANTYX_泡:1.0___jcross_泡_134__)
+        let _VERANTYX_泡:1.0___jcross_泡_31__     = _VERANTYX_泡:1.0___jcross_泡_71__._VERANTYX_業:1.0___jcross_泡_9__ { $0._VERANTYX_泡:1.0___jcross_泡_48__ }
+        let _VERANTYX_泡:1.0___jcross_泡_164__    = _VERANTYX_泡:1.0___jcross_泡_71__._VERANTYX_泡:1.0___jcross_泡_56__ { $0._VERANTYX_泡:1.0___jcross_泡_61__ }
+        let _VERANTYX_泡:1.0___jcross_泡_121__ = _VERANTYX_業:1.0___jcross_礎_1__(_VERANTYX_泡:1.0___jcross_泡_164__)
+
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___jcross_泡_36__ = _VERANTYX_泡:1.0___jcross_泡_121__._VERANTYX_泡:1.0___jcross_泡_115__ == _VERANTYX_泡:1.0___jcross_泡_164__._VERANTYX_泡:1.0___jcross_泡_115__
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+        return _VERANTYX_廳:1.0___jcross_廳_41__(
+            _VERANTYX_泡:1.0___jcross_泡_49__:  2,
+            _VERANTYX_泡:1.0___jcross_泡_41__: _VERANTYX_泡:1.0___jcross_泡_71__._VERANTYX_泡:1.0___jcross_泡_115__,
+            _VERANTYX_泡:1.0___jcross_泡_128__:   _VERANTYX_泡:1.0___jcross_泡_31__._VERANTYX_泡:1.0___jcross_泡_115__,
+            _VERANTYX_泡:1.0___jcross_泡_189__:    _VERANTYX_泡:1.0___jcross_泡_121__._VERANTYX_泡:1.0___jcross_泡_115__,
+            _VERANTYX_泡:1.0___jcross_泡_36__:    _VERANTYX_泡:1.0___jcross_泡_36__,
+            _VERANTYX_泡:1.0___jcross_泡_2__:       !_VERANTYX_泡:1.0___jcross_泡_36__ || _VERANTYX_泡:1.0___jcross_泡_31__._VERANTYX_泡:1.0___jcross_泡_37__
+        )
+    }
+
+    struct _VERANTYX_廳:1.0___jcross_廳_41__ {
+        let _VERANTYX_泡:1.0___jcross_泡_49__:   _VERANTYX_廳:1.0___jcross_廳_44__
+        let _VERANTYX_泡:1.0___jcross_泡_41__: _VERANTYX_廳:1.0___jcross_廳_44__
+        let _VERANTYX_泡:1.0___jcross_泡_128__:    _VERANTYX_廳:1.0___jcross_廳_44__
+        let _VERANTYX_泡:1.0___jcross_泡_189__:     _VERANTYX_廳:1.0___jcross_廳_44__
+        let _VERANTYX_泡:1.0___jcross_泡_36__:     _VERANTYX_廳:1.0___jcross_廳_18__
+        let _VERANTYX_泡:1.0___jcross_泡_2__:        _VERANTYX_廳:1.0___jcross_廳_18__
+
+        var _VERANTYX_泡:1.0___jcross_泡_27__: _VERANTYX_廳:1.0___jcross_廳_23__ {
+            """
+            [_VERANTYX_業:1.0___jcross_廳_33__ v2.2]
+              _VERANTYX_廳:1.0___jcross_廳_16__ _VERANTYX_泡:1.0___jcross_泡_57__  : \(_VERANTYX_泡:1.0___jcross_泡_49__)
+              _VERANTYX_廳:1.0___jcross_廳_72__ _VERANTYX_泡:1.0___jcross_泡_57__: \(_VERANTYX_泡:1.0___jcross_泡_41__) (\(_VERANTYX_泡:1.0___jcross_泡_128__) _VERANTYX_泡:1.0___jcross_泡_31__)
+              _VERANTYX_廳:1.0___jcross_廳_54__ _VERANTYX_泡:1.0___jcross_泡_153__   : \(_VERANTYX_泡:1.0___jcross_泡_189__) / \(_VERANTYX_泡:1.0___jcross_泡_41__)
+              _VERANTYX_廳:1.0___jcross_廳_45__ _VERANTYX_泡:1.0___jcross_泡_95__   : \(_VERANTYX_泡:1.0___jcross_泡_36__ ? "✅ _VERANTYX_廳:1.0___jcross_廳_4__" : "❌ NO — _VERANTYX_廳:1.0___jcross_廳_7__")
+              _VERANTYX_廳:1.0___jcross_廳_43__      : \(_VERANTYX_泡:1.0___jcross_泡_2__ ? "⚠️ _VERANTYX_廳:1.0___jcross_廳_4__" : "✅ NO")
+              _VERANTYX_廳:1.0___jcross_廳_42__ _VERANTYX_泡:1.0___jcross_泡_51__: \(_VERANTYX_泡:1.0___jcross_泡_2__ ? "5-10%" : "<2%")
+            """
+        }
+    }
+}
+// [metadata-stripped]
+
+// POLYMORPHIC_JCROSS_END

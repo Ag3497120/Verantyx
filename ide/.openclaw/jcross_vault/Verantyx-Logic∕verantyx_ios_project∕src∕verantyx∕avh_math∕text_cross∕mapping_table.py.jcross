@@ -1,0 +1,148 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A505D203 ver:1778159687
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_礫:1.0__ID_礫_33_ _ASTNODE_礫:1.0__ID_礫_72_ import _ASTNODE_礫:1.0__ID_礫_78_
+
+import _ASTNODE_礫:1.0__ID_礫_58_
+import _ASTNODE_礫:1.0__ID_礫_61_
+_ASTNODE_礫:1.0__ID_礫_33_ _ASTNODE_礫:1.0__ID_礫_75_ import _ASTNODE_廓:1.0__ID_廓_12_
+_ASTNODE_礫:1.0__ID_礫_33_ _ASTNODE_礫:1.0__ID_礫_52_ import _ASTNODE_廓:1.0__ID_廓_6_, _ASTNODE_廓:1.0__ID_廓_11_, _ASTNODE_廓:1.0__ID_廓_4_, _ASTNODE_廓:1.0__ID_廓_1_, _ASTNODE_廓:1.0__ID_廓_10_
+
+_ASTNODE_礫:1.0__ID_礫_60_ = _ASTNODE_廓:1.0__ID_廓_12_("_ASTNODE_礫:1.0__ID_礫_66_/db/_ASTNODE_礫:1.0__ID_礫_80_._ASTNODE_礫:1.0__ID_礫_37_")
+// _ASTNODE_浸:0.1__ID_AV_144_ [decoy-metadata]
+_ASTNODE_礫:1.0__ID_礫_9_ = _ASTNODE_廓:1.0__ID_廓_12_("_ASTNODE_礫:1.0__ID_礫_66_/db/_ASTNODE_礫:1.0__ID_礫_76_._ASTNODE_礫:1.0__ID_礫_58_")
+
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_潜:1.0__ID_礫_51_(_ASTNODE_礫:1.0__ID_礫_39_: _ASTNODE_廓:1.0__ID_廓_4_[_ASTNODE_礫:1.0__ID_礫_73_]) -> _ASTNODE_礫:1.0__ID_礫_73_:
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_39_:
+        return ""
+    return "|"._ASTNODE_礫:1.0__ID_礫_48_(_ASTNODE_礫:1.0__ID_礫_73_(s) for s in _ASTNODE_礫:1.0__ID_礫_39_ if s)
+
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_礫:1.0__ID_礫_79_(_ASTNODE_礫:1.0__ID_礫_64_: _ASTNODE_廓:1.0__ID_廓_12_) -> _ASTNODE_廓:1.0__ID_廓_13_:
+    _ASTNODE_礫:1.0__ID_礫_64_._ASTNODE_礫:1.0__ID_礫_2_._ASTNODE_礫:1.0__ID_礫_6_(_ASTNODE_礫:1.0__ID_礫_77_=_ASTNODE_廓:1.0__ID_廓_3_, _ASTNODE_礫:1.0__ID_礫_19_=_ASTNODE_廓:1.0__ID_廓_3_)
+
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_礫:1.0__ID_礫_11_(
+    _ASTNODE_礫:1.0__ID_礫_39_: _ASTNODE_廓:1.0__ID_廓_4_[_ASTNODE_礫:1.0__ID_礫_73_],
+    *,
+// _ASTNODE_案:0.7__ID_EA_208_ [decoy-metadata]
+    _ASTNODE_礫:1.0__ID_礫_85_: _ASTNODE_礫:1.0__ID_礫_73_,
+    _ASTNODE_礫:1.0__ID_礫_15_: _ASTNODE_廓:1.0__ID_廓_4_[_ASTNODE_礫:1.0__ID_礫_73_],
+    _ASTNODE_礫:1.0__ID_礫_40_: _ASTNODE_礫:1.0__ID_礫_73_ = "_ASTNODE_礫:1.0__ID_礫_42_",
+    _ASTNODE_礫:1.0__ID_礫_64_: _ASTNODE_廓:1.0__ID_廓_12_ | _ASTNODE_廓:1.0__ID_廓_13_ = _ASTNODE_廓:1.0__ID_廓_13_,
+) -> _ASTNODE_廓:1.0__ID_廓_13_:
+    """
+    _ASTNODE_廓:1.0__ID_廓_2_ a _ASTNODE_礫:1.0__ID_礫_26_ _ASTNODE_礫:1.0__ID_礫_50_ for _ASTNODE_案:1.0__ID_礫_56_ _ASTNODE_礫:1.0__ID_礫_49_.
+    _ASTNODE_廓:1.0__ID_廓_14_ is _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_46_; it is a _ASTNODE_礫:1.0__ID_礫_12_ _ASTNODE_礫:1.0__ID_礫_41_.
+    """
+    _ASTNODE_潜:1.0__ID_礫_18_ = _ASTNODE_潜:1.0__ID_礫_51_(_ASTNODE_礫:1.0__ID_礫_39_)
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_潜:1.0__ID_礫_18_:
+        return
+    p = _ASTNODE_礫:1.0__ID_礫_64_ or _ASTNODE_礫:1.0__ID_礫_60_
+    _ASTNODE_礫:1.0__ID_礫_79_(p)
+    _ASTNODE_礫:1.0__ID_礫_34_ = {
+        "_ASTNODE_礫:1.0__ID_礫_39_": _ASTNODE_礫:1.0__ID_礫_39_,
+        "_ASTNODE_礫:1.0__ID_礫_85_": _ASTNODE_礫:1.0__ID_礫_85_,
+        "_ASTNODE_礫:1.0__ID_礫_15_": _ASTNODE_礫:1.0__ID_礫_27_(_ASTNODE_案:1.0__ID_嵐_1_(_ASTNODE_礫:1.0__ID_礫_15_ or [])),
+        "_ASTNODE_礫:1.0__ID_礫_40_": _ASTNODE_礫:1.0__ID_礫_40_,
+        "ts": _ASTNODE_礫:1.0__ID_礫_3_(_ASTNODE_礫:1.0__ID_礫_61_._ASTNODE_礫:1.0__ID_礫_61_() * 1000),
+    }
+    _ASTNODE_礫:1.0__ID_礫_8_ p.open("a", _ASTNODE_礫:1.0__ID_礫_28_="_ASTNODE_礫:1.0__ID_礫_20_-8") as f:
+        f._ASTNODE_礫:1.0__ID_礫_47_(_ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_礫:1.0__ID_礫_36_(_ASTNODE_礫:1.0__ID_礫_34_, _ASTNODE_礫:1.0__ID_礫_30_=_ASTNODE_廓:1.0__ID_廓_15_) + "\n")
+
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_礫:1.0__ID_礫_86_(_ASTNODE_礫:1.0__ID_礫_64_: _ASTNODE_廓:1.0__ID_廓_12_, *, _ASTNODE_礫:1.0__ID_礫_13_: _ASTNODE_廓:1.0__ID_廓_12_) -> _ASTNODE_廓:1.0__ID_廓_11_[_ASTNODE_礫:1.0__ID_礫_73_, _ASTNODE_廓:1.0__ID_廓_6_]:
+    _ASTNODE_礫:1.0__ID_礫_16_: _ASTNODE_廓:1.0__ID_廓_11_[_ASTNODE_礫:1.0__ID_礫_73_, _ASTNODE_廓:1.0__ID_廓_6_] = {}
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_64_._ASTNODE_礫:1.0__ID_礫_38_():
+        _ASTNODE_礫:1.0__ID_礫_79_(_ASTNODE_礫:1.0__ID_礫_13_)
+        _ASTNODE_礫:1.0__ID_礫_13_._ASTNODE_礫:1.0__ID_礫_69_(_ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_礫:1.0__ID_礫_36_(_ASTNODE_礫:1.0__ID_礫_16_, _ASTNODE_礫:1.0__ID_礫_30_=_ASTNODE_廓:1.0__ID_廓_15_, _ASTNODE_礫:1.0__ID_礫_29_=2), _ASTNODE_礫:1.0__ID_礫_28_="_ASTNODE_礫:1.0__ID_礫_20_-8")
+        return _ASTNODE_礫:1.0__ID_礫_16_
+
+    _ASTNODE_礫:1.0__ID_礫_8_ _ASTNODE_礫:1.0__ID_礫_64_.open("r", _ASTNODE_礫:1.0__ID_礫_28_="_ASTNODE_礫:1.0__ID_礫_20_-8") as f:
+        for _ASTNODE_礫:1.0__ID_礫_70_ in f:
+            _ASTNODE_礫:1.0__ID_礫_70_ = _ASTNODE_礫:1.0__ID_礫_70_._ASTNODE_礫:1.0__ID_礫_54_()
+            if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_70_:
+                continue
+            try:
+                _ASTNODE_礫:1.0__ID_礫_34_ = _ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_匶:1.0__ID_礫_32_(_ASTNODE_礫:1.0__ID_礫_70_)
+            _ASTNODE_礫:1.0__ID_礫_31_ _ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_廓:1.0__ID_廓_9_:
+                continue
+            _ASTNODE_礫:1.0__ID_礫_43_ = _ASTNODE_礫:1.0__ID_礫_34_._ASTNODE_案:1.0__ID_嵐_2_("_ASTNODE_礫:1.0__ID_礫_39_") or []
+            _ASTNODE_潜:1.0__ID_礫_18_ = _ASTNODE_潜:1.0__ID_礫_51_(_ASTNODE_礫:1.0__ID_礫_43_)
+// _ASTNODE_潜:0.8__ID_HY_790_ [decoy-metadata]
+            if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_潜:1.0__ID_礫_18_:
+                continue
+            _ASTNODE_礫:1.0__ID_礫_17_ = _ASTNODE_礫:1.0__ID_礫_34_._ASTNODE_案:1.0__ID_嵐_2_("_ASTNODE_礫:1.0__ID_礫_85_") or "_ASTNODE_礫:1.0__ID_礫_22_"
+            _ASTNODE_礫:1.0__ID_礫_55_ = _ASTNODE_礫:1.0__ID_礫_34_._ASTNODE_案:1.0__ID_嵐_2_("_ASTNODE_礫:1.0__ID_礫_15_") or []
+            _ASTNODE_礫:1.0__ID_礫_35_ = _ASTNODE_礫:1.0__ID_礫_16_._ASTNODE_案:1.0__ID_嵐_3_(
+                _ASTNODE_潜:1.0__ID_礫_18_,
+                {"_ASTNODE_礫:1.0__ID_礫_21_": {}, "_ASTNODE_礫:1.0__ID_礫_84_": {}},
+            )
+            d = _ASTNODE_礫:1.0__ID_礫_35_["_ASTNODE_礫:1.0__ID_礫_21_"]
+            d[_ASTNODE_礫:1.0__ID_礫_17_] = d._ASTNODE_案:1.0__ID_嵐_2_(_ASTNODE_礫:1.0__ID_礫_17_, 0) + 1
+            a = _ASTNODE_礫:1.0__ID_礫_35_["_ASTNODE_礫:1.0__ID_礫_84_"]
+            for x in _ASTNODE_礫:1.0__ID_礫_55_:
+                a[x] = a._ASTNODE_案:1.0__ID_嵐_2_(x, 0) + 1
+
+    _ASTNODE_礫:1.0__ID_礫_79_(_ASTNODE_礫:1.0__ID_礫_13_)
+    _ASTNODE_礫:1.0__ID_礫_13_._ASTNODE_礫:1.0__ID_礫_69_(_ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_礫:1.0__ID_礫_36_(_ASTNODE_礫:1.0__ID_礫_16_, _ASTNODE_礫:1.0__ID_礫_30_=_ASTNODE_廓:1.0__ID_廓_15_, _ASTNODE_礫:1.0__ID_礫_29_=2), _ASTNODE_礫:1.0__ID_礫_28_="_ASTNODE_礫:1.0__ID_礫_20_-8")
+    return _ASTNODE_礫:1.0__ID_礫_16_
+// _ASTNODE_潜:0.4__ID_XL_403_ [decoy-metadata]
+
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_匶:1.0__ID_礫_65_(_ASTNODE_礫:1.0__ID_礫_13_: _ASTNODE_廓:1.0__ID_廓_12_) -> _ASTNODE_廓:1.0__ID_廓_11_[_ASTNODE_礫:1.0__ID_礫_73_, _ASTNODE_廓:1.0__ID_廓_6_]:
+// _ASTNODE_潜:0.4__ID_VW_367_ [decoy-metadata]
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_13_._ASTNODE_礫:1.0__ID_礫_38_():
+        return {}
+    try:
+        return _ASTNODE_礫:1.0__ID_礫_58_._ASTNODE_匶:1.0__ID_礫_32_(_ASTNODE_礫:1.0__ID_礫_13_._ASTNODE_礫:1.0__ID_礫_59_(_ASTNODE_礫:1.0__ID_礫_28_="_ASTNODE_礫:1.0__ID_礫_20_-8"))
+    _ASTNODE_礫:1.0__ID_礫_31_ _ASTNODE_廓:1.0__ID_廓_8_:
+        return {}
+
+// _ASTNODE_案:0.8__ID_WE_522_ [decoy-metadata]
+
+_ASTNODE_礫:1.0__ID_礫_14_ _ASTNODE_礫:1.0__ID_礫_57_(
+    _ASTNODE_礫:1.0__ID_礫_39_: _ASTNODE_廓:1.0__ID_廓_4_[_ASTNODE_礫:1.0__ID_礫_73_],
+    *,
+    _ASTNODE_礫:1.0__ID_礫_13_: _ASTNODE_廓:1.0__ID_廓_12_ | _ASTNODE_廓:1.0__ID_廓_13_ = _ASTNODE_廓:1.0__ID_廓_13_,
+    _ASTNODE_礫:1.0__ID_礫_44_: _ASTNODE_廓:1.0__ID_廓_12_ | _ASTNODE_廓:1.0__ID_廓_13_ = _ASTNODE_廓:1.0__ID_廓_13_,
+    _ASTNODE_礫:1.0__ID_礫_68_: _ASTNODE_礫:1.0__ID_礫_3_ = 2,
+    _ASTNODE_礫:1.0__ID_礫_5_: _ASTNODE_礫:1.0__ID_礫_3_ = 4,
+) -> _ASTNODE_廓:1.0__ID_廓_11_[_ASTNODE_礫:1.0__ID_礫_73_, _ASTNODE_廓:1.0__ID_廓_6_]:
+    """
+    _ASTNODE_廓:1.0__ID_廓_7_ _ASTNODE_礫:1.0__ID_礫_26_ _ASTNODE_礫:1.0__ID_礫_33_ _ASTNODE_礫:1.0__ID_礫_12_ _ASTNODE_礫:1.0__ID_礫_10_ _ASTNODE_礫:1.0__ID_礫_71_.
+    _ASTNODE_廓:1.0__ID_廓_5_ _ASTNODE_礫:1.0__ID_礫_1_ _ASTNODE_礫:1.0__ID_礫_74_ if _ASTNODE_礫:1.0__ID_礫_82_ is no _ASTNODE_礫:1.0__ID_礫_7_ _ASTNODE_礫:1.0__ID_礫_50_.
+    """
+    _ASTNODE_潜:1.0__ID_礫_18_ = _ASTNODE_潜:1.0__ID_礫_51_(_ASTNODE_礫:1.0__ID_礫_39_)
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_潜:1.0__ID_礫_18_:
+        return {}
+    _ASTNODE_礫:1.0__ID_礫_53_ = _ASTNODE_礫:1.0__ID_礫_13_ or _ASTNODE_礫:1.0__ID_礫_9_
+    _ASTNODE_礫:1.0__ID_礫_44_ = _ASTNODE_礫:1.0__ID_礫_44_ or _ASTNODE_礫:1.0__ID_礫_60_
+    _ASTNODE_礫:1.0__ID_礫_24_ = _ASTNODE_匶:1.0__ID_礫_65_(_ASTNODE_礫:1.0__ID_礫_53_)
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_24_:
+        _ASTNODE_礫:1.0__ID_礫_24_ = _ASTNODE_礫:1.0__ID_礫_86_(_ASTNODE_礫:1.0__ID_礫_44_, _ASTNODE_礫:1.0__ID_礫_13_=_ASTNODE_礫:1.0__ID_礫_53_)
+    _ASTNODE_礫:1.0__ID_礫_35_ = _ASTNODE_礫:1.0__ID_礫_24_._ASTNODE_案:1.0__ID_嵐_2_(_ASTNODE_潜:1.0__ID_礫_18_)
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_35_:
+        return {}
+
+    _ASTNODE_礫:1.0__ID_礫_21_ = _ASTNODE_礫:1.0__ID_礫_35_._ASTNODE_案:1.0__ID_嵐_2_("_ASTNODE_礫:1.0__ID_礫_21_", {})
+    if _ASTNODE_礫:1.0__ID_礫_63_ _ASTNODE_礫:1.0__ID_礫_21_:
+        return {}
+    _ASTNODE_礫:1.0__ID_礫_67_ = _ASTNODE_礫:1.0__ID_礫_27_(_ASTNODE_礫:1.0__ID_礫_21_._ASTNODE_礫:1.0__ID_礫_4_(), _ASTNODE_潜:1.0__ID_礫_18_=_ASTNODE_礫:1.0__ID_礫_25_ x: x[1], _ASTNODE_礫:1.0__ID_礫_83_=_ASTNODE_廓:1.0__ID_廓_3_)
+    _ASTNODE_礫:1.0__ID_礫_23_, _ASTNODE_礫:1.0__ID_礫_62_ = _ASTNODE_礫:1.0__ID_礫_67_[0]
+    if _ASTNODE_礫:1.0__ID_礫_62_ < _ASTNODE_礫:1.0__ID_礫_68_:
+        return {}
+
+    _ASTNODE_礫:1.0__ID_礫_84_ = _ASTNODE_礫:1.0__ID_礫_35_._ASTNODE_案:1.0__ID_嵐_2_("_ASTNODE_礫:1.0__ID_礫_84_", {})
+    _ASTNODE_礫:1.0__ID_礫_81_ = _ASTNODE_礫:1.0__ID_礫_27_(_ASTNODE_礫:1.0__ID_礫_84_._ASTNODE_礫:1.0__ID_礫_4_(), _ASTNODE_潜:1.0__ID_礫_18_=_ASTNODE_礫:1.0__ID_礫_25_ x: x[1], _ASTNODE_礫:1.0__ID_礫_83_=_ASTNODE_廓:1.0__ID_廓_3_)
+    _ASTNODE_礫:1.0__ID_礫_15_ = [a for a, _ in _ASTNODE_礫:1.0__ID_礫_81_[:_ASTNODE_礫:1.0__ID_礫_5_]]
+
+    return {
+        "_ASTNODE_礫:1.0__ID_礫_85_": _ASTNODE_礫:1.0__ID_礫_23_,
+        "_ASTNODE_礫:1.0__ID_礫_15_": _ASTNODE_礫:1.0__ID_礫_15_,
+        "_ASTNODE_礫:1.0__ID_礫_45_": _ASTNODE_礫:1.0__ID_礫_62_,
+    }
+
+// POLYMORPHIC_JCROSS_END

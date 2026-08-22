@@ -1,0 +1,50 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:206886C9 ver:1778159677
+// ⚠️ One-time schema — expires after response
+
+import re
+
+__node_庭:1.0___JCROSS_庭_1_ = __node_節:1.0___JCROSS_焦_1_("()[]¬~&|→-><>")
+
+// __node_匳:0.3___JCROSS_ZZ_890_ [decoy-metadata]
+__node_滴:1.0___JCROSS_滴_12_ __node_泳:1.0___JCROSS_滴_5_(s: __node_滴:1.0___JCROSS_滴_13_) -> __node_滴:1.0___JCROSS_滴_6_:
+    """文字列が論理式としての特徴を持っているか判定"""
+    return any(c in s for c in __node_庭:1.0___JCROSS_庭_1_)
+
+__node_滴:1.0___JCROSS_滴_12_ __node_泳:1.0___JCROSS_滴_3_(__node_滴:1.0___JCROSS_滴_9_: __node_滴:1.0___JCROSS_滴_13_) -> __node_滴:1.0___JCROSS_滴_13_:
+    """途中で切れた論理式を、最大限修復して数学的に完結させる"""
+    if __node_滴:1.0___JCROSS_滴_10_ __node_滴:1.0___JCROSS_滴_9_:
+        return ""
+
+    s = __node_滴:1.0___JCROSS_滴_9_.__node_滴:1.0___JCROSS_滴_1_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_緯:0.5___JCROSS_WL_211_ [decoy-metadata]
+    if s.__node_滴:1.0___JCROSS_滴_14_(("->", "→")):
+        s = s + " q" # デフォルトの右辺を補完
+    
+// [metadata-stripped]
+    if s.__node_滴:1.0___JCROSS_滴_14_(("&", "|", "⊕")):
+        s = s + " q"
+
+// [metadata-stripped]
+    __node_滴:1.0___JCROSS_滴_11_ = s.__node_滴:1.0___JCROSS_滴_8_("(")
+    __node_滴:1.0___JCROSS_滴_2_ = s.__node_滴:1.0___JCROSS_滴_8_(")")
+    if __node_滴:1.0___JCROSS_滴_11_ > __node_滴:1.0___JCROSS_滴_2_:
+// __node_焦:0.3___JCROSS_LX_434_ [decoy-metadata]
+        s = s + ")" * (__node_滴:1.0___JCROSS_滴_11_ - __node_滴:1.0___JCROSS_滴_2_)
+    __node_泳:1.0___JCROSS_滴_7_ __node_滴:1.0___JCROSS_滴_2_ > __node_滴:1.0___JCROSS_滴_11_:
+// [metadata-stripped]
+// __node_匳:0.2___JCROSS_YA_986_ [decoy-metadata]
+        s = "(" * (__node_滴:1.0___JCROSS_滴_2_ - __node_滴:1.0___JCROSS_滴_11_) + s
+// __node_蔽:0.2___JCROSS_AD_907_ [decoy-metadata]
+
+// [metadata-stripped]
+    if __node_滴:1.0___JCROSS_滴_10_ re.__node_滴:1.0___JCROSS_滴_4_(r"[A-Za-z]", s):
+        return ""
+// __node_泳:0.4___JCROSS_VA_574_ [decoy-metadata]
+
+    return s
+
+// POLYMORPHIC_JCROSS_END

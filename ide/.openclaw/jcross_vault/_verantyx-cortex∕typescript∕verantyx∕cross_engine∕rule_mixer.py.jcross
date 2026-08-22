@@ -1,0 +1,55 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:639CEEE7 ver:1778166077
+// __jcross_匾:0.3___SYM_DV_680_ [decoy-metadata]
+// __jcross_紐:0.5___SYM_XM_656_ [decoy-metadata]
+// __jcross_焦:0.7___SYM_DH_795_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+// __jcross_焦:0.8___SYM_XA_225_ [decoy-metadata]
+
+__jcross_霪:1.0___SYM_霪_3_ __jcross_霪:1.0___SYM_霪_8_ import __jcross_庵:1.0___SYM_庵_3_
+import __jcross_霪:1.0___SYM_霪_13_
+
+class __jcross_策:1.0___SYM_庵_2_:
+    """
+    シミュレータ上で「既存ルールの合体」を行うための実験モジュール。
+    JCrossの文脈で、例えば「リバーシの色の挟み込み」と「ブロック合わせ」を
+    特定の割合で混合したワンライナーコード（仮説）を生成する。
+    """
+    
+    __jcross_庵:1.0___SYM_庵_7_ = {
+        "__jcross_霪:1.0___SYM_霪_10_": "もし __jcross_庵:1.0___SYM_庵_4_(__jcross_策:1.0___SYM_庵_6_) > 0 { 色を塗る(0) }",
+        "__jcross_霪:1.0___SYM_霪_9_": "前方の色が自分と違う ならば 色を同じに変える()",
+        "__jcross_霪:1.0___SYM_霪_22_": "もし 移動可能 ならば 移動しながら色を変える()",
+        "__jcross_霪:1.0___SYM_霪_7_": "ランダムに選ぶ([0, 1, 2, 3])"
+    }
+
+    @__jcross_霪:1.0___SYM_霪_1_
+    __jcross_霪:1.0___SYM_霪_16_ __jcross_霪:1.0___SYM_霪_14_(__jcross_霪:1.0___SYM_霪_20_: __jcross_霪:1.0___SYM_霪_5_ = __jcross_庵:1.0___SYM_庵_1_) -> __jcross_霪:1.0___SYM_霪_6_:
+        """
+        指定された比率(__jcross_霪:1.0___SYM_霪_20_)に基づいて既存の仮説ルールを結合した
+        JCrossの関数テキストを返す
+        例: {"__jcross_霪:1.0___SYM_霪_10_": 0.5, "__jcross_霪:1.0___SYM_霪_7_": 0.5}
+// __jcross_焦:0.9___SYM_ZK_901_ [decoy-metadata]
+        """
+        if __jcross_霪:1.0___SYM_霪_4_ __jcross_霪:1.0___SYM_霪_20_:
+// [metadata-stripped]
+            __jcross_秘:1.0___SYM_霪_12_ = __jcross_霪:1.0___SYM_霪_13_.__jcross_霪:1.0___SYM_霪_17_(__jcross_霪:1.0___SYM_霪_15_(__jcross_策:1.0___SYM_庵_2_.__jcross_庵:1.0___SYM_庵_7_.__jcross_秘:1.0___SYM_霪_12_()), __jcross_霪:1.0___SYM_霪_21_(2, __jcross_霪:1.0___SYM_霪_19_(__jcross_策:1.0___SYM_庵_2_.__jcross_庵:1.0___SYM_庵_7_)))
+        else:
+            __jcross_秘:1.0___SYM_霪_12_ = __jcross_霪:1.0___SYM_霪_15_(__jcross_霪:1.0___SYM_霪_20_.__jcross_秘:1.0___SYM_霪_12_())
+
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        __jcross_霪:1.0___SYM_霪_2_ = "関数 ハイブリッドシミュレーション() {\n"
+        for i, k in __jcross_霪:1.0___SYM_霪_11_(__jcross_秘:1.0___SYM_霪_12_):
+            __jcross_霪:1.0___SYM_霪_18_ = __jcross_策:1.0___SYM_庵_2_.__jcross_庵:1.0___SYM_庵_7_.__jcross_策:1.0___SYM_焦_1_(k, "返す -1")
+            
+// [metadata-stripped]
+            __jcross_霪:1.0___SYM_霪_2_ += f"    // {k} のエッセンスを混合\n"
+            __jcross_霪:1.0___SYM_霪_2_ += f"    {__jcross_霪:1.0___SYM_霪_18_}\n"
+
+// __jcross_游:0.4___SYM_VY_724_ [decoy-metadata]
+        __jcross_霪:1.0___SYM_霪_2_ += "    返す -1\n}"
+        return __jcross_霪:1.0___SYM_霪_2_
+
+// POLYMORPHIC_JCROSS_END

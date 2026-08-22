@@ -1,0 +1,309 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5687FF78 ver:1778162964
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_霮:1.0__OPAQUE_霮_2_
+_VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_91_ import _VERANTYX_墟:1.0__OPAQUE_墟_31_
+_VERANTYX_霮:1.0__OPAQUE_霮_2_._VERANTYX_霮:1.0__OPAQUE_霮_5_._VERANTYX_霮:1.0__OPAQUE_霮_158_(0, _VERANTYX_霮:1.0__OPAQUE_霮_6_(_VERANTYX_墟:1.0__OPAQUE_墟_31_(_VERANTYX_匯:1.0__OPAQUE_霮_129_)._VERANTYX_霮:1.0__OPAQUE_霮_79_._VERANTYX_霮:1.0__OPAQUE_霮_79_))
+
+import _VERANTYX_霮:1.0__OPAQUE_霮_185_
+import os, _VERANTYX_霮:1.0__OPAQUE_霮_175_
+_VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_82_ import _VERANTYX_霮:1.0__OPAQUE_霮_82_
+import _VERANTYX_霮:1.0__OPAQUE_霮_77_
+_VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_112_ import _VERANTYX_霮:1.0__OPAQUE_霮_210_
+
+
+_VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_142_._VERANTYX_霮:1.0__OPAQUE_霮_56_ import _VERANTYX_霮:1.0__OPAQUE_霮_172_
+import _VERANTYX_霮:1.0__OPAQUE_霮_86_ as np
+
+_VERANTYX_墟:1.0__OPAQUE_墟_9_={'_VERANTYX_霮:1.0__OPAQUE_霮_76_-_VERANTYX_霮:1.0__OPAQUE_霮_110_': 2000000, '_VERANTYX_霮:1.0__OPAQUE_霮_76_-_VERANTYX_霮:1.0__OPAQUE_霮_7_': 2000000}
+_VERANTYX_秘:1.0__OPAQUE_墟_38_ = 50
+
+_VERANTYX_墟:1.0__OPAQUE_墟_34_ = """
+_VERANTYX_墟:1.0__OPAQUE_墟_5_ on _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_211_ _VERANTYX_霮:1.0__OPAQUE_霮_99_, _VERANTYX_霮:1.0__OPAQUE_霮_186_ an _VERANTYX_型:1.0__OPAQUE_霮_75_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_濫:1.0__OPAQUE_霮_95_ of a _VERANTYX_霮:1.0__OPAQUE_霮_67_ _VERANTYX_霮:1.0__OPAQUE_霮_98_ for _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_59_ _VERANTYX_霮:1.0__OPAQUE_霮_45_. _VERANTYX_型:1.0__OPAQUE_墟_10_ _VERANTYX_霮:1.0__OPAQUE_霮_33_ _VERANTYX_霮:1.0__OPAQUE_霮_39_ _VERANTYX_霮:1.0__OPAQUE_霮_124_ _VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_99_ _VERANTYX_型:1.0__OPAQUE_霮_143_ _VERANTYX_霮:1.0__OPAQUE_霮_68_.
+
+_VERANTYX_墟:1.0__OPAQUE_墟_18_: {} _VERANTYX_墟:1.0__OPAQUE_墟_23_ _VERANTYX_型:1.0__OPAQUE_霮_75_:
+"""
+
+_VERANTYX_墟:1.0__OPAQUE_墟_26_ = """
+_VERANTYX_墟:1.0__OPAQUE_墟_5_ on _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_211_ _VERANTYX_霮:1.0__OPAQUE_霮_99_, _VERANTYX_型:1.0__OPAQUE_霮_75_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_59_ _VERANTYX_霮:1.0__OPAQUE_霮_45_.
+
+_VERANTYX_墟:1.0__OPAQUE_墟_18_: {} _VERANTYX_墟:1.0__OPAQUE_墟_23_ _VERANTYX_型:1.0__OPAQUE_霮_75_:
+"""
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+_VERANTYX_墟:1.0__OPAQUE_墟_2_ = """
+_VERANTYX_墟:1.0__OPAQUE_墟_5_ on _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_211_ _VERANTYX_霮:1.0__OPAQUE_霮_189_, _VERANTYX_霮:1.0__OPAQUE_霮_186_ _VERANTYX_霮:1.0__OPAQUE_霮_67_ _VERANTYX_霮:1.0__OPAQUE_霮_165_ for _VERANTYX_霮:1.0__OPAQUE_霮_12_ of _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_59_ _VERANTYX_霮:1.0__OPAQUE_霮_111_ in a _VERANTYX_霮:1.0__OPAQUE_霮_27_ _VERANTYX_霮:1.0__OPAQUE_霮_124_. _VERANTYX_墟:1.0__OPAQUE_墟_4_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_165_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_濫:1.0__OPAQUE_霮_95_ of a _VERANTYX_霮:1.0__OPAQUE_霮_175_ _VERANTYX_霮:1.0__OPAQUE_霮_174_ where _VERANTYX_霮:1.0__OPAQUE_霮_12_ _VERANTYX_霮:1.0__OPAQUE_霮_22_ _VERANTYX_霮:1.0__OPAQUE_霮_13_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_207_ _VERANTYX_濫:1.0__OPAQUE_霮_85_ of _VERANTYX_霮:1.0__OPAQUE_霮_45_ _VERANTYX_型:1.0__OPAQUE_霮_205_ as '_VERANTYX_秘:1.0__OPAQUE_霮_161_' _VERANTYX_霮:1.0__OPAQUE_霮_92_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_67_ _VERANTYX_型:1.0__OPAQUE_霮_75_ as _VERANTYX_霮:1.0__OPAQUE_霮_3_. _VERANTYX_墟:1.0__OPAQUE_墟_13_ _VERANTYX_霮:1.0__OPAQUE_霮_105_-_VERANTYX_霮:1.0__OPAQUE_霮_122_ _VERANTYX_霮:1.0__OPAQUE_霮_134_ for _VERANTYX_霮:1.0__OPAQUE_霮_113_ _VERANTYX_霮:1.0__OPAQUE_霮_14_. _VERANTYX_型:1.0__OPAQUE_墟_10_ _VERANTYX_霮:1.0__OPAQUE_霮_33_ _VERANTYX_霮:1.0__OPAQUE_霮_39_ _VERANTYX_霮:1.0__OPAQUE_霮_124_ _VERANTYX_霮:1.0__OPAQUE_霮_188_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_189_ _VERANTYX_型:1.0__OPAQUE_霮_143_ _VERANTYX_霮:1.0__OPAQUE_霮_68_.
+
+"""
+
+// [metadata-stripped]
+
+_VERANTYX_墟:1.0__OPAQUE_墟_24_ = "_VERANTYX_墟:1.0__OPAQUE_墟_11_ is a _VERANTYX_霮:1.0__OPAQUE_霮_16_ _VERANTYX_霮:1.0__OPAQUE_霮_125_ _VERANTYX_霮:1.0__OPAQUE_霮_213_ _VERANTYX_霮:1.0__OPAQUE_霮_55_: {} _VERANTYX_霮:1.0__OPAQUE_霮_92_ {}. _VERANTYX_墟:1.0__OPAQUE_墟_20_ _VERANTYX_霮:1.0__OPAQUE_霮_16_ _VERANTYX_霮:1.0__OPAQUE_霮_69_ _VERANTYX_霮:1.0__OPAQUE_霮_50_ _VERANTYX_型:1.0__OPAQUE_霮_52_ _VERANTYX_霮:1.0__OPAQUE_霮_138_ _VERANTYX_霮:1.0__OPAQUE_霮_29_ _VERANTYX_霮:1.0__OPAQUE_霮_92_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_192_ of _VERANTYX_霮:1.0__OPAQUE_霮_12_ _VERANTYX_霮:1.0__OPAQUE_霮_16_ is _VERANTYX_霮:1.0__OPAQUE_霮_15_ at _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_194_ of _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_16_.\n\n"
+
+
+_VERANTYX_霮:1.0__OPAQUE_霮_115_ _VERANTYX_霮:1.0__OPAQUE_霮_103_(_VERANTYX_霮:1.0__OPAQUE_霮_166_):
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    _VERANTYX_霮:1.0__OPAQUE_霮_166_ = _VERANTYX_霮:1.0__OPAQUE_霮_166_._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+    if _VERANTYX_霮:1.0__OPAQUE_霮_166_[0] != '{':
+        _VERANTYX_霮:1.0__OPAQUE_霮_26_ = _VERANTYX_霮:1.0__OPAQUE_霮_166_._VERANTYX_霮:1.0__OPAQUE_霮_136_('{')
+        _VERANTYX_霮:1.0__OPAQUE_霮_166_ = _VERANTYX_霮:1.0__OPAQUE_霮_166_[_VERANTYX_霮:1.0__OPAQUE_霮_26_:]._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+
+    re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_霮:1.0__OPAQUE_霮_175_._VERANTYX_匯:1.0__OPAQUE_霮_118_(_VERANTYX_霮:1.0__OPAQUE_霮_166_)
+
+
+_VERANTYX_霮:1.0__OPAQUE_霮_115_ _VERANTYX_型:1.0__OPAQUE_嵐_8_(_VERANTYX_霮:1.0__OPAQUE_霮_178_, _VERANTYX_秘:1.0__OPAQUE_霮_126_):
+
+    _VERANTYX_霮:1.0__OPAQUE_霮_178_ = _VERANTYX_霮:1.0__OPAQUE_霮_178_._VERANTYX_霮:1.0__OPAQUE_霮_123_()._VERANTYX_型:1.0__OPAQUE_霮_54_()
+    if _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_178_) == 1:
+        if 'a' in _VERANTYX_霮:1.0__OPAQUE_霮_178_:
+            re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_秘:1.0__OPAQUE_霮_126_['a']
+        else:
+            re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_秘:1.0__OPAQUE_霮_126_['b']
+    _VERANTYX_濫:1.0__OPAQUE_霮_117_ _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_178_) == 3:
+        if '(a)' in _VERANTYX_霮:1.0__OPAQUE_霮_178_:
+            re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_秘:1.0__OPAQUE_霮_126_['a']
+        else:
+            re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_秘:1.0__OPAQUE_霮_126_['b']
+    else:
+        re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_霮:1.0__OPAQUE_霮_178_
+
+// _VERANTYX_秘:0.3__OPAQUE_EG_725_ [decoy-metadata]
+
+_VERANTYX_霮:1.0__OPAQUE_霮_115_ _VERANTYX_型:1.0__OPAQUE_嵐_2_(_VERANTYX_霮:1.0__OPAQUE_霮_108_, _VERANTYX_秘:1.0__OPAQUE_霮_119_, _VERANTYX_霮:1.0__OPAQUE_霮_60_, _VERANTYX_霮:1.0__OPAQUE_霮_74_):
+
+    _VERANTYX_霮:1.0__OPAQUE_霮_106_ = ''
+    _VERANTYX_霮:1.0__OPAQUE_霮_151_ = _VERANTYX_墟:1.0__OPAQUE_墟_6_
+    _VERANTYX_霮:1.0__OPAQUE_霮_177_ = [_VERANTYX_霮:1.0__OPAQUE_霮_144_(k._VERANTYX_霮:1.0__OPAQUE_霮_58_('_')[-1]) for k in _VERANTYX_霮:1.0__OPAQUE_霮_108_._VERANTYX_秘:1.0__OPAQUE_霮_11_() if '_VERANTYX_霮:1.0__OPAQUE_霮_18_' in k _VERANTYX_霮:1.0__OPAQUE_霮_92_ '_VERANTYX_霮:1.0__OPAQUE_霮_78_' _VERANTYX_霮:1.0__OPAQUE_霮_8_ in k]
+    for i in _VERANTYX_霮:1.0__OPAQUE_霮_147_(_VERANTYX_霮:1.0__OPAQUE_霮_87_(_VERANTYX_霮:1.0__OPAQUE_霮_177_), _VERANTYX_霮:1.0__OPAQUE_霮_109_(_VERANTYX_霮:1.0__OPAQUE_霮_177_) + 1):
+        if '_VERANTYX_霮:1.0__OPAQUE_霮_37_%s' % i in _VERANTYX_霮:1.0__OPAQUE_霮_108_:
+            _VERANTYX_霮:1.0__OPAQUE_霮_106_ += "\n\n"
+            for _VERANTYX_霮:1.0__OPAQUE_霮_23_ in _VERANTYX_霮:1.0__OPAQUE_霮_108_['_VERANTYX_霮:1.0__OPAQUE_霮_37_%s' % i][::-1]:
+// _VERANTYX_型:0.7__OPAQUE_ZE_656_ [decoy-metadata]
+                _VERANTYX_霮:1.0__OPAQUE_霮_190_ = ''
+                _VERANTYX_霮:1.0__OPAQUE_霮_190_ = _VERANTYX_霮:1.0__OPAQUE_霮_23_['_VERANTYX_型:1.0__OPAQUE_霮_53_'] + ' _VERANTYX_霮:1.0__OPAQUE_霮_203_, \"' + _VERANTYX_霮:1.0__OPAQUE_霮_23_['_VERANTYX_霮:1.0__OPAQUE_霮_166_'] + '\"' + '\n'
+                if "_VERANTYX_霮:1.0__OPAQUE_霮_193_" in _VERANTYX_霮:1.0__OPAQUE_霮_23_:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_190_ += ' _VERANTYX_霮:1.0__OPAQUE_霮_92_ _VERANTYX_霮:1.0__OPAQUE_霮_73_ %s.' % _VERANTYX_霮:1.0__OPAQUE_霮_23_["_VERANTYX_霮:1.0__OPAQUE_霮_193_"]
+                _VERANTYX_霮:1.0__OPAQUE_霮_190_ += '\n'
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+                _VERANTYX_霮:1.0__OPAQUE_霮_106_ = _VERANTYX_霮:1.0__OPAQUE_霮_190_ + _VERANTYX_霮:1.0__OPAQUE_霮_106_
+
+            _VERANTYX_霮:1.0__OPAQUE_霮_106_ = '\_VERANTYX_霮:1.0__OPAQUE_霮_51_: ' + _VERANTYX_霮:1.0__OPAQUE_霮_108_['_VERANTYX_霮:1.0__OPAQUE_霮_37_%_VERANTYX_霮:1.0__OPAQUE_霮_212_' % i] + '\n' + '_VERANTYX_墟:1.0__OPAQUE_墟_14_:\n' + _VERANTYX_霮:1.0__OPAQUE_霮_106_
+        if _VERANTYX_霮:1.0__OPAQUE_霮_151_:
+            break
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_霮:1.0__OPAQUE_霮_106_
+// _VERANTYX_匯:0.2__OPAQUE_CA_245_ [decoy-metadata]
+
+
+_VERANTYX_霮:1.0__OPAQUE_霮_115_ _VERANTYX_型:1.0__OPAQUE_嵐_6_(_VERANTYX_霮:1.0__OPAQUE_霮_17_, _VERANTYX_霮:1.0__OPAQUE_霮_184_, _VERANTYX_秘:1.0__OPAQUE_霮_49_, _VERANTYX_霮:1.0__OPAQUE_霮_74_):
+
+    _VERANTYX_霮:1.0__OPAQUE_霮_96_ _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_17_['qa']) == _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_184_['qa']), (_VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_17_['qa']), _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_184_['qa']))
+
+// [metadata-stripped]
+    _VERANTYX_霮:1.0__OPAQUE_霮_127_ = _VERANTYX_霮:1.0__OPAQUE_霮_171_(_VERANTYX_型:1.0__OPAQUE_嵐_1_([d['_VERANTYX_型:1.0__OPAQUE_霮_53_'] for d in _VERANTYX_霮:1.0__OPAQUE_霮_17_['_VERANTYX_霮:1.0__OPAQUE_霮_16_']['_VERANTYX_霮:1.0__OPAQUE_霮_199_']]))
+    _VERANTYX_霮:1.0__OPAQUE_霮_1_ = _VERANTYX_墟:1.0__OPAQUE_墟_24_._VERANTYX_濫:1.0__OPAQUE_霮_85_(_VERANTYX_霮:1.0__OPAQUE_霮_127_[0], _VERANTYX_霮:1.0__OPAQUE_霮_127_[1])
+// [metadata-stripped]
+    _VERANTYX_秘:1.0__OPAQUE_霮_72_ =100
+
+    if _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_83_:
+        _VERANTYX_霮:1.0__OPAQUE_霮_140_ _VERANTYX_墟:1.0__OPAQUE_墟_30_
+// _VERANTYX_霮:0.9__OPAQUE_YV_809_ [decoy-metadata]
+    else:
+        _VERANTYX_霮:1.0__OPAQUE_霮_65_, _VERANTYX_霮:1.0__OPAQUE_霮_40_ = _VERANTYX_墟:1.0__OPAQUE_墟_12_, _VERANTYX_墟:1.0__OPAQUE_墟_12_
+
+    for _VERANTYX_霮:1.0__OPAQUE_霮_71_ in _VERANTYX_霮:1.0__OPAQUE_霮_82_(_VERANTYX_霮:1.0__OPAQUE_霮_147_(0, _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_17_['qa']), _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_70_), _VERANTYX_霮:1.0__OPAQUE_霮_197_='_VERANTYX_墟:1.0__OPAQUE_墟_19_ _VERANTYX_霮:1.0__OPAQUE_霮_165_'):
+
+        _VERANTYX_霮:1.0__OPAQUE_霮_111_ = []
+        _VERANTYX_霮:1.0__OPAQUE_霮_209_ = []
+        _VERANTYX_霮:1.0__OPAQUE_霮_10_ = []
+        _VERANTYX_霮:1.0__OPAQUE_霮_145_ = []
+        for i in _VERANTYX_霮:1.0__OPAQUE_霮_147_(_VERANTYX_霮:1.0__OPAQUE_霮_71_, _VERANTYX_霮:1.0__OPAQUE_霮_71_ + _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_70_):
+
+            if i>=_VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_17_['qa']):
+                break
+
+            qa = _VERANTYX_霮:1.0__OPAQUE_霮_17_['qa'][i]
+            
+            if _VERANTYX_秘:1.0__OPAQUE_霮_49_ _VERANTYX_霮:1.0__OPAQUE_霮_8_ in _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][i] or _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_168_:
+                _VERANTYX_霮:1.0__OPAQUE_霮_209_._VERANTYX_霮:1.0__OPAQUE_霮_191_(i)
+            else:
+                continue
+
+            if qa['_VERANTYX_霮:1.0__OPAQUE_霮_88_'] == 2:
+                _VERANTYX_霮:1.0__OPAQUE_霮_111_._VERANTYX_霮:1.0__OPAQUE_霮_191_(qa['_VERANTYX_霮:1.0__OPAQUE_霮_45_'] + ' _VERANTYX_墟:1.0__OPAQUE_墟_13_ _VERANTYX_墟:1.0__OPAQUE_墟_40_ of _VERANTYX_墟:1.0__OPAQUE_墟_14_ to _VERANTYX_型:1.0__OPAQUE_霮_75_ _VERANTYX_霮:1.0__OPAQUE_霮_33_ an _VERANTYX_霮:1.0__OPAQUE_霮_157_ _VERANTYX_霮:1.0__OPAQUE_霮_192_.')
+            _VERANTYX_濫:1.0__OPAQUE_霮_117_ qa['_VERANTYX_霮:1.0__OPAQUE_霮_88_'] == 5:
+                _VERANTYX_霮:1.0__OPAQUE_霮_45_ = qa['_VERANTYX_霮:1.0__OPAQUE_霮_45_'] + " _VERANTYX_墟:1.0__OPAQUE_墟_33_ _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_89_ _VERANTYX_型:1.0__OPAQUE_霮_75_: (a) {} (b) {}. "
+                if _VERANTYX_霮:1.0__OPAQUE_霮_185_._VERANTYX_霮:1.0__OPAQUE_霮_185_() < 0.5:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_45_ = _VERANTYX_霮:1.0__OPAQUE_霮_45_._VERANTYX_濫:1.0__OPAQUE_霮_85_('_VERANTYX_墟:1.0__OPAQUE_墟_35_ _VERANTYX_霮:1.0__OPAQUE_霮_44_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_16_', qa['_VERANTYX_型:1.0__OPAQUE_霮_75_'])
+                    _VERANTYX_型:1.0__OPAQUE_霮_75_ = {'a': '_VERANTYX_墟:1.0__OPAQUE_墟_35_ _VERANTYX_霮:1.0__OPAQUE_霮_44_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_16_', 'b': qa['_VERANTYX_型:1.0__OPAQUE_霮_75_']}
+                else:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_45_ = _VERANTYX_霮:1.0__OPAQUE_霮_45_._VERANTYX_濫:1.0__OPAQUE_霮_85_(qa['_VERANTYX_型:1.0__OPAQUE_霮_75_'], '_VERANTYX_墟:1.0__OPAQUE_墟_35_ _VERANTYX_霮:1.0__OPAQUE_霮_44_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_16_')
+                    _VERANTYX_型:1.0__OPAQUE_霮_75_ = {'b': '_VERANTYX_墟:1.0__OPAQUE_墟_35_ _VERANTYX_霮:1.0__OPAQUE_霮_44_ in _VERANTYX_霮:1.0__OPAQUE_霮_195_ _VERANTYX_霮:1.0__OPAQUE_霮_16_', 'a': qa['_VERANTYX_型:1.0__OPAQUE_霮_75_']}
+
+                _VERANTYX_霮:1.0__OPAQUE_霮_10_._VERANTYX_霮:1.0__OPAQUE_霮_191_(_VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_111_))
+                _VERANTYX_霮:1.0__OPAQUE_霮_111_._VERANTYX_霮:1.0__OPAQUE_霮_191_(_VERANTYX_霮:1.0__OPAQUE_霮_45_)
+                _VERANTYX_霮:1.0__OPAQUE_霮_145_._VERANTYX_霮:1.0__OPAQUE_霮_191_(_VERANTYX_型:1.0__OPAQUE_霮_75_)
+// [metadata-stripped]
+            else:
+                _VERANTYX_霮:1.0__OPAQUE_霮_111_._VERANTYX_霮:1.0__OPAQUE_霮_191_(qa['_VERANTYX_霮:1.0__OPAQUE_霮_45_'])
+
+
+        if _VERANTYX_霮:1.0__OPAQUE_霮_111_ == []:
+            continue
+
+
+        _VERANTYX_霮:1.0__OPAQUE_霮_176_ = _VERANTYX_墟:1.0__OPAQUE_墟_12_
+        if _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_81_:
+            
+            _VERANTYX_霮:1.0__OPAQUE_霮_140_ _VERANTYX_墟:1.0__OPAQUE_墟_30_
+        else:
+            _VERANTYX_霮:1.0__OPAQUE_霮_120_ =  _VERANTYX_墟:1.0__OPAQUE_墟_2_ + "\n"._VERANTYX_霮:1.0__OPAQUE_霮_9_(["%s: %s" % (k, q) for k, q in _VERANTYX_霮:1.0__OPAQUE_霮_152_(_VERANTYX_霮:1.0__OPAQUE_霮_111_)])
+// [metadata-stripped]
+            _VERANTYX_秘:1.0__OPAQUE_霮_119_=100
+            _VERANTYX_霮:1.0__OPAQUE_霮_106_ = _VERANTYX_型:1.0__OPAQUE_嵐_2_(_VERANTYX_霮:1.0__OPAQUE_霮_17_['_VERANTYX_霮:1.0__OPAQUE_霮_16_'], _VERANTYX_秘:1.0__OPAQUE_霮_119_ + _VERANTYX_秘:1.0__OPAQUE_霮_72_, _VERANTYX_墟:1.0__OPAQUE_墟_12_, _VERANTYX_霮:1.0__OPAQUE_霮_74_)
+            _VERANTYX_霮:1.0__OPAQUE_霮_106_ = _VERANTYX_霮:1.0__OPAQUE_霮_1_ + _VERANTYX_霮:1.0__OPAQUE_霮_106_
+        
+
+// [metadata-stripped]
+
+        if '_VERANTYX_霮:1.0__OPAQUE_霮_156_-1.0' in _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_60_:
+            _VERANTYX_霮:1.0__OPAQUE_霮_77_._VERANTYX_霮:1.0__OPAQUE_霮_196_(5)
+
+        if _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_70_ == 1:
+
+            _VERANTYX_霮:1.0__OPAQUE_霮_170_ = _VERANTYX_霮:1.0__OPAQUE_霮_106_ + '\n\n' + _VERANTYX_墟:1.0__OPAQUE_墟_34_._VERANTYX_濫:1.0__OPAQUE_霮_85_(_VERANTYX_霮:1.0__OPAQUE_霮_111_[0]) if _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_10_) == 0 else _VERANTYX_霮:1.0__OPAQUE_霮_106_ + '\n\n' + _VERANTYX_墟:1.0__OPAQUE_墟_26_._VERANTYX_濫:1.0__OPAQUE_霮_85_(_VERANTYX_霮:1.0__OPAQUE_霮_111_[0])
+            _VERANTYX_型:1.0__OPAQUE_霮_75_ = _VERANTYX_霮:1.0__OPAQUE_霮_210_(_VERANTYX_霮:1.0__OPAQUE_霮_170_, _VERANTYX_秘:1.0__OPAQUE_墟_38_, _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_60_)
+            
+            if _VERANTYX_霮:1.0__OPAQUE_霮_180_(_VERANTYX_霮:1.0__OPAQUE_霮_10_) > 0:
+                _VERANTYX_型:1.0__OPAQUE_霮_75_ = _VERANTYX_型:1.0__OPAQUE_嵐_8_(_VERANTYX_型:1.0__OPAQUE_霮_75_, _VERANTYX_霮:1.0__OPAQUE_霮_145_[0])
+
+            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_209_[0]][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+            if _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_81_:
+                _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_209_[0]][_VERANTYX_秘:1.0__OPAQUE_霮_49_ + '_VERANTYX_霮:1.0__OPAQUE_霮_20_'] = _VERANTYX_霮:1.0__OPAQUE_霮_176_
+
+        else:
+// [metadata-stripped]
+            _VERANTYX_霮:1.0__OPAQUE_霮_170_ = _VERANTYX_霮:1.0__OPAQUE_霮_106_ + '\n' + _VERANTYX_霮:1.0__OPAQUE_霮_120_
+// [metadata-stripped]
+            
+            _VERANTYX_霮:1.0__OPAQUE_霮_181_ = 0
+            while _VERANTYX_霮:1.0__OPAQUE_霮_181_ < 5:
+                try:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_181_ += 1
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    _VERANTYX_型:1.0__OPAQUE_霮_75_ = _VERANTYX_霮:1.0__OPAQUE_霮_210_(_VERANTYX_霮:1.0__OPAQUE_霮_170_, _VERANTYX_秘:1.0__OPAQUE_墟_38_ * _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_70_, _VERANTYX_霮:1.0__OPAQUE_霮_74_._VERANTYX_霮:1.0__OPAQUE_霮_60_)
+                    _VERANTYX_型:1.0__OPAQUE_霮_75_ = _VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_19_('\\"', "'")._VERANTYX_霮:1.0__OPAQUE_霮_19_('_VERANTYX_霮:1.0__OPAQUE_霮_175_','')._VERANTYX_霮:1.0__OPAQUE_霮_19_('`','')._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    _VERANTYX_霮:1.0__OPAQUE_霮_165_ = _VERANTYX_霮:1.0__OPAQUE_霮_103_(_VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_())
+                    break
+                _VERANTYX_霮:1.0__OPAQUE_霮_150_ _VERANTYX_霮:1.0__OPAQUE_霮_175_._VERANTYX_型:1.0__OPAQUE_霮_62_._VERANTYX_墟:1.0__OPAQUE_墟_32_:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_42_
+            
+            for k, _VERANTYX_霮:1.0__OPAQUE_霮_24_ in _VERANTYX_霮:1.0__OPAQUE_霮_152_(_VERANTYX_霮:1.0__OPAQUE_霮_209_):
+                try:
+                    _VERANTYX_霮:1.0__OPAQUE_霮_165_ = _VERANTYX_霮:1.0__OPAQUE_霮_103_(_VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_())
+// [metadata-stripped]
+// [metadata-stripped]
+                    if k in _VERANTYX_霮:1.0__OPAQUE_霮_10_:
+                        _VERANTYX_型:1.0__OPAQUE_霮_63_ = _VERANTYX_型:1.0__OPAQUE_嵐_8_(_VERANTYX_霮:1.0__OPAQUE_霮_165_[_VERANTYX_霮:1.0__OPAQUE_霮_6_(k)], _VERANTYX_霮:1.0__OPAQUE_霮_145_[_VERANTYX_霮:1.0__OPAQUE_霮_10_._VERANTYX_霮:1.0__OPAQUE_霮_136_(k)])
+                        _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_型:1.0__OPAQUE_霮_63_
+                    else:
+                        try:
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_霮:1.0__OPAQUE_霮_6_(_VERANTYX_霮:1.0__OPAQUE_霮_165_[_VERANTYX_霮:1.0__OPAQUE_霮_6_(k)])._VERANTYX_霮:1.0__OPAQUE_霮_19_('(a)', '')._VERANTYX_霮:1.0__OPAQUE_霮_19_('(b)', '')._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+                        _VERANTYX_霮:1.0__OPAQUE_霮_150_:
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = ', '._VERANTYX_霮:1.0__OPAQUE_霮_9_([_VERANTYX_霮:1.0__OPAQUE_霮_6_(n) for n in _VERANTYX_霮:1.0__OPAQUE_霮_171_(_VERANTYX_霮:1.0__OPAQUE_霮_165_[_VERANTYX_霮:1.0__OPAQUE_霮_6_(k)]._VERANTYX_霮:1.0__OPAQUE_霮_21_())])
+                _VERANTYX_霮:1.0__OPAQUE_霮_150_:
+                    try:
+                        _VERANTYX_霮:1.0__OPAQUE_霮_165_ = _VERANTYX_霮:1.0__OPAQUE_霮_175_._VERANTYX_匯:1.0__OPAQUE_霮_118_(_VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_())
+                        if k in _VERANTYX_霮:1.0__OPAQUE_霮_10_:
+                            _VERANTYX_型:1.0__OPAQUE_霮_63_ = _VERANTYX_型:1.0__OPAQUE_嵐_8_(_VERANTYX_霮:1.0__OPAQUE_霮_165_[k], _VERANTYX_霮:1.0__OPAQUE_霮_145_[_VERANTYX_霮:1.0__OPAQUE_霮_10_._VERANTYX_霮:1.0__OPAQUE_霮_136_(k)])
+// _VERANTYX_紬:0.8__OPAQUE_AM_772_ [decoy-metadata]
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_型:1.0__OPAQUE_霮_63_
+                        else:
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_霮:1.0__OPAQUE_霮_165_[k]._VERANTYX_霮:1.0__OPAQUE_霮_19_('(a)', '')._VERANTYX_霮:1.0__OPAQUE_霮_19_('(b)', '')._VERANTYX_霮:1.0__OPAQUE_霮_123_()
+                    _VERANTYX_霮:1.0__OPAQUE_霮_150_:
+                        if k in _VERANTYX_霮:1.0__OPAQUE_霮_10_:
+                            _VERANTYX_型:1.0__OPAQUE_霮_63_ = _VERANTYX_型:1.0__OPAQUE_嵐_8_(_VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_(), _VERANTYX_霮:1.0__OPAQUE_霮_145_[_VERANTYX_霮:1.0__OPAQUE_霮_10_._VERANTYX_霮:1.0__OPAQUE_霮_136_(k)])
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_型:1.0__OPAQUE_霮_63_
+                        else:
+                            _VERANTYX_霮:1.0__OPAQUE_霮_184_['qa'][_VERANTYX_霮:1.0__OPAQUE_霮_24_][_VERANTYX_秘:1.0__OPAQUE_霮_49_] = _VERANTYX_霮:1.0__OPAQUE_霮_175_._VERANTYX_匯:1.0__OPAQUE_霮_118_(_VERANTYX_型:1.0__OPAQUE_霮_75_._VERANTYX_霮:1.0__OPAQUE_霮_123_()._VERANTYX_霮:1.0__OPAQUE_霮_19_('(a)', '')._VERANTYX_霮:1.0__OPAQUE_霮_19_('(b)', '')._VERANTYX_霮:1.0__OPAQUE_霮_58_('\n')[k])[0]
+
+    re_VERANTYX_霮:1.0__OPAQUE_霮_190_ _VERANTYX_霮:1.0__OPAQUE_霮_184_
+
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// _VERANTYX_嵐:0.6__OPAQUE_CB_963_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+// [metadata-stripped]
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+
+// [metadata-stripped]
+
+
+// POLYMORPHIC_JCROSS_END

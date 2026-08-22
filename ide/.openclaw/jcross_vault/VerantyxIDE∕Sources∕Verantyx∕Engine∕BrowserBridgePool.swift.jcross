@@ -1,0 +1,225 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:08B1A41A ver:1778150891
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_廬:1.0__JCROSS_廬_5_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_廬:0.1__JCROSS_ZY_411_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+private let _OPAQUE_露:1.0__JCROSS_露_21_ = 3          // 並列ブラウザプロセス数（_OPAQUE_廬:1.0__JCROSS_廬_24_-_OPAQUE_露:1.0__JCROSS_露_52_ の 3クエリと一致）
+private let _OPAQUE_露:1.0__JCROSS_露_57_: _OPAQUE_廬:1.0__JCROSS_廬_17_ = 25.0  // _OPAQUE_露:1.0__JCROSS_露_59_ タイムアウト
+private let _OPAQUE_露:1.0__JCROSS_露_32_ = 3          // スロットごとの最大再起動回数（ゾンビ振れ止まり）
+
+// [metadata-stripped]
+
+actor _OPAQUE_廬:1.0__JCROSS_廬_13_ {
+
+    static let _OPAQUE_露:1.0__JCROSS_露_104_ = _OPAQUE_廬:1.0__JCROSS_廬_13_(_OPAQUE_露:1.0__JCROSS_露_78_: _OPAQUE_露:1.0__JCROSS_露_21_)
+
+// [metadata-stripped]
+    private var _OPAQUE_露:1.0__JCROSS_露_33_: [_OPAQUE_廬:1.0__JCROSS_廬_6_]
+    private var _OPAQUE_露:1.0__JCROSS_露_18_: [_OPAQUE_廬:1.0__JCROSS_廬_14_<_OPAQUE_廬:1.0__JCROSS_廬_6_, _OPAQUE_廬:1.0__JCROSS_廬_1_>] = []
+
+    init(_OPAQUE_露:1.0__JCROSS_露_78_: _OPAQUE_廬:1.0__JCROSS_廬_2_) {
+        self._OPAQUE_露:1.0__JCROSS_露_33_ = (0..<_OPAQUE_露:1.0__JCROSS_露_78_)._OPAQUE_露:1.0__JCROSS_露_41_ { _OPAQUE_廬:1.0__JCROSS_廬_6_(id: $0) }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__JCROSS_露_40_() {
+        _OPAQUE_廬:1.0__JCROSS_廬_20_._OPAQUE_露:1.0__JCROSS_露_50_(_OPAQUE_露:1.0__JCROSS_露_96_: ._OPAQUE_露:1.0__JCROSS_露_84_) {
+// [metadata-stripped]
+            let _OPAQUE_露:1.0__JCROSS_露_106_ = _OPAQUE_廬:1.0__JCROSS_廬_19_()
+            _OPAQUE_露:1.0__JCROSS_露_106_._OPAQUE_綾:1.0__JCROSS_露_82_ = _OPAQUE_綾:1.0__JCROSS_廬_4_(_OPAQUE_綾:1.0__JCROSS_露_30_: "/_OPAQUE_露:1.0__JCROSS_露_49_/_OPAQUE_露:1.0__JCROSS_露_75_/_OPAQUE_露:1.0__JCROSS_露_85_")
+            _OPAQUE_露:1.0__JCROSS_露_106_._OPAQUE_露:1.0__JCROSS_露_28_ = ["-9", "_OPAQUE_露:1.0__JCROSS_露_77_-_OPAQUE_案:1.0__JCROSS_露_105_"]
+            try? _OPAQUE_露:1.0__JCROSS_露_106_._OPAQUE_露:1.0__JCROSS_露_38_()
+            _OPAQUE_露:1.0__JCROSS_露_106_._OPAQUE_露:1.0__JCROSS_露_60_()
+
+            await _OPAQUE_露:1.0__JCROSS_露_16_(of: _OPAQUE_廬:1.0__JCROSS_廬_9_.self) { _OPAQUE_露:1.0__JCROSS_露_3_ in
+                for _OPAQUE_露:1.0__JCROSS_露_19_ in await self._OPAQUE_露:1.0__JCROSS_露_33_ {
+                    _OPAQUE_露:1.0__JCROSS_露_3_._OPAQUE_露:1.0__JCROSS_露_23_ {
+                        do {
+                            try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_98_(_OPAQUE_露:1.0__JCROSS_露_100_: true)
+                        } catch {
+// [metadata-stripped]
+                            _OPAQUE_露:1.0__JCROSS_露_25_("[_OPAQUE_廬:1.0__JCROSS_廬_28_] _OPAQUE_露:1.0__JCROSS_露_40_ _OPAQUE_露:1.0__JCROSS_露_19_ \(_OPAQUE_露:1.0__JCROSS_露_19_.id) _OPAQUE_露:1.0__JCROSS_露_79_: \(_OPAQUE_露:1.0__JCROSS_露_13_._OPAQUE_露:1.0__JCROSS_露_108_)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _OPAQUE_案:1.0__JCROSS_粋_3_(_ _OPAQUE_綾:1.0__JCROSS_露_45_: _OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_露:1.0__JCROSS_露_65_: [[_OPAQUE_廬:1.0__JCROSS_廬_17_]]? = nil, _OPAQUE_錠:1.0__JCROSS_露_87_: [_OPAQUE_廬:1.0__JCROSS_廬_17_]? = nil, _OPAQUE_露:1.0__JCROSS_露_2_: [_OPAQUE_廬:1.0__JCROSS_廬_17_]? = nil) async throws -> _OPAQUE_廬:1.0__JCROSS_廬_7_ {
+// _OPAQUE_廬:0.2__JCROSS_FW_801_ [decoy-metadata]
+        let _OPAQUE_露:1.0__JCROSS_露_19_ = try await _OPAQUE_露:1.0__JCROSS_露_59_()
+        defer { _OPAQUE_廬:1.0__JCROSS_廬_20_ { await self._OPAQUE_露:1.0__JCROSS_露_69_(_OPAQUE_露:1.0__JCROSS_露_19_) } }
+        return try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_案:1.0__JCROSS_粋_3_(_OPAQUE_綾:1.0__JCROSS_露_45_, _OPAQUE_露:1.0__JCROSS_露_65_: _OPAQUE_露:1.0__JCROSS_露_65_, _OPAQUE_錠:1.0__JCROSS_露_87_: _OPAQUE_錠:1.0__JCROSS_露_87_, _OPAQUE_露:1.0__JCROSS_露_2_: _OPAQUE_露:1.0__JCROSS_露_2_)
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__JCROSS_露_97_(_OPAQUE_露:1.0__JCROSS_露_1_: _OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_綾:1.0__JCROSS_露_29_: _OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_露:1.0__JCROSS_露_65_: [[_OPAQUE_廬:1.0__JCROSS_廬_17_]]? = nil, _OPAQUE_錠:1.0__JCROSS_露_87_: [_OPAQUE_廬:1.0__JCROSS_廬_17_]? = nil, _OPAQUE_露:1.0__JCROSS_露_2_: [_OPAQUE_廬:1.0__JCROSS_廬_17_]? = nil) async throws -> _OPAQUE_廬:1.0__JCROSS_廬_7_ {
+        let _OPAQUE_露:1.0__JCROSS_露_19_ = try await _OPAQUE_露:1.0__JCROSS_露_59_()
+        defer { _OPAQUE_廬:1.0__JCROSS_廬_20_ { await self._OPAQUE_露:1.0__JCROSS_露_69_(_OPAQUE_露:1.0__JCROSS_露_19_) } }
+        
+// [metadata-stripped]
+        _ = try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_案:1.0__JCROSS_粋_3_("_OPAQUE_綾:1.0__JCROSS_露_48_://_OPAQUE_露:1.0__JCROSS_露_44_._OPAQUE_露:1.0__JCROSS_露_4_._OPAQUE_露:1.0__JCROSS_露_58_/_OPAQUE_露:1.0__JCROSS_露_44_/", _OPAQUE_露:1.0__JCROSS_露_65_: nil, _OPAQUE_錠:1.0__JCROSS_露_87_: nil, _OPAQUE_露:1.0__JCROSS_露_2_: nil)
+        
+// [metadata-stripped]
+        _ = try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_67_("_OPAQUE_露:1.0__JCROSS_露_62_._OPAQUE_案:1.0__JCROSS_粋_1_('_OPAQUE_涌:1.0__JCROSS_露_51_')._OPAQUE_露:1.0__JCROSS_露_71_();")
+        
+// [metadata-stripped]
+        try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_54_(_OPAQUE_露:1.0__JCROSS_露_1_, _OPAQUE_錠:1.0__JCROSS_露_87_: _OPAQUE_錠:1.0__JCROSS_露_87_)
+        
+// [metadata-stripped]
+        let _OPAQUE_露:1.0__JCROSS_露_14_ = _OPAQUE_廬:1.0__JCROSS_廬_17_(_OPAQUE_露:1.0__JCROSS_露_1_._OPAQUE_露:1.0__JCROSS_露_72_) * 0.15 + 0.5
+        try await _OPAQUE_廬:1.0__JCROSS_廬_20_._OPAQUE_露:1.0__JCROSS_露_46_(_OPAQUE_露:1.0__JCROSS_露_31_: _OPAQUE_廬:1.0__JCROSS_廬_10_(_OPAQUE_露:1.0__JCROSS_露_14_ * 1_000_000_000))
+        
+// _OPAQUE_廬:0.8__JCROSS_KH_800_ [decoy-metadata]
+// [metadata-stripped]
+        return try await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_案:1.0__JCROSS_粋_3_(_OPAQUE_綾:1.0__JCROSS_露_29_, _OPAQUE_露:1.0__JCROSS_露_65_: _OPAQUE_露:1.0__JCROSS_露_65_, _OPAQUE_錠:1.0__JCROSS_露_87_: _OPAQUE_錠:1.0__JCROSS_露_87_, _OPAQUE_露:1.0__JCROSS_露_2_: _OPAQUE_露:1.0__JCROSS_露_2_)
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _OPAQUE_案:1.0__JCROSS_粋_2_(_ _OPAQUE_綾:1.0__JCROSS_露_36_: [_OPAQUE_廬:1.0__JCROSS_廬_7_]) async -> [_OPAQUE_廬:1.0__JCROSS_廬_3_<_OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_廬:1.0__JCROSS_廬_1_>] {
+        return await _OPAQUE_露:1.0__JCROSS_露_16_(of: (_OPAQUE_廬:1.0__JCROSS_廬_2_, _OPAQUE_廬:1.0__JCROSS_廬_3_<_OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_廬:1.0__JCROSS_廬_1_>).self) { _OPAQUE_露:1.0__JCROSS_露_3_ in
+            for (i, _OPAQUE_綾:1.0__JCROSS_露_45_) in _OPAQUE_綾:1.0__JCROSS_露_36_._OPAQUE_露:1.0__JCROSS_露_70_() {
+                _OPAQUE_露:1.0__JCROSS_露_3_._OPAQUE_露:1.0__JCROSS_露_23_ {
+                    do {
+                        let md = try await self._OPAQUE_案:1.0__JCROSS_粋_3_(_OPAQUE_綾:1.0__JCROSS_露_45_)
+                        return (i, ._OPAQUE_露:1.0__JCROSS_露_81_(md))
+                    } catch {
+                        return (i, ._OPAQUE_露:1.0__JCROSS_露_88_(_OPAQUE_露:1.0__JCROSS_露_13_))
+                    }
+                }
+// _OPAQUE_廬:0.1__JCROSS_BZ_477_ [decoy-metadata]
+            }
+            var _OPAQUE_露:1.0__JCROSS_露_92_ = [_OPAQUE_廬:1.0__JCROSS_廬_3_<_OPAQUE_廬:1.0__JCROSS_廬_7_, _OPAQUE_廬:1.0__JCROSS_廬_1_>](_OPAQUE_露:1.0__JCROSS_露_83_: ._OPAQUE_露:1.0__JCROSS_露_88_(_OPAQUE_廬:1.0__JCROSS_廬_16_._OPAQUE_露:1.0__JCROSS_露_61_), _OPAQUE_露:1.0__JCROSS_露_72_: _OPAQUE_綾:1.0__JCROSS_露_36_._OPAQUE_露:1.0__JCROSS_露_72_)
+            for await (i, _OPAQUE_露:1.0__JCROSS_露_89_) in _OPAQUE_露:1.0__JCROSS_露_3_ {
+// _OPAQUE_涌:0.2__JCROSS_ED_910_ [decoy-metadata]
+                _OPAQUE_露:1.0__JCROSS_露_92_[i] = _OPAQUE_露:1.0__JCROSS_露_89_
+            }
+            return _OPAQUE_露:1.0__JCROSS_露_92_
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    private func _OPAQUE_露:1.0__JCROSS_露_59_() async throws -> _OPAQUE_廬:1.0__JCROSS_廬_6_ {
+// [metadata-stripped]
+        if let _OPAQUE_露:1.0__JCROSS_露_99_ = _OPAQUE_露:1.0__JCROSS_露_33_._OPAQUE_露:1.0__JCROSS_露_43_(where: { !$0._OPAQUE_露:1.0__JCROSS_露_8_ }) {
+            _OPAQUE_露:1.0__JCROSS_露_33_[_OPAQUE_露:1.0__JCROSS_露_99_]._OPAQUE_露:1.0__JCROSS_露_8_ = true
+            return _OPAQUE_露:1.0__JCROSS_露_33_[_OPAQUE_露:1.0__JCROSS_露_99_]
+        }
+// [metadata-stripped]
+        return try await _OPAQUE_露:1.0__JCROSS_露_53_ { _OPAQUE_露:1.0__JCROSS_露_103_ in
+            _OPAQUE_露:1.0__JCROSS_露_18_._OPAQUE_露:1.0__JCROSS_露_55_(_OPAQUE_露:1.0__JCROSS_露_103_)
+// [metadata-stripped]
+            _OPAQUE_廬:1.0__JCROSS_廬_20_ {
+                try? await _OPAQUE_廬:1.0__JCROSS_廬_20_._OPAQUE_露:1.0__JCROSS_露_46_(_OPAQUE_露:1.0__JCROSS_露_31_: _OPAQUE_廬:1.0__JCROSS_廬_10_(_OPAQUE_露:1.0__JCROSS_露_57_ * 1_000_000_000))
+                await self._OPAQUE_案:1.0__JCROSS_露_80_(_OPAQUE_露:1.0__JCROSS_露_103_: _OPAQUE_露:1.0__JCROSS_露_103_)
+            }
+        }
+    }
+
+// [metadata-stripped]
+    private func _OPAQUE_露:1.0__JCROSS_露_69_(_ _OPAQUE_露:1.0__JCROSS_露_19_: _OPAQUE_廬:1.0__JCROSS_廬_6_) {
+        if let _OPAQUE_露:1.0__JCROSS_露_94_ = _OPAQUE_露:1.0__JCROSS_露_18_._OPAQUE_露:1.0__JCROSS_露_47_ {
+            _OPAQUE_露:1.0__JCROSS_露_18_._OPAQUE_露:1.0__JCROSS_露_5_()
+// [metadata-stripped]
+            _OPAQUE_露:1.0__JCROSS_露_94_._OPAQUE_露:1.0__JCROSS_露_26_(_OPAQUE_露:1.0__JCROSS_露_90_: _OPAQUE_露:1.0__JCROSS_露_19_)
+        } else {
+// [metadata-stripped]
+            if let _OPAQUE_露:1.0__JCROSS_露_99_ = _OPAQUE_露:1.0__JCROSS_露_33_._OPAQUE_露:1.0__JCROSS_露_43_(where: { $0.id == _OPAQUE_露:1.0__JCROSS_露_19_.id }) {
+                _OPAQUE_露:1.0__JCROSS_露_33_[_OPAQUE_露:1.0__JCROSS_露_99_]._OPAQUE_露:1.0__JCROSS_露_8_ = false
+            }
+        }
+    }
+
+// [metadata-stripped]
+    private func _OPAQUE_案:1.0__JCROSS_露_80_(_OPAQUE_露:1.0__JCROSS_露_103_: _OPAQUE_廬:1.0__JCROSS_廬_14_<_OPAQUE_廬:1.0__JCROSS_廬_6_, _OPAQUE_廬:1.0__JCROSS_廬_1_>) {
+        if let _OPAQUE_露:1.0__JCROSS_露_99_ = _OPAQUE_露:1.0__JCROSS_露_18_._OPAQUE_露:1.0__JCROSS_露_43_(where: { _OPAQUE_案:1.0__JCROSS_廬_30_($0 as _OPAQUE_廬:1.0__JCROSS_廬_8_) == _OPAQUE_案:1.0__JCROSS_廬_30_(_OPAQUE_露:1.0__JCROSS_露_103_ as _OPAQUE_廬:1.0__JCROSS_廬_8_) }) {
+            _OPAQUE_露:1.0__JCROSS_露_18_._OPAQUE_露:1.0__JCROSS_露_35_(at: _OPAQUE_露:1.0__JCROSS_露_99_)
+            _OPAQUE_露:1.0__JCROSS_露_103_._OPAQUE_露:1.0__JCROSS_露_26_(_OPAQUE_露:1.0__JCROSS_露_7_: _OPAQUE_廬:1.0__JCROSS_廬_16_._OPAQUE_露:1.0__JCROSS_露_61_)
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__JCROSS_露_102_() async {
+        for _OPAQUE_露:1.0__JCROSS_露_19_ in _OPAQUE_露:1.0__JCROSS_露_33_ where !_OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_8_ {
+// _OPAQUE_露:0.4__JCROSS_FG_127_ [decoy-metadata]
+            let _OPAQUE_露:1.0__JCROSS_露_76_ = await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_56_()
+            if !_OPAQUE_露:1.0__JCROSS_露_76_ {
+                guard _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_86_ < _OPAQUE_露:1.0__JCROSS_露_32_ else {
+                    if !_OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_66_ {
+                        _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_66_ = true
+                        _OPAQUE_露:1.0__JCROSS_露_25_("[_OPAQUE_廬:1.0__JCROSS_廬_28_] _OPAQUE_露:1.0__JCROSS_露_19_ \(_OPAQUE_露:1.0__JCROSS_露_19_.id) _OPAQUE_露:1.0__JCROSS_露_9_ _OPAQUE_案:1.0__JCROSS_露_6_ \(_OPAQUE_露:1.0__JCROSS_露_32_) _OPAQUE_露:1.0__JCROSS_露_17_ — no _OPAQUE_案:1.0__JCROSS_露_64_ _OPAQUE_露:1.0__JCROSS_露_74_")
+                    }
+                    _OPAQUE_露:1.0__JCROSS_露_103_inue
+                }
+                _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_86_ += 1
+                _OPAQUE_露:1.0__JCROSS_露_25_("[_OPAQUE_廬:1.0__JCROSS_廬_28_] _OPAQUE_露:1.0__JCROSS_露_19_ \(_OPAQUE_露:1.0__JCROSS_露_19_.id) _OPAQUE_露:1.0__JCROSS_露_11_ (_OPAQUE_露:1.0__JCROSS_露_107_ \(_OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_86_)/\(_OPAQUE_露:1.0__JCROSS_露_32_)) — _OPAQUE_露:1.0__JCROSS_露_74_")
+                _OPAQUE_廬:1.0__JCROSS_廬_20_._OPAQUE_露:1.0__JCROSS_露_50_(_OPAQUE_露:1.0__JCROSS_露_96_: ._OPAQUE_露:1.0__JCROSS_露_84_) {
+                    try? await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_98_(_OPAQUE_露:1.0__JCROSS_露_100_: true)
+                }
+            } else {
+// [metadata-stripped]
+                _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_86_ = 0
+                _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_66_   = false
+            }
+        }
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__JCROSS_露_91_() async {
+        for _OPAQUE_露:1.0__JCROSS_露_19_ in _OPAQUE_露:1.0__JCROSS_露_33_ {
+            await _OPAQUE_露:1.0__JCROSS_露_19_._OPAQUE_露:1.0__JCROSS_露_27_._OPAQUE_露:1.0__JCROSS_露_101_()
+        }
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__JCROSS_露_93_() -> _OPAQUE_廬:1.0__JCROSS_廬_7_ {
+        let _OPAQUE_露:1.0__JCROSS_露_95_ = _OPAQUE_露:1.0__JCROSS_露_33_._OPAQUE_露:1.0__JCROSS_露_41_ { "[\($0.id):\($0._OPAQUE_露:1.0__JCROSS_露_8_ ? "_OPAQUE_露:1.0__JCROSS_露_22_" : "_OPAQUE_露:1.0__JCROSS_露_10_")]" }
+        return "_OPAQUE_廬:1.0__JCROSS_廬_28_(\(_OPAQUE_露:1.0__JCROSS_露_95_._OPAQUE_露:1.0__JCROSS_露_37_(_OPAQUE_露:1.0__JCROSS_露_73_: " ")))"
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+class _OPAQUE_廬:1.0__JCROSS_廬_6_ {
+    let id:     _OPAQUE_廬:1.0__JCROSS_廬_2_
+    let _OPAQUE_露:1.0__JCROSS_露_27_: _OPAQUE_廬:1.0__JCROSS_廬_27_
+    var _OPAQUE_露:1.0__JCROSS_露_8_:       _OPAQUE_廬:1.0__JCROSS_廬_26_ = false
+    var _OPAQUE_露:1.0__JCROSS_露_86_: _OPAQUE_廬:1.0__JCROSS_廬_2_ = 0       // クラッシュ後の再起動回数
+    var _OPAQUE_露:1.0__JCROSS_露_66_:  _OPAQUE_廬:1.0__JCROSS_廬_26_ = false   // 上限到達フラグ
+
+    init(id: _OPAQUE_廬:1.0__JCROSS_廬_2_) {
+        self.id     = id
+        self._OPAQUE_露:1.0__JCROSS_露_27_ = _OPAQUE_廬:1.0__JCROSS_廬_27_()
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

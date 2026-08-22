@@ -1,0 +1,415 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9BEA98E9 ver:1778162962
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霡:1.0__ID_霡_190_
+_TOKEN_霡:1.0__ID_霡_215_ _TOKEN_霡:1.0__ID_霡_19_ import _TOKEN_廂:1.0__ID_廂_26_
+_TOKEN_霡:1.0__ID_霡_190_._TOKEN_霡:1.0__ID_霡_122_._TOKEN_霡:1.0__ID_霡_236_(0, _TOKEN_霡:1.0__ID_霡_115_(_TOKEN_廂:1.0__ID_廂_26_(_TOKEN_匣:1.0__ID_霡_121_)._TOKEN_霡:1.0__ID_霡_225_._TOKEN_霡:1.0__ID_霡_225_))
+
+import _TOKEN_霡:1.0__ID_霡_30_
+import os, _TOKEN_霡:1.0__ID_霡_104_
+_TOKEN_霡:1.0__ID_霡_215_ _TOKEN_霡:1.0__ID_霡_154_ import _TOKEN_霡:1.0__ID_霡_154_
+_TOKEN_霡:1.0__ID_霡_215_ _TOKEN_漂:1.0__ID_霡_70_ import _TOKEN_蔽:1.0__ID_廂_22_
+import _TOKEN_漂:1.0__ID_霡_70_
+import _TOKEN_霡:1.0__ID_霡_97_
+import _TOKEN_霡:1.0__ID_霡_186_
+
+_TOKEN_霡:1.0__ID_霡_215_ _TOKEN_漂:1.0__ID_霡_70_ import (
+    _TOKEN_蔽:1.0__ID_廂_22_,
+    _TOKEN_廂:1.0__ID_廂_37_,
+    _TOKEN_廂:1.0__ID_廂_8_,
+)
+import _TOKEN_霡:1.0__ID_霡_97_
+import _TOKEN_霡:1.0__ID_霡_186_
+
+
+_TOKEN_廂:1.0__ID_廂_44_={'_TOKEN_霡:1.0__ID_霡_1_': 4096,
+            '_TOKEN_霡:1.0__ID_霡_1_-70b': 4096,
+            '_TOKEN_霡:1.0__ID_霡_1_-_TOKEN_霡:1.0__ID_霡_47_': 4096,
+            '_TOKEN_霡:1.0__ID_霡_1_-_TOKEN_霡:1.0__ID_霡_47_-70b': 4096,
+            '_TOKEN_霡:1.0__ID_霡_119_-_TOKEN_霡:1.0__ID_霡_47_-70b': 4096,
+            '_TOKEN_霡:1.0__ID_霡_77_-3.5-_TOKEN_霡:1.0__ID_霡_40_-16k': 16000,
+            '_TOKEN_霡:1.0__ID_霡_77_-3.5-_TOKEN_霡:1.0__ID_霡_40_': 4096,
+            '_TOKEN_霡:1.0__ID_霡_179_-7b-it': 8000,
+            '_TOKEN_霡:1.0__ID_霡_158_-7b-128k': 128000,
+            '_TOKEN_霡:1.0__ID_霡_158_-7b-4k': 4096,
+            '_TOKEN_霡:1.0__ID_霡_158_-7b-8k': 8000,
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-4k': 4096,
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-8k': 8000,
+// _TOKEN_匣:0.3__ID_AD_197_ [decoy-metadata]
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-32k-v2': 8000,
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-8k-_TOKEN_霡:1.0__ID_霡_223_': 8000,
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-32k': 32000,
+            '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-128k': 128000}
+
+
+_TOKEN_廂:1.0__ID_廂_42_ = """
+_TOKEN_廂:1.0__ID_廂_21_ on _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_75_ _TOKEN_霡:1.0__ID_霡_74_, _TOKEN_霡:1.0__ID_霡_120_ a _TOKEN_霡:1.0__ID_霡_69_ _TOKEN_技:1.0__ID_霡_148_ for _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_72_ _TOKEN_霡:1.0__ID_霡_68_ in a _TOKEN_霡:1.0__ID_霡_126_ _TOKEN_霡:1.0__ID_霡_200_. Do _TOKEN_霡:1.0__ID_霡_174_ _TOKEN_霡:1.0__ID_霡_120_ _TOKEN_霡:1.0__ID_霡_195_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_163_ _TOKEN_霡:1.0__ID_霡_221_. _TOKEN_技:1.0__ID_廂_39_ _TOKEN_霡:1.0__ID_霡_230_ _TOKEN_霡:1.0__ID_霡_127_ _TOKEN_霡:1.0__ID_霡_200_ _TOKEN_霡:1.0__ID_霡_215_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_74_ _TOKEN_技:1.0__ID_霡_7_ _TOKEN_霡:1.0__ID_霡_43_.
+
+_TOKEN_廂:1.0__ID_廂_38_: {}
+"""
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+_TOKEN_廂:1.0__ID_廂_36_ = """
+_TOKEN_廂:1.0__ID_廂_21_ on _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_75_ _TOKEN_霡:1.0__ID_霡_74_, _TOKEN_霡:1.0__ID_霡_120_ _TOKEN_霡:1.0__ID_霡_69_ _TOKEN_霡:1.0__ID_霡_213_ for _TOKEN_霡:1.0__ID_霡_193_ of _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_72_ _TOKEN_霡:1.0__ID_霡_192_ in a _TOKEN_霡:1.0__ID_霡_126_ _TOKEN_霡:1.0__ID_霡_200_. _TOKEN_廂:1.0__ID_廂_29_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_213_ in _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_漂:1.0__ID_霡_80_ of a _TOKEN_霡:1.0__ID_霡_104_ _TOKEN_霡:1.0__ID_霡_41_ where _TOKEN_霡:1.0__ID_霡_193_ _TOKEN_霡:1.0__ID_霡_106_ _TOKEN_霡:1.0__ID_霡_3_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_68_ _TOKEN_技:1.0__ID_霡_29_ as '_TOKEN_蔽:1.0__ID_霡_107_' _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_69_ _TOKEN_技:1.0__ID_霡_148_ as _TOKEN_霡:1.0__ID_霡_6_. _TOKEN_技:1.0__ID_廂_39_ _TOKEN_霡:1.0__ID_霡_230_ _TOKEN_霡:1.0__ID_霡_127_ _TOKEN_霡:1.0__ID_霡_200_ _TOKEN_霡:1.0__ID_霡_215_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_74_ _TOKEN_技:1.0__ID_霡_7_ _TOKEN_霡:1.0__ID_霡_43_.
+
+"""
+
+_TOKEN_廂:1.0__ID_廂_34_ = """
+// _TOKEN_漂:0.9__ID_EA_503_ [decoy-metadata]
+<s>[_TOKEN_廂:1.0__ID_廂_25_] <<_TOKEN_廂:1.0__ID_廂_12_>>
+_TOKEN_廂:1.0__ID_廂_18_ _TOKEN_霡:1.0__ID_霡_143_ a _TOKEN_霡:1.0__ID_霡_82_, _TOKEN_霡:1.0__ID_霡_16_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_96_ _TOKEN_霡:1.0__ID_霡_232_ _TOKEN_霡:1.0__ID_霡_171_ _TOKEN_霡:1.0__ID_霡_117_ is to _TOKEN_霡:1.0__ID_霡_219_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_72_ _TOKEN_霡:1.0__ID_霡_48_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_技:1.0__ID_霡_148_ _TOKEN_霡:1.0__ID_霡_192_ _TOKEN_霡:1.0__ID_霡_49_ on _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_48_.
+If _TOKEN_霡:1.0__ID_霡_124_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_113_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_技:1.0__ID_霡_148_ to a _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_102_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_31_ false _TOKEN_漂:1.0__ID_霡_175_.
+<</_TOKEN_廂:1.0__ID_廂_12_>>
+
+{} [/_TOKEN_廂:1.0__ID_廂_25_]
+"""
+
+
+_TOKEN_廂:1.0__ID_廂_43_ = """
+<s>[_TOKEN_廂:1.0__ID_廂_25_] <<_TOKEN_廂:1.0__ID_廂_12_>>
+_TOKEN_廂:1.0__ID_廂_18_ _TOKEN_霡:1.0__ID_霡_143_ a _TOKEN_霡:1.0__ID_霡_82_, _TOKEN_霡:1.0__ID_霡_16_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_96_ _TOKEN_霡:1.0__ID_霡_232_ _TOKEN_霡:1.0__ID_霡_171_ _TOKEN_霡:1.0__ID_霡_117_ is to _TOKEN_霡:1.0__ID_霡_219_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_72_ _TOKEN_霡:1.0__ID_霡_48_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_技:1.0__ID_霡_148_ _TOKEN_霡:1.0__ID_霡_192_ _TOKEN_霡:1.0__ID_霡_49_ on _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_48_.
+If _TOKEN_霡:1.0__ID_霡_124_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_113_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_技:1.0__ID_霡_148_ to a _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_102_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_31_ false _TOKEN_漂:1.0__ID_霡_175_.
+<</_TOKEN_廂:1.0__ID_廂_12_>>
+
+{} [/_TOKEN_廂:1.0__ID_廂_25_]
+"""
+
+
+_TOKEN_廂:1.0__ID_廂_5_ = """
+<s>[_TOKEN_廂:1.0__ID_廂_25_] {} [/_TOKEN_廂:1.0__ID_廂_25_]
+"""
+
+_TOKEN_廂:1.0__ID_廂_14_ = """
+<_TOKEN_霡:1.0__ID_霡_39_><_TOKEN_霡:1.0__ID_霡_17_>_TOKEN_技:1.0__ID_霡_194_
+{}<_TOKEN_霡:1.0__ID_霡_5_>
+"""
+
+_TOKEN_廂:1.0__ID_廂_40_ = "_TOKEN_廂:1.0__ID_廂_1_ is a _TOKEN_霡:1.0__ID_霡_48_ _TOKEN_霡:1.0__ID_霡_203_ _TOKEN_霡:1.0__ID_霡_129_ _TOKEN_霡:1.0__ID_霡_137_: {} _TOKEN_霡:1.0__ID_霡_15_ {}. _TOKEN_廂:1.0__ID_廂_32_ _TOKEN_霡:1.0__ID_霡_48_ _TOKEN_霡:1.0__ID_霡_83_ _TOKEN_霡:1.0__ID_霡_38_ _TOKEN_技:1.0__ID_霡_210_ _TOKEN_霡:1.0__ID_霡_155_ _TOKEN_霡:1.0__ID_霡_130_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_86_ of _TOKEN_霡:1.0__ID_霡_193_ _TOKEN_霡:1.0__ID_霡_48_ is _TOKEN_霡:1.0__ID_霡_233_ at _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_177_ of _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_48_.\n\n"
+
+_TOKEN_蔽:1.0__ID_廂_33_ = 50
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_霡:1.0__ID_霡_199_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_191_, _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_):
+
+    _TOKEN_霡:1.0__ID_霡_67_ =  _TOKEN_廂:1.0__ID_廂_42_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_68_)
+    _TOKEN_霡:1.0__ID_霡_116_ = _TOKEN_技:1.0__ID_曠_2_(_TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_48_'], _TOKEN_廂:1.0__ID_廂_5_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_67_), _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _TOKEN_霡:1.0__ID_霡_142_ = _TOKEN_蔽:1.0__ID_霡_239_._TOKEN_霡:1.0__ID_霡_45_([{"_TOKEN_霡:1.0__ID_霡_54_": "_TOKEN_技:1.0__ID_霡_194_", "_TOKEN_霡:1.0__ID_霡_139_": _TOKEN_霡:1.0__ID_霡_116_ + '\n\n' + _TOKEN_霡:1.0__ID_霡_67_}], _TOKEN_蔽:1.0__ID_霡_205_=_TOKEN_廂:1.0__ID_廂_13_, _TOKEN_霡:1.0__ID_霡_202_=_TOKEN_廂:1.0__ID_廂_15_)
+
+    _TOKEN_霡:1.0__ID_霡_22_ = _TOKEN_霡:1.0__ID_霡_173_(
+                        _TOKEN_霡:1.0__ID_霡_142_,
+// [metadata-stripped]
+                        _TOKEN_蔽:1.0__ID_霡_2_=_TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_*_TOKEN_蔽:1.0__ID_廂_33_,
+                        _TOKEN_蔽:1.0__ID_霡_66_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_66_,
+                        _TOKEN_蔽:1.0__ID_霡_34_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_34_,
+                        _TOKEN_霡:1.0__ID_霡_35_=_TOKEN_廂:1.0__ID_廂_15_,
+                        _TOKEN_霡:1.0__ID_霡_21_=10,
+                        _TOKEN_霡:1.0__ID_霡_134_=0.4,
+                        _TOKEN_霡:1.0__ID_霡_62_=0.9,
+                        _TOKEN_霡:1.0__ID_霡_218_=_TOKEN_廂:1.0__ID_廂_13_,
+                        _TOKEN_霡:1.0__ID_霡_114_=1,
+                        )
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_22_[0]['_TOKEN_霡:1.0__ID_霡_141_']
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_霡:1.0__ID_霡_226_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_191_, _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_):
+
+    _TOKEN_霡:1.0__ID_霡_67_ =  _TOKEN_廂:1.0__ID_廂_42_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_68_)
+    _TOKEN_霡:1.0__ID_霡_116_ = _TOKEN_技:1.0__ID_曠_2_(_TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_48_'], _TOKEN_廂:1.0__ID_廂_14_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_67_), _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _TOKEN_霡:1.0__ID_霡_142_ = _TOKEN_蔽:1.0__ID_霡_239_._TOKEN_霡:1.0__ID_霡_45_([{"_TOKEN_霡:1.0__ID_霡_54_": "_TOKEN_技:1.0__ID_霡_194_", "_TOKEN_霡:1.0__ID_霡_139_": _TOKEN_霡:1.0__ID_霡_116_ + '\n\n' + _TOKEN_霡:1.0__ID_霡_67_}], _TOKEN_蔽:1.0__ID_霡_205_=_TOKEN_廂:1.0__ID_廂_13_, _TOKEN_霡:1.0__ID_霡_202_=_TOKEN_廂:1.0__ID_廂_15_)
+
+    _TOKEN_霡:1.0__ID_霡_22_ = _TOKEN_霡:1.0__ID_霡_173_(
+                        _TOKEN_霡:1.0__ID_霡_142_,
+// [metadata-stripped]
+                        _TOKEN_蔽:1.0__ID_霡_2_=_TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_*_TOKEN_蔽:1.0__ID_廂_33_,
+                        _TOKEN_蔽:1.0__ID_霡_66_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_66_,
+                        _TOKEN_蔽:1.0__ID_霡_34_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_34_,
+                        _TOKEN_霡:1.0__ID_霡_35_=_TOKEN_廂:1.0__ID_廂_15_,
+                        _TOKEN_霡:1.0__ID_霡_21_=10,
+                        _TOKEN_霡:1.0__ID_霡_134_=0.4,
+                        _TOKEN_霡:1.0__ID_霡_62_=0.9,
+                        _TOKEN_霡:1.0__ID_霡_218_=_TOKEN_廂:1.0__ID_廂_13_,
+                        _TOKEN_霡:1.0__ID_霡_114_=1,
+                        )
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_22_[0]['_TOKEN_霡:1.0__ID_霡_141_']
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_霡:1.0__ID_霡_151_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_191_, _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_):
+
+    _TOKEN_霡:1.0__ID_霡_67_ =  _TOKEN_廂:1.0__ID_廂_42_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_68_)
+    _TOKEN_霡:1.0__ID_霡_116_ = _TOKEN_技:1.0__ID_曠_2_(_TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_48_'], _TOKEN_廂:1.0__ID_廂_43_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_67_), _TOKEN_蔽:1.0__ID_霡_239_, _TOKEN_霡:1.0__ID_霡_95_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _TOKEN_霡:1.0__ID_霡_142_ = _TOKEN_蔽:1.0__ID_霡_239_._TOKEN_霡:1.0__ID_霡_45_([{"_TOKEN_霡:1.0__ID_霡_54_": "_TOKEN_霡:1.0__ID_霡_156_", "_TOKEN_霡:1.0__ID_霡_139_": "_TOKEN_廂:1.0__ID_廂_18_ _TOKEN_霡:1.0__ID_霡_143_ a _TOKEN_霡:1.0__ID_霡_82_, _TOKEN_霡:1.0__ID_霡_16_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_96_ _TOKEN_霡:1.0__ID_霡_232_ _TOKEN_霡:1.0__ID_霡_171_ _TOKEN_霡:1.0__ID_霡_117_ is to _TOKEN_霡:1.0__ID_霡_219_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_72_ _TOKEN_霡:1.0__ID_霡_48_ _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_技:1.0__ID_霡_148_ _TOKEN_霡:1.0__ID_霡_192_ _TOKEN_霡:1.0__ID_霡_49_ on _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_48_. If _TOKEN_霡:1.0__ID_霡_124_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_113_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_技:1.0__ID_霡_148_ to a _TOKEN_霡:1.0__ID_霡_68_, _TOKEN_霡:1.0__ID_霡_102_ _TOKEN_霡:1.0__ID_霡_169_'t _TOKEN_霡:1.0__ID_霡_31_ false _TOKEN_漂:1.0__ID_霡_175_."},
+                                           {"_TOKEN_霡:1.0__ID_霡_54_": "_TOKEN_技:1.0__ID_霡_194_", "_TOKEN_霡:1.0__ID_霡_139_": _TOKEN_霡:1.0__ID_霡_116_ + '\n\n' + _TOKEN_霡:1.0__ID_霡_67_}], _TOKEN_蔽:1.0__ID_霡_205_=_TOKEN_廂:1.0__ID_廂_13_, _TOKEN_霡:1.0__ID_霡_202_=_TOKEN_廂:1.0__ID_廂_15_)
+
+    _TOKEN_霡:1.0__ID_霡_22_ = _TOKEN_霡:1.0__ID_霡_173_(
+                        _TOKEN_霡:1.0__ID_霡_142_,
+// [metadata-stripped]
+                        _TOKEN_蔽:1.0__ID_霡_2_=_TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_*_TOKEN_蔽:1.0__ID_廂_33_,
+                        _TOKEN_蔽:1.0__ID_霡_66_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_66_,
+                        _TOKEN_蔽:1.0__ID_霡_34_=_TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_34_,
+                        _TOKEN_霡:1.0__ID_霡_35_=_TOKEN_廂:1.0__ID_廂_15_,
+                        _TOKEN_霡:1.0__ID_霡_21_=10,
+                        _TOKEN_霡:1.0__ID_霡_134_=0.4,
+                        _TOKEN_霡:1.0__ID_霡_62_=0.9,
+                        _TOKEN_霡:1.0__ID_霡_218_=_TOKEN_廂:1.0__ID_廂_13_,
+                        _TOKEN_霡:1.0__ID_霡_114_=1,
+                        )
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_22_[0]['_TOKEN_霡:1.0__ID_霡_141_']
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_技:1.0__ID_曠_4_(_TOKEN_匣:1.0__ID_霡_58_):
+
+    _TOKEN_霡:1.0__ID_霡_191_ = _TOKEN_霡:1.0__ID_霡_104_._TOKEN_匣:1.0__ID_霡_237_(open(_TOKEN_匣:1.0__ID_霡_58_))
+    _TOKEN_霡:1.0__ID_霡_206_ = ''
+    for i in _TOKEN_霡:1.0__ID_霡_157_(1,20):
+        if '_TOKEN_霡:1.0__ID_霡_240_%s' % i in _TOKEN_霡:1.0__ID_霡_191_:
+// _TOKEN_糸:0.6__ID_WM_370_ [decoy-metadata]
+            _TOKEN_霡:1.0__ID_霡_206_ = _TOKEN_霡:1.0__ID_霡_206_ + _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_240_%_TOKEN_霡:1.0__ID_霡_216_' % i] + '\n'
+            for _TOKEN_霡:1.0__ID_霡_198_ in _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_240_%s' % i]:
+                _TOKEN_霡:1.0__ID_霡_206_ = _TOKEN_霡:1.0__ID_霡_206_ + _TOKEN_霡:1.0__ID_霡_198_['_TOKEN_技:1.0__ID_霡_132_'] + ': ' + _TOKEN_霡:1.0__ID_霡_198_['_TOKEN_霡:1.0__ID_霡_162_'] + '\n'
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_技:1.0__ID_曠_2_(_TOKEN_霡:1.0__ID_霡_191_, _TOKEN_霡:1.0__ID_霡_67_, _TOKEN_霡:1.0__ID_霡_181_, _TOKEN_霡:1.0__ID_霡_95_):
+
+// [metadata-stripped]
+    _TOKEN_蔽:1.0__ID_霡_159_ = _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_181_._TOKEN_霡:1.0__ID_霡_118_(_TOKEN_霡:1.0__ID_霡_67_))
+
+// [metadata-stripped]
+    _TOKEN_霡:1.0__ID_霡_33_ = _TOKEN_霡:1.0__ID_霡_178_(_TOKEN_技:1.0__ID_曠_5_([d['_TOKEN_技:1.0__ID_霡_132_'] for d in _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_26_']]))
+    _TOKEN_霡:1.0__ID_霡_167_ = _TOKEN_廂:1.0__ID_廂_40_._TOKEN_漂:1.0__ID_霡_24_(_TOKEN_霡:1.0__ID_霡_33_[0], _TOKEN_霡:1.0__ID_霡_33_[1])
+    _TOKEN_蔽:1.0__ID_霡_12_ = _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_181_._TOKEN_霡:1.0__ID_霡_118_(_TOKEN_霡:1.0__ID_霡_167_))
+
+    _TOKEN_霡:1.0__ID_霡_116_ = ''
+    _TOKEN_蔽:1.0__ID_霡_125_ = 0
+    _TOKEN_霡:1.0__ID_霡_184_ = -1
+    _TOKEN_霡:1.0__ID_霡_235_ = _TOKEN_廂:1.0__ID_廂_13_
+    _TOKEN_霡:1.0__ID_霡_140_ = [_TOKEN_霡:1.0__ID_霡_91_(k._TOKEN_霡:1.0__ID_霡_36_('_')[-1]) for k in _TOKEN_霡:1.0__ID_霡_191_._TOKEN_蔽:1.0__ID_霡_78_() if '_TOKEN_霡:1.0__ID_霡_105_' in k _TOKEN_霡:1.0__ID_霡_15_ '_TOKEN_霡:1.0__ID_霡_73_' _TOKEN_霡:1.0__ID_霡_174_ in k]
+    for i in _TOKEN_霡:1.0__ID_霡_157_(_TOKEN_霡:1.0__ID_霡_111_(_TOKEN_霡:1.0__ID_霡_140_), _TOKEN_霡:1.0__ID_霡_189_(_TOKEN_霡:1.0__ID_霡_140_) + 1):
+        if '_TOKEN_霡:1.0__ID_霡_240_%s' % i in _TOKEN_霡:1.0__ID_霡_191_:
+            for _TOKEN_霡:1.0__ID_霡_198_ in _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_240_%s' % i][::-1]:
+                _TOKEN_霡:1.0__ID_霡_57_ = ''
+                _TOKEN_霡:1.0__ID_霡_57_ = _TOKEN_霡:1.0__ID_霡_198_['_TOKEN_技:1.0__ID_霡_132_'] + ' _TOKEN_霡:1.0__ID_霡_59_, \"' + _TOKEN_霡:1.0__ID_霡_198_['_TOKEN_霡:1.0__ID_霡_10_'] + '\"' + '\n'
+                if "_TOKEN_霡:1.0__ID_霡_110_" in _TOKEN_霡:1.0__ID_霡_198_:
+                    _TOKEN_霡:1.0__ID_霡_57_ += ' _TOKEN_霡:1.0__ID_霡_15_ _TOKEN_霡:1.0__ID_霡_153_ %s.' % _TOKEN_霡:1.0__ID_霡_198_["_TOKEN_霡:1.0__ID_霡_110_"]
+                _TOKEN_霡:1.0__ID_霡_57_ += '\n'
+
+// [metadata-stripped]
+                _TOKEN_蔽:1.0__ID_霡_89_ = _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_181_._TOKEN_霡:1.0__ID_霡_118_('_TOKEN_廂:1.0__ID_廂_11_: ' + _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_240_%_TOKEN_霡:1.0__ID_霡_216_' % i] + '\n' + '_TOKEN_廂:1.0__ID_廂_19_:\n' + _TOKEN_霡:1.0__ID_霡_57_))
+                if (_TOKEN_蔽:1.0__ID_霡_12_ + _TOKEN_蔽:1.0__ID_霡_89_ + _TOKEN_蔽:1.0__ID_霡_125_ + _TOKEN_蔽:1.0__ID_霡_159_) < (_TOKEN_廂:1.0__ID_廂_44_[_TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_]-(_TOKEN_蔽:1.0__ID_廂_33_*_TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_)): # if _TOKEN_霡:1.0__ID_霡_223_ _TOKEN_霡:1.0__ID_霡_147_ _TOKEN_霡:1.0__ID_霡_53_ _TOKEN_霡:1.0__ID_霡_146_ _TOKEN_霡:1.0__ID_霡_60_ _TOKEN_霡:1.0__ID_霡_100_ _TOKEN_霡:1.0__ID_霡_228_, _TOKEN_霡:1.0__ID_霡_214_ to _TOKEN_霡:1.0__ID_霡_142_
+                    _TOKEN_霡:1.0__ID_霡_116_ = _TOKEN_霡:1.0__ID_霡_57_ + _TOKEN_霡:1.0__ID_霡_116_
+                    _TOKEN_蔽:1.0__ID_霡_125_ += _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_181_._TOKEN_霡:1.0__ID_霡_118_(_TOKEN_霡:1.0__ID_霡_57_))
+                else:
+                    _TOKEN_霡:1.0__ID_霡_184_ = i
+                    _TOKEN_霡:1.0__ID_霡_235_ = _TOKEN_廂:1.0__ID_廂_15_
+                    break
+
+            _TOKEN_霡:1.0__ID_霡_116_ = '\_TOKEN_霡:1.0__ID_霡_103_: ' + _TOKEN_霡:1.0__ID_霡_191_['_TOKEN_霡:1.0__ID_霡_240_%_TOKEN_霡:1.0__ID_霡_216_' % i] + '\n' + '_TOKEN_廂:1.0__ID_廂_19_:\n' + _TOKEN_霡:1.0__ID_霡_116_
+        
+        if _TOKEN_霡:1.0__ID_霡_235_:
+            break
+    
+    _TOKEN_霡:1.0__ID_霡_116_ = _TOKEN_霡:1.0__ID_霡_167_ + _TOKEN_霡:1.0__ID_霡_116_
+
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_116_
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_技:1.0__ID_曠_1_(_TOKEN_霡:1.0__ID_霡_144_, _TOKEN_霡:1.0__ID_霡_92_, _TOKEN_霡:1.0__ID_霡_95_, _TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_176_):
+
+    if '_TOKEN_霡:1.0__ID_霡_158_' in _TOKEN_霡:1.0__ID_霡_176_:
+        _TOKEN_霡:1.0__ID_霡_181_ = _TOKEN_蔽:1.0__ID_廂_22_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_)
+    else:
+        _TOKEN_霡:1.0__ID_霡_181_ = _TOKEN_蔽:1.0__ID_廂_22_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_)
+
+    for _TOKEN_霡:1.0__ID_霡_197_ in _TOKEN_霡:1.0__ID_霡_157_(0, _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_144_['qa']) + _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_, _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_):
+
+        _TOKEN_霡:1.0__ID_霡_192_ = []
+        _TOKEN_霡:1.0__ID_霡_76_ = []
+        _TOKEN_霡:1.0__ID_霡_164_ = []
+        _TOKEN_霡:1.0__ID_霡_14_ = []
+        for i in _TOKEN_霡:1.0__ID_霡_157_(_TOKEN_霡:1.0__ID_霡_197_, _TOKEN_霡:1.0__ID_霡_197_ + _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_):
+
+// [metadata-stripped]
+            if i>=_TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_144_['qa']):
+                break
+            qa = _TOKEN_霡:1.0__ID_霡_144_['qa'][i]
+// [metadata-stripped]
+            if '%_TOKEN_霡:1.0__ID_霡_85_' % _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ _TOKEN_霡:1.0__ID_霡_174_ in qa or _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_51_:
+                _TOKEN_霡:1.0__ID_霡_76_._TOKEN_霡:1.0__ID_霡_42_(i)
+            else:
+                _TOKEN_霡:1.0__ID_霡_11_("_TOKEN_廂:1.0__ID_廂_23_ -->", qa['_TOKEN_霡:1.0__ID_霡_68_'])
+                continue
+
+// [metadata-stripped]
+            if qa['_TOKEN_霡:1.0__ID_霡_160_'] == 2:
+                _TOKEN_霡:1.0__ID_霡_192_._TOKEN_霡:1.0__ID_霡_42_(qa['_TOKEN_霡:1.0__ID_霡_68_'] + ' _TOKEN_廂:1.0__ID_廂_30_ _TOKEN_廂:1.0__ID_廂_11_ of _TOKEN_廂:1.0__ID_廂_19_ to _TOKEN_技:1.0__ID_霡_148_ _TOKEN_霡:1.0__ID_霡_230_ an _TOKEN_霡:1.0__ID_霡_168_ _TOKEN_霡:1.0__ID_霡_86_.')
+            _TOKEN_漂:1.0__ID_霡_37_ qa['_TOKEN_霡:1.0__ID_霡_160_'] == 5:
+                _TOKEN_霡:1.0__ID_霡_68_ = qa['_TOKEN_霡:1.0__ID_霡_68_'] + " (a) {} (b) {}. _TOKEN_廂:1.0__ID_廂_45_ _TOKEN_霡:1.0__ID_霡_188_ _TOKEN_霡:1.0__ID_霡_209_ _TOKEN_技:1.0__ID_霡_148_ by _TOKEN_霡:1.0__ID_霡_50_ (a) or (b)."
+                if _TOKEN_霡:1.0__ID_霡_30_._TOKEN_霡:1.0__ID_霡_30_() < 0.5:
+                    _TOKEN_霡:1.0__ID_霡_68_ = _TOKEN_霡:1.0__ID_霡_68_._TOKEN_漂:1.0__ID_霡_24_('No _TOKEN_漂:1.0__ID_霡_175_ _TOKEN_霡:1.0__ID_霡_4_', qa['_TOKEN_技:1.0__ID_霡_148_'])
+                    _TOKEN_技:1.0__ID_霡_148_ = {'a': 'No _TOKEN_漂:1.0__ID_霡_175_ _TOKEN_霡:1.0__ID_霡_4_', 'b': qa['_TOKEN_技:1.0__ID_霡_148_']}
+                else:
+                    _TOKEN_霡:1.0__ID_霡_68_ = _TOKEN_霡:1.0__ID_霡_68_._TOKEN_漂:1.0__ID_霡_24_(qa['_TOKEN_技:1.0__ID_霡_148_'], 'No _TOKEN_漂:1.0__ID_霡_175_ _TOKEN_霡:1.0__ID_霡_4_')
+                    _TOKEN_技:1.0__ID_霡_148_ = {'b': 'No _TOKEN_漂:1.0__ID_霡_175_ _TOKEN_霡:1.0__ID_霡_4_', 'a': qa['_TOKEN_技:1.0__ID_霡_148_']}
+                _TOKEN_霡:1.0__ID_霡_164_._TOKEN_霡:1.0__ID_霡_42_(_TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_192_))
+                _TOKEN_霡:1.0__ID_霡_192_._TOKEN_霡:1.0__ID_霡_42_(_TOKEN_霡:1.0__ID_霡_68_)
+                _TOKEN_霡:1.0__ID_霡_14_._TOKEN_霡:1.0__ID_霡_42_(_TOKEN_技:1.0__ID_霡_148_)
+// [metadata-stripped]
+            else:
+                _TOKEN_霡:1.0__ID_霡_192_._TOKEN_霡:1.0__ID_霡_42_(qa['_TOKEN_霡:1.0__ID_霡_68_'])
+
+        if _TOKEN_霡:1.0__ID_霡_192_ == []:
+            continue
+
+
+        if _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_136_ == 1:
+
+            if '_TOKEN_霡:1.0__ID_霡_158_' in _TOKEN_霡:1.0__ID_霡_176_:
+                _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_霡:1.0__ID_霡_199_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_192_[0], _TOKEN_霡:1.0__ID_霡_144_, _TOKEN_霡:1.0__ID_霡_181_, _TOKEN_霡:1.0__ID_霡_95_)
+            _TOKEN_漂:1.0__ID_霡_37_ '_TOKEN_霡:1.0__ID_霡_90_' in _TOKEN_霡:1.0__ID_霡_176_:
+                _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_霡:1.0__ID_霡_151_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_192_[0], _TOKEN_霡:1.0__ID_霡_144_, _TOKEN_霡:1.0__ID_霡_181_, _TOKEN_霡:1.0__ID_霡_95_)
+            _TOKEN_漂:1.0__ID_霡_37_ '_TOKEN_霡:1.0__ID_霡_179_' in _TOKEN_霡:1.0__ID_霡_176_:
+                _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_霡:1.0__ID_霡_226_(_TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_192_[0], _TOKEN_霡:1.0__ID_霡_144_, _TOKEN_霡:1.0__ID_霡_181_, _TOKEN_霡:1.0__ID_霡_95_)
+            else:
+                _TOKEN_霡:1.0__ID_霡_180_ _TOKEN_廂:1.0__ID_廂_31_
+            
+            _TOKEN_霡:1.0__ID_霡_11_(_TOKEN_霡:1.0__ID_霡_192_[0], _TOKEN_技:1.0__ID_霡_148_)
+
+// [metadata-stripped]
+            _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_技:1.0__ID_霡_148_._TOKEN_霡:1.0__ID_霡_27_('\\"', "'")._TOKEN_霡:1.0__ID_霡_81_()
+            _TOKEN_技:1.0__ID_霡_148_ = [w._TOKEN_霡:1.0__ID_霡_81_() for w in _TOKEN_技:1.0__ID_霡_148_._TOKEN_霡:1.0__ID_霡_36_('\n') if _TOKEN_霡:1.0__ID_霡_174_ w._TOKEN_霡:1.0__ID_霡_81_()._TOKEN_霡:1.0__ID_霡_185_()][0]
+            if _TOKEN_霡:1.0__ID_霡_99_(_TOKEN_霡:1.0__ID_霡_164_) > 0:
+                _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_技:1.0__ID_霡_148_._TOKEN_技:1.0__ID_霡_128_()._TOKEN_霡:1.0__ID_霡_81_()
+                if '(a)' in _TOKEN_技:1.0__ID_霡_148_:
+                    _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_霡:1.0__ID_霡_14_[0]['a']
+                else:
+                    _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_霡:1.0__ID_霡_14_[0]['b']
+            else:
+                _TOKEN_技:1.0__ID_霡_148_ = _TOKEN_技:1.0__ID_霡_148_._TOKEN_技:1.0__ID_霡_128_()._TOKEN_霡:1.0__ID_霡_27_('(a)', '')._TOKEN_霡:1.0__ID_霡_27_('(b)', '')._TOKEN_霡:1.0__ID_霡_27_('a)', '')._TOKEN_霡:1.0__ID_霡_27_('b)', '')._TOKEN_霡:1.0__ID_霡_27_('_TOKEN_技:1.0__ID_霡_148_:', '')._TOKEN_霡:1.0__ID_霡_81_()
+            _TOKEN_霡:1.0__ID_霡_92_['qa'][_TOKEN_霡:1.0__ID_霡_197_]['%_TOKEN_霡:1.0__ID_霡_85_' % _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_] = _TOKEN_技:1.0__ID_霡_148_
+
+        else:            
+            _TOKEN_霡:1.0__ID_霡_180_ _TOKEN_廂:1.0__ID_廂_31_
+
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_92_
+
+
+_TOKEN_霡:1.0__ID_霡_20_ _TOKEN_霡:1.0__ID_霡_227_(_TOKEN_霡:1.0__ID_霡_95_):
+
+    if _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ == '_TOKEN_霡:1.0__ID_霡_1_':
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_88_-_TOKEN_霡:1.0__ID_霡_90_/_TOKEN_廂:1.0__ID_廂_20_-2-7b-hf"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ == '_TOKEN_霡:1.0__ID_霡_1_-70b':
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_88_-_TOKEN_霡:1.0__ID_霡_90_/_TOKEN_廂:1.0__ID_廂_20_-2-70b-hf"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ == '_TOKEN_霡:1.0__ID_霡_1_-_TOKEN_霡:1.0__ID_霡_47_':
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_88_-_TOKEN_霡:1.0__ID_霡_90_/_TOKEN_廂:1.0__ID_廂_20_-2-7b-_TOKEN_霡:1.0__ID_霡_47_-hf"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ == '_TOKEN_霡:1.0__ID_霡_1_-_TOKEN_霡:1.0__ID_霡_47_-70b':
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_88_-_TOKEN_霡:1.0__ID_霡_90_/_TOKEN_廂:1.0__ID_廂_20_-2-70b-_TOKEN_霡:1.0__ID_霡_47_-hf"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ == '_TOKEN_霡:1.0__ID_霡_119_-_TOKEN_霡:1.0__ID_霡_47_-70b':
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_88_-_TOKEN_霡:1.0__ID_霡_90_/_TOKEN_廂:1.0__ID_廂_4_-_TOKEN_廂:1.0__ID_廂_20_-3-70B-_TOKEN_廂:1.0__ID_廂_7_"
+
+// _TOKEN_蔽:0.3__ID_XB_229_ [decoy-metadata]
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ in ['_TOKEN_霡:1.0__ID_霡_158_-7b-128k', '_TOKEN_霡:1.0__ID_霡_158_-7b-4k', '_TOKEN_霡:1.0__ID_霡_158_-7b-8k']:
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_87_/_TOKEN_廂:1.0__ID_廂_10_-7B-v0.1"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ in ['_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-128k', '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-8k', '_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-12k']:
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_87_/_TOKEN_廂:1.0__ID_廂_10_-7B-_TOKEN_廂:1.0__ID_廂_7_-v0.1"
+
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ in ['_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-8k-_TOKEN_霡:1.0__ID_霡_223_']:
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_87_/_TOKEN_廂:1.0__ID_廂_10_-7B-_TOKEN_廂:1.0__ID_廂_7_-v0.1"
+    
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ in ['_TOKEN_霡:1.0__ID_霡_158_-_TOKEN_霡:1.0__ID_霡_172_-7b-32k-v2']:
+        _TOKEN_霡:1.0__ID_霡_176_ = "_TOKEN_霡:1.0__ID_霡_87_/_TOKEN_廂:1.0__ID_廂_10_-7B-_TOKEN_廂:1.0__ID_廂_7_-v0.2"
+    
+    _TOKEN_漂:1.0__ID_霡_37_ _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_ in ['_TOKEN_霡:1.0__ID_霡_179_-7b-it']:
+        _TOKEN_霡:1.0__ID_霡_176_ = '_TOKEN_霡:1.0__ID_霡_64_/_TOKEN_霡:1.0__ID_霡_179_-7b-it'
+
+    _TOKEN_漂:1.0__ID_霡_37_ '_TOKEN_霡:1.0__ID_霡_158_' in _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_._TOKEN_技:1.0__ID_霡_128_():
+        _TOKEN_霡:1.0__ID_霡_176_ = '_TOKEN_霡:1.0__ID_霡_87_/' + _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_
+
+    else:
+        _TOKEN_霡:1.0__ID_霡_180_ _TOKEN_廂:1.0__ID_廂_2_
+    
+    _TOKEN_蔽:1.0__ID_霡_150_ = os._TOKEN_霡:1.0__ID_霡_135_['_TOKEN_蔽:1.0__ID_廂_46_']
+    _TOKEN_霡:1.0__ID_霡_186_._TOKEN_霡:1.0__ID_霡_170_(_TOKEN_蔽:1.0__ID_霡_150_)
+
+    if _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_208_:
+
+        _TOKEN_霡:1.0__ID_霡_11_("_TOKEN_廂:1.0__ID_廂_9_ 4-_TOKEN_霡:1.0__ID_霡_123_ _TOKEN_霡:1.0__ID_霡_165_")
+        _TOKEN_蔽:1.0__ID_霡_239_ = _TOKEN_蔽:1.0__ID_廂_22_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_, _TOKEN_蔽:1.0__ID_霡_201_=_TOKEN_蔽:1.0__ID_霡_150_)
+        _TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_66_ = _TOKEN_蔽:1.0__ID_霡_239_._TOKEN_蔽:1.0__ID_霡_34_    # for open-_TOKEN_霡:1.0__ID_霡_152_ _TOKEN_霡:1.0__ID_霡_161_
+
+        if '_TOKEN_霡:1.0__ID_霡_179_' in _TOKEN_霡:1.0__ID_霡_95_._TOKEN_霡:1.0__ID_霡_9_:
+            _TOKEN_霡:1.0__ID_霡_61_ = _TOKEN_廂:1.0__ID_廂_8_(_TOKEN_匣:1.0__ID_霡_183_=_TOKEN_廂:1.0__ID_廂_15_,
+                                            _TOKEN_霡:1.0__ID_霡_229_=_TOKEN_霡:1.0__ID_霡_97_._TOKEN_霡:1.0__ID_霡_238_)
+        else:
+            _TOKEN_霡:1.0__ID_霡_61_ = _TOKEN_廂:1.0__ID_廂_8_(
+                _TOKEN_匣:1.0__ID_霡_183_=_TOKEN_廂:1.0__ID_廂_15_,
+                _TOKEN_霡:1.0__ID_霡_220_="_TOKEN_霡:1.0__ID_霡_98_",
+                _TOKEN_霡:1.0__ID_霡_229_=_TOKEN_霡:1.0__ID_霡_97_._TOKEN_霡:1.0__ID_霡_238_,
+                _TOKEN_霡:1.0__ID_霡_217_=_TOKEN_廂:1.0__ID_廂_15_,
+            )
+
+        if '_TOKEN_霡:1.0__ID_霡_87_' in _TOKEN_霡:1.0__ID_霡_176_:
+            if 'v0.1' in _TOKEN_霡:1.0__ID_霡_176_:
+                _TOKEN_霡:1.0__ID_霡_9_ = _TOKEN_廂:1.0__ID_廂_37_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_, 
+                                                            _TOKEN_霡:1.0__ID_霡_25_=_TOKEN_霡:1.0__ID_霡_97_._TOKEN_霡:1.0__ID_霡_238_, 
+                                                            _TOKEN_霡:1.0__ID_霡_65_="_TOKEN_霡:1.0__ID_霡_71_",
+                                                            _TOKEN_霡:1.0__ID_霡_187_=_TOKEN_霡:1.0__ID_霡_61_,
+                                                            _TOKEN_霡:1.0__ID_霡_234_="_TOKEN_霡:1.0__ID_霡_23_",
+                                                            _TOKEN_霡:1.0__ID_霡_231_=_TOKEN_廂:1.0__ID_廂_15_,)
+            else:
+                _TOKEN_霡:1.0__ID_霡_9_ = _TOKEN_廂:1.0__ID_廂_37_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_,
+                                                            _TOKEN_霡:1.0__ID_霡_187_=_TOKEN_霡:1.0__ID_霡_61_,
+// _TOKEN_蔽:0.6__ID_KA_294_ [decoy-metadata]
+                                                            _TOKEN_霡:1.0__ID_霡_234_="_TOKEN_霡:1.0__ID_霡_23_",
+                                                            _TOKEN_霡:1.0__ID_霡_231_=_TOKEN_廂:1.0__ID_廂_15_)
+        
+        else:
+            _TOKEN_霡:1.0__ID_霡_9_ = _TOKEN_廂:1.0__ID_廂_37_._TOKEN_霡:1.0__ID_霡_44_(_TOKEN_霡:1.0__ID_霡_176_, 
+                                            _TOKEN_霡:1.0__ID_霡_25_=_TOKEN_霡:1.0__ID_霡_97_._TOKEN_霡:1.0__ID_霡_238_,
+                                            _TOKEN_霡:1.0__ID_霡_187_=_TOKEN_霡:1.0__ID_霡_61_,
+                                            _TOKEN_霡:1.0__ID_霡_234_="_TOKEN_霡:1.0__ID_霡_23_",
+                                            _TOKEN_霡:1.0__ID_霡_231_=_TOKEN_廂:1.0__ID_廂_15_,)
+
+        _TOKEN_霡:1.0__ID_霡_173_ = _TOKEN_漂:1.0__ID_霡_70_._TOKEN_霡:1.0__ID_霡_173_(
+            "_TOKEN_霡:1.0__ID_霡_10_-_TOKEN_霡:1.0__ID_霡_161_",
+            _TOKEN_霡:1.0__ID_霡_9_=_TOKEN_霡:1.0__ID_霡_9_,
+            _TOKEN_蔽:1.0__ID_霡_239_=_TOKEN_蔽:1.0__ID_霡_239_,
+            _TOKEN_霡:1.0__ID_霡_231_=_TOKEN_廂:1.0__ID_廂_15_,
+            _TOKEN_霡:1.0__ID_霡_234_="_TOKEN_霡:1.0__ID_霡_23_",    # _TOKEN_霡:1.0__ID_霡_149_ _TOKEN_廂:1.0__ID_廂_6_
+        )
+    
+    else:
+        _TOKEN_霡:1.0__ID_霡_173_ = _TOKEN_漂:1.0__ID_霡_70_._TOKEN_霡:1.0__ID_霡_173_(
+            "_TOKEN_霡:1.0__ID_霡_10_-_TOKEN_霡:1.0__ID_霡_161_",
+            _TOKEN_霡:1.0__ID_霡_9_=_TOKEN_霡:1.0__ID_霡_176_,
+            _TOKEN_霡:1.0__ID_霡_25_=_TOKEN_霡:1.0__ID_霡_97_._TOKEN_霡:1.0__ID_霡_238_,
+            _TOKEN_霡:1.0__ID_霡_234_="_TOKEN_霡:1.0__ID_霡_23_"
+        )
+// _TOKEN_廂:0.3__ID_YY_492_ [decoy-metadata]
+// [metadata-stripped]
+    
+    _TOKEN_霡:1.0__ID_霡_11_("_TOKEN_匣:1.0__ID_廂_27_ _TOKEN_霡:1.0__ID_霡_9_")
+    re_TOKEN_霡:1.0__ID_霡_57_ _TOKEN_霡:1.0__ID_霡_173_, _TOKEN_霡:1.0__ID_霡_176_
+
+
+// POLYMORPHIC_JCROSS_END

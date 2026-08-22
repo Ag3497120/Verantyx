@@ -1,0 +1,142 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F6128CCD ver:1778166083
+// ⚠️ One-time schema — expires after response
+
+_ID_霡:1.0__VERANTYX_霡_56_ _ID_霡:1.0__VERANTYX_霡_62_ import _ID_廟:1.0__VERANTYX_廟_3_, _ID_廟:1.0__VERANTYX_廟_8_, _ID_節:1.0__VERANTYX_縁_2_, _ID_廟:1.0__VERANTYX_廟_17_
+
+// _ID_廟:0.6__VERANTYX_BK_426_ [decoy-metadata]
+class _ID_節:1.0__VERANTYX_廟_10_:
+    """
+    盤面全体を俯瞰し、隣接する同じ色のセル群を「形（_ID_廟:1.0__VERANTYX_廟_9_）」として抽出・認識するモジュール。
+    CrossSpaceの初期状態（世界モデル）を構築するための第一段階。
+    """
+    
+    @_ID_霡:1.0__VERANTYX_霡_18_
+    _ID_霡:1.0__VERANTYX_霡_51_ _ID_霡:1.0__VERANTYX_霡_32_(_ID_霡:1.0__VERANTYX_霡_49_: _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_3_[_ID_霡:1.0__VERANTYX_霡_22_]]) -> _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_17_]:
+        if _ID_霡:1.0__VERANTYX_霡_21_ _ID_霡:1.0__VERANTYX_霡_49_ or _ID_霡:1.0__VERANTYX_霡_21_ _ID_霡:1.0__VERANTYX_霡_49_[0]:
+            return []
+            
+        _ID_霡:1.0__VERANTYX_霡_69_ = _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_49_)
+        _ID_霡:1.0__VERANTYX_霡_38_ = _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_49_[0])
+        _ID_霡:1.0__VERANTYX_霡_10_: _ID_節:1.0__VERANTYX_縁_2_[_ID_廟:1.0__VERANTYX_廟_8_[_ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_22_]] = _ID_節:1.0__VERANTYX_縁_1_()
+        _ID_霡:1.0__VERANTYX_霡_26_ = []
+        _ID_節:1.0__VERANTYX_霡_6_ = 1
+        
+        for r in _ID_霡:1.0__VERANTYX_霡_33_(_ID_霡:1.0__VERANTYX_霡_69_):
+            for c in _ID_霡:1.0__VERANTYX_霡_33_(_ID_霡:1.0__VERANTYX_霡_38_):
+                if (r, c) _ID_霡:1.0__VERANTYX_霡_21_ in _ID_霡:1.0__VERANTYX_霡_10_:
+                    _ID_霡:1.0__VERANTYX_霡_35_ = _ID_霡:1.0__VERANTYX_霡_49_[r][c]
+                    
+                    if _ID_霡:1.0__VERANTYX_霡_35_ == 0:
+                        _ID_霡:1.0__VERANTYX_霡_10_._ID_霡:1.0__VERANTYX_霡_41_((r, c))
+                        continue
+                        
+                    _ID_霡:1.0__VERANTYX_霡_48_ = _ID_節:1.0__VERANTYX_廟_10_._ID_霡:1.0__VERANTYX_霡_8_(_ID_霡:1.0__VERANTYX_霡_49_, r, c, _ID_霡:1.0__VERANTYX_霡_35_, _ID_霡:1.0__VERANTYX_霡_10_)
+                    if _ID_霡:1.0__VERANTYX_霡_48_:
+                        _ID_霡:1.0__VERANTYX_霡_12_ = _ID_霡:1.0__VERANTYX_霡_11_(_ID_霡:1.0__VERANTYX_霡_25_[0] for _ID_霡:1.0__VERANTYX_霡_25_ in _ID_霡:1.0__VERANTYX_霡_48_)
+                        _ID_霡:1.0__VERANTYX_霡_57_ = _ID_霡:1.0__VERANTYX_霡_45_(_ID_霡:1.0__VERANTYX_霡_25_[0] for _ID_霡:1.0__VERANTYX_霡_25_ in _ID_霡:1.0__VERANTYX_霡_48_)
+                        _ID_霡:1.0__VERANTYX_霡_61_ = _ID_霡:1.0__VERANTYX_霡_11_(_ID_霡:1.0__VERANTYX_霡_25_[1] for _ID_霡:1.0__VERANTYX_霡_25_ in _ID_霡:1.0__VERANTYX_霡_48_)
+                        _ID_霡:1.0__VERANTYX_霡_7_ = _ID_霡:1.0__VERANTYX_霡_45_(_ID_霡:1.0__VERANTYX_霡_25_[1] for _ID_霡:1.0__VERANTYX_霡_25_ in _ID_霡:1.0__VERANTYX_霡_48_)
+                        
+                        _ID_霡:1.0__VERANTYX_霡_28_ = _ID_霡:1.0__VERANTYX_霡_7_ - _ID_霡:1.0__VERANTYX_霡_61_ + 1
+                        _ID_霡:1.0__VERANTYX_霡_73_ = _ID_霡:1.0__VERANTYX_霡_57_ - _ID_霡:1.0__VERANTYX_霡_12_ + 1
+                        
+                        _ID_霡:1.0__VERANTYX_霡_26_._ID_霡:1.0__VERANTYX_霡_66_({
+                            "id": f"S{_ID_節:1.0__VERANTYX_霡_6_}",
+                            "_ID_霡:1.0__VERANTYX_霡_35_": _ID_霡:1.0__VERANTYX_霡_35_,
+                            "_ID_霡:1.0__VERANTYX_霡_67_": _ID_節:1.0__VERANTYX_縁_1_(_ID_霡:1.0__VERANTYX_霡_48_),
+                            "_ID_霡:1.0__VERANTYX_霡_64_": (_ID_霡:1.0__VERANTYX_霡_12_, _ID_霡:1.0__VERANTYX_霡_61_, _ID_霡:1.0__VERANTYX_霡_57_, _ID_霡:1.0__VERANTYX_霡_7_),
+                            "_ID_霡:1.0__VERANTYX_霡_28_": _ID_霡:1.0__VERANTYX_霡_28_,
+                            "_ID_霡:1.0__VERANTYX_霡_73_": _ID_霡:1.0__VERANTYX_霡_73_,
+                            "_ID_霡:1.0__VERANTYX_霡_24_": _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_48_)
+                        })
+                        _ID_節:1.0__VERANTYX_霡_6_ += 1
+// _ID_玄:0.5__VERANTYX_LM_736_ [decoy-metadata]
+                        
+        return _ID_霡:1.0__VERANTYX_霡_19_(_ID_霡:1.0__VERANTYX_霡_26_, _ID_玄:1.0__VERANTYX_霡_29_=_ID_霡:1.0__VERANTYX_霡_15_ s: s["_ID_霡:1.0__VERANTYX_霡_24_"], _ID_霡:1.0__VERANTYX_霡_46_=_ID_廟:1.0__VERANTYX_廟_4_)
+
+    @_ID_霡:1.0__VERANTYX_霡_18_
+    _ID_霡:1.0__VERANTYX_霡_51_ _ID_霡:1.0__VERANTYX_霡_8_(_ID_霡:1.0__VERANTYX_霡_49_: _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_3_[_ID_霡:1.0__VERANTYX_霡_22_]], _ID_霡:1.0__VERANTYX_霡_55_: _ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_72_: _ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_35_: _ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_10_: _ID_節:1.0__VERANTYX_縁_2_[_ID_廟:1.0__VERANTYX_廟_8_[_ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_22_]]) -> _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_8_[_ID_霡:1.0__VERANTYX_霡_22_, _ID_霡:1.0__VERANTYX_霡_22_]]:
+        _ID_霡:1.0__VERANTYX_霡_69_ = _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_49_)
+        _ID_霡:1.0__VERANTYX_霡_38_ = _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_49_[0])
+// _ID_縞:0.2__VERANTYX_GD_455_ [decoy-metadata]
+        _ID_霡:1.0__VERANTYX_霡_67_ = []
+        _ID_霡:1.0__VERANTYX_霡_71_ = [(_ID_霡:1.0__VERANTYX_霡_55_, _ID_霡:1.0__VERANTYX_霡_72_)]
+        
+        while _ID_霡:1.0__VERANTYX_霡_71_:
+            r, c = _ID_霡:1.0__VERANTYX_霡_71_._ID_霡:1.0__VERANTYX_霡_40_()
+            if (r, c) in _ID_霡:1.0__VERANTYX_霡_10_:
+                continue
+                
+            if 0 <= r < _ID_霡:1.0__VERANTYX_霡_69_ _ID_霡:1.0__VERANTYX_霡_47_ 0 <= c < _ID_霡:1.0__VERANTYX_霡_38_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_49_[r][c] == _ID_霡:1.0__VERANTYX_霡_35_:
+                _ID_霡:1.0__VERANTYX_霡_10_._ID_霡:1.0__VERANTYX_霡_41_((r, c))
+                _ID_霡:1.0__VERANTYX_霡_67_._ID_霡:1.0__VERANTYX_霡_66_((r, c))
+                for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    _ID_霡:1.0__VERANTYX_霡_71_._ID_霡:1.0__VERANTYX_霡_66_((r + dr, c + dc))
+                    
+        return _ID_霡:1.0__VERANTYX_霡_67_
+
+    @_ID_霡:1.0__VERANTYX_霡_18_
+    _ID_霡:1.0__VERANTYX_霡_51_ _ID_霡:1.0__VERANTYX_霡_65_(_ID_霡:1.0__VERANTYX_霡_49_: _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_3_[_ID_霡:1.0__VERANTYX_霡_22_]]) -> _ID_廟:1.0__VERANTYX_廟_17_:
+        _ID_霡:1.0__VERANTYX_霡_26_ = _ID_節:1.0__VERANTYX_廟_10_._ID_霡:1.0__VERANTYX_霡_32_(_ID_霡:1.0__VERANTYX_霡_49_)
+        _ID_霡:1.0__VERANTYX_霡_31_ = []
+        _ID_霡:1.0__VERANTYX_霡_23_ = []
+        
+        for s in _ID_霡:1.0__VERANTYX_霡_26_:
+// [metadata-stripped]
+            _ID_霡:1.0__VERANTYX_霡_16_ = "不規則"
+            if s["_ID_霡:1.0__VERANTYX_霡_24_"] == 1: _ID_霡:1.0__VERANTYX_霡_16_ = "孤立点"
+            _ID_濫:1.0__VERANTYX_霡_30_ s["_ID_霡:1.0__VERANTYX_霡_28_"] == 1 _ID_霡:1.0__VERANTYX_霡_47_ s["_ID_霡:1.0__VERANTYX_霡_73_"] == s["_ID_霡:1.0__VERANTYX_霡_24_"]: _ID_霡:1.0__VERANTYX_霡_16_ = "垂直線"
+            _ID_濫:1.0__VERANTYX_霡_30_ s["_ID_霡:1.0__VERANTYX_霡_73_"] == 1 _ID_霡:1.0__VERANTYX_霡_47_ s["_ID_霡:1.0__VERANTYX_霡_28_"] == s["_ID_霡:1.0__VERANTYX_霡_24_"]: _ID_霡:1.0__VERANTYX_霡_16_ = "水平線"
+            _ID_濫:1.0__VERANTYX_霡_30_ s["_ID_霡:1.0__VERANTYX_霡_28_"] * s["_ID_霡:1.0__VERANTYX_霡_73_"] == s["_ID_霡:1.0__VERANTYX_霡_24_"]: _ID_霡:1.0__VERANTYX_霡_16_ = "矩形"
+            
+            _ID_霡:1.0__VERANTYX_霡_31_._ID_霡:1.0__VERANTYX_霡_66_({
+                "id": s["id"],
+                "_ID_霡:1.0__VERANTYX_霡_35_": s["_ID_霡:1.0__VERANTYX_霡_35_"],
+                "_ID_霡:1.0__VERANTYX_霡_20_": _ID_霡:1.0__VERANTYX_霡_16_,
+                "_ID_霡:1.0__VERANTYX_霡_24_": s["_ID_霡:1.0__VERANTYX_霡_24_"],
+                "_ID_霡:1.0__VERANTYX_霡_2_": s["_ID_霡:1.0__VERANTYX_霡_64_"]
+            })
+            
+// [metadata-stripped]
+        for i in _ID_霡:1.0__VERANTYX_霡_33_(_ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_26_)):
+// _ID_霡:0.4__VERANTYX_AD_495_ [decoy-metadata]
+            for j in _ID_霡:1.0__VERANTYX_霡_33_(i + 1, _ID_霡:1.0__VERANTYX_霡_34_(_ID_霡:1.0__VERANTYX_霡_26_)):
+                s1 = _ID_霡:1.0__VERANTYX_霡_26_[i]
+                s2 = _ID_霡:1.0__VERANTYX_霡_26_[j]
+                
+// [metadata-stripped]
+                _ID_霡:1.0__VERANTYX_霡_70_ = _ID_廟:1.0__VERANTYX_廟_6_
+                for r1, c1 in s1["_ID_霡:1.0__VERANTYX_霡_67_"]:
+                    for dr, dc in [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
+                        if (r1+dr, c1+dc) in s2["_ID_霡:1.0__VERANTYX_霡_67_"]:
+                            _ID_霡:1.0__VERANTYX_霡_70_ = _ID_廟:1.0__VERANTYX_廟_4_
+                            break
+                    if _ID_霡:1.0__VERANTYX_霡_70_: break
+                if _ID_霡:1.0__VERANTYX_霡_70_:
+                    _ID_霡:1.0__VERANTYX_霡_23_._ID_霡:1.0__VERANTYX_霡_66_({"_ID_霡:1.0__VERANTYX_霡_13_": s1["id"], "_ID_霡:1.0__VERANTYX_霡_54_": s2["id"], "_ID_霡:1.0__VERANTYX_霡_1_": "_ID_廟:1.0__VERANTYX_廟_14_"})
+                    
+// [metadata-stripped]
+// [metadata-stripped]
+                _ID_霡:1.0__VERANTYX_霡_27_, _ID_霡:1.0__VERANTYX_霡_14_, _ID_霡:1.0__VERANTYX_霡_17_, _ID_霡:1.0__VERANTYX_霡_43_ = s1["_ID_霡:1.0__VERANTYX_霡_64_"]
+                _ID_霡:1.0__VERANTYX_霡_58_, _ID_霡:1.0__VERANTYX_霡_60_, _ID_霡:1.0__VERANTYX_霡_5_, _ID_霡:1.0__VERANTYX_霡_50_ = s2["_ID_霡:1.0__VERANTYX_霡_64_"]
+// _ID_節:0.9__VERANTYX_DK_338_ [decoy-metadata]
+                
+                if _ID_霡:1.0__VERANTYX_霡_27_ >= _ID_霡:1.0__VERANTYX_霡_58_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_17_ <= _ID_霡:1.0__VERANTYX_霡_5_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_14_ >= _ID_霡:1.0__VERANTYX_霡_60_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_43_ <= _ID_霡:1.0__VERANTYX_霡_50_:
+                    _ID_霡:1.0__VERANTYX_霡_23_._ID_霡:1.0__VERANTYX_霡_66_({"_ID_霡:1.0__VERANTYX_霡_13_": s2["id"], "_ID_霡:1.0__VERANTYX_霡_54_": s1["id"], "_ID_霡:1.0__VERANTYX_霡_1_": "_ID_廟:1.0__VERANTYX_廟_16_"})
+                _ID_濫:1.0__VERANTYX_霡_30_ _ID_霡:1.0__VERANTYX_霡_58_ >= _ID_霡:1.0__VERANTYX_霡_27_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_5_ <= _ID_霡:1.0__VERANTYX_霡_17_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_60_ >= _ID_霡:1.0__VERANTYX_霡_14_ _ID_霡:1.0__VERANTYX_霡_47_ _ID_霡:1.0__VERANTYX_霡_50_ <= _ID_霡:1.0__VERANTYX_霡_43_:
+                    _ID_霡:1.0__VERANTYX_霡_23_._ID_霡:1.0__VERANTYX_霡_66_({"_ID_霡:1.0__VERANTYX_霡_13_": s1["id"], "_ID_霡:1.0__VERANTYX_霡_54_": s2["id"], "_ID_霡:1.0__VERANTYX_霡_1_": "_ID_廟:1.0__VERANTYX_廟_16_"})
+                    
+// [metadata-stripped]
+                if s1["_ID_霡:1.0__VERANTYX_霡_28_"] == s2["_ID_霡:1.0__VERANTYX_霡_28_"] _ID_霡:1.0__VERANTYX_霡_47_ s1["_ID_霡:1.0__VERANTYX_霡_73_"] == s2["_ID_霡:1.0__VERANTYX_霡_73_"] _ID_霡:1.0__VERANTYX_霡_47_ s1["_ID_霡:1.0__VERANTYX_霡_24_"] == s2["_ID_霡:1.0__VERANTYX_霡_24_"]:
+                    _ID_霡:1.0__VERANTYX_霡_23_._ID_霡:1.0__VERANTYX_霡_66_({"_ID_霡:1.0__VERANTYX_霡_13_": s1["id"], "_ID_霡:1.0__VERANTYX_霡_54_": s2["id"], "_ID_霡:1.0__VERANTYX_霡_1_": "_ID_廟:1.0__VERANTYX_廟_7_"})
+                    
+        return {"_ID_霡:1.0__VERANTYX_霡_31_": _ID_霡:1.0__VERANTYX_霡_31_, "_ID_霡:1.0__VERANTYX_霡_23_": _ID_霡:1.0__VERANTYX_霡_23_}
+// _ID_玄:0.3__VERANTYX_YX_866_ [decoy-metadata]
+
+    @_ID_霡:1.0__VERANTYX_霡_18_
+    _ID_霡:1.0__VERANTYX_霡_51_ _ID_濫:1.0__VERANTYX_霡_53_(_ID_霡:1.0__VERANTYX_霡_26_: _ID_廟:1.0__VERANTYX_廟_3_[_ID_廟:1.0__VERANTYX_廟_17_]) -> _ID_廟:1.0__VERANTYX_廟_3_[_ID_霡:1.0__VERANTYX_霡_9_]:
+// [metadata-stripped]
+        return []
+
+// POLYMORPHIC_JCROSS_END

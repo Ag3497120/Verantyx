@@ -1,0 +1,907 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CC8C83B1 ver:1778149812
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_泡:1.0___jcross_泡_207__ _TOKEN_泡:1.0___jcross_泡_128__::_TOKEN_泡:1.0___jcross_泡_183__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_84__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ a: _TOKEN_泡:1.0___jcross_泡_136__,  // ID _TOKEN_泡:1.0___jcross_泡_80__
+    _TOKEN_泡:1.0___jcross_泡_194__ b: _TOKEN_泡:1.0___jcross_泡_136__,  // _TOKEN_礎:1.0___jcross_礎_15__, _TOKEN_泡:1.0___jcross_泡_68__, _TOKEN_泡:1.0___jcross_泡_39__-class _TOKEN_泡:1.0___jcross_泡_80__
+    _TOKEN_泡:1.0___jcross_泡_194__ c: _TOKEN_泡:1.0___jcross_泡_136__,  // _TOKEN_礎:1.0___jcross_礎_146__ _TOKEN_泡:1.0___jcross_泡_44__ _TOKEN_泡:1.0___jcross_泡_39__-_TOKEN_泡:1.0___jcross_泡_219__ _TOKEN_泡:1.0___jcross_泡_80__
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_84__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_77__(a: _TOKEN_泡:1.0___jcross_泡_136__, b: _TOKEN_泡:1.0___jcross_泡_136__, c: _TOKEN_泡:1.0___jcross_泡_136__) -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a, b, c } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn id() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 1, b: 0, c: 0 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn class() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 0, b: 1, c: 0 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_16__() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 0, b: 0, c: 1 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_67__() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 0, b: 0, c: 0 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_106__() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 1000, b: 0, c: 0 } }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_175__(&_TOKEN_泡:1.0___jcross_泡_95__f, _TOKEN_法:1.0___jcross_泡_223__: &_TOKEN_礎:1.0___jcross_礎_118__) -> _TOKEN_礎:1.0___jcross_礎_118__ {
+        _TOKEN_礎:1.0___jcross_礎_118__ {
+            a: _TOKEN_泡:1.0___jcross_泡_95__f.a._TOKEN_泡:1.0___jcross_泡_52__(_TOKEN_法:1.0___jcross_泡_223__.a),
+            b: _TOKEN_泡:1.0___jcross_泡_95__f.b._TOKEN_泡:1.0___jcross_泡_52__(_TOKEN_法:1.0___jcross_泡_223__.b),
+            c: _TOKEN_泡:1.0___jcross_泡_95__f.c._TOKEN_泡:1.0___jcross_泡_52__(_TOKEN_法:1.0___jcross_泡_223__.c),
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_22__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_泡:1.0___jcross_泡_135__ {
+        (_TOKEN_泡:1.0___jcross_泡_95__f.a as _TOKEN_泡:1.0___jcross_泡_135__) * 1_000_000 + (_TOKEN_泡:1.0___jcross_泡_95__f.b as _TOKEN_泡:1.0___jcross_泡_135__) * 1_000 + _TOKEN_泡:1.0___jcross_泡_95__f.c as _TOKEN_泡:1.0___jcross_泡_135__
+    }
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_礎:1.0___jcross_礎_20__ for _TOKEN_礎:1.0___jcross_礎_84__ {
+    fn _TOKEN_泡:1.0___jcross_泡_183__(&_TOKEN_泡:1.0___jcross_泡_95__f, f: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_法:1.0___jcross_礎_12__<'_>) -> _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_礎:1.0___jcross_礎_46__ {
+        _TOKEN_泡:1.0___jcross_泡_101__!(f, "({},{},{})", _TOKEN_泡:1.0___jcross_泡_95__f.a, _TOKEN_泡:1.0___jcross_泡_95__f.b, _TOKEN_泡:1.0___jcross_泡_95__f.c)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ enum _TOKEN_礎:1.0___jcross_礎_7__ {
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_64__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_32__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_154__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_59__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_35__,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_礎:1.0___jcross_礎_20__ for _TOKEN_礎:1.0___jcross_礎_7__ {
+    fn _TOKEN_泡:1.0___jcross_泡_183__(&_TOKEN_泡:1.0___jcross_泡_95__f, f: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_法:1.0___jcross_礎_12__<'_>) -> _TOKEN_泡:1.0___jcross_泡_183__::_TOKEN_礎:1.0___jcross_礎_46__ {
+        _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_95__f {
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_64__ => _TOKEN_泡:1.0___jcross_泡_101__!(f, " "),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_32__ => _TOKEN_泡:1.0___jcross_泡_101__!(f, " > "),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_154__ => _TOKEN_泡:1.0___jcross_泡_101__!(f, " + "),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_59__ => _TOKEN_泡:1.0___jcross_泡_101__!(f, " ~ "),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_35__ => _TOKEN_泡:1.0___jcross_泡_101__!(f, " || "),
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ enum _TOKEN_礎:1.0___jcross_礎_33__ {
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_128__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_75__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_142__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_150__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_148__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_49__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_131__,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_1__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_173__: _TOKEN_礎:1.0___jcross_礎_72__,
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_47__: _TOKEN_礎:1.0___jcross_礎_33__,
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_250__: _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_72__>,
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_140__: _TOKEN_泡:1.0___jcross_泡_243__,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_1__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_236__(&_TOKEN_泡:1.0___jcross_泡_95__f, _TOKEN_泡:1.0___jcross_泡_73__: _TOKEN_礎:1.0___jcross_礎_61__<&_TOKEN_泡:1.0___jcross_泡_131__>) -> _TOKEN_泡:1.0___jcross_泡_243__ {
+        _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_47__ {
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_128__ => _TOKEN_泡:1.0___jcross_泡_73__._TOKEN_泡:1.0___jcross_泡_153__(),
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_75__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        v._TOKEN_泡:1.0___jcross_泡_234__(s)
+                    } else {
+                        v == s
+                    }
+                } else { false }
+            }
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_142__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    v._TOKEN_泡:1.0___jcross_泡_182__().any(|w| if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        w._TOKEN_泡:1.0___jcross_泡_234__(s)
+                    } else { w == s })
+                } else { false }
+            }
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_150__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    let _TOKEN_泡:1.0___jcross_泡_6__ = if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ { v._TOKEN_泡:1.0___jcross_泡_234__(s) } else { v == s };
+                    let _TOKEN_泡:1.0___jcross_泡_195__ = _TOKEN_漂:1.0___jcross_泡_24__!("{}-", s);
+                    let _TOKEN_泡:1.0___jcross_泡_9__ = if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        v._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_8__(&_TOKEN_泡:1.0___jcross_泡_195__._TOKEN_泡:1.0___jcross_泡_66__())
+                    } else {
+                        v._TOKEN_泡:1.0___jcross_泡_8__(&_TOKEN_泡:1.0___jcross_泡_195__)
+                    };
+                    _TOKEN_泡:1.0___jcross_泡_6__ || _TOKEN_泡:1.0___jcross_泡_9__
+                } else { false }
+            }
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_148__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    if s._TOKEN_泡:1.0___jcross_泡_124__() { return false; }
+                    if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        v._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_8__(&s._TOKEN_泡:1.0___jcross_泡_66__())
+                    } else {
+                        v._TOKEN_泡:1.0___jcross_泡_8__(s._TOKEN_泡:1.0___jcross_泡_7__())
+                    }
+                } else { false }
+            }
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_49__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    if s._TOKEN_泡:1.0___jcross_泡_124__() { return false; }
+                    if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        v._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_5__(&s._TOKEN_泡:1.0___jcross_泡_66__())
+                    } else {
+                        v._TOKEN_泡:1.0___jcross_泡_5__(s._TOKEN_泡:1.0___jcross_泡_7__())
+                    }
+                } else { false }
+            }
+            _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_131__ => {
+                if let (_TOKEN_礎:1.0___jcross_礎_156__(v), _TOKEN_礎:1.0___jcross_礎_156__(s)) = (_TOKEN_泡:1.0___jcross_泡_73__, &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_250__) {
+                    if s._TOKEN_泡:1.0___jcross_泡_124__() { return false; }
+                    if _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_140__ {
+                        v._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_239__(&s._TOKEN_泡:1.0___jcross_泡_66__())
+                    } else {
+                        v._TOKEN_泡:1.0___jcross_泡_239__(s._TOKEN_泡:1.0___jcross_泡_7__())
+                    }
+                } else { false }
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_95__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ a: _TOKEN_泡:1.0___jcross_泡_228__,
+    _TOKEN_泡:1.0___jcross_泡_194__ b: _TOKEN_泡:1.0___jcross_泡_228__,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_95__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_246__() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 2, b: 1 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_232__() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 2, b: 0 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn n() -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 1, b: 0 } }
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_94__(n: _TOKEN_泡:1.0___jcross_泡_228__) -> _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_礎:1.0___jcross_礎_118__ { a: 0, b: n } }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_236__(&_TOKEN_泡:1.0___jcross_泡_95__f, _TOKEN_泡:1.0___jcross_泡_209__: _TOKEN_泡:1.0___jcross_泡_228__) -> _TOKEN_泡:1.0___jcross_泡_243__ {
+// _TOKEN_泡:0.9___jcross_HB_158__ [decoy-metadata]
+        if _TOKEN_泡:1.0___jcross_泡_95__f.a == 0 {
+            return _TOKEN_泡:1.0___jcross_泡_209__ == _TOKEN_泡:1.0___jcross_泡_95__f.b;
+        }
+        let n = (_TOKEN_泡:1.0___jcross_泡_209__ - _TOKEN_泡:1.0___jcross_泡_95__f.b) as _TOKEN_泡:1.0___jcross_泡_249__ / _TOKEN_泡:1.0___jcross_泡_95__f.a as _TOKEN_泡:1.0___jcross_泡_249__;
+        n >= 0.0 && n._TOKEN_泡:1.0___jcross_泡_37__() == 0.0
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_216__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_118__> {
+        let s = s._TOKEN_泡:1.0___jcross_泡_156__();
+        _TOKEN_泡:1.0___jcross_泡_200__ s {
+            "_TOKEN_泡:1.0___jcross_泡_246__" => return _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_泡:1.0___jcross_泡_246__()),
+            "_TOKEN_泡:1.0___jcross_泡_232__" => return _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_泡:1.0___jcross_泡_232__()),
+            "n" => return _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_礎:1.0___jcross_礎_118__::n()),
+            _ => {}
+        }
+
+        if let Ok(n) = s._TOKEN_泡:1.0___jcross_泡_216__::<_TOKEN_泡:1.0___jcross_泡_228__>() {
+            return _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_泡:1.0___jcross_泡_94__(n));
+        }
+
+// [metadata-stripped]
+        if s._TOKEN_泡:1.0___jcross_泡_239__('n') {
+            let _TOKEN_泡:1.0___jcross_泡_165__: _TOKEN_礎:1.0___jcross_礎_30__<&_TOKEN_泡:1.0___jcross_泡_131__> = s._TOKEN_泡:1.0___jcross_泡_245__(2, 'n')._TOKEN_泡:1.0___jcross_泡_163__();
+            let a: _TOKEN_泡:1.0___jcross_泡_228__ = _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_165__[0]._TOKEN_泡:1.0___jcross_泡_156__() {
+                "" | "+" => 1,
+                "-" => -1,
+                n => n._TOKEN_泡:1.0___jcross_泡_216__().ok()?,
+            };
+            let b: _TOKEN_泡:1.0___jcross_泡_228__ = if _TOKEN_泡:1.0___jcross_泡_165__._TOKEN_泡:1.0___jcross_泡_129__() > 1 && !_TOKEN_泡:1.0___jcross_泡_165__[1]._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_124__() {
+                _TOKEN_泡:1.0___jcross_泡_165__[1]._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_216__().ok()?
+            } else {
+                0
+            };
+            return _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_礎:1.0___jcross_礎_118__ { a, b });
+        }
+
+        _TOKEN_礎:1.0___jcross_礎_149__
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ enum _TOKEN_礎:1.0___jcross_礎_82__ {
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_137__, _TOKEN_礎:1.0___jcross_礎_51__, _TOKEN_礎:1.0___jcross_礎_106__, _TOKEN_礎:1.0___jcross_礎_44__,
+// [metadata-stripped]
+    _TOKEN_法:1.0___jcross_礎_21__, _TOKEN_礎:1.0___jcross_礎_109__, _TOKEN_礎:1.0___jcross_礎_99__, _TOKEN_礎:1.0___jcross_礎_37__, _TOKEN_礎:1.0___jcross_礎_42__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_125__, _TOKEN_礎:1.0___jcross_礎_5__, _TOKEN_礎:1.0___jcross_礎_80__, _TOKEN_礎:1.0___jcross_礎_86__,
+    _TOKEN_礎:1.0___jcross_礎_6__, _TOKEN_礎:1.0___jcross_礎_40__, _TOKEN_礎:1.0___jcross_礎_134__,
+    _TOKEN_礎:1.0___jcross_礎_140__, _TOKEN_礎:1.0___jcross_礎_97__, _TOKEN_礎:1.0___jcross_礎_11__, _TOKEN_礎:1.0___jcross_礎_19__,
+    _TOKEN_礎:1.0___jcross_礎_17__, _TOKEN_礎:1.0___jcross_礎_67__, _TOKEN_礎:1.0___jcross_礎_139__, _TOKEN_礎:1.0___jcross_礎_16__,
+    _TOKEN_礎:1.0___jcross_礎_107__, _TOKEN_礎:1.0___jcross_礎_100__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_123__, _TOKEN_礎:1.0___jcross_礎_76__, _TOKEN_礎:1.0___jcross_礎_57__,
+    _TOKEN_礎:1.0___jcross_礎_8__, _TOKEN_礎:1.0___jcross_礎_145__, _TOKEN_礎:1.0___jcross_礎_144__,
+    _TOKEN_礎:1.0___jcross_礎_87__, _TOKEN_礎:1.0___jcross_礎_129__, _TOKEN_礎:1.0___jcross_礎_62__,
+    _TOKEN_礎:1.0___jcross_礎_3__(_TOKEN_礎:1.0___jcross_礎_95__, _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_55__>),     // :_TOKEN_泡:1.0___jcross_泡_91__-_TOKEN_泡:1.0___jcross_泡_88__(An+B of S)
+    _TOKEN_礎:1.0___jcross_礎_113__(_TOKEN_礎:1.0___jcross_礎_95__, _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_55__>),
+    _TOKEN_礎:1.0___jcross_礎_117__(_TOKEN_礎:1.0___jcross_礎_95__),
+    _TOKEN_礎:1.0___jcross_礎_108__(_TOKEN_礎:1.0___jcross_礎_95__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_121__(_TOKEN_礎:1.0___jcross_礎_55__),
+    Is(_TOKEN_礎:1.0___jcross_礎_55__),
+    _TOKEN_礎:1.0___jcross_礎_93__(_TOKEN_礎:1.0___jcross_礎_55__),
+    _TOKEN_礎:1.0___jcross_礎_36__(_TOKEN_礎:1.0___jcross_礎_55__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_88__, _TOKEN_礎:1.0___jcross_礎_25__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_74__(_TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_72__>),
+    _TOKEN_礎:1.0___jcross_礎_63__(_TOKEN_礎:1.0___jcross_礎_72__), // _TOKEN_泡:1.0___jcross_泡_147__ | _TOKEN_泡:1.0___jcross_泡_235__ | _TOKEN_泡:1.0___jcross_泡_177__
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_159__(_TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_55__>),
+    _TOKEN_礎:1.0___jcross_礎_91__, _TOKEN_礎:1.0___jcross_礎_27__,
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_119__, _TOKEN_礎:1.0___jcross_礎_83__, _TOKEN_礎:1.0___jcross_礎_71__,
+    _TOKEN_礎:1.0___jcross_礎_158__, _TOKEN_礎:1.0___jcross_礎_141__, _TOKEN_礎:1.0___jcross_礎_124__,
+    _TOKEN_礎:1.0___jcross_礎_53__,
+    _TOKEN_礎:1.0___jcross_礎_60__,
+    _TOKEN_礎:1.0___jcross_礎_10__,
+    _TOKEN_礎:1.0___jcross_礎_104__,
+    _TOKEN_礎:1.0___jcross_礎_68__,
+    _TOKEN_礎:1.0___jcross_礎_28__(_TOKEN_礎:1.0___jcross_礎_72__),
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ enum _TOKEN_礎:1.0___jcross_礎_65__ {
+    _TOKEN_礎:1.0___jcross_礎_105__,
+    _TOKEN_法:1.0___jcross_礎_4__,
+    _TOKEN_礎:1.0___jcross_礎_58__,
+    _TOKEN_法:1.0___jcross_礎_103__,
+    _TOKEN_法:1.0___jcross_礎_47__,
+    _TOKEN_法:1.0___jcross_礎_29__,
+    _TOKEN_礎:1.0___jcross_礎_136__,
+    _TOKEN_礎:1.0___jcross_礎_96__,
+    _TOKEN_礎:1.0___jcross_礎_155__,
+    _TOKEN_庫:1.0___jcross_礎_98__,
+    _TOKEN_礎:1.0___jcross_礎_54__,
+    _TOKEN_礎:1.0___jcross_礎_23__,
+    _TOKEN_礎:1.0___jcross_礎_115__,
+    _TOKEN_礎:1.0___jcross_礎_147__,
+    _TOKEN_礎:1.0___jcross_礎_28__(_TOKEN_礎:1.0___jcross_礎_72__),  // ::_TOKEN_泡:1.0___jcross_泡_113__(), ::_TOKEN_泡:1.0___jcross_泡_198__()
+    _TOKEN_礎:1.0___jcross_礎_24__(_TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_72__>),
+    _TOKEN_礎:1.0___jcross_礎_135__(_TOKEN_礎:1.0___jcross_礎_94__<_TOKEN_礎:1.0___jcross_礎_152__>),
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ enum _TOKEN_礎:1.0___jcross_礎_153__ {
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_85__(_TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_72__>),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_146__(_TOKEN_礎:1.0___jcross_礎_72__, _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_72__>),
+// [metadata-stripped]
+    Id(_TOKEN_礎:1.0___jcross_礎_72__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_15__(_TOKEN_礎:1.0___jcross_礎_72__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_120__(_TOKEN_礎:1.0___jcross_礎_1__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_82__(_TOKEN_礎:1.0___jcross_礎_82__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_65__(_TOKEN_礎:1.0___jcross_礎_65__),
+// [metadata-stripped]
+    _TOKEN_礎:1.0___jcross_礎_157__,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_153__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_漂:1.0___jcross_泡_53__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_礎:1.0___jcross_礎_84__ {
+        _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_95__f {
+            _TOKEN_礎:1.0___jcross_礎_118__::Id(_) => _TOKEN_礎:1.0___jcross_礎_84__::id(),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_15__(_) | _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_120__(_) => _TOKEN_礎:1.0___jcross_礎_84__::class(),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_146__(_,_) | _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_65__(_) => _TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_16__(),
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_85__(_) | _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_157__ => _TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_67__(),
+// _TOKEN_漂:0.6___jcross_CV_646__ [decoy-metadata]
+            _TOKEN_礎:1.0___jcross_礎_118__::_TOKEN_礎:1.0___jcross_礎_82__(pc) => _TOKEN_泡:1.0___jcross_泡_200__ pc {
+                _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_121__(_TOKEN_泡:1.0___jcross_泡_214__) | _TOKEN_礎:1.0___jcross_礎_82__::Is(_TOKEN_泡:1.0___jcross_泡_214__) | _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_36__(_TOKEN_泡:1.0___jcross_泡_214__) => {
+                    _TOKEN_泡:1.0___jcross_泡_214__._TOKEN_漂:1.0___jcross_泡_82__()
+                }
+                _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_93__(_) => _TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_67__(),
+                _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_3__(_, _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_泡:1.0___jcross_泡_214__)) => {
+                    _TOKEN_礎:1.0___jcross_礎_84__::class()._TOKEN_泡:1.0___jcross_泡_175__(&_TOKEN_泡:1.0___jcross_泡_214__._TOKEN_漂:1.0___jcross_泡_82__())
+                }
+                _ => _TOKEN_礎:1.0___jcross_礎_84__::class(),
+            },
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_43__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_139__: _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_153__>,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_43__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_139__: _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_153__>) -> _TOKEN_礎:1.0___jcross_礎_118__ {
+        _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_泡:1.0___jcross_泡_139__ }
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_漂:1.0___jcross_泡_53__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_礎:1.0___jcross_礎_84__ {
+        _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_139__._TOKEN_法:1.0___jcross_泡_1__()._TOKEN_泡:1.0___jcross_泡_204__(_TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_67__(), |_TOKEN_泡:1.0___jcross_泡_179__, c| _TOKEN_泡:1.0___jcross_泡_179__._TOKEN_泡:1.0___jcross_泡_175__(&c._TOKEN_漂:1.0___jcross_泡_53__()))
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_2__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_泡:1.0___jcross_泡_243__ {
+        _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_139__._TOKEN_法:1.0___jcross_泡_1__()._TOKEN_泡:1.0___jcross_泡_224__(|c| _TOKEN_泡:1.0___jcross_泡_236__!(c, _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_85__(_) | _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_65__(_)))
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_152__ {
+// [metadata-stripped]
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_126__: _TOKEN_礎:1.0___jcross_礎_43__,
+// [metadata-stripped]
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_81__: _TOKEN_礎:1.0___jcross_礎_30__<(_TOKEN_礎:1.0___jcross_礎_7__, _TOKEN_礎:1.0___jcross_礎_43__)>,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_152__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_86__: _TOKEN_礎:1.0___jcross_礎_43__) -> _TOKEN_礎:1.0___jcross_礎_118__ {
+        _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_泡:1.0___jcross_泡_126__: _TOKEN_泡:1.0___jcross_泡_86__, _TOKEN_泡:1.0___jcross_泡_81__: _TOKEN_礎:1.0___jcross_礎_30__::_TOKEN_泡:1.0___jcross_泡_77__() }
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_漂:1.0___jcross_泡_53__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_礎:1.0___jcross_礎_84__ {
+        let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_62__ = _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_126__._TOKEN_漂:1.0___jcross_泡_53__();
+        for (_, _TOKEN_泡:1.0___jcross_泡_86__) in &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_81__ {
+            _TOKEN_泡:1.0___jcross_泡_62__ = _TOKEN_泡:1.0___jcross_泡_62__._TOKEN_泡:1.0___jcross_泡_175__(&_TOKEN_泡:1.0___jcross_泡_86__._TOKEN_漂:1.0___jcross_泡_53__());
+        }
+        _TOKEN_泡:1.0___jcross_泡_62__
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_166__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_泡:1.0___jcross_泡_243__ {
+        _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_81__._TOKEN_泡:1.0___jcross_泡_124__()
+    }
+
+// [metadata-stripped]
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_108__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> &_TOKEN_礎:1.0___jcross_礎_43__ {
+        if let _TOKEN_礎:1.0___jcross_礎_156__((_, _TOKEN_泡:1.0___jcross_泡_54__)) = _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_81__._TOKEN_泡:1.0___jcross_泡_54__() {
+            _TOKEN_泡:1.0___jcross_泡_54__
+        } else {
+            &_TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_126__
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_131__uct _TOKEN_礎:1.0___jcross_礎_55__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ _TOKEN_泡:1.0___jcross_泡_80__: _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_152__>,
+}
+
+_TOKEN_泡:1.0___jcross_泡_72__ _TOKEN_礎:1.0___jcross_礎_55__ {
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_80__: _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_礎:1.0___jcross_礎_152__>) -> _TOKEN_礎:1.0___jcross_礎_118__ {
+        _TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_泡:1.0___jcross_泡_80__ }
+    }
+
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_漂:1.0___jcross_泡_82__(&_TOKEN_泡:1.0___jcross_泡_95__f) -> _TOKEN_礎:1.0___jcross_礎_84__ {
+        _TOKEN_泡:1.0___jcross_泡_95__f._TOKEN_泡:1.0___jcross_泡_80__._TOKEN_法:1.0___jcross_泡_1__()._TOKEN_泡:1.0___jcross_泡_46__(|s| s._TOKEN_漂:1.0___jcross_泡_53__())
+            ._TOKEN_伏:1.0___jcross_泡_71__(|s| s._TOKEN_泡:1.0___jcross_泡_22__())
+            ._TOKEN_泡:1.0___jcross_泡_21__()
+    }
+
+// [metadata-stripped]
+    _TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_216__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_118__, _TOKEN_礎:1.0___jcross_礎_72__> {
+        let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_80__ = _TOKEN_礎:1.0___jcross_礎_30__::_TOKEN_泡:1.0___jcross_泡_77__();
+        for _TOKEN_泡:1.0___jcross_泡_113__ in _TOKEN_泡:1.0___jcross_泡_26__(s) {
+            _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_171__(_TOKEN_泡:1.0___jcross_泡_113__._TOKEN_泡:1.0___jcross_泡_156__()) {
+                Ok(_TOKEN_泡:1.0___jcross_泡_95__) => _TOKEN_泡:1.0___jcross_泡_80__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_泡:1.0___jcross_泡_95__),
+                _TOKEN_礎:1.0___jcross_礎_111__(e) => return _TOKEN_礎:1.0___jcross_礎_111__(e),
+            }
+        }
+        if _TOKEN_泡:1.0___jcross_泡_80__._TOKEN_泡:1.0___jcross_泡_124__() {
+            return _TOKEN_礎:1.0___jcross_礎_111__("_TOKEN_礎:1.0___jcross_礎_76__ _TOKEN_泡:1.0___jcross_泡_103__ _TOKEN_泡:1.0___jcross_泡_214__"._TOKEN_泡:1.0___jcross_泡_212__());
+        }
+        Ok(_TOKEN_礎:1.0___jcross_礎_118__ { _TOKEN_泡:1.0___jcross_泡_80__ })
+    }
+}
+
+// [metadata-stripped]
+fn _TOKEN_泡:1.0___jcross_泡_26__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_30__<&_TOKEN_泡:1.0___jcross_泡_131__> {
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_165__ = _TOKEN_礎:1.0___jcross_礎_30__::_TOKEN_泡:1.0___jcross_泡_77__();
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_231__ = 0_TOKEN_泡:1.0___jcross_泡_227__;
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_242__ = 0;
+
+    for (i, ch) in s._TOKEN_泡:1.0___jcross_泡_169__() {
+        _TOKEN_泡:1.0___jcross_泡_200__ ch {
+            '(' | '[' => _TOKEN_泡:1.0___jcross_泡_231__ += 1,
+            ')' | ']' => _TOKEN_泡:1.0___jcross_泡_231__ = _TOKEN_泡:1.0___jcross_泡_231__._TOKEN_泡:1.0___jcross_泡_238__(1),
+            ',' if _TOKEN_泡:1.0___jcross_泡_231__ == 0 => {
+                _TOKEN_泡:1.0___jcross_泡_165__._TOKEN_泡:1.0___jcross_泡_85__(&s[_TOKEN_泡:1.0___jcross_泡_242__..i]);
+                _TOKEN_泡:1.0___jcross_泡_242__ = i + 1;
+            }
+            _ => {}
+        }
+    }
+    _TOKEN_泡:1.0___jcross_泡_165__._TOKEN_泡:1.0___jcross_泡_85__(&s[_TOKEN_泡:1.0___jcross_泡_242__..]);
+    _TOKEN_泡:1.0___jcross_泡_165__
+}
+
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_194__ fn _TOKEN_泡:1.0___jcross_泡_171__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_152__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    let s = s._TOKEN_泡:1.0___jcross_泡_156__();
+    if s._TOKEN_泡:1.0___jcross_泡_124__() {
+        return _TOKEN_礎:1.0___jcross_礎_111__("_TOKEN_礎:1.0___jcross_礎_76__ _TOKEN_泡:1.0___jcross_泡_103__"._TOKEN_泡:1.0___jcross_泡_212__());
+    }
+
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_伏:1.0___jcross_泡_178__ = _TOKEN_伏:1.0___jcross_泡_100__(s);
+    _TOKEN_泡:1.0___jcross_泡_79__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_伏:1.0___jcross_泡_178__)
+}
+
+// [metadata-stripped]
+fn _TOKEN_伏:1.0___jcross_泡_100__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_伏:1.0___jcross_礎_101__> {
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_伏:1.0___jcross_泡_178__ = _TOKEN_礎:1.0___jcross_礎_30__::_TOKEN_泡:1.0___jcross_泡_77__();
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__ = s._TOKEN_泡:1.0___jcross_泡_189__()._TOKEN_泡:1.0___jcross_泡_98__();
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__ = 0;
+
+    while let _TOKEN_礎:1.0___jcross_礎_156__(&ch) = _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() {
+        _TOKEN_泡:1.0___jcross_泡_200__ ch {
+            ' ' | '\t' | '\n' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__();
+                _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+// [metadata-stripped]
+                let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_132__ = *_TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__()._TOKEN_泡:1.0___jcross_泡_203__(&' ');
+                if _TOKEN_泡:1.0___jcross_泡_132__ == '>' || _TOKEN_泡:1.0___jcross_泡_132__ == '+' || _TOKEN_泡:1.0___jcross_泡_132__ == '~' {
+// [metadata-stripped]
+                } else {
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_90__);
+                }
+            }
+            '>' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_32__);
+            }
+            '+' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_92__);
+            }
+// _TOKEN_絡:0.3___jcross_EX_115__ [decoy-metadata]
+            '~' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_56__);
+            }
+            '|' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                if _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() == _TOKEN_礎:1.0___jcross_礎_156__(&'|') {
+                    _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_35__);
+                } else {
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_78__);
+                }
+            }
+            '#' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                let _TOKEN_泡:1.0___jcross_泡_173__ = _TOKEN_泡:1.0___jcross_泡_36__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__);
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::Id(_TOKEN_泡:1.0___jcross_泡_173__));
+            }
+            '.' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                let _TOKEN_泡:1.0___jcross_泡_173__ = _TOKEN_泡:1.0___jcross_泡_36__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__);
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_15__(_TOKEN_泡:1.0___jcross_泡_173__));
+            }
+            '*' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_85__);
+            }
+            ':' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                let _TOKEN_泡:1.0___jcross_泡_218__ = _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() == _TOKEN_礎:1.0___jcross_礎_156__(&':');
+                if _TOKEN_泡:1.0___jcross_泡_218__ { _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1; }
+                let _TOKEN_泡:1.0___jcross_泡_173__ = _TOKEN_泡:1.0___jcross_泡_36__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__);
+                let _TOKEN_泡:1.0___jcross_泡_233__ = if _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() == _TOKEN_礎:1.0___jcross_礎_156__(&'(') {
+                    _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_泡:1.0___jcross_泡_160__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__))
+                } else {
+                    _TOKEN_礎:1.0___jcross_礎_149__
+                };
+                if _TOKEN_泡:1.0___jcross_泡_218__ {
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_65__(_TOKEN_泡:1.0___jcross_泡_173__, _TOKEN_泡:1.0___jcross_泡_233__));
+                } else {
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_82__(_TOKEN_泡:1.0___jcross_泡_173__, _TOKEN_泡:1.0___jcross_泡_233__));
+                }
+            }
+            '[' => {
+                let _TOKEN_泡:1.0___jcross_泡_84__ = _TOKEN_泡:1.0___jcross_泡_160__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__);
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_120__(_TOKEN_泡:1.0___jcross_泡_84__));
+            }
+            '&' => {
+                _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_157__);
+            }
+            _ => {
+                let _TOKEN_泡:1.0___jcross_泡_173__ = _TOKEN_泡:1.0___jcross_泡_36__(&_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_189__, &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_64__);
+                if !_TOKEN_泡:1.0___jcross_泡_173__._TOKEN_泡:1.0___jcross_泡_124__() {
+                    _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_146__(_TOKEN_泡:1.0___jcross_泡_173__));
+                } else {
+                    _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__(); _TOKEN_泡:1.0___jcross_泡_64__ += 1;
+                }
+            }
+        }
+    }
+
+    _TOKEN_伏:1.0___jcross_泡_178__
+}
+
+// [metadata-stripped]
+enum _TOKEN_伏:1.0___jcross_礎_101__ {
+    _TOKEN_礎:1.0___jcross_礎_146__(_TOKEN_礎:1.0___jcross_礎_72__),
+    _TOKEN_礎:1.0___jcross_礎_85__,
+    Id(_TOKEN_礎:1.0___jcross_礎_72__),
+    _TOKEN_礎:1.0___jcross_礎_15__(_TOKEN_礎:1.0___jcross_礎_72__),
+    _TOKEN_礎:1.0___jcross_礎_120__(_TOKEN_礎:1.0___jcross_礎_72__),
+    _TOKEN_礎:1.0___jcross_礎_82__(_TOKEN_礎:1.0___jcross_礎_72__, _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_72__>),
+    _TOKEN_礎:1.0___jcross_礎_65__(_TOKEN_礎:1.0___jcross_礎_72__, _TOKEN_礎:1.0___jcross_礎_61__<_TOKEN_礎:1.0___jcross_礎_72__>),
+// _TOKEN_絡:0.9___jcross_GM_171__ [decoy-metadata]
+    _TOKEN_礎:1.0___jcross_礎_157__,
+// _TOKEN_礎:0.2___jcross_WM_674__ [decoy-metadata]
+    _TOKEN_礎:1.0___jcross_礎_78__,
+    _TOKEN_礎:1.0___jcross_礎_90__,
+    _TOKEN_礎:1.0___jcross_礎_32__,
+    _TOKEN_礎:1.0___jcross_礎_92__,
+    _TOKEN_礎:1.0___jcross_礎_56__,
+    _TOKEN_礎:1.0___jcross_礎_35__,
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_36__(_TOKEN_泡:1.0___jcross_泡_189__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_128__::_TOKEN_法:1.0___jcross_泡_1__::_TOKEN_礎:1.0___jcross_礎_126__<_TOKEN_泡:1.0___jcross_泡_128__::_TOKEN_泡:1.0___jcross_泡_131__::_TOKEN_礎:1.0___jcross_礎_130__>, _TOKEN_泡:1.0___jcross_泡_64__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_227__) -> _TOKEN_礎:1.0___jcross_礎_72__ {
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_42__ = _TOKEN_礎:1.0___jcross_礎_72__::_TOKEN_泡:1.0___jcross_泡_77__();
+    while let _TOKEN_礎:1.0___jcross_礎_156__(&ch) = _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() {
+        if ch._TOKEN_泡:1.0___jcross_泡_180__() || ch == '-' || ch == '_' || ch as _TOKEN_泡:1.0___jcross_泡_136__ > 127 {
+            _TOKEN_泡:1.0___jcross_泡_42__._TOKEN_泡:1.0___jcross_泡_85__(ch);
+            _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__();
+            *_TOKEN_泡:1.0___jcross_泡_64__ += 1;
+        } else {
+            break;
+        }
+    }
+    _TOKEN_泡:1.0___jcross_泡_42__
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_160__(_TOKEN_泡:1.0___jcross_泡_189__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_128__::_TOKEN_法:1.0___jcross_泡_1__::_TOKEN_礎:1.0___jcross_礎_126__<_TOKEN_泡:1.0___jcross_泡_128__::_TOKEN_泡:1.0___jcross_泡_131__::_TOKEN_礎:1.0___jcross_礎_130__>, _TOKEN_泡:1.0___jcross_泡_64__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_227__) -> _TOKEN_礎:1.0___jcross_礎_72__ {
+    let _TOKEN_泡:1.0___jcross_泡_3__ s = _TOKEN_礎:1.0___jcross_礎_72__::_TOKEN_泡:1.0___jcross_泡_77__();
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_231__ = 0_TOKEN_泡:1.0___jcross_泡_228__;
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_70__ = false;
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_33__ = '"';
+
+    while let _TOKEN_礎:1.0___jcross_礎_156__(&ch) = _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_121__() {
+        _TOKEN_泡:1.0___jcross_泡_189__._TOKEN_泡:1.0___jcross_泡_118__();
+        *_TOKEN_泡:1.0___jcross_泡_64__ += 1;
+        if _TOKEN_泡:1.0___jcross_泡_70__ {
+            s._TOKEN_泡:1.0___jcross_泡_85__(ch);
+            if ch == _TOKEN_泡:1.0___jcross_泡_33__ { _TOKEN_泡:1.0___jcross_泡_70__ = false; }
+        } else {
+            _TOKEN_泡:1.0___jcross_泡_200__ ch {
+                '"' | '\'' => {
+                    _TOKEN_泡:1.0___jcross_泡_70__ = true;
+                    _TOKEN_泡:1.0___jcross_泡_33__ = ch;
+                    s._TOKEN_泡:1.0___jcross_泡_85__(ch);
+                }
+                '(' | '[' => { _TOKEN_泡:1.0___jcross_泡_231__ += 1; s._TOKEN_泡:1.0___jcross_泡_85__(ch); }
+                ')' | ']' => {
+                    _TOKEN_泡:1.0___jcross_泡_231__ -= 1;
+                    if _TOKEN_泡:1.0___jcross_泡_231__ < 0 { break; }
+                    s._TOKEN_泡:1.0___jcross_泡_85__(ch);
+                }
+                _ => s._TOKEN_泡:1.0___jcross_泡_85__(ch),
+            }
+        }
+    }
+    s
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_79__(_TOKEN_伏:1.0___jcross_泡_178__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_伏:1.0___jcross_礎_101__>) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_152__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    if _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_124__() {
+        return _TOKEN_礎:1.0___jcross_礎_111__("_TOKEN_礎:1.0___jcross_礎_76__ _TOKEN_泡:1.0___jcross_泡_103__"._TOKEN_泡:1.0___jcross_泡_212__());
+    }
+
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_103__ = _TOKEN_礎:1.0___jcross_礎_152__::_TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_伏:1.0___jcross_泡_172__(_TOKEN_伏:1.0___jcross_泡_178__)?);
+
+    while !_TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_124__() {
+        let _TOKEN_泡:1.0___jcross_泡_184__ = _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_221__() {
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_32__) => { _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0); _TOKEN_礎:1.0___jcross_礎_7__::_TOKEN_礎:1.0___jcross_礎_32__ }
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_92__) => { _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0); _TOKEN_礎:1.0___jcross_礎_7__::_TOKEN_礎:1.0___jcross_礎_154__ }
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_56__) => { _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0); _TOKEN_礎:1.0___jcross_礎_7__::_TOKEN_礎:1.0___jcross_礎_59__ }
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_35__) => { _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0); _TOKEN_礎:1.0___jcross_礎_7__::_TOKEN_礎:1.0___jcross_礎_35__ }
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_90__) => { _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0); _TOKEN_礎:1.0___jcross_礎_7__::_TOKEN_礎:1.0___jcross_礎_64__ }
+            _ => break,
+        };
+
+        if _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_124__() {
+            break;
+        }
+
+        let _TOKEN_泡:1.0___jcross_泡_110__ = _TOKEN_伏:1.0___jcross_泡_172__(_TOKEN_伏:1.0___jcross_泡_178__)?;
+        _TOKEN_泡:1.0___jcross_泡_103__._TOKEN_泡:1.0___jcross_泡_81__._TOKEN_泡:1.0___jcross_泡_85__((_TOKEN_泡:1.0___jcross_泡_184__, _TOKEN_泡:1.0___jcross_泡_110__));
+    }
+
+    Ok(_TOKEN_泡:1.0___jcross_泡_103__)
+}
+
+fn _TOKEN_伏:1.0___jcross_泡_172__(_TOKEN_伏:1.0___jcross_泡_178__: &_TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_礎:1.0___jcross_礎_30__<_TOKEN_伏:1.0___jcross_礎_101__>) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_43__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    let _TOKEN_泡:1.0___jcross_泡_3__ _TOKEN_泡:1.0___jcross_泡_139__ = _TOKEN_礎:1.0___jcross_礎_30__::_TOKEN_泡:1.0___jcross_泡_77__();
+
+    while !_TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_124__() {
+        _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_221__() {
+            _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_90__) | _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_32__)
+            | _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_92__) | _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_56__)
+            | _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_35__) => break,
+            _ => {}
+        }
+
+        if _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_124__() { break; }
+        let _TOKEN_伏:1.0___jcross_泡_93__ = _TOKEN_伏:1.0___jcross_泡_178__._TOKEN_泡:1.0___jcross_泡_185__(0);
+
+        let _TOKEN_泡:1.0___jcross_泡_192__ = _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_伏:1.0___jcross_泡_93__ {
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_146__(_TOKEN_泡:1.0___jcross_泡_173__) => _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_146__(_TOKEN_泡:1.0___jcross_泡_173__, _TOKEN_礎:1.0___jcross_礎_149__),
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_85__ => _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_85__(_TOKEN_礎:1.0___jcross_礎_149__),
+            _TOKEN_伏:1.0___jcross_礎_101__::Id(_TOKEN_泡:1.0___jcross_泡_173__) => _TOKEN_礎:1.0___jcross_礎_153__::Id(_TOKEN_泡:1.0___jcross_泡_173__),
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_15__(_TOKEN_泡:1.0___jcross_泡_173__) => _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_15__(_TOKEN_泡:1.0___jcross_泡_173__),
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_120__(s) => _TOKEN_泡:1.0___jcross_泡_92__(&s)?,
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_82__(_TOKEN_泡:1.0___jcross_泡_173__, _TOKEN_泡:1.0___jcross_泡_40__) => _TOKEN_泡:1.0___jcross_泡_102__(&_TOKEN_泡:1.0___jcross_泡_173__, _TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_161__())?,
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_65__(_TOKEN_泡:1.0___jcross_泡_173__, _) => _TOKEN_泡:1.0___jcross_泡_127__(&_TOKEN_泡:1.0___jcross_泡_173__)?,
+            _TOKEN_伏:1.0___jcross_礎_101__::_TOKEN_礎:1.0___jcross_礎_157__ => _TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_157__,
+            _ => break,
+        };
+
+        _TOKEN_泡:1.0___jcross_泡_139__._TOKEN_泡:1.0___jcross_泡_85__(_TOKEN_泡:1.0___jcross_泡_192__);
+    }
+
+    if _TOKEN_泡:1.0___jcross_泡_139__._TOKEN_泡:1.0___jcross_泡_124__() {
+        _TOKEN_礎:1.0___jcross_礎_111__("_TOKEN_礎:1.0___jcross_礎_76__ _TOKEN_泡:1.0___jcross_泡_86__ _TOKEN_泡:1.0___jcross_泡_103__"._TOKEN_泡:1.0___jcross_泡_212__())
+    } else {
+        Ok(_TOKEN_礎:1.0___jcross_礎_43__ { _TOKEN_泡:1.0___jcross_泡_139__ })
+    }
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_92__(s: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_153__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    let s = s._TOKEN_泡:1.0___jcross_泡_191__(|c| c == '[' || c == ']')._TOKEN_泡:1.0___jcross_泡_156__();
+
+// [metadata-stripped]
+    let (s, _TOKEN_泡:1.0___jcross_泡_140__) = if s._TOKEN_泡:1.0___jcross_泡_5__(" i") || s._TOKEN_泡:1.0___jcross_泡_5__(" I") {
+        (&s[..s._TOKEN_泡:1.0___jcross_泡_129__()-2], true)
+    } else if s._TOKEN_泡:1.0___jcross_泡_5__(" s") || s._TOKEN_泡:1.0___jcross_泡_5__(" S") {
+        (&s[..s._TOKEN_泡:1.0___jcross_泡_129__()-2], false)
+    } else {
+        (s, false)
+    };
+
+// [metadata-stripped]
+    let _TOKEN_泡:1.0___jcross_泡_14__ = ["~=", "|=", "^=", "$=", "*=", "="];
+    for op in &_TOKEN_泡:1.0___jcross_泡_14__ {
+        if let _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_泡:1.0___jcross_泡_64__) = s._TOKEN_泡:1.0___jcross_泡_217__(op) {
+            let _TOKEN_泡:1.0___jcross_泡_173__ = s[.._TOKEN_泡:1.0___jcross_泡_64__]._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_212__();
+            let _TOKEN_泡:1.0___jcross_泡_250__ = s[_TOKEN_泡:1.0___jcross_泡_64__+op._TOKEN_泡:1.0___jcross_泡_129__()..]._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_191__(|c| c == '"' || c == '\'')._TOKEN_泡:1.0___jcross_泡_212__();
+            let _TOKEN_泡:1.0___jcross_泡_47__ = _TOKEN_泡:1.0___jcross_泡_200__ *op {
+                "=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_75__,
+                "~=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_142__,
+                "|=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_150__,
+                "^=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_148__,
+                "$=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_49__,
+                "*=" => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_131__,
+                _ => _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_128__,
+            };
+            return Ok(_TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_120__(_TOKEN_礎:1.0___jcross_礎_1__ {
+                _TOKEN_泡:1.0___jcross_泡_173__,
+                _TOKEN_泡:1.0___jcross_泡_47__,
+                _TOKEN_泡:1.0___jcross_泡_250__: _TOKEN_礎:1.0___jcross_礎_156__(_TOKEN_泡:1.0___jcross_泡_250__),
+                _TOKEN_泡:1.0___jcross_泡_140__,
+            }));
+        }
+    }
+
+// [metadata-stripped]
+    Ok(_TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_120__(_TOKEN_礎:1.0___jcross_礎_1__ {
+        _TOKEN_泡:1.0___jcross_泡_173__: s._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_212__(),
+        _TOKEN_泡:1.0___jcross_泡_47__: _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_128__,
+        _TOKEN_泡:1.0___jcross_泡_250__: _TOKEN_礎:1.0___jcross_礎_149__,
+        _TOKEN_泡:1.0___jcross_泡_140__,
+    }))
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_102__(_TOKEN_泡:1.0___jcross_泡_173__: &_TOKEN_泡:1.0___jcross_泡_131__, _TOKEN_泡:1.0___jcross_泡_40__: _TOKEN_礎:1.0___jcross_礎_61__<&_TOKEN_泡:1.0___jcross_泡_131__>) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_153__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    let pc = _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_173__._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_7__() {
+        "_TOKEN_泡:1.0___jcross_泡_133__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_137__,
+        "_TOKEN_泡:1.0___jcross_泡_117__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_51__,
+        "any-_TOKEN_泡:1.0___jcross_泡_133__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_106__,
+        "_TOKEN_泡:1.0___jcross_泡_146__-_TOKEN_泡:1.0___jcross_泡_133__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_44__,
+        "_TOKEN_法:1.0___jcross_泡_196__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_法:1.0___jcross_礎_21__,
+        "_TOKEN_泡:1.0___jcross_泡_247__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_109__,
+        "_TOKEN_泡:1.0___jcross_泡_220__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_99__,
+        "_TOKEN_泡:1.0___jcross_泡_220__-_TOKEN_泡:1.0___jcross_泡_13__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_37__,
+        "_TOKEN_泡:1.0___jcross_泡_220__-_TOKEN_泡:1.0___jcross_泡_208__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_42__,
+        "_TOKEN_泡:1.0___jcross_泡_107__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_125__,
+        "_TOKEN_泡:1.0___jcross_泡_244__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_5__,
+        "_TOKEN_泡:1.0___jcross_泡_104__-_TOKEN_泡:1.0___jcross_泡_50__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_80__,
+        "_TOKEN_泡:1.0___jcross_泡_104__-_TOKEN_泡:1.0___jcross_泡_101__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_86__,
+        "_TOKEN_泡:1.0___jcross_泡_57__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_6__,
+        "_TOKEN_泡:1.0___jcross_泡_60__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_40__,
+        "_TOKEN_泡:1.0___jcross_泡_159__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_134__,
+        "_TOKEN_泡:1.0___jcross_泡_58__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_140__,
+        "_TOKEN_泡:1.0___jcross_泡_63__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_97__,
+        "_TOKEN_泡:1.0___jcross_泡_144__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_11__,
+        "_TOKEN_泡:1.0___jcross_泡_10__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_19__,
+        "in-_TOKEN_泡:1.0___jcross_泡_142__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_17__,
+        "_TOKEN_泡:1.0___jcross_泡_69__-of-_TOKEN_泡:1.0___jcross_泡_142__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_67__,
+        "_TOKEN_法:1.0___jcross_泡_76__-_TOKEN_泡:1.0___jcross_泡_144__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_139__,
+        "_TOKEN_法:1.0___jcross_泡_76__-_TOKEN_泡:1.0___jcross_泡_10__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_16__,
+        "_TOKEN_泡:1.0___jcross_泡_202__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_107__,
+        "_TOKEN_法:1.0___jcross_泡_176__-_TOKEN_泡:1.0___jcross_泡_157__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_100__,
+        "_TOKEN_泡:1.0___jcross_泡_150__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_123__,
+        "_TOKEN_泡:1.0___jcross_泡_158__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_76__,
+        "_TOKEN_泡:1.0___jcross_泡_237__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_57__,
+        "_TOKEN_泡:1.0___jcross_泡_221__-_TOKEN_泡:1.0___jcross_泡_88__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_8__,
+        "_TOKEN_泡:1.0___jcross_泡_54__-_TOKEN_泡:1.0___jcross_泡_88__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_145__,
+        "_TOKEN_泡:1.0___jcross_泡_50__-_TOKEN_泡:1.0___jcross_泡_88__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_144__,
+        "_TOKEN_泡:1.0___jcross_泡_221__-of-_TOKEN_泡:1.0___jcross_泡_241__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_87__,
+        "_TOKEN_泡:1.0___jcross_泡_54__-of-_TOKEN_泡:1.0___jcross_泡_241__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_129__,
+        "_TOKEN_泡:1.0___jcross_泡_50__-of-_TOKEN_泡:1.0___jcross_泡_241__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_62__,
+        "_TOKEN_泡:1.0___jcross_泡_134__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_88__,
+        "_TOKEN_泡:1.0___jcross_泡_134__-_TOKEN_泡:1.0___jcross_泡_208__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_25__,
+        "_TOKEN_泡:1.0___jcross_泡_75__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_91__,
+        "_TOKEN_泡:1.0___jcross_泡_31__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_27__,
+        "_TOKEN_泡:1.0___jcross_泡_43__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_119__,
+        "_TOKEN_泡:1.0___jcross_泡_15__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_83__,
+        "_TOKEN_泡:1.0___jcross_泡_193__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_10__,
+        "_TOKEN_泡:1.0___jcross_泡_145__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_104__,
+        "_TOKEN_法:1.0___jcross_泡_11__-open" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_60__,
+        "_TOKEN_泡:1.0___jcross_泡_168__-in-_TOKEN_泡:1.0___jcross_泡_168__" => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_68__,
+        "_TOKEN_泡:1.0___jcross_泡_91__-_TOKEN_泡:1.0___jcross_泡_88__" => {
+            let _TOKEN_泡:1.0___jcross_泡_123__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("0"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_94__(0));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_3__(_TOKEN_泡:1.0___jcross_泡_123__, _TOKEN_礎:1.0___jcross_礎_149__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_91__-_TOKEN_泡:1.0___jcross_泡_54__-_TOKEN_泡:1.0___jcross_泡_88__" => {
+            let _TOKEN_泡:1.0___jcross_泡_123__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("0"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_94__(0));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_113__(_TOKEN_泡:1.0___jcross_泡_123__, _TOKEN_礎:1.0___jcross_礎_149__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_91__-of-_TOKEN_泡:1.0___jcross_泡_241__" => {
+            let _TOKEN_泡:1.0___jcross_泡_123__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("0"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_94__(0));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_117__(_TOKEN_泡:1.0___jcross_泡_123__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_91__-_TOKEN_泡:1.0___jcross_泡_54__-of-_TOKEN_泡:1.0___jcross_泡_241__" => {
+            let _TOKEN_泡:1.0___jcross_泡_123__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("0"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_94__(0));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_108__(_TOKEN_泡:1.0___jcross_泡_123__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_155__" => {
+            let _TOKEN_泡:1.0___jcross_泡_214__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("*"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_148__![]));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_121__(_TOKEN_泡:1.0___jcross_泡_214__)
+        }
+        "is" | "_TOKEN_泡:1.0___jcross_泡_236__" | "-_TOKEN_泡:1.0___jcross_泡_206__-any" | "-_TOKEN_泡:1.0___jcross_泡_164__-any" => {
+            let _TOKEN_泡:1.0___jcross_泡_214__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("*"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_148__![]));
+            _TOKEN_礎:1.0___jcross_礎_82__::Is(_TOKEN_泡:1.0___jcross_泡_214__)
+        }
+        "where" => {
+            let _TOKEN_泡:1.0___jcross_泡_214__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("*"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_148__![]));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_93__(_TOKEN_泡:1.0___jcross_泡_214__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_61__" => {
+            let _TOKEN_泡:1.0___jcross_泡_214__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("*"))._TOKEN_泡:1.0___jcross_泡_203__(_TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_77__(_TOKEN_泡:1.0___jcross_泡_148__![]));
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_36__(_TOKEN_泡:1.0___jcross_泡_214__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_109__" => {
+            let _TOKEN_泡:1.0___jcross_泡_55__ = _TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("")._TOKEN_泡:1.0___jcross_泡_170__(',')._TOKEN_泡:1.0___jcross_泡_46__(|l| l._TOKEN_泡:1.0___jcross_泡_156__()._TOKEN_泡:1.0___jcross_泡_212__())._TOKEN_泡:1.0___jcross_泡_163__();
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_74__(_TOKEN_泡:1.0___jcross_泡_55__)
+        }
+        "_TOKEN_泡:1.0___jcross_泡_41__" => {
+            _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_63__(_TOKEN_泡:1.0___jcross_泡_40__._TOKEN_泡:1.0___jcross_泡_203__("_TOKEN_泡:1.0___jcross_泡_147__")._TOKEN_泡:1.0___jcross_泡_212__())
+        }
+        _TOKEN_法:1.0___jcross_泡_223__ => _TOKEN_礎:1.0___jcross_礎_82__::_TOKEN_礎:1.0___jcross_礎_28__(_TOKEN_漂:1.0___jcross_泡_24__!(":{}", _TOKEN_法:1.0___jcross_泡_223__)),
+    };
+
+    Ok(_TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_82__(pc))
+}
+
+fn _TOKEN_泡:1.0___jcross_泡_127__(_TOKEN_泡:1.0___jcross_泡_173__: &_TOKEN_泡:1.0___jcross_泡_131__) -> _TOKEN_礎:1.0___jcross_礎_46__<_TOKEN_礎:1.0___jcross_礎_153__, _TOKEN_礎:1.0___jcross_礎_72__> {
+    let pe = _TOKEN_泡:1.0___jcross_泡_200__ _TOKEN_泡:1.0___jcross_泡_173__._TOKEN_泡:1.0___jcross_泡_66__()._TOKEN_泡:1.0___jcross_泡_7__() {
+        "_TOKEN_漂:1.0___jcross_泡_130__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_105__,
+        "_TOKEN_法:1.0___jcross_泡_199__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_法:1.0___jcross_礎_4__,
+        "_TOKEN_泡:1.0___jcross_泡_221__-_TOKEN_泡:1.0___jcross_泡_187__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_58__,
+        "_TOKEN_泡:1.0___jcross_泡_221__-_TOKEN_法:1.0___jcross_泡_48__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_法:1.0___jcross_礎_103__,
+        "_TOKEN_法:1.0___jcross_泡_229__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_法:1.0___jcross_礎_47__,
+        "_TOKEN_法:1.0___jcross_泡_176__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_法:1.0___jcross_礎_29__,
+        "_TOKEN_泡:1.0___jcross_泡_201__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_136__,
+        "_TOKEN_泡:1.0___jcross_泡_205__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_96__,
+        "_TOKEN_泡:1.0___jcross_泡_205__-_TOKEN_泡:1.0___jcross_泡_99__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_155__,
+        "_TOKEN_庫:1.0___jcross_泡_17__-_TOKEN_泡:1.0___jcross_泡_103__-_TOKEN_泡:1.0___jcross_泡_59__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_庫:1.0___jcross_礎_98__,
+        "_TOKEN_泡:1.0___jcross_泡_206__-_TOKEN_泡:1.0___jcross_泡_181__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_54__,
+        "_TOKEN_泡:1.0___jcross_泡_206__-_TOKEN_泡:1.0___jcross_泡_181__-_TOKEN_泡:1.0___jcross_泡_65__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_23__,
+        "_TOKEN_泡:1.0___jcross_泡_206__-_TOKEN_泡:1.0___jcross_泡_181__-_TOKEN_泡:1.0___jcross_泡_154__" => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_115__,
+        _TOKEN_法:1.0___jcross_泡_223__ => _TOKEN_礎:1.0___jcross_礎_65__::_TOKEN_礎:1.0___jcross_礎_28__(_TOKEN_漂:1.0___jcross_泡_24__!("::{}", _TOKEN_法:1.0___jcross_泡_223__)),
+    };
+    Ok(_TOKEN_礎:1.0___jcross_礎_153__::_TOKEN_礎:1.0___jcross_礎_65__(pe))
+}
+
+// [metadata-stripped]
+_TOKEN_泡:1.0___jcross_泡_225__ _TOKEN_泡:1.0___jcross_泡_28__ {
+    _TOKEN_泡:1.0___jcross_泡_207__ su_TOKEN_法:1.0___jcross_泡_188__::*;
+
+// [metadata-stripped]
+    fn _TOKEN_泡:1.0___jcross_泡_190__() {
+        let _TOKEN_泡:1.0___jcross_泡_95__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__("_TOKEN_泡:1.0___jcross_泡_83__")._TOKEN_泡:1.0___jcross_泡_23__();
+        _TOKEN_泡:1.0___jcross_泡_89__!(_TOKEN_泡:1.0___jcross_泡_95__._TOKEN_泡:1.0___jcross_泡_80__._TOKEN_泡:1.0___jcross_泡_129__(), 1);
+
+        let _TOKEN_泡:1.0___jcross_泡_95__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__("_TOKEN_泡:1.0___jcross_泡_83__, p, _TOKEN_泡:1.0___jcross_泡_51__")._TOKEN_泡:1.0___jcross_泡_23__();
+        _TOKEN_泡:1.0___jcross_泡_89__!(_TOKEN_泡:1.0___jcross_泡_95__._TOKEN_泡:1.0___jcross_泡_80__._TOKEN_泡:1.0___jcross_泡_129__(), 3);
+    }
+
+// [metadata-stripped]
+    fn _TOKEN_漂:1.0___jcross_泡_97__() {
+// [metadata-stripped]
+        let _TOKEN_泡:1.0___jcross_泡_95__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__("#_TOKEN_泡:1.0___jcross_泡_138__")._TOKEN_泡:1.0___jcross_泡_23__();
+        _TOKEN_泡:1.0___jcross_泡_89__!(_TOKEN_泡:1.0___jcross_泡_95__._TOKEN_泡:1.0___jcross_泡_80__[0]._TOKEN_漂:1.0___jcross_泡_53__(), _TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_77__(1, 0, 0));
+
+// [metadata-stripped]
+        let _TOKEN_泡:1.0___jcross_泡_95__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__("._TOKEN_泡:1.0___jcross_泡_186__")._TOKEN_泡:1.0___jcross_泡_23__();
+        _TOKEN_泡:1.0___jcross_泡_89__!(_TOKEN_泡:1.0___jcross_泡_95__._TOKEN_泡:1.0___jcross_泡_80__[0]._TOKEN_漂:1.0___jcross_泡_53__(), _TOKEN_礎:1.0___jcross_礎_84__::_TOKEN_泡:1.0___jcross_泡_77__(0, 1, 0));
+
+// [metadata-stripped]
+// [metadata-stripped]
+    }
+
+// [metadata-stripped]
+    fn _TOKEN_泡:1.0___jcross_泡_251__() {
+        let _TOKEN_泡:1.0___jcross_泡_246__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_246__();
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_246__._TOKEN_泡:1.0___jcross_泡_236__(1));
+        _TOKEN_泡:1.0___jcross_泡_162__!(!_TOKEN_泡:1.0___jcross_泡_246__._TOKEN_泡:1.0___jcross_泡_236__(2));
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_246__._TOKEN_泡:1.0___jcross_泡_236__(3));
+
+        let _TOKEN_泡:1.0___jcross_泡_232__ = _TOKEN_礎:1.0___jcross_礎_95__::_TOKEN_泡:1.0___jcross_泡_232__();
+        _TOKEN_泡:1.0___jcross_泡_162__!(!_TOKEN_泡:1.0___jcross_泡_232__._TOKEN_泡:1.0___jcross_泡_236__(1));
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_232__._TOKEN_泡:1.0___jcross_泡_236__(2));
+
+        let _TOKEN_泡:1.0___jcross_泡_123__ = _TOKEN_礎:1.0___jcross_礎_95__ { a: 3, b: 1 }; // 3n+1 = 1,4,7,10...
+// _TOKEN_庫:0.4___jcross_WY_260__ [decoy-metadata]
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_123__._TOKEN_泡:1.0___jcross_泡_236__(1));
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_123__._TOKEN_泡:1.0___jcross_泡_236__(4));
+        _TOKEN_泡:1.0___jcross_泡_162__!(!_TOKEN_泡:1.0___jcross_泡_123__._TOKEN_泡:1.0___jcross_泡_236__(2));
+    }
+
+// [metadata-stripped]
+    fn _TOKEN_泡:1.0___jcross_泡_248__() {
+        let _TOKEN_泡:1.0___jcross_泡_84__ = _TOKEN_礎:1.0___jcross_礎_1__ {
+            _TOKEN_泡:1.0___jcross_泡_173__: "class"._TOKEN_泡:1.0___jcross_泡_212__(),
+            _TOKEN_泡:1.0___jcross_泡_47__: _TOKEN_礎:1.0___jcross_礎_33__::_TOKEN_礎:1.0___jcross_礎_142__,
+            _TOKEN_泡:1.0___jcross_泡_250__: _TOKEN_礎:1.0___jcross_礎_156__("_TOKEN_泡:1.0___jcross_泡_247__"._TOKEN_泡:1.0___jcross_泡_212__()),
+            _TOKEN_泡:1.0___jcross_泡_140__: false,
+        };
+        _TOKEN_泡:1.0___jcross_泡_162__!(_TOKEN_泡:1.0___jcross_泡_84__._TOKEN_泡:1.0___jcross_泡_236__(_TOKEN_礎:1.0___jcross_礎_156__("_TOKEN_泡:1.0___jcross_泡_138__ _TOKEN_泡:1.0___jcross_泡_247__ _TOKEN_泡:1.0___jcross_泡_186__")));
+        _TOKEN_泡:1.0___jcross_泡_162__!(!_TOKEN_泡:1.0___jcross_泡_84__._TOKEN_泡:1.0___jcross_泡_236__(_TOKEN_礎:1.0___jcross_礎_156__("_TOKEN_泡:1.0___jcross_泡_138__ _TOKEN_泡:1.0___jcross_泡_186__")));
+    }
+
+// [metadata-stripped]
+    fn _TOKEN_泡:1.0___jcross_泡_96__() {
+        let _TOKEN_泡:1.0___jcross_泡_95__ = _TOKEN_礎:1.0___jcross_礎_55__::_TOKEN_泡:1.0___jcross_泡_216__("_TOKEN_泡:1.0___jcross_泡_83__ > p.class")._TOKEN_泡:1.0___jcross_泡_23__();
+        let s = &_TOKEN_泡:1.0___jcross_泡_95__._TOKEN_泡:1.0___jcross_泡_80__[0];
+        _TOKEN_泡:1.0___jcross_泡_162__!(!s._TOKEN_泡:1.0___jcross_泡_81__._TOKEN_泡:1.0___jcross_泡_124__());
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

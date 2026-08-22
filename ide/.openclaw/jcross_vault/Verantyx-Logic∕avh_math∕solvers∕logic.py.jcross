@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:583241FA ver:1778159752
+// __ast_漂:0.2___TOKEN_FM_309_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// __ast_絢:0.6___TOKEN_DX_955_ [decoy-metadata]
+// [metadata-stripped]
+import re
+__ast_霮:1.0___TOKEN_霮_23_ __ast_霮:1.0___TOKEN_霮_5_ import __ast_庵:1.0___TOKEN_庵_11_, __ast_庵:1.0___TOKEN_庵_4_
+__ast_霮:1.0___TOKEN_霮_23_ .__ast_霮:1.0___TOKEN_霮_7_ import __ast_規:1.0___TOKEN_庵_10_, __ast_庵:1.0___TOKEN_庵_5_
+__ast_霮:1.0___TOKEN_霮_23_ .__ast_霮:1.0___TOKEN_霮_4_ import __ast_霮:1.0___TOKEN_霮_47_
+
+class __ast_規:1.0___TOKEN_庵_7_(__ast_規:1.0___TOKEN_庵_10_):
+    __ast_霮:1.0___TOKEN_霮_10_ __ast_霮:1.0___TOKEN_霮_1_(self, __ast_霮:1.0___TOKEN_霮_29_: __ast_霮:1.0___TOKEN_霮_40_, __ast_霮:1.0___TOKEN_霮_33_: __ast_庵:1.0___TOKEN_庵_11_[__ast_霮:1.0___TOKEN_霮_40_, __ast_庵:1.0___TOKEN_庵_4_]) -> __ast_霮:1.0___TOKEN_霮_41_:
+// [metadata-stripped]
+        __ast_霮:1.0___TOKEN_霮_35_ = __ast_霮:1.0___TOKEN_霮_33_.__ast_規:1.0___TOKEN_焦_1_("__ast_霮:1.0___TOKEN_霮_35_", [])
+        if __ast_霮:1.0___TOKEN_霮_43_ __ast_霮:1.0___TOKEN_霮_35_:
+            return 0.0
+            
+        __ast_霮:1.0___TOKEN_霮_20_ = any(any(m in c for m in ["[]", "<>", "□", "◇"]) for c in __ast_霮:1.0___TOKEN_霮_35_)
+        if __ast_霮:1.0___TOKEN_霮_43_ __ast_霮:1.0___TOKEN_霮_20_:
+            return 0.9 # 命題論理の可能性が高い
+        return 0.0
+
+    __ast_霮:1.0___TOKEN_霮_10_ __ast_霮:1.0___TOKEN_霮_46_(self, __ast_霮:1.0___TOKEN_霮_29_: __ast_霮:1.0___TOKEN_霮_40_, __ast_霮:1.0___TOKEN_霮_33_: __ast_庵:1.0___TOKEN_庵_11_[__ast_霮:1.0___TOKEN_霮_40_, __ast_庵:1.0___TOKEN_庵_4_], __ast_霮:1.0___TOKEN_霮_12_: __ast_庵:1.0___TOKEN_庵_11_[__ast_霮:1.0___TOKEN_霮_40_, __ast_庵:1.0___TOKEN_庵_4_]) -> __ast_庵:1.0___TOKEN_庵_5_:
+        __ast_霮:1.0___TOKEN_霮_35_ = __ast_霮:1.0___TOKEN_霮_33_.__ast_規:1.0___TOKEN_焦_1_("__ast_霮:1.0___TOKEN_霮_35_", [])
+        __ast_霮:1.0___TOKEN_霮_16_ = []
+        
+        try:
+            for f in __ast_霮:1.0___TOKEN_霮_35_:
+                __ast_霮:1.0___TOKEN_霮_31_, __ast_霮:1.0___TOKEN_霮_11_ = __ast_霮:1.0___TOKEN_霮_47_(f)
+                __ast_霮:1.0___TOKEN_霮_6_ = "__ast_霮:1.0___TOKEN_霮_9_" if __ast_霮:1.0___TOKEN_霮_31_ else "__ast_霮:1.0___TOKEN_霮_30_"
+                __ast_霮:1.0___TOKEN_霮_2_ = "__ast_庵:1.0___TOKEN_庵_3_" if __ast_霮:1.0___TOKEN_霮_31_ else "__ast_庵:1.0___TOKEN_庵_1_"
+// __ast_規:0.4___TOKEN_AB_398_ [decoy-metadata]
+                
+                __ast_霮:1.0___TOKEN_霮_18_ = {"__ast_漂:1.0___TOKEN_霮_27_": f}
+                if __ast_霮:1.0___TOKEN_霮_11_:
+                    __ast_霮:1.0___TOKEN_霮_18_["__ast_霮:1.0___TOKEN_霮_17_"] = {"__ast_庵:1.0___TOKEN_庵_8_": {"__ast_霮:1.0___TOKEN_霮_45_": __ast_霮:1.0___TOKEN_霮_11_}}
+                
+                __ast_霮:1.0___TOKEN_霮_16_.__ast_霮:1.0___TOKEN_霮_44_({
+                    "__ast_漂:1.0___TOKEN_霮_27_": f,
+                    "__ast_霮:1.0___TOKEN_霮_6_": __ast_霮:1.0___TOKEN_霮_6_,
+// __ast_絢:0.7___TOKEN_GK_812_ [decoy-metadata]
+                    "__ast_規:1.0___TOKEN_霮_26_": __ast_霮:1.0___TOKEN_霮_2_,
+                    "__ast_霮:1.0___TOKEN_霮_18_": __ast_霮:1.0___TOKEN_霮_18_
+                })
+            
+// [metadata-stripped]
+            __ast_霮:1.0___TOKEN_霮_14_ = __ast_霮:1.0___TOKEN_霮_13_(1 for r in __ast_霮:1.0___TOKEN_霮_16_ if r["__ast_霮:1.0___TOKEN_霮_6_"] == "__ast_霮:1.0___TOKEN_霮_9_")
+            if __ast_霮:1.0___TOKEN_霮_14_ == __ast_霮:1.0___TOKEN_霮_21_(__ast_霮:1.0___TOKEN_霮_16_):
+                __ast_霮:1.0___TOKEN_霮_19_ = "__ast_霮:1.0___TOKEN_霮_9_"
+                __ast_霮:1.0___TOKEN_霮_32_ = f"__ast_庵:1.0___TOKEN_庵_6_ __ast_庵:1.0___TOKEN_庵_3_: {', '.__ast_霮:1.0___TOKEN_霮_22_(__ast_霮:1.0___TOKEN_霮_35_)}"
+            else:
+                __ast_霮:1.0___TOKEN_霮_19_ = "__ast_霮:1.0___TOKEN_霮_30_"
+                __ast_霮:1.0___TOKEN_霮_32_ = "__ast_庵:1.0___TOKEN_庵_2_ __ast_霮:1.0___TOKEN_霮_35_ __ast_霮:1.0___TOKEN_霮_38_ __ast_霮:1.0___TOKEN_霮_8_."
+// __ast_奥:0.1___TOKEN_MH_714_ [decoy-metadata]
+
+            return __ast_庵:1.0___TOKEN_庵_5_(
+                __ast_霮:1.0___TOKEN_霮_6_=__ast_霮:1.0___TOKEN_霮_19_,
+                __ast_規:1.0___TOKEN_霮_26_=__ast_霮:1.0___TOKEN_霮_32_,
+                __ast_霮:1.0___TOKEN_霮_28_=1.0,
+                __ast_霮:1.0___TOKEN_霮_18_={"__ast_霮:1.0___TOKEN_霮_16_": __ast_霮:1.0___TOKEN_霮_16_, "__ast_霮:1.0___TOKEN_霮_15_": "__ast_霮:1.0___TOKEN_霮_24_"}
+            )
+// __ast_規:0.3___TOKEN_YM_870_ [decoy-metadata]
+        __ast_霮:1.0___TOKEN_霮_42_ __ast_庵:1.0___TOKEN_庵_9_ as e:
+            return __ast_庵:1.0___TOKEN_庵_5_("__ast_霮:1.0___TOKEN_霮_39_", f"__ast_庵:1.0___TOKEN_庵_12_ __ast_規:1.0___TOKEN_霮_3_ __ast_霮:1.0___TOKEN_霮_36_: {e}", 0.0)
+
+// POLYMORPHIC_JCROSS_END

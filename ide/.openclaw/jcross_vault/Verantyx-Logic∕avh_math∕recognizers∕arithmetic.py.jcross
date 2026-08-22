@@ -1,0 +1,56 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BE3770BF ver:1778159756
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_靄:1.0___ast_靄_2__ _TOKEN_靄:1.0___ast_靄_11__ import _TOKEN_廬:1.0___ast_廬_6__, _TOKEN_廬:1.0___ast_廬_7__
+// _TOKEN_綾:0.6___ast_LW_178__ [decoy-metadata]
+// _TOKEN_廬:0.2___ast_VB_433__ [decoy-metadata]
+// _TOKEN_碑:0.3___ast_LY_473__ [decoy-metadata]
+import re
+_TOKEN_靄:1.0___ast_靄_2__ _TOKEN_靄:1.0___ast_靄_26__._TOKEN_靄:1.0___ast_靄_12__._TOKEN_靄:1.0___ast_靄_24__ import _TOKEN_節:1.0___ast_廬_8__
+
+// _TOKEN_節:0.1___ast_LW_246__ [decoy-metadata]
+class _TOKEN_節:1.0___ast_廬_9__(_TOKEN_節:1.0___ast_廬_8__):
+    _TOKEN_靄:1.0___ast_靄_23__ _TOKEN_靄:1.0___ast_靄_14__(self, _TOKEN_靄:1.0___ast_靄_30__: _TOKEN_靄:1.0___ast_靄_25__) -> _TOKEN_靄:1.0___ast_靄_9__:
+// [metadata-stripped]
+// [metadata-stripped]
+        if any(op in _TOKEN_靄:1.0___ast_靄_30__ for op in ["->", "=>", "[]", "<>", "□", "◇", "_TOKEN_渦:1.0___ast_靄_1__", "_TOKEN_靄:1.0___ast_靄_15__"]):
+// _TOKEN_綾:0.4___ast_EW_213__ [decoy-metadata]
+            return 0.0
+            
+// [metadata-stripped]
+// [metadata-stripped]
+        if _TOKEN_靄:1.0___ast_靄_20__ re._TOKEN_靄:1.0___ast_靄_21__(r"\d", _TOKEN_靄:1.0___ast_靄_30__):
+            return 0.0
+            
+// [metadata-stripped]
+        _TOKEN_靄:1.0___ast_靄_3__ = re._TOKEN_靄:1.0___ast_靄_18__(r"[\d\s\.\+\-\*\/\%\(\)\=\^]", "", _TOKEN_靄:1.0___ast_靄_30__)
+        if _TOKEN_靄:1.0___ast_靄_8__(_TOKEN_靄:1.0___ast_靄_3__) == 0:
+            return 0.9 # 純粋な数式
+            
+// [metadata-stripped]
+// [metadata-stripped]
+        return 0.5 if re._TOKEN_靄:1.0___ast_靄_21__(r"[\d]+[\s]*[\+\-\*\/][\s]*[\d]+", _TOKEN_靄:1.0___ast_靄_30__) else 0.0
+
+    _TOKEN_靄:1.0___ast_靄_23__ _TOKEN_靄:1.0___ast_靄_16__(self, _TOKEN_靄:1.0___ast_靄_30__: _TOKEN_靄:1.0___ast_靄_25__) -> _TOKEN_廬:1.0___ast_廬_7__[_TOKEN_靄:1.0___ast_靄_25__, _TOKEN_廬:1.0___ast_廬_6__]:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        
+// [metadata-stripped]
+        _TOKEN_靄:1.0___ast_靄_6__ = r"\b(_TOKEN_廬:1.0___ast_廬_4__|_TOKEN_廬:1.0___ast_廬_3__|_TOKEN_廬:1.0___ast_廬_1__|_TOKEN_廬:1.0___ast_廬_2__ is|_TOKEN_廬:1.0___ast_廬_11__|Is|_TOKEN_靄:1.0___ast_靄_7__)\b"
+// _TOKEN_淵:0.2___ast_ZV_273__ [decoy-metadata]
+        _TOKEN_靄:1.0___ast_靄_28__ = re._TOKEN_靄:1.0___ast_靄_18__(_TOKEN_靄:1.0___ast_靄_6__, "", _TOKEN_靄:1.0___ast_靄_30__, _TOKEN_靄:1.0___ast_靄_22__=re._TOKEN_廬:1.0___ast_廬_5__)._TOKEN_靄:1.0___ast_靄_4__()
+        
+// [metadata-stripped]
+        _TOKEN_靄:1.0___ast_靄_28__ = _TOKEN_靄:1.0___ast_靄_28__._TOKEN_靄:1.0___ast_靄_17__("?")
+        
+        return {
+            "_TOKEN_靄:1.0___ast_靄_10__": "_TOKEN_靄:1.0___ast_靄_27__",
+            "_TOKEN_靄:1.0___ast_靄_19__": [{
+                "_TOKEN_靄:1.0___ast_靄_5__": _TOKEN_靄:1.0___ast_靄_28__,
+                "_TOKEN_靄:1.0___ast_靄_13__": _TOKEN_靄:1.0___ast_靄_28__,
+                "_TOKEN_靄:1.0___ast_靄_29__": 1.0
+            }]
+        }
+// POLYMORPHIC_JCROSS_END

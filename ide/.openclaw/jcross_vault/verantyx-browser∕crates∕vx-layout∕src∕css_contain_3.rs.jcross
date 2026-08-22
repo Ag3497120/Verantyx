@@ -1,0 +1,94 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3BCF186D ver:1778158821
+// ⚠️ One-time schema — expires after response
+// __ast_廊:0.4___TOKEN_XK_761_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_霜:0.2___TOKEN_LB_376_ [decoy-metadata]
+// [metadata-stripped]
+
+__ast_霜:1.0___TOKEN_霜_64_ __ast_霜:1.0___TOKEN_霜_77_::__ast_霜:1.0___TOKEN_霜_63_::__ast_廊:1.0___TOKEN_廊_22_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_霜:1.0___TOKEN_霜_65_ enum __ast_廊:1.0___TOKEN_廊_32_ { __ast_廊:1.0___TOKEN_廊_3_, __ast_廊:1.0___TOKEN_廊_39_, __ast_廊:1.0___TOKEN_廊_14_ }
+// __ast_渦:0.5___TOKEN_ZH_312_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_霜:1.0___TOKEN_霜_65_ struct __ast_廊:1.0___TOKEN_廊_24_ {
+    __ast_霜:1.0___TOKEN_霜_65_ __ast_霜:1.0___TOKEN_霜_13_: __ast_霜:1.0___TOKEN_霜_89_,
+    __ast_霜:1.0___TOKEN_霜_65_ __ast_霜:1.0___TOKEN_霜_92_: __ast_霜:1.0___TOKEN_霜_89_,
+}
+
+// [metadata-stripped]
+__ast_霜:1.0___TOKEN_霜_65_ struct __ast_廊:1.0___TOKEN_廊_34_ {
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ __ast_霜:1.0___TOKEN_霜_79_: __ast_廊:1.0___TOKEN_廊_22_<__ast_霜:1.0___TOKEN_霜_38_, __ast_廊:1.0___TOKEN_廊_32_>,
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ __ast_霜:1.0___TOKEN_霜_88_: __ast_廊:1.0___TOKEN_廊_22_<__ast_霜:1.0___TOKEN_霜_38_, __ast_廊:1.0___TOKEN_廊_24_>,
+    __ast_霜:1.0___TOKEN_霜_65_ __ast_霜:1.0___TOKEN_霜_87_: __ast_霜:1.0___TOKEN_霜_38_,
+}
+
+__ast_霜:1.0___TOKEN_霜_72_ __ast_廊:1.0___TOKEN_廊_34_ {
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_霜:1.0___TOKEN_霜_18_() -> __ast_廊:1.0___TOKEN_廊_30_ {
+        __ast_廊:1.0___TOKEN_廊_30_ {
+            __ast_霜:1.0___TOKEN_霜_79_: __ast_廊:1.0___TOKEN_廊_22_::__ast_霜:1.0___TOKEN_霜_18_(),
+            __ast_霜:1.0___TOKEN_霜_88_: __ast_廊:1.0___TOKEN_廊_22_::__ast_霜:1.0___TOKEN_霜_18_(),
+            __ast_霜:1.0___TOKEN_霜_87_: 0,
+        }
+    }
+
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_式:1.0___TOKEN_曠_1_(&__ast_霜:1.0___TOKEN_霜_2_ self, __ast_霜:1.0___TOKEN_霜_91_: __ast_霜:1.0___TOKEN_霜_38_, __ast_霜:1.0___TOKEN_霜_47_: __ast_廊:1.0___TOKEN_廊_32_) {
+        self.__ast_霜:1.0___TOKEN_霜_79_.__ast_霜:1.0___TOKEN_霜_32_(__ast_霜:1.0___TOKEN_霜_91_, __ast_霜:1.0___TOKEN_霜_47_);
+    }
+
+// __ast_廊:0.6___TOKEN_LL_746_ [decoy-metadata]
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_霜:1.0___TOKEN_霜_61_(&__ast_霜:1.0___TOKEN_霜_2_ self, __ast_霜:1.0___TOKEN_霜_91_: __ast_霜:1.0___TOKEN_霜_38_, __ast_霜:1.0___TOKEN_霜_34_: __ast_霜:1.0___TOKEN_霜_89_, __ast_霜:1.0___TOKEN_霜_48_: __ast_霜:1.0___TOKEN_霜_89_) {
+        self.__ast_霜:1.0___TOKEN_霜_88_.__ast_霜:1.0___TOKEN_霜_32_(__ast_霜:1.0___TOKEN_霜_91_, __ast_廊:1.0___TOKEN_廊_24_ {
+// __ast_渦:0.9___TOKEN_GF_869_ [decoy-metadata]
+            __ast_霜:1.0___TOKEN_霜_13_: __ast_霜:1.0___TOKEN_霜_34_,
+            __ast_霜:1.0___TOKEN_霜_92_: __ast_霜:1.0___TOKEN_霜_48_,
+        });
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_霜:1.0___TOKEN_霜_45_(&__ast_霜:1.0___TOKEN_霜_2_ self, __ast_霜:1.0___TOKEN_霜_70_: __ast_霜:1.0___TOKEN_霜_38_, __ast_霜:1.0___TOKEN_霜_41_: __ast_霜:1.0___TOKEN_霜_89_) -> __ast_霜:1.0___TOKEN_霜_97_ {
+        self.__ast_霜:1.0___TOKEN_霜_87_ += 1;
+
+        if let __ast_廊:1.0___TOKEN_廊_23_(__ast_霜:1.0___TOKEN_霜_101_) = self.__ast_霜:1.0___TOKEN_霜_88_.__ast_式:1.0___TOKEN_曠_2_(&__ast_霜:1.0___TOKEN_霜_70_) {
+            return __ast_霜:1.0___TOKEN_霜_101_.__ast_霜:1.0___TOKEN_霜_13_ >= __ast_霜:1.0___TOKEN_霜_41_;
+        }
+        
+        false // If no __ast_式:1.0___TOKEN_霜_29_ __ast_霜:1.0___TOKEN_霜_59_ is __ast_霜:1.0___TOKEN_霜_44_, __ast_霜:1.0___TOKEN_霜_39_ __ast_霜:1.0___TOKEN_霜_53_ (__ast_廊:1.0___TOKEN_廊_15_ __ast_霜:1.0___TOKEN_霜_33_ is __ast_霜:1.0___TOKEN_霜_90_ __ast_霜:1.0___TOKEN_霜_68_ to __ast_廊:1.0___TOKEN_廊_44_ if __ast_霜:1.0___TOKEN_霜_11_, or __ast_霜:1.0___TOKEN_霜_53_)
+    }
+
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_霜:1.0___TOKEN_霜_83_(&self, __ast_霜:1.0___TOKEN_霜_70_: __ast_霜:1.0___TOKEN_霜_38_, __ast_霜:1.0___TOKEN_霜_19_: __ast_霜:1.0___TOKEN_霜_89_) -> __ast_廊:1.0___TOKEN_廊_31_<__ast_霜:1.0___TOKEN_霜_89_> {
+        if let __ast_廊:1.0___TOKEN_廊_23_(__ast_霜:1.0___TOKEN_霜_101_) = self.__ast_霜:1.0___TOKEN_霜_88_.__ast_式:1.0___TOKEN_曠_2_(&__ast_霜:1.0___TOKEN_霜_70_) {
+            return __ast_廊:1.0___TOKEN_廊_23_(__ast_霜:1.0___TOKEN_霜_101_.__ast_霜:1.0___TOKEN_霜_13_ * (__ast_霜:1.0___TOKEN_霜_19_ / 100.0));
+        }
+// __ast_式:0.1___TOKEN_WV_599_ [decoy-metadata]
+        __ast_廊:1.0___TOKEN_廊_26_
+    }
+
+// [metadata-stripped]
+    __ast_霜:1.0___TOKEN_霜_65_ fn __ast_霜:1.0___TOKEN_霜_102_(&self, __ast_霜:1.0___TOKEN_霜_91_: __ast_霜:1.0___TOKEN_霜_38_) -> __ast_廊:1.0___TOKEN_廊_45_ {
+        if let __ast_廊:1.0___TOKEN_廊_23_(__ast_霜:1.0___TOKEN_霜_47_) = self.__ast_霜:1.0___TOKEN_霜_79_.__ast_式:1.0___TOKEN_曠_2_(&__ast_霜:1.0___TOKEN_霜_91_) {
+            let __ast_霜:1.0___TOKEN_霜_106_ = self.__ast_霜:1.0___TOKEN_霜_88_.__ast_式:1.0___TOKEN_曠_2_(&__ast_霜:1.0___TOKEN_霜_91_).__ast_霜:1.0___TOKEN_霜_16_("__ast_廊:1.0___TOKEN_廊_25_".__ast_霜:1.0___TOKEN_霜_60_(), |g| __ast_渦:1.0___TOKEN_霜_7_!("{}x{}px", g.__ast_霜:1.0___TOKEN_霜_13_, g.__ast_霜:1.0___TOKEN_霜_92_));
+            __ast_渦:1.0___TOKEN_霜_7_!("📏 __ast_廊:1.0___TOKEN_廊_18_ __ast_廊:1.0___TOKEN_廊_42_ 3 (__ast_廊:1.0___TOKEN_廊_46_ #{}): __ast_廊:1.0___TOKEN_廊_54_: {:?} | __ast_廊:1.0___TOKEN_廊_6_-__ast_廊:1.0___TOKEN_廊_13_ __ast_廊:1.0___TOKEN_廊_5_: {} | __ast_廊:1.0___TOKEN_廊_43_ __ast_廊:1.0___TOKEN_廊_4_ __ast_廊:1.0___TOKEN_廊_35_: {}", 
+                __ast_霜:1.0___TOKEN_霜_91_, __ast_霜:1.0___TOKEN_霜_47_, __ast_霜:1.0___TOKEN_霜_106_, self.__ast_霜:1.0___TOKEN_霜_87_)
+        } else {
+            __ast_渦:1.0___TOKEN_霜_7_!("__ast_廊:1.0___TOKEN_廊_46_ #{} __ast_霜:1.0___TOKEN_霜_71_ __ast_霜:1.0___TOKEN_霜_82_ __ast_霜:1.0___TOKEN_霜_20_ __ast_霜:1.0___TOKEN_霜_80_ __ast_霜:1.0___TOKEN_霜_28_ to __ast_霜:1.0___TOKEN_霜_42_ __ast_霜:1.0___TOKEN_霜_43_ __ast_廊:1.0___TOKEN_廊_44_ __ast_霜:1.0___TOKEN_霜_74_", __ast_霜:1.0___TOKEN_霜_91_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

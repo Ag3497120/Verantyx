@@ -1,0 +1,89 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2B2C6F8B ver:1778158809
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_漂:0.4___ast_VY_340__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_彩:0.3___ast_LH_419__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_露:1.0___ast_露_46__ _TOKEN_露:1.0___ast_露_58__::_TOKEN_露:1.0___ast_露_43__::_TOKEN_庵:1.0___ast_庵_18__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_露:1.0___ast_露_48__ enum _TOKEN_庵:1.0___ast_庵_11__ { _TOKEN_庵:1.0___ast_庵_22__, _TOKEN_庵:1.0___ast_庵_6__, _TOKEN_庵:1.0___ast_庵_26__ }
+// _TOKEN_淵:0.3___ast_WD_798__ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_露:1.0___ast_露_48__ struct _TOKEN_庵:1.0___ast_庵_14__ {
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_69__: _TOKEN_露:1.0___ast_露_25__,
+// [metadata-stripped]
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_38__: [_TOKEN_露:1.0___ast_露_65__; 4],
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_計:1.0___ast_露_37__: [_TOKEN_露:1.0___ast_露_65__; 4],
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_30__: [_TOKEN_露:1.0___ast_露_65__; 4],
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_39__: _TOKEN_露:1.0___ast_露_65__,
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_12__: _TOKEN_露:1.0___ast_露_65__,
+// _TOKEN_露:0.5___ast_GA_614__ [decoy-metadata]
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_26__: _TOKEN_庵:1.0___ast_庵_11__,
+}
+
+_TOKEN_露:1.0___ast_露_52__ _TOKEN_庵:1.0___ast_庵_14__ {
+// [metadata-stripped]
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_露:1.0___ast_露_74__(&self) -> _TOKEN_露:1.0___ast_露_65__ {
+        self._TOKEN_露:1.0___ast_露_38__[1] + self._TOKEN_計:1.0___ast_露_37__[1] + self._TOKEN_露:1.0___ast_露_30__[1] + self._TOKEN_露:1.0___ast_露_39__ + self._TOKEN_露:1.0___ast_露_30__[3] + self._TOKEN_計:1.0___ast_露_37__[3] + self._TOKEN_露:1.0___ast_露_38__[3]
+    }
+// _TOKEN_計:0.7___ast_YL_352__ [decoy-metadata]
+}
+
+// [metadata-stripped]
+_TOKEN_露:1.0___ast_露_48__ struct _TOKEN_庵:1.0___ast_庵_36__ {
+    _TOKEN_露:1.0___ast_露_48__ _TOKEN_露:1.0___ast_露_78__: _TOKEN_庵:1.0___ast_庵_18__<_TOKEN_露:1.0___ast_露_25__, _TOKEN_庵:1.0___ast_庵_14__>,
+}
+
+_TOKEN_露:1.0___ast_露_52__ _TOKEN_庵:1.0___ast_庵_36__ {
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_露:1.0___ast_露_14__() -> _TOKEN_庵:1.0___ast_庵_24__ {
+        _TOKEN_庵:1.0___ast_庵_24__ { _TOKEN_露:1.0___ast_露_78__: _TOKEN_庵:1.0___ast_庵_18__::_TOKEN_露:1.0___ast_露_14__() }
+    }
+
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_計:1.0___ast_彩_3__(&_TOKEN_露:1.0___ast_露_1__ self, _TOKEN_露:1.0___ast_露_69__: _TOKEN_露:1.0___ast_露_25__, b: _TOKEN_庵:1.0___ast_庵_14__) {
+        self._TOKEN_露:1.0___ast_露_78__._TOKEN_露:1.0___ast_露_22__(_TOKEN_露:1.0___ast_露_69__, b);
+    }
+
+// [metadata-stripped]
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_計:1.0___ast_彩_2__(&self, m1: _TOKEN_露:1.0___ast_露_65__, m2: _TOKEN_露:1.0___ast_露_65__) -> _TOKEN_露:1.0___ast_露_65__ {
+// [metadata-stripped]
+        if m1 > 0.0 && m2 > 0.0 {
+// _TOKEN_彩:0.5___ast_CG_237__ [decoy-metadata]
+            m1._TOKEN_露:1.0___ast_露_16__(m2)
+        } else if m1 < 0.0 && m2 < 0.0 {
+            m1._TOKEN_露:1.0___ast_露_81__(m2)
+        } else {
+            m1 + m2
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_露:1.0___ast_露_60__(&_TOKEN_露:1.0___ast_露_1__ self, _TOKEN_露:1.0___ast_露_10__: _TOKEN_露:1.0___ast_露_25__) {
+// [metadata-stripped]
+    }
+
+// [metadata-stripped]
+    _TOKEN_露:1.0___ast_露_48__ fn _TOKEN_露:1.0___ast_露_56__(&self, _TOKEN_露:1.0___ast_露_69__: _TOKEN_露:1.0___ast_露_25__) -> _TOKEN_庵:1.0___ast_庵_30__ {
+        if let _TOKEN_庵:1.0___ast_庵_19__(b) = self._TOKEN_露:1.0___ast_露_78__._TOKEN_計:1.0___ast_彩_1__(&_TOKEN_露:1.0___ast_露_69__) {
+            _TOKEN_漂:1.0___ast_露_6__!("📦 _TOKEN_庵:1.0___ast_庵_34__ _TOKEN_庵:1.0___ast_庵_32__ (_TOKEN_庵:1.0___ast_庵_31__ #{}): _TOKEN_庵:1.0___ast_庵_3__({}×{}), _TOKEN_庵:1.0___ast_庵_29__:{:?}, _TOKEN_庵:1.0___ast_庵_10__: {:.1}", 
+                _TOKEN_露:1.0___ast_露_69__, b._TOKEN_露:1.0___ast_露_39__, b._TOKEN_露:1.0___ast_露_12__, b._TOKEN_露:1.0___ast_露_26__, b._TOKEN_露:1.0___ast_露_74__())
+        } else {
+            _TOKEN_漂:1.0___ast_露_6__!("_TOKEN_庵:1.0___ast_庵_31__ #{} _TOKEN_露:1.0___ast_露_68__ no _TOKEN_露:1.0___ast_露_32__ _TOKEN_露:1.0___ast_露_2__ _TOKEN_露:1.0___ast_露_42__", _TOKEN_露:1.0___ast_露_69__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

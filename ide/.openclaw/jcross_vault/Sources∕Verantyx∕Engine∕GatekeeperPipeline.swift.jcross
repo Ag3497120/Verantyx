@@ -1,0 +1,512 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0F515918 ver:1778163930
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_殻:1.0__SYM_殻_31_
+// _JCROSS_案:0.9__SYM_GA_988_ [decoy-metadata]
+
+// [metadata-stripped]
+
+enum _JCROSS_殻:1.0__SYM_殻_29_: _JCROSS_殻:1.0__SYM_殻_5_ {
+    case _JCROSS_泡:1.0__SYM_泡_51_
+    case _JCROSS_泡:1.0__SYM_泡_155_(_JCROSS_殻:1.0__SYM_殻_11_, _JCROSS_殻:1.0__SYM_殻_2_)
+    case _JCROSS_泡:1.0__SYM_泡_88_(_JCROSS_殻:1.0__SYM_殻_2_)
+    case _JCROSS_泡:1.0__SYM_泡_162_(_JCROSS_殻:1.0__SYM_殻_2_)
+    case _JCROSS_泡:1.0__SYM_泡_140_(_JCROSS_殻:1.0__SYM_殻_21_)
+    case _JCROSS_泡:1.0__SYM_泡_114_(_JCROSS_殻:1.0__SYM_殻_2_)
+    case _JCROSS_泡:1.0__SYM_泡_107_(_JCROSS_殻:1.0__SYM_殻_2_)
+    case _JCROSS_泡:1.0__SYM_泡_154_(_JCROSS_殻:1.0__SYM_殻_2_)          // v2.2: nanoモデル警告
+    case _JCROSS_泡:1.0__SYM_泡_103_(_JCROSS_殻:1.0__SYM_殻_2_)        // v2.2: L1-L3記憶保存通知
+}
+
+enum _JCROSS_殻:1.0__SYM_殻_11_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_殻:1.0__SYM_殻_5_ {
+    case _JCROSS_泡:1.0__SYM_泡_153_ = "⓪ モデル検証"   // v2.2 追加
+    case _JCROSS_泡:1.0__SYM_泡_124_    = "① IR 生成"
+    case _JCROSS_泡:1.0__SYM_泡_169_ = "② _JCROSS_殻:1.0__SYM_殻_53_ 分離"
+    case _JCROSS_泡:1.0__SYM_泡_14_ = "③ 意図翻訳"
+    case _JCROSS_泡:1.0__SYM_泡_183_     = "④ プロンプト生成"
+    case _JCROSS_泡:1.0__SYM_泡_109_         = "⑤ _JCROSS_殻:1.0__SYM_殻_39_ _JCROSS_殻:1.0__SYM_殻_50_ 呼び出し"
+    case _JCROSS_泡:1.0__SYM_泡_81_      = "⑥ パッチ解析"
+    case _JCROSS_泡:1.0__SYM_泡_111_  = "⑦ _JCROSS_殻:1.0__SYM_殻_53_ 注入・復元"
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _JCROSS_殻:1.0__SYM_殻_26_: _JCROSS_殻:1.0__SYM_殻_5_ {
+
+    static let _JCROSS_泡:1.0__SYM_泡_43_ = _JCROSS_殻:1.0__SYM_殻_26_()
+    private init() {}
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__SYM_泡_54_(
+        _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_殻:1.0__SYM_殻_2_,
+        _JCROSS_泡:1.0__SYM_泡_99_: _JCROSS_殻:1.0__SYM_殻_2_,
+        _JCROSS_泡:1.0__SYM_泡_60_: _JCROSS_案:1.0__SYM_殻_63_._JCROSS_殻:1.0__SYM_殻_37_ = ._JCROSS_漕:1.0__SYM_泡_44_,
+        _JCROSS_泡:1.0__SYM_泡_25_: _JCROSS_殻:1.0__SYM_殻_1_,
+        _JCROSS_泡:1.0__SYM_泡_17_: _JCROSS_殻:1.0__SYM_殻_51_? = nil,   // v2.2: セッション記憶
+        _JCROSS_泡:1.0__SYM_泡_137_: @_JCROSS_殻:1.0__SYM_殻_5_ @_JCROSS_紐:1.0__SYM_泡_3_ (_JCROSS_殻:1.0__SYM_殻_29_) async -> _JCROSS_殻:1.0__SYM_殻_33_
+    ) async {
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_51_)
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_153_, "Gatekeeperモード: モデル検証中…"))
+
+        let _JCROSS_泡:1.0__SYM_泡_153_ = _JCROSS_殻:1.0__SYM_殻_9_._JCROSS_泡:1.0__SYM_泡_121_(
+            _JCROSS_泡:1.0__SYM_泡_142_: _JCROSS_泡:1.0__SYM_泡_25_._JCROSS_泡:1.0__SYM_泡_32_,
+            _JCROSS_案:1.0__SYM_泡_190_: _JCROSS_泡:1.0__SYM_泡_25_._JCROSS_案:1.0__SYM_泡_160_
+        )
+// _JCROSS_案:0.1__SYM_ZL_578_ [decoy-metadata]
+
+        let _JCROSS_泡:1.0__SYM_泡_123_: _JCROSS_殻:1.0__SYM_殻_1_
+        switch _JCROSS_泡:1.0__SYM_泡_153_ {
+        case ._JCROSS_泡:1.0__SYM_泡_28_(let _JCROSS_泡:1.0__SYM_泡_71_, let _JCROSS_泡:1.0__SYM_泡_96_):
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_154_("⚠️ \(_JCROSS_泡:1.0__SYM_泡_71_)\n→ フォールバック: \(_JCROSS_泡:1.0__SYM_泡_96_) で実行します"))
+// [metadata-stripped]
+            var _JCROSS_泡:1.0__SYM_泡_85_ = _JCROSS_泡:1.0__SYM_泡_25_
+            _JCROSS_泡:1.0__SYM_泡_85_._JCROSS_泡:1.0__SYM_泡_32_ = _JCROSS_泡:1.0__SYM_泡_96_
+            _JCROSS_泡:1.0__SYM_泡_123_ = _JCROSS_泡:1.0__SYM_泡_85_
+        case ._JCROSS_泡:1.0__SYM_泡_138_(_, let _JCROSS_泡:1.0__SYM_泡_33_):
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_154_("⚠️ \(_JCROSS_泡:1.0__SYM_泡_33_)"))
+            _JCROSS_泡:1.0__SYM_泡_123_ = _JCROSS_泡:1.0__SYM_泡_25_
+        case ._JCROSS_泡:1.0__SYM_泡_193_:
+            _JCROSS_泡:1.0__SYM_泡_123_ = _JCROSS_泡:1.0__SYM_泡_25_
+        }
+
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_153_,
+            "✅ モデル: \(_JCROSS_泡:1.0__SYM_泡_123_._JCROSS_泡:1.0__SYM_泡_32_) (\(_JCROSS_泡:1.0__SYM_泡_123_._JCROSS_案:1.0__SYM_泡_160_._JCROSS_泡:1.0__SYM_泡_175_)) — L2/L3記憶対応"))
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_84_: _JCROSS_殻:1.0__SYM_殻_51_ = _JCROSS_泡:1.0__SYM_泡_17_ ?? _JCROSS_殻:1.0__SYM_殻_51_(
+            _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_泡:1.0__SYM_泡_65_,
+            _JCROSS_泡:1.0__SYM_泡_67_: _JCROSS_泡:1.0__SYM_泡_60_._JCROSS_泡:1.0__SYM_泡_175_,
+            _JCROSS_泡:1.0__SYM_泡_104_: _JCROSS_泡:1.0__SYM_泡_26_(_JCROSS_泡:1.0__SYM_泡_152_: _JCROSS_泡:1.0__SYM_泡_65_)
+        )
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_124_, "ソースコードを6軸IRに変換 + 具体値を_JCROSS_殻:1.0__SYM_殻_53_へ分離中…"))
+
+        let _JCROSS_泡:1.0__SYM_泡_171_ = _JCROSS_殻:1.0__SYM_殻_22_()
+        let _JCROSS_泡:1.0__SYM_泡_2_ = _JCROSS_殻:1.0__SYM_殻_52_()
+        let ir = _JCROSS_泡:1.0__SYM_泡_2_._JCROSS_泡:1.0__SYM_泡_90_(_JCROSS_泡:1.0__SYM_泡_152_: _JCROSS_泡:1.0__SYM_泡_99_, _JCROSS_泡:1.0__SYM_泡_60_: _JCROSS_泡:1.0__SYM_泡_60_, _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_泡:1.0__SYM_泡_171_)
+
+        let _JCROSS_泡:1.0__SYM_泡_10_  = ir._JCROSS_泡:1.0__SYM_泡_61_._JCROSS_泡:1.0__SYM_泡_144_
+        let _JCROSS_泡:1.0__SYM_泡_68_ = _JCROSS_泡:1.0__SYM_泡_171_._JCROSS_泡:1.0__SYM_泡_199_()._JCROSS_泡:1.0__SYM_泡_144_
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+            _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_124_,
+            _JCROSS_泡:1.0__SYM_泡_170_: "[迅IR生:0.9] [ノード\(_JCROSS_泡:1.0__SYM_泡_10_):0.8]",
+            _JCROSS_泡:1.0__SYM_泡_53_: "\(_JCROSS_泡:1.0__SYM_泡_60_._JCROSS_泡:1.0__SYM_泡_175_)ソースを\(_JCROSS_泡:1.0__SYM_泡_10_)ノードのIRに変換、\(_JCROSS_泡:1.0__SYM_泡_68_)エントリを_JCROSS_殻:1.0__SYM_殻_53_に分離",
+            _JCROSS_泡:1.0__SYM_泡_127_: [
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_64_\", \"\(_JCROSS_泡:1.0__SYM_泡_10_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_130_\", \"\(_JCROSS_泡:1.0__SYM_泡_68_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_200_\", \"\(_JCROSS_泡:1.0__SYM_泡_60_._JCROSS_泡:1.0__SYM_泡_175_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_167_\", \"_JCROSS_泡:1.0__SYM_泡_114_\")",
+            ],
+            _JCROSS_漕:1.0__SYM_泡_55_: _JCROSS_泡:1.0__SYM_泡_99_._JCROSS_泡:1.0__SYM_泡_110_(1000)._JCROSS_泡:1.0__SYM_泡_5_,
+            _JCROSS_案:1.0__SYM_泡_31_: "IR: \(_JCROSS_泡:1.0__SYM_泡_10_) _JCROSS_泡:1.0__SYM_泡_61_ _JCROSS_泡:1.0__SYM_泡_179_ (_JCROSS_泡:1.0__SYM_泡_1_ v2.2)"
+        )
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: IR生成完了"))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_169_,
+            "IR生成完了: \(_JCROSS_泡:1.0__SYM_泡_10_)ノード / _JCROSS_殻:1.0__SYM_殻_53_: \(_JCROSS_泡:1.0__SYM_泡_68_)エントリ（意味軸を分離）"))
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_14_, "意図翻訳中: 「\(_JCROSS_泡:1.0__SYM_泡_65_._JCROSS_泡:1.0__SYM_泡_110_(40))…」"))
+
+        let _JCROSS_泡:1.0__SYM_泡_100_ = await _JCROSS_殻:1.0__SYM_殻_34_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_泡:1.0__SYM_泡_180_(
+            _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_泡:1.0__SYM_泡_65_,
+            _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_泡:1.0__SYM_泡_171_,
+            ir: ir,
+            _JCROSS_泡:1.0__SYM_泡_25_: _JCROSS_泡:1.0__SYM_泡_123_
+        )
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+            _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_14_,
+            _JCROSS_泡:1.0__SYM_泡_170_: "[意翻:\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_82_._JCROSS_泡:1.0__SYM_泡_175_):0.9]",
+            _JCROSS_泡:1.0__SYM_泡_53_: "意図翻訳: \(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_82_._JCROSS_泡:1.0__SYM_泡_175_) → _JCROSS_殻:1.0__SYM_殻_24_[\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_174_._JCROSS_泡:1.0__SYM_泡_110_(8))]",
+            _JCROSS_泡:1.0__SYM_泡_127_: [
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_49_\", \"\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_82_._JCROSS_泡:1.0__SYM_泡_175_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_41_\", \"\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_174_._JCROSS_泡:1.0__SYM_泡_110_(8))\")",
+// _JCROSS_蔵:0.2__SYM_MC_783_ [decoy-metadata]
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_36_\", \"\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_178_._JCROSS_泡:1.0__SYM_泡_175_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_191_\", \"_JCROSS_泡:1.0__SYM_泡_114_\")",
+            ],
+            _JCROSS_漕:1.0__SYM_泡_55_: _JCROSS_泡:1.0__SYM_泡_65_,
+            _JCROSS_案:1.0__SYM_泡_31_: "_JCROSS_殻:1.0__SYM_殻_59_: \(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_82_._JCROSS_泡:1.0__SYM_泡_175_) on \(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_174_._JCROSS_泡:1.0__SYM_泡_110_(8))"
+        )
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: 意図翻訳完了"))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_14_,
+            "翻訳完了: \(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_82_._JCROSS_泡:1.0__SYM_泡_175_) → _JCROSS_殻:1.0__SYM_殻_24_[\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_174_._JCROSS_泡:1.0__SYM_泡_110_(8))](\(_JCROSS_泡:1.0__SYM_泡_100_._JCROSS_泡:1.0__SYM_泡_178_._JCROSS_泡:1.0__SYM_泡_175_._JCROSS_泡:1.0__SYM_泡_37_()))"))
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_183_, "Gatekeeperプロンプトを構築中（L1〜L3記憶を注入）…"))
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_42_ = await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_20_()
+
+        let _JCROSS_泡:1.0__SYM_泡_132_ = _JCROSS_案:1.0__SYM_殻_3_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_泡:1.0__SYM_泡_156_(
+            ir: ir, _JCROSS_泡:1.0__SYM_泡_100_: _JCROSS_泡:1.0__SYM_泡_100_, _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_泡:1.0__SYM_泡_171_
+        )
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_139_ = """
+        \(_JCROSS_泡:1.0__SYM_泡_42_)
+
+// [metadata-stripped]
+
+        \(_JCROSS_泡:1.0__SYM_泡_132_)
+        """
+
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_88_(_JCROSS_泡:1.0__SYM_泡_139_))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_183_,
+            "プロンプト準備完了: \(_JCROSS_泡:1.0__SYM_泡_139_._JCROSS_泡:1.0__SYM_泡_144_)文字（L1〜L3記憶注入済み・意味ゼロ・構造フル）"))
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_166_ = _JCROSS_泡:1.0__SYM_泡_123_._JCROSS_案:1.0__SYM_泡_160_._JCROSS_泡:1.0__SYM_泡_175_
+        let _JCROSS_泡:1.0__SYM_泡_48_    = _JCROSS_泡:1.0__SYM_泡_123_._JCROSS_泡:1.0__SYM_泡_32_
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_109_, "\(_JCROSS_泡:1.0__SYM_泡_166_) / \(_JCROSS_泡:1.0__SYM_泡_48_) に構造パズルを送信中…"))
+
+        guard let _JCROSS_泡:1.0__SYM_泡_196_ = await _JCROSS_殻:1.0__SYM_殻_56_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_泡:1.0__SYM_泡_131_(
+            _JCROSS_泡:1.0__SYM_泡_150_: _JCROSS_泡:1.0__SYM_泡_139_, _JCROSS_泡:1.0__SYM_泡_25_: _JCROSS_泡:1.0__SYM_泡_123_
+        ) else {
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_107_("_JCROSS_殻:1.0__SYM_殻_39_ _JCROSS_殻:1.0__SYM_殻_50_ からの応答が取得できませんでした。APIキーと設定を確認してください。"))
+            return
+// _JCROSS_案:0.4__SYM_BG_214_ [decoy-metadata]
+        }
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+            _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_109_,
+            _JCROSS_泡:1.0__SYM_泡_170_: "[_JCROSS_殻:1.0__SYM_殻_50_応:\(_JCROSS_泡:1.0__SYM_泡_48_._JCROSS_泡:1.0__SYM_泡_110_(10)):0.8]",
+            _JCROSS_泡:1.0__SYM_泡_53_: "_JCROSS_殻:1.0__SYM_殻_39_ _JCROSS_殻:1.0__SYM_殻_50_応答受信: \(_JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_144_)文字",
+            _JCROSS_泡:1.0__SYM_泡_127_: [
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_13_\", \"\(_JCROSS_泡:1.0__SYM_泡_48_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_39_\", \"\(_JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_144_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_187_\", \"_JCROSS_泡:1.0__SYM_泡_114_\")",
+            ],
+            _JCROSS_漕:1.0__SYM_泡_55_: "_JCROSS_殻:1.0__SYM_殻_28_: \(_JCROSS_泡:1.0__SYM_泡_139_._JCROSS_泡:1.0__SYM_泡_110_(300))...",
+            _JCROSS_案:1.0__SYM_泡_31_: _JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_110_(500)._JCROSS_泡:1.0__SYM_泡_5_
+        )
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: _JCROSS_殻:1.0__SYM_殻_50_応答"))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_162_(_JCROSS_泡:1.0__SYM_泡_196_))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_109_, "_JCROSS_殻:1.0__SYM_殻_39_ _JCROSS_殻:1.0__SYM_殻_50_ 応答受信: \(_JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_144_)文字"))
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_81_, "_JCROSS_殻:1.0__SYM_殻_39_ _JCROSS_殻:1.0__SYM_殻_50_の応答から_JCROSS_殻:1.0__SYM_殻_46_ _JCROSS_殻:1.0__SYM_殻_4_を抽出中…"))
+
+        guard let _JCROSS_泡:1.0__SYM_泡_149_ = _JCROSS_泡:1.0__SYM_泡_23_(_JCROSS_泡:1.0__SYM_泡_152_: _JCROSS_泡:1.0__SYM_泡_196_) else {
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_81_, "⚠️ _JCROSS_殻:1.0__SYM_殻_46_ _JCROSS_殻:1.0__SYM_殻_4_ではなくテキスト応答を検出。_JCROSS_殻:1.0__SYM_殻_53_注入を試みます。"))
+            let _JCROSS_泡:1.0__SYM_泡_101_ = _JCROSS_泡:1.0__SYM_泡_47_(_JCROSS_泡:1.0__SYM_泡_196_, _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_泡:1.0__SYM_泡_171_, _JCROSS_泡:1.0__SYM_泡_84_: _JCROSS_泡:1.0__SYM_泡_84_)
+// [metadata-stripped]
+            await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+                _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_81_,
+                _JCROSS_泡:1.0__SYM_泡_170_: "[テキスト応:0.7]",
+                _JCROSS_泡:1.0__SYM_泡_53_: "_JCROSS_殻:1.0__SYM_殻_46_ _JCROSS_殻:1.0__SYM_殻_4_なし → テキスト応答を_JCROSS_殻:1.0__SYM_殻_53_注入で補完",
+                _JCROSS_泡:1.0__SYM_泡_127_: ["OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_21_\", \"_JCROSS_泡:1.0__SYM_泡_173_\")"],
+                _JCROSS_漕:1.0__SYM_泡_55_: _JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_110_(300)._JCROSS_泡:1.0__SYM_泡_5_,
+                _JCROSS_案:1.0__SYM_泡_31_: _JCROSS_泡:1.0__SYM_泡_101_._JCROSS_泡:1.0__SYM_泡_110_(300)._JCROSS_泡:1.0__SYM_泡_5_
+            )
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: テキスト応答パス"))
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_114_(_JCROSS_泡:1.0__SYM_泡_101_))
+            await _JCROSS_殻:1.0__SYM_殻_47_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_蔵:1.0__SYM_泡_195_(_JCROSS_泡:1.0__SYM_泡_46_: _JCROSS_泡:1.0__SYM_泡_84_)
+            return
+        }
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+            _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_81_,
+// _JCROSS_煌:0.8__SYM_VG_636_ [decoy-metadata]
+            _JCROSS_泡:1.0__SYM_泡_170_: "[グラフ解析:0.9]",
+            _JCROSS_泡:1.0__SYM_泡_53_: "_JCROSS_殻:1.0__SYM_殻_46_解析成功: \(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_87_)",
+            _JCROSS_泡:1.0__SYM_泡_127_: [
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_80_\", \"\(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_87_)\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_29_\", \"\(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_74_ ?? _JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_78_ ?? "_JCROSS_泡:1.0__SYM_泡_63_")\")",
+                "OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_21_\", \"_JCROSS_泡:1.0__SYM_泡_145_\")",
+            ],
+            _JCROSS_漕:1.0__SYM_泡_55_: _JCROSS_泡:1.0__SYM_泡_196_._JCROSS_泡:1.0__SYM_泡_110_(300)._JCROSS_泡:1.0__SYM_泡_5_,
+            _JCROSS_案:1.0__SYM_泡_31_: "_JCROSS_殻:1.0__SYM_殻_46_: \(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_87_)"
+        )
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: パッチ解析"))
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_81_, "_JCROSS_殻:1.0__SYM_殻_46_解析成功: \(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_87_)"))
+
+// [metadata-stripped]
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_111_, "_JCROSS_殻:1.0__SYM_殻_53_から実値を注入してコードを復元中…"))
+
+        let _JCROSS_泡:1.0__SYM_泡_4_ = _JCROSS_案:1.0__SYM_殻_17_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_泡:1.0__SYM_泡_57_(
+            _JCROSS_泡:1.0__SYM_泡_149_: _JCROSS_泡:1.0__SYM_泡_149_,
+            _JCROSS_泡:1.0__SYM_泡_100_: _JCROSS_泡:1.0__SYM_泡_100_,
+            ir: ir,
+            _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_泡:1.0__SYM_泡_171_,
+            _JCROSS_泡:1.0__SYM_泡_60_: _JCROSS_泡:1.0__SYM_泡_60_
+        )
+
+        await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_140_(_JCROSS_泡:1.0__SYM_泡_4_))
+
+        if _JCROSS_泡:1.0__SYM_泡_4_._JCROSS_泡:1.0__SYM_泡_145_, let _JCROSS_泡:1.0__SYM_泡_128_ = _JCROSS_泡:1.0__SYM_泡_4_._JCROSS_漕:1.0__SYM_泡_15_ {
+            let _JCROSS_泡:1.0__SYM_泡_198_ = _JCROSS_泡:1.0__SYM_泡_4_._JCROSS_泡:1.0__SYM_泡_164_._JCROSS_泡:1.0__SYM_泡_115_(_JCROSS_泡:1.0__SYM_泡_122_: "\n")
+
+// [metadata-stripped]
+            await _JCROSS_泡:1.0__SYM_泡_9_(_JCROSS_泡:1.0__SYM_泡_128_, _JCROSS_泡:1.0__SYM_泡_27_: _JCROSS_泡:1.0__SYM_泡_84_)
+
+// [metadata-stripped]
+            await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_117_(
+                _JCROSS_泡:1.0__SYM_泡_155_: ._JCROSS_泡:1.0__SYM_泡_111_,
+                _JCROSS_泡:1.0__SYM_泡_170_: "[復元完:0.9] [コード\(_JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_144_)字:0.8]",
+                _JCROSS_泡:1.0__SYM_泡_53_: "_JCROSS_殻:1.0__SYM_殻_53_注入・コード復元完了: \(_JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_144_)文字",
+                _JCROSS_泡:1.0__SYM_泡_127_: [
+                    "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_58_\", \"\(_JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_144_)\")",
+                    "OP._JCROSS_殻:1.0__SYM_殻_35_(\"_JCROSS_泡:1.0__SYM_泡_182_\", \"_JCROSS_泡:1.0__SYM_泡_145_\")",
+                    "OP._JCROSS_殻:1.0__SYM_殻_27_(\"_JCROSS_泡:1.0__SYM_泡_164_\", \"\(_JCROSS_泡:1.0__SYM_泡_4_._JCROSS_泡:1.0__SYM_泡_164_._JCROSS_泡:1.0__SYM_泡_144_)件\")",
+                ],
+                _JCROSS_漕:1.0__SYM_泡_55_: "_JCROSS_殻:1.0__SYM_殻_45_: \(_JCROSS_泡:1.0__SYM_泡_149_._JCROSS_泡:1.0__SYM_泡_87_)",
+                _JCROSS_案:1.0__SYM_泡_31_: _JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_110_(500)._JCROSS_泡:1.0__SYM_泡_5_
+            )
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_103_("L1-L3 記録: コード復元完了"))
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_155_(._JCROSS_泡:1.0__SYM_泡_111_, "復元完了:\n\(_JCROSS_泡:1.0__SYM_泡_198_)"))
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_114_(_JCROSS_泡:1.0__SYM_泡_128_))
+
+// [metadata-stripped]
+            await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_19_()
+            await _JCROSS_殻:1.0__SYM_殻_47_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_蔵:1.0__SYM_泡_195_(_JCROSS_泡:1.0__SYM_泡_46_: _JCROSS_泡:1.0__SYM_泡_84_)
+
+        } else {
+            await _JCROSS_泡:1.0__SYM_泡_137_(._JCROSS_泡:1.0__SYM_泡_107_("_JCROSS_殻:1.0__SYM_殻_53_注入に失敗しました: \(_JCROSS_泡:1.0__SYM_泡_4_._JCROSS_泡:1.0__SYM_泡_164_._JCROSS_泡:1.0__SYM_泡_115_(_JCROSS_泡:1.0__SYM_泡_122_: ", "))"))
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__SYM_泡_26_(_JCROSS_泡:1.0__SYM_泡_152_ _JCROSS_泡:1.0__SYM_泡_116_: _JCROSS_殻:1.0__SYM_殻_2_) -> _JCROSS_殻:1.0__SYM_殻_2_ {
+        let _JCROSS_案:1.0__SYM_泡_143_ = _JCROSS_泡:1.0__SYM_泡_116_._JCROSS_泡:1.0__SYM_泡_165_()
+        if _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("_JCROSS_泡:1.0__SYM_泡_192_") || _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("錆")         { return "_JCROSS_泡:1.0__SYM_泡_192_" }
+        if _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("_JCROSS_泡:1.0__SYM_泡_189_") || _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("蛇")       { return "_JCROSS_泡:1.0__SYM_泡_189_" }
+        if _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("_JCROSS_泡:1.0__SYM_泡_38_") || _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("型")   { return "_JCROSS_泡:1.0__SYM_泡_38_" }
+        if _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("_JCROSS_泡:1.0__SYM_泡_94_") || _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("晶")       { return "_JCROSS_泡:1.0__SYM_泡_94_" }
+        if _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("go") || _JCROSS_案:1.0__SYM_泡_143_._JCROSS_泡:1.0__SYM_泡_6_("_JCROSS_泡:1.0__SYM_泡_93_")       { return "go" }
+        return "_JCROSS_泡:1.0__SYM_泡_63_"
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    private func _JCROSS_泡:1.0__SYM_泡_9_(
+        _ _JCROSS_泡:1.0__SYM_泡_128_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_泡:1.0__SYM_泡_27_ _JCROSS_泡:1.0__SYM_泡_84_: _JCROSS_殻:1.0__SYM_殻_51_
+    ) async {
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_69_ = _JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_106_(_JCROSS_泡:1.0__SYM_泡_18_: "\n")
+        for _JCROSS_泡:1.0__SYM_泡_75_ in _JCROSS_泡:1.0__SYM_泡_69_ {
+            if _JCROSS_泡:1.0__SYM_泡_75_._JCROSS_泡:1.0__SYM_泡_6_("→") && _JCROSS_泡:1.0__SYM_泡_75_._JCROSS_泡:1.0__SYM_泡_6_("//") {
+                let _JCROSS_泡:1.0__SYM_泡_89_ = _JCROSS_泡:1.0__SYM_泡_75_._JCROSS_泡:1.0__SYM_泡_106_(_JCROSS_泡:1.0__SYM_泡_18_: "→")
+                if _JCROSS_泡:1.0__SYM_泡_89_._JCROSS_泡:1.0__SYM_泡_144_ == 2 {
+                    let _JCROSS_泡:1.0__SYM_泡_152_ = _JCROSS_泡:1.0__SYM_泡_89_[0]._JCROSS_泡:1.0__SYM_泡_76_(in: ._JCROSS_泡:1.0__SYM_泡_129_)
+                        ._JCROSS_泡:1.0__SYM_泡_118_(of: "//", _JCROSS_泡:1.0__SYM_泡_73_: "")
+                        ._JCROSS_泡:1.0__SYM_泡_76_(in: ._JCROSS_泡:1.0__SYM_泡_129_)
+                    let to = _JCROSS_泡:1.0__SYM_泡_89_[1]._JCROSS_泡:1.0__SYM_泡_76_(in: ._JCROSS_泡:1.0__SYM_泡_129_)
+                    if !_JCROSS_泡:1.0__SYM_泡_152_._JCROSS_泡:1.0__SYM_泡_184_ && !to._JCROSS_泡:1.0__SYM_泡_184_ && _JCROSS_泡:1.0__SYM_泡_152_._JCROSS_泡:1.0__SYM_泡_144_ < 50 && to._JCROSS_泡:1.0__SYM_泡_144_ < 50 {
+                        await _JCROSS_泡:1.0__SYM_泡_84_._JCROSS_泡:1.0__SYM_泡_135_(_JCROSS_泡:1.0__SYM_泡_152_, to)
+                    }
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__SYM_泡_23_(_JCROSS_泡:1.0__SYM_泡_152_ _JCROSS_泡:1.0__SYM_泡_24_: _JCROSS_殻:1.0__SYM_殻_2_) -> _JCROSS_殻:1.0__SYM_殻_46_? {
+        let _JCROSS_泡:1.0__SYM_泡_35_ = _JCROSS_泡:1.0__SYM_泡_163_(_JCROSS_泡:1.0__SYM_泡_152_: _JCROSS_泡:1.0__SYM_泡_24_)
+        guard let _JCROSS_泡:1.0__SYM_泡_157_ = _JCROSS_泡:1.0__SYM_泡_35_._JCROSS_泡:1.0__SYM_泡_157_(_JCROSS_泡:1.0__SYM_泡_146_: ._JCROSS_泡:1.0__SYM_泡_16_) else { return nil }
+
+        if let _JCROSS_泡:1.0__SYM_泡_149_ = try? _JCROSS_案:1.0__SYM_殻_25_()._JCROSS_泡:1.0__SYM_泡_186_(_JCROSS_殻:1.0__SYM_殻_46_.self, _JCROSS_泡:1.0__SYM_泡_152_: _JCROSS_泡:1.0__SYM_泡_157_) {
+            return _JCROSS_泡:1.0__SYM_泡_149_
+        }
+
+        guard let _JCROSS_泡:1.0__SYM_泡_22_ = try? _JCROSS_殻:1.0__SYM_殻_43_._JCROSS_泡:1.0__SYM_泡_181_(_JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_157_) as? [_JCROSS_殻:1.0__SYM_殻_2_: _JCROSS_殻:1.0__SYM_殻_41_] else {
+            return nil
+        }
+
+        return _JCROSS_殻:1.0__SYM_殻_46_(
+            _JCROSS_泡:1.0__SYM_泡_78_:    _JCROSS_泡:1.0__SYM_泡_22_["_JCROSS_泡:1.0__SYM_泡_78_"]    as? _JCROSS_殻:1.0__SYM_殻_2_,
+            _JCROSS_泡:1.0__SYM_泡_74_:     _JCROSS_泡:1.0__SYM_泡_22_["_JCROSS_泡:1.0__SYM_泡_74_"]     as? _JCROSS_殻:1.0__SYM_殻_2_,
+            _JCROSS_泡:1.0__SYM_泡_87_: _JCROSS_泡:1.0__SYM_泡_22_["_JCROSS_泡:1.0__SYM_泡_87_"] as? _JCROSS_殻:1.0__SYM_殻_2_ ?? "_JCROSS_殻:1.0__SYM_殻_7_:_JCROSS_泡:1.0__SYM_泡_63_",
+            _JCROSS_泡:1.0__SYM_泡_95_:     _JCROSS_泡:1.0__SYM_泡_22_["_JCROSS_泡:1.0__SYM_泡_95_"]     as? [_JCROSS_殻:1.0__SYM_殻_2_: _JCROSS_殻:1.0__SYM_殻_2_] ?? [:],
+            _JCROSS_泡:1.0__SYM_泡_134_:      _JCROSS_泡:1.0__SYM_泡_22_["_JCROSS_泡:1.0__SYM_泡_134_"]      as? _JCROSS_殻:1.0__SYM_殻_2_ ?? ""
+        )
+    }
+
+    private func _JCROSS_泡:1.0__SYM_泡_163_(_JCROSS_泡:1.0__SYM_泡_152_ _JCROSS_泡:1.0__SYM_泡_8_: _JCROSS_殻:1.0__SYM_殻_2_) -> _JCROSS_殻:1.0__SYM_殻_2_ {
+        var t = _JCROSS_泡:1.0__SYM_泡_8_
+        if let _JCROSS_泡:1.0__SYM_泡_72_ = t._JCROSS_泡:1.0__SYM_泡_97_(of: "```_JCROSS_泡:1.0__SYM_泡_22_"),
+           let _JCROSS_泡:1.0__SYM_泡_147_ = t._JCROSS_泡:1.0__SYM_泡_97_(of: "```", _JCROSS_泡:1.0__SYM_泡_97_: _JCROSS_泡:1.0__SYM_泡_72_._JCROSS_泡:1.0__SYM_泡_92_..<t._JCROSS_泡:1.0__SYM_泡_119_) {
+            t = _JCROSS_殻:1.0__SYM_殻_2_(t[_JCROSS_泡:1.0__SYM_泡_72_._JCROSS_泡:1.0__SYM_泡_92_..<_JCROSS_泡:1.0__SYM_泡_147_._JCROSS_泡:1.0__SYM_泡_62_])
+        } else if let _JCROSS_泡:1.0__SYM_泡_72_ = t._JCROSS_泡:1.0__SYM_泡_97_(of: "```"),
+                  let _JCROSS_泡:1.0__SYM_泡_147_ = t._JCROSS_泡:1.0__SYM_泡_97_(of: "```", _JCROSS_泡:1.0__SYM_泡_97_: _JCROSS_泡:1.0__SYM_泡_72_._JCROSS_泡:1.0__SYM_泡_92_..<t._JCROSS_泡:1.0__SYM_泡_119_) {
+            t = _JCROSS_殻:1.0__SYM_殻_2_(t[_JCROSS_泡:1.0__SYM_泡_72_._JCROSS_泡:1.0__SYM_泡_92_..<_JCROSS_泡:1.0__SYM_泡_147_._JCROSS_泡:1.0__SYM_泡_62_])
+        }
+        if let _JCROSS_泡:1.0__SYM_泡_72_ = t._JCROSS_泡:1.0__SYM_泡_108_(of: "{"), let _JCROSS_泡:1.0__SYM_泡_147_ = t._JCROSS_泡:1.0__SYM_泡_194_(of: "}") {
+            return _JCROSS_殻:1.0__SYM_殻_2_(t[_JCROSS_泡:1.0__SYM_泡_72_..._JCROSS_泡:1.0__SYM_泡_147_])
+        }
+        return t._JCROSS_泡:1.0__SYM_泡_76_(in: ._JCROSS_泡:1.0__SYM_泡_197_)
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__SYM_泡_47_(
+        _ _JCROSS_泡:1.0__SYM_泡_24_: _JCROSS_殻:1.0__SYM_殻_2_,
+        _JCROSS_泡:1.0__SYM_泡_171_: _JCROSS_殻:1.0__SYM_殻_22_,
+        _JCROSS_泡:1.0__SYM_泡_84_: _JCROSS_殻:1.0__SYM_殻_51_
+    ) -> _JCROSS_殻:1.0__SYM_殻_2_ {
+        var _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_24_
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__SYM_泡_126_ = _JCROSS_泡:1.0__SYM_泡_171_._JCROSS_泡:1.0__SYM_泡_199_()
+        for _JCROSS_泡:1.0__SYM_泡_79_ in _JCROSS_泡:1.0__SYM_泡_126_ {
+            let _JCROSS_泡:1.0__SYM_泡_148_ = _JCROSS_殻:1.0__SYM_殻_2_(_JCROSS_泡:1.0__SYM_泡_79_._JCROSS_泡:1.0__SYM_泡_141_._JCROSS_泡:1.0__SYM_泡_40_._JCROSS_泡:1.0__SYM_泡_120_(2)._JCROSS_泡:1.0__SYM_泡_110_(8))._JCROSS_泡:1.0__SYM_泡_37_()
+            let _JCROSS_泡:1.0__SYM_泡_158_  = _JCROSS_泡:1.0__SYM_泡_79_._JCROSS_泡:1.0__SYM_泡_141_._JCROSS_泡:1.0__SYM_泡_40_._JCROSS_泡:1.0__SYM_泡_37_()
+            if let _JCROSS_泡:1.0__SYM_泡_133_ = _JCROSS_泡:1.0__SYM_泡_79_._JCROSS_泡:1.0__SYM_泡_50_?._JCROSS_泡:1.0__SYM_泡_177_ {
+                _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_118_(of: "_JCROSS_殻:1.0__SYM_殻_24_[\(_JCROSS_泡:1.0__SYM_泡_148_)]", _JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_133_)
+                _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_118_(of: "_JCROSS_殻:1.0__SYM_殻_20_[\(_JCROSS_泡:1.0__SYM_泡_148_)]", _JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_133_)
+                _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_118_(of: "_JCROSS_殻:1.0__SYM_殻_24_[\(_JCROSS_泡:1.0__SYM_泡_158_)]",  _JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_133_)
+                _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_118_(of: "_JCROSS_殻:1.0__SYM_殻_20_[\(_JCROSS_泡:1.0__SYM_泡_158_)]",  _JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_133_)
+            }
+            if let _JCROSS_泡:1.0__SYM_泡_133_ = _JCROSS_泡:1.0__SYM_泡_79_._JCROSS_泡:1.0__SYM_泡_50_?._JCROSS_泡:1.0__SYM_泡_177_ {
+                _JCROSS_泡:1.0__SYM_泡_77_ = _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_118_(of: "_JCROSS_殻:1.0__SYM_殻_61_:\(_JCROSS_泡:1.0__SYM_泡_79_._JCROSS_泡:1.0__SYM_泡_141_._JCROSS_泡:1.0__SYM_泡_40_)", _JCROSS_泡:1.0__SYM_泡_73_: _JCROSS_泡:1.0__SYM_泡_133_)
+            }
+        }
+        return _JCROSS_泡:1.0__SYM_泡_77_
+    }
+}
+
+// [metadata-stripped]
+
+@_JCROSS_殻:1.0__SYM_殻_57_
+final class _JCROSS_殻:1.0__SYM_殻_55_: _JCROSS_殻:1.0__SYM_殻_8_ {
+
+    static let _JCROSS_泡:1.0__SYM_泡_43_ = _JCROSS_殻:1.0__SYM_殻_55_()
+    private init() {}
+
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_66_: _JCROSS_殻:1.0__SYM_殻_62_ = false
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_34_: _JCROSS_殻:1.0__SYM_殻_11_? = nil
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_188_: [(_JCROSS_泡:1.0__SYM_泡_155_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_泡:1.0__SYM_泡_112_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_)] = []
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_7_: _JCROSS_殻:1.0__SYM_殻_2_ = ""
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_91_: _JCROSS_殻:1.0__SYM_殻_2_ = ""
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_168_: _JCROSS_殻:1.0__SYM_殻_2_ = ""
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_161_: _JCROSS_殻:1.0__SYM_殻_2_? = nil
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_154_: _JCROSS_殻:1.0__SYM_殻_2_? = nil          // v2.2: nanoモデル警告
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_70_: [_JCROSS_殻:1.0__SYM_殻_2_] = []             // v2.2: L1-L3記憶ログ
+    @_JCROSS_殻:1.0__SYM_殻_32_ var _JCROSS_泡:1.0__SYM_泡_25_: _JCROSS_殻:1.0__SYM_殻_1_ = _JCROSS_殻:1.0__SYM_殻_1_._JCROSS_蔵:1.0__SYM_泡_151_()
+
+// [metadata-stripped]
+    private var _JCROSS_泡:1.0__SYM_泡_17_: _JCROSS_殻:1.0__SYM_殻_51_? = nil
+
+    func _JCROSS_蔵:1.0__SYM_泡_159_() {
+        _JCROSS_泡:1.0__SYM_泡_25_._JCROSS_蔵:1.0__SYM_泡_195_()
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__SYM_泡_30_(_JCROSS_泡:1.0__SYM_泡_116_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_泡:1.0__SYM_泡_67_: _JCROSS_殻:1.0__SYM_殻_2_, _JCROSS_泡:1.0__SYM_泡_104_: _JCROSS_殻:1.0__SYM_殻_2_) {
+        _JCROSS_泡:1.0__SYM_泡_17_ = _JCROSS_殻:1.0__SYM_殻_51_(
+            _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_泡:1.0__SYM_泡_116_,
+            _JCROSS_泡:1.0__SYM_泡_67_: _JCROSS_泡:1.0__SYM_泡_67_,
+            _JCROSS_泡:1.0__SYM_泡_104_: _JCROSS_泡:1.0__SYM_泡_104_
+        )
+        _JCROSS_泡:1.0__SYM_泡_70_._JCROSS_泡:1.0__SYM_泡_11_()
+    }
+
+    func _JCROSS_泡:1.0__SYM_泡_102_(
+        _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_殻:1.0__SYM_殻_2_,
+        _JCROSS_泡:1.0__SYM_泡_99_: _JCROSS_殻:1.0__SYM_殻_2_,
+        _JCROSS_泡:1.0__SYM_泡_60_: _JCROSS_案:1.0__SYM_殻_63_._JCROSS_殻:1.0__SYM_殻_37_ = ._JCROSS_漕:1.0__SYM_泡_44_
+    ) async {
+        _JCROSS_泡:1.0__SYM_泡_66_ = true
+        _JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_11_()
+        _JCROSS_泡:1.0__SYM_泡_161_ = nil
+        _JCROSS_泡:1.0__SYM_泡_168_ = ""
+        _JCROSS_泡:1.0__SYM_泡_7_ = ""
+        _JCROSS_泡:1.0__SYM_泡_91_ = ""
+        _JCROSS_泡:1.0__SYM_泡_154_ = nil
+
+        let _JCROSS_泡:1.0__SYM_泡_185_  = _JCROSS_泡:1.0__SYM_泡_25_
+        let _JCROSS_泡:1.0__SYM_泡_83_ = _JCROSS_泡:1.0__SYM_泡_17_
+
+        await _JCROSS_殻:1.0__SYM_殻_26_._JCROSS_泡:1.0__SYM_泡_43_._JCROSS_泡:1.0__SYM_泡_54_(
+            _JCROSS_泡:1.0__SYM_泡_65_: _JCROSS_泡:1.0__SYM_泡_65_,
+            _JCROSS_泡:1.0__SYM_泡_99_: _JCROSS_泡:1.0__SYM_泡_99_,
+            _JCROSS_泡:1.0__SYM_泡_60_: _JCROSS_泡:1.0__SYM_泡_60_,
+            _JCROSS_泡:1.0__SYM_泡_25_: _JCROSS_泡:1.0__SYM_泡_185_,
+            _JCROSS_泡:1.0__SYM_泡_17_: _JCROSS_泡:1.0__SYM_泡_83_
+        ) { [weak self] _JCROSS_泡:1.0__SYM_泡_172_ in
+            guard let self else { return }
+            await _JCROSS_殻:1.0__SYM_殻_57_._JCROSS_泡:1.0__SYM_泡_54_ {
+                switch _JCROSS_泡:1.0__SYM_泡_172_ {
+                case ._JCROSS_泡:1.0__SYM_泡_51_:
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((_JCROSS_泡:1.0__SYM_泡_155_: "開始", _JCROSS_泡:1.0__SYM_泡_112_: "Gatekeeperパイプライン v2.2 起動", _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()))
+
+                case ._JCROSS_泡:1.0__SYM_泡_155_(let _JCROSS_泡:1.0__SYM_泡_155_, let _JCROSS_泡:1.0__SYM_泡_112_):
+                    self._JCROSS_泡:1.0__SYM_泡_34_ = _JCROSS_泡:1.0__SYM_泡_155_
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((_JCROSS_泡:1.0__SYM_泡_155_: _JCROSS_泡:1.0__SYM_泡_155_._JCROSS_泡:1.0__SYM_泡_175_, _JCROSS_泡:1.0__SYM_泡_112_: _JCROSS_泡:1.0__SYM_泡_112_, _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()))
+
+// _JCROSS_漕:0.3__SYM_LF_233_ [decoy-metadata]
+                case ._JCROSS_泡:1.0__SYM_泡_88_(let _JCROSS_泡:1.0__SYM_泡_150_):
+                    self._JCROSS_泡:1.0__SYM_泡_7_ = _JCROSS_泡:1.0__SYM_泡_150_
+
+                case ._JCROSS_泡:1.0__SYM_泡_162_(let _JCROSS_泡:1.0__SYM_泡_12_):
+                    self._JCROSS_泡:1.0__SYM_泡_91_ = _JCROSS_泡:1.0__SYM_泡_12_
+
+                case ._JCROSS_泡:1.0__SYM_泡_140_(let _JCROSS_泡:1.0__SYM_泡_77_):
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((
+                        _JCROSS_泡:1.0__SYM_泡_155_: "パッチ適用",
+                        _JCROSS_泡:1.0__SYM_泡_112_: _JCROSS_泡:1.0__SYM_泡_77_._JCROSS_泡:1.0__SYM_泡_164_._JCROSS_泡:1.0__SYM_泡_115_(_JCROSS_泡:1.0__SYM_泡_122_: "\n"),
+                        _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()
+                    ))
+
+                case ._JCROSS_泡:1.0__SYM_泡_114_(let _JCROSS_泡:1.0__SYM_泡_128_):
+                    self._JCROSS_泡:1.0__SYM_泡_168_ = _JCROSS_泡:1.0__SYM_泡_128_
+                    self._JCROSS_泡:1.0__SYM_泡_66_ = false
+                    self._JCROSS_泡:1.0__SYM_泡_34_ = nil
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((_JCROSS_泡:1.0__SYM_泡_155_: "✅ 完了", _JCROSS_泡:1.0__SYM_泡_112_: "\(_JCROSS_泡:1.0__SYM_泡_128_._JCROSS_泡:1.0__SYM_泡_144_)文字のコードを生成", _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()))
+
+                case ._JCROSS_泡:1.0__SYM_泡_107_(let _JCROSS_泡:1.0__SYM_泡_45_):
+                    self._JCROSS_泡:1.0__SYM_泡_161_ = _JCROSS_泡:1.0__SYM_泡_45_
+                    self._JCROSS_泡:1.0__SYM_泡_66_ = false
+                    self._JCROSS_泡:1.0__SYM_泡_34_ = nil
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((_JCROSS_泡:1.0__SYM_泡_155_: "❌ エラー", _JCROSS_泡:1.0__SYM_泡_112_: _JCROSS_泡:1.0__SYM_泡_45_, _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()))
+
+                case ._JCROSS_泡:1.0__SYM_泡_154_(let _JCROSS_泡:1.0__SYM_泡_138_):
+                    self._JCROSS_泡:1.0__SYM_泡_154_ = _JCROSS_泡:1.0__SYM_泡_138_
+                    self._JCROSS_泡:1.0__SYM_泡_188_._JCROSS_泡:1.0__SYM_泡_52_((_JCROSS_泡:1.0__SYM_泡_155_: "⚠️ モデル警告", _JCROSS_泡:1.0__SYM_泡_112_: _JCROSS_泡:1.0__SYM_泡_138_, _JCROSS_泡:1.0__SYM_泡_113_: _JCROSS_殻:1.0__SYM_殻_48_()))
+
+                case ._JCROSS_泡:1.0__SYM_泡_103_(let _JCROSS_泡:1.0__SYM_泡_125_):
+                    self._JCROSS_泡:1.0__SYM_泡_70_._JCROSS_泡:1.0__SYM_泡_52_("[\(_JCROSS_殻:1.0__SYM_殻_48_()._JCROSS_漕:1.0__SYM_泡_98_(._JCROSS_泡:1.0__SYM_泡_105_._JCROSS_泡:1.0__SYM_泡_136_()._JCROSS_泡:1.0__SYM_泡_86_()._JCROSS_泡:1.0__SYM_泡_176_()))] \(_JCROSS_泡:1.0__SYM_泡_125_)")
+                    if self._JCROSS_泡:1.0__SYM_泡_70_._JCROSS_泡:1.0__SYM_泡_144_ > 100 { self._JCROSS_泡:1.0__SYM_泡_70_._JCROSS_泡:1.0__SYM_泡_59_(20) }
+                }
+            }
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

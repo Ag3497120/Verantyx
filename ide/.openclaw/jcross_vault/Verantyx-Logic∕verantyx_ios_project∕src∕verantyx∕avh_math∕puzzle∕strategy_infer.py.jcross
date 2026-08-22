@@ -1,0 +1,31 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E72A97FB ver:1778159677
+// ⚠️ One-time schema — expires after response
+
+_ID_霮:1.0___ast_霮_16__ _ID_霮:1.0___ast_霮_1__(_ID_霮:1.0___ast_霮_10__):
+    """
+    類似した過去のCrossから最も頻出する戦略(_ID_霮:1.0___ast_霮_9__)を抽出する。
+// _ID_漕:0.9___ast_HM_950__ [decoy-metadata]
+    """
+    _ID_霮:1.0___ast_霮_12__ = {}
+// _ID_紬:0.4___ast_YA_495__ [decoy-metadata]
+// _ID_伏:0.7___ast_KC_448__ [decoy-metadata]
+// _ID_紬:0.9___ast_XG_463__ [decoy-metadata]
+    for c in _ID_霮:1.0___ast_霮_10__:
+// [metadata-stripped]
+// _ID_伏:0.3___ast_XV_449__ [decoy-metadata]
+        _ID_霮:1.0___ast_霮_14__ = _ID_技:1.0___ast_縁_2__(c, '_ID_霮:1.0___ast_霮_14__', {})
+        _ID_霮:1.0___ast_霮_3__ = _ID_霮:1.0___ast_霮_14__._ID_技:1.0___ast_縁_1__("_ID_霮:1.0___ast_霮_9__")
+// _ID_霮:0.4___ast_CL_814__ [decoy-metadata]
+        if _ID_霮:1.0___ast_霮_3__:
+            _ID_霮:1.0___ast_霮_12__[_ID_霮:1.0___ast_霮_3__] = _ID_霮:1.0___ast_霮_12__._ID_技:1.0___ast_縁_1__(_ID_霮:1.0___ast_霮_3__, 0) + 1
+
+    if _ID_霮:1.0___ast_霮_15__ _ID_霮:1.0___ast_霮_12__:
+        return {"_ID_霮:1.0___ast_霮_9__": "_ID_霮:1.0___ast_霮_6__", "_ID_霮:1.0___ast_霮_13__": 0.0}
+
+// [metadata-stripped]
+    _ID_霮:1.0___ast_霮_7__ = _ID_霮:1.0___ast_霮_4__(_ID_霮:1.0___ast_霮_12__, _ID_伏:1.0___ast_霮_11__=_ID_霮:1.0___ast_霮_12__._ID_技:1.0___ast_縁_1__)
+    _ID_霮:1.0___ast_霮_8__ = _ID_霮:1.0___ast_霮_12__[_ID_霮:1.0___ast_霮_7__] / _ID_霮:1.0___ast_霮_2__(_ID_霮:1.0___ast_霮_12__._ID_霮:1.0___ast_霮_5__())
+    return {"_ID_霮:1.0___ast_霮_9__": _ID_霮:1.0___ast_霮_7__, "_ID_霮:1.0___ast_霮_13__": _ID_霮:1.0___ast_霮_8__}
+
+// POLYMORPHIC_JCROSS_END

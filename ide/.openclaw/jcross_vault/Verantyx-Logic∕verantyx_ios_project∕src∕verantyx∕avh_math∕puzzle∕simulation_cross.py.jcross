@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F6C29142 ver:1778159678
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_霡:1.0___node_霡_19__ _OPAQUE_霡:1.0___node_霡_2__ import _OPAQUE_霡:1.0___node_霡_38__
+_OPAQUE_霡:1.0___node_霡_19__ _OPAQUE_霡:1.0___node_霡_14__ import _OPAQUE_霡:1.0___node_霡_15__, _OPAQUE_霡:1.0___node_霡_11__
+_OPAQUE_霡:1.0___node_霡_19__ _OPAQUE_霡:1.0___node_霡_3__ import _OPAQUE_墟:1.0___node_墟_2__, _OPAQUE_墟:1.0___node_墟_10__, _OPAQUE_墟:1.0___node_墟_7__, _OPAQUE_墟:1.0___node_墟_6__, _OPAQUE_墟:1.0___node_墟_4__
+
+@_OPAQUE_霡:1.0___node_霡_15__
+class _OPAQUE_墟:1.0___node_墟_9__:
+    """_OPAQUE_墟:1.0___node_墟_5__ _OPAQUE_墟:1.0___node_墟_3__ 内の構成要素（実行可能な部品）"""
+    _OPAQUE_霡:1.0___node_霡_20__: _OPAQUE_墟:1.0___node_墟_4__["_OPAQUE_霡:1.0___node_霡_30__", "_OPAQUE_霡:1.0___node_霡_28__", "_OPAQUE_湧:1.0___node_霡_25__", "_OPAQUE_霡:1.0___node_霡_31__", "_OPAQUE_霡:1.0___node_霡_16__", "_OPAQUE_霡:1.0___node_霡_8__"]
+// _OPAQUE_湧:0.1___node_EM_619__ [decoy-metadata]
+    _OPAQUE_霡:1.0___node_霡_9__: _OPAQUE_墟:1.0___node_墟_7__  # 式文字列、モデルオブジェクト、条件など
+    _OPAQUE_霡:1.0___node_霡_24__: _OPAQUE_墟:1.0___node_墟_6__[_OPAQUE_霡:1.0___node_霡_34__] = _OPAQUE_墟:1.0___node_墟_1__
+// _OPAQUE_節:0.8___node_KV_867__ [decoy-metadata]
+    _OPAQUE_霡:1.0___node_霡_26__: _OPAQUE_霡:1.0___node_霡_35__ = 0.0
+    
+    _OPAQUE_霡:1.0___node_霡_7__ _OPAQUE_霡:1.0___node_霡_23__(self) -> _OPAQUE_墟:1.0___node_墟_10__[_OPAQUE_霡:1.0___node_霡_34__, _OPAQUE_墟:1.0___node_墟_7__]:
+        return {
+            "_OPAQUE_霡:1.0___node_霡_20__": self._OPAQUE_霡:1.0___node_霡_20__,
+            "_OPAQUE_霡:1.0___node_霡_9__": _OPAQUE_霡:1.0___node_霡_34__(self._OPAQUE_霡:1.0___node_霡_9__), # 安全のため文字列化
+            "_OPAQUE_霡:1.0___node_霡_24__": self._OPAQUE_霡:1.0___node_霡_24__,
+            "_OPAQUE_霡:1.0___node_霡_26__": self._OPAQUE_霡:1.0___node_霡_26__
+        }
+
+@_OPAQUE_霡:1.0___node_霡_15__
+class _OPAQUE_墟:1.0___node_墟_11__:
+    """シミュレーション実行結果"""
+    _OPAQUE_霡:1.0___node_霡_5__: _OPAQUE_墟:1.0___node_墟_4__["_OPAQUE_霡:1.0___node_霡_6__", "_OPAQUE_霡:1.0___node_霡_27__", "_OPAQUE_霡:1.0___node_霡_32__"]
+    _OPAQUE_霡:1.0___node_霡_26__: _OPAQUE_霡:1.0___node_霡_35__
+    _OPAQUE_霡:1.0___node_霡_12__: _OPAQUE_霡:1.0___node_霡_34__
+    _OPAQUE_霡:1.0___node_霡_1__: _OPAQUE_墟:1.0___node_墟_6__[_OPAQUE_霡:1.0___node_霡_34__] = _OPAQUE_墟:1.0___node_墟_1__
+    _OPAQUE_霡:1.0___node_霡_16__: _OPAQUE_墟:1.0___node_墟_6__[_OPAQUE_墟:1.0___node_墟_10__[_OPAQUE_霡:1.0___node_霡_34__, _OPAQUE_墟:1.0___node_墟_7__]] = _OPAQUE_墟:1.0___node_墟_1__
+    
+    _OPAQUE_霡:1.0___node_霡_7__ _OPAQUE_霡:1.0___node_霡_23__(self) -> _OPAQUE_墟:1.0___node_墟_10__[_OPAQUE_霡:1.0___node_霡_34__, _OPAQUE_墟:1.0___node_墟_7__]:
+        return {
+            "_OPAQUE_霡:1.0___node_霡_5__": self._OPAQUE_霡:1.0___node_霡_5__,
+            "_OPAQUE_霡:1.0___node_霡_26__": self._OPAQUE_霡:1.0___node_霡_26__,
+            "_OPAQUE_霡:1.0___node_霡_12__": self._OPAQUE_霡:1.0___node_霡_12__,
+            "_OPAQUE_霡:1.0___node_霡_1__": self._OPAQUE_霡:1.0___node_霡_1__,
+            "_OPAQUE_霡:1.0___node_霡_16__": self._OPAQUE_霡:1.0___node_霡_16__
+        }
+
+@_OPAQUE_霡:1.0___node_霡_15__
+class _OPAQUE_墟:1.0___node_墟_8__:
+    """計算・検証専用の立体十字構造（仮想実験室）"""
+    _OPAQUE_霡:1.0___node_霡_13__: _OPAQUE_霡:1.0___node_霡_34__
+    _OPAQUE_霡:1.0___node_霡_21__: _OPAQUE_墟:1.0___node_墟_2__[_OPAQUE_墟:1.0___node_墟_9__] = _OPAQUE_霡:1.0___node_霡_11__(_OPAQUE_霡:1.0___node_霡_22__=_OPAQUE_霡:1.0___node_霡_4__)
+    _OPAQUE_霡:1.0___node_霡_17__: _OPAQUE_墟:1.0___node_墟_2__[_OPAQUE_墟:1.0___node_墟_11__] = _OPAQUE_霡:1.0___node_霡_11__(_OPAQUE_霡:1.0___node_霡_22__=_OPAQUE_霡:1.0___node_霡_4__)
+// _OPAQUE_匳:0.4___node_KB_941__ [decoy-metadata]
+    
+    _OPAQUE_湧:1.0___node_霡_18__: _OPAQUE_墟:1.0___node_墟_6__[_OPAQUE_霡:1.0___node_霡_34__] = _OPAQUE_墟:1.0___node_墟_1__
+    _OPAQUE_霡:1.0___node_霡_33__: _OPAQUE_墟:1.0___node_墟_2__[_OPAQUE_霡:1.0___node_霡_34__] = _OPAQUE_霡:1.0___node_霡_11__(_OPAQUE_霡:1.0___node_霡_22__=_OPAQUE_霡:1.0___node_霡_4__)
+    
+    _OPAQUE_霡:1.0___node_霡_7__ _OPAQUE_霡:1.0___node_霡_10__(self, _OPAQUE_霡:1.0___node_霡_20__: _OPAQUE_霡:1.0___node_霡_34__, _OPAQUE_霡:1.0___node_霡_9__: _OPAQUE_墟:1.0___node_墟_7__, _OPAQUE_霡:1.0___node_霡_24__: _OPAQUE_霡:1.0___node_霡_34__ = _OPAQUE_墟:1.0___node_墟_1__, _OPAQUE_霡:1.0___node_霡_26__: _OPAQUE_霡:1.0___node_霡_35__ = 0.0):
+        self._OPAQUE_霡:1.0___node_霡_21__._OPAQUE_霡:1.0___node_霡_36__(_OPAQUE_墟:1.0___node_墟_9__(
+            _OPAQUE_霡:1.0___node_霡_20__=_OPAQUE_霡:1.0___node_霡_20__, 
+            _OPAQUE_霡:1.0___node_霡_9__=_OPAQUE_霡:1.0___node_霡_9__, 
+            _OPAQUE_霡:1.0___node_霡_24__=_OPAQUE_霡:1.0___node_霡_24__, 
+            _OPAQUE_霡:1.0___node_霡_26__=_OPAQUE_霡:1.0___node_霡_26__
+        ))
+// _OPAQUE_霡:0.4___node_VY_491__ [decoy-metadata]
+// _OPAQUE_匳:0.6___node_XF_800__ [decoy-metadata]
+        
+// [metadata-stripped]
+        if _OPAQUE_霡:1.0___node_霡_20__ == "_OPAQUE_湧:1.0___node_霡_25__" _OPAQUE_霡:1.0___node_霡_39__ _OPAQUE_霡:1.0___node_霡_37__ self._OPAQUE_湧:1.0___node_霡_18__:
+            self._OPAQUE_湧:1.0___node_霡_18__ = _OPAQUE_霡:1.0___node_霡_34__(_OPAQUE_霡:1.0___node_霡_9__)
+        _OPAQUE_湧:1.0___node_霡_29__ _OPAQUE_霡:1.0___node_霡_20__ == "_OPAQUE_霡:1.0___node_霡_8__":
+            self._OPAQUE_霡:1.0___node_霡_33__._OPAQUE_霡:1.0___node_霡_36__(_OPAQUE_霡:1.0___node_霡_34__(_OPAQUE_霡:1.0___node_霡_9__))
+// _OPAQUE_湧:0.9___node_WL_848__ [decoy-metadata]
+
+    _OPAQUE_霡:1.0___node_霡_7__ _OPAQUE_霡:1.0___node_霡_23__(self) -> _OPAQUE_墟:1.0___node_墟_10__[_OPAQUE_霡:1.0___node_霡_34__, _OPAQUE_墟:1.0___node_墟_7__]:
+        return {
+            "_OPAQUE_霡:1.0___node_霡_13__": self._OPAQUE_霡:1.0___node_霡_13__,
+            "_OPAQUE_湧:1.0___node_霡_18__": self._OPAQUE_湧:1.0___node_霡_18__,
+            "_OPAQUE_霡:1.0___node_霡_33__": self._OPAQUE_霡:1.0___node_霡_33__,
+            "_OPAQUE_霡:1.0___node_霡_21__": [n._OPAQUE_霡:1.0___node_霡_23__() for n in self._OPAQUE_霡:1.0___node_霡_21__],
+            "_OPAQUE_霡:1.0___node_霡_17__": [r._OPAQUE_霡:1.0___node_霡_23__() for r in self._OPAQUE_霡:1.0___node_霡_17__]
+        }
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,87 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:94945390 ver:1778149963
+// ⚠️ One-time schema — expires after response
+// _OPAQUE_紋:0.5__VERANTYX_WA_783_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_匴:0.9__VERANTYX_YH_324_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霜:1.0__VERANTYX_霜_50_ _OPAQUE_霜:1.0__VERANTYX_霜_57_::_OPAQUE_霜:1.0__VERANTYX_霜_48_::_OPAQUE_殻:1.0__VERANTYX_殻_28_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霜:1.0__VERANTYX_霜_52_ enum _OPAQUE_殻:1.0__VERANTYX_殻_38_ { _OPAQUE_殻:1.0__VERANTYX_殻_29_, _OPAQUE_殻:1.0__VERANTYX_殻_23_ }
+
+// _OPAQUE_浪:0.9__VERANTYX_LY_124_ [decoy-metadata]
+// [metadata-stripped]
+_OPAQUE_霜:1.0__VERANTYX_霜_52_ struct _OPAQUE_殻:1.0__VERANTYX_殻_45_ {
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ _OPAQUE_霜:1.0__VERANTYX_霜_79_: _OPAQUE_殻:1.0__VERANTYX_殻_38_,
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ _OPAQUE_霜:1.0__VERANTYX_霜_25_: _OPAQUE_霜:1.0__VERANTYX_霜_71_,
+}
+// _OPAQUE_策:0.9__VERANTYX_EK_751_ [decoy-metadata]
+
+// [metadata-stripped]
+_OPAQUE_霜:1.0__VERANTYX_霜_52_ struct _OPAQUE_殻:1.0__VERANTYX_殻_30_ {
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ _OPAQUE_霜:1.0__VERANTYX_霜_41_: _OPAQUE_殻:1.0__VERANTYX_殻_45_,
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ _OPAQUE_霜:1.0__VERANTYX_霜_73_: _OPAQUE_霜:1.0__VERANTYX_霜_24_,
+}
+
+_OPAQUE_霜:1.0__VERANTYX_霜_55_ _OPAQUE_殻:1.0__VERANTYX_殻_30_ {
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ fn _OPAQUE_霜:1.0__VERANTYX_霜_14_() -> _OPAQUE_殻:1.0__VERANTYX_殻_34_ {
+        _OPAQUE_殻:1.0__VERANTYX_殻_34_ {
+            _OPAQUE_霜:1.0__VERANTYX_霜_41_: _OPAQUE_殻:1.0__VERANTYX_殻_45_ {
+                _OPAQUE_霜:1.0__VERANTYX_霜_79_: _OPAQUE_殻:1.0__VERANTYX_殻_38_::_OPAQUE_殻:1.0__VERANTYX_殻_29_,
+                _OPAQUE_霜:1.0__VERANTYX_霜_25_: 0.0,
+            },
+            _OPAQUE_霜:1.0__VERANTYX_霜_73_: 0,
+        }
+// _OPAQUE_霜:0.1__VERANTYX_CF_482_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ fn _OPAQUE_霜:1.0__VERANTYX_霜_47_(&_OPAQUE_霜:1.0__VERANTYX_霜_1_ self, _OPAQUE_霜:1.0__VERANTYX_霜_30_: _OPAQUE_霜:1.0__VERANTYX_霜_71_, _OPAQUE_霜:1.0__VERANTYX_霜_32_: _OPAQUE_霜:1.0__VERANTYX_霜_71_) -> _OPAQUE_霜:1.0__VERANTYX_霜_71_ {
+        if self._OPAQUE_霜:1.0__VERANTYX_霜_41_._OPAQUE_霜:1.0__VERANTYX_霜_79_ == _OPAQUE_殻:1.0__VERANTYX_殻_38_::_OPAQUE_殻:1.0__VERANTYX_殻_29_ {
+            return _OPAQUE_霜:1.0__VERANTYX_霜_30_; // _OPAQUE_殻:1.0__VERANTYX_殻_36_ _OPAQUE_霜:1.0__VERANTYX_霜_6_ _OPAQUE_霜:1.0__VERANTYX_霜_62_
+        }
+        
+        let r = self._OPAQUE_霜:1.0__VERANTYX_霜_41_._OPAQUE_霜:1.0__VERANTYX_霜_25_;
+// [metadata-stripped]
+        let _OPAQUE_策:1.0__VERANTYX_霜_15_ = (_OPAQUE_霜:1.0__VERANTYX_霜_32_ - r)._OPAQUE_霜:1.0__VERANTYX_霜_7_();
+        
+        if _OPAQUE_策:1.0__VERANTYX_霜_15_ >= r {
+             self._OPAQUE_霜:1.0__VERANTYX_霜_73_ += 1;
+             return 0.0; // _OPAQUE_殻:1.0__VERANTYX_殻_7_ of _OPAQUE_霜:1.0__VERANTYX_霜_68_ of _OPAQUE_霜:1.0__VERANTYX_霜_26_ _OPAQUE_霜:1.0__VERANTYX_霜_23_ _OPAQUE_霜:1.0__VERANTYX_霜_66_
+        }
+        
+// [metadata-stripped]
+        let _OPAQUE_霜:1.0__VERANTYX_霜_45_ = 2.0 * (r * r - _OPAQUE_策:1.0__VERANTYX_霜_15_ * _OPAQUE_策:1.0__VERANTYX_霜_15_)._OPAQUE_霜:1.0__VERANTYX_霜_77_();
+        
+        if _OPAQUE_霜:1.0__VERANTYX_霜_45_ < _OPAQUE_霜:1.0__VERANTYX_霜_30_ {
+             self._OPAQUE_霜:1.0__VERANTYX_霜_73_ += 1;
+             return _OPAQUE_霜:1.0__VERANTYX_霜_45_;
+        }
+        
+        _OPAQUE_霜:1.0__VERANTYX_霜_30_
+    }
+// _OPAQUE_焦:0.1__VERANTYX_MD_517_ [decoy-metadata]
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ fn _OPAQUE_霜:1.0__VERANTYX_霜_78_(&self) -> _OPAQUE_霜:1.0__VERANTYX_霜_74_ {
+        self._OPAQUE_霜:1.0__VERANTYX_霜_41_._OPAQUE_霜:1.0__VERANTYX_霜_79_ == _OPAQUE_殻:1.0__VERANTYX_殻_38_::_OPAQUE_殻:1.0__VERANTYX_殻_23_
+    }
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0__VERANTYX_霜_52_ fn _OPAQUE_霜:1.0__VERANTYX_霜_69_(&self) -> _OPAQUE_殻:1.0__VERANTYX_殻_42_ {
+        _OPAQUE_浪:1.0__VERANTYX_霜_3_!("⌚ _OPAQUE_殻:1.0__VERANTYX_殻_21_ _OPAQUE_殻:1.0__VERANTYX_殻_23_ _OPAQUE_殻:1.0__VERANTYX_殻_8_ 1: _OPAQUE_殻:1.0__VERANTYX_殻_27_ _OPAQUE_殻:1.0__VERANTYX_殻_18_: {:?} | _OPAQUE_殻:1.0__VERANTYX_殻_3_ _OPAQUE_殻:1.0__VERANTYX_殻_4_ _OPAQUE_殻:1.0__VERANTYX_殻_6_: {}px | _OPAQUE_殻:1.0__VERANTYX_殻_41_ _OPAQUE_殻:1.0__VERANTYX_殻_35_ _OPAQUE_殻:1.0__VERANTYX_殻_37_ _OPAQUE_殻:1.0__VERANTYX_殻_9_: {}", 
+            self._OPAQUE_霜:1.0__VERANTYX_霜_41_._OPAQUE_霜:1.0__VERANTYX_霜_79_, self._OPAQUE_霜:1.0__VERANTYX_霜_41_._OPAQUE_霜:1.0__VERANTYX_霜_25_, self._OPAQUE_霜:1.0__VERANTYX_霜_73_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

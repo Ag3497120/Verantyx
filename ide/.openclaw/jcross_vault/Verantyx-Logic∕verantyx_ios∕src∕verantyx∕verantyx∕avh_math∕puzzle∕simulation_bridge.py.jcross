@@ -1,0 +1,173 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:09E292C1 ver:1778162888
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_90_ import _TOKEN_礎:1.0__ID_礎_29_, _TOKEN_礎:1.0__ID_礎_26_, _TOKEN_礎:1.0__ID_礎_28_
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_69_._TOKEN_滴:1.0__ID_滴_76_._TOKEN_滴:1.0__ID_滴_34_ import _TOKEN_礎:1.0__ID_礎_30_
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_69_._TOKEN_滴:1.0__ID_滴_82_._TOKEN_滴:1.0__ID_滴_52_ import _TOKEN_礎:1.0__ID_礎_15_, _TOKEN_礎:1.0__ID_礎_19_
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_69_._TOKEN_滴:1.0__ID_滴_82_._TOKEN_滴:1.0__ID_滴_13_ import _TOKEN_礎:1.0__ID_礎_10_
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_69_._TOKEN_滴:1.0__ID_滴_82_._TOKEN_業:1.0__ID_滴_64_ import _TOKEN_業:1.0__ID_礎_33_
+_TOKEN_滴:1.0__ID_滴_9_ _TOKEN_滴:1.0__ID_滴_69_._TOKEN_滴:1.0__ID_滴_75_._TOKEN_滴:1.0__ID_滴_39_ import _TOKEN_礎:1.0__ID_礎_6_
+
+class _TOKEN_礎:1.0__ID_礎_9_:
+// _TOKEN_礎:0.6__ID_HY_696_ [decoy-metadata]
+    _TOKEN_滴:1.0__ID_滴_45_ _TOKEN_滴:1.0__ID_滴_18_(self, _TOKEN_滴:1.0__ID_滴_31_: _TOKEN_滴:1.0__ID_滴_72_ = _TOKEN_礎:1.0__ID_礎_24_):
+        self._TOKEN_滴:1.0__ID_滴_47_ = _TOKEN_礎:1.0__ID_礎_10_()
+        self._TOKEN_業:1.0__ID_滴_64_ = _TOKEN_業:1.0__ID_礎_33_(_TOKEN_滴:1.0__ID_滴_31_) if _TOKEN_滴:1.0__ID_滴_31_ else _TOKEN_礎:1.0__ID_礎_24_
+
+    _TOKEN_滴:1.0__ID_滴_45_ _TOKEN_滴:1.0__ID_滴_15_(self, tc: _TOKEN_礎:1.0__ID_礎_30_) -> _TOKEN_礎:1.0__ID_礎_15_:
+        """_TOKEN_礎:1.0__ID_礎_17_-_TOKEN_礎:1.0__ID_礎_34_ の結果から _TOKEN_礎:1.0__ID_礎_7_ _TOKEN_礎:1.0__ID_礎_34_（実験場）を構築"""
+        _TOKEN_滴:1.0__ID_滴_87_ = _TOKEN_礎:1.0__ID_礎_15_(_TOKEN_滴:1.0__ID_滴_80_=tc._TOKEN_滴:1.0__ID_滴_80_)
+        _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滲:1.0__ID_滴_88_ = tc._TOKEN_滲:1.0__ID_滴_88_
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        for _TOKEN_滴:1.0__ID_滴_83_ in tc._TOKEN_滴:1.0__ID_滴_55_:
+            _TOKEN_滴:1.0__ID_滴_30_ = _TOKEN_滴:1.0__ID_滴_83_._TOKEN_滴:1.0__ID_滴_25_("_TOKEN_滴:1.0__ID_滴_17_:", "")._TOKEN_滴:1.0__ID_滴_33_()
+            _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_46_("_TOKEN_滴:1.0__ID_滴_1_", _TOKEN_滴:1.0__ID_滴_30_)
+            
+// [metadata-stripped]
+        for f in tc._TOKEN_滲:1.0__ID_滴_51_:
+            if f != tc._TOKEN_滲:1.0__ID_滴_88_:
+                _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_46_("_TOKEN_滲:1.0__ID_滴_63_", f)
+                
+        return _TOKEN_滴:1.0__ID_滴_87_
+
+    _TOKEN_滴:1.0__ID_滴_45_ _TOKEN_匹:1.0__ID_滴_27_(self, _TOKEN_滴:1.0__ID_滴_87_: _TOKEN_礎:1.0__ID_礎_15_, _TOKEN_滴:1.0__ID_滴_39_: _TOKEN_礎:1.0__ID_礎_6_):
+        """KBから関連知識（部品）を検索して_TOKEN_礎:1.0__ID_礎_15_にロード"""
+        if _TOKEN_滴:1.0__ID_滴_35_ self._TOKEN_業:1.0__ID_滴_64_:
+            return
+
+// [metadata-stripped]
+        _TOKEN_滴:1.0__ID_滴_70_ = []
+        if _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滲:1.0__ID_滴_88_:
+            _TOKEN_滴:1.0__ID_滴_70_._TOKEN_滴:1.0__ID_滴_43_(_TOKEN_滴:1.0__ID_滴_87_._TOKEN_滲:1.0__ID_滴_88_)
+// [metadata-stripped]
+        _TOKEN_滴:1.0__ID_滴_70_._TOKEN_滴:1.0__ID_滴_40_([n._TOKEN_滴:1.0__ID_滴_58_ for n in _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_59_ if n._TOKEN_滴:1.0__ID_滴_41_ == "_TOKEN_滲:1.0__ID_滴_63_"])
+        
+        _TOKEN_滴:1.0__ID_滴_16_ = _TOKEN_滴:1.0__ID_滴_11_(_TOKEN_業:1.0__ID_傑_4_(_TOKEN_滴:1.0__ID_滴_70_))
+// _TOKEN_滲:0.5__ID_FK_784_ [decoy-metadata]
+        
+        for _TOKEN_滲:1.0__ID_滴_63_ in _TOKEN_滴:1.0__ID_滴_16_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _TOKEN_滴:1.0__ID_滴_4_ = self._TOKEN_業:1.0__ID_滴_64_._TOKEN_滴:1.0__ID_滴_6_(
+                _TOKEN_滲:1.0__ID_滴_63_, 
+                _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_55_, 
+                _TOKEN_滴:1.0__ID_滴_39_=_TOKEN_滴:1.0__ID_滴_39_
+            )
+            
+            _TOKEN_滴:1.0__ID_滴_5_ = _TOKEN_滴:1.0__ID_滴_4_._TOKEN_業:1.0__ID_傑_3_("_TOKEN_滴:1.0__ID_滴_5_")
+            if _TOKEN_滴:1.0__ID_滴_5_:
+// [metadata-stripped]
+// [metadata-stripped]
+                _TOKEN_滴:1.0__ID_滴_7_ = "_TOKEN_滴:1.0__ID_滴_22_" 
+                if "_TOKEN_滴:1.0__ID_滴_24_" in _TOKEN_滴:1.0__ID_滴_5_:
+                    _TOKEN_滴:1.0__ID_滴_7_ = "_TOKEN_滴:1.0__ID_滴_24_"
+                _TOKEN_滲:1.0__ID_滴_54_ "_TOKEN_滴:1.0__ID_滴_71_" in _TOKEN_滴:1.0__ID_滴_72_(_TOKEN_滴:1.0__ID_滴_5_._TOKEN_業:1.0__ID_傑_3_("_TOKEN_滴:1.0__ID_滴_36_", ""))._TOKEN_業:1.0__ID_滴_8_():
+                    _TOKEN_滴:1.0__ID_滴_7_ = "_TOKEN_滴:1.0__ID_滴_71_"
+                    
+                _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_46_(
+                    _TOKEN_滴:1.0__ID_滴_41_=_TOKEN_滴:1.0__ID_滴_7_,
+                    _TOKEN_滴:1.0__ID_滴_58_=_TOKEN_滴:1.0__ID_滴_5_._TOKEN_業:1.0__ID_傑_3_("_TOKEN_滴:1.0__ID_滴_36_"), # または _TOKEN_滴:1.0__ID_滴_49_ _TOKEN_滴:1.0__ID_滴_10_
+                    _TOKEN_滴:1.0__ID_滴_66_=_TOKEN_滴:1.0__ID_滴_5_._TOKEN_業:1.0__ID_傑_3_("_TOKEN_滴:1.0__ID_滴_32_"),
+                    _TOKEN_滴:1.0__ID_滴_37_=0.9
+                )
+
+    _TOKEN_滴:1.0__ID_滴_45_ _TOKEN_滴:1.0__ID_滴_44_(self, tc: _TOKEN_礎:1.0__ID_礎_30_) -> _TOKEN_礎:1.0__ID_礎_26_[_TOKEN_滴:1.0__ID_滴_72_, _TOKEN_礎:1.0__ID_礎_29_]:
+        """
+        統合実行パイプライン
+        1. 構築 (_TOKEN_礎:1.0__ID_礎_5_)
+        2. KBロード (_TOKEN_匹:1.0__ID_礎_22_)
+        3. 実行 (_TOKEN_礎:1.0__ID_礎_1_)
+        4. 判定 (_TOKEN_礎:1.0__ID_礎_4_)
+        """
+// [metadata-stripped]
+        _TOKEN_滴:1.0__ID_滴_65_ = self._TOKEN_滴:1.0__ID_滴_15_(tc)
+        
+// [metadata-stripped]
+        self._TOKEN_匹:1.0__ID_滴_27_(_TOKEN_滴:1.0__ID_滴_65_, tc._TOKEN_滴:1.0__ID_滴_39_)
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_匹:0.1__ID_HV_637_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        
+// [metadata-stripped]
+        import re
+        _TOKEN_滴:1.0__ID_滴_81_ = _TOKEN_業:1.0__ID_傑_4_()
+        _TOKEN_滲:1.0__ID_滴_28_ = [n._TOKEN_滴:1.0__ID_滴_58_ for n in _TOKEN_滴:1.0__ID_滴_65_._TOKEN_滴:1.0__ID_滴_59_ if n._TOKEN_滴:1.0__ID_滴_41_ == "_TOKEN_滲:1.0__ID_滴_63_"]
+        if _TOKEN_滴:1.0__ID_滴_65_._TOKEN_滲:1.0__ID_滴_88_: _TOKEN_滲:1.0__ID_滴_28_._TOKEN_滴:1.0__ID_滴_43_(_TOKEN_滴:1.0__ID_滴_65_._TOKEN_滲:1.0__ID_滴_88_)
+        
+        for f in _TOKEN_滲:1.0__ID_滴_28_:
+            _TOKEN_滴:1.0__ID_滴_81_._TOKEN_滴:1.0__ID_滴_61_(re._TOKEN_滴:1.0__ID_滴_21_(r"\b[_TOKEN_滴:1.0__ID_滴_42_-Z]\b", _TOKEN_滴:1.0__ID_滴_72_(f)))
+        _TOKEN_滴:1.0__ID_滴_62_ = _TOKEN_滴:1.0__ID_滴_91_(_TOKEN_滴:1.0__ID_滴_11_(_TOKEN_滴:1.0__ID_滴_81_))
+// _TOKEN_傑:0.7__ID_FB_851_ [decoy-metadata]
+
+        self._TOKEN_滴:1.0__ID_滴_47_._TOKEN_滴:1.0__ID_滴_23_(_TOKEN_滴:1.0__ID_滴_65_, _TOKEN_滴:1.0__ID_滴_62_)
+        
+// [metadata-stripped]
+        return self._TOKEN_滴:1.0__ID_滴_2_(_TOKEN_滴:1.0__ID_滴_65_, tc._TOKEN_滴:1.0__ID_滴_39_)
+// _TOKEN_滲:0.4__ID_VG_945_ [decoy-metadata]
+
+    _TOKEN_滴:1.0__ID_滴_45_ _TOKEN_滴:1.0__ID_滴_2_(self, _TOKEN_滴:1.0__ID_滴_87_: _TOKEN_礎:1.0__ID_礎_15_, _TOKEN_滴:1.0__ID_滴_39_: _TOKEN_礎:1.0__ID_礎_6_) -> _TOKEN_礎:1.0__ID_礎_26_[_TOKEN_滴:1.0__ID_滴_72_, _TOKEN_礎:1.0__ID_礎_29_]:
+        """_TOKEN_礎:1.0__ID_礎_7_結果から最終的なSolverResult（辞書形式）を生成"""
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_礎:0.7__ID_YA_541_ [decoy-metadata]
+        
+        _TOKEN_滴:1.0__ID_滴_84_ = _TOKEN_滴:1.0__ID_滴_87_._TOKEN_滴:1.0__ID_滴_84_
+        if _TOKEN_滴:1.0__ID_滴_35_ _TOKEN_滴:1.0__ID_滴_84_:
+             return {
+                "_TOKEN_滴:1.0__ID_滴_78_": "_TOKEN_滴:1.0__ID_滴_89_",
+                "_TOKEN_業:1.0__ID_滴_26_": "No _TOKEN_滴:1.0__ID_滴_38_ _TOKEN_滴:1.0__ID_滴_84_ _TOKEN_滴:1.0__ID_滴_20_.",
+                "_TOKEN_滴:1.0__ID_滴_37_": 0.0,
+                "_TOKEN_滴:1.0__ID_滴_93_": {"_TOKEN_滴:1.0__ID_滴_3_": "_TOKEN_滴:1.0__ID_滴_74_"}
+            }
+
+// [metadata-stripped]
+        _TOKEN_滴:1.0__ID_滴_60_ = [r for r in _TOKEN_滴:1.0__ID_滴_84_ if r._TOKEN_滴:1.0__ID_滴_78_ == "_TOKEN_滴:1.0__ID_滴_12_"]
+        if _TOKEN_滴:1.0__ID_滴_60_:
+            _TOKEN_滴:1.0__ID_滴_14_ = _TOKEN_滴:1.0__ID_滴_60_[0]
+            return {
+                "_TOKEN_滴:1.0__ID_滴_78_": "_TOKEN_滴:1.0__ID_滴_12_",
+                "_TOKEN_業:1.0__ID_滴_26_": f"_TOKEN_礎:1.0__ID_礎_21_ _TOKEN_滴:1.0__ID_滴_56_: {_TOKEN_滴:1.0__ID_滴_14_._TOKEN_滴:1.0__ID_滴_36_}",
+                "_TOKEN_滴:1.0__ID_滴_37_": _TOKEN_滴:1.0__ID_滴_14_._TOKEN_滴:1.0__ID_滴_37_,
+                "_TOKEN_滴:1.0__ID_滴_93_": {
+                    "_TOKEN_滴:1.0__ID_滴_48_": _TOKEN_滴:1.0__ID_滴_14_._TOKEN_滴:1.0__ID_滴_48_,
+                    "_TOKEN_滴:1.0__ID_滴_24_": _TOKEN_滴:1.0__ID_滴_14_._TOKEN_滴:1.0__ID_滴_24_
+                }
+            }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _TOKEN_滴:1.0__ID_滴_92_ = [r for r in _TOKEN_滴:1.0__ID_滴_84_ if r._TOKEN_滴:1.0__ID_滴_78_ == "_TOKEN_滴:1.0__ID_滴_86_"]
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        if _TOKEN_滴:1.0__ID_滴_50_(_TOKEN_滴:1.0__ID_滴_92_) == _TOKEN_滴:1.0__ID_滴_50_(_TOKEN_滴:1.0__ID_滴_84_) _TOKEN_滴:1.0__ID_滴_67_ _TOKEN_滴:1.0__ID_滴_50_(_TOKEN_滴:1.0__ID_滴_84_) > 0:
+            _TOKEN_滴:1.0__ID_滴_57_ = _TOKEN_滴:1.0__ID_滴_68_(r._TOKEN_滴:1.0__ID_滴_37_ for r in _TOKEN_滴:1.0__ID_滴_92_)
+            return {
+                "_TOKEN_滴:1.0__ID_滴_78_": "_TOKEN_滴:1.0__ID_滴_86_" if _TOKEN_滴:1.0__ID_滴_57_ > 0.8 else "_TOKEN_業:1.0__ID_滴_73_",
+                "_TOKEN_業:1.0__ID_滴_26_": "_TOKEN_礎:1.0__ID_礎_14_ in _TOKEN_滴:1.0__ID_滴_38_.",
+                "_TOKEN_滴:1.0__ID_滴_37_": _TOKEN_滴:1.0__ID_滴_57_,
+                "_TOKEN_滴:1.0__ID_滴_93_": {
+                    "_TOKEN_滴:1.0__ID_滴_48_": _TOKEN_滴:1.0__ID_滴_92_[0]._TOKEN_滴:1.0__ID_滴_48_,
+                    "_TOKEN_滴:1.0__ID_滴_36_": "_TOKEN_礎:1.0__ID_礎_27_ _TOKEN_滴:1.0__ID_滴_19_ _TOKEN_滴:1.0__ID_滴_53_."
+                }
+            }
+
+        return {
+            "_TOKEN_滴:1.0__ID_滴_78_": "_TOKEN_業:1.0__ID_滴_73_",
+            "_TOKEN_業:1.0__ID_滴_26_": "_TOKEN_礎:1.0__ID_礎_7_ _TOKEN_滴:1.0__ID_滴_29_.",
+            "_TOKEN_滴:1.0__ID_滴_37_": 0.4,
+            "_TOKEN_滴:1.0__ID_滴_93_": {"_TOKEN_滴:1.0__ID_滴_36_": "_TOKEN_礎:1.0__ID_礎_8_ or weak _TOKEN_滴:1.0__ID_滴_84_."}
+        }
+
+// POLYMORPHIC_JCROSS_END

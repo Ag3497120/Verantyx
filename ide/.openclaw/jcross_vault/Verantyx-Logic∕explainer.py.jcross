@@ -1,0 +1,133 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4052E55D ver:1778159595
+// ⚠️ One-time schema — expires after response
+
+__jcross_霧:1.0____ast_霧_124__ __jcross_霧:1.0____ast_霧_128__ import __jcross_霧:1.0____ast_霧_27__
+
+__jcross_霧:1.0____ast_霧_124__ __jcross_霧:1.0____ast_霧_88__ import __jcross_霧:1.0____ast_霧_37__
+__jcross_霧:1.0____ast_霧_124__ __jcross_霧:1.0____ast_霧_9__ import __jcross_廓:1.0____ast_廓_21__, __jcross_廓:1.0____ast_廓_16__, __jcross_廓:1.0____ast_廓_22__, __jcross_廓:1.0____ast_廓_2__, __jcross_廓:1.0____ast_廓_1__
+
+
+@__jcross_霧:1.0____ast_霧_37__
+class __jcross_廓:1.0____ast_廓_6__:
+    __jcross_霧:1.0____ast_霧_133__: __jcross_霧:1.0____ast_霧_21__
+    __jcross_霧:1.0____ast_霧_97__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__]          # e.g. ["__jcross_霧:1.0____ast_霧_62__:4"]
+    __jcross_霧:1.0____ast_霧_3__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__]     # e.g. ["__jcross_霧:1.0____ast_霧_47__:__jcross_霧:1.0____ast_霧_113__"]
+    __jcross_霧:1.0____ast_霧_89__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__]                  # __jcross_霧:1.0____ast_霧_98__ __jcross_霧:1.0____ast_霧_109__
+    __jcross_霧:1.0____ast_霧_30__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__]          # __jcross_廓:1.0____ast_廓_10__: e.g. ["__jcross_霧:1.0____ast_霧_47__:__jcross_霧:1.0____ast_霧_117__"]
+    __jcross_霧:1.0____ast_霧_1__: __jcross_廓:1.0____ast_廓_2__[__jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__]] = __jcross_廓:1.0____ast_廓_13__ # __jcross_廓:1.0____ast_廓_10__: e.g. ["__jcross_霧:1.0____ast_霧_47__:__jcross_霧:1.0____ast_霧_113__"]
+
+__jcross_霧:1.0____ast_霧_79__ __jcross_潤:1.0____ast_霧_102__(__jcross_潤:1.0____ast_霧_58__: __jcross_霧:1.0____ast_霧_21__) -> __jcross_霧:1.0____ast_霧_21__:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __jcross_繕:0.2____ast_LL_679__ [decoy-metadata]
+    
+// [metadata-stripped]
+    return __jcross_潤:1.0____ast_霧_58__.__jcross_霧:1.0____ast_霧_99__().__jcross_霧:1.0____ast_霧_25__(" ", "").__jcross_霧:1.0____ast_霧_25__("→", "->")
+
+__jcross_霧:1.0____ast_霧_79__ __jcross_霧:1.0____ast_霧_115__(kb: __jcross_廓:1.0____ast_廓_16__[__jcross_霧:1.0____ast_霧_21__, __jcross_廓:1.0____ast_廓_21__], __jcross_霧:1.0____ast_霧_122__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__], __jcross_霧:1.0____ast_霧_15__=__jcross_廓:1.0____ast_廓_13__):
+    __jcross_霧:1.0____ast_霧_127__: __jcross_廓:1.0____ast_廓_21__ = kb
+    for p in __jcross_霧:1.0____ast_霧_122__:
+        if __jcross_霧:1.0____ast_霧_24__ __jcross_霧:1.0____ast_霧_53__(__jcross_霧:1.0____ast_霧_127__, __jcross_霧:1.0____ast_霧_110__) or p __jcross_霧:1.0____ast_霧_24__ in __jcross_霧:1.0____ast_霧_127__:
+            return __jcross_霧:1.0____ast_霧_15__
+        __jcross_霧:1.0____ast_霧_127__ = __jcross_霧:1.0____ast_霧_127__[p]
+    return __jcross_霧:1.0____ast_霧_127__
+
+
+__jcross_霧:1.0____ast_霧_79__ __jcross_潤:1.0____ast_霧_114__(
+    *,
+    __jcross_潤:1.0____ast_霧_58__: __jcross_霧:1.0____ast_霧_21__,
+    __jcross_霧:1.0____ast_霧_92__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__],
+    __jcross_霧:1.0____ast_霧_33__: __jcross_霧:1.0____ast_霧_21__,  # "__jcross_霧:1.0____ast_霧_29__" | "__jcross_霧:1.0____ast_霧_70__" | "__jcross_霧:1.0____ast_霧_12__"
+    kb: __jcross_廓:1.0____ast_廓_16__[__jcross_霧:1.0____ast_霧_21__, __jcross_廓:1.0____ast_廓_21__],
+) -> __jcross_廓:1.0____ast_廓_6__:
+    """
+    __jcross_廓:1.0____ast_廓_15__ 7.5:
+    - If __jcross_霧:1.0____ast_霧_85__ __jcross_潤:1.0____ast_霧_58__ __jcross_霧:1.0____ast_霧_75__ a __jcross_霧:1.0____ast_霧_111__ __jcross_霧:1.0____ast_霧_50__, __jcross_霧:1.0____ast_霧_132__ __jcross_霧:1.0____ast_霧_97__ __jcross_霧:1.0____ast_霧_35__ __jcross_霧:1.0____ast_霧_124__ KB.
+    - If __jcross_霧:1.0____ast_霧_70__, __jcross_霧:1.0____ast_霧_57__ __jcross_霧:1.0____ast_霧_65__ __jcross_霧:1.0____ast_霧_92__ __jcross_霧:1.0____ast_霧_118__ __jcross_霧:1.0____ast_霧_111__.
+    """
+    f = __jcross_潤:1.0____ast_霧_102__(__jcross_潤:1.0____ast_霧_58__)
+    __jcross_霧:1.0____ast_霧_61__ = __jcross_霧:1.0____ast_霧_115__(kb, ["__jcross_霧:1.0____ast_霧_97__"], {}) or {}
+    __jcross_霧:1.0____ast_霧_4__ = (__jcross_霧:1.0____ast_霧_61__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_23__") or {})
+    
+// [metadata-stripped]
+    __jcross_霧:1.0____ast_霧_59__ = {k.__jcross_霧:1.0____ast_霧_25__(" ", ""): v for k, v in __jcross_霧:1.0____ast_霧_4__.__jcross_霧:1.0____ast_霧_20__()}
+    
+    __jcross_霧:1.0____ast_霧_35__ = (__jcross_霧:1.0____ast_霧_61__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_35__") or {})
+    __jcross_霧:1.0____ast_霧_6__ = (__jcross_霧:1.0____ast_霧_61__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_123__") or {})
+    __jcross_霧:1.0____ast_霧_54__ = {k.__jcross_霧:1.0____ast_霧_25__(" ", ""): v for k, v in __jcross_霧:1.0____ast_霧_6__.__jcross_霧:1.0____ast_霧_20__()}
+
+    __jcross_霧:1.0____ast_霧_89__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__] = []
+    __jcross_霧:1.0____ast_霧_116__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__] = []
+    __jcross_霧:1.0____ast_霧_65__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__] = []
+
+// [metadata-stripped]
+    __jcross_霧:1.0____ast_霧_40__ = __jcross_霧:1.0____ast_霧_59__.__jcross_項:1.0____ast_焦_2__(f)
+    if __jcross_霧:1.0____ast_霧_40__:
+        __jcross_霧:1.0____ast_霧_77__ = __jcross_霧:1.0____ast_霧_40__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_77__") or []
+// __jcross_潤:0.5____ast_GG_371__ [decoy-metadata]
+        for __jcross_霧:1.0____ast_霧_48__ in __jcross_霧:1.0____ast_霧_77__:
+            if __jcross_霧:1.0____ast_霧_48__ in __jcross_霧:1.0____ast_霧_35__:
+                __jcross_霧:1.0____ast_霧_116__.__jcross_霧:1.0____ast_霧_2__(__jcross_霧:1.0____ast_霧_48__)
+        __jcross_霧:1.0____ast_霧_89__.__jcross_霧:1.0____ast_霧_2__(__jcross_霧:1.0____ast_霧_40__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_55__") or "__jcross_廓:1.0____ast_廓_14__ a __jcross_霧:1.0____ast_霧_111__ __jcross_霧:1.0____ast_霧_71__ __jcross_霧:1.0____ast_霧_62__ __jcross_霧:1.0____ast_霧_50__.")
+    else:
+        __jcross_霧:1.0____ast_霧_89__.__jcross_霧:1.0____ast_霧_2__("No __jcross_霧:1.0____ast_霧_41__ __jcross_霧:1.0____ast_霧_97__ __jcross_霧:1.0____ast_霧_50__ __jcross_霧:1.0____ast_霧_28__ in __jcross_霧:1.0____ast_霧_129__ DB.")
+
+// [metadata-stripped]
+    __jcross_霧:1.0____ast_霧_69__ = __jcross_霧:1.0____ast_霧_54__.__jcross_項:1.0____ast_焦_2__(f) or []
+    if __jcross_霧:1.0____ast_霧_33__ == "__jcross_霧:1.0____ast_霧_70__" __jcross_霧:1.0____ast_霧_73__ __jcross_霧:1.0____ast_霧_69__:
+// [metadata-stripped]
+// __jcross_繕:0.1____ast_CC_301__ [decoy-metadata]
+        for __jcross_霧:1.0____ast_霧_8__ in __jcross_霧:1.0____ast_霧_69__:
+            if __jcross_霧:1.0____ast_霧_8__ __jcross_霧:1.0____ast_霧_24__ in __jcross_霧:1.0____ast_霧_92__:
+                __jcross_霧:1.0____ast_霧_65__.__jcross_霧:1.0____ast_霧_2__(__jcross_霧:1.0____ast_霧_8__)
+
+// [metadata-stripped]
+    if __jcross_霧:1.0____ast_霧_33__ == "__jcross_霧:1.0____ast_霧_29__":
+        if __jcross_霧:1.0____ast_霧_116__:
+// [metadata-stripped]
+            __jcross_霧:1.0____ast_霧_90__ = __jcross_霧:1.0____ast_霧_35__.__jcross_項:1.0____ast_焦_2__(__jcross_霧:1.0____ast_霧_116__[0], {})
+            __jcross_霧:1.0____ast_霧_91__ = __jcross_霧:1.0____ast_霧_90__.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_46__") or []
+            ok = __jcross_霧:1.0____ast_霧_80__(r in __jcross_霧:1.0____ast_霧_92__ for r in __jcross_霧:1.0____ast_霧_91__)
+            if ok:
+                __jcross_霧:1.0____ast_霧_133__ = f"__jcross_廓:1.0____ast_廓_9__: __jcross_項:1.0____ast_霧_95__ __jcross_霧:1.0____ast_霧_92__ {__jcross_霧:1.0____ast_霧_92__}, __jcross_霧:1.0____ast_霧_136__ __jcross_霧:1.0____ast_霧_75__ {__jcross_霧:1.0____ast_霧_116__[0]} ({__jcross_霧:1.0____ast_霧_90__.__jcross_項:1.0____ast_焦_2__('__jcross_霧:1.0____ast_霧_50__')})."
+            else:
+                __jcross_霧:1.0____ast_霧_133__ = f"__jcross_廓:1.0____ast_廓_9__ (by __jcross_霧:1.0____ast_霧_26__ __jcross_霧:1.0____ast_霧_16__): __jcross_霧:1.0____ast_霧_75__ {__jcross_霧:1.0____ast_霧_116__[0]} __jcross_霧:1.0____ast_霧_81__ __jcross_霧:1.0____ast_霧_107__ __jcross_霧:1.0____ast_霧_92__ {__jcross_霧:1.0____ast_霧_91__} __jcross_霧:1.0____ast_霧_100__ __jcross_霧:1.0____ast_霧_24__ __jcross_霧:1.0____ast_霧_32__ __jcross_霧:1.0____ast_霧_130__ in __jcross_廓:1.0____ast_廓_7__."
+        else:
+            __jcross_霧:1.0____ast_霧_133__ = f"__jcross_廓:1.0____ast_廓_9__: no __jcross_霧:1.0____ast_霧_84__ __jcross_霧:1.0____ast_霧_93__ __jcross_項:1.0____ast_霧_95__ __jcross_霧:1.0____ast_霧_92__ {__jcross_霧:1.0____ast_霧_92__}."
+    __jcross_潤:1.0____ast_霧_120__ __jcross_霧:1.0____ast_霧_33__ == "__jcross_霧:1.0____ast_霧_70__":
+        if __jcross_霧:1.0____ast_霧_65__:
+            __jcross_霧:1.0____ast_霧_133__ = f"__jcross_廓:1.0____ast_廓_19__: __jcross_霧:1.0____ast_霧_84__ __jcross_霧:1.0____ast_霧_64__; __jcross_霧:1.0____ast_霧_19__ __jcross_霧:1.0____ast_霧_136__ __jcross_霧:1.0____ast_霧_50__ __jcross_霧:1.0____ast_霧_67__ {__jcross_霧:1.0____ast_霧_65__}."
+        else:
+            __jcross_霧:1.0____ast_霧_133__ = "__jcross_廓:1.0____ast_廓_19__: __jcross_霧:1.0____ast_霧_84__ __jcross_霧:1.0____ast_霧_64__ __jcross_項:1.0____ast_霧_95__ __jcross_霧:1.0____ast_霧_85__ __jcross_霧:1.0____ast_霧_78__ __jcross_霧:1.0____ast_霧_92__."
+    else:
+        __jcross_霧:1.0____ast_霧_133__ = "__jcross_廓:1.0____ast_廓_12__: __jcross_霧:1.0____ast_霧_103__ __jcross_霧:1.0____ast_霧_83__."
+
+// [metadata-stripped]
+    __jcross_霧:1.0____ast_霧_22__: __jcross_廓:1.0____ast_廓_22__[__jcross_霧:1.0____ast_霧_21__] = []
+    for __jcross_霧:1.0____ast_霧_48__ in __jcross_霧:1.0____ast_霧_116__:
+        ax = __jcross_霧:1.0____ast_霧_35__.__jcross_項:1.0____ast_焦_2__(__jcross_霧:1.0____ast_霧_48__, {}) or {}
+// __jcross_項:0.8____ast_VL_398__ [decoy-metadata]
+        for __jcross_霧:1.0____ast_霧_87__ in (ax.__jcross_項:1.0____ast_焦_2__("__jcross_霧:1.0____ast_霧_46__") or []):
+            if __jcross_霧:1.0____ast_霧_53__(__jcross_霧:1.0____ast_霧_87__, __jcross_霧:1.0____ast_霧_21__) __jcross_霧:1.0____ast_霧_73__ __jcross_霧:1.0____ast_霧_87__.__jcross_霧:1.0____ast_霧_104__("__jcross_霧:1.0____ast_霧_47__:"):
+                __jcross_霧:1.0____ast_霧_22__.__jcross_霧:1.0____ast_霧_2__(__jcross_霧:1.0____ast_霧_87__)
+    __jcross_霧:1.0____ast_霧_22__.__jcross_霧:1.0____ast_霧_76__(__jcross_霧:1.0____ast_霧_65__)
+    __jcross_霧:1.0____ast_霧_22__ = __jcross_霧:1.0____ast_霧_36__(__jcross_項:1.0____ast_焦_1__(__jcross_霧:1.0____ast_霧_22__))
+
+// __jcross_繕:0.7____ast_XX_199__ [decoy-metadata]
+    return __jcross_廓:1.0____ast_廓_6__(
+// __jcross_匼:0.4____ast_CW_855__ [decoy-metadata]
+        __jcross_霧:1.0____ast_霧_133__=__jcross_霧:1.0____ast_霧_133__,
+        __jcross_霧:1.0____ast_霧_97__=__jcross_霧:1.0____ast_霧_116__,
+        __jcross_霧:1.0____ast_霧_3__=__jcross_霧:1.0____ast_霧_65__,
+        __jcross_霧:1.0____ast_霧_89__=__jcross_霧:1.0____ast_霧_89__,
+        __jcross_霧:1.0____ast_霧_30__=__jcross_霧:1.0____ast_霧_22__,
+        __jcross_霧:1.0____ast_霧_1__=__jcross_霧:1.0____ast_霧_65__ if __jcross_霧:1.0____ast_霧_33__ == "__jcross_霧:1.0____ast_霧_70__" __jcross_霧:1.0____ast_霧_73__ __jcross_霧:1.0____ast_霧_65__ else __jcross_廓:1.0____ast_廓_13__
+    )
+// POLYMORPHIC_JCROSS_END

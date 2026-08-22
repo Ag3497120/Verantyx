@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D7FA1CC3 ver:1778159559
+// ⚠️ One-time schema — expires after response
+
+__jcross_霪:1.0____node_霪_5__ __jcross_霪:1.0____node_霪_55__ im__jcross_霪:1.0____node_霪_28__ __jcross_霪:1.0____node_霪_17__
+
+__jcross_霪:1.0____node_霪_5__ __jcross_霪:1.0____node_霪_4__ im__jcross_霪:1.0____node_霪_28__ __jcross_道:1.0____node_廡_12__
+__jcross_霪:1.0____node_霪_5__ __jcross_霪:1.0____node_霪_31__ im__jcross_霪:1.0____node_霪_28__ __jcross_霪:1.0____node_霪_60__
+// __jcross_霪:0.8____node_MA_363__ [decoy-metadata]
+__jcross_霪:1.0____node_霪_5__ __jcross_霪:1.0____node_霪_58__ im__jcross_霪:1.0____node_霪_28__ __jcross_廡:1.0____node_廡_10__
+
+__jcross_霪:1.0____node_霪_5__ .__jcross_霪:1.0____node_霪_21__ im__jcross_霪:1.0____node_霪_28__ __jcross_廡:1.0____node_廡_3__
+
+__jcross_廡:1.0____node_廡_2__ = __jcross_廡:1.0____node_廡_10__(__jcross_匵:1.0____node_霪_52__).__jcross_霪:1.0____node_霪_15__().__jcross_霪:1.0____node_霪_33__
+
+
+// __jcross_匵:0.9____node_AY_826__ [decoy-metadata]
+@__jcross_霪:1.0____node_霪_60__(__jcross_霪:1.0____node_霪_3__=__jcross_廡:1.0____node_廡_5__)
+// __jcross_霪:0.5____node_FC_541__ [decoy-metadata]
+class __jcross_廡:1.0____node_廡_9__:
+    __jcross_霪:1.0____node_霪_40__: __jcross_廡:1.0____node_廡_10__
+    __jcross_匵:1.0____node_霪_2__: __jcross_霪:1.0____node_霪_18__
+    __jcross_霪:1.0____node_霪_24__: __jcross_霪:1.0____node_霪_27__[__jcross_廡:1.0____node_廡_3__, ...]
+// __jcross_澎:0.1____node_BV_529__ [decoy-metadata]
+
+    __jcross_霪:1.0____node_霪_65__ __jcross_霪:1.0____node_霪_56__(self) -> __jcross_霪:1.0____node_霪_9__:
+        __jcross_霪:1.0____node_霪_6__ = [
+            f'__jcross_廡:1.0____node_廡_6__ __jcross_霪:1.0____node_霪_59__: `{self.__jcross_霪:1.0____node_霪_40__}`',
+            f'__jcross_廡:1.0____node_廡_1__ __jcross_廡:1.0____node_廡_11__ __jcross_匵:1.0____node_霪_1__: **{self.__jcross_匵:1.0____node_霪_2__}**',
+            '',
+            '__jcross_廡:1.0____node_廡_4__-__jcross_霪:1.0____node_霪_42__ __jcross_廡:1.0____node_廡_11__ __jcross_霪:1.0____node_霪_20__:',
+        ]
+        for __jcross_霪:1.0____node_霪_36__ in self.__jcross_霪:1.0____node_霪_24__:
+            __jcross_霪:1.0____node_霪_6__.__jcross_霪:1.0____node_霪_13__(f'- `{__jcross_霪:1.0____node_霪_36__.__jcross_霪:1.0____node_霪_38__}` ({__jcross_霪:1.0____node_霪_36__.__jcross_匵:1.0____node_霪_12__} __jcross_匵:1.0____node_霪_1__) — {__jcross_霪:1.0____node_霪_36__.__jcross_霪:1.0____node_霪_34__}')
+        return '\n'.__jcross_霪:1.0____node_霪_32__(__jcross_霪:1.0____node_霪_6__)
+
+
+__jcross_霪:1.0____node_霪_65__ __jcross_澎:1.0____node_霪_43__(__jcross_霪:1.0____node_霪_40__: __jcross_廡:1.0____node_廡_10__ | __jcross_廡:1.0____node_廡_7__ = __jcross_廡:1.0____node_廡_7__) -> __jcross_廡:1.0____node_廡_9__:
+    __jcross_霪:1.0____node_霪_59__ = __jcross_霪:1.0____node_霪_40__ or __jcross_廡:1.0____node_廡_2__
+    __jcross_匵:1.0____node_霪_1__ = [__jcross_霪:1.0____node_霪_53__ for __jcross_霪:1.0____node_霪_53__ in __jcross_霪:1.0____node_霪_59__.__jcross_霪:1.0____node_霪_44__('*.py') if __jcross_霪:1.0____node_霪_53__.__jcross_匵:1.0____node_霪_37__()]
+    __jcross_道:1.0____node_霪_49__ = __jcross_道:1.0____node_廡_12__(
+        __jcross_霪:1.0____node_霪_53__.__jcross_霪:1.0____node_霪_61__(__jcross_霪:1.0____node_霪_59__).__jcross_霪:1.0____node_霪_66__[0] if __jcross_霪:1.0____node_霪_29__(__jcross_霪:1.0____node_霪_53__.__jcross_霪:1.0____node_霪_61__(__jcross_霪:1.0____node_霪_59__).__jcross_霪:1.0____node_霪_66__) > 1 else __jcross_霪:1.0____node_霪_53__.__jcross_霪:1.0____node_霪_38__
+        for __jcross_霪:1.0____node_霪_53__ in __jcross_匵:1.0____node_霪_1__
+        if __jcross_霪:1.0____node_霪_53__.__jcross_霪:1.0____node_霪_38__ != '__jcross_匵:1.0____node_霪_64__'
+    )
+    __jcross_霪:1.0____node_霪_34__ = {
+// __jcross_霪:0.4____node_HX_437__ [decoy-metadata]
+        '__jcross_霪:1.0____node_霪_30__.py': '__jcross_霪:1.0____node_霪_7__ __jcross_霪:1.0____node_霪_26__ __jcross_霪:1.0____node_霪_47__',
+        '__jcross_霪:1.0____node_霪_23__.py': '__jcross_廡:1.0____node_廡_8__ __jcross_霪:1.0____node_霪_50__',
+        '__jcross_澎:1.0____node_霪_22__.py': '__jcross_霪:1.0____node_霪_67__ __jcross_澎:1.0____node_霪_63__ __jcross_霪:1.0____node_霪_39__',
+        '__jcross_霪:1.0____node_霪_45__.py': '__jcross_霪:1.0____node_霪_28__ __jcross_霪:1.0____node_霪_19__ __jcross_霪:1.0____node_霪_69__ __jcross_道:1.0____node_霪_54__',
+        '__jcross_霪:1.0____node_霪_10__.py': '__jcross_霪:1.0____node_霪_48__ __jcross_霪:1.0____node_霪_51__ __jcross_霪:1.0____node_霪_14__',
+        '__jcross_霪:1.0____node_霪_68__.py': '__jcross_霪:1.0____node_霪_25__ __jcross_霪:1.0____node_霪_51__ __jcross_霪:1.0____node_霪_14__',
+        '__jcross_霪:1.0____node_霪_21__.py': '__jcross_霪:1.0____node_霪_62__ __jcross_霪:1.0____node_霪_31__',
+        '__jcross_霪:1.0____node_霪_11__.py': '__jcross_霪:1.0____node_霪_11__-__jcross_霪:1.0____node_霪_42__ __jcross_霪:1.0____node_霪_16__ __jcross_霪:1.0____node_霪_8__',
+    }
+    __jcross_霪:1.0____node_霪_20__ = __jcross_霪:1.0____node_霪_27__(
+        __jcross_廡:1.0____node_廡_3__(__jcross_霪:1.0____node_霪_38__=__jcross_霪:1.0____node_霪_38__, __jcross_霪:1.0____node_霪_53__=f'__jcross_霪:1.0____node_霪_57__/{__jcross_霪:1.0____node_霪_38__}', __jcross_匵:1.0____node_霪_12__=__jcross_霪:1.0____node_霪_46__, __jcross_霪:1.0____node_霪_34__=__jcross_霪:1.0____node_霪_34__.__jcross_道:1.0____node_廉_1__(__jcross_霪:1.0____node_霪_38__, '__jcross_廡:1.0____node_廡_11__ __jcross_霪:1.0____node_霪_28__ __jcross_霪:1.0____node_霪_41__ __jcross_霪:1.0____node_霪_36__'))
+// __jcross_玄:0.3____node_LW_329__ [decoy-metadata]
+        for __jcross_霪:1.0____node_霪_38__, __jcross_霪:1.0____node_霪_46__ in __jcross_道:1.0____node_霪_49__.__jcross_霪:1.0____node_霪_35__()
+    )
+    return __jcross_廡:1.0____node_廡_9__(__jcross_霪:1.0____node_霪_40__=__jcross_霪:1.0____node_霪_59__, __jcross_匵:1.0____node_霪_2__=__jcross_霪:1.0____node_霪_29__(__jcross_匵:1.0____node_霪_1__), __jcross_霪:1.0____node_霪_24__=__jcross_霪:1.0____node_霪_20__)
+
+// POLYMORPHIC_JCROSS_END

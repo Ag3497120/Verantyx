@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Growth Console</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --panel: #222228;
+    --line: #33333a;
+    --text: #e6e6ec;
+    --muted: #8a8a96;
+    --accent: #5ecf7a;
+    --warn: #e0a04a;
+    --danger: #e06060;
+    --chip: #2a3540;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 12px;
+    font: 12px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text);
+  }
+  h1 { font-size: 13px; margin: 0 0 4px; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 10px; margin-bottom: 12px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px; margin-bottom: 10px;
+  }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button, select {
+    font: inherit; border-radius: 6px; border: 1px solid var(--line);
+    background: #2c2c34; color: var(--text); padding: 5px 10px; cursor: pointer;
+  }
+  button.primary { background: #2a4a34; border-color: #3a6a48; color: var(--accent); }
+  button.danger { background: #3a2a2a; border-color: #6a3a3a; color: var(--danger); }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .chip {
+    display: inline-block; padding: 2px 7px; border-radius: 4px;
+    background: var(--chip); color: #9ad0ff; font-size: 10px; font-weight: 600;
+  }
+  .chip.warn { color: var(--warn); }
+  .chip.ok { color: var(--accent); }
+  pre, .log {
+    white-space: pre-wrap; word-break: break-word;
+    background: #141418; border-radius: 6px; padding: 8px;
+    font: 10px/1.4 ui-monospace, Menlo, monospace; color: #c8c8d0;
+    max-height: 160px; overflow: auto; margin: 8px 0 0;
+  }
+  .item {
+    border-top: 1px solid var(--line); padding: 8px 0;
+  }
+  .item:first-child { border-top: none; }
+  .title { font-weight: 600; font-size: 11px; }
+  .meta { color: var(--muted); font-size: 10px; margin-top: 2px; }
+  .code {
+    margin-top: 6px; max-height: 120px; overflow: auto;
+    font: 10px ui-monospace, Menlo, monospace; color: #b8c0c8;
+    background: #141418; padding: 6px; border-radius: 4px;
+  }
+  .err { color: var(--danger); font-size: 11px; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h1>Growth Console</h1>
+  <div class="sub">
+    Closed-domain growth (M) + open-domain gaps (O) + quarantine.
+    Not a “level 1–3 self-evolution” classifier — that is unimplemented.
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <strong>Status</strong>
+      <button onclick="refreshAll()">Refresh</button>
+    </div>
+    <div id="status" class="meta" style="margin-top:8px">Loading…</div>
+  </div>
+
+  <div class="card">
+    <strong>Cognition mode (O)</strong>
+    <div class="row" style="margin-top:8px">
+      <select id="mode">
+        <option value="normal">normal — no GapNodes</option>
+        <option value="experiment">experiment — record gaps</option>
+        <option value="sleep">sleep — record + heartbeat candidates</option>
+      </select>
+      <button class="primary" onclick="setMode()">Apply</button>
+      <label class="meta"><input type="checkbox" id="harness"/> Vera harness</label>
+      <button onclick="setHarness()">Save harness</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>Heartbeat (M · and O if sleep)</strong>
+    <div class="row" style="margin-top:8px">
+      <button class="primary" id="hbBtn" onclick="runHeartbeat()">Run heartbeat</button>
+      <button onclick="runWake()">Wake summary</button>
+      <button onclick="ensureAgent()">Ensure JGEN agent server</button>
+    </div>
+    <div id="hbLog" class="log" hidden></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <strong>Quarantine — domain modules</strong>
+      <span class="chip" id="modCount">0</span>
+    </div>
+    <div id="modules"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <strong>Quarantine — AI facts</strong>
+      <span class="chip" id="factCount">0</span>
+    </div>
+    <div id="facts"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <strong>Pending tool calls</strong>
+      <span class="chip warn" id="toolCount">0</span>
+    </div>
+    <div id="tools"></div>
+  </div>
+
+  <div class="card">
+    <strong>Multimodal (JGEN bus)</strong>
+    <div id="mmStatus" class="meta" style="margin-top:8px">—</div>
+  </div>
+
+  <div class="card">
+    <strong>Glossary</strong>
+    <div id="explain" class="meta" style="margin-top:6px"></div>
+  </div>
+
+<script>
+async function inv(name, args) {
+  if (!window.verantyx || !window.verantyx.invoke) throw new Error('bridge missing');
+  return await window.verantyx.invoke(name, args || {});
+}
+
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+async function refreshAll() {
+  try {
+    const st = await inv('jgen.status');
+    const mode = await inv('council.get_cognition_mode');
+    document.getElementById('mode').value = mode.cognition_mode || 'normal';
+    document.getElementById('harness').checked = !!mode.use_vera_harness;
+    document.getElementById('status').innerHTML =
+      `<span class="chip ${st.jgen_loaded ? 'ok' : 'warn'}">JGEN ${st.jgen_loaded ? 'loaded' : 'not loaded'}</span> ` +
+      `<span class="chip">${esc(st.jgen_model || '—')}</span> ` +
+      `<span class="chip ${st.jgen_agent_server_running ? 'ok' : ''}">agent :${st.jgen_agent_server_port || '—'}</span> ` +
+      `<span class="chip">mode ${esc(st.cognition_mode)}</span> ` +
+      `<span class="chip">actuator ${esc(st.actuator)}</span>`;
+
+    const mods = await inv('vera.list_pending_domain_modules');
+    renderModules(mods.items || []);
+    const facts = await inv('vera.list_pending_ai_facts');
+    renderFacts(facts.items || []);
+    const tools = await inv('vera.list_pending_tool_calls');
+    renderTools(tools.items || []);
+
+    const mm = await inv('multimodal.status');
+    const paths = mm.paths || {};
+    document.getElementById('mmStatus').innerHTML =
+      `<span class="chip ${mm.jgen_loaded ? 'ok' : 'warn'}">JGEN ${mm.jgen_loaded ? 'on' : 'off'}</span> ` +
+      `<span class="chip">visual ${mm.visual_memory_enabled ? 'on' : 'off'} · ${mm.visual_memory_nodes ?? 0} nodes</span> ` +
+      `<span class="chip">UI-trace ${mm.ui_trace_moments ?? 0}</span>` +
+      (mm.keyframe_eye ? ` <span class="chip ${mm.keyframe_eye.actively_monitoring ? 'ok' : ''}">1fps ${mm.keyframe_eye.actively_monitoring ? 'watching ' + esc(mm.keyframe_eye.monitored_app || '') : (mm.keyframe_eye.allow ? 'armed' : 'off')}</span>` : '') +
+      `<div class="meta" style="margin-top:6px">aligned: ${esc(paths.aligned || '')}</div>` +
+      `<div class="meta">vision store: ${esc(paths.vision_store || '')}</div>` +
+      `<div class="meta">gap: ${esc(paths.gap || '')}</div>` +
+      `<div class="meta">keyframe: ${esc(paths.keyframe_eye || '')}</div>`;
+
+    const g = await inv('growth.explain');
+    document.getElementById('explain').textContent =
+      `M classify: ${(g.loops?.[0]?.classify || []).join(' · ')} · ` +
+      `O modes: ${(g.loops?.[1]?.modes || []).join(' · ')} · ` +
+      `not implemented: ${g.not_implemented}`;
+  } catch (e) {
+    document.getElementById('status').innerHTML = `<div class="err">${esc(e.message || e)}</div>`;
+  }
+}
+
+function renderModules(items) {
+  document.getElementById('modCount').textContent = items.length;
+  const root = document.getElementById('modules');
+  if (!items.length) { root.innerHTML = '<div class="meta" style="margin-top:8px">Empty</div>'; return; }
+  root.innerHTML = items.map(m => `
+    <div class="item">
+      <div class="title">#${m.index} ${esc(m.name)}</div>
+      <div class="meta">${esc(m.candidate_summary)}</div>
+      <div class="code">${esc(m.source_code).slice(0, 1200)}</div>
+      <div class="row" style="margin-top:6px">
+        <button class="primary" onclick="acceptMod(${m.index})">Accept</button>
+        <button class="danger" onclick="rejectMod(${m.index})">Reject</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderFacts(items) {
+  document.getElementById('factCount').textContent = items.length;
+  const root = document.getElementById('facts');
+  if (!items.length) { root.innerHTML = '<div class="meta" style="margin-top:8px">Empty</div>'; return; }
+  root.innerHTML = items.map(f => `
+    <div class="item">
+      <div class="title">#${f.index}</div>
+      <div class="meta">${esc(f.text)}</div>
+      <div class="row" style="margin-top:6px">
+        <button class="primary" onclick="acceptFact(${f.index})">Accept</button>
+        <button class="danger" onclick="rejectFact(${f.index})">Reject</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderTools(items) {
+  document.getElementById('toolCount').textContent = items.length;
+  const root = document.getElementById('tools');
+  if (!items.length) { root.innerHTML = '<div class="meta" style="margin-top:8px">Empty</div>'; return; }
+  root.innerHTML = items.map(t => `
+    <div class="item">
+      <div class="title">#${t.index} ${esc(t.tool_name)}</div>
+      <div class="meta">${esc(t.reason)}</div>
+      <div class="code">${esc(t.args_text).slice(0, 800)}</div>
+      <div class="row" style="margin-top:6px">
+        <button class="primary" onclick="acceptTool(${t.index})">Accept & run</button>
+        <button class="danger" onclick="rejectTool(${t.index})">Reject</button>
+      </div>
+    </div>`).join('');
+}
+
+async function setMode() {
+  const cognition_mode = document.getElementById('mode').value;
+  await inv('council.set_cognition_mode', { cognition_mode });
+  await refreshAll();
+}
+async function setHarness() {
+  await inv('council.set_vera_harness', { enabled: document.getElementById('harness').checked });
+  await refreshAll();
+}
+async function runHeartbeat() {
+  const btn = document.getElementById('hbBtn');
+  btn.disabled = true;
+  const log = document.getElementById('hbLog');
+  log.hidden = false;
+  log.textContent = 'Running…';
+  try {
+    const r = await inv('vera.heartbeat', {
+      cognition_mode: document.getElementById('mode').value,
+      llm_model: ''
+    });
+    log.textContent = typeof r.result === 'string' ? r.result : JSON.stringify(r, null, 2);
+    await refreshAll();
+  } catch (e) {
+    log.textContent = String(e.message || e);
+  } finally {
+    btn.disabled = false;
+  }
+}
+async function runWake() {
+  const log = document.getElementById('hbLog');
+  log.hidden = false;
+  log.textContent = 'Wake…';
+  try {
+    const r = await inv('vera.wake_summary', {});
+    log.textContent = typeof r.result === 'string' ? r.result : JSON.stringify(r, null, 2);
+  } catch (e) {
+    log.textContent = String(e.message || e);
+  }
+}
+async function acceptMod(i) { await inv('vera.accept_domain_module', { index: i }); await refreshAll(); }
+async function rejectMod(i) { await inv('vera.reject_domain_module', { index: i }); await refreshAll(); }
+async function acceptFact(i) { await inv('vera.accept_ai_fact', { index: i }); await refreshAll(); }
+async function rejectFact(i) { await inv('vera.reject_ai_fact', { index: i }); await refreshAll(); }
+async function acceptTool(i) { await inv('vera.accept_tool_call', { index: i }); await refreshAll(); }
+async function rejectTool(i) { await inv('vera.reject_tool_call', { index: i }); await refreshAll(); }
+
+async function ensureAgent() {
+  const log = document.getElementById('hbLog');
+  log.hidden = false;
+  try {
+    const r = await inv('jgen.ensure_agent_server', {});
+    log.textContent = JSON.stringify(r, null, 2);
+    await refreshAll();
+  } catch (e) {
+    log.textContent = String(e.message || e);
+  }
+}
+
+refreshAll();
+</script>
+</body>
+</html>

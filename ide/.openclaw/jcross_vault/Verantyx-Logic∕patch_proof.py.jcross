@@ -1,0 +1,140 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F651D23D ver:1778159595
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霜:1.0__TOKEN_霜_31_ _ASTNODE_霜:1.0__TOKEN_霜_86_ import _ASTNODE_霜:1.0__TOKEN_霜_90_
+
+_ASTNODE_霜:1.0__TOKEN_霜_31_ _ASTNODE_霜:1.0__TOKEN_霜_34_ import _ASTNODE_霜:1.0__TOKEN_霜_16_
+_ASTNODE_霜:1.0__TOKEN_霜_31_ _ASTNODE_霜:1.0__TOKEN_霜_59_ import _ASTNODE_廡:1.0__TOKEN_廡_6_, _ASTNODE_廡:1.0__TOKEN_廡_22_, _ASTNODE_廡:1.0__TOKEN_廡_5_, _ASTNODE_廡:1.0__TOKEN_廡_2_, _ASTNODE_計:1.0__TOKEN_縁_2_, _ASTNODE_廡:1.0__TOKEN_廡_20_, _ASTNODE_廡:1.0__TOKEN_廡_3_
+
+
+@_ASTNODE_霜:1.0__TOKEN_霜_16_
+class _ASTNODE_廡:1.0__TOKEN_廡_10_:
+    _ASTNODE_霜:1.0__TOKEN_霜_20_: _ASTNODE_廡:1.0__TOKEN_廡_5_[_ASTNODE_廡:1.0__TOKEN_廡_20_[_ASTNODE_霜:1.0__TOKEN_霜_2_, _ASTNODE_霜:1.0__TOKEN_霜_2_]]
+    _ASTNODE_霜:1.0__TOKEN_霜_57_: _ASTNODE_廡:1.0__TOKEN_廡_5_[_ASTNODE_廡:1.0__TOKEN_廡_20_[_ASTNODE_霜:1.0__TOKEN_霜_2_, _ASTNODE_霜:1.0__TOKEN_霜_2_]]
+// _ASTNODE_漂:0.6__TOKEN_FX_397_ [decoy-metadata]
+
+
+_ASTNODE_霜:1.0__TOKEN_霜_9_ _ASTNODE_霜:1.0__TOKEN_霜_3_(_ASTNODE_霜:1.0__TOKEN_霜_80_: _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_]) -> _ASTNODE_計:1.0__TOKEN_縁_2_[_ASTNODE_廡:1.0__TOKEN_廡_20_[_ASTNODE_霜:1.0__TOKEN_霜_2_, _ASTNODE_霜:1.0__TOKEN_霜_2_]]:
+    _ASTNODE_霜:1.0__TOKEN_霜_79_ = _ASTNODE_霜:1.0__TOKEN_霜_80_._ASTNODE_計:1.0__TOKEN_縁_3_("_ASTNODE_霜:1.0__TOKEN_霜_79_", []) or []
+    _ASTNODE_霜:1.0__TOKEN_霜_40_: _ASTNODE_計:1.0__TOKEN_縁_2_[_ASTNODE_廡:1.0__TOKEN_廡_20_[_ASTNODE_霜:1.0__TOKEN_霜_2_, _ASTNODE_霜:1.0__TOKEN_霜_2_]] = _ASTNODE_計:1.0__TOKEN_縁_1_()
+    for e in _ASTNODE_霜:1.0__TOKEN_霜_79_:
+        if _ASTNODE_霜:1.0__TOKEN_霜_49_(e, (_ASTNODE_霜:1.0__TOKEN_霜_25_, _ASTNODE_霜:1.0__TOKEN_霜_11_)) _ASTNODE_霜:1.0__TOKEN_霜_18_ _ASTNODE_霜:1.0__TOKEN_霜_73_(e) == 2:
+            a, b = e
+            if _ASTNODE_霜:1.0__TOKEN_霜_49_(a, _ASTNODE_霜:1.0__TOKEN_霜_2_) _ASTNODE_霜:1.0__TOKEN_霜_18_ _ASTNODE_霜:1.0__TOKEN_霜_49_(b, _ASTNODE_霜:1.0__TOKEN_霜_2_):
+                _ASTNODE_霜:1.0__TOKEN_霜_40_._ASTNODE_霜:1.0__TOKEN_霜_45_((a, b))
+    return _ASTNODE_霜:1.0__TOKEN_霜_40_
+
+
+_ASTNODE_霜:1.0__TOKEN_霜_9_ _ASTNODE_霜:1.0__TOKEN_霜_51_(_ASTNODE_霜:1.0__TOKEN_霜_80_: _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_], _ASTNODE_霜:1.0__TOKEN_霜_24_: _ASTNODE_廡:1.0__TOKEN_廡_10_) -> _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_]:
+    """
+    反例モデルに対して _ASTNODE_霜:1.0__TOKEN_霜_5_ の _ASTNODE_霜:1.0__TOKEN_霜_45_/_ASTNODE_霜:1.0__TOKEN_霜_56_ を適用した新しいモデルを返す。
+    _ASTNODE_霜:1.0__TOKEN_霜_46_ 等はそのまま残す（_ASTNODE_廡:1.0__TOKEN_廡_26_ 11 の目的は構造破壊の確認）。
+    """
+    _ASTNODE_霜:1.0__TOKEN_霜_19_ = _ASTNODE_霜:1.0__TOKEN_霜_2_(_ASTNODE_霜:1.0__TOKEN_霜_80_._ASTNODE_計:1.0__TOKEN_縁_3_("_ASTNODE_霜:1.0__TOKEN_霜_89_") or _ASTNODE_霜:1.0__TOKEN_霜_80_._ASTNODE_計:1.0__TOKEN_縁_3_("_ASTNODE_霜:1.0__TOKEN_霜_19_") or 0)
+    es = _ASTNODE_霜:1.0__TOKEN_霜_3_(_ASTNODE_霜:1.0__TOKEN_霜_80_)
+
+    for a, b in _ASTNODE_霜:1.0__TOKEN_霜_24_._ASTNODE_霜:1.0__TOKEN_霜_57_:
+        es._ASTNODE_霜:1.0__TOKEN_霜_92_((a, b))
+    for a, b in _ASTNODE_霜:1.0__TOKEN_霜_24_._ASTNODE_霜:1.0__TOKEN_霜_20_:
+// [metadata-stripped]
+        if 0 <= a < _ASTNODE_霜:1.0__TOKEN_霜_19_ _ASTNODE_霜:1.0__TOKEN_霜_18_ 0 <= b < _ASTNODE_霜:1.0__TOKEN_霜_19_:
+            es._ASTNODE_霜:1.0__TOKEN_霜_45_((a, b))
+
+    _ASTNODE_霜:1.0__TOKEN_霜_60_ = _ASTNODE_霜:1.0__TOKEN_霜_88_(_ASTNODE_霜:1.0__TOKEN_霜_80_)
+    _ASTNODE_霜:1.0__TOKEN_霜_60_["_ASTNODE_霜:1.0__TOKEN_霜_79_"] = [[a, b] for (a, b) in _ASTNODE_霜:1.0__TOKEN_霜_21_(es)]
+    return _ASTNODE_霜:1.0__TOKEN_霜_60_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// _ASTNODE_絡:0.9__TOKEN_YZ_957_ [decoy-metadata]
+_ASTNODE_霜:1.0__TOKEN_霜_9_ _ASTNODE_霜:1.0__TOKEN_霜_61_(_ASTNODE_霜:1.0__TOKEN_霜_80_: _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_], _ASTNODE_霜:1.0__TOKEN_霜_58_: _ASTNODE_霜:1.0__TOKEN_霜_87_) -> _ASTNODE_霜:1.0__TOKEN_霜_26_:
+    _ASTNODE_霜:1.0__TOKEN_霜_19_ = _ASTNODE_霜:1.0__TOKEN_霜_2_(_ASTNODE_霜:1.0__TOKEN_霜_80_._ASTNODE_計:1.0__TOKEN_縁_3_("_ASTNODE_霜:1.0__TOKEN_霜_89_") or _ASTNODE_霜:1.0__TOKEN_霜_80_._ASTNODE_計:1.0__TOKEN_縁_3_("_ASTNODE_霜:1.0__TOKEN_霜_19_") or 0)
+    es = _ASTNODE_霜:1.0__TOKEN_霜_3_(_ASTNODE_霜:1.0__TOKEN_霜_80_)
+
+    if _ASTNODE_霜:1.0__TOKEN_霜_58_ == "_ASTNODE_霜:1.0__TOKEN_霜_70_:_ASTNODE_霜:1.0__TOKEN_霜_82_":
+        return _ASTNODE_霜:1.0__TOKEN_霜_91_((i, i) in es for i in _ASTNODE_霜:1.0__TOKEN_霜_29_(_ASTNODE_霜:1.0__TOKEN_霜_19_))
+
+    if _ASTNODE_霜:1.0__TOKEN_霜_58_ == "_ASTNODE_霜:1.0__TOKEN_霜_70_:_ASTNODE_霜:1.0__TOKEN_霜_14_":
+// _ASTNODE_霜:0.4__TOKEN_KL_176_ [decoy-metadata]
+        return _ASTNODE_霜:1.0__TOKEN_霜_91_((b, a) in es for (a, b) in es)
+
+    if _ASTNODE_霜:1.0__TOKEN_霜_58_ == "_ASTNODE_霜:1.0__TOKEN_霜_70_:_ASTNODE_霜:1.0__TOKEN_霜_54_":
+// [metadata-stripped]
+        for (x, y) in es:
+            for (y2, z) in es:
+                if y2 == y _ASTNODE_霜:1.0__TOKEN_霜_18_ (x, z) _ASTNODE_霜:1.0__TOKEN_霜_78_ in es:
+                    return _ASTNODE_廡:1.0__TOKEN_廡_25_
+        return _ASTNODE_廡:1.0__TOKEN_廡_4_
+
+    if _ASTNODE_霜:1.0__TOKEN_霜_58_ == "_ASTNODE_霜:1.0__TOKEN_霜_70_:_ASTNODE_霜:1.0__TOKEN_霜_7_":
+// [metadata-stripped]
+        for (a, b) in es:
+            for (a2, c) in es:
+                if a2 == a _ASTNODE_霜:1.0__TOKEN_霜_18_ (b, c) _ASTNODE_霜:1.0__TOKEN_霜_78_ in es:
+                    return _ASTNODE_廡:1.0__TOKEN_廡_25_
+        return _ASTNODE_廡:1.0__TOKEN_廡_4_
+
+// [metadata-stripped]
+    return _ASTNODE_廡:1.0__TOKEN_廡_25_
+// _ASTNODE_縁:0.5__TOKEN_WA_804_ [decoy-metadata]
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_霜:1.0__TOKEN_霜_9_ _ASTNODE_漂:1.0__TOKEN_霜_12_(
+    _ASTNODE_霜:1.0__TOKEN_霜_63_: _ASTNODE_廡:1.0__TOKEN_廡_3_[[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_]], _ASTNODE_霜:1.0__TOKEN_霜_26_],
+    _ASTNODE_漂:1.0__TOKEN_霜_53_: _ASTNODE_霜:1.0__TOKEN_霜_87_,
+    _ASTNODE_霜:1.0__TOKEN_霜_10_: _ASTNODE_廡:1.0__TOKEN_廡_5_[_ASTNODE_霜:1.0__TOKEN_霜_87_], # _ASTNODE_廡:1.0__TOKEN_廡_8_ _ASTNODE_霜:1.0__TOKEN_霜_35_ for _ASTNODE_霜:1.0__TOKEN_霜_55_ _ASTNODE_霜:1.0__TOKEN_霜_84_ _ASTNODE_霜:1.0__TOKEN_霜_6_, _ASTNODE_霜:1.0__TOKEN_霜_64_ _ASTNODE_霜:1.0__TOKEN_霜_48_ for _ASTNODE_霜:1.0__TOKEN_霜_43_ _ASTNODE_霜:1.0__TOKEN_霜_71_ if _ASTNODE_霜:1.0__TOKEN_霜_32_
+// _ASTNODE_霜:0.6__TOKEN_YM_252_ [decoy-metadata]
+    _ASTNODE_霜:1.0__TOKEN_霜_1_: _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_],
+) -> _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_]:
+    """
+    _ASTNODE_廡:1.0__TOKEN_廡_7_ if _ASTNODE_霜:1.0__TOKEN_霜_1_ is _ASTNODE_廡:1.0__TOKEN_廡_15_ a _ASTNODE_霜:1.0__TOKEN_霜_22_.
+    _ASTNODE_霜:1.0__TOKEN_霜_63_(_ASTNODE_漂:1.0__TOKEN_霜_53_, _ASTNODE_霜:1.0__TOKEN_霜_84_) _ASTNODE_霜:1.0__TOKEN_霜_67_ _ASTNODE_廡:1.0__TOKEN_廡_4_ if _ASTNODE_霜:1.0__TOKEN_霜_84_ _ASTNODE_霜:1.0__TOKEN_霜_15_ _ASTNODE_漂:1.0__TOKEN_霜_53_ (_ASTNODE_廡:1.0__TOKEN_廡_17_), _ASTNODE_廡:1.0__TOKEN_廡_25_ if _ASTNODE_廡:1.0__TOKEN_廡_23_.
+    """
+    try:
+// [metadata-stripped]
+        _ASTNODE_霜:1.0__TOKEN_霜_27_ = _ASTNODE_霜:1.0__TOKEN_霜_63_(_ASTNODE_漂:1.0__TOKEN_霜_53_, _ASTNODE_霜:1.0__TOKEN_霜_1_)
+        
+        if _ASTNODE_霜:1.0__TOKEN_霜_27_:
+            return {
+                "_ASTNODE_霜:1.0__TOKEN_霜_76_": _ASTNODE_廡:1.0__TOKEN_廡_25_, 
+                "_ASTNODE_霜:1.0__TOKEN_霜_52_": "_ASTNODE_廡:1.0__TOKEN_廡_1_ _ASTNODE_霜:1.0__TOKEN_霜_13_ on _ASTNODE_霜:1.0__TOKEN_霜_50_ _ASTNODE_霜:1.0__TOKEN_霜_41_ _ASTNODE_霜:1.0__TOKEN_霜_84_ (_ASTNODE_霜:1.0__TOKEN_霜_22_ _ASTNODE_霜:1.0__TOKEN_霜_69_)."
+            }
+        else:
+            return {
+                "_ASTNODE_霜:1.0__TOKEN_霜_76_": _ASTNODE_廡:1.0__TOKEN_廡_4_, 
+                "_ASTNODE_霜:1.0__TOKEN_霜_52_": "_ASTNODE_廡:1.0__TOKEN_廡_1_ _ASTNODE_霜:1.0__TOKEN_霜_36_ _ASTNODE_霜:1.0__TOKEN_霜_44_ on _ASTNODE_霜:1.0__TOKEN_霜_50_ _ASTNODE_霜:1.0__TOKEN_霜_41_ _ASTNODE_霜:1.0__TOKEN_霜_84_."
+            }
+    _ASTNODE_霜:1.0__TOKEN_霜_30_ _ASTNODE_廡:1.0__TOKEN_廡_14_ as e:
+        return {"_ASTNODE_霜:1.0__TOKEN_霜_76_": _ASTNODE_廡:1.0__TOKEN_廡_24_, "_ASTNODE_霜:1.0__TOKEN_霜_52_": f"_ASTNODE_廡:1.0__TOKEN_廡_9_ _ASTNODE_霜:1.0__TOKEN_霜_37_ _ASTNODE_霜:1.0__TOKEN_霜_39_: {e}"}
+
+_ASTNODE_霜:1.0__TOKEN_霜_9_ _ASTNODE_計:1.0__TOKEN_霜_93_(
+    _ASTNODE_霜:1.0__TOKEN_霜_8_: _ASTNODE_廡:1.0__TOKEN_廡_3_, 
+    _ASTNODE_漂:1.0__TOKEN_霜_53_: _ASTNODE_霜:1.0__TOKEN_霜_87_, 
+    _ASTNODE_霜:1.0__TOKEN_霜_10_: _ASTNODE_廡:1.0__TOKEN_廡_5_[_ASTNODE_霜:1.0__TOKEN_霜_87_]
+) -> _ASTNODE_廡:1.0__TOKEN_廡_22_[_ASTNODE_霜:1.0__TOKEN_霜_87_, _ASTNODE_廡:1.0__TOKEN_廡_6_]:
+    """
+    engineの _ASTNODE_霜:1.0__TOKEN_霜_33_ を呼ぶための薄いラッパ。
+    返り値形式を統一:
+      { "_ASTNODE_霜:1.0__TOKEN_霜_66_": _ASTNODE_霜:1.0__TOKEN_霜_26_, "_ASTNODE_霜:1.0__TOKEN_霜_22_": _ASTNODE_霜:1.0__TOKEN_霜_88_|_ASTNODE_廡:1.0__TOKEN_廡_24_, "_ASTNODE_霜:1.0__TOKEN_霜_52_": _ASTNODE_霜:1.0__TOKEN_霜_87_ }
+    """
+// [metadata-stripped]
+// [metadata-stripped]
+    _ASTNODE_霜:1.0__TOKEN_霜_4_ = _ASTNODE_霜:1.0__TOKEN_霜_8_(_ASTNODE_漂:1.0__TOKEN_霜_53_=_ASTNODE_漂:1.0__TOKEN_霜_53_, _ASTNODE_霜:1.0__TOKEN_霜_10_=_ASTNODE_霜:1.0__TOKEN_霜_10_)
+// _ASTNODE_匸:0.7__TOKEN_ZF_368_ [decoy-metadata]
+    
+// [metadata-stripped]
+    _ASTNODE_霜:1.0__TOKEN_霜_75_ = (_ASTNODE_霜:1.0__TOKEN_霜_4_._ASTNODE_霜:1.0__TOKEN_霜_68_ == "_ASTNODE_霜:1.0__TOKEN_霜_66_")
+    return {
+        "_ASTNODE_霜:1.0__TOKEN_霜_66_": _ASTNODE_霜:1.0__TOKEN_霜_75_,
+        "_ASTNODE_霜:1.0__TOKEN_霜_22_": _ASTNODE_霜:1.0__TOKEN_霜_4_._ASTNODE_霜:1.0__TOKEN_霜_22_,
+        "_ASTNODE_霜:1.0__TOKEN_霜_52_": f"_ASTNODE_廡:1.0__TOKEN_廡_18_: {_ASTNODE_霜:1.0__TOKEN_霜_4_._ASTNODE_霜:1.0__TOKEN_霜_68_}. _ASTNODE_廡:1.0__TOKEN_廡_19_: {_ASTNODE_霜:1.0__TOKEN_霜_4_._ASTNODE_霜:1.0__TOKEN_霜_74_[-1] if _ASTNODE_霜:1.0__TOKEN_霜_4_._ASTNODE_霜:1.0__TOKEN_霜_74_ else ''}"
+    }
+// POLYMORPHIC_JCROSS_END

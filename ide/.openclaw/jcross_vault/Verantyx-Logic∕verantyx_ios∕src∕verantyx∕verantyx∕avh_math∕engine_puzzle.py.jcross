@@ -1,0 +1,49 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7178DD2E ver:1778162887
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_滴:1.0___node_滴_17__ _VERANTYX_滴:1.0___node_滴_33__ import _VERANTYX_滴:1.0___node_滴_3__
+// _VERANTYX_規:0.2___node_MW_183__ [decoy-metadata]
+
+_VERANTYX_滴:1.0___node_滴_17__ _VERANTYX_滴:1.0___node_滴_26__ import _VERANTYX_廊:1.0___node_廊_3__, _VERANTYX_廊:1.0___node_廊_1__, _VERANTYX_廊:1.0___node_廊_4__
+
+// _VERANTYX_絵:0.9___node_HM_611__ [decoy-metadata]
+// _VERANTYX_浮:0.6___node_YC_230__ [decoy-metadata]
+_VERANTYX_滴:1.0___node_滴_17__ _VERANTYX_滴:1.0___node_滴_8__._VERANTYX_滴:1.0___node_滴_19__._VERANTYX_滴:1.0___node_滴_13__ import _VERANTYX_滴:1.0___node_滴_18__
+_VERANTYX_滴:1.0___node_滴_17__ _VERANTYX_滴:1.0___node_滴_8__._VERANTYX_滴:1.0___node_滴_19__._VERANTYX_規:1.0___node_滴_4__ import _VERANTYX_滴:1.0___node_滴_29__
+
+
+class _VERANTYX_廊:1.0___node_廊_5__:
+    _VERANTYX_滴:1.0___node_滴_5__ _VERANTYX_滴:1.0___node_滴_1__(self, _VERANTYX_滴:1.0___node_滴_20__: _VERANTYX_滴:1.0___node_滴_30__) -> _VERANTYX_廊:1.0___node_廊_1__[_VERANTYX_滴:1.0___node_滴_30__, _VERANTYX_廊:1.0___node_廊_3__]:
+        g = _VERANTYX_滴:1.0___node_滴_18__(_VERANTYX_滴:1.0___node_滴_20__)
+        if any("_VERANTYX_滴:1.0___node_滴_25__" in n for n in g._VERANTYX_滴:1.0___node_滴_11__):
+            return {
+                "_VERANTYX_滴:1.0___node_滴_14__": "_VERANTYX_滴:1.0___node_滴_15__",
+                "_VERANTYX_滴:1.0___node_滴_2__": "式が壊れています（矢印の右辺が欠損）。\"A -> B\" の形で入力してください。",
+                "_VERANTYX_滴:1.0___node_滴_24__": {"_VERANTYX_滴:1.0___node_滴_27__": g._VERANTYX_滴:1.0___node_滴_11__, "_VERANTYX_浮:1.0___node_滴_28__": g._VERANTYX_浮:1.0___node_滴_28__},
+                "_VERANTYX_匼:1.0___node_滴_6__": {"_VERANTYX_滴:1.0___node_滴_16__": g._VERANTYX_滴:1.0___node_滴_31__},
+// _VERANTYX_滴:0.5___node_YK_640__ [decoy-metadata]
+                "_VERANTYX_滴:1.0___node_滴_7__": ["式を \"...\" で囲い、-> の右側が必ずあることを確認してください。"],
+            }
+
+        _VERANTYX_滴:1.0___node_滴_12__ = _VERANTYX_滴:1.0___node_滴_29__(g)
+        return {
+            "_VERANTYX_滴:1.0___node_滴_14__": _VERANTYX_滴:1.0___node_滴_12__._VERANTYX_滴:1.0___node_滴_14__,
+            "_VERANTYX_滴:1.0___node_滴_2__": _VERANTYX_滴:1.0___node_滴_12__._VERANTYX_滴:1.0___node_滴_2__,
+            "_VERANTYX_滴:1.0___node_滴_24__": _VERANTYX_滴:1.0___node_滴_12__._VERANTYX_滴:1.0___node_滴_24__,
+// _VERANTYX_凱:0.8___node_BE_476__ [decoy-metadata]
+            "_VERANTYX_匼:1.0___node_滴_6__": {"_VERANTYX_滴:1.0___node_滴_16__": _VERANTYX_滴:1.0___node_滴_12__._VERANTYX_滴:1.0___node_滴_16__},
+            "_VERANTYX_滴:1.0___node_滴_7__": self._VERANTYX_滴:1.0___node_滴_22__(_VERANTYX_滴:1.0___node_滴_12__._VERANTYX_滴:1.0___node_滴_14__),
+        }
+// _VERANTYX_規:0.5___node_WA_440__ [decoy-metadata]
+
+    _VERANTYX_滴:1.0___node_滴_5__ _VERANTYX_滴:1.0___node_滴_22__(self, _VERANTYX_滴:1.0___node_滴_14__: _VERANTYX_滴:1.0___node_滴_30__) -> _VERANTYX_廊:1.0___node_廊_4__[_VERANTYX_滴:1.0___node_滴_30__]:
+        if _VERANTYX_滴:1.0___node_滴_14__ == "_VERANTYX_滴:1.0___node_滴_9__":
+            return ["_VERANTYX_廊:1.0___node_廊_2__ Libraryへ保存"]
+        if _VERANTYX_滴:1.0___node_滴_14__ == "_VERANTYX_滴:1.0___node_滴_32__":
+            return ["反例として登録", "Assumptionを変更して再試行"]
+        if _VERANTYX_滴:1.0___node_滴_14__ == "_VERANTYX_滴:1.0___node_滴_10__":
+            return ["探索範囲(_VERANTYX_滴:1.0___node_滴_23__)を増やす", "仮定(_VERANTYX_滴:1.0___node_滴_21__/transitive等)を明示"]
+        return ["入力ルールを確認", "式を\"...\"で囲う"]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,410 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CE54DE87 ver:1778159781
+// ⚠️ One-time schema — expires after response
+
+_ID_霢:1.0__JCROSS_霢_59_ _ID_霢:1.0__JCROSS_霢_130_._ID_霢:1.0__JCROSS_霢_118_._ID_霢:1.0__JCROSS_霢_147_ import _ID_霢:1.0__JCROSS_霢_79_, _ID_霢:1.0__JCROSS_霢_112_, _ID_霢:1.0__JCROSS_霢_175_, _ID_霢:1.0__JCROSS_霢_126_, _ID_霢:1.0__JCROSS_霢_51_
+_ID_霢:1.0__JCROSS_霢_59_ _ID_霢:1.0__JCROSS_霢_130_._ID_霢:1.0__JCROSS_霢_118_ import _ID_霢:1.0__JCROSS_霢_16_
+_ID_霢:1.0__JCROSS_霢_59_ ._ID_霢:1.0__JCROSS_霢_5_ import (
+    _ID_廨:1.0__JCROSS_廨_22_,
+    _ID_霢:1.0__JCROSS_霢_90_,
+    _ID_霢:1.0__JCROSS_霢_189_,
+    _ID_霢:1.0__JCROSS_霢_170_,
+    _ID_霢:1.0__JCROSS_霢_115_,
+    _ID_規:1.0__JCROSS_霢_161_,
+    _ID_霢:1.0__JCROSS_霢_34_,
+    _ID_霢:1.0__JCROSS_霢_197_,
+    _ID_霢:1.0__JCROSS_霢_78_,
+    _ID_霢:1.0__JCROSS_霢_122_,
+    _ID_霢:1.0__JCROSS_霢_80_,
+    _ID_霢:1.0__JCROSS_霢_2_,
+    _ID_霢:1.0__JCROSS_霢_73_,
+    _ID_霢:1.0__JCROSS_霢_157_,
+)
+import re
+_ID_霢:1.0__JCROSS_霢_59_ _ID_霢:1.0__JCROSS_霢_38_._ID_霢:1.0__JCROSS_霢_72_ import _ID_廨:1.0__JCROSS_廨_23_
+_ID_霢:1.0__JCROSS_霢_59_ _ID_霢:1.0__JCROSS_霢_55_ import _ID_霢:1.0__JCROSS_霢_75_
+import _ID_霢:1.0__JCROSS_霢_28_
+
+
+_ID_霢:1.0__JCROSS_霢_156_ = _ID_霢:1.0__JCROSS_霢_28_._ID_規:1.0__JCROSS_廉_1_(_ID_霢:1.0__JCROSS_霢_70_)
+
+_ID_霢:1.0__JCROSS_霢_63_ = b"()<>[]{}%"  # / is _ID_霢:1.0__JCROSS_霢_180_ _ID_霢:1.0__JCROSS_霢_172_, _ID_霢:1.0__JCROSS_霢_205_ we _ID_霢:1.0__JCROSS_霢_201_ _ID_霢:1.0__JCROSS_霢_94_ of _ID_霢:1.0__JCROSS_霢_17_ _ID_霢:1.0__JCROSS_霢_180_ _ID_渦:1.0__JCROSS_霢_153_
+
+_ID_霢:1.0__JCROSS_霢_41_ = re._ID_霢:1.0__JCROSS_霢_4_(_ID_霢:1.0__JCROSS_霢_175_([b"[", _ID_霢:1.0__JCROSS_霢_75_, b"]*"]))
+_ID_霢:1.0__JCROSS_霢_32_ = _ID_霢:1.0__JCROSS_霢_175_([b"[^][(){}<>/%", _ID_霢:1.0__JCROSS_霢_75_, b"]*"])
+_ID_霢:1.0__JCROSS_霢_167_ = re._ID_霢:1.0__JCROSS_霢_4_(_ID_霢:1.0__JCROSS_霢_32_)
+_ID_霢:1.0__JCROSS_霢_50_ = re._ID_霢:1.0__JCROSS_霢_4_(b"%[^\n\r]*")
+
+// [metadata-stripped]
+_ID_霢:1.0__JCROSS_霢_173_ = rb"""
+	\(
+		(
+			(
+				[^()]*   \   [()]
+			)
+// _ID_規:0.7__JCROSS_EB_350_ [decoy-metadata]
+			|
+			(
+				[^()]*  \(   [^()]*  \)
+			)
+		)*
+		[^()]*
+	\)
+"""
+_ID_霢:1.0__JCROSS_霢_173_ = b""._ID_霢:1.0__JCROSS_霢_39_(_ID_霢:1.0__JCROSS_霢_173_._ID_霢:1.0__JCROSS_霢_144_())
+_ID_霢:1.0__JCROSS_霢_194_ = re._ID_霢:1.0__JCROSS_霢_4_(_ID_霢:1.0__JCROSS_霢_173_)
+
+_ID_霢:1.0__JCROSS_霢_102_ = re._ID_霢:1.0__JCROSS_霢_4_(_ID_霢:1.0__JCROSS_霢_175_([b"<[", _ID_霢:1.0__JCROSS_霢_75_, b"0-9A-Fa-f]*>"]))
+
+
+class _ID_沈:1.0__JCROSS_廨_2_(_ID_廨:1.0__JCROSS_廨_15_):
+    _ID_霢:1.0__JCROSS_霢_3_
+
+
+class _ID_廨:1.0__JCROSS_廨_17_(_ID_廨:1.0__JCROSS_廨_15_):
+    _ID_霢:1.0__JCROSS_霢_3_
+
+
+class _ID_沈:1.0__JCROSS_廨_1_(_ID_霢:1.0__JCROSS_霢_114_):
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_26_(self, _ID_霢:1.0__JCROSS_霢_160_=b"", _ID_霢:1.0__JCROSS_霢_196_="_ID_霢:1.0__JCROSS_霢_15_"):
+// [metadata-stripped]
+        _ID_霢:1.0__JCROSS_霢_160_ = _ID_霢:1.0__JCROSS_霢_126_(_ID_霢:1.0__JCROSS_霢_160_)
+        self._ID_霢:1.0__JCROSS_霢_160_ = _ID_霢:1.0__JCROSS_霢_160_
+        self._ID_霢:1.0__JCROSS_霢_67_ = _ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_160_)
+        self._ID_霢:1.0__JCROSS_霢_206_ = 0
+        self._ID_霢:1.0__JCROSS_霢_202_ = _ID_廨:1.0__JCROSS_廨_5_
+        self._ID_霢:1.0__JCROSS_霢_196_ = _ID_霢:1.0__JCROSS_霢_196_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_44_(self, n=-1):
+        """_ID_廨:1.0__JCROSS_廨_6_ at _ID_霢:1.0__JCROSS_霢_71_ 'n' _ID_霢:1.0__JCROSS_霢_29_ _ID_霢:1.0__JCROSS_霢_59_ _ID_霢:1.0__JCROSS_霢_208_ _ID_規:1.0__JCROSS_霢_40_, or _ID_霢:1.0__JCROSS_霢_30_ if _ID_霢:1.0__JCROSS_霢_208_ _ID_霢:1.0__JCROSS_霢_44_
+        _ID_霢:1.0__JCROSS_霢_106_ _ID_廨:1.0__JCROSS_廨_21_ _ID_渦:1.0__JCROSS_霢_168_ _ID_霢:1.0__JCROSS_霢_93_ 'n' _ID_霢:1.0__JCROSS_霢_29_.
+        If 'n' is _ID_霢:1.0__JCROSS_霢_49_ or _ID_霢:1.0__JCROSS_霢_116_, _ID_霢:1.0__JCROSS_霢_44_ _ID_霢:1.0__JCROSS_霢_146_ _ID_霢:1.0__JCROSS_霢_82_ _ID_霢:1.0__JCROSS_霢_133_ _ID_廨:1.0__JCROSS_廨_21_ is _ID_霢:1.0__JCROSS_霢_35_.
+        """
+        if self._ID_霢:1.0__JCROSS_霢_202_:
+            _ID_霢:1.0__JCROSS_霢_176_ _ID_廨:1.0__JCROSS_廨_20_("I/O _ID_霢:1.0__JCROSS_霢_135_ on _ID_霢:1.0__JCROSS_霢_202_ _ID_匳:1.0__JCROSS_霢_62_")
+        if n is _ID_廨:1.0__JCROSS_廨_16_ or n < 0:
+            _ID_霢:1.0__JCROSS_霢_149_ = self._ID_霢:1.0__JCROSS_霢_67_
+        else:
+            _ID_霢:1.0__JCROSS_霢_149_ = _ID_霢:1.0__JCROSS_霢_48_(self._ID_霢:1.0__JCROSS_霢_206_ + n, self._ID_霢:1.0__JCROSS_霢_67_)
+        r = self._ID_霢:1.0__JCROSS_霢_160_[self._ID_霢:1.0__JCROSS_霢_206_ : _ID_霢:1.0__JCROSS_霢_149_]
+        self._ID_霢:1.0__JCROSS_霢_206_ = _ID_霢:1.0__JCROSS_霢_149_
+        return r
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_31_(self):
+        if _ID_霢:1.0__JCROSS_霢_89_ self._ID_霢:1.0__JCROSS_霢_202_:
+            self._ID_霢:1.0__JCROSS_霢_202_ = _ID_廨:1.0__JCROSS_廨_7_
+            _ID_霢:1.0__JCROSS_霢_186_ self._ID_霢:1.0__JCROSS_霢_160_, self._ID_霢:1.0__JCROSS_霢_206_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_沈:1.0__JCROSS_廉_2_(
+        self,
+// [metadata-stripped]
+        _ID_霢:1.0__JCROSS_霢_67_=_ID_霢:1.0__JCROSS_霢_67_,
+        _ID_霢:1.0__JCROSS_霢_63_=_ID_霢:1.0__JCROSS_霢_63_,
+        _ID_霢:1.0__JCROSS_霢_145_=_ID_霢:1.0__JCROSS_霢_194_._ID_霢:1.0__JCROSS_霢_96_,
+        _ID_霢:1.0__JCROSS_霢_22_=_ID_霢:1.0__JCROSS_霢_102_._ID_霢:1.0__JCROSS_霢_96_,
+        _ID_霢:1.0__JCROSS_霢_12_=_ID_霢:1.0__JCROSS_霢_50_._ID_霢:1.0__JCROSS_霢_96_,
+        _ID_霢:1.0__JCROSS_霢_53_=_ID_霢:1.0__JCROSS_霢_167_._ID_霢:1.0__JCROSS_霢_96_,
+    ):
+        self._ID_霢:1.0__JCROSS_霢_107_()
+        if self._ID_霢:1.0__JCROSS_霢_206_ >= self._ID_霢:1.0__JCROSS_霢_67_:
+            return _ID_廨:1.0__JCROSS_廨_16_, _ID_廨:1.0__JCROSS_廨_16_
+        _ID_霢:1.0__JCROSS_霢_206_ = self._ID_霢:1.0__JCROSS_霢_206_
+        _ID_霢:1.0__JCROSS_霢_160_ = self._ID_霢:1.0__JCROSS_霢_160_
+        _ID_霢:1.0__JCROSS_霢_181_ = _ID_霢:1.0__JCROSS_霢_79_(_ID_霢:1.0__JCROSS_霢_112_(_ID_霢:1.0__JCROSS_霢_160_[_ID_霢:1.0__JCROSS_霢_206_]))
+        if _ID_霢:1.0__JCROSS_霢_181_ in _ID_霢:1.0__JCROSS_霢_63_:
+            if _ID_霢:1.0__JCROSS_霢_181_ in b"{}[]":
+                _ID_沈:1.0__JCROSS_霢_152_ = "_ID_霢:1.0__JCROSS_霢_103_"
+                _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_181_
+            _ID_渦:1.0__JCROSS_霢_199_ _ID_霢:1.0__JCROSS_霢_181_ == b"%":
+                _ID_沈:1.0__JCROSS_霢_152_ = "_ID_霢:1.0__JCROSS_霢_132_"
+                _, _ID_霢:1.0__JCROSS_霢_25_ = _ID_霢:1.0__JCROSS_霢_12_(_ID_霢:1.0__JCROSS_霢_160_, _ID_霢:1.0__JCROSS_霢_206_)._ID_霢:1.0__JCROSS_霢_117_()
+                _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_160_[_ID_霢:1.0__JCROSS_霢_206_:_ID_霢:1.0__JCROSS_霢_25_]
+            _ID_渦:1.0__JCROSS_霢_199_ _ID_霢:1.0__JCROSS_霢_181_ == b"(":
+                _ID_沈:1.0__JCROSS_霢_152_ = "_ID_霢:1.0__JCROSS_霢_52_"
+                m = _ID_霢:1.0__JCROSS_霢_145_(_ID_霢:1.0__JCROSS_霢_160_, _ID_霢:1.0__JCROSS_霢_206_)
+                if m is _ID_廨:1.0__JCROSS_廨_16_:
+                    _ID_霢:1.0__JCROSS_霢_176_ _ID_沈:1.0__JCROSS_廨_2_("_ID_霢:1.0__JCROSS_霢_166_ _ID_霢:1.0__JCROSS_霢_55_ at _ID_規:1.0__JCROSS_霢_36_ %d" % _ID_霢:1.0__JCROSS_霢_206_)
+                _, _ID_霢:1.0__JCROSS_霢_25_ = m._ID_霢:1.0__JCROSS_霢_117_()
+                _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_160_[_ID_霢:1.0__JCROSS_霢_206_:_ID_霢:1.0__JCROSS_霢_25_]
+            _ID_渦:1.0__JCROSS_霢_199_ _ID_霢:1.0__JCROSS_霢_181_ == b"<":
+                _ID_沈:1.0__JCROSS_霢_152_ = "_ID_霢:1.0__JCROSS_霢_10_"
+                m = _ID_霢:1.0__JCROSS_霢_22_(_ID_霢:1.0__JCROSS_霢_160_, _ID_霢:1.0__JCROSS_霢_206_)
+                if m is _ID_廨:1.0__JCROSS_廨_16_:
+                    _ID_霢:1.0__JCROSS_霢_176_ _ID_沈:1.0__JCROSS_廨_2_("_ID_霢:1.0__JCROSS_霢_166_ _ID_霢:1.0__JCROSS_霢_23_ at _ID_規:1.0__JCROSS_霢_36_ %d" % _ID_霢:1.0__JCROSS_霢_206_)
+                _, _ID_霢:1.0__JCROSS_霢_25_ = m._ID_霢:1.0__JCROSS_霢_117_()
+                _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_160_[_ID_霢:1.0__JCROSS_霢_206_:_ID_霢:1.0__JCROSS_霢_25_]
+            else:
+                _ID_霢:1.0__JCROSS_霢_176_ _ID_沈:1.0__JCROSS_廨_2_("_ID_霢:1.0__JCROSS_霢_166_ _ID_沈:1.0__JCROSS_霢_57_ at _ID_規:1.0__JCROSS_霢_36_ %d" % _ID_霢:1.0__JCROSS_霢_206_)
+        else:
+            if _ID_霢:1.0__JCROSS_霢_181_ == b"/":
+                _ID_沈:1.0__JCROSS_霢_152_ = "_ID_霢:1.0__JCROSS_霢_188_"
+                m = _ID_霢:1.0__JCROSS_霢_53_(_ID_霢:1.0__JCROSS_霢_160_, _ID_霢:1.0__JCROSS_霢_206_ + 1)
+            else:
+                _ID_沈:1.0__JCROSS_霢_152_ = ""
+                m = _ID_霢:1.0__JCROSS_霢_53_(_ID_霢:1.0__JCROSS_霢_160_, _ID_霢:1.0__JCROSS_霢_206_)
+            if m is _ID_廨:1.0__JCROSS_廨_16_:
+                _ID_霢:1.0__JCROSS_霢_176_ _ID_沈:1.0__JCROSS_廨_2_("_ID_霢:1.0__JCROSS_霢_166_ _ID_沈:1.0__JCROSS_霢_57_ at _ID_規:1.0__JCROSS_霢_36_ %d" % _ID_霢:1.0__JCROSS_霢_206_)
+            _, _ID_霢:1.0__JCROSS_霢_25_ = m._ID_霢:1.0__JCROSS_霢_117_()
+            _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_160_[_ID_霢:1.0__JCROSS_霢_206_:_ID_霢:1.0__JCROSS_霢_25_]
+        self._ID_霢:1.0__JCROSS_霢_206_ = _ID_霢:1.0__JCROSS_霢_206_ + _ID_霢:1.0__JCROSS_霢_67_(_ID_沈:1.0__JCROSS_霢_57_)
+        _ID_沈:1.0__JCROSS_霢_57_ = _ID_霢:1.0__JCROSS_霢_51_(_ID_沈:1.0__JCROSS_霢_57_, _ID_霢:1.0__JCROSS_霢_196_=self._ID_霢:1.0__JCROSS_霢_196_)
+        return _ID_沈:1.0__JCROSS_霢_152_, _ID_沈:1.0__JCROSS_霢_57_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_107_(self, _ID_霢:1.0__JCROSS_霢_27_=_ID_霢:1.0__JCROSS_霢_41_._ID_霢:1.0__JCROSS_霢_96_):
+        _, _ID_霢:1.0__JCROSS_霢_25_ = _ID_霢:1.0__JCROSS_霢_27_(self._ID_霢:1.0__JCROSS_霢_160_, self._ID_霢:1.0__JCROSS_霢_206_)._ID_霢:1.0__JCROSS_霢_117_()
+        self._ID_霢:1.0__JCROSS_霢_206_ = _ID_霢:1.0__JCROSS_霢_25_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_159_(self):
+        self._ID_霢:1.0__JCROSS_霢_206_ = self._ID_霢:1.0__JCROSS_霢_206_ + 1
+        self._ID_霢:1.0__JCROSS_霢_108_ = self._ID_霢:1.0__JCROSS_霢_160_[self._ID_霢:1.0__JCROSS_霢_206_ :]
+        self._ID_霢:1.0__JCROSS_霢_160_, R = _ID_霢:1.0__JCROSS_霢_16_._ID_霢:1.0__JCROSS_霢_174_(self._ID_霢:1.0__JCROSS_霢_108_, 55665)
+        self._ID_霢:1.0__JCROSS_霢_67_ = _ID_霢:1.0__JCROSS_霢_67_(self._ID_霢:1.0__JCROSS_霢_160_)
+        self._ID_霢:1.0__JCROSS_霢_206_ = 4
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_85_(self):
+        if _ID_霢:1.0__JCROSS_霢_89_ _ID_霢:1.0__JCROSS_霢_148_(self, "_ID_霢:1.0__JCROSS_霢_108_"):
+            return
+        self._ID_霢:1.0__JCROSS_霢_160_ = self._ID_霢:1.0__JCROSS_霢_108_
+        _ID_霢:1.0__JCROSS_霢_186_ self._ID_霢:1.0__JCROSS_霢_108_
+
+
+class _ID_規:1.0__JCROSS_廨_12_(_ID_廨:1.0__JCROSS_廨_22_):
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_26_(self, _ID_霢:1.0__JCROSS_霢_196_="_ID_霢:1.0__JCROSS_霢_15_"):
+        _ID_霢:1.0__JCROSS_霢_177_ = {}
+        _ID_霢:1.0__JCROSS_霢_7_ = {}
+        self._ID_霢:1.0__JCROSS_霢_196_ = _ID_霢:1.0__JCROSS_霢_196_
+        self._ID_霢:1.0__JCROSS_霢_110_ = [_ID_霢:1.0__JCROSS_霢_177_, _ID_霢:1.0__JCROSS_霢_7_]
+        self._ID_霢:1.0__JCROSS_霢_128_ = []
+        self._ID_霢:1.0__JCROSS_霢_137_ = 0
+        self._ID_霢:1.0__JCROSS_霢_98_ = _ID_霢:1.0__JCROSS_霢_2_()
+        self._ID_霢:1.0__JCROSS_霢_64_()
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_64_(self):
+        _ID_霢:1.0__JCROSS_霢_177_ = self._ID_霢:1.0__JCROSS_霢_110_[0]
+        _ID_霢:1.0__JCROSS_霢_177_["["] = _ID_霢:1.0__JCROSS_霢_177_["_ID_霢:1.0__JCROSS_霢_136_"] = self._ID_霢:1.0__JCROSS_霢_136_ = _ID_霢:1.0__JCROSS_霢_197_()
+        _ID_霢:1.0__JCROSS_霢_177_["]"] = _ID_霢:1.0__JCROSS_霢_122_("]", self._ID_霢:1.0__JCROSS_霢_66_)
+// _ID_沈:0.7__JCROSS_VA_553_ [decoy-metadata]
+        _ID_霢:1.0__JCROSS_霢_177_["true"] = _ID_霢:1.0__JCROSS_霢_170_(1)
+        _ID_霢:1.0__JCROSS_霢_177_["false"] = _ID_霢:1.0__JCROSS_霢_170_(0)
+        _ID_霢:1.0__JCROSS_霢_177_["_ID_廨:1.0__JCROSS_廨_3_"] = _ID_霢:1.0__JCROSS_霢_189_(_ID_霢:1.0__JCROSS_霢_90_)
+        _ID_霢:1.0__JCROSS_霢_177_["_ID_廨:1.0__JCROSS_廨_19_"] = _ID_霢:1.0__JCROSS_霢_115_({})
+        self._ID_霢:1.0__JCROSS_霢_109_(_ID_霢:1.0__JCROSS_霢_177_, self._ID_霢:1.0__JCROSS_霢_74_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_109_(self, _ID_霢:1.0__JCROSS_霢_177_, _ID_霢:1.0__JCROSS_霢_184_):
+        for _ID_霢:1.0__JCROSS_霢_124_ in _ID_霢:1.0__JCROSS_霢_86_(_ID_霢:1.0__JCROSS_霢_184_):
+            _ID_霢:1.0__JCROSS_霢_187_ = _ID_規:1.0__JCROSS_廉_3_(self, _ID_霢:1.0__JCROSS_霢_124_)
+            if _ID_霢:1.0__JCROSS_霢_8_(_ID_霢:1.0__JCROSS_霢_187_, _ID_廨:1.0__JCROSS_廨_23_) _ID_霢:1.0__JCROSS_霢_84_ _ID_霢:1.0__JCROSS_霢_124_[:3] == "_ID_霢:1.0__JCROSS_霢_158_":
+                _ID_霢:1.0__JCROSS_霢_124_ = _ID_霢:1.0__JCROSS_霢_124_[3:]
+                _ID_霢:1.0__JCROSS_霢_177_[_ID_霢:1.0__JCROSS_霢_124_] = _ID_霢:1.0__JCROSS_霢_122_(_ID_霢:1.0__JCROSS_霢_124_, _ID_霢:1.0__JCROSS_霢_187_)
+        for _ID_霢:1.0__JCROSS_霢_143_ in _ID_霢:1.0__JCROSS_霢_184_._ID_霢:1.0__JCROSS_霢_169_:
+            self._ID_霢:1.0__JCROSS_霢_109_(_ID_霢:1.0__JCROSS_霢_177_, _ID_霢:1.0__JCROSS_霢_143_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_54_(self, _ID_霢:1.0__JCROSS_霢_82_, _ID_規:1.0__JCROSS_廉_3_=_ID_規:1.0__JCROSS_廉_3_):
+        _ID_沈:1.0__JCROSS_霢_141_ = self._ID_沈:1.0__JCROSS_霢_141_ = _ID_沈:1.0__JCROSS_廨_1_(_ID_霢:1.0__JCROSS_霢_82_, self._ID_霢:1.0__JCROSS_霢_196_)
+        _ID_沈:1.0__JCROSS_廉_2_ = _ID_沈:1.0__JCROSS_霢_141_._ID_沈:1.0__JCROSS_廉_2_
+        _ID_沈:1.0__JCROSS_霢_47_ = self._ID_沈:1.0__JCROSS_霢_47_
+        _ID_霢:1.0__JCROSS_霢_165_ = self._ID_霢:1.0__JCROSS_霢_165_
+        try:
+            while 1:
+                _ID_沈:1.0__JCROSS_霢_152_, _ID_沈:1.0__JCROSS_霢_57_ = _ID_沈:1.0__JCROSS_廉_2_()
+                if _ID_霢:1.0__JCROSS_霢_89_ _ID_沈:1.0__JCROSS_霢_57_:
+                    break
+                if _ID_沈:1.0__JCROSS_霢_152_:
+                    _ID_規:1.0__JCROSS_霢_42_ = _ID_規:1.0__JCROSS_廉_3_(self, _ID_沈:1.0__JCROSS_霢_152_)
+                    _ID_霢:1.0__JCROSS_霢_114_ = _ID_規:1.0__JCROSS_霢_42_(_ID_沈:1.0__JCROSS_霢_57_)
+                else:
+                    _ID_霢:1.0__JCROSS_霢_114_ = _ID_沈:1.0__JCROSS_霢_47_(_ID_沈:1.0__JCROSS_霢_57_)
+                if _ID_霢:1.0__JCROSS_霢_114_ is _ID_霢:1.0__JCROSS_霢_89_ _ID_廨:1.0__JCROSS_廨_16_:
+                    _ID_霢:1.0__JCROSS_霢_165_(_ID_霢:1.0__JCROSS_霢_114_)
+            _ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_31_()
+            self._ID_沈:1.0__JCROSS_霢_141_ = _ID_廨:1.0__JCROSS_廨_16_
+        _ID_霢:1.0__JCROSS_霢_69_:
+            if self._ID_沈:1.0__JCROSS_霢_141_ is _ID_霢:1.0__JCROSS_霢_89_ _ID_廨:1.0__JCROSS_廨_16_:
+                _ID_霢:1.0__JCROSS_霢_156_._ID_霢:1.0__JCROSS_霢_192_(
+                    "ps _ID_霢:1.0__JCROSS_霢_14_:\n"
+                    "- - - - - - -\n"
+                    "%s\n"
+                    ">>>\n"
+                    "%s\n"
+                    "- - - - - - -",
+                    self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_160_[self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_206_ - 50 : self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_206_],
+                    self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_160_[self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_206_ : self._ID_沈:1.0__JCROSS_霢_141_._ID_霢:1.0__JCROSS_霢_206_ + 50],
+                )
+            _ID_霢:1.0__JCROSS_霢_176_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_165_(self, _ID_霢:1.0__JCROSS_霢_114_):
+        if _ID_霢:1.0__JCROSS_霢_89_ (self._ID_霢:1.0__JCROSS_霢_137_ or _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_13_ or _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_131_ == "_ID_霢:1.0__JCROSS_霢_46_"):
+            if _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_131_ != "_ID_霢:1.0__JCROSS_霢_9_":
+                _ID_霢:1.0__JCROSS_霢_114_ = self._ID_霢:1.0__JCROSS_霢_99_(_ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_88_)
+            if _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_13_:
+                self._ID_霢:1.0__JCROSS_霢_179_(_ID_霢:1.0__JCROSS_霢_114_)
+            else:
+                if _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_131_ == "_ID_霢:1.0__JCROSS_霢_46_":
+                    self._ID_霢:1.0__JCROSS_霢_140_(_ID_霢:1.0__JCROSS_霢_114_)
+                else:
+                    _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_129_()
+        else:
+            self._ID_霢:1.0__JCROSS_霢_179_(_ID_霢:1.0__JCROSS_霢_114_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_140_(self, _ID_霢:1.0__JCROSS_霢_125_):
+        _ID_霢:1.0__JCROSS_霢_165_ = self._ID_霢:1.0__JCROSS_霢_165_
+        for _ID_霢:1.0__JCROSS_霢_195_ in _ID_霢:1.0__JCROSS_霢_125_._ID_霢:1.0__JCROSS_霢_88_:
+            _ID_霢:1.0__JCROSS_霢_165_(_ID_霢:1.0__JCROSS_霢_195_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_99_(self, _ID_霢:1.0__JCROSS_霢_124_):
+        _ID_霢:1.0__JCROSS_霢_110_ = self._ID_霢:1.0__JCROSS_霢_110_
+        for i in _ID_霢:1.0__JCROSS_霢_121_(_ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_110_) - 1, -1, -1):
+            if _ID_霢:1.0__JCROSS_霢_124_ in _ID_霢:1.0__JCROSS_霢_110_[i]:
+                return _ID_霢:1.0__JCROSS_霢_110_[i][_ID_霢:1.0__JCROSS_霢_124_]
+        _ID_霢:1.0__JCROSS_霢_176_ _ID_廨:1.0__JCROSS_廨_17_("_ID_霢:1.0__JCROSS_霢_124_ _ID_霢:1.0__JCROSS_霢_14_: " + _ID_霢:1.0__JCROSS_霢_203_(_ID_霢:1.0__JCROSS_霢_124_))
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_沈:1.0__JCROSS_霢_47_(
+        self,
+        _ID_沈:1.0__JCROSS_霢_57_,
+        _ID_霢:1.0__JCROSS_霢_138_=_ID_霢:1.0__JCROSS_霢_138_,
+        _ID_霢:1.0__JCROSS_霢_150_=_ID_霢:1.0__JCROSS_霢_150_,
+        _ID_霢:1.0__JCROSS_霢_78_=_ID_霢:1.0__JCROSS_霢_78_,
+        _ID_規:1.0__JCROSS_霢_161_=_ID_規:1.0__JCROSS_霢_161_,
+        _ID_霢:1.0__JCROSS_霢_73_=_ID_霢:1.0__JCROSS_霢_73_,
+    ):
+        try:
+            _ID_霢:1.0__JCROSS_霢_100_ = _ID_霢:1.0__JCROSS_霢_138_(_ID_沈:1.0__JCROSS_霢_57_)
+        _ID_霢:1.0__JCROSS_霢_69_ (_ID_廨:1.0__JCROSS_廨_20_, _ID_廨:1.0__JCROSS_廨_9_):
+            try:
+                _ID_霢:1.0__JCROSS_霢_100_ = _ID_霢:1.0__JCROSS_霢_150_(_ID_沈:1.0__JCROSS_霢_57_)
+            _ID_霢:1.0__JCROSS_霢_69_ (_ID_廨:1.0__JCROSS_廨_20_, _ID_廨:1.0__JCROSS_廨_9_):
+                if "#" in _ID_沈:1.0__JCROSS_霢_57_:
+// _ID_匳:0.7__JCROSS_WE_244_ [decoy-metadata]
+                    _ID_霢:1.0__JCROSS_霢_92_ = _ID_沈:1.0__JCROSS_霢_57_._ID_霢:1.0__JCROSS_霢_104_("#")
+                    try:
+                        _ID_霢:1.0__JCROSS_霢_81_ = _ID_霢:1.0__JCROSS_霢_138_(_ID_沈:1.0__JCROSS_霢_57_[:_ID_霢:1.0__JCROSS_霢_92_])
+                        _ID_霢:1.0__JCROSS_霢_100_ = _ID_霢:1.0__JCROSS_霢_138_(_ID_沈:1.0__JCROSS_霢_57_[_ID_霢:1.0__JCROSS_霢_92_ + 1 :], _ID_霢:1.0__JCROSS_霢_81_)
+                    _ID_霢:1.0__JCROSS_霢_69_ (_ID_廨:1.0__JCROSS_廨_20_, _ID_廨:1.0__JCROSS_廨_9_):
+                        return _ID_霢:1.0__JCROSS_霢_78_(_ID_沈:1.0__JCROSS_霢_57_)
+                    else:
+                        return _ID_規:1.0__JCROSS_霢_161_(_ID_霢:1.0__JCROSS_霢_100_)
+                else:
+                    return _ID_霢:1.0__JCROSS_霢_78_(_ID_沈:1.0__JCROSS_霢_57_)
+            else:
+                return _ID_霢:1.0__JCROSS_霢_73_(_ID_霢:1.0__JCROSS_霢_100_)
+        else:
+            return _ID_規:1.0__JCROSS_霢_161_(_ID_霢:1.0__JCROSS_霢_100_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_132_(self, _ID_沈:1.0__JCROSS_霢_57_):
+        _ID_霢:1.0__JCROSS_霢_3_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_188_(self, _ID_沈:1.0__JCROSS_霢_57_):
+        return _ID_霢:1.0__JCROSS_霢_34_(_ID_沈:1.0__JCROSS_霢_57_[1:])
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_52_(self, _ID_沈:1.0__JCROSS_霢_57_):
+        return _ID_霢:1.0__JCROSS_霢_157_(_ID_沈:1.0__JCROSS_霢_57_[1:-1])
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_10_(self, _ID_沈:1.0__JCROSS_霢_57_):
+        _ID_霢:1.0__JCROSS_霢_113_ = ""._ID_霢:1.0__JCROSS_霢_39_(_ID_沈:1.0__JCROSS_霢_57_[1:-1]._ID_霢:1.0__JCROSS_霢_144_())
+        if _ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_113_) % 2:
+            _ID_霢:1.0__JCROSS_霢_113_ = _ID_霢:1.0__JCROSS_霢_113_ + "0"
+        _ID_霢:1.0__JCROSS_霢_6_ = []
+        for i in _ID_霢:1.0__JCROSS_霢_121_(0, _ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_113_), 2):
+            _ID_霢:1.0__JCROSS_霢_6_._ID_霢:1.0__JCROSS_霢_60_(_ID_霢:1.0__JCROSS_霢_56_(_ID_霢:1.0__JCROSS_霢_138_(_ID_霢:1.0__JCROSS_霢_113_[i : i + 2], 16)))
+        _ID_霢:1.0__JCROSS_霢_6_ = ""._ID_霢:1.0__JCROSS_霢_39_(_ID_霢:1.0__JCROSS_霢_6_)
+        return _ID_霢:1.0__JCROSS_霢_157_(_ID_霢:1.0__JCROSS_霢_6_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_103_(self, _ID_沈:1.0__JCROSS_霢_57_):
+        if _ID_沈:1.0__JCROSS_霢_57_ == "{":
+            self._ID_霢:1.0__JCROSS_霢_137_ = self._ID_霢:1.0__JCROSS_霢_137_ + 1
+            return self._ID_霢:1.0__JCROSS_霢_98_
+        _ID_渦:1.0__JCROSS_霢_199_ _ID_沈:1.0__JCROSS_霢_57_ == "}":
+            _ID_霢:1.0__JCROSS_霢_125_ = []
+            while 1:
+                _ID_霢:1.0__JCROSS_霢_24_ = self._ID_霢:1.0__JCROSS_霢_65_()
+// _ID_霢:0.8__JCROSS_FG_695_ [decoy-metadata]
+// _ID_霢:0.4__JCROSS_CX_674_ [decoy-metadata]
+                if _ID_霢:1.0__JCROSS_霢_24_ == self._ID_霢:1.0__JCROSS_霢_98_:
+                    break
+                _ID_霢:1.0__JCROSS_霢_125_._ID_霢:1.0__JCROSS_霢_60_(_ID_霢:1.0__JCROSS_霢_24_)
+            self._ID_霢:1.0__JCROSS_霢_137_ = self._ID_霢:1.0__JCROSS_霢_137_ - 1
+            _ID_霢:1.0__JCROSS_霢_125_._ID_霢:1.0__JCROSS_霢_123_()
+            return _ID_霢:1.0__JCROSS_霢_80_(_ID_霢:1.0__JCROSS_霢_125_)
+        _ID_渦:1.0__JCROSS_霢_199_ _ID_沈:1.0__JCROSS_霢_57_ == "[":
+            return self._ID_霢:1.0__JCROSS_霢_136_
+        _ID_渦:1.0__JCROSS_霢_199_ _ID_沈:1.0__JCROSS_霢_57_ == "]":
+            return _ID_霢:1.0__JCROSS_霢_78_("]")
+        else:
+            _ID_霢:1.0__JCROSS_霢_176_ _ID_沈:1.0__JCROSS_廨_2_("_ID_霢:1.0__JCROSS_霢_200_?")
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_179_(self, _ID_霢:1.0__JCROSS_霢_114_):
+        self._ID_霢:1.0__JCROSS_霢_128_._ID_霢:1.0__JCROSS_霢_60_(_ID_霢:1.0__JCROSS_霢_114_)
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_65_(self, *_ID_霢:1.0__JCROSS_霢_191_):
+        _ID_霢:1.0__JCROSS_霢_128_ = self._ID_霢:1.0__JCROSS_霢_128_
+        if _ID_霢:1.0__JCROSS_霢_89_ _ID_霢:1.0__JCROSS_霢_128_:
+            _ID_霢:1.0__JCROSS_霢_176_ _ID_廨:1.0__JCROSS_廨_17_("_ID_霢:1.0__JCROSS_霢_128_ _ID_霢:1.0__JCROSS_霢_21_")
+        _ID_霢:1.0__JCROSS_霢_114_ = _ID_霢:1.0__JCROSS_霢_128_[-1]
+        if _ID_霢:1.0__JCROSS_霢_191_:
+            if _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_131_ _ID_霢:1.0__JCROSS_霢_89_ in _ID_霢:1.0__JCROSS_霢_191_:
+                _ID_霢:1.0__JCROSS_霢_176_ _ID_廨:1.0__JCROSS_廨_17_(
+                    "_ID_霢:1.0__JCROSS_霢_20_, _ID_霢:1.0__JCROSS_霢_101_ %s, _ID_霢:1.0__JCROSS_霢_95_ %s" % (_ID_霢:1.0__JCROSS_霢_111_(_ID_霢:1.0__JCROSS_霢_191_), _ID_霢:1.0__JCROSS_霢_114_._ID_霢:1.0__JCROSS_霢_131_)
+                )
+        _ID_霢:1.0__JCROSS_霢_186_ _ID_霢:1.0__JCROSS_霢_128_[-1]
+        return _ID_霢:1.0__JCROSS_霢_114_
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_66_(self):
+        _ID_霢:1.0__JCROSS_霢_204_ = []
+        while 1:
+// _ID_匳:0.2__JCROSS_GL_476_ [decoy-metadata]
+            _ID_霢:1.0__JCROSS_霢_24_ = self._ID_霢:1.0__JCROSS_霢_65_()
+            if _ID_霢:1.0__JCROSS_霢_24_ == self._ID_霢:1.0__JCROSS_霢_136_:
+                break
+            _ID_霢:1.0__JCROSS_霢_204_._ID_霢:1.0__JCROSS_霢_60_(_ID_霢:1.0__JCROSS_霢_24_)
+        _ID_霢:1.0__JCROSS_霢_204_._ID_霢:1.0__JCROSS_霢_123_()
+        self._ID_霢:1.0__JCROSS_霢_179_(_ID_霢:1.0__JCROSS_霢_189_(_ID_霢:1.0__JCROSS_霢_204_))
+
+    _ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_31_(self):
+        """_ID_廨:1.0__JCROSS_廨_18_ _ID_霢:1.0__JCROSS_霢_68_ _ID_霢:1.0__JCROSS_霢_155_."""
+        _ID_霢:1.0__JCROSS_霢_186_ self._ID_霢:1.0__JCROSS_霢_128_
+        _ID_霢:1.0__JCROSS_霢_186_ self._ID_霢:1.0__JCROSS_霢_110_
+
+
+_ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_142_(_ID_霢:1.0__JCROSS_霢_195_):
+    tp = _ID_霢:1.0__JCROSS_霢_131_(_ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_)
+    if tp == _ID_霢:1.0__JCROSS_霢_154_:
+        _ID_霢:1.0__JCROSS_霢_61_ = {}
+        for _ID_沈:1.0__JCROSS_霢_37_, _ID_霢:1.0__JCROSS_霢_88_ in _ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_._ID_霢:1.0__JCROSS_霢_76_():
+            _ID_霢:1.0__JCROSS_霢_61_[_ID_沈:1.0__JCROSS_霢_37_] = _ID_霢:1.0__JCROSS_霢_142_(_ID_霢:1.0__JCROSS_霢_88_)
+    _ID_渦:1.0__JCROSS_霢_199_ tp == _ID_霢:1.0__JCROSS_霢_19_:
+        _ID_霢:1.0__JCROSS_霢_61_ = [_ID_廨:1.0__JCROSS_廨_16_] * _ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_)
+        for i in _ID_霢:1.0__JCROSS_霢_121_(_ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_)):
+            _ID_霢:1.0__JCROSS_霢_61_[i] = _ID_霢:1.0__JCROSS_霢_142_(_ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_[i])
+        if _ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_131_ == "_ID_霢:1.0__JCROSS_霢_46_":
+            _ID_霢:1.0__JCROSS_霢_61_ = _ID_霢:1.0__JCROSS_霢_198_(_ID_霢:1.0__JCROSS_霢_61_)
+    else:
+        _ID_霢:1.0__JCROSS_霢_61_ = _ID_霢:1.0__JCROSS_霢_195_._ID_霢:1.0__JCROSS_霢_88_
+    return _ID_霢:1.0__JCROSS_霢_61_
+
+
+_ID_霢:1.0__JCROSS_霢_45_ _ID_霢:1.0__JCROSS_霢_97_(_ID_霢:1.0__JCROSS_霢_82_, _ID_霢:1.0__JCROSS_霢_196_="_ID_霢:1.0__JCROSS_霢_15_"):
+    m = re._ID_霢:1.0__JCROSS_霢_18_(rb"/_ID_廨:1.0__JCROSS_廨_4_\s+/([^ \t\n\r]+)\s+_ID_霢:1.0__JCROSS_霢_45_", _ID_霢:1.0__JCROSS_霢_82_)
+    if m:
+        _ID_霢:1.0__JCROSS_霢_164_ = m._ID_霢:1.0__JCROSS_霢_151_(1)
+        _ID_霢:1.0__JCROSS_霢_164_ = _ID_霢:1.0__JCROSS_霢_164_._ID_霢:1.0__JCROSS_霢_127_()
+    else:
+        _ID_霢:1.0__JCROSS_霢_164_ = _ID_廨:1.0__JCROSS_廨_16_
+    _ID_規:1.0__JCROSS_霢_183_ = _ID_規:1.0__JCROSS_廨_12_(_ID_霢:1.0__JCROSS_霢_196_=_ID_霢:1.0__JCROSS_霢_196_)
+    _ID_規:1.0__JCROSS_霢_183_._ID_霢:1.0__JCROSS_霢_54_(
+        b"/_ID_廨:1.0__JCROSS_廨_10_ 4 _ID_霢:1.0__JCROSS_霢_154_ _ID_霢:1.0__JCROSS_霢_87_ /_ID_廨:1.0__JCROSS_廨_13_ _ID_廨:1.0__JCROSS_廨_3_ _ID_霢:1.0__JCROSS_霢_207_ _ID_霢:1.0__JCROSS_霢_83_ _ID_霢:1.0__JCROSS_霢_65_"
+    )
+    _ID_規:1.0__JCROSS_霢_183_._ID_霢:1.0__JCROSS_霢_54_(_ID_霢:1.0__JCROSS_霢_82_)
+    _ID_霢:1.0__JCROSS_霢_178_ = _ID_規:1.0__JCROSS_霢_183_._ID_霢:1.0__JCROSS_霢_110_[0]["_ID_廨:1.0__JCROSS_廨_19_"]._ID_霢:1.0__JCROSS_霢_88_
+    if _ID_霢:1.0__JCROSS_霢_164_ in _ID_霢:1.0__JCROSS_霢_178_:
+        _ID_霢:1.0__JCROSS_霢_193_ = _ID_霢:1.0__JCROSS_霢_178_[_ID_霢:1.0__JCROSS_霢_164_]
+    else:
+// [metadata-stripped]
+        _ID_霢:1.0__JCROSS_霢_105_ = _ID_霢:1.0__JCROSS_霢_19_(_ID_霢:1.0__JCROSS_霢_178_._ID_沈:1.0__JCROSS_霢_11_())
+        if _ID_霢:1.0__JCROSS_霢_67_(_ID_霢:1.0__JCROSS_霢_105_) > 1:
+            _ID_霢:1.0__JCROSS_霢_105_._ID_霢:1.0__JCROSS_霢_162_("_ID_廨:1.0__JCROSS_廨_10_")
+        _ID_霢:1.0__JCROSS_霢_105_._ID_霢:1.0__JCROSS_霢_1_()
+        _ID_霢:1.0__JCROSS_霢_193_ = _ID_霢:1.0__JCROSS_霢_178_[_ID_霢:1.0__JCROSS_霢_105_[0]]
+    _ID_規:1.0__JCROSS_霢_183_._ID_霢:1.0__JCROSS_霢_31_()
+    return _ID_霢:1.0__JCROSS_霢_142_(_ID_霢:1.0__JCROSS_霢_193_)
+
+// POLYMORPHIC_JCROSS_END

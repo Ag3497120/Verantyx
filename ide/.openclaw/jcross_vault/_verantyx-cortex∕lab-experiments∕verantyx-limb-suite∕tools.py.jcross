@@ -1,0 +1,199 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7687A23C ver:1778166551
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_霩:1.0__SYM_霩_147_
+import _VERANTYX_霩:1.0__SYM_霩_35_ as _VERANTYX_霩:1.0__SYM_霩_8_
+import re
+_VERANTYX_霩:1.0__SYM_霩_150_ _VERANTYX_霩:1.0__SYM_霩_52_ import _VERANTYX_庖:1.0__SYM_庖_37_
+import _VERANTYX_霩:1.0__SYM_霩_106_
+import _VERANTYX_霩:1.0__SYM_霩_128_
+import _VERANTYX_霩:1.0__SYM_霩_144_
+import _VERANTYX_霩:1.0__SYM_霩_105_
+
+_VERANTYX_庖:1.0__SYM_庖_30_ = _VERANTYX_庖:1.0__SYM_庖_37_("/_VERANTYX_庖:1.0__SYM_庖_15_/_VERANTYX_霩:1.0__SYM_霩_25_")
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_163_(p: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_庖:1.0__SYM_庖_37_:
+    rp = _VERANTYX_庖:1.0__SYM_庖_37_(p)._VERANTYX_業:1.0__SYM_霩_58_()._VERANTYX_霩:1.0__SYM_霩_64_()
+// [metadata-stripped]
+    return rp
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_68_(_VERANTYX_霩:1.0__SYM_霩_131_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+// [metadata-stripped]
+    try:
+        _VERANTYX_霩:1.0__SYM_霩_123_ = _VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_霩:1.0__SYM_霩_86_(_VERANTYX_霩:1.0__SYM_霩_131_, _VERANTYX_霩:1.0__SYM_霩_140_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_76_=_VERANTYX_霩:1.0__SYM_霩_15_(_VERANTYX_庖:1.0__SYM_庖_30_), _VERANTYX_霩:1.0__SYM_霩_121_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_69_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_152_=120)
+        return (_VERANTYX_霩:1.0__SYM_霩_123_._VERANTYX_霩:1.0__SYM_霩_132_ + "\n" + _VERANTYX_霩:1.0__SYM_霩_123_._VERANTYX_霩:1.0__SYM_霩_81_)._VERANTYX_霩:1.0__SYM_霩_107_() or "_VERANTYX_庖:1.0__SYM_庖_31_ _VERANTYX_霩:1.0__SYM_霩_10_ _VERANTYX_霩:1.0__SYM_霩_46_ (no _VERANTYX_霩:1.0__SYM_霩_56_)."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_庖:1.0__SYM_庖_12_:
+        return "_VERANTYX_庖:1.0__SYM_庖_38_: _VERANTYX_庖:1.0__SYM_庖_31_ _VERANTYX_霩:1.0__SYM_霩_133_ _VERANTYX_霩:1.0__SYM_霩_7_ _VERANTYX_業:1.0__SYM_霩_82_ 120s."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_匹:1.0__SYM_霩_47_(_VERANTYX_霩:1.0__SYM_霩_149_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_75_: _VERANTYX_霩:1.0__SYM_霩_120_ = _VERANTYX_庖:1.0__SYM_庖_36_, _VERANTYX_霩:1.0__SYM_霩_21_: _VERANTYX_霩:1.0__SYM_霩_120_ = _VERANTYX_庖:1.0__SYM_庖_36_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        p = _VERANTYX_霩:1.0__SYM_霩_163_(_VERANTYX_霩:1.0__SYM_霩_149_)
+        if _VERANTYX_霩:1.0__SYM_霩_18_ p._VERANTYX_匹:1.0__SYM_霩_27_(): return "_VERANTYX_庖:1.0__SYM_庖_38_: _VERANTYX_匹:1.0__SYM_庖_29_ _VERANTYX_霩:1.0__SYM_霩_18_ _VERANTYX_霩:1.0__SYM_霩_101_."
+        _VERANTYX_霩:1.0__SYM_霩_55_ = p._VERANTYX_霩:1.0__SYM_霩_28_("_VERANTYX_霩:1.0__SYM_霩_59_-8")._VERANTYX_霩:1.0__SYM_霩_154_()
+        
+// [metadata-stripped]
+        _VERANTYX_霩:1.0__SYM_霩_66_ = 500
+        
+        s = _VERANTYX_霩:1.0__SYM_霩_122_(0, _VERANTYX_霩:1.0__SYM_霩_75_ - 1) if _VERANTYX_霩:1.0__SYM_霩_75_ else 0
+        e = _VERANTYX_霩:1.0__SYM_霩_126_(_VERANTYX_霩:1.0__SYM_霩_88_(_VERANTYX_霩:1.0__SYM_霩_55_), _VERANTYX_霩:1.0__SYM_霩_21_) if _VERANTYX_霩:1.0__SYM_霩_21_ else _VERANTYX_霩:1.0__SYM_霩_88_(_VERANTYX_霩:1.0__SYM_霩_55_)
+        
+// [metadata-stripped]
+        if (e - s) > _VERANTYX_霩:1.0__SYM_霩_66_:
+            e = s + _VERANTYX_霩:1.0__SYM_霩_66_
+            _VERANTYX_霩:1.0__SYM_霩_113_ = _VERANTYX_霩:1.0__SYM_霩_55_[s:e]
+// _VERANTYX_渦:0.4__SYM_YD_831_ [decoy-metadata]
+            return "\n"._VERANTYX_霩:1.0__SYM_霩_63_(_VERANTYX_霩:1.0__SYM_霩_113_) + f"\n\n[システム警告: ファイルが長すぎるため、最初の{_VERANTYX_霩:1.0__SYM_霩_66_}行だけを表示しました。続きは _VERANTYX_霩:1.0__SYM_霩_75_ と _VERANTYX_霩:1.0__SYM_霩_21_ を使って読み取ってください。総行数: {_VERANTYX_霩:1.0__SYM_霩_88_(_VERANTYX_霩:1.0__SYM_霩_55_)}行]"
+        
+        _VERANTYX_霩:1.0__SYM_霩_113_ = _VERANTYX_霩:1.0__SYM_霩_55_[s:e]
+        return "\n"._VERANTYX_霩:1.0__SYM_霩_63_(_VERANTYX_霩:1.0__SYM_霩_113_)
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_匹:1.0__SYM_霩_136_(_VERANTYX_霩:1.0__SYM_霩_149_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_14_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_19_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        p = _VERANTYX_霩:1.0__SYM_霩_163_(_VERANTYX_霩:1.0__SYM_霩_149_)
+        if _VERANTYX_霩:1.0__SYM_霩_18_ p._VERANTYX_匹:1.0__SYM_霩_27_(): return "_VERANTYX_庖:1.0__SYM_庖_38_: _VERANTYX_匹:1.0__SYM_庖_29_ _VERANTYX_霩:1.0__SYM_霩_18_ _VERANTYX_霩:1.0__SYM_霩_101_."
+        _VERANTYX_霩:1.0__SYM_霩_104_ = p._VERANTYX_霩:1.0__SYM_霩_28_("_VERANTYX_霩:1.0__SYM_霩_59_-8")
+        if _VERANTYX_霩:1.0__SYM_霩_14_ _VERANTYX_霩:1.0__SYM_霩_18_ in _VERANTYX_霩:1.0__SYM_霩_104_:
+            return "_VERANTYX_庖:1.0__SYM_庖_38_: _VERANTYX_庖:1.0__SYM_庖_8_ _VERANTYX_霩:1.0__SYM_霩_14_ _VERANTYX_霩:1.0__SYM_霩_92_ _VERANTYX_霩:1.0__SYM_霩_18_ _VERANTYX_霩:1.0__SYM_霩_101_ in _VERANTYX_匹:1.0__SYM_霩_115_. _VERANTYX_庖:1.0__SYM_庖_21_ _VERANTYX_霩:1.0__SYM_霩_156_ _VERANTYX_霩:1.0__SYM_霩_78_ _VERANTYX_霩:1.0__SYM_霩_72_."
+        
+        _VERANTYX_霩:1.0__SYM_霩_17_ = _VERANTYX_霩:1.0__SYM_霩_104_._VERANTYX_霩:1.0__SYM_霩_19_(_VERANTYX_霩:1.0__SYM_霩_14_, _VERANTYX_霩:1.0__SYM_霩_19_, 1)
+        p._VERANTYX_霩:1.0__SYM_霩_102_(_VERANTYX_霩:1.0__SYM_霩_17_, "_VERANTYX_霩:1.0__SYM_霩_59_-8")
+        return f"_VERANTYX_庖:1.0__SYM_庖_3_ _VERANTYX_霩:1.0__SYM_霩_62_ {_VERANTYX_霩:1.0__SYM_霩_149_}."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_141_(_VERANTYX_霩:1.0__SYM_霩_148_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        _VERANTYX_霩:1.0__SYM_霩_150_ _VERANTYX_霩:1.0__SYM_霩_35_ import _VERANTYX_霩:1.0__SYM_霩_35_
+// _VERANTYX_匹:0.9__SYM_GF_354_ [decoy-metadata]
+        import os
+        _VERANTYX_霩:1.0__SYM_霩_40_ = os._VERANTYX_業:1.0__SYM_廉_1_()
+        os._VERANTYX_霩:1.0__SYM_霩_111_(_VERANTYX_霩:1.0__SYM_霩_15_(_VERANTYX_庖:1.0__SYM_庖_30_))
+        _VERANTYX_霩:1.0__SYM_霩_123_ = _VERANTYX_霩:1.0__SYM_霩_35_(_VERANTYX_霩:1.0__SYM_霩_148_, _VERANTYX_霩:1.0__SYM_霩_30_=_VERANTYX_庖:1.0__SYM_庖_1_)
+        os._VERANTYX_霩:1.0__SYM_霩_111_(_VERANTYX_霩:1.0__SYM_霩_40_)
+        return "\n"._VERANTYX_霩:1.0__SYM_霩_63_(_VERANTYX_霩:1.0__SYM_霩_123_[:100]) or "No _VERANTYX_霩:1.0__SYM_霩_83_ _VERANTYX_霩:1.0__SYM_霩_101_."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_22_(_VERANTYX_霩:1.0__SYM_霩_148_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_149_: _VERANTYX_霩:1.0__SYM_霩_15_ = ".") -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        _VERANTYX_霩:1.0__SYM_霩_123_ = _VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_霩:1.0__SYM_霩_86_(["rg", "-n", _VERANTYX_霩:1.0__SYM_霩_148_, _VERANTYX_霩:1.0__SYM_霩_149_], _VERANTYX_霩:1.0__SYM_霩_76_=_VERANTYX_霩:1.0__SYM_霩_15_(_VERANTYX_庖:1.0__SYM_庖_30_), _VERANTYX_霩:1.0__SYM_霩_121_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_69_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_152_=30)
+        return _VERANTYX_霩:1.0__SYM_霩_123_._VERANTYX_霩:1.0__SYM_霩_132_._VERANTYX_霩:1.0__SYM_霩_107_() or "No _VERANTYX_霩:1.0__SYM_霩_83_ _VERANTYX_霩:1.0__SYM_霩_101_."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+// [metadata-stripped]
+        _VERANTYX_霩:1.0__SYM_霩_123_ = _VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_霩:1.0__SYM_霩_86_(["_VERANTYX_霩:1.0__SYM_霩_137_", "-_VERANTYX_霩:1.0__SYM_霩_165_", _VERANTYX_霩:1.0__SYM_霩_148_, _VERANTYX_霩:1.0__SYM_霩_149_], _VERANTYX_霩:1.0__SYM_霩_76_=_VERANTYX_霩:1.0__SYM_霩_15_(_VERANTYX_庖:1.0__SYM_庖_30_), _VERANTYX_霩:1.0__SYM_霩_121_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_69_=_VERANTYX_庖:1.0__SYM_庖_1_, _VERANTYX_霩:1.0__SYM_霩_152_=30)
+        return _VERANTYX_霩:1.0__SYM_霩_123_._VERANTYX_霩:1.0__SYM_霩_132_._VERANTYX_霩:1.0__SYM_霩_107_() or "No _VERANTYX_霩:1.0__SYM_霩_83_ _VERANTYX_霩:1.0__SYM_霩_101_."
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_38_(_VERANTYX_霩:1.0__SYM_霩_145_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        _VERANTYX_霩:1.0__SYM_霩_150_ _VERANTYX_霩:1.0__SYM_霩_32_ import _VERANTYX_庖:1.0__SYM_庖_49_
+        _VERANTYX_霩:1.0__SYM_霩_158_ = _VERANTYX_庖:1.0__SYM_庖_49_ / "_VERANTYX_霩:1.0__SYM_霩_93_"
+        _VERANTYX_霩:1.0__SYM_霩_67_ = _VERANTYX_庖:1.0__SYM_庖_49_ / "_VERANTYX_霩:1.0__SYM_霩_13_"
+        _VERANTYX_霩:1.0__SYM_霩_83_ = []
+        for d in [_VERANTYX_霩:1.0__SYM_霩_158_, _VERANTYX_霩:1.0__SYM_霩_67_]:
+            if _VERANTYX_霩:1.0__SYM_霩_18_ d._VERANTYX_霩:1.0__SYM_霩_70_(): continue
+            for _VERANTYX_匹:1.0__SYM_霩_115_ in d._VERANTYX_霩:1.0__SYM_霩_139_("*.md"):
+                _VERANTYX_霩:1.0__SYM_霩_104_ = _VERANTYX_匹:1.0__SYM_霩_115_._VERANTYX_霩:1.0__SYM_霩_28_("_VERANTYX_霩:1.0__SYM_霩_59_-8")
+                if _VERANTYX_霩:1.0__SYM_霩_145_._VERANTYX_業:1.0__SYM_霩_49_() in _VERANTYX_霩:1.0__SYM_霩_104_._VERANTYX_業:1.0__SYM_霩_49_():
+                    _VERANTYX_霩:1.0__SYM_霩_83_._VERANTYX_霩:1.0__SYM_霩_2_(f"--- [_VERANTYX_庖:1.0__SYM_庖_48_ _VERANTYX_庖:1.0__SYM_庖_50_ IN {d._VERANTYX_霩:1.0__SYM_霩_23_._VERANTYX_業:1.0__SYM_霩_110_()}: {_VERANTYX_匹:1.0__SYM_霩_115_._VERANTYX_霩:1.0__SYM_霩_23_}] ---\n{_VERANTYX_霩:1.0__SYM_霩_104_}\n")
+        
+        return "\n"._VERANTYX_霩:1.0__SYM_霩_63_(_VERANTYX_霩:1.0__SYM_霩_83_) or f"No _VERANTYX_霩:1.0__SYM_霩_20_ _VERANTYX_霩:1.0__SYM_霩_101_ _VERANTYX_霩:1.0__SYM_霩_125_ _VERANTYX_霩:1.0__SYM_霩_145_: {_VERANTYX_霩:1.0__SYM_霩_145_}"
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+
+_VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_97_(_VERANTYX_霩:1.0__SYM_霩_143_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_104_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_24_: _VERANTYX_霩:1.0__SYM_霩_15_ = "_VERANTYX_霩:1.0__SYM_霩_90_") -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    try:
+        _VERANTYX_霩:1.0__SYM_霩_150_ _VERANTYX_霩:1.0__SYM_霩_32_ import _VERANTYX_霩:1.0__SYM_霩_108_, _VERANTYX_庖:1.0__SYM_庖_49_
+        if _VERANTYX_霩:1.0__SYM_霩_24_ _VERANTYX_霩:1.0__SYM_霩_18_ in ["_VERANTYX_霩:1.0__SYM_霩_57_", "_VERANTYX_霩:1.0__SYM_霩_90_", "_VERANTYX_霩:1.0__SYM_霩_93_", "_VERANTYX_霩:1.0__SYM_霩_13_"]:
+            return "_VERANTYX_庖:1.0__SYM_庖_38_: _VERANTYX_庖:1.0__SYM_庖_46_ _VERANTYX_霩:1.0__SYM_霩_24_. _VERANTYX_庖:1.0__SYM_庖_35_ _VERANTYX_霩:1.0__SYM_霩_150_ '_VERANTYX_霩:1.0__SYM_霩_57_', '_VERANTYX_霩:1.0__SYM_霩_90_', '_VERANTYX_霩:1.0__SYM_霩_93_', '_VERANTYX_霩:1.0__SYM_霩_13_'."
+        _VERANTYX_霩:1.0__SYM_霩_108_()
+        _VERANTYX_匹:1.0__SYM_霩_60_ = _VERANTYX_霩:1.0__SYM_霩_143_._VERANTYX_霩:1.0__SYM_霩_19_(" ", "_")._VERANTYX_業:1.0__SYM_霩_49_()
+        if _VERANTYX_霩:1.0__SYM_霩_18_ _VERANTYX_匹:1.0__SYM_霩_60_._VERANTYX_霩:1.0__SYM_霩_3_(".md"): _VERANTYX_匹:1.0__SYM_霩_60_ += ".md"
+        
+        _VERANTYX_匹:1.0__SYM_霩_4_ = _VERANTYX_庖:1.0__SYM_庖_49_ / _VERANTYX_霩:1.0__SYM_霩_24_ / _VERANTYX_匹:1.0__SYM_霩_60_
+        _VERANTYX_匹:1.0__SYM_霩_4_._VERANTYX_霩:1.0__SYM_霩_102_(_VERANTYX_霩:1.0__SYM_霩_104_, "_VERANTYX_霩:1.0__SYM_霩_59_-8")
+        return f"_VERANTYX_庖:1.0__SYM_庖_3_ _VERANTYX_匹:1.0__SYM_霩_29_ _VERANTYX_霩:1.0__SYM_霩_116_ to {_VERANTYX_霩:1.0__SYM_霩_24_}/{_VERANTYX_匹:1.0__SYM_霩_60_}."
+    _VERANTYX_霩:1.0__SYM_霩_31_ _VERANTYX_庖:1.0__SYM_庖_47_ as e:
+        return f"_VERANTYX_庖:1.0__SYM_庖_38_: {e}"
+class _VERANTYX_庖:1.0__SYM_庖_13_:
+    """
+    _VERANTYX_庖:1.0__SYM_庖_27_ _VERANTYX_霩:1.0__SYM_霩_78_ _VERANTYX_庖:1.0__SYM_庖_7_ for _VERANTYX_霩:1.0__SYM_霩_91_ AI: _VERANTYX_庖:1.0__SYM_庖_5_ _VERANTYX_霩:1.0__SYM_霩_91_ _VERANTYX_庖:1.0__SYM_庖_25_ _VERANTYX_霩:1.0__SYM_霩_80_-_VERANTYX_業:1.0__SYM_霩_39_ _VERANTYX_霩:1.0__SYM_霩_146_.
+    """
+    _VERANTYX_霩:1.0__SYM_霩_153_ = _VERANTYX_庖:1.0__SYM_庖_36_
+    _VERANTYX_霩:1.0__SYM_霩_129_ = _VERANTYX_霩:1.0__SYM_霩_128_._VERANTYX_庖:1.0__SYM_庖_33_()
+
+    _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_45_(_VERANTYX_霩:1.0__SYM_霩_9_):
+        _VERANTYX_霩:1.0__SYM_霩_142_ _VERANTYX_霩:1.0__SYM_霩_9_._VERANTYX_霩:1.0__SYM_霩_129_:
+            if _VERANTYX_霩:1.0__SYM_霩_9_._VERANTYX_霩:1.0__SYM_霩_153_ is _VERANTYX_庖:1.0__SYM_庖_36_:
+                _VERANTYX_霩:1.0__SYM_霩_9_._VERANTYX_霩:1.0__SYM_霩_153_ = super(_VERANTYX_庖:1.0__SYM_庖_13_, _VERANTYX_霩:1.0__SYM_霩_9_)._VERANTYX_霩:1.0__SYM_霩_45_(_VERANTYX_霩:1.0__SYM_霩_9_)
+                _VERANTYX_霩:1.0__SYM_霩_9_._VERANTYX_霩:1.0__SYM_霩_153_._VERANTYX_霩:1.0__SYM_霩_5_ = _VERANTYX_庖:1.0__SYM_庖_55_
+            return _VERANTYX_霩:1.0__SYM_霩_9_._VERANTYX_霩:1.0__SYM_霩_153_
+
+    _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_41_(self):
+        if self._VERANTYX_霩:1.0__SYM_霩_5_: return
+// _VERANTYX_業:0.2__SYM_HG_864_ [decoy-metadata]
+        self._VERANTYX_霩:1.0__SYM_霩_11_ = _VERANTYX_庖:1.0__SYM_庖_36_
+        self._VERANTYX_霩:1.0__SYM_霩_135_ = _VERANTYX_霩:1.0__SYM_霩_144_._VERANTYX_庖:1.0__SYM_庖_34_()
+        self._VERANTYX_霩:1.0__SYM_霩_77_ = _VERANTYX_霩:1.0__SYM_霩_144_._VERANTYX_庖:1.0__SYM_庖_34_()
+        self._VERANTYX_霩:1.0__SYM_霩_164_ = _VERANTYX_庖:1.0__SYM_庖_37_("/_VERANTYX_庖:1.0__SYM_庖_15_/_VERANTYX_霩:1.0__SYM_霩_25_/_VERANTYX_霩:1.0__SYM_霩_80_-_VERANTYX_霩:1.0__SYM_霩_160_/_VERANTYX_霩:1.0__SYM_霩_80_-_VERANTYX_業:1.0__SYM_霩_39_/_VERANTYX_霩:1.0__SYM_霩_1_/_VERANTYX_霩:1.0__SYM_霩_42_/_VERANTYX_霩:1.0__SYM_霩_80_-_VERANTYX_業:1.0__SYM_霩_39_")
+        self._VERANTYX_霩:1.0__SYM_霩_5_ = _VERANTYX_庖:1.0__SYM_庖_1_
+
+    _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_73_(self):
+        import _VERANTYX_霩:1.0__SYM_霩_162_
+        if self._VERANTYX_霩:1.0__SYM_霩_11_ _VERANTYX_霩:1.0__SYM_霩_78_ self._VERANTYX_霩:1.0__SYM_霩_11_._VERANTYX_霩:1.0__SYM_霩_6_() is _VERANTYX_庖:1.0__SYM_庖_36_:
+            return
+        
+        _VERANTYX_霩:1.0__SYM_霩_43_(f"[*] _VERANTYX_庖:1.0__SYM_庖_18_ _VERANTYX_庖:1.0__SYM_庖_41_ _VERANTYX_業:1.0__SYM_庖_11_ _VERANTYX_庖:1.0__SYM_庖_40_ at {self._VERANTYX_霩:1.0__SYM_霩_164_}...")
+        self._VERANTYX_霩:1.0__SYM_霩_11_ = _VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_庖:1.0__SYM_庖_54_(
+            [_VERANTYX_霩:1.0__SYM_霩_15_(self._VERANTYX_霩:1.0__SYM_霩_164_), "--_VERANTYX_霩:1.0__SYM_霩_134_"],
+            _VERANTYX_霩:1.0__SYM_霩_132_=_VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_庖:1.0__SYM_庖_53_,
+            _VERANTYX_霩:1.0__SYM_霩_81_=_VERANTYX_霩:1.0__SYM_霩_147_._VERANTYX_庖:1.0__SYM_庖_53_,
+            _VERANTYX_霩:1.0__SYM_霩_76_=_VERANTYX_霩:1.0__SYM_霩_15_(self._VERANTYX_霩:1.0__SYM_霩_164_._VERANTYX_霩:1.0__SYM_霩_53_._VERANTYX_霩:1.0__SYM_霩_53_)
+        )
+        _VERANTYX_霩:1.0__SYM_霩_105_._VERANTYX_霩:1.0__SYM_霩_155_(2) # _VERANTYX_庖:1.0__SYM_庖_43_ _VERANTYX_庖:1.0__SYM_庖_16_ _VERANTYX_業:1.0__SYM_庖_19_ to _VERANTYX_霩:1.0__SYM_霩_65_
+
+// _VERANTYX_霩:0.6__SYM_DW_140_ [decoy-metadata]
+    _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_業:1.0__SYM_霩_117_(self, _VERANTYX_霩:1.0__SYM_霩_48_, q):
+        for _VERANTYX_霩:1.0__SYM_霩_36_ in _VERANTYX_業:1.0__SYM_霩_109_(_VERANTYX_霩:1.0__SYM_霩_48_._VERANTYX_霩:1.0__SYM_霩_161_, ''):
+            q._VERANTYX_霩:1.0__SYM_霩_26_(_VERANTYX_霩:1.0__SYM_霩_36_)
+
+    async _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_96_(self, _VERANTYX_霩:1.0__SYM_霩_54_: _VERANTYX_霩:1.0__SYM_霩_15_, _VERANTYX_霩:1.0__SYM_霩_114_: _VERANTYX_霩:1.0__SYM_霩_127_):
+        self._VERANTYX_霩:1.0__SYM_霩_73_()
+        _VERANTYX_霩:1.0__SYM_霩_150_ _VERANTYX_霩:1.0__SYM_霩_151_ import _VERANTYX_庖:1.0__SYM_庖_28_
+        _VERANTYX_霩:1.0__SYM_霩_134_ = _VERANTYX_庖:1.0__SYM_庖_28_()
+        await _VERANTYX_霩:1.0__SYM_霩_134_._VERANTYX_霩:1.0__SYM_霩_16_()
+        _VERANTYX_霩:1.0__SYM_霩_123_ = await _VERANTYX_霩:1.0__SYM_霩_134_._VERANTYX_霩:1.0__SYM_霩_37_(_VERANTYX_霩:1.0__SYM_霩_54_, _VERANTYX_霩:1.0__SYM_霩_114_)
+// _VERANTYX_庖:0.1__SYM_VK_247_ [decoy-metadata]
+// _VERANTYX_匹:0.5__SYM_BC_867_ [decoy-metadata]
+        await _VERANTYX_霩:1.0__SYM_霩_134_._VERANTYX_霩:1.0__SYM_霩_33_()
+        return _VERANTYX_霩:1.0__SYM_霩_123_
+
+    _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_119_(self):
+        if self._VERANTYX_霩:1.0__SYM_霩_11_:
+            self._VERANTYX_霩:1.0__SYM_霩_11_._VERANTYX_霩:1.0__SYM_霩_50_()
+            self._VERANTYX_霩:1.0__SYM_霩_11_ = _VERANTYX_庖:1.0__SYM_庖_36_
+
+// [metadata-stripped]
+_VERANTYX_霩:1.0__SYM_霩_74_ = _VERANTYX_庖:1.0__SYM_庖_13_()
+
+async _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_159_(_VERANTYX_絡:1.0__SYM_霩_166_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    _VERANTYX_霩:1.0__SYM_霩_123_ = await _VERANTYX_霩:1.0__SYM_霩_74_._VERANTYX_霩:1.0__SYM_霩_96_("_VERANTYX_業:1.0__SYM_庖_11_._VERANTYX_霩:1.0__SYM_霩_99_", {"_VERANTYX_絡:1.0__SYM_霩_166_": _VERANTYX_絡:1.0__SYM_霩_166_})
+    return f"_VERANTYX_庖:1.0__SYM_庖_10_ to {_VERANTYX_絡:1.0__SYM_霩_166_}. _VERANTYX_庖:1.0__SYM_庖_45_ _VERANTYX_庖:1.0__SYM_庖_17_: {_VERANTYX_霩:1.0__SYM_霩_123_}"
+
+async _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_71_(_VERANTYX_霩:1.0__SYM_霩_94_: _VERANTYX_霩:1.0__SYM_霩_120_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    _VERANTYX_霩:1.0__SYM_霩_123_ = await _VERANTYX_霩:1.0__SYM_霩_74_._VERANTYX_霩:1.0__SYM_霩_96_("_VERANTYX_庖:1.0__SYM_庖_42_._VERANTYX_霩:1.0__SYM_霩_84_", {"id": _VERANTYX_霩:1.0__SYM_霩_94_})
+    return f"_VERANTYX_庖:1.0__SYM_庖_4_ _VERANTYX_霩:1.0__SYM_霩_61_ {_VERANTYX_霩:1.0__SYM_霩_94_}. _VERANTYX_庖:1.0__SYM_庖_17_: {_VERANTYX_霩:1.0__SYM_霩_123_}"
+
+async _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_100_(_VERANTYX_霩:1.0__SYM_霩_94_: _VERANTYX_霩:1.0__SYM_霩_120_, _VERANTYX_霩:1.0__SYM_霩_69_: _VERANTYX_霩:1.0__SYM_霩_15_) -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    _VERANTYX_霩:1.0__SYM_霩_123_ = await _VERANTYX_霩:1.0__SYM_霩_74_._VERANTYX_霩:1.0__SYM_霩_96_("_VERANTYX_庖:1.0__SYM_庖_42_._VERANTYX_霩:1.0__SYM_霩_95_", {"id": _VERANTYX_霩:1.0__SYM_霩_94_, "_VERANTYX_霩:1.0__SYM_霩_69_": _VERANTYX_霩:1.0__SYM_霩_69_})
+    return f"_VERANTYX_庖:1.0__SYM_庖_51_ '{_VERANTYX_霩:1.0__SYM_霩_69_}'. _VERANTYX_庖:1.0__SYM_庖_17_: {_VERANTYX_霩:1.0__SYM_霩_123_}"
+
+async _VERANTYX_霩:1.0__SYM_霩_85_ _VERANTYX_霩:1.0__SYM_霩_138_() -> _VERANTYX_霩:1.0__SYM_霩_15_:
+    _VERANTYX_霩:1.0__SYM_霩_123_ = await _VERANTYX_霩:1.0__SYM_霩_74_._VERANTYX_霩:1.0__SYM_霩_96_("_VERANTYX_庖:1.0__SYM_庖_42_._VERANTYX_業:1.0__SYM_廉_2_", {})
+    return f"_VERANTYX_庖:1.0__SYM_庖_9_ _VERANTYX_庖:1.0__SYM_庖_22_ _VERANTYX_庖:1.0__SYM_庖_32_:\n{_VERANTYX_霩:1.0__SYM_霩_106_._VERANTYX_霩:1.0__SYM_霩_157_(_VERANTYX_霩:1.0__SYM_霩_123_, _VERANTYX_霩:1.0__SYM_霩_103_=2)}"
+
+// POLYMORPHIC_JCROSS_END

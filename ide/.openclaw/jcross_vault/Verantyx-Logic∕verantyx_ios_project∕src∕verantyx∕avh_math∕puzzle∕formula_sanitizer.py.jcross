@@ -1,0 +1,44 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:84AA0223 ver:1778159674
+// ⚠️ One-time schema — expires after response
+
+import re
+__node_雰:1.0___TOKEN_雰_12_ __node_雰:1.0___TOKEN_雰_11_ import __node_廴:1.0___TOKEN_廴_2_
+
+__node_雰:1.0___TOKEN_雰_13_ __node_湧:1.0___TOKEN_雰_9_(__node_湧:1.0___TOKEN_雰_5_: __node_雰:1.0___TOKEN_雰_8_) -> __node_廴:1.0___TOKEN_廴_2_[__node_雰:1.0___TOKEN_雰_8_]:
+    """
+// __node_碑:0.5___TOKEN_XF_234_ [decoy-metadata]
+    文字列から論理式に関係のない自然文ノイズを除去し、純粋な式のみを抽出する。
+    """
+    if __node_雰:1.0___TOKEN_雰_14_ __node_湧:1.0___TOKEN_雰_5_:
+        return __node_廴:1.0___TOKEN_廴_1_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_業:0.1___TOKEN_LE_843_ [decoy-metadata]
+    __node_雰:1.0___TOKEN_雰_6_ = r'[\(\)\-\>\<\[\]\&\|\s\~□◇⊕A-Za-z0-9]+'
+// __node_碑:0.6___TOKEN_LE_516_ [decoy-metadata]
+    __node_雰:1.0___TOKEN_雰_7_ = re.__node_雰:1.0___TOKEN_雰_1_(__node_雰:1.0___TOKEN_雰_6_, __node_湧:1.0___TOKEN_雰_5_)
+    
+    if __node_雰:1.0___TOKEN_雰_14_ __node_雰:1.0___TOKEN_雰_7_:
+        return __node_廴:1.0___TOKEN_廴_1_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_業:0.8___TOKEN_WB_415_ [decoy-metadata]
+    __node_雰:1.0___TOKEN_雰_4_ = [m for m in __node_雰:1.0___TOKEN_雰_7_ if __node_雰:1.0___TOKEN_雰_3_(m) >= 2]
+    if __node_雰:1.0___TOKEN_雰_14_ __node_雰:1.0___TOKEN_雰_4_:
+        return __node_廴:1.0___TOKEN_廴_1_
+        
+// [metadata-stripped]
+    for c in __node_雰:1.0___TOKEN_雰_4_:
+        if any(op in c for op in ("->", "[]", "<>", "□", "◇")):
+            return c
+            
+// [metadata-stripped]
+// __node_雰:0.8___TOKEN_LY_360_ [decoy-metadata]
+// __node_廴:0.5___TOKEN_WX_529_ [decoy-metadata]
+    return __node_雰:1.0___TOKEN_雰_2_(__node_雰:1.0___TOKEN_雰_4_, __node_禁:1.0___TOKEN_雰_10_=__node_雰:1.0___TOKEN_雰_3_)
+
+// POLYMORPHIC_JCROSS_END

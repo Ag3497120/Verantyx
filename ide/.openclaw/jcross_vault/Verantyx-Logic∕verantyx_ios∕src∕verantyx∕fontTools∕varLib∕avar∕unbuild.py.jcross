@@ -1,0 +1,283 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CA05C38C ver:1778159873
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霜:1.0___node_霜_131__ _VERANTYX_霜:1.0___node_霜_213__._VERANTYX_霜:1.0___node_霜_85__._VERANTYX_霜:1.0___node_霜_27__ import _VERANTYX_廱:1.0___node_廱_31__
+_VERANTYX_霜:1.0___node_霜_131__ _VERANTYX_霜:1.0___node_霜_213__._VERANTYX_霜:1.0___node_霜_85__._VERANTYX_霜:1.0___node_霜_2__ import _VERANTYX_業:1.0___node_廱_9__
+_VERANTYX_霜:1.0___node_霜_131__ _VERANTYX_霜:1.0___node_霜_213__._VERANTYX_霜:1.0___node_霜_149__._VERANTYX_霜:1.0___node_霜_181__ import _VERANTYX_霜:1.0___node_霜_208__ as _VERANTYX_霜:1.0___node_霜_180__
+_VERANTYX_霜:1.0___node_霜_131__ _VERANTYX_霜:1.0___node_霜_12__ import _VERANTYX_霜:1.0___node_霜_124__
+import _VERANTYX_霜:1.0___node_霜_185__
+
+
+_VERANTYX_霜:1.0___node_霜_10__ _VERANTYX_霜:1.0___node_霜_78__(v, _VERANTYX_霜:1.0___node_霜_8__):
+    if v >= 0:
+        return _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_5__ + v * (_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_174__ - _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_5__)
+    else:
+        return _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_5__ + v * (_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_5__ - _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_88__)
+
+
+_VERANTYX_霜:1.0___node_霜_10__ _VERANTYX_霜:1.0___node_霜_38__(_VERANTYX_霜:1.0___node_霜_28__, _VERANTYX_霜:1.0___node_霜_48__, _VERANTYX_霜:1.0___node_霜_153__):
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    _VERANTYX_霜:1.0___node_霜_141__ = _VERANTYX_廱:1.0___node_廱_31__(_VERANTYX_霜:1.0___node_霜_28__, _VERANTYX_霜:1.0___node_霜_153__)
+    _VERANTYX_霜:1.0___node_霜_143__ = _VERANTYX_霜:1.0___node_霜_141__._VERANTYX_霜:1.0___node_霜_203__
+    _VERANTYX_霜:1.0___node_霜_197__ = _VERANTYX_霜:1.0___node_霜_141__._VERANTYX_霜:1.0___node_霜_36__
+    _VERANTYX_霜:1.0___node_霜_167__ = {_VERANTYX_霜:1.0___node_霜_160__(k._VERANTYX_霜:1.0___node_霜_46__()): _VERANTYX_廱:1.0___node_廱_33__ for k in _VERANTYX_霜:1.0___node_霜_48__}
+    for _VERANTYX_霜:1.0___node_霜_134__ in _VERANTYX_霜:1.0___node_霜_48__:
+        i = _VERANTYX_霜:1.0___node_霜_28__._VERANTYX_霜:1.0___node_霜_136__(_VERANTYX_霜:1.0___node_霜_134__)
+        i = _VERANTYX_霜:1.0___node_霜_143__[i]
+        _VERANTYX_霜:1.0___node_霜_37__ = _VERANTYX_霜:1.0___node_霜_197__[i]
+        _VERANTYX_霜:1.0___node_霜_123__ = _VERANTYX_業:1.0___node_縁_3__(_VERANTYX_霜:1.0___node_霜_37__._VERANTYX_蔽:1.0___node_霜_99__())
+        for _VERANTYX_霜:1.0___node_霜_50__, (_VERANTYX_霜:1.0___node_霜_133__, _, _VERANTYX_霜:1.0___node_霜_187__) in _VERANTYX_霜:1.0___node_霜_37__._VERANTYX_霜:1.0___node_霜_46__():
+            for v in (_VERANTYX_霜:1.0___node_霜_133__, _VERANTYX_霜:1.0___node_霜_187__):
+                if v in (-1, 0, 1):
+                    continue
+                for _VERANTYX_霜:1.0___node_霜_98__ in _VERANTYX_霜:1.0___node_霜_167__._VERANTYX_蔽:1.0___node_霜_99__():
+                    _VERANTYX_霜:1.0___node_霜_137__ = _VERANTYX_霜:1.0___node_霜_72__(_VERANTYX_霜:1.0___node_霜_98__)
+                    _VERANTYX_霜:1.0___node_霜_188__ = _VERANTYX_業:1.0___node_縁_3__(_VERANTYX_霜:1.0___node_霜_137__._VERANTYX_蔽:1.0___node_霜_99__())
+                    if _VERANTYX_霜:1.0___node_霜_188__ != _VERANTYX_霜:1.0___node_霜_123__:
+                        continue
+                    if _VERANTYX_霜:1.0___node_霜_50__ _VERANTYX_霜:1.0___node_霜_184__ in _VERANTYX_霜:1.0___node_霜_188__:
+                        continue
+                    if _VERANTYX_霜:1.0___node_霜_137__[_VERANTYX_霜:1.0___node_霜_50__] == v:
+// _VERANTYX_縁:0.4___node_YY_480__ [decoy-metadata]
+                        break
+                else:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    for _VERANTYX_霜:1.0___node_霜_126__ in _VERANTYX_霜:1.0___node_霜_76__(i - 1, -1, -1):
+                        _VERANTYX_霜:1.0___node_霜_6__ = _VERANTYX_霜:1.0___node_霜_197__[_VERANTYX_霜:1.0___node_霜_126__]
+                        _VERANTYX_霜:1.0___node_霜_54__ = _VERANTYX_業:1.0___node_縁_3__(_VERANTYX_霜:1.0___node_霜_6__._VERANTYX_蔽:1.0___node_霜_99__())
+                        if _VERANTYX_霜:1.0___node_霜_54__ != _VERANTYX_霜:1.0___node_霜_123__:
+                            continue
+// _VERANTYX_業:0.1___node_GM_982__ [decoy-metadata]
+                        if _VERANTYX_霜:1.0___node_霜_50__ _VERANTYX_霜:1.0___node_霜_184__ in _VERANTYX_霜:1.0___node_霜_54__:
+                            continue
+                        _VERANTYX_霜:1.0___node_霜_6__ = {
+                            k: _VERANTYX_霜:1.0___node_霜_207__ for k, (_, _VERANTYX_霜:1.0___node_霜_207__, _) in _VERANTYX_霜:1.0___node_霜_6__._VERANTYX_霜:1.0___node_霜_46__()
+                        }
+                        if _VERANTYX_霜:1.0___node_霜_6__[_VERANTYX_霜:1.0___node_霜_50__] == v:
+                            _VERANTYX_霜:1.0___node_霜_167__[_VERANTYX_霜:1.0___node_霜_160__(_VERANTYX_霜:1.0___node_霜_6__._VERANTYX_霜:1.0___node_霜_46__())] = _VERANTYX_廱:1.0___node_廱_33__
+                            break
+                    else:
+                        _VERANTYX_霜:1.0___node_霜_45__ _VERANTYX_廱:1.0___node_廱_28__, "No _VERANTYX_霜:1.0___node_霜_98__ _VERANTYX_霜:1.0___node_霜_182__"
+    return [_VERANTYX_霜:1.0___node_霜_72__(t) for t in _VERANTYX_霜:1.0___node_霜_167__._VERANTYX_蔽:1.0___node_霜_99__()]
+
+
+_VERANTYX_霜:1.0___node_霜_10__ _VERANTYX_霜:1.0___node_霜_57__(_VERANTYX_霜:1.0___node_霜_55__, _VERANTYX_霜:1.0___node_霜_13__=_VERANTYX_廱:1.0___node_廱_18__):
+    _VERANTYX_霜:1.0___node_霜_110__ = _VERANTYX_霜:1.0___node_霜_55__["_VERANTYX_霜:1.0___node_霜_42__"]._VERANTYX_霜:1.0___node_霜_73__
+    _VERANTYX_霜:1.0___node_霜_107__ = {a._VERANTYX_霜:1.0___node_霜_50__: a for a in _VERANTYX_霜:1.0___node_霜_110__}
+    _VERANTYX_霜:1.0___node_霜_153__ = [a._VERANTYX_霜:1.0___node_霜_50__ for a in _VERANTYX_霜:1.0___node_霜_110__]
+    _VERANTYX_霜:1.0___node_霜_198__ = {a._VERANTYX_霜:1.0___node_霜_50__: i for i, a in _VERANTYX_霜:1.0___node_霜_67__(_VERANTYX_霜:1.0___node_霜_110__)}
+    if "_VERANTYX_霜:1.0___node_霜_132__" _VERANTYX_霜:1.0___node_霜_184__ in _VERANTYX_霜:1.0___node_霜_55__:
+        return {}, {}
+    _VERANTYX_霜:1.0___node_霜_132__ = _VERANTYX_霜:1.0___node_霜_55__["_VERANTYX_霜:1.0___node_霜_132__"]
+    _VERANTYX_霜:1.0___node_霜_79__ = {
+        _VERANTYX_霜:1.0___node_霜_43__: _VERANTYX_霜:1.0___node_霜_204__
+        for _VERANTYX_霜:1.0___node_霜_43__, _VERANTYX_霜:1.0___node_霜_204__ in _VERANTYX_霜:1.0___node_霜_132__._VERANTYX_霜:1.0___node_霜_142__._VERANTYX_霜:1.0___node_霜_46__()
+        if _VERANTYX_霜:1.0___node_霜_204__ _VERANTYX_霜:1.0___node_霜_202__ _VERANTYX_霜:1.0___node_霜_204__ != {-1: -1, 0: 0, 1: 1}
+    }
+    _VERANTYX_霜:1.0___node_霜_24__ = []
+
+    if _VERANTYX_業:1.0___node_縁_6__(_VERANTYX_霜:1.0___node_霜_132__, "_VERANTYX_霜:1.0___node_霜_152__", 1) == 2:
+        _VERANTYX_霜:1.0___node_霜_2__ = _VERANTYX_霜:1.0___node_霜_132__._VERANTYX_霜:1.0___node_霜_89__._VERANTYX_廱:1.0___node_廱_21__
+        _VERANTYX_霜:1.0___node_霜_100__ = _VERANTYX_霜:1.0___node_霜_2__._VERANTYX_廱:1.0___node_廱_35__._VERANTYX_廱:1.0___node_廱_32__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+        _VERANTYX_霜:1.0___node_霜_48__ = {(): _VERANTYX_廱:1.0___node_廱_33__}  # _VERANTYX_廱:1.0___node_廱_13__ _VERANTYX_霜:1.0___node_霜_150__ it as an _VERANTYX_霜:1.0___node_霜_119__ _VERANTYX_業:1.0___node_縁_3__
+        _VERANTYX_霜:1.0___node_霜_69__ = _VERANTYX_業:1.0___node_縁_3__({()})
+        for _VERANTYX_霜:1.0___node_霜_117__ in _VERANTYX_霜:1.0___node_霜_2__._VERANTYX_廱:1.0___node_廱_16__:
+            _VERANTYX_霜:1.0___node_霜_40__ = _VERANTYX_霜:1.0___node_霜_117__._VERANTYX_廱:1.0___node_廱_30__
+            for _VERANTYX_霜:1.0___node_霜_212__ in _VERANTYX_霜:1.0___node_霜_40__:
+                _VERANTYX_霜:1.0___node_霜_86__ = []
+                _VERANTYX_霜:1.0___node_霜_105__ = []
+                _VERANTYX_霜:1.0___node_霜_101__ = _VERANTYX_霜:1.0___node_霜_100__[_VERANTYX_霜:1.0___node_霜_212__]
+                for _VERANTYX_霜:1.0___node_霜_90__, _VERANTYX_霜:1.0___node_霜_8__ in _VERANTYX_霜:1.0___node_霜_67__(_VERANTYX_霜:1.0___node_霜_101__._VERANTYX_廱:1.0___node_廱_19__):
+                    if _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_1__ == 0:
+                        continue
+                    _VERANTYX_霜:1.0___node_霜_50__ = _VERANTYX_霜:1.0___node_霜_153__[_VERANTYX_霜:1.0___node_霜_90__]
+                    _VERANTYX_霜:1.0___node_霜_86__._VERANTYX_霜:1.0___node_霜_170__((_VERANTYX_霜:1.0___node_霜_50__, _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_1__))
+                    _VERANTYX_業:1.0___node_霜_171__ = []
+                    if _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_10__ != 0:
+                        _VERANTYX_業:1.0___node_霜_171__._VERANTYX_霜:1.0___node_霜_170__((_VERANTYX_霜:1.0___node_霜_50__, _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_10__))
+                    if _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_29__ != 0:
+                        _VERANTYX_業:1.0___node_霜_171__._VERANTYX_霜:1.0___node_霜_170__((_VERANTYX_霜:1.0___node_霜_50__, _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_廱:1.0___node_廱_29__))
+                    _VERANTYX_霜:1.0___node_霜_105__._VERANTYX_霜:1.0___node_霜_170__(_VERANTYX_業:1.0___node_霜_171__)
+                _VERANTYX_霜:1.0___node_霜_105__ = _VERANTYX_業:1.0___node_縁_3__(_VERANTYX_霜:1.0___node_霜_124__(*_VERANTYX_霜:1.0___node_霜_105__))
+                _VERANTYX_霜:1.0___node_霜_86__ = _VERANTYX_霜:1.0___node_霜_160__(_VERANTYX_霜:1.0___node_霜_86__)
+                _VERANTYX_霜:1.0___node_霜_48__[_VERANTYX_霜:1.0___node_霜_86__] = _VERANTYX_廱:1.0___node_廱_33__
+                _VERANTYX_霜:1.0___node_霜_69__._VERANTYX_霜:1.0___node_霜_64__(_VERANTYX_霜:1.0___node_霜_86__)
+                _VERANTYX_霜:1.0___node_霜_69__._VERANTYX_霜:1.0___node_霜_56__(_VERANTYX_霜:1.0___node_霜_105__)
+
+// [metadata-stripped]
+        _VERANTYX_霜:1.0___node_霜_69__ = [
+// _VERANTYX_縁:0.2___node_DF_357__ [decoy-metadata]
+            _VERANTYX_霜:1.0___node_霜_72__(t)
+            for t in _VERANTYX_霜:1.0___node_霜_154__(
+                _VERANTYX_霜:1.0___node_霜_69__,
+// _VERANTYX_業:0.4___node_HA_288__ [decoy-metadata]
+                _VERANTYX_蔽:1.0___node_霜_195__=_VERANTYX_霜:1.0___node_霜_63__ t: (_VERANTYX_霜:1.0___node_霜_21__(t), _VERANTYX_霜:1.0___node_霜_160__(_VERANTYX_霜:1.0___node_霜_198__[_VERANTYX_霜:1.0___node_霜_43__] for _VERANTYX_霜:1.0___node_霜_43__, _ in t)),
+            )
+        ]
+        _VERANTYX_霜:1.0___node_霜_48__ = [_VERANTYX_霜:1.0___node_霜_72__(t) for t in _VERANTYX_霜:1.0___node_霜_48__._VERANTYX_蔽:1.0___node_霜_99__()]
+        _VERANTYX_霜:1.0___node_霜_69__ = _VERANTYX_霜:1.0___node_霜_38__(_VERANTYX_霜:1.0___node_霜_69__, _VERANTYX_霜:1.0___node_霜_35__(_VERANTYX_霜:1.0___node_霜_48__), _VERANTYX_霜:1.0___node_霜_153__)
+// _VERANTYX_縁:0.5___node_KC_608__ [decoy-metadata]
+
+// [metadata-stripped]
+        _VERANTYX_霜:1.0___node_霜_11__ = _VERANTYX_霜:1.0___node_霜_132__._VERANTYX_霜:1.0___node_霜_89__._VERANTYX_廱:1.0___node_廱_34__
+        _VERANTYX_業:1.0___node_霜_111__ = _VERANTYX_業:1.0___node_廱_9__(_VERANTYX_霜:1.0___node_霜_2__, _VERANTYX_霜:1.0___node_霜_110__)
+        for _VERANTYX_霜:1.0___node_霜_134__ in _VERANTYX_霜:1.0___node_霜_69__:
+            _VERANTYX_業:1.0___node_霜_111__._VERANTYX_業:1.0___node_縁_2__(_VERANTYX_霜:1.0___node_霜_134__)
+            _VERANTYX_霜:1.0___node_霜_80__ = {}
+            for _VERANTYX_霜:1.0___node_霜_90__, _VERANTYX_霜:1.0___node_霜_50__ in _VERANTYX_霜:1.0___node_霜_67__(_VERANTYX_霜:1.0___node_霜_153__):
+                _VERANTYX_霜:1.0___node_霜_108__ = _VERANTYX_霜:1.0___node_霜_90__
+                if _VERANTYX_霜:1.0___node_霜_11__ is _VERANTYX_霜:1.0___node_霜_184__ _VERANTYX_廱:1.0___node_廱_33__:
+                    _VERANTYX_霜:1.0___node_霜_108__ = _VERANTYX_霜:1.0___node_霜_11__[_VERANTYX_霜:1.0___node_霜_108__]
+                _VERANTYX_霜:1.0___node_霜_81__ = _VERANTYX_業:1.0___node_霜_111__[_VERANTYX_霜:1.0___node_霜_108__]
+                if _VERANTYX_霜:1.0___node_霜_81__ != 0:
+                    v = _VERANTYX_霜:1.0___node_霜_134__._VERANTYX_業:1.0___node_縁_4__(_VERANTYX_霜:1.0___node_霜_50__, 0)
+                    v = v + _VERANTYX_霜:1.0___node_霜_180__(_VERANTYX_霜:1.0___node_霜_81__, 14)
+// [metadata-stripped]
+// [metadata-stripped]
+                    _VERANTYX_霜:1.0___node_霜_80__[_VERANTYX_霜:1.0___node_霜_50__] = v
+            _VERANTYX_霜:1.0___node_霜_24__._VERANTYX_霜:1.0___node_霜_170__((_VERANTYX_霜:1.0___node_霜_134__, _VERANTYX_霜:1.0___node_霜_80__))
+
+// [metadata-stripped]
+        _VERANTYX_霜:1.0___node_霜_45__ _VERANTYX_霜:1.0___node_霜_24__[0][0] == {}
+        if _VERANTYX_霜:1.0___node_霜_24__[0][1] == {}:
+            _VERANTYX_霜:1.0___node_霜_24__._VERANTYX_霜:1.0___node_霜_16__(0)
+
+    if _VERANTYX_霜:1.0___node_霜_13__:
+        for _VERANTYX_霜:1.0___node_霜_43__, _VERANTYX_霜:1.0___node_霜_204__ in _VERANTYX_霜:1.0___node_霜_79__._VERANTYX_霜:1.0___node_霜_46__():
+            if _VERANTYX_霜:1.0___node_霜_43__ _VERANTYX_霜:1.0___node_霜_184__ in _VERANTYX_霜:1.0___node_霜_107__:
+                _VERANTYX_霜:1.0___node_霜_87__ _VERANTYX_廱:1.0___node_廱_2__(f"_VERANTYX_廱:1.0___node_廱_11__ _VERANTYX_霜:1.0___node_霜_8__ _VERANTYX_霜:1.0___node_霜_43__ {_VERANTYX_霜:1.0___node_霜_43__}")
+            _VERANTYX_霜:1.0___node_霜_129__ = _VERANTYX_霜:1.0___node_霜_63__ v: _VERANTYX_霜:1.0___node_霜_78__(v, _VERANTYX_霜:1.0___node_霜_107__[_VERANTYX_霜:1.0___node_霜_43__])
+            _VERANTYX_霜:1.0___node_霜_79__[_VERANTYX_霜:1.0___node_霜_43__] = {_VERANTYX_霜:1.0___node_霜_129__(k): _VERANTYX_霜:1.0___node_霜_129__(v) for k, v in _VERANTYX_霜:1.0___node_霜_204__._VERANTYX_霜:1.0___node_霜_46__()}
+
+        for i, (_VERANTYX_霜:1.0___node_霜_34__, _VERANTYX_霜:1.0___node_霜_122__) in _VERANTYX_霜:1.0___node_霜_67__(_VERANTYX_霜:1.0___node_霜_24__):
+            _VERANTYX_霜:1.0___node_霜_34__ = {
+                _VERANTYX_霜:1.0___node_霜_43__: _VERANTYX_霜:1.0___node_霜_78__(_VERANTYX_霜:1.0___node_霜_39__, _VERANTYX_霜:1.0___node_霜_107__[_VERANTYX_霜:1.0___node_霜_43__]) for _VERANTYX_霜:1.0___node_霜_43__, _VERANTYX_霜:1.0___node_霜_39__ in _VERANTYX_霜:1.0___node_霜_34__._VERANTYX_霜:1.0___node_霜_46__()
+            }
+            _VERANTYX_霜:1.0___node_霜_122__ = {
+                _VERANTYX_霜:1.0___node_霜_43__: _VERANTYX_霜:1.0___node_霜_78__(_VERANTYX_霜:1.0___node_霜_39__, _VERANTYX_霜:1.0___node_霜_107__[_VERANTYX_霜:1.0___node_霜_43__]) for _VERANTYX_霜:1.0___node_霜_43__, _VERANTYX_霜:1.0___node_霜_39__ in _VERANTYX_霜:1.0___node_霜_122__._VERANTYX_霜:1.0___node_霜_46__()
+// _VERANTYX_霜:0.4___node_KB_904__ [decoy-metadata]
+            }
+            _VERANTYX_霜:1.0___node_霜_24__[i] = (_VERANTYX_霜:1.0___node_霜_34__, _VERANTYX_霜:1.0___node_霜_122__)
+
+    return _VERANTYX_霜:1.0___node_霜_79__, _VERANTYX_霜:1.0___node_霜_24__
+
+
+_VERANTYX_霜:1.0___node_霜_10__ _VERANTYX_霜:1.0___node_霜_60__(_VERANTYX_霜:1.0___node_霜_55__, f=_VERANTYX_霜:1.0___node_霜_185__._VERANTYX_霜:1.0___node_霜_148__):
+    _VERANTYX_霜:1.0___node_霜_42__ = _VERANTYX_霜:1.0___node_霜_55__["_VERANTYX_霜:1.0___node_霜_42__"]
+    _VERANTYX_霜:1.0___node_霜_73__ = _VERANTYX_霜:1.0___node_霜_42__._VERANTYX_霜:1.0___node_霜_73__
+    _VERANTYX_霜:1.0___node_霜_142__, _VERANTYX_霜:1.0___node_霜_24__ = _VERANTYX_霜:1.0___node_霜_57__(_VERANTYX_霜:1.0___node_霜_55__)
+
+    if "_VERANTYX_霜:1.0___node_霜_199__" in _VERANTYX_霜:1.0___node_霜_55__:
+        _VERANTYX_霜:1.0___node_霜_199__ = _VERANTYX_霜:1.0___node_霜_55__["_VERANTYX_霜:1.0___node_霜_199__"]
+        _VERANTYX_霜:1.0___node_霜_125__ = {_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_50__: _VERANTYX_霜:1.0___node_霜_199__._VERANTYX_業:1.0___node_縁_1__(_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_200__) for _VERANTYX_霜:1.0___node_霜_8__ in _VERANTYX_霜:1.0___node_霜_73__}
+    else:
+        _VERANTYX_霜:1.0___node_霜_125__ = {a._VERANTYX_霜:1.0___node_霜_50__: a._VERANTYX_霜:1.0___node_霜_50__ for a in _VERANTYX_霜:1.0___node_霜_73__}
+
+    _VERANTYX_霜:1.0___node_霜_47__("<?_VERANTYX_霜:1.0___node_霜_97__ _VERANTYX_霜:1.0___node_霜_209__='1.0' _VERANTYX_霜:1.0___node_霜_164__='_VERANTYX_廱:1.0___node_廱_7__-8'?>", _VERANTYX_匸:1.0___node_霜_1__=f)
+    _VERANTYX_霜:1.0___node_霜_47__('<_VERANTYX_霜:1.0___node_霜_211__ _VERANTYX_滲:1.0___node_霜_20__="5.1">', _VERANTYX_匸:1.0___node_霜_1__=f)
+    _VERANTYX_霜:1.0___node_霜_47__("  <_VERANTYX_霜:1.0___node_霜_73__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+    for _VERANTYX_霜:1.0___node_霜_8__ in _VERANTYX_霜:1.0___node_霜_73__:
+
+        _VERANTYX_霜:1.0___node_霜_104__ = _VERANTYX_霜:1.0___node_霜_125__[_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_50__]
+
+        _VERANTYX_霜:1.0___node_霜_19__ = (_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_88__, _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_5__, _VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_174__)
+        _VERANTYX_霜:1.0___node_霜_19__ = [_VERANTYX_霜:1.0___node_霜_113__(v) if v == _VERANTYX_霜:1.0___node_霜_113__(v) else v for v in _VERANTYX_霜:1.0___node_霜_19__]
+
+        _VERANTYX_霜:1.0___node_霜_107__ = _VERANTYX_霜:1.0___node_霜_142__._VERANTYX_業:1.0___node_縁_4__(_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_50__)
+        _VERANTYX_霜:1.0___node_霜_23__ = "/>" if _VERANTYX_霜:1.0___node_霜_107__ is _VERANTYX_廱:1.0___node_廱_33__ else ">"
+
+        _VERANTYX_霜:1.0___node_霜_47__(
+            f'    <_VERANTYX_霜:1.0___node_霜_8__ _VERANTYX_霜:1.0___node_霜_43__="{_VERANTYX_霜:1.0___node_霜_8__._VERANTYX_霜:1.0___node_霜_50__}" _VERANTYX_霜:1.0___node_霜_199__="{_VERANTYX_霜:1.0___node_霜_104__}" _VERANTYX_霜:1.0___node_霜_106__="{_VERANTYX_霜:1.0___node_霜_19__[0]}" _VERANTYX_霜:1.0___node_霜_190__="{_VERANTYX_霜:1.0___node_霜_19__[2]}" _VERANTYX_霜:1.0___node_霜_3__="{_VERANTYX_霜:1.0___node_霜_19__[1]}"{_VERANTYX_霜:1.0___node_霜_23__}',
+            _VERANTYX_匸:1.0___node_霜_1__=f,
+        )
+        if _VERANTYX_霜:1.0___node_霜_107__ is _VERANTYX_霜:1.0___node_霜_184__ _VERANTYX_廱:1.0___node_廱_33__:
+            for k in _VERANTYX_霜:1.0___node_霜_154__(_VERANTYX_霜:1.0___node_霜_107__._VERANTYX_蔽:1.0___node_霜_99__()):
+                v = _VERANTYX_霜:1.0___node_霜_107__[k]
+                k = _VERANTYX_霜:1.0___node_霜_113__(k) if k == _VERANTYX_霜:1.0___node_霜_113__(k) else k
+                v = _VERANTYX_霜:1.0___node_霜_113__(v) if v == _VERANTYX_霜:1.0___node_霜_113__(v) else v
+                _VERANTYX_霜:1.0___node_霜_47__(f'      <_VERANTYX_霜:1.0___node_霜_215__ _VERANTYX_霜:1.0___node_霜_151__="{k}" _VERANTYX_霜:1.0___node_霜_26__="{v}"/>', _VERANTYX_匸:1.0___node_霜_1__=f)
+            _VERANTYX_霜:1.0___node_霜_47__("    </_VERANTYX_霜:1.0___node_霜_8__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+    if _VERANTYX_霜:1.0___node_霜_24__:
+        _VERANTYX_霜:1.0___node_霜_47__("    <_VERANTYX_霜:1.0___node_霜_24__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+        for _VERANTYX_霜:1.0___node_霜_34__, _VERANTYX_霜:1.0___node_霜_122__ in _VERANTYX_霜:1.0___node_霜_24__:
+            _VERANTYX_霜:1.0___node_霜_47__("      <_VERANTYX_霜:1.0___node_霜_203__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+            _VERANTYX_霜:1.0___node_霜_47__("        <_VERANTYX_霜:1.0___node_霜_151__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+            for _VERANTYX_霜:1.0___node_霜_43__ in _VERANTYX_霜:1.0___node_霜_154__(_VERANTYX_霜:1.0___node_霜_34__._VERANTYX_蔽:1.0___node_霜_99__()):
+                v = _VERANTYX_霜:1.0___node_霜_34__[_VERANTYX_霜:1.0___node_霜_43__]
+                v = _VERANTYX_霜:1.0___node_霜_113__(v) if v == _VERANTYX_霜:1.0___node_霜_113__(v) else v
+                _VERANTYX_霜:1.0___node_霜_47__(
+                    f'          <_VERANTYX_霜:1.0___node_霜_146__ _VERANTYX_霜:1.0___node_霜_199__="{_VERANTYX_霜:1.0___node_霜_125__[_VERANTYX_霜:1.0___node_霜_43__]}" _VERANTYX_霜:1.0___node_霜_114__="{v}"/>',
+                    _VERANTYX_匸:1.0___node_霜_1__=f,
+                )
+            _VERANTYX_霜:1.0___node_霜_47__("        </_VERANTYX_霜:1.0___node_霜_151__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+            _VERANTYX_霜:1.0___node_霜_47__("        <_VERANTYX_霜:1.0___node_霜_26__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+            for _VERANTYX_霜:1.0___node_霜_43__ in _VERANTYX_霜:1.0___node_霜_154__(_VERANTYX_霜:1.0___node_霜_122__._VERANTYX_蔽:1.0___node_霜_99__()):
+                v = _VERANTYX_霜:1.0___node_霜_122__[_VERANTYX_霜:1.0___node_霜_43__]
+                v = _VERANTYX_霜:1.0___node_霜_113__(v) if v == _VERANTYX_霜:1.0___node_霜_113__(v) else v
+                _VERANTYX_霜:1.0___node_霜_47__(
+                    f'          <_VERANTYX_霜:1.0___node_霜_146__ _VERANTYX_霜:1.0___node_霜_199__="{_VERANTYX_霜:1.0___node_霜_125__[_VERANTYX_霜:1.0___node_霜_43__]}" _VERANTYX_霜:1.0___node_霜_114__="{v}"/>',
+                    _VERANTYX_匸:1.0___node_霜_1__=f,
+                )
+            _VERANTYX_霜:1.0___node_霜_47__("        </_VERANTYX_霜:1.0___node_霜_26__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+            _VERANTYX_霜:1.0___node_霜_47__("      </_VERANTYX_霜:1.0___node_霜_203__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+        _VERANTYX_霜:1.0___node_霜_47__("    </_VERANTYX_霜:1.0___node_霜_24__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+    _VERANTYX_霜:1.0___node_霜_47__("  </_VERANTYX_霜:1.0___node_霜_73__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+    _VERANTYX_霜:1.0___node_霜_47__("</_VERANTYX_霜:1.0___node_霜_211__>", _VERANTYX_匸:1.0___node_霜_1__=f)
+
+
+_VERANTYX_霜:1.0___node_霜_10__ _VERANTYX_霜:1.0___node_霜_173__(_VERANTYX_霜:1.0___node_霜_121__=_VERANTYX_廱:1.0___node_廱_33__):
+    """_VERANTYX_廱:1.0___node_廱_6__ `_VERANTYX_霜:1.0___node_霜_132__` _VERANTYX_霜:1.0___node_霜_89__ as a _VERANTYX_霜:1.0___node_霜_211__ _VERANTYX_霜:1.0___node_霜_44__."""
+
+    if _VERANTYX_霜:1.0___node_霜_121__ is _VERANTYX_廱:1.0___node_廱_33__:
+        _VERANTYX_霜:1.0___node_霜_121__ = _VERANTYX_霜:1.0___node_霜_185__._VERANTYX_霜:1.0___node_霜_192__[1:]
+
+    _VERANTYX_霜:1.0___node_霜_131__ _VERANTYX_霜:1.0___node_霜_213__._VERANTYX_霜:1.0___node_霜_139__ import _VERANTYX_廱:1.0___node_廱_24__
+    import _VERANTYX_霜:1.0___node_霜_15__
+
+    _VERANTYX_業:1.0___node_霜_158__ = _VERANTYX_霜:1.0___node_霜_15__._VERANTYX_業:1.0___node_廱_8__(
+        "_VERANTYX_霜:1.0___node_霜_193__ _VERANTYX_霜:1.0___node_霜_85__._VERANTYX_霜:1.0___node_霜_132__._VERANTYX_霜:1.0___node_霜_60__",
+        _VERANTYX_霜:1.0___node_霜_120__="_VERANTYX_廱:1.0___node_廱_6__ `_VERANTYX_霜:1.0___node_霜_132__` _VERANTYX_霜:1.0___node_霜_89__ as a _VERANTYX_霜:1.0___node_霜_211__ _VERANTYX_霜:1.0___node_霜_44__.",
+    )
+    _VERANTYX_業:1.0___node_霜_158__._VERANTYX_霜:1.0___node_霜_178__("_VERANTYX_霜:1.0___node_霜_55__", _VERANTYX_霜:1.0___node_霜_74__="_VERANTYX_霜:1.0___node_霜_70__._VERANTYX_霜:1.0___node_霜_95__", _VERANTYX_霜:1.0___node_霜_77__="_VERANTYX_廱:1.0___node_廱_3__-_VERANTYX_霜:1.0___node_霜_55__ _VERANTYX_匸:1.0___node_霜_1__.")
+    _VERANTYX_霜:1.0___node_霜_205__ = _VERANTYX_業:1.0___node_霜_158__._VERANTYX_霜:1.0___node_霜_62__(_VERANTYX_霜:1.0___node_霜_121__)
+
+    _VERANTYX_霜:1.0___node_霜_55__ = _VERANTYX_廱:1.0___node_廱_24__(_VERANTYX_霜:1.0___node_霜_205__._VERANTYX_霜:1.0___node_霜_55__)
+    if "_VERANTYX_霜:1.0___node_霜_42__" _VERANTYX_霜:1.0___node_霜_184__ in _VERANTYX_霜:1.0___node_霜_55__:
+        _VERANTYX_霜:1.0___node_霜_47__("_VERANTYX_廱:1.0___node_廱_26__ a _VERANTYX_霜:1.0___node_霜_194__ _VERANTYX_霜:1.0___node_霜_55__.", _VERANTYX_匸:1.0___node_霜_1__=_VERANTYX_霜:1.0___node_霜_185__._VERANTYX_霜:1.0___node_霜_189__)
+        return 1
+
+    _VERANTYX_霜:1.0___node_霜_60__(_VERANTYX_霜:1.0___node_霜_55__)
+
+
+if _VERANTYX_霜:1.0___node_霜_147__ == "_VERANTYX_霜:1.0___node_霜_155__":
+    import _VERANTYX_霜:1.0___node_霜_185__
+
+    _VERANTYX_霜:1.0___node_霜_185__._VERANTYX_霜:1.0___node_霜_109__(_VERANTYX_霜:1.0___node_霜_173__())
+
+// POLYMORPHIC_JCROSS_END

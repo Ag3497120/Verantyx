@@ -1,0 +1,123 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F0C74B96 ver:1778166885
+// ⚠️ One-time schema — expires after response
+
+import { _ASTNODE_廳:1.0__VERANTYX_廳_1_, _ASTNODE_滴:1.0__VERANTYX_滴_41_ } _ASTNODE_滴:1.0__VERANTYX_滴_42_ "_ASTNODE_滴:1.0__VERANTYX_滴_13_/_ASTNODE_滴:1.0__VERANTYX_滴_47_-_ASTNODE_滴:1.0__VERANTYX_滴_31_/_ASTNODE_滴:1.0__VERANTYX_滴_23_";
+
+_ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_匼:1.0__VERANTYX_廳_7_ = 4000;
+_ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_廳:1.0__VERANTYX_廳_6_ = /#\d{4}$/;
+
+_ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_匼:1.0__VERANTYX_廳_3_ = _ASTNODE_滴:1.0__VERANTYX_滴_9_ _ASTNODE_廳:1.0__VERANTYX_廳_4_<_ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_廳:1.0__VERANTYX_廳_4_<_ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_滴:1.0__VERANTYX_滴_33_>>();
+
+_ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_深:1.0__VERANTYX_滴_4_(_ASTNODE_滴:1.0__VERANTYX_滴_1_?: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_): _ASTNODE_滴:1.0__VERANTYX_滴_33_ {
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_36_ = _ASTNODE_滴:1.0__VERANTYX_滴_41_(_ASTNODE_滴:1.0__VERANTYX_滴_1_ ?? _ASTNODE_廳:1.0__VERANTYX_廳_1_);
+  return _ASTNODE_滴:1.0__VERANTYX_滴_36_ || _ASTNODE_廳:1.0__VERANTYX_廳_1_;
+// _ASTNODE_廳:0.6__VERANTYX_YW_898_ [decoy-metadata]
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_滴:1.0__VERANTYX_滴_24_(_ASTNODE_滴:1.0__VERANTYX_滴_16_: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_法:1.0__VERANTYX_滴_32_ | _ASTNODE_滴:1.0__VERANTYX_滴_54_): _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_ {
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_6_ = _ASTNODE_廳:1.0__VERANTYX_廳_2_(_ASTNODE_滴:1.0__VERANTYX_滴_16_ ?? "")._ASTNODE_滴:1.0__VERANTYX_滴_40_();
+  if (!/^\d+$/._ASTNODE_滴:1.0__VERANTYX_滴_8_(_ASTNODE_滴:1.0__VERANTYX_滴_6_)) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_35_;
+  }
+  return _ASTNODE_滴:1.0__VERANTYX_滴_6_;
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_深:1.0__VERANTYX_滴_34_(_ASTNODE_滴:1.0__VERANTYX_滴_52_: _ASTNODE_滴:1.0__VERANTYX_滴_33_): _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_ {
+  let _ASTNODE_滴:1.0__VERANTYX_滴_5_ = _ASTNODE_滴:1.0__VERANTYX_滴_52_._ASTNODE_滴:1.0__VERANTYX_滴_40_();
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_5_) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_35_;
+  }
+  if (_ASTNODE_滴:1.0__VERANTYX_滴_5_._ASTNODE_滴:1.0__VERANTYX_滴_27_("@")) {
+    _ASTNODE_滴:1.0__VERANTYX_滴_5_ = _ASTNODE_滴:1.0__VERANTYX_滴_5_._ASTNODE_滴:1.0__VERANTYX_滴_48_(1)._ASTNODE_滴:1.0__VERANTYX_滴_40_();
+  }
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_5_ || /\s/._ASTNODE_滴:1.0__VERANTYX_滴_8_(_ASTNODE_滴:1.0__VERANTYX_滴_5_)) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_35_;
+  }
+  return _ASTNODE_滴:1.0__VERANTYX_滴_5_._ASTNODE_滴:1.0__VERANTYX_滴_25_();
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_匼:1.0__VERANTYX_滴_18_(_ASTNODE_滴:1.0__VERANTYX_滴_1_?: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_): _ASTNODE_廳:1.0__VERANTYX_廳_4_<_ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_滴:1.0__VERANTYX_滴_33_> {
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_深:1.0__VERANTYX_滴_12_ = _ASTNODE_深:1.0__VERANTYX_滴_4_(_ASTNODE_滴:1.0__VERANTYX_滴_1_);
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_46_ = _ASTNODE_匼:1.0__VERANTYX_廳_3_._ASTNODE_法:1.0__VERANTYX_煌_2_(_ASTNODE_深:1.0__VERANTYX_滴_12_);
+  if (_ASTNODE_滴:1.0__VERANTYX_滴_46_) {
+// _ASTNODE_廳:0.3__VERANTYX_FM_497_ [decoy-metadata]
+    return _ASTNODE_滴:1.0__VERANTYX_滴_46_;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_2_ = _ASTNODE_滴:1.0__VERANTYX_滴_9_ _ASTNODE_廳:1.0__VERANTYX_廳_4_<_ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_滴:1.0__VERANTYX_滴_33_>();
+  _ASTNODE_匼:1.0__VERANTYX_廳_3_._ASTNODE_法:1.0__VERANTYX_煌_1_(_ASTNODE_深:1.0__VERANTYX_滴_12_, _ASTNODE_滴:1.0__VERANTYX_滴_2_);
+  return _ASTNODE_滴:1.0__VERANTYX_滴_2_;
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_匼:1.0__VERANTYX_煌_3_(_ASTNODE_匼:1.0__VERANTYX_滴_17_: _ASTNODE_廳:1.0__VERANTYX_廳_4_<_ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_滴:1.0__VERANTYX_滴_33_>, _ASTNODE_深:1.0__VERANTYX_滴_22_: _ASTNODE_滴:1.0__VERANTYX_滴_33_, _ASTNODE_滴:1.0__VERANTYX_滴_11_: _ASTNODE_滴:1.0__VERANTYX_滴_33_): _ASTNODE_滴:1.0__VERANTYX_滴_55_ {
+  if (_ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_滴:1.0__VERANTYX_滴_15_(_ASTNODE_深:1.0__VERANTYX_滴_22_)) {
+    _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_滴:1.0__VERANTYX_滴_3_(_ASTNODE_深:1.0__VERANTYX_滴_22_);
+  }
+  _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_法:1.0__VERANTYX_煌_1_(_ASTNODE_深:1.0__VERANTYX_滴_22_, _ASTNODE_滴:1.0__VERANTYX_滴_11_);
+  if (_ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_滴:1.0__VERANTYX_滴_19_ <= _ASTNODE_匼:1.0__VERANTYX_廳_7_) {
+// _ASTNODE_法:0.6__VERANTYX_BM_819_ [decoy-metadata]
+    return;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_28_ = _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_深:1.0__VERANTYX_滴_51_()._ASTNODE_滴:1.0__VERANTYX_滴_7_();
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_28_._ASTNODE_滴:1.0__VERANTYX_滴_49_) {
+    _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_滴:1.0__VERANTYX_滴_3_(_ASTNODE_滴:1.0__VERANTYX_滴_28_._ASTNODE_滴:1.0__VERANTYX_滴_16_);
+  }
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_45_ _ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_法:1.0__VERANTYX_滴_37_(_ASTNODE_滴:1.0__VERANTYX_滴_14_: {
+  _ASTNODE_滴:1.0__VERANTYX_滴_1_?: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_;
+  _ASTNODE_滴:1.0__VERANTYX_滴_11_: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_法:1.0__VERANTYX_滴_32_ | _ASTNODE_滴:1.0__VERANTYX_滴_54_;
+  _ASTNODE_滴:1.0__VERANTYX_滴_39_: _ASTNODE_廳:1.0__VERANTYX_廳_5_<_ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_ | _ASTNODE_滴:1.0__VERANTYX_滴_44_>;
+}): _ASTNODE_滴:1.0__VERANTYX_滴_55_ {
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_11_ = _ASTNODE_滴:1.0__VERANTYX_滴_24_(_ASTNODE_滴:1.0__VERANTYX_滴_14_._ASTNODE_滴:1.0__VERANTYX_滴_11_);
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_11_) {
+    return;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_匼:1.0__VERANTYX_滴_17_ = _ASTNODE_匼:1.0__VERANTYX_滴_18_(_ASTNODE_滴:1.0__VERANTYX_滴_14_._ASTNODE_滴:1.0__VERANTYX_滴_1_);
+  for (_ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_29_ of _ASTNODE_滴:1.0__VERANTYX_滴_14_._ASTNODE_滴:1.0__VERANTYX_滴_39_) {
+    if (_ASTNODE_滴:1.0__VERANTYX_滴_21_ _ASTNODE_滴:1.0__VERANTYX_滴_29_ !== "_ASTNODE_滴:1.0__VERANTYX_滴_33_") {
+      continue;
+    }
+    _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_5_ = _ASTNODE_深:1.0__VERANTYX_滴_34_(_ASTNODE_滴:1.0__VERANTYX_滴_29_);
+    if (!_ASTNODE_滴:1.0__VERANTYX_滴_5_) {
+      continue;
+    }
+    _ASTNODE_匼:1.0__VERANTYX_煌_3_(_ASTNODE_匼:1.0__VERANTYX_滴_17_, _ASTNODE_滴:1.0__VERANTYX_滴_5_, _ASTNODE_滴:1.0__VERANTYX_滴_11_);
+    _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_38_ = _ASTNODE_滴:1.0__VERANTYX_滴_5_._ASTNODE_滴:1.0__VERANTYX_滴_30_(_ASTNODE_廳:1.0__VERANTYX_廳_6_, "");
+    if (_ASTNODE_滴:1.0__VERANTYX_滴_38_ && _ASTNODE_滴:1.0__VERANTYX_滴_38_ !== _ASTNODE_滴:1.0__VERANTYX_滴_5_) {
+      _ASTNODE_匼:1.0__VERANTYX_煌_3_(_ASTNODE_匼:1.0__VERANTYX_滴_17_, _ASTNODE_滴:1.0__VERANTYX_滴_38_, _ASTNODE_滴:1.0__VERANTYX_滴_11_);
+    }
+// _ASTNODE_渦:0.4__VERANTYX_XK_342_ [decoy-metadata]
+  }
+// _ASTNODE_廳:0.4__VERANTYX_FY_842_ [decoy-metadata]
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_45_ _ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_滴:1.0__VERANTYX_滴_50_(_ASTNODE_滴:1.0__VERANTYX_滴_14_: {
+  _ASTNODE_滴:1.0__VERANTYX_滴_1_?: _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_35_;
+  _ASTNODE_滴:1.0__VERANTYX_滴_5_: _ASTNODE_滴:1.0__VERANTYX_滴_33_;
+}): _ASTNODE_滴:1.0__VERANTYX_滴_33_ | _ASTNODE_滴:1.0__VERANTYX_滴_44_ {
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_匼:1.0__VERANTYX_滴_17_ = _ASTNODE_匼:1.0__VERANTYX_廳_3_._ASTNODE_法:1.0__VERANTYX_煌_2_(_ASTNODE_深:1.0__VERANTYX_滴_4_(_ASTNODE_滴:1.0__VERANTYX_滴_14_._ASTNODE_滴:1.0__VERANTYX_滴_1_));
+  if (!_ASTNODE_匼:1.0__VERANTYX_滴_17_) {
+// _ASTNODE_滴:0.2__VERANTYX_YY_207_ [decoy-metadata]
+    return _ASTNODE_滴:1.0__VERANTYX_滴_44_;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_5_ = _ASTNODE_深:1.0__VERANTYX_滴_34_(_ASTNODE_滴:1.0__VERANTYX_滴_14_._ASTNODE_滴:1.0__VERANTYX_滴_5_);
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_5_) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_44_;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_10_ = _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_法:1.0__VERANTYX_煌_2_(_ASTNODE_滴:1.0__VERANTYX_滴_5_);
+  if (_ASTNODE_滴:1.0__VERANTYX_滴_10_) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_10_;
+  }
+  _ASTNODE_滴:1.0__VERANTYX_滴_53_ _ASTNODE_滴:1.0__VERANTYX_滴_38_ = _ASTNODE_滴:1.0__VERANTYX_滴_5_._ASTNODE_滴:1.0__VERANTYX_滴_30_(_ASTNODE_廳:1.0__VERANTYX_廳_6_, "");
+  if (!_ASTNODE_滴:1.0__VERANTYX_滴_38_ || _ASTNODE_滴:1.0__VERANTYX_滴_38_ === _ASTNODE_滴:1.0__VERANTYX_滴_5_) {
+    return _ASTNODE_滴:1.0__VERANTYX_滴_44_;
+  }
+  return _ASTNODE_匼:1.0__VERANTYX_滴_17_._ASTNODE_法:1.0__VERANTYX_煌_2_(_ASTNODE_滴:1.0__VERANTYX_滴_38_);
+}
+
+_ASTNODE_滴:1.0__VERANTYX_滴_45_ _ASTNODE_滴:1.0__VERANTYX_滴_20_ _ASTNODE_匼:1.0__VERANTYX_滴_26_(): _ASTNODE_滴:1.0__VERANTYX_滴_55_ {
+  _ASTNODE_匼:1.0__VERANTYX_廳_3_._ASTNODE_滴:1.0__VERANTYX_滴_43_();
+}
+
+// POLYMORPHIC_JCROSS_END

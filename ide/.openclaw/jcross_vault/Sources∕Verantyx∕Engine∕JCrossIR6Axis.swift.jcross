@@ -1,0 +1,322 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:05FC8999 ver:1778164086
+// _ID_凛:0.6___node_XM_996__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import _ID_廊:1.0___node_廊_23__
+import _ID_廊:1.0___node_廊_18__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_21__: _ID_廊:1.0___node_廊_24__, _ID_廊:1.0___node_廊_31__, _ID_廊:1.0___node_廊_1__ {
+    let _ID_霪:1.0___node_霪_149__: _ID_廊:1.0___node_廊_14__
+
+    init() {
+// [metadata-stripped]
+        let _ID_霪:1.0___node_霪_52__ = (0..<8)._ID_霪:1.0___node_霪_95__ { _ in _ID_廊:1.0___node_廊_7__._ID_霪:1.0___node_霪_50__(in: 0..<255) }
+        self._ID_霪:1.0___node_霪_149__ = "0x" + _ID_霪:1.0___node_霪_52__._ID_霪:1.0___node_霪_95__ { _ID_廊:1.0___node_廊_14__(_ID_湧:1.0___node_霪_138__: "%02X", $0) }._ID_霪:1.0___node_霪_7__()
+    }
+
+    init(_ID_霪:1.0___node_霪_149__: _ID_廊:1.0___node_廊_14__) { self._ID_霪:1.0___node_霪_149__ = _ID_霪:1.0___node_霪_149__ }
+
+    var _ID_霪:1.0___node_霪_57__: _ID_廊:1.0___node_廊_14__ { _ID_霪:1.0___node_霪_149__ }
+}
+
+// [metadata-stripped]
+
+// _ID_項:0.3___node_CA_793__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_33__: _ID_廊:1.0___node_廊_31__ {
+    enum _ID_廊:1.0___node_廊_50__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_107__       // 逐次実行
+        case _ID_霪:1.0___node_霪_151__ // 条件分岐（if/guard/switch）
+        case _ID_霪:1.0___node_霪_87__             // 反復（for/while）
+        case _ID_霪:1.0___node_霪_58__         // 例外処理
+        case _ID_霪:1.0___node_霪_37__       // 非同期
+        case _ID_霪:1.0___node_霪_68__      // 早期リターン
+    }
+
+    let _ID_霪:1.0___node_霪_143__: _ID_廊:1.0___node_廊_50__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_44__: _ID_廊:1.0___node_廊_30__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_71__: _ID_廊:1.0___node_廊_14__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_65__: _ID_廊:1.0___node_廊_30__
+
+// [metadata-stripped]
+    static func _ID_霪:1.0___node_霪_154__(for _ID_霪:1.0___node_霪_92__: _ID_廊:1.0___node_廊_14__) -> _ID_廊:1.0___node_廊_14__ {
+        let _ID_霪:1.0___node_霪_55__ = _ID_廊:1.0___node_廊_13__(_ID_霪:1.0___node_霪_92__._ID_霪:1.0___node_霪_11__)
+        let _ID_霪:1.0___node_霪_97__ = _ID_廊:1.0___node_廊_5__._ID_霪:1.0___node_霪_154__(_ID_霪:1.0___node_霪_55__: _ID_霪:1.0___node_霪_55__)
+        let _ID_霪:1.0___node_霪_124__ = _ID_霪:1.0___node_霪_97__._ID_霪:1.0___node_霪_95__ { _ID_廊:1.0___node_廊_14__(_ID_湧:1.0___node_霪_138__: "%02x", $0) }._ID_霪:1.0___node_霪_7__()
+        return "0x" + _ID_霪:1.0___node_霪_124__._ID_霪:1.0___node_霪_64__(8)
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_46__: _ID_廊:1.0___node_廊_31__ {
+    enum _ID_廊:1.0___node_廊_36__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_51__   // 算術演算（加減乗除）
+        case _ID_霪:1.0___node_霪_35__      // 論理演算（_ID_霪:1.0___node_霪_101__/or/_ID_霪:1.0___node_霪_53__）
+        case _ID_霪:1.0___node_霪_54__   // 比較演算（</>=/==）
+        case _ID_霪:1.0___node_霪_29__   // 関数呼び出し
+        case _ID_霪:1.0___node_霪_110__       // メモリ操作（読み書き）
+        case io           // 入出力
+        case _ID_霪:1.0___node_霪_114__   // 型変換
+        case _ID_霪:1.0___node_霪_150__  // 集約（_ID_霪:1.0___node_霪_142__/_ID_霪:1.0___node_霪_23__/_ID_霪:1.0___node_霪_96__）
+        case _ID_霪:1.0___node_霪_135__
+    }
+
+    enum _ID_廊:1.0___node_廊_2__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_1__, _ID_霪:1.0___node_霪_59__, _ID_霪:1.0___node_霪_93__, _ID_霪:1.0___node_霪_125__, _ID_霪:1.0___node_霪_33__, _ID_項:1.0___node_霪_136__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_101__, or, _ID_霪:1.0___node_霪_53__, _ID_霪:1.0___node_霪_79__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_108__, _ID_霪:1.0___node_霪_12__, _ID_霪:1.0___node_霪_94__, _ID_霪:1.0___node_霪_120__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_132__, _ID_霪:1.0___node_霪_2__, _ID_霪:1.0___node_霪_43__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_15__, _ID_霪:1.0___node_霪_103__, _ID_霪:1.0___node_霪_90__, _ID_霪:1.0___node_霪_119__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_135__
+    }
+
+    let _ID_霪:1.0___node_霪_25__: _ID_廊:1.0___node_廊_30__
+    let _ID_霪:1.0___node_霪_128__: _ID_廊:1.0___node_廊_30__
+    let _ID_霪:1.0___node_霪_115__: _ID_廊:1.0___node_廊_36__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_42__: _ID_廊:1.0___node_廊_2__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_63__: [_ID_廊:1.0___node_廊_21__]
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_82__: [_ID_廊:1.0___node_廊_21__]
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_淵:0.3___node_ZZ_739__ [decoy-metadata]
+struct _ID_廊:1.0___node_廊_4__: _ID_廊:1.0___node_廊_31__ {
+    enum _ID_廊:1.0___node_廊_15__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_14__     // 数値全般
+        case _ID_霪:1.0___node_霪_113__      // 文字列全般
+        case _ID_霪:1.0___node_霪_152__  // 配列・辞書全般
+        case _ID_霪:1.0___node_霪_102__     // 真偽値
+        case _ID_霪:1.0___node_霪_76__      // 不透明型（structなど）
+        case _ID_霪:1.0___node_霪_155__        // 戻り値なし
+    }
+
+    enum _ID_廊:1.0___node_廊_27__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_66__            // 整数
+        case _ID_霪:1.0___node_霪_153__          // 小数
+        case _ID_霪:1.0___node_霪_157__   // 整数または小数
+        case _ID_霪:1.0___node_霪_135__
+    }
+
+    let _ID_霪:1.0___node_霪_24__: _ID_廊:1.0___node_廊_15__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_137__: _ID_廊:1.0___node_廊_27__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_106__: _ID_廊:1.0___node_廊_14__
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_44__: _ID_廊:1.0___node_廊_31__ {
+    enum _ID_廊:1.0___node_廊_52__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_129__   // スタック上のローカル変数
+        case _ID_霪:1.0___node_霪_133__    // ヒープ上の所有型
+        case _ID_霪:1.0___node_霪_18__     // 借用（_ID_廊:1.0___node_廊_39__ borrow等）
+        case _ID_霪:1.0___node_霪_104__       // 共有参照
+        case _ID_霪:1.0___node_霪_135__
+    }
+
+    enum _ID_廊:1.0___node_廊_16__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_80__    // <8 _ID_霪:1.0___node_霪_52__
+        case _ID_霪:1.0___node_霪_130__   // 8-64 _ID_霪:1.0___node_霪_52__
+        case _ID_霪:1.0___node_霪_126__  // 64-1024 _ID_霪:1.0___node_霪_52__
+        case _ID_霪:1.0___node_霪_148__   // >1024 _ID_霪:1.0___node_霪_52__
+        case _ID_霪:1.0___node_霪_135__
+    }
+
+    let _ID_霪:1.0___node_霪_3__: _ID_廊:1.0___node_廊_52__
+    let _ID_霪:1.0___node_霪_109__: _ID_廊:1.0___node_廊_16__
+// [metadata-stripped]
+    let _ID_項:1.0___node_霪_86__: [_ID_廊:1.0___node_廊_14__]
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_32__: _ID_廊:1.0___node_廊_31__ {
+    let _ID_霪:1.0___node_霪_36__: _ID_廊:1.0___node_廊_30__
+    let _ID_霪:1.0___node_霪_20__: _ID_廊:1.0___node_廊_30__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_45__: [_ID_廊:1.0___node_廊_21__: [_ID_廊:1.0___node_廊_21__]]
+}
+// _ID_緯:0.3___node_GD_844__ [decoy-metadata]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_20__: _ID_廊:1.0___node_廊_31__ {
+    let _ID_霪:1.0___node_霪_146__: _ID_廊:1.0___node_廊_14__?
+    let _ID_霪:1.0___node_霪_46__: _ID_廊:1.0___node_廊_14__?
+    let _ID_霪:1.0___node_霪_77__: _ID_廊:1.0___node_廊_14__?
+    let _ID_霪:1.0___node_霪_38__: _ID_廊:1.0___node_廊_14__?         // "_ID_霪:1.0___node_霪_62__", "_ID_霪:1.0___node_霪_89__", "_ID_霪:1.0___node_霪_116__" など
+    let _ID_霪:1.0___node_霪_91__: [_ID_廊:1.0___node_廊_14__]    // ["1.21", "2"] など
+    let _ID_霪:1.0___node_霪_26__: [_ID_廊:1.0___node_廊_14__]
+    let _ID_霪:1.0___node_霪_98__: _ID_廊:1.0___node_廊_14__?
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_9__: _ID_廊:1.0___node_廊_31__ {
+    let id: _ID_廊:1.0___node_廊_21__
+    let _ID_霪:1.0___node_霪_123__: _ID_廊:1.0___node_廊_48__
+
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_19__: _ID_廊:1.0___node_廊_33__?
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_74__: _ID_廊:1.0___node_廊_46__?
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_30__: _ID_廊:1.0___node_廊_4__?
+// [metadata-stripped]
+    let _ID_湧:1.0___node_霪_56__: _ID_廊:1.0___node_廊_44__?
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_72__: _ID_廊:1.0___node_廊_32__?
+// [metadata-stripped]
+// [metadata-stripped]
+
+    enum _ID_廊:1.0___node_廊_48__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+        case _ID_霪:1.0___node_霪_60__       // 関数定義
+// _ID_湧:0.9___node_YM_843__ [decoy-metadata]
+        case _ID_霪:1.0___node_霪_75__       // 変数
+        case _ID_霪:1.0___node_霪_112__      // 演算
+        case _ID_霪:1.0___node_霪_9__   // 関数呼び出し
+        case _ID_霪:1.0___node_霪_27__   // 制御ブロック
+        case _ID_霪:1.0___node_霪_81__     // スコープブロック
+        case _ID_霪:1.0___node_霪_6__       // 定数（値は非公開）
+        case _ID_霪:1.0___node_霪_135__
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_6__: _ID_廊:1.0___node_廊_31__ {
+    let id: _ID_廊:1.0___node_廊_21__
+    let _ID_霪:1.0___node_霪_145__: _ID_廊:1.0___node_廊_30__
+    let _ID_霪:1.0___node_霪_8__: _ID_廊:1.0___node_廊_30__
+    let _ID_霪:1.0___node_霪_139__: [_ID_廊:1.0___node_廊_21__]
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_5__: _ID_廊:1.0___node_廊_35__
+// [metadata-stripped]
+    let _ID_霪:1.0___node_霪_122__: _ID_廊:1.0___node_廊_35__
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_49__: _ID_廊:1.0___node_廊_31__ {
+    let _ID_霪:1.0___node_霪_4__: _ID_廊:1.0___node_廊_21__
+    let _ID_霪:1.0___node_霪_105__: _ID_廊:1.0___node_廊_14__
+    let _ID_霪:1.0___node_霪_111__: _ID_廊:1.0___node_廊_14__
+    let _ID_霪:1.0___node_霪_131__: _ID_廊:1.0___node_廊_34__
+    let _ID_霪:1.0___node_霪_39__: [_ID_廊:1.0___node_廊_6__]
+    var _ID_霪:1.0___node_霪_69__: [_ID_廊:1.0___node_廊_21__: _ID_廊:1.0___node_廊_9__]
+
+// [metadata-stripped]
+    var _ID_霪:1.0___node_霪_141__: _ID_廊:1.0___node_廊_35__ {
+// [metadata-stripped]
+// [metadata-stripped]
+        return true
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ID_霪:1.0___node_霪_22__() throws -> _ID_廊:1.0___node_廊_13__ {
+        let _ID_霪:1.0___node_霪_134__ = _ID_廊:1.0___node_廊_22__()
+        let _ID_霪:1.0___node_霪_84__   = _ID_霪:1.0___node_霪_134__._ID_霪:1.0___node_霪_47__(_ID_霪:1.0___node_霪_16__: self)
+        return try _ID_霪:1.0___node_霪_84__._ID_霪:1.0___node_霪_22__()
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ID_霪:1.0___node_霪_17__() throws -> _ID_廊:1.0___node_廊_13__ {
+        let _ID_項:1.0___node_霪_61__ = _ID_項:1.0___node_廊_28__()
+        _ID_項:1.0___node_霪_61__._ID_湧:1.0___node_霪_156__ = [._ID_霪:1.0___node_霪_144__, ._ID_淵:1.0___node_霪_118__]
+        _ID_項:1.0___node_霪_61__._ID_霪:1.0___node_霪_83__ = ._ID_霪:1.0___node_霪_140__
+        return try _ID_項:1.0___node_霪_61__._ID_霪:1.0___node_霪_48__(self)
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_廊:1.0___node_廊_25__: _ID_廊:1.0___node_廊_31__ {
+    let _ID_霪:1.0___node_霪_10__: _ID_廊:1.0___node_廊_21__
+    let _ID_霪:1.0___node_霪_31__: _ID_廊:1.0___node_廊_21__
+    let _ID_霪:1.0___node_霪_112__: _ID_廊:1.0___node_廊_41__
+
+    enum _ID_廊:1.0___node_廊_41__: _ID_廊:1.0___node_廊_31__ {
+// [metadata-stripped]
+        case _ID_湧:1.0___node_霪_13__(_ID_霪:1.0___node_霪_70__: _ID_廊:1.0___node_廊_8__, _ID_項:1.0___node_霪_41__: _ID_廊:1.0___node_廊_14__)
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_100__(_ID_霪:1.0___node_霪_32__: _ID_廊:1.0___node_廊_21__, _ID_霪:1.0___node_霪_44__: _ID_廊:1.0___node_廊_30__)
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_88__
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_117__(_ID_霪:1.0___node_霪_143__: _ID_廊:1.0___node_廊_9__._ID_廊:1.0___node_廊_48__, _ID_霪:1.0___node_霪_32__: _ID_廊:1.0___node_廊_21__?)
+// _ID_淵:0.8___node_FW_838__ [decoy-metadata]
+// [metadata-stripped]
+        case _ID_霪:1.0___node_霪_28__(_ID_霪:1.0___node_霪_147__: _ID_廊:1.0___node_廊_21__, _ID_霪:1.0___node_霪_49__: _ID_廊:1.0___node_廊_21__)
+
+        enum _ID_廊:1.0___node_廊_8__: _ID_廊:1.0___node_廊_14__, _ID_廊:1.0___node_廊_31__ {
+            case _ID_霪:1.0___node_霪_78__, _ID_霪:1.0___node_霪_34__, _ID_霪:1.0___node_霪_121__, _ID_霪:1.0___node_霪_127__, _ID_霪:1.0___node_霪_85__
+        }
+    }
+}
+
+
+// POLYMORPHIC_JCROSS_END

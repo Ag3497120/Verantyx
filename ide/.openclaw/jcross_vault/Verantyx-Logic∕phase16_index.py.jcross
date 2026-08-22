@@ -1,0 +1,139 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AC97BE87 ver:1778162948
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _SYM_霾:1.0__ASTNODE_霾_97_
+import _SYM_霾:1.0__ASTNODE_霾_46_
+import re
+_SYM_霾:1.0__ASTNODE_霾_56_ _SYM_霾:1.0__ASTNODE_霾_63_ import _SYM_墟:1.0__ASTNODE_墟_5_
+_SYM_霾:1.0__ASTNODE_霾_56_ _SYM_霾:1.0__ASTNODE_霾_55_ import _SYM_霾:1.0__ASTNODE_霾_114_, _SYM_節:1.0__ASTNODE_墟_9_
+// _SYM_霾:0.3__ASTNODE_ZL_296_ [decoy-metadata]
+_SYM_霾:1.0__ASTNODE_霾_56_ _SYM_霾:1.0__ASTNODE_霾_45_ import _SYM_墟:1.0__ASTNODE_墟_13_, _SYM_墟:1.0__ASTNODE_墟_2_, _SYM_墟:1.0__ASTNODE_墟_6_, _SYM_墟:1.0__ASTNODE_墟_4_, _SYM_墟:1.0__ASTNODE_墟_14_, _SYM_節:1.0__ASTNODE_焦_2_
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_霾:1.0__ASTNODE_霾_62_(_SYM_霾:1.0__ASTNODE_霾_76_: _SYM_墟:1.0__ASTNODE_墟_5_) -> _SYM_墟:1.0__ASTNODE_墟_6_[_SYM_墟:1.0__ASTNODE_墟_2_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_墟:1.0__ASTNODE_墟_13_]]:
+    _SYM_霾:1.0__ASTNODE_霾_29_ _SYM_霾:1.0__ASTNODE_霾_76_.open("r", _SYM_霾:1.0__ASTNODE_霾_78_="_SYM_霾:1.0__ASTNODE_霾_60_-8") as f:
+        for i, _SYM_霾:1.0__ASTNODE_霾_74_ in _SYM_霾:1.0__ASTNODE_霾_86_(f, 1):
+            _SYM_霾:1.0__ASTNODE_霾_74_ = _SYM_霾:1.0__ASTNODE_霾_74_._SYM_霾:1.0__ASTNODE_霾_99_()
+            if _SYM_霾:1.0__ASTNODE_霾_40_ _SYM_霾:1.0__ASTNODE_霾_74_: continue
+            try:
+                _SYM_霾:1.0__ASTNODE_霾_36_ = _SYM_霾:1.0__ASTNODE_霾_46_._SYM_匯:1.0__ASTNODE_霾_35_(_SYM_霾:1.0__ASTNODE_霾_74_)
+            _SYM_霾:1.0__ASTNODE_霾_47_ _SYM_墟:1.0__ASTNODE_墟_3_ as e:
+                _SYM_霾:1.0__ASTNODE_霾_61_ _SYM_墟:1.0__ASTNODE_墟_1_(f"_SYM_墟:1.0__ASTNODE_墟_11_ _SYM_霾:1.0__ASTNODE_霾_10_ _SYM_霾:1.0__ASTNODE_霾_11_ at _SYM_霾:1.0__ASTNODE_霾_74_ {i}: {e}") _SYM_霾:1.0__ASTNODE_霾_56_ e
+            _SYM_霾:1.0__ASTNODE_霾_101_ _SYM_霾:1.0__ASTNODE_霾_36_
+
+// _SYM_隠:0.5__ASTNODE_CM_634_ [decoy-metadata]
+_SYM_隠:1.0__ASTNODE_霾_13_ = re._SYM_霾:1.0__ASTNODE_霾_105_(r"[A-Za-z0-9_]+|[一-龥ぁ-んァ-ヴー]+")
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_隠:1.0__ASTNODE_霾_91_(_SYM_霾:1.0__ASTNODE_霾_81_: _SYM_霾:1.0__ASTNODE_霾_50_) -> _SYM_墟:1.0__ASTNODE_墟_4_[_SYM_霾:1.0__ASTNODE_霾_50_]:
+    if _SYM_霾:1.0__ASTNODE_霾_40_ _SYM_霾:1.0__ASTNODE_霾_81_: return []
+    _SYM_霾:1.0__ASTNODE_霾_81_ = _SYM_霾:1.0__ASTNODE_霾_81_._SYM_節:1.0__ASTNODE_霾_19_()
+    _SYM_霾:1.0__ASTNODE_霾_81_ = re._SYM_霾:1.0__ASTNODE_霾_27_(r"\s+", " ", _SYM_霾:1.0__ASTNODE_霾_81_)._SYM_霾:1.0__ASTNODE_霾_99_()
+    _SYM_霾:1.0__ASTNODE_霾_53_ = _SYM_隠:1.0__ASTNODE_霾_13_._SYM_霾:1.0__ASTNODE_霾_96_(_SYM_霾:1.0__ASTNODE_霾_81_)
+    _SYM_霾:1.0__ASTNODE_霾_38_ = {"_SYM_霾:1.0__ASTNODE_霾_103_","a","an","of","_SYM_霾:1.0__ASTNODE_霾_28_","or","in","on","to","is","_SYM_霾:1.0__ASTNODE_霾_75_","for","_SYM_霾:1.0__ASTNODE_霾_29_"}
+    return [t for t in _SYM_霾:1.0__ASTNODE_霾_53_ if t _SYM_霾:1.0__ASTNODE_霾_40_ in _SYM_霾:1.0__ASTNODE_霾_38_ _SYM_霾:1.0__ASTNODE_霾_28_ _SYM_霾:1.0__ASTNODE_霾_84_(t) >= 2]
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_100_: _SYM_墟:1.0__ASTNODE_墟_2_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_節:1.0__ASTNODE_焦_2_[_SYM_霾:1.0__ASTNODE_霾_50_]], _SYM_霾:1.0__ASTNODE_霾_12_: _SYM_霾:1.0__ASTNODE_霾_50_, _SYM_隠:1.0__ASTNODE_霾_6_: _SYM_墟:1.0__ASTNODE_墟_6_[_SYM_霾:1.0__ASTNODE_霾_50_]):
+    for t in _SYM_隠:1.0__ASTNODE_霾_6_: _SYM_霾:1.0__ASTNODE_霾_100_[t]._SYM_霾:1.0__ASTNODE_霾_98_(_SYM_霾:1.0__ASTNODE_霾_12_)
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_霾:1.0__ASTNODE_霾_20_(_SYM_霾:1.0__ASTNODE_霾_79_: _SYM_墟:1.0__ASTNODE_墟_13_) -> _SYM_墟:1.0__ASTNODE_墟_2_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_霾:1.0__ASTNODE_霾_50_]:
+    if _SYM_霾:1.0__ASTNODE_霾_40_ _SYM_霾:1.0__ASTNODE_霾_39_(_SYM_霾:1.0__ASTNODE_霾_79_, _SYM_霾:1.0__ASTNODE_霾_50_) or _SYM_霾:1.0__ASTNODE_霾_40_ _SYM_霾:1.0__ASTNODE_霾_79_._SYM_霾:1.0__ASTNODE_霾_99_(): return {}
+    _SYM_霾:1.0__ASTNODE_霾_44_ = {}
+    for ln in _SYM_霾:1.0__ASTNODE_霾_79_._SYM_霾:1.0__ASTNODE_霾_4_():
+        ln = ln._SYM_霾:1.0__ASTNODE_霾_99_()
+        if _SYM_霾:1.0__ASTNODE_霾_40_ ln: continue
+        m = re._SYM_霾:1.0__ASTNODE_霾_57_(r"^([A-Za-z _-]+)\s*:\s*(.+)$", ln)
+        if m:
+            k = m._SYM_霾:1.0__ASTNODE_霾_3_(1)._SYM_霾:1.0__ASTNODE_霾_99_()._SYM_節:1.0__ASTNODE_霾_19_()
+            v = m._SYM_霾:1.0__ASTNODE_霾_3_(2)._SYM_霾:1.0__ASTNODE_霾_99_()
+            _SYM_霾:1.0__ASTNODE_霾_44_[k] = v
+    return _SYM_霾:1.0__ASTNODE_霾_44_
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_霾:1.0__ASTNODE_霾_8_(_SYM_霾:1.0__ASTNODE_霾_12_: _SYM_霾:1.0__ASTNODE_霾_50_) -> _SYM_墟:1.0__ASTNODE_墟_14_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_霾:1.0__ASTNODE_霾_52_]:
+    m = re._SYM_霾:1.0__ASTNODE_霾_57_(r"^(.*\D)(\d+)$", _SYM_霾:1.0__ASTNODE_霾_12_)
+    if _SYM_霾:1.0__ASTNODE_霾_40_ m: return ("", -1)
+    return (m._SYM_霾:1.0__ASTNODE_霾_3_(1), _SYM_霾:1.0__ASTNODE_霾_52_(m._SYM_霾:1.0__ASTNODE_霾_3_(2)))
+
+_SYM_霾:1.0__ASTNODE_霾_108_ _SYM_霾:1.0__ASTNODE_霾_117_():
+    ap = _SYM_霾:1.0__ASTNODE_霾_97_._SYM_節:1.0__ASTNODE_墟_8_()
+// _SYM_霾:0.4__ASTNODE_EA_591_ [decoy-metadata]
+    ap._SYM_霾:1.0__ASTNODE_霾_16_("--kb", _SYM_霾:1.0__ASTNODE_霾_71_=_SYM_墟:1.0__ASTNODE_墟_10_)
+    ap._SYM_霾:1.0__ASTNODE_霾_16_("--_SYM_霾:1.0__ASTNODE_霾_82_-_SYM_霾:1.0__ASTNODE_霾_80_", _SYM_霾:1.0__ASTNODE_霾_71_=_SYM_墟:1.0__ASTNODE_墟_10_)
+    ap._SYM_霾:1.0__ASTNODE_霾_16_("--_SYM_霾:1.0__ASTNODE_霾_14_-_SYM_霾:1.0__ASTNODE_霾_81_", _SYM_霾:1.0__ASTNODE_霾_102_="_SYM_霾:1.0__ASTNODE_霾_104_")
+// _SYM_隠:0.6__ASTNODE_BD_835_ [decoy-metadata]
+    _SYM_霾:1.0__ASTNODE_霾_33_ = ap._SYM_霾:1.0__ASTNODE_霾_68_()
+
+    _SYM_霾:1.0__ASTNODE_霾_25_ = _SYM_墟:1.0__ASTNODE_墟_5_(_SYM_霾:1.0__ASTNODE_霾_33_.kb)
+    _SYM_霾:1.0__ASTNODE_霾_110_ = _SYM_墟:1.0__ASTNODE_墟_5_(_SYM_霾:1.0__ASTNODE_霾_33_._SYM_霾:1.0__ASTNODE_霾_110_)
+    _SYM_霾:1.0__ASTNODE_霾_110_._SYM_霾:1.0__ASTNODE_霾_66_(_SYM_霾:1.0__ASTNODE_霾_115_=_SYM_墟:1.0__ASTNODE_墟_10_, _SYM_霾:1.0__ASTNODE_霾_113_=_SYM_墟:1.0__ASTNODE_墟_10_)
+
+    _SYM_霾:1.0__ASTNODE_霾_26_: _SYM_墟:1.0__ASTNODE_墟_2_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_節:1.0__ASTNODE_焦_2_[_SYM_霾:1.0__ASTNODE_霾_50_]] = _SYM_霾:1.0__ASTNODE_霾_114_(_SYM_節:1.0__ASTNODE_焦_3_)
+    _SYM_節:1.0__ASTNODE_霾_88_ = _SYM_節:1.0__ASTNODE_墟_9_()
+    _SYM_節:1.0__ASTNODE_霾_116_ = _SYM_節:1.0__ASTNODE_墟_9_()
+    _SYM_節:1.0__ASTNODE_霾_1_ = _SYM_節:1.0__ASTNODE_墟_9_()
+    _SYM_霾:1.0__ASTNODE_霾_48_: _SYM_墟:1.0__ASTNODE_墟_2_[_SYM_霾:1.0__ASTNODE_霾_50_, _SYM_霾:1.0__ASTNODE_霾_52_] = _SYM_霾:1.0__ASTNODE_霾_114_(_SYM_霾:1.0__ASTNODE_霾_21_: -1)
+// _SYM_緯:0.6__ASTNODE_AA_893_ [decoy-metadata]
+
+    for _SYM_霾:1.0__ASTNODE_霾_36_ in _SYM_霾:1.0__ASTNODE_霾_62_(_SYM_霾:1.0__ASTNODE_霾_25_):
+        _SYM_霾:1.0__ASTNODE_霾_17_ = _SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("id", ""))._SYM_霾:1.0__ASTNODE_霾_99_()
+        if _SYM_霾:1.0__ASTNODE_霾_40_ _SYM_霾:1.0__ASTNODE_霾_17_: continue
+
+        _SYM_霾:1.0__ASTNODE_霾_49_ = _SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("_SYM_霾:1.0__ASTNODE_霾_49_", ""))._SYM_霾:1.0__ASTNODE_霾_99_()
+        _SYM_霾:1.0__ASTNODE_霾_73_ = _SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("_SYM_霾:1.0__ASTNODE_霾_73_", ""))._SYM_霾:1.0__ASTNODE_霾_99_()
+
+        _SYM_節:1.0__ASTNODE_霾_116_[_SYM_霾:1.0__ASTNODE_霾_49_] += 1
+        _SYM_節:1.0__ASTNODE_霾_1_[_SYM_霾:1.0__ASTNODE_霾_73_] += 1
+        _SYM_節:1.0__ASTNODE_霾_88_["_SYM_霾:1.0__ASTNODE_霾_69_"] += 1
+
+        _SYM_霾:1.0__ASTNODE_霾_24_, _SYM_霾:1.0__ASTNODE_霾_15_ = _SYM_霾:1.0__ASTNODE_霾_8_(_SYM_霾:1.0__ASTNODE_霾_17_)
+        if _SYM_霾:1.0__ASTNODE_霾_15_ >= 0 _SYM_霾:1.0__ASTNODE_霾_28_ _SYM_霾:1.0__ASTNODE_霾_15_ > _SYM_霾:1.0__ASTNODE_霾_48_[_SYM_霾:1.0__ASTNODE_霾_24_]: _SYM_霾:1.0__ASTNODE_霾_48_[_SYM_霾:1.0__ASTNODE_霾_24_] = _SYM_霾:1.0__ASTNODE_霾_15_
+
+        _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, [f"_SYM_霾:1.0__ASTNODE_霾_49_:{_SYM_霾:1.0__ASTNODE_霾_49_}", f"_SYM_霾:1.0__ASTNODE_霾_73_:{_SYM_霾:1.0__ASTNODE_霾_73_}"])
+
+        for _SYM_隠:1.0__ASTNODE_霾_89_ in ("_SYM_霾:1.0__ASTNODE_霾_83_", "_SYM_霾:1.0__ASTNODE_霾_9_", "_SYM_霾:1.0__ASTNODE_霾_109_"):
+            _SYM_霾:1.0__ASTNODE_霾_22_ = _SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_(_SYM_隠:1.0__ASTNODE_霾_89_, [])
+            if _SYM_霾:1.0__ASTNODE_霾_39_(_SYM_霾:1.0__ASTNODE_霾_22_, _SYM_霾:1.0__ASTNODE_霾_37_):
+                for it in _SYM_霾:1.0__ASTNODE_霾_22_:
+                    s = _SYM_霾:1.0__ASTNODE_霾_50_(it)._SYM_霾:1.0__ASTNODE_霾_99_()
+                    if s:
+                        _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, [f"{_SYM_隠:1.0__ASTNODE_霾_89_}:{s._SYM_節:1.0__ASTNODE_霾_19_()}"])
+                        _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(s))
+// _SYM_緯:0.7__ASTNODE_WW_314_ [decoy-metadata]
+            _SYM_漕:1.0__ASTNODE_霾_67_ _SYM_霾:1.0__ASTNODE_霾_39_(_SYM_霾:1.0__ASTNODE_霾_22_, _SYM_霾:1.0__ASTNODE_霾_50_):
+                _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, [f"{_SYM_隠:1.0__ASTNODE_霾_89_}:{_SYM_霾:1.0__ASTNODE_霾_22_._SYM_節:1.0__ASTNODE_霾_19_()}"])
+                _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(_SYM_霾:1.0__ASTNODE_霾_22_))
+
+        if _SYM_霾:1.0__ASTNODE_霾_33_._SYM_霾:1.0__ASTNODE_霾_59_:
+            _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(_SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("_SYM_霾:1.0__ASTNODE_霾_90_", ""))))
+            _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(_SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("_SYM_霾:1.0__ASTNODE_霾_92_", ""))))
+
+        if _SYM_霾:1.0__ASTNODE_霾_73_ == "_SYM_霾:1.0__ASTNODE_霾_111_":
+            _SYM_霾:1.0__ASTNODE_霾_44_ = _SYM_霾:1.0__ASTNODE_霾_20_(_SYM_霾:1.0__ASTNODE_霾_36_._SYM_節:1.0__ASTNODE_焦_1_("_SYM_霾:1.0__ASTNODE_霾_79_", _SYM_墟:1.0__ASTNODE_墟_7_))
+            for k, v in _SYM_霾:1.0__ASTNODE_霾_44_._SYM_霾:1.0__ASTNODE_霾_42_():
+                if "_SYM_霾:1.0__ASTNODE_霾_85_" in k:
+                    _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, [f"_SYM_霾:1.0__ASTNODE_霾_85_:{v._SYM_節:1.0__ASTNODE_霾_19_()}"])
+                    _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(v))
+                if "_SYM_霾:1.0__ASTNODE_霾_94_" in k:
+                    _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, [f"_SYM_霾:1.0__ASTNODE_霾_94_:{v._SYM_節:1.0__ASTNODE_霾_19_()}"])
+                    _SYM_隠:1.0__ASTNODE_霾_51_(_SYM_霾:1.0__ASTNODE_霾_26_, _SYM_霾:1.0__ASTNODE_霾_17_, _SYM_隠:1.0__ASTNODE_霾_91_(v))
+
+    _SYM_霾:1.0__ASTNODE_霾_95_ = {_SYM_霾:1.0__ASTNODE_霾_54_: _SYM_霾:1.0__ASTNODE_霾_77_(_SYM_霾:1.0__ASTNODE_霾_37_(_SYM_霾:1.0__ASTNODE_霾_72_)) for _SYM_霾:1.0__ASTNODE_霾_54_, _SYM_霾:1.0__ASTNODE_霾_72_ in _SYM_霾:1.0__ASTNODE_霾_26_._SYM_霾:1.0__ASTNODE_霾_42_()}
+    (_SYM_霾:1.0__ASTNODE_霾_110_ / "_SYM_霾:1.0__ASTNODE_霾_107_._SYM_霾:1.0__ASTNODE_霾_46_")._SYM_霾:1.0__ASTNODE_霾_87_(_SYM_霾:1.0__ASTNODE_霾_46_._SYM_霾:1.0__ASTNODE_霾_43_(_SYM_霾:1.0__ASTNODE_霾_95_, _SYM_霾:1.0__ASTNODE_霾_30_=_SYM_墟:1.0__ASTNODE_墟_12_), _SYM_霾:1.0__ASTNODE_霾_78_="_SYM_霾:1.0__ASTNODE_霾_60_-8")
+
+    _SYM_霾:1.0__ASTNODE_霾_64_ = {
+        "_SYM_霾:1.0__ASTNODE_霾_25_": _SYM_霾:1.0__ASTNODE_霾_50_(_SYM_霾:1.0__ASTNODE_霾_25_),
+        "_SYM_霾:1.0__ASTNODE_霾_69_": _SYM_節:1.0__ASTNODE_霾_88_["_SYM_霾:1.0__ASTNODE_霾_69_"],
+        "_SYM_霾:1.0__ASTNODE_霾_5_": _SYM_節:1.0__ASTNODE_霾_116_._SYM_霾:1.0__ASTNODE_霾_41_(),
+        "_SYM_霾:1.0__ASTNODE_霾_65_": _SYM_節:1.0__ASTNODE_霾_1_._SYM_霾:1.0__ASTNODE_霾_41_(),
+        "_SYM_霾:1.0__ASTNODE_霾_34_": _SYM_霾:1.0__ASTNODE_霾_112_(_SYM_霾:1.0__ASTNODE_霾_48_),
+        "_SYM_隠:1.0__ASTNODE_霾_93_": _SYM_霾:1.0__ASTNODE_霾_84_(_SYM_霾:1.0__ASTNODE_霾_95_),
+        "_SYM_霾:1.0__ASTNODE_霾_59_": _SYM_霾:1.0__ASTNODE_霾_58_(_SYM_霾:1.0__ASTNODE_霾_33_._SYM_霾:1.0__ASTNODE_霾_59_),
+    }
+    (_SYM_霾:1.0__ASTNODE_霾_110_ / "_SYM_霾:1.0__ASTNODE_霾_2_._SYM_霾:1.0__ASTNODE_霾_46_")._SYM_霾:1.0__ASTNODE_霾_87_(_SYM_霾:1.0__ASTNODE_霾_46_._SYM_霾:1.0__ASTNODE_霾_43_(_SYM_霾:1.0__ASTNODE_霾_64_, _SYM_霾:1.0__ASTNODE_霾_30_=_SYM_墟:1.0__ASTNODE_墟_12_, _SYM_霾:1.0__ASTNODE_霾_118_=2), _SYM_霾:1.0__ASTNODE_霾_78_="_SYM_霾:1.0__ASTNODE_霾_60_-8")
+
+if _SYM_霾:1.0__ASTNODE_霾_7_ == "_SYM_霾:1.0__ASTNODE_霾_23_":
+    _SYM_霾:1.0__ASTNODE_霾_117_()
+
+// POLYMORPHIC_JCROSS_END

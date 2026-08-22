@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DFD1975B ver:1778162908
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_沫:1.0__JCROSS_沫_16_ _ASTNODE_沫:1.0__JCROSS_沫_21_ _ASTNODE_沫:1.0__JCROSS_沫_3_ort _ASTNODE_沫:1.0__JCROSS_沫_15_
+
+_ASTNODE_沫:1.0__JCROSS_沫_16_ _ASTNODE_沫:1.0__JCROSS_沫_4_ _ASTNODE_沫:1.0__JCROSS_沫_3_ort _ASTNODE_沫:1.0__JCROSS_沫_1_
+_ASTNODE_沫:1.0__JCROSS_沫_16_ _ASTNODE_沫:1.0__JCROSS_沫_7_ _ASTNODE_沫:1.0__JCROSS_沫_3_ort _ASTNODE_庵:1.0__JCROSS_庵_9_, _ASTNODE_庵:1.0__JCROSS_庵_6_, _ASTNODE_庵:1.0__JCROSS_庵_2_
+
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_4_:
+    _ASTNODE_沫:1.0__JCROSS_沫_10_: _ASTNODE_沫:1.0__JCROSS_沫_11_
+
+
+// _ASTNODE_格:0.9__JCROSS_BW_114_ [decoy-metadata]
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_10_:
+    _ASTNODE_沫:1.0__JCROSS_沫_5_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_1_:
+    _ASTNODE_沫:1.0__JCROSS_沫_17_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+    _ASTNODE_沫:1.0__JCROSS_沫_23_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+// _ASTNODE_格:0.6__JCROSS_YG_386_ [decoy-metadata]
+
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class Or:
+    _ASTNODE_沫:1.0__JCROSS_沫_17_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+    _ASTNODE_沫:1.0__JCROSS_沫_23_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+// _ASTNODE_禁:0.7__JCROSS_ZE_623_ [decoy-metadata]
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_3_:
+    _ASTNODE_沫:1.0__JCROSS_沫_17_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+    _ASTNODE_沫:1.0__JCROSS_沫_23_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+// _ASTNODE_禁:0.6__JCROSS_KZ_566_ [decoy-metadata]
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_11_:
+    _ASTNODE_沫:1.0__JCROSS_沫_5_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_7_:
+    _ASTNODE_沫:1.0__JCROSS_沫_5_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+
+@_ASTNODE_沫:1.0__JCROSS_沫_1_
+class _ASTNODE_庵:1.0__JCROSS_庵_8_:
+// _ASTNODE_嵐:0.6__JCROSS_GX_263_ [decoy-metadata]
+    _ASTNODE_沫:1.0__JCROSS_沫_17_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+    _ASTNODE_沫:1.0__JCROSS_沫_23_: "_ASTNODE_庵:1.0__JCROSS_庵_5_"
+
+_ASTNODE_庵:1.0__JCROSS_庵_5_ = _ASTNODE_庵:1.0__JCROSS_庵_9_[_ASTNODE_庵:1.0__JCROSS_庵_4_, _ASTNODE_庵:1.0__JCROSS_庵_10_, _ASTNODE_庵:1.0__JCROSS_庵_1_, Or, _ASTNODE_庵:1.0__JCROSS_庵_3_, _ASTNODE_庵:1.0__JCROSS_庵_11_, _ASTNODE_庵:1.0__JCROSS_庵_7_, _ASTNODE_庵:1.0__JCROSS_庵_8_]
+
+
+_ASTNODE_沫:1.0__JCROSS_沫_2_ _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_: _ASTNODE_庵:1.0__JCROSS_庵_5_) -> _ASTNODE_庵:1.0__JCROSS_庵_6_[_ASTNODE_沫:1.0__JCROSS_沫_11_, _ASTNODE_庵:1.0__JCROSS_庵_2_]:
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_4_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "var", "_ASTNODE_沫:1.0__JCROSS_沫_10_": _ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_10_}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_10_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_12_", "_ASTNODE_沫:1.0__JCROSS_沫_5_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_5_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_1_):
+// _ASTNODE_滲:0.3__JCROSS_WE_355_ [decoy-metadata]
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_20_", "_ASTNODE_沫:1.0__JCROSS_沫_17_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_17_), "_ASTNODE_沫:1.0__JCROSS_沫_23_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_23_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, Or):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "or", "_ASTNODE_沫:1.0__JCROSS_沫_17_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_17_), "_ASTNODE_沫:1.0__JCROSS_沫_23_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_23_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_3_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_3_", "_ASTNODE_沫:1.0__JCROSS_沫_17_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_17_), "_ASTNODE_沫:1.0__JCROSS_沫_23_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_23_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_11_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_9_", "_ASTNODE_沫:1.0__JCROSS_沫_5_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_5_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_7_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_8_", "_ASTNODE_沫:1.0__JCROSS_沫_5_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_5_)}
+    if _ASTNODE_沫:1.0__JCROSS_沫_13_(_ASTNODE_沫:1.0__JCROSS_沫_14_, _ASTNODE_庵:1.0__JCROSS_庵_8_):
+        return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_滲:1.0__JCROSS_沫_6_", "_ASTNODE_沫:1.0__JCROSS_沫_17_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_17_), "_ASTNODE_沫:1.0__JCROSS_沫_23_": _ASTNODE_沫:1.0__JCROSS_沫_19_(_ASTNODE_沫:1.0__JCROSS_沫_14_._ASTNODE_沫:1.0__JCROSS_沫_23_)}
+    return {"_ASTNODE_沫:1.0__JCROSS_沫_22_": "_ASTNODE_沫:1.0__JCROSS_沫_18_"}
+
+// POLYMORPHIC_JCROSS_END

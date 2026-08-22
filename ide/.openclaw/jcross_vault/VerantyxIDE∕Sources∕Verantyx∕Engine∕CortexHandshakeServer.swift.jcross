@@ -1,0 +1,263 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B94DD315 ver:1778150742
+// ⚠️ One-time schema — expires after response
+
+im_JCROSS_露:1.0__ID_露_124_ _JCROSS_廊:1.0__ID_廊_35_
+im_JCROSS_露:1.0__ID_露_124_ _JCROSS_廊:1.0__ID_廊_45_
+
+// [metadata-stripped]
+// [metadata-stripped]
+@_JCROSS_廊:1.0__ID_廊_25_
+final class _JCROSS_項:1.0__ID_廊_1_: _JCROSS_廊:1.0__ID_廊_17_ {
+    static let _JCROSS_露:1.0__ID_露_78_ = _JCROSS_項:1.0__ID_廊_1_()
+    
+    private var _JCROSS_項:1.0__ID_露_90_: _JCROSS_項:1.0__ID_廊_5_?
+    private let _JCROSS_露:1.0__ID_露_124_: _JCROSS_廊:1.0__ID_廊_49_._JCROSS_廊:1.0__ID_廊_23_ = 5420
+    
+    private init() {}
+    
+    func _JCROSS_露:1.0__ID_露_24_() {
+        guard _JCROSS_項:1.0__ID_露_90_ == nil else { return }
+        do {
+            let _JCROSS_露:1.0__ID_露_39_ = _JCROSS_廊:1.0__ID_廊_2_._JCROSS_露:1.0__ID_露_41_
+            _JCROSS_項:1.0__ID_露_90_ = try _JCROSS_項:1.0__ID_廊_5_(_JCROSS_露:1.0__ID_露_22_: _JCROSS_露:1.0__ID_露_39_, on: _JCROSS_露:1.0__ID_露_124_)
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_項:1.0__ID_露_57_ = { [weak self] _JCROSS_露:1.0__ID_露_87_ in
+                _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                    self?._JCROSS_露:1.0__ID_露_82_(_JCROSS_露:1.0__ID_露_87_)
+                }
+            }
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_項:1.0__ID_露_19_ = { _JCROSS_露:1.0__ID_露_11_ in
+                switch _JCROSS_露:1.0__ID_露_11_ {
+                case ._JCROSS_露:1.0__ID_露_10_:
+                    _JCROSS_露:1.0__ID_露_95_("🌐 _JCROSS_項:1.0__ID_廊_1_ _JCROSS_露:1.0__ID_露_115_ on _JCROSS_露:1.0__ID_露_124_ 5420")
+                case ._JCROSS_露:1.0__ID_露_116_(let _JCROSS_露:1.0__ID_露_109_):
+                    _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_項:1.0__ID_廊_1_ _JCROSS_露:1.0__ID_露_116_: \(_JCROSS_露:1.0__ID_露_109_)")
+                _JCROSS_露:1.0__ID_露_38_:
+                    break
+                }
+            }
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_露:1.0__ID_露_24_(_JCROSS_露:1.0__ID_露_34_: ._JCROSS_露:1.0__ID_露_70_(_JCROSS_露:1.0__ID_露_26_: ._JCROSS_露:1.0__ID_露_112_))
+        } catch {
+            _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_廊:1.0__ID_廊_51_ to _JCROSS_露:1.0__ID_露_24_ _JCROSS_項:1.0__ID_廊_1_: \(_JCROSS_露:1.0__ID_露_109_)")
+        }
+    }
+    
+    private func _JCROSS_露:1.0__ID_露_82_(_ _JCROSS_露:1.0__ID_露_87_: _JCROSS_廊:1.0__ID_廊_36_) {
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_24_(_JCROSS_露:1.0__ID_露_34_: ._JCROSS_露:1.0__ID_露_70_(_JCROSS_露:1.0__ID_露_26_: ._JCROSS_露:1.0__ID_露_112_))
+        
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_65_(_JCROSS_露:1.0__ID_露_76_: 1, _JCROSS_露:1.0__ID_露_23_: 65536) { [weak self] _JCROSS_露:1.0__ID_露_101_, _JCROSS_露:1.0__ID_露_63_, _JCROSS_露:1.0__ID_露_83_, _JCROSS_露:1.0__ID_露_109_ in
+            guard let self = self, let _JCROSS_露:1.0__ID_露_101_ = _JCROSS_露:1.0__ID_露_101_, !_JCROSS_露:1.0__ID_露_101_._JCROSS_露:1.0__ID_露_67_ else {
+                _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_71_()
+                return
+            }
+            
+            _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                if let _JCROSS_紗:1.0__ID_露_18_ = _JCROSS_廊:1.0__ID_廊_15_(_JCROSS_露:1.0__ID_露_101_: _JCROSS_露:1.0__ID_露_101_, _JCROSS_露:1.0__ID_露_15_: ._JCROSS_露:1.0__ID_露_31_) {
+                    if _JCROSS_紗:1.0__ID_露_18_._JCROSS_露:1.0__ID_露_107_("_JCROSS_廊:1.0__ID_廊_38_ /_JCROSS_紗:1.0__ID_露_59_/_JCROSS_露:1.0__ID_露_29_") {
+                        self._JCROSS_匴:1.0__ID_露_3_(_JCROSS_紗:1.0__ID_露_18_, _JCROSS_露:1.0__ID_露_87_: _JCROSS_露:1.0__ID_露_87_)
+                    } else if _JCROSS_紗:1.0__ID_露_18_._JCROSS_露:1.0__ID_露_107_("_JCROSS_項:1.0__ID_雄_1_ /_JCROSS_露:1.0__ID_露_40_") {
+                        self._JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 200, _JCROSS_露:1.0__ID_露_28_: "{\"_JCROSS_露:1.0__ID_露_111_\": \"ok\"}")
+                    } else if _JCROSS_紗:1.0__ID_露_18_._JCROSS_露:1.0__ID_露_107_("_JCROSS_項:1.0__ID_雄_1_ /_JCROSS_露:1.0__ID_露_53_/_JCROSS_露:1.0__ID_露_50_") {
+                        self._JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 200, _JCROSS_露:1.0__ID_露_28_: "{\"_JCROSS_露:1.0__ID_露_50_\": 1, \"_JCROSS_露:1.0__ID_露_113_\": 0}")
+                    } else {
+// [metadata-stripped]
+                        self._JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 404, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_4_ _JCROSS_廊:1.0__ID_廊_28_")
+                    }
+                } else {
+                    self._JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 400, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_3_ _JCROSS_紗:1.0__ID_廊_54_")
+                }
+            }
+        }
+    }
+    
+    private func _JCROSS_匴:1.0__ID_露_3_(_ _JCROSS_紗:1.0__ID_露_18_: _JCROSS_廊:1.0__ID_廊_15_, _JCROSS_露:1.0__ID_露_87_: _JCROSS_廊:1.0__ID_廊_36_) {
+// [metadata-stripped]
+        guard let _JCROSS_露:1.0__ID_露_86_ = _JCROSS_紗:1.0__ID_露_18_._JCROSS_露:1.0__ID_露_36_(of: "\r\n\r\n") ?? _JCROSS_紗:1.0__ID_露_18_._JCROSS_露:1.0__ID_露_36_(of: "\n\n") else {
+            _JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 400, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_3_ _JCROSS_紗:1.0__ID_廊_54_")
+            return
+        }
+        
+        let _JCROSS_露:1.0__ID_露_30_ = _JCROSS_廊:1.0__ID_廊_15_(_JCROSS_紗:1.0__ID_露_18_[_JCROSS_露:1.0__ID_露_86_._JCROSS_露:1.0__ID_露_56_...])
+        guard let _JCROSS_露:1.0__ID_露_37_ = _JCROSS_露:1.0__ID_露_30_._JCROSS_露:1.0__ID_露_101_(_JCROSS_露:1.0__ID_露_22_: ._JCROSS_露:1.0__ID_露_31_) else {
+            _JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 400, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_3_ _JCROSS_紗:1.0__ID_廊_54_")
+            return
+        }
+        
+        do {
+            if let _JCROSS_露:1.0__ID_露_74_ = try _JCROSS_廊:1.0__ID_廊_18_._JCROSS_露:1.0__ID_露_5_(_JCROSS_露:1.0__ID_露_88_: _JCROSS_露:1.0__ID_露_37_, _JCROSS_露:1.0__ID_露_98_: []) as? [_JCROSS_廊:1.0__ID_廊_15_: _JCROSS_廊:1.0__ID_廊_12_] {
+                let _JCROSS_露:1.0__ID_露_99_ = _JCROSS_露:1.0__ID_露_74_["_JCROSS_露:1.0__ID_露_106_"] as? _JCROSS_廊:1.0__ID_廊_15_
+                let _JCROSS_露:1.0__ID_露_62_ = _JCROSS_露:1.0__ID_露_74_["_JCROSS_露:1.0__ID_露_45_"] as? _JCROSS_廊:1.0__ID_廊_15_
+                let _JCROSS_露:1.0__ID_露_84_ = _JCROSS_露:1.0__ID_露_74_["_JCROSS_露:1.0__ID_露_105_"] as? _JCROSS_廊:1.0__ID_廊_21_ ?? false
+                
+                _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                    if let ws = _JCROSS_露:1.0__ID_露_99_ {
+                        _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_125_ = ws
+// _JCROSS_廊:0.1__ID_DL_360_ [decoy-metadata]
+                        _JCROSS_廊:1.0__ID_廊_46_._JCROSS_露:1.0__ID_露_85_._JCROSS_項:1.0__ID_雄_2_(ws, _JCROSS_鍵:1.0__ID_露_96_: "_JCROSS_露:1.0__ID_露_44_")
+                    }
+// _JCROSS_露:0.9__ID_KZ_913_ [decoy-metadata]
+                    if let sp = _JCROSS_露:1.0__ID_露_62_ {
+                        _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_73_ = sp
+                    }
+                    _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_46_ = _JCROSS_露:1.0__ID_露_84_
+                    _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_47_ = true
+                    
+                    _JCROSS_露:1.0__ID_露_95_("✅ _JCROSS_廊:1.0__ID_廊_31_ _JCROSS_廊:1.0__ID_廊_13_ _JCROSS_露:1.0__ID_露_8_ _JCROSS_廊:1.0__ID_廊_24_!")
+                    _JCROSS_露:1.0__ID_露_95_("_JCROSS_廊:1.0__ID_廊_19_: \(_JCROSS_露:1.0__ID_露_99_ ?? "nil")")
+                    _JCROSS_露:1.0__ID_露_95_("_JCROSS_廊:1.0__ID_廊_14_: \(_JCROSS_露:1.0__ID_露_62_ ?? "nil")")
+                    
+// [metadata-stripped]
+                    self._JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 200, _JCROSS_露:1.0__ID_露_28_: "{\"_JCROSS_露:1.0__ID_露_111_\": \"_JCROSS_露:1.0__ID_露_51_\"}")
+                }
+            } else {
+                _JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 400, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_39_ _JCROSS_廊:1.0__ID_廊_37_")
+            }
+        } catch {
+            _JCROSS_紗:1.0__ID_露_102_(to: _JCROSS_露:1.0__ID_露_87_, _JCROSS_露:1.0__ID_露_12_: 400, _JCROSS_露:1.0__ID_露_28_: "_JCROSS_廊:1.0__ID_廊_8_ _JCROSS_廊:1.0__ID_廊_47_")
+        }
+    }
+    
+    private func _JCROSS_紗:1.0__ID_露_102_(to _JCROSS_露:1.0__ID_露_87_: _JCROSS_廊:1.0__ID_廊_36_, _JCROSS_露:1.0__ID_露_12_: _JCROSS_廊:1.0__ID_廊_29_, _JCROSS_露:1.0__ID_露_28_: _JCROSS_廊:1.0__ID_廊_15_) {
+        let _JCROSS_露:1.0__ID_露_68_ = _JCROSS_露:1.0__ID_露_12_ == 200 ? "200 OK" : "\(_JCROSS_露:1.0__ID_露_12_) _JCROSS_廊:1.0__ID_廊_47_"
+        let _JCROSS_露:1.0__ID_露_119_ = """
+        _JCROSS_紗:1.0__ID_廊_16_/1.1 \(_JCROSS_露:1.0__ID_露_68_)\r
+// _JCROSS_鍵:0.6__ID_VZ_220_ [decoy-metadata]
+        _JCROSS_廊:1.0__ID_廊_57_-_JCROSS_廊:1.0__ID_廊_59_: _JCROSS_露:1.0__ID_露_108_/_JCROSS_露:1.0__ID_露_74_\r
+        _JCROSS_廊:1.0__ID_廊_57_-_JCROSS_廊:1.0__ID_廊_26_: \(_JCROSS_露:1.0__ID_露_28_._JCROSS_露:1.0__ID_露_31_._JCROSS_露:1.0__ID_露_113_)\r
+        _JCROSS_廊:1.0__ID_廊_43_: _JCROSS_露:1.0__ID_露_72_\r
+        \r
+        \(_JCROSS_露:1.0__ID_露_28_)
+        """
+        let _JCROSS_露:1.0__ID_露_101_ = _JCROSS_露:1.0__ID_露_119_._JCROSS_露:1.0__ID_露_101_(_JCROSS_露:1.0__ID_露_22_: ._JCROSS_露:1.0__ID_露_31_)!
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_94_(_JCROSS_露:1.0__ID_露_127_: _JCROSS_露:1.0__ID_露_101_, _JCROSS_露:1.0__ID_露_17_: ._JCROSS_露:1.0__ID_露_121_ { _ in
+            _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_71_()
+        })
+    }
+}
+im_JCROSS_露:1.0__ID_露_124_ _JCROSS_廊:1.0__ID_廊_35_
+im_JCROSS_露:1.0__ID_露_124_ _JCROSS_廊:1.0__ID_廊_45_
+
+// [metadata-stripped]
+// [metadata-stripped]
+@_JCROSS_廊:1.0__ID_廊_25_
+final class _JCROSS_項:1.0__ID_廊_9_: _JCROSS_廊:1.0__ID_廊_17_ {
+    static let _JCROSS_露:1.0__ID_露_78_ = _JCROSS_項:1.0__ID_廊_9_()
+    
+// _JCROSS_紗:0.4__ID_MK_691_ [decoy-metadata]
+    private var _JCROSS_項:1.0__ID_露_90_: _JCROSS_項:1.0__ID_廊_5_?
+    private let _JCROSS_露:1.0__ID_露_124_: _JCROSS_廊:1.0__ID_廊_49_._JCROSS_廊:1.0__ID_廊_23_ = 5421
+    private var _JCROSS_露:1.0__ID_露_117_: [_JCROSS_廊:1.0__ID_廊_36_] = []
+    
+    @_JCROSS_廊:1.0__ID_廊_52_ var _JCROSS_露:1.0__ID_露_42_: _JCROSS_廊:1.0__ID_廊_15_ = "_JCROSS_廊:1.0__ID_廊_22_"
+    
+    private init() {}
+    
+    func _JCROSS_露:1.0__ID_露_24_() {
+        guard _JCROSS_項:1.0__ID_露_90_ == nil else { return }
+        do {
+            let _JCROSS_露:1.0__ID_露_39_ = _JCROSS_廊:1.0__ID_廊_2_._JCROSS_露:1.0__ID_露_41_
+            let _JCROSS_露:1.0__ID_露_92_ = _JCROSS_廊:1.0__ID_廊_58_._JCROSS_廊:1.0__ID_廊_32_()
+            _JCROSS_露:1.0__ID_露_92_._JCROSS_露:1.0__ID_露_89_ = true
+            _JCROSS_露:1.0__ID_露_39_._JCROSS_露:1.0__ID_露_20_._JCROSS_露:1.0__ID_露_9_._JCROSS_露:1.0__ID_露_79_(_JCROSS_露:1.0__ID_露_92_, at: 0)
+            
+            _JCROSS_項:1.0__ID_露_90_ = try _JCROSS_項:1.0__ID_廊_5_(_JCROSS_露:1.0__ID_露_22_: _JCROSS_露:1.0__ID_露_39_, on: _JCROSS_露:1.0__ID_露_124_)
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_項:1.0__ID_露_57_ = { [weak self] _JCROSS_露:1.0__ID_露_87_ in
+// _JCROSS_濫:0.6__ID_KX_223_ [decoy-metadata]
+                _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                    self?._JCROSS_露:1.0__ID_露_82_(_JCROSS_露:1.0__ID_露_87_)
+                }
+            }
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_項:1.0__ID_露_19_ = { _JCROSS_露:1.0__ID_露_11_ in
+                switch _JCROSS_露:1.0__ID_露_11_ {
+                case ._JCROSS_露:1.0__ID_露_10_:
+                    _JCROSS_露:1.0__ID_露_95_("🌐 _JCROSS_項:1.0__ID_廊_9_ _JCROSS_露:1.0__ID_露_115_ on _JCROSS_露:1.0__ID_露_124_ 5421")
+                case ._JCROSS_露:1.0__ID_露_116_(let _JCROSS_露:1.0__ID_露_109_):
+                    _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_項:1.0__ID_廊_9_ _JCROSS_露:1.0__ID_露_116_: \(_JCROSS_露:1.0__ID_露_109_)")
+                _JCROSS_露:1.0__ID_露_38_:
+                    break
+                }
+            }
+            
+            _JCROSS_項:1.0__ID_露_90_?._JCROSS_露:1.0__ID_露_24_(_JCROSS_露:1.0__ID_露_34_: ._JCROSS_露:1.0__ID_露_70_(_JCROSS_露:1.0__ID_露_26_: ._JCROSS_露:1.0__ID_露_112_))
+        } catch {
+            _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_廊:1.0__ID_廊_51_ to _JCROSS_露:1.0__ID_露_24_ _JCROSS_項:1.0__ID_廊_9_: \(_JCROSS_露:1.0__ID_露_109_)")
+        }
+    }
+    
+    private func _JCROSS_露:1.0__ID_露_82_(_ _JCROSS_露:1.0__ID_露_87_: _JCROSS_廊:1.0__ID_廊_36_) {
+        _JCROSS_露:1.0__ID_露_117_._JCROSS_露:1.0__ID_露_104_(_JCROSS_露:1.0__ID_露_87_)
+        
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_項:1.0__ID_露_19_ = { [weak self] _JCROSS_露:1.0__ID_露_11_ in
+            guard let self = self else { return }
+            _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                switch _JCROSS_露:1.0__ID_露_11_ {
+                case ._JCROSS_露:1.0__ID_露_10_:
+                    _JCROSS_露:1.0__ID_露_95_("✅ _JCROSS_廊:1.0__ID_廊_56_ _JCROSS_廊:1.0__ID_廊_7_ _JCROSS_廊:1.0__ID_廊_13_")
+                    self._JCROSS_露:1.0__ID_露_42_ = "_JCROSS_廊:1.0__ID_廊_11_ (\(self._JCROSS_露:1.0__ID_露_117_._JCROSS_露:1.0__ID_露_113_) _JCROSS_露:1.0__ID_露_81_)"
+                    self._JCROSS_露:1.0__ID_露_93_(_JCROSS_露:1.0__ID_露_123_: _JCROSS_露:1.0__ID_露_87_)
+                case ._JCROSS_露:1.0__ID_露_116_(_), ._JCROSS_露:1.0__ID_露_91_:
+                    _JCROSS_露:1.0__ID_露_95_("❌ _JCROSS_廊:1.0__ID_廊_56_ _JCROSS_廊:1.0__ID_廊_7_ _JCROSS_廊:1.0__ID_廊_50_")
+                    self._JCROSS_露:1.0__ID_露_117_._JCROSS_露:1.0__ID_露_6_(where: { $0 === _JCROSS_露:1.0__ID_露_87_ })
+                    self._JCROSS_露:1.0__ID_露_42_ = self._JCROSS_露:1.0__ID_露_117_._JCROSS_露:1.0__ID_露_67_ ? "_JCROSS_廊:1.0__ID_廊_22_" : "_JCROSS_廊:1.0__ID_廊_11_ (\(self._JCROSS_露:1.0__ID_露_117_._JCROSS_露:1.0__ID_露_113_) _JCROSS_露:1.0__ID_露_81_)"
+                _JCROSS_露:1.0__ID_露_38_:
+                    break
+                }
+            }
+        }
+        
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_24_(_JCROSS_露:1.0__ID_露_34_: ._JCROSS_露:1.0__ID_露_70_(_JCROSS_露:1.0__ID_露_26_: ._JCROSS_露:1.0__ID_露_112_))
+// _JCROSS_匴:0.9__ID_BG_326_ [decoy-metadata]
+    }
+    
+    private func _JCROSS_露:1.0__ID_露_93_(_JCROSS_露:1.0__ID_露_123_ _JCROSS_露:1.0__ID_露_87_: _JCROSS_廊:1.0__ID_廊_36_) {
+        _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_58_ { [weak self] _JCROSS_露:1.0__ID_露_127_, _JCROSS_露:1.0__ID_露_63_, _JCROSS_露:1.0__ID_露_83_, _JCROSS_露:1.0__ID_露_109_ in
+            guard let self = self else { return }
+            
+            if let _JCROSS_露:1.0__ID_露_109_ = _JCROSS_露:1.0__ID_露_109_ {
+                _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_廊:1.0__ID_廊_56_ _JCROSS_露:1.0__ID_露_65_ _JCROSS_露:1.0__ID_露_109_: \(_JCROSS_露:1.0__ID_露_109_)")
+                return
+            }
+            
+            if let _JCROSS_露:1.0__ID_露_127_ = _JCROSS_露:1.0__ID_露_127_, let _JCROSS_露:1.0__ID_露_32_ = _JCROSS_廊:1.0__ID_廊_15_(_JCROSS_露:1.0__ID_露_101_: _JCROSS_露:1.0__ID_露_127_, _JCROSS_露:1.0__ID_露_15_: ._JCROSS_露:1.0__ID_露_31_) {
+                _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                    _JCROSS_露:1.0__ID_露_95_("📩 _JCROSS_廊:1.0__ID_廊_6_ _JCROSS_廊:1.0__ID_廊_20_ _JCROSS_廊:1.0__ID_廊_10_: \(_JCROSS_露:1.0__ID_露_32_)")
+                    if let _JCROSS_露:1.0__ID_露_101_ = _JCROSS_露:1.0__ID_露_32_._JCROSS_露:1.0__ID_露_101_(_JCROSS_露:1.0__ID_露_22_: ._JCROSS_露:1.0__ID_露_31_),
+                       let _JCROSS_露:1.0__ID_露_74_ = try? _JCROSS_廊:1.0__ID_廊_18_._JCROSS_露:1.0__ID_露_5_(_JCROSS_露:1.0__ID_露_88_: _JCROSS_露:1.0__ID_露_101_) as? [_JCROSS_廊:1.0__ID_廊_15_: _JCROSS_廊:1.0__ID_廊_12_] {
+                        if let _JCROSS_露:1.0__ID_露_113_ = _JCROSS_露:1.0__ID_露_74_["_JCROSS_露:1.0__ID_露_81_"] as? _JCROSS_廊:1.0__ID_廊_29_ {
+                            _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_14_ = _JCROSS_露:1.0__ID_露_113_
+                        }
+                        if let _JCROSS_露:1.0__ID_露_111_ = _JCROSS_露:1.0__ID_露_74_["_JCROSS_露:1.0__ID_露_111_"] as? _JCROSS_廊:1.0__ID_廊_15_ {
+                            _JCROSS_廊:1.0__ID_廊_27_._JCROSS_露:1.0__ID_露_78_?._JCROSS_露:1.0__ID_露_66_ = _JCROSS_露:1.0__ID_露_111_
+                        }
+                    }
+                    self._JCROSS_露:1.0__ID_露_93_(_JCROSS_露:1.0__ID_露_123_: _JCROSS_露:1.0__ID_露_87_)
+                }
+            } else {
+                _JCROSS_廊:1.0__ID_廊_33_ { @_JCROSS_廊:1.0__ID_廊_25_ in
+                    self._JCROSS_露:1.0__ID_露_93_(_JCROSS_露:1.0__ID_露_123_: _JCROSS_露:1.0__ID_露_87_)
+                }
+            }
+        }
+    }
+    
+    func _JCROSS_露:1.0__ID_露_97_(_JCROSS_露:1.0__ID_露_32_: _JCROSS_廊:1.0__ID_廊_15_) {
+        guard let _JCROSS_露:1.0__ID_露_101_ = _JCROSS_露:1.0__ID_露_32_._JCROSS_露:1.0__ID_露_101_(_JCROSS_露:1.0__ID_露_22_: ._JCROSS_露:1.0__ID_露_31_) else { return }
+        let _JCROSS_露:1.0__ID_露_49_ = _JCROSS_廊:1.0__ID_廊_58_._JCROSS_廊:1.0__ID_廊_30_(_JCROSS_露:1.0__ID_露_122_: ._JCROSS_露:1.0__ID_露_118_)
+        let _JCROSS_露:1.0__ID_露_63_ = _JCROSS_廊:1.0__ID_廊_36_._JCROSS_廊:1.0__ID_廊_44_(_JCROSS_項:1.0__ID_露_80_: "_JCROSS_廊:1.0__ID_廊_34_", _JCROSS_露:1.0__ID_露_49_: [_JCROSS_露:1.0__ID_露_49_])
+        
+        for _JCROSS_露:1.0__ID_露_87_ in _JCROSS_露:1.0__ID_露_117_ {
+            _JCROSS_露:1.0__ID_露_87_._JCROSS_露:1.0__ID_露_94_(_JCROSS_露:1.0__ID_露_127_: _JCROSS_露:1.0__ID_露_101_, _JCROSS_露:1.0__ID_露_21_: _JCROSS_露:1.0__ID_露_63_, _JCROSS_露:1.0__ID_露_83_: true, _JCROSS_露:1.0__ID_露_17_: ._JCROSS_露:1.0__ID_露_121_({ _JCROSS_露:1.0__ID_露_109_ in
+                if let _JCROSS_露:1.0__ID_露_109_ = _JCROSS_露:1.0__ID_露_109_ {
+                    _JCROSS_露:1.0__ID_露_95_("⚠️ _JCROSS_廊:1.0__ID_廊_56_ _JCROSS_露:1.0__ID_露_94_ _JCROSS_露:1.0__ID_露_109_: \(_JCROSS_露:1.0__ID_露_109_)")
+                }
+            }))
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

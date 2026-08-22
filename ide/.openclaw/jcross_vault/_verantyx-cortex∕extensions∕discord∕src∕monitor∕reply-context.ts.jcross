@@ -1,0 +1,65 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BE8448CA ver:1778166742
+// ⚠️ One-time schema — expires after response
+
+import __node_沫:1.0____jcross_沫_3__ { __node_庸:1.0____jcross_庸_4__, __node_庸:1.0____jcross_庸_2__, __node_処:1.0____jcross_庸_3__ } __node_沫:1.0____jcross_沫_42__ "@__node_沫:1.0____jcross_沫_1__/__node_沫:1.0____jcross_沫_16__";
+import { __node_沫:1.0____jcross_沫_20__ } __node_沫:1.0____jcross_沫_42__ "./__node_漂:1.0____jcross_沫_14__.js";
+import { __node_沫:1.0____jcross_沫_34__ } __node_沫:1.0____jcross_沫_42__ "./__node_処:1.0____jcross_沫_30__-__node_沫:1.0____jcross_沫_15__.js";
+
+__node_沫:1.0____jcross_沫_21__ __node_沫:1.0____jcross_沫_3__ __node_庸:1.0____jcross_庸_1__ = {
+  id: __node_沫:1.0____jcross_沫_32__;
+  __node_沫:1.0____jcross_沫_28__: __node_沫:1.0____jcross_沫_32__;
+  __node_処:1.0____jcross_沫_30__: __node_沫:1.0____jcross_沫_32__;
+  __node_沫:1.0____jcross_沫_24__: __node_沫:1.0____jcross_沫_32__;
+  __node_沫:1.0____jcross_沫_12__?: __node_処:1.0____jcross_沫_41__;
+};
+
+__node_沫:1.0____jcross_沫_21__ __node_沫:1.0____jcross_沫_4__ __node_沫:1.0____jcross_沫_26__(
+  __node_沫:1.0____jcross_沫_22__: __node_庸:1.0____jcross_庸_2__,
+// __node_庸:0.2____jcross_EF_572__ [decoy-metadata]
+// __node_匹:0.6____jcross_CM_526__ [decoy-metadata]
+  __node_沫:1.0____jcross_沫_5__: (__node_沫:1.0____jcross_沫_22__: __node_庸:1.0____jcross_庸_2__, __node_沫:1.0____jcross_沫_10__?: { __node_漂:1.0____jcross_沫_23__?: __node_沫:1.0____jcross_沫_17__ }) => __node_沫:1.0____jcross_沫_32__,
+): __node_庸:1.0____jcross_庸_1__ | __node_沫:1.0____jcross_沫_35__ {
+  __node_沫:1.0____jcross_沫_6__ __node_沫:1.0____jcross_沫_25__ = __node_沫:1.0____jcross_沫_22__.__node_沫:1.0____jcross_沫_39__;
+  if (!__node_沫:1.0____jcross_沫_25__?.__node_沫:1.0____jcross_沫_43__) {
+    return __node_沫:1.0____jcross_沫_35__;
+  }
+  __node_沫:1.0____jcross_沫_6__ __node_沫:1.0____jcross_沫_33__ = __node_沫:1.0____jcross_沫_5__(__node_沫:1.0____jcross_沫_25__, {
+    __node_漂:1.0____jcross_沫_23__: true,
+  });
+  if (!__node_沫:1.0____jcross_沫_33__) {
+    return __node_沫:1.0____jcross_沫_35__;
+  }
+  __node_沫:1.0____jcross_沫_6__ __node_処:1.0____jcross_沫_30__ = __node_沫:1.0____jcross_沫_34__({
+    __node_沫:1.0____jcross_沫_43__: __node_沫:1.0____jcross_沫_25__.__node_沫:1.0____jcross_沫_43__,
+    __node_沫:1.0____jcross_沫_37__: __node_沫:1.0____jcross_沫_35__,
+  });
+  return {
+    id: __node_沫:1.0____jcross_沫_25__.id,
+    __node_沫:1.0____jcross_沫_28__: __node_沫:1.0____jcross_沫_25__.__node_沫:1.0____jcross_沫_28__,
+    __node_処:1.0____jcross_沫_30__: __node_処:1.0____jcross_沫_30__.__node_沫:1.0____jcross_沫_2__ ?? __node_処:1.0____jcross_沫_30__.__node_沫:1.0____jcross_沫_18__ ?? "__node_沫:1.0____jcross_沫_29__",
+// __node_漂:0.9____jcross_DG_385__ [decoy-metadata]
+    __node_沫:1.0____jcross_沫_24__: __node_沫:1.0____jcross_沫_33__,
+    __node_沫:1.0____jcross_沫_12__: __node_沫:1.0____jcross_沫_20__(__node_沫:1.0____jcross_沫_25__.__node_沫:1.0____jcross_沫_12__),
+  };
+}
+
+__node_沫:1.0____jcross_沫_21__ __node_沫:1.0____jcross_沫_4__ __node_沫:1.0____jcross_沫_8__(__node_沫:1.0____jcross_沫_43__: __node_処:1.0____jcross_庸_3__, __node_沫:1.0____jcross_沫_7__?: __node_沫:1.0____jcross_沫_32__) {
+  __node_沫:1.0____jcross_沫_6__ __node_沫:1.0____jcross_沫_11__ =
+    __node_沫:1.0____jcross_沫_7__?.__node_沫:1.0____jcross_沫_31__() || __node_沫:1.0____jcross_沫_34__({ __node_沫:1.0____jcross_沫_43__, __node_沫:1.0____jcross_沫_37__: __node_沫:1.0____jcross_沫_35__ }).__node_沫:1.0____jcross_沫_2__;
+// __node_漂:0.3____jcross_VM_491__ [decoy-metadata]
+  return `${__node_沫:1.0____jcross_沫_11__ ?? "__node_沫:1.0____jcross_沫_29__"} __node_処:1.0____jcross_沫_27__ id:${__node_沫:1.0____jcross_沫_43__.id}`;
+// __node_深:0.9____jcross_KG_490__ [decoy-metadata]
+}
+
+__node_沫:1.0____jcross_沫_21__ __node_沫:1.0____jcross_沫_4__ __node_沫:1.0____jcross_沫_36__(__node_沫:1.0____jcross_沫_9__: {
+  __node_沫:1.0____jcross_沫_40__?: __node_庸:1.0____jcross_庸_4__<true> | __node_庸:1.0____jcross_庸_4__;
+  __node_沫:1.0____jcross_沫_19__: __node_沫:1.0____jcross_沫_32__;
+  __node_沫:1.0____jcross_沫_28__: __node_沫:1.0____jcross_沫_32__;
+}) {
+  __node_沫:1.0____jcross_沫_6__ { __node_沫:1.0____jcross_沫_40__, __node_沫:1.0____jcross_沫_19__, __node_沫:1.0____jcross_沫_28__ } = __node_沫:1.0____jcross_沫_9__;
+  return `${__node_沫:1.0____jcross_沫_40__?.__node_沫:1.0____jcross_沫_13__ ?? "__node_庸:1.0____jcross_庸_4__"} #${__node_沫:1.0____jcross_沫_19__} __node_沫:1.0____jcross_沫_38__ id:${__node_沫:1.0____jcross_沫_28__}`;
+}
+// __node_沫:0.2____jcross_ME_679__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

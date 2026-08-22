@@ -1,0 +1,18 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:24965BB6 ver:1778149654
+// ⚠️ One-time schema — expires after response
+// _SYM_縫:0.4__OPAQUE_HZ_276_ [decoy-metadata]
+// _SYM_縫:0.3__OPAQUE_AE_321_ [decoy-metadata]
+
+// [metadata-stripped]
+// _SYM_覇:0.6__OPAQUE_BY_735_ [decoy-metadata]
+// _SYM_匳:0.3__OPAQUE_DD_894_ [decoy-metadata]
+// _SYM_泡:0.9__OPAQUE_WV_853_ [decoy-metadata]
+_SYM_泡:1.0__OPAQUE_泡_2_ fn _SYM_澎:1.0__OPAQUE_泡_7_(_SYM_泡:1.0__OPAQUE_泡_5_: _SYM_泡:1.0__OPAQUE_泡_4_) -> _SYM_廡:1.0__OPAQUE_廡_1_ {
+    if _SYM_泡:1.0__OPAQUE_泡_5_ < 1024 { _SYM_澎:1.0__OPAQUE_泡_1_!("{}B", _SYM_泡:1.0__OPAQUE_泡_5_) }
+    else if _SYM_泡:1.0__OPAQUE_泡_5_ < 1024*1024 { _SYM_澎:1.0__OPAQUE_泡_1_!("{:.1}KB", _SYM_泡:1.0__OPAQUE_泡_5_ as _SYM_泡:1.0__OPAQUE_泡_6_ / 1024.0) }
+// _SYM_技:0.9__OPAQUE_LF_331_ [decoy-metadata]
+    else { _SYM_澎:1.0__OPAQUE_泡_1_!("{:.1}MB", _SYM_泡:1.0__OPAQUE_泡_5_ as _SYM_泡:1.0__OPAQUE_泡_6_ / (1024.0*1024.0)) }
+}
+
+// POLYMORPHIC_JCROSS_END

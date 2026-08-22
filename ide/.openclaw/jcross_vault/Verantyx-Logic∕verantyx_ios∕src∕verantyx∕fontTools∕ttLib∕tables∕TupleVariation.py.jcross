@@ -1,0 +1,896 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B5A0B7CF ver:1778162124
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_157_._VERANTYX_塵:1.0__JCROSS_塵_257_._VERANTYX_塵:1.0__JCROSS_塵_35_ import (
+    _VERANTYX_塵:1.0__JCROSS_塵_408_ as _VERANTYX_塵:1.0__JCROSS_塵_344_,
+    _VERANTYX_塵:1.0__JCROSS_塵_252_ as _VERANTYX_塵:1.0__JCROSS_塵_15_,
+    _VERANTYX_塵:1.0__JCROSS_塵_322_ as _VERANTYX_塵:1.0__JCROSS_塵_258_,
+    _VERANTYX_塵:1.0__JCROSS_塵_74_ as _VERANTYX_塵:1.0__JCROSS_塵_383_,
+    _VERANTYX_塵:1.0__JCROSS_塵_240_,
+)
+_VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_157_._VERANTYX_塵:1.0__JCROSS_塵_257_._VERANTYX_塵:1.0__JCROSS_塵_5_ import _VERANTYX_塵:1.0__JCROSS_塵_424_
+import _VERANTYX_塵:1.0__JCROSS_塵_226_
+_VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_135_ import _VERANTYX_謀:1.0__JCROSS_廴_42_, _VERANTYX_塵:1.0__JCROSS_塵_422_
+import io
+import _VERANTYX_塵:1.0__JCROSS_塵_237_
+import _VERANTYX_塵:1.0__JCROSS_塵_369_uct
+import _VERANTYX_塵:1.0__JCROSS_塵_261_
+
+
+// [metadata-stripped]
+
+_VERANTYX_廴:1.0__JCROSS_廴_27_ = 0x8000
+_VERANTYX_廴:1.0__JCROSS_廴_11_ = 0x4000
+_VERANTYX_廴:1.0__JCROSS_廴_16_ = 0x2000
+
+_VERANTYX_廴:1.0__JCROSS_廴_51_ = 0x80
+_VERANTYX_廴:1.0__JCROSS_廴_17_ = 0x40
+_VERANTYX_廴:1.0__JCROSS_廴_12_ = 0xC0
+_VERANTYX_廴:1.0__JCROSS_廴_1_ = 0xC0
+_VERANTYX_廴:1.0__JCROSS_廴_54_ = 0x3F
+
+_VERANTYX_廴:1.0__JCROSS_廴_36_ = 0x80
+_VERANTYX_廴:1.0__JCROSS_廴_40_ = 0x7F
+
+_VERANTYX_廴:1.0__JCROSS_廴_43_ = 0x8000
+_VERANTYX_廴:1.0__JCROSS_廴_20_ = 0x0FFF
+_VERANTYX_廴:1.0__JCROSS_廴_28_ = 0x0FFF
+
+_VERANTYX_塵:1.0__JCROSS_塵_156_ = _VERANTYX_塵:1.0__JCROSS_塵_237_._VERANTYX_謀:1.0__JCROSS_巌_8_(_VERANTYX_塵:1.0__JCROSS_塵_379_)
+
+
+class _VERANTYX_廴:1.0__JCROSS_廴_30_(_VERANTYX_塵:1.0__JCROSS_塵_179_):
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_296_(self, _VERANTYX_塵:1.0__JCROSS_塵_243_, _VERANTYX_塵:1.0__JCROSS_塵_271_):
+        self._VERANTYX_塵:1.0__JCROSS_塵_243_ = _VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_塵:1.0__JCROSS_塵_215_()
+        self._VERANTYX_塵:1.0__JCROSS_塵_271_ = _VERANTYX_塵:1.0__JCROSS_塵_42_(_VERANTYX_塵:1.0__JCROSS_塵_271_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_121_(self):
+        _VERANTYX_塵:1.0__JCROSS_塵_243_ = ","._VERANTYX_塵:1.0__JCROSS_塵_331_(
+            _VERANTYX_塵:1.0__JCROSS_塵_228_(["%s=%s" % (_VERANTYX_塵:1.0__JCROSS_塵_207_, _VERANTYX_塵:1.0__JCROSS_塵_416_) for (_VERANTYX_塵:1.0__JCROSS_塵_207_, _VERANTYX_塵:1.0__JCROSS_塵_416_) in self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_塵:1.0__JCROSS_塵_288_()])
+        )
+        return "<_VERANTYX_廴:1.0__JCROSS_廴_30_ %s %s>" % (_VERANTYX_塵:1.0__JCROSS_塵_243_, self._VERANTYX_塵:1.0__JCROSS_塵_271_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_242_(self, _VERANTYX_謀:1.0__JCROSS_塵_19_):
+        return self._VERANTYX_塵:1.0__JCROSS_塵_271_ == _VERANTYX_謀:1.0__JCROSS_塵_19_._VERANTYX_塵:1.0__JCROSS_塵_271_ _VERANTYX_塵:1.0__JCROSS_塵_402_ self._VERANTYX_塵:1.0__JCROSS_塵_243_ == _VERANTYX_謀:1.0__JCROSS_塵_19_._VERANTYX_塵:1.0__JCROSS_塵_243_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_謀:1.0__JCROSS_巌_7_(self):
+// [metadata-stripped]
+        if _VERANTYX_廴:1.0__JCROSS_廴_38_ _VERANTYX_塵:1.0__JCROSS_塵_415_ in self._VERANTYX_塵:1.0__JCROSS_塵_271_:
+            return _VERANTYX_塵:1.0__JCROSS_塵_268_()
+        _VERANTYX_塵:1.0__JCROSS_塵_182_ = _VERANTYX_塵:1.0__JCROSS_塵_268_([i for i, p in _VERANTYX_塵:1.0__JCROSS_塵_97_(self._VERANTYX_塵:1.0__JCROSS_塵_271_) if p is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_])
+// [metadata-stripped]
+        return _VERANTYX_塵:1.0__JCROSS_塵_182_ if _VERANTYX_塵:1.0__JCROSS_塵_182_ else _VERANTYX_廴:1.0__JCROSS_廴_38_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_54_(self):
+        """_VERANTYX_廴:1.0__JCROSS_廴_5_ _VERANTYX_廴:1.0__JCROSS_廴_41_ if _VERANTYX_塵:1.0__JCROSS_塵_360_ _VERANTYX_廴:1.0__JCROSS_廴_30_ _VERANTYX_塵:1.0__JCROSS_塵_244_ any _VERANTYX_塵:1.0__JCROSS_塵_124_ _VERANTYX_塵:1.0__JCROSS_塵_14_.
+
+        If _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_404_ is _VERANTYX_廴:1.0__JCROSS_廴_47_, _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_廴:1.0__JCROSS_廴_30_ _VERANTYX_塵:1.0__JCROSS_塵_154_ be _VERANTYX_塵:1.0__JCROSS_塵_267_ _VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_152_
+        _VERANTYX_塵:1.0__JCROSS_塵_376_ _VERANTYX_塵:1.0__JCROSS_塵_289_ any _VERANTYX_塵:1.0__JCROSS_塵_124_ _VERANTYX_濫:1.0__JCROSS_塵_367_.
+        """
+        return any(c is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_ for c in self._VERANTYX_塵:1.0__JCROSS_塵_271_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_100_(self, _VERANTYX_謀:1.0__JCROSS_塵_238_, _VERANTYX_塵:1.0__JCROSS_塵_275_):
+        _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_29_("_VERANTYX_塵:1.0__JCROSS_塵_165_")
+        _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+        for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+            _VERANTYX_塵:1.0__JCROSS_塵_416_ = self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_謀:1.0__JCROSS_巌_3_(_VERANTYX_塵:1.0__JCROSS_塵_188_)
+            if _VERANTYX_塵:1.0__JCROSS_塵_416_ is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                _VERANTYX_塵:1.0__JCROSS_塵_249_, _VERANTYX_塵:1.0__JCROSS_塵_416_, _VERANTYX_塵:1.0__JCROSS_塵_399_ = _VERANTYX_塵:1.0__JCROSS_塵_416_
+                _VERANTYX_塵:1.0__JCROSS_塵_310_ = _VERANTYX_塵:1.0__JCROSS_塵_118_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 --> -0.3; 0.7 --> 0.0
+                _VERANTYX_塵:1.0__JCROSS_塵_60_ = _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 -->  0.0; 0.7 --> 0.7
+                if _VERANTYX_塵:1.0__JCROSS_塵_249_ == _VERANTYX_塵:1.0__JCROSS_塵_310_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_399_ == _VERANTYX_塵:1.0__JCROSS_塵_60_:
+                    _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_387_("_VERANTYX_塵:1.0__JCROSS_塵_309_", _VERANTYX_塵:1.0__JCROSS_塵_188_=_VERANTYX_塵:1.0__JCROSS_塵_188_, _VERANTYX_塵:1.0__JCROSS_塵_416_=_VERANTYX_塵:1.0__JCROSS_塵_258_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 14))
+                else:
+                    _VERANTYX_塵:1.0__JCROSS_塵_142_ = [
+                        ("_VERANTYX_塵:1.0__JCROSS_塵_188_", _VERANTYX_塵:1.0__JCROSS_塵_188_),
+                        ("_VERANTYX_塵:1.0__JCROSS_塵_118_", _VERANTYX_塵:1.0__JCROSS_塵_258_(_VERANTYX_塵:1.0__JCROSS_塵_249_, 14)),
+                        ("_VERANTYX_塵:1.0__JCROSS_塵_416_", _VERANTYX_塵:1.0__JCROSS_塵_258_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 14)),
+                        ("_VERANTYX_塵:1.0__JCROSS_塵_266_", _VERANTYX_塵:1.0__JCROSS_塵_258_(_VERANTYX_塵:1.0__JCROSS_塵_399_, 14)),
+                    ]
+                    _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_387_("_VERANTYX_塵:1.0__JCROSS_塵_309_", _VERANTYX_塵:1.0__JCROSS_塵_142_)
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+        _VERANTYX_塵:1.0__JCROSS_塵_190_ = _VERANTYX_廴:1.0__JCROSS_廴_47_
+        for i, _VERANTYX_塵:1.0__JCROSS_塵_107_ in _VERANTYX_塵:1.0__JCROSS_塵_97_(self._VERANTYX_塵:1.0__JCROSS_塵_271_):
+            if _VERANTYX_塵:1.0__JCROSS_塵_286_(_VERANTYX_塵:1.0__JCROSS_塵_107_) == _VERANTYX_塵:1.0__JCROSS_塵_165_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_107_) == 2:
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_387_("_VERANTYX_塵:1.0__JCROSS_塵_107_", pt=i, x=_VERANTYX_塵:1.0__JCROSS_塵_107_[0], y=_VERANTYX_塵:1.0__JCROSS_塵_107_[1])
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+                _VERANTYX_塵:1.0__JCROSS_塵_190_ = _VERANTYX_廴:1.0__JCROSS_廴_41_
+            _VERANTYX_濫:1.0__JCROSS_塵_357_ _VERANTYX_塵:1.0__JCROSS_塵_286_(_VERANTYX_塵:1.0__JCROSS_塵_107_) == _VERANTYX_塵:1.0__JCROSS_塵_131_:
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_387_("_VERANTYX_塵:1.0__JCROSS_塵_107_", _VERANTYX_塵:1.0__JCROSS_塵_68_=i, _VERANTYX_塵:1.0__JCROSS_塵_416_=_VERANTYX_塵:1.0__JCROSS_塵_107_)
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+                _VERANTYX_塵:1.0__JCROSS_塵_190_ = _VERANTYX_廴:1.0__JCROSS_廴_41_
+            _VERANTYX_濫:1.0__JCROSS_塵_357_ _VERANTYX_塵:1.0__JCROSS_塵_107_ is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                _VERANTYX_塵:1.0__JCROSS_塵_156_._VERANTYX_塵:1.0__JCROSS_塵_22_("_VERANTYX_塵:1.0__JCROSS_塵_98_ _VERANTYX_塵:1.0__JCROSS_塵_107_ _VERANTYX_濫:1.0__JCROSS_塵_413_")
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_221_("_VERANTYX_塵:1.0__JCROSS_塵_98_ _VERANTYX_塵:1.0__JCROSS_塵_107_ #%d" % i)
+                _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+                _VERANTYX_塵:1.0__JCROSS_塵_190_ = _VERANTYX_廴:1.0__JCROSS_廴_41_
+        if _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_塵:1.0__JCROSS_塵_190_:
+            _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_221_("no _VERANTYX_塵:1.0__JCROSS_塵_72_")
+            _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+        _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_92_("_VERANTYX_塵:1.0__JCROSS_塵_165_")
+        _VERANTYX_謀:1.0__JCROSS_塵_238_._VERANTYX_塵:1.0__JCROSS_塵_295_()
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_319_(self, _VERANTYX_塵:1.0__JCROSS_塵_207_, _VERANTYX_塵:1.0__JCROSS_塵_142_, _VERANTYX_塵:1.0__JCROSS_塵_345_):
+// _VERANTYX_匸:0.4__JCROSS_DD_378_ [decoy-metadata]
+        if _VERANTYX_塵:1.0__JCROSS_塵_207_ == "_VERANTYX_塵:1.0__JCROSS_塵_309_":
+            _VERANTYX_塵:1.0__JCROSS_塵_188_ = _VERANTYX_塵:1.0__JCROSS_塵_142_["_VERANTYX_塵:1.0__JCROSS_塵_188_"]
+            _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_383_(_VERANTYX_塵:1.0__JCROSS_塵_142_["_VERANTYX_塵:1.0__JCROSS_塵_416_"], 14)
+            _VERANTYX_塵:1.0__JCROSS_塵_310_ = _VERANTYX_塵:1.0__JCROSS_塵_118_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 --> -0.3; 0.7 --> 0.0
+            _VERANTYX_塵:1.0__JCROSS_塵_60_ = _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 -->  0.0; 0.7 --> 0.7
+            _VERANTYX_塵:1.0__JCROSS_塵_249_ = _VERANTYX_塵:1.0__JCROSS_塵_383_(_VERANTYX_塵:1.0__JCROSS_塵_142_._VERANTYX_謀:1.0__JCROSS_巌_3_("_VERANTYX_塵:1.0__JCROSS_塵_118_", _VERANTYX_塵:1.0__JCROSS_塵_310_), 14)
+            _VERANTYX_塵:1.0__JCROSS_塵_399_ = _VERANTYX_塵:1.0__JCROSS_塵_383_(_VERANTYX_塵:1.0__JCROSS_塵_142_._VERANTYX_謀:1.0__JCROSS_巌_3_("_VERANTYX_塵:1.0__JCROSS_塵_266_", _VERANTYX_塵:1.0__JCROSS_塵_60_), 14)
+            self._VERANTYX_塵:1.0__JCROSS_塵_243_[_VERANTYX_塵:1.0__JCROSS_塵_188_] = (_VERANTYX_塵:1.0__JCROSS_塵_249_, _VERANTYX_塵:1.0__JCROSS_塵_416_, _VERANTYX_塵:1.0__JCROSS_塵_399_)
+        _VERANTYX_濫:1.0__JCROSS_塵_357_ _VERANTYX_塵:1.0__JCROSS_塵_207_ == "_VERANTYX_塵:1.0__JCROSS_塵_107_":
+            if "pt" in _VERANTYX_塵:1.0__JCROSS_塵_142_:
+                _VERANTYX_塵:1.0__JCROSS_塵_304_ = _VERANTYX_塵:1.0__JCROSS_塵_424_(_VERANTYX_塵:1.0__JCROSS_塵_142_["pt"])
+                x = _VERANTYX_塵:1.0__JCROSS_塵_424_(_VERANTYX_塵:1.0__JCROSS_塵_142_["x"])
+                y = _VERANTYX_塵:1.0__JCROSS_塵_424_(_VERANTYX_塵:1.0__JCROSS_塵_142_["y"])
+                self._VERANTYX_塵:1.0__JCROSS_塵_271_[_VERANTYX_塵:1.0__JCROSS_塵_304_] = (x, y)
+            _VERANTYX_濫:1.0__JCROSS_塵_357_ "_VERANTYX_塵:1.0__JCROSS_塵_68_" in _VERANTYX_塵:1.0__JCROSS_塵_142_:
+                _VERANTYX_塵:1.0__JCROSS_塵_68_ = _VERANTYX_塵:1.0__JCROSS_塵_424_(_VERANTYX_塵:1.0__JCROSS_塵_142_["_VERANTYX_塵:1.0__JCROSS_塵_68_"])
+                _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_424_(_VERANTYX_塵:1.0__JCROSS_塵_142_["_VERANTYX_塵:1.0__JCROSS_塵_416_"])
+                self._VERANTYX_塵:1.0__JCROSS_塵_271_[_VERANTYX_塵:1.0__JCROSS_塵_68_] = _VERANTYX_塵:1.0__JCROSS_塵_416_
+            else:
+                _VERANTYX_塵:1.0__JCROSS_塵_156_._VERANTYX_塵:1.0__JCROSS_塵_201_("_VERANTYX_塵:1.0__JCROSS_塵_98_ _VERANTYX_塵:1.0__JCROSS_塵_107_ _VERANTYX_濫:1.0__JCROSS_塵_413_: %s" % ", "._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_228_(_VERANTYX_塵:1.0__JCROSS_塵_142_._VERANTYX_秘:1.0__JCROSS_塵_109_())))
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_208_(
+        self, _VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_168_={}, _VERANTYX_塵:1.0__JCROSS_塵_382_=_VERANTYX_廴:1.0__JCROSS_廴_38_, *, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_
+    ):
+        _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_謀:1.0__JCROSS_巌_2_(self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_秘:1.0__JCROSS_塵_109_()) <= _VERANTYX_謀:1.0__JCROSS_巌_2_(_VERANTYX_塵:1.0__JCROSS_塵_275_), (
+            "_VERANTYX_廴:1.0__JCROSS_廴_24_ _VERANTYX_塵:1.0__JCROSS_塵_188_ _VERANTYX_塵:1.0__JCROSS_塵_388_ _VERANTYX_塵:1.0__JCROSS_塵_355_.",
+            self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_秘:1.0__JCROSS_塵_109_(),
+            _VERANTYX_塵:1.0__JCROSS_塵_275_,
+        )
+
+        _VERANTYX_塵:1.0__JCROSS_塵_231_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_105_ = []
+
+        if _VERANTYX_塵:1.0__JCROSS_塵_382_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+            _VERANTYX_塵:1.0__JCROSS_塵_256_ = self._VERANTYX_謀:1.0__JCROSS_巌_7_()
+            if _VERANTYX_塵:1.0__JCROSS_塵_256_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:  # _VERANTYX_廴:1.0__JCROSS_廴_19_ to _VERANTYX_塵:1.0__JCROSS_塵_28_
+                return b"", b""
+            _VERANTYX_塵:1.0__JCROSS_塵_382_ = self._VERANTYX_塵:1.0__JCROSS_塵_138_(_VERANTYX_塵:1.0__JCROSS_塵_256_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_309_ = self._VERANTYX_塵:1.0__JCROSS_塵_385_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+        _VERANTYX_塵:1.0__JCROSS_塵_371_ = _VERANTYX_塵:1.0__JCROSS_塵_168_._VERANTYX_謀:1.0__JCROSS_巌_3_(_VERANTYX_塵:1.0__JCROSS_塵_309_)
+        if _VERANTYX_塵:1.0__JCROSS_塵_371_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+// _VERANTYX_匸:0.5__JCROSS_GZ_642_ [decoy-metadata]
+            _VERANTYX_塵:1.0__JCROSS_塵_371_ = _VERANTYX_廴:1.0__JCROSS_廴_27_
+            _VERANTYX_塵:1.0__JCROSS_塵_231_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_309_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_218_ = self._VERANTYX_塵:1.0__JCROSS_塵_46_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+        if _VERANTYX_塵:1.0__JCROSS_塵_218_ is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_:
+            _VERANTYX_塵:1.0__JCROSS_塵_371_ |= _VERANTYX_廴:1.0__JCROSS_廴_11_
+            _VERANTYX_塵:1.0__JCROSS_塵_231_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_218_)
+
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__JCROSS_塵_382_:
+            _VERANTYX_塵:1.0__JCROSS_塵_371_ |= _VERANTYX_廴:1.0__JCROSS_廴_16_
+            _VERANTYX_塵:1.0__JCROSS_塵_105_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_382_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_105_._VERANTYX_塵:1.0__JCROSS_塵_351_(self._VERANTYX_塵:1.0__JCROSS_塵_281_(_VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_塵:1.0__JCROSS_塵_287_))
+        _VERANTYX_塵:1.0__JCROSS_塵_105_ = b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_105_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_231_._VERANTYX_塵:1.0__JCROSS_塵_270_(0, _VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_352_(">HH", _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_105_), _VERANTYX_塵:1.0__JCROSS_塵_371_))
+        return b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_231_), _VERANTYX_塵:1.0__JCROSS_塵_105_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_385_(self, _VERANTYX_塵:1.0__JCROSS_塵_275_):
+        _VERANTYX_塵:1.0__JCROSS_塵_404_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_243_ = self._VERANTYX_塵:1.0__JCROSS_塵_243_
+        for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+            _VERANTYX_塵:1.0__JCROSS_塵_378_ = _VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_謀:1.0__JCROSS_巌_3_(_VERANTYX_塵:1.0__JCROSS_塵_188_)
+            if _VERANTYX_塵:1.0__JCROSS_塵_378_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(b"\0\0")
+            else:
+                _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_352_(">h", _VERANTYX_塵:1.0__JCROSS_塵_15_(_VERANTYX_塵:1.0__JCROSS_塵_378_[1], 14)))
+        return b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_404_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_46_(self, _VERANTYX_塵:1.0__JCROSS_塵_275_):
+        _VERANTYX_塵:1.0__JCROSS_塵_76_ = _VERANTYX_廴:1.0__JCROSS_廴_47_
+        for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+            _VERANTYX_塵:1.0__JCROSS_塵_249_, _VERANTYX_塵:1.0__JCROSS_塵_416_, _VERANTYX_塵:1.0__JCROSS_塵_399_ = self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_謀:1.0__JCROSS_巌_3_(_VERANTYX_塵:1.0__JCROSS_塵_188_, (0.0, 0.0, 0.0))
+            _VERANTYX_塵:1.0__JCROSS_塵_310_ = _VERANTYX_塵:1.0__JCROSS_塵_118_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 --> -0.3; 0.7 --> 0.0
+            _VERANTYX_塵:1.0__JCROSS_塵_60_ = _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 -->  0.0; 0.7 --> 0.7
+            if (_VERANTYX_塵:1.0__JCROSS_塵_249_ != _VERANTYX_塵:1.0__JCROSS_塵_310_) or (_VERANTYX_塵:1.0__JCROSS_塵_399_ != _VERANTYX_塵:1.0__JCROSS_塵_60_):
+                _VERANTYX_塵:1.0__JCROSS_塵_76_ = _VERANTYX_廴:1.0__JCROSS_廴_41_
+                break
+        if _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_塵:1.0__JCROSS_塵_76_:
+            return _VERANTYX_廴:1.0__JCROSS_廴_38_
+        _VERANTYX_塵:1.0__JCROSS_塵_362_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_282_ = []
+        for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+            _VERANTYX_塵:1.0__JCROSS_塵_249_, _VERANTYX_塵:1.0__JCROSS_塵_416_, _VERANTYX_塵:1.0__JCROSS_塵_399_ = self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_謀:1.0__JCROSS_巌_3_(_VERANTYX_塵:1.0__JCROSS_塵_188_, (0.0, 0.0, 0.0))
+            _VERANTYX_塵:1.0__JCROSS_塵_362_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_352_(">h", _VERANTYX_塵:1.0__JCROSS_塵_15_(_VERANTYX_塵:1.0__JCROSS_塵_249_, 14)))
+            _VERANTYX_塵:1.0__JCROSS_塵_282_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_352_(">h", _VERANTYX_塵:1.0__JCROSS_塵_15_(_VERANTYX_塵:1.0__JCROSS_塵_399_, 14)))
+        return b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_362_ + _VERANTYX_塵:1.0__JCROSS_塵_282_)
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_400_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_):
+        _VERANTYX_塵:1.0__JCROSS_塵_309_ = {}
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+            _VERANTYX_塵:1.0__JCROSS_塵_309_[_VERANTYX_塵:1.0__JCROSS_塵_188_] = _VERANTYX_塵:1.0__JCROSS_塵_344_(_VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_194_(">h", _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_ : _VERANTYX_塵:1.0__JCROSS_塵_53_ + 2])[0], 14)
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 2
+        return _VERANTYX_塵:1.0__JCROSS_塵_309_, _VERANTYX_塵:1.0__JCROSS_塵_53_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_138_(_VERANTYX_塵:1.0__JCROSS_塵_219_):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_塵:1.0__JCROSS_塵_219_:
+            return b"\0"
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _VERANTYX_塵:1.0__JCROSS_塵_219_ = _VERANTYX_塵:1.0__JCROSS_塵_42_(_VERANTYX_塵:1.0__JCROSS_塵_219_)
+        _VERANTYX_塵:1.0__JCROSS_塵_219_._VERANTYX_塵:1.0__JCROSS_塵_200_()
+        _VERANTYX_塵:1.0__JCROSS_塵_180_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_219_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_404_ = _VERANTYX_塵:1.0__JCROSS_塵_104_()
+// [metadata-stripped]
+// [metadata-stripped]
+        if _VERANTYX_塵:1.0__JCROSS_塵_180_ < 0x80:
+            _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_180_)
+        else:
+            _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_((_VERANTYX_塵:1.0__JCROSS_塵_180_ >> 8) | 0x80)
+            _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_180_ & 0xFF)
+
+        _VERANTYX_廴:1.0__JCROSS_廴_59_ = 127
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = 0
+        _VERANTYX_塵:1.0__JCROSS_塵_314_ = 0
+        while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_180_:
+            _VERANTYX_塵:1.0__JCROSS_塵_425_ = 0
+
+            _VERANTYX_塵:1.0__JCROSS_塵_421_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_404_)
+            _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(0)
+
+            _VERANTYX_塵:1.0__JCROSS_塵_171_ = _VERANTYX_廴:1.0__JCROSS_廴_38_
+            while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_180_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_425_ <= _VERANTYX_廴:1.0__JCROSS_廴_59_:
+                _VERANTYX_塵:1.0__JCROSS_塵_390_ = _VERANTYX_塵:1.0__JCROSS_塵_219_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+                _VERANTYX_塵:1.0__JCROSS_塵_107_ = _VERANTYX_塵:1.0__JCROSS_塵_390_ - _VERANTYX_塵:1.0__JCROSS_塵_314_
+                if _VERANTYX_塵:1.0__JCROSS_塵_171_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_171_ = 0 <= _VERANTYX_塵:1.0__JCROSS_塵_107_ <= 0xFF
+                if _VERANTYX_塵:1.0__JCROSS_塵_171_ _VERANTYX_塵:1.0__JCROSS_塵_402_ (_VERANTYX_塵:1.0__JCROSS_塵_107_ > 0xFF or _VERANTYX_塵:1.0__JCROSS_塵_107_ < 0):
+// [metadata-stripped]
+                    break
+// [metadata-stripped]
+// [metadata-stripped]
+                if _VERANTYX_塵:1.0__JCROSS_塵_171_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_107_)
+                else:
+                    _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_107_ >> 8)
+                    _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_107_ & 0xFF)
+                _VERANTYX_塵:1.0__JCROSS_塵_314_ = _VERANTYX_塵:1.0__JCROSS_塵_390_
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+                _VERANTYX_塵:1.0__JCROSS_塵_425_ += 1
+            if _VERANTYX_塵:1.0__JCROSS_塵_171_:
+                _VERANTYX_塵:1.0__JCROSS_塵_404_[_VERANTYX_塵:1.0__JCROSS_塵_421_] = _VERANTYX_塵:1.0__JCROSS_塵_425_ - 1
+            else:
+                _VERANTYX_塵:1.0__JCROSS_塵_404_[_VERANTYX_塵:1.0__JCROSS_塵_421_] = (_VERANTYX_塵:1.0__JCROSS_塵_425_ - 1) | _VERANTYX_廴:1.0__JCROSS_廴_36_
+
+        return _VERANTYX_塵:1.0__JCROSS_塵_404_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_306_(_VERANTYX_塵:1.0__JCROSS_塵_180_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_110_):
+        """(_VERANTYX_塵:1.0__JCROSS_塵_180_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_110_) --> ([_VERANTYX_塵:1.0__JCROSS_塵_34_, _VERANTYX_塵:1.0__JCROSS_塵_86_, ...], _VERANTYX_塵:1.0__JCROSS_塵_214_)"""
+        _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_110_ in ("_VERANTYX_塵:1.0__JCROSS_塵_265_", "_VERANTYX_塵:1.0__JCROSS_塵_66_")
+// _VERANTYX_謀:0.5__JCROSS_FZ_235_ [decoy-metadata]
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        _VERANTYX_塵:1.0__JCROSS_塵_2_ = _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        if (_VERANTYX_塵:1.0__JCROSS_塵_2_ & _VERANTYX_廴:1.0__JCROSS_廴_36_) != 0:
+            _VERANTYX_塵:1.0__JCROSS_塵_2_ = (_VERANTYX_塵:1.0__JCROSS_塵_2_ & _VERANTYX_廴:1.0__JCROSS_廴_40_) << 8 | _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        if _VERANTYX_塵:1.0__JCROSS_塵_2_ == 0:
+            return (_VERANTYX_塵:1.0__JCROSS_塵_132_(_VERANTYX_塵:1.0__JCROSS_塵_180_), _VERANTYX_塵:1.0__JCROSS_塵_53_)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_404_ = []
+        while _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_404_) < _VERANTYX_塵:1.0__JCROSS_塵_2_:
+            _VERANTYX_謀:1.0__JCROSS_塵_372_ = _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+            _VERANTYX_塵:1.0__JCROSS_塵_146_ = (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_40_) + 1
+            _VERANTYX_塵:1.0__JCROSS_塵_304_ = 0
+            if (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_36_) != 0:
+                _VERANTYX_塵:1.0__JCROSS_塵_219_ = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("H")
+                _VERANTYX_塵:1.0__JCROSS_塵_381_ = _VERANTYX_塵:1.0__JCROSS_塵_146_ * 2
+            else:
+                _VERANTYX_塵:1.0__JCROSS_塵_219_ = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("B")
+                _VERANTYX_塵:1.0__JCROSS_塵_381_ = _VERANTYX_塵:1.0__JCROSS_塵_146_
+            _VERANTYX_塵:1.0__JCROSS_塵_219_._VERANTYX_塵:1.0__JCROSS_塵_69_(_VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_ : _VERANTYX_塵:1.0__JCROSS_塵_53_ + _VERANTYX_塵:1.0__JCROSS_塵_381_])
+            if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                _VERANTYX_塵:1.0__JCROSS_塵_219_._VERANTYX_塵:1.0__JCROSS_塵_62_()
+
+            _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_219_) == _VERANTYX_塵:1.0__JCROSS_塵_146_
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += _VERANTYX_塵:1.0__JCROSS_塵_381_
+
+            _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_313_(_VERANTYX_塵:1.0__JCROSS_塵_219_)
+
+// [metadata-stripped]
+        _VERANTYX_塵:1.0__JCROSS_塵_50_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_196_ = 0
+        for _VERANTYX_塵:1.0__JCROSS_塵_107_ in _VERANTYX_塵:1.0__JCROSS_塵_404_:
+            _VERANTYX_塵:1.0__JCROSS_塵_196_ += _VERANTYX_塵:1.0__JCROSS_塵_107_
+            _VERANTYX_塵:1.0__JCROSS_塵_50_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_196_)
+        _VERANTYX_塵:1.0__JCROSS_塵_404_ = _VERANTYX_塵:1.0__JCROSS_塵_50_
+        _VERANTYX_塵:1.0__JCROSS_塵_55_ _VERANTYX_塵:1.0__JCROSS_塵_50_
+
+        _VERANTYX_塵:1.0__JCROSS_塵_318_ = {_VERANTYX_塵:1.0__JCROSS_塵_369_(p) for p in _VERANTYX_塵:1.0__JCROSS_塵_404_ if p < 0 or p >= _VERANTYX_塵:1.0__JCROSS_塵_180_}
+        if _VERANTYX_塵:1.0__JCROSS_塵_318_:
+            _VERANTYX_塵:1.0__JCROSS_塵_156_._VERANTYX_塵:1.0__JCROSS_塵_201_(
+                "_VERANTYX_塵:1.0__JCROSS_塵_304_ %s _VERANTYX_塵:1.0__JCROSS_塵_78_ of _VERANTYX_塵:1.0__JCROSS_塵_132_ in '%s' _VERANTYX_塵:1.0__JCROSS_塵_41_"
+                % (","._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_228_(_VERANTYX_塵:1.0__JCROSS_塵_318_)), _VERANTYX_塵:1.0__JCROSS_塵_110_)
+            )
+        return (_VERANTYX_塵:1.0__JCROSS_塵_404_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_281_(self, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_):
+        _VERANTYX_塵:1.0__JCROSS_塵_70_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_90_ = []
+        if self._VERANTYX_謀:1.0__JCROSS_巌_5_() == 2:
+            for c in self._VERANTYX_塵:1.0__JCROSS_塵_271_:
+                if c is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                    continue
+                _VERANTYX_塵:1.0__JCROSS_塵_70_._VERANTYX_塵:1.0__JCROSS_塵_351_(c[0])
+                _VERANTYX_塵:1.0__JCROSS_塵_90_._VERANTYX_塵:1.0__JCROSS_塵_351_(c[1])
+        else:
+            for c in self._VERANTYX_塵:1.0__JCROSS_塵_271_:
+                if c is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                    continue
+                _VERANTYX_塵:1.0__JCROSS_塵_70_._VERANTYX_塵:1.0__JCROSS_塵_351_(c)
+        _VERANTYX_塵:1.0__JCROSS_塵_27_ = _VERANTYX_塵:1.0__JCROSS_塵_104_()
+        self._VERANTYX_塵:1.0__JCROSS_塵_364_(_VERANTYX_塵:1.0__JCROSS_塵_70_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_塵:1.0__JCROSS_塵_287_)
+        self._VERANTYX_塵:1.0__JCROSS_塵_364_(_VERANTYX_塵:1.0__JCROSS_塵_90_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_塵:1.0__JCROSS_塵_287_)
+        return _VERANTYX_塵:1.0__JCROSS_塵_27_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_364_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_27_=_VERANTYX_廴:1.0__JCROSS_廴_38_, *, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_):
+        """[_VERANTYX_塵:1.0__JCROSS_塵_122_, _VERANTYX_塵:1.0__JCROSS_塵_141_, _VERANTYX_塵:1.0__JCROSS_塵_269_, ...] --> _VERANTYX_塵:1.0__JCROSS_塵_104_
+
+        _VERANTYX_廴:1.0__JCROSS_廴_4_ a _VERANTYX_塵:1.0__JCROSS_塵_197_ of _VERANTYX_塵:1.0__JCROSS_塵_38_. _VERANTYX_廴:1.0__JCROSS_廴_9_ _VERANTYX_塵:1.0__JCROSS_塵_223_ _VERANTYX_塵:1.0__JCROSS_塵_217_ _VERANTYX_塵:1.0__JCROSS_塵_330_ a
+        _VERANTYX_塵:1.0__JCROSS_塵_350_-_VERANTYX_塵:1.0__JCROSS_塵_406_ _VERANTYX_謀:1.0__JCROSS_塵_308_ _VERANTYX_塵:1.0__JCROSS_塵_323_ 6 _VERANTYX_塵:1.0__JCROSS_塵_346_ _VERANTYX_濫:1.0__JCROSS_塵_198_ _VERANTYX_塵:1.0__JCROSS_塵_370_
+        (_VERANTYX_謀:1.0__JCROSS_塵_308_ & 0x3F) _VERANTYX_塵:1.0__JCROSS_塵_263_ _VERANTYX_塵:1.0__JCROSS_塵_230_ _VERANTYX_塵:1.0__JCROSS_塵_300_ _VERANTYX_塵:1.0__JCROSS_塵_403_ _VERANTYX_塵:1.0__JCROSS_塵_96_ _VERANTYX_塵:1.0__JCROSS_塵_284_
+        in _VERANTYX_塵:1.0__JCROSS_塵_360_ _VERANTYX_塵:1.0__JCROSS_塵_223_. _VERANTYX_廴:1.0__JCROSS_廴_21_ _VERANTYX_塵:1.0__JCROSS_塵_410_ _VERANTYX_塵:1.0__JCROSS_塵_85_ is _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_277_ _VERANTYX_塵:1.0__JCROSS_塵_85_
+        _VERANTYX_塵:1.0__JCROSS_塵_329_ _VERANTYX_塵:1.0__JCROSS_塵_254_; _VERANTYX_塵:1.0__JCROSS_塵_223_ _VERANTYX_塵:1.0__JCROSS_塵_206_ _VERANTYX_塵:1.0__JCROSS_塵_96_ _VERANTYX_塵:1.0__JCROSS_塵_12_ in _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_132_ [1..64].
+        If _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_謀:1.0__JCROSS_塵_308_ _VERANTYX_塵:1.0__JCROSS_塵_350_ _VERANTYX_塵:1.0__JCROSS_塵_244_ _VERANTYX_塵:1.0__JCROSS_塵_311_ _VERANTYX_塵:1.0__JCROSS_塵_316_ _VERANTYX_濫:1.0__JCROSS_塵_198_ _VERANTYX_塵:1.0__JCROSS_塵_272_ (0x80)
+        _VERANTYX_謀:1.0__JCROSS_巌_2_, _VERANTYX_塵:1.0__JCROSS_塵_170_ _VERANTYX_塵:1.0__JCROSS_塵_403_ in _VERANTYX_塵:1.0__JCROSS_塵_360_ _VERANTYX_塵:1.0__JCROSS_塵_223_ _VERANTYX_塵:1.0__JCROSS_塵_96_ _VERANTYX_塵:1.0__JCROSS_塵_373_, _VERANTYX_塵:1.0__JCROSS_塵_402_ no _VERANTYX_塵:1.0__JCROSS_塵_224_
+        _VERANTYX_塵:1.0__JCROSS_塵_11_. _VERANTYX_廴:1.0__JCROSS_廴_52_, _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_謀:1.0__JCROSS_塵_308_ _VERANTYX_塵:1.0__JCROSS_塵_350_ is _VERANTYX_塵:1.0__JCROSS_塵_119_ by
+        ((_VERANTYX_謀:1.0__JCROSS_塵_308_ & 0x3F) + 1) _VERANTYX_塵:1.0__JCROSS_塵_264_ _VERANTYX_塵:1.0__JCROSS_塵_403_.  If (_VERANTYX_謀:1.0__JCROSS_塵_308_ &
+        0x40) is _VERANTYX_塵:1.0__JCROSS_塵_116_, _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_107_ _VERANTYX_塵:1.0__JCROSS_塵_403_ _VERANTYX_塵:1.0__JCROSS_塵_96_ _VERANTYX_塵:1.0__JCROSS_塵_410_ as _VERANTYX_塵:1.0__JCROSS_塵_264_
+        _VERANTYX_塵:1.0__JCROSS_塵_317_; if (_VERANTYX_謀:1.0__JCROSS_塵_308_ & 0x40) is _VERANTYX_謀:1.0__JCROSS_巌_2_, _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_107_ _VERANTYX_塵:1.0__JCROSS_塵_403_ _VERANTYX_塵:1.0__JCROSS_塵_96_
+        _VERANTYX_塵:1.0__JCROSS_塵_264_ 16-_VERANTYX_塵:1.0__JCROSS_塵_272_ _VERANTYX_塵:1.0__JCROSS_塵_133_.
+        """  # _VERANTYX_廴:1.0__JCROSS_廴_57_ _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_濫:1.0__JCROSS_塵_413_ _VERANTYX_塵:1.0__JCROSS_塵_389_ _VERANTYX_塵:1.0__JCROSS_塵_420_ '_VERANTYX_塵:1.0__JCROSS_塵_66_' _VERANTYX_塵:1.0__JCROSS_塵_203_ is _VERANTYX_塵:1.0__JCROSS_塵_6_ to _VERANTYX_塵:1.0__JCROSS_塵_427_.
+        if _VERANTYX_塵:1.0__JCROSS_塵_27_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_ = _VERANTYX_塵:1.0__JCROSS_塵_104_()
+
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = 0
+        _VERANTYX_塵:1.0__JCROSS_塵_358_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+
+        if _VERANTYX_塵:1.0__JCROSS_塵_287_:
+            while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_358_:
+                _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+                if _VERANTYX_塵:1.0__JCROSS_塵_416_ == 0:
+                    _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_209_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_)
+                _VERANTYX_濫:1.0__JCROSS_塵_357_ -128 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 127:
+                    _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_301_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_)
+                _VERANTYX_濫:1.0__JCROSS_塵_357_ -32768 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 32767:
+                    _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_303_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_)
+                else:
+                    _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_155_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_)
+        else:
+            _VERANTYX_塵:1.0__JCROSS_塵_101_, _VERANTYX_塵:1.0__JCROSS_塵_163_ = _VERANTYX_塵:1.0__JCROSS_塵_118_(_VERANTYX_塵:1.0__JCROSS_塵_72_), _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+            if _VERANTYX_塵:1.0__JCROSS_塵_101_ == 0 == _VERANTYX_塵:1.0__JCROSS_塵_163_:
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_209_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_)
+            _VERANTYX_濫:1.0__JCROSS_塵_357_ -128 <= _VERANTYX_塵:1.0__JCROSS_塵_101_ <= _VERANTYX_塵:1.0__JCROSS_塵_163_ <= 127:
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_301_(
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_47_
+                )
+            _VERANTYX_濫:1.0__JCROSS_塵_357_ -32768 <= _VERANTYX_塵:1.0__JCROSS_塵_101_ <= _VERANTYX_塵:1.0__JCROSS_塵_163_ <= 32767:
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_303_(
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_47_
+                )
+            else:
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_155_(
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_47_
+                )
+
+        _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_53_ == _VERANTYX_塵:1.0__JCROSS_塵_358_, (_VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_358_)
+
+        return _VERANTYX_塵:1.0__JCROSS_塵_27_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_209_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_27_):
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        _VERANTYX_塵:1.0__JCROSS_塵_358_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+        while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_358_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_] == 0:
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        _VERANTYX_塵:1.0__JCROSS_塵_425_ = _VERANTYX_塵:1.0__JCROSS_塵_53_ - _VERANTYX_塵:1.0__JCROSS_塵_391_
+        while _VERANTYX_塵:1.0__JCROSS_塵_425_ >= 64:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_51_ | 63)
+            _VERANTYX_塵:1.0__JCROSS_塵_425_ -= 64
+        if _VERANTYX_塵:1.0__JCROSS_塵_425_:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_51_ | (_VERANTYX_塵:1.0__JCROSS_塵_425_ - 1))
+        return _VERANTYX_塵:1.0__JCROSS_塵_53_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_301_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_):
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        _VERANTYX_塵:1.0__JCROSS_塵_358_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+        while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_358_:
+            _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+            if _VERANTYX_塵:1.0__JCROSS_塵_415_ (-128 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 127):
+                break
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            if (
+                _VERANTYX_塵:1.0__JCROSS_塵_287_
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_416_ == 0
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_53_ + 1 < _VERANTYX_塵:1.0__JCROSS_塵_358_
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_ + 1] == 0
+            ):
+                break
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        _VERANTYX_塵:1.0__JCROSS_塵_425_ = _VERANTYX_塵:1.0__JCROSS_塵_53_ - _VERANTYX_塵:1.0__JCROSS_塵_391_
+        while _VERANTYX_塵:1.0__JCROSS_塵_425_ >= 64:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(63)
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(_VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("b", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_ : _VERANTYX_塵:1.0__JCROSS_塵_391_ + 64]))
+            _VERANTYX_塵:1.0__JCROSS_塵_391_ += 64
+            _VERANTYX_塵:1.0__JCROSS_塵_425_ -= 64
+        if _VERANTYX_塵:1.0__JCROSS_塵_425_:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_425_ - 1)
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(_VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("b", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_:_VERANTYX_塵:1.0__JCROSS_塵_53_]))
+        return _VERANTYX_塵:1.0__JCROSS_塵_53_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_303_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_):
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        _VERANTYX_塵:1.0__JCROSS_塵_358_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+        while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_358_:
+            _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            if _VERANTYX_塵:1.0__JCROSS_塵_287_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_416_ == 0:
+                break
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            if (
+                _VERANTYX_塵:1.0__JCROSS_塵_287_
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ (-128 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 127)
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_53_ + 1 < _VERANTYX_塵:1.0__JCROSS_塵_358_
+                _VERANTYX_塵:1.0__JCROSS_塵_402_ (-128 <= _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_ + 1] <= 127)
+            ):
+                break
+
+            if _VERANTYX_塵:1.0__JCROSS_塵_415_ (-32768 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 32767):
+                break
+
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        _VERANTYX_塵:1.0__JCROSS_塵_425_ = _VERANTYX_塵:1.0__JCROSS_塵_53_ - _VERANTYX_塵:1.0__JCROSS_塵_391_
+        while _VERANTYX_塵:1.0__JCROSS_塵_425_ >= 64:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_17_ | 63)
+            a = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("h", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_ : _VERANTYX_塵:1.0__JCROSS_塵_391_ + 64])
+            if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                a._VERANTYX_塵:1.0__JCROSS_塵_62_()
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(a)
+            _VERANTYX_塵:1.0__JCROSS_塵_391_ += 64
+            _VERANTYX_塵:1.0__JCROSS_塵_425_ -= 64
+        if _VERANTYX_塵:1.0__JCROSS_塵_425_:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_17_ | (_VERANTYX_塵:1.0__JCROSS_塵_425_ - 1))
+            a = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("h", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_:_VERANTYX_塵:1.0__JCROSS_塵_53_])
+            if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                a._VERANTYX_塵:1.0__JCROSS_塵_62_()
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(a)
+        return _VERANTYX_塵:1.0__JCROSS_塵_53_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_155_(_VERANTYX_塵:1.0__JCROSS_塵_72_, _VERANTYX_塵:1.0__JCROSS_塵_391_, _VERANTYX_塵:1.0__JCROSS_塵_27_, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_):
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        _VERANTYX_塵:1.0__JCROSS_塵_358_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+        while _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_358_:
+            _VERANTYX_塵:1.0__JCROSS_塵_416_ = _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+            if _VERANTYX_塵:1.0__JCROSS_塵_287_ _VERANTYX_塵:1.0__JCROSS_塵_402_ -32768 <= _VERANTYX_塵:1.0__JCROSS_塵_416_ <= 32767:
+                break
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+        _VERANTYX_塵:1.0__JCROSS_塵_425_ = _VERANTYX_塵:1.0__JCROSS_塵_53_ - _VERANTYX_塵:1.0__JCROSS_塵_391_
+        while _VERANTYX_塵:1.0__JCROSS_塵_425_ >= 64:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_12_ | 63)
+            a = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("i", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_ : _VERANTYX_塵:1.0__JCROSS_塵_391_ + 64])
+            if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                a._VERANTYX_塵:1.0__JCROSS_塵_62_()
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(a)
+            _VERANTYX_塵:1.0__JCROSS_塵_391_ += 64
+            _VERANTYX_塵:1.0__JCROSS_塵_425_ -= 64
+        if _VERANTYX_塵:1.0__JCROSS_塵_425_:
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_廴:1.0__JCROSS_廴_12_ | (_VERANTYX_塵:1.0__JCROSS_塵_425_ - 1))
+            a = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("i", _VERANTYX_塵:1.0__JCROSS_塵_72_[_VERANTYX_塵:1.0__JCROSS_塵_391_:_VERANTYX_塵:1.0__JCROSS_塵_53_])
+            if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                a._VERANTYX_塵:1.0__JCROSS_塵_62_()
+            _VERANTYX_塵:1.0__JCROSS_塵_27_._VERANTYX_塵:1.0__JCROSS_塵_313_(a)
+        return _VERANTYX_塵:1.0__JCROSS_塵_53_
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_158_(_VERANTYX_塵:1.0__JCROSS_塵_358_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_=0):
+        """(_VERANTYX_塵:1.0__JCROSS_塵_358_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_) --> ([_VERANTYX_塵:1.0__JCROSS_塵_107_, _VERANTYX_塵:1.0__JCROSS_塵_107_, ...], _VERANTYX_塵:1.0__JCROSS_塵_214_)"""
+        _VERANTYX_塵:1.0__JCROSS_塵_404_ = []
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_塵:1.0__JCROSS_塵_391_
+        while _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_404_) < _VERANTYX_塵:1.0__JCROSS_塵_358_ if _VERANTYX_塵:1.0__JCROSS_塵_358_ is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_ else _VERANTYX_塵:1.0__JCROSS_塵_53_ < _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_224_):
+            _VERANTYX_謀:1.0__JCROSS_塵_372_ = _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_]
+            _VERANTYX_塵:1.0__JCROSS_塵_53_ += 1
+            _VERANTYX_塵:1.0__JCROSS_塵_10_ = (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_54_) + 1
+            if (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_1_) == _VERANTYX_廴:1.0__JCROSS_廴_51_:
+                _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_313_([0] * _VERANTYX_塵:1.0__JCROSS_塵_10_)
+            else:
+                if (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_1_) == _VERANTYX_廴:1.0__JCROSS_廴_12_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_ = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("i")
+                    _VERANTYX_塵:1.0__JCROSS_塵_417_ = _VERANTYX_塵:1.0__JCROSS_塵_10_ * 4
+                _VERANTYX_濫:1.0__JCROSS_塵_357_ (_VERANTYX_謀:1.0__JCROSS_塵_372_ & _VERANTYX_廴:1.0__JCROSS_廴_1_) == _VERANTYX_廴:1.0__JCROSS_廴_17_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_ = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("h")
+                    _VERANTYX_塵:1.0__JCROSS_塵_417_ = _VERANTYX_塵:1.0__JCROSS_塵_10_ * 2
+                else:
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_ = _VERANTYX_塵:1.0__JCROSS_塵_226_._VERANTYX_塵:1.0__JCROSS_塵_226_("b")
+                    _VERANTYX_塵:1.0__JCROSS_塵_417_ = _VERANTYX_塵:1.0__JCROSS_塵_10_
+                _VERANTYX_塵:1.0__JCROSS_塵_72_._VERANTYX_塵:1.0__JCROSS_塵_69_(_VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_ : _VERANTYX_塵:1.0__JCROSS_塵_53_ + _VERANTYX_塵:1.0__JCROSS_塵_417_])
+                if _VERANTYX_塵:1.0__JCROSS_塵_261_._VERANTYX_謀:1.0__JCROSS_塵_412_ != "_VERANTYX_塵:1.0__JCROSS_塵_192_":
+                    _VERANTYX_塵:1.0__JCROSS_塵_72_._VERANTYX_塵:1.0__JCROSS_塵_62_()
+                _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_) == _VERANTYX_塵:1.0__JCROSS_塵_10_, (_VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_72_), _VERANTYX_塵:1.0__JCROSS_塵_10_)
+                _VERANTYX_塵:1.0__JCROSS_塵_53_ += _VERANTYX_塵:1.0__JCROSS_塵_417_
+                _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_313_(_VERANTYX_塵:1.0__JCROSS_塵_72_)
+// _VERANTYX_謀:0.2__JCROSS_FM_158_ [decoy-metadata]
+        _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_358_ is _VERANTYX_廴:1.0__JCROSS_廴_38_ or _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_404_) == _VERANTYX_塵:1.0__JCROSS_塵_358_
+        return (_VERANTYX_塵:1.0__JCROSS_塵_404_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+
+    @_VERANTYX_塵:1.0__JCROSS_塵_407_
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_謀:1.0__JCROSS_巌_1_(_VERANTYX_塵:1.0__JCROSS_塵_371_, _VERANTYX_塵:1.0__JCROSS_塵_418_):
+        _VERANTYX_塵:1.0__JCROSS_塵_291_ = 4
+        if (_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_27_) != 0:
+            _VERANTYX_塵:1.0__JCROSS_塵_291_ += _VERANTYX_塵:1.0__JCROSS_塵_418_ * 2
+        if (_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_11_) != 0:
+            _VERANTYX_塵:1.0__JCROSS_塵_291_ += _VERANTYX_塵:1.0__JCROSS_塵_418_ * 4
+        return _VERANTYX_塵:1.0__JCROSS_塵_291_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_謀:1.0__JCROSS_巌_5_(self):
+        """_VERANTYX_廴:1.0__JCROSS_廴_14_ 2 if _VERANTYX_塵:1.0__JCROSS_塵_271_ _VERANTYX_塵:1.0__JCROSS_塵_96_ (x, y) as in _VERANTYX_塵:1.0__JCROSS_塵_66_, 1 if _VERANTYX_塵:1.0__JCROSS_塵_232_ _VERANTYX_塵:1.0__JCROSS_塵_403_
+        as in _VERANTYX_塵:1.0__JCROSS_塵_265_, or 0 if _VERANTYX_塵:1.0__JCROSS_塵_144_.
+        """
+        _VERANTYX_塵:1.0__JCROSS_塵_115_ = _VERANTYX_塵:1.0__JCROSS_塵_102_((c for c in self._VERANTYX_塵:1.0__JCROSS_塵_271_ if c is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_), _VERANTYX_廴:1.0__JCROSS_廴_38_)
+        if _VERANTYX_塵:1.0__JCROSS_塵_115_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:
+            return 0  # _VERANTYX_塵:1.0__JCROSS_塵_144_ or _VERANTYX_塵:1.0__JCROSS_塵_244_ no _VERANTYX_塵:1.0__JCROSS_塵_14_
+        if _VERANTYX_塵:1.0__JCROSS_塵_286_(_VERANTYX_塵:1.0__JCROSS_塵_115_) in (_VERANTYX_塵:1.0__JCROSS_塵_131_, _VERANTYX_塵:1.0__JCROSS_塵_384_):
+            return 1
+        if _VERANTYX_塵:1.0__JCROSS_塵_286_(_VERANTYX_塵:1.0__JCROSS_塵_115_) is _VERANTYX_塵:1.0__JCROSS_塵_165_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_115_) == 2:
+            return 2
+        _VERANTYX_塵:1.0__JCROSS_塵_25_ _VERANTYX_廴:1.0__JCROSS_廴_3_(
+            "_VERANTYX_塵:1.0__JCROSS_塵_225_ _VERANTYX_塵:1.0__JCROSS_塵_286_ of _VERANTYX_塵:1.0__JCROSS_塵_107_; _VERANTYX_塵:1.0__JCROSS_塵_87_ (_VERANTYX_塵:1.0__JCROSS_塵_131_ or _VERANTYX_塵:1.0__JCROSS_塵_384_) _VERANTYX_謀:1.0__JCROSS_塵_419_, or "
+            "_VERANTYX_廴:1.0__JCROSS_廴_22_[_VERANTYX_謀:1.0__JCROSS_塵_419_, _VERANTYX_謀:1.0__JCROSS_塵_419_]: %r" % _VERANTYX_塵:1.0__JCROSS_塵_115_
+        )
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_24_(self, _VERANTYX_塵:1.0__JCROSS_塵_23_):
+        if _VERANTYX_塵:1.0__JCROSS_塵_23_ == 1.0:
+            return  # no _VERANTYX_塵:1.0__JCROSS_塵_394_
+        _VERANTYX_塵:1.0__JCROSS_塵_255_ = self._VERANTYX_謀:1.0__JCROSS_巌_5_()
+        self._VERANTYX_塵:1.0__JCROSS_塵_271_ = [
+            (
+                _VERANTYX_廴:1.0__JCROSS_廴_38_
+                if d is _VERANTYX_廴:1.0__JCROSS_廴_38_
+                else d * _VERANTYX_塵:1.0__JCROSS_塵_23_ if _VERANTYX_塵:1.0__JCROSS_塵_255_ == 1 else (d[0] * _VERANTYX_塵:1.0__JCROSS_塵_23_, d[1] * _VERANTYX_塵:1.0__JCROSS_塵_23_)
+            )
+            for d in self._VERANTYX_塵:1.0__JCROSS_塵_271_
+        ]
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_297_(self):
+        _VERANTYX_塵:1.0__JCROSS_塵_255_ = self._VERANTYX_謀:1.0__JCROSS_巌_5_()
+        self._VERANTYX_塵:1.0__JCROSS_塵_271_ = [
+            (
+                _VERANTYX_廴:1.0__JCROSS_廴_38_
+                if d is _VERANTYX_廴:1.0__JCROSS_廴_38_
+                else _VERANTYX_塵:1.0__JCROSS_塵_240_(d) if _VERANTYX_塵:1.0__JCROSS_塵_255_ == 1 else (_VERANTYX_塵:1.0__JCROSS_塵_240_(d[0]), _VERANTYX_塵:1.0__JCROSS_塵_240_(d[1]))
+            )
+            for d in self._VERANTYX_塵:1.0__JCROSS_塵_271_
+        ]
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_47_(self, _VERANTYX_塵:1.0__JCROSS_塵_426_, _VERANTYX_塵:1.0__JCROSS_塵_397_):
+        _VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_157_._VERANTYX_塵:1.0__JCROSS_塵_246_._VERANTYX_塵:1.0__JCROSS_塵_227_ import _VERANTYX_塵:1.0__JCROSS_塵_401_
+
+        if self._VERANTYX_謀:1.0__JCROSS_巌_5_() == 1:
+            _VERANTYX_塵:1.0__JCROSS_塵_25_ _VERANTYX_廴:1.0__JCROSS_廴_3_("_VERANTYX_廴:1.0__JCROSS_廴_56_ '_VERANTYX_塵:1.0__JCROSS_塵_66_' _VERANTYX_廴:1.0__JCROSS_廴_30_ _VERANTYX_塵:1.0__JCROSS_塵_154_ _VERANTYX_塵:1.0__JCROSS_塵_302_ _VERANTYX_塵:1.0__JCROSS_塵_126_ _VERANTYX_塵:1.0__JCROSS_塵_72_")
+        if _VERANTYX_廴:1.0__JCROSS_廴_38_ in self._VERANTYX_塵:1.0__JCROSS_塵_271_:
+            if _VERANTYX_塵:1.0__JCROSS_塵_123_(self._VERANTYX_塵:1.0__JCROSS_塵_271_) != _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_426_):
+                _VERANTYX_塵:1.0__JCROSS_塵_25_ _VERANTYX_廴:1.0__JCROSS_廴_25_(
+                    "_VERANTYX_廴:1.0__JCROSS_廴_7_ _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_426_) == %d; _VERANTYX_塵:1.0__JCROSS_塵_355_ %d"
+                    % (_VERANTYX_塵:1.0__JCROSS_塵_123_(self._VERANTYX_塵:1.0__JCROSS_塵_271_), _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_426_))
+                )
+            self._VERANTYX_塵:1.0__JCROSS_塵_271_ = _VERANTYX_塵:1.0__JCROSS_塵_401_(self._VERANTYX_塵:1.0__JCROSS_塵_271_, _VERANTYX_塵:1.0__JCROSS_塵_426_, _VERANTYX_塵:1.0__JCROSS_塵_397_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_423_(self, _VERANTYX_塵:1.0__JCROSS_塵_426_, _VERANTYX_塵:1.0__JCROSS_塵_397_, _VERANTYX_塵:1.0__JCROSS_塵_89_=0.5, _VERANTYX_塵:1.0__JCROSS_塵_253_=_VERANTYX_廴:1.0__JCROSS_廴_47_):
+        _VERANTYX_塵:1.0__JCROSS_塵_1_ _VERANTYX_塵:1.0__JCROSS_塵_157_._VERANTYX_塵:1.0__JCROSS_塵_246_._VERANTYX_塵:1.0__JCROSS_塵_227_ import _VERANTYX_塵:1.0__JCROSS_塵_173_
+
+        if _VERANTYX_廴:1.0__JCROSS_廴_38_ in self._VERANTYX_塵:1.0__JCROSS_塵_271_:
+            return  # _VERANTYX_塵:1.0__JCROSS_塵_250_ _VERANTYX_塵:1.0__JCROSS_塵_392_
+
+        _VERANTYX_塵:1.0__JCROSS_塵_340_ = _VERANTYX_塵:1.0__JCROSS_塵_173_(
+            self._VERANTYX_塵:1.0__JCROSS_塵_271_, _VERANTYX_塵:1.0__JCROSS_塵_426_, _VERANTYX_塵:1.0__JCROSS_塵_397_, _VERANTYX_塵:1.0__JCROSS_塵_89_=_VERANTYX_塵:1.0__JCROSS_塵_89_
+        )
+        if _VERANTYX_廴:1.0__JCROSS_廴_38_ in _VERANTYX_塵:1.0__JCROSS_塵_340_:
+            if _VERANTYX_塵:1.0__JCROSS_塵_253_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_170_(d is _VERANTYX_廴:1.0__JCROSS_廴_38_ for d in _VERANTYX_塵:1.0__JCROSS_塵_340_):
+// [metadata-stripped]
+// [metadata-stripped]
+                _VERANTYX_塵:1.0__JCROSS_塵_340_ = [(0, 0)] + [_VERANTYX_廴:1.0__JCROSS_廴_38_] * (_VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_340_) - 1)
+// [metadata-stripped]
+            _VERANTYX_塵:1.0__JCROSS_塵_16_ = _VERANTYX_廴:1.0__JCROSS_廴_30_(self._VERANTYX_塵:1.0__JCROSS_塵_243_, _VERANTYX_塵:1.0__JCROSS_塵_340_)
+
+// [metadata-stripped]
+            _VERANTYX_塵:1.0__JCROSS_塵_275_ = _VERANTYX_塵:1.0__JCROSS_塵_228_(self._VERANTYX_塵:1.0__JCROSS_塵_243_._VERANTYX_秘:1.0__JCROSS_塵_109_())
+            _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_105_ = self._VERANTYX_塵:1.0__JCROSS_塵_208_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+            _VERANTYX_塵:1.0__JCROSS_塵_117_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_231_) + _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_105_)
+            _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_105_ = _VERANTYX_塵:1.0__JCROSS_塵_16_._VERANTYX_塵:1.0__JCROSS_塵_208_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+            _VERANTYX_塵:1.0__JCROSS_塵_153_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_231_) + _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_105_)
+
+            if _VERANTYX_塵:1.0__JCROSS_塵_153_ < _VERANTYX_塵:1.0__JCROSS_塵_117_:
+                self._VERANTYX_塵:1.0__JCROSS_塵_271_ = _VERANTYX_塵:1.0__JCROSS_塵_16_._VERANTYX_塵:1.0__JCROSS_塵_271_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_298_(self, _VERANTYX_塵:1.0__JCROSS_塵_23_):
+        self._VERANTYX_塵:1.0__JCROSS_塵_24_(_VERANTYX_塵:1.0__JCROSS_塵_23_)
+        return self
+
+    _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_93_(self, _VERANTYX_謀:1.0__JCROSS_塵_19_):
+        if _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_塵:1.0__JCROSS_塵_386_(_VERANTYX_謀:1.0__JCROSS_塵_19_, _VERANTYX_廴:1.0__JCROSS_廴_30_):
+            return _VERANTYX_廴:1.0__JCROSS_廴_55_
+// _VERANTYX_塵:0.9__JCROSS_MW_469_ [decoy-metadata]
+        _VERANTYX_塵:1.0__JCROSS_塵_149_ = self._VERANTYX_塵:1.0__JCROSS_塵_271_
+        _VERANTYX_塵:1.0__JCROSS_塵_85_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_149_)
+        _VERANTYX_塵:1.0__JCROSS_塵_51_ = _VERANTYX_謀:1.0__JCROSS_塵_19_._VERANTYX_塵:1.0__JCROSS_塵_271_
+        if _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_51_) != _VERANTYX_塵:1.0__JCROSS_塵_85_:
+            _VERANTYX_塵:1.0__JCROSS_塵_25_ _VERANTYX_廴:1.0__JCROSS_廴_25_("_VERANTYX_塵:1.0__JCROSS_塵_59_ _VERANTYX_塵:1.0__JCROSS_塵_145_ _VERANTYX_廴:1.0__JCROSS_廴_30_ _VERANTYX_塵:1.0__JCROSS_塵_72_ _VERANTYX_塵:1.0__JCROSS_塵_330_ _VERANTYX_濫:1.0__JCROSS_塵_213_ _VERANTYX_塵:1.0__JCROSS_塵_206_")
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if self._VERANTYX_謀:1.0__JCROSS_巌_5_() == 2:
+            for i, d2 in _VERANTYX_塵:1.0__JCROSS_塵_45_(_VERANTYX_塵:1.0__JCROSS_塵_132_(_VERANTYX_塵:1.0__JCROSS_塵_85_), _VERANTYX_塵:1.0__JCROSS_塵_51_):
+                d1 = _VERANTYX_塵:1.0__JCROSS_塵_149_[i]
+// _VERANTYX_濫:0.8__JCROSS_CZ_763_ [decoy-metadata]
+                try:
+                    _VERANTYX_塵:1.0__JCROSS_塵_149_[i] = (d1[0] + d2[0], d1[1] + d2[1])
+                _VERANTYX_塵:1.0__JCROSS_塵_49_ _VERANTYX_廴:1.0__JCROSS_廴_3_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_25_ _VERANTYX_廴:1.0__JCROSS_廴_25_("_VERANTYX_塵:1.0__JCROSS_塵_59_ _VERANTYX_塵:1.0__JCROSS_塵_145_ _VERANTYX_塵:1.0__JCROSS_塵_66_ _VERANTYX_塵:1.0__JCROSS_塵_72_ _VERANTYX_塵:1.0__JCROSS_塵_330_ _VERANTYX_塵:1.0__JCROSS_塵_126_ _VERANTYX_塵:1.0__JCROSS_塵_219_")
+        else:
+            for i, d2 in _VERANTYX_塵:1.0__JCROSS_塵_45_(_VERANTYX_塵:1.0__JCROSS_塵_132_(_VERANTYX_塵:1.0__JCROSS_塵_85_), _VERANTYX_塵:1.0__JCROSS_塵_51_):
+                d1 = _VERANTYX_塵:1.0__JCROSS_塵_149_[i]
+                if d1 is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_ _VERANTYX_塵:1.0__JCROSS_塵_402_ d2 is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_149_[i] = d1 + d2
+                _VERANTYX_濫:1.0__JCROSS_塵_357_ d1 is _VERANTYX_廴:1.0__JCROSS_廴_38_ _VERANTYX_塵:1.0__JCROSS_塵_402_ d2 is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_廴:1.0__JCROSS_廴_38_:
+                    _VERANTYX_塵:1.0__JCROSS_塵_149_[i] = d2
+// [metadata-stripped]
+        return self
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_67_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_88_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_):
+    _VERANTYX_塵:1.0__JCROSS_塵_404_ = []
+    for _ in _VERANTYX_塵:1.0__JCROSS_塵_132_(_VERANTYX_塵:1.0__JCROSS_塵_88_):
+        t, _VERANTYX_塵:1.0__JCROSS_塵_391_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_400_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_391_)
+        _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(t)
+    return _VERANTYX_塵:1.0__JCROSS_塵_404_
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_328_(
+    _VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_398_, _VERANTYX_廴:1.0__JCROSS_廴_34_=_VERANTYX_廴:1.0__JCROSS_廴_28_ + 1
+):
+    _VERANTYX_塵:1.0__JCROSS_塵_393_ = _VERANTYX_謀:1.0__JCROSS_廴_42_()
+    for var in _VERANTYX_塵:1.0__JCROSS_塵_398_:
+        _VERANTYX_塵:1.0__JCROSS_塵_309_ = var._VERANTYX_塵:1.0__JCROSS_塵_385_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+        _VERANTYX_塵:1.0__JCROSS_塵_393_[_VERANTYX_塵:1.0__JCROSS_塵_309_] += 1
+// [metadata-stripped]
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__JCROSS_塵_111_ = _VERANTYX_塵:1.0__JCROSS_塵_228_(
+        _VERANTYX_塵:1.0__JCROSS_塵_393_._VERANTYX_塵:1.0__JCROSS_塵_183_(_VERANTYX_廴:1.0__JCROSS_廴_34_),
+        _VERANTYX_秘:1.0__JCROSS_塵_430_=_VERANTYX_塵:1.0__JCROSS_塵_211_ _VERANTYX_塵:1.0__JCROSS_塵_82_: (-_VERANTYX_塵:1.0__JCROSS_塵_82_[1], _VERANTYX_塵:1.0__JCROSS_塵_82_[0]),
+    )
+    return [c[0] for c in _VERANTYX_塵:1.0__JCROSS_塵_111_ if c[1] > 1]
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_332_(
+    _VERANTYX_塵:1.0__JCROSS_塵_398_,
+    _VERANTYX_塵:1.0__JCROSS_塵_64_,
+    _VERANTYX_塵:1.0__JCROSS_塵_275_,
+    _VERANTYX_塵:1.0__JCROSS_塵_195_,
+    _VERANTYX_塵:1.0__JCROSS_塵_293_=_VERANTYX_廴:1.0__JCROSS_廴_41_,
+    *,
+    _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_廴:1.0__JCROSS_廴_41_,
+):
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__JCROSS_塵_55_ _VERANTYX_塵:1.0__JCROSS_塵_64_
+    _VERANTYX_塵:1.0__JCROSS_塵_40_ = []
+    _VERANTYX_塵:1.0__JCROSS_塵_395_ = []
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__JCROSS_塵_285_ = _VERANTYX_廴:1.0__JCROSS_廴_38_
+
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__JCROSS_塵_262_ = _VERANTYX_塵:1.0__JCROSS_塵_422_(_VERANTYX_塵:1.0__JCROSS_塵_131_)
+    for v in _VERANTYX_塵:1.0__JCROSS_塵_398_:
+        _VERANTYX_塵:1.0__JCROSS_塵_219_ = v._VERANTYX_謀:1.0__JCROSS_巌_7_()
+        if _VERANTYX_塵:1.0__JCROSS_塵_219_ is _VERANTYX_廴:1.0__JCROSS_廴_38_:  # _VERANTYX_廴:1.0__JCROSS_廴_39_ _VERANTYX_塵:1.0__JCROSS_塵_398_
+            continue
+        _VERANTYX_塵:1.0__JCROSS_塵_262_[_VERANTYX_塵:1.0__JCROSS_塵_219_] += 1
+        _VERANTYX_塵:1.0__JCROSS_塵_40_._VERANTYX_塵:1.0__JCROSS_塵_351_(v)
+        _VERANTYX_塵:1.0__JCROSS_塵_395_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_219_)
+    _VERANTYX_塵:1.0__JCROSS_塵_398_ = _VERANTYX_塵:1.0__JCROSS_塵_40_
+    _VERANTYX_塵:1.0__JCROSS_塵_55_ _VERANTYX_塵:1.0__JCROSS_塵_40_
+
+    if _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_塵:1.0__JCROSS_塵_398_:
+        return (0, b"", b"")
+
+    n = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_398_[0]._VERANTYX_塵:1.0__JCROSS_塵_271_)
+    _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_170_(
+        _VERANTYX_塵:1.0__JCROSS_塵_123_(v._VERANTYX_塵:1.0__JCROSS_塵_271_) == n for v in _VERANTYX_塵:1.0__JCROSS_塵_398_
+    ), "_VERANTYX_廴:1.0__JCROSS_廴_50_ _VERANTYX_謀:1.0__JCROSS_巌_6_ _VERANTYX_塵:1.0__JCROSS_塵_302_ _VERANTYX_濫:1.0__JCROSS_塵_213_ _VERANTYX_塵:1.0__JCROSS_塵_162_"
+
+    _VERANTYX_塵:1.0__JCROSS_塵_380_ = {
+        _VERANTYX_塵:1.0__JCROSS_塵_233_: _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_138_(_VERANTYX_塵:1.0__JCROSS_塵_233_) for _VERANTYX_塵:1.0__JCROSS_塵_233_ in _VERANTYX_塵:1.0__JCROSS_塵_262_
+    }
+
+    _VERANTYX_塵:1.0__JCROSS_塵_44_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_398_)
+    _VERANTYX_塵:1.0__JCROSS_塵_103_ = []
+    _VERANTYX_塵:1.0__JCROSS_塵_224_ = []
+
+    if _VERANTYX_塵:1.0__JCROSS_塵_293_:
+// [metadata-stripped]
+        _VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_秘:1.0__JCROSS_塵_430_(pn):
+            _VERANTYX_塵:1.0__JCROSS_塵_233_ = pn[0]
+            _VERANTYX_塵:1.0__JCROSS_塵_431_ = pn[1]
+            return _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_380_[_VERANTYX_塵:1.0__JCROSS_塵_233_]) * (_VERANTYX_塵:1.0__JCROSS_塵_431_ - 1)
+
+        _VERANTYX_塵:1.0__JCROSS_塵_285_ = _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_262_._VERANTYX_塵:1.0__JCROSS_塵_288_(), _VERANTYX_秘:1.0__JCROSS_塵_430_=_VERANTYX_秘:1.0__JCROSS_塵_430_)[0]
+
+        _VERANTYX_塵:1.0__JCROSS_塵_224_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_380_[_VERANTYX_塵:1.0__JCROSS_塵_285_])
+        _VERANTYX_塵:1.0__JCROSS_塵_44_ |= _VERANTYX_廴:1.0__JCROSS_廴_43_
+
+// [metadata-stripped]
+    _VERANTYX_塵:1.0__JCROSS_塵_395_ = [
+        _VERANTYX_塵:1.0__JCROSS_塵_380_[_VERANTYX_塵:1.0__JCROSS_塵_219_] if _VERANTYX_塵:1.0__JCROSS_塵_219_ != _VERANTYX_塵:1.0__JCROSS_塵_285_ else b""
+        for _VERANTYX_塵:1.0__JCROSS_塵_219_ in _VERANTYX_塵:1.0__JCROSS_塵_395_
+    ]
+
+    for v, p in _VERANTYX_塵:1.0__JCROSS_塵_45_(_VERANTYX_塵:1.0__JCROSS_塵_398_, _VERANTYX_塵:1.0__JCROSS_塵_395_):
+        _VERANTYX_塵:1.0__JCROSS_塵_276_, _VERANTYX_塵:1.0__JCROSS_塵_91_ = v._VERANTYX_塵:1.0__JCROSS_塵_208_(
+            _VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_195_, _VERANTYX_塵:1.0__JCROSS_塵_382_=p, _VERANTYX_塵:1.0__JCROSS_塵_287_=_VERANTYX_塵:1.0__JCROSS_塵_287_
+        )
+
+        _VERANTYX_塵:1.0__JCROSS_塵_103_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_276_)
+        _VERANTYX_塵:1.0__JCROSS_塵_224_._VERANTYX_塵:1.0__JCROSS_塵_351_(_VERANTYX_塵:1.0__JCROSS_塵_91_)
+
+    _VERANTYX_塵:1.0__JCROSS_塵_103_ = b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_103_)
+    _VERANTYX_塵:1.0__JCROSS_塵_224_ = b""._VERANTYX_塵:1.0__JCROSS_塵_331_(_VERANTYX_塵:1.0__JCROSS_塵_224_)
+    return _VERANTYX_塵:1.0__JCROSS_塵_44_, _VERANTYX_塵:1.0__JCROSS_塵_103_, _VERANTYX_塵:1.0__JCROSS_塵_224_
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_343_(
+    _VERANTYX_塵:1.0__JCROSS_塵_110_,
+    _VERANTYX_塵:1.0__JCROSS_塵_275_,
+    _VERANTYX_塵:1.0__JCROSS_塵_44_,
+    _VERANTYX_塵:1.0__JCROSS_塵_64_,
+    _VERANTYX_塵:1.0__JCROSS_塵_348_,
+    _VERANTYX_塵:1.0__JCROSS_塵_224_,
+    _VERANTYX_塵:1.0__JCROSS_塵_53_,
+    _VERANTYX_塵:1.0__JCROSS_塵_334_,
+):
+    _VERANTYX_塵:1.0__JCROSS_塵_169_ = _VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_275_)
+    _VERANTYX_塵:1.0__JCROSS_塵_404_ = []
+    if (_VERANTYX_塵:1.0__JCROSS_塵_44_ & _VERANTYX_廴:1.0__JCROSS_廴_43_) != 0:
+        _VERANTYX_塵:1.0__JCROSS_塵_285_, _VERANTYX_塵:1.0__JCROSS_塵_334_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_306_(
+            _VERANTYX_塵:1.0__JCROSS_塵_64_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_334_, _VERANTYX_塵:1.0__JCROSS_塵_110_
+        )
+    else:
+        _VERANTYX_塵:1.0__JCROSS_塵_285_ = []
+    for _ in _VERANTYX_塵:1.0__JCROSS_塵_132_(_VERANTYX_塵:1.0__JCROSS_塵_44_ & _VERANTYX_廴:1.0__JCROSS_廴_20_):
+        _VERANTYX_塵:1.0__JCROSS_塵_432_, _VERANTYX_塵:1.0__JCROSS_塵_371_ = _VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_194_(">HH", _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_ : _VERANTYX_塵:1.0__JCROSS_塵_53_ + 4])
+        _VERANTYX_塵:1.0__JCROSS_塵_32_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_謀:1.0__JCROSS_巌_1_(_VERANTYX_塵:1.0__JCROSS_塵_371_, _VERANTYX_塵:1.0__JCROSS_塵_169_)
+        _VERANTYX_塵:1.0__JCROSS_塵_231_ = _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_53_ : _VERANTYX_塵:1.0__JCROSS_塵_53_ + _VERANTYX_塵:1.0__JCROSS_塵_32_]
+        _VERANTYX_塵:1.0__JCROSS_塵_363_ = _VERANTYX_塵:1.0__JCROSS_塵_224_[_VERANTYX_塵:1.0__JCROSS_塵_334_ : _VERANTYX_塵:1.0__JCROSS_塵_334_ + _VERANTYX_塵:1.0__JCROSS_塵_432_]
+        _VERANTYX_塵:1.0__JCROSS_塵_404_._VERANTYX_塵:1.0__JCROSS_塵_351_(
+            _VERANTYX_塵:1.0__JCROSS_塵_341_(
+                _VERANTYX_塵:1.0__JCROSS_塵_64_,
+                _VERANTYX_塵:1.0__JCROSS_塵_348_,
+                _VERANTYX_塵:1.0__JCROSS_塵_285_,
+                _VERANTYX_塵:1.0__JCROSS_塵_110_,
+                _VERANTYX_塵:1.0__JCROSS_塵_275_,
+                _VERANTYX_塵:1.0__JCROSS_塵_231_,
+                _VERANTYX_塵:1.0__JCROSS_塵_363_,
+            )
+        )
+        _VERANTYX_塵:1.0__JCROSS_塵_53_ += _VERANTYX_塵:1.0__JCROSS_塵_32_
+        _VERANTYX_塵:1.0__JCROSS_塵_334_ += _VERANTYX_塵:1.0__JCROSS_塵_432_
+    return _VERANTYX_塵:1.0__JCROSS_塵_404_
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_341_(
+    _VERANTYX_塵:1.0__JCROSS_塵_64_, _VERANTYX_塵:1.0__JCROSS_塵_348_, _VERANTYX_塵:1.0__JCROSS_塵_285_, _VERANTYX_塵:1.0__JCROSS_塵_110_, _VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_231_
+):
+    _VERANTYX_塵:1.0__JCROSS_塵_216_ _VERANTYX_塵:1.0__JCROSS_塵_110_ in ("_VERANTYX_塵:1.0__JCROSS_塵_265_", "_VERANTYX_塵:1.0__JCROSS_塵_66_"), _VERANTYX_塵:1.0__JCROSS_塵_110_
+    _VERANTYX_塵:1.0__JCROSS_塵_371_ = _VERANTYX_塵:1.0__JCROSS_塵_369_uct._VERANTYX_塵:1.0__JCROSS_塵_194_(">H", _VERANTYX_塵:1.0__JCROSS_塵_224_[2:4])[0]
+    _VERANTYX_塵:1.0__JCROSS_塵_53_ = 4
+    if (_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_27_) == 0:
+        _VERANTYX_塵:1.0__JCROSS_塵_189_ = _VERANTYX_塵:1.0__JCROSS_塵_348_[_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_28_]
+    else:
+        _VERANTYX_塵:1.0__JCROSS_塵_189_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_400_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+    if (_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_11_) != 0:
+        _VERANTYX_塵:1.0__JCROSS_塵_356_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_400_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+        _VERANTYX_塵:1.0__JCROSS_塵_17_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_400_(_VERANTYX_塵:1.0__JCROSS_塵_275_, _VERANTYX_塵:1.0__JCROSS_塵_224_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+    else:
+        _VERANTYX_塵:1.0__JCROSS_塵_356_, _VERANTYX_塵:1.0__JCROSS_塵_17_ = _VERANTYX_塵:1.0__JCROSS_塵_353_(_VERANTYX_塵:1.0__JCROSS_塵_189_)
+    _VERANTYX_塵:1.0__JCROSS_塵_243_ = {}
+    for _VERANTYX_塵:1.0__JCROSS_塵_188_ in _VERANTYX_塵:1.0__JCROSS_塵_275_:
+        _VERANTYX_塵:1.0__JCROSS_塵_9_ = _VERANTYX_塵:1.0__JCROSS_塵_356_[_VERANTYX_塵:1.0__JCROSS_塵_188_], _VERANTYX_塵:1.0__JCROSS_塵_189_[_VERANTYX_塵:1.0__JCROSS_塵_188_], _VERANTYX_塵:1.0__JCROSS_塵_17_[_VERANTYX_塵:1.0__JCROSS_塵_188_]
+        if _VERANTYX_塵:1.0__JCROSS_塵_9_ != (0.0, 0.0, 0.0):
+            _VERANTYX_塵:1.0__JCROSS_塵_243_[_VERANTYX_塵:1.0__JCROSS_塵_188_] = _VERANTYX_塵:1.0__JCROSS_塵_9_
+    _VERANTYX_塵:1.0__JCROSS_塵_53_ = 0
+    if (_VERANTYX_塵:1.0__JCROSS_塵_371_ & _VERANTYX_廴:1.0__JCROSS_廴_16_) != 0:
+        _VERANTYX_塵:1.0__JCROSS_塵_219_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_306_(
+            _VERANTYX_塵:1.0__JCROSS_塵_64_, _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_53_, _VERANTYX_塵:1.0__JCROSS_塵_110_
+        )
+    else:
+        _VERANTYX_塵:1.0__JCROSS_塵_219_ = _VERANTYX_塵:1.0__JCROSS_塵_285_
+
+    _VERANTYX_塵:1.0__JCROSS_塵_72_ = [_VERANTYX_廴:1.0__JCROSS_廴_38_] * _VERANTYX_塵:1.0__JCROSS_塵_64_
+
+    if _VERANTYX_塵:1.0__JCROSS_塵_110_ == "_VERANTYX_塵:1.0__JCROSS_塵_265_":
+        _VERANTYX_塵:1.0__JCROSS_塵_347_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_158_(_VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_219_), _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+        for p, _VERANTYX_塵:1.0__JCROSS_塵_107_ in _VERANTYX_塵:1.0__JCROSS_塵_45_(_VERANTYX_塵:1.0__JCROSS_塵_219_, _VERANTYX_塵:1.0__JCROSS_塵_347_):
+            if 0 <= p < _VERANTYX_塵:1.0__JCROSS_塵_64_:
+                _VERANTYX_塵:1.0__JCROSS_塵_72_[p] = _VERANTYX_塵:1.0__JCROSS_塵_107_
+
+    _VERANTYX_濫:1.0__JCROSS_塵_357_ _VERANTYX_塵:1.0__JCROSS_塵_110_ == "_VERANTYX_塵:1.0__JCROSS_塵_66_":
+        _VERANTYX_塵:1.0__JCROSS_塵_137_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_158_(_VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_219_), _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+        _VERANTYX_塵:1.0__JCROSS_塵_166_, _VERANTYX_塵:1.0__JCROSS_塵_53_ = _VERANTYX_廴:1.0__JCROSS_廴_30_._VERANTYX_塵:1.0__JCROSS_塵_158_(_VERANTYX_塵:1.0__JCROSS_塵_123_(_VERANTYX_塵:1.0__JCROSS_塵_219_), _VERANTYX_塵:1.0__JCROSS_塵_231_, _VERANTYX_塵:1.0__JCROSS_塵_53_)
+        for p, x, y in _VERANTYX_塵:1.0__JCROSS_塵_45_(_VERANTYX_塵:1.0__JCROSS_塵_219_, _VERANTYX_塵:1.0__JCROSS_塵_137_, _VERANTYX_塵:1.0__JCROSS_塵_166_):
+            if 0 <= p < _VERANTYX_塵:1.0__JCROSS_塵_64_:
+                _VERANTYX_塵:1.0__JCROSS_塵_72_[p] = (x, y)
+
+    return _VERANTYX_廴:1.0__JCROSS_廴_30_(_VERANTYX_塵:1.0__JCROSS_塵_243_, _VERANTYX_塵:1.0__JCROSS_塵_72_)
+
+
+_VERANTYX_塵:1.0__JCROSS_塵_112_ _VERANTYX_塵:1.0__JCROSS_塵_353_(_VERANTYX_塵:1.0__JCROSS_塵_189_):
+    """_VERANTYX_謀:1.0__JCROSS_廴_48_ _VERANTYX_塵:1.0__JCROSS_塵_356_ _VERANTYX_塵:1.0__JCROSS_塵_402_ _VERANTYX_塵:1.0__JCROSS_塵_17_ for a (_VERANTYX_塵:1.0__JCROSS_塵_339_-_VERANTYX_塵:1.0__JCROSS_塵_312_) _VERANTYX_塵:1.0__JCROSS_塵_9_
+
+    _VERANTYX_廴:1.0__JCROSS_廴_31_ _VERANTYX_謀:1.0__JCROSS_塵_365_ _VERANTYX_塵:1.0__JCROSS_塵_3_ _VERANTYX_塵:1.0__JCROSS_塵_429_ _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_199_ _VERANTYX_塵:1.0__JCROSS_塵_9_ for
+    _VERANTYX_塵:1.0__JCROSS_塵_241_ _VERANTYX_塵:1.0__JCROSS_塵_103_ _VERANTYX_塵:1.0__JCROSS_塵_323_ _VERANTYX_廴:1.0__JCROSS_廴_11_ _VERANTYX_塵:1.0__JCROSS_塵_127_ is _VERANTYX_塵:1.0__JCROSS_塵_415_ _VERANTYX_謀:1.0__JCROSS_巌_2_ in _VERANTYX_塵:1.0__JCROSS_塵_420_
+    _VERANTYX_謀:1.0__JCROSS_廴_45_ _VERANTYX_塵:1.0__JCROSS_塵_315_.  _VERANTYX_廴:1.0__JCROSS_廴_50_ _VERANTYX_塵:1.0__JCROSS_塵_103_ _VERANTYX_塵:1.0__JCROSS_塵_113_ _VERANTYX_塵:1.0__JCROSS_塵_185_ to
+    _VERANTYX_塵:1.0__JCROSS_塵_80_ _VERANTYX_塵:1.0__JCROSS_塵_409_ of _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_241_ _VERANTYX_塵:1.0__JCROSS_塵_181_; _VERANTYX_塵:1.0__JCROSS_塵_202_ _VERANTYX_塵:1.0__JCROSS_塵_283_ _VERANTYX_塵:1.0__JCROSS_塵_9_, _VERANTYX_塵:1.0__JCROSS_塵_420_
+    _VERANTYX_塵:1.0__JCROSS_塵_165_ _VERANTYX_塵:1.0__JCROSS_塵_244_ no _VERANTYX_塵:1.0__JCROSS_塵_52_.  To _VERANTYX_塵:1.0__JCROSS_塵_167_ _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_75_ _VERANTYX_塵:1.0__JCROSS_塵_147_ _VERANTYX_塵:1.0__JCROSS_塵_280_ _VERANTYX_塵:1.0__JCROSS_塵_191_,
+    _VERANTYX_廴:1.0__JCROSS_廴_33_ _VERANTYX_塵:1.0__JCROSS_塵_154_ _VERANTYX_塵:1.0__JCROSS_塵_359_ _VERANTYX_塵:1.0__JCROSS_塵_420_ _VERANTYX_塵:1.0__JCROSS_塵_335_ _VERANTYX_塵:1.0__JCROSS_塵_402_
+    _VERANTYX_塵:1.0__JCROSS_塵_33_ _VERANTYX_塵:1.0__JCROSS_塵_48_.
+    """
+    _VERANTYX_塵:1.0__JCROSS_塵_356_, _VERANTYX_塵:1.0__JCROSS_塵_17_ = {}, {}
+    for _VERANTYX_塵:1.0__JCROSS_塵_188_, _VERANTYX_塵:1.0__JCROSS_塵_416_ in _VERANTYX_塵:1.0__JCROSS_塵_189_._VERANTYX_塵:1.0__JCROSS_塵_288_():
+        _VERANTYX_塵:1.0__JCROSS_塵_356_[_VERANTYX_塵:1.0__JCROSS_塵_188_] = _VERANTYX_塵:1.0__JCROSS_塵_118_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 --> -0.3; 0.7 --> 0.0
+        _VERANTYX_塵:1.0__JCROSS_塵_17_[_VERANTYX_塵:1.0__JCROSS_塵_188_] = _VERANTYX_塵:1.0__JCROSS_塵_266_(_VERANTYX_塵:1.0__JCROSS_塵_416_, 0.0)  # -0.3 -->  0.0; 0.7 --> 0.7
+    return (_VERANTYX_塵:1.0__JCROSS_塵_356_, _VERANTYX_塵:1.0__JCROSS_塵_17_)
+
+// POLYMORPHIC_JCROSS_END

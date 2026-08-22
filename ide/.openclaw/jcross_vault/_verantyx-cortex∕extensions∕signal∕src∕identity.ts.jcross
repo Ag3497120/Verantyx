@@ -1,0 +1,151 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:272EDFB6 ver:1778167667
+// ⚠️ One-time schema — expires after response
+
+import { _SYM_泡:1.0__VERANTYX_霾_5_ } _SYM_霾:1.0__VERANTYX_霾_50_ "_SYM_霾:1.0__VERANTYX_霾_12_/_SYM_霾:1.0__VERANTYX_霾_55_-_SYM_霾:1.0__VERANTYX_霾_37_/_SYM_霾:1.0__VERANTYX_霾_65_-_SYM_霾:1.0__VERANTYX_霾_7_";
+import { _SYM_霾:1.0__VERANTYX_霾_30_ } _SYM_霾:1.0__VERANTYX_霾_50_ "_SYM_霾:1.0__VERANTYX_霾_12_/_SYM_霾:1.0__VERANTYX_霾_55_-_SYM_霾:1.0__VERANTYX_霾_37_/_SYM_霾:1.0__VERANTYX_霾_4_-_SYM_霾:1.0__VERANTYX_霾_48_";
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_16_ _SYM_節:1.0__VERANTYX_庭_5_ =
+  | { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_20_"; _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_霾:1.0__VERANTYX_霾_40_; _SYM_霾:1.0__VERANTYX_霾_34_: _SYM_霾:1.0__VERANTYX_霾_40_ }
+  | { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_25_"; _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_霾:1.0__VERANTYX_霾_40_ };
+
+_SYM_霾:1.0__VERANTYX_霾_16_ _SYM_庭:1.0__VERANTYX_庭_4_ =
+  | { _SYM_霾:1.0__VERANTYX_霾_56_: "any" }
+  | { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_20_"; _SYM_霾:1.0__VERANTYX_霾_34_: _SYM_霾:1.0__VERANTYX_霾_40_ }
+  | { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_25_"; _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_霾:1.0__VERANTYX_霾_40_ };
+
+_SYM_霾:1.0__VERANTYX_霾_64_ _SYM_庭:1.0__VERANTYX_庭_2_ = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+_SYM_霾:1.0__VERANTYX_霾_64_ _SYM_庭:1.0__VERANTYX_庭_1_ = /^[0-9a-f]{32}$/i;
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_46_(_SYM_霾:1.0__VERANTYX_霾_17_: _SYM_霾:1.0__VERANTYX_霾_40_): _SYM_霾:1.0__VERANTYX_霾_36_ {
+  if (_SYM_庭:1.0__VERANTYX_庭_2_._SYM_霾:1.0__VERANTYX_霾_10_(_SYM_霾:1.0__VERANTYX_霾_17_) || _SYM_庭:1.0__VERANTYX_庭_1_._SYM_霾:1.0__VERANTYX_霾_10_(_SYM_霾:1.0__VERANTYX_霾_17_)) {
+    return true;
+  }
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_52_ = _SYM_霾:1.0__VERANTYX_霾_17_._SYM_霾:1.0__VERANTYX_霾_35_(/-/g, "");
+  if (!/^[0-9a-f]+$/i._SYM_霾:1.0__VERANTYX_霾_10_(_SYM_霾:1.0__VERANTYX_霾_52_)) {
+    return false;
+  }
+  return /[a-f]/i._SYM_霾:1.0__VERANTYX_霾_10_(_SYM_霾:1.0__VERANTYX_霾_52_);
+}
+
+// _SYM_泡:0.2__VERANTYX_CE_391_ [decoy-metadata]
+_SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_61_(_SYM_霾:1.0__VERANTYX_霾_17_: _SYM_霾:1.0__VERANTYX_霾_40_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  return _SYM_霾:1.0__VERANTYX_霾_17_._SYM_霾:1.0__VERANTYX_霾_35_(/^_SYM_霾:1.0__VERANTYX_霾_22_:/i, "")._SYM_霾:1.0__VERANTYX_霾_49_();
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_節:1.0__VERANTYX_霾_47_(_SYM_霾:1.0__VERANTYX_霾_13_: {
+  _SYM_節:1.0__VERANTYX_霾_63_?: _SYM_霾:1.0__VERANTYX_霾_40_ | _SYM_霾:1.0__VERANTYX_霾_44_;
+  _SYM_霾:1.0__VERANTYX_霾_31_?: _SYM_霾:1.0__VERANTYX_霾_40_ | _SYM_霾:1.0__VERANTYX_霾_44_;
+}): _SYM_節:1.0__VERANTYX_庭_5_ | _SYM_霾:1.0__VERANTYX_霾_44_ {
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_節:1.0__VERANTYX_霾_63_ = _SYM_霾:1.0__VERANTYX_霾_13_._SYM_節:1.0__VERANTYX_霾_63_?._SYM_霾:1.0__VERANTYX_霾_49_();
+  if (_SYM_節:1.0__VERANTYX_霾_63_) {
+    return {
+      _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_20_",
+// _SYM_匸:0.7__VERANTYX_GD_338_ [decoy-metadata]
+      _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_節:1.0__VERANTYX_霾_63_,
+      _SYM_霾:1.0__VERANTYX_霾_34_: _SYM_霾:1.0__VERANTYX_霾_30_(_SYM_節:1.0__VERANTYX_霾_63_),
+// _SYM_泡:0.6__VERANTYX_KC_806_ [decoy-metadata]
+    };
+  }
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_31_ = _SYM_霾:1.0__VERANTYX_霾_13_._SYM_霾:1.0__VERANTYX_霾_31_?._SYM_霾:1.0__VERANTYX_霾_49_();
+  if (_SYM_霾:1.0__VERANTYX_霾_31_) {
+    return { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_25_", _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_霾:1.0__VERANTYX_霾_31_ };
+  }
+  return _SYM_霾:1.0__VERANTYX_霾_44_;
+// _SYM_礎:0.9__VERANTYX_MV_773_ [decoy-metadata]
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_泡:1.0__VERANTYX_霾_14_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  return _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" ? _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_ : `_SYM_霾:1.0__VERANTYX_霾_25_:${_SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_}`;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_泡:1.0__VERANTYX_霾_6_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  return _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" ? _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_ : `_SYM_霾:1.0__VERANTYX_霾_25_:${_SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_}`;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_泡:1.0__VERANTYX_霾_60_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  if (_SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_") {
+    return `_SYM_庭:1.0__VERANTYX_庭_6_ _SYM_庭:1.0__VERANTYX_庭_3_ _SYM_節:1.0__VERANTYX_霾_39_: ${_SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_}`;
+  }
+  return `_SYM_庭:1.0__VERANTYX_庭_6_ _SYM_庭:1.0__VERANTYX_庭_3_ _SYM_節:1.0__VERANTYX_霾_43_ id: ${_SYM_泡:1.0__VERANTYX_霾_14_(_SYM_節:1.0__VERANTYX_霾_43_)}`;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_3_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  return _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" ? _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_ : _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_28_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_): _SYM_霾:1.0__VERANTYX_霾_40_ {
+  return _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" ? _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_ : `_SYM_霾:1.0__VERANTYX_霾_25_:${_SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_}`;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_8_(_SYM_霾:1.0__VERANTYX_霾_19_: _SYM_霾:1.0__VERANTYX_霾_40_): _SYM_庭:1.0__VERANTYX_庭_4_ | _SYM_霾:1.0__VERANTYX_霾_44_ {
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_23_ = _SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_49_();
+  if (!_SYM_霾:1.0__VERANTYX_霾_23_) {
+    return _SYM_霾:1.0__VERANTYX_霾_44_;
+  }
+  if (_SYM_霾:1.0__VERANTYX_霾_23_ === "*") {
+    return { _SYM_霾:1.0__VERANTYX_霾_56_: "any" };
+  }
+
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_59_ = _SYM_霾:1.0__VERANTYX_霾_61_(_SYM_霾:1.0__VERANTYX_霾_23_);
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_節:1.0__VERANTYX_霾_32_ = _SYM_霾:1.0__VERANTYX_霾_59_._SYM_霾:1.0__VERANTYX_霾_24_();
+  if (_SYM_節:1.0__VERANTYX_霾_32_._SYM_霾:1.0__VERANTYX_霾_29_("_SYM_霾:1.0__VERANTYX_霾_25_:")) {
+    _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_62_ = _SYM_霾:1.0__VERANTYX_霾_59_._SYM_霾:1.0__VERANTYX_霾_57_("_SYM_霾:1.0__VERANTYX_霾_25_:"._SYM_霾:1.0__VERANTYX_霾_58_)._SYM_霾:1.0__VERANTYX_霾_49_();
+    if (!_SYM_霾:1.0__VERANTYX_霾_62_) {
+      return _SYM_霾:1.0__VERANTYX_霾_44_;
+    }
+    return { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_25_", _SYM_霾:1.0__VERANTYX_霾_62_ };
+  }
+
+  if (_SYM_霾:1.0__VERANTYX_霾_46_(_SYM_霾:1.0__VERANTYX_霾_59_)) {
+    return { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_25_", _SYM_霾:1.0__VERANTYX_霾_62_: _SYM_霾:1.0__VERANTYX_霾_59_ };
+// _SYM_庭:0.7__VERANTYX_VC_326_ [decoy-metadata]
+  }
+
+  return { _SYM_霾:1.0__VERANTYX_霾_56_: "_SYM_霾:1.0__VERANTYX_霾_20_", _SYM_霾:1.0__VERANTYX_霾_34_: _SYM_霾:1.0__VERANTYX_霾_30_(_SYM_霾:1.0__VERANTYX_霾_59_) };
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_26_(_SYM_霾:1.0__VERANTYX_霾_19_: _SYM_霾:1.0__VERANTYX_霾_40_): _SYM_霾:1.0__VERANTYX_霾_40_ | _SYM_霾:1.0__VERANTYX_霾_51_ {
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_45_ = _SYM_霾:1.0__VERANTYX_霾_8_(_SYM_霾:1.0__VERANTYX_霾_19_);
+  if (!_SYM_霾:1.0__VERANTYX_霾_45_ || _SYM_霾:1.0__VERANTYX_霾_45_._SYM_霾:1.0__VERANTYX_霾_56_ === "any") {
+    return _SYM_霾:1.0__VERANTYX_霾_51_;
+  }
+  return _SYM_霾:1.0__VERANTYX_霾_45_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" ? _SYM_霾:1.0__VERANTYX_霾_45_._SYM_霾:1.0__VERANTYX_霾_34_ : _SYM_霾:1.0__VERANTYX_霾_45_._SYM_霾:1.0__VERANTYX_霾_62_;
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_41_(_SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_, _SYM_霾:1.0__VERANTYX_霾_38_: _SYM_霾:1.0__VERANTYX_霾_40_[]): _SYM_霾:1.0__VERANTYX_霾_36_ {
+  if (_SYM_霾:1.0__VERANTYX_霾_38_._SYM_霾:1.0__VERANTYX_霾_58_ === 0) {
+    return false;
+  }
+  _SYM_霾:1.0__VERANTYX_霾_64_ _SYM_霾:1.0__VERANTYX_霾_45_ = _SYM_霾:1.0__VERANTYX_霾_38_
+    ._SYM_霾:1.0__VERANTYX_霾_33_(_SYM_霾:1.0__VERANTYX_霾_8_)
+    ._SYM_節:1.0__VERANTYX_霾_2_((_SYM_霾:1.0__VERANTYX_霾_19_): _SYM_霾:1.0__VERANTYX_霾_19_ is _SYM_庭:1.0__VERANTYX_庭_4_ => _SYM_霾:1.0__VERANTYX_霾_19_ !== _SYM_霾:1.0__VERANTYX_霾_44_);
+  if (_SYM_霾:1.0__VERANTYX_霾_45_.some((_SYM_霾:1.0__VERANTYX_霾_19_) => _SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_56_ === "any")) {
+    return true;
+  }
+  return _SYM_霾:1.0__VERANTYX_霾_45_.some((_SYM_霾:1.0__VERANTYX_霾_19_) => {
+    if (_SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_" && _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_20_") {
+      return _SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_34_ === _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_34_;
+    }
+    if (_SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_25_" && _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_56_ === "_SYM_霾:1.0__VERANTYX_霾_25_") {
+      return _SYM_霾:1.0__VERANTYX_霾_19_._SYM_霾:1.0__VERANTYX_霾_62_ === _SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_;
+    }
+    return false;
+  });
+}
+
+_SYM_霾:1.0__VERANTYX_霾_53_ _SYM_霾:1.0__VERANTYX_霾_21_ _SYM_霾:1.0__VERANTYX_霾_27_(_SYM_霾:1.0__VERANTYX_霾_13_: {
+  _SYM_霾:1.0__VERANTYX_霾_1_: "open" | "_SYM_霾:1.0__VERANTYX_霾_54_" | "_SYM_霾:1.0__VERANTYX_霾_18_";
+  _SYM_霾:1.0__VERANTYX_霾_38_: _SYM_霾:1.0__VERANTYX_霾_40_[];
+  _SYM_節:1.0__VERANTYX_霾_43_: _SYM_節:1.0__VERANTYX_庭_5_;
+}): _SYM_霾:1.0__VERANTYX_霾_36_ {
+  return _SYM_泡:1.0__VERANTYX_霾_5_({
+    _SYM_霾:1.0__VERANTYX_霾_1_: _SYM_霾:1.0__VERANTYX_霾_13_._SYM_霾:1.0__VERANTYX_霾_1_,
+    _SYM_霾:1.0__VERANTYX_霾_9_: _SYM_霾:1.0__VERANTYX_霾_13_._SYM_霾:1.0__VERANTYX_霾_38_,
+    _SYM_霾:1.0__VERANTYX_霾_42_: _SYM_霾:1.0__VERANTYX_霾_13_._SYM_節:1.0__VERANTYX_霾_43_._SYM_霾:1.0__VERANTYX_霾_62_,
+    _SYM_霾:1.0__VERANTYX_霾_11_: () => _SYM_霾:1.0__VERANTYX_霾_41_(_SYM_霾:1.0__VERANTYX_霾_13_._SYM_節:1.0__VERANTYX_霾_43_, _SYM_霾:1.0__VERANTYX_霾_13_._SYM_霾:1.0__VERANTYX_霾_38_),
+// _SYM_錠:0.3__VERANTYX_DM_217_ [decoy-metadata]
+  })._SYM_霾:1.0__VERANTYX_霾_15_;
+}
+
+// POLYMORPHIC_JCROSS_END

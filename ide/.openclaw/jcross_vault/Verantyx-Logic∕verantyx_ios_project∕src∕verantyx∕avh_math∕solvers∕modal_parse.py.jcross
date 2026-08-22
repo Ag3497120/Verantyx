@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CAC6677E ver:1778159686
+// ⚠️ One-time schema — expires after response
+
+__node_霢:1.0___ASTNODE_霢_47_ __node_霢:1.0___ASTNODE_霢_28_ __node_霢:1.0___ASTNODE_霢_23_ort __node_霢:1.0___ASTNODE_霢_19_
+
+__node_霢:1.0___ASTNODE_霢_23_ort re
+// __node_霢:0.6___ASTNODE_DL_938_ [decoy-metadata]
+__node_霢:1.0___ASTNODE_霢_47_ __node_霢:1.0___ASTNODE_霢_25_ __node_霢:1.0___ASTNODE_霢_23_ort __node_廓:1.0___ASTNODE_廓_1_
+
+__node_霢:1.0___ASTNODE_霢_35_ = re.__node_霢:1.0___ASTNODE_霢_33_(r"\s+")
+__node_霢:1.0___ASTNODE_霢_17_ = re.__node_霢:1.0___ASTNODE_霢_33_(r"^[A-Za-z][A-Za-z0-9_]*$")
+// __node_緋:0.7___ASTNODE_YM_261_ [decoy-metadata]
+
+
+class __node_廓:1.0___ASTNODE_廓_3_(__node_廓:1.0___ASTNODE_廓_2_):
+    __node_霢:1.0___ASTNODE_霢_21_
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_49_(s: __node_霢:1.0___ASTNODE_霢_29_) -> __node_霢:1.0___ASTNODE_霢_29_:
+    s = (s or "").__node_霢:1.0___ASTNODE_霢_15_()
+    s = s.__node_霢:1.0___ASTNODE_霢_5_("□", "[]").__node_霢:1.0___ASTNODE_霢_5_("◇", "<>")
+    s = re.__node_霢:1.0___ASTNODE_霢_13_(r"\__node_霢:1.0___ASTNODE_霢_32_\b", "[]", s, __node_霢:1.0___ASTNODE_霢_38_=re.I)
+    s = re.__node_霢:1.0___ASTNODE_霢_13_(r"\__node_霢:1.0___ASTNODE_霢_43_\b", "<>", s, __node_霢:1.0___ASTNODE_霢_38_=re.I)
+    s = s.__node_霢:1.0___ASTNODE_霢_5_("→", "->").__node_霢:1.0___ASTNODE_霢_5_("¬", "~")
+    s = __node_霢:1.0___ASTNODE_霢_35_.__node_霢:1.0___ASTNODE_霢_13_("", s)
+    s = s.__node_霢:1.0___ASTNODE_霢_5_("[]", "[]")
+    s = s.__node_霢:1.0___ASTNODE_霢_5_("<>", "<>")
+// __node_霢:0.4___ASTNODE_YY_625_ [decoy-metadata]
+    return s
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_41_(s: __node_霢:1.0___ASTNODE_霢_29_) -> __node_霢:1.0___ASTNODE_霢_29_:
+    s = __node_霢:1.0___ASTNODE_霢_49_(s)
+    if __node_霢:1.0___ASTNODE_霢_44_ s:
+        __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_("__node_霢:1.0___ASTNODE_霢_48_")
+    __node_禁:1.0___ASTNODE_霢_26_ = __node_禁:1.0___ASTNODE_霢_50_(s)
+    __node_霢:1.0___ASTNODE_霢_12_, __node_霢:1.0___ASTNODE_霢_36_ = __node_霢:1.0___ASTNODE_霢_8_(__node_禁:1.0___ASTNODE_霢_26_, 0)
+    if __node_霢:1.0___ASTNODE_霢_36_ != __node_霢:1.0___ASTNODE_霢_22_(__node_禁:1.0___ASTNODE_霢_26_):
+        __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_(f"__node_霢:1.0___ASTNODE_霢_39_ __node_禁:1.0___ASTNODE_霢_6_ at {__node_霢:1.0___ASTNODE_霢_36_}: {__node_禁:1.0___ASTNODE_霢_26_[__node_霢:1.0___ASTNODE_霢_36_]}")
+    return __node_霢:1.0___ASTNODE_霢_3_(__node_霢:1.0___ASTNODE_霢_12_)
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_禁:1.0___ASTNODE_霢_50_(s: __node_霢:1.0___ASTNODE_霢_29_) -> __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_]:
+    __node_霢:1.0___ASTNODE_霢_30_: __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_] = []
+    i = 0
+    while i < __node_霢:1.0___ASTNODE_霢_22_(s):
+        if s.__node_霢:1.0___ASTNODE_霢_54_("->", i):
+            __node_霢:1.0___ASTNODE_霢_30_.__node_霢:1.0___ASTNODE_霢_7_("->")
+            i += 2
+            continue
+        if s.__node_霢:1.0___ASTNODE_霢_54_("[]", i):
+            __node_霢:1.0___ASTNODE_霢_30_.__node_霢:1.0___ASTNODE_霢_7_("[]")
+            i += 2
+            continue
+        if s.__node_霢:1.0___ASTNODE_霢_54_("<>", i):
+            __node_霢:1.0___ASTNODE_霢_30_.__node_霢:1.0___ASTNODE_霢_7_("<>")
+            i += 2
+            continue
+        c = s[i]
+        if c in ("(", ")", "&", "|", "~"):
+            __node_霢:1.0___ASTNODE_霢_30_.__node_霢:1.0___ASTNODE_霢_7_(c)
+            i += 1
+            continue
+        j = i
+        while j < __node_霢:1.0___ASTNODE_霢_22_(s) __node_霢:1.0___ASTNODE_霢_56_ re.__node_霢:1.0___ASTNODE_霢_34_(r"[A-Za-z0-9_]", s[j]):
+            j += 1
+        if j == i:
+            __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_(f"__node_霢:1.0___ASTNODE_霢_53_ __node_霢:1.0___ASTNODE_霢_46_: {s[i]}")
+// __node_浮:0.9___ASTNODE_GZ_952_ [decoy-metadata]
+        __node_霢:1.0___ASTNODE_霢_30_.__node_霢:1.0___ASTNODE_霢_7_(s[i:j])
+        i = j
+    return __node_霢:1.0___ASTNODE_霢_30_
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_8_(__node_霢:1.0___ASTNODE_霢_4_: __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_], i: __node_霢:1.0___ASTNODE_霢_27_):
+    __node_霢:1.0___ASTNODE_霢_14_, i = __node_霢:1.0___ASTNODE_霢_11_(__node_霢:1.0___ASTNODE_霢_4_, i)
+    if i < __node_霢:1.0___ASTNODE_霢_22_(__node_霢:1.0___ASTNODE_霢_4_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_4_[i] == "->":
+        i += 1
+        __node_霢:1.0___ASTNODE_霢_52_, i = __node_霢:1.0___ASTNODE_霢_8_(__node_霢:1.0___ASTNODE_霢_4_, i)
+        return ("->", __node_霢:1.0___ASTNODE_霢_14_, __node_霢:1.0___ASTNODE_霢_52_), i
+    return __node_霢:1.0___ASTNODE_霢_14_, i
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_11_(__node_霢:1.0___ASTNODE_霢_4_: __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_], i: __node_霢:1.0___ASTNODE_霢_27_):
+    __node_霢:1.0___ASTNODE_霢_14_, i = __node_霢:1.0___ASTNODE_霢_42_(__node_霢:1.0___ASTNODE_霢_4_, i)
+    while i < __node_霢:1.0___ASTNODE_霢_22_(__node_霢:1.0___ASTNODE_霢_4_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_4_[i] == "|":
+        i += 1
+        __node_霢:1.0___ASTNODE_霢_52_, i = __node_霢:1.0___ASTNODE_霢_42_(__node_霢:1.0___ASTNODE_霢_4_, i)
+        __node_霢:1.0___ASTNODE_霢_14_ = ("|", __node_霢:1.0___ASTNODE_霢_14_, __node_霢:1.0___ASTNODE_霢_52_)
+    return __node_霢:1.0___ASTNODE_霢_14_, i
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_42_(__node_霢:1.0___ASTNODE_霢_4_: __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_], i: __node_霢:1.0___ASTNODE_霢_27_):
+    __node_霢:1.0___ASTNODE_霢_14_, i = __node_霢:1.0___ASTNODE_霢_55_(__node_霢:1.0___ASTNODE_霢_4_, i)
+    while i < __node_霢:1.0___ASTNODE_霢_22_(__node_霢:1.0___ASTNODE_霢_4_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_4_[i] == "&":
+        i += 1
+        __node_霢:1.0___ASTNODE_霢_52_, i = __node_霢:1.0___ASTNODE_霢_55_(__node_霢:1.0___ASTNODE_霢_4_, i)
+        __node_霢:1.0___ASTNODE_霢_14_ = ("&", __node_霢:1.0___ASTNODE_霢_14_, __node_霢:1.0___ASTNODE_霢_52_)
+    return __node_霢:1.0___ASTNODE_霢_14_, i
+
+// __node_緋:0.7___ASTNODE_EY_224_ [decoy-metadata]
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_55_(__node_霢:1.0___ASTNODE_霢_4_: __node_廓:1.0___ASTNODE_廓_1_[__node_霢:1.0___ASTNODE_霢_29_], i: __node_霢:1.0___ASTNODE_霢_27_):
+    if i >= __node_霢:1.0___ASTNODE_霢_22_(__node_霢:1.0___ASTNODE_霢_4_):
+        __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_("__node_霢:1.0___ASTNODE_霢_39_ __node_霢:1.0___ASTNODE_霢_51_")
+    if __node_霢:1.0___ASTNODE_霢_4_[i] in ("~", "[]", "<>"):
+        op = __node_霢:1.0___ASTNODE_霢_4_[i]
+        i += 1
+        __node_霢:1.0___ASTNODE_霢_13_, i = __node_霢:1.0___ASTNODE_霢_55_(__node_霢:1.0___ASTNODE_霢_4_, i)
+        return ("un", op, __node_霢:1.0___ASTNODE_霢_13_), i
+    if __node_霢:1.0___ASTNODE_霢_4_[i] == "(":
+        i += 1
+        __node_霢:1.0___ASTNODE_霢_13_, i = __node_霢:1.0___ASTNODE_霢_8_(__node_霢:1.0___ASTNODE_霢_4_, i)
+        if i >= __node_霢:1.0___ASTNODE_霢_22_(__node_霢:1.0___ASTNODE_霢_4_) or __node_霢:1.0___ASTNODE_霢_4_[i] != ")":
+            __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_("__node_霢:1.0___ASTNODE_霢_10_ ')'")
+        i += 1
+        return __node_霢:1.0___ASTNODE_霢_13_, i
+    __node_霢:1.0___ASTNODE_霢_37_ = __node_霢:1.0___ASTNODE_霢_4_[i]
+    i += 1
+    if __node_霢:1.0___ASTNODE_霢_44_ __node_霢:1.0___ASTNODE_霢_17_.__node_霢:1.0___ASTNODE_霢_34_(__node_霢:1.0___ASTNODE_霢_37_):
+// __node_凛:0.4___ASTNODE_YV_308_ [decoy-metadata]
+        __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_(f"__node_霢:1.0___ASTNODE_霢_53_ __node_霢:1.0___ASTNODE_霢_31_: {__node_霢:1.0___ASTNODE_霢_37_}")
+    return ("__node_霢:1.0___ASTNODE_霢_31_", __node_霢:1.0___ASTNODE_霢_37_), i
+
+
+__node_霢:1.0___ASTNODE_霢_20_ __node_霢:1.0___ASTNODE_霢_3_(__node_霢:1.0___ASTNODE_霢_12_) -> __node_霢:1.0___ASTNODE_霢_29_:
+    if __node_霢:1.0___ASTNODE_霢_18_(__node_霢:1.0___ASTNODE_霢_12_, __node_霢:1.0___ASTNODE_霢_9_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_12_[0] == "__node_霢:1.0___ASTNODE_霢_31_":
+        return __node_霢:1.0___ASTNODE_霢_12_[1].__node_節:1.0___ASTNODE_霢_40_()
+    if __node_霢:1.0___ASTNODE_霢_18_(__node_霢:1.0___ASTNODE_霢_12_, __node_霢:1.0___ASTNODE_霢_9_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_12_[0] == "un":
+        op = __node_霢:1.0___ASTNODE_霢_12_[1]
+        __node_霢:1.0___ASTNODE_霢_13_ = __node_霢:1.0___ASTNODE_霢_3_(__node_霢:1.0___ASTNODE_霢_12_[2])
+        if op == "~":
+            return f"__node_霢:1.0___ASTNODE_霢_44_({__node_霢:1.0___ASTNODE_霢_13_})"
+        if op == "[]":
+            return f"__node_霢:1.0___ASTNODE_霢_1_({__node_霢:1.0___ASTNODE_霢_13_})"
+        if op == "<>":
+            return f"__node_霢:1.0___ASTNODE_霢_16_({__node_霢:1.0___ASTNODE_霢_13_})"
+        __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_(f"__node_霢:1.0___ASTNODE_霢_24_ __node_霢:1.0___ASTNODE_霢_45_ op: {op}")
+    if __node_霢:1.0___ASTNODE_霢_18_(__node_霢:1.0___ASTNODE_霢_12_, __node_霢:1.0___ASTNODE_霢_9_) __node_霢:1.0___ASTNODE_霢_56_ __node_霢:1.0___ASTNODE_霢_12_[0] in ("&", "|", "->"):
+        op = __node_霢:1.0___ASTNODE_霢_12_[0]
+        a = __node_霢:1.0___ASTNODE_霢_3_(__node_霢:1.0___ASTNODE_霢_12_[1])
+        b = __node_霢:1.0___ASTNODE_霢_3_(__node_霢:1.0___ASTNODE_霢_12_[2])
+        if op == "&":
+            return f"__node_霢:1.0___ASTNODE_霢_56_({a},{b})"
+        if op == "|":
+            return f"or({a},{b})"
+        if op == "->":
+            return f"__node_霢:1.0___ASTNODE_霢_23_({a},{b})"
+    __node_霢:1.0___ASTNODE_霢_2_ __node_廓:1.0___ASTNODE_廓_3_(f"__node_霢:1.0___ASTNODE_霢_53_ __node_霢:1.0___ASTNODE_霢_12_: {__node_霢:1.0___ASTNODE_霢_12_}")
+
+// POLYMORPHIC_JCROSS_END

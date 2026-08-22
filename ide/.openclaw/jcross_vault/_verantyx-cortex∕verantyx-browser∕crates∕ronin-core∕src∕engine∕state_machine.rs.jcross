@@ -1,0 +1,93 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AF658284 ver:1778166506
+// _TOKEN_匸:0.7___ast_WD_645__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_粒:1.0___ast_粒_18__ _TOKEN_粒:1.0___ast_粒_5__::_TOKEN_粒:1.0___ast_粒_53__::_TOKEN_粒:1.0___ast_粒_24__::{_TOKEN_廊:1.0___ast_廊_3__, _TOKEN_廊:1.0___ast_廊_7__};
+_TOKEN_粒:1.0___ast_粒_18__ _TOKEN_粒:1.0___ast_粒_39__::{_TOKEN_廊:1.0___ast_廊_29__, _TOKEN_廊:1.0___ast_廊_25__};
+
+// [metadata-stripped]
+_TOKEN_粒:1.0___ast_粒_20__ enum _TOKEN_廊:1.0___ast_廊_28__ {
+// [metadata-stripped]
+    _TOKEN_廊:1.0___ast_廊_23__,
+    
+// [metadata-stripped]
+    _TOKEN_廊:1.0___ast_廊_33__ { _TOKEN_粒:1.0___ast_粒_45__: _TOKEN_粒:1.0___ast_粒_49__ },
+    
+// [metadata-stripped]
+    _TOKEN_廊:1.0___ast_廊_24__ { _TOKEN_粒:1.0___ast_粒_45__: _TOKEN_粒:1.0___ast_粒_49__, _TOKEN_粒:1.0___ast_粒_55__: _TOKEN_廊:1.0___ast_廊_11__ },
+    
+// [metadata-stripped]
+// _TOKEN_粒:0.1___ast_MD_675__ [decoy-metadata]
+    _TOKEN_廊:1.0___ast_廊_17__ { _TOKEN_粒:1.0___ast_粒_45__: _TOKEN_粒:1.0___ast_粒_49__ },
+    
+// [metadata-stripped]
+    _TOKEN_廊:1.0___ast_廊_21__ { _TOKEN_粒:1.0___ast_粒_23__: _TOKEN_廊:1.0___ast_廊_11__ },
+    
+// [metadata-stripped]
+    _TOKEN_廊:1.0___ast_廊_10__(_TOKEN_廊:1.0___ast_廊_11__),
+}
+
+_TOKEN_粒:1.0___ast_粒_20__ struct _TOKEN_廊:1.0___ast_廊_9__ {
+    _TOKEN_粒:1.0___ast_粒_20__ _TOKEN_粒:1.0___ast_粒_9__: _TOKEN_廊:1.0___ast_廊_28__,
+    _TOKEN_粒:1.0___ast_粒_20__ _TOKEN_脈:1.0___ast_粒_28__: _TOKEN_粒:1.0___ast_粒_12__,
+}
+
+_TOKEN_粒:1.0___ast_粒_1__ _TOKEN_廊:1.0___ast_廊_9__ {
+    _TOKEN_粒:1.0___ast_粒_20__ fn _TOKEN_粒:1.0___ast_粒_11__(_TOKEN_粒:1.0___ast_粒_36__: _TOKEN_粒:1.0___ast_粒_12__) -> _TOKEN_廊:1.0___ast_廊_31__ {
+        _TOKEN_廊:1.0___ast_廊_31__ {
+            _TOKEN_粒:1.0___ast_粒_9__: _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_23__,
+            _TOKEN_脈:1.0___ast_粒_28__: _TOKEN_粒:1.0___ast_粒_36__,
+// _TOKEN_匸:0.2___ast_WH_556__ [decoy-metadata]
+        }
+    }
+
+    _TOKEN_粒:1.0___ast_粒_20__ fn _TOKEN_粒:1.0___ast_粒_43__(&_TOKEN_粒:1.0___ast_粒_38__ self, _TOKEN_粒:1.0___ast_粒_48__: _TOKEN_廊:1.0___ast_廊_20__) -> _TOKEN_廊:1.0___ast_廊_3__<()> {
+// _TOKEN_謀:0.2___ast_DM_797__ [decoy-metadata]
+        _TOKEN_粒:1.0___ast_粒_54__ (&self._TOKEN_粒:1.0___ast_粒_9__, _TOKEN_粒:1.0___ast_粒_48__) {
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_23__, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_26__(t)) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_33__ { _TOKEN_粒:1.0___ast_粒_45__: t };
+// _TOKEN_匸:0.1___ast_VY_741__ [decoy-metadata]
+            }
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_33__ { _TOKEN_粒:1.0___ast_粒_45__ }, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_15__(_TOKEN_粒:1.0___ast_粒_14__)) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_24__ { _TOKEN_粒:1.0___ast_粒_45__: *_TOKEN_粒:1.0___ast_粒_45__, _TOKEN_粒:1.0___ast_粒_55__: _TOKEN_粒:1.0___ast_粒_14__ };
+            }
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_33__ { .. }, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_32__(_TOKEN_粒:1.0___ast_粒_4__)) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_10__(_TOKEN_粒:1.0___ast_粒_4__);
+            }
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_24__ { _TOKEN_粒:1.0___ast_粒_45__, .. }, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_35__) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_17__ { _TOKEN_粒:1.0___ast_粒_45__: *_TOKEN_粒:1.0___ast_粒_45__ };
+// _TOKEN_謀:0.2___ast_YE_892__ [decoy-metadata]
+            }
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_17__ { _TOKEN_粒:1.0___ast_粒_45__ }, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_5__) => {
+// [metadata-stripped]
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_33__ { _TOKEN_粒:1.0___ast_粒_45__: *_TOKEN_粒:1.0___ast_粒_45__ + 1 };
+            }
+            (_TOKEN_粒:1.0___ast_粒_25__, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_廊:1.0___ast_廊_13__(e)) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_21__ { _TOKEN_粒:1.0___ast_粒_23__: e };
+            }
+            (_TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_21__ { .. }, _TOKEN_廊:1.0___ast_廊_20__::_TOKEN_謀:1.0___ast_廊_8__(t)) => {
+                self._TOKEN_粒:1.0___ast_粒_9__ = _TOKEN_廊:1.0___ast_廊_28__::_TOKEN_廊:1.0___ast_廊_33__ { _TOKEN_粒:1.0___ast_粒_45__: t };
+            }
+            (_TOKEN_粒:1.0___ast_粒_9__, _TOKEN_粒:1.0___ast_粒_32__) => {
+                re_TOKEN_粒:1.0___ast_粒_45__ _TOKEN_廊:1.0___ast_廊_22__(_TOKEN_廊:1.0___ast_廊_7__::_TOKEN_廊:1.0___ast_廊_14__ {
+                    _TOKEN_粒:1.0___ast_粒_19__: _TOKEN_脈:1.0___ast_粒_46__!("_TOKEN_廊:1.0___ast_廊_12__ _TOKEN_粒:1.0___ast_粒_30__ {:?} _TOKEN_粒:1.0___ast_粒_40__ {:?}", _TOKEN_粒:1.0___ast_粒_32__, _TOKEN_粒:1.0___ast_粒_9__),
+                });
+            }
+        }
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+_TOKEN_粒:1.0___ast_粒_20__ enum _TOKEN_廊:1.0___ast_廊_20__ {
+    _TOKEN_廊:1.0___ast_廊_26__(_TOKEN_粒:1.0___ast_粒_49__),
+    _TOKEN_廊:1.0___ast_廊_15__(_TOKEN_廊:1.0___ast_廊_11__),
+    _TOKEN_廊:1.0___ast_廊_35__,
+    _TOKEN_廊:1.0___ast_廊_5__,
+    _TOKEN_廊:1.0___ast_廊_32__(_TOKEN_廊:1.0___ast_廊_11__),
+    _TOKEN_廊:1.0___ast_廊_13__(_TOKEN_廊:1.0___ast_廊_11__),
+    _TOKEN_謀:1.0___ast_廊_8__(_TOKEN_粒:1.0___ast_粒_49__),
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,235 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8A26F89F ver:1778163933
+// ⚠️ One-time schema — expires after response
+
+imp_OPAQUE_露:1.0__ASTNODE_露_41_ _OPAQUE_廡:1.0__ASTNODE_廡_8_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum _OPAQUE_廡:1.0__ASTNODE_廡_2_ {
+    case _OPAQUE_露:1.0__ASTNODE_露_62_       // 通常
+    case _OPAQUE_露:1.0__ASTNODE_露_121_     // プロンプトを短縮 (地図省略)
+    case _OPAQUE_滴:1.0__ASTNODE_露_108_  // 出力例を強制追加
+    case _OPAQUE_露:1.0__ASTNODE_露_51_    // 英語のみ (日本語混入対策)
+    case _OPAQUE_露:1.0__ASTNODE_露_55_    // 最小タスク化 (1関数ずつ)
+    case _OPAQUE_露:1.0__ASTNODE_露_68_          // リカバリー不能 → スキップ
+}
+
+struct _OPAQUE_廡:1.0__ASTNODE_廡_13_ {
+    let _OPAQUE_露:1.0__ASTNODE_露_22_: _OPAQUE_廡:1.0__ASTNODE_廡_11_    // エラーの正規化ハッシュ
+    var _OPAQUE_露:1.0__ASTNODE_露_38_: _OPAQUE_廡:1.0__ASTNODE_廡_3_
+    var _OPAQUE_露:1.0__ASTNODE_露_5_: _OPAQUE_廡:1.0__ASTNODE_廡_27_
+}
+
+@_OPAQUE_廡:1.0__ASTNODE_廡_34_
+final class _OPAQUE_廡:1.0__ASTNODE_廡_39_ {
+
+    static let _OPAQUE_露:1.0__ASTNODE_露_119_ = _OPAQUE_廡:1.0__ASTNODE_廡_39_()
+
+// [metadata-stripped]
+    private var _OPAQUE_露:1.0__ASTNODE_露_93_: [_OPAQUE_廡:1.0__ASTNODE_廡_11_: _OPAQUE_廡:1.0__ASTNODE_廡_13_] = [:]
+
+// [metadata-stripped]
+    private let _OPAQUE_露:1.0__ASTNODE_露_112_ = 3
+// [metadata-stripped]
+    private var _OPAQUE_露:1.0__ASTNODE_露_20_: _OPAQUE_廡:1.0__ASTNODE_廡_3_ = 0
+    private let _OPAQUE_露:1.0__ASTNODE_露_42_ = 2
+
+    private init() {}
+
+// [metadata-stripped]
+
+    func _OPAQUE_医:1.0__ASTNODE_露_113_() {
+        _OPAQUE_露:1.0__ASTNODE_露_20_ = 0
+// [metadata-stripped]
+    }
+
+// [metadata-stripped]
+
+    struct _OPAQUE_廡:1.0__ASTNODE_廡_16_ {
+        let _OPAQUE_露:1.0__ASTNODE_露_3_: _OPAQUE_廡:1.0__ASTNODE_廡_2_
+        let _OPAQUE_露:1.0__ASTNODE_露_15_: _OPAQUE_廡:1.0__ASTNODE_廡_11_
+        let _OPAQUE_露:1.0__ASTNODE_露_82_: _OPAQUE_廡:1.0__ASTNODE_廡_11_   // プロンプトに追加するヒント
+    }
+
+// [metadata-stripped]
+    func _OPAQUE_露:1.0__ASTNODE_露_24_(
+        _OPAQUE_露:1.0__ASTNODE_露_9_: _OPAQUE_廡:1.0__ASTNODE_廡_11_,
+        _OPAQUE_露:1.0__ASTNODE_露_70_: _OPAQUE_廡:1.0__ASTNODE_廡_11_,
+        _OPAQUE_露:1.0__ASTNODE_露_115_: _OPAQUE_廡:1.0__ASTNODE_廡_3_,
+        _OPAQUE_露:1.0__ASTNODE_露_75_: _OPAQUE_廡:1.0__ASTNODE_廡_43_
+    ) -> _OPAQUE_廡:1.0__ASTNODE_廡_16_ {
+
+// [metadata-stripped]
+// _OPAQUE_処:0.8__ASTNODE_CD_231_ [decoy-metadata]
+        let _OPAQUE_露:1.0__ASTNODE_露_104_ = _OPAQUE_露:1.0__ASTNODE_露_70_._OPAQUE_露:1.0__ASTNODE_露_8_("```")
+        if !_OPAQUE_露:1.0__ASTNODE_露_104_ {
+            _OPAQUE_露:1.0__ASTNODE_露_20_ += 1
+            if _OPAQUE_露:1.0__ASTNODE_露_20_ >= _OPAQUE_露:1.0__ASTNODE_露_42_ {
+                return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                    _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_滴:1.0__ASTNODE_露_108_,
+                    _OPAQUE_露:1.0__ASTNODE_露_15_: "コードブロック未出力が\(_OPAQUE_露:1.0__ASTNODE_露_20_)回連続",
+                    _OPAQUE_露:1.0__ASTNODE_露_82_: """
+                    _OPAQUE_廡:1.0__ASTNODE_廡_9_: _OPAQUE_廡:1.0__ASTNODE_廡_40_ _OPAQUE_廡:1.0__ASTNODE_廡_4_ _OPAQUE_露:1.0__ASTNODE_露_39_ a _OPAQUE_露:1.0__ASTNODE_露_92_ _OPAQUE_露:1.0__ASTNODE_露_17_ _OPAQUE_露:1.0__ASTNODE_露_59_. _OPAQUE_廡:1.0__ASTNODE_廡_14_:
+                    ```_OPAQUE_露:1.0__ASTNODE_露_64_
+// [metadata-stripped]
+                    fn _OPAQUE_露:1.0__ASTNODE_露_123_() { /* _OPAQUE_露:1.0__ASTNODE_露_106_ _OPAQUE_露:1.0__ASTNODE_露_17_ _OPAQUE_露:1.0__ASTNODE_露_110_ */ }
+                    ```
+                    Do _OPAQUE_廡:1.0__ASTNODE_廡_20_ _OPAQUE_露:1.0__ASTNODE_露_27_. _OPAQUE_廡:1.0__ASTNODE_廡_46_ _OPAQUE_廡:1.0__ASTNODE_廡_19_ _OPAQUE_露:1.0__ASTNODE_露_101_ _OPAQUE_露:1.0__ASTNODE_露_17_ _OPAQUE_露:1.0__ASTNODE_露_59_.
+                    """
+                )
+            }
+        } else {
+            _OPAQUE_露:1.0__ASTNODE_露_20_ = 0
+        }
+
+// [metadata-stripped]
+        let _OPAQUE_露:1.0__ASTNODE_露_56_ = _OPAQUE_露:1.0__ASTNODE_露_114_(_OPAQUE_露:1.0__ASTNODE_露_9_)
+        if !_OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_73_ {
+            var _OPAQUE_露:1.0__ASTNODE_露_6_ = _OPAQUE_露:1.0__ASTNODE_露_93_[_OPAQUE_露:1.0__ASTNODE_露_56_] ?? _OPAQUE_廡:1.0__ASTNODE_廡_13_(
+                _OPAQUE_露:1.0__ASTNODE_露_22_: _OPAQUE_露:1.0__ASTNODE_露_56_, _OPAQUE_露:1.0__ASTNODE_露_38_: 0, _OPAQUE_露:1.0__ASTNODE_露_5_: _OPAQUE_廡:1.0__ASTNODE_廡_27_()
+            )
+            _OPAQUE_露:1.0__ASTNODE_露_6_._OPAQUE_露:1.0__ASTNODE_露_38_ += 1
+            _OPAQUE_露:1.0__ASTNODE_露_6_._OPAQUE_露:1.0__ASTNODE_露_5_ = _OPAQUE_廡:1.0__ASTNODE_廡_27_()
+            _OPAQUE_露:1.0__ASTNODE_露_93_[_OPAQUE_露:1.0__ASTNODE_露_56_] = _OPAQUE_露:1.0__ASTNODE_露_6_
+
+            if _OPAQUE_露:1.0__ASTNODE_露_6_._OPAQUE_露:1.0__ASTNODE_露_38_ >= _OPAQUE_露:1.0__ASTNODE_露_112_ {
+                return _OPAQUE_露:1.0__ASTNODE_露_37_(
+                    _OPAQUE_露:1.0__ASTNODE_露_56_: _OPAQUE_露:1.0__ASTNODE_露_56_,
+// _OPAQUE_露:0.9__ASTNODE_CG_898_ [decoy-metadata]
+                    _OPAQUE_露:1.0__ASTNODE_露_69_: _OPAQUE_露:1.0__ASTNODE_露_6_._OPAQUE_露:1.0__ASTNODE_露_38_,
+                    _OPAQUE_露:1.0__ASTNODE_露_9_: _OPAQUE_露:1.0__ASTNODE_露_9_,
+                    _OPAQUE_露:1.0__ASTNODE_露_75_: _OPAQUE_露:1.0__ASTNODE_露_75_
+                )
+            }
+        }
+
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_44_(_OPAQUE_露:1.0__ASTNODE_露_70_) {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_51_,
+                _OPAQUE_露:1.0__ASTNODE_露_15_: "非コードテキストが過多 (説明文・日本語混入)",
+                _OPAQUE_露:1.0__ASTNODE_露_82_: "_OPAQUE_廡:1.0__ASTNODE_廡_15_ IN _OPAQUE_廡:1.0__ASTNODE_廡_32_ _OPAQUE_廡:1.0__ASTNODE_廡_19_. No _OPAQUE_露:1.0__ASTNODE_露_91_. No _OPAQUE_廡:1.0__ASTNODE_廡_41_. _OPAQUE_廡:1.0__ASTNODE_廡_46_ _OPAQUE_露:1.0__ASTNODE_露_101_ _OPAQUE_露:1.0__ASTNODE_露_17_ _OPAQUE_露:1.0__ASTNODE_露_59_ _OPAQUE_露:1.0__ASTNODE_露_98_."
+            )
+        }
+
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_115_ >= 2 {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_121_,
+                _OPAQUE_露:1.0__ASTNODE_露_15_: "リトライ\(_OPAQUE_露:1.0__ASTNODE_露_115_)回目 → プロンプト短縮",
+                _OPAQUE_露:1.0__ASTNODE_露_82_: "_OPAQUE_廡:1.0__ASTNODE_廡_24_ it _OPAQUE_露:1.0__ASTNODE_露_79_. _OPAQUE_廡:1.0__ASTNODE_廡_36_ _OPAQUE_露:1.0__ASTNODE_露_84_ _OPAQUE_露:1.0__ASTNODE_露_101_ _OPAQUE_露:1.0__ASTNODE_露_12_ _OPAQUE_露:1.0__ASTNODE_露_50_. _OPAQUE_廡:1.0__ASTNODE_廡_47_ _OPAQUE_露:1.0__ASTNODE_露_32_."
+            )
+        }
+
+// _OPAQUE_緞:0.8__ASTNODE_KZ_984_ [decoy-metadata]
+        return _OPAQUE_廡:1.0__ASTNODE_廡_16_(_OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_62_, _OPAQUE_露:1.0__ASTNODE_露_15_: "標準リトライ", _OPAQUE_露:1.0__ASTNODE_露_82_: "")
+// _OPAQUE_処:0.6__ASTNODE_VA_953_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_露:1.0__ASTNODE_露_37_(
+        _OPAQUE_露:1.0__ASTNODE_露_56_: _OPAQUE_廡:1.0__ASTNODE_廡_11_, _OPAQUE_露:1.0__ASTNODE_露_69_: _OPAQUE_廡:1.0__ASTNODE_廡_3_, _OPAQUE_露:1.0__ASTNODE_露_9_: _OPAQUE_廡:1.0__ASTNODE_廡_11_, _OPAQUE_露:1.0__ASTNODE_露_75_: _OPAQUE_廡:1.0__ASTNODE_廡_43_
+    ) -> _OPAQUE_廡:1.0__ASTNODE_廡_16_ {
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_16_ _OPAQUE_露:1.0__ASTNODE_露_63_ _OPAQUE_露:1.0__ASTNODE_露_57_") ||
+           _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_81_ imp_OPAQUE_露:1.0__ASTNODE_露_41_") ||
+           _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_34_ _OPAQUE_露:1.0__ASTNODE_露_10_") {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_55_,
+// _OPAQUE_覇:0.8__ASTNODE_GK_210_ [decoy-metadata]
+                _OPAQUE_露:1.0__ASTNODE_露_15_: "依存型エラー \(_OPAQUE_露:1.0__ASTNODE_露_69_)回 → スタブで代替",
+                _OPAQUE_露:1.0__ASTNODE_露_82_: """
+                _OPAQUE_廡:1.0__ASTNODE_廡_29_ _OPAQUE_露:1.0__ASTNODE_露_2_ _OPAQUE_露:1.0__ASTNODE_露_88_ _OPAQUE_露:1.0__ASTNODE_露_85_ _OPAQUE_露:1.0__ASTNODE_露_48_ _OPAQUE_露:1.0__ASTNODE_露_47_ _OPAQUE_露:1.0__ASTNODE_露_72_. _OPAQUE_廡:1.0__ASTNODE_廡_25_ _OPAQUE_露:1.0__ASTNODE_露_19_ _OPAQUE_露:1.0__ASTNODE_露_88_:
+                _OPAQUE_廡:1.0__ASTNODE_廡_5_ any _OPAQUE_露:1.0__ASTNODE_露_18_ _OPAQUE_露:1.0__ASTNODE_露_57_ _OPAQUE_露:1.0__ASTNODE_露_31_ a _OPAQUE_処:1.0__ASTNODE_露_67_ (e.g., `_OPAQUE_廡:1.0__ASTNODE_廡_11_`, `_OPAQUE_廡:1.0__ASTNODE_廡_42_<u8>`, `_OPAQUE_露:1.0__ASTNODE_露_43_::_OPAQUE_廡:1.0__ASTNODE_廡_38_`).
+                Do _OPAQUE_廡:1.0__ASTNODE_廡_20_ imp_OPAQUE_露:1.0__ASTNODE_露_41_ _OPAQUE_露:1.0__ASTNODE_露_54_ _OPAQUE_露:1.0__ASTNODE_露_122_ _OPAQUE_露:1.0__ASTNODE_露_103_'t _OPAQUE_露:1.0__ASTNODE_露_96_ _OPAQUE_露:1.0__ASTNODE_露_47_. _OPAQUE_廡:1.0__ASTNODE_廡_25_ _OPAQUE_廡:1.0__ASTNODE_廡_10_ _OPAQUE_露:1.0__ASTNODE_露_32_ _OPAQUE_露:1.0__ASTNODE_露_52_.
+                """
+            )
+        }
+
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("no _OPAQUE_露:1.0__ASTNODE_露_14_ _OPAQUE_露:1.0__ASTNODE_露_76_") ||
+           _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_116_ _OPAQUE_露:1.0__ASTNODE_露_48_ _OPAQUE_露:1.0__ASTNODE_露_21_") ||
+// _OPAQUE_医:0.4__ASTNODE_CK_631_ [decoy-metadata]
+           _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_16_ _OPAQUE_露:1.0__ASTNODE_露_63_ _OPAQUE_露:1.0__ASTNODE_露_53_") {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_121_,
+                _OPAQUE_露:1.0__ASTNODE_露_15_: "クレート幻覚 \(_OPAQUE_露:1.0__ASTNODE_露_69_)回 → 標準ライブラリのみ指示",
+                _OPAQUE_露:1.0__ASTNODE_露_82_: """
+                _OPAQUE_廡:1.0__ASTNODE_廡_37_ _OPAQUE_廡:1.0__ASTNODE_廡_19_ _OPAQUE_露:1.0__ASTNODE_露_62_ _OPAQUE_露:1.0__ASTNODE_露_45_. _OPAQUE_廡:1.0__ASTNODE_廡_45_: _OPAQUE_露:1.0__ASTNODE_露_36_, _OPAQUE_露:1.0__ASTNODE_露_124_, _OPAQUE_露:1.0__ASTNODE_露_83_, _OPAQUE_露:1.0__ASTNODE_露_61_, _OPAQUE_露:1.0__ASTNODE_露_41_.
+                _OPAQUE_廡:1.0__ASTNODE_廡_18_ _OPAQUE_露:1.0__ASTNODE_露_95_: _OPAQUE_露:1.0__ASTNODE_露_87_ _OPAQUE_露:1.0__ASTNODE_露_13_::_OPAQUE_露:1.0__ASTNODE_露_95_::_OPAQUE_廡:1.0__ASTNODE_廡_23_.
+                _OPAQUE_廡:1.0__ASTNODE_廡_18_ _OPAQUE_廡:1.0__ASTNODE_廡_35_: _OPAQUE_露:1.0__ASTNODE_露_87_ _OPAQUE_廡:1.0__ASTNODE_廡_11_ (_OPAQUE_廡:1.0__ASTNODE_廡_30_ _OPAQUE_滴:1.0__ASTNODE_露_90_ _OPAQUE_露:1.0__ASTNODE_露_60_).
+                No _OPAQUE_露:1.0__ASTNODE_露_80_ _OPAQUE_露:1.0__ASTNODE_露_109_ at _OPAQUE_露:1.0__ASTNODE_露_7_.
+                """
+            )
+        }
+
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_120_ _OPAQUE_露:1.0__ASTNODE_露_9_") || _OPAQUE_露:1.0__ASTNODE_露_56_._OPAQUE_露:1.0__ASTNODE_露_8_("_OPAQUE_露:1.0__ASTNODE_露_78_") {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+                _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_55_,
+                _OPAQUE_露:1.0__ASTNODE_露_15_: "構文エラー \(_OPAQUE_露:1.0__ASTNODE_露_69_)回 → 最小タスク化",
+                _OPAQUE_露:1.0__ASTNODE_露_82_: """
+                _OPAQUE_廡:1.0__ASTNODE_廡_36_ _OPAQUE_廡:1.0__ASTNODE_廡_19_ _OPAQUE_露:1.0__ASTNODE_露_101_ _OPAQUE_露:1.0__ASTNODE_露_35_ _OPAQUE_露:1.0__ASTNODE_露_117_/_OPAQUE_露:1.0__ASTNODE_露_46_ in _OPAQUE_露:1.0__ASTNODE_露_101_ _OPAQUE_医:1.0__ASTNODE_露_11_. _OPAQUE_廡:1.0__ASTNODE_廡_46_ _OPAQUE_露:1.0__ASTNODE_露_1_ else.
+                _OPAQUE_廡:1.0__ASTNODE_廡_24_ it as _OPAQUE_露:1.0__ASTNODE_露_94_ as _OPAQUE_露:1.0__ASTNODE_露_49_. No _OPAQUE_露:1.0__ASTNODE_露_65_, no _OPAQUE_滴:1.0__ASTNODE_露_118_, _OPAQUE_露:1.0__ASTNODE_露_87_ _OPAQUE_廡:1.0__ASTNODE_廡_11_ _OPAQUE_露:1.0__ASTNODE_露_40_.
+                """
+            )
+        }
+
+// [metadata-stripped]
+        if _OPAQUE_露:1.0__ASTNODE_露_69_ >= _OPAQUE_露:1.0__ASTNODE_露_112_ * 2 {
+            return _OPAQUE_廡:1.0__ASTNODE_廡_16_(_OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_露:1.0__ASTNODE_露_68_, _OPAQUE_露:1.0__ASTNODE_露_15_: "回復不能エラー \(_OPAQUE_露:1.0__ASTNODE_露_69_)回", _OPAQUE_露:1.0__ASTNODE_露_82_: "")
+        }
+
+        return _OPAQUE_廡:1.0__ASTNODE_廡_16_(
+            _OPAQUE_露:1.0__ASTNODE_露_3_: ._OPAQUE_滴:1.0__ASTNODE_露_108_,
+            _OPAQUE_露:1.0__ASTNODE_露_15_: "不明エラー \(_OPAQUE_露:1.0__ASTNODE_露_69_)回",
+            _OPAQUE_露:1.0__ASTNODE_露_82_: "_OPAQUE_廡:1.0__ASTNODE_廡_7_ _OPAQUE_露:1.0__ASTNODE_露_105_ _OPAQUE_露:1.0__ASTNODE_露_89_: \(_OPAQUE_露:1.0__ASTNODE_露_9_._OPAQUE_露:1.0__ASTNODE_露_25_(100)). _OPAQUE_廡:1.0__ASTNODE_廡_21_ _OPAQUE_露:1.0__ASTNODE_露_97_ _OPAQUE_滴:1.0__ASTNODE_露_58_ _OPAQUE_露:1.0__ASTNODE_露_23_."
+        )
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_露:1.0__ASTNODE_露_114_(_ _OPAQUE_露:1.0__ASTNODE_露_9_: _OPAQUE_廡:1.0__ASTNODE_廡_11_) -> _OPAQUE_廡:1.0__ASTNODE_廡_11_ {
+        var _OPAQUE_露:1.0__ASTNODE_露_33_ = _OPAQUE_露:1.0__ASTNODE_露_9_._OPAQUE_露:1.0__ASTNODE_露_30_()
+// [metadata-stripped]
+        _OPAQUE_露:1.0__ASTNODE_露_33_ = _OPAQUE_露:1.0__ASTNODE_露_33_._OPAQUE_露:1.0__ASTNODE_露_99_(of: #"[\w/\-\.]+\.(?:rs|_OPAQUE_滴:1.0__ASTNODE_露_66_|py|ts|go):\d+"#,
+                                                     _OPAQUE_露:1.0__ASTNODE_露_31_: "<_OPAQUE_医:1.0__ASTNODE_露_11_>", _OPAQUE_露:1.0__ASTNODE_露_26_: ._OPAQUE_露:1.0__ASTNODE_露_107_)
+// [metadata-stripped]
+        _OPAQUE_露:1.0__ASTNODE_露_33_ = _OPAQUE_露:1.0__ASTNODE_露_33_._OPAQUE_露:1.0__ASTNODE_露_99_(of: #"\d+"#, _OPAQUE_露:1.0__ASTNODE_露_31_: "N", _OPAQUE_露:1.0__ASTNODE_露_26_: ._OPAQUE_露:1.0__ASTNODE_露_107_)
+// [metadata-stripped]
+        _OPAQUE_露:1.0__ASTNODE_露_33_ = _OPAQUE_露:1.0__ASTNODE_露_33_._OPAQUE_露:1.0__ASTNODE_露_99_(of: #"\b[A-Z][a-zA-Z]+\b"#,
+                                                     _OPAQUE_露:1.0__ASTNODE_露_31_: "<ID>", _OPAQUE_露:1.0__ASTNODE_露_26_: ._OPAQUE_露:1.0__ASTNODE_露_107_)
+        return _OPAQUE_廡:1.0__ASTNODE_廡_11_(_OPAQUE_露:1.0__ASTNODE_露_33_._OPAQUE_露:1.0__ASTNODE_露_25_(80))
+    }
+
+    private func _OPAQUE_露:1.0__ASTNODE_露_44_(_ _OPAQUE_露:1.0__ASTNODE_露_70_: _OPAQUE_廡:1.0__ASTNODE_廡_11_) -> _OPAQUE_廡:1.0__ASTNODE_廡_44_ {
+        guard !_OPAQUE_露:1.0__ASTNODE_露_70_._OPAQUE_露:1.0__ASTNODE_露_73_ else { return false }
+// [metadata-stripped]
+        let _OPAQUE_露:1.0__ASTNODE_露_100_ = _OPAQUE_露:1.0__ASTNODE_露_70_._OPAQUE_露:1.0__ASTNODE_露_99_(
+            of: #"```[\s\S]*?```"#, _OPAQUE_露:1.0__ASTNODE_露_31_: "", _OPAQUE_露:1.0__ASTNODE_露_26_: ._OPAQUE_露:1.0__ASTNODE_露_107_
+        )
+// [metadata-stripped]
+        let _OPAQUE_露:1.0__ASTNODE_露_111_ = _OPAQUE_廡:1.0__ASTNODE_廡_33_(_OPAQUE_露:1.0__ASTNODE_露_100_._OPAQUE_露:1.0__ASTNODE_露_69_) / _OPAQUE_廡:1.0__ASTNODE_廡_33_(_OPAQUE_露:1.0__ASTNODE_露_70_._OPAQUE_露:1.0__ASTNODE_露_69_)
+        return _OPAQUE_露:1.0__ASTNODE_露_111_ > 0.70 && _OPAQUE_露:1.0__ASTNODE_露_100_._OPAQUE_露:1.0__ASTNODE_露_69_ > 200
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_露:1.0__ASTNODE_露_102_() -> _OPAQUE_廡:1.0__ASTNODE_廡_11_ {
+        guard !_OPAQUE_露:1.0__ASTNODE_露_93_._OPAQUE_露:1.0__ASTNODE_露_73_ else { return "" }
+        let _OPAQUE_露:1.0__ASTNODE_露_86_ = _OPAQUE_露:1.0__ASTNODE_露_93_._OPAQUE_露:1.0__ASTNODE_露_74_._OPAQUE_露:1.0__ASTNODE_露_86_ { $0._OPAQUE_露:1.0__ASTNODE_露_38_ > $1._OPAQUE_露:1.0__ASTNODE_露_38_ }
+        let _OPAQUE_露:1.0__ASTNODE_露_4_ = _OPAQUE_露:1.0__ASTNODE_露_86_._OPAQUE_露:1.0__ASTNODE_露_25_(5)._OPAQUE_露:1.0__ASTNODE_露_29_ {
+            "- \($0._OPAQUE_露:1.0__ASTNODE_露_22_) (x\($0._OPAQUE_露:1.0__ASTNODE_露_38_))"
+        }
+        return "[_OPAQUE_廡:1.0__ASTNODE_廡_28_ _OPAQUE_廡:1.0__ASTNODE_廡_1_ _OPAQUE_廡:1.0__ASTNODE_廡_12_]\n" + _OPAQUE_露:1.0__ASTNODE_露_4_._OPAQUE_露:1.0__ASTNODE_露_28_(_OPAQUE_露:1.0__ASTNODE_露_77_: "\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

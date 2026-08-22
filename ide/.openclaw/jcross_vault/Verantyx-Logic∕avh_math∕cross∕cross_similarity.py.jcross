@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:179A1E44 ver:1778159747
+// _OPAQUE_漂:0.4___node_KB_669__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+// _OPAQUE_霾:0.9___node_BH_289__ [decoy-metadata]
+
+_OPAQUE_霾:1.0___node_霾_4__ ._OPAQUE_霾:1.0___node_霾_10__ import _OPAQUE_霾:1.0___node_霾_10__
+
+_OPAQUE_霾:1.0___node_霾_16__ _OPAQUE_霾:1.0___node_霾_7__(_OPAQUE_霾:1.0___node_霾_6__, _OPAQUE_霾:1.0___node_霾_13__):
+// _OPAQUE_業:0.1___node_LY_999__ [decoy-metadata]
+    """
+    2つのシグネチャ間の完全一致項目数をスコア化。
+// _OPAQUE_漂:0.5___node_EH_257__ [decoy-metadata]
+    """
+    _OPAQUE_霾:1.0___node_霾_14__ = 0
+// [metadata-stripped]
+    for a, b in _OPAQUE_霾:1.0___node_霾_5__(_OPAQUE_霾:1.0___node_霾_6__[:3], _OPAQUE_霾:1.0___node_霾_13__[:3]):
+        if a == b:
+// _OPAQUE_業:0.5___node_EC_493__ [decoy-metadata]
+            _OPAQUE_霾:1.0___node_霾_14__ += 1
+// [metadata-stripped]
+    if _OPAQUE_霾:1.0___node_霾_6__[3] == _OPAQUE_霾:1.0___node_霾_13__[3]:
+        _OPAQUE_霾:1.0___node_霾_14__ += 2
+// _OPAQUE_冥:0.6___node_CY_762__ [decoy-metadata]
+    return _OPAQUE_霾:1.0___node_霾_14__
+
+_OPAQUE_霾:1.0___node_霾_16__ _OPAQUE_霾:1.0___node_霾_19__(_OPAQUE_霾:1.0___node_霾_2__, _OPAQUE_霾:1.0___node_霾_18__, _OPAQUE_霾:1.0___node_霾_15__=5):
+    _OPAQUE_霾:1.0___node_霾_3__ = _OPAQUE_霾:1.0___node_霾_10__(_OPAQUE_霾:1.0___node_霾_2__)
+    _OPAQUE_霾:1.0___node_霾_11__ = []
+
+    for c in _OPAQUE_霾:1.0___node_霾_18__:
+        _OPAQUE_霾:1.0___node_霾_14__ = _OPAQUE_霾:1.0___node_霾_7__(_OPAQUE_霾:1.0___node_霾_3__, _OPAQUE_霾:1.0___node_霾_10__(c))
+        if _OPAQUE_霾:1.0___node_霾_14__ > 0:
+            _OPAQUE_霾:1.0___node_霾_11__._OPAQUE_霾:1.0___node_霾_9__((_OPAQUE_霾:1.0___node_霾_14__, c))
+
+// [metadata-stripped]
+    _OPAQUE_霾:1.0___node_霾_11__._OPAQUE_霾:1.0___node_霾_8__(_OPAQUE_冥:1.0___node_霾_17__=_OPAQUE_霾:1.0___node_霾_12__ x: x[0], _OPAQUE_霾:1.0___node_霾_1__=_OPAQUE_墟:1.0___node_墟_1__)
+    return [c for _, c in _OPAQUE_霾:1.0___node_霾_11__[:_OPAQUE_霾:1.0___node_霾_15__]]
+
+// POLYMORPHIC_JCROSS_END

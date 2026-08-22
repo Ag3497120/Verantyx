@@ -1,0 +1,139 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:24182FFD ver:1778162880
+// ⚠️ One-time schema — expires after response
+
+_ID_露:1.0__OPAQUE_露_3_ ._ID_露:1.0__OPAQUE_露_10_ import (
+    _ID_庭:1.0__OPAQUE_庭_4_,
+    _ID_庭:1.0__OPAQUE_庭_10_,
+    _ID_庭:1.0__OPAQUE_庭_14_,
+    _ID_庭:1.0__OPAQUE_庭_13_,
+    _ID_庭:1.0__OPAQUE_庭_16_,
+    _ID_庭:1.0__OPAQUE_庭_9_,
+    _ID_庭:1.0__OPAQUE_庭_7_,
+    _ID_庭:1.0__OPAQUE_庭_5_,
+    _ID_庭:1.0__OPAQUE_庭_12_,
+)
+
+
+class _ID_庭:1.0__OPAQUE_庭_6_:
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_8_(self, _ID_露:1.0__OPAQUE_露_13_, _ID_露:1.0__OPAQUE_露_14_, _ID_露:1.0__OPAQUE_露_31_=_ID_庭:1.0__OPAQUE_庭_9_, _ID_露:1.0__OPAQUE_露_33_=_ID_庭:1.0__OPAQUE_庭_9_, _ID_露:1.0__OPAQUE_露_17_=_ID_庭:1.0__OPAQUE_庭_9_):
+        if (_ID_露:1.0__OPAQUE_露_13_[0] == "'" _ID_露:1.0__OPAQUE_露_27_ _ID_露:1.0__OPAQUE_露_13_[-1] == "'") or (
+            _ID_露:1.0__OPAQUE_露_13_[0] == '"' _ID_露:1.0__OPAQUE_露_27_ _ID_露:1.0__OPAQUE_露_13_[-1] == '"'
+        ):
+            self._ID_露:1.0__OPAQUE_露_13_ = _ID_露:1.0__OPAQUE_露_13_[1:-1]
+        else:
+            self._ID_露:1.0__OPAQUE_露_13_ = _ID_露:1.0__OPAQUE_露_13_
+
+        try:
+            self._ID_露:1.0__OPAQUE_露_14_ = _ID_露:1.0__OPAQUE_露_6_(_ID_露:1.0__OPAQUE_露_14_)
+        _ID_露:1.0__OPAQUE_露_24_ _ID_庭:1.0__OPAQUE_庭_17_:
+            try:
+                if _ID_露:1.0__OPAQUE_露_14_._ID_露:1.0__OPAQUE_露_15_()._ID_露:1.0__OPAQUE_露_4_("pt"):
+                    self._ID_露:1.0__OPAQUE_露_14_ = _ID_露:1.0__OPAQUE_露_6_(_ID_露:1.0__OPAQUE_露_14_[:-2])
+                else:
+                    _ID_露:1.0__OPAQUE_露_26_ _ID_庭:1.0__OPAQUE_庭_17_(f"_ID_庭:1.0__OPAQUE_庭_2_ _ID_露:1.0__OPAQUE_露_37_ _ID_露:1.0__OPAQUE_露_14_ {_ID_露:1.0__OPAQUE_露_14_!r}")
+            _ID_露:1.0__OPAQUE_露_24_ _ID_庭:1.0__OPAQUE_庭_15_ as _ID_露:1.0__OPAQUE_露_12_:
+                _ID_露:1.0__OPAQUE_露_26_ _ID_庭:1.0__OPAQUE_庭_17_(f"_ID_庭:1.0__OPAQUE_庭_2_ _ID_露:1.0__OPAQUE_露_37_ _ID_露:1.0__OPAQUE_露_14_ {_ID_露:1.0__OPAQUE_露_14_!r}") _ID_露:1.0__OPAQUE_露_3_ _ID_露:1.0__OPAQUE_露_12_
+        self._ID_露:1.0__OPAQUE_露_31_ = _ID_露:1.0__OPAQUE_露_31_ if _ID_露:1.0__OPAQUE_露_31_ in _ID_庭:1.0__OPAQUE_庭_10_ else _ID_庭:1.0__OPAQUE_庭_9_
+        self._ID_露:1.0__OPAQUE_露_33_ = _ID_露:1.0__OPAQUE_露_33_ if _ID_露:1.0__OPAQUE_露_33_ in _ID_庭:1.0__OPAQUE_庭_14_ else _ID_庭:1.0__OPAQUE_庭_9_
+        self._ID_露:1.0__OPAQUE_露_17_ = _ID_露:1.0__OPAQUE_露_17_ if _ID_露:1.0__OPAQUE_露_17_ in _ID_庭:1.0__OPAQUE_庭_13_ else _ID_庭:1.0__OPAQUE_庭_9_
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_30_(self):
+        return _ID_露:1.0__OPAQUE_露_20_(
+            ("_ID_庭:1.0__OPAQUE_庭_8_", self._ID_露:1.0__OPAQUE_露_13_, self._ID_露:1.0__OPAQUE_露_14_, self._ID_露:1.0__OPAQUE_露_31_, self._ID_露:1.0__OPAQUE_露_33_, self._ID_露:1.0__OPAQUE_露_17_)
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_19_(self):
+        return "<_ID_庭:1.0__OPAQUE_庭_6_: {}{}{}{} {}>"._ID_渦:1.0__OPAQUE_露_22_(
+            "" if self._ID_露:1.0__OPAQUE_露_31_ is _ID_庭:1.0__OPAQUE_庭_9_ else (self._ID_露:1.0__OPAQUE_露_31_ + " "),
+            "" if self._ID_露:1.0__OPAQUE_露_33_ is _ID_庭:1.0__OPAQUE_庭_9_ else (self._ID_露:1.0__OPAQUE_露_33_ + " "),
+            "" if self._ID_露:1.0__OPAQUE_露_17_ is _ID_庭:1.0__OPAQUE_庭_9_ else (self._ID_露:1.0__OPAQUE_露_17_ + " "),
+            (
+                "_ID_露:1.0__OPAQUE_露_9_ _ID_露:1.0__OPAQUE_露_7_ _ID_露:1.0__OPAQUE_露_14_"
+                if self._ID_露:1.0__OPAQUE_露_14_ == _ID_庭:1.0__OPAQUE_庭_12_
+                else f"{self._ID_露:1.0__OPAQUE_露_14_}pt"
+            ),
+            self._ID_露:1.0__OPAQUE_露_13_,
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_16_(self, _ID_業:1.0__OPAQUE_露_25_):
+        try:
+            return (
+                self._ID_露:1.0__OPAQUE_露_13_ == _ID_業:1.0__OPAQUE_露_25_._ID_露:1.0__OPAQUE_露_13_
+// _ID_露:0.2__OPAQUE_LK_530_ [decoy-metadata]
+                _ID_露:1.0__OPAQUE_露_27_ self._ID_露:1.0__OPAQUE_露_14_ == _ID_業:1.0__OPAQUE_露_25_._ID_露:1.0__OPAQUE_露_14_
+                _ID_露:1.0__OPAQUE_露_27_ self._ID_露:1.0__OPAQUE_露_31_ == _ID_業:1.0__OPAQUE_露_25_._ID_露:1.0__OPAQUE_露_31_
+                _ID_露:1.0__OPAQUE_露_27_ self._ID_露:1.0__OPAQUE_露_33_ == _ID_業:1.0__OPAQUE_露_25_._ID_露:1.0__OPAQUE_露_33_
+                _ID_露:1.0__OPAQUE_露_27_ self._ID_露:1.0__OPAQUE_露_17_ == _ID_業:1.0__OPAQUE_露_25_._ID_露:1.0__OPAQUE_露_17_
+            )
+        _ID_露:1.0__OPAQUE_露_24_ _ID_庭:1.0__OPAQUE_庭_1_:
+            return _ID_庭:1.0__OPAQUE_庭_11_
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_35_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ a _ID_露:1.0__OPAQUE_露_18_ _ID_露:1.0__OPAQUE_露_31_ _ID_露:1.0__OPAQUE_露_5_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_,
+            self._ID_露:1.0__OPAQUE_露_14_,
+// _ID_業:0.6__OPAQUE_YB_307_ [decoy-metadata]
+            _ID_露:1.0__OPAQUE_露_31_=_ID_庭:1.0__OPAQUE_庭_9_,
+            _ID_露:1.0__OPAQUE_露_33_=self._ID_露:1.0__OPAQUE_露_33_,
+            _ID_露:1.0__OPAQUE_露_17_=self._ID_露:1.0__OPAQUE_露_17_,
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_32_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ an _ID_露:1.0__OPAQUE_露_32_ _ID_露:1.0__OPAQUE_露_5_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_,
+            self._ID_露:1.0__OPAQUE_露_14_,
+            _ID_露:1.0__OPAQUE_露_31_=_ID_庭:1.0__OPAQUE_庭_16_,
+            _ID_露:1.0__OPAQUE_露_33_=self._ID_露:1.0__OPAQUE_露_33_,
+            _ID_露:1.0__OPAQUE_露_17_=self._ID_露:1.0__OPAQUE_露_17_,
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_11_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ an _ID_露:1.0__OPAQUE_露_11_ _ID_露:1.0__OPAQUE_露_5_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_,
+            self._ID_露:1.0__OPAQUE_露_14_,
+            _ID_露:1.0__OPAQUE_露_31_=_ID_庭:1.0__OPAQUE_庭_7_,
+            _ID_露:1.0__OPAQUE_露_33_=self._ID_露:1.0__OPAQUE_露_33_,
+            _ID_露:1.0__OPAQUE_露_17_=self._ID_露:1.0__OPAQUE_露_17_,
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_1_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ a _ID_露:1.0__OPAQUE_露_18_ _ID_露:1.0__OPAQUE_露_33_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+// _ID_繕:0.6__OPAQUE_HM_617_ [decoy-metadata]
+            self._ID_露:1.0__OPAQUE_露_13_, self._ID_露:1.0__OPAQUE_露_14_, _ID_露:1.0__OPAQUE_露_31_=self._ID_露:1.0__OPAQUE_露_31_, _ID_露:1.0__OPAQUE_露_33_=_ID_庭:1.0__OPAQUE_庭_9_, _ID_露:1.0__OPAQUE_露_17_=self._ID_露:1.0__OPAQUE_露_17_
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_2_(self):
+// _ID_底:0.3__OPAQUE_HA_315_ [decoy-metadata]
+        "_ID_庭:1.0__OPAQUE_庭_3_ a _ID_露:1.0__OPAQUE_露_36_-_ID_露:1.0__OPAQUE_露_34_ _ID_露:1.0__OPAQUE_露_33_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_,
+            self._ID_露:1.0__OPAQUE_露_14_,
+            _ID_露:1.0__OPAQUE_露_31_=self._ID_露:1.0__OPAQUE_露_31_,
+            _ID_露:1.0__OPAQUE_露_33_=_ID_庭:1.0__OPAQUE_庭_5_,
+            _ID_露:1.0__OPAQUE_露_17_=self._ID_露:1.0__OPAQUE_露_17_,
+        )
+
+// _ID_露:0.3__OPAQUE_AG_480_ [decoy-metadata]
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_28_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ a _ID_露:1.0__OPAQUE_露_18_ _ID_露:1.0__OPAQUE_露_17_ _ID_露:1.0__OPAQUE_露_5_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_,
+// _ID_巌:0.5__OPAQUE_EZ_378_ [decoy-metadata]
+            self._ID_露:1.0__OPAQUE_露_14_,
+            _ID_露:1.0__OPAQUE_露_31_=self._ID_露:1.0__OPAQUE_露_31_,
+            _ID_露:1.0__OPAQUE_露_33_=self._ID_露:1.0__OPAQUE_露_33_,
+            _ID_露:1.0__OPAQUE_露_17_=_ID_庭:1.0__OPAQUE_庭_9_,
+        )
+
+    _ID_露:1.0__OPAQUE_露_23_ _ID_露:1.0__OPAQUE_露_21_(self):
+        "_ID_庭:1.0__OPAQUE_庭_3_ a _ID_露:1.0__OPAQUE_露_21_ _ID_露:1.0__OPAQUE_露_5_ of _ID_露:1.0__OPAQUE_露_29_ _ID_露:1.0__OPAQUE_露_37_"
+        return _ID_庭:1.0__OPAQUE_庭_6_(
+            self._ID_露:1.0__OPAQUE_露_13_, self._ID_露:1.0__OPAQUE_露_14_, _ID_露:1.0__OPAQUE_露_31_=self._ID_露:1.0__OPAQUE_露_31_, _ID_露:1.0__OPAQUE_露_33_=self._ID_露:1.0__OPAQUE_露_33_, _ID_露:1.0__OPAQUE_露_17_=_ID_庭:1.0__OPAQUE_庭_4_
+        )
+
+// POLYMORPHIC_JCROSS_END

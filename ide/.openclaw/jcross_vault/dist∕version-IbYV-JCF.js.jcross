@@ -1,0 +1,76 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:61D226DB ver:1778156850
+// ⚠️ One-time schema — expires after response
+
+import { _ID_泡:1.0__OPAQUE_泡_35_ } _ID_泡:1.0__OPAQUE_泡_11_ "_ID_泡:1.0__OPAQUE_泡_33_:_ID_泡:1.0__OPAQUE_泡_42_";
+// [metadata-stripped]
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_廡:1.0__OPAQUE_廡_2_ = "_ID_泡:1.0__OPAQUE_泡_20_";
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_廡:1.0__OPAQUE_廡_8_ = [
+	"../_ID_泡:1.0__OPAQUE_泡_25_._ID_泡:1.0__OPAQUE_泡_28_",
+	"../../_ID_泡:1.0__OPAQUE_泡_25_._ID_泡:1.0__OPAQUE_泡_28_",
+	"../../../_ID_泡:1.0__OPAQUE_泡_25_._ID_泡:1.0__OPAQUE_泡_28_",
+	"./_ID_泡:1.0__OPAQUE_泡_25_._ID_泡:1.0__OPAQUE_泡_28_"
+];
+// _ID_浪:0.6__OPAQUE_YV_588_ [decoy-metadata]
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_廡:1.0__OPAQUE_廡_3_ = [
+// _ID_式:0.4__OPAQUE_GE_125_ [decoy-metadata]
+	"../_ID_泡:1.0__OPAQUE_泡_10_-_ID_泡:1.0__OPAQUE_泡_16_._ID_泡:1.0__OPAQUE_泡_28_",
+	"../../_ID_泡:1.0__OPAQUE_泡_10_-_ID_泡:1.0__OPAQUE_泡_16_._ID_泡:1.0__OPAQUE_泡_28_",
+	"./_ID_泡:1.0__OPAQUE_泡_10_-_ID_泡:1.0__OPAQUE_泡_16_._ID_泡:1.0__OPAQUE_泡_28_"
+];
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_泡:1.0__OPAQUE_泡_19_(_ID_絵:1.0__OPAQUE_泡_36_, _ID_泡:1.0__OPAQUE_泡_21_, _ID_泡:1.0__OPAQUE_泡_15_ = {}) {
+	try {
+		_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_47_ = _ID_泡:1.0__OPAQUE_泡_35_(_ID_絵:1.0__OPAQUE_泡_36_);
+		for (_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_30_ of _ID_泡:1.0__OPAQUE_泡_21_) try {
+			_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_48_ = _ID_泡:1.0__OPAQUE_泡_47_(_ID_泡:1.0__OPAQUE_泡_30_);
+			_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_29_ = _ID_泡:1.0__OPAQUE_泡_48_._ID_泡:1.0__OPAQUE_泡_29_?._ID_泡:1.0__OPAQUE_泡_51_();
+			if (!_ID_泡:1.0__OPAQUE_泡_29_) continue;
+			if (_ID_泡:1.0__OPAQUE_泡_15_._ID_泡:1.0__OPAQUE_泡_22_ && _ID_泡:1.0__OPAQUE_泡_48_._ID_泡:1.0__OPAQUE_泡_49_ !== _ID_廡:1.0__OPAQUE_廡_2_) continue;
+			return _ID_泡:1.0__OPAQUE_泡_29_;
+		} catch {}
+		return _ID_泡:1.0__OPAQUE_泡_46_;
+	} catch {
+		return _ID_泡:1.0__OPAQUE_泡_46_;
+	}
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_泡:1.0__OPAQUE_泡_38_(..._ID_泡:1.0__OPAQUE_泡_14_) {
+	for (_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_18_ of _ID_泡:1.0__OPAQUE_泡_14_) {
+		_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_12_ = _ID_泡:1.0__OPAQUE_泡_18_?._ID_泡:1.0__OPAQUE_泡_51_();
+// _ID_浪:0.7__OPAQUE_DM_320_ [decoy-metadata]
+		if (_ID_泡:1.0__OPAQUE_泡_12_) return _ID_泡:1.0__OPAQUE_泡_12_;
+	}
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_絵:1.0__OPAQUE_泡_3_(_ID_絵:1.0__OPAQUE_泡_36_) {
+	return _ID_泡:1.0__OPAQUE_泡_19_(_ID_絵:1.0__OPAQUE_泡_36_, _ID_廡:1.0__OPAQUE_廡_8_, { _ID_泡:1.0__OPAQUE_泡_22_: true });
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_絵:1.0__OPAQUE_泡_31_(_ID_絵:1.0__OPAQUE_泡_36_) {
+	return _ID_泡:1.0__OPAQUE_泡_19_(_ID_絵:1.0__OPAQUE_泡_36_, _ID_廡:1.0__OPAQUE_廡_3_);
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_絵:1.0__OPAQUE_泡_5_(_ID_絵:1.0__OPAQUE_泡_36_) {
+	return _ID_絵:1.0__OPAQUE_泡_3_(_ID_絵:1.0__OPAQUE_泡_36_) || _ID_絵:1.0__OPAQUE_泡_31_(_ID_絵:1.0__OPAQUE_泡_36_);
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_泡:1.0__OPAQUE_泡_9_(_ID_泡:1.0__OPAQUE_泡_7_) {
+	return _ID_泡:1.0__OPAQUE_泡_38_(_ID_泡:1.0__OPAQUE_泡_7_._ID_泡:1.0__OPAQUE_泡_45_) || _ID_絵:1.0__OPAQUE_泡_5_(_ID_泡:1.0__OPAQUE_泡_7_._ID_絵:1.0__OPAQUE_泡_36_) || _ID_泡:1.0__OPAQUE_泡_38_(_ID_泡:1.0__OPAQUE_泡_7_._ID_泡:1.0__OPAQUE_泡_23_) || _ID_泡:1.0__OPAQUE_泡_7_._ID_泡:1.0__OPAQUE_泡_40_ || "0.0.0";
+// _ID_式:0.2__OPAQUE_BB_684_ [decoy-metadata]
+}
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_廡:1.0__OPAQUE_廡_5_ = "_ID_泡:1.0__OPAQUE_泡_13_";
+// _ID_底:0.2__OPAQUE_HK_818_ [decoy-metadata]
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_泡:1.0__OPAQUE_泡_6_(_ID_泡:1.0__OPAQUE_泡_29_) {
+	_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_12_ = _ID_泡:1.0__OPAQUE_泡_29_?._ID_泡:1.0__OPAQUE_泡_51_();
+	if (!_ID_泡:1.0__OPAQUE_泡_12_ || _ID_泡:1.0__OPAQUE_泡_12_ === "0.0.0") return;
+	return _ID_泡:1.0__OPAQUE_泡_12_;
+}
+_ID_泡:1.0__OPAQUE_泡_8_ _ID_泡:1.0__OPAQUE_泡_34_(_ID_泡:1.0__OPAQUE_泡_24_ = _ID_泡:1.0__OPAQUE_泡_43_._ID_泡:1.0__OPAQUE_泡_24_, _ID_泡:1.0__OPAQUE_泡_40_ = _ID_廡:1.0__OPAQUE_廡_5_) {
+	_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_32_ = _ID_泡:1.0__OPAQUE_泡_6_(_ID_廡:1.0__OPAQUE_廡_4_);
+	return _ID_泡:1.0__OPAQUE_泡_38_(_ID_泡:1.0__OPAQUE_泡_24_["_ID_廡:1.0__OPAQUE_廡_1_"], _ID_泡:1.0__OPAQUE_泡_32_, _ID_泡:1.0__OPAQUE_泡_24_["_ID_廡:1.0__OPAQUE_廡_6_"], _ID_泡:1.0__OPAQUE_泡_24_["_ID_泡:1.0__OPAQUE_泡_50_"]) ?? _ID_泡:1.0__OPAQUE_泡_40_;
+}
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_廡:1.0__OPAQUE_廡_4_ = _ID_泡:1.0__OPAQUE_泡_9_({
+	_ID_絵:1.0__OPAQUE_泡_36_: import._ID_泡:1.0__OPAQUE_泡_17_._ID_絵:1.0__OPAQUE_泡_27_,
+// _ID_浪:0.6__OPAQUE_XF_195_ [decoy-metadata]
+	_ID_泡:1.0__OPAQUE_泡_45_: _ID_泡:1.0__OPAQUE_泡_2_ _ID_泡:1.0__OPAQUE_泡_26_ === "_ID_泡:1.0__OPAQUE_泡_39_" ? _ID_泡:1.0__OPAQUE_泡_26_ : _ID_泡:1.0__OPAQUE_泡_1_ 0,
+	_ID_泡:1.0__OPAQUE_泡_23_: _ID_泡:1.0__OPAQUE_泡_43_._ID_泡:1.0__OPAQUE_泡_24_._ID_廡:1.0__OPAQUE_廡_7_
+});
+// [metadata-stripped]
+_ID_泡:1.0__OPAQUE_泡_4_ { _ID_泡:1.0__OPAQUE_泡_9_ as a, _ID_絵:1.0__OPAQUE_泡_5_ as c, _ID_絵:1.0__OPAQUE_泡_3_ as i, _ID_廡:1.0__OPAQUE_廡_4_ as n, _ID_泡:1.0__OPAQUE_泡_34_ as o, _ID_絵:1.0__OPAQUE_泡_31_ as r, _ID_泡:1.0__OPAQUE_泡_6_ as s, _ID_廡:1.0__OPAQUE_廡_5_ as t };
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8013A7FB ver:1778162888
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_粒:1.0___ast_粒_13__ _VERANTYX_粒:1.0___ast_粒_26__ import _VERANTYX_粒:1.0___ast_粒_1__
+
+import re
+_VERANTYX_粒:1.0___ast_粒_13__ _VERANTYX_粒:1.0___ast_粒_21__ import _VERANTYX_庠:1.0___ast_庠_3__
+
+_VERANTYX_庠:1.0___ast_庠_2__ = {
+    "→": "->", "⇒": "->", "⟶": "->", "⟹": "->",
+    "←": "<-", "↔": "<->", "⇔": "<->",
+    "¬": "~", "∧": "&", "∨": "|",
+    "□": "[]", "◇": "<>",
+}
+
+_VERANTYX_粒:1.0___ast_粒_3__ = re._VERANTYX_粒:1.0___ast_粒_18__(r'"([^"]+)"|“([^”]+)”|「([^」]+)」|『([^』]+)』')
+
+
+_VERANTYX_粒:1.0___ast_粒_2__ _VERANTYX_粒:1.0___ast_粒_5__(_VERANTYX_粒:1.0___ast_粒_16__: _VERANTYX_粒:1.0___ast_粒_23__) -> _VERANTYX_庠:1.0___ast_庠_3__[_VERANTYX_粒:1.0___ast_粒_23__]:
+    _VERANTYX_粒:1.0___ast_粒_6__: _VERANTYX_庠:1.0___ast_庠_3__[_VERANTYX_粒:1.0___ast_粒_23__] = []
+    for m in _VERANTYX_粒:1.0___ast_粒_3__._VERANTYX_式:1.0___ast_粒_20__(_VERANTYX_粒:1.0___ast_粒_16__ or ""):
+        for g in m._VERANTYX_粒:1.0___ast_粒_22__():
+            if g:
+                _VERANTYX_粒:1.0___ast_粒_6__._VERANTYX_粒:1.0___ast_粒_9__(g._VERANTYX_粒:1.0___ast_粒_7__())
+                break
+    return _VERANTYX_粒:1.0___ast_粒_6__
+
+
+_VERANTYX_粒:1.0___ast_粒_2__ _VERANTYX_粒:1.0___ast_粒_17__(_VERANTYX_粒:1.0___ast_粒_16__: _VERANTYX_粒:1.0___ast_粒_23__) -> _VERANTYX_粒:1.0___ast_粒_23__:
+    t = (_VERANTYX_粒:1.0___ast_粒_16__ or "")
+    for k, v in _VERANTYX_庠:1.0___ast_庠_2__._VERANTYX_粒:1.0___ast_粒_19__():
+        t = t._VERANTYX_粒:1.0___ast_粒_24__(k, v)
+    t = t._VERANTYX_粒:1.0___ast_粒_24__("\_VERANTYX_粒:1.0___ast_粒_8__", "")._VERANTYX_粒:1.0___ast_粒_24__("\_VERANTYX_粒:1.0___ast_粒_25__", "")
+    t = re._VERANTYX_粒:1.0___ast_粒_14__(r"[ \t]+", " ", t)
+// _VERANTYX_伏:0.2___ast_DA_245__ [decoy-metadata]
+    return t._VERANTYX_粒:1.0___ast_粒_7__()
+
+// _VERANTYX_庠:0.5___ast_FH_355__ [decoy-metadata]
+
+_VERANTYX_粒:1.0___ast_粒_2__ _VERANTYX_流:1.0___ast_粒_4__(s: _VERANTYX_粒:1.0___ast_粒_23__) -> _VERANTYX_粒:1.0___ast_粒_23__:
+    s = _VERANTYX_粒:1.0___ast_粒_17__(s)
+    s = s._VERANTYX_粒:1.0___ast_粒_24__("\n", " ")._VERANTYX_粒:1.0___ast_粒_24__("\r", " ")
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s+", " ", s)._VERANTYX_粒:1.0___ast_粒_7__()
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\[\]\s+", "[]", s)
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"<>\s+", "<>", s)
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s*->\s*", "->", s)
+// _VERANTYX_式:0.9___ast_KE_531__ [decoy-metadata]
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s*<->\s*", "<->", s)
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s*&\s*", "&", s)
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s*\|\s*", "|", s)
+    s = re._VERANTYX_粒:1.0___ast_粒_14__(r"\s*~\s*", "~", s)
+    s = s._VERANTYX_粒:1.0___ast_粒_24__("( ", "(")._VERANTYX_粒:1.0___ast_粒_24__(" )", ")")
+    return s
+
+// _VERANTYX_式:0.2___ast_KB_164__ [decoy-metadata]
+
+// _VERANTYX_伏:0.9___ast_ZB_658__ [decoy-metadata]
+_VERANTYX_粒:1.0___ast_粒_2__ _VERANTYX_粒:1.0___ast_粒_10__(_VERANTYX_流:1.0___ast_粒_12__: _VERANTYX_粒:1.0___ast_粒_23__) -> _VERANTYX_粒:1.0___ast_粒_11__:
+    f = _VERANTYX_流:1.0___ast_粒_4__(_VERANTYX_流:1.0___ast_粒_12__)
+    if f._VERANTYX_粒:1.0___ast_粒_15__(("->", "<->", "&", "|")):
+        return _VERANTYX_庠:1.0___ast_庠_4__
+    if re._VERANTYX_粒:1.0___ast_粒_27__(r"\[\](\)|$)", f):
+// _VERANTYX_庠:0.3___ast_EM_652__ [decoy-metadata]
+        return _VERANTYX_庠:1.0___ast_庠_4__
+    return _VERANTYX_庠:1.0___ast_庠_1__
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,97 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:067F2119 ver:1778159694
+// ⚠️ One-time schema — expires after response
+
+__jcross_塵:1.0___ASTNODE_塵_16_ __jcross_塵:1.0___ASTNODE_塵_39_ import __jcross_塵:1.0___ASTNODE_塵_9_
+
+import re
+__jcross_塵:1.0___ASTNODE_塵_16_ __jcross_塵:1.0___ASTNODE_塵_31_ import __jcross_礎:1.0___ASTNODE_礎_8_
+
+__jcross_塵:1.0___ASTNODE_塵_49_ = re.__jcross_塵:1.0___ASTNODE_塵_37_(r'["“”「」『』](.+?)["“”「」『』]', re.__jcross_礎:1.0___ASTNODE_礎_7_)
+__jcross_塵:1.0___ASTNODE_塵_21_ = re.__jcross_塵:1.0___ASTNODE_塵_37_(r'"([^"]+)"')
+
+__jcross_塵:1.0___ASTNODE_塵_18_ = {
+    "__jcross_塵:1.0___ASTNODE_塵_13_": "[]",
+    "__jcross_塵:1.0___ASTNODE_塵_53_": "<>",
+    "□": "[]",
+    "◇": "<>",
+}
+// __jcross_覇:0.8___ASTNODE_KM_984_ [decoy-metadata]
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_滴:1.0___ASTNODE_塵_55_(s: __jcross_塵:1.0___ASTNODE_塵_40_) -> __jcross_塵:1.0___ASTNODE_塵_40_:
+    s = (s or "").__jcross_塵:1.0___ASTNODE_塵_14_()
+    s = s.__jcross_塵:1.0___ASTNODE_塵_12_("→", "->").__jcross_塵:1.0___ASTNODE_塵_12_("¬", "~").__jcross_塵:1.0___ASTNODE_塵_12_("∧", "&").__jcross_塵:1.0___ASTNODE_塵_12_("∨", "|")
+    s = s.__jcross_塵:1.0___ASTNODE_塵_12_("⇒", "->").__jcross_塵:1.0___ASTNODE_塵_12_("⇔", "<->")
+    for k, v in __jcross_塵:1.0___ASTNODE_塵_18_.__jcross_塵:1.0___ASTNODE_塵_44_():
+        s = re.__jcross_塵:1.0___ASTNODE_塵_35_(rf"\b{k}\b", v, s, __jcross_塵:1.0___ASTNODE_塵_47_=re.__jcross_礎:1.0___ASTNODE_礎_3_)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s+", " ", s)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s*->\s*", "->", s)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s*<->\s*", "<->", s)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s*&\s*", "&", s)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s*\|\s*", "|", s)
+    s = re.__jcross_塵:1.0___ASTNODE_塵_35_(r"\s*~\s*", "~", s)
+    s = s.__jcross_塵:1.0___ASTNODE_塵_12_("[] ", "[]").__jcross_塵:1.0___ASTNODE_塵_12_("<> ", "<>")
+    return s.__jcross_塵:1.0___ASTNODE_塵_14_()
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_滴:1.0___ASTNODE_塵_22_(__jcross_塵:1.0___ASTNODE_塵_54_: __jcross_塵:1.0___ASTNODE_塵_40_) -> __jcross_礎:1.0___ASTNODE_礎_8_[__jcross_塵:1.0___ASTNODE_塵_40_]:
+    __jcross_塵:1.0___ASTNODE_塵_30_: __jcross_礎:1.0___ASTNODE_礎_8_[__jcross_塵:1.0___ASTNODE_塵_40_] = []
+    t = __jcross_塵:1.0___ASTNODE_塵_54_ or ""
+    for m in __jcross_塵:1.0___ASTNODE_塵_49_.__jcross_技:1.0___ASTNODE_塵_27_(t):
+        f = __jcross_滴:1.0___ASTNODE_塵_55_(m.__jcross_塵:1.0___ASTNODE_塵_6_(1))
+        if f:
+            __jcross_塵:1.0___ASTNODE_塵_30_.__jcross_塵:1.0___ASTNODE_塵_1_(f)
+    return __jcross_塵:1.0___ASTNODE_塵_30_
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_滴:1.0___ASTNODE_塵_29_(__jcross_塵:1.0___ASTNODE_塵_54_: __jcross_塵:1.0___ASTNODE_塵_40_) -> __jcross_礎:1.0___ASTNODE_礎_8_[__jcross_塵:1.0___ASTNODE_塵_40_]:
+// __jcross_覇:0.8___ASTNODE_EL_394_ [decoy-metadata]
+    __jcross_滴:1.0___ASTNODE_塵_7_ = __jcross_塵:1.0___ASTNODE_塵_21_.__jcross_塵:1.0___ASTNODE_塵_34_(__jcross_塵:1.0___ASTNODE_塵_54_ or "")
+    return [f.__jcross_塵:1.0___ASTNODE_塵_14_() for f in __jcross_滴:1.0___ASTNODE_塵_7_ if f.__jcross_塵:1.0___ASTNODE_塵_14_()]
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_塵:1.0___ASTNODE_塵_10_(__jcross_塵:1.0___ASTNODE_塵_54_: __jcross_塵:1.0___ASTNODE_塵_40_) -> __jcross_塵:1.0___ASTNODE_塵_40_:
+    t = (__jcross_塵:1.0___ASTNODE_塵_54_ or "")
+// __jcross_技:0.6___ASTNODE_WA_248_ [decoy-metadata]
+    tl = t.__jcross_技:1.0___ASTNODE_塵_51_()
+
+// __jcross_覇:0.5___ASTNODE_HE_817_ [decoy-metadata]
+// __jcross_礎:0.9___ASTNODE_EH_748_ [decoy-metadata]
+    if ("__jcross_塵:1.0___ASTNODE_塵_23_" in tl) or ("フレーム" in t) or ("様相" in t) or ("□" in t) or ("◇" in t) or ("[]" in tl) or ("<>" in tl):
+        return "__jcross_塵:1.0___ASTNODE_塵_48_"
+    if ("命題論理" in t) or ("__jcross_塵:1.0___ASTNODE_塵_19_" in tl) or ("恒真" in t) or ("真理値表" in t) or ("&" in t) or ("->" in t):
+        return "__jcross_塵:1.0___ASTNODE_塵_46_"
+    if ("一階" in t) or ("述語" in t) or ("∀" in t) or ("∃" in t) or ("__jcross_技:1.0___ASTNODE_塵_24_" in tl) or ("__jcross_塵:1.0___ASTNODE_塵_32_-__jcross_技:1.0___ASTNODE_塵_45_" in tl):
+        return "__jcross_塵:1.0___ASTNODE_塵_50_"
+    if ("行列" in t) or ("線形" in t) or ("次元" in t) or ("対称" in t) or ("__jcross_塵:1.0___ASTNODE_塵_41_" in tl) or ("__jcross_塵:1.0___ASTNODE_塵_8_" in tl):
+        return "__jcross_塵:1.0___ASTNODE_塵_25_"
+    if ("位相" in t) or ("コンパクト" in t) or ("__jcross_塵:1.0___ASTNODE_塵_4_" in tl) or ("__jcross_塵:1.0___ASTNODE_塵_11_" in tl):
+        return "__jcross_塵:1.0___ASTNODE_塵_11_"
+    if ("群" in t) or ("環" in t) or ("__jcross_塵:1.0___ASTNODE_塵_6_" in tl) or ("__jcross_塵:1.0___ASTNODE_塵_17_" in tl):
+        return "__jcross_塵:1.0___ASTNODE_塵_28_"
+    if ("計算量" in t) or ("np" in tl) or ("__jcross_塵:1.0___ASTNODE_塵_33_" in tl) or ("多項式" in t):
+        return "__jcross_塵:1.0___ASTNODE_塵_43_"
+
+    return "__jcross_塵:1.0___ASTNODE_塵_3_"
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_塵:1.0___ASTNODE_塵_26_() -> __jcross_塵:1.0___ASTNODE_塵_40_:
+    return (
+        '【入力ルール】式（論理式・数式）は必ずダブルクォーテーションで囲ってください。\n'
+        '例1（命題）: 「"((A -> B) & A) -> B"」\n'
+// __jcross_滴:0.9___ASTNODE_KL_107_ [decoy-metadata]
+        '例2（様相）: 「"[]p -> [][]p"」\n'
+        '例3（行列）: 「"__jcross_塵:1.0___ASTNODE_塵_2_ __jcross_礎:1.0___ASTNODE_礎_9_(n,R)"」'
+    )
+
+
+__jcross_塵:1.0___ASTNODE_塵_20_ __jcross_塵:1.0___ASTNODE_塵_15_() -> __jcross_塵:1.0___ASTNODE_塵_40_:
+    return (
+        '[__jcross_礎:1.0___ASTNODE_礎_6_ __jcross_礎:1.0___ASTNODE_礎_1_] __jcross_礎:1.0___ASTNODE_礎_5_ __jcross_塵:1.0___ASTNODE_塵_38_ __jcross_滴:1.0___ASTNODE_塵_52_ __jcross_塵:1.0___ASTNODE_塵_36_ __jcross_塵:1.0___ASTNODE_塵_5_ __jcross_塵:1.0___ASTNODE_塵_42_.\n'
+        '__jcross_礎:1.0___ASTNODE_礎_2_: "((A -> B) & A) -> B"\n'
+        '__jcross_礎:1.0___ASTNODE_礎_10_: "[]p -> [][]p"\n'
+        '__jcross_礎:1.0___ASTNODE_礎_4_: "__jcross_塵:1.0___ASTNODE_塵_2_ __jcross_礎:1.0___ASTNODE_礎_9_(n,R)"'
+    )
+
+// POLYMORPHIC_JCROSS_END

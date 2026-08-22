@@ -1,0 +1,98 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B5E2B2F9 ver:1778158874
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_漕:0.9___jcross_ZK_404__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_靄:1.0___jcross_靄_43__ _OPAQUE_靄:1.0___jcross_靄_49__::_OPAQUE_靄:1.0___jcross_靄_40__::_OPAQUE_墟:1.0___jcross_墟_15__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_靄:1.0___jcross_靄_44__ enum _OPAQUE_墟:1.0___jcross_墟_6__ {
+    _OPAQUE_墟:1.0___jcross_墟_10__(_OPAQUE_靄:1.0___jcross_靄_62__),
+    _OPAQUE_墟:1.0___jcross_墟_39__(_OPAQUE_墟:1.0___jcross_墟_36__<_OPAQUE_靄:1.0___jcross_靄_62__>),
+// _OPAQUE_匾:0.7___jcross_WF_732__ [decoy-metadata]
+}
+
+// _OPAQUE_匾:0.1___jcross_WX_643__ [decoy-metadata]
+// [metadata-stripped]
+_OPAQUE_靄:1.0___jcross_靄_44__ struct _OPAQUE_規:1.0___jcross_墟_28__ {
+    _OPAQUE_靄:1.0___jcross_靄_44__ _OPAQUE_靄:1.0___jcross_靄_21__: _OPAQUE_墟:1.0___jcross_墟_25__<_OPAQUE_墟:1.0___jcross_墟_6__>,
+    _OPAQUE_靄:1.0___jcross_靄_44__ _OPAQUE_靄:1.0___jcross_靄_30__: _OPAQUE_墟:1.0___jcross_墟_15__<_OPAQUE_靄:1.0___jcross_靄_62__>, // _OPAQUE_墟:1.0___jcross_墟_23__ _OPAQUE_靄:1.0___jcross_靄_9__ 50 _OPAQUE_靄:1.0___jcross_靄_55__ for AI _OPAQUE_靄:1.0___jcross_靄_31__
+    _OPAQUE_靄:1.0___jcross_靄_44__ _OPAQUE_靄:1.0___jcross_靄_59__: _OPAQUE_靄:1.0___jcross_靄_65__, // _OPAQUE_墟:1.0___jcross_墟_14__ to _OPAQUE_靄:1.0___jcross_靄_48__ or _OPAQUE_規:1.0___jcross_靄_6__-_OPAQUE_靄:1.0___jcross_靄_47__ _OPAQUE_靄:1.0___jcross_靄_39__
+    _OPAQUE_靄:1.0___jcross_靄_44__ _OPAQUE_靄:1.0___jcross_靄_17__: _OPAQUE_靄:1.0___jcross_靄_62__, // _OPAQUE_墟:1.0___jcross_墟_17__ 10,000ms _OPAQUE_規:1.0___jcross_靄_57__ _OPAQUE_靄:1.0___jcross_靄_38__
+}
+
+_OPAQUE_靄:1.0___jcross_靄_45__ _OPAQUE_規:1.0___jcross_墟_28__ {
+    _OPAQUE_靄:1.0___jcross_靄_44__ fn _OPAQUE_靄:1.0___jcross_靄_10__() -> _OPAQUE_墟:1.0___jcross_墟_22__ {
+        _OPAQUE_墟:1.0___jcross_墟_22__ {
+            _OPAQUE_靄:1.0___jcross_靄_21__: _OPAQUE_墟:1.0___jcross_墟_20__,
+            _OPAQUE_靄:1.0___jcross_靄_30__: _OPAQUE_墟:1.0___jcross_墟_15__::_OPAQUE_靄:1.0___jcross_靄_12__(50),
+            _OPAQUE_靄:1.0___jcross_靄_59__: false,
+            _OPAQUE_靄:1.0___jcross_靄_17__: 10000,
+        }
+    }
+
+// [metadata-stripped]
+    _OPAQUE_靄:1.0___jcross_靄_44__ fn _OPAQUE_靄:1.0___jcross_靄_50__(&_OPAQUE_靄:1.0___jcross_靄_1__ self, _OPAQUE_靄:1.0___jcross_靄_70__: _OPAQUE_墟:1.0___jcross_墟_6__) -> _OPAQUE_靄:1.0___jcross_靄_65__ {
+        if self._OPAQUE_靄:1.0___jcross_靄_59__ { return false; }
+
+        _OPAQUE_靄:1.0___jcross_靄_33__ &_OPAQUE_靄:1.0___jcross_靄_70__ {
+            _OPAQUE_墟:1.0___jcross_墟_6__::_OPAQUE_墟:1.0___jcross_墟_10__(d) if *d == 0 => { self._OPAQUE_靄:1.0___jcross_靄_24__(); return true; }
+            _OPAQUE_墟:1.0___jcross_墟_6__::_OPAQUE_墟:1.0___jcross_墟_39__(s) if s._OPAQUE_靄:1.0___jcross_靄_8__() => { self._OPAQUE_靄:1.0___jcross_靄_24__(); return true; }
+            _ => {}
+        }
+
+        self._OPAQUE_靄:1.0___jcross_靄_21__ = _OPAQUE_墟:1.0___jcross_墟_16__(_OPAQUE_靄:1.0___jcross_靄_70__._OPAQUE_靄:1.0___jcross_靄_29__());
+        
+// [metadata-stripped]
+        _OPAQUE_靄:1.0___jcross_靄_33__ _OPAQUE_靄:1.0___jcross_靄_70__ {
+            _OPAQUE_墟:1.0___jcross_墟_6__::_OPAQUE_墟:1.0___jcross_墟_10__(d) => self._OPAQUE_靄:1.0___jcross_靄_5__(d),
+            _OPAQUE_墟:1.0___jcross_墟_6__::_OPAQUE_墟:1.0___jcross_墟_39__(s) => { if let _OPAQUE_墟:1.0___jcross_墟_16__(&d) = s._OPAQUE_靄:1.0___jcross_靄_46__() { self._OPAQUE_靄:1.0___jcross_靄_5__(d); } }
+        }
+
+        true // _OPAQUE_墟:1.0___jcross_墟_34__ _OPAQUE_靄:1.0___jcross_靄_18__ _OPAQUE_靄:1.0___jcross_靄_63__
+    }
+
+    _OPAQUE_靄:1.0___jcross_靄_44__ fn _OPAQUE_靄:1.0___jcross_靄_24__(&_OPAQUE_靄:1.0___jcross_靄_1__ self) {
+        self._OPAQUE_靄:1.0___jcross_靄_21__ = _OPAQUE_墟:1.0___jcross_墟_20__;
+    }
+
+    fn _OPAQUE_靄:1.0___jcross_靄_5__(&_OPAQUE_靄:1.0___jcross_靄_1__ self, _OPAQUE_靄:1.0___jcross_靄_68__: _OPAQUE_靄:1.0___jcross_靄_62__) {
+        if self._OPAQUE_靄:1.0___jcross_靄_30__._OPAQUE_靄:1.0___jcross_靄_19__() >= 50 { self._OPAQUE_靄:1.0___jcross_靄_30__._OPAQUE_靄:1.0___jcross_靄_41__(); }
+// _OPAQUE_匾:0.9___jcross_EB_473__ [decoy-metadata]
+        self._OPAQUE_靄:1.0___jcross_靄_30__._OPAQUE_靄:1.0___jcross_靄_52__(_OPAQUE_靄:1.0___jcross_靄_68__);
+    }
+
+// [metadata-stripped]
+    _OPAQUE_靄:1.0___jcross_靄_44__ fn _OPAQUE_靄:1.0___jcross_靄_25__(&self) -> _OPAQUE_墟:1.0___jcross_墟_32__ {
+        let _OPAQUE_靄:1.0___jcross_靄_1__ _OPAQUE_靄:1.0___jcross_靄_61__ = _OPAQUE_靄:1.0___jcross_靄_73__![_OPAQUE_漕:1.0___jcross_靄_4__!("📳 _OPAQUE_墟:1.0___jcross_墟_30__ _OPAQUE_絡:1.0___jcross_墟_18__ _OPAQUE_墟:1.0___jcross_墟_37__ (_OPAQUE_墟:1.0___jcross_墟_31__: {}):", self._OPAQUE_靄:1.0___jcross_靄_59__)];
+        if let _OPAQUE_墟:1.0___jcross_墟_16__(_OPAQUE_靄:1.0___jcross_靄_70__) = &self._OPAQUE_靄:1.0___jcross_靄_21__ {
+            _OPAQUE_靄:1.0___jcross_靄_61__._OPAQUE_靄:1.0___jcross_靄_22__(_OPAQUE_漕:1.0___jcross_靄_4__!("  _OPAQUE_墟:1.0___jcross_墟_29__: {:?}", _OPAQUE_靄:1.0___jcross_靄_70__));
+        } else {
+            _OPAQUE_靄:1.0___jcross_靄_61__._OPAQUE_靄:1.0___jcross_靄_22__("  _OPAQUE_墟:1.0___jcross_墟_29__: [_OPAQUE_墟:1.0___jcross_墟_20__]"._OPAQUE_靄:1.0___jcross_靄_56__());
+        }
+        
+        if !self._OPAQUE_靄:1.0___jcross_靄_30__._OPAQUE_靄:1.0___jcross_靄_8__() {
+// _OPAQUE_匾:0.4___jcross_DW_474__ [decoy-metadata]
+            let _OPAQUE_靄:1.0___jcross_靄_75__: _OPAQUE_墟:1.0___jcross_墟_32__ = self._OPAQUE_靄:1.0___jcross_靄_30__._OPAQUE_規:1.0___jcross_靄_7__()
+                ._OPAQUE_靄:1.0___jcross_靄_16__(|&d| if d > 500 { '█' } else if d > 100 { '▄' } else { ' ' })
+                ._OPAQUE_靄:1.0___jcross_靄_51__();
+            _OPAQUE_靄:1.0___jcross_靄_61__._OPAQUE_靄:1.0___jcross_靄_22__(_OPAQUE_漕:1.0___jcross_靄_4__!("  _OPAQUE_墟:1.0___jcross_墟_4__: {}", _OPAQUE_靄:1.0___jcross_靄_75__));
+// _OPAQUE_匾:0.8___jcross_DF_576__ [decoy-metadata]
+        }
+        _OPAQUE_靄:1.0___jcross_靄_61__._OPAQUE_靄:1.0___jcross_靄_23__("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

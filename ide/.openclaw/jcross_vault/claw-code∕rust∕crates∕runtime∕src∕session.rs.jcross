@@ -1,0 +1,448 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8383F670 ver:1778159478
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_68_::_VERANTYX_庵:1.0__ID_庵_26_;
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_46_::{_VERANTYX_庵:1.0__ID_庵_18_, _VERANTYX_道:1.0__ID_庵_2_};
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::fs;
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_95_::_VERANTYX_庵:1.0__ID_庵_17_;
+
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_55_::{_VERANTYX_庵:1.0__ID_庵_37_, _VERANTYX_庵:1.0__ID_庵_46_};
+
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_61_::_VERANTYX_霪:1.0__ID_霪_12_::{_VERANTYX_庵:1.0__ID_庵_34_, _VERANTYX_庵:1.0__ID_庵_15_};
+_VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_61_::_VERANTYX_霪:1.0__ID_霪_29_::_VERANTYX_錠:1.0__ID_庵_13_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_49_ enum _VERANTYX_庵:1.0__ID_庵_21_ {
+    _VERANTYX_庵:1.0__ID_庵_16_,
+    _VERANTYX_道:1.0__ID_庵_11_,
+    _VERANTYX_庵:1.0__ID_庵_28_,
+    _VERANTYX_庵:1.0__ID_庵_10_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_49_ enum _VERANTYX_庵:1.0__ID_庵_43_ {
+    _VERANTYX_庵:1.0__ID_庵_32_ {
+        _VERANTYX_霪:1.0__ID_霪_52_: _VERANTYX_庵:1.0__ID_庵_19_,
+    },
+    _VERANTYX_庵:1.0__ID_庵_40_ {
+        id: _VERANTYX_庵:1.0__ID_庵_19_,
+        _VERANTYX_霪:1.0__ID_霪_45_: _VERANTYX_庵:1.0__ID_庵_19_,
+        _VERANTYX_霪:1.0__ID_霪_32_: _VERANTYX_庵:1.0__ID_庵_19_,
+    },
+    _VERANTYX_庵:1.0__ID_庵_6_ {
+        _VERANTYX_霪:1.0__ID_霪_110_: _VERANTYX_庵:1.0__ID_庵_19_,
+        _VERANTYX_霪:1.0__ID_霪_72_: _VERANTYX_庵:1.0__ID_庵_19_,
+        _VERANTYX_霪:1.0__ID_霪_21_: _VERANTYX_庵:1.0__ID_庵_19_,
+        _VERANTYX_霪:1.0__ID_霪_59_: _VERANTYX_霪:1.0__ID_霪_25_,
+    },
+}
+
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_28_uct _VERANTYX_庵:1.0__ID_庵_29_ {
+    _VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_76_: _VERANTYX_庵:1.0__ID_庵_21_,
+    _VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_5_: _VERANTYX_庵:1.0__ID_庵_35_<_VERANTYX_庵:1.0__ID_庵_43_>,
+    _VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_庵:1.0__ID_庵_25_<_VERANTYX_錠:1.0__ID_庵_13_>,
+}
+
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_28_uct _VERANTYX_庵:1.0__ID_庵_1_ {
+    _VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_7_: _VERANTYX_霪:1.0__ID_霪_64_,
+    _VERANTYX_霪:1.0__ID_霪_49_ _VERANTYX_霪:1.0__ID_霪_20_: _VERANTYX_庵:1.0__ID_庵_35_<_VERANTYX_庵:1.0__ID_庵_29_>,
+}
+
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_49_ enum _VERANTYX_庵:1.0__ID_庵_31_ {
+    Io(_VERANTYX_霪:1.0__ID_霪_24_::io::_VERANTYX_庵:1.0__ID_庵_45_),
+    _VERANTYX_庵:1.0__ID_庵_12_(_VERANTYX_庵:1.0__ID_庵_34_),
+    _VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_庵:1.0__ID_庵_19_),
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_18_ for _VERANTYX_庵:1.0__ID_庵_31_ {
+    fn _VERANTYX_霪:1.0__ID_霪_46_(&self, f: &_VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_道:1.0__ID_庵_2_<'_>) -> _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_46_::_VERANTYX_庵:1.0__ID_庵_27_ {
+        _VERANTYX_霪:1.0__ID_霪_19_ self {
+            _VERANTYX_庵:1.0__ID_庵_38_::Io(_VERANTYX_霪:1.0__ID_霪_97_) => _VERANTYX_霪:1.0__ID_霪_35_!(f, "{_VERANTYX_霪:1.0__ID_霪_97_}"),
+            _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_12_(_VERANTYX_霪:1.0__ID_霪_97_) => _VERANTYX_霪:1.0__ID_霪_35_!(f, "{_VERANTYX_霪:1.0__ID_霪_97_}"),
+            _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_霪:1.0__ID_霪_97_) => _VERANTYX_霪:1.0__ID_霪_35_!(f, "{_VERANTYX_霪:1.0__ID_霪_97_}"),
+        }
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_97_::_VERANTYX_庵:1.0__ID_庵_45_ for _VERANTYX_庵:1.0__ID_庵_31_ {}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_39_<_VERANTYX_霪:1.0__ID_霪_24_::io::_VERANTYX_庵:1.0__ID_庵_45_> for _VERANTYX_庵:1.0__ID_庵_31_ {
+    fn _VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_38_: _VERANTYX_霪:1.0__ID_霪_24_::io::_VERANTYX_庵:1.0__ID_庵_45_) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_::Io(_VERANTYX_霪:1.0__ID_霪_38_)
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_39_<_VERANTYX_庵:1.0__ID_庵_34_> for _VERANTYX_庵:1.0__ID_庵_31_ {
+    fn _VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_38_: _VERANTYX_庵:1.0__ID_庵_34_) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_12_(_VERANTYX_霪:1.0__ID_霪_38_)
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_1_ {
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_17_() -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_7_: 1,
+            _VERANTYX_霪:1.0__ID_霪_20_: _VERANTYX_庵:1.0__ID_庵_35_::_VERANTYX_霪:1.0__ID_霪_17_(),
+        }
+    }
+
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_匼:1.0__ID_霪_87_(&self, _VERANTYX_霪:1.0__ID_霪_95_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_23_<_VERANTYX_庵:1.0__ID_庵_17_>) -> _VERANTYX_庵:1.0__ID_庵_27_<(), _VERANTYX_庵:1.0__ID_庵_31_> {
+        fs::_VERANTYX_霪:1.0__ID_霪_35_(_VERANTYX_霪:1.0__ID_霪_95_, self._VERANTYX_霪:1.0__ID_霪_91_()._VERANTYX_道:1.0__ID_霪_41_())?;
+        Ok(())
+    }
+
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_匼:1.0__ID_霪_40_(_VERANTYX_霪:1.0__ID_霪_95_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_23_<_VERANTYX_庵:1.0__ID_庵_17_>) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_38_, _VERANTYX_庵:1.0__ID_庵_31_> {
+        let _VERANTYX_霪:1.0__ID_霪_65_ = fs::_VERANTYX_霪:1.0__ID_霪_4_(_VERANTYX_霪:1.0__ID_霪_95_)?;
+// _VERANTYX_組:0.6__ID_MV_880_ [decoy-metadata]
+        _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_霪:1.0__ID_霪_67_(&_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_123_(&_VERANTYX_霪:1.0__ID_霪_65_)?)
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_91_(&self) -> _VERANTYX_庵:1.0__ID_庵_15_ {
+        let _VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_庵:1.0__ID_庵_26_::_VERANTYX_霪:1.0__ID_霪_17_();
+        _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+            "_VERANTYX_霪:1.0__ID_霪_7_"._VERANTYX_霪:1.0__ID_霪_109_(),
+            _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_道:1.0__ID_庵_33_(_VERANTYX_霪:1.0__ID_霪_9_::_VERANTYX_霪:1.0__ID_霪_74_(self._VERANTYX_霪:1.0__ID_霪_7_)),
+        );
+        _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+            "_VERANTYX_霪:1.0__ID_霪_20_"._VERANTYX_霪:1.0__ID_霪_109_(),
+            _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_44_(
+                self._VERANTYX_霪:1.0__ID_霪_20_
+                    ._VERANTYX_道:1.0__ID_霪_42_()
+                    ._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_庵:1.0__ID_庵_29_::_VERANTYX_霪:1.0__ID_霪_91_)
+                    ._VERANTYX_霪:1.0__ID_霪_14_(),
+            ),
+        );
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_36_(_VERANTYX_霪:1.0__ID_霪_31_)
+    }
+
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_67_(_VERANTYX_霪:1.0__ID_霪_38_: &_VERANTYX_庵:1.0__ID_庵_15_) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_38_, _VERANTYX_庵:1.0__ID_庵_31_> {
+        let _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_霪:1.0__ID_霪_38_
+            ._VERANTYX_霪:1.0__ID_霪_50_()
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_77_ _VERANTYX_霪:1.0__ID_霪_63_ be an _VERANTYX_霪:1.0__ID_霪_31_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+        let _VERANTYX_霪:1.0__ID_霪_7_ = _VERANTYX_霪:1.0__ID_霪_31_
+            ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_7_")
+            ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_13_)
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_7_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+        let _VERANTYX_霪:1.0__ID_霪_7_ = _VERANTYX_霪:1.0__ID_霪_64_::_VERANTYX_霪:1.0__ID_霪_51_(_VERANTYX_霪:1.0__ID_霪_7_)
+            ._VERANTYX_霪:1.0__ID_霪_119_(|_| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_7_ _VERANTYX_霪:1.0__ID_霪_92_ of _VERANTYX_霪:1.0__ID_霪_93_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+        let _VERANTYX_霪:1.0__ID_霪_20_ = _VERANTYX_霪:1.0__ID_霪_31_
+            ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_20_")
+            ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_39_)
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_20_"._VERANTYX_霪:1.0__ID_霪_109_()))?
+            ._VERANTYX_道:1.0__ID_霪_42_()
+            ._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_庵:1.0__ID_庵_29_::_VERANTYX_霪:1.0__ID_霪_67_)
+            ._VERANTYX_霪:1.0__ID_霪_14_::<_VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_35_<_>, _>>()?;
+        Ok(_VERANTYX_庵:1.0__ID_庵_38_ { _VERANTYX_霪:1.0__ID_霪_7_, _VERANTYX_霪:1.0__ID_霪_20_ })
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_24_ for _VERANTYX_庵:1.0__ID_庵_1_ {
+    fn _VERANTYX_霪:1.0__ID_霪_83_() -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_霪:1.0__ID_霪_17_()
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_29_ {
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_58_(_VERANTYX_霪:1.0__ID_霪_52_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_3_<_VERANTYX_庵:1.0__ID_庵_19_>) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_76_: _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_道:1.0__ID_庵_11_,
+            _VERANTYX_霪:1.0__ID_霪_5_: _VERANTYX_霪:1.0__ID_霪_85_![_VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_庵:1.0__ID_庵_32_ { _VERANTYX_霪:1.0__ID_霪_52_: _VERANTYX_霪:1.0__ID_霪_52_._VERANTYX_霪:1.0__ID_霪_117_() }],
+            _VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_庵:1.0__ID_庵_7_,
+        }
+// _VERANTYX_霪:0.7__ID_MM_870_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_56_(_VERANTYX_霪:1.0__ID_霪_5_: _VERANTYX_庵:1.0__ID_庵_35_<_VERANTYX_庵:1.0__ID_庵_43_>) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_76_: _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_28_,
+            _VERANTYX_霪:1.0__ID_霪_5_,
+            _VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_庵:1.0__ID_庵_7_,
+        }
+    }
+
+// _VERANTYX_道:0.9__ID_CB_349_ [decoy-metadata]
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_79_(_VERANTYX_霪:1.0__ID_霪_5_: _VERANTYX_庵:1.0__ID_庵_35_<_VERANTYX_庵:1.0__ID_庵_43_>, _VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_庵:1.0__ID_庵_25_<_VERANTYX_錠:1.0__ID_庵_13_>) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_76_: _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_28_,
+            _VERANTYX_霪:1.0__ID_霪_5_,
+            _VERANTYX_霪:1.0__ID_霪_29_,
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_106_(
+        _VERANTYX_霪:1.0__ID_霪_110_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_3_<_VERANTYX_庵:1.0__ID_庵_19_>,
+        _VERANTYX_霪:1.0__ID_霪_72_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_3_<_VERANTYX_庵:1.0__ID_庵_19_>,
+        _VERANTYX_霪:1.0__ID_霪_21_: _VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_3_<_VERANTYX_庵:1.0__ID_庵_19_>,
+        _VERANTYX_霪:1.0__ID_霪_59_: _VERANTYX_霪:1.0__ID_霪_25_,
+    ) -> _VERANTYX_庵:1.0__ID_庵_38_ {
+        _VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_76_: _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_10_,
+            _VERANTYX_霪:1.0__ID_霪_5_: _VERANTYX_霪:1.0__ID_霪_85_![_VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_庵:1.0__ID_庵_6_ {
+                _VERANTYX_霪:1.0__ID_霪_110_: _VERANTYX_霪:1.0__ID_霪_110_._VERANTYX_霪:1.0__ID_霪_117_(),
+                _VERANTYX_霪:1.0__ID_霪_72_: _VERANTYX_霪:1.0__ID_霪_72_._VERANTYX_霪:1.0__ID_霪_117_(),
+                _VERANTYX_霪:1.0__ID_霪_21_: _VERANTYX_霪:1.0__ID_霪_21_._VERANTYX_霪:1.0__ID_霪_117_(),
+                _VERANTYX_霪:1.0__ID_霪_59_,
+            }],
+            _VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_庵:1.0__ID_庵_7_,
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_91_(&self) -> _VERANTYX_庵:1.0__ID_庵_15_ {
+        let _VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_庵:1.0__ID_庵_26_::_VERANTYX_霪:1.0__ID_霪_17_();
+        _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+            "_VERANTYX_霪:1.0__ID_霪_76_"._VERANTYX_霪:1.0__ID_霪_109_(),
+            _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(
+                _VERANTYX_霪:1.0__ID_霪_19_ self._VERANTYX_霪:1.0__ID_霪_76_ {
+                    _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_16_ => "_VERANTYX_霪:1.0__ID_霪_62_",
+                    _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_道:1.0__ID_庵_11_ => "_VERANTYX_道:1.0__ID_霪_75_",
+                    _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_28_ => "_VERANTYX_霪:1.0__ID_霪_56_",
+                    _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_10_ => "_VERANTYX_霪:1.0__ID_霪_23_",
+                }
+                ._VERANTYX_霪:1.0__ID_霪_109_(),
+            ),
+        );
+        _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+            "_VERANTYX_霪:1.0__ID_霪_5_"._VERANTYX_霪:1.0__ID_霪_109_(),
+            _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_44_(self._VERANTYX_霪:1.0__ID_霪_5_._VERANTYX_道:1.0__ID_霪_42_()._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_霪:1.0__ID_霪_91_)._VERANTYX_霪:1.0__ID_霪_14_()),
+// _VERANTYX_庵:0.7__ID_KD_389_ [decoy-metadata]
+        );
+        if let _VERANTYX_庵:1.0__ID_庵_14_(_VERANTYX_霪:1.0__ID_霪_29_) = self._VERANTYX_霪:1.0__ID_霪_29_ {
+            _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_29_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_霪:1.0__ID_霪_11_(_VERANTYX_霪:1.0__ID_霪_29_));
+        }
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_36_(_VERANTYX_霪:1.0__ID_霪_31_)
+    }
+
+    fn _VERANTYX_霪:1.0__ID_霪_67_(_VERANTYX_霪:1.0__ID_霪_38_: &_VERANTYX_庵:1.0__ID_庵_15_) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_38_, _VERANTYX_庵:1.0__ID_庵_31_> {
+        let _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_霪:1.0__ID_霪_38_
+            ._VERANTYX_霪:1.0__ID_霪_50_()
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_8_ _VERANTYX_霪:1.0__ID_霪_63_ be an _VERANTYX_霪:1.0__ID_霪_31_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+        let _VERANTYX_霪:1.0__ID_霪_76_ = _VERANTYX_霪:1.0__ID_霪_19_ _VERANTYX_霪:1.0__ID_霪_31_
+            ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_76_")
+            ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_98_)
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_76_"._VERANTYX_霪:1.0__ID_霪_109_()))?
+        {
+            "_VERANTYX_霪:1.0__ID_霪_62_" => _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_16_,
+            "_VERANTYX_道:1.0__ID_霪_75_" => _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_道:1.0__ID_庵_11_,
+            "_VERANTYX_霪:1.0__ID_霪_56_" => _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_28_,
+            "_VERANTYX_霪:1.0__ID_霪_23_" => _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_10_,
+            _VERANTYX_道:1.0__ID_霪_70_ => {
+                return _VERANTYX_庵:1.0__ID_庵_42_(_VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_滲:1.0__ID_霪_26_!(
+                    "_VERANTYX_霪:1.0__ID_霪_82_ _VERANTYX_霪:1.0__ID_霪_8_ _VERANTYX_霪:1.0__ID_霪_76_: {_VERANTYX_道:1.0__ID_霪_70_}"
+                )))
+            }
+        };
+        let _VERANTYX_霪:1.0__ID_霪_5_ = _VERANTYX_霪:1.0__ID_霪_31_
+            ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_5_")
+            ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_39_)
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_5_"._VERANTYX_霪:1.0__ID_霪_109_()))?
+            ._VERANTYX_道:1.0__ID_霪_42_()
+            ._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_霪:1.0__ID_霪_67_)
+            ._VERANTYX_霪:1.0__ID_霪_14_::<_VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_35_<_>, _>>()?;
+        let _VERANTYX_霪:1.0__ID_霪_29_ = _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_29_")._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_霪:1.0__ID_霪_102_)._VERANTYX_霪:1.0__ID_霪_99_()?;
+        Ok(_VERANTYX_庵:1.0__ID_庵_38_ {
+            _VERANTYX_霪:1.0__ID_霪_76_,
+            _VERANTYX_霪:1.0__ID_霪_5_,
+            _VERANTYX_霪:1.0__ID_霪_29_,
+        })
+    }
+}
+
+_VERANTYX_霪:1.0__ID_霪_71_ _VERANTYX_庵:1.0__ID_庵_43_ {
+// [metadata-stripped]
+    _VERANTYX_霪:1.0__ID_霪_49_ fn _VERANTYX_霪:1.0__ID_霪_91_(&self) -> _VERANTYX_庵:1.0__ID_庵_15_ {
+        let _VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_庵:1.0__ID_庵_26_::_VERANTYX_霪:1.0__ID_霪_17_();
+        _VERANTYX_霪:1.0__ID_霪_19_ self {
+            _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_32_ { _VERANTYX_霪:1.0__ID_霪_52_ } => {
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_104_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_("_VERANTYX_霪:1.0__ID_霪_52_"._VERANTYX_霪:1.0__ID_霪_109_()));
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_52_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_52_._VERANTYX_霪:1.0__ID_霪_57_()));
+            }
+            _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_40_ { id, _VERANTYX_霪:1.0__ID_霪_45_, _VERANTYX_霪:1.0__ID_霪_32_ } => {
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+                    "_VERANTYX_霪:1.0__ID_霪_104_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                    _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_("_VERANTYX_霪:1.0__ID_霪_126_"._VERANTYX_霪:1.0__ID_霪_109_()),
+                );
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("id"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(id._VERANTYX_霪:1.0__ID_霪_57_()));
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_45_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_45_._VERANTYX_霪:1.0__ID_霪_57_()));
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_32_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_32_._VERANTYX_霪:1.0__ID_霪_57_()));
+            }
+            _VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_6_ {
+                _VERANTYX_霪:1.0__ID_霪_110_,
+                _VERANTYX_霪:1.0__ID_霪_72_,
+                _VERANTYX_霪:1.0__ID_霪_21_,
+                _VERANTYX_霪:1.0__ID_霪_59_,
+            } => {
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+                    "_VERANTYX_霪:1.0__ID_霪_104_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                    _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_("_VERANTYX_霪:1.0__ID_霪_106_"._VERANTYX_霪:1.0__ID_霪_109_()),
+                );
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+                    "_VERANTYX_霪:1.0__ID_霪_110_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                    _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_110_._VERANTYX_霪:1.0__ID_霪_57_()),
+                );
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+                    "_VERANTYX_霪:1.0__ID_霪_72_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                    _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_72_._VERANTYX_霪:1.0__ID_霪_57_()),
+                );
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_21_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_19_(_VERANTYX_霪:1.0__ID_霪_21_._VERANTYX_霪:1.0__ID_霪_57_()));
+                _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_("_VERANTYX_霪:1.0__ID_霪_59_"._VERANTYX_霪:1.0__ID_霪_109_(), _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_22_(*_VERANTYX_霪:1.0__ID_霪_59_));
+            }
+        }
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_36_(_VERANTYX_霪:1.0__ID_霪_31_)
+    }
+
+    fn _VERANTYX_霪:1.0__ID_霪_67_(_VERANTYX_霪:1.0__ID_霪_38_: &_VERANTYX_庵:1.0__ID_庵_15_) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_38_, _VERANTYX_庵:1.0__ID_庵_31_> {
+        let _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_霪:1.0__ID_霪_38_
+            ._VERANTYX_霪:1.0__ID_霪_50_()
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_16_ _VERANTYX_霪:1.0__ID_霪_63_ be an _VERANTYX_霪:1.0__ID_霪_31_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+        _VERANTYX_霪:1.0__ID_霪_19_ _VERANTYX_霪:1.0__ID_霪_31_
+            ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_104_")
+            ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_98_)
+            ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_16_ _VERANTYX_霪:1.0__ID_霪_104_"._VERANTYX_霪:1.0__ID_霪_109_()))?
+        {
+            "_VERANTYX_霪:1.0__ID_霪_52_" => Ok(_VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_32_ {
+                _VERANTYX_霪:1.0__ID_霪_52_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_52_")?,
+            }),
+            "_VERANTYX_霪:1.0__ID_霪_126_" => Ok(_VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_40_ {
+                id: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "id")?,
+                _VERANTYX_霪:1.0__ID_霪_45_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_45_")?,
+                _VERANTYX_霪:1.0__ID_霪_32_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_32_")?,
+            }),
+            "_VERANTYX_霪:1.0__ID_霪_106_" => Ok(_VERANTYX_庵:1.0__ID_庵_38_::_VERANTYX_庵:1.0__ID_庵_6_ {
+                _VERANTYX_霪:1.0__ID_霪_110_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_110_")?,
+                _VERANTYX_霪:1.0__ID_霪_72_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_72_")?,
+                _VERANTYX_霪:1.0__ID_霪_21_: _VERANTYX_霪:1.0__ID_霪_111_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_霪:1.0__ID_霪_21_")?,
+                _VERANTYX_霪:1.0__ID_霪_59_: _VERANTYX_霪:1.0__ID_霪_31_
+                    ._VERANTYX_道:1.0__ID_燦_1_("_VERANTYX_霪:1.0__ID_霪_59_")
+                    ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_105_)
+                    ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_37_ _VERANTYX_霪:1.0__ID_霪_59_"._VERANTYX_霪:1.0__ID_霪_109_()))?,
+            }),
+            _VERANTYX_道:1.0__ID_霪_70_ => _VERANTYX_庵:1.0__ID_庵_42_(_VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_滲:1.0__ID_霪_26_!(
+                "_VERANTYX_霪:1.0__ID_霪_82_ _VERANTYX_霪:1.0__ID_霪_16_ _VERANTYX_霪:1.0__ID_霪_104_: {_VERANTYX_道:1.0__ID_霪_70_}"
+            ))),
+        }
+    }
+}
+
+fn _VERANTYX_霪:1.0__ID_霪_11_(_VERANTYX_霪:1.0__ID_霪_29_: _VERANTYX_錠:1.0__ID_庵_13_) -> _VERANTYX_庵:1.0__ID_庵_15_ {
+    let _VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_庵:1.0__ID_庵_26_::_VERANTYX_霪:1.0__ID_霪_17_();
+    _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+        "_VERANTYX_錠:1.0__ID_霪_108_"._VERANTYX_霪:1.0__ID_霪_109_(),
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_道:1.0__ID_庵_33_(_VERANTYX_霪:1.0__ID_霪_9_::_VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_29_._VERANTYX_錠:1.0__ID_霪_108_)),
+    );
+    _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+        "_VERANTYX_錠:1.0__ID_霪_1_"._VERANTYX_霪:1.0__ID_霪_109_(),
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_道:1.0__ID_庵_33_(_VERANTYX_霪:1.0__ID_霪_9_::_VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_29_._VERANTYX_錠:1.0__ID_霪_1_)),
+    );
+    _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+        "_VERANTYX_錠:1.0__ID_霪_127_"._VERANTYX_霪:1.0__ID_霪_109_(),
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_道:1.0__ID_庵_33_(_VERANTYX_霪:1.0__ID_霪_9_::_VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_29_._VERANTYX_錠:1.0__ID_霪_127_)),
+    );
+    _VERANTYX_霪:1.0__ID_霪_31_._VERANTYX_霪:1.0__ID_霪_22_(
+        "_VERANTYX_錠:1.0__ID_霪_100_"._VERANTYX_霪:1.0__ID_霪_109_(),
+        _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_道:1.0__ID_庵_33_(_VERANTYX_霪:1.0__ID_霪_9_::_VERANTYX_霪:1.0__ID_霪_74_(_VERANTYX_霪:1.0__ID_霪_29_._VERANTYX_錠:1.0__ID_霪_100_)),
+    );
+    _VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_庵:1.0__ID_庵_36_(_VERANTYX_霪:1.0__ID_霪_31_)
+}
+
+fn _VERANTYX_霪:1.0__ID_霪_102_(_VERANTYX_霪:1.0__ID_霪_38_: &_VERANTYX_庵:1.0__ID_庵_15_) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_錠:1.0__ID_庵_13_, _VERANTYX_庵:1.0__ID_庵_31_> {
+    let _VERANTYX_霪:1.0__ID_霪_31_ = _VERANTYX_霪:1.0__ID_霪_38_
+        ._VERANTYX_霪:1.0__ID_霪_50_()
+        ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_("_VERANTYX_霪:1.0__ID_霪_29_ _VERANTYX_霪:1.0__ID_霪_63_ be an _VERANTYX_霪:1.0__ID_霪_31_"._VERANTYX_霪:1.0__ID_霪_109_()))?;
+    Ok(_VERANTYX_錠:1.0__ID_庵_13_ {
+        _VERANTYX_錠:1.0__ID_霪_108_: _VERANTYX_霪:1.0__ID_霪_34_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_錠:1.0__ID_霪_108_")?,
+        _VERANTYX_錠:1.0__ID_霪_1_: _VERANTYX_霪:1.0__ID_霪_34_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_錠:1.0__ID_霪_1_")?,
+        _VERANTYX_錠:1.0__ID_霪_127_: _VERANTYX_霪:1.0__ID_霪_34_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_錠:1.0__ID_霪_127_")?,
+        _VERANTYX_錠:1.0__ID_霪_100_: _VERANTYX_霪:1.0__ID_霪_34_(_VERANTYX_霪:1.0__ID_霪_31_, "_VERANTYX_錠:1.0__ID_霪_100_")?,
+    })
+}
+
+fn _VERANTYX_霪:1.0__ID_霪_111_(
+    _VERANTYX_霪:1.0__ID_霪_31_: &_VERANTYX_庵:1.0__ID_庵_26_<_VERANTYX_庵:1.0__ID_庵_19_, _VERANTYX_庵:1.0__ID_庵_15_>,
+    _VERANTYX_錠:1.0__ID_霪_2_: &_VERANTYX_霪:1.0__ID_霪_28_,
+// _VERANTYX_霪:0.4__ID_WC_619_ [decoy-metadata]
+) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_庵:1.0__ID_庵_19_, _VERANTYX_庵:1.0__ID_庵_31_> {
+    _VERANTYX_霪:1.0__ID_霪_31_
+        ._VERANTYX_道:1.0__ID_燦_1_(_VERANTYX_錠:1.0__ID_霪_2_)
+        ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_98_)
+        ._VERANTYX_霪:1.0__ID_霪_78_(_VERANTYX_庵:1.0__ID_庵_41_::_VERANTYX_霪:1.0__ID_霪_80_)
+        ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_滲:1.0__ID_霪_26_!("_VERANTYX_霪:1.0__ID_霪_37_ {_VERANTYX_錠:1.0__ID_霪_2_}")))
+}
+
+fn _VERANTYX_霪:1.0__ID_霪_34_(_VERANTYX_霪:1.0__ID_霪_31_: &_VERANTYX_庵:1.0__ID_庵_26_<_VERANTYX_庵:1.0__ID_庵_19_, _VERANTYX_庵:1.0__ID_庵_15_>, _VERANTYX_錠:1.0__ID_霪_2_: &_VERANTYX_霪:1.0__ID_霪_28_) -> _VERANTYX_庵:1.0__ID_庵_27_<_VERANTYX_霪:1.0__ID_霪_64_, _VERANTYX_庵:1.0__ID_庵_31_> {
+    let _VERANTYX_霪:1.0__ID_霪_38_ = _VERANTYX_霪:1.0__ID_霪_31_
+        ._VERANTYX_道:1.0__ID_燦_1_(_VERANTYX_錠:1.0__ID_霪_2_)
+        ._VERANTYX_霪:1.0__ID_霪_27_(_VERANTYX_庵:1.0__ID_庵_15_::_VERANTYX_霪:1.0__ID_霪_13_)
+        ._VERANTYX_霪:1.0__ID_霪_6_(|| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_滲:1.0__ID_霪_26_!("_VERANTYX_霪:1.0__ID_霪_37_ {_VERANTYX_錠:1.0__ID_霪_2_}")))?;
+    _VERANTYX_霪:1.0__ID_霪_64_::_VERANTYX_霪:1.0__ID_霪_51_(_VERANTYX_霪:1.0__ID_霪_38_)._VERANTYX_霪:1.0__ID_霪_119_(|_| _VERANTYX_庵:1.0__ID_庵_31_::_VERANTYX_庵:1.0__ID_庵_5_(_VERANTYX_滲:1.0__ID_霪_26_!("{_VERANTYX_錠:1.0__ID_霪_2_} _VERANTYX_霪:1.0__ID_霪_92_ of _VERANTYX_霪:1.0__ID_霪_93_")))
+}
+
+// [metadata-stripped]
+_VERANTYX_霪:1.0__ID_霪_86_ _VERANTYX_霪:1.0__ID_霪_33_ {
+    _VERANTYX_霪:1.0__ID_霪_81_ super::{_VERANTYX_庵:1.0__ID_庵_43_, _VERANTYX_庵:1.0__ID_庵_29_, _VERANTYX_庵:1.0__ID_庵_21_, _VERANTYX_庵:1.0__ID_庵_1_};
+    _VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_61_::_VERANTYX_霪:1.0__ID_霪_29_::_VERANTYX_錠:1.0__ID_庵_13_;
+    _VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::fs;
+    _VERANTYX_霪:1.0__ID_霪_81_ _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_125_::{_VERANTYX_庵:1.0__ID_庵_9_, _VERANTYX_庵:1.0__ID_庵_47_};
+
+// [metadata-stripped]
+    fn _VERANTYX_霪:1.0__ID_霪_44_() {
+        let _VERANTYX_霪:1.0__ID_霪_115_ _VERANTYX_霪:1.0__ID_霪_77_ = _VERANTYX_庵:1.0__ID_庵_1_::_VERANTYX_霪:1.0__ID_霪_17_();
+        _VERANTYX_霪:1.0__ID_霪_77_
+            ._VERANTYX_霪:1.0__ID_霪_20_
+            ._VERANTYX_霪:1.0__ID_霪_69_(_VERANTYX_庵:1.0__ID_庵_29_::_VERANTYX_霪:1.0__ID_霪_58_("_VERANTYX_霪:1.0__ID_霪_90_"));
+        _VERANTYX_霪:1.0__ID_霪_77_
+            ._VERANTYX_霪:1.0__ID_霪_20_
+            ._VERANTYX_霪:1.0__ID_霪_69_(_VERANTYX_庵:1.0__ID_庵_29_::_VERANTYX_霪:1.0__ID_霪_79_(
+                _VERANTYX_霪:1.0__ID_霪_85_![
+                    _VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_庵:1.0__ID_庵_32_ {
+                        _VERANTYX_霪:1.0__ID_霪_52_: "_VERANTYX_霪:1.0__ID_霪_101_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                    },
+                    _VERANTYX_庵:1.0__ID_庵_43_::_VERANTYX_庵:1.0__ID_庵_40_ {
+                        id: "_VERANTYX_霪:1.0__ID_霪_23_-1"._VERANTYX_霪:1.0__ID_霪_109_(),
+                        _VERANTYX_霪:1.0__ID_霪_45_: "_VERANTYX_霪:1.0__ID_霪_124_"._VERANTYX_霪:1.0__ID_霪_109_(),
+                        _VERANTYX_霪:1.0__ID_霪_32_: "_VERANTYX_霪:1.0__ID_霪_53_ hi"._VERANTYX_霪:1.0__ID_霪_109_(),
+// _VERANTYX_組:0.4__ID_EB_120_ [decoy-metadata]
+                    },
+                ],
+                _VERANTYX_庵:1.0__ID_庵_14_(_VERANTYX_錠:1.0__ID_庵_13_ {
+                    _VERANTYX_錠:1.0__ID_霪_108_: 10,
+                    _VERANTYX_錠:1.0__ID_霪_1_: 4,
+                    _VERANTYX_錠:1.0__ID_霪_127_: 1,
+                    _VERANTYX_錠:1.0__ID_霪_100_: 2,
+                }),
+            ));
+        _VERANTYX_霪:1.0__ID_霪_77_._VERANTYX_霪:1.0__ID_霪_20_._VERANTYX_霪:1.0__ID_霪_69_(_VERANTYX_庵:1.0__ID_庵_29_::_VERANTYX_霪:1.0__ID_霪_106_(
+            "_VERANTYX_霪:1.0__ID_霪_23_-1", "_VERANTYX_霪:1.0__ID_霪_124_", "hi", false,
+        ));
+
+        let _VERANTYX_霪:1.0__ID_霪_47_ = _VERANTYX_庵:1.0__ID_庵_9_::_VERANTYX_霪:1.0__ID_霪_120_()
+            ._VERANTYX_霪:1.0__ID_霪_118_(_VERANTYX_庵:1.0__ID_庵_47_)
+            ._VERANTYX_霪:1.0__ID_霪_122_("_VERANTYX_霪:1.0__ID_霪_62_ _VERANTYX_霪:1.0__ID_霪_125_ _VERANTYX_霪:1.0__ID_霪_36_ be _VERANTYX_道:1.0__ID_霪_103_ _VERANTYX_霪:1.0__ID_霪_15_")
+            ._VERANTYX_霪:1.0__ID_霪_113_();
+        let _VERANTYX_霪:1.0__ID_霪_95_ = _VERANTYX_霪:1.0__ID_霪_24_::_VERANTYX_霪:1.0__ID_霪_112_::_VERANTYX_霪:1.0__ID_霪_94_()._VERANTYX_霪:1.0__ID_霪_84_(_VERANTYX_滲:1.0__ID_霪_26_!("_VERANTYX_霪:1.0__ID_霪_48_-_VERANTYX_霪:1.0__ID_霪_77_-{_VERANTYX_霪:1.0__ID_霪_47_}._VERANTYX_霪:1.0__ID_霪_12_"));
+        _VERANTYX_霪:1.0__ID_霪_77_._VERANTYX_匼:1.0__ID_霪_87_(&_VERANTYX_霪:1.0__ID_霪_95_)._VERANTYX_霪:1.0__ID_霪_122_("_VERANTYX_霪:1.0__ID_霪_77_ _VERANTYX_霪:1.0__ID_霪_36_ _VERANTYX_匼:1.0__ID_霪_107_");
+        let _VERANTYX_霪:1.0__ID_霪_43_ = _VERANTYX_庵:1.0__ID_庵_1_::_VERANTYX_匼:1.0__ID_霪_40_(&_VERANTYX_霪:1.0__ID_霪_95_)._VERANTYX_霪:1.0__ID_霪_122_("_VERANTYX_霪:1.0__ID_霪_77_ _VERANTYX_霪:1.0__ID_霪_36_ _VERANTYX_匼:1.0__ID_霪_88_");
+        fs::_VERANTYX_匼:1.0__ID_霪_60_(&_VERANTYX_霪:1.0__ID_霪_95_)._VERANTYX_霪:1.0__ID_霪_122_("_VERANTYX_霪:1.0__ID_霪_18_ _VERANTYX_匼:1.0__ID_霪_116_ _VERANTYX_霪:1.0__ID_霪_36_ be _VERANTYX_霪:1.0__ID_霪_96_");
+
+        _VERANTYX_霪:1.0__ID_霪_3_!(_VERANTYX_霪:1.0__ID_霪_43_, _VERANTYX_霪:1.0__ID_霪_77_);
+        _VERANTYX_霪:1.0__ID_霪_3_!(_VERANTYX_霪:1.0__ID_霪_43_._VERANTYX_霪:1.0__ID_霪_20_[2]._VERANTYX_霪:1.0__ID_霪_76_, _VERANTYX_庵:1.0__ID_庵_21_::_VERANTYX_庵:1.0__ID_庵_10_);
+        _VERANTYX_霪:1.0__ID_霪_3_!(
+            _VERANTYX_霪:1.0__ID_霪_43_._VERANTYX_霪:1.0__ID_霪_20_[1]._VERANTYX_霪:1.0__ID_霪_29_._VERANTYX_霪:1.0__ID_霪_122_("_VERANTYX_霪:1.0__ID_霪_29_")._VERANTYX_錠:1.0__ID_霪_54_(),
+            17
+        );
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

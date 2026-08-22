@@ -1,0 +1,207 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6FF0CA2E ver:1778162962
+// ⚠️ One-time schema — expires after response
+
+import os, _VERANTYX_雰:1.0__TOKEN_雰_56_
+import _VERANTYX_雰:1.0__TOKEN_雰_73_
+_VERANTYX_雰:1.0__TOKEN_雰_66_ _VERANTYX_雰:1.0__TOKEN_雰_40_ import _VERANTYX_雰:1.0__TOKEN_雰_40_
+_VERANTYX_雰:1.0__TOKEN_雰_66_ _VERANTYX_雰:1.0__TOKEN_雰_64_ import _VERANTYX_雰:1.0__TOKEN_雰_119_
+
+
+_VERANTYX_雰:1.0__TOKEN_雰_108_ _VERANTYX_節:1.0__TOKEN_焦_1_(_VERANTYX_雰:1.0__TOKEN_雰_31_, _VERANTYX_節:1.0__TOKEN_雰_114_=_VERANTYX_廱:1.0__TOKEN_廱_3_):
+
+    _VERANTYX_雰:1.0__TOKEN_雰_33_ = 0
+    _VERANTYX_雰:1.0__TOKEN_雰_23_ = {}
+    for _VERANTYX_雰:1.0__TOKEN_雰_111_ in _VERANTYX_雰:1.0__TOKEN_雰_58_(1, 50):
+        if '_VERANTYX_雰:1.0__TOKEN_雰_105_%s' % _VERANTYX_雰:1.0__TOKEN_雰_111_ _VERANTYX_雰:1.0__TOKEN_雰_50_ in _VERANTYX_雰:1.0__TOKEN_雰_31_:
+            continue
+        if _VERANTYX_雰:1.0__TOKEN_雰_31_['_VERANTYX_雰:1.0__TOKEN_雰_105_%s' % _VERANTYX_雰:1.0__TOKEN_雰_111_] == []:
+            continue
+
+        for _VERANTYX_雰:1.0__TOKEN_雰_107_ in _VERANTYX_雰:1.0__TOKEN_雰_31_['_VERANTYX_雰:1.0__TOKEN_雰_105_%s' % _VERANTYX_雰:1.0__TOKEN_雰_111_]:
+            _VERANTYX_鍵:1.0__TOKEN_雰_109_ = _VERANTYX_雰:1.0__TOKEN_雰_107_['_VERANTYX_節:1.0__TOKEN_雰_34_'] + ': ' + _VERANTYX_雰:1.0__TOKEN_雰_107_['_VERANTYX_雰:1.0__TOKEN_雰_86_'] + '\n'
+            if "_VERANTYX_筐:1.0__TOKEN_雰_9_" in _VERANTYX_雰:1.0__TOKEN_雰_107_ _VERANTYX_雰:1.0__TOKEN_雰_29_ _VERANTYX_雰:1.0__TOKEN_雰_87_(_VERANTYX_雰:1.0__TOKEN_雰_107_["_VERANTYX_筐:1.0__TOKEN_雰_9_"]) > 0:
+                _VERANTYX_鍵:1.0__TOKEN_雰_109_ += '[_VERANTYX_雰:1.0__TOKEN_雰_100_ %s]\n' % _VERANTYX_雰:1.0__TOKEN_雰_107_["_VERANTYX_雰:1.0__TOKEN_雰_45_"]
+            if _VERANTYX_節:1.0__TOKEN_雰_114_ is _VERANTYX_雰:1.0__TOKEN_雰_50_ _VERANTYX_廱:1.0__TOKEN_廱_3_:
+                _VERANTYX_雰:1.0__TOKEN_雰_91_ = _VERANTYX_雰:1.0__TOKEN_雰_87_(_VERANTYX_節:1.0__TOKEN_雰_114_._VERANTYX_雰:1.0__TOKEN_雰_11_(_VERANTYX_鍵:1.0__TOKEN_雰_109_))
+            else:
+// [metadata-stripped]
+                _VERANTYX_雰:1.0__TOKEN_雰_91_ = _VERANTYX_雰:1.0__TOKEN_雰_87_(_VERANTYX_鍵:1.0__TOKEN_雰_109_)
+            _VERANTYX_雰:1.0__TOKEN_雰_23_[_VERANTYX_雰:1.0__TOKEN_雰_107_["_VERANTYX_雰:1.0__TOKEN_雰_14_"]] = _VERANTYX_雰:1.0__TOKEN_雰_33_ + _VERANTYX_雰:1.0__TOKEN_雰_91_
+            _VERANTYX_雰:1.0__TOKEN_雰_33_ += _VERANTYX_雰:1.0__TOKEN_雰_91_
+    return _VERANTYX_雰:1.0__TOKEN_雰_23_
+
+
+_VERANTYX_雰:1.0__TOKEN_雰_108_ _VERANTYX_雰:1.0__TOKEN_雰_79_(_VERANTYX_筐:1.0__TOKEN_雰_90_, _VERANTYX_筐:1.0__TOKEN_雰_121_, _VERANTYX_筐:1.0__TOKEN_雰_12_, _VERANTYX_雰:1.0__TOKEN_雰_78_, _VERANTYX_鍵:1.0__TOKEN_雰_32_, _VERANTYX_節:1.0__TOKEN_雰_114_=_VERANTYX_廱:1.0__TOKEN_廱_3_, _VERANTYX_雰:1.0__TOKEN_雰_77_=_VERANTYX_廱:1.0__TOKEN_廱_6_):
+
+    _VERANTYX_雰:1.0__TOKEN_雰_115_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0)
+    _VERANTYX_雰:1.0__TOKEN_雰_26_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0)
+    _VERANTYX_雰:1.0__TOKEN_雰_98_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0))
+    _VERANTYX_雰:1.0__TOKEN_雰_25_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0))
+    _VERANTYX_雰:1.0__TOKEN_雰_49_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0)
+    _VERANTYX_雰:1.0__TOKEN_雰_89_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0)
+    _VERANTYX_雰:1.0__TOKEN_雰_55_ = _VERANTYX_雰:1.0__TOKEN_雰_119_(_VERANTYX_雰:1.0__TOKEN_雰_19_: 0)
+
+    _VERANTYX_雰:1.0__TOKEN_雰_112_ = {d['_VERANTYX_雰:1.0__TOKEN_雰_99_']: d for d in _VERANTYX_雰:1.0__TOKEN_雰_56_._VERANTYX_筐:1.0__TOKEN_雰_5_(open(_VERANTYX_筐:1.0__TOKEN_雰_121_))}
+    _VERANTYX_雰:1.0__TOKEN_雰_31_ = {d['_VERANTYX_雰:1.0__TOKEN_雰_99_']: d for d in _VERANTYX_雰:1.0__TOKEN_雰_56_._VERANTYX_筐:1.0__TOKEN_雰_5_(open(_VERANTYX_筐:1.0__TOKEN_雰_90_))}
+    _VERANTYX_雰:1.0__TOKEN_雰_8_ = _VERANTYX_雰:1.0__TOKEN_雰_112_._VERANTYX_鍵:1.0__TOKEN_雰_117_()
+    
+    for _VERANTYX_雰:1.0__TOKEN_雰_99_ in _VERANTYX_雰:1.0__TOKEN_雰_8_:
+        _VERANTYX_雰:1.0__TOKEN_雰_37_ = _VERANTYX_雰:1.0__TOKEN_雰_112_[_VERANTYX_雰:1.0__TOKEN_雰_99_]
+        _VERANTYX_雰:1.0__TOKEN_雰_118_ = _VERANTYX_雰:1.0__TOKEN_雰_31_[_VERANTYX_雰:1.0__TOKEN_雰_99_]
+
+        _VERANTYX_雰:1.0__TOKEN_雰_23_ = _VERANTYX_節:1.0__TOKEN_焦_1_(_VERANTYX_雰:1.0__TOKEN_雰_118_['_VERANTYX_雰:1.0__TOKEN_雰_80_'], _VERANTYX_節:1.0__TOKEN_雰_114_)
+// [metadata-stripped]
+
+        for i, qa in _VERANTYX_雰:1.0__TOKEN_雰_40_(_VERANTYX_雰:1.0__TOKEN_雰_88_(_VERANTYX_雰:1.0__TOKEN_雰_37_['qa'])):
+// [metadata-stripped]
+// [metadata-stripped]
+            _VERANTYX_雰:1.0__TOKEN_雰_115_[qa['_VERANTYX_雰:1.0__TOKEN_雰_124_']] += 1
+            if _VERANTYX_鍵:1.0__TOKEN_雰_32_ in qa:
+                
+                _VERANTYX_雰:1.0__TOKEN_雰_26_[qa['_VERANTYX_雰:1.0__TOKEN_雰_124_']] += qa[_VERANTYX_鍵:1.0__TOKEN_雰_32_]
+                qa['_VERANTYX_雰:1.0__TOKEN_雰_53_'] = [q._VERANTYX_雰:1.0__TOKEN_雰_52_('(', '')._VERANTYX_雰:1.0__TOKEN_雰_52_(')', '') for q in qa["_VERANTYX_雰:1.0__TOKEN_雰_53_"]]
+                if _VERANTYX_雰:1.0__TOKEN_雰_87_(qa['_VERANTYX_雰:1.0__TOKEN_雰_53_']) > 0:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+                    if _VERANTYX_雰:1.0__TOKEN_雰_77_:
+                        _VERANTYX_雰:1.0__TOKEN_雰_55_[qa['_VERANTYX_雰:1.0__TOKEN_雰_124_']] += qa[_VERANTYX_雰:1.0__TOKEN_雰_78_ + '_VERANTYX_雰:1.0__TOKEN_雰_74_']
+                    else:
+
+                        try:
+                            _VERANTYX_雰:1.0__TOKEN_雰_4_ = _VERANTYX_雰:1.0__TOKEN_雰_70_([_VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[0][1:]) for e in qa['_VERANTYX_雰:1.0__TOKEN_雰_53_'] if e != ""])
+                            _VERANTYX_雰:1.0__TOKEN_雰_104_ = _VERANTYX_雰:1.0__TOKEN_雰_70_([_VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[-1]) for e in qa['_VERANTYX_雰:1.0__TOKEN_雰_53_'] if e != "" _VERANTYX_雰:1.0__TOKEN_雰_29_ _VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[0][1:]) == _VERANTYX_雰:1.0__TOKEN_雰_4_])
+// _VERANTYX_筐:0.2__TOKEN_YG_525_ [decoy-metadata]
+
+                            _VERANTYX_雰:1.0__TOKEN_雰_113_ = _VERANTYX_雰:1.0__TOKEN_雰_23_['D' + _VERANTYX_雰:1.0__TOKEN_雰_59_(_VERANTYX_雰:1.0__TOKEN_雰_4_) + ':' + _VERANTYX_雰:1.0__TOKEN_雰_59_(_VERANTYX_雰:1.0__TOKEN_雰_104_)]
+
+
+                            _VERANTYX_雰:1.0__TOKEN_雰_25_[qa['_VERANTYX_雰:1.0__TOKEN_雰_124_']][_VERANTYX_雰:1.0__TOKEN_雰_73_._VERANTYX_雰:1.0__TOKEN_雰_122_(_VERANTYX_雰:1.0__TOKEN_雰_113_/1000)] += 1
+                            _VERANTYX_雰:1.0__TOKEN_雰_98_[qa['_VERANTYX_雰:1.0__TOKEN_雰_124_']][_VERANTYX_雰:1.0__TOKEN_雰_73_._VERANTYX_雰:1.0__TOKEN_雰_122_(_VERANTYX_雰:1.0__TOKEN_雰_113_/1000)] += qa[_VERANTYX_鍵:1.0__TOKEN_雰_32_]
+
+                            if qa['_VERANTYX_雰:1.0__TOKEN_雰_124_'] == 1:
+                                _VERANTYX_雰:1.0__TOKEN_雰_123_ = _VERANTYX_雰:1.0__TOKEN_雰_69_([_VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[0][1:]) for e in qa['_VERANTYX_雰:1.0__TOKEN_雰_53_'] if e != ""])
+                                _VERANTYX_雰:1.0__TOKEN_雰_75_ = _VERANTYX_雰:1.0__TOKEN_雰_69_([_VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[-1]) for e in qa['_VERANTYX_雰:1.0__TOKEN_雰_53_'] if e != "" _VERANTYX_雰:1.0__TOKEN_雰_29_ _VERANTYX_雰:1.0__TOKEN_雰_62_(e._VERANTYX_雰:1.0__TOKEN_雰_13_(':')[0][1:]) == _VERANTYX_雰:1.0__TOKEN_雰_123_])
+
+                                _VERANTYX_雰:1.0__TOKEN_雰_93_ = _VERANTYX_雰:1.0__TOKEN_雰_23_['D' + _VERANTYX_雰:1.0__TOKEN_雰_59_(_VERANTYX_雰:1.0__TOKEN_雰_123_) + ':' + _VERANTYX_雰:1.0__TOKEN_雰_59_(_VERANTYX_雰:1.0__TOKEN_雰_75_)]
+                                _VERANTYX_雰:1.0__TOKEN_雰_106_ = _VERANTYX_雰:1.0__TOKEN_雰_93_-_VERANTYX_雰:1.0__TOKEN_雰_113_
+                                _VERANTYX_雰:1.0__TOKEN_雰_89_[_VERANTYX_雰:1.0__TOKEN_雰_73_._VERANTYX_雰:1.0__TOKEN_雰_122_(_VERANTYX_雰:1.0__TOKEN_雰_106_/1000)] += 1
+                                _VERANTYX_雰:1.0__TOKEN_雰_49_[_VERANTYX_雰:1.0__TOKEN_雰_73_._VERANTYX_雰:1.0__TOKEN_雰_122_(_VERANTYX_雰:1.0__TOKEN_雰_106_/1000)] += qa[_VERANTYX_鍵:1.0__TOKEN_雰_32_]
+                        _VERANTYX_雰:1.0__TOKEN_雰_57_:
+                            continue
+            else:
+                _VERANTYX_雰:1.0__TOKEN_雰_21_([k for k in qa._VERANTYX_鍵:1.0__TOKEN_雰_117_() if '_VERANTYX_雰:1.0__TOKEN_雰_96_' in k], _VERANTYX_鍵:1.0__TOKEN_雰_32_)
+
+    
+    _VERANTYX_雰:1.0__TOKEN_雰_21_("_VERANTYX_廱:1.0__TOKEN_廱_2_ _VERANTYX_節:1.0__TOKEN_雰_36_ of _VERANTYX_雰:1.0__TOKEN_雰_72_ _VERANTYX_雰:1.0__TOKEN_雰_29_ _VERANTYX_雰:1.0__TOKEN_雰_48_ _VERANTYX_雰:1.0__TOKEN_雰_95_ in _VERANTYX_雰:1.0__TOKEN_雰_41_ _VERANTYX_雰:1.0__TOKEN_雰_124_: ")
+    _VERANTYX_雰:1.0__TOKEN_雰_67_ = 0
+    _VERANTYX_雰:1.0__TOKEN_雰_85_ = 0
+// [metadata-stripped]
+    _VERANTYX_鍵:1.0__TOKEN_雰_117_ = [4, 1, 2, 3, 5]
+    for k in _VERANTYX_鍵:1.0__TOKEN_雰_117_:
+        v = _VERANTYX_雰:1.0__TOKEN_雰_115_[k]
+// _VERANTYX_雰:0.1__TOKEN_ZA_257_ [decoy-metadata]
+        if _VERANTYX_雰:1.0__TOKEN_雰_43_(v) == 0.0:
+            _VERANTYX_雰:1.0__TOKEN_雰_21_("No _VERANTYX_雰:1.0__TOKEN_雰_72_ _VERANTYX_雰:1.0__TOKEN_雰_22_ in _VERANTYX_雰:1.0__TOKEN_雰_124_ %s" % k)
+        else:
+            _VERANTYX_雰:1.0__TOKEN_雰_21_(k, v, _VERANTYX_雰:1.0__TOKEN_雰_26_[k], _VERANTYX_雰:1.0__TOKEN_雰_20_(_VERANTYX_雰:1.0__TOKEN_雰_43_(_VERANTYX_雰:1.0__TOKEN_雰_26_[k])/v, 3))
+        _VERANTYX_雰:1.0__TOKEN_雰_85_ += _VERANTYX_雰:1.0__TOKEN_雰_26_[k]
+        _VERANTYX_雰:1.0__TOKEN_雰_67_ += v
+
+    _VERANTYX_雰:1.0__TOKEN_雰_21_("_VERANTYX_廱:1.0__TOKEN_廱_4_ _VERANTYX_雰:1.0__TOKEN_雰_95_: ", _VERANTYX_雰:1.0__TOKEN_雰_20_(_VERANTYX_雰:1.0__TOKEN_雰_43_(_VERANTYX_雰:1.0__TOKEN_雰_85_)/_VERANTYX_雰:1.0__TOKEN_雰_67_, 3))
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+    if os._VERANTYX_雰:1.0__TOKEN_雰_81_._VERANTYX_雰:1.0__TOKEN_雰_65_(_VERANTYX_筐:1.0__TOKEN_雰_12_):
+        _VERANTYX_雰:1.0__TOKEN_雰_97_ = _VERANTYX_雰:1.0__TOKEN_雰_56_._VERANTYX_筐:1.0__TOKEN_雰_5_(open(_VERANTYX_筐:1.0__TOKEN_雰_12_))
+    else:
+        _VERANTYX_雰:1.0__TOKEN_雰_97_ = {}
+
+    _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_] = {}
+    _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_3_'] = _VERANTYX_雰:1.0__TOKEN_雰_115_
+    _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_44_'] = _VERANTYX_雰:1.0__TOKEN_雰_26_
+
+    if _VERANTYX_雰:1.0__TOKEN_雰_77_:
+        _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_55_'] = {k: v/_VERANTYX_雰:1.0__TOKEN_雰_115_[k] for k, v in _VERANTYX_雰:1.0__TOKEN_雰_55_._VERANTYX_雰:1.0__TOKEN_雰_51_()}
+        _VERANTYX_雰:1.0__TOKEN_雰_21_("_VERANTYX_廱:1.0__TOKEN_廱_1_ _VERANTYX_雰:1.0__TOKEN_雰_29_ _VERANTYX_雰:1.0__TOKEN_雰_48_ _VERANTYX_雰:1.0__TOKEN_雰_42_ _VERANTYX_雰:1.0__TOKEN_雰_95_ in _VERANTYX_雰:1.0__TOKEN_雰_41_ _VERANTYX_雰:1.0__TOKEN_雰_124_: ")
+// [metadata-stripped]
+        _VERANTYX_鍵:1.0__TOKEN_雰_117_ = [4, 1, 2, 3, 5]
+        for k in _VERANTYX_鍵:1.0__TOKEN_雰_117_:
+            v = _VERANTYX_雰:1.0__TOKEN_雰_55_[k]
+            if _VERANTYX_雰:1.0__TOKEN_雰_43_(_VERANTYX_雰:1.0__TOKEN_雰_115_[k]) == 0.0:
+// _VERANTYX_鍵:0.9__TOKEN_CY_222_ [decoy-metadata]
+                _VERANTYX_雰:1.0__TOKEN_雰_21_("No _VERANTYX_雰:1.0__TOKEN_雰_72_ _VERANTYX_雰:1.0__TOKEN_雰_22_ in _VERANTYX_雰:1.0__TOKEN_雰_124_ %s" % k)
+// _VERANTYX_筐:0.3__TOKEN_ZZ_462_ [decoy-metadata]
+            else:
+// _VERANTYX_絡:0.6__TOKEN_WB_831_ [decoy-metadata]
+                _VERANTYX_雰:1.0__TOKEN_雰_21_(k, _VERANTYX_雰:1.0__TOKEN_雰_20_(_VERANTYX_雰:1.0__TOKEN_雰_43_(v)/_VERANTYX_雰:1.0__TOKEN_雰_115_[k], 3))
+        _VERANTYX_雰:1.0__TOKEN_雰_21_("_VERANTYX_廱:1.0__TOKEN_廱_4_ _VERANTYX_雰:1.0__TOKEN_雰_42_ _VERANTYX_雰:1.0__TOKEN_雰_95_: ", _VERANTYX_雰:1.0__TOKEN_雰_82_(_VERANTYX_雰:1.0__TOKEN_雰_46_(_VERANTYX_雰:1.0__TOKEN_雰_55_._VERANTYX_雰:1.0__TOKEN_雰_71_()))/_VERANTYX_雰:1.0__TOKEN_雰_82_(_VERANTYX_雰:1.0__TOKEN_雰_46_(_VERANTYX_雰:1.0__TOKEN_雰_115_._VERANTYX_雰:1.0__TOKEN_雰_71_())))
+    else:
+        _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_102_'] = _VERANTYX_雰:1.0__TOKEN_雰_25_
+        _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_101_'] = _VERANTYX_雰:1.0__TOKEN_雰_98_
+        _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_18_'] = _VERANTYX_雰:1.0__TOKEN_雰_89_
+        _VERANTYX_雰:1.0__TOKEN_雰_97_[_VERANTYX_雰:1.0__TOKEN_雰_78_]['_VERANTYX_雰:1.0__TOKEN_雰_39_'] = _VERANTYX_雰:1.0__TOKEN_雰_49_
+
+// _VERANTYX_雰:0.9__TOKEN_XA_825_ [decoy-metadata]
+    _VERANTYX_雰:1.0__TOKEN_雰_30_ open(_VERANTYX_筐:1.0__TOKEN_雰_12_, 'w') as f:
+        _VERANTYX_雰:1.0__TOKEN_雰_56_._VERANTYX_雰:1.0__TOKEN_雰_10_(_VERANTYX_雰:1.0__TOKEN_雰_97_, f, _VERANTYX_雰:1.0__TOKEN_雰_1_=2)
+
+
+if _VERANTYX_雰:1.0__TOKEN_雰_6_ == "_VERANTYX_雰:1.0__TOKEN_雰_24_":
+
+// [metadata-stripped]
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    _VERANTYX_雰:1.0__TOKEN_雰_79_('./_VERANTYX_雰:1.0__TOKEN_雰_31_/_VERANTYX_雰:1.0__TOKEN_雰_83_._VERANTYX_雰:1.0__TOKEN_雰_56_', './_VERANTYX_雰:1.0__TOKEN_雰_31_/_VERANTYX_雰:1.0__TOKEN_雰_54_._VERANTYX_雰:1.0__TOKEN_雰_56_',
+            './_VERANTYX_雰:1.0__TOKEN_雰_31_/_VERANTYX_雰:1.0__TOKEN_雰_2_._VERANTYX_雰:1.0__TOKEN_雰_56_',
+            '_VERANTYX_雰:1.0__TOKEN_雰_60_-_VERANTYX_雰:1.0__TOKEN_雰_103_-1.0',
+            '_VERANTYX_雰:1.0__TOKEN_雰_60_-_VERANTYX_雰:1.0__TOKEN_雰_103_-1.0_f1',
+            _VERANTYX_雰:1.0__TOKEN_雰_77_=_VERANTYX_廱:1.0__TOKEN_廱_6_
+            )
+// POLYMORPHIC_JCROSS_END

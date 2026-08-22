@@ -1,0 +1,53 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A809A0D4 ver:1778166546
+// ⚠️ One-time schema — expires after response
+
+import _ID_廓:1.0__TOKEN_廓_2_
+
+public enum _ID_廓:1.0__TOKEN_廓_7_: _ID_廓:1.0__TOKEN_廓_6_, _ID_廓:1.0__TOKEN_廓_11_, _ID_廓:1.0__TOKEN_廓_1_, _ID_廓:1.0__TOKEN_廓_4_ {
+    case _ID_霰:1.0__TOKEN_霰_3_, _ID_霰:1.0__TOKEN_霰_12_, _ID_霰:1.0__TOKEN_霰_7_, _ID_霰:1.0__TOKEN_霰_17_, _ID_霰:1.0__TOKEN_霰_13_
+
+    var _ID_霰:1.0__TOKEN_霰_4_: _ID_廓:1.0__TOKEN_廓_10_ {
+        switch self {
+        case ._ID_霰:1.0__TOKEN_霰_3_: 0
+        case ._ID_霰:1.0__TOKEN_霰_12_: 1
+// _ID_漕:0.1__TOKEN_MC_636_ [decoy-metadata]
+        case ._ID_霰:1.0__TOKEN_霰_7_: 2
+// _ID_漕:0.2__TOKEN_AG_136_ [decoy-metadata]
+        case ._ID_霰:1.0__TOKEN_霰_17_: 3
+        case ._ID_霰:1.0__TOKEN_霰_13_: 4
+        }
+// _ID_霰:0.1__TOKEN_DG_598_ [decoy-metadata]
+    }
+
+    public static func < (_ID_霰:1.0__TOKEN_霰_14_: _ID_廓:1.0__TOKEN_廓_7_, _ID_霰:1.0__TOKEN_霰_8_: _ID_廓:1.0__TOKEN_廓_7_) -> _ID_廓:1.0__TOKEN_廓_9_ { _ID_霰:1.0__TOKEN_霰_14_._ID_霰:1.0__TOKEN_霰_4_ < _ID_霰:1.0__TOKEN_霰_8_._ID_霰:1.0__TOKEN_霰_4_ }
+}
+
+public struct _ID_技:1.0__TOKEN_廓_3_: _ID_廓:1.0__TOKEN_廓_4_ {
+    public let _ID_霰:1.0__TOKEN_霰_15_: _ID_廓:1.0__TOKEN_廓_7_
+
+// _ID_廓:0.3__TOKEN_KW_144_ [decoy-metadata]
+    public init(_ID_霰:1.0__TOKEN_霰_15_: _ID_廓:1.0__TOKEN_廓_7_) { self._ID_霰:1.0__TOKEN_霰_15_ = _ID_霰:1.0__TOKEN_霰_15_ }
+
+    public func _ID_霰:1.0__TOKEN_霰_10_(_ _ID_霰:1.0__TOKEN_霰_15_: _ID_廓:1.0__TOKEN_廓_7_, _ _ID_霰:1.0__TOKEN_霰_19_: _ID_廓:1.0__TOKEN_廓_6_) {
+        guard _ID_霰:1.0__TOKEN_霰_15_ >= self._ID_霰:1.0__TOKEN_霰_15_ else { return }
+        let ts = _ID_技:1.0__TOKEN_廓_8_()._ID_霰:1.0__TOKEN_霰_1_(_ID_霰:1.0__TOKEN_霰_2_: _ID_廓:1.0__TOKEN_廓_5_())
+        _ID_霰:1.0__TOKEN_霰_9_("[\(_ID_霰:1.0__TOKEN_霰_15_._ID_霰:1.0__TOKEN_霰_16_._ID_霰:1.0__TOKEN_霰_18_())] \(ts) | \(_ID_霰:1.0__TOKEN_霰_19_)")
+    }
+// _ID_霰:0.2__TOKEN_XY_569_ [decoy-metadata]
+
+    public func _ID_霰:1.0__TOKEN_霰_3_(_ _ID_霰:1.0__TOKEN_霰_11_: _ID_廓:1.0__TOKEN_廓_6_) { _ID_霰:1.0__TOKEN_霰_10_(._ID_霰:1.0__TOKEN_霰_3_, _ID_霰:1.0__TOKEN_霰_11_) }
+    public func _ID_霰:1.0__TOKEN_霰_12_(_ _ID_霰:1.0__TOKEN_霰_11_: _ID_廓:1.0__TOKEN_廓_6_) { _ID_霰:1.0__TOKEN_霰_10_(._ID_霰:1.0__TOKEN_霰_12_, _ID_霰:1.0__TOKEN_霰_11_) }
+    public func _ID_霰:1.0__TOKEN_霰_7_(_ _ID_霰:1.0__TOKEN_霰_11_: _ID_廓:1.0__TOKEN_廓_6_) { _ID_霰:1.0__TOKEN_霰_10_(._ID_霰:1.0__TOKEN_霰_7_, _ID_霰:1.0__TOKEN_霰_11_) }
+    public func _ID_霰:1.0__TOKEN_霰_17_(_ _ID_霰:1.0__TOKEN_霰_11_: _ID_廓:1.0__TOKEN_廓_6_) { _ID_霰:1.0__TOKEN_霰_10_(._ID_霰:1.0__TOKEN_霰_17_, _ID_霰:1.0__TOKEN_霰_11_) }
+    public func _ID_霰:1.0__TOKEN_霰_13_(_ _ID_霰:1.0__TOKEN_霰_11_: _ID_廓:1.0__TOKEN_廓_6_) { _ID_霰:1.0__TOKEN_霰_10_(._ID_霰:1.0__TOKEN_霰_13_, _ID_霰:1.0__TOKEN_霰_11_) }
+}
+
+extension _ID_廓:1.0__TOKEN_廓_7_ {
+    public init?(_ID_霰:1.0__TOKEN_霰_5_: _ID_廓:1.0__TOKEN_廓_6_) {
+        self.init(_ID_霰:1.0__TOKEN_霰_16_: _ID_霰:1.0__TOKEN_霰_5_._ID_霰:1.0__TOKEN_霰_6_())
+// _ID_霰:0.6__TOKEN_LM_839_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

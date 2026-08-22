@@ -1,0 +1,51 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C9F34C9F ver:1778159687
+// __ast_匳:0.9___OPAQUE_YV_296_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+__ast_靄:1.0___OPAQUE_靄_2_ __ast_靄:1.0___OPAQUE_靄_11_ import __ast_靄:1.0___OPAQUE_靄_4_, __ast_靄:1.0___OPAQUE_靄_15_, __ast_靄:1.0___OPAQUE_靄_20_
+__ast_靄:1.0___OPAQUE_靄_2_ __ast_靄:1.0___OPAQUE_靄_6_ import __ast_廱:1.0___OPAQUE_廱_3_, __ast_廱:1.0___OPAQUE_廱_4_
+
+__ast_靄:1.0___OPAQUE_靄_2_ .__ast_靄:1.0___OPAQUE_靄_22_ import __ast_廱:1.0___OPAQUE_廱_5_
+
+
+@__ast_靄:1.0___OPAQUE_靄_4_
+class __ast_廱:1.0___OPAQUE_廱_2_:
+    __ast_靄:1.0___OPAQUE_靄_13_: __ast_靄:1.0___OPAQUE_靄_10_
+    __ast_靄:1.0___OPAQUE_靄_3_: __ast_靄:1.0___OPAQUE_靄_10_
+    __ast_靄:1.0___OPAQUE_靄_18_: __ast_廱:1.0___OPAQUE_廱_3_[__ast_靄:1.0___OPAQUE_靄_10_, __ast_廱:1.0___OPAQUE_廱_5_] = __ast_靄:1.0___OPAQUE_靄_15_(__ast_靄:1.0___OPAQUE_靄_21_=__ast_靄:1.0___OPAQUE_靄_24_)
+    __ast_靄:1.0___OPAQUE_靄_12_: __ast_廱:1.0___OPAQUE_廱_3_[__ast_靄:1.0___OPAQUE_靄_10_, __ast_廱:1.0___OPAQUE_廱_4_] = __ast_靄:1.0___OPAQUE_靄_15_(__ast_靄:1.0___OPAQUE_靄_21_=__ast_靄:1.0___OPAQUE_靄_24_)
+
+    __ast_靄:1.0___OPAQUE_靄_26_ __ast_靄:1.0___OPAQUE_靄_5_(self, __ast_靄:1.0___OPAQUE_靄_14_: __ast_靄:1.0___OPAQUE_靄_10_, __ast_靄:1.0___OPAQUE_靄_22_: __ast_廱:1.0___OPAQUE_廱_5_) -> __ast_廱:1.0___OPAQUE_廱_1_:
+        self.__ast_靄:1.0___OPAQUE_靄_18_[__ast_靄:1.0___OPAQUE_靄_14_] = __ast_靄:1.0___OPAQUE_靄_22_
+// __ast_深:0.1___OPAQUE_VH_817_ [decoy-metadata]
+// __ast_匳:0.6___OPAQUE_DB_779_ [decoy-metadata]
+
+    __ast_靄:1.0___OPAQUE_靄_26_ __ast_靄:1.0___OPAQUE_靄_17_(self) -> __ast_廱:1.0___OPAQUE_廱_3_[__ast_靄:1.0___OPAQUE_靄_10_, __ast_廱:1.0___OPAQUE_廱_4_]:
+        return {
+            "__ast_靄:1.0___OPAQUE_靄_13_": self.__ast_靄:1.0___OPAQUE_靄_13_,
+            "__ast_靄:1.0___OPAQUE_靄_3_": self.__ast_靄:1.0___OPAQUE_靄_3_,
+            "__ast_靄:1.0___OPAQUE_靄_18_": {k: __ast_靄:1.0___OPAQUE_靄_20_(v) for k, v in self.__ast_靄:1.0___OPAQUE_靄_18_.__ast_靄:1.0___OPAQUE_靄_1_()},
+            "__ast_靄:1.0___OPAQUE_靄_12_": self.__ast_靄:1.0___OPAQUE_靄_12_,
+        }
+
+    @__ast_靄:1.0___OPAQUE_靄_7_
+    __ast_靄:1.0___OPAQUE_靄_26_ __ast_靄:1.0___OPAQUE_靄_9_(d: __ast_廱:1.0___OPAQUE_廱_3_[__ast_靄:1.0___OPAQUE_靄_10_, __ast_廱:1.0___OPAQUE_廱_4_]) -> "__ast_廱:1.0___OPAQUE_廱_2_":
+// __ast_深:0.9___OPAQUE_BX_534_ [decoy-metadata]
+// __ast_深:0.1___OPAQUE_EX_806_ [decoy-metadata]
+        __ast_靄:1.0___OPAQUE_靄_25_ = __ast_廱:1.0___OPAQUE_廱_2_(
+            __ast_靄:1.0___OPAQUE_靄_13_=d.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_13_", ""),
+            __ast_靄:1.0___OPAQUE_靄_3_=d.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_3_", ""),
+            __ast_靄:1.0___OPAQUE_靄_12_=d.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_12_", {}) or {},
+        )
+        __ast_靄:1.0___OPAQUE_靄_18_ = d.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_18_") or {}
+        for k, v in __ast_靄:1.0___OPAQUE_靄_18_.__ast_靄:1.0___OPAQUE_靄_1_():
+            __ast_靄:1.0___OPAQUE_靄_25_.__ast_靄:1.0___OPAQUE_靄_18_[k] = __ast_廱:1.0___OPAQUE_廱_5_(
+// __ast_靄:0.3___OPAQUE_GA_502_ [decoy-metadata]
+                __ast_靄:1.0___OPAQUE_靄_16_=v.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_16_", "__ast_深:1.0___OPAQUE_靄_8_"),
+                __ast_靄:1.0___OPAQUE_靄_23_=v.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_23_", {}) or {},
+                __ast_靄:1.0___OPAQUE_靄_19_=v.__ast_処:1.0___OPAQUE_燦_1_("__ast_靄:1.0___OPAQUE_靄_19_") or [],
+            )
+        return __ast_靄:1.0___OPAQUE_靄_25_
+
+// POLYMORPHIC_JCROSS_END

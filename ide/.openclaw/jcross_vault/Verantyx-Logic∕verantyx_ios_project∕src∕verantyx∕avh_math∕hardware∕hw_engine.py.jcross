@@ -1,0 +1,53 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C09A4646 ver:1778159650
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_塵:1.0__TOKEN_塵_43_
+// _ASTNODE_匣:0.3__TOKEN_CY_766_ [decoy-metadata]
+_ASTNODE_塵:1.0__TOKEN_塵_6_ _ASTNODE_塵:1.0__TOKEN_塵_29_ import _ASTNODE_廴:1.0__TOKEN_廴_13_, _ASTNODE_廴:1.0__TOKEN_廴_11_, _ASTNODE_廴:1.0__TOKEN_廴_5_, _ASTNODE_廴:1.0__TOKEN_廴_12_
+_ASTNODE_塵:1.0__TOKEN_塵_6_ ._ASTNODE_塵:1.0__TOKEN_塵_33_ import _ASTNODE_廴:1.0__TOKEN_廴_3_, _ASTNODE_廴:1.0__TOKEN_廴_7_
+
+class _ASTNODE_廴:1.0__TOKEN_廴_8_:
+    _ASTNODE_塵:1.0__TOKEN_塵_40_ _ASTNODE_塵:1.0__TOKEN_塵_25_(self, _ASTNODE_塵:1.0__TOKEN_塵_23_: _ASTNODE_塵:1.0__TOKEN_塵_22_ = 10):
+        self._ASTNODE_塵:1.0__TOKEN_塵_23_ = _ASTNODE_塵:1.0__TOKEN_塵_23_
+
+// _ASTNODE_塵:0.5__TOKEN_LX_194_ [decoy-metadata]
+// _ASTNODE_縫:0.3__TOKEN_KC_311_ [decoy-metadata]
+    _ASTNODE_塵:1.0__TOKEN_塵_40_ _ASTNODE_塵:1.0__TOKEN_塵_5_(self, _ASTNODE_塵:1.0__TOKEN_塵_17_: _ASTNODE_廴:1.0__TOKEN_廴_3_, _ASTNODE_塵:1.0__TOKEN_塵_4_: _ASTNODE_廴:1.0__TOKEN_廴_13_[_ASTNODE_塵:1.0__TOKEN_塵_10_]) -> _ASTNODE_廴:1.0__TOKEN_廴_11_[_ASTNODE_塵:1.0__TOKEN_塵_10_, _ASTNODE_廴:1.0__TOKEN_廴_5_]:
+        """ベクトル化されたバッチ実行（_ASTNODE_廴:1.0__TOKEN_廴_10_ 擬似実装）"""
+// [metadata-stripped]
+        _ASTNODE_塵:1.0__TOKEN_塵_24_ = _ASTNODE_塵:1.0__TOKEN_塵_1_(_ASTNODE_塵:1.0__TOKEN_塵_43_._ASTNODE_塵:1.0__TOKEN_塵_16_([_ASTNODE_廴:1.0__TOKEN_廴_4_, _ASTNODE_廴:1.0__TOKEN_廴_9_], _ASTNODE_塵:1.0__TOKEN_塵_18_=_ASTNODE_塵:1.0__TOKEN_塵_14_(_ASTNODE_塵:1.0__TOKEN_塵_26_(_ASTNODE_塵:1.0__TOKEN_塵_4_), 10)))
+        _ASTNODE_塵:1.0__TOKEN_塵_36_ = [_ASTNODE_塵:1.0__TOKEN_塵_2_(_ASTNODE_塵:1.0__TOKEN_塵_11_(_ASTNODE_塵:1.0__TOKEN_塵_4_, _ASTNODE_塵:1.0__TOKEN_塵_41_)) for _ASTNODE_塵:1.0__TOKEN_塵_41_ in _ASTNODE_塵:1.0__TOKEN_塵_24_]
+        
+        _ASTNODE_塵:1.0__TOKEN_塵_31_ = {"_ASTNODE_塵:1.0__TOKEN_塵_28_": _ASTNODE_塵:1.0__TOKEN_塵_36_}
+// [metadata-stripped]
+        for _ASTNODE_塵:1.0__TOKEN_塵_35_ in _ASTNODE_塵:1.0__TOKEN_塵_17_._ASTNODE_塵:1.0__TOKEN_塵_39_._ASTNODE_塵:1.0__TOKEN_塵_19_():
+            _ASTNODE_塵:1.0__TOKEN_塵_31_[_ASTNODE_塵:1.0__TOKEN_塵_35_.id] = self._ASTNODE_塵:1.0__TOKEN_塵_42_(_ASTNODE_塵:1.0__TOKEN_塵_35_, _ASTNODE_塵:1.0__TOKEN_塵_36_)
+// _ASTNODE_封:0.6__TOKEN_MM_501_ [decoy-metadata]
+            
+        return _ASTNODE_塵:1.0__TOKEN_塵_31_
+
+    _ASTNODE_塵:1.0__TOKEN_塵_40_ _ASTNODE_塵:1.0__TOKEN_塵_42_(self, _ASTNODE_塵:1.0__TOKEN_塵_35_: _ASTNODE_廴:1.0__TOKEN_廴_7_, _ASTNODE_塵:1.0__TOKEN_塵_36_: _ASTNODE_廴:1.0__TOKEN_廴_13_[_ASTNODE_廴:1.0__TOKEN_廴_11_[_ASTNODE_塵:1.0__TOKEN_塵_10_, _ASTNODE_塵:1.0__TOKEN_塵_9_]]) -> _ASTNODE_廴:1.0__TOKEN_廴_13_[_ASTNODE_廴:1.0__TOKEN_廴_12_[_ASTNODE_塵:1.0__TOKEN_塵_9_]]:
+        """特定の演算ユニットをバッチ全体に対して実行する"""
+        if _ASTNODE_塵:1.0__TOKEN_塵_35_.op == "_ASTNODE_廴:1.0__TOKEN_廴_1_":
+            _ASTNODE_游:1.0__TOKEN_塵_27_ = _ASTNODE_塵:1.0__TOKEN_塵_35_._ASTNODE_塵:1.0__TOKEN_塵_38_["_ASTNODE_游:1.0__TOKEN_塵_27_"]
+// [metadata-stripped]
+// [metadata-stripped]
+            _ASTNODE_塵:1.0__TOKEN_塵_3_ = _ASTNODE_游:1.0__TOKEN_塵_27_._ASTNODE_塵:1.0__TOKEN_塵_32_("[]", "")._ASTNODE_塵:1.0__TOKEN_塵_32_("<>", "")._ASTNODE_塵:1.0__TOKEN_塵_32_("□", "")._ASTNODE_塵:1.0__TOKEN_塵_32_("◇", "")
+            _ASTNODE_塵:1.0__TOKEN_塵_8_ = _ASTNODE_塵:1.0__TOKEN_塵_3_._ASTNODE_塵:1.0__TOKEN_塵_32_("->", "<=")._ASTNODE_塵:1.0__TOKEN_塵_32_("&", " _ASTNODE_塵:1.0__TOKEN_塵_20_ ")._ASTNODE_塵:1.0__TOKEN_塵_32_("|", " or ")._ASTNODE_塵:1.0__TOKEN_塵_32_("~", " _ASTNODE_塵:1.0__TOKEN_塵_21_ ")
+            
+            _ASTNODE_塵:1.0__TOKEN_塵_12_ = []
+            for _ASTNODE_塵:1.0__TOKEN_塵_7_ in _ASTNODE_塵:1.0__TOKEN_塵_36_:
+// _ASTNODE_封:0.6__TOKEN_WZ_809_ [decoy-metadata]
+                try:
+// [metadata-stripped]
+                    _ASTNODE_塵:1.0__TOKEN_塵_37_ = _ASTNODE_塵:1.0__TOKEN_塵_34_(_ASTNODE_塵:1.0__TOKEN_塵_8_, {"_ASTNODE_塵:1.0__TOKEN_塵_30_": _ASTNODE_廴:1.0__TOKEN_廴_6_}, _ASTNODE_塵:1.0__TOKEN_塵_7_)
+                    _ASTNODE_塵:1.0__TOKEN_塵_12_._ASTNODE_塵:1.0__TOKEN_塵_15_(_ASTNODE_塵:1.0__TOKEN_塵_9_(_ASTNODE_塵:1.0__TOKEN_塵_37_))
+                _ASTNODE_塵:1.0__TOKEN_塵_13_:
+// [metadata-stripped]
+// _ASTNODE_塵:0.6__TOKEN_HE_794_ [decoy-metadata]
+                    _ASTNODE_塵:1.0__TOKEN_塵_12_._ASTNODE_塵:1.0__TOKEN_塵_15_(_ASTNODE_廴:1.0__TOKEN_廴_6_)
+            return _ASTNODE_塵:1.0__TOKEN_塵_12_
+        return []
+
+// POLYMORPHIC_JCROSS_END

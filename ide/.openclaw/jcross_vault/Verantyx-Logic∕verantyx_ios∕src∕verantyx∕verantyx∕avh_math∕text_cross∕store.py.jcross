@@ -1,0 +1,66 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CDAB9406 ver:1778162901
+// ⚠️ One-time schema — expires after response
+
+_SYM_霮:1.0__OPAQUE_霮_39_ _SYM_霮:1.0__OPAQUE_霮_40_ import _SYM_礎:1.0__OPAQUE_礎_9_
+import _SYM_霮:1.0__OPAQUE_霮_7_
+// _SYM_業:0.8__OPAQUE_DW_760_ [decoy-metadata]
+import os
+_SYM_霮:1.0__OPAQUE_霮_39_ _SYM_霮:1.0__OPAQUE_霮_31_ import _SYM_礎:1.0__OPAQUE_礎_8_
+
+_SYM_霮:1.0__OPAQUE_霮_39_ _SYM_霮:1.0__OPAQUE_霮_17_._SYM_霮:1.0__OPAQUE_霮_23_._SYM_霮:1.0__OPAQUE_霮_33_ import _SYM_礎:1.0__OPAQUE_礎_5_
+
+_SYM_礎:1.0__OPAQUE_礎_6_ = _SYM_礎:1.0__OPAQUE_礎_8_("_SYM_霮:1.0__OPAQUE_霮_17_/db/_SYM_霮:1.0__OPAQUE_霮_21_._SYM_霮:1.0__OPAQUE_霮_34_")
+
+
+_SYM_霮:1.0__OPAQUE_霮_25_ _SYM_霮:1.0__OPAQUE_霮_32_(_SYM_霮:1.0__OPAQUE_霮_33_: _SYM_礎:1.0__OPAQUE_礎_5_) -> _SYM_礎:1.0__OPAQUE_礎_1_:
+    if os._SYM_霮:1.0__OPAQUE_霮_12_._SYM_業:1.0__OPAQUE_粋_1_("_SYM_礎:1.0__OPAQUE_礎_7_", "")._SYM_霮:1.0__OPAQUE_霮_2_() == "1":
+        return
+    _SYM_礎:1.0__OPAQUE_礎_6_._SYM_霮:1.0__OPAQUE_霮_22_._SYM_霮:1.0__OPAQUE_霮_30_(_SYM_霮:1.0__OPAQUE_霮_9_=_SYM_礎:1.0__OPAQUE_礎_4_, _SYM_霮:1.0__OPAQUE_霮_28_=_SYM_礎:1.0__OPAQUE_礎_4_)
+    _SYM_霮:1.0__OPAQUE_霮_14_ _SYM_礎:1.0__OPAQUE_礎_6_.open("a", _SYM_霮:1.0__OPAQUE_霮_6_="_SYM_霮:1.0__OPAQUE_霮_20_-8") as f:
+        f._SYM_霮:1.0__OPAQUE_霮_19_(_SYM_霮:1.0__OPAQUE_霮_7_._SYM_霮:1.0__OPAQUE_霮_5_(_SYM_霮:1.0__OPAQUE_霮_33_._SYM_霮:1.0__OPAQUE_霮_13_(), _SYM_霮:1.0__OPAQUE_霮_29_=_SYM_礎:1.0__OPAQUE_礎_3_) + "\n")
+
+// _SYM_粋:0.1__OPAQUE_GF_961_ [decoy-metadata]
+
+_SYM_霮:1.0__OPAQUE_霮_25_ _SYM_霮:1.0__OPAQUE_霮_3_(_SYM_霮:1.0__OPAQUE_霮_18_: _SYM_霮:1.0__OPAQUE_霮_15_ = 5000) -> _SYM_礎:1.0__OPAQUE_礎_9_[_SYM_礎:1.0__OPAQUE_礎_5_]:
+    if _SYM_霮:1.0__OPAQUE_霮_24_ _SYM_礎:1.0__OPAQUE_礎_6_._SYM_霮:1.0__OPAQUE_霮_8_():
+        return []
+    _SYM_霮:1.0__OPAQUE_霮_26_: _SYM_礎:1.0__OPAQUE_礎_9_[_SYM_礎:1.0__OPAQUE_礎_5_] = []
+    _SYM_霮:1.0__OPAQUE_霮_14_ _SYM_礎:1.0__OPAQUE_礎_6_.open("r", _SYM_霮:1.0__OPAQUE_霮_6_="_SYM_霮:1.0__OPAQUE_霮_20_-8") as f:
+        for i, _SYM_霮:1.0__OPAQUE_霮_37_ in _SYM_霮:1.0__OPAQUE_霮_16_(f):
+            if i >= _SYM_霮:1.0__OPAQUE_霮_18_:
+                break
+            _SYM_霮:1.0__OPAQUE_霮_37_ = _SYM_霮:1.0__OPAQUE_霮_37_._SYM_霮:1.0__OPAQUE_霮_2_()
+            if _SYM_霮:1.0__OPAQUE_霮_24_ _SYM_霮:1.0__OPAQUE_霮_37_:
+                continue
+            try:
+                _SYM_霮:1.0__OPAQUE_霮_4_ = _SYM_霮:1.0__OPAQUE_霮_7_._SYM_区:1.0__OPAQUE_霮_38_(_SYM_霮:1.0__OPAQUE_霮_37_)
+            _SYM_霮:1.0__OPAQUE_霮_36_ _SYM_礎:1.0__OPAQUE_礎_2_:
+                continue
+            _SYM_霮:1.0__OPAQUE_霮_26_._SYM_霮:1.0__OPAQUE_霮_27_(_SYM_礎:1.0__OPAQUE_礎_5_._SYM_霮:1.0__OPAQUE_霮_10_(_SYM_霮:1.0__OPAQUE_霮_4_))
+    return _SYM_霮:1.0__OPAQUE_霮_26_
+
+
+_SYM_霮:1.0__OPAQUE_霮_25_ _SYM_区:1.0__OPAQUE_霮_1_(_SYM_霮:1.0__OPAQUE_霮_35_: _SYM_霮:1.0__OPAQUE_霮_11_, _SYM_霮:1.0__OPAQUE_霮_18_: _SYM_霮:1.0__OPAQUE_霮_15_ = 200000) -> _SYM_礎:1.0__OPAQUE_礎_5_ | _SYM_礎:1.0__OPAQUE_礎_1_:
+    if _SYM_霮:1.0__OPAQUE_霮_24_ _SYM_礎:1.0__OPAQUE_礎_6_._SYM_霮:1.0__OPAQUE_霮_8_():
+        return _SYM_礎:1.0__OPAQUE_礎_1_
+// _SYM_粋:0.6__OPAQUE_FL_356_ [decoy-metadata]
+    _SYM_霮:1.0__OPAQUE_霮_14_ _SYM_礎:1.0__OPAQUE_礎_6_.open("r", _SYM_霮:1.0__OPAQUE_霮_6_="_SYM_霮:1.0__OPAQUE_霮_20_-8") as f:
+        for i, _SYM_霮:1.0__OPAQUE_霮_37_ in _SYM_霮:1.0__OPAQUE_霮_16_(f):
+// _SYM_業:0.7__OPAQUE_VA_205_ [decoy-metadata]
+            if i >= _SYM_霮:1.0__OPAQUE_霮_18_:
+                break
+            _SYM_霮:1.0__OPAQUE_霮_37_ = _SYM_霮:1.0__OPAQUE_霮_37_._SYM_霮:1.0__OPAQUE_霮_2_()
+            if _SYM_霮:1.0__OPAQUE_霮_24_ _SYM_霮:1.0__OPAQUE_霮_37_:
+                continue
+            try:
+                _SYM_霮:1.0__OPAQUE_霮_4_ = _SYM_霮:1.0__OPAQUE_霮_7_._SYM_区:1.0__OPAQUE_霮_38_(_SYM_霮:1.0__OPAQUE_霮_37_)
+            _SYM_霮:1.0__OPAQUE_霮_36_ _SYM_礎:1.0__OPAQUE_礎_2_:
+                continue
+// _SYM_区:0.7__OPAQUE_FE_553_ [decoy-metadata]
+            if _SYM_霮:1.0__OPAQUE_霮_4_._SYM_業:1.0__OPAQUE_粋_1_("_SYM_霮:1.0__OPAQUE_霮_35_") == _SYM_霮:1.0__OPAQUE_霮_35_:
+                return _SYM_礎:1.0__OPAQUE_礎_5_._SYM_霮:1.0__OPAQUE_霮_10_(_SYM_霮:1.0__OPAQUE_霮_4_)
+    return _SYM_礎:1.0__OPAQUE_礎_1_
+// _SYM_鍵:0.9__OPAQUE_VV_694_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

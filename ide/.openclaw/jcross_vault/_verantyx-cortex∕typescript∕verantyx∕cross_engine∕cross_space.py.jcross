@@ -1,0 +1,87 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8687E80A ver:1778166070
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_霤:1.0__JCROSS_霤_49_ _OPAQUE_霤:1.0__JCROSS_霤_17_ import _OPAQUE_霤:1.0__JCROSS_霤_45_, _OPAQUE_霤:1.0__JCROSS_霤_30_
+_OPAQUE_霤:1.0__JCROSS_霤_49_ _OPAQUE_霤:1.0__JCROSS_霤_51_ import _OPAQUE_礎:1.0__JCROSS_礎_6_, _OPAQUE_法:1.0__JCROSS_嵐_2_, _OPAQUE_礎:1.0__JCROSS_礎_2_, _OPAQUE_礎:1.0__JCROSS_礎_5_
+import _OPAQUE_霤:1.0__JCROSS_霤_18_
+
+@_OPAQUE_霤:1.0__JCROSS_霤_45_
+// _OPAQUE_沈:0.9__JCROSS_VH_896_ [decoy-metadata]
+class _OPAQUE_礎:1.0__JCROSS_礎_1_:
+    _OPAQUE_霤:1.0__JCROSS_霤_11_: _OPAQUE_霤:1.0__JCROSS_霤_5_
+    _OPAQUE_霤:1.0__JCROSS_霤_58_: _OPAQUE_法:1.0__JCROSS_嵐_2_[_OPAQUE_霤:1.0__JCROSS_霤_14_] = _OPAQUE_霤:1.0__JCROSS_霤_30_(_OPAQUE_霤:1.0__JCROSS_霤_4_=_OPAQUE_法:1.0__JCROSS_嵐_1_)
+    _OPAQUE_霤:1.0__JCROSS_霤_20_: _OPAQUE_礎:1.0__JCROSS_礎_5_[_OPAQUE_礎:1.0__JCROSS_礎_6_[_OPAQUE_霤:1.0__JCROSS_霤_14_, _OPAQUE_霤:1.0__JCROSS_霤_14_]] = _OPAQUE_礎:1.0__JCROSS_礎_8_
+    _OPAQUE_霤:1.0__JCROSS_霤_2_: _OPAQUE_霤:1.0__JCROSS_霤_5_ = ""
+
+@_OPAQUE_霤:1.0__JCROSS_霤_45_
+class _OPAQUE_礎:1.0__JCROSS_礎_9_:
+// _OPAQUE_游:0.3__JCROSS_MF_106_ [decoy-metadata]
+    _OPAQUE_霤:1.0__JCROSS_霤_22_: _OPAQUE_礎:1.0__JCROSS_礎_6_[_OPAQUE_霤:1.0__JCROSS_霤_14_, _OPAQUE_霤:1.0__JCROSS_霤_14_]
+    _OPAQUE_霤:1.0__JCROSS_霤_48_: _OPAQUE_法:1.0__JCROSS_嵐_2_[_OPAQUE_霤:1.0__JCROSS_霤_14_]
+    _OPAQUE_霤:1.0__JCROSS_霤_34_: _OPAQUE_霤:1.0__JCROSS_霤_5_  # '_OPAQUE_霤:1.0__JCROSS_霤_31_', '_OPAQUE_霤:1.0__JCROSS_霤_15_', '_OPAQUE_霤:1.0__JCROSS_霤_8_', '_OPAQUE_霤:1.0__JCROSS_霤_26_', '_OPAQUE_霤:1.0__JCROSS_霤_10_'
+    _OPAQUE_霤:1.0__JCROSS_霤_54_: _OPAQUE_霤:1.0__JCROSS_霤_14_
+    _OPAQUE_霤:1.0__JCROSS_霤_27_: _OPAQUE_霤:1.0__JCROSS_霤_14_
+    _OPAQUE_霤:1.0__JCROSS_霤_44_: _OPAQUE_霤:1.0__JCROSS_霤_14_
+
+class _OPAQUE_礎:1.0__JCROSS_礎_4_:
+    """体験を蓄積し、共鳴で仮説を生み出す（ボトムアップ型推論）"""
+// _OPAQUE_霤:0.9__JCROSS_EH_548_ [decoy-metadata]
+    
+    _OPAQUE_霤:1.0__JCROSS_霤_40_ _OPAQUE_霤:1.0__JCROSS_霤_9_(self):
+        self._OPAQUE_霤:1.0__JCROSS_霤_38_: _OPAQUE_礎:1.0__JCROSS_礎_2_[_OPAQUE_礎:1.0__JCROSS_礎_9_] = []
+        
+    _OPAQUE_霤:1.0__JCROSS_霤_40_ _OPAQUE_霤:1.0__JCROSS_霤_28_(self, _OPAQUE_霤:1.0__JCROSS_霤_39_: _OPAQUE_礎:1.0__JCROSS_礎_9_):
+        self._OPAQUE_霤:1.0__JCROSS_霤_38_._OPAQUE_霤:1.0__JCROSS_霤_55_(_OPAQUE_霤:1.0__JCROSS_霤_39_)
+        
+    _OPAQUE_霤:1.0__JCROSS_霤_40_ _OPAQUE_霤:1.0__JCROSS_霤_47_(self, _OPAQUE_霤:1.0__JCROSS_霤_53_: _OPAQUE_礎:1.0__JCROSS_礎_9_) -> _OPAQUE_礎:1.0__JCROSS_礎_2_[_OPAQUE_礎:1.0__JCROSS_礎_6_[_OPAQUE_霤:1.0__JCROSS_霤_13_, _OPAQUE_礎:1.0__JCROSS_礎_9_]]:
+        """今の体験と共鳴する過去の体験を返す。
+        共鳴 = 同じ色を共有 × 近い位置 × 補完的なイベント"""
+        
+        _OPAQUE_霤:1.0__JCROSS_霤_23_ = []
+        for _OPAQUE_霤:1.0__JCROSS_霤_33_ in self._OPAQUE_霤:1.0__JCROSS_霤_38_:
+            if _OPAQUE_霤:1.0__JCROSS_霤_33_._OPAQUE_霤:1.0__JCROSS_霤_27_ == _OPAQUE_霤:1.0__JCROSS_霤_53_._OPAQUE_霤:1.0__JCROSS_霤_27_:
+                continue
+                
+// [metadata-stripped]
+            _OPAQUE_霤:1.0__JCROSS_霤_25_ = _OPAQUE_霤:1.0__JCROSS_霤_24_(_OPAQUE_霤:1.0__JCROSS_霤_53_._OPAQUE_霤:1.0__JCROSS_霤_48_ & _OPAQUE_霤:1.0__JCROSS_霤_33_._OPAQUE_霤:1.0__JCROSS_霤_48_)
+            
+// [metadata-stripped]
+            _OPAQUE_霤:1.0__JCROSS_霤_46_ = 1.0
+            if _OPAQUE_霤:1.0__JCROSS_霤_53_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_31_' _OPAQUE_霤:1.0__JCROSS_霤_36_ _OPAQUE_霤:1.0__JCROSS_霤_33_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_15_': _OPAQUE_霤:1.0__JCROSS_霤_46_ = 5.0
+// _OPAQUE_法:0.7__JCROSS_BF_641_ [decoy-metadata]
+            if _OPAQUE_霤:1.0__JCROSS_霤_53_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_31_' _OPAQUE_霤:1.0__JCROSS_霤_36_ _OPAQUE_霤:1.0__JCROSS_霤_33_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_8_': _OPAQUE_霤:1.0__JCROSS_霤_46_ = 3.0
+            if _OPAQUE_霤:1.0__JCROSS_霤_53_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_10_' _OPAQUE_霤:1.0__JCROSS_霤_36_ _OPAQUE_霤:1.0__JCROSS_霤_33_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_10_': _OPAQUE_霤:1.0__JCROSS_霤_46_ = 2.0
+            
+            _OPAQUE_霤:1.0__JCROSS_霤_41_ = _OPAQUE_霤:1.0__JCROSS_霤_25_ * _OPAQUE_霤:1.0__JCROSS_霤_46_
+            if _OPAQUE_霤:1.0__JCROSS_霤_41_ > 0:
+                _OPAQUE_霤:1.0__JCROSS_霤_23_._OPAQUE_霤:1.0__JCROSS_霤_55_((_OPAQUE_霤:1.0__JCROSS_霤_41_, _OPAQUE_霤:1.0__JCROSS_霤_33_))
+        
+// [metadata-stripped]
+        return _OPAQUE_霤:1.0__JCROSS_霤_12_(_OPAQUE_霤:1.0__JCROSS_霤_23_, _OPAQUE_沈:1.0__JCROSS_霤_19_=_OPAQUE_霤:1.0__JCROSS_霤_7_ x: x[0], _OPAQUE_霤:1.0__JCROSS_霤_35_=_OPAQUE_礎:1.0__JCROSS_礎_3_)
+    
+    _OPAQUE_霤:1.0__JCROSS_霤_40_ _OPAQUE_霤:1.0__JCROSS_霤_32_(self, _OPAQUE_霤:1.0__JCROSS_霤_43_: _OPAQUE_礎:1.0__JCROSS_礎_9_, _OPAQUE_霤:1.0__JCROSS_霤_56_: _OPAQUE_礎:1.0__JCROSS_礎_9_) -> _OPAQUE_礎:1.0__JCROSS_礎_5_[_OPAQUE_礎:1.0__JCROSS_礎_1_]:
+// _OPAQUE_霤:0.1__JCROSS_HD_811_ [decoy-metadata]
+        """2つの体験がぶつかって行動（衝動）が生まれる。"""
+        if _OPAQUE_霤:1.0__JCROSS_霤_43_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_31_' _OPAQUE_霤:1.0__JCROSS_霤_36_ _OPAQUE_霤:1.0__JCROSS_霤_56_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_15_':
+// [metadata-stripped]
+            _OPAQUE_霤:1.0__JCROSS_霤_37_ = _OPAQUE_霤:1.0__JCROSS_霤_56_._OPAQUE_霤:1.0__JCROSS_霤_48_ - _OPAQUE_霤:1.0__JCROSS_霤_43_._OPAQUE_霤:1.0__JCROSS_霤_48_  # Bにあって Aにない色 = トリガー色
+            if _OPAQUE_霤:1.0__JCROSS_霤_37_:
+                return _OPAQUE_礎:1.0__JCROSS_礎_1_(
+                    _OPAQUE_霤:1.0__JCROSS_霤_11_='_OPAQUE_霤:1.0__JCROSS_霤_42_', 
+                    _OPAQUE_霤:1.0__JCROSS_霤_58_=_OPAQUE_霤:1.0__JCROSS_霤_37_,
+                    _OPAQUE_霤:1.0__JCROSS_霤_2_=f"_OPAQUE_礎:1.0__JCROSS_礎_7_ {_OPAQUE_霤:1.0__JCROSS_霤_57_(_OPAQUE_霤:1.0__JCROSS_霤_43_._OPAQUE_霤:1.0__JCROSS_霤_48_)} _OPAQUE_霤:1.0__JCROSS_霤_31_ me, _OPAQUE_霤:1.0__JCROSS_霤_21_ _OPAQUE_霤:1.0__JCROSS_霤_33_ _OPAQUE_霤:1.0__JCROSS_霤_52_ _OPAQUE_霤:1.0__JCROSS_霤_1_ it _OPAQUE_霤:1.0__JCROSS_霤_15_ _OPAQUE_霤:1.0__JCROSS_霤_50_ _OPAQUE_霤:1.0__JCROSS_霤_16_ {_OPAQUE_霤:1.0__JCROSS_霤_57_(_OPAQUE_霤:1.0__JCROSS_霤_37_)}."
+                )
+        
+        if _OPAQUE_霤:1.0__JCROSS_霤_43_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_31_' _OPAQUE_霤:1.0__JCROSS_霤_36_ _OPAQUE_霤:1.0__JCROSS_霤_56_._OPAQUE_霤:1.0__JCROSS_霤_34_ == '_OPAQUE_霤:1.0__JCROSS_霤_8_':
+// [metadata-stripped]
+            return _OPAQUE_礎:1.0__JCROSS_礎_1_(
+                _OPAQUE_霤:1.0__JCROSS_霤_11_='_OPAQUE_霤:1.0__JCROSS_霤_3_', 
+// _OPAQUE_礎:0.1__JCROSS_XF_485_ [decoy-metadata]
+                _OPAQUE_霤:1.0__JCROSS_霤_20_=_OPAQUE_霤:1.0__JCROSS_霤_56_._OPAQUE_霤:1.0__JCROSS_霤_22_,
+                _OPAQUE_霤:1.0__JCROSS_霤_2_=f"_OPAQUE_礎:1.0__JCROSS_礎_7_ {_OPAQUE_霤:1.0__JCROSS_霤_57_(_OPAQUE_霤:1.0__JCROSS_霤_43_._OPAQUE_霤:1.0__JCROSS_霤_48_)} _OPAQUE_霤:1.0__JCROSS_霤_31_ me _OPAQUE_霤:1.0__JCROSS_霤_29_, _OPAQUE_霤:1.0__JCROSS_霤_21_ I _OPAQUE_霤:1.0__JCROSS_霤_8_ it at {_OPAQUE_霤:1.0__JCROSS_霤_56_._OPAQUE_霤:1.0__JCROSS_霤_22_} _OPAQUE_游:1.0__JCROSS_霤_6_."
+            )
+            
+        return _OPAQUE_礎:1.0__JCROSS_礎_8_
+
+// POLYMORPHIC_JCROSS_END

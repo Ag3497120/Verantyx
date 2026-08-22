@@ -1,0 +1,320 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6BC70E4D ver:1778166069
+// ⚠️ One-time schema — expires after response
+
+"""
+_TOKEN_霩:1.0___ast_霩_116__.py — ._TOKEN_霩:1.0___ast_霩_101__ファイルを_TOKEN_庖:1.0___ast_庖_6__-_TOKEN_庖:1.0___ast_庖_4__-3エージェントから実行するランタイム
+
+Pythonから_TOKEN_霩:1.0___ast_霩_101__世界にグリッド・プレイヤー位置・体験を注入し、
+_TOKEN_霩:1.0___ast_霩_101__世界から行動決定を受け取る。
+
+核心: Pythonはセンサー（目と手）。_TOKEN_霩:1.0___ast_霩_101__は脳。
+"""
+
+import os
+import _TOKEN_霩:1.0___ast_霩_122__
+import _TOKEN_霩:1.0___ast_霩_76__
+_TOKEN_霩:1.0___ast_霩_113__ _TOKEN_霩:1.0___ast_霩_37__ import _TOKEN_庖:1.0___ast_庖_14__
+_TOKEN_霩:1.0___ast_霩_113__ _TOKEN_霩:1.0___ast_霩_5__ import _TOKEN_庖:1.0___ast_庖_19__, _TOKEN_庖:1.0___ast_庖_17__, _TOKEN_庖:1.0___ast_庖_20__, _TOKEN_庖:1.0___ast_庖_5__
+
+_TOKEN_法:1.0___ast_霩_38__ = _TOKEN_霩:1.0___ast_霩_76__._TOKEN_法:1.0___ast_雄_2__(_TOKEN_霩:1.0___ast_霩_124__)
+
+// [metadata-stripped]
+
+try:
+// _TOKEN_匹:0.8___ast_WC_872__ [decoy-metadata]
+    _TOKEN_霩:1.0___ast_霩_113__ _TOKEN_法:1.0___ast_霩_102__ import _TOKEN_法:1.0___ast_庖_8__
+    _TOKEN_霩:1.0___ast_霩_27__ = _TOKEN_庖:1.0___ast_庖_1__
+_TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_16__ as e:
+    _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_8__(f"_TOKEN_法:1.0___ast_霩_102__ import _TOKEN_霩:1.0___ast_霩_53__: {e}")
+    _TOKEN_霩:1.0___ast_霩_27__ = _TOKEN_庖:1.0___ast_庖_24__
+
+
+class _TOKEN_庖:1.0___ast_庖_10__:
+    """
+    _TOKEN_霩:1.0___ast_霩_101__ランタイム — _TOKEN_庖:1.0___ast_庖_6__-_TOKEN_庖:1.0___ast_庖_4__-3エージェントの脳
+
+    使い方:
+        _TOKEN_霩:1.0___ast_霩_64__ = _TOKEN_庖:1.0___ast_庖_10__()
+        _TOKEN_霩:1.0___ast_霩_64__._TOKEN_匹:1.0___ast_霩_26__(_TOKEN_霩:1.0___ast_霩_6__, _TOKEN_霩:1.0___ast_霩_23__)
+        _TOKEN_霩:1.0___ast_霩_64__._TOKEN_霩:1.0___ast_霩_63__("フェーズ", "観察")
+        _TOKEN_霩:1.0___ast_霩_64__._TOKEN_霩:1.0___ast_霩_63__("行動キュー", [1, 2, 3])
+        _TOKEN_霩:1.0___ast_霩_51__ = _TOKEN_霩:1.0___ast_霩_64__._TOKEN_霩:1.0___ast_霩_115__()
+    """
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_28__(self, _TOKEN_霩:1.0___ast_霩_80__=_TOKEN_庖:1.0___ast_庖_24__):
+// _TOKEN_霩:0.2___ast_GA_525__ [decoy-metadata]
+        self._TOKEN_霩:1.0___ast_霩_84__: _TOKEN_庖:1.0___ast_庖_5__[_TOKEN_霩:1.0___ast_霩_18__] = _TOKEN_庖:1.0___ast_庖_13__
+        self._TOKEN_霩:1.0___ast_霩_108__: _TOKEN_庖:1.0___ast_庖_5__[_TOKEN_霩:1.0___ast_霩_18__] = _TOKEN_庖:1.0___ast_庖_13__
+        self._TOKEN_霩:1.0___ast_霩_46__: _TOKEN_霩:1.0___ast_霩_18__ = ""
+        self._TOKEN_霩:1.0___ast_霩_14__: _TOKEN_霩:1.0___ast_霩_18__ = ""
+        self._TOKEN_霩:1.0___ast_霩_103__: _TOKEN_庖:1.0___ast_庖_17__[_TOKEN_霩:1.0___ast_霩_18__, _TOKEN_庖:1.0___ast_庖_19__] = {}
+        self._TOKEN_霩:1.0___ast_霩_98__: _TOKEN_霩:1.0___ast_霩_18__ = ""
+        self._TOKEN_法:1.0___ast_霩_60__: _TOKEN_庖:1.0___ast_庖_5__[_TOKEN_庖:1.0___ast_庖_19__] = _TOKEN_庖:1.0___ast_庖_13__
+        self._TOKEN_霩:1.0___ast_霩_74__ = _TOKEN_霩:1.0___ast_霩_27__
+        self._TOKEN_霩:1.0___ast_霩_80__ = _TOKEN_霩:1.0___ast_霩_80__
+
+        if _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_74__:
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_8__("_TOKEN_庖:1.0___ast_庖_10__: パーサーが利用できません。Pythonフォールバックを使用します。")
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_匹:1.0___ast_霩_26__(self, _TOKEN_霩:1.0___ast_霩_6__: _TOKEN_霩:1.0___ast_霩_18__, _TOKEN_霩:1.0___ast_霩_23__: _TOKEN_庖:1.0___ast_庖_5__[_TOKEN_霩:1.0___ast_霩_18__] = _TOKEN_庖:1.0___ast_庖_13__) -> _TOKEN_霩:1.0___ast_霩_35__:
+        """
+        ._TOKEN_霩:1.0___ast_霩_101__ファイルを読み込む
+
+        _TOKEN_庖:1.0___ast_庖_7__:
+            _TOKEN_霩:1.0___ast_霩_6__: _TOKEN_霩:1.0___ast_霩_31__._TOKEN_霩:1.0___ast_霩_101__のパス
+            _TOKEN_霩:1.0___ast_霩_23__: _TOKEN_霩:1.0___ast_霩_91__._TOKEN_霩:1.0___ast_霩_101__のパス（省略可）
+
+        _TOKEN_庖:1.0___ast_庖_3__:
+            _TOKEN_庖:1.0___ast_庖_1__: 成功 / _TOKEN_庖:1.0___ast_庖_24__: 失敗
+        """
+        if _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_74__:
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+        try:
+            _TOKEN_霩:1.0___ast_霩_6__ = os._TOKEN_霩:1.0___ast_霩_111__._TOKEN_法:1.0___ast_霩_42__(_TOKEN_霩:1.0___ast_霩_6__)
+            self._TOKEN_霩:1.0___ast_霩_84__ = _TOKEN_霩:1.0___ast_霩_6__
+
+            _TOKEN_霩:1.0___ast_霩_105__ open(_TOKEN_霩:1.0___ast_霩_6__, 'r', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                self._TOKEN_霩:1.0___ast_霩_46__ = f._TOKEN_霩:1.0___ast_霩_114__()
+
+            if _TOKEN_霩:1.0___ast_霩_23__:
+                _TOKEN_霩:1.0___ast_霩_23__ = os._TOKEN_霩:1.0___ast_霩_111__._TOKEN_法:1.0___ast_霩_42__(_TOKEN_霩:1.0___ast_霩_23__)
+                self._TOKEN_霩:1.0___ast_霩_108__ = _TOKEN_霩:1.0___ast_霩_23__
+                if os._TOKEN_霩:1.0___ast_霩_111__._TOKEN_霩:1.0___ast_霩_52__(_TOKEN_霩:1.0___ast_霩_23__):
+                    _TOKEN_霩:1.0___ast_霩_105__ open(_TOKEN_霩:1.0___ast_霩_23__, 'r', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                        self._TOKEN_霩:1.0___ast_霩_14__ = f._TOKEN_霩:1.0___ast_霩_114__()
+                else:
+                    self._TOKEN_霩:1.0___ast_霩_14__ = ""
+
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_36__(f"_TOKEN_庖:1.0___ast_庖_10__: _TOKEN_匹:1.0___ast_霩_87__ _TOKEN_霩:1.0___ast_霩_31__={_TOKEN_霩:1.0___ast_霩_6__}")
+            return _TOKEN_庖:1.0___ast_庖_1__
+// _TOKEN_浮:0.6___ast_EH_288__ [decoy-metadata]
+
+        _TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_18__ as e:
+// _TOKEN_霩:0.2___ast_EA_495__ [decoy-metadata]
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_118__(f"_TOKEN_庖:1.0___ast_庖_10__._TOKEN_匹:1.0___ast_霩_26__ _TOKEN_霩:1.0___ast_霩_118__: {e}")
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_63__(self, _TOKEN_霩:1.0___ast_霩_22__: _TOKEN_霩:1.0___ast_霩_18__, _TOKEN_霩:1.0___ast_霩_121__: _TOKEN_庖:1.0___ast_庖_19__) -> _TOKEN_庖:1.0___ast_庖_13__:
+        """
+        Python値を_TOKEN_霩:1.0___ast_霩_101__空間に注入する
+
+        _TOKEN_庖:1.0___ast_庖_7__:
+            _TOKEN_霩:1.0___ast_霩_22__: 変数名（日本語可）
+            _TOKEN_霩:1.0___ast_霩_121__: 値（グリッド、位置、体験リスト等）
+        """
+        self._TOKEN_霩:1.0___ast_霩_103__[_TOKEN_霩:1.0___ast_霩_22__] = _TOKEN_霩:1.0___ast_霩_121__
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_45__(self, _TOKEN_霩:1.0___ast_霩_104__: _TOKEN_庖:1.0___ast_庖_17__[_TOKEN_霩:1.0___ast_霩_18__, _TOKEN_庖:1.0___ast_庖_19__]) -> _TOKEN_庖:1.0___ast_庖_13__:
+        """複数の変数を一括注入"""
+        for _TOKEN_霩:1.0___ast_霩_22__, _TOKEN_霩:1.0___ast_霩_121__ in _TOKEN_霩:1.0___ast_霩_104__._TOKEN_霩:1.0___ast_霩_16__():
+            self._TOKEN_霩:1.0___ast_霩_103__[_TOKEN_霩:1.0___ast_霩_22__] = _TOKEN_霩:1.0___ast_霩_121__
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_47__(self, _TOKEN_霩:1.0___ast_霩_77__: _TOKEN_霩:1.0___ast_霩_18__) -> _TOKEN_庖:1.0___ast_庖_13__:
+        """
+        文字列のJCrossコード（仮想的な宣言ルール等）を注入する。
+        これは _TOKEN_霩:1.0___ast_霩_80__ やロールアウト時に仮説を検証するために使用される。
+        既存の _TOKEN_霩:1.0___ast_霩_31__._TOKEN_霩:1.0___ast_霩_101__ の宣言に対して追加・上書きとして機能する（実行時に末尾に結合）。
+        """
+        self._TOKEN_霩:1.0___ast_霩_98__ += f"\n\n// ===== 動的注入ルール =====\n{_TOKEN_霩:1.0___ast_霩_77__}\n"
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_115__(self) -> _TOKEN_霩:1.0___ast_霩_95__:
+        """
+        _TOKEN_霩:1.0___ast_霩_101__の_TOKEN_霩:1.0___ast_霩_31__を実行して行動インデックスを返す
+
+        _TOKEN_庖:1.0___ast_庖_3__:
+            行動インデックス (0-5)。失敗時は -1（Pythonフォールバックを示す）
+        """
+        if _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_74__ or _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_46__:
+            return -1
+
+        try:
+// [metadata-stripped]
+            _TOKEN_法:1.0___ast_霩_129__ = _TOKEN_法:1.0___ast_庖_8__()
+            _TOKEN_法:1.0___ast_霩_129__._TOKEN_匹:1.0___ast_霩_112__ = self._TOKEN_霩:1.0___ast_霩_84__
+            
+            if self._TOKEN_霩:1.0___ast_霩_80__:
+                if _TOKEN_霩:1.0___ast_霩_96__(_TOKEN_法:1.0___ast_霩_129__, "_TOKEN_霩:1.0___ast_霩_120__"):
+                    _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_120__["_TOKEN_庖:1.0___ast_庖_21__._TOKEN_匹:1.0___ast_霩_15__"] = _TOKEN_霩:1.0___ast_霩_85__ _TOKEN_霩:1.0___ast_霩_128__: _TOKEN_霩:1.0___ast_霩_32__("[_TOKEN_庖:1.0___ast_庖_12__-_TOKEN_庖:1.0___ast_庖_9__ _TOKEN_庖:1.0___ast_庖_15__] _TOKEN_庖:1.0___ast_庖_21__._TOKEN_匹:1.0___ast_霩_15__() _TOKEN_霩:1.0___ast_霩_88__ _TOKEN_霩:1.0___ast_霩_71__ _TOKEN_霩:1.0___ast_霩_55__ _TOKEN_霩:1.0___ast_霩_66__.")
+
+// [metadata-stripped]
+            for _TOKEN_霩:1.0___ast_霩_22__, _TOKEN_霩:1.0___ast_霩_121__ in self._TOKEN_霩:1.0___ast_霩_103__._TOKEN_霩:1.0___ast_霩_16__():
+                _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_9__[_TOKEN_霩:1.0___ast_霩_22__] = _TOKEN_霩:1.0___ast_霩_121__
+
+// [metadata-stripped]
+            if self._TOKEN_霩:1.0___ast_霩_14__:
+                try:
+                    _TOKEN_法:1.0___ast_霩_25__ = _TOKEN_法:1.0___ast_庖_8__()
+                    _TOKEN_法:1.0___ast_霩_25__._TOKEN_匹:1.0___ast_霩_112__ = self._TOKEN_霩:1.0___ast_霩_108__
+                    for _TOKEN_霩:1.0___ast_霩_22__, _TOKEN_霩:1.0___ast_霩_121__ in self._TOKEN_霩:1.0___ast_霩_103__._TOKEN_霩:1.0___ast_霩_16__():
+                        _TOKEN_法:1.0___ast_霩_25__._TOKEN_霩:1.0___ast_霩_9__[_TOKEN_霩:1.0___ast_霩_22__] = _TOKEN_霩:1.0___ast_霩_121__
+                    _TOKEN_法:1.0___ast_霩_25__._TOKEN_霩:1.0___ast_霩_79__(self._TOKEN_霩:1.0___ast_霩_14__)
+// [metadata-stripped]
+                    for _TOKEN_幽:1.0___ast_霩_123__, _TOKEN_霩:1.0___ast_霩_109__ in _TOKEN_法:1.0___ast_霩_25__._TOKEN_霩:1.0___ast_霩_9__._TOKEN_霩:1.0___ast_霩_16__():
+                        if _TOKEN_幽:1.0___ast_霩_123__ _TOKEN_霩:1.0___ast_霩_19__ in _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_9__:
+                            _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_9__[_TOKEN_幽:1.0___ast_霩_123__] = _TOKEN_霩:1.0___ast_霩_109__
+                _TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_18__ as e:
+                    _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_30__(f"_TOKEN_霩:1.0___ast_霩_91__._TOKEN_霩:1.0___ast_霩_101__ _TOKEN_霩:1.0___ast_霩_39__ _TOKEN_霩:1.0___ast_霩_86__: {e}")
+
+// [metadata-stripped]
+            _TOKEN_霩:1.0___ast_霩_34__ = self._TOKEN_霩:1.0___ast_霩_46__ + self._TOKEN_霩:1.0___ast_霩_98__ + "\n\n// ===== 行動決定 =====\n行動結果 = 行動を決める()\n"
+            _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_79__(_TOKEN_霩:1.0___ast_霩_34__)
+
+            _TOKEN_霩:1.0___ast_霩_1__ = _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_9__._TOKEN_法:1.0___ast_雄_3__("行動結果")
+
+            if _TOKEN_霩:1.0___ast_霩_1__ is _TOKEN_庖:1.0___ast_庖_13__:
+                _TOKEN_霩:1.0___ast_霩_1__ = _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_100__
+
+// [metadata-stripped]
+            self._TOKEN_霩:1.0___ast_霩_107__ = _TOKEN_法:1.0___ast_霩_129__._TOKEN_霩:1.0___ast_霩_9__._TOKEN_霩:1.0___ast_霩_11__()
+            self._TOKEN_霩:1.0___ast_霩_103__._TOKEN_霩:1.0___ast_霩_106__(self._TOKEN_霩:1.0___ast_霩_107__)
+
+            if _TOKEN_霩:1.0___ast_霩_44__(_TOKEN_霩:1.0___ast_霩_1__, _TOKEN_霩:1.0___ast_霩_95__):
+                return _TOKEN_霩:1.0___ast_霩_1__
+            _TOKEN_浮:1.0___ast_霩_110__ _TOKEN_霩:1.0___ast_霩_44__(_TOKEN_霩:1.0___ast_霩_1__, _TOKEN_霩:1.0___ast_霩_126__):
+                return _TOKEN_霩:1.0___ast_霩_95__(_TOKEN_霩:1.0___ast_霩_1__)
+            else:
+                _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_30__(f"_TOKEN_霩:1.0___ast_霩_115__: _TOKEN_霩:1.0___ast_霩_67__ _TOKEN_霩:1.0___ast_霩_1__ _TOKEN_霩:1.0___ast_霩_75__={_TOKEN_霩:1.0___ast_霩_75__(_TOKEN_霩:1.0___ast_霩_1__)} _TOKEN_霩:1.0___ast_霩_109__={_TOKEN_霩:1.0___ast_霩_1__}")
+                return -1
+
+        _TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_18__ as e:
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_8__(f"_TOKEN_庖:1.0___ast_庖_10__._TOKEN_霩:1.0___ast_霩_115__ _TOKEN_霩:1.0___ast_霩_118__: {e}")
+            return -1
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_法:1.0___ast_雄_1__(self, _TOKEN_霩:1.0___ast_霩_89__: _TOKEN_霩:1.0___ast_霩_18__, _TOKEN_霩:1.0___ast_霩_12__: _TOKEN_庖:1.0___ast_庖_19__ = _TOKEN_庖:1.0___ast_庖_13__) -> _TOKEN_庖:1.0___ast_庖_19__:
+        """
+        _TOKEN_霩:1.0___ast_霩_101__実行後の変数値を取得する
+        _TOKEN_霩:1.0___ast_霩_115__()の後に呼び出すこと
+
+        _TOKEN_庖:1.0___ast_庖_7__:
+            _TOKEN_霩:1.0___ast_霩_89__: 変数名
+            _TOKEN_霩:1.0___ast_霩_12__: デフォルト値
+
+        _TOKEN_庖:1.0___ast_庖_3__:
+            変数の値
+        """
+// [metadata-stripped]
+// [metadata-stripped]
+        return self._TOKEN_霩:1.0___ast_霩_103__._TOKEN_法:1.0___ast_雄_3__(_TOKEN_霩:1.0___ast_霩_89__, _TOKEN_霩:1.0___ast_霩_12__)
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_58__(self, _TOKEN_霩:1.0___ast_霩_48__: _TOKEN_庖:1.0___ast_庖_20__[_TOKEN_庖:1.0___ast_庖_17__]) -> _TOKEN_霩:1.0___ast_霩_35__:
+        """
+        体験を_TOKEN_霩:1.0___ast_霩_91__._TOKEN_霩:1.0___ast_霩_101__に追記して保存（動的書き換え）
+
+        _TOKEN_庖:1.0___ast_庖_7__:
+            _TOKEN_霩:1.0___ast_霩_48__: 体験リスト [{"種類": _TOKEN_霩:1.0___ast_霩_18__, "フレーム": _TOKEN_霩:1.0___ast_霩_95__, "位置": [...], ...}]
+
+        _TOKEN_庖:1.0___ast_庖_3__:
+            _TOKEN_庖:1.0___ast_庖_1__: 成功
+        """
+        if _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_108__:
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+        try:
+            _TOKEN_霩:1.0___ast_霩_40__ = []
+            for _TOKEN_霩:1.0___ast_霩_81__ in _TOKEN_霩:1.0___ast_霩_48__:
+// [metadata-stripped]
+                _TOKEN_霩:1.0___ast_霩_62__ = []
+                for _TOKEN_幽:1.0___ast_霩_123__, _TOKEN_霩:1.0___ast_霩_109__ in _TOKEN_霩:1.0___ast_霩_81__._TOKEN_霩:1.0___ast_霩_16__():
+// _TOKEN_紬:0.7___ast_FZ_110__ [decoy-metadata]
+                    if _TOKEN_霩:1.0___ast_霩_44__(_TOKEN_霩:1.0___ast_霩_109__, _TOKEN_霩:1.0___ast_霩_18__):
+                        _TOKEN_霩:1.0___ast_霩_62__._TOKEN_霩:1.0___ast_霩_2__(f'"{_TOKEN_幽:1.0___ast_霩_123__}": "{_TOKEN_霩:1.0___ast_霩_109__}"')
+                    _TOKEN_浮:1.0___ast_霩_110__ _TOKEN_霩:1.0___ast_霩_44__(_TOKEN_霩:1.0___ast_霩_109__, (_TOKEN_霩:1.0___ast_霩_117__, _TOKEN_霩:1.0___ast_霩_13__)):
+                        _TOKEN_法:1.0___ast_霩_57__ = ", "._TOKEN_霩:1.0___ast_霩_49__(_TOKEN_霩:1.0___ast_霩_18__(v) for v in _TOKEN_霩:1.0___ast_霩_109__)
+                        _TOKEN_霩:1.0___ast_霩_62__._TOKEN_霩:1.0___ast_霩_2__(f'"{_TOKEN_幽:1.0___ast_霩_123__}": [{_TOKEN_法:1.0___ast_霩_57__}]')
+                    else:
+                        _TOKEN_霩:1.0___ast_霩_62__._TOKEN_霩:1.0___ast_霩_2__(f'"{_TOKEN_幽:1.0___ast_霩_123__}": {_TOKEN_霩:1.0___ast_霩_109__}')
+                _TOKEN_霩:1.0___ast_霩_78__ = "{" + ", "._TOKEN_霩:1.0___ast_霩_49__(_TOKEN_霩:1.0___ast_霩_62__) + "}"
+                _TOKEN_霩:1.0___ast_霩_40__._TOKEN_霩:1.0___ast_霩_2__(f"// 体験追記: フレーム={_TOKEN_霩:1.0___ast_霩_81__._TOKEN_法:1.0___ast_雄_3__('フレーム', '?')}")
+                _TOKEN_霩:1.0___ast_霩_40__._TOKEN_霩:1.0___ast_霩_2__(f"体験リスト に 追加({_TOKEN_霩:1.0___ast_霩_78__})")
+                _TOKEN_霩:1.0___ast_霩_40__._TOKEN_霩:1.0___ast_霩_2__(f"体験数 = 体験数 + 1")
+
+            if _TOKEN_霩:1.0___ast_霩_40__:
+                _TOKEN_霩:1.0___ast_霩_105__ open(self._TOKEN_霩:1.0___ast_霩_108__, 'a', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                    f._TOKEN_霩:1.0___ast_霩_97__("\n")
+                    f._TOKEN_霩:1.0___ast_霩_97__("\n"._TOKEN_霩:1.0___ast_霩_49__(_TOKEN_霩:1.0___ast_霩_40__))
+                    f._TOKEN_霩:1.0___ast_霩_97__("\n")
+
+// [metadata-stripped]
+                _TOKEN_霩:1.0___ast_霩_105__ open(self._TOKEN_霩:1.0___ast_霩_108__, 'r', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                    self._TOKEN_霩:1.0___ast_霩_14__ = f._TOKEN_霩:1.0___ast_霩_114__()
+
+            return _TOKEN_庖:1.0___ast_庖_1__
+
+        _TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_18__ as e:
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_118__(f"_TOKEN_庖:1.0___ast_庖_10__._TOKEN_霩:1.0___ast_霩_58__ _TOKEN_霩:1.0___ast_霩_118__: {e}")
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_127__(self, _TOKEN_霩:1.0___ast_霩_20__: _TOKEN_霩:1.0___ast_霩_18__, _TOKEN_霩:1.0___ast_霩_61__: _TOKEN_霩:1.0___ast_霩_18__) -> _TOKEN_霩:1.0___ast_霩_35__:
+        """
+        _TOKEN_霩:1.0___ast_霩_31__._TOKEN_霩:1.0___ast_霩_101__のルール部分を動的に書き換える
+
+        マーカー形式:
+// [metadata-stripped]
+            関数 ... { ... }
+// [metadata-stripped]
+
+        _TOKEN_庖:1.0___ast_庖_7__:
+            _TOKEN_霩:1.0___ast_霩_20__: ルールID（マーカーに使う識別子）
+            _TOKEN_霩:1.0___ast_霩_61__: 新しい_TOKEN_霩:1.0___ast_霩_101__コード
+
+        _TOKEN_庖:1.0___ast_庖_3__:
+            _TOKEN_庖:1.0___ast_庖_1__: 成功
+        """
+        if _TOKEN_霩:1.0___ast_霩_19__ self._TOKEN_霩:1.0___ast_霩_84__:
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+        try:
+            _TOKEN_霩:1.0___ast_霩_105__ open(self._TOKEN_霩:1.0___ast_霩_84__, 'r', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                _TOKEN_霩:1.0___ast_霩_56__ = f._TOKEN_霩:1.0___ast_霩_114__()
+
+            _TOKEN_法:1.0___ast_霩_10__ = f"// [_TOKEN_庖:1.0___ast_庖_22__:{_TOKEN_霩:1.0___ast_霩_20__} _TOKEN_庖:1.0___ast_庖_2__]"
+            _TOKEN_法:1.0___ast_霩_59__ = f"// [_TOKEN_庖:1.0___ast_庖_22__:{_TOKEN_霩:1.0___ast_霩_20__} _TOKEN_庖:1.0___ast_庖_11__]"
+
+            _TOKEN_霩:1.0___ast_霩_54__ = _TOKEN_霩:1.0___ast_霩_56__._TOKEN_霩:1.0___ast_霩_69__(_TOKEN_法:1.0___ast_霩_10__)
+            _TOKEN_霩:1.0___ast_霩_125__ = _TOKEN_霩:1.0___ast_霩_56__._TOKEN_霩:1.0___ast_霩_69__(_TOKEN_法:1.0___ast_霩_59__)
+
+            if _TOKEN_霩:1.0___ast_霩_54__ == -1 or _TOKEN_霩:1.0___ast_霩_125__ == -1:
+// [metadata-stripped]
+                _TOKEN_霩:1.0___ast_霩_3__ = f"\n{_TOKEN_法:1.0___ast_霩_10__}\n{_TOKEN_霩:1.0___ast_霩_61__}\n{_TOKEN_法:1.0___ast_霩_59__}\n"
+                _TOKEN_霩:1.0___ast_霩_56__ = _TOKEN_霩:1.0___ast_霩_56__ + _TOKEN_霩:1.0___ast_霩_3__
+                _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_36__(f"_TOKEN_霩:1.0___ast_霩_127__: _TOKEN_霩:1.0___ast_霩_41__ _TOKEN_霩:1.0___ast_霩_90__ _TOKEN_霩:1.0___ast_霩_94__ _TOKEN_霩:1.0___ast_霩_99__ '{_TOKEN_霩:1.0___ast_霩_20__}'")
+            else:
+// [metadata-stripped]
+                _TOKEN_浮:1.0___ast_霩_7__ = _TOKEN_霩:1.0___ast_霩_56__[:_TOKEN_霩:1.0___ast_霩_54__]
+                _TOKEN_法:1.0___ast_霩_68__ = _TOKEN_霩:1.0___ast_霩_56__[_TOKEN_霩:1.0___ast_霩_125__ + _TOKEN_霩:1.0___ast_霩_72__(_TOKEN_法:1.0___ast_霩_59__):]
+                _TOKEN_霩:1.0___ast_霩_3__ = f"{_TOKEN_法:1.0___ast_霩_10__}\n{_TOKEN_霩:1.0___ast_霩_61__}\n{_TOKEN_法:1.0___ast_霩_59__}"
+                _TOKEN_霩:1.0___ast_霩_56__ = _TOKEN_浮:1.0___ast_霩_7__ + _TOKEN_霩:1.0___ast_霩_3__ + _TOKEN_法:1.0___ast_霩_68__
+                _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_36__(f"_TOKEN_霩:1.0___ast_霩_127__: _TOKEN_霩:1.0___ast_霩_92__ _TOKEN_霩:1.0___ast_霩_94__ _TOKEN_霩:1.0___ast_霩_99__ '{_TOKEN_霩:1.0___ast_霩_20__}'")
+
+            _TOKEN_霩:1.0___ast_霩_105__ open(self._TOKEN_霩:1.0___ast_霩_84__, 'w', _TOKEN_霩:1.0___ast_霩_17__='_TOKEN_霩:1.0___ast_霩_43__-8') as f:
+                f._TOKEN_霩:1.0___ast_霩_97__(_TOKEN_霩:1.0___ast_霩_56__)
+
+// [metadata-stripped]
+            self._TOKEN_霩:1.0___ast_霩_46__ = _TOKEN_霩:1.0___ast_霩_56__
+            return _TOKEN_庖:1.0___ast_庖_1__
+
+        _TOKEN_霩:1.0___ast_霩_24__ _TOKEN_庖:1.0___ast_庖_18__ as e:
+            _TOKEN_法:1.0___ast_霩_38__._TOKEN_霩:1.0___ast_霩_118__(f"_TOKEN_庖:1.0___ast_庖_10__._TOKEN_霩:1.0___ast_霩_127__ _TOKEN_霩:1.0___ast_霩_118__: {e}")
+// _TOKEN_匹:0.4___ast_MH_709__ [decoy-metadata]
+            return _TOKEN_庖:1.0___ast_庖_24__
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_匹:1.0___ast_霩_93__(self) -> _TOKEN_霩:1.0___ast_霩_35__:
+        """_TOKEN_霩:1.0___ast_霩_31__._TOKEN_霩:1.0___ast_霩_101__と_TOKEN_霩:1.0___ast_霩_91__._TOKEN_霩:1.0___ast_霩_101__を再読み込みする"""
+        if self._TOKEN_霩:1.0___ast_霩_84__:
+            return self._TOKEN_匹:1.0___ast_霩_26__(self._TOKEN_霩:1.0___ast_霩_84__, self._TOKEN_霩:1.0___ast_霩_108__)
+        return _TOKEN_庖:1.0___ast_庖_24__
+
+    @_TOKEN_霩:1.0___ast_霩_29__
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_21__(self) -> _TOKEN_霩:1.0___ast_霩_35__:
+        """パーサーが利用可能かどうか"""
+        return self._TOKEN_霩:1.0___ast_霩_74__ _TOKEN_霩:1.0___ast_霩_65__ _TOKEN_霩:1.0___ast_霩_35__(self._TOKEN_霩:1.0___ast_霩_46__)
+
+    _TOKEN_霩:1.0___ast_霩_70__ _TOKEN_霩:1.0___ast_霩_83__(self):
+        return (f"_TOKEN_庖:1.0___ast_庖_10__(_TOKEN_霩:1.0___ast_霩_119__={self._TOKEN_霩:1.0___ast_霩_74__}, "
+                f"_TOKEN_霩:1.0___ast_霩_31__={'_TOKEN_匹:1.0___ast_霩_87__' if self._TOKEN_霩:1.0___ast_霩_46__ else '_TOKEN_霩:1.0___ast_霩_4__'}, "
+                f"_TOKEN_霩:1.0___ast_霩_91__={'_TOKEN_匹:1.0___ast_霩_87__' if self._TOKEN_霩:1.0___ast_霩_14__ else '_TOKEN_霩:1.0___ast_霩_4__'}, "
+                f"_TOKEN_霩:1.0___ast_霩_50__={_TOKEN_霩:1.0___ast_霩_117__(self._TOKEN_霩:1.0___ast_霩_103__._TOKEN_幽:1.0___ast_霩_33__())})")
+
+// POLYMORPHIC_JCROSS_END

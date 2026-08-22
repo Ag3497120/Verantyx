@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1C6F384F ver:1778162901
+// ⚠️ One-time schema — expires after response
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_44_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_43_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_2_ort ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_4_
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_2_ort re
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_44_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_49_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_2_ort ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_48_ = re.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_51_(r"\s+")
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_40_ = re.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_51_(r"^[A-Za-z][A-Za-z0-9_]*$")
+
+
+class ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_3_):
+// __ast_縞:0.7___OPAQUE_YE_763_ [decoy-metadata]
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_34_
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_41_(s: __ast_露:1.0___OPAQUE_露_7_) -> __ast_露:1.0___OPAQUE_露_7_:
+    s = (s or "").____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_26_()
+    s = s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("□", "[]").____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("◇", "<>")
+    s = re.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_(r"\____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_1_\b", "[]", s, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_56_=re.I)
+    s = re.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_(r"\____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_15_\b", "<>", s, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_56_=re.I)
+    s = s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("→", "->").____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("¬", "~")
+    s = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_48_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_("", s)
+    s = s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("[]", "[]")
+    s = s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_30_("<>", "<>")
+    return s
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_27_(s: __ast_露:1.0___OPAQUE_露_7_) -> __ast_露:1.0___OPAQUE_露_7_:
+    s = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_41_(s)
+    if __ast_露:1.0___OPAQUE_露_18_ s:
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_("____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_21_")
+    ____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_47_ = ____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_5_(s)
+    __ast_露:1.0___OPAQUE_露_17_, __ast_露:1.0___OPAQUE_露_52_ = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_6_(____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_47_, 0)
+    if __ast_露:1.0___OPAQUE_露_52_ != __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_47_):
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_54_ ____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_12_ at {__ast_露:1.0___OPAQUE_露_52_}: {____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_47_[__ast_露:1.0___OPAQUE_露_52_]}")
+    return ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_8_(__ast_露:1.0___OPAQUE_露_17_)
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__深:1.0___OPAQUE_露_5_(s: __ast_露:1.0___OPAQUE_露_7_) -> ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_]:
+    __ast_露:1.0___OPAQUE_露_38_: ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_] = []
+    i = 0
+    while i < __ast_露:1.0___OPAQUE_露_22_(s):
+        if s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_24_("->", i):
+// __ast_覇:0.3___OPAQUE_KA_510_ [decoy-metadata]
+            __ast_露:1.0___OPAQUE_露_38_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_53_("->")
+            i += 2
+            continue
+        if s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_24_("[]", i):
+            __ast_露:1.0___OPAQUE_露_38_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_53_("[]")
+            i += 2
+            continue
+        if s.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_24_("<>", i):
+            __ast_露:1.0___OPAQUE_露_38_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_53_("<>")
+            i += 2
+            continue
+        c = s[i]
+        if c in ("(", ")", "&", "|", "~"):
+            __ast_露:1.0___OPAQUE_露_38_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_53_(c)
+            i += 1
+            continue
+        j = i
+        while j < __ast_露:1.0___OPAQUE_露_22_(s) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ re.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_55_(r"[A-Za-z0-9_]", s[j]):
+            j += 1
+        if j == i:
+            ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_25_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_28_: {s[i]}")
+        __ast_露:1.0___OPAQUE_露_38_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_53_(s[i:j])
+        i = j
+    return __ast_露:1.0___OPAQUE_露_38_
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_6_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_: ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_], i: __ast_露:1.0___OPAQUE_露_20_):
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_46_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+// __ast_漂:0.6___OPAQUE_YC_738_ [decoy-metadata]
+    if i < __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] == "->":
+        i += 1
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_6_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+        return ("->", ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_), i
+    return ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_46_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_: ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_], i: __ast_露:1.0___OPAQUE_露_20_):
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_33_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+    while i < __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] == "|":
+        i += 1
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_33_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_ = ("|", ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_)
+    return ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_33_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_: ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_], i: __ast_露:1.0___OPAQUE_露_20_):
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_45_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+    while i < __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] == "&":
+// __ast_覇:0.8___OPAQUE_FB_928_ [decoy-metadata]
+        i += 1
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_45_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_ = ("&", ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_9_)
+    return ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_23_, i
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_45_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_: ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_2_[__ast_露:1.0___OPAQUE_露_7_], i: __ast_露:1.0___OPAQUE_露_20_):
+    if i >= __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_):
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_("____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_54_ __ast_露:1.0___OPAQUE_露_13_")
+    if ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] in ("~", "[]", "<>"):
+        op = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i]
+        i += 1
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_45_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+        return ("un", op, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_), i
+// __ast_露:0.7___OPAQUE_HM_390_ [decoy-metadata]
+    if ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] == "(":
+        i += 1
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_, i = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_6_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_, i)
+        if i >= __ast_露:1.0___OPAQUE_露_22_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_) or ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i] != ")":
+            ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_("____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_16_ ')'")
+        i += 1
+        return ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_, i
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_31_ = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_14_[i]
+    i += 1
+    if __ast_露:1.0___OPAQUE_露_18_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_40_.____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_55_(____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_31_):
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_25_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_39_: {____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_31_}")
+// __ast_縞:0.2___OPAQUE_GE_980_ [decoy-metadata]
+    return ("____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_39_", ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_31_), i
+
+
+____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_36_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_8_(__ast_露:1.0___OPAQUE_露_17_) -> __ast_露:1.0___OPAQUE_露_7_:
+    if ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_3_(__ast_露:1.0___OPAQUE_露_17_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_42_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ __ast_露:1.0___OPAQUE_露_17_[0] == "____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_39_":
+        return __ast_露:1.0___OPAQUE_露_17_[1].____ast_露:1.0___OPAQUE_露_17__図:1.0___OPAQUE_露_29_()
+    if ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_3_(__ast_露:1.0___OPAQUE_露_17_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_42_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ __ast_露:1.0___OPAQUE_露_17_[0] == "un":
+        op = __ast_露:1.0___OPAQUE_露_17_[1]
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_ = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_8_(__ast_露:1.0___OPAQUE_露_17_[2])
+        if op == "~":
+            return f"__ast_露:1.0___OPAQUE_露_18_({____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_})"
+        if op == "[]":
+            return f"__ast_露:1.0___OPAQUE_露_19_({____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_})"
+        if op == "<>":
+            return f"__ast_露:1.0___OPAQUE_露_11_({____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_35_})"
+        ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_50_ ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_37_ op: {op}")
+    if ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_3_(__ast_露:1.0___OPAQUE_露_17_, ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_42_) ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_ __ast_露:1.0___OPAQUE_露_17_[0] in ("&", "|", "->"):
+        op = __ast_露:1.0___OPAQUE_露_17_[0]
+        a = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_8_(__ast_露:1.0___OPAQUE_露_17_[1])
+        b = ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_8_(__ast_露:1.0___OPAQUE_露_17_[2])
+        if op == "&":
+            return f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_32_({a},{b})"
+        if op == "|":
+            return f"or({a},{b})"
+        if op == "->":
+            return f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_2_({a},{b})"
+    ____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_10_ ____ast_露:1.0___OPAQUE_露_17__廨:1.0___OPAQUE_廨_1_(f"____ast_露:1.0___OPAQUE_露_17__露:1.0___OPAQUE_露_25_ __ast_露:1.0___OPAQUE_露_17_: {__ast_露:1.0___OPAQUE_露_17_}")
+
+// POLYMORPHIC_JCROSS_END

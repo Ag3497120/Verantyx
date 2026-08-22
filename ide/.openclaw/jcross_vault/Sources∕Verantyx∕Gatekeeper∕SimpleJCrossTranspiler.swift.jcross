@@ -1,0 +1,203 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A9B55AE7 ver:1778163656
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_廴:1.0___ast_廴_10__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _TOKEN_案:1.0___ast_廴_1__: @_TOKEN_霪:1.0___ast_霪_49__ _TOKEN_廴:1.0___ast_廴_28__ {
+
+    private var _TOKEN_案:1.0___ast_霪_65__: _TOKEN_廴:1.0___ast_廴_22__ = 0
+    private var _TOKEN_霪:1.0___ast_霪_122__: [_TOKEN_廴:1.0___ast_廴_23__: _TOKEN_廴:1.0___ast_廴_23__] = [:]
+
+// [metadata-stripped]
+
+    private static let _TOKEN_潜:1.0___ast_霪_108__: [_TOKEN_廴:1.0___ast_廴_4__] = {
+        let _TOKEN_霪:1.0___ast_霪_88__ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        ]
+        return _TOKEN_霪:1.0___ast_霪_88__._TOKEN_霪:1.0___ast_霪_80__ { try? _TOKEN_廴:1.0___ast_廴_4__(_TOKEN_霪:1.0___ast_霪_132__: $0) }
+    }()
+
+    private static let _TOKEN_涌:1.0___ast_霪_141__: _TOKEN_廴:1.0___ast_廴_4__? = {
+        try? _TOKEN_廴:1.0___ast_廴_4__(_TOKEN_霪:1.0___ast_霪_132__: #"\b[a-zA-Z_][a-zA-Z0-9_]{2,}\b"#)
+    }()
+
+// [metadata-stripped]
+    func _TOKEN_霪:1.0___ast_霪_7__(_ _TOKEN_霪:1.0___ast_霪_61__: _TOKEN_廴:1.0___ast_廴_23__, _TOKEN_匣:1.0___ast_霪_124__ _TOKEN_霪:1.0___ast_霪_56__: _TOKEN_廴:1.0___ast_廴_23__) -> (_TOKEN_廴:1.0___ast_廴_23__, _TOKEN_廴:1.0___ast_廴_22__, _TOKEN_廴:1.0___ast_廴_22__, _TOKEN_廴:1.0___ast_廴_23__) {
+        _TOKEN_案:1.0___ast_霪_65__ = 0
+// _TOKEN_霪:0.1___ast_BL_398__ [decoy-metadata]
+        _TOKEN_霪:1.0___ast_霪_122__ = [:]
+
+        let _TOKEN_霪:1.0___ast_霪_26__ = _TOKEN_廴:1.0___ast_廴_8__()._TOKEN_霪:1.0___ast_霪_69__
+        let _TOKEN_霪:1.0___ast_霪_117__      = _TOKEN_霪:1.0___ast_霪_19__(for: _TOKEN_霪:1.0___ast_霪_56__)
+        let _TOKEN_潜:1.0___ast_霪_44__  = _TOKEN_潜:1.0___ast_霪_5__(for: _TOKEN_霪:1.0___ast_霪_56__)
+
+        var _TOKEN_霪:1.0___ast_霪_96__: [_TOKEN_廴:1.0___ast_廴_23__] = []
+        _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("// _TOKEN_廴:1.0___ast_廴_32__")
+// _TOKEN_絵:0.4___ast_LW_171__ [decoy-metadata]
+        _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("// _TOKEN_霪:1.0___ast_霪_117__:\(_TOKEN_霪:1.0___ast_霪_117__) _TOKEN_案:1.0___ast_霪_6__:1.0 _TOKEN_霪:1.0___ast_霪_32__:_TOKEN_霪:1.0___ast_霪_3__-_TOKEN_霪:1.0___ast_霪_10__")
+        _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("// ⚠️ _TOKEN_廴:1.0___ast_廴_18__ _TOKEN_廴:1.0___ast_廴_26__ _TOKEN_廴:1.0___ast_廴_13__ _TOKEN_廴:1.0___ast_廴_5__")
+        _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("")
+
+        var _TOKEN_潜:1.0___ast_霪_53__ = 0
+        let _TOKEN_霪:1.0___ast_霪_46__ = _TOKEN_霪:1.0___ast_霪_61__._TOKEN_霪:1.0___ast_霪_135__(_TOKEN_霪:1.0___ast_霪_47__: "\n")
+// _TOKEN_廉:0.1___ast_WK_712__ [decoy-metadata]
+
+        for _TOKEN_霪:1.0___ast_霪_30__ in _TOKEN_霪:1.0___ast_霪_46__ {
+            let _TOKEN_霪:1.0___ast_霪_125__ = _TOKEN_霪:1.0___ast_霪_30__._TOKEN_霪:1.0___ast_霪_104__(in: ._TOKEN_霪:1.0___ast_霪_113__)
+
+// [metadata-stripped]
+            if _TOKEN_霪:1.0___ast_霪_125__._TOKEN_霪:1.0___ast_霪_139__("//") || _TOKEN_霪:1.0___ast_霪_125__._TOKEN_霪:1.0___ast_霪_139__("#") ||
+               _TOKEN_霪:1.0___ast_霪_125__._TOKEN_霪:1.0___ast_霪_139__("--") || _TOKEN_霪:1.0___ast_霪_125__._TOKEN_霪:1.0___ast_霪_139__("*") {
+                _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("// [_TOKEN_霪:1.0___ast_霪_24__]")
+                continue
+            }
+
+            if _TOKEN_霪:1.0___ast_霪_125__._TOKEN_霪:1.0___ast_霪_119__ {
+                _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("")
+                continue
+            }
+
+// [metadata-stripped]
+            var _TOKEN_霪:1.0___ast_霪_84__ = _TOKEN_霪:1.0___ast_霪_30__
+            for _TOKEN_霪:1.0___ast_霪_70__ in _TOKEN_廴:1.0___ast_廴_30__._TOKEN_潜:1.0___ast_霪_108__ {
+                let ns = _TOKEN_霪:1.0___ast_霪_84__ as _TOKEN_廴:1.0___ast_廴_19__
+                let _TOKEN_霪:1.0___ast_霪_73__ = _TOKEN_霪:1.0___ast_霪_70__._TOKEN_霪:1.0___ast_霪_73__(in: _TOKEN_霪:1.0___ast_霪_84__, _TOKEN_霪:1.0___ast_霪_85__: _TOKEN_廴:1.0___ast_廴_20__(_TOKEN_霪:1.0___ast_霪_109__: 0, _TOKEN_霪:1.0___ast_霪_16__: ns._TOKEN_霪:1.0___ast_霪_16__))
+                for _TOKEN_霪:1.0___ast_霪_22__ in _TOKEN_霪:1.0___ast_霪_73__._TOKEN_霪:1.0___ast_霪_66__() {
+                    let id = _TOKEN_霪:1.0___ast_霪_12__(_TOKEN_霪:1.0___ast_霪_13__: "S")
+                    _TOKEN_霪:1.0___ast_霪_84__ = (_TOKEN_霪:1.0___ast_霪_84__ as _TOKEN_廴:1.0___ast_廴_19__)
+                        ._TOKEN_霪:1.0___ast_霪_41__(in: _TOKEN_霪:1.0___ast_霪_22__._TOKEN_霪:1.0___ast_霪_85__, _TOKEN_霪:1.0___ast_霪_130__: "「\(id)」")
+                    _TOKEN_潜:1.0___ast_霪_53__ += 1
+                }
+            }
+
+// [metadata-stripped]
+            if let _TOKEN_霪:1.0___ast_霪_70__ = _TOKEN_廴:1.0___ast_廴_30__._TOKEN_涌:1.0___ast_霪_141__ {
+                let ns = _TOKEN_霪:1.0___ast_霪_84__ as _TOKEN_廴:1.0___ast_廴_19__
+                let _TOKEN_霪:1.0___ast_霪_73__ = _TOKEN_霪:1.0___ast_霪_70__._TOKEN_霪:1.0___ast_霪_73__(in: _TOKEN_霪:1.0___ast_霪_84__,
+                                            _TOKEN_霪:1.0___ast_霪_85__: _TOKEN_廴:1.0___ast_廴_20__(_TOKEN_霪:1.0___ast_霪_109__: 0, _TOKEN_霪:1.0___ast_霪_16__: ns._TOKEN_霪:1.0___ast_霪_16__))
+                var _TOKEN_霪:1.0___ast_霪_91__ = 0
+                for _TOKEN_霪:1.0___ast_霪_22__ in _TOKEN_霪:1.0___ast_霪_73__ {
+                    let _TOKEN_霪:1.0___ast_霪_85__ = _TOKEN_廴:1.0___ast_廴_20__(_TOKEN_霪:1.0___ast_霪_109__: _TOKEN_霪:1.0___ast_霪_22__._TOKEN_霪:1.0___ast_霪_85__._TOKEN_霪:1.0___ast_霪_109__ + _TOKEN_霪:1.0___ast_霪_91__,
+// _TOKEN_潜:0.1___ast_GC_188__ [decoy-metadata]
+                                       _TOKEN_霪:1.0___ast_霪_16__: _TOKEN_霪:1.0___ast_霪_22__._TOKEN_霪:1.0___ast_霪_85__._TOKEN_霪:1.0___ast_霪_16__)
+                    guard let _TOKEN_涌:1.0___ast_霪_54__ = _TOKEN_廴:1.0___ast_廴_11__(_TOKEN_霪:1.0___ast_霪_85__, in: _TOKEN_霪:1.0___ast_霪_84__) else { continue }
+                    let _TOKEN_霪:1.0___ast_霪_144__ = _TOKEN_廴:1.0___ast_廴_23__(_TOKEN_霪:1.0___ast_霪_84__[_TOKEN_涌:1.0___ast_霪_54__])
+
+                    if _TOKEN_潜:1.0___ast_霪_44__._TOKEN_霪:1.0___ast_霪_14__(_TOKEN_霪:1.0___ast_霪_144__) { continue }
+
+                    let _TOKEN_霪:1.0___ast_霪_92__: _TOKEN_廴:1.0___ast_廴_23__
+                    if let _TOKEN_霪:1.0___ast_霪_79__ = _TOKEN_霪:1.0___ast_霪_122__[_TOKEN_霪:1.0___ast_霪_144__] {
+                        _TOKEN_霪:1.0___ast_霪_92__ = _TOKEN_霪:1.0___ast_霪_79__
+                    } else {
+                        _TOKEN_霪:1.0___ast_霪_92__ = _TOKEN_霪:1.0___ast_霪_12__(_TOKEN_霪:1.0___ast_霪_13__: _TOKEN_霪:1.0___ast_霪_123__(for: _TOKEN_霪:1.0___ast_霪_144__))
+                        _TOKEN_霪:1.0___ast_霪_122__[_TOKEN_霪:1.0___ast_霪_144__] = _TOKEN_霪:1.0___ast_霪_92__
+                    }
+
+                    let _TOKEN_霪:1.0___ast_霪_39__ = "⟨\(_TOKEN_霪:1.0___ast_霪_92__)⟩"
+                    _TOKEN_霪:1.0___ast_霪_84__._TOKEN_霪:1.0___ast_霪_127__(_TOKEN_涌:1.0___ast_霪_54__, _TOKEN_霪:1.0___ast_霪_130__: _TOKEN_霪:1.0___ast_霪_39__)
+                    _TOKEN_霪:1.0___ast_霪_91__ += _TOKEN_霪:1.0___ast_霪_39__._TOKEN_霪:1.0___ast_霪_111__ - _TOKEN_霪:1.0___ast_霪_144__._TOKEN_霪:1.0___ast_霪_111__
+                }
+            }
+
+            _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__(_TOKEN_霪:1.0___ast_霪_84__)
+        }
+
+        _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_2__("// _TOKEN_廴:1.0___ast_廴_15__")
+        let _TOKEN_霪:1.0___ast_霪_107__   = _TOKEN_霪:1.0___ast_霪_96__._TOKEN_霪:1.0___ast_霪_74__(_TOKEN_霪:1.0___ast_霪_136__: "\n")
+        let _TOKEN_霪:1.0___ast_霪_131__ = _TOKEN_霪:1.0___ast_霪_122__._TOKEN_霪:1.0___ast_霪_111__
+
+        return (_TOKEN_霪:1.0___ast_霪_107__, _TOKEN_霪:1.0___ast_霪_131__, _TOKEN_潜:1.0___ast_霪_53__, _TOKEN_霪:1.0___ast_霪_26__)
+    }
+
+// [metadata-stripped]
+
+    private func _TOKEN_霪:1.0___ast_霪_12__(_TOKEN_霪:1.0___ast_霪_13__: _TOKEN_廴:1.0___ast_廴_23__) -> _TOKEN_廴:1.0___ast_廴_23__ {
+// _TOKEN_霪:0.9___ast_CD_198__ [decoy-metadata]
+        _TOKEN_案:1.0___ast_霪_65__ += 1
+        return "\(_TOKEN_霪:1.0___ast_霪_13__)\(_TOKEN_案:1.0___ast_霪_65__)"
+    }
+
+    private func _TOKEN_霪:1.0___ast_霪_123__(for _TOKEN_霪:1.0___ast_霪_144__: _TOKEN_廴:1.0___ast_廴_23__) -> _TOKEN_廴:1.0___ast_廴_23__ {
+        let _TOKEN_案:1.0___ast_霪_37__ = _TOKEN_霪:1.0___ast_霪_144__._TOKEN_霪:1.0___ast_霪_98__()
+        if _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_案:1.0___ast_廉_3__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_案:1.0___ast_廉_2__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_案:1.0___ast_廉_4__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_霪:1.0___ast_霪_1__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_99__("_TOKEN_案:1.0___ast_廴_25__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_99__("_TOKEN_廴:1.0___ast_廴_16__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_99__("_TOKEN_案:1.0___ast_廴_27__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_99__("_TOKEN_廴:1.0___ast_廴_7__") {
+            return "F"
+        }
+        if _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_絵:1.0___ast_霪_145__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_絵:1.0___ast_霪_18__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_絵:1.0___ast_霪_77__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_絵:1.0___ast_霪_114__") {
+            return "N"
+        }
+        if _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_潜:1.0___ast_霪_143__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_潜:1.0___ast_霪_51__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_潜:1.0___ast_霪_87__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_14__("_TOKEN_潜:1.0___ast_霪_67__") {
+            return "S"
+        }
+        if _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("is") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_霪:1.0___ast_霪_25__") ||
+           _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_霪:1.0___ast_霪_89__") || _TOKEN_案:1.0___ast_霪_37__._TOKEN_霪:1.0___ast_霪_139__("_TOKEN_霪:1.0___ast_霪_9__") {
+            return "B"
+        }
+        return "V"
+    }
+
+    private func _TOKEN_霪:1.0___ast_霪_19__(for _TOKEN_霪:1.0___ast_霪_56__: _TOKEN_廴:1.0___ast_廴_23__) -> _TOKEN_廴:1.0___ast_廴_23__ {
+        switch _TOKEN_霪:1.0___ast_霪_56__ {
+        case "_TOKEN_涌:1.0___ast_霪_58__":           return "_TOKEN_涌:1.0___ast_霪_58__"
+        case "py":              return "_TOKEN_霪:1.0___ast_霪_75__"
+        case "ts", "_TOKEN_霪:1.0___ast_霪_115__":       return "_TOKEN_霪:1.0___ast_霪_62__"
+        case "js", "_TOKEN_霪:1.0___ast_霪_63__":       return "_TOKEN_霪:1.0___ast_霪_34__"
+        case "rs":              return "_TOKEN_霪:1.0___ast_霪_59__"
+        case "go":              return "go"
+        case "kt":              return "_TOKEN_霪:1.0___ast_霪_28__"
+        case "_TOKEN_霪:1.0___ast_霪_94__":            return "_TOKEN_霪:1.0___ast_霪_94__"
+        case "_TOKEN_霪:1.0___ast_霪_129__", "cc", "c":  return "_TOKEN_霪:1.0___ast_霪_129__"
+        case "rb":              return "_TOKEN_霪:1.0___ast_霪_31__"
+        _TOKEN_霪:1.0___ast_霪_8__:                return "_TOKEN_霪:1.0___ast_霪_35__"
+        }
+    }
+
+    private func _TOKEN_潜:1.0___ast_霪_5__(for _TOKEN_霪:1.0___ast_霪_56__: _TOKEN_廴:1.0___ast_廴_23__) -> _TOKEN_案:1.0___ast_廉_1__<_TOKEN_廴:1.0___ast_廴_23__> {
+        switch _TOKEN_霪:1.0___ast_霪_56__ {
+        case "_TOKEN_涌:1.0___ast_霪_58__":
+            return ["if","else","for","while","func","var","let","class","struct","enum",
+                    "return","guard","switch","case","in","self","super","init","deinit",
+                    "import","true","false","nil","async","await","_TOKEN_霪:1.0___ast_霪_126__s","try","catch",
+                    "static","final","private","_TOKEN_霪:1.0___ast_霪_50__lic","internal","open","protocol",
+                    "_TOKEN_霪:1.0___ast_霪_56__ension","where","as","is","do","_TOKEN_霪:1.0___ast_霪_64__","break","continue"]
+        case "py":
+            return ["if","else","_TOKEN_涌:1.0___ast_霪_133__","for","while","_TOKEN_霪:1.0___ast_霪_78__","class","return","import",
+                    "_TOKEN_霪:1.0___ast_霪_134__","as","_TOKEN_霪:1.0___ast_霪_130__","_TOKEN_霪:1.0___ast_霪_55__","break","continue","_TOKEN_廴:1.0___ast_廴_2__","_TOKEN_廴:1.0___ast_廴_31__","_TOKEN_廴:1.0___ast_廴_12__",
+                    "_TOKEN_霪:1.0___ast_霪_71__","or","_TOKEN_霪:1.0___ast_霪_17__","in","is","async","await","_TOKEN_霪:1.0___ast_霪_40__","_TOKEN_霪:1.0___ast_霪_93__","_TOKEN_霪:1.0___ast_霪_137__",
+                    "_TOKEN_霪:1.0___ast_霪_138__","_TOKEN_霪:1.0___ast_霪_23__","_TOKEN_霪:1.0___ast_霪_43__","try","_TOKEN_霪:1.0___ast_霪_105__","_TOKEN_霪:1.0___ast_霪_72__","_TOKEN_霪:1.0___ast_霪_60__"]
+        case "ts","_TOKEN_霪:1.0___ast_霪_115__","js","_TOKEN_霪:1.0___ast_霪_63__":
+            return ["if","else","for","while","_TOKEN_霪:1.0___ast_霪_102__","_TOKEN_霪:1.0___ast_霪_38__","let","var","class",
+                    "return","import","_TOKEN_霪:1.0___ast_霪_57__","async","await","true","false","_TOKEN_霪:1.0___ast_霪_15__",
+                    "_TOKEN_霪:1.0___ast_霪_4__","_TOKEN_霪:1.0___ast_霪_97__","_TOKEN_霪:1.0___ast_霪_142__","_TOKEN_霪:1.0___ast_霪_33__","_TOKEN_霪:1.0___ast_霪_52__","in","of","do",
+                    "switch","case","break","continue","_TOKEN_霪:1.0___ast_霪_126__","try","catch","_TOKEN_霪:1.0___ast_霪_43__",
+                    "_TOKEN_霪:1.0___ast_霪_120__","_TOKEN_霪:1.0___ast_霪_81__","_TOKEN_霪:1.0___ast_霪_118__","_TOKEN_霪:1.0___ast_霪_36__","super","static","_TOKEN_霪:1.0___ast_霪_50__lic",
+                    "private","_TOKEN_霪:1.0___ast_霪_86__","_TOKEN_霪:1.0___ast_霪_116__","_TOKEN_霪:1.0___ast_霪_100__","enum","_TOKEN_霪:1.0___ast_霪_83__"]
+        case "rs":
+            return ["if","else","for","while","fn","let","_TOKEN_霪:1.0___ast_霪_11__","struct","enum","_TOKEN_霪:1.0___ast_霪_68__",
+                    "_TOKEN_霪:1.0___ast_霪_22__","return","_TOKEN_霪:1.0___ast_霪_121__","_TOKEN_霪:1.0___ast_霪_21__","_TOKEN_霪:1.0___ast_霪_50__","true","false","self","_TOKEN_廴:1.0___ast_廴_30__",
+                    "super","_TOKEN_霪:1.0___ast_霪_112__","in","where","as","_TOKEN_霪:1.0___ast_霪_95__","_TOKEN_霪:1.0___ast_霪_106__","async","await",
+                    "_TOKEN_霪:1.0___ast_霪_82__","_TOKEN_霪:1.0___ast_霪_81__","_TOKEN_霪:1.0___ast_霪_38__","static","_TOKEN_霪:1.0___ast_霪_48__","_TOKEN_霪:1.0___ast_霪_76__","_TOKEN_霪:1.0___ast_霪_128__","break",
+                    "continue","_TOKEN_霪:1.0___ast_霪_45__","_TOKEN_霪:1.0___ast_霪_27__","_TOKEN_霪:1.0___ast_霪_128__"]
+        _TOKEN_霪:1.0___ast_霪_8__:
+            return []
+        }
+    }
+}
+// _TOKEN_絵:0.3___ast_YA_981__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

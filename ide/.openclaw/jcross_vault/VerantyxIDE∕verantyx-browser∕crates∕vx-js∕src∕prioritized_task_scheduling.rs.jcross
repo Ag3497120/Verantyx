@@ -1,0 +1,110 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F9F1E42C ver:1778150019
+// _VERANTYX_庸:0.2___node_CV_268__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_医:0.3___node_DX_737__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_庸:0.1___node_EE_696__ [decoy-metadata]
+
+_VERANTYX_霮:1.0___node_霮_50__ _VERANTYX_霮:1.0___node_霮_58__::_VERANTYX_霮:1.0___node_霮_48__::_VERANTYX_庸:1.0___node_庸_34__;
+_VERANTYX_霮:1.0___node_霮_50__ _VERANTYX_霮:1.0___node_霮_58__::_VERANTYX_霮:1.0___node_霮_9__::_VERANTYX_庸:1.0___node_庸_44__;
+
+// [metadata-stripped]
+// _VERANTYX_計:0.8___node_HG_108__ [decoy-metadata]
+// [metadata-stripped]
+_VERANTYX_霮:1.0___node_霮_51__ enum _VERANTYX_庸:1.0___node_庸_28__ { _VERANTYX_庸:1.0___node_庸_23__ = 1, _VERANTYX_庸:1.0___node_庸_35__ = 2, _VERANTYX_庸:1.0___node_庸_6__ = 3 }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霮:1.0___node_霮_51__ struct _VERANTYX_庸:1.0___node_庸_13__ {
+    _VERANTYX_霮:1.0___node_霮_51__ id: _VERANTYX_霮:1.0___node_霮_31__,
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_84__: _VERANTYX_庸:1.0___node_庸_28__,
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_59__: _VERANTYX_霮:1.0___node_霮_31__,
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_32__: _VERANTYX_霮:1.0___node_霮_78__,
+}
+
+// [metadata-stripped]
+_VERANTYX_霮:1.0___node_霮_53__ _VERANTYX_庸:1.0___node_庸_24__ for _VERANTYX_庸:1.0___node_庸_13__ {
+    fn eq(&self, _VERANTYX_計:1.0___node_霮_46__: &_VERANTYX_庸:1.0___node_庸_30__) -> _VERANTYX_霮:1.0___node_霮_78__ { self.id == _VERANTYX_計:1.0___node_霮_46__.id }
+}
+_VERANTYX_霮:1.0___node_霮_53__ Eq for _VERANTYX_庸:1.0___node_庸_13__ {}
+_VERANTYX_霮:1.0___node_霮_53__ _VERANTYX_庸:1.0___node_庸_45__ for _VERANTYX_庸:1.0___node_庸_13__ {
+    fn _VERANTYX_霮:1.0___node_霮_10__(&self, _VERANTYX_計:1.0___node_霮_46__: &_VERANTYX_庸:1.0___node_庸_30__) -> _VERANTYX_庸:1.0___node_庸_32__<_VERANTYX_庸:1.0___node_庸_44__> { _VERANTYX_庸:1.0___node_庸_25__(self._VERANTYX_霮:1.0___node_霮_9__(_VERANTYX_計:1.0___node_霮_46__)) }
+}
+_VERANTYX_霮:1.0___node_霮_53__ _VERANTYX_庸:1.0___node_庸_51__ for _VERANTYX_庸:1.0___node_庸_13__ {
+    fn _VERANTYX_霮:1.0___node_霮_9__(&self, _VERANTYX_計:1.0___node_霮_46__: &_VERANTYX_庸:1.0___node_庸_30__) -> _VERANTYX_庸:1.0___node_庸_44__ {
+// [metadata-stripped]
+        self._VERANTYX_霮:1.0___node_霮_84__._VERANTYX_霮:1.0___node_霮_9__(&_VERANTYX_計:1.0___node_霮_46__._VERANTYX_霮:1.0___node_霮_84__)._VERANTYX_霮:1.0___node_霮_64__(|| _VERANTYX_計:1.0___node_霮_46__.id._VERANTYX_霮:1.0___node_霮_9__(&self.id))
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_霮:1.0___node_霮_51__ struct _VERANTYX_庸:1.0___node_庸_12__ {
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_68__: _VERANTYX_庸:1.0___node_庸_34__<_VERANTYX_庸:1.0___node_庸_13__>,
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_77__: _VERANTYX_霮:1.0___node_霮_31__,
+    _VERANTYX_霮:1.0___node_霮_51__ _VERANTYX_霮:1.0___node_霮_61__: _VERANTYX_庸:1.0___node_庸_47__<(_VERANTYX_霮:1.0___node_霮_31__, _VERANTYX_庸:1.0___node_庸_28__)>, // _VERANTYX_庸:1.0___node_庸_22__ _VERANTYX_霮:1.0___node_霮_63__ _VERANTYX_霮:1.0___node_霮_5__ for UI
+}
+
+_VERANTYX_霮:1.0___node_霮_53__ _VERANTYX_庸:1.0___node_庸_12__ {
+    _VERANTYX_霮:1.0___node_霮_51__ fn _VERANTYX_霮:1.0___node_霮_17__() -> _VERANTYX_庸:1.0___node_庸_30__ {
+        _VERANTYX_庸:1.0___node_庸_30__ {
+            _VERANTYX_霮:1.0___node_霮_68__: _VERANTYX_庸:1.0___node_庸_34__::_VERANTYX_霮:1.0___node_霮_17__(),
+            _VERANTYX_霮:1.0___node_霮_77__: 1,
+            _VERANTYX_霮:1.0___node_霮_61__: _VERANTYX_庸:1.0___node_庸_47__::_VERANTYX_霮:1.0___node_霮_17__(),
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霮:1.0___node_霮_51__ fn _VERANTYX_霮:1.0___node_霮_91__(&_VERANTYX_霮:1.0___node_霮_1__ self, _VERANTYX_霮:1.0___node_霮_84__: _VERANTYX_庸:1.0___node_庸_28__, _VERANTYX_霮:1.0___node_霮_59__: _VERANTYX_霮:1.0___node_霮_31__) -> _VERANTYX_霮:1.0___node_霮_31__ {
+        let id = self._VERANTYX_霮:1.0___node_霮_77__;
+        let _VERANTYX_霮:1.0___node_霮_86__ = _VERANTYX_庸:1.0___node_庸_13__ {
+            id,
+            _VERANTYX_霮:1.0___node_霮_84__,
+            _VERANTYX_霮:1.0___node_霮_59__,
+            _VERANTYX_霮:1.0___node_霮_32__: false,
+        };
+        self._VERANTYX_霮:1.0___node_霮_77__ += 1;
+        self._VERANTYX_霮:1.0___node_霮_68__._VERANTYX_霮:1.0___node_霮_26__(_VERANTYX_霮:1.0___node_霮_86__);
+        id
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霮:1.0___node_霮_51__ fn _VERANTYX_霮:1.0___node_霮_72__(&_VERANTYX_霮:1.0___node_霮_1__ self, _VERANTYX_霮:1.0___node_霮_85__: _VERANTYX_霮:1.0___node_霮_31__, _VERANTYX_霮:1.0___node_霮_36__: _VERANTYX_庸:1.0___node_庸_28__) {
+// [metadata-stripped]
+        let _VERANTYX_霮:1.0___node_霮_1__ _VERANTYX_霮:1.0___node_霮_81__: _VERANTYX_庸:1.0___node_庸_47__<_VERANTYX_庸:1.0___node_庸_13__> = self._VERANTYX_霮:1.0___node_霮_68__._VERANTYX_霮:1.0___node_霮_62__()._VERANTYX_霮:1.0___node_霮_65__();
+        for _VERANTYX_霮:1.0___node_霮_86__ in &_VERANTYX_霮:1.0___node_霮_1__ _VERANTYX_霮:1.0___node_霮_81__ {
+            if _VERANTYX_霮:1.0___node_霮_86__.id == _VERANTYX_霮:1.0___node_霮_85__ {
+                _VERANTYX_霮:1.0___node_霮_86__._VERANTYX_霮:1.0___node_霮_84__ = _VERANTYX_霮:1.0___node_霮_36__;
+            }
+        }
+        self._VERANTYX_霮:1.0___node_霮_68__ = _VERANTYX_庸:1.0___node_庸_34__::_VERANTYX_霮:1.0___node_霮_67__(_VERANTYX_霮:1.0___node_霮_81__);
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霮:1.0___node_霮_51__ fn _VERANTYX_霮:1.0___node_霮_74__(&self) -> _VERANTYX_庸:1.0___node_庸_39__ {
+// _VERANTYX_計:0.4___node_CF_689__ [decoy-metadata]
+        let _VERANTYX_霮:1.0___node_霮_1__ _VERANTYX_霮:1.0___node_霮_56__ = [0, 0, 0]; // bg, _VERANTYX_霮:1.0___node_霮_16__, _VERANTYX_霮:1.0___node_霮_14__
+        for t in &self._VERANTYX_霮:1.0___node_霮_68__ {
+            _VERANTYX_霮:1.0___node_霮_41__ t._VERANTYX_霮:1.0___node_霮_84__ {
+// _VERANTYX_霮:0.6___node_LV_313__ [decoy-metadata]
+                _VERANTYX_庸:1.0___node_庸_28__::_VERANTYX_庸:1.0___node_庸_23__ => _VERANTYX_霮:1.0___node_霮_56__[0] += 1,
+                _VERANTYX_庸:1.0___node_庸_28__::_VERANTYX_庸:1.0___node_庸_35__ => _VERANTYX_霮:1.0___node_霮_56__[1] += 1,
+                _VERANTYX_庸:1.0___node_庸_28__::_VERANTYX_庸:1.0___node_庸_6__ => _VERANTYX_霮:1.0___node_霮_56__[2] += 1,
+            }
+        }
+        
+        _VERANTYX_脈:1.0___node_霮_6__!("⏱️ _VERANTYX_庸:1.0___node_庸_1__ _VERANTYX_計:1.0___node_庸_52__ (_VERANTYX_庸:1.0___node_庸_19__: {}): _VERANTYX_庸:1.0___node_庸_49__: {}, _VERANTYX_庸:1.0___node_庸_38__: {}, _VERANTYX_庸:1.0___node_庸_23__: {}", 
+            self._VERANTYX_霮:1.0___node_霮_68__._VERANTYX_霮:1.0___node_霮_23__(), _VERANTYX_霮:1.0___node_霮_56__[2], _VERANTYX_霮:1.0___node_霮_56__[1], _VERANTYX_霮:1.0___node_霮_56__[0])
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

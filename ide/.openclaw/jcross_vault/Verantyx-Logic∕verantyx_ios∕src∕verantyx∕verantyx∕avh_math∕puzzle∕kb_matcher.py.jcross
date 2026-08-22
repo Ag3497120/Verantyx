@@ -1,0 +1,165 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8D630B45 ver:1778162892
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_霰:1.0__JCROSS_霰_31_
+_ASTNODE_霰:1.0__JCROSS_霰_69_ _ASTNODE_霰:1.0__JCROSS_霰_21_ import _ASTNODE_廴:1.0__JCROSS_廴_3_
+_ASTNODE_霰:1.0__JCROSS_霰_69_ _ASTNODE_霰:1.0__JCROSS_霰_78_ import _ASTNODE_廴:1.0__JCROSS_廴_4_, _ASTNODE_廴:1.0__JCROSS_廴_18_, _ASTNODE_廴:1.0__JCROSS_廴_17_, _ASTNODE_廴:1.0__JCROSS_廴_8_
+_ASTNODE_霰:1.0__JCROSS_霰_69_ _ASTNODE_霰:1.0__JCROSS_霰_50_._ASTNODE_霰:1.0__JCROSS_霰_11_._ASTNODE_霰:1.0__JCROSS_霰_63_ import _ASTNODE_廴:1.0__JCROSS_廴_21_
+
+_ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_霰:1.0__JCROSS_霰_15_(f1: _ASTNODE_霰:1.0__JCROSS_霰_8_, f2: _ASTNODE_霰:1.0__JCROSS_霰_8_) -> _ASTNODE_霰:1.0__JCROSS_霰_17_:
+    """
+    2つの論理式の構造が一致するかを判定する。
+    ここでは空白や括弧の揺れを排除した完全一致を基本とする。
+    """
+    _ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_霰:1.0__JCROSS_霰_14_(s):
+        return s._ASTNODE_霰:1.0__JCROSS_霰_53_(" ", "")._ASTNODE_霰:1.0__JCROSS_霰_53_("→", "->")._ASTNODE_霰:1.0__JCROSS_霰_53_("□", "[]")._ASTNODE_霰:1.0__JCROSS_霰_53_("◇", "<>")
+
+    return _ASTNODE_霰:1.0__JCROSS_霰_14_(f1) == _ASTNODE_霰:1.0__JCROSS_霰_14_(f2)
+
+_ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_霰:1.0__JCROSS_霰_74_(_ASTNODE_霰:1.0__JCROSS_霰_27_: _ASTNODE_廴:1.0__JCROSS_廴_18_[_ASTNODE_霰:1.0__JCROSS_霰_8_, _ASTNODE_廴:1.0__JCROSS_廴_17_], _ASTNODE_霰:1.0__JCROSS_霰_63_: _ASTNODE_廴:1.0__JCROSS_廴_21_) -> _ASTNODE_霰:1.0__JCROSS_霰_17_:
+    """
+    このKBエントリが現在の問いの意図（_ASTNODE_霰:1.0__JCROSS_霰_63_）に適用可能か判定する。
+    適用可能リスト（_ASTNODE_霰:1.0__JCROSS_霰_16_）がない場合は、後方互換性のため許可する。
+    """
+    _ASTNODE_霰:1.0__JCROSS_霰_9_ = _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_16_")
+    if _ASTNODE_霰:1.0__JCROSS_霰_28_ _ASTNODE_霰:1.0__JCROSS_霰_9_:
+        return _ASTNODE_廴:1.0__JCROSS_廴_5_
+    
+// [metadata-stripped]
+    return _ASTNODE_霰:1.0__JCROSS_霰_63_._ASTNODE_霰:1.0__JCROSS_霰_25_ in _ASTNODE_霰:1.0__JCROSS_霰_9_
+
+class _ASTNODE_処:1.0__JCROSS_廴_11_:
+    _ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_霰:1.0__JCROSS_霰_23_(self, _ASTNODE_霰:1.0__JCROSS_霰_82_: _ASTNODE_霰:1.0__JCROSS_霰_8_):
+        self._ASTNODE_霰:1.0__JCROSS_霰_82_ = _ASTNODE_廴:1.0__JCROSS_廴_3_(_ASTNODE_霰:1.0__JCROSS_霰_82_)
+        self._ASTNODE_霰:1.0__JCROSS_霰_75_: _ASTNODE_廴:1.0__JCROSS_廴_4_[_ASTNODE_廴:1.0__JCROSS_廴_18_[_ASTNODE_霰:1.0__JCROSS_霰_8_, _ASTNODE_廴:1.0__JCROSS_廴_17_]] = []
+        self._ASTNODE_箱:1.0__JCROSS_霰_46_()
+
+    _ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_箱:1.0__JCROSS_霰_4_(self):
+// [metadata-stripped]
+        if _ASTNODE_霰:1.0__JCROSS_霰_28_ self._ASTNODE_霰:1.0__JCROSS_霰_82_._ASTNODE_霰:1.0__JCROSS_霰_29_():
+            return
+        _ASTNODE_霰:1.0__JCROSS_霰_49_ self._ASTNODE_霰:1.0__JCROSS_霰_82_.open("r", _ASTNODE_霰:1.0__JCROSS_霰_62_="_ASTNODE_霰:1.0__JCROSS_霰_44_-8") as f:
+            for _ASTNODE_霰:1.0__JCROSS_霰_61_ in f:
+                try:
+                    _ASTNODE_霰:1.0__JCROSS_霰_40_ = _ASTNODE_霰:1.0__JCROSS_霰_31_._ASTNODE_箱:1.0__JCROSS_霰_24_(_ASTNODE_霰:1.0__JCROSS_霰_61_)
+                    if _ASTNODE_霰:1.0__JCROSS_霰_40_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_84_") in ("_ASTNODE_霰:1.0__JCROSS_霰_13_", "_ASTNODE_霰:1.0__JCROSS_霰_22_", "_ASTNODE_霰:1.0__JCROSS_霰_65_"):
+                        self._ASTNODE_霰:1.0__JCROSS_霰_75_._ASTNODE_霰:1.0__JCROSS_霰_85_(_ASTNODE_霰:1.0__JCROSS_霰_40_)
+                _ASTNODE_霰:1.0__JCROSS_霰_36_:
+                    continue
+
+// [metadata-stripped]
+        _ASTNODE_霰:1.0__JCROSS_霰_35_ = self._ASTNODE_霰:1.0__JCROSS_霰_82_._ASTNODE_霰:1.0__JCROSS_霰_81_ / "_ASTNODE_霰:1.0__JCROSS_霰_71_._ASTNODE_霰:1.0__JCROSS_霰_1_"
+        if _ASTNODE_霰:1.0__JCROSS_霰_35_._ASTNODE_霰:1.0__JCROSS_霰_29_():
+            _ASTNODE_霰:1.0__JCROSS_霰_49_ _ASTNODE_霰:1.0__JCROSS_霰_35_.open("r", _ASTNODE_霰:1.0__JCROSS_霰_62_="_ASTNODE_霰:1.0__JCROSS_霰_44_-8") as f:
+                for _ASTNODE_霰:1.0__JCROSS_霰_61_ in f:
+                    try:
+                        _ASTNODE_霰:1.0__JCROSS_霰_40_ = _ASTNODE_霰:1.0__JCROSS_霰_31_._ASTNODE_箱:1.0__JCROSS_霰_24_(_ASTNODE_霰:1.0__JCROSS_霰_61_)
+// [metadata-stripped]
+                        if _ASTNODE_霰:1.0__JCROSS_霰_40_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_84_") in ("_ASTNODE_霰:1.0__JCROSS_霰_13_", "_ASTNODE_霰:1.0__JCROSS_霰_22_", "_ASTNODE_霰:1.0__JCROSS_霰_65_", "_ASTNODE_霰:1.0__JCROSS_霰_79_", "_ASTNODE_霰:1.0__JCROSS_霰_77_", "_ASTNODE_霰:1.0__JCROSS_霰_3_"):
+                            self._ASTNODE_霰:1.0__JCROSS_霰_75_._ASTNODE_霰:1.0__JCROSS_霰_85_(_ASTNODE_霰:1.0__JCROSS_霰_40_)
+                    _ASTNODE_霰:1.0__JCROSS_霰_36_:
+                        continue
+
+    _ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_箱:1.0__JCROSS_霰_46_(self):
+        self._ASTNODE_箱:1.0__JCROSS_霰_4_()
+// _ASTNODE_廴:0.4__JCROSS_KC_232_ [decoy-metadata]
+
+    _ASTNODE_霰:1.0__JCROSS_霰_60_ _ASTNODE_霰:1.0__JCROSS_霰_56_(self, _ASTNODE_浸:1.0__JCROSS_霰_51_: _ASTNODE_霰:1.0__JCROSS_霰_8_, _ASTNODE_霰:1.0__JCROSS_霰_66_: _ASTNODE_廴:1.0__JCROSS_廴_4_[_ASTNODE_霰:1.0__JCROSS_霰_8_] = _ASTNODE_廴:1.0__JCROSS_廴_14_, _ASTNODE_霰:1.0__JCROSS_霰_63_: _ASTNODE_廴:1.0__JCROSS_廴_21_ = _ASTNODE_廴:1.0__JCROSS_廴_21_._ASTNODE_廴:1.0__JCROSS_廴_9_) -> _ASTNODE_廴:1.0__JCROSS_廴_18_[_ASTNODE_霰:1.0__JCROSS_霰_8_, _ASTNODE_廴:1.0__JCROSS_廴_17_]:
+        """
+        式に一致する確実な知見を KB から探し出す。
+        返り値は {'_ASTNODE_霰:1.0__JCROSS_霰_19_': _ASTNODE_廴:1.0__JCROSS_廴_8_[_ASTNODE_廴:1.0__JCROSS_廴_18_], '_ASTNODE_霰:1.0__JCROSS_霰_59_': _ASTNODE_廴:1.0__JCROSS_廴_4_[_ASTNODE_霰:1.0__JCROSS_霰_8_]} の形式。
+        """
+        if _ASTNODE_霰:1.0__JCROSS_霰_66_ is _ASTNODE_廴:1.0__JCROSS_廴_14_:
+            _ASTNODE_霰:1.0__JCROSS_霰_66_ = []
+        
+        _ASTNODE_霰:1.0__JCROSS_霰_12_ = {a._ASTNODE_霰:1.0__JCROSS_霰_53_("_ASTNODE_霰:1.0__JCROSS_霰_73_:", "")._ASTNODE_霰:1.0__JCROSS_霰_41_()._ASTNODE_処:1.0__JCROSS_霰_47_() for a in _ASTNODE_霰:1.0__JCROSS_霰_66_}
+        _ASTNODE_霰:1.0__JCROSS_霰_59_ = []
+
+        for _ASTNODE_霰:1.0__JCROSS_霰_27_ in self._ASTNODE_霰:1.0__JCROSS_霰_75_:
+            _ASTNODE_霰:1.0__JCROSS_霰_33_ = _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_33_")
+            if _ASTNODE_霰:1.0__JCROSS_霰_28_ _ASTNODE_霰:1.0__JCROSS_霰_33_:
+                continue
+            
+            _ASTNODE_霰:1.0__JCROSS_霰_70_ = _ASTNODE_廴:1.0__JCROSS_廴_6_
+// [metadata-stripped]
+            if _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_90_") == "_ASTNODE_霰:1.0__JCROSS_霰_43_":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                _ASTNODE_霰:1.0__JCROSS_霰_18_ = _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_18_", [])
+// _ASTNODE_絡:0.5__JCROSS_VL_512_ [decoy-metadata]
+                if _ASTNODE_霰:1.0__JCROSS_霰_18_ _ASTNODE_霰:1.0__JCROSS_霰_54_ _ASTNODE_霰:1.0__JCROSS_霰_89_(t in _ASTNODE_浸:1.0__JCROSS_霰_51_ for t in _ASTNODE_霰:1.0__JCROSS_霰_18_[:2]): # 最初の2つのタグがあればマッチとみなす（仮）
+                     _ASTNODE_霰:1.0__JCROSS_霰_70_ = _ASTNODE_廴:1.0__JCROSS_廴_5_
+// [metadata-stripped]
+                _ASTNODE_浸:1.0__JCROSS_霰_32_ _ASTNODE_霰:1.0__JCROSS_霰_33_ in _ASTNODE_浸:1.0__JCROSS_霰_51_ or _ASTNODE_浸:1.0__JCROSS_霰_51_ in _ASTNODE_霰:1.0__JCROSS_霰_33_:
+                     _ASTNODE_霰:1.0__JCROSS_霰_70_ = _ASTNODE_廴:1.0__JCROSS_廴_5_
+            else:
+                _ASTNODE_霰:1.0__JCROSS_霰_70_ = _ASTNODE_霰:1.0__JCROSS_霰_15_(_ASTNODE_浸:1.0__JCROSS_霰_51_, _ASTNODE_霰:1.0__JCROSS_霰_33_)
+
+            if _ASTNODE_霰:1.0__JCROSS_霰_70_:
+// [metadata-stripped]
+                if _ASTNODE_霰:1.0__JCROSS_霰_28_ _ASTNODE_霰:1.0__JCROSS_霰_74_(_ASTNODE_霰:1.0__JCROSS_霰_27_, _ASTNODE_霰:1.0__JCROSS_霰_63_):
+                    _ASTNODE_霰:1.0__JCROSS_霰_59_._ASTNODE_霰:1.0__JCROSS_霰_85_(f"_ASTNODE_廴:1.0__JCROSS_廴_1_ '{_ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_('id')}' (_ASTNODE_霰:1.0__JCROSS_霰_63_ _ASTNODE_霰:1.0__JCROSS_霰_20_: {_ASTNODE_霰:1.0__JCROSS_霰_63_._ASTNODE_霰:1.0__JCROSS_霰_25_} _ASTNODE_霰:1.0__JCROSS_霰_28_ in {_ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_('_ASTNODE_霰:1.0__JCROSS_霰_16_')})")
+                    continue
+
+                _ASTNODE_霰:1.0__JCROSS_霰_84_ = _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_84_")
+                _ASTNODE_霰:1.0__JCROSS_霰_5_ = _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_5_", "_ASTNODE_霰:1.0__JCROSS_霰_72_") # デフォルト
+// _ASTNODE_箱:0.6__JCROSS_YA_868_ [decoy-metadata]
+                
+// [metadata-stripped]
+                if _ASTNODE_霰:1.0__JCROSS_霰_84_ in ("_ASTNODE_霰:1.0__JCROSS_霰_13_", "_ASTNODE_霰:1.0__JCROSS_霰_22_", "_ASTNODE_霰:1.0__JCROSS_霰_79_", "_ASTNODE_霰:1.0__JCROSS_霰_3_"):
+// [metadata-stripped]
+// [metadata-stripped]
+                    _ASTNODE_霰:1.0__JCROSS_霰_39_ = {p._ASTNODE_霰:1.0__JCROSS_霰_53_("_ASTNODE_霰:1.0__JCROSS_霰_73_:", "")._ASTNODE_霰:1.0__JCROSS_霰_41_()._ASTNODE_処:1.0__JCROSS_霰_47_() for p in _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_64_", [])}
+                    if _ASTNODE_霰:1.0__JCROSS_霰_28_ _ASTNODE_霰:1.0__JCROSS_霰_39_ or _ASTNODE_霰:1.0__JCROSS_霰_39_._ASTNODE_霰:1.0__JCROSS_霰_57_(_ASTNODE_霰:1.0__JCROSS_霰_12_):
+                        return {
+                            "_ASTNODE_霰:1.0__JCROSS_霰_19_": {
+// _ASTNODE_霰:0.9__JCROSS_GH_156_ [decoy-metadata]
+                                "_ASTNODE_霰:1.0__JCROSS_霰_91_": "_ASTNODE_霰:1.0__JCROSS_霰_58_", # 決定打：条件を満たせば _ASTNODE_廴:1.0__JCROSS_廴_19_ (適法/肯定)
+                                "_ASTNODE_霰:1.0__JCROSS_霰_6_": "_ASTNODE_霰:1.0__JCROSS_霰_48_",
+                                "_ASTNODE_霰:1.0__JCROSS_霰_5_": _ASTNODE_霰:1.0__JCROSS_霰_5_,
+                                "_ASTNODE_霰:1.0__JCROSS_霰_83_": _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("id"),
+                                "_ASTNODE_霰:1.0__JCROSS_霰_76_": f"_ASTNODE_廴:1.0__JCROSS_廴_16_ _ASTNODE_霰:1.0__JCROSS_霰_34_ {_ASTNODE_霰:1.0__JCROSS_霰_84_}: {_ASTNODE_霰:1.0__JCROSS_霰_33_}",
+                                "_ASTNODE_霰:1.0__JCROSS_霰_37_": 1.0 if _ASTNODE_霰:1.0__JCROSS_霰_5_ == "_ASTNODE_霰:1.0__JCROSS_霰_42_" else 0.9
+                            },
+                            "_ASTNODE_霰:1.0__JCROSS_霰_59_": _ASTNODE_霰:1.0__JCROSS_霰_59_
+                        }
+                    else:
+// _ASTNODE_廴:0.2__JCROSS_MH_571_ [decoy-metadata]
+                        _ASTNODE_霰:1.0__JCROSS_霰_59_._ASTNODE_霰:1.0__JCROSS_霰_85_(f"_ASTNODE_廴:1.0__JCROSS_廴_1_ {_ASTNODE_霰:1.0__JCROSS_霰_84_} '{_ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_('id')}': _ASTNODE_霰:1.0__JCROSS_霰_26_ _ASTNODE_霰:1.0__JCROSS_霰_39_ {_ASTNODE_霰:1.0__JCROSS_霰_39_ - _ASTNODE_霰:1.0__JCROSS_霰_12_}")
+                
+// [metadata-stripped]
+                _ASTNODE_浸:1.0__JCROSS_霰_32_ _ASTNODE_霰:1.0__JCROSS_霰_84_ in ("_ASTNODE_霰:1.0__JCROSS_霰_65_", "_ASTNODE_霰:1.0__JCROSS_霰_77_"):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    
+                    _ASTNODE_霰:1.0__JCROSS_霰_67_ = {c._ASTNODE_霰:1.0__JCROSS_霰_53_("_ASTNODE_霰:1.0__JCROSS_霰_73_:", "")._ASTNODE_霰:1.0__JCROSS_霰_41_()._ASTNODE_処:1.0__JCROSS_霰_47_() for c in _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_浸:1.0__JCROSS_霰_2_", [])}
+                    
+// [metadata-stripped]
+                    _ASTNODE_霰:1.0__JCROSS_霰_80_ = _ASTNODE_霰:1.0__JCROSS_霰_67_._ASTNODE_霰:1.0__JCROSS_霰_7_(_ASTNODE_霰:1.0__JCROSS_霰_12_)
+                    if _ASTNODE_霰:1.0__JCROSS_霰_80_:
+                        _ASTNODE_霰:1.0__JCROSS_霰_59_._ASTNODE_霰:1.0__JCROSS_霰_85_(f"_ASTNODE_廴:1.0__JCROSS_廴_1_ _ASTNODE_廴:1.0__JCROSS_廴_12_ '{_ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_('id')}': _ASTNODE_霰:1.0__JCROSS_霰_88_ by _ASTNODE_霰:1.0__JCROSS_霰_66_ {_ASTNODE_霰:1.0__JCROSS_霰_80_}")
+                        continue
+                    
+// [metadata-stripped]
+                    return {
+                        "_ASTNODE_霰:1.0__JCROSS_霰_19_": {
+                            "_ASTNODE_霰:1.0__JCROSS_霰_91_": "_ASTNODE_霰:1.0__JCROSS_霰_38_",
+                            "_ASTNODE_霰:1.0__JCROSS_霰_6_": "_ASTNODE_霰:1.0__JCROSS_霰_48_",
+                            "_ASTNODE_霰:1.0__JCROSS_霰_5_": _ASTNODE_霰:1.0__JCROSS_霰_5_,
+                            "_ASTNODE_霰:1.0__JCROSS_霰_83_": _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("id"),
+                            "_ASTNODE_霰:1.0__JCROSS_霰_45_": _ASTNODE_霰:1.0__JCROSS_霰_27_._ASTNODE_処:1.0__JCROSS_燦_2_("_ASTNODE_霰:1.0__JCROSS_霰_30_"),
+                            "_ASTNODE_霰:1.0__JCROSS_霰_76_": f"_ASTNODE_廴:1.0__JCROSS_廴_16_ _ASTNODE_霰:1.0__JCROSS_霰_34_ _ASTNODE_霰:1.0__JCROSS_霰_10_ _ASTNODE_霰:1.0__JCROSS_霰_68_: {_ASTNODE_霰:1.0__JCROSS_霰_33_}",
+                            "_ASTNODE_霰:1.0__JCROSS_霰_37_": 1.0 if _ASTNODE_霰:1.0__JCROSS_霰_5_ == "_ASTNODE_霰:1.0__JCROSS_霰_42_" else 0.9
+                        },
+                        "_ASTNODE_霰:1.0__JCROSS_霰_59_": _ASTNODE_霰:1.0__JCROSS_霰_59_
+// _ASTNODE_浸:0.5__JCROSS_ZV_433_ [decoy-metadata]
+                    }
+        
+        return {"_ASTNODE_霰:1.0__JCROSS_霰_19_": _ASTNODE_廴:1.0__JCROSS_廴_14_, "_ASTNODE_霰:1.0__JCROSS_霰_59_": _ASTNODE_霰:1.0__JCROSS_霰_59_}
+
+// POLYMORPHIC_JCROSS_END

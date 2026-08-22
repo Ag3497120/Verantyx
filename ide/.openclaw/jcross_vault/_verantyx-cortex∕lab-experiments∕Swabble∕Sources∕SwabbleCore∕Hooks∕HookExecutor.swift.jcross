@@ -1,0 +1,87 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:91A5064C ver:1778166546
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_庸:1.0__TOKEN_庸_20_
+
+public struct _ASTNODE_庸:1.0__TOKEN_庸_2_: _ASTNODE_庸:1.0__TOKEN_庸_5_ {
+    public let _ASTNODE_露:1.0__TOKEN_露_26_: _ASTNODE_庸:1.0__TOKEN_庸_6_
+    public let _ASTNODE_露:1.0__TOKEN_露_27_: _ASTNODE_庸:1.0__TOKEN_庸_8_
+
+    public init(_ASTNODE_露:1.0__TOKEN_露_26_: _ASTNODE_庸:1.0__TOKEN_庸_6_, _ASTNODE_露:1.0__TOKEN_露_27_: _ASTNODE_庸:1.0__TOKEN_庸_8_) {
+        self._ASTNODE_露:1.0__TOKEN_露_26_ = _ASTNODE_露:1.0__TOKEN_露_26_
+        self._ASTNODE_露:1.0__TOKEN_露_27_ = _ASTNODE_露:1.0__TOKEN_露_27_
+    }
+}
+
+public actor _ASTNODE_庸:1.0__TOKEN_庸_13_ {
+    private let _ASTNODE_露:1.0__TOKEN_露_41_: _ASTNODE_庸:1.0__TOKEN_庸_15_
+    private var _ASTNODE_露:1.0__TOKEN_露_18_: _ASTNODE_庸:1.0__TOKEN_庸_8_?
+    private let _ASTNODE_露:1.0__TOKEN_露_22_: _ASTNODE_庸:1.0__TOKEN_庸_6_
+
+    public init(_ASTNODE_露:1.0__TOKEN_露_41_: _ASTNODE_庸:1.0__TOKEN_庸_15_) {
+        self._ASTNODE_露:1.0__TOKEN_露_41_ = _ASTNODE_露:1.0__TOKEN_露_41_
+        _ASTNODE_露:1.0__TOKEN_露_22_ = _ASTNODE_庸:1.0__TOKEN_庸_16_._ASTNODE_露:1.0__TOKEN_露_37_()._ASTNODE_露:1.0__TOKEN_露_49_ ?? "_ASTNODE_露:1.0__TOKEN_露_8_"
+    }
+
+    public func _ASTNODE_露:1.0__TOKEN_露_40_() -> _ASTNODE_庸:1.0__TOKEN_庸_21_ {
+        guard _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_1_ > 0 else { return true }
+        if let _ASTNODE_露:1.0__TOKEN_露_18_, _ASTNODE_庸:1.0__TOKEN_庸_8_()._ASTNODE_露:1.0__TOKEN_露_30_(_ASTNODE_露:1.0__TOKEN_露_18_) < _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_1_ {
+            return false
+        }
+        return true
+    }
+
+    public func _ASTNODE_露:1.0__TOKEN_露_10_(_ASTNODE_露:1.0__TOKEN_露_31_: _ASTNODE_庸:1.0__TOKEN_庸_2_) async _ASTNODE_露:1.0__TOKEN_露_17_s {
+        guard _ASTNODE_露:1.0__TOKEN_露_40_() else { return }
+        guard !_ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_14_._ASTNODE_露:1.0__TOKEN_露_45_ else { _ASTNODE_露:1.0__TOKEN_露_17_ _ASTNODE_庸:1.0__TOKEN_庸_10_(
+            _ASTNODE_露:1.0__TOKEN_露_23_: "_ASTNODE_庸:1.0__TOKEN_庸_14_",
+            _ASTNODE_露:1.0__TOKEN_露_15_: 1,
+            _ASTNODE_露:1.0__TOKEN_露_32_: [_ASTNODE_淵:1.0__TOKEN_庸_12_: "_ASTNODE_露:1.0__TOKEN_露_9_ _ASTNODE_露:1.0__TOKEN_露_14_ _ASTNODE_露:1.0__TOKEN_露_35_ _ASTNODE_計:1.0__TOKEN_燦_1_"]) }
+
+// _ASTNODE_計:0.1__TOKEN_ZV_588_ [decoy-metadata]
+        let _ASTNODE_露:1.0__TOKEN_露_21_ = _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_21_._ASTNODE_露:1.0__TOKEN_露_25_(of: "${_ASTNODE_露:1.0__TOKEN_露_22_}", _ASTNODE_露:1.0__TOKEN_露_43_: _ASTNODE_露:1.0__TOKEN_露_22_)
+// _ASTNODE_庸:0.2__TOKEN_DB_748_ [decoy-metadata]
+        let _ASTNODE_筐:1.0__TOKEN_露_47_ = _ASTNODE_露:1.0__TOKEN_露_21_ + _ASTNODE_露:1.0__TOKEN_露_31_._ASTNODE_露:1.0__TOKEN_露_26_
+
+        let _ASTNODE_露:1.0__TOKEN_露_42_ = _ASTNODE_庸:1.0__TOKEN_庸_7_()
+        _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_紬:1.0__TOKEN_露_2_ = _ASTNODE_紬:1.0__TOKEN_庸_4_(_ASTNODE_紬:1.0__TOKEN_露_3_: _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_14_)
+        _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_4_ = _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_19_ + [_ASTNODE_筐:1.0__TOKEN_露_47_]
+
+        var _ASTNODE_露:1.0__TOKEN_露_12_ = _ASTNODE_庸:1.0__TOKEN_庸_11_._ASTNODE_露:1.0__TOKEN_露_5_._ASTNODE_露:1.0__TOKEN_露_11_
+        _ASTNODE_露:1.0__TOKEN_露_12_["_ASTNODE_庸:1.0__TOKEN_庸_19_"] = _ASTNODE_露:1.0__TOKEN_露_31_._ASTNODE_露:1.0__TOKEN_露_26_
+        _ASTNODE_露:1.0__TOKEN_露_12_["_ASTNODE_庸:1.0__TOKEN_庸_1_"] = _ASTNODE_露:1.0__TOKEN_露_21_
+        for (k, v) in _ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_12_ {
+// _ASTNODE_庸:0.5__TOKEN_XF_783_ [decoy-metadata]
+            _ASTNODE_露:1.0__TOKEN_露_12_[k] = v
+        }
+        _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_11_ = _ASTNODE_露:1.0__TOKEN_露_12_
+
+        let _ASTNODE_露:1.0__TOKEN_露_38_ = _ASTNODE_庸:1.0__TOKEN_庸_17_()
+        _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_33_ = _ASTNODE_露:1.0__TOKEN_露_38_
+        _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_36_ = _ASTNODE_露:1.0__TOKEN_露_38_
+
+        try _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_10_()
+
+        let _ASTNODE_露:1.0__TOKEN_露_24_ = _ASTNODE_庸:1.0__TOKEN_庸_9_(_ASTNODE_露:1.0__TOKEN_露_28_(_ASTNODE_露:1.0__TOKEN_露_41_._ASTNODE_露:1.0__TOKEN_露_9_._ASTNODE_露:1.0__TOKEN_露_44_, 0.1) * 1_000_000_000)
+        try await _ASTNODE_露:1.0__TOKEN_露_6_(of: _ASTNODE_庸:1.0__TOKEN_庸_18_.self) { _ASTNODE_露:1.0__TOKEN_露_16_ in
+            _ASTNODE_露:1.0__TOKEN_露_16_._ASTNODE_露:1.0__TOKEN_露_48_ {
+                _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_34_()
+            }
+            _ASTNODE_露:1.0__TOKEN_露_16_._ASTNODE_露:1.0__TOKEN_露_48_ {
+                try await _ASTNODE_庸:1.0__TOKEN_庸_3_._ASTNODE_露:1.0__TOKEN_露_13_(_ASTNODE_露:1.0__TOKEN_露_7_: _ASTNODE_露:1.0__TOKEN_露_24_)
+// _ASTNODE_露:0.2__TOKEN_AA_923_ [decoy-metadata]
+                if _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_39_ {
+// _ASTNODE_計:0.2__TOKEN_XD_389_ [decoy-metadata]
+// _ASTNODE_滾:0.1__TOKEN_GD_818_ [decoy-metadata]
+                    _ASTNODE_露:1.0__TOKEN_露_42_._ASTNODE_露:1.0__TOKEN_露_46_()
+                }
+            }
+            try await _ASTNODE_露:1.0__TOKEN_露_16_._ASTNODE_露:1.0__TOKEN_露_29_()
+            _ASTNODE_露:1.0__TOKEN_露_16_._ASTNODE_露:1.0__TOKEN_露_20_()
+        }
+        _ASTNODE_露:1.0__TOKEN_露_18_ = _ASTNODE_庸:1.0__TOKEN_庸_8_()
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

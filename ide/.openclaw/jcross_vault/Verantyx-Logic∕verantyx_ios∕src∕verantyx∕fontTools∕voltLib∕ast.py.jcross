@@ -1,0 +1,464 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:94F15727 ver:1778159865
+// ⚠️ One-time schema — expires after response
+
+_SYM_霾:1.0__OPAQUE_霾_81_ _SYM_霾:1.0__OPAQUE_霾_123_._SYM_霾:1.0__OPAQUE_霾_121_._SYM_霾:1.0__OPAQUE_霾_70_ import _SYM_廷:1.0__OPAQUE_廷_80_
+_SYM_霾:1.0__OPAQUE_霾_81_ _SYM_霾:1.0__OPAQUE_霾_103_ import _SYM_廷:1.0__OPAQUE_廷_27_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_13_(_SYM_廷:1.0__OPAQUE_廷_27_):
+    _SYM_霾:1.0__OPAQUE_霾_23_: _SYM_霾:1.0__OPAQUE_霾_74_
+    dx: _SYM_霾:1.0__OPAQUE_霾_74_
+    dy: _SYM_霾:1.0__OPAQUE_霾_74_
+    _SYM_霾:1.0__OPAQUE_霾_50_: _SYM_霾:1.0__OPAQUE_霾_52_
+    _SYM_霾:1.0__OPAQUE_霾_67_: _SYM_霾:1.0__OPAQUE_霾_52_
+    _SYM_霾:1.0__OPAQUE_霾_84_: _SYM_霾:1.0__OPAQUE_霾_52_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = " _SYM_廷:1.0__OPAQUE_廷_12_"
+        for _SYM_霾:1.0__OPAQUE_霾_75_ in ("_SYM_霾:1.0__OPAQUE_霾_23_", "dx", "dy"):
+            _SYM_霾:1.0__OPAQUE_霾_59_ = _SYM_格:1.0__OPAQUE_碑_3_(self, _SYM_霾:1.0__OPAQUE_霾_75_)
+            if _SYM_霾:1.0__OPAQUE_霾_59_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+                _SYM_霾:1.0__OPAQUE_霾_115_ += f" {_SYM_霾:1.0__OPAQUE_霾_75_._SYM_格:1.0__OPAQUE_霾_55_()} {_SYM_霾:1.0__OPAQUE_霾_59_}"
+                _SYM_霾:1.0__OPAQUE_霾_32_ = _SYM_格:1.0__OPAQUE_碑_3_(self, f"{_SYM_霾:1.0__OPAQUE_霾_75_}_SYM_霾:1.0__OPAQUE_霾_15_", {})
+                for _SYM_霾:1.0__OPAQUE_霾_39_, _SYM_霾:1.0__OPAQUE_霾_100_ in _SYM_霾:1.0__OPAQUE_霾_32_._SYM_霾:1.0__OPAQUE_霾_36_():
+                    _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_67_ {_SYM_霾:1.0__OPAQUE_霾_100_} AT {_SYM_霾:1.0__OPAQUE_霾_39_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += " _SYM_廷:1.0__OPAQUE_廷_52_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_25_(_SYM_霾:1.0__OPAQUE_霾_124_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        self._SYM_霾:1.0__OPAQUE_霾_83_ = _SYM_霾:1.0__OPAQUE_霾_83_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_27_(self, _SYM_格:1.0__OPAQUE_霾_95_):
+        _SYM_霾:1.0__OPAQUE_霾_101_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_63_ _SYM_廷:1.0__OPAQUE_廷_16_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_47_(_SYM_廷:1.0__OPAQUE_廷_25_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_70_(_SYM_廷:1.0__OPAQUE_廷_25_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+
+class _SYM_匽:1.0__OPAQUE_廷_28_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_)
+        self._SYM_霾:1.0__OPAQUE_霾_46_ = []
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_27_(self, _SYM_格:1.0__OPAQUE_霾_95_):
+        for s in self._SYM_霾:1.0__OPAQUE_霾_46_:
+            s._SYM_霾:1.0__OPAQUE_霾_27_(_SYM_格:1.0__OPAQUE_霾_95_)
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        return "\n" + "\n"._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(s) for s in self._SYM_霾:1.0__OPAQUE_霾_46_) + " _SYM_廷:1.0__OPAQUE_廷_22_\n"
+
+
+class _SYM_廷:1.0__OPAQUE_廷_50_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_126_, _SYM_霾:1.0__OPAQUE_霾_10_, _SYM_霾:1.0__OPAQUE_霾_30_, _SYM_霾:1.0__OPAQUE_霾_62_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self.id = _SYM_霾:1.0__OPAQUE_霾_126_
+        self._SYM_霾:1.0__OPAQUE_霾_109_ = _SYM_霾:1.0__OPAQUE_霾_10_
+        self._SYM_霾:1.0__OPAQUE_霾_21_ = _SYM_霾:1.0__OPAQUE_霾_30_
+        self._SYM_霾:1.0__OPAQUE_霾_62_ = _SYM_霾:1.0__OPAQUE_霾_62_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = f'_SYM_廷:1.0__OPAQUE_廷_53_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}" ID {self.id}'
+        if self._SYM_霾:1.0__OPAQUE_霾_109_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            if _SYM_霾:1.0__OPAQUE_霾_11_(self._SYM_霾:1.0__OPAQUE_霾_109_) > 1:
+                _SYM_霾:1.0__OPAQUE_霾_117_ = ","._SYM_霾:1.0__OPAQUE_霾_47_(f"U+{u:04X}" for u in self._SYM_霾:1.0__OPAQUE_霾_109_)
+                _SYM_霾:1.0__OPAQUE_霾_115_ += f' _SYM_廷:1.0__OPAQUE_廷_5_ "{_SYM_霾:1.0__OPAQUE_霾_117_}"'
+// _SYM_碑:0.5__OPAQUE_GE_800_ [decoy-metadata]
+            else:
+                _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_24_ {self._SYM_霾:1.0__OPAQUE_霾_109_[0]}"
+        if self._SYM_霾:1.0__OPAQUE_霾_21_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_20_ {self._SYM_霾:1.0__OPAQUE_霾_21_}"
+        if self._SYM_霾:1.0__OPAQUE_霾_62_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_81_ {self._SYM_霾:1.0__OPAQUE_霾_62_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += " _SYM_廷:1.0__OPAQUE_廷_41_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_15_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, enum, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self.enum = enum
+        self._SYM_霾:1.0__OPAQUE_霾_87_ = _SYM_廷:1.0__OPAQUE_廷_68_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_97_(self, _SYM_霾:1.0__OPAQUE_霾_35_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        if _SYM_霾:1.0__OPAQUE_霾_35_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_ _SYM_霾:1.0__OPAQUE_霾_118_ self._SYM_霾:1.0__OPAQUE_霾_116_ in _SYM_霾:1.0__OPAQUE_霾_35_:
+            _SYM_霾:1.0__OPAQUE_霾_63_ _SYM_廷:1.0__OPAQUE_廷_80_(
+                '_SYM_廷:1.0__OPAQUE_廷_26_ "%s" _SYM_霾:1.0__OPAQUE_霾_16_ _SYM_霾:1.0__OPAQUE_霾_78_.' % (self._SYM_霾:1.0__OPAQUE_霾_116_), self._SYM_霾:1.0__OPAQUE_霾_83_
+            )
+        if self._SYM_霾:1.0__OPAQUE_霾_87_ is _SYM_廷:1.0__OPAQUE_廷_68_:
+            if _SYM_霾:1.0__OPAQUE_霾_35_ is _SYM_廷:1.0__OPAQUE_廷_68_:
+                _SYM_霾:1.0__OPAQUE_霾_35_ = _SYM_格:1.0__OPAQUE_碑_2_({self._SYM_霾:1.0__OPAQUE_霾_116_})
+            else:
+                _SYM_霾:1.0__OPAQUE_霾_35_._SYM_霾:1.0__OPAQUE_霾_49_(self._SYM_霾:1.0__OPAQUE_霾_116_)
+            self._SYM_霾:1.0__OPAQUE_霾_87_ = self.enum._SYM_霾:1.0__OPAQUE_霾_97_(_SYM_霾:1.0__OPAQUE_霾_35_)
+        return self._SYM_霾:1.0__OPAQUE_霾_87_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        enum = self.enum _SYM_霾:1.0__OPAQUE_霾_118_ _SYM_霾:1.0__OPAQUE_霾_127_(self.enum) or ""
+        return f'_SYM_廷:1.0__OPAQUE_廷_32_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}"\n{enum}\_SYM_霾:1.0__OPAQUE_霾_77_'
+
+
+class _SYM_廷:1.0__OPAQUE_廷_76_(_SYM_廷:1.0__OPAQUE_廷_70_):
+    """A _SYM_霾:1.0__OPAQUE_霾_8_ _SYM_霾:1.0__OPAQUE_霾_13_ _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_125_ as _SYM_霾:1.0__OPAQUE_霾_43_."""
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_13_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_70_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_13_ = _SYM_霾:1.0__OPAQUE_霾_13_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_97_(self):
+        return (self._SYM_霾:1.0__OPAQUE_霾_13_,)
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        return f' _SYM_廷:1.0__OPAQUE_廷_9_ "{self._SYM_霾:1.0__OPAQUE_霾_13_}"'
+
+
+class _SYM_廷:1.0__OPAQUE_廷_39_(_SYM_廷:1.0__OPAQUE_廷_70_):
+    """An enum"""
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, enum, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_70_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self.enum = enum
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_29_(self):
+        for e in self._SYM_霾:1.0__OPAQUE_霾_97_():
+            _SYM_霾:1.0__OPAQUE_霾_92_ e
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_97_(self, _SYM_霾:1.0__OPAQUE_霾_35_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_霾:1.0__OPAQUE_霾_34_ = []
+        for _SYM_霾:1.0__OPAQUE_霾_14_ in self.enum:
+            if _SYM_霾:1.0__OPAQUE_霾_76_(_SYM_霾:1.0__OPAQUE_霾_14_, (_SYM_廷:1.0__OPAQUE_廷_46_, _SYM_廷:1.0__OPAQUE_廷_39_)):
+                _SYM_霾:1.0__OPAQUE_霾_34_._SYM_霾:1.0__OPAQUE_霾_33_(_SYM_霾:1.0__OPAQUE_霾_14_._SYM_霾:1.0__OPAQUE_霾_97_(_SYM_霾:1.0__OPAQUE_霾_35_))
+            else:
+                _SYM_霾:1.0__OPAQUE_霾_34_._SYM_霾:1.0__OPAQUE_霾_33_(_SYM_霾:1.0__OPAQUE_霾_14_._SYM_霾:1.0__OPAQUE_霾_97_())
+        return _SYM_霾:1.0__OPAQUE_霾_104_(_SYM_霾:1.0__OPAQUE_霾_34_)
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        enum = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(e) for e in self.enum)
+        return f" _SYM_廷:1.0__OPAQUE_廷_33_{enum} _SYM_廷:1.0__OPAQUE_廷_66_"
+
+
+class _SYM_廷:1.0__OPAQUE_廷_46_(_SYM_廷:1.0__OPAQUE_廷_70_):
+    """A _SYM_霾:1.0__OPAQUE_霾_13_ _SYM_霾:1.0__OPAQUE_霾_25_"""
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_25_, _SYM_格:1.0__OPAQUE_霾_98_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_70_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_25_ = _SYM_霾:1.0__OPAQUE_霾_25_
+        self._SYM_霾:1.0__OPAQUE_霾_102_ = _SYM_格:1.0__OPAQUE_霾_98_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_97_(self, _SYM_霾:1.0__OPAQUE_霾_35_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_霾:1.0__OPAQUE_霾_25_ = self._SYM_霾:1.0__OPAQUE_霾_102_._SYM_霾:1.0__OPAQUE_霾_120_(self._SYM_霾:1.0__OPAQUE_霾_25_)
+        if _SYM_霾:1.0__OPAQUE_霾_25_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            self._SYM_霾:1.0__OPAQUE_霾_87_ = _SYM_霾:1.0__OPAQUE_霾_25_._SYM_霾:1.0__OPAQUE_霾_97_(_SYM_霾:1.0__OPAQUE_霾_35_)
+            return self._SYM_霾:1.0__OPAQUE_霾_87_
+        else:
+            _SYM_霾:1.0__OPAQUE_霾_63_ _SYM_廷:1.0__OPAQUE_廷_80_(
+                '_SYM_廷:1.0__OPAQUE_廷_26_ "%s" is _SYM_霾:1.0__OPAQUE_霾_17_ _SYM_霾:1.0__OPAQUE_霾_90_ _SYM_霾:1.0__OPAQUE_霾_19_.' % (self._SYM_霾:1.0__OPAQUE_霾_25_), self._SYM_霾:1.0__OPAQUE_霾_83_
+            )
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        return f' _SYM_廷:1.0__OPAQUE_廷_17_ "{self._SYM_霾:1.0__OPAQUE_霾_25_}"'
+
+
+class _SYM_廷:1.0__OPAQUE_廷_37_(_SYM_廷:1.0__OPAQUE_廷_70_):
+    """A _SYM_霾:1.0__OPAQUE_霾_13_ _SYM_霾:1.0__OPAQUE_霾_53_"""
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_24_, _SYM_霾:1.0__OPAQUE_霾_26_, _SYM_格:1.0__OPAQUE_霾_98_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_70_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_24_ = _SYM_霾:1.0__OPAQUE_霾_24_
+        self._SYM_霾:1.0__OPAQUE_霾_26_ = _SYM_霾:1.0__OPAQUE_霾_26_
+        self._SYM_格:1.0__OPAQUE_霾_98_ = _SYM_格:1.0__OPAQUE_霾_98_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_97_(self):
+        return _SYM_霾:1.0__OPAQUE_霾_104_(self._SYM_格:1.0__OPAQUE_霾_98_._SYM_霾:1.0__OPAQUE_霾_106_(self._SYM_霾:1.0__OPAQUE_霾_24_, self._SYM_霾:1.0__OPAQUE_霾_26_))
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        return f' _SYM_廷:1.0__OPAQUE_廷_63_ "{self._SYM_霾:1.0__OPAQUE_霾_24_}" TO "{self._SYM_霾:1.0__OPAQUE_霾_26_}"'
+
+
+class _SYM_廷:1.0__OPAQUE_廷_30_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_31_, _SYM_霾:1.0__OPAQUE_霾_86_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_31_ = _SYM_霾:1.0__OPAQUE_霾_31_
+        self._SYM_霾:1.0__OPAQUE_霾_86_ = _SYM_霾:1.0__OPAQUE_霾_86_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_35_"
+        if self._SYM_霾:1.0__OPAQUE_霾_116_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f' _SYM_廷:1.0__OPAQUE_廷_19_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}"'
+        _SYM_霾:1.0__OPAQUE_霾_115_ += f' _SYM_廷:1.0__OPAQUE_廷_7_ "{self._SYM_霾:1.0__OPAQUE_霾_31_}"\n\n'
+        for _SYM_霾:1.0__OPAQUE_霾_48_ in self._SYM_霾:1.0__OPAQUE_霾_86_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"{_SYM_霾:1.0__OPAQUE_霾_48_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_57_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_21_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_31_, _SYM_霾:1.0__OPAQUE_霾_96_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_31_ = _SYM_霾:1.0__OPAQUE_霾_31_
+        self._SYM_霾:1.0__OPAQUE_霾_96_ = _SYM_霾:1.0__OPAQUE_霾_96_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_10_"
+        if self._SYM_霾:1.0__OPAQUE_霾_116_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f' _SYM_廷:1.0__OPAQUE_廷_19_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}"'
+        _SYM_霾:1.0__OPAQUE_霾_115_ += f' _SYM_廷:1.0__OPAQUE_廷_7_ "{self._SYM_霾:1.0__OPAQUE_霾_31_}"\n\n'
+        for _SYM_霾:1.0__OPAQUE_霾_37_ in self._SYM_霾:1.0__OPAQUE_霾_96_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"{_SYM_霾:1.0__OPAQUE_霾_37_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_73_\n"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_1_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_31_, _SYM_霾:1.0__OPAQUE_霾_1_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_31_ = _SYM_霾:1.0__OPAQUE_霾_31_
+        self._SYM_霾:1.0__OPAQUE_霾_1_ = _SYM_霾:1.0__OPAQUE_霾_1_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = f'_SYM_廷:1.0__OPAQUE_廷_2_ _SYM_廷:1.0__OPAQUE_廷_19_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}" _SYM_廷:1.0__OPAQUE_廷_7_ "{self._SYM_霾:1.0__OPAQUE_霾_31_}"\n'
+        _SYM_霾:1.0__OPAQUE_霾_115_ += " " + " "._SYM_霾:1.0__OPAQUE_霾_47_(f'_SYM_廷:1.0__OPAQUE_廷_71_ "{l}"' for l in self._SYM_霾:1.0__OPAQUE_霾_1_) + "\n"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_51_\n"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_14_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(
+        self,
+        _SYM_霾:1.0__OPAQUE_霾_116_,
+        _SYM_霾:1.0__OPAQUE_霾_54_,
+        _SYM_霾:1.0__OPAQUE_霾_114_,
+        _SYM_霾:1.0__OPAQUE_霾_9_,
+        _SYM_霾:1.0__OPAQUE_霾_69_,
+        _SYM_霾:1.0__OPAQUE_霾_22_,
+        _SYM_霾:1.0__OPAQUE_霾_79_,
+        _SYM_霾:1.0__OPAQUE_霾_41_,
+        _SYM_霾:1.0__OPAQUE_霾_20_,
+        _SYM_霾:1.0__OPAQUE_霾_88_,
+        _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_,
+    ):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_54_ = _SYM_霾:1.0__OPAQUE_霾_54_
+        self._SYM_霾:1.0__OPAQUE_霾_114_ = _SYM_霾:1.0__OPAQUE_霾_114_
+        self._SYM_霾:1.0__OPAQUE_霾_9_ = _SYM_霾:1.0__OPAQUE_霾_9_
+        self._SYM_霾:1.0__OPAQUE_霾_69_ = _SYM_霾:1.0__OPAQUE_霾_69_
+        self._SYM_霾:1.0__OPAQUE_霾_22_ = _SYM_霾:1.0__OPAQUE_霾_22_
+        self._SYM_霾:1.0__OPAQUE_霾_79_ = _SYM_霾:1.0__OPAQUE_霾_79_
+        self._SYM_霾:1.0__OPAQUE_霾_41_ = _SYM_霾:1.0__OPAQUE_霾_41_
+        self._SYM_霾:1.0__OPAQUE_霾_20_ = _SYM_霾:1.0__OPAQUE_霾_20_
+        self._SYM_霾:1.0__OPAQUE_霾_88_ = _SYM_霾:1.0__OPAQUE_霾_88_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = f'_SYM_廷:1.0__OPAQUE_廷_38_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}"'
+        _SYM_霾:1.0__OPAQUE_霾_115_ += f' {self._SYM_霾:1.0__OPAQUE_霾_54_ _SYM_霾:1.0__OPAQUE_霾_118_ "_SYM_廷:1.0__OPAQUE_廷_72_" or "_SYM_廷:1.0__OPAQUE_廷_4_"}'
+        if self._SYM_霾:1.0__OPAQUE_霾_114_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += " _SYM_廷:1.0__OPAQUE_廷_45_ "
+            if self._SYM_霾:1.0__OPAQUE_霾_9_:
+                _SYM_霾:1.0__OPAQUE_霾_115_ += f'_SYM_廷:1.0__OPAQUE_廷_48_ "{self._SYM_霾:1.0__OPAQUE_霾_9_}"'
+            _SYM_澎:1.0__OPAQUE_霾_110_ _SYM_霾:1.0__OPAQUE_霾_76_(self._SYM_霾:1.0__OPAQUE_霾_114_, _SYM_霾:1.0__OPAQUE_霾_127_):
+                _SYM_霾:1.0__OPAQUE_霾_115_ += f'"{self._SYM_霾:1.0__OPAQUE_霾_114_}"'
+            else:
+                _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_31_"
+        else:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += " _SYM_廷:1.0__OPAQUE_廷_43_"
+        if self._SYM_霾:1.0__OPAQUE_霾_69_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_60_ {self._SYM_霾:1.0__OPAQUE_霾_69_}"
+        if self._SYM_霾:1.0__OPAQUE_霾_22_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += " _SYM_廷:1.0__OPAQUE_廷_58_"
+        if self._SYM_霾:1.0__OPAQUE_霾_79_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_:
+            _SYM_霾:1.0__OPAQUE_霾_79_ = self._SYM_霾:1.0__OPAQUE_霾_79_._SYM_霾:1.0__OPAQUE_霾_56_("\n", r"\n")
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f'\_SYM_霾:1.0__OPAQUE_霾_73_ "{_SYM_霾:1.0__OPAQUE_霾_79_}"'
+        if self._SYM_霾:1.0__OPAQUE_霾_41_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += "\n" + "\n"._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in self._SYM_霾:1.0__OPAQUE_霾_41_)
+// _SYM_匽:0.4__OPAQUE_HG_566_ [decoy-metadata]
+        else:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += "\_SYM_霾:1.0__OPAQUE_霾_57_\_SYM_霾:1.0__OPAQUE_霾_58_"
+        if self._SYM_霾:1.0__OPAQUE_霾_20_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"\n{self._SYM_霾:1.0__OPAQUE_霾_20_}"
+        if self._SYM_霾:1.0__OPAQUE_霾_88_:
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"\n{self._SYM_霾:1.0__OPAQUE_霾_88_}"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_75_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_119_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_119_ = _SYM_霾:1.0__OPAQUE_霾_119_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_78_\n"
+        for _SYM_霾:1.0__OPAQUE_霾_64_, _SYM_霾:1.0__OPAQUE_霾_65_ in self._SYM_霾:1.0__OPAQUE_霾_119_._SYM_霾:1.0__OPAQUE_霾_36_():
+            _SYM_霾:1.0__OPAQUE_霾_64_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(s) for s in _SYM_霾:1.0__OPAQUE_霾_64_)
+            _SYM_霾:1.0__OPAQUE_霾_65_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(d) for d in _SYM_霾:1.0__OPAQUE_霾_65_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"_SYM_廷:1.0__OPAQUE_廷_6_{_SYM_霾:1.0__OPAQUE_霾_64_}\_SYM_霾:1.0__OPAQUE_霾_38_{_SYM_霾:1.0__OPAQUE_霾_65_}\_SYM_霾:1.0__OPAQUE_霾_89_\n"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_40_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_79_(_SYM_廷:1.0__OPAQUE_廷_75_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_23_(_SYM_廷:1.0__OPAQUE_廷_75_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_59_(_SYM_廷:1.0__OPAQUE_廷_75_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+// _SYM_澎:0.1__OPAQUE_CW_869_ [decoy-metadata]
+
+class _SYM_廷:1.0__OPAQUE_廷_3_(_SYM_廷:1.0__OPAQUE_廷_75_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+// _SYM_格:0.9__OPAQUE_FF_621_ [decoy-metadata]
+
+class _SYM_廷:1.0__OPAQUE_廷_65_(_SYM_廷:1.0__OPAQUE_廷_75_):
+    _SYM_霾:1.0__OPAQUE_霾_101_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_8_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_40_, _SYM_霾:1.0__OPAQUE_霾_51_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_40_ = _SYM_霾:1.0__OPAQUE_霾_40_
+        self._SYM_霾:1.0__OPAQUE_霾_51_ = _SYM_霾:1.0__OPAQUE_霾_51_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in self._SYM_霾:1.0__OPAQUE_霾_40_)
+// _SYM_霾:0.3__OPAQUE_AM_649_ [decoy-metadata]
+        _SYM_霾:1.0__OPAQUE_霾_115_ = f"_SYM_廷:1.0__OPAQUE_廷_54_\_SYM_霾:1.0__OPAQUE_霾_91_{_SYM_霾:1.0__OPAQUE_霾_40_}\_SYM_霾:1.0__OPAQUE_霾_4_"
+        for _SYM_霾:1.0__OPAQUE_霾_40_, _SYM_霾:1.0__OPAQUE_霾_60_ in self._SYM_霾:1.0__OPAQUE_霾_51_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f'{_SYM_霾:1.0__OPAQUE_霾_40_} AT _SYM_廷:1.0__OPAQUE_廷_77_ "{_SYM_霾:1.0__OPAQUE_霾_60_}"'
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\_SYM_霾:1.0__OPAQUE_霾_99_\_SYM_霾:1.0__OPAQUE_霾_2_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_34_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_85_, _SYM_格:1.0__OPAQUE_霾_12_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_85_ = _SYM_霾:1.0__OPAQUE_霾_85_
+        self._SYM_格:1.0__OPAQUE_霾_12_ = _SYM_格:1.0__OPAQUE_霾_12_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_54_\_SYM_霾:1.0__OPAQUE_霾_42_"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_霾:1.0__OPAQUE_霾_85_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"\_SYM_霾:1.0__OPAQUE_霾_80_ {_SYM_霾:1.0__OPAQUE_霾_40_}"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_格:1.0__OPAQUE_霾_12_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"\_SYM_格:1.0__OPAQUE_霾_5_ {_SYM_霾:1.0__OPAQUE_霾_40_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\_SYM_霾:1.0__OPAQUE_霾_99_\_SYM_霾:1.0__OPAQUE_霾_2_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_44_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_94_, _SYM_霾:1.0__OPAQUE_霾_61_, _SYM_霾:1.0__OPAQUE_霾_113_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_94_ = _SYM_霾:1.0__OPAQUE_霾_94_
+        self._SYM_霾:1.0__OPAQUE_霾_61_ = _SYM_霾:1.0__OPAQUE_霾_61_
+        self._SYM_霾:1.0__OPAQUE_霾_113_ = _SYM_霾:1.0__OPAQUE_霾_113_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_54_\_SYM_霾:1.0__OPAQUE_霾_111_\n"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_霾:1.0__OPAQUE_霾_94_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = " "._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_64_ {_SYM_霾:1.0__OPAQUE_霾_40_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\n"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_霾:1.0__OPAQUE_霾_61_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = " "._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_42_ {_SYM_霾:1.0__OPAQUE_霾_40_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\n"
+        for (_SYM_霾:1.0__OPAQUE_霾_122_, _SYM_霾:1.0__OPAQUE_霾_18_), (_SYM_霾:1.0__OPAQUE_霾_6_, _SYM_霾:1.0__OPAQUE_霾_72_) in self._SYM_霾:1.0__OPAQUE_霾_113_._SYM_霾:1.0__OPAQUE_霾_36_():
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" {_SYM_霾:1.0__OPAQUE_霾_122_} {_SYM_霾:1.0__OPAQUE_霾_18_} BY{_SYM_霾:1.0__OPAQUE_霾_6_}{_SYM_霾:1.0__OPAQUE_霾_72_}\n"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\_SYM_霾:1.0__OPAQUE_霾_93_\_SYM_霾:1.0__OPAQUE_霾_2_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_74_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_108_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_108_ = _SYM_霾:1.0__OPAQUE_霾_108_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = "_SYM_廷:1.0__OPAQUE_廷_54_\_SYM_霾:1.0__OPAQUE_霾_45_"
+        for _SYM_霾:1.0__OPAQUE_霾_40_, _SYM_霾:1.0__OPAQUE_霾_88_ in self._SYM_霾:1.0__OPAQUE_霾_108_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f"{_SYM_霾:1.0__OPAQUE_霾_40_} BY{_SYM_霾:1.0__OPAQUE_霾_88_}"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "\_SYM_霾:1.0__OPAQUE_霾_93_\_SYM_霾:1.0__OPAQUE_霾_2_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_62_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_105_, _SYM_霾:1.0__OPAQUE_霾_44_=_SYM_廷:1.0__OPAQUE_廷_68_, _SYM_霾:1.0__OPAQUE_霾_3_=_SYM_廷:1.0__OPAQUE_廷_68_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_105_ = _SYM_霾:1.0__OPAQUE_霾_105_
+        self._SYM_霾:1.0__OPAQUE_霾_44_ = _SYM_霾:1.0__OPAQUE_霾_44_ if _SYM_霾:1.0__OPAQUE_霾_44_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_ else []
+        self._SYM_霾:1.0__OPAQUE_霾_3_ = _SYM_霾:1.0__OPAQUE_霾_3_ if _SYM_霾:1.0__OPAQUE_霾_3_ is _SYM_霾:1.0__OPAQUE_霾_112_ _SYM_廷:1.0__OPAQUE_廷_68_ else []
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_115_ = self._SYM_霾:1.0__OPAQUE_霾_105_ + "\n"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_霾:1.0__OPAQUE_霾_44_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_49_{_SYM_霾:1.0__OPAQUE_霾_40_}\n"
+        for _SYM_霾:1.0__OPAQUE_霾_40_ in self._SYM_霾:1.0__OPAQUE_霾_3_:
+            _SYM_霾:1.0__OPAQUE_霾_40_ = ""._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(c) for c in _SYM_霾:1.0__OPAQUE_霾_40_)
+            _SYM_霾:1.0__OPAQUE_霾_115_ += f" _SYM_廷:1.0__OPAQUE_廷_61_{_SYM_霾:1.0__OPAQUE_霾_40_}\n"
+        _SYM_霾:1.0__OPAQUE_霾_115_ += "_SYM_廷:1.0__OPAQUE_廷_55_"
+        return _SYM_霾:1.0__OPAQUE_霾_115_
+
+
+class _SYM_廷:1.0__OPAQUE_廷_36_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_126_, _SYM_霾:1.0__OPAQUE_霾_107_, _SYM_霾:1.0__OPAQUE_霾_82_, _SYM_霾:1.0__OPAQUE_霾_66_, _SYM_霾:1.0__OPAQUE_霾_88_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_126_ = _SYM_霾:1.0__OPAQUE_霾_126_
+// _SYM_澎:0.4__OPAQUE_CL_798_ [decoy-metadata]
+        self._SYM_霾:1.0__OPAQUE_霾_107_ = _SYM_霾:1.0__OPAQUE_霾_107_
+        self._SYM_霾:1.0__OPAQUE_霾_82_ = _SYM_霾:1.0__OPAQUE_霾_82_
+        self._SYM_霾:1.0__OPAQUE_霾_66_ = _SYM_霾:1.0__OPAQUE_霾_66_
+        self._SYM_霾:1.0__OPAQUE_霾_88_ = _SYM_霾:1.0__OPAQUE_霾_88_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        _SYM_霾:1.0__OPAQUE_霾_66_ = self._SYM_霾:1.0__OPAQUE_霾_66_ _SYM_霾:1.0__OPAQUE_霾_118_ " _SYM_廷:1.0__OPAQUE_廷_29_" or ""
+        return (
+            f'_SYM_廷:1.0__OPAQUE_廷_69_ "{self._SYM_霾:1.0__OPAQUE_霾_116_}"'
+            f" ON {self._SYM_霾:1.0__OPAQUE_霾_126_}"
+            f" _SYM_廷:1.0__OPAQUE_廷_9_ {self._SYM_霾:1.0__OPAQUE_霾_107_}"
+            f" _SYM_廷:1.0__OPAQUE_廷_11_ {self._SYM_霾:1.0__OPAQUE_霾_82_}"
+            f"{_SYM_霾:1.0__OPAQUE_霾_66_}"
+            f" AT {self._SYM_霾:1.0__OPAQUE_霾_88_} _SYM_廷:1.0__OPAQUE_廷_56_"
+        )
+
+
+class _SYM_格:1.0__OPAQUE_碑_1_(_SYM_廷:1.0__OPAQUE_廷_47_):
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_116_, _SYM_霾:1.0__OPAQUE_霾_59_, _SYM_霾:1.0__OPAQUE_霾_83_=_SYM_廷:1.0__OPAQUE_廷_68_):
+        _SYM_廷:1.0__OPAQUE_廷_47_._SYM_霾:1.0__OPAQUE_霾_68_(self, _SYM_霾:1.0__OPAQUE_霾_83_)
+        self._SYM_霾:1.0__OPAQUE_霾_116_ = _SYM_霾:1.0__OPAQUE_霾_116_
+        self._SYM_霾:1.0__OPAQUE_霾_59_ = _SYM_霾:1.0__OPAQUE_霾_59_
+
+    _SYM_霾:1.0__OPAQUE_霾_7_ _SYM_霾:1.0__OPAQUE_霾_71_(self):
+        if self._SYM_霾:1.0__OPAQUE_霾_59_ is _SYM_廷:1.0__OPAQUE_廷_18_:
+            return f"{self._SYM_霾:1.0__OPAQUE_霾_116_}"
+        if _SYM_霾:1.0__OPAQUE_霾_76_(self._SYM_霾:1.0__OPAQUE_霾_59_, (_SYM_霾:1.0__OPAQUE_霾_104_, _SYM_霾:1.0__OPAQUE_霾_28_)):
+            _SYM_霾:1.0__OPAQUE_霾_59_ = " "._SYM_霾:1.0__OPAQUE_霾_47_(_SYM_霾:1.0__OPAQUE_霾_127_(v) for v in self._SYM_霾:1.0__OPAQUE_霾_59_)
+            return f"{self._SYM_霾:1.0__OPAQUE_霾_116_} {_SYM_霾:1.0__OPAQUE_霾_59_}"
+        return f"{self._SYM_霾:1.0__OPAQUE_霾_116_} {self._SYM_霾:1.0__OPAQUE_霾_59_}"
+
+// POLYMORPHIC_JCROSS_END

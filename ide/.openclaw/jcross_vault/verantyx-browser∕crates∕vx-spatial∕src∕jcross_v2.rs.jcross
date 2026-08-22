@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3C9092CF ver:1778158473
+// _JCROSS_封:0.2__SYM_WL_353_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_霞:1.0__SYM_霞_58_ _JCROSS_霞:1.0__SYM_霞_68_::{_JCROSS_廴:1.0__SYM_廴_17_, _JCROSS_廴:1.0__SYM_廴_34_};
+_JCROSS_霞:1.0__SYM_霞_58_ _JCROSS_霞:1.0__SYM_霞_29_::_JCROSS_霞:1.0__SYM_霞_10_::_JCROSS_廴:1.0__SYM_廴_27_;
+
+// [metadata-stripped]
+_JCROSS_霞:1.0__SYM_霞_28_ enum _JCROSS_廴:1.0__SYM_廴_25_ {
+// _JCROSS_廉:0.5__SYM_WH_702_ [decoy-metadata]
+    _JCROSS_廴:1.0__SYM_廴_31_,  // _JCROSS_廴:1.0__SYM_廴_18_ _JCROSS_霞:1.0__SYM_霞_65_ (_JCROSS_廴:1.0__SYM_廴_13_ in _JCROSS_霞:1.0__SYM_霞_14_)
+    _JCROSS_廴:1.0__SYM_廴_23_,   // _JCROSS_廴:1.0__SYM_廴_19_ _JCROSS_霞:1.0__SYM_霞_57_ _JCROSS_霞:1.0__SYM_霞_20_ _JCROSS_霞:1.0__SYM_霞_11_ _JCROSS_霞:1.0__SYM_霞_21_
+    _JCROSS_廴:1.0__SYM_廴_5_,    // _JCROSS_廴:1.0__SYM_廴_22_ _JCROSS_霞:1.0__SYM_霞_40_ or _JCROSS_霞:1.0__SYM_霞_3_ _JCROSS_霞:1.0__SYM_霞_25_
+    _JCROSS_廴:1.0__SYM_廴_11_,   // _JCROSS_廴:1.0__SYM_廴_7_-_JCROSS_霞:1.0__SYM_霞_39_ _JCROSS_霞:1.0__SYM_霞_5_ _JCROSS_霞:1.0__SYM_霞_16_/_JCROSS_霞:1.0__SYM_霞_64_
+}
+
+_JCROSS_霞:1.0__SYM_霞_23_ _JCROSS_廴:1.0__SYM_廴_25_ {
+    _JCROSS_霞:1.0__SYM_霞_28_ fn _JCROSS_霞:1.0__SYM_霞_30_(&self) -> &'static _JCROSS_霞:1.0__SYM_霞_59_ {
+        _JCROSS_霞:1.0__SYM_霞_60_ self {
+            _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_31_ => "_JCROSS_廴:1.0__SYM_廴_30_",
+// _JCROSS_節:0.4__SYM_KE_923_ [decoy-metadata]
+            _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_23_ => "_JCROSS_廴:1.0__SYM_廴_8_",
+            _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_5_ => "_JCROSS_廴:1.0__SYM_廴_32_",
+            _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_11_ => "_JCROSS_廴:1.0__SYM_廴_12_",
+        }
+    }
+}
+
+_JCROSS_霞:1.0__SYM_霞_28_ _JCROSS_霞:1.0__SYM_霞_59_uct _JCROSS_廴:1.0__SYM_廴_9_;
+
+_JCROSS_霞:1.0__SYM_霞_23_ _JCROSS_廴:1.0__SYM_廴_9_ {
+// [metadata-stripped]
+    _JCROSS_霞:1.0__SYM_霞_28_ fn _JCROSS_霞:1.0__SYM_霞_34_(_JCROSS_霞:1.0__SYM_霞_43_: &[(_JCROSS_霞:1.0__SYM_霞_62_, _JCROSS_廴:1.0__SYM_廴_29_, _JCROSS_霞:1.0__SYM_霞_51_, _JCROSS_霞:1.0__SYM_霞_51_)]) -> _JCROSS_廴:1.0__SYM_廴_34_ {
+        let _JCROSS_霞:1.0__SYM_霞_56_ _JCROSS_霞:1.0__SYM_霞_8_ = _JCROSS_廴:1.0__SYM_廴_27_::_JCROSS_霞:1.0__SYM_霞_1_();
+        for (id, _JCROSS_霞:1.0__SYM_霞_27_, x, y) in _JCROSS_霞:1.0__SYM_霞_43_ {
+            let _JCROSS_封:1.0__SYM_霞_12_ = _JCROSS_滲:1.0__SYM_霞_35_!("_JCROSS_霞:1.0__SYM_霞_13_{}", id);
+            let _JCROSS_霞:1.0__SYM_霞_18_ = _JCROSS_滲:1.0__SYM_霞_35_!("\"{}\" at ({:.0}, {:.0})", _JCROSS_霞:1.0__SYM_霞_27_, x, y);
+            _JCROSS_霞:1.0__SYM_霞_8_._JCROSS_霞:1.0__SYM_霞_50_(_JCROSS_封:1.0__SYM_霞_12_, _JCROSS_霞:1.0__SYM_霞_18_);
+        }
+
+        _JCROSS_廴:1.0__SYM_廴_34_ {
+            _JCROSS_霞:1.0__SYM_霞_53_: _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_31_._JCROSS_霞:1.0__SYM_霞_30_()._JCROSS_霞:1.0__SYM_霞_66_(),
+            _JCROSS_霞:1.0__SYM_霞_8_,
+            _JCROSS_霞:1.0__SYM_霞_47_: "_JCROSS_廴:1.0__SYM_廴_14_-_JCROSS_霞:1.0__SYM_霞_38_ _JCROSS_霞:1.0__SYM_霞_36_ _JCROSS_霞:1.0__SYM_霞_43_ in _JCROSS_霞:1.0__SYM_霞_41_ _JCROSS_霞:1.0__SYM_霞_61_ _JCROSS_霞:1.0__SYM_霞_49_."._JCROSS_霞:1.0__SYM_霞_66_(),
+// _JCROSS_節:0.9__SYM_AD_377_ [decoy-metadata]
+        }
+    }
+
+// _JCROSS_封:0.6__SYM_WF_184_ [decoy-metadata]
+// [metadata-stripped]
+    _JCROSS_霞:1.0__SYM_霞_28_ fn _JCROSS_霞:1.0__SYM_霞_44_(_JCROSS_紋:1.0__SYM_霞_42_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_19_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_21_: &_JCROSS_霞:1.0__SYM_霞_59_) -> _JCROSS_廴:1.0__SYM_廴_34_ {
+        let _JCROSS_霞:1.0__SYM_霞_56_ _JCROSS_霞:1.0__SYM_霞_8_ = _JCROSS_廴:1.0__SYM_廴_27_::_JCROSS_霞:1.0__SYM_霞_1_();
+        _JCROSS_霞:1.0__SYM_霞_8_._JCROSS_霞:1.0__SYM_霞_50_("_JCROSS_紋:1.0__SYM_霞_42_"._JCROSS_霞:1.0__SYM_霞_66_(), _JCROSS_紋:1.0__SYM_霞_42_._JCROSS_霞:1.0__SYM_霞_66_());
+        _JCROSS_霞:1.0__SYM_霞_8_._JCROSS_霞:1.0__SYM_霞_50_("_JCROSS_霞:1.0__SYM_霞_19_"._JCROSS_霞:1.0__SYM_霞_66_(), _JCROSS_霞:1.0__SYM_霞_19_._JCROSS_霞:1.0__SYM_霞_66_());
+        _JCROSS_霞:1.0__SYM_霞_8_._JCROSS_霞:1.0__SYM_霞_50_("_JCROSS_霞:1.0__SYM_霞_69_"._JCROSS_霞:1.0__SYM_霞_66_(), _JCROSS_霞:1.0__SYM_霞_21_._JCROSS_霞:1.0__SYM_霞_66_());
+
+// _JCROSS_封:0.9__SYM_EL_669_ [decoy-metadata]
+        _JCROSS_廴:1.0__SYM_廴_34_ {
+            _JCROSS_霞:1.0__SYM_霞_53_: _JCROSS_廴:1.0__SYM_廴_25_::_JCROSS_廴:1.0__SYM_廴_23_._JCROSS_霞:1.0__SYM_霞_30_()._JCROSS_霞:1.0__SYM_霞_66_(),
+            _JCROSS_霞:1.0__SYM_霞_8_,
+            _JCROSS_霞:1.0__SYM_霞_47_: "_JCROSS_廴:1.0__SYM_廴_6_ _JCROSS_霞:1.0__SYM_霞_2_ _JCROSS_霞:1.0__SYM_霞_31_ _JCROSS_霞:1.0__SYM_霞_20_ _JCROSS_霞:1.0__SYM_霞_33_-_JCROSS_霞:1.0__SYM_霞_48_ _JCROSS_霞:1.0__SYM_霞_5_ _JCROSS_霞:1.0__SYM_霞_17_."._JCROSS_霞:1.0__SYM_霞_66_(),
+        }
+    }
+}
+
+// [metadata-stripped]
+_JCROSS_霞:1.0__SYM_霞_28_ _JCROSS_霞:1.0__SYM_霞_45_ _JCROSS_廴:1.0__SYM_廴_1_ {
+    fn _JCROSS_霞:1.0__SYM_霞_24_(&_JCROSS_霞:1.0__SYM_霞_56_ self, _JCROSS_紋:1.0__SYM_霞_42_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_19_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_21_: &_JCROSS_霞:1.0__SYM_霞_59_);
+}
+
+_JCROSS_霞:1.0__SYM_霞_23_ _JCROSS_廴:1.0__SYM_廴_1_ for _JCROSS_廴:1.0__SYM_廴_17_ {
+    fn _JCROSS_霞:1.0__SYM_霞_24_(&_JCROSS_霞:1.0__SYM_霞_56_ self, _JCROSS_紋:1.0__SYM_霞_42_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_19_: &_JCROSS_霞:1.0__SYM_霞_59_, _JCROSS_霞:1.0__SYM_霞_21_: &_JCROSS_霞:1.0__SYM_霞_59_) {
+        self._JCROSS_霞:1.0__SYM_霞_55_(_JCROSS_廴:1.0__SYM_廴_9_::_JCROSS_霞:1.0__SYM_霞_44_(_JCROSS_紋:1.0__SYM_霞_42_, _JCROSS_霞:1.0__SYM_霞_19_, _JCROSS_霞:1.0__SYM_霞_21_));
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

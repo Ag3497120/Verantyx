@@ -1,0 +1,48 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F1530620 ver:1778159686
+// ⚠️ One-time schema — expires after response
+// __ast_殻:0.8___OPAQUE_EC_823_ [decoy-metadata]
+
+// [metadata-stripped]
+import re
+__ast_霧:1.0___OPAQUE_霧_20_ __ast_霧:1.0___OPAQUE_霧_13_ import __ast_霧:1.0___OPAQUE_霧_14_, __ast_霧:1.0___OPAQUE_霧_10_
+__ast_霧:1.0___OPAQUE_霧_20_ __ast_霧:1.0___OPAQUE_霧_3_ import __ast_殻:1.0___OPAQUE_殻_6_, __ast_殻:1.0___OPAQUE_殻_5_
+
+@__ast_霧:1.0___OPAQUE_霧_14_
+class __ast_殻:1.0___OPAQUE_殻_4_:
+    __ast_霧:1.0___OPAQUE_霧_36_: __ast_霧:1.0___OPAQUE_霧_35_
+// __ast_節:0.5___OPAQUE_HA_530_ [decoy-metadata]
+    __ast_霧:1.0___OPAQUE_霧_11_: __ast_殻:1.0___OPAQUE_殻_6_[__ast_霧:1.0___OPAQUE_霧_35_] = __ast_殻:1.0___OPAQUE_殻_3_
+    __ast_霧:1.0___OPAQUE_霧_34_: __ast_殻:1.0___OPAQUE_殻_5_[__ast_霧:1.0___OPAQUE_霧_35_] = __ast_霧:1.0___OPAQUE_霧_10_(__ast_霧:1.0___OPAQUE_霧_19_=__ast_霧:1.0___OPAQUE_霧_5_)
+    __ast_涌:1.0___OPAQUE_霧_24_: __ast_殻:1.0___OPAQUE_殻_6_[__ast_霧:1.0___OPAQUE_霧_35_] = __ast_殻:1.0___OPAQUE_殻_3_
+// __ast_殻:0.6___OPAQUE_WW_226_ [decoy-metadata]
+
+// [metadata-stripped]
+__ast_殻:1.0___OPAQUE_殻_7_ = re.__ast_霧:1.0___OPAQUE_霧_12_(r"(?im)^__ast_殻:1.0___OPAQUE_殻_8_\s*[:=]\s*([a-zA-Z0-9_]+)\s*$")
+__ast_殻:1.0___OPAQUE_殻_13_ = re.__ast_霧:1.0___OPAQUE_霧_12_(r"(?im)^__ast_殻:1.0___OPAQUE_殻_1_(?:s)?\s*[:=]\s*(.+?)\s*$")
+__ast_殻:1.0___OPAQUE_殻_2_ = re.__ast_霧:1.0___OPAQUE_霧_12_(r"(?im)^__ast_殻:1.0___OPAQUE_殻_11_\s*[:=]\s*(.+?)\s*$")
+
+__ast_霧:1.0___OPAQUE_霧_6_ __ast_霧:1.0___OPAQUE_霧_37_(__ast_霧:1.0___OPAQUE_霧_17_: __ast_霧:1.0___OPAQUE_霧_35_) -> __ast_殻:1.0___OPAQUE_殻_4_:
+    __ast_霧:1.0___OPAQUE_霧_11_ = __ast_殻:1.0___OPAQUE_殻_3_
+    m = __ast_殻:1.0___OPAQUE_殻_7_.__ast_霧:1.0___OPAQUE_霧_21_(__ast_霧:1.0___OPAQUE_霧_17_)
+    if m:
+        __ast_霧:1.0___OPAQUE_霧_11_ = m.__ast_霧:1.0___OPAQUE_霧_28_(1).__ast_霧:1.0___OPAQUE_霧_27_()
+
+    __ast_霧:1.0___OPAQUE_霧_34_: __ast_殻:1.0___OPAQUE_殻_5_[__ast_霧:1.0___OPAQUE_霧_35_] = []
+// [metadata-stripped]
+    for m in __ast_殻:1.0___OPAQUE_殻_13_.__ast_節:1.0___OPAQUE_霧_25_(__ast_霧:1.0___OPAQUE_霧_17_):
+// [metadata-stripped]
+        __ast_霧:1.0___OPAQUE_霧_33_ = re.__ast_霧:1.0___OPAQUE_霧_7_(r"[,\s]+", m.__ast_霧:1.0___OPAQUE_霧_28_(1).__ast_霧:1.0___OPAQUE_霧_27_())
+// __ast_紋:0.9___OPAQUE_DM_498_ [decoy-metadata]
+        __ast_霧:1.0___OPAQUE_霧_34_.__ast_霧:1.0___OPAQUE_霧_4_([p for p in __ast_霧:1.0___OPAQUE_霧_33_ if p])
+
+// __ast_礎:0.3___OPAQUE_DL_430_ [decoy-metadata]
+    __ast_涌:1.0___OPAQUE_霧_24_ = __ast_殻:1.0___OPAQUE_殻_3_
+    m = __ast_殻:1.0___OPAQUE_殻_2_.__ast_霧:1.0___OPAQUE_霧_21_(__ast_霧:1.0___OPAQUE_霧_17_)
+    if m:
+        __ast_涌:1.0___OPAQUE_霧_24_ = m.__ast_霧:1.0___OPAQUE_霧_28_(1).__ast_霧:1.0___OPAQUE_霧_27_()
+    
+// __ast_礎:0.2___OPAQUE_LZ_436_ [decoy-metadata]
+    return __ast_殻:1.0___OPAQUE_殻_4_(__ast_霧:1.0___OPAQUE_霧_36_=__ast_霧:1.0___OPAQUE_霧_17_, __ast_霧:1.0___OPAQUE_霧_11_=__ast_霧:1.0___OPAQUE_霧_11_, __ast_霧:1.0___OPAQUE_霧_34_=__ast_霧:1.0___OPAQUE_霧_34_, __ast_涌:1.0___OPAQUE_霧_24_=__ast_涌:1.0___OPAQUE_霧_24_)
+
+// POLYMORPHIC_JCROSS_END

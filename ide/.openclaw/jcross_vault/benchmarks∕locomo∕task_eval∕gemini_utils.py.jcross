@@ -1,0 +1,282 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:64FF63FA ver:1778162962
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_礫:1.0__SYM_礫_166_
+_JCROSS_礫:1.0__SYM_礫_150_ _JCROSS_礫:1.0__SYM_礫_46_ import _JCROSS_廓:1.0__SYM_廓_25_
+_JCROSS_礫:1.0__SYM_礫_166_._JCROSS_礫:1.0__SYM_礫_149_._JCROSS_礫:1.0__SYM_礫_142_(0, _JCROSS_礫:1.0__SYM_礫_15_(_JCROSS_廓:1.0__SYM_廓_25_(_JCROSS_匼:1.0__SYM_礫_155_)._JCROSS_礫:1.0__SYM_礫_51_._JCROSS_礫:1.0__SYM_礫_51_))
+
+import _JCROSS_礫:1.0__SYM_礫_162_
+import os, _JCROSS_礫:1.0__SYM_礫_110_
+_JCROSS_礫:1.0__SYM_礫_150_ _JCROSS_礫:1.0__SYM_礫_74_ import _JCROSS_礫:1.0__SYM_礫_74_
+import _JCROSS_礫:1.0__SYM_礫_109_
+_JCROSS_礫:1.0__SYM_礫_150_ _JCROSS_礫:1.0__SYM_礫_160_ import _JCROSS_礫:1.0__SYM_礫_126_
+
+
+_JCROSS_廓:1.0__SYM_廓_21_={'_JCROSS_礫:1.0__SYM_礫_31_-_JCROSS_礫:1.0__SYM_礫_70_-1.0': 1000000}
+_JCROSS_鍵:1.0__SYM_廓_15_ = 50
+
+_JCROSS_廓:1.0__SYM_廓_3_ = """
+_JCROSS_廓:1.0__SYM_廓_16_ on _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_41_ _JCROSS_礫:1.0__SYM_礫_64_, _JCROSS_礫:1.0__SYM_礫_125_ an _JCROSS_律:1.0__SYM_礫_28_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_滾:1.0__SYM_礫_39_ of a _JCROSS_礫:1.0__SYM_礫_108_ _JCROSS_礫:1.0__SYM_礫_163_ for _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_66_ _JCROSS_礫:1.0__SYM_礫_104_. _JCROSS_律:1.0__SYM_廓_10_ _JCROSS_礫:1.0__SYM_礫_143_ _JCROSS_礫:1.0__SYM_礫_75_ _JCROSS_礫:1.0__SYM_礫_37_ _JCROSS_礫:1.0__SYM_礫_150_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_64_ _JCROSS_律:1.0__SYM_礫_139_ _JCROSS_礫:1.0__SYM_礫_55_.
+
+_JCROSS_廓:1.0__SYM_廓_33_: {} _JCROSS_廓:1.0__SYM_廓_9_ _JCROSS_律:1.0__SYM_礫_28_:
+"""
+
+_JCROSS_廓:1.0__SYM_廓_19_ = """
+_JCROSS_廓:1.0__SYM_廓_16_ on _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_41_ _JCROSS_礫:1.0__SYM_礫_64_, _JCROSS_律:1.0__SYM_礫_28_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_66_ _JCROSS_礫:1.0__SYM_礫_104_.
+
+_JCROSS_廓:1.0__SYM_廓_33_: {} _JCROSS_廓:1.0__SYM_廓_9_ _JCROSS_律:1.0__SYM_礫_28_:
+"""
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+_JCROSS_廓:1.0__SYM_廓_17_ = """
+_JCROSS_廓:1.0__SYM_廓_16_ on _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_41_ _JCROSS_礫:1.0__SYM_礫_89_, _JCROSS_礫:1.0__SYM_礫_125_ _JCROSS_礫:1.0__SYM_礫_108_ _JCROSS_礫:1.0__SYM_礫_156_ for _JCROSS_礫:1.0__SYM_礫_77_ of _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_66_ _JCROSS_礫:1.0__SYM_礫_119_ in a _JCROSS_礫:1.0__SYM_礫_169_ _JCROSS_礫:1.0__SYM_礫_37_. _JCROSS_廓:1.0__SYM_廓_28_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_156_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_滾:1.0__SYM_礫_39_ of a _JCROSS_礫:1.0__SYM_礫_110_ _JCROSS_礫:1.0__SYM_礫_32_ where _JCROSS_礫:1.0__SYM_礫_77_ _JCROSS_礫:1.0__SYM_礫_29_ _JCROSS_礫:1.0__SYM_礫_16_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_104_ _JCROSS_律:1.0__SYM_礫_170_ as '_JCROSS_鍵:1.0__SYM_礫_167_' _JCROSS_礫:1.0__SYM_礫_76_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_108_ _JCROSS_律:1.0__SYM_礫_28_ as _JCROSS_礫:1.0__SYM_礫_164_. _JCROSS_廓:1.0__SYM_廓_7_ _JCROSS_礫:1.0__SYM_礫_145_-_JCROSS_礫:1.0__SYM_礫_96_ _JCROSS_礫:1.0__SYM_礫_72_ for _JCROSS_礫:1.0__SYM_礫_95_ _JCROSS_礫:1.0__SYM_礫_26_. _JCROSS_律:1.0__SYM_廓_10_ _JCROSS_礫:1.0__SYM_礫_143_ _JCROSS_礫:1.0__SYM_礫_75_ _JCROSS_礫:1.0__SYM_礫_37_ _JCROSS_礫:1.0__SYM_礫_150_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_89_ _JCROSS_律:1.0__SYM_礫_139_ _JCROSS_礫:1.0__SYM_礫_55_.
+
+"""
+
+// [metadata-stripped]
+
+_JCROSS_廓:1.0__SYM_廓_24_ = "_JCROSS_廓:1.0__SYM_廓_26_ is a _JCROSS_礫:1.0__SYM_礫_97_ _JCROSS_礫:1.0__SYM_礫_91_ _JCROSS_礫:1.0__SYM_礫_25_ _JCROSS_礫:1.0__SYM_礫_22_: {} _JCROSS_礫:1.0__SYM_礫_76_ {}. _JCROSS_廓:1.0__SYM_廓_27_ _JCROSS_礫:1.0__SYM_礫_97_ _JCROSS_礫:1.0__SYM_礫_161_ _JCROSS_礫:1.0__SYM_礫_115_ _JCROSS_律:1.0__SYM_礫_34_ _JCROSS_礫:1.0__SYM_礫_48_ _JCROSS_礫:1.0__SYM_礫_53_ _JCROSS_礫:1.0__SYM_礫_76_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_116_ of _JCROSS_礫:1.0__SYM_礫_77_ _JCROSS_礫:1.0__SYM_礫_97_ is _JCROSS_礫:1.0__SYM_礫_84_ at _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_59_ of _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_97_.\n\n"
+
+
+// _JCROSS_礫:0.7__SYM_VW_771_ [decoy-metadata]
+_JCROSS_礫:1.0__SYM_礫_86_ _JCROSS_礫:1.0__SYM_礫_79_(_JCROSS_礫:1.0__SYM_礫_63_):
+
+    _JCROSS_礫:1.0__SYM_礫_130_ = _JCROSS_礫:1.0__SYM_礫_63_._JCROSS_礫:1.0__SYM_礫_131_("'")
+    _JCROSS_礫:1.0__SYM_礫_85_ = _JCROSS_礫:1.0__SYM_礫_63_._JCROSS_礫:1.0__SYM_礫_131_('"')
+    if _JCROSS_礫:1.0__SYM_礫_130_ > _JCROSS_礫:1.0__SYM_礫_85_:
+        _JCROSS_礫:1.0__SYM_礫_63_ = _JCROSS_礫:1.0__SYM_礫_63_._JCROSS_礫:1.0__SYM_礫_19_('"', "")
+        _JCROSS_礫:1.0__SYM_礫_63_ = _JCROSS_礫:1.0__SYM_礫_63_._JCROSS_礫:1.0__SYM_礫_19_("'", '"')
+    
+    _JCROSS_礫:1.0__SYM_礫_156_ = _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_匼:1.0__SYM_礫_92_(_JCROSS_礫:1.0__SYM_礫_63_)
+    if _JCROSS_礫:1.0__SYM_礫_94_(_JCROSS_礫:1.0__SYM_礫_156_) == _JCROSS_礫:1.0__SYM_礫_128_:
+        for k, v in _JCROSS_礫:1.0__SYM_礫_156_._JCROSS_礫:1.0__SYM_礫_14_():
+            if v is _JCROSS_廓:1.0__SYM_廓_23_:
+                _JCROSS_礫:1.0__SYM_礫_156_[k] = ""
+                continue
+            if v._JCROSS_礫:1.0__SYM_礫_117_('{') _JCROSS_礫:1.0__SYM_礫_76_ v._JCROSS_礫:1.0__SYM_礫_3_('}'):
+                try:
+                    _JCROSS_礫:1.0__SYM_礫_156_[k] = _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_匼:1.0__SYM_礫_92_(v)['_JCROSS_律:1.0__SYM_礫_28_']
+                _JCROSS_礫:1.0__SYM_礫_30_:
+                    continue
+
+        re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_礫:1.0__SYM_礫_156_
+    _JCROSS_滾:1.0__SYM_礫_148_ _JCROSS_礫:1.0__SYM_礫_94_(_JCROSS_礫:1.0__SYM_礫_156_) == _JCROSS_礫:1.0__SYM_礫_153_:
+        for k, v in _JCROSS_礫:1.0__SYM_礫_172_(_JCROSS_礫:1.0__SYM_礫_156_):
+            if v is _JCROSS_廓:1.0__SYM_廓_23_:
+                _JCROSS_礫:1.0__SYM_礫_156_[k] = ""
+            if v._JCROSS_礫:1.0__SYM_礫_117_('{') _JCROSS_礫:1.0__SYM_礫_76_ v._JCROSS_礫:1.0__SYM_礫_3_('}'):
+                try:
+                    _JCROSS_礫:1.0__SYM_礫_156_[k] = _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_匼:1.0__SYM_礫_92_(v)['_JCROSS_律:1.0__SYM_礫_28_']
+                _JCROSS_礫:1.0__SYM_礫_30_:
+                    continue
+    re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_礫:1.0__SYM_礫_156_
+
+_JCROSS_礫:1.0__SYM_礫_86_ _JCROSS_律:1.0__SYM_弧_3_(_JCROSS_礫:1.0__SYM_礫_168_, _JCROSS_鍵:1.0__SYM_礫_1_):
+
+    _JCROSS_礫:1.0__SYM_礫_168_ = _JCROSS_礫:1.0__SYM_礫_168_._JCROSS_礫:1.0__SYM_礫_111_()._JCROSS_律:1.0__SYM_礫_44_()
+    if _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_168_) == 1:
+        if 'a' in _JCROSS_礫:1.0__SYM_礫_168_:
+            re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_鍵:1.0__SYM_礫_1_['a']
+        else:
+            re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_鍵:1.0__SYM_礫_1_['b']
+    _JCROSS_滾:1.0__SYM_礫_148_ _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_168_) == 3:
+        if '(a)' in _JCROSS_礫:1.0__SYM_礫_168_:
+            re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_鍵:1.0__SYM_礫_1_['a']
+        else:
+            re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_鍵:1.0__SYM_礫_1_['b']
+    else:
+        re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_礫:1.0__SYM_礫_168_
+
+_JCROSS_礫:1.0__SYM_礫_86_ _JCROSS_律:1.0__SYM_弧_4_(_JCROSS_礫:1.0__SYM_礫_138_, _JCROSS_鍵:1.0__SYM_礫_112_, _JCROSS_礫:1.0__SYM_礫_24_, _JCROSS_礫:1.0__SYM_礫_171_):
+
+    _JCROSS_礫:1.0__SYM_礫_50_ = ''
+    _JCROSS_礫:1.0__SYM_礫_99_ = -1
+    _JCROSS_礫:1.0__SYM_礫_121_ = _JCROSS_廓:1.0__SYM_廓_32_
+    _JCROSS_礫:1.0__SYM_礫_33_ = [_JCROSS_礫:1.0__SYM_礫_123_(k._JCROSS_礫:1.0__SYM_礫_136_('_')[-1]) for k in _JCROSS_礫:1.0__SYM_礫_138_._JCROSS_鍵:1.0__SYM_礫_40_() if '_JCROSS_礫:1.0__SYM_礫_69_' in k _JCROSS_礫:1.0__SYM_礫_76_ '_JCROSS_礫:1.0__SYM_礫_56_' _JCROSS_礫:1.0__SYM_礫_17_ in k]
+    for i in _JCROSS_礫:1.0__SYM_礫_103_(_JCROSS_礫:1.0__SYM_礫_127_(_JCROSS_礫:1.0__SYM_礫_33_), _JCROSS_礫:1.0__SYM_礫_124_(_JCROSS_礫:1.0__SYM_礫_33_) + 1):
+        if '_JCROSS_礫:1.0__SYM_礫_151_%s' % i in _JCROSS_礫:1.0__SYM_礫_138_:
+            _JCROSS_礫:1.0__SYM_礫_50_ += "\n\n"
+            for _JCROSS_礫:1.0__SYM_礫_45_ in _JCROSS_礫:1.0__SYM_礫_138_['_JCROSS_礫:1.0__SYM_礫_151_%s' % i][::-1]:
+                _JCROSS_礫:1.0__SYM_礫_27_ = ''
+                _JCROSS_礫:1.0__SYM_礫_27_ = _JCROSS_礫:1.0__SYM_礫_45_['_JCROSS_律:1.0__SYM_礫_114_'] + ' _JCROSS_礫:1.0__SYM_礫_9_, \"' + _JCROSS_礫:1.0__SYM_礫_45_['_JCROSS_礫:1.0__SYM_礫_63_'] + '\"' + '\n'
+                if "_JCROSS_礫:1.0__SYM_礫_132_" in _JCROSS_礫:1.0__SYM_礫_45_:
+                    _JCROSS_礫:1.0__SYM_礫_27_ += ' _JCROSS_礫:1.0__SYM_礫_76_ _JCROSS_礫:1.0__SYM_礫_49_ %s.' % _JCROSS_礫:1.0__SYM_礫_45_["_JCROSS_礫:1.0__SYM_礫_132_"]
+                _JCROSS_礫:1.0__SYM_礫_27_ += '\n'
+        
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+                _JCROSS_礫:1.0__SYM_礫_50_ = _JCROSS_礫:1.0__SYM_礫_27_ + _JCROSS_礫:1.0__SYM_礫_50_
+
+            _JCROSS_礫:1.0__SYM_礫_50_ = '\_JCROSS_礫:1.0__SYM_礫_106_: ' + _JCROSS_礫:1.0__SYM_礫_138_['_JCROSS_礫:1.0__SYM_礫_151_%_JCROSS_礫:1.0__SYM_礫_54_' % i] + '\n' + '_JCROSS_廓:1.0__SYM_廓_8_:\n' + _JCROSS_礫:1.0__SYM_礫_50_
+        if _JCROSS_礫:1.0__SYM_礫_121_:
+            break
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_礫:1.0__SYM_礫_50_
+
+
+_JCROSS_礫:1.0__SYM_礫_86_ _JCROSS_律:1.0__SYM_弧_2_(_JCROSS_礫:1.0__SYM_礫_24_, _JCROSS_礫:1.0__SYM_礫_43_, _JCROSS_礫:1.0__SYM_礫_129_, _JCROSS_鍵:1.0__SYM_礫_68_, _JCROSS_礫:1.0__SYM_礫_171_):
+
+
+// _JCROSS_律:0.8__SYM_YA_344_ [decoy-metadata]
+    _JCROSS_礫:1.0__SYM_礫_65_ _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_43_['qa']) == _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_129_['qa']), (_JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_43_['qa']), _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_129_['qa']))
+
+// [metadata-stripped]
+    _JCROSS_礫:1.0__SYM_礫_82_ = _JCROSS_礫:1.0__SYM_礫_153_(_JCROSS_律:1.0__SYM_弧_1_([d['_JCROSS_律:1.0__SYM_礫_114_'] for d in _JCROSS_礫:1.0__SYM_礫_43_['_JCROSS_礫:1.0__SYM_礫_97_']['_JCROSS_礫:1.0__SYM_礫_154_']]))
+    _JCROSS_礫:1.0__SYM_礫_140_ = _JCROSS_廓:1.0__SYM_廓_24_._JCROSS_滾:1.0__SYM_礫_6_(_JCROSS_礫:1.0__SYM_礫_82_[0], _JCROSS_礫:1.0__SYM_礫_82_[1])
+// [metadata-stripped]
+    _JCROSS_鍵:1.0__SYM_礫_159_ = 100
+
+    if _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_147_:
+        _JCROSS_礫:1.0__SYM_礫_152_ _JCROSS_廓:1.0__SYM_廓_13_
+    else:
+        _JCROSS_礫:1.0__SYM_礫_93_, _JCROSS_礫:1.0__SYM_礫_133_ = _JCROSS_廓:1.0__SYM_廓_23_, _JCROSS_廓:1.0__SYM_廓_23_
+
+    for _JCROSS_礫:1.0__SYM_礫_78_ in _JCROSS_礫:1.0__SYM_礫_74_(_JCROSS_礫:1.0__SYM_礫_103_(0, _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_43_['qa']), _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_137_), _JCROSS_礫:1.0__SYM_礫_134_='_JCROSS_廓:1.0__SYM_廓_29_ _JCROSS_礫:1.0__SYM_礫_156_'):
+
+        _JCROSS_礫:1.0__SYM_礫_119_ = []
+        _JCROSS_礫:1.0__SYM_礫_47_ = []
+        _JCROSS_礫:1.0__SYM_礫_107_ = []
+        _JCROSS_礫:1.0__SYM_礫_35_ = []
+        for i in _JCROSS_礫:1.0__SYM_礫_103_(_JCROSS_礫:1.0__SYM_礫_78_, _JCROSS_礫:1.0__SYM_礫_78_ + _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_137_):
+
+            if i>=_JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_43_['qa']):
+                break
+// _JCROSS_廓:0.6__SYM_YV_928_ [decoy-metadata]
+
+            qa = _JCROSS_礫:1.0__SYM_礫_43_['qa'][i]
+            
+            if _JCROSS_鍵:1.0__SYM_礫_68_ _JCROSS_礫:1.0__SYM_礫_17_ in _JCROSS_礫:1.0__SYM_礫_129_['qa'][i] or _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_100_:
+                _JCROSS_礫:1.0__SYM_礫_47_._JCROSS_礫:1.0__SYM_礫_4_(i)
+            else:
+                _JCROSS_礫:1.0__SYM_礫_38_("_JCROSS_廓:1.0__SYM_廓_11_ -->", qa['_JCROSS_礫:1.0__SYM_礫_104_'])
+                continue
+
+            if qa['_JCROSS_礫:1.0__SYM_礫_165_'] == 2:
+                _JCROSS_礫:1.0__SYM_礫_119_._JCROSS_礫:1.0__SYM_礫_4_(qa['_JCROSS_礫:1.0__SYM_礫_104_'] + ' _JCROSS_廓:1.0__SYM_廓_7_ _JCROSS_廓:1.0__SYM_廓_20_ of _JCROSS_廓:1.0__SYM_廓_8_ to _JCROSS_律:1.0__SYM_礫_28_ _JCROSS_礫:1.0__SYM_礫_143_ an _JCROSS_礫:1.0__SYM_礫_98_ _JCROSS_礫:1.0__SYM_礫_116_.')
+            _JCROSS_滾:1.0__SYM_礫_148_ qa['_JCROSS_礫:1.0__SYM_礫_165_'] == 5:
+                _JCROSS_礫:1.0__SYM_礫_104_ = qa['_JCROSS_礫:1.0__SYM_礫_104_'] + " _JCROSS_廓:1.0__SYM_廓_22_ _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_80_ _JCROSS_律:1.0__SYM_礫_28_: (a) {} (b) {}. "
+                if _JCROSS_礫:1.0__SYM_礫_162_._JCROSS_礫:1.0__SYM_礫_162_() < 0.5:
+                    _JCROSS_礫:1.0__SYM_礫_104_ = _JCROSS_礫:1.0__SYM_礫_104_._JCROSS_滾:1.0__SYM_礫_6_('_JCROSS_廓:1.0__SYM_廓_12_ _JCROSS_礫:1.0__SYM_礫_8_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_97_', qa['_JCROSS_律:1.0__SYM_礫_28_'])
+                    _JCROSS_律:1.0__SYM_礫_28_ = {'a': '_JCROSS_廓:1.0__SYM_廓_12_ _JCROSS_礫:1.0__SYM_礫_8_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_97_', 'b': qa['_JCROSS_律:1.0__SYM_礫_28_']}
+                else:
+// _JCROSS_縞:0.9__SYM_AY_758_ [decoy-metadata]
+                    _JCROSS_礫:1.0__SYM_礫_104_ = _JCROSS_礫:1.0__SYM_礫_104_._JCROSS_滾:1.0__SYM_礫_6_(qa['_JCROSS_律:1.0__SYM_礫_28_'], '_JCROSS_廓:1.0__SYM_廓_12_ _JCROSS_礫:1.0__SYM_礫_8_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_97_')
+                    _JCROSS_律:1.0__SYM_礫_28_ = {'b': '_JCROSS_廓:1.0__SYM_廓_12_ _JCROSS_礫:1.0__SYM_礫_8_ in _JCROSS_礫:1.0__SYM_礫_90_ _JCROSS_礫:1.0__SYM_礫_97_', 'a': qa['_JCROSS_律:1.0__SYM_礫_28_']}
+
+                _JCROSS_礫:1.0__SYM_礫_107_._JCROSS_礫:1.0__SYM_礫_4_(_JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_119_))
+                _JCROSS_礫:1.0__SYM_礫_119_._JCROSS_礫:1.0__SYM_礫_4_(_JCROSS_礫:1.0__SYM_礫_104_)
+                _JCROSS_礫:1.0__SYM_礫_35_._JCROSS_礫:1.0__SYM_礫_4_(_JCROSS_律:1.0__SYM_礫_28_)
+// [metadata-stripped]
+            else:
+                _JCROSS_礫:1.0__SYM_礫_119_._JCROSS_礫:1.0__SYM_礫_4_(qa['_JCROSS_礫:1.0__SYM_礫_104_'])
+
+
+        if _JCROSS_礫:1.0__SYM_礫_119_ == []:
+            continue
+
+
+        _JCROSS_礫:1.0__SYM_礫_135_ = _JCROSS_廓:1.0__SYM_廓_23_
+        if _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_52_:
+            
+            _JCROSS_礫:1.0__SYM_礫_152_ _JCROSS_廓:1.0__SYM_廓_13_
+        else:
+            _JCROSS_礫:1.0__SYM_礫_2_ =  _JCROSS_廓:1.0__SYM_廓_17_ + "\n"._JCROSS_礫:1.0__SYM_礫_60_(["%s: %s" % (k, q) for k, q in _JCROSS_礫:1.0__SYM_礫_172_(_JCROSS_礫:1.0__SYM_礫_119_)])
+            _JCROSS_鍵:1.0__SYM_礫_112_ = _JCROSS_礫:1.0__SYM_礫_24_._JCROSS_鍵:1.0__SYM_礫_122_(_JCROSS_礫:1.0__SYM_礫_2_)._JCROSS_鍵:1.0__SYM_礫_18_
+            _JCROSS_鍵:1.0__SYM_礫_112_ = 200
+            _JCROSS_礫:1.0__SYM_礫_50_ = _JCROSS_律:1.0__SYM_弧_4_(_JCROSS_礫:1.0__SYM_礫_43_['_JCROSS_礫:1.0__SYM_礫_97_'], _JCROSS_鍵:1.0__SYM_礫_112_ + _JCROSS_鍵:1.0__SYM_礫_159_, _JCROSS_礫:1.0__SYM_礫_24_, _JCROSS_礫:1.0__SYM_礫_171_)
+            _JCROSS_礫:1.0__SYM_礫_50_ = _JCROSS_礫:1.0__SYM_礫_140_ + _JCROSS_礫:1.0__SYM_礫_50_
+// _JCROSS_弧:0.5__SYM_CK_392_ [decoy-metadata]
+        
+
+// [metadata-stripped]
+
+        if '_JCROSS_礫:1.0__SYM_礫_70_-1.0' in _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_24_:
+            _JCROSS_礫:1.0__SYM_礫_109_._JCROSS_礫:1.0__SYM_礫_158_(30)
+
+        if _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_137_ == 1:
+
+            _JCROSS_礫:1.0__SYM_礫_144_ = _JCROSS_礫:1.0__SYM_礫_50_ + '\n\n' + _JCROSS_廓:1.0__SYM_廓_3_._JCROSS_滾:1.0__SYM_礫_6_(_JCROSS_礫:1.0__SYM_礫_119_[0]) if _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_107_) == 0 else _JCROSS_礫:1.0__SYM_礫_50_ + '\n\n' + _JCROSS_廓:1.0__SYM_廓_19_._JCROSS_滾:1.0__SYM_礫_6_(_JCROSS_礫:1.0__SYM_礫_119_[0])
+
+            _JCROSS_律:1.0__SYM_礫_28_ = _JCROSS_礫:1.0__SYM_礫_126_(_JCROSS_礫:1.0__SYM_礫_24_, _JCROSS_礫:1.0__SYM_礫_144_)
+            
+            if _JCROSS_礫:1.0__SYM_礫_88_(_JCROSS_礫:1.0__SYM_礫_107_) > 0:
+                _JCROSS_律:1.0__SYM_礫_28_ = _JCROSS_律:1.0__SYM_弧_3_(_JCROSS_律:1.0__SYM_礫_28_, _JCROSS_礫:1.0__SYM_礫_35_[0])
+
+
+            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_47_[0]][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_()
+            if _JCROSS_礫:1.0__SYM_礫_171_._JCROSS_礫:1.0__SYM_礫_52_:
+                _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_47_[0]][_JCROSS_鍵:1.0__SYM_礫_68_ + '_JCROSS_礫:1.0__SYM_礫_5_'] = _JCROSS_礫:1.0__SYM_礫_135_
+
+        else:
+// [metadata-stripped]
+            _JCROSS_礫:1.0__SYM_礫_144_ = _JCROSS_礫:1.0__SYM_礫_50_ + '\n' + _JCROSS_礫:1.0__SYM_礫_2_
+// [metadata-stripped]
+            
+            _JCROSS_礫:1.0__SYM_礫_146_ = 0
+            while _JCROSS_礫:1.0__SYM_礫_146_ < 5:
+                try:
+                    _JCROSS_礫:1.0__SYM_礫_146_ += 1
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    _JCROSS_律:1.0__SYM_礫_28_ = _JCROSS_礫:1.0__SYM_礫_126_(_JCROSS_礫:1.0__SYM_礫_24_, _JCROSS_礫:1.0__SYM_礫_144_)
+                    _JCROSS_律:1.0__SYM_礫_28_ = _JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_19_('\\"', "'")._JCROSS_礫:1.0__SYM_礫_19_('_JCROSS_礫:1.0__SYM_礫_110_','')._JCROSS_礫:1.0__SYM_礫_19_('`','')._JCROSS_礫:1.0__SYM_礫_111_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    _JCROSS_礫:1.0__SYM_礫_156_ = _JCROSS_礫:1.0__SYM_礫_79_(_JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_())
+                    break
+                _JCROSS_礫:1.0__SYM_礫_30_ _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_律:1.0__SYM_礫_81_._JCROSS_廓:1.0__SYM_廓_34_:
+                    _JCROSS_礫:1.0__SYM_礫_57_
+            
+            for k, _JCROSS_礫:1.0__SYM_礫_12_ in _JCROSS_礫:1.0__SYM_礫_172_(_JCROSS_礫:1.0__SYM_礫_47_):
+                try:
+// _JCROSS_弧:0.8__SYM_VZ_638_ [decoy-metadata]
+                    _JCROSS_礫:1.0__SYM_礫_156_ = _JCROSS_礫:1.0__SYM_礫_79_(_JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_())
+// [metadata-stripped]
+// [metadata-stripped]
+                    if k in _JCROSS_礫:1.0__SYM_礫_107_:
+                        _JCROSS_律:1.0__SYM_礫_61_ = _JCROSS_律:1.0__SYM_弧_3_(_JCROSS_礫:1.0__SYM_礫_156_[_JCROSS_礫:1.0__SYM_礫_15_(k)], _JCROSS_礫:1.0__SYM_礫_35_[_JCROSS_礫:1.0__SYM_礫_107_._JCROSS_礫:1.0__SYM_礫_120_(k)])
+                        _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_律:1.0__SYM_礫_61_
+                    else:
+                        try:
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_礫:1.0__SYM_礫_15_(_JCROSS_礫:1.0__SYM_礫_156_[_JCROSS_礫:1.0__SYM_礫_15_(k)])._JCROSS_礫:1.0__SYM_礫_19_('(a)', '')._JCROSS_礫:1.0__SYM_礫_19_('(b)', '')._JCROSS_礫:1.0__SYM_礫_111_()
+                        _JCROSS_礫:1.0__SYM_礫_30_:
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = ', '._JCROSS_礫:1.0__SYM_礫_60_([_JCROSS_礫:1.0__SYM_礫_15_(n) for n in _JCROSS_礫:1.0__SYM_礫_153_(_JCROSS_礫:1.0__SYM_礫_156_[_JCROSS_礫:1.0__SYM_礫_15_(k)]._JCROSS_礫:1.0__SYM_礫_11_())])
+                _JCROSS_礫:1.0__SYM_礫_30_:
+                    try:
+                        _JCROSS_礫:1.0__SYM_礫_156_ = _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_匼:1.0__SYM_礫_92_(_JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_())
+                        if k in _JCROSS_礫:1.0__SYM_礫_107_:
+                            _JCROSS_律:1.0__SYM_礫_61_ = _JCROSS_律:1.0__SYM_弧_3_(_JCROSS_礫:1.0__SYM_礫_156_[k], _JCROSS_礫:1.0__SYM_礫_35_[_JCROSS_礫:1.0__SYM_礫_107_._JCROSS_礫:1.0__SYM_礫_120_(k)])
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_律:1.0__SYM_礫_61_
+                        else:
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_礫:1.0__SYM_礫_156_[k]._JCROSS_礫:1.0__SYM_礫_19_('(a)', '')._JCROSS_礫:1.0__SYM_礫_19_('(b)', '')._JCROSS_礫:1.0__SYM_礫_111_()
+                    _JCROSS_礫:1.0__SYM_礫_30_:
+                        if k in _JCROSS_礫:1.0__SYM_礫_107_:
+                            _JCROSS_律:1.0__SYM_礫_61_ = _JCROSS_律:1.0__SYM_弧_3_(_JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_(), _JCROSS_礫:1.0__SYM_礫_35_[_JCROSS_礫:1.0__SYM_礫_107_._JCROSS_礫:1.0__SYM_礫_120_(k)])
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_律:1.0__SYM_礫_61_
+                        else:
+                            _JCROSS_礫:1.0__SYM_礫_129_['qa'][_JCROSS_礫:1.0__SYM_礫_12_][_JCROSS_鍵:1.0__SYM_礫_68_] = _JCROSS_礫:1.0__SYM_礫_110_._JCROSS_匼:1.0__SYM_礫_92_(_JCROSS_律:1.0__SYM_礫_28_._JCROSS_礫:1.0__SYM_礫_111_()._JCROSS_礫:1.0__SYM_礫_19_('(a)', '')._JCROSS_礫:1.0__SYM_礫_19_('(b)', '')._JCROSS_礫:1.0__SYM_礫_136_('\n')[k])[0]
+
+    re_JCROSS_礫:1.0__SYM_礫_27_ _JCROSS_礫:1.0__SYM_礫_129_
+
+
+// POLYMORPHIC_JCROSS_END

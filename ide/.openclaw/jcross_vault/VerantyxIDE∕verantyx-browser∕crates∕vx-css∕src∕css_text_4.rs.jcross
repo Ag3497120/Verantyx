@@ -1,0 +1,103 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E731642D ver:1778149888
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_霡:1.0___ast_霡_37__ _JCROSS_霡:1.0___ast_霡_66__::_JCROSS_霡:1.0___ast_霡_78__::_JCROSS_廷:1.0___ast_廷_39__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霡:1.0___ast_霡_38__ enum _JCROSS_廷:1.0___ast_廷_52__ { _JCROSS_廷:1.0___ast_廷_4__, _JCROSS_廷:1.0___ast_廷_57__, _JCROSS_廷:1.0___ast_廷_12__, _JCROSS_廷:1.0___ast_廷_16__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霡:1.0___ast_霡_38__ enum _JCROSS_廷:1.0___ast_廷_31__ { _JCROSS_廷:1.0___ast_廷_11__, _JCROSS_廷:1.0___ast_廷_62__, _JCROSS_廷:1.0___ast_廷_26__, _JCROSS_廷:1.0___ast_廷_6__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霡:1.0___ast_霡_38__ struct _JCROSS_廷:1.0___ast_廷_44__ {
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_霡:1.0___ast_霡_20__: _JCROSS_廷:1.0___ast_廷_52__,
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_霡:1.0___ast_霡_82__: _JCROSS_廷:1.0___ast_廷_31__,
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_泳:1.0___ast_霡_7__: u8,
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_計:1.0___ast_霡_42__: u8,
+}
+
+_JCROSS_霡:1.0___ast_霡_1__ _JCROSS_廷:1.0___ast_廷_43__ for _JCROSS_廷:1.0___ast_廷_44__ {
+// _JCROSS_秘:0.7___ast_LB_634__ [decoy-metadata]
+    fn _JCROSS_霡:1.0___ast_霡_86__() -> _JCROSS_廷:1.0___ast_廷_53__ {
+        _JCROSS_廷:1.0___ast_廷_53__ {
+// _JCROSS_雄:0.8___ast_LG_284__ [decoy-metadata]
+            _JCROSS_霡:1.0___ast_霡_20__: _JCROSS_廷:1.0___ast_廷_52__::_JCROSS_廷:1.0___ast_廷_4__,
+            _JCROSS_霡:1.0___ast_霡_82__: _JCROSS_廷:1.0___ast_廷_31__::_JCROSS_廷:1.0___ast_廷_11__,
+            _JCROSS_泳:1.0___ast_霡_7__: 2,
+            _JCROSS_計:1.0___ast_霡_42__: 2,
+        }
+    }
+}
+
+// [metadata-stripped]
+_JCROSS_霡:1.0___ast_霡_38__ struct _JCROSS_廷:1.0___ast_廷_20__ {
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_霡:1.0___ast_霡_87__: _JCROSS_廷:1.0___ast_廷_39__<_JCROSS_霡:1.0___ast_霡_43__, _JCROSS_廷:1.0___ast_廷_44__>,
+    _JCROSS_霡:1.0___ast_霡_38__ _JCROSS_霡:1.0___ast_霡_92__: _JCROSS_霡:1.0___ast_霡_43__,
+}
+
+_JCROSS_霡:1.0___ast_霡_1__ _JCROSS_廷:1.0___ast_廷_20__ {
+    _JCROSS_霡:1.0___ast_霡_38__ fn _JCROSS_霡:1.0___ast_霡_19__() -> _JCROSS_廷:1.0___ast_廷_53__ {
+        _JCROSS_廷:1.0___ast_廷_53__ {
+            _JCROSS_霡:1.0___ast_霡_87__: _JCROSS_廷:1.0___ast_廷_39__::_JCROSS_霡:1.0___ast_霡_19__(),
+            _JCROSS_霡:1.0___ast_霡_92__: 0,
+        }
+    }
+
+    _JCROSS_霡:1.0___ast_霡_38__ fn _JCROSS_計:1.0___ast_雄_1__(&_JCROSS_霡:1.0___ast_霡_73__ self, _JCROSS_霡:1.0___ast_霡_77__: _JCROSS_霡:1.0___ast_霡_43__, _JCROSS_霡:1.0___ast_霡_48__: _JCROSS_廷:1.0___ast_廷_44__) {
+// _JCROSS_雄:0.8___ast_GZ_968__ [decoy-metadata]
+        if _JCROSS_霡:1.0___ast_霡_48__._JCROSS_霡:1.0___ast_霡_20__ == _JCROSS_廷:1.0___ast_廷_52__::_JCROSS_廷:1.0___ast_廷_12__ || _JCROSS_霡:1.0___ast_霡_48__._JCROSS_霡:1.0___ast_霡_20__ == _JCROSS_廷:1.0___ast_廷_52__::_JCROSS_廷:1.0___ast_廷_16__ {
+            self._JCROSS_霡:1.0___ast_霡_92__ += 1;
+        }
+        self._JCROSS_霡:1.0___ast_霡_87__._JCROSS_霡:1.0___ast_霡_34__(_JCROSS_霡:1.0___ast_霡_77__, _JCROSS_霡:1.0___ast_霡_48__);
+// _JCROSS_秘:0.2___ast_YY_379__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_霡:1.0___ast_霡_38__ fn _JCROSS_霡:1.0___ast_霡_60__(&self, _JCROSS_霡:1.0___ast_霡_77__: _JCROSS_霡:1.0___ast_霡_43__) -> _JCROSS_霡:1.0___ast_霡_24__ {
+        if let _JCROSS_廷:1.0___ast_廷_34__(_JCROSS_霡:1.0___ast_霡_72__) = self._JCROSS_霡:1.0___ast_霡_87__._JCROSS_計:1.0___ast_雄_2__(&_JCROSS_霡:1.0___ast_霡_77__) {
+            return _JCROSS_霡:1.0___ast_霡_72__._JCROSS_霡:1.0___ast_霡_20__ == _JCROSS_廷:1.0___ast_廷_52__::_JCROSS_廷:1.0___ast_廷_12__ || _JCROSS_霡:1.0___ast_霡_72__._JCROSS_霡:1.0___ast_霡_20__ == _JCROSS_廷:1.0___ast_廷_52__::_JCROSS_廷:1.0___ast_廷_16__;
+        }
+        false
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霡:1.0___ast_霡_38__ fn _JCROSS_霡:1.0___ast_霡_69__(&self, _JCROSS_霡:1.0___ast_霡_77__: _JCROSS_霡:1.0___ast_霡_43__, _JCROSS_霡:1.0___ast_霡_18__: _JCROSS_霡:1.0___ast_霡_24__) -> _JCROSS_霡:1.0___ast_霡_24__ {
+        if let _JCROSS_廷:1.0___ast_廷_34__(_JCROSS_霡:1.0___ast_霡_72__) = self._JCROSS_霡:1.0___ast_霡_87__._JCROSS_計:1.0___ast_雄_2__(&_JCROSS_霡:1.0___ast_霡_77__) {
+// _JCROSS_匹:0.8___ast_LV_104__ [decoy-metadata]
+            _JCROSS_霡:1.0___ast_霡_97__ _JCROSS_霡:1.0___ast_霡_72__._JCROSS_霡:1.0___ast_霡_82__ {
+                _JCROSS_廷:1.0___ast_廷_31__::_JCROSS_廷:1.0___ast_廷_6__ => return _JCROSS_霡:1.0___ast_霡_18__, // _JCROSS_廷:1.0___ast_廷_17__ _JCROSS_霡:1.0___ast_霡_81__ _JCROSS_霡:1.0___ast_霡_57__ _JCROSS_霡:1.0___ast_霡_30__-_JCROSS_霡:1.0___ast_霡_47__ _JCROSS_霡:1.0___ast_霡_3__ _JCROSS_霡:1.0___ast_霡_12__
+                _JCROSS_廷:1.0___ast_廷_31__::_JCROSS_廷:1.0___ast_廷_26__ => return !_JCROSS_霡:1.0___ast_霡_18__,
+                _ => return false,
+            }
+        }
+        false
+    }
+
+// [metadata-stripped]
+    _JCROSS_霡:1.0___ast_霡_38__ fn _JCROSS_泳:1.0___ast_霡_64__(&self, _JCROSS_霡:1.0___ast_霡_77__: _JCROSS_霡:1.0___ast_霡_43__) -> _JCROSS_廷:1.0___ast_廷_14__ {
+// _JCROSS_絡:0.8___ast_EX_696__ [decoy-metadata]
+        if let _JCROSS_廷:1.0___ast_廷_34__(_JCROSS_霡:1.0___ast_霡_72__) = self._JCROSS_霡:1.0___ast_霡_87__._JCROSS_計:1.0___ast_雄_2__(&_JCROSS_霡:1.0___ast_霡_77__) {
+            _JCROSS_泳:1.0___ast_霡_85__!("🖋️ _JCROSS_廷:1.0___ast_廷_24__ _JCROSS_廷:1.0___ast_廷_59__ 4 (_JCROSS_廷:1.0___ast_廷_10__ #{}): _JCROSS_廷:1.0___ast_廷_4__ _JCROSS_廷:1.0___ast_廷_25__: {:?} | _JCROSS_廷:1.0___ast_廷_2__ _JCROSS_廷:1.0___ast_廷_46__: {:?} | _JCROSS_廷:1.0___ast_廷_32__ _JCROSS_廷:1.0___ast_廷_22__: {}/{} | _JCROSS_廷:1.0___ast_廷_60__ _JCROSS_廷:1.0___ast_廷_36__ _JCROSS_廷:1.0___ast_廷_29__: {}", 
+                _JCROSS_霡:1.0___ast_霡_77__, _JCROSS_霡:1.0___ast_霡_72__._JCROSS_霡:1.0___ast_霡_20__, _JCROSS_霡:1.0___ast_霡_72__._JCROSS_霡:1.0___ast_霡_82__, _JCROSS_霡:1.0___ast_霡_72__._JCROSS_泳:1.0___ast_霡_7__, _JCROSS_霡:1.0___ast_霡_72__._JCROSS_計:1.0___ast_霡_42__, self._JCROSS_霡:1.0___ast_霡_92__)
+        } else {
+            _JCROSS_泳:1.0___ast_霡_85__!("_JCROSS_廷:1.0___ast_廷_10__ #{} _JCROSS_霡:1.0___ast_霡_89__ _JCROSS_霡:1.0___ast_霡_94__ _JCROSS_霡:1.0___ast_霡_76__ _JCROSS_霡:1.0___ast_霡_83__-break _JCROSS_霡:1.0___ast_霡_40__ _JCROSS_霡:1.0___ast_霡_9__", _JCROSS_霡:1.0___ast_霡_77__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,96 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FE578B17 ver:1778167665
+// ⚠️ One-time schema — expires after response
+
+import { _OPAQUE_霞:1.0___jcross_霞_39__ } _OPAQUE_霞:1.0___jcross_霞_38__ "../_OPAQUE_霞:1.0___jcross_霞_9__.js";
+import { _OPAQUE_霞:1.0___jcross_霞_24__ } _OPAQUE_霞:1.0___jcross_霞_38__ "./_OPAQUE_霞:1.0___jcross_霞_5__.js";
+import { _OPAQUE_項:1.0___jcross_弧_1__, _OPAQUE_霞:1.0___jcross_霞_15__ } _OPAQUE_霞:1.0___jcross_霞_38__ "./_OPAQUE_霞:1.0___jcross_霞_27__.js";
+import {
+  _OPAQUE_廊:1.0___jcross_廊_6__,
+  _OPAQUE_霞:1.0___jcross_霞_2__ _OPAQUE_廊:1.0___jcross_廊_7__,
+  _OPAQUE_霞:1.0___jcross_霞_2__ _OPAQUE_廊:1.0___jcross_廊_8__,
+  _OPAQUE_霞:1.0___jcross_霞_2__ _OPAQUE_廊:1.0___jcross_廊_4__,
+  _OPAQUE_霞:1.0___jcross_霞_2__ _OPAQUE_廊:1.0___jcross_廊_2__,
+} _OPAQUE_霞:1.0___jcross_霞_38__ "./_OPAQUE_霞:1.0___jcross_霞_21__.js";
+// _OPAQUE_弧:0.3___jcross_KG_722__ [decoy-metadata]
+
+_OPAQUE_霞:1.0___jcross_霞_2__ _OPAQUE_廊:1.0___jcross_廊_3__ = _OPAQUE_廊:1.0___jcross_廊_8__["_OPAQUE_霞:1.0___jcross_霞_5__"];
+
+async _OPAQUE_霞:1.0___jcross_霞_3__ _OPAQUE_霞:1.0___jcross_霞_19__<T>(
+  _OPAQUE_霞:1.0___jcross_霞_28__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_23__: _OPAQUE_廊:1.0___jcross_廊_7__,
+  _OPAQUE_霞:1.0___jcross_霞_26__: (_OPAQUE_霞:1.0___jcross_霞_5__: _OPAQUE_廊:1.0___jcross_廊_3__, _OPAQUE_霞:1.0___jcross_霞_7__: _OPAQUE_霞:1.0___jcross_霞_32__) => _OPAQUE_廊:1.0___jcross_廊_9__<T>,
+): _OPAQUE_廊:1.0___jcross_廊_9__<T> {
+  _OPAQUE_霞:1.0___jcross_霞_4__ { _OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_33__ } = await _OPAQUE_霞:1.0___jcross_霞_24__(_OPAQUE_霞:1.0___jcross_霞_23__);
+  try {
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_霞:1.0___jcross_霞_7__ = await _OPAQUE_霞:1.0___jcross_霞_39__(_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_28__);
+    return await _OPAQUE_霞:1.0___jcross_霞_26__(_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__);
+  } _OPAQUE_霞:1.0___jcross_霞_22__ {
+    if (_OPAQUE_霞:1.0___jcross_霞_33__) {
+      _OPAQUE_霞:1.0___jcross_霞_5__._OPAQUE_霞:1.0___jcross_霞_10__();
+    }
+  }
+}
+
+async _OPAQUE_霞:1.0___jcross_霞_3__ _OPAQUE_霞:1.0___jcross_霞_6__(
+  _OPAQUE_霞:1.0___jcross_霞_28__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_17__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_23__: _OPAQUE_廊:1.0___jcross_廊_7__,
+// _OPAQUE_底:0.2___jcross_LZ_300__ [decoy-metadata]
+  _OPAQUE_霞:1.0___jcross_霞_14__: (_OPAQUE_霞:1.0___jcross_霞_30__: _OPAQUE_霞:1.0___jcross_霞_32__[]) => _OPAQUE_霞:1.0___jcross_霞_32__[],
+): _OPAQUE_廊:1.0___jcross_廊_9__<{ _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_32__[] }> {
+  return await _OPAQUE_霞:1.0___jcross_霞_19__(_OPAQUE_霞:1.0___jcross_霞_28__, _OPAQUE_霞:1.0___jcross_霞_23__, async (_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__) => {
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_霞:1.0___jcross_霞_30__ = await _OPAQUE_霞:1.0___jcross_霞_15__(_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__);
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_霞:1.0___jcross_霞_34__ = _OPAQUE_霞:1.0___jcross_霞_14__(_OPAQUE_霞:1.0___jcross_霞_30__);
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_蔵:1.0___jcross_霞_11__: _OPAQUE_廊:1.0___jcross_廊_2__ = { _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_34__ };
+    await _OPAQUE_霞:1.0___jcross_霞_5__._OPAQUE_霞:1.0___jcross_霞_1__(_OPAQUE_霞:1.0___jcross_霞_7__, _OPAQUE_廊:1.0___jcross_廊_6__._OPAQUE_廊:1.0___jcross_廊_5__, "", _OPAQUE_蔵:1.0___jcross_霞_11__);
+    return { _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_34__ };
+  });
+}
+
+_OPAQUE_霞:1.0___jcross_霞_16__ async _OPAQUE_霞:1.0___jcross_霞_3__ _OPAQUE_霞:1.0___jcross_霞_18__(
+  _OPAQUE_霞:1.0___jcross_霞_28__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_17__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_23__: _OPAQUE_廊:1.0___jcross_廊_7__ = {},
+): _OPAQUE_廊:1.0___jcross_廊_9__<{ _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_32__[] }> {
+  return await _OPAQUE_霞:1.0___jcross_霞_6__(_OPAQUE_霞:1.0___jcross_霞_28__, _OPAQUE_霞:1.0___jcross_霞_17__, _OPAQUE_霞:1.0___jcross_霞_23__, (_OPAQUE_霞:1.0___jcross_霞_30__) =>
+    _OPAQUE_霞:1.0___jcross_霞_30__._OPAQUE_霞:1.0___jcross_霞_8__(_OPAQUE_霞:1.0___jcross_霞_17__) ? _OPAQUE_霞:1.0___jcross_霞_30__ : [..._OPAQUE_霞:1.0___jcross_霞_30__, _OPAQUE_霞:1.0___jcross_霞_17__],
+  );
+}
+
+_OPAQUE_霞:1.0___jcross_霞_16__ async _OPAQUE_霞:1.0___jcross_霞_3__ _OPAQUE_霞:1.0___jcross_霞_20__(
+  _OPAQUE_霞:1.0___jcross_霞_28__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_17__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_23__: _OPAQUE_廊:1.0___jcross_廊_7__ = {},
+): _OPAQUE_廊:1.0___jcross_廊_9__<{ _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_32__[] }> {
+  return await _OPAQUE_霞:1.0___jcross_霞_6__(_OPAQUE_霞:1.0___jcross_霞_28__, _OPAQUE_霞:1.0___jcross_霞_17__, _OPAQUE_霞:1.0___jcross_霞_23__, (_OPAQUE_霞:1.0___jcross_霞_30__) =>
+    _OPAQUE_霞:1.0___jcross_霞_30__._OPAQUE_項:1.0___jcross_霞_31__((id) => id !== _OPAQUE_霞:1.0___jcross_霞_17__),
+// _OPAQUE_蔵:0.7___jcross_ZE_520__ [decoy-metadata]
+// _OPAQUE_弧:0.2___jcross_GL_282__ [decoy-metadata]
+  );
+}
+
+_OPAQUE_霞:1.0___jcross_霞_16__ async _OPAQUE_霞:1.0___jcross_霞_3__ _OPAQUE_霞:1.0___jcross_霞_36__(
+  _OPAQUE_霞:1.0___jcross_霞_28__: _OPAQUE_霞:1.0___jcross_霞_32__,
+  _OPAQUE_霞:1.0___jcross_霞_23__: _OPAQUE_廊:1.0___jcross_廊_7__ = {},
+// _OPAQUE_糸:0.5___jcross_DY_468__ [decoy-metadata]
+): _OPAQUE_廊:1.0___jcross_廊_9__<{ _OPAQUE_霞:1.0___jcross_霞_40__: _OPAQUE_霞:1.0___jcross_霞_32__[]; _OPAQUE_霞:1.0___jcross_霞_25__: _OPAQUE_廊:1.0___jcross_廊_4__[] }> {
+  return await _OPAQUE_霞:1.0___jcross_霞_19__(_OPAQUE_霞:1.0___jcross_霞_28__, _OPAQUE_霞:1.0___jcross_霞_23__, async (_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__) => {
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_霞:1.0___jcross_霞_40__ = await _OPAQUE_霞:1.0___jcross_霞_15__(_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__);
+    _OPAQUE_霞:1.0___jcross_霞_4__ _OPAQUE_霞:1.0___jcross_霞_25__ = (
+      await _OPAQUE_廊:1.0___jcross_廊_9__._OPAQUE_霞:1.0___jcross_霞_12__(
+        _OPAQUE_霞:1.0___jcross_霞_40__._OPAQUE_霞:1.0___jcross_霞_29__(async (_OPAQUE_霞:1.0___jcross_霞_37__) => {
+          try {
+            return await _OPAQUE_項:1.0___jcross_弧_1__(_OPAQUE_霞:1.0___jcross_霞_5__, _OPAQUE_霞:1.0___jcross_霞_7__, _OPAQUE_霞:1.0___jcross_霞_37__);
+// _OPAQUE_底:0.4___jcross_CB_711__ [decoy-metadata]
+          } catch {
+            return _OPAQUE_霞:1.0___jcross_霞_35__;
+          }
+        }),
+      )
+    )._OPAQUE_項:1.0___jcross_霞_31__((_OPAQUE_霞:1.0___jcross_霞_13__): _OPAQUE_霞:1.0___jcross_霞_13__ is _OPAQUE_廊:1.0___jcross_廊_4__ => _OPAQUE_廊:1.0___jcross_廊_1__(_OPAQUE_霞:1.0___jcross_霞_13__));
+    return { _OPAQUE_霞:1.0___jcross_霞_40__, _OPAQUE_霞:1.0___jcross_霞_25__ };
+  });
+}
+
+// POLYMORPHIC_JCROSS_END

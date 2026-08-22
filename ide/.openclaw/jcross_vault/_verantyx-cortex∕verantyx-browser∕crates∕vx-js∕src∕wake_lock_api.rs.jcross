@@ -1,0 +1,85 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3EC91364 ver:1778166466
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_濫:0.6__TOKEN_DE_590_ [decoy-metadata]
+
+_OPAQUE_霜:1.0__TOKEN_霜_21_ _OPAQUE_霜:1.0__TOKEN_霜_44_::_OPAQUE_霜:1.0__TOKEN_霜_53_::_OPAQUE_廊:1.0__TOKEN_廊_26_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霜:1.0__TOKEN_霜_22_ enum _OPAQUE_廊:1.0__TOKEN_廊_21_ { _OPAQUE_廊:1.0__TOKEN_廊_39_ }
+
+// [metadata-stripped]
+_OPAQUE_霜:1.0__TOKEN_霜_22_ struct _OPAQUE_廊:1.0__TOKEN_廊_13_ {
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ id: _OPAQUE_霜:1.0__TOKEN_霜_25_,
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_3_: _OPAQUE_廊:1.0__TOKEN_廊_21_,
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_61_: _OPAQUE_霜:1.0__TOKEN_霜_12_,
+}
+
+// [metadata-stripped]
+_OPAQUE_霜:1.0__TOKEN_霜_22_ struct _OPAQUE_型:1.0__TOKEN_廊_16_ {
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_14_: _OPAQUE_廊:1.0__TOKEN_廊_26_<_OPAQUE_霜:1.0__TOKEN_霜_25_, _OPAQUE_廊:1.0__TOKEN_廊_13_>,
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_49_: _OPAQUE_霜:1.0__TOKEN_霜_25_,
+// _OPAQUE_霜:0.2__TOKEN_AG_866_ [decoy-metadata]
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_52_: _OPAQUE_霜:1.0__TOKEN_霜_12_,
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ _OPAQUE_霜:1.0__TOKEN_霜_18_: _OPAQUE_霜:1.0__TOKEN_霜_12_,
+}
+// _OPAQUE_匽:0.7__TOKEN_LL_832_ [decoy-metadata]
+
+_OPAQUE_霜:1.0__TOKEN_霜_1_ _OPAQUE_型:1.0__TOKEN_廊_16_ {
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ fn _OPAQUE_霜:1.0__TOKEN_霜_11_() -> _OPAQUE_廊:1.0__TOKEN_廊_35_ {
+        _OPAQUE_廊:1.0__TOKEN_廊_35_ {
+            _OPAQUE_霜:1.0__TOKEN_霜_14_: _OPAQUE_廊:1.0__TOKEN_廊_26_::_OPAQUE_霜:1.0__TOKEN_霜_11_(),
+            _OPAQUE_霜:1.0__TOKEN_霜_49_: 1,
+            _OPAQUE_霜:1.0__TOKEN_霜_52_: false,
+            _OPAQUE_霜:1.0__TOKEN_霜_18_: false,
+        }
+    }
+
+// [metadata-stripped]
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ fn _OPAQUE_繍:1.0__TOKEN_霜_58_(&_OPAQUE_霜:1.0__TOKEN_霜_47_ self, _OPAQUE_霜:1.0__TOKEN_霜_3_: _OPAQUE_廊:1.0__TOKEN_廊_21_) -> _OPAQUE_廊:1.0__TOKEN_廊_2_<_OPAQUE_霜:1.0__TOKEN_霜_25_, _OPAQUE_廊:1.0__TOKEN_廊_14_> {
+// _OPAQUE_型:0.6__TOKEN_LZ_883_ [decoy-metadata]
+        if !self._OPAQUE_霜:1.0__TOKEN_霜_18_ { return _OPAQUE_廊:1.0__TOKEN_廊_18_("_OPAQUE_廊:1.0__TOKEN_廊_32_"._OPAQUE_霜:1.0__TOKEN_霜_64_()); }
+        
+        let id = self._OPAQUE_霜:1.0__TOKEN_霜_49_;
+        self._OPAQUE_霜:1.0__TOKEN_霜_49_ += 1;
+        self._OPAQUE_霜:1.0__TOKEN_霜_14_._OPAQUE_霜:1.0__TOKEN_霜_19_(id, _OPAQUE_廊:1.0__TOKEN_廊_13_ {
+            id,
+            _OPAQUE_霜:1.0__TOKEN_霜_3_,
+// _OPAQUE_繍:0.9__TOKEN_GL_626_ [decoy-metadata]
+            _OPAQUE_霜:1.0__TOKEN_霜_61_: false,
+        });
+        self._OPAQUE_霜:1.0__TOKEN_霜_52_ = true;
+        Ok(id)
+    }
+
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ fn _OPAQUE_霜:1.0__TOKEN_霜_62_(&_OPAQUE_霜:1.0__TOKEN_霜_47_ self, id: _OPAQUE_霜:1.0__TOKEN_霜_25_) {
+        if let _OPAQUE_廊:1.0__TOKEN_廊_23_(_OPAQUE_霜:1.0__TOKEN_霜_37_) = self._OPAQUE_霜:1.0__TOKEN_霜_14_._OPAQUE_型:1.0__TOKEN_錬_1_(&id) {
+            _OPAQUE_霜:1.0__TOKEN_霜_37_._OPAQUE_霜:1.0__TOKEN_霜_61_ = true;
+// [metadata-stripped]
+        }
+        
+// [metadata-stripped]
+        self._OPAQUE_霜:1.0__TOKEN_霜_52_ = self._OPAQUE_霜:1.0__TOKEN_霜_14_._OPAQUE_霜:1.0__TOKEN_霜_36_().any(|l| !l._OPAQUE_霜:1.0__TOKEN_霜_61_);
+    }
+
+// [metadata-stripped]
+// _OPAQUE_匽:0.3__TOKEN_ZD_314_ [decoy-metadata]
+    _OPAQUE_霜:1.0__TOKEN_霜_22_ fn _OPAQUE_霜:1.0__TOKEN_霜_60_(&self) -> _OPAQUE_廊:1.0__TOKEN_廊_14_ {
+        let _OPAQUE_霜:1.0__TOKEN_霜_66_ = self._OPAQUE_霜:1.0__TOKEN_霜_14_._OPAQUE_霜:1.0__TOKEN_霜_36_()._OPAQUE_型:1.0__TOKEN_霜_2_(|l| !l._OPAQUE_霜:1.0__TOKEN_霜_61_)._OPAQUE_霜:1.0__TOKEN_霜_9_();
+        _OPAQUE_濫:1.0__TOKEN_霜_59_!("🔋 _OPAQUE_廊:1.0__TOKEN_廊_29_ _OPAQUE_廊:1.0__TOKEN_廊_11_ _OPAQUE_廊:1.0__TOKEN_廊_36_: {} (_OPAQUE_廊:1.0__TOKEN_廊_19_ _OPAQUE_廊:1.0__TOKEN_廊_9_: {})", if self._OPAQUE_霜:1.0__TOKEN_霜_52_ { "🟢 _OPAQUE_廊:1.0__TOKEN_廊_22_" } else { "⚪️ _OPAQUE_廊:1.0__TOKEN_廊_12_" }, _OPAQUE_霜:1.0__TOKEN_霜_66_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

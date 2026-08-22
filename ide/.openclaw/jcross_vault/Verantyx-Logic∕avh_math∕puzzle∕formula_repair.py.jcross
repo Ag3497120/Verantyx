@@ -1,0 +1,50 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1BC63DB4 ver:1778159743
+// ⚠️ One-time schema — expires after response
+// _ID_漕:0.7__SYM_HX_584_ [decoy-metadata]
+
+import re
+
+_ID_廨:1.0__SYM_廨_1_ = _ID_業:1.0__SYM_凱_1_("()[]¬~&|→-><>")
+
+_ID_霧:1.0__SYM_霧_11_ _ID_漕:1.0__SYM_霧_10_(s: _ID_霧:1.0__SYM_霧_7_) -> _ID_霧:1.0__SYM_霧_6_:
+// _ID_繕:0.2__SYM_LM_867_ [decoy-metadata]
+    """文字列が論理式としての特徴を持っているか判定"""
+    return any(c in s for c in _ID_廨:1.0__SYM_廨_1_)
+
+_ID_霧:1.0__SYM_霧_11_ _ID_漕:1.0__SYM_霧_14_(_ID_霧:1.0__SYM_霧_13_: _ID_霧:1.0__SYM_霧_7_) -> _ID_霧:1.0__SYM_霧_7_:
+    """途中で切れた論理式を、最大限修復して数学的に完結させる"""
+    if _ID_霧:1.0__SYM_霧_12_ _ID_霧:1.0__SYM_霧_13_:
+        return ""
+
+    s = _ID_霧:1.0__SYM_霧_13_._ID_霧:1.0__SYM_霧_3_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if s._ID_霧:1.0__SYM_霧_1_(("->", "→")):
+        s = s + " q" # デフォルトの右辺を補完
+    
+// [metadata-stripped]
+    if s._ID_霧:1.0__SYM_霧_1_(("&", "|", "⊕")):
+        s = s + " q"
+
+// _ID_凱:0.8__SYM_FM_442_ [decoy-metadata]
+// [metadata-stripped]
+    _ID_霧:1.0__SYM_霧_9_ = s._ID_霧:1.0__SYM_霧_2_("(")
+// _ID_繕:0.4__SYM_LM_443_ [decoy-metadata]
+    _ID_霧:1.0__SYM_霧_4_ = s._ID_霧:1.0__SYM_霧_2_(")")
+    if _ID_霧:1.0__SYM_霧_9_ > _ID_霧:1.0__SYM_霧_4_:
+        s = s + ")" * (_ID_霧:1.0__SYM_霧_9_ - _ID_霧:1.0__SYM_霧_4_)
+    _ID_漕:1.0__SYM_霧_5_ _ID_霧:1.0__SYM_霧_4_ > _ID_霧:1.0__SYM_霧_9_:
+// _ID_隠:0.8__SYM_WY_149_ [decoy-metadata]
+// _ID_凱:0.3__SYM_FC_740_ [decoy-metadata]
+// [metadata-stripped]
+        s = "(" * (_ID_霧:1.0__SYM_霧_4_ - _ID_霧:1.0__SYM_霧_9_) + s
+
+// [metadata-stripped]
+    if _ID_霧:1.0__SYM_霧_12_ re._ID_霧:1.0__SYM_霧_8_(r"[A-Za-z]", s):
+        return ""
+
+    return s
+
+// POLYMORPHIC_JCROSS_END

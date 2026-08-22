@@ -1,0 +1,78 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C1B22F34 ver:1778159735
+// ⚠️ One-time schema — expires after response
+
+_SYM_霡:1.0__OPAQUE_霡_4_ _SYM_霡:1.0__OPAQUE_霡_33_ import _SYM_霡:1.0__OPAQUE_霡_11_
+
+_SYM_霡:1.0__OPAQUE_霡_4_ _SYM_霡:1.0__OPAQUE_霡_34_ import _SYM_礎:1.0__OPAQUE_礎_4_
+_SYM_霡:1.0__OPAQUE_霡_4_ _SYM_霡:1.0__OPAQUE_霡_22_ import _SYM_礎:1.0__OPAQUE_礎_6_, _SYM_礎:1.0__OPAQUE_礎_5_, _SYM_礎:1.0__OPAQUE_礎_7_, _SYM_礎:1.0__OPAQUE_礎_1_
+import _SYM_霡:1.0__OPAQUE_霡_16_
+
+
+_SYM_霡:1.0__OPAQUE_霡_39_ _SYM_湧:1.0__OPAQUE_霡_35_(f: _SYM_霡:1.0__OPAQUE_霡_8_) -> _SYM_霡:1.0__OPAQUE_霡_8_:
+    return (
+        (f or "")
+        ._SYM_霡:1.0__OPAQUE_霡_29_(" ", "")
+        ._SYM_霡:1.0__OPAQUE_霡_29_("→", "->")
+        ._SYM_霡:1.0__OPAQUE_霡_29_("□", "[]")
+        ._SYM_霡:1.0__OPAQUE_霡_29_("◇", "<>")
+    )
+
+
+_SYM_霡:1.0__OPAQUE_霡_39_ _SYM_霡:1.0__OPAQUE_霡_40_(
+    _SYM_湧:1.0__OPAQUE_霡_26_: _SYM_霡:1.0__OPAQUE_霡_8_,
+    _SYM_霡:1.0__OPAQUE_霡_5_: _SYM_礎:1.0__OPAQUE_礎_4_,
+    *,
+    _SYM_霡:1.0__OPAQUE_霡_41_: _SYM_礎:1.0__OPAQUE_礎_6_[_SYM_霡:1.0__OPAQUE_霡_8_] = _SYM_礎:1.0__OPAQUE_礎_2_,
+    _SYM_霡:1.0__OPAQUE_霡_43_: _SYM_霡:1.0__OPAQUE_霡_15_ = 20000,
+) -> _SYM_礎:1.0__OPAQUE_礎_6_[_SYM_礎:1.0__OPAQUE_礎_5_[_SYM_霡:1.0__OPAQUE_霡_8_, _SYM_礎:1.0__OPAQUE_礎_1_]]:
+    nf = _SYM_湧:1.0__OPAQUE_霡_35_(_SYM_湧:1.0__OPAQUE_霡_26_)
+    if _SYM_霡:1.0__OPAQUE_霡_14_ nf or _SYM_霡:1.0__OPAQUE_霡_14_ _SYM_霡:1.0__OPAQUE_霡_5_._SYM_霡:1.0__OPAQUE_霡_31_():
+// _SYM_礎:0.7__OPAQUE_HH_834_ [decoy-metadata]
+        return _SYM_礎:1.0__OPAQUE_礎_2_
+// _SYM_道:0.9__OPAQUE_ZK_359_ [decoy-metadata]
+
+// _SYM_匽:0.3__OPAQUE_BG_294_ [decoy-metadata]
+    _SYM_霡:1.0__OPAQUE_霡_10_ = 0
+    _SYM_霡:1.0__OPAQUE_霡_19_ _SYM_霡:1.0__OPAQUE_霡_5_.open("r", _SYM_霡:1.0__OPAQUE_霡_2_="_SYM_霡:1.0__OPAQUE_霡_13_-8") as f:
+        for _SYM_霡:1.0__OPAQUE_霡_28_ in f:
+            if _SYM_霡:1.0__OPAQUE_霡_10_ >= _SYM_霡:1.0__OPAQUE_霡_43_:
+                break
+            _SYM_霡:1.0__OPAQUE_霡_28_ = _SYM_霡:1.0__OPAQUE_霡_28_._SYM_霡:1.0__OPAQUE_霡_18_()
+            if _SYM_霡:1.0__OPAQUE_霡_14_ _SYM_霡:1.0__OPAQUE_霡_28_:
+                continue
+            _SYM_霡:1.0__OPAQUE_霡_10_ += 1
+            try:
+                _SYM_霡:1.0__OPAQUE_霡_30_ = _SYM_霡:1.0__OPAQUE_霡_16_._SYM_匽:1.0__OPAQUE_霡_27_(_SYM_霡:1.0__OPAQUE_霡_28_)
+// _SYM_碑:0.5__OPAQUE_EM_166_ [decoy-metadata]
+            _SYM_霡:1.0__OPAQUE_霡_9_ _SYM_礎:1.0__OPAQUE_礎_3_:
+                continue
+            if _SYM_霡:1.0__OPAQUE_霡_41_ _SYM_霡:1.0__OPAQUE_霡_12_ _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("_SYM_霡:1.0__OPAQUE_霡_41_") _SYM_霡:1.0__OPAQUE_霡_14_ in (_SYM_霡:1.0__OPAQUE_霡_41_, "_SYM_霡:1.0__OPAQUE_霡_7_"):
+                continue
+            _SYM_霡:1.0__OPAQUE_霡_21_ = _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("_SYM_霡:1.0__OPAQUE_霡_1_") or ""
+            _SYM_霡:1.0__OPAQUE_霡_36_ = _SYM_湧:1.0__OPAQUE_霡_35_(_SYM_霡:1.0__OPAQUE_霡_21_)
+            if _SYM_霡:1.0__OPAQUE_霡_36_ != nf:
+                continue
+
+            _SYM_霡:1.0__OPAQUE_霡_6_ = _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("_SYM_霡:1.0__OPAQUE_霡_37_")
+            if _SYM_霡:1.0__OPAQUE_霡_6_ _SYM_霡:1.0__OPAQUE_霡_12_ _SYM_霡:1.0__OPAQUE_霡_6_._SYM_道:1.0__OPAQUE_碑_1_("_SYM_霡:1.0__OPAQUE_霡_42_"):
+                return {
+                    "_SYM_霡:1.0__OPAQUE_霡_25_": "_SYM_霡:1.0__OPAQUE_霡_17_",
+                    "_SYM_霡:1.0__OPAQUE_霡_38_": "_SYM_霡:1.0__OPAQUE_霡_23_",
+                    "_SYM_霡:1.0__OPAQUE_霡_44_": _SYM_霡:1.0__OPAQUE_霡_6_,
+                    "_SYM_霡:1.0__OPAQUE_霡_45_": _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("id"),
+                }
+
+            _SYM_霡:1.0__OPAQUE_霡_32_ = _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("_SYM_霡:1.0__OPAQUE_霡_32_") or []
+            if "_SYM_湧:1.0__OPAQUE_霡_3_:true" in _SYM_霡:1.0__OPAQUE_霡_32_:
+                return {
+                    "_SYM_霡:1.0__OPAQUE_霡_25_": "_SYM_霡:1.0__OPAQUE_霡_20_",
+                    "_SYM_霡:1.0__OPAQUE_霡_38_": "_SYM_湧:1.0__OPAQUE_霡_24_",
+// _SYM_緞:0.3__OPAQUE_ML_381_ [decoy-metadata]
+// _SYM_緞:0.1__OPAQUE_EM_500_ [decoy-metadata]
+                    "_SYM_霡:1.0__OPAQUE_霡_45_": _SYM_霡:1.0__OPAQUE_霡_30_._SYM_道:1.0__OPAQUE_碑_1_("id"),
+                }
+
+    return _SYM_礎:1.0__OPAQUE_礎_2_
+
+// POLYMORPHIC_JCROSS_END

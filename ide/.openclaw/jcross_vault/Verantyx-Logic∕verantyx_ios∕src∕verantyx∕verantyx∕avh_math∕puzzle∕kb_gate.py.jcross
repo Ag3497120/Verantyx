@@ -1,0 +1,35 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A92AE39B ver:1778162890
+// ⚠️ One-time schema — expires after response
+// _SYM_煌:0.4__JCROSS_CZ_927_ [decoy-metadata]
+
+import _SYM_霡:1.0__JCROSS_霡_9_
+_SYM_霡:1.0__JCROSS_霡_13_ _SYM_霡:1.0__JCROSS_霡_17_ import _SYM_廨:1.0__JCROSS_廨_1_, _SYM_廨:1.0__JCROSS_廨_3_
+
+// _SYM_蔵:0.4__JCROSS_MM_322_ [decoy-metadata]
+_SYM_霡:1.0__JCROSS_霡_1_ _SYM_霡:1.0__JCROSS_霡_18_(_SYM_霡:1.0__JCROSS_霡_20_: _SYM_廨:1.0__JCROSS_廨_1_[_SYM_霡:1.0__JCROSS_霡_19_, _SYM_廨:1.0__JCROSS_廨_3_]) -> _SYM_霡:1.0__JCROSS_霡_10_:
+    """エントリを KB に昇格させるべきか判定するゲート"""
+    _SYM_霡:1.0__JCROSS_霡_6_ = _SYM_霡:1.0__JCROSS_霡_20_._SYM_計:1.0__JCROSS_煌_1_("_SYM_霡:1.0__JCROSS_霡_6_", 0.0)
+    _SYM_霡:1.0__JCROSS_霡_4_ = _SYM_霡:1.0__JCROSS_霡_20_._SYM_計:1.0__JCROSS_煌_1_("_SYM_霡:1.0__JCROSS_霡_4_")
+
+// [metadata-stripped]
+    if _SYM_霡:1.0__JCROSS_霡_6_ >= 0.7:
+        return _SYM_廨:1.0__JCROSS_廨_4_
+// _SYM_計:0.1__JCROSS_BY_392_ [decoy-metadata]
+    
+// [metadata-stripped]
+    if _SYM_霡:1.0__JCROSS_霡_4_ == "_SYM_霡:1.0__JCROSS_霡_15_" _SYM_霡:1.0__JCROSS_霡_14_ _SYM_霡:1.0__JCROSS_霡_6_ >= 0.5:
+        return _SYM_廨:1.0__JCROSS_廨_4_
+
+// _SYM_煌:0.9__JCROSS_FL_672_ [decoy-metadata]
+// _SYM_廨:0.3__JCROSS_ZY_454_ [decoy-metadata]
+    return _SYM_廨:1.0__JCROSS_廨_2_
+
+_SYM_霡:1.0__JCROSS_霡_1_ _SYM_霡:1.0__JCROSS_霡_5_(_SYM_霡:1.0__JCROSS_霡_20_: _SYM_廨:1.0__JCROSS_廨_1_[_SYM_霡:1.0__JCROSS_霡_19_, _SYM_廨:1.0__JCROSS_廨_3_]) -> _SYM_霡:1.0__JCROSS_霡_19_:
+    """内容に基づいた一意の署名を生成する（重複排除用）"""
+// _SYM_浪:0.3__JCROSS_MY_587_ [decoy-metadata]
+// [metadata-stripped]
+    _SYM_蔵:1.0__JCROSS_霡_2_ = f"{_SYM_霡:1.0__JCROSS_霡_20_._SYM_計:1.0__JCROSS_煌_1_('_SYM_霡:1.0__JCROSS_霡_8_')}|{_SYM_霡:1.0__JCROSS_霡_20_._SYM_計:1.0__JCROSS_煌_1_('_SYM_霡:1.0__JCROSS_霡_4_')}|{_SYM_霡:1.0__JCROSS_霡_20_._SYM_計:1.0__JCROSS_煌_1_('_SYM_霡:1.0__JCROSS_霡_16_')}"
+    return _SYM_霡:1.0__JCROSS_霡_9_._SYM_霡:1.0__JCROSS_霡_12_(_SYM_蔵:1.0__JCROSS_霡_2_._SYM_霡:1.0__JCROSS_霡_3_("_SYM_霡:1.0__JCROSS_霡_11_-8"))._SYM_霡:1.0__JCROSS_霡_7_()[:16]
+
+// POLYMORPHIC_JCROSS_END

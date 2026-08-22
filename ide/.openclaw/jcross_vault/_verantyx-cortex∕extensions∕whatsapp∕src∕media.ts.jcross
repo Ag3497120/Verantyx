@@ -1,0 +1,505 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:50170F21 ver:1778167696
+// ⚠️ One-time schema — expires after response
+
+import fs _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_140_:fs/_JCROSS_霪:1.0__SYM_霪_84_";
+import _JCROSS_霪:1.0__SYM_霪_151_ _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_140_:_JCROSS_霪:1.0__SYM_霪_151_";
+import { _JCROSS_紗:1.0__SYM_霪_134_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_140_:_JCROSS_紗:1.0__SYM_霪_251_";
+import { _JCROSS_廟:1.0__SYM_廟_46_, _JCROSS_匣:1.0__SYM_霪_168_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_263_-_JCROSS_霪:1.0__SYM_霪_41_";
+import _JCROSS_霪:1.0__SYM_霪_170_ { _JCROSS_廟:1.0__SYM_廟_11_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_263_-_JCROSS_霪:1.0__SYM_霪_41_";
+import { _JCROSS_霪:1.0__SYM_霪_170_ _JCROSS_廟:1.0__SYM_廟_30_, _JCROSS_漂:1.0__SYM_霪_72_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_228_-_JCROSS_霪:1.0__SYM_霪_41_";
+import { _JCROSS_術:1.0__SYM_巌_3_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_228_-_JCROSS_霪:1.0__SYM_霪_41_";
+import {
+  _JCROSS_霪:1.0__SYM_霪_138_,
+  _JCROSS_霪:1.0__SYM_霪_161_,
+  _JCROSS_霪:1.0__SYM_霪_175_,
+  _JCROSS_霪:1.0__SYM_霪_123_,
+} _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_228_-_JCROSS_霪:1.0__SYM_霪_41_";
+import { _JCROSS_術:1.0__SYM_巌_7_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_228_-_JCROSS_霪:1.0__SYM_霪_41_";
+import { _JCROSS_霪:1.0__SYM_霪_102_, _JCROSS_漂:1.0__SYM_霪_67_, _JCROSS_霪:1.0__SYM_霪_40_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_228_-_JCROSS_霪:1.0__SYM_霪_41_";
+import { _JCROSS_霪:1.0__SYM_霪_145_, _JCROSS_霪:1.0__SYM_霪_253_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_41_-_JCROSS_霪:1.0__SYM_霪_202_";
+import { _JCROSS_霪:1.0__SYM_霪_1_ } _JCROSS_霪:1.0__SYM_霪_52_ "_JCROSS_霪:1.0__SYM_霪_266_/_JCROSS_霪:1.0__SYM_霪_100_-_JCROSS_霪:1.0__SYM_霪_73_/_JCROSS_霪:1.0__SYM_霪_208_-_JCROSS_霪:1.0__SYM_霪_41_";
+
+_JCROSS_霪:1.0__SYM_霪_258_ _JCROSS_霪:1.0__SYM_霪_170_ _JCROSS_廟:1.0__SYM_廟_39_ = {
+  _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+  _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_;
+  _JCROSS_霪:1.0__SYM_霪_45_: _JCROSS_廟:1.0__SYM_廟_30_ | _JCROSS_霪:1.0__SYM_霪_133_;
+  _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_;
+};
+
+// _JCROSS_淵:0.7__SYM_WG_914_ [decoy-metadata]
+_JCROSS_霪:1.0__SYM_霪_170_ _JCROSS_廟:1.0__SYM_廟_42_ = {
+  _JCROSS_霪:1.0__SYM_霪_78_?: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_69_?: _JCROSS_霪:1.0__SYM_霪_199_;
+  _JCROSS_霪:1.0__SYM_霪_179_?: _JCROSS_廟:1.0__SYM_廟_11_;
+  /** _JCROSS_廟:1.0__SYM_廟_35_ _JCROSS_霪:1.0__SYM_霪_75_ _JCROSS_霪:1.0__SYM_霪_2_ for _JCROSS_霪:1.0__SYM_霪_25_ _JCROSS_霪:1.0__SYM_霪_151_ _JCROSS_霪:1.0__SYM_霪_219_. "any" is _JCROSS_霪:1.0__SYM_霪_42_; _JCROSS_術:1.0__SYM_霪_28_ _JCROSS_霪:1.0__SYM_霪_5_ + _JCROSS_匣:1.0__SYM_霪_85_. */
+  _JCROSS_霪:1.0__SYM_霪_125_?: _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] | "any";
+  /** _JCROSS_術:1.0__SYM_廟_26_ _JCROSS_霪:1.0__SYM_霪_7_ _JCROSS_霪:1.0__SYM_霪_180_ _JCROSS_霪:1.0__SYM_霪_198_ _JCROSS_霪:1.0__SYM_霪_25_ _JCROSS_霪:1.0__SYM_霪_151_ (_JCROSS_霪:1.0__SYM_霪_244_/_JCROSS_術:1.0__SYM_霪_96_ _JCROSS_霪:1.0__SYM_霪_98_); _JCROSS_霪:1.0__SYM_霪_8_ _JCROSS_匣:1.0__SYM_霪_85_ ov_JCROSS_霪:1.0__SYM_霪_114_ide. */
+  _JCROSS_霪:1.0__SYM_霪_5_?: _JCROSS_霪:1.0__SYM_霪_199_;
+  _JCROSS_匣:1.0__SYM_霪_85_?: (_JCROSS_匣:1.0__SYM_霪_193_: _JCROSS_霪:1.0__SYM_霪_237_) => _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_術:1.0__SYM_廟_18_>;
+};
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_241_(_JCROSS_霪:1.0__SYM_霪_221_: {
+  _JCROSS_霪:1.0__SYM_霪_119_?: _JCROSS_術:1.0__SYM_霪_213_ | _JCROSS_廟:1.0__SYM_廟_42_;
+  _JCROSS_霪:1.0__SYM_霪_120_?: { _JCROSS_霪:1.0__SYM_霪_179_?: _JCROSS_廟:1.0__SYM_廟_11_; _JCROSS_霪:1.0__SYM_霪_125_?: _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] | "any" };
+  _JCROSS_霪:1.0__SYM_霪_69_: _JCROSS_霪:1.0__SYM_霪_199_;
+}): _JCROSS_廟:1.0__SYM_廟_42_ {
+  if (_JCROSS_霪:1.0__SYM_霪_181_ _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_119_ === "_JCROSS_術:1.0__SYM_霪_213_" || _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_119_ === _JCROSS_霪:1.0__SYM_霪_133_) {
+    return {
+      _JCROSS_霪:1.0__SYM_霪_78_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_119_,
+      _JCROSS_霪:1.0__SYM_霪_69_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_69_,
+      _JCROSS_霪:1.0__SYM_霪_179_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_120_?._JCROSS_霪:1.0__SYM_霪_179_,
+      _JCROSS_霪:1.0__SYM_霪_125_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_120_?._JCROSS_霪:1.0__SYM_霪_125_,
+    };
+  }
+  return {
+    ..._JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_119_,
+    _JCROSS_霪:1.0__SYM_霪_69_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_69_
+      ? (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_119_._JCROSS_霪:1.0__SYM_霪_69_ ?? true)
+      : false,
+  };
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ _JCROSS_霪:1.0__SYM_霪_170_ _JCROSS_廟:1.0__SYM_廟_37_ =
+  | "_JCROSS_霪:1.0__SYM_霪_151_-_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_195_"
+  | "_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_霪:1.0__SYM_霪_75_"
+  | "_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_匣:1.0__SYM_霪_95_-_JCROSS_紗:1.0__SYM_霪_251_"
+  | "_JCROSS_霪:1.0__SYM_霪_6_-_JCROSS_霪:1.0__SYM_霪_184_"
+  | "_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_142_"
+  | "_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_霪:1.0__SYM_霪_151_"
+  | "_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_匣:1.0__SYM_霪_95_";
+
+_JCROSS_霪:1.0__SYM_霪_258_ class _JCROSS_廟:1.0__SYM_廟_3_ _JCROSS_霪:1.0__SYM_霪_190_ _JCROSS_廟:1.0__SYM_廟_44_ {
+  _JCROSS_霪:1.0__SYM_霪_148_: _JCROSS_廟:1.0__SYM_廟_37_;
+
+  _JCROSS_霪:1.0__SYM_霪_60_(_JCROSS_霪:1.0__SYM_霪_148_: _JCROSS_廟:1.0__SYM_廟_37_, _JCROSS_霪:1.0__SYM_霪_178_: _JCROSS_霪:1.0__SYM_霪_237_, _JCROSS_霪:1.0__SYM_霪_120_?: _JCROSS_廟:1.0__SYM_廟_1_) {
+    su_JCROSS_術:1.0__SYM_霪_192_(_JCROSS_霪:1.0__SYM_霪_178_, _JCROSS_霪:1.0__SYM_霪_120_);
+    _JCROSS_霪:1.0__SYM_霪_77_._JCROSS_霪:1.0__SYM_霪_148_ = _JCROSS_霪:1.0__SYM_霪_148_;
+    _JCROSS_霪:1.0__SYM_霪_77_._JCROSS_霪:1.0__SYM_霪_81_ = "_JCROSS_廟:1.0__SYM_廟_3_";
+  }
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_術:1.0__SYM_巌_1_(): _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] {
+  return _JCROSS_術:1.0__SYM_巌_7_();
+}
+
+async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_10_(
+  _JCROSS_霪:1.0__SYM_霪_90_: _JCROSS_霪:1.0__SYM_霪_237_,
+  _JCROSS_霪:1.0__SYM_霪_125_: _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] | "any" | _JCROSS_霪:1.0__SYM_霪_133_,
+): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_霪:1.0__SYM_霪_196_> {
+  if (_JCROSS_霪:1.0__SYM_霪_125_ === "any") {
+    return;
+  }
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_121_ = _JCROSS_霪:1.0__SYM_霪_125_ ?? _JCROSS_術:1.0__SYM_巌_1_();
+// [metadata-stripped]
+  let _JCROSS_霪:1.0__SYM_霪_146_: _JCROSS_霪:1.0__SYM_霪_237_;
+  try {
+    _JCROSS_霪:1.0__SYM_霪_146_ = await fs._JCROSS_霪:1.0__SYM_霪_109_(_JCROSS_霪:1.0__SYM_霪_90_);
+  } catch {
+    _JCROSS_霪:1.0__SYM_霪_146_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_232_(_JCROSS_霪:1.0__SYM_霪_90_);
+  }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  if (_JCROSS_霪:1.0__SYM_霪_125_ === _JCROSS_霪:1.0__SYM_霪_133_) {
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_122_ = _JCROSS_霪:1.0__SYM_霪_121_._JCROSS_霪:1.0__SYM_霪_19_((_JCROSS_霪:1.0__SYM_霪_75_) => _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_79_(_JCROSS_霪:1.0__SYM_霪_75_) === "_JCROSS_霪:1.0__SYM_霪_58_");
+    if (_JCROSS_霪:1.0__SYM_霪_122_) {
+      _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_61_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_242_(_JCROSS_霪:1.0__SYM_霪_122_);
+      _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_55_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_225_(_JCROSS_霪:1.0__SYM_霪_61_, _JCROSS_霪:1.0__SYM_霪_146_);
+      if (_JCROSS_霪:1.0__SYM_霪_55_ && !_JCROSS_霪:1.0__SYM_霪_55_._JCROSS_霪:1.0__SYM_霪_162_("..") && !_JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_33_(_JCROSS_霪:1.0__SYM_霪_55_)) {
+        _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_177_ = _JCROSS_霪:1.0__SYM_霪_55_._JCROSS_霪:1.0__SYM_霪_245_(_JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_62_)[0] ?? "";
+        if (_JCROSS_霪:1.0__SYM_霪_177_._JCROSS_霪:1.0__SYM_霪_162_("_JCROSS_霪:1.0__SYM_霪_58_-")) {
+          _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+            "_JCROSS_霪:1.0__SYM_霪_151_-_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_195_",
+            `_JCROSS_廟:1.0__SYM_廟_4_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_霪:1.0__SYM_霪_151_ is _JCROSS_霪:1.0__SYM_霪_254_ _JCROSS_術:1.0__SYM_霪_47_ an _JCROSS_霪:1.0__SYM_霪_195_ _JCROSS_霪:1.0__SYM_霪_215_: ${_JCROSS_霪:1.0__SYM_霪_90_}`,
+          );
+        }
+      }
+    }
+  }
+  for (_JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_75_ of _JCROSS_霪:1.0__SYM_霪_121_) {
+    let _JCROSS_霪:1.0__SYM_霪_35_: _JCROSS_霪:1.0__SYM_霪_237_;
+    try {
+      _JCROSS_霪:1.0__SYM_霪_35_ = await fs._JCROSS_霪:1.0__SYM_霪_109_(_JCROSS_霪:1.0__SYM_霪_75_);
+    } catch {
+      _JCROSS_霪:1.0__SYM_霪_35_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_232_(_JCROSS_霪:1.0__SYM_霪_75_);
+    }
+    if (_JCROSS_霪:1.0__SYM_霪_35_ === _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_57_(_JCROSS_霪:1.0__SYM_霪_35_)._JCROSS_霪:1.0__SYM_霪_75_) {
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+        "_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_霪:1.0__SYM_霪_75_",
+        `_JCROSS_廟:1.0__SYM_廟_40_ _JCROSS_霪:1.0__SYM_霪_125_ _JCROSS_霪:1.0__SYM_霪_252_ (_JCROSS_霪:1.0__SYM_霪_212_ _JCROSS_匣:1.0__SYM_霪_256_ _JCROSS_霪:1.0__SYM_霪_75_): ${_JCROSS_霪:1.0__SYM_霪_75_}. _JCROSS_廟:1.0__SYM_廟_5_ a _JCROSS_術:1.0__SYM_霪_137_ _JCROSS_霪:1.0__SYM_霪_215_.`,
+      );
+    }
+    if (_JCROSS_霪:1.0__SYM_霪_146_ === _JCROSS_霪:1.0__SYM_霪_35_ || _JCROSS_霪:1.0__SYM_霪_146_._JCROSS_霪:1.0__SYM_霪_162_(_JCROSS_霪:1.0__SYM_霪_35_ + _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_62_)) {
+      return;
+    }
+  }
+  _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+    "_JCROSS_霪:1.0__SYM_霪_151_-_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_195_",
+    `_JCROSS_廟:1.0__SYM_廟_4_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_霪:1.0__SYM_霪_151_ is _JCROSS_霪:1.0__SYM_霪_254_ _JCROSS_術:1.0__SYM_霪_47_ an _JCROSS_霪:1.0__SYM_霪_195_ _JCROSS_霪:1.0__SYM_霪_215_: ${_JCROSS_霪:1.0__SYM_霪_90_}`,
+  );
+}
+
+_JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_廟:1.0__SYM_廟_19_ = /^_JCROSS_霪:1.0__SYM_霪_88_\/_JCROSS_霪:1.0__SYM_霪_23_[cf]$/i;
+_JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_廟:1.0__SYM_廟_36_ = /\.(_JCROSS_霪:1.0__SYM_霪_38_|_JCROSS_漂:1.0__SYM_霪_111_)$/i;
+_JCROSS_霪:1.0__SYM_霪_17_ MB = 1024 * 1024;
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_210_: _JCROSS_術:1.0__SYM_霪_213_, _JCROSS_霪:1.0__SYM_霪_187_ = 2): _JCROSS_霪:1.0__SYM_霪_237_ {
+  return (_JCROSS_霪:1.0__SYM_霪_210_ / MB)._JCROSS_霪:1.0__SYM_霪_103_(_JCROSS_霪:1.0__SYM_霪_187_);
+}
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_漂:1.0__SYM_霪_70_(_JCROSS_霪:1.0__SYM_霪_107_: _JCROSS_霪:1.0__SYM_霪_237_, _JCROSS_霪:1.0__SYM_霪_204_: _JCROSS_術:1.0__SYM_霪_213_, _JCROSS_霪:1.0__SYM_霪_157_: _JCROSS_術:1.0__SYM_霪_213_): _JCROSS_霪:1.0__SYM_霪_237_ {
+  return `${_JCROSS_霪:1.0__SYM_霪_107_} _JCROSS_霪:1.0__SYM_霪_80_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_204_, 0)}MB _JCROSS_霪:1.0__SYM_霪_267_ (_JCROSS_霪:1.0__SYM_霪_50_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_157_)}MB)`;
+}
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_漂:1.0__SYM_霪_260_(_JCROSS_霪:1.0__SYM_霪_107_: _JCROSS_霪:1.0__SYM_霪_237_, _JCROSS_霪:1.0__SYM_霪_204_: _JCROSS_術:1.0__SYM_霪_213_, _JCROSS_霪:1.0__SYM_霪_157_: _JCROSS_術:1.0__SYM_霪_213_): _JCROSS_霪:1.0__SYM_霪_237_ {
+  return `${_JCROSS_霪:1.0__SYM_霪_107_} _JCROSS_霪:1.0__SYM_霪_201_ _JCROSS_霪:1.0__SYM_霪_254_ be _JCROSS_霪:1.0__SYM_霪_82_ _JCROSS_霪:1.0__SYM_霪_126_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_204_, 0)}MB (_JCROSS_霪:1.0__SYM_霪_50_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_157_)}MB)`;
+}
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_149_(_JCROSS_霪:1.0__SYM_霪_220_: { _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_; _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_ }): _JCROSS_霪:1.0__SYM_霪_199_ {
+  if (_JCROSS_霪:1.0__SYM_霪_220_._JCROSS_霪:1.0__SYM_霪_34_ && _JCROSS_廟:1.0__SYM_廟_19_._JCROSS_霪:1.0__SYM_霪_37_(_JCROSS_霪:1.0__SYM_霪_220_._JCROSS_霪:1.0__SYM_霪_34_._JCROSS_霪:1.0__SYM_霪_11_())) {
+    return true;
+  }
+  if (_JCROSS_霪:1.0__SYM_霪_220_._JCROSS_匣:1.0__SYM_霪_231_ && _JCROSS_廟:1.0__SYM_廟_36_._JCROSS_霪:1.0__SYM_霪_37_(_JCROSS_霪:1.0__SYM_霪_220_._JCROSS_匣:1.0__SYM_霪_231_._JCROSS_霪:1.0__SYM_霪_11_())) {
+    return true;
+  }
+  return false;
+}
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_匣:1.0__SYM_霪_127_(_JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_): _JCROSS_霪:1.0__SYM_霪_237_ | _JCROSS_霪:1.0__SYM_霪_133_ {
+  if (!_JCROSS_匣:1.0__SYM_霪_231_) {
+    return _JCROSS_霪:1.0__SYM_霪_133_;
+  }
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_20_ = _JCROSS_匣:1.0__SYM_霪_231_._JCROSS_霪:1.0__SYM_霪_11_();
+// _JCROSS_紗:0.2__SYM_LE_266_ [decoy-metadata]
+  if (!_JCROSS_霪:1.0__SYM_霪_20_) {
+    return _JCROSS_匣:1.0__SYM_霪_231_;
+  }
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_236_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_57_(_JCROSS_霪:1.0__SYM_霪_20_);
+  if (!_JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_233_ || _JCROSS_廟:1.0__SYM_廟_36_._JCROSS_霪:1.0__SYM_霪_37_(_JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_233_)) {
+    return _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_漂:1.0__SYM_霪_191_({ _JCROSS_霪:1.0__SYM_霪_216_: _JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_216_, _JCROSS_霪:1.0__SYM_霪_81_: _JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_81_ || _JCROSS_霪:1.0__SYM_霪_20_, _JCROSS_霪:1.0__SYM_霪_233_: "._JCROSS_霪:1.0__SYM_霪_16_" });
+  }
+  return _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_漂:1.0__SYM_霪_191_({ _JCROSS_霪:1.0__SYM_霪_216_: _JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_216_, _JCROSS_霪:1.0__SYM_霪_81_: _JCROSS_霪:1.0__SYM_霪_236_._JCROSS_霪:1.0__SYM_霪_81_, _JCROSS_霪:1.0__SYM_霪_233_: "._JCROSS_霪:1.0__SYM_霪_16_" });
+}
+
+_JCROSS_霪:1.0__SYM_霪_170_ _JCROSS_廟:1.0__SYM_廟_22_ = {
+  _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+  _JCROSS_霪:1.0__SYM_霪_200_: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_漂:1.0__SYM_霪_191_: "_JCROSS_霪:1.0__SYM_霪_147_" | "_JCROSS_霪:1.0__SYM_霪_223_";
+  _JCROSS_霪:1.0__SYM_霪_76_?: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_92_?: _JCROSS_術:1.0__SYM_霪_213_;
+};
+
+_JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_21_(_JCROSS_霪:1.0__SYM_霪_221_: { _JCROSS_霪:1.0__SYM_霪_54_: _JCROSS_術:1.0__SYM_霪_213_; _JCROSS_霪:1.0__SYM_霪_261_: _JCROSS_廟:1.0__SYM_廟_22_ }): _JCROSS_霪:1.0__SYM_霪_196_ {
+  if (!_JCROSS_霪:1.0__SYM_霪_253_()) {
+    return;
+  }
+  if (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_200_ >= _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_54_) {
+    return;
+  }
+  if (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_漂:1.0__SYM_霪_191_ === "_JCROSS_霪:1.0__SYM_霪_223_") {
+    _JCROSS_霪:1.0__SYM_霪_145_(
+      `_JCROSS_廟:1.0__SYM_廟_24_ _JCROSS_廟:1.0__SYM_廟_47_ (_JCROSS_霪:1.0__SYM_霪_238_ _JCROSS_霪:1.0__SYM_霪_265_) _JCROSS_霪:1.0__SYM_霪_52_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_54_)}MB to ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_200_)}MB (_JCROSS_霪:1.0__SYM_霪_139_≤${_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_51_}px)`,
+    );
+    return;
+  }
+  _JCROSS_霪:1.0__SYM_霪_145_(
+    `_JCROSS_廟:1.0__SYM_廟_24_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_霪:1.0__SYM_霪_52_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_54_)}MB to ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_200_)}MB (_JCROSS_霪:1.0__SYM_霪_139_≤${_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_51_}px, q=${_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_261_._JCROSS_霪:1.0__SYM_霪_76_})`,
+  );
+}
+
+async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_247_(_JCROSS_霪:1.0__SYM_霪_221_: {
+  _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+  _JCROSS_霪:1.0__SYM_霪_204_: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_14_?: { _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_; _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_ };
+}): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_廟:1.0__SYM_廟_22_> {
+  _JCROSS_霪:1.0__SYM_霪_17_ { _JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_14_ } = _JCROSS_霪:1.0__SYM_霪_221_;
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_64_ = _JCROSS_霪:1.0__SYM_霪_14_?._JCROSS_霪:1.0__SYM_霪_34_ === "_JCROSS_霪:1.0__SYM_霪_88_/_JCROSS_霪:1.0__SYM_霪_223_" || _JCROSS_霪:1.0__SYM_霪_14_?._JCROSS_匣:1.0__SYM_霪_231_?._JCROSS_霪:1.0__SYM_霪_182_()._JCROSS_霪:1.0__SYM_霪_169_("._JCROSS_霪:1.0__SYM_霪_223_");
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_91_ = _JCROSS_霪:1.0__SYM_霪_64_ && (await _JCROSS_霪:1.0__SYM_霪_161_(_JCROSS_術:1.0__SYM_霪_43_));
+
+  if (_JCROSS_霪:1.0__SYM_霪_91_) {
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_261_ = await _JCROSS_霪:1.0__SYM_霪_175_(_JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_204_);
+    if (_JCROSS_霪:1.0__SYM_霪_261_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_ <= _JCROSS_霪:1.0__SYM_霪_204_) {
+      return { ..._JCROSS_霪:1.0__SYM_霪_261_, _JCROSS_漂:1.0__SYM_霪_191_: "_JCROSS_霪:1.0__SYM_霪_223_" };
+    }
+    if (_JCROSS_霪:1.0__SYM_霪_253_()) {
+      _JCROSS_霪:1.0__SYM_霪_145_(
+        `_JCROSS_廟:1.0__SYM_廟_47_ _JCROSS_霪:1.0__SYM_霪_49_ _JCROSS_霪:1.0__SYM_霪_265_ _JCROSS_霪:1.0__SYM_霪_259_ _JCROSS_霪:1.0__SYM_霪_80_ ${_JCROSS_漂:1.0__SYM_霪_239_(_JCROSS_霪:1.0__SYM_霪_204_, 0)}MB _JCROSS_術:1.0__SYM_霪_257_ _JCROSS_霪:1.0__SYM_霪_234_; _JCROSS_霪:1.0__SYM_霪_174_ _JCROSS_霪:1.0__SYM_霪_44_ to _JCROSS_廟:1.0__SYM_廟_13_`,
+      );
+    }
+  }
+
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_261_ = await _JCROSS_霪:1.0__SYM_霪_268_(_JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_14_);
+  return { ..._JCROSS_霪:1.0__SYM_霪_261_, _JCROSS_漂:1.0__SYM_霪_191_: "_JCROSS_霪:1.0__SYM_霪_147_" };
+}
+
+async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_匣:1.0__SYM_霪_248_(
+  _JCROSS_紗:1.0__SYM_霪_3_: _JCROSS_霪:1.0__SYM_霪_237_,
+  _JCROSS_霪:1.0__SYM_霪_120_: _JCROSS_廟:1.0__SYM_廟_42_ = {},
+): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_廟:1.0__SYM_廟_39_> {
+  _JCROSS_霪:1.0__SYM_霪_17_ {
+    _JCROSS_霪:1.0__SYM_霪_78_,
+    _JCROSS_霪:1.0__SYM_霪_69_ = true,
+    _JCROSS_霪:1.0__SYM_霪_179_,
+    _JCROSS_霪:1.0__SYM_霪_125_,
+    _JCROSS_霪:1.0__SYM_霪_5_ = false,
+    _JCROSS_匣:1.0__SYM_霪_85_: _JCROSS_匣:1.0__SYM_霪_207_,
+  } = _JCROSS_霪:1.0__SYM_霪_120_;
+// [metadata-stripped]
+// [metadata-stripped]
+  _JCROSS_紗:1.0__SYM_霪_3_ = _JCROSS_紗:1.0__SYM_霪_3_._JCROSS_霪:1.0__SYM_霪_26_(/^\s*_JCROSS_廟:1.0__SYM_廟_31_\s*:\s*/i, "");
+// [metadata-stripped]
+  if (_JCROSS_紗:1.0__SYM_霪_3_._JCROSS_霪:1.0__SYM_霪_162_("_JCROSS_匣:1.0__SYM_霪_95_://")) {
+    try {
+      _JCROSS_紗:1.0__SYM_霪_3_ = _JCROSS_紗:1.0__SYM_霪_134_(_JCROSS_紗:1.0__SYM_霪_3_);
+    } catch {
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_("_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_匣:1.0__SYM_霪_95_-_JCROSS_紗:1.0__SYM_霪_251_", `_JCROSS_廟:1.0__SYM_廟_40_ _JCROSS_匣:1.0__SYM_霪_95_:// _JCROSS_紗:1.0__SYM_廟_21_: ${_JCROSS_紗:1.0__SYM_霪_3_}`);
+    }
+  }
+
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_164_ = async (
+    _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_,
+    _JCROSS_霪:1.0__SYM_霪_204_: _JCROSS_術:1.0__SYM_霪_213_,
+    _JCROSS_霪:1.0__SYM_霪_14_?: { _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_; _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_ },
+// _JCROSS_廟:0.6__SYM_CL_170_ [decoy-metadata]
+  ) => {
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_54_ = _JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_;
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_261_ = await _JCROSS_霪:1.0__SYM_霪_247_({ _JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_14_ });
+    _JCROSS_霪:1.0__SYM_霪_21_({ _JCROSS_霪:1.0__SYM_霪_54_, _JCROSS_霪:1.0__SYM_霪_261_ });
+
+    if (_JCROSS_霪:1.0__SYM_霪_261_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_ > _JCROSS_霪:1.0__SYM_霪_204_) {
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_44_(_JCROSS_漂:1.0__SYM_霪_260_("_JCROSS_廟:1.0__SYM_廟_33_", _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_261_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_));
+    }
+
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_34_ = _JCROSS_霪:1.0__SYM_霪_261_._JCROSS_漂:1.0__SYM_霪_191_ === "_JCROSS_霪:1.0__SYM_霪_223_" ? "_JCROSS_霪:1.0__SYM_霪_88_/_JCROSS_霪:1.0__SYM_霪_223_" : "_JCROSS_霪:1.0__SYM_霪_88_/_JCROSS_霪:1.0__SYM_霪_147_";
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_匣:1.0__SYM_霪_231_ =
+      _JCROSS_霪:1.0__SYM_霪_261_._JCROSS_漂:1.0__SYM_霪_191_ === "_JCROSS_霪:1.0__SYM_霪_147_" && _JCROSS_霪:1.0__SYM_霪_14_ && _JCROSS_霪:1.0__SYM_霪_149_(_JCROSS_霪:1.0__SYM_霪_14_)
+        ? _JCROSS_匣:1.0__SYM_霪_127_(_JCROSS_霪:1.0__SYM_霪_14_._JCROSS_匣:1.0__SYM_霪_231_)
+        : _JCROSS_霪:1.0__SYM_霪_14_?._JCROSS_匣:1.0__SYM_霪_231_;
+
+    return {
+      _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_261_._JCROSS_術:1.0__SYM_霪_43_,
+      _JCROSS_霪:1.0__SYM_霪_34_,
+      _JCROSS_霪:1.0__SYM_霪_45_: "_JCROSS_霪:1.0__SYM_霪_88_" as _JCROSS_霪:1.0__SYM_霪_17_,
+      _JCROSS_匣:1.0__SYM_霪_231_,
+// _JCROSS_紗:0.4__SYM_VL_188_ [decoy-metadata]
+    };
+  };
+
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_4_ = async (_JCROSS_霪:1.0__SYM_霪_221_: {
+    _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+    _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_;
+    _JCROSS_霪:1.0__SYM_霪_45_: _JCROSS_廟:1.0__SYM_廟_30_ | _JCROSS_霪:1.0__SYM_霪_133_;
+    _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_;
+  }): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_廟:1.0__SYM_廟_39_> => {
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_204_ = _JCROSS_霪:1.0__SYM_霪_78_ !== _JCROSS_霪:1.0__SYM_霪_133_ ? _JCROSS_霪:1.0__SYM_霪_78_ : _JCROSS_漂:1.0__SYM_霪_72_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_45_ ?? "_JCROSS_霪:1.0__SYM_霪_172_");
+    if (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_45_ === "_JCROSS_霪:1.0__SYM_霪_88_") {
+      _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_漂:1.0__SYM_霪_39_ = _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_34_ === "_JCROSS_霪:1.0__SYM_霪_88_/_JCROSS_漂:1.0__SYM_霪_271_";
+      if (_JCROSS_漂:1.0__SYM_霪_39_ || !_JCROSS_霪:1.0__SYM_霪_69_) {
+        if (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_ > _JCROSS_霪:1.0__SYM_霪_204_) {
+          _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_44_(_JCROSS_漂:1.0__SYM_霪_70_(_JCROSS_漂:1.0__SYM_霪_39_ ? "_JCROSS_廟:1.0__SYM_廟_6_" : "_JCROSS_廟:1.0__SYM_廟_33_", _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_));
+        }
+        return {
+          _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_,
+          _JCROSS_霪:1.0__SYM_霪_34_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_34_,
+          _JCROSS_霪:1.0__SYM_霪_45_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_45_,
+          _JCROSS_匣:1.0__SYM_霪_231_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_匣:1.0__SYM_霪_231_,
+        };
+      }
+      return {
+        ...(await _JCROSS_霪:1.0__SYM_霪_164_(_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_204_, {
+          _JCROSS_霪:1.0__SYM_霪_34_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_34_,
+          _JCROSS_匣:1.0__SYM_霪_231_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_匣:1.0__SYM_霪_231_,
+        })),
+      };
+    }
+    if (_JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_ > _JCROSS_霪:1.0__SYM_霪_204_) {
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_44_(_JCROSS_漂:1.0__SYM_霪_70_("_JCROSS_廟:1.0__SYM_廟_33_", _JCROSS_霪:1.0__SYM_霪_204_, _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_._JCROSS_霪:1.0__SYM_霪_173_));
+    }
+    return {
+      _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_術:1.0__SYM_霪_43_,
+      _JCROSS_霪:1.0__SYM_霪_34_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_34_ ?? _JCROSS_霪:1.0__SYM_霪_133_,
+// _JCROSS_術:0.8__SYM_KB_139_ [decoy-metadata]
+      _JCROSS_霪:1.0__SYM_霪_45_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_霪:1.0__SYM_霪_45_,
+      _JCROSS_匣:1.0__SYM_霪_231_: _JCROSS_霪:1.0__SYM_霪_221_._JCROSS_匣:1.0__SYM_霪_231_,
+    };
+  };
+
+  if (/^_JCROSS_紗:1.0__SYM_霪_189_?:\/\//i._JCROSS_霪:1.0__SYM_霪_37_(_JCROSS_紗:1.0__SYM_霪_3_)) {
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_117_ = _JCROSS_漂:1.0__SYM_霪_72_("_JCROSS_霪:1.0__SYM_霪_172_");
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_術:1.0__SYM_巌_5_ =
+      _JCROSS_霪:1.0__SYM_霪_78_ === _JCROSS_霪:1.0__SYM_霪_133_
+        ? _JCROSS_霪:1.0__SYM_霪_117_
+        : _JCROSS_霪:1.0__SYM_霪_69_
+          ? _JCROSS_廟:1.0__SYM_廟_15_._JCROSS_霪:1.0__SYM_霪_71_(_JCROSS_霪:1.0__SYM_霪_78_, _JCROSS_霪:1.0__SYM_霪_117_)
+          : _JCROSS_霪:1.0__SYM_霪_78_;
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_術:1.0__SYM_巌_4_ = await _JCROSS_術:1.0__SYM_巌_3_({ _JCROSS_紗:1.0__SYM_霪_251_: _JCROSS_紗:1.0__SYM_霪_3_, _JCROSS_霪:1.0__SYM_霪_78_: _JCROSS_術:1.0__SYM_巌_5_, _JCROSS_霪:1.0__SYM_霪_179_ });
+    _JCROSS_霪:1.0__SYM_霪_17_ { _JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_34_, _JCROSS_匣:1.0__SYM_霪_231_ } = _JCROSS_術:1.0__SYM_巌_4_;
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_45_ = _JCROSS_霪:1.0__SYM_霪_40_(_JCROSS_霪:1.0__SYM_霪_34_);
+    return await _JCROSS_霪:1.0__SYM_霪_4_({ _JCROSS_術:1.0__SYM_霪_43_, _JCROSS_霪:1.0__SYM_霪_34_, _JCROSS_霪:1.0__SYM_霪_45_, _JCROSS_匣:1.0__SYM_霪_231_ });
+  }
+
+// [metadata-stripped]
+  if (_JCROSS_紗:1.0__SYM_霪_3_._JCROSS_霪:1.0__SYM_霪_162_("~")) {
+    _JCROSS_紗:1.0__SYM_霪_3_ = _JCROSS_霪:1.0__SYM_霪_1_(_JCROSS_紗:1.0__SYM_霪_3_);
+  }
+
+  if ((_JCROSS_霪:1.0__SYM_霪_5_ || _JCROSS_霪:1.0__SYM_霪_125_ === "any") && !_JCROSS_匣:1.0__SYM_霪_207_) {
+    _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+      "_JCROSS_霪:1.0__SYM_霪_6_-_JCROSS_霪:1.0__SYM_霪_184_",
+      "_JCROSS_廟:1.0__SYM_廟_32_ _JCROSS_霪:1.0__SYM_霪_125_ _JCROSS_霪:1.0__SYM_霪_184_ _JCROSS_霪:1.0__SYM_霪_188_ _JCROSS_匣:1.0__SYM_霪_85_ ov_JCROSS_霪:1.0__SYM_霪_114_ide. _JCROSS_廟:1.0__SYM_廟_45_ _JCROSS_霪:1.0__SYM_霪_5_ _JCROSS_霪:1.0__SYM_霪_49_ _JCROSS_匣:1.0__SYM_霪_85_, or _JCROSS_霪:1.0__SYM_霪_36_ _JCROSS_霪:1.0__SYM_霪_53_ _JCROSS_霪:1.0__SYM_霪_125_.",
+    );
+  }
+
+// [metadata-stripped]
+  if (!(_JCROSS_霪:1.0__SYM_霪_5_ || _JCROSS_霪:1.0__SYM_霪_125_ === "any")) {
+    await _JCROSS_霪:1.0__SYM_霪_10_(_JCROSS_紗:1.0__SYM_霪_3_, _JCROSS_霪:1.0__SYM_霪_125_);
+  }
+
+// [metadata-stripped]
+  let _JCROSS_霪:1.0__SYM_霪_144_: _JCROSS_術:1.0__SYM_廟_18_;
+  if (_JCROSS_匣:1.0__SYM_霪_207_) {
+    _JCROSS_霪:1.0__SYM_霪_144_ = await _JCROSS_匣:1.0__SYM_霪_207_(_JCROSS_紗:1.0__SYM_霪_3_);
+  } else {
+    try {
+      _JCROSS_霪:1.0__SYM_霪_144_ = (await _JCROSS_匣:1.0__SYM_霪_168_({ _JCROSS_匣:1.0__SYM_霪_193_: _JCROSS_紗:1.0__SYM_霪_3_ }))._JCROSS_術:1.0__SYM_霪_43_;
+    } catch (_JCROSS_霪:1.0__SYM_霪_114_) {
+      if (_JCROSS_霪:1.0__SYM_霪_114_ _JCROSS_霪:1.0__SYM_霪_167_ _JCROSS_廟:1.0__SYM_廟_46_) {
+        if (_JCROSS_霪:1.0__SYM_霪_114_._JCROSS_霪:1.0__SYM_霪_148_ === "_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_142_") {
+          _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_("_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_霪:1.0__SYM_霪_142_", `_JCROSS_廟:1.0__SYM_廟_4_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_匣:1.0__SYM_霪_95_ _JCROSS_霪:1.0__SYM_霪_254_ _JCROSS_霪:1.0__SYM_霪_142_: ${_JCROSS_紗:1.0__SYM_霪_3_}`, {
+            _JCROSS_霪:1.0__SYM_霪_86_: _JCROSS_霪:1.0__SYM_霪_114_,
+          });
+        }
+        if (_JCROSS_霪:1.0__SYM_霪_114_._JCROSS_霪:1.0__SYM_霪_148_ === "_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_匣:1.0__SYM_霪_95_") {
+          _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+// _JCROSS_巌:0.8__SYM_KA_840_ [decoy-metadata]
+            "_JCROSS_霪:1.0__SYM_霪_254_-_JCROSS_匣:1.0__SYM_霪_95_",
+            `_JCROSS_廟:1.0__SYM_廟_4_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_霪:1.0__SYM_霪_151_ is _JCROSS_霪:1.0__SYM_霪_254_ a _JCROSS_匣:1.0__SYM_霪_95_: ${_JCROSS_紗:1.0__SYM_霪_3_}`,
+            { _JCROSS_霪:1.0__SYM_霪_86_: _JCROSS_霪:1.0__SYM_霪_114_ },
+          );
+        }
+        _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_3_(
+          "_JCROSS_霪:1.0__SYM_霪_255_-_JCROSS_霪:1.0__SYM_霪_151_",
+          `_JCROSS_廟:1.0__SYM_廟_4_ _JCROSS_霪:1.0__SYM_霪_228_ _JCROSS_霪:1.0__SYM_霪_151_ is _JCROSS_霪:1.0__SYM_霪_254_ _JCROSS_霪:1.0__SYM_霪_214_ to _JCROSS_霪:1.0__SYM_霪_224_: ${_JCROSS_紗:1.0__SYM_霪_3_}`,
+          { _JCROSS_霪:1.0__SYM_霪_86_: _JCROSS_霪:1.0__SYM_霪_114_ },
+        );
+      }
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_114_;
+    }
+  }
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_205_ = await _JCROSS_霪:1.0__SYM_霪_102_({ _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_144_, _JCROSS_匣:1.0__SYM_霪_193_: _JCROSS_紗:1.0__SYM_霪_3_ });
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_45_ = _JCROSS_霪:1.0__SYM_霪_40_(_JCROSS_霪:1.0__SYM_霪_205_);
+  let _JCROSS_匣:1.0__SYM_霪_231_ = _JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_79_(_JCROSS_紗:1.0__SYM_霪_3_) || _JCROSS_霪:1.0__SYM_霪_133_;
+  if (_JCROSS_匣:1.0__SYM_霪_231_ && !_JCROSS_霪:1.0__SYM_霪_151_._JCROSS_霪:1.0__SYM_霪_83_(_JCROSS_匣:1.0__SYM_霪_231_) && _JCROSS_霪:1.0__SYM_霪_205_) {
+    _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_233_ = _JCROSS_漂:1.0__SYM_霪_67_(_JCROSS_霪:1.0__SYM_霪_205_);
+    if (_JCROSS_霪:1.0__SYM_霪_233_) {
+      _JCROSS_匣:1.0__SYM_霪_231_ = `${_JCROSS_匣:1.0__SYM_霪_231_}${_JCROSS_霪:1.0__SYM_霪_233_}`;
+    }
+  }
+  return await _JCROSS_霪:1.0__SYM_霪_4_({
+    _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_144_,
+    _JCROSS_霪:1.0__SYM_霪_34_: _JCROSS_霪:1.0__SYM_霪_205_,
+    _JCROSS_霪:1.0__SYM_霪_45_,
+    _JCROSS_匣:1.0__SYM_霪_231_,
+  });
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_匣:1.0__SYM_霪_235_(
+  _JCROSS_紗:1.0__SYM_霪_3_: _JCROSS_霪:1.0__SYM_霪_237_,
+  _JCROSS_霪:1.0__SYM_霪_119_?: _JCROSS_術:1.0__SYM_霪_213_ | _JCROSS_廟:1.0__SYM_廟_42_,
+  _JCROSS_霪:1.0__SYM_霪_120_?: { _JCROSS_霪:1.0__SYM_霪_179_?: _JCROSS_廟:1.0__SYM_廟_11_; _JCROSS_霪:1.0__SYM_霪_125_?: _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] | "any" },
+): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_廟:1.0__SYM_廟_39_> {
+  return await _JCROSS_匣:1.0__SYM_霪_248_(
+    _JCROSS_紗:1.0__SYM_霪_3_,
+    _JCROSS_霪:1.0__SYM_霪_241_({ _JCROSS_霪:1.0__SYM_霪_119_, _JCROSS_霪:1.0__SYM_霪_120_, _JCROSS_霪:1.0__SYM_霪_69_: true }),
+  );
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_匣:1.0__SYM_霪_131_(
+  _JCROSS_紗:1.0__SYM_霪_3_: _JCROSS_霪:1.0__SYM_霪_237_,
+  _JCROSS_霪:1.0__SYM_霪_119_?: _JCROSS_術:1.0__SYM_霪_213_ | _JCROSS_廟:1.0__SYM_廟_42_,
+  _JCROSS_霪:1.0__SYM_霪_120_?: { _JCROSS_霪:1.0__SYM_霪_179_?: _JCROSS_廟:1.0__SYM_廟_11_; _JCROSS_霪:1.0__SYM_霪_125_?: _JCROSS_霪:1.0__SYM_霪_105_ _JCROSS_霪:1.0__SYM_霪_237_[] | "any" },
+): _JCROSS_廟:1.0__SYM_廟_25_<_JCROSS_廟:1.0__SYM_廟_39_> {
+  return await _JCROSS_匣:1.0__SYM_霪_248_(
+    _JCROSS_紗:1.0__SYM_霪_3_,
+    _JCROSS_霪:1.0__SYM_霪_241_({ _JCROSS_霪:1.0__SYM_霪_119_, _JCROSS_霪:1.0__SYM_霪_120_, _JCROSS_霪:1.0__SYM_霪_69_: false }),
+  );
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ async _JCROSS_霪:1.0__SYM_霪_240_ _JCROSS_霪:1.0__SYM_霪_268_(
+  _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_,
+  _JCROSS_霪:1.0__SYM_霪_78_: _JCROSS_術:1.0__SYM_霪_213_,
+  _JCROSS_霪:1.0__SYM_霪_220_: { _JCROSS_霪:1.0__SYM_霪_34_?: _JCROSS_霪:1.0__SYM_霪_237_; _JCROSS_匣:1.0__SYM_霪_231_?: _JCROSS_霪:1.0__SYM_霪_237_ } = {},
+): _JCROSS_廟:1.0__SYM_廟_25_<{
+  _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+  _JCROSS_霪:1.0__SYM_霪_200_: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_術:1.0__SYM_霪_213_;
+  _JCROSS_霪:1.0__SYM_霪_76_: _JCROSS_術:1.0__SYM_霪_213_;
+}> {
+// [metadata-stripped]
+  let _JCROSS_霪:1.0__SYM_霪_99_ = _JCROSS_術:1.0__SYM_霪_43_;
+  if (_JCROSS_霪:1.0__SYM_霪_149_(_JCROSS_霪:1.0__SYM_霪_220_)) {
+    try {
+      _JCROSS_霪:1.0__SYM_霪_99_ = await _JCROSS_霪:1.0__SYM_霪_138_(_JCROSS_術:1.0__SYM_霪_43_);
+    } catch (_JCROSS_霪:1.0__SYM_霪_114_) {
+      _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_44_(`_JCROSS_廟:1.0__SYM_廟_9_ _JCROSS_霪:1.0__SYM_霪_88_ _JCROSS_霪:1.0__SYM_霪_32_ _JCROSS_霪:1.0__SYM_霪_262_: ${_JCROSS_廟:1.0__SYM_廟_7_(_JCROSS_霪:1.0__SYM_霪_114_)}`, { _JCROSS_霪:1.0__SYM_霪_86_: _JCROSS_霪:1.0__SYM_霪_114_ });
+    }
+  }
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_155_ = [2048, 1536, 1280, 1024, 800];
+  _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_59_ = [80, 70, 60, 50, 40];
+  let _JCROSS_霪:1.0__SYM_霪_222_: {
+    _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_術:1.0__SYM_廟_18_;
+    _JCROSS_霪:1.0__SYM_霪_157_: _JCROSS_術:1.0__SYM_霪_213_;
+    _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_術:1.0__SYM_霪_213_;
+    _JCROSS_霪:1.0__SYM_霪_76_: _JCROSS_術:1.0__SYM_霪_213_;
+  } | _JCROSS_霪:1.0__SYM_霪_156_ = _JCROSS_霪:1.0__SYM_霪_156_;
+
+  for (_JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_139_ of _JCROSS_霪:1.0__SYM_霪_155_) {
+    for (_JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_76_ of _JCROSS_霪:1.0__SYM_霪_59_) {
+      try {
+        _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_150_ = await _JCROSS_霪:1.0__SYM_霪_123_({
+          _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_99_,
+          _JCROSS_霪:1.0__SYM_霪_130_: _JCROSS_霪:1.0__SYM_霪_139_,
+          _JCROSS_霪:1.0__SYM_霪_76_,
+          _JCROSS_霪:1.0__SYM_霪_153_: true,
+        });
+        _JCROSS_霪:1.0__SYM_霪_17_ _JCROSS_霪:1.0__SYM_霪_157_ = _JCROSS_霪:1.0__SYM_霪_150_._JCROSS_霪:1.0__SYM_霪_173_;
+        if (!_JCROSS_霪:1.0__SYM_霪_222_ || _JCROSS_霪:1.0__SYM_霪_157_ < _JCROSS_霪:1.0__SYM_霪_222_._JCROSS_霪:1.0__SYM_霪_157_) {
+          _JCROSS_霪:1.0__SYM_霪_222_ = { _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_150_, _JCROSS_霪:1.0__SYM_霪_157_, _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_霪:1.0__SYM_霪_139_, _JCROSS_霪:1.0__SYM_霪_76_ };
+        }
+        if (_JCROSS_霪:1.0__SYM_霪_157_ <= _JCROSS_霪:1.0__SYM_霪_78_) {
+          return {
+            _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_150_,
+            _JCROSS_霪:1.0__SYM_霪_200_: _JCROSS_霪:1.0__SYM_霪_157_,
+            _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_霪:1.0__SYM_霪_139_,
+            _JCROSS_霪:1.0__SYM_霪_76_,
+          };
+        }
+      } catch {
+// [metadata-stripped]
+      }
+    }
+  }
+
+  if (_JCROSS_霪:1.0__SYM_霪_222_) {
+    return {
+      _JCROSS_術:1.0__SYM_霪_43_: _JCROSS_霪:1.0__SYM_霪_222_._JCROSS_術:1.0__SYM_霪_43_,
+      _JCROSS_霪:1.0__SYM_霪_200_: _JCROSS_霪:1.0__SYM_霪_222_._JCROSS_霪:1.0__SYM_霪_157_,
+      _JCROSS_霪:1.0__SYM_霪_51_: _JCROSS_霪:1.0__SYM_霪_222_._JCROSS_霪:1.0__SYM_霪_51_,
+      _JCROSS_霪:1.0__SYM_霪_76_: _JCROSS_霪:1.0__SYM_霪_222_._JCROSS_霪:1.0__SYM_霪_76_,
+    };
+  }
+
+  _JCROSS_霪:1.0__SYM_霪_159_ _JCROSS_霪:1.0__SYM_霪_129_ _JCROSS_廟:1.0__SYM_廟_44_("_JCROSS_廟:1.0__SYM_廟_2_ to _JCROSS_霪:1.0__SYM_霪_160_ _JCROSS_霪:1.0__SYM_霪_88_");
+}
+
+_JCROSS_霪:1.0__SYM_霪_258_ { _JCROSS_霪:1.0__SYM_霪_175_ };
+
+// POLYMORPHIC_JCROSS_END

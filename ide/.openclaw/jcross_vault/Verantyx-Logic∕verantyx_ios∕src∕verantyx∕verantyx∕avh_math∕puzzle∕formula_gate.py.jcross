@@ -1,0 +1,123 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:21369CF9 ver:1778162887
+// ⚠️ One-time schema — expires after response
+
+import re
+
+_OPAQUE_礫:1.0___ast_礫_32__ _OPAQUE_脈:1.0___ast_礫_20__(_OPAQUE_礫:1.0___ast_礫_11__: _OPAQUE_礫:1.0___ast_礫_9__) -> _OPAQUE_礫:1.0___ast_礫_26__:
+    """
+    論理式の構造が数学的に完結しているか（壊れていないか）を判定する。
+    """
+    if _OPAQUE_礫:1.0___ast_礫_29__ _OPAQUE_礫:1.0___ast_礫_11__:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+    
+    _OPAQUE_礫:1.0___ast_礫_11__ = _OPAQUE_礫:1.0___ast_礫_11__._OPAQUE_礫:1.0___ast_礫_35__(" ", "")
+    if _OPAQUE_礫:1.0___ast_礫_14__(_OPAQUE_礫:1.0___ast_礫_11__) < 2:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0___ast_礫_11__._OPAQUE_礫:1.0___ast_礫_36__(("->", "→", "~", "&", "|", "⊕", "<", "=", ">")):
+        return _OPAQUE_庖:1.0___ast_庖_2__
+    if "->" in _OPAQUE_礫:1.0___ast_礫_11__:
+// _OPAQUE_庖:0.5___ast_YW_498__ [decoy-metadata]
+        _OPAQUE_礫:1.0___ast_礫_2__ = _OPAQUE_礫:1.0___ast_礫_11__._OPAQUE_礫:1.0___ast_礫_41__("->")
+        if any(_OPAQUE_礫:1.0___ast_礫_29__ p for p in _OPAQUE_礫:1.0___ast_礫_2__):
+            return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+    _OPAQUE_礫:1.0___ast_礫_18__ = 0
+    for ch in _OPAQUE_礫:1.0___ast_礫_11__:
+        if ch == "(":
+            _OPAQUE_礫:1.0___ast_礫_18__ += 1
+        _OPAQUE_脈:1.0___ast_礫_38__ ch == ")":
+            _OPAQUE_礫:1.0___ast_礫_18__ -= 1
+            if _OPAQUE_礫:1.0___ast_礫_18__ < 0:
+// _OPAQUE_脈:0.8___ast_EL_323__ [decoy-metadata]
+                return _OPAQUE_庖:1.0___ast_庖_2__
+    if _OPAQUE_礫:1.0___ast_礫_18__ != 0:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0___ast_礫_29__ re._OPAQUE_礫:1.0___ast_礫_43__(r'^[A-Za-z0-9\(\)\-\>\<\[\]\&\|\~□◇⊕]+$', _OPAQUE_礫:1.0___ast_礫_11__):
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0___ast_礫_29__ any(c._OPAQUE_礫:1.0___ast_礫_30__() for c in _OPAQUE_礫:1.0___ast_礫_11__):
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+    return _OPAQUE_庖:1.0___ast_庖_3__
+
+// _OPAQUE_式:0.5___ast_FX_491__ [decoy-metadata]
+_OPAQUE_礫:1.0___ast_礫_32__ _OPAQUE_脈:1.0___ast_礫_5__(_OPAQUE_礫:1.0___ast_礫_22__, _OPAQUE_礫:1.0___ast_礫_16__):
+    """
+    抽出された式候補が、文全体の中心的な問い（全体式）であるかを判定する。
+    """
+    _OPAQUE_礫:1.0___ast_礫_7__ = _OPAQUE_礫:1.0___ast_礫_22__._OPAQUE_式:1.0___ast_巌_1__("_OPAQUE_礫:1.0___ast_礫_7__")
+    if _OPAQUE_礫:1.0___ast_礫_29__ _OPAQUE_礫:1.0___ast_礫_7__:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+// _OPAQUE_渕:0.8___ast_KH_526__ [decoy-metadata]
+    if _OPAQUE_礫:1.0___ast_礫_29__ _OPAQUE_脈:1.0___ast_礫_20__(_OPAQUE_礫:1.0___ast_礫_22__["_OPAQUE_礫:1.0___ast_礫_39__"]):
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+// _OPAQUE_巌:0.3___ast_FB_835__ [decoy-metadata]
+    _OPAQUE_礫:1.0___ast_礫_1__ = re._OPAQUE_礫:1.0___ast_礫_21__(r"\s+", "", _OPAQUE_礫:1.0___ast_礫_16__)
+    _OPAQUE_礫:1.0___ast_礫_6__ = re._OPAQUE_礫:1.0___ast_礫_21__(r"\s+", "", _OPAQUE_礫:1.0___ast_礫_22__["_OPAQUE_礫:1.0___ast_礫_10__"])
+    
+    _OPAQUE_礫:1.0___ast_礫_12__ = _OPAQUE_礫:1.0___ast_礫_14__(_OPAQUE_礫:1.0___ast_礫_6__) / _OPAQUE_礫:1.0___ast_礫_31__(_OPAQUE_礫:1.0___ast_礫_14__(_OPAQUE_礫:1.0___ast_礫_1__), 1)
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_渕:1.0___ast_礫_37__ = ["_OPAQUE_礫:1.0___ast_礫_28__", "_OPAQUE_礫:1.0___ast_礫_19__", "_OPAQUE_礫:1.0___ast_礫_33__", "_OPAQUE_礫:1.0___ast_礫_17__", "_OPAQUE_礫:1.0___ast_礫_24__", "推移", "反射", "対称", "妥当", "恒真"]
+    _OPAQUE_礫:1.0___ast_礫_23__ = any(m in _OPAQUE_礫:1.0___ast_礫_22__["_OPAQUE_礫:1.0___ast_礫_39__"] for m in ["[]", "□", "<>", "◇"])
+    _OPAQUE_渕:1.0___ast_礫_25__ = any(k in _OPAQUE_礫:1.0___ast_礫_16__._OPAQUE_式:1.0___ast_礫_40__() for k in _OPAQUE_渕:1.0___ast_礫_37__)
+    
+    if _OPAQUE_礫:1.0___ast_礫_23__ _OPAQUE_礫:1.0___ast_礫_8__ _OPAQUE_渕:1.0___ast_礫_25__:
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0___ast_礫_12__ > 0.15:
+            return _OPAQUE_庖:1.0___ast_庖_3__
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0___ast_礫_12__ < 0.6:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0___ast_礫_22__["_OPAQUE_礫:1.0___ast_礫_7__"][0] > _OPAQUE_礫:1.0___ast_礫_14__(_OPAQUE_礫:1.0___ast_礫_16__) * 0.25:
+        return _OPAQUE_庖:1.0___ast_庖_2__
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_礫:1.0___ast_礫_34__ = ["[]", "□", "◇", "<>"]
+    for m in _OPAQUE_礫:1.0___ast_礫_34__:
+        if m in _OPAQUE_礫:1.0___ast_礫_16__ _OPAQUE_礫:1.0___ast_礫_8__ m _OPAQUE_礫:1.0___ast_礫_29__ in _OPAQUE_礫:1.0___ast_礫_22__["_OPAQUE_礫:1.0___ast_礫_39__"]:
+// [metadata-stripped]
+            return _OPAQUE_庖:1.0___ast_庖_2__
+
+    return _OPAQUE_庖:1.0___ast_庖_3__
+
+_OPAQUE_礫:1.0___ast_礫_32__ _OPAQUE_脈:1.0___ast_礫_15__(_OPAQUE_礫:1.0___ast_礫_3__, _OPAQUE_礫:1.0___ast_礫_16__):
+    """
+    候補群から全体式を選定する。
+    """
+    if _OPAQUE_礫:1.0___ast_礫_29__ _OPAQUE_礫:1.0___ast_礫_3__:
+        return _OPAQUE_庖:1.0___ast_庖_1__, "_OPAQUE_礫:1.0___ast_礫_13__"
+
+// [metadata-stripped]
+    _OPAQUE_礫:1.0___ast_礫_42__ = [
+        c for c in _OPAQUE_礫:1.0___ast_礫_3__
+        if _OPAQUE_脈:1.0___ast_礫_5__(c, _OPAQUE_礫:1.0___ast_礫_16__)
+    ]
+
+    if _OPAQUE_礫:1.0___ast_礫_42__:
+// [metadata-stripped]
+        return _OPAQUE_礫:1.0___ast_礫_42__[0], "_OPAQUE_礫:1.0___ast_礫_4__"
+// _OPAQUE_脈:0.4___ast_BE_459__ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    return _OPAQUE_礫:1.0___ast_礫_3__[0], "_OPAQUE_礫:1.0___ast_礫_27__"
+
+// POLYMORPHIC_JCROSS_END

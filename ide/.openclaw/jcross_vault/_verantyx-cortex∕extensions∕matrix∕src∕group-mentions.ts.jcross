@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B94F01A8 ver:1778167657
+// ⚠️ One-time schema — expires after response
+
+import _ID_霡:1.0___jcross_霡_44__ { _ID_廟:1.0___jcross_廟_1__, _ID_廟:1.0___jcross_廟_2__ } _ID_霡:1.0___jcross_霡_34__ "../_ID_霡:1.0___jcross_霡_22__-_ID_組:1.0___jcross_霡_12__.js";
+import { _ID_霡:1.0___jcross_霡_8__ } _ID_霡:1.0___jcross_霡_34__ "./_ID_霡:1.0___jcross_霡_39__/_ID_霡:1.0___jcross_霡_23__.js";
+import { _ID_霡:1.0___jcross_霡_4__ } _ID_霡:1.0___jcross_霡_34__ "./_ID_霡:1.0___jcross_霡_39__/_ID_霡:1.0___jcross_霡_32__/_ID_霡:1.0___jcross_霡_16__.js";
+import _ID_霡:1.0___jcross_霡_44__ { _ID_廟:1.0___jcross_廟_3__ } _ID_霡:1.0___jcross_霡_34__ "./_ID_霡:1.0___jcross_霡_47__.js";
+
+_ID_霡:1.0___jcross_霡_30__ _ID_霡:1.0___jcross_霡_19__(_ID_霡:1.0___jcross_霡_13__: _ID_霡:1.0___jcross_霡_27__, _ID_霡:1.0___jcross_霡_18__: _ID_霡:1.0___jcross_霡_27__): _ID_霡:1.0___jcross_霡_27__ {
+// _ID_組:0.7___jcross_VD_207__ [decoy-metadata]
+  return _ID_霡:1.0___jcross_霡_13__._ID_霡:1.0___jcross_霡_21__()._ID_霡:1.0___jcross_霡_46__(_ID_霡:1.0___jcross_霡_18__._ID_霡:1.0___jcross_霡_21__())
+    ? _ID_霡:1.0___jcross_霡_13__._ID_霡:1.0___jcross_霡_24__(_ID_霡:1.0___jcross_霡_18__._ID_霡:1.0___jcross_霡_28__)._ID_霡:1.0___jcross_霡_3__()
+// _ID_奥:0.3___jcross_EC_969__ [decoy-metadata]
+    : _ID_霡:1.0___jcross_霡_13__;
+}
+
+_ID_霡:1.0___jcross_霡_30__ _ID_浸:1.0___jcross_霡_25__(_ID_霡:1.0___jcross_霡_38__: _ID_廟:1.0___jcross_廟_1__) {
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_15__ = _ID_霡:1.0___jcross_霡_38__._ID_霡:1.0___jcross_霡_14__?._ID_霡:1.0___jcross_霡_3__() ?? "";
+  let _ID_霡:1.0___jcross_霡_33__ = _ID_霡:1.0___jcross_霡_15__;
+  _ID_霡:1.0___jcross_霡_33__ = _ID_霡:1.0___jcross_霡_19__(_ID_霡:1.0___jcross_霡_33__, "_ID_霡:1.0___jcross_霡_39__:");
+  _ID_霡:1.0___jcross_霡_33__ = _ID_霡:1.0___jcross_霡_19__(_ID_霡:1.0___jcross_霡_33__, "_ID_霡:1.0___jcross_霡_40__:");
+  _ID_霡:1.0___jcross_霡_33__ = _ID_霡:1.0___jcross_霡_19__(_ID_霡:1.0___jcross_霡_33__, "_ID_霡:1.0___jcross_霡_6__:");
+
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_11__ = _ID_霡:1.0___jcross_霡_38__._ID_霡:1.0___jcross_霡_11__?._ID_霡:1.0___jcross_霡_3__() ?? "";
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_26__ = _ID_霡:1.0___jcross_霡_11__ ? [_ID_霡:1.0___jcross_霡_11__] : [];
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_36__ = _ID_霡:1.0___jcross_霡_38__._ID_霡:1.0___jcross_霡_36__ as _ID_廟:1.0___jcross_廟_3__;
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_2__ = _ID_霡:1.0___jcross_霡_8__({ _ID_霡:1.0___jcross_霡_36__, _ID_霡:1.0___jcross_霡_5__: _ID_霡:1.0___jcross_霡_38__._ID_霡:1.0___jcross_霡_5__ });
+  return _ID_霡:1.0___jcross_霡_4__({
+    _ID_霡:1.0___jcross_霡_16__: _ID_霡:1.0___jcross_霡_2__._ID_霡:1.0___jcross_霡_7__ ?? _ID_霡:1.0___jcross_霡_2__._ID_霡:1.0___jcross_霡_16__,
+    _ID_霡:1.0___jcross_霡_33__,
+    _ID_霡:1.0___jcross_霡_26__,
+    _ID_霡:1.0___jcross_霡_29__: _ID_霡:1.0___jcross_霡_11__ || _ID_霡:1.0___jcross_霡_31__,
+  })._ID_霡:1.0___jcross_霡_41__;
+}
+
+_ID_霡:1.0___jcross_霡_1__ _ID_霡:1.0___jcross_霡_30__ _ID_霡:1.0___jcross_霡_9__(_ID_霡:1.0___jcross_霡_38__: _ID_廟:1.0___jcross_廟_1__): _ID_霡:1.0___jcross_霡_35__ {
+// _ID_奥:0.5___jcross_LX_758__ [decoy-metadata]
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_42__ = _ID_浸:1.0___jcross_霡_25__(_ID_霡:1.0___jcross_霡_38__);
+  if (_ID_霡:1.0___jcross_霡_42__) {
+// _ID_匴:0.3___jcross_WD_588__ [decoy-metadata]
+    if (_ID_霡:1.0___jcross_霡_42__._ID_霡:1.0___jcross_霡_17__ === true) {
+      return false;
+    }
+    if (_ID_霡:1.0___jcross_霡_42__._ID_霡:1.0___jcross_霡_17__ === false) {
+      return true;
+    }
+    if (_ID_霡:1.0___jcross_霡_37__ _ID_霡:1.0___jcross_霡_42__._ID_霡:1.0___jcross_霡_10__ === "_ID_霡:1.0___jcross_霡_35__") {
+      return _ID_霡:1.0___jcross_霡_42__._ID_霡:1.0___jcross_霡_10__;
+    }
+// _ID_奥:0.8___jcross_HL_904__ [decoy-metadata]
+  }
+  return true;
+}
+
+_ID_霡:1.0___jcross_霡_1__ _ID_霡:1.0___jcross_霡_30__ _ID_霡:1.0___jcross_霡_45__(
+  _ID_霡:1.0___jcross_霡_38__: _ID_廟:1.0___jcross_廟_1__,
+): _ID_廟:1.0___jcross_廟_2__ | _ID_霡:1.0___jcross_霡_31__ {
+  _ID_霡:1.0___jcross_霡_43__ _ID_霡:1.0___jcross_霡_42__ = _ID_浸:1.0___jcross_霡_25__(_ID_霡:1.0___jcross_霡_38__);
+// _ID_霡:0.2___jcross_VB_132__ [decoy-metadata]
+  return _ID_霡:1.0___jcross_霡_42__?._ID_霡:1.0___jcross_霡_20__;
+}
+
+// POLYMORPHIC_JCROSS_END

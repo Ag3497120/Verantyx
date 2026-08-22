@@ -1,0 +1,146 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:25044B20 ver:1778166046
+// __ast_靄:0.2___OPAQUE_YB_850_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import os
+import re
+import __ast_靄:1.0___OPAQUE_靄_148_
+import __ast_靄:1.0___OPAQUE_靄_55_
+import __ast_緋:1.0___OPAQUE_靄_142_
+import __ast_靄:1.0___OPAQUE_靄_98_
+import __ast_靄:1.0___OPAQUE_靄_62_
+
+__ast_殻:1.0___OPAQUE_殻_30_ = "/__ast_殻:1.0___OPAQUE_殻_23_/__ast_靄:1.0___OPAQUE_靄_82_/__ast_靄:1.0___OPAQUE_靄_94_-__ast_靄:1.0___OPAQUE_靄_46_/__ast_靄:1.0___OPAQUE_靄_94_-__ast_道:1.0___OPAQUE_靄_141_/.__ast_靄:1.0___OPAQUE_靄_42_/__ast_靄:1.0___OPAQUE_靄_95_"
+__ast_殻:1.0___OPAQUE_殻_4_ = "/__ast_殻:1.0___OPAQUE_殻_23_/__ast_靄:1.0___OPAQUE_靄_82_/__ast_靄:1.0___OPAQUE_靄_94_-__ast_靄:1.0___OPAQUE_靄_46_/__ast_靄:1.0___OPAQUE_靄_94_-__ast_道:1.0___OPAQUE_靄_141_/__ast_靄:1.0___OPAQUE_靄_1_/__ast_靄:1.0___OPAQUE_靄_137_/__ast_靄:1.0___OPAQUE_靄_44_/__ast_靄:1.0___OPAQUE_靄_49_"
+__ast_殻:1.0___OPAQUE_殻_16_ = "__ast_靄:1.0___OPAQUE_靄_11_:26b"
+__ast_緋:1.0___OPAQUE_殻_53_ = "__ast_緋:1.0___OPAQUE_靄_12_://__ast_靄:1.0___OPAQUE_靄_29_:11434/__ast_緋:1.0___OPAQUE_靄_48_/__ast_靄:1.0___OPAQUE_靄_128_"
+
+__ast_殻:1.0___OPAQUE_殻_42_ = """[__ast_殻:1.0___OPAQUE_殻_26_ __ast_殻:1.0___OPAQUE_殻_21_]
+__ast_殻:1.0___OPAQUE_殻_55_ __ast_靄:1.0___OPAQUE_靄_89_ __ast_殻:1.0___OPAQUE_殻_61_ __ast_殻:1.0___OPAQUE_殻_33_ (V7 __ast_殻:1.0___OPAQUE_殻_72_).
+__ast_殻:1.0___OPAQUE_殻_55_ __ast_靄:1.0___OPAQUE_靄_111_ __ast_靄:1.0___OPAQUE_靄_81_ __ast_道:1.0___OPAQUE_靄_67_ __ast_靄:1.0___OPAQUE_靄_96_, __ast_道:1.0___OPAQUE_靄_38_ __ast_靄:1.0___OPAQUE_靄_22_, __ast_殻:1.0___OPAQUE_殻_66_ __ast_靄:1.0___OPAQUE_靄_65_ __ast_靄:1.0___OPAQUE_靄_123_ __ast_靄:1.0___OPAQUE_靄_78_ __ast_靄:1.0___OPAQUE_靄_77_ a __ast_殻:1.0___OPAQUE_殻_5_ __ast_靄:1.0___OPAQUE_靄_51_ __ast_靄:1.0___OPAQUE_靄_114_.
+__ast_殻:1.0___OPAQUE_殻_28_ is an __ast_靄:1.0___OPAQUE_靄_136_ __ast_靄:1.0___OPAQUE_靄_149_ #__ast_殻:1.0___OPAQUE_殻_51_.
+
+[__ast_殻:1.0___OPAQUE_殻_70_ __ast_殻:1.0___OPAQUE_殻_31_]
+<__ast_靄:1.0___OPAQUE_靄_144_>
+■ __ast_殻:1.0___OPAQUE_殻_62_
+【空間座相】 [Z:0]
+【次元概念】 (__ast_殻:1.0___OPAQUE_殻_14_ __ast_靄:1.0___OPAQUE_靄_10_ __ast_靄:1.0___OPAQUE_靄_134_ __ast_靄:1.0___OPAQUE_靄_93_ __ast_靄:1.0___OPAQUE_靄_40_ # e.g. #__ast_殻:1.0___OPAQUE_殻_46_ #__ast_殻:1.0___OPAQUE_殻_56_ #__ast_殻:1.0___OPAQUE_殻_25_)
+【操作軌道】 (__ast_殻:1.0___OPAQUE_殻_34_: [引: __ast_殻:1.0___OPAQUE_殻_52_] or [反: __ast_殻:1.0___OPAQUE_殻_52_])
+[本質記憶]
+// [metadata-stripped]
+</__ast_靄:1.0___OPAQUE_靄_144_>
+
+<__ast_靄:1.0___OPAQUE_靄_78_>
+(__ast_殻:1.0___OPAQUE_殻_11_ __ast_靄:1.0___OPAQUE_靄_124_ __ast_靄:1.0___OPAQUE_靄_129_ __ast_靄:1.0___OPAQUE_靄_78_ to __ast_靄:1.0___OPAQUE_靄_121_ __ast_道:1.0___OPAQUE_靄_67_ __ast_靄:1.0___OPAQUE_靄_131_)
+</__ast_靄:1.0___OPAQUE_靄_78_>
+
+__ast_殻:1.0___OPAQUE_殻_10_ __ast_殻:1.0___OPAQUE_殻_35_ / __ast_殻:1.0___OPAQUE_殻_13_ __ast_殻:1.0___OPAQUE_殻_65_:
+{__ast_靄:1.0___OPAQUE_靄_59_}
+"""
+
+__ast_靄:1.0___OPAQUE_靄_126_ __ast_靄:1.0___OPAQUE_靄_49_(__ast_靄:1.0___OPAQUE_靄_24_, __ast_靄:1.0___OPAQUE_靄_28_=5):
+// __ast_緋:0.8___OPAQUE_WA_856_ [decoy-metadata]
+    __ast_靄:1.0___OPAQUE_靄_133_ = {"__ast_靄:1.0___OPAQUE_靄_68_": [__ast_靄:1.0___OPAQUE_靄_24_], "__ast_靄:1.0___OPAQUE_靄_28_": __ast_靄:1.0___OPAQUE_靄_28_}
+// __ast_緋:0.8___OPAQUE_GK_597_ [decoy-metadata]
+    try:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        __ast_靄:1.0___OPAQUE_靄_5_ = __ast_靄:1.0___OPAQUE_靄_98_.__ast_靄:1.0___OPAQUE_靄_36_([__ast_殻:1.0___OPAQUE_殻_4_, __ast_靄:1.0___OPAQUE_靄_62_.__ast_靄:1.0___OPAQUE_靄_57_(__ast_靄:1.0___OPAQUE_靄_133_)], __ast_靄:1.0___OPAQUE_靄_135_=__ast_殻:1.0___OPAQUE_殻_58_, __ast_靄:1.0___OPAQUE_靄_102_=__ast_殻:1.0___OPAQUE_殻_58_, __ast_靄:1.0___OPAQUE_靄_45_={**os.__ast_靄:1.0___OPAQUE_靄_53_, "__ast_殻:1.0___OPAQUE_殻_37_": __ast_殻:1.0___OPAQUE_殻_30_})
+        if __ast_靄:1.0___OPAQUE_靄_5_.__ast_靄:1.0___OPAQUE_靄_91_ == 0:
+            return __ast_靄:1.0___OPAQUE_靄_62_.__ast_区:1.0___OPAQUE_靄_52_(__ast_靄:1.0___OPAQUE_靄_5_.__ast_靄:1.0___OPAQUE_靄_80_).__ast_道:1.0___OPAQUE_核_1_("__ast_靄:1.0___OPAQUE_靄_120_", [])
+    __ast_靄:1.0___OPAQUE_靄_66_ __ast_殻:1.0___OPAQUE_殻_8_ as e:
+        __ast_靄:1.0___OPAQUE_靄_23_(f"[__ast_殻:1.0___OPAQUE_殻_40_ __ast_殻:1.0___OPAQUE_殻_67_ __ast_殻:1.0___OPAQUE_殻_1_]: {e}")
+        return []
+    return []
+// __ast_緋:0.8___OPAQUE_LB_715_ [decoy-metadata]
+
+__ast_靄:1.0___OPAQUE_靄_126_ __ast_靄:1.0___OPAQUE_靄_97_(__ast_靄:1.0___OPAQUE_靄_102_):
+    __ast_靄:1.0___OPAQUE_靄_76_ = re.__ast_靄:1.0___OPAQUE_靄_84_(r"<__ast_靄:1.0___OPAQUE_靄_144_>(.*?)</__ast_靄:1.0___OPAQUE_靄_144_>", __ast_靄:1.0___OPAQUE_靄_102_, re.__ast_殻:1.0___OPAQUE_殻_17_)
+    if __ast_靄:1.0___OPAQUE_靄_76_:
+        return __ast_靄:1.0___OPAQUE_靄_76_.__ast_靄:1.0___OPAQUE_靄_3_(1).__ast_靄:1.0___OPAQUE_靄_119_()
+    return __ast_殻:1.0___OPAQUE_殻_44_
+
+__ast_靄:1.0___OPAQUE_靄_126_ __ast_靄:1.0___OPAQUE_靄_147_(__ast_靄:1.0___OPAQUE_靄_102_):
+    __ast_靄:1.0___OPAQUE_靄_76_ = re.__ast_靄:1.0___OPAQUE_靄_84_(r"<__ast_靄:1.0___OPAQUE_靄_78_>(.*?)</__ast_靄:1.0___OPAQUE_靄_78_>", __ast_靄:1.0___OPAQUE_靄_102_, re.__ast_殻:1.0___OPAQUE_殻_17_)
+    if __ast_靄:1.0___OPAQUE_靄_76_:
+        return __ast_靄:1.0___OPAQUE_靄_76_.__ast_靄:1.0___OPAQUE_靄_3_(1).__ast_靄:1.0___OPAQUE_靄_119_()
+    return __ast_靄:1.0___OPAQUE_靄_102_.__ast_靄:1.0___OPAQUE_靄_119_()
+
+__ast_靄:1.0___OPAQUE_靄_126_ __ast_靄:1.0___OPAQUE_靄_4_(__ast_靄:1.0___OPAQUE_靄_64_):
+    if __ast_靄:1.0___OPAQUE_靄_56_ __ast_靄:1.0___OPAQUE_靄_64_: return
+    __ast_靄:1.0___OPAQUE_靄_32_ = __ast_靄:1.0___OPAQUE_靄_70_(__ast_靄:1.0___OPAQUE_靄_148_.__ast_靄:1.0___OPAQUE_靄_30_())[:8]
+    __ast_区:1.0___OPAQUE_靄_75_ = os.__ast_靄:1.0___OPAQUE_靄_90_.__ast_靄:1.0___OPAQUE_靄_117_(__ast_殻:1.0___OPAQUE_殻_30_, f"__ast_靄:1.0___OPAQUE_靄_19_{__ast_靄:1.0___OPAQUE_靄_32_}.__ast_靄:1.0___OPAQUE_靄_125_")
+    __ast_靄:1.0___OPAQUE_靄_88_ = __ast_靄:1.0___OPAQUE_靄_55_.__ast_靄:1.0___OPAQUE_靄_55_.__ast_靄:1.0___OPAQUE_靄_88_(__ast_靄:1.0___OPAQUE_靄_55_.__ast_靄:1.0___OPAQUE_靄_122_.__ast_靄:1.0___OPAQUE_靄_107_).__ast_潤:1.0___OPAQUE_靄_7_()
+    
+// [metadata-stripped]
+    __ast_靄:1.0___OPAQUE_靄_64_ = __ast_靄:1.0___OPAQUE_靄_64_.__ast_靄:1.0___OPAQUE_靄_58_("__ast_殻:1.0___OPAQUE_殻_62_", f"__ast_殻:1.0___OPAQUE_殻_36_{__ast_靄:1.0___OPAQUE_靄_32_}")
+    
+// [metadata-stripped]
+    __ast_靄:1.0___OPAQUE_靄_104_ = f"{__ast_靄:1.0___OPAQUE_靄_64_}\n"
+    
+    __ast_靄:1.0___OPAQUE_靄_40_ open(__ast_区:1.0___OPAQUE_靄_75_, "w") as f:
+        f.__ast_靄:1.0___OPAQUE_靄_79_(__ast_靄:1.0___OPAQUE_靄_104_)
+    
+    __ast_靄:1.0___OPAQUE_靄_23_(f"[__ast_殻:1.0___OPAQUE_殻_26_] __ast_殻:1.0___OPAQUE_殻_33_ __ast_殻:1.0___OPAQUE_殻_69_ __ast_殻:1.0___OPAQUE_殻_7_: {__ast_区:1.0___OPAQUE_靄_75_}")
+
+__ast_靄:1.0___OPAQUE_靄_126_ __ast_靄:1.0___OPAQUE_靄_146_():
+    if __ast_靄:1.0___OPAQUE_靄_56_ os.__ast_靄:1.0___OPAQUE_靄_90_.__ast_靄:1.0___OPAQUE_靄_74_(__ast_殻:1.0___OPAQUE_殻_30_):
+        os.__ast_靄:1.0___OPAQUE_靄_34_(__ast_殻:1.0___OPAQUE_殻_30_)
+        
+    __ast_靄:1.0___OPAQUE_靄_23_("\n" + "="*50)
+    __ast_靄:1.0___OPAQUE_靄_23_(" __ast_殻:1.0___OPAQUE_殻_61_ __ast_殻:1.0___OPAQUE_殻_33_ V7: __ast_殻:1.0___OPAQUE_殻_47_ __ast_殻:1.0___OPAQUE_殻_63_ __ast_殻:1.0___OPAQUE_殻_48_ __ast_殻:1.0___OPAQUE_殻_49_ ")
+    __ast_靄:1.0___OPAQUE_靄_23_("="*50 + "\n")
+    __ast_靄:1.0___OPAQUE_靄_23_("__ast_殻:1.0___OPAQUE_殻_27_ __ast_靄:1.0___OPAQUE_靄_87_-__ast_靄:1.0___OPAQUE_靄_112_ __ast_殻:1.0___OPAQUE_殻_5_ __ast_靄:1.0___OPAQUE_靄_37_ is __ast_靄:1.0___OPAQUE_靄_139_.")
+    __ast_靄:1.0___OPAQUE_靄_23_("__ast_殻:1.0___OPAQUE_殻_71_ '__ast_靄:1.0___OPAQUE_靄_16_' to __ast_靄:1.0___OPAQUE_靄_140_.\n")
+
+    while __ast_殻:1.0___OPAQUE_殻_58_:
+        try:
+            __ast_靄:1.0___OPAQUE_靄_110_ = __ast_靄:1.0___OPAQUE_靄_105_("\n[__ast_道:1.0___OPAQUE_殻_9_] > ")
+            if __ast_靄:1.0___OPAQUE_靄_110_.__ast_靄:1.0___OPAQUE_靄_119_().__ast_道:1.0___OPAQUE_靄_21_() in ['__ast_靄:1.0___OPAQUE_靄_16_', '__ast_靄:1.0___OPAQUE_靄_140_']: break
+            if __ast_靄:1.0___OPAQUE_靄_56_ __ast_靄:1.0___OPAQUE_靄_110_.__ast_靄:1.0___OPAQUE_靄_119_(): continue
+// __ast_緋:0.3___OPAQUE_AK_979_ [decoy-metadata]
+
+            __ast_靄:1.0___OPAQUE_靄_23_("\n[__ast_殻:1.0___OPAQUE_殻_40_ __ast_殻:1.0___OPAQUE_殻_67_] __ast_殻:1.0___OPAQUE_殻_29_ __ast_殻:1.0___OPAQUE_殻_38_ __ast_殻:1.0___OPAQUE_殻_13_ __ast_殻:1.0___OPAQUE_殻_65_ (Z-__ast_殻:1.0___OPAQUE_殻_41_ __ast_靄:1.0___OPAQUE_靄_139_)...")
+            __ast_靄:1.0___OPAQUE_靄_61_ = __ast_靄:1.0___OPAQUE_靄_49_(__ast_靄:1.0___OPAQUE_靄_110_)
+            
+            if __ast_靄:1.0___OPAQUE_靄_61_:
+                __ast_靄:1.0___OPAQUE_靄_71_ = "\n\n".__ast_靄:1.0___OPAQUE_靄_117_([f"__ast_殻:1.0___OPAQUE_殻_69_ [{n['__ast_鍵:1.0___OPAQUE_靄_103_']}]:\n{n['__ast_靄:1.0___OPAQUE_靄_6_']}" for n in __ast_靄:1.0___OPAQUE_靄_61_])
+            else:
+                __ast_靄:1.0___OPAQUE_靄_71_ = "(__ast_殻:1.0___OPAQUE_殻_68_: __ast_殻:1.0___OPAQUE_殻_45_ L0 __ast_殻:1.0___OPAQUE_殻_39_ __ast_殻:1.0___OPAQUE_殻_15_)"
+
+            __ast_靄:1.0___OPAQUE_靄_23_("[__ast_殻:1.0___OPAQUE_殻_64_ 4] __ast_殻:1.0___OPAQUE_殻_3_ __ast_殻:1.0___OPAQUE_殻_12_ __ast_靄:1.0___OPAQUE_靄_39_ __ast_殻:1.0___OPAQUE_殻_59_...")
+            try:
+                __ast_区:1.0___OPAQUE_靄_85_ = {
+                    "__ast_靄:1.0___OPAQUE_靄_145_": __ast_殻:1.0___OPAQUE_殻_16_,
+                    "__ast_靄:1.0___OPAQUE_靄_100_": __ast_殻:1.0___OPAQUE_殻_42_.__ast_潤:1.0___OPAQUE_靄_99_(__ast_靄:1.0___OPAQUE_靄_59_=__ast_靄:1.0___OPAQUE_靄_71_) + f"\__ast_道:1.0___OPAQUE_靄_33_ __ast_殻:1.0___OPAQUE_殻_12_:\n{__ast_靄:1.0___OPAQUE_靄_110_}",
+                    "__ast_靄:1.0___OPAQUE_靄_127_": __ast_殻:1.0___OPAQUE_殻_60_,
+                    "__ast_靄:1.0___OPAQUE_靄_31_": {"__ast_靄:1.0___OPAQUE_靄_14_": 0.2}
+                }
+                
+                __ast_靄:1.0___OPAQUE_靄_78_ = __ast_緋:1.0___OPAQUE_靄_142_.__ast_靄:1.0___OPAQUE_靄_50_(__ast_緋:1.0___OPAQUE_殻_53_, __ast_靄:1.0___OPAQUE_靄_62_=__ast_区:1.0___OPAQUE_靄_85_)
+                __ast_靄:1.0___OPAQUE_靄_113_ = __ast_靄:1.0___OPAQUE_靄_78_.__ast_靄:1.0___OPAQUE_靄_62_().__ast_道:1.0___OPAQUE_核_1_('__ast_靄:1.0___OPAQUE_靄_78_', '')
+                
+                __ast_靄:1.0___OPAQUE_靄_118_ = __ast_靄:1.0___OPAQUE_靄_97_(__ast_靄:1.0___OPAQUE_靄_113_)
+                __ast_靄:1.0___OPAQUE_靄_25_ = __ast_靄:1.0___OPAQUE_靄_147_(__ast_靄:1.0___OPAQUE_靄_113_)
+                
+                __ast_靄:1.0___OPAQUE_靄_23_(f"\n[__ast_殻:1.0___OPAQUE_殻_61_] > {__ast_靄:1.0___OPAQUE_靄_25_}")
+                
+                if __ast_靄:1.0___OPAQUE_靄_118_:
+                    __ast_靄:1.0___OPAQUE_靄_4_(__ast_靄:1.0___OPAQUE_靄_118_)
+                else:
+                    __ast_靄:1.0___OPAQUE_靄_23_("[__ast_殻:1.0___OPAQUE_殻_26_] __ast_殻:1.0___OPAQUE_殻_22_: No <__ast_靄:1.0___OPAQUE_靄_144_> __ast_靄:1.0___OPAQUE_靄_69_ __ast_靄:1.0___OPAQUE_靄_15_ by __ast_殻:1.0___OPAQUE_殻_50_.")
+
+            __ast_靄:1.0___OPAQUE_靄_66_ __ast_殻:1.0___OPAQUE_殻_8_ as e:
+                __ast_靄:1.0___OPAQUE_靄_23_(f"[__ast_殻:1.0___OPAQUE_殻_20_ __ast_殻:1.0___OPAQUE_殻_1_]: {e}")
+                
+        __ast_靄:1.0___OPAQUE_靄_66_ __ast_鍵:1.0___OPAQUE_殻_19_:
+// __ast_区:0.5___OPAQUE_WX_824_ [decoy-metadata]
+            break
+
+if __ast_靄:1.0___OPAQUE_靄_9_ == "__ast_靄:1.0___OPAQUE_靄_26_":
+    __ast_靄:1.0___OPAQUE_靄_146_()
+
+// POLYMORPHIC_JCROSS_END

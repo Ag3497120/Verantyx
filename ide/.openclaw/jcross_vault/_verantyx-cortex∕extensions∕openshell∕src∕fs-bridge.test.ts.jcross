@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B4240B1E ver:1778167202
+// ⚠️ One-time schema — expires after response
+
+import fs _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "_VERANTYX_霾:1.0___node_霾_81__:fs/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_63__";
+import os _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "_VERANTYX_霾:1.0___node_霾_81__:os";
+import _VERANTYX_霾:1.0___node_霾_82__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "_VERANTYX_霾:1.0___node_霾_81__:_VERANTYX_霾:1.0___node_霾_82__";
+import { _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_80__, _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_24__, _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_70__, it, vi } _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_88__";
+import { _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_29__ } _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "../../../_VERANTYX_霾:1.0___node_霾_49__/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_3__/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_14__-_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_57__.js";
+import _VERANTYX_霾:1.0___node_霾_79__ { _VERANTYX_庭:1.0____VERANTYX_霾:1.0___node_霾_81___庭_2__ } _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "./_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__.js";
+import { _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_21__ } _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__ "./fs-_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__.js";
+
+_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_26__: _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_83__[] = [];
+
+async _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_32__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_48__() {
+  _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0___node_霾_43__ = await fs._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_39__(_VERANTYX_霾:1.0___node_霾_82__._VERANTYX_霾:1.0___node_霾_15__(os._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_34__(), "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_44__-_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__-fs-"));
+  _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_26__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_76__(_VERANTYX_霾:1.0___node_霾_43__);
+  return _VERANTYX_霾:1.0___node_霾_43__;
+}
+
+_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_80__(async () => {
+  await _VERANTYX_庭:1.0____VERANTYX_霾:1.0___node_霾_81___庭_3__._VERANTYX_霾:1.0___node_霾_72__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_26__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_62__(0)._VERANTYX_霾:1.0___node_霾_87__((_VERANTYX_霾:1.0___node_霾_43__) => fs.rm(_VERANTYX_霾:1.0___node_霾_43__, { _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_73__: true, _VERANTYX_浮:1.0____VERANTYX_霾:1.0___node_霾_81___霾_53__: true })));
+});
+
+_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_32__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_89__(): _VERANTYX_庭:1.0____VERANTYX_霾:1.0___node_霾_81___庭_2__ {
+  return {
+    id: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__",
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_61__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__-_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_14__",
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_68__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__-_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_14__",
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_54__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__",
+    _VERANTYX_霾:1.0___node_霾_22__: {},
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_25__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__",
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_13__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__",
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_28__: vi.fn(),
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_6__: vi.fn(),
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_19__: vi.fn()._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_36__({
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_90__: _VERANTYX_格:1.0____VERANTYX_霾:1.0___node_霾_81___庭_1__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_60__(0),
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_46__: _VERANTYX_格:1.0____VERANTYX_霾:1.0___node_霾_81___庭_1__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_60__(0),
+      _VERANTYX_霾:1.0___node_霾_77__: 0,
+    }),
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_12__: vi.fn()._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_36__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_5__),
+  } as _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_84__ as _VERANTYX_庭:1.0____VERANTYX_霾:1.0___node_霾_81___庭_2__;
+}
+
+_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_24__("_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__ fs _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__", () => {
+  it("_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_1__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_69__ _VERANTYX_霾:1.0___node_霾_64__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_75__ _VERANTYX_霾:1.0___node_霾_66__ _VERANTYX_匶:1.0___node_霾_37__ to _VERANTYX_霾:1.0___node_霾_66__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_78__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_59__", async () => {
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__ = await _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_48__();
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_89__();
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_29__({
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_45__: {
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_23__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__",
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__,
+// _VERANTYX_匶:0.4___node_MM_827__ [decoy-metadata]
+// _VERANTYX_緯:0.3___node_CC_245__ [decoy-metadata]
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_56__: _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__,
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_35__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__",
+      },
+    });
+
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_21__({ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__, _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__ });
+    await _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__._VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_4__({
+      _VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_11__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_20__/_VERANTYX_匶:1.0___node_霾_37__._VERANTYX_霾:1.0___node_霾_41__",
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_47__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_74__",
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_16__: true,
+    });
+
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_70__(await fs._VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_52__(_VERANTYX_霾:1.0___node_霾_82__._VERANTYX_霾:1.0___node_霾_15__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__, "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_20__", "_VERANTYX_匶:1.0___node_霾_37__._VERANTYX_霾:1.0___node_霾_41__"), "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_30__"))._VERANTYX_霾:1.0___node_霾_58__("_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_74__");
+// _VERANTYX_霾:0.1___node_LE_470__ [decoy-metadata]
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_70__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_12__)._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_31__(
+      _VERANTYX_霾:1.0___node_霾_82__._VERANTYX_霾:1.0___node_霾_15__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__, "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_20__", "_VERANTYX_匶:1.0___node_霾_37__._VERANTYX_霾:1.0___node_霾_41__"),
+      "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_20__/_VERANTYX_匶:1.0___node_霾_37__._VERANTYX_霾:1.0___node_霾_41__",
+    );
+// _VERANTYX_緯:0.9___node_HA_170__ [decoy-metadata]
+  });
+
+// _VERANTYX_浮:0.7___node_AE_670__ [decoy-metadata]
+  it("_VERANTYX_霾:1.0___node_霾_33__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_2__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_42__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_8__ _VERANTYX_霾:1.0___node_霾_66__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_59__ is _VERANTYX_霾:1.0___node_霾_10__-_VERANTYX_霾:1.0___node_霾_86__", async () => {
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__ = await _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_48__();
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_56__ = await _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_48__();
+    await fs._VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_4__(_VERANTYX_霾:1.0___node_霾_82__._VERANTYX_霾:1.0___node_霾_15__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_56__, "_VERANTYX_霾:1.0___node_霾_85__._VERANTYX_霾:1.0___node_霾_41__"), "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__", "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_30__");
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_89__();
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_29__({
+      _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_45__: {
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_23__: "_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_18__",
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_71__,
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_56__,
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_40__: "ro",
+        _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_35__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__",
+      },
+// _VERANTYX_緯:0.3___node_FW_120__ [decoy-metadata]
+    });
+
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_21__({ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_27__, _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_51__ });
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_65__ _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_17__ = _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_55__({ _VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_11__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__/_VERANTYX_霾:1.0___node_霾_85__._VERANTYX_霾:1.0___node_霾_41__" });
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_70__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_17__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_7__)._VERANTYX_霾:1.0___node_霾_58__(_VERANTYX_霾:1.0___node_霾_82__._VERANTYX_霾:1.0___node_霾_15__(_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_56__, "_VERANTYX_霾:1.0___node_霾_85__._VERANTYX_霾:1.0___node_霾_41__"));
+    _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_70__(await _VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_67__._VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_52__({ _VERANTYX_匶:1.0____VERANTYX_霾:1.0___node_霾_81___霾_11__: "/_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__/_VERANTYX_霾:1.0___node_霾_85__._VERANTYX_霾:1.0___node_霾_41__" }))._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_50__(_VERANTYX_格:1.0____VERANTYX_霾:1.0___node_霾_81___庭_1__._VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_9__("_VERANTYX_霾:1.0____VERANTYX_霾:1.0___node_霾_81___霾_38__"));
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

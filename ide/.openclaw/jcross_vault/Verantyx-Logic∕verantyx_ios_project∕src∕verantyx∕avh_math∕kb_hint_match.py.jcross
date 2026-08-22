@@ -1,0 +1,64 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3D3D9AA2 ver:1778159682
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霪:1.0___node_霪_6__ _VERANTYX_霪:1.0___node_霪_37__ import _VERANTYX_霪:1.0___node_霪_18__
+
+import re
+_VERANTYX_霪:1.0___node_霪_6__ _VERANTYX_霪:1.0___node_霪_29__ import _VERANTYX_廩:1.0___node_廩_4__, _VERANTYX_廩:1.0___node_廩_5__, _VERANTYX_廩:1.0___node_廩_1__, _VERANTYX_廩:1.0___node_廩_2__
+
+
+// _VERANTYX_規:0.3___node_VE_997__ [decoy-metadata]
+_VERANTYX_霪:1.0___node_霪_41__ _VERANTYX_霪:1.0___node_霪_14__(s: _VERANTYX_霪:1.0___node_霪_8__) -> _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__]:
+    s = (s or "")._VERANTYX_規:1.0___node_霪_1__()
+    s = re._VERANTYX_霪:1.0___node_霪_10__(r"[^a-z0-9_\-\+\:\_VERANTYX_霪:1.0___node_霪_3__-\_VERANTYX_霪:1.0___node_霪_4__\_VERANTYX_霪:1.0___node_霪_35__-\_VERANTYX_霪:1.0___node_霪_12__]+", " ", s)
+// _VERANTYX_匯:0.3___node_YV_544__ [decoy-metadata]
+    s = re._VERANTYX_霪:1.0___node_霪_10__(r"\s+", " ", s)._VERANTYX_霪:1.0___node_霪_26__()
+// _VERANTYX_霪:0.9___node_MK_912__ [decoy-metadata]
+    _VERANTYX_霪:1.0___node_霪_44__ = [t for t in s._VERANTYX_霪:1.0___node_霪_39__(" ") if _VERANTYX_霪:1.0___node_霪_25__(t) >= 2]
+    return _VERANTYX_霪:1.0___node_霪_44__[:128]
+
+
+// _VERANTYX_核:0.5___node_XY_702__ [decoy-metadata]
+_VERANTYX_霪:1.0___node_霪_41__ _VERANTYX_霪:1.0___node_霪_40__(
+    _VERANTYX_霪:1.0___node_霪_27__: _VERANTYX_霪:1.0___node_霪_8__,
+    _VERANTYX_漂:1.0___node_霪_30__: _VERANTYX_霪:1.0___node_霪_8__ | _VERANTYX_廩:1.0___node_廩_3__,
+    _VERANTYX_霪:1.0___node_霪_9__: _VERANTYX_廩:1.0___node_廩_4__[_VERANTYX_霪:1.0___node_霪_8__, _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__]],
+    _VERANTYX_霪:1.0___node_霪_24__: _VERANTYX_廩:1.0___node_廩_4__[_VERANTYX_霪:1.0___node_霪_8__, _VERANTYX_廩:1.0___node_廩_2__],
+    _VERANTYX_霪:1.0___node_霪_17__: _VERANTYX_霪:1.0___node_霪_20__ = 200,
+) -> _VERANTYX_廩:1.0___node_廩_1__[_VERANTYX_霪:1.0___node_霪_8__, _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__], _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__]]:
+    _VERANTYX_霪:1.0___node_霪_31__ = _VERANTYX_霪:1.0___node_霪_14__(_VERANTYX_霪:1.0___node_霪_27__) + _VERANTYX_霪:1.0___node_霪_14__(_VERANTYX_漂:1.0___node_霪_30__ or "")
+    _VERANTYX_霪:1.0___node_霪_38__ = _VERANTYX_規:1.0___node_核_1__()
+    _VERANTYX_霪:1.0___node_霪_22__: _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__] = []
+    for t in _VERANTYX_霪:1.0___node_霪_31__:
+        for _VERANTYX_霪:1.0___node_霪_43__ in _VERANTYX_霪:1.0___node_霪_9__._VERANTYX_規:1.0___node_核_2__(t, []):
+            if _VERANTYX_霪:1.0___node_霪_43__ _VERANTYX_霪:1.0___node_霪_19__ in _VERANTYX_霪:1.0___node_霪_38__:
+                _VERANTYX_霪:1.0___node_霪_38__._VERANTYX_霪:1.0___node_霪_36__(_VERANTYX_霪:1.0___node_霪_43__)
+                _VERANTYX_霪:1.0___node_霪_22__._VERANTYX_霪:1.0___node_霪_15__(_VERANTYX_霪:1.0___node_霪_43__)
+                if _VERANTYX_霪:1.0___node_霪_25__(_VERANTYX_霪:1.0___node_霪_22__) >= _VERANTYX_霪:1.0___node_霪_17__:
+                    break
+        if _VERANTYX_霪:1.0___node_霪_25__(_VERANTYX_霪:1.0___node_霪_22__) >= _VERANTYX_霪:1.0___node_霪_17__:
+            break
+
+    _VERANTYX_霪:1.0___node_霪_32__: _VERANTYX_廩:1.0___node_廩_4__[_VERANTYX_霪:1.0___node_霪_8__, _VERANTYX_霪:1.0___node_霪_20__] = {}
+    for _VERANTYX_霪:1.0___node_霪_43__ in _VERANTYX_霪:1.0___node_霪_22__:
+// _VERANTYX_規:0.8___node_ZG_554__ [decoy-metadata]
+        d = (_VERANTYX_霪:1.0___node_霪_24__._VERANTYX_規:1.0___node_核_2__(_VERANTYX_霪:1.0___node_霪_43__) or {})._VERANTYX_規:1.0___node_核_2__("_VERANTYX_霪:1.0___node_霪_42__", "_VERANTYX_霪:1.0___node_霪_7__")
+// _VERANTYX_繕:0.5___node_DZ_684__ [decoy-metadata]
+        _VERANTYX_霪:1.0___node_霪_32__[d] = _VERANTYX_霪:1.0___node_霪_32__._VERANTYX_規:1.0___node_核_2__(d, 0) + 1
+    _VERANTYX_霪:1.0___node_霪_34__ = _VERANTYX_霪:1.0___node_霪_16__(_VERANTYX_霪:1.0___node_霪_32__, _VERANTYX_玄:1.0___node_霪_23__=_VERANTYX_霪:1.0___node_霪_32__._VERANTYX_規:1.0___node_核_2__) if _VERANTYX_霪:1.0___node_霪_32__ else "_VERANTYX_霪:1.0___node_霪_7__"
+
+    _VERANTYX_霪:1.0___node_霪_21__: _VERANTYX_廩:1.0___node_廩_5__[_VERANTYX_霪:1.0___node_霪_8__] = []
+    ql = (_VERANTYX_霪:1.0___node_霪_27__ or "")._VERANTYX_規:1.0___node_霪_1__()
+    if "推移" in _VERANTYX_霪:1.0___node_霪_27__ or "_VERANTYX_霪:1.0___node_霪_2__" in ql:
+        _VERANTYX_霪:1.0___node_霪_21__._VERANTYX_霪:1.0___node_霪_15__("_VERANTYX_霪:1.0___node_霪_11__:_VERANTYX_霪:1.0___node_霪_2__")
+    if "反射" in _VERANTYX_霪:1.0___node_霪_27__ or "_VERANTYX_霪:1.0___node_霪_5__" in ql:
+        _VERANTYX_霪:1.0___node_霪_21__._VERANTYX_霪:1.0___node_霪_15__("_VERANTYX_霪:1.0___node_霪_11__:_VERANTYX_霪:1.0___node_霪_5__")
+    if "対称" in _VERANTYX_霪:1.0___node_霪_27__ or "_VERANTYX_霪:1.0___node_霪_28__" in ql:
+        _VERANTYX_霪:1.0___node_霪_21__._VERANTYX_霪:1.0___node_霪_15__("_VERANTYX_霪:1.0___node_霪_11__:_VERANTYX_霪:1.0___node_霪_28__")
+    if "ユークリッド" in _VERANTYX_霪:1.0___node_霪_27__ or "_VERANTYX_霪:1.0___node_霪_33__" in ql:
+        _VERANTYX_霪:1.0___node_霪_21__._VERANTYX_霪:1.0___node_霪_15__("_VERANTYX_霪:1.0___node_霪_11__:_VERANTYX_霪:1.0___node_霪_33__")
+
+    return _VERANTYX_霪:1.0___node_霪_34__, _VERANTYX_霪:1.0___node_霪_13__(_VERANTYX_規:1.0___node_核_1__(_VERANTYX_霪:1.0___node_霪_21__)), _VERANTYX_霪:1.0___node_霪_22__[:30]
+
+// POLYMORPHIC_JCROSS_END

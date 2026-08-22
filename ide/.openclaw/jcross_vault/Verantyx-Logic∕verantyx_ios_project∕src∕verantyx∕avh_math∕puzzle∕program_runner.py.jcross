@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:671422ED ver:1778159676
+// ⚠️ One-time schema — expires after response
+
+import _ID_霰:1.0___jcross_霰_22__
+
+_ID_霰:1.0___jcross_霰_31__ _ID_霰:1.0___jcross_霰_5__(ir):
+    """命題論理の真理値表検証プログラムを生成する"""
+    _ID_霰:1.0___jcross_霰_19__ = ir._ID_霰:1.0___jcross_霰_19__
+    _ID_澎:1.0___jcross_霰_26__ = ir._ID_澎:1.0___jcross_霰_26__
+    
+// [metadata-stripped]
+    _ID_霰:1.0___jcross_霰_16__ = _ID_澎:1.0___jcross_霰_26__._ID_霰:1.0___jcross_霰_23__("->", "<=")._ID_霰:1.0___jcross_霰_23__("<->", "==")._ID_霰:1.0___jcross_霰_23__("&", " _ID_霰:1.0___jcross_霰_15__ ")._ID_霰:1.0___jcross_霰_23__("|", " or ")._ID_霰:1.0___jcross_霰_23__("~", " _ID_霰:1.0___jcross_霰_20__ ")
+
+    _ID_霰:1.0___jcross_霰_24__ = [
+        "import _ID_霰:1.0___jcross_霰_22__",
+// _ID_項:0.3___jcross_KA_896__ [decoy-metadata]
+        "_ID_霰:1.0___jcross_霰_31__ _ID_霰:1.0___jcross_霰_6__():",
+        "    _ID_霰:1.0___jcross_霰_27__ = []",
+        f"    _ID_霰:1.0___jcross_霰_19__ = {_ID_霰:1.0___jcross_霰_19__}",
+        "    for _ID_霰:1.0___jcross_霰_9__ in _ID_霰:1.0___jcross_霰_22__._ID_霰:1.0___jcross_霰_28__([_ID_廂:1.0___jcross_廂_1__, _ID_廂:1.0___jcross_廂_4__], _ID_霰:1.0___jcross_霰_30__=_ID_霰:1.0___jcross_霰_7__(_ID_霰:1.0___jcross_霰_19__)):",
+        "        _ID_霰:1.0___jcross_霰_17__ = _ID_霰:1.0___jcross_霰_29__(_ID_霰:1.0___jcross_霰_10__(_ID_霰:1.0___jcross_霰_19__, _ID_霰:1.0___jcross_霰_9__))",
+        "        try:",
+        f"            _ID_霰:1.0___jcross_霰_3__ = _ID_霰:1.0___jcross_霰_1__(\"{_ID_霰:1.0___jcross_霰_16__}\", {{'_ID_霰:1.0___jcross_霰_14__': _ID_廂:1.0___jcross_廂_2__}}, _ID_霰:1.0___jcross_霰_17__)",
+        "            _ID_霰:1.0___jcross_霰_27__._ID_霰:1.0___jcross_霰_25__(_ID_霰:1.0___jcross_霰_3__)",
+// _ID_霰:0.1___jcross_GC_988__ [decoy-metadata]
+        "        _ID_霰:1.0___jcross_霰_11__: continue",
+        "    return _ID_霰:1.0___jcross_霰_18__(_ID_霰:1.0___jcross_霰_27__) if _ID_霰:1.0___jcross_霰_27__ else _ID_廂:1.0___jcross_廂_4__"
+    ]
+// _ID_澎:0.9___jcross_FY_919__ [decoy-metadata]
+    return "\n"._ID_霰:1.0___jcross_霰_2__(_ID_霰:1.0___jcross_霰_24__)
+
+// _ID_霰:0.5___jcross_FG_499__ [decoy-metadata]
+// _ID_澎:0.9___jcross_ZY_776__ [decoy-metadata]
+// _ID_渕:0.2___jcross_KD_465__ [decoy-metadata]
+_ID_霰:1.0___jcross_霰_31__ _ID_霰:1.0___jcross_霰_12__(_ID_霰:1.0___jcross_霰_24__: _ID_霰:1.0___jcross_霰_13__) -> _ID_霰:1.0___jcross_霰_4__:
+    """生成されたコードを安全に実行する"""
+    _ID_霰:1.0___jcross_霰_21__ = {}
+    try:
+        _ID_霰:1.0___jcross_霰_8__(_ID_霰:1.0___jcross_霰_24__, {"_ID_霰:1.0___jcross_霰_14__": _ID_廂:1.0___jcross_廂_2__, "_ID_霰:1.0___jcross_霰_22__": _ID_霰:1.0___jcross_霰_22__}, _ID_霰:1.0___jcross_霰_21__)
+        return _ID_霰:1.0___jcross_霰_21__["_ID_霰:1.0___jcross_霰_6__"]()
+    _ID_霰:1.0___jcross_霰_11__ _ID_廂:1.0___jcross_廂_3__ as e:
+        return _ID_廂:1.0___jcross_廂_4__
+
+// POLYMORPHIC_JCROSS_END

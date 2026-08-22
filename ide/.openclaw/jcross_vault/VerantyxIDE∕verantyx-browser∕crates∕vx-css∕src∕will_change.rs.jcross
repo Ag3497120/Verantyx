@@ -1,0 +1,90 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B5A256D0 ver:1778149854
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_沫:1.0___node_沫_58__ _TOKEN_沫:1.0___node_沫_69__::_TOKEN_沫:1.0___node_沫_53__::_TOKEN_廳:1.0___node_廳_2__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_沫:1.0___node_沫_59__ enum _TOKEN_廳:1.0___node_廳_15__ {
+    _TOKEN_廳:1.0___node_廳_4__,
+    _TOKEN_廳:1.0___node_廳_37__,
+    _TOKEN_廳:1.0___node_廳_38__,
+    _TOKEN_廳:1.0___node_廳_26__(_TOKEN_廳:1.0___node_廳_31__), // _TOKEN_渦:1.0___node_沫_1__, _TOKEN_沫:1.0___node_沫_71__, _TOKEN_沫:1.0___node_沫_9__.
+}
+
+// _TOKEN_縞:0.2___node_FD_343__ [decoy-metadata]
+// [metadata-stripped]
+// _TOKEN_渦:0.4___node_CA_803__ [decoy-metadata]
+_TOKEN_沫:1.0___node_沫_59__ struct _TOKEN_廳:1.0___node_廳_5__ {
+    _TOKEN_沫:1.0___node_沫_59__ _TOKEN_沫:1.0___node_沫_55__: _TOKEN_沫:1.0___node_沫_69__::_TOKEN_沫:1.0___node_沫_53__::_TOKEN_廳:1.0___node_廳_20__<_TOKEN_沫:1.0___node_沫_33__, _TOKEN_廳:1.0___node_廳_2__<_TOKEN_廳:1.0___node_廳_15__>>, // _TOKEN_沫:1.0___node_沫_74__ -> _TOKEN_沫:1.0___node_沫_16__
+// _TOKEN_深:0.6___node_ZF_346__ [decoy-metadata]
+    _TOKEN_沫:1.0___node_沫_59__ _TOKEN_沫:1.0___node_沫_46__: _TOKEN_沫:1.0___node_沫_57__,
+    _TOKEN_沫:1.0___node_沫_59__ _TOKEN_沫:1.0___node_沫_15__: _TOKEN_沫:1.0___node_沫_57__,
+}
+
+_TOKEN_沫:1.0___node_沫_61__ _TOKEN_廳:1.0___node_廳_5__ {
+    _TOKEN_沫:1.0___node_沫_59__ fn _TOKEN_沫:1.0___node_沫_19__(_TOKEN_沫:1.0___node_沫_15__: _TOKEN_沫:1.0___node_沫_57__) -> _TOKEN_廳:1.0___node_廳_23__ {
+        _TOKEN_廳:1.0___node_廳_23__ {
+            _TOKEN_沫:1.0___node_沫_55__: _TOKEN_沫:1.0___node_沫_69__::_TOKEN_沫:1.0___node_沫_53__::_TOKEN_廳:1.0___node_廳_20__::_TOKEN_沫:1.0___node_沫_19__(),
+            _TOKEN_沫:1.0___node_沫_46__: 0,
+            _TOKEN_沫:1.0___node_沫_15__,
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_沫:1.0___node_沫_59__ fn _TOKEN_沫:1.0___node_沫_63__(&_TOKEN_沫:1.0___node_沫_2__ self, _TOKEN_沫:1.0___node_沫_74__: _TOKEN_沫:1.0___node_沫_33__, _TOKEN_沫:1.0___node_沫_16__: _TOKEN_廳:1.0___node_廳_36__<_TOKEN_廳:1.0___node_廳_15__>) {
+        let _TOKEN_沫:1.0___node_沫_2__ _TOKEN_沫:1.0___node_沫_76__ = _TOKEN_廳:1.0___node_廳_2__::_TOKEN_沫:1.0___node_沫_19__();
+// _TOKEN_縞:0.7___node_HM_575__ [decoy-metadata]
+        for f in _TOKEN_沫:1.0___node_沫_16__ {
+            if f != _TOKEN_廳:1.0___node_廳_15__::_TOKEN_廳:1.0___node_廳_4__ {
+                _TOKEN_沫:1.0___node_沫_76__._TOKEN_沫:1.0___node_沫_26__(f);
+            }
+        }
+
+        if !_TOKEN_沫:1.0___node_沫_76__._TOKEN_沫:1.0___node_沫_14__() {
+            if self._TOKEN_沫:1.0___node_沫_46__ < self._TOKEN_沫:1.0___node_沫_15__ {
+                self._TOKEN_沫:1.0___node_沫_46__ += 1;
+                self._TOKEN_沫:1.0___node_沫_55__._TOKEN_沫:1.0___node_沫_26__(_TOKEN_沫:1.0___node_沫_74__, _TOKEN_沫:1.0___node_沫_76__);
+            }
+        }
+    }
+
+    _TOKEN_沫:1.0___node_沫_59__ fn _TOKEN_沫:1.0___node_沫_49__(&_TOKEN_沫:1.0___node_沫_2__ self, _TOKEN_沫:1.0___node_沫_74__: _TOKEN_沫:1.0___node_沫_33__) {
+// _TOKEN_渦:0.8___node_HC_712__ [decoy-metadata]
+        if self._TOKEN_沫:1.0___node_沫_55__._TOKEN_沫:1.0___node_沫_68__(&_TOKEN_沫:1.0___node_沫_74__)._TOKEN_沫:1.0___node_沫_12__() {
+// _TOKEN_曠:0.8___node_YG_174__ [decoy-metadata]
+            if self._TOKEN_沫:1.0___node_沫_46__ > 0 { self._TOKEN_沫:1.0___node_沫_46__ -= 1; }
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_沫:1.0___node_沫_59__ fn _TOKEN_沫:1.0___node_沫_31__(&self) -> _TOKEN_廳:1.0___node_廳_31__ {
+        let _TOKEN_沫:1.0___node_沫_2__ _TOKEN_沫:1.0___node_沫_70__ = _TOKEN_沫:1.0___node_沫_81__![_TOKEN_渦:1.0___node_沫_4__!("⚡️ _TOKEN_廳:1.0___node_廳_7__-_TOKEN_廳:1.0___node_廳_6__ _TOKEN_廳:1.0___node_廳_34__ (_TOKEN_廳:1.0___node_廳_27__ _TOKEN_廳:1.0___node_廳_40__: {}/{}):", self._TOKEN_沫:1.0___node_沫_46__, self._TOKEN_沫:1.0___node_沫_15__)];
+        for (id, _TOKEN_沫:1.0___node_沫_16__) in &self._TOKEN_沫:1.0___node_沫_55__ {
+            let _TOKEN_沫:1.0___node_沫_60__: _TOKEN_廳:1.0___node_廳_36__<_TOKEN_廳:1.0___node_廳_31__> = _TOKEN_沫:1.0___node_沫_16__._TOKEN_案:1.0___node_沫_13__()
+                ._TOKEN_沫:1.0___node_沫_23__(|f| _TOKEN_沫:1.0___node_沫_44__ f {
+                    _TOKEN_廳:1.0___node_廳_15__::_TOKEN_廳:1.0___node_廳_37__ => "_TOKEN_沫:1.0___node_沫_21__-_TOKEN_沫:1.0___node_沫_34__"._TOKEN_沫:1.0___node_沫_73__(),
+                    _TOKEN_廳:1.0___node_廳_15__::_TOKEN_廳:1.0___node_廳_38__ => "_TOKEN_沫:1.0___node_沫_6__"._TOKEN_沫:1.0___node_沫_73__(),
+                    _TOKEN_廳:1.0___node_廳_15__::_TOKEN_廳:1.0___node_廳_26__(p) => p._TOKEN_沫:1.0___node_沫_37__(),
+                    _ => "_TOKEN_沫:1.0___node_沫_25__"._TOKEN_沫:1.0___node_沫_73__(),
+                })
+                ._TOKEN_沫:1.0___node_沫_72__();
+            _TOKEN_沫:1.0___node_沫_70__._TOKEN_沫:1.0___node_沫_27__(_TOKEN_渦:1.0___node_沫_4__!("  - _TOKEN_廳:1.0___node_廳_32__ #{}: {:?}", id, _TOKEN_沫:1.0___node_沫_60__));
+        }
+        _TOKEN_沫:1.0___node_沫_70__._TOKEN_沫:1.0___node_沫_28__("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

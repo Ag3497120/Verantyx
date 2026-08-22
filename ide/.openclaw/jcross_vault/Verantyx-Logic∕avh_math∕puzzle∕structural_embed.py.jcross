@@ -1,0 +1,42 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:97404735 ver:1778159744
+// ⚠️ One-time schema — expires after response
+// __ast_案:0.1____node_HV_648__ [decoy-metadata]
+
+__ast_露:1.0____node_露_2__ __ast_露:1.0____node_露_5__ import __ast_庵:1.0____node_庵_5__, __ast_庵:1.0____node_庵_2__, __ast_庵:1.0____node_庵_4__, __ast_庵:1.0____node_庵_3__
+
+__ast_露:1.0____node_露_18__ __ast_露:1.0____node_露_10__(__ast_露:1.0____node_露_1__: __ast_露:1.0____node_露_8__, __ast_露:1.0____node_露_9__: __ast_露:1.0____node_露_8__) -> __ast_露:1.0____node_露_4__:
+    """
+    断片（__ast_露:1.0____node_露_1__）が目標式（__ast_露:1.0____node_露_9__）の中に構文的に含まれているかを判定する。
+    """
+    __ast_露:1.0____node_露_18__ __ast_露:1.0____node_露_3__(s):
+        return s.__ast_露:1.0____node_露_14__(" ", "").__ast_露:1.0____node_露_14__("→", "->")
+
+    __ast_露:1.0____node_露_13__ = __ast_露:1.0____node_露_3__(__ast_露:1.0____node_露_1__)
+// __ast_曠:0.8____node_KW_562__ [decoy-metadata]
+    __ast_露:1.0____node_露_17__ = __ast_露:1.0____node_露_3__(__ast_露:1.0____node_露_9__)
+    
+    return __ast_露:1.0____node_露_13__ in __ast_露:1.0____node_露_17__
+
+__ast_露:1.0____node_露_18__ __ast_露:1.0____node_露_15__(__ast_露:1.0____node_露_1__: __ast_露:1.0____node_露_8__, __ast_露:1.0____node_露_7__: __ast_庵:1.0____node_庵_5__[__ast_庵:1.0____node_庵_2__[__ast_露:1.0____node_露_8__, __ast_庵:1.0____node_庵_4__]]) -> __ast_庵:1.0____node_庵_3__[__ast_庵:1.0____node_庵_2__[__ast_露:1.0____node_露_8__, __ast_庵:1.0____node_庵_4__]]:
+    """
+    知識ベースの中から、断片を包含する公理や定理を一つ探し出す。
+    """
+    if __ast_露:1.0____node_露_12__ __ast_露:1.0____node_露_1__ or __ast_露:1.0____node_露_6__(__ast_露:1.0____node_露_1__) < 3:
+        return __ast_庵:1.0____node_庵_1__
+
+// __ast_絢:0.2____node_HX_970__ [decoy-metadata]
+    for __ast_露:1.0____node_露_16__ in __ast_露:1.0____node_露_7__:
+// __ast_露:0.5____node_BX_959__ [decoy-metadata]
+        __ast_露:1.0____node_露_11__ = __ast_露:1.0____node_露_16__.__ast_案:1.0____node_曠_1__("__ast_露:1.0____node_露_11__")
+        if __ast_露:1.0____node_露_12__ __ast_露:1.0____node_露_11__:
+            continue
+            
+        if __ast_露:1.0____node_露_10__(__ast_露:1.0____node_露_1__, __ast_露:1.0____node_露_11__):
+            return __ast_露:1.0____node_露_16__
+// __ast_露:0.8____node_HM_589__ [decoy-metadata]
+            
+// __ast_脈:0.7____node_HW_649__ [decoy-metadata]
+    return __ast_庵:1.0____node_庵_1__
+
+// POLYMORPHIC_JCROSS_END

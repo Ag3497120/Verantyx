@@ -1,0 +1,106 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DFCCAFFC ver:1778159694
+// _ASTNODE_潤:0.3__OPAQUE_KK_897_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霜:1.0__OPAQUE_霜_2_ _ASTNODE_霜:1.0__OPAQUE_霜_33_ import _ASTNODE_霜:1.0__OPAQUE_霜_10_
+
+import re
+
+_ASTNODE_霜:1.0__OPAQUE_霜_2_ ._ASTNODE_霜:1.0__OPAQUE_霜_8_ import _ASTNODE_庵:1.0__OPAQUE_庵_10_, _ASTNODE_庵:1.0__OPAQUE_庵_7_, _ASTNODE_庵:1.0__OPAQUE_庵_14_, Or, _ASTNODE_庵:1.0__OPAQUE_庵_6_, _ASTNODE_庵:1.0__OPAQUE_庵_11_, _ASTNODE_庵:1.0__OPAQUE_庵_4_, _ASTNODE_庵:1.0__OPAQUE_庵_5_, _ASTNODE_庵:1.0__OPAQUE_庵_9_
+
+_ASTNODE_蔽:1.0__OPAQUE_庵_15_ = re._ASTNODE_霜:1.0__OPAQUE_霜_31_(r"\[\]|<>|<->|->|&|\||~|!|\(|\)|[A-Za-z][A-Za-z0-9_]*")
+
+
+_ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_蔽:1.0__OPAQUE_霜_26_(s: _ASTNODE_霜:1.0__OPAQUE_霜_5_) -> _ASTNODE_霜:1.0__OPAQUE_霜_1_[_ASTNODE_霜:1.0__OPAQUE_霜_5_]:
+    s = (s or "")._ASTNODE_霜:1.0__OPAQUE_霜_28_(" ", "")
+    s = s._ASTNODE_霜:1.0__OPAQUE_霜_28_("□", "[]")._ASTNODE_霜:1.0__OPAQUE_霜_28_("◇", "<>")
+    s = re._ASTNODE_霜:1.0__OPAQUE_霜_6_(r"\_ASTNODE_霜:1.0__OPAQUE_霜_7_\b", "[]", s, _ASTNODE_霜:1.0__OPAQUE_霜_16_=re._ASTNODE_庵:1.0__OPAQUE_庵_12_)
+    s = re._ASTNODE_霜:1.0__OPAQUE_霜_6_(r"\_ASTNODE_霜:1.0__OPAQUE_霜_36_\b", "<>", s, _ASTNODE_霜:1.0__OPAQUE_霜_16_=re._ASTNODE_庵:1.0__OPAQUE_庵_12_)
+    return _ASTNODE_蔽:1.0__OPAQUE_庵_15_._ASTNODE_霜:1.0__OPAQUE_霜_19_(s)
+
+
+class _ASTNODE_律:1.0__OPAQUE_庵_3_:
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_17_(self, _ASTNODE_蔽:1.0__OPAQUE_霜_29_: _ASTNODE_霜:1.0__OPAQUE_霜_1_[_ASTNODE_霜:1.0__OPAQUE_霜_5_]) -> _ASTNODE_庵:1.0__OPAQUE_庵_13_:
+// _ASTNODE_律:0.5__OPAQUE_BF_583_ [decoy-metadata]
+        self._ASTNODE_蔽:1.0__OPAQUE_霜_29_ = _ASTNODE_蔽:1.0__OPAQUE_霜_29_
+        self._ASTNODE_霜:1.0__OPAQUE_霜_30_ = 0
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_22_(self) -> _ASTNODE_霜:1.0__OPAQUE_霜_5_ | _ASTNODE_庵:1.0__OPAQUE_庵_13_:
+        return self._ASTNODE_蔽:1.0__OPAQUE_霜_29_[self._ASTNODE_霜:1.0__OPAQUE_霜_30_] if self._ASTNODE_霜:1.0__OPAQUE_霜_30_ < _ASTNODE_霜:1.0__OPAQUE_霜_18_(self._ASTNODE_蔽:1.0__OPAQUE_霜_29_) else _ASTNODE_庵:1.0__OPAQUE_庵_13_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_25_(self, t: _ASTNODE_霜:1.0__OPAQUE_霜_5_ | _ASTNODE_庵:1.0__OPAQUE_庵_13_ = _ASTNODE_庵:1.0__OPAQUE_庵_13_) -> _ASTNODE_霜:1.0__OPAQUE_霜_5_:
+// _ASTNODE_潤:0.5__OPAQUE_KB_835_ [decoy-metadata]
+        _ASTNODE_霜:1.0__OPAQUE_霜_40_ = self._ASTNODE_霜:1.0__OPAQUE_霜_22_()
+        if t _ASTNODE_霜:1.0__OPAQUE_霜_11_ _ASTNODE_霜:1.0__OPAQUE_霜_40_ != t:
+            _ASTNODE_霜:1.0__OPAQUE_霜_23_ _ASTNODE_庵:1.0__OPAQUE_庵_1_(f"_ASTNODE_庵:1.0__OPAQUE_庵_2_ {t}, _ASTNODE_霜:1.0__OPAQUE_霜_15_ {_ASTNODE_霜:1.0__OPAQUE_霜_40_}")
+        if _ASTNODE_霜:1.0__OPAQUE_霜_40_ is _ASTNODE_庵:1.0__OPAQUE_庵_13_:
+            _ASTNODE_霜:1.0__OPAQUE_霜_23_ _ASTNODE_庵:1.0__OPAQUE_庵_1_("_ASTNODE_庵:1.0__OPAQUE_庵_8_ _ASTNODE_霜:1.0__OPAQUE_霜_4_ of _ASTNODE_霜:1.0__OPAQUE_霜_14_")
+        self._ASTNODE_霜:1.0__OPAQUE_霜_30_ += 1
+        return _ASTNODE_霜:1.0__OPAQUE_霜_40_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_20_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        return self._ASTNODE_潤:1.0__OPAQUE_霜_35_()
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_潤:1.0__OPAQUE_霜_35_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        _ASTNODE_霜:1.0__OPAQUE_霜_27_ = self._ASTNODE_霜:1.0__OPAQUE_霜_39_()
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "<->":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("<->")
+            _ASTNODE_霜:1.0__OPAQUE_霜_9_ = self._ASTNODE_潤:1.0__OPAQUE_霜_35_()
+            return _ASTNODE_庵:1.0__OPAQUE_庵_5_(_ASTNODE_霜:1.0__OPAQUE_霜_27_, _ASTNODE_霜:1.0__OPAQUE_霜_9_)
+        return _ASTNODE_霜:1.0__OPAQUE_霜_27_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_39_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        _ASTNODE_霜:1.0__OPAQUE_霜_27_ = self._ASTNODE_霜:1.0__OPAQUE_霜_38_()
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "->":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("->")
+            _ASTNODE_霜:1.0__OPAQUE_霜_9_ = self._ASTNODE_霜:1.0__OPAQUE_霜_39_()
+            return _ASTNODE_庵:1.0__OPAQUE_庵_6_(_ASTNODE_霜:1.0__OPAQUE_霜_27_, _ASTNODE_霜:1.0__OPAQUE_霜_9_)
+        return _ASTNODE_霜:1.0__OPAQUE_霜_27_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_38_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        _ASTNODE_霜:1.0__OPAQUE_霜_27_ = self._ASTNODE_霜:1.0__OPAQUE_霜_21_()
+        while self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "|":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("|")
+            _ASTNODE_霜:1.0__OPAQUE_霜_9_ = self._ASTNODE_霜:1.0__OPAQUE_霜_21_()
+            _ASTNODE_霜:1.0__OPAQUE_霜_27_ = Or(_ASTNODE_霜:1.0__OPAQUE_霜_27_, _ASTNODE_霜:1.0__OPAQUE_霜_9_)
+// _ASTNODE_潤:0.9__OPAQUE_YD_360_ [decoy-metadata]
+        return _ASTNODE_霜:1.0__OPAQUE_霜_27_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_21_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        _ASTNODE_霜:1.0__OPAQUE_霜_27_ = self._ASTNODE_霜:1.0__OPAQUE_霜_34_()
+        while self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "&":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("&")
+            _ASTNODE_霜:1.0__OPAQUE_霜_9_ = self._ASTNODE_霜:1.0__OPAQUE_霜_34_()
+            _ASTNODE_霜:1.0__OPAQUE_霜_27_ = _ASTNODE_庵:1.0__OPAQUE_庵_14_(_ASTNODE_霜:1.0__OPAQUE_霜_27_, _ASTNODE_霜:1.0__OPAQUE_霜_9_)
+        return _ASTNODE_霜:1.0__OPAQUE_霜_27_
+
+    _ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_霜:1.0__OPAQUE_霜_34_(self) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() in ("~", "!"):
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_()
+            return _ASTNODE_庵:1.0__OPAQUE_庵_7_(self._ASTNODE_霜:1.0__OPAQUE_霜_34_())
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "[]":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("[]")
+            return _ASTNODE_庵:1.0__OPAQUE_庵_11_(self._ASTNODE_霜:1.0__OPAQUE_霜_34_())
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "<>":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("<>")
+            return _ASTNODE_庵:1.0__OPAQUE_庵_4_(self._ASTNODE_霜:1.0__OPAQUE_霜_34_())
+        if self._ASTNODE_霜:1.0__OPAQUE_霜_22_() == "(":
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_("(")
+            _ASTNODE_霜:1.0__OPAQUE_霜_3_ = self._ASTNODE_霜:1.0__OPAQUE_霜_20_()
+// _ASTNODE_霜:0.6__OPAQUE_EG_546_ [decoy-metadata]
+            self._ASTNODE_霜:1.0__OPAQUE_霜_25_(")")
+            return _ASTNODE_霜:1.0__OPAQUE_霜_3_
+        return _ASTNODE_庵:1.0__OPAQUE_庵_10_(self._ASTNODE_霜:1.0__OPAQUE_霜_25_())
+
+
+_ASTNODE_霜:1.0__OPAQUE_霜_37_ _ASTNODE_潤:1.0__OPAQUE_霜_32_(s: _ASTNODE_霜:1.0__OPAQUE_霜_5_) -> _ASTNODE_庵:1.0__OPAQUE_庵_9_:
+    _ASTNODE_蔽:1.0__OPAQUE_霜_29_ = _ASTNODE_蔽:1.0__OPAQUE_霜_26_(s)
+    _ASTNODE_律:1.0__OPAQUE_霜_24_ = _ASTNODE_律:1.0__OPAQUE_庵_3_(_ASTNODE_蔽:1.0__OPAQUE_霜_29_)
+    _ASTNODE_霜:1.0__OPAQUE_霜_3_ = _ASTNODE_律:1.0__OPAQUE_霜_24_._ASTNODE_霜:1.0__OPAQUE_霜_20_()
+    if _ASTNODE_律:1.0__OPAQUE_霜_24_._ASTNODE_霜:1.0__OPAQUE_霜_22_() is _ASTNODE_霜:1.0__OPAQUE_霜_13_ _ASTNODE_庵:1.0__OPAQUE_庵_13_:
+        _ASTNODE_霜:1.0__OPAQUE_霜_23_ _ASTNODE_庵:1.0__OPAQUE_庵_1_("_ASTNODE_庵:1.0__OPAQUE_庵_8_ _ASTNODE_蔽:1.0__OPAQUE_霜_12_ at _ASTNODE_霜:1.0__OPAQUE_霜_4_")
+// _ASTNODE_蔽:0.1__OPAQUE_HK_259_ [decoy-metadata]
+    return _ASTNODE_霜:1.0__OPAQUE_霜_3_
+
+// POLYMORPHIC_JCROSS_END

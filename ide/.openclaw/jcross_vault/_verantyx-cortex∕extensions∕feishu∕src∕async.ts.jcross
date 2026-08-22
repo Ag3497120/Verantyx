@@ -1,0 +1,74 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4D618819 ver:1778166896
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霢:1.0___ast_霢_29__ _ASTNODE_廓:1.0___ast_廓_8__ = _ASTNODE_廓:1.0___ast_廓_4__("_ASTNODE_霢:1.0___ast_霢_16__-_ASTNODE_霢:1.0___ast_霢_4__");
+_ASTNODE_霢:1.0___ast_霢_29__ _ASTNODE_廓:1.0___ast_廓_7__ = _ASTNODE_廓:1.0___ast_廓_4__("_ASTNODE_霢:1.0___ast_霢_16__-_ASTNODE_霢:1.0___ast_霢_15__");
+
+_ASTNODE_霢:1.0___ast_霢_1__ _ASTNODE_霢:1.0___ast_霢_32__ _ASTNODE_廓:1.0___ast_廓_6__<T> =
+  | { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_28__"; _ASTNODE_霢:1.0___ast_霢_7__: T }
+  | { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_4__" }
+  | { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_23__" };
+
+_ASTNODE_霢:1.0___ast_霢_1__ async _ASTNODE_霢:1.0___ast_霢_18__ _ASTNODE_霢:1.0___ast_霢_31__<T>(
+  _ASTNODE_霢:1.0___ast_霢_2__: _ASTNODE_廓:1.0___ast_廓_3__<T>,
+  _ASTNODE_霢:1.0___ast_霢_17__: {
+    _ASTNODE_霢:1.0___ast_霢_14__?: _ASTNODE_技:1.0___ast_霢_11__;
+    _ASTNODE_霢:1.0___ast_霢_3__?: _ASTNODE_廓:1.0___ast_廓_5__;
+  } = {},
+// _ASTNODE_蔵:0.1___ast_YW_961__ [decoy-metadata]
+): _ASTNODE_廓:1.0___ast_廓_3__<_ASTNODE_廓:1.0___ast_廓_6__<T>> {
+  if (_ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_3__?._ASTNODE_霢:1.0___ast_霢_23__) {
+    return { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_23__" };
+  }
+
+  if (_ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_14__ === _ASTNODE_霢:1.0___ast_霢_20__ && !_ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_3__) {
+    return { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_28__", _ASTNODE_霢:1.0___ast_霢_7__: await _ASTNODE_霢:1.0___ast_霢_2__ };
+  }
+// _ASTNODE_廓:0.5___ast_LF_892__ [decoy-metadata]
+
+  let _ASTNODE_霢:1.0___ast_霢_19__: _ASTNODE_廓:1.0___ast_廓_1__<_ASTNODE_霢:1.0___ast_霢_26__ _ASTNODE_技:1.0___ast_巌_1__> | _ASTNODE_霢:1.0___ast_霢_20__;
+// _ASTNODE_潤:0.6___ast_XE_321__ [decoy-metadata]
+// _ASTNODE_潤:0.9___ast_KD_180__ [decoy-metadata]
+  let _ASTNODE_技:1.0___ast_霢_21__: (() => _ASTNODE_霢:1.0___ast_霢_22__) | _ASTNODE_霢:1.0___ast_霢_20__;
+  _ASTNODE_霢:1.0___ast_霢_29__ _ASTNODE_霢:1.0___ast_霢_13__: _ASTNODE_廓:1.0___ast_廓_2__<_ASTNODE_廓:1.0___ast_廓_3__<T | _ASTNODE_霢:1.0___ast_霢_26__ _ASTNODE_廓:1.0___ast_廓_8__ | _ASTNODE_霢:1.0___ast_霢_26__ _ASTNODE_廓:1.0___ast_廓_7__>> = [_ASTNODE_霢:1.0___ast_霢_2__];
+
+  if (_ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_14__ !== _ASTNODE_霢:1.0___ast_霢_20__) {
+    _ASTNODE_霢:1.0___ast_霢_13__._ASTNODE_霢:1.0___ast_霢_10__(
+      _ASTNODE_霢:1.0___ast_霢_9__ _ASTNODE_廓:1.0___ast_廓_3__((_ASTNODE_霢:1.0___ast_霢_24__) => {
+// _ASTNODE_潤:0.2___ast_YH_901__ [decoy-metadata]
+        _ASTNODE_霢:1.0___ast_霢_19__ = _ASTNODE_技:1.0___ast_巌_1__(() => _ASTNODE_霢:1.0___ast_霢_24__(_ASTNODE_廓:1.0___ast_廓_8__), _ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_14__);
+      }),
+    );
+  }
+
+  if (_ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_3__) {
+    _ASTNODE_霢:1.0___ast_霢_13__._ASTNODE_霢:1.0___ast_霢_10__(
+// _ASTNODE_禁:0.6___ast_WV_785__ [decoy-metadata]
+      _ASTNODE_霢:1.0___ast_霢_9__ _ASTNODE_廓:1.0___ast_廓_3__((_ASTNODE_霢:1.0___ast_霢_24__) => {
+        _ASTNODE_技:1.0___ast_霢_21__ = () => _ASTNODE_霢:1.0___ast_霢_24__(_ASTNODE_廓:1.0___ast_廓_7__);
+        _ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_3__?._ASTNODE_技:1.0___ast_霢_12__("_ASTNODE_霢:1.0___ast_霢_15__", _ASTNODE_技:1.0___ast_霢_21__, { _ASTNODE_霢:1.0___ast_霢_6__: true });
+      }),
+    );
+  }
+
+  try {
+    _ASTNODE_霢:1.0___ast_霢_29__ _ASTNODE_霢:1.0___ast_霢_25__ = await _ASTNODE_廓:1.0___ast_廓_3__._ASTNODE_霢:1.0___ast_霢_16__(_ASTNODE_霢:1.0___ast_霢_13__);
+    if (_ASTNODE_霢:1.0___ast_霢_25__ === _ASTNODE_廓:1.0___ast_廓_8__) {
+      return { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_4__" };
+    }
+    if (_ASTNODE_霢:1.0___ast_霢_25__ === _ASTNODE_廓:1.0___ast_廓_7__) {
+      return { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_23__" };
+    }
+    return { _ASTNODE_霢:1.0___ast_霢_30__: "_ASTNODE_霢:1.0___ast_霢_28__", _ASTNODE_霢:1.0___ast_霢_7__: _ASTNODE_霢:1.0___ast_霢_25__ };
+  } _ASTNODE_霢:1.0___ast_霢_5__ {
+    if (_ASTNODE_霢:1.0___ast_霢_19__) {
+      _ASTNODE_霢:1.0___ast_霢_27__(_ASTNODE_霢:1.0___ast_霢_19__);
+    }
+    if (_ASTNODE_技:1.0___ast_霢_21__) {
+      _ASTNODE_霢:1.0___ast_霢_17__._ASTNODE_霢:1.0___ast_霢_3__?._ASTNODE_技:1.0___ast_霢_8__("_ASTNODE_霢:1.0___ast_霢_15__", _ASTNODE_技:1.0___ast_霢_21__);
+    }
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

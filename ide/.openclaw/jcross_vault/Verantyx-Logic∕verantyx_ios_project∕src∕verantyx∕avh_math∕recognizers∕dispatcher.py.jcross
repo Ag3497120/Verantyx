@@ -1,0 +1,81 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EF663787 ver:1778159689
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霢:1.0___node_霢_16__ _ASTNODE_霢:1.0___node_霢_22__ import _ASTNODE_廟:1.0___node_廟_2__, _ASTNODE_廟:1.0___node_廟_7__, _ASTNODE_廟:1.0___node_廟_8__
+import re
+_ASTNODE_霢:1.0___node_霢_16__ _ASTNODE_霢:1.0___node_霢_23__._ASTNODE_霢:1.0___node_霢_36__._ASTNODE_霢:1.0___node_霢_30__ import _ASTNODE_型:1.0___node_廟_9__
+_ASTNODE_霢:1.0___node_霢_16__ _ASTNODE_霢:1.0___node_霢_23__._ASTNODE_霢:1.0___node_霢_36__._ASTNODE_浸:1.0___node_霢_50__ import _ASTNODE_型:1.0___node_廟_1__
+_ASTNODE_霢:1.0___node_霢_16__ _ASTNODE_霢:1.0___node_霢_23__._ASTNODE_霢:1.0___node_霢_36__._ASTNODE_霢:1.0___node_霢_37__ import _ASTNODE_型:1.0___node_廟_11__
+_ASTNODE_霢:1.0___node_霢_16__ _ASTNODE_霢:1.0___node_霢_23__._ASTNODE_霢:1.0___node_霢_36__._ASTNODE_型:1.0___node_霢_2__ import _ASTNODE_型:1.0___node_廟_5__
+
+class _ASTNODE_型:1.0___node_廟_13__:
+    _ASTNODE_霢:1.0___node_霢_18__ _ASTNODE_霢:1.0___node_霢_12__(self):
+        self._ASTNODE_型:1.0___node_霢_2__ = _ASTNODE_型:1.0___node_廟_5__()
+        self._ASTNODE_霢:1.0___node_霢_36__: _ASTNODE_廟:1.0___node_廟_8__[_ASTNODE_型:1.0___node_廟_9__] = [
+            _ASTNODE_型:1.0___node_廟_1__(),
+            _ASTNODE_型:1.0___node_廟_11__(),
+        ]
+
+    _ASTNODE_霢:1.0___node_霢_18__ _ASTNODE_霢:1.0___node_霢_40__(self, _ASTNODE_霢:1.0___node_霢_51__: _ASTNODE_霢:1.0___node_霢_32__) -> _ASTNODE_廟:1.0___node_廟_7__[_ASTNODE_霢:1.0___node_霢_32__, _ASTNODE_廟:1.0___node_廟_2__]:
+// [metadata-stripped]
+// _ASTNODE_医:0.8___node_BD_977__ [decoy-metadata]
+// _ASTNODE_霢:0.6___node_LB_313__ [decoy-metadata]
+        _ASTNODE_霢:1.0___node_霢_11__ = self._ASTNODE_型:1.0___node_霢_2__._ASTNODE_霢:1.0___node_霢_28__(_ASTNODE_霢:1.0___node_霢_51__)
+        if _ASTNODE_霢:1.0___node_霢_11__:
+            _ASTNODE_浸:1.0___node_霢_50__ = _ASTNODE_霢:1.0___node_霢_11__["_ASTNODE_霢:1.0___node_霢_45__"]._ASTNODE_型:1.0___node_傑_1__("_ASTNODE_廟:1.0___node_廟_15__", "")
+            _ASTNODE_霢:1.0___node_霢_46__ = _ASTNODE_霢:1.0___node_霢_11__["_ASTNODE_霢:1.0___node_霢_45__"]._ASTNODE_型:1.0___node_傑_1__("_ASTNODE_廟:1.0___node_廟_12__", "")
+            
+            _ASTNODE_霢:1.0___node_霢_44__ = []
+            if _ASTNODE_霢:1.0___node_霢_46__:
+// [metadata-stripped]
+                if "_ASTNODE_霢:1.0___node_霢_48__" in _ASTNODE_霢:1.0___node_霢_46__._ASTNODE_型:1.0___node_霢_49__(): _ASTNODE_霢:1.0___node_霢_44__._ASTNODE_霢:1.0___node_霢_1__("_ASTNODE_霢:1.0___node_霢_53__:_ASTNODE_霢:1.0___node_霢_48__")
+                _ASTNODE_浸:1.0___node_霢_47__ "_ASTNODE_霢:1.0___node_霢_9__" in _ASTNODE_霢:1.0___node_霢_46__._ASTNODE_型:1.0___node_霢_49__(): _ASTNODE_霢:1.0___node_霢_44__._ASTNODE_霢:1.0___node_霢_1__("_ASTNODE_霢:1.0___node_霢_53__:_ASTNODE_霢:1.0___node_霢_9__")
+                _ASTNODE_浸:1.0___node_霢_47__ "_ASTNODE_霢:1.0___node_霢_3__" in _ASTNODE_霢:1.0___node_霢_46__._ASTNODE_型:1.0___node_霢_49__(): _ASTNODE_霢:1.0___node_霢_44__._ASTNODE_霢:1.0___node_霢_1__("_ASTNODE_霢:1.0___node_霢_53__:_ASTNODE_霢:1.0___node_霢_3__")
+                else: _ASTNODE_霢:1.0___node_霢_44__._ASTNODE_霢:1.0___node_霢_1__(f"_ASTNODE_霢:1.0___node_霢_53__:{_ASTNODE_霢:1.0___node_霢_46__}")
+
+// [metadata-stripped]
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_50__
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_29__._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_17__", "&")._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_33__", "|")._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_34__", "~")
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_29__._ASTNODE_霢:1.0___node_霢_14__(r"\to", "->")._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_6__", "->")._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_20__", "<->")
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_29__._ASTNODE_霢:1.0___node_霢_14__("→", "->")._ASTNODE_霢:1.0___node_霢_14__("∧", "&")._ASTNODE_霢:1.0___node_霢_14__("∨", "|")._ASTNODE_霢:1.0___node_霢_14__("¬", "~")
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_29__._ASTNODE_霢:1.0___node_霢_14__("↔", "<->")._ASTNODE_霢:1.0___node_霢_14__("⇒", "->")._ASTNODE_霢:1.0___node_霢_14__("⇔", "<->")
+// _ASTNODE_暗:0.5___node_AD_995__ [decoy-metadata]
+            
+            _ASTNODE_浸:1.0___node_霢_29__ = _ASTNODE_浸:1.0___node_霢_29__._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_15__", "[]")._ASTNODE_霢:1.0___node_霢_14__(r"\_ASTNODE_霢:1.0___node_霢_52__", "<>")
+            _ASTNODE_浸:1.0___node_霢_29__ = re._ASTNODE_霢:1.0___node_霢_26__(r"\_ASTNODE_霢:1.0___node_霢_43__\b", "[]", _ASTNODE_浸:1.0___node_霢_29__, _ASTNODE_霢:1.0___node_霢_41__=re._ASTNODE_廟:1.0___node_廟_6__)
+            _ASTNODE_浸:1.0___node_霢_29__ = re._ASTNODE_霢:1.0___node_霢_26__(r"\_ASTNODE_霢:1.0___node_霢_38__\b", "<>", _ASTNODE_浸:1.0___node_霢_29__, _ASTNODE_霢:1.0___node_霢_41__=re._ASTNODE_廟:1.0___node_廟_6__)
+            _ASTNODE_浸:1.0___node_霢_29__ = re._ASTNODE_霢:1.0___node_霢_26__(r"\s+", "", _ASTNODE_浸:1.0___node_霢_29__)
+
+            return {
+// _ASTNODE_型:0.5___node_ZC_143__ [decoy-metadata]
+                "_ASTNODE_霢:1.0___node_霢_19__": "_ASTNODE_霢:1.0___node_霢_7__",
+                "_ASTNODE_霢:1.0___node_霢_27__": [{
+                    "_ASTNODE_霢:1.0___node_霢_4__": _ASTNODE_浸:1.0___node_霢_50__,
+                    "_ASTNODE_霢:1.0___node_霢_25__": _ASTNODE_浸:1.0___node_霢_29__, # 正規化済み
+                    "_ASTNODE_霢:1.0___node_霢_35__": 10.0
+// _ASTNODE_暗:0.7___node_EM_768__ [decoy-metadata]
+                }],
+                "_ASTNODE_霢:1.0___node_霢_8__": _ASTNODE_霢:1.0___node_霢_44__,
+                "_ASTNODE_霢:1.0___node_霢_42__": _ASTNODE_霢:1.0___node_霢_11__._ASTNODE_型:1.0___node_傑_1__("_ASTNODE_霢:1.0___node_霢_42__"),
+                "_ASTNODE_霢:1.0___node_霢_5__": _ASTNODE_霢:1.0___node_霢_11__._ASTNODE_型:1.0___node_傑_1__("_ASTNODE_霢:1.0___node_霢_5__")
+            }
+
+// [metadata-stripped]
+        _ASTNODE_型:1.0___node_霢_39__ = _ASTNODE_廟:1.0___node_廟_4__
+        _ASTNODE_霢:1.0___node_霢_13__ = -1.0
+
+        for _ASTNODE_型:1.0___node_霢_10__ in self._ASTNODE_霢:1.0___node_霢_36__:
+            _ASTNODE_霢:1.0___node_霢_35__ = _ASTNODE_型:1.0___node_霢_10__._ASTNODE_霢:1.0___node_霢_31__(_ASTNODE_霢:1.0___node_霢_51__)
+            if _ASTNODE_霢:1.0___node_霢_35__ > _ASTNODE_霢:1.0___node_霢_13__:
+// _ASTNODE_傑:0.6___node_GY_562__ [decoy-metadata]
+                _ASTNODE_霢:1.0___node_霢_13__ = _ASTNODE_霢:1.0___node_霢_35__
+                _ASTNODE_型:1.0___node_霢_39__ = _ASTNODE_型:1.0___node_霢_10__
+        
+        if _ASTNODE_型:1.0___node_霢_39__ _ASTNODE_霢:1.0___node_霢_24__ _ASTNODE_霢:1.0___node_霢_13__ > 0.3:
+            return _ASTNODE_型:1.0___node_霢_39__._ASTNODE_霢:1.0___node_霢_21__(_ASTNODE_霢:1.0___node_霢_51__)
+        
+// [metadata-stripped]
+        return self._ASTNODE_霢:1.0___node_霢_36__[0]._ASTNODE_霢:1.0___node_霢_21__(_ASTNODE_霢:1.0___node_霢_51__)
+
+// POLYMORPHIC_JCROSS_END

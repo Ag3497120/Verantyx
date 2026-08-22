@@ -1,0 +1,161 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0C3C6F60 ver:1778162671
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__._JCROSS_靄:1.0___ast_靄_5__ import _JCROSS_靄:1.0___ast_靄_113__
+_JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__._JCROSS_靄:1.0___ast_靄_5__._JCROSS_靄:1.0___ast_靄_104__ import _JCROSS_靄:1.0___ast_靄_83__, _JCROSS_靄:1.0___ast_靄_12__
+import struct
+
+
+_JCROSS_泡:1.0___ast_靄_65__ = """
+// _JCROSS_匣:0.1___ast_YK_385__ [decoy-metadata]
+	>
+	_JCROSS_靄:1.0___ast_靄_69__: h	# _JCROSS_殻:1.0___ast_殻_7__ x-_JCROSS_靄:1.0___ast_靄_114__ of _JCROSS_靄:1.0___ast_靄_63__ _JCROSS_靄:1.0___ast_靄_87__ in _JCROSS_靄:1.0___ast_靄_63__ _JCROSS_靄:1.0___ast_靄_45__ _JCROSS_靄:1.0___ast_靄_44__ to _JCROSS_靄:1.0___ast_靄_59__
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+	_JCROSS_靄:1.0___ast_靄_58__: h	# _JCROSS_殻:1.0___ast_殻_7__ y-_JCROSS_靄:1.0___ast_靄_114__ of _JCROSS_靄:1.0___ast_靄_63__ _JCROSS_靄:1.0___ast_靄_87__ in _JCROSS_靄:1.0___ast_靄_63__ _JCROSS_靄:1.0___ast_靄_45__ _JCROSS_靄:1.0___ast_靄_44__ to _JCROSS_靄:1.0___ast_靄_59__
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+	_JCROSS_靄:1.0___ast_靄_30__:  4s	# e.g. "_JCROSS_靄:1.0___ast_靄_34__ "
+"""
+
+_JCROSS_泡:1.0___ast_靄_72__ = _JCROSS_靄:1.0___ast_靄_113__._JCROSS_靄:1.0___ast_靄_21__(_JCROSS_泡:1.0___ast_靄_65__)
+
+
+class _JCROSS_殻:1.0___ast_殻_6__(_JCROSS_靄:1.0___ast_靄_73__):
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_28__(
+        self,
+        _JCROSS_靄:1.0___ast_靄_96__=_JCROSS_殻:1.0___ast_殻_4__,
+        _JCROSS_靄:1.0___ast_靄_26__=_JCROSS_殻:1.0___ast_殻_4__,
+        _JCROSS_靄:1.0___ast_靄_69__=0,
+        _JCROSS_靄:1.0___ast_靄_58__=0,
+        _JCROSS_靄:1.0___ast_靄_30__=_JCROSS_殻:1.0___ast_殻_4__,
+        _JCROSS_靄:1.0___ast_靄_75__=_JCROSS_殻:1.0___ast_殻_4__,
+// _JCROSS_匣:0.8___ast_AA_248__ [decoy-metadata]
+        _JCROSS_靄:1.0___ast_靄_112__=_JCROSS_殻:1.0___ast_殻_4__,
+        _JCROSS_靄:1.0___ast_靄_37__=0,
+    ):
+        self._JCROSS_靄:1.0___ast_靄_37__ = _JCROSS_靄:1.0___ast_靄_37__
+        self._JCROSS_靄:1.0___ast_靄_96__ = _JCROSS_靄:1.0___ast_靄_96__
+        self._JCROSS_靄:1.0___ast_靄_26__ = _JCROSS_靄:1.0___ast_靄_26__
+        self._JCROSS_靄:1.0___ast_靄_69__ = _JCROSS_靄:1.0___ast_靄_69__
+        self._JCROSS_靄:1.0___ast_靄_58__ = _JCROSS_靄:1.0___ast_靄_58__
+// _JCROSS_匣:0.6___ast_XH_155__ [decoy-metadata]
+        self._JCROSS_靄:1.0___ast_靄_112__ = _JCROSS_靄:1.0___ast_靄_112__
+        self._JCROSS_靄:1.0___ast_靄_30__ = _JCROSS_靄:1.0___ast_靄_30__
+        self._JCROSS_靄:1.0___ast_靄_75__ = _JCROSS_靄:1.0___ast_靄_75__
+
+// [metadata-stripped]
+        if self._JCROSS_靄:1.0___ast_靄_30__ is _JCROSS_靄:1.0___ast_靄_15__ _JCROSS_殻:1.0___ast_殻_4__:
+            if self._JCROSS_靄:1.0___ast_靄_30__[-1] == "\0":
+                self._JCROSS_靄:1.0___ast_靄_30__ = self._JCROSS_靄:1.0___ast_靄_30__[:-1]
+            if _JCROSS_靄:1.0___ast_靄_62__(self._JCROSS_靄:1.0___ast_靄_30__) > 4:
+                _JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__ import _JCROSS_靄:1.0___ast_靄_18__
+
+                _JCROSS_靄:1.0___ast_靄_110__ _JCROSS_靄:1.0___ast_靄_18__._JCROSS_殻:1.0___ast_殻_3__(
+                    "_JCROSS_殻:1.0___ast_殻_6__._JCROSS_靄:1.0___ast_靄_30__ _JCROSS_靄:1.0___ast_靄_50__ _JCROSS_靄:1.0___ast_靄_15__ be _JCROSS_項:1.0___ast_靄_76__ _JCROSS_靄:1.0___ast_靄_55__ 4 _JCROSS_靄:1.0___ast_靄_52__."
+                )
+            _JCROSS_泡:1.0___ast_靄_106__ _JCROSS_靄:1.0___ast_靄_62__(self._JCROSS_靄:1.0___ast_靄_30__) < 4:
+// [metadata-stripped]
+                self._JCROSS_靄:1.0___ast_靄_30__ += "    "[: (4 - _JCROSS_靄:1.0___ast_靄_62__(self._JCROSS_靄:1.0___ast_靄_30__))]
+
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_88__(self):
+        """_JCROSS_殻:1.0___ast_殻_2__ _JCROSS_殻:1.0___ast_殻_1__ if _JCROSS_靄:1.0___ast_靄_115__ _JCROSS_靄:1.0___ast_靄_45__ is a _JCROSS_靄:1.0___ast_靄_117__ to _JCROSS_項:1.0___ast_靄_38__ _JCROSS_靄:1.0___ast_靄_45__'s _JCROSS_靄:1.0___ast_靄_4__ _JCROSS_靄:1.0___ast_靄_98__."""
+        return self._JCROSS_靄:1.0___ast_靄_30__ == "_JCROSS_靄:1.0___ast_靄_7__" or self._JCROSS_靄:1.0___ast_靄_30__ == "_JCROSS_靄:1.0___ast_靄_85__"
+
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_97__(self, _JCROSS_靄:1.0___ast_靄_99__):
+        self._JCROSS_靄:1.0___ast_靄_96__ = _JCROSS_靄:1.0___ast_靄_99__._JCROSS_項:1.0___ast_碑_2__(self._JCROSS_靄:1.0___ast_靄_37__)
+        if self._JCROSS_靄:1.0___ast_靄_112__ is _JCROSS_殻:1.0___ast_殻_4__:
+            _JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__ import _JCROSS_靄:1.0___ast_靄_18__
+
+            _JCROSS_靄:1.0___ast_靄_110__ _JCROSS_靄:1.0___ast_靄_18__._JCROSS_殻:1.0___ast_殻_3__("No _JCROSS_靄:1.0___ast_靄_9__ _JCROSS_靄:1.0___ast_靄_98__ to _JCROSS_靄:1.0___ast_靄_97__")
+        if _JCROSS_靄:1.0___ast_靄_62__(self._JCROSS_靄:1.0___ast_靄_112__) > 0:
+            if _JCROSS_靄:1.0___ast_靄_62__(self._JCROSS_靄:1.0___ast_靄_112__) < _JCROSS_泡:1.0___ast_靄_72__:
+                _JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__ import _JCROSS_靄:1.0___ast_靄_18__
+
+// [metadata-stripped]
+                _JCROSS_靄:1.0___ast_靄_110__ _JCROSS_靄:1.0___ast_靄_18__._JCROSS_殻:1.0___ast_殻_3__("_JCROSS_殻:1.0___ast_殻_6__ _JCROSS_項:1.0___ast_靄_109__ _JCROSS_靄:1.0___ast_靄_68__ _JCROSS_靄:1.0___ast_靄_78__.")
+
+            _JCROSS_靄:1.0___ast_靄_113__._JCROSS_靄:1.0___ast_靄_95__(
+                _JCROSS_泡:1.0___ast_靄_65__, self._JCROSS_靄:1.0___ast_靄_112__[:_JCROSS_泡:1.0___ast_靄_72__], self
+            )
+
+            if self._JCROSS_靄:1.0___ast_靄_88__():
+// [metadata-stripped]
+                (_JCROSS_靄:1.0___ast_靄_37__,) = struct._JCROSS_靄:1.0___ast_靄_95__(">H", self._JCROSS_靄:1.0___ast_靄_112__[_JCROSS_泡:1.0___ast_靄_72__:])
+                self._JCROSS_靄:1.0___ast_靄_26__ = _JCROSS_靄:1.0___ast_靄_99__._JCROSS_項:1.0___ast_碑_2__(_JCROSS_靄:1.0___ast_靄_37__)
+            else:
+                self._JCROSS_靄:1.0___ast_靄_75__ = self._JCROSS_靄:1.0___ast_靄_112__[_JCROSS_泡:1.0___ast_靄_72__:]
+                self._JCROSS_靄:1.0___ast_靄_26__ = _JCROSS_殻:1.0___ast_殻_4__
+// [metadata-stripped]
+        _JCROSS_靄:1.0___ast_靄_111__ self._JCROSS_靄:1.0___ast_靄_112__
+        _JCROSS_靄:1.0___ast_靄_111__ self._JCROSS_靄:1.0___ast_靄_37__
+
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_91__(self, _JCROSS_靄:1.0___ast_靄_99__):
+        if self._JCROSS_靄:1.0___ast_靄_96__ is _JCROSS_殻:1.0___ast_殻_4__:
+            _JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__ import _JCROSS_靄:1.0___ast_靄_18__
+
+            _JCROSS_靄:1.0___ast_靄_110__ _JCROSS_靄:1.0___ast_靄_18__._JCROSS_殻:1.0___ast_殻_3__("_JCROSS_殻:1.0___ast_殻_8__'t _JCROSS_靄:1.0___ast_靄_91__ _JCROSS_殻:1.0___ast_殻_6__ _JCROSS_靄:1.0___ast_靄_70__ _JCROSS_靄:1.0___ast_靄_45__ _JCROSS_靄:1.0___ast_靄_17__")
+// [metadata-stripped]
+// [metadata-stripped]
+        self._JCROSS_靄:1.0___ast_靄_37__ = struct._JCROSS_靄:1.0___ast_靄_39__(">H", _JCROSS_靄:1.0___ast_靄_99__._JCROSS_項:1.0___ast_碑_3__(self._JCROSS_靄:1.0___ast_靄_96__))
+        if self._JCROSS_靄:1.0___ast_靄_30__ is _JCROSS_殻:1.0___ast_殻_4__:
+            _JCROSS_靄:1.0___ast_靄_112__ = b""
+        else:
+            _JCROSS_靄:1.0___ast_靄_112__ = _JCROSS_靄:1.0___ast_靄_113__._JCROSS_靄:1.0___ast_靄_39__(_JCROSS_泡:1.0___ast_靄_65__, self)
+            if self._JCROSS_靄:1.0___ast_靄_88__():
+                _JCROSS_靄:1.0___ast_靄_112__ += struct._JCROSS_靄:1.0___ast_靄_39__(">H", _JCROSS_靄:1.0___ast_靄_99__._JCROSS_項:1.0___ast_碑_3__(self._JCROSS_靄:1.0___ast_靄_26__))
+            else:
+                _JCROSS_靄:1.0___ast_靄_48__ self._JCROSS_靄:1.0___ast_靄_75__ is _JCROSS_靄:1.0___ast_靄_15__ _JCROSS_殻:1.0___ast_殻_4__
+                _JCROSS_靄:1.0___ast_靄_112__ += self._JCROSS_靄:1.0___ast_靄_75__
+// _JCROSS_殻:0.1___ast_CL_854__ [decoy-metadata]
+// _JCROSS_碑:0.3___ast_ZV_235__ [decoy-metadata]
+        self._JCROSS_靄:1.0___ast_靄_112__ = _JCROSS_靄:1.0___ast_靄_112__
+
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_10__(self, _JCROSS_項:1.0___ast_靄_20__, _JCROSS_靄:1.0___ast_靄_99__):
+        if self._JCROSS_靄:1.0___ast_靄_30__ is _JCROSS_殻:1.0___ast_殻_4__:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_71__("_JCROSS_靄:1.0___ast_靄_45__", _JCROSS_靄:1.0___ast_靄_17__=self._JCROSS_靄:1.0___ast_靄_96__)
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_105__()
+            return
+        _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_46__(
+            "_JCROSS_靄:1.0___ast_靄_45__",
+            _JCROSS_靄:1.0___ast_靄_30__=self._JCROSS_靄:1.0___ast_靄_30__,
+            _JCROSS_靄:1.0___ast_靄_17__=self._JCROSS_靄:1.0___ast_靄_96__,
+            _JCROSS_靄:1.0___ast_靄_69__=self._JCROSS_靄:1.0___ast_靄_69__,
+            _JCROSS_靄:1.0___ast_靄_58__=self._JCROSS_靄:1.0___ast_靄_58__,
+        )
+        _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_105__()
+        if self._JCROSS_靄:1.0___ast_靄_88__():
+// [metadata-stripped]
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_71__("_JCROSS_靄:1.0___ast_靄_81__", _JCROSS_靄:1.0___ast_靄_24__=self._JCROSS_靄:1.0___ast_靄_26__)
+        else:
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_46__("_JCROSS_靄:1.0___ast_靄_101__")
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_105__()
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_47__(self._JCROSS_靄:1.0___ast_靄_75__)
+            _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_43__("_JCROSS_靄:1.0___ast_靄_101__")
+        _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_105__()
+        _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_43__("_JCROSS_靄:1.0___ast_靄_45__")
+// _JCROSS_殻:0.6___ast_VX_348__ [decoy-metadata]
+        _JCROSS_項:1.0___ast_靄_20__._JCROSS_靄:1.0___ast_靄_105__()
+
+    _JCROSS_靄:1.0___ast_靄_60__ _JCROSS_靄:1.0___ast_靄_64__(self, _JCROSS_靄:1.0___ast_靄_17__, _JCROSS_靄:1.0___ast_靄_102__, _JCROSS_靄:1.0___ast_靄_77__, _JCROSS_靄:1.0___ast_靄_99__):
+        if _JCROSS_靄:1.0___ast_靄_17__ == "_JCROSS_靄:1.0___ast_靄_81__":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_靄:1.0___ast_靄_24__ = _JCROSS_靄:1.0___ast_靄_12__("'''" + _JCROSS_靄:1.0___ast_靄_102__["_JCROSS_靄:1.0___ast_靄_24__"] + "'''")
+            self._JCROSS_靄:1.0___ast_靄_75__ = struct._JCROSS_靄:1.0___ast_靄_39__(">H", _JCROSS_靄:1.0___ast_靄_99__._JCROSS_項:1.0___ast_碑_3__(_JCROSS_靄:1.0___ast_靄_24__))
+            self._JCROSS_靄:1.0___ast_靄_26__ = _JCROSS_靄:1.0___ast_靄_24__
+        _JCROSS_泡:1.0___ast_靄_106__ _JCROSS_靄:1.0___ast_靄_17__ == "_JCROSS_靄:1.0___ast_靄_101__":
+            self._JCROSS_靄:1.0___ast_靄_75__ = _JCROSS_靄:1.0___ast_靄_83__(_JCROSS_靄:1.0___ast_靄_77__)
+        else:
+            _JCROSS_靄:1.0___ast_靄_108__ _JCROSS_靄:1.0___ast_靄_31__ import _JCROSS_靄:1.0___ast_靄_18__
+
+            _JCROSS_靄:1.0___ast_靄_110__ _JCROSS_靄:1.0___ast_靄_18__._JCROSS_殻:1.0___ast_殻_3__("_JCROSS_靄:1.0___ast_靄_8__'t _JCROSS_靄:1.0___ast_靄_6__ '%s' _JCROSS_靄:1.0___ast_靄_41__" % _JCROSS_靄:1.0___ast_靄_17__)
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,76 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7D7327E1 ver:1778159678
+// ⚠️ One-time schema — expires after response
+
+import __node_霤:1.0___OPAQUE_霤_22_
+import os
+__node_霤:1.0___OPAQUE_霤_25_ __node_霤:1.0___OPAQUE_霤_43_ import __node_廡:1.0___OPAQUE_廡_5_
+__node_霤:1.0___OPAQUE_霤_25_ __node_霤:1.0___OPAQUE_霤_2_ import __node_廡:1.0___OPAQUE_廡_2_, __node_廡:1.0___OPAQUE_廡_8_, __node_廡:1.0___OPAQUE_廡_4_, __node_廡:1.0___OPAQUE_廡_3_
+
+class __node_技:1.0___OPAQUE_廡_6_:
+    __node_霤:1.0___OPAQUE_霤_6_ __node_霤:1.0___OPAQUE_霤_9_(self, __node_霤:1.0___OPAQUE_霤_4_: __node_霤:1.0___OPAQUE_霤_36_):
+        self.__node_霤:1.0___OPAQUE_霤_4_ = __node_廡:1.0___OPAQUE_廡_5_(__node_霤:1.0___OPAQUE_霤_4_)
+        self.__node_霤:1.0___OPAQUE_霤_30_: __node_廡:1.0___OPAQUE_廡_2_[__node_廡:1.0___OPAQUE_廡_8_[__node_霤:1.0___OPAQUE_霤_36_, __node_廡:1.0___OPAQUE_廡_4_]] = []
+        self.__node_蔵:1.0___OPAQUE_霤_17_()
+
+    __node_霤:1.0___OPAQUE_霤_6_ __node_蔵:1.0___OPAQUE_霤_17_(self):
+        if __node_霤:1.0___OPAQUE_霤_40_ self.__node_霤:1.0___OPAQUE_霤_4_.__node_霤:1.0___OPAQUE_霤_23_():
+            return
+        __node_霤:1.0___OPAQUE_霤_45_ self.__node_霤:1.0___OPAQUE_霤_4_.open("r", __node_霤:1.0___OPAQUE_霤_24_="__node_霤:1.0___OPAQUE_霤_37_-8") as f:
+            for __node_霤:1.0___OPAQUE_霤_5_ in f:
+                try:
+                    self.__node_霤:1.0___OPAQUE_霤_30_.__node_霤:1.0___OPAQUE_霤_41_(__node_霤:1.0___OPAQUE_霤_22_.__node_蔵:1.0___OPAQUE_霤_20_(__node_霤:1.0___OPAQUE_霤_5_))
+                __node_霤:1.0___OPAQUE_霤_39_:
+                    continue
+
+    __node_霤:1.0___OPAQUE_霤_6_ __node_霤:1.0___OPAQUE_霤_34_(self, __node_霤:1.0___OPAQUE_霤_3_: __node_廡:1.0___OPAQUE_廡_2_[__node_霤:1.0___OPAQUE_霤_36_], __node_霤:1.0___OPAQUE_霤_31_: __node_霤:1.0___OPAQUE_霤_38_ = 0.9) -> __node_廡:1.0___OPAQUE_廡_3_[__node_廡:1.0___OPAQUE_廡_8_[__node_霤:1.0___OPAQUE_霤_36_, __node_廡:1.0___OPAQUE_廡_4_]]:
+        """シグネチャの完全一致または高類似度一致を探す"""
+        __node_霤:1.0___OPAQUE_霤_1_ = __node_廡:1.0___OPAQUE_廡_1_
+        __node_霤:1.0___OPAQUE_霤_33_ = 0.0
+
+        for m in self.__node_霤:1.0___OPAQUE_霤_30_:
+// __node_霤:0.1___OPAQUE_GC_594_ [decoy-metadata]
+            __node_霤:1.0___OPAQUE_霤_29_ = m.__node_技:1.0___OPAQUE_煌_1_("__node_霤:1.0___OPAQUE_霤_15_", [])
+            if __node_霤:1.0___OPAQUE_霤_40_ __node_霤:1.0___OPAQUE_霤_29_: continue
+// __node_霤:0.5___OPAQUE_CZ_571_ [decoy-metadata]
+            
+// [metadata-stripped]
+            __node_霤:1.0___OPAQUE_霤_18_ = __node_霤:1.0___OPAQUE_霤_10_(1 for x, y in __node_霤:1.0___OPAQUE_霤_27_(__node_霤:1.0___OPAQUE_霤_3_, __node_霤:1.0___OPAQUE_霤_29_) if x == y)
+            __node_霤:1.0___OPAQUE_霤_42_ = __node_霤:1.0___OPAQUE_霤_18_ / __node_霤:1.0___OPAQUE_霤_8_(__node_霤:1.0___OPAQUE_霤_21_(__node_霤:1.0___OPAQUE_霤_3_), __node_霤:1.0___OPAQUE_霤_21_(__node_霤:1.0___OPAQUE_霤_29_))
+            
+            if __node_霤:1.0___OPAQUE_霤_42_ > __node_霤:1.0___OPAQUE_霤_33_ __node_霤:1.0___OPAQUE_霤_44_ __node_霤:1.0___OPAQUE_霤_42_ >= __node_霤:1.0___OPAQUE_霤_31_:
+                __node_霤:1.0___OPAQUE_霤_33_ = __node_霤:1.0___OPAQUE_霤_42_
+                __node_霤:1.0___OPAQUE_霤_1_ = m
+
+        return __node_霤:1.0___OPAQUE_霤_1_
+
+    __node_霤:1.0___OPAQUE_霤_6_ __node_霤:1.0___OPAQUE_霤_7_(self, __node_霤:1.0___OPAQUE_霤_3_: __node_廡:1.0___OPAQUE_廡_2_[__node_霤:1.0___OPAQUE_霤_36_], __node_霤:1.0___OPAQUE_霤_16_: __node_霤:1.0___OPAQUE_霤_36_, __node_霤:1.0___OPAQUE_霤_13_: __node_廡:1.0___OPAQUE_廡_8_[__node_霤:1.0___OPAQUE_霤_36_, __node_廡:1.0___OPAQUE_廡_4_]):
+// __node_廡:0.3___OPAQUE_CM_404_ [decoy-metadata]
+        """新しいマッピングを学習し、永続化する"""
+// [metadata-stripped]
+// __node_浸:0.2___OPAQUE_MD_773_ [decoy-metadata]
+        for m in self.__node_霤:1.0___OPAQUE_霤_30_:
+// __node_浸:0.9___OPAQUE_BY_263_ [decoy-metadata]
+            if m.__node_技:1.0___OPAQUE_煌_1_("__node_霤:1.0___OPAQUE_霤_15_") == __node_霤:1.0___OPAQUE_霤_3_:
+                m["__node_霤:1.0___OPAQUE_霤_35_"] = __node_霤:1.0___OPAQUE_霤_13_
+                m["__node_霤:1.0___OPAQUE_霤_26_"] = __node_霤:1.0___OPAQUE_霤_19_(1.0, m.__node_技:1.0___OPAQUE_煌_1_("__node_霤:1.0___OPAQUE_霤_26_", 0.5) + 0.1)
+                self.__node_蔵:1.0___OPAQUE_霤_32_() # 本来はアペンドが望ましいが、小規模なら再書き込み
+                return
+
+        __node_霤:1.0___OPAQUE_霤_28_ = {
+            "__node_霤:1.0___OPAQUE_霤_15_": __node_霤:1.0___OPAQUE_霤_3_,
+            "__node_霤:1.0___OPAQUE_霤_16_": __node_霤:1.0___OPAQUE_霤_16_,
+            "__node_霤:1.0___OPAQUE_霤_35_": __node_霤:1.0___OPAQUE_霤_13_,
+            "__node_霤:1.0___OPAQUE_霤_26_": 0.8
+        }
+// __node_技:0.8___OPAQUE_HB_934_ [decoy-metadata]
+        self.__node_霤:1.0___OPAQUE_霤_30_.__node_霤:1.0___OPAQUE_霤_41_(__node_霤:1.0___OPAQUE_霤_28_)
+        __node_霤:1.0___OPAQUE_霤_45_ self.__node_霤:1.0___OPAQUE_霤_4_.open("a", __node_霤:1.0___OPAQUE_霤_24_="__node_霤:1.0___OPAQUE_霤_37_-8") as f:
+            f.__node_霤:1.0___OPAQUE_霤_14_(__node_霤:1.0___OPAQUE_霤_22_.__node_霤:1.0___OPAQUE_霤_12_(__node_霤:1.0___OPAQUE_霤_28_, __node_霤:1.0___OPAQUE_霤_11_=__node_廡:1.0___OPAQUE_廡_7_) + "\n")
+
+    __node_霤:1.0___OPAQUE_霤_6_ __node_蔵:1.0___OPAQUE_霤_32_(self):
+        __node_霤:1.0___OPAQUE_霤_45_ self.__node_霤:1.0___OPAQUE_霤_4_.open("w", __node_霤:1.0___OPAQUE_霤_24_="__node_霤:1.0___OPAQUE_霤_37_-8") as f:
+            for m in self.__node_霤:1.0___OPAQUE_霤_30_:
+                f.__node_霤:1.0___OPAQUE_霤_14_(__node_霤:1.0___OPAQUE_霤_22_.__node_霤:1.0___OPAQUE_霤_12_(m, __node_霤:1.0___OPAQUE_霤_11_=__node_廡:1.0___OPAQUE_廡_7_) + "\n")
+
+// POLYMORPHIC_JCROSS_END

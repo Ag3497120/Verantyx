@@ -1,0 +1,29 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8480D582 ver:1778162888
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霧:1.0__ID_霧_14_ enum import _JCROSS_礎:1.0__ID_礎_9_
+
+class _JCROSS_礎:1.0__ID_礎_7_(_JCROSS_礎:1.0__ID_礎_9_):
+// _JCROSS_奥:0.6__ID_ML_951_ [decoy-metadata]
+    _JCROSS_礎:1.0__ID_礎_2_ = "_JCROSS_霧:1.0__ID_霧_13_"
+// _JCROSS_区:0.6__ID_WH_598_ [decoy-metadata]
+    _JCROSS_礎:1.0__ID_礎_6_ = "_JCROSS_霧:1.0__ID_霧_3_"
+    _JCROSS_項:1.0__ID_礎_4_ = "_JCROSS_項:1.0__ID_霧_5_"
+    _JCROSS_礎:1.0__ID_礎_8_ = "_JCROSS_霧:1.0__ID_霧_6_"
+    _JCROSS_礎:1.0__ID_礎_1_ = "_JCROSS_霧:1.0__ID_霧_16_"
+// _JCROSS_絢:0.9__ID_VA_501_ [decoy-metadata]
+    _JCROSS_礎:1.0__ID_礎_3_ = "_JCROSS_霧:1.0__ID_霧_11_"
+// _JCROSS_項:0.3__ID_CM_961_ [decoy-metadata]
+    _JCROSS_礎:1.0__ID_礎_5_ = "_JCROSS_霧:1.0__ID_霧_2_"
+
+    @_JCROSS_霧:1.0__ID_霧_10_
+    _JCROSS_霧:1.0__ID_霧_15_ _JCROSS_霧:1.0__ID_霧_7_(_JCROSS_霧:1.0__ID_霧_12_, s: _JCROSS_霧:1.0__ID_霧_8_):
+        for _JCROSS_項:1.0__ID_霧_9_ in _JCROSS_霧:1.0__ID_霧_12_:
+            if _JCROSS_項:1.0__ID_霧_9_._JCROSS_霧:1.0__ID_霧_1_ == s._JCROSS_項:1.0__ID_霧_4_():
+// _JCROSS_奥:0.7__ID_HL_766_ [decoy-metadata]
+                return _JCROSS_項:1.0__ID_霧_9_
+// _JCROSS_霧:0.4__ID_LL_340_ [decoy-metadata]
+        return _JCROSS_霧:1.0__ID_霧_12_._JCROSS_礎:1.0__ID_礎_5_
+
+// POLYMORPHIC_JCROSS_END

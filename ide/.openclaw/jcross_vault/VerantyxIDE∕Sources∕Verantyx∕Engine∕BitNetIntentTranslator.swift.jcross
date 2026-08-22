@@ -1,0 +1,251 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5D1F5C3F ver:1778150618
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_礎:1.0__ID_礎_6_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _TOKEN_礎:1.0__ID_礎_43_: _TOKEN_礎:1.0__ID_礎_16_ {
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_87_: _TOKEN_礎:1.0__ID_礎_38_
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_22_: _TOKEN_礎:1.0__ID_礎_8_
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_20_: _TOKEN_礎:1.0__ID_礎_12_?
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_38_: _TOKEN_礎:1.0__ID_礎_3_
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_5_: [_TOKEN_礎:1.0__ID_礎_8_: _TOKEN_術:1.0__ID_礎_15_]
+// [metadata-stripped]
+    let _TOKEN_粒:1.0__ID_粒_93_: _TOKEN_礎:1.0__ID_礎_8_?
+// _TOKEN_浮:0.1__ID_EY_126_ [decoy-metadata]
+
+    enum _TOKEN_礎:1.0__ID_礎_38_: _TOKEN_礎:1.0__ID_礎_8_, _TOKEN_礎:1.0__ID_礎_16_ {
+        case _TOKEN_粒:1.0__ID_粒_56_       // 新しいノードを挿入
+        case _TOKEN_粒:1.0__ID_粒_31_         // 既存ノードをラップ
+        case _TOKEN_粒:1.0__ID_粒_13_      // ノードを置換
+        case _TOKEN_粒:1.0__ID_粒_100_     // ノード間にエッジを追加
+        case _TOKEN_粒:1.0__ID_粒_62_       // ノードを削除
+    }
+
+    enum _TOKEN_礎:1.0__ID_礎_12_: _TOKEN_礎:1.0__ID_礎_8_, _TOKEN_礎:1.0__ID_礎_16_ {
+        case _TOKEN_粒:1.0__ID_粒_14_             // リトライ / ループ
+        case _TOKEN_術:1.0__ID_粒_74_  // タイムアウト
+        case _TOKEN_粒:1.0__ID_粒_2_   // エラーハンドリング
+        case _TOKEN_粒:1.0__ID_粒_72_        // 条件分岐
+        case _TOKEN_粒:1.0__ID_粒_17_      // 非同期待機
+        case _TOKEN_粒:1.0__ID_粒_57_             // 排他制御
+    }
+
+    enum _TOKEN_礎:1.0__ID_礎_3_: _TOKEN_礎:1.0__ID_礎_8_, _TOKEN_礎:1.0__ID_礎_16_ {
+        case _TOKEN_粒:1.0__ID_粒_19_         // ネットワーク / 非同期I/O
+        case _TOKEN_術:1.0__ID_粒_8_        // UIレンダリング
+        case _TOKEN_粒:1.0__ID_粒_58_          // 純粋計算
+        case _TOKEN_粒:1.0__ID_粒_48_          // ファイル / DB
+        case _TOKEN_粒:1.0__ID_粒_61_         // 認証 / 暗号
+        case _TOKEN_粒:1.0__ID_粒_84_              // プロセス間通信（_TOKEN_礎:1.0__ID_礎_7_など）
+        case _TOKEN_粒:1.0__ID_粒_15_
+    }
+
+// [metadata-stripped]
+    struct _TOKEN_術:1.0__ID_礎_15_: _TOKEN_礎:1.0__ID_礎_16_ {
+        let _TOKEN_粒:1.0__ID_粒_18_: _TOKEN_礎:1.0__ID_礎_8_  // "_TOKEN_粒:1.0__ID_粒_44_", "_TOKEN_粒:1.0__ID_粒_33_", "_TOKEN_粒:1.0__ID_粒_82_", "_TOKEN_粒:1.0__ID_粒_23_"
+        let _TOKEN_術:1.0__ID_粒_55_: _TOKEN_礎:1.0__ID_礎_8_   // _TOKEN_礎:1.0__ID_礎_44_キー（ローカル側で実値に解決）
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_術:1.0__ID_礎_4_ {
+
+// [metadata-stripped]
+    static func _TOKEN_浮:1.0__ID_粒_66_(_ _TOKEN_粒:1.0__ID_粒_75_: _TOKEN_礎:1.0__ID_礎_8_) -> (_TOKEN_礎:1.0__ID_礎_43_._TOKEN_礎:1.0__ID_礎_38_, _TOKEN_礎:1.0__ID_礎_43_._TOKEN_礎:1.0__ID_礎_12_?) {
+        let _TOKEN_術:1.0__ID_粒_16_ = _TOKEN_粒:1.0__ID_粒_75_._TOKEN_粒:1.0__ID_粒_24_()
+
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("リトライ") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_34_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("繰り返") {
+            return (._TOKEN_粒:1.0__ID_粒_31_, ._TOKEN_粒:1.0__ID_粒_14_)
+        }
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("タイムアウト") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_39_") {
+            return (._TOKEN_粒:1.0__ID_粒_31_, ._TOKEN_術:1.0__ID_粒_74_)
+        }
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("エラー") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_11_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("失敗") {
+            return (._TOKEN_粒:1.0__ID_粒_56_, ._TOKEN_粒:1.0__ID_粒_2_)
+        }
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("非同期") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("async") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("await") {
+            return (._TOKEN_粒:1.0__ID_粒_31_, ._TOKEN_粒:1.0__ID_粒_17_)
+        }
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("条件") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("if") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("チェック") {
+            return (._TOKEN_粒:1.0__ID_粒_56_, ._TOKEN_粒:1.0__ID_粒_72_)
+        }
+// [metadata-stripped]
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("削除") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_21_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("消して") {
+            return (._TOKEN_粒:1.0__ID_粒_62_, nil)
+        }
+        return (._TOKEN_粒:1.0__ID_粒_56_, nil)
+    }
+}
+
+// [metadata-stripped]
+
+private struct _TOKEN_礎:1.0__ID_礎_22_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func _TOKEN_粒:1.0__ID_粒_54_(
+        for _TOKEN_鍵:1.0__ID_粒_64_: _TOKEN_礎:1.0__ID_礎_8_,
+// _TOKEN_鍵:0.8__ID_FE_180_ [decoy-metadata]
+        in _TOKEN_粒:1.0__ID_粒_41_: _TOKEN_礎:1.0__ID_礎_30_
+    ) -> (_TOKEN_粒:1.0__ID_粒_98_: _TOKEN_礎:1.0__ID_礎_8_, _TOKEN_粒:1.0__ID_粒_102_: _TOKEN_礎:1.0__ID_礎_43_._TOKEN_礎:1.0__ID_礎_3_) {
+        let _TOKEN_術:1.0__ID_粒_16_ = _TOKEN_鍵:1.0__ID_粒_64_._TOKEN_粒:1.0__ID_粒_24_()
+        let _TOKEN_粒:1.0__ID_粒_63_ = _TOKEN_粒:1.0__ID_粒_41_._TOKEN_粒:1.0__ID_粒_92_()
+
+// [metadata-stripped]
+        for _TOKEN_粒:1.0__ID_粒_28_ in _TOKEN_粒:1.0__ID_粒_63_ {
+            guard let _TOKEN_粒:1.0__ID_粒_32_ = _TOKEN_粒:1.0__ID_粒_28_._TOKEN_粒:1.0__ID_粒_45_ else { continue }
+            let _TOKEN_粒:1.0__ID_粒_25_ = _TOKEN_粒:1.0__ID_粒_32_._TOKEN_粒:1.0__ID_粒_26_._TOKEN_粒:1.0__ID_粒_24_()
+            if _TOKEN_粒:1.0__ID_粒_25_._TOKEN_粒:1.0__ID_粒_9_(_TOKEN_術:1.0__ID_粒_16_) || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_(_TOKEN_粒:1.0__ID_粒_25_) {
+                let _TOKEN_粒:1.0__ID_粒_1_ = _TOKEN_粒:1.0__ID_粒_94_(_TOKEN_粒:1.0__ID_粒_42_: _TOKEN_粒:1.0__ID_粒_28_._TOKEN_粒:1.0__ID_粒_68_?._TOKEN_粒:1.0__ID_粒_35_ ?? "")
+                return (_TOKEN_粒:1.0__ID_粒_28_._TOKEN_粒:1.0__ID_粒_98_._TOKEN_粒:1.0__ID_粒_7_, _TOKEN_粒:1.0__ID_粒_1_)
+            }
+        }
+
+// [metadata-stripped]
+        if let _TOKEN_粒:1.0__ID_粒_27_ = _TOKEN_粒:1.0__ID_粒_63_._TOKEN_粒:1.0__ID_粒_27_ {
+            return (_TOKEN_粒:1.0__ID_粒_27_._TOKEN_粒:1.0__ID_粒_98_._TOKEN_粒:1.0__ID_粒_7_, ._TOKEN_粒:1.0__ID_粒_15_)
+        }
+        return ("_TOKEN_礎:1.0__ID_礎_34_", ._TOKEN_粒:1.0__ID_粒_15_)
+    }
+
+    private static func _TOKEN_粒:1.0__ID_粒_94_(_TOKEN_粒:1.0__ID_粒_42_: _TOKEN_礎:1.0__ID_礎_8_) -> _TOKEN_礎:1.0__ID_礎_43_._TOKEN_礎:1.0__ID_礎_3_ {
+        let _TOKEN_術:1.0__ID_粒_16_ = _TOKEN_粒:1.0__ID_粒_42_._TOKEN_粒:1.0__ID_粒_24_()
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("async") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_59_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_術:1.0__ID_巌_1_") { return ._TOKEN_粒:1.0__ID_粒_19_ }
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_43_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("ui") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_術:1.0__ID_粒_49_") { return ._TOKEN_術:1.0__ID_粒_8_ }
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_97_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_84_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_10_") { return ._TOKEN_粒:1.0__ID_粒_84_ }
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_匱:1.0__ID_粒_12_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_70_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("db") { return ._TOKEN_粒:1.0__ID_粒_48_ }
+        if _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_88_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_89_") || _TOKEN_術:1.0__ID_粒_16_._TOKEN_粒:1.0__ID_粒_9_("_TOKEN_粒:1.0__ID_粒_79_") { return ._TOKEN_粒:1.0__ID_粒_61_ }
+        return ._TOKEN_粒:1.0__ID_粒_58_
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+final class _TOKEN_礎:1.0__ID_礎_28_ {
+
+    static let _TOKEN_粒:1.0__ID_粒_96_ = _TOKEN_礎:1.0__ID_礎_28_()
+    private init() {}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _TOKEN_粒:1.0__ID_粒_73_(
+        _TOKEN_粒:1.0__ID_粒_80_: _TOKEN_礎:1.0__ID_礎_8_,
+        _TOKEN_粒:1.0__ID_粒_41_: _TOKEN_礎:1.0__ID_礎_30_,
+        ir: _TOKEN_礎:1.0__ID_礎_9_
+    ) async -> _TOKEN_礎:1.0__ID_礎_43_ {
+
+// [metadata-stripped]
+        let (_TOKEN_粒:1.0__ID_粒_87_, _TOKEN_粒:1.0__ID_粒_77_) = _TOKEN_術:1.0__ID_礎_4_._TOKEN_浮:1.0__ID_粒_66_(_TOKEN_粒:1.0__ID_粒_80_)
+
+// [metadata-stripped]
+        let _TOKEN_鍵:1.0__ID_粒_64_ = _TOKEN_鍵:1.0__ID_粒_60_(_TOKEN_粒:1.0__ID_粒_51_: _TOKEN_粒:1.0__ID_粒_80_)
+        let (_TOKEN_粒:1.0__ID_粒_98_, _TOKEN_粒:1.0__ID_粒_102_) = _TOKEN_礎:1.0__ID_礎_22_._TOKEN_粒:1.0__ID_粒_54_(for: _TOKEN_鍵:1.0__ID_粒_64_, in: _TOKEN_粒:1.0__ID_粒_41_)
+
+// [metadata-stripped]
+        let _TOKEN_粒:1.0__ID_粒_4_ = _TOKEN_粒:1.0__ID_粒_47_(in: ir)
+
+// [metadata-stripped]
+        var _TOKEN_粒:1.0__ID_粒_67_: [_TOKEN_礎:1.0__ID_礎_8_: _TOKEN_礎:1.0__ID_礎_43_._TOKEN_術:1.0__ID_礎_15_] = [:]
+        if _TOKEN_粒:1.0__ID_粒_77_ == ._TOKEN_粒:1.0__ID_粒_14_ {
+// [metadata-stripped]
+            _TOKEN_粒:1.0__ID_粒_67_["_TOKEN_粒:1.0__ID_粒_46_"] = .init(_TOKEN_粒:1.0__ID_粒_18_: "_TOKEN_粒:1.0__ID_粒_44_", _TOKEN_術:1.0__ID_粒_55_: "_TOKEN_礎:1.0__ID_礎_48_:_TOKEN_粒:1.0__ID_粒_86_")
+        }
+        if _TOKEN_粒:1.0__ID_粒_77_ == ._TOKEN_術:1.0__ID_粒_74_ {
+            _TOKEN_粒:1.0__ID_粒_67_["_TOKEN_粒:1.0__ID_粒_78_"] = .init(_TOKEN_粒:1.0__ID_粒_18_: "_TOKEN_粒:1.0__ID_粒_23_", _TOKEN_術:1.0__ID_粒_55_: "_TOKEN_礎:1.0__ID_礎_48_:_TOKEN_粒:1.0__ID_粒_95_")
+        }
+
+        return _TOKEN_礎:1.0__ID_礎_43_(
+            _TOKEN_粒:1.0__ID_粒_87_: _TOKEN_粒:1.0__ID_粒_87_,
+            _TOKEN_粒:1.0__ID_粒_22_: _TOKEN_粒:1.0__ID_粒_98_,
+            _TOKEN_粒:1.0__ID_粒_20_: _TOKEN_粒:1.0__ID_粒_77_,
+            _TOKEN_粒:1.0__ID_粒_38_: _TOKEN_粒:1.0__ID_粒_102_,
+            _TOKEN_粒:1.0__ID_粒_5_: _TOKEN_粒:1.0__ID_粒_67_,
+            _TOKEN_粒:1.0__ID_粒_93_: _TOKEN_粒:1.0__ID_粒_4_
+        )
+    }
+
+// _TOKEN_礎:0.8__ID_CH_723_ [decoy-metadata]
+// [metadata-stripped]
+
+    private func _TOKEN_鍵:1.0__ID_粒_60_(_TOKEN_粒:1.0__ID_粒_51_ _TOKEN_粒:1.0__ID_粒_75_: _TOKEN_礎:1.0__ID_礎_8_) -> _TOKEN_礎:1.0__ID_礎_8_ {
+// _TOKEN_繍:0.4__ID_VM_282_ [decoy-metadata]
+// [metadata-stripped]
+        let _TOKEN_粒:1.0__ID_粒_76_ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_礎:0.9__ID_GF_281_ [decoy-metadata]
+// [metadata-stripped]
+        ]
+        for _TOKEN_粒:1.0__ID_粒_6_ in _TOKEN_粒:1.0__ID_粒_76_ {
+// _TOKEN_繍:0.7__ID_YE_344_ [decoy-metadata]
+            if let _TOKEN_粒:1.0__ID_粒_50_ = try? _TOKEN_礎:1.0__ID_礎_1_(_TOKEN_粒:1.0__ID_粒_6_: _TOKEN_粒:1.0__ID_粒_6_),
+               let _TOKEN_粒:1.0__ID_粒_53_ = _TOKEN_粒:1.0__ID_粒_50_._TOKEN_粒:1.0__ID_粒_3_(in: _TOKEN_粒:1.0__ID_粒_75_, _TOKEN_粒:1.0__ID_粒_40_: _TOKEN_礎:1.0__ID_礎_14_(_TOKEN_粒:1.0__ID_粒_75_._TOKEN_粒:1.0__ID_粒_71_..., in: _TOKEN_粒:1.0__ID_粒_75_)) {
+                for i in 1..<_TOKEN_粒:1.0__ID_粒_53_._TOKEN_粒:1.0__ID_粒_99_ {
+                    if let _TOKEN_粒:1.0__ID_粒_40_ = _TOKEN_礎:1.0__ID_礎_10_(_TOKEN_粒:1.0__ID_粒_53_._TOKEN_粒:1.0__ID_粒_40_(at: i), in: _TOKEN_粒:1.0__ID_粒_75_) {
+                        return _TOKEN_礎:1.0__ID_礎_8_(_TOKEN_粒:1.0__ID_粒_75_[_TOKEN_粒:1.0__ID_粒_40_])
+                    }
+                }
+            }
+        }
+// [metadata-stripped]
+        return _TOKEN_粒:1.0__ID_粒_75_
+    }
+
+    private func _TOKEN_粒:1.0__ID_粒_47_(in ir: _TOKEN_礎:1.0__ID_礎_9_) -> _TOKEN_礎:1.0__ID_礎_8_? {
+// [metadata-stripped]
+        for (id, _TOKEN_粒:1.0__ID_粒_81_) in ir._TOKEN_粒:1.0__ID_粒_29_ {
+            if _TOKEN_粒:1.0__ID_粒_81_._TOKEN_粒:1.0__ID_粒_36_ == ._TOKEN_粒:1.0__ID_粒_83_,
+               _TOKEN_粒:1.0__ID_粒_81_._TOKEN_粒:1.0__ID_粒_91_?._TOKEN_粒:1.0__ID_粒_65_ == ._TOKEN_粒:1.0__ID_粒_52_ {
+                return id._TOKEN_粒:1.0__ID_粒_7_
+            }
+        }
+        return nil
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

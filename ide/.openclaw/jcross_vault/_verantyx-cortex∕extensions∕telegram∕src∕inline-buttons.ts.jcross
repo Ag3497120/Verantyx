@@ -1,0 +1,79 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:24266A3C ver:1778167478
+// _JCROSS_糸:0.1__OPAQUE_EV_235_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_雰:1.0__OPAQUE_雰_42_ { _JCROSS_廨:1.0__OPAQUE_廨_3_ } _JCROSS_雰:1.0__OPAQUE_雰_31_ "_JCROSS_雰:1.0__OPAQUE_雰_32_/_JCROSS_雰:1.0__OPAQUE_雰_19_-_JCROSS_雰:1.0__OPAQUE_雰_17_/_JCROSS_雰:1.0__OPAQUE_雰_39_-_JCROSS_雰:1.0__OPAQUE_雰_22_";
+import _JCROSS_雰:1.0__OPAQUE_雰_42_ { _JCROSS_廨:1.0__OPAQUE_廨_2_ } _JCROSS_雰:1.0__OPAQUE_雰_31_ "_JCROSS_雰:1.0__OPAQUE_雰_32_/_JCROSS_雰:1.0__OPAQUE_雰_19_-_JCROSS_雰:1.0__OPAQUE_雰_17_/_JCROSS_雰:1.0__OPAQUE_雰_39_-_JCROSS_雰:1.0__OPAQUE_雰_22_";
+import { _JCROSS_雰:1.0__OPAQUE_雰_43_, _JCROSS_雰:1.0__OPAQUE_雰_44_ } _JCROSS_雰:1.0__OPAQUE_雰_31_ "./_JCROSS_雰:1.0__OPAQUE_雰_23_.js";
+
+_JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_廨:1.0__OPAQUE_廨_5_: _JCROSS_廨:1.0__OPAQUE_廨_2_ = "_JCROSS_雰:1.0__OPAQUE_雰_41_";
+
+_JCROSS_雰:1.0__OPAQUE_雰_29_ _JCROSS_雰:1.0__OPAQUE_雰_8_(_JCROSS_雰:1.0__OPAQUE_雰_13_: _JCROSS_雰:1.0__OPAQUE_雰_33_): _JCROSS_廨:1.0__OPAQUE_廨_2_ | _JCROSS_雰:1.0__OPAQUE_雰_30_ {
+  if (_JCROSS_雰:1.0__OPAQUE_雰_36_ _JCROSS_雰:1.0__OPAQUE_雰_13_ !== "_JCROSS_雰:1.0__OPAQUE_雰_26_") {
+// _JCROSS_廨:0.5__OPAQUE_BG_503_ [decoy-metadata]
+    return _JCROSS_雰:1.0__OPAQUE_雰_30_;
+  }
+  _JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_雰:1.0__OPAQUE_雰_24_ = _JCROSS_雰:1.0__OPAQUE_雰_13_._JCROSS_雰:1.0__OPAQUE_雰_4_()._JCROSS_雰:1.0__OPAQUE_雰_21_();
+// _JCROSS_浪:0.5__OPAQUE_YY_890_ [decoy-metadata]
+  if (
+// _JCROSS_縁:0.4__OPAQUE_LM_735_ [decoy-metadata]
+    _JCROSS_雰:1.0__OPAQUE_雰_24_ === "_JCROSS_雰:1.0__OPAQUE_雰_45_" ||
+    _JCROSS_雰:1.0__OPAQUE_雰_24_ === "dm" ||
+    _JCROSS_雰:1.0__OPAQUE_雰_24_ === "_JCROSS_雰:1.0__OPAQUE_雰_14_" ||
+    _JCROSS_雰:1.0__OPAQUE_雰_24_ === "_JCROSS_雰:1.0__OPAQUE_雰_7_" ||
+    _JCROSS_雰:1.0__OPAQUE_雰_24_ === "_JCROSS_雰:1.0__OPAQUE_雰_41_"
+// _JCROSS_案:0.3__OPAQUE_EW_580_ [decoy-metadata]
+  ) {
+    return _JCROSS_雰:1.0__OPAQUE_雰_24_ as _JCROSS_廨:1.0__OPAQUE_廨_2_;
+  }
+  return _JCROSS_雰:1.0__OPAQUE_雰_30_;
+}
+
+_JCROSS_雰:1.0__OPAQUE_雰_29_ _JCROSS_雰:1.0__OPAQUE_雰_11_(
+  _JCROSS_雰:1.0__OPAQUE_雰_20_: _JCROSS_雰:1.0__OPAQUE_雰_33_,
+): _JCROSS_廨:1.0__OPAQUE_廨_2_ {
+  if (!_JCROSS_雰:1.0__OPAQUE_雰_20_) {
+    return _JCROSS_廨:1.0__OPAQUE_廨_5_;
+  }
+  if (_JCROSS_廨:1.0__OPAQUE_廨_4_._JCROSS_雰:1.0__OPAQUE_雰_5_(_JCROSS_雰:1.0__OPAQUE_雰_20_)) {
+    _JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_雰:1.0__OPAQUE_雰_46_ = _JCROSS_雰:1.0__OPAQUE_雰_20_.some(
+// _JCROSS_縁:0.1__OPAQUE_BH_115_ [decoy-metadata]
+      (_JCROSS_雰:1.0__OPAQUE_雰_1_) => _JCROSS_廨:1.0__OPAQUE_廨_1_(_JCROSS_雰:1.0__OPAQUE_雰_1_)._JCROSS_雰:1.0__OPAQUE_雰_4_()._JCROSS_雰:1.0__OPAQUE_雰_21_() === "_JCROSS_雰:1.0__OPAQUE_雰_3_",
+    );
+    return _JCROSS_雰:1.0__OPAQUE_雰_46_ ? "_JCROSS_雰:1.0__OPAQUE_雰_7_" : "_JCROSS_雰:1.0__OPAQUE_雰_45_";
+  }
+  if (_JCROSS_雰:1.0__OPAQUE_雰_36_ _JCROSS_雰:1.0__OPAQUE_雰_20_ === "_JCROSS_雰:1.0__OPAQUE_雰_12_") {
+    _JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_雰:1.0__OPAQUE_雰_38_ = (_JCROSS_雰:1.0__OPAQUE_雰_20_ as { _JCROSS_雰:1.0__OPAQUE_雰_38_?: _JCROSS_雰:1.0__OPAQUE_雰_33_ })._JCROSS_雰:1.0__OPAQUE_雰_38_;
+    return _JCROSS_雰:1.0__OPAQUE_雰_8_(_JCROSS_雰:1.0__OPAQUE_雰_38_) ?? _JCROSS_廨:1.0__OPAQUE_廨_5_;
+  }
+  return _JCROSS_廨:1.0__OPAQUE_廨_5_;
+}
+
+_JCROSS_雰:1.0__OPAQUE_雰_2_ _JCROSS_雰:1.0__OPAQUE_雰_29_ _JCROSS_雰:1.0__OPAQUE_雰_25_(_JCROSS_雰:1.0__OPAQUE_雰_37_: {
+  _JCROSS_雰:1.0__OPAQUE_雰_35_: _JCROSS_廨:1.0__OPAQUE_廨_3_;
+  _JCROSS_雰:1.0__OPAQUE_雰_9_?: _JCROSS_雰:1.0__OPAQUE_雰_26_ | _JCROSS_雰:1.0__OPAQUE_雰_15_;
+}): _JCROSS_廨:1.0__OPAQUE_廨_2_ {
+  _JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_雰:1.0__OPAQUE_雰_18_ = _JCROSS_雰:1.0__OPAQUE_雰_44_({ _JCROSS_雰:1.0__OPAQUE_雰_35_: _JCROSS_雰:1.0__OPAQUE_雰_37_._JCROSS_雰:1.0__OPAQUE_雰_35_, _JCROSS_雰:1.0__OPAQUE_雰_9_: _JCROSS_雰:1.0__OPAQUE_雰_37_._JCROSS_雰:1.0__OPAQUE_雰_9_ });
+  return _JCROSS_雰:1.0__OPAQUE_雰_11_(_JCROSS_雰:1.0__OPAQUE_雰_18_._JCROSS_雰:1.0__OPAQUE_雰_39_._JCROSS_雰:1.0__OPAQUE_雰_20_);
+}
+
+_JCROSS_雰:1.0__OPAQUE_雰_2_ _JCROSS_雰:1.0__OPAQUE_雰_29_ _JCROSS_雰:1.0__OPAQUE_雰_6_(_JCROSS_雰:1.0__OPAQUE_雰_37_: {
+  _JCROSS_雰:1.0__OPAQUE_雰_35_: _JCROSS_廨:1.0__OPAQUE_廨_3_;
+  _JCROSS_雰:1.0__OPAQUE_雰_9_?: _JCROSS_雰:1.0__OPAQUE_雰_26_ | _JCROSS_雰:1.0__OPAQUE_雰_15_;
+}): _JCROSS_雰:1.0__OPAQUE_雰_34_ {
+  if (_JCROSS_雰:1.0__OPAQUE_雰_37_._JCROSS_雰:1.0__OPAQUE_雰_9_) {
+    return _JCROSS_雰:1.0__OPAQUE_雰_25_(_JCROSS_雰:1.0__OPAQUE_雰_37_) !== "_JCROSS_雰:1.0__OPAQUE_雰_45_";
+  }
+  _JCROSS_雰:1.0__OPAQUE_雰_40_ _JCROSS_雰:1.0__OPAQUE_雰_16_ = _JCROSS_雰:1.0__OPAQUE_雰_43_(_JCROSS_雰:1.0__OPAQUE_雰_37_._JCROSS_雰:1.0__OPAQUE_雰_35_);
+  if (_JCROSS_雰:1.0__OPAQUE_雰_16_._JCROSS_雰:1.0__OPAQUE_雰_27_ === 0) {
+    return _JCROSS_雰:1.0__OPAQUE_雰_25_(_JCROSS_雰:1.0__OPAQUE_雰_37_) !== "_JCROSS_雰:1.0__OPAQUE_雰_45_";
+  }
+  return _JCROSS_雰:1.0__OPAQUE_雰_16_.some(
+    (_JCROSS_雰:1.0__OPAQUE_雰_9_) => _JCROSS_雰:1.0__OPAQUE_雰_25_({ _JCROSS_雰:1.0__OPAQUE_雰_35_: _JCROSS_雰:1.0__OPAQUE_雰_37_._JCROSS_雰:1.0__OPAQUE_雰_35_, _JCROSS_雰:1.0__OPAQUE_雰_9_ }) !== "_JCROSS_雰:1.0__OPAQUE_雰_45_",
+  );
+}
+
+_JCROSS_雰:1.0__OPAQUE_雰_2_ { _JCROSS_雰:1.0__OPAQUE_雰_10_ } _JCROSS_雰:1.0__OPAQUE_雰_31_ "./_JCROSS_雰:1.0__OPAQUE_雰_28_.js";
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,38 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2C0EF485 ver:1778159687
+// ⚠️ One-time schema — expires after response
+
+import __jcross_礫:1.0___VERANTYX_礫_8_
+// __jcross_碑:0.4___VERANTYX_BM_831_ [decoy-metadata]
+// __jcross_幽:0.9___VERANTYX_EY_523_ [decoy-metadata]
+import re
+__jcross_礫:1.0___VERANTYX_礫_1_ __jcross_礫:1.0___VERANTYX_礫_2_ import __jcross_廷:1.0___VERANTYX_廷_3_
+__jcross_礫:1.0___VERANTYX_礫_1_ __jcross_礫:1.0___VERANTYX_礫_3_ import __jcross_廷:1.0___VERANTYX_廷_5_, __jcross_廷:1.0___VERANTYX_廷_2_, __jcross_廷:1.0___VERANTYX_廷_4_
+
+__jcross_礫:1.0___VERANTYX_礫_24_ __jcross_匴:1.0___VERANTYX_礫_17_(__jcross_礫:1.0___VERANTYX_礫_20_: __jcross_礫:1.0___VERANTYX_礫_9_) -> __jcross_廷:1.0___VERANTYX_廷_5_[__jcross_廷:1.0___VERANTYX_廷_2_]:
+    __jcross_礫:1.0___VERANTYX_礫_15_ = []
+    p = __jcross_廷:1.0___VERANTYX_廷_3_(__jcross_礫:1.0___VERANTYX_礫_20_)
+    if __jcross_礫:1.0___VERANTYX_礫_14_ p.__jcross_礫:1.0___VERANTYX_礫_18_():
+        return []
+    __jcross_礫:1.0___VERANTYX_礫_22_ open(p, "r", __jcross_礫:1.0___VERANTYX_礫_16_="__jcross_礫:1.0___VERANTYX_礫_19_-8") as f:
+        for __jcross_礫:1.0___VERANTYX_礫_6_ in f:
+            __jcross_礫:1.0___VERANTYX_礫_6_ = __jcross_礫:1.0___VERANTYX_礫_6_.__jcross_礫:1.0___VERANTYX_礫_23_()
+            if __jcross_礫:1.0___VERANTYX_礫_14_ __jcross_礫:1.0___VERANTYX_礫_6_:
+                continue
+// __jcross_澎:0.7___VERANTYX_CH_112_ [decoy-metadata]
+            try:
+                __jcross_礫:1.0___VERANTYX_礫_15_.__jcross_礫:1.0___VERANTYX_礫_21_(__jcross_礫:1.0___VERANTYX_礫_8_.__jcross_匴:1.0___VERANTYX_礫_5_(__jcross_礫:1.0___VERANTYX_礫_6_))
+            __jcross_礫:1.0___VERANTYX_礫_10_:
+                continue
+    return __jcross_礫:1.0___VERANTYX_礫_15_
+
+__jcross_礫:1.0___VERANTYX_礫_24_ __jcross_礫:1.0___VERANTYX_礫_7_(__jcross_礫:1.0___VERANTYX_礫_4_: __jcross_礫:1.0___VERANTYX_礫_9_, __jcross_礫:1.0___VERANTYX_礫_15_: __jcross_廷:1.0___VERANTYX_廷_5_[__jcross_廷:1.0___VERANTYX_廷_2_]) -> __jcross_廷:1.0___VERANTYX_廷_4_[__jcross_礫:1.0___VERANTYX_礫_9_]:
+// __jcross_廷:0.5___VERANTYX_WD_734_ [decoy-metadata]
+// __jcross_礫:0.4___VERANTYX_ZH_363_ [decoy-metadata]
+    for t in __jcross_礫:1.0___VERANTYX_礫_15_:
+        if re.__jcross_礫:1.0___VERANTYX_礫_13_(t["__jcross_礫:1.0___VERANTYX_礫_11_"], __jcross_礫:1.0___VERANTYX_礫_4_):
+            return t["__jcross_礫:1.0___VERANTYX_礫_12_"]
+// __jcross_碑:0.8___VERANTYX_MF_522_ [decoy-metadata]
+    return __jcross_廷:1.0___VERANTYX_廷_1_
+
+// POLYMORPHIC_JCROSS_END

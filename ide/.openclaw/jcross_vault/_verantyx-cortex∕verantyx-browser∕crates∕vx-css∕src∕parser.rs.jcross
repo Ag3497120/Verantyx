@@ -1,0 +1,149 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2BDB024F ver:1778166351
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+_ID_粒:1.0__ASTNODE_粒_22_ fn _ID_渕:1.0__ASTNODE_粒_10_(_ID_粒:1.0__ASTNODE_粒_49_: &_ID_粒:1.0__ASTNODE_粒_8_) -> _ID_庸:1.0__ASTNODE_庸_11_<_ID_渕:1.0__ASTNODE_庸_1_> {
+// _ID_庸:0.9__ASTNODE_YY_990_ [decoy-metadata]
+    let _ID_粒:1.0__ASTNODE_粒_6_ _ID_渕:1.0__ASTNODE_粒_38_ = _ID_庸:1.0__ASTNODE_庸_11_::_ID_粒:1.0__ASTNODE_粒_44_();
+    let _ID_粒:1.0__ASTNODE_粒_6_ _ID_粒:1.0__ASTNODE_粒_50_ = 0;
+    let _ID_粒:1.0__ASTNODE_粒_14_ = _ID_粒:1.0__ASTNODE_粒_49_._ID_粒:1.0__ASTNODE_粒_5_();
+
+    while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() {
+// [metadata-stripped]
+        if _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_29_() {
+            let _ID_粒:1.0__ASTNODE_粒_4_ = _ID_粒:1.0__ASTNODE_粒_50_;
+            while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_29_() { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_37_);
+            continue;
+        }
+
+// [metadata-stripped]
+// _ID_渕:0.1__ASTNODE_ZX_432_ [decoy-metadata]
+        if _ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_50_..]._ID_粒:1.0__ASTNODE_粒_53_("/*") {
+            if let _ID_庸:1.0__ASTNODE_庸_19_(_ID_粒:1.0__ASTNODE_粒_39_) = _ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_50_+2..]._ID_粒:1.0__ASTNODE_粒_31_("*/") {
+                let _ID_粒:1.0__ASTNODE_粒_52_ = &_ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_50_+2.._ID_粒:1.0__ASTNODE_粒_50_+2+_ID_粒:1.0__ASTNODE_粒_39_];
+                _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_16_(_ID_粒:1.0__ASTNODE_粒_52_._ID_粒:1.0__ASTNODE_粒_51_()));
+                _ID_粒:1.0__ASTNODE_粒_50_ += _ID_粒:1.0__ASTNODE_粒_39_ + 4;
+                continue;
+            }
+// _ID_焦:0.1__ASTNODE_DF_333_ [decoy-metadata]
+            break;
+        }
+
+// [metadata-stripped]
+        if _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'"' || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'\'' {
+            let _ID_粒:1.0__ASTNODE_粒_37_ = _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] as _ID_粒:1.0__ASTNODE_粒_42_;
+            _ID_粒:1.0__ASTNODE_粒_50_ += 1;
+            let _ID_粒:1.0__ASTNODE_粒_4_ = _ID_粒:1.0__ASTNODE_粒_50_;
+            while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] as _ID_粒:1.0__ASTNODE_粒_42_ != _ID_粒:1.0__ASTNODE_粒_37_ { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_36_(_ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_4_.._ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_51_()));
+            _ID_粒:1.0__ASTNODE_粒_50_ += 1;
+            continue;
+        }
+
+// [metadata-stripped]
+        if _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_20_() || (_ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'-' && _ID_粒:1.0__ASTNODE_粒_50_ + 1 < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_+1]._ID_粒:1.0__ASTNODE_粒_20_()) {
+            let _ID_粒:1.0__ASTNODE_粒_4_ = _ID_粒:1.0__ASTNODE_粒_50_;
+            if _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'-' { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && (_ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_20_() || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'.') { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            let _ID_粒:1.0__ASTNODE_粒_55_ = &_ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_4_.._ID_粒:1.0__ASTNODE_粒_50_];
+// [metadata-stripped]
+            let _ID_粒:1.0__ASTNODE_粒_1_ = _ID_粒:1.0__ASTNODE_粒_50_;
+            while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && (_ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_21_() || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'%') { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            let _ID_粒:1.0__ASTNODE_粒_9_ = &_ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_1_.._ID_粒:1.0__ASTNODE_粒_50_];
+            _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_23_(_ID_粒:1.0__ASTNODE_粒_55_._ID_粒:1.0__ASTNODE_粒_35_()._ID_粒:1.0__ASTNODE_粒_26_(0.0), _ID_粒:1.0__ASTNODE_粒_9_._ID_粒:1.0__ASTNODE_粒_51_()));
+            continue;
+        }
+
+// [metadata-stripped]
+        if _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_21_() || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'-' || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'_' {
+            let _ID_粒:1.0__ASTNODE_粒_4_ = _ID_粒:1.0__ASTNODE_粒_50_;
+            while _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && (_ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_]._ID_粒:1.0__ASTNODE_粒_47_() || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'-' || _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'_') { _ID_粒:1.0__ASTNODE_粒_50_ += 1; }
+            let _ID_粒:1.0__ASTNODE_粒_24_ = &_ID_粒:1.0__ASTNODE_粒_49_[_ID_粒:1.0__ASTNODE_粒_4_.._ID_粒:1.0__ASTNODE_粒_50_];
+            if _ID_粒:1.0__ASTNODE_粒_50_ < _ID_粒:1.0__ASTNODE_粒_14_._ID_粒:1.0__ASTNODE_粒_32_() && _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] == b'(' {
+                _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_4_(_ID_粒:1.0__ASTNODE_粒_24_._ID_粒:1.0__ASTNODE_粒_51_()));
+                _ID_粒:1.0__ASTNODE_粒_50_ += 1;
+            } else {
+                _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_43_(_ID_粒:1.0__ASTNODE_粒_24_._ID_粒:1.0__ASTNODE_粒_51_()));
+            }
+            continue;
+        }
+
+// [metadata-stripped]
+        _ID_粒:1.0__ASTNODE_粒_12_ _ID_粒:1.0__ASTNODE_粒_14_[_ID_粒:1.0__ASTNODE_粒_50_] {
+            b'{' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_25_),
+            b'}' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_34_),
+            b'(' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_39_),
+            b')' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_5_),
+            b'[' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_41_),
+            b']' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_32_),
+            b':' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_29_),
+            b';' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_28_),
+            b',' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_2_),
+            b'.' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_22_),
+            b'#' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_42_),
+            b'@' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::At),
+            b'!' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_14_),
+// _ID_滲:0.8__ASTNODE_AE_757_ [decoy-metadata]
+            b'*' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_24_),
+            b'>' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_規:1.0__ASTNODE_庸_35_),
+            b'+' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_10_),
+            b'~' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_31_),
+            b'|' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_38_),
+// _ID_焦:0.1__ASTNODE_LD_695_ [decoy-metadata]
+            b'/' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_20_),
+            b'%' => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_17_),
+            _ID_規:1.0__ASTNODE_粒_59_ => _ID_渕:1.0__ASTNODE_粒_38_._ID_粒:1.0__ASTNODE_粒_3_(_ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_21_(_ID_規:1.0__ASTNODE_粒_59_ as _ID_粒:1.0__ASTNODE_粒_42_)),
+        }
+        _ID_粒:1.0__ASTNODE_粒_50_ += 1;
+    }
+
+    _ID_渕:1.0__ASTNODE_粒_38_
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_粒:1.0__ASTNODE_粒_22_ enum _ID_渕:1.0__ASTNODE_庸_1_ {
+    _ID_庸:1.0__ASTNODE_庸_43_(_ID_庸:1.0__ASTNODE_庸_36_),
+    _ID_庸:1.0__ASTNODE_庸_4_(_ID_庸:1.0__ASTNODE_庸_36_),
+    _ID_庸:1.0__ASTNODE_庸_36_(_ID_庸:1.0__ASTNODE_庸_36_),
+    _ID_庸:1.0__ASTNODE_庸_23_(_ID_粒:1.0__ASTNODE_粒_30_, _ID_庸:1.0__ASTNODE_庸_36_),
+    _ID_規:1.0__ASTNODE_庸_12_(_ID_粒:1.0__ASTNODE_粒_30_),
+    _ID_庸:1.0__ASTNODE_庸_26_(_ID_粒:1.0__ASTNODE_粒_30_),
+    _ID_庸:1.0__ASTNODE_庸_16_(_ID_庸:1.0__ASTNODE_庸_36_),
+    _ID_庸:1.0__ASTNODE_庸_37_,
+    _ID_庸:1.0__ASTNODE_庸_25_, _ID_庸:1.0__ASTNODE_庸_34_,
+    _ID_庸:1.0__ASTNODE_庸_39_, _ID_庸:1.0__ASTNODE_庸_5_,
+    _ID_庸:1.0__ASTNODE_庸_41_, _ID_庸:1.0__ASTNODE_庸_32_,
+    _ID_庸:1.0__ASTNODE_庸_29_, _ID_庸:1.0__ASTNODE_庸_28_, _ID_庸:1.0__ASTNODE_庸_2_,
+    _ID_庸:1.0__ASTNODE_庸_22_, _ID_庸:1.0__ASTNODE_庸_42_, At, _ID_庸:1.0__ASTNODE_庸_14_,
+    _ID_庸:1.0__ASTNODE_庸_24_, _ID_規:1.0__ASTNODE_庸_35_, _ID_庸:1.0__ASTNODE_庸_10_, _ID_庸:1.0__ASTNODE_庸_31_, _ID_庸:1.0__ASTNODE_庸_38_, _ID_庸:1.0__ASTNODE_庸_20_, _ID_庸:1.0__ASTNODE_庸_17_,
+    _ID_庸:1.0__ASTNODE_庸_21_(_ID_粒:1.0__ASTNODE_粒_42_),
+    _ID_庸:1.0__ASTNODE_庸_7_,
+}
+
+// [metadata-stripped]
+_ID_粒:1.0__ASTNODE_粒_11_ _ID_粒:1.0__ASTNODE_粒_2_ {
+    _ID_粒:1.0__ASTNODE_粒_48_ super::*;
+
+// [metadata-stripped]
+    fn _ID_渕:1.0__ASTNODE_粒_46_() {
+        let _ID_渕:1.0__ASTNODE_粒_38_ = _ID_渕:1.0__ASTNODE_粒_10_("_ID_粒:1.0__ASTNODE_粒_57_ { _ID_粒:1.0__ASTNODE_粒_61_: _ID_粒:1.0__ASTNODE_粒_7_; }");
+        _ID_粒:1.0__ASTNODE_粒_23_!(_ID_渕:1.0__ASTNODE_粒_38_._ID_規:1.0__ASTNODE_粒_43_().any(|t| _ID_粒:1.0__ASTNODE_粒_28_!(t, _ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_43_(s) if s == "_ID_粒:1.0__ASTNODE_粒_57_")));
+        _ID_粒:1.0__ASTNODE_粒_23_!(_ID_渕:1.0__ASTNODE_粒_38_._ID_規:1.0__ASTNODE_粒_43_().any(|t| _ID_粒:1.0__ASTNODE_粒_28_!(t, _ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_25_)));
+        _ID_粒:1.0__ASTNODE_粒_23_!(_ID_渕:1.0__ASTNODE_粒_38_._ID_規:1.0__ASTNODE_粒_43_().any(|t| _ID_粒:1.0__ASTNODE_粒_28_!(t, _ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_43_(s) if s == "_ID_粒:1.0__ASTNODE_粒_61_")));
+    }
+
+// [metadata-stripped]
+    fn _ID_渕:1.0__ASTNODE_粒_58_() {
+// _ID_渕:0.4__ASTNODE_VL_763_ [decoy-metadata]
+        let _ID_渕:1.0__ASTNODE_粒_38_ = _ID_渕:1.0__ASTNODE_粒_10_("16px");
+        _ID_粒:1.0__ASTNODE_粒_23_!(_ID_渕:1.0__ASTNODE_粒_38_._ID_規:1.0__ASTNODE_粒_43_().any(|t| _ID_粒:1.0__ASTNODE_粒_28_!(t, _ID_渕:1.0__ASTNODE_庸_1_::_ID_庸:1.0__ASTNODE_庸_23_(16.0, s) if s == "px")));
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -53,7 +53,7 @@ jobs:
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
         run: |
           set -euo pipefail
-          cd cli
+          cd ide
           VERSION=${GITHUB_REF_NAME#v}
           if [ -z "$VERSION" ] || [ "$VERSION" = "main" ] || [[ "$VERSION" == fix/* ]] || [[ "$VERSION" == cursor/* ]]; then
             VERSION="0.0.0-dev-${GITHUB_RUN_NUMBER}"
@@ -70,14 +70,14 @@ jobs:
         with:
           name: VerantyxIDE-macOS-App
           path: |
-            cli/dist/*.dmg
-            cli/dist/*.zip
+            ide/dist/*.dmg
+            ide/dist/*.zip
 
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            cli/dist/*.dmg
-            cli/dist/*.zip
+            ide/dist/*.dmg
+            ide/dist/*.zip
           generate_release_notes: true

@@ -1,0 +1,327 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:836BB8E5 ver:1778162974
+// ⚠️ One-time schema — expires after response
+
+import __ast_霾:1.0___VERANTYX_霾_85_
+import __ast_霾:1.0___VERANTYX_霾_1_
+import __ast_霾:1.0___VERANTYX_霾_205_
+import os
+import __ast_霾:1.0___VERANTYX_霾_45_
+
+import __ast_霾:1.0___VERANTYX_霾_89_ as np
+
+__ast_霾:1.0___VERANTYX_霾_83_ .__ast_霾:1.0___VERANTYX_霾_295_ import __ast_廡:1.0___VERANTYX_廡_10_
+__ast_霾:1.0___VERANTYX_霾_83_ .__ast_霾:1.0___VERANTYX_霾_265_ import __ast_要:1.0___VERANTYX_廡_37_
+
+__ast_霾:1.0___VERANTYX_霾_83_ __ast_霾:1.0___VERANTYX_霾_85_ import __ast_廡:1.0___VERANTYX_廡_56_
+__ast_霾:1.0___VERANTYX_霾_83_ __ast_霾:1.0___VERANTYX_霾_273_ import __ast_霾:1.0___VERANTYX_霾_273_, __ast_霾:1.0___VERANTYX_霾_80_
+
+class __ast_要:1.0___VERANTYX_廡_11_:
+    """
+    __ast_廡:1.0___VERANTYX_廡_27_ class is __ast_霾:1.0___VERANTYX_霾_72_ to __ast_霾:1.0___VERANTYX_霾_73_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_廡:1.0___VERANTYX_廡_8_ __ast_廡:1.0___VERANTYX_廡_51_ __ast_廡:1.0___VERANTYX_廡_43_.
+    """
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_145_(self,
+                 __ast_霾:1.0___VERANTYX_霾_147_: __ast_要:1.0___VERANTYX_廡_37_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_61_: __ast_廡:1.0___VERANTYX_廡_10_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_202_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_136_ = "__ast_廡:1.0___VERANTYX_廡_17_",
+                 __ast_霾:1.0___VERANTYX_霾_52_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_196_ = 1,
+                 __ast_霾:1.0___VERANTYX_霾_76_ = 1000,
+                 __ast_霾:1.0___VERANTYX_霾_299_ = 16000,
+                 __ast_霾:1.0___VERANTYX_霾_180_ = 35,
+                 __ast_霾:1.0___VERANTYX_霾_175_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_2_ = 0,
+                 __ast_霾:1.0___VERANTYX_霾_101_ = 100,
+                 __ast_霾:1.0___VERANTYX_霾_56_ = 35,
+                 __ast_霾:1.0___VERANTYX_霾_193_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_252_ = "__ast_霾:1.0___VERANTYX_霾_68_",
+                 __ast_絡:1.0___VERANTYX_霾_189_ = 1,
+                 __ast_匯:1.0___VERANTYX_霾_274_ = __ast_廡:1.0___VERANTYX_廡_22_,
+                 __ast_匯:1.0___VERANTYX_霾_294_ = __ast_廡:1.0___VERANTYX_廡_22_,
+                 __ast_要:1.0___VERANTYX_霾_305_ = 200,
+                 __ast_霾:1.0___VERANTYX_霾_49_ = __ast_廡:1.0___VERANTYX_廡_14_,
+                 __ast_霾:1.0___VERANTYX_霾_118_ = __ast_廡:1.0___VERANTYX_廡_22_,
+                 **__ast_霾:1.0___VERANTYX_霾_39_):
+        """
+        :__ast_霾:1.0___VERANTYX_霾_147_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_163_ to __ast_霾:1.0___VERANTYX_霾_73_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_61_: An __ast_霾:1.0___VERANTYX_霾_61_ to __ast_霾:1.0___VERANTYX_霾_115_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_163_'s __ast_霾:1.0___VERANTYX_霾_93_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_202_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_202_ to be __ast_霾:1.0___VERANTYX_霾_35_ in __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_253_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_136_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_225_ of __ast_霾:1.0___VERANTYX_霾_103_ __ast_匯:1.0___VERANTYX_霾_142_ to __ast_霾:1.0___VERANTYX_霾_62_ as __ast_霾:1.0___VERANTYX_霾_144_ __ast_霾:1.0___VERANTYX_霾_104_ (or a __ast_霾:1.0___VERANTYX_霾_253_) in __ast_霾:1.0___VERANTYX_霾_233_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_202_ is to be __ast_霾:1.0___VERANTYX_霾_35_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_41_ __ast_廡:1.0___VERANTYX_廡_42_ __ast_廡:1.0___VERANTYX_廡_23_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_52_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_183_ __ast_霾:1.0___VERANTYX_霾_233_ __ast_霾:1.0___VERANTYX_霾_97_ to __ast_霾:1.0___VERANTYX_霾_17_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_163_ to do __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_217_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_196_: In case __ast_霾:1.0___VERANTYX_霾_203_ __ast_霾:1.0___VERANTYX_霾_90_ __ast_霾:1.0___VERANTYX_霾_300_ to try __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_235_ __ast_霾:1.0___VERANTYX_霾_276_ of __ast_霾:1.0___VERANTYX_霾_163_, __ast_霾:1.0___VERANTYX_霾_104_ __ast_霾:1.0___VERANTYX_霾_23_, __ast_霾:1.0___VERANTYX_霾_257_ __ast_霾:1.0___VERANTYX_霾_198_ % __ast_霾:1.0___VERANTYX_霾_48_ __ast_霾:1.0___VERANTYX_霾_288_, __ast_霾:1.0___VERANTYX_霾_219_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_135_ __ast_霾:1.0___VERANTYX_霾_243_ __ast_要:1.0___VERANTYX_霾_21_ __ast_霾:1.0___VERANTYX_霾_11_ 1
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_絡:1.0___VERANTYX_霾_189_: __ast_廡:1.0___VERANTYX_廡_52_ to __ast_霾:1.0___VERANTYX_霾_254_, __ast_霾:1.0___VERANTYX_霾_246_ __ast_霾:1.0___VERANTYX_霾_6_ is __ast_要:1.0___VERANTYX_巌_1_ up to __ast_霾:1.0___VERANTYX_霾_86_ __ast_霾:1.0___VERANTYX_霾_95_ __ast_絡:1.0___VERANTYX_霾_304_, __ast_霾:1.0___VERANTYX_霾_77_ = 1. Be __ast_霾:1.0___VERANTYX_霾_9_ of __ast_霾:1.0___VERANTYX_霾_156_ __ast_霾:1.0___VERANTYX_霾_301_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_匯:1.0___VERANTYX_霾_274_: __ast_要:1.0___VERANTYX_廡_30_ or __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_203_ __ast_霾:1.0___VERANTYX_霾_90_ __ast_霾:1.0___VERANTYX_霾_300_ to __ast_匯:1.0___VERANTYX_霾_154_ __ast_霾:1.0___VERANTYX_霾_53_ __ast_霾:1.0___VERANTYX_霾_224_ to __ast_匯:1.0___VERANTYX_霾_168_. __ast_廡:1.0___VERANTYX_廡_15_: __ast_廡:1.0___VERANTYX_廡_36_ __ast_霾:1.0___VERANTYX_霾_79_ __ast_要:1.0___VERANTYX_巌_4_ __ast_霾:1.0___VERANTYX_霾_51_! __ast_廡:1.0___VERANTYX_廡_46_ = __ast_廡:1.0___VERANTYX_廡_22_
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_匯:1.0___VERANTYX_霾_294_: __ast_要:1.0___VERANTYX_廡_30_ or __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_203_ __ast_霾:1.0___VERANTYX_霾_90_ __ast_霾:1.0___VERANTYX_霾_300_ to __ast_匯:1.0___VERANTYX_霾_154_ __ast_霾:1.0___VERANTYX_霾_53_ __ast_霾:1.0___VERANTYX_霾_224_ to __ast_匯:1.0___VERANTYX_霾_168_. __ast_廡:1.0___VERANTYX_廡_15_: __ast_廡:1.0___VERANTYX_廡_36_ __ast_霾:1.0___VERANTYX_霾_79_ __ast_要:1.0___VERANTYX_巌_4_ __ast_霾:1.0___VERANTYX_霾_51_! __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_22_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_要:1.0___VERANTYX_霾_305_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_215_ of __ast_霾:1.0___VERANTYX_霾_297_ __ast_霾:1.0___VERANTYX_霾_203_'d __ast_霾:1.0___VERANTYX_霾_300_ to __ast_霾:1.0___VERANTYX_霾_292_ __ast_霾:1.0___VERANTYX_霾_58_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_199_ __ast_霾:1.0___VERANTYX_霾_104_ to __ast_霾:1.0___VERANTYX_霾_114_ for __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_69_ __ast_霾:1.0___VERANTYX_霾_104_. __ast_廡:1.0___VERANTYX_廡_46_ 200 __ast_秘:1.0___VERANTYX_霾_267_
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_76_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_280_ __ast_霾:1.0___VERANTYX_霾_23_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_104_. __ast_廡:1.0___VERANTYX_廡_46_ is 1000.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_299_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_240_ __ast_霾:1.0___VERANTYX_霾_23_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_104_. __ast_廡:1.0___VERANTYX_廡_46_ is 200000.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_180_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_要:1.0___VERANTYX_霾_139_ of __ast_霾:1.0___VERANTYX_霾_125_ for __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_104_ __ast_霾:1.0___VERANTYX_霾_23_. __ast_廡:1.0___VERANTYX_廡_46_ is 35.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_175_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_197_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_104_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_2_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_280_ __ast_霾:1.0___VERANTYX_霾_198_ __ast_霾:1.0___VERANTYX_霾_111_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_269_. __ast_廡:1.0___VERANTYX_廡_46_ is 0.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_101_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_240_ __ast_霾:1.0___VERANTYX_霾_198_ __ast_霾:1.0___VERANTYX_霾_111_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_269_. __ast_廡:1.0___VERANTYX_廡_46_ is 100.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_56_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_要:1.0___VERANTYX_霾_139_ of __ast_霾:1.0___VERANTYX_霾_125_ for __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_269_ __ast_霾:1.0___VERANTYX_霾_198_ __ast_霾:1.0___VERANTYX_霾_111_. __ast_廡:1.0___VERANTYX_廡_46_ is 35.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_193_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_198_ __ast_霾:1.0___VERANTYX_霾_54_ of __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_269_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_252_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_霾:1.0___VERANTYX_霾_247_ of __ast_霾:1.0___VERANTYX_霾_255_ for __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_269_ __ast_霾:1.0___VERANTYX_霾_198_ __ast_霾:1.0___VERANTYX_霾_111_. __ast_廡:1.0___VERANTYX_廡_4_ be __ast_要:1.0___VERANTYX_霾_185_ '__ast_霾:1.0___VERANTYX_霾_68_' or '__ast_霾:1.0___VERANTYX_霾_281_'. __ast_廡:1.0___VERANTYX_廡_46_ is '__ast_霾:1.0___VERANTYX_霾_68_'.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_49_: __ast_廡:1.0___VERANTYX_廡_50_ __ast_要:1.0___VERANTYX_霾_139_ of __ast_霾:1.0___VERANTYX_霾_141_ to __ast_霾:1.0___VERANTYX_霾_92_ __ast_霾:1.0___VERANTYX_霾_152_ __ast_霾:1.0___VERANTYX_霾_87_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_14_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_118_: __ast_要:1.0___VERANTYX_廡_30_ or __ast_霾:1.0___VERANTYX_霾_208_ to __ast_霾:1.0___VERANTYX_霾_245_ __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_214_ __ast_霾:1.0___VERANTYX_霾_303_. __ast_廡:1.0___VERANTYX_廡_46_ is __ast_廡:1.0___VERANTYX_廡_22_.
+        :__ast_霾:1.0___VERANTYX_霾_275_ __ast_霾:1.0___VERANTYX_霾_39_: __ast_廡:1.0___VERANTYX_廡_55_ __ast_霾:1.0___VERANTYX_霾_284_.
+        """
+        if __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_147_:
+            __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("A __ast_霾:1.0___VERANTYX_霾_174_ __ast_霾:1.0___VERANTYX_霾_163_ __ast_霾:1.0___VERANTYX_霾_65_ be __ast_霾:1.0___VERANTYX_霾_172_ to __ast_霾:1.0___VERANTYX_霾_73_.")
+        if __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_202_ or __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_136_ or __ast_霾:1.0___VERANTYX_霾_208_ __ast_霾:1.0___VERANTYX_霾_52_:
+            __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("__ast_廡:1.0___VERANTYX_廡_51_, __ast_霾:1.0___VERANTYX_霾_253_, __ast_霾:1.0___VERANTYX_霾_257_ __ast_霾:1.0___VERANTYX_霾_52_ __ast_霾:1.0___VERANTYX_霾_65_ be __ast_霾:1.0___VERANTYX_霾_172_.")
+
+        self.__ast_霾:1.0___VERANTYX_霾_202_ = __ast_霾:1.0___VERANTYX_霾_202_
+        self.__ast_霾:1.0___VERANTYX_霾_136_ = __ast_霾:1.0___VERANTYX_霾_136_
+        self.__ast_霾:1.0___VERANTYX_霾_52_ = __ast_霾:1.0___VERANTYX_霾_52_
+        self.__ast_霾:1.0___VERANTYX_霾_196_ = __ast_霾:1.0___VERANTYX_霾_196_
+        self.__ast_絡:1.0___VERANTYX_霾_189_ = __ast_絡:1.0___VERANTYX_霾_189_
+        self.__ast_匯:1.0___VERANTYX_霾_274_ = __ast_匯:1.0___VERANTYX_霾_274_
+        self.__ast_要:1.0___VERANTYX_霾_305_ = __ast_要:1.0___VERANTYX_霾_305_
+        self.__ast_匯:1.0___VERANTYX_霾_294_ = __ast_匯:1.0___VERANTYX_霾_294_
+        self.__ast_霾:1.0___VERANTYX_霾_49_ = __ast_霾:1.0___VERANTYX_霾_49_
+        self.__ast_霾:1.0___VERANTYX_霾_118_ = __ast_霾:1.0___VERANTYX_霾_118_
+// __ast_廡:0.2___VERANTYX_XV_407_ [decoy-metadata]
+        self.__ast_霾:1.0___VERANTYX_霾_70_ = []
+
+        if __ast_霾:1.0___VERANTYX_霾_175_ is __ast_廡:1.0___VERANTYX_廡_14_:
+            if __ast_霾:1.0___VERANTYX_霾_76_ is __ast_廡:1.0___VERANTYX_廡_14_ or __ast_霾:1.0___VERANTYX_霾_299_ is __ast_廡:1.0___VERANTYX_廡_14_ or __ast_霾:1.0___VERANTYX_霾_180_ is __ast_廡:1.0___VERANTYX_廡_14_:
+                __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("__ast_要:1.0___VERANTYX_廡_39_ __ast_霾:1.0___VERANTYX_霾_76_, __ast_霾:1.0___VERANTYX_霾_299_, __ast_霾:1.0___VERANTYX_霾_260_ __ast_霾:1.0___VERANTYX_霾_131_ to be __ast_霾:1.0___VERANTYX_霾_3_ __ast_霾:1.0___VERANTYX_霾_66_ OR __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_137_ __ast_霾:1.0___VERANTYX_霾_190_ to be __ast_霾:1.0___VERANTYX_霾_138_.")
+            else:
+                self.__ast_霾:1.0___VERANTYX_霾_175_ = np.__ast_霾:1.0___VERANTYX_霾_259_(np.__ast_霾:1.0___VERANTYX_霾_44_(__ast_霾:1.0___VERANTYX_霾_76_, __ast_霾:1.0___VERANTYX_霾_299_, __ast_霾:1.0___VERANTYX_霾_221_=__ast_霾:1.0___VERANTYX_霾_180_, __ast_霾:1.0___VERANTYX_霾_241_=__ast_廡:1.0___VERANTYX_廡_22_)).__ast_霾:1.0___VERANTYX_霾_279_(__ast_霾:1.0___VERANTYX_霾_109_)
+        else:
+            self.__ast_霾:1.0___VERANTYX_霾_175_ = __ast_霾:1.0___VERANTYX_霾_175_
+
+        if __ast_霾:1.0___VERANTYX_霾_252_ __ast_霾:1.0___VERANTYX_霾_208_ in [__ast_廡:1.0___VERANTYX_廡_14_, "__ast_霾:1.0___VERANTYX_霾_68_", "__ast_霾:1.0___VERANTYX_霾_281_"]:
+            __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("__ast_霾:1.0___VERANTYX_霾_252_ __ast_霾:1.0___VERANTYX_霾_65_ be __ast_要:1.0___VERANTYX_霾_185_ __ast_廡:1.0___VERANTYX_廡_14_, '__ast_霾:1.0___VERANTYX_霾_68_' or '__ast_霾:1.0___VERANTYX_霾_281_'. If __ast_霾:1.0___VERANTYX_霾_203_'d __ast_霾:1.0___VERANTYX_霾_300_ __ast_霾:1.0___VERANTYX_霾_53_ __ast_霾:1.0___VERANTYX_霾_251_ __ast_霾:1.0___VERANTYX_霾_229_ __ast_霾:1.0___VERANTYX_霾_121_ a __ast_霾:1.0___VERANTYX_霾_289_ of __ast_霾:1.0___VERANTYX_霾_188_ in __ast_霾:1.0___VERANTYX_霾_129_ __ast_霾:1.0___VERANTYX_霾_56_")
+
+        if __ast_霾:1.0___VERANTYX_霾_193_ is __ast_廡:1.0___VERANTYX_廡_14_:
+            if __ast_霾:1.0___VERANTYX_霾_2_ is __ast_廡:1.0___VERANTYX_廡_14_ or __ast_霾:1.0___VERANTYX_霾_101_ is __ast_廡:1.0___VERANTYX_廡_14_ or __ast_霾:1.0___VERANTYX_霾_56_ is __ast_廡:1.0___VERANTYX_廡_14_:
+                __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("__ast_要:1.0___VERANTYX_廡_39_ __ast_霾:1.0___VERANTYX_霾_2_, __ast_霾:1.0___VERANTYX_霾_101_, __ast_霾:1.0___VERANTYX_霾_56_ __ast_霾:1.0___VERANTYX_霾_131_ to be __ast_霾:1.0___VERANTYX_霾_3_ __ast_霾:1.0___VERANTYX_霾_66_ OR __ast_霾:1.0___VERANTYX_霾_186_ __ast_霾:1.0___VERANTYX_霾_193_ __ast_霾:1.0___VERANTYX_霾_190_ to be __ast_霾:1.0___VERANTYX_霾_138_.")
+            
+            if __ast_霾:1.0___VERANTYX_霾_252_ == '__ast_霾:1.0___VERANTYX_霾_68_':
+                self.__ast_霾:1.0___VERANTYX_霾_193_ = np.__ast_霾:1.0___VERANTYX_霾_259_(np.__ast_霾:1.0___VERANTYX_霾_44_(__ast_霾:1.0___VERANTYX_霾_2_, __ast_霾:1.0___VERANTYX_霾_101_, __ast_霾:1.0___VERANTYX_霾_221_=__ast_霾:1.0___VERANTYX_霾_56_, __ast_霾:1.0___VERANTYX_霾_241_=__ast_廡:1.0___VERANTYX_廡_22_)).__ast_霾:1.0___VERANTYX_霾_279_(__ast_霾:1.0___VERANTYX_霾_109_)
+// __ast_巌:0.8___VERANTYX_ZF_917_ [decoy-metadata]
+            __ast_潤:1.0___VERANTYX_霾_99_ __ast_霾:1.0___VERANTYX_霾_252_ == '__ast_霾:1.0___VERANTYX_霾_281_':
+                self.__ast_霾:1.0___VERANTYX_霾_193_ = [self.__ast_霾:1.0___VERANTYX_霾_116_(x) for x in np.__ast_霾:1.0___VERANTYX_霾_44_(__ast_霾:1.0___VERANTYX_霾_2_, __ast_霾:1.0___VERANTYX_霾_101_, __ast_霾:1.0___VERANTYX_霾_56_)]
+            else:
+                __ast_霾:1.0___VERANTYX_霾_194_ __ast_廡:1.0___VERANTYX_廡_20_("__ast_霾:1.0___VERANTYX_霾_252_ __ast_霾:1.0___VERANTYX_霾_65_ be __ast_要:1.0___VERANTYX_霾_185_ '__ast_霾:1.0___VERANTYX_霾_281_' or '__ast_霾:1.0___VERANTYX_霾_68_' if __ast_霾:1.0___VERANTYX_霾_193_ is __ast_廡:1.0___VERANTYX_廡_14_.")
+        else:
+            self.__ast_霾:1.0___VERANTYX_霾_193_ = __ast_霾:1.0___VERANTYX_霾_193_
+        
+        self.__ast_霾:1.0___VERANTYX_霾_147_ = __ast_霾:1.0___VERANTYX_霾_147_
+        self.__ast_霾:1.0___VERANTYX_霾_151_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_霾:1.0___VERANTYX_霾_151_
+// __ast_廡:0.3___VERANTYX_KY_636_ [decoy-metadata]
+        
+        self.__ast_霾:1.0___VERANTYX_霾_26_ = __ast_霾:1.0___VERANTYX_霾_61_
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_116_(self, x, L=100, x0=50, k=.1):
+        if x in [0, 100]:
+            return x
+        x = -k * (x - x0)
+        return np.__ast_霾:1.0___VERANTYX_霾_259_(L * self.__ast_霾:1.0___VERANTYX_霾_281_(x), 3)
+    
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_281_(self, x):
+        return 1 / (1 + np.__ast_霾:1.0___VERANTYX_霾_170_(-x))
+    
+    async __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_32_(self, __ast_霾:1.0___VERANTYX_霾_10_, *__ast_霾:1.0___VERANTYX_霾_59_):
+        async __ast_霾:1.0___VERANTYX_霾_97_ __ast_霾:1.0___VERANTYX_霾_10_:
+            await self.__ast_霾:1.0___VERANTYX_霾_266_(*__ast_霾:1.0___VERANTYX_霾_59_)
+
+    async __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_64_(self):
+        __ast_霾:1.0___VERANTYX_霾_10_ = __ast_廡:1.0___VERANTYX_廡_56_(self.__ast_絡:1.0___VERANTYX_霾_189_)
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_74_ = []
+        for __ast_霾:1.0___VERANTYX_霾_308_ in self.__ast_霾:1.0___VERANTYX_霾_175_:
+            for __ast_霾:1.0___VERANTYX_霾_173_ in self.__ast_霾:1.0___VERANTYX_霾_193_:
+                __ast_霾:1.0___VERANTYX_霾_161_ = self.__ast_霾:1.0___VERANTYX_霾_32_(__ast_霾:1.0___VERANTYX_霾_10_, __ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_)
+                __ast_霾:1.0___VERANTYX_霾_74_.__ast_霾:1.0___VERANTYX_霾_5_(__ast_霾:1.0___VERANTYX_霾_161_)
+
+// [metadata-stripped]
+        await __ast_霾:1.0___VERANTYX_霾_85_.__ast_要:1.0___VERANTYX_霾_164_(*__ast_霾:1.0___VERANTYX_霾_74_)
+
+    async __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_266_(self, __ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_):
+// [metadata-stripped]
+// [metadata-stripped]
+        if self.__ast_匯:1.0___VERANTYX_霾_274_:
+            if self.__ast_霾:1.0___VERANTYX_霾_81_(__ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_):
+                return
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_104_ = await self.__ast_霾:1.0___VERANTYX_霾_187_(__ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_)
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_17_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_霾:1.0___VERANTYX_霾_63_(__ast_霾:1.0___VERANTYX_霾_104_, self.__ast_霾:1.0___VERANTYX_霾_52_)
+
+        __ast_霾:1.0___VERANTYX_霾_177_ = __ast_霾:1.0___VERANTYX_霾_45_.__ast_霾:1.0___VERANTYX_霾_45_()
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_93_ = await self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_霾:1.0___VERANTYX_霾_155_(__ast_霾:1.0___VERANTYX_霾_17_)
+
+        __ast_霾:1.0___VERANTYX_霾_218_ = __ast_霾:1.0___VERANTYX_霾_45_.__ast_霾:1.0___VERANTYX_霾_45_()
+        __ast_霾:1.0___VERANTYX_霾_40_ = __ast_霾:1.0___VERANTYX_霾_218_ - __ast_霾:1.0___VERANTYX_霾_177_
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_119_ = self.__ast_霾:1.0___VERANTYX_霾_26_.__ast_霾:1.0___VERANTYX_霾_134_(__ast_霾:1.0___VERANTYX_霾_93_)
+
+        __ast_霾:1.0___VERANTYX_霾_135_ = {
+// [metadata-stripped]
+            '__ast_霾:1.0___VERANTYX_霾_163_' : self.__ast_霾:1.0___VERANTYX_霾_151_,
+            '__ast_霾:1.0___VERANTYX_霾_308_' : __ast_霾:1.0___VERANTYX_霾_109_(__ast_霾:1.0___VERANTYX_霾_308_),
+            '__ast_霾:1.0___VERANTYX_霾_173_' : __ast_霾:1.0___VERANTYX_霾_50_(__ast_霾:1.0___VERANTYX_霾_173_),
+            '__ast_霾:1.0___VERANTYX_霾_243_' : self.__ast_霾:1.0___VERANTYX_霾_196_,
+            '__ast_霾:1.0___VERANTYX_霾_202_' : self.__ast_霾:1.0___VERANTYX_霾_202_,
+            '__ast_霾:1.0___VERANTYX_霾_31_' : __ast_霾:1.0___VERANTYX_霾_93_,
+            '__ast_霾:1.0___VERANTYX_霾_119_' : __ast_霾:1.0___VERANTYX_霾_119_,
+            '__ast_霾:1.0___VERANTYX_霾_91_' : __ast_霾:1.0___VERANTYX_霾_40_,
+            '__ast_霾:1.0___VERANTYX_霾_220_' : __ast_霾:1.0___VERANTYX_霾_273_.__ast_霾:1.0___VERANTYX_霾_110_(__ast_霾:1.0___VERANTYX_霾_80_.__ast_霾:1.0___VERANTYX_霾_171_).__ast_霾:1.0___VERANTYX_霾_143_('%Y-%m-%d %H:%M:%S%z')
+        }
+
+        self.__ast_霾:1.0___VERANTYX_霾_70_.__ast_霾:1.0___VERANTYX_霾_5_(__ast_霾:1.0___VERANTYX_霾_135_)
+// __ast_秘:0.5___VERANTYX_KA_683_ [decoy-metadata]
+
+        if self.__ast_霾:1.0___VERANTYX_霾_118_:
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"-- __ast_廡:1.0___VERANTYX_廡_6_ __ast_廡:1.0___VERANTYX_廡_48_ -- ")
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"__ast_廡:1.0___VERANTYX_廡_9_: {__ast_霾:1.0___VERANTYX_霾_40_:.1f} __ast_霾:1.0___VERANTYX_霾_141_")
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"__ast_廡:1.0___VERANTYX_廡_34_: {__ast_霾:1.0___VERANTYX_霾_308_} __ast_秘:1.0___VERANTYX_霾_267_")
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"__ast_廡:1.0___VERANTYX_廡_7_: {__ast_霾:1.0___VERANTYX_霾_173_}%")
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"__ast_廡:1.0___VERANTYX_廡_47_: {__ast_霾:1.0___VERANTYX_霾_119_}")
+            __ast_霾:1.0___VERANTYX_霾_245_ (f"__ast_廡:1.0___VERANTYX_廡_33_: {__ast_霾:1.0___VERANTYX_霾_93_}\n")
+
+        __ast_匯:1.0___VERANTYX_霾_36_ = f'{self.__ast_霾:1.0___VERANTYX_霾_151_.__ast_霾:1.0___VERANTYX_霾_13_(".", "_")}__ast_霾:1.0___VERANTYX_霾_30_{__ast_霾:1.0___VERANTYX_霾_308_}__ast_霾:1.0___VERANTYX_霾_270_{__ast_霾:1.0___VERANTYX_霾_109_(__ast_霾:1.0___VERANTYX_霾_173_*100)}'
+
+        if self.__ast_匯:1.0___VERANTYX_霾_294_:
+            __ast_霾:1.0___VERANTYX_霾_135_['__ast_匯:1.0___VERANTYX_霾_200_'] = __ast_匯:1.0___VERANTYX_霾_36_
+
+// [metadata-stripped]
+            if __ast_霾:1.0___VERANTYX_霾_208_ os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_272_('__ast_霾:1.0___VERANTYX_霾_224_'):
+                os.__ast_霾:1.0___VERANTYX_霾_55_('__ast_霾:1.0___VERANTYX_霾_224_')
+
+            __ast_霾:1.0___VERANTYX_霾_97_ open(f'__ast_霾:1.0___VERANTYX_霾_224_/{__ast_匯:1.0___VERANTYX_霾_36_}__ast_霾:1.0___VERANTYX_霾_166_.__ast_霾:1.0___VERANTYX_霾_232_', 'w') as f:
+                f.__ast_霾:1.0___VERANTYX_霾_117_(__ast_霾:1.0___VERANTYX_霾_104_)
+            
+        if self.__ast_匯:1.0___VERANTYX_霾_274_:
+// [metadata-stripped]
+            if __ast_霾:1.0___VERANTYX_霾_208_ os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_272_('__ast_霾:1.0___VERANTYX_霾_135_'):
+                os.__ast_霾:1.0___VERANTYX_霾_55_('__ast_霾:1.0___VERANTYX_霾_135_')
+
+// [metadata-stripped]
+            __ast_霾:1.0___VERANTYX_霾_97_ open(f'__ast_霾:1.0___VERANTYX_霾_135_/{__ast_匯:1.0___VERANTYX_霾_36_}__ast_霾:1.0___VERANTYX_霾_158_.__ast_霾:1.0___VERANTYX_霾_205_', 'w') as f:
+                __ast_霾:1.0___VERANTYX_霾_205_.__ast_霾:1.0___VERANTYX_霾_75_(__ast_霾:1.0___VERANTYX_霾_135_, f)
+
+        if self.__ast_霾:1.0___VERANTYX_霾_49_:
+            await __ast_霾:1.0___VERANTYX_霾_85_.__ast_霾:1.0___VERANTYX_霾_92_(self.__ast_霾:1.0___VERANTYX_霾_49_)
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_81_(self, __ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_):
+        """
+        __ast_廡:1.0___VERANTYX_廡_32_ to __ast_霾:1.0___VERANTYX_霾_236_ if a __ast_霾:1.0___VERANTYX_霾_256_ __ast_霾:1.0___VERANTYX_霾_165_ __ast_霾:1.0___VERANTYX_霾_248_ __ast_霾:1.0___VERANTYX_霾_34_ __ast_霾:1.0___VERANTYX_霾_179_ or __ast_霾:1.0___VERANTYX_霾_208_
+        """
+
+        __ast_霾:1.0___VERANTYX_霾_100_ = '__ast_霾:1.0___VERANTYX_霾_135_/'
+        if __ast_霾:1.0___VERANTYX_霾_208_ os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_272_(__ast_霾:1.0___VERANTYX_霾_100_):
+            return __ast_廡:1.0___VERANTYX_廡_29_
+        
+        for __ast_匯:1.0___VERANTYX_霾_47_ in os.__ast_霾:1.0___VERANTYX_霾_307_(__ast_霾:1.0___VERANTYX_霾_100_):
+            if __ast_匯:1.0___VERANTYX_霾_47_.__ast_霾:1.0___VERANTYX_霾_126_('.__ast_霾:1.0___VERANTYX_霾_205_'):
+                __ast_霾:1.0___VERANTYX_霾_97_ open(os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_46_(__ast_霾:1.0___VERANTYX_霾_100_, __ast_匯:1.0___VERANTYX_霾_47_), 'r') as f:
+                    __ast_霾:1.0___VERANTYX_霾_256_ = __ast_霾:1.0___VERANTYX_霾_205_.__ast_匯:1.0___VERANTYX_霾_124_(f)
+                    __ast_霾:1.0___VERANTYX_霾_140_ = __ast_霾:1.0___VERANTYX_霾_256_['__ast_霾:1.0___VERANTYX_霾_308_'] == __ast_霾:1.0___VERANTYX_霾_308_
+                    __ast_霾:1.0___VERANTYX_霾_191_ = __ast_霾:1.0___VERANTYX_霾_256_['__ast_霾:1.0___VERANTYX_霾_173_'] == __ast_霾:1.0___VERANTYX_霾_173_
+                    __ast_霾:1.0___VERANTYX_霾_228_ = __ast_霾:1.0___VERANTYX_霾_256_.__ast_要:1.0___VERANTYX_巌_4_('__ast_霾:1.0___VERANTYX_霾_243_', 1) == self.__ast_霾:1.0___VERANTYX_霾_196_
+                    __ast_霾:1.0___VERANTYX_霾_162_ = __ast_霾:1.0___VERANTYX_霾_256_['__ast_霾:1.0___VERANTYX_霾_163_'] == self.__ast_霾:1.0___VERANTYX_霾_151_
+                    if __ast_霾:1.0___VERANTYX_霾_140_ __ast_霾:1.0___VERANTYX_霾_257_ __ast_霾:1.0___VERANTYX_霾_191_ __ast_霾:1.0___VERANTYX_霾_257_ __ast_霾:1.0___VERANTYX_霾_228_ __ast_霾:1.0___VERANTYX_霾_257_ __ast_霾:1.0___VERANTYX_霾_162_:
+                        return __ast_廡:1.0___VERANTYX_廡_22_
+        return __ast_廡:1.0___VERANTYX_廡_29_
+
+    async __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_187_(self, __ast_霾:1.0___VERANTYX_霾_308_, __ast_霾:1.0___VERANTYX_霾_173_):
+// [metadata-stripped]
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_104_ = self.__ast_匯:1.0___VERANTYX_霾_153_()
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_104_ = self.__ast_霾:1.0___VERANTYX_霾_293_(__ast_霾:1.0___VERANTYX_霾_104_, __ast_霾:1.0___VERANTYX_霾_308_)
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_104_ = self.__ast_霾:1.0___VERANTYX_霾_14_(__ast_霾:1.0___VERANTYX_霾_104_, __ast_霾:1.0___VERANTYX_霾_173_, __ast_霾:1.0___VERANTYX_霾_308_)
+
+        return __ast_霾:1.0___VERANTYX_霾_104_
+    
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_14_(self, __ast_霾:1.0___VERANTYX_霾_104_, __ast_霾:1.0___VERANTYX_霾_173_, __ast_霾:1.0___VERANTYX_霾_308_):
+        __ast_秘:1.0___VERANTYX_霾_181_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_37_(self.__ast_霾:1.0___VERANTYX_霾_202_)
+        __ast_秘:1.0___VERANTYX_霾_222_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_37_(__ast_霾:1.0___VERANTYX_霾_104_)
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_308_ -= self.__ast_要:1.0___VERANTYX_霾_305_
+
+// [metadata-stripped]
+        if __ast_霾:1.0___VERANTYX_霾_96_(__ast_秘:1.0___VERANTYX_霾_222_) + __ast_霾:1.0___VERANTYX_霾_96_(__ast_秘:1.0___VERANTYX_霾_181_) > __ast_霾:1.0___VERANTYX_霾_308_:
+            __ast_秘:1.0___VERANTYX_霾_222_ = __ast_秘:1.0___VERANTYX_霾_222_[:__ast_霾:1.0___VERANTYX_霾_308_ - __ast_霾:1.0___VERANTYX_霾_96_(__ast_秘:1.0___VERANTYX_霾_181_)]
+
+        if __ast_霾:1.0___VERANTYX_霾_173_ == 100:
+// [metadata-stripped]
+// __ast_匯:0.6___VERANTYX_DD_368_ [decoy-metadata]
+            __ast_秘:1.0___VERANTYX_霾_27_ = __ast_秘:1.0___VERANTYX_霾_222_ + __ast_秘:1.0___VERANTYX_霾_181_
+        else:
+// [metadata-stripped]
+            __ast_霾:1.0___VERANTYX_霾_28_ = __ast_霾:1.0___VERANTYX_霾_109_(__ast_霾:1.0___VERANTYX_霾_96_(__ast_秘:1.0___VERANTYX_霾_222_) * (__ast_霾:1.0___VERANTYX_霾_173_ / 100))
+
+// [metadata-stripped]
+            __ast_秘:1.0___VERANTYX_霾_27_ = __ast_秘:1.0___VERANTYX_霾_222_[:__ast_霾:1.0___VERANTYX_霾_28_]
+
+// [metadata-stripped]
+            __ast_秘:1.0___VERANTYX_霾_271_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_37_('.')
+            
+// [metadata-stripped]
+            while __ast_秘:1.0___VERANTYX_霾_27_ __ast_霾:1.0___VERANTYX_霾_257_ __ast_秘:1.0___VERANTYX_霾_27_[-1] __ast_霾:1.0___VERANTYX_霾_208_ in __ast_秘:1.0___VERANTYX_霾_271_:
+                __ast_霾:1.0___VERANTYX_霾_28_ -= 1
+                __ast_秘:1.0___VERANTYX_霾_27_ = __ast_秘:1.0___VERANTYX_霾_222_[:__ast_霾:1.0___VERANTYX_霾_28_]
+
+// [metadata-stripped]
+// __ast_霾:0.5___VERANTYX_EZ_485_ [decoy-metadata]
+// [metadata-stripped]
+            __ast_秘:1.0___VERANTYX_霾_27_ += __ast_秘:1.0___VERANTYX_霾_181_ + __ast_秘:1.0___VERANTYX_霾_222_[__ast_霾:1.0___VERANTYX_霾_28_:]
+
+// [metadata-stripped]
+        __ast_霾:1.0___VERANTYX_霾_8_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_226_(__ast_秘:1.0___VERANTYX_霾_27_)
+        return __ast_霾:1.0___VERANTYX_霾_8_
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_秘:1.0___VERANTYX_巌_2_(self, __ast_霾:1.0___VERANTYX_霾_104_):
+        return __ast_霾:1.0___VERANTYX_霾_96_(self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_37_(__ast_霾:1.0___VERANTYX_霾_104_))
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_匯:1.0___VERANTYX_霾_153_(self):
+        __ast_霾:1.0___VERANTYX_霾_104_ = ""
+        __ast_霾:1.0___VERANTYX_霾_29_ = __ast_霾:1.0___VERANTYX_霾_132_(self.__ast_霾:1.0___VERANTYX_霾_175_)
+        __ast_霾:1.0___VERANTYX_霾_41_ = os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_24_(os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_108_(__ast_匯:1.0___VERANTYX_霾_113_))  # __ast_廡:1.0___VERANTYX_廡_5_ __ast_霾:1.0___VERANTYX_霾_225_
+
+        while self.__ast_秘:1.0___VERANTYX_巌_2_(__ast_霾:1.0___VERANTYX_霾_104_) < __ast_霾:1.0___VERANTYX_霾_29_:
+            for __ast_匯:1.0___VERANTYX_霾_168_ in __ast_霾:1.0___VERANTYX_霾_1_.__ast_霾:1.0___VERANTYX_霾_1_(os.__ast_霾:1.0___VERANTYX_霾_127_.__ast_霾:1.0___VERANTYX_霾_46_(__ast_霾:1.0___VERANTYX_霾_41_, self.__ast_霾:1.0___VERANTYX_霾_136_, "*.__ast_霾:1.0___VERANTYX_霾_232_")):
+                __ast_霾:1.0___VERANTYX_霾_97_ open(__ast_匯:1.0___VERANTYX_霾_168_, 'r') as f:
+                    __ast_霾:1.0___VERANTYX_霾_104_ += f.__ast_霾:1.0___VERANTYX_霾_130_()
+        return __ast_霾:1.0___VERANTYX_霾_104_
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_293_(self, __ast_霾:1.0___VERANTYX_霾_104_, __ast_霾:1.0___VERANTYX_霾_308_):
+        __ast_秘:1.0___VERANTYX_霾_267_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_37_(__ast_霾:1.0___VERANTYX_霾_104_)
+        if __ast_霾:1.0___VERANTYX_霾_96_(__ast_秘:1.0___VERANTYX_霾_267_) > __ast_霾:1.0___VERANTYX_霾_308_:
+            __ast_霾:1.0___VERANTYX_霾_104_ = self.__ast_霾:1.0___VERANTYX_霾_147_.__ast_秘:1.0___VERANTYX_霾_226_(__ast_秘:1.0___VERANTYX_霾_267_, __ast_霾:1.0___VERANTYX_霾_308_)
+        return __ast_霾:1.0___VERANTYX_霾_104_
+    
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_要:1.0___VERANTYX_巌_5_(self):
+        return self.__ast_霾:1.0___VERANTYX_霾_70_
+    
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_159_(self):
+        __ast_霾:1.0___VERANTYX_霾_245_ ("\n")
+        __ast_霾:1.0___VERANTYX_霾_245_ ("__ast_廡:1.0___VERANTYX_廡_35_ __ast_廡:1.0___VERANTYX_廡_51_ In A __ast_廡:1.0___VERANTYX_廡_43_ __ast_廡:1.0___VERANTYX_廡_49_...")
+        __ast_霾:1.0___VERANTYX_霾_245_ (f"- __ast_廡:1.0___VERANTYX_廡_3_: {self.__ast_霾:1.0___VERANTYX_霾_151_}")
+        __ast_霾:1.0___VERANTYX_霾_245_ (f"- __ast_廡:1.0___VERANTYX_廡_34_ __ast_廡:1.0___VERANTYX_廡_25_: {__ast_霾:1.0___VERANTYX_霾_96_(self.__ast_霾:1.0___VERANTYX_霾_175_)}, __ast_廡:1.0___VERANTYX_廡_45_: {__ast_霾:1.0___VERANTYX_霾_285_(self.__ast_霾:1.0___VERANTYX_霾_175_)}, __ast_廡:1.0___VERANTYX_廡_16_: {__ast_霾:1.0___VERANTYX_霾_132_(self.__ast_霾:1.0___VERANTYX_霾_175_)}")
+        __ast_霾:1.0___VERANTYX_霾_245_ (f"- __ast_廡:1.0___VERANTYX_廡_38_ __ast_廡:1.0___VERANTYX_廡_53_: {__ast_霾:1.0___VERANTYX_霾_96_(self.__ast_霾:1.0___VERANTYX_霾_193_)}, __ast_廡:1.0___VERANTYX_廡_45_: {__ast_霾:1.0___VERANTYX_霾_285_(self.__ast_霾:1.0___VERANTYX_霾_193_)}%, __ast_廡:1.0___VERANTYX_廡_16_: {__ast_霾:1.0___VERANTYX_霾_132_(self.__ast_霾:1.0___VERANTYX_霾_193_)}%")
+        __ast_霾:1.0___VERANTYX_霾_245_ (f"- __ast_廡:1.0___VERANTYX_廡_51_: {self.__ast_霾:1.0___VERANTYX_霾_202_.__ast_霾:1.0___VERANTYX_霾_4_()}")
+        __ast_霾:1.0___VERANTYX_霾_245_ ("\n\n")
+
+    __ast_霾:1.0___VERANTYX_霾_150_ __ast_霾:1.0___VERANTYX_霾_244_(self):
+        if self.__ast_霾:1.0___VERANTYX_霾_118_:
+            self.__ast_霾:1.0___VERANTYX_霾_159_()
+        __ast_霾:1.0___VERANTYX_霾_85_.__ast_霾:1.0___VERANTYX_霾_86_(self.__ast_霾:1.0___VERANTYX_霾_64_())
+// POLYMORPHIC_JCROSS_END

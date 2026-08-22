@@ -1,0 +1,211 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:343DFDE1 ver:1778159691
+// _VERANTYX_雰:0.5__OPAQUE_LY_799_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_雰:1.0__OPAQUE_雰_84_ _VERANTYX_雰:1.0__OPAQUE_雰_90_ import _VERANTYX_雰:1.0__OPAQUE_雰_18_
+
+import re
+_VERANTYX_雰:1.0__OPAQUE_雰_84_ _VERANTYX_雰:1.0__OPAQUE_雰_57_ import _VERANTYX_雰:1.0__OPAQUE_雰_20_, _VERANTYX_雰:1.0__OPAQUE_雰_60_
+_VERANTYX_雰:1.0__OPAQUE_雰_84_ _VERANTYX_雰:1.0__OPAQUE_雰_5_ import _VERANTYX_廡:1.0__OPAQUE_廡_34_, _VERANTYX_廡:1.0__OPAQUE_廡_31_, _VERANTYX_廡:1.0__OPAQUE_廡_35_, _VERANTYX_廡:1.0__OPAQUE_廡_11_
+
+_VERANTYX_雰:1.0__OPAQUE_雰_72_ = [
+    r"^\s*【入力ルール】",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_17_:\s*",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_5_ _VERANTYX_雰:1.0__OPAQUE_雰_74_:",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_1_\s*$",
+    r"^\s*(_VERANTYX_廡:1.0__OPAQUE_廡_13_|_VERANTYX_廡:1.0__OPAQUE_廡_33_|_VERANTYX_廡:1.0__OPAQUE_廡_32_|_VERANTYX_廡:1.0__OPAQUE_廡_37_)\s*$",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_9_ _VERANTYX_廡:1.0__OPAQUE_廡_8_:",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_38_ in\b",
+    r"^\s*(_VERANTYX_廡:1.0__OPAQUE_廡_16_ _VERANTYX_廡:1.0__OPAQUE_廡_12_|_VERANTYX_廡:1.0__OPAQUE_廡_2_|_VERANTYX_廡:1.0__OPAQUE_廡_14_\s*/\s*_VERANTYX_廡:1.0__OPAQUE_廡_39_|_VERANTYX_廡:1.0__OPAQUE_廡_15_ _VERANTYX_廡:1.0__OPAQUE_廡_19_)\b",
+    r"^\s*_VERANTYX_伏:1.0__OPAQUE_廡_26_:\s*q_[0-9a-f]+\s*$",
+    r"^\s*(_VERANTYX_廡:1.0__OPAQUE_廡_23_|_VERANTYX_廡:1.0__OPAQUE_廡_6_ _VERANTYX_廡:1.0__OPAQUE_廡_20_|_VERANTYX_廡:1.0__OPAQUE_廡_40_ _VERANTYX_廡:1.0__OPAQUE_廡_7_)\s*$",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_27_ _VERANTYX_廡:1.0__OPAQUE_廡_29_\b",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_24_ \"_VERANTYX_廡:1.0__OPAQUE_廡_41_\"",
+    r"^\s*_VERANTYX_廡:1.0__OPAQUE_廡_28_ _VERANTYX_廡:1.0__OPAQUE_廡_4_\b",
+    r"^\s*(_VERANTYX_廡:1.0__OPAQUE_廡_18_ _VERANTYX_廡:1.0__OPAQUE_廡_30_|_VERANTYX_廡:1.0__OPAQUE_廡_1_ \(_VERANTYX_廡:1.0__OPAQUE_廡_30_\))\b",
+    r"^\s*_VERANTYX_雰:1.0__OPAQUE_雰_16_:\s*$",
+]
+_VERANTYX_雰:1.0__OPAQUE_雰_62_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_("|"._VERANTYX_雰:1.0__OPAQUE_雰_37_(_VERANTYX_雰:1.0__OPAQUE_雰_72_), re._VERANTYX_廡:1.0__OPAQUE_廡_3_)
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_雰:1.0__OPAQUE_雰_7_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_雰:1.0__OPAQUE_雰_12_:
+    _VERANTYX_雰:1.0__OPAQUE_雰_28_ = (_VERANTYX_雰:1.0__OPAQUE_雰_39_ or "")._VERANTYX_雰:1.0__OPAQUE_雰_91_()
+    _VERANTYX_雰:1.0__OPAQUE_雰_92_ = []
+    for ln in _VERANTYX_雰:1.0__OPAQUE_雰_28_:
+        s = ln._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+        if _VERANTYX_雰:1.0__OPAQUE_雰_13_ s:
+            continue
+        if _VERANTYX_雰:1.0__OPAQUE_雰_62_._VERANTYX_雰:1.0__OPAQUE_雰_10_(s):
+            continue
+        _VERANTYX_雰:1.0__OPAQUE_雰_92_._VERANTYX_雰:1.0__OPAQUE_雰_1_(ln)
+    return "\n"._VERANTYX_雰:1.0__OPAQUE_雰_37_(_VERANTYX_雰:1.0__OPAQUE_雰_92_)._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_47_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_(r"(?im)^\s*_VERANTYX_廡:1.0__OPAQUE_廡_36_\s*:\s*([a-zA-Z0-9_]+)\s*$")
+_VERANTYX_雰:1.0__OPAQUE_雰_22_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_(r"(?im)^\s*_VERANTYX_廡:1.0__OPAQUE_廡_10_(?:s)?\s*:\s*(.+?)\s*$")
+_VERANTYX_浮:1.0__OPAQUE_雰_19_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_(r"(?im)^\s*_VERANTYX_廡:1.0__OPAQUE_廡_22_\s*:\s*(.+?)\s*$")
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_項:1.0__OPAQUE_雰_81_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_廡:1.0__OPAQUE_廡_31_[_VERANTYX_雰:1.0__OPAQUE_雰_12_, _VERANTYX_廡:1.0__OPAQUE_廡_34_]:
+    _VERANTYX_雰:1.0__OPAQUE_雰_94_ = _VERANTYX_廡:1.0__OPAQUE_廡_25_
+    m = _VERANTYX_雰:1.0__OPAQUE_雰_47_._VERANTYX_雰:1.0__OPAQUE_雰_10_(_VERANTYX_雰:1.0__OPAQUE_雰_39_ or "")
+    if m:
+        _VERANTYX_雰:1.0__OPAQUE_雰_94_ = m._VERANTYX_雰:1.0__OPAQUE_雰_79_(1)._VERANTYX_雰:1.0__OPAQUE_雰_65_()._VERANTYX_項:1.0__OPAQUE_雰_24_()
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_59_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = []
+// _VERANTYX_廡:0.6__OPAQUE_DH_699_ [decoy-metadata]
+    for m in _VERANTYX_雰:1.0__OPAQUE_雰_22_._VERANTYX_項:1.0__OPAQUE_雰_73_(_VERANTYX_雰:1.0__OPAQUE_雰_39_ or ""):
+        _VERANTYX_雰:1.0__OPAQUE_雰_43_ = re._VERANTYX_雰:1.0__OPAQUE_雰_78_(r"[,\s]+", m._VERANTYX_雰:1.0__OPAQUE_雰_79_(1)._VERANTYX_雰:1.0__OPAQUE_雰_65_()._VERANTYX_項:1.0__OPAQUE_雰_24_())
+        _VERANTYX_雰:1.0__OPAQUE_雰_59_._VERANTYX_雰:1.0__OPAQUE_雰_48_([p for p in _VERANTYX_雰:1.0__OPAQUE_雰_43_ if p])
+
+    _VERANTYX_浮:1.0__OPAQUE_雰_35_ = _VERANTYX_廡:1.0__OPAQUE_廡_25_
+    m = _VERANTYX_浮:1.0__OPAQUE_雰_19_._VERANTYX_雰:1.0__OPAQUE_雰_10_(_VERANTYX_雰:1.0__OPAQUE_雰_39_ or "")
+    if m:
+        _VERANTYX_浮:1.0__OPAQUE_雰_35_ = m._VERANTYX_雰:1.0__OPAQUE_雰_79_(1)._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+
+    return {"_VERANTYX_雰:1.0__OPAQUE_雰_50_": _VERANTYX_雰:1.0__OPAQUE_雰_94_, "_VERANTYX_雰:1.0__OPAQUE_雰_59_": _VERANTYX_雰:1.0__OPAQUE_雰_59_, "_VERANTYX_浮:1.0__OPAQUE_雰_35_": _VERANTYX_浮:1.0__OPAQUE_雰_35_}
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_55_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_(r'"([^"\n]{1,800})"')
+
+
+// _VERANTYX_項:0.1__OPAQUE_VZ_895_ [decoy-metadata]
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_浮:1.0__OPAQUE_雰_69_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_]:
+    _VERANTYX_雰:1.0__OPAQUE_雰_4_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = []
+    for m in _VERANTYX_雰:1.0__OPAQUE_雰_55_._VERANTYX_項:1.0__OPAQUE_雰_73_(_VERANTYX_雰:1.0__OPAQUE_雰_39_ or ""):
+        s = (m._VERANTYX_雰:1.0__OPAQUE_雰_79_(1) or "")._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+        if s:
+// _VERANTYX_項:0.3__OPAQUE_LA_190_ [decoy-metadata]
+            _VERANTYX_雰:1.0__OPAQUE_雰_4_._VERANTYX_雰:1.0__OPAQUE_雰_1_(s)
+    return _VERANTYX_雰:1.0__OPAQUE_雰_4_
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_浮:1.0__OPAQUE_雰_83_(s: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_雰:1.0__OPAQUE_雰_12_:
+    s = (s or "")._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+    s = s._VERANTYX_雰:1.0__OPAQUE_雰_14_("\_VERANTYX_雰:1.0__OPAQUE_雰_31_", "")._VERANTYX_雰:1.0__OPAQUE_雰_14_("\_VERANTYX_雰:1.0__OPAQUE_雰_21_", "")
+    s = s._VERANTYX_雰:1.0__OPAQUE_雰_14_("→", "->")._VERANTYX_雰:1.0__OPAQUE_雰_14_("−", "-")._VERANTYX_雰:1.0__OPAQUE_雰_14_("÷", "/")
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\_VERANTYX_雰:1.0__OPAQUE_雰_44_\b", "[]", s, _VERANTYX_雰:1.0__OPAQUE_雰_80_=re._VERANTYX_廡:1.0__OPAQUE_廡_3_)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\_VERANTYX_雰:1.0__OPAQUE_雰_45_\b", "<>", s, _VERANTYX_雰:1.0__OPAQUE_雰_80_=re._VERANTYX_廡:1.0__OPAQUE_廡_3_)
+    s = s._VERANTYX_雰:1.0__OPAQUE_雰_14_("□", "[]")._VERANTYX_雰:1.0__OPAQUE_雰_14_("◇", "<>")
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\[\]\s+", "[]", s)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\s*->\s*", "->", s)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\s*&\s*", "&", s)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\s*\|\s*", "|", s)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\s*~\s*", "~", s)
+    s = re._VERANTYX_雰:1.0__OPAQUE_雰_32_(r"\s+", " ", s)._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+    if _VERANTYX_雰:1.0__OPAQUE_雰_13_ s:
+        return ""
+    if s._VERANTYX_雰:1.0__OPAQUE_雰_2_("->") or s._VERANTYX_雰:1.0__OPAQUE_雰_68_("->"):
+        return ""
+    if s in ("[]", "<>", "->"):
+        return ""
+    return s
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_58_ = re._VERANTYX_雰:1.0__OPAQUE_雰_70_(r"(?s)(^|\n)\s*([A-D])\s*[\.:]\s*(.+?)(?=\n\s*[A-D]\s*[\.:]|\Z)")
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_雰:1.0__OPAQUE_雰_88_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_]:
+    _VERANTYX_雰:1.0__OPAQUE_雰_4_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = []
+    for m in _VERANTYX_雰:1.0__OPAQUE_雰_58_._VERANTYX_項:1.0__OPAQUE_雰_73_(_VERANTYX_雰:1.0__OPAQUE_雰_39_ or ""):
+        _VERANTYX_雰:1.0__OPAQUE_雰_61_ = m._VERANTYX_雰:1.0__OPAQUE_雰_79_(3)._VERANTYX_雰:1.0__OPAQUE_雰_65_()
+        if _VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_61_) > 1200:
+            continue
+        f = _VERANTYX_浮:1.0__OPAQUE_雰_83_(_VERANTYX_雰:1.0__OPAQUE_雰_61_)
+        if f:
+            _VERANTYX_雰:1.0__OPAQUE_雰_4_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f)
+    return _VERANTYX_雰:1.0__OPAQUE_雰_4_
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_雰:1.0__OPAQUE_雰_27_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_, _VERANTYX_浮:1.0__OPAQUE_雰_66_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_], _VERANTYX_雰:1.0__OPAQUE_雰_63_: _VERANTYX_廡:1.0__OPAQUE_廡_11_[_VERANTYX_雰:1.0__OPAQUE_雰_12_]) -> _VERANTYX_雰:1.0__OPAQUE_雰_12_:
+    if _VERANTYX_雰:1.0__OPAQUE_雰_63_:
+// _VERANTYX_紬:0.7__OPAQUE_BC_650_ [decoy-metadata]
+        return _VERANTYX_雰:1.0__OPAQUE_雰_63_
+    t = (_VERANTYX_雰:1.0__OPAQUE_雰_39_ or "")._VERANTYX_項:1.0__OPAQUE_雰_24_()
+    _VERANTYX_雰:1.0__OPAQUE_雰_51_ = " "._VERANTYX_雰:1.0__OPAQUE_雰_37_(_VERANTYX_浮:1.0__OPAQUE_雰_66_)._VERANTYX_項:1.0__OPAQUE_雰_24_()
+    if "[]" in _VERANTYX_雰:1.0__OPAQUE_雰_51_ or "<>" in _VERANTYX_雰:1.0__OPAQUE_雰_51_ or any(k in t for k in ["様相", "クリプケ", "_VERANTYX_雰:1.0__OPAQUE_雰_56_", "推移性", "反射性", "s4", "s5"]):
+        return "_VERANTYX_雰:1.0__OPAQUE_雰_29_"
+    if any(k in t for k in ["命題論理", "恒真", "真理値", "トートロジー"]) or re._VERANTYX_雰:1.0__OPAQUE_雰_10_(r"[A-Z]\s*->\s*[A-Z]", _VERANTYX_雰:1.0__OPAQUE_雰_51_):
+        return "_VERANTYX_雰:1.0__OPAQUE_雰_86_"
+    if any(k in _VERANTYX_雰:1.0__OPAQUE_雰_51_ for k in ["∀", "∃"]) or any(k in t for k in ["一階", "述語", "全称", "存在", "モデル", "充足"]):
+        return "_VERANTYX_雰:1.0__OPAQUE_雰_23_"
+    if any(k in t for k in ["行列", "対称行列", "次元", "固有値", "_VERANTYX_雰:1.0__OPAQUE_雰_82_", "_VERANTYX_雰:1.0__OPAQUE_雰_41_"]) or "_VERANTYX_雰:1.0__OPAQUE_雰_11_ _VERANTYX_雰:1.0__OPAQUE_雰_17_" in _VERANTYX_雰:1.0__OPAQUE_雰_51_:
+        return "_VERANTYX_雰:1.0__OPAQUE_雰_85_"
+    if any(k in t for k in ["np", "p=np", "帰着", "_VERANTYX_雰:1.0__OPAQUE_雰_67_", "計算量", "オラクル"]):
+        return "_VERANTYX_雰:1.0__OPAQUE_雰_76_"
+    return "_VERANTYX_雰:1.0__OPAQUE_雰_9_"
+
+
+@_VERANTYX_雰:1.0__OPAQUE_雰_20_
+class _VERANTYX_廡:1.0__OPAQUE_廡_21_:
+    _VERANTYX_雰:1.0__OPAQUE_雰_93_: _VERANTYX_雰:1.0__OPAQUE_雰_12_
+    _VERANTYX_雰:1.0__OPAQUE_雰_36_: _VERANTYX_雰:1.0__OPAQUE_雰_12_
+    _VERANTYX_雰:1.0__OPAQUE_雰_50_: _VERANTYX_雰:1.0__OPAQUE_雰_12_
+    _VERANTYX_雰:1.0__OPAQUE_雰_59_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = _VERANTYX_雰:1.0__OPAQUE_雰_60_(_VERANTYX_雰:1.0__OPAQUE_雰_25_=_VERANTYX_雰:1.0__OPAQUE_雰_87_)
+    _VERANTYX_浮:1.0__OPAQUE_雰_66_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = _VERANTYX_雰:1.0__OPAQUE_雰_60_(_VERANTYX_雰:1.0__OPAQUE_雰_25_=_VERANTYX_雰:1.0__OPAQUE_雰_87_)
+    _VERANTYX_浮:1.0__OPAQUE_雰_49_: _VERANTYX_雰:1.0__OPAQUE_雰_12_ = ""
+    _VERANTYX_雰:1.0__OPAQUE_雰_33_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = _VERANTYX_雰:1.0__OPAQUE_雰_60_(_VERANTYX_雰:1.0__OPAQUE_雰_25_=_VERANTYX_雰:1.0__OPAQUE_雰_87_)
+
+
+_VERANTYX_雰:1.0__OPAQUE_雰_52_ _VERANTYX_雰:1.0__OPAQUE_雰_15_(_VERANTYX_雰:1.0__OPAQUE_雰_39_: _VERANTYX_雰:1.0__OPAQUE_雰_12_) -> _VERANTYX_廡:1.0__OPAQUE_廡_21_:
+    _VERANTYX_雰:1.0__OPAQUE_雰_33_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = []
+    _VERANTYX_雰:1.0__OPAQUE_雰_40_ = _VERANTYX_雰:1.0__OPAQUE_雰_39_ or ""
+    _VERANTYX_雰:1.0__OPAQUE_雰_77_ = _VERANTYX_雰:1.0__OPAQUE_雰_7_(_VERANTYX_雰:1.0__OPAQUE_雰_40_)
+    _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f"[v3] _VERANTYX_雰:1.0__OPAQUE_雰_71_={_VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_77_)}")
+
+// _VERANTYX_項:0.4__OPAQUE_YM_198_ [decoy-metadata]
+    _VERANTYX_雰:1.0__OPAQUE_雰_26_ = _VERANTYX_項:1.0__OPAQUE_雰_81_(_VERANTYX_雰:1.0__OPAQUE_雰_77_)
+    if _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_雰:1.0__OPAQUE_雰_50_"):
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f"[v3] _VERANTYX_雰:1.0__OPAQUE_雰_42_={_VERANTYX_雰:1.0__OPAQUE_雰_26_['_VERANTYX_雰:1.0__OPAQUE_雰_50_']}")
+    if _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_雰:1.0__OPAQUE_雰_59_"):
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f"[v3] _VERANTYX_雰:1.0__OPAQUE_雰_75_={_VERANTYX_雰:1.0__OPAQUE_雰_26_['_VERANTYX_雰:1.0__OPAQUE_雰_59_']}")
+    if _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_浮:1.0__OPAQUE_雰_35_"):
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_("[v3] _VERANTYX_浮:1.0__OPAQUE_雰_34_")
+
+    _VERANTYX_浮:1.0__OPAQUE_雰_66_: _VERANTYX_廡:1.0__OPAQUE_廡_35_[_VERANTYX_雰:1.0__OPAQUE_雰_12_] = []
+    if _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_浮:1.0__OPAQUE_雰_35_"):
+        f = _VERANTYX_浮:1.0__OPAQUE_雰_83_(_VERANTYX_雰:1.0__OPAQUE_雰_26_["_VERANTYX_浮:1.0__OPAQUE_雰_35_"])
+        if f:
+            _VERANTYX_浮:1.0__OPAQUE_雰_66_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f)
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_95_ = _VERANTYX_浮:1.0__OPAQUE_雰_69_(_VERANTYX_雰:1.0__OPAQUE_雰_77_)
+    if _VERANTYX_雰:1.0__OPAQUE_雰_95_:
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f"[v3] _VERANTYX_雰:1.0__OPAQUE_雰_95_={_VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_95_)}")
+        for q in _VERANTYX_雰:1.0__OPAQUE_雰_95_[:50]:
+            f = _VERANTYX_浮:1.0__OPAQUE_雰_83_(q)
+            if f:
+                _VERANTYX_浮:1.0__OPAQUE_雰_66_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f)
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_6_ = _VERANTYX_雰:1.0__OPAQUE_雰_88_(_VERANTYX_雰:1.0__OPAQUE_雰_77_)
+    if _VERANTYX_雰:1.0__OPAQUE_雰_6_:
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f"[v3] _VERANTYX_雰:1.0__OPAQUE_雰_6_={_VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_6_)}")
+        _VERANTYX_浮:1.0__OPAQUE_雰_66_._VERANTYX_雰:1.0__OPAQUE_雰_48_(_VERANTYX_雰:1.0__OPAQUE_雰_6_)
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_38_ = _VERANTYX_項:1.0__OPAQUE_礎_1_()
+    _VERANTYX_雰:1.0__OPAQUE_雰_53_ = []
+    for f in _VERANTYX_浮:1.0__OPAQUE_雰_66_:
+        if f _VERANTYX_雰:1.0__OPAQUE_雰_46_ f _VERANTYX_雰:1.0__OPAQUE_雰_13_ in _VERANTYX_雰:1.0__OPAQUE_雰_38_:
+            _VERANTYX_雰:1.0__OPAQUE_雰_38_._VERANTYX_雰:1.0__OPAQUE_雰_89_(f)
+            _VERANTYX_雰:1.0__OPAQUE_雰_53_._VERANTYX_雰:1.0__OPAQUE_雰_1_(f)
+    _VERANTYX_浮:1.0__OPAQUE_雰_66_ = _VERANTYX_雰:1.0__OPAQUE_雰_53_
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_50_ = _VERANTYX_雰:1.0__OPAQUE_雰_27_(_VERANTYX_雰:1.0__OPAQUE_雰_77_, _VERANTYX_浮:1.0__OPAQUE_雰_66_, _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_雰:1.0__OPAQUE_雰_50_"))
+    _VERANTYX_雰:1.0__OPAQUE_雰_59_ = _VERANTYX_雰:1.0__OPAQUE_雰_26_._VERANTYX_項:1.0__OPAQUE_礎_2_("_VERANTYX_雰:1.0__OPAQUE_雰_59_", [])[:]
+
+    _VERANTYX_浮:1.0__OPAQUE_雰_49_ = _VERANTYX_浮:1.0__OPAQUE_雰_66_[0] if _VERANTYX_浮:1.0__OPAQUE_雰_66_ else ""
+    if _VERANTYX_雰:1.0__OPAQUE_雰_30_(_VERANTYX_浮:1.0__OPAQUE_雰_49_, _VERANTYX_雰:1.0__OPAQUE_雰_12_) _VERANTYX_雰:1.0__OPAQUE_雰_46_ _VERANTYX_浮:1.0__OPAQUE_雰_49_._VERANTYX_雰:1.0__OPAQUE_雰_2_("->"):
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_._VERANTYX_雰:1.0__OPAQUE_雰_1_("[v3][_VERANTYX_雰:1.0__OPAQUE_雰_64_] _VERANTYX_雰:1.0__OPAQUE_雰_8_ _VERANTYX_雰:1.0__OPAQUE_雰_2_ '->' -> _VERANTYX_雰:1.0__OPAQUE_雰_3_ to _VERANTYX_雰:1.0__OPAQUE_雰_77_")
+        _VERANTYX_浮:1.0__OPAQUE_雰_49_ = _VERANTYX_雰:1.0__OPAQUE_雰_77_
+
+    return _VERANTYX_廡:1.0__OPAQUE_廡_21_(
+        _VERANTYX_雰:1.0__OPAQUE_雰_93_=_VERANTYX_雰:1.0__OPAQUE_雰_40_,
+        _VERANTYX_雰:1.0__OPAQUE_雰_36_=_VERANTYX_雰:1.0__OPAQUE_雰_77_,
+        _VERANTYX_雰:1.0__OPAQUE_雰_50_=_VERANTYX_雰:1.0__OPAQUE_雰_50_,
+        _VERANTYX_雰:1.0__OPAQUE_雰_59_=_VERANTYX_雰:1.0__OPAQUE_雰_59_,
+        _VERANTYX_浮:1.0__OPAQUE_雰_66_=_VERANTYX_浮:1.0__OPAQUE_雰_66_,
+        _VERANTYX_浮:1.0__OPAQUE_雰_49_=_VERANTYX_浮:1.0__OPAQUE_雰_49_,
+        _VERANTYX_雰:1.0__OPAQUE_雰_33_=_VERANTYX_雰:1.0__OPAQUE_雰_33_,
+    )
+
+// POLYMORPHIC_JCROSS_END

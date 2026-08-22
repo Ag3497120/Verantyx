@@ -1,0 +1,178 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:57055E68 ver:1778164113
+// ⚠️ One-time schema — expires after response
+
+import __ast_廬:1.0___OPAQUE_廬_12_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_廬:0.4___OPAQUE_KA_559_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+enum __ast_廬:1.0___OPAQUE_廬_18_: __ast_廬:1.0___OPAQUE_廬_1_ {
+    case __ast_霞:1.0___OPAQUE_霞_45_(__ast_霞:1.0___OPAQUE_霞_18_: __ast_廬:1.0___OPAQUE_廬_8_)       // [想:X]
+    case __ast_滲:1.0___OPAQUE_霞_52_(__ast_霞:1.0___OPAQUE_霞_6_: __ast_廬:1.0___OPAQUE_廬_8_)      // [確:X]
+    case __ast_霞:1.0___OPAQUE_霞_5_(__ast_格:1.0___OPAQUE_霞_13_: __ast_廬:1.0___OPAQUE_廬_8_)     // [出:X]
+    case __ast_霞:1.0___OPAQUE_霞_29_(__ast_深:1.0___OPAQUE_霞_22_: __ast_廬:1.0___OPAQUE_廬_8_)        // [記:X]
+    case __ast_霞:1.0___OPAQUE_霞_33_(__ast_霞:1.0___OPAQUE_霞_54_: __ast_廬:1.0___OPAQUE_廬_8_)    // [否:X]
+    case __ast_霞:1.0___OPAQUE_霞_40_(__ast_霞:1.0___OPAQUE_霞_50_: __ast_廬:1.0___OPAQUE_廬_8_)       // パース不能なトークン（無視）
+
+// __ast_霞:0.6___OPAQUE_KF_404_ [decoy-metadata]
+// [metadata-stripped]
+    var __ast_霞:1.0___OPAQUE_霞_1_: __ast_廬:1.0___OPAQUE_廬_8_ {
+        switch self {
+        case .__ast_霞:1.0___OPAQUE_霞_45_:   return "想"
+        case .__ast_滲:1.0___OPAQUE_霞_52_:  return "確"
+        case .__ast_霞:1.0___OPAQUE_霞_5_:  return "出"
+// __ast_縺:0.1___OPAQUE_AH_828_ [decoy-metadata]
+        case .__ast_霞:1.0___OPAQUE_霞_29_:  return "記"
+        case .__ast_霞:1.0___OPAQUE_霞_33_:  return "否"
+        case .__ast_霞:1.0___OPAQUE_霞_40_: return "?"
+        }
+    }
+
+// [metadata-stripped]
+    var __ast_匸:1.0___OPAQUE_霞_39_: __ast_廬:1.0___OPAQUE_廬_8_ {
+        switch self {
+        case .__ast_霞:1.0___OPAQUE_霞_45_(let t):   return t
+        case .__ast_滲:1.0___OPAQUE_霞_52_(let c):  return c
+        case .__ast_霞:1.0___OPAQUE_霞_5_(let a):  return a
+        case .__ast_霞:1.0___OPAQUE_霞_29_(let k):  return k
+        case .__ast_霞:1.0___OPAQUE_霞_33_(let s):  return s
+        case .__ast_霞:1.0___OPAQUE_霞_40_(let r): return r
+        }
+    }
+}
+
+// [metadata-stripped]
+// __ast_縺:0.2___OPAQUE_XZ_316_ [decoy-metadata]
+
+enum __ast_格:1.0___OPAQUE_廬_17_ {
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霞:1.0___OPAQUE_霞_24_(_ __ast_霞:1.0___OPAQUE_霞_9_: __ast_廬:1.0___OPAQUE_廬_8_) -> [__ast_廬:1.0___OPAQUE_廬_18_] {
+// [metadata-stripped]
+// [metadata-stripped]
+        guard let __ast_霞:1.0___OPAQUE_霞_8_ = try? __ast_廬:1.0___OPAQUE_廬_5_(
+            __ast_霞:1.0___OPAQUE_霞_34_: #"\[([想確出記否]):(.*?)\]"#,
+            __ast_霞:1.0___OPAQUE_霞_42_: []
+        ) else { return [] }
+
+        let __ast_霞:1.0___OPAQUE_霞_38_ = __ast_霞:1.0___OPAQUE_霞_9_ as __ast_廬:1.0___OPAQUE_廬_7_
+        let __ast_霞:1.0___OPAQUE_霞_28_ = __ast_霞:1.0___OPAQUE_霞_8_.__ast_霞:1.0___OPAQUE_霞_28_(
+            in: __ast_霞:1.0___OPAQUE_霞_9_,
+            __ast_霞:1.0___OPAQUE_霞_42_: [],
+            __ast_霞:1.0___OPAQUE_霞_25_: __ast_廬:1.0___OPAQUE_廬_14_(__ast_霞:1.0___OPAQUE_霞_21_: 0, __ast_霞:1.0___OPAQUE_霞_47_: __ast_霞:1.0___OPAQUE_霞_38_.__ast_霞:1.0___OPAQUE_霞_47_)
+        )
+
+        return __ast_霞:1.0___OPAQUE_霞_28_.__ast_霞:1.0___OPAQUE_霞_35_ { __ast_霞:1.0___OPAQUE_霞_53_ in
+            guard
+                __ast_霞:1.0___OPAQUE_霞_53_.__ast_霞:1.0___OPAQUE_霞_15_ == 3,
+                let __ast_霞:1.0___OPAQUE_霞_7_    = __ast_廬:1.0___OPAQUE_廬_9_(__ast_霞:1.0___OPAQUE_霞_53_.__ast_霞:1.0___OPAQUE_霞_25_(at: 1), in: __ast_霞:1.0___OPAQUE_霞_9_),
+                let __ast_匸:1.0___OPAQUE_霞_46_ = __ast_廬:1.0___OPAQUE_廬_9_(__ast_霞:1.0___OPAQUE_霞_53_.__ast_霞:1.0___OPAQUE_霞_25_(at: 2), in: __ast_霞:1.0___OPAQUE_霞_9_)
+            else { return nil }
+
+            let __ast_霞:1.0___OPAQUE_霞_51_ = __ast_廬:1.0___OPAQUE_廬_8_(__ast_霞:1.0___OPAQUE_霞_9_[__ast_霞:1.0___OPAQUE_霞_7_]).__ast_霞:1.0___OPAQUE_霞_17_(in: .__ast_霞:1.0___OPAQUE_霞_2_)
+            let __ast_匸:1.0___OPAQUE_霞_39_  = __ast_廬:1.0___OPAQUE_廬_8_(__ast_霞:1.0___OPAQUE_霞_9_[__ast_匸:1.0___OPAQUE_霞_46_]).__ast_霞:1.0___OPAQUE_霞_17_(in: .__ast_霞:1.0___OPAQUE_霞_2_)
+
+// __ast_格:0.4___OPAQUE_DY_917_ [decoy-metadata]
+            return __ast_霞:1.0___OPAQUE_霞_30_(__ast_霞:1.0___OPAQUE_霞_14_: __ast_霞:1.0___OPAQUE_霞_51_, __ast_匸:1.0___OPAQUE_霞_39_: __ast_匸:1.0___OPAQUE_霞_39_)
+        }
+    }
+
+// [metadata-stripped]
+    static func __ast_霞:1.0___OPAQUE_霞_10_(_ __ast_霞:1.0___OPAQUE_霞_9_: __ast_廬:1.0___OPAQUE_廬_8_) -> __ast_廬:1.0___OPAQUE_廬_15_ {
+        __ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_11_("[想:") ||
+        __ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_11_("[確:") ||
+        __ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_11_("[出:") ||
+        __ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_11_("[記:") ||
+        __ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_11_("[否:")
+    }
+// __ast_廬:0.9___OPAQUE_LF_327_ [decoy-metadata]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霞:1.0___OPAQUE_霞_20_(__ast_霞:1.0___OPAQUE_霞_36_ __ast_霞:1.0___OPAQUE_霞_23_: [__ast_廬:1.0___OPAQUE_廬_18_]) -> __ast_廬:1.0___OPAQUE_廬_8_? {
+        __ast_霞:1.0___OPAQUE_霞_23_.__ast_霞:1.0___OPAQUE_霞_55_().__ast_霞:1.0___OPAQUE_霞_35_ {
+            if case .__ast_霞:1.0___OPAQUE_霞_5_(let __ast_霞:1.0___OPAQUE_霞_4_) = $0 { return __ast_霞:1.0___OPAQUE_霞_4_ }
+            return nil
+        }.__ast_霞:1.0___OPAQUE_霞_32_
+    }
+
+// [metadata-stripped]
+    static func __ast_滲:1.0___OPAQUE_霞_37_(__ast_霞:1.0___OPAQUE_霞_36_ __ast_霞:1.0___OPAQUE_霞_23_: [__ast_廬:1.0___OPAQUE_廬_18_]) -> [__ast_廬:1.0___OPAQUE_廬_8_] {
+        __ast_霞:1.0___OPAQUE_霞_23_.__ast_霞:1.0___OPAQUE_霞_35_ {
+            if case .__ast_滲:1.0___OPAQUE_霞_52_(let __ast_霞:1.0___OPAQUE_霞_6_) = $0 { return __ast_霞:1.0___OPAQUE_霞_6_ }
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+    static func __ast_深:1.0___OPAQUE_霞_41_(__ast_霞:1.0___OPAQUE_霞_36_ __ast_霞:1.0___OPAQUE_霞_23_: [__ast_廬:1.0___OPAQUE_廬_18_]) -> [__ast_廬:1.0___OPAQUE_廬_8_] {
+        __ast_霞:1.0___OPAQUE_霞_23_.__ast_霞:1.0___OPAQUE_霞_35_ {
+            if case .__ast_霞:1.0___OPAQUE_霞_29_(let __ast_深:1.0___OPAQUE_霞_22_) = $0 { return __ast_深:1.0___OPAQUE_霞_22_ }
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霞:1.0___OPAQUE_霞_31_(__ast_霞:1.0___OPAQUE_霞_36_ __ast_霞:1.0___OPAQUE_霞_9_: __ast_廬:1.0___OPAQUE_廬_8_) -> __ast_廬:1.0___OPAQUE_廬_8_ {
+        guard let __ast_霞:1.0___OPAQUE_霞_8_ = try? __ast_廬:1.0___OPAQUE_廬_5_(
+            __ast_霞:1.0___OPAQUE_霞_34_: #"\[([想確出記否]):.*?\](\s*→\s*)?"#,
+            __ast_霞:1.0___OPAQUE_霞_42_: []
+        ) else { return __ast_霞:1.0___OPAQUE_霞_9_ }
+
+        let __ast_霞:1.0___OPAQUE_霞_48_ = __ast_霞:1.0___OPAQUE_霞_8_.__ast_霞:1.0___OPAQUE_霞_26_(
+            in: __ast_霞:1.0___OPAQUE_霞_9_,
+            __ast_霞:1.0___OPAQUE_霞_42_: [],
+            __ast_霞:1.0___OPAQUE_霞_25_: __ast_廬:1.0___OPAQUE_廬_14_(__ast_霞:1.0___OPAQUE_霞_9_.__ast_霞:1.0___OPAQUE_霞_12_..., in: __ast_霞:1.0___OPAQUE_霞_9_),
+            __ast_霞:1.0___OPAQUE_霞_43_: ""
+        ).__ast_霞:1.0___OPAQUE_霞_17_(in: .__ast_霞:1.0___OPAQUE_霞_27_)
+
+        return __ast_霞:1.0___OPAQUE_霞_48_.__ast_霞:1.0___OPAQUE_霞_16_ ? __ast_霞:1.0___OPAQUE_霞_9_ : __ast_霞:1.0___OPAQUE_霞_48_
+    }
+
+// [metadata-stripped]
+
+    private static func __ast_霞:1.0___OPAQUE_霞_30_(__ast_霞:1.0___OPAQUE_霞_14_: __ast_廬:1.0___OPAQUE_廬_8_, __ast_匸:1.0___OPAQUE_霞_39_: __ast_廬:1.0___OPAQUE_廬_8_) -> __ast_廬:1.0___OPAQUE_廬_18_ {
+        switch __ast_霞:1.0___OPAQUE_霞_14_ {
+        case "想": return .__ast_霞:1.0___OPAQUE_霞_45_(__ast_霞:1.0___OPAQUE_霞_18_: __ast_匸:1.0___OPAQUE_霞_39_)
+        case "確": return .__ast_滲:1.0___OPAQUE_霞_52_(__ast_霞:1.0___OPAQUE_霞_6_: __ast_匸:1.0___OPAQUE_霞_39_)
+        case "出": return .__ast_霞:1.0___OPAQUE_霞_5_(__ast_格:1.0___OPAQUE_霞_13_: __ast_匸:1.0___OPAQUE_霞_39_)
+        case "記": return .__ast_霞:1.0___OPAQUE_霞_29_(__ast_深:1.0___OPAQUE_霞_22_: __ast_匸:1.0___OPAQUE_霞_39_)
+        case "否": return .__ast_霞:1.0___OPAQUE_霞_33_(__ast_霞:1.0___OPAQUE_霞_54_: __ast_匸:1.0___OPAQUE_霞_39_)
+        __ast_霞:1.0___OPAQUE_霞_44_:   return .__ast_霞:1.0___OPAQUE_霞_40_(__ast_霞:1.0___OPAQUE_霞_50_: "[\(__ast_霞:1.0___OPAQUE_霞_14_):\(__ast_匸:1.0___OPAQUE_霞_39_)]")
+        }
+    }
+}
+
+// [metadata-stripped]
+
+extension __ast_廬:1.0___OPAQUE_廬_18_: __ast_廬:1.0___OPAQUE_廬_2_ {
+    var __ast_霞:1.0___OPAQUE_霞_19_: __ast_廬:1.0___OPAQUE_廬_8_ { "[\(__ast_霞:1.0___OPAQUE_霞_1_):\(__ast_匸:1.0___OPAQUE_霞_39_)]" }
+}
+
+// POLYMORPHIC_JCROSS_END

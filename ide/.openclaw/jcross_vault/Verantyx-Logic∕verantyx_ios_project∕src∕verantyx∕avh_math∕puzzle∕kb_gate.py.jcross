@@ -1,0 +1,35 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9C4733A1 ver:1778159673
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_泡:1.0__SYM_泡_15_
+// _ASTNODE_泡:0.3__SYM_FY_110_ [decoy-metadata]
+// _ASTNODE_匴:0.1__SYM_KH_292_ [decoy-metadata]
+_ASTNODE_泡:1.0__SYM_泡_2_ _ASTNODE_泡:1.0__SYM_泡_6_ import _ASTNODE_廂:1.0__SYM_廂_2_, _ASTNODE_廂:1.0__SYM_廂_3_
+
+_ASTNODE_泡:1.0__SYM_泡_20_ _ASTNODE_泡:1.0__SYM_泡_11_(_ASTNODE_泡:1.0__SYM_泡_19_: _ASTNODE_廂:1.0__SYM_廂_2_[_ASTNODE_泡:1.0__SYM_泡_8_, _ASTNODE_廂:1.0__SYM_廂_3_]) -> _ASTNODE_泡:1.0__SYM_泡_5_:
+    """エントリを KB に昇格させるべきか判定するゲート"""
+    _ASTNODE_泡:1.0__SYM_泡_7_ = _ASTNODE_泡:1.0__SYM_泡_19_._ASTNODE_術:1.0__SYM_弧_1_("_ASTNODE_泡:1.0__SYM_泡_7_", 0.0)
+    _ASTNODE_泡:1.0__SYM_泡_17_ = _ASTNODE_泡:1.0__SYM_泡_19_._ASTNODE_術:1.0__SYM_弧_1_("_ASTNODE_泡:1.0__SYM_泡_17_")
+
+// [metadata-stripped]
+// _ASTNODE_廂:0.5__SYM_GZ_972_ [decoy-metadata]
+    if _ASTNODE_泡:1.0__SYM_泡_7_ >= 0.7:
+// _ASTNODE_泡:0.1__SYM_XZ_450_ [decoy-metadata]
+        return _ASTNODE_廂:1.0__SYM_廂_1_
+    
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__SYM_泡_17_ == "_ASTNODE_泡:1.0__SYM_泡_3_" _ASTNODE_泡:1.0__SYM_泡_9_ _ASTNODE_泡:1.0__SYM_泡_7_ >= 0.5:
+        return _ASTNODE_廂:1.0__SYM_廂_1_
+
+// _ASTNODE_絢:0.9__SYM_CE_902_ [decoy-metadata]
+    return _ASTNODE_廂:1.0__SYM_廂_4_
+
+_ASTNODE_泡:1.0__SYM_泡_20_ _ASTNODE_泡:1.0__SYM_泡_1_(_ASTNODE_泡:1.0__SYM_泡_19_: _ASTNODE_廂:1.0__SYM_廂_2_[_ASTNODE_泡:1.0__SYM_泡_8_, _ASTNODE_廂:1.0__SYM_廂_3_]) -> _ASTNODE_泡:1.0__SYM_泡_8_:
+    """内容に基づいた一意の署名を生成する（重複排除用）"""
+// [metadata-stripped]
+// _ASTNODE_泡:0.6__SYM_VL_481_ [decoy-metadata]
+    _ASTNODE_匴:1.0__SYM_泡_10_ = f"{_ASTNODE_泡:1.0__SYM_泡_19_._ASTNODE_術:1.0__SYM_弧_1_('_ASTNODE_泡:1.0__SYM_泡_16_')}|{_ASTNODE_泡:1.0__SYM_泡_19_._ASTNODE_術:1.0__SYM_弧_1_('_ASTNODE_泡:1.0__SYM_泡_17_')}|{_ASTNODE_泡:1.0__SYM_泡_19_._ASTNODE_術:1.0__SYM_弧_1_('_ASTNODE_泡:1.0__SYM_泡_12_')}"
+    return _ASTNODE_泡:1.0__SYM_泡_15_._ASTNODE_泡:1.0__SYM_泡_13_(_ASTNODE_匴:1.0__SYM_泡_10_._ASTNODE_泡:1.0__SYM_泡_18_("_ASTNODE_泡:1.0__SYM_泡_14_-8"))._ASTNODE_泡:1.0__SYM_泡_4_()[:16]
+
+// POLYMORPHIC_JCROSS_END

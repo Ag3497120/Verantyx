@@ -1,0 +1,74 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7FE97A93 ver:1778166546
+// ⚠️ One-time schema — expires after response
+
+// _ID_濫:0.8__OPAQUE_LZ_112_ [decoy-metadata]
+import _ID_殻:1.0__OPAQUE_殻_8_
+import _ID_殻:1.0__OPAQUE_殻_13_
+import _ID_殻:1.0__OPAQUE_殻_5_
+
+extension _ID_殻:1.0__OPAQUE_殻_9_ {
+    public func _ID_霞:1.0__OPAQUE_霞_25_(_ID_霞:1.0__OPAQUE_霞_17_: _ID_殻:1.0__OPAQUE_殻_14_? = nil) -> [_ID_殻:1.0__OPAQUE_殻_9_] {
+        let _ID_錠:1.0__OPAQUE_霞_13_ = _ID_錠:1.0__OPAQUE_殻_7_(_ID_霞:1.0__OPAQUE_霞_36_: ._ID_霞:1.0__OPAQUE_霞_1_)
+        let _ID_霞:1.0__OPAQUE_霞_16_ = _ID_殻:1.0__OPAQUE_殻_3_(_ID_霞:1.0__OPAQUE_霞_34_)
+        _ID_錠:1.0__OPAQUE_霞_13_._ID_霞:1.0__OPAQUE_霞_16_ = _ID_霞:1.0__OPAQUE_霞_16_
+        let _ID_霞:1.0__OPAQUE_霞_37_ = _ID_錠:1.0__OPAQUE_霞_13_._ID_錠:1.0__OPAQUE_霞_7_(for: _ID_霞:1.0__OPAQUE_霞_16_._ID_霞:1.0__OPAQUE_霞_11_..<_ID_霞:1.0__OPAQUE_霞_16_._ID_霞:1.0__OPAQUE_霞_18_)._ID_霞:1.0__OPAQUE_霞_35_ {
+            (
+                $0,
+                _ID_殻:1.0__OPAQUE_殻_9_._ID_殻:1.0__OPAQUE_殻_10_($0._ID_霞:1.0__OPAQUE_霞_19_, _ID_霞:1.0__OPAQUE_霞_33_: self)!
+                    ..<
+                    _ID_殻:1.0__OPAQUE_殻_9_._ID_殻:1.0__OPAQUE_殻_10_($0._ID_霞:1.0__OPAQUE_霞_28_, _ID_霞:1.0__OPAQUE_霞_33_: self)!)
+        }
+        let _ID_霞:1.0__OPAQUE_霞_26_ = _ID_霞:1.0__OPAQUE_霞_37_._ID_霞:1.0__OPAQUE_霞_6_ { _ID_霞:1.0__OPAQUE_霞_8_, _ID_霞:1.0__OPAQUE_霞_22_ in
+// _ID_錠:0.5__OPAQUE_ZA_214_ [decoy-metadata]
+            let _ID_霞:1.0__OPAQUE_霞_1_ = self[_ID_霞:1.0__OPAQUE_霞_22_]
+            guard let _ID_霞:1.0__OPAQUE_霞_17_, _ID_霞:1.0__OPAQUE_霞_1_._ID_霞:1.0__OPAQUE_霞_34_._ID_霞:1.0__OPAQUE_霞_12_ > _ID_霞:1.0__OPAQUE_霞_17_ else {
+                return [_ID_霞:1.0__OPAQUE_霞_22_]
+            }
+
+            let _ID_錠:1.0__OPAQUE_霞_15_ = _ID_錠:1.0__OPAQUE_殻_7_(_ID_霞:1.0__OPAQUE_霞_36_: ._ID_霞:1.0__OPAQUE_霞_29_)
+            _ID_錠:1.0__OPAQUE_霞_15_._ID_霞:1.0__OPAQUE_霞_16_ = _ID_霞:1.0__OPAQUE_霞_16_
+            var _ID_霞:1.0__OPAQUE_霞_40_ = _ID_錠:1.0__OPAQUE_霞_15_._ID_錠:1.0__OPAQUE_霞_7_(for: _ID_霞:1.0__OPAQUE_霞_8_)._ID_霞:1.0__OPAQUE_霞_35_ {
+                _ID_殻:1.0__OPAQUE_殻_9_._ID_殻:1.0__OPAQUE_殻_10_($0._ID_霞:1.0__OPAQUE_霞_19_, _ID_霞:1.0__OPAQUE_霞_33_: self)!
+                    ..<
+                    _ID_殻:1.0__OPAQUE_殻_9_._ID_殻:1.0__OPAQUE_殻_10_($0._ID_霞:1.0__OPAQUE_霞_28_, _ID_霞:1.0__OPAQUE_霞_33_: self)!
+            }
+            guard !_ID_霞:1.0__OPAQUE_霞_40_._ID_霞:1.0__OPAQUE_霞_32_ else { return [_ID_霞:1.0__OPAQUE_霞_22_] }
+            _ID_霞:1.0__OPAQUE_霞_40_[0] = _ID_霞:1.0__OPAQUE_霞_22_._ID_霞:1.0__OPAQUE_霞_19_..<_ID_霞:1.0__OPAQUE_霞_40_[0]._ID_霞:1.0__OPAQUE_霞_28_
+            _ID_霞:1.0__OPAQUE_霞_40_[_ID_霞:1.0__OPAQUE_霞_40_._ID_霞:1.0__OPAQUE_霞_12_ - 1] = _ID_霞:1.0__OPAQUE_霞_40_[_ID_霞:1.0__OPAQUE_霞_40_._ID_霞:1.0__OPAQUE_霞_12_ - 1]._ID_霞:1.0__OPAQUE_霞_19_..<_ID_霞:1.0__OPAQUE_霞_22_._ID_霞:1.0__OPAQUE_霞_28_
+
+            var _ID_霞:1.0__OPAQUE_霞_26_: [_ID_殻:1.0__OPAQUE_殻_11_<_ID_殻:1.0__OPAQUE_殻_9_._ID_殻:1.0__OPAQUE_殻_10_>] = []
+            for _ID_霞:1.0__OPAQUE_霞_5_ in _ID_霞:1.0__OPAQUE_霞_40_ {
+                if let _ID_霞:1.0__OPAQUE_霞_4_ = _ID_霞:1.0__OPAQUE_霞_26_._ID_霞:1.0__OPAQUE_霞_3_,
+                   self[_ID_霞:1.0__OPAQUE_霞_4_]._ID_霞:1.0__OPAQUE_霞_34_._ID_霞:1.0__OPAQUE_霞_12_ + self[_ID_霞:1.0__OPAQUE_霞_5_]._ID_霞:1.0__OPAQUE_霞_34_._ID_霞:1.0__OPAQUE_霞_12_ <= _ID_霞:1.0__OPAQUE_霞_17_ {
+                    _ID_霞:1.0__OPAQUE_霞_26_[_ID_霞:1.0__OPAQUE_霞_26_._ID_霞:1.0__OPAQUE_霞_12_ - 1] = _ID_霞:1.0__OPAQUE_霞_4_._ID_霞:1.0__OPAQUE_霞_19_..<_ID_霞:1.0__OPAQUE_霞_5_._ID_霞:1.0__OPAQUE_霞_28_
+                } else {
+                    _ID_霞:1.0__OPAQUE_霞_26_._ID_霞:1.0__OPAQUE_霞_14_(_ID_霞:1.0__OPAQUE_霞_5_)
+                }
+// _ID_巌:0.3__OPAQUE_FF_256_ [decoy-metadata]
+            }
+
+            return _ID_霞:1.0__OPAQUE_霞_26_
+        }
+// _ID_匳:0.3__OPAQUE_DK_604_ [decoy-metadata]
+
+        return _ID_霞:1.0__OPAQUE_霞_26_._ID_霞:1.0__OPAQUE_霞_30_ { _ID_霞:1.0__OPAQUE_霞_9_ in
+            let _ID_霞:1.0__OPAQUE_霞_23_ = self[_ID_霞:1.0__OPAQUE_霞_9_]._ID_霞:1.0__OPAQUE_霞_21_._ID_処:1.0__OPAQUE_霞_38_ {
+                !_ID_殻:1.0__OPAQUE_殻_3_(self[$0._ID_霞:1.0__OPAQUE_霞_9_]._ID_霞:1.0__OPAQUE_霞_34_)
+                    ._ID_霞:1.0__OPAQUE_霞_10_(in: ._ID_霞:1.0__OPAQUE_霞_27_)._ID_霞:1.0__OPAQUE_霞_32_
+            }._ID_霞:1.0__OPAQUE_霞_30_(\._ID_霞:1.0__OPAQUE_霞_24_)
+            guard !_ID_霞:1.0__OPAQUE_霞_23_._ID_霞:1.0__OPAQUE_霞_32_ else { return nil }
+            let _ID_霞:1.0__OPAQUE_霞_31_ = _ID_霞:1.0__OPAQUE_霞_23_._ID_霞:1.0__OPAQUE_霞_2_!._ID_霞:1.0__OPAQUE_霞_31_
+            let _ID_霞:1.0__OPAQUE_霞_20_ = _ID_霞:1.0__OPAQUE_霞_23_._ID_霞:1.0__OPAQUE_霞_3_!._ID_霞:1.0__OPAQUE_霞_20_
+            var _ID_霞:1.0__OPAQUE_霞_39_ = _ID_処:1.0__OPAQUE_殻_4_()
+            _ID_霞:1.0__OPAQUE_霞_39_[_ID_殻:1.0__OPAQUE_殻_1_._ID_殻:1.0__OPAQUE_殻_6_._ID_殻:1.0__OPAQUE_殻_12_.self] = _ID_殻:1.0__OPAQUE_殻_2_(
+// _ID_処:0.9__OPAQUE_VL_617_ [decoy-metadata]
+                _ID_霞:1.0__OPAQUE_霞_31_: _ID_霞:1.0__OPAQUE_霞_31_,
+// _ID_巌:0.7__OPAQUE_WV_313_ [decoy-metadata]
+                _ID_霞:1.0__OPAQUE_霞_20_: _ID_霞:1.0__OPAQUE_霞_20_)
+            return _ID_殻:1.0__OPAQUE_殻_9_(self[_ID_霞:1.0__OPAQUE_霞_9_]._ID_霞:1.0__OPAQUE_霞_34_, _ID_霞:1.0__OPAQUE_霞_39_: _ID_霞:1.0__OPAQUE_霞_39_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

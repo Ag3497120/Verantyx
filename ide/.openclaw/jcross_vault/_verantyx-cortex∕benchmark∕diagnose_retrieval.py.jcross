@@ -1,0 +1,187 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D8F6C729 ver:1778164967
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+_ID_廟:1.0__VERANTYX_廟_27_ _ID_廟:1.0__VERANTYX_廟_3_: _ID_廟:1.0__VERANTYX_廟_10_ where _ID_霞:1.0__VERANTYX_霞_285_ _ID_型:1.0__VERANTYX_霞_92_ _ID_霞:1.0__VERANTYX_霞_147_ _ID_霞:1.0__VERANTYX_霞_11_ for _ID_霞:1.0__VERANTYX_霞_127_ _ID_霞:1.0__VERANTYX_霞_234_.
+_ID_廟:1.0__VERANTYX_廟_21_ _ID_霞:1.0__VERANTYX_霞_332_ _ID_霞:1.0__VERANTYX_霞_161_ _ID_霞:1.0__VERANTYX_霞_301_ to be _ID_霞:1.0__VERANTYX_霞_191_ in _ID_霞:1.0__VERANTYX_霞_285_ _ID_廟:1.0__VERANTYX_廟_22_ _ID_霞:1.0__VERANTYX_霞_328_.
+"""
+import _ID_霞:1.0__VERANTYX_霞_155_, os, re, _ID_霞:1.0__VERANTYX_霞_199_, _ID_霞:1.0__VERANTYX_霞_219_, _ID_霞:1.0__VERANTYX_霞_259_
+
+_ID_廟:1.0__VERANTYX_廟_26_ = "/_ID_廟:1.0__VERANTYX_廟_5_/_ID_霞:1.0__VERANTYX_霞_196_/_ID_霞:1.0__VERANTYX_霞_238_-_ID_霞:1.0__VERANTYX_霞_118_/_ID_霞:1.0__VERANTYX_霞_105_/_ID_廟:1.0__VERANTYX_廟_17_/_ID_霞:1.0__VERANTYX_霞_107_/_ID_霞:1.0__VERANTYX_霞_32_._ID_霞:1.0__VERANTYX_霞_155_"
+_ID_廟:1.0__VERANTYX_廟_15_   = os._ID_霞:1.0__VERANTYX_霞_227_._ID_型:1.0__VERANTYX_霞_37_("~/._ID_霞:1.0__VERANTYX_霞_44_/_ID_霞:1.0__VERANTYX_霞_262_/_ID_霞:1.0__VERANTYX_霞_58_")
+_ID_廟:1.0__VERANTYX_廟_16_ = 7
+
+// [metadata-stripped]
+_ID_廟:1.0__VERANTYX_廟_6_ = {
+    "場": ["where", "_ID_霞:1.0__VERANTYX_霞_315_", "_ID_霞:1.0__VERANTYX_霞_77_", "_ID_霞:1.0__VERANTYX_霞_236_", "_ID_霞:1.0__VERANTYX_霞_228_", "_ID_霞:1.0__VERANTYX_霞_101_", "_ID_霞:1.0__VERANTYX_霞_182_",
+           "_ID_霞:1.0__VERANTYX_霞_13_", "_ID_霞:1.0__VERANTYX_霞_4_", "_ID_霞:1.0__VERANTYX_霞_307_", "_ID_霞:1.0__VERANTYX_霞_207_", "_ID_型:1.0__VERANTYX_霞_293_", "_ID_霞:1.0__VERANTYX_霞_226_", "_ID_霞:1.0__VERANTYX_霞_310_",
+           "_ID_霞:1.0__VERANTYX_霞_26_", "_ID_霞:1.0__VERANTYX_霞_290_", "_ID_霞:1.0__VERANTYX_霞_34_", "_ID_霞:1.0__VERANTYX_霞_38_", "_ID_霞:1.0__VERANTYX_霞_287_", "_ID_霞:1.0__VERANTYX_霞_171_",
+           "_ID_霞:1.0__VERANTYX_霞_27_", "_ID_霞:1.0__VERANTYX_霞_321_", "_ID_型:1.0__VERANTYX_霞_114_", "_ID_霞:1.0__VERANTYX_霞_204_", "_ID_霞:1.0__VERANTYX_霞_255_", "_ID_霞:1.0__VERANTYX_霞_335_",
+           "_ID_霞:1.0__VERANTYX_霞_257_", "_ID_霞:1.0__VERANTYX_霞_119_", "_ID_霞:1.0__VERANTYX_霞_215_", "_ID_霞:1.0__VERANTYX_霞_159_", "_ID_霞:1.0__VERANTYX_霞_264_"],
+    "時": ["_ID_霞:1.0__VERANTYX_霞_305_", "_ID_霞:1.0__VERANTYX_霞_90_", "_ID_霞:1.0__VERANTYX_霞_259_", "_ID_霞:1.0__VERANTYX_霞_221_", "_ID_霞:1.0__VERANTYX_霞_245_", "_ID_霞:1.0__VERANTYX_霞_284_", "_ID_霞:1.0__VERANTYX_霞_170_", "_ID_霞:1.0__VERANTYX_霞_124_",
+// _ID_型:0.2__VERANTYX_CL_564_ [decoy-metadata]
+           "_ID_霞:1.0__VERANTYX_霞_109_", "_ID_霞:1.0__VERANTYX_霞_160_", "_ID_霞:1.0__VERANTYX_霞_54_", "_ID_霞:1.0__VERANTYX_霞_111_", "_ID_霞:1.0__VERANTYX_霞_185_", "_ID_霞:1.0__VERANTYX_霞_216_", "_ID_霞:1.0__VERANTYX_霞_80_",
+           "_ID_霞:1.0__VERANTYX_霞_18_", "_ID_霞:1.0__VERANTYX_霞_260_", "_ID_霞:1.0__VERANTYX_霞_263_", "_ID_霞:1.0__VERANTYX_霞_104_", "_ID_霞:1.0__VERANTYX_霞_149_",
+           "_ID_霞:1.0__VERANTYX_霞_72_", "_ID_霞:1.0__VERANTYX_霞_47_", "_ID_霞:1.0__VERANTYX_霞_198_", "_ID_霞:1.0__VERANTYX_霞_258_", "_ID_霞:1.0__VERANTYX_霞_224_", "_ID_霞:1.0__VERANTYX_霞_311_", "_ID_霞:1.0__VERANTYX_霞_79_"],
+    "人": ["_ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_271_", "_ID_霞:1.0__VERANTYX_霞_43_", "_ID_霞:1.0__VERANTYX_霞_289_", "_ID_霞:1.0__VERANTYX_霞_113_", "_ID_澎:1.0__VERANTYX_霞_178_", "_ID_型:1.0__VERANTYX_霞_87_",
+           "_ID_型:1.0__VERANTYX_霞_188_", "_ID_霞:1.0__VERANTYX_霞_14_", "_ID_霞:1.0__VERANTYX_霞_140_", "_ID_霞:1.0__VERANTYX_霞_237_", "_ID_霞:1.0__VERANTYX_霞_336_", "_ID_霞:1.0__VERANTYX_霞_64_", "_ID_霞:1.0__VERANTYX_霞_69_",
+           "i ", "my ", "me ", "_ID_霞:1.0__VERANTYX_霞_129_", "_ID_霞:1.0__VERANTYX_霞_222_", "_ID_霞:1.0__VERANTYX_霞_151_", "_ID_霞:1.0__VERANTYX_霞_177_ as",
+           "_ID_霞:1.0__VERANTYX_霞_25_", "_ID_霞:1.0__VERANTYX_霞_54_ _ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_111_ _ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_163_", "_ID_霞:1.0__VERANTYX_霞_202_"],
+    "商": ["_ID_霞:1.0__VERANTYX_霞_242_", "_ID_霞:1.0__VERANTYX_霞_330_", "_ID_霞:1.0__VERANTYX_霞_298_", "_ID_霞:1.0__VERANTYX_霞_133_", "_ID_霞:1.0__VERANTYX_霞_197_", "_ID_霞:1.0__VERANTYX_霞_266_", "_ID_霞:1.0__VERANTYX_霞_51_",
+           "_ID_型:1.0__VERANTYX_霞_282_", "_ID_霞:1.0__VERANTYX_霞_276_", "_ID_霞:1.0__VERANTYX_霞_33_", "_ID_霞:1.0__VERANTYX_霞_50_", "_ID_霞:1.0__VERANTYX_霞_150_", "_ID_霞:1.0__VERANTYX_霞_12_", "_ID_霞:1.0__VERANTYX_霞_246_",
+           "_ID_霞:1.0__VERANTYX_霞_93_", "_ID_霞:1.0__VERANTYX_霞_41_", "_ID_霞:1.0__VERANTYX_霞_233_", "_ID_霞:1.0__VERANTYX_霞_128_", "_ID_霞:1.0__VERANTYX_霞_281_", "_ID_霞:1.0__VERANTYX_霞_3_",
+           "_ID_霞:1.0__VERANTYX_霞_218_", "_ID_霞:1.0__VERANTYX_霞_309_", "_ID_霞:1.0__VERANTYX_霞_65_", "_ID_霞:1.0__VERANTYX_霞_136_", "_ID_型:1.0__VERANTYX_霞_143_"],
+    "健": ["_ID_霞:1.0__VERANTYX_霞_174_", "_ID_霞:1.0__VERANTYX_霞_235_", "_ID_霞:1.0__VERANTYX_霞_40_", "_ID_霞:1.0__VERANTYX_霞_56_", "_ID_霞:1.0__VERANTYX_霞_13_", "_ID_霞:1.0__VERANTYX_霞_336_", "_ID_霞:1.0__VERANTYX_霞_103_",
+           "_ID_霞:1.0__VERANTYX_霞_7_", "_ID_霞:1.0__VERANTYX_霞_70_", "_ID_霞:1.0__VERANTYX_霞_108_", "_ID_霞:1.0__VERANTYX_霞_152_", "_ID_霞:1.0__VERANTYX_霞_48_", "_ID_霞:1.0__VERANTYX_霞_217_",
+           "_ID_霞:1.0__VERANTYX_霞_115_", "_ID_霞:1.0__VERANTYX_霞_81_", "_ID_霞:1.0__VERANTYX_霞_88_", "_ID_霞:1.0__VERANTYX_霞_82_", "_ID_霞:1.0__VERANTYX_霞_213_", "class",
+           "_ID_霞:1.0__VERANTYX_霞_28_", "_ID_霞:1.0__VERANTYX_霞_324_", "_ID_霞:1.0__VERANTYX_霞_6_", "_ID_霞:1.0__VERANTYX_霞_101_", "_ID_霞:1.0__VERANTYX_霞_147_", "_ID_霞:1.0__VERANTYX_霞_120_"],
+    "食": ["_ID_霞:1.0__VERANTYX_霞_126_", "_ID_霞:1.0__VERANTYX_霞_327_", "_ID_霞:1.0__VERANTYX_霞_29_", "_ID_霞:1.0__VERANTYX_霞_36_", "_ID_霞:1.0__VERANTYX_霞_295_", "_ID_霞:1.0__VERANTYX_霞_243_", "_ID_型:1.0__VERANTYX_霞_125_", "_ID_霞:1.0__VERANTYX_霞_252_",
+// _ID_廟:0.1__VERANTYX_XA_360_ [decoy-metadata]
+           "_ID_霞:1.0__VERANTYX_霞_201_", "_ID_霞:1.0__VERANTYX_霞_23_", "_ID_霞:1.0__VERANTYX_霞_239_", "_ID_型:1.0__VERANTYX_霞_143_", "_ID_霞:1.0__VERANTYX_霞_190_", "_ID_霞:1.0__VERANTYX_霞_173_",
+           "_ID_霞:1.0__VERANTYX_霞_182_", "_ID_霞:1.0__VERANTYX_霞_91_", "_ID_霞:1.0__VERANTYX_霞_240_", "_ID_霞:1.0__VERANTYX_霞_66_", "_ID_霞:1.0__VERANTYX_霞_317_",
+           "_ID_霞:1.0__VERANTYX_霞_84_", "_ID_霞:1.0__VERANTYX_霞_313_", "_ID_霞:1.0__VERANTYX_霞_116_", "_ID_霞:1.0__VERANTYX_霞_275_", "_ID_霞:1.0__VERANTYX_霞_21_", "_ID_霞:1.0__VERANTYX_霞_83_"],
+    "職": ["_ID_霞:1.0__VERANTYX_霞_121_", "_ID_霞:1.0__VERANTYX_霞_46_", "_ID_型:1.0__VERANTYX_霞_134_", "_ID_霞:1.0__VERANTYX_霞_38_", "_ID_霞:1.0__VERANTYX_霞_97_", "_ID_霞:1.0__VERANTYX_霞_140_", "_ID_霞:1.0__VERANTYX_霞_157_",
+           "_ID_霞:1.0__VERANTYX_霞_318_", "_ID_霞:1.0__VERANTYX_霞_184_", "_ID_霞:1.0__VERANTYX_霞_319_", "_ID_霞:1.0__VERANTYX_霞_34_", "_ID_霞:1.0__VERANTYX_霞_267_", "_ID_霞:1.0__VERANTYX_霞_192_",
+           "_ID_霞:1.0__VERANTYX_霞_294_", "_ID_霞:1.0__VERANTYX_霞_280_", "_ID_霞:1.0__VERANTYX_霞_154_", "_ID_霞:1.0__VERANTYX_霞_22_", "_ID_霞:1.0__VERANTYX_霞_325_", "_ID_霞:1.0__VERANTYX_霞_254_",
+           "_ID_霞:1.0__VERANTYX_霞_123_", "_ID_霞:1.0__VERANTYX_霞_130_", "_ID_霞:1.0__VERANTYX_霞_62_", "_ID_型:1.0__VERANTYX_霞_45_", "_ID_霞:1.0__VERANTYX_霞_209_ _ID_霞:1.0__VERANTYX_霞_127_",
+           "_ID_霞:1.0__VERANTYX_霞_175_", "_ID_霞:1.0__VERANTYX_霞_244_", "_ID_霞:1.0__VERANTYX_霞_49_", "_ID_霞:1.0__VERANTYX_霞_55_", "_ID_霞:1.0__VERANTYX_霞_131_"],
+    "娯": ["_ID_霞:1.0__VERANTYX_霞_2_", "_ID_霞:1.0__VERANTYX_霞_89_", "_ID_霞:1.0__VERANTYX_霞_74_", "_ID_霞:1.0__VERANTYX_霞_203_", "_ID_澎:1.0__VERANTYX_霞_308_", "_ID_型:1.0__VERANTYX_霞_293_", "_ID_霞:1.0__VERANTYX_霞_19_",
+           "_ID_霞:1.0__VERANTYX_霞_68_", "_ID_霞:1.0__VERANTYX_霞_261_", "_ID_霞:1.0__VERANTYX_霞_167_", "_ID_霞:1.0__VERANTYX_霞_59_", "_ID_霞:1.0__VERANTYX_霞_206_", "_ID_霞:1.0__VERANTYX_霞_253_", "_ID_霞:1.0__VERANTYX_霞_146_",
+           "_ID_霞:1.0__VERANTYX_霞_10_", "_ID_霞:1.0__VERANTYX_霞_274_", "_ID_霞:1.0__VERANTYX_霞_106_", "_ID_霞:1.0__VERANTYX_霞_122_", "_ID_霞:1.0__VERANTYX_霞_158_", "_ID_霞:1.0__VERANTYX_霞_214_",
+           "_ID_霞:1.0__VERANTYX_霞_94_ _ID_霞:1.0__VERANTYX_霞_286_", "_ID_型:1.0__VERANTYX_霞_299_ _ID_霞:1.0__VERANTYX_霞_78_", "_ID_澎:1.0__VERANTYX_霞_9_", "_ID_霞:1.0__VERANTYX_霞_268_"],
+    "技": ["_ID_霞:1.0__VERANTYX_霞_326_", "_ID_霞:1.0__VERANTYX_霞_269_", "_ID_型:1.0__VERANTYX_霞_316_", "_ID_霞:1.0__VERANTYX_霞_53_", "_ID_霞:1.0__VERANTYX_霞_241_", "_ID_霞:1.0__VERANTYX_霞_291_",
+           "_ID_霞:1.0__VERANTYX_霞_302_", "_ID_霞:1.0__VERANTYX_霞_181_", "_ID_霞:1.0__VERANTYX_霞_183_", "_ID_霞:1.0__VERANTYX_霞_176_", "_ID_霞:1.0__VERANTYX_霞_212_", "_ID_霞:1.0__VERANTYX_霞_186_",
+           "_ID_奥:1.0__VERANTYX_霞_5_", "_ID_霞:1.0__VERANTYX_霞_256_", "_ID_霞:1.0__VERANTYX_霞_107_", "ai", "_ID_霞:1.0__VERANTYX_霞_95_", "_ID_霞:1.0__VERANTYX_霞_334_"],
+}
+
+_ID_霞:1.0__VERANTYX_霞_296_ _ID_霞:1.0__VERANTYX_霞_156_(_ID_霞:1.0__VERANTYX_霞_248_: _ID_霞:1.0__VERANTYX_霞_168_) -> _ID_霞:1.0__VERANTYX_霞_312_:
+    _ID_型:1.0__VERANTYX_霞_153_ = _ID_霞:1.0__VERANTYX_霞_248_._ID_型:1.0__VERANTYX_霞_57_()
+// _ID_廟:0.6__VERANTYX_AY_771_ [decoy-metadata]
+    _ID_霞:1.0__VERANTYX_霞_303_ = {}
+    for _ID_霞:1.0__VERANTYX_霞_278_, _ID_奥:1.0__VERANTYX_霞_67_ in _ID_廟:1.0__VERANTYX_廟_6_._ID_霞:1.0__VERANTYX_霞_142_():
+        _ID_霞:1.0__VERANTYX_霞_273_ = _ID_霞:1.0__VERANTYX_霞_232_(1 for kw in _ID_奥:1.0__VERANTYX_霞_67_ if kw in _ID_型:1.0__VERANTYX_霞_153_)
+        if _ID_霞:1.0__VERANTYX_霞_273_ > 0:
+            _ID_霞:1.0__VERANTYX_霞_303_[_ID_霞:1.0__VERANTYX_霞_278_] = _ID_霞:1.0__VERANTYX_霞_189_(1.0, _ID_霞:1.0__VERANTYX_霞_60_(_ID_霞:1.0__VERANTYX_霞_273_ / 4, 2))
+    _ID_霞:1.0__VERANTYX_霞_303_["記"] = _ID_霞:1.0__VERANTYX_霞_187_(_ID_霞:1.0__VERANTYX_霞_303_._ID_型:1.0__VERANTYX_燦_1_("記", 0), 0.4)
+// _ID_澎:0.5__VERANTYX_KF_963_ [decoy-metadata]
+    _ID_霞:1.0__VERANTYX_霞_210_ = _ID_霞:1.0__VERANTYX_霞_231_(_ID_霞:1.0__VERANTYX_霞_303_._ID_霞:1.0__VERANTYX_霞_142_(), _ID_奥:1.0__VERANTYX_霞_251_=_ID_霞:1.0__VERANTYX_霞_61_ x: x[1], _ID_霞:1.0__VERANTYX_霞_283_=_ID_廟:1.0__VERANTYX_廟_25_)[:3]
+    if _ID_霞:1.0__VERANTYX_霞_139_ _ID_霞:1.0__VERANTYX_霞_210_:
+        _ID_霞:1.0__VERANTYX_霞_210_ = [("標", 1.0), ("記", 0.4)]
+    return _ID_霞:1.0__VERANTYX_霞_312_(_ID_霞:1.0__VERANTYX_霞_210_)
+
+_ID_霞:1.0__VERANTYX_霞_296_ _ID_霞:1.0__VERANTYX_霞_35_(_ID_霞:1.0__VERANTYX_霞_234_: _ID_霞:1.0__VERANTYX_霞_168_) -> _ID_霞:1.0__VERANTYX_霞_312_:
+    q = _ID_霞:1.0__VERANTYX_霞_234_._ID_型:1.0__VERANTYX_霞_57_()
+    _ID_霞:1.0__VERANTYX_霞_85_ = {"記": 0.4}
+    _ID_霞:1.0__VERANTYX_霞_306_ = [
+        (["where", "_ID_霞:1.0__VERANTYX_霞_315_", "_ID_霞:1.0__VERANTYX_霞_77_", "_ID_霞:1.0__VERANTYX_霞_236_", "_ID_霞:1.0__VERANTYX_霞_228_", "_ID_霞:1.0__VERANTYX_霞_3_"],   "場", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_305_", "_ID_霞:1.0__VERANTYX_霞_90_", "_ID_霞:1.0__VERANTYX_霞_259_", "_ID_霞:1.0__VERANTYX_霞_221_", "_ID_霞:1.0__VERANTYX_霞_111_", "_ID_霞:1.0__VERANTYX_霞_54_"],            "時", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_184_", "_ID_霞:1.0__VERANTYX_霞_319_", "_ID_霞:1.0__VERANTYX_霞_34_", "_ID_霞:1.0__VERANTYX_霞_46_", "_ID_型:1.0__VERANTYX_霞_134_",
+// _ID_匴:0.6__VERANTYX_ZA_432_ [decoy-metadata]
+          "_ID_霞:1.0__VERANTYX_霞_121_", "_ID_霞:1.0__VERANTYX_霞_97_", "_ID_霞:1.0__VERANTYX_霞_254_"],                               "職", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_203_", "_ID_霞:1.0__VERANTYX_霞_89_", "_ID_霞:1.0__VERANTYX_霞_2_", "_ID_霞:1.0__VERANTYX_霞_74_", "_ID_霞:1.0__VERANTYX_霞_19_", "_ID_型:1.0__VERANTYX_霞_293_",
+          "_ID_霞:1.0__VERANTYX_霞_68_", "_ID_霞:1.0__VERANTYX_霞_261_", "_ID_霞:1.0__VERANTYX_霞_59_"],                                   "娯", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_242_", "_ID_霞:1.0__VERANTYX_霞_298_", "_ID_霞:1.0__VERANTYX_霞_330_", "_ID_霞:1.0__VERANTYX_霞_3_", "_ID_霞:1.0__VERANTYX_霞_133_", "_ID_霞:1.0__VERANTYX_霞_51_"],     "商", 0.9),
+        (["_ID_霞:1.0__VERANTYX_霞_235_", "_ID_霞:1.0__VERANTYX_霞_40_", "_ID_霞:1.0__VERANTYX_霞_13_", "_ID_霞:1.0__VERANTYX_霞_174_", "class", "_ID_霞:1.0__VERANTYX_霞_101_"],     "健", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_151_", "_ID_霞:1.0__VERANTYX_霞_54_ _ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_111_ _ID_霞:1.0__VERANTYX_霞_102_", "_ID_霞:1.0__VERANTYX_霞_222_"],     "人", 1.0),
+        (["_ID_霞:1.0__VERANTYX_霞_126_", "_ID_霞:1.0__VERANTYX_霞_327_", "_ID_霞:1.0__VERANTYX_霞_182_", "_ID_霞:1.0__VERANTYX_霞_36_", "_ID_霞:1.0__VERANTYX_霞_239_"],            "食", 0.9),
+        (["_ID_霞:1.0__VERANTYX_霞_326_", "_ID_霞:1.0__VERANTYX_霞_269_", "_ID_型:1.0__VERANTYX_霞_316_", "_ID_霞:1.0__VERANTYX_霞_322_", "_ID_霞:1.0__VERANTYX_霞_53_", "_ID_霞:1.0__VERANTYX_霞_176_"],   "技", 0.9),
+    ]
+    for _ID_奥:1.0__VERANTYX_霞_67_, _ID_霞:1.0__VERANTYX_霞_278_, _ID_霞:1.0__VERANTYX_霞_30_ in _ID_霞:1.0__VERANTYX_霞_306_:
+        if any(kw in q for kw in _ID_奥:1.0__VERANTYX_霞_67_):
+            _ID_霞:1.0__VERANTYX_霞_85_[_ID_霞:1.0__VERANTYX_霞_278_] = _ID_霞:1.0__VERANTYX_霞_30_
+    if _ID_霞:1.0__VERANTYX_霞_249_(_ID_霞:1.0__VERANTYX_霞_85_) == 1:
+        _ID_霞:1.0__VERANTYX_霞_85_["標"] = 0.8
+    return _ID_霞:1.0__VERANTYX_霞_85_
+
+_ID_霞:1.0__VERANTYX_霞_296_ _ID_霞:1.0__VERANTYX_霞_179_(a: _ID_霞:1.0__VERANTYX_霞_312_, b: _ID_霞:1.0__VERANTYX_霞_312_) -> _ID_霞:1.0__VERANTYX_霞_132_:
+    _ID_奥:1.0__VERANTYX_霞_314_ = _ID_型:1.0__VERANTYX_燦_2_(a) | _ID_型:1.0__VERANTYX_燦_2_(b)
+    _ID_霞:1.0__VERANTYX_霞_225_ = _ID_霞:1.0__VERANTYX_霞_232_(a._ID_型:1.0__VERANTYX_燦_1_(k, 0) * b._ID_型:1.0__VERANTYX_燦_1_(k, 0) for k in _ID_奥:1.0__VERANTYX_霞_314_)
+    na = _ID_霞:1.0__VERANTYX_霞_199_._ID_霞:1.0__VERANTYX_霞_71_(_ID_霞:1.0__VERANTYX_霞_232_(v**2 for v in a._ID_霞:1.0__VERANTYX_霞_194_()))
+    nb = _ID_霞:1.0__VERANTYX_霞_199_._ID_霞:1.0__VERANTYX_霞_71_(_ID_霞:1.0__VERANTYX_霞_232_(v**2 for v in b._ID_霞:1.0__VERANTYX_霞_194_()))
+    if na == 0 or nb == 0:
+        return 0.0
+    return _ID_霞:1.0__VERANTYX_霞_225_ / (na * nb)
+
+_ID_霞:1.0__VERANTYX_霞_296_ _ID_霞:1.0__VERANTYX_霞_329_():
+    _ID_霞:1.0__VERANTYX_霞_99_ open(_ID_廟:1.0__VERANTYX_廟_26_) as f:
+        _ID_霞:1.0__VERANTYX_霞_230_ = _ID_霞:1.0__VERANTYX_霞_155_._ID_匴:1.0__VERANTYX_霞_16_(f)
+    _ID_霞:1.0__VERANTYX_霞_211_ = _ID_霞:1.0__VERANTYX_霞_230_[:_ID_廟:1.0__VERANTYX_廟_16_]
+
+    _ID_霞:1.0__VERANTYX_霞_63_("=" * 70)
+    _ID_霞:1.0__VERANTYX_霞_63_("  _ID_廟:1.0__VERANTYX_廟_24_ _ID_廟:1.0__VERANTYX_廟_18_ — _ID_型:1.0__VERANTYX_廟_11_ _ID_廟:1.0__VERANTYX_廟_1_ _ID_廟:1.0__VERANTYX_廟_28_ _ID_廟:1.0__VERANTYX_廟_13_")
+    _ID_霞:1.0__VERANTYX_霞_63_("=" * 70)
+
+    for i, _ID_霞:1.0__VERANTYX_霞_148_ in _ID_霞:1.0__VERANTYX_霞_250_(_ID_霞:1.0__VERANTYX_霞_211_):
+        _ID_霞:1.0__VERANTYX_霞_265_      = _ID_霞:1.0__VERANTYX_霞_148_["_ID_霞:1.0__VERANTYX_霞_297_"]
+        _ID_霞:1.0__VERANTYX_霞_234_ = _ID_霞:1.0__VERANTYX_霞_148_["_ID_霞:1.0__VERANTYX_霞_234_"]
+        _ID_霞:1.0__VERANTYX_霞_208_ = _ID_霞:1.0__VERANTYX_霞_148_["_ID_型:1.0__VERANTYX_霞_92_"]
+        _ID_霞:1.0__VERANTYX_霞_96_ = _ID_霞:1.0__VERANTYX_霞_148_._ID_型:1.0__VERANTYX_燦_1_("_ID_霞:1.0__VERANTYX_霞_169_", [])
+        _ID_霞:1.0__VERANTYX_霞_165_ = _ID_霞:1.0__VERANTYX_霞_148_._ID_型:1.0__VERANTYX_燦_1_("_ID_霞:1.0__VERANTYX_霞_304_", [])
+        _ID_霞:1.0__VERANTYX_霞_24_  = _ID_型:1.0__VERANTYX_燦_2_(_ID_霞:1.0__VERANTYX_霞_148_._ID_型:1.0__VERANTYX_燦_1_("_ID_霞:1.0__VERANTYX_霞_333_", []))
+
+        _ID_霞:1.0__VERANTYX_霞_63_(f"\n[{i+1}/{_ID_廟:1.0__VERANTYX_廟_16_}] {_ID_霞:1.0__VERANTYX_霞_265_}")
+        _ID_霞:1.0__VERANTYX_霞_63_(f"  Q: {_ID_霞:1.0__VERANTYX_霞_234_}")
+        _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_廟:1.0__VERANTYX_廟_9_: {_ID_霞:1.0__VERANTYX_霞_208_}")
+
+// [metadata-stripped]
+        _ID_霞:1.0__VERANTYX_霞_200_ = _ID_霞:1.0__VERANTYX_霞_35_(_ID_霞:1.0__VERANTYX_霞_234_)
+// _ID_燦:0.4__VERANTYX_LC_915_ [decoy-metadata]
+        _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_廟:1.0__VERANTYX_廟_19_ _ID_廟:1.0__VERANTYX_廟_22_: {_ID_霞:1.0__VERANTYX_霞_200_}")
+
+// [metadata-stripped]
+        _ID_霞:1.0__VERANTYX_霞_193_ = []
+        for j, _ID_霞:1.0__VERANTYX_霞_147_ in _ID_霞:1.0__VERANTYX_霞_250_(_ID_霞:1.0__VERANTYX_霞_96_):
+            if _ID_霞:1.0__VERANTYX_霞_139_ _ID_霞:1.0__VERANTYX_霞_137_(_ID_霞:1.0__VERANTYX_霞_147_, _ID_霞:1.0__VERANTYX_霞_135_):
+                continue
+            _ID_霞:1.0__VERANTYX_霞_15_ = "\n"._ID_霞:1.0__VERANTYX_霞_270_([
+                f"{m._ID_型:1.0__VERANTYX_燦_1_('_ID_霞:1.0__VERANTYX_霞_325_','?')._ID_型:1.0__VERANTYX_霞_20_()}: {m._ID_型:1.0__VERANTYX_燦_1_('_ID_霞:1.0__VERANTYX_霞_8_','')[:400]}"
+                for m in _ID_霞:1.0__VERANTYX_霞_147_ if _ID_霞:1.0__VERANTYX_霞_137_(m, _ID_霞:1.0__VERANTYX_霞_312_)
+            ])
+            if _ID_霞:1.0__VERANTYX_霞_139_ _ID_霞:1.0__VERANTYX_霞_15_._ID_霞:1.0__VERANTYX_霞_279_():
+                continue
+            _ID_霞:1.0__VERANTYX_霞_172_ = _ID_霞:1.0__VERANTYX_霞_165_[j] if j < _ID_霞:1.0__VERANTYX_霞_249_(_ID_霞:1.0__VERANTYX_霞_165_) else f"s{j}"
+            _ID_霞:1.0__VERANTYX_霞_31_ = _ID_霞:1.0__VERANTYX_霞_156_(_ID_霞:1.0__VERANTYX_霞_15_)
+            _ID_霞:1.0__VERANTYX_霞_272_ = _ID_霞:1.0__VERANTYX_霞_179_(_ID_霞:1.0__VERANTYX_霞_200_, _ID_霞:1.0__VERANTYX_霞_31_)
+            _ID_型:1.0__VERANTYX_霞_247_ = _ID_霞:1.0__VERANTYX_霞_172_ in _ID_霞:1.0__VERANTYX_霞_24_
+            _ID_霞:1.0__VERANTYX_霞_193_._ID_霞:1.0__VERANTYX_霞_138_((_ID_霞:1.0__VERANTYX_霞_272_, _ID_霞:1.0__VERANTYX_霞_172_, _ID_霞:1.0__VERANTYX_霞_31_, _ID_型:1.0__VERANTYX_霞_247_, _ID_霞:1.0__VERANTYX_霞_15_[:100]))
+
+        _ID_霞:1.0__VERANTYX_霞_193_._ID_霞:1.0__VERANTYX_霞_300_(_ID_霞:1.0__VERANTYX_霞_283_=_ID_廟:1.0__VERANTYX_廟_25_)
+
+// [metadata-stripped]
+        _ID_霞:1.0__VERANTYX_霞_86_ = _ID_霞:1.0__VERANTYX_霞_205_((r+1 for r, (_, _ID_霞:1.0__VERANTYX_霞_172_, _, _ID_霞:1.0__VERANTYX_霞_42_, _) in _ID_霞:1.0__VERANTYX_霞_250_(_ID_霞:1.0__VERANTYX_霞_193_) if _ID_霞:1.0__VERANTYX_霞_42_), _ID_廟:1.0__VERANTYX_廟_14_)
+        _ID_霞:1.0__VERANTYX_霞_166_  = _ID_霞:1.0__VERANTYX_霞_205_((_ID_霞:1.0__VERANTYX_霞_272_ for _ID_霞:1.0__VERANTYX_霞_272_, _ID_霞:1.0__VERANTYX_霞_172_, _, _ID_霞:1.0__VERANTYX_霞_42_, _ in _ID_霞:1.0__VERANTYX_霞_193_ if _ID_霞:1.0__VERANTYX_霞_42_), _ID_廟:1.0__VERANTYX_廟_14_)
+
+        _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_型:1.0__VERANTYX_廟_11_ _ID_霞:1.0__VERANTYX_霞_147_ _ID_霞:1.0__VERANTYX_霞_164_: {_ID_霞:1.0__VERANTYX_霞_86_}/{_ID_霞:1.0__VERANTYX_霞_249_(_ID_霞:1.0__VERANTYX_霞_193_)} (_ID_霞:1.0__VERANTYX_霞_272_={_ID_霞:1.0__VERANTYX_霞_166_:.3f})")
+
+// [metadata-stripped]
+        _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_廟:1.0__VERANTYX_廟_2_ 5 _ID_霞:1.0__VERANTYX_霞_76_:")
+        for _ID_霞:1.0__VERANTYX_霞_164_, (_ID_霞:1.0__VERANTYX_霞_272_, _ID_霞:1.0__VERANTYX_霞_172_, _ID_霞:1.0__VERANTYX_霞_278_, _ID_霞:1.0__VERANTYX_霞_42_, _ID_霞:1.0__VERANTYX_霞_288_) in _ID_霞:1.0__VERANTYX_霞_250_(_ID_霞:1.0__VERANTYX_霞_193_[:5], 1):
+            _ID_型:1.0__VERANTYX_霞_331_ = " ← _ID_型:1.0__VERANTYX_廟_8_" if _ID_霞:1.0__VERANTYX_霞_42_ else ""
+            _ID_霞:1.0__VERANTYX_霞_63_(f"    #{_ID_霞:1.0__VERANTYX_霞_164_} _ID_霞:1.0__VERANTYX_霞_272_={_ID_霞:1.0__VERANTYX_霞_272_:.3f} [{_ID_霞:1.0__VERANTYX_霞_172_[:20]}] {_ID_霞:1.0__VERANTYX_霞_278_}{_ID_型:1.0__VERANTYX_霞_331_}")
+            _ID_霞:1.0__VERANTYX_霞_63_(f"         {_ID_霞:1.0__VERANTYX_霞_288_[:60]}...")
+
+// [metadata-stripped]
+        if _ID_霞:1.0__VERANTYX_霞_86_ _ID_霞:1.0__VERANTYX_霞_98_ _ID_霞:1.0__VERANTYX_霞_86_ > 5:
+            _ID_霞:1.0__VERANTYX_霞_144_ = _ID_霞:1.0__VERANTYX_霞_205_((d for d in _ID_霞:1.0__VERANTYX_霞_193_ if d[3]), _ID_廟:1.0__VERANTYX_廟_14_)
+            if _ID_霞:1.0__VERANTYX_霞_144_:
+                _ID_霞:1.0__VERANTYX_霞_272_, _ID_霞:1.0__VERANTYX_霞_172_, _ID_霞:1.0__VERANTYX_霞_278_, _, _ID_霞:1.0__VERANTYX_霞_288_ = _ID_霞:1.0__VERANTYX_霞_144_
+                _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_型:1.0__VERANTYX_廟_11_ _ID_霞:1.0__VERANTYX_霞_147_ (_ID_霞:1.0__VERANTYX_霞_164_ #{_ID_霞:1.0__VERANTYX_霞_86_}):")
+                _ID_霞:1.0__VERANTYX_霞_63_(f"    _ID_霞:1.0__VERANTYX_霞_272_={_ID_霞:1.0__VERANTYX_霞_272_:.3f} [{_ID_霞:1.0__VERANTYX_霞_172_[:20]}] {_ID_霞:1.0__VERANTYX_霞_278_}")
+                _ID_霞:1.0__VERANTYX_霞_63_(f"    {_ID_霞:1.0__VERANTYX_霞_288_[:80]}...")
+
+// [metadata-stripped]
+        if _ID_霞:1.0__VERANTYX_霞_86_ _ID_霞:1.0__VERANTYX_霞_98_ _ID_霞:1.0__VERANTYX_霞_86_ > 3:
+            _ID_霞:1.0__VERANTYX_霞_323_ = _ID_霞:1.0__VERANTYX_霞_205_((k for _, _, k, _ID_霞:1.0__VERANTYX_霞_42_, _ in _ID_霞:1.0__VERANTYX_霞_193_ if _ID_霞:1.0__VERANTYX_霞_42_), {})
+            _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_廟:1.0__VERANTYX_廟_23_: _ID_型:1.0__VERANTYX_廟_11_ _ID_霞:1.0__VERANTYX_霞_292_ {_ID_霞:1.0__VERANTYX_霞_323_}, _ID_霞:1.0__VERANTYX_霞_162_ _ID_霞:1.0__VERANTYX_霞_1_ _ID_霞:1.0__VERANTYX_霞_73_ {_ID_霞:1.0__VERANTYX_霞_200_}")
+            _ID_霞:1.0__VERANTYX_霞_39_ = _ID_型:1.0__VERANTYX_燦_2_(_ID_霞:1.0__VERANTYX_霞_200_._ID_奥:1.0__VERANTYX_霞_314_()) - _ID_型:1.0__VERANTYX_燦_2_(_ID_霞:1.0__VERANTYX_霞_323_._ID_奥:1.0__VERANTYX_霞_314_())
+            if _ID_霞:1.0__VERANTYX_霞_39_:
+                _ID_霞:1.0__VERANTYX_霞_63_(f"  _ID_廟:1.0__VERANTYX_廟_20_ _ID_廟:1.0__VERANTYX_廟_22_ in _ID_型:1.0__VERANTYX_霞_92_ _ID_霞:1.0__VERANTYX_霞_147_: {_ID_霞:1.0__VERANTYX_霞_39_}")
+
+    _ID_霞:1.0__VERANTYX_霞_63_("\n" + "=" * 70)
+
+if _ID_霞:1.0__VERANTYX_霞_17_ == "_ID_霞:1.0__VERANTYX_霞_75_":
+    _ID_霞:1.0__VERANTYX_霞_329_()
+
+// POLYMORPHIC_JCROSS_END

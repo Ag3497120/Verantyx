@@ -1,0 +1,58 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:02E53610 ver:1778159677
+// ⚠️ One-time schema — expires after response
+
+_SYM_靄:1.0___jcross_靄_2__ _SYM_靄:1.0___jcross_靄_3__ import _SYM_庸:1.0___jcross_庸_12__, _SYM_庸:1.0___jcross_庸_5__, _SYM_庸:1.0___jcross_庸_6__, _SYM_庸:1.0___jcross_庸_9__, _SYM_庸:1.0___jcross_庸_7__
+_SYM_靄:1.0___jcross_靄_2__ _SYM_靄:1.0___jcross_靄_19__._SYM_靄:1.0___jcross_靄_22__._SYM_靄:1.0___jcross_靄_9__ import _SYM_靄:1.0___jcross_靄_23__, _SYM_庸:1.0___jcross_庸_14__
+
+_SYM_靄:1.0___jcross_靄_26__ _SYM_漂:1.0___jcross_靄_6__(_SYM_漂:1.0___jcross_靄_21__: _SYM_靄:1.0___jcross_靄_8__, _SYM_靄:1.0___jcross_靄_25__: _SYM_庸:1.0___jcross_庸_12__[_SYM_靄:1.0___jcross_靄_8__], _SYM_靄:1.0___jcross_靄_15__: _SYM_庸:1.0___jcross_庸_12__[_SYM_靄:1.0___jcross_靄_8__]) -> _SYM_庸:1.0___jcross_庸_6__[_SYM_靄:1.0___jcross_靄_8__, _SYM_庸:1.0___jcross_庸_7__[_SYM_庸:1.0___jcross_庸_5__[_SYM_靄:1.0___jcross_靄_8__, _SYM_庸:1.0___jcross_庸_9__]]]:
+    """
+    主要な _SYM_庸:1.0___jcross_庸_4__ フレームパターンにおいて検証を実行する。
+    """
+// [metadata-stripped]
+    _SYM_靄:1.0___jcross_靄_16__ = ["w0", "w1", "w2"]
+// _SYM_組:0.7___jcross_EB_496__ [decoy-metadata]
+// [metadata-stripped]
+    _SYM_靄:1.0___jcross_靄_7__ = {w: [] for w in _SYM_靄:1.0___jcross_靄_16__}
+    
+// [metadata-stripped]
+    _SYM_靄:1.0___jcross_靄_7__["w0"]._SYM_靄:1.0___jcross_靄_20__("w1")
+    _SYM_靄:1.0___jcross_靄_7__["w1"]._SYM_靄:1.0___jcross_靄_20__("w2")
+    
+// [metadata-stripped]
+    if any("_SYM_靄:1.0___jcross_靄_18__" in a for a in _SYM_靄:1.0___jcross_靄_25__):
+        _SYM_靄:1.0___jcross_靄_7__["w0"]._SYM_靄:1.0___jcross_靄_20__("w2")
+    if any("_SYM_靄:1.0___jcross_靄_14__" in a for a in _SYM_靄:1.0___jcross_靄_25__):
+        for w in _SYM_靄:1.0___jcross_靄_16__:
+            if w _SYM_靄:1.0___jcross_靄_17__ in _SYM_靄:1.0___jcross_靄_7__[w]:
+                _SYM_靄:1.0___jcross_靄_7__[w]._SYM_靄:1.0___jcross_靄_20__(w)
+
+// [metadata-stripped]
+// _SYM_組:0.9___jcross_CX_211__ [decoy-metadata]
+    _SYM_靄:1.0___jcross_靄_5__ = [
+// _SYM_函:0.1___jcross_EX_561__ [decoy-metadata]
+        {w: {a: _SYM_庸:1.0___jcross_庸_13__ for a in _SYM_靄:1.0___jcross_靄_15__} for w in _SYM_靄:1.0___jcross_靄_16__},
+// _SYM_曠:0.6___jcross_LY_365__ [decoy-metadata]
+        {w: {a: _SYM_庸:1.0___jcross_庸_1__ for a in _SYM_靄:1.0___jcross_靄_15__} for w in _SYM_靄:1.0___jcross_靄_16__},
+        {w: {a: (w == "w1") for a in _SYM_靄:1.0___jcross_靄_15__} for w in _SYM_靄:1.0___jcross_靄_16__} # 世界ごとに真理値を変えるパターン
+    ]
+
+    for _SYM_靄:1.0___jcross_靄_13__ in _SYM_靄:1.0___jcross_靄_5__:
+// _SYM_隠:0.5___jcross_MG_655__ [decoy-metadata]
+        _SYM_靄:1.0___jcross_靄_10__ = _SYM_庸:1.0___jcross_庸_14__(_SYM_靄:1.0___jcross_靄_16__, _SYM_靄:1.0___jcross_靄_7__, _SYM_靄:1.0___jcross_靄_13__)
+        for w in _SYM_靄:1.0___jcross_靄_16__:
+            _SYM_靄:1.0___jcross_靄_1__ = _SYM_靄:1.0___jcross_靄_23__(_SYM_漂:1.0___jcross_靄_21__, w, _SYM_靄:1.0___jcross_靄_10__)
+            if _SYM_靄:1.0___jcross_靄_1__ is _SYM_庸:1.0___jcross_庸_13__:
+                return "_SYM_庸:1.0___jcross_庸_11__", {
+                    "_SYM_靄:1.0___jcross_靄_24__": w,
+                    "_SYM_靄:1.0___jcross_靄_10__": _SYM_靄:1.0___jcross_靄_7__,
+// _SYM_函:0.1___jcross_GB_111__ [decoy-metadata]
+                    "_SYM_靄:1.0___jcross_靄_11__": _SYM_靄:1.0___jcross_靄_13__,
+                    "_SYM_靄:1.0___jcross_靄_12__": "_SYM_靄:1.0___jcross_靄_4__"
+                }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    return "_SYM_法:1.0___jcross_庸_8__", _SYM_庸:1.0___jcross_庸_2__
+
+// POLYMORPHIC_JCROSS_END

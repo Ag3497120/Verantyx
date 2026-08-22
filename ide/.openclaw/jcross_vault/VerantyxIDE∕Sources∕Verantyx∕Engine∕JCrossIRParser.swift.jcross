@@ -1,0 +1,178 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B6795C07 ver:1778150732
+// ⚠️ One-time schema — expires after response
+
+import __ast_殻:1.0___JCROSS_殻_12_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __ast_策:0.7___JCROSS_EW_509_ [decoy-metadata]
+
+// [metadata-stripped]
+
+enum __ast_殻:1.0___JCROSS_殻_18_: __ast_殻:1.0___JCROSS_殻_1_ {
+    case __ast_霜:1.0___JCROSS_霜_45_(__ast_霜:1.0___JCROSS_霜_18_: __ast_殻:1.0___JCROSS_殻_8_)       // [想:X]
+    case __ast_漕:1.0___JCROSS_霜_52_(__ast_霜:1.0___JCROSS_霜_6_: __ast_殻:1.0___JCROSS_殻_8_)      // [確:X]
+    case __ast_霜:1.0___JCROSS_霜_5_(__ast_策:1.0___JCROSS_霜_13_: __ast_殻:1.0___JCROSS_殻_8_)     // [出:X]
+    case __ast_霜:1.0___JCROSS_霜_29_(__ast_玄:1.0___JCROSS_霜_22_: __ast_殻:1.0___JCROSS_殻_8_)        // [記:X]
+    case __ast_霜:1.0___JCROSS_霜_33_(__ast_霜:1.0___JCROSS_霜_54_: __ast_殻:1.0___JCROSS_殻_8_)    // [否:X]
+    case __ast_霜:1.0___JCROSS_霜_40_(__ast_霜:1.0___JCROSS_霜_50_: __ast_殻:1.0___JCROSS_殻_8_)       // パース不能なトークン（無視）
+
+// [metadata-stripped]
+    var __ast_霜:1.0___JCROSS_霜_1_: __ast_殻:1.0___JCROSS_殻_8_ {
+        switch self {
+        case .__ast_霜:1.0___JCROSS_霜_45_:   return "想"
+        case .__ast_漕:1.0___JCROSS_霜_52_:  return "確"
+        case .__ast_霜:1.0___JCROSS_霜_5_:  return "出"
+        case .__ast_霜:1.0___JCROSS_霜_29_:  return "記"
+        case .__ast_霜:1.0___JCROSS_霜_33_:  return "否"
+        case .__ast_霜:1.0___JCROSS_霜_40_: return "?"
+        }
+    }
+
+// [metadata-stripped]
+    var __ast_匳:1.0___JCROSS_霜_39_: __ast_殻:1.0___JCROSS_殻_8_ {
+        switch self {
+        case .__ast_霜:1.0___JCROSS_霜_45_(let t):   return t
+        case .__ast_漕:1.0___JCROSS_霜_52_(let c):  return c
+        case .__ast_霜:1.0___JCROSS_霜_5_(let a):  return a
+        case .__ast_霜:1.0___JCROSS_霜_29_(let k):  return k
+        case .__ast_霜:1.0___JCROSS_霜_33_(let s):  return s
+        case .__ast_霜:1.0___JCROSS_霜_40_(let r): return r
+        }
+    }
+// __ast_玄:0.9___JCROSS_KY_947_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+
+enum __ast_策:1.0___JCROSS_殻_17_ {
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霜:1.0___JCROSS_霜_24_(_ __ast_霜:1.0___JCROSS_霜_9_: __ast_殻:1.0___JCROSS_殻_8_) -> [__ast_殻:1.0___JCROSS_殻_18_] {
+// [metadata-stripped]
+// [metadata-stripped]
+        guard let __ast_霜:1.0___JCROSS_霜_8_ = try? __ast_殻:1.0___JCROSS_殻_5_(
+            __ast_霜:1.0___JCROSS_霜_34_: #"\[([想確出記否]):(.*?)\]"#,
+            __ast_霜:1.0___JCROSS_霜_42_: []
+        ) else { return [] }
+
+// __ast_策:0.9___JCROSS_VA_965_ [decoy-metadata]
+        let __ast_霜:1.0___JCROSS_霜_38_ = __ast_霜:1.0___JCROSS_霜_9_ as __ast_殻:1.0___JCROSS_殻_7_
+        let __ast_霜:1.0___JCROSS_霜_28_ = __ast_霜:1.0___JCROSS_霜_8_.__ast_霜:1.0___JCROSS_霜_28_(
+            in: __ast_霜:1.0___JCROSS_霜_9_,
+            __ast_霜:1.0___JCROSS_霜_42_: [],
+            __ast_霜:1.0___JCROSS_霜_25_: __ast_殻:1.0___JCROSS_殻_14_(__ast_霜:1.0___JCROSS_霜_21_: 0, __ast_霜:1.0___JCROSS_霜_47_: __ast_霜:1.0___JCROSS_霜_38_.__ast_霜:1.0___JCROSS_霜_47_)
+        )
+
+        return __ast_霜:1.0___JCROSS_霜_28_.__ast_霜:1.0___JCROSS_霜_35_ { __ast_霜:1.0___JCROSS_霜_53_ in
+            guard
+                __ast_霜:1.0___JCROSS_霜_53_.__ast_霜:1.0___JCROSS_霜_15_ == 3,
+                let __ast_霜:1.0___JCROSS_霜_7_    = __ast_殻:1.0___JCROSS_殻_9_(__ast_霜:1.0___JCROSS_霜_53_.__ast_霜:1.0___JCROSS_霜_25_(at: 1), in: __ast_霜:1.0___JCROSS_霜_9_),
+                let __ast_匳:1.0___JCROSS_霜_46_ = __ast_殻:1.0___JCROSS_殻_9_(__ast_霜:1.0___JCROSS_霜_53_.__ast_霜:1.0___JCROSS_霜_25_(at: 2), in: __ast_霜:1.0___JCROSS_霜_9_)
+            else { return nil }
+
+            let __ast_霜:1.0___JCROSS_霜_51_ = __ast_殻:1.0___JCROSS_殻_8_(__ast_霜:1.0___JCROSS_霜_9_[__ast_霜:1.0___JCROSS_霜_7_]).__ast_霜:1.0___JCROSS_霜_17_(in: .__ast_霜:1.0___JCROSS_霜_2_)
+            let __ast_匳:1.0___JCROSS_霜_39_  = __ast_殻:1.0___JCROSS_殻_8_(__ast_霜:1.0___JCROSS_霜_9_[__ast_匳:1.0___JCROSS_霜_46_]).__ast_霜:1.0___JCROSS_霜_17_(in: .__ast_霜:1.0___JCROSS_霜_2_)
+
+            return __ast_霜:1.0___JCROSS_霜_30_(__ast_霜:1.0___JCROSS_霜_14_: __ast_霜:1.0___JCROSS_霜_51_, __ast_匳:1.0___JCROSS_霜_39_: __ast_匳:1.0___JCROSS_霜_39_)
+// __ast_匳:0.4___JCROSS_ZH_778_ [decoy-metadata]
+        }
+    }
+
+// [metadata-stripped]
+    static func __ast_霜:1.0___JCROSS_霜_10_(_ __ast_霜:1.0___JCROSS_霜_9_: __ast_殻:1.0___JCROSS_殻_8_) -> __ast_殻:1.0___JCROSS_殻_15_ {
+        __ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_11_("[想:") ||
+        __ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_11_("[確:") ||
+        __ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_11_("[出:") ||
+        __ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_11_("[記:") ||
+        __ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_11_("[否:")
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霜:1.0___JCROSS_霜_20_(__ast_霜:1.0___JCROSS_霜_36_ __ast_霜:1.0___JCROSS_霜_23_: [__ast_殻:1.0___JCROSS_殻_18_]) -> __ast_殻:1.0___JCROSS_殻_8_? {
+        __ast_霜:1.0___JCROSS_霜_23_.__ast_霜:1.0___JCROSS_霜_55_().__ast_霜:1.0___JCROSS_霜_35_ {
+            if case .__ast_霜:1.0___JCROSS_霜_5_(let __ast_霜:1.0___JCROSS_霜_4_) = $0 { return __ast_霜:1.0___JCROSS_霜_4_ }
+            return nil
+        }.__ast_霜:1.0___JCROSS_霜_32_
+    }
+
+// [metadata-stripped]
+    static func __ast_漕:1.0___JCROSS_霜_37_(__ast_霜:1.0___JCROSS_霜_36_ __ast_霜:1.0___JCROSS_霜_23_: [__ast_殻:1.0___JCROSS_殻_18_]) -> [__ast_殻:1.0___JCROSS_殻_8_] {
+        __ast_霜:1.0___JCROSS_霜_23_.__ast_霜:1.0___JCROSS_霜_35_ {
+            if case .__ast_漕:1.0___JCROSS_霜_52_(let __ast_霜:1.0___JCROSS_霜_6_) = $0 { return __ast_霜:1.0___JCROSS_霜_6_ }
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+    static func __ast_玄:1.0___JCROSS_霜_41_(__ast_霜:1.0___JCROSS_霜_36_ __ast_霜:1.0___JCROSS_霜_23_: [__ast_殻:1.0___JCROSS_殻_18_]) -> [__ast_殻:1.0___JCROSS_殻_8_] {
+        __ast_霜:1.0___JCROSS_霜_23_.__ast_霜:1.0___JCROSS_霜_35_ {
+            if case .__ast_霜:1.0___JCROSS_霜_29_(let __ast_玄:1.0___JCROSS_霜_22_) = $0 { return __ast_玄:1.0___JCROSS_霜_22_ }
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_霜:1.0___JCROSS_霜_31_(__ast_霜:1.0___JCROSS_霜_36_ __ast_霜:1.0___JCROSS_霜_9_: __ast_殻:1.0___JCROSS_殻_8_) -> __ast_殻:1.0___JCROSS_殻_8_ {
+        guard let __ast_霜:1.0___JCROSS_霜_8_ = try? __ast_殻:1.0___JCROSS_殻_5_(
+// __ast_殻:0.4___JCROSS_DL_117_ [decoy-metadata]
+            __ast_霜:1.0___JCROSS_霜_34_: #"\[([想確出記否]):.*?\](\s*→\s*)?"#,
+            __ast_霜:1.0___JCROSS_霜_42_: []
+        ) else { return __ast_霜:1.0___JCROSS_霜_9_ }
+
+        let __ast_霜:1.0___JCROSS_霜_48_ = __ast_霜:1.0___JCROSS_霜_8_.__ast_霜:1.0___JCROSS_霜_26_(
+            in: __ast_霜:1.0___JCROSS_霜_9_,
+            __ast_霜:1.0___JCROSS_霜_42_: [],
+            __ast_霜:1.0___JCROSS_霜_25_: __ast_殻:1.0___JCROSS_殻_14_(__ast_霜:1.0___JCROSS_霜_9_.__ast_霜:1.0___JCROSS_霜_12_..., in: __ast_霜:1.0___JCROSS_霜_9_),
+            __ast_霜:1.0___JCROSS_霜_43_: ""
+        ).__ast_霜:1.0___JCROSS_霜_17_(in: .__ast_霜:1.0___JCROSS_霜_27_)
+
+        return __ast_霜:1.0___JCROSS_霜_48_.__ast_霜:1.0___JCROSS_霜_16_ ? __ast_霜:1.0___JCROSS_霜_9_ : __ast_霜:1.0___JCROSS_霜_48_
+    }
+
+// [metadata-stripped]
+
+// __ast_策:0.1___JCROSS_VD_614_ [decoy-metadata]
+    private static func __ast_霜:1.0___JCROSS_霜_30_(__ast_霜:1.0___JCROSS_霜_14_: __ast_殻:1.0___JCROSS_殻_8_, __ast_匳:1.0___JCROSS_霜_39_: __ast_殻:1.0___JCROSS_殻_8_) -> __ast_殻:1.0___JCROSS_殻_18_ {
+        switch __ast_霜:1.0___JCROSS_霜_14_ {
+        case "想": return .__ast_霜:1.0___JCROSS_霜_45_(__ast_霜:1.0___JCROSS_霜_18_: __ast_匳:1.0___JCROSS_霜_39_)
+        case "確": return .__ast_漕:1.0___JCROSS_霜_52_(__ast_霜:1.0___JCROSS_霜_6_: __ast_匳:1.0___JCROSS_霜_39_)
+        case "出": return .__ast_霜:1.0___JCROSS_霜_5_(__ast_策:1.0___JCROSS_霜_13_: __ast_匳:1.0___JCROSS_霜_39_)
+        case "記": return .__ast_霜:1.0___JCROSS_霜_29_(__ast_玄:1.0___JCROSS_霜_22_: __ast_匳:1.0___JCROSS_霜_39_)
+        case "否": return .__ast_霜:1.0___JCROSS_霜_33_(__ast_霜:1.0___JCROSS_霜_54_: __ast_匳:1.0___JCROSS_霜_39_)
+        __ast_霜:1.0___JCROSS_霜_44_:   return .__ast_霜:1.0___JCROSS_霜_40_(__ast_霜:1.0___JCROSS_霜_50_: "[\(__ast_霜:1.0___JCROSS_霜_14_):\(__ast_匳:1.0___JCROSS_霜_39_)]")
+        }
+    }
+}
+
+// [metadata-stripped]
+
+extension __ast_殻:1.0___JCROSS_殻_18_: __ast_殻:1.0___JCROSS_殻_2_ {
+    var __ast_霜:1.0___JCROSS_霜_19_: __ast_殻:1.0___JCROSS_殻_8_ { "[\(__ast_霜:1.0___JCROSS_霜_1_):\(__ast_匳:1.0___JCROSS_霜_39_)]" }
+}
+
+// POLYMORPHIC_JCROSS_END

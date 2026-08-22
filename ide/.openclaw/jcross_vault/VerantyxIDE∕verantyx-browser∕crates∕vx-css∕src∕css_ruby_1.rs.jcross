@@ -1,0 +1,102 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0900AF2D ver:1778149851
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+__node_霡:1.0____jcross_霡_72__ __node_霡:1.0____jcross_霡_85__::__node_霡:1.0____jcross_霡_69__::__node_墟:1.0____jcross_墟_21__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_霡:1.0____jcross_霡_73__ enum __node_墟:1.0____jcross_墟_46__ { __node_法:1.0____jcross_墟_31__, __node_法:1.0____jcross_墟_38__, __node_法:1.0____jcross_墟_29__, __node_墟:1.0____jcross_墟_3__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_霡:1.0____jcross_霡_73__ enum __node_墟:1.0____jcross_墟_28__ { __node_墟:1.0____jcross_墟_32__, __node_法:1.0____jcross_墟_1__, __node_墟:1.0____jcross_墟_44__, __node_墟:1.0____jcross_墟_35__ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_霡:1.0____jcross_霡_73__ struct __node_墟:1.0____jcross_墟_24__ {
+    __node_霡:1.0____jcross_霡_73__ __node_霡:1.0____jcross_霡_35__: __node_墟:1.0____jcross_墟_46__,
+    __node_霡:1.0____jcross_霡_73__ __node_霡:1.0____jcross_霡_95__: __node_墟:1.0____jcross_墟_28__,
+    __node_霡:1.0____jcross_霡_73__ __node_霡:1.0____jcross_霡_19__: __node_霡:1.0____jcross_霡_104__, // e.g. __node_霡:1.0____jcross_霡_87__ __node_霡:1.0____jcross_霡_4__ `<__node_霡:1.0____jcross_霡_93__>` __node_霡:1.0____jcross_霡_101__
+}
+
+__node_霡:1.0____jcross_霡_78__ __node_墟:1.0____jcross_墟_43__ for __node_墟:1.0____jcross_墟_24__ {
+    fn __node_霡:1.0____jcross_霡_65__() -> __node_墟:1.0____jcross_墟_27__ {
+// __node_法:0.3____jcross_FM_550__ [decoy-metadata]
+        __node_墟:1.0____jcross_墟_27__ {
+            __node_霡:1.0____jcross_霡_35__: __node_墟:1.0____jcross_墟_46__::__node_法:1.0____jcross_墟_31__,
+            __node_霡:1.0____jcross_霡_95__: __node_墟:1.0____jcross_墟_28__::__node_墟:1.0____jcross_墟_35__,
+// __node_蔵:0.5____jcross_DA_995__ [decoy-metadata]
+            __node_霡:1.0____jcross_霡_19__: false,
+        }
+    }
+}
+
+// [metadata-stripped]
+__node_霡:1.0____jcross_霡_73__ struct __node_墟:1.0____jcross_墟_10__ {
+    __node_霡:1.0____jcross_霡_73__ __node_霡:1.0____jcross_霡_83__: __node_墟:1.0____jcross_墟_21__<__node_霡:1.0____jcross_霡_34__, __node_墟:1.0____jcross_墟_24__>,
+    __node_霡:1.0____jcross_霡_73__ __node_霡:1.0____jcross_霡_33__: __node_霡:1.0____jcross_霡_34__,
+}
+
+// __node_墟:0.8____jcross_LH_946__ [decoy-metadata]
+__node_霡:1.0____jcross_霡_78__ __node_墟:1.0____jcross_墟_10__ {
+    __node_霡:1.0____jcross_霡_73__ fn __node_霡:1.0____jcross_霡_16__() -> __node_墟:1.0____jcross_墟_27__ {
+        __node_墟:1.0____jcross_墟_27__ {
+            __node_霡:1.0____jcross_霡_83__: __node_墟:1.0____jcross_墟_21__::__node_霡:1.0____jcross_霡_16__(),
+            __node_霡:1.0____jcross_霡_33__: 0,
+        }
+    }
+
+    __node_霡:1.0____jcross_霡_73__ fn __node_法:1.0____jcross_煌_2__(&__node_霡:1.0____jcross_霡_1__ self, __node_霡:1.0____jcross_霡_100__: __node_霡:1.0____jcross_霡_34__, __node_霡:1.0____jcross_霡_80__: __node_墟:1.0____jcross_墟_24__) {
+        self.__node_霡:1.0____jcross_霡_83__.__node_霡:1.0____jcross_霡_27__(__node_霡:1.0____jcross_霡_100__, __node_霡:1.0____jcross_霡_80__);
+        self.__node_霡:1.0____jcross_霡_33__ += 1;
+    }
+
+// __node_霡:0.2____jcross_BZ_398__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+    __node_霡:1.0____jcross_霡_73__ fn __node_霡:1.0____jcross_霡_60__(&self, __node_霡:1.0____jcross_霡_100__: __node_霡:1.0____jcross_霡_34__, __node_霡:1.0____jcross_霡_74__: __node_霡:1.0____jcross_霡_98__) -> __node_霡:1.0____jcross_霡_98__ {
+        if let __node_墟:1.0____jcross_墟_22__(__node_霡:1.0____jcross_霡_80__) = self.__node_霡:1.0____jcross_霡_83__.__node_法:1.0____jcross_煌_1__(&__node_霡:1.0____jcross_霡_100__) {
+            __node_霡:1.0____jcross_霡_47__ __node_霡:1.0____jcross_霡_80__.__node_霡:1.0____jcross_霡_35__ {
+                __node_墟:1.0____jcross_墟_46__::__node_法:1.0____jcross_墟_31__ => {
+// [metadata-stripped]
+                    return __node_霡:1.0____jcross_霡_74__;
+                }
+                __node_墟:1.0____jcross_墟_46__::__node_法:1.0____jcross_墟_38__ => {
+// [metadata-stripped]
+// [metadata-stripped]
+                    return 0.0;
+                }
+                __node_墟:1.0____jcross_墟_46__::__node_法:1.0____jcross_墟_29__ => {
+// [metadata-stripped]
+// __node_墟:0.1____jcross_BK_383__ [decoy-metadata]
+                    return 0.0;
+                }
+                _ => return __node_霡:1.0____jcross_霡_74__,
+            }
+        }
+        __node_霡:1.0____jcross_霡_74__ // __node_墟:1.0____jcross_墟_8__ __node_墟:1.0____jcross_墟_43__ is __node_法:1.0____jcross_墟_31__
+// __node_法:0.3____jcross_CM_851__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    __node_霡:1.0____jcross_霡_73__ fn __node_霡:1.0____jcross_霡_51__(&self, __node_霡:1.0____jcross_霡_100__: __node_霡:1.0____jcross_霡_34__) -> __node_墟:1.0____jcross_墟_40__ {
+        if let __node_墟:1.0____jcross_墟_22__(__node_霡:1.0____jcross_霡_80__) = self.__node_霡:1.0____jcross_霡_83__.__node_法:1.0____jcross_煌_1__(&__node_霡:1.0____jcross_霡_100__) {
+            __node_涌:1.0____jcross_霡_5__!("㊙️ __node_墟:1.0____jcross_墟_15__ __node_墟:1.0____jcross_墟_18__ 1 (__node_墟:1.0____jcross_墟_41__ #{}): __node_墟:1.0____jcross_墟_30__: {:?} | __node_墟:1.0____jcross_墟_37__: {:?} | __node_墟:1.0____jcross_墟_11__ __node_墟:1.0____jcross_墟_16__ __node_墟:1.0____jcross_墟_17__: {}", 
+                __node_霡:1.0____jcross_霡_100__, __node_霡:1.0____jcross_霡_80__.__node_霡:1.0____jcross_霡_35__, __node_霡:1.0____jcross_霡_80__.__node_霡:1.0____jcross_霡_95__, self.__node_霡:1.0____jcross_霡_33__)
+        } else {
+            __node_涌:1.0____jcross_霡_5__!("__node_墟:1.0____jcross_墟_41__ #{} __node_霡:1.0____jcross_霡_22__ no __node_墟:1.0____jcross_墟_6__ __node_墟:1.0____jcross_墟_5__ __node_墟:1.0____jcross_墟_18__ __node_霡:1.0____jcross_霡_43__ __node_霡:1.0____jcross_霡_77__", __node_霡:1.0____jcross_霡_100__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

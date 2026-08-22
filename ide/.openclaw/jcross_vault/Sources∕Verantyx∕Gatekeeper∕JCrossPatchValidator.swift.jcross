@@ -1,0 +1,386 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6A51C494 ver:1778163664
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_14__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_67__ {
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    struct _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_10__ {
+        let id: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_46__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__          // _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_75__が変更しようとした_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__?      // 逆シャッフル後の実_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__ (nilなら_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_140__)
+        let _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_66__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__?
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__?
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_78__
+    }
+
+    enum _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_66__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__ {
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_142__   = "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_60__"
+        case _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_19__   = "_JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_18__"
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_63__    = "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_55__"
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_137__   = "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_6__"
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_21__       = "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_80__"
+    }
+
+    enum _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_78__ {
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__        // 実ノードへの有効なパッチ
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_90__   // ダミーノードへのパッチ (廃棄)
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_64__  // 存在しないエイリアス (廃棄)
+        case _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_87__     // フォーマット不正 (廃棄)
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_50__     // 危険な操作 (廃棄)
+        case _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_45__   // _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_41__-8Bによるレビュー待ち
+    }
+
+// [metadata-stripped]
+    struct _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__ {
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_97__: _JCROSS_廳:1.0___node_廳_8__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__]
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_56__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__]
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_74__: _JCROSS_廳:1.0___node_廳_8__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_134__: _JCROSS_廳:1.0___node_廳_8__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_13__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_51__
+
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_17__: _JCROSS_廳:1.0___node_廳_76__ { !_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_92__ }
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_121__: _JCROSS_廳:1.0___node_廳_76__ { _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_134__ > 0 }
+    }
+
+// [metadata-stripped]
+// _JCROSS_霮:0.4___node_EA_421__ [decoy-metadata]
+
+// [metadata-stripped]
+    private let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_69__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__] = [
+        "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_41__(", "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_3__(", "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_125__(", "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_1__",
+        "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_32__", "_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_109__", "os._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_125__",
+        "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_61__", "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_26__", "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_59__(",
+        "_JCROSS_匶:1.0____JCROSS_霮:1.0___node_霮_116___廳_13__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_22__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_53__",
+        "_JCROSS_紋:1.0____JCROSS_霮:1.0___node_霮_116___廳_12__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_136__._JCROSS_霮:1.0___node_霮_37__", // IR内でのネットワーク呼び出し
+    ]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_9__(
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_83__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_74__._JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_15__
+    ) -> [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__] {
+
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__] = []
+
+// [metadata-stripped]
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__ = #"---\s*_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_48__\s*---([\s\S]*?)---\s*_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_68__\s*---"#
+        guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_82__ = try? _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_5__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__) else { return [] }
+
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_23__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_106__..., in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__)
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_82__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__(in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__)
+
+        for _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_84__ in _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__ {
+            guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_76__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_17__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_84__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__(at: 1), in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__) else { continue }
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_76__])
+
+// [metadata-stripped]
+            let _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_123__ = #"_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_64__\s+(\S+):\s*\n([\s\S]*?)(?=_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_64__|\z)"#
+            guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_7__ = try? _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_5__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__: _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_123__) else { continue }
+
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_4__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_23__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_106__..., in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__)
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_46__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_7__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__(in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_4__)
+
+            for _JCROSS_霮:1.0___node_霮_39__ in _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_46__ {
+                guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_2__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_17__(_JCROSS_霮:1.0___node_霮_39__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__(at: 1), in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__),
+                      let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_51__  = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_17__(_JCROSS_霮:1.0___node_霮_39__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__(at: 2), in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__)
+                else { continue }
+
+                let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_2__])._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+                let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_71__  = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_47__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_51__])
+
+                let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__ = _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_20__(
+// _JCROSS_紋:0.2___node_CA_666__ [decoy-metadata]
+                    _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__,
+                    _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_71__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_71__,
+                    _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__
+                )
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+            }
+        }
+
+// [metadata-stripped]
+        if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_92__ {
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__ = _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_58__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_83__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_135__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__)
+        }
+
+        return _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__
+    }
+
+    private func _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_20__(
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_71__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_74__._JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_15__
+    ) -> _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__ {
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_6__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_71__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_66__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_73__: "\n")
+            ._JCROSS_霮:1.0___node_霮_34__ { $0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__) }
+            ._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_38__ { !$0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_92__ }
+
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__ = ""
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__?
+// _JCROSS_紋:0.2___node_WM_224__ [decoy-metadata]
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__?
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_141__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_66__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_21__
+
+        for _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__ in _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_6__ {
+            if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_96__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_60__:") {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_141__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_142__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_60__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_60__:"._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__))._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+            } else if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_96__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_24__:") {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_60__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_24__:"._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__))._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+            } else if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_96__("_JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_18__:") {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_141__ = ._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_19__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_60__("_JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_18__:"._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__))._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+            } else if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_96__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_55__:") {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_141__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_63__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_60__("_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_55__:"._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__))._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+            } else if !_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_96__("//") {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_100__
+            }
+        }
+
+// [metadata-stripped]
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_94__
+            ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_42__ { $0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_52__ == _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__ }?
+            ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__
+
+        return _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__(
+            id: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_46__(),
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__,
+            _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_141__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_45__
+        )
+    }
+
+// [metadata-stripped]
+    private func _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_58__(
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_83__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_74__._JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_15__
+    ) -> [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__] {
+// [metadata-stripped]
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__ = #"```_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_126__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_103__:([^\n]+)\n([\s\S]*?)```"#
+        guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_82__ = try? _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_5__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_10__) else { return [] }
+
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_23__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_106__..., in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__)
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_82__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__(in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__)
+
+        return _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_31__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_35__ { _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_84__ -> _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__? in
+            guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_2__   = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_17__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_84__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__(at: 1), in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__),
+                  let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_76__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_17__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_84__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_68__(at: 2), in: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__)
+            else { return nil }
+
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__   = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_2__])._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_48__(in: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_75__)
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_5__ = _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_44__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_76__])
+
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_94__
+                ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_42__ { $0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_52__ == _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__ }?._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__
+
+            return _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__(
+                id: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_46__(),
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__,
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__,
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_137__,
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__: nil,
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_5__,
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__: "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_1__ _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_78__ _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_110__",
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__: ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_45__
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_122__(
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__],
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_74__._JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_15__
+    ) -> _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__ {
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_88__  = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_113__
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_133__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_139__
+
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_71__] = []
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_79__ = 0
+        var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_28__ = 0
+
+        for var _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__ in _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__ {
+// [metadata-stripped]
+            if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_133__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_14__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__) {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_90__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_79__ += 1
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+                continue
+            }
+
+// [metadata-stripped]
+            if !_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_88__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_14__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__) && !_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_133__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_14__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__) {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_64__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_28__ += 1
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+                continue
+            }
+
+// [metadata-stripped]
+            if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__ == ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_21__ && _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__ == nil {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ = ._JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_87__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+                continue
+            }
+
+// [metadata-stripped]
+            let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_43__ = [_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__]
+                ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_35__ { $0 }._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_30__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_95__: " ")
+            if _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_111__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_43__) {
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_50__
+                _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+                continue
+            }
+
+// [metadata-stripped]
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ = ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_54__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__)
+        }
+
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_38__ { $0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ == ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__ }
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_132__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_38__ { $0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__ != ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__ }
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_124__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_131__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__
+
+        return _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__(
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_97__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_124__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_56__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_132__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_74__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_79__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_134__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_28__,
+            _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_13__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_124__ > 0 ? _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_51__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__) / _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_51__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_124__) : 0
+// _JCROSS_霮:0.9___node_CL_694__ [decoy-metadata]
+        )
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_120__(
+        to _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_29__: [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__]  // _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_52__ → _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_143__
+// _JCROSS_霮:0.1___node_MD_785__ [decoy-metadata]
+    ) -> [(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__, _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__)] {
+
+        return _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_35__ { _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__ in
+            guard let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__ ?? _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_29__[_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__] else { return nil }
+
+            var _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = ""
+            switch _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__ {
+            case ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_142__:
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = """
+                _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_30__:
+                  _JCROSS_廳:1.0___node_廳_3__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ ?? "")
+                  _JCROSS_廳:1.0___node_廳_52__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__ ?? "")
+                """
+            case ._JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_19__:
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = """
+                _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_18__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ ?? "")
+                  _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_73__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__ ?? "")
+                """
+            case ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_63__:
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = "_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_47__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_112__ ?? "")"
+            case ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_137__:
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_65__ ?? ""
+            case ._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_21__:
+                _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_15__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_62__
+            }
+
+            return (_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_138__, _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__: _JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_49__)
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_107__(
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__,
+        _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__: _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_74__._JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_15__
+    ) -> _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__ {
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_77__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__._JCROSS_霮:1.0___node_霮_34__ { p in
+            "  - _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__:\(p._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__) _JCROSS_霮:1.0___node_霮_116__:\(p._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_26__ ?? "?") _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_67__:\(p._JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_117__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_127__)"
+        }._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_30__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_95__: "\n")
+
+        let _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_16__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_56__._JCROSS_霮:1.0___node_霮_34__ { p in
+            "  - _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_93__:\(p._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_114__) _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_18__:\(p._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_128__)"
+        }._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_30__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_95__: "\n")
+
+        return """
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_31__ _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_44__ _JCROSS_紋:1.0____JCROSS_霮:1.0___node_霮_116___廳_32__
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_21__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_72__)
+        _JCROSS_匶:1.0____JCROSS_霮:1.0___node_霮_116___廳_43__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_119__)
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_27__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_61__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_129__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_27__(8))
+
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_28__ _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_40__ (\(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__)):
+        \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_77__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_92__ ? "  (_JCROSS_霮:1.0___node_霮_23__)" : _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_77__)
+
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_2__ _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_40__ (\(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_56__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__)):
+        \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_16__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_92__ ? "  (_JCROSS_霮:1.0___node_霮_23__)" : _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_16__)
+
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_37__:
+// _JCROSS_匶:0.4___node_LV_667__ [decoy-metadata]
+          _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_34__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_97__)
+          _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_58__ _JCROSS_霮:1.0___node_霮_108__: \(_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_110__: "%.0f%%", _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_13__ * 100))
+          _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_19__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_101__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_74__)
+          _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_4__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_70__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_134__)
+
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_25__: _JCROSS_廳:1.0___node_廳_20__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_25__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_40__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_130__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_104__ to _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_105__ to _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_57__? (_JCROSS_廳:1.0___node_廳_62__/NO + _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_18__)
+        _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_56__: _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_55__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_102__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_98__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_80__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_81__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_59__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_99__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_8__ _JCROSS_紋:1.0____JCROSS_霮:1.0___node_霮_116___霮_89__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_55__.
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_65__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_35__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_86__ _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_12__ 200 _JCROSS_玄:1.0____JCROSS_霮:1.0___node_霮_116___霮_11__.
+        """
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_111__(_ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_5__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__) -> _JCROSS_廳:1.0___node_廳_76__ {
+        let _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_24__ = _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_5__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_36__()
+        return _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_69__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_14__ { _JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___霮_24__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_14__($0._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_36__()) }
+    }
+
+// [metadata-stripped]
+
+    func _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_33__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_33__, _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_72__: _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__) -> _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__ {
+        """
+        [_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_54__] \(_JCROSS_処:1.0____JCROSS_霮:1.0___node_霮_116___廳_50__()._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_118__(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_83__: _JCROSS_廳:1.0___node_廳_39__()))
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_21__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_72__)
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_34__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_97__) | _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_38__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_115__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__) | _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_36__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_56__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_85__)
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_63__ _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_101__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_74__) | _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_4__: \(_JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_134__)
+        _JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_58__ _JCROSS_霮:1.0___node_霮_108__: \(_JCROSS_廳:1.0____JCROSS_霮:1.0___node_霮_116___廳_16__(_JCROSS_流:1.0____JCROSS_霮:1.0___node_霮_116___霮_110__: "%.1f%%", _JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_91__._JCROSS_霮:1.0____JCROSS_霮:1.0___node_霮_116___霮_13__ * 100))
+        """
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

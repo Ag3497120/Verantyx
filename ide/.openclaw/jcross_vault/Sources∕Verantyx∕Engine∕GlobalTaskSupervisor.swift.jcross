@@ -1,0 +1,97 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E8806B4D ver:1778164025
+// ⚠️ One-time schema — expires after response
+
+// _TOKEN_縺:0.7___node_AW_421__ [decoy-metadata]
+// _TOKEN_庠:0.9___node_AM_218__ [decoy-metadata]
+import _TOKEN_庠:1.0___node_庠_19__
+import os
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _TOKEN_庠:1.0___node_庠_12__: @_TOKEN_霰:1.0___node_霰_35__ _TOKEN_庠:1.0___node_庠_7__ {
+
+    static let _TOKEN_霰:1.0___node_霰_18__ = _TOKEN_庠:1.0___node_庠_12__()
+    private init() {}
+
+// [metadata-stripped]
+// _TOKEN_庠:0.4___node_VA_196__ [decoy-metadata]
+
+    private let _TOKEN_霰:1.0___node_霰_28__ = _TOKEN_庠:1.0___node_庠_15__()
+// _TOKEN_淵:0.9___node_CD_139__ [decoy-metadata]
+    private var _TOKEN_霰:1.0___node_霰_8__: [_TOKEN_庠:1.0___node_庠_10__: _TOKEN_庠:1.0___node_庠_13__<_TOKEN_庠:1.0___node_庠_14__, _TOKEN_技:1.0___node_庠_3__>] = [:]
+    private var _TOKEN_霰:1.0___node_霰_40__ = false
+
+    var _TOKEN_霰:1.0___node_霰_12__: _TOKEN_庠:1.0___node_庠_20__ {
+        _TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_10__(); defer { _TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_9__() }
+        return _TOKEN_霰:1.0___node_霰_40__
+    }
+
+// [metadata-stripped]
+
+    @_TOKEN_霰:1.0___node_霰_42__(_TOKEN_霰:1.0___node_霰_24__)
+    @_TOKEN_霰:1.0___node_霰_39__
+    private func _TOKEN_霰:1.0___node_霰_30__<T>(_ _TOKEN_霰:1.0___node_霰_23__: () -> T) -> T {
+        _TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_10__(); defer { _TOKEN_霰:1.0___node_霰_28__._TOKEN_霰:1.0___node_霰_9__() }
+        return _TOKEN_霰:1.0___node_霰_23__()
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    @_TOKEN_霰:1.0___node_霰_39__
+    func _TOKEN_技:1.0___node_霰_20__(_TOKEN_霰:1.0___node_霰_36__: _TOKEN_庠:1.0___node_庠_9__ = ._TOKEN_霰:1.0___node_霰_17__, _ _TOKEN_霰:1.0___node_霰_23__: @_TOKEN_縺:1.0___node_霰_22__ @_TOKEN_庠:1.0___node_庠_7__ () async -> _TOKEN_庠:1.0___node_庠_14__) -> _TOKEN_庠:1.0___node_庠_13__<_TOKEN_庠:1.0___node_庠_14__, _TOKEN_技:1.0___node_庠_3__> {
+        let id = _TOKEN_庠:1.0___node_庠_10__()
+        let _TOKEN_霰:1.0___node_霰_14__ = _TOKEN_庠:1.0___node_庠_13__._TOKEN_霰:1.0___node_霰_3__(_TOKEN_霰:1.0___node_霰_36__: _TOKEN_霰:1.0___node_霰_36__) { [weak self] in
+            await _TOKEN_霰:1.0___node_霰_23__()
+            self?._TOKEN_技:1.0___node_霰_38__(id: id)
+        }
+        _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_8__[id] = _TOKEN_霰:1.0___node_霰_14__ }
+// _TOKEN_技:0.3___node_DK_690__ [decoy-metadata]
+        return _TOKEN_霰:1.0___node_霰_14__
+    }
+
+    private func _TOKEN_技:1.0___node_霰_38__(id: _TOKEN_庠:1.0___node_庠_10__) {
+        _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_8__._TOKEN_霰:1.0___node_霰_21__(_TOKEN_淵:1.0___node_霰_19__: id) }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// _TOKEN_淵:0.2___node_VG_690__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _TOKEN_霰:1.0___node_霰_32__(_TOKEN_霰:1.0___node_霰_16__: _TOKEN_庠:1.0___node_庠_2__ = 2.0) async {
+        _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_40__ = true }
+
+// [metadata-stripped]
+        let _TOKEN_霰:1.0___node_霰_26__ = _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_8__ }
+        for (_, _TOKEN_霰:1.0___node_霰_14__) in _TOKEN_霰:1.0___node_霰_26__ { _TOKEN_霰:1.0___node_霰_14__._TOKEN_霰:1.0___node_霰_7__() }
+
+// [metadata-stripped]
+        let _TOKEN_霰:1.0___node_霰_27__ = _TOKEN_庠:1.0___node_庠_18__()._TOKEN_霰:1.0___node_霰_6__(_TOKEN_霰:1.0___node_霰_16__)
+        while _TOKEN_庠:1.0___node_庠_18__() < _TOKEN_霰:1.0___node_霰_27__ {
+            let _TOKEN_霰:1.0___node_霰_31__ = _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_8__._TOKEN_霰:1.0___node_霰_11__ }
+            if _TOKEN_霰:1.0___node_霰_31__ == 0 { break }
+            try? await _TOKEN_庠:1.0___node_庠_13__._TOKEN_霰:1.0___node_霰_34__(_TOKEN_霰:1.0___node_霰_41__: 50_000_000) // 50ms
+        }
+
+        let _TOKEN_霰:1.0___node_霰_31__ = _TOKEN_霰:1.0___node_霰_30__ { _TOKEN_霰:1.0___node_霰_8__._TOKEN_霰:1.0___node_霰_11__ }
+        if _TOKEN_霰:1.0___node_霰_31__ > 0 {
+            _TOKEN_霰:1.0___node_霰_1__("[_TOKEN_庠:1.0___node_庠_12__] ⚠️ \(_TOKEN_霰:1.0___node_霰_31__) _TOKEN_霰:1.0___node_霰_26__ _TOKEN_霰:1.0___node_霰_37__ _TOKEN_霰:1.0___node_霰_29__ _TOKEN_技:1.0___node_霰_2__ _TOKEN_霰:1.0___node_霰_16__ — _TOKEN_濫:1.0___node_霰_5__ _TOKEN_霰:1.0___node_霰_13__")
+        } else {
+            _TOKEN_霰:1.0___node_霰_1__("[_TOKEN_庠:1.0___node_庠_12__] ✅ _TOKEN_庠:1.0___node_庠_5__ _TOKEN_霰:1.0___node_霰_26__ _TOKEN_霰:1.0___node_霰_4__ _TOKEN_霰:1.0___node_霰_25__")
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

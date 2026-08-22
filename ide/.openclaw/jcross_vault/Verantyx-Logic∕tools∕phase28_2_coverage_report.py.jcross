@@ -1,0 +1,93 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AB82B258 ver:1778159566
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import __ast_霰:1.0____jcross_霰_4__, __ast_霰:1.0____jcross_霰_35__
+__ast_霰:1.0____jcross_霰_8__ __ast_霰:1.0____jcross_霰_7__ import __ast_案:1.0____jcross_廳_5__
+
+__ast_霰:1.0____jcross_霰_72__ __ast_霰:1.0____jcross_霰_31__(__ast_霰:1.0____jcross_霰_73__, __ast_霰:1.0____jcross_霰_47__: __ast_霰:1.0____jcross_霰_21__) -> __ast_霰:1.0____jcross_霰_17__:
+    __ast_霰:1.0____jcross_霰_39__ = __ast_霰:1.0____jcross_霰_73__.__ast_案:1.0____jcross_彩_2__("__ast_霰:1.0____jcross_霰_59__", [])
+    return __ast_霰:1.0____jcross_霰_9__(__ast_霰:1.0____jcross_霰_39__, __ast_霰:1.0____jcross_霰_1__) __ast_霰:1.0____jcross_霰_27__ __ast_霰:1.0____jcross_霰_47__ in __ast_霰:1.0____jcross_霰_39__
+
+__ast_霰:1.0____jcross_霰_72__ __ast_霰:1.0____jcross_霰_57__(__ast_霰:1.0____jcross_霰_73__, __ast_霰:1.0____jcross_霰_50__: __ast_霰:1.0____jcross_霰_21__) -> __ast_霰:1.0____jcross_霰_17__:
+    __ast_霰:1.0____jcross_霰_39__ = __ast_霰:1.0____jcross_霰_73__.__ast_案:1.0____jcross_彩_2__("__ast_霰:1.0____jcross_霰_59__", [])
+    if __ast_霰:1.0____jcross_霰_30__ __ast_霰:1.0____jcross_霰_9__(__ast_霰:1.0____jcross_霰_39__, __ast_霰:1.0____jcross_霰_1__):
+        return __ast_廳:1.0____jcross_廳_4__
+    return any(p.__ast_霰:1.0____jcross_霰_67__(__ast_霰:1.0____jcross_霰_50__) for p in __ast_霰:1.0____jcross_霰_39__)
+
+__ast_霰:1.0____jcross_霰_72__ __ast_霰:1.0____jcross_霰_36__():
+    ap = __ast_霰:1.0____jcross_霰_4__.__ast_案:1.0____jcross_廳_1__()
+    ap.__ast_霰:1.0____jcross_霰_60__("--kb", __ast_霰:1.0____jcross_霰_33__=__ast_廳:1.0____jcross_廳_2__)
+    ap.__ast_霰:1.0____jcross_霰_60__("--__ast_霰:1.0____jcross_霰_19__", __ast_霰:1.0____jcross_霰_33__=__ast_廳:1.0____jcross_廳_2__)
+    __ast_霰:1.0____jcross_霰_83__ = ap.__ast_霰:1.0____jcross_霰_40__()
+
+    c = __ast_案:1.0____jcross_廳_5__()
+
+    __ast_霰:1.0____jcross_霰_42__ open(__ast_霰:1.0____jcross_霰_83__.kb, "r", __ast_霰:1.0____jcross_霰_5__="__ast_霰:1.0____jcross_霰_29__-8") as f:
+        for __ast_霰:1.0____jcross_霰_54__ in f:
+            if __ast_霰:1.0____jcross_霰_30__ __ast_霰:1.0____jcross_霰_54__.__ast_霰:1.0____jcross_霰_41__():
+// __ast_廳:0.8____jcross_KC_763__ [decoy-metadata]
+                continue
+            e = __ast_霰:1.0____jcross_霰_35__.__ast_匳:1.0____jcross_霰_53__(__ast_霰:1.0____jcross_霰_54__)
+
+            __ast_霰:1.0____jcross_霰_22__ = e.__ast_案:1.0____jcross_彩_2__("__ast_霰:1.0____jcross_霰_22__", "")
+            if __ast_霰:1.0____jcross_霰_22__ != "__ast_霰:1.0____jcross_霰_52__":
+                continue
+
+            c["__ast_霰:1.0____jcross_霰_26__"] += 1
+
+            if __ast_霰:1.0____jcross_霰_57__(e, "__ast_漂:1.0____jcross_霰_11__:"):
+// __ast_彩:0.6____jcross_VB_461__ [decoy-metadata]
+                c["__ast_漂:1.0____jcross_霰_12__"] += 1
+                if __ast_霰:1.0____jcross_霰_31__(e, "__ast_漂:1.0____jcross_霰_11__:true"):
+                    c["__ast_霰:1.0____jcross_霰_56__"] += 1
+                __ast_漂:1.0____jcross_霰_62__ __ast_霰:1.0____jcross_霰_31__(e, "__ast_漂:1.0____jcross_霰_11__:false"):
+                    c["__ast_霰:1.0____jcross_霰_79__"] += 1
+                __ast_漂:1.0____jcross_霰_62__ __ast_霰:1.0____jcross_霰_31__(e, "__ast_漂:1.0____jcross_霰_11__:__ast_霰:1.0____jcross_霰_20__"):
+                    c["__ast_霰:1.0____jcross_霰_13__"] += 1
+            else:
+                c["__ast_漂:1.0____jcross_霰_23__"] += 1
+
+            if __ast_霰:1.0____jcross_霰_31__(e, "__ast_霰:1.0____jcross_霰_51__"):
+                c["__ast_霰:1.0____jcross_霰_24__"] += 1
+// __ast_霰:0.6____jcross_DA_885__ [decoy-metadata]
+
+            if "__ast_霰:1.0____jcross_霰_77__" in e:
+                c["__ast_霰:1.0____jcross_霰_78__"] += 1
+            else:
+                c["__ast_霰:1.0____jcross_霰_25__"] += 1
+
+// __ast_霰:0.2____jcross_WK_784__ [decoy-metadata]
+            __ast_霰:1.0____jcross_霰_15__ = e.__ast_案:1.0____jcross_彩_2__("__ast_霰:1.0____jcross_霰_66__")
+// __ast_冥:0.2____jcross_AM_375__ [decoy-metadata]
+            if __ast_霰:1.0____jcross_霰_15__ is __ast_廳:1.0____jcross_廳_3__:
+                c["__ast_霰:1.0____jcross_霰_32__"] += 1
+            __ast_漂:1.0____jcross_霰_62__ __ast_霰:1.0____jcross_霰_9__(__ast_霰:1.0____jcross_霰_15__, __ast_霰:1.0____jcross_霰_2__):
+// [metadata-stripped]
+                __ast_冥:1.0____jcross_霰_28__ = __ast_案:1.0____jcross_彩_1__(__ast_霰:1.0____jcross_霰_15__.__ast_冥:1.0____jcross_霰_28__())
+                __ast_霰:1.0____jcross_霰_74__ = {"__ast_霰:1.0____jcross_霰_75__", "__ast_霰:1.0____jcross_霰_55__", "__ast_霰:1.0____jcross_霰_69__", "__ast_霰:1.0____jcross_霰_71__"}
+                if __ast_霰:1.0____jcross_霰_74__.__ast_霰:1.0____jcross_霰_37__(__ast_冥:1.0____jcross_霰_28__):
+                    c["__ast_霰:1.0____jcross_霰_34__"] += 1
+                else:
+                    c["__ast_霰:1.0____jcross_霰_16__"] += 1
+            else:
+                c["__ast_霰:1.0____jcross_霰_44__"] += 1
+
+    import os
+    os.__ast_霰:1.0____jcross_霰_65__(os.__ast_霰:1.0____jcross_霰_58__.__ast_霰:1.0____jcross_霰_76__(__ast_霰:1.0____jcross_霰_83__.__ast_霰:1.0____jcross_霰_19__), __ast_霰:1.0____jcross_霰_6__=__ast_廳:1.0____jcross_廳_2__)
+    __ast_霰:1.0____jcross_霰_19__ = __ast_霰:1.0____jcross_霰_2__(c)
+    __ast_霰:1.0____jcross_霰_42__ open(__ast_霰:1.0____jcross_霰_83__.__ast_霰:1.0____jcross_霰_19__, "w", __ast_霰:1.0____jcross_霰_5__="__ast_霰:1.0____jcross_霰_29__-8") as w:
+        __ast_霰:1.0____jcross_霰_35__.__ast_霰:1.0____jcross_霰_46__(__ast_霰:1.0____jcross_霰_19__, w, __ast_霰:1.0____jcross_霰_81__=__ast_廳:1.0____jcross_廳_4__, __ast_霰:1.0____jcross_霰_3__=2)
+// __ast_紬:0.6____jcross_WM_912__ [decoy-metadata]
+
+    __ast_霰:1.0____jcross_霰_38__("[OK] __ast_霰:1.0____jcross_霰_14__", __ast_霰:1.0____jcross_霰_83__.__ast_霰:1.0____jcross_霰_19__)
+    for k, v in c.__ast_霰:1.0____jcross_霰_48__():
+        __ast_霰:1.0____jcross_霰_38__(f"{k}: {v}")
+
+if __ast_霰:1.0____jcross_霰_68__ == "__ast_霰:1.0____jcross_霰_63__":
+    __ast_霰:1.0____jcross_霰_36__()
+
+// POLYMORPHIC_JCROSS_END

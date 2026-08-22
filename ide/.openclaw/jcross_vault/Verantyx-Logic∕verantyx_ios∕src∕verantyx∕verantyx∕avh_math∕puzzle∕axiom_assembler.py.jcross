@@ -1,0 +1,71 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:963C0A20 ver:1778162893
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霪:1.0___jcross_霪_23__ _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_6__ import _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_4__
+// _VERANTYX_廷:0.9___jcross_AG_587__ [decoy-metadata]
+_VERANTYX_霪:1.0___jcross_霪_23__ _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_5__ import _VERANTYX_廷:1.0___jcross_廷_1__, _VERANTYX_廷:1.0___jcross_廷_3__, _VERANTYX_廷:1.0___jcross_廷_4__
+import _VERANTYX_霪:1.0___jcross_霪_26__
+
+_VERANTYX_霪:1.0___jcross_霪_18__ _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_32__(_VERANTYX_霪:1.0___jcross_霪_1__: _VERANTYX_廷:1.0___jcross_廷_4__) -> _VERANTYX_廷:1.0___jcross_廷_1__[_VERANTYX_廷:1.0___jcross_廷_3__[_VERANTYX_霪:1.0___jcross_霪_27__, _VERANTYX_廷:1.0___jcross_廷_4__]]:
+    """
+// _VERANTYX_潤:0.5___jcross_DK_701__ [decoy-metadata]
+    _VERANTYX_廷:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___廷_2__ の _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_28__ 軸から、利用可能な公理や定理のピースを抽出する。
+    """
+// [metadata-stripped]
+    _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_17__ = []
+    for ev in _VERANTYX_謀:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___凱_1__(_VERANTYX_霪:1.0___jcross_霪_1__, '_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_28__', []):
+        if ev._VERANTYX_謀:1.0___jcross_凱_2__("_VERANTYX_霪:1.0___jcross_霪_30__") in ("_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_25__", "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_19__", "_VERANTYX_霪:1.0___jcross_霪_14__"):
+// [metadata-stripped]
+            if "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_11__" in ev or "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_31__" in ev:
+                _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_17__._VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_24__(ev)
+    return _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_17__
+
+_VERANTYX_霪:1.0___jcross_霪_18__ _VERANTYX_潤:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_2__(a: _VERANTYX_霪:1.0___jcross_霪_27__, b: _VERANTYX_霪:1.0___jcross_霪_27__, _VERANTYX_霪:1.0___jcross_霪_7__: _VERANTYX_霪:1.0___jcross_霪_27__) -> _VERANTYX_霪:1.0___jcross_霪_27__:
+    """
+    2つの式を特定の推論モードで合成する。
+    """
+// [metadata-stripped]
+    a, b = a._VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_15__(), b._VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_15__()
+    
+    if _VERANTYX_霪:1.0___jcross_霪_7__ == "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_16__":
+        return f"({a}) -> ({b})"
+    if _VERANTYX_霪:1.0___jcross_霪_7__ == "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_12__":
+        return f"({a}) & ({b})"
+    if _VERANTYX_霪:1.0___jcross_霪_7__ == "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_13__":
+// [metadata-stripped]
+// _VERANTYX_綾:0.7___jcross_MW_957__ [decoy-metadata]
+        return f"(({a}) & ({a} -> {b})) -> {b}"
+    return ""
+
+_VERANTYX_霪:1.0___jcross_霪_18__ _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_29__(_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_17__: _VERANTYX_廷:1.0___jcross_廷_1__[_VERANTYX_廷:1.0___jcross_廷_3__[_VERANTYX_霪:1.0___jcross_霪_27__, _VERANTYX_廷:1.0___jcross_廷_4__]]) -> _VERANTYX_廷:1.0___jcross_廷_1__[_VERANTYX_廷:1.0___jcross_廷_3__[_VERANTYX_霪:1.0___jcross_霪_27__, _VERANTYX_廷:1.0___jcross_廷_4__]]:
+    """
+    抽出された公理ピースの組み合わせから、新しい合成候補を生成する。
+    """
+    _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_9__ = []
+    
+// [metadata-stripped]
+    for p1, p2 in _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_4__(_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_17__, 2):
+        f1 = p1._VERANTYX_謀:1.0___jcross_凱_2__("_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_11__") or p1._VERANTYX_謀:1.0___jcross_凱_2__("_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_31__")
+        f2 = p2._VERANTYX_謀:1.0___jcross_凱_2__("_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_11__") or p2._VERANTYX_謀:1.0___jcross_凱_2__("_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_31__")
+        
+// _VERANTYX_冥:0.5___jcross_DH_922__ [decoy-metadata]
+        if _VERANTYX_霪:1.0___jcross_霪_8__ f1 or _VERANTYX_霪:1.0___jcross_霪_8__ f2:
+            continue
+
+        for _VERANTYX_霪:1.0___jcross_霪_7__ in ["_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_16__", "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_12__", "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_13__"]:
+            _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_3__ = _VERANTYX_潤:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_2__(f1, f2, _VERANTYX_霪:1.0___jcross_霪_7__)
+            if _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_3__:
+                _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_9__._VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_24__({
+                    "id": f"_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_20__{_VERANTYX_霪:1.0___jcross_霪_26__._VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_33__()._VERANTYX_霪:1.0___jcross_霪_22__[:8]}",
+// _VERANTYX_冥:0.6___jcross_KH_985__ [decoy-metadata]
+                    "_VERANTYX_潤:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_34__": _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_3__,
+                    "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_10__": [p1._VERANTYX_謀:1.0___jcross_凱_2__("id"), p2._VERANTYX_謀:1.0___jcross_凱_2__("id")],
+// _VERANTYX_謀:0.4___jcross_XY_170__ [decoy-metadata]
+                    "_VERANTYX_霪:1.0___jcross_霪_7__": _VERANTYX_霪:1.0___jcross_霪_7__,
+                    "_VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_21__": 0.7 # 合成候補なので初期確信度は中程度
+                })
+                
+    return _VERANTYX_霪:1.0___j_VERANTYX_霪:1.0___jcross_霪_1___霪_9__
+
+// POLYMORPHIC_JCROSS_END

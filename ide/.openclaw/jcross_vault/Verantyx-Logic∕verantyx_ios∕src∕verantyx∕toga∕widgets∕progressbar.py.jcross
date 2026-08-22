@@ -1,0 +1,138 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:87825ECF ver:1778162875
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_雰:1.0__ID_雰_70_ _ASTNODE_雰:1.0__ID_雰_69_ import _ASTNODE_雰:1.0__ID_雰_10_
+
+_ASTNODE_雰:1.0__ID_雰_70_ _ASTNODE_雰:1.0__ID_雰_76_ import _ASTNODE_廳:1.0__ID_廳_19_, _ASTNODE_廳:1.0__ID_廳_13_, _ASTNODE_廳:1.0__ID_廳_23_
+
+_ASTNODE_雰:1.0__ID_雰_70_ ._ASTNODE_雰:1.0__ID_雰_28_ import _ASTNODE_廳:1.0__ID_廳_6_, _ASTNODE_廳:1.0__ID_廳_21_
+
+
+// _ASTNODE_廳:0.3__ID_CV_612_ [decoy-metadata]
+class _ASTNODE_廳:1.0__ID_廳_10_(_ASTNODE_廳:1.0__ID_廳_21_):
+    _ASTNODE_雰:1.0__ID_雰_68_ = 100
+
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_21_(
+        self,
+        id: _ASTNODE_雰:1.0__ID_雰_13_ | _ASTNODE_廳:1.0__ID_廳_15_ = _ASTNODE_廳:1.0__ID_廳_15_,
+        _ASTNODE_雰:1.0__ID_雰_6_: _ASTNODE_廳:1.0__ID_廳_6_ | _ASTNODE_廳:1.0__ID_廳_15_ = _ASTNODE_廳:1.0__ID_廳_15_,
+        _ASTNODE_雰:1.0__ID_雰_57_: _ASTNODE_雰:1.0__ID_雰_13_ | _ASTNODE_廳:1.0__ID_廳_23_ = 1.0,
+        _ASTNODE_雰:1.0__ID_雰_23_: _ASTNODE_雰:1.0__ID_雰_13_ | _ASTNODE_廳:1.0__ID_廳_23_ = 0.0,
+        _ASTNODE_雰:1.0__ID_雰_54_: _ASTNODE_雰:1.0__ID_雰_18_ = _ASTNODE_廳:1.0__ID_廳_9_,
+        **_ASTNODE_雰:1.0__ID_雰_20_,
+    ):
+        """_ASTNODE_廳:1.0__ID_廳_14_ a _ASTNODE_雰:1.0__ID_雰_15_ _ASTNODE_廳:1.0__ID_廳_1_ _ASTNODE_廳:1.0__ID_廳_4_ _ASTNODE_雰:1.0__ID_雰_19_.
+// _ASTNODE_匹:0.1__ID_LX_118_ [decoy-metadata]
+
+        :_ASTNODE_雰:1.0__ID_雰_84_ id: _ASTNODE_廳:1.0__ID_廳_20_ ID for _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_19_.
+        :_ASTNODE_雰:1.0__ID_雰_84_ _ASTNODE_雰:1.0__ID_雰_6_: A _ASTNODE_雰:1.0__ID_雰_6_ _ASTNODE_雰:1.0__ID_雰_2_. If no _ASTNODE_雰:1.0__ID_雰_6_ is _ASTNODE_雰:1.0__ID_雰_58_, a _ASTNODE_雰:1.0__ID_雰_80_ _ASTNODE_雰:1.0__ID_雰_6_
+            _ASTNODE_雰:1.0__ID_雰_24_ be _ASTNODE_雰:1.0__ID_雰_5_ to _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_19_.
+        :_ASTNODE_雰:1.0__ID_雰_84_ _ASTNODE_雰:1.0__ID_雰_57_: _ASTNODE_廳:1.0__ID_廳_20_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_4_ _ASTNODE_雰:1.0__ID_雰_64_ _ASTNODE_雰:1.0__ID_雰_60_ of _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_51_. _ASTNODE_廳:1.0__ID_廳_18_
+            be > 0.0; _ASTNODE_雰:1.0__ID_雰_29_ to 1.0. A _ASTNODE_雰:1.0__ID_雰_23_ of `_ASTNODE_廳:1.0__ID_廳_15_` _ASTNODE_雰:1.0__ID_雰_92_ _ASTNODE_雰:1.0__ID_雰_4_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_51_
+            _ASTNODE_雰:1.0__ID_雰_88_ is _ASTNODE_雰:1.0__ID_雰_46_.
+        :_ASTNODE_雰:1.0__ID_雰_84_ _ASTNODE_雰:1.0__ID_雰_23_: _ASTNODE_廳:1.0__ID_廳_20_ _ASTNODE_雰:1.0__ID_雰_82_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_66_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_72_ _ASTNODE_雰:1.0__ID_雰_23_. _ASTNODE_廳:1.0__ID_廳_18_ be
+            _ASTNODE_雰:1.0__ID_雰_38_ 0.0 _ASTNODE_雰:1.0__ID_雰_59_ `_ASTNODE_雰:1.0__ID_雰_57_`; any _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_48_ _ASTNODE_雰:1.0__ID_雰_40_ _ASTNODE_雰:1.0__ID_雰_42_ _ASTNODE_雰:1.0__ID_雰_24_ be
+            _ASTNODE_雰:1.0__ID_雰_31_. _ASTNODE_廳:1.0__ID_廳_12_ to 0.0.
+        :_ASTNODE_雰:1.0__ID_雰_84_ _ASTNODE_雰:1.0__ID_雰_54_: _ASTNODE_廳:1.0__ID_廳_22_ _ASTNODE_節:1.0__ID_雰_93_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_94_ is _ASTNODE_雰:1.0__ID_雰_54_ at _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_39_
+            it is _ASTNODE_雰:1.0__ID_雰_1_. _ASTNODE_廳:1.0__ID_廳_17_ is _ASTNODE_廳:1.0__ID_廳_9_.
+        :_ASTNODE_雰:1.0__ID_雰_84_ _ASTNODE_雰:1.0__ID_雰_20_: _ASTNODE_廳:1.0__ID_廳_3_ _ASTNODE_雰:1.0__ID_雰_6_ _ASTNODE_雰:1.0__ID_雰_86_.
+// _ASTNODE_焦:0.6__ID_MC_856_ [decoy-metadata]
+        """
+        super()._ASTNODE_雰:1.0__ID_雰_21_(id, _ASTNODE_雰:1.0__ID_雰_6_, **_ASTNODE_雰:1.0__ID_雰_20_)
+
+// _ASTNODE_浮:0.4__ID_YA_931_ [decoy-metadata]
+        self._ASTNODE_雰:1.0__ID_雰_57_ = _ASTNODE_雰:1.0__ID_雰_57_
+        self._ASTNODE_雰:1.0__ID_雰_23_ = _ASTNODE_雰:1.0__ID_雰_23_
+
+        if _ASTNODE_雰:1.0__ID_雰_54_:
+            self._ASTNODE_雰:1.0__ID_雰_32_()
+
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_17_(self) -> _ASTNODE_廳:1.0__ID_廳_19_:
+        return self._ASTNODE_雰:1.0__ID_雰_12_._ASTNODE_廳:1.0__ID_廳_10_(_ASTNODE_雰:1.0__ID_雰_55_=self)
+
+    @_ASTNODE_雰:1.0__ID_雰_44_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_77_(self) -> _ASTNODE_廳:1.0__ID_廳_13_[_ASTNODE_廳:1.0__ID_廳_8_]:
+        """Is _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_19_ _ASTNODE_雰:1.0__ID_雰_65_ _ASTNODE_雰:1.0__ID_雰_77_? i.e., _ASTNODE_雰:1.0__ID_雰_9_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_節:1.0__ID_雰_7_ _ASTNODE_雰:1.0__ID_雰_90_ _ASTNODE_雰:1.0__ID_雰_56_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_19_?
+
+        _ASTNODE_廳:1.0__ID_廳_10_ _ASTNODE_雰:1.0__ID_雰_26_ _ASTNODE_雰:1.0__ID_雰_53_ be _ASTNODE_雰:1.0__ID_雰_74_; _ASTNODE_雰:1.0__ID_雰_40_ _ASTNODE_雰:1.0__ID_雰_44_ _ASTNODE_雰:1.0__ID_雰_24_ _ASTNODE_雰:1.0__ID_雰_30_ return _ASTNODE_廳:1.0__ID_廳_8_;
+// _ASTNODE_焦:0.1__ID_LB_238_ [decoy-metadata]
+        any _ASTNODE_雰:1.0__ID_雰_41_ to _ASTNODE_浮:1.0__ID_雰_83_ it _ASTNODE_雰:1.0__ID_雰_24_ be _ASTNODE_雰:1.0__ID_雰_81_.
+        """
+        return _ASTNODE_廳:1.0__ID_廳_8_
+
+    @_ASTNODE_雰:1.0__ID_雰_77_._ASTNODE_節:1.0__ID_焦_4_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_77_(self, _ASTNODE_雰:1.0__ID_雰_23_: _ASTNODE_雰:1.0__ID_雰_2_) -> _ASTNODE_廳:1.0__ID_廳_15_:
+        _ASTNODE_雰:1.0__ID_雰_61_
+
+    @_ASTNODE_雰:1.0__ID_雰_44_
+// _ASTNODE_隠:0.9__ID_LB_715_ [decoy-metadata]
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_89_(self) -> _ASTNODE_雰:1.0__ID_雰_18_:
+        """_ASTNODE_廳:1.0__ID_廳_2_ if _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_3_ _ASTNODE_雰:1.0__ID_雰_94_ is _ASTNODE_雰:1.0__ID_雰_65_ _ASTNODE_雰:1.0__ID_雰_54_.
+
+        _ASTNODE_廳:1.0__ID_廳_16_ `_ASTNODE_雰:1.0__ID_雰_32_()` _ASTNODE_雰:1.0__ID_雰_59_ `_ASTNODE_雰:1.0__ID_雰_73_()` to _ASTNODE_雰:1.0__ID_雰_34_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_54_ _ASTNODE_雰:1.0__ID_雰_85_.
+
+        _ASTNODE_廳:1.0__ID_廳_8_ if _ASTNODE_雰:1.0__ID_雰_40_ _ASTNODE_雰:1.0__ID_雰_3_ _ASTNODE_雰:1.0__ID_雰_94_ is _ASTNODE_雰:1.0__ID_雰_54_; _ASTNODE_廳:1.0__ID_廳_9_ _ASTNODE_雰:1.0__ID_雰_75_.
+        """
+        return self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_雰:1.0__ID_雰_89_()
+
+    @_ASTNODE_雰:1.0__ID_雰_44_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_49_(self) -> _ASTNODE_雰:1.0__ID_雰_18_:
+        """_ASTNODE_廳:1.0__ID_廳_2_ _ASTNODE_節:1.0__ID_雰_93_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ _ASTNODE_雰:1.0__ID_雰_22_ a _ASTNODE_雰:1.0__ID_雰_36_ or _ASTNODE_雰:1.0__ID_雰_46_ _ASTNODE_雰:1.0__ID_雰_72_.
+
+        _ASTNODE_廳:1.0__ID_廳_8_ if _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ _ASTNODE_雰:1.0__ID_雰_22_ _ASTNODE_雰:1.0__ID_雰_35_ _ASTNODE_雰:1.0__ID_雰_88_; _ASTNODE_廳:1.0__ID_廳_9_ _ASTNODE_雰:1.0__ID_雰_75_.
+        """
+        return self._ASTNODE_雰:1.0__ID_雰_57_ is _ASTNODE_雰:1.0__ID_雰_27_ _ASTNODE_廳:1.0__ID_廳_15_
+
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_32_(self) -> _ASTNODE_廳:1.0__ID_廳_15_:
+        """_ASTNODE_廳:1.0__ID_廳_5_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_.
+
+        If _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ is _ASTNODE_雰:1.0__ID_雰_91_ _ASTNODE_雰:1.0__ID_雰_67_, _ASTNODE_雰:1.0__ID_雰_40_ is a no-op.
+        """
+        if _ASTNODE_雰:1.0__ID_雰_27_ self._ASTNODE_雰:1.0__ID_雰_89_:
+            self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_雰:1.0__ID_雰_32_()
+
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_73_(self) -> _ASTNODE_廳:1.0__ID_廳_15_:
+        """_ASTNODE_廳:1.0__ID_廳_7_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_.
+
+        If _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ is _ASTNODE_雰:1.0__ID_雰_91_ _ASTNODE_雰:1.0__ID_雰_87_, _ASTNODE_雰:1.0__ID_雰_40_ is a no-op.
+        """
+        if self._ASTNODE_雰:1.0__ID_雰_89_:
+            self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_雰:1.0__ID_雰_73_()
+
+    @_ASTNODE_雰:1.0__ID_雰_44_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_23_(self) -> _ASTNODE_雰:1.0__ID_雰_25_:
+        """_ASTNODE_廳:1.0__ID_廳_20_ _ASTNODE_雰:1.0__ID_雰_82_ _ASTNODE_雰:1.0__ID_雰_23_ of _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_94_.
+
+        If _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ is _ASTNODE_雰:1.0__ID_雰_35_, _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_78_ be _ASTNODE_雰:1.0__ID_雰_38_ 0 _ASTNODE_雰:1.0__ID_雰_59_
+        `_ASTNODE_雰:1.0__ID_雰_57_`. _ASTNODE_廳:1.0__ID_廳_19_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_48_ _ASTNODE_雰:1.0__ID_雰_40_ _ASTNODE_雰:1.0__ID_雰_42_ _ASTNODE_雰:1.0__ID_雰_24_ be _ASTNODE_雰:1.0__ID_雰_31_.
+
+        If _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_45_ _ASTNODE_雰:1.0__ID_雰_50_ is _ASTNODE_雰:1.0__ID_雰_46_, _ASTNODE_雰:1.0__ID_雰_8_ in _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_24_ be _ASTNODE_雰:1.0__ID_雰_81_,
+        _ASTNODE_雰:1.0__ID_雰_59_ _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_82_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_24_ be _ASTNODE_雰:1.0__ID_雰_52_ as `_ASTNODE_廳:1.0__ID_廳_15_`.
+        """
+        return self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_節:1.0__ID_焦_2_()
+
+    @_ASTNODE_雰:1.0__ID_雰_23_._ASTNODE_節:1.0__ID_焦_4_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_23_(self, _ASTNODE_雰:1.0__ID_雰_23_: _ASTNODE_雰:1.0__ID_雰_13_ | _ASTNODE_廳:1.0__ID_廳_23_) -> _ASTNODE_廳:1.0__ID_廳_15_:
+        if self._ASTNODE_雰:1.0__ID_雰_57_ is _ASTNODE_雰:1.0__ID_雰_27_ _ASTNODE_廳:1.0__ID_廳_15_:
+            _ASTNODE_雰:1.0__ID_雰_23_ = _ASTNODE_雰:1.0__ID_雰_57_(0.0, _ASTNODE_雰:1.0__ID_雰_14_(self._ASTNODE_雰:1.0__ID_雰_57_, _ASTNODE_雰:1.0__ID_雰_25_(_ASTNODE_雰:1.0__ID_雰_23_)))
+            self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_節:1.0__ID_焦_3_(_ASTNODE_雰:1.0__ID_雰_23_)
+
+    @_ASTNODE_雰:1.0__ID_雰_44_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_57_(self) -> _ASTNODE_雰:1.0__ID_雰_25_ | _ASTNODE_廳:1.0__ID_廳_15_:
+        """_ASTNODE_廳:1.0__ID_廳_20_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_47_ _ASTNODE_雰:1.0__ID_雰_60_ of _ASTNODE_雰:1.0__ID_雰_71_ _ASTNODE_雰:1.0__ID_雰_51_ _ASTNODE_雰:1.0__ID_雰_11_ _ASTNODE_雰:1.0__ID_雰_37_.
+
+        _ASTNODE_廳:1.0__ID_廳_18_ be a _ASTNODE_節:1.0__ID_雰_62_ > 0, or `_ASTNODE_廳:1.0__ID_廳_15_` for a _ASTNODE_雰:1.0__ID_雰_51_ of _ASTNODE_雰:1.0__ID_雰_46_ _ASTNODE_雰:1.0__ID_雰_88_.
+        """
+        return self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_節:1.0__ID_焦_1_()
+
+    @_ASTNODE_雰:1.0__ID_雰_57_._ASTNODE_節:1.0__ID_焦_4_
+    _ASTNODE_雰:1.0__ID_雰_63_ _ASTNODE_雰:1.0__ID_雰_57_(self, _ASTNODE_雰:1.0__ID_雰_23_: _ASTNODE_雰:1.0__ID_雰_13_ | _ASTNODE_廳:1.0__ID_廳_23_ | _ASTNODE_廳:1.0__ID_廳_15_) -> _ASTNODE_廳:1.0__ID_廳_15_:
+        if _ASTNODE_雰:1.0__ID_雰_23_ is _ASTNODE_廳:1.0__ID_廳_15_:
+            self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_節:1.0__ID_焦_5_(_ASTNODE_廳:1.0__ID_廳_15_)
+        _ASTNODE_浮:1.0__ID_雰_33_ _ASTNODE_雰:1.0__ID_雰_25_(_ASTNODE_雰:1.0__ID_雰_23_) > 0.0:
+            self._ASTNODE_雰:1.0__ID_雰_43_._ASTNODE_節:1.0__ID_焦_5_(_ASTNODE_雰:1.0__ID_雰_25_(_ASTNODE_雰:1.0__ID_雰_23_))
+        else:
+            _ASTNODE_雰:1.0__ID_雰_16_ _ASTNODE_廳:1.0__ID_廳_11_("_ASTNODE_雰:1.0__ID_雰_57_ _ASTNODE_雰:1.0__ID_雰_23_ _ASTNODE_雰:1.0__ID_雰_78_ be _ASTNODE_廳:1.0__ID_廳_15_, or a _ASTNODE_雰:1.0__ID_雰_79_ _ASTNODE_雰:1.0__ID_雰_23_ > 0")
+
+// POLYMORPHIC_JCROSS_END

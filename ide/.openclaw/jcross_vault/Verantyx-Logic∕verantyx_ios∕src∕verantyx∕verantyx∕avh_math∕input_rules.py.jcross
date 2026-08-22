@@ -1,0 +1,323 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:51221A0E ver:1778162894
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_礫:1.0__SYM_礫_185_ _OPAQUE_礫:1.0__SYM_礫_191_ import _OPAQUE_礫:1.0__SYM_礫_36_
+
+import re
+_OPAQUE_礫:1.0__SYM_礫_185_ _OPAQUE_礫:1.0__SYM_礫_127_ import _OPAQUE_礫:1.0__SYM_礫_51_
+_OPAQUE_礫:1.0__SYM_礫_185_ _OPAQUE_礫:1.0__SYM_礫_9_ import _OPAQUE_殻:1.0__SYM_殻_23_, _OPAQUE_殻:1.0__SYM_殻_7_
+
+_OPAQUE_礫:1.0__SYM_礫_117_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r'"([^"]+)"')
+// _OPAQUE_処:0.5__SYM_LB_952_ [decoy-metadata]
+// [metadata-stripped]
+_OPAQUE_礫:1.0__SYM_礫_18_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"([\[\]<>&|~()A-Za-z\->\s\\]{3,})")
+_OPAQUE_礫:1.0__SYM_礫_151_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(∫|dx|dy|dz|_OPAQUE_礫:1.0__SYM_礫_29_|_OPAQUE_礫:1.0__SYM_礫_70_|_OPAQUE_礫:1.0__SYM_礫_46_|_OPAQUE_礫:1.0__SYM_礫_146_|ln|_OPAQUE_礫:1.0__SYM_礫_133_|_OPAQUE_礫:1.0__SYM_礫_1_|_OPAQUE_礫:1.0__SYM_礫_123_|_OPAQUE_礫:1.0__SYM_礫_181_|_OPAQUE_礫:1.0__SYM_礫_201_|∞|_OPAQUE_礫:1.0__SYM_礫_21_|_OPAQUE_礫:1.0__SYM_礫_60_|_OPAQUE_礫:1.0__SYM_礫_82_|行列|次元|対称)", re._OPAQUE_殻:1.0__SYM_殻_4_)
+_OPAQUE_礫:1.0__SYM_礫_135_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"[φψχαβγδλμνπστω]")
+_OPAQUE_礫:1.0__SYM_礫_156_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"_OPAQUE_礫:1.0__SYM_礫_60_ of (_OPAQUE_礫:1.0__SYM_礫_119_ )?_OPAQUE_礫:1.0__SYM_礫_15_ of (n\s*x\s*n|n×n) _OPAQUE_礫:1.0__SYM_礫_68_ _OPAQUE_礫:1.0__SYM_礫_200_", re._OPAQUE_殻:1.0__SYM_殻_4_)
+_OPAQUE_礫:1.0__SYM_礫_50_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(実|複素)?n次対称行列の空間の次元|対称行列の空間の次元")
+_OPAQUE_礫:1.0__SYM_礫_7_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"_OPAQUE_礫:1.0__SYM_礫_60_ of (_OPAQUE_礫:1.0__SYM_礫_119_ )?_OPAQUE_礫:1.0__SYM_礫_15_ of (n\s*x\s*n|n×n) _OPAQUE_礫:1.0__SYM_礫_200_", re._OPAQUE_殻:1.0__SYM_殻_4_)
+_OPAQUE_礫:1.0__SYM_礫_111_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(実|複素)?n次行列の空間の次元|行列の空間の次元")
+
+_OPAQUE_礫:1.0__SYM_礫_49_ = [
+    ("→", "->"),
+    ("⇒", "->"),
+    ("⟶", "->"),
+    ("⟹", "->"),
+    ("↦", "->"),
+]
+_OPAQUE_礫:1.0__SYM_礫_26_ = [
+    ("\_OPAQUE_礫:1.0__SYM_礫_76_", ""),
+    ("\_OPAQUE_礫:1.0__SYM_礫_52_", ""),
+    ("\_OPAQUE_礫:1.0__SYM_礫_141_", ""),
+// _OPAQUE_処:0.3__SYM_VE_786_ [decoy-metadata]
+    ("\_OPAQUE_礫:1.0__SYM_礫_138_", ""),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_91_", "&"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_12_", "|"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_197_", "~"),
+    (r"\to", "->"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_6_", "->"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_132_", "<->"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_43_", "[]"),
+    (r"\_OPAQUE_礫:1.0__SYM_礫_202_", "<>"),
+    ("¬", "~"),
+    ("∧", "&"),
+    ("∨", "|"),
+    ("□", "[]"),
+    ("◇", "<>"),
+]
+_OPAQUE_礫:1.0__SYM_礫_89_ = [
+    (re._OPAQUE_礫:1.0__SYM_礫_161_(r"\_OPAQUE_礫:1.0__SYM_礫_95_\b", re._OPAQUE_殻:1.0__SYM_殻_4_), "[]"),
+    (re._OPAQUE_礫:1.0__SYM_礫_161_(r"\_OPAQUE_礫:1.0__SYM_礫_100_\b", re._OPAQUE_殻:1.0__SYM_殻_4_), "<>"),
+]
+_OPAQUE_礫:1.0__SYM_礫_104_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(\[\]|\<\>)\s+")
+_OPAQUE_蔽:1.0__SYM_礫_85_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(\-\>|\&|\||~|\[\]|\<\>|\(|\))")
+_OPAQUE_礫:1.0__SYM_礫_174_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(\[\].{1,240}?->.{1,240})", re._OPAQUE_殻:1.0__SYM_殻_16_)
+_OPAQUE_礫:1.0__SYM_礫_79_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(\<\>.{1,240}?->.{1,240})", re._OPAQUE_殻:1.0__SYM_殻_16_)
+_OPAQUE_礫:1.0__SYM_礫_41_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"([A-Za-z0-9_()\s~&|]+->[\sA-Za-z0-9_()~&|]+)", re._OPAQUE_殻:1.0__SYM_殻_16_)
+_OPAQUE_漂:1.0__SYM_礫_170_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"[A-Za-z0-9_\[\]<>~&|()*/=\+\-]+")
+_OPAQUE_礫:1.0__SYM_礫_10_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"[一-龥ぁ-んァ-ン]")
+_OPAQUE_蔽:1.0__SYM_礫_162_ = re._OPAQUE_礫:1.0__SYM_礫_161_(r"(∫|dx|dy|dz|_OPAQUE_礫:1.0__SYM_礫_29_|_OPAQUE_礫:1.0__SYM_礫_70_|_OPAQUE_礫:1.0__SYM_礫_46_|_OPAQUE_礫:1.0__SYM_礫_146_|ln|_OPAQUE_礫:1.0__SYM_礫_133_|_OPAQUE_礫:1.0__SYM_礫_1_|_OPAQUE_礫:1.0__SYM_礫_123_|_OPAQUE_礫:1.0__SYM_礫_181_|_OPAQUE_礫:1.0__SYM_礫_201_|\^|/|∞)", re._OPAQUE_殻:1.0__SYM_殻_4_)
+
+_OPAQUE_礫:1.0__SYM_礫_195_ = {
+    "_OPAQUE_礫:1.0__SYM_礫_63_:_OPAQUE_礫:1.0__SYM_礫_179_": ["推移", "推移性", "_OPAQUE_礫:1.0__SYM_礫_179_"],
+    "_OPAQUE_礫:1.0__SYM_礫_63_:_OPAQUE_礫:1.0__SYM_礫_172_": ["反射", "反射性", "_OPAQUE_礫:1.0__SYM_礫_172_"],
+    "_OPAQUE_礫:1.0__SYM_礫_63_:_OPAQUE_礫:1.0__SYM_礫_68_": ["対称", "対称性", "_OPAQUE_礫:1.0__SYM_礫_68_"],
+    "_OPAQUE_礫:1.0__SYM_礫_63_:_OPAQUE_礫:1.0__SYM_礫_147_": ["逐次", "_OPAQUE_礫:1.0__SYM_礫_147_"],
+    "_OPAQUE_礫:1.0__SYM_礫_63_:_OPAQUE_礫:1.0__SYM_礫_38_": ["ユークリッド", "_OPAQUE_礫:1.0__SYM_礫_38_"],
+}
+
+
+@_OPAQUE_礫:1.0__SYM_礫_51_
+class _OPAQUE_殻:1.0__SYM_殻_3_:
+    _OPAQUE_礫:1.0__SYM_礫_92_: _OPAQUE_礫:1.0__SYM_礫_25_
+    _OPAQUE_漂:1.0__SYM_礫_109_: _OPAQUE_殻:1.0__SYM_殻_7_[_OPAQUE_礫:1.0__SYM_礫_25_]
+    _OPAQUE_漂:1.0__SYM_礫_194_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_]
+    _OPAQUE_礫:1.0__SYM_礫_66_: _OPAQUE_礫:1.0__SYM_礫_25_
+    _OPAQUE_礫:1.0__SYM_礫_107_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_]
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_148_(s: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_礫:1.0__SYM_礫_25_:
+    s = s._OPAQUE_礫:1.0__SYM_礫_142_()
+    _OPAQUE_礫:1.0__SYM_礫_75_ = _OPAQUE_礫:1.0__SYM_礫_67_(_OPAQUE_蔽:1.0__SYM_礫_162_._OPAQUE_礫:1.0__SYM_礫_17_(s))
+    for a, b in _OPAQUE_礫:1.0__SYM_礫_49_:
+        s = s._OPAQUE_礫:1.0__SYM_礫_32_(a, b)
+    for a, b in _OPAQUE_礫:1.0__SYM_礫_26_:
+        s = s._OPAQUE_礫:1.0__SYM_礫_32_(a, b)
+    for _OPAQUE_礫:1.0__SYM_礫_120_, _OPAQUE_礫:1.0__SYM_礫_186_ in _OPAQUE_礫:1.0__SYM_礫_89_:
+        s = _OPAQUE_礫:1.0__SYM_礫_120_._OPAQUE_礫:1.0__SYM_礫_77_(_OPAQUE_礫:1.0__SYM_礫_186_, s)
+    s = s._OPAQUE_礫:1.0__SYM_礫_32_("\n", " ")._OPAQUE_礫:1.0__SYM_礫_32_("\r", " ")
+    s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s+", " ", s)._OPAQUE_礫:1.0__SYM_礫_142_()
+    s = _OPAQUE_礫:1.0__SYM_礫_104_._OPAQUE_礫:1.0__SYM_礫_77_(r"\1", s)
+    s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s*->\s*", "->", s)
+    s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s*&\s*", "&", s)
+    s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s*\|\s*", "|", s)
+    s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s*~\s*", "~", s)
+    if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_75_:
+// [metadata-stripped]
+        s = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s+[a-zA-Z]\s*$", "", s)._OPAQUE_礫:1.0__SYM_礫_142_()
+    return s
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_159_(_OPAQUE_礫:1.0__SYM_礫_86_: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_]:
+    _OPAQUE_礫:1.0__SYM_礫_5_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_] = []
+    for m in _OPAQUE_礫:1.0__SYM_礫_117_._OPAQUE_処:1.0__SYM_礫_166_(_OPAQUE_礫:1.0__SYM_礫_86_ or ""):
+        g = _OPAQUE_礫:1.0__SYM_礫_134_((x for x in m._OPAQUE_礫:1.0__SYM_礫_62_() if x), _OPAQUE_殻:1.0__SYM_殻_14_)
+        if _OPAQUE_礫:1.0__SYM_礫_30_ g:
+            continue
+        f = _OPAQUE_漂:1.0__SYM_礫_148_(g)
+        if f:
+            _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(f)
+    _OPAQUE_礫:1.0__SYM_礫_84_ = _OPAQUE_処:1.0__SYM_礎_1_()
+    _OPAQUE_礫:1.0__SYM_礫_115_ = []
+    for f in _OPAQUE_礫:1.0__SYM_礫_5_:
+        if f _OPAQUE_礫:1.0__SYM_礫_30_ in _OPAQUE_礫:1.0__SYM_礫_84_:
+            _OPAQUE_礫:1.0__SYM_礫_84_._OPAQUE_礫:1.0__SYM_礫_190_(f)
+            _OPAQUE_礫:1.0__SYM_礫_115_._OPAQUE_礫:1.0__SYM_礫_3_(f)
+    return _OPAQUE_礫:1.0__SYM_礫_115_
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_198_(_OPAQUE_礫:1.0__SYM_礫_86_: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_]:
+    _OPAQUE_礫:1.0__SYM_礫_5_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_] = []
+    _OPAQUE_礫:1.0__SYM_礫_92_ = _OPAQUE_礫:1.0__SYM_礫_86_ or ""
+// [metadata-stripped]
+    _OPAQUE_礫:1.0__SYM_礫_110_ = _OPAQUE_漂:1.0__SYM_礫_105_(_OPAQUE_礫:1.0__SYM_礫_92_)
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0__SYM_礫_156_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_) or _OPAQUE_礫:1.0__SYM_礫_50_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_):
+        _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_漂:1.0__SYM_礫_148_("_OPAQUE_礫:1.0__SYM_礫_21_ _OPAQUE_殻:1.0__SYM_殻_13_(n,R)"))
+    if _OPAQUE_礫:1.0__SYM_礫_7_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_) or _OPAQUE_礫:1.0__SYM_礫_111_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_):
+        _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_漂:1.0__SYM_礫_148_("_OPAQUE_礫:1.0__SYM_礫_21_ M(n,n,R)"))
+
+// [metadata-stripped]
+    for _OPAQUE_礫:1.0__SYM_礫_45_ in _OPAQUE_礫:1.0__SYM_礫_92_._OPAQUE_礫:1.0__SYM_礫_192_():
+        if _OPAQUE_礫:1.0__SYM_礫_151_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_45_):
+// [metadata-stripped]
+            _OPAQUE_礫:1.0__SYM_礫_64_ = _OPAQUE_漂:1.0__SYM_礫_148_(_OPAQUE_礫:1.0__SYM_礫_45_)
+            if _OPAQUE_礫:1.0__SYM_礫_64_:
+// [metadata-stripped]
+                _OPAQUE_礫:1.0__SYM_礫_96_ = _OPAQUE_礫:1.0__SYM_礫_116_(re._OPAQUE_礫:1.0__SYM_礫_124_(r"[\\[\\]<>~&|()]", _OPAQUE_礫:1.0__SYM_礫_64_)) + _OPAQUE_礫:1.0__SYM_礫_64_._OPAQUE_礫:1.0__SYM_礫_165_("->") + _OPAQUE_礫:1.0__SYM_礫_64_._OPAQUE_礫:1.0__SYM_礫_165_("<->")
+                _OPAQUE_礫:1.0__SYM_礫_2_ = _OPAQUE_礫:1.0__SYM_礫_116_(re._OPAQUE_礫:1.0__SYM_礫_124_(r"[A-Za-z一-龥ぁ-んァ-ン]", _OPAQUE_礫:1.0__SYM_礫_45_))
+                if _OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_64_) > 120 _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_96_ < 2 _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_2_ > 10:
+                    continue
+                _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_礫:1.0__SYM_礫_64_)
+
+// [metadata-stripped]
+    for m in _OPAQUE_礫:1.0__SYM_礫_18_._OPAQUE_処:1.0__SYM_礫_166_(_OPAQUE_礫:1.0__SYM_礫_92_):
+        _OPAQUE_礫:1.0__SYM_礫_139_ = m._OPAQUE_礫:1.0__SYM_礫_177_(1) or ""
+        if "->" in _OPAQUE_礫:1.0__SYM_礫_139_ or "&" in _OPAQUE_礫:1.0__SYM_礫_139_ or "|" in _OPAQUE_礫:1.0__SYM_礫_139_ or "[]" in _OPAQUE_礫:1.0__SYM_礫_139_ or "<>" in _OPAQUE_礫:1.0__SYM_礫_139_ or "~" in _OPAQUE_礫:1.0__SYM_礫_139_:
+            f = _OPAQUE_漂:1.0__SYM_礫_148_(_OPAQUE_礫:1.0__SYM_礫_139_)
+            if f:
+                _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(f)
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_30_ in _OPAQUE_礫:1.0__SYM_礫_5_:
+        _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_礫:1.0__SYM_礫_110_)
+
+// [metadata-stripped]
+    if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_5_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_135_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_) _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_蔽:1.0__SYM_礫_85_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_92_):
+        _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_漂:1.0__SYM_礫_148_("φ"))
+
+    _OPAQUE_礫:1.0__SYM_礫_84_ = _OPAQUE_処:1.0__SYM_礎_1_()
+    _OPAQUE_礫:1.0__SYM_礫_115_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_] = []
+    for f in _OPAQUE_礫:1.0__SYM_礫_5_:
+        if f _OPAQUE_礫:1.0__SYM_礫_30_ in _OPAQUE_礫:1.0__SYM_礫_84_:
+            _OPAQUE_礫:1.0__SYM_礫_84_._OPAQUE_礫:1.0__SYM_礫_190_(f)
+            _OPAQUE_礫:1.0__SYM_礫_115_._OPAQUE_礫:1.0__SYM_礫_3_(f)
+    return _OPAQUE_礫:1.0__SYM_礫_115_
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_44_(s: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_礫:1.0__SYM_礫_67_:
+    if _OPAQUE_礫:1.0__SYM_礫_30_ s:
+        return _OPAQUE_殻:1.0__SYM_殻_26_
+    return _OPAQUE_礫:1.0__SYM_礫_67_(_OPAQUE_蔽:1.0__SYM_礫_85_._OPAQUE_礫:1.0__SYM_礫_17_(s) or _OPAQUE_蔽:1.0__SYM_礫_162_._OPAQUE_礫:1.0__SYM_礫_17_(s))
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_39_(s: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_礫:1.0__SYM_礫_67_:
+    """
+    _OPAQUE_処:1.0__SYM_殻_24_ _OPAQUE_礫:1.0__SYM_礫_113_ _OPAQUE_礫:1.0__SYM_礫_188_ for _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_155_ (_OPAQUE_礫:1.0__SYM_礫_203_ _OPAQUE_礫:1.0__SYM_礫_22_ [] or _OPAQUE_礫:1.0__SYM_礫_184_ _OPAQUE_礫:1.0__SYM_礫_168_).
+    """
+    if _OPAQUE_礫:1.0__SYM_礫_30_ s:
+        return _OPAQUE_殻:1.0__SYM_殻_26_
+    if _OPAQUE_蔽:1.0__SYM_礫_162_._OPAQUE_礫:1.0__SYM_礫_17_(s):
+        return _OPAQUE_殻:1.0__SYM_殻_2_
+    return _OPAQUE_礫:1.0__SYM_礫_67_(re._OPAQUE_礫:1.0__SYM_礫_17_(r"(->|<->|&|\||~)", s))
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_105_(_OPAQUE_礫:1.0__SYM_礫_86_: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_殻:1.0__SYM_殻_7_[_OPAQUE_礫:1.0__SYM_礫_25_]:
+    """
+    _OPAQUE_殻:1.0__SYM_殻_17_ a _OPAQUE_礫:1.0__SYM_礫_136_ _OPAQUE_漂:1.0__SYM_礫_80_-_OPAQUE_礫:1.0__SYM_礫_160_ _OPAQUE_礫:1.0__SYM_礫_125_ _OPAQUE_礫:1.0__SYM_礫_185_ a _OPAQUE_礫:1.0__SYM_礫_178_ _OPAQUE_礫:1.0__SYM_礫_33_.
+    _OPAQUE_殻:1.0__SYM_殻_9_: _OPAQUE_礫:1.0__SYM_礫_98_ _OPAQUE_礫:1.0__SYM_礫_122_, _OPAQUE_礫:1.0__SYM_礫_126_ _OPAQUE_礫:1.0__SYM_礫_157_-_OPAQUE_礫:1.0__SYM_礫_160_ _OPAQUE_礫:1.0__SYM_礫_16_.
+    """
+    if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_86_:
+        return _OPAQUE_殻:1.0__SYM_殻_14_
+    m = _OPAQUE_礫:1.0__SYM_礫_174_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_86_)
+    if m:
+        if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_10_._OPAQUE_礫:1.0__SYM_礫_17_(m._OPAQUE_礫:1.0__SYM_礫_177_(1)):
+            return _OPAQUE_漂:1.0__SYM_礫_148_(m._OPAQUE_礫:1.0__SYM_礫_177_(1))
+    m = _OPAQUE_礫:1.0__SYM_礫_79_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_86_)
+    if m:
+        if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_10_._OPAQUE_礫:1.0__SYM_礫_17_(m._OPAQUE_礫:1.0__SYM_礫_177_(1)):
+            return _OPAQUE_漂:1.0__SYM_礫_148_(m._OPAQUE_礫:1.0__SYM_礫_177_(1))
+    m = _OPAQUE_礫:1.0__SYM_礫_41_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_86_)
+    if m:
+        if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_礫:1.0__SYM_礫_10_._OPAQUE_礫:1.0__SYM_礫_17_(m._OPAQUE_礫:1.0__SYM_礫_177_(1)):
+            return _OPAQUE_漂:1.0__SYM_礫_148_(m._OPAQUE_礫:1.0__SYM_礫_177_(1))
+
+// [metadata-stripped]
+    _OPAQUE_礫:1.0__SYM_礫_42_ = _OPAQUE_殻:1.0__SYM_殻_14_
+    _OPAQUE_礫:1.0__SYM_礫_180_ = -1
+    for _OPAQUE_礫:1.0__SYM_礫_189_ in _OPAQUE_漂:1.0__SYM_礫_170_._OPAQUE_礫:1.0__SYM_礫_124_(_OPAQUE_礫:1.0__SYM_礫_86_):
+        if _OPAQUE_礫:1.0__SYM_礫_10_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_189_):
+            continue
+        if _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_189_):
+            continue
+        _OPAQUE_礫:1.0__SYM_礫_81_ = 0
+        if _OPAQUE_漂:1.0__SYM_礫_39_(_OPAQUE_礫:1.0__SYM_礫_189_):
+            _OPAQUE_礫:1.0__SYM_礫_81_ += 3
+// _OPAQUE_漂:0.5__SYM_HZ_474_ [decoy-metadata]
+        _OPAQUE_礫:1.0__SYM_礫_81_ += _OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_189_)
+        if _OPAQUE_礫:1.0__SYM_礫_81_ > _OPAQUE_礫:1.0__SYM_礫_180_:
+            _OPAQUE_礫:1.0__SYM_礫_180_ = _OPAQUE_礫:1.0__SYM_礫_81_
+            _OPAQUE_礫:1.0__SYM_礫_42_ = _OPAQUE_礫:1.0__SYM_礫_189_
+    if _OPAQUE_礫:1.0__SYM_礫_42_:
+        return _OPAQUE_漂:1.0__SYM_礫_148_(_OPAQUE_礫:1.0__SYM_礫_42_)
+    return _OPAQUE_殻:1.0__SYM_殻_14_
+
+// _OPAQUE_漂:0.8__SYM_BX_125_ [decoy-metadata]
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_漂:1.0__SYM_礫_47_(_OPAQUE_礫:1.0__SYM_礫_86_: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_殻:1.0__SYM_殻_3_:
+    _OPAQUE_礫:1.0__SYM_礫_128_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_] = []
+    _OPAQUE_礫:1.0__SYM_礫_92_ = _OPAQUE_礫:1.0__SYM_礫_86_ or ""
+
+    _OPAQUE_礫:1.0__SYM_礫_204_ = _OPAQUE_漂:1.0__SYM_礫_159_(_OPAQUE_礫:1.0__SYM_礫_92_)
+    if _OPAQUE_礫:1.0__SYM_礫_204_:
+        _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_(f"_OPAQUE_漂:1.0__SYM_礫_99_={_OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_204_)}")
+        _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_礫:1.0__SYM_礫_204_[0]
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0__SYM_礫_13_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_13_):
+            _OPAQUE_礫:1.0__SYM_礫_110_ = _OPAQUE_漂:1.0__SYM_礫_105_(_OPAQUE_礫:1.0__SYM_礫_92_)
+            if _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_110_):
+                _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_礫:1.0__SYM_礫_110_
+                _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_("_OPAQUE_漂:1.0__SYM_礫_53_")
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0__SYM_礫_13_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_13_):
+            _OPAQUE_礫:1.0__SYM_礫_110_ = _OPAQUE_漂:1.0__SYM_礫_105_(_OPAQUE_礫:1.0__SYM_礫_13_)
+            if _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_110_) _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_110_) < _OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_13_):
+                _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_礫:1.0__SYM_礫_110_
+                _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_("_OPAQUE_礫:1.0__SYM_礫_137_")
+        _OPAQUE_礫:1.0__SYM_礫_19_ = _OPAQUE_礫:1.0__SYM_礫_204_[1:]
+        _OPAQUE_礫:1.0__SYM_礫_167_ = _OPAQUE_礫:1.0__SYM_礫_117_._OPAQUE_礫:1.0__SYM_礫_77_(" ", _OPAQUE_礫:1.0__SYM_礫_92_)
+        _OPAQUE_礫:1.0__SYM_礫_167_ = re._OPAQUE_礫:1.0__SYM_礫_77_(r"\s+", " ", _OPAQUE_礫:1.0__SYM_礫_167_)._OPAQUE_礫:1.0__SYM_礫_142_()
+        return _OPAQUE_殻:1.0__SYM_殻_3_(
+            _OPAQUE_礫:1.0__SYM_礫_92_=_OPAQUE_礫:1.0__SYM_礫_92_,
+            _OPAQUE_漂:1.0__SYM_礫_109_=_OPAQUE_礫:1.0__SYM_礫_13_,
+            _OPAQUE_漂:1.0__SYM_礫_194_=_OPAQUE_礫:1.0__SYM_礫_19_,
+            _OPAQUE_礫:1.0__SYM_礫_66_=_OPAQUE_礫:1.0__SYM_礫_167_,
+            _OPAQUE_礫:1.0__SYM_礫_107_=_OPAQUE_礫:1.0__SYM_礫_128_,
+        )
+
+    _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_("_OPAQUE_漂:1.0__SYM_礫_28_")
+    _OPAQUE_礫:1.0__SYM_礫_173_ = _OPAQUE_漂:1.0__SYM_礫_198_(_OPAQUE_礫:1.0__SYM_礫_92_)
+    if _OPAQUE_礫:1.0__SYM_礫_173_:
+        _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_(f"_OPAQUE_礫:1.0__SYM_礫_57_={_OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_173_)}")
+        _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_礫:1.0__SYM_礫_173_[0]
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0__SYM_礫_13_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_116_(_OPAQUE_礫:1.0__SYM_礫_13_) > 120:
+            _OPAQUE_礫:1.0__SYM_礫_110_ = _OPAQUE_漂:1.0__SYM_礫_105_(_OPAQUE_礫:1.0__SYM_礫_92_)
+            if _OPAQUE_礫:1.0__SYM_礫_110_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_漂:1.0__SYM_礫_44_(_OPAQUE_礫:1.0__SYM_礫_110_):
+                _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_礫:1.0__SYM_礫_110_
+// _OPAQUE_漂:0.5__SYM_YH_556_ [decoy-metadata]
+                _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_("_OPAQUE_漂:1.0__SYM_礫_61_")
+        _OPAQUE_礫:1.0__SYM_礫_19_ = _OPAQUE_礫:1.0__SYM_礫_173_[1:]
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0__SYM_礫_135_._OPAQUE_礫:1.0__SYM_礫_176_(_OPAQUE_礫:1.0__SYM_礫_13_) _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_30_ _OPAQUE_蔽:1.0__SYM_礫_85_._OPAQUE_礫:1.0__SYM_礫_17_(_OPAQUE_礫:1.0__SYM_礫_13_):
+            _OPAQUE_礫:1.0__SYM_礫_128_._OPAQUE_礫:1.0__SYM_礫_3_("_OPAQUE_礫:1.0__SYM_礫_20_")
+            _OPAQUE_礫:1.0__SYM_礫_13_ = _OPAQUE_殻:1.0__SYM_殻_14_
+            _OPAQUE_礫:1.0__SYM_礫_19_ = []
+        return _OPAQUE_殻:1.0__SYM_殻_3_(
+            _OPAQUE_礫:1.0__SYM_礫_92_=_OPAQUE_礫:1.0__SYM_礫_92_,
+            _OPAQUE_漂:1.0__SYM_礫_109_=_OPAQUE_礫:1.0__SYM_礫_13_,
+            _OPAQUE_漂:1.0__SYM_礫_194_=_OPAQUE_礫:1.0__SYM_礫_19_,
+            _OPAQUE_礫:1.0__SYM_礫_66_=_OPAQUE_礫:1.0__SYM_礫_92_._OPAQUE_礫:1.0__SYM_礫_142_(),
+            _OPAQUE_礫:1.0__SYM_礫_107_=_OPAQUE_礫:1.0__SYM_礫_128_,
+        )
+
+    return _OPAQUE_殻:1.0__SYM_殻_3_(
+        _OPAQUE_礫:1.0__SYM_礫_92_=_OPAQUE_礫:1.0__SYM_礫_92_,
+        _OPAQUE_漂:1.0__SYM_礫_109_=_OPAQUE_殻:1.0__SYM_殻_14_,
+        _OPAQUE_漂:1.0__SYM_礫_194_=[],
+        _OPAQUE_礫:1.0__SYM_礫_66_=_OPAQUE_礫:1.0__SYM_礫_92_._OPAQUE_礫:1.0__SYM_礫_142_(),
+        _OPAQUE_礫:1.0__SYM_礫_107_=_OPAQUE_礫:1.0__SYM_礫_128_,
+    )
+
+
+// _OPAQUE_緋:0.1__SYM_VX_636_ [decoy-metadata]
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_礫:1.0__SYM_礫_130_() -> _OPAQUE_礫:1.0__SYM_礫_25_:
+    return (
+        "【入力ルール】\n"
+        "・式らしい部分を自動抽出します（必要なら引用してもOK）。\n"
+        "・括弧・矢印・論理記号は正しく入力してください。\n"
+        '例: ((A -> B) & A) -> B / []p -> [][]p / _OPAQUE_礫:1.0__SYM_礫_21_ _OPAQUE_殻:1.0__SYM_殻_13_(n,R)'
+    )
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_礫:1.0__SYM_礫_187_() -> _OPAQUE_礫:1.0__SYM_礫_25_:
+    return (
+        "_OPAQUE_殻:1.0__SYM_殻_12_: We _OPAQUE_礫:1.0__SYM_礫_102_-_OPAQUE_礫:1.0__SYM_礫_118_ _OPAQUE_漂:1.0__SYM_礫_80_-_OPAQUE_礫:1.0__SYM_礫_160_ _OPAQUE_礫:1.0__SYM_礫_94_ (_OPAQUE_礫:1.0__SYM_礫_37_ is _OPAQUE_礫:1.0__SYM_礫_90_).\n"
+        "_OPAQUE_殻:1.0__SYM_殻_6_ _OPAQUE_礫:1.0__SYM_礫_106_ _OPAQUE_礫:1.0__SYM_礫_8_ _OPAQUE_礫:1.0__SYM_礫_101_ _OPAQUE_礫:1.0__SYM_礫_78_.\n"
+        "_OPAQUE_殻:1.0__SYM_殻_25_: ((A -> B) & A) -> B, []p -> [][]p, _OPAQUE_礫:1.0__SYM_礫_21_ _OPAQUE_殻:1.0__SYM_殻_13_(n,R)"
+    )
+
+
+_OPAQUE_礫:1.0__SYM_礫_114_ _OPAQUE_礫:1.0__SYM_礫_175_(_OPAQUE_礫:1.0__SYM_礫_86_: _OPAQUE_礫:1.0__SYM_礫_25_) -> _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_]:
+    t = (_OPAQUE_礫:1.0__SYM_礫_86_ or "")._OPAQUE_処:1.0__SYM_礫_65_()
+    _OPAQUE_礫:1.0__SYM_礫_5_: _OPAQUE_殻:1.0__SYM_殻_23_[_OPAQUE_礫:1.0__SYM_礫_25_] = []
+    for _OPAQUE_礫:1.0__SYM_礫_74_, _OPAQUE_蔽:1.0__SYM_礫_58_ in _OPAQUE_礫:1.0__SYM_礫_195_._OPAQUE_礫:1.0__SYM_礫_23_():
+        for k in _OPAQUE_蔽:1.0__SYM_礫_58_:
+            if k._OPAQUE_処:1.0__SYM_礫_65_() in t:
+                _OPAQUE_礫:1.0__SYM_礫_5_._OPAQUE_礫:1.0__SYM_礫_3_(_OPAQUE_礫:1.0__SYM_礫_74_)
+                break
+    return _OPAQUE_礫:1.0__SYM_礫_48_(_OPAQUE_処:1.0__SYM_礎_1_(_OPAQUE_礫:1.0__SYM_礫_5_))
+
+// POLYMORPHIC_JCROSS_END

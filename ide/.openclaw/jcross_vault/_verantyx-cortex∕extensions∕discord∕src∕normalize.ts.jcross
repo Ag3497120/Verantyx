@@ -1,0 +1,59 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9D4BAA74 ver:1778166876
+// _TOKEN_庸:0.9__ID_CG_636_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_霜:1.0__ID_霜_34_ } _TOKEN_霜:1.0__ID_霜_46_ "./_TOKEN_霜:1.0__ID_霜_32_.js";
+
+_TOKEN_霜:1.0__ID_霜_22_ _TOKEN_霜:1.0__ID_霜_2_ _TOKEN_霜:1.0__ID_霜_37_(_TOKEN_霜:1.0__ID_霜_23_: _TOKEN_霜:1.0__ID_霜_36_): _TOKEN_霜:1.0__ID_霜_36_ | _TOKEN_霜:1.0__ID_霜_9_ {
+// [metadata-stripped]
+  _TOKEN_霜:1.0__ID_霜_6_ _TOKEN_霜:1.0__ID_霜_21_ = _TOKEN_霜:1.0__ID_霜_34_(_TOKEN_霜:1.0__ID_霜_23_, { _TOKEN_霜:1.0__ID_霜_33_: "_TOKEN_霜:1.0__ID_霜_44_" });
+// _TOKEN_庸:0.9__ID_AM_590_ [decoy-metadata]
+  return _TOKEN_霜:1.0__ID_霜_21_?._TOKEN_霜:1.0__ID_霜_42_;
+}
+
+// _TOKEN_泳:0.5__ID_DE_513_ [decoy-metadata]
+/**
+ * _TOKEN_庸:1.0__ID_庸_9_ a _TOKEN_庸:1.0__ID_庸_8_ _TOKEN_霜:1.0__ID_霜_40_ _TOKEN_霜:1.0__ID_霜_21_ for _TOKEN_霜:1.0__ID_霜_7_. _TOKEN_庸:1.0__ID_庸_7_ _TOKEN_霜:1.0__ID_霜_28_ _TOKEN_庸:1.0__ID_庸_3_ _TOKEN_霜:1.0__ID_霜_8_
+ * _TOKEN_霜:1.0__ID_霜_27_ _TOKEN_霜:1.0__ID_霜_16_ "_TOKEN_霜:1.0__ID_霜_44_:" to _TOKEN_霜:1.0__ID_霜_10_ _TOKEN_霜:1.0__ID_霜_15_ _TOKEN_霜:1.0__ID_霜_25_-_TOKEN_霜:1.0__ID_霜_21_ _TOKEN_霜:1.0__ID_霜_29_ in
+ * _TOKEN_霜:1.0__ID_霜_34_. _TOKEN_庸:1.0__ID_庸_2_ _TOKEN_式:1.0__ID_霜_13_ _TOKEN_泳:1.0__ID_霜_31_ _TOKEN_霜:1.0__ID_霜_5_ _TOKEN_霜:1.0__ID_霜_38_ _TOKEN_霜:1.0__ID_霜_1_.
+ */
+_TOKEN_霜:1.0__ID_霜_22_ _TOKEN_霜:1.0__ID_霜_2_ _TOKEN_霜:1.0__ID_霜_45_(
+  to?: _TOKEN_霜:1.0__ID_霜_36_,
+): { ok: true; to: _TOKEN_霜:1.0__ID_霜_36_ } | { ok: false; _TOKEN_霜:1.0__ID_霜_29_: _TOKEN_庸:1.0__ID_庸_6_ } {
+  _TOKEN_霜:1.0__ID_霜_6_ _TOKEN_霜:1.0__ID_霜_30_ = to?._TOKEN_霜:1.0__ID_霜_35_();
+  if (!_TOKEN_霜:1.0__ID_霜_30_) {
+    return {
+      ok: false,
+      _TOKEN_霜:1.0__ID_霜_29_: _TOKEN_霜:1.0__ID_霜_41_ _TOKEN_庸:1.0__ID_庸_6_(
+// _TOKEN_霜:0.1__ID_ZC_418_ [decoy-metadata]
+        '_TOKEN_庸:1.0__ID_庸_8_ _TOKEN_霜:1.0__ID_霜_18_ is _TOKEN_霜:1.0__ID_霜_11_. _TOKEN_庸:1.0__ID_庸_5_ "_TOKEN_霜:1.0__ID_霜_44_:<id>" for _TOKEN_霜:1.0__ID_霜_19_ or "_TOKEN_式:1.0__ID_霜_26_:<id>" for _TOKEN_庸:1.0__ID_庸_4_.',
+      ),
+    };
+  }
+  if (/^\d+$/._TOKEN_霜:1.0__ID_霜_14_(_TOKEN_霜:1.0__ID_霜_30_)) {
+    return { ok: true, to: `_TOKEN_霜:1.0__ID_霜_44_:${_TOKEN_霜:1.0__ID_霜_30_}` };
+  }
+  return { ok: true, to: _TOKEN_霜:1.0__ID_霜_30_ };
+}
+
+_TOKEN_霜:1.0__ID_霜_22_ _TOKEN_霜:1.0__ID_霜_2_ _TOKEN_霜:1.0__ID_霜_12_(_TOKEN_霜:1.0__ID_霜_23_: _TOKEN_霜:1.0__ID_霜_36_): _TOKEN_霜:1.0__ID_霜_20_ {
+// _TOKEN_庸:0.7__ID_MX_972_ [decoy-metadata]
+  _TOKEN_霜:1.0__ID_霜_6_ _TOKEN_霜:1.0__ID_霜_30_ = _TOKEN_霜:1.0__ID_霜_23_._TOKEN_霜:1.0__ID_霜_35_();
+  if (!_TOKEN_霜:1.0__ID_霜_30_) {
+    return false;
+  }
+  if (/^<@!?\d+>$/._TOKEN_霜:1.0__ID_霜_14_(_TOKEN_霜:1.0__ID_霜_30_)) {
+    return true;
+  }
+  if (/^(_TOKEN_式:1.0__ID_霜_26_|_TOKEN_霜:1.0__ID_霜_44_|_TOKEN_霜:1.0__ID_霜_47_):/i._TOKEN_霜:1.0__ID_霜_14_(_TOKEN_霜:1.0__ID_霜_30_)) {
+    return true;
+  }
+  if (/^\d{6,}$/._TOKEN_霜:1.0__ID_霜_14_(_TOKEN_霜:1.0__ID_霜_30_)) {
+// _TOKEN_匵:0.5__ID_GY_853_ [decoy-metadata]
+    return true;
+  }
+  return false;
+}
+
+// POLYMORPHIC_JCROSS_END

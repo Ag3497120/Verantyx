@@ -1,0 +1,91 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3DF14767 ver:1778159689
+// ⚠️ One-time schema — expires after response
+
+_ID_霾:1.0__VERANTYX_霾_25_ _ID_霾:1.0__VERANTYX_霾_27_ import _ID_霾:1.0__VERANTYX_霾_11_, _ID_霾:1.0__VERANTYX_霾_36_
+_ID_霾:1.0__VERANTYX_霾_25_ _ID_霾:1.0__VERANTYX_霾_43_ import _ID_庭:1.0__VERANTYX_庭_10_, _ID_庭:1.0__VERANTYX_庭_4_, _ID_庭:1.0__VERANTYX_庭_5_, _ID_庭:1.0__VERANTYX_庭_1_
+import re
+
+@_ID_霾:1.0__VERANTYX_霾_11_
+class _ID_庭:1.0__VERANTYX_庭_9_:
+    _ID_霾:1.0__VERANTYX_霾_13_: _ID_庭:1.0__VERANTYX_庭_4_[_ID_霾:1.0__VERANTYX_霾_57_] = _ID_霾:1.0__VERANTYX_霾_36_(_ID_霾:1.0__VERANTYX_霾_50_=_ID_霾:1.0__VERANTYX_霾_18_)
+    _ID_霾:1.0__VERANTYX_霾_1_: _ID_庭:1.0__VERANTYX_庭_10_[_ID_霾:1.0__VERANTYX_霾_57_, _ID_庭:1.0__VERANTYX_庭_4_[_ID_霾:1.0__VERANTYX_霾_57_]] = _ID_霾:1.0__VERANTYX_霾_36_(_ID_霾:1.0__VERANTYX_霾_50_=_ID_霾:1.0__VERANTYX_霾_58_)
+    _ID_霾:1.0__VERANTYX_霾_35_: _ID_庭:1.0__VERANTYX_庭_10_[_ID_霾:1.0__VERANTYX_霾_57_, _ID_庭:1.0__VERANTYX_庭_10_[_ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_19_]] = _ID_霾:1.0__VERANTYX_霾_36_(_ID_霾:1.0__VERANTYX_霾_50_=_ID_霾:1.0__VERANTYX_霾_58_)
+
+// _ID_礎:0.8__VERANTYX_HY_287_ [decoy-metadata]
+_ID_霾:1.0__VERANTYX_霾_9_ _ID_霾:1.0__VERANTYX_霾_53_(_ID_渦:1.0__VERANTYX_霾_37_: _ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_39_: _ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_56_: _ID_庭:1.0__VERANTYX_庭_9_) -> _ID_庭:1.0__VERANTYX_庭_1_[_ID_霾:1.0__VERANTYX_霾_19_]:
+    """
+    _ID_庭:1.0__VERANTYX_庭_6_ フレーム上の指定された世界で様相式を評価する。
+    (旧来のロジックとの互換性のために保持)
+    """
+    if _ID_霾:1.0__VERANTYX_霾_56_ is _ID_庭:1.0__VERANTYX_庭_11_ or _ID_霾:1.0__VERANTYX_霾_51_ _ID_霾:1.0__VERANTYX_霾_56_._ID_霾:1.0__VERANTYX_霾_13_ or _ID_霾:1.0__VERANTYX_霾_39_ _ID_霾:1.0__VERANTYX_霾_51_ in _ID_霾:1.0__VERANTYX_霾_56_._ID_霾:1.0__VERANTYX_霾_13_:
+        return _ID_庭:1.0__VERANTYX_庭_11_
+// _ID_庭:0.6__VERANTYX_MK_832_ [decoy-metadata]
+    try:
+        _ID_渦:1.0__VERANTYX_霾_37_ = _ID_渦:1.0__VERANTYX_霾_37_._ID_霾:1.0__VERANTYX_霾_63_(" ", "")._ID_霾:1.0__VERANTYX_霾_63_("□", "[]")._ID_霾:1.0__VERANTYX_霾_63_("◇", "<>")
+        return _ID_霾:1.0__VERANTYX_霾_17_(_ID_渦:1.0__VERANTYX_霾_37_, _ID_霾:1.0__VERANTYX_霾_39_, _ID_霾:1.0__VERANTYX_霾_56_)
+    _ID_霾:1.0__VERANTYX_霾_23_ _ID_庭:1.0__VERANTYX_庭_8_:
+        return _ID_庭:1.0__VERANTYX_庭_11_
+
+_ID_霾:1.0__VERANTYX_霾_9_ _ID_霾:1.0__VERANTYX_霾_17_(_ID_渦:1.0__VERANTYX_霾_37_: _ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_39_: _ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_56_: _ID_庭:1.0__VERANTYX_庭_9_) -> _ID_庭:1.0__VERANTYX_庭_1_[_ID_霾:1.0__VERANTYX_霾_19_]:
+    if _ID_霾:1.0__VERANTYX_霾_51_ _ID_渦:1.0__VERANTYX_霾_37_: return _ID_庭:1.0__VERANTYX_庭_11_
+    if _ID_霾:1.0__VERANTYX_霾_48_(_ID_渦:1.0__VERANTYX_霾_37_) == 1 _ID_霾:1.0__VERANTYX_霾_12_ _ID_渦:1.0__VERANTYX_霾_37_._ID_霾:1.0__VERANTYX_霾_6_():
+        return _ID_霾:1.0__VERANTYX_霾_56_._ID_霾:1.0__VERANTYX_霾_35_._ID_処:1.0__VERANTYX_礎_1_(_ID_霾:1.0__VERANTYX_霾_39_, {})._ID_処:1.0__VERANTYX_礎_1_(_ID_渦:1.0__VERANTYX_霾_37_, _ID_庭:1.0__VERANTYX_庭_12_)
+    if _ID_渦:1.0__VERANTYX_霾_37_._ID_霾:1.0__VERANTYX_霾_40_("~"):
+        v = _ID_霾:1.0__VERANTYX_霾_17_(_ID_渦:1.0__VERANTYX_霾_37_[1:], _ID_霾:1.0__VERANTYX_霾_39_, _ID_霾:1.0__VERANTYX_霾_56_)
+        return _ID_霾:1.0__VERANTYX_霾_51_ v if v is _ID_霾:1.0__VERANTYX_霾_51_ _ID_庭:1.0__VERANTYX_庭_11_ else _ID_庭:1.0__VERANTYX_庭_11_
+    if _ID_渦:1.0__VERANTYX_霾_37_._ID_霾:1.0__VERANTYX_霾_40_("[]"):
+        _ID_処:1.0__VERANTYX_霾_61_ = _ID_渦:1.0__VERANTYX_霾_37_[2:]
+        for _ID_霾:1.0__VERANTYX_霾_24_ in _ID_霾:1.0__VERANTYX_霾_56_._ID_霾:1.0__VERANTYX_霾_1_._ID_処:1.0__VERANTYX_礎_1_(_ID_霾:1.0__VERANTYX_霾_39_, []):
+            if _ID_霾:1.0__VERANTYX_霾_17_(_ID_処:1.0__VERANTYX_霾_61_, _ID_霾:1.0__VERANTYX_霾_24_, _ID_霾:1.0__VERANTYX_霾_56_) is _ID_庭:1.0__VERANTYX_庭_12_: return _ID_庭:1.0__VERANTYX_庭_12_
+        return _ID_庭:1.0__VERANTYX_庭_2_
+    if _ID_渦:1.0__VERANTYX_霾_37_._ID_霾:1.0__VERANTYX_霾_40_("<>"):
+        _ID_処:1.0__VERANTYX_霾_61_ = _ID_渦:1.0__VERANTYX_霾_37_[2:]
+        for _ID_霾:1.0__VERANTYX_霾_24_ in _ID_霾:1.0__VERANTYX_霾_56_._ID_霾:1.0__VERANTYX_霾_1_._ID_処:1.0__VERANTYX_礎_1_(_ID_霾:1.0__VERANTYX_霾_39_, []):
+            if _ID_霾:1.0__VERANTYX_霾_17_(_ID_処:1.0__VERANTYX_霾_61_, _ID_霾:1.0__VERANTYX_霾_24_, _ID_霾:1.0__VERANTYX_霾_56_) is _ID_庭:1.0__VERANTYX_庭_2_: return _ID_庭:1.0__VERANTYX_庭_2_
+// _ID_暗:0.9__VERANTYX_LV_687_ [decoy-metadata]
+        return _ID_庭:1.0__VERANTYX_庭_12_
+    if "->" in _ID_渦:1.0__VERANTYX_霾_37_:
+// _ID_匴:0.3__VERANTYX_AW_576_ [decoy-metadata]
+        _ID_霾:1.0__VERANTYX_霾_33_ = _ID_霾:1.0__VERANTYX_霾_65_(_ID_渦:1.0__VERANTYX_霾_37_)
+        if _ID_霾:1.0__VERANTYX_霾_33_ != -1:
+            _ID_霾:1.0__VERANTYX_霾_28_ = _ID_霾:1.0__VERANTYX_霾_17_(_ID_渦:1.0__VERANTYX_霾_37_[:_ID_霾:1.0__VERANTYX_霾_33_], _ID_霾:1.0__VERANTYX_霾_39_, _ID_霾:1.0__VERANTYX_霾_56_)
+            _ID_霾:1.0__VERANTYX_霾_41_ = _ID_霾:1.0__VERANTYX_霾_17_(_ID_渦:1.0__VERANTYX_霾_37_[_ID_霾:1.0__VERANTYX_霾_33_+2:], _ID_霾:1.0__VERANTYX_霾_39_, _ID_霾:1.0__VERANTYX_霾_56_)
+            if _ID_霾:1.0__VERANTYX_霾_28_ is _ID_庭:1.0__VERANTYX_庭_2_ _ID_霾:1.0__VERANTYX_霾_12_ _ID_霾:1.0__VERANTYX_霾_41_ is _ID_庭:1.0__VERANTYX_庭_12_: return _ID_庭:1.0__VERANTYX_庭_12_
+            if _ID_霾:1.0__VERANTYX_霾_28_ is _ID_霾:1.0__VERANTYX_霾_51_ _ID_庭:1.0__VERANTYX_庭_11_ _ID_霾:1.0__VERANTYX_霾_12_ _ID_霾:1.0__VERANTYX_霾_41_ is _ID_霾:1.0__VERANTYX_霾_51_ _ID_庭:1.0__VERANTYX_庭_11_: return _ID_庭:1.0__VERANTYX_庭_2_
+    return _ID_庭:1.0__VERANTYX_庭_11_
+
+// _ID_礎:0.5__VERANTYX_MC_442_ [decoy-metadata]
+_ID_霾:1.0__VERANTYX_霾_9_ _ID_霾:1.0__VERANTYX_霾_65_(_ID_渦:1.0__VERANTYX_霾_37_: _ID_霾:1.0__VERANTYX_霾_57_) -> _ID_霾:1.0__VERANTYX_霾_4_:
+    _ID_霾:1.0__VERANTYX_霾_7_ = 0
+    for i in _ID_霾:1.0__VERANTYX_霾_22_(_ID_霾:1.0__VERANTYX_霾_48_(_ID_渦:1.0__VERANTYX_霾_37_) - 1):
+        if _ID_渦:1.0__VERANTYX_霾_37_[i] == "(": _ID_霾:1.0__VERANTYX_霾_7_ += 1
+        _ID_渦:1.0__VERANTYX_霾_38_ _ID_渦:1.0__VERANTYX_霾_37_[i] == ")": _ID_霾:1.0__VERANTYX_霾_7_ -= 1
+        _ID_渦:1.0__VERANTYX_霾_38_ _ID_霾:1.0__VERANTYX_霾_7_ == 0 _ID_霾:1.0__VERANTYX_霾_12_ _ID_渦:1.0__VERANTYX_霾_37_[i:i+2] == "->": return i
+    return -1
+
+_ID_霾:1.0__VERANTYX_霾_9_ _ID_霾:1.0__VERANTYX_霾_32_(_ID_渦:1.0__VERANTYX_霾_37_: _ID_霾:1.0__VERANTYX_霾_57_, _ID_霾:1.0__VERANTYX_霾_64_: _ID_庭:1.0__VERANTYX_庭_4_[_ID_霾:1.0__VERANTYX_霾_57_], _ID_霾:1.0__VERANTYX_霾_10_: _ID_庭:1.0__VERANTYX_庭_4_[_ID_霾:1.0__VERANTYX_霾_57_]) -> _ID_庭:1.0__VERANTYX_庭_4_[_ID_庭:1.0__VERANTYX_庭_10_[_ID_霾:1.0__VERANTYX_霾_57_, _ID_庭:1.0__VERANTYX_庭_5_]]:
+    """
+    _ID_処:1.0__VERANTYX_庭_13_ を利用して徹底的な反例探索を行う。
+    """
+    _ID_霾:1.0__VERANTYX_霾_25_ _ID_霾:1.0__VERANTYX_霾_54_._ID_処:1.0__VERANTYX_霾_16_ import _ID_霾:1.0__VERANTYX_霾_47_, _ID_庭:1.0__VERANTYX_庭_7_
+    _ID_霾:1.0__VERANTYX_霾_20_ = []
+    _ID_霾:1.0__VERANTYX_霾_34_ = _ID_庭:1.0__VERANTYX_庭_7_(_ID_霾:1.0__VERANTYX_霾_31_=4, _ID_霾:1.0__VERANTYX_霾_14_=6, _ID_霾:1.0__VERANTYX_霾_42_=0)
+    _ID_霾:1.0__VERANTYX_霾_5_ = _ID_霾:1.0__VERANTYX_霾_47_(_ID_渦:1.0__VERANTYX_霾_37_, _ID_霾:1.0__VERANTYX_霾_64_, _ID_霾:1.0__VERANTYX_霾_10_, _ID_霾:1.0__VERANTYX_霾_34_)
+    
+    if _ID_霾:1.0__VERANTYX_霾_5_._ID_霾:1.0__VERANTYX_霾_45_ == "_ID_霾:1.0__VERANTYX_霾_59_":
+        _ID_霾:1.0__VERANTYX_霾_20_._ID_霾:1.0__VERANTYX_霾_44_({
+            "_ID_霾:1.0__VERANTYX_霾_46_": "_ID_霾:1.0__VERANTYX_霾_62_",
+            "_ID_霾:1.0__VERANTYX_霾_3_": _ID_霾:1.0__VERANTYX_霾_5_._ID_霾:1.0__VERANTYX_霾_15_._ID_処:1.0__VERANTYX_礎_1_("_ID_霾:1.0__VERANTYX_霾_35_"),
+// _ID_処:0.7__VERANTYX_CB_656_ [decoy-metadata]
+            "_ID_霾:1.0__VERANTYX_霾_56_": {"_ID_霾:1.0__VERANTYX_霾_60_": _ID_霾:1.0__VERANTYX_霾_5_._ID_霾:1.0__VERANTYX_霾_15_._ID_処:1.0__VERANTYX_礎_1_("_ID_霾:1.0__VERANTYX_霾_60_"), "_ID_霾:1.0__VERANTYX_霾_52_": _ID_霾:1.0__VERANTYX_霾_5_._ID_霾:1.0__VERANTYX_霾_15_._ID_処:1.0__VERANTYX_礎_1_("_ID_霾:1.0__VERANTYX_霾_52_")},
+            "_ID_霾:1.0__VERANTYX_霾_39_": _ID_霾:1.0__VERANTYX_霾_5_._ID_霾:1.0__VERANTYX_霾_15_._ID_処:1.0__VERANTYX_礎_1_("_ID_霾:1.0__VERANTYX_霾_49_"),
+            "_ID_霾:1.0__VERANTYX_霾_21_": _ID_庭:1.0__VERANTYX_庭_12_,
+            "_ID_霾:1.0__VERANTYX_霾_45_": "_ID_霾:1.0__VERANTYX_霾_8_",
+            "_ID_霾:1.0__VERANTYX_霾_2_": "_ID_庭:1.0__VERANTYX_庭_3_ _ID_霾:1.0__VERANTYX_霾_29_ by _ID_霾:1.0__VERANTYX_霾_55_ _ID_霾:1.0__VERANTYX_霾_26_."
+        })
+    else:
+        _ID_霾:1.0__VERANTYX_霾_20_._ID_霾:1.0__VERANTYX_霾_44_({"_ID_霾:1.0__VERANTYX_霾_46_": "_ID_霾:1.0__VERANTYX_霾_62_", "_ID_霾:1.0__VERANTYX_霾_21_": _ID_庭:1.0__VERANTYX_庭_2_, "_ID_霾:1.0__VERANTYX_霾_45_": "_ID_霾:1.0__VERANTYX_霾_30_"})
+    return _ID_霾:1.0__VERANTYX_霾_20_
+
+// POLYMORPHIC_JCROSS_END

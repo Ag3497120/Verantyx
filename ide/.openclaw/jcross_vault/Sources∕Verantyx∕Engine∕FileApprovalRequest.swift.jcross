@@ -1,0 +1,105 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:40634BB1 ver:1778164125
+// ⚠️ One-time schema — expires after response
+
+import _ID_墟:1.0__ASTNODE_墟_24_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_錬:0.2__ASTNODE_WM_706_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _ID_繕:1.0__ASTNODE_墟_18_: _ID_墟:1.0__ASTNODE_墟_6_, @_ID_霧:1.0__ASTNODE_霧_67_ _ID_墟:1.0__ASTNODE_墟_8_ {
+
+// [metadata-stripped]
+
+    enum _ID_墟:1.0__ASTNODE_墟_17_ {
+        case _ID_霧:1.0__ASTNODE_霧_4_                          // _ID_匱:1.0__ASTNODE_霧_8_ _ID_霧:1.0__ASTNODE_霧_75_'t _ID_霧:1.0__ASTNODE_霧_61_ _ID_霧:1.0__ASTNODE_霧_33_
+        case _ID_霧:1.0__ASTNODE_霧_5_                          // _ID_霧:1.0__ASTNODE_霧_9_ _ID_匱:1.0__ASTNODE_霧_8_ _ID_霧:1.0__ASTNODE_霧_5_
+        case _ID_霧:1.0__ASTNODE_霧_30_(_ID_霧:1.0__ASTNODE_霧_36_: _ID_墟:1.0__ASTNODE_墟_22_, _ID_霧:1.0__ASTNODE_霧_53_: _ID_墟:1.0__ASTNODE_墟_22_)    // _ID_霧:1.0__ASTNODE_霧_21_ _ID_霧:1.0__ASTNODE_霧_79_ _ID_霧:1.0__ASTNODE_霧_14_ _ID_霧:1.0__ASTNODE_霧_15_
+        case _ID_霧:1.0__ASTNODE_霧_23_                      // _ID_霧:1.0__ASTNODE_霧_72_
+        case _ID_霧:1.0__ASTNODE_霧_50_                         // _ID_墟:1.0__ASTNODE_墟_25_ (_ID_霧:1.0__ASTNODE_霧_9_ _ID_霧:1.0__ASTNODE_霧_25_)
+    }
+// _ID_霧:0.9__ASTNODE_BB_423_ [decoy-metadata]
+
+// [metadata-stripped]
+
+    let id = _ID_墟:1.0__ASTNODE_墟_11_()
+    let _ID_繕:1.0__ASTNODE_霧_29_: _ID_繕:1.0__ASTNODE_墟_10_
+    let _ID_霧:1.0__ASTNODE_霧_65_: _ID_墟:1.0__ASTNODE_墟_16_
+    let _ID_霧:1.0__ASTNODE_霧_24_: _ID_墟:1.0__ASTNODE_墟_16_   // "" for _ID_霧:1.0__ASTNODE_霧_73_ _ID_匱:1.0__ASTNODE_霧_58_ / _ID_霧:1.0__ASTNODE_霧_48_
+    let _ID_霧:1.0__ASTNODE_霧_78_: _ID_墟:1.0__ASTNODE_墟_17_
+
+    private var _ID_霧:1.0__ASTNODE_霧_40_: _ID_墟:1.0__ASTNODE_墟_13_<_ID_墟:1.0__ASTNODE_墟_27_, _ID_項:1.0__ASTNODE_墟_4_>?
+
+// [metadata-stripped]
+
+// _ID_錬:0.8__ASTNODE_WK_598_ [decoy-metadata]
+    init(_ID_繕:1.0__ASTNODE_霧_29_: _ID_繕:1.0__ASTNODE_墟_10_, _ID_霧:1.0__ASTNODE_霧_65_: _ID_墟:1.0__ASTNODE_墟_16_, _ID_霧:1.0__ASTNODE_霧_24_: _ID_墟:1.0__ASTNODE_墟_16_, _ID_霧:1.0__ASTNODE_霧_78_: _ID_墟:1.0__ASTNODE_墟_17_) {
+        self._ID_繕:1.0__ASTNODE_霧_29_ = _ID_繕:1.0__ASTNODE_霧_29_
+        self._ID_霧:1.0__ASTNODE_霧_65_ = _ID_霧:1.0__ASTNODE_霧_65_
+        self._ID_霧:1.0__ASTNODE_霧_24_ = _ID_霧:1.0__ASTNODE_霧_24_
+        self._ID_霧:1.0__ASTNODE_霧_78_ = _ID_霧:1.0__ASTNODE_霧_78_
+    }
+
+// [metadata-stripped]
+
+    var _ID_匱:1.0__ASTNODE_霧_62_: _ID_墟:1.0__ASTNODE_墟_27_ {
+        switch _ID_霧:1.0__ASTNODE_霧_78_ {
+        case ._ID_霧:1.0__ASTNODE_霧_4_, ._ID_霧:1.0__ASTNODE_霧_23_: return true
+        case ._ID_霧:1.0__ASTNODE_霧_50_: return _ID_霧:1.0__ASTNODE_霧_24_._ID_霧:1.0__ASTNODE_霧_49_
+        _ID_霧:1.0__ASTNODE_霧_71_: return false
+        }
+    }
+
+    var _ID_霧:1.0__ASTNODE_霧_7_: _ID_墟:1.0__ASTNODE_墟_16_ {
+        switch _ID_霧:1.0__ASTNODE_霧_78_ {
+        case ._ID_霧:1.0__ASTNODE_霧_4_:                 return "新しいファイルを作成"
+        case ._ID_霧:1.0__ASTNODE_霧_5_:                 return "ファイルを上書き保存"
+// _ID_錬:0.7__ASTNODE_CC_693_ [decoy-metadata]
+        case ._ID_霧:1.0__ASTNODE_霧_30_(let s, let e):   return "行 \(s)〜\(e) を編集"
+        case ._ID_霧:1.0__ASTNODE_霧_23_:             return "ディレクトリを作成"
+        case ._ID_霧:1.0__ASTNODE_霧_50_:                return "パッチを適用"
+        }
+    }
+
+    var _ID_匱:1.0__ASTNODE_霧_64_: _ID_墟:1.0__ASTNODE_墟_16_ { _ID_繕:1.0__ASTNODE_霧_29_._ID_霧:1.0__ASTNODE_霧_59_ }
+
+// [metadata-stripped]
+    var _ID_霧:1.0__ASTNODE_霧_69_: _ID_墟:1.0__ASTNODE_墟_16_ {
+        let _ID_霧:1.0__ASTNODE_霧_2_ = _ID_繕:1.0__ASTNODE_霧_29_._ID_霧:1.0__ASTNODE_霧_17_
+        let _ID_霧:1.0__ASTNODE_霧_74_ = _ID_霧:1.0__ASTNODE_霧_34_(3, _ID_霧:1.0__ASTNODE_霧_2_._ID_霧:1.0__ASTNODE_霧_19_)
+        return _ID_霧:1.0__ASTNODE_霧_2_._ID_霧:1.0__ASTNODE_霧_68_(_ID_霧:1.0__ASTNODE_霧_74_)._ID_霧:1.0__ASTNODE_霧_22_(_ID_霧:1.0__ASTNODE_霧_27_: "/")
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _ID_霧:1.0__ASTNODE_霧_81_() {
+        _ID_霧:1.0__ASTNODE_霧_40_?._ID_霧:1.0__ASTNODE_霧_63_(_ID_霧:1.0__ASTNODE_霧_18_: true)
+        _ID_霧:1.0__ASTNODE_霧_40_ = nil
+    }
+
+// [metadata-stripped]
+    func _ID_霧:1.0__ASTNODE_霧_80_() {
+        _ID_霧:1.0__ASTNODE_霧_40_?._ID_霧:1.0__ASTNODE_霧_63_(_ID_霧:1.0__ASTNODE_霧_18_: false)
+// _ID_匱:0.5__ASTNODE_WZ_955_ [decoy-metadata]
+        _ID_霧:1.0__ASTNODE_霧_40_ = nil
+// _ID_錬:0.5__ASTNODE_DD_247_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    func _ID_濫:1.0__ASTNODE_霧_47_() async -> _ID_墟:1.0__ASTNODE_墟_27_ {
+        await _ID_霧:1.0__ASTNODE_霧_26_ { _ID_霧:1.0__ASTNODE_霧_44_ in
+            self._ID_霧:1.0__ASTNODE_霧_40_ = _ID_霧:1.0__ASTNODE_霧_44_
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

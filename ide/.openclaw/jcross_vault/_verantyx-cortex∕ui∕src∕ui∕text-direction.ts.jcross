@@ -1,0 +1,42 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:710C2F53 ver:1778165767
+// ⚠️ One-time schema — expires after response
+
+/**
+// __jcross_底:0.2____ast_HM_830__ [decoy-metadata]
+ * __jcross_殻:1.0____ast_殻_4__ (__jcross_殻:1.0____ast_殻_19__-to-__jcross_殻:1.0____ast_殻_14__) __jcross_霡:1.0____ast_霡_12__ __jcross_霡:1.0____ast_霡_26__ __jcross_霡:1.0____ast_霡_22__.
+ * __jcross_殻:1.0____ast_殻_1__ __jcross_殻:1.0____ast_殻_8__, __jcross_殻:1.0____ast_殻_10__, __jcross_殻:1.0____ast_殻_6__, __jcross_殻:1.0____ast_殻_3__, __jcross_殻:1.0____ast_殻_22__, __jcross_殻:1.0____ast_殻_7__, __jcross_殻:1.0____ast_殻_2__, __jcross_殻:1.0____ast_殻_12__,
+ * __jcross_殻:1.0____ast_殻_21__, __jcross_霡:1.0____ast_霡_24__ __jcross_殻:1.0____ast_殻_23__ __jcross_霡:1.0____ast_霡_29__ __jcross_霡:1.0____ast_霡_30__ __jcross_殻:1.0____ast_殻_16__ __jcross_殻:1.0____ast_殻_20__ __jcross_殻:1.0____ast_殻_5__.
+ */
+
+__jcross_霡:1.0____ast_霡_25__ __jcross_殻:1.0____ast_殻_18__ =
+  /\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_8__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_10__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_6__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_3__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_22__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_7__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_2__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_12__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_21__}|\p{__jcross_殻:1.0____ast_殻_20__=__jcross_殻:1.0____ast_殻_23__}/u;
+// __jcross_底:0.5____ast_DY_275__ [decoy-metadata]
+
+/**
+ * __jcross_殻:1.0____ast_殻_13__ __jcross_霡:1.0____ast_霡_12__ __jcross_霡:1.0____ast_霡_26__ __jcross_霡:1.0____ast_霡_19__ __jcross_霡:1.0____ast_霡_18__ __jcross_霡:1.0____ast_霡_2__ __jcross_滴:1.0____ast_霡_27__ __jcross_図:1.0____ast_霡_7__.
+ * @__jcross_霡:1.0____ast_霡_28__ __jcross_霡:1.0____ast_霡_12__ - __jcross_殻:1.0____ast_殻_11__ __jcross_霡:1.0____ast_霡_12__ to __jcross_霡:1.0____ast_霡_23__
+ * @__jcross_霡:1.0____ast_霡_28__ __jcross_霡:1.0____ast_霡_16__ - __jcross_殻:1.0____ast_殻_9__ to __jcross_霡:1.0____ast_霡_20__ __jcross_霡:1.0____ast_霡_4__ __jcross_霡:1.0____ast_霡_14__ for __jcross_霡:1.0____ast_霡_18__ __jcross_霡:1.0____ast_霡_2__ __jcross_滴:1.0____ast_霡_27__ __jcross_霡:1.0____ast_霡_21__.
+ *   __jcross_殻:1.0____ast_殻_17__ to __jcross_霡:1.0____ast_霡_8__ __jcross_霡:1.0____ast_霡_24__ __jcross_殻:1.0____ast_殻_16__ __jcross_霡:1.0____ast_霡_3__/__jcross_霡:1.0____ast_霡_9__.
+ */
+__jcross_霡:1.0____ast_霡_1__ __jcross_霡:1.0____ast_霡_15__ __jcross_霡:1.0____ast_霡_5__(
+  __jcross_霡:1.0____ast_霡_12__: __jcross_霡:1.0____ast_霡_13__ | __jcross_霡:1.0____ast_霡_6__,
+  __jcross_霡:1.0____ast_霡_16__: __jcross_殻:1.0____ast_殻_15__ = /[\s\p{P}\p{S}]/u,
+): "__jcross_霡:1.0____ast_霡_10__" | "__jcross_霡:1.0____ast_霡_17__" {
+  if (!__jcross_霡:1.0____ast_霡_12__) {
+    return "__jcross_霡:1.0____ast_霡_17__";
+  }
+  for (__jcross_霡:1.0____ast_霡_25__ __jcross_霡:1.0____ast_霡_21__ of __jcross_霡:1.0____ast_霡_12__) {
+    if (__jcross_霡:1.0____ast_霡_16__.__jcross_霡:1.0____ast_霡_11__(__jcross_霡:1.0____ast_霡_21__)) {
+// __jcross_底:0.6____ast_DC_147__ [decoy-metadata]
+      continue;
+    }
+// __jcross_図:0.4____ast_LC_711__ [decoy-metadata]
+    return __jcross_殻:1.0____ast_殻_18__.__jcross_霡:1.0____ast_霡_11__(__jcross_霡:1.0____ast_霡_21__) ? "__jcross_霡:1.0____ast_霡_10__" : "__jcross_霡:1.0____ast_霡_17__";
+  }
+// __jcross_匯:0.3____ast_EV_452__ [decoy-metadata]
+// __jcross_殻:0.6____ast_AK_711__ [decoy-metadata]
+  return "__jcross_霡:1.0____ast_霡_17__";
+}
+
+// POLYMORPHIC_JCROSS_END

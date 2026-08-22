@@ -1,0 +1,123 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:97EF0B4B ver:1778159737
+// ⚠️ One-time schema — expires after response
+
+// _ID_霩:0.4__ASTNODE_GF_803_ [decoy-metadata]
+// _ID_法:0.3__ASTNODE_KA_717_ [decoy-metadata]
+import re
+
+_ID_霩:1.0__ASTNODE_霩_3_ _ID_涌:1.0__ASTNODE_霩_35_(_ID_霩:1.0__ASTNODE_霩_19_: _ID_霩:1.0__ASTNODE_霩_37_) -> _ID_霩:1.0__ASTNODE_霩_12_:
+    """
+    論理式の構造が数学的に完結しているか（壊れていないか）を判定する。
+    """
+    if _ID_霩:1.0__ASTNODE_霩_40_ _ID_霩:1.0__ASTNODE_霩_19_:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+    
+    _ID_霩:1.0__ASTNODE_霩_19_ = _ID_霩:1.0__ASTNODE_霩_19_._ID_霩:1.0__ASTNODE_霩_17_(" ", "")
+    if _ID_霩:1.0__ASTNODE_霩_23_(_ID_霩:1.0__ASTNODE_霩_19_) < 2:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_19_._ID_霩:1.0__ASTNODE_霩_24_(("->", "→", "~", "&", "|", "⊕", "<", "=", ">")):
+        return _ID_廨:1.0__ASTNODE_廨_4_
+    if "->" in _ID_霩:1.0__ASTNODE_霩_19_:
+        _ID_霩:1.0__ASTNODE_霩_36_ = _ID_霩:1.0__ASTNODE_霩_19_._ID_霩:1.0__ASTNODE_霩_5_("->")
+        if any(_ID_霩:1.0__ASTNODE_霩_40_ p for p in _ID_霩:1.0__ASTNODE_霩_36_):
+            return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_2_ = 0
+    for ch in _ID_霩:1.0__ASTNODE_霩_19_:
+        if ch == "(":
+            _ID_霩:1.0__ASTNODE_霩_2_ += 1
+        _ID_涌:1.0__ASTNODE_霩_30_ ch == ")":
+            _ID_霩:1.0__ASTNODE_霩_2_ -= 1
+            if _ID_霩:1.0__ASTNODE_霩_2_ < 0:
+                return _ID_廨:1.0__ASTNODE_廨_4_
+    if _ID_霩:1.0__ASTNODE_霩_2_ != 0:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// _ID_霩:0.9__ASTNODE_FL_205_ [decoy-metadata]
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_40_ re._ID_霩:1.0__ASTNODE_霩_1_(r'^[A-Za-z0-9\(\)\-\>\<\[\]\&\|\~□◇⊕=+\*/\^%.!]+$', _ID_霩:1.0__ASTNODE_霩_19_):
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_40_ any(c._ID_霩:1.0__ASTNODE_霩_22_() for c in _ID_霩:1.0__ASTNODE_霩_19_):
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+    return _ID_廨:1.0__ASTNODE_廨_3_
+
+_ID_霩:1.0__ASTNODE_霩_3_ _ID_涌:1.0__ASTNODE_霩_9_(_ID_霩:1.0__ASTNODE_霩_29_, _ID_霩:1.0__ASTNODE_霩_21_):
+    """
+    抽出された式候補が、文全体の中心的な問い（全体式）であるかを判定する。
+    """
+    _ID_霩:1.0__ASTNODE_霩_27_ = _ID_霩:1.0__ASTNODE_霩_29_._ID_法:1.0__ASTNODE_嵐_1_("_ID_霩:1.0__ASTNODE_霩_27_")
+    if _ID_霩:1.0__ASTNODE_霩_40_ _ID_霩:1.0__ASTNODE_霩_27_:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_40_ _ID_涌:1.0__ASTNODE_霩_35_(_ID_霩:1.0__ASTNODE_霩_29_["_ID_霩:1.0__ASTNODE_霩_26_"]):
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_4_ = re._ID_霩:1.0__ASTNODE_霩_43_(r"\s+", "", _ID_霩:1.0__ASTNODE_霩_21_)
+    _ID_霩:1.0__ASTNODE_霩_25_ = re._ID_霩:1.0__ASTNODE_霩_43_(r"\s+", "", _ID_霩:1.0__ASTNODE_霩_29_["_ID_霩:1.0__ASTNODE_霩_31_"])
+    
+    _ID_霩:1.0__ASTNODE_霩_7_ = _ID_霩:1.0__ASTNODE_霩_23_(_ID_霩:1.0__ASTNODE_霩_25_) / _ID_霩:1.0__ASTNODE_霩_6_(_ID_霩:1.0__ASTNODE_霩_23_(_ID_霩:1.0__ASTNODE_霩_4_), 1)
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    _ID_潜:1.0__ASTNODE_霩_41_ = ["_ID_霩:1.0__ASTNODE_霩_15_", "_ID_霩:1.0__ASTNODE_霩_28_", "_ID_霩:1.0__ASTNODE_霩_39_", "_ID_霩:1.0__ASTNODE_霩_16_", "_ID_霩:1.0__ASTNODE_霩_13_", "推移", "反射", "対称", "妥当", "恒真"]
+    _ID_霩:1.0__ASTNODE_霩_38_ = any(m in _ID_霩:1.0__ASTNODE_霩_29_["_ID_霩:1.0__ASTNODE_霩_26_"] for m in ["[]", "□", "<>", "◇"])
+    _ID_潜:1.0__ASTNODE_霩_18_ = any(k in _ID_霩:1.0__ASTNODE_霩_21_._ID_法:1.0__ASTNODE_霩_8_() for k in _ID_潜:1.0__ASTNODE_霩_41_)
+    
+    if _ID_霩:1.0__ASTNODE_霩_38_ _ID_霩:1.0__ASTNODE_霩_42_ _ID_潜:1.0__ASTNODE_霩_18_:
+// [metadata-stripped]
+        if _ID_霩:1.0__ASTNODE_霩_7_ > 0.15:
+            return _ID_廨:1.0__ASTNODE_廨_3_
+
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_7_ < 0.6:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+// _ID_法:0.7__ASTNODE_HA_127_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if _ID_霩:1.0__ASTNODE_霩_29_["_ID_霩:1.0__ASTNODE_霩_27_"][0] > _ID_霩:1.0__ASTNODE_霩_23_(_ID_霩:1.0__ASTNODE_霩_21_) * 0.25:
+        return _ID_廨:1.0__ASTNODE_廨_4_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_10_ = ["[]", "□", "◇", "<>"]
+    for m in _ID_霩:1.0__ASTNODE_霩_10_:
+        if m in _ID_霩:1.0__ASTNODE_霩_21_ _ID_霩:1.0__ASTNODE_霩_42_ m _ID_霩:1.0__ASTNODE_霩_40_ in _ID_霩:1.0__ASTNODE_霩_29_["_ID_霩:1.0__ASTNODE_霩_26_"]:
+// [metadata-stripped]
+            return _ID_廨:1.0__ASTNODE_廨_4_
+
+    return _ID_廨:1.0__ASTNODE_廨_3_
+
+_ID_霩:1.0__ASTNODE_霩_3_ _ID_涌:1.0__ASTNODE_霩_32_(_ID_霩:1.0__ASTNODE_霩_33_, _ID_霩:1.0__ASTNODE_霩_21_):
+    """
+    候補群から全体式を選定する。
+    """
+    if _ID_霩:1.0__ASTNODE_霩_40_ _ID_霩:1.0__ASTNODE_霩_33_:
+        return _ID_廨:1.0__ASTNODE_廨_1_, "_ID_霩:1.0__ASTNODE_霩_20_"
+// _ID_潜:0.9__ASTNODE_ZF_369_ [decoy-metadata]
+
+// [metadata-stripped]
+    _ID_霩:1.0__ASTNODE_霩_34_ = [
+        c for c in _ID_霩:1.0__ASTNODE_霩_33_
+        if _ID_涌:1.0__ASTNODE_霩_9_(c, _ID_霩:1.0__ASTNODE_霩_21_)
+    ]
+
+    if _ID_霩:1.0__ASTNODE_霩_34_:
+// _ID_組:0.8__ASTNODE_ML_737_ [decoy-metadata]
+// [metadata-stripped]
+        return _ID_霩:1.0__ASTNODE_霩_34_[0], "_ID_霩:1.0__ASTNODE_霩_14_"
+
+// [metadata-stripped]
+// [metadata-stripped]
+    return _ID_霩:1.0__ASTNODE_霩_33_[0], "_ID_霩:1.0__ASTNODE_霩_11_"
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,67 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CC8EA77C ver:1778159567
+// __node_游:0.4___TOKEN_CA_830_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+__node_要:1.0___TOKEN_核_1_ -__node_霾:1.0___TOKEN_霾_8_ __node_霾:1.0___TOKEN_霾_23_
+
+__node_廂:1.0___TOKEN_廂_4_="__node_霾:1.0___TOKEN_霾_26_/db/__node_霾:1.0___TOKEN_霾_12_.__node_霾:1.0___TOKEN_霾_25_"
+__node_廂:1.0___TOKEN_廂_13_="__node_霾:1.0___TOKEN_霾_43_/__node_霾:1.0___TOKEN_霾_39_/__node_霾:1.0___TOKEN_霾_38_.__node_霾:1.0___TOKEN_霾_11_"
+
+// [metadata-stripped]
+__node_廂:1.0___TOKEN_廂_6_=2000
+__node_廂:1.0___TOKEN_廂_1_=20000000
+
+// [metadata-stripped]
+// __node_游:0.1___TOKEN_WM_978_ [decoy-metadata]
+if [ -f "$__node_廂:1.0___TOKEN_廂_4_" ]; __node_霾:1.0___TOKEN_霾_35_
+  __node_廂:1.0___TOKEN_廂_3_=$(wc -l < "$__node_廂:1.0___TOKEN_廂_4_" | tr -d ' ')
+else
+  __node_廂:1.0___TOKEN_廂_3_=0
+// __node_核:0.3___TOKEN_AM_488_ [decoy-metadata]
+fi
+
+// __node_游:0.2___TOKEN_FA_674_ [decoy-metadata]
+__node_霾:1.0___TOKEN_霾_34_=$((__node_廂:1.0___TOKEN_廂_3_ + 1))
+while [ $__node_霾:1.0___TOKEN_霾_34_ -le $__node_廂:1.0___TOKEN_廂_1_ ]; do
+  __node_霾:1.0___TOKEN_霾_7_=$((__node_霾:1.0___TOKEN_霾_34_ + __node_廂:1.0___TOKEN_廂_6_ - 1))
+  if [ $__node_霾:1.0___TOKEN_霾_7_ -gt $__node_廂:1.0___TOKEN_廂_1_ ]; __node_霾:1.0___TOKEN_霾_35_
+    __node_霾:1.0___TOKEN_霾_7_=$__node_廂:1.0___TOKEN_廂_1_
+  fi
+
+// [metadata-stripped]
+  __node_霾:1.0___TOKEN_霾_15_=$(__node_霾:1.0___TOKEN_霾_31_)
+  __node_霾:1.0___TOKEN_霾_13_ -e "s/{{N}}/$((__node_霾:1.0___TOKEN_霾_7_-__node_霾:1.0___TOKEN_霾_34_+1))/g" \
+      -e "s/{{__node_廂:1.0___TOKEN_廂_16_}}/$(__node_霾:1.0___TOKEN_霾_4_ "%06d" $__node_霾:1.0___TOKEN_霾_34_)/g" \
+      -e "s/{{__node_廂:1.0___TOKEN_廂_7_}}/$(__node_霾:1.0___TOKEN_霾_4_ "%06d" $__node_霾:1.0___TOKEN_霾_7_)/g" \
+      "$__node_廂:1.0___TOKEN_廂_13_" > "$__node_霾:1.0___TOKEN_霾_15_"
+
+  __node_霾:1.0___TOKEN_霾_37_ "__node_廂:1.0___TOKEN_廂_9_ $__node_霾:1.0___TOKEN_霾_34_-$__node_霾:1.0___TOKEN_霾_7_ ..."
+  
+// [metadata-stripped]
+// __node_要:0.7___TOKEN_LL_758_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+  __node_霾:1.0___TOKEN_霾_1_ --__node_霾:1.0___TOKEN_霾_2_ __node_霾:1.0___TOKEN_霾_1_-2.5-__node_霾:1.0___TOKEN_霾_33_ "@$__node_霾:1.0___TOKEN_霾_15_" >> "$__node_廂:1.0___TOKEN_廂_4_"
+// [metadata-stripped]
+  __node_霾:1.0___TOKEN_霾_32_ -n 1 "$__node_廂:1.0___TOKEN_廂_4_" | __node_霾:1.0___TOKEN_霾_36_ - <<'PY'
+import __node_霾:1.0___TOKEN_霾_17_,__node_霾:1.0___TOKEN_霾_41_
+__node_霾:1.0___TOKEN_霾_30_=__node_霾:1.0___TOKEN_霾_41_.__node_霾:1.0___TOKEN_霾_9_.__node_霾:1.0___TOKEN_霾_19_().__node_霾:1.0___TOKEN_霾_24_()
+if __node_霾:1.0___TOKEN_霾_14_ __node_霾:1.0___TOKEN_霾_30_:
+    __node_霾:1.0___TOKEN_霾_27_ __node_廂:1.0___TOKEN_廂_10_(0)
+try:
+    __node_霾:1.0___TOKEN_霾_17_.__node_匣:1.0___TOKEN_霾_29_(__node_霾:1.0___TOKEN_霾_30_)
+__node_霾:1.0___TOKEN_霾_10_ __node_廂:1.0___TOKEN_廂_11_:
+    __node_霾:1.0___TOKEN_霾_20_("__node_廂:1.0___TOKEN_廂_2_ __node_霾:1.0___TOKEN_霾_30_ is __node_霾:1.0___TOKEN_霾_14_ __node_霾:1.0___TOKEN_霾_18_ __node_廂:1.0___TOKEN_廂_5_. __node_廂:1.0___TOKEN_廂_14_.", __node_匣:1.0___TOKEN_霾_40_=__node_霾:1.0___TOKEN_霾_41_.__node_霾:1.0___TOKEN_霾_16_)
+    __node_霾:1.0___TOKEN_霾_27_ __node_廂:1.0___TOKEN_廂_10_(1)
+PY
+
+  rm -f "$__node_霾:1.0___TOKEN_霾_15_"
+// __node_核:0.1___TOKEN_ME_743_ [decoy-metadata]
+  __node_霾:1.0___TOKEN_霾_34_=$((__node_霾:1.0___TOKEN_霾_7_+1))
+__node_霾:1.0___TOKEN_霾_3_
+
+__node_霾:1.0___TOKEN_霾_37_ "__node_廂:1.0___TOKEN_廂_15_: $(wc -l < "$__node_廂:1.0___TOKEN_廂_4_") __node_霾:1.0___TOKEN_霾_6_ __node_霾:1.0___TOKEN_霾_21_ to $__node_廂:1.0___TOKEN_廂_4_"
+
+// POLYMORPHIC_JCROSS_END

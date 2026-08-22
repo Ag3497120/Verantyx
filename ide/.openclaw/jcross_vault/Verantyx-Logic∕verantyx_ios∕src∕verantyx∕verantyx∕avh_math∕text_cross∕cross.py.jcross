@@ -1,0 +1,51 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FA5CC0C8 ver:1778162901
+// ⚠️ One-time schema — expires after response
+// _VERANTYX_雄:0.2__SYM_ZH_467_ [decoy-metadata]
+
+_VERANTYX_霢:1.0__SYM_霢_12_ _VERANTYX_霢:1.0__SYM_霢_20_ import _VERANTYX_霢:1.0__SYM_霢_25_, _VERANTYX_霢:1.0__SYM_霢_11_, _VERANTYX_霢:1.0__SYM_霢_18_
+_VERANTYX_霢:1.0__SYM_霢_12_ _VERANTYX_霢:1.0__SYM_霢_17_ import _VERANTYX_廬:1.0__SYM_廬_1_, _VERANTYX_廬:1.0__SYM_廬_4_
+
+_VERANTYX_霢:1.0__SYM_霢_12_ ._VERANTYX_霢:1.0__SYM_霢_16_ import _VERANTYX_廬:1.0__SYM_廬_2_
+
+
+@_VERANTYX_霢:1.0__SYM_霢_25_
+// _VERANTYX_縺:0.9__SYM_BW_588_ [decoy-metadata]
+// _VERANTYX_雄:0.1__SYM_FB_460_ [decoy-metadata]
+class _VERANTYX_廬:1.0__SYM_廬_3_:
+    _VERANTYX_霢:1.0__SYM_霢_21_: _VERANTYX_霢:1.0__SYM_霢_22_
+    _VERANTYX_霢:1.0__SYM_霢_13_: _VERANTYX_霢:1.0__SYM_霢_22_
+    _VERANTYX_霢:1.0__SYM_霢_5_: _VERANTYX_廬:1.0__SYM_廬_1_[_VERANTYX_霢:1.0__SYM_霢_22_, _VERANTYX_廬:1.0__SYM_廬_2_] = _VERANTYX_霢:1.0__SYM_霢_11_(_VERANTYX_霢:1.0__SYM_霢_26_=_VERANTYX_霢:1.0__SYM_霢_23_)
+    _VERANTYX_霢:1.0__SYM_霢_24_: _VERANTYX_廬:1.0__SYM_廬_1_[_VERANTYX_霢:1.0__SYM_霢_22_, _VERANTYX_廬:1.0__SYM_廬_4_] = _VERANTYX_霢:1.0__SYM_霢_11_(_VERANTYX_霢:1.0__SYM_霢_26_=_VERANTYX_霢:1.0__SYM_霢_23_)
+
+    _VERANTYX_霢:1.0__SYM_霢_1_ _VERANTYX_霢:1.0__SYM_霢_9_(self, _VERANTYX_霢:1.0__SYM_霢_6_: _VERANTYX_霢:1.0__SYM_霢_22_, _VERANTYX_霢:1.0__SYM_霢_16_: _VERANTYX_廬:1.0__SYM_廬_2_) -> _VERANTYX_廬:1.0__SYM_廬_5_:
+        self._VERANTYX_霢:1.0__SYM_霢_5_[_VERANTYX_霢:1.0__SYM_霢_6_] = _VERANTYX_霢:1.0__SYM_霢_16_
+
+    _VERANTYX_霢:1.0__SYM_霢_1_ _VERANTYX_霢:1.0__SYM_霢_7_(self) -> _VERANTYX_廬:1.0__SYM_廬_1_[_VERANTYX_霢:1.0__SYM_霢_22_, _VERANTYX_廬:1.0__SYM_廬_4_]:
+        return {
+            "_VERANTYX_霢:1.0__SYM_霢_21_": self._VERANTYX_霢:1.0__SYM_霢_21_,
+            "_VERANTYX_霢:1.0__SYM_霢_13_": self._VERANTYX_霢:1.0__SYM_霢_13_,
+            "_VERANTYX_霢:1.0__SYM_霢_5_": {k: _VERANTYX_霢:1.0__SYM_霢_18_(v) for k, v in self._VERANTYX_霢:1.0__SYM_霢_5_._VERANTYX_霢:1.0__SYM_霢_15_()},
+            "_VERANTYX_霢:1.0__SYM_霢_24_": self._VERANTYX_霢:1.0__SYM_霢_24_,
+        }
+// _VERANTYX_霢:0.3__SYM_AZ_357_ [decoy-metadata]
+
+    @_VERANTYX_霢:1.0__SYM_霢_2_
+// _VERANTYX_縺:0.8__SYM_YF_773_ [decoy-metadata]
+    _VERANTYX_霢:1.0__SYM_霢_1_ _VERANTYX_霢:1.0__SYM_霢_3_(d: _VERANTYX_廬:1.0__SYM_廬_1_[_VERANTYX_霢:1.0__SYM_霢_22_, _VERANTYX_廬:1.0__SYM_廬_4_]) -> "_VERANTYX_廬:1.0__SYM_廬_3_":
+        _VERANTYX_霢:1.0__SYM_霢_19_ = _VERANTYX_廬:1.0__SYM_廬_3_(
+            _VERANTYX_霢:1.0__SYM_霢_21_=d._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_21_", ""),
+            _VERANTYX_霢:1.0__SYM_霢_13_=d._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_13_", ""),
+            _VERANTYX_霢:1.0__SYM_霢_24_=d._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_24_", {}) or {},
+        )
+        _VERANTYX_霢:1.0__SYM_霢_5_ = d._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_5_") or {}
+        for k, v in _VERANTYX_霢:1.0__SYM_霢_5_._VERANTYX_霢:1.0__SYM_霢_15_():
+            _VERANTYX_霢:1.0__SYM_霢_19_._VERANTYX_霢:1.0__SYM_霢_5_[k] = _VERANTYX_廬:1.0__SYM_廬_2_(
+                _VERANTYX_霢:1.0__SYM_霢_4_=v._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_4_", "_VERANTYX_沈:1.0__SYM_霢_10_"),
+                _VERANTYX_霢:1.0__SYM_霢_8_=v._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_8_", {}) or {},
+                _VERANTYX_霢:1.0__SYM_霢_14_=v._VERANTYX_処:1.0__SYM_雄_1_("_VERANTYX_霢:1.0__SYM_霢_14_") or [],
+            )
+// _VERANTYX_箱:0.1__SYM_ZY_679_ [decoy-metadata]
+        return _VERANTYX_霢:1.0__SYM_霢_19_
+
+// POLYMORPHIC_JCROSS_END

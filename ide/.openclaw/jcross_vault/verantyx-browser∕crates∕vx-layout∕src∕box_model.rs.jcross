@@ -1,0 +1,485 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9C506D6A ver:1778158841
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_露:1.0__JCROSS_露_46_ _OPAQUE_露:1.0__JCROSS_露_50_::_OPAQUE_露:1.0__JCROSS_露_162_;
+
+_OPAQUE_露:1.0__JCROSS_露_46_ _OPAQUE_露:1.0__JCROSS_露_15_::{_OPAQUE_廟:1.0__JCROSS_廟_21_, _OPAQUE_廟:1.0__JCROSS_廟_20_};
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ struct _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ x: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ y: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_150_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_93_: _OPAQUE_露:1.0__JCROSS_露_20_,
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_24_(x: _OPAQUE_露:1.0__JCROSS_露_20_, y: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_150_: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_93_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ { x, y, _OPAQUE_露:1.0__JCROSS_露_150_, _OPAQUE_露:1.0__JCROSS_露_93_ }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_32_() -> _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_85_() }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_66_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self.x + self._OPAQUE_露:1.0__JCROSS_露_150_ }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_9_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self.y + self._OPAQUE_露:1.0__JCROSS_露_93_ }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_27_(&self, px: _OPAQUE_露:1.0__JCROSS_露_20_, py: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_露:1.0__JCROSS_露_16_ {
+        px >= self.x && px <= self._OPAQUE_露:1.0__JCROSS_露_66_() && py >= self.y && py <= self._OPAQUE_露:1.0__JCROSS_露_9_()
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_43_(&self, _OPAQUE_業:1.0__JCROSS_露_76_: &_OPAQUE_廟:1.0__JCROSS_廟_22_) -> _OPAQUE_露:1.0__JCROSS_露_16_ {
+        self.x < _OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_66_() && self._OPAQUE_露:1.0__JCROSS_露_66_() > _OPAQUE_業:1.0__JCROSS_露_76_.x &&
+        self.y < _OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_9_() && self._OPAQUE_露:1.0__JCROSS_露_9_() > _OPAQUE_業:1.0__JCROSS_露_76_.y
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_125_(&self, _OPAQUE_業:1.0__JCROSS_露_76_: &_OPAQUE_廟:1.0__JCROSS_廟_22_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        let x = self.x._OPAQUE_露:1.0__JCROSS_露_58_(_OPAQUE_業:1.0__JCROSS_露_76_.x);
+        let y = self.y._OPAQUE_露:1.0__JCROSS_露_58_(_OPAQUE_業:1.0__JCROSS_露_76_.y);
+        let _OPAQUE_露:1.0__JCROSS_露_66_ = self._OPAQUE_露:1.0__JCROSS_露_66_()._OPAQUE_露:1.0__JCROSS_露_29_(_OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_66_());
+        let _OPAQUE_露:1.0__JCROSS_露_9_ = self._OPAQUE_露:1.0__JCROSS_露_9_()._OPAQUE_露:1.0__JCROSS_露_29_(_OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_9_());
+        _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_24_(x, y, _OPAQUE_露:1.0__JCROSS_露_66_ - x, _OPAQUE_露:1.0__JCROSS_露_9_ - y)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_153_(&self, _OPAQUE_業:1.0__JCROSS_露_76_: &_OPAQUE_廟:1.0__JCROSS_廟_22_) -> _OPAQUE_廟:1.0__JCROSS_廟_34_<_OPAQUE_廟:1.0__JCROSS_廟_22_> {
+        let x = self.x._OPAQUE_露:1.0__JCROSS_露_29_(_OPAQUE_業:1.0__JCROSS_露_76_.x);
+        let y = self.y._OPAQUE_露:1.0__JCROSS_露_29_(_OPAQUE_業:1.0__JCROSS_露_76_.y);
+        let _OPAQUE_露:1.0__JCROSS_露_66_ = self._OPAQUE_露:1.0__JCROSS_露_66_()._OPAQUE_露:1.0__JCROSS_露_58_(_OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_66_());
+        let _OPAQUE_露:1.0__JCROSS_露_9_ = self._OPAQUE_露:1.0__JCROSS_露_9_()._OPAQUE_露:1.0__JCROSS_露_58_(_OPAQUE_業:1.0__JCROSS_露_76_._OPAQUE_露:1.0__JCROSS_露_9_());
+        if _OPAQUE_露:1.0__JCROSS_露_66_ > x && _OPAQUE_露:1.0__JCROSS_露_9_ > y {
+            _OPAQUE_廟:1.0__JCROSS_廟_38_(_OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_24_(x, y, _OPAQUE_露:1.0__JCROSS_露_66_ - x, _OPAQUE_露:1.0__JCROSS_露_9_ - y))
+        } else {
+            _OPAQUE_廟:1.0__JCROSS_廟_29_
+        }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_152_(&self, dx: _OPAQUE_露:1.0__JCROSS_露_20_, dy: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_24_(self.x + dx, self.y + dy, self._OPAQUE_露:1.0__JCROSS_露_150_, self._OPAQUE_露:1.0__JCROSS_露_93_)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_104_(&self, sx: _OPAQUE_露:1.0__JCROSS_露_20_, sy: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_24_(self.x * sx, self.y * sy, self._OPAQUE_露:1.0__JCROSS_露_150_ * sx, self._OPAQUE_露:1.0__JCROSS_露_93_ * sy)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_39_(&self, _OPAQUE_露:1.0__JCROSS_露_91_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_24_(self.x - _OPAQUE_露:1.0__JCROSS_露_91_, self.y - _OPAQUE_露:1.0__JCROSS_露_91_, self._OPAQUE_露:1.0__JCROSS_露_150_ + 2.0 * _OPAQUE_露:1.0__JCROSS_露_91_, self._OPAQUE_露:1.0__JCROSS_露_93_ + 2.0 * _OPAQUE_露:1.0__JCROSS_露_91_)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_155_(&self, _OPAQUE_露:1.0__JCROSS_露_91_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        self._OPAQUE_露:1.0__JCROSS_露_39_(-_OPAQUE_露:1.0__JCROSS_露_91_)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_84_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self.x + self._OPAQUE_露:1.0__JCROSS_露_150_ / 2.0 }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_143_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self.y + self._OPAQUE_露:1.0__JCROSS_露_93_ / 2.0 }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_147_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self._OPAQUE_露:1.0__JCROSS_露_150_ * self._OPAQUE_露:1.0__JCROSS_露_93_ }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_112_(&self) -> _OPAQUE_露:1.0__JCROSS_露_16_ { self._OPAQUE_露:1.0__JCROSS_露_150_ <= 0.0 || self._OPAQUE_露:1.0__JCROSS_露_93_ <= 0.0 }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_120_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { if self._OPAQUE_露:1.0__JCROSS_露_93_ > 0.0 { self._OPAQUE_露:1.0__JCROSS_露_150_ / self._OPAQUE_露:1.0__JCROSS_露_93_ } else { 0.0 } }
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_露:1.0__JCROSS_露_162_::_OPAQUE_廟:1.0__JCROSS_廟_33_ for _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+    fn _OPAQUE_露:1.0__JCROSS_露_162_(&self, f: &_OPAQUE_露:1.0__JCROSS_露_109_ _OPAQUE_露:1.0__JCROSS_露_162_::_OPAQUE_業:1.0__JCROSS_廟_17_<'_>) -> _OPAQUE_露:1.0__JCROSS_露_162_::_OPAQUE_廟:1.0__JCROSS_廟_41_ {
+        _OPAQUE_露:1.0__JCROSS_露_65_!(f, "({:.1}, {:.1}, {:.1}×{:.1})", self.x, self.y, self._OPAQUE_露:1.0__JCROSS_露_150_, self._OPAQUE_露:1.0__JCROSS_露_93_)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ struct _OPAQUE_廟:1.0__JCROSS_廟_30_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_144_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_66_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_9_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_74_: _OPAQUE_露:1.0__JCROSS_露_20_,
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_廟:1.0__JCROSS_廟_30_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_24_(_OPAQUE_露:1.0__JCROSS_露_144_: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_66_: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_9_: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_74_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_露:1.0__JCROSS_露_144_, _OPAQUE_露:1.0__JCROSS_露_66_, _OPAQUE_露:1.0__JCROSS_露_9_, _OPAQUE_露:1.0__JCROSS_露_74_ }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_34_(_OPAQUE_露:1.0__JCROSS_露_102_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_露:1.0__JCROSS_露_144_: _OPAQUE_露:1.0__JCROSS_露_102_, _OPAQUE_露:1.0__JCROSS_露_66_: _OPAQUE_露:1.0__JCROSS_露_102_, _OPAQUE_露:1.0__JCROSS_露_9_: _OPAQUE_露:1.0__JCROSS_露_102_, _OPAQUE_露:1.0__JCROSS_露_74_: _OPAQUE_露:1.0__JCROSS_露_102_ }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_32_() -> _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_85_() }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_75_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self._OPAQUE_露:1.0__JCROSS_露_74_ + self._OPAQUE_露:1.0__JCROSS_露_66_ }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_67_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self._OPAQUE_露:1.0__JCROSS_露_144_ + self._OPAQUE_露:1.0__JCROSS_露_9_ }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_70_(&self) -> _OPAQUE_露:1.0__JCROSS_露_16_ {
+        self._OPAQUE_露:1.0__JCROSS_露_144_ == 0.0 && self._OPAQUE_露:1.0__JCROSS_露_66_ == 0.0 && self._OPAQUE_露:1.0__JCROSS_露_9_ == 0.0 && self._OPAQUE_露:1.0__JCROSS_露_74_ == 0.0
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_95_(&self, _OPAQUE_露:1.0__JCROSS_露_72_: _OPAQUE_露:1.0__JCROSS_露_16_) -> _OPAQUE_露:1.0__JCROSS_露_20_ {
+        if _OPAQUE_露:1.0__JCROSS_露_72_ { self._OPAQUE_露:1.0__JCROSS_露_66_ } else { self._OPAQUE_露:1.0__JCROSS_露_74_ }
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_89_(&self, _OPAQUE_露:1.0__JCROSS_露_72_: _OPAQUE_露:1.0__JCROSS_露_16_) -> _OPAQUE_露:1.0__JCROSS_露_20_ {
+        if _OPAQUE_露:1.0__JCROSS_露_72_ { self._OPAQUE_露:1.0__JCROSS_露_74_ } else { self._OPAQUE_露:1.0__JCROSS_露_66_ }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_69_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self._OPAQUE_露:1.0__JCROSS_露_144_ }
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_113_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ { self._OPAQUE_露:1.0__JCROSS_露_9_ }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ struct _OPAQUE_廟:1.0__JCROSS_廟_24_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_19_: (_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_),     // (x, y) _OPAQUE_露:1.0__JCROSS_露_47_
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_60_: (_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_),
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_54_: (_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_),
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_52_: (_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_),
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_廟:1.0__JCROSS_廟_24_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_湧:1.0__JCROSS_露_33_(r: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+            _OPAQUE_露:1.0__JCROSS_露_19_: (r, r),
+            _OPAQUE_露:1.0__JCROSS_露_60_: (r, r),
+            _OPAQUE_露:1.0__JCROSS_露_54_: (r, r),
+            _OPAQUE_露:1.0__JCROSS_露_52_: (r, r),
+        }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_70_(&self) -> _OPAQUE_露:1.0__JCROSS_露_16_ {
+        self._OPAQUE_露:1.0__JCROSS_露_19_ == (0.0, 0.0) && self._OPAQUE_露:1.0__JCROSS_露_60_ == (0.0, 0.0) &&
+        self._OPAQUE_露:1.0__JCROSS_露_54_ == (0.0, 0.0) && self._OPAQUE_露:1.0__JCROSS_露_52_ == (0.0, 0.0)
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_31_(&self, _OPAQUE_露:1.0__JCROSS_露_150_: _OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_93_: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        let _OPAQUE_露:1.0__JCROSS_露_104_ = {
+            let s1 = _OPAQUE_露:1.0__JCROSS_露_150_ / (self._OPAQUE_露:1.0__JCROSS_露_19_.0 + self._OPAQUE_露:1.0__JCROSS_露_60_.0);
+            let s2 = _OPAQUE_露:1.0__JCROSS_露_150_ / (self._OPAQUE_露:1.0__JCROSS_露_52_.0 + self._OPAQUE_露:1.0__JCROSS_露_54_.0);
+            let s3 = _OPAQUE_露:1.0__JCROSS_露_93_ / (self._OPAQUE_露:1.0__JCROSS_露_19_.1 + self._OPAQUE_露:1.0__JCROSS_露_52_.1);
+            let s4 = _OPAQUE_露:1.0__JCROSS_露_93_ / (self._OPAQUE_露:1.0__JCROSS_露_60_.1 + self._OPAQUE_露:1.0__JCROSS_露_54_.1);
+            let _OPAQUE_露:1.0__JCROSS_露_58_ = s1._OPAQUE_露:1.0__JCROSS_露_58_(s2)._OPAQUE_露:1.0__JCROSS_露_58_(s3)._OPAQUE_露:1.0__JCROSS_露_58_(s4);
+            if _OPAQUE_露:1.0__JCROSS_露_58_ < 1.0 { _OPAQUE_露:1.0__JCROSS_露_58_ } else { 1.0 }
+        };
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+            _OPAQUE_露:1.0__JCROSS_露_19_: (self._OPAQUE_露:1.0__JCROSS_露_19_.0 * _OPAQUE_露:1.0__JCROSS_露_104_, self._OPAQUE_露:1.0__JCROSS_露_19_.1 * _OPAQUE_露:1.0__JCROSS_露_104_),
+            _OPAQUE_露:1.0__JCROSS_露_60_: (self._OPAQUE_露:1.0__JCROSS_露_60_.0 * _OPAQUE_露:1.0__JCROSS_露_104_, self._OPAQUE_露:1.0__JCROSS_露_60_.1 * _OPAQUE_露:1.0__JCROSS_露_104_),
+            _OPAQUE_露:1.0__JCROSS_露_54_: (self._OPAQUE_露:1.0__JCROSS_露_54_.0 * _OPAQUE_露:1.0__JCROSS_露_104_, self._OPAQUE_露:1.0__JCROSS_露_54_.1 * _OPAQUE_露:1.0__JCROSS_露_104_),
+            _OPAQUE_露:1.0__JCROSS_露_52_: (self._OPAQUE_露:1.0__JCROSS_露_52_.0 * _OPAQUE_露:1.0__JCROSS_露_104_, self._OPAQUE_露:1.0__JCROSS_露_52_.1 * _OPAQUE_露:1.0__JCROSS_露_104_),
+        }
+    }
+// _OPAQUE_廟:0.1__JCROSS_GA_335_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ struct _OPAQUE_廟:1.0__JCROSS_廟_45_ {
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_167_: _OPAQUE_廟:1.0__JCROSS_廟_39_,
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_90_: _OPAQUE_廟:1.0__JCROSS_廟_30_,
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_業:1.0__JCROSS_露_159_: _OPAQUE_廟:1.0__JCROSS_廟_30_,
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_107_: _OPAQUE_廟:1.0__JCROSS_廟_30_,
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_41_: _OPAQUE_廟:1.0__JCROSS_廟_24_,
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_廟:1.0__JCROSS_廟_45_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_24_() -> _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_廟:1.0__JCROSS_廟_22_::_OPAQUE_露:1.0__JCROSS_露_85_() }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_141_(&self) -> _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(
+            self._OPAQUE_露:1.0__JCROSS_露_167_.x - self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_74_,
+            self._OPAQUE_露:1.0__JCROSS_露_167_.y - self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_144_,
+            self._OPAQUE_露:1.0__JCROSS_露_167_._OPAQUE_露:1.0__JCROSS_露_150_ + self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_75_(),
+            self._OPAQUE_露:1.0__JCROSS_露_167_._OPAQUE_露:1.0__JCROSS_露_93_ + self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_67_(),
+        )
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_119_(&self) -> _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+        let pb = self._OPAQUE_露:1.0__JCROSS_露_141_();
+        _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(
+            pb.x - self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_74_,
+            pb.y - self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_144_,
+            pb._OPAQUE_露:1.0__JCROSS_露_150_ + self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_75_(),
+            pb._OPAQUE_露:1.0__JCROSS_露_93_ + self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_67_(),
+        )
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_148_(&self) -> _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+        let bb = self._OPAQUE_露:1.0__JCROSS_露_119_();
+        _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(
+            bb.x - self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_74_,
+            bb.y - self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_144_,
+            bb._OPAQUE_露:1.0__JCROSS_露_150_ + self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_75_(),
+            bb._OPAQUE_露:1.0__JCROSS_露_93_ + self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_67_(),
+        )
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_18_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ {
+        self._OPAQUE_露:1.0__JCROSS_露_167_._OPAQUE_露:1.0__JCROSS_露_150_ + self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_75_() + self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_75_() + self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_75_()
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_136_(&self) -> _OPAQUE_露:1.0__JCROSS_露_20_ {
+        self._OPAQUE_露:1.0__JCROSS_露_167_._OPAQUE_露:1.0__JCROSS_露_93_ + self._OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_67_() + self._OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_67_() + self._OPAQUE_露:1.0__JCROSS_露_107_._OPAQUE_露:1.0__JCROSS_露_67_()
+    }
+
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_126_(&self, x: _OPAQUE_露:1.0__JCROSS_露_20_, y: _OPAQUE_露:1.0__JCROSS_露_20_) -> _OPAQUE_廟:1.0__JCROSS_廟_4_ {
+        let bb = self._OPAQUE_露:1.0__JCROSS_露_119_();
+        let pb = self._OPAQUE_露:1.0__JCROSS_露_141_();
+        let cb = self._OPAQUE_露:1.0__JCROSS_露_167_;
+
+        if !bb._OPAQUE_露:1.0__JCROSS_露_27_(x, y) {
+            return _OPAQUE_廟:1.0__JCROSS_廟_4_::_OPAQUE_廟:1.0__JCROSS_廟_12_;
+        }
+        if !pb._OPAQUE_露:1.0__JCROSS_露_27_(x, y) {
+            return _OPAQUE_廟:1.0__JCROSS_廟_4_::_OPAQUE_業:1.0__JCROSS_廟_25_;
+        }
+        if !cb._OPAQUE_露:1.0__JCROSS_露_27_(x, y) {
+            return _OPAQUE_廟:1.0__JCROSS_廟_4_::_OPAQUE_廟:1.0__JCROSS_廟_19_;
+        }
+        _OPAQUE_廟:1.0__JCROSS_廟_4_::_OPAQUE_廟:1.0__JCROSS_廟_11_
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ enum _OPAQUE_廟:1.0__JCROSS_廟_4_ {
+    _OPAQUE_廟:1.0__JCROSS_廟_12_,
+    _OPAQUE_業:1.0__JCROSS_廟_25_,
+    _OPAQUE_廟:1.0__JCROSS_廟_19_,
+    _OPAQUE_廟:1.0__JCROSS_廟_11_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ struct _OPAQUE_廟:1.0__JCROSS_廟_16_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_12_: _OPAQUE_廟:1.0__JCROSS_廟_45_,
+// [metadata-stripped]
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_78_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_7_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_業:1.0__JCROSS_露_61_: _OPAQUE_露:1.0__JCROSS_露_156_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_124_: _OPAQUE_露:1.0__JCROSS_露_38_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_134_: _OPAQUE_露:1.0__JCROSS_露_16_,
+    _OPAQUE_露:1.0__JCROSS_露_94_ _OPAQUE_露:1.0__JCROSS_露_13_: _OPAQUE_露:1.0__JCROSS_露_16_,
+}
+
+_OPAQUE_露:1.0__JCROSS_露_165_ _OPAQUE_廟:1.0__JCROSS_廟_16_ {
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_24_(_OPAQUE_露:1.0__JCROSS_露_12_: _OPAQUE_廟:1.0__JCROSS_廟_45_) -> _OPAQUE_廟:1.0__JCROSS_廟_22_ {
+        _OPAQUE_廟:1.0__JCROSS_廟_22_ { _OPAQUE_露:1.0__JCROSS_露_12_, _OPAQUE_露:1.0__JCROSS_露_78_: 0.0, _OPAQUE_露:1.0__JCROSS_露_7_: 0.0, _OPAQUE_業:1.0__JCROSS_露_61_: 0, _OPAQUE_露:1.0__JCROSS_露_124_: 0, _OPAQUE_露:1.0__JCROSS_露_134_: true, _OPAQUE_露:1.0__JCROSS_露_13_: true }
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_40_(&self) -> _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+        let bb = self._OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_119_();
+        _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(bb.x + self._OPAQUE_露:1.0__JCROSS_露_78_, bb.y + self._OPAQUE_露:1.0__JCROSS_露_7_, bb._OPAQUE_露:1.0__JCROSS_露_150_, bb._OPAQUE_露:1.0__JCROSS_露_93_)
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_100_(&self) -> _OPAQUE_廟:1.0__JCROSS_廟_39_ {
+        let cb = self._OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_167_;
+        _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(cb.x + self._OPAQUE_露:1.0__JCROSS_露_78_, cb.y + self._OPAQUE_露:1.0__JCROSS_露_7_, cb._OPAQUE_露:1.0__JCROSS_露_150_, cb._OPAQUE_露:1.0__JCROSS_露_93_)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ enum _OPAQUE_廟:1.0__JCROSS_廟_36_ {
+    _OPAQUE_廟:1.0__JCROSS_廟_5_,
+    _OPAQUE_廟:1.0__JCROSS_廟_37_,
+}
+
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_53_(
+    _OPAQUE_湧:1.0__JCROSS_露_83_: _OPAQUE_廟:1.0__JCROSS_廟_34_<_OPAQUE_露:1.0__JCROSS_露_20_>,
+    _OPAQUE_露:1.0__JCROSS_露_90_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_業:1.0__JCROSS_露_159_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_露:1.0__JCROSS_露_25_: _OPAQUE_廟:1.0__JCROSS_廟_36_,
+) -> _OPAQUE_廟:1.0__JCROSS_廟_34_<_OPAQUE_露:1.0__JCROSS_露_20_> {
+    _OPAQUE_露:1.0__JCROSS_露_108_ (_OPAQUE_湧:1.0__JCROSS_露_83_, _OPAQUE_露:1.0__JCROSS_露_25_) {
+        (_OPAQUE_廟:1.0__JCROSS_廟_29_, _) => _OPAQUE_廟:1.0__JCROSS_廟_29_,
+        (_OPAQUE_廟:1.0__JCROSS_廟_38_(w), _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_5_) => _OPAQUE_廟:1.0__JCROSS_廟_38_(w._OPAQUE_露:1.0__JCROSS_露_29_(0.0)),
+        (_OPAQUE_廟:1.0__JCROSS_廟_38_(w), _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_37_) => {
+            let _OPAQUE_露:1.0__JCROSS_露_130_ = _OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_75_() + _OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_75_();
+            _OPAQUE_廟:1.0__JCROSS_廟_38_((w - _OPAQUE_露:1.0__JCROSS_露_130_)._OPAQUE_露:1.0__JCROSS_露_29_(0.0))
+        }
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_142_(
+// _OPAQUE_廟:0.1__JCROSS_KY_323_ [decoy-metadata]
+    _OPAQUE_湧:1.0__JCROSS_露_139_: _OPAQUE_廟:1.0__JCROSS_廟_34_<_OPAQUE_露:1.0__JCROSS_露_20_>,
+// _OPAQUE_湧:0.4__JCROSS_GL_643_ [decoy-metadata]
+    _OPAQUE_露:1.0__JCROSS_露_90_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_業:1.0__JCROSS_露_159_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_露:1.0__JCROSS_露_25_: _OPAQUE_廟:1.0__JCROSS_廟_36_,
+) -> _OPAQUE_廟:1.0__JCROSS_廟_34_<_OPAQUE_露:1.0__JCROSS_露_20_> {
+    _OPAQUE_露:1.0__JCROSS_露_108_ (_OPAQUE_湧:1.0__JCROSS_露_139_, _OPAQUE_露:1.0__JCROSS_露_25_) {
+        (_OPAQUE_廟:1.0__JCROSS_廟_29_, _) => _OPAQUE_廟:1.0__JCROSS_廟_29_,
+        (_OPAQUE_廟:1.0__JCROSS_廟_38_(h), _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_5_) => _OPAQUE_廟:1.0__JCROSS_廟_38_(h._OPAQUE_露:1.0__JCROSS_露_29_(0.0)),
+        (_OPAQUE_廟:1.0__JCROSS_廟_38_(h), _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_37_) => {
+            let _OPAQUE_露:1.0__JCROSS_露_130_ = _OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_67_() + _OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_67_();
+            _OPAQUE_廟:1.0__JCROSS_廟_38_((h - _OPAQUE_露:1.0__JCROSS_露_130_)._OPAQUE_露:1.0__JCROSS_露_29_(0.0))
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_115_(_OPAQUE_露:1.0__JCROSS_露_133_: &[_OPAQUE_露:1.0__JCROSS_露_20_]) -> _OPAQUE_露:1.0__JCROSS_露_20_ {
+    let _OPAQUE_露:1.0__JCROSS_露_158_ = _OPAQUE_露:1.0__JCROSS_露_133_._OPAQUE_業:1.0__JCROSS_露_79_()._OPAQUE_露:1.0__JCROSS_露_106_()._OPAQUE_業:1.0__JCROSS_露_80_(|&m| m >= 0.0)._OPAQUE_露:1.0__JCROSS_露_73_(0.0_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_::_OPAQUE_露:1.0__JCROSS_露_29_);
+    let _OPAQUE_露:1.0__JCROSS_露_82_ = _OPAQUE_露:1.0__JCROSS_露_133_._OPAQUE_業:1.0__JCROSS_露_79_()._OPAQUE_露:1.0__JCROSS_露_106_()._OPAQUE_業:1.0__JCROSS_露_80_(|&m| m < 0.0)._OPAQUE_露:1.0__JCROSS_露_73_(0.0_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_::_OPAQUE_露:1.0__JCROSS_露_58_);
+
+    if _OPAQUE_露:1.0__JCROSS_露_158_ > 0.0 && _OPAQUE_露:1.0__JCROSS_露_82_ < 0.0 {
+        _OPAQUE_露:1.0__JCROSS_露_158_ + _OPAQUE_露:1.0__JCROSS_露_82_ // _OPAQUE_廟:1.0__JCROSS_廟_40_ _OPAQUE_露:1.0__JCROSS_露_118_: _OPAQUE_露:1.0__JCROSS_露_59_ of _OPAQUE_露:1.0__JCROSS_露_29_ _OPAQUE_露:1.0__JCROSS_露_86_ _OPAQUE_露:1.0__JCROSS_露_135_ _OPAQUE_露:1.0__JCROSS_露_58_ _OPAQUE_露:1.0__JCROSS_露_127_
+    } else if _OPAQUE_露:1.0__JCROSS_露_158_ > 0.0 {
+        _OPAQUE_露:1.0__JCROSS_露_158_
+    } else {
+        _OPAQUE_露:1.0__JCROSS_露_82_
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_94_ fn _OPAQUE_露:1.0__JCROSS_露_140_(
+    _OPAQUE_露:1.0__JCROSS_露_123_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_103_: _OPAQUE_露:1.0__JCROSS_露_20_,
+    _OPAQUE_露:1.0__JCROSS_露_90_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_業:1.0__JCROSS_露_159_: &_OPAQUE_廟:1.0__JCROSS_廟_30_,
+    _OPAQUE_露:1.0__JCROSS_露_56_: _OPAQUE_露:1.0__JCROSS_露_16_,
+    _OPAQUE_露:1.0__JCROSS_露_51_: _OPAQUE_露:1.0__JCROSS_露_16_,
+) -> (_OPAQUE_露:1.0__JCROSS_露_20_, _OPAQUE_露:1.0__JCROSS_露_20_) {
+    let _OPAQUE_露:1.0__JCROSS_露_30_ = _OPAQUE_露:1.0__JCROSS_露_103_ + _OPAQUE_露:1.0__JCROSS_露_90_._OPAQUE_露:1.0__JCROSS_露_75_() + _OPAQUE_業:1.0__JCROSS_露_159_._OPAQUE_露:1.0__JCROSS_露_75_();
+    let _OPAQUE_業:1.0__JCROSS_露_5_ = _OPAQUE_露:1.0__JCROSS_露_123_ - _OPAQUE_露:1.0__JCROSS_露_30_;
+
+    if _OPAQUE_業:1.0__JCROSS_露_5_ <= 0.0 {
+        return (0.0, 0.0);
+    }
+
+    _OPAQUE_露:1.0__JCROSS_露_108_ (_OPAQUE_露:1.0__JCROSS_露_56_, _OPAQUE_露:1.0__JCROSS_露_51_) {
+        (true, true) => (_OPAQUE_業:1.0__JCROSS_露_5_ / 2.0, _OPAQUE_業:1.0__JCROSS_露_5_ / 2.0),
+        (true, false) => (_OPAQUE_業:1.0__JCROSS_露_5_, 0.0),
+        (false, true) => (0.0, _OPAQUE_業:1.0__JCROSS_露_5_),
+        (false, false) => (0.0, 0.0),
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_露:1.0__JCROSS_露_145_ _OPAQUE_露:1.0__JCROSS_露_116_ {
+    _OPAQUE_露:1.0__JCROSS_露_46_ super::*;
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_77_() {
+        let r = _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(10.0, 20.0, 100.0, 50.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(r._OPAQUE_露:1.0__JCROSS_露_66_(), 110.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(r._OPAQUE_露:1.0__JCROSS_露_9_(), 70.0);
+        _OPAQUE_露:1.0__JCROSS_露_97_!(r._OPAQUE_露:1.0__JCROSS_露_27_(50.0, 40.0));
+        _OPAQUE_露:1.0__JCROSS_露_97_!(!r._OPAQUE_露:1.0__JCROSS_露_27_(5.0, 40.0));
+    }
+
+// [metadata-stripped]
+// _OPAQUE_露:0.3__JCROSS_LB_899_ [decoy-metadata]
+    fn _OPAQUE_露:1.0__JCROSS_露_62_() {
+// _OPAQUE_縞:0.6__JCROSS_GW_311_ [decoy-metadata]
+        let e = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_24_(10.0, 20.0, 30.0, 40.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(e._OPAQUE_露:1.0__JCROSS_露_75_(), 60.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(e._OPAQUE_露:1.0__JCROSS_露_67_(), 40.0);
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_44_() {
+        let _OPAQUE_露:1.0__JCROSS_露_109_ _OPAQUE_露:1.0__JCROSS_露_12_ = _OPAQUE_廟:1.0__JCROSS_廟_45_::_OPAQUE_露:1.0__JCROSS_露_24_();
+        _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_167_ = _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(10.0, 10.0, 80.0, 60.0);
+        _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_90_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(5.0);
+        let pb = _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_141_();
+        _OPAQUE_露:1.0__JCROSS_露_42_!(pb.x, 5.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(pb.y, 5.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(pb._OPAQUE_露:1.0__JCROSS_露_150_, 90.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(pb._OPAQUE_露:1.0__JCROSS_露_93_, 70.0);
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_36_() {
+        let _OPAQUE_露:1.0__JCROSS_露_109_ _OPAQUE_露:1.0__JCROSS_露_12_ = _OPAQUE_廟:1.0__JCROSS_廟_45_::_OPAQUE_露:1.0__JCROSS_露_24_();
+        _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_167_ = _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(13.0, 13.0, 74.0, 54.0);
+        _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_90_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(5.0);
+        _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_業:1.0__JCROSS_露_159_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(3.0);
+        let bb = _OPAQUE_露:1.0__JCROSS_露_12_._OPAQUE_露:1.0__JCROSS_露_119_();
+// [metadata-stripped]
+// [metadata-stripped]
+        _OPAQUE_露:1.0__JCROSS_露_42_!(bb._OPAQUE_露:1.0__JCROSS_露_150_, 90.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(bb._OPAQUE_露:1.0__JCROSS_露_93_, 70.0);
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_110_() {
+// [metadata-stripped]
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_115_(&[10.0, 20.0, 15.0]), 20.0);
+// [metadata-stripped]
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_115_(&[-5.0, -15.0, -10.0]), -15.0);
+// [metadata-stripped]
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_115_(&[20.0, -5.0]), 15.0);
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_64_() {
+        let _OPAQUE_露:1.0__JCROSS_露_90_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(10.0);
+        let _OPAQUE_業:1.0__JCROSS_露_159_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(2.0);
+        let _OPAQUE_露:1.0__JCROSS_露_28_ = _OPAQUE_露:1.0__JCROSS_露_53_(_OPAQUE_廟:1.0__JCROSS_廟_38_(100.0), &_OPAQUE_露:1.0__JCROSS_露_90_, &_OPAQUE_業:1.0__JCROSS_露_159_, _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_5_);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_28_, _OPAQUE_廟:1.0__JCROSS_廟_38_(100.0));
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_166_() {
+        let _OPAQUE_露:1.0__JCROSS_露_90_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(10.0);
+        let _OPAQUE_業:1.0__JCROSS_露_159_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(2.0);
+        let _OPAQUE_露:1.0__JCROSS_露_28_ = _OPAQUE_露:1.0__JCROSS_露_53_(_OPAQUE_廟:1.0__JCROSS_廟_38_(100.0), &_OPAQUE_露:1.0__JCROSS_露_90_, &_OPAQUE_業:1.0__JCROSS_露_159_, _OPAQUE_廟:1.0__JCROSS_廟_36_::_OPAQUE_廟:1.0__JCROSS_廟_37_);
+// [metadata-stripped]
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_28_, _OPAQUE_廟:1.0__JCROSS_廟_38_(76.0));
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_87_() {
+        let _OPAQUE_露:1.0__JCROSS_露_90_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(0.0);
+        let _OPAQUE_業:1.0__JCROSS_露_159_ = _OPAQUE_廟:1.0__JCROSS_廟_30_::_OPAQUE_露:1.0__JCROSS_露_34_(0.0);
+        let (_OPAQUE_露:1.0__JCROSS_露_74_, _OPAQUE_露:1.0__JCROSS_露_66_) = _OPAQUE_露:1.0__JCROSS_露_140_(300.0, 100.0, &_OPAQUE_露:1.0__JCROSS_露_90_, &_OPAQUE_業:1.0__JCROSS_露_159_, true, true);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_74_, 100.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_66_, 100.0);
+    }
+// _OPAQUE_業:0.3__JCROSS_FA_384_ [decoy-metadata]
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_35_() {
+        let _OPAQUE_露:1.0__JCROSS_露_47_ = _OPAQUE_廟:1.0__JCROSS_廟_24_ {
+            _OPAQUE_露:1.0__JCROSS_露_19_: (100.0, 100.0),
+            _OPAQUE_露:1.0__JCROSS_露_60_: (100.0, 100.0),
+            _OPAQUE_露:1.0__JCROSS_露_54_: (100.0, 100.0),
+            _OPAQUE_露:1.0__JCROSS_露_52_: (100.0, 100.0),
+        };
+// [metadata-stripped]
+        let _OPAQUE_露:1.0__JCROSS_露_151_ = _OPAQUE_露:1.0__JCROSS_露_47_._OPAQUE_露:1.0__JCROSS_露_31_(100.0, 100.0);
+        _OPAQUE_露:1.0__JCROSS_露_97_!(_OPAQUE_露:1.0__JCROSS_露_151_._OPAQUE_露:1.0__JCROSS_露_19_.0 <= 50.0);
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_露:1.0__JCROSS_露_57_() {
+        let a = _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(0.0, 0.0, 100.0, 100.0);
+        let b = _OPAQUE_廟:1.0__JCROSS_廟_39_::_OPAQUE_露:1.0__JCROSS_露_24_(50.0, 50.0, 100.0, 100.0);
+        let _OPAQUE_露:1.0__JCROSS_露_153_ = a._OPAQUE_露:1.0__JCROSS_露_153_(&b)._OPAQUE_露:1.0__JCROSS_露_129_();
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_153_.x, 50.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_153_.y, 50.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_153_._OPAQUE_露:1.0__JCROSS_露_150_, 50.0);
+        _OPAQUE_露:1.0__JCROSS_露_42_!(_OPAQUE_露:1.0__JCROSS_露_153_._OPAQUE_露:1.0__JCROSS_露_93_, 50.0);
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

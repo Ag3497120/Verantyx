@@ -1,0 +1,116 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:713DE741 ver:1778165821
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_霧:1.0___node_霧_63__, _TOKEN_霧:1.0___node_霧_20__, _TOKEN_霧:1.0___node_霧_56__, it, vi } _TOKEN_霧:1.0___node_霧_8__ "_TOKEN_霧:1.0___node_霧_72__";
+import { _TOKEN_霧:1.0___node_霧_38__, _TOKEN_霧:1.0___node_霧_64__, _TOKEN_霧:1.0___node_霧_60__ _TOKEN_廟:1.0___node_廟_2__ } _TOKEN_霧:1.0___node_霧_8__ "./_TOKEN_霧:1.0___node_霧_31__.ts";
+
+_TOKEN_霧:1.0___node_霧_60__ _TOKEN_紗:1.0___node_廟_4__ = (_TOKEN_霧:1.0___node_霧_41__: _TOKEN_霧:1.0___node_霧_67__, _TOKEN_霧:1.0___node_霧_5__?: _TOKEN_霧:1.0___node_霧_68__) => _TOKEN_廟:1.0___node_廟_3__<_TOKEN_霧:1.0___node_霧_68__>;
+
+_TOKEN_霧:1.0___node_霧_27__ _TOKEN_霧:1.0___node_霧_44__(_TOKEN_紗:1.0___node_霧_15__: _TOKEN_紗:1.0___node_廟_4__, _TOKEN_霧:1.0___node_霧_35__: _TOKEN_廟:1.0___node_廟_1__<_TOKEN_廟:1.0___node_廟_2__> = {}): _TOKEN_廟:1.0___node_廟_2__ {
+  return {
+    _TOKEN_霧:1.0___node_霧_50__: { _TOKEN_紗:1.0___node_霧_15__ } as _TOKEN_霧:1.0___node_霧_68__ as _TOKEN_廟:1.0___node_廟_2__["_TOKEN_霧:1.0___node_霧_50__"],
+    _TOKEN_霧:1.0___node_霧_57__: true,
+// _TOKEN_深:0.8___node_YK_764__ [decoy-metadata]
+    _TOKEN_匽:1.0___node_霧_2__: false,
+    _TOKEN_霧:1.0___node_霧_69__: _TOKEN_霧:1.0___node_霧_7__,
+    _TOKEN_霧:1.0___node_霧_61__: _TOKEN_霧:1.0___node_霧_7__,
+    _TOKEN_霧:1.0___node_霧_40__: "0",
+    _TOKEN_霧:1.0___node_霧_37__: "0",
+    _TOKEN_霧:1.0___node_霧_59__: true,
+    _TOKEN_霧:1.0___node_霧_62__: true,
+    ..._TOKEN_霧:1.0___node_霧_35__,
+  };
+}
+
+_TOKEN_霧:1.0___node_霧_63__(() => {
+  vi._TOKEN_霧:1.0___node_霧_55__();
+});
+
+_TOKEN_霧:1.0___node_霧_20__("_TOKEN_霧:1.0___node_霧_64__", () => {
+  it("_TOKEN_霧:1.0___node_霧_49__ _TOKEN_霧:1.0___node_霧_31__ _TOKEN_謀:1.0___node_霧_34__ a _TOKEN_霧:1.0___node_霧_58__ _TOKEN_霧:1.0___node_霧_73__", async () => {
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_紗:1.0___node_霧_15__ = vi.fn(async (_TOKEN_霧:1.0___node_霧_41__: _TOKEN_霧:1.0___node_霧_67__) => {
+      if (_TOKEN_霧:1.0___node_霧_41__ === "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_73__") {
+        return { ok: true };
+      }
+      if (_TOKEN_霧:1.0___node_霧_41__ === "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_9__") {
+        return _TOKEN_霧:1.0___node_霧_3__;
+      }
+      _TOKEN_霧:1.0___node_霧_71__ _TOKEN_霧:1.0___node_霧_11__ _TOKEN_廟:1.0___node_廟_5__(`_TOKEN_霧:1.0___node_霧_46__ _TOKEN_霧:1.0___node_霧_41__: ${_TOKEN_霧:1.0___node_霧_41__}`);
+    });
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_22__ = _TOKEN_霧:1.0___node_霧_44__(_TOKEN_紗:1.0___node_霧_15__);
+    vi._TOKEN_霧:1.0___node_霧_12__(_TOKEN_霧:1.0___node_霧_19__, "_TOKEN_霧:1.0___node_霧_74__")._TOKEN_霧:1.0___node_霧_16__(true);
+
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_1__ = await _TOKEN_霧:1.0___node_霧_64__(_TOKEN_霧:1.0___node_霧_22__, "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__");
+
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_1__)._TOKEN_霧:1.0___node_霧_45__(true);
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_43__(2);
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_47__(1, "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_73__", {
+      _TOKEN_深:1.0___node_霧_18__: "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__",
+      _TOKEN_霧:1.0___node_霧_39__: true,
+    });
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_47__(2, "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_9__", {
+      _TOKEN_霧:1.0___node_霧_65__: true,
+      _TOKEN_霧:1.0___node_霧_10__: true,
+    });
+// _TOKEN_泳:0.9___node_BK_288__ [decoy-metadata]
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_霧:1.0___node_霧_61__)._TOKEN_霧:1.0___node_霧_48__();
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_匽:1.0___node_霧_2__)._TOKEN_霧:1.0___node_霧_45__(false);
+  });
+
+  it("_TOKEN_霧:1.0___node_霧_24__ _TOKEN_霧:1.0___node_霧_29__ _TOKEN_霧:1.0___node_霧_23__ _TOKEN_霧:1.0___node_霧_31__ _TOKEN_霧:1.0___node_霧_6__ _TOKEN_謀:1.0___node_霧_25__ _TOKEN_霧:1.0___node_霧_4__ _TOKEN_霧:1.0___node_霧_73__", async () => {
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_紗:1.0___node_霧_15__ = vi.fn(async () => _TOKEN_霧:1.0___node_霧_3__);
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_22__ = _TOKEN_霧:1.0___node_霧_44__(_TOKEN_紗:1.0___node_霧_15__, { _TOKEN_霧:1.0___node_霧_61__: "_TOKEN_霧:1.0___node_霧_36__ _TOKEN_霧:1.0___node_霧_13__" });
+    vi._TOKEN_霧:1.0___node_霧_12__(_TOKEN_霧:1.0___node_霧_19__, "_TOKEN_霧:1.0___node_霧_74__")._TOKEN_霧:1.0___node_霧_16__(false);
+
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_1__ = await _TOKEN_霧:1.0___node_霧_64__(_TOKEN_霧:1.0___node_霧_22__, "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__");
+
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_1__)._TOKEN_霧:1.0___node_霧_45__(false);
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_29__._TOKEN_霧:1.0___node_霧_70__();
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_霧:1.0___node_霧_61__)._TOKEN_霧:1.0___node_霧_45__("_TOKEN_霧:1.0___node_霧_36__ _TOKEN_霧:1.0___node_霧_13__");
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_匽:1.0___node_霧_2__)._TOKEN_霧:1.0___node_霧_45__(false);
+  });
+
+  it("_TOKEN_霧:1.0___node_霧_24__ _TOKEN_霧:1.0___node_霧_29__ _TOKEN_霧:1.0___node_霧_23__ _TOKEN_霧:1.0___node_霧_31__ _TOKEN_霧:1.0___node_霧_6__ _TOKEN_霧:1.0___node_霧_73__ _TOKEN_霧:1.0___node_霧_53__ _TOKEN_霧:1.0___node_霧_51__ _TOKEN_霧:1.0___node_霧_33__ _TOKEN_霧:1.0___node_霧_54__ _TOKEN_霧:1.0___node_霧_73__ _TOKEN_霧:1.0___node_霧_13__", async () => {
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_紗:1.0___node_霧_15__ = vi.fn(async (_TOKEN_霧:1.0___node_霧_41__: _TOKEN_霧:1.0___node_霧_67__) => {
+      if (_TOKEN_霧:1.0___node_霧_41__ === "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_73__") {
+        _TOKEN_霧:1.0___node_霧_71__ _TOKEN_霧:1.0___node_霧_11__ _TOKEN_廟:1.0___node_廟_5__("_TOKEN_霧:1.0___node_霧_73__ _TOKEN_霧:1.0___node_霧_26__");
+      }
+      if (_TOKEN_霧:1.0___node_霧_41__ === "_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_9__") {
+        return _TOKEN_霧:1.0___node_霧_3__;
+      }
+// _TOKEN_泳:0.8___node_DC_583__ [decoy-metadata]
+      _TOKEN_霧:1.0___node_霧_71__ _TOKEN_霧:1.0___node_霧_11__ _TOKEN_廟:1.0___node_廟_5__(`_TOKEN_霧:1.0___node_霧_46__ _TOKEN_霧:1.0___node_霧_41__: ${_TOKEN_霧:1.0___node_霧_41__}`);
+    });
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_22__ = _TOKEN_霧:1.0___node_霧_44__(_TOKEN_紗:1.0___node_霧_15__);
+    vi._TOKEN_霧:1.0___node_霧_12__(_TOKEN_霧:1.0___node_霧_19__, "_TOKEN_霧:1.0___node_霧_74__")._TOKEN_霧:1.0___node_霧_16__(true);
+
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_1__ = await _TOKEN_霧:1.0___node_霧_64__(_TOKEN_霧:1.0___node_霧_22__, "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__");
+
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_1__)._TOKEN_霧:1.0___node_霧_45__(false);
+// _TOKEN_紗:0.4___node_YD_546__ [decoy-metadata]
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_43__(1);
+// _TOKEN_匽:0.8___node_KB_386__ [decoy-metadata]
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_28__("_TOKEN_霧:1.0___node_霧_31__._TOKEN_霧:1.0___node_霧_73__", {
+      _TOKEN_深:1.0___node_霧_18__: "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__",
+      _TOKEN_霧:1.0___node_霧_39__: true,
+    });
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_霧:1.0___node_霧_61__)._TOKEN_霧:1.0___node_霧_21__("_TOKEN_霧:1.0___node_霧_73__ _TOKEN_霧:1.0___node_霧_26__");
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_22__._TOKEN_匽:1.0___node_霧_2__)._TOKEN_霧:1.0___node_霧_45__(false);
+  });
+// _TOKEN_廟:0.6___node_DZ_610__ [decoy-metadata]
+});
+
+_TOKEN_霧:1.0___node_霧_20__("_TOKEN_霧:1.0___node_霧_38__", () => {
+  it("_TOKEN_霧:1.0___node_霧_30__ false _TOKEN_霧:1.0___node_霧_6__ _TOKEN_霧:1.0___node_霧_17__ _TOKEN_匽:1.0___node_霧_42__", async () => {
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_紗:1.0___node_霧_15__ = vi.fn(async () => _TOKEN_霧:1.0___node_霧_3__);
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_22__ = _TOKEN_霧:1.0___node_霧_44__(_TOKEN_紗:1.0___node_霧_15__, { _TOKEN_匽:1.0___node_霧_2__: true });
+
+    _TOKEN_霧:1.0___node_霧_52__ _TOKEN_霧:1.0___node_霧_1__ = await _TOKEN_霧:1.0___node_霧_38__(_TOKEN_霧:1.0___node_霧_22__, "_TOKEN_霧:1.0___node_霧_32__:_TOKEN_霧:1.0___node_霧_66__:_TOKEN_霧:1.0___node_霧_14__");
+
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_霧:1.0___node_霧_1__)._TOKEN_霧:1.0___node_霧_45__(false);
+    _TOKEN_霧:1.0___node_霧_56__(_TOKEN_紗:1.0___node_霧_15__)._TOKEN_霧:1.0___node_霧_29__._TOKEN_霧:1.0___node_霧_70__();
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

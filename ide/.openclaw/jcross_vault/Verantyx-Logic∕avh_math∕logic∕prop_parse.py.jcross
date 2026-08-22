@@ -1,0 +1,156 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6025D1B6 ver:1778159748
+// ⚠️ One-time schema — expires after response
+
+_SYM_霞:1.0__VERANTYX_霞_27_ _SYM_霞:1.0__VERANTYX_霞_72_ _SYM_霞:1.0__VERANTYX_霞_82_ort _SYM_霞:1.0__VERANTYX_霞_78_
+_SYM_霞:1.0__VERANTYX_霞_27_ _SYM_霞:1.0__VERANTYX_霞_31_ _SYM_霞:1.0__VERANTYX_霞_82_ort _SYM_霞:1.0__VERANTYX_霞_18_
+_SYM_霞:1.0__VERANTYX_霞_27_ _SYM_霞:1.0__VERANTYX_霞_56_ _SYM_霞:1.0__VERANTYX_霞_82_ort _SYM_廨:1.0__VERANTYX_廨_11_, _SYM_廨:1.0__VERANTYX_廨_3_, _SYM_廨:1.0__VERANTYX_廨_24_, _SYM_廨:1.0__VERANTYX_廨_26_
+
+// [metadata-stripped]
+@_SYM_霞:1.0__VERANTYX_霞_18_(_SYM_霞:1.0__VERANTYX_霞_12_=_SYM_廨:1.0__VERANTYX_廨_10_)
+class _SYM_廨:1.0__VERANTYX_廨_31_:
+    op: _SYM_霞:1.0__VERANTYX_霞_73_  # "var", "_SYM_霞:1.0__VERANTYX_霞_70_", "_SYM_霞:1.0__VERANTYX_霞_19_", "or", "_SYM_霞:1.0__VERANTYX_霞_82_", "_SYM_湧:1.0__VERANTYX_霞_42_"
+    a: _SYM_廨:1.0__VERANTYX_廨_3_[_SYM_廨:1.0__VERANTYX_廨_31_] = _SYM_廨:1.0__VERANTYX_廨_30_
+    b: _SYM_廨:1.0__VERANTYX_廨_3_[_SYM_廨:1.0__VERANTYX_廨_31_] = _SYM_廨:1.0__VERANTYX_廨_30_
+    _SYM_霞:1.0__VERANTYX_霞_62_: _SYM_廨:1.0__VERANTYX_廨_3_[_SYM_霞:1.0__VERANTYX_霞_73_] = _SYM_廨:1.0__VERANTYX_廨_30_
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_廨:1.0__VERANTYX_廨_25_(_SYM_霞:1.0__VERANTYX_霞_62_: _SYM_霞:1.0__VERANTYX_霞_73_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="var", _SYM_霞:1.0__VERANTYX_霞_62_=_SYM_霞:1.0__VERANTYX_霞_62_)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_廨:1.0__VERANTYX_廨_17_(x: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="_SYM_霞:1.0__VERANTYX_霞_70_", a=x)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_廨:1.0__VERANTYX_廨_13_(a: _SYM_廨:1.0__VERANTYX_廨_31_, b: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="_SYM_霞:1.0__VERANTYX_霞_19_", a=a, b=b)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ Or(a: _SYM_廨:1.0__VERANTYX_廨_31_, b: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="or", a=a, b=b)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_廨:1.0__VERANTYX_廨_28_(a: _SYM_廨:1.0__VERANTYX_廨_31_, b: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+// _SYM_底:0.2__VERANTYX_WC_683_ [decoy-metadata]
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="_SYM_霞:1.0__VERANTYX_霞_82_", a=a, b=b)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_廨:1.0__VERANTYX_廨_9_(a: _SYM_廨:1.0__VERANTYX_廨_31_, b: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    return _SYM_廨:1.0__VERANTYX_廨_31_(op="_SYM_湧:1.0__VERANTYX_霞_42_", a=a, b=b)
+
+// [metadata-stripped]
+_SYM_廨:1.0__VERANTYX_廨_20_ = {
+    "¬": "_SYM_廨:1.0__VERANTYX_廨_21_", "~": "_SYM_廨:1.0__VERANTYX_廨_21_", "!": "_SYM_廨:1.0__VERANTYX_廨_21_",
+    "∧": "_SYM_廨:1.0__VERANTYX_廨_1_", "&": "_SYM_廨:1.0__VERANTYX_廨_1_",
+    "∨": "OR",  "|": "OR",
+    "→": "_SYM_廨:1.0__VERANTYX_廨_18_", "->": "_SYM_廨:1.0__VERANTYX_廨_18_",
+    "↔": "_SYM_廨:1.0__VERANTYX_廨_16_", "<->": "_SYM_廨:1.0__VERANTYX_廨_16_",
+    "(": "LP", ")": "RP",
+// _SYM_節:0.5__VERANTYX_CE_188_ [decoy-metadata]
+}
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_底:1.0__VERANTYX_霞_37_(s: _SYM_霞:1.0__VERANTYX_霞_73_) -> _SYM_廨:1.0__VERANTYX_廨_11_[_SYM_霞:1.0__VERANTYX_霞_73_]:
+// [metadata-stripped]
+    s = s._SYM_霞:1.0__VERANTYX_霞_80_("<->", " ↔ ")._SYM_霞:1.0__VERANTYX_霞_80_("->", " → ")
+// [metadata-stripped]
+    _SYM_霞:1.0__VERANTYX_霞_33_ = []
+    i = 0
+    while i < _SYM_霞:1.0__VERANTYX_霞_63_(s):
+        ch = s[i]
+        if ch._SYM_霞:1.0__VERANTYX_霞_66_():
+            i += 1
+            continue
+        if ch in ("(", ")"):
+            _SYM_霞:1.0__VERANTYX_霞_33_._SYM_霞:1.0__VERANTYX_霞_58_(ch); i += 1; continue
+// [metadata-stripped]
+        if ch in _SYM_廨:1.0__VERANTYX_廨_20_:
+            _SYM_霞:1.0__VERANTYX_霞_33_._SYM_霞:1.0__VERANTYX_霞_58_(_SYM_廨:1.0__VERANTYX_廨_20_[ch]); i += 1; continue
+// [metadata-stripped]
+        j = i
+        while j < _SYM_霞:1.0__VERANTYX_霞_63_(s) _SYM_霞:1.0__VERANTYX_霞_19_ (s[j]._SYM_霞:1.0__VERANTYX_霞_11_() or s[j] in ("_", ":")):
+            j += 1
+        if j == i:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _SYM_霞:1.0__VERANTYX_霞_25_ _SYM_廨:1.0__VERANTYX_廨_23_(f"_SYM_廨:1.0__VERANTYX_廨_27_ _SYM_霞:1.0__VERANTYX_霞_7_ at {i}: {_SYM_霞:1.0__VERANTYX_霞_32_(ch)}")
+        _SYM_霞:1.0__VERANTYX_霞_33_._SYM_霞:1.0__VERANTYX_霞_58_("_SYM_廨:1.0__VERANTYX_廨_2_:" + s[i:j])
+// _SYM_箱:0.5__VERANTYX_FG_517_ [decoy-metadata]
+        i = j
+    return _SYM_霞:1.0__VERANTYX_霞_33_
+
+// [metadata-stripped]
+_SYM_廨:1.0__VERANTYX_廨_22_ = {
+    "_SYM_廨:1.0__VERANTYX_廨_16_": 10,
+    "_SYM_廨:1.0__VERANTYX_廨_18_": 20,
+    "OR":  30,
+    "_SYM_廨:1.0__VERANTYX_廨_1_": 40,
+    "_SYM_廨:1.0__VERANTYX_廨_21_": 50,
+}
+_SYM_廨:1.0__VERANTYX_廨_15_ = {"_SYM_廨:1.0__VERANTYX_廨_18_", "_SYM_廨:1.0__VERANTYX_廨_16_"}  # _SYM_霞:1.0__VERANTYX_霞_26_ as _SYM_霞:1.0__VERANTYX_霞_6_-_SYM_霞:1.0__VERANTYX_霞_67_ for _SYM_霞:1.0__VERANTYX_霞_41_
+
+class _SYM_節:1.0__VERANTYX_廨_29_:
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_21_(self, _SYM_底:1.0__VERANTYX_霞_35_: _SYM_廨:1.0__VERANTYX_廨_11_[_SYM_霞:1.0__VERANTYX_霞_73_]):
+        self._SYM_霞:1.0__VERANTYX_霞_34_ = _SYM_底:1.0__VERANTYX_霞_35_
+        self._SYM_霞:1.0__VERANTYX_霞_57_ = 0
+
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_76_(self) -> _SYM_廨:1.0__VERANTYX_廨_3_[_SYM_霞:1.0__VERANTYX_霞_73_]:
+        return self._SYM_霞:1.0__VERANTYX_霞_34_[self._SYM_霞:1.0__VERANTYX_霞_57_] if self._SYM_霞:1.0__VERANTYX_霞_57_ < _SYM_霞:1.0__VERANTYX_霞_63_(self._SYM_霞:1.0__VERANTYX_霞_34_) else _SYM_廨:1.0__VERANTYX_廨_30_
+// _SYM_廨:0.1__VERANTYX_LD_453_ [decoy-metadata]
+
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_17_(self) -> _SYM_霞:1.0__VERANTYX_霞_73_:
+        t = self._SYM_霞:1.0__VERANTYX_霞_76_()
+        if t: self._SYM_霞:1.0__VERANTYX_霞_57_ += 1
+        return t
+
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_39_(self) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+        t = self._SYM_霞:1.0__VERANTYX_霞_17_()
+        if _SYM_霞:1.0__VERANTYX_霞_70_ t: _SYM_霞:1.0__VERANTYX_霞_25_ _SYM_廨:1.0__VERANTYX_廨_23_("_SYM_廨:1.0__VERANTYX_廨_27_ _SYM_廨:1.0__VERANTYX_廨_7_")
+        if t == "_SYM_廨:1.0__VERANTYX_廨_21_":
+            return _SYM_廨:1.0__VERANTYX_廨_17_(self._SYM_霞:1.0__VERANTYX_霞_14_(_SYM_廨:1.0__VERANTYX_廨_22_["_SYM_廨:1.0__VERANTYX_廨_21_"]))
+        if t == "LP":
+            e = self._SYM_霞:1.0__VERANTYX_霞_14_(0)
+            if self._SYM_霞:1.0__VERANTYX_霞_17_() != "RP":
+                _SYM_霞:1.0__VERANTYX_霞_25_ _SYM_廨:1.0__VERANTYX_廨_23_("_SYM_廨:1.0__VERANTYX_廨_12_ )")
+            return e
+        if t._SYM_霞:1.0__VERANTYX_霞_51_("_SYM_廨:1.0__VERANTYX_廨_2_:"):
+            return _SYM_廨:1.0__VERANTYX_廨_25_(t[4:])
+        _SYM_霞:1.0__VERANTYX_霞_25_ _SYM_廨:1.0__VERANTYX_廨_23_(f"_SYM_廨:1.0__VERANTYX_廨_27_ _SYM_底:1.0__VERANTYX_霞_61_: {t}")
+
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_14_(self, _SYM_霞:1.0__VERANTYX_霞_77_: _SYM_霞:1.0__VERANTYX_霞_2_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+        _SYM_霞:1.0__VERANTYX_霞_81_ = self._SYM_霞:1.0__VERANTYX_霞_39_()
+        while _SYM_廨:1.0__VERANTYX_廨_10_:
+// _SYM_底:0.3__VERANTYX_FK_890_ [decoy-metadata]
+            k = self._SYM_霞:1.0__VERANTYX_霞_76_()
+            if _SYM_霞:1.0__VERANTYX_霞_70_ k or k _SYM_霞:1.0__VERANTYX_霞_70_ in _SYM_廨:1.0__VERANTYX_廨_22_:
+                break
+            
+// [metadata-stripped]
+            _SYM_霞:1.0__VERANTYX_霞_23_ = _SYM_廨:1.0__VERANTYX_廨_22_[k]
+            if _SYM_霞:1.0__VERANTYX_霞_23_ < _SYM_霞:1.0__VERANTYX_霞_77_:
+                break
+            
+            self._SYM_霞:1.0__VERANTYX_霞_17_() # _SYM_霞:1.0__VERANTYX_霞_43_ op
+            _SYM_霞:1.0__VERANTYX_霞_44_ = _SYM_霞:1.0__VERANTYX_霞_23_ + (0 if k in _SYM_廨:1.0__VERANTYX_廨_15_ else 1)
+            _SYM_霞:1.0__VERANTYX_霞_6_ = self._SYM_霞:1.0__VERANTYX_霞_14_(_SYM_霞:1.0__VERANTYX_霞_44_)
+            
+            if k == "_SYM_廨:1.0__VERANTYX_廨_1_": _SYM_霞:1.0__VERANTYX_霞_81_ = _SYM_廨:1.0__VERANTYX_廨_13_(_SYM_霞:1.0__VERANTYX_霞_81_, _SYM_霞:1.0__VERANTYX_霞_6_)
+            _SYM_湧:1.0__VERANTYX_霞_48_ k == "OR": _SYM_霞:1.0__VERANTYX_霞_81_ = Or(_SYM_霞:1.0__VERANTYX_霞_81_, _SYM_霞:1.0__VERANTYX_霞_6_)
+            _SYM_湧:1.0__VERANTYX_霞_48_ k == "_SYM_廨:1.0__VERANTYX_廨_18_": _SYM_霞:1.0__VERANTYX_霞_81_ = _SYM_廨:1.0__VERANTYX_廨_28_(_SYM_霞:1.0__VERANTYX_霞_81_, _SYM_霞:1.0__VERANTYX_霞_6_)
+            _SYM_湧:1.0__VERANTYX_霞_48_ k == "_SYM_廨:1.0__VERANTYX_廨_16_": _SYM_霞:1.0__VERANTYX_霞_81_ = _SYM_廨:1.0__VERANTYX_廨_9_(_SYM_霞:1.0__VERANTYX_霞_81_, _SYM_霞:1.0__VERANTYX_霞_6_)
+            
+        return _SYM_霞:1.0__VERANTYX_霞_81_
+    
+    _SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_50_(self) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+        return self._SYM_霞:1.0__VERANTYX_霞_14_(0)
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_55_(s: _SYM_霞:1.0__VERANTYX_霞_73_) -> _SYM_廨:1.0__VERANTYX_廨_31_:
+    _SYM_霞:1.0__VERANTYX_霞_34_ = _SYM_底:1.0__VERANTYX_霞_37_(s)
+    return _SYM_節:1.0__VERANTYX_廨_29_(_SYM_霞:1.0__VERANTYX_霞_34_)._SYM_霞:1.0__VERANTYX_霞_50_()
+
+_SYM_霞:1.0__VERANTYX_霞_10_ _SYM_霞:1.0__VERANTYX_霞_45_(n: _SYM_廨:1.0__VERANTYX_廨_31_) -> _SYM_霞:1.0__VERANTYX_霞_73_:
+    if n.op == "var":
+        return n._SYM_霞:1.0__VERANTYX_霞_62_ or "?"
+    if n.op == "_SYM_霞:1.0__VERANTYX_霞_70_":
+        return f"¬{_SYM_霞:1.0__VERANTYX_霞_45_(n.a)}"
+// _SYM_底:0.9__VERANTYX_HX_883_ [decoy-metadata]
+    a = _SYM_霞:1.0__VERANTYX_霞_45_(n.a) if n.a else "?"
+    b = _SYM_霞:1.0__VERANTYX_霞_45_(n.b) if n.b else "?"
+    _SYM_霞:1.0__VERANTYX_霞_36_ = {"_SYM_霞:1.0__VERANTYX_霞_19_":"∧","or":"∨","_SYM_霞:1.0__VERANTYX_霞_82_":"→","_SYM_湧:1.0__VERANTYX_霞_42_":"↔"}[n.op]
+    return f"({a} {_SYM_霞:1.0__VERANTYX_霞_36_} {b})"
+// POLYMORPHIC_JCROSS_END

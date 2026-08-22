@@ -1,0 +1,1947 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3CCE2C94 ver:1778163574
+// ⚠️ One-time schema — expires after response
+
+im_JCROSS_泡:1.0__OPAQUE_泡_809_ _JCROSS_礎:1.0__OPAQUE_礎_77_
+im_JCROSS_泡:1.0__OPAQUE_泡_809_ _JCROSS_礎:1.0__OPAQUE_礎_269_
+im_JCROSS_泡:1.0__OPAQUE_泡_809_ _JCROSS_礎:1.0__OPAQUE_礎_326_
+im_JCROSS_泡:1.0__OPAQUE_泡_809_ _JCROSS_礎:1.0__OPAQUE_礎_22_
+
+// [metadata-stripped]
+
+struct _JCROSS_礎:1.0__OPAQUE_礎_164_: _JCROSS_礎:1.0__OPAQUE_礎_11_, _JCROSS_礎:1.0__OPAQUE_礎_129_, _JCROSS_礎:1.0__OPAQUE_礎_107_ {
+    var id: _JCROSS_礎:1.0__OPAQUE_礎_343_
+    var _JCROSS_泡:1.0__OPAQUE_泡_618_: _JCROSS_礎:1.0__OPAQUE_礎_295_
+    var _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+    var _JCROSS_泡:1.0__OPAQUE_泡_77_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()
+// [metadata-stripped]
+    var _JCROSS_泡:1.0__OPAQUE_泡_454_: [_JCROSS_礎:1.0__OPAQUE_礎_193_] = []
+
+    init(id: _JCROSS_礎:1.0__OPAQUE_礎_343_ = _JCROSS_礎:1.0__OPAQUE_礎_343_(), _JCROSS_泡:1.0__OPAQUE_泡_618_: _JCROSS_礎:1.0__OPAQUE_礎_295_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_泡:1.0__OPAQUE_泡_454_: [_JCROSS_礎:1.0__OPAQUE_礎_193_] = []) {
+        self.id = id
+        self._JCROSS_泡:1.0__OPAQUE_泡_618_ = _JCROSS_泡:1.0__OPAQUE_泡_618_
+        self._JCROSS_泡:1.0__OPAQUE_泡_476_ = _JCROSS_泡:1.0__OPAQUE_泡_476_
+        self._JCROSS_泡:1.0__OPAQUE_泡_454_ = _JCROSS_泡:1.0__OPAQUE_泡_454_
+    }
+
+    enum _JCROSS_礎:1.0__OPAQUE_礎_295_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_礎:1.0__OPAQUE_礎_107_ { case _JCROSS_図:1.0__OPAQUE_泡_413_, _JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_606_ }
+
+// [metadata-stripped]
+    struct _JCROSS_礎:1.0__OPAQUE_礎_193_: _JCROSS_礎:1.0__OPAQUE_礎_11_, _JCROSS_礎:1.0__OPAQUE_礎_107_, _JCROSS_礎:1.0__OPAQUE_礎_129_ {
+        var id = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+        var _JCROSS_泡:1.0__OPAQUE_泡_77_: _JCROSS_礎:1.0__OPAQUE_礎_214_
+        var _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+        var _JCROSS_泡:1.0__OPAQUE_泡_145_: _JCROSS_礎:1.0__OPAQUE_礎_173_    // "_JCROSS_泡:1.0__OPAQUE_泡_41_" | "_JCROSS_泡:1.0__OPAQUE_泡_1013_" | "_JCROSS_図:1.0__OPAQUE_泡_65_" | "_JCROSS_泡:1.0__OPAQUE_泡_11_" | "_JCROSS_泡:1.0__OPAQUE_泡_606_" | "_JCROSS_泡:1.0__OPAQUE_泡_558_"
+    }
+}
+
+
+struct _JCROSS_匹:1.0__OPAQUE_礎_190_: _JCROSS_礎:1.0__OPAQUE_礎_11_, _JCROSS_礎:1.0__OPAQUE_礎_129_ {
+    let id = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+    let _JCROSS_縞:1.0__OPAQUE_泡_511_: _JCROSS_縞:1.0__OPAQUE_礎_271_
+    let _JCROSS_泡:1.0__OPAQUE_泡_1004_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+    let _JCROSS_滾:1.0__OPAQUE_泡_715_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+    var _JCROSS_泡:1.0__OPAQUE_泡_644_: [_JCROSS_礎:1.0__OPAQUE_礎_320_]
+
+    var _JCROSS_泡:1.0__OPAQUE_泡_40_: _JCROSS_礎:1.0__OPAQUE_礎_297_ { _JCROSS_泡:1.0__OPAQUE_泡_1004_ != _JCROSS_滾:1.0__OPAQUE_泡_715_ }
+
+// [metadata-stripped]
+    static func == (_JCROSS_泡:1.0__OPAQUE_泡_995_: _JCROSS_匹:1.0__OPAQUE_礎_190_, _JCROSS_泡:1.0__OPAQUE_泡_1010_: _JCROSS_匹:1.0__OPAQUE_礎_190_) -> _JCROSS_礎:1.0__OPAQUE_礎_297_ { _JCROSS_泡:1.0__OPAQUE_泡_995_.id == _JCROSS_泡:1.0__OPAQUE_泡_1010_.id }
+}
+
+struct _JCROSS_礎:1.0__OPAQUE_礎_320_: _JCROSS_礎:1.0__OPAQUE_礎_11_ {
+    let id = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+    var _JCROSS_泡:1.0__OPAQUE_泡_461_: [_JCROSS_礎:1.0__OPAQUE_礎_306_]
+}
+
+struct _JCROSS_礎:1.0__OPAQUE_礎_306_: _JCROSS_礎:1.0__OPAQUE_礎_11_ {
+    let id = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+    var _JCROSS_泡:1.0__OPAQUE_泡_145_: _JCROSS_礎:1.0__OPAQUE_礎_149_
+    var _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+
+    enum _JCROSS_礎:1.0__OPAQUE_礎_149_ { case _JCROSS_泡:1.0__OPAQUE_泡_111_, _JCROSS_泡:1.0__OPAQUE_泡_487_, _JCROSS_泡:1.0__OPAQUE_泡_810_ }
+}
+
+// [metadata-stripped]
+
+@_JCROSS_礎:1.0__OPAQUE_礎_336_
+final class _JCROSS_礎:1.0__OPAQUE_礎_97_: _JCROSS_礎:1.0__OPAQUE_礎_172_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_336_ static weak var _JCROSS_泡:1.0__OPAQUE_泡_299_: _JCROSS_礎:1.0__OPAQUE_礎_97_?
+
+// [metadata-stripped]
+// _JCROSS_礎:0.2__OPAQUE_WF_263_ [decoy-metadata]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_296_: [_JCROSS_礎:1.0__OPAQUE_礎_173_: _JCROSS_礎:1.0__OPAQUE_礎_185_] = [:]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_縞:1.0__OPAQUE_礎_271_?
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_498_: [_JCROSS_縞:1.0__OPAQUE_礎_271_] = []
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_767_: _JCROSS_縞:1.0__OPAQUE_礎_271_? {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+// [metadata-stripped]
+            if let _JCROSS_匹:1.0__OPAQUE_泡_334_ = _JCROSS_匹:1.0__OPAQUE_泡_767_ {
+                _JCROSS_図:1.0__OPAQUE_礎_284_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_滾:1.0__OPAQUE_泡_903_(_JCROSS_泡:1.0__OPAQUE_泡_760_: "_JCROSS_泡:1.0__OPAQUE_泡_947_._JCROSS_泡:1.0__OPAQUE_泡_635_", _JCROSS_泡:1.0__OPAQUE_泡_926_: [
+                    "_JCROSS_泡:1.0__OPAQUE_泡_468_": _JCROSS_匹:1.0__OPAQUE_泡_334_._JCROSS_泡:1.0__OPAQUE_泡_347_,
+                    "_JCROSS_泡:1.0__OPAQUE_泡_455_": _JCROSS_匹:1.0__OPAQUE_泡_334_._JCROSS_泡:1.0__OPAQUE_泡_734_,
+                    "_JCROSS_泡:1.0__OPAQUE_泡_388_": 1,
+                    "_JCROSS_泡:1.0__OPAQUE_泡_561_": _JCROSS_匹:1.0__OPAQUE_泡_1023_
+                ])
+            }
+        }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_1023_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = "" {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+// [metadata-stripped]
+            if let _JCROSS_匹:1.0__OPAQUE_泡_334_ = _JCROSS_匹:1.0__OPAQUE_泡_767_ {
+                _JCROSS_図:1.0__OPAQUE_礎_284_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_滾:1.0__OPAQUE_泡_903_(_JCROSS_泡:1.0__OPAQUE_泡_760_: "_JCROSS_泡:1.0__OPAQUE_泡_947_._JCROSS_泡:1.0__OPAQUE_泡_742_", _JCROSS_泡:1.0__OPAQUE_泡_926_: [
+                    "_JCROSS_泡:1.0__OPAQUE_泡_468_": _JCROSS_匹:1.0__OPAQUE_泡_334_._JCROSS_泡:1.0__OPAQUE_泡_347_,
+                    "_JCROSS_泡:1.0__OPAQUE_泡_561_": _JCROSS_匹:1.0__OPAQUE_泡_1023_,
+                    "_JCROSS_泡:1.0__OPAQUE_泡_840_": [
+                        "_JCROSS_泡:1.0__OPAQUE_泡_679_": 0,
+                        "_JCROSS_泡:1.0__OPAQUE_泡_759_": _JCROSS_泡:1.0__OPAQUE_泡_355_(0, _JCROSS_泡:1.0__OPAQUE_泡_281_._JCROSS_図:1.0__OPAQUE_泡_1001_ { $0 == "\n" }._JCROSS_泡:1.0__OPAQUE_泡_710_)
+                    ]
+                ])
+            }
+        }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_234_: _JCROSS_礎:1.0__OPAQUE_礎_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_322_
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_883_: [_JCROSS_礎:1.0__OPAQUE_礎_173_] = []
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_709_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = "" {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+// [metadata-stripped]
+            _JCROSS_礎:1.0__OPAQUE_礎_203_ { a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_145_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_195_(_JCROSS_幽:1.0__OPAQUE_泡_622_: _JCROSS_幽:1.0__OPAQUE_泡_709_) }
+            _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_幽:1.0__OPAQUE_泡_709_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_60_")
+        }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_318_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_599_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_271_-_JCROSS_泡:1.0__OPAQUE_泡_469_-4-5"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_318_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_599_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_467_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_240_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_937_-4o"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_467_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_240_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_862_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_91_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_1002_-3.1-_JCROSS_泡:1.0__OPAQUE_泡_411_"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_862_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_91_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_718_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_520_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_139_-_JCROSS_図:1.0__OPAQUE_泡_193_"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_718_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_520_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_343_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = "_JCROSS_泡:1.0__OPAQUE_泡_177_-_JCROSS_泡:1.0__OPAQUE_泡_744_/_JCROSS_礎:1.0__OPAQUE_礎_345_.5-_JCROSS_図:1.0__OPAQUE_礎_262_-7B-_JCROSS_礎:1.0__OPAQUE_礎_268_-4bit"
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_206_: _JCROSS_礎:1.0__OPAQUE_礎_241_ = 0
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_506_: [_JCROSS_礎:1.0__OPAQUE_礎_164_] = []
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_586_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = ""
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+
+// [metadata-stripped]
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_706_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_403_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_890_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_663_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_107_: [_JCROSS_礎:1.0__OPAQUE_礎_90_]? = nil
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_250_: [_JCROSS_礎:1.0__OPAQUE_礎_173_]? = nil
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_636_: [_JCROSS_礎:1.0__OPAQUE_礎_241_]? = nil
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_178_: _JCROSS_礎:1.0__OPAQUE_礎_214_? = nil
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_59_: _JCROSS_礎:1.0__OPAQUE_礎_214_? = nil
+    var _JCROSS_幽:1.0__OPAQUE_泡_427_: _JCROSS_礎:1.0__OPAQUE_礎_214_? = nil
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_700_: [_JCROSS_礎:1.0__OPAQUE_礎_296_] = []
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_823_: [_JCROSS_縞:1.0__OPAQUE_礎_271_] = []
+
+// [metadata-stripped]
+    private var _JCROSS_泡:1.0__OPAQUE_泡_42_: _JCROSS_礎:1.0__OPAQUE_礎_203_<_JCROSS_礎:1.0__OPAQUE_礎_197_, _JCROSS_図:1.0__OPAQUE_礎_328_>? = nil
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    var _JCROSS_泡:1.0__OPAQUE_泡_209_: _JCROSS_礎:1.0__OPAQUE_礎_343_? = nil
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_255_: _JCROSS_礎:1.0__OPAQUE_礎_241_ = 0       // _JCROSS_泡:1.0__OPAQUE_泡_705_ _JCROSS_泡:1.0__OPAQUE_泡_72_/s _JCROSS_泡:1.0__OPAQUE_泡_748_
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_733_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = 0     // _JCROSS_泡:1.0__OPAQUE_泡_589_ _JCROSS_泡:1.0__OPAQUE_泡_938_
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_555_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = ""        // _JCROSS_泡:1.0__OPAQUE_泡_941_ _JCROSS_幽:1.0__OPAQUE_泡_777_ _JCROSS_図:1.0__OPAQUE_泡_879_ for _JCROSS_泡:1.0__OPAQUE_泡_705_ _JCROSS_図:1.0__OPAQUE_泡_471_
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_785_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = 0              // _JCROSS_泡:1.0__OPAQUE_泡_184_ _JCROSS_泡:1.0__OPAQUE_泡_71_ _JCROSS_泡:1.0__OPAQUE_泡_97_ ms
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_336_
+    final class _JCROSS_礎:1.0__OPAQUE_礎_53_: _JCROSS_礎:1.0__OPAQUE_礎_172_ {
+        @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_352_: [_JCROSS_礎:1.0__OPAQUE_礎_239_] = []
+    }
+    let _JCROSS_泡:1.0__OPAQUE_泡_167_ = _JCROSS_礎:1.0__OPAQUE_礎_53_()
+    
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_169_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true
+
+    struct _JCROSS_礎:1.0__OPAQUE_礎_239_: _JCROSS_礎:1.0__OPAQUE_礎_11_ {
+        let id = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+        let _JCROSS_泡:1.0__OPAQUE_泡_77_: _JCROSS_礎:1.0__OPAQUE_礎_214_
+        var _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+        var _JCROSS_泡:1.0__OPAQUE_泡_145_: _JCROSS_礎:1.0__OPAQUE_礎_149_
+
+        enum _JCROSS_礎:1.0__OPAQUE_礎_149_: _JCROSS_礎:1.0__OPAQUE_礎_173_ { case _JCROSS_泡:1.0__OPAQUE_泡_41_, _JCROSS_泡:1.0__OPAQUE_泡_1013_, _JCROSS_図:1.0__OPAQUE_泡_65_, _JCROSS_泡:1.0__OPAQUE_泡_11_, _JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_558_ }
+
+        var _JCROSS_泡:1.0__OPAQUE_泡_741_: _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+            switch _JCROSS_泡:1.0__OPAQUE_泡_145_ {
+            case ._JCROSS_泡:1.0__OPAQUE_泡_41_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ "→ _JCROSS_礎:1.0__OPAQUE_礎_314_  "
+            case ._JCROSS_泡:1.0__OPAQUE_泡_1013_:     re_JCROSS_泡:1.0__OPAQUE_泡_291_ "→ _JCROSS_礎:1.0__OPAQUE_礎_222_ "
+            case ._JCROSS_図:1.0__OPAQUE_泡_65_:  re_JCROSS_泡:1.0__OPAQUE_泡_291_ "→ _JCROSS_礎:1.0__OPAQUE_礎_286_  "
+            case ._JCROSS_泡:1.0__OPAQUE_泡_11_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ "▶ _JCROSS_礎:1.0__OPAQUE_礎_303_"
+            case ._JCROSS_泡:1.0__OPAQUE_泡_606_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⋯ _JCROSS_礎:1.0__OPAQUE_礎_134_  "
+            case ._JCROSS_泡:1.0__OPAQUE_泡_558_:     re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚡ _JCROSS_礎:1.0__OPAQUE_礎_72_ "
+            }
+        }
+
+        var _JCROSS_泡:1.0__OPAQUE_泡_928_: _JCROSS_礎:1.0__OPAQUE_礎_117_ {
+            switch _JCROSS_泡:1.0__OPAQUE_泡_145_ {
+            case ._JCROSS_泡:1.0__OPAQUE_泡_41_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.4, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.9, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.6)
+            case ._JCROSS_泡:1.0__OPAQUE_泡_1013_:     re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.4, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.8, _JCROSS_泡:1.0__OPAQUE_泡_492_: 1.0)
+            case ._JCROSS_図:1.0__OPAQUE_泡_65_:  re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.9, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.7, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.3)
+            case ._JCROSS_泡:1.0__OPAQUE_泡_11_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.8, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.8, _JCROSS_泡:1.0__OPAQUE_泡_492_: 1.0)
+            case ._JCROSS_泡:1.0__OPAQUE_泡_606_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.6, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.6, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.6)
+            case ._JCROSS_泡:1.0__OPAQUE_泡_558_:     re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.3, _JCROSS_泡:1.0__OPAQUE_泡_266_: 1.0, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.5)
+            }
+        }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_896_: _JCROSS_匹:1.0__OPAQUE_礎_190_?
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_19_ = false
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_匹:1.0__OPAQUE_泡_410_: _JCROSS_縞:1.0__OPAQUE_礎_327_? = nil
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_934_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = 0   // 0=_JCROSS_泡:1.0__OPAQUE_泡_947_, 1=_JCROSS_泡:1.0__OPAQUE_泡_515_, 2=_JCROSS_泡:1.0__OPAQUE_泡_11_
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_13_: _JCROSS_礎:1.0__OPAQUE_礎_178_ = ._JCROSS_泡:1.0__OPAQUE_泡_401_ {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+            _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_13_._JCROSS_泡:1.0__OPAQUE_泡_834_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_215_")
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_714_: _JCROSS_礎:1.0__OPAQUE_礎_98_._JCROSS_礎:1.0__OPAQUE_礎_289_ = _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_30_ ? .ai : ._JCROSS_泡:1.0__OPAQUE_泡_401_
+            _JCROSS_礎:1.0__OPAQUE_礎_203_ { _JCROSS_礎:1.0__OPAQUE_礎_310_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_図:1.0__OPAQUE_焦_5_(_JCROSS_泡:1.0__OPAQUE_泡_714_) }
+            
+// [metadata-stripped]
+            if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_図:1.0__OPAQUE_泡_914_ {
+                _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_794_ = true
+                _JCROSS_泡:1.0__OPAQUE_泡_321_ = false
+            } else {
+                _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_794_ = false
+                _JCROSS_泡:1.0__OPAQUE_泡_321_ = true
+            }
+            
+// [metadata-stripped]
+            if _JCROSS_泡:1.0__OPAQUE_泡_629_ != _JCROSS_泡:1.0__OPAQUE_泡_13_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_629_ = _JCROSS_泡:1.0__OPAQUE_泡_13_
+            }
+            
+// [metadata-stripped]
+            if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_401_ {
+                if _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_977_ || _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_129_ {
+                    _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_854_()
+                } else if let ws = _JCROSS_縞:1.0__OPAQUE_泡_79_, !_JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_528_ {
+                    _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                        a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_143_(_JCROSS_縞:1.0__OPAQUE_泡_79_: ws)
+                    }
+                }
+            } else {
+                if _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_528_ {
+                    _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_164_()
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_362_: _JCROSS_礎:1.0__OPAQUE_礎_272_? = nil
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_68_: [_JCROSS_礎:1.0__OPAQUE_礎_272_] = []
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_582_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_646_: _JCROSS_礎:1.0__OPAQUE_礎_212_ = ._JCROSS_泡:1.0__OPAQUE_泡_368_ {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_646_._JCROSS_泡:1.0__OPAQUE_泡_834_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_108_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_図:1.0__OPAQUE_泡_415_: _JCROSS_図:1.0__OPAQUE_礎_125_ = ._JCROSS_泡:1.0__OPAQUE_泡_271_ {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_図:1.0__OPAQUE_泡_415_._JCROSS_泡:1.0__OPAQUE_泡_834_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_図:1.0__OPAQUE_泡_284_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_431_: _JCROSS_礎:1.0__OPAQUE_礎_94_?
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_662_: [_JCROSS_礎:1.0__OPAQUE_礎_173_] = []
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_688_: [_JCROSS_礎:1.0__OPAQUE_礎_324_._JCROSS_礎:1.0__OPAQUE_礎_307_] = []  // _JCROSS_礎:1.0__OPAQUE_礎_79_ _JCROSS_礎:1.0__OPAQUE_礎_267_ _JCROSS_泡:1.0__OPAQUE_泡_705_ _JCROSS_泡:1.0__OPAQUE_泡_273_
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_842_: _JCROSS_礎:1.0__OPAQUE_礎_241_ = 0.1 {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_842_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_54_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_590_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = 2048 {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_幽:1.0__OPAQUE_泡_590_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_956_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_幽:1.0__OPAQUE_泡_213_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = 4096 {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_幽:1.0__OPAQUE_泡_213_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_254_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_489_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = "_JCROSS_縞:1.0__OPAQUE_泡_265_://_JCROSS_泡:1.0__OPAQUE_泡_400_:11434" {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_489_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_892_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_610_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = "_JCROSS_礎:1.0__OPAQUE_礎_276_ _JCROSS_泡:1.0__OPAQUE_泡_69_ _JCROSS_礎:1.0__OPAQUE_礎_179_, an _JCROSS_泡:1.0__OPAQUE_泡_282_ AI _JCROSS_泡:1.0__OPAQUE_泡_338_ _JCROSS_泡:1.0__OPAQUE_泡_1019_ _JCROSS_泡:1.0__OPAQUE_泡_784_ on _JCROSS_礎:1.0__OPAQUE_礎_301_ _JCROSS_礎:1.0__OPAQUE_礎_81_. Be _JCROSS_泡:1.0__OPAQUE_泡_510_ _JCROSS_泡:1.0__OPAQUE_泡_664_ _JCROSS_泡:1.0__OPAQUE_泡_1_. _JCROSS_図:1.0__OPAQUE_礎_142_ _JCROSS_泡:1.0__OPAQUE_泡_80_ _JCROSS_図:1.0__OPAQUE_泡_692_ _JCROSS_泡:1.0__OPAQUE_泡_970_." {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_610_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_554_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_867_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_867_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_283_") }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_745_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_745_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_図:1.0__OPAQUE_泡_666_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_732_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_732_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_609_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_746_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_746_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_516_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_870_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_滾:1.0__OPAQUE_泡_870_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_297_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_556_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_556_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_920_") }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_774_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_774_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_690_") }
+    }
+
+// [metadata-stripped]
+    enum _JCROSS_礎:1.0__OPAQUE_礎_113_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_礎:1.0__OPAQUE_礎_167_, _JCROSS_礎:1.0__OPAQUE_礎_107_ {
+        case _JCROSS_泡:1.0__OPAQUE_泡_606_  = "_JCROSS_礎:1.0__OPAQUE_礎_154_"
+        case _JCROSS_泡:1.0__OPAQUE_泡_500_ = "_JCROSS_礎:1.0__OPAQUE_礎_38_"
+        case _JCROSS_泡:1.0__OPAQUE_泡_865_ = "日本語"
+
+        var _JCROSS_図:1.0__OPAQUE_泡_711_: _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+            switch self {
+            case ._JCROSS_泡:1.0__OPAQUE_泡_606_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_39_._JCROSS_泡:1.0__OPAQUE_泡_941_._JCROSS_図:1.0__OPAQUE_泡_875_
+            case ._JCROSS_泡:1.0__OPAQUE_泡_500_:  re_JCROSS_泡:1.0__OPAQUE_泡_291_ "en"
+            case ._JCROSS_泡:1.0__OPAQUE_泡_865_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ "ja"
+            }
+        }
+
+        var _JCROSS_泡:1.0__OPAQUE_泡_1025_: _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+            switch self {
+            case ._JCROSS_泡:1.0__OPAQUE_泡_606_:   re_JCROSS_泡:1.0__OPAQUE_泡_291_ "🌐"
+            case ._JCROSS_泡:1.0__OPAQUE_泡_500_:  re_JCROSS_泡:1.0__OPAQUE_泡_291_ "🇺🇸"
+            case ._JCROSS_泡:1.0__OPAQUE_泡_865_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ "🇯🇵"
+            }
+        }
+    }
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_832_: _JCROSS_礎:1.0__OPAQUE_礎_113_ = {
+        let _JCROSS_泡:1.0__OPAQUE_泡_863_ = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_724_") ?? _JCROSS_礎:1.0__OPAQUE_礎_113_._JCROSS_泡:1.0__OPAQUE_泡_606_._JCROSS_泡:1.0__OPAQUE_泡_834_
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_113_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_863_) ?? ._JCROSS_泡:1.0__OPAQUE_泡_606_
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+            _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_832_._JCROSS_泡:1.0__OPAQUE_泡_834_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_724_")
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_601_: _JCROSS_礎:1.0__OPAQUE_礎_297_
+            switch _JCROSS_泡:1.0__OPAQUE_泡_832_ {
+            case ._JCROSS_泡:1.0__OPAQUE_泡_865_: _JCROSS_泡:1.0__OPAQUE_泡_601_ = true
+            case ._JCROSS_泡:1.0__OPAQUE_泡_500_:  _JCROSS_泡:1.0__OPAQUE_泡_601_ = false
+            case ._JCROSS_泡:1.0__OPAQUE_泡_606_:   _JCROSS_泡:1.0__OPAQUE_泡_601_ = _JCROSS_礎:1.0__OPAQUE_礎_39_._JCROSS_泡:1.0__OPAQUE_泡_941_._JCROSS_泡:1.0__OPAQUE_泡_668_._JCROSS_泡:1.0__OPAQUE_泡_975_?._JCROSS_図:1.0__OPAQUE_泡_875_ == "ja"
+            }
+            _JCROSS_礎:1.0__OPAQUE_礎_298_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_126_ = _JCROSS_泡:1.0__OPAQUE_泡_601_
+        }
+    }
+
+// [metadata-stripped]
+    func t(_ en: _JCROSS_礎:1.0__OPAQUE_礎_173_, _ ja: _JCROSS_礎:1.0__OPAQUE_礎_173_) -> _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        switch _JCROSS_泡:1.0__OPAQUE_泡_832_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_865_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ ja
+        case ._JCROSS_泡:1.0__OPAQUE_泡_500_:  re_JCROSS_泡:1.0__OPAQUE_泡_291_ en
+        case ._JCROSS_泡:1.0__OPAQUE_泡_606_:
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_39_._JCROSS_泡:1.0__OPAQUE_泡_941_._JCROSS_泡:1.0__OPAQUE_泡_668_._JCROSS_泡:1.0__OPAQUE_泡_975_?._JCROSS_図:1.0__OPAQUE_泡_875_ == "ja" ? ja : en
+        }
+    }
+
+// [metadata-stripped]
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_917_: _JCROSS_礎:1.0__OPAQUE_礎_240_ = {
+        let v = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_泡_95_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_570_")
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ v > 0 ? v : 12
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_917_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_570_") }
+    }
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_517_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_23_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_695_") {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_滾:1.0__OPAQUE_泡_517_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_695_") }
+    }
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_滾:1.0__OPAQUE_泡_624_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = {
+        let v = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_436_") as? _JCROSS_礎:1.0__OPAQUE_礎_297_
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ v ?? true
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_滾:1.0__OPAQUE_泡_624_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_436_") }
+    }
+
+// [metadata-stripped]
+    var _JCROSS_泡:1.0__OPAQUE_泡_363_: _JCROSS_礎:1.0__OPAQUE_礎_297_ {
+        switch _JCROSS_泡:1.0__OPAQUE_泡_234_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_344_(let m):
+            let mm = m._JCROSS_泡:1.0__OPAQUE_泡_958_()
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_576_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_367_")
+                || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_850_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_754_") && mm._JCROSS_泡:1.0__OPAQUE_泡_607_("vl")
+                || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_728_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_790_")
+                || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_691_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_345_")
+        case ._JCROSS_泡:1.0__OPAQUE_泡_470_(let m):
+            let mm = m._JCROSS_泡:1.0__OPAQUE_泡_958_()
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_367_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_850_-4")
+                || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_754_-vl") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_576_") || mm._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_820_.2")
+        _JCROSS_泡:1.0__OPAQUE_泡_877_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ false
+        }
+    }
+
+    enum _JCROSS_礎:1.0__OPAQUE_礎_13_: _JCROSS_礎:1.0__OPAQUE_礎_129_ {
+        case _JCROSS_泡:1.0__OPAQUE_泡_322_
+        case _JCROSS_泡:1.0__OPAQUE_泡_568_
+        case _JCROSS_匹:1.0__OPAQUE_泡_986_(_JCROSS_泡:1.0__OPAQUE_泡_527_: _JCROSS_礎:1.0__OPAQUE_礎_241_)
+        case _JCROSS_泡:1.0__OPAQUE_泡_791_(_JCROSS_泡:1.0__OPAQUE_泡_939_: _JCROSS_礎:1.0__OPAQUE_礎_173_)
+        case _JCROSS_泡:1.0__OPAQUE_泡_344_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_)
+        case _JCROSS_泡:1.0__OPAQUE_泡_789_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_幽:1.0__OPAQUE_泡_118_: _JCROSS_礎:1.0__OPAQUE_礎_173_)  // _JCROSS_礎:1.0__OPAQUE_礎_139_ _JCROSS_縞:1.0__OPAQUE_礎_30_
+        case _JCROSS_泡:1.0__OPAQUE_泡_470_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_)          // _JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_図:1.0__OPAQUE_泡_634_ _JCROSS_泡:1.0__OPAQUE_泡_784_ at _JCROSS_泡:1.0__OPAQUE_泡_400_:8080
+        case _JCROSS_匹:1.0__OPAQUE_泡_603_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_)    // _JCROSS_泡:1.0__OPAQUE_泡_408_ _JCROSS_匹:1.0__OPAQUE_泡_140_ in _JCROSS_泡:1.0__OPAQUE_泡_527_
+        case _JCROSS_泡:1.0__OPAQUE_泡_633_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_)       // _JCROSS_礎:1.0__OPAQUE_礎_281_ _JCROSS_泡:1.0__OPAQUE_泡_207_ _JCROSS_泡:1.0__OPAQUE_泡_24_
+        case _JCROSS_泡:1.0__OPAQUE_泡_680_(_JCROSS_礎:1.0__OPAQUE_礎_173_)
+    }
+
+// [metadata-stripped]
+    private let _JCROSS_泡:1.0__OPAQUE_泡_947_ = _JCROSS_図:1.0__OPAQUE_礎_253_()
+    let _JCROSS_泡:1.0__OPAQUE_泡_833_ = _JCROSS_礎:1.0__OPAQUE_礎_147_()
+    let _JCROSS_泡:1.0__OPAQUE_泡_135_ = _JCROSS_図:1.0__OPAQUE_礎_66_()
+    let _JCROSS_泡:1.0__OPAQUE_泡_242_ = _JCROSS_礎:1.0__OPAQUE_礎_148_()
+    let _JCROSS_泡:1.0__OPAQUE_泡_435_ = _JCROSS_礎:1.0__OPAQUE_礎_300_()
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    var _JCROSS_泡:1.0__OPAQUE_泡_637_: _JCROSS_礎:1.0__OPAQUE_礎_297_ {
+        (_JCROSS_縞:1.0__OPAQUE_泡_79_ != nil && (_JCROSS_滾:1.0__OPAQUE_泡_896_ != nil || _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_710_ > 2))
+        || _JCROSS_泡:1.0__OPAQUE_泡_329_
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    @_JCROSS_泡:1.0__OPAQUE_泡_595_
+    func _JCROSS_泡:1.0__OPAQUE_泡_247_(_JCROSS_幽:1.0__OPAQUE_泡_452_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_泡:1.0__OPAQUE_泡_404_: _JCROSS_礎:1.0__OPAQUE_礎_173_) -> _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        switch _JCROSS_幽:1.0__OPAQUE_泡_452_ {
+        case "_JCROSS_泡:1.0__OPAQUE_泡_554_":
+            _JCROSS_泡:1.0__OPAQUE_泡_610_ = _JCROSS_泡:1.0__OPAQUE_泡_404_
+        case "_JCROSS_泡:1.0__OPAQUE_泡_215_":
+            if _JCROSS_泡:1.0__OPAQUE_泡_404_ == "_JCROSS_泡:1.0__OPAQUE_泡_30_" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "ai" { _JCROSS_泡:1.0__OPAQUE_泡_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_30_ }
+            else if _JCROSS_泡:1.0__OPAQUE_泡_404_ == "_JCROSS_泡:1.0__OPAQUE_泡_249_" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "_JCROSS_礎:1.0__OPAQUE_礎_40_ _JCROSS_礎:1.0__OPAQUE_礎_254_" { _JCROSS_泡:1.0__OPAQUE_泡_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_249_ }
+            else { _JCROSS_泡:1.0__OPAQUE_泡_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_401_ }
+        case "_JCROSS_泡:1.0__OPAQUE_泡_842_":
+            if let d = _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_泡:1.0__OPAQUE_泡_404_) { _JCROSS_泡:1.0__OPAQUE_泡_842_ = _JCROSS_泡:1.0__OPAQUE_泡_355_(0.0, _JCROSS_泡:1.0__OPAQUE_泡_75_(2.0, d)) }
+            else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_115_ _JCROSS_泡:1.0__OPAQUE_泡_842_: \(_JCROSS_泡:1.0__OPAQUE_泡_404_) (_JCROSS_泡:1.0__OPAQUE_泡_93_ 0.0–2.0)" }
+        case "_JCROSS_幽:1.0__OPAQUE_泡_956_":
+            if let i = _JCROSS_礎:1.0__OPAQUE_礎_240_(_JCROSS_泡:1.0__OPAQUE_泡_404_) { _JCROSS_幽:1.0__OPAQUE_泡_590_ = _JCROSS_泡:1.0__OPAQUE_泡_355_(64, _JCROSS_泡:1.0__OPAQUE_泡_75_(32768, i)) }
+            else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_115_ _JCROSS_幽:1.0__OPAQUE_泡_956_: \(_JCROSS_泡:1.0__OPAQUE_泡_404_)" }
+        case "_JCROSS_幽:1.0__OPAQUE_泡_254_":
+            if let i = _JCROSS_礎:1.0__OPAQUE_礎_240_(_JCROSS_泡:1.0__OPAQUE_泡_404_) { _JCROSS_幽:1.0__OPAQUE_泡_213_ = _JCROSS_泡:1.0__OPAQUE_泡_355_(64, _JCROSS_泡:1.0__OPAQUE_泡_75_(32768, i)) }
+            else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_115_ _JCROSS_幽:1.0__OPAQUE_泡_254_: \(_JCROSS_泡:1.0__OPAQUE_泡_404_)" }
+        case "_JCROSS_泡:1.0__OPAQUE_泡_892_":
+            _JCROSS_泡:1.0__OPAQUE_泡_489_ = _JCROSS_泡:1.0__OPAQUE_泡_404_
+        case "_JCROSS_泡:1.0__OPAQUE_泡_108_":
+            if let m = _JCROSS_礎:1.0__OPAQUE_礎_212_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_404_) { _JCROSS_泡:1.0__OPAQUE_泡_646_ = m }
+            else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_204_ _JCROSS_泡:1.0__OPAQUE_泡_108_: \(_JCROSS_泡:1.0__OPAQUE_泡_404_). _JCROSS_礎:1.0__OPAQUE_礎_119_: _JCROSS_泡:1.0__OPAQUE_泡_368_, _JCROSS_泡:1.0__OPAQUE_泡_1009_, _JCROSS_泡:1.0__OPAQUE_泡_424_, _JCROSS_泡:1.0__OPAQUE_泡_252_" }
+        case "_JCROSS_泡:1.0__OPAQUE_泡_964_":
+            _JCROSS_泡:1.0__OPAQUE_泡_36_ = (_JCROSS_泡:1.0__OPAQUE_泡_404_ == "true" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "1" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "_JCROSS_泡:1.0__OPAQUE_泡_53_")
+        case "_JCROSS_泡:1.0__OPAQUE_泡_283_":
+            _JCROSS_泡:1.0__OPAQUE_泡_867_ = (_JCROSS_泡:1.0__OPAQUE_泡_404_ == "true" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "1" || _JCROSS_泡:1.0__OPAQUE_泡_404_ == "_JCROSS_泡:1.0__OPAQUE_泡_53_")
+        case "_JCROSS_幽:1.0__OPAQUE_泡_60_":
+            _JCROSS_幽:1.0__OPAQUE_泡_709_ = _JCROSS_泡:1.0__OPAQUE_泡_404_
+        case "_JCROSS_泡:1.0__OPAQUE_泡_824_":
+            _JCROSS_泡:1.0__OPAQUE_泡_807_ = _JCROSS_泡:1.0__OPAQUE_泡_404_
+            _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_344_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_404_)
+        _JCROSS_泡:1.0__OPAQUE_泡_877_:
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_204_ _JCROSS_図:1.0__OPAQUE_焦_4_ _JCROSS_幽:1.0__OPAQUE_泡_452_: '\(_JCROSS_幽:1.0__OPAQUE_泡_452_)'. _JCROSS_礎:1.0__OPAQUE_礎_119_ _JCROSS_幽:1.0__OPAQUE_泡_420_: _JCROSS_泡:1.0__OPAQUE_泡_554_, _JCROSS_泡:1.0__OPAQUE_泡_215_, _JCROSS_泡:1.0__OPAQUE_泡_842_, _JCROSS_幽:1.0__OPAQUE_泡_956_, _JCROSS_幽:1.0__OPAQUE_泡_254_, _JCROSS_泡:1.0__OPAQUE_泡_892_, _JCROSS_泡:1.0__OPAQUE_泡_108_, _JCROSS_泡:1.0__OPAQUE_泡_964_, _JCROSS_泡:1.0__OPAQUE_泡_283_, _JCROSS_幽:1.0__OPAQUE_泡_60_, _JCROSS_泡:1.0__OPAQUE_泡_824_"
+        }
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ "✓ \(_JCROSS_幽:1.0__OPAQUE_泡_452_) = \(_JCROSS_泡:1.0__OPAQUE_泡_404_._JCROSS_泡:1.0__OPAQUE_泡_741_(80))"
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_918_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_12_")
+            ?? "_JCROSS_泡:1.0__OPAQUE_泡_177_-_JCROSS_泡:1.0__OPAQUE_泡_744_/_JCROSS_泡:1.0__OPAQUE_泡_850_-4-26b-_JCROSS_泡:1.0__OPAQUE_泡_228_-it-4bit"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_918_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_12_") }
+    }
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_119_: [_JCROSS_礎:1.0__OPAQUE_礎_173_] = []
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_36_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = true {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ { _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_36_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_964_") }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    var _JCROSS_泡:1.0__OPAQUE_泡_384_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_礎:1.0__OPAQUE_礎_343_()._JCROSS_泡:1.0__OPAQUE_泡_841_._JCROSS_泡:1.0__OPAQUE_泡_741_(8))
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_990_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = false
+
+// [metadata-stripped]
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_629_: _JCROSS_礎:1.0__OPAQUE_礎_178_ = ._JCROSS_泡:1.0__OPAQUE_泡_401_
+
+    func _JCROSS_図:1.0__OPAQUE_焦_10_(for _JCROSS_泡:1.0__OPAQUE_泡_621_: _JCROSS_礎:1.0__OPAQUE_礎_178_) -> _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        if _JCROSS_泡:1.0__OPAQUE_泡_621_ == ._JCROSS_図:1.0__OPAQUE_泡_914_ {
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_186_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_472_._JCROSS_泡:1.0__OPAQUE_泡_5_
+        }
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_853_\(_JCROSS_泡:1.0__OPAQUE_泡_621_._JCROSS_泡:1.0__OPAQUE_泡_834_)") ?? _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_824_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_152_:26b"
+    }
+
+    func _JCROSS_図:1.0__OPAQUE_焦_1_(_ _JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_, for _JCROSS_泡:1.0__OPAQUE_泡_621_: _JCROSS_礎:1.0__OPAQUE_礎_178_) {
+        if _JCROSS_泡:1.0__OPAQUE_泡_621_ == ._JCROSS_図:1.0__OPAQUE_泡_914_ {
+            var _JCROSS_泡:1.0__OPAQUE_泡_472_ = _JCROSS_礎:1.0__OPAQUE_礎_186_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_472_
+            _JCROSS_泡:1.0__OPAQUE_泡_472_._JCROSS_泡:1.0__OPAQUE_泡_5_ = _JCROSS_泡:1.0__OPAQUE_泡_776_
+            _JCROSS_礎:1.0__OPAQUE_礎_186_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_472_ = _JCROSS_泡:1.0__OPAQUE_泡_472_
+            _JCROSS_泡:1.0__OPAQUE_泡_472_._JCROSS_匹:1.0__OPAQUE_泡_571_()
+        } else {
+            _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_776_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_853_\(_JCROSS_泡:1.0__OPAQUE_泡_621_._JCROSS_泡:1.0__OPAQUE_泡_834_)")
+        }
+        
+        if _JCROSS_泡:1.0__OPAQUE_泡_621_ == _JCROSS_泡:1.0__OPAQUE_泡_13_ && _JCROSS_泡:1.0__OPAQUE_泡_807_ != _JCROSS_泡:1.0__OPAQUE_泡_776_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_807_ = _JCROSS_泡:1.0__OPAQUE_泡_776_
+        }
+    }
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_380_(to _JCROSS_泡:1.0__OPAQUE_泡_621_: _JCROSS_礎:1.0__OPAQUE_礎_178_) {
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+            let _JCROSS_匹:1.0__OPAQUE_泡_597_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_15_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_337_()
+            for m in _JCROSS_匹:1.0__OPAQUE_泡_597_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_15_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_227_(m._JCROSS_泡:1.0__OPAQUE_泡_939_)
+            }
+            
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_13_ = _JCROSS_泡:1.0__OPAQUE_泡_621_
+                let _JCROSS_泡:1.0__OPAQUE_泡_78_ = _JCROSS_図:1.0__OPAQUE_焦_10_(for: _JCROSS_泡:1.0__OPAQUE_泡_621_)
+                if _JCROSS_泡:1.0__OPAQUE_泡_807_ != _JCROSS_泡:1.0__OPAQUE_泡_78_ {
+                    _JCROSS_泡:1.0__OPAQUE_泡_807_ = _JCROSS_泡:1.0__OPAQUE_泡_78_
+                }
+                _JCROSS_泡:1.0__OPAQUE_泡_180_()
+            }
+        }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_807_: _JCROSS_礎:1.0__OPAQUE_礎_173_ = {
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_824_") ?? "_JCROSS_泡:1.0__OPAQUE_泡_152_:26b"
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+            _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_807_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_824_")
+            
+// [metadata-stripped]
+            if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_図:1.0__OPAQUE_泡_914_ {
+                var _JCROSS_泡:1.0__OPAQUE_泡_472_ = _JCROSS_礎:1.0__OPAQUE_礎_186_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_472_
+                _JCROSS_泡:1.0__OPAQUE_泡_472_._JCROSS_泡:1.0__OPAQUE_泡_5_ = _JCROSS_泡:1.0__OPAQUE_泡_807_
+                _JCROSS_礎:1.0__OPAQUE_礎_186_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_472_ = _JCROSS_泡:1.0__OPAQUE_泡_472_
+                _JCROSS_泡:1.0__OPAQUE_泡_472_._JCROSS_匹:1.0__OPAQUE_泡_571_()
+            } else {
+                _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_泡:1.0__OPAQUE_泡_807_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_853_\(_JCROSS_泡:1.0__OPAQUE_泡_13_._JCROSS_泡:1.0__OPAQUE_泡_834_)")
+            }
+
+            let _JCROSS_図:1.0__OPAQUE_泡_533_ = _JCROSS_匹:1.0__OPAQUE_礎_74_._JCROSS_泡:1.0__OPAQUE_泡_672_(_JCROSS_泡:1.0__OPAQUE_泡_735_: _JCROSS_泡:1.0__OPAQUE_泡_807_)._JCROSS_図:1.0__OPAQUE_泡_533_
+            let _JCROSS_泡:1.0__OPAQUE_泡_332_ = (_JCROSS_図:1.0__OPAQUE_泡_533_ == ._JCROSS_泡:1.0__OPAQUE_泡_353_ || _JCROSS_図:1.0__OPAQUE_泡_533_ == ._JCROSS_泡:1.0__OPAQUE_泡_348_)
+            let _JCROSS_泡:1.0__OPAQUE_泡_902_ = _JCROSS_泡:1.0__OPAQUE_泡_990_
+            _JCROSS_泡:1.0__OPAQUE_泡_990_ = _JCROSS_泡:1.0__OPAQUE_泡_332_
+
+            if _JCROSS_泡:1.0__OPAQUE_泡_332_ && _JCROSS_泡:1.0__OPAQUE_泡_13_ != ._JCROSS_泡:1.0__OPAQUE_泡_30_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_30_
+                _JCROSS_泡:1.0__OPAQUE_泡_74_(
+                    "🧠 [_JCROSS_礎:1.0__OPAQUE_礎_290_ _JCROSS_礎:1.0__OPAQUE_礎_206_] \(_JCROSS_図:1.0__OPAQUE_泡_533_._JCROSS_泡:1.0__OPAQUE_泡_987_) モデルを検出。" +
+                    "AI _JCROSS_礎:1.0__OPAQUE_礎_254_ + VX-_JCROSS_礎:1.0__OPAQUE_礎_279_ + _JCROSS_礎:1.0__OPAQUE_礎_152_ を自動有効化しました"
+                )
+            } else if !_JCROSS_泡:1.0__OPAQUE_泡_332_ && _JCROSS_泡:1.0__OPAQUE_泡_902_ && _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_30_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_13_ = ._JCROSS_泡:1.0__OPAQUE_泡_401_
+                _JCROSS_泡:1.0__OPAQUE_泡_74_(
+                    "💬 [モード復帰] \(_JCROSS_図:1.0__OPAQUE_泡_533_._JCROSS_泡:1.0__OPAQUE_泡_987_) モデルに切り替えました。_JCROSS_礎:1.0__OPAQUE_礎_40_ モードに戻りました"
+                )
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_1007_() {
+        guard let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_泡:1.0__OPAQUE_泡_947_._JCROSS_図:1.0__OPAQUE_泡_253_() else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        _JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+        _JCROSS_匹:1.0__OPAQUE_泡_498_ = []
+        _JCROSS_匹:1.0__OPAQUE_泡_767_ = nil
+        _JCROSS_匹:1.0__OPAQUE_泡_1023_ = ""
+        _JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+// [metadata-stripped]
+        _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_図:1.0__OPAQUE_焦_3_(_JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_347_, _JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_157_")
+        _JCROSS_泡:1.0__OPAQUE_泡_74_("📂 _JCROSS_礎:1.0__OPAQUE_礎_69_: \(_JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_386_)")
+        _JCROSS_礎:1.0__OPAQUE_礎_325_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_図:1.0__OPAQUE_焦_8_(_JCROSS_縞:1.0__OPAQUE_泡_303_)
+        _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_195_(_JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+        _JCROSS_匹:1.0__OPAQUE_泡_708_()
+// [metadata-stripped]
+// [metadata-stripped]
+        if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_401_ {
+            _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_312_(_JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+                let _JCROSS_泡:1.0__OPAQUE_泡_710_ = _JCROSS_礎:1.0__OPAQUE_礎_188_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_681_?._JCROSS_匹:1.0__OPAQUE_泡_73_ ?? 0
+                self._JCROSS_泡:1.0__OPAQUE_泡_74_(_JCROSS_礎:1.0__OPAQUE_礎_298_._JCROSS_泡:1.0__OPAQUE_泡_299_.t("🗺️ L2.5 _JCROSS_泡:1.0__OPAQUE_泡_653_ _JCROSS_泡:1.0__OPAQUE_泡_628_ _JCROSS_泡:1.0__OPAQUE_泡_996_: \(_JCROSS_泡:1.0__OPAQUE_泡_710_) _JCROSS_匹:1.0__OPAQUE_泡_605_", "🗺️ L2.5 地図生成完了: \(_JCROSS_泡:1.0__OPAQUE_泡_710_) ファイル"))
+            }
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_匹:1.0__OPAQUE_泡_708_() {
+        guard let _JCROSS_泡:1.0__OPAQUE_泡_161_ = _JCROSS_縞:1.0__OPAQUE_泡_79_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_848_: _JCROSS_図:1.0__OPAQUE_焦_2_<_JCROSS_礎:1.0__OPAQUE_礎_173_> = [
+// [metadata-stripped]
+            "_JCROSS_滾:1.0__OPAQUE_泡_130_", "m", "mm", "_JCROSS_泡:1.0__OPAQUE_泡_101_", "_JCROSS_泡:1.0__OPAQUE_泡_499_", "_JCROSS_泡:1.0__OPAQUE_泡_486_",
+// [metadata-stripped]
+            "py", "_JCROSS_泡:1.0__OPAQUE_泡_876_", "_JCROSS_泡:1.0__OPAQUE_泡_667_", "_JCROSS_泡:1.0__OPAQUE_泡_66_",
+// [metadata-stripped]
+            "ts", "_JCROSS_泡:1.0__OPAQUE_泡_389_", "js", "_JCROSS_泡:1.0__OPAQUE_泡_425_", "_JCROSS_泡:1.0__OPAQUE_泡_569_", "_JCROSS_泡:1.0__OPAQUE_泡_258_", "_JCROSS_泡:1.0__OPAQUE_泡_102_", "_JCROSS_泡:1.0__OPAQUE_泡_897_",
+            "_JCROSS_泡:1.0__OPAQUE_泡_545_", "_JCROSS_泡:1.0__OPAQUE_泡_968_", "_JCROSS_泡:1.0__OPAQUE_泡_648_", "_JCROSS_泡:1.0__OPAQUE_泡_211_", "_JCROSS_泡:1.0__OPAQUE_泡_354_", "_JCROSS_泡:1.0__OPAQUE_泡_179_",
+// [metadata-stripped]
+            "rs", "_JCROSS_泡:1.0__OPAQUE_泡_456_",
+// [metadata-stripped]
+            "go",
+// [metadata-stripped]
+            "kt", "_JCROSS_泡:1.0__OPAQUE_泡_155_", "_JCROSS_泡:1.0__OPAQUE_泡_21_", "_JCROSS_泡:1.0__OPAQUE_泡_860_", "_JCROSS_泡:1.0__OPAQUE_泡_868_",
+// [metadata-stripped]
+            "c", "_JCROSS_泡:1.0__OPAQUE_泡_412_", "cc", "_JCROSS_泡:1.0__OPAQUE_泡_370_", "h", "_JCROSS_泡:1.0__OPAQUE_泡_737_",
+// [metadata-stripped]
+            "rb", "_JCROSS_泡:1.0__OPAQUE_泡_125_", "_JCROSS_泡:1.0__OPAQUE_泡_407_", "_JCROSS_泡:1.0__OPAQUE_泡_960_",
+// [metadata-stripped]
+            "sh", "_JCROSS_泡:1.0__OPAQUE_泡_800_", "_JCROSS_泡:1.0__OPAQUE_泡_257_", "_JCROSS_泡:1.0__OPAQUE_泡_99_", "_JCROSS_泡:1.0__OPAQUE_泡_955_",
+// [metadata-stripped]
+            "md", "_JCROSS_泡:1.0__OPAQUE_泡_871_", "_JCROSS_泡:1.0__OPAQUE_泡_579_", "_JCROSS_泡:1.0__OPAQUE_泡_830_", "_JCROSS_泡:1.0__OPAQUE_泡_804_",
+            "_JCROSS_泡:1.0__OPAQUE_泡_525_", "_JCROSS_泡:1.0__OPAQUE_泡_293_", "_JCROSS_泡:1.0__OPAQUE_泡_846_", "_JCROSS_泡:1.0__OPAQUE_泡_861_",
+            "_JCROSS_泡:1.0__OPAQUE_泡_984_", "_JCROSS_泡:1.0__OPAQUE_泡_998_", "_JCROSS_泡:1.0__OPAQUE_泡_641_", "_JCROSS_泡:1.0__OPAQUE_泡_359_",
+            "_JCROSS_泡:1.0__OPAQUE_泡_999_", "_JCROSS_泡:1.0__OPAQUE_泡_843_",
+// [metadata-stripped]
+            "_JCROSS_匹:1.0__OPAQUE_泡_104_", "_JCROSS_匹:1.0__OPAQUE_泡_81_", "_JCROSS_泡:1.0__OPAQUE_泡_965_", "_JCROSS_泡:1.0__OPAQUE_泡_376_",
+            "_JCROSS_匹:1.0__OPAQUE_泡_719_", "_JCROSS_匹:1.0__OPAQUE_泡_248_",
+        ]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_礎:1.0__OPAQUE_礎_203_(_JCROSS_泡:1.0__OPAQUE_泡_37_: ._JCROSS_泡:1.0__OPAQUE_泡_751_) { [weak self] in
+            guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+            for a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_530_ in self._JCROSS_泡:1.0__OPAQUE_泡_947_._JCROSS_泡:1.0__OPAQUE_泡_259_(in: _JCROSS_泡:1.0__OPAQUE_泡_161_, _JCROSS_泡:1.0__OPAQUE_泡_89_: _JCROSS_泡:1.0__OPAQUE_泡_848_) {
+                self._JCROSS_匹:1.0__OPAQUE_泡_498_ = _JCROSS_泡:1.0__OPAQUE_泡_530_
+            }
+        }
+    }
+
+
+// [metadata-stripped]
+    _JCROSS_泡:1.0__OPAQUE_泡_632__JCROSS_泡:1.0__OPAQUE_泡_56_ private func _JCROSS_泡:1.0__OPAQUE_泡_233_(for _JCROSS_縞:1.0__OPAQUE_泡_303_: _JCROSS_縞:1.0__OPAQUE_礎_271_) -> _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        do {
+            let _JCROSS_泡:1.0__OPAQUE_泡_729_ = try _JCROSS_匹:1.0__OPAQUE_礎_192_._JCROSS_泡:1.0__OPAQUE_泡_877_._JCROSS_泡:1.0__OPAQUE_泡_966_(_JCROSS_泡:1.0__OPAQUE_泡_755_: _JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_347_)
+            if let _JCROSS_泡:1.0__OPAQUE_泡_313_ = _JCROSS_泡:1.0__OPAQUE_泡_729_[._JCROSS_泡:1.0__OPAQUE_泡_313_] as? _JCROSS_礎:1.0__OPAQUE_礎_181_, _JCROSS_泡:1.0__OPAQUE_泡_313_ > 2_000_000 { // >2MB is _JCROSS_泡:1.0__OPAQUE_泡_325_ _JCROSS_泡:1.0__OPAQUE_泡_26_ for _JCROSS_礎:1.0__OPAQUE_礎_269_ _JCROSS_礎:1.0__OPAQUE_礎_171_
+                re_JCROSS_泡:1.0__OPAQUE_泡_291_ ";;; ⚠️ _JCROSS_匹:1.0__OPAQUE_礎_266_ is _JCROSS_泡:1.0__OPAQUE_泡_325_ _JCROSS_泡:1.0__OPAQUE_泡_799_ to _JCROSS_泡:1.0__OPAQUE_泡_115_ (\(_JCROSS_泡:1.0__OPAQUE_泡_313_ / 1_000_000) MB)"
+            }
+            let _JCROSS_泡:1.0__OPAQUE_泡_561_ = try _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_泡:1.0__OPAQUE_泡_696_: _JCROSS_縞:1.0__OPAQUE_泡_303_, _JCROSS_泡:1.0__OPAQUE_泡_326_: ._JCROSS_泡:1.0__OPAQUE_泡_981_)
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_474_(_JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_泡:1.0__OPAQUE_泡_561_)
+        } catch {
+            if let _JCROSS_泡:1.0__OPAQUE_泡_561_ = try? _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_泡:1.0__OPAQUE_泡_696_: _JCROSS_縞:1.0__OPAQUE_泡_303_, _JCROSS_泡:1.0__OPAQUE_泡_326_: ._JCROSS_泡:1.0__OPAQUE_泡_381_) {
+                re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_474_(_JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_泡:1.0__OPAQUE_泡_561_)
+            }
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ ";;; ⚠️ _JCROSS_礎:1.0__OPAQUE_礎_308_ to _JCROSS_泡:1.0__OPAQUE_泡_438_ _JCROSS_匹:1.0__OPAQUE_泡_334_ _JCROSS_泡:1.0__OPAQUE_泡_476_ (_JCROSS_泡:1.0__OPAQUE_泡_27_ or _JCROSS_泡:1.0__OPAQUE_泡_458_ _JCROSS_泡:1.0__OPAQUE_泡_326_)"
+        }
+    }
+
+    _JCROSS_泡:1.0__OPAQUE_泡_632__JCROSS_泡:1.0__OPAQUE_泡_56_ private func _JCROSS_泡:1.0__OPAQUE_泡_474_(_JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_) -> _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        let _JCROSS_泡:1.0__OPAQUE_泡_952_ = 100_000 // _JCROSS_礎:1.0__OPAQUE_礎_255_ _JCROSS_泡:1.0__OPAQUE_泡_915_ for _JCROSS_礎:1.0__OPAQUE_礎_269_ _JCROSS_礎:1.0__OPAQUE_礎_171_
+        if _JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_710_ > _JCROSS_泡:1.0__OPAQUE_泡_952_ {
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_741_(_JCROSS_泡:1.0__OPAQUE_泡_952_)) + "\n\n... (_JCROSS_匹:1.0__OPAQUE_礎_266_ _JCROSS_泡:1.0__OPAQUE_泡_587_ for _JCROSS_泡:1.0__OPAQUE_泡_115_ _JCROSS_泡:1.0__OPAQUE_泡_915_) ..."
+        }
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_561_
+    }
+
+    @_JCROSS_礎:1.0__OPAQUE_礎_159_ var _JCROSS_泡:1.0__OPAQUE_泡_321_: _JCROSS_礎:1.0__OPAQUE_礎_297_ = {
+        let _JCROSS_泡:1.0__OPAQUE_泡_863_ = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_215_") ?? _JCROSS_礎:1.0__OPAQUE_礎_178_._JCROSS_泡:1.0__OPAQUE_泡_401_._JCROSS_泡:1.0__OPAQUE_泡_834_
+        let _JCROSS_泡:1.0__OPAQUE_泡_621_ = _JCROSS_礎:1.0__OPAQUE_礎_178_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_863_) ?? ._JCROSS_泡:1.0__OPAQUE_泡_401_
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_621_ != ._JCROSS_図:1.0__OPAQUE_泡_914_
+    }() {
+        _JCROSS_泡:1.0__OPAQUE_泡_477_ {
+            if let _JCROSS_匹:1.0__OPAQUE_泡_334_ = _JCROSS_匹:1.0__OPAQUE_泡_767_ { _JCROSS_匹:1.0__OPAQUE_泡_289_(_JCROSS_匹:1.0__OPAQUE_泡_334_) }
+        }
+    }
+
+// [metadata-stripped]
+    func _JCROSS_匹:1.0__OPAQUE_泡_289_(_ _JCROSS_縞:1.0__OPAQUE_泡_303_: _JCROSS_縞:1.0__OPAQUE_礎_271_) {
+        _JCROSS_匹:1.0__OPAQUE_泡_767_ = _JCROSS_縞:1.0__OPAQUE_泡_303_          // _JCROSS_泡:1.0__OPAQUE_泡_100_ _JCROSS_泡:1.0__OPAQUE_泡_288_ (no _JCROSS_泡:1.0__OPAQUE_泡_390_)
+        _JCROSS_匹:1.0__OPAQUE_泡_1023_ = ""    // _JCROSS_泡:1.0__OPAQUE_泡_782_ _JCROSS_泡:1.0__OPAQUE_泡_136_ _JCROSS_泡:1.0__OPAQUE_泡_476_ _JCROSS_泡:1.0__OPAQUE_泡_749_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_811_ = _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_794_
+        if _JCROSS_泡:1.0__OPAQUE_泡_811_ && !_JCROSS_泡:1.0__OPAQUE_泡_321_ {
+            let _JCROSS_泡:1.0__OPAQUE_泡_190_: _JCROSS_礎:1.0__OPAQUE_礎_173_
+            if let _JCROSS_泡:1.0__OPAQUE_泡_845_ = _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_,
+               _JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_347_._JCROSS_泡:1.0__OPAQUE_泡_341_(_JCROSS_泡:1.0__OPAQUE_泡_845_ + "/") {
+                _JCROSS_泡:1.0__OPAQUE_泡_190_ = _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_347_._JCROSS_泡:1.0__OPAQUE_泡_245_(_JCROSS_泡:1.0__OPAQUE_泡_845_._JCROSS_泡:1.0__OPAQUE_泡_710_ + 1))
+            } else {
+                _JCROSS_泡:1.0__OPAQUE_泡_190_ = _JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_386_
+            }
+
+            _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_ { [weak self] in
+                guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                let _JCROSS_泡:1.0__OPAQUE_泡_658_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_658_ }
+                let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { _JCROSS_泡:1.0__OPAQUE_泡_658_._JCROSS_泡:1.0__OPAQUE_泡_438_(_JCROSS_泡:1.0__OPAQUE_泡_190_: _JCROSS_泡:1.0__OPAQUE_泡_190_) }
+
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    guard self._JCROSS_匹:1.0__OPAQUE_泡_767_ == _JCROSS_縞:1.0__OPAQUE_泡_303_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                    if let _JCROSS_泡:1.0__OPAQUE_泡_181_ = _JCROSS_泡:1.0__OPAQUE_泡_534_ {
+// [metadata-stripped]
+                        let _JCROSS_図:1.0__OPAQUE_泡_604_ = """
+                        ;;; 🛡️ _JCROSS_図:1.0__OPAQUE_礎_63_ _JCROSS_礎:1.0__OPAQUE_礎_141_ — _JCROSS_礎:1.0__OPAQUE_礎_224_ IR _JCROSS_礎:1.0__OPAQUE_礎_294_
+                        ;;; _JCROSS_礎:1.0__OPAQUE_礎_96_ _JCROSS_滾:1.0__OPAQUE_泡_300_ _JCROSS_泡:1.0__OPAQUE_泡_127_ _JCROSS_泡:1.0__OPAQUE_泡_911_ _JCROSS_泡:1.0__OPAQUE_泡_929_ _JCROSS_泡:1.0__OPAQUE_泡_673_ _JCROSS_泡:1.0__OPAQUE_泡_736_ _JCROSS_礎:1.0__OPAQUE_礎_151_.
+                        ;;; _JCROSS_礎:1.0__OPAQUE_礎_160_: \(_JCROSS_泡:1.0__OPAQUE_泡_181_._JCROSS_泡:1.0__OPAQUE_泡_750_._JCROSS_泡:1.0__OPAQUE_泡_462_._JCROSS_泡:1.0__OPAQUE_泡_741_(12))
+                        ;;; _JCROSS_礎:1.0__OPAQUE_礎_49_: \(_JCROSS_泡:1.0__OPAQUE_泡_181_._JCROSS_泡:1.0__OPAQUE_泡_750_._JCROSS_泡:1.0__OPAQUE_泡_564_) | _JCROSS_幽:1.0__OPAQUE_礎_103_ _JCROSS_泡:1.0__OPAQUE_泡_675_: \(_JCROSS_泡:1.0__OPAQUE_泡_181_._JCROSS_泡:1.0__OPAQUE_泡_750_._JCROSS_幽:1.0__OPAQUE_泡_200_)
+                        ;;; _JCROSS_礎:1.0__OPAQUE_礎_177_: \(_JCROSS_泡:1.0__OPAQUE_泡_190_)
+                        ;;; 
+                        ;;; (To _JCROSS_泡:1.0__OPAQUE_泡_183_ _JCROSS_泡:1.0__OPAQUE_泡_863_ _JCROSS_泡:1.0__OPAQUE_泡_80_, _JCROSS_泡:1.0__OPAQUE_泡_1021_ "_JCROSS_礎:1.0__OPAQUE_礎_122_ _JCROSS_礎:1.0__OPAQUE_礎_42_ _JCROSS_礎:1.0__OPAQUE_礎_78_" _JCROSS_泡:1.0__OPAQUE_泡_678_)
+                        ;;;
+                        """
+                        self._JCROSS_匹:1.0__OPAQUE_泡_1023_ = _JCROSS_図:1.0__OPAQUE_泡_604_ + "\n" + self._JCROSS_泡:1.0__OPAQUE_泡_474_(_JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_泡:1.0__OPAQUE_泡_181_._JCROSS_泡:1.0__OPAQUE_泡_374_)
+                    } else {
+// [metadata-stripped]
+                        let _JCROSS_泡:1.0__OPAQUE_泡_863_ = self._JCROSS_泡:1.0__OPAQUE_泡_233_(for: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+                        let _JCROSS_泡:1.0__OPAQUE_泡_162_ = """
+                        ;;; ⚠️ _JCROSS_図:1.0__OPAQUE_礎_63_ _JCROSS_礎:1.0__OPAQUE_礎_141_ — このファイルはまだ _JCROSS_礎:1.0__OPAQUE_礎_224_ 変換されていません
+                        ;;; [_JCROSS_図:1.0__OPAQUE_礎_23_ 設定] → [一括変換を開始] で_JCROSS_礎:1.0__OPAQUE_礎_265_を更新してください
+                        ;;; ※ 以下は実コードです。このビューは一時的なものです
+                        ;;;
+                        
+                        """
+                        self._JCROSS_匹:1.0__OPAQUE_泡_1023_ = _JCROSS_泡:1.0__OPAQUE_泡_162_ + _JCROSS_泡:1.0__OPAQUE_泡_863_
+                    }
+                }
+            }
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_
+        }
+
+// [metadata-stripped]
+        _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_ { [weak self] in
+            guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_476_ = self._JCROSS_泡:1.0__OPAQUE_泡_233_(for: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+// [metadata-stripped]
+                guard self._JCROSS_匹:1.0__OPAQUE_泡_767_ == _JCROSS_縞:1.0__OPAQUE_泡_303_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                self._JCROSS_匹:1.0__OPAQUE_泡_1023_ = _JCROSS_泡:1.0__OPAQUE_泡_476_
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _JCROSS_匹:1.0__OPAQUE_泡_448_() {
+        if _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_801_ == nil, _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_710_ > 1 {
+            _ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_942_(_JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_506_, _JCROSS_泡:1.0__OPAQUE_泡_375_: _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_)
+        } else {
+            _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_114_(_JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_506_, _JCROSS_泡:1.0__OPAQUE_泡_375_: _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_)
+        }
+    }
+
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__OPAQUE_泡_655_() {
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_1007_()
+
+// [metadata-stripped]
+        if let _JCROSS_泡:1.0__OPAQUE_泡_592_ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_801_,
+           let _JCROSS_泡:1.0__OPAQUE_泡_941_ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_562_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_592_ }),
+           !_JCROSS_泡:1.0__OPAQUE_泡_941_._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_図:1.0__OPAQUE_泡_1001_({ $0._JCROSS_泡:1.0__OPAQUE_泡_618_ != ._JCROSS_泡:1.0__OPAQUE_泡_606_ })._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            _JCROSS_図:1.0__OPAQUE_礎_21_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_133_(_JCROSS_泡:1.0__OPAQUE_泡_589_: _JCROSS_泡:1.0__OPAQUE_泡_941_)
+        }
+
+        _JCROSS_匹:1.0__OPAQUE_泡_448_()
+        _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_972_()
+        _JCROSS_滾:1.0__OPAQUE_泡_896_ = nil
+        _JCROSS_滾:1.0__OPAQUE_泡_19_    = false
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_384_ = _JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_礎:1.0__OPAQUE_礎_343_()._JCROSS_泡:1.0__OPAQUE_泡_841_._JCROSS_泡:1.0__OPAQUE_泡_741_(8))
+        let _JCROSS_泡:1.0__OPAQUE_泡_942_ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_942_(_JCROSS_泡:1.0__OPAQUE_泡_506_: [], _JCROSS_泡:1.0__OPAQUE_泡_375_: _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_592_ = _JCROSS_泡:1.0__OPAQUE_泡_942_.id
+        let _JCROSS_図:1.0__OPAQUE_泡_829_ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_442_?._JCROSS_図:1.0__OPAQUE_泡_513_ ?? .l2
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+            let _JCROSS_泡:1.0__OPAQUE_泡_849_ = _JCROSS_図:1.0__OPAQUE_礎_21_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_109_(
+                _JCROSS_泡:1.0__OPAQUE_泡_226_: 5,
+                _JCROSS_図:1.0__OPAQUE_泡_829_: _JCROSS_図:1.0__OPAQUE_泡_829_,
+                _JCROSS_泡:1.0__OPAQUE_泡_483_: _JCROSS_泡:1.0__OPAQUE_泡_592_
+            )
+            if !_JCROSS_泡:1.0__OPAQUE_泡_849_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_723_(
+                        _JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_849_),
+                        at: 0
+                    )
+                    self._JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("🧠 _JCROSS_礎:1.0__OPAQUE_礎_93_ _JCROSS_泡:1.0__OPAQUE_泡_41_ _JCROSS_泡:1.0__OPAQUE_泡_526_ _JCROSS_泡:1.0__OPAQUE_泡_993_ _JCROSS_泡:1.0__OPAQUE_泡_589_ (\\(_JCROSS_図:1.0__OPAQUE_泡_829_._JCROSS_泡:1.0__OPAQUE_泡_834_) _JCROSS_図:1.0__OPAQUE_泡_829_)", "🧠 過去セッションの記憶を注入しました (\\(_JCROSS_図:1.0__OPAQUE_泡_829_._JCROSS_泡:1.0__OPAQUE_泡_834_) レイヤー)"))
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__OPAQUE_泡_459_(_ _JCROSS_泡:1.0__OPAQUE_泡_263_: _JCROSS_礎:1.0__OPAQUE_礎_343_) {
+        guard let _JCROSS_泡:1.0__OPAQUE_泡_589_ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_562_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_263_ }) else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_42_?._JCROSS_泡:1.0__OPAQUE_泡_484_()
+        _JCROSS_泡:1.0__OPAQUE_泡_42_ = nil
+        _JCROSS_泡:1.0__OPAQUE_泡_329_  = false
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        self._JCROSS_泡:1.0__OPAQUE_泡_209_ = nil
+
+        _JCROSS_匹:1.0__OPAQUE_泡_448_()
+        _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_128_(_JCROSS_泡:1.0__OPAQUE_泡_263_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_506_    = _JCROSS_泡:1.0__OPAQUE_泡_589_._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_図:1.0__OPAQUE_泡_1001_ { _JCROSS_泡:1.0__OPAQUE_泡_315_ in
+            !(_JCROSS_泡:1.0__OPAQUE_泡_315_._JCROSS_泡:1.0__OPAQUE_泡_618_ == ._JCROSS_泡:1.0__OPAQUE_泡_1019_ && _JCROSS_泡:1.0__OPAQUE_泡_315_._JCROSS_泡:1.0__OPAQUE_泡_476_._JCROSS_泡:1.0__OPAQUE_泡_330_(in: ._JCROSS_泡:1.0__OPAQUE_泡_166_)._JCROSS_泡:1.0__OPAQUE_泡_954_)
+        }
+        _JCROSS_滾:1.0__OPAQUE_泡_896_ = nil
+        _JCROSS_滾:1.0__OPAQUE_泡_19_    = false
+        if let _JCROSS_泡:1.0__OPAQUE_泡_347_ = _JCROSS_泡:1.0__OPAQUE_泡_589_._JCROSS_泡:1.0__OPAQUE_泡_375_ {
+            let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_縞:1.0__OPAQUE_泡_507_: _JCROSS_泡:1.0__OPAQUE_泡_347_)
+            if _JCROSS_縞:1.0__OPAQUE_泡_79_ != _JCROSS_縞:1.0__OPAQUE_泡_303_ {
+                _JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                _JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                _JCROSS_匹:1.0__OPAQUE_泡_708_()
+            }
+        }
+// [metadata-stripped]
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+// _JCROSS_泡:0.4__OPAQUE_MF_397_ [decoy-metadata]
+            let _JCROSS_泡:1.0__OPAQUE_泡_849_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_716_(for: _JCROSS_泡:1.0__OPAQUE_泡_263_)
+            if !_JCROSS_泡:1.0__OPAQUE_泡_849_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_723_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_849_), at: 0)
+// _JCROSS_匹:0.1__OPAQUE_MY_841_ [decoy-metadata]
+                }
+            }
+        }
+        _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("📂 _JCROSS_礎:1.0__OPAQUE_礎_312_ _JCROSS_泡:1.0__OPAQUE_泡_589_ '\\(_JCROSS_泡:1.0__OPAQUE_泡_589_._JCROSS_泡:1.0__OPAQUE_泡_430_)'", "📂 セッション「\\(_JCROSS_泡:1.0__OPAQUE_泡_589_._JCROSS_泡:1.0__OPAQUE_泡_430_)」を復元しました"))
+        _JCROSS_泡:1.0__OPAQUE_泡_934_ = 0
+    }
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_909_(_JCROSS_泡:1.0__OPAQUE_泡_673_ _JCROSS_泡:1.0__OPAQUE_泡_553_: _JCROSS_礎:1.0__OPAQUE_礎_173_? = nil) {
+        let _JCROSS_泡:1.0__OPAQUE_泡_561_ = (_JCROSS_泡:1.0__OPAQUE_泡_553_ ?? _JCROSS_泡:1.0__OPAQUE_泡_586_)._JCROSS_泡:1.0__OPAQUE_泡_330_(in: ._JCROSS_泡:1.0__OPAQUE_泡_166_)
+        let _JCROSS_泡:1.0__OPAQUE_泡_241_ = !_JCROSS_泡:1.0__OPAQUE_泡_700_._JCROSS_泡:1.0__OPAQUE_泡_954_ || !_JCROSS_匹:1.0__OPAQUE_泡_823_._JCROSS_泡:1.0__OPAQUE_泡_954_
+        guard !_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_954_ || _JCROSS_泡:1.0__OPAQUE_泡_241_, !_JCROSS_泡:1.0__OPAQUE_泡_329_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        _JCROSS_泡:1.0__OPAQUE_泡_586_ = ""
+
+// [metadata-stripped]
+        var _JCROSS_泡:1.0__OPAQUE_泡_891_ = _JCROSS_泡:1.0__OPAQUE_泡_561_
+        if !_JCROSS_泡:1.0__OPAQUE_泡_700_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_891_ += _JCROSS_泡:1.0__OPAQUE_泡_700_._JCROSS_泡:1.0__OPAQUE_泡_710_ == 1
+                ? "\n📎 [_JCROSS_礎:1.0__OPAQUE_礎_62_: \(_JCROSS_泡:1.0__OPAQUE_泡_700_[0]._JCROSS_泡:1.0__OPAQUE_泡_939_)]"
+                : "\n📎 [\(_JCROSS_泡:1.0__OPAQUE_泡_700_._JCROSS_泡:1.0__OPAQUE_泡_710_) _JCROSS_泡:1.0__OPAQUE_泡_70_ _JCROSS_泡:1.0__OPAQUE_泡_123_]"
+        }
+        if !_JCROSS_匹:1.0__OPAQUE_泡_823_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            for f in _JCROSS_匹:1.0__OPAQUE_泡_823_ { _JCROSS_泡:1.0__OPAQUE_泡_891_ += "\n📎 [_JCROSS_匹:1.0__OPAQUE_礎_266_: \(f._JCROSS_泡:1.0__OPAQUE_泡_386_)]" }
+        }
+
+        let _JCROSS_泡:1.0__OPAQUE_泡_141_ = _JCROSS_泡:1.0__OPAQUE_泡_700_
+        let _JCROSS_匹:1.0__OPAQUE_泡_262_  = _JCROSS_匹:1.0__OPAQUE_泡_823_
+        _JCROSS_泡:1.0__OPAQUE_泡_700_._JCROSS_泡:1.0__OPAQUE_泡_972_()
+        _JCROSS_匹:1.0__OPAQUE_泡_823_._JCROSS_泡:1.0__OPAQUE_泡_972_()
+
+        _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_図:1.0__OPAQUE_泡_413_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_891_))
+        _JCROSS_泡:1.0__OPAQUE_泡_329_ = true
+
+// [metadata-stripped]
+        if _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_801_ == nil {
+            _ = _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_942_(_JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_506_, _JCROSS_泡:1.0__OPAQUE_泡_375_: _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_)
+        }
+
+        _JCROSS_泡:1.0__OPAQUE_泡_42_ = _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+// [metadata-stripped]
+            if _JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_398_(_JCROSS_泡:1.0__OPAQUE_泡_673_: "/_JCROSS_泡:1.0__OPAQUE_泡_298_") {
+                let _JCROSS_泡:1.0__OPAQUE_泡_246_ = _JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_612_(_JCROSS_泡:1.0__OPAQUE_泡_106_: " ")
+                
+                if _JCROSS_泡:1.0__OPAQUE_泡_246_._JCROSS_泡:1.0__OPAQUE_泡_710_ >= 2 && _JCROSS_泡:1.0__OPAQUE_泡_246_[1] == "_JCROSS_泡:1.0__OPAQUE_泡_639_" {
+                    a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_74_("📊 取得中: _JCROSS_礎:1.0__OPAQUE_礎_230_ _JCROSS_礎:1.0__OPAQUE_礎_50_...") }
+                    let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_310_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_935_(
+                        _JCROSS_泡:1.0__OPAQUE_泡_223_: "_JCROSS_泡:1.0__OPAQUE_泡_508_-_JCROSS_図:1.0__OPAQUE_泡_428_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_577_: "_JCROSS_泡:1.0__OPAQUE_泡_86_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_350_: [:]
+                    )
+                    a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                        self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+                        self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: "📈 _JCROSS_礎:1.0__OPAQUE_礎_230_ _JCROSS_礎:1.0__OPAQUE_礎_50_:\n\n\(_JCROSS_泡:1.0__OPAQUE_泡_534_)"))
+                        self._JCROSS_匹:1.0__OPAQUE_泡_448_()
+                    }
+                    re_JCROSS_泡:1.0__OPAQUE_泡_291_
+                }
+                
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_74_("🚀 起動中: _JCROSS_礎:1.0__OPAQUE_礎_252_ _JCROSS_礎:1.0__OPAQUE_礎_230_...") }
+                
+// [metadata-stripped]
+                var _JCROSS_泡:1.0__OPAQUE_泡_858_: [_JCROSS_礎:1.0__OPAQUE_礎_173_: _JCROSS_礎:1.0__OPAQUE_礎_155_] = [:]
+                for _JCROSS_泡:1.0__OPAQUE_泡_546_ in _JCROSS_泡:1.0__OPAQUE_泡_246_._JCROSS_泡:1.0__OPAQUE_泡_245_() {
+                    let kv = _JCROSS_泡:1.0__OPAQUE_泡_546_._JCROSS_泡:1.0__OPAQUE_泡_612_(_JCROSS_泡:1.0__OPAQUE_泡_106_: "=")
+                    if kv._JCROSS_泡:1.0__OPAQUE_泡_710_ == 2, let v = _JCROSS_礎:1.0__OPAQUE_礎_240_(_JCROSS_礎:1.0__OPAQUE_礎_173_(kv[1])) {
+                        _JCROSS_泡:1.0__OPAQUE_泡_858_[_JCROSS_礎:1.0__OPAQUE_礎_173_(kv[0])] = v
+                    }
+                }
+                
+                let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_310_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_935_(
+                    _JCROSS_泡:1.0__OPAQUE_泡_223_: "_JCROSS_泡:1.0__OPAQUE_泡_508_-_JCROSS_図:1.0__OPAQUE_泡_428_",
+                    _JCROSS_泡:1.0__OPAQUE_泡_577_: "_JCROSS_泡:1.0__OPAQUE_泡_985_",
+                    _JCROSS_泡:1.0__OPAQUE_泡_350_: _JCROSS_泡:1.0__OPAQUE_泡_858_
+                )
+                
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: "📈 _JCROSS_礎:1.0__OPAQUE_礎_230_ _JCROSS_礎:1.0__OPAQUE_礎_65_:\n\n\(_JCROSS_泡:1.0__OPAQUE_泡_534_)"))
+                    self._JCROSS_匹:1.0__OPAQUE_泡_448_()
+                }
+                re_JCROSS_泡:1.0__OPAQUE_泡_291_
+            }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_651_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                _JCROSS_図:1.0__OPAQUE_礎_216_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_932_()
+            }
+            if let _JCROSS_泡:1.0__OPAQUE_泡_639_ = _JCROSS_泡:1.0__OPAQUE_泡_651_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_610_ += "\n\n" + _JCROSS_泡:1.0__OPAQUE_泡_639_ }
+// [metadata-stripped]
+                defer {
+                    _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                        if let _JCROSS_泡:1.0__OPAQUE_泡_840_ = self._JCROSS_泡:1.0__OPAQUE_泡_610_._JCROSS_泡:1.0__OPAQUE_泡_840_(of: "\n\n[_JCROSS_礎:1.0__OPAQUE_礎_28_ _JCROSS_礎:1.0__OPAQUE_礎_146_") {
+                            self._JCROSS_泡:1.0__OPAQUE_泡_610_ = _JCROSS_礎:1.0__OPAQUE_礎_173_(self._JCROSS_泡:1.0__OPAQUE_泡_610_[..<_JCROSS_泡:1.0__OPAQUE_泡_840_._JCROSS_泡:1.0__OPAQUE_泡_457_])
+                        }
+                    }
+                }
+            }
+// [metadata-stripped]
+            if _JCROSS_図:1.0__OPAQUE_礎_216_._JCROSS_泡:1.0__OPAQUE_泡_463_(_JCROSS_泡:1.0__OPAQUE_泡_561_) {
+                let _JCROSS_泡:1.0__OPAQUE_泡_888_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    _JCROSS_図:1.0__OPAQUE_礎_216_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_730_()
+                }
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_74_(_JCROSS_礎:1.0__OPAQUE_礎_298_._JCROSS_泡:1.0__OPAQUE_泡_299_.t("📊 _JCROSS_礎:1.0__OPAQUE_礎_154_ _JCROSS_泡:1.0__OPAQUE_泡_894_ _JCROSS_泡:1.0__OPAQUE_泡_530_:\n\(_JCROSS_泡:1.0__OPAQUE_泡_888_)", "📊 システム状態スナップショット:\n\(_JCROSS_泡:1.0__OPAQUE_泡_888_)"))
+                }
+            }
+// [metadata-stripped]
+
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_156_ = _JCROSS_泡:1.0__OPAQUE_泡_242_._JCROSS_滾:1.0__OPAQUE_泡_859_(_JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_506_)
+            if _JCROSS_泡:1.0__OPAQUE_泡_156_._JCROSS_泡:1.0__OPAQUE_泡_710_ < _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_710_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_506_ = _JCROSS_泡:1.0__OPAQUE_泡_156_ }
+            }
+
+// [metadata-stripped]
+            if a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_(_JCROSS_泡:1.0__OPAQUE_泡_946_: { _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_794_ }) {
+// [metadata-stripped]
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_317_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_962_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_561_, _JCROSS_泡:1.0__OPAQUE_泡_379_: self)
+            } else if _JCROSS_泡:1.0__OPAQUE_泡_646_ == ._JCROSS_泡:1.0__OPAQUE_泡_1009_ || _JCROSS_泡:1.0__OPAQUE_泡_646_ == ._JCROSS_泡:1.0__OPAQUE_泡_424_ || _JCROSS_泡:1.0__OPAQUE_泡_646_ == ._JCROSS_泡:1.0__OPAQUE_泡_252_ {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_677_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_561_)
+            } else if _JCROSS_泡:1.0__OPAQUE_泡_36_ {
+                if _JCROSS_泡:1.0__OPAQUE_泡_629_ == ._JCROSS_泡:1.0__OPAQUE_泡_401_ {
+                    a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_890_ = true }
+                }
+                
+// [metadata-stripped]
+                let _JCROSS_泡:1.0__OPAQUE_泡_515_ = _JCROSS_礎:1.0__OPAQUE_礎_238_(self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_703_())
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_63_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_561_,
+                                   _JCROSS_泡:1.0__OPAQUE_泡_70_: _JCROSS_泡:1.0__OPAQUE_泡_141_,
+                                   _JCROSS_匹:1.0__OPAQUE_泡_605_: _JCROSS_匹:1.0__OPAQUE_泡_262_,
+                                   _JCROSS_泡:1.0__OPAQUE_泡_838_: _JCROSS_泡:1.0__OPAQUE_泡_515_)
+            } else {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_855_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_561_,
+                                    _JCROSS_泡:1.0__OPAQUE_泡_70_: _JCROSS_泡:1.0__OPAQUE_泡_141_,
+                                    _JCROSS_匹:1.0__OPAQUE_泡_605_: _JCROSS_匹:1.0__OPAQUE_泡_262_)
+            }
+
+// [metadata-stripped]
+            _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_114_(_JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_506_, _JCROSS_泡:1.0__OPAQUE_泡_375_: _JCROSS_縞:1.0__OPAQUE_泡_79_?._JCROSS_泡:1.0__OPAQUE_泡_347_)
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _JCROSS_泡:1.0__OPAQUE_泡_847_(_JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_) a_JCROSS_泡:1.0__OPAQUE_泡_264_ -> _JCROSS_礎:1.0__OPAQUE_礎_297_ {
+// [metadata-stripped]
+        if _JCROSS_礎:1.0__OPAQUE_礎_215_._JCROSS_泡:1.0__OPAQUE_泡_847_(_JCROSS_泡:1.0__OPAQUE_泡_561_) { re_JCROSS_泡:1.0__OPAQUE_泡_291_ true }
+// [metadata-stripped]
+        if _JCROSS_礎:1.0__OPAQUE_礎_260_._JCROSS_匹:1.0__OPAQUE_泡_275_()?._JCROSS_泡:1.0__OPAQUE_泡_647_ == true {
+            let _JCROSS_滾:1.0__OPAQUE_泡_731_ = """
+// [metadata-stripped]
+            _JCROSS_礎:1.0__OPAQUE_礎_123_ _JCROSS_泡:1.0__OPAQUE_泡_694_ _JCROSS_図:1.0__OPAQUE_泡_413_ _JCROSS_泡:1.0__OPAQUE_泡_670_. _JCROSS_礎:1.0__OPAQUE_礎_18_ _JCROSS_礎:1.0__OPAQUE_礎_99_ _JCROSS_泡:1.0__OPAQUE_泡_673_ "_JCROSS_泡:1.0__OPAQUE_泡_788_" or "_JCROSS_泡:1.0__OPAQUE_泡_261_".
+            "_JCROSS_泡:1.0__OPAQUE_泡_788_" = _JCROSS_泡:1.0__OPAQUE_泡_80_ _JCROSS_泡:1.0__OPAQUE_泡_591_, _JCROSS_泡:1.0__OPAQUE_泡_880_, _JCROSS_泡:1.0__OPAQUE_泡_256_, _JCROSS_泡:1.0__OPAQUE_泡_96_/_JCROSS_泡:1.0__OPAQUE_泡_809_ _JCROSS_匹:1.0__OPAQUE_泡_605_ _JCROSS_泡:1.0__OPAQUE_泡_526_ _JCROSS_泡:1.0__OPAQUE_泡_187_ _JCROSS_泡:1.0__OPAQUE_泡_668_ to _JCROSS_図:1.0__OPAQUE_泡_574_
+            "_JCROSS_泡:1.0__OPAQUE_泡_261_" = _JCROSS_泡:1.0__OPAQUE_泡_773_, _JCROSS_泡:1.0__OPAQUE_泡_2_, _JCROSS_泡:1.0__OPAQUE_泡_980_, _JCROSS_泡:1.0__OPAQUE_泡_418_, _JCROSS_泡:1.0__OPAQUE_泡_158_ else
+            _JCROSS_礎:1.0__OPAQUE_礎_225_: \(_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_741_(200))
+// [metadata-stripped]
+            """
+            if let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_27_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_96_(
+                _JCROSS_泡:1.0__OPAQUE_泡_151_: _JCROSS_滾:1.0__OPAQUE_泡_731_, _JCROSS_泡:1.0__OPAQUE_泡_610_: ""
+            ) {
+                re_JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_泡:1.0__OPAQUE_泡_958_()._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_788_")
+            }
+        }
+        re_JCROSS_泡:1.0__OPAQUE_泡_291_ false
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__OPAQUE_泡_369_() {
+        _JCROSS_泡:1.0__OPAQUE_泡_42_?._JCROSS_泡:1.0__OPAQUE_泡_484_()
+        _JCROSS_泡:1.0__OPAQUE_泡_42_ = nil
+        _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+        _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("⏹ _JCROSS_礎:1.0__OPAQUE_礎_45_ _JCROSS_泡:1.0__OPAQUE_泡_478_", "⏹ 推論を中断しました"))
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__OPAQUE_泡_677_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_礎:1.0__OPAQUE_礎_173_) a_JCROSS_泡:1.0__OPAQUE_泡_264_ {
+        let _JCROSS_泡:1.0__OPAQUE_泡_111_ = _JCROSS_匹:1.0__OPAQUE_泡_1023_._JCROSS_泡:1.0__OPAQUE_泡_954_ ? nil : _JCROSS_匹:1.0__OPAQUE_泡_1023_
+        let _JCROSS_匹:1.0__OPAQUE_泡_205_ = _JCROSS_匹:1.0__OPAQUE_泡_767_
+        a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_662_ = [] }
+
+        let _JCROSS_泡:1.0__OPAQUE_泡_52_     = _JCROSS_泡:1.0__OPAQUE_泡_646_
+        let _JCROSS_図:1.0__OPAQUE_泡_44_ = _JCROSS_図:1.0__OPAQUE_泡_415_
+        let _JCROSS_泡:1.0__OPAQUE_泡_547_    = _JCROSS_泡:1.0__OPAQUE_泡_807_
+        let _JCROSS_泡:1.0__OPAQUE_泡_747_   = _JCROSS_泡:1.0__OPAQUE_泡_234_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if (_JCROSS_泡:1.0__OPAQUE_泡_52_ == ._JCROSS_泡:1.0__OPAQUE_泡_424_ || _JCROSS_泡:1.0__OPAQUE_泡_52_ == ._JCROSS_泡:1.0__OPAQUE_泡_252_),
+           let _JCROSS_匹:1.0__OPAQUE_泡_199_ = _JCROSS_泡:1.0__OPAQUE_泡_111_, let _JCROSS_匹:1.0__OPAQUE_泡_539_ = _JCROSS_匹:1.0__OPAQUE_泡_205_?._JCROSS_泡:1.0__OPAQUE_泡_386_ {
+
+            let _JCROSS_泡:1.0__OPAQUE_泡_480_ = _JCROSS_泡:1.0__OPAQUE_泡_774_
+
+            let _JCROSS_泡:1.0__OPAQUE_泡_921_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_228_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_225_(
+                _JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_535_,
+                _JCROSS_匹:1.0__OPAQUE_泡_199_: _JCROSS_匹:1.0__OPAQUE_泡_199_,
+                _JCROSS_匹:1.0__OPAQUE_泡_539_: _JCROSS_匹:1.0__OPAQUE_泡_539_,
+                _JCROSS_縞:1.0__OPAQUE_泡_511_: _JCROSS_匹:1.0__OPAQUE_泡_205_,
+                _JCROSS_泡:1.0__OPAQUE_泡_234_: _JCROSS_泡:1.0__OPAQUE_泡_747_,
+                _JCROSS_泡:1.0__OPAQUE_泡_813_: _JCROSS_泡:1.0__OPAQUE_泡_547_,
+                _JCROSS_図:1.0__OPAQUE_泡_689_: _JCROSS_図:1.0__OPAQUE_泡_44_,
+                _JCROSS_泡:1.0__OPAQUE_泡_242_: _JCROSS_泡:1.0__OPAQUE_泡_242_,
+                _JCROSS_泡:1.0__OPAQUE_泡_566_: _JCROSS_泡:1.0__OPAQUE_泡_480_
+            ) { [weak self] _JCROSS_泡:1.0__OPAQUE_泡_825_ in
+                guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_662_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_825_)
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_825_))
+                }
+            }
+
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+// [metadata-stripped]
+                _JCROSS_泡:1.0__OPAQUE_泡_431_ = _JCROSS_礎:1.0__OPAQUE_礎_94_(
+                    _JCROSS_泡:1.0__OPAQUE_泡_899_: _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_6_._JCROSS_泡:1.0__OPAQUE_泡_9_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_340_:   0,
+                    _JCROSS_泡:1.0__OPAQUE_泡_557_: _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_6_._JCROSS_泡:1.0__OPAQUE_泡_280_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_772_:   _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_6_._JCROSS_幽:1.0__OPAQUE_泡_704_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_372_:     _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_6_._JCROSS_泡:1.0__OPAQUE_泡_92_
+                )
+                _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_2_))
+                if let _JCROSS_泡:1.0__OPAQUE_泡_80_ = _JCROSS_泡:1.0__OPAQUE_泡_921_._JCROSS_泡:1.0__OPAQUE_泡_172_, !_JCROSS_泡:1.0__OPAQUE_泡_80_._JCROSS_泡:1.0__OPAQUE_泡_954_, let _JCROSS_縞:1.0__OPAQUE_泡_511_ = _JCROSS_匹:1.0__OPAQUE_泡_205_ {
+                    let _JCROSS_滾:1.0__OPAQUE_泡_383_ = _JCROSS_匹:1.0__OPAQUE_礎_190_(
+                        _JCROSS_縞:1.0__OPAQUE_泡_511_: _JCROSS_縞:1.0__OPAQUE_泡_511_,
+                        _JCROSS_泡:1.0__OPAQUE_泡_1004_: _JCROSS_匹:1.0__OPAQUE_泡_1023_,
+                        _JCROSS_滾:1.0__OPAQUE_泡_715_: _JCROSS_泡:1.0__OPAQUE_泡_80_,
+                        _JCROSS_泡:1.0__OPAQUE_泡_644_: _JCROSS_礎:1.0__OPAQUE_礎_126_._JCROSS_泡:1.0__OPAQUE_泡_212_(_JCROSS_泡:1.0__OPAQUE_泡_758_: _JCROSS_匹:1.0__OPAQUE_泡_1023_, _JCROSS_滾:1.0__OPAQUE_泡_432_: _JCROSS_泡:1.0__OPAQUE_泡_80_)
+                    )
+                    if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_30_ { _JCROSS_滾:1.0__OPAQUE_泡_864_(_JCROSS_滾:1.0__OPAQUE_泡_383_) }
+                    else { _JCROSS_滾:1.0__OPAQUE_泡_896_ = _JCROSS_滾:1.0__OPAQUE_泡_383_; _JCROSS_滾:1.0__OPAQUE_泡_19_ = true }
+                }
+            }
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_
+        }
+
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_287_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_311_(
+            _JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_535_,
+            _JCROSS_匹:1.0__OPAQUE_泡_199_: _JCROSS_泡:1.0__OPAQUE_泡_111_,
+            _JCROSS_匹:1.0__OPAQUE_泡_539_: _JCROSS_匹:1.0__OPAQUE_泡_205_?._JCROSS_泡:1.0__OPAQUE_泡_386_,
+            _JCROSS_縞:1.0__OPAQUE_泡_511_: _JCROSS_匹:1.0__OPAQUE_泡_205_,
+            _JCROSS_泡:1.0__OPAQUE_泡_621_: _JCROSS_泡:1.0__OPAQUE_泡_52_,
+            _JCROSS_泡:1.0__OPAQUE_泡_234_: _JCROSS_泡:1.0__OPAQUE_泡_747_,
+            _JCROSS_泡:1.0__OPAQUE_泡_807_: _JCROSS_泡:1.0__OPAQUE_泡_547_,
+            _JCROSS_図:1.0__OPAQUE_泡_415_: _JCROSS_図:1.0__OPAQUE_泡_44_,
+            _JCROSS_泡:1.0__OPAQUE_泡_242_: _JCROSS_泡:1.0__OPAQUE_泡_242_
+        ) { [weak self] _JCROSS_泡:1.0__OPAQUE_泡_825_ in
+            guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                self._JCROSS_泡:1.0__OPAQUE_泡_662_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_825_)
+                self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_825_))
+            }
+        }
+
+        a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+            _JCROSS_泡:1.0__OPAQUE_泡_431_ = _JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_泡:1.0__OPAQUE_泡_6_
+            let _JCROSS_泡:1.0__OPAQUE_泡_615_ = _JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_泡:1.0__OPAQUE_泡_2_
+// [metadata-stripped]
+            let _JCROSS_泡:1.0__OPAQUE_泡_891_ = _JCROSS_図:1.0__OPAQUE_礎_95_._JCROSS_滾:1.0__OPAQUE_泡_45_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_615_)
+            _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_891_))
+
+// [metadata-stripped]
+            if let _JCROSS_滾:1.0__OPAQUE_泡_923_ = _JCROSS_図:1.0__OPAQUE_礎_95_._JCROSS_泡:1.0__OPAQUE_泡_25_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_615_) {
+                _JCROSS_滾:1.0__OPAQUE_泡_578_(_JCROSS_滾:1.0__OPAQUE_泡_923_)
+            }
+
+            if let _JCROSS_泡:1.0__OPAQUE_泡_80_ = _JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_滾:1.0__OPAQUE_泡_886_, !_JCROSS_泡:1.0__OPAQUE_泡_80_._JCROSS_泡:1.0__OPAQUE_泡_954_, let _JCROSS_縞:1.0__OPAQUE_泡_511_ = _JCROSS_匹:1.0__OPAQUE_泡_205_ {
+                let _JCROSS_滾:1.0__OPAQUE_泡_383_ = _JCROSS_匹:1.0__OPAQUE_礎_190_(
+                    _JCROSS_縞:1.0__OPAQUE_泡_511_: _JCROSS_縞:1.0__OPAQUE_泡_511_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_1004_: _JCROSS_匹:1.0__OPAQUE_泡_1023_,
+                    _JCROSS_滾:1.0__OPAQUE_泡_715_: _JCROSS_泡:1.0__OPAQUE_泡_80_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_644_: _JCROSS_礎:1.0__OPAQUE_礎_126_._JCROSS_泡:1.0__OPAQUE_泡_212_(_JCROSS_泡:1.0__OPAQUE_泡_758_: _JCROSS_匹:1.0__OPAQUE_泡_1023_, _JCROSS_滾:1.0__OPAQUE_泡_432_: _JCROSS_泡:1.0__OPAQUE_泡_80_)
+                )
+                if _JCROSS_泡:1.0__OPAQUE_泡_13_ == ._JCROSS_泡:1.0__OPAQUE_泡_30_ {
+// [metadata-stripped]
+                    _JCROSS_滾:1.0__OPAQUE_泡_864_(_JCROSS_滾:1.0__OPAQUE_泡_383_)
+                } else {
+                    _JCROSS_滾:1.0__OPAQUE_泡_896_ = _JCROSS_滾:1.0__OPAQUE_泡_383_
+                    _JCROSS_滾:1.0__OPAQUE_泡_19_ = true
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+    func _JCROSS_滾:1.0__OPAQUE_泡_864_(_ _JCROSS_滾:1.0__OPAQUE_泡_383_: _JCROSS_匹:1.0__OPAQUE_礎_190_) {
+        do {
+            try _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_滾:1.0__OPAQUE_泡_715_._JCROSS_泡:1.0__OPAQUE_泡_771_(to: _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_縞:1.0__OPAQUE_泡_511_, _JCROSS_泡:1.0__OPAQUE_泡_752_: true, _JCROSS_泡:1.0__OPAQUE_泡_326_: ._JCROSS_泡:1.0__OPAQUE_泡_981_)
+            _JCROSS_匹:1.0__OPAQUE_泡_1023_ = _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_滾:1.0__OPAQUE_泡_715_
+            _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("⚡ [AI _JCROSS_礎:1.0__OPAQUE_礎_254_] _JCROSS_礎:1.0__OPAQUE_礎_68_-_JCROSS_泡:1.0__OPAQUE_泡_405_ _JCROSS_滾:1.0__OPAQUE_泡_383_: \\(_JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_縞:1.0__OPAQUE_泡_511_._JCROSS_泡:1.0__OPAQUE_泡_386_)", "⚡ [AI _JCROSS_礎:1.0__OPAQUE_礎_254_] 差分を自動適用: \\(_JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_縞:1.0__OPAQUE_泡_511_._JCROSS_泡:1.0__OPAQUE_泡_386_)"))
+        } catch {
+            _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("❌ _JCROSS_礎:1.0__OPAQUE_礎_68_-_JCROSS_泡:1.0__OPAQUE_泡_490_ _JCROSS_泡:1.0__OPAQUE_泡_588_: \\(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)", "❌ 自動適用失敗: \\(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)"))
+        }
+        _JCROSS_滾:1.0__OPAQUE_泡_896_ = nil
+        _JCROSS_滾:1.0__OPAQUE_泡_19_ = false
+    }
+
+// [metadata-stripped]
+    func _JCROSS_滾:1.0__OPAQUE_泡_578_(_ _JCROSS_滾:1.0__OPAQUE_泡_923_: _JCROSS_礎:1.0__OPAQUE_礎_272_) {
+        _JCROSS_滾:1.0__OPAQUE_泡_362_ = _JCROSS_滾:1.0__OPAQUE_泡_923_
+        _JCROSS_滾:1.0__OPAQUE_泡_68_._JCROSS_泡:1.0__OPAQUE_泡_723_(_JCROSS_滾:1.0__OPAQUE_泡_923_, at: 0)
+        _JCROSS_滾:1.0__OPAQUE_泡_582_ = true
+    }
+
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__OPAQUE_泡_63_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_礎:1.0__OPAQUE_礎_173_,
+                              _JCROSS_泡:1.0__OPAQUE_泡_70_: [_JCROSS_礎:1.0__OPAQUE_礎_296_] = [],
+                              _JCROSS_匹:1.0__OPAQUE_泡_605_: [_JCROSS_縞:1.0__OPAQUE_礎_271_] = [],
+                              _JCROSS_泡:1.0__OPAQUE_泡_838_: [_JCROSS_礎:1.0__OPAQUE_礎_164_] = []) a_JCROSS_泡:1.0__OPAQUE_泡_264_ {
+        let _JCROSS_泡:1.0__OPAQUE_泡_111_ = _JCROSS_匹:1.0__OPAQUE_泡_1023_._JCROSS_泡:1.0__OPAQUE_泡_954_ ? nil : _JCROSS_匹:1.0__OPAQUE_泡_1023_
+        let _JCROSS_匹:1.0__OPAQUE_泡_205_ = _JCROSS_匹:1.0__OPAQUE_泡_767_
+        let _JCROSS_泡:1.0__OPAQUE_泡_191_ = _JCROSS_縞:1.0__OPAQUE_泡_79_
+        let _JCROSS_泡:1.0__OPAQUE_泡_547_ = _JCROSS_泡:1.0__OPAQUE_泡_807_
+        let _JCROSS_泡:1.0__OPAQUE_泡_747_ = _JCROSS_泡:1.0__OPAQUE_泡_234_
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_808_ = _JCROSS_泡:1.0__OPAQUE_泡_706_
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _JCROSS_泡:1.0__OPAQUE_泡_797_ = _JCROSS_泡:1.0__OPAQUE_泡_990_ ? ._JCROSS_泡:1.0__OPAQUE_泡_30_ : _JCROSS_泡:1.0__OPAQUE_泡_13_
+
+// [metadata-stripped]
+        var _JCROSS_泡:1.0__OPAQUE_泡_429_ = ""
+        if !_JCROSS_泡:1.0__OPAQUE_泡_70_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_429_ = "\n\n[_JCROSS_礎:1.0__OPAQUE_礎_104_ _JCROSS_泡:1.0__OPAQUE_泡_70_: " +
+                _JCROSS_泡:1.0__OPAQUE_泡_70_._JCROSS_泡:1.0__OPAQUE_泡_653_ { $0._JCROSS_泡:1.0__OPAQUE_泡_939_ }._JCROSS_泡:1.0__OPAQUE_泡_88_(_JCROSS_泡:1.0__OPAQUE_泡_106_: ", ") + "]"
+        }
+        let _JCROSS_泡:1.0__OPAQUE_泡_1026_ = _JCROSS_泡:1.0__OPAQUE_泡_535_ + _JCROSS_泡:1.0__OPAQUE_泡_429_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_209_ = nil
+
+        a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_282_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_962_(
+            _JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_泡:1.0__OPAQUE_泡_1026_,
+            _JCROSS_匹:1.0__OPAQUE_泡_205_: _JCROSS_泡:1.0__OPAQUE_泡_111_,
+            _JCROSS_匹:1.0__OPAQUE_泡_437_: _JCROSS_匹:1.0__OPAQUE_泡_205_?._JCROSS_泡:1.0__OPAQUE_泡_386_,
+            _JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_泡:1.0__OPAQUE_泡_191_,
+            _JCROSS_泡:1.0__OPAQUE_泡_234_: _JCROSS_泡:1.0__OPAQUE_泡_747_,
+            _JCROSS_泡:1.0__OPAQUE_泡_813_: _JCROSS_泡:1.0__OPAQUE_泡_547_,
+            _JCROSS_泡:1.0__OPAQUE_泡_242_: _JCROSS_泡:1.0__OPAQUE_泡_242_,
+            _JCROSS_泡:1.0__OPAQUE_泡_706_: _JCROSS_泡:1.0__OPAQUE_泡_808_,
+            _JCROSS_泡:1.0__OPAQUE_泡_13_: _JCROSS_泡:1.0__OPAQUE_泡_797_,
+            _JCROSS_図:1.0__OPAQUE_泡_976_: _JCROSS_泡:1.0__OPAQUE_泡_435_._JCROSS_泡:1.0__OPAQUE_泡_442_?._JCROSS_図:1.0__OPAQUE_泡_513_ ?? .l2,
+            _JCROSS_泡:1.0__OPAQUE_泡_997_: _JCROSS_泡:1.0__OPAQUE_泡_384_,
+            _JCROSS_泡:1.0__OPAQUE_泡_838_: _JCROSS_泡:1.0__OPAQUE_泡_838_
+        ) { [weak self] _JCROSS_泡:1.0__OPAQUE_泡_32_ in
+            guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                switch _JCROSS_泡:1.0__OPAQUE_泡_32_ {
+                case ._JCROSS_泡:1.0__OPAQUE_泡_82_:
+// [metadata-stripped]
+                    self._JCROSS_泡:1.0__OPAQUE_泡_209_ = nil
+
+                case ._JCROSS_幽:1.0__OPAQUE_泡_339_(let _JCROSS_幽:1.0__OPAQUE_泡_777_):
+                    if let _JCROSS_泡:1.0__OPAQUE_泡_659_ = self._JCROSS_泡:1.0__OPAQUE_泡_209_,
+                       let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_659_ }) {
+// [metadata-stripped]
+                        self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_ += _JCROSS_幽:1.0__OPAQUE_泡_777_
+                    } else {
+// [metadata-stripped]
+                        let _JCROSS_泡:1.0__OPAQUE_泡_315_ = _JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_幽:1.0__OPAQUE_泡_777_)
+                        self._JCROSS_泡:1.0__OPAQUE_泡_209_ = _JCROSS_泡:1.0__OPAQUE_泡_315_.id
+                        self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_315_)
+                    }
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_11_(let t):
+                    if t > 1 {
+                        self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_,
+                            _JCROSS_泡:1.0__OPAQUE_泡_476_: "<_JCROSS_泡:1.0__OPAQUE_泡_142_>\n🔄 _JCROSS_礎:1.0__OPAQUE_礎_55_ _JCROSS_泡:1.0__OPAQUE_泡_698_ _JCROSS_泡:1.0__OPAQUE_泡_291_ \(t)…\n</_JCROSS_泡:1.0__OPAQUE_泡_142_>"))
+                    }
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_631_(let _JCROSS_泡:1.0__OPAQUE_泡_561_):
+                    if !_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+// [metadata-stripped]
+                        let _JCROSS_泡:1.0__OPAQUE_泡_573_ = _JCROSS_匹:1.0__OPAQUE_礎_175_._JCROSS_泡:1.0__OPAQUE_泡_25_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_561_)
+                        for (_JCROSS_泡:1.0__OPAQUE_泡_540_, _JCROSS_泡:1.0__OPAQUE_泡_476_) in _JCROSS_泡:1.0__OPAQUE_泡_573_ {
+                            _JCROSS_礎:1.0__OPAQUE_礎_325_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_649_(for: _JCROSS_泡:1.0__OPAQUE_泡_540_, _JCROSS_泡:1.0__OPAQUE_泡_1000_: _JCROSS_泡:1.0__OPAQUE_泡_476_)
+                        }
+// [metadata-stripped]
+                        if let _JCROSS_滾:1.0__OPAQUE_泡_923_ = _JCROSS_図:1.0__OPAQUE_礎_95_._JCROSS_泡:1.0__OPAQUE_泡_25_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_561_) {
+                            self._JCROSS_滾:1.0__OPAQUE_泡_578_(_JCROSS_滾:1.0__OPAQUE_泡_923_)
+                        }
+// [metadata-stripped]
+                        let _JCROSS_泡:1.0__OPAQUE_泡_149_ = _JCROSS_匹:1.0__OPAQUE_礎_175_._JCROSS_泡:1.0__OPAQUE_泡_630_(
+                            _JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_図:1.0__OPAQUE_礎_95_._JCROSS_滾:1.0__OPAQUE_泡_45_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_561_)
+                        )._JCROSS_泡:1.0__OPAQUE_泡_330_(in: ._JCROSS_泡:1.0__OPAQUE_泡_166_)
+
+                        if !_JCROSS_泡:1.0__OPAQUE_泡_149_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+                            let _JCROSS_泡:1.0__OPAQUE_泡_1015_ = self._JCROSS_泡:1.0__OPAQUE_泡_167_._JCROSS_泡:1.0__OPAQUE_泡_352_._JCROSS_泡:1.0__OPAQUE_泡_653_ { e in
+                                _JCROSS_礎:1.0__OPAQUE_礎_164_._JCROSS_礎:1.0__OPAQUE_礎_193_(
+                                    _JCROSS_泡:1.0__OPAQUE_泡_77_: e._JCROSS_泡:1.0__OPAQUE_泡_77_,
+                                    _JCROSS_泡:1.0__OPAQUE_泡_561_:      e._JCROSS_泡:1.0__OPAQUE_泡_561_,
+                                    _JCROSS_泡:1.0__OPAQUE_泡_145_:      e._JCROSS_泡:1.0__OPAQUE_泡_145_._JCROSS_泡:1.0__OPAQUE_泡_834_
+                                )
+                            }
+
+                            if let _JCROSS_泡:1.0__OPAQUE_泡_659_ = self._JCROSS_泡:1.0__OPAQUE_泡_209_,
+                               let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_659_ }) {
+// [metadata-stripped]
+                                self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_      = _JCROSS_泡:1.0__OPAQUE_泡_149_
+                                self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_454_  = _JCROSS_泡:1.0__OPAQUE_泡_1015_
+                            } else {
+// [metadata-stripped]
+                                var _JCROSS_泡:1.0__OPAQUE_泡_315_ = _JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_149_)
+                                _JCROSS_泡:1.0__OPAQUE_泡_315_._JCROSS_泡:1.0__OPAQUE_泡_454_ = _JCROSS_泡:1.0__OPAQUE_泡_1015_
+                                self._JCROSS_泡:1.0__OPAQUE_泡_209_ = _JCROSS_泡:1.0__OPAQUE_泡_315_.id
+                                self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_315_)
+                            }
+// [metadata-stripped]
+                            self._JCROSS_泡:1.0__OPAQUE_泡_209_ = nil
+                        }
+// [metadata-stripped]
+                        if !_JCROSS_泡:1.0__OPAQUE_泡_573_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+                            self._JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("🧬 _JCROSS_礎:1.0__OPAQUE_礎_85_ \(_JCROSS_泡:1.0__OPAQUE_泡_573_._JCROSS_泡:1.0__OPAQUE_泡_710_) _JCROSS_泡:1.0__OPAQUE_泡_573_ — _JCROSS_泡:1.0__OPAQUE_泡_351_ _JCROSS_礎:1.0__OPAQUE_礎_110_-_JCROSS_礎:1.0__OPAQUE_礎_270_ _JCROSS_泡:1.0__OPAQUE_泡_983_", "🧬 \(_JCROSS_泡:1.0__OPAQUE_泡_573_._JCROSS_泡:1.0__OPAQUE_泡_710_) 個のパッチを検出 — _JCROSS_礎:1.0__OPAQUE_礎_110_-_JCROSS_礎:1.0__OPAQUE_礎_270_ パネルで確認できます"))
+                        }
+                    }
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_276_(let _JCROSS_泡:1.0__OPAQUE_泡_335_):
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_,
+                        _JCROSS_泡:1.0__OPAQUE_泡_476_: "<_JCROSS_泡:1.0__OPAQUE_泡_142_>\n⚙️ \(_JCROSS_泡:1.0__OPAQUE_泡_335_._JCROSS_泡:1.0__OPAQUE_泡_783_)\n</_JCROSS_泡:1.0__OPAQUE_泡_142_>"))
+                    if case ._JCROSS_泡:1.0__OPAQUE_泡_933_(let _JCROSS_泡:1.0__OPAQUE_泡_815_) = _JCROSS_泡:1.0__OPAQUE_泡_335_._JCROSS_泡:1.0__OPAQUE_泡_1013_ {
+// _JCROSS_匹:0.8__OPAQUE_FZ_150_ [decoy-metadata]
+                        _JCROSS_礎:1.0__OPAQUE_礎_203_ { a_JCROSS_泡:1.0__OPAQUE_泡_390_ self._JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_962_(_JCROSS_泡:1.0__OPAQUE_泡_815_, in: self._JCROSS_縞:1.0__OPAQUE_泡_79_, _JCROSS_泡:1.0__OPAQUE_泡_185_: true) }
+                    }
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_150_(let _JCROSS_泡:1.0__OPAQUE_泡_335_):
+                    if !_JCROSS_泡:1.0__OPAQUE_泡_335_._JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+                        let _JCROSS_泡:1.0__OPAQUE_泡_593_ = _JCROSS_泡:1.0__OPAQUE_泡_335_._JCROSS_泡:1.0__OPAQUE_泡_440_ ? "✅" : "❌"
+                        self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_,
+                            _JCROSS_泡:1.0__OPAQUE_泡_476_: "<_JCROSS_泡:1.0__OPAQUE_泡_142_>\n\(_JCROSS_泡:1.0__OPAQUE_泡_593_) \(_JCROSS_泡:1.0__OPAQUE_泡_335_._JCROSS_泡:1.0__OPAQUE_泡_534_._JCROSS_泡:1.0__OPAQUE_泡_741_(120))\n</_JCROSS_泡:1.0__OPAQUE_泡_142_>"))
+                    }
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_669_(let _JCROSS_縞:1.0__OPAQUE_泡_303_):
+                    self._JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                    self._JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                    self._JCROSS_匹:1.0__OPAQUE_泡_708_()
+                    self._JCROSS_泡:1.0__OPAQUE_泡_74_("📂 _JCROSS_礎:1.0__OPAQUE_礎_69_: \(_JCROSS_縞:1.0__OPAQUE_泡_303_._JCROSS_泡:1.0__OPAQUE_泡_386_)")
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_951_(let _JCROSS_泡:1.0__OPAQUE_泡_315_, let ws):
+                    self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+                    if let ws = ws, self._JCROSS_縞:1.0__OPAQUE_泡_79_ == nil {
+                        self._JCROSS_縞:1.0__OPAQUE_泡_79_ = ws
+                        self._JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = ws
+                        self._JCROSS_匹:1.0__OPAQUE_泡_708_()
+                    }
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    if !_JCROSS_泡:1.0__OPAQUE_泡_315_._JCROSS_泡:1.0__OPAQUE_泡_954_ && self._JCROSS_泡:1.0__OPAQUE_泡_209_ == nil {
+                        let _JCROSS_泡:1.0__OPAQUE_泡_61_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_184_?._JCROSS_泡:1.0__OPAQUE_泡_476_ ?? ""
+                        if !_JCROSS_泡:1.0__OPAQUE_泡_61_._JCROSS_泡:1.0__OPAQUE_泡_451_(_JCROSS_泡:1.0__OPAQUE_泡_315_) {
+                            self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_,
+                                _JCROSS_泡:1.0__OPAQUE_泡_476_: "✅ \(_JCROSS_泡:1.0__OPAQUE_泡_315_)"))
+                        }
+                    }
+                    self._JCROSS_泡:1.0__OPAQUE_泡_209_ = nil  // _JCROSS_礎:1.0__OPAQUE_礎_333_ _JCROSS_泡:1.0__OPAQUE_泡_55_ at _JCROSS_泡:1.0__OPAQUE_泡_291_ _JCROSS_泡:1.0__OPAQUE_泡_22_
+
+                case ._JCROSS_泡:1.0__OPAQUE_泡_680_(let _JCROSS_泡:1.0__OPAQUE_泡_542_):
+                    self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+                    self._JCROSS_泡:1.0__OPAQUE_泡_74_("❌ _JCROSS_礎:1.0__OPAQUE_礎_55_ _JCROSS_泡:1.0__OPAQUE_泡_680_: \(_JCROSS_泡:1.0__OPAQUE_泡_542_)")
+                }
+            }
+        }
+
+        a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ { self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    private func _JCROSS_泡:1.0__OPAQUE_泡_855_(_JCROSS_泡:1.0__OPAQUE_泡_535_: _JCROSS_礎:1.0__OPAQUE_礎_173_,
+                               _JCROSS_泡:1.0__OPAQUE_泡_70_: [_JCROSS_礎:1.0__OPAQUE_礎_296_] = [],
+                               _JCROSS_匹:1.0__OPAQUE_泡_605_: [_JCROSS_縞:1.0__OPAQUE_礎_271_] = []) a_JCROSS_泡:1.0__OPAQUE_泡_264_ {
+        let _JCROSS_泡:1.0__OPAQUE_泡_111_ = _JCROSS_匹:1.0__OPAQUE_泡_1023_._JCROSS_泡:1.0__OPAQUE_泡_954_ ? nil : _JCROSS_匹:1.0__OPAQUE_泡_1023_
+        let _JCROSS_匹:1.0__OPAQUE_泡_205_ = _JCROSS_匹:1.0__OPAQUE_泡_767_
+
+        let _JCROSS_泡:1.0__OPAQUE_泡_747_ = _JCROSS_泡:1.0__OPAQUE_泡_234_
+
+// [metadata-stripped]
+        let _JCROSS_匹:1.0__OPAQUE_泡_536_ = _JCROSS_泡:1.0__OPAQUE_泡_111_._JCROSS_泡:1.0__OPAQUE_泡_653_ { _JCROSS_泡:1.0__OPAQUE_泡_476_ in
+            let _JCROSS_泡:1.0__OPAQUE_泡_939_ = _JCROSS_匹:1.0__OPAQUE_泡_205_?._JCROSS_泡:1.0__OPAQUE_泡_386_ ?? "_JCROSS_匹:1.0__OPAQUE_泡_334_"
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_匹:1.0__OPAQUE_礎_44_: \(_JCROSS_泡:1.0__OPAQUE_泡_939_)\n```\n\(_JCROSS_泡:1.0__OPAQUE_泡_476_._JCROSS_泡:1.0__OPAQUE_泡_741_(8000))\n```\n\n"
+        } ?? ""
+
+        let _JCROSS_泡:1.0__OPAQUE_泡_151_ = """
+        _JCROSS_礎:1.0__OPAQUE_礎_276_ _JCROSS_泡:1.0__OPAQUE_泡_69_ _JCROSS_礎:1.0__OPAQUE_礎_179_, an _JCROSS_泡:1.0__OPAQUE_泡_282_ AI _JCROSS_泡:1.0__OPAQUE_泡_338_ _JCROSS_泡:1.0__OPAQUE_泡_1019_ _JCROSS_泡:1.0__OPAQUE_泡_784_ on _JCROSS_礎:1.0__OPAQUE_礎_301_ _JCROSS_礎:1.0__OPAQUE_礎_81_.
+
+        \(_JCROSS_匹:1.0__OPAQUE_泡_536_)_JCROSS_図:1.0__OPAQUE_礎_198_: \(_JCROSS_泡:1.0__OPAQUE_泡_535_)
+
+        _JCROSS_礎:1.0__OPAQUE_礎_263_:
+        """
+
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_555_ = ""
+        _JCROSS_幽:1.0__OPAQUE_泡_255_ = 0
+        var _JCROSS_幽:1.0__OPAQUE_泡_725_ = 0
+        let _JCROSS_泡:1.0__OPAQUE_泡_509_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()
+        var _JCROSS_泡:1.0__OPAQUE_泡_186_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()
+
+        _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_泡:1.0__OPAQUE_泡_251_ _JCROSS_泡:1.0__OPAQUE_泡_82_ [", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+        _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_泡:1.0__OPAQUE_泡_151_ \(_JCROSS_泡:1.0__OPAQUE_泡_151_._JCROSS_泡:1.0__OPAQUE_泡_710_) _JCROSS_泡:1.0__OPAQUE_泡_560_", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+
+// [metadata-stripped]
+        switch _JCROSS_泡:1.0__OPAQUE_泡_747_ {
+
+// [metadata-stripped]
+        case ._JCROSS_泡:1.0__OPAQUE_泡_344_(let _JCROSS_泡:1.0__OPAQUE_泡_776_):
+            _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_礎:1.0__OPAQUE_礎_321_/\(_JCROSS_泡:1.0__OPAQUE_泡_776_)  _JCROSS_泡:1.0__OPAQUE_泡_154_=\(_JCROSS_泡:1.0__OPAQUE_泡_842_)  _JCROSS_泡:1.0__OPAQUE_泡_682_=\(_JCROSS_幽:1.0__OPAQUE_泡_590_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+            let _JCROSS_泡:1.0__OPAQUE_泡_798_ = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+            _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(id: _JCROSS_泡:1.0__OPAQUE_泡_798_, _JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: ""))
+            let _JCROSS_泡:1.0__OPAQUE_泡_623_: [(_JCROSS_泡:1.0__OPAQUE_泡_618_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_礎:1.0__OPAQUE_礎_173_)] = [(_JCROSS_泡:1.0__OPAQUE_泡_618_: "_JCROSS_図:1.0__OPAQUE_泡_413_", _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_151_)]
+            let _JCROSS_泡:1.0__OPAQUE_泡_611_ = _JCROSS_礎:1.0__OPAQUE_礎_15_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_423_(
+                _JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_776_,
+                _JCROSS_泡:1.0__OPAQUE_泡_506_: _JCROSS_泡:1.0__OPAQUE_泡_623_,
+                _JCROSS_幽:1.0__OPAQUE_泡_446_: _JCROSS_幽:1.0__OPAQUE_泡_590_,
+                _JCROSS_泡:1.0__OPAQUE_泡_842_: _JCROSS_泡:1.0__OPAQUE_泡_842_
+            )
+            do {
+// [metadata-stripped]
+                var _JCROSS_幽:1.0__OPAQUE_泡_146_ = ""
+                var _JCROSS_滾:1.0__OPAQUE_泡_10_ = _JCROSS_礎:1.0__OPAQUE_礎_214_._JCROSS_泡:1.0__OPAQUE_泡_625_
+                for try a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_32_ in _JCROSS_泡:1.0__OPAQUE_泡_611_ {
+                    guard case ._JCROSS_幽:1.0__OPAQUE_泡_777_(let _JCROSS_幽:1.0__OPAQUE_泡_777_) = _JCROSS_泡:1.0__OPAQUE_泡_32_ else { continue }
+                    _JCROSS_幽:1.0__OPAQUE_泡_725_ += 1; _JCROSS_幽:1.0__OPAQUE_泡_733_ += 1
+                    _JCROSS_幽:1.0__OPAQUE_泡_146_ += _JCROSS_幽:1.0__OPAQUE_泡_777_
+                    let _JCROSS_泡:1.0__OPAQUE_泡_160_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()
+                    let _JCROSS_泡:1.0__OPAQUE_泡_138_ = _JCROSS_泡:1.0__OPAQUE_泡_160_._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_509_)
+// [metadata-stripped]
+                    if _JCROSS_泡:1.0__OPAQUE_泡_160_._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_滾:1.0__OPAQUE_泡_10_) >= 0.04 {
+                        if let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_798_ }) {
+                            self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_ += _JCROSS_幽:1.0__OPAQUE_泡_146_
+                        }
+                        if _JCROSS_泡:1.0__OPAQUE_泡_138_ > 0.1 { _JCROSS_幽:1.0__OPAQUE_泡_255_ = _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_幽:1.0__OPAQUE_泡_725_) / _JCROSS_泡:1.0__OPAQUE_泡_138_ }
+// _JCROSS_幽:0.3__OPAQUE_KD_209_ [decoy-metadata]
+                        _JCROSS_幽:1.0__OPAQUE_泡_146_ = ""
+                        _JCROSS_滾:1.0__OPAQUE_泡_10_ = _JCROSS_泡:1.0__OPAQUE_泡_160_
+                    }
+                    if _JCROSS_泡:1.0__OPAQUE_泡_160_._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_186_) > 2 {
+                        _JCROSS_泡:1.0__OPAQUE_泡_132_(_JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_滾:1.0__OPAQUE_泡_817_: "%.1f _JCROSS_泡:1.0__OPAQUE_泡_72_/s  │  %d _JCROSS_幽:1.0__OPAQUE_泡_323_",
+                                         _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_幽:1.0__OPAQUE_泡_725_)/_JCROSS_泡:1.0__OPAQUE_泡_355_(_JCROSS_泡:1.0__OPAQUE_泡_138_,0.001), _JCROSS_幽:1.0__OPAQUE_泡_725_), _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_558_)
+                        _JCROSS_泡:1.0__OPAQUE_泡_186_ = _JCROSS_泡:1.0__OPAQUE_泡_160_
+                    }
+                }
+// [metadata-stripped]
+                if !_JCROSS_幽:1.0__OPAQUE_泡_146_._JCROSS_泡:1.0__OPAQUE_泡_954_,
+                   let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_798_ }) {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_ += _JCROSS_幽:1.0__OPAQUE_泡_146_
+                }
+            } catch { _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_泡:1.0__OPAQUE_泡_611_ _JCROSS_泡:1.0__OPAQUE_泡_680_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_) }
+
+            let _JCROSS_泡:1.0__OPAQUE_泡_989_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_509_)
+            _JCROSS_泡:1.0__OPAQUE_泡_785_ = _JCROSS_礎:1.0__OPAQUE_礎_240_(_JCROSS_泡:1.0__OPAQUE_泡_989_ * 1000); _JCROSS_幽:1.0__OPAQUE_泡_255_ = _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_幽:1.0__OPAQUE_泡_725_)/_JCROSS_泡:1.0__OPAQUE_泡_355_(_JCROSS_泡:1.0__OPAQUE_泡_989_,0.001)
+            _JCROSS_泡:1.0__OPAQUE_泡_132_(_JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_滾:1.0__OPAQUE_泡_817_: "_JCROSS_泡:1.0__OPAQUE_泡_951_  %.1f _JCROSS_泡:1.0__OPAQUE_泡_72_/s  │  %d _JCROSS_泡:1.0__OPAQUE_泡_72_  │  %.1fs",
+                              _JCROSS_幽:1.0__OPAQUE_泡_255_, _JCROSS_幽:1.0__OPAQUE_泡_725_, _JCROSS_泡:1.0__OPAQUE_泡_989_), _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_558_)
+            let _JCROSS_泡:1.0__OPAQUE_泡_543_ = _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_562_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_798_ })?._JCROSS_泡:1.0__OPAQUE_泡_476_ ?? ""
+            if _JCROSS_泡:1.0__OPAQUE_泡_36_ {
+                let (_JCROSS_泡:1.0__OPAQUE_泡_173_, _) = _JCROSS_図:1.0__OPAQUE_礎_84_._JCROSS_泡:1.0__OPAQUE_泡_137_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_543_)
+                let _JCROSS_泡:1.0__OPAQUE_泡_756_ = _JCROSS_礎:1.0__OPAQUE_礎_165_()
+                for _JCROSS_泡:1.0__OPAQUE_泡_1013_ in _JCROSS_泡:1.0__OPAQUE_泡_173_ {
+                    _JCROSS_泡:1.0__OPAQUE_泡_132_("\(_JCROSS_泡:1.0__OPAQUE_泡_1013_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_1013_)
+                    let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_756_._JCROSS_泡:1.0__OPAQUE_泡_122_(_JCROSS_泡:1.0__OPAQUE_泡_1013_, _JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_縞:1.0__OPAQUE_泡_79_)
+                    if case ._JCROSS_図:1.0__OPAQUE_焦_11_(let _JCROSS_泡:1.0__OPAQUE_泡_347_) = _JCROSS_泡:1.0__OPAQUE_泡_1013_ {
+                        let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_縞:1.0__OPAQUE_泡_507_: _JCROSS_泡:1.0__OPAQUE_泡_347_)
+                        _JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_; _JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_; _JCROSS_匹:1.0__OPAQUE_泡_708_()
+                    }
+                    _JCROSS_泡:1.0__OPAQUE_泡_74_(_JCROSS_泡:1.0__OPAQUE_泡_534_)
+                }
+            }
+
+// [metadata-stripped]
+        case ._JCROSS_泡:1.0__OPAQUE_泡_470_:
+            let m = _JCROSS_泡:1.0__OPAQUE_泡_918_._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: "/")._JCROSS_泡:1.0__OPAQUE_泡_184_ ?? _JCROSS_泡:1.0__OPAQUE_泡_918_
+            _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_礎:1.0__OPAQUE_礎_247_/\(m) (_JCROSS_泡:1.0__OPAQUE_泡_496_)  _JCROSS_泡:1.0__OPAQUE_泡_154_=\(_JCROSS_泡:1.0__OPAQUE_泡_842_)  _JCROSS_泡:1.0__OPAQUE_泡_682_=\(_JCROSS_幽:1.0__OPAQUE_泡_213_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+            let _JCROSS_泡:1.0__OPAQUE_泡_798_ = _JCROSS_礎:1.0__OPAQUE_礎_343_()
+            _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(id: _JCROSS_泡:1.0__OPAQUE_泡_798_, _JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_, _JCROSS_泡:1.0__OPAQUE_泡_476_: ""))
+// [metadata-stripped]
+            let _JCROSS_図:1.0__OPAQUE_泡_957_ = _JCROSS_図:1.0__OPAQUE_礎_144_()
+
+            do {
+// [metadata-stripped]
+// [metadata-stripped]
+                final class _JCROSS_幽:1.0__OPAQUE_礎_109_: @_JCROSS_泡:1.0__OPAQUE_泡_727_ _JCROSS_礎:1.0__OPAQUE_礎_246_ {
+                    var _JCROSS_図:1.0__OPAQUE_泡_879_ = ""
+                    var _JCROSS_泡:1.0__OPAQUE_泡_165_ = _JCROSS_礎:1.0__OPAQUE_礎_214_._JCROSS_泡:1.0__OPAQUE_泡_625_
+                    let _JCROSS_泡:1.0__OPAQUE_泡_843_ = _JCROSS_礎:1.0__OPAQUE_礎_25_()
+                }
+                let _JCROSS_泡:1.0__OPAQUE_泡_414_ = _JCROSS_幽:1.0__OPAQUE_礎_109_()
+
+                try a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_図:1.0__OPAQUE_礎_137_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_幽:1.0__OPAQUE_泡_290_(
+                    _JCROSS_泡:1.0__OPAQUE_泡_151_: _JCROSS_泡:1.0__OPAQUE_泡_151_,
+                    _JCROSS_幽:1.0__OPAQUE_泡_446_: _JCROSS_幽:1.0__OPAQUE_泡_213_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_842_: _JCROSS_泡:1.0__OPAQUE_泡_842_,
+                    _JCROSS_幽:1.0__OPAQUE_泡_406_: { @_JCROSS_礎:1.0__OPAQUE_礎_246_ [weak self] _JCROSS_泡:1.0__OPAQUE_泡_889_ in
+                        guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                        _JCROSS_図:1.0__OPAQUE_泡_957_._JCROSS_泡:1.0__OPAQUE_泡_453_()
+                        _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_泡:1.0__OPAQUE_泡_843_._JCROSS_泡:1.0__OPAQUE_泡_843_()
+                        _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_図:1.0__OPAQUE_泡_879_ += _JCROSS_泡:1.0__OPAQUE_泡_889_
+                        let _JCROSS_泡:1.0__OPAQUE_泡_174_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_泡:1.0__OPAQUE_泡_165_) >= 0.04
+                        if _JCROSS_泡:1.0__OPAQUE_泡_174_ { _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_泡:1.0__OPAQUE_泡_165_ = _JCROSS_礎:1.0__OPAQUE_礎_214_() }
+                        let _JCROSS_泡:1.0__OPAQUE_泡_661_ = _JCROSS_泡:1.0__OPAQUE_泡_174_ ? _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_図:1.0__OPAQUE_泡_879_ : ""
+                        if _JCROSS_泡:1.0__OPAQUE_泡_174_ { _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_図:1.0__OPAQUE_泡_879_ = "" }
+                        _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_泡:1.0__OPAQUE_泡_843_._JCROSS_泡:1.0__OPAQUE_泡_17_()
+
+                        guard _JCROSS_泡:1.0__OPAQUE_泡_174_, !_JCROSS_泡:1.0__OPAQUE_泡_661_._JCROSS_泡:1.0__OPAQUE_泡_954_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                        _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                            if let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_798_ }) {
+                                self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_ += _JCROSS_泡:1.0__OPAQUE_泡_661_
+                            }
+                            self._JCROSS_幽:1.0__OPAQUE_泡_733_ += _JCROSS_泡:1.0__OPAQUE_泡_661_._JCROSS_泡:1.0__OPAQUE_泡_710_  // _JCROSS_泡:1.0__OPAQUE_泡_627_
+                            let _JCROSS_泡:1.0__OPAQUE_泡_138_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_509_)
+                            if _JCROSS_泡:1.0__OPAQUE_泡_138_ > 0.1 {
+                                self._JCROSS_幽:1.0__OPAQUE_泡_255_ = _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_図:1.0__OPAQUE_泡_957_._JCROSS_泡:1.0__OPAQUE_泡_404_) / _JCROSS_泡:1.0__OPAQUE_泡_138_
+                            }
+                        }
+                    },
+                    _JCROSS_泡:1.0__OPAQUE_泡_780_: { @_JCROSS_礎:1.0__OPAQUE_礎_246_ [weak self] _JCROSS_泡:1.0__OPAQUE_泡_826_ in
+                        guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                        _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                            let _JCROSS_泡:1.0__OPAQUE_泡_237_ = _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_図:1.0__OPAQUE_泡_879_
+                            _JCROSS_泡:1.0__OPAQUE_泡_414_._JCROSS_図:1.0__OPAQUE_泡_879_ = ""
+                            if !_JCROSS_泡:1.0__OPAQUE_泡_237_._JCROSS_泡:1.0__OPAQUE_泡_954_,
+                               let _JCROSS_泡:1.0__OPAQUE_泡_260_ = self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_812_(where: { $0.id == _JCROSS_泡:1.0__OPAQUE_泡_798_ }) {
+                                self._JCROSS_泡:1.0__OPAQUE_泡_506_[_JCROSS_泡:1.0__OPAQUE_泡_260_]._JCROSS_泡:1.0__OPAQUE_泡_476_ += _JCROSS_泡:1.0__OPAQUE_泡_237_
+                            }
+                            let _JCROSS_泡:1.0__OPAQUE_泡_138_ = _JCROSS_礎:1.0__OPAQUE_礎_214_()._JCROSS_泡:1.0__OPAQUE_泡_762_(_JCROSS_泡:1.0__OPAQUE_泡_509_)
+                            self._JCROSS_泡:1.0__OPAQUE_泡_785_ = _JCROSS_礎:1.0__OPAQUE_礎_240_(_JCROSS_泡:1.0__OPAQUE_泡_138_ * 1000)
+                            self._JCROSS_幽:1.0__OPAQUE_泡_255_ = _JCROSS_礎:1.0__OPAQUE_礎_241_(_JCROSS_図:1.0__OPAQUE_泡_957_._JCROSS_泡:1.0__OPAQUE_泡_404_) / _JCROSS_泡:1.0__OPAQUE_泡_355_(_JCROSS_泡:1.0__OPAQUE_泡_138_, 0.001)
+                            self._JCROSS_泡:1.0__OPAQUE_泡_132_(_JCROSS_礎:1.0__OPAQUE_礎_173_(_JCROSS_滾:1.0__OPAQUE_泡_817_: "_JCROSS_泡:1.0__OPAQUE_泡_951_  %.1f _JCROSS_泡:1.0__OPAQUE_泡_72_/s  │  %d _JCROSS_泡:1.0__OPAQUE_泡_72_  │  %.1fs",
+                                                   self._JCROSS_幽:1.0__OPAQUE_泡_255_, _JCROSS_図:1.0__OPAQUE_泡_957_._JCROSS_泡:1.0__OPAQUE_泡_404_, _JCROSS_泡:1.0__OPAQUE_泡_138_), _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_558_)
+// [metadata-stripped]
+                            if self._JCROSS_泡:1.0__OPAQUE_泡_36_ {
+                                let (_JCROSS_泡:1.0__OPAQUE_泡_173_, _) = _JCROSS_図:1.0__OPAQUE_礎_84_._JCROSS_泡:1.0__OPAQUE_泡_137_(_JCROSS_泡:1.0__OPAQUE_泡_526_: _JCROSS_泡:1.0__OPAQUE_泡_826_)
+                                let _JCROSS_泡:1.0__OPAQUE_泡_756_ = _JCROSS_礎:1.0__OPAQUE_礎_165_()
+                                for _JCROSS_泡:1.0__OPAQUE_泡_1013_ in _JCROSS_泡:1.0__OPAQUE_泡_173_ {
+                                    self._JCROSS_泡:1.0__OPAQUE_泡_132_("\(_JCROSS_泡:1.0__OPAQUE_泡_1013_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_1013_)
+                                    let _JCROSS_泡:1.0__OPAQUE_泡_534_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_泡:1.0__OPAQUE_泡_756_._JCROSS_泡:1.0__OPAQUE_泡_122_(_JCROSS_泡:1.0__OPAQUE_泡_1013_, _JCROSS_縞:1.0__OPAQUE_泡_79_: self._JCROSS_縞:1.0__OPAQUE_泡_79_)
+                                    if case ._JCROSS_図:1.0__OPAQUE_焦_11_(let _JCROSS_泡:1.0__OPAQUE_泡_347_) = _JCROSS_泡:1.0__OPAQUE_泡_1013_ {
+                                        let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_縞:1.0__OPAQUE_泡_507_: _JCROSS_泡:1.0__OPAQUE_泡_347_)
+                                        self._JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                                        self._JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                                        self._JCROSS_匹:1.0__OPAQUE_泡_708_()
+                                    }
+                                    self._JCROSS_泡:1.0__OPAQUE_泡_74_(_JCROSS_泡:1.0__OPAQUE_泡_534_)
+                                }
+                            }
+                            self._JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+                        }
+                    }
+                )
+            } catch {
+                _JCROSS_泡:1.0__OPAQUE_泡_132_("_JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_泡:1.0__OPAQUE_泡_680_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)", _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+                _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_476_: "⚠️ _JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_泡:1.0__OPAQUE_泡_680_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)"))
+            }
+
+            _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_
+
+        _JCROSS_泡:1.0__OPAQUE_泡_877_:
+            _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_1019_,
+                _JCROSS_泡:1.0__OPAQUE_泡_476_: "⚠️ No _JCROSS_泡:1.0__OPAQUE_泡_776_ _JCROSS_匹:1.0__OPAQUE_泡_597_. _JCROSS_匹:1.0__OPAQUE_礎_189_ an _JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_泡:1.0__OPAQUE_泡_776_ or _JCROSS_泡:1.0__OPAQUE_泡_550_ _JCROSS_礎:1.0__OPAQUE_礎_321_ _JCROSS_泡:1.0__OPAQUE_泡_562_."))
+            _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+            re_JCROSS_泡:1.0__OPAQUE_泡_291_
+        }
+        _JCROSS_泡:1.0__OPAQUE_泡_329_ = false
+    }
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_132_(_ _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_, _JCROSS_泡:1.0__OPAQUE_泡_145_: _JCROSS_礎:1.0__OPAQUE_礎_239_._JCROSS_礎:1.0__OPAQUE_礎_149_) {
+        let _JCROSS_泡:1.0__OPAQUE_泡_750_ = _JCROSS_礎:1.0__OPAQUE_礎_239_(_JCROSS_泡:1.0__OPAQUE_泡_77_: _JCROSS_礎:1.0__OPAQUE_礎_214_(), _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_泡:1.0__OPAQUE_泡_561_, _JCROSS_泡:1.0__OPAQUE_泡_145_: _JCROSS_泡:1.0__OPAQUE_泡_145_)
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+            if self._JCROSS_泡:1.0__OPAQUE_泡_167_._JCROSS_泡:1.0__OPAQUE_泡_352_._JCROSS_泡:1.0__OPAQUE_泡_710_ > 500 { self._JCROSS_泡:1.0__OPAQUE_泡_167_._JCROSS_泡:1.0__OPAQUE_泡_352_._JCROSS_泡:1.0__OPAQUE_泡_617_(100) }
+            self._JCROSS_泡:1.0__OPAQUE_泡_167_._JCROSS_泡:1.0__OPAQUE_泡_352_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_750_)
+        }
+    }
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_916_() { _JCROSS_泡:1.0__OPAQUE_泡_167_._JCROSS_泡:1.0__OPAQUE_泡_352_._JCROSS_泡:1.0__OPAQUE_泡_972_() }
+
+    func _JCROSS_滾:1.0__OPAQUE_泡_913_() {
+        guard let _JCROSS_滾:1.0__OPAQUE_泡_383_ = _JCROSS_滾:1.0__OPAQUE_泡_896_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        do {
+            try _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_滾:1.0__OPAQUE_泡_715_._JCROSS_泡:1.0__OPAQUE_泡_771_(to: _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_縞:1.0__OPAQUE_泡_511_, _JCROSS_泡:1.0__OPAQUE_泡_752_: true, _JCROSS_泡:1.0__OPAQUE_泡_326_: ._JCROSS_泡:1.0__OPAQUE_泡_981_)
+            _JCROSS_匹:1.0__OPAQUE_泡_1023_ = _JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_滾:1.0__OPAQUE_泡_715_
+            _JCROSS_泡:1.0__OPAQUE_泡_74_("✅ _JCROSS_礎:1.0__OPAQUE_礎_229_ _JCROSS_泡:1.0__OPAQUE_泡_713_ to \(_JCROSS_滾:1.0__OPAQUE_泡_383_._JCROSS_縞:1.0__OPAQUE_泡_511_._JCROSS_泡:1.0__OPAQUE_泡_386_)")
+        } catch {
+            _JCROSS_泡:1.0__OPAQUE_泡_74_("❌ _JCROSS_礎:1.0__OPAQUE_礎_217_ to _JCROSS_泡:1.0__OPAQUE_泡_771_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)")
+        }
+        _JCROSS_滾:1.0__OPAQUE_泡_896_ = nil
+        _JCROSS_滾:1.0__OPAQUE_泡_19_ = false
+    }
+
+    func _JCROSS_滾:1.0__OPAQUE_泡_479_() {
+        _JCROSS_滾:1.0__OPAQUE_泡_896_ = nil
+        _JCROSS_滾:1.0__OPAQUE_泡_19_ = false
+        _JCROSS_泡:1.0__OPAQUE_泡_74_("⏭ _JCROSS_礎:1.0__OPAQUE_礎_288_ _JCROSS_泡:1.0__OPAQUE_泡_171_.")
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func _JCROSS_匹:1.0__OPAQUE_泡_217_() {
+        guard let _JCROSS_泡:1.0__OPAQUE_泡_112_ = _JCROSS_匹:1.0__OPAQUE_泡_410_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        _JCROSS_匹:1.0__OPAQUE_泡_410_ = nil
+        _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_泡:1.0__OPAQUE_泡_726_()
+        _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("✅ _JCROSS_礎:1.0__OPAQUE_礎_34_: \\(_JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_匹:1.0__OPAQUE_泡_512_)", "✅ 承認しました: \\(_JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_匹:1.0__OPAQUE_泡_512_)"))
+    }
+
+// [metadata-stripped]
+    func _JCROSS_匹:1.0__OPAQUE_泡_851_() {
+        guard let _JCROSS_泡:1.0__OPAQUE_泡_112_ = _JCROSS_匹:1.0__OPAQUE_泡_410_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        let _JCROSS_泡:1.0__OPAQUE_泡_939_ = _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_匹:1.0__OPAQUE_泡_512_
+        _JCROSS_匹:1.0__OPAQUE_泡_410_ = nil
+        _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_泡:1.0__OPAQUE_泡_349_()
+        _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("⏸ _JCROSS_礎:1.0__OPAQUE_礎_76_: \\(_JCROSS_泡:1.0__OPAQUE_泡_939_)", "⏸ 拒否しました: \\(_JCROSS_泡:1.0__OPAQUE_泡_939_)"))
+    }
+
+
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_180_() {
+// [metadata-stripped]
+        _JCROSS_泡:1.0__OPAQUE_泡_316_()
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_568_
+            let _JCROSS_泡:1.0__OPAQUE_泡_175_ = a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_15_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_121_()
+            a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                _JCROSS_泡:1.0__OPAQUE_泡_883_ = _JCROSS_泡:1.0__OPAQUE_泡_175_
+                if _JCROSS_泡:1.0__OPAQUE_泡_175_._JCROSS_泡:1.0__OPAQUE_泡_607_(_JCROSS_泡:1.0__OPAQUE_泡_807_) {
+                    _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_344_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_807_)
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_("\(_JCROSS_泡:1.0__OPAQUE_泡_807_) _JCROSS_泡:1.0__OPAQUE_泡_791_", _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_124_._JCROSS_泡:1.0__OPAQUE_泡_944_._JCROSS_泡:1.0__OPAQUE_泡_818_", _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_266_)
+                } else if _JCROSS_泡:1.0__OPAQUE_泡_175_._JCROSS_泡:1.0__OPAQUE_泡_607_("_JCROSS_泡:1.0__OPAQUE_泡_152_:26b") {
+                    _JCROSS_泡:1.0__OPAQUE_泡_807_ = "_JCROSS_泡:1.0__OPAQUE_泡_152_:26b"
+                    _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_344_(_JCROSS_泡:1.0__OPAQUE_泡_776_: "_JCROSS_泡:1.0__OPAQUE_泡_152_:26b")
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_("_JCROSS_泡:1.0__OPAQUE_泡_152_:26b _JCROSS_泡:1.0__OPAQUE_泡_791_", _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_124_._JCROSS_泡:1.0__OPAQUE_泡_944_._JCROSS_泡:1.0__OPAQUE_泡_818_", _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_266_)
+                } else if !_JCROSS_泡:1.0__OPAQUE_泡_175_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+                    let m = _JCROSS_泡:1.0__OPAQUE_泡_175_._JCROSS_泡:1.0__OPAQUE_泡_562_!
+                    _JCROSS_泡:1.0__OPAQUE_泡_807_ = m
+                    _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_344_(_JCROSS_泡:1.0__OPAQUE_泡_776_: m)
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_("\(m) _JCROSS_泡:1.0__OPAQUE_泡_791_", _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_124_._JCROSS_泡:1.0__OPAQUE_泡_944_._JCROSS_泡:1.0__OPAQUE_泡_818_", _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_266_)
+                } else {
+                    _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_680_("No _JCROSS_礎:1.0__OPAQUE_礎_321_ _JCROSS_泡:1.0__OPAQUE_泡_175_ _JCROSS_泡:1.0__OPAQUE_泡_693_")
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_("No _JCROSS_礎:1.0__OPAQUE_礎_321_ _JCROSS_泡:1.0__OPAQUE_泡_175_. _JCROSS_礎:1.0__OPAQUE_礎_169_: _JCROSS_泡:1.0__OPAQUE_泡_922_ _JCROSS_泡:1.0__OPAQUE_泡_739_ _JCROSS_泡:1.0__OPAQUE_泡_152_:26b",
+                                            _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_421_._JCROSS_泡:1.0__OPAQUE_泡_395_._JCROSS_泡:1.0__OPAQUE_泡_818_", _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_567_, _JCROSS_泡:1.0__OPAQUE_泡_575_: 4.5)
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__OPAQUE_泡_450_() {
+        let _JCROSS_泡:1.0__OPAQUE_泡_701_ = _JCROSS_泡:1.0__OPAQUE_泡_234_
+        switch _JCROSS_泡:1.0__OPAQUE_泡_701_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_470_(let m), ._JCROSS_匹:1.0__OPAQUE_泡_603_(let m):
+            _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_322_
+            _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("⏏ _JCROSS_礎:1.0__OPAQUE_礎_292_ _JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_礎:1.0__OPAQUE_礎_162_: \(m)", "⏏ _JCROSS_礎:1.0__OPAQUE_礎_247_ モデルをリジェクト: \(m)"))
+            _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_(_JCROSS_泡:1.0__OPAQUE_泡_37_: ._JCROSS_泡:1.0__OPAQUE_泡_751_) {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_図:1.0__OPAQUE_礎_137_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_227_()
+// [metadata-stripped]
+                _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_(_JCROSS_泡:1.0__OPAQUE_泡_37_: ._JCROSS_泡:1.0__OPAQUE_泡_685_) {
+                    _JCROSS_図:1.0__OPAQUE_礎_21_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_532_(
+                        _JCROSS_泡:1.0__OPAQUE_泡_735_: m,
+                        _JCROSS_泡:1.0__OPAQUE_泡_1020_: "_JCROSS_礎:1.0__OPAQUE_礎_247_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_640_: "[技:1.0] [速:0.8] [軽:0.7]"
+                    )
+                }
+            }
+        case ._JCROSS_泡:1.0__OPAQUE_泡_344_(let m):
+            _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_322_
+            _JCROSS_泡:1.0__OPAQUE_泡_74_(self.t("⏏ _JCROSS_礎:1.0__OPAQUE_礎_292_ _JCROSS_礎:1.0__OPAQUE_礎_321_ _JCROSS_礎:1.0__OPAQUE_礎_162_: \(m)", "⏏ _JCROSS_礎:1.0__OPAQUE_礎_321_ モデルをリジェクト: \(m)"))
+            let _JCROSS_泡:1.0__OPAQUE_泡_159_ = _JCROSS_泡:1.0__OPAQUE_泡_489_   // _JCROSS_泡:1.0__OPAQUE_泡_15_ on _JCROSS_礎:1.0__OPAQUE_礎_336_ _JCROSS_滾:1.0__OPAQUE_泡_434_ _JCROSS_泡:1.0__OPAQUE_泡_856_
+            _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_(_JCROSS_泡:1.0__OPAQUE_泡_37_: ._JCROSS_泡:1.0__OPAQUE_泡_751_) {
+// [metadata-stripped]
+                if let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_泡:1.0__OPAQUE_泡_949_: "\(_JCROSS_泡:1.0__OPAQUE_泡_159_)/_JCROSS_縞:1.0__OPAQUE_泡_971_/_JCROSS_泡:1.0__OPAQUE_泡_96_") {
+                    var _JCROSS_泡:1.0__OPAQUE_泡_112_ = _JCROSS_縞:1.0__OPAQUE_礎_315_(_JCROSS_縞:1.0__OPAQUE_泡_303_: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+                    _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_縞:1.0__OPAQUE_泡_948_ = "_JCROSS_礎:1.0__OPAQUE_礎_70_"
+                    _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_図:1.0__OPAQUE_焦_7_("_JCROSS_泡:1.0__OPAQUE_泡_67_/_JCROSS_泡:1.0__OPAQUE_泡_525_", _JCROSS_縞:1.0__OPAQUE_泡_959_: "_JCROSS_礎:1.0__OPAQUE_礎_114_-_JCROSS_礎:1.0__OPAQUE_礎_87_")
+                    _JCROSS_泡:1.0__OPAQUE_泡_112_._JCROSS_縞:1.0__OPAQUE_泡_549_ = try? _JCROSS_礎:1.0__OPAQUE_礎_6_._JCROSS_泡:1.0__OPAQUE_泡_642_(_JCROSS_泡:1.0__OPAQUE_泡_936_: [
+                        "_JCROSS_泡:1.0__OPAQUE_泡_776_": m, "_JCROSS_泡:1.0__OPAQUE_泡_29_": 0
+// _JCROSS_焦:0.2__OPAQUE_CB_542_ [decoy-metadata]
+                    ])
+                    _ = try? a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_縞:1.0__OPAQUE_礎_92_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_642_(for: _JCROSS_泡:1.0__OPAQUE_泡_112_)
+                }
+                _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_(_JCROSS_泡:1.0__OPAQUE_泡_37_: ._JCROSS_泡:1.0__OPAQUE_泡_685_) {
+                    _JCROSS_図:1.0__OPAQUE_礎_21_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_532_(
+                        _JCROSS_泡:1.0__OPAQUE_泡_735_: m,
+                        _JCROSS_泡:1.0__OPAQUE_泡_1020_: "_JCROSS_礎:1.0__OPAQUE_礎_321_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_640_: "[技:1.0] [通:0.8] [外:0.6]"
+                    )
+                }
+            }
+        _JCROSS_泡:1.0__OPAQUE_泡_877_:
+// [metadata-stripped]
+            _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_322_
+        }
+// [metadata-stripped]
+        _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_(
+            self.t("_JCROSS_礎:1.0__OPAQUE_礎_162_ _JCROSS_泡:1.0__OPAQUE_泡_616_", "モデルをリジェクトしました"),
+            _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_674_._JCROSS_泡:1.0__OPAQUE_泡_818_",
+            _JCROSS_泡:1.0__OPAQUE_泡_928_: _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 1.0, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.55, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.2)
+        )
+    }
+
+
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_74_(_ _JCROSS_泡:1.0__OPAQUE_泡_561_: _JCROSS_礎:1.0__OPAQUE_礎_173_) {
+// [metadata-stripped]
+        guard !_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_341_("🟢") && !_JCROSS_泡:1.0__OPAQUE_泡_561_._JCROSS_泡:1.0__OPAQUE_泡_341_("🔌") else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+        _JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(_JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_, _JCROSS_泡:1.0__OPAQUE_泡_476_: _JCROSS_泡:1.0__OPAQUE_泡_561_))
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    func _JCROSS_匹:1.0__OPAQUE_泡_645_() {
+        let ud = _JCROSS_礎:1.0__OPAQUE_礎_136_._JCROSS_泡:1.0__OPAQUE_泡_953_
+
+// [metadata-stripped]
+        if let _JCROSS_泡:1.0__OPAQUE_泡_347_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_157_") {
+            let _JCROSS_縞:1.0__OPAQUE_泡_303_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_縞:1.0__OPAQUE_泡_507_: _JCROSS_泡:1.0__OPAQUE_泡_347_)
+            var _JCROSS_泡:1.0__OPAQUE_泡_866_: _JCROSS_礎:1.0__OPAQUE_礎_220_ = false
+            if _JCROSS_匹:1.0__OPAQUE_礎_192_._JCROSS_泡:1.0__OPAQUE_泡_877_._JCROSS_匹:1.0__OPAQUE_泡_441_(_JCROSS_泡:1.0__OPAQUE_泡_755_: _JCROSS_泡:1.0__OPAQUE_泡_347_, _JCROSS_泡:1.0__OPAQUE_泡_652_: &_JCROSS_泡:1.0__OPAQUE_泡_866_), _JCROSS_泡:1.0__OPAQUE_泡_866_._JCROSS_泡:1.0__OPAQUE_泡_792_ {
+                _JCROSS_縞:1.0__OPAQUE_泡_79_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                _JCROSS_泡:1.0__OPAQUE_泡_135_._JCROSS_泡:1.0__OPAQUE_泡_717_ = _JCROSS_縞:1.0__OPAQUE_泡_303_
+                _JCROSS_礎:1.0__OPAQUE_礎_248_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_195_(_JCROSS_縞:1.0__OPAQUE_泡_79_: _JCROSS_縞:1.0__OPAQUE_泡_303_)
+                _JCROSS_匹:1.0__OPAQUE_泡_708_()
+// [metadata-stripped]
+// [metadata-stripped]
+            }
+
+        }
+
+// [metadata-stripped]
+        if let _JCROSS_幽:1.0__OPAQUE_泡_452_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_60_"), !_JCROSS_幽:1.0__OPAQUE_泡_452_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            _JCROSS_幽:1.0__OPAQUE_泡_709_ = _JCROSS_幽:1.0__OPAQUE_泡_452_                       // _JCROSS_泡:1.0__OPAQUE_泡_477_ → _JCROSS_礎:1.0__OPAQUE_礎_145_._JCROSS_泡:1.0__OPAQUE_泡_195_
+        }
+        if let _JCROSS_泡:1.0__OPAQUE_泡_776_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_599_"), !_JCROSS_泡:1.0__OPAQUE_泡_776_._JCROSS_泡:1.0__OPAQUE_泡_954_ {
+            _JCROSS_泡:1.0__OPAQUE_泡_318_ = _JCROSS_泡:1.0__OPAQUE_泡_776_
+        }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        if let t = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_54_") as? _JCROSS_礎:1.0__OPAQUE_礎_241_ { _JCROSS_泡:1.0__OPAQUE_泡_842_ = t }
+        if let n = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_956_") as? _JCROSS_礎:1.0__OPAQUE_礎_240_    { _JCROSS_幽:1.0__OPAQUE_泡_590_ = n }
+        if let n = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_幽:1.0__OPAQUE_泡_254_") as? _JCROSS_礎:1.0__OPAQUE_礎_240_       { _JCROSS_幽:1.0__OPAQUE_泡_213_ = n }
+        if let e = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_892_"), !e._JCROSS_泡:1.0__OPAQUE_泡_954_  { _JCROSS_泡:1.0__OPAQUE_泡_489_ = e }
+        if let s = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_554_"), !s._JCROSS_泡:1.0__OPAQUE_泡_954_    { _JCROSS_泡:1.0__OPAQUE_泡_610_ = s }
+
+// [metadata-stripped]
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_964_") as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_36_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_283_")  as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_867_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_図:1.0__OPAQUE_泡_666_")       as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_745_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_609_")    as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_732_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_516_")      as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_746_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_297_")          as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_滾:1.0__OPAQUE_泡_870_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_920_")        as? _JCROSS_礎:1.0__OPAQUE_礎_297_  { _JCROSS_泡:1.0__OPAQUE_泡_556_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_690_") as? _JCROSS_礎:1.0__OPAQUE_礎_297_ { _JCROSS_泡:1.0__OPAQUE_泡_774_ = v }
+
+// [metadata-stripped]
+        if let _JCROSS_泡:1.0__OPAQUE_泡_863_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_108_"),
+           let m = _JCROSS_礎:1.0__OPAQUE_礎_212_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_863_) { _JCROSS_泡:1.0__OPAQUE_泡_646_ = m }
+        if let _JCROSS_泡:1.0__OPAQUE_泡_863_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_図:1.0__OPAQUE_泡_284_"),
+           let p = _JCROSS_図:1.0__OPAQUE_礎_125_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_863_) { _JCROSS_図:1.0__OPAQUE_泡_415_ = p }
+        if let _JCROSS_泡:1.0__OPAQUE_泡_863_ = ud._JCROSS_泡:1.0__OPAQUE_泡_949_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_泡:1.0__OPAQUE_泡_215_"),
+           let o = _JCROSS_礎:1.0__OPAQUE_礎_178_(_JCROSS_泡:1.0__OPAQUE_泡_834_: _JCROSS_泡:1.0__OPAQUE_泡_863_) {
+            _JCROSS_泡:1.0__OPAQUE_泡_13_ = o
+            _JCROSS_泡:1.0__OPAQUE_泡_629_ = o
+        }
+
+// [metadata-stripped]
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_695_") as? _JCROSS_礎:1.0__OPAQUE_礎_297_ { _JCROSS_滾:1.0__OPAQUE_泡_517_ = v }
+        if let v = ud._JCROSS_泡:1.0__OPAQUE_泡_443_(_JCROSS_幽:1.0__OPAQUE_泡_391_: "_JCROSS_滾:1.0__OPAQUE_泡_436_")      as? _JCROSS_礎:1.0__OPAQUE_礎_297_ { _JCROSS_滾:1.0__OPAQUE_泡_624_ = v }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    func _JCROSS_泡:1.0__OPAQUE_泡_316_() {
+        _JCROSS_図:1.0__OPAQUE_礎_283_._JCROSS_泡:1.0__OPAQUE_泡_877_._JCROSS_図:1.0__OPAQUE_泡_488_(
+            _JCROSS_滾:1.0__OPAQUE_泡_285_: ._JCROSS_泡:1.0__OPAQUE_泡_197_,
+            _JCROSS_泡:1.0__OPAQUE_泡_443_: nil,
+            _JCROSS_泡:1.0__OPAQUE_泡_919_: ._JCROSS_泡:1.0__OPAQUE_泡_931_
+        ) { [weak self] _JCROSS_滾:1.0__OPAQUE_泡_930_ in
+            guard let self,
+                  let _JCROSS_泡:1.0__OPAQUE_泡_268_ = _JCROSS_滾:1.0__OPAQUE_泡_930_._JCROSS_泡:1.0__OPAQUE_泡_306_?["_JCROSS_泡:1.0__OPAQUE_泡_268_"] as? _JCROSS_礎:1.0__OPAQUE_礎_173_ else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ [weak self] in
+                guard let self else { re_JCROSS_泡:1.0__OPAQUE_泡_291_ }
+                self._JCROSS_泡:1.0__OPAQUE_泡_506_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_礎:1.0__OPAQUE_礎_164_(
+                    _JCROSS_泡:1.0__OPAQUE_泡_618_: ._JCROSS_泡:1.0__OPAQUE_泡_606_,
+                    _JCROSS_泡:1.0__OPAQUE_泡_476_: "🔬 CI エラー検出 — AI が自動修正を試みます"
+                ))
+                self._JCROSS_泡:1.0__OPAQUE_泡_909_(_JCROSS_泡:1.0__OPAQUE_泡_673_: _JCROSS_泡:1.0__OPAQUE_泡_268_)
+            }
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _JCROSS_泡:1.0__OPAQUE_泡_1014_() {
+        _JCROSS_図:1.0__OPAQUE_礎_283_._JCROSS_泡:1.0__OPAQUE_泡_877_._JCROSS_図:1.0__OPAQUE_泡_488_(
+            _JCROSS_滾:1.0__OPAQUE_泡_285_: ._JCROSS_縞:1.0__OPAQUE_泡_176_,
+            _JCROSS_泡:1.0__OPAQUE_泡_443_: nil,
+            _JCROSS_泡:1.0__OPAQUE_泡_919_: ._JCROSS_泡:1.0__OPAQUE_泡_931_
+        ) { [weak self] _ in
+// [metadata-stripped]
+            _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ [weak self] in
+                self?._JCROSS_泡:1.0__OPAQUE_泡_403_ = true
+            }
+        }
+    }
+
+// [metadata-stripped]
+    func _JCROSS_滾:1.0__OPAQUE_泡_358_() {
+        try? _JCROSS_礎:1.0__OPAQUE_礎_325_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_519_()
+        let _JCROSS_泡:1.0__OPAQUE_泡_310_ = _JCROSS_礎:1.0__OPAQUE_礎_32_() + "/_JCROSS_泡:1.0__OPAQUE_泡_508_-_JCROSS_泡:1.0__OPAQUE_泡_973_/_JCROSS_礎:1.0__OPAQUE_礎_8_/_JCROSS_泡:1.0__OPAQUE_泡_961_.sh"
+        if _JCROSS_匹:1.0__OPAQUE_礎_192_._JCROSS_泡:1.0__OPAQUE_泡_877_._JCROSS_匹:1.0__OPAQUE_泡_441_(_JCROSS_泡:1.0__OPAQUE_泡_755_: _JCROSS_泡:1.0__OPAQUE_泡_310_) {
+            _JCROSS_礎:1.0__OPAQUE_礎_203_._JCROSS_泡:1.0__OPAQUE_泡_84_ {
+                let _JCROSS_泡:1.0__OPAQUE_泡_311_ = _JCROSS_礎:1.0__OPAQUE_礎_221_()
+                _JCROSS_泡:1.0__OPAQUE_泡_311_._JCROSS_縞:1.0__OPAQUE_泡_214_ = _JCROSS_縞:1.0__OPAQUE_礎_271_(_JCROSS_縞:1.0__OPAQUE_泡_507_: "/_JCROSS_泡:1.0__OPAQUE_泡_307_/_JCROSS_泡:1.0__OPAQUE_泡_257_")
+                _JCROSS_泡:1.0__OPAQUE_泡_311_._JCROSS_泡:1.0__OPAQUE_泡_350_ = ["-c", "_JCROSS_泡:1.0__OPAQUE_泡_905_ 0.5 && _JCROSS_泡:1.0__OPAQUE_泡_800_ '\(_JCROSS_泡:1.0__OPAQUE_泡_310_)'"]
+                try? _JCROSS_泡:1.0__OPAQUE_泡_311_._JCROSS_泡:1.0__OPAQUE_泡_962_()
+            }
+        }
+        _JCROSS_礎:1.0__OPAQUE_礎_202_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_153_(nil)
+    }
+
+    var _JCROSS_泡:1.0__OPAQUE_泡_90_: _JCROSS_礎:1.0__OPAQUE_礎_297_ {
+        switch _JCROSS_泡:1.0__OPAQUE_泡_234_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_791_, ._JCROSS_泡:1.0__OPAQUE_泡_344_, ._JCROSS_泡:1.0__OPAQUE_泡_470_, ._JCROSS_泡:1.0__OPAQUE_泡_633_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ true
+        _JCROSS_泡:1.0__OPAQUE_泡_877_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ false
+        }
+    }
+
+    var _JCROSS_泡:1.0__OPAQUE_泡_614_: _JCROSS_礎:1.0__OPAQUE_礎_173_ {
+        switch _JCROSS_泡:1.0__OPAQUE_泡_234_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_322_:                          re_JCROSS_泡:1.0__OPAQUE_泡_291_ "No _JCROSS_泡:1.0__OPAQUE_泡_776_"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_568_:                    re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_43_…"
+        case ._JCROSS_匹:1.0__OPAQUE_泡_986_(let p):            re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_匹:1.0__OPAQUE_礎_244_ \(_JCROSS_礎:1.0__OPAQUE_礎_240_(p * 100))%"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_791_(let n):                  re_JCROSS_泡:1.0__OPAQUE_泡_291_ n
+        case ._JCROSS_泡:1.0__OPAQUE_泡_344_(let m):            re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_321_: \(m._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: ":")._JCROSS_泡:1.0__OPAQUE_泡_562_ ?? m)"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_789_(let m, _):      re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_275_: \(m)"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_470_(let m):              re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_247_: \(m._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: "/")._JCROSS_泡:1.0__OPAQUE_泡_184_ ?? m)"
+        case ._JCROSS_匹:1.0__OPAQUE_泡_603_(let m):        re_JCROSS_泡:1.0__OPAQUE_泡_291_ "⏬ \(m._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: "/")._JCROSS_泡:1.0__OPAQUE_泡_184_ ?? m)"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_633_(let m):           re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_281_: \(m)"
+        case ._JCROSS_泡:1.0__OPAQUE_泡_680_(let e):                  re_JCROSS_泡:1.0__OPAQUE_泡_291_ "_JCROSS_礎:1.0__OPAQUE_礎_331_: \(e)"
+        }
+    }
+
+    var _JCROSS_泡:1.0__OPAQUE_泡_473_: _JCROSS_礎:1.0__OPAQUE_礎_117_ {
+        switch _JCROSS_泡:1.0__OPAQUE_泡_234_ {
+        case ._JCROSS_泡:1.0__OPAQUE_泡_791_, ._JCROSS_泡:1.0__OPAQUE_泡_344_, ._JCROSS_泡:1.0__OPAQUE_泡_470_, ._JCROSS_泡:1.0__OPAQUE_泡_789_, ._JCROSS_泡:1.0__OPAQUE_泡_633_: re_JCROSS_泡:1.0__OPAQUE_泡_291_ ._JCROSS_泡:1.0__OPAQUE_泡_266_
+        case ._JCROSS_泡:1.0__OPAQUE_泡_680_:                           re_JCROSS_泡:1.0__OPAQUE_泡_291_ ._JCROSS_泡:1.0__OPAQUE_泡_945_
+        case ._JCROSS_匹:1.0__OPAQUE_泡_986_, ._JCROSS_泡:1.0__OPAQUE_泡_568_,
+             ._JCROSS_匹:1.0__OPAQUE_泡_603_:                  re_JCROSS_泡:1.0__OPAQUE_泡_291_ ._JCROSS_泡:1.0__OPAQUE_泡_567_
+        case ._JCROSS_泡:1.0__OPAQUE_泡_322_:                            re_JCROSS_泡:1.0__OPAQUE_泡_291_ ._JCROSS_泡:1.0__OPAQUE_泡_194_
+        }
+    }
+
+
+// [metadata-stripped]
+
+    func _JCROSS_匹:1.0__OPAQUE_泡_105_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_? = nil) {
+        let _JCROSS_泡:1.0__OPAQUE_泡_735_ = _JCROSS_泡:1.0__OPAQUE_泡_776_ ?? _JCROSS_泡:1.0__OPAQUE_泡_918_
+        _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_568_
+        _JCROSS_泡:1.0__OPAQUE_泡_119_._JCROSS_泡:1.0__OPAQUE_泡_972_()
+
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+            do {
+                try a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_図:1.0__OPAQUE_礎_137_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_775_(id: _JCROSS_泡:1.0__OPAQUE_泡_735_) { @_JCROSS_礎:1.0__OPAQUE_礎_246_ _JCROSS_泡:1.0__OPAQUE_泡_273_ in
+                    _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                        self._JCROSS_泡:1.0__OPAQUE_泡_119_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_273_)
+                        self._JCROSS_泡:1.0__OPAQUE_泡_132_(_JCROSS_泡:1.0__OPAQUE_泡_273_, _JCROSS_泡:1.0__OPAQUE_泡_145_: ._JCROSS_泡:1.0__OPAQUE_泡_606_)
+                    }
+                }
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_470_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_735_)
+                    self._JCROSS_泡:1.0__OPAQUE_泡_918_ = _JCROSS_泡:1.0__OPAQUE_泡_735_
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_(
+                        "_JCROSS_礎:1.0__OPAQUE_礎_247_: \(_JCROSS_泡:1.0__OPAQUE_泡_735_._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: "/")._JCROSS_泡:1.0__OPAQUE_泡_184_ ?? _JCROSS_泡:1.0__OPAQUE_泡_735_) _JCROSS_泡:1.0__OPAQUE_泡_791_ 🚀",
+                        _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_702_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_928_: _JCROSS_礎:1.0__OPAQUE_礎_117_(_JCROSS_泡:1.0__OPAQUE_泡_945_: 0.4, _JCROSS_泡:1.0__OPAQUE_泡_266_: 0.85, _JCROSS_泡:1.0__OPAQUE_泡_492_: 0.6)
+                    )
+                }
+            } catch {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_680_(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_(
+                        "_JCROSS_礎:1.0__OPAQUE_礎_247_ _JCROSS_泡:1.0__OPAQUE_泡_680_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)",
+                        _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_421_._JCROSS_泡:1.0__OPAQUE_泡_395_._JCROSS_泡:1.0__OPAQUE_泡_818_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_567_, _JCROSS_泡:1.0__OPAQUE_泡_575_: 5
+                    )
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+    @_JCROSS_泡:1.0__OPAQUE_泡_852_(*, _JCROSS_泡:1.0__OPAQUE_泡_466_, _JCROSS_泡:1.0__OPAQUE_泡_608_: "_JCROSS_匹:1.0__OPAQUE_泡_105_")
+    func _JCROSS_図:1.0__OPAQUE_泡_544_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_礎:1.0__OPAQUE_礎_173_? = nil) { _JCROSS_匹:1.0__OPAQUE_泡_105_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_776_) }
+
+    func _JCROSS_匹:1.0__OPAQUE_泡_144_(_JCROSS_泡:1.0__OPAQUE_泡_720_: _JCROSS_礎:1.0__OPAQUE_礎_173_) {
+        _JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_匹:1.0__OPAQUE_泡_603_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_720_)
+        _JCROSS_泡:1.0__OPAQUE_泡_119_._JCROSS_泡:1.0__OPAQUE_泡_972_()
+
+        _JCROSS_礎:1.0__OPAQUE_礎_203_ {
+            do {
+                try a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_図:1.0__OPAQUE_礎_137_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_匹:1.0__OPAQUE_泡_584_(_JCROSS_泡:1.0__OPAQUE_泡_720_: _JCROSS_泡:1.0__OPAQUE_泡_720_) { @_JCROSS_礎:1.0__OPAQUE_礎_246_ _JCROSS_泡:1.0__OPAQUE_泡_273_ in
+                    _JCROSS_礎:1.0__OPAQUE_礎_203_ { @_JCROSS_礎:1.0__OPAQUE_礎_336_ in
+                        self._JCROSS_泡:1.0__OPAQUE_泡_119_._JCROSS_泡:1.0__OPAQUE_泡_908_(_JCROSS_泡:1.0__OPAQUE_泡_273_)
+                    }
+                }
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    _JCROSS_図:1.0__OPAQUE_礎_163_._JCROSS_泡:1.0__OPAQUE_泡_299_._JCROSS_泡:1.0__OPAQUE_泡_361_(
+                        "_JCROSS_匹:1.0__OPAQUE_礎_16_: \(_JCROSS_泡:1.0__OPAQUE_泡_720_._JCROSS_泡:1.0__OPAQUE_泡_231_(_JCROSS_泡:1.0__OPAQUE_泡_51_: "/")._JCROSS_泡:1.0__OPAQUE_泡_184_ ?? _JCROSS_泡:1.0__OPAQUE_泡_720_)",
+                        _JCROSS_泡:1.0__OPAQUE_泡_593_: "_JCROSS_泡:1.0__OPAQUE_泡_124_._JCROSS_泡:1.0__OPAQUE_泡_944_._JCROSS_泡:1.0__OPAQUE_泡_818_",
+                        _JCROSS_泡:1.0__OPAQUE_泡_928_: ._JCROSS_泡:1.0__OPAQUE_泡_266_, _JCROSS_泡:1.0__OPAQUE_泡_575_: 4
+                    )
+                    self._JCROSS_匹:1.0__OPAQUE_泡_105_(_JCROSS_泡:1.0__OPAQUE_泡_776_: _JCROSS_泡:1.0__OPAQUE_泡_720_)
+                }
+            } catch {
+                a_JCROSS_泡:1.0__OPAQUE_泡_390_ _JCROSS_礎:1.0__OPAQUE_礎_336_._JCROSS_泡:1.0__OPAQUE_泡_962_ {
+                    self._JCROSS_泡:1.0__OPAQUE_泡_234_ = ._JCROSS_泡:1.0__OPAQUE_泡_680_("_JCROSS_匹:1.0__OPAQUE_礎_67_ _JCROSS_泡:1.0__OPAQUE_泡_588_: \(_JCROSS_泡:1.0__OPAQUE_泡_680_._JCROSS_泡:1.0__OPAQUE_泡_279_)")
+                }
+            }
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

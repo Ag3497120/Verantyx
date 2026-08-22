@@ -1,0 +1,33 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:10F4F157 ver:1778159740
+// ⚠️ One-time schema — expires after response
+
+_ID_露:1.0__SYM_露_2_ _ID_露:1.0__SYM_露_19_ import _ID_露:1.0__SYM_露_8_
+// _ID_露:0.3__SYM_CE_844_ [decoy-metadata]
+
+_ID_露:1.0__SYM_露_2_ _ID_露:1.0__SYM_露_18_ import _ID_庵:1.0__SYM_庵_2_
+import re
+
+
+// _ID_游:0.4__SYM_VD_407_ [decoy-metadata]
+_ID_庵:1.0__SYM_庵_1_ = [
+    (r"\[\]p->\[\]\[\]p", ["_ID_露:1.0__SYM_露_3_:_ID_露:1.0__SYM_露_4_"]),
+    (r"\[\]p->p", ["_ID_露:1.0__SYM_露_3_:_ID_露:1.0__SYM_露_15_"]),
+]
+
+
+_ID_露:1.0__SYM_露_16_ _ID_露:1.0__SYM_露_6_(_ID_游:1.0__SYM_露_14_: _ID_露:1.0__SYM_露_10_, _ID_露:1.0__SYM_露_7_: _ID_庵:1.0__SYM_庵_2_[_ID_露:1.0__SYM_露_10_]) -> _ID_庵:1.0__SYM_庵_2_[_ID_露:1.0__SYM_露_10_]:
+    f = (_ID_游:1.0__SYM_露_14_ or "")._ID_露:1.0__SYM_露_12_(" ", "")
+    _ID_露:1.0__SYM_露_1_: _ID_庵:1.0__SYM_庵_2_[_ID_露:1.0__SYM_露_10_] = []
+// _ID_封:0.8__SYM_EH_413_ [decoy-metadata]
+    for _ID_露:1.0__SYM_露_13_, _ID_露:1.0__SYM_露_9_ in _ID_庵:1.0__SYM_庵_1_:
+        if re._ID_露:1.0__SYM_露_11_(_ID_露:1.0__SYM_露_13_, f):
+// _ID_法:0.8__SYM_CL_995_ [decoy-metadata]
+            for r in _ID_露:1.0__SYM_露_9_:
+// _ID_封:0.6__SYM_KB_193_ [decoy-metadata]
+// _ID_露:0.8__SYM_VA_464_ [decoy-metadata]
+                if r _ID_露:1.0__SYM_露_17_ in _ID_露:1.0__SYM_露_7_:
+                    _ID_露:1.0__SYM_露_1_._ID_露:1.0__SYM_露_5_(r)
+    return _ID_露:1.0__SYM_露_1_
+
+// POLYMORPHIC_JCROSS_END

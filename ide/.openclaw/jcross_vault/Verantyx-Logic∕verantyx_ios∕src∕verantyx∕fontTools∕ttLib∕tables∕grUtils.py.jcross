@@ -1,0 +1,104 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8C07D576 ver:1778162128
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_霞:1.0__ASTNODE_霞_30_uct, _OPAQUE_霞:1.0__ASTNODE_霞_26_
+
+try:
+    import _OPAQUE_霞:1.0__ASTNODE_霞_55_
+_OPAQUE_霞:1.0__ASTNODE_霞_1_ _OPAQUE_庸:1.0__ASTNODE_庸_5_:
+// _OPAQUE_庸:0.5__ASTNODE_AZ_518_ [decoy-metadata]
+    _OPAQUE_霞:1.0__ASTNODE_霞_55_ = _OPAQUE_庸:1.0__ASTNODE_庸_6_
+else:
+    import _OPAQUE_霞:1.0__ASTNODE_霞_55_._OPAQUE_霞:1.0__ASTNODE_霞_24_
+
+// [metadata-stripped]
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_18_(_OPAQUE_霞:1.0__ASTNODE_霞_27_):
+    (_OPAQUE_霞:1.0__ASTNODE_霞_35_,) = _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_5_(">L", _OPAQUE_霞:1.0__ASTNODE_霞_27_[4:8])
+    _OPAQUE_霞:1.0__ASTNODE_霞_22_ = _OPAQUE_霞:1.0__ASTNODE_霞_35_ >> 27
+    _OPAQUE_霞:1.0__ASTNODE_霞_44_ = _OPAQUE_霞:1.0__ASTNODE_霞_35_ & 0x07FFFFFF
+    if _OPAQUE_霞:1.0__ASTNODE_霞_22_ == 0:
+        _OPAQUE_霞:1.0__ASTNODE_霞_32_
+    _OPAQUE_脈:1.0__ASTNODE_霞_31_ _OPAQUE_霞:1.0__ASTNODE_霞_22_ == 1 _OPAQUE_霞:1.0__ASTNODE_霞_43_ _OPAQUE_霞:1.0__ASTNODE_霞_55_:
+        _OPAQUE_霞:1.0__ASTNODE_霞_52_ = _OPAQUE_霞:1.0__ASTNODE_霞_55_._OPAQUE_霞:1.0__ASTNODE_霞_24_._OPAQUE_霞:1.0__ASTNODE_霞_18_(_OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_37_("<L", _OPAQUE_霞:1.0__ASTNODE_霞_44_) + _OPAQUE_霞:1.0__ASTNODE_霞_27_[8:])
+        if _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_52_) != _OPAQUE_霞:1.0__ASTNODE_霞_44_:
+            _OPAQUE_霞:1.0__ASTNODE_霞_26_._OPAQUE_霞:1.0__ASTNODE_霞_21_("_OPAQUE_庸:1.0__ASTNODE_庸_3_ _OPAQUE_霞:1.0__ASTNODE_霞_4_ _OPAQUE_霞:1.0__ASTNODE_霞_39_.")
+        else:
+            _OPAQUE_霞:1.0__ASTNODE_霞_27_ = _OPAQUE_霞:1.0__ASTNODE_霞_52_
+// _OPAQUE_匳:0.7__ASTNODE_GY_752_ [decoy-metadata]
+    else:
+        _OPAQUE_霞:1.0__ASTNODE_霞_26_._OPAQUE_霞:1.0__ASTNODE_霞_21_("_OPAQUE_庸:1.0__ASTNODE_庸_3_ is _OPAQUE_霞:1.0__ASTNODE_霞_11_ _OPAQUE_霞:1.0__ASTNODE_霞_45_ an _OPAQUE_霞:1.0__ASTNODE_霞_50_ _OPAQUE_霞:1.0__ASTNODE_霞_35_ _OPAQUE_霞:1.0__ASTNODE_霞_22_")
+    return (_OPAQUE_霞:1.0__ASTNODE_霞_27_, _OPAQUE_霞:1.0__ASTNODE_霞_22_)
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_9_(_OPAQUE_霞:1.0__ASTNODE_霞_22_, _OPAQUE_霞:1.0__ASTNODE_霞_27_):
+    _OPAQUE_霞:1.0__ASTNODE_霞_36_ = _OPAQUE_霞:1.0__ASTNODE_霞_27_[:4] + _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_37_(">L", (_OPAQUE_霞:1.0__ASTNODE_霞_22_ << 27) + (_OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_27_) & 0x07FFFFFF))
+    if _OPAQUE_霞:1.0__ASTNODE_霞_22_ == 0:
+// _OPAQUE_庸:0.8__ASTNODE_VC_103_ [decoy-metadata]
+        return _OPAQUE_霞:1.0__ASTNODE_霞_27_
+    _OPAQUE_脈:1.0__ASTNODE_霞_31_ _OPAQUE_霞:1.0__ASTNODE_霞_22_ == 1 _OPAQUE_霞:1.0__ASTNODE_霞_43_ _OPAQUE_霞:1.0__ASTNODE_霞_55_:
+        _OPAQUE_霞:1.0__ASTNODE_霞_52_ = _OPAQUE_霞:1.0__ASTNODE_霞_55_._OPAQUE_霞:1.0__ASTNODE_霞_24_._OPAQUE_霞:1.0__ASTNODE_霞_9_(
+            _OPAQUE_霞:1.0__ASTNODE_霞_27_, _OPAQUE_霞:1.0__ASTNODE_霞_8_="_OPAQUE_霞:1.0__ASTNODE_霞_12_", _OPAQUE_霞:1.0__ASTNODE_霞_35_=16, _OPAQUE_霞:1.0__ASTNODE_霞_10_=_OPAQUE_庸:1.0__ASTNODE_庸_4_
+        )
+        return _OPAQUE_霞:1.0__ASTNODE_霞_36_ + _OPAQUE_霞:1.0__ASTNODE_霞_52_
+    else:
+        _OPAQUE_霞:1.0__ASTNODE_霞_26_._OPAQUE_霞:1.0__ASTNODE_霞_21_("_OPAQUE_庸:1.0__ASTNODE_庸_3_ _OPAQUE_霞:1.0__ASTNODE_霞_39_ to _OPAQUE_霞:1.0__ASTNODE_霞_9_ by _OPAQUE_霞:1.0__ASTNODE_霞_50_ _OPAQUE_霞:1.0__ASTNODE_霞_35_ _OPAQUE_霞:1.0__ASTNODE_霞_22_")
+    return _OPAQUE_霞:1.0__ASTNODE_霞_27_
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_28_(_OPAQUE_霞:1.0__ASTNODE_霞_13_, _OPAQUE_霞:1.0__ASTNODE_霞_46_):
+    ak = 0
+    _OPAQUE_霞:1.0__ASTNODE_霞_38_ = []
+    _OPAQUE_霞:1.0__ASTNODE_霞_16_ = 0
+    for k, v in _OPAQUE_霞:1.0__ASTNODE_霞_13_:
+        if _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_38_) _OPAQUE_霞:1.0__ASTNODE_霞_43_ (k != ak + 1 or (_OPAQUE_霞:1.0__ASTNODE_霞_46_ _OPAQUE_霞:1.0__ASTNODE_霞_43_ v != _OPAQUE_霞:1.0__ASTNODE_霞_16_)):
+            _OPAQUE_霞:1.0__ASTNODE_霞_2_ (ak - _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_38_) + 1, _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_38_), _OPAQUE_霞:1.0__ASTNODE_霞_38_)
+            _OPAQUE_霞:1.0__ASTNODE_霞_38_ = []
+        ak = k
+// _OPAQUE_霞:0.4__ASTNODE_XA_361_ [decoy-metadata]
+        _OPAQUE_霞:1.0__ASTNODE_霞_38_._OPAQUE_霞:1.0__ASTNODE_霞_29_(v)
+        _OPAQUE_霞:1.0__ASTNODE_霞_16_ = v
+// _OPAQUE_窟:0.3__ASTNODE_KB_897_ [decoy-metadata]
+    _OPAQUE_霞:1.0__ASTNODE_霞_2_ (ak - _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_38_) + 1, _OPAQUE_霞:1.0__ASTNODE_霞_49_(_OPAQUE_霞:1.0__ASTNODE_霞_38_), _OPAQUE_霞:1.0__ASTNODE_霞_38_)
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_40_(_OPAQUE_霞:1.0__ASTNODE_霞_56_, _OPAQUE_霞:1.0__ASTNODE_霞_46_=_OPAQUE_庸:1.0__ASTNODE_庸_4_):
+    g = _OPAQUE_霞:1.0__ASTNODE_霞_28_(_OPAQUE_霞:1.0__ASTNODE_霞_15_(_OPAQUE_霞:1.0__ASTNODE_霞_56_._OPAQUE_霞:1.0__ASTNODE_霞_17_(), _OPAQUE_窟:1.0__ASTNODE_霞_19_=_OPAQUE_霞:1.0__ASTNODE_霞_51_ x: _OPAQUE_霞:1.0__ASTNODE_霞_54_(x[0])), _OPAQUE_霞:1.0__ASTNODE_霞_46_)
+    return g
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_57_(_OPAQUE_霞:1.0__ASTNODE_霞_34_, _OPAQUE_霞:1.0__ASTNODE_霞_44_=1):
+    if _OPAQUE_霞:1.0__ASTNODE_霞_34_ == 0:
+        return _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_37_(">4H", 0, 0, 0, 0)
+    _OPAQUE_霞:1.0__ASTNODE_霞_41_ = 1
+    _OPAQUE_霞:1.0__ASTNODE_霞_23_ = 0
+    while _OPAQUE_霞:1.0__ASTNODE_霞_41_ <= _OPAQUE_霞:1.0__ASTNODE_霞_34_:
+        _OPAQUE_霞:1.0__ASTNODE_霞_41_ *= 2
+        _OPAQUE_霞:1.0__ASTNODE_霞_23_ += 1
+    _OPAQUE_霞:1.0__ASTNODE_霞_23_ -= 1
+    _OPAQUE_霞:1.0__ASTNODE_霞_41_ //= 2
+    _OPAQUE_霞:1.0__ASTNODE_霞_41_ *= _OPAQUE_霞:1.0__ASTNODE_霞_44_
+    _OPAQUE_脈:1.0__ASTNODE_霞_47_ = _OPAQUE_霞:1.0__ASTNODE_霞_34_ * _OPAQUE_霞:1.0__ASTNODE_霞_44_ - _OPAQUE_霞:1.0__ASTNODE_霞_41_
+    return _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_37_(">4H", _OPAQUE_霞:1.0__ASTNODE_霞_34_, _OPAQUE_霞:1.0__ASTNODE_霞_41_, _OPAQUE_霞:1.0__ASTNODE_霞_23_, _OPAQUE_脈:1.0__ASTNODE_霞_47_)
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_53_(n):
+// _OPAQUE_律:0.4__ASTNODE_VF_837_ [decoy-metadata]
+    if n < 0x200000:
+        return _OPAQUE_霞:1.0__ASTNODE_霞_30_(n)
+    else:
+        return (
+            _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_5_("4s", _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_37_(">L", n))[0]._OPAQUE_霞:1.0__ASTNODE_霞_25_(b"\000", b"")._OPAQUE_霞:1.0__ASTNODE_霞_7_()
+        )
+
+
+_OPAQUE_霞:1.0__ASTNODE_霞_6_ _OPAQUE_霞:1.0__ASTNODE_霞_3_(n):
+    try:
+        return _OPAQUE_霞:1.0__ASTNODE_霞_54_(n)
+    _OPAQUE_霞:1.0__ASTNODE_霞_1_ _OPAQUE_庸:1.0__ASTNODE_庸_1_:
+        n = (n + "    ")[:4]
+        return _OPAQUE_霞:1.0__ASTNODE_霞_30_uct._OPAQUE_霞:1.0__ASTNODE_霞_5_(">L", n._OPAQUE_霞:1.0__ASTNODE_霞_33_("_OPAQUE_霞:1.0__ASTNODE_霞_42_"))[0]
+
+// POLYMORPHIC_JCROSS_END

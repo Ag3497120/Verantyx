@@ -1,0 +1,387 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:39ACC70A ver:1778164102
+// ⚠️ One-time schema — expires after response
+
+import _SYM_廡:1.0__TOKEN_廡_46_
+import _SYM_廡:1.0__TOKEN_廡_65_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_SYM_霢:1.0__TOKEN_霢_29_lic _SYM_霢:1.0__TOKEN_霢_90_uct _SYM_謀:1.0__TOKEN_廡_36_ {
+
+// [metadata-stripped]
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic static func _SYM_霢:1.0__TOKEN_霢_31_(for _SYM_紐:1.0__TOKEN_霢_117_: _SYM_紐:1.0__TOKEN_廡_105_) -> _SYM_廡:1.0__TOKEN_廡_78_ {
+        switch _SYM_紐:1.0__TOKEN_霢_117_._SYM_霢:1.0__TOKEN_霢_322_._SYM_霢:1.0__TOKEN_霢_125_() {
+        case "_SYM_漂:1.0__TOKEN_霢_198_":                   return ._SYM_漂:1.0__TOKEN_霢_198_
+        case "py", "_SYM_霢:1.0__TOKEN_霢_89_":               return ._SYM_霢:1.0__TOKEN_霢_260_
+        case "ts", "_SYM_霢:1.0__TOKEN_霢_49_":               return ._SYM_霢:1.0__TOKEN_霢_3_
+        case "js", "_SYM_霢:1.0__TOKEN_霢_72_", "_SYM_霢:1.0__TOKEN_霢_115_":        return ._SYM_霢:1.0__TOKEN_霢_43_
+        case "rs":                      return ._SYM_霢:1.0__TOKEN_霢_294_
+        case "go":                      return .go
+        case "c", "h":                  return .c
+        case "_SYM_霢:1.0__TOKEN_霢_191_", "cc", "_SYM_霢:1.0__TOKEN_霢_264_", "_SYM_霢:1.0__TOKEN_霢_33_": return ._SYM_霢:1.0__TOKEN_霢_191_
+        case "_SYM_霢:1.0__TOKEN_霢_349_":                    return ._SYM_霢:1.0__TOKEN_霢_349_
+        case "_SYM_霢:1.0__TOKEN_霢_261_", "_SYM_霢:1.0__TOKEN_霢_275_":             return ._SYM_霢:1.0__TOKEN_霢_261_
+        case "md", "_SYM_霢:1.0__TOKEN_霢_202_":          return ._SYM_霢:1.0__TOKEN_霢_202_
+        case "_SYM_霢:1.0__TOKEN_霢_339_":                  return ._SYM_霢:1.0__TOKEN_霢_339_
+        _SYM_霢:1.0__TOKEN_霢_69_:                        return ._SYM_霢:1.0__TOKEN_霢_77_
+        }
+    }
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic enum _SYM_廡:1.0__TOKEN_廡_78_: _SYM_廡:1.0__TOKEN_廡_71_ {
+        case _SYM_漂:1.0__TOKEN_霢_198_, _SYM_霢:1.0__TOKEN_霢_260_, _SYM_霢:1.0__TOKEN_霢_3_, _SYM_霢:1.0__TOKEN_霢_43_, _SYM_霢:1.0__TOKEN_霢_294_, go, c, _SYM_霢:1.0__TOKEN_霢_191_
+        case _SYM_霢:1.0__TOKEN_霢_349_, _SYM_霢:1.0__TOKEN_霢_261_, _SYM_霢:1.0__TOKEN_霢_202_, _SYM_霢:1.0__TOKEN_霢_339_, _SYM_霢:1.0__TOKEN_霢_77_
+    }
+
+// [metadata-stripped]
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic enum _SYM_潜:1.0__TOKEN_廡_62_ {
+        case _SYM_潜:1.0__TOKEN_霢_223_, _SYM_潜:1.0__TOKEN_霢_14_          // _SYM_霢:1.0__TOKEN_霢_195_ / _SYM_霢:1.0__TOKEN_霢_269_
+        case _SYM_霢:1.0__TOKEN_霢_226_                     // _SYM_霢:1.0__TOKEN_霢_272_/_SYM_霢:1.0__TOKEN_霢_193_
+        case _SYM_霢:1.0__TOKEN_霢_54_                    // _SYM_霢:1.0__TOKEN_霢_244_
+        case _SYM_謀:1.0__TOKEN_霢_45_                     // _SYM_霢:1.0__TOKEN_霢_112_
+        case _SYM_霢:1.0__TOKEN_霢_147_                       // _SYM_霢:1.0__TOKEN_霢_257_
+        case _SYM_霢:1.0__TOKEN_霢_326_                  // _SYM_霢:1.0__TOKEN_霢_318_
+        case _SYM_霢:1.0__TOKEN_霢_80_                  // _SYM_霢:1.0__TOKEN_霢_341_-_SYM_霢:1.0__TOKEN_霢_195_
+        case _SYM_霢:1.0__TOKEN_霢_216_                  // _SYM_霢:1.0__TOKEN_霢_73_
+// _SYM_霢:0.5__TOKEN_CB_490_ [decoy-metadata]
+        case _SYM_霢:1.0__TOKEN_霢_235_                // _SYM_霢:1.0__TOKEN_霢_212_
+        case _SYM_霢:1.0__TOKEN_霢_77_                      // _SYM_霢:1.0__TOKEN_霢_300_
+
+        var _SYM_霢:1.0__TOKEN_霢_66_: _SYM_廡:1.0__TOKEN_廡_111_ {
+            switch self {
+            case ._SYM_潜:1.0__TOKEN_霢_223_:    return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.42, _SYM_霢:1.0__TOKEN_霢_244_: 0.62, _SYM_霢:1.0__TOKEN_霢_195_: 0.99)  // _SYM_霢:1.0__TOKEN_霢_195_
+            case ._SYM_潜:1.0__TOKEN_霢_14_:   return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.73, _SYM_霢:1.0__TOKEN_霢_244_: 0.52, _SYM_霢:1.0__TOKEN_霢_195_: 0.99)  // _SYM_霢:1.0__TOKEN_霢_269_
+            case ._SYM_霢:1.0__TOKEN_霢_226_:     return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.99, _SYM_霢:1.0__TOKEN_霢_244_: 0.50, _SYM_霢:1.0__TOKEN_霢_195_: 0.40)  // _SYM_霢:1.0__TOKEN_霢_154_
+            case ._SYM_霢:1.0__TOKEN_霢_54_:    return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.44, _SYM_霢:1.0__TOKEN_霢_244_: 0.68, _SYM_霢:1.0__TOKEN_霢_195_: 0.44)  // _SYM_霢:1.0__TOKEN_霢_244_
+            case ._SYM_謀:1.0__TOKEN_霢_45_:     return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.34, _SYM_霢:1.0__TOKEN_霢_244_: 0.90, _SYM_霢:1.0__TOKEN_霢_195_: 0.80)  // _SYM_霢:1.0__TOKEN_霢_112_
+            case ._SYM_霢:1.0__TOKEN_霢_147_:       return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.99, _SYM_霢:1.0__TOKEN_霢_244_: 0.85, _SYM_霢:1.0__TOKEN_霢_195_: 0.42)  // _SYM_霢:1.0__TOKEN_霢_257_
+            case ._SYM_霢:1.0__TOKEN_霢_326_:  return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.40, _SYM_霢:1.0__TOKEN_霢_244_: 0.85, _SYM_霢:1.0__TOKEN_霢_195_: 0.80)  // _SYM_霢:1.0__TOKEN_霢_318_
+            case ._SYM_霢:1.0__TOKEN_霢_80_:  return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.75, _SYM_霢:1.0__TOKEN_霢_244_: 0.75, _SYM_霢:1.0__TOKEN_霢_195_: 0.90)  // _SYM_霢:1.0__TOKEN_霢_96_ _SYM_霢:1.0__TOKEN_霢_269_
+            case ._SYM_霢:1.0__TOKEN_霢_216_:  return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.95, _SYM_霢:1.0__TOKEN_霢_244_: 0.95, _SYM_霢:1.0__TOKEN_霢_195_: 0.95)
+            case ._SYM_霢:1.0__TOKEN_霢_235_:return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.70, _SYM_霢:1.0__TOKEN_霢_244_: 0.70, _SYM_霢:1.0__TOKEN_霢_195_: 0.70)
+            case ._SYM_霢:1.0__TOKEN_霢_77_:      return _SYM_廡:1.0__TOKEN_廡_111_(_SYM_霢:1.0__TOKEN_霢_193_: 0.92, _SYM_霢:1.0__TOKEN_霢_244_: 0.92, _SYM_霢:1.0__TOKEN_霢_195_: 0.92)
+            }
+        }
+    }
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic _SYM_霢:1.0__TOKEN_霢_90_uct _SYM_潜:1.0__TOKEN_廡_10_ {
+// _SYM_漂:0.1__TOKEN_HV_298_ [decoy-metadata]
+        _SYM_霢:1.0__TOKEN_霢_29_lic let _SYM_霢:1.0__TOKEN_霢_121_: _SYM_潜:1.0__TOKEN_廡_62_
+        _SYM_霢:1.0__TOKEN_霢_29_lic let _SYM_霢:1.0__TOKEN_霢_240_: _SYM_廡:1.0__TOKEN_廡_71_
+    }
+
+// [metadata-stripped]
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic static func _SYM_潜:1.0__TOKEN_霢_299_(_ _SYM_霢:1.0__TOKEN_霢_307_: _SYM_廡:1.0__TOKEN_廡_71_, _SYM_霢:1.0__TOKEN_霢_31_: _SYM_廡:1.0__TOKEN_廡_78_) -> [_SYM_潜:1.0__TOKEN_廡_10_] {
+        switch _SYM_霢:1.0__TOKEN_霢_31_ {
+        case ._SYM_漂:1.0__TOKEN_霢_198_:       return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_漂:1.0__TOKEN_霢_161_)
+        case ._SYM_霢:1.0__TOKEN_霢_260_:      return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_345_)
+        case ._SYM_霢:1.0__TOKEN_霢_3_:  return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_207_)
+        case ._SYM_霢:1.0__TOKEN_霢_43_:  return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_273_)
+        case ._SYM_霢:1.0__TOKEN_霢_294_:        return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_170_)
+        case .go:          return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_331_)
+        case .c:           return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_91_)
+        case ._SYM_霢:1.0__TOKEN_霢_191_:         return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_222_)
+        case ._SYM_霢:1.0__TOKEN_霢_349_:        return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_58_)
+        case ._SYM_霢:1.0__TOKEN_霢_261_:        return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_321_)
+        case ._SYM_霢:1.0__TOKEN_霢_202_:    return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_122_)
+        case ._SYM_霢:1.0__TOKEN_霢_339_:      return _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_34_)
+        case ._SYM_霢:1.0__TOKEN_霢_77_:       return [_SYM_潜:1.0__TOKEN_廡_10_(_SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_240_: _SYM_霢:1.0__TOKEN_霢_307_)]
+        }
+    }
+
+// [metadata-stripped]
+
+    _SYM_霢:1.0__TOKEN_霢_29_lic static func _SYM_霢:1.0__TOKEN_霢_105_(_ _SYM_霢:1.0__TOKEN_霢_307_: _SYM_廡:1.0__TOKEN_廡_71_, _SYM_霢:1.0__TOKEN_霢_31_: _SYM_廡:1.0__TOKEN_廡_78_) -> _SYM_廡:1.0__TOKEN_廡_118_ {
+        let _SYM_潜:1.0__TOKEN_霢_55_ = _SYM_潜:1.0__TOKEN_霢_299_(_SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_31_: _SYM_霢:1.0__TOKEN_霢_31_)
+        var _SYM_霢:1.0__TOKEN_霢_162_ = _SYM_廡:1.0__TOKEN_廡_118_()
+        for _SYM_潜:1.0__TOKEN_霢_103_ in _SYM_潜:1.0__TOKEN_霢_55_ {
+            var _SYM_霢:1.0__TOKEN_霢_234_ = _SYM_廡:1.0__TOKEN_廡_118_(_SYM_潜:1.0__TOKEN_霢_103_._SYM_霢:1.0__TOKEN_霢_240_)
+            _SYM_霢:1.0__TOKEN_霢_234_._SYM_漂:1.0__TOKEN_霢_312_ = _SYM_潜:1.0__TOKEN_霢_103_._SYM_霢:1.0__TOKEN_霢_121_._SYM_霢:1.0__TOKEN_霢_66_
+            if _SYM_潜:1.0__TOKEN_霢_103_._SYM_霢:1.0__TOKEN_霢_121_ == ._SYM_潜:1.0__TOKEN_霢_223_ || _SYM_潜:1.0__TOKEN_霢_103_._SYM_霢:1.0__TOKEN_霢_121_ == ._SYM_潜:1.0__TOKEN_霢_14_ {
+                _SYM_霢:1.0__TOKEN_霢_234_._SYM_霢:1.0__TOKEN_霢_140_ = ._SYM_霢:1.0__TOKEN_霢_333_(._SYM_霢:1.0__TOKEN_霢_25_, _SYM_霢:1.0__TOKEN_霢_284_: ._SYM_霢:1.0__TOKEN_霢_328_)._SYM_霢:1.0__TOKEN_霢_254_(._SYM_霢:1.0__TOKEN_霢_71_)
+            } else {
+                _SYM_霢:1.0__TOKEN_霢_234_._SYM_霢:1.0__TOKEN_霢_140_ = ._SYM_霢:1.0__TOKEN_霢_333_(._SYM_霢:1.0__TOKEN_霢_25_, _SYM_霢:1.0__TOKEN_霢_284_: ._SYM_霢:1.0__TOKEN_霢_328_)
+            }
+            _SYM_霢:1.0__TOKEN_霢_162_ += _SYM_霢:1.0__TOKEN_霢_234_
+        }
+        return _SYM_霢:1.0__TOKEN_霢_162_
+    }
+
+// [metadata-stripped]
+
+    private _SYM_霢:1.0__TOKEN_霢_90_uct _SYM_廡:1.0__TOKEN_廡_16_ {
+        let _SYM_霢:1.0__TOKEN_霢_50_: _SYM_廡:1.0__TOKEN_廡_71_
+        let _SYM_霢:1.0__TOKEN_霢_121_: _SYM_潜:1.0__TOKEN_廡_62_
+        let _SYM_霢:1.0__TOKEN_霢_119_: _SYM_廡:1.0__TOKEN_廡_29_  // _SYM_霢:1.0__TOKEN_霢_148_ _SYM_霢:1.0__TOKEN_霢_245_ _SYM_霢:1.0__TOKEN_霢_119_ _SYM_霢:1.0__TOKEN_霢_166_ _SYM_霢:1.0__TOKEN_霢_79_ _SYM_潜:1.0__TOKEN_霢_103_ _SYM_霢:1.0__TOKEN_霢_240_
+        let _SYM_霢:1.0__TOKEN_霢_148_: _SYM_廡:1.0__TOKEN_廡_45_
+
+        init(_SYM_霢:1.0__TOKEN_霢_50_: _SYM_廡:1.0__TOKEN_廡_71_, _SYM_霢:1.0__TOKEN_霢_121_: _SYM_潜:1.0__TOKEN_廡_62_, _SYM_霢:1.0__TOKEN_霢_119_: _SYM_廡:1.0__TOKEN_廡_29_) {
+            self._SYM_霢:1.0__TOKEN_霢_50_ = _SYM_霢:1.0__TOKEN_霢_50_
+            self._SYM_霢:1.0__TOKEN_霢_121_ = _SYM_霢:1.0__TOKEN_霢_121_
+            self._SYM_霢:1.0__TOKEN_霢_119_ = _SYM_霢:1.0__TOKEN_霢_119_
+            self._SYM_霢:1.0__TOKEN_霢_148_ = try! _SYM_廡:1.0__TOKEN_廡_45_(_SYM_霢:1.0__TOKEN_霢_50_: _SYM_霢:1.0__TOKEN_霢_50_, _SYM_霢:1.0__TOKEN_霢_35_: [])
+        }
+    }
+
+    private _SYM_霢:1.0__TOKEN_霢_90_uct _SYM_廡:1.0__TOKEN_廡_66_ {
+        let _SYM_霢:1.0__TOKEN_霢_295_: [_SYM_廡:1.0__TOKEN_廡_16_]           // _SYM_霢:1.0__TOKEN_霢_200_: _SYM_霢:1.0__TOKEN_霢_280_ _SYM_霢:1.0__TOKEN_霢_255_ _SYM_霢:1.0__TOKEN_霢_181_
+        let _SYM_潜:1.0__TOKEN_霢_133_: _SYM_謀:1.0__TOKEN_嵐_2_<_SYM_廡:1.0__TOKEN_廡_71_>   // _SYM_霢:1.0__TOKEN_霢_77_ _SYM_霢:1.0__TOKEN_霢_259_ to _SYM_霢:1.0__TOKEN_霢_92_ to ._SYM_潜:1.0__TOKEN_霢_223_
+        let _SYM_潜:1.0__TOKEN_霢_248_: _SYM_謀:1.0__TOKEN_嵐_2_<_SYM_廡:1.0__TOKEN_廡_71_>  // _SYM_霢:1.0__TOKEN_霢_212_ _SYM_潜:1.0__TOKEN_霢_133_ → ._SYM_潜:1.0__TOKEN_霢_14_
+        let _SYM_霢:1.0__TOKEN_霢_209_: _SYM_謀:1.0__TOKEN_嵐_2_<_SYM_廡:1.0__TOKEN_廡_71_>      // _SYM_霢:1.0__TOKEN_霢_147_ _SYM_霢:1.0__TOKEN_霢_52_
+    }
+
+    private static func _SYM_潜:1.0__TOKEN_霢_299_(_ _SYM_霢:1.0__TOKEN_霢_307_: _SYM_廡:1.0__TOKEN_廡_71_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_廡:1.0__TOKEN_廡_66_) -> [_SYM_潜:1.0__TOKEN_廡_10_] {
+        var _SYM_潜:1.0__TOKEN_霢_55_: [_SYM_潜:1.0__TOKEN_廡_10_] = []
+        var _SYM_霢:1.0__TOKEN_霢_308_ = _SYM_霢:1.0__TOKEN_霢_307_._SYM_霢:1.0__TOKEN_霢_151_
+
+// [metadata-stripped]
+        while _SYM_霢:1.0__TOKEN_霢_308_ < _SYM_霢:1.0__TOKEN_霢_307_._SYM_霢:1.0__TOKEN_霢_337_ {
+            var _SYM_霢:1.0__TOKEN_霢_113_ = false
+            for _SYM_霢:1.0__TOKEN_霢_353_ in _SYM_霢:1.0__TOKEN_霢_303_._SYM_霢:1.0__TOKEN_霢_295_ {
+                let _SYM_霢:1.0__TOKEN_霢_9_ = _SYM_廡:1.0__TOKEN_廡_96_(_SYM_霢:1.0__TOKEN_霢_308_..., in: _SYM_霢:1.0__TOKEN_霢_307_)
+                guard let m = _SYM_霢:1.0__TOKEN_霢_353_._SYM_霢:1.0__TOKEN_霢_148_._SYM_霢:1.0__TOKEN_霢_76_(in: _SYM_霢:1.0__TOKEN_霢_307_, _SYM_霢:1.0__TOKEN_霢_35_: ._SYM_霢:1.0__TOKEN_霢_343_, _SYM_霢:1.0__TOKEN_霢_287_: _SYM_霢:1.0__TOKEN_霢_9_) else { continue }
+                let _SYM_霢:1.0__TOKEN_霢_267_ = _SYM_霢:1.0__TOKEN_霢_353_._SYM_霢:1.0__TOKEN_霢_119_ < m._SYM_霢:1.0__TOKEN_霢_218_
+                    ? _SYM_廡:1.0__TOKEN_廡_84_(m._SYM_霢:1.0__TOKEN_霢_287_(at: _SYM_霢:1.0__TOKEN_霢_353_._SYM_霢:1.0__TOKEN_霢_119_), in: _SYM_霢:1.0__TOKEN_霢_307_)
+                    : _SYM_廡:1.0__TOKEN_廡_84_(m._SYM_霢:1.0__TOKEN_霢_287_, in: _SYM_霢:1.0__TOKEN_霢_307_)
+                guard let _SYM_霢:1.0__TOKEN_霢_287_ = _SYM_霢:1.0__TOKEN_霢_267_ ?? _SYM_廡:1.0__TOKEN_廡_84_(m._SYM_霢:1.0__TOKEN_霢_287_, in: _SYM_霢:1.0__TOKEN_霢_307_) else { continue }
+
+                let _SYM_霢:1.0__TOKEN_霢_240_ = _SYM_廡:1.0__TOKEN_廡_71_(_SYM_霢:1.0__TOKEN_霢_307_[_SYM_霢:1.0__TOKEN_霢_287_])
+                let _SYM_霢:1.0__TOKEN_霢_121_ = _SYM_霢:1.0__TOKEN_霢_141_(_SYM_霢:1.0__TOKEN_霢_240_: _SYM_霢:1.0__TOKEN_霢_240_, _SYM_霢:1.0__TOKEN_霢_270_: _SYM_霢:1.0__TOKEN_霢_353_._SYM_霢:1.0__TOKEN_霢_121_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_霢:1.0__TOKEN_霢_303_)
+                _SYM_潜:1.0__TOKEN_霢_55_._SYM_霢:1.0__TOKEN_霢_302_(_SYM_潜:1.0__TOKEN_廡_10_(_SYM_霢:1.0__TOKEN_霢_121_: _SYM_霢:1.0__TOKEN_霢_121_, _SYM_霢:1.0__TOKEN_霢_240_: _SYM_霢:1.0__TOKEN_霢_240_))
+                _SYM_霢:1.0__TOKEN_霢_308_ = _SYM_霢:1.0__TOKEN_霢_287_._SYM_霢:1.0__TOKEN_霢_346_
+                _SYM_霢:1.0__TOKEN_霢_113_ = true
+                break
+            }
+            if !_SYM_霢:1.0__TOKEN_霢_113_ {
+// [metadata-stripped]
+                let _SYM_霢:1.0__TOKEN_霢_108_ = _SYM_霢:1.0__TOKEN_霢_307_._SYM_霢:1.0__TOKEN_霢_308_(_SYM_謀:1.0__TOKEN_霢_364_: _SYM_霢:1.0__TOKEN_霢_308_)
+                _SYM_潜:1.0__TOKEN_霢_55_._SYM_霢:1.0__TOKEN_霢_302_(_SYM_潜:1.0__TOKEN_廡_10_(_SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_240_: _SYM_廡:1.0__TOKEN_廡_71_(_SYM_霢:1.0__TOKEN_霢_307_[_SYM_霢:1.0__TOKEN_霢_308_..<_SYM_霢:1.0__TOKEN_霢_108_])))
+                _SYM_霢:1.0__TOKEN_霢_308_ = _SYM_霢:1.0__TOKEN_霢_108_
+            }
+        }
+        return _SYM_潜:1.0__TOKEN_霢_55_
+    }
+
+    private static func _SYM_霢:1.0__TOKEN_霢_141_(_SYM_霢:1.0__TOKEN_霢_240_: _SYM_廡:1.0__TOKEN_廡_71_, _SYM_霢:1.0__TOKEN_霢_270_: _SYM_潜:1.0__TOKEN_廡_62_, _SYM_霢:1.0__TOKEN_霢_303_: _SYM_廡:1.0__TOKEN_廡_66_) -> _SYM_潜:1.0__TOKEN_廡_62_ {
+        if _SYM_霢:1.0__TOKEN_霢_270_ == ._SYM_霢:1.0__TOKEN_霢_77_ {
+            if _SYM_霢:1.0__TOKEN_霢_303_._SYM_潜:1.0__TOKEN_霢_133_._SYM_霢:1.0__TOKEN_霢_86_(_SYM_霢:1.0__TOKEN_霢_240_)  { return ._SYM_潜:1.0__TOKEN_霢_223_  }
+            if _SYM_霢:1.0__TOKEN_霢_303_._SYM_潜:1.0__TOKEN_霢_248_._SYM_霢:1.0__TOKEN_霢_86_(_SYM_霢:1.0__TOKEN_霢_240_) { return ._SYM_潜:1.0__TOKEN_霢_14_ }
+            if _SYM_霢:1.0__TOKEN_霢_303_._SYM_霢:1.0__TOKEN_霢_209_._SYM_霢:1.0__TOKEN_霢_86_(_SYM_霢:1.0__TOKEN_霢_240_)     { return ._SYM_霢:1.0__TOKEN_霢_147_     }
+        }
+        return _SYM_霢:1.0__TOKEN_霢_270_
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_182_ = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"/\*[\s\S]*?\*/"#,  _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_32_  = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"//[^\n]*"#,        _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_196_     = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #""(?:[^"\\]|\\.)*""#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_362_     = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"'(?:[^'\\]|\\.)*'"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_317_   = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\_SYM_霢:1.0__TOKEN_霢_145_[0-9a-fA-F]+\b|\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_謀:1.0__TOKEN_霢_45_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_325_    = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\b[a-zA-Z_][a-zA-Z0-9_]*\b"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_194_    = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"[{}()\[\];,.]"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_235_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_124_       = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"[+\-*/%=<>!&|^~?:]+"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_216_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+    private static let _SYM_霢:1.0__TOKEN_霢_123_       = _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\s+"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_119_: 0)
+
+// [metadata-stripped]
+    private static let _SYM_漂:1.0__TOKEN_霢_161_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_霢:1.0__TOKEN_霢_182_, _SYM_霢:1.0__TOKEN_霢_32_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #""""[\s\S]*?""""#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),          // _SYM_霢:1.0__TOKEN_霢_306_-_SYM_霢:1.0__TOKEN_霢_214_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #""(?:[^"\\]|\\.)*""#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"@\w+"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_80_, _SYM_霢:1.0__TOKEN_霢_119_: 0),                 // @_SYM_霢:1.0__TOKEN_霢_41_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"`\w+`"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","guard","switch","case","_SYM_霢:1.0__TOKEN_霢_69_","for","while","_SYM_霢:1.0__TOKEN_霢_239_","break","continue","return",
+                   "func","let","var","class","_SYM_霢:1.0__TOKEN_霢_90_uct","enum","protocol","extension","import","_SYM_霢:1.0__TOKEN_霢_28_",
+                   "in","is","as","try","_SYM_霢:1.0__TOKEN_霢_365_","_SYM_霢:1.0__TOKEN_霢_365_s","catch","do","_SYM_霢:1.0__TOKEN_霢_110_er","init","deinit","_SYM_霢:1.0__TOKEN_霢_109_",
+                   "static","override","final","open","_SYM_霢:1.0__TOKEN_霢_29_lic","_SYM_霢:1.0__TOKEN_霢_344_ernal","_SYM_匷:1.0__TOKEN_霢_128_","private","_SYM_霢:1.0__TOKEN_霢_56_ating",
+                   "_SYM_霢:1.0__TOKEN_霢_130_","lazy","weak","unowned","async","await","actor","nonisolated","some","any",
+                   "@_SYM_霢:1.0__TOKEN_霢_205_","where","_SYM_霢:1.0__TOKEN_霢_199_","_SYM_霢:1.0__TOKEN_霢_139_","_SYM_霢:1.0__TOKEN_霢_111_","_SYM_霢:1.0__TOKEN_霢_243_","_SYM_霢:1.0__TOKEN_霢_38_","_SYM_霢:1.0__TOKEN_霢_283_",
+                   "_SYM_謀:1.0__TOKEN_嵐_3_","_SYM_謀:1.0__TOKEN_嵐_1_","_","super","self","_SYM_廡:1.0__TOKEN_廡_7_","true","false","nil"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_廡:1.0__TOKEN_廡_103_","_SYM_廡:1.0__TOKEN_廡_51_","_SYM_廡:1.0__TOKEN_廡_3_","_SYM_廡:1.0__TOKEN_廡_89_","_SYM_廡:1.0__TOKEN_廡_76_","_SYM_廡:1.0__TOKEN_廡_2_","_SYM_廡:1.0__TOKEN_廡_123_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_廡:1.0__TOKEN_廡_29_","_SYM_廡:1.0__TOKEN_廡_27_","_SYM_廡:1.0__TOKEN_廡_98_","_SYM_廡:1.0__TOKEN_廡_17_","_SYM_廡:1.0__TOKEN_廡_6_","_SYM_廡:1.0__TOKEN_廡_41_","_SYM_廡:1.0__TOKEN_廡_72_","_SYM_廡:1.0__TOKEN_廡_81_","_SYM_廡:1.0__TOKEN_廡_92_","_SYM_廡:1.0__TOKEN_廡_26_",
+                "_SYM_廡:1.0__TOKEN_廡_52_","_SYM_廡:1.0__TOKEN_廡_59_","_SYM_廡:1.0__TOKEN_廡_23_","_SYM_廡:1.0__TOKEN_廡_71_","_SYM_謀:1.0__TOKEN_廡_113_","_SYM_廡:1.0__TOKEN_廡_91_","_SYM_廡:1.0__TOKEN_廡_93_","_SYM_廡:1.0__TOKEN_廡_117_","_SYM_廡:1.0__TOKEN_廡_79_",
+                "_SYM_謀:1.0__TOKEN_嵐_2_","_SYM_廡:1.0__TOKEN_廡_35_","_SYM_廡:1.0__TOKEN_廡_70_","_SYM_廡:1.0__TOKEN_廡_104_","_SYM_謀:1.0__TOKEN_廡_33_","_SYM_廡:1.0__TOKEN_廡_12_","_SYM_廡:1.0__TOKEN_廡_112_","_SYM_廡:1.0__TOKEN_廡_38_","_SYM_紐:1.0__TOKEN_廡_105_","_SYM_廡:1.0__TOKEN_廡_21_"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_345_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"#[^\n]*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\"\"\"[\s\S]*?\"\"\"|'''[\s\S]*?'''"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),    // _SYM_霢:1.0__TOKEN_霢_48_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"[_SYM_霢:1.0__TOKEN_霢_176_]?"(?:[^"\\]|\\.)*"|[_SYM_霢:1.0__TOKEN_霢_176_]?'(?:[^'\\]|\\.)*'"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"@\w+"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_80_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","_SYM_漂:1.0__TOKEN_霢_251_","else","for","while","break","continue","return","_SYM_霢:1.0__TOKEN_霢_330_","_SYM_霢:1.0__TOKEN_霢_99_",
+                   "_SYM_霢:1.0__TOKEN_霢_110_","class","import","_SYM_霢:1.0__TOKEN_霢_305_","as","_SYM_霢:1.0__TOKEN_霢_2_","try","_SYM_霢:1.0__TOKEN_霢_354_","_SYM_霢:1.0__TOKEN_霢_126_","_SYM_霢:1.0__TOKEN_霢_6_",
+                   "_SYM_霢:1.0__TOKEN_霢_289_","or","_SYM_霢:1.0__TOKEN_霢_4_","in","is","_SYM_霢:1.0__TOKEN_霢_134_","_SYM_霢:1.0__TOKEN_霢_311_","_SYM_霢:1.0__TOKEN_霢_236_","_SYM_霢:1.0__TOKEN_霢_241_","_SYM_霢:1.0__TOKEN_霢_237_",
+                   "async","await","_SYM_廡:1.0__TOKEN_廡_56_","_SYM_廡:1.0__TOKEN_廡_83_","_SYM_廡:1.0__TOKEN_廡_34_","_SYM_霢:1.0__TOKEN_霢_178_","_SYM_霢:1.0__TOKEN_霢_94_","_SYM_霢:1.0__TOKEN_霢_287_","_SYM_霢:1.0__TOKEN_霢_147_","super"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["self","_SYM_霢:1.0__TOKEN_霢_157_","_SYM_霢:1.0__TOKEN_霢_314_","_SYM_霢:1.0__TOKEN_霢_93_","_SYM_霢:1.0__TOKEN_霢_342_","_SYM_霢:1.0__TOKEN_霢_177_","_SYM_霢:1.0__TOKEN_霢_67_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_霢:1.0__TOKEN_霢_344_","_SYM_霢:1.0__TOKEN_霢_277_","_SYM_霢:1.0__TOKEN_霢_90_","_SYM_霢:1.0__TOKEN_霢_298_","_SYM_霢:1.0__TOKEN_霢_327_","_SYM_霢:1.0__TOKEN_霢_167_","_SYM_謀:1.0__TOKEN_嵐_1_","_SYM_霢:1.0__TOKEN_霢_290_","_SYM_霢:1.0__TOKEN_霢_60_","_SYM_霢:1.0__TOKEN_霢_62_",
+                "_SYM_霢:1.0__TOKEN_霢_246_","_SYM_霢:1.0__TOKEN_霢_228_","_SYM_霢:1.0__TOKEN_霢_83_","_SYM_霢:1.0__TOKEN_霢_147_","_SYM_廡:1.0__TOKEN_廡_34_","_SYM_廡:1.0__TOKEN_廡_12_","_SYM_廡:1.0__TOKEN_廡_93_","_SYM_廡:1.0__TOKEN_廡_8_","_SYM_廡:1.0__TOKEN_廡_39_","_SYM_廡:1.0__TOKEN_廡_99_"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_207_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_霢:1.0__TOKEN_霢_182_, _SYM_霢:1.0__TOKEN_霢_32_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"`(?:[^`\\]|\\.)*`"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),       // _SYM_霢:1.0__TOKEN_霢_201_ _SYM_霢:1.0__TOKEN_霢_101_
+            _SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_362_,
+            _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","for","while","do","break","continue","return","switch","case","_SYM_霢:1.0__TOKEN_霢_69_",
+                   "_SYM_霢:1.0__TOKEN_霢_360_","_SYM_霢:1.0__TOKEN_霢_36_","let","var","class","_SYM_霢:1.0__TOKEN_霢_211_","_SYM_霢:1.0__TOKEN_霢_268_","import","_SYM_霢:1.0__TOKEN_霢_146_","_SYM_霢:1.0__TOKEN_霢_305_",
+                   "as","in","of","_SYM_霢:1.0__TOKEN_霢_347_","_SYM_霢:1.0__TOKEN_霢_220_","_SYM_霢:1.0__TOKEN_霢_220_","_SYM_霢:1.0__TOKEN_霢_247_","_SYM_霢:1.0__TOKEN_霢_291_","_SYM_霢:1.0__TOKEN_霢_296_","_SYM_霢:1.0__TOKEN_霢_365_","try",
+                   "catch","_SYM_霢:1.0__TOKEN_霢_126_","async","await","_SYM_霢:1.0__TOKEN_霢_330_","static","_SYM_謀:1.0__TOKEN_嵐_3_","_SYM_謀:1.0__TOKEN_嵐_1_","super","_SYM_霢:1.0__TOKEN_霢_107_",
+                   "true","false","_SYM_霢:1.0__TOKEN_霢_252_","_SYM_霢:1.0__TOKEN_霢_265_","_SYM_霢:1.0__TOKEN_霢_116_","override","_SYM_霢:1.0__TOKEN_霢_129_","_SYM_霢:1.0__TOKEN_霢_172_","_SYM_霢:1.0__TOKEN_霢_23_",
+                   "_SYM_霢:1.0__TOKEN_霢_147_","_SYM_霢:1.0__TOKEN_霢_65_","enum","_SYM_霢:1.0__TOKEN_霢_336_","private","_SYM_霢:1.0__TOKEN_霢_118_","_SYM_霢:1.0__TOKEN_霢_29_lic","_SYM_潜:1.0__TOKEN_霢_315_","_SYM_謀:1.0__TOKEN_霢_263_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_廡:1.0__TOKEN_廡_5_","_SYM_霢:1.0__TOKEN_霢_87_","_SYM_霢:1.0__TOKEN_霢_355_","_SYM_霢:1.0__TOKEN_霢_97_","_SYM_霢:1.0__TOKEN_霢_120_","_SYM_霢:1.0__TOKEN_霢_144_","_SYM_廡:1.0__TOKEN_廡_9_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_霢:1.0__TOKEN_霢_226_","_SYM_謀:1.0__TOKEN_霢_45_","_SYM_霢:1.0__TOKEN_霢_17_","_SYM_霢:1.0__TOKEN_霢_83_","any","_SYM_霢:1.0__TOKEN_霢_319_","_SYM_謀:1.0__TOKEN_霢_70_","_SYM_霢:1.0__TOKEN_霢_296_","_SYM_霢:1.0__TOKEN_霢_351_","_SYM_霢:1.0__TOKEN_霢_165_",
+                "_SYM_廡:1.0__TOKEN_廡_117_","_SYM_廡:1.0__TOKEN_廡_58_","_SYM_廡:1.0__TOKEN_廡_24_","_SYM_廡:1.0__TOKEN_廡_77_","_SYM_廡:1.0__TOKEN_廡_11_","_SYM_廡:1.0__TOKEN_廡_61_","_SYM_廡:1.0__TOKEN_廡_116_","_SYM_謀:1.0__TOKEN_嵐_2_","_SYM_廡:1.0__TOKEN_廡_21_","_SYM_廡:1.0__TOKEN_廡_104_"]
+// _SYM_嵐:0.6__TOKEN_YA_659_ [decoy-metadata]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_273_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: _SYM_霢:1.0__TOKEN_霢_207_._SYM_霢:1.0__TOKEN_霢_295_,
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","for","while","do","break","continue","return","switch","case","_SYM_霢:1.0__TOKEN_霢_69_",
+                   "_SYM_霢:1.0__TOKEN_霢_360_","_SYM_霢:1.0__TOKEN_霢_36_","let","var","class","_SYM_霢:1.0__TOKEN_霢_211_","import","_SYM_霢:1.0__TOKEN_霢_146_","_SYM_霢:1.0__TOKEN_霢_305_","as",
+                   "in","of","_SYM_霢:1.0__TOKEN_霢_347_","_SYM_霢:1.0__TOKEN_霢_220_","_SYM_霢:1.0__TOKEN_霢_247_","_SYM_霢:1.0__TOKEN_霢_291_","_SYM_霢:1.0__TOKEN_霢_296_","_SYM_霢:1.0__TOKEN_霢_365_","try","catch","_SYM_霢:1.0__TOKEN_霢_126_",
+                   "async","await","_SYM_霢:1.0__TOKEN_霢_330_","static","_SYM_謀:1.0__TOKEN_嵐_3_","_SYM_謀:1.0__TOKEN_嵐_1_","super","_SYM_霢:1.0__TOKEN_霢_107_","true","false","_SYM_霢:1.0__TOKEN_霢_252_","_SYM_霢:1.0__TOKEN_霢_265_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: [],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_廡:1.0__TOKEN_廡_117_","_SYM_廡:1.0__TOKEN_廡_58_","_SYM_廡:1.0__TOKEN_廡_116_","_SYM_謀:1.0__TOKEN_嵐_2_","_SYM_廡:1.0__TOKEN_廡_21_","_SYM_廡:1.0__TOKEN_廡_104_","_SYM_廡:1.0__TOKEN_廡_13_","_SYM_廡:1.0__TOKEN_廡_94_","_SYM_謀:1.0__TOKEN_廡_20_","_SYM_廡:1.0__TOKEN_廡_71_","_SYM_廡:1.0__TOKEN_廡_53_"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_170_ = _SYM_廡:1.0__TOKEN_廡_66_(
+// _SYM_潜:0.2__TOKEN_WW_591_ [decoy-metadata]
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_霢:1.0__TOKEN_霢_182_, _SYM_霢:1.0__TOKEN_霢_32_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"r\"[^\"]*\""#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),              // _SYM_霢:1.0__TOKEN_霢_47_ _SYM_霢:1.0__TOKEN_霢_266_ (_SYM_漂:1.0__TOKEN_霢_11_)
+            _SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_362_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"#\[[\s\S]*?\]"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_80_, _SYM_霢:1.0__TOKEN_霢_119_: 0),        // #[_SYM_霢:1.0__TOKEN_霢_138_(...)]
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"'[a-zA-Z_][a-zA-Z0-9_]*\b"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_80_, _SYM_霢:1.0__TOKEN_霢_119_: 0),  // _SYM_漂:1.0__TOKEN_霢_63_
+            _SYM_霢:1.0__TOKEN_霢_317_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\b[A-Z][A-Z0-9_]+\b"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_147_, _SYM_霢:1.0__TOKEN_霢_119_: 0),      // _SYM_廡:1.0__TOKEN_廡_69_
+            _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","_SYM_霢:1.0__TOKEN_霢_255_","for","while","_SYM_霢:1.0__TOKEN_霢_27_","break","continue","return",
+                   "fn","let","_SYM_霢:1.0__TOKEN_霢_56_","_SYM_霢:1.0__TOKEN_霢_36_","static","_SYM_霢:1.0__TOKEN_霢_90_uct","enum","_SYM_霢:1.0__TOKEN_霢_39_","_SYM_霢:1.0__TOKEN_霢_40_","_SYM_霢:1.0__TOKEN_霢_358_",
+                   "_SYM_霢:1.0__TOKEN_霢_258_","_SYM_霢:1.0__TOKEN_霢_29_","_SYM_霢:1.0__TOKEN_霢_183_","super","self","_SYM_廡:1.0__TOKEN_廡_7_","_SYM_霢:1.0__TOKEN_霢_147_","where","in","as","_SYM_霢:1.0__TOKEN_霢_173_",
+                   "_SYM_霢:1.0__TOKEN_霢_24_","async","await","_SYM_霢:1.0__TOKEN_霢_42_","_SYM_霢:1.0__TOKEN_霢_288_","_SYM_霢:1.0__TOKEN_霢_78_","_SYM_霢:1.0__TOKEN_霢_340_","true","false",
+                   "_SYM_廡:1.0__TOKEN_廡_86_","_SYM_廡:1.0__TOKEN_廡_34_","Ok","_SYM_廡:1.0__TOKEN_廡_82_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_霢:1.0__TOKEN_霢_29_","_SYM_霢:1.0__TOKEN_霢_56_","_SYM_霢:1.0__TOKEN_霢_173_","_SYM_霢:1.0__TOKEN_霢_78_","_SYM_霢:1.0__TOKEN_霢_42_","_SYM_霢:1.0__TOKEN_霢_288_","_SYM_霢:1.0__TOKEN_霢_183_","_SYM_霢:1.0__TOKEN_霢_24_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["i8","_SYM_霢:1.0__TOKEN_霢_221_","_SYM_霢:1.0__TOKEN_霢_106_","_SYM_霢:1.0__TOKEN_霢_100_","_SYM_霢:1.0__TOKEN_霢_104_","_SYM_霢:1.0__TOKEN_霢_186_","u8","_SYM_霢:1.0__TOKEN_霢_8_","_SYM_霢:1.0__TOKEN_霢_233_","_SYM_霢:1.0__TOKEN_霢_174_","_SYM_霢:1.0__TOKEN_霢_187_","_SYM_霢:1.0__TOKEN_霢_21_",
+                "_SYM_霢:1.0__TOKEN_霢_274_","_SYM_霢:1.0__TOKEN_霢_13_","_SYM_霢:1.0__TOKEN_霢_298_","_SYM_霢:1.0__TOKEN_霢_142_","_SYM_霢:1.0__TOKEN_霢_90_","_SYM_廡:1.0__TOKEN_廡_71_","_SYM_廡:1.0__TOKEN_廡_90_","_SYM_廡:1.0__TOKEN_廡_14_","_SYM_廡:1.0__TOKEN_廡_70_","_SYM_廡:1.0__TOKEN_廡_49_","_SYM_廡:1.0__TOKEN_廡_88_",
+                "Rc","_SYM_廡:1.0__TOKEN_廡_120_","_SYM_廡:1.0__TOKEN_廡_28_","_SYM_廡:1.0__TOKEN_廡_60_","_SYM_廡:1.0__TOKEN_廡_75_","_SYM_廡:1.0__TOKEN_廡_107_","_SYM_廡:1.0__TOKEN_廡_48_","_SYM_廡:1.0__TOKEN_廡_106_","_SYM_廡:1.0__TOKEN_廡_19_"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_331_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [_SYM_霢:1.0__TOKEN_霢_32_, _SYM_霢:1.0__TOKEN_霢_182_, _SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_362_, _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","for","_SYM_霢:1.0__TOKEN_霢_287_","switch","case","_SYM_霢:1.0__TOKEN_霢_69_","break","continue","return",
+                   "func","var","_SYM_霢:1.0__TOKEN_霢_36_","_SYM_霢:1.0__TOKEN_霢_147_","_SYM_霢:1.0__TOKEN_霢_90_uct","_SYM_霢:1.0__TOKEN_霢_65_","_SYM_霢:1.0__TOKEN_霢_7_","_SYM_霢:1.0__TOKEN_霢_242_","go","_SYM_霢:1.0__TOKEN_霢_297_",
+                   "_SYM_霢:1.0__TOKEN_霢_110_er","_SYM_霢:1.0__TOKEN_霢_57_","import","_SYM_霢:1.0__TOKEN_霢_184_","true","false","nil","_SYM_霢:1.0__TOKEN_霢_250_","_SYM_霢:1.0__TOKEN_霢_247_","_SYM_霢:1.0__TOKEN_霢_94_","_SYM_霢:1.0__TOKEN_霢_356_",
+                   "_SYM_霢:1.0__TOKEN_霢_302_","_SYM_霢:1.0__TOKEN_霢_293_","_SYM_霢:1.0__TOKEN_霢_291_","_SYM_霢:1.0__TOKEN_霢_46_","_SYM_霢:1.0__TOKEN_霢_208_","_SYM_謀:1.0__TOKEN_霢_160_","_SYM_霢:1.0__TOKEN_霢_178_","_SYM_霢:1.0__TOKEN_霢_238_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_霢:1.0__TOKEN_霢_224_","go"],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_霢:1.0__TOKEN_霢_344_","_SYM_霢:1.0__TOKEN_霢_285_","_SYM_霢:1.0__TOKEN_霢_175_","_SYM_霢:1.0__TOKEN_霢_310_","_SYM_霢:1.0__TOKEN_霢_136_","_SYM_霢:1.0__TOKEN_霢_332_","_SYM_霢:1.0__TOKEN_霢_88_","_SYM_霢:1.0__TOKEN_霢_169_","_SYM_霢:1.0__TOKEN_霢_217_","_SYM_霢:1.0__TOKEN_霢_210_","_SYM_霢:1.0__TOKEN_霢_213_",
+                "_SYM_霢:1.0__TOKEN_霢_158_","_SYM_霢:1.0__TOKEN_霢_279_","_SYM_霢:1.0__TOKEN_霢_180_","_SYM_霢:1.0__TOKEN_霢_278_","_SYM_霢:1.0__TOKEN_霢_298_","_SYM_霢:1.0__TOKEN_霢_227_","_SYM_霢:1.0__TOKEN_霢_192_","_SYM_霢:1.0__TOKEN_霢_226_","_SYM_霢:1.0__TOKEN_霢_230_","any"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_91_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_霢:1.0__TOKEN_霢_182_, _SYM_霢:1.0__TOKEN_霢_32_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"#\s*\w+[^\n]*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_80_, _SYM_霢:1.0__TOKEN_霢_119_: 0),        // #_SYM_霢:1.0__TOKEN_霢_102_, #_SYM_霢:1.0__TOKEN_霢_155_
+            _SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_362_, _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["if","else","for","while","do","break","continue","return","switch","case","_SYM_霢:1.0__TOKEN_霢_69_",
+                   "_SYM_霢:1.0__TOKEN_霢_57_","_SYM_霢:1.0__TOKEN_霢_68_","_SYM_霢:1.0__TOKEN_霢_90_uct","_SYM_霢:1.0__TOKEN_霢_127_","enum","_SYM_霢:1.0__TOKEN_霢_179_","_SYM_霢:1.0__TOKEN_霢_36_","static","_SYM_霢:1.0__TOKEN_霢_288_","_SYM_謀:1.0__TOKEN_霢_137_",
+                   "_SYM_霢:1.0__TOKEN_霢_323_","_SYM_霢:1.0__TOKEN_霢_304_","_SYM_霢:1.0__TOKEN_霢_135_","_SYM_霢:1.0__TOKEN_霢_197_","_SYM_廡:1.0__TOKEN_廡_68_","true","false"],
+        _SYM_潜:1.0__TOKEN_霢_248_: [],
+        _SYM_霢:1.0__TOKEN_霢_209_: ["_SYM_霢:1.0__TOKEN_霢_344_","_SYM_霢:1.0__TOKEN_霢_142_","_SYM_霢:1.0__TOKEN_霢_168_","_SYM_霢:1.0__TOKEN_霢_85_","_SYM_霢:1.0__TOKEN_霢_277_","_SYM_霢:1.0__TOKEN_霢_64_","_SYM_霢:1.0__TOKEN_霢_185_","_SYM_霢:1.0__TOKEN_霢_149_","_SYM_霢:1.0__TOKEN_霢_296_","_SYM_霢:1.0__TOKEN_霢_19_",
+                "_SYM_霢:1.0__TOKEN_霢_143_","_SYM_霢:1.0__TOKEN_霢_81_","_SYM_霢:1.0__TOKEN_霢_232_","_SYM_霢:1.0__TOKEN_霢_215_","_SYM_霢:1.0__TOKEN_霢_156_","_SYM_霢:1.0__TOKEN_霢_320_","_SYM_霢:1.0__TOKEN_霢_98_","_SYM_霢:1.0__TOKEN_霢_132_","_SYM_匷:1.0__TOKEN_廡_22_"]
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_222_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: _SYM_霢:1.0__TOKEN_霢_91_._SYM_霢:1.0__TOKEN_霢_295_,
+// _SYM_紐:0.9__TOKEN_XX_756_ [decoy-metadata]
+        _SYM_潜:1.0__TOKEN_霢_133_: _SYM_謀:1.0__TOKEN_嵐_2_(_SYM_霢:1.0__TOKEN_霢_91_._SYM_潜:1.0__TOKEN_霢_133_)._SYM_霢:1.0__TOKEN_霢_127_(["class","_SYM_霢:1.0__TOKEN_霢_29_lic","private","_SYM_霢:1.0__TOKEN_霢_118_","_SYM_霢:1.0__TOKEN_霢_324_","override",
+            "final","_SYM_霢:1.0__TOKEN_霢_201_","_SYM_霢:1.0__TOKEN_霢_219_","_SYM_霢:1.0__TOKEN_霢_172_","_SYM_霢:1.0__TOKEN_霢_361_","_SYM_霢:1.0__TOKEN_霢_247_","_SYM_霢:1.0__TOKEN_霢_291_","_SYM_霢:1.0__TOKEN_霢_365_","try","catch",
+            "_SYM_霢:1.0__TOKEN_霢_139_","_SYM_霢:1.0__TOKEN_霢_282_","_SYM_霢:1.0__TOKEN_霢_188_","_SYM_霢:1.0__TOKEN_霢_304_","_SYM_霢:1.0__TOKEN_霢_286_","_SYM_霢:1.0__TOKEN_霢_22_","_SYM_霢:1.0__TOKEN_霢_51_","_SYM_霢:1.0__TOKEN_霢_150_",
+            "_SYM_霢:1.0__TOKEN_霢_348_","_SYM_霢:1.0__TOKEN_霢_131_","_SYM_霢:1.0__TOKEN_霢_12_","_SYM_霢:1.0__TOKEN_霢_107_","true","false","_SYM_霢:1.0__TOKEN_霢_338_","_SYM_霢:1.0__TOKEN_霢_10_","_SYM_霢:1.0__TOKEN_霢_206_","_SYM_霢:1.0__TOKEN_霢_316_"]),
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_霢:1.0__TOKEN_霢_171_","_SYM_霢:1.0__TOKEN_霢_26_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: _SYM_謀:1.0__TOKEN_嵐_2_(_SYM_霢:1.0__TOKEN_霢_91_._SYM_霢:1.0__TOKEN_霢_209_)._SYM_霢:1.0__TOKEN_霢_127_(["_SYM_霢:1.0__TOKEN_霢_226_","_SYM_霢:1.0__TOKEN_霢_37_","_SYM_霢:1.0__TOKEN_霢_7_","_SYM_霢:1.0__TOKEN_霢_301_","_SYM_謀:1.0__TOKEN_嵐_1_","_SYM_霢:1.0__TOKEN_霢_30_","_SYM_霢:1.0__TOKEN_霢_290_",
+            "_SYM_霢:1.0__TOKEN_霢_271_","_SYM_霢:1.0__TOKEN_霢_292_","any","_SYM_霢:1.0__TOKEN_霢_1_","_SYM_霢:1.0__TOKEN_霢_190_","_SYM_霢:1.0__TOKEN_霢_84_","_SYM_霢:1.0__TOKEN_霢_163_","_SYM_霢:1.0__TOKEN_霢_231_","_SYM_霢:1.0__TOKEN_霢_281_",
+            "_SYM_霢:1.0__TOKEN_霢_253_","_SYM_霢:1.0__TOKEN_霢_164_","_SYM_霢:1.0__TOKEN_霢_74_","_SYM_霢:1.0__TOKEN_霢_159_","_SYM_霢:1.0__TOKEN_霢_18_","_SYM_霢:1.0__TOKEN_霢_249_","_SYM_霢:1.0__TOKEN_霢_350_","_SYM_霢:1.0__TOKEN_霢_360_"])
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_58_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [_SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_123_],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["true","false","_SYM_霢:1.0__TOKEN_霢_252_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: [],
+        _SYM_霢:1.0__TOKEN_霢_209_: []
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_321_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"#[^\n]*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"(^|\n)(\s*#[^\n]*)"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 2),
+            _SYM_霢:1.0__TOKEN_霢_196_, _SYM_霢:1.0__TOKEN_霢_362_, _SYM_霢:1.0__TOKEN_霢_317_,
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"^\s*[\w\-]+(?=\s*:)"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_147_, _SYM_霢:1.0__TOKEN_霢_119_: 0),      // _SYM_潜:1.0__TOKEN_霢_15_
+            _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["true","false","_SYM_霢:1.0__TOKEN_霢_252_","_SYM_霢:1.0__TOKEN_霢_153_","no","on","_SYM_霢:1.0__TOKEN_霢_256_"],
+        _SYM_潜:1.0__TOKEN_霢_248_: [],
+// _SYM_匷:0.5__TOKEN_GW_844_ [decoy-metadata]
+        _SYM_霢:1.0__TOKEN_霢_209_: []
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_122_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"^#{1,6}\s.+"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_潜:1.0__TOKEN_霢_223_, _SYM_霢:1.0__TOKEN_霢_119_: 0),            // _SYM_霢:1.0__TOKEN_霢_75_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"```[\s\S]*?```"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),          // _SYM_霢:1.0__TOKEN_霢_53_ _SYM_霢:1.0__TOKEN_霢_363_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"`[^`]+`"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),                // _SYM_霢:1.0__TOKEN_霢_304_ _SYM_霢:1.0__TOKEN_霢_53_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\*\*[^*]+\*\*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_147_, _SYM_霢:1.0__TOKEN_霢_119_: 0),            // _SYM_霢:1.0__TOKEN_霢_95_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\*[^*]+\*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0),             // _SYM_霢:1.0__TOKEN_霢_114_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\[[^\]]+\]\([^)]+\)"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_326_, _SYM_霢:1.0__TOKEN_霢_119_: 0), // _SYM_霢:1.0__TOKEN_霢_359_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"^[-*+]\s"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_潜:1.0__TOKEN_霢_14_, _SYM_霢:1.0__TOKEN_霢_119_: 0),              // _SYM_霢:1.0__TOKEN_霢_327_ _SYM_霢:1.0__TOKEN_霢_262_
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"^\d+\.\s"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_潜:1.0__TOKEN_霢_14_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"."#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_77_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: [], _SYM_潜:1.0__TOKEN_霢_248_: [], _SYM_霢:1.0__TOKEN_霢_209_: []
+    )
+
+// [metadata-stripped]
+    private static let _SYM_霢:1.0__TOKEN_霢_34_ = _SYM_廡:1.0__TOKEN_廡_66_(
+        _SYM_霢:1.0__TOKEN_霢_295_: [
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #";;;[^\n]*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"//[^\n]*"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_54_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #"\[[A-Za-z0-9_\-\.]+\]"#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_147_, _SYM_霢:1.0__TOKEN_霢_119_: 0),      // _SYM_廡:1.0__TOKEN_廡_95_ _SYM_廡:1.0__TOKEN_廡_74_ e.g. [_SYM_廡:1.0__TOKEN_廡_30_]
+            _SYM_廡:1.0__TOKEN_廡_16_(_SYM_霢:1.0__TOKEN_霢_50_: #""(?:[^"\\]|\\.)*""#, _SYM_霢:1.0__TOKEN_霢_121_: ._SYM_霢:1.0__TOKEN_霢_226_, _SYM_霢:1.0__TOKEN_霢_119_: 0),
+            _SYM_霢:1.0__TOKEN_霢_317_, _SYM_霢:1.0__TOKEN_霢_325_, _SYM_霢:1.0__TOKEN_霢_194_, _SYM_霢:1.0__TOKEN_霢_124_, _SYM_霢:1.0__TOKEN_霢_123_
+        ],
+        _SYM_潜:1.0__TOKEN_霢_133_: ["true", "false", "_SYM_霢:1.0__TOKEN_霢_252_", "nil"],
+        _SYM_潜:1.0__TOKEN_霢_248_: ["_SYM_廡:1.0__TOKEN_廡_85_", "_SYM_廡:1.0__TOKEN_廡_42_", "_SYM_廡:1.0__TOKEN_廡_115_", "_SYM_廡:1.0__TOKEN_廡_47_", "_SYM_廡:1.0__TOKEN_廡_43_", "OP", "_SYM_廡:1.0__TOKEN_廡_37_", "_SYM_廡:1.0__TOKEN_廡_4_", "_SYM_廡:1.0__TOKEN_廡_25_", "_SYM_廡:1.0__TOKEN_廡_44_", "_SYM_廡:1.0__TOKEN_廡_18_", "_SYM_廡:1.0__TOKEN_廡_101_", "_SYM_廡:1.0__TOKEN_廡_55_", "_SYM_廡:1.0__TOKEN_廡_108_", "_SYM_廡:1.0__TOKEN_廡_63_", "_SYM_廡:1.0__TOKEN_廡_87_"],
+        _SYM_霢:1.0__TOKEN_霢_209_: []
+    )
+}
+
+// POLYMORPHIC_JCROSS_END

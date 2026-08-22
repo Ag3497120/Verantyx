@@ -1,0 +1,97 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F8A1B095 ver:1778159866
+// _TOKEN_廷:0.4__ID_FH_819_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_湧:0.3__ID_VV_822_ [decoy-metadata]
+
+
+class _TOKEN_廷:1.0__ID_廷_3_(_TOKEN_霪:1.0__ID_霪_26_):
+    class _TOKEN_廷:1.0__ID_廷_12_(_TOKEN_廷:1.0__ID_廷_15_):
+        _TOKEN_霪:1.0__ID_霪_16_
+
+    _TOKEN_霪:1.0__ID_霪_5_ _TOKEN_霪:1.0__ID_霪_9_(self, **_TOKEN_霪:1.0__ID_霪_19_):
+        self._TOKEN_霪:1.0__ID_霪_34_ = _TOKEN_廷:1.0__ID_廷_17_
+        self._TOKEN_霪:1.0__ID_霪_40_ = _TOKEN_廷:1.0__ID_廷_17_
+        self._TOKEN_霪:1.0__ID_霪_24_ = []
+        self._TOKEN_区:1.0__ID_霪_18_ = _TOKEN_廷:1.0__ID_廷_1_
+// _TOKEN_業:0.6__ID_XA_524_ [decoy-metadata]
+        self._TOKEN_区:1.0__ID_霪_28_ = "_TOKEN_霪:1.0__ID_霪_33_._TOKEN_霪:1.0__ID_霪_32_"
+// _TOKEN_霪:0.5__ID_GZ_631_ [decoy-metadata]
+        self._TOKEN_区:1.0__ID_霪_22_ = _TOKEN_廷:1.0__ID_廷_1_
+
+        self._TOKEN_業:1.0__ID_燦_3_(**_TOKEN_霪:1.0__ID_霪_19_)
+
+    _TOKEN_霪:1.0__ID_霪_5_ _TOKEN_業:1.0__ID_燦_3_(self, **_TOKEN_霪:1.0__ID_霪_19_):
+        for k, v in _TOKEN_霪:1.0__ID_霪_19_._TOKEN_霪:1.0__ID_霪_2_():
+            if _TOKEN_霪:1.0__ID_霪_35_ _TOKEN_霪:1.0__ID_霪_1_(self, k):
+                _TOKEN_霪:1.0__ID_霪_25_ self._TOKEN_廷:1.0__ID_廷_12_("_TOKEN_廷:1.0__ID_廷_11_ _TOKEN_霪:1.0__ID_霪_10_ '%s'" % k)
+            _TOKEN_業:1.0__ID_燦_2_(self, k, v)
+
+    _TOKEN_霪:1.0__ID_霪_5_ _TOKEN_霪:1.0__ID_霪_13_(self, _TOKEN_霪:1.0__ID_霪_17_, _TOKEN_霪:1.0__ID_霪_31_=[]):
+        _TOKEN_霪:1.0__ID_霪_11_ = []
+        _TOKEN_霪:1.0__ID_霪_39_ = {}
+        for a in _TOKEN_霪:1.0__ID_霪_17_:
+            _TOKEN_霪:1.0__ID_霪_27_ = a
+            if _TOKEN_霪:1.0__ID_霪_35_ a._TOKEN_霪:1.0__ID_霪_30_("--"):
+                _TOKEN_霪:1.0__ID_霪_11_._TOKEN_霪:1.0__ID_霪_36_(a)
+                continue
+            a = a[2:]
+            i = a._TOKEN_霪:1.0__ID_霪_37_("=")
+            op = "="
+            if i == -1:
+                if a._TOKEN_霪:1.0__ID_霪_30_("no-"):
+                    k = a[3:]
+                    v = _TOKEN_廷:1.0__ID_廷_17_
+                else:
+                    k = a
+                    v = _TOKEN_廷:1.0__ID_廷_10_
+            else:
+                k = a[:i]
+                if k[-1] in "-+":
+                    op = k[-1] + "="  # _TOKEN_廷:1.0__ID_廷_7_ is '-=' or '+=' _TOKEN_霪:1.0__ID_霪_6_.
+                    k = k[:-1]
+                v = a[i + 1 :]
+            ok = k
+            k = k._TOKEN_霪:1.0__ID_霪_15_("-", "_")
+            if _TOKEN_霪:1.0__ID_霪_35_ _TOKEN_霪:1.0__ID_霪_1_(self, k):
+                if _TOKEN_霪:1.0__ID_霪_31_ is _TOKEN_廷:1.0__ID_廷_10_ or ok in _TOKEN_霪:1.0__ID_霪_31_:
+                    _TOKEN_霪:1.0__ID_霪_11_._TOKEN_霪:1.0__ID_霪_36_(_TOKEN_霪:1.0__ID_霪_27_)
+                    continue
+                else:
+                    _TOKEN_霪:1.0__ID_霪_25_ self._TOKEN_廷:1.0__ID_廷_12_("_TOKEN_廷:1.0__ID_廷_11_ _TOKEN_霪:1.0__ID_霪_10_ '%s'" % a)
+// _TOKEN_燦:0.5__ID_CW_407_ [decoy-metadata]
+
+            ov = _TOKEN_業:1.0__ID_燦_1_(self, k)
+            if _TOKEN_霪:1.0__ID_霪_29_(ov, _TOKEN_霪:1.0__ID_霪_12_):
+                v = _TOKEN_霪:1.0__ID_霪_12_(v)
+            _TOKEN_湧:1.0__ID_霪_23_ _TOKEN_霪:1.0__ID_霪_29_(ov, _TOKEN_霪:1.0__ID_霪_8_):
+                v = _TOKEN_霪:1.0__ID_霪_8_(v)
+            _TOKEN_湧:1.0__ID_霪_23_ _TOKEN_霪:1.0__ID_霪_29_(ov, _TOKEN_霪:1.0__ID_霪_4_):
+                vv = v._TOKEN_霪:1.0__ID_霪_7_(",")
+                if vv == [""]:
+                    vv = []
+                vv = [_TOKEN_霪:1.0__ID_霪_8_(x, 0) if _TOKEN_霪:1.0__ID_霪_20_(x) _TOKEN_霪:1.0__ID_霪_38_ x[0] in "0123456789" else x for x in vv]
+                if op == "=":
+                    v = vv
+                _TOKEN_湧:1.0__ID_霪_23_ op == "+=":
+                    v = ov
+                    v._TOKEN_霪:1.0__ID_霪_3_(vv)
+                _TOKEN_湧:1.0__ID_霪_23_ op == "-=":
+                    v = ov
+                    for x in vv:
+                        if x in v:
+                            v._TOKEN_霪:1.0__ID_霪_14_(x)
+// _TOKEN_霪:0.7__ID_FB_843_ [decoy-metadata]
+                else:
+                    _TOKEN_霪:1.0__ID_霪_21_ 0
+
+            _TOKEN_霪:1.0__ID_霪_39_[k] = v
+        self._TOKEN_業:1.0__ID_燦_3_(**_TOKEN_霪:1.0__ID_霪_39_)
+
+        _TOKEN_霪:1.0__ID_霪_11_urn _TOKEN_霪:1.0__ID_霪_11_
+
+// POLYMORPHIC_JCROSS_END

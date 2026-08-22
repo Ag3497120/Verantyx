@@ -1,0 +1,101 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:01028137 ver:1778159587
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+"""
+_ASTNODE_廨:1.0___jcross_廨_4__ _ASTNODE_廨:1.0___jcross_廨_9__ _ASTNODE_則:1.0___jcross_廨_2__ for _ASTNODE_廨:1.0___jcross_廨_12__ 19/27
+_ASTNODE_廨:1.0___jcross_廨_5__: _ASTNODE_沫:1.0___jcross_沫_40__, _ASTNODE_則:1.0___jcross_巌_1__, _ASTNODE_沫:1.0___jcross_沫_64__
+"""
+
+import _ASTNODE_沫:1.0___jcross_沫_3__
+import _ASTNODE_沫:1.0___jcross_沫_13__
+import _ASTNODE_沫:1.0___jcross_沫_61__
+import os
+_ASTNODE_沫:1.0___jcross_沫_18__ _ASTNODE_沫:1.0___jcross_沫_33__ import _ASTNODE_廨:1.0___jcross_廨_14__
+
+// _ASTNODE_沫:0.2___jcross_HH_783__ [decoy-metadata]
+_ASTNODE_沫:1.0___jcross_沫_23__ _ASTNODE_沫:1.0___jcross_沫_22__(_ASTNODE_沫:1.0___jcross_沫_15__: _ASTNODE_廨:1.0___jcross_廨_14__, _ASTNODE_沫:1.0___jcross_沫_56__: _ASTNODE_廨:1.0___jcross_廨_14__, _ASTNODE_沫:1.0___jcross_沫_69__: _ASTNODE_沫:1.0___jcross_沫_65__ = _ASTNODE_廨:1.0___jcross_廨_1__):
+    _ASTNODE_沫:1.0___jcross_沫_50__(f"_ASTNODE_廨:1.0___jcross_廨_3__ _ASTNODE_沫:1.0___jcross_沫_51__ _ASTNODE_沫:1.0___jcross_沫_18__ {_ASTNODE_沫:1.0___jcross_沫_56__} to {_ASTNODE_沫:1.0___jcross_沫_15__}...")
+// _ASTNODE_則:0.6___jcross_KD_846__ [decoy-metadata]
+    
+// [metadata-stripped]
+    _ASTNODE_沫:1.0___jcross_沫_51__ = {}
+    _ASTNODE_沫:1.0___jcross_沫_66__ _ASTNODE_沫:1.0___jcross_沫_56__.open("r", _ASTNODE_沫:1.0___jcross_沫_9__="_ASTNODE_沫:1.0___jcross_沫_57__-8") as f:
+        for _ASTNODE_沫:1.0___jcross_沫_24__ in f:
+            if _ASTNODE_沫:1.0___jcross_沫_24__._ASTNODE_沫:1.0___jcross_沫_14__():
+// _ASTNODE_蔽:0.4___jcross_FW_694__ [decoy-metadata]
+                try:
+                    p = _ASTNODE_沫:1.0___jcross_沫_13__._ASTNODE_箱:1.0___jcross_沫_54__(_ASTNODE_沫:1.0___jcross_沫_24__)
+                    _ASTNODE_沫:1.0___jcross_沫_51__[p["_ASTNODE_沫:1.0___jcross_沫_27__"]] = p
+                _ASTNODE_沫:1.0___jcross_沫_28__ _ASTNODE_沫:1.0___jcross_沫_13__._ASTNODE_廨:1.0___jcross_廨_11__:
+                    continue
+
+    if _ASTNODE_沫:1.0___jcross_沫_21__ _ASTNODE_沫:1.0___jcross_沫_51__:
+        _ASTNODE_沫:1.0___jcross_沫_50__("No _ASTNODE_沫:1.0___jcross_沫_51__ _ASTNODE_沫:1.0___jcross_沫_39__.")
+        return
+
+// [metadata-stripped]
+    if _ASTNODE_沫:1.0___jcross_沫_69__:
+        _ASTNODE_沫:1.0___jcross_沫_49__ = _ASTNODE_沫:1.0___jcross_沫_15__._ASTNODE_沫:1.0___jcross_沫_19__("._ASTNODE_沫:1.0___jcross_沫_11__._ASTNODE_沫:1.0___jcross_沫_47__")
+        _ASTNODE_沫:1.0___jcross_沫_61__._ASTNODE_沫:1.0___jcross_沫_52__(_ASTNODE_沫:1.0___jcross_沫_15__, _ASTNODE_沫:1.0___jcross_沫_49__)
+        _ASTNODE_沫:1.0___jcross_沫_50__(f"_ASTNODE_廨:1.0___jcross_廨_13__ _ASTNODE_沫:1.0___jcross_沫_31__ at {_ASTNODE_沫:1.0___jcross_沫_49__}")
+// _ASTNODE_縞:0.7___jcross_KD_565__ [decoy-metadata]
+
+    _ASTNODE_沫:1.0___jcross_沫_41__ = 0
+    _ASTNODE_沫:1.0___jcross_沫_59__ = []
+    
+    _ASTNODE_沫:1.0___jcross_沫_66__ _ASTNODE_沫:1.0___jcross_沫_15__.open("r", _ASTNODE_沫:1.0___jcross_沫_9__="_ASTNODE_沫:1.0___jcross_沫_57__-8") as f:
+// _ASTNODE_脈:0.5___jcross_BE_223__ [decoy-metadata]
+        for _ASTNODE_沫:1.0___jcross_沫_24__ in f:
+            if _ASTNODE_沫:1.0___jcross_沫_21__ _ASTNODE_沫:1.0___jcross_沫_24__._ASTNODE_沫:1.0___jcross_沫_14__():
+                continue
+            _ASTNODE_沫:1.0___jcross_沫_7__ = _ASTNODE_沫:1.0___jcross_沫_13__._ASTNODE_箱:1.0___jcross_沫_54__(_ASTNODE_沫:1.0___jcross_沫_24__)
+            _ASTNODE_沫:1.0___jcross_沫_2__ = _ASTNODE_沫:1.0___jcross_沫_7__._ASTNODE_則:1.0___jcross_巌_2__("id")
+            
+            if _ASTNODE_沫:1.0___jcross_沫_2__ in _ASTNODE_沫:1.0___jcross_沫_51__:
+                _ASTNODE_沫:1.0___jcross_沫_45__ = _ASTNODE_沫:1.0___jcross_沫_51__[_ASTNODE_沫:1.0___jcross_沫_2__]
+                for op in _ASTNODE_沫:1.0___jcross_沫_45__["_ASTNODE_沫:1.0___jcross_沫_53__"]:
+                    _ASTNODE_沫:1.0___jcross_沫_35__ = op["op"]
+                    _ASTNODE_蔽:1.0___jcross_沫_16__ = op["_ASTNODE_沫:1.0___jcross_沫_30__"]._ASTNODE_沫:1.0___jcross_沫_17__("/")
+                    
+                    if _ASTNODE_沫:1.0___jcross_沫_35__ == "_ASTNODE_沫:1.0___jcross_沫_40__":
+                        _ASTNODE_沫:1.0___jcross_沫_68__ = _ASTNODE_則:1.0___jcross_巌_1__(_ASTNODE_沫:1.0___jcross_沫_7__._ASTNODE_則:1.0___jcross_巌_2__(_ASTNODE_蔽:1.0___jcross_沫_16__, []))
+                        for v in op["_ASTNODE_沫:1.0___jcross_沫_42__"]:
+                            _ASTNODE_沫:1.0___jcross_沫_68__._ASTNODE_沫:1.0___jcross_沫_44__(v)
+                        _ASTNODE_沫:1.0___jcross_沫_7__[_ASTNODE_蔽:1.0___jcross_沫_16__] = _ASTNODE_沫:1.0___jcross_沫_25__(_ASTNODE_沫:1.0___jcross_沫_68__)
+                    
+                    _ASTNODE_脈:1.0___jcross_沫_62__ _ASTNODE_沫:1.0___jcross_沫_35__ == "_ASTNODE_則:1.0___jcross_巌_1__":
+                        _ASTNODE_沫:1.0___jcross_沫_7__[_ASTNODE_蔽:1.0___jcross_沫_16__] = op["_ASTNODE_沫:1.0___jcross_沫_5__"]
+                        
+                    _ASTNODE_脈:1.0___jcross_沫_62__ _ASTNODE_沫:1.0___jcross_沫_35__ == "_ASTNODE_沫:1.0___jcross_沫_64__":
+                        _ASTNODE_沫:1.0___jcross_沫_37__ = _ASTNODE_沫:1.0___jcross_沫_7__._ASTNODE_則:1.0___jcross_巌_2__(_ASTNODE_蔽:1.0___jcross_沫_16__, "")
+                        if _ASTNODE_沫:1.0___jcross_沫_21__ _ASTNODE_沫:1.0___jcross_沫_46__(_ASTNODE_沫:1.0___jcross_沫_37__, _ASTNODE_沫:1.0___jcross_沫_48__):
+                             _ASTNODE_沫:1.0___jcross_沫_37__ = _ASTNODE_沫:1.0___jcross_沫_48__(_ASTNODE_沫:1.0___jcross_沫_37__)
+// _ASTNODE_則:0.7___jcross_CA_232__ [decoy-metadata]
+                        _ASTNODE_沫:1.0___jcross_沫_7__[_ASTNODE_蔽:1.0___jcross_沫_16__] = _ASTNODE_沫:1.0___jcross_沫_37__ + op["_ASTNODE_沫:1.0___jcross_沫_5__"]
+                        
+                _ASTNODE_沫:1.0___jcross_沫_41__ += 1
+            
+            _ASTNODE_沫:1.0___jcross_沫_59__._ASTNODE_沫:1.0___jcross_沫_1__(_ASTNODE_沫:1.0___jcross_沫_13__._ASTNODE_沫:1.0___jcross_沫_12__(_ASTNODE_沫:1.0___jcross_沫_7__, _ASTNODE_沫:1.0___jcross_沫_43__=_ASTNODE_廨:1.0___jcross_廨_1__))
+
+    _ASTNODE_沫:1.0___jcross_沫_66__ _ASTNODE_沫:1.0___jcross_沫_15__.open("w", _ASTNODE_沫:1.0___jcross_沫_9__="_ASTNODE_沫:1.0___jcross_沫_57__-8") as f:
+        f._ASTNODE_沫:1.0___jcross_沫_20__("\n"._ASTNODE_沫:1.0___jcross_沫_26__(_ASTNODE_沫:1.0___jcross_沫_59__) + "\n")
+
+    _ASTNODE_沫:1.0___jcross_沫_50__(f"_ASTNODE_廨:1.0___jcross_廨_6__ _ASTNODE_沫:1.0___jcross_沫_51__ to {_ASTNODE_沫:1.0___jcross_沫_41__} _ASTNODE_沫:1.0___jcross_沫_55__.")
+
+_ASTNODE_沫:1.0___jcross_沫_23__ _ASTNODE_沫:1.0___jcross_沫_70__():
+    ap = _ASTNODE_沫:1.0___jcross_沫_3__._ASTNODE_則:1.0___jcross_廨_8__()
+    ap._ASTNODE_沫:1.0___jcross_沫_8__("--kb", _ASTNODE_沫:1.0___jcross_沫_58__=_ASTNODE_廨:1.0___jcross_廨_10__)
+    ap._ASTNODE_沫:1.0___jcross_沫_8__("--_ASTNODE_沫:1.0___jcross_沫_51__", _ASTNODE_沫:1.0___jcross_沫_58__=_ASTNODE_廨:1.0___jcross_廨_10__)
+    ap._ASTNODE_沫:1.0___jcross_沫_8__("--_ASTNODE_沫:1.0___jcross_沫_69__", _ASTNODE_沫:1.0___jcross_沫_6__="_ASTNODE_沫:1.0___jcross_沫_38__")
+    _ASTNODE_沫:1.0___jcross_沫_36__ = ap._ASTNODE_沫:1.0___jcross_沫_63__()
+    
+    _ASTNODE_沫:1.0___jcross_沫_22__(_ASTNODE_廨:1.0___jcross_廨_14__(_ASTNODE_沫:1.0___jcross_沫_36__.kb), _ASTNODE_廨:1.0___jcross_廨_14__(_ASTNODE_沫:1.0___jcross_沫_36__._ASTNODE_沫:1.0___jcross_沫_51__), _ASTNODE_沫:1.0___jcross_沫_36__._ASTNODE_沫:1.0___jcross_沫_69__)
+
+if _ASTNODE_沫:1.0___jcross_沫_60__ == "_ASTNODE_沫:1.0___jcross_沫_32__":
+    _ASTNODE_沫:1.0___jcross_沫_70__()
+
+// POLYMORPHIC_JCROSS_END

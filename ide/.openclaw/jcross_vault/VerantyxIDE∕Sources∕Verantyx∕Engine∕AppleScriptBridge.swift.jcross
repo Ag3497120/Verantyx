@@ -1,0 +1,245 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:823BA5D3 ver:1778150689
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_庠:1.0__OPAQUE_庠_33_
+import _TOKEN_庠:1.0__OPAQUE_庠_26_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+actor _TOKEN_庠:1.0__OPAQUE_庠_22_ {
+
+    static let _TOKEN_霪:1.0__OPAQUE_霪_96_ = _TOKEN_庠:1.0__OPAQUE_庠_22_()
+
+    enum _TOKEN_要:1.0__OPAQUE_庠_8_: _TOKEN_庠:1.0__OPAQUE_庠_16_, _TOKEN_庠:1.0__OPAQUE_庠_17_ {
+        case _TOKEN_霪:1.0__OPAQUE_霪_79_ = "_TOKEN_庠:1.0__OPAQUE_庠_19_"
+        case _TOKEN_霪:1.0__OPAQUE_霪_144_ = "_TOKEN_庠:1.0__OPAQUE_庠_9_ _TOKEN_庠:1.0__OPAQUE_庠_7_"
+        case _TOKEN_霪:1.0__OPAQUE_霪_91_    = "_TOKEN_庠:1.0__OPAQUE_庠_10_"
+        case _TOKEN_霪:1.0__OPAQUE_霪_87_  = "_TOKEN_庠:1.0__OPAQUE_庠_1_ _TOKEN_要:1.0__OPAQUE_庠_18_"
+
+        var _TOKEN_霪:1.0__OPAQUE_霪_98_: _TOKEN_庠:1.0__OPAQUE_庠_23_ {
+            let ws = _TOKEN_庠:1.0__OPAQUE_庠_47_._TOKEN_霪:1.0__OPAQUE_霪_33_(_TOKEN_要:1.0__OPAQUE_霪_45_: _TOKEN_霪:1.0__OPAQUE_霪_80_)
+            return !ws._TOKEN_霪:1.0__OPAQUE_霪_86_
+        }
+
+        var _TOKEN_霪:1.0__OPAQUE_霪_80_: _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+            switch self {
+            case ._TOKEN_霪:1.0__OPAQUE_霪_79_: return "_TOKEN_霪:1.0__OPAQUE_霪_19_._TOKEN_霪:1.0__OPAQUE_霪_51_._TOKEN_庠:1.0__OPAQUE_庠_19_"
+            case ._TOKEN_霪:1.0__OPAQUE_霪_144_: return "_TOKEN_霪:1.0__OPAQUE_霪_19_._TOKEN_霪:1.0__OPAQUE_霪_119_._TOKEN_庠:1.0__OPAQUE_庠_7_"
+            case ._TOKEN_霪:1.0__OPAQUE_霪_91_:    return "_TOKEN_霪:1.0__OPAQUE_霪_97_._TOKEN_要:1.0__OPAQUE_霪_90_._TOKEN_要:1.0__OPAQUE_庠_18_"
+            case ._TOKEN_霪:1.0__OPAQUE_霪_87_:  return "_TOKEN_霪:1.0__OPAQUE_霪_19_._TOKEN_霪:1.0__OPAQUE_霪_87_._TOKEN_要:1.0__OPAQUE_庠_18_"
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+// _TOKEN_滴:0.8__OPAQUE_DH_510_ [decoy-metadata]
+    func open(_ _TOKEN_絢:1.0__OPAQUE_霪_31_: _TOKEN_庠:1.0__OPAQUE_庠_16_, in _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_要:1.0__OPAQUE_霪_103_ = (_TOKEN_要:1.0__OPAQUE_霪_142_ == ._TOKEN_霪:1.0__OPAQUE_霪_79_) ? "_TOKEN_霪:1.0__OPAQUE_霪_27_ _TOKEN_霪:1.0__OPAQUE_霪_4_" : "_TOKEN_霪:1.0__OPAQUE_霪_67_ _TOKEN_霪:1.0__OPAQUE_霪_4_"
+        let _TOKEN_霪:1.0__OPAQUE_霪_105_ = """
+        _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ "\(_TOKEN_要:1.0__OPAQUE_霪_142_._TOKEN_霪:1.0__OPAQUE_霪_36_)"
+            _TOKEN_霪:1.0__OPAQUE_霪_8_
+            open _TOKEN_霪:1.0__OPAQUE_霪_85_ "\(_TOKEN_絢:1.0__OPAQUE_霪_31_._TOKEN_滴:1.0__OPAQUE_霪_147_)"
+            _TOKEN_霪:1.0__OPAQUE_霪_54_ 2
+            return _TOKEN_絢:1.0__OPAQUE_庠_24_ of \(_TOKEN_要:1.0__OPAQUE_霪_103_) of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_
+        _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+        """
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_110_(_TOKEN_霪:1.0__OPAQUE_霪_105_)
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_要:1.0__OPAQUE_覇_2_(_TOKEN_霪:1.0__OPAQUE_霪_152_ _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_105_: _TOKEN_庠:1.0__OPAQUE_庠_16_
+        if _TOKEN_要:1.0__OPAQUE_霪_142_ == ._TOKEN_霪:1.0__OPAQUE_霪_79_ {
+            _TOKEN_霪:1.0__OPAQUE_霪_105_ = """
+            _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ "_TOKEN_庠:1.0__OPAQUE_庠_19_"
+                return _TOKEN_霪:1.0__OPAQUE_霪_77_ of _TOKEN_霪:1.0__OPAQUE_霪_27_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_
+            _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+            """
+        } else {
+            _TOKEN_霪:1.0__OPAQUE_霪_105_ = """
+            _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ "\(_TOKEN_要:1.0__OPAQUE_霪_142_._TOKEN_霪:1.0__OPAQUE_霪_36_)"
+// _TOKEN_要:0.4__OPAQUE_DW_515_ [decoy-metadata]
+                return _TOKEN_霪:1.0__OPAQUE_霪_138_ of _TOKEN_霪:1.0__OPAQUE_霪_67_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_
+            _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+            """
+        }
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_110_(_TOKEN_霪:1.0__OPAQUE_霪_105_)
+    }
+// _TOKEN_鍵:0.2__OPAQUE_BD_321_ [decoy-metadata]
+
+// [metadata-stripped]
+
+    func _TOKEN_要:1.0__OPAQUE_覇_1_(_TOKEN_霪:1.0__OPAQUE_霪_152_ _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let js = "_TOKEN_霪:1.0__OPAQUE_霪_12_._TOKEN_霪:1.0__OPAQUE_霪_49_._TOKEN_霪:1.0__OPAQUE_霪_106_._TOKEN_霪:1.0__OPAQUE_霪_129_(0, 8000)"
+        let _TOKEN_霪:1.0__OPAQUE_霪_82_ = try await _TOKEN_霪:1.0__OPAQUE_霪_95_(js, in: _TOKEN_要:1.0__OPAQUE_霪_142_)
+        return _TOKEN_霪:1.0__OPAQUE_霪_82_
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_霪:1.0__OPAQUE_霪_95_(_ _TOKEN_霪:1.0__OPAQUE_霪_105_: _TOKEN_庠:1.0__OPAQUE_庠_16_, in _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_123_ = _TOKEN_霪:1.0__OPAQUE_霪_105_._TOKEN_滴:1.0__OPAQUE_霪_147_
+        let _TOKEN_霪:1.0__OPAQUE_霪_60_: _TOKEN_庠:1.0__OPAQUE_庠_16_
+
+        if _TOKEN_要:1.0__OPAQUE_霪_142_ == ._TOKEN_霪:1.0__OPAQUE_霪_79_ {
+            _TOKEN_霪:1.0__OPAQUE_霪_60_ = """
+            _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ "_TOKEN_庠:1.0__OPAQUE_庠_19_"
+                return do _TOKEN_庠:1.0__OPAQUE_庠_3_ "\(_TOKEN_霪:1.0__OPAQUE_霪_123_)" in _TOKEN_霪:1.0__OPAQUE_霪_27_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_
+// _TOKEN_絢:0.3__OPAQUE_WG_272_ [decoy-metadata]
+            _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+            """
+        } else {
+// [metadata-stripped]
+// [metadata-stripped]
+            _TOKEN_霪:1.0__OPAQUE_霪_60_ = """
+            _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ "\(_TOKEN_要:1.0__OPAQUE_霪_142_._TOKEN_霪:1.0__OPAQUE_霪_36_)"
+                _TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_67_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_
+                    _TOKEN_霪:1.0__OPAQUE_霪_153_ _TOKEN_霪:1.0__OPAQUE_霪_17_ "\(_TOKEN_霪:1.0__OPAQUE_霪_123_)"
+                _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+            _TOKEN_霪:1.0__OPAQUE_霪_6_ _TOKEN_霪:1.0__OPAQUE_霪_56_
+            """
+        }
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_110_(_TOKEN_霪:1.0__OPAQUE_霪_60_)
+    }
+// _TOKEN_覇:0.5__OPAQUE_GG_518_ [decoy-metadata]
+
+// [metadata-stripped]
+
+    func _TOKEN_霪:1.0__OPAQUE_霪_38_(_ _TOKEN_霪:1.0__OPAQUE_霪_58_: _TOKEN_庠:1.0__OPAQUE_庠_16_, _TOKEN_霪:1.0__OPAQUE_霪_140_: _TOKEN_庠:1.0__OPAQUE_庠_5_ = ._TOKEN_霪:1.0__OPAQUE_霪_119_, in _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_113_ = _TOKEN_霪:1.0__OPAQUE_霪_58_._TOKEN_霪:1.0__OPAQUE_霪_76_(_TOKEN_霪:1.0__OPAQUE_霪_132_: ._TOKEN_絢:1.0__OPAQUE_霪_71_) ?? _TOKEN_霪:1.0__OPAQUE_霪_58_
+        let _TOKEN_絢:1.0__OPAQUE_霪_47_ = _TOKEN_霪:1.0__OPAQUE_霪_140_._TOKEN_絢:1.0__OPAQUE_霪_47_(for: _TOKEN_霪:1.0__OPAQUE_霪_113_)
+        _ = try await open(_TOKEN_絢:1.0__OPAQUE_霪_47_, in: _TOKEN_要:1.0__OPAQUE_霪_142_)
+// _TOKEN_絢:0.2__OPAQUE_KA_687_ [decoy-metadata]
+
+// [metadata-stripped]
+        try await _TOKEN_庠:1.0__OPAQUE_庠_32_._TOKEN_霪:1.0__OPAQUE_霪_11_(_TOKEN_霪:1.0__OPAQUE_霪_75_: 3_000_000_000)
+        return try await _TOKEN_要:1.0__OPAQUE_覇_1_(_TOKEN_霪:1.0__OPAQUE_霪_152_: _TOKEN_要:1.0__OPAQUE_霪_142_)
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_絢:1.0__OPAQUE_覇_3_(_TOKEN_霪:1.0__OPAQUE_霪_152_ _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_105_: _TOKEN_庠:1.0__OPAQUE_庠_16_
+        if _TOKEN_要:1.0__OPAQUE_霪_142_ == ._TOKEN_霪:1.0__OPAQUE_霪_79_ {
+            _TOKEN_霪:1.0__OPAQUE_霪_105_ = "_TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ \"_TOKEN_庠:1.0__OPAQUE_庠_19_\" to return _TOKEN_絢:1.0__OPAQUE_庠_24_ of _TOKEN_霪:1.0__OPAQUE_霪_27_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_"
+        } else {
+            _TOKEN_霪:1.0__OPAQUE_霪_105_ = "_TOKEN_霪:1.0__OPAQUE_霪_56_ _TOKEN_霪:1.0__OPAQUE_霪_133_ \"\(_TOKEN_要:1.0__OPAQUE_霪_142_._TOKEN_霪:1.0__OPAQUE_霪_36_)\" to return _TOKEN_絢:1.0__OPAQUE_庠_24_ of _TOKEN_霪:1.0__OPAQUE_霪_67_ _TOKEN_霪:1.0__OPAQUE_霪_4_ of _TOKEN_霪:1.0__OPAQUE_霪_92_ _TOKEN_霪:1.0__OPAQUE_霪_10_"
+        }
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_110_(_TOKEN_霪:1.0__OPAQUE_霪_105_)
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_霪:1.0__OPAQUE_霪_13_(_TOKEN_霪:1.0__OPAQUE_霪_124_: _TOKEN_庠:1.0__OPAQUE_庠_16_, in _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let js = "_TOKEN_霪:1.0__OPAQUE_霪_12_._TOKEN_霪:1.0__OPAQUE_霪_127_('\(_TOKEN_霪:1.0__OPAQUE_霪_124_)')?._TOKEN_霪:1.0__OPAQUE_霪_13_(); '_TOKEN_霪:1.0__OPAQUE_霪_41_'"
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_95_(js, in: _TOKEN_要:1.0__OPAQUE_霪_142_)
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_霪:1.0__OPAQUE_霪_32_(_TOKEN_霪:1.0__OPAQUE_霪_124_: _TOKEN_庠:1.0__OPAQUE_庠_16_, _TOKEN_霪:1.0__OPAQUE_霪_99_: _TOKEN_庠:1.0__OPAQUE_庠_16_, in _TOKEN_要:1.0__OPAQUE_霪_142_: _TOKEN_要:1.0__OPAQUE_庠_8_ = ._TOKEN_霪:1.0__OPAQUE_霪_79_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_89_ = _TOKEN_霪:1.0__OPAQUE_霪_99_._TOKEN_霪:1.0__OPAQUE_霪_120_(of: "\"", _TOKEN_霪:1.0__OPAQUE_霪_114_: "\\\"")
+        let js = """
+        var el = _TOKEN_霪:1.0__OPAQUE_霪_12_._TOKEN_霪:1.0__OPAQUE_霪_127_('\(_TOKEN_霪:1.0__OPAQUE_霪_124_)');
+        if (el) { el._TOKEN_霪:1.0__OPAQUE_霪_99_ = '\(_TOKEN_霪:1.0__OPAQUE_霪_89_)'; el._TOKEN_霪:1.0__OPAQUE_霪_109_(_TOKEN_霪:1.0__OPAQUE_霪_122_ _TOKEN_庠:1.0__OPAQUE_庠_4_('_TOKEN_霪:1.0__OPAQUE_霪_125_', {_TOKEN_霪:1.0__OPAQUE_霪_112_:true})); 'ok'; } else { '_TOKEN_霪:1.0__OPAQUE_霪_26_ _TOKEN_霪:1.0__OPAQUE_霪_21_'; }
+        """
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_95_(js, in: _TOKEN_要:1.0__OPAQUE_霪_142_)
+    }
+
+// [metadata-stripped]
+
+    func _TOKEN_霪:1.0__OPAQUE_霪_63_() -> [_TOKEN_要:1.0__OPAQUE_庠_8_] {
+        _TOKEN_要:1.0__OPAQUE_庠_8_._TOKEN_霪:1.0__OPAQUE_霪_2_._TOKEN_要:1.0__OPAQUE_霪_1_ { $0._TOKEN_霪:1.0__OPAQUE_霪_98_ || _TOKEN_区:1.0__OPAQUE_庠_20_._TOKEN_霪:1.0__OPAQUE_霪_59_._TOKEN_区:1.0__OPAQUE_霪_62_(_TOKEN_霪:1.0__OPAQUE_霪_40_: "/_TOKEN_庠:1.0__OPAQUE_庠_53_/\($0._TOKEN_霪:1.0__OPAQUE_霪_36_)._TOKEN_霪:1.0__OPAQUE_霪_9_") }
+    }
+
+// [metadata-stripped]
+
+    @_TOKEN_霪:1.0__OPAQUE_霪_57_
+    private func _TOKEN_霪:1.0__OPAQUE_霪_110_(_ _TOKEN_霪:1.0__OPAQUE_霪_105_: _TOKEN_庠:1.0__OPAQUE_庠_16_) async throws -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        return try await _TOKEN_霪:1.0__OPAQUE_霪_78_ { _TOKEN_霪:1.0__OPAQUE_霪_72_ in
+            _TOKEN_庠:1.0__OPAQUE_庠_34_._TOKEN_霪:1.0__OPAQUE_霪_88_(_TOKEN_霪:1.0__OPAQUE_霪_46_: ._TOKEN_霪:1.0__OPAQUE_霪_137_).async {
+                let _TOKEN_霪:1.0__OPAQUE_霪_68_ = _TOKEN_庠:1.0__OPAQUE_庠_6_()
+                _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_絢:1.0__OPAQUE_霪_34_ = _TOKEN_絢:1.0__OPAQUE_庠_24_(_TOKEN_絢:1.0__OPAQUE_霪_29_: "/_TOKEN_霪:1.0__OPAQUE_霪_148_/_TOKEN_霪:1.0__OPAQUE_霪_64_/_TOKEN_霪:1.0__OPAQUE_霪_115_")
+                _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_156_ = ["-e", _TOKEN_霪:1.0__OPAQUE_霪_105_]
+
+                let _TOKEN_霪:1.0__OPAQUE_霪_130_ = _TOKEN_庠:1.0__OPAQUE_庠_35_()
+                _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_154_ = _TOKEN_霪:1.0__OPAQUE_霪_130_
+                _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_52_  = _TOKEN_霪:1.0__OPAQUE_霪_130_   // ⚠️ 同一パイプ — _TOKEN_霪:1.0__OPAQUE_霪_118_-_TOKEN_霪:1.0__OPAQUE_霪_102_ _TOKEN_霪:1.0__OPAQUE_霪_66_ 防止
+
+                do {
+                    try _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_73_()
+
+                    let _TOKEN_霪:1.0__OPAQUE_霪_131_ = _TOKEN_霪:1.0__OPAQUE_霪_130_._TOKEN_区:1.0__OPAQUE_霪_93_._TOKEN_区:1.0__OPAQUE_霪_61_()
+
+                    _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_15_()
+
+                    if _TOKEN_霪:1.0__OPAQUE_霪_68_._TOKEN_霪:1.0__OPAQUE_霪_70_ != 0 {
+                        let _TOKEN_霪:1.0__OPAQUE_霪_22_ = _TOKEN_庠:1.0__OPAQUE_庠_16_(_TOKEN_霪:1.0__OPAQUE_霪_128_: _TOKEN_霪:1.0__OPAQUE_霪_131_, _TOKEN_霪:1.0__OPAQUE_霪_20_: ._TOKEN_霪:1.0__OPAQUE_霪_53_) ?? "_TOKEN_霪:1.0__OPAQUE_霪_135_ _TOKEN_霪:1.0__OPAQUE_霪_136_"
+                        _TOKEN_霪:1.0__OPAQUE_霪_72_._TOKEN_霪:1.0__OPAQUE_霪_116_(_TOKEN_霪:1.0__OPAQUE_霪_145_: _TOKEN_庠:1.0__OPAQUE_庠_36_._TOKEN_霪:1.0__OPAQUE_霪_5_(_TOKEN_霪:1.0__OPAQUE_霪_22_))
+                    } else {
+                        let _TOKEN_霪:1.0__OPAQUE_霪_18_ = (_TOKEN_庠:1.0__OPAQUE_庠_16_(_TOKEN_霪:1.0__OPAQUE_霪_128_: _TOKEN_霪:1.0__OPAQUE_霪_131_, _TOKEN_霪:1.0__OPAQUE_霪_20_: ._TOKEN_霪:1.0__OPAQUE_霪_53_) ?? "")._TOKEN_霪:1.0__OPAQUE_霪_55_(in: ._TOKEN_霪:1.0__OPAQUE_霪_108_)
+                        _TOKEN_霪:1.0__OPAQUE_霪_72_._TOKEN_霪:1.0__OPAQUE_霪_116_(_TOKEN_霪:1.0__OPAQUE_霪_65_: _TOKEN_霪:1.0__OPAQUE_霪_18_)
+                    }
+                } catch {
+                    _TOKEN_霪:1.0__OPAQUE_霪_72_._TOKEN_霪:1.0__OPAQUE_霪_116_(_TOKEN_霪:1.0__OPAQUE_霪_145_: _TOKEN_霪:1.0__OPAQUE_霪_136_)
+                }
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+
+enum _TOKEN_庠:1.0__OPAQUE_庠_5_: _TOKEN_庠:1.0__OPAQUE_庠_16_, _TOKEN_庠:1.0__OPAQUE_庠_17_ {
+    case _TOKEN_霪:1.0__OPAQUE_霪_84_     = "_TOKEN_庠:1.0__OPAQUE_庠_42_"
+    case _TOKEN_霪:1.0__OPAQUE_霪_42_ = "_TOKEN_庠:1.0__OPAQUE_庠_39_"
+    case _TOKEN_霪:1.0__OPAQUE_霪_119_         = "_TOKEN_庠:1.0__OPAQUE_庠_9_"
+    case _TOKEN_霪:1.0__OPAQUE_霪_3_           = "_TOKEN_庠:1.0__OPAQUE_庠_28_"
+
+    func _TOKEN_絢:1.0__OPAQUE_霪_47_(for _TOKEN_霪:1.0__OPAQUE_霪_58_: _TOKEN_庠:1.0__OPAQUE_庠_16_) -> _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        switch self {
+        case ._TOKEN_霪:1.0__OPAQUE_霪_84_:     return "_TOKEN_絢:1.0__OPAQUE_霪_25_://_TOKEN_霪:1.0__OPAQUE_霪_84_._TOKEN_霪:1.0__OPAQUE_霪_19_/?q=\(_TOKEN_霪:1.0__OPAQUE_霪_58_)"
+        case ._TOKEN_霪:1.0__OPAQUE_霪_42_: return "_TOKEN_絢:1.0__OPAQUE_霪_25_://_TOKEN_霪:1.0__OPAQUE_霪_30_._TOKEN_霪:1.0__OPAQUE_霪_84_._TOKEN_霪:1.0__OPAQUE_霪_19_/_TOKEN_霪:1.0__OPAQUE_霪_30_/?q=\(_TOKEN_霪:1.0__OPAQUE_霪_58_)"
+        case ._TOKEN_霪:1.0__OPAQUE_霪_119_:         return "_TOKEN_絢:1.0__OPAQUE_霪_25_://_TOKEN_霪:1.0__OPAQUE_霪_16_._TOKEN_霪:1.0__OPAQUE_霪_119_._TOKEN_霪:1.0__OPAQUE_霪_19_/_TOKEN_霪:1.0__OPAQUE_霪_38_?q=\(_TOKEN_霪:1.0__OPAQUE_霪_58_)"
+        case ._TOKEN_霪:1.0__OPAQUE_霪_3_:           return "_TOKEN_絢:1.0__OPAQUE_霪_25_://_TOKEN_霪:1.0__OPAQUE_霪_16_._TOKEN_霪:1.0__OPAQUE_霪_3_._TOKEN_霪:1.0__OPAQUE_霪_19_/_TOKEN_霪:1.0__OPAQUE_霪_38_?q=\(_TOKEN_霪:1.0__OPAQUE_霪_58_)"
+        }
+    }
+}
+
+// [metadata-stripped]
+
+enum _TOKEN_庠:1.0__OPAQUE_庠_36_: _TOKEN_庠:1.0__OPAQUE_庠_38_, _TOKEN_庠:1.0__OPAQUE_庠_49_ {
+    case _TOKEN_霪:1.0__OPAQUE_霪_5_(_TOKEN_庠:1.0__OPAQUE_庠_16_)
+    case _TOKEN_霪:1.0__OPAQUE_霪_35_(_TOKEN_庠:1.0__OPAQUE_庠_16_)
+
+    var _TOKEN_霪:1.0__OPAQUE_霪_155_: _TOKEN_庠:1.0__OPAQUE_庠_16_? {
+        switch self {
+        case ._TOKEN_霪:1.0__OPAQUE_霪_5_(let m):    return "_TOKEN_庠:1.0__OPAQUE_庠_30_ _TOKEN_霪:1.0__OPAQUE_霪_136_: \(m)"
+        case ._TOKEN_霪:1.0__OPAQUE_霪_35_(let b): return "\(b) is _TOKEN_霪:1.0__OPAQUE_霪_26_ _TOKEN_霪:1.0__OPAQUE_霪_143_ or _TOKEN_霪:1.0__OPAQUE_霪_121_."
+        }
+    }
+}
+
+// [metadata-stripped]
+
+private extension _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+    var _TOKEN_滴:1.0__OPAQUE_霪_147_: _TOKEN_庠:1.0__OPAQUE_庠_16_ {
+        self
+            ._TOKEN_霪:1.0__OPAQUE_霪_120_(of: "\\", _TOKEN_霪:1.0__OPAQUE_霪_114_: "\\\\")
+            ._TOKEN_霪:1.0__OPAQUE_霪_120_(of: "\"", _TOKEN_霪:1.0__OPAQUE_霪_114_: "\\\"")
+            ._TOKEN_霪:1.0__OPAQUE_霪_120_(of: "\n", _TOKEN_霪:1.0__OPAQUE_霪_114_: "\\n")
+            ._TOKEN_霪:1.0__OPAQUE_霪_120_(of: "\r", _TOKEN_霪:1.0__OPAQUE_霪_114_: "\\r")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

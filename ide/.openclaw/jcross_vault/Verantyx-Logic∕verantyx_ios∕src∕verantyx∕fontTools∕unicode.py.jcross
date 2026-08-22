@@ -1,0 +1,62 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:22AAFD39 ver:1778159868
+// ⚠️ One-time schema — expires after response
+
+_ID_霪:1.0__JCROSS_霪_37_ _ID_霪:1.0__JCROSS_霪_2_(f):
+    _ID_霪:1.0__JCROSS_霪_18_ = _ID_業:1.0__JCROSS_霪_1_(f._ID_霪:1.0__JCROSS_霪_36_())
+    _ID_霪:1.0__JCROSS_霪_4_ = {}
+// _ID_廂:0.1__JCROSS_EE_565_ [decoy-metadata]
+    for _ID_霪:1.0__JCROSS_霪_7_ in _ID_霪:1.0__JCROSS_霪_18_:
+        if _ID_霪:1.0__JCROSS_霪_26_ _ID_霪:1.0__JCROSS_霪_7_:
+            continue
+        _ID_霪:1.0__JCROSS_霪_16_, _ID_霪:1.0__JCROSS_霪_9_ = _ID_霪:1.0__JCROSS_霪_7_._ID_霪:1.0__JCROSS_霪_29_(";")[:2]
+        if _ID_霪:1.0__JCROSS_霪_9_[0] == "<":
+            continue  # "<_ID_霪:1.0__JCROSS_霪_32_>", _ID_霪:1.0__JCROSS_霪_21_.
+        _ID_霪:1.0__JCROSS_霪_16_ = _ID_霪:1.0__JCROSS_霪_34_(_ID_霪:1.0__JCROSS_霪_16_, 16)
+        _ID_霪:1.0__JCROSS_霪_4_[_ID_霪:1.0__JCROSS_霪_16_] = _ID_霪:1.0__JCROSS_霪_9_
+    return _ID_霪:1.0__JCROSS_霪_4_
+
+
+class _ID_霪:1.0__JCROSS_霪_19_(_ID_霪:1.0__JCROSS_霪_6_):
+    _ID_霪:1.0__JCROSS_霪_37_ _ID_霪:1.0__JCROSS_霪_31_(self, f):
+        if _ID_霪:1.0__JCROSS_霪_35_(f, _ID_霪:1.0__JCROSS_霪_12_):
+            _ID_霪:1.0__JCROSS_霪_30_ open(f) as fd:
+                _ID_霪:1.0__JCROSS_霪_20_ = _ID_霪:1.0__JCROSS_霪_2_(fd)
+        else:
+            _ID_霪:1.0__JCROSS_霪_20_ = _ID_霪:1.0__JCROSS_霪_2_(f)
+        self._ID_霪:1.0__JCROSS_霪_20_ = _ID_霪:1.0__JCROSS_霪_20_
+
+    _ID_霪:1.0__JCROSS_霪_37_ _ID_霪:1.0__JCROSS_霪_15_(self, _ID_霪:1.0__JCROSS_霪_14_):
+        try:
+            return self._ID_霪:1.0__JCROSS_霪_20_[_ID_霪:1.0__JCROSS_霪_14_]
+        _ID_霪:1.0__JCROSS_霪_13_ _ID_暗:1.0__JCROSS_廂_4_:
+// _ID_霪:0.8__JCROSS_CB_929_ [decoy-metadata]
+            return "????"
+
+
+class _ID_霪:1.0__JCROSS_霪_10_(_ID_霪:1.0__JCROSS_霪_6_):
+    _ID_霪:1.0__JCROSS_霪_37_ _ID_霪:1.0__JCROSS_霪_15_(self, _ID_霪:1.0__JCROSS_霪_14_):
+        try:
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_廂:0.3__JCROSS_KD_207_ [decoy-metadata]
+            import _ID_霪:1.0__JCROSS_霪_33_ as _ID_霪:1.0__JCROSS_霪_11_
+        _ID_霪:1.0__JCROSS_霪_13_ _ID_廂:1.0__JCROSS_廂_3_:
+            import _ID_霪:1.0__JCROSS_霪_11_
+// _ID_脈:0.1__JCROSS_DZ_253_ [decoy-metadata]
+        try:
+            return _ID_霪:1.0__JCROSS_霪_11_._ID_霪:1.0__JCROSS_霪_9_(_ID_霪:1.0__JCROSS_霪_28_(_ID_霪:1.0__JCROSS_霪_14_))
+        _ID_霪:1.0__JCROSS_霪_13_ _ID_廂:1.0__JCROSS_廂_1_:
+// _ID_絡:0.6__JCROSS_BV_667_ [decoy-metadata]
+            return "????"
+
+
+_ID_廂:1.0__JCROSS_廂_2_ = _ID_霪:1.0__JCROSS_霪_10_()
+
+
+// _ID_業:0.2__JCROSS_BB_709_ [decoy-metadata]
+_ID_霪:1.0__JCROSS_霪_37_ _ID_業:1.0__JCROSS_凱_1_(f):
+    _ID_霪:1.0__JCROSS_霪_25_ _ID_廂:1.0__JCROSS_廂_2_
+    _ID_廂:1.0__JCROSS_廂_2_ = _ID_霪:1.0__JCROSS_霪_19_(f)
+
+// POLYMORPHIC_JCROSS_END

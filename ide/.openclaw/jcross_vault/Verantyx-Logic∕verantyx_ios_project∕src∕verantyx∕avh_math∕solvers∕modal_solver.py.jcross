@@ -1,0 +1,264 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D7C14B5E ver:1778159685
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_霪:1.0__SYM_霪_117_ _OPAQUE_霪:1.0__SYM_霪_101_ import _OPAQUE_霪:1.0__SYM_霪_81_
+_OPAQUE_霪:1.0__SYM_霪_117_ _OPAQUE_霪:1.0__SYM_霪_24_ import _OPAQUE_霪:1.0__SYM_霪_7_
+_OPAQUE_霪:1.0__SYM_霪_117_ _OPAQUE_霪:1.0__SYM_霪_20_ import _OPAQUE_廱:1.0__SYM_廱_35_, _OPAQUE_廱:1.0__SYM_廱_1_, _OPAQUE_廱:1.0__SYM_廱_8_, _OPAQUE_廱:1.0__SYM_廱_24_, _OPAQUE_項:1.0__SYM_傑_2_, _OPAQUE_廱:1.0__SYM_廱_14_
+import _OPAQUE_霪:1.0__SYM_霪_96_
+import re
+
+// [metadata-stripped]
+@_OPAQUE_霪:1.0__SYM_霪_7_
+class _OPAQUE_廱:1.0__SYM_廱_2_:
+    _OPAQUE_霪:1.0__SYM_霪_21_: _OPAQUE_霪:1.0__SYM_霪_51_
+// _OPAQUE_霪:0.1__SYM_XX_778_ [decoy-metadata]
+    _OPAQUE_霪:1.0__SYM_霪_77_: _OPAQUE_霪:1.0__SYM_霪_51_ | _OPAQUE_廱:1.0__SYM_廱_26_ = _OPAQUE_廱:1.0__SYM_廱_26_
+    _OPAQUE_霪:1.0__SYM_霪_16_: "_OPAQUE_廱:1.0__SYM_廱_2_ | _OPAQUE_廱:1.0__SYM_廱_26_" = _OPAQUE_廱:1.0__SYM_廱_26_
+    _OPAQUE_霪:1.0__SYM_霪_66_: "_OPAQUE_廱:1.0__SYM_廱_2_ | _OPAQUE_廱:1.0__SYM_廱_26_" = _OPAQUE_廱:1.0__SYM_廱_26_
+    _OPAQUE_霪:1.0__SYM_霪_116_: "_OPAQUE_廱:1.0__SYM_廱_2_ | _OPAQUE_廱:1.0__SYM_廱_26_" = _OPAQUE_廱:1.0__SYM_廱_26_ # _OPAQUE_廱:1.0__SYM_廱_38_ _OPAQUE_霪:1.0__SYM_霪_61_ _OPAQUE_霪:1.0__SYM_霪_109_ (_OPAQUE_廱:1.0__SYM_廱_32_, _OPAQUE_廱:1.0__SYM_廱_40_, _OPAQUE_廱:1.0__SYM_廱_19_)
+
+class _OPAQUE_項:1.0__SYM_廱_27_:
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_87_(self, _OPAQUE_霪:1.0__SYM_霪_115_: _OPAQUE_霪:1.0__SYM_霪_91_ = 3):
+        self._OPAQUE_霪:1.0__SYM_霪_115_ = _OPAQUE_霪:1.0__SYM_霪_115_
+// [metadata-stripped]
+        self._OPAQUE_冥:1.0__SYM_霪_39_ = re._OPAQUE_霪:1.0__SYM_霪_105_(
+            r"\s+|"
+            r"(<->|↔)|(->|→)|"
+            r"(∧|&)|(∨|\|)|(¬|~|!)|"
+            r"(\[\]|□|\_OPAQUE_霪:1.0__SYM_霪_43_\b)|(<>|◇|\_OPAQUE_霪:1.0__SYM_霪_100_\b)|"
+            r"([()])|"
+            r"([A-Za-z][A-Za-z0-9_]*)"
+        )
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_78_(self, _OPAQUE_漕:1.0__SYM_霪_88_: _OPAQUE_霪:1.0__SYM_霪_51_, _OPAQUE_霪:1.0__SYM_霪_118_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_51_], _OPAQUE_霪:1.0__SYM_霪_64_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_51_]) -> _OPAQUE_廱:1.0__SYM_廱_35_[_OPAQUE_霪:1.0__SYM_霪_51_, _OPAQUE_廱:1.0__SYM_廱_8_]:
+        try:
+// [metadata-stripped]
+            _OPAQUE_霪:1.0__SYM_霪_93_(f"[_OPAQUE_廱:1.0__SYM_廱_17_ _OPAQUE_廱:1.0__SYM_廱_31_] _OPAQUE_廱:1.0__SYM_廱_12_ '{_OPAQUE_漕:1.0__SYM_霪_88_}' _OPAQUE_霪:1.0__SYM_霪_85_ _OPAQUE_霪:1.0__SYM_霪_64_: {_OPAQUE_霪:1.0__SYM_霪_64_}")
+            
+            _OPAQUE_霪:1.0__SYM_霪_65_ = self._OPAQUE_霪:1.0__SYM_霪_34_(_OPAQUE_漕:1.0__SYM_霪_88_)
+// [metadata-stripped]
+            _OPAQUE_霪:1.0__SYM_霪_94_ = _OPAQUE_霪:1.0__SYM_霪_5_(_OPAQUE_霪:1.0__SYM_霪_110_(self._OPAQUE_霪:1.0__SYM_霪_30_(_OPAQUE_霪:1.0__SYM_霪_65_)))
+            if _OPAQUE_霪:1.0__SYM_霪_27_ _OPAQUE_霪:1.0__SYM_霪_118_: _OPAQUE_霪:1.0__SYM_霪_118_ = _OPAQUE_霪:1.0__SYM_霪_94_
+            
+// [metadata-stripped]
+            if _OPAQUE_霪:1.0__SYM_霪_58_(_OPAQUE_霪:1.0__SYM_霪_118_) > 6:
+                return {"_OPAQUE_霪:1.0__SYM_霪_107_": "_OPAQUE_項:1.0__SYM_霪_46_", "_OPAQUE_霪:1.0__SYM_霪_2_": "_OPAQUE_廱:1.0__SYM_廱_25_ _OPAQUE_霪:1.0__SYM_霪_33_ _OPAQUE_霪:1.0__SYM_霪_118_ for _OPAQUE_霪:1.0__SYM_霪_8_ _OPAQUE_霪:1.0__SYM_霪_32_."}
+
+            _OPAQUE_霪:1.0__SYM_霪_18_ = _OPAQUE_霪:1.0__SYM_霪_110_(_OPAQUE_霪:1.0__SYM_霪_42_(self._OPAQUE_霪:1.0__SYM_霪_115_))
+            
+// [metadata-stripped]
+            _OPAQUE_霪:1.0__SYM_霪_90_ = self._OPAQUE_霪:1.0__SYM_霪_69_(_OPAQUE_霪:1.0__SYM_霪_18_, _OPAQUE_霪:1.0__SYM_霪_64_)
+            
+// [metadata-stripped]
+            _OPAQUE_霪:1.0__SYM_霪_89_ = self._OPAQUE_霪:1.0__SYM_霪_74_(_OPAQUE_霪:1.0__SYM_霪_18_, _OPAQUE_霪:1.0__SYM_霪_118_)
+            
+            _OPAQUE_霪:1.0__SYM_霪_97_ = _OPAQUE_廱:1.0__SYM_廱_26_
+            _OPAQUE_霪:1.0__SYM_霪_35_ = 0
+            
+            for R in _OPAQUE_霪:1.0__SYM_霪_90_:
+                for V in _OPAQUE_霪:1.0__SYM_霪_89_:
+                    _OPAQUE_霪:1.0__SYM_霪_8_ = (_OPAQUE_霪:1.0__SYM_霪_18_, R, V)
+                    _OPAQUE_霪:1.0__SYM_霪_35_ += 1
+// _OPAQUE_絢:0.8__SYM_VZ_349_ [decoy-metadata]
+                    
+// [metadata-stripped]
+                    _OPAQUE_霪:1.0__SYM_霪_92_ = _OPAQUE_廱:1.0__SYM_廱_6_
+                    for w in _OPAQUE_霪:1.0__SYM_霪_18_:
+                        if _OPAQUE_霪:1.0__SYM_霪_27_ self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_65_, _OPAQUE_霪:1.0__SYM_霪_8_, w):
+                            _OPAQUE_霪:1.0__SYM_霪_92_ = _OPAQUE_廱:1.0__SYM_廱_36_
+                            _OPAQUE_霪:1.0__SYM_霪_97_ = {
+                                "_OPAQUE_霪:1.0__SYM_霪_18_": _OPAQUE_霪:1.0__SYM_霪_18_,
+                                "_OPAQUE_霪:1.0__SYM_霪_95_": _OPAQUE_霪:1.0__SYM_霪_5_(_OPAQUE_霪:1.0__SYM_霪_110_(R)), # _OPAQUE_項:1.0__SYM_傑_1_ to _OPAQUE_霪:1.0__SYM_霪_110_ for _OPAQUE_廱:1.0__SYM_廱_21_
+                                "_OPAQUE_霪:1.0__SYM_霪_84_": V,
+                                "_OPAQUE_霪:1.0__SYM_霪_111_": w
+                            }
+                            break
+                    
+                    if _OPAQUE_霪:1.0__SYM_霪_27_ _OPAQUE_霪:1.0__SYM_霪_92_:
+                        break
+                if _OPAQUE_霪:1.0__SYM_霪_97_:
+                    break
+            
+            if _OPAQUE_霪:1.0__SYM_霪_97_:
+                return {
+                    "_OPAQUE_霪:1.0__SYM_霪_107_": "_OPAQUE_霪:1.0__SYM_霪_26_",
+                    "_OPAQUE_霪:1.0__SYM_霪_14_": "_OPAQUE_霪:1.0__SYM_霪_38_",
+// _OPAQUE_漕:0.5__SYM_YX_177_ [decoy-metadata]
+                    "_OPAQUE_霪:1.0__SYM_霪_97_": _OPAQUE_霪:1.0__SYM_霪_97_,
+                    "_OPAQUE_霪:1.0__SYM_霪_108_": 1.0,
+                    "_OPAQUE_霪:1.0__SYM_霪_113_": f"_OPAQUE_廱:1.0__SYM_廱_4_ by _OPAQUE_廱:1.0__SYM_廱_23_ _OPAQUE_霪:1.0__SYM_霪_8_ ({_OPAQUE_霪:1.0__SYM_霪_35_} _OPAQUE_霪:1.0__SYM_霪_102_ _OPAQUE_霪:1.0__SYM_霪_25_).",
+                    "_OPAQUE_霪:1.0__SYM_霪_82_": {"_OPAQUE_霪:1.0__SYM_霪_18_": self._OPAQUE_霪:1.0__SYM_霪_115_, "_OPAQUE_霪:1.0__SYM_霪_62_": _OPAQUE_霪:1.0__SYM_霪_35_}
+                }
+            else:
+                return {
+                    "_OPAQUE_霪:1.0__SYM_霪_107_": "_OPAQUE_霪:1.0__SYM_霪_59_",
+                    "_OPAQUE_霪:1.0__SYM_霪_14_": "_OPAQUE_霪:1.0__SYM_霪_38_",
+                    "_OPAQUE_霪:1.0__SYM_霪_108_": 1.0,
+                    "_OPAQUE_霪:1.0__SYM_霪_113_": f"_OPAQUE_廱:1.0__SYM_廱_5_ in _OPAQUE_霪:1.0__SYM_霪_22_ _OPAQUE_霪:1.0__SYM_霪_25_ _OPAQUE_廱:1.0__SYM_廱_23_ _OPAQUE_霪:1.0__SYM_霪_102_ (_OPAQUE_霪:1.0__SYM_霪_73_ <= {self._OPAQUE_霪:1.0__SYM_霪_115_}, {_OPAQUE_霪:1.0__SYM_霪_35_} _OPAQUE_霪:1.0__SYM_霪_62_).",
+                    "_OPAQUE_霪:1.0__SYM_霪_82_": {"_OPAQUE_霪:1.0__SYM_霪_18_": self._OPAQUE_霪:1.0__SYM_霪_115_, "_OPAQUE_霪:1.0__SYM_霪_62_": _OPAQUE_霪:1.0__SYM_霪_35_}
+                }
+
+        _OPAQUE_霪:1.0__SYM_霪_10_ _OPAQUE_廱:1.0__SYM_廱_46_ as e:
+            return {
+                "_OPAQUE_霪:1.0__SYM_霪_107_": "_OPAQUE_霪:1.0__SYM_霪_106_",
+                "_OPAQUE_霪:1.0__SYM_霪_106_": _OPAQUE_霪:1.0__SYM_霪_51_(e)
+            }
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_69_(self, _OPAQUE_霪:1.0__SYM_霪_18_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_91_], _OPAQUE_霪:1.0__SYM_霪_64_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_51_]) -> _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_項:1.0__SYM_傑_2_[_OPAQUE_廱:1.0__SYM_廱_14_[_OPAQUE_霪:1.0__SYM_霪_91_, _OPAQUE_霪:1.0__SYM_霪_91_]]]:
+        _OPAQUE_霪:1.0__SYM_霪_17_ = [(i, j) for i in _OPAQUE_霪:1.0__SYM_霪_18_ for j in _OPAQUE_霪:1.0__SYM_霪_18_]
+        _OPAQUE_霪:1.0__SYM_霪_47_ = []
+        
+// [metadata-stripped]
+        _OPAQUE_霪:1.0__SYM_霪_36_ = any("_OPAQUE_霪:1.0__SYM_霪_50_" in a for a in _OPAQUE_霪:1.0__SYM_霪_64_)
+        _OPAQUE_霪:1.0__SYM_霪_72_ = any("_OPAQUE_霪:1.0__SYM_霪_55_" in a for a in _OPAQUE_霪:1.0__SYM_霪_64_)
+        _OPAQUE_霪:1.0__SYM_霪_31_ = any("_OPAQUE_霪:1.0__SYM_霪_28_" in a for a in _OPAQUE_霪:1.0__SYM_霪_64_)
+        _OPAQUE_霪:1.0__SYM_霪_6_ = any("_OPAQUE_霪:1.0__SYM_霪_52_" in a for a in _OPAQUE_霪:1.0__SYM_霪_64_)
+        
+        for _OPAQUE_霪:1.0__SYM_霪_71_ in _OPAQUE_霪:1.0__SYM_霪_96_._OPAQUE_霪:1.0__SYM_霪_23_([_OPAQUE_廱:1.0__SYM_廱_36_, _OPAQUE_廱:1.0__SYM_廱_6_], _OPAQUE_霪:1.0__SYM_霪_83_=_OPAQUE_霪:1.0__SYM_霪_58_(_OPAQUE_霪:1.0__SYM_霪_17_)):
+            R = {_OPAQUE_霪:1.0__SYM_霪_17_[i] for i, b in _OPAQUE_霪:1.0__SYM_霪_76_(_OPAQUE_霪:1.0__SYM_霪_71_) if b}
+            
+            if _OPAQUE_霪:1.0__SYM_霪_36_ _OPAQUE_霪:1.0__SYM_霪_49_ _OPAQUE_霪:1.0__SYM_霪_27_ _OPAQUE_霪:1.0__SYM_霪_22_((w,w) in R for w in _OPAQUE_霪:1.0__SYM_霪_18_): continue
+            if _OPAQUE_霪:1.0__SYM_霪_6_ _OPAQUE_霪:1.0__SYM_霪_49_ _OPAQUE_霪:1.0__SYM_霪_27_ _OPAQUE_霪:1.0__SYM_霪_22_(any((w,v) in R for v in _OPAQUE_霪:1.0__SYM_霪_18_) for w in _OPAQUE_霪:1.0__SYM_霪_18_): continue
+            if _OPAQUE_霪:1.0__SYM_霪_31_ _OPAQUE_霪:1.0__SYM_霪_49_ _OPAQUE_霪:1.0__SYM_霪_27_ _OPAQUE_霪:1.0__SYM_霪_22_((v,w) in R for (w,v) in R): continue
+            if _OPAQUE_霪:1.0__SYM_霪_72_ _OPAQUE_霪:1.0__SYM_霪_49_ _OPAQUE_霪:1.0__SYM_霪_27_ self._OPAQUE_霪:1.0__SYM_霪_44_(R): continue
+            
+            _OPAQUE_霪:1.0__SYM_霪_47_._OPAQUE_霪:1.0__SYM_霪_104_(R)
+        return _OPAQUE_霪:1.0__SYM_霪_47_
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_44_(self, R: _OPAQUE_項:1.0__SYM_傑_2_[_OPAQUE_廱:1.0__SYM_廱_14_[_OPAQUE_霪:1.0__SYM_霪_91_, _OPAQUE_霪:1.0__SYM_霪_91_]]) -> _OPAQUE_霪:1.0__SYM_霪_56_:
+        for (a, b) in R:
+            for (c, d) in R:
+                if b == c _OPAQUE_霪:1.0__SYM_霪_49_ (a, d) _OPAQUE_霪:1.0__SYM_霪_27_ in R: return _OPAQUE_廱:1.0__SYM_廱_36_
+        return _OPAQUE_廱:1.0__SYM_廱_6_
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_74_(self, _OPAQUE_霪:1.0__SYM_霪_18_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_91_], _OPAQUE_霪:1.0__SYM_霪_118_: _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_51_]) -> _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_廱:1.0__SYM_廱_35_[_OPAQUE_霪:1.0__SYM_霪_91_, _OPAQUE_廱:1.0__SYM_廱_35_[_OPAQUE_霪:1.0__SYM_霪_51_, _OPAQUE_霪:1.0__SYM_霪_56_]]]:
+        _OPAQUE_霪:1.0__SYM_霪_41_ = []
+// [metadata-stripped]
+        for _OPAQUE_霪:1.0__SYM_霪_71_ in _OPAQUE_霪:1.0__SYM_霪_96_._OPAQUE_霪:1.0__SYM_霪_23_([_OPAQUE_廱:1.0__SYM_廱_36_, _OPAQUE_廱:1.0__SYM_廱_6_], _OPAQUE_霪:1.0__SYM_霪_83_=_OPAQUE_霪:1.0__SYM_霪_58_(_OPAQUE_霪:1.0__SYM_霪_18_) * _OPAQUE_霪:1.0__SYM_霪_58_(_OPAQUE_霪:1.0__SYM_霪_118_)):
+            V = {}
+            _OPAQUE_霪:1.0__SYM_霪_68_ = 0
+            for w in _OPAQUE_霪:1.0__SYM_霪_18_:
+                V[w] = {}
+                for a in _OPAQUE_霪:1.0__SYM_霪_118_:
+                    V[w][a] = _OPAQUE_霪:1.0__SYM_霪_71_[_OPAQUE_霪:1.0__SYM_霪_68_]
+                    _OPAQUE_霪:1.0__SYM_霪_68_ += 1
+            _OPAQUE_霪:1.0__SYM_霪_41_._OPAQUE_霪:1.0__SYM_霪_104_(V)
+        return _OPAQUE_霪:1.0__SYM_霪_41_
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_60_(self, _OPAQUE_霪:1.0__SYM_霪_12_: _OPAQUE_廱:1.0__SYM_廱_2_, _OPAQUE_霪:1.0__SYM_霪_8_: _OPAQUE_廱:1.0__SYM_廱_14_[_OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_91_], _OPAQUE_項:1.0__SYM_傑_2_[_OPAQUE_廱:1.0__SYM_廱_14_[_OPAQUE_霪:1.0__SYM_霪_91_, _OPAQUE_霪:1.0__SYM_霪_91_]], _OPAQUE_廱:1.0__SYM_廱_35_[_OPAQUE_霪:1.0__SYM_霪_91_, _OPAQUE_廱:1.0__SYM_廱_35_[_OPAQUE_霪:1.0__SYM_霪_51_, _OPAQUE_霪:1.0__SYM_霪_56_]]], w: _OPAQUE_霪:1.0__SYM_霪_91_) -> _OPAQUE_霪:1.0__SYM_霪_56_:
+        _OPAQUE_霪:1.0__SYM_霪_18_, R, V = _OPAQUE_霪:1.0__SYM_霪_8_
+        k = _OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_21_
+        
+        if k == "_OPAQUE_廱:1.0__SYM_廱_43_": return V[w]._OPAQUE_項:1.0__SYM_傑_3_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_77_, _OPAQUE_廱:1.0__SYM_廱_36_)
+        if k == "_OPAQUE_廱:1.0__SYM_廱_32_": return _OPAQUE_霪:1.0__SYM_霪_27_ self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_116_, _OPAQUE_霪:1.0__SYM_霪_8_, w)
+        if k == "_OPAQUE_廱:1.0__SYM_廱_44_": return self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_, _OPAQUE_霪:1.0__SYM_霪_8_, w) _OPAQUE_霪:1.0__SYM_霪_49_ self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_, _OPAQUE_霪:1.0__SYM_霪_8_, w)
+        if k == "OR": return self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_, _OPAQUE_霪:1.0__SYM_霪_8_, w) or self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_, _OPAQUE_霪:1.0__SYM_霪_8_, w)
+        if k == "_OPAQUE_廱:1.0__SYM_廱_34_": return (_OPAQUE_霪:1.0__SYM_霪_27_ self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_, _OPAQUE_霪:1.0__SYM_霪_8_, w)) or self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_, _OPAQUE_霪:1.0__SYM_霪_8_, w)
+        if k == "_OPAQUE_廱:1.0__SYM_廱_9_": return self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_, _OPAQUE_霪:1.0__SYM_霪_8_, w) == self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_, _OPAQUE_霪:1.0__SYM_霪_8_, w)
+        
+        if k == "_OPAQUE_廱:1.0__SYM_廱_40_":
+            for v in _OPAQUE_霪:1.0__SYM_霪_18_:
+                if (w, v) in R:
+                    if _OPAQUE_霪:1.0__SYM_霪_27_ self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_116_, _OPAQUE_霪:1.0__SYM_霪_8_, v): return _OPAQUE_廱:1.0__SYM_廱_36_
+            return _OPAQUE_廱:1.0__SYM_廱_6_
+            
+        if k == "_OPAQUE_廱:1.0__SYM_廱_19_":
+            for v in _OPAQUE_霪:1.0__SYM_霪_18_:
+                if (w, v) in R:
+                    if self._OPAQUE_霪:1.0__SYM_霪_60_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_116_, _OPAQUE_霪:1.0__SYM_霪_8_, v): return _OPAQUE_廱:1.0__SYM_廱_6_
+            return _OPAQUE_廱:1.0__SYM_廱_36_
+            
+        _OPAQUE_霪:1.0__SYM_霪_29_ _OPAQUE_廱:1.0__SYM_廱_10_(f"_OPAQUE_廱:1.0__SYM_廱_15_ _OPAQUE_霪:1.0__SYM_霪_12_: {k}")
+
+// [metadata-stripped]
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_34_(self, _OPAQUE_漕:1.0__SYM_霪_88_: _OPAQUE_霪:1.0__SYM_霪_51_) -> _OPAQUE_廱:1.0__SYM_廱_2_:
+        self._OPAQUE_冥:1.0__SYM_霪_9_ = self._OPAQUE_冥:1.0__SYM_霪_63_(_OPAQUE_漕:1.0__SYM_霪_88_)
+        self._OPAQUE_霪:1.0__SYM_霪_75_ = 0
+        _OPAQUE_霪:1.0__SYM_霪_12_ = self._OPAQUE_霪:1.0__SYM_霪_99_()
+        if self._OPAQUE_霪:1.0__SYM_霪_75_ < _OPAQUE_霪:1.0__SYM_霪_58_(self._OPAQUE_冥:1.0__SYM_霪_9_):
+            _OPAQUE_霪:1.0__SYM_霪_29_ _OPAQUE_廱:1.0__SYM_廱_10_("_OPAQUE_廱:1.0__SYM_廱_42_ _OPAQUE_冥:1.0__SYM_霪_15_ at _OPAQUE_霪:1.0__SYM_霪_11_")
+        return _OPAQUE_霪:1.0__SYM_霪_12_
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_30_(self, _OPAQUE_霪:1.0__SYM_霪_12_: _OPAQUE_廱:1.0__SYM_廱_2_) -> _OPAQUE_項:1.0__SYM_傑_2_[_OPAQUE_霪:1.0__SYM_霪_51_]:
+        if _OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_21_ == "_OPAQUE_廱:1.0__SYM_廱_43_": return {_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_77_}
+        s = _OPAQUE_項:1.0__SYM_傑_1_()
+        if _OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_116_: s |= self._OPAQUE_霪:1.0__SYM_霪_30_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_116_)
+        if _OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_: s |= self._OPAQUE_霪:1.0__SYM_霪_30_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_16_)
+        if _OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_: s |= self._OPAQUE_霪:1.0__SYM_霪_30_(_OPAQUE_霪:1.0__SYM_霪_12_._OPAQUE_霪:1.0__SYM_霪_66_)
+        return s
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_冥:1.0__SYM_霪_63_(self, s: _OPAQUE_霪:1.0__SYM_霪_51_) -> _OPAQUE_廱:1.0__SYM_廱_1_[_OPAQUE_霪:1.0__SYM_霪_51_]:
+        _OPAQUE_霪:1.0__SYM_霪_67_ = []
+        for m in self._OPAQUE_冥:1.0__SYM_霪_39_._OPAQUE_項:1.0__SYM_霪_3_(s):
+            if m._OPAQUE_霪:1.0__SYM_霪_112_(0)._OPAQUE_霪:1.0__SYM_霪_70_(): continue
+            if m._OPAQUE_霪:1.0__SYM_霪_112_(1): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_9_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(2): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_34_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(3): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_44_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(4): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("OR")
+// _OPAQUE_廱:0.3__SYM_DK_546_ [decoy-metadata]
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(5): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_32_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(6): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_40_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(7): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_("_OPAQUE_廱:1.0__SYM_廱_19_")
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(8): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_(m._OPAQUE_霪:1.0__SYM_霪_112_(8))
+            _OPAQUE_漕:1.0__SYM_霪_80_ m._OPAQUE_霪:1.0__SYM_霪_112_(9): _OPAQUE_霪:1.0__SYM_霪_67_._OPAQUE_霪:1.0__SYM_霪_104_(m._OPAQUE_霪:1.0__SYM_霪_112_(9))
+        return _OPAQUE_霪:1.0__SYM_霪_67_
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_86_(self): return self._OPAQUE_冥:1.0__SYM_霪_9_[self._OPAQUE_霪:1.0__SYM_霪_75_] if self._OPAQUE_霪:1.0__SYM_霪_75_ < _OPAQUE_霪:1.0__SYM_霪_58_(self._OPAQUE_冥:1.0__SYM_霪_9_) else _OPAQUE_廱:1.0__SYM_廱_26_
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_114_(self, ex=_OPAQUE_廱:1.0__SYM_廱_26_):
+        t = self._OPAQUE_霪:1.0__SYM_霪_86_()
+        if ex _OPAQUE_霪:1.0__SYM_霪_49_ t != ex: _OPAQUE_霪:1.0__SYM_霪_29_ _OPAQUE_廱:1.0__SYM_廱_10_(f"_OPAQUE_廱:1.0__SYM_廱_29_ {ex}, _OPAQUE_霪:1.0__SYM_霪_19_ {t}")
+        self._OPAQUE_霪:1.0__SYM_霪_75_ += 1
+        return t
+
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_99_(self): return self._OPAQUE_漕:1.0__SYM_霪_53_()
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_漕:1.0__SYM_霪_53_(self):
+        n = self._OPAQUE_霪:1.0__SYM_霪_13_()
+// _OPAQUE_漕:0.1__SYM_MX_126_ [decoy-metadata]
+        while self._OPAQUE_霪:1.0__SYM_霪_86_() == "_OPAQUE_廱:1.0__SYM_廱_9_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+// _OPAQUE_冥:0.1__SYM_MV_248_ [decoy-metadata]
+            n = _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_9_", _OPAQUE_霪:1.0__SYM_霪_16_=n, _OPAQUE_霪:1.0__SYM_霪_66_=self._OPAQUE_霪:1.0__SYM_霪_13_())
+        return n
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_13_(self):
+        n = self._OPAQUE_霪:1.0__SYM_霪_103_()
+        while self._OPAQUE_霪:1.0__SYM_霪_86_() == "_OPAQUE_廱:1.0__SYM_廱_34_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            n = _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_34_", _OPAQUE_霪:1.0__SYM_霪_16_=n, _OPAQUE_霪:1.0__SYM_霪_66_=self._OPAQUE_霪:1.0__SYM_霪_13_()) # _OPAQUE_廱:1.0__SYM_廱_30_ _OPAQUE_霪:1.0__SYM_霪_45_
+        return n
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_103_(self):
+        n = self._OPAQUE_霪:1.0__SYM_霪_40_()
+        while self._OPAQUE_霪:1.0__SYM_霪_86_() == "OR":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            n = _OPAQUE_廱:1.0__SYM_廱_2_("OR", _OPAQUE_霪:1.0__SYM_霪_16_=n, _OPAQUE_霪:1.0__SYM_霪_66_=self._OPAQUE_霪:1.0__SYM_霪_40_())
+        return n
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_40_(self):
+        n = self._OPAQUE_霪:1.0__SYM_霪_4_()
+        while self._OPAQUE_霪:1.0__SYM_霪_86_() == "_OPAQUE_廱:1.0__SYM_廱_44_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            n = _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_44_", _OPAQUE_霪:1.0__SYM_霪_16_=n, _OPAQUE_霪:1.0__SYM_霪_66_=self._OPAQUE_霪:1.0__SYM_霪_4_())
+        return n
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_4_(self):
+        t = self._OPAQUE_霪:1.0__SYM_霪_86_()
+        if t == "_OPAQUE_廱:1.0__SYM_廱_32_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            return _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_32_", _OPAQUE_霪:1.0__SYM_霪_116_=self._OPAQUE_霪:1.0__SYM_霪_4_())
+        if t == "_OPAQUE_廱:1.0__SYM_廱_40_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            return _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_40_", _OPAQUE_霪:1.0__SYM_霪_116_=self._OPAQUE_霪:1.0__SYM_霪_4_())
+        if t == "_OPAQUE_廱:1.0__SYM_廱_19_":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            return _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_19_", _OPAQUE_霪:1.0__SYM_霪_116_=self._OPAQUE_霪:1.0__SYM_霪_4_())
+        return self._OPAQUE_霪:1.0__SYM_霪_57_()
+    _OPAQUE_霪:1.0__SYM_霪_98_ _OPAQUE_霪:1.0__SYM_霪_57_(self):
+        t = self._OPAQUE_霪:1.0__SYM_霪_86_()
+        if t == "(":
+            self._OPAQUE_霪:1.0__SYM_霪_114_()
+            n = self._OPAQUE_霪:1.0__SYM_霪_99_()
+            self._OPAQUE_霪:1.0__SYM_霪_114_(")")
+            return n
+        if t in ("_OPAQUE_廱:1.0__SYM_廱_44_","OR","_OPAQUE_廱:1.0__SYM_廱_34_","_OPAQUE_廱:1.0__SYM_廱_9_","_OPAQUE_廱:1.0__SYM_廱_32_","_OPAQUE_廱:1.0__SYM_廱_40_","_OPAQUE_廱:1.0__SYM_廱_19_",")",_OPAQUE_廱:1.0__SYM_廱_26_):
+            _OPAQUE_霪:1.0__SYM_霪_29_ _OPAQUE_廱:1.0__SYM_廱_10_(f"_OPAQUE_廱:1.0__SYM_廱_42_: {t}")
+        self._OPAQUE_霪:1.0__SYM_霪_114_()
+        return _OPAQUE_廱:1.0__SYM_廱_2_("_OPAQUE_廱:1.0__SYM_廱_43_", _OPAQUE_霪:1.0__SYM_霪_77_=t)
+// POLYMORPHIC_JCROSS_END

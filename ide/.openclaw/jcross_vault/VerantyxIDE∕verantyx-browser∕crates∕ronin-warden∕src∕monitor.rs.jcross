@@ -1,0 +1,56 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AE7206E1 ver:1778149693
+// _SYM_霢:0.2__OPAQUE_AG_527_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+_SYM_霢:1.0__OPAQUE_霢_11_ _SYM_霢:1.0__OPAQUE_霢_25_::_SYM_廊:1.0__OPAQUE_廊_10_;
+_SYM_霢:1.0__OPAQUE_霢_11_ _SYM_霢:1.0__OPAQUE_霢_21_::_SYM_霢:1.0__OPAQUE_霢_15_;
+// _SYM_霢:0.2__OPAQUE_LG_653_ [decoy-metadata]
+
+_SYM_霢:1.0__OPAQUE_霢_35_ struct _SYM_廊:1.0__OPAQUE_廊_7_ {
+    _SYM_霢:1.0__OPAQUE_霢_18_: _SYM_廊:1.0__OPAQUE_廊_10_,
+    _SYM_霢:1.0__OPAQUE_霢_29_: _SYM_霢:1.0__OPAQUE_霢_12_,
+    _SYM_霢:1.0__OPAQUE_霢_6_: _SYM_霢:1.0__OPAQUE_霢_45_,
+}
+
+_SYM_霢:1.0__OPAQUE_霢_9_ _SYM_廊:1.0__OPAQUE_廊_3_ for _SYM_廊:1.0__OPAQUE_廊_7_ {
+    fn _SYM_霢:1.0__OPAQUE_霢_38_() -> _SYM_廊:1.0__OPAQUE_廊_1_ {
+        _SYM_廊:1.0__OPAQUE_廊_1_ {
+            _SYM_霢:1.0__OPAQUE_霢_18_: _SYM_廊:1.0__OPAQUE_廊_10_::_SYM_霢:1.0__OPAQUE_霢_2_(),
+            _SYM_霢:1.0__OPAQUE_霢_29_: 4096, // _SYM_廊:1.0__OPAQUE_廊_3_ 4GB _SYM_霢:1.0__OPAQUE_霢_14_ _SYM_式:1.0__OPAQUE_霢_17_ _SYM_霢:1.0__OPAQUE_霢_34_ _SYM_霢:1.0__OPAQUE_霢_26_ _SYM_霢:1.0__OPAQUE_霢_23_
+// _SYM_錠:0.6__OPAQUE_MW_237_ [decoy-metadata]
+            _SYM_霢:1.0__OPAQUE_霢_6_: false,
+        }
+    }
+// _SYM_錠:0.3__OPAQUE_KK_777_ [decoy-metadata]
+}
+
+_SYM_霢:1.0__OPAQUE_霢_9_ _SYM_廊:1.0__OPAQUE_廊_7_ {
+    _SYM_霢:1.0__OPAQUE_霢_35_ fn _SYM_霢:1.0__OPAQUE_霢_28_(_SYM_霢:1.0__OPAQUE_霢_29_: _SYM_霢:1.0__OPAQUE_霢_12_) -> _SYM_廊:1.0__OPAQUE_廊_1_ {
+// _SYM_游:0.4__OPAQUE_FK_904_ [decoy-metadata]
+        _SYM_廊:1.0__OPAQUE_廊_1_ {
+            _SYM_霢:1.0__OPAQUE_霢_18_: _SYM_廊:1.0__OPAQUE_廊_10_::_SYM_霢:1.0__OPAQUE_霢_2_(),
+            _SYM_霢:1.0__OPAQUE_霢_29_,
+            _SYM_霢:1.0__OPAQUE_霢_6_: false,
+        }
+    }
+
+// [metadata-stripped]
+// _SYM_錠:0.3__OPAQUE_ZE_892_ [decoy-metadata]
+    _SYM_霢:1.0__OPAQUE_霢_35_ fn _SYM_霢:1.0__OPAQUE_霢_5_(&_SYM_霢:1.0__OPAQUE_霢_48_ self) -> _SYM_霢:1.0__OPAQUE_霢_42_::_SYM_廊:1.0__OPAQUE_廊_5_<()> {
+        self._SYM_霢:1.0__OPAQUE_霢_18_._SYM_霢:1.0__OPAQUE_霢_20_();
+        
+        let _SYM_霢:1.0__OPAQUE_霢_3_ = self._SYM_霢:1.0__OPAQUE_霢_18_._SYM_霢:1.0__OPAQUE_霢_33_() / 1024 / 1024;
+        let _SYM_霢:1.0__OPAQUE_霢_30_ = self._SYM_霢:1.0__OPAQUE_霢_18_._SYM_霢:1.0__OPAQUE_霢_47_() / 1024 / 1024;
+
+        if _SYM_霢:1.0__OPAQUE_霢_30_ > self._SYM_霢:1.0__OPAQUE_霢_29_ && !self._SYM_霢:1.0__OPAQUE_霢_6_ {
+            _SYM_霢:1.0__OPAQUE_霢_15_!("[_SYM_廊:1.0__OPAQUE_廊_2_] _SYM_廊:1.0__OPAQUE_廊_10_ _SYM_霢:1.0__OPAQUE_霢_37_ _SYM_霢:1.0__OPAQUE_霢_31_ _SYM_霢:1.0__OPAQUE_霢_24_ _SYM_霢:1.0__OPAQUE_霢_22_: {}MB / {}MB _SYM_霢:1.0__OPAQUE_霢_14_", _SYM_霢:1.0__OPAQUE_霢_30_, self._SYM_霢:1.0__OPAQUE_霢_29_);
+            self._SYM_霢:1.0__OPAQUE_霢_6_ = true; // ⚠️ _SYM_廊:1.0__OPAQUE_廊_9_ _SYM_霢:1.0__OPAQUE_霢_15_ _SYM_霢:1.0__OPAQUE_霢_46_ to _SYM_霢:1.0__OPAQUE_霢_13_ _SYM_霢:1.0__OPAQUE_霢_19_ _SYM_霢:1.0__OPAQUE_霢_27_ _SYM_廊:1.0__OPAQUE_廊_6_ UX
+// [metadata-stripped]
+        }
+
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

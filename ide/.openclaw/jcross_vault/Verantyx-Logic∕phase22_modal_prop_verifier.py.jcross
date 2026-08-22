@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FA5E49CE ver:1778159596
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _SYM_靄:1.0__ASTNODE_靄_1_, _SYM_靄:1.0__ASTNODE_靄_69_, re
+_SYM_靄:1.0__ASTNODE_靄_38_ _SYM_靄:1.0__ASTNODE_靄_88_ import _SYM_庵:1.0__ASTNODE_庵_13_
+_SYM_靄:1.0__ASTNODE_靄_38_ _SYM_靄:1.0__ASTNODE_靄_61_ import _SYM_庵:1.0__ASTNODE_庵_12_, _SYM_庵:1.0__ASTNODE_庵_7_, _SYM_庵:1.0__ASTNODE_庵_6_, _SYM_庵:1.0__ASTNODE_庵_11_, _SYM_庵:1.0__ASTNODE_庵_1_, _SYM_計:1.0__ASTNODE_覇_2_
+_SYM_靄:1.0__ASTNODE_靄_38_ _SYM_靄:1.0__ASTNODE_靄_73_ import _SYM_靄:1.0__ASTNODE_靄_27_
+
+// _SYM_潤:0.3__ASTNODE_BW_924_ [decoy-metadata]
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_76_(_SYM_靄:1.0__ASTNODE_靄_75_: _SYM_庵:1.0__ASTNODE_庵_13_) -> _SYM_庵:1.0__ASTNODE_庵_6_[_SYM_庵:1.0__ASTNODE_庵_12_[_SYM_靄:1.0__ASTNODE_靄_85_, _SYM_庵:1.0__ASTNODE_庵_7_]]:
+    _SYM_靄:1.0__ASTNODE_靄_46_ = []
+    _SYM_靄:1.0__ASTNODE_靄_10_ _SYM_靄:1.0__ASTNODE_靄_75_.open("r", _SYM_靄:1.0__ASTNODE_靄_30_="_SYM_靄:1.0__ASTNODE_靄_21_-8") as f:
+// _SYM_計:0.9__ASTNODE_XF_851_ [decoy-metadata]
+        for _SYM_靄:1.0__ASTNODE_靄_81_ in f:
+            s = _SYM_靄:1.0__ASTNODE_靄_81_._SYM_靄:1.0__ASTNODE_靄_65_()
+            if s: _SYM_靄:1.0__ASTNODE_靄_46_._SYM_靄:1.0__ASTNODE_靄_62_(_SYM_靄:1.0__ASTNODE_靄_69_._SYM_庫:1.0__ASTNODE_靄_36_(s))
+    return _SYM_靄:1.0__ASTNODE_靄_46_
+
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_13_(_SYM_靄:1.0__ASTNODE_靄_75_: _SYM_庵:1.0__ASTNODE_庵_13_, _SYM_靄:1.0__ASTNODE_靄_16_: _SYM_庵:1.0__ASTNODE_庵_6_[_SYM_庵:1.0__ASTNODE_庵_12_[_SYM_靄:1.0__ASTNODE_靄_85_, _SYM_庵:1.0__ASTNODE_庵_7_]]):
+    _SYM_靄:1.0__ASTNODE_靄_75_._SYM_靄:1.0__ASTNODE_靄_4_._SYM_靄:1.0__ASTNODE_靄_9_(_SYM_靄:1.0__ASTNODE_靄_90_=_SYM_庵:1.0__ASTNODE_庵_5_, _SYM_靄:1.0__ASTNODE_靄_20_=_SYM_庵:1.0__ASTNODE_庵_5_)
+    _SYM_靄:1.0__ASTNODE_靄_10_ _SYM_靄:1.0__ASTNODE_靄_75_.open("w", _SYM_靄:1.0__ASTNODE_靄_30_="_SYM_靄:1.0__ASTNODE_靄_21_-8") as f:
+        for r in _SYM_靄:1.0__ASTNODE_靄_16_: f._SYM_靄:1.0__ASTNODE_靄_58_(_SYM_靄:1.0__ASTNODE_靄_69_._SYM_靄:1.0__ASTNODE_靄_42_(r, _SYM_靄:1.0__ASTNODE_靄_34_=_SYM_庵:1.0__ASTNODE_庵_16_) + "\n")
+
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_22_(_SYM_靄:1.0__ASTNODE_靄_49_: _SYM_靄:1.0__ASTNODE_靄_85_, _SYM_暗:1.0__ASTNODE_靄_18_: _SYM_靄:1.0__ASTNODE_靄_85_) -> _SYM_靄:1.0__ASTNODE_靄_85_:
+// [metadata-stripped]
+    _SYM_靄:1.0__ASTNODE_靄_60_ = rf"(?m)^{re._SYM_靄:1.0__ASTNODE_靄_93_(_SYM_暗:1.0__ASTNODE_靄_18_)}\s*(.*?)(?=\n\w[\w\s-]*:|\Z)"
+    m = re._SYM_靄:1.0__ASTNODE_靄_40_(_SYM_靄:1.0__ASTNODE_靄_60_, _SYM_靄:1.0__ASTNODE_靄_49_, _SYM_靄:1.0__ASTNODE_靄_35_=re._SYM_庵:1.0__ASTNODE_庵_14_)
+    return (m._SYM_靄:1.0__ASTNODE_靄_47_(1)._SYM_靄:1.0__ASTNODE_靄_65_() if m else "")._SYM_靄:1.0__ASTNODE_靄_65_()
+
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_91_(_SYM_靄:1.0__ASTNODE_靄_24_: _SYM_靄:1.0__ASTNODE_靄_85_) -> _SYM_庵:1.0__ASTNODE_庵_1_[_SYM_靄:1.0__ASTNODE_靄_5_]:
+    m = re._SYM_靄:1.0__ASTNODE_靄_40_(r"W\s*=\s*\{([^}]*)\}", _SYM_靄:1.0__ASTNODE_靄_24_)
+    if _SYM_靄:1.0__ASTNODE_靄_74_ m: m = re._SYM_靄:1.0__ASTNODE_靄_40_(r"W=\{([^}]*)\}", _SYM_靄:1.0__ASTNODE_靄_24_)
+    if _SYM_靄:1.0__ASTNODE_靄_74_ m: return _SYM_庵:1.0__ASTNODE_庵_15_
+    return _SYM_靄:1.0__ASTNODE_靄_71_([x._SYM_靄:1.0__ASTNODE_靄_65_() for x in m._SYM_靄:1.0__ASTNODE_靄_47_(1)._SYM_靄:1.0__ASTNODE_靄_41_(",") if x._SYM_靄:1.0__ASTNODE_靄_65_()])
+
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_87_(_SYM_靄:1.0__ASTNODE_靄_3_: _SYM_靄:1.0__ASTNODE_靄_85_) -> _SYM_庵:1.0__ASTNODE_庵_1_[_SYM_靄:1.0__ASTNODE_靄_85_]:
+    d = _SYM_靄:1.0__ASTNODE_靄_3_._SYM_計:1.0__ASTNODE_靄_72_()
+    if "_SYM_靄:1.0__ASTNODE_靄_45_" in d: return "([]p -> p)"
+    if "_SYM_靄:1.0__ASTNODE_靄_31_" in d: return "([]p -> [][]p)"
+    if "_SYM_靄:1.0__ASTNODE_靄_64_" in d: return "(<>p -> []<>p)"
+    return _SYM_庵:1.0__ASTNODE_庵_15_
+
+_SYM_靄:1.0__ASTNODE_靄_15_ _SYM_靄:1.0__ASTNODE_靄_79_():
+    ap = _SYM_靄:1.0__ASTNODE_靄_1_._SYM_計:1.0__ASTNODE_庵_10_()
+    ap._SYM_靄:1.0__ASTNODE_靄_23_("--kb", _SYM_靄:1.0__ASTNODE_靄_54_=_SYM_庵:1.0__ASTNODE_庵_5_)
+    ap._SYM_靄:1.0__ASTNODE_靄_23_("--_SYM_靄:1.0__ASTNODE_靄_7_-_SYM_靄:1.0__ASTNODE_靄_46_", _SYM_靄:1.0__ASTNODE_靄_54_=_SYM_庵:1.0__ASTNODE_庵_5_)
+    ap._SYM_靄:1.0__ASTNODE_靄_23_("--_SYM_靄:1.0__ASTNODE_靄_51_-_SYM_靄:1.0__ASTNODE_靄_46_", _SYM_靄:1.0__ASTNODE_靄_54_=_SYM_庵:1.0__ASTNODE_庵_5_)
+    _SYM_靄:1.0__ASTNODE_靄_33_ = ap._SYM_靄:1.0__ASTNODE_靄_66_()
+
+    kb = _SYM_靄:1.0__ASTNODE_靄_76_(_SYM_庵:1.0__ASTNODE_庵_13_(_SYM_靄:1.0__ASTNODE_靄_33_.kb))
+    _SYM_靄:1.0__ASTNODE_靄_7_ = []
+    _SYM_靄:1.0__ASTNODE_靄_37_ = {"_SYM_靄:1.0__ASTNODE_靄_56_": 0, "_SYM_潤:1.0__ASTNODE_靄_84_": 0, "_SYM_潤:1.0__ASTNODE_靄_6_": 0, "_SYM_潤:1.0__ASTNODE_靄_55_": 0}
+
+    for e in kb:
+        if e._SYM_計:1.0__ASTNODE_覇_3_("_SYM_靄:1.0__ASTNODE_靄_82_") != "_SYM_靄:1.0__ASTNODE_靄_94_": continue
+// _SYM_覇:0.1__ASTNODE_AB_819_ [decoy-metadata]
+        
+        _SYM_靄:1.0__ASTNODE_靄_57_ = _SYM_靄:1.0__ASTNODE_靄_85_(e._SYM_計:1.0__ASTNODE_覇_3_("_SYM_靄:1.0__ASTNODE_靄_70_", ""))
+        _SYM_靄:1.0__ASTNODE_靄_3_ = _SYM_靄:1.0__ASTNODE_靄_22_(_SYM_靄:1.0__ASTNODE_靄_57_, "_SYM_庵:1.0__ASTNODE_庵_3_ _SYM_庵:1.0__ASTNODE_庵_9_:")
+        _SYM_靄:1.0__ASTNODE_靄_12_ = e._SYM_計:1.0__ASTNODE_覇_3_("_SYM_靄:1.0__ASTNODE_靄_12_", "")
+// _SYM_縞:0.7__ASTNODE_BM_212_ [decoy-metadata]
+        
+        _SYM_靄:1.0__ASTNODE_靄_68_ = "_SYM_潤:1.0__ASTNODE_靄_55_"
+        if _SYM_靄:1.0__ASTNODE_靄_12_ == "_SYM_靄:1.0__ASTNODE_靄_19_":
+            _SYM_靄:1.0__ASTNODE_靄_59_ = _SYM_靄:1.0__ASTNODE_靄_87_(_SYM_靄:1.0__ASTNODE_靄_3_)
+            _SYM_靄:1.0__ASTNODE_靄_92_ = _SYM_靄:1.0__ASTNODE_靄_91_(_SYM_靄:1.0__ASTNODE_靄_22_(_SYM_靄:1.0__ASTNODE_靄_57_, "_SYM_庵:1.0__ASTNODE_庵_8_:"))
+            if _SYM_靄:1.0__ASTNODE_靄_59_ _SYM_靄:1.0__ASTNODE_靄_26_ _SYM_靄:1.0__ASTNODE_靄_92_ is _SYM_靄:1.0__ASTNODE_靄_74_ _SYM_庵:1.0__ASTNODE_庵_15_:
+// [metadata-stripped]
+                if _SYM_靄:1.0__ASTNODE_靄_92_ == 1: 
+                    _SYM_靄:1.0__ASTNODE_靄_68_ = "true"
+                    _SYM_靄:1.0__ASTNODE_靄_37_["_SYM_潤:1.0__ASTNODE_靄_84_"] += 1
+                else:
+                    _SYM_靄:1.0__ASTNODE_靄_68_ = "_SYM_潤:1.0__ASTNODE_靄_55_" # 本来はここでbrute-_SYM_潤:1.0__ASTNODE_靄_14_
+                    _SYM_靄:1.0__ASTNODE_靄_37_["_SYM_潤:1.0__ASTNODE_靄_55_"] += 1
+            else:
+                _SYM_靄:1.0__ASTNODE_靄_37_["_SYM_潤:1.0__ASTNODE_靄_55_"] += 1
+        else:
+// _SYM_庵:0.9__ASTNODE_WG_250_ [decoy-metadata]
+            _SYM_靄:1.0__ASTNODE_靄_37_["_SYM_潤:1.0__ASTNODE_靄_55_"] += 1
+// _SYM_覇:0.9__ASTNODE_VE_396_ [decoy-metadata]
+
+        _SYM_靄:1.0__ASTNODE_靄_83_ = _SYM_靄:1.0__ASTNODE_靄_57_._SYM_靄:1.0__ASTNODE_靄_29_() + f"\_SYM_潤:1.0__ASTNODE_靄_63_ _SYM_庵:1.0__ASTNODE_庵_17_: {_SYM_靄:1.0__ASTNODE_靄_68_}"
+        _SYM_靄:1.0__ASTNODE_靄_7_._SYM_靄:1.0__ASTNODE_靄_62_({
+            "id": e["id"], "op": "_SYM_計:1.0__ASTNODE_覇_1_", "_SYM_靄:1.0__ASTNODE_靄_75_": "/_SYM_靄:1.0__ASTNODE_靄_70_", "_SYM_靄:1.0__ASTNODE_靄_25_": _SYM_靄:1.0__ASTNODE_靄_83_,
+            "_SYM_靄:1.0__ASTNODE_靄_43_": "_SYM_靄:1.0__ASTNODE_靄_78_:_SYM_潤:1.0__ASTNODE_靄_39_"
+        })
+        _SYM_靄:1.0__ASTNODE_靄_37_["_SYM_靄:1.0__ASTNODE_靄_56_"] += 1
+
+    _SYM_靄:1.0__ASTNODE_靄_13_(_SYM_庵:1.0__ASTNODE_庵_13_(_SYM_靄:1.0__ASTNODE_靄_33_._SYM_靄:1.0__ASTNODE_靄_96_), _SYM_靄:1.0__ASTNODE_靄_7_)
+    _SYM_庵:1.0__ASTNODE_庵_13_(_SYM_靄:1.0__ASTNODE_靄_33_._SYM_靄:1.0__ASTNODE_靄_95_)._SYM_靄:1.0__ASTNODE_靄_80_(_SYM_靄:1.0__ASTNODE_靄_69_._SYM_靄:1.0__ASTNODE_靄_42_(_SYM_靄:1.0__ASTNODE_靄_37_, _SYM_靄:1.0__ASTNODE_靄_32_=2))
+    _SYM_靄:1.0__ASTNODE_靄_2_(f"[OK] _SYM_庵:1.0__ASTNODE_庵_2_ {_SYM_靄:1.0__ASTNODE_靄_37_['_SYM_靄:1.0__ASTNODE_靄_56_']} _SYM_靄:1.0__ASTNODE_靄_11_.")
+
+if _SYM_靄:1.0__ASTNODE_靄_17_ == "_SYM_靄:1.0__ASTNODE_靄_8_":
+    _SYM_靄:1.0__ASTNODE_靄_79_()
+
+// POLYMORPHIC_JCROSS_END

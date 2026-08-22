@@ -1,0 +1,334 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:03F991C9 ver:1778159868
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+__node_沫:1.0___VERANTYX_沫_80_ .__node_沫:1.0___VERANTYX_沫_159_ import __node_廳:1.0___VERANTYX_廳_15_
+import re
+
+
+__node_廳:1.0___VERANTYX_廳_34_ = __node_業:1.0___VERANTYX_粋_1_("__node_廳:1.0___VERANTYX_廳_10_")
+__node_廳:1.0___VERANTYX_廳_4_ = __node_業:1.0___VERANTYX_粋_1_("Aa")
+__node_廳:1.0___VERANTYX_廳_23_ = __node_業:1.0___VERANTYX_粋_1_("__node_廳:1.0___VERANTYX_廳_32_")
+
+__node_廳:1.0___VERANTYX_廳_7_ = re.__node_沫:1.0___VERANTYX_沫_7_("([__node_廳:1.0___VERANTYX_廳_10_])")
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_廳:1.0___VERANTYX_廳_31_ = re.__node_沫:1.0___VERANTYX_沫_7_(
+    r"[-+]?"  # __node_沫:1.0___VERANTYX_沫_30_ __node_沫:1.0___VERANTYX_沫_17_
+    r"(?:"
+    r"(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?"  # __node_沫:1.0___VERANTYX_沫_89_/__node_沫:1.0___VERANTYX_沫_136_
+    r"|"
+    r"(?:\.[0-9]+(?:[eE][-+]?[0-9]+)?)"  # __node_沫:1.0___VERANTYX_沫_136_ __node_沫:1.0___VERANTYX_沫_81_ __node_沫:1.0___VERANTYX_沫_27_ __node_沫:1.0___VERANTYX_沫_189_ (e.g. '.42')
+    r")"
+)
+__node_廳:1.0___VERANTYX_廳_16_ = re.__node_沫:1.0___VERANTYX_沫_7_("^[01]")
+__node_廳:1.0___VERANTYX_廳_27_ = re.__node_沫:1.0___VERANTYX_沫_7_(f"[, \t]")
+
+
+__node_沫:1.0___VERANTYX_沫_131_ __node_隠:1.0___VERANTYX_沫_38_(__node_沫:1.0___VERANTYX_沫_110_):
+    __node_沫:1.0___VERANTYX_沫_166_ = __node_廳:1.0___VERANTYX_廳_18_
+    for x in __node_廳:1.0___VERANTYX_廳_7_.__node_沫:1.0___VERANTYX_沫_68_(__node_沫:1.0___VERANTYX_沫_110_):
+        if x in __node_廳:1.0___VERANTYX_廳_34_:
+            __node_沫:1.0___VERANTYX_沫_166_ = x if x in __node_廳:1.0___VERANTYX_廳_4_ else __node_廳:1.0___VERANTYX_廳_18_
+            __node_沫:1.0___VERANTYX_沫_25_ x
+            continue
+
+        if __node_沫:1.0___VERANTYX_沫_166_:
+            try:
+                __node_沫:1.0___VERANTYX_沫_25_ __node_沫:1.0___VERANTYX_沫_80_ __node_隠:1.0___VERANTYX_沫_44_(x)
+            __node_沫:1.0___VERANTYX_沫_199_ __node_廳:1.0___VERANTYX_廳_9_ as e:
+                __node_沫:1.0___VERANTYX_沫_119_ __node_廳:1.0___VERANTYX_廳_9_(f"__node_廳:1.0___VERANTYX_廳_5_ __node_沫:1.0___VERANTYX_沫_159_ __node_沫:1.0___VERANTYX_沫_130_: '{__node_沫:1.0___VERANTYX_沫_166_}{x}'") __node_沫:1.0___VERANTYX_沫_80_ e
+        else:
+            for __node_隠:1.0___VERANTYX_沫_95_ in __node_廳:1.0___VERANTYX_廳_31_.__node_沫:1.0___VERANTYX_沫_192_(x):
+                __node_沫:1.0___VERANTYX_沫_25_ __node_隠:1.0___VERANTYX_沫_95_
+
+
+__node_廳:1.0___VERANTYX_廳_29_ = (
+    ("rx", __node_廳:1.0___VERANTYX_廳_31_),
+    ("ry", __node_廳:1.0___VERANTYX_廳_31_),
+    ("x-__node_沫:1.0___VERANTYX_沫_175_-__node_沫:1.0___VERANTYX_沫_35_", __node_廳:1.0___VERANTYX_廳_31_),
+    ("__node_沫:1.0___VERANTYX_沫_125_-__node_沫:1.0___VERANTYX_沫_159_-__node_沫:1.0___VERANTYX_沫_69_", __node_廳:1.0___VERANTYX_廳_16_),
+    ("__node_沫:1.0___VERANTYX_沫_187_-__node_沫:1.0___VERANTYX_沫_69_", __node_廳:1.0___VERANTYX_廳_16_),
+    ("x", __node_廳:1.0___VERANTYX_廳_31_),
+    ("y", __node_廳:1.0___VERANTYX_廳_31_),
+)
+
+
+__node_沫:1.0___VERANTYX_沫_131_ __node_隠:1.0___VERANTYX_沫_44_(__node_沫:1.0___VERANTYX_沫_13_):
+    __node_沫:1.0___VERANTYX_沫_106_ = [s for s in __node_廳:1.0___VERANTYX_廳_27_.__node_沫:1.0___VERANTYX_沫_68_(__node_沫:1.0___VERANTYX_沫_13_) if s]
+    if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_106_:
+        __node_沫:1.0___VERANTYX_沫_119_ __node_廳:1.0___VERANTYX_廳_9_(f"__node_廳:1.0___VERANTYX_廳_39_ __node_沫:1.0___VERANTYX_沫_21_ __node_沫:1.0___VERANTYX_沫_49_: '{__node_沫:1.0___VERANTYX_沫_13_}'")
+    __node_沫:1.0___VERANTYX_沫_106_.__node_沫:1.0___VERANTYX_沫_61_()
+
+    i = 0
+    while __node_沫:1.0___VERANTYX_沫_106_:
+        __node_沫:1.0___VERANTYX_沫_114_ = __node_沫:1.0___VERANTYX_沫_106_.__node_沫:1.0___VERANTYX_沫_99_()
+
+        __node_沫:1.0___VERANTYX_沫_141_, __node_沫:1.0___VERANTYX_沫_4_ = __node_廳:1.0___VERANTYX_廳_29_[i]
+        __node_沫:1.0___VERANTYX_沫_50_ = __node_沫:1.0___VERANTYX_沫_4_.__node_沫:1.0___VERANTYX_沫_79_(__node_沫:1.0___VERANTYX_沫_114_)
+        if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_50_:
+            __node_沫:1.0___VERANTYX_沫_119_ __node_廳:1.0___VERANTYX_廳_9_(f"__node_廳:1.0___VERANTYX_廳_5_ __node_沫:1.0___VERANTYX_沫_167_ for '{__node_沫:1.0___VERANTYX_沫_141_}' __node_業:1.0___VERANTYX_沫_11_: {__node_沫:1.0___VERANTYX_沫_114_!r}")
+
+        j, k = __node_沫:1.0___VERANTYX_沫_50_.__node_沫:1.0___VERANTYX_沫_12_()
+        __node_沫:1.0___VERANTYX_沫_25_ __node_沫:1.0___VERANTYX_沫_114_[j:k]
+        __node_沫:1.0___VERANTYX_沫_114_ = __node_沫:1.0___VERANTYX_沫_114_[k:]
+
+        if __node_沫:1.0___VERANTYX_沫_114_:
+            __node_沫:1.0___VERANTYX_沫_106_.__node_沫:1.0___VERANTYX_沫_43_(__node_沫:1.0___VERANTYX_沫_114_)
+
+// [metadata-stripped]
+        if i == 6:
+            i = 0
+        else:
+            i += 1
+
+    if i != 0:
+        __node_沫:1.0___VERANTYX_沫_119_ __node_廳:1.0___VERANTYX_廳_9_(f"__node_廳:1.0___VERANTYX_廳_39_ __node_沫:1.0___VERANTYX_沫_21_ __node_沫:1.0___VERANTYX_沫_49_: '{__node_沫:1.0___VERANTYX_沫_13_}'")
+
+
+__node_沫:1.0___VERANTYX_沫_131_ __node_沫:1.0___VERANTYX_沫_140_(__node_沫:1.0___VERANTYX_沫_110_, __node_沫:1.0___VERANTYX_沫_196_, __node_沫:1.0___VERANTYX_沫_193_=(0, 0), __node_沫:1.0___VERANTYX_沫_127_=__node_廳:1.0___VERANTYX_廳_15_):
+    """__node_廳:1.0___VERANTYX_廳_28_ __node_廳:1.0___VERANTYX_廳_1_ __node_沫:1.0___VERANTYX_沫_10_ __node_沫:1.0___VERANTYX_沫_74_ (i.e. "d" __node_沫:1.0___VERANTYX_沫_8_ of <__node_沫:1.0___VERANTYX_沫_10_> __node_沫:1.0___VERANTYX_沫_56_)
+    __node_沫:1.0___VERANTYX_沫_97_ __node_沫:1.0___VERANTYX_沫_145_ a '__node_沫:1.0___VERANTYX_沫_196_' __node_沫:1.0___VERANTYX_沫_55_'s __node_沫:1.0___VERANTYX_沫_28_, __node_沫:1.0___VERANTYX_沫_67_, __node_沫:1.0___VERANTYX_沫_173_, __node_沫:1.0___VERANTYX_沫_117_ __node_沫:1.0___VERANTYX_沫_97_ __node_沫:1.0___VERANTYX_沫_60_
+    __node_沫:1.0___VERANTYX_沫_194_.
+
+    If '__node_沫:1.0___VERANTYX_沫_193_' (2-__node_沫:1.0___VERANTYX_沫_136_ __node_沫:1.0___VERANTYX_沫_137_) is __node_沫:1.0___VERANTYX_沫_188_, __node_沫:1.0___VERANTYX_沫_105_ __node_沫:1.0___VERANTYX_沫_108_ __node_沫:1.0___VERANTYX_沫_28_ __node_沫:1.0___VERANTYX_沫_120_
+    be __node_沫:1.0___VERANTYX_沫_153_ to __node_沫:1.0___VERANTYX_沫_16_ __node_沫:1.0___VERANTYX_沫_72_ __node_沫:1.0___VERANTYX_沫_19_ __node_沫:1.0___VERANTYX_沫_135_.
+
+    If __node_沫:1.0___VERANTYX_沫_105_ __node_沫:1.0___VERANTYX_沫_196_ __node_沫:1.0___VERANTYX_沫_1_ an "__node_沫:1.0___VERANTYX_沫_86_" __node_沫:1.0___VERANTYX_沫_191_, it is __node_沫:1.0___VERANTYX_沫_87_ __node_沫:1.0___VERANTYX_沫_81_ __node_沫:1.0___VERANTYX_沫_105_ __node_沫:1.0___VERANTYX_沫_29_ __node_沫:1.0___VERANTYX_沫_9_
+    of __node_沫:1.0___VERANTYX_沫_105_ __node_沫:1.0___VERANTYX_沫_165_ __node_沫:1.0___VERANTYX_沫_159_ __node_沫:1.0___VERANTYX_沫_123_ __node_沫:1.0___VERANTYX_沫_22_:
+
+    .. __node_沫:1.0___VERANTYX_沫_90_-__node_沫:1.0___VERANTYX_沫_34_::
+
+        __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_86_(rx, ry, __node_沫:1.0___VERANTYX_沫_35_, __node_沫:1.0___VERANTYX_沫_181_, __node_沫:1.0___VERANTYX_沫_76_, (x, y))
+
+    __node_廳:1.0___VERANTYX_廳_33_, __node_沫:1.0___VERANTYX_沫_105_ __node_沫:1.0___VERANTYX_沫_144_ __node_沫:1.0___VERANTYX_沫_100_ __node_沫:1.0___VERANTYX_沫_39_ by __node_沫:1.0___VERANTYX_沫_107_ of __node_沫:1.0___VERANTYX_沫_164_ __node_業:1.0___VERANTYX_廳_41_ __node_沫:1.0___VERANTYX_沫_32_
+    ("__node_沫:1.0___VERANTYX_沫_173_"), __node_沫:1.0___VERANTYX_沫_6_ __node_沫:1.0___VERANTYX_沫_155_ 90 __node_沫:1.0___VERANTYX_沫_77_.
+    """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_182_(*__node_沫:1.0___VERANTYX_沫_193_)
+
+    __node_沫:1.0___VERANTYX_沫_56_ = __node_沫:1.0___VERANTYX_沫_37_(__node_隠:1.0___VERANTYX_沫_38_(__node_沫:1.0___VERANTYX_沫_110_))
+// [metadata-stripped]
+    __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_61_()
+
+    __node_沫:1.0___VERANTYX_沫_98_ = __node_廳:1.0___VERANTYX_廳_18_
+    __node_沫:1.0___VERANTYX_沫_130_ = __node_廳:1.0___VERANTYX_廳_18_
+    __node_沫:1.0___VERANTYX_沫_154_ = __node_廳:1.0___VERANTYX_廳_18_
+
+    __node_沫:1.0___VERANTYX_沫_83_ = __node_沫:1.0___VERANTYX_沫_169_(__node_沫:1.0___VERANTYX_沫_196_, "__node_沫:1.0___VERANTYX_沫_86_")
+
+    while __node_沫:1.0___VERANTYX_沫_56_:
+        if __node_沫:1.0___VERANTYX_沫_56_[-1] in __node_廳:1.0___VERANTYX_廳_34_:
+// __node_湧:0.1___VERANTYX_BK_846_ [decoy-metadata]
+// [metadata-stripped]
+            __node_沫:1.0___VERANTYX_沫_183_ = __node_沫:1.0___VERANTYX_沫_130_  # __node_廳:1.0___VERANTYX_廳_14_ by S __node_沫:1.0___VERANTYX_沫_97_ T
+            __node_沫:1.0___VERANTYX_沫_130_ = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            __node_沫:1.0___VERANTYX_沫_135_ = __node_沫:1.0___VERANTYX_沫_130_ in __node_廳:1.0___VERANTYX_廳_23_
+            __node_沫:1.0___VERANTYX_沫_130_ = __node_沫:1.0___VERANTYX_沫_130_.__node_業:1.0___VERANTYX_沫_190_()
+        else:
+// [metadata-stripped]
+// [metadata-stripped]
+            if __node_沫:1.0___VERANTYX_沫_130_ is __node_廳:1.0___VERANTYX_廳_18_:
+                __node_沫:1.0___VERANTYX_沫_119_ __node_廳:1.0___VERANTYX_廳_9_(
+                    "__node_廳:1.0___VERANTYX_廳_38_ __node_沫:1.0___VERANTYX_沫_113_ __node_沫:1.0___VERANTYX_沫_130_ in %s, __node_沫:1.0___VERANTYX_沫_15_ %s"
+                    % (__node_沫:1.0___VERANTYX_沫_110_, __node_沫:1.0___VERANTYX_沫_92_(__node_沫:1.0___VERANTYX_沫_110_.__node_沫:1.0___VERANTYX_沫_68_()) - __node_沫:1.0___VERANTYX_沫_92_(__node_沫:1.0___VERANTYX_沫_56_))
+                )
+            __node_沫:1.0___VERANTYX_沫_183_ = __node_沫:1.0___VERANTYX_沫_130_  # __node_廳:1.0___VERANTYX_廳_14_ by S __node_沫:1.0___VERANTYX_沫_97_ T
+
+        if __node_沫:1.0___VERANTYX_沫_130_ == "M":
+// [metadata-stripped]
+            x = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            y = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            __node_沫:1.0___VERANTYX_沫_62_ = __node_沫:1.0___VERANTYX_沫_136_(x) + __node_沫:1.0___VERANTYX_沫_136_(y) * 1j
+            if __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_62_
+            else:
+                __node_沫:1.0___VERANTYX_沫_193_ += __node_沫:1.0___VERANTYX_沫_62_
+
+// [metadata-stripped]
+            if __node_沫:1.0___VERANTYX_沫_98_ is __node_沫:1.0___VERANTYX_沫_178_ __node_廳:1.0___VERANTYX_廳_18_:
+                __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_26_()
+
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_28_((__node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_84_))
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            __node_沫:1.0___VERANTYX_沫_98_ = __node_沫:1.0___VERANTYX_沫_193_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            __node_沫:1.0___VERANTYX_沫_130_ = "L"
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "Z":
+// [metadata-stripped]
+            if __node_沫:1.0___VERANTYX_沫_193_ != __node_沫:1.0___VERANTYX_沫_98_:
+                __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_67_((__node_沫:1.0___VERANTYX_沫_98_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_98_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_60_()
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_98_
+// __node_隠:0.6___VERANTYX_WE_568_ [decoy-metadata]
+            __node_沫:1.0___VERANTYX_沫_98_ = __node_廳:1.0___VERANTYX_廳_18_
+            __node_沫:1.0___VERANTYX_沫_130_ = __node_廳:1.0___VERANTYX_廳_18_  # __node_廳:1.0___VERANTYX_廳_21_ __node_沫:1.0___VERANTYX_沫_172_'t __node_沫:1.0___VERANTYX_沫_75_ __node_沫:1.0___VERANTYX_沫_113_ __node_沫:1.0___VERANTYX_沫_22_ __node_業:1.0___VERANTYX_沫_158_ __node_沫:1.0___VERANTYX_沫_139_.
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "L":
+            x = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            y = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            __node_沫:1.0___VERANTYX_沫_62_ = __node_沫:1.0___VERANTYX_沫_136_(x) + __node_沫:1.0___VERANTYX_沫_136_(y) * 1j
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_62_ += __node_沫:1.0___VERANTYX_沫_193_
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_67_((__node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_62_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "H":
+            x = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            __node_沫:1.0___VERANTYX_沫_62_ = __node_沫:1.0___VERANTYX_沫_136_(x) + __node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_84_ * 1j
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_62_ += __node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_57_
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_67_((__node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_62_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "V":
+            y = __node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()
+            __node_沫:1.0___VERANTYX_沫_62_ = __node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_57_ + __node_沫:1.0___VERANTYX_沫_136_(y) * 1j
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_62_ += __node_沫:1.0___VERANTYX_沫_193_.__node_沫:1.0___VERANTYX_沫_84_ * 1j
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_67_((__node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_62_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_62_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "C":
+            __node_沫:1.0___VERANTYX_沫_128_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+            __node_沫:1.0___VERANTYX_沫_162_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+            __node_沫:1.0___VERANTYX_沫_18_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_128_ += __node_沫:1.0___VERANTYX_沫_193_
+                __node_沫:1.0___VERANTYX_沫_162_ += __node_沫:1.0___VERANTYX_沫_193_
+                __node_沫:1.0___VERANTYX_沫_18_ += __node_沫:1.0___VERANTYX_沫_193_
+
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_173_(
+                (__node_沫:1.0___VERANTYX_沫_128_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_128_.__node_沫:1.0___VERANTYX_沫_84_),
+                (__node_沫:1.0___VERANTYX_沫_162_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_162_.__node_沫:1.0___VERANTYX_沫_84_),
+                (__node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_84_),
+            )
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_18_
+            __node_沫:1.0___VERANTYX_沫_154_ = __node_沫:1.0___VERANTYX_沫_162_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "S":
+// [metadata-stripped]
+// [metadata-stripped]
+
+            if __node_沫:1.0___VERANTYX_沫_183_ __node_沫:1.0___VERANTYX_沫_178_ in "CS":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                __node_沫:1.0___VERANTYX_沫_128_ = __node_沫:1.0___VERANTYX_沫_193_
+            else:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                __node_沫:1.0___VERANTYX_沫_128_ = __node_沫:1.0___VERANTYX_沫_193_ + __node_沫:1.0___VERANTYX_沫_193_ - __node_沫:1.0___VERANTYX_沫_154_
+
+            __node_沫:1.0___VERANTYX_沫_162_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+            __node_沫:1.0___VERANTYX_沫_18_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_162_ += __node_沫:1.0___VERANTYX_沫_193_
+                __node_沫:1.0___VERANTYX_沫_18_ += __node_沫:1.0___VERANTYX_沫_193_
+
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_173_(
+                (__node_沫:1.0___VERANTYX_沫_128_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_128_.__node_沫:1.0___VERANTYX_沫_84_),
+                (__node_沫:1.0___VERANTYX_沫_162_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_162_.__node_沫:1.0___VERANTYX_沫_84_),
+                (__node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_84_),
+            )
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_18_
+            __node_沫:1.0___VERANTYX_沫_154_ = __node_沫:1.0___VERANTYX_沫_162_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "Q":
+            __node_沫:1.0___VERANTYX_沫_112_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+            __node_沫:1.0___VERANTYX_沫_18_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_112_ += __node_沫:1.0___VERANTYX_沫_193_
+                __node_沫:1.0___VERANTYX_沫_18_ += __node_沫:1.0___VERANTYX_沫_193_
+
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_117_((__node_沫:1.0___VERANTYX_沫_112_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_112_.__node_沫:1.0___VERANTYX_沫_84_), (__node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_18_
+            __node_沫:1.0___VERANTYX_沫_154_ = __node_沫:1.0___VERANTYX_沫_112_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "T":
+// [metadata-stripped]
+// [metadata-stripped]
+
+            if __node_沫:1.0___VERANTYX_沫_183_ __node_沫:1.0___VERANTYX_沫_178_ in "QT":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                __node_沫:1.0___VERANTYX_沫_112_ = __node_沫:1.0___VERANTYX_沫_193_
+            else:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                __node_沫:1.0___VERANTYX_沫_112_ = __node_沫:1.0___VERANTYX_沫_193_ + __node_沫:1.0___VERANTYX_沫_193_ - __node_沫:1.0___VERANTYX_沫_154_
+
+            __node_沫:1.0___VERANTYX_沫_18_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+                __node_沫:1.0___VERANTYX_沫_18_ += __node_沫:1.0___VERANTYX_沫_193_
+
+// __node_匣:0.3___VERANTYX_YD_999_ [decoy-metadata]
+            __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_117_((__node_沫:1.0___VERANTYX_沫_112_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_112_.__node_沫:1.0___VERANTYX_沫_84_), (__node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_84_))
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_18_
+            __node_沫:1.0___VERANTYX_沫_154_ = __node_沫:1.0___VERANTYX_沫_112_
+
+        __node_湧:1.0___VERANTYX_沫_116_ __node_沫:1.0___VERANTYX_沫_130_ == "A":
+            rx = __node_沫:1.0___VERANTYX_沫_109_(__node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()))
+            ry = __node_沫:1.0___VERANTYX_沫_109_(__node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()))
+            __node_沫:1.0___VERANTYX_沫_35_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_())
+            __node_沫:1.0___VERANTYX_沫_181_ = __node_沫:1.0___VERANTYX_沫_82_(__node_沫:1.0___VERANTYX_沫_89_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()))
+            __node_沫:1.0___VERANTYX_沫_76_ = __node_沫:1.0___VERANTYX_沫_82_(__node_沫:1.0___VERANTYX_沫_89_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()))
+            __node_沫:1.0___VERANTYX_沫_18_ = __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) + __node_沫:1.0___VERANTYX_沫_136_(__node_沫:1.0___VERANTYX_沫_56_.__node_沫:1.0___VERANTYX_沫_99_()) * 1j
+
+            if __node_沫:1.0___VERANTYX_沫_178_ __node_沫:1.0___VERANTYX_沫_135_:
+// __node_繕:0.8___VERANTYX_GH_269_ [decoy-metadata]
+                __node_沫:1.0___VERANTYX_沫_18_ += __node_沫:1.0___VERANTYX_沫_193_
+
+// [metadata-stripped]
+// [metadata-stripped]
+            if __node_沫:1.0___VERANTYX_沫_83_:
+                __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_86_(
+                    rx,
+                    ry,
+                    __node_沫:1.0___VERANTYX_沫_35_,
+                    __node_沫:1.0___VERANTYX_沫_181_,
+                    __node_沫:1.0___VERANTYX_沫_76_,
+                    (__node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_57_, __node_沫:1.0___VERANTYX_沫_18_.__node_沫:1.0___VERANTYX_沫_84_),
+                )
+            else:
+// __node_繕:0.7___VERANTYX_VM_799_ [decoy-metadata]
+                __node_沫:1.0___VERANTYX_沫_159_ = __node_沫:1.0___VERANTYX_沫_127_(
+                    __node_沫:1.0___VERANTYX_沫_193_, rx, ry, __node_沫:1.0___VERANTYX_沫_35_, __node_沫:1.0___VERANTYX_沫_181_, __node_沫:1.0___VERANTYX_沫_76_, __node_沫:1.0___VERANTYX_沫_18_
+                )
+                __node_沫:1.0___VERANTYX_沫_159_.__node_沫:1.0___VERANTYX_沫_5_(__node_沫:1.0___VERANTYX_沫_196_)
+
+            __node_沫:1.0___VERANTYX_沫_193_ = __node_沫:1.0___VERANTYX_沫_18_
+
+// __node_廳:0.3___VERANTYX_GB_945_ [decoy-metadata]
+// [metadata-stripped]
+    if __node_沫:1.0___VERANTYX_沫_98_ is __node_沫:1.0___VERANTYX_沫_178_ __node_廳:1.0___VERANTYX_廳_18_:
+        __node_沫:1.0___VERANTYX_沫_196_.__node_沫:1.0___VERANTYX_沫_26_()
+
+// POLYMORPHIC_JCROSS_END

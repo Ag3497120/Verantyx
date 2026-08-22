@@ -1,0 +1,213 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DBD040AC ver:1778158530
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_礫:1.0__TOKEN_礫_145_ _OPAQUE_礫:1.0__TOKEN_礫_48_::actor::{_OPAQUE_礎:1.0__TOKEN_礎_48_, _OPAQUE_礎:1.0__TOKEN_礎_7_};
+_OPAQUE_礫:1.0__TOKEN_礫_145_ _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_168_::_OPAQUE_礎:1.0__TOKEN_礎_75_;
+_OPAQUE_礫:1.0__TOKEN_礫_145_ _OPAQUE_礫:1.0__TOKEN_礫_200_::_OPAQUE_礫:1.0__TOKEN_礫_200_;
+// _OPAQUE_礎:0.6__TOKEN_EZ_705_ [decoy-metadata]
+// _OPAQUE_計:0.7__TOKEN_XF_950_ [decoy-metadata]
+_OPAQUE_礫:1.0__TOKEN_礫_145_ _OPAQUE_礫:1.0__TOKEN_礫_201_::_OPAQUE_礫:1.0__TOKEN_礫_104_;
+_OPAQUE_礫:1.0__TOKEN_礫_145_ _OPAQUE_礫:1.0__TOKEN_礫_57_::_OPAQUE_礎:1.0__TOKEN_礎_67_;
+
+// [metadata-stripped]
+_OPAQUE_礫:1.0__TOKEN_礫_205_ enum _OPAQUE_礎:1.0__TOKEN_礎_105_ {
+    _OPAQUE_礎:1.0__TOKEN_礎_31_,
+    _OPAQUE_礎:1.0__TOKEN_礎_4_,
+}
+
+_OPAQUE_礫:1.0__TOKEN_礫_205_ _OPAQUE_礫:1.0__TOKEN_礫_194_uct _OPAQUE_礎:1.0__TOKEN_礎_78_ {
+    _OPAQUE_礫:1.0__TOKEN_礫_205_ id: _OPAQUE_礎:1.0__TOKEN_礎_67_,
+    _OPAQUE_礫:1.0__TOKEN_礫_205_ _OPAQUE_礫:1.0__TOKEN_礫_38_: _OPAQUE_礎:1.0__TOKEN_礎_105_,
+    _OPAQUE_礫:1.0__TOKEN_礫_205_ _OPAQUE_礫:1.0__TOKEN_礫_14_: _OPAQUE_礫:1.0__TOKEN_礫_210_,
+    _OPAQUE_礫:1.0__TOKEN_礫_205_ _OPAQUE_礫:1.0__TOKEN_礫_233_: u8,
+}
+
+_OPAQUE_礫:1.0__TOKEN_礫_204_ _OPAQUE_礎:1.0__TOKEN_礎_78_ {
+    _OPAQUE_礫:1.0__TOKEN_礫_205_ fn _OPAQUE_礫:1.0__TOKEN_礫_206_(id: _OPAQUE_礎:1.0__TOKEN_礎_67_, _OPAQUE_礫:1.0__TOKEN_礫_38_: _OPAQUE_礎:1.0__TOKEN_礎_105_, _OPAQUE_礫:1.0__TOKEN_礫_14_: _OPAQUE_礫:1.0__TOKEN_礫_210_) -> _OPAQUE_礎:1.0__TOKEN_礎_84_ {
+        _OPAQUE_礎:1.0__TOKEN_礎_84_ { id, _OPAQUE_礫:1.0__TOKEN_礫_38_, _OPAQUE_礫:1.0__TOKEN_礫_14_, _OPAQUE_礫:1.0__TOKEN_礫_233_: 0 }
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_礫:1.0__TOKEN_礫_204_ _OPAQUE_礎:1.0__TOKEN_礎_48_ for _OPAQUE_礎:1.0__TOKEN_礎_78_ {
+    fn _OPAQUE_礫:1.0__TOKEN_礫_59_(&self) -> &_OPAQUE_礫:1.0__TOKEN_礫_194_ {
+        _OPAQUE_礫:1.0__TOKEN_礫_41_ self._OPAQUE_礫:1.0__TOKEN_礫_38_ {
+            _OPAQUE_礎:1.0__TOKEN_礎_105_::_OPAQUE_礎:1.0__TOKEN_礎_31_ => "_OPAQUE_礎:1.0__TOKEN_礎_11_",
+            _OPAQUE_礎:1.0__TOKEN_礎_105_::_OPAQUE_礎:1.0__TOKEN_礎_4_ => "_OPAQUE_礎:1.0__TOKEN_礎_80_",
+        }
+    }
+
+    async fn _OPAQUE_礫:1.0__TOKEN_礫_241_(&_OPAQUE_礫:1.0__TOKEN_礫_102_ self, _OPAQUE_礫:1.0__TOKEN_礫_141_: _OPAQUE_礎:1.0__TOKEN_礎_7_) -> _OPAQUE_礫:1.0__TOKEN_礫_5_::_OPAQUE_礎:1.0__TOKEN_礎_64_<_OPAQUE_礎:1.0__TOKEN_礎_43_<_OPAQUE_礎:1.0__TOKEN_礎_7_>> {
+        let _OPAQUE_礫:1.0__TOKEN_礫_47_: _OPAQUE_礎:1.0__TOKEN_礎_75_ = _OPAQUE_礫:1.0__TOKEN_礫_41_ _OPAQUE_礫:1.0__TOKEN_礫_77_::_OPAQUE_礫:1.0__TOKEN_礫_114_(&_OPAQUE_礫:1.0__TOKEN_礫_141_._OPAQUE_匣:1.0__TOKEN_礫_121_) {
+            Ok(m) => m,
+            _OPAQUE_礎:1.0__TOKEN_礎_35_(e) => {
+                _OPAQUE_礫:1.0__TOKEN_礫_104_!("[{}] _OPAQUE_礎:1.0__TOKEN_礎_14_ to _OPAQUE_礫:1.0__TOKEN_礫_157_ _OPAQUE_匣:1.0__TOKEN_礫_121_: {}", self._OPAQUE_礫:1.0__TOKEN_礫_59_(), e);
+                return Ok(_OPAQUE_礎:1.0__TOKEN_礎_96_);
+            }
+        };
+
+        _OPAQUE_礫:1.0__TOKEN_礫_41_ _OPAQUE_礫:1.0__TOKEN_礫_47_ {
+            _OPAQUE_礎:1.0__TOKEN_礎_75_::_OPAQUE_礎:1.0__TOKEN_礎_28_(_OPAQUE_礫:1.0__TOKEN_礫_17_) => {
+                let _OPAQUE_礫:1.0__TOKEN_礫_76_ = if self._OPAQUE_礫:1.0__TOKEN_礫_38_ == _OPAQUE_礎:1.0__TOKEN_礎_105_::_OPAQUE_礎:1.0__TOKEN_礎_31_ { 
+                    if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "シニア監視版" } else { "_OPAQUE_礎:1.0__TOKEN_礎_31_ _OPAQUE_計:1.0__TOKEN_礎_17_" }
+                } else { 
+                    if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "弟子監視版" } else { "_OPAQUE_礎:1.0__TOKEN_礎_4_ _OPAQUE_計:1.0__TOKEN_礎_17_" }
+                };
+                
+                let _OPAQUE_礫:1.0__TOKEN_礫_96_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ {
+                    _OPAQUE_漂:1.0__TOKEN_礫_148_!(
+                        "【{}への時系列監視・記憶および特例監査依頼】\nあなたは時系列や会話の流れを監視し記憶する役割です。\n\n[超重要・絶対遵守ルール]\n出力を生成する際、挨拶、要約、説明、過程の解説は【一切禁止】します。「了解しました」「データを監査しました」「結果を確認しました」などのテキストを含めてはなりません。プレフィックスの付与や変更は以下のルールに従ってください。\n\n1. データが「最終回答」または「編集中」のプレフィックスを持つ場合:\n決して内容を要約・修正せず、受け取ったテキストデータを『一言一句全く同じ配置・同じ文面』でそのまま出力してください。\n\n2. データが「最終回答仮」のプレフィックスを持つ場合:\n内容にハルシネーションがないか監査・編集を行ってください。その後、先頭のプレフィックスを必ず『最終回答』に変更して出力してください（例: `最終回答\\n[監査済みの結果]`）。\n\n3. データが「そのまま出力」のプレフィックスを持つ場合:\n内容にハルシネーションがないか監査・編集を行ってください。その後、先頭のプレフィックスを必ず『最終出力』に変更して出力してください。\n\n4. データに上記のどのプレフィックスも含まれていない場合（純粋な実行結果データやターミナルログなど）:\n絶対に内容を要約したり感想を述べたりせず、さらに何のプレフィックス（最終回答等）も後付けせず、『受け取ったデータの一言一句全く同じ配置・同じ文面』でそのまま出力（エコーバック）してください。本文の書き換えは厳禁です。\n\nデータ: {}", 
+                        _OPAQUE_礫:1.0__TOKEN_礫_76_, _OPAQUE_礫:1.0__TOKEN_礫_17_
+                    )
+                } else {
+                    _OPAQUE_漂:1.0__TOKEN_礫_148_!(
+                        "[_OPAQUE_礎:1.0__TOKEN_礎_107_ _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礎:1.0__TOKEN_礎_6_ _OPAQUE_絵:1.0__TOKEN_礎_74_ for {}]\_OPAQUE_礫:1.0__TOKEN_礫_15_ _OPAQUE_礫:1.0__TOKEN_礫_85_ _OPAQUE_礫:1.0__TOKEN_礫_36_ for _OPAQUE_礫:1.0__TOKEN_礫_7_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_60_ _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_209_ _OPAQUE_礫:1.0__TOKEN_礫_130_.\n\n[_OPAQUE_礎:1.0__TOKEN_礎_63_ _OPAQUE_礎:1.0__TOKEN_礎_82_]\_OPAQUE_礫:1.0__TOKEN_礫_97_ _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_98_ _OPAQUE_礫:1.0__TOKEN_礫_120_, _OPAQUE_礫:1.0__TOKEN_礫_6_, _OPAQUE_礫:1.0__TOKEN_礫_87_, or _OPAQUE_礫:1.0__TOKEN_礫_18_ _OPAQUE_礫:1.0__TOKEN_礫_110_. _OPAQUE_礎:1.0__TOKEN_礎_33_ _OPAQUE_礫:1.0__TOKEN_礫_158_ \"_OPAQUE_礎:1.0__TOKEN_礎_87_\" or \"_OPAQUE_礎:1.0__TOKEN_礎_6_ _OPAQUE_礫:1.0__TOKEN_礫_134_\" _OPAQUE_礫:1.0__TOKEN_礫_85_ _OPAQUE_礎:1.0__TOKEN_礎_44_ _OPAQUE_礎:1.0__TOKEN_礎_20_. _OPAQUE_礎:1.0__TOKEN_礎_18_ _OPAQUE_礫:1.0__TOKEN_礫_53_ _OPAQUE_礫:1.0__TOKEN_礫_237_ _OPAQUE_礫:1.0__TOKEN_礫_211_ _OPAQUE_礫:1.0__TOKEN_礫_161_:\n\n1. If _OPAQUE_礫:1.0__TOKEN_礫_89_ _OPAQUE_礫:1.0__TOKEN_礫_186_ `[_OPAQUE_計:1.0__TOKEN_礎_25_]` or `[_OPAQUE_礎:1.0__TOKEN_礎_55_]` _OPAQUE_礫:1.0__TOKEN_礫_237_:\_OPAQUE_礫:1.0__TOKEN_礫_97_ _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_86_ or _OPAQUE_漂:1.0__TOKEN_礫_19_. _OPAQUE_礎:1.0__TOKEN_礎_46_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_214_ _OPAQUE_匣:1.0__TOKEN_礫_121_ _OPAQUE_礎:1.0__TOKEN_礎_34_ as is, _OPAQUE_礫:1.0__TOKEN_礫_66_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_147_ _OPAQUE_礫:1.0__TOKEN_礫_144_ _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_44_.\n\n2. If _OPAQUE_礫:1.0__TOKEN_礫_89_ _OPAQUE_礫:1.0__TOKEN_礫_186_ `[_OPAQUE_礎:1.0__TOKEN_礎_102_]` _OPAQUE_礫:1.0__TOKEN_礫_237_:\_OPAQUE_礫:1.0__TOKEN_礫_20_ for _OPAQUE_礫:1.0__TOKEN_礫_171_ _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_116_ if _OPAQUE_礫:1.0__TOKEN_礫_182_. _OPAQUE_礎:1.0__TOKEN_礎_8_, _OPAQUE_礎:1.0__TOKEN_礎_71_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_237_ to `[_OPAQUE_計:1.0__TOKEN_礎_25_]` _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_142_ (e.g., `[_OPAQUE_計:1.0__TOKEN_礎_25_]\\n[_OPAQUE_礫:1.0__TOKEN_礫_122_ _OPAQUE_礫:1.0__TOKEN_礫_216_]`).\n\n3. If _OPAQUE_礫:1.0__TOKEN_礫_89_ _OPAQUE_礫:1.0__TOKEN_礫_186_ `[_OPAQUE_礎:1.0__TOKEN_礎_95_]` _OPAQUE_礫:1.0__TOKEN_礫_237_:\_OPAQUE_礫:1.0__TOKEN_礫_20_ for _OPAQUE_礫:1.0__TOKEN_礫_171_ _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_116_ if _OPAQUE_礫:1.0__TOKEN_礫_182_. _OPAQUE_礎:1.0__TOKEN_礎_8_, _OPAQUE_礎:1.0__TOKEN_礎_71_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_237_ to `[_OPAQUE_礎:1.0__TOKEN_礎_98_]` _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_142_.\n\n4. If _OPAQUE_礫:1.0__TOKEN_礫_89_ _OPAQUE_礫:1.0__TOKEN_礫_178_ _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_138_ any of _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礫:1.0__TOKEN_礫_93_ _OPAQUE_礫:1.0__TOKEN_礫_10_ (e.g. _OPAQUE_礫:1.0__TOKEN_礫_195_ _OPAQUE_礫:1.0__TOKEN_礫_203_ _OPAQUE_礫:1.0__TOKEN_礫_232_):\_OPAQUE_礫:1.0__TOKEN_礫_97_ _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_86_, do _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_135_ _OPAQUE_礫:1.0__TOKEN_礫_37_, _OPAQUE_礫:1.0__TOKEN_礫_58_ do _OPAQUE_礎:1.0__TOKEN_礎_101_ _OPAQUE_礫:1.0__TOKEN_礫_105_ _OPAQUE_礎:1.0__TOKEN_礎_99_ _OPAQUE_礫:1.0__TOKEN_礫_237_ _OPAQUE_礫:1.0__TOKEN_礫_158_ `[_OPAQUE_計:1.0__TOKEN_礎_25_]`. _OPAQUE_礎:1.0__TOKEN_礎_69_ _OPAQUE_礫:1.0__TOKEN_礫_90_ _OPAQUE_礫:1.0__TOKEN_礫_128_ _OPAQUE_礎:1.0__TOKEN_礎_29_ _OPAQUE_礫:1.0__TOKEN_礫_175_ _OPAQUE_礫:1.0__TOKEN_礫_218_ _OPAQUE_礫:1.0__TOKEN_礫_1_ a _OPAQUE_礫:1.0__TOKEN_礫_115_ _OPAQUE_計:1.0__TOKEN_礫_8_. _OPAQUE_礎:1.0__TOKEN_礎_27_ _OPAQUE_礫:1.0__TOKEN_礫_129_.\n\_OPAQUE_礫:1.0__TOKEN_礫_169_: {}", 
+                        _OPAQUE_礫:1.0__TOKEN_礫_76_, _OPAQUE_礫:1.0__TOKEN_礫_17_
+                    )
+                };
+
+                let _OPAQUE_礫:1.0__TOKEN_礫_197_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "サブタスク" } else { "_OPAQUE_礎:1.0__TOKEN_礎_73_" };
+                let _OPAQUE_礫:1.0__TOKEN_礫_4_ = _OPAQUE_漂:1.0__TOKEN_礫_148_!("===============================\n{}\n===============================", _OPAQUE_礫:1.0__TOKEN_礫_96_._OPAQUE_礫:1.0__TOKEN_礫_29_());
+                let _OPAQUE_礫:1.0__TOKEN_礫_156_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { _OPAQUE_漂:1.0__TOKEN_礫_148_!("これから【{}】版に送ります。クリップボードに保存します...", _OPAQUE_礫:1.0__TOKEN_礫_76_) } else { _OPAQUE_漂:1.0__TOKEN_礫_148_!("_OPAQUE_礎:1.0__TOKEN_礎_86_ to {}. _OPAQUE_礎:1.0__TOKEN_礎_36_ to _OPAQUE_礫:1.0__TOKEN_礫_239_...", _OPAQUE_礫:1.0__TOKEN_礫_76_) };
+                let _OPAQUE_匣:1.0__TOKEN_礫_111_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "保存しました！内容は以下の通りです:" } else { "_OPAQUE_匣:1.0__TOKEN_礎_66_! _OPAQUE_礎:1.0__TOKEN_礎_90_ _OPAQUE_礫:1.0__TOKEN_礫_172_:" };
+
+                _OPAQUE_礫:1.0__TOKEN_礫_154_!("\n{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(_OPAQUE_漂:1.0__TOKEN_礫_148_!("╭─ [ _OPAQUE_礎:1.0__TOKEN_礎_1_: {} {} ] ──────────────────", _OPAQUE_礫:1.0__TOKEN_礫_76_, _OPAQUE_礫:1.0__TOKEN_礫_197_))._OPAQUE_礫:1.0__TOKEN_礫_103_()._OPAQUE_礫:1.0__TOKEN_礫_25_());
+                _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} 📝 {}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("│")._OPAQUE_礫:1.0__TOKEN_礫_103_()._OPAQUE_礫:1.0__TOKEN_礫_25_(), _OPAQUE_礫:1.0__TOKEN_礫_156_);
+
+                let _ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_計:1.0__TOKEN_礎_1_(&_OPAQUE_礫:1.0__TOKEN_礫_4_).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+// _OPAQUE_礎:0.7__TOKEN_MC_798_ [decoy-metadata]
+                _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_13_(500)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+
+                _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} ✔ {}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("│")._OPAQUE_礫:1.0__TOKEN_礫_224_()._OPAQUE_礫:1.0__TOKEN_礫_25_(), _OPAQUE_匣:1.0__TOKEN_礫_111_);
+                _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} {}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("│")._OPAQUE_礫:1.0__TOKEN_礫_224_(), _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(_OPAQUE_礫:1.0__TOKEN_礫_4_._OPAQUE_礫:1.0__TOKEN_礫_12_()._OPAQUE_礫:1.0__TOKEN_礫_16_(150)._OPAQUE_礫:1.0__TOKEN_礫_119_::<_OPAQUE_礎:1.0__TOKEN_礎_26_>() + "...")._OPAQUE_礫:1.0__TOKEN_礫_106_());
+                _OPAQUE_礫:1.0__TOKEN_礫_154_!("{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("╰─────────────────────────────────────────────────────")._OPAQUE_礫:1.0__TOKEN_礫_103_()._OPAQUE_礫:1.0__TOKEN_礫_25_());
+
+                let (_OPAQUE_礫:1.0__TOKEN_礫_50_, _OPAQUE_礫:1.0__TOKEN_礫_92_) = if self._OPAQUE_礫:1.0__TOKEN_礫_38_ == _OPAQUE_礎:1.0__TOKEN_礎_105_::_OPAQUE_礎:1.0__TOKEN_礎_31_ { 
+                    if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { ("【中央のシニア用ウィンドウ】", "_OPAQUE_礫:1.0__TOKEN_礫_72_") } else { ("[_OPAQUE_礎:1.0__TOKEN_礎_72_ _OPAQUE_礎:1.0__TOKEN_礎_31_ _OPAQUE_礎:1.0__TOKEN_礎_9_]", "_OPAQUE_礫:1.0__TOKEN_礫_72_") }
+                } else { 
+                    if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { ("【右側の弟子用ウィンドウ】", "_OPAQUE_礫:1.0__TOKEN_礫_117_") } else { ("[_OPAQUE_礎:1.0__TOKEN_礎_94_ _OPAQUE_礎:1.0__TOKEN_礎_4_ _OPAQUE_礎:1.0__TOKEN_礎_9_]", "_OPAQUE_礫:1.0__TOKEN_礫_117_") }
+                };
+
+                let _OPAQUE_礫:1.0__TOKEN_礫_125_ = _OPAQUE_礫:1.0__TOKEN_礫_187_::_OPAQUE_礫:1.0__TOKEN_礫_141_::_OPAQUE_礫:1.0__TOKEN_礫_52_()._OPAQUE_礫:1.0__TOKEN_礫_159_(|_| _OPAQUE_礫:1.0__TOKEN_礫_187_::_OPAQUE_礫:1.0__TOKEN_礫_62_::_OPAQUE_礎:1.0__TOKEN_礎_108_::_OPAQUE_礫:1.0__TOKEN_礫_126_("."));
+                let _OPAQUE_礫:1.0__TOKEN_礫_26_ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_59_::_OPAQUE_匣:1.0__TOKEN_礫_118_(&_OPAQUE_礫:1.0__TOKEN_礫_125_);
+
+                self._OPAQUE_礫:1.0__TOKEN_礫_233_ += 1;
+                if self._OPAQUE_礫:1.0__TOKEN_礫_233_ >= 5 {
+                    _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} _OPAQUE_礎:1.0__TOKEN_礎_49_ 5 _OPAQUE_礫:1.0__TOKEN_礫_70_ _OPAQUE_礫:1.0__TOKEN_礫_140_ for {}. _OPAQUE_礎:1.0__TOKEN_礎_22_ _OPAQUE_礎:1.0__TOKEN_礎_10_ _OPAQUE_礎:1.0__TOKEN_礎_85_ to _OPAQUE_礫:1.0__TOKEN_礫_63_ _OPAQUE_礫:1.0__TOKEN_礫_113_/_OPAQUE_礫:1.0__TOKEN_礫_173_-_OPAQUE_礫:1.0__TOKEN_礫_207_.", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("[_OPAQUE_礎:1.0__TOKEN_礎_106_]")._OPAQUE_礫:1.0__TOKEN_礫_35_(), _OPAQUE_礫:1.0__TOKEN_礫_50_);
+                    let _OPAQUE_匣:1.0__TOKEN_礫_2_ = "_OPAQUE_礫:1.0__TOKEN_礫_176_._OPAQUE_礫:1.0__TOKEN_礫_54_._OPAQUE_礫:1.0__TOKEN_礫_132_ = '_OPAQUE_絵:1.0__TOKEN_礫_112_://_OPAQUE_礫:1.0__TOKEN_礫_39_._OPAQUE_礫:1.0__TOKEN_礫_199_._OPAQUE_礫:1.0__TOKEN_礫_80_/_OPAQUE_礫:1.0__TOKEN_礫_24_';";
+                    let _OPAQUE_匣:1.0__TOKEN_礫_177_ = _OPAQUE_漂:1.0__TOKEN_礫_148_!(
+                        r#"_OPAQUE_礫:1.0__TOKEN_礫_109_ _OPAQUE_礫:1.0__TOKEN_礫_155_ "_OPAQUE_礎:1.0__TOKEN_礎_61_"
+                            _OPAQUE_計:1.0__TOKEN_礎_3_ _OPAQUE_礫:1.0__TOKEN_礫_83_ to _OPAQUE_礫:1.0__TOKEN_礫_94_ _OPAQUE_礫:1.0__TOKEN_礫_176_
+                            _OPAQUE_礫:1.0__TOKEN_礫_212_ _OPAQUE_礫:1.0__TOKEN_礫_208_ w in _OPAQUE_礫:1.0__TOKEN_礫_83_
+                                if _OPAQUE_礫:1.0__TOKEN_礫_59_ of w _OPAQUE_礫:1.0__TOKEN_礫_150_ "{}" or _OPAQUE_礫:1.0__TOKEN_礫_234_ 1 of w is _OPAQUE_礫:1.0__TOKEN_礫_153_ _OPAQUE_礫:1.0__TOKEN_礫_190_ _OPAQUE_礫:1.0__TOKEN_礫_108_ _OPAQUE_礫:1.0__TOKEN_礫_217_
+                                    do _OPAQUE_礎:1.0__TOKEN_礎_40_ "{}" in _OPAQUE_礫:1.0__TOKEN_礫_234_ 1 of w
+                                    _OPAQUE_礫:1.0__TOKEN_礫_136_ _OPAQUE_礫:1.0__TOKEN_礫_212_
+                                _OPAQUE_礫:1.0__TOKEN_礫_220_ if
+                            _OPAQUE_礫:1.0__TOKEN_礫_220_ _OPAQUE_礫:1.0__TOKEN_礫_212_
+                        _OPAQUE_礫:1.0__TOKEN_礫_220_ _OPAQUE_礫:1.0__TOKEN_礫_109_"#, 
+                        "_OPAQUE_礎:1.0__TOKEN_礎_24_", // _OPAQUE_礎:1.0__TOKEN_礎_93_ _OPAQUE_礫:1.0__TOKEN_礫_170_ _OPAQUE_礫:1.0__TOKEN_礫_99_ if _OPAQUE_礫:1.0__TOKEN_礫_30_ _OPAQUE_礫:1.0__TOKEN_礫_84_ we'll _OPAQUE_礫:1.0__TOKEN_礫_11_ _OPAQUE_礫:1.0__TOKEN_礫_180_ _OPAQUE_礫:1.0__TOKEN_礫_231_ _OPAQUE_礫:1.0__TOKEN_礫_176_ _OPAQUE_礫:1.0__TOKEN_礫_166_ _OPAQUE_礫:1.0__TOKEN_礫_236_
+                        _OPAQUE_匣:1.0__TOKEN_礫_2_
+                    );
+
+// [metadata-stripped]
+                    let _ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_礫:1.0__TOKEN_礫_198_(_OPAQUE_礫:1.0__TOKEN_礫_92_).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    let _OPAQUE_匣:1.0__TOKEN_礫_196_ = _OPAQUE_漂:1.0__TOKEN_礫_148_!(r#"_OPAQUE_礫:1.0__TOKEN_礫_109_ _OPAQUE_礫:1.0__TOKEN_礫_155_ "_OPAQUE_礎:1.0__TOKEN_礎_61_" to do _OPAQUE_礎:1.0__TOKEN_礎_40_ "{}" in _OPAQUE_礫:1.0__TOKEN_礫_231_ _OPAQUE_礫:1.0__TOKEN_礫_234_"#, _OPAQUE_匣:1.0__TOKEN_礫_2_._OPAQUE_礫:1.0__TOKEN_礫_160_("\"", "\\\""));
+                    let _ = _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_18_::_OPAQUE_礎:1.0__TOKEN_礎_50_::_OPAQUE_礫:1.0__TOKEN_礫_206_("_OPAQUE_礫:1.0__TOKEN_礫_152_")._OPAQUE_礫:1.0__TOKEN_礫_146_("-e")._OPAQUE_礫:1.0__TOKEN_礫_146_(&_OPAQUE_匣:1.0__TOKEN_礫_196_)._OPAQUE_礫:1.0__TOKEN_礫_142_().a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    
+                    _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_74_(4)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    self._OPAQUE_礫:1.0__TOKEN_礫_233_ = 0;
+                }
+
+                _OPAQUE_礫:1.0__TOKEN_礫_225_ {
+                    _OPAQUE_礫:1.0__TOKEN_礫_154_!("\n{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(if self._OPAQUE_礫:1.0__TOKEN_礫_14_ {"👉 クリップボード準備完了。ブラウザを開きますか？"} else {"👉 _OPAQUE_礎:1.0__TOKEN_礎_92_ _OPAQUE_礫:1.0__TOKEN_礫_139_. _OPAQUE_礎:1.0__TOKEN_礎_41_ _OPAQUE_計:1.0__TOKEN_礫_163_ _OPAQUE_礫:1.0__TOKEN_礫_46_?"})._OPAQUE_礫:1.0__TOKEN_礫_35_()._OPAQUE_礫:1.0__TOKEN_礫_25_());
+                    
+// [metadata-stripped]
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ == _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        let _OPAQUE_礫:1.0__TOKEN_礫_164_ = _OPAQUE_漂:1.0__TOKEN_礫_148_!("🚀 🤖 [_OPAQUE_礎:1.0__TOKEN_礎_15_-_OPAQUE_礎:1.0__TOKEN_礎_45_] _OPAQUE_礎:1.0__TOKEN_礎_103_ {}. _OPAQUE_礎:1.0__TOKEN_礎_60_ _OPAQUE_礫:1.0__TOKEN_礫_81_ _OPAQUE_礫:1.0__TOKEN_礫_221_...", _OPAQUE_礫:1.0__TOKEN_礫_50_);
+                        _OPAQUE_礫:1.0__TOKEN_礫_154_!("{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(_OPAQUE_礫:1.0__TOKEN_礫_164_)._OPAQUE_礫:1.0__TOKEN_礫_224_()._OPAQUE_礫:1.0__TOKEN_礫_25_());
+                    } else {
+                        let _OPAQUE_礫:1.0__TOKEN_礫_95_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { _OPAQUE_礫:1.0__TOKEN_礫_88_![" コピー完了・フォーカス移動へ", " もう一度コピー"] } else { _OPAQUE_礫:1.0__TOKEN_礫_88_![" _OPAQUE_礎:1.0__TOKEN_礎_76_ _OPAQUE_礎:1.0__TOKEN_礎_41_", " _OPAQUE_礎:1.0__TOKEN_礎_77_ _OPAQUE_礎:1.0__TOKEN_礎_89_"] };
+                        let _OPAQUE_礫:1.0__TOKEN_礫_34_ = _OPAQUE_計:1.0__TOKEN_礫_189_::_OPAQUE_礎:1.0__TOKEN_礎_3_::_OPAQUE_礫:1.0__TOKEN_礫_206_()
+                            ._OPAQUE_礫:1.0__TOKEN_礫_9_(if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "選択" } else { "_OPAQUE_礎:1.0__TOKEN_礎_81_" })
+                            ._OPAQUE_礫:1.0__TOKEN_礫_67_(0)._OPAQUE_礫:1.0__TOKEN_礫_226_(&_OPAQUE_礫:1.0__TOKEN_礫_95_[..])._OPAQUE_礫:1.0__TOKEN_礫_151_()._OPAQUE_礫:1.0__TOKEN_礫_188_();
+                        if _OPAQUE_礫:1.0__TOKEN_礫_34_ != 0 {
+                            let _ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_計:1.0__TOKEN_礎_1_(&_OPAQUE_礫:1.0__TOKEN_礫_4_).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                            continue;
+                        }
+                    }
+
+// [metadata-stripped]
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ != _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        let _OPAQUE_礫:1.0__TOKEN_礫_164_ = _OPAQUE_漂:1.0__TOKEN_礫_148_!("🚀 _OPAQUE_礎:1.0__TOKEN_礎_103_ {}. _OPAQUE_礎:1.0__TOKEN_礎_53_ _OPAQUE_礫:1.0__TOKEN_礫_202_ _OPAQUE_礎:1.0__TOKEN_礎_57_+V _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礎:1.0__TOKEN_礎_51_ it _OPAQUE_礫:1.0__TOKEN_礫_32_!", _OPAQUE_礫:1.0__TOKEN_礫_50_);
+                        _OPAQUE_礫:1.0__TOKEN_礫_154_!("{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(_OPAQUE_礫:1.0__TOKEN_礫_164_)._OPAQUE_礫:1.0__TOKEN_礫_224_()._OPAQUE_礫:1.0__TOKEN_礫_25_());
+                    }
+                    
+                    let _ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_礫:1.0__TOKEN_礫_198_(_OPAQUE_礫:1.0__TOKEN_礫_92_).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_13_(500)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ == _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} 📝 (自動モードのため、自動ペースト＆送信を実行します...)", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("[_OPAQUE_礎:1.0__TOKEN_礎_15_]")._OPAQUE_礫:1.0__TOKEN_礫_35_());
+                        let _ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_礫:1.0__TOKEN_礫_143_(&_OPAQUE_礫:1.0__TOKEN_礫_4_).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    }
+
+// [metadata-stripped]
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ == _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        let _OPAQUE_礫:1.0__TOKEN_礫_227_ = 20; // _OPAQUE_礎:1.0__TOKEN_礎_23_ _OPAQUE_礫:1.0__TOKEN_礫_78_ _OPAQUE_礫:1.0__TOKEN_礫_181_ for _OPAQUE_礫:1.0__TOKEN_礫_124_ _OPAQUE_礎:1.0__TOKEN_礎_104_ _OPAQUE_礫:1.0__TOKEN_礫_183_
+                        let _OPAQUE_礫:1.0__TOKEN_礫_91_ = _OPAQUE_礫:1.0__TOKEN_礫_4_._OPAQUE_礫:1.0__TOKEN_礫_12_()._OPAQUE_礫:1.0__TOKEN_礫_215_() as _OPAQUE_礫:1.0__TOKEN_礫_165_;
+                        let _OPAQUE_礫:1.0__TOKEN_礫_68_ = _OPAQUE_礫:1.0__TOKEN_礫_91_ / 100;
+                        let _OPAQUE_礫:1.0__TOKEN_礫_192_ = _OPAQUE_礫:1.0__TOKEN_礫_187_::_OPAQUE_礫:1.0__TOKEN_礫_49_::_OPAQUE_礫:1.0__TOKEN_礫_69_(_OPAQUE_礫:1.0__TOKEN_礫_227_ + _OPAQUE_礫:1.0__TOKEN_礫_68_, 60);
+                        
+                        _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} ⏳ _OPAQUE_礎:1.0__TOKEN_礎_13_ {} _OPAQUE_礫:1.0__TOKEN_礫_28_ for _OPAQUE_礎:1.0__TOKEN_礎_61_ _OPAQUE_礎:1.0__TOKEN_礎_24_ _OPAQUE_礫:1.0__TOKEN_礫_40_...", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("[_OPAQUE_礎:1.0__TOKEN_礎_15_]")._OPAQUE_礫:1.0__TOKEN_礫_35_(), _OPAQUE_礫:1.0__TOKEN_礫_192_);
+                        _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_74_(_OPAQUE_礫:1.0__TOKEN_礫_192_)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    } else {
+                        let _OPAQUE_礫:1.0__TOKEN_礫_184_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "✔ 回答が出たら _OPAQUE_礎:1.0__TOKEN_礎_57_+C でコピーして選択" } else { "✔ _OPAQUE_礎:1.0__TOKEN_礎_77_ _OPAQUE_計:1.0__TOKEN_礫_149_ (_OPAQUE_礎:1.0__TOKEN_礎_57_+C) _OPAQUE_礫:1.0__TOKEN_礫_58_ _OPAQUE_礫:1.0__TOKEN_礫_202_ _OPAQUE_計:1.0__TOKEN_礎_42_" };
+                        let _ = _OPAQUE_計:1.0__TOKEN_礫_189_::_OPAQUE_礎:1.0__TOKEN_礎_3_::_OPAQUE_礫:1.0__TOKEN_礫_206_()._OPAQUE_礫:1.0__TOKEN_礫_9_(_OPAQUE_礫:1.0__TOKEN_礫_184_)
+                            ._OPAQUE_礫:1.0__TOKEN_礫_67_(0)._OPAQUE_礫:1.0__TOKEN_礫_226_(&[" _OPAQUE_礎:1.0__TOKEN_礎_32_ _OPAQUE_礎:1.0__TOKEN_礎_30_"])._OPAQUE_礫:1.0__TOKEN_礫_151_()._OPAQUE_礫:1.0__TOKEN_礫_188_();
+                    }
+                    
+// [metadata-stripped]
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ == _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        _OPAQUE_礫:1.0__TOKEN_礫_154_!("{} ⏳ _OPAQUE_礎:1.0__TOKEN_礎_91_ _OPAQUE_礫:1.0__TOKEN_礫_3_ _OPAQUE_礫:1.0__TOKEN_礫_124_ _OPAQUE_礫:1.0__TOKEN_礫_43_...", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_("[_OPAQUE_礎:1.0__TOKEN_礎_106_]")._OPAQUE_礫:1.0__TOKEN_礫_35_());
+                        if let _OPAQUE_礎:1.0__TOKEN_礎_35_(e) = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_礫:1.0__TOKEN_礫_61_().a_OPAQUE_礫:1.0__TOKEN_礫_181_ {
+                            _OPAQUE_礫:1.0__TOKEN_礫_104_!("[_OPAQUE_礎:1.0__TOKEN_礎_70_] _OPAQUE_礎:1.0__TOKEN_礎_16_ _OPAQUE_礫:1.0__TOKEN_礫_127_ _OPAQUE_礫:1.0__TOKEN_礫_43_ _OPAQUE_礎:1.0__TOKEN_礎_54_ _OPAQUE_礎:1.0__TOKEN_礎_97_ _OPAQUE_礎:1.0__TOKEN_礎_83_: {}", e);
+                        }
+                        _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_13_(500)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                    }
+
+// [metadata-stripped]
+                    let _OPAQUE_礫:1.0__TOKEN_礫_71_ = _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_223_::_OPAQUE_礫:1.0__TOKEN_礫_42_::_OPAQUE_礎:1.0__TOKEN_礎_47_::_OPAQUE_計:1.0__TOKEN_礎_2_().a_OPAQUE_礫:1.0__TOKEN_礫_181_._OPAQUE_礫:1.0__TOKEN_礫_100_();
+                    
+// [metadata-stripped]
+                    if _OPAQUE_礫:1.0__TOKEN_礫_26_._OPAQUE_礫:1.0__TOKEN_礫_185_ == _OPAQUE_礫:1.0__TOKEN_礫_48_::_OPAQUE_礫:1.0__TOKEN_礫_191_::_OPAQUE_礎:1.0__TOKEN_礎_68_::_OPAQUE_礎:1.0__TOKEN_礎_38_ {
+                        if _OPAQUE_礫:1.0__TOKEN_礫_71_._OPAQUE_礫:1.0__TOKEN_礫_29_() == _OPAQUE_礫:1.0__TOKEN_礫_4_._OPAQUE_礫:1.0__TOKEN_礫_29_() || _OPAQUE_礫:1.0__TOKEN_礫_71_._OPAQUE_礫:1.0__TOKEN_礫_21_() {
+                            _OPAQUE_礫:1.0__TOKEN_礫_154_!("{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { "❌ 抽出エラー (_OPAQUE_礎:1.0__TOKEN_礎_24_が応答中か要素が見つかりません)。再試行します..." } else { "❌ _OPAQUE_礎:1.0__TOKEN_礎_32_ _OPAQUE_礫:1.0__TOKEN_礫_193_. _OPAQUE_礎:1.0__TOKEN_礎_24_ _OPAQUE_礫:1.0__TOKEN_礫_56_'t _OPAQUE_礫:1.0__TOKEN_礫_228_ _OPAQUE_礫:1.0__TOKEN_礫_174_. _OPAQUE_礎:1.0__TOKEN_礎_58_..." })._OPAQUE_礫:1.0__TOKEN_礫_137_());
+                            _OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礫:1.0__TOKEN_礫_123_(_OPAQUE_礫:1.0__TOKEN_礫_162_::_OPAQUE_礫:1.0__TOKEN_礫_82_::_OPAQUE_礎:1.0__TOKEN_礎_19_::_OPAQUE_礫:1.0__TOKEN_礫_13_(3000)).a_OPAQUE_礫:1.0__TOKEN_礫_181_;
+                            continue;
+                        }
+                    }
+
+                    let _OPAQUE_礫:1.0__TOKEN_礫_22_ = if self._OPAQUE_礫:1.0__TOKEN_礫_14_ { _OPAQUE_漂:1.0__TOKEN_礫_148_!("✔ 自動抽出完了！({}文字)", _OPAQUE_礫:1.0__TOKEN_礫_71_._OPAQUE_礫:1.0__TOKEN_礫_12_()._OPAQUE_礫:1.0__TOKEN_礫_215_()) } else { _OPAQUE_漂:1.0__TOKEN_礫_148_!("✔ _OPAQUE_礎:1.0__TOKEN_礎_37_ _OPAQUE_礎:1.0__TOKEN_礎_32_ _OPAQUE_礫:1.0__TOKEN_礫_23_! ({} _OPAQUE_礫:1.0__TOKEN_礫_12_)", _OPAQUE_礫:1.0__TOKEN_礫_71_._OPAQUE_礫:1.0__TOKEN_礫_12_()._OPAQUE_礫:1.0__TOKEN_礫_215_()) };
+// _OPAQUE_計:0.3__TOKEN_GM_781_ [decoy-metadata]
+                    _OPAQUE_礫:1.0__TOKEN_礫_154_!("{}", _OPAQUE_礫:1.0__TOKEN_礫_33_::_OPAQUE_礫:1.0__TOKEN_礫_230_(_OPAQUE_礫:1.0__TOKEN_礫_22_)._OPAQUE_礫:1.0__TOKEN_礫_224_());
+                    
+// [metadata-stripped]
+                    let _OPAQUE_礫:1.0__TOKEN_礫_31_ = _OPAQUE_礎:1.0__TOKEN_礎_75_::_OPAQUE_礎:1.0__TOKEN_礎_28_(_OPAQUE_礫:1.0__TOKEN_礫_71_);
+                    return Ok(_OPAQUE_礎:1.0__TOKEN_礎_62_(_OPAQUE_礎:1.0__TOKEN_礎_7_ {
+                        _OPAQUE_礫:1.0__TOKEN_礫_238_: _OPAQUE_礎:1.0__TOKEN_礎_67_::_OPAQUE_礫:1.0__TOKEN_礫_240_(),
+                        _OPAQUE_計:1.0__TOKEN_礫_73_: self._OPAQUE_礫:1.0__TOKEN_礫_59_()._OPAQUE_礫:1.0__TOKEN_礫_51_(),
+                        _OPAQUE_礫:1.0__TOKEN_礫_235_: _OPAQUE_礫:1.0__TOKEN_礫_141_._OPAQUE_計:1.0__TOKEN_礫_73_,
+                        _OPAQUE_匣:1.0__TOKEN_礫_121_: _OPAQUE_礫:1.0__TOKEN_礫_77_::_OPAQUE_礫:1.0__TOKEN_礫_51_(&_OPAQUE_礫:1.0__TOKEN_礫_31_)?,
+                    }));
+// _OPAQUE_匣:0.6__TOKEN_CF_259_ [decoy-metadata]
+                }
+// _OPAQUE_絵:0.3__TOKEN_HL_359_ [decoy-metadata]
+            },
+
+
+            _ => Ok(_OPAQUE_礎:1.0__TOKEN_礎_96_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

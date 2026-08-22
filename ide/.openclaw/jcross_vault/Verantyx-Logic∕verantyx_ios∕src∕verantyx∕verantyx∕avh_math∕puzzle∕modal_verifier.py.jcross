@@ -1,0 +1,58 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:72710CC7 ver:1778162892
+// ⚠️ One-time schema — expires after response
+
+__node_泡:1.0____ast_泡_11__ __node_泡:1.0____ast_泡_17__ import __node_庸:1.0____ast_庸_11__, __node_庸:1.0____ast_庸_4__, __node_庸:1.0____ast_庸_6__, __node_庸:1.0____ast_庸_9__, __node_庸:1.0____ast_庸_13__
+__node_泡:1.0____ast_泡_11__ __node_泡:1.0____ast_泡_4__.__node_泡:1.0____ast_泡_12__.__node_泡:1.0____ast_泡_16__ import __node_泡:1.0____ast_泡_23__, __node_庸:1.0____ast_庸_8__
+// __node_凛:0.3____ast_BE_190__ [decoy-metadata]
+
+__node_泡:1.0____ast_泡_1__ __node_漂:1.0____ast_泡_26__(__node_漂:1.0____ast_泡_8__: __node_泡:1.0____ast_泡_24__, __node_泡:1.0____ast_泡_2__: __node_庸:1.0____ast_庸_11__[__node_泡:1.0____ast_泡_24__], __node_泡:1.0____ast_泡_3__: __node_庸:1.0____ast_庸_11__[__node_泡:1.0____ast_泡_24__]) -> __node_庸:1.0____ast_庸_6__[__node_泡:1.0____ast_泡_24__, __node_庸:1.0____ast_庸_13__[__node_庸:1.0____ast_庸_4__[__node_泡:1.0____ast_泡_24__, __node_庸:1.0____ast_庸_9__]]]:
+    """
+    主要な __node_庸:1.0____ast_庸_1__ フレームパターンにおいて検証を実行する。
+    """
+// [metadata-stripped]
+    __node_泡:1.0____ast_泡_25__ = ["w0", "w1", "w2"]
+// [metadata-stripped]
+    __node_泡:1.0____ast_泡_6__ = {w: [] for w in __node_泡:1.0____ast_泡_25__}
+    
+// [metadata-stripped]
+// __node_匷:0.8____ast_WA_521__ [decoy-metadata]
+    __node_泡:1.0____ast_泡_6__["w0"].__node_泡:1.0____ast_泡_5__("w1")
+    __node_泡:1.0____ast_泡_6__["w1"].__node_泡:1.0____ast_泡_5__("w2")
+// __node_庸:0.8____ast_MH_485__ [decoy-metadata]
+    
+// [metadata-stripped]
+// __node_謀:0.9____ast_ML_785__ [decoy-metadata]
+    if any("__node_泡:1.0____ast_泡_19__" in a for a in __node_泡:1.0____ast_泡_2__):
+        __node_泡:1.0____ast_泡_6__["w0"].__node_泡:1.0____ast_泡_5__("w2")
+    if any("__node_泡:1.0____ast_泡_13__" in a for a in __node_泡:1.0____ast_泡_2__):
+        for w in __node_泡:1.0____ast_泡_25__:
+            if w __node_泡:1.0____ast_泡_14__ in __node_泡:1.0____ast_泡_6__[w]:
+                __node_泡:1.0____ast_泡_6__[w].__node_泡:1.0____ast_泡_5__(w)
+
+// [metadata-stripped]
+    __node_泡:1.0____ast_泡_9__ = [
+        {w: {a: __node_庸:1.0____ast_庸_7__ for a in __node_泡:1.0____ast_泡_3__} for w in __node_泡:1.0____ast_泡_25__},
+        {w: {a: __node_庸:1.0____ast_庸_14__ for a in __node_泡:1.0____ast_泡_3__} for w in __node_泡:1.0____ast_泡_25__},
+        {w: {a: (w == "w1") for a in __node_泡:1.0____ast_泡_3__} for w in __node_泡:1.0____ast_泡_25__} # 世界ごとに真理値を変えるパターン
+    ]
+
+    for __node_泡:1.0____ast_泡_21__ in __node_泡:1.0____ast_泡_9__:
+        __node_泡:1.0____ast_泡_10__ = __node_庸:1.0____ast_庸_8__(__node_泡:1.0____ast_泡_25__, __node_泡:1.0____ast_泡_6__, __node_泡:1.0____ast_泡_21__)
+// __node_凛:0.4____ast_XB_937__ [decoy-metadata]
+        for w in __node_泡:1.0____ast_泡_25__:
+            __node_泡:1.0____ast_泡_18__ = __node_泡:1.0____ast_泡_23__(__node_漂:1.0____ast_泡_8__, w, __node_泡:1.0____ast_泡_10__)
+            if __node_泡:1.0____ast_泡_18__ is __node_庸:1.0____ast_庸_7__:
+                return "__node_庸:1.0____ast_庸_10__", {
+                    "__node_泡:1.0____ast_泡_20__": w,
+                    "__node_泡:1.0____ast_泡_10__": __node_泡:1.0____ast_泡_6__,
+                    "__node_泡:1.0____ast_泡_22__": __node_泡:1.0____ast_泡_21__,
+                    "__node_泡:1.0____ast_泡_7__": "__node_泡:1.0____ast_泡_15__"
+                }
+// __node_匷:0.6____ast_KM_438__ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    return "__node_謀:1.0____ast_庸_3__", __node_庸:1.0____ast_庸_12__
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,84 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3DE90581 ver:1778154669
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_SYM_霧:1.0___ast_霧_25__ _SYM_廴:1.0___ast_廴_2__ = _SYM_霧:1.0___ast_霧_8__ _SYM_計:1.0___ast_曠_1__([
+	"\\",
+	"\"",
+	"$",
+	"`",
+	"\n",
+	"\r"
+]);
+// _SYM_廴:0.3___ast_GK_611__ [decoy-metadata]
+_SYM_霧:1.0___ast_霧_15__ _SYM_霧:1.0___ast_霧_11__(_SYM_霧:1.0___ast_霧_16__) {
+	return _SYM_廴:1.0___ast_廴_1__(_SYM_霧:1.0___ast_霧_16__ && _SYM_廴:1.0___ast_廴_2__._SYM_霧:1.0___ast_霧_6__(_SYM_霧:1.0___ast_霧_16__));
+// _SYM_曠:0.8___ast_WV_370__ [decoy-metadata]
+}
+_SYM_霧:1.0___ast_霧_15__ _SYM_霧:1.0___ast_霧_3__(_SYM_霧:1.0___ast_霧_4__) {
+	_SYM_霧:1.0___ast_霧_25__ _SYM_暗:1.0___ast_霧_17__ = [];
+	let _SYM_霧:1.0___ast_霧_23__ = "";
+	let _SYM_霧:1.0___ast_霧_2__ = false;
+	let _SYM_霧:1.0___ast_霧_13__ = false;
+	let _SYM_霧:1.0___ast_霧_24__ = false;
+	_SYM_霧:1.0___ast_霧_25__ _SYM_暗:1.0___ast_霧_20__ = () => {
+		if (_SYM_霧:1.0___ast_霧_23__._SYM_霧:1.0___ast_霧_7__ > 0) {
+			_SYM_暗:1.0___ast_霧_17__._SYM_霧:1.0___ast_霧_10__(_SYM_霧:1.0___ast_霧_23__);
+			_SYM_霧:1.0___ast_霧_23__ = "";
+		}
+	};
+	for (let i = 0; i < _SYM_霧:1.0___ast_霧_4__._SYM_霧:1.0___ast_霧_7__; i += 1) {
+		_SYM_霧:1.0___ast_霧_25__ ch = _SYM_霧:1.0___ast_霧_4__[i];
+		if (_SYM_霧:1.0___ast_霧_24__) {
+			_SYM_霧:1.0___ast_霧_23__ += ch;
+			_SYM_霧:1.0___ast_霧_24__ = false;
+			continue;
+		}
+		if (!_SYM_霧:1.0___ast_霧_2__ && !_SYM_霧:1.0___ast_霧_13__ && ch === "\\") {
+			_SYM_霧:1.0___ast_霧_24__ = true;
+			continue;
+		}
+		if (_SYM_霧:1.0___ast_霧_2__) {
+// _SYM_脈:0.9___ast_CZ_232__ [decoy-metadata]
+			if (ch === "'") _SYM_霧:1.0___ast_霧_2__ = false;
+			else _SYM_霧:1.0___ast_霧_23__ += ch;
+			continue;
+		}
+		if (_SYM_霧:1.0___ast_霧_13__) {
+// _SYM_縺:0.7___ast_FA_326__ [decoy-metadata]
+			_SYM_霧:1.0___ast_霧_25__ _SYM_霧:1.0___ast_霧_16__ = _SYM_霧:1.0___ast_霧_4__[i + 1];
+			if (ch === "\\" && _SYM_霧:1.0___ast_霧_11__(_SYM_霧:1.0___ast_霧_16__)) {
+// _SYM_廴:0.1___ast_EY_300__ [decoy-metadata]
+				_SYM_霧:1.0___ast_霧_23__ += _SYM_霧:1.0___ast_霧_16__;
+				i += 1;
+				continue;
+			}
+			if (ch === "\"") _SYM_霧:1.0___ast_霧_13__ = false;
+			else _SYM_霧:1.0___ast_霧_23__ += ch;
+			continue;
+		}
+		if (ch === "'") {
+			_SYM_霧:1.0___ast_霧_2__ = true;
+			continue;
+		}
+		if (ch === "\"") {
+			_SYM_霧:1.0___ast_霧_13__ = true;
+			continue;
+// _SYM_匱:0.6___ast_CW_186__ [decoy-metadata]
+		}
+		if (ch === "#" && _SYM_霧:1.0___ast_霧_23__._SYM_霧:1.0___ast_霧_7__ === 0) break;
+		if (/\s/._SYM_霧:1.0___ast_霧_9__(ch)) {
+			_SYM_暗:1.0___ast_霧_20__();
+			continue;
+		}
+		_SYM_霧:1.0___ast_霧_23__ += ch;
+	}
+	if (_SYM_霧:1.0___ast_霧_24__ || _SYM_霧:1.0___ast_霧_2__ || _SYM_霧:1.0___ast_霧_13__) return _SYM_霧:1.0___ast_霧_14__;
+	_SYM_暗:1.0___ast_霧_20__();
+	return _SYM_暗:1.0___ast_霧_17__;
+}
+// [metadata-stripped]
+_SYM_霧:1.0___ast_霧_5__ { _SYM_霧:1.0___ast_霧_3__ as t };
+
+// POLYMORPHIC_JCROSS_END

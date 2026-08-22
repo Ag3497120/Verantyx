@@ -1,0 +1,31 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:6C415FBE ver:1778167728
+// ⚠️ One-time schema — expires after response
+
+_SYM_滴:1.0___ast_滴_6__ _SYM_滴:1.0___ast_滴_3__ _SYM_策:1.0___ast_滴_10__(_SYM_滴:1.0___ast_滴_5__?: _SYM_滴:1.0___ast_滴_8__): _SYM_滴:1.0___ast_滴_8__ {
+  if (!_SYM_滴:1.0___ast_滴_5__) {
+    return "";
+  }
+  return _SYM_滴:1.0___ast_滴_5__._SYM_滴:1.0___ast_滴_14__(/\D/g, "");
+}
+// _SYM_燦:0.8___ast_WG_340__ [decoy-metadata]
+
+_SYM_滴:1.0___ast_滴_6__ _SYM_滴:1.0___ast_滴_3__ _SYM_策:1.0___ast_滴_9__(
+// _SYM_策:0.2___ast_DV_985__ [decoy-metadata]
+  _SYM_滴:1.0___ast_滴_1__: _SYM_滴:1.0___ast_滴_8__,
+  _SYM_滴:1.0___ast_滴_7__: _SYM_滴:1.0___ast_滴_8__[] | _SYM_滴:1.0___ast_滴_11__,
+// _SYM_燦:0.2___ast_VZ_643__ [decoy-metadata]
+// _SYM_庭:0.9___ast_CZ_170__ [decoy-metadata]
+): _SYM_滴:1.0___ast_滴_4__ {
+  if (!_SYM_滴:1.0___ast_滴_1__) {
+    return false;
+// _SYM_滴:0.3___ast_CB_596__ [decoy-metadata]
+  }
+// _SYM_潤:0.4___ast_CW_193__ [decoy-metadata]
+  return (_SYM_滴:1.0___ast_滴_7__ ?? []).some((_SYM_滴:1.0___ast_滴_12__) => {
+    _SYM_滴:1.0___ast_滴_13__ _SYM_滴:1.0___ast_滴_2__ = _SYM_策:1.0___ast_滴_10__(_SYM_滴:1.0___ast_滴_12__);
+    return _SYM_滴:1.0___ast_滴_2__ !== "" && _SYM_滴:1.0___ast_滴_2__ === _SYM_滴:1.0___ast_滴_1__;
+  });
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,200 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2BF3A805 ver:1778149623
+// _ASTNODE_曠:0.5__SYM_LZ_925_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_策:1.0__SYM_曠_1_ -_ASTNODE_霩:1.0__SYM_霩_105_ _ASTNODE_霩:1.0__SYM_霩_101_
+
+_ASTNODE_廩:1.0__SYM_廩_10_="${1:-1.0.0}"
+_ASTNODE_廩:1.0__SYM_廩_5_="${2:-}"
+_ASTNODE_廩:1.0__SYM_廩_9_="${3:-}"
+_ASTNODE_廩:1.0__SYM_廩_23_="${4:-}"
+
+_ASTNODE_廩:1.0__SYM_廩_18_="_ASTNODE_廩:1.0__SYM_廩_66_"
+_ASTNODE_廩:1.0__SYM_廩_24_="_ASTNODE_廩:1.0__SYM_廩_69_"
+_ASTNODE_廩:1.0__SYM_廩_42_="_ASTNODE_廩:1.0__SYM_廩_66_"
+_ASTNODE_廩:1.0__SYM_廩_36_="_ASTNODE_廩:1.0__SYM_廩_58_-${_ASTNODE_廩:1.0__SYM_廩_10_}"
+_ASTNODE_廩:1.0__SYM_廩_30_="$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_霩:1.0__SYM_霩_2_"
+_ASTNODE_廩:1.0__SYM_廩_71_="$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_霩:1.0__SYM_霩_2_/._ASTNODE_霩:1.0__SYM_霩_54_"
+
+_ASTNODE_霩:1.0__SYM_霩_50_ "▶ _ASTNODE_廩:1.0__SYM_廩_66_ _ASTNODE_廩:1.0__SYM_廩_22_ パッケージ作成 v${_ASTNODE_廩:1.0__SYM_廩_10_}"
+_ASTNODE_霩:1.0__SYM_霩_50_ "================================================"
+
+// [metadata-stripped]
+_ASTNODE_廩:1.0__SYM_廩_40_=$(_ASTNODE_霩:1.0__SYM_霩_49_ _ASTNODE_霩:1.0__SYM_霩_10_-_ASTNODE_霩:1.0__SYM_霩_100_ -v -p _ASTNODE_霩:1.0__SYM_霩_61_ 2>/_ASTNODE_霩:1.0__SYM_霩_6_/_ASTNODE_霩:1.0__SYM_霩_51_ | _ASTNODE_霩:1.0__SYM_霩_39_ "_ASTNODE_策:1.0__SYM_廩_25_ ID _ASTNODE_廩:1.0__SYM_廩_12_" | _ASTNODE_霩:1.0__SYM_霩_81_ -1 | _ASTNODE_霩:1.0__SYM_霩_39_ -oE '"_ASTNODE_策:1.0__SYM_廩_25_ ID _ASTNODE_廩:1.0__SYM_廩_12_: [^"]+?"' | tr -d '"' || _ASTNODE_霩:1.0__SYM_霩_50_ "")
+
+if [ -n "$_ASTNODE_廩:1.0__SYM_廩_40_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_50_ "✓ _ASTNODE_策:1.0__SYM_廩_25_ ID _ASTNODE_霩:1.0__SYM_霩_68_: $_ASTNODE_廩:1.0__SYM_廩_40_"
+  _ASTNODE_廩:1.0__SYM_廩_44_="_ASTNODE_霩:1.0__SYM_霩_20_"
+  _ASTNODE_廩:1.0__SYM_廩_7_="$_ASTNODE_廩:1.0__SYM_廩_40_"
+else
+  _ASTNODE_霩:1.0__SYM_霩_50_ "⚠️  No _ASTNODE_策:1.0__SYM_廩_25_ ID _ASTNODE_霩:1.0__SYM_霩_68_ _ASTNODE_霩:1.0__SYM_霩_12_ — _ASTNODE_霩:1.0__SYM_霩_27_ ad-_ASTNODE_霩:1.0__SYM_霩_83_ _ASTNODE_霩:1.0__SYM_霩_25_"
+  _ASTNODE_廩:1.0__SYM_廩_44_="_ASTNODE_霩:1.0__SYM_霩_96_"
+  _ASTNODE_廩:1.0__SYM_廩_7_="-"
+fi
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[1/7] クリーンアップ..."
+rm -rf "$_ASTNODE_廩:1.0__SYM_廩_71_" "$_ASTNODE_廩:1.0__SYM_廩_30_/${_ASTNODE_廩:1.0__SYM_廩_36_}._ASTNODE_霩:1.0__SYM_霩_15_"
+_ASTNODE_霩:1.0__SYM_霩_34_ -p "$_ASTNODE_廩:1.0__SYM_廩_71_"
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[2/7] _ASTNODE_廩:1.0__SYM_廩_69_ ビルド中..."
+
+// _ASTNODE_策:0.2__SYM_KX_450_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_策:1.0__SYM_廩_35_=$(_ASTNODE_霩:1.0__SYM_霩_70_ +%s)
+// _ASTNODE_函:0.8__SYM_KY_801_ [decoy-metadata]
+/_ASTNODE_霩:1.0__SYM_霩_97_/_ASTNODE_霩:1.0__SYM_霩_74_/_ASTNODE_廩:1.0__SYM_廩_13_ -c "_ASTNODE_策:1.0__SYM_曠_2_ :_ASTNODE_廩:1.0__SYM_廩_38_ $_ASTNODE_策:1.0__SYM_廩_35_" "$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_廩:1.0__SYM_廩_32_/_ASTNODE_廩:1.0__SYM_廩_66_/_ASTNODE_廩:1.0__SYM_廩_63_._ASTNODE_霩:1.0__SYM_霩_76_"
+/_ASTNODE_霩:1.0__SYM_霩_97_/_ASTNODE_霩:1.0__SYM_霩_74_/_ASTNODE_廩:1.0__SYM_廩_13_ -c "_ASTNODE_策:1.0__SYM_曠_2_ :_ASTNODE_廩:1.0__SYM_廩_60_ ${_ASTNODE_廩:1.0__SYM_廩_10_}" "$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_廩:1.0__SYM_廩_32_/_ASTNODE_廩:1.0__SYM_廩_66_/_ASTNODE_廩:1.0__SYM_廩_63_._ASTNODE_霩:1.0__SYM_霩_76_"
+// _ASTNODE_廩:0.9__SYM_VV_461_ [decoy-metadata]
+_ASTNODE_霩:1.0__SYM_霩_50_ "   _ASTNODE_廩:1.0__SYM_廩_28_ (_ASTNODE_廩:1.0__SYM_廩_60_) _ASTNODE_策:1.0__SYM_曠_1_ to: ${_ASTNODE_廩:1.0__SYM_廩_10_}"
+_ASTNODE_霩:1.0__SYM_霩_50_ "   _ASTNODE_廩:1.0__SYM_廩_64_ _ASTNODE_策:1.0__SYM_廩_67_ (_ASTNODE_廩:1.0__SYM_廩_38_) _ASTNODE_策:1.0__SYM_曠_1_ to: $_ASTNODE_策:1.0__SYM_廩_35_"
+
+if [ "$_ASTNODE_廩:1.0__SYM_廩_44_" = "_ASTNODE_霩:1.0__SYM_霩_20_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+// [metadata-stripped]
+  _ASTNODE_廩:1.0__SYM_廩_37_=$(_ASTNODE_霩:1.0__SYM_霩_50_ "$_ASTNODE_廩:1.0__SYM_廩_40_" | _ASTNODE_霩:1.0__SYM_霩_39_ -oE '\([A-Z0-9]{10}\)' | tr -d '()')
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   _ASTNODE_廩:1.0__SYM_廩_65_ ID (_ASTNODE_霩:1.0__SYM_霩_102_ _ASTNODE_霩:1.0__SYM_霩_68_): $_ASTNODE_廩:1.0__SYM_廩_37_"
+  _ASTNODE_霩:1.0__SYM_霩_35_ \
+    -_ASTNODE_霩:1.0__SYM_霩_23_ "$_ASTNODE_廩:1.0__SYM_廩_18_" \
+    -_ASTNODE_霩:1.0__SYM_霩_67_ "$_ASTNODE_廩:1.0__SYM_廩_24_" \
+    -_ASTNODE_霩:1.0__SYM_霩_55_ "_ASTNODE_漂:1.0__SYM_霩_22_=_ASTNODE_霩:1.0__SYM_霩_56_" \
+    _ASTNODE_廩:1.0__SYM_廩_72_="${_ASTNODE_廩:1.0__SYM_廩_10_}" \
+    _ASTNODE_廩:1.0__SYM_廩_8_="$_ASTNODE_策:1.0__SYM_廩_35_" \
+    _ASTNODE_廩:1.0__SYM_廩_15_="_ASTNODE_廩:1.0__SYM_廩_57_" \
+    _ASTNODE_廩:1.0__SYM_廩_75_="$_ASTNODE_廩:1.0__SYM_廩_40_" \
+    _ASTNODE_廩:1.0__SYM_廩_62_="$_ASTNODE_廩:1.0__SYM_廩_37_" \
+    _ASTNODE_廩:1.0__SYM_廩_27_=_ASTNODE_廩:1.0__SYM_廩_54_ \
+    _ASTNODE_廩:1.0__SYM_廩_48_="--_ASTNODE_霩:1.0__SYM_霩_8_" \
+    _ASTNODE_廩:1.0__SYM_廩_70_="$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_霩:1.0__SYM_霩_58_" \
+    _ASTNODE_霩:1.0__SYM_霩_58_ 2>&1 | _ASTNODE_霩:1.0__SYM_霩_39_ -E "_ASTNODE_霩:1.0__SYM_霩_88_:|_ASTNODE_霩:1.0__SYM_霩_62_:|_ASTNODE_廩:1.0__SYM_廩_16_|_ASTNODE_廩:1.0__SYM_廩_61_" | _ASTNODE_霩:1.0__SYM_霩_91_ -10
+else
+  _ASTNODE_霩:1.0__SYM_霩_35_ \
+    -_ASTNODE_霩:1.0__SYM_霩_23_ "$_ASTNODE_廩:1.0__SYM_廩_18_" \
+    -_ASTNODE_霩:1.0__SYM_霩_67_ "$_ASTNODE_廩:1.0__SYM_廩_24_" \
+    -_ASTNODE_霩:1.0__SYM_霩_55_ "_ASTNODE_漂:1.0__SYM_霩_22_=_ASTNODE_霩:1.0__SYM_霩_56_" \
+    _ASTNODE_廩:1.0__SYM_廩_72_="${_ASTNODE_廩:1.0__SYM_廩_10_}" \
+    _ASTNODE_廩:1.0__SYM_廩_8_="$_ASTNODE_策:1.0__SYM_廩_35_" \
+    _ASTNODE_廩:1.0__SYM_廩_15_="_ASTNODE_廩:1.0__SYM_廩_57_" \
+    _ASTNODE_廩:1.0__SYM_廩_75_="-" \
+    _ASTNODE_廩:1.0__SYM_廩_27_=NO \
+    _ASTNODE_廩:1.0__SYM_廩_49_=NO \
+    _ASTNODE_廩:1.0__SYM_廩_70_="$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_霩:1.0__SYM_霩_58_" \
+    _ASTNODE_霩:1.0__SYM_霩_58_ 2>&1 | _ASTNODE_霩:1.0__SYM_霩_39_ -E "_ASTNODE_霩:1.0__SYM_霩_88_:|_ASTNODE_霩:1.0__SYM_霩_62_:|_ASTNODE_廩:1.0__SYM_廩_16_|_ASTNODE_廩:1.0__SYM_廩_61_" | _ASTNODE_霩:1.0__SYM_霩_91_ -10
+fi
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[3/7] ._ASTNODE_霩:1.0__SYM_霩_4_ バンドルを探索..."
+_ASTNODE_廩:1.0__SYM_廩_46_="$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_霩:1.0__SYM_霩_58_/${_ASTNODE_廩:1.0__SYM_廩_24_}/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_"
+if [ ! -d "$_ASTNODE_廩:1.0__SYM_廩_46_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_50_ "❌ _ASTNODE_廩:1.0__SYM_廩_56_: ${_ASTNODE_廩:1.0__SYM_廩_46_} が見つかりません"
+  _ASTNODE_霩:1.0__SYM_霩_9_ 1
+fi
+_ASTNODE_霩:1.0__SYM_霩_50_ "   _ASTNODE_廩:1.0__SYM_廩_34_: $_ASTNODE_廩:1.0__SYM_廩_46_"
+// _ASTNODE_廩:0.3__SYM_VH_825_ [decoy-metadata]
+
+// [metadata-stripped]
+if [ -f "$_ASTNODE_廩:1.0__SYM_廩_46_/_ASTNODE_廩:1.0__SYM_廩_55_/_ASTNODE_廩:1.0__SYM_廩_21_/_ASTNODE_廩:1.0__SYM_廩_14_._ASTNODE_霩:1.0__SYM_霩_47_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   ✓ _ASTNODE_廩:1.0__SYM_廩_14_._ASTNODE_霩:1.0__SYM_霩_47_ _ASTNODE_霩:1.0__SYM_霩_26_"
+else
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   ⚠️  _ASTNODE_廩:1.0__SYM_廩_14_._ASTNODE_霩:1.0__SYM_霩_47_ _ASTNODE_霩:1.0__SYM_霩_16_ _ASTNODE_霩:1.0__SYM_霩_12_ in _ASTNODE_霩:1.0__SYM_霩_93_"
+fi
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[4/7] ステージングにコピー..."
+cp -R "$_ASTNODE_廩:1.0__SYM_廩_46_" "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_"
+_ASTNODE_霩:1.0__SYM_霩_75_ -cr "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_" 2>/_ASTNODE_霩:1.0__SYM_霩_6_/_ASTNODE_霩:1.0__SYM_霩_51_ || true
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[5/7] 署名中 (${_ASTNODE_廩:1.0__SYM_廩_44_})..."
+if [ "$_ASTNODE_廩:1.0__SYM_廩_44_" = "_ASTNODE_霩:1.0__SYM_霩_20_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_38_ --_ASTNODE_漂:1.0__SYM_霩_43_ --_ASTNODE_霩:1.0__SYM_霩_77_ --_ASTNODE_霩:1.0__SYM_霩_60_ "$_ASTNODE_廩:1.0__SYM_廩_7_" \
+    --_ASTNODE_霩:1.0__SYM_霩_85_ _ASTNODE_霩:1.0__SYM_霩_21_ \
+    --_ASTNODE_霩:1.0__SYM_霩_53_ "$(_ASTNODE_霩:1.0__SYM_霩_104_)/_ASTNODE_廩:1.0__SYM_廩_32_/_ASTNODE_廩:1.0__SYM_廩_66_/_ASTNODE_廩:1.0__SYM_廩_66_._ASTNODE_霩:1.0__SYM_霩_53_" \
+    "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   ✓ _ASTNODE_策:1.0__SYM_廩_25_ ID 署名完了"
+else
+  _ASTNODE_霩:1.0__SYM_霩_38_ --_ASTNODE_漂:1.0__SYM_霩_43_ --_ASTNODE_霩:1.0__SYM_霩_77_ --_ASTNODE_霩:1.0__SYM_霩_60_ "-" \
+    "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_" 2>/_ASTNODE_霩:1.0__SYM_霩_6_/_ASTNODE_霩:1.0__SYM_霩_51_ || true
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   ✓ Ad-_ASTNODE_霩:1.0__SYM_霩_83_ 署名完了 (初回起動時に右クリック→開く が必要)"
+fi
+
+// [metadata-stripped]
+if [ "$_ASTNODE_廩:1.0__SYM_廩_44_" = "_ASTNODE_霩:1.0__SYM_霩_20_" ] && [ -n "$_ASTNODE_廩:1.0__SYM_廩_5_" ] && [ -n "$_ASTNODE_廩:1.0__SYM_廩_23_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_50_ "[6/7] _ASTNODE_廩:1.0__SYM_廩_11_ への公証（_ASTNODE_廩:1.0__SYM_廩_59_）中..."
+// [metadata-stripped]
+  _ASTNODE_霩:1.0__SYM_霩_57_ -c -k --_ASTNODE_霩:1.0__SYM_霩_17_ "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_" "/_ASTNODE_霩:1.0__SYM_霩_87_/${_ASTNODE_廩:1.0__SYM_廩_42_}_ASTNODE_霩:1.0__SYM_霩_41_._ASTNODE_霩:1.0__SYM_霩_103_"
+  
+  _ASTNODE_霩:1.0__SYM_霩_31_ _ASTNODE_霩:1.0__SYM_霩_36_ _ASTNODE_霩:1.0__SYM_霩_42_ "/_ASTNODE_霩:1.0__SYM_霩_87_/${_ASTNODE_廩:1.0__SYM_廩_42_}_ASTNODE_霩:1.0__SYM_霩_41_._ASTNODE_霩:1.0__SYM_霩_103_" \
+    --_ASTNODE_霩:1.0__SYM_霩_30_-id "$_ASTNODE_廩:1.0__SYM_廩_5_" \
+    --_ASTNODE_霩:1.0__SYM_霩_33_-id "${_ASTNODE_廩:1.0__SYM_廩_9_:-_ASTNODE_廩:1.0__SYM_廩_29_}" \
+    --_ASTNODE_冥:1.0__SYM_霩_98_ "$_ASTNODE_廩:1.0__SYM_廩_23_" \
+    --_ASTNODE_霩:1.0__SYM_霩_95_
+  
+// [metadata-stripped]
+  _ASTNODE_霩:1.0__SYM_霩_31_ _ASTNODE_策:1.0__SYM_霩_79_ _ASTNODE_霩:1.0__SYM_霩_78_ "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_"
+  rm -f "/_ASTNODE_霩:1.0__SYM_霩_87_/${_ASTNODE_廩:1.0__SYM_廩_42_}_ASTNODE_霩:1.0__SYM_霩_41_._ASTNODE_霩:1.0__SYM_霩_103_"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   ✓ 公証完了 — _ASTNODE_策:1.0__SYM_廩_73_ 警告なしで起動できます"
+else
+  _ASTNODE_霩:1.0__SYM_霩_50_ "[6/7] 公証スキップ (_ASTNODE_策:1.0__SYM_廩_25_ ID + _ASTNODE_廩:1.0__SYM_廩_11_ ID が必要)"
+fi
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_50_ "[7/7] _ASTNODE_廩:1.0__SYM_廩_47_ インストーラーを作成中..."
+_ASTNODE_霩:1.0__SYM_霩_34_ -p "$_ASTNODE_廩:1.0__SYM_廩_30_"
+_ASTNODE_廩:1.0__SYM_廩_17_="_ASTNODE_廩:1.0__SYM_廩_58_-${_ASTNODE_廩:1.0__SYM_廩_10_}._ASTNODE_霩:1.0__SYM_霩_15_"
+
+// [metadata-stripped]
+_ASTNODE_霩:1.0__SYM_霩_34_ -p "$_ASTNODE_廩:1.0__SYM_廩_71_/_ASTNODE_霩:1.0__SYM_霩_44_"
+mv "$_ASTNODE_廩:1.0__SYM_廩_71_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_" "$_ASTNODE_廩:1.0__SYM_廩_71_/_ASTNODE_霩:1.0__SYM_霩_44_/"
+ln -s /_ASTNODE_廩:1.0__SYM_廩_76_ "$_ASTNODE_廩:1.0__SYM_廩_71_/_ASTNODE_霩:1.0__SYM_霩_44_/_ASTNODE_廩:1.0__SYM_廩_76_"
+
+_ASTNODE_霩:1.0__SYM_霩_13_ _ASTNODE_霩:1.0__SYM_霩_73_ -_ASTNODE_霩:1.0__SYM_霩_66_ "${_ASTNODE_廩:1.0__SYM_廩_42_}" \
+               -_ASTNODE_策:1.0__SYM_霩_92_ "$_ASTNODE_廩:1.0__SYM_廩_71_/_ASTNODE_霩:1.0__SYM_霩_44_" \
+               -ov \
+               -_ASTNODE_漂:1.0__SYM_霩_82_ _ASTNODE_廩:1.0__SYM_廩_3_ \
+// _ASTNODE_函:0.8__SYM_XK_655_ [decoy-metadata]
+               "$_ASTNODE_廩:1.0__SYM_廩_30_/$_ASTNODE_廩:1.0__SYM_廩_17_" > /_ASTNODE_霩:1.0__SYM_霩_6_/_ASTNODE_霩:1.0__SYM_霩_51_
+
+rm -rf "$_ASTNODE_廩:1.0__SYM_廩_71_"
+
+// [metadata-stripped]
+_ASTNODE_廩:1.0__SYM_廩_50_=$(du -sh "$_ASTNODE_廩:1.0__SYM_廩_30_/${_ASTNODE_廩:1.0__SYM_廩_17_}" | _ASTNODE_霩:1.0__SYM_霩_86_ -f1)
+_ASTNODE_霩:1.0__SYM_霩_50_ ""
+_ASTNODE_霩:1.0__SYM_霩_50_ "================================================"
+_ASTNODE_霩:1.0__SYM_霩_50_ "✅ 完了!"
+_ASTNODE_霩:1.0__SYM_霩_50_ "   出力: _ASTNODE_霩:1.0__SYM_霩_2_/${_ASTNODE_廩:1.0__SYM_廩_17_} (${_ASTNODE_廩:1.0__SYM_廩_50_})"
+_ASTNODE_霩:1.0__SYM_霩_50_ "   署名: ${_ASTNODE_廩:1.0__SYM_廩_44_}"
+_ASTNODE_霩:1.0__SYM_霩_50_ ""
+
+if [ "$_ASTNODE_廩:1.0__SYM_廩_44_" = "_ASTNODE_霩:1.0__SYM_霩_96_" ]; _ASTNODE_霩:1.0__SYM_霩_24_
+  _ASTNODE_霩:1.0__SYM_霩_50_ "📌 _ASTNODE_策:1.0__SYM_廩_73_ を回避するには（ユーザー側の操作）:"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   初回起動: _ASTNODE_策:1.0__SYM_廩_74_ で右クリック → 「開く」"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   または: _ASTNODE_霩:1.0__SYM_霩_75_ -d _ASTNODE_霩:1.0__SYM_霩_11_._ASTNODE_霩:1.0__SYM_霩_30_._ASTNODE_霩:1.0__SYM_霩_28_ /_ASTNODE_廩:1.0__SYM_廩_76_/${_ASTNODE_廩:1.0__SYM_廩_42_}._ASTNODE_霩:1.0__SYM_霩_4_"
+  _ASTNODE_霩:1.0__SYM_霩_50_ ""
+  _ASTNODE_霩:1.0__SYM_霩_50_ "💡 _ASTNODE_策:1.0__SYM_廩_73_ 警告を完全になくすには:"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   _ASTNODE_策:1.0__SYM_廩_25_ ID 証明書が必要です:"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   1. _ASTNODE_綾:1.0__SYM_霩_14_://_ASTNODE_策:1.0__SYM_霩_94_._ASTNODE_霩:1.0__SYM_霩_30_._ASTNODE_霩:1.0__SYM_霩_11_/_ASTNODE_霩:1.0__SYM_霩_99_/ → _ASTNODE_廩:1.0__SYM_廩_53_"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   2. 「_ASTNODE_策:1.0__SYM_廩_25_ ID _ASTNODE_廩:1.0__SYM_廩_12_」証明書を作成・インストール"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   3. アプリ専用パスワードを _ASTNODE_綾:1.0__SYM_霩_14_://_ASTNODE_霩:1.0__SYM_霩_80_._ASTNODE_霩:1.0__SYM_霩_30_._ASTNODE_霩:1.0__SYM_霩_11_ で発行"
+  _ASTNODE_霩:1.0__SYM_霩_50_ "   4. _ASTNODE_霩:1.0__SYM_霩_19_ _ASTNODE_霩:1.0__SYM_霩_32_.sh ${_ASTNODE_廩:1.0__SYM_廩_10_} _ASTNODE_霩:1.0__SYM_霩_18_@_ASTNODE_霩:1.0__SYM_霩_30_._ASTNODE_霩:1.0__SYM_霩_11_ _ASTNODE_廩:1.0__SYM_廩_26_ _ASTNODE_霩:1.0__SYM_霩_4_-_ASTNODE_漂:1.0__SYM_霩_84_-_ASTNODE_霩:1.0__SYM_霩_3_"
+fi
+
+_ASTNODE_霩:1.0__SYM_霩_50_ ""
+_ASTNODE_霩:1.0__SYM_霩_50_ "📌 _ASTNODE_廩:1.0__SYM_廩_68_ _ASTNODE_廩:1.0__SYM_廩_69_ に添付:"
+_ASTNODE_霩:1.0__SYM_霩_50_ "   gh _ASTNODE_霩:1.0__SYM_霩_40_ _ASTNODE_霩:1.0__SYM_霩_73_ v${_ASTNODE_廩:1.0__SYM_廩_10_} _ASTNODE_霩:1.0__SYM_霩_2_/${_ASTNODE_廩:1.0__SYM_廩_17_} --_ASTNODE_霩:1.0__SYM_霩_5_ _ASTNODE_霩:1.0__SYM_霩_65_/_ASTNODE_霩:1.0__SYM_霩_65_"
+_ASTNODE_霩:1.0__SYM_霩_50_ "================================================"
+
+// POLYMORPHIC_JCROSS_END

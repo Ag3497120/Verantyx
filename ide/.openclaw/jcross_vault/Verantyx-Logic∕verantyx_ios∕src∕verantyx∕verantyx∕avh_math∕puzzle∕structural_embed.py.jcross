@@ -1,0 +1,42 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3E5E70B7 ver:1778162893
+// ⚠️ One-time schema — expires after response
+
+__ast_沫:1.0___ASTNODE_沫_2_ __ast_沫:1.0___ASTNODE_沫_13_ import __ast_礎:1.0___ASTNODE_礎_2_, __ast_礎:1.0___ASTNODE_礎_3_, __ast_礎:1.0___ASTNODE_礎_5_, __ast_礎:1.0___ASTNODE_礎_4_
+
+// __ast_嵐:0.9___ASTNODE_ZM_164_ [decoy-metadata]
+__ast_沫:1.0___ASTNODE_沫_18_ __ast_沫:1.0___ASTNODE_沫_5_(__ast_沫:1.0___ASTNODE_沫_4_: __ast_沫:1.0___ASTNODE_沫_15_, __ast_沫:1.0___ASTNODE_沫_10_: __ast_沫:1.0___ASTNODE_沫_15_) -> __ast_沫:1.0___ASTNODE_沫_8_:
+    """
+    断片（__ast_沫:1.0___ASTNODE_沫_4_）が目標式（__ast_沫:1.0___ASTNODE_沫_10_）の中に構文的に含まれているかを判定する。
+    """
+    __ast_沫:1.0___ASTNODE_沫_18_ __ast_沫:1.0___ASTNODE_沫_11_(s):
+        return s.__ast_沫:1.0___ASTNODE_沫_3_(" ", "").__ast_沫:1.0___ASTNODE_沫_3_("→", "->")
+
+// __ast_緋:0.1___ASTNODE_BC_140_ [decoy-metadata]
+    __ast_沫:1.0___ASTNODE_沫_6_ = __ast_沫:1.0___ASTNODE_沫_11_(__ast_沫:1.0___ASTNODE_沫_4_)
+    __ast_沫:1.0___ASTNODE_沫_16_ = __ast_沫:1.0___ASTNODE_沫_11_(__ast_沫:1.0___ASTNODE_沫_10_)
+    
+    return __ast_沫:1.0___ASTNODE_沫_6_ in __ast_沫:1.0___ASTNODE_沫_16_
+// __ast_謀:0.3___ASTNODE_FA_359_ [decoy-metadata]
+
+// __ast_緋:0.4___ASTNODE_MB_728_ [decoy-metadata]
+// __ast_浸:0.2___ASTNODE_HM_587_ [decoy-metadata]
+__ast_沫:1.0___ASTNODE_沫_18_ __ast_沫:1.0___ASTNODE_沫_7_(__ast_沫:1.0___ASTNODE_沫_4_: __ast_沫:1.0___ASTNODE_沫_15_, __ast_沫:1.0___ASTNODE_沫_17_: __ast_礎:1.0___ASTNODE_礎_2_[__ast_礎:1.0___ASTNODE_礎_3_[__ast_沫:1.0___ASTNODE_沫_15_, __ast_礎:1.0___ASTNODE_礎_5_]]) -> __ast_礎:1.0___ASTNODE_礎_4_[__ast_礎:1.0___ASTNODE_礎_3_[__ast_沫:1.0___ASTNODE_沫_15_, __ast_礎:1.0___ASTNODE_礎_5_]]:
+// __ast_底:0.7___ASTNODE_AB_159_ [decoy-metadata]
+    """
+    知識ベースの中から、断片を包含する公理や定理を一つ探し出す。
+    """
+    if __ast_沫:1.0___ASTNODE_沫_12_ __ast_沫:1.0___ASTNODE_沫_4_ or __ast_沫:1.0___ASTNODE_沫_9_(__ast_沫:1.0___ASTNODE_沫_4_) < 3:
+        return __ast_礎:1.0___ASTNODE_礎_1_
+
+    for __ast_沫:1.0___ASTNODE_沫_1_ in __ast_沫:1.0___ASTNODE_沫_17_:
+        __ast_沫:1.0___ASTNODE_沫_14_ = __ast_沫:1.0___ASTNODE_沫_1_.__ast_謀:1.0___ASTNODE_嵐_1_("__ast_沫:1.0___ASTNODE_沫_14_")
+        if __ast_沫:1.0___ASTNODE_沫_12_ __ast_沫:1.0___ASTNODE_沫_14_:
+            continue
+            
+        if __ast_沫:1.0___ASTNODE_沫_5_(__ast_沫:1.0___ASTNODE_沫_4_, __ast_沫:1.0___ASTNODE_沫_14_):
+            return __ast_沫:1.0___ASTNODE_沫_1_
+            
+    return __ast_礎:1.0___ASTNODE_礎_1_
+
+// POLYMORPHIC_JCROSS_END

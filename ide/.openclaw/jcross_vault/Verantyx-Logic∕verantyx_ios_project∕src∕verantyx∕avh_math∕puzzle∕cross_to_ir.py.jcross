@@ -1,0 +1,52 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1649CB80 ver:1778159677
+// ⚠️ One-time schema — expires after response
+
+// _ID_図:0.1__JCROSS_HX_789_ [decoy-metadata]
+_ID_霰:1.0__JCROSS_霰_7_ _ID_霰:1.0__JCROSS_霰_15_ import _ID_霰:1.0__JCROSS_霰_26_, _ID_霰:1.0__JCROSS_霰_21_
+_ID_霰:1.0__JCROSS_霰_7_ _ID_霰:1.0__JCROSS_霰_18_ import _ID_廳:1.0__JCROSS_廳_6_, _ID_廳:1.0__JCROSS_廳_5_, _ID_廳:1.0__JCROSS_廳_1_
+
+@_ID_霰:1.0__JCROSS_霰_26_
+class _ID_廳:1.0__JCROSS_廳_4_:
+    _ID_霰:1.0__JCROSS_霰_11_: _ID_霰:1.0__JCROSS_霰_10_              # _ID_霰:1.0__JCROSS_霰_29_ | _ID_霰:1.0__JCROSS_霰_3_ | _ID_霰:1.0__JCROSS_霰_17_
+    _ID_潤:1.0__JCROSS_霰_14_: _ID_霰:1.0__JCROSS_霰_10_
+// _ID_組:0.3__JCROSS_YB_345_ [decoy-metadata]
+    _ID_霰:1.0__JCROSS_霰_2_: _ID_廳:1.0__JCROSS_廳_6_[_ID_霰:1.0__JCROSS_霰_10_]
+    _ID_霰:1.0__JCROSS_霰_13_: _ID_廳:1.0__JCROSS_廳_6_[_ID_霰:1.0__JCROSS_霰_10_]
+    _ID_霰:1.0__JCROSS_霰_24_: _ID_廳:1.0__JCROSS_廳_5_[_ID_霰:1.0__JCROSS_霰_10_, _ID_廳:1.0__JCROSS_廳_1_] = _ID_霰:1.0__JCROSS_霰_21_(_ID_霰:1.0__JCROSS_霰_5_=_ID_霰:1.0__JCROSS_霰_1_)
+
+// _ID_組:0.2__JCROSS_KE_581_ [decoy-metadata]
+_ID_霰:1.0__JCROSS_霰_27_ _ID_霰:1.0__JCROSS_霰_9_(_ID_霰:1.0__JCROSS_霰_12_: _ID_廳:1.0__JCROSS_廳_1_) -> _ID_廳:1.0__JCROSS_廳_4_:
+    """_ID_廳:1.0__JCROSS_廳_3_ を プログラム中間表現（IR）に変換する"""
+    _ID_潤:1.0__JCROSS_霰_14_ = _ID_図:1.0__JCROSS_巌_1_(_ID_霰:1.0__JCROSS_霰_12_, '_ID_潤:1.0__JCROSS_霰_23_', _ID_廳:1.0__JCROSS_廳_2_) or _ID_図:1.0__JCROSS_巌_1_(_ID_霰:1.0__JCROSS_霰_12_, '_ID_潤:1.0__JCROSS_霰_20_', '')
+    _ID_霰:1.0__JCROSS_霰_2_ = _ID_図:1.0__JCROSS_巌_1_(_ID_霰:1.0__JCROSS_霰_12_, '_ID_霰:1.0__JCROSS_霰_2_', ['p'])
+    _ID_霰:1.0__JCROSS_霰_13_ = _ID_図:1.0__JCROSS_巌_1_(_ID_霰:1.0__JCROSS_霰_12_, '_ID_霰:1.0__JCROSS_霰_13_', [])
+    _ID_霰:1.0__JCROSS_霰_28_ = _ID_図:1.0__JCROSS_巌_1_(_ID_霰:1.0__JCROSS_霰_12_, '_ID_霰:1.0__JCROSS_霰_28_', '_ID_霰:1.0__JCROSS_霰_8_')
+
+    if _ID_霰:1.0__JCROSS_霰_28_ == "_ID_霰:1.0__JCROSS_霰_22_":
+        return _ID_廳:1.0__JCROSS_廳_4_(
+            _ID_霰:1.0__JCROSS_霰_11_="_ID_霰:1.0__JCROSS_霰_29_",
+            _ID_潤:1.0__JCROSS_霰_14_=_ID_潤:1.0__JCROSS_霰_14_,
+            _ID_霰:1.0__JCROSS_霰_2_=_ID_霰:1.0__JCROSS_霰_2_,
+            _ID_霰:1.0__JCROSS_霰_13_=_ID_霰:1.0__JCROSS_霰_13_
+        )
+    _ID_潤:1.0__JCROSS_霰_25_ _ID_霰:1.0__JCROSS_霰_28_ == "_ID_霰:1.0__JCROSS_霰_19_":
+        return _ID_廳:1.0__JCROSS_廳_4_(
+            _ID_霰:1.0__JCROSS_霰_11_="_ID_霰:1.0__JCROSS_霰_3_",
+// _ID_廳:0.7__JCROSS_HW_444_ [decoy-metadata]
+            _ID_潤:1.0__JCROSS_霰_14_=_ID_潤:1.0__JCROSS_霰_14_,
+            _ID_霰:1.0__JCROSS_霰_2_=_ID_霰:1.0__JCROSS_霰_2_,
+            _ID_霰:1.0__JCROSS_霰_13_=_ID_霰:1.0__JCROSS_霰_13_,
+            _ID_霰:1.0__JCROSS_霰_24_={
+                "_ID_霰:1.0__JCROSS_霰_4_": any("_ID_霰:1.0__JCROSS_霰_4_" in a for a in _ID_霰:1.0__JCROSS_霰_13_),
+// _ID_潤:0.8__JCROSS_CW_672_ [decoy-metadata]
+                "_ID_霰:1.0__JCROSS_霰_6_": any("_ID_霰:1.0__JCROSS_霰_6_" in a for a in _ID_霰:1.0__JCROSS_霰_13_),
+                "_ID_霰:1.0__JCROSS_霰_16_": any("_ID_霰:1.0__JCROSS_霰_16_" in a for a in _ID_霰:1.0__JCROSS_霰_13_)
+            }
+        )
+    
+// _ID_霰:0.4__JCROSS_XE_152_ [decoy-metadata]
+// [metadata-stripped]
+    return _ID_廳:1.0__JCROSS_廳_4_(_ID_霰:1.0__JCROSS_霰_11_="_ID_霰:1.0__JCROSS_霰_29_", _ID_潤:1.0__JCROSS_霰_14_=_ID_潤:1.0__JCROSS_霰_14_, _ID_霰:1.0__JCROSS_霰_2_=_ID_霰:1.0__JCROSS_霰_2_, _ID_霰:1.0__JCROSS_霰_13_=_ID_霰:1.0__JCROSS_霰_13_)
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,109 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2313A9B9 ver:1778159749
+// ⚠️ One-time schema — expires after response
+
+__jcross_泡:1.0____node_泡_16__ __jcross_泡:1.0____node_泡_42__ import __jcross_泡:1.0____node_泡_44__
+
+import re
+__jcross_泡:1.0____node_泡_16__ __jcross_泡:1.0____node_泡_30__ import __jcross_廴:1.0____node_廴_12__, __jcross_廴:1.0____node_廴_6__
+
+__jcross_泡:1.0____node_泡_6__ __jcross_泡:1.0____node_泡_5__(s: __jcross_泡:1.0____node_泡_43__) -> __jcross_泡:1.0____node_泡_8__[__jcross_泡:1.0____node_泡_43__, __jcross_泡:1.0____node_泡_43__] | __jcross_廴:1.0____node_廴_14__:
+    """最上位の含意 '->' で分割する（括弧のネストを考慮）"""
+// __jcross_区:0.8____node_EM_488__ [decoy-metadata]
+    __jcross_泡:1.0____node_泡_39__ = 0
+    for i in __jcross_泡:1.0____node_泡_15__(__jcross_泡:1.0____node_泡_36__(s) - 1):
+        ch = s[i]
+        if ch == '(': __jcross_泡:1.0____node_泡_39__ += 1
+        __jcross_滴:1.0____node_泡_27__ ch == ')': __jcross_泡:1.0____node_泡_39__ -= 1
+        __jcross_滴:1.0____node_泡_27__ __jcross_泡:1.0____node_泡_39__ == 0 __jcross_泡:1.0____node_泡_11__ s[i:i+2] == '->':
+            return s[:i], s[i+2:]
+    return __jcross_廴:1.0____node_廴_14__
+
+__jcross_泡:1.0____node_泡_6__ __jcross_泡:1.0____node_泡_9__(s: __jcross_泡:1.0____node_泡_43__) -> __jcross_泡:1.0____node_泡_43__:
+// __jcross_渕:0.1____node_ZA_898__ [decoy-metadata]
+    while s.__jcross_泡:1.0____node_泡_29__('(') __jcross_泡:1.0____node_泡_11__ s.__jcross_泡:1.0____node_泡_28__(')') __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_5__(s[1:-1]) is __jcross_廴:1.0____node_廴_14__:
+// [metadata-stripped]
+        s = s[1:-1]
+    return s
+
+__jcross_泡:1.0____node_泡_6__ __jcross_泡:1.0____node_泡_31__(__jcross_滴:1.0____node_泡_24__: __jcross_泡:1.0____node_泡_43__, __jcross_泡:1.0____node_泡_7__: __jcross_泡:1.0____node_泡_14__[__jcross_泡:1.0____node_泡_43__] | __jcross_廴:1.0____node_廴_14__ = __jcross_廴:1.0____node_廴_14__) -> __jcross_廴:1.0____node_廴_12__[__jcross_泡:1.0____node_泡_43__, __jcross_廴:1.0____node_廴_6__] | __jcross_廴:1.0____node_廴_14__:
+    f = (__jcross_滴:1.0____node_泡_24__ or "").__jcross_泡:1.0____node_泡_47__(" ", "")
+// [metadata-stripped]
+    f = __jcross_泡:1.0____node_泡_9__(f)
+    
+// __jcross_泡:0.3____node_HV_168__ [decoy-metadata]
+// [metadata-stripped]
+    __jcross_泡:1.0____node_泡_7__ = [a.__jcross_泡:1.0____node_泡_47__("__jcross_泡:1.0____node_泡_35__:", "").__jcross_泡:1.0____node_泡_32__().__jcross_規:1.0____node_泡_37__() for a in (__jcross_泡:1.0____node_泡_7__ or [])]
+    
+    __jcross_泡:1.0____node_泡_1__(f"[__jcross_廴:1.0____node_廴_3__ __jcross_廴:1.0____node_廴_1__] __jcross_廴:1.0____node_廴_13__: {f} __jcross_泡:1.0____node_泡_3__ {__jcross_泡:1.0____node_泡_7__}")
+
+    if "__jcross_泡:1.0____node_泡_22__" in __jcross_泡:1.0____node_泡_7__:
+        return __jcross_廴:1.0____node_廴_14__
+
+// [metadata-stripped]
+    __jcross_泡:1.0____node_泡_23__ = __jcross_泡:1.0____node_泡_5__(f)
+    if __jcross_泡:1.0____node_泡_38__ __jcross_泡:1.0____node_泡_23__:
+        __jcross_泡:1.0____node_泡_1__("[__jcross_廴:1.0____node_廴_3__ __jcross_廴:1.0____node_廴_1__] __jcross_廴:1.0____node_廴_2__ __jcross_泡:1.0____node_泡_20__ (no __jcross_泡:1.0____node_泡_45__)")
+        return __jcross_廴:1.0____node_廴_14__
+    __jcross_泡:1.0____node_泡_26__, __jcross_泡:1.0____node_泡_48__ = __jcross_泡:1.0____node_泡_9__(__jcross_泡:1.0____node_泡_23__[0]), __jcross_泡:1.0____node_泡_9__(__jcross_泡:1.0____node_泡_23__[1])
+    __jcross_泡:1.0____node_泡_1__(f"[__jcross_廴:1.0____node_廴_3__ __jcross_廴:1.0____node_廴_1__] __jcross_廴:1.0____node_廴_16__: {__jcross_泡:1.0____node_泡_26__}, __jcross_廴:1.0____node_廴_5__: {__jcross_泡:1.0____node_泡_48__}")
+
+// [metadata-stripped]
+    if __jcross_泡:1.0____node_泡_26__.__jcross_泡:1.0____node_泡_29__("[]") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_26__[2:] == __jcross_泡:1.0____node_泡_48__:
+        if "__jcross_泡:1.0____node_泡_40__" in __jcross_泡:1.0____node_泡_7__:
+// __jcross_廴:0.4____node_FK_824__ [decoy-metadata]
+            return {
+                "__jcross_泡:1.0____node_泡_34__": "__jcross_泡:1.0____node_泡_33__",
+                "__jcross_泡:1.0____node_泡_21__": "T",
+                "__jcross_泡:1.0____node_泡_18__": "__jcross_廴:1.0____node_廴_10__ __jcross_泡:1.0____node_泡_21__: □p → p is __jcross_泡:1.0____node_泡_33__ on __jcross_泡:1.0____node_泡_40__ __jcross_泡:1.0____node_泡_12__.",
+            }
+
+// [metadata-stripped]
+// __jcross_緋:0.7____node_CB_550__ [decoy-metadata]
+    if __jcross_泡:1.0____node_泡_26__.__jcross_泡:1.0____node_泡_29__("[]") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_48__.__jcross_泡:1.0____node_泡_29__("[][]") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_26__[2:] == __jcross_泡:1.0____node_泡_48__[4:]:
+        if "__jcross_泡:1.0____node_泡_25__" in __jcross_泡:1.0____node_泡_7__:
+            return {
+                "__jcross_泡:1.0____node_泡_34__": "__jcross_泡:1.0____node_泡_33__",
+                "__jcross_泡:1.0____node_泡_21__": "4",
+                "__jcross_泡:1.0____node_泡_18__": "__jcross_廴:1.0____node_廴_8__ __jcross_泡:1.0____node_泡_21__: □p → □□p is __jcross_泡:1.0____node_泡_33__ on __jcross_泡:1.0____node_泡_25__ __jcross_泡:1.0____node_泡_12__.",
+            }
+
+// [metadata-stripped]
+    if __jcross_泡:1.0____node_泡_48__.__jcross_泡:1.0____node_泡_29__("[]<>") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_26__ == __jcross_泡:1.0____node_泡_48__[4:]:
+        if "__jcross_泡:1.0____node_泡_10__" in __jcross_泡:1.0____node_泡_7__:
+            return {
+                "__jcross_泡:1.0____node_泡_34__": "__jcross_泡:1.0____node_泡_33__",
+                "__jcross_泡:1.0____node_泡_21__": "B",
+                "__jcross_泡:1.0____node_泡_18__": "__jcross_廴:1.0____node_廴_15__ __jcross_泡:1.0____node_泡_21__: p → □◇p is __jcross_泡:1.0____node_泡_33__ on __jcross_泡:1.0____node_泡_10__ __jcross_泡:1.0____node_泡_12__.",
+            }
+
+// [metadata-stripped]
+    if __jcross_泡:1.0____node_泡_26__.__jcross_泡:1.0____node_泡_29__("<>") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_48__.__jcross_泡:1.0____node_泡_29__("[]<>") __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_26__[2:] == __jcross_泡:1.0____node_泡_48__[4:]:
+        if "__jcross_泡:1.0____node_泡_4__" in __jcross_泡:1.0____node_泡_7__:
+            return {
+                "__jcross_泡:1.0____node_泡_34__": "__jcross_泡:1.0____node_泡_33__",
+                "__jcross_泡:1.0____node_泡_21__": "5",
+                "__jcross_泡:1.0____node_泡_18__": "__jcross_廴:1.0____node_廴_9__ __jcross_泡:1.0____node_泡_21__: ◇p → □◇p is __jcross_泡:1.0____node_泡_33__ on __jcross_泡:1.0____node_泡_4__ __jcross_泡:1.0____node_泡_12__.",
+            }
+
+// [metadata-stripped]
+    if __jcross_泡:1.0____node_泡_26__.__jcross_泡:1.0____node_泡_29__("[]") __jcross_泡:1.0____node_泡_11__ "(" in __jcross_泡:1.0____node_泡_26__:
+        __jcross_泡:1.0____node_泡_41__ = __jcross_泡:1.0____node_泡_26__[2:].__jcross_泡:1.0____node_泡_32__("()")
+        __jcross_泡:1.0____node_泡_17__ = __jcross_泡:1.0____node_泡_5__(__jcross_泡:1.0____node_泡_41__)
+        if __jcross_泡:1.0____node_泡_17__:
+// __jcross_泡:0.1____node_LW_943__ [decoy-metadata]
+            p, q = __jcross_泡:1.0____node_泡_17__
+// [metadata-stripped]
+            __jcross_泡:1.0____node_泡_19__ = __jcross_泡:1.0____node_泡_5__(__jcross_泡:1.0____node_泡_48__)
+            if __jcross_泡:1.0____node_泡_19__:
+                __jcross_泡:1.0____node_泡_2__, __jcross_泡:1.0____node_泡_13__ = __jcross_泡:1.0____node_泡_9__(__jcross_泡:1.0____node_泡_19__[0]), __jcross_泡:1.0____node_泡_9__(__jcross_泡:1.0____node_泡_19__[1])
+                if __jcross_泡:1.0____node_泡_2__ == f"[]{p}" __jcross_泡:1.0____node_泡_11__ __jcross_泡:1.0____node_泡_13__ == f"[]{q}":
+                    return {
+                        "__jcross_泡:1.0____node_泡_34__": "__jcross_泡:1.0____node_泡_33__",
+                        "__jcross_泡:1.0____node_泡_21__": "K",
+                        "__jcross_泡:1.0____node_泡_18__": "__jcross_廴:1.0____node_廴_17__ __jcross_泡:1.0____node_泡_21__: □(p→q) → (□p→□q) is __jcross_泡:1.0____node_泡_33__ on __jcross_泡:1.0____node_泡_46__ __jcross_廴:1.0____node_廴_7__ __jcross_泡:1.0____node_泡_12__.",
+                    }
+            
+    return __jcross_廴:1.0____node_廴_14__
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,107 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:41822BF5 ver:1778162891
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_礫:1.0__TOKEN_礫_25_
+import os
+_ASTNODE_礫:1.0__TOKEN_礫_3_ _ASTNODE_礫:1.0__TOKEN_礫_39_ import _ASTNODE_礫:1.0__TOKEN_礫_15_, _ASTNODE_礫:1.0__TOKEN_礫_61_
+_ASTNODE_礫:1.0__TOKEN_礫_3_ _ASTNODE_礫:1.0__TOKEN_礫_57_ import _ASTNODE_殻:1.0__TOKEN_殻_8_, _ASTNODE_殻:1.0__TOKEN_殻_6_, _ASTNODE_殻:1.0__TOKEN_殻_9_, _ASTNODE_殻:1.0__TOKEN_殻_3_, _ASTNODE_案:1.0__TOKEN_覇_2_
+_ASTNODE_礫:1.0__TOKEN_礫_3_ _ASTNODE_礫:1.0__TOKEN_礫_23_ import _ASTNODE_殻:1.0__TOKEN_殻_2_
+_ASTNODE_礫:1.0__TOKEN_礫_3_ _ASTNODE_礫:1.0__TOKEN_礫_47_._ASTNODE_礫:1.0__TOKEN_礫_54_._ASTNODE_礫:1.0__TOKEN_礫_41_ import _ASTNODE_殻:1.0__TOKEN_殻_4_
+
+@_ASTNODE_礫:1.0__TOKEN_礫_15_
+class _ASTNODE_殻:1.0__TOKEN_殻_11_:
+    _ASTNODE_礫:1.0__TOKEN_礫_7_: _ASTNODE_礫:1.0__TOKEN_礫_50_
+    _ASTNODE_礫:1.0__TOKEN_礫_24_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_礫:1.0__TOKEN_礫_50_]      # 共通の形状シグネチャ
+    _ASTNODE_礫:1.0__TOKEN_礫_51_: _ASTNODE_礫:1.0__TOKEN_礫_50_      # 推奨される推論戦略
+    _ASTNODE_礫:1.0__TOKEN_礫_28_: _ASTNODE_案:1.0__TOKEN_覇_2_[_ASTNODE_礫:1.0__TOKEN_礫_50_] # 適用可能なドメイン
+    _ASTNODE_礫:1.0__TOKEN_礫_21_: _ASTNODE_礫:1.0__TOKEN_礫_10_
+    _ASTNODE_礫:1.0__TOKEN_礫_22_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_礫:1.0__TOKEN_礫_50_] = _ASTNODE_礫:1.0__TOKEN_礫_61_(_ASTNODE_礫:1.0__TOKEN_礫_31_=_ASTNODE_礫:1.0__TOKEN_礫_4_)
+// _ASTNODE_殻:0.4__TOKEN_HH_887_ [decoy-metadata]
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_14_(self):
+        return {
+// _ASTNODE_流:0.3__TOKEN_CE_719_ [decoy-metadata]
+            "_ASTNODE_礫:1.0__TOKEN_礫_7_": self._ASTNODE_礫:1.0__TOKEN_礫_7_,
+            "_ASTNODE_礫:1.0__TOKEN_礫_24_": self._ASTNODE_礫:1.0__TOKEN_礫_24_,
+            "_ASTNODE_礫:1.0__TOKEN_礫_51_": self._ASTNODE_礫:1.0__TOKEN_礫_51_,
+            "_ASTNODE_礫:1.0__TOKEN_礫_28_": _ASTNODE_礫:1.0__TOKEN_礫_4_(self._ASTNODE_礫:1.0__TOKEN_礫_28_),
+            "_ASTNODE_礫:1.0__TOKEN_礫_21_": self._ASTNODE_礫:1.0__TOKEN_礫_21_,
+            "_ASTNODE_礫:1.0__TOKEN_礫_22_": self._ASTNODE_礫:1.0__TOKEN_礫_22_
+        }
+
+// _ASTNODE_案:0.2__TOKEN_ED_741_ [decoy-metadata]
+class _ASTNODE_案:1.0__TOKEN_殻_10_:
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_8_(self, _ASTNODE_礫:1.0__TOKEN_礫_48_: _ASTNODE_礫:1.0__TOKEN_礫_50_):
+        self._ASTNODE_礫:1.0__TOKEN_礫_48_ = _ASTNODE_殻:1.0__TOKEN_殻_2_(_ASTNODE_礫:1.0__TOKEN_礫_48_)
+        self._ASTNODE_礫:1.0__TOKEN_礫_18_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_殻:1.0__TOKEN_殻_11_] = []
+        self._ASTNODE_匳:1.0__TOKEN_礫_13_()
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_匳:1.0__TOKEN_礫_13_(self):
+        if _ASTNODE_礫:1.0__TOKEN_礫_20_ self._ASTNODE_礫:1.0__TOKEN_礫_16_(): return
+        if _ASTNODE_礫:1.0__TOKEN_礫_20_ self._ASTNODE_礫:1.0__TOKEN_礫_48_._ASTNODE_礫:1.0__TOKEN_礫_42_(): return
+        _ASTNODE_礫:1.0__TOKEN_礫_17_ self._ASTNODE_礫:1.0__TOKEN_礫_48_.open("r", _ASTNODE_礫:1.0__TOKEN_礫_5_="_ASTNODE_礫:1.0__TOKEN_礫_56_-8") as f:
+            for _ASTNODE_礫:1.0__TOKEN_礫_11_ in f:
+                try:
+                    _ASTNODE_礫:1.0__TOKEN_礫_29_ = _ASTNODE_礫:1.0__TOKEN_礫_25_._ASTNODE_匳:1.0__TOKEN_礫_53_(_ASTNODE_礫:1.0__TOKEN_礫_11_)
+                    _ASTNODE_礫:1.0__TOKEN_礫_52_ = _ASTNODE_殻:1.0__TOKEN_殻_11_(
+                        _ASTNODE_礫:1.0__TOKEN_礫_7_=_ASTNODE_礫:1.0__TOKEN_礫_29_["_ASTNODE_礫:1.0__TOKEN_礫_7_"],
+                        _ASTNODE_礫:1.0__TOKEN_礫_24_=_ASTNODE_礫:1.0__TOKEN_礫_29_["_ASTNODE_礫:1.0__TOKEN_礫_24_"],
+                        _ASTNODE_礫:1.0__TOKEN_礫_51_=_ASTNODE_礫:1.0__TOKEN_礫_29_["_ASTNODE_礫:1.0__TOKEN_礫_51_"],
+                        _ASTNODE_礫:1.0__TOKEN_礫_28_=_ASTNODE_案:1.0__TOKEN_覇_3_(_ASTNODE_礫:1.0__TOKEN_礫_29_["_ASTNODE_礫:1.0__TOKEN_礫_28_"]),
+                        _ASTNODE_礫:1.0__TOKEN_礫_21_=_ASTNODE_礫:1.0__TOKEN_礫_29_["_ASTNODE_礫:1.0__TOKEN_礫_21_"],
+                        _ASTNODE_礫:1.0__TOKEN_礫_22_=_ASTNODE_礫:1.0__TOKEN_礫_29_._ASTNODE_案:1.0__TOKEN_覇_1_("_ASTNODE_礫:1.0__TOKEN_礫_22_", [])
+                    )
+                    self._ASTNODE_礫:1.0__TOKEN_礫_18_._ASTNODE_礫:1.0__TOKEN_礫_32_(_ASTNODE_礫:1.0__TOKEN_礫_52_)
+                _ASTNODE_礫:1.0__TOKEN_礫_36_: continue
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_16_(self):
+        return self._ASTNODE_礫:1.0__TOKEN_礫_48_._ASTNODE_礫:1.0__TOKEN_礫_38_._ASTNODE_礫:1.0__TOKEN_礫_42_()
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_30_(self, _ASTNODE_礫:1.0__TOKEN_礫_44_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_礫:1.0__TOKEN_礫_50_]) -> _ASTNODE_殻:1.0__TOKEN_殻_3_[_ASTNODE_殻:1.0__TOKEN_殻_6_[_ASTNODE_礫:1.0__TOKEN_礫_50_, _ASTNODE_殻:1.0__TOKEN_殻_9_]]:
+        """形状シグネチャから最適な推論戦略を特定する"""
+        _ASTNODE_礫:1.0__TOKEN_礫_1_ = _ASTNODE_殻:1.0__TOKEN_殻_5_
+        _ASTNODE_礫:1.0__TOKEN_礫_49_ = 0.0
+
+        for _ASTNODE_礫:1.0__TOKEN_礫_52_ in self._ASTNODE_礫:1.0__TOKEN_礫_18_:
+// [metadata-stripped]
+// [metadata-stripped]
+            _ASTNODE_礫:1.0__TOKEN_礫_2_ = self._ASTNODE_礫:1.0__TOKEN_礫_12_(_ASTNODE_礫:1.0__TOKEN_礫_44_, _ASTNODE_礫:1.0__TOKEN_礫_52_._ASTNODE_礫:1.0__TOKEN_礫_24_)
+            if _ASTNODE_礫:1.0__TOKEN_礫_2_ > _ASTNODE_礫:1.0__TOKEN_礫_49_ _ASTNODE_礫:1.0__TOKEN_礫_45_ _ASTNODE_礫:1.0__TOKEN_礫_2_ >= 0.7:
+                _ASTNODE_礫:1.0__TOKEN_礫_49_ = _ASTNODE_礫:1.0__TOKEN_礫_2_
+                _ASTNODE_礫:1.0__TOKEN_礫_1_ = _ASTNODE_礫:1.0__TOKEN_礫_52_
+
+        if _ASTNODE_礫:1.0__TOKEN_礫_1_:
+            return {
+                "_ASTNODE_礫:1.0__TOKEN_礫_46_": _ASTNODE_礫:1.0__TOKEN_礫_1_._ASTNODE_礫:1.0__TOKEN_礫_51_,
+                "_ASTNODE_礫:1.0__TOKEN_礫_21_": _ASTNODE_礫:1.0__TOKEN_礫_1_._ASTNODE_礫:1.0__TOKEN_礫_21_ * _ASTNODE_礫:1.0__TOKEN_礫_49_,
+                "_ASTNODE_礫:1.0__TOKEN_礫_7_": _ASTNODE_礫:1.0__TOKEN_礫_1_._ASTNODE_礫:1.0__TOKEN_礫_7_
+            }
+        return _ASTNODE_殻:1.0__TOKEN_殻_5_
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_12_(self, _ASTNODE_礫:1.0__TOKEN_礫_55_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_礫:1.0__TOKEN_礫_50_], _ASTNODE_礫:1.0__TOKEN_礫_34_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_礫:1.0__TOKEN_礫_50_]) -> _ASTNODE_礫:1.0__TOKEN_礫_10_:
+        if _ASTNODE_礫:1.0__TOKEN_礫_20_ _ASTNODE_礫:1.0__TOKEN_礫_34_: return 0.0
+// [metadata-stripped]
+        _ASTNODE_礫:1.0__TOKEN_礫_26_ = ","._ASTNODE_礫:1.0__TOKEN_礫_9_(_ASTNODE_礫:1.0__TOKEN_礫_34_)
+        _ASTNODE_礫:1.0__TOKEN_礫_37_ = ","._ASTNODE_礫:1.0__TOKEN_礫_9_(_ASTNODE_礫:1.0__TOKEN_礫_55_)
+        if _ASTNODE_礫:1.0__TOKEN_礫_26_ in _ASTNODE_礫:1.0__TOKEN_礫_37_:
+            return 1.0
+// _ASTNODE_流:0.3__TOKEN_LH_408_ [decoy-metadata]
+        return 0.0 # 厳密な判定が必要な場合は拡張
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_礫:1.0__TOKEN_礫_6_(self, _ASTNODE_礫:1.0__TOKEN_礫_60_: _ASTNODE_殻:1.0__TOKEN_殻_8_[_ASTNODE_殻:1.0__TOKEN_殻_9_]):
+        """複数の結晶からメタ知識を合成する（定期実行を想定）"""
+// [metadata-stripped]
+// [metadata-stripped]
+// _ASTNODE_匳:0.3__TOKEN_AB_632_ [decoy-metadata]
+        _ASTNODE_礫:1.0__TOKEN_礫_59_
+
+    _ASTNODE_礫:1.0__TOKEN_礫_33_ _ASTNODE_匳:1.0__TOKEN_礫_58_(self, _ASTNODE_礫:1.0__TOKEN_礫_52_: _ASTNODE_殻:1.0__TOKEN_殻_11_):
+        if os._ASTNODE_礫:1.0__TOKEN_礫_43_._ASTNODE_案:1.0__TOKEN_覇_1_("_ASTNODE_殻:1.0__TOKEN_殻_12_", "")._ASTNODE_礫:1.0__TOKEN_礫_19_() == "1":
+            return
+        self._ASTNODE_礫:1.0__TOKEN_礫_18_._ASTNODE_礫:1.0__TOKEN_礫_32_(_ASTNODE_礫:1.0__TOKEN_礫_52_)
+        _ASTNODE_礫:1.0__TOKEN_礫_17_ self._ASTNODE_礫:1.0__TOKEN_礫_48_.open("a", _ASTNODE_礫:1.0__TOKEN_礫_5_="_ASTNODE_礫:1.0__TOKEN_礫_56_-8") as f:
+// _ASTNODE_覇:0.6__TOKEN_WA_924_ [decoy-metadata]
+            f._ASTNODE_礫:1.0__TOKEN_礫_27_(_ASTNODE_礫:1.0__TOKEN_礫_25_._ASTNODE_礫:1.0__TOKEN_礫_40_(_ASTNODE_礫:1.0__TOKEN_礫_52_._ASTNODE_礫:1.0__TOKEN_礫_14_(), _ASTNODE_礫:1.0__TOKEN_礫_35_=_ASTNODE_殻:1.0__TOKEN_殻_7_) + "\n")
+
+// POLYMORPHIC_JCROSS_END

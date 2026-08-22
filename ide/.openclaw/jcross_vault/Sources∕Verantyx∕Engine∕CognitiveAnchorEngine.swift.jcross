@@ -1,0 +1,163 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4607FB72 ver:1778163928
+// ⚠️ One-time schema — expires after response
+
+import __node_廷:1.0___OPAQUE_廷_22_
+import __node_廷:1.0___OPAQUE_廷_13_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+public enum __node_廷:1.0___OPAQUE_廷_45_ {
+    case __node_塵:1.0___OPAQUE_塵_81_       // 疑念モード（ユーザーの報告を盲信せず検証する。赤色の視覚アンカー）
+    case __node_塵:1.0___OPAQUE_塵_54_       // 論理モード（ASTと純粋な事実だけを見る。青色の視覚アンカー）
+    case __node_浪:1.0___OPAQUE_塵_14_ // 検索強制モード（[__node_廷:1.0___OPAQUE_廷_29_ __node_廷:1.0___OPAQUE_廷_4_] の警告画像）
+    case __node_塵:1.0___OPAQUE_塵_10_    // 時間軸強制モード（現在の日時を描画し、未来知識の欠如を自覚させる）
+// __node_廷:0.3___OPAQUE_HG_480_ [decoy-metadata]
+}
+
+public actor __node_廷:1.0___OPAQUE_廷_33_ {
+    public static let __node_塵:1.0___OPAQUE_塵_51_ = __node_廷:1.0___OPAQUE_廷_33_()
+    
+// [metadata-stripped]
+    public var __node_塵:1.0___OPAQUE_塵_2_: __node_廷:1.0___OPAQUE_廷_21_? = nil
+// __node_医:0.4___OPAQUE_DW_965_ [decoy-metadata]
+    
+    public func __node_図:1.0___OPAQUE_錬_2_(_ __node_塵:1.0___OPAQUE_塵_74_: __node_廷:1.0___OPAQUE_廷_21_) {
+        __node_塵:1.0___OPAQUE_塵_2_ = __node_塵:1.0___OPAQUE_塵_74_
+    }
+    
+    public func __node_塵:1.0___OPAQUE_塵_35_() -> __node_廷:1.0___OPAQUE_廷_21_? {
+        let __node_塵:1.0___OPAQUE_塵_57_ = __node_塵:1.0___OPAQUE_塵_2_
+        __node_塵:1.0___OPAQUE_塵_2_ = nil
+        return __node_塵:1.0___OPAQUE_塵_57_
+    }
+    
+    private init() {}
+    
+// [metadata-stripped]
+    
+// [metadata-stripped]
+    private let __node_塵:1.0___OPAQUE_塵_79_ = "__node_塵:1.0___OPAQUE_塵_59_=="
+    
+// [metadata-stripped]
+    private let __node_塵:1.0___OPAQUE_塵_22_ = "__node_塵:1.0___OPAQUE_塵_75_=="
+    
+// [metadata-stripped]
+    
+// [metadata-stripped]
+    public func __node_図:1.0___OPAQUE_錬_4_(for __node_塵:1.0___OPAQUE_塵_34_: __node_廷:1.0___OPAQUE_廷_45_) -> __node_廷:1.0___OPAQUE_廷_21_ {
+// __node_医:0.7___OPAQUE_BD_904_ [decoy-metadata]
+        switch __node_塵:1.0___OPAQUE_塵_34_ {
+        case .__node_塵:1.0___OPAQUE_塵_81_:
+            return __node_塵:1.0___OPAQUE_塵_79_
+        case .__node_塵:1.0___OPAQUE_塵_54_:
+            return __node_塵:1.0___OPAQUE_塵_22_
+        case .__node_浪:1.0___OPAQUE_塵_14_:
+            return __node_塵:1.0___OPAQUE_塵_1_(
+                __node_塵:1.0___OPAQUE_塵_9_: "[ __node_廷:1.0___OPAQUE_廷_29_ __node_廷:1.0___OPAQUE_廷_4_ ]\__node_塵:1.0___OPAQUE_塵_28_ __node_廷:1.0___OPAQUE_廷_47_ __node_廷:1.0___OPAQUE_廷_44_",
+                __node_塵:1.0___OPAQUE_塵_3_: __node_廷:1.0___OPAQUE_廷_25_.__node_塵:1.0___OPAQUE_塵_4_,
+                __node_塵:1.0___OPAQUE_塵_63_: __node_廷:1.0___OPAQUE_廷_25_.__node_塵:1.0___OPAQUE_塵_24_
+            ) ?? __node_塵:1.0___OPAQUE_塵_79_
+        case .__node_塵:1.0___OPAQUE_塵_10_:
+            let __node_図:1.0___OPAQUE_塵_36_ = __node_図:1.0___OPAQUE_廷_46_()
+            __node_図:1.0___OPAQUE_塵_36_.__node_浪:1.0___OPAQUE_塵_5_ = "__node_塵:1.0___OPAQUE_塵_53_-MM-dd HH:mm"
+            let __node_塵:1.0___OPAQUE_塵_15_ = __node_図:1.0___OPAQUE_塵_36_.__node_塵:1.0___OPAQUE_塵_58_(__node_塵:1.0___OPAQUE_塵_66_: __node_廷:1.0___OPAQUE_廷_34_())
+            return __node_塵:1.0___OPAQUE_塵_1_(
+                __node_塵:1.0___OPAQUE_塵_9_: "__node_廷:1.0___OPAQUE_廷_51_ __node_廷:1.0___OPAQUE_廷_12_:\n\(__node_塵:1.0___OPAQUE_塵_15_)\__node_塵:1.0___OPAQUE_塵_28_ __node_廷:1.0___OPAQUE_廷_50_.\__node_塵:1.0___OPAQUE_塵_64_ __node_廷:1.0___OPAQUE_廷_26_ __node_廷:1.0___OPAQUE_廷_41_ __node_廷:1.0___OPAQUE_廷_23_ __node_廷:1.0___OPAQUE_廷_29_.",
+                __node_塵:1.0___OPAQUE_塵_3_: __node_廷:1.0___OPAQUE_廷_25_.__node_塵:1.0___OPAQUE_塵_24_,
+                __node_塵:1.0___OPAQUE_塵_63_: __node_廷:1.0___OPAQUE_廷_25_.__node_塵:1.0___OPAQUE_塵_11_
+            ) ?? __node_塵:1.0___OPAQUE_塵_22_
+        }
+    }
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    public func __node_塵:1.0___OPAQUE_塵_82_(__node_塵:1.0___OPAQUE_塵_47_: __node_廷:1.0___OPAQUE_廷_21_) -> __node_廷:1.0___OPAQUE_廷_45_? {
+        let __node_図:1.0___OPAQUE_塵_46_ = __node_塵:1.0___OPAQUE_塵_47_.__node_塵:1.0___OPAQUE_塵_50_()
+        
+// [metadata-stripped]
+        if __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("最新") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("__node_塵:1.0___OPAQUE_塵_49_") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("今年") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("現在") {
+            return .__node_塵:1.0___OPAQUE_塵_10_
+        }
+// __node_医:0.3___OPAQUE_DG_588_ [decoy-metadata]
+        
+// [metadata-stripped]
+        if __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("バグ") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("__node_塵:1.0___OPAQUE_塵_72_") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("__node_塵:1.0___OPAQUE_塵_40_") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("エラー") || __node_図:1.0___OPAQUE_塵_46_.__node_塵:1.0___OPAQUE_塵_13_("直して") {
+            return .__node_塵:1.0___OPAQUE_塵_81_
+        }
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        return .__node_浪:1.0___OPAQUE_塵_14_
+    }
+    
+// [metadata-stripped]
+    
+// [metadata-stripped]
+    private func __node_塵:1.0___OPAQUE_塵_1_(__node_塵:1.0___OPAQUE_塵_9_: __node_廷:1.0___OPAQUE_廷_21_, __node_塵:1.0___OPAQUE_塵_3_: __node_廷:1.0___OPAQUE_廷_25_, __node_塵:1.0___OPAQUE_塵_63_: __node_廷:1.0___OPAQUE_廷_25_, __node_塵:1.0___OPAQUE_塵_37_: __node_廷:1.0___OPAQUE_廷_37_ = 500, __node_塵:1.0___OPAQUE_塵_80_: __node_廷:1.0___OPAQUE_廷_37_ = 200) -> __node_廷:1.0___OPAQUE_廷_21_? {
+        let __node_塵:1.0___OPAQUE_塵_32_ = __node_廷:1.0___OPAQUE_廷_30_(__node_塵:1.0___OPAQUE_塵_37_: __node_塵:1.0___OPAQUE_塵_37_, __node_塵:1.0___OPAQUE_塵_80_: __node_塵:1.0___OPAQUE_塵_80_)
+        let __node_塵:1.0___OPAQUE_塵_39_ = __node_廷:1.0___OPAQUE_廷_6_(__node_塵:1.0___OPAQUE_塵_32_: __node_塵:1.0___OPAQUE_塵_32_)
+        
+        __node_塵:1.0___OPAQUE_塵_39_.__node_塵:1.0___OPAQUE_塵_33_()
+        
+// [metadata-stripped]
+        __node_塵:1.0___OPAQUE_塵_3_.__node_図:1.0___OPAQUE_錬_3_()
+        let __node_塵:1.0___OPAQUE_塵_7_ = __node_廷:1.0___OPAQUE_廷_31_(__node_塵:1.0___OPAQUE_塵_19_: .__node_塵:1.0___OPAQUE_塵_76_, __node_塵:1.0___OPAQUE_塵_32_: __node_塵:1.0___OPAQUE_塵_32_)
+        __node_塵:1.0___OPAQUE_塵_7_.__node_塵:1.0___OPAQUE_塵_16_()
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        for _ in 0..<50 {
+            let __node_塵:1.0___OPAQUE_塵_43_ = __node_廷:1.0___OPAQUE_廷_54_()
+// __node_深:0.1___OPAQUE_CZ_504_ [decoy-metadata]
+            __node_塵:1.0___OPAQUE_塵_43_.__node_塵:1.0___OPAQUE_塵_62_(to: __node_廷:1.0___OPAQUE_廷_1_(x: __node_廷:1.0___OPAQUE_廷_37_.__node_塵:1.0___OPAQUE_塵_29_(in: 0...__node_塵:1.0___OPAQUE_塵_37_), y: __node_廷:1.0___OPAQUE_廷_37_.__node_塵:1.0___OPAQUE_塵_29_(in: 0...__node_塵:1.0___OPAQUE_塵_80_)))
+            __node_塵:1.0___OPAQUE_塵_43_.__node_塵:1.0___OPAQUE_塵_60_(to: __node_廷:1.0___OPAQUE_廷_1_(x: __node_廷:1.0___OPAQUE_廷_37_.__node_塵:1.0___OPAQUE_塵_29_(in: 0...__node_塵:1.0___OPAQUE_塵_37_), y: __node_廷:1.0___OPAQUE_廷_37_.__node_塵:1.0___OPAQUE_塵_29_(in: 0...__node_塵:1.0___OPAQUE_塵_80_)))
+            __node_廷:1.0___OPAQUE_廷_25_(__node_塵:1.0___OPAQUE_塵_20_: __node_廷:1.0___OPAQUE_廷_37_.__node_塵:1.0___OPAQUE_塵_29_(in: 0...1), __node_塵:1.0___OPAQUE_塵_70_: 0.3).__node_図:1.0___OPAQUE_錬_1_()
+            __node_塵:1.0___OPAQUE_塵_43_.__node_塵:1.0___OPAQUE_塵_12_()
+        }
+        
+// [metadata-stripped]
+        let __node_塵:1.0___OPAQUE_塵_73_ = __node_廷:1.0___OPAQUE_廷_10_()
+        __node_塵:1.0___OPAQUE_塵_73_.__node_塵:1.0___OPAQUE_塵_71_ = .__node_図:1.0___OPAQUE_塵_45_
+        
+        let __node_塵:1.0___OPAQUE_塵_8_ = __node_廷:1.0___OPAQUE_廷_11_.__node_塵:1.0___OPAQUE_塵_56_(__node_塵:1.0___OPAQUE_塵_26_: 24, __node_塵:1.0___OPAQUE_塵_65_: .__node_塵:1.0___OPAQUE_塵_27_)
+        let __node_塵:1.0___OPAQUE_塵_42_: [__node_廷:1.0___OPAQUE_廷_49_.__node_深:1.0___OPAQUE_廷_35_: __node_廷:1.0___OPAQUE_廷_42_] = [
+            .__node_塵:1.0___OPAQUE_塵_8_: __node_塵:1.0___OPAQUE_塵_8_,
+            .__node_浪:1.0___OPAQUE_塵_23_: __node_塵:1.0___OPAQUE_塵_63_,
+            .__node_塵:1.0___OPAQUE_塵_73_: __node_塵:1.0___OPAQUE_塵_73_
+        ]
+        
+        let __node_塵:1.0___OPAQUE_塵_41_ = __node_廷:1.0___OPAQUE_廷_49_(__node_塵:1.0___OPAQUE_塵_58_: __node_塵:1.0___OPAQUE_塵_9_, __node_塵:1.0___OPAQUE_塵_42_: __node_塵:1.0___OPAQUE_塵_42_)
+        let __node_塵:1.0___OPAQUE_塵_6_ = __node_塵:1.0___OPAQUE_塵_41_.__node_塵:1.0___OPAQUE_塵_32_()
+        
+// [metadata-stripped]
+        let __node_塵:1.0___OPAQUE_塵_30_ = __node_廷:1.0___OPAQUE_廷_31_(
+            x: (__node_塵:1.0___OPAQUE_塵_32_.__node_塵:1.0___OPAQUE_塵_37_ - __node_塵:1.0___OPAQUE_塵_6_.__node_塵:1.0___OPAQUE_塵_37_) / 2,
+            y: (__node_塵:1.0___OPAQUE_塵_32_.__node_塵:1.0___OPAQUE_塵_80_ - __node_塵:1.0___OPAQUE_塵_6_.__node_塵:1.0___OPAQUE_塵_80_) / 2,
+            __node_塵:1.0___OPAQUE_塵_37_: __node_塵:1.0___OPAQUE_塵_6_.__node_塵:1.0___OPAQUE_塵_37_,
+            __node_塵:1.0___OPAQUE_塵_80_: __node_塵:1.0___OPAQUE_塵_6_.__node_塵:1.0___OPAQUE_塵_80_
+        )
+        
+        __node_塵:1.0___OPAQUE_塵_41_.__node_塵:1.0___OPAQUE_塵_38_(in: __node_塵:1.0___OPAQUE_塵_30_)
+        
+        __node_塵:1.0___OPAQUE_塵_39_.__node_塵:1.0___OPAQUE_塵_21_()
+        
+        guard let __node_浪:1.0___OPAQUE_塵_25_ = __node_塵:1.0___OPAQUE_塵_39_.__node_浪:1.0___OPAQUE_塵_68_,
+              let __node_紐:1.0___OPAQUE_塵_55_ = __node_紐:1.0___OPAQUE_廷_17_(__node_塵:1.0___OPAQUE_塵_31_: __node_浪:1.0___OPAQUE_塵_25_),
+              let __node_塵:1.0___OPAQUE_塵_17_ = __node_紐:1.0___OPAQUE_塵_55_.__node_塵:1.0___OPAQUE_塵_44_(__node_塵:1.0___OPAQUE_塵_61_: .__node_塵:1.0___OPAQUE_塵_69_, __node_塵:1.0___OPAQUE_塵_77_: [:]) else {
+            return nil
+        }
+        
+        return __node_塵:1.0___OPAQUE_塵_17_.__node_塵:1.0___OPAQUE_塵_78_()
+// __node_医:0.6___OPAQUE_FC_854_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

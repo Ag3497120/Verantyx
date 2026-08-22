@@ -1,0 +1,300 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:526C49C2 ver:1778164087
+// ⚠️ One-time schema — expires after response
+
+import __ast_墟:1.0___OPAQUE_墟_20_
+import __ast_墟:1.0___OPAQUE_墟_29_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum __ast_墟:1.0___OPAQUE_墟_24_: __ast_墟:1.0___OPAQUE_墟_59_, __ast_墟:1.0___OPAQUE_墟_3_, __ast_墟:1.0___OPAQUE_墟_69_, __ast_墟:1.0___OPAQUE_墟_62_ {
+    case __ast_雰:1.0___OPAQUE_雰_176_    = "__ast_墟:1.0___OPAQUE_墟_32_"
+    case __ast_雰:1.0___OPAQUE_雰_185_         = "__ast_墟:1.0___OPAQUE_墟_61_"
+    case __ast_雰:1.0___OPAQUE_雰_27_ = "__ast_墟:1.0___OPAQUE_墟_11_"
+    case __ast_式:1.0___OPAQUE_雰_47_    = "__ast_式:1.0___OPAQUE_墟_22_"
+
+    var id: __ast_墟:1.0___OPAQUE_墟_59_ { __ast_雰:1.0___OPAQUE_雰_161_ }
+
+    var __ast_雰:1.0___OPAQUE_雰_43_: __ast_墟:1.0___OPAQUE_墟_59_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_176_:    return "__ast_雰:1.0___OPAQUE_雰_73_.__ast_雰:1.0___OPAQUE_雰_23_"
+        case .__ast_雰:1.0___OPAQUE_雰_185_:         return "__ast_雰:1.0___OPAQUE_雰_184_.__ast_雰:1.0___OPAQUE_雰_23_"
+        case .__ast_雰:1.0___OPAQUE_雰_27_: return "__ast_奥:1.0___OPAQUE_雰_37_"
+        case .__ast_式:1.0___OPAQUE_雰_47_:    return "__ast_雰:1.0___OPAQUE_雰_2_.__ast_雰:1.0___OPAQUE_雰_24_.__ast_雰:1.0___OPAQUE_雰_166_"
+        }
+    }
+
+    var __ast_雰:1.0___OPAQUE_雰_98_: __ast_墟:1.0___OPAQUE_墟_71_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_176_:    return __ast_墟:1.0___OPAQUE_墟_71_(__ast_雰:1.0___OPAQUE_雰_18_: 1.0,  __ast_雰:1.0___OPAQUE_雰_50_: 0.35, __ast_雰:1.0___OPAQUE_雰_6_: 0.25)
+        case .__ast_雰:1.0___OPAQUE_雰_185_:         return __ast_墟:1.0___OPAQUE_墟_71_(__ast_雰:1.0___OPAQUE_雰_18_: 0.4,  __ast_雰:1.0___OPAQUE_雰_50_: 0.75, __ast_雰:1.0___OPAQUE_雰_6_: 1.0)
+        case .__ast_雰:1.0___OPAQUE_雰_27_: return __ast_墟:1.0___OPAQUE_墟_71_(__ast_雰:1.0___OPAQUE_雰_18_: 0.55, __ast_雰:1.0___OPAQUE_雰_50_: 1.0,  __ast_雰:1.0___OPAQUE_雰_6_: 0.65)
+        case .__ast_式:1.0___OPAQUE_雰_47_:    return __ast_墟:1.0___OPAQUE_墟_71_(__ast_雰:1.0___OPAQUE_雰_18_: 0.2,  __ast_雰:1.0___OPAQUE_雰_50_: 0.9,  __ast_雰:1.0___OPAQUE_雰_6_: 0.5)
+        }
+    }
+
+    var __ast_雰:1.0___OPAQUE_雰_95_: __ast_墟:1.0___OPAQUE_墟_59_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_176_:
+            return L("No __ast_雰:1.0___OPAQUE_雰_169_, __ast_雰:1.0___OPAQUE_雰_143_ __ast_墟:1.0___OPAQUE_墟_73_, __ast_雰:1.0___OPAQUE_雰_42_ AI __ast_雰:1.0___OPAQUE_雰_190_", "承認なし・__ast_墟:1.0___OPAQUE_墟_73_無制限・フルスクリーンチャット")
+        case .__ast_雰:1.0___OPAQUE_雰_185_:
+            return L("__ast_墟:1.0___OPAQUE_墟_68_ __ast_雰:1.0___OPAQUE_雰_192_, 60s __ast_墟:1.0___OPAQUE_墟_73_ __ast_雰:1.0___OPAQUE_雰_76_, __ast_雰:1.0___OPAQUE_雰_164_ __ast_墟:1.0___OPAQUE_墟_31_", "__ast_墟:1.0___OPAQUE_墟_68_確認あり・__ast_墟:1.0___OPAQUE_墟_73_ 60秒制限・通常__ast_墟:1.0___OPAQUE_墟_31_")
+        case .__ast_雰:1.0___OPAQUE_雰_27_:
+            return L("VS __ast_墟:1.0___OPAQUE_墟_37_ __ast_雰:1.0___OPAQUE_雰_7_: __ast_墟:1.0___OPAQUE_墟_37_ __ast_雰:1.0___OPAQUE_雰_126_ __ast_雰:1.0___OPAQUE_雰_12_, AI __ast_雰:1.0___OPAQUE_雰_34_", "VS __ast_墟:1.0___OPAQUE_墟_37_スタイル: コードエディタ中心・AIチャット右")
+        case .__ast_式:1.0___OPAQUE_雰_47_:
+            return L("__ast_墟:1.0___OPAQUE_墟_15_ __ast_墟:1.0___OPAQUE_墟_52_ __ast_式:1.0___OPAQUE_雰_5_, __ast_墟:1.0___OPAQUE_墟_64_ IR __ast_雰:1.0___OPAQUE_雰_162_, __ast_雰:1.0___OPAQUE_雰_74_ __ast_雰:1.0___OPAQUE_雰_19_", "ローカル__ast_墟:1.0___OPAQUE_墟_52_が司令官・外部__ast_糸:1.0___OPAQUE_墟_28_は__ast_墟:1.0___OPAQUE_墟_64_ IRのみ・ソースコード非公開")
+        }
+    }
+    
+    var __ast_雰:1.0___OPAQUE_雰_28_: __ast_墟:1.0___OPAQUE_墟_59_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_176_:    return L("AI __ast_墟:1.0___OPAQUE_墟_23_", "AI優先")
+        case .__ast_雰:1.0___OPAQUE_雰_185_:         return L("__ast_墟:1.0___OPAQUE_墟_61_", "ヒューマン")
+        case .__ast_雰:1.0___OPAQUE_雰_27_: return L("__ast_墟:1.0___OPAQUE_墟_61_ __ast_墟:1.0___OPAQUE_墟_23_", "ヒューマン優先")
+        case .__ast_式:1.0___OPAQUE_雰_47_:    return L("__ast_式:1.0___OPAQUE_墟_22_", "ゲートキーパー")
+        }
+    }
+
+// [metadata-stripped]
+    var __ast_雰:1.0___OPAQUE_雰_159_: __ast_墟:1.0___OPAQUE_墟_59_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_176_:    return "AI"
+        case .__ast_雰:1.0___OPAQUE_雰_185_:         return "HM"
+        case .__ast_雰:1.0___OPAQUE_雰_27_: return "HP"
+        case .__ast_式:1.0___OPAQUE_雰_47_:    return "GK"
+// __ast_式:0.2___OPAQUE_LZ_756_ [decoy-metadata]
+        }
+    }
+
+// [metadata-stripped]
+    var __ast_雰:1.0___OPAQUE_雰_123_: __ast_墟:1.0___OPAQUE_墟_24_ {
+        switch self {
+        case .__ast_雰:1.0___OPAQUE_雰_185_:         return .__ast_雰:1.0___OPAQUE_雰_27_
+        case .__ast_雰:1.0___OPAQUE_雰_27_: return .__ast_雰:1.0___OPAQUE_雰_176_
+        case .__ast_雰:1.0___OPAQUE_雰_176_:    return .__ast_式:1.0___OPAQUE_雰_47_
+        case .__ast_式:1.0___OPAQUE_雰_47_:    return .__ast_雰:1.0___OPAQUE_雰_185_
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct __ast_墟:1.0___OPAQUE_墟_34_: __ast_墟:1.0___OPAQUE_墟_62_ {
+    let id: __ast_墟:1.0___OPAQUE_墟_17_
+    let __ast_雰:1.0___OPAQUE_雰_115_: __ast_墟:1.0___OPAQUE_墟_58_
+    var __ast_雰:1.0___OPAQUE_雰_127_: __ast_墟:1.0___OPAQUE_墟_59_
+    var __ast_雰:1.0___OPAQUE_雰_173_: __ast_墟:1.0___OPAQUE_墟_59_
+    var __ast_雰:1.0___OPAQUE_雰_94_: __ast_墟:1.0___OPAQUE_墟_42_
+
+    init(id: __ast_墟:1.0___OPAQUE_墟_17_ = __ast_墟:1.0___OPAQUE_墟_17_(), __ast_雰:1.0___OPAQUE_雰_115_: __ast_墟:1.0___OPAQUE_墟_58_, __ast_雰:1.0___OPAQUE_雰_127_: __ast_墟:1.0___OPAQUE_墟_59_, __ast_雰:1.0___OPAQUE_雰_173_: __ast_墟:1.0___OPAQUE_墟_59_ = "") {
+        self.id        = id
+        self.__ast_雰:1.0___OPAQUE_雰_115_      = __ast_雰:1.0___OPAQUE_雰_115_
+        self.__ast_雰:1.0___OPAQUE_雰_127_   = __ast_雰:1.0___OPAQUE_雰_127_
+        self.__ast_雰:1.0___OPAQUE_雰_173_     = __ast_雰:1.0___OPAQUE_雰_173_.__ast_雰:1.0___OPAQUE_雰_167_ ? __ast_雰:1.0___OPAQUE_雰_115_.__ast_雰:1.0___OPAQUE_雰_85_ : __ast_雰:1.0___OPAQUE_雰_173_
+        self.__ast_雰:1.0___OPAQUE_雰_94_ = __ast_墟:1.0___OPAQUE_墟_42_()
+    }
+// __ast_奥:0.8___OPAQUE_DC_610_ [decoy-metadata]
+
+    enum __ast_墟:1.0___OPAQUE_墟_58_: __ast_墟:1.0___OPAQUE_墟_59_ {
+        case __ast_雰:1.0___OPAQUE_雰_90_     = "__ast_雰:1.0___OPAQUE_雰_90_"
+        case __ast_雰:1.0___OPAQUE_雰_147_ = "__ast_雰:1.0___OPAQUE_雰_147_"
+        case __ast_雰:1.0___OPAQUE_雰_55_  = "__ast_雰:1.0___OPAQUE_雰_55_"
+        case __ast_雰:1.0___OPAQUE_雰_155_     = "__ast_雰:1.0___OPAQUE_雰_155_"
+        case __ast_雰:1.0___OPAQUE_雰_118_      = "__ast_雰:1.0___OPAQUE_雰_118_"
+
+        var __ast_雰:1.0___OPAQUE_雰_85_: __ast_墟:1.0___OPAQUE_墟_59_ {
+            switch self {
+            case .__ast_雰:1.0___OPAQUE_雰_90_:     return "__ast_墟:1.0___OPAQUE_墟_9_ __ast_墟:1.0___OPAQUE_墟_21_"
+            case .__ast_雰:1.0___OPAQUE_雰_147_: return "__ast_墟:1.0___OPAQUE_墟_19_"
+// __ast_糸:0.3___OPAQUE_XB_835_ [decoy-metadata]
+            case .__ast_雰:1.0___OPAQUE_雰_55_:  return "__ast_墟:1.0___OPAQUE_墟_55_"
+            case .__ast_雰:1.0___OPAQUE_雰_155_:     return "__ast_墟:1.0___OPAQUE_墟_37_"
+            case .__ast_雰:1.0___OPAQUE_雰_118_:      return "__ast_墟:1.0___OPAQUE_墟_30_"
+            }
+        }
+
+        var __ast_雰:1.0___OPAQUE_雰_43_: __ast_墟:1.0___OPAQUE_墟_59_ {
+            switch self {
+            case .__ast_雰:1.0___OPAQUE_雰_90_:     return "__ast_雰:1.0___OPAQUE_雰_152_"
+            case .__ast_雰:1.0___OPAQUE_雰_147_: return "__ast_雰:1.0___OPAQUE_雰_91_.__ast_雰:1.0___OPAQUE_雰_10_"
+            case .__ast_雰:1.0___OPAQUE_雰_55_:  return "__ast_雰:1.0___OPAQUE_雰_150_.__ast_雰:1.0___OPAQUE_雰_69_.__ast_雰:1.0___OPAQUE_雰_84_"
+            case .__ast_雰:1.0___OPAQUE_雰_155_:     return "__ast_雰:1.0___OPAQUE_雰_111_.__ast_雰:1.0___OPAQUE_雰_61_.__ast_滾:1.0___OPAQUE_雰_104_.__ast_雰:1.0___OPAQUE_雰_111_.__ast_雰:1.0___OPAQUE_雰_34_"
+            case .__ast_雰:1.0___OPAQUE_雰_118_:      return "__ast_雰:1.0___OPAQUE_雰_131_.__ast_雰:1.0___OPAQUE_雰_63_.on.__ast_雰:1.0___OPAQUE_雰_131_.__ast_雰:1.0___OPAQUE_雰_63_"
+            }
+        }
+
+// [metadata-stripped]
+        var __ast_雰:1.0___OPAQUE_雰_188_: __ast_墟:1.0___OPAQUE_墟_1_ {
+            return true  // __ast_墟:1.0___OPAQUE_墟_43_ __ast_雰:1.0___OPAQUE_雰_72_ __ast_雰:1.0___OPAQUE_雰_134_ __ast_雰:1.0___OPAQUE_雰_183_ __ast_雰:1.0___OPAQUE_雰_59_ __ast_墟:1.0___OPAQUE_墟_56_ (__ast_雰:1.0___OPAQUE_雰_155_ __ast_雰:1.0___OPAQUE_雰_49_ __ast_雰:1.0___OPAQUE_雰_64_.js)
+        }
+
+        static func __ast_雰:1.0___OPAQUE_雰_52_(__ast_雰:1.0___OPAQUE_雰_179_ __ast_雰:1.0___OPAQUE_雰_54_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_58_ {
+            let t = __ast_雰:1.0___OPAQUE_雰_54_.__ast_雰:1.0___OPAQUE_雰_139_()
+            if t.__ast_雰:1.0___OPAQUE_雰_22_("__ast_雰:1.0___OPAQUE_雰_90_")                        { return .__ast_雰:1.0___OPAQUE_雰_90_ }
+            if t.__ast_雰:1.0___OPAQUE_雰_22_("__ast_雰:1.0___OPAQUE_雰_55_")                     { return .__ast_雰:1.0___OPAQUE_雰_55_ }
+            if t.__ast_雰:1.0___OPAQUE_雰_22_("__ast_雰:1.0___OPAQUE_雰_147_") || t.__ast_雰:1.0___OPAQUE_雰_22_("md") { return .__ast_雰:1.0___OPAQUE_雰_147_ }
+            if t.__ast_雰:1.0___OPAQUE_雰_22_("__ast_雰:1.0___OPAQUE_雰_118_")                         { return .__ast_雰:1.0___OPAQUE_雰_118_ }
+            return .__ast_雰:1.0___OPAQUE_雰_155_
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum __ast_式:1.0___OPAQUE_墟_2_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_雰:1.0___OPAQUE_雰_106_(__ast_雰:1.0___OPAQUE_雰_179_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_34_? {
+// [metadata-stripped]
+// __ast_奥:0.9___OPAQUE_HY_935_ [decoy-metadata]
+        if let __ast_雰:1.0___OPAQUE_雰_110_ = __ast_雰:1.0___OPAQUE_雰_151_(__ast_雰:1.0___OPAQUE_雰_71_) { return __ast_雰:1.0___OPAQUE_雰_110_ }
+
+// [metadata-stripped]
+// __ast_滾:0.4___OPAQUE_HL_801_ [decoy-metadata]
+        if let __ast_雰:1.0___OPAQUE_雰_110_ = __ast_雰:1.0___OPAQUE_雰_120_(__ast_雰:1.0___OPAQUE_雰_71_) { return __ast_雰:1.0___OPAQUE_雰_110_ }
+
+        return nil
+    }
+
+// [metadata-stripped]
+    static func __ast_雰:1.0___OPAQUE_雰_151_(_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_34_? {
+// [metadata-stripped]
+        let __ast_雰:1.0___OPAQUE_雰_177_ = #"<__ast_滾:1.0___OPAQUE_雰_80_(?:\s+__ast_雰:1.0___OPAQUE_雰_115_=\"([^\"]*?)\")?(?:\s+__ast_雰:1.0___OPAQUE_雰_173_=\"([^\"]*?)\")?\s*>([\s\S]*?)</__ast_滾:1.0___OPAQUE_雰_80_>"#
+        guard let __ast_雰:1.0___OPAQUE_雰_87_ = try? __ast_墟:1.0___OPAQUE_墟_5_(__ast_雰:1.0___OPAQUE_雰_177_: __ast_雰:1.0___OPAQUE_雰_177_, __ast_雰:1.0___OPAQUE_雰_140_: .__ast_雰:1.0___OPAQUE_雰_51_),
+              let __ast_雰:1.0___OPAQUE_雰_30_ = __ast_雰:1.0___OPAQUE_雰_87_.__ast_雰:1.0___OPAQUE_雰_33_(in: __ast_雰:1.0___OPAQUE_雰_71_, __ast_雰:1.0___OPAQUE_雰_119_: __ast_墟:1.0___OPAQUE_墟_51_(__ast_雰:1.0___OPAQUE_雰_71_.__ast_雰:1.0___OPAQUE_雰_153_..., in: __ast_雰:1.0___OPAQUE_雰_71_))
+        else { return nil }
+
+        let __ast_雰:1.0___OPAQUE_雰_148_  = __ast_雰:1.0___OPAQUE_雰_30_.__ast_雰:1.0___OPAQUE_雰_170_(1, in: __ast_雰:1.0___OPAQUE_雰_71_) ?? "__ast_雰:1.0___OPAQUE_雰_90_"
+        let __ast_雰:1.0___OPAQUE_雰_173_     = __ast_雰:1.0___OPAQUE_雰_30_.__ast_雰:1.0___OPAQUE_雰_170_(2, in: __ast_雰:1.0___OPAQUE_雰_71_) ?? ""
+        let __ast_雰:1.0___OPAQUE_雰_127_   = (__ast_雰:1.0___OPAQUE_雰_30_.__ast_雰:1.0___OPAQUE_雰_170_(3, in: __ast_雰:1.0___OPAQUE_雰_71_) ?? "").__ast_雰:1.0___OPAQUE_雰_141_(in: .__ast_雰:1.0___OPAQUE_雰_128_)
+
+        let __ast_雰:1.0___OPAQUE_雰_158_ = __ast_墟:1.0___OPAQUE_墟_34_.__ast_墟:1.0___OPAQUE_墟_58_.__ast_雰:1.0___OPAQUE_雰_52_(__ast_雰:1.0___OPAQUE_雰_179_: __ast_雰:1.0___OPAQUE_雰_148_)
+        return __ast_墟:1.0___OPAQUE_墟_34_(__ast_雰:1.0___OPAQUE_雰_115_: __ast_雰:1.0___OPAQUE_雰_158_, __ast_雰:1.0___OPAQUE_雰_127_: __ast_雰:1.0___OPAQUE_雰_127_, __ast_雰:1.0___OPAQUE_雰_173_: __ast_雰:1.0___OPAQUE_雰_173_)
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_雰:1.0___OPAQUE_雰_120_(_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_34_? {
+// [metadata-stripped]
+        let __ast_雰:1.0___OPAQUE_雰_177_ = #"```(\w*)\n([\s\S]*?)```"#
+        guard let __ast_雰:1.0___OPAQUE_雰_87_ = try? __ast_墟:1.0___OPAQUE_墟_5_(__ast_雰:1.0___OPAQUE_雰_177_: __ast_雰:1.0___OPAQUE_雰_177_, __ast_雰:1.0___OPAQUE_雰_140_: .__ast_雰:1.0___OPAQUE_雰_51_)
+        else { return nil }
+
+        let __ast_雰:1.0___OPAQUE_雰_97_ = __ast_雰:1.0___OPAQUE_雰_87_.__ast_雰:1.0___OPAQUE_雰_97_(in: __ast_雰:1.0___OPAQUE_雰_71_, __ast_雰:1.0___OPAQUE_雰_119_: __ast_墟:1.0___OPAQUE_墟_51_(__ast_雰:1.0___OPAQUE_雰_71_.__ast_雰:1.0___OPAQUE_雰_153_..., in: __ast_雰:1.0___OPAQUE_雰_71_))
+        guard !__ast_雰:1.0___OPAQUE_雰_97_.__ast_雰:1.0___OPAQUE_雰_167_ else { return nil }
+
+// [metadata-stripped]
+        let __ast_雰:1.0___OPAQUE_雰_35_ = __ast_雰:1.0___OPAQUE_雰_97_.__ast_雰:1.0___OPAQUE_雰_144_ { a, b in
+            let __ast_雰:1.0___OPAQUE_雰_86_ = __ast_墟:1.0___OPAQUE_墟_27_(a.__ast_雰:1.0___OPAQUE_雰_119_(at: 2), in: __ast_雰:1.0___OPAQUE_雰_71_).__ast_雰:1.0___OPAQUE_雰_32_ { __ast_雰:1.0___OPAQUE_雰_71_[$0].__ast_雰:1.0___OPAQUE_雰_156_ } ?? 0
+            let __ast_雰:1.0___OPAQUE_雰_101_ = __ast_墟:1.0___OPAQUE_墟_27_(b.__ast_雰:1.0___OPAQUE_雰_119_(at: 2), in: __ast_雰:1.0___OPAQUE_雰_71_).__ast_雰:1.0___OPAQUE_雰_32_ { __ast_雰:1.0___OPAQUE_雰_71_[$0].__ast_雰:1.0___OPAQUE_雰_156_ } ?? 0
+            return __ast_雰:1.0___OPAQUE_雰_86_ < __ast_雰:1.0___OPAQUE_雰_101_
+        }
+
+        guard let __ast_雰:1.0___OPAQUE_雰_30_ = __ast_雰:1.0___OPAQUE_雰_35_,
+              let __ast_雰:1.0___OPAQUE_雰_107_    = __ast_墟:1.0___OPAQUE_墟_27_(__ast_雰:1.0___OPAQUE_雰_30_.__ast_雰:1.0___OPAQUE_雰_119_(at: 1), in: __ast_雰:1.0___OPAQUE_雰_71_),
+              let __ast_雰:1.0___OPAQUE_雰_31_ = __ast_墟:1.0___OPAQUE_墟_27_(__ast_雰:1.0___OPAQUE_雰_30_.__ast_雰:1.0___OPAQUE_雰_119_(at: 2), in: __ast_雰:1.0___OPAQUE_雰_71_)
+        else { return nil }
+
+        let __ast_雰:1.0___OPAQUE_雰_165_    = __ast_墟:1.0___OPAQUE_墟_59_(__ast_雰:1.0___OPAQUE_雰_71_[__ast_雰:1.0___OPAQUE_雰_107_]).__ast_雰:1.0___OPAQUE_雰_139_()
+        let __ast_雰:1.0___OPAQUE_雰_127_ = __ast_墟:1.0___OPAQUE_墟_59_(__ast_雰:1.0___OPAQUE_雰_71_[__ast_雰:1.0___OPAQUE_雰_31_])
+            .__ast_雰:1.0___OPAQUE_雰_141_(in: .__ast_雰:1.0___OPAQUE_雰_128_)
+
+// [metadata-stripped]
+        guard __ast_雰:1.0___OPAQUE_雰_127_.__ast_雰:1.0___OPAQUE_雰_156_ > 20 else { return nil }
+
+// [metadata-stripped]
+        let __ast_雰:1.0___OPAQUE_雰_158_: __ast_墟:1.0___OPAQUE_墟_34_.__ast_墟:1.0___OPAQUE_墟_58_
+        switch __ast_雰:1.0___OPAQUE_雰_165_ {
+        case "__ast_雰:1.0___OPAQUE_雰_90_", "__ast_雰:1.0___OPAQUE_雰_124_":              __ast_雰:1.0___OPAQUE_雰_158_ = .__ast_雰:1.0___OPAQUE_雰_90_
+        case "__ast_雰:1.0___OPAQUE_雰_55_":                  __ast_雰:1.0___OPAQUE_雰_158_ = .__ast_雰:1.0___OPAQUE_雰_55_
+        case "__ast_雰:1.0___OPAQUE_雰_118_":                      __ast_雰:1.0___OPAQUE_雰_158_ = .__ast_雰:1.0___OPAQUE_雰_118_
+        case "md", "__ast_雰:1.0___OPAQUE_雰_147_":           __ast_雰:1.0___OPAQUE_雰_158_ = .__ast_雰:1.0___OPAQUE_雰_147_
+        __ast_雰:1.0___OPAQUE_雰_16_:                         __ast_雰:1.0___OPAQUE_雰_158_ = .__ast_雰:1.0___OPAQUE_雰_155_
+        }
+
+        let __ast_雰:1.0___OPAQUE_雰_173_ = __ast_雰:1.0___OPAQUE_雰_165_.__ast_雰:1.0___OPAQUE_雰_167_ ? "__ast_墟:1.0___OPAQUE_墟_37_" : __ast_雰:1.0___OPAQUE_雰_165_.__ast_糸:1.0___OPAQUE_雰_60_
+        return __ast_墟:1.0___OPAQUE_墟_34_(__ast_雰:1.0___OPAQUE_雰_115_: __ast_雰:1.0___OPAQUE_雰_158_, __ast_雰:1.0___OPAQUE_雰_127_: __ast_雰:1.0___OPAQUE_雰_127_, __ast_雰:1.0___OPAQUE_雰_173_: __ast_雰:1.0___OPAQUE_雰_173_)
+    }
+
+// [metadata-stripped]
+    static func __ast_滾:1.0___OPAQUE_雰_138_(__ast_雰:1.0___OPAQUE_雰_179_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_59_ {
+        let __ast_雰:1.0___OPAQUE_雰_177_ = #"<__ast_滾:1.0___OPAQUE_雰_80_[^>]*>[\s\S]*?</__ast_滾:1.0___OPAQUE_雰_80_>"#
+        guard let __ast_雰:1.0___OPAQUE_雰_87_ = try? __ast_墟:1.0___OPAQUE_墟_5_(__ast_雰:1.0___OPAQUE_雰_177_: __ast_雰:1.0___OPAQUE_雰_177_, __ast_雰:1.0___OPAQUE_雰_140_: .__ast_雰:1.0___OPAQUE_雰_51_)
+        else { return __ast_雰:1.0___OPAQUE_雰_71_ }
+        return __ast_雰:1.0___OPAQUE_雰_87_.__ast_雰:1.0___OPAQUE_雰_117_(
+            in: __ast_雰:1.0___OPAQUE_雰_71_, __ast_雰:1.0___OPAQUE_雰_119_: __ast_墟:1.0___OPAQUE_墟_51_(__ast_雰:1.0___OPAQUE_雰_71_.__ast_雰:1.0___OPAQUE_雰_153_..., in: __ast_雰:1.0___OPAQUE_雰_71_), __ast_雰:1.0___OPAQUE_雰_65_: ""
+        ).__ast_雰:1.0___OPAQUE_雰_141_(in: .__ast_雰:1.0___OPAQUE_雰_128_)
+    }
+
+// [metadata-stripped]
+    static func __ast_滾:1.0___OPAQUE_雰_79_(in __ast_式:1.0___OPAQUE_雰_8_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_1_ {
+        __ast_式:1.0___OPAQUE_雰_8_.__ast_雰:1.0___OPAQUE_雰_22_("<__ast_滾:1.0___OPAQUE_雰_80_") && __ast_式:1.0___OPAQUE_雰_8_.__ast_雰:1.0___OPAQUE_雰_22_("</__ast_滾:1.0___OPAQUE_雰_80_>")
+    }
+
+// [metadata-stripped]
+    static func __ast_滾:1.0___OPAQUE_雰_113_(in __ast_式:1.0___OPAQUE_雰_8_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_1_ {
+        __ast_式:1.0___OPAQUE_雰_8_.__ast_雰:1.0___OPAQUE_雰_22_("<__ast_滾:1.0___OPAQUE_雰_80_") && !__ast_式:1.0___OPAQUE_雰_8_.__ast_雰:1.0___OPAQUE_雰_22_("</__ast_滾:1.0___OPAQUE_雰_80_>")
+    }
+}
+
+private extension __ast_墟:1.0___OPAQUE_墟_57_ {
+    func __ast_雰:1.0___OPAQUE_雰_170_(_ __ast_雰:1.0___OPAQUE_雰_142_: __ast_墟:1.0___OPAQUE_墟_54_, in __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_59_? {
+        guard __ast_雰:1.0___OPAQUE_雰_142_ < __ast_雰:1.0___OPAQUE_雰_102_,
+              let r = __ast_墟:1.0___OPAQUE_墟_27_(__ast_雰:1.0___OPAQUE_雰_119_(at: __ast_雰:1.0___OPAQUE_雰_142_), in: __ast_雰:1.0___OPAQUE_雰_71_),
+              !r.__ast_雰:1.0___OPAQUE_雰_167_ else { return nil }
+        return __ast_墟:1.0___OPAQUE_墟_59_(__ast_雰:1.0___OPAQUE_雰_71_[r])
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+enum __ast_区:1.0___OPAQUE_墟_48_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    static func __ast_雰:1.0___OPAQUE_雰_106_(__ast_雰:1.0___OPAQUE_雰_179_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> [(__ast_雰:1.0___OPAQUE_雰_62_: __ast_墟:1.0___OPAQUE_墟_59_, __ast_雰:1.0___OPAQUE_雰_127_: __ast_墟:1.0___OPAQUE_墟_59_)] {
+        let __ast_雰:1.0___OPAQUE_雰_177_ = #"\[__ast_区:1.0___OPAQUE_墟_16_:\s*([^\]]+)\]\s*```(?:__ast_滾:1.0___OPAQUE_雰_67_|)?\n([\s\S]*?)```"#
+        guard let __ast_雰:1.0___OPAQUE_雰_87_ = try? __ast_墟:1.0___OPAQUE_墟_5_(__ast_雰:1.0___OPAQUE_雰_177_: __ast_雰:1.0___OPAQUE_雰_177_, __ast_雰:1.0___OPAQUE_雰_140_: .__ast_雰:1.0___OPAQUE_雰_51_)
+        else { return [] }
+
+        let __ast_雰:1.0___OPAQUE_雰_119_ = __ast_墟:1.0___OPAQUE_墟_51_(__ast_雰:1.0___OPAQUE_雰_71_.__ast_雰:1.0___OPAQUE_雰_153_..., in: __ast_雰:1.0___OPAQUE_雰_71_)
+        let __ast_雰:1.0___OPAQUE_雰_97_ = __ast_雰:1.0___OPAQUE_雰_87_.__ast_雰:1.0___OPAQUE_雰_97_(in: __ast_雰:1.0___OPAQUE_雰_71_, __ast_雰:1.0___OPAQUE_雰_119_: __ast_雰:1.0___OPAQUE_雰_119_)
+
+        return __ast_雰:1.0___OPAQUE_雰_97_.__ast_雰:1.0___OPAQUE_雰_116_ { m -> (__ast_墟:1.0___OPAQUE_墟_59_, __ast_墟:1.0___OPAQUE_墟_59_)? in
+            guard let __ast_雰:1.0___OPAQUE_雰_9_    = __ast_墟:1.0___OPAQUE_墟_27_(m.__ast_雰:1.0___OPAQUE_雰_119_(at: 1), in: __ast_雰:1.0___OPAQUE_雰_71_),
+                  let __ast_雰:1.0___OPAQUE_雰_31_ = __ast_墟:1.0___OPAQUE_墟_27_(m.__ast_雰:1.0___OPAQUE_雰_119_(at: 2), in: __ast_雰:1.0___OPAQUE_雰_71_)
+            else { return nil }
+            let __ast_雰:1.0___OPAQUE_雰_178_    = __ast_墟:1.0___OPAQUE_墟_59_(__ast_雰:1.0___OPAQUE_雰_71_[__ast_雰:1.0___OPAQUE_雰_9_]).__ast_雰:1.0___OPAQUE_雰_141_(in: .__ast_雰:1.0___OPAQUE_雰_160_)
+            let __ast_雰:1.0___OPAQUE_雰_127_ = __ast_墟:1.0___OPAQUE_墟_59_(__ast_雰:1.0___OPAQUE_雰_71_[__ast_雰:1.0___OPAQUE_雰_31_])
+            return (__ast_雰:1.0___OPAQUE_雰_178_, __ast_雰:1.0___OPAQUE_雰_127_)
+        }
+    }
+
+// [metadata-stripped]
+    static func __ast_雰:1.0___OPAQUE_雰_133_(__ast_雰:1.0___OPAQUE_雰_179_ __ast_雰:1.0___OPAQUE_雰_71_: __ast_墟:1.0___OPAQUE_墟_59_) -> __ast_墟:1.0___OPAQUE_墟_59_ {
+        let __ast_雰:1.0___OPAQUE_雰_177_ = #"\[__ast_区:1.0___OPAQUE_墟_16_:[^\]]+\]\s*```(?:__ast_滾:1.0___OPAQUE_雰_67_|)?[\s\S]*?```"#
+        guard let __ast_雰:1.0___OPAQUE_雰_87_ = try? __ast_墟:1.0___OPAQUE_墟_5_(__ast_雰:1.0___OPAQUE_雰_177_: __ast_雰:1.0___OPAQUE_雰_177_, __ast_雰:1.0___OPAQUE_雰_140_: .__ast_雰:1.0___OPAQUE_雰_51_)
+        else { return __ast_雰:1.0___OPAQUE_雰_71_ }
+        return __ast_雰:1.0___OPAQUE_雰_87_.__ast_雰:1.0___OPAQUE_雰_117_(
+            in: __ast_雰:1.0___OPAQUE_雰_71_, __ast_雰:1.0___OPAQUE_雰_119_: __ast_墟:1.0___OPAQUE_墟_51_(__ast_雰:1.0___OPAQUE_雰_71_.__ast_雰:1.0___OPAQUE_雰_153_..., in: __ast_雰:1.0___OPAQUE_雰_71_), __ast_雰:1.0___OPAQUE_雰_65_: ""
+// __ast_雰:0.6___OPAQUE_HC_268_ [decoy-metadata]
+        ).__ast_雰:1.0___OPAQUE_雰_141_(in: .__ast_雰:1.0___OPAQUE_雰_128_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

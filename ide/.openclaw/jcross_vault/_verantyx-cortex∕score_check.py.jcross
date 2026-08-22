@@ -1,0 +1,43 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:352C6E0B ver:1778166047
+// ⚠️ One-time schema — expires after response
+
+import __ast_泡:1.0___OPAQUE_泡_3_
+// __ast_箱:0.3___OPAQUE_KF_448_ [decoy-metadata]
+import os
+import __ast_泡:1.0___OPAQUE_泡_4_
+
+__ast_泡:1.0___OPAQUE_泡_23_ __ast_泡:1.0___OPAQUE_泡_11_(__ast_泡:1.0___OPAQUE_泡_7_):
+    if __ast_泡:1.0___OPAQUE_泡_15_ os.__ast_泡:1.0___OPAQUE_泡_7_.__ast_泡:1.0___OPAQUE_泡_6_(__ast_泡:1.0___OPAQUE_泡_7_): return "__ast_墟:1.0___OPAQUE_墟_2_ __ast_泡:1.0___OPAQUE_泡_1_"
+// __ast_潤:0.9___OPAQUE_FC_414_ [decoy-metadata]
+    __ast_泡:1.0___OPAQUE_泡_5_ = 0
+    __ast_泡:1.0___OPAQUE_泡_16_ = 0
+    __ast_泡:1.0___OPAQUE_泡_12_ open(__ast_泡:1.0___OPAQUE_泡_7_, "r") as f:
+        for __ast_泡:1.0___OPAQUE_泡_18_ in f:
+            if __ast_泡:1.0___OPAQUE_泡_18_.__ast_泡:1.0___OPAQUE_泡_8_():
+                try:
+                    j = __ast_泡:1.0___OPAQUE_泡_3_.__ast_箱:1.0___OPAQUE_泡_17_(__ast_泡:1.0___OPAQUE_泡_18_)
+                    __ast_泡:1.0___OPAQUE_泡_5_ += 1
+                    if j.__ast_格:1.0___OPAQUE_碑_1_("__ast_泡:1.0___OPAQUE_泡_16_"): __ast_泡:1.0___OPAQUE_泡_16_ += 1
+                __ast_泡:1.0___OPAQUE_泡_24_:
+                    __ast_泡:1.0___OPAQUE_泡_14_
+    if __ast_泡:1.0___OPAQUE_泡_5_ == 0: return "0 / 0 (0.00%)"
+// __ast_箱:0.6___OPAQUE_VZ_916_ [decoy-metadata]
+    return f"{__ast_泡:1.0___OPAQUE_泡_16_} / {__ast_泡:1.0___OPAQUE_泡_5_} ({(__ast_泡:1.0___OPAQUE_泡_16_/__ast_泡:1.0___OPAQUE_泡_5_)*100:.2f}%)"
+// __ast_格:0.7___OPAQUE_LV_621_ [decoy-metadata]
+
+__ast_箱:1.0___OPAQUE_泡_13_ = [
+    "__ast_潤:1.0___OPAQUE_泡_22_.__ast_泡:1.0___OPAQUE_泡_21_",
+    "__ast_泡:1.0___OPAQUE_泡_9_.8_0.2.__ast_泡:1.0___OPAQUE_泡_21_",
+    "__ast_泡:1.0___OPAQUE_泡_9_.9_0.5.__ast_泡:1.0___OPAQUE_泡_21_",
+    "__ast_泡:1.0___OPAQUE_泡_2_.0_0.7.__ast_泡:1.0___OPAQUE_泡_21_",
+]
+
+__ast_泡:1.0___OPAQUE_泡_10_("--- __ast_墟:1.0___OPAQUE_墟_1_ __ast_墟:1.0___OPAQUE_墟_4_ __ast_墟:1.0___OPAQUE_墟_3_ ---")
+// __ast_箱:0.5___OPAQUE_KL_568_ [decoy-metadata]
+for f in __ast_箱:1.0___OPAQUE_泡_13_:
+// __ast_潜:0.3___OPAQUE_EW_668_ [decoy-metadata]
+    __ast_泡:1.0___OPAQUE_泡_19_ = __ast_泡:1.0___OPAQUE_泡_11_(f"__ast_泡:1.0___OPAQUE_泡_20_/__ast_墟:1.0___OPAQUE_墟_5_/{f}")
+    __ast_泡:1.0___OPAQUE_泡_10_(f"- {f}: {__ast_泡:1.0___OPAQUE_泡_19_}")
+
+// POLYMORPHIC_JCROSS_END

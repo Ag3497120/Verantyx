@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B34F6836 ver:1778159754
+// ⚠️ One-time schema — expires after response
+// _TOKEN_廷:0.5___node_AL_580__ [decoy-metadata]
+
+_TOKEN_霩:1.0___node_霩_47__ _TOKEN_霩:1.0___node_霩_28__ _TOKEN_霩:1.0___node_霩_23__ort _TOKEN_霩:1.0___node_霩_19__
+
+_TOKEN_霩:1.0___node_霩_23__ort re
+_TOKEN_霩:1.0___node_霩_47__ _TOKEN_霩:1.0___node_霩_25__ _TOKEN_霩:1.0___node_霩_23__ort _TOKEN_廷:1.0___node_廷_1__
+// _TOKEN_流:0.4___node_HK_227__ [decoy-metadata]
+
+_TOKEN_霩:1.0___node_霩_35__ = re._TOKEN_霩:1.0___node_霩_33__(r"\s+")
+_TOKEN_霩:1.0___node_霩_17__ = re._TOKEN_霩:1.0___node_霩_33__(r"^[A-Za-z][A-Za-z0-9_]*$")
+
+
+class _TOKEN_廷:1.0___node_廷_3__(_TOKEN_廷:1.0___node_廷_2__):
+    _TOKEN_霩:1.0___node_霩_21__
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_49__(s: _TOKEN_霩:1.0___node_霩_29__) -> _TOKEN_霩:1.0___node_霩_29__:
+    s = (s or "")._TOKEN_霩:1.0___node_霩_15__()
+    s = s._TOKEN_霩:1.0___node_霩_5__("□", "[]")._TOKEN_霩:1.0___node_霩_5__("◇", "<>")
+    s = re._TOKEN_霩:1.0___node_霩_13__(r"\_TOKEN_霩:1.0___node_霩_32__\b", "[]", s, _TOKEN_霩:1.0___node_霩_38__=re.I)
+    s = re._TOKEN_霩:1.0___node_霩_13__(r"\_TOKEN_霩:1.0___node_霩_43__\b", "<>", s, _TOKEN_霩:1.0___node_霩_38__=re.I)
+    s = s._TOKEN_霩:1.0___node_霩_5__("→", "->")._TOKEN_霩:1.0___node_霩_5__("¬", "~")
+    s = _TOKEN_霩:1.0___node_霩_35__._TOKEN_霩:1.0___node_霩_13__("", s)
+    s = s._TOKEN_霩:1.0___node_霩_5__("[]", "[]")
+    s = s._TOKEN_霩:1.0___node_霩_5__("<>", "<>")
+    return s
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_41__(s: _TOKEN_霩:1.0___node_霩_29__) -> _TOKEN_霩:1.0___node_霩_29__:
+    s = _TOKEN_霩:1.0___node_霩_49__(s)
+    if _TOKEN_霩:1.0___node_霩_44__ s:
+        _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__("_TOKEN_霩:1.0___node_霩_48__")
+    _TOKEN_幽:1.0___node_霩_26__ = _TOKEN_幽:1.0___node_霩_50__(s)
+    _TOKEN_霩:1.0___node_霩_12__, _TOKEN_霩:1.0___node_霩_36__ = _TOKEN_霩:1.0___node_霩_8__(_TOKEN_幽:1.0___node_霩_26__, 0)
+    if _TOKEN_霩:1.0___node_霩_36__ != _TOKEN_霩:1.0___node_霩_22__(_TOKEN_幽:1.0___node_霩_26__):
+        _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__(f"_TOKEN_霩:1.0___node_霩_39__ _TOKEN_幽:1.0___node_霩_6__ at {_TOKEN_霩:1.0___node_霩_36__}: {_TOKEN_幽:1.0___node_霩_26__[_TOKEN_霩:1.0___node_霩_36__]}")
+    return _TOKEN_霩:1.0___node_霩_3__(_TOKEN_霩:1.0___node_霩_12__)
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_幽:1.0___node_霩_50__(s: _TOKEN_霩:1.0___node_霩_29__) -> _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__]:
+    _TOKEN_霩:1.0___node_霩_30__: _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__] = []
+    i = 0
+    while i < _TOKEN_霩:1.0___node_霩_22__(s):
+        if s._TOKEN_霩:1.0___node_霩_54__("->", i):
+            _TOKEN_霩:1.0___node_霩_30__._TOKEN_霩:1.0___node_霩_7__("->")
+            i += 2
+            continue
+        if s._TOKEN_霩:1.0___node_霩_54__("[]", i):
+            _TOKEN_霩:1.0___node_霩_30__._TOKEN_霩:1.0___node_霩_7__("[]")
+            i += 2
+            continue
+        if s._TOKEN_霩:1.0___node_霩_54__("<>", i):
+            _TOKEN_霩:1.0___node_霩_30__._TOKEN_霩:1.0___node_霩_7__("<>")
+            i += 2
+            continue
+        c = s[i]
+        if c in ("(", ")", "&", "|", "~"):
+            _TOKEN_霩:1.0___node_霩_30__._TOKEN_霩:1.0___node_霩_7__(c)
+            i += 1
+            continue
+        j = i
+        while j < _TOKEN_霩:1.0___node_霩_22__(s) _TOKEN_霩:1.0___node_霩_56__ re._TOKEN_霩:1.0___node_霩_34__(r"[A-Za-z0-9_]", s[j]):
+            j += 1
+        if j == i:
+            _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__(f"_TOKEN_霩:1.0___node_霩_53__ _TOKEN_霩:1.0___node_霩_46__: {s[i]}")
+        _TOKEN_霩:1.0___node_霩_30__._TOKEN_霩:1.0___node_霩_7__(s[i:j])
+        i = j
+    return _TOKEN_霩:1.0___node_霩_30__
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_8__(_TOKEN_霩:1.0___node_霩_4__: _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__], i: _TOKEN_霩:1.0___node_霩_27__):
+    _TOKEN_霩:1.0___node_霩_14__, i = _TOKEN_霩:1.0___node_霩_11__(_TOKEN_霩:1.0___node_霩_4__, i)
+    if i < _TOKEN_霩:1.0___node_霩_22__(_TOKEN_霩:1.0___node_霩_4__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_4__[i] == "->":
+        i += 1
+        _TOKEN_霩:1.0___node_霩_52__, i = _TOKEN_霩:1.0___node_霩_8__(_TOKEN_霩:1.0___node_霩_4__, i)
+        return ("->", _TOKEN_霩:1.0___node_霩_14__, _TOKEN_霩:1.0___node_霩_52__), i
+    return _TOKEN_霩:1.0___node_霩_14__, i
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_11__(_TOKEN_霩:1.0___node_霩_4__: _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__], i: _TOKEN_霩:1.0___node_霩_27__):
+    _TOKEN_霩:1.0___node_霩_14__, i = _TOKEN_霩:1.0___node_霩_42__(_TOKEN_霩:1.0___node_霩_4__, i)
+    while i < _TOKEN_霩:1.0___node_霩_22__(_TOKEN_霩:1.0___node_霩_4__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_4__[i] == "|":
+        i += 1
+        _TOKEN_霩:1.0___node_霩_52__, i = _TOKEN_霩:1.0___node_霩_42__(_TOKEN_霩:1.0___node_霩_4__, i)
+        _TOKEN_霩:1.0___node_霩_14__ = ("|", _TOKEN_霩:1.0___node_霩_14__, _TOKEN_霩:1.0___node_霩_52__)
+    return _TOKEN_霩:1.0___node_霩_14__, i
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_42__(_TOKEN_霩:1.0___node_霩_4__: _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__], i: _TOKEN_霩:1.0___node_霩_27__):
+    _TOKEN_霩:1.0___node_霩_14__, i = _TOKEN_霩:1.0___node_霩_55__(_TOKEN_霩:1.0___node_霩_4__, i)
+    while i < _TOKEN_霩:1.0___node_霩_22__(_TOKEN_霩:1.0___node_霩_4__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_4__[i] == "&":
+// _TOKEN_流:0.9___node_CK_124__ [decoy-metadata]
+        i += 1
+        _TOKEN_霩:1.0___node_霩_52__, i = _TOKEN_霩:1.0___node_霩_55__(_TOKEN_霩:1.0___node_霩_4__, i)
+        _TOKEN_霩:1.0___node_霩_14__ = ("&", _TOKEN_霩:1.0___node_霩_14__, _TOKEN_霩:1.0___node_霩_52__)
+    return _TOKEN_霩:1.0___node_霩_14__, i
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_55__(_TOKEN_霩:1.0___node_霩_4__: _TOKEN_廷:1.0___node_廷_1__[_TOKEN_霩:1.0___node_霩_29__], i: _TOKEN_霩:1.0___node_霩_27__):
+    if i >= _TOKEN_霩:1.0___node_霩_22__(_TOKEN_霩:1.0___node_霩_4__):
+        _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__("_TOKEN_霩:1.0___node_霩_39__ _TOKEN_霩:1.0___node_霩_51__")
+    if _TOKEN_霩:1.0___node_霩_4__[i] in ("~", "[]", "<>"):
+        op = _TOKEN_霩:1.0___node_霩_4__[i]
+// _TOKEN_霩:0.4___node_DL_932__ [decoy-metadata]
+        i += 1
+        _TOKEN_霩:1.0___node_霩_13__, i = _TOKEN_霩:1.0___node_霩_55__(_TOKEN_霩:1.0___node_霩_4__, i)
+        return ("un", op, _TOKEN_霩:1.0___node_霩_13__), i
+    if _TOKEN_霩:1.0___node_霩_4__[i] == "(":
+        i += 1
+        _TOKEN_霩:1.0___node_霩_13__, i = _TOKEN_霩:1.0___node_霩_8__(_TOKEN_霩:1.0___node_霩_4__, i)
+        if i >= _TOKEN_霩:1.0___node_霩_22__(_TOKEN_霩:1.0___node_霩_4__) or _TOKEN_霩:1.0___node_霩_4__[i] != ")":
+            _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__("_TOKEN_霩:1.0___node_霩_10__ ')'")
+        i += 1
+        return _TOKEN_霩:1.0___node_霩_13__, i
+// _TOKEN_医:0.2___node_HV_447__ [decoy-metadata]
+    _TOKEN_霩:1.0___node_霩_37__ = _TOKEN_霩:1.0___node_霩_4__[i]
+    i += 1
+    if _TOKEN_霩:1.0___node_霩_44__ _TOKEN_霩:1.0___node_霩_17__._TOKEN_霩:1.0___node_霩_34__(_TOKEN_霩:1.0___node_霩_37__):
+        _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__(f"_TOKEN_霩:1.0___node_霩_53__ _TOKEN_霩:1.0___node_霩_31__: {_TOKEN_霩:1.0___node_霩_37__}")
+    return ("_TOKEN_霩:1.0___node_霩_31__", _TOKEN_霩:1.0___node_霩_37__), i
+
+
+_TOKEN_霩:1.0___node_霩_20__ _TOKEN_霩:1.0___node_霩_3__(_TOKEN_霩:1.0___node_霩_12__) -> _TOKEN_霩:1.0___node_霩_29__:
+    if _TOKEN_霩:1.0___node_霩_18__(_TOKEN_霩:1.0___node_霩_12__, _TOKEN_霩:1.0___node_霩_9__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_12__[0] == "_TOKEN_霩:1.0___node_霩_31__":
+        return _TOKEN_霩:1.0___node_霩_12__[1]._TOKEN_法:1.0___node_霩_40__()
+    if _TOKEN_霩:1.0___node_霩_18__(_TOKEN_霩:1.0___node_霩_12__, _TOKEN_霩:1.0___node_霩_9__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_12__[0] == "un":
+        op = _TOKEN_霩:1.0___node_霩_12__[1]
+        _TOKEN_霩:1.0___node_霩_13__ = _TOKEN_霩:1.0___node_霩_3__(_TOKEN_霩:1.0___node_霩_12__[2])
+// _TOKEN_碑:0.8___node_KM_333__ [decoy-metadata]
+        if op == "~":
+            return f"_TOKEN_霩:1.0___node_霩_44__({_TOKEN_霩:1.0___node_霩_13__})"
+        if op == "[]":
+            return f"_TOKEN_霩:1.0___node_霩_1__({_TOKEN_霩:1.0___node_霩_13__})"
+        if op == "<>":
+            return f"_TOKEN_霩:1.0___node_霩_16__({_TOKEN_霩:1.0___node_霩_13__})"
+        _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__(f"_TOKEN_霩:1.0___node_霩_24__ _TOKEN_霩:1.0___node_霩_45__ op: {op}")
+    if _TOKEN_霩:1.0___node_霩_18__(_TOKEN_霩:1.0___node_霩_12__, _TOKEN_霩:1.0___node_霩_9__) _TOKEN_霩:1.0___node_霩_56__ _TOKEN_霩:1.0___node_霩_12__[0] in ("&", "|", "->"):
+        op = _TOKEN_霩:1.0___node_霩_12__[0]
+        a = _TOKEN_霩:1.0___node_霩_3__(_TOKEN_霩:1.0___node_霩_12__[1])
+        b = _TOKEN_霩:1.0___node_霩_3__(_TOKEN_霩:1.0___node_霩_12__[2])
+        if op == "&":
+            return f"_TOKEN_霩:1.0___node_霩_56__({a},{b})"
+        if op == "|":
+            return f"or({a},{b})"
+        if op == "->":
+            return f"_TOKEN_霩:1.0___node_霩_23__({a},{b})"
+    _TOKEN_霩:1.0___node_霩_2__ _TOKEN_廷:1.0___node_廷_3__(f"_TOKEN_霩:1.0___node_霩_53__ _TOKEN_霩:1.0___node_霩_12__: {_TOKEN_霩:1.0___node_霩_12__}")
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,385 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:56015C2C ver:1778159587
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+"""
+_TOKEN_廩:1.0__ASTNODE_廩_50_ 29: _TOKEN_廩:1.0__ASTNODE_廩_16_ _TOKEN_霧:1.0__ASTNODE_霧_277_ -> _TOKEN_霧:1.0__ASTNODE_霧_68_ (_TOKEN_霧:1.0__ASTNODE_霧_251_ _TOKEN_霧:1.0__ASTNODE_霧_173_) _TOKEN_霧:1.0__ASTNODE_霧_209_.
+
+_TOKEN_廩:1.0__ASTNODE_廩_14_:
+- _TOKEN_廩:1.0__ASTNODE_廩_10_ "_TOKEN_霧:1.0__ASTNODE_霧_15_ _TOKEN_浮:1.0__ASTNODE_霧_128_ _TOKEN_霧:1.0__ASTNODE_霧_188_" in _TOKEN_霧:1.0__ASTNODE_霧_132_ KB (_TOKEN_霧:1.0__ASTNODE_霧_187_ _TOKEN_霧:1.0__ASTNODE_霧_222_ _TOKEN_霧:1.0__ASTNODE_霧_11_ _TOKEN_霧:1.0__ASTNODE_霧_13_ is _TOKEN_浮:1.0__ASTNODE_霧_128_).
+- _TOKEN_廩:1.0__ASTNODE_廩_13_ _TOKEN_霧:1.0__ASTNODE_霧_201_ _TOKEN_霧:1.0__ASTNODE_霧_152_ _TOKEN_霧:1.0__ASTNODE_霧_108_ _TOKEN_霧:1.0__ASTNODE_霧_13_ _TOKEN_霧:1.0__ASTNODE_霧_232_:
+  _TOKEN_廩:1.0__ASTNODE_廩_3_ / _TOKEN_廩:1.0__ASTNODE_廩_48_ _TOKEN_廩:1.0__ASTNODE_廩_45_ / _TOKEN_廩:1.0__ASTNODE_廩_7_ _TOKEN_廩:1.0__ASTNODE_廩_30_ / _TOKEN_廩:1.0__ASTNODE_廩_23_ (_TOKEN_廩:1.0__ASTNODE_廩_50_ E _TOKEN_浮:1.0__ASTNODE_霧_126_)
+- _TOKEN_廩:1.0__ASTNODE_廩_2_ _TOKEN_霧:1.0__ASTNODE_霧_68_ _TOKEN_霧:1.0__ASTNODE_霧_222_ (_TOKEN_霧:1.0__ASTNODE_霧_139_="_TOKEN_霧:1.0__ASTNODE_霧_251_" _TOKEN_霧:1.0__ASTNODE_霧_63_ _TOKEN_霧:1.0__ASTNODE_霧_211_ as _TOKEN_霧:1.0__ASTNODE_霧_195_:_TOKEN_霧:1.0__ASTNODE_霧_68_) as KB-_TOKEN_霧:1.0__ASTNODE_霧_101_ _TOKEN_廩:1.0__ASTNODE_廩_9_.
+
+_TOKEN_廩:1.0__ASTNODE_廩_34_:
+- _TOKEN_廩:1.0__ASTNODE_廩_4_ _TOKEN_霧:1.0__ASTNODE_霧_43_ _TOKEN_霧:1.0__ASTNODE_霧_69_ _TOKEN_霧:1.0__ASTNODE_霧_133_ in:
+  - _TOKEN_霧:1.0__ASTNODE_霧_231_ (_TOKEN_霧:1.0__ASTNODE_霧_38_)
+  - _TOKEN_霧:1.0__ASTNODE_霧_256_ (_TOKEN_霧:1.0__ASTNODE_霧_40_)
+  - _TOKEN_霧:1.0__ASTNODE_霧_165_ / _TOKEN_霧:1.0__ASTNODE_霧_3_ (_TOKEN_霧:1.0__ASTNODE_霧_269_)
+  - _TOKEN_霧:1.0__ASTNODE_霧_32_/_TOKEN_霧:1.0__ASTNODE_霧_13_ (_TOKEN_霧:1.0__ASTNODE_霧_40_)  [_TOKEN_霧:1.0__ASTNODE_霧_110_, _TOKEN_霧:1.0__ASTNODE_霧_172_ _TOKEN_霧:1.0__ASTNODE_霧_76_]
+- _TOKEN_廩:1.0__ASTNODE_廩_4_ _TOKEN_霧:1.0__ASTNODE_霧_248_ _TOKEN_霧:1.0__ASTNODE_霧_99_:
+  - _TOKEN_浮:1.0__ASTNODE_霧_64_:_TOKEN_霧:1.0__ASTNODE_霧_146_, _TOKEN_浮:1.0__ASTNODE_霧_64_:true, _TOKEN_浮:1.0__ASTNODE_霧_64_:_TOKEN_浮:1.0__ASTNODE_霧_128_, _TOKEN_浮:1.0__ASTNODE_霧_88_:true (_TOKEN_霧:1.0__ASTNODE_霧_243_)
+"""
+
+_TOKEN_霧:1.0__ASTNODE_霧_108_ _TOKEN_霧:1.0__ASTNODE_霧_70_ import _TOKEN_霧:1.0__ASTNODE_霧_207_
+
+import _TOKEN_霧:1.0__ASTNODE_霧_50_
+import _TOKEN_霧:1.0__ASTNODE_霧_51_
+import re
+_TOKEN_霧:1.0__ASTNODE_霧_108_ _TOKEN_霧:1.0__ASTNODE_霧_60_ import _TOKEN_廩:1.0__ASTNODE_廩_35_, _TOKEN_廩:1.0__ASTNODE_廩_43_, _TOKEN_廩:1.0__ASTNODE_廩_33_, _TOKEN_廩:1.0__ASTNODE_廩_37_, _TOKEN_廩:1.0__ASTNODE_廩_24_
+_TOKEN_霧:1.0__ASTNODE_霧_108_ _TOKEN_霧:1.0__ASTNODE_霧_46_ import _TOKEN_道:1.0__ASTNODE_廩_26_
+
+// [metadata-stripped]
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_149_(_TOKEN_霧:1.0__ASTNODE_霧_179_: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]]:
+    _TOKEN_霧:1.0__ASTNODE_霧_81_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]] = []
+    _TOKEN_霧:1.0__ASTNODE_霧_23_ open(_TOKEN_霧:1.0__ASTNODE_霧_179_, "r", _TOKEN_霧:1.0__ASTNODE_霧_6_="_TOKEN_霧:1.0__ASTNODE_霧_161_-8") as f:
+        for _TOKEN_霧:1.0__ASTNODE_霧_247_ in f:
+            _TOKEN_霧:1.0__ASTNODE_霧_247_ = _TOKEN_霧:1.0__ASTNODE_霧_247_._TOKEN_霧:1.0__ASTNODE_霧_190_()
+            if _TOKEN_霧:1.0__ASTNODE_霧_247_:
+                _TOKEN_霧:1.0__ASTNODE_霧_81_._TOKEN_霧:1.0__ASTNODE_霧_56_(_TOKEN_霧:1.0__ASTNODE_霧_51_._TOKEN_匷:1.0__ASTNODE_霧_166_(_TOKEN_霧:1.0__ASTNODE_霧_247_))
+    return _TOKEN_霧:1.0__ASTNODE_霧_81_
+// _TOKEN_匷:0.9__ASTNODE_LW_112_ [decoy-metadata]
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_130_(_TOKEN_霧:1.0__ASTNODE_霧_179_: _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_261_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]]) -> _TOKEN_廩:1.0__ASTNODE_廩_40_:
+    _TOKEN_霧:1.0__ASTNODE_霧_23_ open(_TOKEN_霧:1.0__ASTNODE_霧_179_, "w", _TOKEN_霧:1.0__ASTNODE_霧_6_="_TOKEN_霧:1.0__ASTNODE_霧_161_-8") as f:
+        for r in _TOKEN_霧:1.0__ASTNODE_霧_261_:
+            f._TOKEN_霧:1.0__ASTNODE_霧_253_(_TOKEN_霧:1.0__ASTNODE_霧_51_._TOKEN_霧:1.0__ASTNODE_霧_16_(r, _TOKEN_霧:1.0__ASTNODE_霧_156_=_TOKEN_廩:1.0__ASTNODE_廩_36_) + "\n")
+
+// [metadata-stripped]
+
+_TOKEN_廩:1.0__ASTNODE_廩_49_ = [
+    "_TOKEN_浮:1.0__ASTNODE_霧_64_:_TOKEN_霧:1.0__ASTNODE_霧_146_",
+    "_TOKEN_浮:1.0__ASTNODE_霧_64_:true",
+    "_TOKEN_浮:1.0__ASTNODE_霧_64_:_TOKEN_浮:1.0__ASTNODE_霧_128_",
+    "_TOKEN_浮:1.0__ASTNODE_霧_36_:true",
+    "_TOKEN_浮:1.0__ASTNODE_霧_128_:true",
+    "_TOKEN_浮:1.0__ASTNODE_霧_35_:true",
+    "_TOKEN_霧:1.0__ASTNODE_霧_4_.1 _TOKEN_浮:1.0__ASTNODE_霧_128_",
+    "_TOKEN_霧:1.0__ASTNODE_霧_203_.4 _TOKEN_浮:1.0__ASTNODE_霧_35_",
+]
+
+_TOKEN_廩:1.0__ASTNODE_廩_25_ = [
+    "_TOKEN_浮:1.0__ASTNODE_霧_64_:_TOKEN_霧:1.0__ASTNODE_霧_72_",
+    "_TOKEN_浮:1.0__ASTNODE_霧_64_:false",
+    "_TOKEN_浮:1.0__ASTNODE_霧_36_:false",
+    "_TOKEN_浮:1.0__ASTNODE_霧_128_:false",
+    "_TOKEN_浮:1.0__ASTNODE_霧_35_:false",
+]
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_14_(s: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_霧:1.0__ASTNODE_霧_48_:
+    return re._TOKEN_霧:1.0__ASTNODE_霧_145_(r"\s+", " ", s._TOKEN_霧:1.0__ASTNODE_霧_190_()._TOKEN_道:1.0__ASTNODE_霧_125_())
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_162_(_TOKEN_霧:1.0__ASTNODE_霧_1_: _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_148_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_霧:1.0__ASTNODE_霧_48_]) -> _TOKEN_霧:1.0__ASTNODE_霧_204_:
+    h = _TOKEN_霧:1.0__ASTNODE_霧_14_(_TOKEN_霧:1.0__ASTNODE_霧_1_)
+    for n in _TOKEN_霧:1.0__ASTNODE_霧_148_:
+        if _TOKEN_霧:1.0__ASTNODE_霧_14_(n) in h:
+            return _TOKEN_廩:1.0__ASTNODE_廩_32_
+    return _TOKEN_廩:1.0__ASTNODE_廩_36_
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_浮:1.0__ASTNODE_霧_278_(_TOKEN_霧:1.0__ASTNODE_霧_194_: _TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]) -> _TOKEN_廩:1.0__ASTNODE_廩_24_[_TOKEN_霧:1.0__ASTNODE_霧_204_, _TOKEN_霧:1.0__ASTNODE_霧_48_]:
+    """
+    _TOKEN_廩:1.0__ASTNODE_廩_41_ (_TOKEN_浮:1.0__ASTNODE_霧_5_, _TOKEN_霧:1.0__ASTNODE_霧_142_)
+    _TOKEN_廩:1.0__ASTNODE_廩_32_ _TOKEN_霧:1.0__ASTNODE_霧_42_: _TOKEN_霧:1.0__ASTNODE_霧_82_ _TOKEN_霧:1.0__ASTNODE_霧_194_ is a _TOKEN_霧:1.0__ASTNODE_霧_187_ _TOKEN_霧:1.0__ASTNODE_霧_34_ _TOKEN_霧:1.0__ASTNODE_霧_263_ _TOKEN_霧:1.0__ASTNODE_霧_13_ is _TOKEN_浮:1.0__ASTNODE_霧_128_ as a _TOKEN_霧:1.0__ASTNODE_霧_15_ _TOKEN_霧:1.0__ASTNODE_霧_59_.
+    """
+
+    if _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_139_") != "_TOKEN_霧:1.0__ASTNODE_霧_187_":
+        return (_TOKEN_廩:1.0__ASTNODE_廩_36_, "_TOKEN_霧:1.0__ASTNODE_霧_139_!=_TOKEN_霧:1.0__ASTNODE_霧_187_")
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_97_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_霧:1.0__ASTNODE_霧_48_] = []
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_193_ = _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_231_")
+    if _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_193_, _TOKEN_霧:1.0__ASTNODE_霧_254_):
+        _TOKEN_霧:1.0__ASTNODE_霧_97_._TOKEN_霧:1.0__ASTNODE_霧_12_([_TOKEN_霧:1.0__ASTNODE_霧_48_(x) for x in _TOKEN_霧:1.0__ASTNODE_霧_193_ if _TOKEN_霧:1.0__ASTNODE_霧_8_(x, (_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_181_, _TOKEN_霧:1.0__ASTNODE_霧_62_))])
+
+// [metadata-stripped]
+    for k in ["_TOKEN_霧:1.0__ASTNODE_霧_256_", "_TOKEN_霧:1.0__ASTNODE_霧_102_", "_TOKEN_霧:1.0__ASTNODE_霧_154_", "_TOKEN_霧:1.0__ASTNODE_霧_227_"]:
+        v = _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_(k)
+        if _TOKEN_霧:1.0__ASTNODE_霧_8_(v, _TOKEN_霧:1.0__ASTNODE_霧_48_) _TOKEN_霧:1.0__ASTNODE_霧_34_ v._TOKEN_霧:1.0__ASTNODE_霧_190_():
+            _TOKEN_霧:1.0__ASTNODE_霧_97_._TOKEN_霧:1.0__ASTNODE_霧_56_(v)
+
+// [metadata-stripped]
+    for k in ["_TOKEN_霧:1.0__ASTNODE_霧_165_", "_TOKEN_霧:1.0__ASTNODE_霧_3_"]:
+        v = _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_(k)
+        if _TOKEN_霧:1.0__ASTNODE_霧_8_(v, _TOKEN_霧:1.0__ASTNODE_霧_254_):
+            _TOKEN_霧:1.0__ASTNODE_霧_97_._TOKEN_霧:1.0__ASTNODE_霧_12_([_TOKEN_霧:1.0__ASTNODE_霧_48_(x) for x in v if _TOKEN_霧:1.0__ASTNODE_霧_8_(x, (_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_181_, _TOKEN_霧:1.0__ASTNODE_霧_62_))])
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_122_ = _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_13_")
+    if _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_122_, _TOKEN_霧:1.0__ASTNODE_霧_48_) _TOKEN_霧:1.0__ASTNODE_霧_34_ _TOKEN_霧:1.0__ASTNODE_霧_122_._TOKEN_霧:1.0__ASTNODE_霧_190_():
+        _TOKEN_霧:1.0__ASTNODE_霧_97_._TOKEN_霧:1.0__ASTNODE_霧_56_(_TOKEN_霧:1.0__ASTNODE_霧_122_)
+
+// [metadata-stripped]
+    st = _TOKEN_霧:1.0__ASTNODE_霧_194_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_32_")
+    if _TOKEN_霧:1.0__ASTNODE_霧_8_(st, _TOKEN_霧:1.0__ASTNODE_霧_48_) _TOKEN_霧:1.0__ASTNODE_霧_34_ st._TOKEN_霧:1.0__ASTNODE_霧_190_():
+        _TOKEN_霧:1.0__ASTNODE_霧_97_._TOKEN_霧:1.0__ASTNODE_霧_56_(st)
+
+    _TOKEN_霧:1.0__ASTNODE_霧_66_ = " | "._TOKEN_霧:1.0__ASTNODE_霧_123_(_TOKEN_霧:1.0__ASTNODE_霧_97_)
+
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_162_(_TOKEN_霧:1.0__ASTNODE_霧_66_, _TOKEN_廩:1.0__ASTNODE_廩_25_):
+        return (_TOKEN_廩:1.0__ASTNODE_廩_36_, "_TOKEN_霧:1.0__ASTNODE_霧_127_")
+
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_162_(_TOKEN_霧:1.0__ASTNODE_霧_66_, _TOKEN_廩:1.0__ASTNODE_廩_49_):
+        return (_TOKEN_廩:1.0__ASTNODE_廩_32_, "_TOKEN_霧:1.0__ASTNODE_霧_274_")
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if "_TOKEN_浮:1.0__ASTNODE_霧_64_" in _TOKEN_霧:1.0__ASTNODE_霧_14_(_TOKEN_霧:1.0__ASTNODE_霧_66_) _TOKEN_霧:1.0__ASTNODE_霧_34_ ("_TOKEN_霧:1.0__ASTNODE_霧_146_" in _TOKEN_霧:1.0__ASTNODE_霧_14_(_TOKEN_霧:1.0__ASTNODE_霧_66_) or "true" in _TOKEN_霧:1.0__ASTNODE_霧_14_(_TOKEN_霧:1.0__ASTNODE_霧_66_)):
+        return (_TOKEN_廩:1.0__ASTNODE_廩_32_, "_TOKEN_潜:1.0__ASTNODE_霧_105_")
+
+    return (_TOKEN_廩:1.0__ASTNODE_廩_36_, "_TOKEN_浮:1.0__ASTNODE_霧_22_")
+
+// [metadata-stripped]
+
+_TOKEN_潜:1.0__ASTNODE_廩_17_ = {
+    "_TOKEN_霧:1.0__ASTNODE_霧_240_": re._TOKEN_霧:1.0__ASTNODE_霧_135_(r"\_TOKEN_霧:1.0__ASTNODE_霧_252_\s*:\s*(.+)", re._TOKEN_廩:1.0__ASTNODE_廩_44_),
+    "_TOKEN_霧:1.0__ASTNODE_霧_150_": re._TOKEN_霧:1.0__ASTNODE_霧_135_(r"\_TOKEN_霧:1.0__ASTNODE_霧_185_\s*_TOKEN_廩:1.0__ASTNODE_廩_45_\s*:\s*(.+)", re._TOKEN_廩:1.0__ASTNODE_廩_44_),
+    "_TOKEN_霧:1.0__ASTNODE_霧_33_": re._TOKEN_霧:1.0__ASTNODE_霧_135_(r"\_TOKEN_霧:1.0__ASTNODE_霧_109_\s*_TOKEN_廩:1.0__ASTNODE_廩_30_\s*:\s*(.+)", re._TOKEN_廩:1.0__ASTNODE_廩_44_),
+    "_TOKEN_霧:1.0__ASTNODE_霧_212_": re._TOKEN_霧:1.0__ASTNODE_霧_135_(r"\_TOKEN_霧:1.0__ASTNODE_霧_230_\s*:\s*(.+)", re._TOKEN_廩:1.0__ASTNODE_廩_44_),
+}
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_163_(_TOKEN_霧:1.0__ASTNODE_霧_270_: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_48_]:
+    _TOKEN_霧:1.0__ASTNODE_霧_81_: _TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_48_] = {}
+    for k, _TOKEN_霧:1.0__ASTNODE_霧_202_ in _TOKEN_潜:1.0__ASTNODE_廩_17_._TOKEN_霧:1.0__ASTNODE_霧_18_():
+        m = _TOKEN_霧:1.0__ASTNODE_霧_202_._TOKEN_霧:1.0__ASTNODE_霧_98_(_TOKEN_霧:1.0__ASTNODE_霧_270_)
+        if m:
+            _TOKEN_霧:1.0__ASTNODE_霧_81_[k] = m._TOKEN_霧:1.0__ASTNODE_霧_65_(1)._TOKEN_霧:1.0__ASTNODE_霧_190_()
+    return _TOKEN_霧:1.0__ASTNODE_霧_81_
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_91_(a: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_霧:1.0__ASTNODE_霧_48_:
+    a = a._TOKEN_霧:1.0__ASTNODE_霧_190_()
+    a = re._TOKEN_霧:1.0__ASTNODE_霧_145_(r"\s+", "_", a)
+    a = a._TOKEN_霧:1.0__ASTNODE_霧_113_("_TOKEN_霧:1.0__ASTNODE_霧_58_:", "")._TOKEN_霧:1.0__ASTNODE_霧_113_("_TOKEN_霧:1.0__ASTNODE_霧_119_:", "")
+    return a
+
+// [metadata-stripped]
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_151_(_TOKEN_霧:1.0__ASTNODE_霧_240_: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_霧:1.0__ASTNODE_霧_48_:
+// [metadata-stripped]
+    d = _TOKEN_霧:1.0__ASTNODE_霧_240_._TOKEN_霧:1.0__ASTNODE_霧_190_()._TOKEN_道:1.0__ASTNODE_霧_125_()
+    _TOKEN_霧:1.0__ASTNODE_霧_262_ = {
+        "_TOKEN_霧:1.0__ASTNODE_霧_224_": "_TOKEN_霧:1.0__ASTNODE_霧_191_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_191_": "_TOKEN_霧:1.0__ASTNODE_霧_191_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_257_": "_TOKEN_霧:1.0__ASTNODE_霧_92_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_92_": "_TOKEN_霧:1.0__ASTNODE_霧_92_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_85_": "mt",
+        "mt": "mt",
+        "_TOKEN_霧:1.0__ASTNODE_霧_55_": "_TOKEN_霧:1.0__ASTNODE_霧_157_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_157_": "_TOKEN_霧:1.0__ASTNODE_霧_157_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_229_": "_TOKEN_霧:1.0__ASTNODE_霧_53_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_117_": "_TOKEN_霧:1.0__ASTNODE_霧_53_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_53_": "_TOKEN_霧:1.0__ASTNODE_霧_53_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_61_": "_TOKEN_霧:1.0__ASTNODE_霧_273_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_65_": "_TOKEN_霧:1.0__ASTNODE_霧_273_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_273_": "_TOKEN_霧:1.0__ASTNODE_霧_273_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_29_": "_TOKEN_霧:1.0__ASTNODE_霧_107_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_107_": "_TOKEN_霧:1.0__ASTNODE_霧_107_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_57_": "_TOKEN_霧:1.0__ASTNODE_霧_171_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_171_": "_TOKEN_霧:1.0__ASTNODE_霧_171_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_143_": "_TOKEN_霧:1.0__ASTNODE_霧_277_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_277_": "_TOKEN_霧:1.0__ASTNODE_霧_277_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_2_": "_TOKEN_霧:1.0__ASTNODE_霧_233_",
+        "_TOKEN_霧:1.0__ASTNODE_霧_233_": "_TOKEN_霧:1.0__ASTNODE_霧_233_",
+    }
+    return _TOKEN_霧:1.0__ASTNODE_霧_262_._TOKEN_道:1.0__ASTNODE_凛_2_(d, "_TOKEN_霧:1.0__ASTNODE_霧_233_")
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_浮:1.0__ASTNODE_霧_267_(kb: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]], _TOKEN_霧:1.0__ASTNODE_霧_176_: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_霧:1.0__ASTNODE_霧_181_:
+    """
+    _TOKEN_廩:1.0__ASTNODE_廩_39_: <_TOKEN_霧:1.0__ASTNODE_霧_176_>._TOKEN_霧:1.0__ASTNODE_霧_147_.<>=5 _TOKEN_霧:1.0__ASTNODE_霧_124_
+    """
+    mx = 0
+    for e in kb:
+        _TOKEN_霧:1.0__ASTNODE_霧_169_ = e._TOKEN_道:1.0__ASTNODE_凛_2_("id", "")
+        if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_169_, _TOKEN_霧:1.0__ASTNODE_霧_48_):
+            continue
+        if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_169_._TOKEN_霧:1.0__ASTNODE_霧_89_(_TOKEN_霧:1.0__ASTNODE_霧_176_ + "."):
+            continue
+        m = re._TOKEN_霧:1.0__ASTNODE_霧_98_(r"\.(\d{5,})$", _TOKEN_霧:1.0__ASTNODE_霧_169_)
+        if m:
+            mx = _TOKEN_霧:1.0__ASTNODE_霧_7_(mx, _TOKEN_霧:1.0__ASTNODE_霧_181_(m._TOKEN_霧:1.0__ASTNODE_霧_65_(1)))
+    return mx + 1
+
+// [metadata-stripped]
+
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_218_(_TOKEN_霧:1.0__ASTNODE_霧_240_: _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_150_: _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_33_: _TOKEN_霧:1.0__ASTNODE_霧_48_) -> _TOKEN_廩:1.0__ASTNODE_廩_24_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_霧:1.0__ASTNODE_霧_48_], _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_霧:1.0__ASTNODE_霧_48_]]:
+    d = _TOKEN_霧:1.0__ASTNODE_霧_91_(_TOKEN_霧:1.0__ASTNODE_霧_150_)
+    _TOKEN_霧:1.0__ASTNODE_霧_129_ = _TOKEN_霧:1.0__ASTNODE_霧_240_._TOKEN_霧:1.0__ASTNODE_霧_190_()
+
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_129_._TOKEN_道:1.0__ASTNODE_霧_125_() in ["_TOKEN_霧:1.0__ASTNODE_霧_55_", "_TOKEN_霧:1.0__ASTNODE_霧_157_"]:
+        _TOKEN_霧:1.0__ASTNODE_霧_86_ = f"_TOKEN_廩:1.0__ASTNODE_廩_18_: _TOKEN_霧:1.0__ASTNODE_霧_155_ {d} _TOKEN_霧:1.0__ASTNODE_霧_137_ {_TOKEN_霧:1.0__ASTNODE_霧_33_[:48]}"
+        _TOKEN_霧:1.0__ASTNODE_霧_32_ = (
+            f"_TOKEN_廩:1.0__ASTNODE_廩_18_ (_TOKEN_霧:1.0__ASTNODE_霧_157_): In _TOKEN_廩:1.0__ASTNODE_廩_12_ _TOKEN_霧:1.0__ASTNODE_霧_226_ _TOKEN_霧:1.0__ASTNODE_霧_264_ '{d}', "
+            f"_TOKEN_霧:1.0__ASTNODE_霧_132_ _TOKEN_霧:1.0__ASTNODE_霧_201_ _TOKEN_霧:1.0__ASTNODE_霧_33_ '{_TOKEN_霧:1.0__ASTNODE_霧_33_}' is _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_54_; _TOKEN_霧:1.0__ASTNODE_霧_132_ _TOKEN_霧:1.0__ASTNODE_霧_67_ _TOKEN_霧:1.0__ASTNODE_霧_157_ _TOKEN_霧:1.0__ASTNODE_霧_80_ is _TOKEN_霧:1.0__ASTNODE_霧_220_ _TOKEN_道:1.0__ASTNODE_霧_19_ '{d}'."
+        )
+        _TOKEN_霧:1.0__ASTNODE_霧_216_ = [f"_TOKEN_霧:1.0__ASTNODE_霧_58_:{d}", "_TOKEN_霧:1.0__ASTNODE_霧_157_:_TOKEN_霧:1.0__ASTNODE_霧_24_"]
+        _TOKEN_霧:1.0__ASTNODE_霧_165_ = ["_TOKEN_霧:1.0__ASTNODE_霧_195_:_TOKEN_霧:1.0__ASTNODE_霧_68_", "_TOKEN_霧:1.0__ASTNODE_霧_157_:_TOKEN_霧:1.0__ASTNODE_霧_140_"]
+        return _TOKEN_霧:1.0__ASTNODE_霧_86_, _TOKEN_霧:1.0__ASTNODE_霧_32_, _TOKEN_霧:1.0__ASTNODE_霧_216_, _TOKEN_霧:1.0__ASTNODE_霧_165_
+
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_129_._TOKEN_道:1.0__ASTNODE_霧_125_() in ["_TOKEN_霧:1.0__ASTNODE_霧_257_", "_TOKEN_霧:1.0__ASTNODE_霧_92_", "_TOKEN_霧:1.0__ASTNODE_霧_85_", "mt"]:
+        _TOKEN_霧:1.0__ASTNODE_霧_86_ = f"_TOKEN_廩:1.0__ASTNODE_廩_18_: {d} _TOKEN_霧:1.0__ASTNODE_霧_279_ _TOKEN_霧:1.0__ASTNODE_霧_33_ ({_TOKEN_霧:1.0__ASTNODE_霧_33_[:40]})";
+        _TOKEN_霧:1.0__ASTNODE_霧_32_ = (
+            f"_TOKEN_廩:1.0__ASTNODE_廩_18_ (_TOKEN_廩:1.0__ASTNODE_廩_42_/MT): _TOKEN_廩:1.0__ASTNODE_廩_22_ '{d}', _TOKEN_霧:1.0__ASTNODE_霧_132_ _TOKEN_霧:1.0__ASTNODE_霧_33_ _TOKEN_霧:1.0__ASTNODE_霧_266_ '{_TOKEN_霧:1.0__ASTNODE_霧_33_}' is _TOKEN_霧:1.0__ASTNODE_霧_205_ _TOKEN_霧:1.0__ASTNODE_霧_93_; "
+            f"i.e., no _TOKEN_霧:1.0__ASTNODE_霧_212_ _TOKEN_霧:1.0__ASTNODE_霧_264_ '{d}' _TOKEN_霧:1.0__ASTNODE_霧_241_ _TOKEN_霧:1.0__ASTNODE_霧_132_ _TOKEN_霧:1.0__ASTNODE_霧_67_ _TOKEN_霧:1.0__ASTNODE_霧_59_ _TOKEN_霧:1.0__ASTNODE_霧_115_."
+        )
+        _TOKEN_霧:1.0__ASTNODE_霧_216_ = [f"_TOKEN_霧:1.0__ASTNODE_霧_58_:{d}"]
+        _TOKEN_霧:1.0__ASTNODE_霧_165_ = ["_TOKEN_霧:1.0__ASTNODE_霧_195_:_TOKEN_霧:1.0__ASTNODE_霧_68_", "_TOKEN_霧:1.0__ASTNODE_霧_111_:_TOKEN_霧:1.0__ASTNODE_霧_140_"]
+        return _TOKEN_霧:1.0__ASTNODE_霧_86_, _TOKEN_霧:1.0__ASTNODE_霧_32_, _TOKEN_霧:1.0__ASTNODE_霧_216_, _TOKEN_霧:1.0__ASTNODE_霧_165_
+
+// _TOKEN_霧:0.6__ASTNODE_WC_635_ [decoy-metadata]
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_86_ = f"_TOKEN_廩:1.0__ASTNODE_廩_18_: {d} _TOKEN_霧:1.0__ASTNODE_霧_279_ _TOKEN_霧:1.0__ASTNODE_霧_201_ _TOKEN_霧:1.0__ASTNODE_霧_33_"
+    _TOKEN_霧:1.0__ASTNODE_霧_32_ = (
+        f"_TOKEN_廩:1.0__ASTNODE_廩_18_: _TOKEN_道:1.0__ASTNODE_廩_8_ _TOKEN_霧:1.0__ASTNODE_霧_221_ '{d}', _TOKEN_霧:1.0__ASTNODE_霧_132_ _TOKEN_霧:1.0__ASTNODE_霧_201_ _TOKEN_霧:1.0__ASTNODE_霧_33_ '{_TOKEN_霧:1.0__ASTNODE_霧_33_}' is _TOKEN_霧:1.0__ASTNODE_霧_205_ to be _TOKEN_霧:1.0__ASTNODE_霧_237_."
+    )
+    _TOKEN_霧:1.0__ASTNODE_霧_216_ = [f"_TOKEN_霧:1.0__ASTNODE_霧_58_:{d}"]
+    _TOKEN_霧:1.0__ASTNODE_霧_165_ = ["_TOKEN_霧:1.0__ASTNODE_霧_195_:_TOKEN_霧:1.0__ASTNODE_霧_68_", "_TOKEN_霧:1.0__ASTNODE_霧_251_:_TOKEN_霧:1.0__ASTNODE_霧_173_"]
+    return _TOKEN_霧:1.0__ASTNODE_霧_86_, _TOKEN_霧:1.0__ASTNODE_霧_32_, _TOKEN_霧:1.0__ASTNODE_霧_216_, _TOKEN_霧:1.0__ASTNODE_霧_165_
+
+// [metadata-stripped]
+
+// _TOKEN_縞:0.6__ASTNODE_EV_219_ [decoy-metadata]
+_TOKEN_霧:1.0__ASTNODE_霧_39_ _TOKEN_霧:1.0__ASTNODE_霧_250_() -> _TOKEN_廩:1.0__ASTNODE_廩_40_:
+    ap = _TOKEN_霧:1.0__ASTNODE_霧_50_._TOKEN_道:1.0__ASTNODE_廩_27_()
+    ap._TOKEN_霧:1.0__ASTNODE_霧_275_("--kb", _TOKEN_霧:1.0__ASTNODE_霧_159_=_TOKEN_廩:1.0__ASTNODE_廩_32_)
+    ap._TOKEN_霧:1.0__ASTNODE_霧_275_("--_TOKEN_霧:1.0__ASTNODE_霧_81_-_TOKEN_霧:1.0__ASTNODE_霧_186_", _TOKEN_霧:1.0__ASTNODE_霧_159_=_TOKEN_廩:1.0__ASTNODE_廩_32_)
+    ap._TOKEN_霧:1.0__ASTNODE_霧_275_("--_TOKEN_霧:1.0__ASTNODE_霧_81_-_TOKEN_霧:1.0__ASTNODE_霧_56_", _TOKEN_霧:1.0__ASTNODE_霧_159_=_TOKEN_廩:1.0__ASTNODE_廩_32_)
+    ap._TOKEN_霧:1.0__ASTNODE_霧_275_("--_TOKEN_霧:1.0__ASTNODE_霧_244_", _TOKEN_霧:1.0__ASTNODE_霧_131_=_TOKEN_霧:1.0__ASTNODE_霧_181_, _TOKEN_霧:1.0__ASTNODE_霧_100_=2000)
+    ap._TOKEN_霧:1.0__ASTNODE_霧_275_("--_TOKEN_霧:1.0__ASTNODE_霧_141_-_TOKEN_霧:1.0__ASTNODE_霧_235_-_TOKEN_浮:1.0__ASTNODE_霧_126_", _TOKEN_霧:1.0__ASTNODE_霧_49_="_TOKEN_霧:1.0__ASTNODE_霧_228_",
+                    _TOKEN_霧:1.0__ASTNODE_霧_276_="If _TOKEN_道:1.0__ASTNODE_凛_1_, _TOKEN_霧:1.0__ASTNODE_霧_180_ _TOKEN_霧:1.0__ASTNODE_霧_200_ _TOKEN_霧:1.0__ASTNODE_霧_188_ _TOKEN_霧:1.0__ASTNODE_霧_11_ _TOKEN_霧:1.0__ASTNODE_霧_13_ _TOKEN_霧:1.0__ASTNODE_霧_223_ _TOKEN_廩:1.0__ASTNODE_廩_3_/_TOKEN_廩:1.0__ASTNODE_廩_48_ _TOKEN_廩:1.0__ASTNODE_廩_45_/_TOKEN_廩:1.0__ASTNODE_廩_7_ _TOKEN_廩:1.0__ASTNODE_廩_30_.")
+// _TOKEN_潜:0.6__ASTNODE_MX_891_ [decoy-metadata]
+    _TOKEN_霧:1.0__ASTNODE_霧_170_ = ap._TOKEN_霧:1.0__ASTNODE_霧_104_()
+
+    kb = _TOKEN_霧:1.0__ASTNODE_霧_149_(_TOKEN_霧:1.0__ASTNODE_霧_170_.kb)
+
+// [metadata-stripped]
+    _TOKEN_浮:1.0__ASTNODE_霧_249_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]] = []
+    _TOKEN_霧:1.0__ASTNODE_霧_213_ = _TOKEN_道:1.0__ASTNODE_廩_26_()
+
+    for e in kb:
+        ok, _TOKEN_霧:1.0__ASTNODE_霧_142_ = _TOKEN_浮:1.0__ASTNODE_霧_278_(e)
+        _TOKEN_霧:1.0__ASTNODE_霧_213_[_TOKEN_霧:1.0__ASTNODE_霧_142_] += 1
+        if ok:
+            _TOKEN_浮:1.0__ASTNODE_霧_249_._TOKEN_霧:1.0__ASTNODE_霧_56_(e)
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_182_: _TOKEN_道:1.0__ASTNODE_廩_26_[_TOKEN_廩:1.0__ASTNODE_廩_24_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_48_]] = _TOKEN_道:1.0__ASTNODE_廩_26_()
+    _TOKEN_霧:1.0__ASTNODE_霧_45_ = 0
+    _TOKEN_霧:1.0__ASTNODE_霧_192_ = 0
+    _TOKEN_霧:1.0__ASTNODE_霧_268_ = 0
+
+    for e in _TOKEN_浮:1.0__ASTNODE_霧_249_:
+        _TOKEN_霧:1.0__ASTNODE_霧_240_ = _TOKEN_霧:1.0__ASTNODE_霧_48_(e._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_240_", ""))._TOKEN_霧:1.0__ASTNODE_霧_190_() or "_TOKEN_霧:1.0__ASTNODE_霧_2_"
+// _TOKEN_道:0.2__ASTNODE_FW_841_ [decoy-metadata]
+        
+// [metadata-stripped]
+        _TOKEN_霧:1.0__ASTNODE_霧_26_ = e._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_265_")
+        _TOKEN_霧:1.0__ASTNODE_霧_150_ = ""
+        _TOKEN_霧:1.0__ASTNODE_霧_33_ = ""
+        
+        if _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_26_, _TOKEN_霧:1.0__ASTNODE_霧_118_):
+// [metadata-stripped]
+            _TOKEN_霧:1.0__ASTNODE_霧_150_ = _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_271_") or _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_廩:1.0__ASTNODE_廩_11_") or ""
+            _TOKEN_霧:1.0__ASTNODE_霧_33_ = _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_47_") or _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_廩:1.0__ASTNODE_廩_46_") or ""
+            if _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_240_"): _TOKEN_霧:1.0__ASTNODE_霧_240_ = _TOKEN_霧:1.0__ASTNODE_霧_26_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_240_")
+
+        if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_150_ or _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_33_:
+// [metadata-stripped]
+            _TOKEN_霧:1.0__ASTNODE_霧_122_ = e._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_13_")
+            if _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_122_, _TOKEN_霧:1.0__ASTNODE_霧_48_) _TOKEN_霧:1.0__ASTNODE_霧_34_ _TOKEN_霧:1.0__ASTNODE_霧_122_._TOKEN_霧:1.0__ASTNODE_霧_190_():
+                _TOKEN_霧:1.0__ASTNODE_霧_232_ = _TOKEN_霧:1.0__ASTNODE_霧_163_(_TOKEN_霧:1.0__ASTNODE_霧_122_)
+                if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_150_: _TOKEN_霧:1.0__ASTNODE_霧_150_ = _TOKEN_霧:1.0__ASTNODE_霧_232_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_150_", "")
+                if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_33_: _TOKEN_霧:1.0__ASTNODE_霧_33_ = _TOKEN_霧:1.0__ASTNODE_霧_232_._TOKEN_道:1.0__ASTNODE_凛_2_("_TOKEN_霧:1.0__ASTNODE_霧_33_", "")
+            else:
+                if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_150_ _TOKEN_霧:1.0__ASTNODE_霧_34_ _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_33_: # _TOKEN_霧:1.0__ASTNODE_霧_30_ _TOKEN_霧:1.0__ASTNODE_霧_41_
+                    _TOKEN_霧:1.0__ASTNODE_霧_268_ += 1
+                    continue
+
+        if _TOKEN_霧:1.0__ASTNODE_霧_170_._TOKEN_浮:1.0__ASTNODE_霧_167_:
+            if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_150_:
+                _TOKEN_霧:1.0__ASTNODE_霧_45_ += 1
+                continue
+            if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_33_:
+                _TOKEN_霧:1.0__ASTNODE_霧_192_ += 1
+                continue
+
+// [metadata-stripped]
+        if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_150_:
+            _TOKEN_霧:1.0__ASTNODE_霧_150_ = "_TOKEN_霧:1.0__ASTNODE_霧_77_"
+        if _TOKEN_霧:1.0__ASTNODE_霧_116_ _TOKEN_霧:1.0__ASTNODE_霧_33_:
+            _TOKEN_霧:1.0__ASTNODE_霧_33_ = "_TOKEN_霧:1.0__ASTNODE_霧_28_"
+
+        _TOKEN_霧:1.0__ASTNODE_霧_182_[(_TOKEN_霧:1.0__ASTNODE_霧_240_, _TOKEN_霧:1.0__ASTNODE_霧_150_, _TOKEN_霧:1.0__ASTNODE_霧_33_)] += 1
+
+    _TOKEN_霧:1.0__ASTNODE_霧_196_ = _TOKEN_霧:1.0__ASTNODE_霧_182_._TOKEN_霧:1.0__ASTNODE_霧_259_(_TOKEN_霧:1.0__ASTNODE_霧_170_._TOKEN_霧:1.0__ASTNODE_霧_244_)
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_134_: _TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_霧:1.0__ASTNODE_霧_181_] = {}
+    for (_TOKEN_霧:1.0__ASTNODE_霧_240_, _, _), _TOKEN_霧:1.0__ASTNODE_霧_160_ in _TOKEN_霧:1.0__ASTNODE_霧_196_:
+        _TOKEN_霧:1.0__ASTNODE_霧_37_ = _TOKEN_霧:1.0__ASTNODE_霧_151_(_TOKEN_霧:1.0__ASTNODE_霧_240_)
+        if _TOKEN_霧:1.0__ASTNODE_霧_37_ _TOKEN_霧:1.0__ASTNODE_霧_116_ in _TOKEN_霧:1.0__ASTNODE_霧_134_:
+            _TOKEN_霧:1.0__ASTNODE_霧_134_[_TOKEN_霧:1.0__ASTNODE_霧_37_] = _TOKEN_浮:1.0__ASTNODE_霧_267_(kb, _TOKEN_霧:1.0__ASTNODE_霧_37_)
+
+// [metadata-stripped]
+    _TOKEN_霧:1.0__ASTNODE_霧_186_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]] = []
+    _TOKEN_霧:1.0__ASTNODE_霧_21_: _TOKEN_廩:1.0__ASTNODE_廩_33_[_TOKEN_廩:1.0__ASTNODE_廩_43_[_TOKEN_霧:1.0__ASTNODE_霧_48_, _TOKEN_廩:1.0__ASTNODE_廩_35_]] = []
+
+    for (_TOKEN_霧:1.0__ASTNODE_霧_240_, _TOKEN_霧:1.0__ASTNODE_霧_150_, _TOKEN_霧:1.0__ASTNODE_霧_33_), _TOKEN_霧:1.0__ASTNODE_霧_272_ in _TOKEN_霧:1.0__ASTNODE_霧_196_:
+        _TOKEN_霧:1.0__ASTNODE_霧_37_ = _TOKEN_霧:1.0__ASTNODE_霧_151_(_TOKEN_霧:1.0__ASTNODE_霧_240_)
+        _TOKEN_霧:1.0__ASTNODE_霧_86_, _TOKEN_霧:1.0__ASTNODE_霧_32_, _TOKEN_霧:1.0__ASTNODE_霧_216_, _TOKEN_霧:1.0__ASTNODE_霧_165_ = _TOKEN_霧:1.0__ASTNODE_霧_218_(_TOKEN_霧:1.0__ASTNODE_霧_240_, _TOKEN_霧:1.0__ASTNODE_霧_150_, _TOKEN_霧:1.0__ASTNODE_霧_33_)
+
+        _TOKEN_霧:1.0__ASTNODE_霧_186_._TOKEN_霧:1.0__ASTNODE_霧_56_({
+            "_TOKEN_霧:1.0__ASTNODE_霧_240_": _TOKEN_霧:1.0__ASTNODE_霧_240_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_271_": _TOKEN_霧:1.0__ASTNODE_霧_150_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_47_": _TOKEN_霧:1.0__ASTNODE_霧_33_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_245_": _TOKEN_霧:1.0__ASTNODE_霧_272_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_164_": _TOKEN_霧:1.0__ASTNODE_霧_86_,
+// _TOKEN_浮:0.7__ASTNODE_AB_685_ [decoy-metadata]
+        })
+
+        n = _TOKEN_霧:1.0__ASTNODE_霧_134_[_TOKEN_霧:1.0__ASTNODE_霧_37_]
+        _TOKEN_霧:1.0__ASTNODE_霧_134_[_TOKEN_霧:1.0__ASTNODE_霧_37_] += 1
+        _TOKEN_霧:1.0__ASTNODE_霧_169_ = f"{_TOKEN_霧:1.0__ASTNODE_霧_37_}._TOKEN_霧:1.0__ASTNODE_霧_147_.{n:05d}"
+
+        _TOKEN_霧:1.0__ASTNODE_霧_21_._TOKEN_霧:1.0__ASTNODE_霧_56_({
+            "id": _TOKEN_霧:1.0__ASTNODE_霧_169_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_240_": _TOKEN_霧:1.0__ASTNODE_霧_240_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_139_": "_TOKEN_霧:1.0__ASTNODE_霧_251_",
+            "_TOKEN_霧:1.0__ASTNODE_霧_86_": _TOKEN_霧:1.0__ASTNODE_霧_86_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_32_": _TOKEN_霧:1.0__ASTNODE_霧_32_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_3_": _TOKEN_霧:1.0__ASTNODE_霧_216_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_165_": _TOKEN_霧:1.0__ASTNODE_霧_165_ + ["_TOKEN_霧:1.0__ASTNODE_霧_234_:_TOKEN_霧:1.0__ASTNODE_霧_74_"],
+            "_TOKEN_霧:1.0__ASTNODE_霧_13_": _TOKEN_廩:1.0__ASTNODE_廩_40_,
+            "_TOKEN_霧:1.0__ASTNODE_霧_231_": [
+                "_TOKEN_霧:1.0__ASTNODE_霧_195_:_TOKEN_霧:1.0__ASTNODE_霧_68_",
+                "_TOKEN_霧:1.0__ASTNODE_霧_234_:_TOKEN_霧:1.0__ASTNODE_霧_95_",
+                f"_TOKEN_霧:1.0__ASTNODE_霧_271_:{_TOKEN_霧:1.0__ASTNODE_霧_91_(_TOKEN_霧:1.0__ASTNODE_霧_150_)}",
+            ],
+            "_TOKEN_霧:1.0__ASTNODE_霧_178_": [
+                f"_TOKEN_霧:1.0__ASTNODE_霧_144_:{_TOKEN_霧:1.0__ASTNODE_霧_240_}|{_TOKEN_霧:1.0__ASTNODE_霧_91_(_TOKEN_霧:1.0__ASTNODE_霧_150_)}|{_TOKEN_霧:1.0__ASTNODE_霧_33_[:120]}",
+            ],
+        })
+
+    _TOKEN_霧:1.0__ASTNODE_霧_130_(_TOKEN_霧:1.0__ASTNODE_霧_170_._TOKEN_霧:1.0__ASTNODE_霧_31_, _TOKEN_霧:1.0__ASTNODE_霧_186_)
+    _TOKEN_霧:1.0__ASTNODE_霧_130_(_TOKEN_霧:1.0__ASTNODE_霧_170_._TOKEN_霧:1.0__ASTNODE_霧_184_, _TOKEN_霧:1.0__ASTNODE_霧_21_)
+
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_浮:1.0__ASTNODE_霧_128_ _TOKEN_霧:1.0__ASTNODE_霧_188_:", _TOKEN_霧:1.0__ASTNODE_霧_84_(_TOKEN_浮:1.0__ASTNODE_霧_249_))
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_168_ _TOKEN_霧:1.0__ASTNODE_霧_10_:", _TOKEN_霧:1.0__ASTNODE_霧_84_(_TOKEN_霧:1.0__ASTNODE_霧_182_))
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_186_ _TOKEN_霧:1.0__ASTNODE_霧_73_:", _TOKEN_霧:1.0__ASTNODE_霧_84_(_TOKEN_霧:1.0__ASTNODE_霧_21_))
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_13_ _TOKEN_霧:1.0__ASTNODE_霧_41_:", _TOKEN_霧:1.0__ASTNODE_霧_268_)
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_150_ _TOKEN_霧:1.0__ASTNODE_霧_41_:", _TOKEN_霧:1.0__ASTNODE_霧_45_)
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_33_ _TOKEN_霧:1.0__ASTNODE_霧_41_:", _TOKEN_霧:1.0__ASTNODE_霧_192_)
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_197_ (_TOKEN_霧:1.0__ASTNODE_霧_246_):", _TOKEN_霧:1.0__ASTNODE_霧_213_._TOKEN_霧:1.0__ASTNODE_霧_259_(10))
+    _TOKEN_霧:1.0__ASTNODE_霧_258_("[_TOKEN_廩:1.0__ASTNODE_廩_47_] _TOKEN_霧:1.0__ASTNODE_霧_184_:", _TOKEN_霧:1.0__ASTNODE_霧_170_._TOKEN_霧:1.0__ASTNODE_霧_184_)
+
+if _TOKEN_霧:1.0__ASTNODE_霧_27_ == "_TOKEN_霧:1.0__ASTNODE_霧_260_":
+    _TOKEN_霧:1.0__ASTNODE_霧_250_()
+// POLYMORPHIC_JCROSS_END

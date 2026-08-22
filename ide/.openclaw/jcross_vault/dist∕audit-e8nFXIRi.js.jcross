@@ -1,0 +1,66 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0BE3CDB0 ver:1778154186
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_JCROSS_霧:1.0___ast_霧_14__ _JCROSS_霧:1.0___ast_霧_23__(_JCROSS_霧:1.0___ast_霧_33__) {
+	if (!_JCROSS_霧:1.0___ast_霧_33__ || _JCROSS_霧:1.0___ast_霧_22__ _JCROSS_霧:1.0___ast_霧_33__ !== "_JCROSS_霧:1.0___ast_霧_34__") return {
+		_JCROSS_霧:1.0___ast_霧_30__: [],
+		_JCROSS_霧:1.0___ast_霧_10__: 0,
+		_JCROSS_霧:1.0___ast_霧_8__: false
+	};
+	_JCROSS_霧:1.0___ast_霧_31__ _JCROSS_霧:1.0___ast_霧_8__ = _JCROSS_廳:1.0___ast_廳_1__(_JCROSS_霧:1.0___ast_霧_33__["*"]?._JCROSS_霧:1.0___ast_霧_27__ === false) && _JCROSS_霧:1.0___ast_霧_33__["*"]?._JCROSS_霧:1.0___ast_霧_35__ !== false;
+	_JCROSS_霧:1.0___ast_霧_31__ _JCROSS_霧:1.0___ast_霧_30__ = [];
+	let _JCROSS_霧:1.0___ast_霧_10__ = 0;
+	for (_JCROSS_霧:1.0___ast_霧_31__ [_JCROSS_禁:1.0___ast_霧_17__, _JCROSS_霧:1.0___ast_霧_40__] of _JCROSS_廳:1.0___ast_廳_5__._JCROSS_霧:1.0___ast_霧_19__(_JCROSS_霧:1.0___ast_霧_33__)) {
+		if (_JCROSS_禁:1.0___ast_霧_17__ === "*") continue;
+		if (!_JCROSS_霧:1.0___ast_霧_40__ || _JCROSS_霧:1.0___ast_霧_22__ _JCROSS_霧:1.0___ast_霧_40__ !== "_JCROSS_霧:1.0___ast_霧_34__") continue;
+		if (_JCROSS_霧:1.0___ast_霧_40__._JCROSS_霧:1.0___ast_霧_35__ === false) continue;
+		if (_JCROSS_霧:1.0___ast_霧_40__._JCROSS_霧:1.0___ast_霧_27__ !== false) continue;
+// _JCROSS_霧:0.6___ast_HD_889__ [decoy-metadata]
+		_JCROSS_霧:1.0___ast_霧_31__ id = _JCROSS_廳:1.0___ast_廳_2__(_JCROSS_禁:1.0___ast_霧_17__)._JCROSS_霧:1.0___ast_霧_6__();
+// _JCROSS_禁:0.1___ast_ZA_279__ [decoy-metadata]
+		if (!id) continue;
+		if (/^-?\d+$/._JCROSS_霧:1.0___ast_霧_36__(id)) _JCROSS_霧:1.0___ast_霧_30__._JCROSS_霧:1.0___ast_霧_39__(id);
+		else _JCROSS_霧:1.0___ast_霧_10__ += 1;
+	}
+// _JCROSS_雄:0.9___ast_BE_220__ [decoy-metadata]
+	_JCROSS_霧:1.0___ast_霧_30__._JCROSS_霧:1.0___ast_霧_25__((a, b) => a._JCROSS_霧:1.0___ast_霧_24__(b));
+	return {
+		_JCROSS_霧:1.0___ast_霧_30__,
+		_JCROSS_霧:1.0___ast_霧_10__,
+		_JCROSS_霧:1.0___ast_霧_8__
+	};
+// _JCROSS_禁:0.8___ast_CA_330__ [decoy-metadata]
+}
+let _JCROSS_霧:1.0___ast_霧_5__ = _JCROSS_霧:1.0___ast_霧_20__;
+_JCROSS_霧:1.0___ast_霧_14__ _JCROSS_箱:1.0___ast_霧_2__() {
+	_JCROSS_霧:1.0___ast_霧_5__ ??= import("./_JCROSS_霧:1.0___ast_霧_29__-_JCROSS_霧:1.0___ast_霧_32__-_JCROSS_霧:1.0___ast_霧_13__-_JCROSS_廳:1.0___ast_廳_4__.js");
+	return _JCROSS_霧:1.0___ast_霧_5__;
+}
+// _JCROSS_廳:0.1___ast_YF_698__ [decoy-metadata]
+// _JCROSS_廳:0.8___ast_DL_468__ [decoy-metadata]
+async _JCROSS_霧:1.0___ast_霧_14__ _JCROSS_霧:1.0___ast_霧_37__(_JCROSS_霧:1.0___ast_霧_28__) {
+	_JCROSS_霧:1.0___ast_霧_31__ _JCROSS_霧:1.0___ast_霧_1__ = _JCROSS_廳:1.0___ast_廳_3__._JCROSS_霧:1.0___ast_霧_38__();
+	_JCROSS_霧:1.0___ast_霧_31__ _JCROSS_禁:1.0___ast_霧_12__ = _JCROSS_霧:1.0___ast_霧_28__._JCROSS_禁:1.0___ast_霧_12__?._JCROSS_霧:1.0___ast_霧_6__() ?? "";
+	if (!_JCROSS_禁:1.0___ast_霧_12__ || _JCROSS_霧:1.0___ast_霧_28__._JCROSS_霧:1.0___ast_霧_30__._JCROSS_霧:1.0___ast_霧_11__ === 0) return {
+		ok: true,
+		_JCROSS_霧:1.0___ast_霧_9__: 0,
+		_JCROSS_霧:1.0___ast_霧_10__: 0,
+		_JCROSS_霧:1.0___ast_霧_8__: false,
+		_JCROSS_霧:1.0___ast_霧_33__: [],
+		_JCROSS_霧:1.0___ast_霧_4__: _JCROSS_廳:1.0___ast_廳_3__._JCROSS_霧:1.0___ast_霧_38__() - _JCROSS_霧:1.0___ast_霧_1__
+	};
+	_JCROSS_霧:1.0___ast_霧_31__ { _JCROSS_霧:1.0___ast_霧_3__ } = await _JCROSS_箱:1.0___ast_霧_2__();
+	return {
+		...await _JCROSS_霧:1.0___ast_霧_3__({
+			..._JCROSS_霧:1.0___ast_霧_28__,
+			_JCROSS_禁:1.0___ast_霧_12__
+		}),
+		_JCROSS_霧:1.0___ast_霧_4__: _JCROSS_廳:1.0___ast_廳_3__._JCROSS_霧:1.0___ast_霧_38__() - _JCROSS_霧:1.0___ast_霧_1__
+	};
+}
+// [metadata-stripped]
+_JCROSS_霧:1.0___ast_霧_18__ { _JCROSS_霧:1.0___ast_霧_23__ as n, _JCROSS_霧:1.0___ast_霧_37__ as t };
+
+// POLYMORPHIC_JCROSS_END

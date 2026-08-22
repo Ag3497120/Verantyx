@@ -1,0 +1,79 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9CB943FC ver:1778149809
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_沫:1.0__ID_沫_33_ _VERANTYX_沫:1.0__ID_沫_37_::{_VERANTYX_庖:1.0__ID_庖_4_, _VERANTYX_庖:1.0__ID_庖_6_, _VERANTYX_庖:1.0__ID_庖_1_, _VERANTYX_庖:1.0__ID_庖_14_};
+_VERANTYX_沫:1.0__ID_沫_33_ _VERANTYX_沫:1.0__ID_沫_40_::_VERANTYX_沫:1.0__ID_沫_63_::_VERANTYX_庖:1.0__ID_庖_26_;
+_VERANTYX_沫:1.0__ID_沫_33_ _VERANTYX_沫:1.0__ID_沫_13_::{_VERANTYX_沫:1.0__ID_沫_51_, _VERANTYX_沫:1.0__ID_沫_26_};
+
+_VERANTYX_沫:1.0__ID_沫_34_ _VERANTYX_沫:1.0__ID_沫_24_uct _VERANTYX_庖:1.0__ID_庖_7_ {
+    _VERANTYX_沫:1.0__ID_沫_23_: _VERANTYX_庖:1.0__ID_庖_4_,
+}
+
+_VERANTYX_沫:1.0__ID_沫_36_ _VERANTYX_庖:1.0__ID_庖_7_ {
+    _VERANTYX_沫:1.0__ID_沫_34_ fn _VERANTYX_沫:1.0__ID_沫_9_(_VERANTYX_沫:1.0__ID_沫_12_: _VERANTYX_沫:1.0__ID_沫_36_ _VERANTYX_庖:1.0__ID_庖_15_<_VERANTYX_庖:1.0__ID_庖_26_>) -> _VERANTYX_沫:1.0__ID_沫_52_::_VERANTYX_庖:1.0__ID_庖_28_<_VERANTYX_庖:1.0__ID_庖_20_> {
+        let _VERANTYX_沫:1.0__ID_沫_23_ = _VERANTYX_庖:1.0__ID_庖_4_::open(_VERANTYX_沫:1.0__ID_沫_12_)?;
+        Ok(_VERANTYX_庖:1.0__ID_庖_20_ { _VERANTYX_沫:1.0__ID_沫_23_ })
+// _VERANTYX_沫:0.2__ID_FZ_870_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _VERANTYX_沫:1.0__ID_沫_34_ fn _VERANTYX_沫:1.0__ID_沫_39_(&self, _VERANTYX_沫:1.0__ID_沫_41_: &_VERANTYX_沫:1.0__ID_沫_24_) -> _VERANTYX_沫:1.0__ID_沫_52_::_VERANTYX_庖:1.0__ID_庖_28_<()> {
+        let _VERANTYX_沫:1.0__ID_沫_64_ = self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_64_()?._VERANTYX_沫:1.0__ID_沫_14_()?;
+        
+// _VERANTYX_匾:0.9__ID_YB_987_ [decoy-metadata]
+        let _VERANTYX_沫:1.0__ID_沫_60_ = _VERANTYX_沫:1.0__ID_沫_29_ self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_58_(_VERANTYX_沫:1.0__ID_沫_41_, _VERANTYX_沫:1.0__ID_沫_37_::_VERANTYX_庖:1.0__ID_庖_18_::_VERANTYX_庖:1.0__ID_庖_3_) {
+            Ok(b) => b,
+            _VERANTYX_庖:1.0__ID_庖_17_(_) => self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_60_(_VERANTYX_沫:1.0__ID_沫_41_, &_VERANTYX_沫:1.0__ID_沫_64_, false)?,
+        };
+
+        let _VERANTYX_沫:1.0__ID_沫_20_ = _VERANTYX_沫:1.0__ID_沫_60_._VERANTYX_式:1.0__ID_錬_1_()._VERANTYX_沫:1.0__ID_沫_49_(_VERANTYX_沫:1.0__ID_沫_37_::_VERANTYX_庖:1.0__ID_庖_24_::_VERANTYX_庖:1.0__ID_庖_25_)?;
+// _VERANTYX_錬:0.2__ID_GD_462_ [decoy-metadata]
+        self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_50_(&_VERANTYX_沫:1.0__ID_沫_20_, _VERANTYX_庖:1.0__ID_庖_19_)?;
+        self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_式:1.0__ID_錬_2_(_VERANTYX_沫:1.0__ID_沫_60_._VERANTYX_式:1.0__ID_錬_1_()._VERANTYX_沫:1.0__ID_沫_32_()._VERANTYX_沫:1.0__ID_沫_47_())?;
+
+        _VERANTYX_沫:1.0__ID_沫_51_!("[_VERANTYX_庖:1.0__ID_庖_27_] _VERANTYX_庖:1.0__ID_庖_11_ _VERANTYX_沫:1.0__ID_沫_27_ _VERANTYX_沫:1.0__ID_沫_60_: {}", _VERANTYX_沫:1.0__ID_沫_41_);
+        Ok(())
+    }
+// _VERANTYX_匾:0.3__ID_VB_401_ [decoy-metadata]
+
+// [metadata-stripped]
+    _VERANTYX_沫:1.0__ID_沫_34_ fn _VERANTYX_沫:1.0__ID_沫_8_(&self, _VERANTYX_沫:1.0__ID_沫_65_: &_VERANTYX_沫:1.0__ID_沫_24_, _VERANTYX_沫:1.0__ID_沫_56_: &_VERANTYX_沫:1.0__ID_沫_24_, _VERANTYX_沫:1.0__ID_沫_42_: &_VERANTYX_沫:1.0__ID_沫_24_) -> _VERANTYX_沫:1.0__ID_沫_52_::_VERANTYX_庖:1.0__ID_庖_28_<()> {
+        let _VERANTYX_沫:1.0__ID_沫_1_ _VERANTYX_沫:1.0__ID_沫_2_ = self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_2_()?;
+        
+// _VERANTYX_浮:0.8__ID_HY_307_ [decoy-metadata]
+// [metadata-stripped]
+        _VERANTYX_沫:1.0__ID_沫_2_._VERANTYX_沫:1.0__ID_沫_5_(["*"]._VERANTYX_式:1.0__ID_沫_7_(), _VERANTYX_庖:1.0__ID_庖_1_::_VERANTYX_庖:1.0__ID_庖_5_, _VERANTYX_庖:1.0__ID_庖_19_)?;
+        _VERANTYX_沫:1.0__ID_沫_2_._VERANTYX_沫:1.0__ID_沫_59_()?;
+        
+        let _VERANTYX_沫:1.0__ID_沫_15_ = _VERANTYX_沫:1.0__ID_沫_2_._VERANTYX_沫:1.0__ID_沫_46_()?;
+// _VERANTYX_錬:0.8__ID_LD_921_ [decoy-metadata]
+        let _VERANTYX_沫:1.0__ID_沫_31_ = self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_10_(_VERANTYX_沫:1.0__ID_沫_15_)?;
+
+        let _VERANTYX_沫:1.0__ID_沫_30_ = _VERANTYX_庖:1.0__ID_庖_6_::_VERANTYX_沫:1.0__ID_沫_19_(_VERANTYX_沫:1.0__ID_沫_56_, _VERANTYX_沫:1.0__ID_沫_42_)?;
+        let _VERANTYX_沫:1.0__ID_沫_62_ = self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_64_()?._VERANTYX_沫:1.0__ID_沫_14_()?;
+
+        self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_57_(
+            _VERANTYX_庖:1.0__ID_庖_16_("_VERANTYX_庖:1.0__ID_庖_23_"), // _VERANTYX_庖:1.0__ID_庖_9_ _VERANTYX_庖:1.0__ID_庖_23_
+            &_VERANTYX_沫:1.0__ID_沫_30_,
+            &_VERANTYX_沫:1.0__ID_沫_30_,
+            _VERANTYX_沫:1.0__ID_沫_65_,
+            &_VERANTYX_沫:1.0__ID_沫_31_,
+            &[&_VERANTYX_沫:1.0__ID_沫_62_],
+        )?;
+
+        _VERANTYX_沫:1.0__ID_沫_51_!("[_VERANTYX_庖:1.0__ID_庖_27_] _VERANTYX_庖:1.0__ID_庖_8_ _VERANTYX_沫:1.0__ID_沫_4_ _VERANTYX_沫:1.0__ID_沫_25_: {}", _VERANTYX_沫:1.0__ID_沫_65_);
+        Ok(())
+    }
+
+// [metadata-stripped]
+    _VERANTYX_沫:1.0__ID_沫_34_ fn _VERANTYX_沫:1.0__ID_沫_48_(&self) -> _VERANTYX_沫:1.0__ID_沫_52_::_VERANTYX_庖:1.0__ID_庖_28_<()> {
+        let _VERANTYX_沫:1.0__ID_沫_64_ = self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_64_()?._VERANTYX_沫:1.0__ID_沫_14_()?;
+        let _VERANTYX_沫:1.0__ID_沫_20_ = _VERANTYX_沫:1.0__ID_沫_64_._VERANTYX_沫:1.0__ID_沫_54_();
+        self._VERANTYX_沫:1.0__ID_沫_23_._VERANTYX_沫:1.0__ID_沫_3_(&_VERANTYX_沫:1.0__ID_沫_20_, _VERANTYX_庖:1.0__ID_庖_14_::_VERANTYX_庖:1.0__ID_庖_21_, _VERANTYX_庖:1.0__ID_庖_19_)?;
+        _VERANTYX_沫:1.0__ID_沫_26_!("[_VERANTYX_庖:1.0__ID_庖_27_] _VERANTYX_庖:1.0__ID_庖_13_ _VERANTYX_沫:1.0__ID_沫_16_ _VERANTYX_沫:1.0__ID_沫_25_ _VERANTYX_沫:1.0__ID_沫_66_ to _VERANTYX_庖:1.0__ID_庖_23_");
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

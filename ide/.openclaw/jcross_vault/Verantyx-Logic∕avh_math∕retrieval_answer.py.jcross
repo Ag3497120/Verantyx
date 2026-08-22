@@ -1,0 +1,109 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FC129F51 ver:1778159754
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_ID_礫:1.0__VERANTYX_礫_51_ _ID_礫:1.0__VERANTYX_礫_27_ import _ID_礫:1.0__VERANTYX_礫_15_
+import _ID_礫:1.0__VERANTYX_礫_3_
+_ID_礫:1.0__VERANTYX_礫_51_ _ID_礫:1.0__VERANTYX_礫_20_ import _ID_廷:1.0__VERANTYX_廷_8_, _ID_廷:1.0__VERANTYX_廷_5_, _ID_廷:1.0__VERANTYX_廷_1_, _ID_廷:1.0__VERANTYX_廷_2_, _ID_廷:1.0__VERANTYX_廷_7_
+
+_ID_礫:1.0__VERANTYX_礫_51_ _ID_礫:1.0__VERANTYX_礫_36_._ID_礫:1.0__VERANTYX_礫_48_ import _ID_廷:1.0__VERANTYX_廷_3_
+
+_ID_礫:1.0__VERANTYX_礫_16_ _ID_箱:1.0__VERANTYX_礫_54_(_ID_礫:1.0__VERANTYX_礫_61_: _ID_礫:1.0__VERANTYX_礫_29_, _ID_礫:1.0__VERANTYX_礫_30_: _ID_礫:1.0__VERANTYX_礫_29_) -> _ID_廷:1.0__VERANTYX_廷_2_[_ID_廷:1.0__VERANTYX_廷_5_[_ID_礫:1.0__VERANTYX_礫_29_, _ID_廷:1.0__VERANTYX_廷_8_]]:
+// [metadata-stripped]
+// [metadata-stripped]
+    _ID_礫:1.0__VERANTYX_礫_49_ open(_ID_礫:1.0__VERANTYX_礫_61_, "r", _ID_礫:1.0__VERANTYX_礫_47_="_ID_礫:1.0__VERANTYX_礫_53_-8") as f:
+        for _ID_礫:1.0__VERANTYX_礫_17_ in f:
+            if _ID_礫:1.0__VERANTYX_礫_44_ _ID_礫:1.0__VERANTYX_礫_17_._ID_礫:1.0__VERANTYX_礫_11_():
+                continue
+            _ID_礫:1.0__VERANTYX_礫_26_ = _ID_礫:1.0__VERANTYX_礫_3_._ID_箱:1.0__VERANTYX_礫_39_(_ID_礫:1.0__VERANTYX_礫_17_)
+// _ID_廷:0.6__VERANTYX_ZK_672_ [decoy-metadata]
+            if _ID_礫:1.0__VERANTYX_礫_26_._ID_式:1.0__VERANTYX_曠_1_("id") == _ID_礫:1.0__VERANTYX_礫_30_:
+                return _ID_礫:1.0__VERANTYX_礫_26_
+    return _ID_廷:1.0__VERANTYX_廷_4_
+
+_ID_礫:1.0__VERANTYX_礫_16_ _ID_礫:1.0__VERANTYX_礫_56_(
+// _ID_沈:0.1__VERANTYX_FH_954_ [decoy-metadata]
+    _ID_礫:1.0__VERANTYX_礫_2_: _ID_廷:1.0__VERANTYX_廷_3_,
+    _ID_礫:1.0__VERANTYX_礫_61_: _ID_礫:1.0__VERANTYX_礫_29_,
+    _ID_礫:1.0__VERANTYX_礫_25_: _ID_礫:1.0__VERANTYX_礫_29_,
+    _ID_礫:1.0__VERANTYX_礫_22_: _ID_礫:1.0__VERANTYX_礫_24_ = 8
+) -> _ID_廷:1.0__VERANTYX_廷_1_[_ID_廷:1.0__VERANTYX_廷_5_[_ID_礫:1.0__VERANTYX_礫_29_, _ID_廷:1.0__VERANTYX_廷_8_]]:
+    _ID_礫:1.0__VERANTYX_礫_42_ = _ID_礫:1.0__VERANTYX_礫_2_._ID_礫:1.0__VERANTYX_礫_41_(_ID_礫:1.0__VERANTYX_礫_25_, _ID_礫:1.0__VERANTYX_礫_22_=_ID_礫:1.0__VERANTYX_礫_22_)
+    _ID_礫:1.0__VERANTYX_礫_31_: _ID_廷:1.0__VERANTYX_廷_1_[_ID_廷:1.0__VERANTYX_廷_5_[_ID_礫:1.0__VERANTYX_礫_29_, _ID_廷:1.0__VERANTYX_廷_8_]] = []
+    for _ID_礫:1.0__VERANTYX_礫_60_, _ID_礫:1.0__VERANTYX_礫_13_ in _ID_礫:1.0__VERANTYX_礫_42_:
+        _ID_礫:1.0__VERANTYX_礫_55_ = _ID_箱:1.0__VERANTYX_礫_54_(_ID_礫:1.0__VERANTYX_礫_61_, _ID_礫:1.0__VERANTYX_礫_60_)
+        if _ID_礫:1.0__VERANTYX_礫_44_ _ID_礫:1.0__VERANTYX_礫_55_:
+            continue
+        _ID_礫:1.0__VERANTYX_礫_55_["_ID_礫:1.0__VERANTYX_礫_62_"] = _ID_礫:1.0__VERANTYX_礫_40_(_ID_礫:1.0__VERANTYX_礫_13_)
+        _ID_礫:1.0__VERANTYX_礫_31_._ID_礫:1.0__VERANTYX_礫_6_(_ID_礫:1.0__VERANTYX_礫_55_)
+// _ID_滾:0.7__VERANTYX_WB_646_ [decoy-metadata]
+    return _ID_礫:1.0__VERANTYX_礫_31_
+
+_ID_礫:1.0__VERANTYX_礫_16_ _ID_礫:1.0__VERANTYX_礫_10_(
+    _ID_礫:1.0__VERANTYX_礫_25_: _ID_礫:1.0__VERANTYX_礫_29_,
+    _ID_礫:1.0__VERANTYX_礫_52_: _ID_廷:1.0__VERANTYX_廷_1_[_ID_廷:1.0__VERANTYX_廷_5_[_ID_礫:1.0__VERANTYX_礫_29_, _ID_廷:1.0__VERANTYX_廷_8_]]
+) -> _ID_廷:1.0__VERANTYX_廷_5_[_ID_礫:1.0__VERANTYX_礫_29_, _ID_廷:1.0__VERANTYX_廷_8_]:
+    """
+    Verantyx系の “DB照合→答え”。
+    - 最も近い _ID_礫:1.0__VERANTYX_礫_55_ を中心に「結論候補」を作る
+    - _ID_礫:1.0__VERANTYX_礫_34_ が強いなら _ID_礫:1.0__VERANTYX_礫_64_ 寄り、_ID_礫:1.0__VERANTYX_礫_37_/_ID_礫:1.0__VERANTYX_礫_58_ が多ければ _ID_礫:1.0__VERANTYX_礫_4_/_ID_礫:1.0__VERANTYX_礫_18_ 寄り
+    """
+    if _ID_礫:1.0__VERANTYX_礫_44_ _ID_礫:1.0__VERANTYX_礫_52_:
+        return {
+            "_ID_礫:1.0__VERANTYX_礫_43_": "_ID_礫:1.0__VERANTYX_礫_18_",
+            "_ID_礫:1.0__VERANTYX_礫_12_": "DB内に十分近いエントリが見つかりませんでした。",
+            "_ID_礫:1.0__VERANTYX_礫_38_": [],
+            "_ID_礫:1.0__VERANTYX_礫_8_": "_ID_礫:1.0__VERANTYX_礫_33_",
+        }
+
+    _ID_礫:1.0__VERANTYX_礫_23_ = [e._ID_式:1.0__VERANTYX_曠_1_("id") for e in _ID_礫:1.0__VERANTYX_礫_52_ if e._ID_式:1.0__VERANTYX_曠_1_("id")]
+// [metadata-stripped]
+    _ID_礫:1.0__VERANTYX_礫_63_ = [_ID_礫:1.0__VERANTYX_礫_29_(e._ID_式:1.0__VERANTYX_曠_1_("_ID_礫:1.0__VERANTYX_礫_57_") or "") for e in _ID_礫:1.0__VERANTYX_礫_52_]
+    _ID_礫:1.0__VERANTYX_礫_46_ = any(k == "_ID_礫:1.0__VERANTYX_礫_32_" for k in _ID_礫:1.0__VERANTYX_礫_63_)
+    _ID_礫:1.0__VERANTYX_礫_45_ = _ID_礫:1.0__VERANTYX_礫_52_[0]
+
+// [metadata-stripped]
+    _ID_礫:1.0__VERANTYX_礫_21_ = _ID_礫:1.0__VERANTYX_礫_45_._ID_式:1.0__VERANTYX_曠_1_("_ID_礫:1.0__VERANTYX_礫_21_") or _ID_礫:1.0__VERANTYX_礫_45_._ID_式:1.0__VERANTYX_曠_1_("id")
+// _ID_滾:0.2__VERANTYX_GG_241_ [decoy-metadata]
+    _ID_礫:1.0__VERANTYX_礫_35_ = _ID_礫:1.0__VERANTYX_礫_45_._ID_式:1.0__VERANTYX_曠_1_("_ID_礫:1.0__VERANTYX_礫_35_") or "_ID_礫:1.0__VERANTYX_礫_18_"
+    _ID_礫:1.0__VERANTYX_礫_59_ = (_ID_礫:1.0__VERANTYX_礫_45_._ID_式:1.0__VERANTYX_曠_1_("_ID_礫:1.0__VERANTYX_礫_28_") or "")._ID_礫:1.0__VERANTYX_礫_11_()
+    _ID_礫:1.0__VERANTYX_礫_66_ = _ID_礫:1.0__VERANTYX_礫_45_._ID_式:1.0__VERANTYX_曠_1_("_ID_礫:1.0__VERANTYX_礫_34_")
+
+// [metadata-stripped]
+    if _ID_礫:1.0__VERANTYX_礫_46_:
+// [metadata-stripped]
+        _ID_礫:1.0__VERANTYX_礫_9_ = [
+            f"DBの類似反例（{_ID_礫:1.0__VERANTYX_礫_35_}）に基づく推定:",
+// _ID_沈:0.9__VERANTYX_ZA_858_ [decoy-metadata]
+            f"- 最類似: {_ID_礫:1.0__VERANTYX_礫_21_}",
+        ]
+        if _ID_礫:1.0__VERANTYX_礫_59_:
+            _ID_礫:1.0__VERANTYX_礫_9_._ID_礫:1.0__VERANTYX_礫_6_(f"- 近い主張: {_ID_礫:1.0__VERANTYX_礫_59_}")
+        if _ID_礫:1.0__VERANTYX_礫_14_(_ID_礫:1.0__VERANTYX_礫_66_, _ID_礫:1.0__VERANTYX_礫_29_) _ID_礫:1.0__VERANTYX_礫_65_ _ID_礫:1.0__VERANTYX_礫_66_._ID_礫:1.0__VERANTYX_礫_11_():
+            _ID_礫:1.0__VERANTYX_礫_9_._ID_礫:1.0__VERANTYX_礫_6_(f"- 反例/破綻点: {_ID_礫:1.0__VERANTYX_礫_66_._ID_礫:1.0__VERANTYX_礫_11_()}")
+        _ID_礫:1.0__VERANTYX_礫_9_._ID_礫:1.0__VERANTYX_礫_6_("→ このクエリは **反例が出るタイプ（_ID_礫:1.0__VERANTYX_礫_64_寄り）** の可能性が高いです。")
+        return {
+            "_ID_礫:1.0__VERANTYX_礫_43_": "_ID_礫:1.0__VERANTYX_礫_64_",
+            "_ID_礫:1.0__VERANTYX_礫_12_": "\n"._ID_礫:1.0__VERANTYX_礫_19_(_ID_礫:1.0__VERANTYX_礫_9_),
+            "_ID_礫:1.0__VERANTYX_礫_38_": _ID_礫:1.0__VERANTYX_礫_23_,
+            "_ID_礫:1.0__VERANTYX_礫_8_": "_ID_礫:1.0__VERANTYX_礫_50_",
+        }
+
+// [metadata-stripped]
+// _ID_沈:0.5__VERANTYX_MM_839_ [decoy-metadata]
+    _ID_礫:1.0__VERANTYX_礫_9_ = [
+        f"DBの類似定義/定理（{_ID_礫:1.0__VERANTYX_礫_35_}）に基づく推定:",
+        f"- 最類似: {_ID_礫:1.0__VERANTYX_礫_21_}",
+    ]
+    if _ID_礫:1.0__VERANTYX_礫_59_:
+        _ID_礫:1.0__VERANTYX_礫_9_._ID_礫:1.0__VERANTYX_礫_6_(f"- 近い主張: {_ID_礫:1.0__VERANTYX_礫_59_}")
+    _ID_礫:1.0__VERANTYX_礫_9_._ID_礫:1.0__VERANTYX_礫_6_("→ 探索・証明が未実行なら **_ID_礫:1.0__VERANTYX_礫_18_（成立寄り）** として扱います。")
+    return {
+        "_ID_礫:1.0__VERANTYX_礫_43_": "_ID_礫:1.0__VERANTYX_礫_18_",
+        "_ID_礫:1.0__VERANTYX_礫_12_": "\n"._ID_礫:1.0__VERANTYX_礫_19_(_ID_礫:1.0__VERANTYX_礫_9_),
+        "_ID_礫:1.0__VERANTYX_礫_38_": _ID_礫:1.0__VERANTYX_礫_23_,
+        "_ID_礫:1.0__VERANTYX_礫_8_": "_ID_礫:1.0__VERANTYX_礫_5_",
+    }
+
+// POLYMORPHIC_JCROSS_END

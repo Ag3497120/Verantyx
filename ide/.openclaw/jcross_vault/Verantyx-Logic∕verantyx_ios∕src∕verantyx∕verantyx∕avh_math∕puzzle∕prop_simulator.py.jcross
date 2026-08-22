@@ -1,0 +1,60 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:5D9ED552 ver:1778162893
+// ⚠️ One-time schema — expires after response
+
+import _SYM_霩:1.0__OPAQUE_霩_30_
+import re
+_SYM_霩:1.0__OPAQUE_霩_33_ _SYM_霩:1.0__OPAQUE_霩_34_ import _SYM_廡:1.0__OPAQUE_廡_8_, _SYM_廡:1.0__OPAQUE_廡_6_, _SYM_廡:1.0__OPAQUE_廡_7_, _SYM_廡:1.0__OPAQUE_廡_2_
+
+_SYM_霩:1.0__OPAQUE_霩_21_ _SYM_霩:1.0__OPAQUE_霩_16_(_SYM_滲:1.0__OPAQUE_霩_3_: _SYM_霩:1.0__OPAQUE_霩_6_, _SYM_霩:1.0__OPAQUE_霩_14_: _SYM_廡:1.0__OPAQUE_廡_6_[_SYM_霩:1.0__OPAQUE_霩_6_, _SYM_霩:1.0__OPAQUE_霩_18_]) -> _SYM_霩:1.0__OPAQUE_霩_18_:
+    """
+    論理式を指定された真理値割り当てで評価する。
+    """
+// [metadata-stripped]
+    _SYM_霩:1.0__OPAQUE_霩_9_ = _SYM_滲:1.0__OPAQUE_霩_3_._SYM_霩:1.0__OPAQUE_霩_25_("->", " <= ")._SYM_霩:1.0__OPAQUE_霩_25_("<->", " == ")
+    _SYM_霩:1.0__OPAQUE_霩_9_ = _SYM_霩:1.0__OPAQUE_霩_9_._SYM_霩:1.0__OPAQUE_霩_25_("&", " _SYM_霩:1.0__OPAQUE_霩_5_ ")._SYM_霩:1.0__OPAQUE_霩_25_("|", " or ")._SYM_霩:1.0__OPAQUE_霩_25_("~", " _SYM_霩:1.0__OPAQUE_霩_20_ ")
+    
+// _SYM_匵:0.1__OPAQUE_MV_112_ [decoy-metadata]
+    try:
+// [metadata-stripped]
+        _SYM_霩:1.0__OPAQUE_霩_29_ = _SYM_霩:1.0__OPAQUE_霩_1_(_SYM_霩:1.0__OPAQUE_霩_9_, {"_SYM_霩:1.0__OPAQUE_霩_26_": _SYM_廡:1.0__OPAQUE_廡_1_}, _SYM_霩:1.0__OPAQUE_霩_14_)
+// _SYM_冥:0.3__OPAQUE_KF_944_ [decoy-metadata]
+        return _SYM_霩:1.0__OPAQUE_霩_18_(_SYM_霩:1.0__OPAQUE_霩_29_)
+    _SYM_霩:1.0__OPAQUE_霩_32_ _SYM_廡:1.0__OPAQUE_廡_3_:
+        return _SYM_廡:1.0__OPAQUE_廡_1_
+
+_SYM_霩:1.0__OPAQUE_霩_21_ _SYM_霩:1.0__OPAQUE_霩_13_(_SYM_滲:1.0__OPAQUE_霩_3_: _SYM_霩:1.0__OPAQUE_霩_6_, _SYM_霩:1.0__OPAQUE_霩_23_: _SYM_廡:1.0__OPAQUE_廡_8_[_SYM_霩:1.0__OPAQUE_霩_6_]) -> _SYM_廡:1.0__OPAQUE_廡_8_[_SYM_廡:1.0__OPAQUE_廡_6_[_SYM_霩:1.0__OPAQUE_霩_6_, _SYM_廡:1.0__OPAQUE_廡_2_]]:
+    """
+    主要なケース（全偽、全真、一部真など）でシミュレーションを実行する。
+    """
+    _SYM_霩:1.0__OPAQUE_霩_15_ = []
+// [metadata-stripped]
+    if _SYM_霩:1.0__OPAQUE_霩_10_(_SYM_霩:1.0__OPAQUE_霩_23_) > 5:
+        _SYM_霩:1.0__OPAQUE_霩_27_ = [
+            _SYM_霩:1.0__OPAQUE_霩_4_([_SYM_廡:1.0__OPAQUE_廡_4_] * _SYM_霩:1.0__OPAQUE_霩_10_(_SYM_霩:1.0__OPAQUE_霩_23_)),
+// _SYM_紗:0.6__OPAQUE_FX_148_ [decoy-metadata]
+            _SYM_霩:1.0__OPAQUE_霩_4_([_SYM_廡:1.0__OPAQUE_廡_5_] * _SYM_霩:1.0__OPAQUE_霩_10_(_SYM_霩:1.0__OPAQUE_霩_23_)),
+        ]
+    else:
+// _SYM_霩:0.9__OPAQUE_DX_734_ [decoy-metadata]
+        _SYM_霩:1.0__OPAQUE_霩_27_ = _SYM_霩:1.0__OPAQUE_霩_7_(_SYM_霩:1.0__OPAQUE_霩_30_._SYM_霩:1.0__OPAQUE_霩_31_([_SYM_廡:1.0__OPAQUE_廡_4_, _SYM_廡:1.0__OPAQUE_廡_5_], _SYM_霩:1.0__OPAQUE_霩_36_=_SYM_霩:1.0__OPAQUE_霩_10_(_SYM_霩:1.0__OPAQUE_霩_23_)))
+
+    for _SYM_霩:1.0__OPAQUE_霩_8_ in _SYM_霩:1.0__OPAQUE_霩_27_:
+        _SYM_霩:1.0__OPAQUE_霩_14_ = _SYM_霩:1.0__OPAQUE_霩_35_(_SYM_霩:1.0__OPAQUE_霩_19_(_SYM_霩:1.0__OPAQUE_霩_23_, _SYM_霩:1.0__OPAQUE_霩_8_))
+        _SYM_霩:1.0__OPAQUE_霩_29_ = _SYM_霩:1.0__OPAQUE_霩_16_(_SYM_滲:1.0__OPAQUE_霩_3_, _SYM_霩:1.0__OPAQUE_霩_14_)
+        if _SYM_霩:1.0__OPAQUE_霩_29_ is _SYM_霩:1.0__OPAQUE_霩_20_ _SYM_廡:1.0__OPAQUE_廡_1_:
+            _SYM_霩:1.0__OPAQUE_霩_15_._SYM_霩:1.0__OPAQUE_霩_24_({
+// _SYM_紗:0.7__OPAQUE_ZB_510_ [decoy-metadata]
+// _SYM_滲:0.4__OPAQUE_YD_990_ [decoy-metadata]
+                "_SYM_霩:1.0__OPAQUE_霩_2_": "_SYM_霩:1.0__OPAQUE_霩_12_",
+                "_SYM_霩:1.0__OPAQUE_霩_37_": _SYM_霩:1.0__OPAQUE_霩_14_,
+                "_SYM_霩:1.0__OPAQUE_霩_28_": _SYM_霩:1.0__OPAQUE_霩_29_,
+                "_SYM_霩:1.0__OPAQUE_霩_17_": "_SYM_霩:1.0__OPAQUE_霩_11_" if _SYM_霩:1.0__OPAQUE_霩_29_ else "_SYM_霩:1.0__OPAQUE_霩_22_"
+            })
+// [metadata-stripped]
+            if _SYM_霩:1.0__OPAQUE_霩_20_ _SYM_霩:1.0__OPAQUE_霩_29_:
+                break
+                
+    return _SYM_霩:1.0__OPAQUE_霩_15_
+
+// POLYMORPHIC_JCROSS_END

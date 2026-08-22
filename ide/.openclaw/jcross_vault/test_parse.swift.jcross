@@ -1,0 +1,28 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:933B0958 ver:1778163574
+// __node_函:0.1___SYM_EY_802_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import __node_庠:1.0___SYM_庠_7_
+// __node_庠:0.8___SYM_XG_708_ [decoy-metadata]
+
+func __node_塵:1.0___SYM_塵_3_(_ __node_塵:1.0___SYM_塵_1_: __node_庠:1.0___SYM_庠_2_, __node_塵:1.0___SYM_塵_6_: __node_庠:1.0___SYM_庠_2_) -> __node_庠:1.0___SYM_庠_2_? {
+// __node_庠:0.9___SYM_LH_896_ [decoy-metadata]
+    guard let __node_塵:1.0___SYM_塵_2_ = try? __node_庠:1.0___SYM_庠_5_(__node_塵:1.0___SYM_塵_6_: __node_塵:1.0___SYM_塵_6_, __node_塵:1.0___SYM_塵_4_: []),
+// __node_庠:0.8___SYM_ED_911_ [decoy-metadata]
+          let m = __node_塵:1.0___SYM_塵_2_.__node_塵:1.0___SYM_塵_8_(in: __node_塵:1.0___SYM_塵_1_, __node_塵:1.0___SYM_塵_11_: __node_庠:1.0___SYM_庠_9_(__node_塵:1.0___SYM_塵_1_.__node_塵:1.0___SYM_塵_5_..., in: __node_塵:1.0___SYM_塵_1_)),
+          m.__node_塵:1.0___SYM_塵_7_ > 1,
+          let r = __node_庠:1.0___SYM_庠_4_(m.__node_塵:1.0___SYM_塵_11_(at: 1), in: __node_塵:1.0___SYM_塵_1_)
+// __node_絵:0.8___SYM_LB_572_ [decoy-metadata]
+    else { return nil }
+    return __node_庠:1.0___SYM_庠_2_(__node_塵:1.0___SYM_塵_1_[r]).__node_塵:1.0___SYM_塵_10_(in: .__node_塵:1.0___SYM_塵_12_)
+}
+
+let m = __node_塵:1.0___SYM_塵_3_("[__node_庠:1.0___SYM_庠_3_: __node_庠:1.0___SYM_庠_1_]", __node_塵:1.0___SYM_塵_6_: "^(?:\\[__node_庠:1.0___SYM_庠_3_:\\[)?\\[__node_庠:1.0___SYM_庠_3_:\\s*([^\\]]+)\\]$")
+__node_塵:1.0___SYM_塵_13_("__node_庠:1.0___SYM_庠_8_: \(__node_庠:1.0___SYM_庠_2_(__node_塵:1.0___SYM_塵_9_: m))")
+
+// __node_絵:0.9___SYM_EL_428_ [decoy-metadata]
+let m2 = __node_塵:1.0___SYM_塵_3_("[__node_庠:1.0___SYM_庠_3_: __node_庠:1.0___SYM_庠_1_]", __node_塵:1.0___SYM_塵_6_: "^\\[__node_庠:1.0___SYM_庠_3_:\\s*([^\\]]+)\\]$")
+__node_塵:1.0___SYM_塵_13_("__node_庠:1.0___SYM_庠_6_: \(__node_庠:1.0___SYM_庠_2_(__node_塵:1.0___SYM_塵_9_: m2))")
+
+// POLYMORPHIC_JCROSS_END

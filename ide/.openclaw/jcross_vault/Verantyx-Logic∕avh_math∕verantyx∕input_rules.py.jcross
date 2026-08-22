@@ -1,0 +1,97 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9D806C8E ver:1778159770
+// __node_霡:0.9___ASTNODE_DG_197_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+__node_霡:1.0___ASTNODE_霡_5_ __node_霡:1.0___ASTNODE_霡_47_ import __node_霡:1.0___ASTNODE_霡_15_
+
+import re
+__node_霡:1.0___ASTNODE_霡_5_ __node_霡:1.0___ASTNODE_霡_34_ import __node_庖:1.0___ASTNODE_庖_8_
+
+__node_霡:1.0___ASTNODE_霡_6_ = re.__node_霡:1.0___ASTNODE_霡_46_(r'["“”「」『』](.+?)["“”「」『』]', re.__node_庖:1.0___ASTNODE_庖_10_)
+__node_霡:1.0___ASTNODE_霡_20_ = re.__node_霡:1.0___ASTNODE_霡_46_(r'"([^"]+)"')
+
+__node_霡:1.0___ASTNODE_霡_43_ = {
+    "__node_霡:1.0___ASTNODE_霡_2_": "[]",
+    "__node_霡:1.0___ASTNODE_霡_45_": "<>",
+    "□": "[]",
+    "◇": "<>",
+}
+// __node_奥:0.1___ASTNODE_VF_890_ [decoy-metadata]
+
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_泡:1.0___ASTNODE_霡_30_(s: __node_霡:1.0___ASTNODE_霡_9_) -> __node_霡:1.0___ASTNODE_霡_9_:
+    s = (s or "").__node_霡:1.0___ASTNODE_霡_26_()
+    s = s.__node_霡:1.0___ASTNODE_霡_40_("→", "->").__node_霡:1.0___ASTNODE_霡_40_("¬", "~").__node_霡:1.0___ASTNODE_霡_40_("∧", "&").__node_霡:1.0___ASTNODE_霡_40_("∨", "|")
+    s = s.__node_霡:1.0___ASTNODE_霡_40_("⇒", "->").__node_霡:1.0___ASTNODE_霡_40_("⇔", "<->")
+    for k, v in __node_霡:1.0___ASTNODE_霡_43_.__node_霡:1.0___ASTNODE_霡_22_():
+        s = re.__node_霡:1.0___ASTNODE_霡_10_(rf"\b{k}\b", v, s, __node_霡:1.0___ASTNODE_霡_23_=re.__node_庖:1.0___ASTNODE_庖_5_)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s+", " ", s)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s*->\s*", "->", s)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s*<->\s*", "<->", s)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s*&\s*", "&", s)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s*\|\s*", "|", s)
+    s = re.__node_霡:1.0___ASTNODE_霡_10_(r"\s*~\s*", "~", s)
+    s = s.__node_霡:1.0___ASTNODE_霡_40_("[] ", "[]").__node_霡:1.0___ASTNODE_霡_40_("<> ", "<>")
+    return s.__node_霡:1.0___ASTNODE_霡_26_()
+
+// __node_庖:0.2___ASTNODE_XG_231_ [decoy-metadata]
+// __node_庖:0.1___ASTNODE_KB_623_ [decoy-metadata]
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_泡:1.0___ASTNODE_霡_28_(__node_霡:1.0___ASTNODE_霡_38_: __node_霡:1.0___ASTNODE_霡_9_) -> __node_庖:1.0___ASTNODE_庖_8_[__node_霡:1.0___ASTNODE_霡_9_]:
+    __node_霡:1.0___ASTNODE_霡_7_: __node_庖:1.0___ASTNODE_庖_8_[__node_霡:1.0___ASTNODE_霡_9_] = []
+    t = __node_霡:1.0___ASTNODE_霡_38_ or ""
+    for m in __node_霡:1.0___ASTNODE_霡_6_.__node_業:1.0___ASTNODE_霡_49_(t):
+        f = __node_泡:1.0___ASTNODE_霡_30_(m.__node_霡:1.0___ASTNODE_霡_18_(1))
+        if f:
+            __node_霡:1.0___ASTNODE_霡_7_.__node_霡:1.0___ASTNODE_霡_12_(f)
+    return __node_霡:1.0___ASTNODE_霡_7_
+
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_泡:1.0___ASTNODE_霡_27_(__node_霡:1.0___ASTNODE_霡_38_: __node_霡:1.0___ASTNODE_霡_9_) -> __node_庖:1.0___ASTNODE_庖_8_[__node_霡:1.0___ASTNODE_霡_9_]:
+    __node_泡:1.0___ASTNODE_霡_32_ = __node_霡:1.0___ASTNODE_霡_20_.__node_霡:1.0___ASTNODE_霡_29_(__node_霡:1.0___ASTNODE_霡_38_ or "")
+    return [f.__node_霡:1.0___ASTNODE_霡_26_() for f in __node_泡:1.0___ASTNODE_霡_32_ if f.__node_霡:1.0___ASTNODE_霡_26_()]
+
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_霡:1.0___ASTNODE_霡_37_(__node_霡:1.0___ASTNODE_霡_38_: __node_霡:1.0___ASTNODE_霡_9_) -> __node_霡:1.0___ASTNODE_霡_9_:
+    t = (__node_霡:1.0___ASTNODE_霡_38_ or "")
+    tl = t.__node_業:1.0___ASTNODE_霡_1_()
+
+    if ("__node_霡:1.0___ASTNODE_霡_4_" in tl) or ("フレーム" in t) or ("様相" in t) or ("□" in t) or ("◇" in t) or ("[]" in tl) or ("<>" in tl):
+        return "__node_霡:1.0___ASTNODE_霡_36_"
+    if ("命題論理" in t) or ("__node_霡:1.0___ASTNODE_霡_16_" in tl) or ("恒真" in t) or ("真理値表" in t) or ("&" in t) or ("->" in t):
+        return "__node_霡:1.0___ASTNODE_霡_41_"
+    if ("一階" in t) or ("述語" in t) or ("∀" in t) or ("∃" in t) or ("__node_業:1.0___ASTNODE_霡_50_" in tl) or ("__node_霡:1.0___ASTNODE_霡_14_-__node_業:1.0___ASTNODE_霡_54_" in tl):
+        return "__node_霡:1.0___ASTNODE_霡_13_"
+    if ("行列" in t) or ("線形" in t) or ("次元" in t) or ("対称" in t) or ("__node_霡:1.0___ASTNODE_霡_17_" in tl) or ("__node_霡:1.0___ASTNODE_霡_33_" in tl):
+        return "__node_霡:1.0___ASTNODE_霡_3_"
+    if ("位相" in t) or ("コンパクト" in t) or ("__node_霡:1.0___ASTNODE_霡_52_" in tl) or ("__node_霡:1.0___ASTNODE_霡_51_" in tl):
+        return "__node_霡:1.0___ASTNODE_霡_51_"
+    if ("群" in t) or ("環" in t) or ("__node_霡:1.0___ASTNODE_霡_18_" in tl) or ("__node_霡:1.0___ASTNODE_霡_31_" in tl):
+        return "__node_霡:1.0___ASTNODE_霡_24_"
+    if ("計算量" in t) or ("np" in tl) or ("__node_霡:1.0___ASTNODE_霡_11_" in tl) or ("多項式" in t):
+        return "__node_霡:1.0___ASTNODE_霡_44_"
+
+    return "__node_霡:1.0___ASTNODE_霡_8_"
+// __node_庖:0.4___ASTNODE_ZV_470_ [decoy-metadata]
+
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_霡:1.0___ASTNODE_霡_48_() -> __node_霡:1.0___ASTNODE_霡_9_:
+    return (
+        '【入力ルール】式（論理式・数式）は必ずダブルクォーテーションで囲ってください。\n'
+        '例1（命題）: 「"((A -> B) & A) -> B"」\n'
+        '例2（様相）: 「"[]p -> [][]p"」\n'
+        '例3（行列）: 「"__node_霡:1.0___ASTNODE_霡_39_ __node_庖:1.0___ASTNODE_庖_3_(n,R)"」'
+    )
+
+
+__node_霡:1.0___ASTNODE_霡_53_ __node_霡:1.0___ASTNODE_霡_21_() -> __node_霡:1.0___ASTNODE_霡_9_:
+    return (
+        '[__node_庖:1.0___ASTNODE_庖_6_ __node_庖:1.0___ASTNODE_庖_9_] __node_庖:1.0___ASTNODE_庖_7_ __node_霡:1.0___ASTNODE_霡_42_ __node_泡:1.0___ASTNODE_霡_25_ __node_霡:1.0___ASTNODE_霡_35_ __node_霡:1.0___ASTNODE_霡_19_ __node_霡:1.0___ASTNODE_霡_55_.\n'
+        '__node_庖:1.0___ASTNODE_庖_1_: "((A -> B) & A) -> B"\n'
+// __node_庖:0.2___ASTNODE_AE_983_ [decoy-metadata]
+        '__node_庖:1.0___ASTNODE_庖_4_: "[]p -> [][]p"\n'
+        '__node_庖:1.0___ASTNODE_庖_2_: "__node_霡:1.0___ASTNODE_霡_39_ __node_庖:1.0___ASTNODE_庖_3_(n,R)"'
+    )
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,21 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CDE4B952 ver:1778162901
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_礫:1.0__SYM_礫_13_ _TOKEN_礫:1.0__SYM_礫_3_._TOKEN_礫:1.0__SYM_礫_14_._TOKEN_礫:1.0__SYM_礫_1_ import _TOKEN_廊:1.0__SYM_廊_1_
+// _TOKEN_凛:0.3__SYM_KY_188_ [decoy-metadata]
+
+
+_TOKEN_礫:1.0__SYM_礫_15_ _TOKEN_礫:1.0__SYM_礫_9_(a: _TOKEN_廊:1.0__SYM_廊_1_, b: _TOKEN_廊:1.0__SYM_廊_1_) -> _TOKEN_礫:1.0__SYM_礫_16_:
+// _TOKEN_礫:0.5__SYM_VK_807_ [decoy-metadata]
+    _TOKEN_礫:1.0__SYM_礫_6_ = [n._TOKEN_礫:1.0__SYM_礫_4_._TOKEN_則:1.0__SYM_凛_1_("_TOKEN_礫:1.0__SYM_礫_12_", "") for n in a._TOKEN_礫:1.0__SYM_礫_2_._TOKEN_礫:1.0__SYM_礫_5_()]
+// _TOKEN_礫:0.6__SYM_KD_138_ [decoy-metadata]
+// _TOKEN_凛:0.4__SYM_HE_165_ [decoy-metadata]
+    _TOKEN_礫:1.0__SYM_礫_11_ = [n._TOKEN_礫:1.0__SYM_礫_4_._TOKEN_則:1.0__SYM_凛_1_("_TOKEN_礫:1.0__SYM_礫_12_", "") for n in b._TOKEN_礫:1.0__SYM_礫_2_._TOKEN_礫:1.0__SYM_礫_5_()]
+// _TOKEN_凛:0.2__SYM_GH_842_ [decoy-metadata]
+    if _TOKEN_礫:1.0__SYM_礫_8_ _TOKEN_礫:1.0__SYM_礫_6_ or _TOKEN_礫:1.0__SYM_礫_8_ _TOKEN_礫:1.0__SYM_礫_11_:
+// _TOKEN_匷:0.4__SYM_KM_688_ [decoy-metadata]
+        return 0.0
+    return _TOKEN_礫:1.0__SYM_礫_10_(_TOKEN_則:1.0__SYM_凛_2_(_TOKEN_礫:1.0__SYM_礫_6_) & _TOKEN_則:1.0__SYM_凛_2_(_TOKEN_礫:1.0__SYM_礫_11_)) / _TOKEN_礫:1.0__SYM_礫_7_(_TOKEN_礫:1.0__SYM_礫_10_(_TOKEN_則:1.0__SYM_凛_2_(_TOKEN_礫:1.0__SYM_礫_6_)), 1)
+
+// POLYMORPHIC_JCROSS_END

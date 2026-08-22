@@ -1,0 +1,135 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D4B1BF4B ver:1778162901
+// ⚠️ One-time schema — expires after response
+
+import re
+_TOKEN_霢:1.0___ast_霢_48__ _TOKEN_霢:1.0___ast_霢_49__ import _TOKEN_庸:1.0___ast_庸_11__, _TOKEN_庸:1.0___ast_庸_8__, _TOKEN_庸:1.0___ast_庸_9__, _TOKEN_庸:1.0___ast_庸_2__
+
+_TOKEN_庸:1.0___ast_庸_5__ = [
+// [metadata-stripped]
+    r'"([^"]+)"',
+    r'「([^」]+)」',
+
+// [metadata-stripped]
+    r'[\[\]□◇()A-Za-z0-9_\s→\-&|~>]+',
+
+// [metadata-stripped]
+    r'[A-Za-z]+\s*\([^)]*\)',
+]
+
+_TOKEN_庸:1.0___ast_庸_10__ = {'->', '→', '&', '|', '~', '□', '◇'}
+
+_TOKEN_霢:1.0___ast_霢_35__ _TOKEN_漂:1.0___ast_霢_5__(s: _TOKEN_霢:1.0___ast_霢_17__) -> _TOKEN_庸:1.0___ast_庸_9__[_TOKEN_霢:1.0___ast_霢_17__]:
+    """
+// _TOKEN_縞:0.8___ast_MF_320__ [decoy-metadata]
+    途中で切れた論理式を、括弧バランスを基準に修復する。
+    """
+    if _TOKEN_霢:1.0___ast_霢_33__ s:
+        return _TOKEN_庸:1.0___ast_庸_1__
+
+// [metadata-stripped]
+    _TOKEN_霢:1.0___ast_霢_4__ = s._TOKEN_霢:1.0___ast_霢_20__("(")
+    _TOKEN_霢:1.0___ast_霢_30__ = s._TOKEN_霢:1.0___ast_霢_20__(")")
+    if _TOKEN_霢:1.0___ast_霢_4__ > _TOKEN_霢:1.0___ast_霢_30__:
+        s = s + ")" * (_TOKEN_霢:1.0___ast_霢_4__ - _TOKEN_霢:1.0___ast_霢_30__)
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    if s._TOKEN_霢:1.0___ast_霢_1__()._TOKEN_霢:1.0___ast_霢_38__(("->", "&", "|", "~", "⊕")):
+        return _TOKEN_庸:1.0___ast_庸_1__
+        
+    return s
+
+_TOKEN_霢:1.0___ast_霢_35__ _TOKEN_漂:1.0___ast_霢_45__(_TOKEN_霢:1.0___ast_霢_22__: _TOKEN_霢:1.0___ast_霢_17__) -> _TOKEN_庸:1.0___ast_庸_11__[_TOKEN_庸:1.0___ast_庸_8__[_TOKEN_霢:1.0___ast_霢_17__, _TOKEN_庸:1.0___ast_庸_2__]]:
+    """
+    テキストから論理式の候補を抽出し、スコア順にソートして返す。
+    スペースを含む式や、日本語に挟まれた式を強力に保護する。
+    """
+    if _TOKEN_霢:1.0___ast_霢_33__ _TOKEN_霢:1.0___ast_霢_22__:
+        return []
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _TOKEN_霢:1.0___ast_霢_11__ = r'[\(\)[\]A-Za-z0-9\s\-\>\<&\|~□◇⊕→\\]+'
+// _TOKEN_漂:0.6___ast_ZW_209__ [decoy-metadata]
+    
+    _TOKEN_霢:1.0___ast_霢_8__ = re._TOKEN_節:1.0___ast_霢_34__(_TOKEN_霢:1.0___ast_霢_11__, _TOKEN_霢:1.0___ast_霢_22__)
+    _TOKEN_霢:1.0___ast_霢_6__ = []
+    
+    for m in _TOKEN_霢:1.0___ast_霢_8__:
+        s = m._TOKEN_霢:1.0___ast_霢_39__(0)._TOKEN_霢:1.0___ast_霢_1__()
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_傑:0.8___ast_XD_131__ [decoy-metadata]
+        _TOKEN_霢:1.0___ast_霢_41__ = re._TOKEN_霢:1.0___ast_霢_42__(r'[A-Za-z]{3,}', s)
+        _TOKEN_霢:1.0___ast_霢_44__ = "->" in s or "→" in s or "[]" in s or "□" in s
+        
+        if _TOKEN_霢:1.0___ast_霢_33__ _TOKEN_霢:1.0___ast_霢_44__ _TOKEN_霢:1.0___ast_霢_14__ _TOKEN_霢:1.0___ast_霢_21__(_TOKEN_霢:1.0___ast_霢_41__) > 2:
+            continue
+
+// [metadata-stripped]
+        if _TOKEN_霢:1.0___ast_霢_33__ any(op in s for op in ("->", "→", "[]", "□", "(", ")", "&", "|", "~")):
+            continue
+            
+// [metadata-stripped]
+        _TOKEN_霢:1.0___ast_霢_15__ = s._TOKEN_霢:1.0___ast_霢_37__(" ", "")._TOKEN_霢:1.0___ast_霢_37__("→", "->")._TOKEN_霢:1.0___ast_霢_37__("□", "[]")._TOKEN_霢:1.0___ast_霢_37__("◇", "<>")
+        
+// _TOKEN_庸:0.2___ast_FE_516__ [decoy-metadata]
+// [metadata-stripped]
+        if _TOKEN_霢:1.0___ast_霢_21__(_TOKEN_霢:1.0___ast_霢_15__) < 2:
+            continue
+
+// [metadata-stripped]
+        _TOKEN_霢:1.0___ast_霢_46__ = 1.0
+        _TOKEN_霢:1.0___ast_霢_46__ += _TOKEN_霢:1.0___ast_霢_15__._TOKEN_霢:1.0___ast_霢_20__("->") * 0.5
+        _TOKEN_霢:1.0___ast_霢_46__ += _TOKEN_霢:1.0___ast_霢_15__._TOKEN_霢:1.0___ast_霢_20__("[]") * 0.5
+        _TOKEN_霢:1.0___ast_霢_46__ += _TOKEN_霢:1.0___ast_霢_15__._TOKEN_霢:1.0___ast_霢_20__("(") * 0.2
+// [metadata-stripped]
+        _TOKEN_霢:1.0___ast_霢_46__ -= _TOKEN_霢:1.0___ast_霢_21__(_TOKEN_霢:1.0___ast_霢_41__) * 0.3
+        
+        _TOKEN_霢:1.0___ast_霢_6__._TOKEN_霢:1.0___ast_霢_36__({
+            "_TOKEN_霢:1.0___ast_霢_18__": s,
+            "_TOKEN_霢:1.0___ast_霢_43__": _TOKEN_霢:1.0___ast_霢_15__,
+            "_TOKEN_霢:1.0___ast_霢_46__": _TOKEN_霢:1.0___ast_霢_46__,
+            "_TOKEN_霢:1.0___ast_霢_10__": m._TOKEN_霢:1.0___ast_霢_10__()
+        })
+
+// [metadata-stripped]
+    return _TOKEN_霢:1.0___ast_霢_24__(_TOKEN_霢:1.0___ast_霢_6__, _TOKEN_底:1.0___ast_霢_25__=_TOKEN_霢:1.0___ast_霢_31__ x: x["_TOKEN_霢:1.0___ast_霢_46__"], _TOKEN_霢:1.0___ast_霢_23__=_TOKEN_庸:1.0___ast_庸_6__)
+
+_TOKEN_霢:1.0___ast_霢_35__ _TOKEN_漂:1.0___ast_霢_29__(s: _TOKEN_霢:1.0___ast_霢_17__) -> _TOKEN_霢:1.0___ast_霢_17__:
+// _TOKEN_縞:0.3___ast_GA_792__ [decoy-metadata]
+    s = s._TOKEN_霢:1.0___ast_霢_37__("→", "->")
+    s = re._TOKEN_霢:1.0___ast_霢_28__(r"\s+", "", s)
+    return s
+
+_TOKEN_霢:1.0___ast_霢_35__ _TOKEN_漂:1.0___ast_霢_3__(s: _TOKEN_霢:1.0___ast_霢_17__) -> _TOKEN_霢:1.0___ast_霢_19__:
+    _TOKEN_霢:1.0___ast_霢_46__ = 0.0
+    for _TOKEN_霢:1.0___ast_霢_9__ in _TOKEN_庸:1.0___ast_庸_10__:
+        if _TOKEN_霢:1.0___ast_霢_9__ in s:
+            _TOKEN_霢:1.0___ast_霢_46__ += 1.0
+    if "(" in s _TOKEN_霢:1.0___ast_霢_14__ ")" in s:
+        _TOKEN_霢:1.0___ast_霢_46__ += 0.5
+    if "[" in s or "]" in s:
+        _TOKEN_霢:1.0___ast_霢_46__ += 0.5
+    return _TOKEN_霢:1.0___ast_霢_46__
+
+_TOKEN_霢:1.0___ast_霢_35__ _TOKEN_漂:1.0___ast_霢_12__(_TOKEN_霢:1.0___ast_霢_50__: _TOKEN_庸:1.0___ast_庸_11__[_TOKEN_庸:1.0___ast_庸_8__]) -> _TOKEN_庸:1.0___ast_庸_9__[_TOKEN_霢:1.0___ast_霢_17__]:
+    """
+    _TOKEN_庸:1.0___ast_庸_4__-_TOKEN_庸:1.0___ast_庸_7__ の分解結果（_TOKEN_霢:1.0___ast_霢_50__）から、論理的な意味を持つトークンのみを抽出して式を再構成する。
+    """
+    _TOKEN_底:1.0___ast_霢_26__ = []
+    for s in _TOKEN_霢:1.0___ast_霢_50__:
+// [metadata-stripped]
+// _TOKEN_傑:0.2___ast_VG_893__ [decoy-metadata]
+        if s["_TOKEN_霢:1.0___ast_霢_47__"] in ("_TOKEN_霢:1.0___ast_霢_16__", "_TOKEN_霢:1.0___ast_霢_2__", "_TOKEN_霢:1.0___ast_霢_32__", "_TOKEN_霢:1.0___ast_霢_27__"):
+            _TOKEN_底:1.0___ast_霢_26__._TOKEN_霢:1.0___ast_霢_36__(s["_TOKEN_底:1.0___ast_霢_51__"])
+    
+    _TOKEN_漂:1.0___ast_霢_13__ = ""._TOKEN_霢:1.0___ast_霢_40__(_TOKEN_底:1.0___ast_霢_26__)._TOKEN_霢:1.0___ast_霢_1__()
+// [metadata-stripped]
+    if _TOKEN_霢:1.0___ast_霢_21__(_TOKEN_漂:1.0___ast_霢_13__) >= 3:
+        return _TOKEN_漂:1.0___ast_霢_13__
+    return _TOKEN_庸:1.0___ast_庸_1__
+
+// POLYMORPHIC_JCROSS_END

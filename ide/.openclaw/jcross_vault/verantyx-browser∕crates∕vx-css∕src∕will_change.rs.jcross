@@ -1,0 +1,90 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FB4E9BEA ver:1778158662
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_塵:1.0___node_塵_58__ _TOKEN_塵:1.0___node_塵_69__::_TOKEN_塵:1.0___node_塵_53__::_TOKEN_廓:1.0___node_廓_2__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_塵:1.0___node_塵_59__ enum _TOKEN_廓:1.0___node_廓_15__ {
+    _TOKEN_廓:1.0___node_廓_4__,
+    _TOKEN_廓:1.0___node_廓_37__,
+    _TOKEN_廓:1.0___node_廓_38__,
+// _TOKEN_泡:0.9___node_MW_263__ [decoy-metadata]
+    _TOKEN_廓:1.0___node_廓_26__(_TOKEN_廓:1.0___node_廓_31__), // _TOKEN_泡:1.0___node_塵_1__, _TOKEN_塵:1.0___node_塵_71__, _TOKEN_塵:1.0___node_塵_9__.
+}
+
+// [metadata-stripped]
+_TOKEN_塵:1.0___node_塵_59__ struct _TOKEN_廓:1.0___node_廓_5__ {
+    _TOKEN_塵:1.0___node_塵_59__ _TOKEN_塵:1.0___node_塵_55__: _TOKEN_塵:1.0___node_塵_69__::_TOKEN_塵:1.0___node_塵_53__::_TOKEN_廓:1.0___node_廓_20__<_TOKEN_塵:1.0___node_塵_33__, _TOKEN_廓:1.0___node_廓_2__<_TOKEN_廓:1.0___node_廓_15__>>, // _TOKEN_塵:1.0___node_塵_74__ -> _TOKEN_塵:1.0___node_塵_16__
+    _TOKEN_塵:1.0___node_塵_59__ _TOKEN_塵:1.0___node_塵_46__: _TOKEN_塵:1.0___node_塵_57__,
+    _TOKEN_塵:1.0___node_塵_59__ _TOKEN_塵:1.0___node_塵_15__: _TOKEN_塵:1.0___node_塵_57__,
+}
+
+_TOKEN_塵:1.0___node_塵_61__ _TOKEN_廓:1.0___node_廓_5__ {
+    _TOKEN_塵:1.0___node_塵_59__ fn _TOKEN_塵:1.0___node_塵_19__(_TOKEN_塵:1.0___node_塵_15__: _TOKEN_塵:1.0___node_塵_57__) -> _TOKEN_廓:1.0___node_廓_23__ {
+        _TOKEN_廓:1.0___node_廓_23__ {
+            _TOKEN_塵:1.0___node_塵_55__: _TOKEN_塵:1.0___node_塵_69__::_TOKEN_塵:1.0___node_塵_53__::_TOKEN_廓:1.0___node_廓_20__::_TOKEN_塵:1.0___node_塵_19__(),
+            _TOKEN_塵:1.0___node_塵_46__: 0,
+// _TOKEN_紐:0.5___node_YE_905__ [decoy-metadata]
+            _TOKEN_塵:1.0___node_塵_15__,
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_塵:1.0___node_塵_59__ fn _TOKEN_塵:1.0___node_塵_63__(&_TOKEN_塵:1.0___node_塵_2__ self, _TOKEN_塵:1.0___node_塵_74__: _TOKEN_塵:1.0___node_塵_33__, _TOKEN_塵:1.0___node_塵_16__: _TOKEN_廓:1.0___node_廓_36__<_TOKEN_廓:1.0___node_廓_15__>) {
+        let _TOKEN_塵:1.0___node_塵_2__ _TOKEN_塵:1.0___node_塵_76__ = _TOKEN_廓:1.0___node_廓_2__::_TOKEN_塵:1.0___node_塵_19__();
+        for f in _TOKEN_塵:1.0___node_塵_16__ {
+            if f != _TOKEN_廓:1.0___node_廓_15__::_TOKEN_廓:1.0___node_廓_4__ {
+// _TOKEN_塵:0.3___node_HX_939__ [decoy-metadata]
+                _TOKEN_塵:1.0___node_塵_76__._TOKEN_塵:1.0___node_塵_26__(f);
+            }
+        }
+
+        if !_TOKEN_塵:1.0___node_塵_76__._TOKEN_塵:1.0___node_塵_14__() {
+// _TOKEN_区:0.5___node_AF_827__ [decoy-metadata]
+            if self._TOKEN_塵:1.0___node_塵_46__ < self._TOKEN_塵:1.0___node_塵_15__ {
+                self._TOKEN_塵:1.0___node_塵_46__ += 1;
+                self._TOKEN_塵:1.0___node_塵_55__._TOKEN_塵:1.0___node_塵_26__(_TOKEN_塵:1.0___node_塵_74__, _TOKEN_塵:1.0___node_塵_76__);
+            }
+        }
+    }
+
+    _TOKEN_塵:1.0___node_塵_59__ fn _TOKEN_塵:1.0___node_塵_49__(&_TOKEN_塵:1.0___node_塵_2__ self, _TOKEN_塵:1.0___node_塵_74__: _TOKEN_塵:1.0___node_塵_33__) {
+        if self._TOKEN_塵:1.0___node_塵_55__._TOKEN_塵:1.0___node_塵_68__(&_TOKEN_塵:1.0___node_塵_74__)._TOKEN_塵:1.0___node_塵_12__() {
+// _TOKEN_廓:0.8___node_CL_158__ [decoy-metadata]
+            if self._TOKEN_塵:1.0___node_塵_46__ > 0 { self._TOKEN_塵:1.0___node_塵_46__ -= 1; }
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_塵:1.0___node_塵_59__ fn _TOKEN_塵:1.0___node_塵_31__(&self) -> _TOKEN_廓:1.0___node_廓_31__ {
+        let _TOKEN_塵:1.0___node_塵_2__ _TOKEN_塵:1.0___node_塵_70__ = _TOKEN_塵:1.0___node_塵_81__![_TOKEN_泡:1.0___node_塵_4__!("⚡️ _TOKEN_廓:1.0___node_廓_7__-_TOKEN_廓:1.0___node_廓_6__ _TOKEN_廓:1.0___node_廓_34__ (_TOKEN_廓:1.0___node_廓_27__ _TOKEN_廓:1.0___node_廓_40__: {}/{}):", self._TOKEN_塵:1.0___node_塵_46__, self._TOKEN_塵:1.0___node_塵_15__)];
+        for (id, _TOKEN_塵:1.0___node_塵_16__) in &self._TOKEN_塵:1.0___node_塵_55__ {
+            let _TOKEN_塵:1.0___node_塵_60__: _TOKEN_廓:1.0___node_廓_36__<_TOKEN_廓:1.0___node_廓_31__> = _TOKEN_塵:1.0___node_塵_16__._TOKEN_案:1.0___node_塵_13__()
+                ._TOKEN_塵:1.0___node_塵_23__(|f| _TOKEN_塵:1.0___node_塵_44__ f {
+                    _TOKEN_廓:1.0___node_廓_15__::_TOKEN_廓:1.0___node_廓_37__ => "_TOKEN_塵:1.0___node_塵_21__-_TOKEN_塵:1.0___node_塵_34__"._TOKEN_塵:1.0___node_塵_73__(),
+                    _TOKEN_廓:1.0___node_廓_15__::_TOKEN_廓:1.0___node_廓_38__ => "_TOKEN_塵:1.0___node_塵_6__"._TOKEN_塵:1.0___node_塵_73__(),
+                    _TOKEN_廓:1.0___node_廓_15__::_TOKEN_廓:1.0___node_廓_26__(p) => p._TOKEN_塵:1.0___node_塵_37__(),
+                    _ => "_TOKEN_塵:1.0___node_塵_25__"._TOKEN_塵:1.0___node_塵_73__(),
+                })
+// _TOKEN_区:0.3___node_BH_237__ [decoy-metadata]
+                ._TOKEN_塵:1.0___node_塵_72__();
+            _TOKEN_塵:1.0___node_塵_70__._TOKEN_塵:1.0___node_塵_27__(_TOKEN_泡:1.0___node_塵_4__!("  - _TOKEN_廓:1.0___node_廓_32__ #{}: {:?}", id, _TOKEN_塵:1.0___node_塵_60__));
+        }
+        _TOKEN_塵:1.0___node_塵_70__._TOKEN_塵:1.0___node_塵_28__("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

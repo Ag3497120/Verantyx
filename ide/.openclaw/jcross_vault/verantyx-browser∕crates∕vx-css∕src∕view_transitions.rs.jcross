@@ -1,0 +1,94 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:037DDAEC ver:1778158709
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_靄:1.0__OPAQUE_靄_52_ _TOKEN_靄:1.0__OPAQUE_靄_61_::_TOKEN_靄:1.0__OPAQUE_靄_51_::_TOKEN_廡:1.0__OPAQUE_廡_24_;
+// _TOKEN_規:0.4__OPAQUE_CE_350_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_靄:1.0__OPAQUE_靄_53_ enum _TOKEN_廡:1.0__OPAQUE_廡_37_ { _TOKEN_廡:1.0__OPAQUE_廡_43_, _TOKEN_廡:1.0__OPAQUE_廡_5_, _TOKEN_廡:1.0__OPAQUE_廡_45_, _TOKEN_廡:1.0__OPAQUE_廡_9_, _TOKEN_廡:1.0__OPAQUE_廡_7_, _TOKEN_廡:1.0__OPAQUE_廡_14_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_靄:1.0__OPAQUE_靄_53_ struct _TOKEN_廡:1.0__OPAQUE_廡_19_ {
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_49_: _TOKEN_廡:1.0__OPAQUE_廡_42_,
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_24_: _TOKEN_廡:1.0__OPAQUE_廡_33_<(_TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_)>, // (x, y, w, h)
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_55_: _TOKEN_廡:1.0__OPAQUE_廡_33_<(_TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_, _TOKEN_靄:1.0__OPAQUE_靄_73_)>,
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_15_: _TOKEN_靄:1.0__OPAQUE_靄_79_,
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_69_: _TOKEN_靄:1.0__OPAQUE_靄_79_,
+}
+
+// [metadata-stripped]
+_TOKEN_靄:1.0__OPAQUE_靄_53_ struct _TOKEN_廡:1.0__OPAQUE_廡_21_ {
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_77_: _TOKEN_廡:1.0__OPAQUE_廡_37_,
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ _TOKEN_靄:1.0__OPAQUE_靄_3_: _TOKEN_廡:1.0__OPAQUE_廡_24_<_TOKEN_廡:1.0__OPAQUE_廡_42_, _TOKEN_廡:1.0__OPAQUE_廡_19_>, // _TOKEN_靄:1.0__OPAQUE_靄_43_-_TOKEN_靄:1.0__OPAQUE_靄_46_-_TOKEN_靄:1.0__OPAQUE_靄_49_ -> _TOKEN_廡:1.0__OPAQUE_廡_41_
+}
+
+_TOKEN_靄:1.0__OPAQUE_靄_56_ _TOKEN_廡:1.0__OPAQUE_廡_21_ {
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_16_() -> _TOKEN_廡:1.0__OPAQUE_廡_29_ {
+        _TOKEN_廡:1.0__OPAQUE_廡_29_ {
+            _TOKEN_靄:1.0__OPAQUE_靄_77_: _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_14_,
+            _TOKEN_靄:1.0__OPAQUE_靄_3_: _TOKEN_廡:1.0__OPAQUE_廡_24_::_TOKEN_靄:1.0__OPAQUE_靄_16_(),
+        }
+    }
+
+// _TOKEN_曠:0.5__OPAQUE_KM_890_ [decoy-metadata]
+// [metadata-stripped]
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_12_(&_TOKEN_靄:1.0__OPAQUE_靄_1_ self) -> _TOKEN_靄:1.0__OPAQUE_靄_79_ {
+// _TOKEN_渦:0.4__OPAQUE_XD_338_ [decoy-metadata]
+        if self._TOKEN_靄:1.0__OPAQUE_靄_77_ != _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_14_ { return false; }
+        self._TOKEN_靄:1.0__OPAQUE_靄_77_ = _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_5_;
+        self._TOKEN_靄:1.0__OPAQUE_靄_3_._TOKEN_靄:1.0__OPAQUE_靄_19_();
+        true // _TOKEN_廡:1.0__OPAQUE_廡_6_ _TOKEN_靄:1.0__OPAQUE_靄_67_ to _TOKEN_靄:1.0__OPAQUE_靄_37_ _TOKEN_廡:1.0__OPAQUE_廡_15_
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_59_(&_TOKEN_靄:1.0__OPAQUE_靄_1_ self) {
+        if self._TOKEN_靄:1.0__OPAQUE_靄_77_ == _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_5_ {
+            self._TOKEN_靄:1.0__OPAQUE_靄_77_ = _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_45_;
+// [metadata-stripped]
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_84_(&_TOKEN_靄:1.0__OPAQUE_靄_1_ self) {
+        if self._TOKEN_靄:1.0__OPAQUE_靄_77_ == _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_45_ {
+            self._TOKEN_靄:1.0__OPAQUE_靄_77_ = _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_9_;
+// _TOKEN_規:0.4__OPAQUE_HH_771_ [decoy-metadata]
+// [metadata-stripped]
+        }
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_89_(&_TOKEN_靄:1.0__OPAQUE_靄_1_ self) {
+        self._TOKEN_靄:1.0__OPAQUE_靄_77_ = _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_14_;
+        self._TOKEN_靄:1.0__OPAQUE_靄_3_._TOKEN_靄:1.0__OPAQUE_靄_19_(); // _TOKEN_廡:1.0__OPAQUE_廡_34_ _TOKEN_規:1.0__OPAQUE_靄_82_ _TOKEN_靄:1.0__OPAQUE_靄_40_
+    }
+
+// [metadata-stripped]
+    _TOKEN_靄:1.0__OPAQUE_靄_53_ fn _TOKEN_靄:1.0__OPAQUE_靄_6_(&self) -> _TOKEN_廡:1.0__OPAQUE_廡_42_ {
+        let _TOKEN_靄:1.0__OPAQUE_靄_1_ _TOKEN_靄:1.0__OPAQUE_靄_62_ = _TOKEN_靄:1.0__OPAQUE_靄_86_![_TOKEN_渦:1.0__OPAQUE_靄_7_!("🪄 _TOKEN_廡:1.0__OPAQUE_廡_39_ _TOKEN_廡:1.0__OPAQUE_廡_40_ _TOKEN_緯:1.0__OPAQUE_廡_27_ (_TOKEN_廡:1.0__OPAQUE_廡_25_: {:?}):", self._TOKEN_靄:1.0__OPAQUE_靄_77_)];
+        if self._TOKEN_靄:1.0__OPAQUE_靄_77_ != _TOKEN_廡:1.0__OPAQUE_廡_37_::_TOKEN_廡:1.0__OPAQUE_廡_14_ {
+            _TOKEN_靄:1.0__OPAQUE_靄_62_._TOKEN_靄:1.0__OPAQUE_靄_27_(_TOKEN_渦:1.0__OPAQUE_靄_7_!("  - {} _TOKEN_靄:1.0__OPAQUE_靄_13_ _TOKEN_靄:1.0__OPAQUE_靄_45_ _TOKEN_靄:1.0__OPAQUE_靄_63_ _TOKEN_靄:1.0__OPAQUE_靄_71_", self._TOKEN_靄:1.0__OPAQUE_靄_3_._TOKEN_靄:1.0__OPAQUE_靄_22_()));
+            for (_TOKEN_靄:1.0__OPAQUE_靄_49_, _TOKEN_靄:1.0__OPAQUE_靄_78_) in &self._TOKEN_靄:1.0__OPAQUE_靄_3_ {
+                _TOKEN_靄:1.0__OPAQUE_靄_62_._TOKEN_靄:1.0__OPAQUE_靄_27_(_TOKEN_渦:1.0__OPAQUE_靄_7_!("    [{}] _TOKEN_廡:1.0__OPAQUE_廡_46_ _TOKEN_規:1.0__OPAQUE_廡_13_: {}, _TOKEN_廡:1.0__OPAQUE_廡_36_ _TOKEN_規:1.0__OPAQUE_廡_13_: {}", _TOKEN_靄:1.0__OPAQUE_靄_49_, _TOKEN_靄:1.0__OPAQUE_靄_78_._TOKEN_靄:1.0__OPAQUE_靄_15_, _TOKEN_靄:1.0__OPAQUE_靄_78_._TOKEN_靄:1.0__OPAQUE_靄_69_));
+            }
+        }
+// _TOKEN_規:0.7__OPAQUE_LL_553_ [decoy-metadata]
+        _TOKEN_靄:1.0__OPAQUE_靄_62_._TOKEN_靄:1.0__OPAQUE_靄_28_("\n")
+    }
+}
+// _TOKEN_沈:0.7__OPAQUE_CE_301_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

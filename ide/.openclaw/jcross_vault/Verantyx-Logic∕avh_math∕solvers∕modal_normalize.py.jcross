@@ -1,0 +1,114 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:244ACFAB ver:1778159753
+// __jcross_滴:0.9____node_BH_650__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+__jcross_塵:1.0____node_塵_73__ __jcross_塵:1.0____node_塵_30__ import __jcross_塵:1.0____node_塵_16__
+import re
+__jcross_塵:1.0____node_塵_73__ __jcross_塵:1.0____node_塵_44__ import __jcross_塵:1.0____node_塵_72__, __jcross_塵:1.0____node_塵_68__
+__jcross_塵:1.0____node_塵_73__ __jcross_塵:1.0____node_塵_24__ import __jcross_廂:1.0____node_廂_7__, __jcross_廂:1.0____node_廂_4__, __jcross_廂:1.0____node_廂_6__, __jcross_廂:1.0____node_廂_9__
+
+@__jcross_塵:1.0____node_塵_72__
+class __jcross_廂:1.0____node_廂_2__:
+    ok: __jcross_塵:1.0____node_塵_78__
+    __jcross_滴:1.0____node_塵_71__: __jcross_塵:1.0____node_塵_34__
+// __jcross_冥:0.1____node_MB_490__ [decoy-metadata]
+    __jcross_塵:1.0____node_塵_59__: __jcross_廂:1.0____node_廂_7__[__jcross_塵:1.0____node_塵_34__, __jcross_塵:1.0____node_塵_34__] = __jcross_塵:1.0____node_塵_68__(__jcross_塵:1.0____node_塵_37__=__jcross_塵:1.0____node_塵_42__)
+    __jcross_塵:1.0____node_塵_36__: __jcross_廂:1.0____node_廂_4__[__jcross_塵:1.0____node_塵_34__] = __jcross_塵:1.0____node_塵_68__(__jcross_塵:1.0____node_塵_37__=__jcross_塵:1.0____node_塵_43__)
+    __jcross_塵:1.0____node_塵_79__: __jcross_廂:1.0____node_廂_4__[__jcross_塵:1.0____node_塵_34__] = __jcross_塵:1.0____node_塵_68__(__jcross_塵:1.0____node_塵_37__=__jcross_塵:1.0____node_塵_43__)
+
+__jcross_塵:1.0____node_塵_75__ = re.__jcross_塵:1.0____node_塵_39__(r"[\__jcross_塵:1.0____node_塵_70__\__jcross_塵:1.0____node_塵_21__\__jcross_塵:1.0____node_塵_52__\__jcross_塵:1.0____node_塵_33__]")
+
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_74__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_塵:1.0____node_塵_34__:
+    s = (s or "").__jcross_塵:1.0____node_塵_12__()
+    s = __jcross_塵:1.0____node_塵_75__.__jcross_塵:1.0____node_塵_11__("", s)
+    s = s.__jcross_塵:1.0____node_塵_6__("（", "(").__jcross_塵:1.0____node_塵_6__("）", ")")
+    s = re.__jcross_塵:1.0____node_塵_11__(r"\s+", " ", s).__jcross_塵:1.0____node_塵_12__()
+// __jcross_律:0.8____node_XK_673__ [decoy-metadata]
+    return s
+
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_9__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_塵:1.0____node_塵_34__:
+    s = s.__jcross_塵:1.0____node_塵_6__("→", "->").__jcross_塵:1.0____node_塵_6__("⇒", "->")
+    s = s.__jcross_塵:1.0____node_塵_6__("¬", "~").__jcross_塵:1.0____node_塵_6__("∧", "&").__jcross_塵:1.0____node_塵_6__("∨", "|")
+    s = s.__jcross_塵:1.0____node_塵_6__("□", "__jcross_塵:1.0____node_塵_3__ ").__jcross_塵:1.0____node_塵_6__("◇", "__jcross_塵:1.0____node_塵_80__ ")
+    return s
+
+__jcross_塵:1.0____node_塵_18__ __jcross_冥:1.0____node_塵_28__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_塵:1.0____node_塵_34__:
+    s = re.__jcross_塵:1.0____node_塵_11__(r"\__jcross_塵:1.0____node_塵_38__\b", "__jcross_塵:1.0____node_塵_3__", s, __jcross_塵:1.0____node_塵_53__=re.__jcross_廂:1.0____node_廂_5__)
+    s = re.__jcross_塵:1.0____node_塵_11__(r"\__jcross_塵:1.0____node_塵_61__\b", "__jcross_塵:1.0____node_塵_80__", s, __jcross_塵:1.0____node_塵_53__=re.__jcross_廂:1.0____node_廂_5__)
+    return s
+
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_40__(s: __jcross_塵:1.0____node_塵_34__, __jcross_塵:1.0____node_塵_25__: __jcross_塵:1.0____node_塵_78__ = __jcross_廂:1.0____node_廂_12__) -> __jcross_廂:1.0____node_廂_9__[__jcross_塵:1.0____node_塵_34__, __jcross_廂:1.0____node_廂_7__[__jcross_塵:1.0____node_塵_34__, __jcross_塵:1.0____node_塵_34__]]:
+    __jcross_塵:1.0____node_塵_59__: __jcross_廂:1.0____node_廂_7__[__jcross_塵:1.0____node_塵_34__, __jcross_塵:1.0____node_塵_34__] = {}
+    if __jcross_塵:1.0____node_塵_62__ __jcross_塵:1.0____node_塵_25__:
+        return s, __jcross_塵:1.0____node_塵_59__
+    
+// [metadata-stripped]
+    __jcross_冥:1.0____node_塵_46__ = {"__jcross_塵:1.0____node_塵_3__", "__jcross_塵:1.0____node_塵_80__", "true", "false", "__jcross_塵:1.0____node_塵_81__", "or", "__jcross_塵:1.0____node_塵_62__"}
+    __jcross_塵:1.0____node_塵_2__ = __jcross_塵:1.0____node_塵_5__(__jcross_律:1.0____node_彩_1__(re.__jcross_塵:1.0____node_塵_65__(r"\b([A-Za-z])\b", s)))
+    __jcross_塵:1.0____node_塵_66__ = __jcross_塵:1.0____node_塵_43__("__jcross_塵:1.0____node_塵_19__")
+    
+    for a in __jcross_塵:1.0____node_塵_2__:
+        if a.__jcross_律:1.0____node_塵_55__() in __jcross_冥:1.0____node_塵_46__: continue
+        if a.__jcross_律:1.0____node_塵_55__() in ("p","q","r"):
+            __jcross_塵:1.0____node_塵_59__[a] = a.__jcross_律:1.0____node_塵_55__()
+        else:
+            if __jcross_塵:1.0____node_塵_66__:
+                __jcross_塵:1.0____node_塵_69__ = __jcross_塵:1.0____node_塵_66__.__jcross_塵:1.0____node_塵_23__(0)
+                while __jcross_塵:1.0____node_塵_69__ in ("p", "q", "r") __jcross_塵:1.0____node_塵_81__ __jcross_塵:1.0____node_塵_66__:
+                    __jcross_塵:1.0____node_塵_69__ = __jcross_塵:1.0____node_塵_66__.__jcross_塵:1.0____node_塵_23__(0)
+                __jcross_塵:1.0____node_塵_59__[a] = __jcross_塵:1.0____node_塵_69__
+            else:
+                __jcross_塵:1.0____node_塵_59__[a] = a.__jcross_律:1.0____node_塵_55__()
+
+    for __jcross_塵:1.0____node_塵_76__, __jcross_塵:1.0____node_塵_69__ in __jcross_塵:1.0____node_塵_59__.__jcross_塵:1.0____node_塵_1__():
+        s = re.__jcross_塵:1.0____node_塵_11__(rf"\b{re.__jcross_塵:1.0____node_塵_56__(__jcross_塵:1.0____node_塵_76__)}\b", __jcross_塵:1.0____node_塵_69__, s)
+    return s, __jcross_塵:1.0____node_塵_59__
+
+// __jcross_滴:0.8____node_EB_709__ [decoy-metadata]
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_14__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_塵:1.0____node_塵_34__:
+    s = re.__jcross_塵:1.0____node_塵_11__(r"\__jcross_塵:1.0____node_塵_38__\s*", "[]", s, __jcross_塵:1.0____node_塵_53__=re.__jcross_廂:1.0____node_廂_5__)
+    s = re.__jcross_塵:1.0____node_塵_11__(r"\__jcross_塵:1.0____node_塵_61__\s*", "<>", s, __jcross_塵:1.0____node_塵_53__=re.__jcross_廂:1.0____node_廂_5__)
+    return s
+
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_4__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_塵:1.0____node_塵_34__:
+    s = s.__jcross_塵:1.0____node_塵_6__(" ", "")
+// [metadata-stripped]
+    s = s.__jcross_塵:1.0____node_塵_6__("<->", " <-> ").__jcross_塵:1.0____node_塵_6__("->", " -> ")
+    s = s.__jcross_塵:1.0____node_塵_6__("&", " & ").__jcross_塵:1.0____node_塵_6__("|", " | ")
+    return re.__jcross_塵:1.0____node_塵_11__(r"\s+", " ", s).__jcross_塵:1.0____node_塵_12__()
+
+// __jcross_匷:0.8____node_VC_231__ [decoy-metadata]
+__jcross_塵:1.0____node_塵_18__ __jcross_塵:1.0____node_塵_64__(s: __jcross_塵:1.0____node_塵_34__) -> __jcross_廂:1.0____node_廂_4__[__jcross_塵:1.0____node_塵_34__]:
+    __jcross_塵:1.0____node_塵_15__ = []
+    if s.__jcross_塵:1.0____node_塵_27__(("->", "&", "|", "<->")):
+        __jcross_塵:1.0____node_塵_15__.__jcross_塵:1.0____node_塵_7__("__jcross_塵:1.0____node_塵_50__")
+    if s.__jcross_塵:1.0____node_塵_45__("(") != s.__jcross_塵:1.0____node_塵_45__(")"):
+        __jcross_塵:1.0____node_塵_15__.__jcross_塵:1.0____node_塵_7__("__jcross_塵:1.0____node_塵_47__")
+// __jcross_紬:0.8____node_VX_289__ [decoy-metadata]
+    if __jcross_塵:1.0____node_塵_62__ any(op in s for op in ("->", "&", "|", "[]", "<>", "<->")):
+        __jcross_塵:1.0____node_塵_15__.__jcross_塵:1.0____node_塵_7__("__jcross_塵:1.0____node_塵_31__")
+    return __jcross_塵:1.0____node_塵_15__
+
+__jcross_塵:1.0____node_塵_18__ __jcross_滴:1.0____node_塵_26__(__jcross_滴:1.0____node_塵_71__: __jcross_塵:1.0____node_塵_34__, __jcross_塵:1.0____node_塵_77__: __jcross_塵:1.0____node_塵_78__ = __jcross_廂:1.0____node_廂_12__) -> __jcross_廂:1.0____node_廂_2__:
+    try:
+        s = __jcross_塵:1.0____node_塵_74__(__jcross_滴:1.0____node_塵_71__)
+        s = __jcross_塵:1.0____node_塵_9__(s)
+        s = __jcross_冥:1.0____node_塵_28__(s)
+        
+// [metadata-stripped]
+        s = re.__jcross_塵:1.0____node_塵_11__(r"\b(a|an|__jcross_塵:1.0____node_塵_29__|__jcross_塵:1.0____node_塵_32__|__jcross_塵:1.0____node_塵_49__|__jcross_塵:1.0____node_塵_10__)\b\s*$", "", s, __jcross_塵:1.0____node_塵_53__=re.__jcross_廂:1.0____node_廂_5__).__jcross_塵:1.0____node_塵_12__()
+
+        __jcross_塵:1.0____node_塵_58__ = {}
+        if __jcross_塵:1.0____node_塵_77__:
+            s, __jcross_塵:1.0____node_塵_58__ = __jcross_塵:1.0____node_塵_40__(s)
+        
+        s = __jcross_塵:1.0____node_塵_14__(s)
+        s = __jcross_塵:1.0____node_塵_4__(s)
+        
+        __jcross_塵:1.0____node_塵_15__ = __jcross_塵:1.0____node_塵_64__(s)
+        return __jcross_廂:1.0____node_廂_2__(ok=(__jcross_塵:1.0____node_塵_22__(__jcross_塵:1.0____node_塵_15__) == 0), __jcross_滴:1.0____node_塵_71__=s, __jcross_塵:1.0____node_塵_59__=__jcross_塵:1.0____node_塵_58__, __jcross_塵:1.0____node_塵_36__=__jcross_塵:1.0____node_塵_15__)
+    __jcross_塵:1.0____node_塵_67__ __jcross_廂:1.0____node_廂_8__ as e:
+        return __jcross_廂:1.0____node_廂_2__(ok=__jcross_廂:1.0____node_廂_10__, __jcross_滴:1.0____node_塵_71__=__jcross_滴:1.0____node_塵_71__, __jcross_塵:1.0____node_塵_36__=[__jcross_塵:1.0____node_塵_34__(e)])
+// POLYMORPHIC_JCROSS_END

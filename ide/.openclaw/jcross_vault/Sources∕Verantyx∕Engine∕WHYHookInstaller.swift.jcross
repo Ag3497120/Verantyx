@@ -1,0 +1,230 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FF95D19A ver:1778164012
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_廩:1.0__ID_廩_6_
+import _OPAQUE_廩:1.0__ID_廩_10_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _OPAQUE_項:1.0__ID_廩_4_ {
+
+    static let _OPAQUE_泡:1.0__ID_泡_46_ = _OPAQUE_項:1.0__ID_廩_4_()
+    private init() {}
+
+// [metadata-stripped]
+    private let _OPAQUE_隠:1.0__ID_泡_25_ = "_OPAQUE_泡:1.0__ID_泡_64_._OPAQUE_泡:1.0__ID_泡_109_._OPAQUE_泡:1.0__ID_泡_118_"
+
+// [metadata-stripped]
+    private var _OPAQUE_匴:1.0__ID_泡_54_: _OPAQUE_繍:1.0__ID_廩_17_? {
+        _OPAQUE_廩:1.0__ID_廩_11_._OPAQUE_泡:1.0__ID_泡_91_._OPAQUE_繍:1.0__ID_泡_119_(_OPAQUE_漂:1.0__ID_泡_11_: "_OPAQUE_匴:1.0__ID_廩_18_", _OPAQUE_泡:1.0__ID_泡_45_: nil)
+    }
+
+// [metadata-stripped]
+
+    @_OPAQUE_廩:1.0__ID_廩_14_
+    func _OPAQUE_漂:1.0__ID_泡_117_(_OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_廩_17_?) {
+        let _OPAQUE_泡:1.0__ID_泡_22_ = _OPAQUE_廩:1.0__ID_廩_11_._OPAQUE_泡:1.0__ID_泡_91_._OPAQUE_泡:1.0__ID_泡_114_?["_OPAQUE_廩:1.0__ID_廩_8_"] as? _OPAQUE_廩:1.0__ID_廩_23_ ?? "0"
+        let _OPAQUE_泡:1.0__ID_泡_118_ = _OPAQUE_廩:1.0__ID_廩_29_._OPAQUE_泡:1.0__ID_泡_93_._OPAQUE_泡:1.0__ID_泡_71_(_OPAQUE_隠:1.0__ID_泡_77_: _OPAQUE_隠:1.0__ID_泡_25_) ?? ""
+
+        guard _OPAQUE_泡:1.0__ID_泡_118_ != _OPAQUE_泡:1.0__ID_泡_22_ else { return }
+
+        let _OPAQUE_匴:1.0__ID_泡_50_ = self._OPAQUE_匴:1.0__ID_泡_54_
+        _OPAQUE_廩:1.0__ID_廩_30_._OPAQUE_泡:1.0__ID_泡_20_(_OPAQUE_泡:1.0__ID_泡_115_: ._OPAQUE_泡:1.0__ID_泡_105_) {
+            await self._OPAQUE_漂:1.0__ID_泡_53_(
+                _OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_泡_19_,
+                _OPAQUE_泡:1.0__ID_泡_55_: _OPAQUE_泡:1.0__ID_泡_22_,
+                _OPAQUE_匴:1.0__ID_泡_50_: _OPAQUE_匴:1.0__ID_泡_50_
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_漂:1.0__ID_泡_53_(_OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_廩_17_?, _OPAQUE_泡:1.0__ID_泡_55_: _OPAQUE_廩:1.0__ID_廩_23_, _OPAQUE_匴:1.0__ID_泡_50_: _OPAQUE_繍:1.0__ID_廩_17_?) async {
+        guard let _OPAQUE_匴:1.0__ID_泡_50_ else {
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_匴:1.0__ID_廩_18_ _OPAQUE_泡:1.0__ID_泡_24_ _OPAQUE_泡:1.0__ID_泡_78_ in _OPAQUE_泡:1.0__ID_泡_13_")
+            return
+        }
+
+        let fm = _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_
+
+// [metadata-stripped]
+        let _OPAQUE_泡:1.0__ID_泡_90_ = _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_項:1.0__ID_泡_92_
+            ._OPAQUE_泡:1.0__ID_泡_97_("._OPAQUE_泡:1.0__ID_泡_51_/_OPAQUE_泡:1.0__ID_泡_75_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+        do {
+            try fm._OPAQUE_泡:1.0__ID_泡_113_(at: _OPAQUE_泡:1.0__ID_泡_90_, _OPAQUE_泡:1.0__ID_泡_34_: true)
+            try _OPAQUE_匴:1.0__ID_泡_74_(_OPAQUE_匴:1.0__ID_泡_50_, to: _OPAQUE_泡:1.0__ID_泡_90_, fm: fm)
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] ~/._OPAQUE_泡:1.0__ID_泡_51_/_OPAQUE_泡:1.0__ID_泡_75_/ _OPAQUE_泡:1.0__ID_泡_21_ _OPAQUE_泡:1.0__ID_泡_103_ _OPAQUE_泡:1.0__ID_泡_13_")
+        } catch {
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_25_ _OPAQUE_泡:1.0__ID_泡_59_ _OPAQUE_泡:1.0__ID_泡_106_: \(_OPAQUE_泡:1.0__ID_泡_106_)")
+        }
+
+// [metadata-stripped]
+        if let ws = _OPAQUE_繍:1.0__ID_泡_19_ {
+            let _OPAQUE_泡:1.0__ID_泡_49_ = ws._OPAQUE_泡:1.0__ID_泡_97_("._OPAQUE_泡:1.0__ID_泡_75_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+            do {
+                try fm._OPAQUE_泡:1.0__ID_泡_113_(at: _OPAQUE_泡:1.0__ID_泡_49_, _OPAQUE_泡:1.0__ID_泡_34_: true)
+                try _OPAQUE_匴:1.0__ID_泡_74_(_OPAQUE_匴:1.0__ID_泡_50_, to: _OPAQUE_泡:1.0__ID_泡_49_, fm: fm)
+                _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] \(ws._OPAQUE_泡:1.0__ID_泡_102_)/._OPAQUE_泡:1.0__ID_泡_75_/ _OPAQUE_泡:1.0__ID_泡_21_")
+// [metadata-stripped]
+                _OPAQUE_泡:1.0__ID_泡_31_(_OPAQUE_繍:1.0__ID_泡_19_: ws, _OPAQUE_泡:1.0__ID_泡_3_: _OPAQUE_泡:1.0__ID_泡_49_)
+            } catch {
+                _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_26_ _OPAQUE_泡:1.0__ID_泡_59_ _OPAQUE_泡:1.0__ID_泡_106_: \(_OPAQUE_泡:1.0__ID_泡_106_)")
+            }
+        }
+
+// [metadata-stripped]
+        _OPAQUE_漂:1.0__ID_泡_111_()
+
+// [metadata-stripped]
+        await _OPAQUE_廩:1.0__ID_廩_14_._OPAQUE_泡:1.0__ID_泡_67_ {
+            _OPAQUE_廩:1.0__ID_廩_29_._OPAQUE_泡:1.0__ID_泡_93_._OPAQUE_項:1.0__ID_覇_1_(_OPAQUE_泡:1.0__ID_泡_55_, _OPAQUE_隠:1.0__ID_泡_77_: _OPAQUE_隠:1.0__ID_泡_25_)
+            _OPAQUE_項:1.0__ID_廩_32_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_泡:1.0__ID_泡_52_(
+                _OPAQUE_泡:1.0__ID_泡_30_: ._OPAQUE_匴:1.0__ID_泡_37_,
+                _OPAQUE_泡:1.0__ID_泡_79_: _OPAQUE_泡:1.0__ID_泡_55_
+            )
+        }
+
+        _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] ✅ _OPAQUE_廩:1.0__ID_廩_24_ _OPAQUE_匴:1.0__ID_泡_50_ v\(_OPAQUE_泡:1.0__ID_泡_55_) _OPAQUE_泡:1.0__ID_泡_87_")
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_泡:1.0__ID_泡_31_(_OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_廩_17_, _OPAQUE_泡:1.0__ID_泡_3_: _OPAQUE_繍:1.0__ID_廩_17_) {
+        let _OPAQUE_泡:1.0__ID_泡_68_ = _OPAQUE_繍:1.0__ID_泡_19_._OPAQUE_泡:1.0__ID_泡_97_("._OPAQUE_泡:1.0__ID_泡_7_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+        guard _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: _OPAQUE_泡:1.0__ID_泡_68_._OPAQUE_泡:1.0__ID_泡_102_) else { return }
+
+// _OPAQUE_隠:0.8__ID_WW_737_ [decoy-metadata]
+        let _OPAQUE_泡:1.0__ID_泡_35_ = _OPAQUE_泡:1.0__ID_泡_68_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_88_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+// _OPAQUE_隠:0.9__ID_HH_122_ [decoy-metadata]
+        let _OPAQUE_泡:1.0__ID_泡_100_ = _OPAQUE_泡:1.0__ID_泡_3_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_88_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+
+// [metadata-stripped]
+        let _OPAQUE_泡:1.0__ID_泡_104_ = _OPAQUE_泡:1.0__ID_泡_100_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_52_-_OPAQUE_泡:1.0__ID_泡_61_")
+        let _OPAQUE_泡:1.0__ID_泡_10_ = _OPAQUE_泡:1.0__ID_泡_35_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_52_-_OPAQUE_泡:1.0__ID_泡_61_")
+        _OPAQUE_泡:1.0__ID_泡_81_(_OPAQUE_泡:1.0__ID_泡_83_: _OPAQUE_泡:1.0__ID_泡_104_, _OPAQUE_泡:1.0__ID_泡_107_: _OPAQUE_泡:1.0__ID_泡_10_)
+
+// [metadata-stripped]
+        let _OPAQUE_泡:1.0__ID_泡_26_ = _OPAQUE_泡:1.0__ID_泡_35_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_63_-_OPAQUE_泡:1.0__ID_泡_61_-_OPAQUE_泡:1.0__ID_泡_29_")
+        let _OPAQUE_泡:1.0__ID_泡_5_ = _OPAQUE_泡:1.0__ID_泡_100_._OPAQUE_泡:1.0__ID_泡_97_("_OPAQUE_泡:1.0__ID_泡_63_-_OPAQUE_泡:1.0__ID_泡_61_-_OPAQUE_泡:1.0__ID_泡_29_")
+        _OPAQUE_泡:1.0__ID_泡_81_(_OPAQUE_泡:1.0__ID_泡_83_: _OPAQUE_泡:1.0__ID_泡_5_, _OPAQUE_泡:1.0__ID_泡_107_: _OPAQUE_泡:1.0__ID_泡_26_)
+// _OPAQUE_繍:0.4__ID_AG_360_ [decoy-metadata]
+
+        _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_泡:1.0__ID_泡_7_ _OPAQUE_泡:1.0__ID_泡_88_ _OPAQUE_泡:1.0__ID_泡_87_ in \(_OPAQUE_泡:1.0__ID_泡_35_._OPAQUE_泡:1.0__ID_泡_102_)")
+    }
+
+    private func _OPAQUE_泡:1.0__ID_泡_81_(_OPAQUE_泡:1.0__ID_泡_83_: _OPAQUE_繍:1.0__ID_廩_17_, _OPAQUE_泡:1.0__ID_泡_107_: _OPAQUE_繍:1.0__ID_廩_17_) {
+        let fm = _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_
+        guard fm._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: _OPAQUE_泡:1.0__ID_泡_83_._OPAQUE_泡:1.0__ID_泡_102_) else { return }
+        do {
+            if fm._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: _OPAQUE_泡:1.0__ID_泡_107_._OPAQUE_泡:1.0__ID_泡_102_) {
+                try fm._OPAQUE_泡:1.0__ID_泡_112_(at: _OPAQUE_泡:1.0__ID_泡_107_)
+            }
+// [metadata-stripped]
+            try fm._OPAQUE_泡:1.0__ID_泡_2_(at: _OPAQUE_泡:1.0__ID_泡_107_, _OPAQUE_繍:1.0__ID_泡_62_: _OPAQUE_泡:1.0__ID_泡_83_)
+// [metadata-stripped]
+            try fm._OPAQUE_項:1.0__ID_覇_2_([._OPAQUE_泡:1.0__ID_泡_66_: 0o755], _OPAQUE_泡:1.0__ID_泡_9_: _OPAQUE_泡:1.0__ID_泡_83_._OPAQUE_泡:1.0__ID_泡_102_)
+        } catch {
+// [metadata-stripped]
+            try? fm._OPAQUE_泡:1.0__ID_泡_116_(at: _OPAQUE_泡:1.0__ID_泡_83_, to: _OPAQUE_泡:1.0__ID_泡_107_)
+            try? fm._OPAQUE_項:1.0__ID_覇_2_([._OPAQUE_泡:1.0__ID_泡_66_: 0o755], _OPAQUE_泡:1.0__ID_泡_9_: _OPAQUE_泡:1.0__ID_泡_107_._OPAQUE_泡:1.0__ID_泡_102_)
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_匴:1.0__ID_泡_74_(_ _OPAQUE_泡:1.0__ID_泡_83_: _OPAQUE_繍:1.0__ID_廩_17_, to _OPAQUE_泡:1.0__ID_泡_107_: _OPAQUE_繍:1.0__ID_廩_17_, fm: _OPAQUE_匴:1.0__ID_廩_12_) throws {
+        guard let _OPAQUE_泡:1.0__ID_泡_18_ = try? fm._OPAQUE_泡:1.0__ID_泡_58_(
+            at: _OPAQUE_泡:1.0__ID_泡_83_,
+            _OPAQUE_隠:1.0__ID_泡_47_: nil,
+            _OPAQUE_泡:1.0__ID_泡_85_: ._OPAQUE_匴:1.0__ID_泡_6_
+        ) else { return }
+
+        for _OPAQUE_泡:1.0__ID_泡_101_ in _OPAQUE_泡:1.0__ID_泡_18_ {
+            let _OPAQUE_泡:1.0__ID_泡_1_ = _OPAQUE_泡:1.0__ID_泡_107_._OPAQUE_泡:1.0__ID_泡_97_(_OPAQUE_泡:1.0__ID_泡_101_._OPAQUE_泡:1.0__ID_泡_99_)
+            if fm._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: _OPAQUE_泡:1.0__ID_泡_1_._OPAQUE_泡:1.0__ID_泡_102_) {
+// [metadata-stripped]
+                try fm._OPAQUE_泡:1.0__ID_泡_112_(at: _OPAQUE_泡:1.0__ID_泡_1_)
+            }
+            if (try? _OPAQUE_泡:1.0__ID_泡_101_._OPAQUE_泡:1.0__ID_泡_96_(_OPAQUE_隠:1.0__ID_泡_110_: [._OPAQUE_隠:1.0__ID_泡_76_]))?._OPAQUE_泡:1.0__ID_泡_16_ == true {
+                try fm._OPAQUE_泡:1.0__ID_泡_113_(at: _OPAQUE_泡:1.0__ID_泡_1_, _OPAQUE_泡:1.0__ID_泡_34_: true)
+                try _OPAQUE_匴:1.0__ID_泡_74_(_OPAQUE_泡:1.0__ID_泡_101_, to: _OPAQUE_泡:1.0__ID_泡_1_, fm: fm)
+            } else {
+// _OPAQUE_廩:0.8__ID_XH_364_ [decoy-metadata]
+                try fm._OPAQUE_泡:1.0__ID_泡_116_(at: _OPAQUE_泡:1.0__ID_泡_101_, to: _OPAQUE_泡:1.0__ID_泡_1_)
+            }
+        }
+// _OPAQUE_匴:0.1__ID_DA_113_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+
+    private func _OPAQUE_漂:1.0__ID_泡_111_() {
+// [metadata-stripped]
+        let _OPAQUE_泡:1.0__ID_泡_72_ = _OPAQUE_泡:1.0__ID_泡_69_()
+        guard let _OPAQUE_泡:1.0__ID_泡_28_ = _OPAQUE_泡:1.0__ID_泡_72_ else {
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_31_.js _OPAQUE_泡:1.0__ID_泡_24_ _OPAQUE_泡:1.0__ID_泡_78_ — _OPAQUE_廩:1.0__ID_廩_28_ _OPAQUE_項:1.0__ID_泡_43_ _OPAQUE_泡:1.0__ID_泡_17_ _OPAQUE_泡:1.0__ID_泡_24_ _OPAQUE_泡:1.0__ID_泡_8_")
+            return
+        }
+
+        let _OPAQUE_泡:1.0__ID_泡_14_ = _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_項:1.0__ID_泡_92_
+            ._OPAQUE_泡:1.0__ID_泡_97_("._OPAQUE_泡:1.0__ID_泡_51_/_OPAQUE_泡:1.0__ID_泡_75_/_OPAQUE_泡:1.0__ID_泡_82_-_OPAQUE_項:1.0__ID_泡_43_/_OPAQUE_項:1.0__ID_泡_43_.js")
+
+        guard _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: _OPAQUE_泡:1.0__ID_泡_14_._OPAQUE_泡:1.0__ID_泡_102_) else { return }
+
+        let _OPAQUE_泡:1.0__ID_泡_12_ = _OPAQUE_廩:1.0__ID_廩_1_()
+        _OPAQUE_泡:1.0__ID_泡_12_._OPAQUE_繍:1.0__ID_泡_73_ = _OPAQUE_繍:1.0__ID_廩_17_(_OPAQUE_繍:1.0__ID_泡_70_: _OPAQUE_泡:1.0__ID_泡_28_)
+        _OPAQUE_泡:1.0__ID_泡_12_._OPAQUE_泡:1.0__ID_泡_108_ = [_OPAQUE_泡:1.0__ID_泡_14_._OPAQUE_泡:1.0__ID_泡_102_]
+        _OPAQUE_泡:1.0__ID_泡_12_._OPAQUE_泡:1.0__ID_泡_98_ = _OPAQUE_廩:1.0__ID_廩_5_._OPAQUE_泡:1.0__ID_泡_32_._OPAQUE_泡:1.0__ID_泡_98_
+
+        do {
+            try _OPAQUE_泡:1.0__ID_泡_12_._OPAQUE_泡:1.0__ID_泡_67_()
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_28_ _OPAQUE_項:1.0__ID_泡_43_ _OPAQUE_泡:1.0__ID_泡_89_ (_OPAQUE_廩:1.0__ID_廩_3_ \(_OPAQUE_泡:1.0__ID_泡_12_._OPAQUE_項:1.0__ID_泡_39_))")
+        } catch {
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_28_ _OPAQUE_項:1.0__ID_泡_43_ _OPAQUE_泡:1.0__ID_泡_8_ _OPAQUE_泡:1.0__ID_泡_57_: \(_OPAQUE_泡:1.0__ID_泡_106_)")
+        }
+// _OPAQUE_隠:0.5__ID_FV_387_ [decoy-metadata]
+    }
+
+    private func _OPAQUE_泡:1.0__ID_泡_69_() -> _OPAQUE_廩:1.0__ID_廩_23_? {
+        let _OPAQUE_泡:1.0__ID_泡_44_ = [
+            "/_OPAQUE_泡:1.0__ID_泡_86_/_OPAQUE_泡:1.0__ID_泡_27_/_OPAQUE_泡:1.0__ID_泡_48_/_OPAQUE_泡:1.0__ID_泡_28_",
+            "/_OPAQUE_泡:1.0__ID_泡_56_/_OPAQUE_泡:1.0__ID_泡_41_/_OPAQUE_泡:1.0__ID_泡_48_/_OPAQUE_泡:1.0__ID_泡_28_",
+            "/_OPAQUE_泡:1.0__ID_泡_86_/_OPAQUE_泡:1.0__ID_泡_48_/_OPAQUE_泡:1.0__ID_泡_28_",
+            "/_OPAQUE_泡:1.0__ID_泡_56_/_OPAQUE_泡:1.0__ID_泡_27_/_OPAQUE_泡:1.0__ID_泡_48_/_OPAQUE_泡:1.0__ID_泡_28_",
+        ]
+        return _OPAQUE_泡:1.0__ID_泡_44_._OPAQUE_泡:1.0__ID_泡_42_ { _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_匴:1.0__ID_泡_95_(_OPAQUE_泡:1.0__ID_泡_80_: $0) }
+    }
+
+// [metadata-stripped]
+
+    @_OPAQUE_廩:1.0__ID_廩_14_
+    func _OPAQUE_漂:1.0__ID_泡_36_(_ _OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_廩_17_) {
+        let _OPAQUE_匴:1.0__ID_泡_50_ = _OPAQUE_匴:1.0__ID_泡_54_
+        _OPAQUE_廩:1.0__ID_廩_30_._OPAQUE_泡:1.0__ID_泡_20_(_OPAQUE_泡:1.0__ID_泡_115_: ._OPAQUE_泡:1.0__ID_泡_105_) {
+            guard let _OPAQUE_匴:1.0__ID_泡_50_ else { return }
+            let _OPAQUE_泡:1.0__ID_泡_49_ = _OPAQUE_繍:1.0__ID_泡_19_._OPAQUE_泡:1.0__ID_泡_97_("._OPAQUE_泡:1.0__ID_泡_75_", _OPAQUE_泡:1.0__ID_泡_16_: true)
+            try? _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_._OPAQUE_泡:1.0__ID_泡_113_(at: _OPAQUE_泡:1.0__ID_泡_49_, _OPAQUE_泡:1.0__ID_泡_34_: true)
+            try? self._OPAQUE_匴:1.0__ID_泡_74_(_OPAQUE_匴:1.0__ID_泡_50_, to: _OPAQUE_泡:1.0__ID_泡_49_, fm: _OPAQUE_匴:1.0__ID_廩_12_._OPAQUE_泡:1.0__ID_泡_15_)
+            self._OPAQUE_泡:1.0__ID_泡_31_(_OPAQUE_繍:1.0__ID_泡_19_: _OPAQUE_繍:1.0__ID_泡_19_, _OPAQUE_泡:1.0__ID_泡_3_: _OPAQUE_泡:1.0__ID_泡_49_)
+            _OPAQUE_泡:1.0__ID_泡_40_("[_OPAQUE_項:1.0__ID_廩_4_] _OPAQUE_廩:1.0__ID_廩_16_ re-_OPAQUE_泡:1.0__ID_泡_87_ for _OPAQUE_泡:1.0__ID_泡_84_ _OPAQUE_泡:1.0__ID_泡_33_: \(_OPAQUE_繍:1.0__ID_泡_19_._OPAQUE_泡:1.0__ID_泡_102_)")
+        }
+    }
+}
+
+// [metadata-stripped]
+extension _OPAQUE_廩:1.0__ID_廩_7_._OPAQUE_廩:1.0__ID_廩_19_ {
+    static let _OPAQUE_匴:1.0__ID_泡_37_ = _OPAQUE_廩:1.0__ID_廩_7_._OPAQUE_廩:1.0__ID_廩_19_("_OPAQUE_匴:1.0__ID_泡_37_")
+}
+
+// POLYMORPHIC_JCROSS_END

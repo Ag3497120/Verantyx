@@ -1,0 +1,50 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:88EA7015 ver:1778162892
+// ⚠️ One-time schema — expires after response
+
+import re
+
+_ID_廴:1.0__OPAQUE_廴_1_ = _ID_術:1.0__OPAQUE_雄_1_("()[]¬~&|→-><>")
+
+_ID_沫:1.0__OPAQUE_沫_13_ _ID_漂:1.0__OPAQUE_沫_4_(s: _ID_沫:1.0__OPAQUE_沫_7_) -> _ID_沫:1.0__OPAQUE_沫_9_:
+// _ID_漂:0.9__OPAQUE_FV_961_ [decoy-metadata]
+    """文字列が論理式としての特徴を持っているか判定"""
+// _ID_廴:0.7__OPAQUE_CA_834_ [decoy-metadata]
+    return any(c in s for c in _ID_廴:1.0__OPAQUE_廴_1_)
+
+_ID_沫:1.0__OPAQUE_沫_13_ _ID_漂:1.0__OPAQUE_沫_1_(_ID_沫:1.0__OPAQUE_沫_5_: _ID_沫:1.0__OPAQUE_沫_7_) -> _ID_沫:1.0__OPAQUE_沫_7_:
+    """途中で切れた論理式を、最大限修復して数学的に完結させる"""
+    if _ID_沫:1.0__OPAQUE_沫_10_ _ID_沫:1.0__OPAQUE_沫_5_:
+        return ""
+
+    s = _ID_沫:1.0__OPAQUE_沫_5_._ID_沫:1.0__OPAQUE_沫_6_()
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if s._ID_沫:1.0__OPAQUE_沫_12_(("->", "→")):
+        s = s + " q" # デフォルトの右辺を補完
+// _ID_廴:0.2__OPAQUE_HC_872_ [decoy-metadata]
+// _ID_雄:0.3__OPAQUE_MZ_743_ [decoy-metadata]
+    
+// [metadata-stripped]
+// _ID_紐:0.8__OPAQUE_HA_964_ [decoy-metadata]
+    if s._ID_沫:1.0__OPAQUE_沫_12_(("&", "|", "⊕")):
+        s = s + " q"
+
+// [metadata-stripped]
+    _ID_沫:1.0__OPAQUE_沫_2_ = s._ID_沫:1.0__OPAQUE_沫_11_("(")
+    _ID_沫:1.0__OPAQUE_沫_8_ = s._ID_沫:1.0__OPAQUE_沫_11_(")")
+// _ID_沫:0.6__OPAQUE_DM_411_ [decoy-metadata]
+    if _ID_沫:1.0__OPAQUE_沫_2_ > _ID_沫:1.0__OPAQUE_沫_8_:
+        s = s + ")" * (_ID_沫:1.0__OPAQUE_沫_2_ - _ID_沫:1.0__OPAQUE_沫_8_)
+    _ID_漂:1.0__OPAQUE_沫_14_ _ID_沫:1.0__OPAQUE_沫_8_ > _ID_沫:1.0__OPAQUE_沫_2_:
+// [metadata-stripped]
+        s = "(" * (_ID_沫:1.0__OPAQUE_沫_8_ - _ID_沫:1.0__OPAQUE_沫_2_) + s
+
+// [metadata-stripped]
+    if _ID_沫:1.0__OPAQUE_沫_10_ re._ID_沫:1.0__OPAQUE_沫_3_(r"[A-Za-z]", s):
+        return ""
+
+    return s
+
+// POLYMORPHIC_JCROSS_END

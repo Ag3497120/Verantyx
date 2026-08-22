@@ -1,0 +1,280 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E89A5E77 ver:1778162905
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_48_ import _TOKEN_泡:1.0__JCROSS_泡_118_
+
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_69_ import _TOKEN_廷:1.0__JCROSS_廷_4_, _TOKEN_廷:1.0__JCROSS_廷_16_, _TOKEN_廷:1.0__JCROSS_廷_7_, _TOKEN_廷:1.0__JCROSS_廷_9_
+
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_153_ import _TOKEN_廷:1.0__JCROSS_廷_15_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_126_ import _TOKEN_泡:1.0__JCROSS_泡_102_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_業:1.0__JCROSS_泡_147_ import _TOKEN_泡:1.0__JCROSS_泡_12_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_62_ import _TOKEN_泡:1.0__JCROSS_泡_44_, _TOKEN_泡:1.0__JCROSS_泡_7_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_87_ import _TOKEN_泡:1.0__JCROSS_泡_129_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_42_ import _TOKEN_廷:1.0__JCROSS_廷_14_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_67_ import _TOKEN_泡:1.0__JCROSS_泡_10_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_110_._TOKEN_泡:1.0__JCROSS_泡_87_ import _TOKEN_泡:1.0__JCROSS_泡_97_, _TOKEN_泡:1.0__JCROSS_泡_131_
+_TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_94_ import _TOKEN_廷:1.0__JCROSS_廷_8_
+import _TOKEN_泡:1.0__JCROSS_泡_71_
+import re
+
+
+class _TOKEN_業:1.0__JCROSS_廷_18_:
+    """
+    _TOKEN_廷:1.0__JCROSS_廷_17_ _TOKEN_廷:1.0__JCROSS_廷_1_ を唯一の真実源として解答を生成する
+    """
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_111_(self, _TOKEN_泡:1.0__JCROSS_泡_42_: _TOKEN_廷:1.0__JCROSS_廷_14_, _TOKEN_泡:1.0__JCROSS_泡_98_: _TOKEN_泡:1.0__JCROSS_泡_79_ | _TOKEN_廷:1.0__JCROSS_廷_11_ = _TOKEN_廷:1.0__JCROSS_廷_11_):
+        self._TOKEN_泡:1.0__JCROSS_泡_42_ = _TOKEN_泡:1.0__JCROSS_泡_42_
+        self._TOKEN_泡:1.0__JCROSS_泡_98_ = _TOKEN_泡:1.0__JCROSS_泡_98_
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_75_(self, _TOKEN_泡:1.0__JCROSS_泡_153_: _TOKEN_廷:1.0__JCROSS_廷_15_) -> _TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]:
+        """
+        優先順位:
+        1. _TOKEN_澎:1.0__JCROSS_泡_74_
+        2. _TOKEN_泡:1.0__JCROSS_泡_89_ 上位候補
+        3. _TOKEN_泡:1.0__JCROSS_泡_2_（最終手段）
+        """
+        _TOKEN_泡:1.0__JCROSS_泡_30_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_] = []
+        _TOKEN_泡:1.0__JCROSS_泡_138_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]] = []
+
+        if _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_澎:1.0__JCROSS_泡_74_ _TOKEN_泡:1.0__JCROSS_泡_39_ _TOKEN_澎:1.0__JCROSS_泡_46_(_TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_澎:1.0__JCROSS_泡_74_):
+            _TOKEN_泡:1.0__JCROSS_泡_30_._TOKEN_泡:1.0__JCROSS_泡_57_(_TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_澎:1.0__JCROSS_泡_74_)
+            _TOKEN_泡:1.0__JCROSS_泡_5_ = self._TOKEN_泡:1.0__JCROSS_泡_42_._TOKEN_泡:1.0__JCROSS_泡_50_(_TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_澎:1.0__JCROSS_泡_74_)
+            _TOKEN_泡:1.0__JCROSS_泡_138_._TOKEN_泡:1.0__JCROSS_泡_57_({"_TOKEN_澎:1.0__JCROSS_泡_13_": _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_澎:1.0__JCROSS_泡_74_, "_TOKEN_泡:1.0__JCROSS_泡_122_": _TOKEN_泡:1.0__JCROSS_泡_5_})
+            if _TOKEN_泡:1.0__JCROSS_泡_5_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_51_") in ("_TOKEN_泡:1.0__JCROSS_泡_145_", "_TOKEN_泡:1.0__JCROSS_泡_151_"):
+                return self._TOKEN_泡:1.0__JCROSS_泡_6_(_TOKEN_泡:1.0__JCROSS_泡_153_, _TOKEN_泡:1.0__JCROSS_泡_138_, _TOKEN_泡:1.0__JCROSS_泡_155_=_TOKEN_泡:1.0__JCROSS_泡_5_)
+
+        for _TOKEN_泡:1.0__JCROSS_泡_123_ in _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_89_:
+            f = (_TOKEN_泡:1.0__JCROSS_泡_123_._TOKEN_泡:1.0__JCROSS_泡_4_ or {})._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_澎:1.0__JCROSS_泡_13_")
+            if _TOKEN_泡:1.0__JCROSS_泡_58_ f or f in _TOKEN_泡:1.0__JCROSS_泡_30_ or _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_澎:1.0__JCROSS_泡_46_(f):
+                continue
+            _TOKEN_泡:1.0__JCROSS_泡_30_._TOKEN_泡:1.0__JCROSS_泡_57_(f)
+            _TOKEN_泡:1.0__JCROSS_泡_5_ = self._TOKEN_泡:1.0__JCROSS_泡_42_._TOKEN_泡:1.0__JCROSS_泡_50_(f)
+            _TOKEN_泡:1.0__JCROSS_泡_138_._TOKEN_泡:1.0__JCROSS_泡_57_({"_TOKEN_澎:1.0__JCROSS_泡_13_": f, "_TOKEN_泡:1.0__JCROSS_泡_122_": _TOKEN_泡:1.0__JCROSS_泡_5_})
+            if _TOKEN_泡:1.0__JCROSS_泡_5_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_51_") in ("_TOKEN_泡:1.0__JCROSS_泡_145_", "_TOKEN_泡:1.0__JCROSS_泡_151_"):
+                return self._TOKEN_泡:1.0__JCROSS_泡_6_(_TOKEN_泡:1.0__JCROSS_泡_153_, _TOKEN_泡:1.0__JCROSS_泡_138_, _TOKEN_泡:1.0__JCROSS_泡_155_=_TOKEN_泡:1.0__JCROSS_泡_5_)
+
+        if _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_2_ _TOKEN_泡:1.0__JCROSS_泡_39_ _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_2_ _TOKEN_泡:1.0__JCROSS_泡_58_ in _TOKEN_泡:1.0__JCROSS_泡_30_:
+            _TOKEN_泡:1.0__JCROSS_泡_5_ = self._TOKEN_泡:1.0__JCROSS_泡_42_._TOKEN_泡:1.0__JCROSS_泡_50_(_TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_2_)
+            _TOKEN_泡:1.0__JCROSS_泡_138_._TOKEN_泡:1.0__JCROSS_泡_57_({"_TOKEN_澎:1.0__JCROSS_泡_13_": _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_2_, "_TOKEN_泡:1.0__JCROSS_泡_122_": _TOKEN_泡:1.0__JCROSS_泡_5_})
+
+        return self._TOKEN_泡:1.0__JCROSS_泡_6_(_TOKEN_泡:1.0__JCROSS_泡_153_, _TOKEN_泡:1.0__JCROSS_泡_138_)
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_86_(self, _TOKEN_泡:1.0__JCROSS_泡_153_: _TOKEN_廷:1.0__JCROSS_廷_15_, _TOKEN_泡:1.0__JCROSS_泡_103_: _TOKEN_泡:1.0__JCROSS_泡_80_ = 24, _TOKEN_泡:1.0__JCROSS_泡_139_: _TOKEN_泡:1.0__JCROSS_泡_80_ = 6) -> _TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]:
+        _TOKEN_泡:1.0__JCROSS_泡_35_ = _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_72_()
+        _TOKEN_泡:1.0__JCROSS_泡_61_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_] = []
+        _TOKEN_泡:1.0__JCROSS_泡_33_ = 0
+
+        _TOKEN_泡:1.0__JCROSS_泡_119_ = (_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_95_") or {})._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_119_") or ""
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_119_:
+            for n in (_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_70_") or []):
+                c = (n._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_4_") or {})
+                if c._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_119_"):
+                    _TOKEN_泡:1.0__JCROSS_泡_119_ = _TOKEN_泡:1.0__JCROSS_泡_79_(c._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_119_"))
+                    break
+
+        _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_8_(_TOKEN_泡:1.0__JCROSS_泡_37_: _TOKEN_廷:1.0__JCROSS_廷_16_):
+            _TOKEN_泡:1.0__JCROSS_泡_140_ = []
+            if _TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_78_ == "_TOKEN_泡:1.0__JCROSS_泡_34_" _TOKEN_泡:1.0__JCROSS_泡_39_ _TOKEN_泡:1.0__JCROSS_泡_119_:
+                _TOKEN_泡:1.0__JCROSS_泡_140_._TOKEN_泡:1.0__JCROSS_泡_57_(_TOKEN_泡:1.0__JCROSS_泡_119_)
+            if _TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_78_ _TOKEN_泡:1.0__JCROSS_泡_39_ _TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_78_ != "_TOKEN_泡:1.0__JCROSS_泡_21_":
+                _TOKEN_泡:1.0__JCROSS_泡_140_._TOKEN_泡:1.0__JCROSS_泡_57_(f"_TOKEN_廷:1.0__JCROSS_廷_2_: {_TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_78_}")
+            if _TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_121_:
+                _TOKEN_泡:1.0__JCROSS_泡_140_._TOKEN_泡:1.0__JCROSS_泡_57_("_TOKEN_廷:1.0__JCROSS_廷_10_: " + ", "._TOKEN_泡:1.0__JCROSS_泡_128_(_TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_泡:1.0__JCROSS_泡_121_))
+            _TOKEN_泡:1.0__JCROSS_泡_140_._TOKEN_泡:1.0__JCROSS_泡_57_(f"_TOKEN_廷:1.0__JCROSS_廷_3_: {_TOKEN_泡:1.0__JCROSS_泡_37_._TOKEN_澎:1.0__JCROSS_泡_13_}")
+            return self._TOKEN_泡:1.0__JCROSS_泡_42_._TOKEN_泡:1.0__JCROSS_泡_50_("\n"._TOKEN_泡:1.0__JCROSS_泡_128_(_TOKEN_泡:1.0__JCROSS_泡_140_))
+
+        while _TOKEN_廷:1.0__JCROSS_廷_13_:
+            self._TOKEN_泡:1.0__JCROSS_泡_132_(_TOKEN_泡:1.0__JCROSS_泡_35_)
+            _TOKEN_泡:1.0__JCROSS_泡_144_ = _TOKEN_泡:1.0__JCROSS_泡_102_(_TOKEN_泡:1.0__JCROSS_泡_35_)
+            _TOKEN_泡:1.0__JCROSS_泡_101_ = _TOKEN_泡:1.0__JCROSS_泡_12_(_TOKEN_泡:1.0__JCROSS_泡_144_, _TOKEN_泡:1.0__JCROSS_泡_103_=_TOKEN_泡:1.0__JCROSS_泡_103_)
+
+            _TOKEN_泡:1.0__JCROSS_泡_138_ = _TOKEN_泡:1.0__JCROSS_泡_7_(_TOKEN_泡:1.0__JCROSS_泡_101_, _TOKEN_泡:1.0__JCROSS_泡_8_, _TOKEN_泡:1.0__JCROSS_泡_139_=_TOKEN_泡:1.0__JCROSS_泡_139_)
+            _TOKEN_泡:1.0__JCROSS_泡_127_ = [r._TOKEN_泡:1.0__JCROSS_泡_27_ for r in _TOKEN_泡:1.0__JCROSS_泡_138_]
+            _TOKEN_泡:1.0__JCROSS_泡_141_ = _TOKEN_泡:1.0__JCROSS_泡_129_(_TOKEN_泡:1.0__JCROSS_泡_35_, _TOKEN_泡:1.0__JCROSS_泡_127_)
+
+            if _TOKEN_泡:1.0__JCROSS_泡_33_ >= 1:
+                return {"_TOKEN_泡:1.0__JCROSS_泡_153_": _TOKEN_泡:1.0__JCROSS_泡_141_, "_TOKEN_泡:1.0__JCROSS_泡_138_": _TOKEN_泡:1.0__JCROSS_泡_127_, "_TOKEN_泡:1.0__JCROSS_泡_3_": _TOKEN_泡:1.0__JCROSS_泡_61_}
+
+// [metadata-stripped]
+            try:
+                _TOKEN_泡:1.0__JCROSS_泡_88_ _TOKEN_泡:1.0__JCROSS_泡_45_._TOKEN_泡:1.0__JCROSS_泡_59_._TOKEN_泡:1.0__JCROSS_泡_24_ import _TOKEN_泡:1.0__JCROSS_泡_82_
+                _TOKEN_澎:1.0__JCROSS_泡_74_ = (_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_澎:1.0__JCROSS_泡_74_") or "")
+                _TOKEN_泡:1.0__JCROSS_泡_95_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_95_") or {}
+                _TOKEN_泡:1.0__JCROSS_泡_41_ = _TOKEN_泡:1.0__JCROSS_泡_95_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_121_") or []
+                _TOKEN_泡:1.0__JCROSS_泡_16_ = _TOKEN_泡:1.0__JCROSS_泡_82_(_TOKEN_澎:1.0__JCROSS_泡_74_, _TOKEN_泡:1.0__JCROSS_泡_41_)
+            _TOKEN_泡:1.0__JCROSS_泡_73_ _TOKEN_廷:1.0__JCROSS_廷_5_:
+                _TOKEN_泡:1.0__JCROSS_泡_16_ = []
+
+            if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_16_ or _TOKEN_泡:1.0__JCROSS_泡_114_(_TOKEN_泡:1.0__JCROSS_泡_16_) != 1:
+                return {"_TOKEN_泡:1.0__JCROSS_泡_153_": _TOKEN_泡:1.0__JCROSS_泡_141_, "_TOKEN_泡:1.0__JCROSS_泡_138_": _TOKEN_泡:1.0__JCROSS_泡_127_, "_TOKEN_泡:1.0__JCROSS_泡_3_": _TOKEN_泡:1.0__JCROSS_泡_61_}
+
+            _TOKEN_泡:1.0__JCROSS_泡_61_._TOKEN_泡:1.0__JCROSS_泡_49_(_TOKEN_泡:1.0__JCROSS_泡_16_)
+// [metadata-stripped]
+            _TOKEN_泡:1.0__JCROSS_泡_95_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_95_") or {}
+            _TOKEN_泡:1.0__JCROSS_泡_95_["_TOKEN_泡:1.0__JCROSS_泡_121_"] = _TOKEN_泡:1.0__JCROSS_泡_55_(_TOKEN_泡:1.0__JCROSS_泡_105_(_TOKEN_業:1.0__JCROSS_傑_2_((_TOKEN_泡:1.0__JCROSS_泡_95_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_121_") or []) + _TOKEN_泡:1.0__JCROSS_泡_16_)))
+            _TOKEN_泡:1.0__JCROSS_泡_35_["_TOKEN_泡:1.0__JCROSS_泡_95_"] = _TOKEN_泡:1.0__JCROSS_泡_95_
+            _TOKEN_泡:1.0__JCROSS_泡_108_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_108_") or []
+            _TOKEN_泡:1.0__JCROSS_泡_28_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_28_") or "_TOKEN_泡:1.0__JCROSS_泡_153_"
+            for a in _TOKEN_泡:1.0__JCROSS_泡_16_:
+                _TOKEN_泡:1.0__JCROSS_泡_108_._TOKEN_泡:1.0__JCROSS_泡_57_({
+                    "id": f"{_TOKEN_泡:1.0__JCROSS_泡_28_}_TOKEN_泡:1.0__JCROSS_泡_26_{a}",
+                    "_TOKEN_泡:1.0__JCROSS_泡_136_": "_TOKEN_泡:1.0__JCROSS_泡_92_",
+                    "_TOKEN_泡:1.0__JCROSS_泡_116_": a,
+// _TOKEN_紬:0.5__JCROSS_LB_423_ [decoy-metadata]
+                    "_TOKEN_泡:1.0__JCROSS_泡_4_": {"_TOKEN_泡:1.0__JCROSS_泡_92_": a, "_TOKEN_泡:1.0__JCROSS_泡_60_": "_TOKEN_泡:1.0__JCROSS_泡_76_"},
+                    "_TOKEN_泡:1.0__JCROSS_泡_1_": [],
+                })
+            _TOKEN_泡:1.0__JCROSS_泡_35_["_TOKEN_泡:1.0__JCROSS_泡_108_"] = _TOKEN_泡:1.0__JCROSS_泡_108_
+            _TOKEN_泡:1.0__JCROSS_泡_33_ += 1
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_132_(self, _TOKEN_泡:1.0__JCROSS_泡_35_: _TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]) -> _TOKEN_廷:1.0__JCROSS_廷_11_:
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ self._TOKEN_泡:1.0__JCROSS_泡_98_:
+            return
+        _TOKEN_泡:1.0__JCROSS_泡_36_ = _TOKEN_廷:1.0__JCROSS_廷_8_(self._TOKEN_泡:1.0__JCROSS_泡_98_) / "_TOKEN_泡:1.0__JCROSS_泡_156_._TOKEN_泡:1.0__JCROSS_泡_152_"
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_36_._TOKEN_泡:1.0__JCROSS_泡_85_():
+            return
+
+        _TOKEN_泡:1.0__JCROSS_泡_78_ = (_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_78_") or "_TOKEN_泡:1.0__JCROSS_泡_21_")
+        _TOKEN_泡:1.0__JCROSS_泡_15_ = (_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_澎:1.0__JCROSS_泡_74_") or "")
+        _TOKEN_泡:1.0__JCROSS_泡_23_ = ((_TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_95_") or {})._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_119_") or "")
+        _TOKEN_深:1.0__JCROSS_泡_9_ = _TOKEN_深:1.0__JCROSS_泡_100_(_TOKEN_泡:1.0__JCROSS_泡_23_ + " " + _TOKEN_泡:1.0__JCROSS_泡_15_)
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_深:1.0__JCROSS_泡_9_:
+            return
+
+        _TOKEN_泡:1.0__JCROSS_泡_130_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_] = []
+        _TOKEN_澎:1.0__JCROSS_泡_91_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_] = []
+        _TOKEN_泡:1.0__JCROSS_泡_32_ = 40
+        _TOKEN_泡:1.0__JCROSS_泡_40_ _TOKEN_泡:1.0__JCROSS_泡_36_.open("r", _TOKEN_泡:1.0__JCROSS_泡_107_="_TOKEN_泡:1.0__JCROSS_泡_93_-8") as f:
+            for _TOKEN_泡:1.0__JCROSS_泡_104_ in f:
+                if _TOKEN_泡:1.0__JCROSS_泡_114_(_TOKEN_澎:1.0__JCROSS_泡_91_) >= _TOKEN_泡:1.0__JCROSS_泡_32_:
+                    break
+                _TOKEN_泡:1.0__JCROSS_泡_104_ = _TOKEN_泡:1.0__JCROSS_泡_104_._TOKEN_泡:1.0__JCROSS_泡_134_()
+                if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_104_:
+                    continue
+                try:
+                    _TOKEN_泡:1.0__JCROSS_泡_54_ = _TOKEN_泡:1.0__JCROSS_泡_71_._TOKEN_函:1.0__JCROSS_泡_53_(_TOKEN_泡:1.0__JCROSS_泡_104_)
+                _TOKEN_泡:1.0__JCROSS_泡_73_ _TOKEN_廷:1.0__JCROSS_廷_5_:
+                    continue
+                if _TOKEN_泡:1.0__JCROSS_泡_54_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_78_") != _TOKEN_泡:1.0__JCROSS_泡_78_:
+                    continue
+                _TOKEN_泡:1.0__JCROSS_泡_112_ = _TOKEN_泡:1.0__JCROSS_泡_54_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_112_") or []
+                _TOKEN_泡:1.0__JCROSS_泡_120_ = _TOKEN_泡:1.0__JCROSS_泡_54_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_120_") or ""
+                _TOKEN_泡:1.0__JCROSS_泡_113_ = " "._TOKEN_泡:1.0__JCROSS_泡_128_(_TOKEN_泡:1.0__JCROSS_泡_112_) + " " + _TOKEN_泡:1.0__JCROSS_泡_120_
+                if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_137_(_TOKEN_深:1.0__JCROSS_泡_9_, _TOKEN_泡:1.0__JCROSS_泡_113_):
+                    continue
+                for p in _TOKEN_泡:1.0__JCROSS_泡_112_:
+                    if _TOKEN_澎:1.0__JCROSS_泡_46_(p):
+                        _TOKEN_澎:1.0__JCROSS_泡_91_._TOKEN_泡:1.0__JCROSS_泡_57_(p)
+                if _TOKEN_泡:1.0__JCROSS_泡_54_._TOKEN_業:1.0__JCROSS_傑_1_("id"):
+                    _TOKEN_泡:1.0__JCROSS_泡_130_._TOKEN_泡:1.0__JCROSS_泡_57_(_TOKEN_泡:1.0__JCROSS_泡_54_["id"])
+
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_澎:1.0__JCROSS_泡_91_:
+            return
+
+        _TOKEN_泡:1.0__JCROSS_泡_89_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_89_") or []
+        _TOKEN_泡:1.0__JCROSS_泡_77_ = _TOKEN_泡:1.0__JCROSS_泡_114_(_TOKEN_泡:1.0__JCROSS_泡_89_)
+        _TOKEN_泡:1.0__JCROSS_泡_28_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_28_") or "_TOKEN_泡:1.0__JCROSS_泡_153_"
+        for i, f in _TOKEN_泡:1.0__JCROSS_泡_115_(_TOKEN_澎:1.0__JCROSS_泡_91_[:_TOKEN_泡:1.0__JCROSS_泡_32_]):
+            _TOKEN_泡:1.0__JCROSS_泡_89_._TOKEN_泡:1.0__JCROSS_泡_57_({
+// _TOKEN_傑:0.5__JCROSS_YF_706_ [decoy-metadata]
+                "id": f"{_TOKEN_泡:1.0__JCROSS_泡_28_}_TOKEN_泡:1.0__JCROSS_泡_124_{_TOKEN_泡:1.0__JCROSS_泡_77_ + i}",
+                "_TOKEN_泡:1.0__JCROSS_泡_136_": "_TOKEN_泡:1.0__JCROSS_泡_154_",
+                "_TOKEN_泡:1.0__JCROSS_泡_116_": "_TOKEN_泡:1.0__JCROSS_泡_81_",
+                "_TOKEN_泡:1.0__JCROSS_泡_4_": {"_TOKEN_澎:1.0__JCROSS_泡_13_": f, "_TOKEN_泡:1.0__JCROSS_泡_60_": "_TOKEN_泡:1.0__JCROSS_泡_81_"},
+                "_TOKEN_泡:1.0__JCROSS_泡_1_": [],
+            })
+        _TOKEN_泡:1.0__JCROSS_泡_35_["_TOKEN_泡:1.0__JCROSS_泡_89_"] = _TOKEN_泡:1.0__JCROSS_泡_89_
+
+// _TOKEN_紬:0.5__JCROSS_WC_530_ [decoy-metadata]
+        if _TOKEN_泡:1.0__JCROSS_泡_130_:
+            _TOKEN_泡:1.0__JCROSS_泡_70_ = _TOKEN_泡:1.0__JCROSS_泡_35_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_70_") or []
+            _TOKEN_泡:1.0__JCROSS_泡_70_._TOKEN_泡:1.0__JCROSS_泡_57_({
+                "id": f"{_TOKEN_泡:1.0__JCROSS_泡_28_}_TOKEN_泡:1.0__JCROSS_泡_19_",
+                "_TOKEN_泡:1.0__JCROSS_泡_136_": "_TOKEN_泡:1.0__JCROSS_泡_66_",
+                "_TOKEN_泡:1.0__JCROSS_泡_116_": "_TOKEN_泡:1.0__JCROSS_泡_149_",
+                "_TOKEN_泡:1.0__JCROSS_泡_4_": {"_TOKEN_泡:1.0__JCROSS_泡_29_": _TOKEN_泡:1.0__JCROSS_泡_130_[:50]},
+                "_TOKEN_泡:1.0__JCROSS_泡_1_": _TOKEN_泡:1.0__JCROSS_泡_130_[:50],
+            })
+            _TOKEN_泡:1.0__JCROSS_泡_35_["_TOKEN_泡:1.0__JCROSS_泡_70_"] = _TOKEN_泡:1.0__JCROSS_泡_70_
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_6_(
+        self,
+        _TOKEN_泡:1.0__JCROSS_泡_153_: _TOKEN_廷:1.0__JCROSS_廷_15_,
+        _TOKEN_泡:1.0__JCROSS_泡_138_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]],
+        _TOKEN_泡:1.0__JCROSS_泡_155_: _TOKEN_廷:1.0__JCROSS_廷_9_[_TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]] = _TOKEN_廷:1.0__JCROSS_廷_11_,
+    ) -> _TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]:
+        if _TOKEN_泡:1.0__JCROSS_泡_155_:
+            self._TOKEN_泡:1.0__JCROSS_泡_56_(_TOKEN_泡:1.0__JCROSS_泡_153_, _TOKEN_泡:1.0__JCROSS_泡_155_)
+            return {
+                "_TOKEN_泡:1.0__JCROSS_泡_51_": _TOKEN_泡:1.0__JCROSS_泡_155_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_51_"),
+                "_TOKEN_泡:1.0__JCROSS_泡_148_": _TOKEN_泡:1.0__JCROSS_泡_155_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_148_"),
+                "_TOKEN_澎:1.0__JCROSS_泡_65_": _TOKEN_泡:1.0__JCROSS_泡_155_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_函:1.0__JCROSS_泡_96_", {})._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_澎:1.0__JCROSS_泡_13_"),
+                "_TOKEN_泡:1.0__JCROSS_泡_28_": _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_28_,
+                "_TOKEN_泡:1.0__JCROSS_泡_143_": _TOKEN_泡:1.0__JCROSS_泡_138_,
+                "_TOKEN_泡:1.0__JCROSS_泡_106_": "_TOKEN_泡:1.0__JCROSS_泡_68_",
+            }
+
+        _TOKEN_泡:1.0__JCROSS_泡_99_ = _TOKEN_廷:1.0__JCROSS_廷_11_
+        for r in _TOKEN_泡:1.0__JCROSS_泡_138_:
+            if r._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_122_", {})._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_51_") == "_TOKEN_泡:1.0__JCROSS_泡_117_":
+                _TOKEN_泡:1.0__JCROSS_泡_99_ = r["_TOKEN_泡:1.0__JCROSS_泡_122_"]
+                break
+
+        if _TOKEN_泡:1.0__JCROSS_泡_99_:
+            self._TOKEN_泡:1.0__JCROSS_泡_56_(_TOKEN_泡:1.0__JCROSS_泡_153_, _TOKEN_泡:1.0__JCROSS_泡_99_)
+            return {
+                "_TOKEN_泡:1.0__JCROSS_泡_51_": "_TOKEN_泡:1.0__JCROSS_泡_117_",
+                "_TOKEN_泡:1.0__JCROSS_泡_148_": _TOKEN_泡:1.0__JCROSS_泡_99_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_148_"),
+// _TOKEN_紬:0.7__JCROSS_DY_404_ [decoy-metadata]
+                "_TOKEN_泡:1.0__JCROSS_泡_28_": _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_28_,
+// _TOKEN_泡:0.5__JCROSS_VA_288_ [decoy-metadata]
+                "_TOKEN_泡:1.0__JCROSS_泡_143_": _TOKEN_泡:1.0__JCROSS_泡_138_,
+                "_TOKEN_泡:1.0__JCROSS_泡_106_": "_TOKEN_泡:1.0__JCROSS_泡_38_",
+            }
+
+        return {
+            "_TOKEN_泡:1.0__JCROSS_泡_51_": "_TOKEN_泡:1.0__JCROSS_泡_17_",
+            "_TOKEN_泡:1.0__JCROSS_泡_148_": "検証可能な反例・証明は得られませんでしたが、境界条件は _TOKEN_廷:1.0__JCROSS_廷_1_ に保持されています。",
+            "_TOKEN_泡:1.0__JCROSS_泡_28_": _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_28_,
+            "_TOKEN_泡:1.0__JCROSS_泡_143_": _TOKEN_泡:1.0__JCROSS_泡_138_,
+            "_TOKEN_泡:1.0__JCROSS_泡_106_": "_TOKEN_泡:1.0__JCROSS_泡_31_",
+        }
+
+    _TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_56_(self, _TOKEN_泡:1.0__JCROSS_泡_153_: _TOKEN_廷:1.0__JCROSS_廷_15_, _TOKEN_泡:1.0__JCROSS_泡_122_: _TOKEN_廷:1.0__JCROSS_廷_4_[_TOKEN_泡:1.0__JCROSS_泡_79_, _TOKEN_廷:1.0__JCROSS_廷_16_]) -> _TOKEN_廷:1.0__JCROSS_廷_11_:
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ self._TOKEN_泡:1.0__JCROSS_泡_98_:
+            return
+        _TOKEN_泡:1.0__JCROSS_泡_11_ = _TOKEN_泡:1.0__JCROSS_泡_122_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_11_") or []
+        _TOKEN_泡:1.0__JCROSS_泡_51_ = _TOKEN_泡:1.0__JCROSS_泡_122_._TOKEN_業:1.0__JCROSS_傑_1_("_TOKEN_泡:1.0__JCROSS_泡_51_")
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_11_ or _TOKEN_泡:1.0__JCROSS_泡_51_ _TOKEN_泡:1.0__JCROSS_泡_58_ in ("_TOKEN_泡:1.0__JCROSS_泡_145_", "_TOKEN_泡:1.0__JCROSS_泡_151_"):
+            return
+        _TOKEN_泡:1.0__JCROSS_泡_64_ = ["_TOKEN_澎:1.0__JCROSS_泡_63_:true"] if _TOKEN_泡:1.0__JCROSS_泡_51_ == "_TOKEN_泡:1.0__JCROSS_泡_145_" else ["_TOKEN_澎:1.0__JCROSS_泡_63_:false"]
+        _TOKEN_泡:1.0__JCROSS_泡_146_ = [
+            _TOKEN_泡:1.0__JCROSS_泡_97_(_TOKEN_泡:1.0__JCROSS_泡_22_, _TOKEN_泡:1.0__JCROSS_泡_64_, f"_TOKEN_廷:1.0__JCROSS_廷_1_ _TOKEN_澎:1.0__JCROSS_泡_20_ ({_TOKEN_泡:1.0__JCROSS_泡_51_})")
+            for _TOKEN_泡:1.0__JCROSS_泡_22_ in _TOKEN_泡:1.0__JCROSS_泡_11_
+            if _TOKEN_泡:1.0__JCROSS_泡_22_
+        ]
+        if _TOKEN_泡:1.0__JCROSS_泡_58_ _TOKEN_泡:1.0__JCROSS_泡_146_:
+            return
+        _TOKEN_泡:1.0__JCROSS_泡_10_(self._TOKEN_泡:1.0__JCROSS_泡_98_, _TOKEN_泡:1.0__JCROSS_泡_153_._TOKEN_泡:1.0__JCROSS_泡_28_, {"_TOKEN_泡:1.0__JCROSS_泡_135_": _TOKEN_泡:1.0__JCROSS_泡_146_})
+        _TOKEN_泡:1.0__JCROSS_泡_133_ = _TOKEN_泡:1.0__JCROSS_泡_79_(_TOKEN_廷:1.0__JCROSS_廷_8_(self._TOKEN_泡:1.0__JCROSS_泡_98_) / "_TOKEN_泡:1.0__JCROSS_泡_150_._TOKEN_泡:1.0__JCROSS_泡_152_")
+        _TOKEN_泡:1.0__JCROSS_泡_131_(_TOKEN_泡:1.0__JCROSS_泡_133_, _TOKEN_泡:1.0__JCROSS_泡_146_)
+
+
+_TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_深:1.0__JCROSS_泡_100_(_TOKEN_泡:1.0__JCROSS_泡_113_: _TOKEN_泡:1.0__JCROSS_泡_79_) -> _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_]:
+    _TOKEN_泡:1.0__JCROSS_泡_83_ = re._TOKEN_泡:1.0__JCROSS_泡_125_(r"[A-Za-z0-9_]+|[一-龥ぁ-んァ-ヴー]+", _TOKEN_泡:1.0__JCROSS_泡_113_ or "")
+// _TOKEN_業:0.8__JCROSS_DV_983_ [decoy-metadata]
+    return [t._TOKEN_業:1.0__JCROSS_泡_25_() for t in _TOKEN_泡:1.0__JCROSS_泡_83_ if _TOKEN_泡:1.0__JCROSS_泡_114_(t) >= 2][:128]
+
+
+_TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_泡:1.0__JCROSS_泡_137_(_TOKEN_深:1.0__JCROSS_泡_9_: _TOKEN_廷:1.0__JCROSS_廷_7_[_TOKEN_泡:1.0__JCROSS_泡_79_], _TOKEN_泡:1.0__JCROSS_泡_113_: _TOKEN_泡:1.0__JCROSS_泡_79_) -> _TOKEN_泡:1.0__JCROSS_泡_90_:
+    t = (_TOKEN_泡:1.0__JCROSS_泡_113_ or "")._TOKEN_業:1.0__JCROSS_泡_25_()
+    return any(_TOKEN_泡:1.0__JCROSS_泡_84_ in t for _TOKEN_泡:1.0__JCROSS_泡_84_ in _TOKEN_深:1.0__JCROSS_泡_9_)
+
+
+_TOKEN_泡:1.0__JCROSS_泡_142_ _TOKEN_澎:1.0__JCROSS_泡_46_(s: _TOKEN_泡:1.0__JCROSS_泡_79_) -> _TOKEN_泡:1.0__JCROSS_泡_90_:
+    s = (s or "")
+    return any(op in s for op in ("->", "<->", "[]", "<>", "&", "|", "~", "□", "◇"))
+
+// POLYMORPHIC_JCROSS_END

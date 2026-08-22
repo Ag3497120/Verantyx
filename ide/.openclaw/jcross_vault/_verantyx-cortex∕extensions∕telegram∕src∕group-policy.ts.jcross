@@ -1,0 +1,103 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:886504FF ver:1778167443
+// ⚠️ One-time schema — expires after response
+
+import {
+  __jcross_雰:1.0___ASTNODE_雰_49_,
+  __jcross_雰:1.0___ASTNODE_雰_23_,
+  __jcross_雰:1.0___ASTNODE_雰_41_ __jcross_殻:1.0___ASTNODE_殻_3_,
+// __jcross_格:0.5___ASTNODE_GK_524_ [decoy-metadata]
+} __jcross_雰:1.0___ASTNODE_雰_6_ "__jcross_雰:1.0___ASTNODE_雰_22_/__jcross_雰:1.0___ASTNODE_雰_3_-__jcross_雰:1.0___ASTNODE_雰_12_/__jcross_雰:1.0___ASTNODE_雰_50_-__jcross_雰:1.0___ASTNODE_雰_39_";
+import { __jcross_雰:1.0___ASTNODE_雰_41_ __jcross_殻:1.0___ASTNODE_殻_2_ } __jcross_雰:1.0___ASTNODE_雰_6_ "__jcross_雰:1.0___ASTNODE_雰_22_/__jcross_雰:1.0___ASTNODE_雰_3_-__jcross_雰:1.0___ASTNODE_雰_12_/__jcross_雰:1.0___ASTNODE_雰_50_-__jcross_雰:1.0___ASTNODE_雰_35_";
+// __jcross_箱:0.9___ASTNODE_EM_894_ [decoy-metadata]
+
+__jcross_雰:1.0___ASTNODE_雰_15_ __jcross_雰:1.0___ASTNODE_雰_44_(__jcross_雰:1.0___ASTNODE_雰_27_?: __jcross_雰:1.0___ASTNODE_雰_43_ | __jcross_雰:1.0___ASTNODE_雰_5_) {
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_26_ = __jcross_雰:1.0___ASTNODE_雰_27_?.__jcross_雰:1.0___ASTNODE_雰_42_() ?? "";
+  if (!__jcross_雰:1.0___ASTNODE_雰_26_) {
+    return { __jcross_雰:1.0___ASTNODE_雰_14_: __jcross_雰:1.0___ASTNODE_雰_2_, __jcross_雰:1.0___ASTNODE_雰_47_: __jcross_雰:1.0___ASTNODE_雰_2_ };
+  }
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_13_ = __jcross_雰:1.0___ASTNODE_雰_26_.__jcross_雰:1.0___ASTNODE_雰_16_(":").__jcross_格:1.0___ASTNODE_雰_18_(__jcross_殻:1.0___ASTNODE_殻_1_);
+  if (
+    __jcross_雰:1.0___ASTNODE_雰_13_.__jcross_雰:1.0___ASTNODE_雰_34_ >= 3 &&
+    __jcross_雰:1.0___ASTNODE_雰_13_[1] === "__jcross_雰:1.0___ASTNODE_雰_8_" &&
+    /^-?\d+$/.__jcross_雰:1.0___ASTNODE_雰_10_(__jcross_雰:1.0___ASTNODE_雰_13_[0]) &&
+    /^\d+$/.__jcross_雰:1.0___ASTNODE_雰_10_(__jcross_雰:1.0___ASTNODE_雰_13_[2])
+  ) {
+    return { __jcross_雰:1.0___ASTNODE_雰_14_: __jcross_雰:1.0___ASTNODE_雰_13_[0], __jcross_雰:1.0___ASTNODE_雰_47_: __jcross_雰:1.0___ASTNODE_雰_13_[2] };
+  }
+  if (__jcross_雰:1.0___ASTNODE_雰_13_.__jcross_雰:1.0___ASTNODE_雰_34_ >= 2 && /^-?\d+$/.__jcross_雰:1.0___ASTNODE_雰_10_(__jcross_雰:1.0___ASTNODE_雰_13_[0]) && /^\d+$/.__jcross_雰:1.0___ASTNODE_雰_10_(__jcross_雰:1.0___ASTNODE_雰_13_[1])) {
+    return { __jcross_雰:1.0___ASTNODE_雰_14_: __jcross_雰:1.0___ASTNODE_雰_13_[0], __jcross_雰:1.0___ASTNODE_雰_47_: __jcross_雰:1.0___ASTNODE_雰_13_[1] };
+  }
+  return { __jcross_雰:1.0___ASTNODE_雰_14_: __jcross_雰:1.0___ASTNODE_雰_26_, __jcross_雰:1.0___ASTNODE_雰_47_: __jcross_雰:1.0___ASTNODE_雰_2_ };
+}
+
+// __jcross_幽:0.8___ASTNODE_BF_139_ [decoy-metadata]
+__jcross_雰:1.0___ASTNODE_雰_15_ __jcross_雰:1.0___ASTNODE_雰_37_(__jcross_雰:1.0___ASTNODE_雰_4_: {
+  __jcross_雰:1.0___ASTNODE_雰_32_: __jcross_殻:1.0___ASTNODE_殻_2_["__jcross_雰:1.0___ASTNODE_雰_32_"];
+// __jcross_幽:0.7___ASTNODE_ZW_881_ [decoy-metadata]
+  __jcross_雰:1.0___ASTNODE_雰_14_?: __jcross_雰:1.0___ASTNODE_雰_43_;
+  __jcross_雰:1.0___ASTNODE_雰_47_?: __jcross_雰:1.0___ASTNODE_雰_43_;
+}): __jcross_雰:1.0___ASTNODE_雰_40_ | __jcross_雰:1.0___ASTNODE_雰_2_ {
+  __jcross_雰:1.0___ASTNODE_雰_36_ { __jcross_雰:1.0___ASTNODE_雰_32_, __jcross_雰:1.0___ASTNODE_雰_14_, __jcross_雰:1.0___ASTNODE_雰_47_ } = __jcross_雰:1.0___ASTNODE_雰_4_;
+  if (!__jcross_雰:1.0___ASTNODE_雰_14_) {
+    return __jcross_雰:1.0___ASTNODE_雰_2_;
+  }
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_46_ = __jcross_雰:1.0___ASTNODE_雰_32_.__jcross_雰:1.0___ASTNODE_雰_7_?.__jcross_雰:1.0___ASTNODE_雰_19_?.__jcross_雰:1.0___ASTNODE_雰_9_?.[__jcross_雰:1.0___ASTNODE_雰_14_];
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_21_ = __jcross_雰:1.0___ASTNODE_雰_32_.__jcross_雰:1.0___ASTNODE_雰_7_?.__jcross_雰:1.0___ASTNODE_雰_19_?.__jcross_雰:1.0___ASTNODE_雰_9_?.["*"];
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_30_ = __jcross_雰:1.0___ASTNODE_雰_47_ && __jcross_雰:1.0___ASTNODE_雰_46_?.__jcross_雰:1.0___ASTNODE_雰_33_ ? __jcross_雰:1.0___ASTNODE_雰_46_.__jcross_雰:1.0___ASTNODE_雰_33_[__jcross_雰:1.0___ASTNODE_雰_47_] : __jcross_雰:1.0___ASTNODE_雰_2_;
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_38_ =
+    __jcross_雰:1.0___ASTNODE_雰_47_ && __jcross_雰:1.0___ASTNODE_雰_21_?.__jcross_雰:1.0___ASTNODE_雰_33_ ? __jcross_雰:1.0___ASTNODE_雰_21_.__jcross_雰:1.0___ASTNODE_雰_33_[__jcross_雰:1.0___ASTNODE_雰_47_] : __jcross_雰:1.0___ASTNODE_雰_2_;
+  if (__jcross_雰:1.0___ASTNODE_雰_24_ __jcross_雰:1.0___ASTNODE_雰_30_?.__jcross_雰:1.0___ASTNODE_雰_1_ === "__jcross_雰:1.0___ASTNODE_雰_40_") {
+    return __jcross_雰:1.0___ASTNODE_雰_30_.__jcross_雰:1.0___ASTNODE_雰_1_;
+  }
+  if (__jcross_雰:1.0___ASTNODE_雰_24_ __jcross_雰:1.0___ASTNODE_雰_38_?.__jcross_雰:1.0___ASTNODE_雰_1_ === "__jcross_雰:1.0___ASTNODE_雰_40_") {
+    return __jcross_雰:1.0___ASTNODE_雰_38_.__jcross_雰:1.0___ASTNODE_雰_1_;
+  }
+  if (__jcross_雰:1.0___ASTNODE_雰_24_ __jcross_雰:1.0___ASTNODE_雰_46_?.__jcross_雰:1.0___ASTNODE_雰_1_ === "__jcross_雰:1.0___ASTNODE_雰_40_") {
+// __jcross_縁:0.4___ASTNODE_HX_461_ [decoy-metadata]
+// __jcross_殻:0.8___ASTNODE_GE_989_ [decoy-metadata]
+    return __jcross_雰:1.0___ASTNODE_雰_46_.__jcross_雰:1.0___ASTNODE_雰_1_;
+  }
+  if (__jcross_雰:1.0___ASTNODE_雰_24_ __jcross_雰:1.0___ASTNODE_雰_21_?.__jcross_雰:1.0___ASTNODE_雰_1_ === "__jcross_雰:1.0___ASTNODE_雰_40_") {
+    return __jcross_雰:1.0___ASTNODE_雰_21_.__jcross_雰:1.0___ASTNODE_雰_1_;
+  }
+  return __jcross_雰:1.0___ASTNODE_雰_2_;
+}
+
+__jcross_雰:1.0___ASTNODE_雰_29_ __jcross_雰:1.0___ASTNODE_雰_15_ __jcross_雰:1.0___ASTNODE_雰_48_(
+  __jcross_雰:1.0___ASTNODE_雰_4_: __jcross_殻:1.0___ASTNODE_殻_2_,
+): __jcross_雰:1.0___ASTNODE_雰_40_ | __jcross_雰:1.0___ASTNODE_雰_2_ {
+  __jcross_雰:1.0___ASTNODE_雰_36_ { __jcross_雰:1.0___ASTNODE_雰_14_, __jcross_雰:1.0___ASTNODE_雰_47_ } = __jcross_雰:1.0___ASTNODE_雰_44_(__jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_20_);
+  __jcross_雰:1.0___ASTNODE_雰_36_ __jcross_雰:1.0___ASTNODE_雰_1_ = __jcross_雰:1.0___ASTNODE_雰_37_({
+    __jcross_雰:1.0___ASTNODE_雰_32_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_32_,
+    __jcross_雰:1.0___ASTNODE_雰_14_,
+    __jcross_雰:1.0___ASTNODE_雰_47_,
+  });
+  if (__jcross_雰:1.0___ASTNODE_雰_24_ __jcross_雰:1.0___ASTNODE_雰_1_ === "__jcross_雰:1.0___ASTNODE_雰_40_") {
+    return __jcross_雰:1.0___ASTNODE_雰_1_;
+  }
+  return __jcross_雰:1.0___ASTNODE_雰_49_({
+    __jcross_雰:1.0___ASTNODE_雰_32_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_32_,
+    __jcross_雰:1.0___ASTNODE_雰_50_: "__jcross_雰:1.0___ASTNODE_雰_19_",
+    __jcross_雰:1.0___ASTNODE_雰_20_: __jcross_雰:1.0___ASTNODE_雰_14_ ?? __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_20_,
+    __jcross_雰:1.0___ASTNODE_雰_28_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_28_,
+  });
+}
+
+__jcross_雰:1.0___ASTNODE_雰_29_ __jcross_雰:1.0___ASTNODE_雰_15_ __jcross_雰:1.0___ASTNODE_雰_11_(
+  __jcross_雰:1.0___ASTNODE_雰_4_: __jcross_殻:1.0___ASTNODE_殻_2_,
+): __jcross_殻:1.0___ASTNODE_殻_3_ | __jcross_雰:1.0___ASTNODE_雰_2_ {
+  __jcross_雰:1.0___ASTNODE_雰_36_ { __jcross_雰:1.0___ASTNODE_雰_14_ } = __jcross_雰:1.0___ASTNODE_雰_44_(__jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_20_);
+  return __jcross_雰:1.0___ASTNODE_雰_23_({
+    __jcross_雰:1.0___ASTNODE_雰_32_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_32_,
+    __jcross_雰:1.0___ASTNODE_雰_50_: "__jcross_雰:1.0___ASTNODE_雰_19_",
+    __jcross_雰:1.0___ASTNODE_雰_20_: __jcross_雰:1.0___ASTNODE_雰_14_ ?? __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_20_,
+    __jcross_雰:1.0___ASTNODE_雰_28_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_28_,
+    __jcross_雰:1.0___ASTNODE_雰_31_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_31_,
+    __jcross_雰:1.0___ASTNODE_雰_25_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_25_,
+    __jcross_雰:1.0___ASTNODE_雰_45_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_45_,
+    __jcross_雰:1.0___ASTNODE_雰_17_: __jcross_雰:1.0___ASTNODE_雰_4_.__jcross_雰:1.0___ASTNODE_雰_17_,
+  });
+}
+
+// POLYMORPHIC_JCROSS_END

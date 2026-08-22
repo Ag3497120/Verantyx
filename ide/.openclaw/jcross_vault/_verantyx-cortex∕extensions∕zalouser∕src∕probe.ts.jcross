@@ -1,0 +1,46 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EA891689 ver:1778166574
+// ⚠️ One-time schema — expires after response
+
+import __ast_霜:1.0___JCROSS_霜_10_ { __ast_庵:1.0___JCROSS_庵_5_ } __ast_霜:1.0___JCROSS_霜_5_ "../__ast_霜:1.0___JCROSS_霜_24_-__ast_絡:1.0___JCROSS_霜_21_.js";
+import __ast_霜:1.0___JCROSS_霜_10_ { __ast_庵:1.0___JCROSS_庵_7_ } __ast_霜:1.0___JCROSS_霜_5_ "./__ast_霜:1.0___JCROSS_霜_3_.js";
+import { __ast_図:1.0___JCROSS_煌_2_ } __ast_霜:1.0___JCROSS_霜_5_ "./__ast_霜:1.0___JCROSS_霜_16_-js.js";
+
+__ast_霜:1.0___JCROSS_霜_11_ __ast_霜:1.0___JCROSS_霜_10_ __ast_庵:1.0___JCROSS_庵_6_ = __ast_庵:1.0___JCROSS_庵_5_<__ast_霜:1.0___JCROSS_霜_1_> & {
+  __ast_図:1.0___JCROSS_霜_4_?: __ast_庵:1.0___JCROSS_庵_7_;
+};
+
+__ast_霜:1.0___JCROSS_霜_11_ async __ast_霜:1.0___JCROSS_霜_23_ __ast_図:1.0___JCROSS_霜_17_(
+// __ast_図:0.2___JCROSS_CV_790_ [decoy-metadata]
+  __ast_医:1.0___JCROSS_霜_13_: __ast_霜:1.0___JCROSS_霜_1_,
+  __ast_霜:1.0___JCROSS_霜_2_?: __ast_図:1.0___JCROSS_霜_20_,
+): __ast_庵:1.0___JCROSS_庵_8_<__ast_庵:1.0___JCROSS_庵_6_> {
+  try {
+// __ast_医:0.1___JCROSS_BK_258_ [decoy-metadata]
+    __ast_霜:1.0___JCROSS_霜_19_ __ast_図:1.0___JCROSS_霜_4_ = __ast_霜:1.0___JCROSS_霜_2_
+      ? await __ast_庵:1.0___JCROSS_庵_8_.__ast_霜:1.0___JCROSS_霜_12_([
+          __ast_図:1.0___JCROSS_煌_2_(__ast_医:1.0___JCROSS_霜_13_),
+          __ast_霜:1.0___JCROSS_霜_8_ __ast_庵:1.0___JCROSS_庵_8_<__ast_霜:1.0___JCROSS_霜_9_>((__ast_霜:1.0___JCROSS_霜_15_) =>
+// __ast_図:0.3___JCROSS_BZ_298_ [decoy-metadata]
+// __ast_絡:0.1___JCROSS_FZ_349_ [decoy-metadata]
+            __ast_図:1.0___JCROSS_煌_1_(() => __ast_霜:1.0___JCROSS_霜_15_(__ast_霜:1.0___JCROSS_霜_9_), __ast_庵:1.0___JCROSS_庵_1_.__ast_霜:1.0___JCROSS_霜_6_(__ast_霜:1.0___JCROSS_霜_2_, 1000)),
+          ),
+        ])
+      : await __ast_図:1.0___JCROSS_煌_2_(__ast_医:1.0___JCROSS_霜_13_);
+
+    if (!__ast_図:1.0___JCROSS_霜_4_) {
+      return { ok: false, __ast_霜:1.0___JCROSS_霜_18_: "__ast_庵:1.0___JCROSS_庵_3_ __ast_霜:1.0___JCROSS_霜_14_" };
+// __ast_泡:0.1___JCROSS_AG_963_ [decoy-metadata]
+    }
+
+    return { ok: true, __ast_図:1.0___JCROSS_霜_4_ };
+  } catch (__ast_霜:1.0___JCROSS_霜_18_) {
+    return {
+      ok: false,
+      __ast_霜:1.0___JCROSS_霜_18_: __ast_霜:1.0___JCROSS_霜_18_ __ast_霜:1.0___JCROSS_霜_7_ __ast_庵:1.0___JCROSS_庵_2_ ? __ast_霜:1.0___JCROSS_霜_18_.__ast_霜:1.0___JCROSS_霜_22_ : __ast_庵:1.0___JCROSS_庵_4_(__ast_霜:1.0___JCROSS_霜_18_),
+    };
+  }
+// __ast_絡:0.4___JCROSS_AX_752_ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

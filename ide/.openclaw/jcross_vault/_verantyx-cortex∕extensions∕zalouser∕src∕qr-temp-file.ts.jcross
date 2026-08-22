@@ -1,0 +1,34 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:36E8CC49 ver:1778166577
+// ⚠️ One-time schema — expires after response
+
+// _OPAQUE_匱:0.4__ID_HF_642_ [decoy-metadata]
+import _OPAQUE_霤:1.0__ID_霤_9_ _OPAQUE_霤:1.0__ID_霤_11_ "_OPAQUE_霤:1.0__ID_霤_20_:fs/_OPAQUE_霤:1.0__ID_霤_12_";
+import _OPAQUE_霤:1.0__ID_霤_29_ _OPAQUE_霤:1.0__ID_霤_11_ "_OPAQUE_霤:1.0__ID_霤_20_:_OPAQUE_霤:1.0__ID_霤_29_";
+import { _OPAQUE_霤:1.0__ID_霤_5_ } _OPAQUE_霤:1.0__ID_霤_11_ "../_OPAQUE_霤:1.0__ID_霤_26_-_OPAQUE_組:1.0__ID_霤_13_.js";
+// _OPAQUE_組:0.5__ID_DF_833_ [decoy-metadata]
+
+// _OPAQUE_組:0.9__ID_WV_968_ [decoy-metadata]
+// _OPAQUE_道:0.7__ID_ZL_824_ [decoy-metadata]
+_OPAQUE_霤:1.0__ID_霤_28_ async _OPAQUE_霤:1.0__ID_霤_30_ _OPAQUE_組:1.0__ID_霤_6_(
+  _OPAQUE_組:1.0__ID_霤_14_: _OPAQUE_霤:1.0__ID_霤_7_,
+// _OPAQUE_沈:0.5__ID_GL_333_ [decoy-metadata]
+  _OPAQUE_匱:1.0__ID_霤_22_: _OPAQUE_霤:1.0__ID_霤_7_,
+): _OPAQUE_廱:1.0__ID_廱_1_<_OPAQUE_霤:1.0__ID_霤_7_ | _OPAQUE_霤:1.0__ID_霤_1_> {
+  _OPAQUE_霤:1.0__ID_霤_17_ _OPAQUE_霤:1.0__ID_霤_27_ = _OPAQUE_組:1.0__ID_霤_14_._OPAQUE_霤:1.0__ID_霤_19_();
+  _OPAQUE_霤:1.0__ID_霤_17_ _OPAQUE_霤:1.0__ID_霤_4_ = _OPAQUE_霤:1.0__ID_霤_27_._OPAQUE_霤:1.0__ID_霤_4_(/^_OPAQUE_霤:1.0__ID_霤_18_:_OPAQUE_霤:1.0__ID_霤_31_\/_OPAQUE_霤:1.0__ID_霤_15_;_OPAQUE_霤:1.0__ID_霤_8_,(.+)$/i);
+  _OPAQUE_霤:1.0__ID_霤_17_ _OPAQUE_霤:1.0__ID_霤_8_ = (_OPAQUE_霤:1.0__ID_霤_4_?.[1] ?? "")._OPAQUE_霤:1.0__ID_霤_19_();
+  if (!_OPAQUE_霤:1.0__ID_霤_8_) {
+    return _OPAQUE_霤:1.0__ID_霤_1_;
+  }
+  _OPAQUE_霤:1.0__ID_霤_17_ _OPAQUE_匱:1.0__ID_霤_21_ = _OPAQUE_匱:1.0__ID_霤_22_._OPAQUE_霤:1.0__ID_霤_24_(/[^a-zA-Z0-9_-]+/g, "-") || "_OPAQUE_霤:1.0__ID_霤_2_";
+  _OPAQUE_霤:1.0__ID_霤_17_ _OPAQUE_匱:1.0__ID_霤_25_ = _OPAQUE_霤:1.0__ID_霤_29_._OPAQUE_霤:1.0__ID_霤_16_(
+    _OPAQUE_霤:1.0__ID_霤_5_(),
+    `_OPAQUE_霤:1.0__ID_霤_10_-_OPAQUE_道:1.0__ID_霤_23_-qr-${_OPAQUE_匱:1.0__ID_霤_21_}._OPAQUE_霤:1.0__ID_霤_15_`,
+  );
+  await _OPAQUE_霤:1.0__ID_霤_9_._OPAQUE_匱:1.0__ID_霤_3_(_OPAQUE_匱:1.0__ID_霤_25_, _OPAQUE_道:1.0__ID_廱_2_._OPAQUE_霤:1.0__ID_霤_11_(_OPAQUE_霤:1.0__ID_霤_8_, "_OPAQUE_霤:1.0__ID_霤_8_"));
+// _OPAQUE_錬:0.5__ID_WX_593_ [decoy-metadata]
+  return _OPAQUE_匱:1.0__ID_霤_25_;
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:05BFFFA8 ver:1778159582
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _SYM_霜:1.0__TOKEN_霜_1_, _SYM_霜:1.0__TOKEN_霜_98_, _SYM_霜:1.0__TOKEN_霜_110_, os
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_114_(_SYM_霜:1.0__TOKEN_霜_54_, _SYM_霜:1.0__TOKEN_霜_118_: _SYM_霜:1.0__TOKEN_霜_115_) -> _SYM_霜:1.0__TOKEN_霜_45_:
+    _SYM_霜:1.0__TOKEN_霜_37_ = _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_15_", [])
+    return _SYM_霜:1.0__TOKEN_霜_71_(_SYM_霜:1.0__TOKEN_霜_37_, _SYM_霜:1.0__TOKEN_霜_44_) _SYM_霜:1.0__TOKEN_霜_34_ _SYM_霜:1.0__TOKEN_霜_118_ in _SYM_霜:1.0__TOKEN_霜_37_
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_60_(_SYM_霜:1.0__TOKEN_霜_54_, _SYM_霜:1.0__TOKEN_霜_2_: _SYM_霜:1.0__TOKEN_霜_115_) -> _SYM_霜:1.0__TOKEN_霜_45_:
+    _SYM_霜:1.0__TOKEN_霜_37_ = _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_15_", [])
+// _SYM_匶:0.7__TOKEN_KY_549_ [decoy-metadata]
+    if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_71_(_SYM_霜:1.0__TOKEN_霜_37_, _SYM_霜:1.0__TOKEN_霜_44_):
+// _SYM_絵:0.8__TOKEN_HD_561_ [decoy-metadata]
+        return _SYM_廱:1.0__TOKEN_廱_4_
+    return any(p._SYM_霜:1.0__TOKEN_霜_83_(_SYM_霜:1.0__TOKEN_霜_2_) for p in _SYM_霜:1.0__TOKEN_霜_37_)
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_85_(_SYM_霜:1.0__TOKEN_霜_54_) -> _SYM_霜:1.0__TOKEN_霜_45_:
+    """
+    _SYM_廱:1.0__TOKEN_廱_5_ 28.2 _SYM_霜:1.0__TOKEN_霜_106_ _SYM_霜:1.0__TOKEN_霜_49_:
+      - _SYM_霜:1.0__TOKEN_霜_121_ _SYM_霜:1.0__TOKEN_霜_112_
+      - _SYM_霜:1.0__TOKEN_霜_56_ _SYM_霜:1.0__TOKEN_霜_86_ _SYM_滾:1.0__TOKEN_霜_57_:true
+      - _SYM_霜:1.0__TOKEN_霜_97_:
+          a) _SYM_滾:1.0__TOKEN_霜_57_ _SYM_霜:1.0__TOKEN_霜_53_ _SYM_霜:1.0__TOKEN_霜_41_
+          b) _SYM_滾:1.0__TOKEN_霜_57_:_SYM_霜:1.0__TOKEN_霜_32_
+          c) _SYM_霜:1.0__TOKEN_霜_9_
+          d) no _SYM_霜:1.0__TOKEN_霜_25_ _SYM_霜:1.0__TOKEN_霜_76_
+          e) _SYM_霜:1.0__TOKEN_霜_99_ is _SYM_霜:1.0__TOKEN_霜_41_/weak
+    """
+    if _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_113_") != "_SYM_霜:1.0__TOKEN_霜_121_":
+        return _SYM_廱:1.0__TOKEN_廱_4_
+
+    if _SYM_霜:1.0__TOKEN_霜_114_(_SYM_霜:1.0__TOKEN_霜_54_, "_SYM_滾:1.0__TOKEN_霜_57_:true"):
+        return _SYM_廱:1.0__TOKEN_廱_4_
+
+    _SYM_霜:1.0__TOKEN_霜_93_ = _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_60_(_SYM_霜:1.0__TOKEN_霜_54_, "_SYM_滾:1.0__TOKEN_霜_57_:")
+    _SYM_霜:1.0__TOKEN_霜_32_ = _SYM_霜:1.0__TOKEN_霜_114_(_SYM_霜:1.0__TOKEN_霜_54_, "_SYM_滾:1.0__TOKEN_霜_57_:_SYM_霜:1.0__TOKEN_霜_32_")
+    _SYM_霜:1.0__TOKEN_霜_9_ = _SYM_霜:1.0__TOKEN_霜_114_(_SYM_霜:1.0__TOKEN_霜_54_, "_SYM_霜:1.0__TOKEN_霜_9_") or _SYM_霜:1.0__TOKEN_霜_114_(_SYM_霜:1.0__TOKEN_霜_54_, "_SYM_霜:1.0__TOKEN_霜_9_:true")
+    _SYM_霜:1.0__TOKEN_霜_78_ = "_SYM_霜:1.0__TOKEN_霜_25_" _SYM_霜:1.0__TOKEN_霜_107_ in _SYM_霜:1.0__TOKEN_霜_54_
+
+    _SYM_霜:1.0__TOKEN_霜_80_ = _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_99_")
+    _SYM_霜:1.0__TOKEN_霜_87_ = (_SYM_霜:1.0__TOKEN_霜_80_ is _SYM_廱:1.0__TOKEN_廱_3_) or (_SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_71_(_SYM_霜:1.0__TOKEN_霜_80_, _SYM_霜:1.0__TOKEN_霜_116_)) or (
+        _SYM_霜:1.0__TOKEN_霜_71_(_SYM_霜:1.0__TOKEN_霜_80_, _SYM_霜:1.0__TOKEN_霜_116_) _SYM_霜:1.0__TOKEN_霜_34_ _SYM_霜:1.0__TOKEN_霜_107_ {"_SYM_霜:1.0__TOKEN_霜_17_","_SYM_霜:1.0__TOKEN_霜_30_","_SYM_霜:1.0__TOKEN_霜_70_","_SYM_霜:1.0__TOKEN_霜_39_"}._SYM_霜:1.0__TOKEN_霜_119_(_SYM_霜:1.0__TOKEN_霜_80_._SYM_渕:1.0__TOKEN_霜_79_())
+    )
+// _SYM_絵:0.8__TOKEN_LC_893_ [decoy-metadata]
+
+    return _SYM_霜:1.0__TOKEN_霜_93_ or _SYM_霜:1.0__TOKEN_霜_32_ or _SYM_霜:1.0__TOKEN_霜_9_ or _SYM_霜:1.0__TOKEN_霜_78_ or _SYM_霜:1.0__TOKEN_霜_87_
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_101_(_SYM_霜:1.0__TOKEN_霜_54_, _SYM_霜:1.0__TOKEN_霜_16_):
+    _SYM_霜:1.0__TOKEN_霜_17_ = _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_17_", "_SYM_霜:1.0__TOKEN_霜_32_")
+    _SYM_霜:1.0__TOKEN_霜_94_ = _SYM_霜:1.0__TOKEN_霜_16_["_SYM_霜:1.0__TOKEN_霜_94_"]
+
+    _SYM_霜:1.0__TOKEN_霜_105_ = []
+    for _, t in _SYM_霜:1.0__TOKEN_霜_94_._SYM_霜:1.0__TOKEN_霜_11_():
+        if t["_SYM_霜:1.0__TOKEN_霜_8_"]._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_17_") == _SYM_霜:1.0__TOKEN_霜_17_:
+// _SYM_絵:0.2__TOKEN_BZ_956_ [decoy-metadata]
+            _SYM_霜:1.0__TOKEN_霜_105_._SYM_霜:1.0__TOKEN_霜_90_(t)
+
+    if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_105_:
+// [metadata-stripped]
+        _SYM_霜:1.0__TOKEN_霜_105_ = _SYM_霜:1.0__TOKEN_霜_44_(_SYM_霜:1.0__TOKEN_霜_94_._SYM_霜:1.0__TOKEN_霜_120_())
+        if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_105_:
+            return _SYM_廱:1.0__TOKEN_廱_3_
+
+    _SYM_霜:1.0__TOKEN_霜_64_ = " "._SYM_霜:1.0__TOKEN_霜_82_([
+        _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_33_", ""),
+        _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_48_", ""),
+        " "._SYM_霜:1.0__TOKEN_霜_82_(_SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_15_", []) if _SYM_霜:1.0__TOKEN_霜_71_(_SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_15_"), _SYM_霜:1.0__TOKEN_霜_44_) else [])
+    ])._SYM_要:1.0__TOKEN_霜_103_()
+
+    _SYM_霜:1.0__TOKEN_霜_67_ = []
+    for t in _SYM_霜:1.0__TOKEN_霜_105_:
+        _SYM_霜:1.0__TOKEN_霜_4_ = _SYM_霜:1.0__TOKEN_霜_115_(t["_SYM_霜:1.0__TOKEN_霜_8_"]._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_70_", ""))._SYM_要:1.0__TOKEN_霜_103_()
+        _SYM_霜:1.0__TOKEN_霜_77_ = _SYM_霜:1.0__TOKEN_霜_115_(t["_SYM_霜:1.0__TOKEN_霜_8_"]._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_39_", ""))._SYM_要:1.0__TOKEN_霜_103_()
+        _SYM_霜:1.0__TOKEN_霜_35_ = 0
+        if _SYM_霜:1.0__TOKEN_霜_4_ _SYM_霜:1.0__TOKEN_霜_34_ _SYM_霜:1.0__TOKEN_霜_4_ in _SYM_霜:1.0__TOKEN_霜_64_: _SYM_霜:1.0__TOKEN_霜_35_ += 2
+        if _SYM_霜:1.0__TOKEN_霜_77_ _SYM_霜:1.0__TOKEN_霜_34_ _SYM_霜:1.0__TOKEN_霜_77_ in _SYM_霜:1.0__TOKEN_霜_64_: _SYM_霜:1.0__TOKEN_霜_35_ += 2
+        _SYM_霜:1.0__TOKEN_霜_67_._SYM_霜:1.0__TOKEN_霜_90_((_SYM_霜:1.0__TOKEN_霜_35_, t))
+
+// _SYM_霜:0.6__TOKEN_LE_684_ [decoy-metadata]
+    _SYM_霜:1.0__TOKEN_霜_67_._SYM_霜:1.0__TOKEN_霜_19_(_SYM_渕:1.0__TOKEN_霜_22_=_SYM_霜:1.0__TOKEN_霜_36_ x: x[0], _SYM_霜:1.0__TOKEN_霜_123_=_SYM_廱:1.0__TOKEN_廱_1_)
+    _SYM_霜:1.0__TOKEN_霜_7_ = _SYM_霜:1.0__TOKEN_霜_67_[0][0]
+    _SYM_霜:1.0__TOKEN_霜_75_ = [t for s, t in _SYM_霜:1.0__TOKEN_霜_67_ if s == _SYM_霜:1.0__TOKEN_霜_7_]
+    return _SYM_霜:1.0__TOKEN_霜_110_._SYM_霜:1.0__TOKEN_霜_23_(_SYM_霜:1.0__TOKEN_霜_75_)
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_50_(_SYM_霜:1.0__TOKEN_霜_54_, _SYM_霜:1.0__TOKEN_霜_42_):
+    _SYM_霜:1.0__TOKEN_霜_104_ = _SYM_霜:1.0__TOKEN_霜_42_["_SYM_霜:1.0__TOKEN_霜_8_"]
+    return {
+        "_SYM_霜:1.0__TOKEN_霜_17_": _SYM_霜:1.0__TOKEN_霜_104_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_17_", _SYM_霜:1.0__TOKEN_霜_54_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_17_")),
+        "_SYM_霜:1.0__TOKEN_霜_70_": _SYM_霜:1.0__TOKEN_霜_104_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_70_"),
+        "_SYM_霜:1.0__TOKEN_霜_39_": _SYM_霜:1.0__TOKEN_霜_104_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_39_"),
+        "_SYM_霜:1.0__TOKEN_霜_30_": _SYM_霜:1.0__TOKEN_霜_104_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_52_", {}),
+        "_SYM_霜:1.0__TOKEN_霜_65_": "_SYM_霜:1.0__TOKEN_霜_73_.2__SYM_霜:1.0__TOKEN_霜_8_",
+        "_SYM_霜:1.0__TOKEN_霜_124_": _SYM_霜:1.0__TOKEN_霜_42_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_63_"),
+        "_SYM_霜:1.0__TOKEN_霜_3_": _SYM_霜:1.0__TOKEN_霜_42_._SYM_要:1.0__TOKEN_凱_1_("_SYM_霜:1.0__TOKEN_霜_100_", [])[:3],
+    }
+
+_SYM_霜:1.0__TOKEN_霜_18_ _SYM_霜:1.0__TOKEN_霜_109_():
+    ap = _SYM_霜:1.0__TOKEN_霜_1_._SYM_要:1.0__TOKEN_廱_2_()
+    ap._SYM_霜:1.0__TOKEN_霜_29_("--kb", _SYM_霜:1.0__TOKEN_霜_74_=_SYM_廱:1.0__TOKEN_廱_1_)
+    ap._SYM_霜:1.0__TOKEN_霜_29_("--_SYM_霜:1.0__TOKEN_霜_94_", _SYM_霜:1.0__TOKEN_霜_74_=_SYM_廱:1.0__TOKEN_廱_1_)
+    ap._SYM_霜:1.0__TOKEN_霜_29_("--_SYM_霜:1.0__TOKEN_霜_125_", _SYM_霜:1.0__TOKEN_霜_74_=_SYM_廱:1.0__TOKEN_廱_1_)
+    ap._SYM_霜:1.0__TOKEN_霜_29_("--_SYM_霜:1.0__TOKEN_霜_69_", _SYM_霜:1.0__TOKEN_霜_96_=_SYM_霜:1.0__TOKEN_霜_6_, _SYM_霜:1.0__TOKEN_霜_58_=12000)
+    _SYM_霜:1.0__TOKEN_霜_43_ = ap._SYM_霜:1.0__TOKEN_霜_92_()
+// _SYM_霜:0.6__TOKEN_MB_588_ [decoy-metadata]
+
+    _SYM_霜:1.0__TOKEN_霜_14_ open(_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_94_, "r", _SYM_霜:1.0__TOKEN_霜_40_="_SYM_霜:1.0__TOKEN_霜_27_-8") as f:
+        _SYM_霜:1.0__TOKEN_霜_16_ = _SYM_霜:1.0__TOKEN_霜_98_._SYM_匶:1.0__TOKEN_霜_10_(f)
+
+    os._SYM_霜:1.0__TOKEN_霜_24_(os._SYM_霜:1.0__TOKEN_霜_108_._SYM_霜:1.0__TOKEN_霜_88_(_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_125_), _SYM_霜:1.0__TOKEN_霜_26_=_SYM_廱:1.0__TOKEN_廱_1_)
+    if os._SYM_霜:1.0__TOKEN_霜_108_._SYM_霜:1.0__TOKEN_霜_62_(_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_125_):
+        os._SYM_霜:1.0__TOKEN_霜_84_(_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_125_)
+
+    _SYM_霜:1.0__TOKEN_霜_21_ = 0
+    _SYM_霜:1.0__TOKEN_霜_14_ open(_SYM_霜:1.0__TOKEN_霜_43_.kb, "r", _SYM_霜:1.0__TOKEN_霜_40_="_SYM_霜:1.0__TOKEN_霜_27_-8") as f, open(_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_125_, "a", _SYM_霜:1.0__TOKEN_霜_40_="_SYM_霜:1.0__TOKEN_霜_27_-8") as w:
+        for _SYM_霜:1.0__TOKEN_霜_111_ in f:
+            if _SYM_霜:1.0__TOKEN_霜_21_ >= _SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_69_:
+                break
+            if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_111_._SYM_霜:1.0__TOKEN_霜_91_():
+                continue
+            e = _SYM_霜:1.0__TOKEN_霜_98_._SYM_匶:1.0__TOKEN_霜_51_(_SYM_霜:1.0__TOKEN_霜_111_)
+
+            if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_85_(e):
+                continue
+
+            _SYM_霜:1.0__TOKEN_霜_42_ = _SYM_霜:1.0__TOKEN_霜_101_(e, _SYM_霜:1.0__TOKEN_霜_16_)
+            if _SYM_霜:1.0__TOKEN_霜_107_ _SYM_霜:1.0__TOKEN_霜_42_:
+                continue
+
+            _SYM_霜:1.0__TOKEN_霜_31_ = _SYM_霜:1.0__TOKEN_霜_50_(e, _SYM_霜:1.0__TOKEN_霜_42_)
+
+            _SYM_霜:1.0__TOKEN_霜_46_ = {
+                "id": e["id"],
+                "op": "_SYM_霜:1.0__TOKEN_霜_38_",
+                "_SYM_霜:1.0__TOKEN_霜_68_": {
+                    "_SYM_霜:1.0__TOKEN_霜_25_": _SYM_霜:1.0__TOKEN_霜_31_,
+                    "_SYM_霜:1.0__TOKEN_霜_102_": "_SYM_廱:1.0__TOKEN_廱_5_ 28.2 _SYM_霜:1.0__TOKEN_霜_8_ _SYM_霜:1.0__TOKEN_霜_95_ _SYM_霜:1.0__TOKEN_霜_66_",
+                }
+            }
+            w._SYM_霜:1.0__TOKEN_霜_81_(_SYM_霜:1.0__TOKEN_霜_98_._SYM_霜:1.0__TOKEN_霜_55_(_SYM_霜:1.0__TOKEN_霜_46_, _SYM_霜:1.0__TOKEN_霜_47_=_SYM_廱:1.0__TOKEN_廱_4_) + "\n")
+            _SYM_霜:1.0__TOKEN_霜_21_ += 1
+
+    _SYM_霜:1.0__TOKEN_霜_5_(f"[OK] _SYM_霜:1.0__TOKEN_霜_12_={_SYM_霜:1.0__TOKEN_霜_21_} -> {_SYM_霜:1.0__TOKEN_霜_43_._SYM_霜:1.0__TOKEN_霜_125_}")
+
+if _SYM_霜:1.0__TOKEN_霜_20_ == "_SYM_霜:1.0__TOKEN_霜_13_":
+    _SYM_霜:1.0__TOKEN_霜_109_()
+
+// POLYMORPHIC_JCROSS_END

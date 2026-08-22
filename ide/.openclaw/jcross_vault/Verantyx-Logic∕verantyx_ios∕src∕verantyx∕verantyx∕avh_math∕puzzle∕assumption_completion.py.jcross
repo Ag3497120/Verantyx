@@ -1,0 +1,33 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CCBA5A07 ver:1778162890
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_粒:1.0___ast_粒_15__ _TOKEN_粒:1.0___ast_粒_13__ import _TOKEN_粒:1.0___ast_粒_4__
+// _TOKEN_匳:0.5___ast_KV_194__ [decoy-metadata]
+
+_TOKEN_粒:1.0___ast_粒_15__ _TOKEN_粒:1.0___ast_粒_11__ import _TOKEN_廊:1.0___ast_廊_2__
+// _TOKEN_則:0.4___ast_GL_389__ [decoy-metadata]
+import re
+
+// _TOKEN_則:0.5___ast_GL_543__ [decoy-metadata]
+// _TOKEN_紐:0.4___ast_WZ_781__ [decoy-metadata]
+
+_TOKEN_廊:1.0___ast_廊_1__ = [
+// _TOKEN_廊:0.9___ast_AX_881__ [decoy-metadata]
+    (r"\[\]p->\[\]\[\]p", ["_TOKEN_粒:1.0___ast_粒_1__:_TOKEN_粒:1.0___ast_粒_9__"]),
+    (r"\[\]p->p", ["_TOKEN_粒:1.0___ast_粒_1__:_TOKEN_粒:1.0___ast_粒_14__"]),
+// _TOKEN_粒:0.3___ast_GA_690__ [decoy-metadata]
+]
+
+
+_TOKEN_粒:1.0___ast_粒_18__ _TOKEN_粒:1.0___ast_粒_5__(_TOKEN_澎:1.0___ast_粒_7__: _TOKEN_粒:1.0___ast_粒_6__, _TOKEN_粒:1.0___ast_粒_12__: _TOKEN_廊:1.0___ast_廊_2__[_TOKEN_粒:1.0___ast_粒_6__]) -> _TOKEN_廊:1.0___ast_廊_2__[_TOKEN_粒:1.0___ast_粒_6__]:
+    f = (_TOKEN_澎:1.0___ast_粒_7__ or "")._TOKEN_粒:1.0___ast_粒_16__(" ", "")
+    _TOKEN_粒:1.0___ast_粒_19__: _TOKEN_廊:1.0___ast_廊_2__[_TOKEN_粒:1.0___ast_粒_6__] = []
+    for _TOKEN_粒:1.0___ast_粒_8__, _TOKEN_粒:1.0___ast_粒_17__ in _TOKEN_廊:1.0___ast_廊_1__:
+        if re._TOKEN_粒:1.0___ast_粒_2__(_TOKEN_粒:1.0___ast_粒_8__, f):
+            for r in _TOKEN_粒:1.0___ast_粒_17__:
+                if r _TOKEN_粒:1.0___ast_粒_10__ in _TOKEN_粒:1.0___ast_粒_12__:
+                    _TOKEN_粒:1.0___ast_粒_19__._TOKEN_粒:1.0___ast_粒_3__(r)
+    return _TOKEN_粒:1.0___ast_粒_19__
+
+// POLYMORPHIC_JCROSS_END

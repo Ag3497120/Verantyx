@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7C3CAB2F ver:1778159690
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霢:1.0__ID_霢_1_ _JCROSS_霢:1.0__ID_霢_4_ import _JCROSS_殻:1.0__ID_殻_3_, _JCROSS_殻:1.0__ID_殻_2_
+_JCROSS_霢:1.0__ID_霢_1_ ._JCROSS_霢:1.0__ID_霢_15_ import _JCROSS_殻:1.0__ID_殻_5_, _JCROSS_殻:1.0__ID_殻_4_
+
+_JCROSS_霢:1.0__ID_霢_22_ _JCROSS_霢:1.0__ID_霢_21_(a: _JCROSS_殻:1.0__ID_殻_3_[_JCROSS_霢:1.0__ID_霢_10_], b: _JCROSS_殻:1.0__ID_殻_3_[_JCROSS_霢:1.0__ID_霢_10_]) -> _JCROSS_霢:1.0__ID_霢_14_:
+    """
+    2つの形状シーケンスの類似度を計算する（順序を重視）。
+// _JCROSS_浸:0.6__ID_BM_884_ [decoy-metadata]
+    """
+// _JCROSS_浸:0.1__ID_XX_869_ [decoy-metadata]
+    if _JCROSS_霢:1.0__ID_霢_16_ a or _JCROSS_霢:1.0__ID_霢_16_ b:
+// _JCROSS_霢:0.9__ID_VH_727_ [decoy-metadata]
+        return 0.0
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0__ID_霢_5_ = _JCROSS_霢:1.0__ID_霢_17_(1 for x, y in _JCROSS_霢:1.0__ID_霢_9_(a, b) if x == y)
+    return _JCROSS_霢:1.0__ID_霢_5_ / _JCROSS_霢:1.0__ID_霢_19_(_JCROSS_霢:1.0__ID_霢_8_(a), _JCROSS_霢:1.0__ID_霢_8_(b))
+
+// _JCROSS_奥:0.4__ID_BK_679_ [decoy-metadata]
+_JCROSS_霢:1.0__ID_霢_22_ _JCROSS_霢:1.0__ID_霢_18_(_JCROSS_霢:1.0__ID_霢_6_: _JCROSS_殻:1.0__ID_殻_3_[_JCROSS_霢:1.0__ID_霢_10_], _JCROSS_霢:1.0__ID_霢_2_: _JCROSS_霢:1.0__ID_霢_14_ = 0.6) -> _JCROSS_殻:1.0__ID_殻_2_[_JCROSS_殻:1.0__ID_殻_4_]:
+    """
+    シグネチャから最適な問題パターンを返す。
+    """
+    _JCROSS_霢:1.0__ID_霢_3_ = _JCROSS_殻:1.0__ID_殻_1_
+// _JCROSS_奥:0.7__ID_DL_624_ [decoy-metadata]
+    _JCROSS_霢:1.0__ID_霢_7_ = 0.0
+
+    for _JCROSS_霢:1.0__ID_霢_12_ in _JCROSS_殻:1.0__ID_殻_5_:
+        _JCROSS_霢:1.0__ID_霢_20_ = _JCROSS_霢:1.0__ID_霢_21_(_JCROSS_霢:1.0__ID_霢_6_, _JCROSS_霢:1.0__ID_霢_12_._JCROSS_霢:1.0__ID_霢_13_)
+        if _JCROSS_霢:1.0__ID_霢_20_ > _JCROSS_霢:1.0__ID_霢_7_ _JCROSS_霢:1.0__ID_霢_11_ _JCROSS_霢:1.0__ID_霢_20_ >= _JCROSS_霢:1.0__ID_霢_2_:
+            _JCROSS_霢:1.0__ID_霢_3_ = _JCROSS_霢:1.0__ID_霢_12_
+// _JCROSS_殻:0.5__ID_ZE_896_ [decoy-metadata]
+            _JCROSS_霢:1.0__ID_霢_7_ = _JCROSS_霢:1.0__ID_霢_20_
+
+    return _JCROSS_霢:1.0__ID_霢_3_
+
+// POLYMORPHIC_JCROSS_END

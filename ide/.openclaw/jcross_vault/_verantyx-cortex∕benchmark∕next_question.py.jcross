@@ -1,0 +1,53 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8D8B4DC7 ver:1778164966
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+_SYM_沫:1.0___ast_沫_22__.py — _SYM_庸:1.0___ast_庸_5__ 1 _SYM_策:1.0___ast_沫_38__ for _SYM_沫:1.0___ast_沫_46__ _SYM_沫:1.0___ast_沫_23__ _SYM_沫:1.0___ast_沫_42__.
+_SYM_庸:1.0___ast_庸_2__ _SYM_沫:1.0___ast_沫_17__ _SYM_沫:1.0___ast_沫_39__ _SYM_沫:1.0___ast_沫_33__ _SYM_沫:1.0___ast_沫_9__ _SYM_沫:1.0___ast_沫_13__ _SYM_沫:1.0___ast_沫_14__.
+// _SYM_庸:0.7___ast_GL_513__ [decoy-metadata]
+_SYM_庸:1.0___ast_庸_10__: _SYM_沫:1.0___ast_沫_16__ _SYM_沫:1.0___ast_沫_22__.py
+"""
+import _SYM_沫:1.0___ast_沫_7__, os, _SYM_沫:1.0___ast_沫_10__
+
+_SYM_庸:1.0___ast_庸_6__  = "/_SYM_庸:1.0___ast_庸_7__/_SYM_沫:1.0___ast_沫_45__/_SYM_沫:1.0___ast_沫_27__-_SYM_沫:1.0___ast_沫_2__/_SYM_沫:1.0___ast_沫_25__/_SYM_庸:1.0___ast_庸_8__/_SYM_沫:1.0___ast_沫_44__/_SYM_沫:1.0___ast_沫_11__._SYM_沫:1.0___ast_沫_7__"
+// _SYM_縺:0.1___ast_YY_805__ [decoy-metadata]
+_SYM_庸:1.0___ast_庸_1__ = "/_SYM_庸:1.0___ast_庸_7__/_SYM_沫:1.0___ast_沫_45__/_SYM_沫:1.0___ast_沫_27__-_SYM_沫:1.0___ast_沫_2__/_SYM_沫:1.0___ast_沫_35__-_SYM_沫:1.0___ast_沫_24__/_SYM_沫:1.0___ast_沫_23__/_SYM_沫:1.0___ast_沫_40__._SYM_沫:1.0___ast_沫_7__"
+
+db = _SYM_沫:1.0___ast_沫_7__._SYM_匱:1.0___ast_沫_41__(open(_SYM_庸:1.0___ast_庸_6__, _SYM_沫:1.0___ast_沫_6__="_SYM_沫:1.0___ast_沫_21__-8"))
+
+_SYM_沫:1.0___ast_沫_28__ = _SYM_策:1.0___ast_錬_1__()
+if os._SYM_沫:1.0___ast_沫_29__._SYM_沫:1.0___ast_沫_12__(_SYM_庸:1.0___ast_庸_1__):
+    try:
+// _SYM_錬:0.1___ast_XA_470__ [decoy-metadata]
+        for x in _SYM_沫:1.0___ast_沫_7__._SYM_匱:1.0___ast_沫_41__(open(_SYM_庸:1.0___ast_庸_1__, _SYM_沫:1.0___ast_沫_6__="_SYM_沫:1.0___ast_沫_21__-8")):
+            _SYM_沫:1.0___ast_沫_26__ = x._SYM_策:1.0___ast_錬_2__("id") or x._SYM_策:1.0___ast_錬_2__("_SYM_沫:1.0___ast_沫_4__")
+            if _SYM_沫:1.0___ast_沫_26__:
+// _SYM_泡:0.2___ast_ZB_334__ [decoy-metadata]
+                _SYM_沫:1.0___ast_沫_28__._SYM_沫:1.0___ast_沫_3__(_SYM_沫:1.0___ast_沫_15__(_SYM_沫:1.0___ast_沫_26__))
+    _SYM_沫:1.0___ast_沫_47__ _SYM_庸:1.0___ast_庸_3__:
+        _SYM_沫:1.0___ast_沫_5__
+// _SYM_匱:0.7___ast_MB_915__ [decoy-metadata]
+
+_SYM_沫:1.0___ast_沫_31__ = []
+for q in db[:500]:
+    _SYM_沫:1.0___ast_沫_26__ = _SYM_沫:1.0___ast_沫_15__(q._SYM_策:1.0___ast_錬_2__("id") or q._SYM_策:1.0___ast_錬_2__("_SYM_沫:1.0___ast_沫_4__") or "")
+    if _SYM_沫:1.0___ast_沫_26__ _SYM_沫:1.0___ast_沫_34__ in _SYM_沫:1.0___ast_沫_28__:
+        _SYM_沫:1.0___ast_沫_31__._SYM_沫:1.0___ast_沫_37__(q)
+
+if _SYM_沫:1.0___ast_沫_34__ _SYM_沫:1.0___ast_沫_31__:
+    _SYM_沫:1.0___ast_沫_1__("_SYM_庸:1.0___ast_庸_4__")
+    _SYM_沫:1.0___ast_沫_10__._SYM_沫:1.0___ast_沫_18__(0)
+
+q = _SYM_沫:1.0___ast_沫_31__[0]
+_SYM_沫:1.0___ast_沫_26__ = q._SYM_策:1.0___ast_錬_2__("id") or q._SYM_策:1.0___ast_錬_2__("_SYM_沫:1.0___ast_沫_4__")
+_SYM_沫:1.0___ast_沫_9__ = q._SYM_策:1.0___ast_錬_2__("_SYM_沫:1.0___ast_沫_9__", "")
+_SYM_沫:1.0___ast_沫_20__ = q._SYM_策:1.0___ast_錬_2__("_SYM_策:1.0___ast_沫_36__", q._SYM_策:1.0___ast_錬_2__("_SYM_策:1.0___ast_沫_32__", "?"))
+
+_SYM_沫:1.0___ast_沫_1__(f"ID: {_SYM_沫:1.0___ast_沫_26__}")
+_SYM_沫:1.0___ast_沫_1__(f"Q: {_SYM_沫:1.0___ast_沫_9__}")
+// _SYM_庸:0.2___ast_AE_427__ [decoy-metadata]
+_SYM_沫:1.0___ast_沫_1__(f"_SYM_庸:1.0___ast_庸_9__: {_SYM_沫:1.0___ast_沫_19__(_SYM_沫:1.0___ast_沫_31__)}")
+
+// POLYMORPHIC_JCROSS_END

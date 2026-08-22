@@ -1,0 +1,49 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C659BEF3 ver:1778159670
+// ⚠️ One-time schema — expires after response
+
+_ID_霪:1.0__OPAQUE_霪_2_ _ID_霪:1.0__OPAQUE_霪_28_ import _ID_霪:1.0__OPAQUE_霪_6_
+
+_ID_霪:1.0__OPAQUE_霪_2_ _ID_霪:1.0__OPAQUE_霪_8_ import _ID_殻:1.0__OPAQUE_殻_2_, _ID_殻:1.0__OPAQUE_殻_1_, _ID_殻:1.0__OPAQUE_殻_3_
+// _ID_律:0.6__OPAQUE_HL_980_ [decoy-metadata]
+
+// _ID_匷:0.9__OPAQUE_CD_155_ [decoy-metadata]
+_ID_霪:1.0__OPAQUE_霪_2_ _ID_霪:1.0__OPAQUE_霪_29_._ID_霪:1.0__OPAQUE_霪_32_._ID_霪:1.0__OPAQUE_霪_33_ import _ID_霪:1.0__OPAQUE_霪_14_
+_ID_霪:1.0__OPAQUE_霪_2_ _ID_霪:1.0__OPAQUE_霪_29_._ID_霪:1.0__OPAQUE_霪_32_._ID_律:1.0__OPAQUE_霪_24_ import _ID_霪:1.0__OPAQUE_霪_31_
+// _ID_嵐:0.7__OPAQUE_AB_548_ [decoy-metadata]
+
+
+// _ID_潤:0.7__OPAQUE_DA_633_ [decoy-metadata]
+class _ID_殻:1.0__OPAQUE_殻_5_:
+    _ID_霪:1.0__OPAQUE_霪_1_ _ID_霪:1.0__OPAQUE_霪_25_(self, _ID_霪:1.0__OPAQUE_霪_9_: _ID_霪:1.0__OPAQUE_霪_15_) -> _ID_殻:1.0__OPAQUE_殻_1_[_ID_霪:1.0__OPAQUE_霪_15_, _ID_殻:1.0__OPAQUE_殻_2_]:
+        g = _ID_霪:1.0__OPAQUE_霪_14_(_ID_霪:1.0__OPAQUE_霪_9_)
+        if any("_ID_霪:1.0__OPAQUE_霪_22_" in n for n in g._ID_霪:1.0__OPAQUE_霪_30_):
+            return {
+                "_ID_霪:1.0__OPAQUE_霪_26_": "_ID_霪:1.0__OPAQUE_霪_12_",
+                "_ID_霪:1.0__OPAQUE_霪_16_": "式が壊れています（矢印の右辺が欠損）。\"A -> B\" の形で入力してください。",
+                "_ID_霪:1.0__OPAQUE_霪_20_": {"_ID_霪:1.0__OPAQUE_霪_18_": g._ID_霪:1.0__OPAQUE_霪_30_, "_ID_潤:1.0__OPAQUE_霪_13_": g._ID_潤:1.0__OPAQUE_霪_13_},
+                "_ID_匷:1.0__OPAQUE_霪_19_": {"_ID_霪:1.0__OPAQUE_霪_17_": g._ID_霪:1.0__OPAQUE_霪_7_},
+// _ID_律:0.1__OPAQUE_LX_899_ [decoy-metadata]
+                "_ID_霪:1.0__OPAQUE_霪_4_": ["式を \"...\" で囲い、-> の右側が必ずあることを確認してください。"],
+            }
+
+        _ID_霪:1.0__OPAQUE_霪_11_ = _ID_霪:1.0__OPAQUE_霪_31_(g)
+        return {
+            "_ID_霪:1.0__OPAQUE_霪_26_": _ID_霪:1.0__OPAQUE_霪_11_._ID_霪:1.0__OPAQUE_霪_26_,
+            "_ID_霪:1.0__OPAQUE_霪_16_": _ID_霪:1.0__OPAQUE_霪_11_._ID_霪:1.0__OPAQUE_霪_16_,
+            "_ID_霪:1.0__OPAQUE_霪_20_": _ID_霪:1.0__OPAQUE_霪_11_._ID_霪:1.0__OPAQUE_霪_20_,
+            "_ID_匷:1.0__OPAQUE_霪_19_": {"_ID_霪:1.0__OPAQUE_霪_17_": _ID_霪:1.0__OPAQUE_霪_11_._ID_霪:1.0__OPAQUE_霪_17_},
+            "_ID_霪:1.0__OPAQUE_霪_4_": self._ID_霪:1.0__OPAQUE_霪_23_(_ID_霪:1.0__OPAQUE_霪_11_._ID_霪:1.0__OPAQUE_霪_26_),
+        }
+
+// _ID_律:0.7__OPAQUE_YD_342_ [decoy-metadata]
+    _ID_霪:1.0__OPAQUE_霪_1_ _ID_霪:1.0__OPAQUE_霪_23_(self, _ID_霪:1.0__OPAQUE_霪_26_: _ID_霪:1.0__OPAQUE_霪_15_) -> _ID_殻:1.0__OPAQUE_殻_3_[_ID_霪:1.0__OPAQUE_霪_15_]:
+        if _ID_霪:1.0__OPAQUE_霪_26_ == "_ID_霪:1.0__OPAQUE_霪_3_":
+            return ["_ID_殻:1.0__OPAQUE_殻_4_ Libraryへ保存"]
+        if _ID_霪:1.0__OPAQUE_霪_26_ == "_ID_霪:1.0__OPAQUE_霪_27_":
+            return ["反例として登録", "Assumptionを変更して再試行"]
+        if _ID_霪:1.0__OPAQUE_霪_26_ == "_ID_霪:1.0__OPAQUE_霪_5_":
+            return ["探索範囲(_ID_霪:1.0__OPAQUE_霪_10_)を増やす", "仮定(_ID_霪:1.0__OPAQUE_霪_21_/transitive等)を明示"]
+        return ["入力ルールを確認", "式を\"...\"で囲う"]
+
+// POLYMORPHIC_JCROSS_END

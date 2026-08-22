@@ -1,0 +1,89 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C206C277 ver:1778166432
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_道:0.4___TOKEN_LH_398_ [decoy-metadata]
+
+__node_泡:1.0___TOKEN_泡_21_ __node_泡:1.0___TOKEN_泡_58_::__node_泡:1.0___TOKEN_泡_64_::__node_廡:1.0___TOKEN_廡_29_;
+
+// [metadata-stripped]
+// __node_燦:0.5___TOKEN_VW_942_ [decoy-metadata]
+// [metadata-stripped]
+__node_泡:1.0___TOKEN_泡_23_ enum __node_廡:1.0___TOKEN_廡_12_ { __node_廡:1.0___TOKEN_廡_6_, __node_廡:1.0___TOKEN_廡_21_, __node_廡:1.0___TOKEN_廡_9_, __node_廡:1.0___TOKEN_廡_28_, __node_廡:1.0___TOKEN_廡_38_, __node_廡:1.0___TOKEN_廡_17_, __node_廡:1.0___TOKEN_廡_27_ }
+
+// [metadata-stripped]
+__node_泡:1.0___TOKEN_泡_23_ struct __node_廡:1.0___TOKEN_廡_25_ {
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_63_: __node_泡:1.0___TOKEN_泡_29_,
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_70_: __node_廡:1.0___TOKEN_廡_12_,
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_31_: __node_泡:1.0___TOKEN_泡_50_,
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_77_: __node_泡:1.0___TOKEN_泡_50_,
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_41_: __node_泡:1.0___TOKEN_泡_28_,
+}
+
+// [metadata-stripped]
+__node_泡:1.0___TOKEN_泡_23_ struct __node_廡:1.0___TOKEN_廡_26_ {
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_57_: __node_廡:1.0___TOKEN_廡_7_<__node_廡:1.0___TOKEN_廡_25_>,
+    __node_泡:1.0___TOKEN_泡_23_ __node_泡:1.0___TOKEN_泡_59_: __node_廡:1.0___TOKEN_廡_29_<__node_泡:1.0___TOKEN_泡_28_, (__node_泡:1.0___TOKEN_泡_50_, __node_泡:1.0___TOKEN_泡_50_)>, // __node_泡:1.0___TOKEN_泡_71_ -> (__node_泡:1.0___TOKEN_泡_24_, __node_泡:1.0___TOKEN_泡_36_)
+}
+
+// __node_燦:0.6___TOKEN_BK_255_ [decoy-metadata]
+__node_泡:1.0___TOKEN_泡_1_ __node_廡:1.0___TOKEN_廡_26_ {
+// __node_泡:0.2___TOKEN_DE_592_ [decoy-metadata]
+    __node_泡:1.0___TOKEN_泡_23_ fn __node_泡:1.0___TOKEN_泡_10_() -> __node_廡:1.0___TOKEN_廡_34_ {
+        __node_廡:1.0___TOKEN_廡_34_ {
+            __node_泡:1.0___TOKEN_泡_57_: __node_廡:1.0___TOKEN_廡_7_::__node_泡:1.0___TOKEN_泡_10_(),
+            __node_泡:1.0___TOKEN_泡_59_: __node_廡:1.0___TOKEN_廡_29_::__node_泡:1.0___TOKEN_泡_10_(),
+        }
+    }
+
+// [metadata-stripped]
+    __node_泡:1.0___TOKEN_泡_23_ fn __node_泡:1.0___TOKEN_泡_43_(&__node_泡:1.0___TOKEN_泡_60_ self, __node_泡:1.0___TOKEN_泡_63_: __node_泡:1.0___TOKEN_泡_29_, __node_泡:1.0___TOKEN_泡_70_: __node_廡:1.0___TOKEN_廡_12_, w: __node_泡:1.0___TOKEN_泡_50_, h: __node_泡:1.0___TOKEN_泡_50_, __node_泡:1.0___TOKEN_泡_71_: __node_泡:1.0___TOKEN_泡_28_) {
+        let (__node_泡:1.0___TOKEN_泡_42_, __node_泡:1.0___TOKEN_泡_5_) = self.__node_泡:1.0___TOKEN_泡_59_.__node_泡:1.0___TOKEN_泡_20_(__node_泡:1.0___TOKEN_泡_71_).__node_泡:1.0___TOKEN_泡_18_((0.0, 0.0));
+        
+        let _y = __node_泡:1.0___TOKEN_泡_79_ __node_泡:1.0___TOKEN_泡_70_ {
+            __node_廡:1.0___TOKEN_廡_12_::__node_廡:1.0___TOKEN_廡_6_ => {
+                let y = *__node_泡:1.0___TOKEN_泡_42_;
+                *__node_泡:1.0___TOKEN_泡_42_ += h;
+                y
+            }
+            __node_廡:1.0___TOKEN_廡_12_::__node_廡:1.0___TOKEN_廡_21_ => {
+                let y = *__node_泡:1.0___TOKEN_泡_5_;
+                *__node_泡:1.0___TOKEN_泡_5_ += h;
+                y
+            }
+// __node_燦:0.5___TOKEN_KV_258_ [decoy-metadata]
+            _ => 0.0,
+        };
+
+        self.__node_泡:1.0___TOKEN_泡_57_.__node_泡:1.0___TOKEN_泡_73_(__node_廡:1.0___TOKEN_廡_25_ {
+            __node_泡:1.0___TOKEN_泡_63_,
+            __node_泡:1.0___TOKEN_泡_70_,
+            __node_泡:1.0___TOKEN_泡_31_: w,
+            __node_泡:1.0___TOKEN_泡_77_: h,
+            __node_泡:1.0___TOKEN_泡_41_: __node_泡:1.0___TOKEN_泡_71_,
+        });
+    }
+
+// [metadata-stripped]
+    __node_泡:1.0___TOKEN_泡_23_ fn __node_泡:1.0___TOKEN_泡_35_(&self) -> __node_廡:1.0___TOKEN_廡_14_ {
+        let __node_泡:1.0___TOKEN_泡_60_ __node_泡:1.0___TOKEN_泡_3_ = __node_泡:1.0___TOKEN_泡_72_![__node_澎:1.0___TOKEN_泡_69_!("📑 __node_廡:1.0___TOKEN_廡_9_ __node_廡:1.0___TOKEN_廡_18_ __node_廡:1.0___TOKEN_廡_15_ (__node_廡:1.0___TOKEN_廡_8_: {}):", self.__node_泡:1.0___TOKEN_泡_57_.__node_泡:1.0___TOKEN_泡_37_())];
+        for f in &self.__node_泡:1.0___TOKEN_泡_57_ {
+            __node_泡:1.0___TOKEN_泡_3_.__node_泡:1.0___TOKEN_泡_73_(__node_澎:1.0___TOKEN_泡_69_!("  - __node_廡:1.0___TOKEN_廡_11_ #{}: {:?} on __node_廡:1.0___TOKEN_廡_9_ {} ({}×{})", 
+// __node_燦:0.1___TOKEN_XV_348_ [decoy-metadata]
+                f.__node_泡:1.0___TOKEN_泡_63_, f.__node_泡:1.0___TOKEN_泡_70_, f.__node_泡:1.0___TOKEN_泡_41_, f.__node_泡:1.0___TOKEN_泡_31_, f.__node_泡:1.0___TOKEN_泡_77_));
+        }
+        __node_泡:1.0___TOKEN_泡_3_.__node_泡:1.0___TOKEN_泡_7_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

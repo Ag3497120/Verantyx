@@ -1,0 +1,73 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:04682138 ver:1778162881
+// __ast_濫:0.8____jcross_YE_789__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import re
+// __ast_霰:0.1____jcross_BM_499__ [decoy-metadata]
+__ast_霰:1.0____jcross_霰_25__ __ast_霰:1.0____jcross_霰_5__ import __ast_霰:1.0____jcross_霰_20__
+__ast_霰:1.0____jcross_霰_25__ __ast_霰:1.0____jcross_霰_3__ import __ast_庸:1.0____jcross_庸_1__, __ast_庸:1.0____jcross_庸_2__, __ast_庸:1.0____jcross_庸_4__
+
+
+@__ast_霰:1.0____jcross_霰_20__
+class __ast_要:1.0____jcross_庸_5__:
+    __ast_霰:1.0____jcross_霰_18__: __ast_庸:1.0____jcross_庸_2__[__ast_霰:1.0____jcross_霰_32__]
+    __ast_霰:1.0____jcross_霰_30__: __ast_庸:1.0____jcross_庸_1__[__ast_霰:1.0____jcross_霰_32__]
+    __ast_濫:1.0____jcross_霰_37__: __ast_庸:1.0____jcross_庸_2__[__ast_霰:1.0____jcross_霰_32__]
+    __ast_霰:1.0____jcross_霰_26__: __ast_霰:1.0____jcross_霰_32__
+
+
+__ast_霰:1.0____jcross_霰_6__ = re.__ast_霰:1.0____jcross_霰_21__(r"(?im)^\s*__ast_庸:1.0____jcross_庸_7__\s*:\s*([a-zA-Z0-9_]+)\s*$")
+__ast_霰:1.0____jcross_霰_34__ = re.__ast_霰:1.0____jcross_霰_21__(r"(?im)^\s*__ast_庸:1.0____jcross_庸_3__(?:s)?\s*:\s*(.+?)\s*$")
+__ast_濫:1.0____jcross_霰_2__ = re.__ast_霰:1.0____jcross_霰_21__(r"(?im)^\s*__ast_庸:1.0____jcross_庸_8__\s*:\s*(.+?)\s*$")
+
+__ast_霰:1.0____jcross_霰_35__: __ast_庸:1.0____jcross_庸_4__[__ast_霰:1.0____jcross_霰_32__, __ast_霰:1.0____jcross_霰_32__] = {
+    "__ast_霰:1.0____jcross_霰_10__": "__ast_霰:1.0____jcross_霰_10__",
+    "推移": "__ast_霰:1.0____jcross_霰_10__",
+    "__ast_霰:1.0____jcross_霰_15__": "__ast_霰:1.0____jcross_霰_15__",
+    "反射": "__ast_霰:1.0____jcross_霰_15__",
+    "__ast_霰:1.0____jcross_霰_24__": "__ast_霰:1.0____jcross_霰_24__",
+// __ast_匷:0.7____jcross_EV_198__ [decoy-metadata]
+    "対称": "__ast_霰:1.0____jcross_霰_24__",
+    "__ast_霰:1.0____jcross_霰_16__": "__ast_霰:1.0____jcross_霰_16__",
+    "連結": "__ast_霰:1.0____jcross_霰_16__",
+    "__ast_霰:1.0____jcross_霰_28__": "__ast_霰:1.0____jcross_霰_28__",
+}
+
+
+__ast_霰:1.0____jcross_霰_14__ __ast_要:1.0____jcross_霰_11__(__ast_霰:1.0____jcross_霰_13__: __ast_霰:1.0____jcross_霰_32__) -> __ast_要:1.0____jcross_庸_5__:
+    __ast_霰:1.0____jcross_霰_17__ = __ast_霰:1.0____jcross_霰_13__ or ""
+    __ast_霰:1.0____jcross_霰_18__ = __ast_庸:1.0____jcross_庸_6__
+    m = __ast_霰:1.0____jcross_霰_6__.__ast_霰:1.0____jcross_霰_22__(__ast_霰:1.0____jcross_霰_17__)
+    if m:
+        __ast_霰:1.0____jcross_霰_18__ = m.__ast_霰:1.0____jcross_霰_4__(1).__ast_霰:1.0____jcross_霰_12__().__ast_要:1.0____jcross_霰_33__()
+
+    __ast_霰:1.0____jcross_霰_30__: __ast_庸:1.0____jcross_庸_1__[__ast_霰:1.0____jcross_霰_32__] = []
+    for m in __ast_霰:1.0____jcross_霰_34__.__ast_要:1.0____jcross_霰_29__(__ast_霰:1.0____jcross_霰_17__):
+        __ast_霰:1.0____jcross_霰_9__ = re.__ast_霰:1.0____jcross_霰_8__(r"[,\s]+", m.__ast_霰:1.0____jcross_霰_4__(1).__ast_霰:1.0____jcross_霰_12__().__ast_要:1.0____jcross_霰_33__())
+        for p in __ast_霰:1.0____jcross_霰_9__:
+            if __ast_霰:1.0____jcross_霰_7__ p:
+                continue
+            __ast_霰:1.0____jcross_霰_30__.__ast_霰:1.0____jcross_霰_27__(__ast_霰:1.0____jcross_霰_35__.__ast_要:1.0____jcross_焦_1__(p, p))
+
+    __ast_濫:1.0____jcross_霰_37__ = __ast_庸:1.0____jcross_庸_6__
+    m = __ast_濫:1.0____jcross_霰_2__.__ast_霰:1.0____jcross_霰_22__(__ast_霰:1.0____jcross_霰_17__)
+// __ast_要:0.1____jcross_FV_871__ [decoy-metadata]
+    if m:
+        __ast_濫:1.0____jcross_霰_37__ = m.__ast_霰:1.0____jcross_霰_4__(1).__ast_霰:1.0____jcross_霰_12__()
+
+    __ast_霰:1.0____jcross_霰_26__ = __ast_要:1.0____jcross_霰_19__(__ast_霰:1.0____jcross_霰_17__)
+// __ast_庸:0.9____jcross_DE_659__ [decoy-metadata]
+    return __ast_要:1.0____jcross_庸_5__(__ast_霰:1.0____jcross_霰_18__=__ast_霰:1.0____jcross_霰_18__, __ast_霰:1.0____jcross_霰_30__=__ast_霰:1.0____jcross_霰_30__, __ast_濫:1.0____jcross_霰_37__=__ast_濫:1.0____jcross_霰_37__, __ast_霰:1.0____jcross_霰_26__=__ast_霰:1.0____jcross_霰_26__)
+
+
+__ast_霰:1.0____jcross_霰_14__ __ast_要:1.0____jcross_霰_19__(__ast_霰:1.0____jcross_霰_13__: __ast_霰:1.0____jcross_霰_32__) -> __ast_霰:1.0____jcross_霰_32__:
+    __ast_霰:1.0____jcross_霰_36__ = []
+// __ast_濫:0.3____jcross_ZY_945__ [decoy-metadata]
+    for ln in (__ast_霰:1.0____jcross_霰_13__ or "").__ast_霰:1.0____jcross_霰_31__():
+        if __ast_霰:1.0____jcross_霰_6__.__ast_霰:1.0____jcross_霰_1__(ln) or __ast_霰:1.0____jcross_霰_34__.__ast_霰:1.0____jcross_霰_1__(ln) or __ast_濫:1.0____jcross_霰_2__.__ast_霰:1.0____jcross_霰_1__(ln):
+            continue
+        __ast_霰:1.0____jcross_霰_36__.__ast_霰:1.0____jcross_霰_27__(ln)
+    return "\n".__ast_霰:1.0____jcross_霰_23__(__ast_霰:1.0____jcross_霰_36__).__ast_霰:1.0____jcross_霰_12__()
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,172 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B01D149B ver:1778165848
+// ⚠️ One-time schema — expires after response
+
+import { __ast_霜:1.0___VERANTYX_霜_26_, __ast_霜:1.0___VERANTYX_霜_3_ } __ast_霜:1.0___VERANTYX_霜_62_ "__ast_霜:1.0___VERANTYX_霜_8_";
+import __ast_霜:1.0___VERANTYX_霜_53_ { __ast_庠:1.0___VERANTYX_庠_6_ } __ast_霜:1.0___VERANTYX_霜_62_ "../__ast_霜:1.0___VERANTYX_霜_114_-__ast_霜:1.0___VERANTYX_霜_48_.ts";
+import { __ast_匹:1.0___VERANTYX_霜_94_ } __ast_霜:1.0___VERANTYX_霜_62_ "../__ast_案:1.0___VERANTYX_霜_108_.ts";
+
+__ast_霜:1.0___VERANTYX_霜_54_ __ast_霜:1.0___VERANTYX_霜_53_ __ast_庠:1.0___VERANTYX_庠_7_ = {
+  __ast_匹:1.0___VERANTYX_霜_18_: __ast_霜:1.0___VERANTYX_霜_64_;
+  __ast_霜:1.0___VERANTYX_霜_35_: __ast_庠:1.0___VERANTYX_庠_16_<__ast_霜:1.0___VERANTYX_霜_92_, __ast_霜:1.0___VERANTYX_霜_11_> | __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_57_: __ast_庠:1.0___VERANTYX_庠_16_<__ast_霜:1.0___VERANTYX_霜_92_, __ast_霜:1.0___VERANTYX_霜_11_> | __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_69_: __ast_霜:1.0___VERANTYX_霜_11_[];
+  __ast_霜:1.0___VERANTYX_霜_70_: __ast_霜:1.0___VERANTYX_霜_11_;
+  __ast_霜:1.0___VERANTYX_霜_97_: __ast_庠:1.0___VERANTYX_庠_6_[];
+  __ast_霜:1.0___VERANTYX_霜_16_: __ast_霜:1.0___VERANTYX_霜_92_[];
+  __ast_霜:1.0___VERANTYX_霜_28_: __ast_霜:1.0___VERANTYX_霜_92_;
+  __ast_霜:1.0___VERANTYX_霜_115_: __ast_霜:1.0___VERANTYX_霜_92_;
+  __ast_霜:1.0___VERANTYX_霜_82_: __ast_霜:1.0___VERANTYX_霜_92_ | __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_101_: __ast_霜:1.0___VERANTYX_霜_92_ | __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_77_: (__ast_霜:1.0___VERANTYX_霜_73_: __ast_霜:1.0___VERANTYX_霜_92_) => __ast_霜:1.0___VERANTYX_霜_36_;
+  __ast_霜:1.0___VERANTYX_霜_84_: (__ast_霜:1.0___VERANTYX_霜_73_: __ast_霜:1.0___VERANTYX_霜_92_) => __ast_霜:1.0___VERANTYX_霜_36_;
+  __ast_霜:1.0___VERANTYX_霜_58_: () => __ast_霜:1.0___VERANTYX_霜_36_;
+  __ast_霜:1.0___VERANTYX_霜_23_: () => __ast_霜:1.0___VERANTYX_霜_36_;
+};
+
+__ast_霜:1.0___VERANTYX_霜_54_ __ast_霜:1.0___VERANTYX_霜_110_ __ast_霜:1.0___VERANTYX_霜_6_(__ast_霜:1.0___VERANTYX_霜_14_: __ast_庠:1.0___VERANTYX_庠_7_) {
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_99_ =
+    __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_35_ && __ast_霜:1.0___VERANTYX_霜_111_ __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_35_ === "__ast_霜:1.0___VERANTYX_霜_44_"
+      ? (__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_35_ as { __ast_霜:1.0___VERANTYX_霜_99_?: { __ast_霜:1.0___VERANTYX_霜_67_?: __ast_庠:1.0___VERANTYX_庠_16_<__ast_霜:1.0___VERANTYX_霜_92_, __ast_案:1.0___VERANTYX_霜_31_> } }).__ast_霜:1.0___VERANTYX_霜_99_
+      : __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_17_ = __ast_霜:1.0___VERANTYX_霜_99_?.__ast_霜:1.0___VERANTYX_霜_67_ ?? __ast_霜:1.0___VERANTYX_霜_61_;
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_51_ = __ast_霜:1.0___VERANTYX_霜_17_?.__ast_霜:1.0___VERANTYX_霜_51_ ?? 0;
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_12_ = __ast_霜:1.0___VERANTYX_霜_17_?.__ast_霜:1.0___VERANTYX_霜_12_ ?? 0;
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_68_ = __ast_霜:1.0___VERANTYX_霜_17_?.__ast_霜:1.0___VERANTYX_霜_68_ ?? 0;
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_71_ = __ast_霜:1.0___VERANTYX_霜_51_ > 0 ? "__ast_案:1.0___VERANTYX_霜_78_" : __ast_霜:1.0___VERANTYX_霜_12_ > 0 ? "__ast_霜:1.0___VERANTYX_霜_12_" : "__ast_霜:1.0___VERANTYX_霜_86_";
+  __ast_霜:1.0___VERANTYX_霜_79_ __ast_霜:1.0___VERANTYX_霜_45_ =
+    __ast_霜:1.0___VERANTYX_霜_51_ > 0 ? `${__ast_霜:1.0___VERANTYX_霜_51_} __ast_霜:1.0___VERANTYX_霜_51_` : __ast_霜:1.0___VERANTYX_霜_12_ > 0 ? `${__ast_霜:1.0___VERANTYX_霜_12_} __ast_霜:1.0___VERANTYX_霜_7_` : "No __ast_霜:1.0___VERANTYX_霜_51_ __ast_霜:1.0___VERANTYX_霜_81_";
+
+  return __ast_霜:1.0___VERANTYX_霜_26_`
+    <__ast_霜:1.0___VERANTYX_霜_93_ class="__ast_霜:1.0___VERANTYX_霜_96_">
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_">
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_32_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_滴:1.0___VERANTYX_霜_2_-__ast_霜:1.0___VERANTYX_霜_4_: __ast_霜:1.0___VERANTYX_霜_13_-__ast_霜:1.0___VERANTYX_霜_112_;">
+          <__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_89_">__ast_庠:1.0___VERANTYX_庠_8_</__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_21_">__ast_庠:1.0___VERANTYX_庠_19_, __ast_霜:1.0___VERANTYX_霜_57_, __ast_霜:1.0___VERANTYX_霜_24_ __ast_霜:1.0___VERANTYX_霜_70_ __ast_霜:1.0___VERANTYX_霜_27_.</__ast_霜:1.0___VERANTYX_霜_65_>
+          </__ast_霜:1.0___VERANTYX_霜_65_>
+          <__ast_霜:1.0___VERANTYX_霜_60_ class="__ast_霜:1.0___VERANTYX_霜_49_" ?__ast_霜:1.0___VERANTYX_霜_85_=${__ast_霜:1.0___VERANTYX_霜_14_.__ast_匹:1.0___VERANTYX_霜_18_} @__ast_霜:1.0___VERANTYX_霜_50_=${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_58_}>
+            ${__ast_霜:1.0___VERANTYX_霜_14_.__ast_匹:1.0___VERANTYX_霜_18_ ? "__ast_庠:1.0___VERANTYX_庠_15_…" : "__ast_庠:1.0___VERANTYX_庠_1_"}
+          </__ast_霜:1.0___VERANTYX_霜_60_>
+        </__ast_霜:1.0___VERANTYX_霜_65_>
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_102_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">
+          <__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_40_">__ast_庠:1.0___VERANTYX_庠_19_</__ast_霜:1.0___VERANTYX_霜_65_>
+            ${
+              __ast_霜:1.0___VERANTYX_霜_17_
+                ? __ast_霜:1.0___VERANTYX_霜_26_`<__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_66_ ${__ast_霜:1.0___VERANTYX_霜_71_}" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 8px;">
+                  __ast_庠:1.0___VERANTYX_庠_24_ __ast_霜:1.0___VERANTYX_霜_105_: ${__ast_霜:1.0___VERANTYX_霜_45_}${__ast_霜:1.0___VERANTYX_霜_68_ > 0 ? ` · ${__ast_霜:1.0___VERANTYX_霜_68_} __ast_霜:1.0___VERANTYX_霜_68_` : ""}. __ast_庠:1.0___VERANTYX_庠_18_
+                  <__ast_霜:1.0___VERANTYX_霜_113_ class="__ast_霜:1.0___VERANTYX_霜_42_">__ast_霜:1.0___VERANTYX_霜_83_ __ast_霜:1.0___VERANTYX_霜_76_ __ast_霜:1.0___VERANTYX_霜_105_ --__ast_霜:1.0___VERANTYX_霜_30_</__ast_霜:1.0___VERANTYX_霜_113_> for __ast_霜:1.0___VERANTYX_霜_95_.
+                </__ast_霜:1.0___VERANTYX_霜_65_>`
+                : __ast_霜:1.0___VERANTYX_霜_3_
+            }
+            <__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_">${__ast_庠:1.0___VERANTYX_庠_20_.__ast_滴:1.0___VERANTYX_霜_9_(__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_35_ ?? {}, __ast_霜:1.0___VERANTYX_霜_61_, 2)}</__ast_霜:1.0___VERANTYX_霜_41_>
+// __ast_冥:0.6___VERANTYX_WX_734_ [decoy-metadata]
+          </__ast_霜:1.0___VERANTYX_霜_65_>
+// __ast_絡:0.6___VERANTYX_GA_157_ [decoy-metadata]
+          <__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_40_">__ast_庠:1.0___VERANTYX_庠_26_</__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_">${__ast_庠:1.0___VERANTYX_庠_20_.__ast_滴:1.0___VERANTYX_霜_9_(__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_57_ ?? {}, __ast_霜:1.0___VERANTYX_霜_61_, 2)}</__ast_霜:1.0___VERANTYX_霜_41_>
+          </__ast_霜:1.0___VERANTYX_霜_65_>
+          <__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_40_">__ast_庠:1.0___VERANTYX_庠_22_ __ast_霜:1.0___VERANTYX_霜_70_</__ast_霜:1.0___VERANTYX_霜_65_>
+            <__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_">${__ast_庠:1.0___VERANTYX_庠_20_.__ast_滴:1.0___VERANTYX_霜_9_(__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_70_ ?? {}, __ast_霜:1.0___VERANTYX_霜_61_, 2)}</__ast_霜:1.0___VERANTYX_霜_41_>
+          </__ast_霜:1.0___VERANTYX_霜_65_>
+        </__ast_霜:1.0___VERANTYX_霜_65_>
+      </__ast_霜:1.0___VERANTYX_霜_65_>
+
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_">
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_89_">__ast_庠:1.0___VERANTYX_庠_12_ __ast_庠:1.0___VERANTYX_庠_25_</__ast_霜:1.0___VERANTYX_霜_65_>
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_21_">__ast_庠:1.0___VERANTYX_庠_14_ a __ast_霜:1.0___VERANTYX_霜_5_ __ast_霜:1.0___VERANTYX_霜_19_ __ast_霜:1.0___VERANTYX_霜_37_ __ast_霜:1.0___VERANTYX_霜_25_ __ast_庠:1.0___VERANTYX_庠_20_ __ast_霜:1.0___VERANTYX_霜_80_.</__ast_霜:1.0___VERANTYX_霜_65_>
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_102_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 16px;">
+          <__ast_霜:1.0___VERANTYX_霜_15_ class="__ast_霜:1.0___VERANTYX_霜_109_">
+// __ast_庠:0.9___VERANTYX_FH_189_ [decoy-metadata]
+            <__ast_霜:1.0___VERANTYX_霜_113_>__ast_庠:1.0___VERANTYX_庠_17_</__ast_霜:1.0___VERANTYX_霜_113_>
+            <__ast_霜:1.0___VERANTYX_霜_106_
+              .__ast_霜:1.0___VERANTYX_霜_47_=${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_28_}
+              @__ast_霜:1.0___VERANTYX_霜_59_=${(e: __ast_庠:1.0___VERANTYX_庠_4_) => __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_77_((e.__ast_霜:1.0___VERANTYX_霜_1_ as __ast_庠:1.0___VERANTYX_庠_9_).__ast_霜:1.0___VERANTYX_霜_47_)}
+            >
+              ${
+                !__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_28_
+                  ? __ast_霜:1.0___VERANTYX_霜_26_`
+                      <__ast_霜:1.0___VERANTYX_霜_98_ __ast_霜:1.0___VERANTYX_霜_47_="" __ast_霜:1.0___VERANTYX_霜_85_>__ast_庠:1.0___VERANTYX_庠_13_ a __ast_霜:1.0___VERANTYX_霜_37_…</__ast_霜:1.0___VERANTYX_霜_98_>
+                    `
+                  : __ast_霜:1.0___VERANTYX_霜_3_
+              }
+              ${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_16_.__ast_霜:1.0___VERANTYX_霜_22_((m) => __ast_霜:1.0___VERANTYX_霜_26_`<__ast_霜:1.0___VERANTYX_霜_98_ __ast_霜:1.0___VERANTYX_霜_47_=${m}>${m}</__ast_霜:1.0___VERANTYX_霜_98_>`)}
+            </__ast_霜:1.0___VERANTYX_霜_106_>
+          </__ast_霜:1.0___VERANTYX_霜_15_>
+          <__ast_霜:1.0___VERANTYX_霜_15_ class="__ast_霜:1.0___VERANTYX_霜_109_">
+            <__ast_霜:1.0___VERANTYX_霜_113_>__ast_庠:1.0___VERANTYX_庠_10_ (__ast_庠:1.0___VERANTYX_庠_20_)</__ast_霜:1.0___VERANTYX_霜_113_>
+            <__ast_霜:1.0___VERANTYX_霜_88_
+              .__ast_霜:1.0___VERANTYX_霜_47_=${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_115_}
+              @__ast_霜:1.0___VERANTYX_霜_90_=${(e: __ast_庠:1.0___VERANTYX_庠_4_) =>
+                __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_84_((e.__ast_霜:1.0___VERANTYX_霜_1_ as __ast_庠:1.0___VERANTYX_庠_2_).__ast_霜:1.0___VERANTYX_霜_47_)}
+              __ast_霜:1.0___VERANTYX_霜_43_="6"
+            ></__ast_霜:1.0___VERANTYX_霜_88_>
+          </__ast_霜:1.0___VERANTYX_霜_15_>
+        </__ast_霜:1.0___VERANTYX_霜_65_>
+        <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_32_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">
+          <__ast_霜:1.0___VERANTYX_霜_60_ class="__ast_霜:1.0___VERANTYX_霜_49_ __ast_霜:1.0___VERANTYX_霜_91_" @__ast_霜:1.0___VERANTYX_霜_50_=${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_23_}>__ast_庠:1.0___VERANTYX_庠_21_</__ast_霜:1.0___VERANTYX_霜_60_>
+        </__ast_霜:1.0___VERANTYX_霜_65_>
+        ${
+          __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_101_
+            ? __ast_霜:1.0___VERANTYX_霜_26_`<__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_66_ __ast_案:1.0___VERANTYX_霜_78_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">
+              ${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_101_}
+            </__ast_霜:1.0___VERANTYX_霜_65_>`
+            : __ast_霜:1.0___VERANTYX_霜_3_
+        }
+        ${
+          __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_82_
+            ? __ast_霜:1.0___VERANTYX_霜_26_`<__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_82_}</__ast_霜:1.0___VERANTYX_霜_41_>`
+            : __ast_霜:1.0___VERANTYX_霜_3_
+        }
+      </__ast_霜:1.0___VERANTYX_霜_65_>
+    </__ast_霜:1.0___VERANTYX_霜_93_>
+
+    <__ast_霜:1.0___VERANTYX_霜_93_ class="__ast_霜:1.0___VERANTYX_霜_100_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 18px;">
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_89_">__ast_庠:1.0___VERANTYX_庠_5_</__ast_霜:1.0___VERANTYX_霜_65_>
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_21_">__ast_庠:1.0___VERANTYX_庠_27_ __ast_霜:1.0___VERANTYX_霜_62_ __ast_霜:1.0___VERANTYX_霜_69_.__ast_霜:1.0___VERANTYX_霜_38_.</__ast_霜:1.0___VERANTYX_霜_65_>
+      <__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">${__ast_庠:1.0___VERANTYX_庠_20_.__ast_滴:1.0___VERANTYX_霜_9_(
+        __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_69_ ?? [],
+        __ast_霜:1.0___VERANTYX_霜_61_,
+        2,
+      )}</__ast_霜:1.0___VERANTYX_霜_41_>
+    </__ast_霜:1.0___VERANTYX_霜_93_>
+
+// __ast_滴:0.9___VERANTYX_XA_798_ [decoy-metadata]
+    <__ast_霜:1.0___VERANTYX_霜_93_ class="__ast_霜:1.0___VERANTYX_霜_100_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 18px;">
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_89_">__ast_庠:1.0___VERANTYX_庠_4_ __ast_庠:1.0___VERANTYX_庠_3_</__ast_霜:1.0___VERANTYX_霜_65_>
+      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_100_-__ast_霜:1.0___VERANTYX_霜_21_">__ast_庠:1.0___VERANTYX_庠_23_ __ast_霜:1.0___VERANTYX_霜_19_ __ast_霜:1.0___VERANTYX_霜_48_.</__ast_霜:1.0___VERANTYX_霜_65_>
+      ${
+        __ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_97_.__ast_霜:1.0___VERANTYX_霜_29_ === 0
+          ? __ast_霜:1.0___VERANTYX_霜_26_`
+              <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_40_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px">No __ast_霜:1.0___VERANTYX_霜_48_ __ast_霜:1.0___VERANTYX_霜_39_.</__ast_霜:1.0___VERANTYX_霜_65_>
+            `
+          : __ast_霜:1.0___VERANTYX_霜_26_`
+            <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_ __ast_霜:1.0___VERANTYX_霜_107_-__ast_霜:1.0___VERANTYX_霜_34_-__ast_霜:1.0___VERANTYX_霜_52_" __ast_霜:1.0___VERANTYX_霜_20_="__ast_霜:1.0___VERANTYX_霜_117_-__ast_霜:1.0___VERANTYX_霜_75_: 12px;">
+              ${__ast_霜:1.0___VERANTYX_霜_14_.__ast_霜:1.0___VERANTYX_霜_97_.__ast_霜:1.0___VERANTYX_霜_22_(
+                (__ast_霜:1.0___VERANTYX_霜_55_) => __ast_霜:1.0___VERANTYX_霜_26_`
+                  <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_-__ast_霜:1.0___VERANTYX_霜_46_ __ast_霜:1.0___VERANTYX_霜_107_-__ast_霜:1.0___VERANTYX_霜_34_-__ast_霜:1.0___VERANTYX_霜_63_">
+                    <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_-__ast_霜:1.0___VERANTYX_霜_116_">
+                      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_-__ast_霜:1.0___VERANTYX_霜_89_">${__ast_霜:1.0___VERANTYX_霜_55_.__ast_霜:1.0___VERANTYX_霜_34_}</__ast_霜:1.0___VERANTYX_霜_65_>
+                      <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_-__ast_霜:1.0___VERANTYX_霜_21_">${__ast_霜:1.0___VERANTYX_霜_33_ __ast_庠:1.0___VERANTYX_庠_11_(__ast_霜:1.0___VERANTYX_霜_55_.ts).__ast_霜:1.0___VERANTYX_霜_103_()}</__ast_霜:1.0___VERANTYX_霜_65_>
+                    </__ast_霜:1.0___VERANTYX_霜_65_>
+                    <__ast_霜:1.0___VERANTYX_霜_65_ class="__ast_霜:1.0___VERANTYX_霜_38_-__ast_霜:1.0___VERANTYX_霜_72_ __ast_霜:1.0___VERANTYX_霜_107_-__ast_霜:1.0___VERANTYX_霜_34_-__ast_霜:1.0___VERANTYX_霜_87_">
+// __ast_滴:0.8___VERANTYX_FX_612_ [decoy-metadata]
+                      <__ast_霜:1.0___VERANTYX_霜_41_ class="__ast_霜:1.0___VERANTYX_霜_10_-__ast_霜:1.0___VERANTYX_霜_56_ __ast_霜:1.0___VERANTYX_霜_107_-__ast_霜:1.0___VERANTYX_霜_34_-__ast_匹:1.0___VERANTYX_霜_104_">${__ast_匹:1.0___VERANTYX_霜_94_(
+                        __ast_霜:1.0___VERANTYX_霜_55_.__ast_匹:1.0___VERANTYX_霜_74_,
+// __ast_霜:0.6___VERANTYX_GK_550_ [decoy-metadata]
+                      )}</__ast_霜:1.0___VERANTYX_霜_41_>
+                    </__ast_霜:1.0___VERANTYX_霜_65_>
+                  </__ast_霜:1.0___VERANTYX_霜_65_>
+                `,
+              )}
+            </__ast_霜:1.0___VERANTYX_霜_65_>
+          `
+      }
+    </__ast_霜:1.0___VERANTYX_霜_93_>
+  `;
+}
+
+// POLYMORPHIC_JCROSS_END

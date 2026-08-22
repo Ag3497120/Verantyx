@@ -1,0 +1,103 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E9266899 ver:1778167740
+// ⚠️ One-time schema — expires after response
+
+import __ast_露:1.0___VERANTYX_露_2_ { __ast_礎:1.0___VERANTYX_礎_7_ } __ast_露:1.0___VERANTYX_露_41_ "../../__ast_露:1.0___VERANTYX_露_19_.js";
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_2_ __ast_礎:1.0___VERANTYX_礎_8_ = "__ast_露:1.0___VERANTYX_露_17_" | "__ast_露:1.0___VERANTYX_露_33_" | "__ast_露:1.0___VERANTYX_露_24_" | "__ast_露:1.0___VERANTYX_露_15_" | "__ast_露:1.0___VERANTYX_露_29_";
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_2_ __ast_綾:1.0___VERANTYX_礎_2_ = {
+  __ast_露:1.0___VERANTYX_露_4_: __ast_露:1.0___VERANTYX_露_31_ | __ast_露:1.0___VERANTYX_露_35_;
+  __ast_露:1.0___VERANTYX_露_23_: __ast_露:1.0___VERANTYX_露_31_ | __ast_露:1.0___VERANTYX_露_35_;
+  __ast_露:1.0___VERANTYX_露_26_: __ast_露:1.0___VERANTYX_露_14_;
+  __ast_露:1.0___VERANTYX_露_38_?: __ast_露:1.0___VERANTYX_露_31_;
+  __ast_露:1.0___VERANTYX_露_10_?: __ast_露:1.0___VERANTYX_露_31_;
+};
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_2_ __ast_礎:1.0___VERANTYX_礎_4_ = __ast_綾:1.0___VERANTYX_礎_2_ & {
+  __ast_露:1.0___VERANTYX_露_28_: __ast_露:1.0___VERANTYX_露_14_;
+  __ast_湧:1.0___VERANTYX_露_32_: __ast_露:1.0___VERANTYX_露_14_;
+  __ast_露:1.0___VERANTYX_露_27_: __ast_露:1.0___VERANTYX_露_14_;
+  __ast_露:1.0___VERANTYX_露_40_: __ast_露:1.0___VERANTYX_露_14_;
+};
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_2_ __ast_礎:1.0___VERANTYX_礎_5_ =
+// __ast_綾:0.1___VERANTYX_MF_554_ [decoy-metadata]
+  | {
+      __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_17_" | "__ast_露:1.0___VERANTYX_露_33_" | "__ast_露:1.0___VERANTYX_露_24_";
+      __ast_露:1.0___VERANTYX_露_37_?: __ast_露:1.0___VERANTYX_露_31_;
+      __ast_露:1.0___VERANTYX_露_1_?: __ast_露:1.0___VERANTYX_露_31_;
+    }
+  | {
+      __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_15_";
+      __ast_露:1.0___VERANTYX_露_37_: __ast_露:1.0___VERANTYX_露_31_;
+      __ast_露:1.0___VERANTYX_露_1_?: __ast_露:1.0___VERANTYX_露_31_;
+    }
+  | {
+      __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_29_";
+      __ast_露:1.0___VERANTYX_露_37_?: __ast_露:1.0___VERANTYX_露_31_;
+      __ast_露:1.0___VERANTYX_露_1_?: __ast_露:1.0___VERANTYX_露_31_;
+// __ast_格:0.5___VERANTYX_KX_119_ [decoy-metadata]
+    };
+
+__ast_露:1.0___VERANTYX_露_3_ __ast_露:1.0___VERANTYX_露_13_(__ast_露:1.0___VERANTYX_露_23_: __ast_露:1.0___VERANTYX_露_31_ | __ast_露:1.0___VERANTYX_露_35_): __ast_露:1.0___VERANTYX_露_14_ {
+  return __ast_露:1.0___VERANTYX_露_23_?.__ast_露:1.0___VERANTYX_露_11_("__ast_露:1.0___VERANTYX_露_34_") ?? false;
+}
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_3_ __ast_綾:1.0___VERANTYX_露_12_(__ast_露:1.0___VERANTYX_露_43_: __ast_礎:1.0___VERANTYX_礎_7_): __ast_綾:1.0___VERANTYX_礎_2_ {
+  __ast_露:1.0___VERANTYX_露_6_ __ast_露:1.0___VERANTYX_露_8_ = __ast_露:1.0___VERANTYX_露_36_ __ast_綾:1.0___VERANTYX_礎_6_(__ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_21_);
+  __ast_露:1.0___VERANTYX_露_6_ __ast_露:1.0___VERANTYX_露_2_ = __ast_露:1.0___VERANTYX_露_18_ __ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_7_?.__ast_露:1.0___VERANTYX_露_2_ === "__ast_露:1.0___VERANTYX_露_31_" ? __ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_7_.__ast_露:1.0___VERANTYX_露_2_.__ast_露:1.0___VERANTYX_露_30_() : __ast_露:1.0___VERANTYX_露_9_;
+  __ast_露:1.0___VERANTYX_露_6_ __ast_露:1.0___VERANTYX_露_10_ =
+    __ast_露:1.0___VERANTYX_露_18_ __ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_7_?.__ast_露:1.0___VERANTYX_露_5_ === "__ast_露:1.0___VERANTYX_露_31_" && __ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_7_.__ast_露:1.0___VERANTYX_露_5_.__ast_露:1.0___VERANTYX_露_30_()
+      ? __ast_露:1.0___VERANTYX_露_43_.__ast_露:1.0___VERANTYX_露_7_.__ast_露:1.0___VERANTYX_露_5_.__ast_露:1.0___VERANTYX_露_30_()
+// __ast_湧:0.8___VERANTYX_XB_555_ [decoy-metadata]
+      : __ast_露:1.0___VERANTYX_露_9_;
+
+  return {
+    __ast_露:1.0___VERANTYX_露_4_: __ast_露:1.0___VERANTYX_露_8_.__ast_格:1.0___VERANTYX_彩_1_("__ast_礎:1.0___VERANTYX_礎_3_"),
+// __ast_窟:0.8___VERANTYX_ZM_482_ [decoy-metadata]
+// __ast_窟:0.9___VERANTYX_ZM_202_ [decoy-metadata]
+    __ast_露:1.0___VERANTYX_露_23_: __ast_露:1.0___VERANTYX_露_8_.__ast_格:1.0___VERANTYX_彩_1_("__ast_礎:1.0___VERANTYX_礎_1_"),
+    __ast_露:1.0___VERANTYX_露_26_: __ast_露:1.0___VERANTYX_露_2_ === "__ast_露:1.0___VERANTYX_露_20_",
+    __ast_露:1.0___VERANTYX_露_38_: __ast_露:1.0___VERANTYX_露_8_.__ast_格:1.0___VERANTYX_彩_1_("__ast_礎:1.0___VERANTYX_礎_9_") || __ast_露:1.0___VERANTYX_露_9_,
+    __ast_露:1.0___VERANTYX_露_10_,
+  };
+}
+
+__ast_露:1.0___VERANTYX_露_16_ __ast_露:1.0___VERANTYX_露_3_ __ast_露:1.0___VERANTYX_露_22_(__ast_露:1.0___VERANTYX_露_44_: __ast_礎:1.0___VERANTYX_礎_4_): __ast_礎:1.0___VERANTYX_礎_5_ {
+  if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_10_ && !__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_26_) {
+// __ast_綾:0.8___VERANTYX_BM_150_ [decoy-metadata]
+    if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_28_) {
+      return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_15_", __ast_露:1.0___VERANTYX_露_37_: __ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_10_ };
+    }
+    if (__ast_露:1.0___VERANTYX_露_44_.__ast_湧:1.0___VERANTYX_露_32_) {
+      return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_17_" };
+    }
+
+    if (__ast_露:1.0___VERANTYX_露_13_(__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_23_)) {
+      return __ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_40_ ? { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_29_" } : { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_33_" };
+    }
+  }
+
+  if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_26_) {
+    return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_17_" };
+  }
+
+  if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_23_ === "__ast_露:1.0___VERANTYX_露_25_") {
+    if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_27_) {
+      return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_24_" };
+    }
+    if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_40_ && __ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_38_) {
+      return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_29_", __ast_露:1.0___VERANTYX_露_1_: __ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_38_ };
+    }
+    return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_33_" };
+  }
+
+  if (__ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_4_ !== "in-__ast_露:1.0___VERANTYX_露_42_") {
+    return { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_17_" };
+  }
+
+  return __ast_露:1.0___VERANTYX_露_44_.__ast_露:1.0___VERANTYX_露_40_ ? { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_29_" } : { __ast_露:1.0___VERANTYX_露_39_: "__ast_露:1.0___VERANTYX_露_33_" };
+}
+
+// POLYMORPHIC_JCROSS_END

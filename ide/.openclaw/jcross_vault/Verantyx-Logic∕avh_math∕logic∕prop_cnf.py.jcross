@@ -1,0 +1,121 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8C119A5C ver:1778159748
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霡:1.0__ID_霡_21_ _JCROSS_霡:1.0__ID_霡_47_ _JCROSS_霡:1.0__ID_霡_52_ort _JCROSS_霡:1.0__ID_霡_50_
+_JCROSS_霡:1.0__ID_霡_21_ _JCROSS_霡:1.0__ID_霡_23_ _JCROSS_霡:1.0__ID_霡_52_ort _JCROSS_霡:1.0__ID_霡_14_
+_JCROSS_霡:1.0__ID_霡_21_ _JCROSS_霡:1.0__ID_霡_35_ _JCROSS_霡:1.0__ID_霡_52_ort _JCROSS_廩:1.0__ID_廩_17_, _JCROSS_廩:1.0__ID_廩_4_, _JCROSS_律:1.0__ID_廉_2_, _JCROSS_廩:1.0__ID_廩_16_
+
+_JCROSS_霡:1.0__ID_霡_21_ _JCROSS_霡:1.0__ID_霡_43_._JCROSS_霡:1.0__ID_霡_27_._JCROSS_霡:1.0__ID_霡_44_ _JCROSS_霡:1.0__ID_霡_52_ort _JCROSS_廩:1.0__ID_廩_21_, _JCROSS_廩:1.0__ID_廩_10_, _JCROSS_廩:1.0__ID_廩_8_, Or, _JCROSS_廩:1.0__ID_廩_18_, _JCROSS_廩:1.0__ID_廩_2_
+
+_JCROSS_廩:1.0__ID_廩_1_ = _JCROSS_廩:1.0__ID_廩_16_[_JCROSS_霡:1.0__ID_霡_48_, _JCROSS_霡:1.0__ID_霡_18_]     # (var, _JCROSS_廩:1.0__ID_廩_3_)=var, (var, _JCROSS_廩:1.0__ID_廩_20_)=¬var
+_JCROSS_廩:1.0__ID_廩_5_ = _JCROSS_律:1.0__ID_廉_2_[_JCROSS_廩:1.0__ID_廩_1_]
+_JCROSS_廩:1.0__ID_廩_9_ = _JCROSS_廩:1.0__ID_廩_4_[_JCROSS_廩:1.0__ID_廩_5_]
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_霡:1.0__ID_霡_13_(_JCROSS_霡:1.0__ID_霡_25_: _JCROSS_廩:1.0__ID_廩_1_) -> _JCROSS_廩:1.0__ID_廩_1_:
+    v, _JCROSS_霡:1.0__ID_霡_36_ = _JCROSS_霡:1.0__ID_霡_25_
+    return (v, _JCROSS_霡:1.0__ID_霡_42_ _JCROSS_霡:1.0__ID_霡_36_)
+
+@_JCROSS_霡:1.0__ID_霡_14_
+class _JCROSS_廩:1.0__ID_廩_12_:
+    _JCROSS_霡:1.0__ID_霡_24_: _JCROSS_廩:1.0__ID_廩_9_
+    _JCROSS_霡:1.0__ID_霡_17_: _JCROSS_廩:1.0__ID_廩_17_[_JCROSS_廩:1.0__ID_廩_21_, _JCROSS_霡:1.0__ID_霡_48_]
+    _JCROSS_律:1.0__ID_霡_6_: _JCROSS_霡:1.0__ID_霡_3_
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_霡:1.0__ID_霡_31_(t: _JCROSS_廩:1.0__ID_廩_12_) -> _JCROSS_霡:1.0__ID_霡_48_:
+    t._JCROSS_律:1.0__ID_霡_6_ += 1
+    return f"t{t._JCROSS_律:1.0__ID_霡_6_}"
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_霡:1.0__ID_霡_10_(t: _JCROSS_廩:1.0__ID_廩_12_, _JCROSS_霡:1.0__ID_霡_46_: _JCROSS_廩:1.0__ID_廩_4_[_JCROSS_廩:1.0__ID_廩_1_]) -> _JCROSS_廩:1.0__ID_廩_19_:
+    t._JCROSS_霡:1.0__ID_霡_24_._JCROSS_霡:1.0__ID_霡_37_(_JCROSS_律:1.0__ID_廉_1_(_JCROSS_霡:1.0__ID_霡_46_))
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_霡:1.0__ID_霡_20_(_JCROSS_霡:1.0__ID_霡_2_: _JCROSS_廩:1.0__ID_廩_21_) -> _JCROSS_廩:1.0__ID_廩_16_[_JCROSS_廩:1.0__ID_廩_9_, _JCROSS_霡:1.0__ID_霡_48_]:
+    """
+    _JCROSS_廩:1.0__ID_廩_7_ (_JCROSS_廩:1.0__ID_廩_9_, _JCROSS_霡:1.0__ID_霡_51_) _JCROSS_霡:1.0__ID_霡_7_ _JCROSS_霡:1.0__ID_霡_53_ _JCROSS_廩:1.0__ID_廩_9_ is _JCROSS_霡:1.0__ID_霡_5_ _JCROSS_滲:1.0__ID_霡_30_ _JCROSS_霡:1.0__ID_霡_2_ is _JCROSS_霡:1.0__ID_霡_5_,
+    _JCROSS_霡:1.0__ID_霡_15_ _JCROSS_霡:1.0__ID_霡_51_ is _JCROSS_霡:1.0__ID_霡_28_ _JCROSS_霡:1.0__ID_霡_16_ _JCROSS_霡:1.0__ID_霡_22_ _JCROSS_霡:1.0__ID_霡_2_'s _JCROSS_霡:1.0__ID_霡_8_.
+    """
+    t = _JCROSS_廩:1.0__ID_廩_12_(_JCROSS_霡:1.0__ID_霡_24_=[], _JCROSS_霡:1.0__ID_霡_17_={}, _JCROSS_律:1.0__ID_霡_6_=0)
+
+    _JCROSS_霡:1.0__ID_霡_12_ _JCROSS_霡:1.0__ID_霡_34_(n: _JCROSS_廩:1.0__ID_廩_21_) -> _JCROSS_霡:1.0__ID_霡_48_:
+        if n in t._JCROSS_霡:1.0__ID_霡_17_:
+            return t._JCROSS_霡:1.0__ID_霡_17_[n]
+        if n.op == "var":
+            t._JCROSS_霡:1.0__ID_霡_17_[n] = n._JCROSS_霡:1.0__ID_霡_40_  # _JCROSS_霡:1.0__ID_霡_49_ _JCROSS_霡:1.0__ID_霡_1_ _JCROSS_霡:1.0__ID_霡_16_ _JCROSS_霡:1.0__ID_霡_40_
+            return n._JCROSS_霡:1.0__ID_霡_40_
+
+        v = _JCROSS_霡:1.0__ID_霡_31_(t)
+        t._JCROSS_霡:1.0__ID_霡_17_[n] = v
+
+        if n.op == "_JCROSS_霡:1.0__ID_霡_42_":
+            a = _JCROSS_霡:1.0__ID_霡_34_(n.a)
+// [metadata-stripped]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_3_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_20_)])
+            return v
+        
+// [metadata-stripped]
+        a = _JCROSS_霡:1.0__ID_霡_34_(n.a)
+        b = _JCROSS_霡:1.0__ID_霡_34_(n.b)
+
+        if n.op == "_JCROSS_霡:1.0__ID_霡_15_":
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_3_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_3_)])
+// _JCROSS_廩:0.7__ID_VE_612_ [decoy-metadata]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_20_)])
+            return v
+
+        if n.op == "or":
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_20_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (b, _JCROSS_廩:1.0__ID_廩_20_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_3_), (b, _JCROSS_廩:1.0__ID_廩_3_)])
+            return v
+
+        if n.op == "_JCROSS_霡:1.0__ID_霡_52_":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_3_)])
+// _JCROSS_紗:0.2__ID_ZW_561_ [decoy-metadata]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (b, _JCROSS_廩:1.0__ID_廩_20_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_3_)])
+// _JCROSS_紗:0.5__ID_LY_318_ [decoy-metadata]
+            return v
+
+        if n.op == "_JCROSS_滲:1.0__ID_霡_30_":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_3_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_20_), (a, _JCROSS_廩:1.0__ID_廩_3_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_3_), (b, _JCROSS_廩:1.0__ID_廩_3_)])
+            _JCROSS_霡:1.0__ID_霡_10_(t, [(v, _JCROSS_廩:1.0__ID_廩_3_), (a, _JCROSS_廩:1.0__ID_廩_20_), (b, _JCROSS_廩:1.0__ID_廩_20_)])
+            return v
+
+        _JCROSS_霡:1.0__ID_霡_19_ _JCROSS_廩:1.0__ID_廩_15_(f"_JCROSS_廩:1.0__ID_廩_13_ op: {n.op}")
+
+    _JCROSS_霡:1.0__ID_霡_29_ = _JCROSS_霡:1.0__ID_霡_34_(_JCROSS_霡:1.0__ID_霡_2_)
+    return (t._JCROSS_霡:1.0__ID_霡_24_, _JCROSS_霡:1.0__ID_霡_29_)
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_滲:1.0__ID_霡_9_(_JCROSS_霡:1.0__ID_霡_2_: _JCROSS_廩:1.0__ID_廩_21_) -> _JCROSS_廩:1.0__ID_廩_9_:
+    _JCROSS_霡:1.0__ID_霡_26_, _JCROSS_霡:1.0__ID_霡_29_ = _JCROSS_霡:1.0__ID_霡_20_(_JCROSS_霡:1.0__ID_霡_2_)
+// [metadata-stripped]
+// _JCROSS_律:0.6__ID_WD_551_ [decoy-metadata]
+    _JCROSS_霡:1.0__ID_霡_26_._JCROSS_霡:1.0__ID_霡_37_({(_JCROSS_霡:1.0__ID_霡_29_, _JCROSS_廩:1.0__ID_廩_3_)})
+// _JCROSS_庫:0.3__ID_LE_887_ [decoy-metadata]
+    return _JCROSS_霡:1.0__ID_霡_26_
+
+_JCROSS_霡:1.0__ID_霡_12_ _JCROSS_滲:1.0__ID_霡_4_(_JCROSS_霡:1.0__ID_霡_2_: _JCROSS_廩:1.0__ID_廩_21_) -> _JCROSS_廩:1.0__ID_廩_9_:
+    _JCROSS_霡:1.0__ID_霡_26_, _JCROSS_霡:1.0__ID_霡_29_ = _JCROSS_霡:1.0__ID_霡_20_(_JCROSS_霡:1.0__ID_霡_2_)
+// _JCROSS_庫:0.9__ID_YW_441_ [decoy-metadata]
+// [metadata-stripped]
+    _JCROSS_霡:1.0__ID_霡_26_._JCROSS_霡:1.0__ID_霡_37_({(_JCROSS_霡:1.0__ID_霡_29_, _JCROSS_廩:1.0__ID_廩_20_)})
+    return _JCROSS_霡:1.0__ID_霡_26_
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,97 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BAB8041A ver:1778162906
+// ⚠️ One-time schema — expires after response
+
+_SYM_雰:1.0__OPAQUE_雰_51_ _SYM_雰:1.0__OPAQUE_雰_16_ import _SYM_雰:1.0__OPAQUE_雰_41_
+
+import re
+_SYM_雰:1.0__OPAQUE_雰_51_ _SYM_雰:1.0__OPAQUE_雰_54_ import _SYM_廡:1.0__OPAQUE_廡_10_
+
+_SYM_雰:1.0__OPAQUE_雰_22_ = re._SYM_雰:1.0__OPAQUE_雰_39_(r'["“”「」『』](.+?)["“”「」『』]', re._SYM_廡:1.0__OPAQUE_廡_4_)
+_SYM_雰:1.0__OPAQUE_雰_52_ = re._SYM_雰:1.0__OPAQUE_雰_39_(r'"([^"]+)"')
+
+_SYM_雰:1.0__OPAQUE_雰_17_ = {
+    "_SYM_雰:1.0__OPAQUE_雰_23_": "[]",
+    "_SYM_雰:1.0__OPAQUE_雰_14_": "<>",
+    "□": "[]",
+    "◇": "<>",
+}
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_滴:1.0__OPAQUE_雰_32_(s: _SYM_雰:1.0__OPAQUE_雰_13_) -> _SYM_雰:1.0__OPAQUE_雰_13_:
+    s = (s or "")._SYM_雰:1.0__OPAQUE_雰_1_()
+    s = s._SYM_雰:1.0__OPAQUE_雰_43_("→", "->")._SYM_雰:1.0__OPAQUE_雰_43_("¬", "~")._SYM_雰:1.0__OPAQUE_雰_43_("∧", "&")._SYM_雰:1.0__OPAQUE_雰_43_("∨", "|")
+    s = s._SYM_雰:1.0__OPAQUE_雰_43_("⇒", "->")._SYM_雰:1.0__OPAQUE_雰_43_("⇔", "<->")
+    for k, v in _SYM_雰:1.0__OPAQUE_雰_17_._SYM_雰:1.0__OPAQUE_雰_31_():
+        s = re._SYM_雰:1.0__OPAQUE_雰_29_(rf"\b{k}\b", v, s, _SYM_雰:1.0__OPAQUE_雰_7_=re._SYM_廡:1.0__OPAQUE_廡_7_)
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s+", " ", s)
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s*->\s*", "->", s)
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s*<->\s*", "<->", s)
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s*&\s*", "&", s)
+// _SYM_雰:0.3__OPAQUE_BX_946_ [decoy-metadata]
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s*\|\s*", "|", s)
+    s = re._SYM_雰:1.0__OPAQUE_雰_29_(r"\s*~\s*", "~", s)
+    s = s._SYM_雰:1.0__OPAQUE_雰_43_("[] ", "[]")._SYM_雰:1.0__OPAQUE_雰_43_("<> ", "<>")
+    return s._SYM_雰:1.0__OPAQUE_雰_1_()
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_滴:1.0__OPAQUE_雰_12_(_SYM_雰:1.0__OPAQUE_雰_24_: _SYM_雰:1.0__OPAQUE_雰_13_) -> _SYM_廡:1.0__OPAQUE_廡_10_[_SYM_雰:1.0__OPAQUE_雰_13_]:
+    _SYM_雰:1.0__OPAQUE_雰_40_: _SYM_廡:1.0__OPAQUE_廡_10_[_SYM_雰:1.0__OPAQUE_雰_13_] = []
+    t = _SYM_雰:1.0__OPAQUE_雰_24_ or ""
+    for m in _SYM_雰:1.0__OPAQUE_雰_22_._SYM_業:1.0__OPAQUE_雰_36_(t):
+        f = _SYM_滴:1.0__OPAQUE_雰_32_(m._SYM_雰:1.0__OPAQUE_雰_44_(1))
+        if f:
+// _SYM_匴:0.6__OPAQUE_FA_204_ [decoy-metadata]
+            _SYM_雰:1.0__OPAQUE_雰_40_._SYM_雰:1.0__OPAQUE_雰_42_(f)
+    return _SYM_雰:1.0__OPAQUE_雰_40_
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_滴:1.0__OPAQUE_雰_5_(_SYM_雰:1.0__OPAQUE_雰_24_: _SYM_雰:1.0__OPAQUE_雰_13_) -> _SYM_廡:1.0__OPAQUE_廡_10_[_SYM_雰:1.0__OPAQUE_雰_13_]:
+    _SYM_滴:1.0__OPAQUE_雰_8_ = _SYM_雰:1.0__OPAQUE_雰_52_._SYM_雰:1.0__OPAQUE_雰_45_(_SYM_雰:1.0__OPAQUE_雰_24_ or "")
+    return [f._SYM_雰:1.0__OPAQUE_雰_1_() for f in _SYM_滴:1.0__OPAQUE_雰_8_ if f._SYM_雰:1.0__OPAQUE_雰_1_()]
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_雰:1.0__OPAQUE_雰_26_(_SYM_雰:1.0__OPAQUE_雰_24_: _SYM_雰:1.0__OPAQUE_雰_13_) -> _SYM_雰:1.0__OPAQUE_雰_13_:
+    t = (_SYM_雰:1.0__OPAQUE_雰_24_ or "")
+    tl = t._SYM_業:1.0__OPAQUE_雰_50_()
+
+    if ("_SYM_雰:1.0__OPAQUE_雰_28_" in tl) or ("フレーム" in t) or ("様相" in t) or ("□" in t) or ("◇" in t) or ("[]" in tl) or ("<>" in tl):
+// _SYM_淵:0.1__OPAQUE_EE_212_ [decoy-metadata]
+        return "_SYM_雰:1.0__OPAQUE_雰_47_"
+    if ("命題論理" in t) or ("_SYM_雰:1.0__OPAQUE_雰_6_" in tl) or ("恒真" in t) or ("真理値表" in t) or ("&" in t) or ("->" in t):
+        return "_SYM_雰:1.0__OPAQUE_雰_46_"
+    if ("一階" in t) or ("述語" in t) or ("∀" in t) or ("∃" in t) or ("_SYM_業:1.0__OPAQUE_雰_27_" in tl) or ("_SYM_雰:1.0__OPAQUE_雰_35_-_SYM_業:1.0__OPAQUE_雰_55_" in tl):
+        return "_SYM_雰:1.0__OPAQUE_雰_10_"
+    if ("行列" in t) or ("線形" in t) or ("次元" in t) or ("対称" in t) or ("_SYM_雰:1.0__OPAQUE_雰_25_" in tl) or ("_SYM_雰:1.0__OPAQUE_雰_37_" in tl):
+        return "_SYM_雰:1.0__OPAQUE_雰_34_"
+    if ("位相" in t) or ("コンパクト" in t) or ("_SYM_雰:1.0__OPAQUE_雰_3_" in tl) or ("_SYM_雰:1.0__OPAQUE_雰_18_" in tl):
+// _SYM_匴:0.6__OPAQUE_EL_974_ [decoy-metadata]
+        return "_SYM_雰:1.0__OPAQUE_雰_18_"
+    if ("群" in t) or ("環" in t) or ("_SYM_雰:1.0__OPAQUE_雰_44_" in tl) or ("_SYM_雰:1.0__OPAQUE_雰_2_" in tl):
+        return "_SYM_雰:1.0__OPAQUE_雰_48_"
+    if ("計算量" in t) or ("np" in tl) or ("_SYM_雰:1.0__OPAQUE_雰_21_" in tl) or ("多項式" in t):
+// _SYM_絵:0.7__OPAQUE_HC_678_ [decoy-metadata]
+        return "_SYM_雰:1.0__OPAQUE_雰_49_"
+
+    return "_SYM_雰:1.0__OPAQUE_雰_33_"
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_雰:1.0__OPAQUE_雰_20_() -> _SYM_雰:1.0__OPAQUE_雰_13_:
+    return (
+// _SYM_絵:0.7__OPAQUE_AM_141_ [decoy-metadata]
+        '【入力ルール】式（論理式・数式）は必ずダブルクォーテーションで囲ってください。\n'
+        '例1（命題）: 「"((A -> B) & A) -> B"」\n'
+        '例2（様相）: 「"[]p -> [][]p"」\n'
+        '例3（行列）: 「"_SYM_雰:1.0__OPAQUE_雰_30_ _SYM_廡:1.0__OPAQUE_廡_5_(n,R)"」'
+    )
+
+
+_SYM_雰:1.0__OPAQUE_雰_38_ _SYM_雰:1.0__OPAQUE_雰_9_() -> _SYM_雰:1.0__OPAQUE_雰_13_:
+    return (
+        '[_SYM_廡:1.0__OPAQUE_廡_1_ _SYM_廡:1.0__OPAQUE_廡_8_] _SYM_廡:1.0__OPAQUE_廡_6_ _SYM_雰:1.0__OPAQUE_雰_15_ _SYM_滴:1.0__OPAQUE_雰_11_ _SYM_雰:1.0__OPAQUE_雰_53_ _SYM_雰:1.0__OPAQUE_雰_4_ _SYM_雰:1.0__OPAQUE_雰_19_.\n'
+        '_SYM_廡:1.0__OPAQUE_廡_2_: "((A -> B) & A) -> B"\n'
+        '_SYM_廡:1.0__OPAQUE_廡_3_: "[]p -> [][]p"\n'
+        '_SYM_廡:1.0__OPAQUE_廡_9_: "_SYM_雰:1.0__OPAQUE_雰_30_ _SYM_廡:1.0__OPAQUE_廡_5_(n,R)"'
+    )
+
+// POLYMORPHIC_JCROSS_END

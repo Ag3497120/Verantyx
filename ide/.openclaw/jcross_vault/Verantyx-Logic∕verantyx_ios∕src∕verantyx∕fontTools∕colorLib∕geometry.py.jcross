@@ -1,0 +1,155 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3B9D975C ver:1778162824
+// ⚠️ One-time schema — expires after response
+
+"""_OPAQUE_庖:1.0__TOKEN_庖_6_ for _OPAQUE_霢:1.0__TOKEN_霢_159_ 2D _OPAQUE_霢:1.0__TOKEN_霢_71_ _OPAQUE_霢:1.0__TOKEN_霢_81_ _OPAQUE_霢:1.0__TOKEN_霢_39_ in _OPAQUE_庖:1.0__TOKEN_庖_15_ _OPAQUE_霢:1.0__TOKEN_霢_45_."""
+
+_OPAQUE_霢:1.0__TOKEN_霢_175_ _OPAQUE_霢:1.0__TOKEN_霢_75_ import _OPAQUE_霢:1.0__TOKEN_霢_119_, _OPAQUE_霢:1.0__TOKEN_霢_108_, _OPAQUE_霢:1.0__TOKEN_霢_101_, _OPAQUE_霢:1.0__TOKEN_霢_166_, pi
+_OPAQUE_霢:1.0__TOKEN_霢_175_ _OPAQUE_霢:1.0__TOKEN_霢_146_._OPAQUE_霢:1.0__TOKEN_霢_118_._OPAQUE_霢:1.0__TOKEN_霢_152_ import _OPAQUE_霢:1.0__TOKEN_霢_48_
+
+
+_OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_123_(_OPAQUE_霢:1.0__TOKEN_霢_137_, _OPAQUE_霢:1.0__TOKEN_霢_10_):
+    return (_OPAQUE_霢:1.0__TOKEN_霢_10_[0] - _OPAQUE_霢:1.0__TOKEN_霢_137_[0], _OPAQUE_霢:1.0__TOKEN_霢_10_[1] - _OPAQUE_霢:1.0__TOKEN_霢_137_[1])
+
+
+// _OPAQUE_筐:0.8__TOKEN_VF_203_ [decoy-metadata]
+_OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_46_(pt):
+    return (_OPAQUE_霢:1.0__TOKEN_霢_48_(pt[0]), _OPAQUE_霢:1.0__TOKEN_霢_48_(pt[1]))
+
+
+_OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_31_(_OPAQUE_霢:1.0__TOKEN_霢_72_):
+    _OPAQUE_霢:1.0__TOKEN_霢_13_ = _OPAQUE_霢:1.0__TOKEN_霢_101_(*_OPAQUE_霢:1.0__TOKEN_霢_72_)
+    if _OPAQUE_霢:1.0__TOKEN_霢_13_ == 0:
+        return _OPAQUE_庖:1.0__TOKEN_庖_13_
+    return (_OPAQUE_霢:1.0__TOKEN_霢_72_[0] / _OPAQUE_霢:1.0__TOKEN_霢_13_, _OPAQUE_霢:1.0__TOKEN_霢_72_[1] / _OPAQUE_霢:1.0__TOKEN_霢_13_)
+
+
+_OPAQUE_霢:1.0__TOKEN_霢_79_ = 1e-4
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_霢:1.0__TOKEN_霢_113_ = _OPAQUE_霢:1.0__TOKEN_霢_108_(3 / 8 * pi)  # == _OPAQUE_霢:1.0__TOKEN_霢_138_(1/8 * pi) == 0.38268343236508984
+
+
+_OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_70_(_OPAQUE_霢:1.0__TOKEN_霢_6_):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    uv = _OPAQUE_霢:1.0__TOKEN_霢_31_(_OPAQUE_霢:1.0__TOKEN_霢_6_)
+    if _OPAQUE_霢:1.0__TOKEN_霢_35_ uv:
+        return (0, 0)
+
+    _OPAQUE_霢:1.0__TOKEN_霢_21_ = []
+    for _OPAQUE_霢:1.0__TOKEN_霢_19_ in uv:
+        if -_OPAQUE_霢:1.0__TOKEN_霢_113_ <= _OPAQUE_霢:1.0__TOKEN_霢_19_ < _OPAQUE_霢:1.0__TOKEN_霢_113_:
+// [metadata-stripped]
+// [metadata-stripped]
+            _OPAQUE_霢:1.0__TOKEN_霢_21_._OPAQUE_霢:1.0__TOKEN_霢_153_(0)
+        else:
+// [metadata-stripped]
+            _OPAQUE_霢:1.0__TOKEN_霢_21_._OPAQUE_霢:1.0__TOKEN_霢_153_(_OPAQUE_霢:1.0__TOKEN_霢_119_(1.0, _OPAQUE_霢:1.0__TOKEN_霢_19_))
+    return _OPAQUE_霢:1.0__TOKEN_霢_27_(_OPAQUE_霢:1.0__TOKEN_霢_21_)
+
+
+class _OPAQUE_庖:1.0__TOKEN_庖_4_:
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_135_(self, _OPAQUE_霢:1.0__TOKEN_霢_30_, _OPAQUE_霢:1.0__TOKEN_霢_54_):
+        self._OPAQUE_霢:1.0__TOKEN_霢_30_ = _OPAQUE_霢:1.0__TOKEN_霢_30_
+        self._OPAQUE_霢:1.0__TOKEN_霢_54_ = _OPAQUE_霢:1.0__TOKEN_霢_54_
+
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_24_(self):
+        return f"_OPAQUE_庖:1.0__TOKEN_庖_4_(_OPAQUE_霢:1.0__TOKEN_霢_30_={self._OPAQUE_霢:1.0__TOKEN_霢_30_}, _OPAQUE_霢:1.0__TOKEN_霢_54_={self._OPAQUE_霢:1.0__TOKEN_霢_54_})"
+
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_150_(self):
+        return _OPAQUE_庖:1.0__TOKEN_庖_4_(_OPAQUE_霢:1.0__TOKEN_霢_46_(self._OPAQUE_霢:1.0__TOKEN_霢_30_), _OPAQUE_霢:1.0__TOKEN_霢_48_(self._OPAQUE_霢:1.0__TOKEN_霢_54_))
+
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_1_(self, _OPAQUE_霢:1.0__TOKEN_霢_163_, _OPAQUE_霢:1.0__TOKEN_霢_132_=_OPAQUE_霢:1.0__TOKEN_霢_79_):
+        _OPAQUE_霢:1.0__TOKEN_霢_7_ = self._OPAQUE_霢:1.0__TOKEN_霢_54_ + _OPAQUE_霢:1.0__TOKEN_霢_101_(*_OPAQUE_霢:1.0__TOKEN_霢_123_(self._OPAQUE_霢:1.0__TOKEN_霢_30_, _OPAQUE_霢:1.0__TOKEN_霢_163_._OPAQUE_霢:1.0__TOKEN_霢_30_))
+        return (
+            _OPAQUE_霢:1.0__TOKEN_霢_166_(_OPAQUE_霢:1.0__TOKEN_霢_163_._OPAQUE_霢:1.0__TOKEN_霢_54_, _OPAQUE_霢:1.0__TOKEN_霢_7_, _OPAQUE_霢:1.0__TOKEN_霢_143_=_OPAQUE_霢:1.0__TOKEN_霢_79_)
+            or _OPAQUE_霢:1.0__TOKEN_霢_163_._OPAQUE_霢:1.0__TOKEN_霢_54_ > _OPAQUE_霢:1.0__TOKEN_霢_7_
+        )
+
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_60_(self, _OPAQUE_格:1.0__TOKEN_霢_44_):
+        return self._OPAQUE_霢:1.0__TOKEN_霢_30_ == _OPAQUE_格:1.0__TOKEN_霢_44_._OPAQUE_霢:1.0__TOKEN_霢_30_
+
+    _OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_61_(self, dx, dy):
+        self._OPAQUE_霢:1.0__TOKEN_霢_30_ = (self._OPAQUE_霢:1.0__TOKEN_霢_30_[0] + dx, self._OPAQUE_霢:1.0__TOKEN_霢_30_[1] + dy)
+
+// _OPAQUE_游:0.2__TOKEN_CH_889_ [decoy-metadata]
+
+_OPAQUE_霢:1.0__TOKEN_霢_147_ _OPAQUE_霢:1.0__TOKEN_霢_99_(c0, r0, c1, r1):
+// _OPAQUE_幽:0.1__TOKEN_CM_112_ [decoy-metadata]
+    """_OPAQUE_庖:1.0__TOKEN_庖_3_ _OPAQUE_霢:1.0__TOKEN_霢_47_ _OPAQUE_霢:1.0__TOKEN_霢_5_ so _OPAQUE_霢:1.0__TOKEN_霢_95_ it _OPAQUE_霢:1.0__TOKEN_霢_91_ _OPAQUE_霢:1.0__TOKEN_霢_1_/_OPAQUE_霢:1.0__TOKEN_霢_23_ _OPAQUE_霢:1.0__TOKEN_霢_9_ _OPAQUE_霢:1.0__TOKEN_霢_5_ _OPAQUE_格:1.0__TOKEN_霢_76_ _OPAQUE_霢:1.0__TOKEN_霢_111_.
+
+    _OPAQUE_庖:1.0__TOKEN_庖_9_ _OPAQUE_霢:1.0__TOKEN_霢_111_ of _OPAQUE_霢:1.0__TOKEN_霢_5_ _OPAQUE_霢:1.0__TOKEN_霢_62_ to _OPAQUE_霢:1.0__TOKEN_霢_145_ _OPAQUE_霢:1.0__TOKEN_霢_84_ _OPAQUE_霢:1.0__TOKEN_霢_126_ an _OPAQUE_霢:1.0__TOKEN_霢_168_ _OPAQUE_霢:1.0__TOKEN_霢_2_
+    if _OPAQUE_霢:1.0__TOKEN_霢_110_ _OPAQUE_霢:1.0__TOKEN_霢_47_ _OPAQUE_霢:1.0__TOKEN_霢_5_ c0 is so _OPAQUE_霢:1.0__TOKEN_霢_109_ to _OPAQUE_霢:1.0__TOKEN_霢_110_ _OPAQUE_霢:1.0__TOKEN_霢_9_ _OPAQUE_霢:1.0__TOKEN_霢_5_ c1's _OPAQUE_格:1.0__TOKEN_霢_164_ _OPAQUE_霢:1.0__TOKEN_霢_95_
+    it _OPAQUE_霢:1.0__TOKEN_霢_165_ up _OPAQUE_霢:1.0__TOKEN_霢_161_ _OPAQUE_霢:1.0__TOKEN_霢_23_ (or _OPAQUE_霢:1.0__TOKEN_霢_1_) as a _OPAQUE_霢:1.0__TOKEN_霢_21_ of _OPAQUE_霢:1.0__TOKEN_霢_110_ _OPAQUE_霢:1.0__TOKEN_霢_111_.
+    To _OPAQUE_霢:1.0__TOKEN_霢_92_ _OPAQUE_霢:1.0__TOKEN_霢_110_ _OPAQUE_霢:1.0__TOKEN_霢_160_ _OPAQUE_霢:1.0__TOKEN_霢_90_, we _OPAQUE_霢:1.0__TOKEN_霢_100_ it in _OPAQUE_霢:1.0__TOKEN_霢_110_ _OPAQUE_霢:1.0__TOKEN_霢_102_ _OPAQUE_霢:1.0__TOKEN_霢_6_.
+
+    _OPAQUE_庖:1.0__TOKEN_庖_10_:
+    _OPAQUE_絢:1.0__TOKEN_霢_33_://_OPAQUE_霢:1.0__TOKEN_霢_12_._OPAQUE_霢:1.0__TOKEN_霢_26_/_OPAQUE_霢:1.0__TOKEN_霢_176_/_OPAQUE_霢:1.0__TOKEN_霢_130_-_OPAQUE_霢:1.0__TOKEN_霢_142_-_OPAQUE_霢:1.0__TOKEN_霢_50_/_OPAQUE_霢:1.0__TOKEN_霢_96_/204
+    _OPAQUE_絢:1.0__TOKEN_霢_33_://_OPAQUE_霢:1.0__TOKEN_霢_12_._OPAQUE_霢:1.0__TOKEN_霢_26_/_OPAQUE_霢:1.0__TOKEN_霢_176_/_OPAQUE_霢:1.0__TOKEN_霢_68_/_OPAQUE_霢:1.0__TOKEN_霢_96_/158
+    """
+    _OPAQUE_霢:1.0__TOKEN_霢_47_, _OPAQUE_霢:1.0__TOKEN_霢_9_ = _OPAQUE_庖:1.0__TOKEN_庖_4_(c0, r0), _OPAQUE_庖:1.0__TOKEN_庖_4_(c1, r1)
+// _OPAQUE_庖:0.5__TOKEN_MW_744_ [decoy-metadata]
+
+    _OPAQUE_游:1.0__TOKEN_霢_169_ = _OPAQUE_霢:1.0__TOKEN_霢_47_._OPAQUE_霢:1.0__TOKEN_霢_1_(_OPAQUE_霢:1.0__TOKEN_霢_9_)
+
+    _OPAQUE_霢:1.0__TOKEN_霢_156_ = _OPAQUE_霢:1.0__TOKEN_霢_47_._OPAQUE_霢:1.0__TOKEN_霢_150_()
+    _OPAQUE_霢:1.0__TOKEN_霢_37_ = _OPAQUE_霢:1.0__TOKEN_霢_9_._OPAQUE_霢:1.0__TOKEN_霢_150_()
+    _OPAQUE_霢:1.0__TOKEN_霢_116_ = _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_1_(_OPAQUE_霢:1.0__TOKEN_霢_37_)
+
+    if _OPAQUE_游:1.0__TOKEN_霢_169_ == _OPAQUE_霢:1.0__TOKEN_霢_116_:
+        return _OPAQUE_霢:1.0__TOKEN_霢_156_
+    _OPAQUE_游:1.0__TOKEN_霢_122_ _OPAQUE_霢:1.0__TOKEN_霢_116_:
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__TOKEN_霢_6_ = _OPAQUE_霢:1.0__TOKEN_霢_123_(_OPAQUE_霢:1.0__TOKEN_霢_37_._OPAQUE_霢:1.0__TOKEN_霢_30_, _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_30_)
+        _OPAQUE_霢:1.0__TOKEN_霢_105_ = +1.0
+    else:
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__TOKEN_霢_6_ = _OPAQUE_霢:1.0__TOKEN_霢_123_(_OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_30_, _OPAQUE_霢:1.0__TOKEN_霢_37_._OPAQUE_霢:1.0__TOKEN_霢_30_)
+        _OPAQUE_霢:1.0__TOKEN_霢_105_ = -1.0
+    dx, dy = _OPAQUE_霢:1.0__TOKEN_霢_70_(_OPAQUE_霢:1.0__TOKEN_霢_6_)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_筐:0.3__TOKEN_HK_389_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__TOKEN_霢_66_ = 2
+    for _ in _OPAQUE_霢:1.0__TOKEN_霢_67_(_OPAQUE_霢:1.0__TOKEN_霢_66_):
+        if _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_60_(_OPAQUE_霢:1.0__TOKEN_霢_37_):
+// [metadata-stripped]
+            _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_54_ += _OPAQUE_霢:1.0__TOKEN_霢_105_
+            _OPAQUE_霢:1.0__TOKEN_霢_115_ _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_54_ >= 0
+        else:
+            _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_61_(dx, dy)
+        if _OPAQUE_游:1.0__TOKEN_霢_169_ == _OPAQUE_霢:1.0__TOKEN_霢_156_._OPAQUE_霢:1.0__TOKEN_霢_1_(_OPAQUE_霢:1.0__TOKEN_霢_37_):
+            break
+    else:  # _OPAQUE_霢:1.0__TOKEN_霢_128_ a _OPAQUE_霢:1.0__TOKEN_霢_141_
+// _OPAQUE_庖:0.7__TOKEN_GF_239_ [decoy-metadata]
+        _OPAQUE_霢:1.0__TOKEN_霢_42_ _OPAQUE_庖:1.0__TOKEN_庖_2_(
+            f"_OPAQUE_庖:1.0__TOKEN_庖_7_ _OPAQUE_霢:1.0__TOKEN_霢_5_ {_OPAQUE_霢:1.0__TOKEN_霢_47_} "
+            f"{'_OPAQUE_霢:1.0__TOKEN_霢_1_' if _OPAQUE_游:1.0__TOKEN_霢_169_ else '_OPAQUE_霢:1.0__TOKEN_霢_23_'} "
+            f"{_OPAQUE_霢:1.0__TOKEN_霢_9_} _OPAQUE_霢:1.0__TOKEN_霢_170_ _OPAQUE_格:1.0__TOKEN_霢_76_ {_OPAQUE_霢:1.0__TOKEN_霢_66_} _OPAQUE_霢:1.0__TOKEN_霢_140_!"
+        )
+
+    return _OPAQUE_霢:1.0__TOKEN_霢_156_
+
+// POLYMORPHIC_JCROSS_END

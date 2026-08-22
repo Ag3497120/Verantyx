@@ -1,0 +1,181 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A5D74207 ver:1778159755
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_JCROSS_霞:1.0__OPAQUE_霞_58_ _JCROSS_霞:1.0__OPAQUE_霞_31_ import _JCROSS_霞:1.0__OPAQUE_霞_93_
+
+import _JCROSS_霞:1.0__OPAQUE_霞_45_
+import _JCROSS_霞:1.0__OPAQUE_霞_65_
+import os
+import re
+_JCROSS_霞:1.0__OPAQUE_霞_58_ _JCROSS_霞:1.0__OPAQUE_霞_39_ import _JCROSS_霞:1.0__OPAQUE_霞_21_
+_JCROSS_霞:1.0__OPAQUE_霞_58_ _JCROSS_霞:1.0__OPAQUE_霞_44_ import _JCROSS_殻:1.0__OPAQUE_殻_1_, _JCROSS_殻:1.0__OPAQUE_殻_3_, _JCROSS_殻:1.0__OPAQUE_殻_17_, _JCROSS_殻:1.0__OPAQUE_殻_7_, _JCROSS_殻:1.0__OPAQUE_殻_13_, _JCROSS_殻:1.0__OPAQUE_殻_9_
+
+_JCROSS_深:1.0__OPAQUE_殻_14_ = re._JCROSS_霞:1.0__OPAQUE_霞_108_(r"[A-Za-z_][A-Za-_JCROSS_霞:1.0__OPAQUE_霞_70_-9]*|[\_JCROSS_霞:1.0__OPAQUE_霞_48_-\_JCROSS_霞:1.0__OPAQUE_霞_46_\_JCROSS_霞:1.0__OPAQUE_霞_3_-\_JCROSS_霞:1.0__OPAQUE_霞_11_]+|[0-9]+")
+
+_JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_深:1.0__OPAQUE_霞_91_(_JCROSS_霞:1.0__OPAQUE_霞_85_: _JCROSS_霞:1.0__OPAQUE_霞_53_) -> _JCROSS_殻:1.0__OPAQUE_殻_3_[_JCROSS_霞:1.0__OPAQUE_霞_53_]:
+    if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_85_:
+        return []
+// [metadata-stripped]
+    _JCROSS_霞:1.0__OPAQUE_霞_56_ = _JCROSS_深:1.0__OPAQUE_殻_14_._JCROSS_霞:1.0__OPAQUE_霞_96_(_JCROSS_霞:1.0__OPAQUE_霞_85_)
+    _JCROSS_霞:1.0__OPAQUE_霞_86_ = []
+    for t in _JCROSS_霞:1.0__OPAQUE_霞_56_:
+        if re._JCROSS_霞:1.0__OPAQUE_霞_60_(r"^[A-Za-z_]", t):
+            _JCROSS_霞:1.0__OPAQUE_霞_86_._JCROSS_霞:1.0__OPAQUE_霞_40_(t._JCROSS_要:1.0__OPAQUE_霞_15_())
+        else:
+            _JCROSS_霞:1.0__OPAQUE_霞_86_._JCROSS_霞:1.0__OPAQUE_霞_40_(t)
+    return _JCROSS_霞:1.0__OPAQUE_霞_86_
+
+@_JCROSS_霞:1.0__OPAQUE_霞_21_
+class _JCROSS_殻:1.0__OPAQUE_殻_15_:
+    k1: _JCROSS_霞:1.0__OPAQUE_霞_33_ = 1.2
+    b: _JCROSS_霞:1.0__OPAQUE_霞_33_ = 0.75
+    _JCROSS_深:1.0__OPAQUE_霞_114_: _JCROSS_霞:1.0__OPAQUE_霞_55_ = 1
+    _JCROSS_深:1.0__OPAQUE_霞_43_: _JCROSS_霞:1.0__OPAQUE_霞_55_ = 2000
+
+class _JCROSS_殻:1.0__OPAQUE_殻_2_:
+    """
+    _JCROSS_殻:1.0__OPAQUE_殻_4_ _JCROSS_殻:1.0__OPAQUE_殻_5_ _JCROSS_霞:1.0__OPAQUE_霞_104_ for _JCROSS_霞:1.0__OPAQUE_霞_117_._JCROSS_霞:1.0__OPAQUE_霞_115_.
+    _JCROSS_殻:1.0__OPAQUE_殻_6_:
+      - _JCROSS_霞:1.0__OPAQUE_霞_101_: _JCROSS_深:1.0__OPAQUE_霞_50_ -> _JCROSS_霞:1.0__OPAQUE_霞_36_[(_JCROSS_霞:1.0__OPAQUE_霞_76_, tf)]
+      - _JCROSS_霞:1.0__OPAQUE_霞_72_: _JCROSS_霞:1.0__OPAQUE_霞_76_ -> _JCROSS_霞:1.0__OPAQUE_霞_26_
+      - _JCROSS_霞:1.0__OPAQUE_霞_80_: _JCROSS_霞:1.0__OPAQUE_霞_76_ -> {_JCROSS_霞:1.0__OPAQUE_霞_51_, _JCROSS_霞:1.0__OPAQUE_霞_73_, _JCROSS_霞:1.0__OPAQUE_霞_90_}
+      - N, _JCROSS_霞:1.0__OPAQUE_霞_92_
+    """
+
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_84_(self, _JCROSS_霞:1.0__OPAQUE_霞_23_: _JCROSS_殻:1.0__OPAQUE_殻_15_ | _JCROSS_殻:1.0__OPAQUE_殻_10_ = _JCROSS_殻:1.0__OPAQUE_殻_10_):
+        self._JCROSS_霞:1.0__OPAQUE_霞_23_ = _JCROSS_霞:1.0__OPAQUE_霞_23_ or _JCROSS_殻:1.0__OPAQUE_殻_15_()
+        self._JCROSS_霞:1.0__OPAQUE_霞_101_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_殻:1.0__OPAQUE_殻_3_[_JCROSS_殻:1.0__OPAQUE_殻_17_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_55_]]] = {}
+        self._JCROSS_霞:1.0__OPAQUE_霞_72_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_55_] = {}
+        self._JCROSS_霞:1.0__OPAQUE_霞_80_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_殻:1.0__OPAQUE_殻_13_]] = {}
+        self.N: _JCROSS_霞:1.0__OPAQUE_霞_55_ = 0
+        self._JCROSS_霞:1.0__OPAQUE_霞_92_: _JCROSS_霞:1.0__OPAQUE_霞_33_ = 0.0
+
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_97_(self, _JCROSS_霞:1.0__OPAQUE_霞_76_: _JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_85_: _JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_67_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_殻:1.0__OPAQUE_殻_13_]) -> _JCROSS_殻:1.0__OPAQUE_殻_10_:
+        _JCROSS_霞:1.0__OPAQUE_霞_56_ = _JCROSS_深:1.0__OPAQUE_霞_91_(_JCROSS_霞:1.0__OPAQUE_霞_85_)[: self._JCROSS_霞:1.0__OPAQUE_霞_23_._JCROSS_深:1.0__OPAQUE_霞_43_]
+        _JCROSS_霞:1.0__OPAQUE_霞_56_ = [t for t in _JCROSS_霞:1.0__OPAQUE_霞_56_ if _JCROSS_霞:1.0__OPAQUE_霞_88_(t) >= self._JCROSS_霞:1.0__OPAQUE_霞_23_._JCROSS_深:1.0__OPAQUE_霞_114_]
+// _JCROSS_深:0.6__OPAQUE_AF_157_ [decoy-metadata]
+        if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_56_:
+// [metadata-stripped]
+            self._JCROSS_霞:1.0__OPAQUE_霞_72_[_JCROSS_霞:1.0__OPAQUE_霞_76_] = 0
+            self._JCROSS_霞:1.0__OPAQUE_霞_80_[_JCROSS_霞:1.0__OPAQUE_霞_76_] = _JCROSS_霞:1.0__OPAQUE_霞_67_
+            self.N += 1
+            return
+
+        _JCROSS_霞:1.0__OPAQUE_霞_19_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_55_] = {}
+        for t in _JCROSS_霞:1.0__OPAQUE_霞_56_:
+            _JCROSS_霞:1.0__OPAQUE_霞_19_[t] = _JCROSS_霞:1.0__OPAQUE_霞_19_._JCROSS_要:1.0__OPAQUE_核_1_(t, 0) + 1
+
+        for _JCROSS_霞:1.0__OPAQUE_霞_57_, tf in _JCROSS_霞:1.0__OPAQUE_霞_19_._JCROSS_霞:1.0__OPAQUE_霞_42_():
+            self._JCROSS_霞:1.0__OPAQUE_霞_101_._JCROSS_要:1.0__OPAQUE_核_2_(_JCROSS_霞:1.0__OPAQUE_霞_57_, [])._JCROSS_霞:1.0__OPAQUE_霞_40_((_JCROSS_霞:1.0__OPAQUE_霞_76_, tf))
+
+        self._JCROSS_霞:1.0__OPAQUE_霞_72_[_JCROSS_霞:1.0__OPAQUE_霞_76_] = _JCROSS_霞:1.0__OPAQUE_霞_88_(_JCROSS_霞:1.0__OPAQUE_霞_56_)
+        self._JCROSS_霞:1.0__OPAQUE_霞_80_[_JCROSS_霞:1.0__OPAQUE_霞_76_] = _JCROSS_霞:1.0__OPAQUE_霞_67_
+        self.N += 1
+
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_13_(self) -> _JCROSS_殻:1.0__OPAQUE_殻_10_:
+        if self.N == 0:
+            self._JCROSS_霞:1.0__OPAQUE_霞_92_ = 0.0
+        else:
+            self._JCROSS_霞:1.0__OPAQUE_霞_92_ = _JCROSS_霞:1.0__OPAQUE_霞_78_(self._JCROSS_霞:1.0__OPAQUE_霞_72_._JCROSS_霞:1.0__OPAQUE_霞_63_()) / _JCROSS_霞:1.0__OPAQUE_霞_33_(self.N)
+// _JCROSS_霞:0.2__OPAQUE_YD_157_ [decoy-metadata]
+
+// _JCROSS_核:0.8__OPAQUE_VF_756_ [decoy-metadata]
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_筐:1.0__OPAQUE_霞_7_(self, _JCROSS_霞:1.0__OPAQUE_霞_75_: _JCROSS_霞:1.0__OPAQUE_霞_53_) -> _JCROSS_殻:1.0__OPAQUE_殻_10_:
+        os._JCROSS_霞:1.0__OPAQUE_霞_20_(os._JCROSS_霞:1.0__OPAQUE_霞_75_._JCROSS_霞:1.0__OPAQUE_霞_95_(_JCROSS_霞:1.0__OPAQUE_霞_75_), _JCROSS_霞:1.0__OPAQUE_霞_113_=_JCROSS_殻:1.0__OPAQUE_殻_11_)
+        _JCROSS_筐:1.0__OPAQUE_霞_68_ = {
+            "_JCROSS_霞:1.0__OPAQUE_霞_23_": self._JCROSS_霞:1.0__OPAQUE_霞_23_._JCROSS_霞:1.0__OPAQUE_霞_17_,
+            "N": self.N,
+            "_JCROSS_霞:1.0__OPAQUE_霞_92_": self._JCROSS_霞:1.0__OPAQUE_霞_92_,
+            "_JCROSS_霞:1.0__OPAQUE_霞_72_": self._JCROSS_霞:1.0__OPAQUE_霞_72_,
+            "_JCROSS_霞:1.0__OPAQUE_霞_80_": self._JCROSS_霞:1.0__OPAQUE_霞_80_,
+// [metadata-stripped]
+            "_JCROSS_霞:1.0__OPAQUE_霞_101_": {k: [[d, tf] for (d, tf) in v] for k, v in self._JCROSS_霞:1.0__OPAQUE_霞_101_._JCROSS_霞:1.0__OPAQUE_霞_42_()},
+        }
+        _JCROSS_霞:1.0__OPAQUE_霞_22_ open(_JCROSS_霞:1.0__OPAQUE_霞_75_, "w", _JCROSS_霞:1.0__OPAQUE_霞_79_="_JCROSS_霞:1.0__OPAQUE_霞_64_-8") as f:
+            _JCROSS_霞:1.0__OPAQUE_霞_45_._JCROSS_霞:1.0__OPAQUE_霞_9_(_JCROSS_筐:1.0__OPAQUE_霞_68_, f, _JCROSS_霞:1.0__OPAQUE_霞_24_=_JCROSS_殻:1.0__OPAQUE_殻_12_)
+
+    @_JCROSS_霞:1.0__OPAQUE_霞_18_
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_筐:1.0__OPAQUE_霞_5_(_JCROSS_霞:1.0__OPAQUE_霞_75_: _JCROSS_霞:1.0__OPAQUE_霞_53_) -> "_JCROSS_殻:1.0__OPAQUE_殻_2_":
+        _JCROSS_霞:1.0__OPAQUE_霞_22_ open(_JCROSS_霞:1.0__OPAQUE_霞_75_, "r", _JCROSS_霞:1.0__OPAQUE_霞_79_="_JCROSS_霞:1.0__OPAQUE_霞_64_-8") as f:
+            _JCROSS_筐:1.0__OPAQUE_霞_68_ = _JCROSS_霞:1.0__OPAQUE_霞_45_._JCROSS_筐:1.0__OPAQUE_霞_5_(f)
+        _JCROSS_霞:1.0__OPAQUE_霞_111_ = _JCROSS_殻:1.0__OPAQUE_殻_2_(_JCROSS_殻:1.0__OPAQUE_殻_15_(**_JCROSS_筐:1.0__OPAQUE_霞_68_._JCROSS_要:1.0__OPAQUE_核_1_("_JCROSS_霞:1.0__OPAQUE_霞_23_", {})))
+        _JCROSS_霞:1.0__OPAQUE_霞_111_.N = _JCROSS_霞:1.0__OPAQUE_霞_55_(_JCROSS_筐:1.0__OPAQUE_霞_68_["N"])
+        _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_92_ = _JCROSS_霞:1.0__OPAQUE_霞_33_(_JCROSS_筐:1.0__OPAQUE_霞_68_["_JCROSS_霞:1.0__OPAQUE_霞_92_"])
+// _JCROSS_筐:0.9__OPAQUE_KB_881_ [decoy-metadata]
+        _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_72_ = {k: _JCROSS_霞:1.0__OPAQUE_霞_55_(v) for k, v in _JCROSS_筐:1.0__OPAQUE_霞_68_["_JCROSS_霞:1.0__OPAQUE_霞_72_"]._JCROSS_霞:1.0__OPAQUE_霞_42_()}
+        _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_80_ = _JCROSS_筐:1.0__OPAQUE_霞_68_["_JCROSS_霞:1.0__OPAQUE_霞_80_"]
+// _JCROSS_要:0.8__OPAQUE_HK_561_ [decoy-metadata]
+        _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_101_ = {k: [(d, _JCROSS_霞:1.0__OPAQUE_霞_55_(tf)) for d, tf in v] for k, v in _JCROSS_筐:1.0__OPAQUE_霞_68_["_JCROSS_霞:1.0__OPAQUE_霞_101_"]._JCROSS_霞:1.0__OPAQUE_霞_42_()}
+        return _JCROSS_霞:1.0__OPAQUE_霞_111_
+
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_59_(self, df: _JCROSS_霞:1.0__OPAQUE_霞_55_) -> _JCROSS_霞:1.0__OPAQUE_霞_33_:
+// [metadata-stripped]
+// [metadata-stripped]
+        return _JCROSS_霞:1.0__OPAQUE_霞_65_._JCROSS_霞:1.0__OPAQUE_霞_47_((self.N - df + 0.5) / (df + 0.5) + 1.0)
+
+    _JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_66_(self, _JCROSS_霞:1.0__OPAQUE_霞_1_: _JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_10_: _JCROSS_霞:1.0__OPAQUE_霞_55_ = 10) -> _JCROSS_殻:1.0__OPAQUE_殻_3_[_JCROSS_殻:1.0__OPAQUE_殻_17_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_33_]]:
+        _JCROSS_霞:1.0__OPAQUE_霞_4_ = _JCROSS_深:1.0__OPAQUE_霞_91_(_JCROSS_霞:1.0__OPAQUE_霞_1_)
+        if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_4_ or self.N == 0:
+            return []
+
+// [metadata-stripped]
+        _JCROSS_霞:1.0__OPAQUE_霞_110_: _JCROSS_殻:1.0__OPAQUE_殻_1_[_JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_33_] = {}
+        k1, b = self._JCROSS_霞:1.0__OPAQUE_霞_23_.k1, self._JCROSS_霞:1.0__OPAQUE_霞_23_.b
+        _JCROSS_霞:1.0__OPAQUE_霞_92_ = self._JCROSS_霞:1.0__OPAQUE_霞_92_ if self._JCROSS_霞:1.0__OPAQUE_霞_92_ > 0 else 1.0
+
+// [metadata-stripped]
+        for _JCROSS_霞:1.0__OPAQUE_霞_57_ in _JCROSS_要:1.0__OPAQUE_核_3_(_JCROSS_霞:1.0__OPAQUE_霞_4_):
+            _JCROSS_霞:1.0__OPAQUE_霞_61_ = self._JCROSS_霞:1.0__OPAQUE_霞_101_._JCROSS_要:1.0__OPAQUE_核_1_(_JCROSS_霞:1.0__OPAQUE_霞_57_)
+            if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_61_:
+                continue
+            df = _JCROSS_霞:1.0__OPAQUE_霞_88_(_JCROSS_霞:1.0__OPAQUE_霞_61_)
+            _JCROSS_霞:1.0__OPAQUE_霞_54_ = self._JCROSS_霞:1.0__OPAQUE_霞_59_(df)
+            for _JCROSS_霞:1.0__OPAQUE_霞_76_, tf in _JCROSS_霞:1.0__OPAQUE_霞_61_:
+                dl = self._JCROSS_霞:1.0__OPAQUE_霞_72_._JCROSS_要:1.0__OPAQUE_核_1_(_JCROSS_霞:1.0__OPAQUE_霞_76_, 0)
+                _JCROSS_霞:1.0__OPAQUE_霞_105_ = tf + k1 * (1.0 - b + b * (dl / _JCROSS_霞:1.0__OPAQUE_霞_92_))
+                _JCROSS_霞:1.0__OPAQUE_霞_28_ = _JCROSS_霞:1.0__OPAQUE_霞_54_ * ((tf * (k1 + 1.0)) / (_JCROSS_霞:1.0__OPAQUE_霞_105_ if _JCROSS_霞:1.0__OPAQUE_霞_105_ != 0 else 1.0))
+                _JCROSS_霞:1.0__OPAQUE_霞_110_[_JCROSS_霞:1.0__OPAQUE_霞_76_] = _JCROSS_霞:1.0__OPAQUE_霞_110_._JCROSS_要:1.0__OPAQUE_核_1_(_JCROSS_霞:1.0__OPAQUE_霞_76_, 0.0) + _JCROSS_霞:1.0__OPAQUE_霞_28_
+
+        _JCROSS_霞:1.0__OPAQUE_霞_62_ = _JCROSS_霞:1.0__OPAQUE_霞_77_(_JCROSS_霞:1.0__OPAQUE_霞_110_._JCROSS_霞:1.0__OPAQUE_霞_42_(), _JCROSS_深:1.0__OPAQUE_霞_89_=_JCROSS_霞:1.0__OPAQUE_霞_16_ x: x[1], _JCROSS_霞:1.0__OPAQUE_霞_106_=_JCROSS_殻:1.0__OPAQUE_殻_11_)[:_JCROSS_霞:1.0__OPAQUE_霞_10_]
+        return _JCROSS_霞:1.0__OPAQUE_霞_62_
+
+
+_JCROSS_霞:1.0__OPAQUE_霞_109_ _JCROSS_霞:1.0__OPAQUE_霞_29_(_JCROSS_霞:1.0__OPAQUE_霞_2_: _JCROSS_霞:1.0__OPAQUE_霞_53_, _JCROSS_霞:1.0__OPAQUE_霞_52_: _JCROSS_霞:1.0__OPAQUE_霞_53_) -> _JCROSS_殻:1.0__OPAQUE_殻_10_:
+    _JCROSS_霞:1.0__OPAQUE_霞_111_ = _JCROSS_殻:1.0__OPAQUE_殻_2_()
+    _JCROSS_霞:1.0__OPAQUE_霞_22_ open(_JCROSS_霞:1.0__OPAQUE_霞_2_, "r", _JCROSS_霞:1.0__OPAQUE_霞_79_="_JCROSS_霞:1.0__OPAQUE_霞_64_-8") as f:
+        for _JCROSS_霞:1.0__OPAQUE_霞_74_ in f:
+            _JCROSS_霞:1.0__OPAQUE_霞_74_ = _JCROSS_霞:1.0__OPAQUE_霞_74_._JCROSS_霞:1.0__OPAQUE_霞_103_()
+            if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_74_:
+                continue
+            _JCROSS_霞:1.0__OPAQUE_霞_35_ = _JCROSS_霞:1.0__OPAQUE_霞_45_._JCROSS_筐:1.0__OPAQUE_霞_34_(_JCROSS_霞:1.0__OPAQUE_霞_74_)
+
+            _JCROSS_霞:1.0__OPAQUE_霞_76_ = _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_("id")
+            if _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_霞:1.0__OPAQUE_霞_76_:
+                continue
+
+// [metadata-stripped]
+            _JCROSS_霞:1.0__OPAQUE_霞_107_: _JCROSS_殻:1.0__OPAQUE_殻_3_[_JCROSS_霞:1.0__OPAQUE_霞_53_] = []
+            for k in ("_JCROSS_霞:1.0__OPAQUE_霞_51_", "_JCROSS_霞:1.0__OPAQUE_霞_73_", "_JCROSS_霞:1.0__OPAQUE_霞_90_", "_JCROSS_霞:1.0__OPAQUE_霞_94_", "_JCROSS_霞:1.0__OPAQUE_霞_83_"):
+                v = _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_(k)
+                if _JCROSS_霞:1.0__OPAQUE_霞_38_(v, _JCROSS_霞:1.0__OPAQUE_霞_53_):
+                    _JCROSS_霞:1.0__OPAQUE_霞_107_._JCROSS_霞:1.0__OPAQUE_霞_40_(v)
+            _JCROSS_霞:1.0__OPAQUE_霞_27_ = _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_("_JCROSS_霞:1.0__OPAQUE_霞_87_")
+            if _JCROSS_霞:1.0__OPAQUE_霞_38_(_JCROSS_霞:1.0__OPAQUE_霞_27_, _JCROSS_霞:1.0__OPAQUE_霞_36_):
+                _JCROSS_霞:1.0__OPAQUE_霞_107_._JCROSS_霞:1.0__OPAQUE_霞_32_([_JCROSS_霞:1.0__OPAQUE_霞_53_(x) for x in _JCROSS_霞:1.0__OPAQUE_霞_27_ if x is _JCROSS_霞:1.0__OPAQUE_霞_41_ _JCROSS_殻:1.0__OPAQUE_殻_10_])
+// _JCROSS_核:0.6__OPAQUE_KM_431_ [decoy-metadata]
+
+            _JCROSS_霞:1.0__OPAQUE_霞_85_ = "\n"._JCROSS_霞:1.0__OPAQUE_霞_99_(_JCROSS_霞:1.0__OPAQUE_霞_107_)
+
+            _JCROSS_霞:1.0__OPAQUE_霞_67_ = {
+                "_JCROSS_霞:1.0__OPAQUE_霞_51_": _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_("_JCROSS_霞:1.0__OPAQUE_霞_51_"),
+                "_JCROSS_霞:1.0__OPAQUE_霞_73_": _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_("_JCROSS_霞:1.0__OPAQUE_霞_73_"),
+                "_JCROSS_霞:1.0__OPAQUE_霞_90_": _JCROSS_霞:1.0__OPAQUE_霞_35_._JCROSS_要:1.0__OPAQUE_核_1_("_JCROSS_霞:1.0__OPAQUE_霞_90_"),
+            }
+            _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_97_(_JCROSS_霞:1.0__OPAQUE_霞_76_, _JCROSS_霞:1.0__OPAQUE_霞_85_, _JCROSS_霞:1.0__OPAQUE_霞_67_)
+
+    _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_霞:1.0__OPAQUE_霞_13_()
+    _JCROSS_霞:1.0__OPAQUE_霞_111_._JCROSS_筐:1.0__OPAQUE_霞_7_(_JCROSS_霞:1.0__OPAQUE_霞_52_)
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,147 @@
+name: Verantyx
+options:
+  bundleIdPrefix: com.verantyx
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    PRODUCT_BUNDLE_IDENTIFIER: com.verantyx.ide
+    PRODUCT_NAME: Verantyx
+    # Disable App Sandbox for full filesystem access
+    ENABLE_APP_SANDBOX: NO
+    CODE_SIGN_ENTITLEMENTS: ""
+
+packages:
+  mlx-swift:
+    url: https://github.com/ml-explore/mlx-swift
+    from: "0.21.0"
+  mlx-swift-examples:
+    url: https://github.com/ml-explore/mlx-swift-examples
+    from: "2.21.0"
+  Hub:
+    url: https://github.com/huggingface/swift-transformers
+    from: "0.1.15"
+  Highlightr:
+    url: https://github.com/raspu/Highlightr
+    from: "2.1.2"
+
+targets:
+  Verantyx:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/Verantyx
+    resources:
+      - path: Resources
+    entitlements:
+      path: Sources/Verantyx/Verantyx.entitlements
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/Verantyx/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.verantyx.ide
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: YES
+        CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - package: mlx-swift
+        product: MLX
+      - package: mlx-swift
+        product: MLXRandom
+      - package: mlx-swift-examples
+        product: MLXLLM
+      - package: Hub
+        product: Transformers
+      - package: Highlightr
+        product: Highlightr
+    postBuildScripts:
+      # ── verantyx-browser をアプリバンドルに埋め込む ────────────────────────
+      #
+      # Xcode はバイナリファイルを resources: 経由では実行ファイルとして
+      # 正しくバンドルしないため、postBuildScript で
+      # BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS/ に直接コピーする。
+      #
+      # 解決順序（どこにバイナリがあるか探す）:
+      #   1. Resources/verantyx-browser（rebuild.sh or 前フェーズでコピー済み）
+      #   2. Cargo release ビルド出力
+      #   3. Cargo debug ビルド出力
+      - name: "Embed verantyx-browser into App Bundle"
+        script: |
+          set -e
+          export PATH="$PATH:$HOME/.cargo/bin"
+
+          BUNDLE_MACOS="$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS"
+          DEST="$BUNDLE_MACOS/verantyx-browser"
+
+          # バイナリのソースを探す（優先順）
+          BROWSER_DIR="$SRCROOT/../verantyx-browser"
+          if [ ! -d "$BROWSER_DIR" ]; then
+            echo "warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR"
+          fi
+
+          SRC=""
+          # ① Resources/ に既にコピー済みのバイナリ
+          if [ -f "$SRCROOT/Resources/verantyx-browser" ]; then
+            SRC="$SRCROOT/Resources/verantyx-browser"
+          # ② Cargo release
+          elif [ -f "$BROWSER_DIR/target/release/verantyx-browser" ]; then
+            SRC="$BROWSER_DIR/target/release/verantyx-browser"
+          # ③ Cargo debug
+          elif [ -f "$BROWSER_DIR/target/debug/verantyx-browser" ]; then
+            SRC="$BROWSER_DIR/target/debug/verantyx-browser"
+          fi
+
+          if [ -z "$SRC" ]; then
+            echo "⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。"
+            echo "   cd $BROWSER_DIR && cargo build --release -p vx-browser"
+            exit 0
+          fi
+
+          # Contents/MacOS/ にコピーして実行権限を付与
+          mkdir -p "$BUNDLE_MACOS"
+          cp -f "$SRC" "$DEST"
+          chmod +x "$DEST"
+          echo "✅ verantyx-browser → $DEST"
+        basedOnDependencyAnalysis: false
+
+      # ── vera-memory (PyInstaller) into Contents/MacOS ─────────────────────
+      - name: "Embed vera-memory into App Bundle"
+        script: |
+          set -e
+          BUNDLE_MACOS="$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS"
+          SRC="$SRCROOT/Vendor/vera-memory"
+          DEST="$BUNDLE_MACOS/vera-memory"
+          if [ ! -f "$SRC" ]; then
+            echo "warning: $SRC not found -- vera-memory will be unavailable in this build."
+            exit 0
+          fi
+          mkdir -p "$BUNDLE_MACOS"
+          cp -f "$SRC" "$DEST"
+          chmod +x "$DEST"
+          # Ad-hoc placeholder only; package_dmg.sh re-signs with
+          # PyInstallerHelper.entitlements (disable-library-validation).
+          codesign --force -s - "$DEST" 2>/dev/null || true
+          echo "vera-memory -> $DEST"
+        basedOnDependencyAnalysis: false
+
+      # ── jgen_forge (PyInstaller) into Contents/MacOS ──────────────────────
+      - name: "Embed jgen_forge into App Bundle"
+        script: |
+          set -e
+          BUNDLE_MACOS="$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS"
+          SRC="$SRCROOT/Vendor/jgen_forge"
+          DEST="$BUNDLE_MACOS/jgen_forge"
+          if [ ! -f "$SRC" ]; then
+            echo "warning: $SRC not found -- jgen_forge will be unavailable in this build."
+            exit 0
+          fi
+          mkdir -p "$BUNDLE_MACOS"
+          cp -f "$SRC" "$DEST"
+          chmod +x "$DEST"
+          codesign --force -s - "$DEST" 2>/dev/null || true
+          echo "jgen_forge -> $DEST"
+        basedOnDependencyAnalysis: false

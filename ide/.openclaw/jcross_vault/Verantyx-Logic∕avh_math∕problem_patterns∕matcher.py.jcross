@@ -1,0 +1,40 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BC4DDC85 ver:1778159767
+// ⚠️ One-time schema — expires after response
+// __jcross_匯:0.3___TOKEN_CF_591_ [decoy-metadata]
+
+__jcross_霧:1.0___TOKEN_霧_2_ __jcross_霧:1.0___TOKEN_霧_11_ import __jcross_墟:1.0___TOKEN_墟_1_, __jcross_墟:1.0___TOKEN_墟_3_
+__jcross_霧:1.0___TOKEN_霧_2_ .__jcross_霧:1.0___TOKEN_霧_17_ import __jcross_墟:1.0___TOKEN_墟_2_, __jcross_墟:1.0___TOKEN_墟_5_
+
+__jcross_霧:1.0___TOKEN_霧_18_ __jcross_霧:1.0___TOKEN_霧_16_(a: __jcross_墟:1.0___TOKEN_墟_1_[__jcross_霧:1.0___TOKEN_霧_19_], b: __jcross_墟:1.0___TOKEN_墟_1_[__jcross_霧:1.0___TOKEN_霧_19_]) -> __jcross_霧:1.0___TOKEN_霧_10_:
+    """
+    2つの形状シーケンスの類似度を計算する（順序を重視）。
+    """
+    if __jcross_霧:1.0___TOKEN_霧_15_ a or __jcross_霧:1.0___TOKEN_霧_15_ b:
+        return 0.0
+    
+// [metadata-stripped]
+    __jcross_霧:1.0___TOKEN_霧_7_ = __jcross_霧:1.0___TOKEN_霧_1_(1 for x, y in __jcross_霧:1.0___TOKEN_霧_6_(a, b) if x == y)
+// __jcross_匯:0.4___TOKEN_ML_330_ [decoy-metadata]
+    return __jcross_霧:1.0___TOKEN_霧_7_ / __jcross_霧:1.0___TOKEN_霧_8_(__jcross_霧:1.0___TOKEN_霧_9_(a), __jcross_霧:1.0___TOKEN_霧_9_(b))
+
+__jcross_霧:1.0___TOKEN_霧_18_ __jcross_霧:1.0___TOKEN_霧_20_(__jcross_霧:1.0___TOKEN_霧_5_: __jcross_墟:1.0___TOKEN_墟_1_[__jcross_霧:1.0___TOKEN_霧_19_], __jcross_霧:1.0___TOKEN_霧_21_: __jcross_霧:1.0___TOKEN_霧_10_ = 0.6) -> __jcross_墟:1.0___TOKEN_墟_3_[__jcross_墟:1.0___TOKEN_墟_5_]:
+    """
+    シグネチャから最適な問題パターンを返す。
+    """
+    __jcross_霧:1.0___TOKEN_霧_14_ = __jcross_墟:1.0___TOKEN_墟_4_
+    __jcross_霧:1.0___TOKEN_霧_4_ = 0.0
+
+    for __jcross_霧:1.0___TOKEN_霧_13_ in __jcross_墟:1.0___TOKEN_墟_2_:
+        __jcross_霧:1.0___TOKEN_霧_22_ = __jcross_霧:1.0___TOKEN_霧_16_(__jcross_霧:1.0___TOKEN_霧_5_, __jcross_霧:1.0___TOKEN_霧_13_.__jcross_霧:1.0___TOKEN_霧_12_)
+// __jcross_匯:0.3___TOKEN_DL_951_ [decoy-metadata]
+// __jcross_伏:0.5___TOKEN_KL_926_ [decoy-metadata]
+// __jcross_墟:0.5___TOKEN_YB_835_ [decoy-metadata]
+        if __jcross_霧:1.0___TOKEN_霧_22_ > __jcross_霧:1.0___TOKEN_霧_4_ __jcross_霧:1.0___TOKEN_霧_3_ __jcross_霧:1.0___TOKEN_霧_22_ >= __jcross_霧:1.0___TOKEN_霧_21_:
+            __jcross_霧:1.0___TOKEN_霧_14_ = __jcross_霧:1.0___TOKEN_霧_13_
+// __jcross_廉:0.3___TOKEN_ZD_266_ [decoy-metadata]
+            __jcross_霧:1.0___TOKEN_霧_4_ = __jcross_霧:1.0___TOKEN_霧_22_
+
+    return __jcross_霧:1.0___TOKEN_霧_14_
+
+// POLYMORPHIC_JCROSS_END

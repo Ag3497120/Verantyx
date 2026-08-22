@@ -1,0 +1,135 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:99DC2BB5 ver:1778159754
+// ⚠️ One-time schema — expires after response
+// _OPAQUE_箱:0.9__JCROSS_GE_614_ [decoy-metadata]
+
+import re
+_OPAQUE_霢:1.0__JCROSS_霢_3_ _OPAQUE_霢:1.0__JCROSS_霢_30_ import _OPAQUE_廷:1.0__JCROSS_廷_10_, _OPAQUE_廷:1.0__JCROSS_廷_8_, _OPAQUE_廷:1.0__JCROSS_廷_9_, _OPAQUE_廷:1.0__JCROSS_廷_4_
+
+_OPAQUE_廷:1.0__JCROSS_廷_7_ = [
+// [metadata-stripped]
+// _OPAQUE_脈:0.1__JCROSS_XY_289_ [decoy-metadata]
+    r'"([^"]+)"',
+    r'「([^」]+)」',
+
+// [metadata-stripped]
+// _OPAQUE_霢:0.8__JCROSS_XV_485_ [decoy-metadata]
+    r'[\[\]□◇()A-Za-z0-9_\s→\-&|~>]+',
+
+// [metadata-stripped]
+    r'[A-Za-z]+\s*\([^)]*\)',
+]
+
+_OPAQUE_廷:1.0__JCROSS_廷_2_ = {'->', '→', '&', '|', '~', '□', '◇'}
+
+_OPAQUE_霢:1.0__JCROSS_霢_50_ _OPAQUE_脈:1.0__JCROSS_霢_12_(s: _OPAQUE_霢:1.0__JCROSS_霢_5_) -> _OPAQUE_廷:1.0__JCROSS_廷_9_[_OPAQUE_霢:1.0__JCROSS_霢_5_]:
+    """
+    途中で切れた論理式を、括弧バランスを基準に修復する。
+    """
+    if _OPAQUE_霢:1.0__JCROSS_霢_13_ s:
+        return _OPAQUE_廷:1.0__JCROSS_廷_5_
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__JCROSS_霢_49_ = s._OPAQUE_霢:1.0__JCROSS_霢_38_("(")
+    _OPAQUE_霢:1.0__JCROSS_霢_18_ = s._OPAQUE_霢:1.0__JCROSS_霢_38_(")")
+    if _OPAQUE_霢:1.0__JCROSS_霢_49_ > _OPAQUE_霢:1.0__JCROSS_霢_18_:
+        s = s + ")" * (_OPAQUE_霢:1.0__JCROSS_霢_49_ - _OPAQUE_霢:1.0__JCROSS_霢_18_)
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    if s._OPAQUE_霢:1.0__JCROSS_霢_25_()._OPAQUE_霢:1.0__JCROSS_霢_46_(("->", "&", "|", "~", "⊕")):
+        return _OPAQUE_廷:1.0__JCROSS_廷_5_
+        
+    return s
+
+_OPAQUE_霢:1.0__JCROSS_霢_50_ _OPAQUE_脈:1.0__JCROSS_霢_4_(_OPAQUE_霢:1.0__JCROSS_霢_34_: _OPAQUE_霢:1.0__JCROSS_霢_5_) -> _OPAQUE_廷:1.0__JCROSS_廷_10_[_OPAQUE_廷:1.0__JCROSS_廷_8_[_OPAQUE_霢:1.0__JCROSS_霢_5_, _OPAQUE_廷:1.0__JCROSS_廷_4_]]:
+    """
+    テキストから論理式の候補を抽出し、スコア順にソートして返す。
+    スペースを含む式や、日本語に挟まれた式を強力に保護する。
+    """
+    if _OPAQUE_霢:1.0__JCROSS_霢_13_ _OPAQUE_霢:1.0__JCROSS_霢_34_:
+        return []
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__JCROSS_霢_43_ = r'[\(\)[\]A-Za-z0-9\s\-\>\<&\|~□◇⊕→\\]+'
+    
+    _OPAQUE_霢:1.0__JCROSS_霢_32_ = re._OPAQUE_規:1.0__JCROSS_霢_44_(_OPAQUE_霢:1.0__JCROSS_霢_43_, _OPAQUE_霢:1.0__JCROSS_霢_34_)
+    _OPAQUE_霢:1.0__JCROSS_霢_1_ = []
+    
+    for m in _OPAQUE_霢:1.0__JCROSS_霢_32_:
+        s = m._OPAQUE_霢:1.0__JCROSS_霢_14_(0)._OPAQUE_霢:1.0__JCROSS_霢_25_()
+// [metadata-stripped]
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__JCROSS_霢_37_ = re._OPAQUE_霢:1.0__JCROSS_霢_27_(r'[A-Za-z]{3,}', s)
+        _OPAQUE_霢:1.0__JCROSS_霢_21_ = "->" in s or "→" in s or "[]" in s or "□" in s
+// _OPAQUE_糸:0.6__JCROSS_LZ_591_ [decoy-metadata]
+        
+        if _OPAQUE_霢:1.0__JCROSS_霢_13_ _OPAQUE_霢:1.0__JCROSS_霢_21_ _OPAQUE_霢:1.0__JCROSS_霢_10_ _OPAQUE_霢:1.0__JCROSS_霢_23_(_OPAQUE_霢:1.0__JCROSS_霢_37_) > 2:
+            continue
+
+// [metadata-stripped]
+        if _OPAQUE_霢:1.0__JCROSS_霢_13_ any(op in s for op in ("->", "→", "[]", "□", "(", ")", "&", "|", "~")):
+            continue
+            
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__JCROSS_霢_19_ = s._OPAQUE_霢:1.0__JCROSS_霢_36_(" ", "")._OPAQUE_霢:1.0__JCROSS_霢_36_("→", "->")._OPAQUE_霢:1.0__JCROSS_霢_36_("□", "[]")._OPAQUE_霢:1.0__JCROSS_霢_36_("◇", "<>")
+        
+// [metadata-stripped]
+        if _OPAQUE_霢:1.0__JCROSS_霢_23_(_OPAQUE_霢:1.0__JCROSS_霢_19_) < 2:
+            continue
+
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ = 1.0
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ += _OPAQUE_霢:1.0__JCROSS_霢_19_._OPAQUE_霢:1.0__JCROSS_霢_38_("->") * 0.5
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ += _OPAQUE_霢:1.0__JCROSS_霢_19_._OPAQUE_霢:1.0__JCROSS_霢_38_("[]") * 0.5
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ += _OPAQUE_霢:1.0__JCROSS_霢_19_._OPAQUE_霢:1.0__JCROSS_霢_38_("(") * 0.2
+// [metadata-stripped]
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ -= _OPAQUE_霢:1.0__JCROSS_霢_23_(_OPAQUE_霢:1.0__JCROSS_霢_37_) * 0.3
+        
+        _OPAQUE_霢:1.0__JCROSS_霢_1_._OPAQUE_霢:1.0__JCROSS_霢_9_({
+            "_OPAQUE_霢:1.0__JCROSS_霢_40_": s,
+            "_OPAQUE_霢:1.0__JCROSS_霢_26_": _OPAQUE_霢:1.0__JCROSS_霢_19_,
+            "_OPAQUE_霢:1.0__JCROSS_霢_22_": _OPAQUE_霢:1.0__JCROSS_霢_22_,
+            "_OPAQUE_霢:1.0__JCROSS_霢_51_": m._OPAQUE_霢:1.0__JCROSS_霢_51_()
+        })
+// _OPAQUE_脈:0.3__JCROSS_ZE_131_ [decoy-metadata]
+
+// [metadata-stripped]
+    return _OPAQUE_霢:1.0__JCROSS_霢_8_(_OPAQUE_霢:1.0__JCROSS_霢_1_, _OPAQUE_秘:1.0__JCROSS_霢_20_=_OPAQUE_霢:1.0__JCROSS_霢_48_ x: x["_OPAQUE_霢:1.0__JCROSS_霢_22_"], _OPAQUE_霢:1.0__JCROSS_霢_2_=_OPAQUE_廷:1.0__JCROSS_廷_3_)
+
+_OPAQUE_霢:1.0__JCROSS_霢_50_ _OPAQUE_脈:1.0__JCROSS_霢_28_(s: _OPAQUE_霢:1.0__JCROSS_霢_5_) -> _OPAQUE_霢:1.0__JCROSS_霢_5_:
+    s = s._OPAQUE_霢:1.0__JCROSS_霢_36_("→", "->")
+    s = re._OPAQUE_霢:1.0__JCROSS_霢_6_(r"\s+", "", s)
+    return s
+
+_OPAQUE_霢:1.0__JCROSS_霢_50_ _OPAQUE_脈:1.0__JCROSS_霢_15_(s: _OPAQUE_霢:1.0__JCROSS_霢_5_) -> _OPAQUE_霢:1.0__JCROSS_霢_33_:
+    _OPAQUE_霢:1.0__JCROSS_霢_22_ = 0.0
+    for _OPAQUE_霢:1.0__JCROSS_霢_42_ in _OPAQUE_廷:1.0__JCROSS_廷_2_:
+        if _OPAQUE_霢:1.0__JCROSS_霢_42_ in s:
+            _OPAQUE_霢:1.0__JCROSS_霢_22_ += 1.0
+    if "(" in s _OPAQUE_霢:1.0__JCROSS_霢_10_ ")" in s:
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ += 0.5
+    if "[" in s or "]" in s:
+        _OPAQUE_霢:1.0__JCROSS_霢_22_ += 0.5
+    return _OPAQUE_霢:1.0__JCROSS_霢_22_
+
+_OPAQUE_霢:1.0__JCROSS_霢_50_ _OPAQUE_脈:1.0__JCROSS_霢_45_(_OPAQUE_霢:1.0__JCROSS_霢_39_: _OPAQUE_廷:1.0__JCROSS_廷_10_[_OPAQUE_廷:1.0__JCROSS_廷_8_]) -> _OPAQUE_廷:1.0__JCROSS_廷_9_[_OPAQUE_霢:1.0__JCROSS_霢_5_]:
+    """
+    _OPAQUE_廷:1.0__JCROSS_廷_6_-_OPAQUE_廷:1.0__JCROSS_廷_11_ の分解結果（_OPAQUE_霢:1.0__JCROSS_霢_39_）から、論理的な意味を持つトークンのみを抽出して式を再構成する。
+    """
+    _OPAQUE_秘:1.0__JCROSS_霢_41_ = []
+    for s in _OPAQUE_霢:1.0__JCROSS_霢_39_:
+// [metadata-stripped]
+        if s["_OPAQUE_霢:1.0__JCROSS_霢_16_"] in ("_OPAQUE_霢:1.0__JCROSS_霢_17_", "_OPAQUE_霢:1.0__JCROSS_霢_7_", "_OPAQUE_霢:1.0__JCROSS_霢_35_", "_OPAQUE_霢:1.0__JCROSS_霢_31_"):
+// _OPAQUE_糸:0.3__JCROSS_HY_540_ [decoy-metadata]
+            _OPAQUE_秘:1.0__JCROSS_霢_41_._OPAQUE_霢:1.0__JCROSS_霢_9_(s["_OPAQUE_秘:1.0__JCROSS_霢_11_"])
+    
+    _OPAQUE_脈:1.0__JCROSS_霢_24_ = ""._OPAQUE_霢:1.0__JCROSS_霢_29_(_OPAQUE_秘:1.0__JCROSS_霢_41_)._OPAQUE_霢:1.0__JCROSS_霢_25_()
+// [metadata-stripped]
+    if _OPAQUE_霢:1.0__JCROSS_霢_23_(_OPAQUE_脈:1.0__JCROSS_霢_24_) >= 3:
+        return _OPAQUE_脈:1.0__JCROSS_霢_24_
+    return _OPAQUE_廷:1.0__JCROSS_廷_5_
+
+// POLYMORPHIC_JCROSS_END

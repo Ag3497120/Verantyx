@@ -1,0 +1,1281 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B49C0E43 ver:1778159883
+// ⚠️ One-time schema — expires after response
+
+__node_靄:1.0____jcross_靄_92__ .__node_靄:1.0____jcross_靄_147__ import *
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_52__ import __node_廨:1.0____jcross_廨_63__
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_52__.__node_靄:1.0____jcross_靄_188__ import __node_廨:1.0____jcross_廨_69__
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_166__.__node_靄:1.0____jcross_靄_312__ import (
+    __node_廨:1.0____jcross_廨_32__,
+    __node_廨:1.0____jcross_廨_5__,
+    __node_廨:1.0____jcross_廨_23__,
+)
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_166__.__node_靄:1.0____jcross_靄_252__ import __node_廨:1.0____jcross_廨_58__
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_166__.__node_靄:1.0____jcross_靄_154__ import __node_廨:1.0____jcross_廨_80__
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_166__.__node_靄:1.0____jcross_靄_18__ import (
+    __node_廨:1.0____jcross_廨_27__,
+    __node_廨:1.0____jcross_廨_36__,
+    __node_廨:1.0____jcross_廨_42__,
+)
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_55__.__node_靄:1.0____jcross_靄_147__ import (
+    __node_廨:1.0____jcross_廨_44__,
+    __node_廨:1.0____jcross_廨_64__,
+)
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_297__ import __node_靄:1.0____jcross_靄_279__
+__node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_307__ import __node_靄:1.0____jcross_靄_180__
+__node_靄:1.0____jcross_靄_92__ io import __node_廨:1.0____jcross_廨_29__
+import __node_靄:1.0____jcross_靄_49__
+import __node_靄:1.0____jcross_靄_40__
+import os
+import __node_靄:1.0____jcross_靄_331__
+
+__node_靄:1.0____jcross_靄_44__ = __node_靄:1.0____jcross_靄_331__.__node_謀:1.0____jcross_彩_11__("__node_靄:1.0____jcross_靄_83__.__node_靄:1.0____jcross_靄_55__.__node_靄:1.0____jcross_靄_199__")
+
+
+class __node_廨:1.0____jcross_廨_79__(__node_靄:1.0____jcross_靄_47__):
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_57__(self, __node_靄:1.0____jcross_靄_228__):
+        self.__node_靄:1.0____jcross_靄_228__ = __node_靄:1.0____jcross_靄_228__
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_35__(self, __node_暗:1.0____jcross_靄_107__):
+        return self.__node_靄:1.0____jcross_靄_228__[__node_暗:1.0____jcross_靄_107__]
+
+
+class __node_廨:1.0____jcross_廨_84__:
+    __node_靄:1.0____jcross_靄_136__ = 8.5 * 72
+    __node_靄:1.0____jcross_靄_311__ = 11 * 72
+    __node_靄:1.0____jcross_靄_59__ = 0.1 * 72
+    __node_靄:1.0____jcross_靄_98__ = 24
+    __node_靄:1.0____jcross_靄_77__ = 16
+    __node_謀:1.0____jcross_靄_313__ = 1
+    __node_靄:1.0____jcross_靄_75__ = (0.3, 0.3, 0.3)
+    __node_靄:1.0____jcross_靄_80__ = (0.2, 0.2, 0.2)
+    __node_靄:1.0____jcross_靄_131__ = (0.9, 0.9, 0.9)
+    __node_靄:1.0____jcross_靄_143__ = 0.5
+    __node_靄:1.0____jcross_靄_243__ = (0.8, 0.8, 0.8)
+    __node_靄:1.0____jcross_靄_195__ = (0.1, 0.1, 0.1)
+    __node_靄:1.0____jcross_靄_264__ = 1
+    __node_靄:1.0____jcross_靄_256__ = (0, 0.8, 0, 0.7)
+    __node_謀:1.0____jcross_靄_31__ = 6
+    __node_靄:1.0____jcross_靄_175__ = (0, 0.5, 0, 0.7)
+    __node_謀:1.0____jcross_靄_336__ = 4
+    __node_靄:1.0____jcross_靄_225__ = (0, 0.5, 0, 0.7)
+    __node_靄:1.0____jcross_靄_118__ = 0.5
+    __node_靄:1.0____jcross_靄_184__ = (0, 0.9, 0, 0.7)
+    __node_靄:1.0____jcross_靄_66__ = 7
+    __node_靄:1.0____jcross_靄_81__ = (1, 0, 0, 0.7)
+    __node_靄:1.0____jcross_靄_46__ = (0, 0, 1, 0.7)
+    __node_靄:1.0____jcross_靄_43__ = 9
+    __node_靄:1.0____jcross_靄_162__ = 7
+    __node_靄:1.0____jcross_靄_138__ = (1, 0, 1, 0.7)
+    __node_靄:1.0____jcross_靄_182__ = 15
+    __node_靄:1.0____jcross_靄_86__ = 1
+    __node_靄:1.0____jcross_靄_177__ = (1, 0, 1, 0.7)
+    __node_靄:1.0____jcross_靄_155__ = ((1, 0, 0), (0, 0, 1), (0, 1, 0), (1, 1, 0), (1, 0, 1), (0, 1, 1))
+    __node_靄:1.0____jcross_靄_303__ = 0.5
+    __node_靄:1.0____jcross_靄_158__ = (0, 0, 0, 0.4)
+    __node_靄:1.0____jcross_靄_1__ = "__node_廨:1.0____jcross_廨_54__ __node_靄:1.0____jcross_靄_266__'s __node_靄:1.0____jcross_靄_187__! __node_廨:1.0____jcross_廨_25__ a __node_靄:1.0____jcross_靄_91__..."
+    __node_靄:1.0____jcross_靄_217__ = (0, 0.5, 0)
+    __node_靄:1.0____jcross_靄_291__ = (0.3, 0, 0.3)
+    __node_靄:1.0____jcross_靄_91__ = r"""
+                          ,@.
+                        ,@.@@,.
+                  ,@@,.@@@.  @.@@@,.
+                ,@@. @@@.     @@. @@,.
+        ,@@@.@,.@.              @.  @@@@,.@.@@,.
+   ,@@.@.     @@.@@.            @,.    .@' @'  @@,
+ ,@@. @.          .@@.@@@.  @@'                  @,
+,@.  @@.                                          @,
+@.     @,@@,.     ,                             .@@,
+@,.       .@,@@,.         .@@,.  ,       .@@,  @, @,
+@.                             .@. @ @@,.    ,      @
+ @,.@@.     @,.      @@,.      @.           @,.    @'
+  @@||@,.  @'@,.       @@,.  @@ @,.        @'@@,  @'
+     \\@@@@'  @,.      @'@@@@'   @@,.   @@@' //@@@'
+      |||||||| @@,.  @@' |||||||  |@@@|@||  ||
+       \\\\\\\  ||@@@||  |||||||  |||||||  //
+        |||||||  ||||||  ||||||   ||||||  ||
+         \\\\\\  ||||||  ||||||  ||||||  //
+          ||||||  |||||  |||||   |||||  ||
+           \\\\\  |||||  |||||  |||||  //
+            |||||  ||||  |||||  ||||  ||
+             \\\\  ||||  ||||  ||||  //
+              ||||||||||||||||||||||||
+"""
+    __node_靄:1.0____jcross_靄_232__ = (0, 0.3, 0.3)
+    __node_靄:1.0____jcross_靄_6__ = r"""\_(")_/"""
+    __node_靄:1.0____jcross_靄_322__ = r"""
+ o
+/|\
+/ \
+"""
+    __node_靄:1.0____jcross_靄_290__ = r"""
+ o
+/O\
+/ \
+"""
+    __node_靄:1.0____jcross_靄_122__ = r""" \o/ """
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_57__(self, __node_靄:1.0____jcross_靄_319__, __node_靄:1.0____jcross_靄_207__, __node_靄:1.0____jcross_靄_189__=__node_廨:1.0____jcross_廨_1__, **__node_靄:1.0____jcross_靄_64__):
+        self.__node_靄:1.0____jcross_靄_319__ = __node_靄:1.0____jcross_靄_319__
+        self.__node_靄:1.0____jcross_靄_207__ = __node_靄:1.0____jcross_靄_207__
+        self.__node_靄:1.0____jcross_靄_189__ = __node_靄:1.0____jcross_靄_189__ or [__node_靄:1.0____jcross_靄_128__(g) for g in __node_靄:1.0____jcross_靄_207__]
+        self.__node_靄:1.0____jcross_靄_262__ = {}
+
+        for k, v in __node_靄:1.0____jcross_靄_64__.__node_靄:1.0____jcross_靄_267__():
+            if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_176__(self, k):
+                __node_靄:1.0____jcross_靄_113__ __node_廨:1.0____jcross_廨_22__("__node_廨:1.0____jcross_廨_48__ __node_暗:1.0____jcross_靄_283__ __node_靄:1.0____jcross_靄_164__: %s" % k)
+            __node_謀:1.0____jcross_彩_8__(self, k, v)
+
+        self.__node_靄:1.0____jcross_靄_204__ = self.__node_靄:1.0____jcross_靄_136__ / 2 - self.__node_靄:1.0____jcross_靄_59__ * 3
+        self.__node_靄:1.0____jcross_靄_111__ = (
+            self.__node_靄:1.0____jcross_靄_311__ / 2 - self.__node_靄:1.0____jcross_靄_59__ * 6 - self.__node_靄:1.0____jcross_靄_77__ * 2 - self.__node_靄:1.0____jcross_靄_98__
+        )
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_229__(self):
+        return self
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_14__(self, __node_靄:1.0____jcross_靄_288__, __node_靄:1.0____jcross_靄_278__, __node_靄:1.0____jcross_靄_119__):
+        __node_靄:1.0____jcross_靄_211__
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_246__(self):
+        self.__node_謀:1.0____jcross_靄_313__ += 1
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_191__(
+        self, __node_匴:1.0____jcross_靄_121__, *, __node_靄:1.0____jcross_靄_36__=__node_廨:1.0____jcross_廨_76__, __node_靄:1.0____jcross_靄_72__=__node_廨:1.0____jcross_廨_1__, __node_靄:1.0____jcross_靄_196__=__node_廨:1.0____jcross_廨_1__
+    ):
+        __node_靄:1.0____jcross_靄_59__ = self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__ - 3 * self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_311__ = self.__node_靄:1.0____jcross_靄_311__ - 2 * self.__node_靄:1.0____jcross_靄_59__
+        x = y = __node_靄:1.0____jcross_靄_59__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_77__ __node_靄:1.0____jcross_靄_157__ for:",
+            x=x,
+            y=y,
+            __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+            __node_靄:1.0____jcross_靄_77__=self.__node_靄:1.0____jcross_靄_98__,
+        )
+        y += self.__node_靄:1.0____jcross_靄_98__
+// __node_謀:0.8____jcross_XZ_974__ [decoy-metadata]
+
+        import __node_靄:1.0____jcross_靄_139__
+
+        for __node_匴:1.0____jcross_靄_144__ in __node_匴:1.0____jcross_靄_121__:
+            __node_匴:1.0____jcross_靄_33__ = os.__node_靄:1.0____jcross_靄_68__.__node_靄:1.0____jcross_靄_153__(__node_匴:1.0____jcross_靄_144__)
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+            self.__node_靄:1.0____jcross_靄_260__(__node_匴:1.0____jcross_靄_33__, x=x, y=y, __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+            try:
+                h = __node_靄:1.0____jcross_靄_139__.__node_靄:1.0____jcross_靄_21__(o__node_靄:1.0____jcross_靄_334__(__node_匴:1.0____jcross_靄_144__, "rb").__node_靄:1.0____jcross_靄_9__()).__node_靄:1.0____jcross_靄_236__()
+                self.__node_靄:1.0____jcross_靄_260__("__node_靄:1.0____jcross_靄_21__: %s" % h, x=x + __node_靄:1.0____jcross_靄_59__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+                y += self.__node_靄:1.0____jcross_靄_77__
+            __node_靄:1.0____jcross_靄_168__ __node_廨:1.0____jcross_廨_3__:
+                __node_靄:1.0____jcross_靄_211__
+
+            if __node_匴:1.0____jcross_靄_144__.__node_靄:1.0____jcross_靄_271__(".__node_靄:1.0____jcross_靄_285__"):
+                __node_靄:1.0____jcross_靄_148__ = __node_廨:1.0____jcross_廨_63__(__node_匴:1.0____jcross_靄_144__)
+                __node_靄:1.0____jcross_靄_100__ = __node_靄:1.0____jcross_靄_148__["__node_靄:1.0____jcross_靄_100__"] if "__node_靄:1.0____jcross_靄_100__" in __node_靄:1.0____jcross_靄_148__ else __node_廨:1.0____jcross_廨_1__
+                if __node_靄:1.0____jcross_靄_100__:
+                    for __node_靄:1.0____jcross_靄_277__, __node_靄:1.0____jcross_靄_96__ in (
+                        ("__node_廨:1.0____jcross_廨_62__ __node_靄:1.0____jcross_靄_100__", (21, 16, 1)),
+                        ("__node_廨:1.0____jcross_廨_34__", (5,)),
+                    ):
+                        n = __node_靄:1.0____jcross_靄_100__.__node_謀:1.0____jcross_彩_4__(__node_靄:1.0____jcross_靄_96__)
+                        if n is __node_廨:1.0____jcross_廨_1__:
+// __node_謀:0.1____jcross_MX_458__ [decoy-metadata]
+                            continue
+                        self.__node_靄:1.0____jcross_靄_260__(
+                            "%s: %s" % (__node_靄:1.0____jcross_靄_277__, n), x=x + __node_靄:1.0____jcross_靄_59__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__
+                        )
+                        y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+            __node_泳:1.0____jcross_靄_268__ __node_匴:1.0____jcross_靄_144__.__node_靄:1.0____jcross_靄_271__((".__node_靄:1.0____jcross_靄_270__", ".__node_靄:1.0____jcross_靄_214__")):
+                __node_靄:1.0____jcross_靄_92__ __node_靄:1.0____jcross_靄_185__ import __node_廨:1.0____jcross_廨_72__
+
+                f = __node_廨:1.0____jcross_廨_72__(__node_匴:1.0____jcross_靄_144__)
+                for __node_靄:1.0____jcross_靄_277__, __node_靄:1.0____jcross_靄_233__ in (
+                    ("__node_廨:1.0____jcross_廨_62__ __node_靄:1.0____jcross_靄_100__", "__node_靄:1.0____jcross_靄_289__"),
+                    ("__node_廨:1.0____jcross_廨_81__", "__node_靄:1.0____jcross_靄_295__"),
+                    ("__node_廨:1.0____jcross_廨_31__", "__node_靄:1.0____jcross_靄_215__"),
+                ):
+                    self.__node_靄:1.0____jcross_靄_260__(
+                        "%s: %s" % (__node_靄:1.0____jcross_靄_277__, __node_謀:1.0____jcross_彩_9__(f, __node_靄:1.0____jcross_靄_233__)),
+                        x=x + __node_靄:1.0____jcross_靄_59__,
+                        y=y,
+                        __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+                    )
+                    y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+        self.__node_靄:1.0____jcross_靄_3__(
+            __node_靄:1.0____jcross_靄_36__=__node_靄:1.0____jcross_靄_36__, __node_靄:1.0____jcross_靄_72__=__node_靄:1.0____jcross_靄_72__, __node_靄:1.0____jcross_靄_196__=__node_靄:1.0____jcross_靄_196__
+        )
+        self.__node_靄:1.0____jcross_靄_246__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_3__(self, *, __node_靄:1.0____jcross_靄_36__=__node_廨:1.0____jcross_廨_76__, __node_靄:1.0____jcross_靄_72__=__node_廨:1.0____jcross_廨_1__, __node_靄:1.0____jcross_靄_196__=__node_廨:1.0____jcross_廨_1__):
+        cr = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_19__(self.__node_靄:1.0____jcross_靄_227__)
+
+        x = self.__node_靄:1.0____jcross_靄_59__
+        y = self.__node_靄:1.0____jcross_靄_311__ - self.__node_靄:1.0____jcross_靄_59__ - self.__node_靄:1.0____jcross_靄_77__ * 2
+        __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__
+
+        xx = x + self.__node_靄:1.0____jcross_靄_59__ * 2
+        __node_靄:1.0____jcross_靄_108__ = x + self.__node_靄:1.0____jcross_靄_59__ * 4
+
+        if __node_靄:1.0____jcross_靄_36__:
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_廨:1.0____jcross_廨_67__: __node_靄:1.0____jcross_靄_282__; __node_謀:1.0____jcross_靄_58__ to __node_靄:1.0____jcross_靄_194__ __node_靄:1.0____jcross_靄_76__ __node_靄:1.0____jcross_靄_329__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__
+            )
+            y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_33__ __node_靄:1.0____jcross_靄_247__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+        cr.__node_靄:1.0____jcross_靄_38__(xx - self.__node_靄:1.0____jcross_靄_59__ * 0.7, y, 1.5 * self.__node_靄:1.0____jcross_靄_59__, self.__node_靄:1.0____jcross_靄_77__)
+        cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_243__)
+        cr.__node_靄:1.0____jcross_靄_245__()
+        if self.__node_靄:1.0____jcross_靄_195__:
+            cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_195__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_靄:1.0____jcross_靄_264__)
+            cr.__node_靄:1.0____jcross_靄_167__()
+        cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_158__)
+        cr.__node_靄:1.0____jcross_靄_20__()
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_60__ __node_靄:1.0____jcross_靄_247__: __node_靄:1.0____jcross_靄_247__ __node_靄:1.0____jcross_靄_132__ __node_靄:1.0____jcross_靄_76__ __node_靄:1.0____jcross_靄_181__ __node_謀:1.0____jcross_靄_254__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__
+        )
+        cr.__node_靄:1.0____jcross_靄_38__(xx - self.__node_靄:1.0____jcross_靄_59__ * 0.7, y, 1.5 * self.__node_靄:1.0____jcross_靄_59__, self.__node_靄:1.0____jcross_靄_77__)
+        if self.__node_靄:1.0____jcross_靄_243__:
+            cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_243__)
+            cr.__node_靄:1.0____jcross_靄_245__()
+        if self.__node_靄:1.0____jcross_靄_195__:
+            cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_195__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_靄:1.0____jcross_靄_264__)
+            cr.__node_靄:1.0____jcross_靄_167__()
+        cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_155__[0], self.__node_靄:1.0____jcross_靄_303__)
+        cr.__node_靄:1.0____jcross_靄_20__()
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_57__ __node_泳:1.0____jcross_靄_328__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+        self.__node_靄:1.0____jcross_靄_16__(
+            cr,
+            x=xx,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_182__,
+            __node_靄:1.0____jcross_靄_264__=self.__node_靄:1.0____jcross_靄_86__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_177__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_73__ __node_靄:1.0____jcross_靄_203__ __node_靄:1.0____jcross_靄_317__ in __node_靄:1.0____jcross_靄_76__ __node_靄:1.0____jcross_靄_120__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+        self.__node_靄:1.0____jcross_靄_230__(
+            cr,
+            x=xx,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_162__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_138__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_87__ __node_靄:1.0____jcross_靄_41__ __node_靄:1.0____jcross_靄_120__ __node_靄:1.0____jcross_靄_123__ __node_靄:1.0____jcross_靄_89__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+        self.__node_靄:1.0____jcross_靄_230__(
+            cr,
+            x=xx,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_66__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_184__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_4__ __node_靄:1.0____jcross_靄_123__ __node_靄:1.0____jcross_靄_89__ in __node_靄:1.0____jcross_靄_247__ __node_靄:1.0____jcross_靄_132__ __node_靄:1.0____jcross_靄_181__ __node_靄:1.0____jcross_靄_306__",
+            x=__node_靄:1.0____jcross_靄_108__,
+            y=y,
+            __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+        )
+        self.__node_靄:1.0____jcross_靄_63__(
+            cr,
+            x=xx - self.__node_靄:1.0____jcross_靄_43__ * 0.3,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_81__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_4__ __node_靄:1.0____jcross_靄_123__ __node_靄:1.0____jcross_靄_89__ __node_靄:1.0____jcross_靄_315__ __node_靄:1.0____jcross_靄_76__ __node_靄:1.0____jcross_靄_56__ __node_靄:1.0____jcross_靄_202__ __node_靄:1.0____jcross_靄_309__ __node_靄:1.0____jcross_靄_221__",
+            x=__node_靄:1.0____jcross_靄_108__,
+            y=y,
+            __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+        )
+        self.__node_靄:1.0____jcross_靄_230__(
+            cr,
+            x=xx,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_66__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_46__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_4__ __node_靄:1.0____jcross_靄_123__ __node_靄:1.0____jcross_靄_89__ __node_靄:1.0____jcross_靄_135__ __node_靄:1.0____jcross_靄_306__", x=__node_靄:1.0____jcross_靄_108__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__)
+        self.__node_靄:1.0____jcross_靄_63__(
+            cr,
+            x=xx - self.__node_靄:1.0____jcross_靄_43__ * 0.3,
+            y=y + self.__node_靄:1.0____jcross_靄_77__ * 0.5,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_46__,
+        )
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_78__:", x=x, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__, __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__)
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        if __node_靄:1.0____jcross_靄_196__ is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__:
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_廨:1.0____jcross_廨_57__-__node_靄:1.0____jcross_靄_208__ __node_靄:1.0____jcross_靄_190__: %g" % __node_靄:1.0____jcross_靄_196__,
+                x=__node_靄:1.0____jcross_靄_108__,
+                y=y,
+                __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+            )
+            y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        if __node_靄:1.0____jcross_靄_72__ is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__:
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_廨:1.0____jcross_廨_37__ __node_靄:1.0____jcross_靄_72__: %g" % __node_靄:1.0____jcross_靄_72__,
+                x=__node_靄:1.0____jcross_靄_108__,
+                y=y,
+                __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+            )
+            y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_260__("__node_廨:1.0____jcross_廨_16__:", x=x, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__, __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__)
+        y -= self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_250__(self, __node_靄:1.0____jcross_靄_310__):
+        __node_靄:1.0____jcross_靄_59__ = self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__ - 3 * self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_311__ = self.__node_靄:1.0____jcross_靄_311__ - 2 * self.__node_靄:1.0____jcross_靄_59__
+        x = y = __node_靄:1.0____jcross_靄_59__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_7__ of __node_靄:1.0____jcross_靄_310__",
+            x=x,
+            y=y,
+            __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+            __node_靄:1.0____jcross_靄_77__=self.__node_靄:1.0____jcross_靄_98__,
+        )
+        y += self.__node_靄:1.0____jcross_靄_98__
+
+        __node_靄:1.0____jcross_靄_335__ = __node_靄:1.0____jcross_靄_237__(__node_謀:1.0____jcross_彩_1__)
+        for __node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__ in __node_靄:1.0____jcross_靄_205__(__node_靄:1.0____jcross_靄_310__.__node_靄:1.0____jcross_靄_267__()):
+            for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+                __node_靄:1.0____jcross_靄_335__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"]].__node_靄:1.0____jcross_靄_140__(__node_靄:1.0____jcross_靄_93__)
+
+        if "__node_靄:1.0____jcross_靄_12__" in __node_靄:1.0____jcross_靄_335__:
+            __node_靄:1.0____jcross_靄_146__ __node_靄:1.0____jcross_靄_335__["__node_靄:1.0____jcross_靄_12__"]
+
+        for __node_靄:1.0____jcross_靄_88__ in __node_靄:1.0____jcross_靄_205__(
+            __node_靄:1.0____jcross_靄_335__, __node_暗:1.0____jcross_靄_107__=__node_靄:1.0____jcross_靄_50__ x: __node_廨:1.0____jcross_廨_47__.__node_靄:1.0____jcross_靄_61__[x]
+        ):
+            y += self.__node_靄:1.0____jcross_靄_77__
+            self.__node_靄:1.0____jcross_靄_260__(
+                "%s: %d" % (__node_靄:1.0____jcross_靄_88__, __node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_335__[__node_靄:1.0____jcross_靄_88__])),
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__,
+                __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            )
+            y += self.__node_靄:1.0____jcross_靄_77__
+
+            for __node_靄:1.0____jcross_靄_93__ in __node_靄:1.0____jcross_靄_205__(__node_靄:1.0____jcross_靄_335__[__node_靄:1.0____jcross_靄_88__]):
+                if y + self.__node_靄:1.0____jcross_靄_77__ > __node_靄:1.0____jcross_靄_311__:
+                    self.__node_靄:1.0____jcross_靄_246__()
+                    y = self.__node_靄:1.0____jcross_靄_77__ + __node_靄:1.0____jcross_靄_59__
+                self.__node_靄:1.0____jcross_靄_260__(__node_靄:1.0____jcross_靄_93__, x=x + 2 * __node_靄:1.0____jcross_靄_59__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__ - 2 * __node_靄:1.0____jcross_靄_59__)
+                y += self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_246__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_298__(self, __node_靄:1.0____jcross_靄_314__, __node_靄:1.0____jcross_靄_267__):
+        __node_靄:1.0____jcross_靄_59__ = self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__
+        __node_靄:1.0____jcross_靄_311__ = self.__node_靄:1.0____jcross_靄_311__ - 2 * self.__node_靄:1.0____jcross_靄_59__
+        x = y = __node_靄:1.0____jcross_靄_59__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            __node_靄:1.0____jcross_靄_314__, x=x, y=y, __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__, __node_靄:1.0____jcross_靄_77__=self.__node_靄:1.0____jcross_靄_98__
+        )
+        y += self.__node_靄:1.0____jcross_靄_98__ + self.__node_靄:1.0____jcross_靄_59__
+
+        __node_靄:1.0____jcross_靄_261__ = __node_廨:1.0____jcross_廨_1__
+        for __node_靄:1.0____jcross_靄_134__, (__node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__) in __node_靄:1.0____jcross_靄_267__:
+            if __node_靄:1.0____jcross_靄_93__ == __node_靄:1.0____jcross_靄_261__:
+                continue
+            __node_靄:1.0____jcross_靄_261__ = __node_靄:1.0____jcross_靄_93__
+            if y + self.__node_靄:1.0____jcross_靄_77__ > __node_靄:1.0____jcross_靄_311__:
+                self.__node_靄:1.0____jcross_靄_246__()
+                y = self.__node_靄:1.0____jcross_靄_77__ + __node_靄:1.0____jcross_靄_59__
+            self.__node_靄:1.0____jcross_靄_260__(__node_靄:1.0____jcross_靄_93__, x=x + 5 * __node_靄:1.0____jcross_靄_59__, y=y, __node_靄:1.0____jcross_靄_136__=__node_靄:1.0____jcross_靄_136__ - 2 * __node_靄:1.0____jcross_靄_59__)
+            self.__node_靄:1.0____jcross_靄_260__(__node_靄:1.0____jcross_靄_272__(__node_靄:1.0____jcross_靄_134__), x=x, y=y, __node_靄:1.0____jcross_靄_136__=4 * __node_靄:1.0____jcross_靄_59__, __node_靄:1.0____jcross_靄_163__=1)
+            y += self.__node_靄:1.0____jcross_靄_77__
+
+        self.__node_靄:1.0____jcross_靄_246__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_124__(self):
+        self.__node_靄:1.0____jcross_靄_298__("__node_廨:1.0____jcross_廨_35__ of __node_靄:1.0____jcross_靄_74__", __node_靄:1.0____jcross_靄_205__(self.__node_靄:1.0____jcross_靄_262__.__node_靄:1.0____jcross_靄_267__()))
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_240__(self):
+        self.__node_靄:1.0____jcross_靄_298__("__node_廨:1.0____jcross_廨_66__", __node_靄:1.0____jcross_靄_205__(self.__node_靄:1.0____jcross_靄_262__.__node_靄:1.0____jcross_靄_267__(), __node_暗:1.0____jcross_靄_107__=__node_靄:1.0____jcross_靄_50__ x: x[1][0]))
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_28__(self, __node_靄:1.0____jcross_靄_310__, *, __node_靄:1.0____jcross_靄_36__=__node_廨:1.0____jcross_廨_76__, __node_謀:1.0____jcross_靄_105__=__node_廨:1.0____jcross_廨_76__):
+        for __node_靄:1.0____jcross_靄_213__, __node_靄:1.0____jcross_靄_71__ in __node_靄:1.0____jcross_靄_310__.__node_靄:1.0____jcross_靄_267__():
+            __node_靄:1.0____jcross_靄_222__ = __node_廨:1.0____jcross_廨_1__
+            __node_靄:1.0____jcross_靄_150__ = []
+            for p in __node_靄:1.0____jcross_靄_71__:
+                __node_靄:1.0____jcross_靄_198__ = (
+                    p["__node_靄:1.0____jcross_靄_54__"]
+                    if "__node_靄:1.0____jcross_靄_54__" in p
+                    else (p["__node_靄:1.0____jcross_靄_34__"], p["__node_靄:1.0____jcross_靄_25__"])
+                )
+                if __node_靄:1.0____jcross_靄_198__ == __node_靄:1.0____jcross_靄_222__:
+                    __node_靄:1.0____jcross_靄_150__.__node_靄:1.0____jcross_靄_130__(p)
+                    continue
+// [metadata-stripped]
+                if __node_靄:1.0____jcross_靄_150__:
+                    self.__node_靄:1.0____jcross_靄_97__(
+                        __node_靄:1.0____jcross_靄_213__,
+                        __node_靄:1.0____jcross_靄_150__,
+                        __node_靄:1.0____jcross_靄_36__=__node_靄:1.0____jcross_靄_36__,
+                        __node_謀:1.0____jcross_靄_105__=__node_謀:1.0____jcross_靄_105__,
+                    )
+                    self.__node_靄:1.0____jcross_靄_246__()
+                    __node_靄:1.0____jcross_靄_150__ = []
+                __node_靄:1.0____jcross_靄_222__ = __node_靄:1.0____jcross_靄_198__
+                __node_靄:1.0____jcross_靄_150__.__node_靄:1.0____jcross_靄_130__(p)
+            if __node_靄:1.0____jcross_靄_150__:
+                self.__node_靄:1.0____jcross_靄_97__(
+                    __node_靄:1.0____jcross_靄_213__,
+                    __node_靄:1.0____jcross_靄_150__,
+                    __node_靄:1.0____jcross_靄_36__=__node_靄:1.0____jcross_靄_36__,
+                    __node_謀:1.0____jcross_靄_105__=__node_謀:1.0____jcross_靄_105__,
+                )
+                self.__node_靄:1.0____jcross_靄_246__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_97__(
+        self, __node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__, *, __node_靄:1.0____jcross_靄_36__=__node_廨:1.0____jcross_廨_76__, __node_謀:1.0____jcross_靄_105__=__node_廨:1.0____jcross_廨_76__
+    ):
+        if __node_靄:1.0____jcross_靄_288__(__node_靄:1.0____jcross_靄_310__) __node_靄:1.0____jcross_靄_169__ in (__node_靄:1.0____jcross_靄_156__, __node_靄:1.0____jcross_靄_15__):
+            __node_靄:1.0____jcross_靄_310__ = [__node_靄:1.0____jcross_靄_310__]
+
+        self.__node_靄:1.0____jcross_靄_262__[self.__node_謀:1.0____jcross_靄_313__] = (__node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__)
+
+        __node_靄:1.0____jcross_靄_88__ = __node_靄:1.0____jcross_靄_310__[0]["__node_靄:1.0____jcross_靄_288__"]
+        __node_靄:1.0____jcross_靄_62__ = __node_謀:1.0____jcross_彩_1__(__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__)
+        if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_275__(pt == __node_靄:1.0____jcross_靄_88__ for pt in __node_靄:1.0____jcross_靄_62__):
+            __node_靄:1.0____jcross_靄_88__ = ", ".__node_靄:1.0____jcross_靄_231__(__node_靄:1.0____jcross_靄_205__({__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__}))
+
+        __node_靄:1.0____jcross_靄_44__.__node_靄:1.0____jcross_靄_226__("__node_廨:1.0____jcross_廨_18__ %s: %s", __node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_88__)
+
+        __node_暗:1.0____jcross_靄_276__ = (
+            ("__node_靄:1.0____jcross_靄_54__",)
+            if "__node_靄:1.0____jcross_靄_54__" in __node_靄:1.0____jcross_靄_310__[0]
+            else ("__node_靄:1.0____jcross_靄_34__", "__node_靄:1.0____jcross_靄_25__")
+        )
+        __node_靄:1.0____jcross_靄_206__ = [__node_靄:1.0____jcross_靄_310__[0][k] for k in __node_暗:1.0____jcross_靄_276__]
+
+        if __node_靄:1.0____jcross_靄_88__ == __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_20__:
+            __node_靄:1.0____jcross_靄_316__ = __node_靄:1.0____jcross_靄_193__(
+                i for i, m in __node_靄:1.0____jcross_靄_325__(self.__node_靄:1.0____jcross_靄_207__) if m[__node_靄:1.0____jcross_靄_93__] is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__
+            )
+            __node_靄:1.0____jcross_靄_206__.__node_靄:1.0____jcross_靄_19__(0, __node_靄:1.0____jcross_靄_316__)
+
+        x = self.__node_靄:1.0____jcross_靄_59__
+        y = self.__node_靄:1.0____jcross_靄_59__
+
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_15__ __node_靄:1.0____jcross_靄_100__: " + __node_靄:1.0____jcross_靄_93__,
+            x=x,
+            y=y,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_75__,
+            __node_靄:1.0____jcross_靄_163__=0,
+            __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            __node_靄:1.0____jcross_靄_77__=self.__node_靄:1.0____jcross_靄_98__,
+        )
+        __node_靄:1.0____jcross_靄_72__ = __node_靄:1.0____jcross_靄_269__(p.__node_謀:1.0____jcross_彩_5__("__node_靄:1.0____jcross_靄_72__", 1) for p in __node_靄:1.0____jcross_靄_310__)
+        if __node_靄:1.0____jcross_靄_72__ < 1 __node_靄:1.0____jcross_靄_135__ __node_靄:1.0____jcross_靄_36__:
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_靄:1.0____jcross_靄_72__: %.2f" % __node_靄:1.0____jcross_靄_72__,
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__,
+                __node_靄:1.0____jcross_靄_163__=1,
+                __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            )
+        y += self.__node_靄:1.0____jcross_靄_98__ + self.__node_靄:1.0____jcross_靄_59__
+        self.__node_靄:1.0____jcross_靄_260__(
+            "__node_廨:1.0____jcross_廨_26__: " + __node_靄:1.0____jcross_靄_88__,
+            x=x,
+            y=y,
+            __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_75__,
+            __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+        )
+        y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__ * 2
+
+// __node_廨:0.6____jcross_AZ_642__ [decoy-metadata]
+        __node_靄:1.0____jcross_靄_27__ = []
+        for __node_靄:1.0____jcross_靄_149__, __node_靄:1.0____jcross_靄_54__ in __node_靄:1.0____jcross_靄_325__(__node_靄:1.0____jcross_靄_206__):
+            __node_靄:1.0____jcross_靄_332__ = self.__node_靄:1.0____jcross_靄_207__[__node_靄:1.0____jcross_靄_54__]
+            __node_靄:1.0____jcross_靄_100__ = self.__node_靄:1.0____jcross_靄_189__[__node_靄:1.0____jcross_靄_54__]
+
+            self.__node_靄:1.0____jcross_靄_260__(
+                __node_靄:1.0____jcross_靄_100__,
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_80__,
+                __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_204__,
+                __node_靄:1.0____jcross_靄_163__=0.5,
+            )
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+            if __node_靄:1.0____jcross_靄_332__[__node_靄:1.0____jcross_靄_93__] is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__:
+                __node_靄:1.0____jcross_靄_27__.__node_靄:1.0____jcross_靄_130__(
+                    self.__node_靄:1.0____jcross_靄_82__(__node_靄:1.0____jcross_靄_332__, __node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__, __node_靄:1.0____jcross_靄_149__, x=x, y=y)
+                )
+            else:
+                self.__node_靄:1.0____jcross_靄_192__(self.__node_靄:1.0____jcross_靄_6__, x=x, y=y)
+            y += self.__node_靄:1.0____jcross_靄_111__ + self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+        if any(
+            pt
+            in (
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_82__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_83__,
+                __node_廨:1.0____jcross_廨_47__.__node_謀:1.0____jcross_廨_46__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_30__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_71__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_45__,
+            )
+            for pt in __node_靄:1.0____jcross_靄_62__
+        ):
+            x = self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_204__ + self.__node_靄:1.0____jcross_靄_59__
+            y = self.__node_靄:1.0____jcross_靄_59__
+            y += self.__node_靄:1.0____jcross_靄_98__ + self.__node_靄:1.0____jcross_靄_59__ * 2
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+            __node_靄:1.0____jcross_靄_326__ = self.__node_靄:1.0____jcross_靄_207__[__node_靄:1.0____jcross_靄_206__[0]]
+            __node_靄:1.0____jcross_靄_186__ = self.__node_靄:1.0____jcross_靄_207__[__node_靄:1.0____jcross_靄_206__[1]]
+
+// [metadata-stripped]
+
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_靄:1.0____jcross_靄_318__ __node_靄:1.0____jcross_靄_178__",
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_75__,
+                __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_204__,
+                __node_靄:1.0____jcross_靄_163__=0.5,
+            )
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+            __node_靄:1.0____jcross_靄_321__ = __node_廨:1.0____jcross_廨_69__(__node_靄:1.0____jcross_靄_326__, __node_靄:1.0____jcross_靄_186__)
+            self.__node_靄:1.0____jcross_靄_82__(
+                __node_靄:1.0____jcross_靄_321__,
+                __node_靄:1.0____jcross_靄_93__,
+                [{"__node_靄:1.0____jcross_靄_288__": "__node_靄:1.0____jcross_靄_318__"}]
+                + [
+                    p
+                    for p in __node_靄:1.0____jcross_靄_310__
+                    if p["__node_靄:1.0____jcross_靄_288__"]
+                    in (
+                        __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_30__,
+                        __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_71__,
+                        __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_45__,
+                    )
+                ],
+                __node_廨:1.0____jcross_廨_1__,
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_53__=__node_靄:1.0____jcross_靄_269__(__node_靄:1.0____jcross_靄_27__),
+            )
+
+            y += self.__node_靄:1.0____jcross_靄_111__ + self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+        if any(
+            pt
+            in (
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_83__,
+                __node_廨:1.0____jcross_廨_47__.__node_謀:1.0____jcross_廨_46__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_30__,
+            )
+            for pt in __node_靄:1.0____jcross_靄_62__
+        ):
+// [metadata-stripped]
+
+            self.__node_靄:1.0____jcross_靄_260__(
+                "__node_靄:1.0____jcross_靄_32__ __node_靄:1.0____jcross_靄_338__",
+                x=x,
+                y=y,
+                __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_75__,
+                __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_204__,
+                __node_靄:1.0____jcross_靄_163__=0.5,
+            )
+            y += self.__node_靄:1.0____jcross_靄_77__ + self.__node_靄:1.0____jcross_靄_59__
+
+            __node_靄:1.0____jcross_靄_45__ = __node_廨:1.0____jcross_廨_79__(__node_靄:1.0____jcross_靄_326__)
+            __node_靄:1.0____jcross_靄_333__ = __node_廨:1.0____jcross_廨_79__(__node_靄:1.0____jcross_靄_186__)
+            __node_靄:1.0____jcross_靄_145__ = __node_廨:1.0____jcross_廨_44__(
+                __node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_45__
+            )
+            __node_靄:1.0____jcross_靄_70__ = __node_廨:1.0____jcross_廨_44__(
+                __node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_333__
+            )
+            __node_靄:1.0____jcross_靄_326__[__node_靄:1.0____jcross_靄_93__].__node_靄:1.0____jcross_靄_151__(__node_靄:1.0____jcross_靄_145__)
+            __node_靄:1.0____jcross_靄_186__[__node_靄:1.0____jcross_靄_93__].__node_靄:1.0____jcross_靄_151__(__node_靄:1.0____jcross_靄_70__)
+
+            for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+                if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == __node_廨:1.0____jcross_廨_47__.__node_謀:1.0____jcross_廨_46__:
+                    __node_靄:1.0____jcross_靄_126__ = [
+                        __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__[i] for i in __node_靄:1.0____jcross_靄_310__[0]["__node_靄:1.0____jcross_靄_300__"]
+                    ]
+                    __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_126__
+
+            for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+                if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_83__:
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_159__ = __node_靄:1.0____jcross_靄_145__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]]
+                    __node_靄:1.0____jcross_靄_293__ = __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]]
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_251__ = __node_廨:1.0____jcross_廨_23__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_251__, __node_廨:1.0____jcross_廨_70__)
+                    __node_靄:1.0____jcross_靄_159__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+                    __node_靄:1.0____jcross_靄_173__ = __node_廨:1.0____jcross_廨_23__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_173__, __node_廨:1.0____jcross_廨_70__)
+                    __node_靄:1.0____jcross_靄_293__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+
+                    __node_靄:1.0____jcross_靄_102__ = __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_300__"]
+
+// [metadata-stripped]
+                    if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_220__"]:
+                        __node_靄:1.0____jcross_靄_115__ = __node_廨:1.0____jcross_廨_23__()
+                        __node_靄:1.0____jcross_靄_305__ = __node_廨:1.0____jcross_廨_42__(__node_靄:1.0____jcross_靄_115__)
+                        __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_305__)
+                        __node_靄:1.0____jcross_靄_173__ = __node_靄:1.0____jcross_靄_115__
+                        __node_靄:1.0____jcross_靄_102__ = __node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__) - 2 - __node_靄:1.0____jcross_靄_102__
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_255__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[:1]
+                    __node_靄:1.0____jcross_靄_219__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[-1:]
+                    __node_靄:1.0____jcross_靄_42__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[1:-1]
+                    __node_靄:1.0____jcross_靄_42__ = __node_靄:1.0____jcross_靄_42__[__node_靄:1.0____jcross_靄_102__:] + __node_靄:1.0____jcross_靄_42__[:__node_靄:1.0____jcross_靄_102__]
+                    __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_255__ + __node_靄:1.0____jcross_靄_42__ + __node_靄:1.0____jcross_靄_219__
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_183__ = __node_廨:1.0____jcross_廨_32__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_36__(__node_靄:1.0____jcross_靄_183__, __node_廨:1.0____jcross_廨_76__)
+                    __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+                    __node_靄:1.0____jcross_靄_274__ = __node_廨:1.0____jcross_廨_32__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_36__(__node_靄:1.0____jcross_靄_274__, __node_廨:1.0____jcross_廨_76__)
+                    __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_159__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_183__.__node_靄:1.0____jcross_靄_278__
+                    __node_靄:1.0____jcross_靄_293__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_274__.__node_靄:1.0____jcross_靄_278__
+                    __node_靄:1.0____jcross_靄_145__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]] = __node_靄:1.0____jcross_靄_159__
+                    __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]] = __node_靄:1.0____jcross_靄_293__
+
+            for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+// [metadata-stripped]
+                if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_30__:
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_159__ = __node_靄:1.0____jcross_靄_145__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]]
+                    __node_靄:1.0____jcross_靄_293__ = __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]]
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_251__ = __node_廨:1.0____jcross_廨_23__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_251__, __node_廨:1.0____jcross_廨_70__)
+                    __node_靄:1.0____jcross_靄_159__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+                    __node_靄:1.0____jcross_靄_173__ = __node_廨:1.0____jcross_廨_23__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_173__, __node_廨:1.0____jcross_廨_70__)
+                    __node_靄:1.0____jcross_靄_293__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+
+                    i = __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_278__"]
+
+// [metadata-stripped]
+// [metadata-stripped]
+                    j = i + 1
+                    __node_靄:1.0____jcross_靄_174__ = __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[j][1][0]
+                    __node_靄:1.0____jcross_靄_30__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[j][1][0]
+                    __node_靄:1.0____jcross_靄_129__ = (i - 1) % (__node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__) - 2) + 1
+                    __node_靄:1.0____jcross_靄_10__ = __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_129__][1][0]
+                    __node_靄:1.0____jcross_靄_296__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_129__][1][0]
+                    __node_靄:1.0____jcross_靄_103__ = (i + 1) % (__node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__) - 2) + 1
+                    __node_靄:1.0____jcross_靄_112__ = __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_103__][1][0]
+                    __node_靄:1.0____jcross_靄_327__ = __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_103__][1][0]
+
+                    __node_靄:1.0____jcross_靄_174__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_174__)
+                    __node_靄:1.0____jcross_靄_30__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_30__)
+// __node_靄:0.1____jcross_LC_715__ [decoy-metadata]
+                    __node_靄:1.0____jcross_靄_10__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_10__)
+                    __node_靄:1.0____jcross_靄_296__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_296__)
+                    __node_靄:1.0____jcross_靄_112__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_112__)
+                    __node_靄:1.0____jcross_靄_327__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_327__)
+
+// [metadata-stripped]
+                    r0 = __node_靄:1.0____jcross_靄_116__(__node_靄:1.0____jcross_靄_174__ - __node_靄:1.0____jcross_靄_10__) / __node_靄:1.0____jcross_靄_116__(__node_靄:1.0____jcross_靄_112__ - __node_靄:1.0____jcross_靄_10__)
+                    r1 = __node_靄:1.0____jcross_靄_116__(__node_靄:1.0____jcross_靄_30__ - __node_靄:1.0____jcross_靄_296__) / __node_靄:1.0____jcross_靄_116__(__node_靄:1.0____jcross_靄_327__ - __node_靄:1.0____jcross_靄_296__)
+                    __node_靄:1.0____jcross_靄_253__ = (r0 + r1) / 2
+
+                    __node_靄:1.0____jcross_靄_174__ = __node_靄:1.0____jcross_靄_10__ + __node_靄:1.0____jcross_靄_253__ * (__node_靄:1.0____jcross_靄_112__ - __node_靄:1.0____jcross_靄_10__)
+                    __node_靄:1.0____jcross_靄_30__ = __node_靄:1.0____jcross_靄_296__ + __node_靄:1.0____jcross_靄_253__ * (__node_靄:1.0____jcross_靄_327__ - __node_靄:1.0____jcross_靄_296__)
+
+                    __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[j] = (
+                        __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[j][0],
+                        (((__node_靄:1.0____jcross_靄_174__.__node_靄:1.0____jcross_靄_7__, __node_靄:1.0____jcross_靄_174__.__node_靄:1.0____jcross_靄_209__),) + __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[j][1][1:]),
+                        __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_278__[j][2],
+                    )
+                    __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[j] = (
+                        __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[j][0],
+                        (((__node_靄:1.0____jcross_靄_30__.__node_靄:1.0____jcross_靄_7__, __node_靄:1.0____jcross_靄_30__.__node_靄:1.0____jcross_靄_209__),) + __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[j][1][1:]),
+                        __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_278__[j][2],
+                    )
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_183__ = __node_廨:1.0____jcross_廨_32__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_36__(__node_靄:1.0____jcross_靄_183__, __node_廨:1.0____jcross_廨_76__)
+                    __node_靄:1.0____jcross_靄_251__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+                    __node_靄:1.0____jcross_靄_274__ = __node_廨:1.0____jcross_廨_32__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_36__(__node_靄:1.0____jcross_靄_274__, __node_廨:1.0____jcross_廨_76__)
+                    __node_靄:1.0____jcross_靄_173__.__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+
+// [metadata-stripped]
+                    __node_靄:1.0____jcross_靄_159__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_183__.__node_靄:1.0____jcross_靄_278__
+                    __node_靄:1.0____jcross_靄_293__.__node_靄:1.0____jcross_靄_278__ = __node_靄:1.0____jcross_靄_274__.__node_靄:1.0____jcross_靄_278__
+
+// [metadata-stripped]
+            __node_靄:1.0____jcross_靄_242__ = __node_廨:1.0____jcross_廨_32__()
+            __node_靄:1.0____jcross_靄_287__ = __node_廨:1.0____jcross_廨_32__()
+            for __node_靄:1.0____jcross_靄_120__ in __node_靄:1.0____jcross_靄_145__.__node_靄:1.0____jcross_靄_278__:
+                __node_靄:1.0____jcross_靄_242__.__node_靄:1.0____jcross_靄_278__.__node_靄:1.0____jcross_靄_323__(__node_靄:1.0____jcross_靄_120__.__node_靄:1.0____jcross_靄_278__)
+            for __node_靄:1.0____jcross_靄_120__ in __node_靄:1.0____jcross_靄_70__.__node_靄:1.0____jcross_靄_278__:
+                __node_靄:1.0____jcross_靄_287__.__node_靄:1.0____jcross_靄_278__.__node_靄:1.0____jcross_靄_323__(__node_靄:1.0____jcross_靄_120__.__node_靄:1.0____jcross_靄_278__)
+            __node_靄:1.0____jcross_靄_242__.__node_靄:1.0____jcross_靄_151__ = __node_靄:1.0____jcross_靄_242__.__node_靄:1.0____jcross_靄_60__
+            __node_靄:1.0____jcross_靄_287__.__node_靄:1.0____jcross_靄_151__ = __node_靄:1.0____jcross_靄_287__.__node_靄:1.0____jcross_靄_60__
+
+            __node_靄:1.0____jcross_靄_45__[__node_靄:1.0____jcross_靄_93__] = __node_靄:1.0____jcross_靄_242__
+            __node_靄:1.0____jcross_靄_333__[__node_靄:1.0____jcross_靄_93__] = __node_靄:1.0____jcross_靄_287__
+
+            try:
+                __node_靄:1.0____jcross_靄_321__ = __node_廨:1.0____jcross_廨_69__(__node_靄:1.0____jcross_靄_45__, __node_靄:1.0____jcross_靄_333__)
+                self.__node_靄:1.0____jcross_靄_82__(
+                    __node_靄:1.0____jcross_靄_321__,
+                    __node_靄:1.0____jcross_靄_93__,
+                    {"__node_靄:1.0____jcross_靄_288__": "__node_靄:1.0____jcross_靄_330__"},
+                    __node_廨:1.0____jcross_廨_1__,
+                    x=x,
+                    y=y,
+                    __node_靄:1.0____jcross_靄_53__=__node_靄:1.0____jcross_靄_269__(__node_靄:1.0____jcross_靄_27__),
+                )
+            __node_靄:1.0____jcross_靄_168__ __node_廨:1.0____jcross_廨_9__:
+                self.__node_靄:1.0____jcross_靄_192__(self.__node_靄:1.0____jcross_靄_6__, x=x, y=y)
+            y += self.__node_靄:1.0____jcross_靄_111__ + self.__node_靄:1.0____jcross_靄_59__
+
+        else:
+            __node_靄:1.0____jcross_靄_79__ = self.__node_靄:1.0____jcross_靄_6__
+            if __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_71__ in __node_靄:1.0____jcross_靄_62__:
+                __node_靄:1.0____jcross_靄_79__ = self.__node_靄:1.0____jcross_靄_322__
+            __node_泳:1.0____jcross_靄_268__ __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_45__ in __node_靄:1.0____jcross_靄_62__:
+                __node_靄:1.0____jcross_靄_79__ = self.__node_靄:1.0____jcross_靄_290__
+            __node_泳:1.0____jcross_靄_268__ __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_82__ in __node_靄:1.0____jcross_靄_62__:
+                __node_靄:1.0____jcross_靄_79__ = self.__node_靄:1.0____jcross_靄_122__
+            self.__node_靄:1.0____jcross_靄_192__(__node_靄:1.0____jcross_靄_79__, x=x, y=y)
+
+        if __node_謀:1.0____jcross_靄_105__:
+            self.__node_靄:1.0____jcross_靄_260__(
+                __node_靄:1.0____jcross_靄_272__(self.__node_謀:1.0____jcross_靄_313__),
+                x=0,
+                y=self.__node_靄:1.0____jcross_靄_311__ - self.__node_靄:1.0____jcross_靄_77__ - self.__node_靄:1.0____jcross_靄_59__,
+                __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_136__,
+                __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_75__,
+                __node_靄:1.0____jcross_靄_163__=0.5,
+            )
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_260__(
+        self,
+        __node_靄:1.0____jcross_靄_280__,
+        *,
+        x=0,
+        y=0,
+        __node_靄:1.0____jcross_靄_197__=(0, 0, 0),
+        __node_靄:1.0____jcross_靄_163__=0,
+        __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_70__,
+        __node_靄:1.0____jcross_靄_136__=__node_廨:1.0____jcross_廨_1__,
+        __node_靄:1.0____jcross_靄_311__=__node_廨:1.0____jcross_廨_1__,
+        __node_靄:1.0____jcross_靄_77__=__node_廨:1.0____jcross_廨_1__,
+    ):
+        if __node_靄:1.0____jcross_靄_136__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__
+        if __node_靄:1.0____jcross_靄_311__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_311__ = self.__node_靄:1.0____jcross_靄_311__
+        if __node_靄:1.0____jcross_靄_77__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_77__ = self.__node_靄:1.0____jcross_靄_77__
+        cr = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_19__(self.__node_靄:1.0____jcross_靄_227__)
+        cr.__node_靄:1.0____jcross_靄_110__(
+            "@__node_靄:1.0____jcross_靄_49__:",
+            __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_59__,
+            __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_50__ if __node_靄:1.0____jcross_靄_141__ else __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_51__,
+        )
+        cr.__node_謀:1.0____jcross_彩_2__(__node_靄:1.0____jcross_靄_77__)
+        __node_靄:1.0____jcross_靄_95__ = cr.__node_靄:1.0____jcross_靄_95__()
+        __node_靄:1.0____jcross_靄_77__ = __node_靄:1.0____jcross_靄_77__ * __node_靄:1.0____jcross_靄_77__ / __node_靄:1.0____jcross_靄_95__[2]
+        cr.__node_謀:1.0____jcross_彩_2__(__node_靄:1.0____jcross_靄_77__)
+        __node_靄:1.0____jcross_靄_95__ = cr.__node_靄:1.0____jcross_靄_95__()
+
+        cr.__node_謀:1.0____jcross_彩_12__(*__node_靄:1.0____jcross_靄_197__)
+
+// __node_緞:0.2____jcross_VY_687__ [decoy-metadata]
+        __node_靄:1.0____jcross_靄_216__ = cr.__node_靄:1.0____jcross_靄_90__(__node_靄:1.0____jcross_靄_280__)
+        if __node_靄:1.0____jcross_靄_216__.__node_靄:1.0____jcross_靄_136__ > __node_靄:1.0____jcross_靄_136__:
+// [metadata-stripped]
+            __node_靄:1.0____jcross_靄_77__ *= __node_靄:1.0____jcross_靄_136__ / __node_靄:1.0____jcross_靄_216__.__node_靄:1.0____jcross_靄_136__
+            cr.__node_謀:1.0____jcross_彩_2__(__node_靄:1.0____jcross_靄_77__)
+            __node_靄:1.0____jcross_靄_95__ = cr.__node_靄:1.0____jcross_靄_95__()
+            __node_靄:1.0____jcross_靄_216__ = cr.__node_靄:1.0____jcross_靄_90__(__node_靄:1.0____jcross_靄_280__)
+
+// [metadata-stripped]
+        __node_靄:1.0____jcross_靄_281__ = x + (__node_靄:1.0____jcross_靄_136__ - __node_靄:1.0____jcross_靄_216__.__node_靄:1.0____jcross_靄_136__) * __node_靄:1.0____jcross_靄_163__
+        __node_靄:1.0____jcross_靄_26__ = y + __node_靄:1.0____jcross_靄_95__[0]
+        cr.__node_靄:1.0____jcross_靄_224__(__node_靄:1.0____jcross_靄_281__, __node_靄:1.0____jcross_靄_26__)
+        cr.__node_靄:1.0____jcross_靄_73__(__node_靄:1.0____jcross_靄_280__)
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_82__(self, __node_靄:1.0____jcross_靄_332__, __node_靄:1.0____jcross_靄_93__, __node_靄:1.0____jcross_靄_310__, __node_靄:1.0____jcross_靄_149__, *, x=0, y=0, __node_靄:1.0____jcross_靄_53__=__node_廨:1.0____jcross_廨_1__):
+        if __node_靄:1.0____jcross_靄_288__(__node_靄:1.0____jcross_靄_310__) __node_靄:1.0____jcross_靄_169__ in (__node_靄:1.0____jcross_靄_156__, __node_靄:1.0____jcross_靄_15__):
+            __node_靄:1.0____jcross_靄_310__ = [__node_靄:1.0____jcross_靄_310__]
+
+        __node_靄:1.0____jcross_靄_318__ = any(__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == "__node_靄:1.0____jcross_靄_318__" for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__)
+        __node_靄:1.0____jcross_靄_88__ = __node_靄:1.0____jcross_靄_310__[0]["__node_靄:1.0____jcross_靄_288__"]
+        __node_靄:1.0____jcross_靄_62__ = __node_謀:1.0____jcross_彩_1__(__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__)
+        if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_275__(pt == __node_靄:1.0____jcross_靄_88__ for pt in __node_靄:1.0____jcross_靄_62__):
+            __node_靄:1.0____jcross_靄_88__ = "__node_靄:1.0____jcross_靄_22__"
+        __node_靄:1.0____jcross_靄_213__ = __node_靄:1.0____jcross_靄_332__[__node_靄:1.0____jcross_靄_93__]
+
+        __node_靄:1.0____jcross_靄_39__ = __node_廨:1.0____jcross_廨_32__()
+        __node_靄:1.0____jcross_靄_213__.__node_靄:1.0____jcross_靄_151__(__node_靄:1.0____jcross_靄_39__)
+        __node_靄:1.0____jcross_靄_161__ = __node_廨:1.0____jcross_廨_5__(__node_靄:1.0____jcross_靄_332__)
+        __node_靄:1.0____jcross_靄_213__.__node_靄:1.0____jcross_靄_151__(__node_靄:1.0____jcross_靄_161__)
+
+        __node_靄:1.0____jcross_靄_252__ = __node_廨:1.0____jcross_廨_58__(__node_靄:1.0____jcross_靄_332__)
+        __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_252__)
+        __node_靄:1.0____jcross_靄_304__ = __node_靄:1.0____jcross_靄_252__.__node_靄:1.0____jcross_靄_304__
+        if __node_靄:1.0____jcross_靄_304__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_304__ = (0, 0, 0, 0)
+
+        __node_靄:1.0____jcross_靄_78__ = __node_靄:1.0____jcross_靄_304__[2] - __node_靄:1.0____jcross_靄_304__[0]
+        __node_靄:1.0____jcross_靄_244__ = __node_靄:1.0____jcross_靄_304__[3] - __node_靄:1.0____jcross_靄_304__[1]
+
+        if __node_靄:1.0____jcross_靄_78__:
+            if __node_靄:1.0____jcross_靄_53__ is __node_廨:1.0____jcross_廨_1__:
+                __node_靄:1.0____jcross_靄_53__ = self.__node_靄:1.0____jcross_靄_204__ / __node_靄:1.0____jcross_靄_78__
+            else:
+                __node_靄:1.0____jcross_靄_53__ = __node_靄:1.0____jcross_靄_269__(__node_靄:1.0____jcross_靄_53__, self.__node_靄:1.0____jcross_靄_111__ / __node_靄:1.0____jcross_靄_244__)
+        if __node_靄:1.0____jcross_靄_244__:
+            if __node_靄:1.0____jcross_靄_53__ is __node_廨:1.0____jcross_廨_1__:
+                __node_靄:1.0____jcross_靄_53__ = self.__node_靄:1.0____jcross_靄_111__ / __node_靄:1.0____jcross_靄_244__
+            else:
+                __node_靄:1.0____jcross_靄_53__ = __node_靄:1.0____jcross_靄_269__(__node_靄:1.0____jcross_靄_53__, self.__node_靄:1.0____jcross_靄_111__ / __node_靄:1.0____jcross_靄_244__)
+        if __node_靄:1.0____jcross_靄_53__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_53__ = 1
+
+        cr = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_19__(self.__node_靄:1.0____jcross_靄_227__)
+        cr.__node_靄:1.0____jcross_靄_320__(x, y)
+// [metadata-stripped]
+        cr.__node_靄:1.0____jcross_靄_320__(
+            (self.__node_靄:1.0____jcross_靄_204__ - __node_靄:1.0____jcross_靄_78__ * __node_靄:1.0____jcross_靄_53__) / 2,
+            (self.__node_靄:1.0____jcross_靄_111__ - __node_靄:1.0____jcross_靄_244__ * __node_靄:1.0____jcross_靄_53__) / 2,
+        )
+        cr.__node_靄:1.0____jcross_靄_53__(__node_靄:1.0____jcross_靄_53__, -__node_靄:1.0____jcross_靄_53__)
+        cr.__node_靄:1.0____jcross_靄_320__(-__node_靄:1.0____jcross_靄_304__[0], -__node_靄:1.0____jcross_靄_304__[3])
+
+        if self.__node_靄:1.0____jcross_靄_131__:
+            cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_131__)
+            cr.__node_靄:1.0____jcross_靄_38__(__node_靄:1.0____jcross_靄_304__[0], __node_靄:1.0____jcross_靄_304__[1], __node_靄:1.0____jcross_靄_78__, __node_靄:1.0____jcross_靄_244__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_靄:1.0____jcross_靄_143__ / __node_靄:1.0____jcross_靄_53__)
+            cr.__node_靄:1.0____jcross_靄_23__()
+
+        if self.__node_靄:1.0____jcross_靄_243__ or self.__node_靄:1.0____jcross_靄_195__:
+            __node_靄:1.0____jcross_靄_334__ = __node_廨:1.0____jcross_廨_80__(__node_靄:1.0____jcross_靄_332__, cr)
+            __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_334__)
+
+            if self.__node_靄:1.0____jcross_靄_243__ __node_靄:1.0____jcross_靄_135__ __node_靄:1.0____jcross_靄_88__ != __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_74__:
+                cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_243__)
+                cr.__node_靄:1.0____jcross_靄_245__()
+
+            if self.__node_靄:1.0____jcross_靄_195__:
+                cr.__node_謀:1.0____jcross_彩_12__(*self.__node_靄:1.0____jcross_靄_195__)
+                cr.__node_謀:1.0____jcross_彩_6__(self.__node_靄:1.0____jcross_靄_264__ / __node_靄:1.0____jcross_靄_53__)
+                cr.__node_靄:1.0____jcross_靄_167__()
+
+            cr.__node_靄:1.0____jcross_靄_11__()
+
+        if (
+            __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_71__ in __node_靄:1.0____jcross_靄_62__
+            or __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_45__ in __node_靄:1.0____jcross_靄_62__
+        ):
+            __node_靄:1.0____jcross_靄_301__ = __node_廨:1.0____jcross_廨_44__(__node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_332__)
+            __node_靄:1.0____jcross_靄_39__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_301__)
+            for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+                if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] in (
+                    __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_71__,
+                    __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_45__,
+                ):
+                    __node_靄:1.0____jcross_靄_120__ = __node_靄:1.0____jcross_靄_301__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_120__"]]
+                    __node_靄:1.0____jcross_靄_120__.__node_靄:1.0____jcross_靄_60__(__node_廨:1.0____jcross_廨_80__(__node_靄:1.0____jcross_靄_332__, cr))
+                    cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_158__)
+                    cr.__node_靄:1.0____jcross_靄_20__()
+
+        if any(
+            t in __node_靄:1.0____jcross_靄_62__
+            for t in {
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_82__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_12__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_10__,
+            }
+        ):
+            cr.__node_謀:1.0____jcross_彩_10__(__node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_14__)
+
+// [metadata-stripped]
+            for __node_靄:1.0____jcross_靄_239__, __node_靄:1.0____jcross_靄_324__ in __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_278__:
+                if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_324__:
+                    continue
+                x, y = __node_靄:1.0____jcross_靄_324__[-1]
+                cr.__node_靄:1.0____jcross_靄_224__(x, y)
+                cr.__node_靄:1.0____jcross_靄_48__(x, y)
+            cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_256__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_謀:1.0____jcross_靄_31__ / __node_靄:1.0____jcross_靄_53__)
+            cr.__node_靄:1.0____jcross_靄_23__()
+
+// [metadata-stripped]
+            for __node_靄:1.0____jcross_靄_239__, __node_靄:1.0____jcross_靄_324__ in __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_278__:
+                if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_324__:
+                    continue
+                for x, y in __node_靄:1.0____jcross_靄_324__[:-1]:
+                    cr.__node_靄:1.0____jcross_靄_224__(x, y)
+                    cr.__node_靄:1.0____jcross_靄_48__(x, y)
+            cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_175__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_謀:1.0____jcross_靄_336__ / __node_靄:1.0____jcross_靄_53__)
+            cr.__node_靄:1.0____jcross_靄_23__()
+
+// [metadata-stripped]
+            for __node_靄:1.0____jcross_靄_239__, __node_靄:1.0____jcross_靄_324__ in __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_278__:
+                if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_324__:
+                    __node_靄:1.0____jcross_靄_211__
+                __node_泳:1.0____jcross_靄_268__ __node_靄:1.0____jcross_靄_239__ in ("__node_靄:1.0____jcross_靄_117__", "__node_靄:1.0____jcross_靄_13__"):
+                    cr.__node_靄:1.0____jcross_靄_224__(*__node_靄:1.0____jcross_靄_324__[0])
+                __node_泳:1.0____jcross_靄_268__ __node_靄:1.0____jcross_靄_239__ == "__node_靄:1.0____jcross_靄_171__":
+                    for x, y in __node_靄:1.0____jcross_靄_324__:
+                        cr.__node_靄:1.0____jcross_靄_48__(x, y)
+                    cr.__node_靄:1.0____jcross_靄_273__()
+                    cr.__node_靄:1.0____jcross_靄_224__(*__node_靄:1.0____jcross_靄_324__[-1])
+                __node_泳:1.0____jcross_靄_268__ __node_靄:1.0____jcross_靄_239__ == "__node_靄:1.0____jcross_靄_238__":
+                    cr.__node_靄:1.0____jcross_靄_48__(*__node_靄:1.0____jcross_靄_324__[0])
+                    cr.__node_靄:1.0____jcross_靄_273__()
+                    cr.__node_靄:1.0____jcross_靄_224__(*__node_靄:1.0____jcross_靄_324__[1])
+                    cr.__node_靄:1.0____jcross_靄_48__(*__node_靄:1.0____jcross_靄_324__[2])
+                    cr.__node_靄:1.0____jcross_靄_273__()
+                    cr.__node_靄:1.0____jcross_靄_224__(*__node_靄:1.0____jcross_靄_324__[-1])
+                else:
+                    continue
+
+            cr.__node_謀:1.0____jcross_彩_13__(*self.__node_靄:1.0____jcross_靄_225__)
+            cr.__node_謀:1.0____jcross_彩_6__(self.__node_靄:1.0____jcross_靄_118__ / __node_靄:1.0____jcross_靄_53__)
+            cr.__node_靄:1.0____jcross_靄_23__()
+
+        __node_靄:1.0____jcross_靄_286__ = __node_廨:1.0____jcross_廨_1__
+        for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+            if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == __node_廨:1.0____jcross_廨_47__.__node_謀:1.0____jcross_廨_46__:
+                __node_靄:1.0____jcross_靄_286__ = __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_300__"]
+                __node_靄:1.0____jcross_靄_125__ = __node_靄:1.0____jcross_靄_279__(self.__node_靄:1.0____jcross_靄_155__)
+                __node_靄:1.0____jcross_靄_301__ = __node_廨:1.0____jcross_廨_44__(
+                    __node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_332__
+                )
+                __node_靄:1.0____jcross_靄_39__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_301__)
+                for i, __node_靄:1.0____jcross_靄_120__ in __node_靄:1.0____jcross_靄_325__(__node_靄:1.0____jcross_靄_301__.__node_靄:1.0____jcross_靄_278__):
+                    if __node_靄:1.0____jcross_靄_286__[i] == i:
+                        continue
+                    __node_靄:1.0____jcross_靄_197__ = __node_靄:1.0____jcross_靄_193__(__node_靄:1.0____jcross_靄_125__)
+                    __node_靄:1.0____jcross_靄_120__.__node_靄:1.0____jcross_靄_60__(__node_廨:1.0____jcross_廨_80__(__node_靄:1.0____jcross_靄_332__, cr))
+                    cr.__node_謀:1.0____jcross_彩_13__(*__node_靄:1.0____jcross_靄_197__, self.__node_靄:1.0____jcross_靄_303__)
+                    cr.__node_靄:1.0____jcross_靄_20__()
+
+        for __node_靄:1.0____jcross_靄_172__ in __node_靄:1.0____jcross_靄_310__:
+            if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] in (
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_82__,
+                __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_83__,
+            ):
+                __node_靄:1.0____jcross_靄_265__ = __node_靄:1.0____jcross_靄_172__.__node_謀:1.0____jcross_彩_5__("__node_靄:1.0____jcross_靄_120__")
+
+// [metadata-stripped]
+                if __node_靄:1.0____jcross_靄_265__ is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__ __node_靄:1.0____jcross_靄_135__ __node_靄:1.0____jcross_靄_149__ == 1 __node_靄:1.0____jcross_靄_135__ "__node_靄:1.0____jcross_靄_300__" in __node_靄:1.0____jcross_靄_172__:
+                    __node_靄:1.0____jcross_靄_301__ = __node_廨:1.0____jcross_廨_44__(
+                        __node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_332__
+                    )
+                    __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_301__)
+                    __node_靄:1.0____jcross_靄_309__ = __node_廨:1.0____jcross_廨_64__()
+                    __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_309__, __node_廨:1.0____jcross_廨_70__)
+                    __node_靄:1.0____jcross_靄_301__.__node_靄:1.0____jcross_靄_278__[
+                        __node_靄:1.0____jcross_靄_265__ if __node_靄:1.0____jcross_靄_286__ is __node_廨:1.0____jcross_廨_1__ else __node_靄:1.0____jcross_靄_286__[__node_靄:1.0____jcross_靄_265__]
+                    ].__node_靄:1.0____jcross_靄_60__(__node_謀:1.0____jcross_靄_152__)
+                    __node_靄:1.0____jcross_靄_127__ = __node_靄:1.0____jcross_靄_309__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_300__"]][0]
+                    cr.__node_匴:1.0____jcross_靄_201__()
+                    cr.__node_靄:1.0____jcross_靄_320__(*__node_靄:1.0____jcross_靄_127__)
+                    cr.__node_靄:1.0____jcross_靄_53__(1 / __node_靄:1.0____jcross_靄_53__, 1 / __node_靄:1.0____jcross_靄_53__)
+                    self.__node_靄:1.0____jcross_靄_230__(
+                        cr,
+                        __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_66__,
+                        __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_184__,
+                    )
+                    cr.__node_靄:1.0____jcross_靄_258__()
+
+// [metadata-stripped]
+                if __node_靄:1.0____jcross_靄_149__ == 0 or __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_172__.__node_謀:1.0____jcross_彩_5__("__node_靄:1.0____jcross_靄_220__"):
+                    __node_靄:1.0____jcross_靄_197__ = self.__node_靄:1.0____jcross_靄_46__
+                else:
+                    __node_靄:1.0____jcross_靄_197__ = self.__node_靄:1.0____jcross_靄_81__
+                __node_靄:1.0____jcross_靄_94__ = __node_廨:1.0____jcross_廨_1__
+                i = 0
+                cr.__node_匴:1.0____jcross_靄_201__()
+                for __node_靄:1.0____jcross_靄_239__, __node_靄:1.0____jcross_靄_324__ in __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_278__:
+                    if __node_靄:1.0____jcross_靄_239__ == "__node_靄:1.0____jcross_靄_117__":
+                        __node_靄:1.0____jcross_靄_94__ = __node_靄:1.0____jcross_靄_324__[0]
+                        continue
+                    if __node_靄:1.0____jcross_靄_94__ is __node_廨:1.0____jcross_廨_1__:
+                        continue
+                    if __node_靄:1.0____jcross_靄_239__ == "__node_靄:1.0____jcross_靄_137__":
+                        __node_靄:1.0____jcross_靄_109__ = __node_靄:1.0____jcross_靄_94__
+                    else:
+                        __node_靄:1.0____jcross_靄_109__ = __node_靄:1.0____jcross_靄_324__[0]
+
+                    if __node_靄:1.0____jcross_靄_265__ is __node_廨:1.0____jcross_廨_1__ or i == __node_靄:1.0____jcross_靄_265__:
+                        cr.__node_匴:1.0____jcross_靄_201__()
+                        __node_靄:1.0____jcross_靄_94__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_94__)
+                        __node_靄:1.0____jcross_靄_109__ = __node_靄:1.0____jcross_靄_4__(*__node_靄:1.0____jcross_靄_109__)
+                        __node_靄:1.0____jcross_靄_235__ = __node_靄:1.0____jcross_靄_116__(__node_靄:1.0____jcross_靄_109__ - __node_靄:1.0____jcross_靄_94__)
+                        cr.__node_靄:1.0____jcross_靄_320__(__node_靄:1.0____jcross_靄_94__.__node_靄:1.0____jcross_靄_7__, __node_靄:1.0____jcross_靄_94__.__node_靄:1.0____jcross_靄_209__)
+                        if __node_靄:1.0____jcross_靄_235__:
+// [metadata-stripped]
+                            cr.__node_靄:1.0____jcross_靄_101__(
+                                __node_靄:1.0____jcross_靄_40__.__node_靄:1.0____jcross_靄_160__(
+                                    __node_靄:1.0____jcross_靄_109__.__node_靄:1.0____jcross_靄_209__ - __node_靄:1.0____jcross_靄_94__.__node_靄:1.0____jcross_靄_209__,
+                                    __node_靄:1.0____jcross_靄_109__.__node_靄:1.0____jcross_靄_7__ - __node_靄:1.0____jcross_靄_94__.__node_靄:1.0____jcross_靄_7__,
+                                )
+                            )
+                            cr.__node_靄:1.0____jcross_靄_53__(1 / __node_靄:1.0____jcross_靄_53__, 1 / __node_靄:1.0____jcross_靄_53__)
+                            self.__node_靄:1.0____jcross_靄_63__(cr, __node_靄:1.0____jcross_靄_197__=__node_靄:1.0____jcross_靄_197__)
+                        else:
+// [metadata-stripped]
+                            cr.__node_靄:1.0____jcross_靄_53__(1 / __node_靄:1.0____jcross_靄_53__, 1 / __node_靄:1.0____jcross_靄_53__)
+                            self.__node_靄:1.0____jcross_靄_230__(
+                                cr,
+                                __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_66__,
+                                __node_靄:1.0____jcross_靄_197__=__node_靄:1.0____jcross_靄_197__,
+                            )
+                        cr.__node_靄:1.0____jcross_靄_258__()
+
+                        if __node_靄:1.0____jcross_靄_265__ is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__:
+                            break
+
+                    __node_靄:1.0____jcross_靄_94__ = __node_廨:1.0____jcross_廨_1__
+                    i += 1
+
+                cr.__node_靄:1.0____jcross_靄_258__()
+
+            if __node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_288__"] == __node_廨:1.0____jcross_廨_47__.__node_廨:1.0____jcross_廨_30__:
+                __node_靄:1.0____jcross_靄_265__ = __node_靄:1.0____jcross_靄_172__.__node_謀:1.0____jcross_彩_5__("__node_靄:1.0____jcross_靄_120__")
+                __node_靄:1.0____jcross_靄_301__ = __node_廨:1.0____jcross_廨_44__(
+                    __node_廨:1.0____jcross_廨_32__, __node_靄:1.0____jcross_靄_332__=__node_靄:1.0____jcross_靄_332__
+                )
+                __node_靄:1.0____jcross_靄_161__.__node_靄:1.0____jcross_靄_60__(__node_靄:1.0____jcross_靄_301__)
+                __node_靄:1.0____jcross_靄_309__ = __node_廨:1.0____jcross_廨_64__()
+                __node_謀:1.0____jcross_靄_152__ = __node_廨:1.0____jcross_廨_27__(__node_靄:1.0____jcross_靄_309__, __node_廨:1.0____jcross_廨_70__)
+                __node_靄:1.0____jcross_靄_301__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_265__ if __node_靄:1.0____jcross_靄_286__ is __node_廨:1.0____jcross_廨_1__ else __node_靄:1.0____jcross_靄_286__[__node_靄:1.0____jcross_靄_265__]].__node_靄:1.0____jcross_靄_60__(
+                    __node_謀:1.0____jcross_靄_152__
+                )
+
+                __node_靄:1.0____jcross_靄_127__ = __node_靄:1.0____jcross_靄_309__.__node_靄:1.0____jcross_靄_278__[__node_靄:1.0____jcross_靄_172__["__node_靄:1.0____jcross_靄_278__"]][0]
+                cr.__node_匴:1.0____jcross_靄_201__()
+                cr.__node_靄:1.0____jcross_靄_320__(*__node_靄:1.0____jcross_靄_127__)
+                cr.__node_靄:1.0____jcross_靄_53__(1 / __node_靄:1.0____jcross_靄_53__, 1 / __node_靄:1.0____jcross_靄_53__)
+                if __node_靄:1.0____jcross_靄_318__:
+                    self.__node_靄:1.0____jcross_靄_16__(
+                        cr,
+                        __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_182__,
+                        __node_靄:1.0____jcross_靄_264__=self.__node_靄:1.0____jcross_靄_86__,
+                        __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_177__,
+                    )
+                else:
+                    self.__node_靄:1.0____jcross_靄_230__(
+                        cr,
+                        __node_謀:1.0____jcross_靄_69__=self.__node_靄:1.0____jcross_靄_162__,
+                        __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_138__,
+                    )
+                cr.__node_靄:1.0____jcross_靄_258__()
+
+        return __node_靄:1.0____jcross_靄_53__
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_230__(self, cr, *, x=0, y=0, __node_靄:1.0____jcross_靄_197__=(0, 0, 0), __node_謀:1.0____jcross_靄_69__=10):
+        cr.__node_匴:1.0____jcross_靄_201__()
+        cr.__node_謀:1.0____jcross_彩_6__(__node_謀:1.0____jcross_靄_69__)
+        cr.__node_謀:1.0____jcross_彩_10__(__node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_14__)
+        cr.__node_靄:1.0____jcross_靄_224__(x, y)
+        cr.__node_靄:1.0____jcross_靄_48__(x, y)
+        if __node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_197__) == 3:
+            __node_靄:1.0____jcross_靄_197__ = __node_靄:1.0____jcross_靄_197__ + (1,)
+        cr.__node_謀:1.0____jcross_彩_13__(*__node_靄:1.0____jcross_靄_197__)
+        cr.__node_靄:1.0____jcross_靄_23__()
+        cr.__node_靄:1.0____jcross_靄_258__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_16__(
+        self, cr, *, x=0, y=0, __node_靄:1.0____jcross_靄_197__=(0, 0, 0), __node_謀:1.0____jcross_靄_69__=10, __node_靄:1.0____jcross_靄_264__=1
+    ):
+        cr.__node_匴:1.0____jcross_靄_201__()
+        cr.__node_謀:1.0____jcross_彩_6__(__node_靄:1.0____jcross_靄_264__)
+        cr.__node_謀:1.0____jcross_彩_10__(__node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_2__)
+        cr.__node_靄:1.0____jcross_靄_302__(x, y, __node_謀:1.0____jcross_靄_69__ / 2, 0, 2 * __node_靄:1.0____jcross_靄_40__.pi)
+        if __node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_197__) == 3:
+            __node_靄:1.0____jcross_靄_197__ = __node_靄:1.0____jcross_靄_197__ + (1,)
+        cr.__node_謀:1.0____jcross_彩_13__(*__node_靄:1.0____jcross_靄_197__)
+        cr.__node_靄:1.0____jcross_靄_23__()
+        cr.__node_靄:1.0____jcross_靄_258__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_63__(self, cr, *, x=0, y=0, __node_靄:1.0____jcross_靄_197__=(0, 0, 0)):
+        cr.__node_匴:1.0____jcross_靄_201__()
+        if __node_靄:1.0____jcross_靄_257__(__node_靄:1.0____jcross_靄_197__) == 3:
+            __node_靄:1.0____jcross_靄_197__ = __node_靄:1.0____jcross_靄_197__ + (1,)
+        cr.__node_謀:1.0____jcross_彩_13__(*__node_靄:1.0____jcross_靄_197__)
+        cr.__node_靄:1.0____jcross_靄_320__(self.__node_靄:1.0____jcross_靄_43__ + x, y)
+        cr.__node_靄:1.0____jcross_靄_224__(0, 0)
+        cr.__node_靄:1.0____jcross_靄_48__(
+            -self.__node_靄:1.0____jcross_靄_43__,
+            -self.__node_靄:1.0____jcross_靄_43__ * 0.4,
+        )
+        cr.__node_靄:1.0____jcross_靄_48__(
+            -self.__node_靄:1.0____jcross_靄_43__,
+            self.__node_靄:1.0____jcross_靄_43__ * 0.4,
+        )
+        cr.__node_靄:1.0____jcross_靄_223__()
+        cr.__node_靄:1.0____jcross_靄_20__()
+        cr.__node_靄:1.0____jcross_靄_258__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_165__(self, __node_靄:1.0____jcross_靄_24__, *, x=0, y=0, __node_靄:1.0____jcross_靄_197__=(0, 0, 0), __node_靄:1.0____jcross_靄_136__=__node_廨:1.0____jcross_廨_1__, __node_靄:1.0____jcross_靄_311__=__node_廨:1.0____jcross_廨_1__):
+        if __node_靄:1.0____jcross_靄_136__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_136__ = self.__node_靄:1.0____jcross_靄_136__
+        if __node_靄:1.0____jcross_靄_311__ is __node_廨:1.0____jcross_廨_1__:
+            __node_靄:1.0____jcross_靄_311__ = self.__node_靄:1.0____jcross_靄_311__
+
+        __node_靄:1.0____jcross_靄_24__ = __node_靄:1.0____jcross_靄_24__.__node_靄:1.0____jcross_靄_218__()
+        cr = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_19__(self.__node_靄:1.0____jcross_靄_227__)
+        cr.__node_謀:1.0____jcross_彩_12__(*__node_靄:1.0____jcross_靄_197__)
+        cr.__node_謀:1.0____jcross_彩_2__(self.__node_靄:1.0____jcross_靄_77__)
+        cr.__node_靄:1.0____jcross_靄_110__(
+            "@__node_靄:1.0____jcross_靄_49__:__node_靄:1.0____jcross_靄_8__", __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_59__, __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_51__
+        )
+        __node_靄:1.0____jcross_靄_248__ = 0
+        __node_靄:1.0____jcross_靄_234__ = 0
+        __node_靄:1.0____jcross_靄_95__ = cr.__node_靄:1.0____jcross_靄_95__()
+        __node_靄:1.0____jcross_靄_51__ = __node_靄:1.0____jcross_靄_95__[2]
+        __node_靄:1.0____jcross_靄_200__ = __node_靄:1.0____jcross_靄_95__[0]
+        for __node_靄:1.0____jcross_靄_37__ in __node_靄:1.0____jcross_靄_24__:
+            __node_靄:1.0____jcross_靄_216__ = cr.__node_靄:1.0____jcross_靄_90__(__node_靄:1.0____jcross_靄_37__)
+            __node_靄:1.0____jcross_靄_248__ = __node_靄:1.0____jcross_靄_337__(__node_靄:1.0____jcross_靄_248__, __node_靄:1.0____jcross_靄_216__.__node_靄:1.0____jcross_靄_259__)
+            __node_靄:1.0____jcross_靄_234__ += __node_靄:1.0____jcross_靄_51__
+        if __node_靄:1.0____jcross_靄_169__ __node_靄:1.0____jcross_靄_248__:
+            return
+        cr.__node_靄:1.0____jcross_靄_320__(x, y)
+        __node_靄:1.0____jcross_靄_53__ = __node_靄:1.0____jcross_靄_269__(__node_靄:1.0____jcross_靄_136__ / __node_靄:1.0____jcross_靄_248__, __node_靄:1.0____jcross_靄_311__ / __node_靄:1.0____jcross_靄_234__)
+// [metadata-stripped]
+        cr.__node_靄:1.0____jcross_靄_320__(
+            (__node_靄:1.0____jcross_靄_136__ - __node_靄:1.0____jcross_靄_248__ * __node_靄:1.0____jcross_靄_53__) / 2, (__node_靄:1.0____jcross_靄_311__ - __node_靄:1.0____jcross_靄_234__ * __node_靄:1.0____jcross_靄_53__) / 2
+        )
+        cr.__node_靄:1.0____jcross_靄_53__(__node_靄:1.0____jcross_靄_53__, __node_靄:1.0____jcross_靄_53__)
+
+        cr.__node_靄:1.0____jcross_靄_320__(0, __node_靄:1.0____jcross_靄_200__)
+        for __node_靄:1.0____jcross_靄_37__ in __node_靄:1.0____jcross_靄_24__:
+            cr.__node_靄:1.0____jcross_靄_224__(0, 0)
+            cr.__node_靄:1.0____jcross_靄_73__(__node_靄:1.0____jcross_靄_37__)
+            cr.__node_靄:1.0____jcross_靄_320__(0, __node_靄:1.0____jcross_靄_51__)
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_114__(self):
+        self.__node_靄:1.0____jcross_靄_260__(
+            self.__node_靄:1.0____jcross_靄_1__,
+            x=self.__node_靄:1.0____jcross_靄_59__,
+            y=self.__node_靄:1.0____jcross_靄_59__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_217__,
+            __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__,
+            __node_靄:1.0____jcross_靄_163__=0.5,
+            __node_靄:1.0____jcross_靄_141__=__node_廨:1.0____jcross_廨_76__,
+            __node_靄:1.0____jcross_靄_77__=self.__node_靄:1.0____jcross_靄_98__,
+        )
+
+        self.__node_靄:1.0____jcross_靄_165__(
+            self.__node_靄:1.0____jcross_靄_91__,
+// __node_泳:0.5____jcross_ZF_919__ [decoy-metadata]
+            x=self.__node_靄:1.0____jcross_靄_59__,
+            y=self.__node_靄:1.0____jcross_靄_59__ + self.__node_靄:1.0____jcross_靄_77__,
+            __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_136__ - 2 * self.__node_靄:1.0____jcross_靄_59__,
+            __node_靄:1.0____jcross_靄_311__=self.__node_靄:1.0____jcross_靄_311__ - 2 * self.__node_靄:1.0____jcross_靄_59__ - self.__node_靄:1.0____jcross_靄_77__,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_291__,
+        )
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_192__(self, __node_靄:1.0____jcross_靄_79__, x=0, y=0):
+        self.__node_靄:1.0____jcross_靄_165__(
+            __node_靄:1.0____jcross_靄_79__,
+            x=x,
+            y=y,
+            __node_靄:1.0____jcross_靄_197__=self.__node_靄:1.0____jcross_靄_232__,
+            __node_靄:1.0____jcross_靄_136__=self.__node_靄:1.0____jcross_靄_204__,
+            __node_靄:1.0____jcross_靄_311__=self.__node_靄:1.0____jcross_靄_111__,
+        )
+
+
+class __node_廨:1.0____jcross_廨_8__(__node_廨:1.0____jcross_廨_84__):
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_14__(self, __node_靄:1.0____jcross_靄_288__, __node_靄:1.0____jcross_靄_278__, __node_靄:1.0____jcross_靄_119__):
+        self.__node_靄:1.0____jcross_靄_227__.__node_靄:1.0____jcross_靄_67__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_246__(self):
+        super().__node_靄:1.0____jcross_靄_246__()
+        self.__node_靄:1.0____jcross_靄_227__.__node_靄:1.0____jcross_靄_246__()
+
+
+class __node_廨:1.0____jcross_廨_43__(__node_廨:1.0____jcross_廨_8__):
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_229__(self):
+        self.__node_靄:1.0____jcross_靄_227__ = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_49__(self.__node_靄:1.0____jcross_靄_319__, self.__node_靄:1.0____jcross_靄_136__, self.__node_靄:1.0____jcross_靄_311__)
+        return self
+
+
+class __node_廨:1.0____jcross_廨_86__(__node_廨:1.0____jcross_廨_8__):
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_229__(self):
+        self.__node_靄:1.0____jcross_靄_227__ = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_65__(self.__node_靄:1.0____jcross_靄_319__, self.__node_靄:1.0____jcross_靄_136__, self.__node_靄:1.0____jcross_靄_311__)
+        self.__node_靄:1.0____jcross_靄_227__.__node_謀:1.0____jcross_彩_3__(
+            __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_24__, "__node_靄:1.0____jcross_靄_142__ __node_靄:1.0____jcross_靄_55__.__node_靄:1.0____jcross_靄_199__"
+        )
+        self.__node_靄:1.0____jcross_靄_227__.__node_謀:1.0____jcross_彩_3__(__node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_13__, "")
+        return self
+
+
+class __node_廨:1.0____jcross_廨_38__(__node_廨:1.0____jcross_廨_84__):
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_229__(self):
+        self.__node_靄:1.0____jcross_靄_241__ = __node_廨:1.0____jcross_廨_29__()
+        self.__node_靄:1.0____jcross_靄_227__ = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_39__(self.__node_靄:1.0____jcross_靄_241__, self.__node_靄:1.0____jcross_靄_136__, self.__node_靄:1.0____jcross_靄_311__)
+        return self
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_14__(self, __node_靄:1.0____jcross_靄_288__, __node_靄:1.0____jcross_靄_278__, __node_靄:1.0____jcross_靄_119__):
+        if self.__node_靄:1.0____jcross_靄_227__ is __node_靄:1.0____jcross_靄_169__ __node_廨:1.0____jcross_廨_1__:
+            self.__node_靄:1.0____jcross_靄_246__()
+
+    __node_靄:1.0____jcross_靄_308__ __node_靄:1.0____jcross_靄_246__(self):
+        super().__node_靄:1.0____jcross_靄_246__()
+        self.__node_靄:1.0____jcross_靄_227__.__node_靄:1.0____jcross_靄_67__()
+        self.__node_靄:1.0____jcross_靄_319__.__node_靄:1.0____jcross_靄_130__(self.__node_靄:1.0____jcross_靄_241__.__node_謀:1.0____jcross_彩_7__())
+        self.__node_靄:1.0____jcross_靄_241__ = __node_廨:1.0____jcross_廨_29__()
+        self.__node_靄:1.0____jcross_靄_227__ = __node_靄:1.0____jcross_靄_49__.__node_廨:1.0____jcross_廨_39__(self.__node_靄:1.0____jcross_靄_241__, self.__node_靄:1.0____jcross_靄_136__, self.__node_靄:1.0____jcross_靄_311__)
+
+// POLYMORPHIC_JCROSS_END

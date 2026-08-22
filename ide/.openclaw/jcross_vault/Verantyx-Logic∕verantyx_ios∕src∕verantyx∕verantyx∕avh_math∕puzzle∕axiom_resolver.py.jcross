@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C4629667 ver:1778162890
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霜:1.0__ID_霜_4_ _JCROSS_霜:1.0__ID_霜_12_ import _JCROSS_霜:1.0__ID_霜_7_
+
+_JCROSS_霜:1.0__ID_霜_4_ _JCROSS_霜:1.0__ID_霜_19_ import _JCROSS_霜:1.0__ID_霜_23_
+_JCROSS_霜:1.0__ID_霜_4_ _JCROSS_霜:1.0__ID_霜_20_ import _JCROSS_廩:1.0__ID_廩_3_, _JCROSS_廩:1.0__ID_廩_6_, _JCROSS_廩:1.0__ID_廩_1_
+import re
+
+// _JCROSS_伏:0.7__ID_FC_213_ [decoy-metadata]
+
+@_JCROSS_霜:1.0__ID_霜_23_
+class _JCROSS_廩:1.0__ID_廩_4_:
+// _JCROSS_伏:0.8__ID_LY_910_ [decoy-metadata]
+    _JCROSS_霜:1.0__ID_霜_3_: _JCROSS_霜:1.0__ID_霜_31_
+    _JCROSS_霜:1.0__ID_霜_21_: _JCROSS_霜:1.0__ID_霜_31_
+// _JCROSS_法:0.8__ID_GM_502_ [decoy-metadata]
+    _JCROSS_霜:1.0__ID_霜_22_: _JCROSS_霜:1.0__ID_霜_31_
+// _JCROSS_廩:0.2__ID_CC_323_ [decoy-metadata]
+    _JCROSS_霜:1.0__ID_霜_6_: _JCROSS_廩:1.0__ID_廩_6_[_JCROSS_霜:1.0__ID_霜_31_] = _JCROSS_廩:1.0__ID_廩_2_
+
+
+_JCROSS_廩:1.0__ID_廩_5_: _JCROSS_廩:1.0__ID_廩_3_[_JCROSS_廩:1.0__ID_廩_1_[_JCROSS_霜:1.0__ID_霜_31_, _JCROSS_霜:1.0__ID_霜_31_, _JCROSS_霜:1.0__ID_霜_31_]] = [
+    ("_JCROSS_霜:1.0__ID_霜_29_", r"^\[\]\(p->q\)->\(\[\]p->\[\]q\)$", "K"),
+    ("_JCROSS_霜:1.0__ID_霜_29_", r"^\[\]p->p$", "T"),
+    ("_JCROSS_霜:1.0__ID_霜_29_", r"^\[\]p->\[\]\[\]p$", "4"),
+    ("_JCROSS_霜:1.0__ID_霜_29_", r"^<>p->\[\]<>p$", "5"),
+    ("_JCROSS_霜:1.0__ID_霜_1_", r"^\(\(p->q\)&p\)->q$", "MP"),
+]
+
+
+_JCROSS_霜:1.0__ID_霜_33_ _JCROSS_漂:1.0__ID_霜_14_(_JCROSS_漂:1.0__ID_霜_11_: _JCROSS_霜:1.0__ID_霜_31_) -> _JCROSS_霜:1.0__ID_霜_31_:
+    f = (_JCROSS_漂:1.0__ID_霜_11_ or "")._JCROSS_霜:1.0__ID_霜_5_(" ", "")
+    f = re._JCROSS_霜:1.0__ID_霜_8_(r"\b[A-Z]\b", "p", f)
+    f = re._JCROSS_霜:1.0__ID_霜_8_(r"\b[_JCROSS_霜:1.0__ID_霜_28_]\b", "q", f)
+    if f._JCROSS_霜:1.0__ID_霜_26_("(") _JCROSS_霜:1.0__ID_霜_27_ f._JCROSS_霜:1.0__ID_霜_17_(")"):
+        f = f[1:-1]
+    return f
+
+
+_JCROSS_霜:1.0__ID_霜_33_ _JCROSS_霜:1.0__ID_霜_10_(
+    _JCROSS_漂:1.0__ID_霜_11_: _JCROSS_霜:1.0__ID_霜_31_,
+    _JCROSS_霜:1.0__ID_霜_9_: _JCROSS_霜:1.0__ID_霜_31_,
+    _JCROSS_霜:1.0__ID_霜_24_: _JCROSS_廩:1.0__ID_廩_3_[_JCROSS_霜:1.0__ID_霜_31_],
+) -> _JCROSS_廩:1.0__ID_廩_6_[_JCROSS_廩:1.0__ID_廩_4_]:
+    nf = _JCROSS_漂:1.0__ID_霜_14_(_JCROSS_漂:1.0__ID_霜_11_)
+    for _JCROSS_霜:1.0__ID_霜_32_, _JCROSS_霜:1.0__ID_霜_16_, _JCROSS_霜:1.0__ID_霜_21_ in _JCROSS_廩:1.0__ID_廩_5_:
+        if _JCROSS_霜:1.0__ID_霜_32_ != _JCROSS_霜:1.0__ID_霜_9_:
+            continue
+// _JCROSS_漂:0.9__ID_HC_789_ [decoy-metadata]
+        if re._JCROSS_霜:1.0__ID_霜_25_(_JCROSS_霜:1.0__ID_霜_16_, nf):
+            if _JCROSS_霜:1.0__ID_霜_21_ == "4" _JCROSS_霜:1.0__ID_霜_27_ "_JCROSS_霜:1.0__ID_霜_2_:_JCROSS_霜:1.0__ID_霜_15_" _JCROSS_霜:1.0__ID_霜_18_ in _JCROSS_霜:1.0__ID_霜_24_:
+                return _JCROSS_廩:1.0__ID_廩_4_(
+                    _JCROSS_霜:1.0__ID_霜_3_="_JCROSS_霜:1.0__ID_霜_30_",
+                    _JCROSS_霜:1.0__ID_霜_21_="K",
+                    _JCROSS_霜:1.0__ID_霜_22_="[]p -> [][]p は推移性が無いと成り立たない",
+                    _JCROSS_霜:1.0__ID_霜_6_="_JCROSS_廩:1.0__ID_廩_7_ _JCROSS_霜:1.0__ID_霜_2_:_JCROSS_霜:1.0__ID_霜_15_ (S4)",
+                )
+            return _JCROSS_廩:1.0__ID_廩_4_(
+                _JCROSS_霜:1.0__ID_霜_3_="_JCROSS_霜:1.0__ID_霜_13_",
+                _JCROSS_霜:1.0__ID_霜_21_=_JCROSS_霜:1.0__ID_霜_21_,
+                _JCROSS_霜:1.0__ID_霜_22_=f"{_JCROSS_霜:1.0__ID_霜_21_} の公理として即断可能",
+// _JCROSS_廩:0.1__ID_MG_924_ [decoy-metadata]
+            )
+    return _JCROSS_廩:1.0__ID_廩_2_
+
+// POLYMORPHIC_JCROSS_END

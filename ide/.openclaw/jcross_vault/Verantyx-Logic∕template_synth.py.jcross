@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:11784AD6 ver:1778162953
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_粒:1.0__ID_粒_30_ _ASTNODE_粒:1.0__ID_粒_37_ import _ASTNODE_粒:1.0__ID_粒_29_
+
+import re
+_ASTNODE_粒:1.0__ID_粒_30_ _ASTNODE_粒:1.0__ID_粒_11_ import _ASTNODE_粒:1.0__ID_粒_5_
+_ASTNODE_粒:1.0__ID_粒_30_ _ASTNODE_粒:1.0__ID_粒_19_ import _ASTNODE_廨:1.0__ID_廨_1_, _ASTNODE_廨:1.0__ID_廨_5_, _ASTNODE_廨:1.0__ID_廨_6_, _ASTNODE_廨:1.0__ID_廨_2_, _ASTNODE_廨:1.0__ID_廨_4_
+
+// _ASTNODE_緞:0.3__ID_GL_294_ [decoy-metadata]
+@_ASTNODE_粒:1.0__ID_粒_5_
+class _ASTNODE_廨:1.0__ID_廨_7_:
+    _ASTNODE_粒:1.0__ID_粒_32_: _ASTNODE_粒:1.0__ID_粒_23_
+    _ASTNODE_粒:1.0__ID_粒_14_: _ASTNODE_粒:1.0__ID_粒_23_          # 正規表現（式の形）
+    _ASTNODE_粒:1.0__ID_粒_3_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_粒:1.0__ID_粒_23_]   # 仮定タグ
+    _ASTNODE_粒:1.0__ID_粒_9_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_粒:1.0__ID_粒_23_]      # _ASTNODE_粒:1.0__ID_粒_8_ _ASTNODE_粒:1.0__ID_粒_38_ の雛形
+    _ASTNODE_粒:1.0__ID_粒_31_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_粒:1.0__ID_粒_23_]
+
+_ASTNODE_粒:1.0__ID_粒_6_ _ASTNODE_粒:1.0__ID_粒_15_(s: _ASTNODE_粒:1.0__ID_粒_23_) -> _ASTNODE_粒:1.0__ID_粒_23_:
+    return " "._ASTNODE_粒:1.0__ID_粒_16_(s._ASTNODE_粒:1.0__ID_粒_27_()._ASTNODE_粒:1.0__ID_粒_20_())
+
+_ASTNODE_粒:1.0__ID_粒_6_ _ASTNODE_粒:1.0__ID_粒_18_(_ASTNODE_粒:1.0__ID_粒_13_: _ASTNODE_廨:1.0__ID_廨_5_[_ASTNODE_粒:1.0__ID_粒_23_, _ASTNODE_廨:1.0__ID_廨_1_]) -> _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_廨:1.0__ID_廨_7_]:
+    """
+    KB(_ASTNODE_粒:1.0__ID_粒_39_)から「式パターン→説明ステップ」を合成する。
+// _ASTNODE_渦:0.1__ID_BF_331_ [decoy-metadata]
+    まずは様相論理の _ASTNODE_粒:1.0__ID_粒_39_ を対象にする（他分野も同じ仕組みで拡張）。
+    """
+// _ASTNODE_緞:0.9__ID_EE_797_ [decoy-metadata]
+    _ASTNODE_粒:1.0__ID_粒_17_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_廨:1.0__ID_廨_7_] = []
+    _ASTNODE_粒:1.0__ID_粒_1_ = (_ASTNODE_粒:1.0__ID_粒_13_._ASTNODE_術:1.0__ID_巌_1_("_ASTNODE_粒:1.0__ID_粒_39_") or {})
+
+// [metadata-stripped]
+    if "_ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_35_" in _ASTNODE_粒:1.0__ID_粒_1_:
+        k = _ASTNODE_粒:1.0__ID_粒_1_["_ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_35_"]
+// [metadata-stripped]
+// _ASTNODE_粒:0.5__ID_XM_692_ [decoy-metadata]
+// [metadata-stripped]
+        _ASTNODE_粒:1.0__ID_粒_17_._ASTNODE_粒:1.0__ID_粒_21_(_ASTNODE_廨:1.0__ID_廨_7_(
+            _ASTNODE_粒:1.0__ID_粒_32_="_ASTNODE_粒:1.0__ID_粒_41_._ASTNODE_粒:1.0__ID_粒_33_.K4",
+            _ASTNODE_粒:1.0__ID_粒_14_=r"^\[\](?P<P>.+?)\s*->\s*\[\]\[\](?P=P)$",
+            _ASTNODE_粒:1.0__ID_粒_3_=["_ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_35_"],
+            _ASTNODE_粒:1.0__ID_粒_9_=[
+                "仮定: 到達関係 R は推移的（_ASTNODE_粒:1.0__ID_粒_35_）。",
+                "推移性により、公理4（K4）: □P → □□P が妥当（対応定理）。",
+                "よって与式は常に成り立つ（Pに任意命題を代入）。"
+// _ASTNODE_緞:0.6__ID_BW_460_ [decoy-metadata]
+            ],
+            _ASTNODE_粒:1.0__ID_粒_31_=["_ASTNODE_粒:1.0__ID_粒_39_._ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_35_"]
+        ))
+
+    if "_ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_34_" in _ASTNODE_粒:1.0__ID_粒_1_:
+        _ASTNODE_粒:1.0__ID_粒_17_._ASTNODE_粒:1.0__ID_粒_21_(_ASTNODE_廨:1.0__ID_廨_7_(
+            _ASTNODE_粒:1.0__ID_粒_32_="_ASTNODE_粒:1.0__ID_粒_41_._ASTNODE_粒:1.0__ID_粒_33_.T",
+            _ASTNODE_粒:1.0__ID_粒_14_=r"^\[\](?P<P>.+?)\s*->\s*(?P=P)$",
+            _ASTNODE_粒:1.0__ID_粒_3_=["_ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_34_"],
+            _ASTNODE_粒:1.0__ID_粒_9_=[
+                "仮定: 到達関係 R は反射的（_ASTNODE_粒:1.0__ID_粒_34_）。",
+                "反射性により、公理T: □P → P が妥当（対応定理）。",
+                "よって与式は常に成り立つ。"
+            ],
+            _ASTNODE_粒:1.0__ID_粒_31_=["_ASTNODE_粒:1.0__ID_粒_39_._ASTNODE_粒:1.0__ID_粒_10_:_ASTNODE_粒:1.0__ID_粒_34_"]
+        ))
+
+    return _ASTNODE_粒:1.0__ID_粒_17_
+
+_ASTNODE_粒:1.0__ID_粒_6_ _ASTNODE_粒:1.0__ID_粒_28_(
+    _ASTNODE_渦:1.0__ID_粒_12_: _ASTNODE_粒:1.0__ID_粒_23_,
+// _ASTNODE_粒:0.8__ID_GE_495_ [decoy-metadata]
+    _ASTNODE_粒:1.0__ID_粒_22_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_粒:1.0__ID_粒_23_],
+    _ASTNODE_粒:1.0__ID_粒_4_: _ASTNODE_廨:1.0__ID_廨_6_[_ASTNODE_廨:1.0__ID_廨_7_],
+) -> _ASTNODE_廨:1.0__ID_廨_2_[_ASTNODE_廨:1.0__ID_廨_4_[_ASTNODE_廨:1.0__ID_廨_7_, _ASTNODE_廨:1.0__ID_廨_5_[_ASTNODE_粒:1.0__ID_粒_23_, _ASTNODE_粒:1.0__ID_粒_23_]]]:
+    f = _ASTNODE_粒:1.0__ID_粒_15_(_ASTNODE_渦:1.0__ID_粒_12_)
+    _ASTNODE_粒:1.0__ID_粒_40_ = _ASTNODE_術:1.0__ID_巌_2_(_ASTNODE_粒:1.0__ID_粒_22_)
+    for t in _ASTNODE_粒:1.0__ID_粒_4_:
+        if _ASTNODE_粒:1.0__ID_粒_25_ _ASTNODE_術:1.0__ID_巌_2_(t._ASTNODE_粒:1.0__ID_粒_3_)._ASTNODE_粒:1.0__ID_粒_2_(_ASTNODE_粒:1.0__ID_粒_40_):
+            continue
+        m = re._ASTNODE_粒:1.0__ID_粒_7_(t._ASTNODE_粒:1.0__ID_粒_14_, f)
+        if m:
+            return t, m._ASTNODE_粒:1.0__ID_粒_26_()
+    return _ASTNODE_廨:1.0__ID_廨_8_
+// POLYMORPHIC_JCROSS_END

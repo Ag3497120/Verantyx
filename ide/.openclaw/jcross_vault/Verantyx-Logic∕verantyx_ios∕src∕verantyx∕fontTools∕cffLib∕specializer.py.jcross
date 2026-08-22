@@ -1,0 +1,939 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:17A67792 ver:1778162812
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+
+"""_SYM_廓:1.0___jcross_廓_26__ _SYM_霡:1.0___jcross_霡_453__ _SYM_式:1.0___jcross_霡_499__ _SYM_霡:1.0___jcross_霡_516__ _SYM_式:1.0___jcross_霡_303__.
+
+_SYM_廓:1.0___jcross_廓_59__ _SYM_霡:1.0___jcross_霡_308__ _SYM_霡:1.0___jcross_霡_92__ _SYM_霡:1.0___jcross_霡_346__ _SYM_霡:1.0___jcross_霡_377__ be _SYM_霡:1.0___jcross_霡_345__ in _SYM_霡:1.0___jcross_霡_347__ _SYM_涌:1.0___jcross_霡_323__
+_SYM_霡:1.0___jcross_霡_151__. _SYM_廓:1.0___jcross_廓_7__ _SYM_霡:1.0___jcross_霡_286__, as _SYM_霡:1.0___jcross_霡_168__ as _SYM_霡:1.0___jcross_霡_523__ ``_SYM_霡:1.0___jcross_霡_25__`` _SYM_霡:1.0___jcross_霡_453__, _SYM_霡:1.0___jcross_霡_533__ is _SYM_霡:1.0___jcross_霡_89__ a
+``_SYM_霡:1.0___jcross_霡_30__`` _SYM_霡:1.0___jcross_霡_453__ _SYM_霡:1.0___jcross_霡_234__ _SYM_霡:1.0___jcross_霡_28__ a _SYM_霡:1.0___jcross_霡_348__ _SYM_霡:1.0___jcross_霡_167__, _SYM_霡:1.0___jcross_霡_175__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_127__ to
+_SYM_涌:1.0___jcross_霡_244__ a ``dx`` _SYM_霡:1.0___jcross_霡_441__, _SYM_霡:1.0___jcross_霡_516__ a ``_SYM_霡:1.0___jcross_霡_77__`` _SYM_霡:1.0___jcross_霡_453__ _SYM_霡:1.0___jcross_霡_234__ _SYM_霡:1.0___jcross_霡_28__ a
+_SYM_霡:1.0___jcross_霡_262__ _SYM_霡:1.0___jcross_霡_167__, _SYM_霡:1.0___jcross_霡_175__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_127__ to _SYM_涌:1.0___jcross_霡_244__ a ``dy`` _SYM_霡:1.0___jcross_霡_441__. As _SYM_霡:1.0___jcross_霡_168__
+as _SYM_霡:1.0___jcross_霡_374__ :class:`_SYM_霡:1.0___jcross_霡_19__._SYM_霡:1.0___jcross_霡_133__._SYM_霡:1.0___jcross_霡_225__._SYM_廓:1.0___jcross_廓_26__` _SYM_霡:1.0___jcross_霡_231__
+_SYM_霡:1.0___jcross_霡_306__ _SYM_霡:1.0___jcross_霡_297__ of _SYM_霡:1.0___jcross_霡_346__, _SYM_霡:1.0___jcross_霡_223__ _SYM_霡:1.0___jcross_霡_73__ _SYM_霡:1.0___jcross_霡_367__ for _SYM_霡:1.0___jcross_霡_485__ _SYM_霡:1.0___jcross_霡_241__ _SYM_霡:1.0___jcross_霡_7__
+_SYM_霡:1.0___jcross_霡_516__ _SYM_涌:1.0___jcross_霡_150__ _SYM_涌:1.0___jcross_霡_191__ of _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_387__.
+
+"""
+
+_SYM_霡:1.0___jcross_霡_60__ _SYM_霡:1.0___jcross_霡_19__._SYM_霡:1.0___jcross_霡_480__ import _SYM_霡:1.0___jcross_霡_538__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_399__(_SYM_霡:1.0___jcross_霡_492__):
+    if _SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_492__, _SYM_霡:1.0___jcross_霡_52__):
+        _SYM_霡:1.0___jcross_霡_492__ = _SYM_霡:1.0___jcross_霡_492__._SYM_霡:1.0___jcross_霡_3__()
+    _SYM_霡:1.0___jcross_霡_531__ = []
+    for _SYM_深:1.0___jcross_霡_203__ in _SYM_霡:1.0___jcross_霡_492__:
+        try:
+            _SYM_深:1.0___jcross_霡_203__ = _SYM_霡:1.0___jcross_霡_373__(_SYM_深:1.0___jcross_霡_203__)
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_12__:
+            try:
+                _SYM_深:1.0___jcross_霡_203__ = _SYM_霡:1.0___jcross_霡_83__(_SYM_深:1.0___jcross_霡_203__)
+            _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_12__:
+                _SYM_霡:1.0___jcross_霡_422__
+        _SYM_霡:1.0___jcross_霡_531__._SYM_霡:1.0___jcross_霡_277__(_SYM_深:1.0___jcross_霡_203__)
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_531__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_218__(_SYM_霡:1.0___jcross_霡_531__):
+    re_SYM_霡:1.0___jcross_霡_325__ " "._SYM_霡:1.0___jcross_霡_54__(_SYM_霡:1.0___jcross_霡_52__(x) for x in _SYM_霡:1.0___jcross_霡_531__)
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_96__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__=_SYM_廓:1.0___jcross_廓_48__):
+    """_SYM_廓:1.0___jcross_廓_60__ a _SYM_廓:1.0___jcross_廓_26__ _SYM_霡:1.0___jcross_霡_531__ _SYM_霡:1.0___jcross_霡_110__ _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_33__ _SYM_霡:1.0___jcross_霡_110__ of _SYM_霡:1.0___jcross_霡_287__.
+    _SYM_廓:1.0___jcross_廓_47__ _SYM_霡:1.0___jcross_霡_372__ is a _SYM_霡:1.0___jcross_霡_532__-_SYM_霡:1.0___jcross_霡_107__ of _SYM_霡:1.0___jcross_霡_46__,_SYM_霡:1.0___jcross_霡_198__-_SYM_霡:1.0___jcross_霡_110__.  _SYM_廓:1.0___jcross_廓_28__ _SYM_霡:1.0___jcross_霡_46__ _SYM_霡:1.0___jcross_霡_205__
+    be _SYM_霡:1.0___jcross_霡_12__ _SYM_霡:1.0___jcross_霡_492__ if no _SYM_霡:1.0___jcross_霡_46__ _SYM_霡:1.0___jcross_霡_35__ be _SYM_霡:1.0___jcross_霡_496__ (_SYM_霡:1.0___jcross_霡_72__ for _SYM_霡:1.0___jcross_霡_308__ _SYM_霡:1.0___jcross_霡_369__,
+    _SYM_霡:1.0___jcross_霡_514__/_SYM_霡:1.0___jcross_霡_159__ _SYM_霡:1.0___jcross_霡_463__, as _SYM_霡:1.0___jcross_霡_168__ as _SYM_霡:1.0___jcross_霡_301__ _SYM_霡:1.0___jcross_霡_431__ at _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_312__ of _SYM_霡:1.0___jcross_霡_523__
+    _SYM_霡:1.0___jcross_霡_531__ (🤷).
+    '_SYM_式:1.0___jcross_覇_1__' _SYM_霡:1.0___jcross_霡_237__ be _SYM_廓:1.0___jcross_廓_48__, or a _SYM_霡:1.0___jcross_霡_47__ _SYM_霡:1.0___jcross_霡_534__. It _SYM_霡:1.0___jcross_霡_5__ re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_523__
+    _SYM_式:1.0___jcross_霡_255__ of _SYM_霡:1.0___jcross_霡_20__. '_SYM_式:1.0___jcross_覇_1__' _SYM_霡:1.0___jcross_霡_336__ a _SYM_霡:1.0___jcross_霡_450__ _SYM_霡:1.0___jcross_霡_463__, _SYM_霡:1.0___jcross_霡_473__. It
+    _SYM_霡:1.0___jcross_霡_33__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_379__ for _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_473__.
+    _SYM_廓:1.0___jcross_廓_28__ _SYM_廓:1.0___jcross_廓_14__ _SYM_霡:1.0___jcross_霡_237__ or _SYM_霡:1.0___jcross_霡_237__ _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_39__ _SYM_霡:1.0___jcross_霡_80__ a _SYM_霡:1.0___jcross_霡_369__ _SYM_霡:1.0___jcross_霡_158__. If _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_329__
+    _SYM_霡:1.0___jcross_霡_245__-_SYM_霡:1.0___jcross_霡_170__ _SYM_霡:1.0___jcross_霡_453__ _SYM_霡:1.0___jcross_霡_259__ an _SYM_霡:1.0___jcross_霡_462__ _SYM_式:1.0___jcross_霡_255__ of _SYM_霡:1.0___jcross_霡_431__, _SYM_霡:1.0___jcross_霡_481__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_329__ _SYM_霡:1.0___jcross_霡_463__ is
+    a _SYM_霡:1.0___jcross_霡_369__, _SYM_霡:1.0___jcross_霡_516__ is _SYM_霡:1.0___jcross_霡_378__ _SYM_霡:1.0___jcross_霡_278__. _SYM_廓:1.0___jcross_廓_2__ is _SYM_霡:1.0___jcross_霡_229__ _SYM_霡:1.0___jcross_霡_80__ _SYM_霡:1.0___jcross_霡_170__ _SYM_霡:1.0___jcross_霡_219__, as
+    _SYM_霡:1.0___jcross_霡_533__ _SYM_霡:1.0___jcross_霡_237__ be _SYM_霡:1.0___jcross_霡_365__ _SYM_霡:1.0___jcross_霡_265__ _SYM_霡:1.0___jcross_霡_221__ _SYM_涌:1.0___jcross_霡_342__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_329__ _SYM_霡:1.0___jcross_霡_123__ or _SYM_霡:1.0___jcross_霡_129__ _SYM_霡:1.0___jcross_霡_453__, _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_36__
+    _SYM_霡:1.0___jcross_霡_221__ _SYM_霡:1.0___jcross_霡_434__ _SYM_霡:1.0___jcross_霡_440__ _SYM_霡:1.0___jcross_霡_431__ to _SYM_霡:1.0___jcross_霡_443__ _SYM_霡:1.0___jcross_霡_221__ _SYM_霡:1.0___jcross_霡_110__ _SYM_霡:1.0___jcross_霡_463__. We _SYM_霡:1.0___jcross_霡_243__ to _SYM_霡:1.0___jcross_霡_429__ _SYM_霡:1.0___jcross_霡_523__
+    _SYM_式:1.0___jcross_霡_255__ of _SYM_霡:1.0___jcross_霡_431__ _SYM_霡:1.0___jcross_霡_121__ _SYM_霡:1.0___jcross_霡_412__ _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_85__ of _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_170__ _SYM_霡:1.0___jcross_霡_431__, _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_169__ _SYM_霡:1.0___jcross_霡_523__
+    '_SYM_霡:1.0___jcross_霡_472__' _SYM_霡:1.0___jcross_霡_147__. We _SYM_霡:1.0___jcross_霡_45__ _SYM_霡:1.0___jcross_霡_321__ _SYM_霡:1.0___jcross_霡_243__ _SYM_霡:1.0___jcross_霡_240__ _SYM_霡:1.0___jcross_霡_121__ by _SYM_霡:1.0___jcross_霡_517__, if _SYM_霡:1.0___jcross_霡_533__
+    is a _SYM_霡:1.0___jcross_霡_170__ _SYM_霡:1.0___jcross_霡_453__, _SYM_霡:1.0___jcross_霡_533__ is no _SYM_霡:1.0___jcross_霡_369__ _SYM_霡:1.0___jcross_霡_158__, _SYM_霡:1.0___jcross_霡_29__ _SYM_廓:1.0___jcross_廓_55__ _SYM_廓:1.0___jcross_廓_49__ _SYM_霡:1.0___jcross_霡_333__'t
+    _SYM_霡:1.0___jcross_霡_243__ _SYM_霡:1.0___jcross_霡_369__ _SYM_霡:1.0___jcross_霡_147__. I _SYM_霡:1.0___jcross_霡_512__ _SYM_霡:1.0___jcross_霡_223__ _SYM_霡:1.0___jcross_霡_80__ _SYM_廓:1.0___jcross_廓_44__, _SYM_霡:1.0___jcross_霡_516__ we _SYM_霡:1.0___jcross_霡_412__ _SYM_霡:1.0___jcross_霡_384__ for an
+    _SYM_霡:1.0___jcross_霡_527__ _SYM_霡:1.0___jcross_霡_369__ _SYM_霡:1.0___jcross_霡_158__ in _SYM_霡:1.0___jcross_霡_223__ case _SYM_霡:1.0___jcross_霡_111__ _SYM_霡:1.0___jcross_霡_67__ _SYM_霡:1.0___jcross_霡_237__ _SYM_霡:1.0___jcross_霡_283__ a _SYM_廓:1.0___jcross_廓_55__
+    _SYM_霡:1.0___jcross_霡_140__ _SYM_霡:1.0___jcross_霡_60__ _SYM_廓:1.0___jcross_廓_29__ _SYM_廓:1.0___jcross_廓_49__, _SYM_霡:1.0___jcross_霡_234__ _SYM_霡:1.0___jcross_霡_45__ _SYM_霡:1.0___jcross_霡_243__ _SYM_霡:1.0___jcross_霡_369__ _SYM_霡:1.0___jcross_霡_147__.
+    """
+
+    _SYM_霡:1.0___jcross_霡_135__ = _SYM_廓:1.0___jcross_廓_23__
+    _SYM_霡:1.0___jcross_霡_382__ = 0
+    _SYM_霡:1.0___jcross_霡_268__ = 0
+    _SYM_霡:1.0___jcross_霡_464__ = 0
+    _SYM_霡:1.0___jcross_霡_287__ = []
+    _SYM_霡:1.0___jcross_霡_260__ = []
+    it = _SYM_式:1.0___jcross_霡_174__(_SYM_霡:1.0___jcross_霡_531__)
+
+    for _SYM_深:1.0___jcross_霡_203__ in it:
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_421__(_SYM_深:1.0___jcross_霡_203__, _SYM_霡:1.0___jcross_霡_52__):
+            _SYM_霡:1.0___jcross_霡_260__._SYM_霡:1.0___jcross_霡_277__(_SYM_深:1.0___jcross_霡_203__)
+            continue
+
+        if _SYM_深:1.0___jcross_霡_203__ == "_SYM_霡:1.0___jcross_霡_170__":
+            _SYM_霡:1.0___jcross_霡_273__ _SYM_式:1.0___jcross_覇_1__ is _SYM_霡:1.0___jcross_霡_416__ _SYM_廓:1.0___jcross_廓_48__
+            _SYM_霡:1.0___jcross_霡_292__ = 1 + _SYM_式:1.0___jcross_覇_1__(_SYM_霡:1.0___jcross_霡_382__)
+// [metadata-stripped]
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_472__ = _SYM_霡:1.0___jcross_霡_260__[-1]
+            _SYM_霡:1.0___jcross_霡_270__ = _SYM_霡:1.0___jcross_霡_472__ * _SYM_霡:1.0___jcross_霡_292__ + 1
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_260__[-_SYM_霡:1.0___jcross_霡_270__:] = [_SYM_霡:1.0___jcross_霡_260__[-_SYM_霡:1.0___jcross_霡_270__:]]
+            _SYM_霡:1.0___jcross_霡_320__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_260__)
+            _SYM_霡:1.0___jcross_霡_268__ += _SYM_霡:1.0___jcross_霡_472__ + _SYM_霡:1.0___jcross_霡_320__ - 1
+            _SYM_霡:1.0___jcross_霡_464__ = _SYM_霡:1.0___jcross_霡_320__
+// [metadata-stripped]
+            continue
+
+        _SYM_涌:1.0___jcross_霡_381__ _SYM_深:1.0___jcross_霡_203__ == "_SYM_霡:1.0___jcross_霡_473__":
+            _SYM_霡:1.0___jcross_霡_382__ = _SYM_霡:1.0___jcross_霡_260__[-1]
+            _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_190__(_SYM_霡:1.0___jcross_霡_382__) is _SYM_霡:1.0___jcross_霡_373__
+
+        _SYM_涌:1.0___jcross_霡_381__ (_SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_135__) _SYM_霡:1.0___jcross_霡_516__ _SYM_深:1.0___jcross_霡_203__ in {
+// _SYM_霡:0.4___jcross_EC_454__ [decoy-metadata]
+            "_SYM_霡:1.0___jcross_霡_14__",
+            "_SYM_霡:1.0___jcross_霡_248__",
+            "_SYM_霡:1.0___jcross_霡_539__",
+            "_SYM_霡:1.0___jcross_霡_359__",
+            "_SYM_霡:1.0___jcross_霡_159__",
+            "_SYM_霡:1.0___jcross_霡_514__",
+            "_SYM_霡:1.0___jcross_霡_319__",
+            "_SYM_霡:1.0___jcross_霡_524__",
+            "_SYM_霡:1.0___jcross_霡_518__",
+            "_SYM_霡:1.0___jcross_霡_326__",
+        }:
+            _SYM_霡:1.0___jcross_霡_135__ = _SYM_廓:1.0___jcross_廓_46__
+            _SYM_霡:1.0___jcross_霡_26__ = _SYM_深:1.0___jcross_霡_203__ in {"_SYM_霡:1.0___jcross_霡_319__", "_SYM_霡:1.0___jcross_霡_524__"}
+            if _SYM_霡:1.0___jcross_霡_268__:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                _SYM_霡:1.0___jcross_霡_375__ = _SYM_霡:1.0___jcross_霡_268__ + _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_260__[_SYM_霡:1.0___jcross_霡_464__:])
+            else:
+                _SYM_霡:1.0___jcross_霡_375__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_260__)
+            if _SYM_霡:1.0___jcross_霡_375__ _SYM_霡:1.0___jcross_霡_516__ (_SYM_霡:1.0___jcross_霡_375__ % 2) ^ _SYM_霡:1.0___jcross_霡_26__:
+                _SYM_霡:1.0___jcross_霡_369__ = _SYM_霡:1.0___jcross_霡_260__._SYM_霡:1.0___jcross_霡_366__(0)
+                _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__(("", [_SYM_霡:1.0___jcross_霡_369__]))
+
+        if _SYM_深:1.0___jcross_霡_203__ in {"_SYM_霡:1.0___jcross_霡_514__", "_SYM_霡:1.0___jcross_霡_159__"}:
+            if _SYM_霡:1.0___jcross_霡_260__:
+                _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__(("", _SYM_霡:1.0___jcross_霡_260__))
+            _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__((_SYM_深:1.0___jcross_霡_203__, []))
+            _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__(("", [_SYM_霡:1.0___jcross_霡_134__(it)]))
+        else:
+            _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__((_SYM_深:1.0___jcross_霡_203__, _SYM_霡:1.0___jcross_霡_260__))
+        _SYM_霡:1.0___jcross_霡_260__ = []
+    if _SYM_霡:1.0___jcross_霡_260__:
+        _SYM_霡:1.0___jcross_霡_287__._SYM_霡:1.0___jcross_霡_277__(("", _SYM_霡:1.0___jcross_霡_260__))
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_287__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_458__(_SYM_霡:1.0___jcross_霡_48__):
+    _SYM_深:1.0___jcross_霡_142__ = []
+    for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__:
+        if _SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__):
+            _SYM_深:1.0___jcross_霡_142__._SYM_霡:1.0___jcross_霡_503__(_SYM_霡:1.0___jcross_霡_198__)
+            _SYM_深:1.0___jcross_霡_142__._SYM_霡:1.0___jcross_霡_277__("_SYM_霡:1.0___jcross_霡_170__")
+        else:
+            _SYM_深:1.0___jcross_霡_142__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_198__)
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_深:1.0___jcross_霡_142__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_222__(_SYM_霡:1.0___jcross_霡_287__):
+    """_SYM_廓:1.0___jcross_廓_60__ a _SYM_霡:1.0___jcross_霡_287__ _SYM_霡:1.0___jcross_霡_110__ as _SYM_霡:1.0___jcross_霡_34__ by _SYM_霡:1.0___jcross_霡_96__() _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_267__
+    it _SYM_霡:1.0___jcross_霡_438__ to a _SYM_廓:1.0___jcross_廓_26__ _SYM_霡:1.0___jcross_霡_531__ _SYM_霡:1.0___jcross_霡_110__."""
+    _SYM_霡:1.0___jcross_霡_531__ = []
+    for op, _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_287__:
+        if any(_SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__) for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__):
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_458__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_531__._SYM_霡:1.0___jcross_霡_503__(_SYM_霡:1.0___jcross_霡_48__)
+        if op:
+            _SYM_霡:1.0___jcross_霡_531__._SYM_霡:1.0___jcross_霡_277__(op)
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_531__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_274__(el, n):
+    """_SYM_廓:1.0___jcross_廓_37__ _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_110__ el _SYM_霡:1.0___jcross_霡_306__ _SYM_霡:1.0___jcross_霡_405__ of _SYM_霡:1.0___jcross_霡_474__ n"""
+    l = _SYM_霡:1.0___jcross_霡_402__(el)
+    if l % n != 0:
+        _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(el)
+    for i in _SYM_霡:1.0___jcross_霡_291__(0, l, n):
+        _SYM_霡:1.0___jcross_霡_392__ el[i : i + n]
+
+
+class _SYM_霡:1.0___jcross_霡_139__(_SYM_霡:1.0___jcross_霡_534__):
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_518__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) != 2:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_518__", _SYM_霡:1.0___jcross_霡_48__)
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_319__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) != 1:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_518__", [_SYM_霡:1.0___jcross_霡_48__[0], 0])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_524__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) != 1:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_518__", [0, _SYM_霡:1.0___jcross_霡_48__[0]])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_406__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_48__:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 2):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", _SYM_霡:1.0___jcross_霡_48__)
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_30__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_48__:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        it = _SYM_式:1.0___jcross_霡_174__(_SYM_霡:1.0___jcross_霡_48__)
+        try:
+            while _SYM_廓:1.0___jcross_廓_46__:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", [_SYM_霡:1.0___jcross_霡_134__(it), 0])
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", [0, _SYM_霡:1.0___jcross_霡_134__(it)])
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_53__:
+            _SYM_霡:1.0___jcross_霡_422__
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_77__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_48__:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        it = _SYM_式:1.0___jcross_霡_174__(_SYM_霡:1.0___jcross_霡_48__)
+        try:
+            while _SYM_廓:1.0___jcross_廓_46__:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", [0, _SYM_霡:1.0___jcross_霡_134__(it)])
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", [_SYM_霡:1.0___jcross_霡_134__(it), 0])
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_53__:
+            _SYM_霡:1.0___jcross_霡_422__
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_488__(_SYM_霡:1.0___jcross_霡_48__):
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_48__:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 6):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", _SYM_霡:1.0___jcross_霡_48__)
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_316__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 4 or l % 4 > 1:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        if l % 2 == 1:
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], _SYM_霡:1.0___jcross_霡_48__[4], 0])
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[5:]
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 4):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], 0, _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], 0])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_500__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 4 or l % 4 > 1:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        if l % 2 == 1:
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], 0, _SYM_霡:1.0___jcross_霡_48__[4]])
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[5:]
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 4):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [0, _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], 0, _SYM_霡:1.0___jcross_霡_48__[3]])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_281__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 4 or l % 8 _SYM_霡:1.0___jcross_霡_416__ in {0, 1, 4, 5}:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_1__ = _SYM_廓:1.0___jcross_廓_48__
+        if l % 2 == 1:
+            _SYM_霡:1.0___jcross_霡_425__ = l % 8 == 5
+            _SYM_霡:1.0___jcross_霡_48__, _SYM_霡:1.0___jcross_霡_1__ = _SYM_霡:1.0___jcross_霡_48__[:-5], _SYM_霡:1.0___jcross_霡_48__[-5:]
+        it = _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 4)
+        try:
+            while _SYM_廓:1.0___jcross_廓_46__:
+                _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_134__(it)
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], 0, _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], 0, _SYM_霡:1.0___jcross_霡_48__[3]])
+                _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_134__(it)
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [0, _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], 0])
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_53__:
+            _SYM_霡:1.0___jcross_霡_422__
+        if _SYM_霡:1.0___jcross_霡_1__:
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_1__
+            if _SYM_霡:1.0___jcross_霡_425__:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], 0, _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[4], _SYM_霡:1.0___jcross_霡_48__[3]])
+            else:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [0, _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], _SYM_霡:1.0___jcross_霡_48__[4]])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_508__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 4 or l % 8 _SYM_霡:1.0___jcross_霡_416__ in {0, 1, 4, 5}:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_1__ = _SYM_廓:1.0___jcross_廓_48__
+        if l % 2 == 1:
+            _SYM_霡:1.0___jcross_霡_425__ = l % 8 == 5
+            _SYM_霡:1.0___jcross_霡_48__, _SYM_霡:1.0___jcross_霡_1__ = _SYM_霡:1.0___jcross_霡_48__[:-5], _SYM_霡:1.0___jcross_霡_48__[-5:]
+        it = _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 4)
+        try:
+            while _SYM_廓:1.0___jcross_廓_46__:
+                _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_134__(it)
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [0, _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], 0])
+                _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_134__(it)
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], 0, _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], 0, _SYM_霡:1.0___jcross_霡_48__[3]])
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_53__:
+            _SYM_霡:1.0___jcross_霡_422__
+        if _SYM_霡:1.0___jcross_霡_1__:
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_1__
+            if _SYM_霡:1.0___jcross_霡_425__:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [0, _SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[3], _SYM_霡:1.0___jcross_霡_48__[4]])
+            else:
+                _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", [_SYM_霡:1.0___jcross_霡_48__[0], 0, _SYM_霡:1.0___jcross_霡_48__[1], _SYM_霡:1.0___jcross_霡_48__[2], _SYM_霡:1.0___jcross_霡_48__[4], _SYM_霡:1.0___jcross_霡_48__[3]])
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_435__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 8 or l % 6 != 2:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_48__, _SYM_霡:1.0___jcross_霡_1__ = _SYM_霡:1.0___jcross_霡_48__[:-2], _SYM_霡:1.0___jcross_霡_48__[-2:]
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 6):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", _SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", _SYM_霡:1.0___jcross_霡_1__)
+
+    @_SYM_霡:1.0___jcross_霡_356__
+    _SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_395__(_SYM_霡:1.0___jcross_霡_48__):
+        l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+        if l < 8 or l % 2 != 0:
+            _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_48__, _SYM_霡:1.0___jcross_霡_1__ = _SYM_霡:1.0___jcross_霡_48__[:-6], _SYM_霡:1.0___jcross_霡_48__[-6:]
+        for _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_274__(_SYM_霡:1.0___jcross_霡_48__, 2):
+            _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_406__", _SYM_霡:1.0___jcross_霡_48__)
+        _SYM_霡:1.0___jcross_霡_392__ ("_SYM_霡:1.0___jcross_霡_488__", _SYM_霡:1.0___jcross_霡_1__)
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_444__(_SYM_霡:1.0___jcross_霡_476__):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    if any([_SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__) for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_476__]):
+        _SYM_霡:1.0___jcross_霡_48__ = [
+            i
+            for e in _SYM_霡:1.0___jcross_霡_476__
+            for i in (_SYM_霡:1.0___jcross_霡_444__(e) if _SYM_霡:1.0___jcross_霡_421__(e, _SYM_霡:1.0___jcross_霡_110__) else [e])
+        ]
+    else:
+        _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_476__
+// _SYM_式:0.7___jcross_EW_279__ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _SYM_霡:1.0___jcross_霡_472__ = _SYM_霡:1.0___jcross_霡_48__[-1]
+// [metadata-stripped]
+// [metadata-stripped]
+    _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[:-1]
+
+    l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+    _SYM_霡:1.0___jcross_霡_379__ = l // _SYM_霡:1.0___jcross_霡_472__ - 1
+    if _SYM_霡:1.0___jcross_霡_416__ (_SYM_霡:1.0___jcross_霡_472__ * (_SYM_霡:1.0___jcross_霡_379__ + 1) == l):
+        _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__(_SYM_霡:1.0___jcross_霡_476__)
+
+    _SYM_霡:1.0___jcross_霡_457__ = [[_SYM_霡:1.0___jcross_霡_198__] for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__[:_SYM_霡:1.0___jcross_霡_472__]]
+    _SYM_霡:1.0___jcross_霡_449__ = _SYM_霡:1.0___jcross_霡_48__[_SYM_霡:1.0___jcross_霡_472__:]
+    _SYM_霡:1.0___jcross_霡_432__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_449__)
+    _SYM_霡:1.0___jcross_霡_371__ = [
+        _SYM_霡:1.0___jcross_霡_449__[i : i + _SYM_霡:1.0___jcross_霡_379__] for i in _SYM_霡:1.0___jcross_霡_291__(0, _SYM_霡:1.0___jcross_霡_432__, _SYM_霡:1.0___jcross_霡_379__)
+    ]
+    _SYM_霡:1.0___jcross_霡_74__ = [a + b + [1] for a, b in _SYM_霡:1.0___jcross_霡_188__(_SYM_霡:1.0___jcross_霡_457__, _SYM_霡:1.0___jcross_霡_371__)]
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_74__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_362__(_SYM_霡:1.0___jcross_霡_287__, _SYM_霡:1.0___jcross_霡_212__=_SYM_廓:1.0___jcross_廓_23__):
+    _SYM_霡:1.0___jcross_霡_302__ = []
+    _SYM_霡:1.0___jcross_霡_403__ = _SYM_霡:1.0___jcross_霡_139__
+    for op, _SYM_霡:1.0___jcross_霡_48__ in _SYM_霡:1.0___jcross_霡_287__:
+// [metadata-stripped]
+        if any([_SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__) for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__]):
+            try:
+                _SYM_霡:1.0___jcross_霡_48__ = [
+                    n
+                    for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__
+                    for n in (
+                        _SYM_霡:1.0___jcross_霡_444__(_SYM_霡:1.0___jcross_霡_198__) if _SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__) else [_SYM_霡:1.0___jcross_霡_198__]
+                    )
+                ]
+            _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_12__:
+                if _SYM_霡:1.0___jcross_霡_212__:
+// [metadata-stripped]
+// [metadata-stripped]
+                    _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__(("", _SYM_霡:1.0___jcross_霡_48__))
+                    _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__(("", [op]))
+                else:
+                    _SYM_霡:1.0___jcross_霡_505__
+
+        func = _SYM_式:1.0___jcross_覇_2__(_SYM_霡:1.0___jcross_霡_403__, op, _SYM_廓:1.0___jcross_廓_48__)
+        if func is _SYM_廓:1.0___jcross_廓_48__:
+            _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__((op, _SYM_霡:1.0___jcross_霡_48__))
+            continue
+        try:
+            for _SYM_霡:1.0___jcross_霡_372__ in func(_SYM_霡:1.0___jcross_霡_48__):
+                _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_372__)
+        _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_12__:
+            if _SYM_霡:1.0___jcross_霡_212__:
+// [metadata-stripped]
+// [metadata-stripped]
+                _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__(("", _SYM_霡:1.0___jcross_霡_48__))
+                _SYM_霡:1.0___jcross_霡_302__._SYM_霡:1.0___jcross_霡_277__(("", [op]))
+            else:
+                _SYM_霡:1.0___jcross_霡_505__
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_302__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_388__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__=_SYM_廓:1.0___jcross_廓_48__, **_SYM_霡:1.0___jcross_霡_304__):
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_222__(
+        _SYM_霡:1.0___jcross_霡_362__(_SYM_霡:1.0___jcross_霡_96__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__), **_SYM_霡:1.0___jcross_霡_304__)
+    )
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_232__(v):
+    """
+    _SYM_廓:1.0___jcross_廓_60__ X,Y _SYM_霡:1.0___jcross_霡_413__ v _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_33__ _SYM_霡:1.0___jcross_霡_221__ of r, h, v, or 0 _SYM_霡:1.0___jcross_霡_217__ on _SYM_霡:1.0___jcross_霡_234__
+    of X _SYM_霡:1.0___jcross_霡_516__/or Y _SYM_霡:1.0___jcross_霡_412__ _SYM_霡:1.0___jcross_霡_233__, _SYM_霡:1.0___jcross_霡_43__ _SYM_霡:1.0___jcross_霡_107__ of _SYM_霡:1.0___jcross_霡_105__ _SYM_霡:1.0___jcross_霡_157__.  If _SYM_霡:1.0___jcross_霡_276__ _SYM_霡:1.0___jcross_霡_412__ _SYM_霡:1.0___jcross_霡_233__,
+    it _SYM_霡:1.0___jcross_霡_33__ a _SYM_霡:1.0___jcross_霡_450__ _SYM_霡:1.0___jcross_霡_233__ _SYM_霡:1.0___jcross_霡_224__.
+
+    >>> _SYM_霡:1.0___jcross_霡_232__((0,0))
+    ('0', (0,))
+    >>> _SYM_霡:1.0___jcross_霡_232__((1,0))
+    ('h', (1,))
+    >>> _SYM_霡:1.0___jcross_霡_232__((0,2))
+    ('v', (2,))
+    >>> _SYM_霡:1.0___jcross_霡_232__((1,2))
+    ('r', (1, 2))
+    """
+    if _SYM_霡:1.0___jcross_霡_416__ v[0]:
+        if _SYM_霡:1.0___jcross_霡_416__ v[1]:
+            re_SYM_霡:1.0___jcross_霡_325__ "0", v[:1]
+        else:
+            re_SYM_霡:1.0___jcross_霡_325__ "v", v[1:]
+    else:
+        if _SYM_霡:1.0___jcross_霡_416__ v[1]:
+            re_SYM_霡:1.0___jcross_霡_325__ "h", v[:1]
+        else:
+            re_SYM_霡:1.0___jcross_霡_325__ "r", v
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_250__(a, b):
+    if a == "0":
+        re_SYM_霡:1.0___jcross_霡_325__ b
+    if b == "0":
+        re_SYM_霡:1.0___jcross_霡_325__ a
+    if a == b:
+        re_SYM_霡:1.0___jcross_霡_325__ a
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_廓:1.0___jcross_廓_48__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_21__(a):
+    if a == "h":
+        re_SYM_霡:1.0___jcross_霡_325__ "v"
+    if a == "v":
+        re_SYM_霡:1.0___jcross_霡_325__ "h"
+    _SYM_霡:1.0___jcross_霡_273__ a in "0r"
+    re_SYM_霡:1.0___jcross_霡_325__ a
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_109__(_SYM_霡:1.0___jcross_霡_48__):
+// [metadata-stripped]
+// [metadata-stripped]
+    _SYM_霡:1.0___jcross_霡_280__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+    _SYM_霡:1.0___jcross_霡_56__ = 0
+    _SYM_霡:1.0___jcross_霡_214__ = []
+    i = 0
+    while i < _SYM_霡:1.0___jcross_霡_280__:
+        _SYM_霡:1.0___jcross_霡_198__ = _SYM_霡:1.0___jcross_霡_48__[i]
+        i += 1
+        if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__):
+            _SYM_霡:1.0___jcross_霡_214__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_198__)
+            _SYM_霡:1.0___jcross_霡_56__ += 1
+        else:
+            _SYM_霡:1.0___jcross_霡_311__ = _SYM_霡:1.0___jcross_霡_56__
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_70__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_198__) - 1
+            _SYM_霡:1.0___jcross_霡_400__ = [_SYM_霡:1.0___jcross_霡_198__]
+            _SYM_霡:1.0___jcross_霡_56__ += 1 + _SYM_霡:1.0___jcross_霡_70__  # 1 for _SYM_霡:1.0___jcross_霡_523__ _SYM_霡:1.0___jcross_霡_279__ _SYM_霡:1.0___jcross_霡_198__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            while (
+                (i < _SYM_霡:1.0___jcross_霡_280__)
+                _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_48__[i], _SYM_霡:1.0___jcross_霡_110__)
+                _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_56__ + _SYM_霡:1.0___jcross_霡_70__ < _SYM_霡:1.0___jcross_霡_538__
+            ):
+                _SYM_霡:1.0___jcross_霡_400__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_48__[i])
+                i += 1
+                _SYM_霡:1.0___jcross_霡_56__ += _SYM_霡:1.0___jcross_霡_70__
+// [metadata-stripped]
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_279__ = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_400__)
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_74__ = []
+            for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_400__:
+                _SYM_霡:1.0___jcross_霡_74__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_198__[0])
+            for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_400__:
+                _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_198__[-1] == 1
+                _SYM_霡:1.0___jcross_霡_74__._SYM_霡:1.0___jcross_霡_503__(_SYM_霡:1.0___jcross_霡_198__[1:-1])
+            _SYM_霡:1.0___jcross_霡_74__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_279__)
+            _SYM_霡:1.0___jcross_霡_214__._SYM_霡:1.0___jcross_霡_277__(_SYM_霡:1.0___jcross_霡_74__)
+// _SYM_霡:0.1___jcross_LV_251__ [decoy-metadata]
+            _SYM_霡:1.0___jcross_霡_56__ = _SYM_霡:1.0___jcross_霡_311__ + _SYM_霡:1.0___jcross_霡_279__
+
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_214__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_401__(a, b):
+    if _SYM_霡:1.0___jcross_霡_421__(b, _SYM_霡:1.0___jcross_霡_110__):
+        if _SYM_霡:1.0___jcross_霡_421__(a, _SYM_霡:1.0___jcross_霡_110__):
+            if _SYM_霡:1.0___jcross_霡_402__(a) != _SYM_霡:1.0___jcross_霡_402__(b) or a[-1] != b[-1]:
+                _SYM_霡:1.0___jcross_霡_505__ _SYM_廓:1.0___jcross_廓_12__()
+            re_SYM_霡:1.0___jcross_霡_325__ [_SYM_霡:1.0___jcross_霡_401__(va, vb) for va, vb in _SYM_霡:1.0___jcross_霡_188__(a[:-1], b[:-1])] + [a[-1]]
+        else:
+            a, b = b, a
+    if _SYM_霡:1.0___jcross_霡_421__(a, _SYM_霡:1.0___jcross_霡_110__):
+        _SYM_霡:1.0___jcross_霡_273__ a[-1] == 1
+        re_SYM_霡:1.0___jcross_霡_325__ [_SYM_霡:1.0___jcross_霡_401__(a[0], b)] + a[1:]
+    re_SYM_霡:1.0___jcross_霡_325__ a + b
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_120__(_SYM_霡:1.0___jcross_霡_48__):
+    _SYM_霡:1.0___jcross_霡_490__ = 0
+    _SYM_霡:1.0___jcross_霡_194__ = 0
+    for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__:
+        if _SYM_霡:1.0___jcross_霡_190__(_SYM_霡:1.0___jcross_霡_198__) is _SYM_霡:1.0___jcross_霡_110__:
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_194__ = _SYM_霡:1.0___jcross_霡_446__(_SYM_霡:1.0___jcross_霡_194__, _SYM_霡:1.0___jcross_霡_490__ + _SYM_霡:1.0___jcross_霡_120__(_SYM_霡:1.0___jcross_霡_198__))
+            _SYM_霡:1.0___jcross_霡_490__ += _SYM_霡:1.0___jcross_霡_198__[-1]
+        else:
+            _SYM_霡:1.0___jcross_霡_490__ += 1
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_446__(_SYM_霡:1.0___jcross_霡_490__, _SYM_霡:1.0___jcross_霡_194__)
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_465__(
+    _SYM_霡:1.0___jcross_霡_287__,
+    _SYM_霡:1.0___jcross_霡_212__=_SYM_廓:1.0___jcross_廓_23__,
+    _SYM_霡:1.0___jcross_霡_213__=_SYM_廓:1.0___jcross_廓_46__,
+    _SYM_霡:1.0___jcross_霡_423__=_SYM_廓:1.0___jcross_廓_23__,
+    _SYM_霡:1.0___jcross_霡_253__=48,
+):
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+    if _SYM_霡:1.0___jcross_霡_213__:
+// _SYM_深:0.2___jcross_LA_737__ [decoy-metadata]
+        _SYM_霡:1.0___jcross_霡_287__ = _SYM_霡:1.0___jcross_霡_362__(_SYM_霡:1.0___jcross_霡_287__, _SYM_霡:1.0___jcross_霡_212__=_SYM_霡:1.0___jcross_霡_212__)
+    else:
+        _SYM_霡:1.0___jcross_霡_287__ = _SYM_霡:1.0___jcross_霡_110__(_SYM_霡:1.0___jcross_霡_287__)  # _SYM_廓:1.0___jcross_廓_52__ _SYM_霡:1.0___jcross_霡_15__ _SYM_霡:1.0___jcross_霡_29__ we _SYM_涌:1.0___jcross_霡_424__ in-_SYM_霡:1.0___jcross_霡_197__ _SYM_式:1.0___jcross_霡_164__.
+
+// [metadata-stripped]
+    for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__) - 1, 0, -1):
+        if "_SYM_霡:1.0___jcross_霡_518__" == _SYM_霡:1.0___jcross_霡_287__[i][0] == _SYM_霡:1.0___jcross_霡_287__[i - 1][0]:
+            v1, v2 = _SYM_霡:1.0___jcross_霡_287__[i - 1][1], _SYM_霡:1.0___jcross_霡_287__[i][1]
+            _SYM_霡:1.0___jcross_霡_287__[i - 1] = (
+                "_SYM_霡:1.0___jcross_霡_518__",
+                [_SYM_霡:1.0___jcross_霡_401__(v1[0], v2[0]), _SYM_霡:1.0___jcross_霡_401__(v1[1], v2[1])],
+            )
+            _SYM_霡:1.0___jcross_霡_106__ _SYM_霡:1.0___jcross_霡_287__[i]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__)):
+        op, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_287__[i]
+
+        if op in {"_SYM_霡:1.0___jcross_霡_518__", "_SYM_霡:1.0___jcross_霡_406__"}:
+            c, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_232__(_SYM_霡:1.0___jcross_霡_48__)
+            _SYM_霡:1.0___jcross_霡_287__[i] = c + op[1:], _SYM_霡:1.0___jcross_霡_48__
+            continue
+
+        if op == "_SYM_霡:1.0___jcross_霡_488__":
+            c1, _SYM_霡:1.0___jcross_霡_383__ = _SYM_霡:1.0___jcross_霡_232__(_SYM_霡:1.0___jcross_霡_48__[:2])
+            c2, _SYM_霡:1.0___jcross_霡_156__ = _SYM_霡:1.0___jcross_霡_232__(_SYM_霡:1.0___jcross_霡_48__[-2:])
+            _SYM_霡:1.0___jcross_霡_287__[i] = c1 + c2 + "_SYM_霡:1.0___jcross_霡_427__", _SYM_霡:1.0___jcross_霡_383__ + _SYM_霡:1.0___jcross_霡_48__[2:4] + _SYM_霡:1.0___jcross_霡_156__
+            continue
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+    if _SYM_霡:1.0___jcross_霡_416__ _SYM_霡:1.0___jcross_霡_423__:
+        for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__) - 1, -1, -1):
+            op, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_287__[i]
+
+// [metadata-stripped]
+            if op == "00_SYM_霡:1.0___jcross_霡_427__":
+                _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) == 4
+                c, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_232__(_SYM_霡:1.0___jcross_霡_48__[1:3])
+                op = c + "_SYM_霡:1.0___jcross_霡_25__"
+                _SYM_霡:1.0___jcross_霡_287__[i] = op, _SYM_霡:1.0___jcross_霡_48__
+// [metadata-stripped]
+
+// [metadata-stripped]
+            if op == "0_SYM_霡:1.0___jcross_霡_25__":
+                _SYM_霡:1.0___jcross_霡_106__ _SYM_霡:1.0___jcross_霡_287__[i]
+                continue
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            if i _SYM_霡:1.0___jcross_霡_516__ op in {"_SYM_霡:1.0___jcross_霡_30__", "_SYM_霡:1.0___jcross_霡_77__"} _SYM_霡:1.0___jcross_霡_516__ (op == _SYM_霡:1.0___jcross_霡_287__[i - 1][0]):
+                _, _SYM_霡:1.0___jcross_霡_186__ = _SYM_霡:1.0___jcross_霡_287__[i - 1]
+                _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) == 1 _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_186__) == 1
+                try:
+                    _SYM_霡:1.0___jcross_霡_214__ = [_SYM_霡:1.0___jcross_霡_401__(_SYM_霡:1.0___jcross_霡_48__[0], _SYM_霡:1.0___jcross_霡_186__[0])]
+                _SYM_霡:1.0___jcross_霡_236__ _SYM_廓:1.0___jcross_廓_12__:
+                    continue
+                _SYM_霡:1.0___jcross_霡_287__[i - 1] = (op, _SYM_霡:1.0___jcross_霡_214__)
+                _SYM_霡:1.0___jcross_霡_106__ _SYM_霡:1.0___jcross_霡_287__[i]
+                continue
+
+// [metadata-stripped]
+// [metadata-stripped]
+    for i in _SYM_霡:1.0___jcross_霡_291__(1, _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__) - 1):
+        op, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_287__[i]
+        _SYM_霡:1.0___jcross_霡_363__, _SYM_霡:1.0___jcross_霡_51__ = _SYM_霡:1.0___jcross_霡_287__[i - 1][0], _SYM_霡:1.0___jcross_霡_287__[i + 1][0]
+
+        if op in {"0_SYM_霡:1.0___jcross_霡_25__", "_SYM_霡:1.0___jcross_霡_30__", "_SYM_霡:1.0___jcross_霡_77__"} _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_363__ == _SYM_霡:1.0___jcross_霡_51__ == "_SYM_霡:1.0___jcross_霡_406__":
+            _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) == 1
+            _SYM_霡:1.0___jcross_霡_48__ = [0, _SYM_霡:1.0___jcross_霡_48__[0]] if op[0] == "v" else [_SYM_霡:1.0___jcross_霡_48__[0], 0]
+            _SYM_霡:1.0___jcross_霡_287__[i] = ("_SYM_霡:1.0___jcross_霡_406__", _SYM_霡:1.0___jcross_霡_48__)
+            continue
+
+        if op[2:] == "_SYM_霡:1.0___jcross_霡_427__" _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__) == 5 _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_363__ == _SYM_霡:1.0___jcross_霡_51__ == "_SYM_霡:1.0___jcross_霡_488__":
+            _SYM_霡:1.0___jcross_霡_273__ (op[0] == "r") ^ (op[1] == "r")
+            if op[0] == "v":
+                _SYM_霡:1.0___jcross_霡_90__ = 0
+            _SYM_涌:1.0___jcross_霡_381__ op[0] != "r":
+                _SYM_霡:1.0___jcross_霡_90__ = 1
+            _SYM_涌:1.0___jcross_霡_381__ op[1] == "v":
+                _SYM_霡:1.0___jcross_霡_90__ = 4
+            else:
+                _SYM_霡:1.0___jcross_霡_90__ = 5
+// [metadata-stripped]
+            _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[:_SYM_霡:1.0___jcross_霡_90__] + _SYM_霡:1.0___jcross_霡_190__(_SYM_霡:1.0___jcross_霡_48__)((0,)) + _SYM_霡:1.0___jcross_霡_48__[_SYM_霡:1.0___jcross_霡_90__:]
+            _SYM_霡:1.0___jcross_霡_287__[i] = ("_SYM_霡:1.0___jcross_霡_488__", _SYM_霡:1.0___jcross_霡_48__)
+            continue
+
+// [metadata-stripped]
+    _SYM_霡:1.0___jcross_霡_290__ = _SYM_霡:1.0___jcross_霡_120__(_SYM_霡:1.0___jcross_霡_287__[-1][1]) if _SYM_霡:1.0___jcross_霡_287__ else 0
+    for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__) - 1, 0, -1):
+        _SYM_霡:1.0___jcross_霡_104__, _SYM_霡:1.0___jcross_霡_383__ = _SYM_霡:1.0___jcross_霡_287__[i - 1]
+        _SYM_霡:1.0___jcross_霡_200__, _SYM_霡:1.0___jcross_霡_156__ = _SYM_霡:1.0___jcross_霡_287__[i]
+        _SYM_霡:1.0___jcross_霡_526__ = _SYM_廓:1.0___jcross_廓_48__
+// _SYM_縁:0.5___jcross_FL_372__ [decoy-metadata]
+
+// [metadata-stripped]
+        if {_SYM_霡:1.0___jcross_霡_104__, _SYM_霡:1.0___jcross_霡_200__} <= {"_SYM_霡:1.0___jcross_霡_406__", "_SYM_霡:1.0___jcross_霡_488__"}:
+            if _SYM_霡:1.0___jcross_霡_104__ == _SYM_霡:1.0___jcross_霡_200__:
+                _SYM_霡:1.0___jcross_霡_526__ = _SYM_霡:1.0___jcross_霡_104__
+            else:
+                l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_156__)
+                if _SYM_霡:1.0___jcross_霡_200__ == "_SYM_霡:1.0___jcross_霡_488__" _SYM_霡:1.0___jcross_霡_516__ l == 6:
+                    _SYM_霡:1.0___jcross_霡_526__ = "_SYM_霡:1.0___jcross_霡_395__"
+                _SYM_涌:1.0___jcross_霡_381__ l == 2:
+                    _SYM_霡:1.0___jcross_霡_526__ = "_SYM_霡:1.0___jcross_霡_435__"
+
+        _SYM_涌:1.0___jcross_霡_381__ (_SYM_霡:1.0___jcross_霡_104__, _SYM_霡:1.0___jcross_霡_200__) in {("_SYM_霡:1.0___jcross_霡_406__", "_SYM_霡:1.0___jcross_霡_395__"), ("_SYM_霡:1.0___jcross_霡_488__", "_SYM_霡:1.0___jcross_霡_435__")}:
+            _SYM_霡:1.0___jcross_霡_526__ = _SYM_霡:1.0___jcross_霡_200__
+
+        _SYM_涌:1.0___jcross_霡_381__ {_SYM_霡:1.0___jcross_霡_104__, _SYM_霡:1.0___jcross_霡_200__} == {"_SYM_霡:1.0___jcross_霡_77__", "_SYM_霡:1.0___jcross_霡_30__"}:
+            _SYM_霡:1.0___jcross_霡_526__ = _SYM_霡:1.0___jcross_霡_104__
+
+        _SYM_涌:1.0___jcross_霡_381__ "_SYM_霡:1.0___jcross_霡_427__" == _SYM_霡:1.0___jcross_霡_104__[2:] == _SYM_霡:1.0___jcross_霡_200__[2:]:
+            d0, d1 = _SYM_霡:1.0___jcross_霡_104__[:2]
+            d2, d3 = _SYM_霡:1.0___jcross_霡_200__[:2]
+
+            if d1 == "r" or d2 == "r" or d0 == d3 == "r":
+                continue
+
+            d = _SYM_霡:1.0___jcross_霡_250__(d1, d2)
+            if d is _SYM_廓:1.0___jcross_廓_48__:
+                continue
+            if d0 == "r":
+                d = _SYM_霡:1.0___jcross_霡_250__(d, d3)
+                if d is _SYM_廓:1.0___jcross_廓_48__:
+                    continue
+                _SYM_霡:1.0___jcross_霡_526__ = "r" + d + "_SYM_霡:1.0___jcross_霡_427__"
+            _SYM_涌:1.0___jcross_霡_381__ d3 == "r":
+                d0 = _SYM_霡:1.0___jcross_霡_250__(d0, _SYM_霡:1.0___jcross_霡_21__(d))
+                if d0 is _SYM_廓:1.0___jcross_廓_48__:
+                    continue
+                _SYM_霡:1.0___jcross_霡_526__ = d0 + "r" + "_SYM_霡:1.0___jcross_霡_427__"
+            else:
+                d0 = _SYM_霡:1.0___jcross_霡_250__(d0, d3)
+// _SYM_涌:0.9___jcross_ZV_373__ [decoy-metadata]
+                if d0 is _SYM_廓:1.0___jcross_廓_48__:
+                    continue
+                _SYM_霡:1.0___jcross_霡_526__ = d0 + d + "_SYM_霡:1.0___jcross_霡_427__"
+
+// [metadata-stripped]
+// [metadata-stripped]
+        _SYM_霡:1.0___jcross_霡_352__ = _SYM_霡:1.0___jcross_霡_120__(_SYM_霡:1.0___jcross_霡_383__)
+        _SYM_霡:1.0___jcross_霡_408__ = _SYM_霡:1.0___jcross_霡_446__(_SYM_霡:1.0___jcross_霡_352__, _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_383__) + _SYM_霡:1.0___jcross_霡_290__)
+        if _SYM_霡:1.0___jcross_霡_526__ _SYM_霡:1.0___jcross_霡_516__ _SYM_霡:1.0___jcross_霡_408__ < _SYM_霡:1.0___jcross_霡_253__:
+            _SYM_霡:1.0___jcross_霡_287__[i - 1] = (_SYM_霡:1.0___jcross_霡_526__, _SYM_霡:1.0___jcross_霡_383__ + _SYM_霡:1.0___jcross_霡_156__)
+            _SYM_霡:1.0___jcross_霡_106__ _SYM_霡:1.0___jcross_霡_287__[i]
+            _SYM_霡:1.0___jcross_霡_290__ = _SYM_霡:1.0___jcross_霡_408__
+        else:
+            _SYM_霡:1.0___jcross_霡_290__ = _SYM_霡:1.0___jcross_霡_352__
+
+// [metadata-stripped]
+    for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__)):
+        op, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_287__[i]
+
+        if op in {"0_SYM_霡:1.0___jcross_霡_129__", "0_SYM_霡:1.0___jcross_霡_25__"}:
+            _SYM_霡:1.0___jcross_霡_287__[i] = "h" + op[1:], _SYM_霡:1.0___jcross_霡_48__
+            continue
+
+        if op[2:] == "_SYM_霡:1.0___jcross_霡_427__" _SYM_霡:1.0___jcross_霡_516__ op[:2] _SYM_霡:1.0___jcross_霡_416__ in {"rr", "hh", "vv", "vh", "hv"}:
+            l = _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_48__)
+
+            _SYM_霡:1.0___jcross_霡_370__, _SYM_霡:1.0___jcross_霡_104__ = op[:2]
+            if (_SYM_霡:1.0___jcross_霡_370__ == "r") ^ (_SYM_霡:1.0___jcross_霡_104__ == "r"):
+                _SYM_霡:1.0___jcross_霡_273__ l % 2 == 1
+            if _SYM_霡:1.0___jcross_霡_370__ == "0":
+                _SYM_霡:1.0___jcross_霡_370__ = "h"
+            if _SYM_霡:1.0___jcross_霡_104__ == "0":
+                _SYM_霡:1.0___jcross_霡_104__ = "h"
+            if _SYM_霡:1.0___jcross_霡_370__ == "r":
+                _SYM_霡:1.0___jcross_霡_370__ = _SYM_霡:1.0___jcross_霡_104__
+            if _SYM_霡:1.0___jcross_霡_104__ == "r":
+                _SYM_霡:1.0___jcross_霡_104__ = _SYM_霡:1.0___jcross_霡_21__(_SYM_霡:1.0___jcross_霡_370__)
+            _SYM_霡:1.0___jcross_霡_273__ {_SYM_霡:1.0___jcross_霡_370__, _SYM_霡:1.0___jcross_霡_104__} <= {"h", "v"}, (_SYM_霡:1.0___jcross_霡_370__, _SYM_霡:1.0___jcross_霡_104__)
+
+            if l % 2:
+                if _SYM_霡:1.0___jcross_霡_370__ != _SYM_霡:1.0___jcross_霡_104__:  # _SYM_霡:1.0___jcross_霡_508__ / _SYM_霡:1.0___jcross_霡_281__
+                    if (_SYM_霡:1.0___jcross_霡_370__ == "h") ^ (l % 8 == 1):
+// [metadata-stripped]
+                        _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[:-2] + _SYM_霡:1.0___jcross_霡_48__[-1:] + _SYM_霡:1.0___jcross_霡_48__[-2:-1]
+                else:  # _SYM_霡:1.0___jcross_霡_316__ / _SYM_霡:1.0___jcross_霡_500__
+                    if _SYM_霡:1.0___jcross_霡_370__ == "h":  # _SYM_霡:1.0___jcross_霡_316__
+// [metadata-stripped]
+                        _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_48__[1:2] + _SYM_霡:1.0___jcross_霡_48__[:1] + _SYM_霡:1.0___jcross_霡_48__[2:]
+
+            _SYM_霡:1.0___jcross_霡_287__[i] = _SYM_霡:1.0___jcross_霡_370__ + _SYM_霡:1.0___jcross_霡_104__ + "_SYM_霡:1.0___jcross_霡_427__", _SYM_霡:1.0___jcross_霡_48__
+            continue
+
+// [metadata-stripped]
+    for i in _SYM_霡:1.0___jcross_霡_291__(_SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_287__)):
+        op, _SYM_霡:1.0___jcross_霡_48__ = _SYM_霡:1.0___jcross_霡_287__[i]
+        if any(_SYM_霡:1.0___jcross_霡_421__(_SYM_霡:1.0___jcross_霡_198__, _SYM_霡:1.0___jcross_霡_110__) for _SYM_霡:1.0___jcross_霡_198__ in _SYM_霡:1.0___jcross_霡_48__):
+            _SYM_霡:1.0___jcross_霡_287__[i] = op, _SYM_霡:1.0___jcross_霡_109__(_SYM_霡:1.0___jcross_霡_48__)
+
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_287__
+
+
+_SYM_霡:1.0___jcross_霡_537__ _SYM_霡:1.0___jcross_霡_11__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__=_SYM_廓:1.0___jcross_廓_48__, **_SYM_霡:1.0___jcross_霡_304__):
+    re_SYM_霡:1.0___jcross_霡_325__ _SYM_霡:1.0___jcross_霡_222__(
+        _SYM_霡:1.0___jcross_霡_465__(_SYM_霡:1.0___jcross_霡_96__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__), **_SYM_霡:1.0___jcross_霡_304__)
+    )
+
+
+if _SYM_霡:1.0___jcross_霡_95__ == "_SYM_霡:1.0___jcross_霡_143__":
+    import _SYM_霡:1.0___jcross_霡_437__
+
+    if _SYM_霡:1.0___jcross_霡_402__(_SYM_霡:1.0___jcross_霡_437__._SYM_霡:1.0___jcross_霡_477__) == 1:
+        import _SYM_霡:1.0___jcross_霡_202__
+
+        _SYM_霡:1.0___jcross_霡_437__._SYM_霡:1.0___jcross_霡_66__(_SYM_霡:1.0___jcross_霡_202__._SYM_霡:1.0___jcross_霡_309__()._SYM_霡:1.0___jcross_霡_58__)
+
+    import _SYM_霡:1.0___jcross_霡_94__
+
+    _SYM_式:1.0___jcross_霡_493__ = _SYM_霡:1.0___jcross_霡_94__._SYM_式:1.0___jcross_廓_19__(
+        "_SYM_霡:1.0___jcross_霡_101__ _SYM_霡:1.0___jcross_霡_480__._SYM_式:1.0___jcross_霡_499__",
+        _SYM_霡:1.0___jcross_霡_187__="_SYM_廓:1.0___jcross_廓_29__ _SYM_廓:1.0___jcross_廓_32__ _SYM_式:1.0___jcross_霡_303__/_SYM_式:1.0___jcross_霡_499__",
+    )
+    _SYM_式:1.0___jcross_霡_493__._SYM_霡:1.0___jcross_霡_529__("_SYM_霡:1.0___jcross_霡_531__", _SYM_霡:1.0___jcross_霡_298__="_SYM_霡:1.0___jcross_霡_372__", _SYM_霡:1.0___jcross_霡_251__="*", _SYM_霡:1.0___jcross_霡_504__="_SYM_廓:1.0___jcross_廓_33__.")
+    _SYM_式:1.0___jcross_霡_493__._SYM_霡:1.0___jcross_霡_529__(
+        "--_SYM_霡:1.0___jcross_霡_182__-_SYM_霡:1.0___jcross_霡_20__",
+        _SYM_霡:1.0___jcross_霡_298__="_SYM_廓:1.0___jcross_廓_24__",
+        _SYM_霡:1.0___jcross_霡_251__="*",
+        _SYM_霡:1.0___jcross_霡_445__=_SYM_廓:1.0___jcross_廓_48__,
+        _SYM_霡:1.0___jcross_霡_504__="_SYM_式:1.0___jcross_廓_39__ of _SYM_霡:1.0___jcross_霡_285__-_SYM_霡:1.0___jcross_霡_246__ _SYM_霡:1.0___jcross_霡_20__ for _SYM_霡:1.0___jcross_霡_170__ _SYM_霡:1.0___jcross_霡_17__.",
+    )
+    _SYM_式:1.0___jcross_霡_493__._SYM_霡:1.0___jcross_霡_529__(
+        "--_SYM_霡:1.0___jcross_霡_246__",
+        _SYM_霡:1.0___jcross_霡_298__="_SYM_匱:1.0___jcross_廓_17__",
+        _SYM_霡:1.0___jcross_霡_445__=_SYM_廓:1.0___jcross_廓_48__,
+        _SYM_霡:1.0___jcross_霡_504__="_SYM_廓:1.0___jcross_廓_55__ _SYM_霡:1.0___jcross_霡_246__ to _SYM_霡:1.0___jcross_霡_149__.",
+    )
+    _SYM_式:1.0___jcross_霡_493__._SYM_霡:1.0___jcross_霡_529__(
+        "-o",
+        "--_SYM_霡:1.0___jcross_霡_116__-_SYM_匱:1.0___jcross_霡_322__",
+        _SYM_霡:1.0___jcross_霡_190__=_SYM_霡:1.0___jcross_霡_52__,
+        _SYM_霡:1.0___jcross_霡_504__="_SYM_廓:1.0___jcross_廓_25__ _SYM_霡:1.0___jcross_霡_246__ _SYM_匱:1.0___jcross_霡_322__ _SYM_霡:1.0___jcross_霡_397__.",
+    )
+
+    _SYM_霡:1.0___jcross_霡_37__ = _SYM_式:1.0___jcross_霡_493__._SYM_霡:1.0___jcross_霡_161__(_SYM_霡:1.0___jcross_霡_437__._SYM_霡:1.0___jcross_霡_477__[1:])
+
+    if _SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_531__:
+        _SYM_式:1.0___jcross_覇_1__ = (
+            _SYM_廓:1.0___jcross_廓_48__
+            if _SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_4__ is _SYM_廓:1.0___jcross_廓_48__
+            else _SYM_霡:1.0___jcross_霡_152__ _SYM_霡:1.0___jcross_霡_382__: _SYM_霡:1.0___jcross_霡_373__(
+                _SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_4__[0 if _SYM_霡:1.0___jcross_霡_382__ is _SYM_廓:1.0___jcross_廓_48__ else _SYM_霡:1.0___jcross_霡_382__]
+            )
+        )
+
+        _SYM_霡:1.0___jcross_霡_531__ = _SYM_霡:1.0___jcross_霡_399__(_SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_531__)
+        _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_15__:")
+        _SYM_霡:1.0___jcross_霡_317__(_SYM_霡:1.0___jcross_霡_218__(_SYM_霡:1.0___jcross_霡_531__))
+        _SYM_霡:1.0___jcross_霡_287__ = _SYM_霡:1.0___jcross_霡_96__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__)
+        _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_33__:")
+        _SYM_霡:1.0___jcross_霡_317__(_SYM_霡:1.0___jcross_霡_287__)
+        _SYM_霡:1.0___jcross_霡_115__ = _SYM_霡:1.0___jcross_霡_222__(_SYM_霡:1.0___jcross_霡_287__)
+        _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_15__ _SYM_霡:1.0___jcross_霡_60__ _SYM_霡:1.0___jcross_霡_287__:")
+        _SYM_霡:1.0___jcross_霡_317__(_SYM_霡:1.0___jcross_霡_218__(_SYM_霡:1.0___jcross_霡_115__))
+        _SYM_霡:1.0___jcross_霡_273__ _SYM_霡:1.0___jcross_霡_531__ == _SYM_霡:1.0___jcross_霡_115__
+        _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_58__ _SYM_霡:1.0___jcross_霡_531__:")
+        _SYM_霡:1.0___jcross_霡_317__(_SYM_霡:1.0___jcross_霡_218__(_SYM_霡:1.0___jcross_霡_388__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__)))
+        _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_63__ _SYM_霡:1.0___jcross_霡_531__:")
+        _SYM_霡:1.0___jcross_霡_317__(_SYM_霡:1.0___jcross_霡_218__(_SYM_霡:1.0___jcross_霡_11__(_SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__)))
+
+    if _SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_246__:
+        _SYM_霡:1.0___jcross_霡_60__ _SYM_霡:1.0___jcross_霡_19__._SYM_霡:1.0___jcross_霡_86__ import _SYM_廓:1.0___jcross_廓_22__
+
+        _SYM_霡:1.0___jcross_霡_246__ = _SYM_廓:1.0___jcross_廓_22__(_SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_246__)
+        _SYM_霡:1.0___jcross_霡_459__ = _SYM_霡:1.0___jcross_霡_246__["_SYM_廓:1.0___jcross_廓_55__"]._SYM_霡:1.0___jcross_霡_6__._SYM_霡:1.0___jcross_霡_305__[0]
+        _SYM_霡:1.0___jcross_霡_249__ = _SYM_霡:1.0___jcross_霡_459__._SYM_廓:1.0___jcross_廓_10__
+        for _SYM_霡:1.0___jcross_霡_506__ in _SYM_霡:1.0___jcross_霡_249__._SYM_深:1.0___jcross_霡_289__():
+            _SYM_霡:1.0___jcross_霡_140__ = _SYM_霡:1.0___jcross_霡_249__[_SYM_霡:1.0___jcross_霡_506__]
+            _SYM_霡:1.0___jcross_霡_140__._SYM_霡:1.0___jcross_霡_502__()
+            _SYM_式:1.0___jcross_覇_1__ = _SYM_霡:1.0___jcross_霡_140__.private._SYM_式:1.0___jcross_覇_1__
+            _SYM_霡:1.0___jcross_霡_140__._SYM_霡:1.0___jcross_霡_531__ = _SYM_霡:1.0___jcross_霡_11__(
+                _SYM_霡:1.0___jcross_霡_140__._SYM_霡:1.0___jcross_霡_531__, _SYM_式:1.0___jcross_覇_1__, _SYM_霡:1.0___jcross_霡_253__=_SYM_霡:1.0___jcross_霡_538__
+            )
+
+        if _SYM_霡:1.0___jcross_霡_37__._SYM_匱:1.0___jcross_霡_525__ is _SYM_廓:1.0___jcross_廓_48__:
+            _SYM_霡:1.0___jcross_霡_60__ _SYM_霡:1.0___jcross_霡_19__._SYM_霡:1.0___jcross_霡_133__._SYM_霡:1.0___jcross_霡_417__ import _SYM_匱:1.0___jcross_霡_426__
+
+            _SYM_匱:1.0___jcross_霡_263__ = _SYM_匱:1.0___jcross_霡_426__(
+                _SYM_霡:1.0___jcross_霡_37__._SYM_霡:1.0___jcross_霡_246__, _SYM_霡:1.0___jcross_霡_102__=_SYM_廓:1.0___jcross_廓_46__, _SYM_霡:1.0___jcross_霡_165__="._SYM_霡:1.0___jcross_霡_204__"
+            )
+        else:
+            _SYM_匱:1.0___jcross_霡_263__ = _SYM_霡:1.0___jcross_霡_37__._SYM_匱:1.0___jcross_霡_525__
+        if _SYM_匱:1.0___jcross_霡_263__:
+            _SYM_霡:1.0___jcross_霡_317__("_SYM_廓:1.0___jcross_廓_56__", _SYM_匱:1.0___jcross_霡_263__)
+            _SYM_霡:1.0___jcross_霡_246__._SYM_匱:1.0___jcross_霡_376__(_SYM_匱:1.0___jcross_霡_263__)
+
+// POLYMORPHIC_JCROSS_END

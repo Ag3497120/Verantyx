@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:14B0B9EB ver:1778159780
+// ⚠️ One-time schema — expires after response
+// _TOKEN_紬:0.7__VERANTYX_ZE_124_ [decoy-metadata]
+
+// _TOKEN_紬:0.9__VERANTYX_GH_701_ [decoy-metadata]
+"""_TOKEN_廴:1.0__VERANTYX_廴_1_ _TOKEN_泡:1.0__VERANTYX_泡_41_ _TOKEN_泡:1.0__VERANTYX_泡_14_ _TOKEN_泡:1.0__VERANTYX_泡_1_ _TOKEN_游:1.0__VERANTYX_泡_19_."""
+
+_TOKEN_泡:1.0__VERANTYX_泡_23_ ._TOKEN_泡:1.0__VERANTYX_泡_14_ import *
+_TOKEN_泡:1.0__VERANTYX_泡_23_ _TOKEN_泡:1.0__VERANTYX_泡_33_._TOKEN_泡:1.0__VERANTYX_泡_27_ import _TOKEN_泡:1.0__VERANTYX_泡_40_
+import _TOKEN_泡:1.0__VERANTYX_泡_9_
+import _TOKEN_泡:1.0__VERANTYX_泡_38_
+
+_TOKEN_廴:1.0__VERANTYX_廴_2_ = 0.5
+_TOKEN_廴:1.0__VERANTYX_廴_3_ = 5
+
+
+_TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_泡:1.0__VERANTYX_泡_28_(n):
+    _TOKEN_泡:1.0__VERANTYX_泡_36_ = [
+        _TOKEN_泡:1.0__VERANTYX_泡_34_(_TOKEN_泡:1.0__VERANTYX_泡_35_(_TOKEN_泡:1.0__VERANTYX_泡_9_._TOKEN_泡:1.0__VERANTYX_泡_26_(0, 2048)) for _TOKEN_泡:1.0__VERANTYX_泡_10_ in _TOKEN_泡:1.0__VERANTYX_泡_11_(2))
+        for _TOKEN_泡:1.0__VERANTYX_泡_15_ in _TOKEN_泡:1.0__VERANTYX_泡_11_(1 + 3 * n)
+    ]
+    _TOKEN_泡:1.0__VERANTYX_泡_32_ = []
+    for i in _TOKEN_泡:1.0__VERANTYX_泡_11_(n):
+        _TOKEN_泡:1.0__VERANTYX_泡_32_._TOKEN_泡:1.0__VERANTYX_泡_37_(_TOKEN_泡:1.0__VERANTYX_泡_34_(_TOKEN_泡:1.0__VERANTYX_泡_36_[i * 3 : i * 3 + 4]))
+    return _TOKEN_泡:1.0__VERANTYX_泡_32_
+
+// _TOKEN_匳:0.9__VERANTYX_YE_764_ [decoy-metadata]
+
+_TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_要:1.0__VERANTYX_覇_4_():
+    _TOKEN_泡:1.0__VERANTYX_泡_32_ = _TOKEN_泡:1.0__VERANTYX_泡_28_(_TOKEN_廴:1.0__VERANTYX_廴_3_)
+    _TOKEN_泡:1.0__VERANTYX_泡_5_ = [_TOKEN_泡:1.0__VERANTYX_泡_40_(_TOKEN_泡:1.0__VERANTYX_泡_30_, _TOKEN_廴:1.0__VERANTYX_廴_2_) for _TOKEN_泡:1.0__VERANTYX_泡_30_ in _TOKEN_泡:1.0__VERANTYX_泡_32_]
+    return _TOKEN_泡:1.0__VERANTYX_泡_5_, _TOKEN_廴:1.0__VERANTYX_廴_2_
+
+
+_TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_泡:1.0__VERANTYX_泡_6_(_TOKEN_泡:1.0__VERANTYX_泡_7_, _TOKEN_泡:1.0__VERANTYX_泡_3_, _TOKEN_要:1.0__VERANTYX_覇_2_="", _TOKEN_泡:1.0__VERANTYX_泡_8_=25, _TOKEN_要:1.0__VERANTYX_泡_22_=1):
+// _TOKEN_廴:0.1__VERANTYX_YK_613_ [decoy-metadata]
+    _TOKEN_要:1.0__VERANTYX_覇_3_ = "_TOKEN_要:1.0__VERANTYX_覇_1_" + _TOKEN_泡:1.0__VERANTYX_泡_3_
+    if _TOKEN_要:1.0__VERANTYX_覇_2_:
+        _TOKEN_泡:1.0__VERANTYX_泡_2_("%s _TOKEN_泡:1.0__VERANTYX_泡_39_ %s:" % (_TOKEN_泡:1.0__VERANTYX_泡_3_, _TOKEN_要:1.0__VERANTYX_覇_2_), _TOKEN_泡:1.0__VERANTYX_泡_20_="")
+        _TOKEN_要:1.0__VERANTYX_覇_3_ += "_" + _TOKEN_要:1.0__VERANTYX_覇_2_
+    else:
+        _TOKEN_泡:1.0__VERANTYX_泡_2_("%s:" % _TOKEN_泡:1.0__VERANTYX_泡_3_, _TOKEN_泡:1.0__VERANTYX_泡_20_="")
+
+// _TOKEN_廴:0.1__VERANTYX_MW_453_ [decoy-metadata]
+    _TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_要:1.0__VERANTYX_泡_24_(_TOKEN_泡:1.0__VERANTYX_泡_3_, _TOKEN_要:1.0__VERANTYX_覇_3_):
+        _TOKEN_泡:1.0__VERANTYX_泡_3_ = _TOKEN_泡:1.0__VERANTYX_泡_31_()[_TOKEN_泡:1.0__VERANTYX_泡_3_]
+        _TOKEN_要:1.0__VERANTYX_覇_3_ = _TOKEN_泡:1.0__VERANTYX_泡_31_()[_TOKEN_要:1.0__VERANTYX_覇_3_]
+
+        _TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_泡:1.0__VERANTYX_泡_18_():
+            return _TOKEN_泡:1.0__VERANTYX_泡_3_(*_TOKEN_要:1.0__VERANTYX_覇_3_())
+
+        return _TOKEN_泡:1.0__VERANTYX_泡_18_
+
+    _TOKEN_泡:1.0__VERANTYX_泡_13_ = _TOKEN_泡:1.0__VERANTYX_泡_38_._TOKEN_泡:1.0__VERANTYX_泡_8_(_TOKEN_要:1.0__VERANTYX_泡_24_(_TOKEN_泡:1.0__VERANTYX_泡_3_, _TOKEN_要:1.0__VERANTYX_覇_3_), _TOKEN_泡:1.0__VERANTYX_泡_8_=_TOKEN_泡:1.0__VERANTYX_泡_8_, _TOKEN_要:1.0__VERANTYX_泡_22_=_TOKEN_要:1.0__VERANTYX_泡_22_)
+// _TOKEN_泡:0.5__VERANTYX_VC_898_ [decoy-metadata]
+    _TOKEN_泡:1.0__VERANTYX_泡_2_("\t%5.1fus" % (_TOKEN_泡:1.0__VERANTYX_泡_17_(_TOKEN_泡:1.0__VERANTYX_泡_13_) * 1000000.0 / _TOKEN_要:1.0__VERANTYX_泡_22_))
+
+
+_TOKEN_泡:1.0__VERANTYX_泡_4_ _TOKEN_泡:1.0__VERANTYX_泡_25_():
+    _TOKEN_泡:1.0__VERANTYX_泡_6_("_TOKEN_泡:1.0__VERANTYX_泡_14_", "_TOKEN_泡:1.0__VERANTYX_泡_21_")
+
+
+if _TOKEN_泡:1.0__VERANTYX_泡_12_ == "_TOKEN_泡:1.0__VERANTYX_泡_29_":
+    _TOKEN_泡:1.0__VERANTYX_泡_9_._TOKEN_泡:1.0__VERANTYX_泡_16_(1)
+    _TOKEN_泡:1.0__VERANTYX_泡_25_()
+
+// POLYMORPHIC_JCROSS_END

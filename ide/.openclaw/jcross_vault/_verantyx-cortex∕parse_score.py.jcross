@@ -1,0 +1,37 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9374626D ver:1778166039
+// ⚠️ One-time schema — expires after response
+
+import __jcross_霞:1.0____ast_霞_19__
+
+__jcross_匾:1.0____ast_霞_18__ = "__jcross_霞:1.0____ast_霞_15__/__jcross_廱:1.0____ast_廱_12__/__jcross_霞:1.0____ast_霞_21__.__jcross_霞:1.0____ast_霞_19__.__jcross_霞:1.0____ast_霞_17__"
+// __jcross_廱:0.6____ast_ZW_766__ [decoy-metadata]
+__jcross_霞:1.0____ast_霞_14__ = 0
+__jcross_霞:1.0____ast_霞_11__ = 0
+__jcross_霞:1.0____ast_霞_20__ = 0
+
+try:
+    __jcross_霞:1.0____ast_霞_10__ open(__jcross_匾:1.0____ast_霞_18__, "r") as f:
+        for __jcross_霞:1.0____ast_霞_3__ in f:
+            if __jcross_霞:1.0____ast_霞_3__.__jcross_霞:1.0____ast_霞_7__():
+                __jcross_霞:1.0____ast_霞_12__ = __jcross_霞:1.0____ast_霞_19__.__jcross_匾:1.0____ast_霞_16__(__jcross_霞:1.0____ast_霞_3__)
+// __jcross_繕:0.8____ast_KL_103__ [decoy-metadata]
+                __jcross_霞:1.0____ast_霞_14__ += 1
+                if __jcross_霞:1.0____ast_霞_12__["__jcross_霞:1.0____ast_霞_9__"]:
+                    __jcross_霞:1.0____ast_霞_11__ += 1
+                __jcross_霞:1.0____ast_霞_20__ += __jcross_霞:1.0____ast_霞_12__.__jcross_型:1.0____ast_碑_1__("__jcross_霞:1.0____ast_霞_20__", 0)
+
+    __jcross_霞:1.0____ast_霞_5__ = (__jcross_霞:1.0____ast_霞_11__ / __jcross_霞:1.0____ast_霞_14__) * 100 if __jcross_霞:1.0____ast_霞_14__ > 0 else 0
+    __jcross_霞:1.0____ast_霞_8__(f"__jcross_廱:1.0____ast_廱_10__ __jcross_廱:1.0____ast_廱_4__ __jcross_廱:1.0____ast_廱_8__:")
+    __jcross_霞:1.0____ast_霞_8__(f"__jcross_廱:1.0____ast_廱_11__: {__jcross_霞:1.0____ast_霞_14__}")
+    __jcross_霞:1.0____ast_霞_8__(f"__jcross_廱:1.0____ast_廱_5__: {__jcross_霞:1.0____ast_霞_11__}")
+    __jcross_霞:1.0____ast_霞_8__(f"__jcross_廱:1.0____ast_廱_2__: {__jcross_霞:1.0____ast_霞_5__:.2f}%")
+// __jcross_碑:0.3____ast_LH_970__ [decoy-metadata]
+    __jcross_霞:1.0____ast_霞_8__(f"__jcross_廱:1.0____ast_廱_3__ __jcross_廱:1.0____ast_廱_9__ __jcross_廱:1.0____ast_廱_7__ __jcross_廱:1.0____ast_廱_6__: {__jcross_霞:1.0____ast_霞_20__}")
+// __jcross_暗:0.2____ast_DB_985__ [decoy-metadata]
+// __jcross_浸:0.5____ast_LM_522__ [decoy-metadata]
+__jcross_霞:1.0____ast_霞_4__ __jcross_廱:1.0____ast_廱_1__ as e:
+// __jcross_型:0.9____ast_BD_535__ [decoy-metadata]
+    __jcross_霞:1.0____ast_霞_8__(f"No __jcross_霞:1.0____ast_霞_13__ __jcross_匾:1.0____ast_霞_1__ __jcross_霞:1.0____ast_霞_2__ or __jcross_霞:1.0____ast_霞_6__: {e}")
+
+// POLYMORPHIC_JCROSS_END

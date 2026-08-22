@@ -1,0 +1,88 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D698BD26 ver:1778158915
+// ⚠️ One-time schema — expires after response
+
+__node_霤:1.0___JCROSS_霤_66_ __node_霤:1.0___JCROSS_霤_93_::{__node_殻:1.0___JCROSS_殻_12_, __node_殻:1.0___JCROSS_殻_15_};
+
+// [metadata-stripped]
+__node_霤:1.0___JCROSS_霤_68_ enum __node_技:1.0___JCROSS_殻_30_ {
+    __node_殻:1.0___JCROSS_殻_21_, // <= 10B __node_霤:1.0___JCROSS_霤_40_
+    __node_殻:1.0___JCROSS_殻_11_,   // 11B - 35B __node_霤:1.0___JCROSS_霤_40_
+    __node_殻:1.0___JCROSS_殻_27_, // > 35B __node_霤:1.0___JCROSS_霤_40_ or __node_殻:1.0___JCROSS_殻_5_
+// __node_霤:0.5___JCROSS_YK_245_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+__node_霤:1.0___JCROSS_霤_68_ __node_霤:1.0___JCROSS_霤_39_uct __node_匼:1.0___JCROSS_殻_33_ {
+    __node_霤:1.0___JCROSS_霤_68_ __node_霤:1.0___JCROSS_霤_59_: __node_殻:1.0___JCROSS_殻_29_,
+    __node_霤:1.0___JCROSS_霤_68_ __node_霤:1.0___JCROSS_霤_18_: u8,
+    __node_霤:1.0___JCROSS_霤_68_ __node_涌:1.0___JCROSS_霤_88_: __node_霤:1.0___JCROSS_霤_89_,
+    __node_霤:1.0___JCROSS_霤_68_ __node_霤:1.0___JCROSS_霤_75_: __node_殻:1.0___JCROSS_殻_29_,
+}
+
+__node_霤:1.0___JCROSS_霤_72_ __node_匼:1.0___JCROSS_殻_33_ {
+// [metadata-stripped]
+    __node_霤:1.0___JCROSS_霤_68_ fn __node_霤:1.0___JCROSS_霤_28_(__node_霤:1.0___JCROSS_霤_8_: __node_霤:1.0___JCROSS_霤_87_) -> __node_殻:1.0___JCROSS_殻_24_ {
+        if __node_霤:1.0___JCROSS_霤_8_ <= 10 {
+            __node_殻:1.0___JCROSS_殻_24_ {
+                __node_霤:1.0___JCROSS_霤_59_: "__node_殻:1.0___JCROSS_殻_21_ __node_殻:1.0___JCROSS_殻_2_".__node_霤:1.0___JCROSS_霤_60_(),
+                __node_霤:1.0___JCROSS_霤_18_: 1,
+                __node_涌:1.0___JCROSS_霤_88_: true,
+                __node_霤:1.0___JCROSS_霤_75_: "__node_霤:1.0___JCROSS_霤_16_".__node_霤:1.0___JCROSS_霤_60_(),
+            }
+        } else if __node_霤:1.0___JCROSS_霤_8_ <= 35 {
+            __node_殻:1.0___JCROSS_殻_24_ {
+                __node_霤:1.0___JCROSS_霤_59_: "__node_殻:1.0___JCROSS_殻_11_ __node_殻:1.0___JCROSS_殻_2_".__node_霤:1.0___JCROSS_霤_60_(),
+                __node_霤:1.0___JCROSS_霤_18_: 2,
+                __node_涌:1.0___JCROSS_霤_88_: false,
+                __node_霤:1.0___JCROSS_霤_75_: "__node_霤:1.0___JCROSS_霤_20_".__node_霤:1.0___JCROSS_霤_60_(),
+            }
+        } else {
+            __node_殻:1.0___JCROSS_殻_24_ {
+                __node_霤:1.0___JCROSS_霤_59_: "__node_殻:1.0___JCROSS_殻_27_ __node_殻:1.0___JCROSS_殻_2_".__node_霤:1.0___JCROSS_霤_60_(),
+// __node_縺:0.6___JCROSS_GW_397_ [decoy-metadata]
+// __node_匼:0.5___JCROSS_KF_966_ [decoy-metadata]
+                __node_霤:1.0___JCROSS_霤_18_: 10,
+                __node_涌:1.0___JCROSS_霤_88_: false,
+                __node_霤:1.0___JCROSS_霤_75_: "__node_霤:1.0___JCROSS_霤_11_".__node_霤:1.0___JCROSS_霤_60_(),
+            }
+        }
+    }
+
+// [metadata-stripped]
+    __node_霤:1.0___JCROSS_霤_68_ fn __node_霤:1.0___JCROSS_霤_79_(__node_霤:1.0___JCROSS_霤_65_: &__node_霤:1.0___JCROSS_霤_39_) -> __node_殻:1.0___JCROSS_殻_24_ {
+// __node_錠:0.7___JCROSS_GY_244_ [decoy-metadata]
+        let __node_霤:1.0___JCROSS_霤_8_ = if let __node_殻:1.0___JCROSS_殻_20_(__node_霤:1.0___JCROSS_霤_49_) = __node_霤:1.0___JCROSS_霤_65_.__node_霤:1.0___JCROSS_霤_30_('b') {
+            let __node_霤:1.0___JCROSS_霤_52_: __node_殻:1.0___JCROSS_殻_29_ = __node_霤:1.0___JCROSS_霤_65_[..__node_霤:1.0___JCROSS_霤_49_].__node_霤:1.0___JCROSS_霤_17_().__node_霤:1.0___JCROSS_霤_4_().__node_涌:1.0___JCROSS_霤_7_(|c| c.__node_霤:1.0___JCROSS_霤_14_()).__node_霤:1.0___JCROSS_霤_78_();
+            let __node_霤:1.0___JCROSS_霤_34_: __node_殻:1.0___JCROSS_殻_29_ = __node_霤:1.0___JCROSS_霤_52_.__node_霤:1.0___JCROSS_霤_17_().__node_霤:1.0___JCROSS_霤_4_().__node_霤:1.0___JCROSS_霤_78_();
+            __node_霤:1.0___JCROSS_霤_34_.__node_霤:1.0___JCROSS_霤_27_::<__node_霤:1.0___JCROSS_霤_87_>().__node_霤:1.0___JCROSS_霤_53_(0)
+        } else {
+            0
+        };
+        __node_殻:1.0___JCROSS_殻_24_::__node_霤:1.0___JCROSS_霤_28_(__node_霤:1.0___JCROSS_霤_8_)
+    }
+
+    __node_霤:1.0___JCROSS_霤_68_ fn __node_霤:1.0___JCROSS_霤_58_(&self) -> __node_殻:1.0___JCROSS_殻_29_ {
+        __node_霤:1.0___JCROSS_霤_46_ self.__node_霤:1.0___JCROSS_霤_75_.__node_霤:1.0___JCROSS_霤_94_() {
+            "__node_霤:1.0___JCROSS_霤_16_" => "[__node_殻:1.0___JCROSS_殻_6_ __node_殻:1.0___JCROSS_殻_7_ __node_殻:1.0___JCROSS_殻_1_]\n\
+                              __node_殻:1.0___JCROSS_殻_9_ __node_技:1.0___JCROSS_霤_50_ __node_霤:1.0___JCROSS_霤_70_ __node_霤:1.0___JCROSS_霤_21_ __node_霤:1.0___JCROSS_霤_96_ __node_霤:1.0___JCROSS_霤_77_ __node_霤:1.0___JCROSS_霤_48_.\n\
+                              1. DO __node_殻:1.0___JCROSS_殻_16_ __node_霤:1.0___JCROSS_霤_23_ __node_霤:1.0___JCROSS_霤_26_.\n\
+                              2. __node_殻:1.0___JCROSS_殻_8_ __node_殻:1.0___JCROSS_殻_22_ <__node_霤:1.0___JCROSS_霤_41_> at a __node_霤:1.0___JCROSS_霤_82_.\n\
+                              3. __node_殻:1.0___JCROSS_殻_35_ __node_霤:1.0___JCROSS_霤_61_ for __node_霤:1.0___JCROSS_霤_29_ <__node_霤:1.0___JCROSS_霤_62_> __node_霤:1.0___JCROSS_霤_44_ __node_霤:1.0___JCROSS_霤_86_ __node_涌:1.0___JCROSS_霤_33_ __node_霤:1.0___JCROSS_霤_15_.\n\
+                              __node_殻:1.0___JCROSS_殻_32_ to do so __node_霤:1.0___JCROSS_霤_5_ __node_霤:1.0___JCROSS_霤_32_ in an OS __node_霤:1.0___JCROSS_霤_24_ __node_霤:1.0___JCROSS_霤_10_."
+                .__node_霤:1.0___JCROSS_霤_60_(),
+            "__node_霤:1.0___JCROSS_霤_20_" => "[__node_殻:1.0___JCROSS_殻_6_ __node_殻:1.0___JCROSS_殻_7_ __node_殻:1.0___JCROSS_殻_1_]\n\
+                           __node_殻:1.0___JCROSS_殻_25_ __node_霤:1.0___JCROSS_霤_48_ __node_霤:1.0___JCROSS_霤_84_. __node_殻:1.0___JCROSS_殻_3_ __node_霤:1.0___JCROSS_霤_56_ __node_霤:1.0___JCROSS_霤_69_ __node_霤:1.0___JCROSS_霤_1_ __node_霤:1.0___JCROSS_霤_9_ __node_霤:1.0___JCROSS_霤_44_ __node_涌:1.0___JCROSS_霤_64_ __node_技:1.0___JCROSS_霤_81_ __node_霤:1.0___JCROSS_霤_76_ if __node_霤:1.0___JCROSS_霤_67_.\n\
+                           __node_殻:1.0___JCROSS_殻_17_ [__node_殻:1.0___JCROSS_殻_34_ __node_殻:1.0___JCROSS_殻_13_] __node_霤:1.0___JCROSS_霤_25_ for __node_霤:1.0___JCROSS_霤_38_ __node_匼:1.0___JCROSS_霤_71_."
+                .__node_霤:1.0___JCROSS_霤_60_(),
+            _ => "[__node_殻:1.0___JCROSS_殻_6_ __node_殻:1.0___JCROSS_殻_7_ __node_殻:1.0___JCROSS_殻_1_ - __node_殻:1.0___JCROSS_殻_31_]\n\
+                  __node_殻:1.0___JCROSS_殻_28_ __node_霤:1.0___JCROSS_霤_31_ __node_霤:1.0___JCROSS_霤_95_. __node_殻:1.0___JCROSS_殻_3_ __node_霤:1.0___JCROSS_霤_22_ __node_霤:1.0___JCROSS_霤_42_ __node_霤:1.0___JCROSS_霤_6_-__node_霤:1.0___JCROSS_霤_85_ __node_霤:1.0___JCROSS_霤_37_ __node_霤:1.0___JCROSS_霤_55_ __node_霤:1.0___JCROSS_霤_3_.\n\
+// __node_燦:0.2___JCROSS_EY_350_ [decoy-metadata]
+                  __node_殻:1.0___JCROSS_殻_8_ __node_霤:1.0___JCROSS_霤_57_ __node_殻:1.0___JCROSS_殻_19_ __node_霤:1.0___JCROSS_霤_92_ or __node_霤:1.0___JCROSS_霤_74_ __node_霤:1.0___JCROSS_霤_44_ __node_霤:1.0___JCROSS_霤_43_ as __node_霤:1.0___JCROSS_霤_91_ __node_霤:1.0___JCROSS_霤_83_ __node_霤:1.0___JCROSS_霤_13_."
+                .__node_霤:1.0___JCROSS_霤_60_(),
+        }
+// __node_涌:0.6___JCROSS_YW_836_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

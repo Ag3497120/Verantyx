@@ -1,0 +1,71 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CBF2A3A8 ver:1778162894
+// ⚠️ One-time schema — expires after response
+
+__ast_霧:1.0___OPAQUE_霧_37_ __ast_霧:1.0___OPAQUE_霧_13_ import __ast_霧:1.0___OPAQUE_霧_3_, __ast_霧:1.0___OPAQUE_霧_41_
+__ast_霧:1.0___OPAQUE_霧_37_ __ast_霧:1.0___OPAQUE_霧_24_ import __ast_廊:1.0___OPAQUE_廊_19_, __ast_廊:1.0___OPAQUE_廊_11_, __ast_廊:1.0___OPAQUE_廊_1_, __ast_廊:1.0___OPAQUE_廊_9_, __ast_廊:1.0___OPAQUE_廊_8_
+import re
+// __ast_凱:0.9___OPAQUE_AF_689_ [decoy-metadata]
+
+// __ast_絡:0.4___OPAQUE_HM_207_ [decoy-metadata]
+@__ast_霧:1.0___OPAQUE_霧_3_
+class __ast_廊:1.0___OPAQUE_廊_4_:
+    id: __ast_霧:1.0___OPAQUE_霧_28_
+    __ast_霧:1.0___OPAQUE_霧_19_: __ast_霧:1.0___OPAQUE_霧_28_
+    __ast_霧:1.0___OPAQUE_霧_18_: __ast_霧:1.0___OPAQUE_霧_28_
+    __ast_霧:1.0___OPAQUE_霧_45_: __ast_廊:1.0___OPAQUE_廊_19_[__ast_霧:1.0___OPAQUE_霧_28_]  # __ast_廊:1.0___OPAQUE_廊_20_ __ast_霧:1.0___OPAQUE_霧_34_ or __ast_渕:1.0___OPAQUE_霧_4_
+    __ast_霧:1.0___OPAQUE_霧_16_: __ast_霧:1.0___OPAQUE_霧_47_      # 1: __ast_廊:1.0___OPAQUE_廊_5_, 2: __ast_廊:1.0___OPAQUE_廊_13_, 3: __ast_廊:1.0___OPAQUE_廊_17_
+    __ast_霧:1.0___OPAQUE_霧_35_: __ast_霧:1.0___OPAQUE_霧_47_      # __ast_廊:1.0___OPAQUE_廊_3_ __ast_霧:1.0___OPAQUE_霧_7_
+    __ast_霧:1.0___OPAQUE_霧_29_: __ast_廊:1.0___OPAQUE_廊_19_[__ast_霧:1.0___OPAQUE_霧_28_] # e.g. ["__ast_湧:1.0___OPAQUE_霧_17_", "__ast_霧:1.0___OPAQUE_霧_9_"]
+
+class __ast_廊:1.0___OPAQUE_廊_10_:
+    __ast_霧:1.0___OPAQUE_霧_44_: __ast_廊:1.0___OPAQUE_廊_11_[__ast_霧:1.0___OPAQUE_霧_28_, __ast_廊:1.0___OPAQUE_廊_4_] = {}
+    __ast_霧:1.0___OPAQUE_霧_26_: __ast_廊:1.0___OPAQUE_廊_11_[__ast_霧:1.0___OPAQUE_霧_28_, __ast_廊:1.0___OPAQUE_廊_8_] = {}
+
+    @__ast_霧:1.0___OPAQUE_霧_8_
+    __ast_霧:1.0___OPAQUE_霧_5_ __ast_案:1.0___OPAQUE_霧_2_(__ast_霧:1.0___OPAQUE_霧_14_, __ast_霧:1.0___OPAQUE_霧_43_: __ast_廊:1.0___OPAQUE_廊_4_):
+        __ast_霧:1.0___OPAQUE_霧_5_ __ast_案:1.0___OPAQUE_霧_10_(__ast_霧:1.0___OPAQUE_霧_33_):
+            __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_44_[__ast_霧:1.0___OPAQUE_霧_43_.id] = __ast_霧:1.0___OPAQUE_霧_43_
+            __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_26_[__ast_霧:1.0___OPAQUE_霧_43_.id] = __ast_霧:1.0___OPAQUE_霧_33_
+            return __ast_霧:1.0___OPAQUE_霧_33_
+        return __ast_案:1.0___OPAQUE_霧_10_
+
+    @__ast_霧:1.0___OPAQUE_霧_8_
+    __ast_霧:1.0___OPAQUE_霧_5_ __ast_案:1.0___OPAQUE_凱_1_(__ast_霧:1.0___OPAQUE_霧_14_, __ast_霧:1.0___OPAQUE_霧_39_: __ast_霧:1.0___OPAQUE_霧_28_) -> __ast_廊:1.0___OPAQUE_廊_8_:
+        return __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_26_.__ast_案:1.0___OPAQUE_凱_3_(__ast_霧:1.0___OPAQUE_霧_39_)
+
+    @__ast_霧:1.0___OPAQUE_霧_8_
+    __ast_霧:1.0___OPAQUE_霧_5_ __ast_案:1.0___OPAQUE_霧_25_(__ast_霧:1.0___OPAQUE_霧_14_, __ast_霧:1.0___OPAQUE_霧_42_: __ast_霧:1.0___OPAQUE_霧_28_, __ast_霧:1.0___OPAQUE_霧_40_: __ast_霧:1.0___OPAQUE_霧_28_ = __ast_廊:1.0___OPAQUE_廊_21_) -> __ast_廊:1.0___OPAQUE_廊_19_[__ast_霧:1.0___OPAQUE_霧_28_]:
+        """
+        クエリとドメインヒントに基づいて、適切なソルバーIDのリストを優先度順に返す。
+        """
+// __ast_案:0.2___OPAQUE_LE_450_ [decoy-metadata]
+        __ast_霧:1.0___OPAQUE_霧_11_ = []
+        
+// [metadata-stripped]
+        if __ast_霧:1.0___OPAQUE_霧_40_:
+            for __ast_霧:1.0___OPAQUE_霧_1_, __ast_霧:1.0___OPAQUE_霧_43_ in __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_44_.__ast_霧:1.0___OPAQUE_霧_20_():
+// __ast_案:0.7___OPAQUE_YD_414_ [decoy-metadata]
+                if __ast_霧:1.0___OPAQUE_霧_43_.__ast_霧:1.0___OPAQUE_霧_19_ == __ast_霧:1.0___OPAQUE_霧_40_:
+                    __ast_霧:1.0___OPAQUE_霧_11_.__ast_霧:1.0___OPAQUE_霧_27_((__ast_霧:1.0___OPAQUE_霧_1_, 100)) # __ast_廊:1.0___OPAQUE_廊_22_ __ast_霧:1.0___OPAQUE_霧_12_
+
+// [metadata-stripped]
+        for __ast_霧:1.0___OPAQUE_霧_1_, __ast_霧:1.0___OPAQUE_霧_43_ in __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_44_.__ast_霧:1.0___OPAQUE_霧_20_():
+// __ast_筐:0.6___OPAQUE_VK_139_ [decoy-metadata]
+            for __ast_案:1.0___OPAQUE_霧_32_ in __ast_霧:1.0___OPAQUE_霧_43_.__ast_霧:1.0___OPAQUE_霧_45_:
+                if re.__ast_霧:1.0___OPAQUE_霧_31_(__ast_案:1.0___OPAQUE_霧_32_, __ast_霧:1.0___OPAQUE_霧_42_, re.__ast_廊:1.0___OPAQUE_廊_12_):
+// [metadata-stripped]
+                    if __ast_霧:1.0___OPAQUE_霧_30_ any(c[0] == __ast_霧:1.0___OPAQUE_霧_1_ for c in __ast_霧:1.0___OPAQUE_霧_11_):
+                        __ast_霧:1.0___OPAQUE_霧_11_.__ast_霧:1.0___OPAQUE_霧_27_((__ast_霧:1.0___OPAQUE_霧_1_, 50))
+                    break
+        
+// [metadata-stripped]
+        __ast_霧:1.0___OPAQUE_霧_11_.__ast_霧:1.0___OPAQUE_霧_15_(__ast_渕:1.0___OPAQUE_霧_22_=__ast_霧:1.0___OPAQUE_霧_46_ x: (x[1], -__ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_44_[x[0]].__ast_霧:1.0___OPAQUE_霧_16_), __ast_霧:1.0___OPAQUE_霧_21_=__ast_廊:1.0___OPAQUE_廊_2_)
+        return [c[0] for c in __ast_霧:1.0___OPAQUE_霧_11_]
+// __ast_廊:0.9___OPAQUE_VK_480_ [decoy-metadata]
+
+    @__ast_霧:1.0___OPAQUE_霧_8_
+    __ast_霧:1.0___OPAQUE_霧_5_ __ast_案:1.0___OPAQUE_凱_2_(__ast_霧:1.0___OPAQUE_霧_14_, __ast_霧:1.0___OPAQUE_霧_39_: __ast_霧:1.0___OPAQUE_霧_28_) -> __ast_廊:1.0___OPAQUE_廊_4_:
+        return __ast_霧:1.0___OPAQUE_霧_14_.__ast_霧:1.0___OPAQUE_霧_44_.__ast_案:1.0___OPAQUE_凱_3_(__ast_霧:1.0___OPAQUE_霧_39_)
+
+// POLYMORPHIC_JCROSS_END

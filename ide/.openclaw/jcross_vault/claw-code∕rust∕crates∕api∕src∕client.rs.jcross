@@ -1,0 +1,153 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1F99082D ver:1778159494
+// ⚠️ One-time schema — expires after response
+
+_OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_25_::_OPAQUE_紋:1.0__ID_廂_23_;
+_OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_41_::_OPAQUE_型:1.0__ID_靄_43_::{self, _OPAQUE_廂:1.0__ID_廂_4_, _OPAQUE_紋:1.0__ID_廂_25_};
+_OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_41_::_OPAQUE_靄:1.0__ID_靄_33_::{self, _OPAQUE_廂:1.0__ID_廂_1_, _OPAQUE_廂:1.0__ID_廂_16_};
+_OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_41_::{self, _OPAQUE_型:1.0__ID_廂_12_, _OPAQUE_廂:1.0__ID_廂_7_};
+_OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_45_::{_OPAQUE_紋:1.0__ID_廂_3_, _OPAQUE_廂:1.0__ID_廂_11_, _OPAQUE_廂:1.0__ID_廂_19_};
+
+async fn _OPAQUE_型:1.0__ID_靄_52_<P: _OPAQUE_型:1.0__ID_廂_12_>(
+    _OPAQUE_型:1.0__ID_靄_26_: &P,
+    _OPAQUE_紋:1.0__ID_靄_13_: &_OPAQUE_紋:1.0__ID_廂_3_,
+) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_11_, _OPAQUE_紋:1.0__ID_廂_23_> {
+    _OPAQUE_型:1.0__ID_靄_26_._OPAQUE_靄:1.0__ID_靄_28_(_OPAQUE_紋:1.0__ID_靄_13_).await
+}
+
+async fn _OPAQUE_型:1.0__ID_靄_19_<P: _OPAQUE_型:1.0__ID_廂_12_>(
+    _OPAQUE_型:1.0__ID_靄_26_: &P,
+    _OPAQUE_紋:1.0__ID_靄_13_: &_OPAQUE_紋:1.0__ID_廂_3_,
+) -> _OPAQUE_廂:1.0__ID_廂_26_<P::_OPAQUE_廂:1.0__ID_廂_15_, _OPAQUE_紋:1.0__ID_廂_23_> {
+    _OPAQUE_型:1.0__ID_靄_26_._OPAQUE_靄:1.0__ID_靄_15_(_OPAQUE_紋:1.0__ID_靄_13_).await
+}
+
+// [metadata-stripped]
+_OPAQUE_靄:1.0__ID_靄_38_ enum _OPAQUE_廂:1.0__ID_廂_21_ {
+    _OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_紋:1.0__ID_廂_25_),
+    _OPAQUE_廂:1.0__ID_廂_5_(_OPAQUE_廂:1.0__ID_廂_1_),
+// _OPAQUE_漂:0.7__ID_HZ_776_ [decoy-metadata]
+    _OPAQUE_廂:1.0__ID_廂_24_(_OPAQUE_廂:1.0__ID_廂_1_),
+}
+
+_OPAQUE_靄:1.0__ID_靄_42_ _OPAQUE_廂:1.0__ID_廂_21_ {
+    _OPAQUE_靄:1.0__ID_靄_38_ fn _OPAQUE_靄:1.0__ID_靄_31_(_OPAQUE_靄:1.0__ID_靄_12_: &_OPAQUE_靄:1.0__ID_靄_23_) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_18_, _OPAQUE_紋:1.0__ID_廂_23_> {
+        _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_靄:1.0__ID_靄_39_(_OPAQUE_靄:1.0__ID_靄_12_, _OPAQUE_廂:1.0__ID_廂_17_)
+    }
+// _OPAQUE_廂:0.6__ID_DZ_882_ [decoy-metadata]
+
+    _OPAQUE_靄:1.0__ID_靄_38_ fn _OPAQUE_靄:1.0__ID_靄_39_(
+        _OPAQUE_靄:1.0__ID_靄_12_: &_OPAQUE_靄:1.0__ID_靄_23_,
+        _OPAQUE_靄:1.0__ID_靄_55_: _OPAQUE_廂:1.0__ID_廂_20_<_OPAQUE_廂:1.0__ID_廂_4_>,
+    ) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_18_, _OPAQUE_紋:1.0__ID_廂_23_> {
+        let _OPAQUE_靄:1.0__ID_靄_56_ = _OPAQUE_靄:1.0__ID_靄_41_::_OPAQUE_靄:1.0__ID_靄_48_(_OPAQUE_靄:1.0__ID_靄_12_);
+        _OPAQUE_靄:1.0__ID_靄_30_ _OPAQUE_靄:1.0__ID_靄_41_::_OPAQUE_靄:1.0__ID_靄_5_(&_OPAQUE_靄:1.0__ID_靄_56_) {
+            _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_紋:1.0__ID_廂_6_ => Ok(_OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_靄:1.0__ID_靄_30_ _OPAQUE_靄:1.0__ID_靄_55_ {
+                _OPAQUE_廂:1.0__ID_廂_14_(_OPAQUE_靄:1.0__ID_靄_20_) => _OPAQUE_紋:1.0__ID_廂_25_::_OPAQUE_靄:1.0__ID_靄_21_(_OPAQUE_靄:1.0__ID_靄_20_),
+                _OPAQUE_廂:1.0__ID_廂_17_ => _OPAQUE_紋:1.0__ID_廂_25_::_OPAQUE_靄:1.0__ID_靄_27_()?,
+            })),
+            _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_廂:1.0__ID_廂_5_ => Ok(_OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_5_(_OPAQUE_廂:1.0__ID_廂_1_::_OPAQUE_靄:1.0__ID_靄_27_(
+                _OPAQUE_廂:1.0__ID_廂_16_::_OPAQUE_靄:1.0__ID_靄_9_(),
+            )?)),
+            _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_廂:1.0__ID_廂_24_ => Ok(_OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_24_(_OPAQUE_廂:1.0__ID_廂_1_::_OPAQUE_靄:1.0__ID_靄_27_(
+                _OPAQUE_廂:1.0__ID_廂_16_::_OPAQUE_靄:1.0__ID_靄_53_(),
+            )?)),
+        }
+    }
+
+// [metadata-stripped]
+    _OPAQUE_靄:1.0__ID_靄_38_ _OPAQUE_靄:1.0__ID_靄_3_ fn _OPAQUE_靄:1.0__ID_靄_11_(&self) -> _OPAQUE_廂:1.0__ID_廂_7_ {
+        _OPAQUE_靄:1.0__ID_靄_30_ self {
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_) => _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_紋:1.0__ID_廂_6_,
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_5_(_) => _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_廂:1.0__ID_廂_5_,
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_24_(_) => _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_廂:1.0__ID_廂_24_,
+        }
+    }
+
+    _OPAQUE_靄:1.0__ID_靄_38_ async fn _OPAQUE_靄:1.0__ID_靄_28_(
+        &self,
+        _OPAQUE_紋:1.0__ID_靄_13_: &_OPAQUE_紋:1.0__ID_廂_3_,
+    ) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_11_, _OPAQUE_紋:1.0__ID_廂_23_> {
+        _OPAQUE_靄:1.0__ID_靄_30_ self {
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_靄:1.0__ID_靄_46_) => _OPAQUE_型:1.0__ID_靄_52_(_OPAQUE_靄:1.0__ID_靄_46_, _OPAQUE_紋:1.0__ID_靄_13_).await,
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_5_(_OPAQUE_靄:1.0__ID_靄_46_) | _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_24_(_OPAQUE_靄:1.0__ID_靄_46_) => _OPAQUE_型:1.0__ID_靄_52_(_OPAQUE_靄:1.0__ID_靄_46_, _OPAQUE_紋:1.0__ID_靄_13_).await,
+        }
+    }
+
+    _OPAQUE_靄:1.0__ID_靄_38_ async fn _OPAQUE_靄:1.0__ID_靄_15_(
+        &self,
+        _OPAQUE_紋:1.0__ID_靄_13_: &_OPAQUE_紋:1.0__ID_廂_3_,
+    ) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_13_, _OPAQUE_紋:1.0__ID_廂_23_> {
+        _OPAQUE_靄:1.0__ID_靄_30_ self {
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_靄:1.0__ID_靄_46_) => _OPAQUE_型:1.0__ID_靄_19_(_OPAQUE_靄:1.0__ID_靄_46_, _OPAQUE_紋:1.0__ID_靄_13_)
+                .await
+                ._OPAQUE_靄:1.0__ID_靄_17_(_OPAQUE_廂:1.0__ID_廂_13_::_OPAQUE_紋:1.0__ID_廂_6_),
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_5_(_OPAQUE_靄:1.0__ID_靄_46_) | _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_24_(_OPAQUE_靄:1.0__ID_靄_46_) => _OPAQUE_型:1.0__ID_靄_19_(_OPAQUE_靄:1.0__ID_靄_46_, _OPAQUE_紋:1.0__ID_靄_13_)
+                .await
+                ._OPAQUE_靄:1.0__ID_靄_17_(_OPAQUE_廂:1.0__ID_廂_13_::_OPAQUE_廂:1.0__ID_廂_10_),
+        }
+    }
+}
+// _OPAQUE_型:0.1__ID_HC_490_ [decoy-metadata]
+
+// [metadata-stripped]
+_OPAQUE_靄:1.0__ID_靄_38_ enum _OPAQUE_廂:1.0__ID_廂_13_ {
+    _OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_型:1.0__ID_靄_43_::_OPAQUE_廂:1.0__ID_廂_13_),
+    _OPAQUE_廂:1.0__ID_廂_10_(_OPAQUE_靄:1.0__ID_靄_33_::_OPAQUE_廂:1.0__ID_廂_13_),
+}
+
+_OPAQUE_靄:1.0__ID_靄_42_ _OPAQUE_廂:1.0__ID_廂_13_ {
+// [metadata-stripped]
+    _OPAQUE_靄:1.0__ID_靄_38_ fn _OPAQUE_紋:1.0__ID_靄_37_(&self) -> _OPAQUE_廂:1.0__ID_廂_20_<&_OPAQUE_靄:1.0__ID_靄_23_> {
+        _OPAQUE_靄:1.0__ID_靄_30_ self {
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_靄:1.0__ID_靄_54_) => _OPAQUE_靄:1.0__ID_靄_54_._OPAQUE_紋:1.0__ID_靄_37_(),
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_10_(_OPAQUE_靄:1.0__ID_靄_54_) => _OPAQUE_靄:1.0__ID_靄_54_._OPAQUE_紋:1.0__ID_靄_37_(),
+        }
+// _OPAQUE_紋:0.9__ID_KB_185_ [decoy-metadata]
+    }
+
+// _OPAQUE_靄:0.7__ID_FE_794_ [decoy-metadata]
+    _OPAQUE_靄:1.0__ID_靄_38_ async fn _OPAQUE_靄:1.0__ID_靄_36_(&_OPAQUE_靄:1.0__ID_靄_1_ self) -> _OPAQUE_廂:1.0__ID_廂_26_<_OPAQUE_廂:1.0__ID_廂_20_<_OPAQUE_廂:1.0__ID_廂_19_>, _OPAQUE_紋:1.0__ID_廂_23_> {
+        _OPAQUE_靄:1.0__ID_靄_30_ self {
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_紋:1.0__ID_廂_6_(_OPAQUE_靄:1.0__ID_靄_54_) => _OPAQUE_靄:1.0__ID_靄_54_._OPAQUE_靄:1.0__ID_靄_36_().await,
+            _OPAQUE_廂:1.0__ID_廂_18_::_OPAQUE_廂:1.0__ID_廂_10_(_OPAQUE_靄:1.0__ID_靄_54_) => _OPAQUE_靄:1.0__ID_靄_54_._OPAQUE_靄:1.0__ID_靄_36_().await,
+        }
+    }
+}
+
+_OPAQUE_靄:1.0__ID_靄_38_ _OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_型:1.0__ID_靄_43_::{
+    _OPAQUE_冥:1.0__ID_靄_49_, _OPAQUE_冥:1.0__ID_靄_40_, _OPAQUE_靄:1.0__ID_靄_44_, _OPAQUE_冥:1.0__ID_廂_8_,
+};
+// [metadata-stripped]
+_OPAQUE_靄:1.0__ID_靄_38_ fn _OPAQUE_紋:1.0__ID_靄_32_() -> _OPAQUE_廂:1.0__ID_廂_22_ {
+    _OPAQUE_型:1.0__ID_靄_43_::_OPAQUE_紋:1.0__ID_靄_32_()
+}
+
+// [metadata-stripped]
+_OPAQUE_靄:1.0__ID_靄_38_ fn _OPAQUE_紋:1.0__ID_靄_29_() -> _OPAQUE_廂:1.0__ID_廂_22_ {
+    _OPAQUE_靄:1.0__ID_靄_33_::_OPAQUE_紋:1.0__ID_靄_32_(_OPAQUE_廂:1.0__ID_廂_16_::_OPAQUE_靄:1.0__ID_靄_9_())
+}
+
+// _OPAQUE_廂:0.9__ID_ZK_887_ [decoy-metadata]
+// [metadata-stripped]
+_OPAQUE_靄:1.0__ID_靄_10_ _OPAQUE_靄:1.0__ID_靄_4_ {
+    _OPAQUE_靄:1.0__ID_靄_35_ _OPAQUE_靄:1.0__ID_靄_6_::_OPAQUE_靄:1.0__ID_靄_41_::{_OPAQUE_靄:1.0__ID_靄_5_, _OPAQUE_靄:1.0__ID_靄_48_, _OPAQUE_廂:1.0__ID_廂_7_};
+
+// [metadata-stripped]
+    fn _OPAQUE_靄:1.0__ID_靄_7_() {
+        _OPAQUE_靄:1.0__ID_靄_16_!(_OPAQUE_靄:1.0__ID_靄_48_("_OPAQUE_靄:1.0__ID_靄_47_"), "_OPAQUE_靄:1.0__ID_靄_14_-_OPAQUE_靄:1.0__ID_靄_47_-4-6");
+        _OPAQUE_靄:1.0__ID_靄_16_!(_OPAQUE_靄:1.0__ID_靄_48_("_OPAQUE_靄:1.0__ID_靄_50_"), "_OPAQUE_靄:1.0__ID_靄_50_-3");
+        _OPAQUE_靄:1.0__ID_靄_16_!(_OPAQUE_靄:1.0__ID_靄_48_("_OPAQUE_靄:1.0__ID_靄_50_-_OPAQUE_靄:1.0__ID_靄_8_"), "_OPAQUE_靄:1.0__ID_靄_50_-3-_OPAQUE_靄:1.0__ID_靄_8_");
+    }
+
+// [metadata-stripped]
+    fn _OPAQUE_靄:1.0__ID_靄_22_() {
+        _OPAQUE_靄:1.0__ID_靄_16_!(_OPAQUE_靄:1.0__ID_靄_5_("_OPAQUE_靄:1.0__ID_靄_50_-3"), _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_廂:1.0__ID_廂_5_);
+        _OPAQUE_靄:1.0__ID_靄_16_!(
+            _OPAQUE_靄:1.0__ID_靄_5_("_OPAQUE_靄:1.0__ID_靄_14_-_OPAQUE_靄:1.0__ID_靄_24_-4-6"),
+            _OPAQUE_廂:1.0__ID_廂_7_::_OPAQUE_紋:1.0__ID_廂_6_
+        );
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

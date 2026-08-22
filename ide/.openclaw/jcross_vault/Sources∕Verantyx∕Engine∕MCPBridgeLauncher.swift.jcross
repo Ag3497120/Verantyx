@@ -1,0 +1,396 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A027E061 ver:1778164254
+// ⚠️ One-time schema — expires after response
+
+im_ASTNODE_霾:1.0__SYM_霾_109_ _ASTNODE_廨:1.0__SYM_廨_22_
+im_ASTNODE_霾:1.0__SYM_霾_109_ os
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@_ASTNODE_廨:1.0__SYM_廨_34_
+final class _ASTNODE_技:1.0__SYM_廨_10_: _ASTNODE_廨:1.0__SYM_廨_54_ {
+
+    static let _ASTNODE_霾:1.0__SYM_霾_187_ = _ASTNODE_技:1.0__SYM_廨_10_()
+
+// [metadata-stripped]
+    @_ASTNODE_廨:1.0__SYM_廨_7_ private(_ASTNODE_技:1.0__SYM_雄_2_) var _ASTNODE_霾:1.0__SYM_霾_203_: _ASTNODE_廨:1.0__SYM_廨_56_ = false
+    @_ASTNODE_廨:1.0__SYM_廨_7_ private(_ASTNODE_技:1.0__SYM_雄_2_) var _ASTNODE_霾:1.0__SYM_霾_150_: _ASTNODE_廨:1.0__SYM_廨_6_? = nil
+
+// [metadata-stripped]
+    private let _ASTNODE_霾:1.0__SYM_霾_46_     = 5420
+    private let _ASTNODE_霾:1.0__SYM_霾_71_:  _ASTNODE_廨:1.0__SYM_廨_40_ = 60
+    private let _ASTNODE_霾:1.0__SYM_霾_183_   = 5    // ← これを超えたら再起動を停止（ゾンビ蓄積防止）
+    private let _ASTNODE_紐:1.0__SYM_霾_69_      = _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_霾:1.0__SYM_霾_119_: "_ASTNODE_紐:1.0__SYM_霾_112_://127.0.0.1:5420/_ASTNODE_霾:1.0__SYM_霾_206_")!
+    private let _ASTNODE_霾:1.0__SYM_霾_211_:_ASTNODE_廨:1.0__SYM_廨_40_ = 3.0
+
+// [metadata-stripped]
+    private var _ASTNODE_霾:1.0__SYM_霾_3_: _ASTNODE_廨:1.0__SYM_廨_3_?
+    private var _ASTNODE_霾:1.0__SYM_霾_78_: _ASTNODE_廨:1.0__SYM_廨_4_<_ASTNODE_廨:1.0__SYM_廨_9_, _ASTNODE_技:1.0__SYM_廨_37_>?
+    private var _ASTNODE_霾:1.0__SYM_霾_56_ = 0
+    private var _ASTNODE_霾:1.0__SYM_霾_194_ = false
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    nonisolated private func _ASTNODE_霾:1.0__SYM_霾_218_() {
+        let _ASTNODE_霾:1.0__SYM_霾_189_ = _ASTNODE_廨:1.0__SYM_廨_3_()
+        _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_紐:1.0__SYM_霾_101_ = _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_180_/_ASTNODE_霾:1.0__SYM_霾_189_")
+        _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_霾:1.0__SYM_霾_82_ = ["-ti", "_ASTNODE_霾:1.0__SYM_霾_231_:\(_ASTNODE_霾:1.0__SYM_霾_46_)"]
+        let _ASTNODE_霾:1.0__SYM_霾_61_ = _ASTNODE_廨:1.0__SYM_廨_20_()
+        _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_霾:1.0__SYM_霾_113_ = _ASTNODE_霾:1.0__SYM_霾_61_
+        _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_霾:1.0__SYM_霾_142_  = _ASTNODE_匾:1.0__SYM_廨_49_._ASTNODE_霾:1.0__SYM_霾_114_
+        try? _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_霾:1.0__SYM_霾_229_()
+        let _ASTNODE_霾:1.0__SYM_霾_191_ = _ASTNODE_廨:1.0__SYM_廨_6_(_ASTNODE_霾:1.0__SYM_霾_45_: _ASTNODE_霾:1.0__SYM_霾_61_._ASTNODE_匾:1.0__SYM_霾_94_._ASTNODE_匾:1.0__SYM_霾_216_(), _ASTNODE_霾:1.0__SYM_霾_68_: ._ASTNODE_霾:1.0__SYM_霾_38_) ?? ""
+        _ASTNODE_霾:1.0__SYM_霾_189_._ASTNODE_霾:1.0__SYM_霾_215_()
+        for _ASTNODE_霾:1.0__SYM_霾_237_ in _ASTNODE_霾:1.0__SYM_霾_191_._ASTNODE_霾:1.0__SYM_霾_63_(_ASTNODE_霾:1.0__SYM_霾_158_: ._ASTNODE_霾:1.0__SYM_霾_242_) {
+            let _ASTNODE_霾:1.0__SYM_霾_20_ = _ASTNODE_霾:1.0__SYM_霾_237_._ASTNODE_霾:1.0__SYM_霾_223_(in: ._ASTNODE_霾:1.0__SYM_霾_200_)
+            guard let _ASTNODE_霾:1.0__SYM_霾_14_ = _ASTNODE_廨:1.0__SYM_廨_15_(_ASTNODE_霾:1.0__SYM_霾_20_), _ASTNODE_霾:1.0__SYM_霾_14_ > 0 else { _ASTNODE_霾:1.0__SYM_霾_116_inue }
+            _ASTNODE_霾:1.0__SYM_霾_153_(_ASTNODE_霾:1.0__SYM_霾_14_, _ASTNODE_廨:1.0__SYM_廨_77_)
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] 🔪 _ASTNODE_廨:1.0__SYM_廨_24_ _ASTNODE_霾:1.0__SYM_霾_83_ _ASTNODE_廨:1.0__SYM_廨_29_ \(_ASTNODE_霾:1.0__SYM_霾_14_) _ASTNODE_霾:1.0__SYM_霾_120_ _ASTNODE_霾:1.0__SYM_霾_109_ \(_ASTNODE_霾:1.0__SYM_霾_46_)")
+        }
+        _ASTNODE_廨:1.0__SYM_廨_31_._ASTNODE_霾:1.0__SYM_霾_127_(_ASTNODE_浮:1.0__SYM_霾_29_: 0.3)  // ← バックグラウンドのため安全
+    }
+
+    private init() {}
+
+// [metadata-stripped]
+
+    func _ASTNODE_霾:1.0__SYM_霾_162_() {
+        guard _ASTNODE_霾:1.0__SYM_霾_78_ == nil else {
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ⚠️ _ASTNODE_廨:1.0__SYM_廨_38_ _ASTNODE_霾:1.0__SYM_霾_178_ — _ASTNODE_霾:1.0__SYM_霾_18_ _ASTNODE_霾:1.0__SYM_霾_202_ _ASTNODE_霾:1.0__SYM_霾_162_()")
+            return
+        }
+        _ASTNODE_霾:1.0__SYM_霾_194_ = false
+        _ASTNODE_霾:1.0__SYM_霾_56_ = 0
+        _ASTNODE_霾:1.0__SYM_霾_150_ = nil
+// [metadata-stripped]
+        _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_160_(_ASTNODE_霾:1.0__SYM_霾_195_: ._ASTNODE_霾:1.0__SYM_霾_220_) { [weak self] in
+            self?._ASTNODE_霾:1.0__SYM_霾_218_()
+        }
+// [metadata-stripped]
+        _ASTNODE_霾:1.0__SYM_霾_78_ = _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_160_(_ASTNODE_霾:1.0__SYM_霾_195_: ._ASTNODE_霾:1.0__SYM_霾_220_) { [weak self] in
+            await self?._ASTNODE_霾:1.0__SYM_霾_154_()
+        }
+    }
+
+    func _ASTNODE_霾:1.0__SYM_霾_25_() {
+        _ASTNODE_霾:1.0__SYM_霾_194_ = true
+        _ASTNODE_霾:1.0__SYM_霾_78_?._ASTNODE_霾:1.0__SYM_霾_37_()
+        _ASTNODE_霾:1.0__SYM_霾_78_ = nil
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+    nonisolated private func _ASTNODE_霾:1.0__SYM_霾_154_() async {
+        while !_ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_201_ {
+            let _ASTNODE_霾:1.0__SYM_霾_28_ = await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ { self._ASTNODE_霾:1.0__SYM_霾_194_ }
+            if _ASTNODE_霾:1.0__SYM_霾_28_ { return }
+
+// [metadata-stripped]
+            let _ASTNODE_霾:1.0__SYM_霾_148_ = await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ { self._ASTNODE_霾:1.0__SYM_霾_56_ }
+            if _ASTNODE_霾:1.0__SYM_霾_148_ >= _ASTNODE_霾:1.0__SYM_霾_183_ {
+                let _ASTNODE_霾:1.0__SYM_霾_205_ = "_ASTNODE_廨:1.0__SYM_廨_12_ _ASTNODE_廨:1.0__SYM_廨_69_ _ASTNODE_霾:1.0__SYM_霾_111_ \(_ASTNODE_霾:1.0__SYM_霾_183_) _ASTNODE_霾:1.0__SYM_霾_33_. _ASTNODE_廨:1.0__SYM_廨_59_ up to _ASTNODE_霾:1.0__SYM_霾_30_ _ASTNODE_霾:1.0__SYM_霾_83_ _ASTNODE_霾:1.0__SYM_霾_100_."
+                _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ❌ \(_ASTNODE_霾:1.0__SYM_霾_205_)")
+                await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ { self._ASTNODE_霾:1.0__SYM_霾_150_ = _ASTNODE_霾:1.0__SYM_霾_205_ }
+                return
+            }
+
+// [metadata-stripped]
+            if _ASTNODE_霾:1.0__SYM_霾_148_ > 0 {
+                let _ASTNODE_霾:1.0__SYM_霾_108_ = _ASTNODE_霾:1.0__SYM_霾_40_(3.0 * _ASTNODE_霾:1.0__SYM_霾_138_(2.0, _ASTNODE_廨:1.0__SYM_廨_8_(_ASTNODE_霾:1.0__SYM_霾_148_ - 1)), _ASTNODE_霾:1.0__SYM_霾_71_)
+                _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] _ASTNODE_廨:1.0__SYM_廨_41_ #\(_ASTNODE_霾:1.0__SYM_霾_148_)/\(_ASTNODE_霾:1.0__SYM_霾_183_) — _ASTNODE_霾:1.0__SYM_霾_50_ in \(_ASTNODE_廨:1.0__SYM_廨_57_(_ASTNODE_霾:1.0__SYM_霾_108_))s")
+// [metadata-stripped]
+                try? await _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_127_(_ASTNODE_霾:1.0__SYM_霾_48_: _ASTNODE_廨:1.0__SYM_廨_35_(_ASTNODE_霾:1.0__SYM_霾_108_ * 1_000_000_000))
+                if _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_201_ { return }
+            }
+
+            await _ASTNODE_霾:1.0__SYM_霾_13_()
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    nonisolated private func _ASTNODE_霾:1.0__SYM_霾_13_() async {
+        guard let (_ASTNODE_霾:1.0__SYM_霾_49_, _ASTNODE_霾:1.0__SYM_霾_110_, _ASTNODE_霾:1.0__SYM_霾_190_) = _ASTNODE_霾:1.0__SYM_霾_105_() else {
+            await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ {
+                _ASTNODE_霾:1.0__SYM_霾_150_ = "_ASTNODE_廨:1.0__SYM_廨_19_ _ASTNODE_霾:1.0__SYM_霾_133_ _ASTNODE_霾:1.0__SYM_霾_212_ _ASTNODE_霾:1.0__SYM_霾_179_ or _ASTNODE_廨:1.0__SYM_廨_12_ _ASTNODE_技:1.0__SYM_霾_226_ _ASTNODE_霾:1.0__SYM_霾_51_."
+            }
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ❌ _ASTNODE_廨:1.0__SYM_廨_19_ _ASTNODE_霾:1.0__SYM_霾_133_ _ASTNODE_霾:1.0__SYM_霾_212_ _ASTNODE_霾:1.0__SYM_霾_179_ or _ASTNODE_廨:1.0__SYM_廨_12_ _ASTNODE_技:1.0__SYM_霾_226_ _ASTNODE_霾:1.0__SYM_霾_51_.")
+            await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ { _ASTNODE_霾:1.0__SYM_霾_194_ = true }
+            return
+        }
+
+// [metadata-stripped]
+        _ASTNODE_霾:1.0__SYM_霾_218_()
+
+        let _ASTNODE_霾:1.0__SYM_霾_41_ = _ASTNODE_廨:1.0__SYM_廨_3_()
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_紐:1.0__SYM_霾_101_ = _ASTNODE_霾:1.0__SYM_霾_49_
+
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_243_ = _ASTNODE_霾:1.0__SYM_霾_190_
+            ._ASTNODE_霾:1.0__SYM_霾_233_("_ASTNODE_霾:1.0__SYM_霾_146_/._ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_147_")
+// _ASTNODE_雄:0.4__SYM_XZ_571_ [decoy-metadata]
+        let _ASTNODE_霾:1.0__SYM_霾_12_ = _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_匾:1.0__SYM_霾_182_(_ASTNODE_霾:1.0__SYM_霾_2_: _ASTNODE_霾:1.0__SYM_霾_243_._ASTNODE_霾:1.0__SYM_霾_66_)
+
+        if _ASTNODE_霾:1.0__SYM_霾_12_ {
+            _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_82_ = ["--im_ASTNODE_霾:1.0__SYM_霾_109_", "_ASTNODE_霾:1.0__SYM_霾_147_", _ASTNODE_霾:1.0__SYM_霾_110_._ASTNODE_霾:1.0__SYM_霾_66_]
+        } else {
+            _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_82_ = [_ASTNODE_霾:1.0__SYM_霾_110_._ASTNODE_霾:1.0__SYM_霾_66_]
+        }
+
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_紐:1.0__SYM_霾_31_ = _ASTNODE_霾:1.0__SYM_霾_190_
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_122_ = _ASTNODE_霾:1.0__SYM_霾_49_._ASTNODE_霾:1.0__SYM_霾_176_()._ASTNODE_霾:1.0__SYM_霾_66_
+        var _ASTNODE_霾:1.0__SYM_霾_161_ = _ASTNODE_廨:1.0__SYM_廨_76_._ASTNODE_霾:1.0__SYM_霾_188_._ASTNODE_霾:1.0__SYM_霾_238_
+        _ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_5_"] = "\(_ASTNODE_霾:1.0__SYM_霾_122_):\(_ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_5_"] ?? "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_106_/_ASTNODE_霾:1.0__SYM_霾_134_:/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_134_:/_ASTNODE_霾:1.0__SYM_霾_134_")"
+        _ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_23_"] = "1"
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_238_ = _ASTNODE_霾:1.0__SYM_霾_161_
+
+// [metadata-stripped]
+// _ASTNODE_匾:0.4__SYM_YX_159_ [decoy-metadata]
+        let _ASTNODE_霾:1.0__SYM_霾_84_ = _ASTNODE_廨:1.0__SYM_廨_20_()
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_142_  = _ASTNODE_霾:1.0__SYM_霾_84_
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_113_ = _ASTNODE_匾:1.0__SYM_廨_49_._ASTNODE_霾:1.0__SYM_霾_114_
+
+        do {
+            try _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_229_()
+        } catch {
+            let _ASTNODE_霾:1.0__SYM_霾_205_ = "_ASTNODE_廨:1.0__SYM_廨_30_ to _ASTNODE_霾:1.0__SYM_霾_13_ _ASTNODE_廨:1.0__SYM_廨_12_ _ASTNODE_霾:1.0__SYM_霾_99_: \(_ASTNODE_霾:1.0__SYM_霾_167_._ASTNODE_霾:1.0__SYM_霾_224_)"
+            await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ {
+                _ASTNODE_霾:1.0__SYM_霾_150_ = _ASTNODE_霾:1.0__SYM_霾_205_
+                _ASTNODE_霾:1.0__SYM_霾_56_ += 1
+            }
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ❌ \(_ASTNODE_霾:1.0__SYM_霾_205_)")
+            return
+        }
+
+
+// _ASTNODE_匾:0.2__SYM_EC_674_ [decoy-metadata]
+        await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ { _ASTNODE_霾:1.0__SYM_霾_3_ = _ASTNODE_霾:1.0__SYM_霾_41_ }
+        _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ✅ _ASTNODE_廨:1.0__SYM_廨_72_ _ASTNODE_廨:1.0__SYM_廨_29_ \(_ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_技:1.0__SYM_霾_140_) (_ASTNODE_霾:1.0__SYM_霾_147_=\(_ASTNODE_霾:1.0__SYM_霾_12_))")
+
+// [metadata-stripped]
+        _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_160_(_ASTNODE_霾:1.0__SYM_霾_195_: ._ASTNODE_霾:1.0__SYM_霾_220_) {
+            let _ASTNODE_霾:1.0__SYM_霾_76_ = _ASTNODE_霾:1.0__SYM_霾_84_._ASTNODE_匾:1.0__SYM_霾_94_
+            while true {
+                let _ASTNODE_霾:1.0__SYM_霾_45_ = _ASTNODE_霾:1.0__SYM_霾_76_._ASTNODE_霾:1.0__SYM_霾_98_
+                if _ASTNODE_霾:1.0__SYM_霾_45_._ASTNODE_霾:1.0__SYM_霾_137_ { break }
+                if let _ASTNODE_霾:1.0__SYM_霾_128_ = _ASTNODE_廨:1.0__SYM_廨_6_(_ASTNODE_霾:1.0__SYM_霾_45_: _ASTNODE_霾:1.0__SYM_霾_45_, _ASTNODE_霾:1.0__SYM_霾_68_: ._ASTNODE_霾:1.0__SYM_霾_38_)?._ASTNODE_霾:1.0__SYM_霾_223_(in: ._ASTNODE_霾:1.0__SYM_霾_242_),
+                   !_ASTNODE_霾:1.0__SYM_霾_128_._ASTNODE_霾:1.0__SYM_霾_137_ {
+                    _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_廨:1.0__SYM_廨_13_] \(_ASTNODE_霾:1.0__SYM_霾_128_)")
+                }
+            }
+        }
+
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_234_ = await _ASTNODE_浮:1.0__SYM_霾_73_()
+        if _ASTNODE_霾:1.0__SYM_霾_234_ {
+            await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ {
+                _ASTNODE_霾:1.0__SYM_霾_203_     = true
+                _ASTNODE_霾:1.0__SYM_霾_150_   = nil
+                _ASTNODE_霾:1.0__SYM_霾_56_ = 0
+            }
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] 🌐 _ASTNODE_廨:1.0__SYM_廨_69_ _ASTNODE_霾:1.0__SYM_霾_234_ on _ASTNODE_霾:1.0__SYM_霾_109_ \(_ASTNODE_霾:1.0__SYM_霾_46_)")
+        } else {
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ⚠️ _ASTNODE_廨:1.0__SYM_廨_69_ _ASTNODE_霾:1.0__SYM_霾_123_ _ASTNODE_霾:1.0__SYM_霾_16_ _ASTNODE_霾:1.0__SYM_霾_74_ _ASTNODE_霾:1.0__SYM_霾_234_ _ASTNODE_霾:1.0__SYM_霾_139_ 10s")
+        }
+
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_14_ = _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_技:1.0__SYM_霾_140_
+// _ASTNODE_技:0.9__SYM_GF_274_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+        await _ASTNODE_技:1.0__SYM_霾_62_(
+            _ASTNODE_霾:1.0__SYM_霾_23_: {
+                await _ASTNODE_霾:1.0__SYM_霾_166_ { (_ASTNODE_霾:1.0__SYM_霾_116_: _ASTNODE_廨:1.0__SYM_廨_73_<_ASTNODE_廨:1.0__SYM_廨_9_, _ASTNODE_技:1.0__SYM_廨_37_>) in
+                    let _ASTNODE_霾:1.0__SYM_霾_136_ = _ASTNODE_霾:1.0__SYM_霾_126_()
+                    _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_技:1.0__SYM_霾_55_ = { _ in
+                        if _ASTNODE_霾:1.0__SYM_霾_136_._ASTNODE_霾:1.0__SYM_霾_193_() { _ASTNODE_霾:1.0__SYM_霾_116_._ASTNODE_霾:1.0__SYM_霾_149_() }
+                    }
+// [metadata-stripped]
+                    if !_ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_203_ {
+                        if _ASTNODE_霾:1.0__SYM_霾_136_._ASTNODE_霾:1.0__SYM_霾_193_() { _ASTNODE_霾:1.0__SYM_霾_116_._ASTNODE_霾:1.0__SYM_霾_149_() }
+                    }
+                }
+            },
+            _ASTNODE_霾:1.0__SYM_霾_241_: {
+// [metadata-stripped]
+                if _ASTNODE_霾:1.0__SYM_霾_14_ > 0 {
+                    _ASTNODE_霾:1.0__SYM_霾_153_(_ASTNODE_霾:1.0__SYM_霾_14_, _ASTNODE_廨:1.0__SYM_廨_77_)
+                }
+            }
+        )
+
+        await _ASTNODE_廨:1.0__SYM_廨_34_._ASTNODE_霾:1.0__SYM_霾_229_ {
+            _ASTNODE_霾:1.0__SYM_霾_203_ = false
+            _ASTNODE_霾:1.0__SYM_霾_3_   = nil
+            _ASTNODE_霾:1.0__SYM_霾_56_ += 1
+        }
+        _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ⚠️ _ASTNODE_廨:1.0__SYM_廨_69_ _ASTNODE_霾:1.0__SYM_霾_152_ (_ASTNODE_霾:1.0__SYM_霾_81_ \(_ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_118_))")
+    }
+
+// [metadata-stripped]
+
+    private func _ASTNODE_浮:1.0__SYM_霾_73_() async -> _ASTNODE_廨:1.0__SYM_廨_56_ {
+        let _ASTNODE_霾:1.0__SYM_霾_86_ = _ASTNODE_廨:1.0__SYM_廨_18_()._ASTNODE_霾:1.0__SYM_霾_4_(10)
+        let _ASTNODE_霾:1.0__SYM_霾_129_  = _ASTNODE_紐:1.0__SYM_廨_65_(_ASTNODE_霾:1.0__SYM_霾_21_: {
+            let c = _ASTNODE_紐:1.0__SYM_廨_26_._ASTNODE_霾:1.0__SYM_霾_93_
+            c._ASTNODE_紐:1.0__SYM_霾_17_  = _ASTNODE_霾:1.0__SYM_霾_211_
+            c._ASTNODE_浮:1.0__SYM_霾_175_ = _ASTNODE_霾:1.0__SYM_霾_211_
+            c._ASTNODE_浮:1.0__SYM_霾_185_       = false
+            return c
+        }())
+
+        while _ASTNODE_廨:1.0__SYM_廨_18_() < _ASTNODE_霾:1.0__SYM_霾_86_ {
+            try? await _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_127_(_ASTNODE_霾:1.0__SYM_霾_48_: 500_000_000) // 0.5s
+            if _ASTNODE_廨:1.0__SYM_廨_4_._ASTNODE_霾:1.0__SYM_霾_201_ { return false }
+            if let (_, _ASTNODE_霾:1.0__SYM_霾_70_) = try? await _ASTNODE_霾:1.0__SYM_霾_129_._ASTNODE_霾:1.0__SYM_霾_45_(_ASTNODE_霾:1.0__SYM_霾_144_: _ASTNODE_紐:1.0__SYM_霾_69_),
+               (_ASTNODE_霾:1.0__SYM_霾_70_ as? _ASTNODE_紐:1.0__SYM_廨_74_)?._ASTNODE_霾:1.0__SYM_霾_34_ == 200 {
+                return true
+            }
+// _ASTNODE_廨:0.5__SYM_WW_459_ [decoy-metadata]
+        }
+        return false
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    nonisolated private func _ASTNODE_霾:1.0__SYM_霾_105_() -> (_ASTNODE_紐:1.0__SYM_廨_45_, _ASTNODE_紐:1.0__SYM_廨_45_, _ASTNODE_紐:1.0__SYM_廨_45_)? {
+// [metadata-stripped]
+        guard let _ASTNODE_霾:1.0__SYM_霾_49_ = _ASTNODE_霾:1.0__SYM_霾_32_() else { return nil }
+
+        let _ASTNODE_霾:1.0__SYM_霾_239_ = _ASTNODE_廨:1.0__SYM_廨_43_()
+        let _ASTNODE_霾:1.0__SYM_霾_80_ = _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: "\(_ASTNODE_霾:1.0__SYM_霾_239_)/_ASTNODE_霾:1.0__SYM_霾_169_-_ASTNODE_霾:1.0__SYM_霾_72_")
+
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_164_: [(_ASTNODE_霾:1.0__SYM_霾_51_: _ASTNODE_廨:1.0__SYM_廨_6_, _ASTNODE_霾:1.0__SYM_霾_210_: _ASTNODE_紐:1.0__SYM_廨_45_)] = [
+// [metadata-stripped]
+            ("._ASTNODE_霾:1.0__SYM_霾_59_-_ASTNODE_霾:1.0__SYM_霾_232_/_ASTNODE_霾:1.0__SYM_霾_11_/_ASTNODE_霾:1.0__SYM_霾_169_/_ASTNODE_霾:1.0__SYM_霾_24_/_ASTNODE_技:1.0__SYM_霾_226_.ts", _ASTNODE_霾:1.0__SYM_霾_80_),
+// [metadata-stripped]
+            ("_ASTNODE_霾:1.0__SYM_霾_10_-_ASTNODE_霾:1.0__SYM_霾_214_/_ASTNODE_霾:1.0__SYM_霾_11_/_ASTNODE_霾:1.0__SYM_霾_169_/_ASTNODE_霾:1.0__SYM_霾_24_/_ASTNODE_技:1.0__SYM_霾_226_.ts", _ASTNODE_霾:1.0__SYM_霾_80_),
+            ("_ASTNODE_霾:1.0__SYM_霾_10_-_ASTNODE_霾:1.0__SYM_霾_214_/_ASTNODE_霾:1.0__SYM_霾_11_/_ASTNODE_霾:1.0__SYM_霾_24_/_ASTNODE_技:1.0__SYM_霾_226_.ts",          _ASTNODE_霾:1.0__SYM_霾_80_),
+// [metadata-stripped]
+            ("_ASTNODE_霾:1.0__SYM_霾_11_/_ASTNODE_霾:1.0__SYM_霾_169_/_ASTNODE_霾:1.0__SYM_霾_24_/_ASTNODE_技:1.0__SYM_霾_226_.ts",                  _ASTNODE_霾:1.0__SYM_霾_80_),
+        ]
+
+        for (_ASTNODE_霾:1.0__SYM_霾_192_, _ASTNODE_霾:1.0__SYM_霾_210_) in _ASTNODE_霾:1.0__SYM_霾_164_ {
+            let _ASTNODE_紐:1.0__SYM_霾_35_ = _ASTNODE_霾:1.0__SYM_霾_210_._ASTNODE_霾:1.0__SYM_霾_233_(_ASTNODE_霾:1.0__SYM_霾_192_)
+            if _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_匾:1.0__SYM_霾_182_(_ASTNODE_霾:1.0__SYM_霾_2_: _ASTNODE_紐:1.0__SYM_霾_35_._ASTNODE_霾:1.0__SYM_霾_66_) {
+// [metadata-stripped]
+                let _ASTNODE_霾:1.0__SYM_霾_8_ = _ASTNODE_紐:1.0__SYM_霾_35_
+                    ._ASTNODE_霾:1.0__SYM_霾_176_()   // _ASTNODE_霾:1.0__SYM_霾_24_/
+                    ._ASTNODE_霾:1.0__SYM_霾_176_()   // _ASTNODE_霾:1.0__SYM_霾_169_/ or _ASTNODE_霾:1.0__SYM_霾_11_/
+                    ._ASTNODE_霾:1.0__SYM_霾_176_()   // _ASTNODE_霾:1.0__SYM_霾_11_/
+// [metadata-stripped]
+                let _ASTNODE_霾:1.0__SYM_霾_6_ = [_ASTNODE_霾:1.0__SYM_霾_8_, _ASTNODE_霾:1.0__SYM_霾_210_]._ASTNODE_霾:1.0__SYM_霾_155_ {
+                    _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_匾:1.0__SYM_霾_182_(_ASTNODE_霾:1.0__SYM_霾_2_: $0._ASTNODE_霾:1.0__SYM_霾_233_("_ASTNODE_霾:1.0__SYM_霾_146_")._ASTNODE_霾:1.0__SYM_霾_66_)
+                } ?? _ASTNODE_霾:1.0__SYM_霾_210_
+                _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ✅ _ASTNODE_廨:1.0__SYM_廨_17_ _ASTNODE_技:1.0__SYM_霾_226_.ts at \(_ASTNODE_紐:1.0__SYM_霾_35_._ASTNODE_霾:1.0__SYM_霾_66_)")
+                return (_ASTNODE_霾:1.0__SYM_霾_49_, _ASTNODE_紐:1.0__SYM_霾_35_, _ASTNODE_霾:1.0__SYM_霾_6_)
+            }
+        }
+        _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] ❌ _ASTNODE_技:1.0__SYM_霾_226_.ts _ASTNODE_霾:1.0__SYM_霾_16_ _ASTNODE_霾:1.0__SYM_霾_143_ in any _ASTNODE_霾:1.0__SYM_霾_221_ _ASTNODE_霾:1.0__SYM_霾_66_")
+        return nil
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    nonisolated private func _ASTNODE_霾:1.0__SYM_霾_32_() -> _ASTNODE_紐:1.0__SYM_廨_45_? {
+        let _ASTNODE_霾:1.0__SYM_霾_239_ = _ASTNODE_廨:1.0__SYM_廨_43_()
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_85_ = [
+            "/_ASTNODE_霾:1.0__SYM_霾_39_/_ASTNODE_霾:1.0__SYM_霾_97_/_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_212_",
+            "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_106_/_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_212_",
+            "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_212_",
+            "\(_ASTNODE_霾:1.0__SYM_霾_239_)/._ASTNODE_霾:1.0__SYM_霾_168_/_ASTNODE_霾:1.0__SYM_霾_95_/_ASTNODE_霾:1.0__SYM_霾_212_/_ASTNODE_霾:1.0__SYM_霾_213_/_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_212_",
+        ]
+        for p in _ASTNODE_霾:1.0__SYM_霾_85_ {
+            if _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_匾:1.0__SYM_霾_182_(_ASTNODE_霾:1.0__SYM_霾_2_: p) {
+                return _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: p)
+            }
+        }
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_42_ = _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: "\(_ASTNODE_霾:1.0__SYM_霾_239_)/._ASTNODE_霾:1.0__SYM_霾_168_/_ASTNODE_霾:1.0__SYM_霾_95_/_ASTNODE_霾:1.0__SYM_霾_212_")
+        if let _ASTNODE_霾:1.0__SYM_霾_95_ = try? _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_霾:1.0__SYM_霾_124_(
+            at: _ASTNODE_霾:1.0__SYM_霾_42_, _ASTNODE_底:1.0__SYM_霾_173_: nil
+        )._ASTNODE_霾:1.0__SYM_霾_7_(by: { $0._ASTNODE_霾:1.0__SYM_霾_96_ > $1._ASTNODE_霾:1.0__SYM_霾_96_ }) {
+            for _ASTNODE_霾:1.0__SYM_霾_89_ in _ASTNODE_霾:1.0__SYM_霾_95_ {
+                let _ASTNODE_霾:1.0__SYM_霾_49_ = _ASTNODE_霾:1.0__SYM_霾_89_._ASTNODE_霾:1.0__SYM_霾_233_("_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_212_")
+                if _ASTNODE_匾:1.0__SYM_廨_1_._ASTNODE_霾:1.0__SYM_霾_213_._ASTNODE_匾:1.0__SYM_霾_182_(_ASTNODE_霾:1.0__SYM_霾_2_: _ASTNODE_霾:1.0__SYM_霾_49_._ASTNODE_霾:1.0__SYM_霾_66_) {
+                    _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] 🔍 _ASTNODE_廨:1.0__SYM_廨_17_ _ASTNODE_霾:1.0__SYM_霾_212_ _ASTNODE_霾:1.0__SYM_霾_207_ _ASTNODE_霾:1.0__SYM_霾_168_: \(_ASTNODE_霾:1.0__SYM_霾_49_._ASTNODE_霾:1.0__SYM_霾_66_)")
+                    return _ASTNODE_霾:1.0__SYM_霾_49_
+                }
+            }
+        }
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_41_  = _ASTNODE_廨:1.0__SYM_廨_3_()
+        let _ASTNODE_霾:1.0__SYM_霾_61_  = _ASTNODE_廨:1.0__SYM_廨_20_()
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_紐:1.0__SYM_霾_101_    = _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_134_/_ASTNODE_霾:1.0__SYM_霾_161_")
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_82_        = ["_ASTNODE_霾:1.0__SYM_霾_36_", "-lc", "_ASTNODE_霾:1.0__SYM_霾_198_ _ASTNODE_霾:1.0__SYM_霾_212_"]
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_113_   = _ASTNODE_霾:1.0__SYM_霾_61_
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_142_    = _ASTNODE_匾:1.0__SYM_廨_49_._ASTNODE_霾:1.0__SYM_霾_114_
+        try? _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_229_()
+        let _ASTNODE_霾:1.0__SYM_霾_27_ = _ASTNODE_廨:1.0__SYM_廨_6_(_ASTNODE_霾:1.0__SYM_霾_45_: _ASTNODE_霾:1.0__SYM_霾_61_._ASTNODE_匾:1.0__SYM_霾_94_._ASTNODE_匾:1.0__SYM_霾_216_(), _ASTNODE_霾:1.0__SYM_霾_68_: ._ASTNODE_霾:1.0__SYM_霾_38_)?
+            ._ASTNODE_霾:1.0__SYM_霾_223_(in: ._ASTNODE_霾:1.0__SYM_霾_54_) ?? ""
+        _ASTNODE_霾:1.0__SYM_霾_41_._ASTNODE_霾:1.0__SYM_霾_215_()
+        if !_ASTNODE_霾:1.0__SYM_霾_27_._ASTNODE_霾:1.0__SYM_霾_137_ {
+            _ASTNODE_霾:1.0__SYM_霾_236_("[_ASTNODE_技:1.0__SYM_廨_10_] 🔍 _ASTNODE_廨:1.0__SYM_廨_17_ _ASTNODE_霾:1.0__SYM_霾_212_ _ASTNODE_霾:1.0__SYM_霾_207_ _ASTNODE_霾:1.0__SYM_霾_161_: \(_ASTNODE_霾:1.0__SYM_霾_27_)")
+            return _ASTNODE_紐:1.0__SYM_廨_45_(_ASTNODE_紐:1.0__SYM_霾_115_: _ASTNODE_霾:1.0__SYM_霾_27_)
+        }
+        return nil
+    }
+
+    private func _ASTNODE_霾:1.0__SYM_霾_227_(_ASTNODE_霾:1.0__SYM_霾_49_: _ASTNODE_紐:1.0__SYM_廨_45_) -> [_ASTNODE_廨:1.0__SYM_廨_6_: _ASTNODE_廨:1.0__SYM_廨_6_] {
+        var _ASTNODE_霾:1.0__SYM_霾_161_ = _ASTNODE_廨:1.0__SYM_廨_76_._ASTNODE_霾:1.0__SYM_霾_188_._ASTNODE_霾:1.0__SYM_霾_238_
+// [metadata-stripped]
+        let _ASTNODE_霾:1.0__SYM_霾_122_ = _ASTNODE_霾:1.0__SYM_霾_49_._ASTNODE_霾:1.0__SYM_霾_176_()._ASTNODE_霾:1.0__SYM_霾_66_
+        let _ASTNODE_霾:1.0__SYM_霾_104_ = _ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_5_"] ?? "/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_106_/_ASTNODE_霾:1.0__SYM_霾_134_:/_ASTNODE_霾:1.0__SYM_霾_9_/_ASTNODE_霾:1.0__SYM_霾_134_:/_ASTNODE_霾:1.0__SYM_霾_134_"
+        _ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_5_"] = "\(_ASTNODE_霾:1.0__SYM_霾_122_):\(_ASTNODE_霾:1.0__SYM_霾_104_)"
+// [metadata-stripped]
+        _ASTNODE_霾:1.0__SYM_霾_161_["_ASTNODE_廨:1.0__SYM_廨_23_"] = "1"
+        return _ASTNODE_霾:1.0__SYM_霾_161_
+    }
+
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _ASTNODE_廨:0.6__SYM_YZ_136_ [decoy-metadata]
+// [metadata-stripped]
+
+final class _ASTNODE_霾:1.0__SYM_霾_126_: @_ASTNODE_霾:1.0__SYM_霾_15_ _ASTNODE_廨:1.0__SYM_廨_14_ {
+    private var _ASTNODE_霾:1.0__SYM_霾_57_ = _ASTNODE_霾:1.0__SYM_霾_181_()
+    private var _ASTNODE_霾:1.0__SYM_霾_79_  = false
+
+// [metadata-stripped]
+    func _ASTNODE_霾:1.0__SYM_霾_193_() -> _ASTNODE_廨:1.0__SYM_廨_56_ {
+        _ASTNODE_霾:1.0__SYM_霾_87_(&_ASTNODE_霾:1.0__SYM_霾_57_)
+        defer { _ASTNODE_霾:1.0__SYM_霾_117_(&_ASTNODE_霾:1.0__SYM_霾_57_) }
+        guard !_ASTNODE_霾:1.0__SYM_霾_79_ else { return false }
+        _ASTNODE_霾:1.0__SYM_霾_79_ = true
+        return true
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

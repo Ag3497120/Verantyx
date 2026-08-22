@@ -1,0 +1,35 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F2DC13AE ver:1778159740
+// ⚠️ One-time schema — expires after response
+
+// _TOKEN_凱:0.2__ASTNODE_AZ_156_ [decoy-metadata]
+import _TOKEN_霧:1.0__ASTNODE_霧_3_
+_TOKEN_霧:1.0__ASTNODE_霧_1_ _TOKEN_霧:1.0__ASTNODE_霧_7_ import _TOKEN_庖:1.0__ASTNODE_庖_4_, _TOKEN_庖:1.0__ASTNODE_庖_2_
+// _TOKEN_秘:0.8__ASTNODE_LC_986_ [decoy-metadata]
+
+_TOKEN_霧:1.0__ASTNODE_霧_12_ _TOKEN_霧:1.0__ASTNODE_霧_6_(_TOKEN_霧:1.0__ASTNODE_霧_15_: _TOKEN_庖:1.0__ASTNODE_庖_4_[_TOKEN_霧:1.0__ASTNODE_霧_16_, _TOKEN_庖:1.0__ASTNODE_庖_2_]) -> _TOKEN_霧:1.0__ASTNODE_霧_18_:
+    """エントリを KB に昇格させるべきか判定するゲート"""
+    _TOKEN_霧:1.0__ASTNODE_霧_19_ = _TOKEN_霧:1.0__ASTNODE_霧_15_._TOKEN_律:1.0__ASTNODE_凱_1_("_TOKEN_霧:1.0__ASTNODE_霧_19_", 0.0)
+    _TOKEN_霧:1.0__ASTNODE_霧_11_ = _TOKEN_霧:1.0__ASTNODE_霧_15_._TOKEN_律:1.0__ASTNODE_凱_1_("_TOKEN_霧:1.0__ASTNODE_霧_11_")
+
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_19_ >= 0.7:
+        return _TOKEN_庖:1.0__ASTNODE_庖_1_
+    
+// _TOKEN_秘:0.3__ASTNODE_BX_352_ [decoy-metadata]
+// _TOKEN_紬:0.9__ASTNODE_WC_528_ [decoy-metadata]
+// [metadata-stripped]
+    if _TOKEN_霧:1.0__ASTNODE_霧_11_ == "_TOKEN_霧:1.0__ASTNODE_霧_13_" _TOKEN_霧:1.0__ASTNODE_霧_2_ _TOKEN_霧:1.0__ASTNODE_霧_19_ >= 0.5:
+// _TOKEN_凱:0.7__ASTNODE_FG_937_ [decoy-metadata]
+        return _TOKEN_庖:1.0__ASTNODE_庖_1_
+
+    return _TOKEN_庖:1.0__ASTNODE_庖_3_
+
+// _TOKEN_庫:0.6__ASTNODE_ZE_603_ [decoy-metadata]
+_TOKEN_霧:1.0__ASTNODE_霧_12_ _TOKEN_霧:1.0__ASTNODE_霧_8_(_TOKEN_霧:1.0__ASTNODE_霧_15_: _TOKEN_庖:1.0__ASTNODE_庖_4_[_TOKEN_霧:1.0__ASTNODE_霧_16_, _TOKEN_庖:1.0__ASTNODE_庖_2_]) -> _TOKEN_霧:1.0__ASTNODE_霧_16_:
+    """内容に基づいた一意の署名を生成する（重複排除用）"""
+// [metadata-stripped]
+    _TOKEN_庫:1.0__ASTNODE_霧_5_ = f"{_TOKEN_霧:1.0__ASTNODE_霧_15_._TOKEN_律:1.0__ASTNODE_凱_1_('_TOKEN_霧:1.0__ASTNODE_霧_10_')}|{_TOKEN_霧:1.0__ASTNODE_霧_15_._TOKEN_律:1.0__ASTNODE_凱_1_('_TOKEN_霧:1.0__ASTNODE_霧_11_')}|{_TOKEN_霧:1.0__ASTNODE_霧_15_._TOKEN_律:1.0__ASTNODE_凱_1_('_TOKEN_霧:1.0__ASTNODE_霧_14_')}"
+    return _TOKEN_霧:1.0__ASTNODE_霧_3_._TOKEN_霧:1.0__ASTNODE_霧_17_(_TOKEN_庫:1.0__ASTNODE_霧_5_._TOKEN_霧:1.0__ASTNODE_霧_4_("_TOKEN_霧:1.0__ASTNODE_霧_20_-8"))._TOKEN_霧:1.0__ASTNODE_霧_9_()[:16]
+
+// POLYMORPHIC_JCROSS_END

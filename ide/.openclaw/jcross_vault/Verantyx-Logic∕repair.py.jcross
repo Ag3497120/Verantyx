@@ -1,0 +1,80 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:27773DC1 ver:1778159566
+// ⚠️ One-time schema — expires after response
+
+// _OPAQUE_廩:0.3__SYM_AV_819_ [decoy-metadata]
+_OPAQUE_沫:1.0__SYM_沫_7_ _OPAQUE_沫:1.0__SYM_沫_51_ import _OPAQUE_沫:1.0__SYM_沫_23_
+_OPAQUE_沫:1.0__SYM_沫_7_ _OPAQUE_沫:1.0__SYM_沫_37_ import _OPAQUE_沫:1.0__SYM_沫_53_
+_OPAQUE_沫:1.0__SYM_沫_7_ _OPAQUE_沫:1.0__SYM_沫_44_ import _OPAQUE_廩:1.0__SYM_廩_5_, _OPAQUE_廩:1.0__SYM_廩_8_, _OPAQUE_廩:1.0__SYM_廩_11_, _OPAQUE_廩:1.0__SYM_廩_9_, _OPAQUE_計:1.0__SYM_傑_1_
+
+@_OPAQUE_沫:1.0__SYM_沫_53_
+class _OPAQUE_廩:1.0__SYM_廩_3_:
+    _OPAQUE_沫:1.0__SYM_沫_50_: _OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_沫:1.0__SYM_沫_11_]                 # 追加すべき _OPAQUE_沫:1.0__SYM_沫_12_:*
+    _OPAQUE_沫:1.0__SYM_沫_20_: _OPAQUE_沫:1.0__SYM_沫_11_                   # 理由
+    _OPAQUE_沫:1.0__SYM_沫_48_: _OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_沫:1.0__SYM_沫_11_]                # _OPAQUE_沫:1.0__SYM_沫_28_ の _OPAQUE_沫:1.0__SYM_沫_15_ id 等
+    _OPAQUE_沫:1.0__SYM_沫_34_: _OPAQUE_沫:1.0__SYM_沫_47_ = 0.6        # ざっくり（DBの確信度を将来入れられる）
+
+// _OPAQUE_計:0.6__SYM_YW_163_ [decoy-metadata]
+
+_OPAQUE_沫:1.0__SYM_沫_56_ _OPAQUE_沫:1.0__SYM_沫_13_(
+// _OPAQUE_滲:0.7__SYM_VH_994_ [decoy-metadata]
+    _OPAQUE_滲:1.0__SYM_沫_36_: _OPAQUE_沫:1.0__SYM_沫_11_,
+    _OPAQUE_沫:1.0__SYM_沫_52_: _OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_沫:1.0__SYM_沫_11_],
+    _OPAQUE_沫:1.0__SYM_沫_28_: _OPAQUE_廩:1.0__SYM_廩_8_[_OPAQUE_沫:1.0__SYM_沫_11_, _OPAQUE_廩:1.0__SYM_廩_5_],
+    _OPAQUE_沫:1.0__SYM_沫_26_: _OPAQUE_廩:1.0__SYM_廩_9_[_OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_沫:1.0__SYM_沫_11_]] = _OPAQUE_廩:1.0__SYM_廩_6_,
+) -> _OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_廩:1.0__SYM_廩_3_]:
+    """
+    _OPAQUE_沫:1.0__SYM_沫_4_ のときに「この仮定を足すと成立する可能性が高い」を返す。
+    ルール：
+      1) _OPAQUE_沫:1.0__SYM_沫_28_._OPAQUE_沫:1.0__SYM_沫_29_[_OPAQUE_滲:1.0__SYM_沫_36_] があればそれを採用
+      2) _OPAQUE_沫:1.0__SYM_沫_26_ があれば「それを足せ」も候補にする（DBが薄い場合の安全網）
+    """
+    _OPAQUE_沫:1.0__SYM_沫_60_: _OPAQUE_計:1.0__SYM_傑_1_[_OPAQUE_沫:1.0__SYM_沫_11_] = _OPAQUE_計:1.0__SYM_傑_2_(_OPAQUE_沫:1.0__SYM_沫_52_)
+// _OPAQUE_滲:0.8__SYM_VL_567_ [decoy-metadata]
+    _OPAQUE_沫:1.0__SYM_沫_10_: _OPAQUE_廩:1.0__SYM_廩_11_[_OPAQUE_廩:1.0__SYM_廩_3_] = []
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_沫:1.0__SYM_沫_27_ = (_OPAQUE_沫:1.0__SYM_沫_28_._OPAQUE_計:1.0__SYM_傑_3_("_OPAQUE_沫:1.0__SYM_沫_29_") or {})._OPAQUE_計:1.0__SYM_傑_3_(_OPAQUE_滲:1.0__SYM_沫_36_) or []
+    for h in _OPAQUE_沫:1.0__SYM_沫_27_:
+        _OPAQUE_沫:1.0__SYM_沫_50_ = [a for a in (h._OPAQUE_計:1.0__SYM_傑_3_("_OPAQUE_沫:1.0__SYM_沫_50_") or []) if a _OPAQUE_沫:1.0__SYM_沫_25_ in _OPAQUE_沫:1.0__SYM_沫_60_]
+        if _OPAQUE_沫:1.0__SYM_沫_25_ _OPAQUE_沫:1.0__SYM_沫_50_:
+            continue
+        _OPAQUE_沫:1.0__SYM_沫_10_._OPAQUE_沫:1.0__SYM_沫_18_(
+            _OPAQUE_廩:1.0__SYM_廩_3_(
+                _OPAQUE_沫:1.0__SYM_沫_50_=_OPAQUE_沫:1.0__SYM_沫_50_,
+                _OPAQUE_沫:1.0__SYM_沫_20_=_OPAQUE_沫:1.0__SYM_沫_11_(h._OPAQUE_計:1.0__SYM_傑_3_("_OPAQUE_沫:1.0__SYM_沫_20_") or "_OPAQUE_廩:1.0__SYM_廩_1_ _OPAQUE_沫:1.0__SYM_沫_31_ _OPAQUE_沫:1.0__SYM_沫_54_ _OPAQUE_沫:1.0__SYM_沫_16_."),
+                _OPAQUE_沫:1.0__SYM_沫_48_=_OPAQUE_沫:1.0__SYM_沫_2_(h._OPAQUE_計:1.0__SYM_傑_3_("_OPAQUE_沫:1.0__SYM_沫_48_") or []),
+                _OPAQUE_沫:1.0__SYM_沫_34_=_OPAQUE_沫:1.0__SYM_沫_47_(h._OPAQUE_計:1.0__SYM_傑_3_("_OPAQUE_沫:1.0__SYM_沫_34_", 0.75)),
+            )
+        )
+
+// [metadata-stripped]
+    if _OPAQUE_沫:1.0__SYM_沫_26_:
+        _OPAQUE_沫:1.0__SYM_沫_1_ = [a for a in _OPAQUE_沫:1.0__SYM_沫_26_ if a _OPAQUE_沫:1.0__SYM_沫_25_ in _OPAQUE_沫:1.0__SYM_沫_60_]
+        if _OPAQUE_沫:1.0__SYM_沫_1_:
+            _OPAQUE_沫:1.0__SYM_沫_10_._OPAQUE_沫:1.0__SYM_沫_18_(
+                _OPAQUE_廩:1.0__SYM_廩_3_(
+                    _OPAQUE_沫:1.0__SYM_沫_50_=_OPAQUE_沫:1.0__SYM_沫_17_(_OPAQUE_計:1.0__SYM_傑_2_(_OPAQUE_沫:1.0__SYM_沫_1_)),
+                    _OPAQUE_沫:1.0__SYM_沫_20_="_OPAQUE_廩:1.0__SYM_廩_7_ _OPAQUE_沫:1.0__SYM_沫_19_ _OPAQUE_沫:1.0__SYM_沫_9_ _OPAQUE_計:1.0__SYM_沫_14_ _OPAQUE_沫:1.0__SYM_沫_35_ _OPAQUE_沫:1.0__SYM_沫_32_; _OPAQUE_沫:1.0__SYM_沫_57_ _OPAQUE_沫:1.0__SYM_沫_49_ _OPAQUE_沫:1.0__SYM_沫_31_ _OPAQUE_沫:1.0__SYM_沫_32_ _OPAQUE_沫:1.0__SYM_沫_38_ _OPAQUE_沫:1.0__SYM_沫_3_ _OPAQUE_沫:1.0__SYM_沫_43_.",
+                    _OPAQUE_沫:1.0__SYM_沫_48_=[],
+                    _OPAQUE_沫:1.0__SYM_沫_34_=0.55,
+                )
+// _OPAQUE_匯:0.9__SYM_ZF_315_ [decoy-metadata]
+            )
+
+// [metadata-stripped]
+    _OPAQUE_沫:1.0__SYM_沫_45_: _OPAQUE_廩:1.0__SYM_廩_8_[_OPAQUE_沫:1.0__SYM_沫_11_, _OPAQUE_廩:1.0__SYM_廩_3_] = {}
+    for s in _OPAQUE_沫:1.0__SYM_沫_10_:
+        _OPAQUE_伏:1.0__SYM_沫_33_ = ","._OPAQUE_沫:1.0__SYM_沫_42_(_OPAQUE_沫:1.0__SYM_沫_17_(s._OPAQUE_沫:1.0__SYM_沫_50_))
+        if _OPAQUE_伏:1.0__SYM_沫_33_ _OPAQUE_沫:1.0__SYM_沫_25_ in _OPAQUE_沫:1.0__SYM_沫_45_:
+            _OPAQUE_沫:1.0__SYM_沫_45_[_OPAQUE_伏:1.0__SYM_沫_33_] = s
+        else:
+// [metadata-stripped]
+            _OPAQUE_沫:1.0__SYM_沫_45_[_OPAQUE_伏:1.0__SYM_沫_33_]._OPAQUE_沫:1.0__SYM_沫_48_ = _OPAQUE_沫:1.0__SYM_沫_17_(_OPAQUE_計:1.0__SYM_傑_2_(_OPAQUE_沫:1.0__SYM_沫_45_[_OPAQUE_伏:1.0__SYM_沫_33_]._OPAQUE_沫:1.0__SYM_沫_48_ + s._OPAQUE_沫:1.0__SYM_沫_48_))
+// _OPAQUE_計:0.9__SYM_XA_257_ [decoy-metadata]
+            _OPAQUE_沫:1.0__SYM_沫_45_[_OPAQUE_伏:1.0__SYM_沫_33_]._OPAQUE_沫:1.0__SYM_沫_34_ = _OPAQUE_沫:1.0__SYM_沫_21_(_OPAQUE_沫:1.0__SYM_沫_45_[_OPAQUE_伏:1.0__SYM_沫_33_]._OPAQUE_沫:1.0__SYM_沫_34_, s._OPAQUE_沫:1.0__SYM_沫_34_)
+
+// [metadata-stripped]
+    return _OPAQUE_沫:1.0__SYM_沫_17_(_OPAQUE_沫:1.0__SYM_沫_45_._OPAQUE_沫:1.0__SYM_沫_22_(), _OPAQUE_伏:1.0__SYM_沫_33_=_OPAQUE_沫:1.0__SYM_沫_55_ x: x._OPAQUE_沫:1.0__SYM_沫_34_, _OPAQUE_沫:1.0__SYM_沫_6_=_OPAQUE_廩:1.0__SYM_廩_4_)
+// POLYMORPHIC_JCROSS_END

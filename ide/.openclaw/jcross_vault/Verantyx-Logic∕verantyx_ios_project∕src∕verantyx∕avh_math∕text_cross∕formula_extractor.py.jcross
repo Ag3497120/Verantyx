@@ -1,0 +1,135 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B7B9956B ver:1778159687
+// ⚠️ One-time schema — expires after response
+
+import re
+_ASTNODE_塵:1.0___jcross_塵_3__ _ASTNODE_塵:1.0___jcross_塵_30__ import _ASTNODE_廟:1.0___jcross_廟_10__, _ASTNODE_廟:1.0___jcross_廟_8__, _ASTNODE_廟:1.0___jcross_廟_9__, _ASTNODE_廟:1.0___jcross_廟_4__
+// _ASTNODE_塵:0.2___jcross_XX_952__ [decoy-metadata]
+
+_ASTNODE_廟:1.0___jcross_廟_7__ = [
+// [metadata-stripped]
+    r'"([^"]+)"',
+    r'「([^」]+)」',
+
+// [metadata-stripped]
+    r'[\[\]□◇()A-Za-z0-9_\s→\-&|~>]+',
+
+// [metadata-stripped]
+    r'[A-Za-z]+\s*\([^)]*\)',
+]
+// _ASTNODE_糸:0.7___jcross_BY_561__ [decoy-metadata]
+
+_ASTNODE_廟:1.0___jcross_廟_2__ = {'->', '→', '&', '|', '~', '□', '◇'}
+
+_ASTNODE_塵:1.0___jcross_塵_50__ _ASTNODE_濫:1.0___jcross_塵_12__(s: _ASTNODE_塵:1.0___jcross_塵_5__) -> _ASTNODE_廟:1.0___jcross_廟_9__[_ASTNODE_塵:1.0___jcross_塵_5__]:
+    """
+    途中で切れた論理式を、括弧バランスを基準に修復する。
+    """
+    if _ASTNODE_塵:1.0___jcross_塵_13__ s:
+        return _ASTNODE_廟:1.0___jcross_廟_5__
+
+// [metadata-stripped]
+    _ASTNODE_塵:1.0___jcross_塵_49__ = s._ASTNODE_塵:1.0___jcross_塵_38__("(")
+    _ASTNODE_塵:1.0___jcross_塵_18__ = s._ASTNODE_塵:1.0___jcross_塵_38__(")")
+    if _ASTNODE_塵:1.0___jcross_塵_49__ > _ASTNODE_塵:1.0___jcross_塵_18__:
+        s = s + ")" * (_ASTNODE_塵:1.0___jcross_塵_49__ - _ASTNODE_塵:1.0___jcross_塵_18__)
+    
+// [metadata-stripped]
+// [metadata-stripped]
+    if s._ASTNODE_塵:1.0___jcross_塵_25__()._ASTNODE_塵:1.0___jcross_塵_46__(("->", "&", "|", "~", "⊕")):
+        return _ASTNODE_廟:1.0___jcross_廟_5__
+        
+    return s
+
+_ASTNODE_塵:1.0___jcross_塵_50__ _ASTNODE_濫:1.0___jcross_塵_4__(_ASTNODE_塵:1.0___jcross_塵_34__: _ASTNODE_塵:1.0___jcross_塵_5__) -> _ASTNODE_廟:1.0___jcross_廟_10__[_ASTNODE_廟:1.0___jcross_廟_8__[_ASTNODE_塵:1.0___jcross_塵_5__, _ASTNODE_廟:1.0___jcross_廟_4__]]:
+    """
+    テキストから論理式の候補を抽出し、スコア順にソートして返す。
+    スペースを含む式や、日本語に挟まれた式を強力に保護する。
+    """
+    if _ASTNODE_塵:1.0___jcross_塵_13__ _ASTNODE_塵:1.0___jcross_塵_34__:
+        return []
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    _ASTNODE_塵:1.0___jcross_塵_43__ = r'[\(\)[\]A-Za-z0-9\s\-\>\<&\|~□◇⊕→\\]+'
+    
+    _ASTNODE_塵:1.0___jcross_塵_32__ = re._ASTNODE_型:1.0___jcross_塵_44__(_ASTNODE_塵:1.0___jcross_塵_43__, _ASTNODE_塵:1.0___jcross_塵_34__)
+    _ASTNODE_塵:1.0___jcross_塵_1__ = []
+    
+    for m in _ASTNODE_塵:1.0___jcross_塵_32__:
+        s = m._ASTNODE_塵:1.0___jcross_塵_14__(0)._ASTNODE_塵:1.0___jcross_塵_25__()
+// [metadata-stripped]
+// [metadata-stripped]
+        _ASTNODE_塵:1.0___jcross_塵_37__ = re._ASTNODE_塵:1.0___jcross_塵_27__(r'[A-Za-z]{3,}', s)
+        _ASTNODE_塵:1.0___jcross_塵_21__ = "->" in s or "→" in s or "[]" in s or "□" in s
+        
+        if _ASTNODE_塵:1.0___jcross_塵_13__ _ASTNODE_塵:1.0___jcross_塵_21__ _ASTNODE_塵:1.0___jcross_塵_10__ _ASTNODE_塵:1.0___jcross_塵_23__(_ASTNODE_塵:1.0___jcross_塵_37__) > 2:
+            continue
+
+// [metadata-stripped]
+        if _ASTNODE_塵:1.0___jcross_塵_13__ any(op in s for op in ("->", "→", "[]", "□", "(", ")", "&", "|", "~")):
+            continue
+            
+// [metadata-stripped]
+        _ASTNODE_塵:1.0___jcross_塵_19__ = s._ASTNODE_塵:1.0___jcross_塵_36__(" ", "")._ASTNODE_塵:1.0___jcross_塵_36__("→", "->")._ASTNODE_塵:1.0___jcross_塵_36__("□", "[]")._ASTNODE_塵:1.0___jcross_塵_36__("◇", "<>")
+        
+// _ASTNODE_凛:0.2___jcross_YE_822__ [decoy-metadata]
+// [metadata-stripped]
+        if _ASTNODE_塵:1.0___jcross_塵_23__(_ASTNODE_塵:1.0___jcross_塵_19__) < 2:
+            continue
+
+// [metadata-stripped]
+// _ASTNODE_塵:0.3___jcross_YC_127__ [decoy-metadata]
+        _ASTNODE_塵:1.0___jcross_塵_22__ = 1.0
+// _ASTNODE_凛:0.4___jcross_XD_317__ [decoy-metadata]
+// _ASTNODE_匴:0.9___jcross_AA_580__ [decoy-metadata]
+        _ASTNODE_塵:1.0___jcross_塵_22__ += _ASTNODE_塵:1.0___jcross_塵_19__._ASTNODE_塵:1.0___jcross_塵_38__("->") * 0.5
+        _ASTNODE_塵:1.0___jcross_塵_22__ += _ASTNODE_塵:1.0___jcross_塵_19__._ASTNODE_塵:1.0___jcross_塵_38__("[]") * 0.5
+        _ASTNODE_塵:1.0___jcross_塵_22__ += _ASTNODE_塵:1.0___jcross_塵_19__._ASTNODE_塵:1.0___jcross_塵_38__("(") * 0.2
+// [metadata-stripped]
+        _ASTNODE_塵:1.0___jcross_塵_22__ -= _ASTNODE_塵:1.0___jcross_塵_23__(_ASTNODE_塵:1.0___jcross_塵_37__) * 0.3
+        
+        _ASTNODE_塵:1.0___jcross_塵_1__._ASTNODE_塵:1.0___jcross_塵_9__({
+            "_ASTNODE_塵:1.0___jcross_塵_40__": s,
+            "_ASTNODE_塵:1.0___jcross_塵_26__": _ASTNODE_塵:1.0___jcross_塵_19__,
+            "_ASTNODE_塵:1.0___jcross_塵_22__": _ASTNODE_塵:1.0___jcross_塵_22__,
+            "_ASTNODE_塵:1.0___jcross_塵_51__": m._ASTNODE_塵:1.0___jcross_塵_51__()
+        })
+
+// [metadata-stripped]
+    return _ASTNODE_塵:1.0___jcross_塵_8__(_ASTNODE_塵:1.0___jcross_塵_1__, _ASTNODE_隠:1.0___jcross_塵_20__=_ASTNODE_塵:1.0___jcross_塵_48__ x: x["_ASTNODE_塵:1.0___jcross_塵_22__"], _ASTNODE_塵:1.0___jcross_塵_2__=_ASTNODE_廟:1.0___jcross_廟_3__)
+
+_ASTNODE_塵:1.0___jcross_塵_50__ _ASTNODE_濫:1.0___jcross_塵_28__(s: _ASTNODE_塵:1.0___jcross_塵_5__) -> _ASTNODE_塵:1.0___jcross_塵_5__:
+    s = s._ASTNODE_塵:1.0___jcross_塵_36__("→", "->")
+    s = re._ASTNODE_塵:1.0___jcross_塵_6__(r"\s+", "", s)
+    return s
+
+_ASTNODE_塵:1.0___jcross_塵_50__ _ASTNODE_濫:1.0___jcross_塵_15__(s: _ASTNODE_塵:1.0___jcross_塵_5__) -> _ASTNODE_塵:1.0___jcross_塵_33__:
+    _ASTNODE_塵:1.0___jcross_塵_22__ = 0.0
+    for _ASTNODE_塵:1.0___jcross_塵_42__ in _ASTNODE_廟:1.0___jcross_廟_2__:
+        if _ASTNODE_塵:1.0___jcross_塵_42__ in s:
+            _ASTNODE_塵:1.0___jcross_塵_22__ += 1.0
+    if "(" in s _ASTNODE_塵:1.0___jcross_塵_10__ ")" in s:
+        _ASTNODE_塵:1.0___jcross_塵_22__ += 0.5
+    if "[" in s or "]" in s:
+        _ASTNODE_塵:1.0___jcross_塵_22__ += 0.5
+    return _ASTNODE_塵:1.0___jcross_塵_22__
+
+_ASTNODE_塵:1.0___jcross_塵_50__ _ASTNODE_濫:1.0___jcross_塵_45__(_ASTNODE_塵:1.0___jcross_塵_39__: _ASTNODE_廟:1.0___jcross_廟_10__[_ASTNODE_廟:1.0___jcross_廟_8__]) -> _ASTNODE_廟:1.0___jcross_廟_9__[_ASTNODE_塵:1.0___jcross_塵_5__]:
+    """
+    _ASTNODE_廟:1.0___jcross_廟_6__-_ASTNODE_廟:1.0___jcross_廟_11__ の分解結果（_ASTNODE_塵:1.0___jcross_塵_39__）から、論理的な意味を持つトークンのみを抽出して式を再構成する。
+    """
+    _ASTNODE_隠:1.0___jcross_塵_41__ = []
+    for s in _ASTNODE_塵:1.0___jcross_塵_39__:
+// [metadata-stripped]
+        if s["_ASTNODE_塵:1.0___jcross_塵_16__"] in ("_ASTNODE_塵:1.0___jcross_塵_17__", "_ASTNODE_塵:1.0___jcross_塵_7__", "_ASTNODE_塵:1.0___jcross_塵_35__", "_ASTNODE_塵:1.0___jcross_塵_31__"):
+            _ASTNODE_隠:1.0___jcross_塵_41__._ASTNODE_塵:1.0___jcross_塵_9__(s["_ASTNODE_隠:1.0___jcross_塵_11__"])
+    
+    _ASTNODE_濫:1.0___jcross_塵_24__ = ""._ASTNODE_塵:1.0___jcross_塵_29__(_ASTNODE_隠:1.0___jcross_塵_41__)._ASTNODE_塵:1.0___jcross_塵_25__()
+// [metadata-stripped]
+    if _ASTNODE_塵:1.0___jcross_塵_23__(_ASTNODE_濫:1.0___jcross_塵_24__) >= 3:
+        return _ASTNODE_濫:1.0___jcross_塵_24__
+    return _ASTNODE_廟:1.0___jcross_廟_5__
+
+// POLYMORPHIC_JCROSS_END

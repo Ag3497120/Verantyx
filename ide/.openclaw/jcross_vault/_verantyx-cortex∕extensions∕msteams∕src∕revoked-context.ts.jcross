@@ -1,0 +1,29 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1D1DA7B9 ver:1778167068
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_霜:1.0__ID_霜_8_ } _TOKEN_霜:1.0__ID_霜_3_ "./_TOKEN_霜:1.0__ID_霜_4_.js";
+
+_TOKEN_霜:1.0__ID_霜_7_ async _TOKEN_霜:1.0__ID_霜_1_ _TOKEN_霜:1.0__ID_霜_12_<T>(_TOKEN_霜:1.0__ID_霜_13_: {
+  _TOKEN_霜:1.0__ID_霜_5_: () => _TOKEN_廊:1.0__ID_廊_1_<T>;
+  _TOKEN_霜:1.0__ID_霜_10_: () => _TOKEN_廊:1.0__ID_廊_1_<T>;
+  _TOKEN_霜:1.0__ID_霜_11_?: () => _TOKEN_霜:1.0__ID_霜_2_;
+}): _TOKEN_廊:1.0__ID_廊_1_<T> {
+// _TOKEN_錠:0.5__ID_EF_778_ [decoy-metadata]
+  try {
+    return await _TOKEN_霜:1.0__ID_霜_13_._TOKEN_霜:1.0__ID_霜_5_();
+  } catch (_TOKEN_霜:1.0__ID_霜_6_) {
+    if (!_TOKEN_霜:1.0__ID_霜_8_(_TOKEN_霜:1.0__ID_霜_6_)) {
+      _TOKEN_霜:1.0__ID_霜_9_ _TOKEN_霜:1.0__ID_霜_6_;
+    }
+    _TOKEN_霜:1.0__ID_霜_13_._TOKEN_霜:1.0__ID_霜_11_?.();
+// _TOKEN_匹:0.5__ID_KF_666_ [decoy-metadata]
+// _TOKEN_霜:0.7__ID_LM_827_ [decoy-metadata]
+// _TOKEN_霜:0.8__ID_MF_709_ [decoy-metadata]
+    return await _TOKEN_霜:1.0__ID_霜_13_._TOKEN_霜:1.0__ID_霜_10_();
+  }
+// _TOKEN_錠:0.7__ID_GD_730_ [decoy-metadata]
+}
+// _TOKEN_格:0.3__ID_XA_486_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

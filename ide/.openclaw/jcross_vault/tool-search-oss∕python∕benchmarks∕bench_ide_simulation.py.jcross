@@ -1,0 +1,289 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A7824CD7 ver:1778164263
+// ⚠️ One-time schema — expires after response
+
+"""
+_ASTNODE_塵:1.0__TOKEN_塵_14_.py — _ASTNODE_庠:1.0__TOKEN_庠_50__ASTNODE_庠:1.0__TOKEN_庠_26_環境での_ASTNODE_庠:1.0__TOKEN_庠_56_比較デモ
+
+_ASTNODE_庠:1.0__TOKEN_庠_50__ASTNODE_庠:1.0__TOKEN_庠_26_が持つ_ASTNODE_庠:1.0__TOKEN_庠_48_Engine構造を模倣し:
+1. 50個の_ASTNODE_庠:1.0__TOKEN_庠_48_サーバーから取得したツールリストを構築
+2. _ASTNODE_庠:1.0__TOKEN_庠_83_: 全ツール定義をOllamaへのプロンプトに入れて_ASTNODE_庠:1.0__TOKEN_庠_56_計測
+3. _ASTNODE_庠:1.0__TOKEN_庠_24_: _ASTNODE_塵:1.0__TOKEN_塵_30_-_ASTNODE_塵:1.0__TOKEN_塵_182_-_ASTNODE_塵:1.0__TOKEN_塵_29_で絞り込んだ後にOllamaへ投げて_ASTNODE_庠:1.0__TOKEN_庠_56_計測
+
+これは_ASTNODE_庠:1.0__TOKEN_庠_26_が実際にやっているLLM呼び出しの正確なシミュレーション。
+"""
+
+_ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_137_ import _ASTNODE_塵:1.0__TOKEN_塵_24_
+
+import _ASTNODE_塵:1.0__TOKEN_塵_217_
+import _ASTNODE_塵:1.0__TOKEN_塵_141_
+import _ASTNODE_塵:1.0__TOKEN_塵_4_
+import _ASTNODE_繕:1.0__TOKEN_塵_89_._ASTNODE_繕:1.0__TOKEN_塵_149_
+_ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_82_ import _ASTNODE_庠:1.0__TOKEN_庠_18_
+
+// _ASTNODE_繕:0.4__TOKEN_DD_357_ [decoy-metadata]
+_ASTNODE_塵:1.0__TOKEN_塵_4_._ASTNODE_塵:1.0__TOKEN_塵_124_._ASTNODE_塵:1.0__TOKEN_塵_199_(0, _ASTNODE_塵:1.0__TOKEN_塵_174_(_ASTNODE_庠:1.0__TOKEN_庠_18_(_ASTNODE_匯:1.0__TOKEN_塵_36_)._ASTNODE_塵:1.0__TOKEN_塵_231_._ASTNODE_塵:1.0__TOKEN_塵_231_))
+_ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_251_._ASTNODE_術:1.0__TOKEN_塵_77_ import _ASTNODE_術:1.0__TOKEN_庠_78_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_庠:1.0__TOKEN_庠_36_ = [
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_177_-_ASTNODE_術:1.0__TOKEN_塵_88_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_術:1.0__TOKEN_塵_152_",     "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_匯:1.0__TOKEN_庠_53_ _ASTNODE_塵:1.0__TOKEN_塵_6_ to _ASTNODE_庠:1.0__TOKEN_庠_84_ _ASTNODE_塵:1.0__TOKEN_塵_159_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_182_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_67_ _ASTNODE_塵:1.0__TOKEN_塵_182_ in _ASTNODE_塵:1.0__TOKEN_塵_6_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_39_",         "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_91_ a _ASTNODE_庠:1.0__TOKEN_庠_84_ _ASTNODE_塵:1.0__TOKEN_塵_159_ by _ASTNODE_匯:1.0__TOKEN_塵_197_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_26_",         "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_33_ _ASTNODE_塵:1.0__TOKEN_塵_218_, _ASTNODE_匯:1.0__TOKEN_塵_115_ _ASTNODE_匯:1.0__TOKEN_塵_79_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_228_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_92_ _ASTNODE_塵:1.0__TOKEN_塵_150_, _ASTNODE_塵:1.0__TOKEN_塵_12_-_ASTNODE_塵:1.0__TOKEN_塵_233_ _ASTNODE_庠:1.0__TOKEN_庠_34_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_16_",         "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_58_ _ASTNODE_塵:1.0__TOKEN_塵_214_ _ASTNODE_塵:1.0__TOKEN_塵_175_ _ASTNODE_塵:1.0__TOKEN_塵_182_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "gc",           "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_76_ _ASTNODE_塵:1.0__TOKEN_塵_222_ _ASTNODE_塵:1.0__TOKEN_塵_200_ _ASTNODE_塵:1.0__TOKEN_塵_6_ _ASTNODE_塵:1.0__TOKEN_塵_44_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_120_",         "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_79_ _ASTNODE_塵:1.0__TOKEN_塵_159_ to _ASTNODE_術:1.0__TOKEN_塵_187_ _ASTNODE_塵:1.0__TOKEN_塵_210_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_18_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_64_ _ASTNODE_術:1.0__TOKEN_塵_122_ _ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_117_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_185_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_32_ a _ASTNODE_秘:1.0__TOKEN_塵_191_-_ASTNODE_塵:1.0__TOKEN_塵_157_ _ASTNODE_塵:1.0__TOKEN_塵_204_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_53_",        "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_82_ a _ASTNODE_秘:1.0__TOKEN_塵_191_-_ASTNODE_塵:1.0__TOKEN_塵_157_ _ASTNODE_塵:1.0__TOKEN_塵_204_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_64_",         "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_62_ _ASTNODE_塵:1.0__TOKEN_塵_238_ _ASTNODE_塵:1.0__TOKEN_塵_210_ _ASTNODE_塵:1.0__TOKEN_塵_6_ _ASTNODE_塵:1.0__TOKEN_塵_44_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_匯:1.0__TOKEN_塵_92_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_168_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_91_ _ASTNODE_塵:1.0__TOKEN_塵_8_ of a _ASTNODE_匯:1.0__TOKEN_塵_239_ _ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_146_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_160_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_46_ _ASTNODE_塵:1.0__TOKEN_塵_80_ to a _ASTNODE_匯:1.0__TOKEN_塵_239_ on _ASTNODE_塵:1.0__TOKEN_塵_146_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_97_",     "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_匯:1.0__TOKEN_塵_123_ _ASTNODE_塵:1.0__TOKEN_塵_135_ _ASTNODE_塵:1.0__TOKEN_塵_171_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_257_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_1_ a _ASTNODE_塵:1.0__TOKEN_塵_212_ _ASTNODE_塵:1.0__TOKEN_塵_170_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_40_",  "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_55_ a _ASTNODE_匯:1.0__TOKEN_塵_239_ or _ASTNODE_塵:1.0__TOKEN_塵_170_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_178_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_16_ or _ASTNODE_塵:1.0__TOKEN_塵_81_ a _ASTNODE_匯:1.0__TOKEN_塵_239_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_181_", "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_47_ _ASTNODE_匯:1.0__TOKEN_塵_123_ by _ASTNODE_塵:1.0__TOKEN_塵_243_ _ASTNODE_塵:1.0__TOKEN_塵_173_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_148_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_223_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_庠:1.0__TOKEN_庠_27_ _ASTNODE_塵:1.0__TOKEN_塵_86_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_235_", "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_1_ a _ASTNODE_庠:1.0__TOKEN_庠_27_ _ASTNODE_塵:1.0__TOKEN_塵_114_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_匯:1.0__TOKEN_塵_260_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_91_ a _ASTNODE_匯:1.0__TOKEN_塵_239_ _ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_庠:1.0__TOKEN_庠_27_ _ASTNODE_塵:1.0__TOKEN_塵_133_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_271_",  "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_11_ a _ASTNODE_塵:1.0__TOKEN_塵_259_ to _ASTNODE_庠:1.0__TOKEN_庠_27_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_206_",     "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_塵:1.0__TOKEN_塵_264_ _ASTNODE_繕:1.0__TOKEN_塵_253_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_116_",     "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_70_ a _ASTNODE_塵:1.0__TOKEN_塵_264_ _ASTNODE_繕:1.0__TOKEN_塵_149_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_2_","_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_1_ a _ASTNODE_塵:1.0__TOKEN_塵_212_ _ASTNODE_塵:1.0__TOKEN_塵_196_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_84_",  "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_庠:1.0__TOKEN_庠_27_ _ASTNODE_塵:1.0__TOKEN_塵_261_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_術:1.0__TOKEN_塵_34_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_194_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_31_ to a _ASTNODE_繕:1.0__TOKEN_庠_77_ in _ASTNODE_術:1.0__TOKEN_塵_205_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_85_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_35_ an _ASTNODE_塵:1.0__TOKEN_塵_230_ on a _ASTNODE_塵:1.0__TOKEN_塵_167_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_127_",        "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_2_ _ASTNODE_塵:1.0__TOKEN_塵_118_ _ASTNODE_塵:1.0__TOKEN_塵_143_ a _ASTNODE_涌:1.0__TOKEN_塵_20_ _ASTNODE_塵:1.0__TOKEN_塵_1_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_268_",  "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_90_ a _ASTNODE_塵:1.0__TOKEN_塵_198_ of _ASTNODE_塵:1.0__TOKEN_塵_61_ _ASTNODE_塵:1.0__TOKEN_塵_167_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_258_",     "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_42_ _ASTNODE_塵:1.0__TOKEN_塵_118_ _ASTNODE_塵:1.0__TOKEN_塵_80_ _ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_167_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_43_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_3_ _ASTNODE_庠:1.0__TOKEN_庠_89_ on _ASTNODE_塵:1.0__TOKEN_塵_61_ _ASTNODE_塵:1.0__TOKEN_塵_167_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_95_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_125_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_3_ a _ASTNODE_庠:1.0__TOKEN_庠_37_ _ASTNODE_庠:1.0__TOKEN_庠_51_ _ASTNODE_塵:1.0__TOKEN_塵_179_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_132_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_8_ a _ASTNODE_塵:1.0__TOKEN_塵_219_ _ASTNODE_塵:1.0__TOKEN_塵_143_ a _ASTNODE_塵:1.0__TOKEN_塵_45_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_195_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_22_ _ASTNODE_塵:1.0__TOKEN_塵_15_ in a _ASTNODE_塵:1.0__TOKEN_塵_45_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_103_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_55_ _ASTNODE_塵:1.0__TOKEN_塵_15_ _ASTNODE_塵:1.0__TOKEN_塵_163_ a _ASTNODE_塵:1.0__TOKEN_塵_45_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_180_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_術:1.0__TOKEN_傑_2_ _ASTNODE_塵:1.0__TOKEN_塵_61_ _ASTNODE_塵:1.0__TOKEN_塵_105_ of a _ASTNODE_塵:1.0__TOKEN_塵_220_ _ASTNODE_塵:1.0__TOKEN_塵_45_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_33_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_186_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_17_ a _ASTNODE_塵:1.0__TOKEN_塵_241_ to a _ASTNODE_庠:1.0__TOKEN_庠_93_ _ASTNODE_塵:1.0__TOKEN_塵_17_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_270_",       "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_塵:1.0__TOKEN_塵_51_ _ASTNODE_庠:1.0__TOKEN_庠_93_ _ASTNODE_塵:1.0__TOKEN_塵_56_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_162_",      "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_20_ a _ASTNODE_塵:1.0__TOKEN_塵_273_ _ASTNODE_塵:1.0__TOKEN_塵_58_ to a _ASTNODE_塵:1.0__TOKEN_塵_241_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_76_", "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_13_ _ASTNODE_庠:1.0__TOKEN_庠_93_ _ASTNODE_塵:1.0__TOKEN_塵_47_ _ASTNODE_塵:1.0__TOKEN_塵_129_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_208_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_232_",  "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_3_ a _ASTNODE_塵:1.0__TOKEN_塵_208_ _ASTNODE_塵:1.0__TOKEN_塵_188_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_240_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_94_ a _ASTNODE_塵:1.0__TOKEN_塵_208_ or _ASTNODE_庠:1.0__TOKEN_庠_6_ _ASTNODE_塵:1.0__TOKEN_塵_119_"},
+// _ASTNODE_術:0.9__TOKEN_MK_986_ [decoy-metadata]
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_144_", "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_88_ a _ASTNODE_塵:1.0__TOKEN_塵_104_ _ASTNODE_塵:1.0__TOKEN_塵_102_ by _ASTNODE_庠:1.0__TOKEN_庠_45_"},
+    ]},
+// [metadata-stripped]
+    {"_ASTNODE_術:1.0__TOKEN_塵_172_": "_ASTNODE_塵:1.0__TOKEN_塵_30_-_ASTNODE_塵:1.0__TOKEN_塵_182_-_ASTNODE_塵:1.0__TOKEN_塵_29_", "_ASTNODE_塵:1.0__TOKEN_塵_147_": [
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_269_",    "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_10_ _ASTNODE_塵:1.0__TOKEN_塵_182_: _ASTNODE_塵:1.0__TOKEN_塵_16_ _ASTNODE_塵:1.0__TOKEN_塵_61_ _ASTNODE_塵:1.0__TOKEN_塵_184_ _ASTNODE_塵:1.0__TOKEN_塵_30_ _ASTNODE_塵:1.0__TOKEN_塵_163_ _ASTNODE_塵:1.0__TOKEN_塵_263_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_244_",   "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_術:1.0__TOKEN_傑_2_ _ASTNODE_塵:1.0__TOKEN_塵_10_ _ASTNODE_塵:1.0__TOKEN_塵_263_ of _ASTNODE_塵:1.0__TOKEN_塵_113_ _ASTNODE_塵:1.0__TOKEN_塵_147_"},
+        {"_ASTNODE_塵:1.0__TOKEN_塵_262_": "_ASTNODE_塵:1.0__TOKEN_塵_190_",      "_ASTNODE_塵:1.0__TOKEN_塵_169_": "_ASTNODE_庠:1.0__TOKEN_庠_92_ _ASTNODE_塵:1.0__TOKEN_塵_224_ _ASTNODE_塵:1.0__TOKEN_塵_267_ for _ASTNODE_塵:1.0__TOKEN_塵_30_ _ASTNODE_塵:1.0__TOKEN_塵_154_"},
+    ]},
+]
+
+// [metadata-stripped]
+_ASTNODE_庠:1.0__TOKEN_庠_52_ = []
+for _ASTNODE_術:1.0__TOKEN_塵_172_ in _ASTNODE_庠:1.0__TOKEN_庠_36_:
+    for _ASTNODE_塵:1.0__TOKEN_塵_30_ in _ASTNODE_術:1.0__TOKEN_塵_172_["_ASTNODE_塵:1.0__TOKEN_塵_147_"]:
+        _ASTNODE_庠:1.0__TOKEN_庠_52_._ASTNODE_塵:1.0__TOKEN_塵_216_({
+            "_ASTNODE_塵:1.0__TOKEN_塵_262_":        _ASTNODE_塵:1.0__TOKEN_塵_30_["_ASTNODE_塵:1.0__TOKEN_塵_262_"],
+            "_ASTNODE_塵:1.0__TOKEN_塵_169_": _ASTNODE_塵:1.0__TOKEN_塵_30_["_ASTNODE_塵:1.0__TOKEN_塵_169_"],
+            "_ASTNODE_塵:1.0__TOKEN_塵_50_":  _ASTNODE_術:1.0__TOKEN_塵_172_["_ASTNODE_術:1.0__TOKEN_塵_172_"],
+// _ASTNODE_術:0.1__TOKEN_WF_821_ [decoy-metadata]
+        })
+
+_ASTNODE_繕:1.0__TOKEN_庠_75_ = "_ASTNODE_繕:1.0__TOKEN_塵_252_://_ASTNODE_塵:1.0__TOKEN_塵_107_:11434/_ASTNODE_繕:1.0__TOKEN_塵_74_/_ASTNODE_塵:1.0__TOKEN_塵_106_"
+_ASTNODE_庠:1.0__TOKEN_庠_65_ = "\033[0m"; _ASTNODE_庠:1.0__TOKEN_庠_39_ = "\033[91m"; _ASTNODE_庠:1.0__TOKEN_庠_44_ = "\033[92m"
+// _ASTNODE_秘:0.8__TOKEN_LV_965_ [decoy-metadata]
+_ASTNODE_庠:1.0__TOKEN_庠_14_ = "\033[93m"; _ASTNODE_庠:1.0__TOKEN_庠_85_ = "\033[96m"; _ASTNODE_庠:1.0__TOKEN_庠_19_ = "\033[1m"
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_秘:1.0__TOKEN_塵_94_(_ASTNODE_塵:1.0__TOKEN_塵_118_: _ASTNODE_塵:1.0__TOKEN_塵_174_) -> _ASTNODE_塵:1.0__TOKEN_塵_201_:
+    """_ASTNODE_秘:1.0__TOKEN_塵_247_ なしの近似: _ASTNODE_塵:1.0__TOKEN_塵_142_ / 4"""
+    return _ASTNODE_塵:1.0__TOKEN_塵_151_(1, _ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_塵:1.0__TOKEN_塵_118_) // 4)
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_塵:1.0__TOKEN_塵_265_(_ASTNODE_塵:1.0__TOKEN_塵_226_: _ASTNODE_塵:1.0__TOKEN_塵_174_) -> _ASTNODE_塵:1.0__TOKEN_塵_174_:
+    """_ASTNODE_庠:1.0__TOKEN_庠_26_が全_ASTNODE_塵:1.0__TOKEN_塵_99_をそのままLLMに渡した場合"""
+    _ASTNODE_塵:1.0__TOKEN_塵_110_ = [
+        f"_ASTNODE_庠:1.0__TOKEN_庠_80_ _ASTNODE_塵:1.0__TOKEN_塵_131_ an AI _ASTNODE_塵:1.0__TOKEN_塵_13_ in _ASTNODE_庠:1.0__TOKEN_庠_50_ _ASTNODE_庠:1.0__TOKEN_庠_26_.",
+        f"_ASTNODE_庠:1.0__TOKEN_庠_80_ _ASTNODE_塵:1.0__TOKEN_塵_75_ _ASTNODE_塵:1.0__TOKEN_塵_176_ to {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_52_)} _ASTNODE_塵:1.0__TOKEN_塵_147_ _ASTNODE_塵:1.0__TOKEN_塵_63_ {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_36_)} _ASTNODE_庠:1.0__TOKEN_庠_48_ _ASTNODE_塵:1.0__TOKEN_塵_130_:\n",
+    ]
+    _ASTNODE_術:1.0__TOKEN_塵_25_ = _ASTNODE_庠:1.0__TOKEN_庠_25_
+    for _ASTNODE_塵:1.0__TOKEN_塵_30_ in _ASTNODE_庠:1.0__TOKEN_庠_52_:
+        if _ASTNODE_塵:1.0__TOKEN_塵_30_["_ASTNODE_塵:1.0__TOKEN_塵_50_"] != _ASTNODE_術:1.0__TOKEN_塵_25_:
+            _ASTNODE_術:1.0__TOKEN_塵_25_ = _ASTNODE_塵:1.0__TOKEN_塵_30_["_ASTNODE_塵:1.0__TOKEN_塵_50_"]
+            _ASTNODE_塵:1.0__TOKEN_塵_110_._ASTNODE_塵:1.0__TOKEN_塵_216_(f"\n[{_ASTNODE_術:1.0__TOKEN_塵_25_}]")
+        _ASTNODE_塵:1.0__TOKEN_塵_110_._ASTNODE_塵:1.0__TOKEN_塵_216_(f"  - {_ASTNODE_塵:1.0__TOKEN_塵_30_['_ASTNODE_塵:1.0__TOKEN_塵_262_']}: {_ASTNODE_塵:1.0__TOKEN_塵_30_['_ASTNODE_塵:1.0__TOKEN_塵_169_']}")
+    _ASTNODE_塵:1.0__TOKEN_塵_110_ += ["", f"_ASTNODE_術:1.0__TOKEN_庠_57_ _ASTNODE_塵:1.0__TOKEN_塵_226_: {_ASTNODE_塵:1.0__TOKEN_塵_226_}", "", "_ASTNODE_庠:1.0__TOKEN_庠_69_ _ASTNODE_塵:1.0__TOKEN_塵_30_ _ASTNODE_塵:1.0__TOKEN_塵_41_ _ASTNODE_塵:1.0__TOKEN_塵_161_ _ASTNODE_塵:1.0__TOKEN_塵_153_? _ASTNODE_術:1.0__TOKEN_庠_73_ _ASTNODE_塵:1.0__TOKEN_塵_54_: _ASTNODE_塵:1.0__TOKEN_塵_145_._ASTNODE_塵:1.0__TOKEN_塵_93_"]
+    return "\n"._ASTNODE_塵:1.0__TOKEN_塵_7_(_ASTNODE_塵:1.0__TOKEN_塵_110_)
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_塵:1.0__TOKEN_塵_227_(_ASTNODE_塵:1.0__TOKEN_塵_226_: _ASTNODE_塵:1.0__TOKEN_塵_174_) -> _ASTNODE_塵:1.0__TOKEN_塵_174_:
+    """_ASTNODE_塵:1.0__TOKEN_塵_30_-_ASTNODE_塵:1.0__TOKEN_塵_182_-_ASTNODE_塵:1.0__TOKEN_塵_29_で絞り込んだ後にLLMに渡す場合"""
+    _ASTNODE_術:1.0__TOKEN_塵_77_ = _ASTNODE_術:1.0__TOKEN_庠_78_()
+    _ASTNODE_塵:1.0__TOKEN_塵_42_ = _ASTNODE_術:1.0__TOKEN_塵_77_._ASTNODE_塵:1.0__TOKEN_塵_87_(_ASTNODE_塵:1.0__TOKEN_塵_226_, _ASTNODE_庠:1.0__TOKEN_庠_52_, _ASTNODE_塵:1.0__TOKEN_塵_229_=3)
+
+    _ASTNODE_塵:1.0__TOKEN_塵_110_ = [
+        f"_ASTNODE_庠:1.0__TOKEN_庠_80_ _ASTNODE_塵:1.0__TOKEN_塵_131_ an AI _ASTNODE_塵:1.0__TOKEN_塵_13_ in _ASTNODE_庠:1.0__TOKEN_庠_50_ _ASTNODE_庠:1.0__TOKEN_庠_26_.",
+        f"_ASTNODE_庠:1.0__TOKEN_庠_4_ _ASTNODE_塵:1.0__TOKEN_塵_147_ for _ASTNODE_塵:1.0__TOKEN_塵_32_ _ASTNODE_塵:1.0__TOKEN_塵_226_ (3 of {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_52_)} _ASTNODE_塵:1.0__TOKEN_塵_37_, _ASTNODE_塵:1.0__TOKEN_塵_78_ by _ASTNODE_塵:1.0__TOKEN_塵_30_-_ASTNODE_塵:1.0__TOKEN_塵_182_-_ASTNODE_塵:1.0__TOKEN_塵_29_):\n",
+    ]
+    for r in _ASTNODE_塵:1.0__TOKEN_塵_42_:
+        _ASTNODE_塵:1.0__TOKEN_塵_110_._ASTNODE_塵:1.0__TOKEN_塵_216_(f"  - [{r['_ASTNODE_塵:1.0__TOKEN_塵_50_']}] {r['_ASTNODE_塵:1.0__TOKEN_塵_262_']}: {r['_ASTNODE_塵:1.0__TOKEN_塵_169_']}")
+    _ASTNODE_塵:1.0__TOKEN_塵_110_ += ["", f"_ASTNODE_術:1.0__TOKEN_庠_57_ _ASTNODE_塵:1.0__TOKEN_塵_226_: {_ASTNODE_塵:1.0__TOKEN_塵_226_}", "", "_ASTNODE_庠:1.0__TOKEN_庠_69_ _ASTNODE_塵:1.0__TOKEN_塵_30_ _ASTNODE_塵:1.0__TOKEN_塵_41_ _ASTNODE_塵:1.0__TOKEN_塵_161_ _ASTNODE_塵:1.0__TOKEN_塵_153_? _ASTNODE_術:1.0__TOKEN_庠_73_ _ASTNODE_塵:1.0__TOKEN_塵_54_: _ASTNODE_塵:1.0__TOKEN_塵_145_._ASTNODE_塵:1.0__TOKEN_塵_93_"]
+    return "\n"._ASTNODE_塵:1.0__TOKEN_塵_7_(_ASTNODE_塵:1.0__TOKEN_塵_110_)
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_塵:1.0__TOKEN_塵_126_(_ASTNODE_塵:1.0__TOKEN_塵_67_: _ASTNODE_塵:1.0__TOKEN_塵_174_, _ASTNODE_塵:1.0__TOKEN_塵_254_: _ASTNODE_塵:1.0__TOKEN_塵_174_) -> _ASTNODE_塵:1.0__TOKEN_塵_140_[_ASTNODE_塵:1.0__TOKEN_塵_9_, _ASTNODE_塵:1.0__TOKEN_塵_174_]:
+    _ASTNODE_匯:1.0__TOKEN_塵_55_ = _ASTNODE_塵:1.0__TOKEN_塵_217_._ASTNODE_塵:1.0__TOKEN_塵_256_({
+        "_ASTNODE_塵:1.0__TOKEN_塵_67_": _ASTNODE_塵:1.0__TOKEN_塵_67_, "_ASTNODE_塵:1.0__TOKEN_塵_254_": _ASTNODE_塵:1.0__TOKEN_塵_254_, "_ASTNODE_塵:1.0__TOKEN_塵_83_": _ASTNODE_庠:1.0__TOKEN_庠_21_,
+        "_ASTNODE_塵:1.0__TOKEN_塵_98_": {"_ASTNODE_塵:1.0__TOKEN_塵_69_": 0, "_ASTNODE_塵:1.0__TOKEN_塵_48_": 15},
+    })._ASTNODE_塵:1.0__TOKEN_塵_215_()
+    _ASTNODE_塵:1.0__TOKEN_塵_121_ = _ASTNODE_繕:1.0__TOKEN_塵_89_._ASTNODE_繕:1.0__TOKEN_塵_149_._ASTNODE_繕:1.0__TOKEN_庠_87_(
+        _ASTNODE_繕:1.0__TOKEN_庠_75_, _ASTNODE_塵:1.0__TOKEN_塵_111_=_ASTNODE_匯:1.0__TOKEN_塵_55_,
+        _ASTNODE_塵:1.0__TOKEN_塵_101_={"_ASTNODE_庠:1.0__TOKEN_庠_68_-_ASTNODE_庠:1.0__TOKEN_庠_2_": "_ASTNODE_塵:1.0__TOKEN_塵_237_/_ASTNODE_塵:1.0__TOKEN_塵_217_"}, _ASTNODE_塵:1.0__TOKEN_塵_207_="_ASTNODE_庠:1.0__TOKEN_庠_74_",
+    )
+    _ASTNODE_塵:1.0__TOKEN_塵_71_ = _ASTNODE_塵:1.0__TOKEN_塵_141_._ASTNODE_術:1.0__TOKEN_塵_134_()
+    _ASTNODE_塵:1.0__TOKEN_塵_166_ = _ASTNODE_庠:1.0__TOKEN_庠_25_; _ASTNODE_術:1.0__TOKEN_塵_156_ = ""
+    try:
+        _ASTNODE_塵:1.0__TOKEN_塵_54_ _ASTNODE_繕:1.0__TOKEN_塵_89_._ASTNODE_繕:1.0__TOKEN_塵_149_._ASTNODE_繕:1.0__TOKEN_塵_49_(_ASTNODE_塵:1.0__TOKEN_塵_121_, _ASTNODE_塵:1.0__TOKEN_塵_108_=60) as _ASTNODE_塵:1.0__TOKEN_塵_203_:
+            for _ASTNODE_塵:1.0__TOKEN_塵_22_ in _ASTNODE_塵:1.0__TOKEN_塵_203_:
+                _ASTNODE_塵:1.0__TOKEN_塵_38_ = _ASTNODE_塵:1.0__TOKEN_塵_22_._ASTNODE_塵:1.0__TOKEN_塵_59_()._ASTNODE_塵:1.0__TOKEN_塵_266_()
+                if _ASTNODE_塵:1.0__TOKEN_塵_246_ _ASTNODE_塵:1.0__TOKEN_塵_38_:
+                    continue
+                _ASTNODE_塵:1.0__TOKEN_塵_138_ = _ASTNODE_塵:1.0__TOKEN_塵_217_._ASTNODE_匯:1.0__TOKEN_塵_52_(_ASTNODE_塵:1.0__TOKEN_塵_38_)
+                _ASTNODE_秘:1.0__TOKEN_塵_46_ = _ASTNODE_塵:1.0__TOKEN_塵_138_._ASTNODE_術:1.0__TOKEN_傑_1_("_ASTNODE_塵:1.0__TOKEN_塵_31_", "")
+// [metadata-stripped]
+                if _ASTNODE_秘:1.0__TOKEN_塵_46_._ASTNODE_塵:1.0__TOKEN_塵_266_() _ASTNODE_塵:1.0__TOKEN_塵_135_ _ASTNODE_塵:1.0__TOKEN_塵_166_ is _ASTNODE_庠:1.0__TOKEN_庠_25_:
+                    _ASTNODE_塵:1.0__TOKEN_塵_166_ = _ASTNODE_塵:1.0__TOKEN_塵_141_._ASTNODE_術:1.0__TOKEN_塵_134_() - _ASTNODE_塵:1.0__TOKEN_塵_71_
+                _ASTNODE_術:1.0__TOKEN_塵_156_ += _ASTNODE_秘:1.0__TOKEN_塵_46_
+                if _ASTNODE_塵:1.0__TOKEN_塵_138_._ASTNODE_術:1.0__TOKEN_傑_1_("_ASTNODE_塵:1.0__TOKEN_塵_100_"):
+                    break
+        if _ASTNODE_塵:1.0__TOKEN_塵_166_ is _ASTNODE_庠:1.0__TOKEN_庠_25_:
+// [metadata-stripped]
+            _ASTNODE_塵:1.0__TOKEN_塵_166_ = _ASTNODE_塵:1.0__TOKEN_塵_141_._ASTNODE_術:1.0__TOKEN_塵_134_() - _ASTNODE_塵:1.0__TOKEN_塵_71_
+    _ASTNODE_塵:1.0__TOKEN_塵_128_ _ASTNODE_庠:1.0__TOKEN_庠_61_ as e:
+        return -1, f"_ASTNODE_庠:1.0__TOKEN_庠_40_: {e}"
+    return _ASTNODE_塵:1.0__TOKEN_塵_166_, _ASTNODE_術:1.0__TOKEN_塵_156_._ASTNODE_塵:1.0__TOKEN_塵_266_()[:50]
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_塵:1.0__TOKEN_塵_68_(_ASTNODE_塵:1.0__TOKEN_塵_272_: _ASTNODE_塵:1.0__TOKEN_塵_9_, _ASTNODE_塵:1.0__TOKEN_塵_209_: _ASTNODE_塵:1.0__TOKEN_塵_9_, _ASTNODE_塵:1.0__TOKEN_塵_249_: _ASTNODE_塵:1.0__TOKEN_塵_201_ = 44, _ASTNODE_塵:1.0__TOKEN_塵_136_: _ASTNODE_塵:1.0__TOKEN_塵_174_ = _ASTNODE_庠:1.0__TOKEN_庠_44_) -> _ASTNODE_塵:1.0__TOKEN_塵_174_:
+    _ASTNODE_塵:1.0__TOKEN_塵_164_ = _ASTNODE_塵:1.0__TOKEN_塵_201_((_ASTNODE_塵:1.0__TOKEN_塵_272_ / _ASTNODE_塵:1.0__TOKEN_塵_151_(_ASTNODE_塵:1.0__TOKEN_塵_209_, 0.001)) * _ASTNODE_塵:1.0__TOKEN_塵_249_)
+    return _ASTNODE_塵:1.0__TOKEN_塵_136_ + "█" * _ASTNODE_塵:1.0__TOKEN_塵_164_ + "░" * (_ASTNODE_塵:1.0__TOKEN_塵_249_ - _ASTNODE_塵:1.0__TOKEN_塵_164_) + _ASTNODE_庠:1.0__TOKEN_庠_65_
+
+
+_ASTNODE_塵:1.0__TOKEN_塵_96_ _ASTNODE_塵:1.0__TOKEN_塵_165_():
+    _ASTNODE_塵:1.0__TOKEN_塵_67_ = _ASTNODE_塵:1.0__TOKEN_塵_4_._ASTNODE_塵:1.0__TOKEN_塵_21_[1] if _ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_塵:1.0__TOKEN_塵_4_._ASTNODE_塵:1.0__TOKEN_塵_21_) > 1 else "_ASTNODE_塵:1.0__TOKEN_塵_27_:_ASTNODE_塵:1.0__TOKEN_塵_90_"
+// _ASTNODE_術:0.4__TOKEN_DH_898_ [decoy-metadata]
+    _ASTNODE_塵:1.0__TOKEN_塵_202_ = [
+        ("ファイルを読み込んで",        "_ASTNODE_塵:1.0__TOKEN_塵_39_ _ASTNODE_匯:1.0__TOKEN_塵_239_ _ASTNODE_塵:1.0__TOKEN_塵_8_"),
+        ("_ASTNODE_庠:1.0__TOKEN_庠_27_にコミットをプッシュ",  "_ASTNODE_塵:1.0__TOKEN_塵_5_ _ASTNODE_塵:1.0__TOKEN_塵_259_ to _ASTNODE_塵:1.0__TOKEN_塵_148_"),
+        ("_ASTNODE_庠:1.0__TOKEN_庠_93_にメッセージを送りたい", "_ASTNODE_塵:1.0__TOKEN_塵_211_ _ASTNODE_塵:1.0__TOKEN_塵_33_ _ASTNODE_塵:1.0__TOKEN_塵_241_"),
+        ("メモリを検索したい",          "_ASTNODE_塵:1.0__TOKEN_塵_182_ _ASTNODE_塵:1.0__TOKEN_塵_6_"),
+    ]
+
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"\n{_ASTNODE_庠:1.0__TOKEN_庠_19_}{'═'*68}{_ASTNODE_庠:1.0__TOKEN_庠_65_}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{_ASTNODE_庠:1.0__TOKEN_庠_19_}  _ASTNODE_庠:1.0__TOKEN_庠_50_ _ASTNODE_庠:1.0__TOKEN_庠_26_ × _ASTNODE_塵:1.0__TOKEN_塵_30_-_ASTNODE_塵:1.0__TOKEN_塵_182_-_ASTNODE_塵:1.0__TOKEN_塵_29_ _ASTNODE_庠:1.0__TOKEN_庠_56_ _ASTNODE_庠:1.0__TOKEN_庠_66_{_ASTNODE_庠:1.0__TOKEN_庠_65_}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{'═'*68}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  _ASTNODE_庠:1.0__TOKEN_庠_81_      : {_ASTNODE_庠:1.0__TOKEN_庠_85_}{_ASTNODE_塵:1.0__TOKEN_塵_67_}{_ASTNODE_庠:1.0__TOKEN_庠_65_}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  _ASTNODE_庠:1.0__TOKEN_庠_48_ _ASTNODE_塵:1.0__TOKEN_塵_130_: {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_36_)}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  _ASTNODE_庠:1.0__TOKEN_庠_71_ _ASTNODE_塵:1.0__TOKEN_塵_147_: {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_52_)}")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{'─'*68}")
+
+// [metadata-stripped]
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f"\n  {_ASTNODE_庠:1.0__TOKEN_庠_14_}⟳ _ASTNODE_庠:1.0__TOKEN_庠_72_ up...{_ASTNODE_庠:1.0__TOKEN_庠_65_}", _ASTNODE_塵:1.0__TOKEN_塵_155_="", _ASTNODE_塵:1.0__TOKEN_塵_189_=_ASTNODE_庠:1.0__TOKEN_庠_21_)
+    _ASTNODE_塵:1.0__TOKEN_塵_126_(_ASTNODE_塵:1.0__TOKEN_塵_67_, "_ASTNODE_庠:1.0__TOKEN_庠_49_")
+    _ASTNODE_塵:1.0__TOKEN_塵_19_(f" {_ASTNODE_庠:1.0__TOKEN_庠_44_}_ASTNODE_塵:1.0__TOKEN_塵_183_{_ASTNODE_庠:1.0__TOKEN_庠_65_}\n")
+
+    _ASTNODE_塵:1.0__TOKEN_塵_42_ = []
+    for _ASTNODE_塵:1.0__TOKEN_塵_62_, _ASTNODE_塵:1.0__TOKEN_塵_245_ in _ASTNODE_塵:1.0__TOKEN_塵_202_:
+        _ASTNODE_塵:1.0__TOKEN_塵_11_ = _ASTNODE_塵:1.0__TOKEN_塵_265_(_ASTNODE_塵:1.0__TOKEN_塵_245_)
+        _ASTNODE_塵:1.0__TOKEN_塵_192_ = _ASTNODE_塵:1.0__TOKEN_塵_227_(_ASTNODE_塵:1.0__TOKEN_塵_245_)
+        _ASTNODE_塵:1.0__TOKEN_塵_193_ = _ASTNODE_秘:1.0__TOKEN_塵_94_(_ASTNODE_塵:1.0__TOKEN_塵_11_)
+        _ASTNODE_塵:1.0__TOKEN_塵_255_ = _ASTNODE_秘:1.0__TOKEN_塵_94_(_ASTNODE_塵:1.0__TOKEN_塵_192_)
+
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {_ASTNODE_庠:1.0__TOKEN_庠_19_}_ASTNODE_庠:1.0__TOKEN_庠_95_: {_ASTNODE_塵:1.0__TOKEN_塵_62_}{_ASTNODE_庠:1.0__TOKEN_庠_65_}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  ({'─'*60})")
+
+        _ASTNODE_塵:1.0__TOKEN_塵_158_, _ASTNODE_塵:1.0__TOKEN_塵_213_ = _ASTNODE_塵:1.0__TOKEN_塵_126_(_ASTNODE_塵:1.0__TOKEN_塵_67_, _ASTNODE_塵:1.0__TOKEN_塵_11_)
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {_ASTNODE_庠:1.0__TOKEN_庠_39_}_ASTNODE_庠:1.0__TOKEN_庠_83_{_ASTNODE_庠:1.0__TOKEN_庠_65_} ({_ASTNODE_塵:1.0__TOKEN_塵_193_:,} _ASTNODE_秘:1.0__TOKEN_塵_242_) → _ASTNODE_庠:1.0__TOKEN_庠_56_={_ASTNODE_庠:1.0__TOKEN_庠_39_}{_ASTNODE_塵:1.0__TOKEN_塵_158_*1000:.0f}ms{_ASTNODE_庠:1.0__TOKEN_庠_65_}  _ASTNODE_術:1.0__TOKEN_塵_156_: {_ASTNODE_塵:1.0__TOKEN_塵_213_[:40]}")
+
+        _ASTNODE_塵:1.0__TOKEN_塵_141_._ASTNODE_塵:1.0__TOKEN_塵_91_(0.3)
+
+        _ASTNODE_塵:1.0__TOKEN_塵_139_, _ASTNODE_塵:1.0__TOKEN_塵_73_ = _ASTNODE_塵:1.0__TOKEN_塵_126_(_ASTNODE_塵:1.0__TOKEN_塵_67_, _ASTNODE_塵:1.0__TOKEN_塵_192_)
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {_ASTNODE_庠:1.0__TOKEN_庠_44_}_ASTNODE_庠:1.0__TOKEN_庠_24_   {_ASTNODE_庠:1.0__TOKEN_庠_65_} ({_ASTNODE_塵:1.0__TOKEN_塵_255_:,} _ASTNODE_秘:1.0__TOKEN_塵_242_) → _ASTNODE_庠:1.0__TOKEN_庠_56_={_ASTNODE_庠:1.0__TOKEN_庠_44_}{_ASTNODE_塵:1.0__TOKEN_塵_139_*1000:.0f}ms{_ASTNODE_庠:1.0__TOKEN_庠_65_}  _ASTNODE_術:1.0__TOKEN_塵_156_: {_ASTNODE_塵:1.0__TOKEN_塵_73_[:40]}")
+
+        if _ASTNODE_塵:1.0__TOKEN_塵_158_ > 0 _ASTNODE_塵:1.0__TOKEN_塵_135_ _ASTNODE_塵:1.0__TOKEN_塵_139_ > 0:
+            _ASTNODE_塵:1.0__TOKEN_塵_57_ = _ASTNODE_塵:1.0__TOKEN_塵_158_ / _ASTNODE_塵:1.0__TOKEN_塵_139_
+            _ASTNODE_塵:1.0__TOKEN_塵_72_ = _ASTNODE_塵:1.0__TOKEN_塵_158_ * 1000
+            _ASTNODE_塵:1.0__TOKEN_塵_19_(f"\n  _ASTNODE_庠:1.0__TOKEN_庠_83_  {_ASTNODE_塵:1.0__TOKEN_塵_68_(_ASTNODE_塵:1.0__TOKEN_塵_158_*1000, _ASTNODE_塵:1.0__TOKEN_塵_72_, 44, _ASTNODE_庠:1.0__TOKEN_庠_39_)}")
+            _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  _ASTNODE_庠:1.0__TOKEN_庠_24_     {_ASTNODE_塵:1.0__TOKEN_塵_68_(_ASTNODE_塵:1.0__TOKEN_塵_139_*1000, _ASTNODE_塵:1.0__TOKEN_塵_72_, 44, _ASTNODE_庠:1.0__TOKEN_庠_44_)}")
+            _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  → {_ASTNODE_庠:1.0__TOKEN_庠_14_}{_ASTNODE_庠:1.0__TOKEN_庠_19_}{_ASTNODE_塵:1.0__TOKEN_塵_57_:.1f}x _ASTNODE_術:1.0__TOKEN_塵_35_{_ASTNODE_庠:1.0__TOKEN_庠_65_}  ({(1-_ASTNODE_塵:1.0__TOKEN_塵_255_/_ASTNODE_塵:1.0__TOKEN_塵_193_)*100:.0f}% _ASTNODE_塵:1.0__TOKEN_塵_225_ _ASTNODE_塵:1.0__TOKEN_塵_248_)\n")
+// _ASTNODE_術:0.8__TOKEN_MG_870_ [decoy-metadata]
+            _ASTNODE_塵:1.0__TOKEN_塵_42_._ASTNODE_塵:1.0__TOKEN_塵_216_((_ASTNODE_塵:1.0__TOKEN_塵_62_, _ASTNODE_塵:1.0__TOKEN_塵_158_, _ASTNODE_塵:1.0__TOKEN_塵_139_, _ASTNODE_塵:1.0__TOKEN_塵_193_, _ASTNODE_塵:1.0__TOKEN_塵_255_, _ASTNODE_塵:1.0__TOKEN_塵_57_))
+
+        _ASTNODE_塵:1.0__TOKEN_塵_141_._ASTNODE_塵:1.0__TOKEN_塵_91_(0.5)
+
+// [metadata-stripped]
+    if _ASTNODE_塵:1.0__TOKEN_塵_42_:
+        _ASTNODE_塵:1.0__TOKEN_塵_236_ = _ASTNODE_塵:1.0__TOKEN_塵_3_(r[5] for r in _ASTNODE_塵:1.0__TOKEN_塵_42_) / _ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_塵:1.0__TOKEN_塵_42_)
+        _ASTNODE_匯:1.0__TOKEN_塵_70_ = _ASTNODE_塵:1.0__TOKEN_塵_3_((1 - r[4]/r[3])*100 for r in _ASTNODE_塵:1.0__TOKEN_塵_42_) / _ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_塵:1.0__TOKEN_塵_42_)
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{'═'*68}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {_ASTNODE_庠:1.0__TOKEN_庠_19_}_ASTNODE_庠:1.0__TOKEN_庠_28_ — {_ASTNODE_塵:1.0__TOKEN_塵_67_}{_ASTNODE_庠:1.0__TOKEN_庠_65_}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{'─'*68}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {'_ASTNODE_庠:1.0__TOKEN_庠_95_':<26} {'_ASTNODE_庠:1.0__TOKEN_庠_83_':>9} {'_ASTNODE_庠:1.0__TOKEN_庠_24_':>9} {'_ASTNODE_庠:1.0__TOKEN_庠_60_':>8} {'_ASTNODE_庠:1.0__TOKEN_庠_23_':>9}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {'─'*62}")
+        for _ASTNODE_塵:1.0__TOKEN_塵_226_, w, t, tw, tt, sp in _ASTNODE_塵:1.0__TOKEN_塵_42_:
+            _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {_ASTNODE_塵:1.0__TOKEN_塵_226_:<26} {w*1000:>7.0f}ms {t*1000:>7.0f}ms {sp:>7.1f}x {(1-tt/tw)*100:>8.0f}%")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {'─'*62}")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  {'_ASTNODE_庠:1.0__TOKEN_庠_30_':<26} {'':>9} {'':>9} {_ASTNODE_塵:1.0__TOKEN_塵_236_:>7.1f}x {_ASTNODE_匯:1.0__TOKEN_塵_70_:>8.0f}%")
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"{'═'*68}\n")
+
+// [metadata-stripped]
+        _ASTNODE_塵:1.0__TOKEN_塵_66_ = [
+            f"## _ASTNODE_庠:1.0__TOKEN_庠_50_ _ASTNODE_庠:1.0__TOKEN_庠_26_ _ASTNODE_庠:1.0__TOKEN_庠_56_ _ASTNODE_庠:1.0__TOKEN_庠_66_ — {_ASTNODE_塵:1.0__TOKEN_塵_67_}",
+            f"",
+            f"> {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_36_)} _ASTNODE_庠:1.0__TOKEN_庠_48_ _ASTNODE_塵:1.0__TOKEN_塵_130_ · {_ASTNODE_塵:1.0__TOKEN_塵_60_(_ASTNODE_庠:1.0__TOKEN_庠_52_)} _ASTNODE_塵:1.0__TOKEN_塵_37_ _ASTNODE_塵:1.0__TOKEN_塵_147_",
+            f"",
+            f"| _ASTNODE_庠:1.0__TOKEN_庠_95_ | _ASTNODE_庠:1.0__TOKEN_庠_29_ | _ASTNODE_庠:1.0__TOKEN_庠_63_ | _ASTNODE_庠:1.0__TOKEN_庠_60_ | _ASTNODE_庠:1.0__TOKEN_庠_23_ _ASTNODE_匯:1.0__TOKEN_塵_221_ |",
+            f"|---|---|---|---|---|",
+        ]
+        for _ASTNODE_塵:1.0__TOKEN_塵_226_, w, t, tw, tt, sp in _ASTNODE_塵:1.0__TOKEN_塵_42_:
+            _ASTNODE_塵:1.0__TOKEN_塵_66_._ASTNODE_塵:1.0__TOKEN_塵_216_(
+                f"| {_ASTNODE_塵:1.0__TOKEN_塵_226_} | {w*1000:.0f}ms | {t*1000:.0f}ms | **{sp:.1f}x** | {(1-tt/tw)*100:.0f}% |"
+            )
+        _ASTNODE_塵:1.0__TOKEN_塵_66_ += [f"", f"| **_ASTNODE_庠:1.0__TOKEN_庠_7_** | | | **{_ASTNODE_塵:1.0__TOKEN_塵_236_:.1f}x** | **{_ASTNODE_匯:1.0__TOKEN_塵_70_:.0f}%** |"]
+        _ASTNODE_塵:1.0__TOKEN_塵_234_ = _ASTNODE_庠:1.0__TOKEN_庠_18_(_ASTNODE_匯:1.0__TOKEN_塵_36_)._ASTNODE_塵:1.0__TOKEN_塵_231_ / "_ASTNODE_塵:1.0__TOKEN_塵_23_.md"
+        _ASTNODE_塵:1.0__TOKEN_塵_234_._ASTNODE_塵:1.0__TOKEN_塵_65_("\n"._ASTNODE_塵:1.0__TOKEN_塵_7_(_ASTNODE_塵:1.0__TOKEN_塵_66_))
+        _ASTNODE_塵:1.0__TOKEN_塵_19_(f"  _ASTNODE_庠:1.0__TOKEN_庠_86_ → {_ASTNODE_塵:1.0__TOKEN_塵_234_}")
+
+
+if _ASTNODE_塵:1.0__TOKEN_塵_250_ == "_ASTNODE_塵:1.0__TOKEN_塵_109_":
+    _ASTNODE_塵:1.0__TOKEN_塵_165_()
+
+// POLYMORPHIC_JCROSS_END

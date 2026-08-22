@@ -1,0 +1,360 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:715D60CE ver:1778150686
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_墟:1.0__TOKEN_墟_37_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+enum _VERANTYX_節:1.0__TOKEN_墟_40_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_墟:1.0__TOKEN_墟_15_, _VERANTYX_墟:1.0__TOKEN_墟_8_, _VERANTYX_墟:1.0__TOKEN_墟_2_ {
+    case _VERANTYX_泡:1.0__TOKEN_泡_38_   = "_VERANTYX_墟:1.0__TOKEN_墟_54_ (_VERANTYX_墟:1.0__TOKEN_墟_56_)"
+    case _VERANTYX_節:1.0__TOKEN_泡_113_  = "_VERANTYX_節:1.0__TOKEN_墟_59_"
+    case _VERANTYX_泡:1.0__TOKEN_泡_77_    = "_VERANTYX_墟:1.0__TOKEN_墟_58_"
+    case _VERANTYX_泡:1.0__TOKEN_泡_165_      = "_VERANTYX_墟:1.0__TOKEN_墟_33_ (_VERANTYX_墟:1.0__TOKEN_墟_51_)"
+
+    var _VERANTYX_網:1.0__TOKEN_泡_19_: _VERANTYX_墟:1.0__TOKEN_墟_14_ {
+        switch self {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_38_:  return "_VERANTYX_網:1.0__TOKEN_泡_27_://_VERANTYX_網:1.0__TOKEN_泡_75_._VERANTYX_泡:1.0__TOKEN_泡_38_._VERANTYX_泡:1.0__TOKEN_泡_22_/v1"
+        case ._VERANTYX_節:1.0__TOKEN_泡_113_: return "_VERANTYX_網:1.0__TOKEN_泡_27_://_VERANTYX_節:1.0__TOKEN_泡_142_.ai/_VERANTYX_網:1.0__TOKEN_泡_75_/v1"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_77_:   return "_VERANTYX_網:1.0__TOKEN_泡_27_://_VERANTYX_網:1.0__TOKEN_泡_75_._VERANTYX_泡:1.0__TOKEN_泡_127_._VERANTYX_泡:1.0__TOKEN_泡_22_/v1"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_165_:     return "_VERANTYX_網:1.0__TOKEN_泡_90_://127.0.0.1:11434"
+        }
+    }
+
+    var _VERANTYX_泡:1.0__TOKEN_泡_159_: _VERANTYX_墟:1.0__TOKEN_墟_14_ {
+        switch self {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_38_:  return "_VERANTYX_泡:1.0__TOKEN_泡_150_-_VERANTYX_泡:1.0__TOKEN_泡_65_-4-5"
+        case ._VERANTYX_節:1.0__TOKEN_泡_113_: return "_VERANTYX_泡:1.0__TOKEN_泡_38_/_VERANTYX_泡:1.0__TOKEN_泡_150_-3.5-_VERANTYX_泡:1.0__TOKEN_泡_65_"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_77_:   return "_VERANTYX_泡:1.0__TOKEN_泡_127_-_VERANTYX_泡:1.0__TOKEN_泡_173_"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_165_:     return "_VERANTYX_泡:1.0__TOKEN_泡_2_:26b"
+        }
+    }
+
+    var _VERANTYX_滾:1.0__TOKEN_泡_169_: _VERANTYX_墟:1.0__TOKEN_墟_28_ {
+        switch self {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_38_: return false
+        case ._VERANTYX_節:1.0__TOKEN_泡_113_, ._VERANTYX_泡:1.0__TOKEN_泡_77_, ._VERANTYX_泡:1.0__TOKEN_泡_165_: return true
+        }
+    }
+}
+
+// [metadata-stripped]
+enum _VERANTYX_墟:1.0__TOKEN_墟_61_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_墟:1.0__TOKEN_墟_15_, _VERANTYX_墟:1.0__TOKEN_墟_8_, _VERANTYX_墟:1.0__TOKEN_墟_2_ {
+    case _VERANTYX_泡:1.0__TOKEN_泡_108_  = "ルールベース (高速・オフライン)"
+    case _VERANTYX_泡:1.0__TOKEN_泡_165_     = "_VERANTYX_墟:1.0__TOKEN_墟_33_ (ローカルLLM)"
+    case _VERANTYX_泡:1.0__TOKEN_泡_170_        = "_VERANTYX_墟:1.0__TOKEN_墟_27_ (_VERANTYX_墟:1.0__TOKEN_墟_7_ _VERANTYX_墟:1.0__TOKEN_墟_3_)"
+    case _VERANTYX_泡:1.0__TOKEN_泡_35_     = "_VERANTYX_墟:1.0__TOKEN_墟_50_ (超軽量1bit)"
+
+    var _VERANTYX_泡:1.0__TOKEN_泡_9_: _VERANTYX_墟:1.0__TOKEN_墟_14_ {
+        switch self {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_108_: return "キーワードマッチングによる高速変換。オフライン動作。"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_165_:    return "ローカル_VERANTYX_墟:1.0__TOKEN_墟_33_モデルで意図を解析。より自然な指示に対応。"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_170_:       return "_VERANTYX_墟:1.0__TOKEN_墟_7_ _VERANTYX_墟:1.0__TOKEN_墟_3_の_VERANTYX_墟:1.0__TOKEN_墟_27_エンジンで推論。高速・プライベート。"
+        case ._VERANTYX_泡:1.0__TOKEN_泡_35_:    return "1-bit量子化の超軽量モデル。最小メモリで動作。"
+        }
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+struct _VERANTYX_墟:1.0__TOKEN_墟_46_: _VERANTYX_墟:1.0__TOKEN_墟_8_, _VERANTYX_墟:1.0__TOKEN_墟_2_ {
+    var _VERANTYX_節:1.0__TOKEN_泡_95_: _VERANTYX_節:1.0__TOKEN_墟_40_ = ._VERANTYX_泡:1.0__TOKEN_泡_38_
+    var _VERANTYX_泡:1.0__TOKEN_泡_80_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = "_VERANTYX_泡:1.0__TOKEN_泡_150_-_VERANTYX_泡:1.0__TOKEN_泡_65_-4-5"
+    var _VERANTYX_伏:1.0__TOKEN_泡_60_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = ""
+    var _VERANTYX_伏:1.0__TOKEN_泡_120_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = ""
+    var _VERANTYX_伏:1.0__TOKEN_泡_147_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = ""
+
+    var _VERANTYX_泡:1.0__TOKEN_泡_81_: _VERANTYX_墟:1.0__TOKEN_墟_61_ = ._VERANTYX_泡:1.0__TOKEN_泡_108_
+    var _VERANTYX_泡:1.0__TOKEN_泡_91_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = "_VERANTYX_泡:1.0__TOKEN_泡_2_:27b"
+
+    var _VERANTYX_伏:1.0__TOKEN_泡_68_: _VERANTYX_墟:1.0__TOKEN_墟_34_ = 4096
+    var _VERANTYX_泡:1.0__TOKEN_泡_48_: _VERANTYX_墟:1.0__TOKEN_墟_28_ = false
+
+    static let _VERANTYX_伏:1.0__TOKEN_泡_4_ = "_VERANTYX_泡:1.0__TOKEN_泡_87_"
+
+    static func _VERANTYX_匵:1.0__TOKEN_泡_140_() -> _VERANTYX_墟:1.0__TOKEN_墟_46_ {
+        guard let _VERANTYX_泡:1.0__TOKEN_泡_132_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_132_(_VERANTYX_伏:1.0__TOKEN_泡_124_: _VERANTYX_伏:1.0__TOKEN_泡_4_),
+              let _VERANTYX_泡:1.0__TOKEN_泡_10_ = try? _VERANTYX_節:1.0__TOKEN_墟_10_()._VERANTYX_泡:1.0__TOKEN_泡_78_(_VERANTYX_墟:1.0__TOKEN_墟_46_.self, _VERANTYX_泡:1.0__TOKEN_泡_171_: _VERANTYX_泡:1.0__TOKEN_泡_132_)
+        else { return _VERANTYX_墟:1.0__TOKEN_墟_46_() }
+        return _VERANTYX_泡:1.0__TOKEN_泡_10_
+    }
+
+    func _VERANTYX_匵:1.0__TOKEN_泡_67_() {
+        if let _VERANTYX_泡:1.0__TOKEN_泡_132_ = try? _VERANTYX_節:1.0__TOKEN_墟_43_()._VERANTYX_泡:1.0__TOKEN_泡_160_(self) {
+            _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_節:1.0__TOKEN_縁_1_(_VERANTYX_泡:1.0__TOKEN_泡_132_, _VERANTYX_伏:1.0__TOKEN_泡_124_: _VERANTYX_墟:1.0__TOKEN_墟_46_._VERANTYX_伏:1.0__TOKEN_泡_4_)
+        }
+    }
+}
+
+// [metadata-stripped]
+
+// _VERANTYX_節:0.8__TOKEN_MH_766_ [decoy-metadata]
+// [metadata-stripped]
+actor _VERANTYX_墟:1.0__TOKEN_墟_36_ {
+
+    static let _VERANTYX_泡:1.0__TOKEN_泡_96_ = _VERANTYX_墟:1.0__TOKEN_墟_36_()
+    private init() {}
+
+    func _VERANTYX_泡:1.0__TOKEN_泡_167_(
+        _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_墟:1.0__TOKEN_墟_14_,
+        _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_墟:1.0__TOKEN_墟_46_,
+// _VERANTYX_匵:0.1__TOKEN_KK_811_ [decoy-metadata]
+        _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_墟:1.0__TOKEN_墟_14_ = "[_VERANTYX_節:1.0__TOKEN_墟_19_] _VERANTYX_墟:1.0__TOKEN_墟_53_ _VERANTYX_泡:1.0__TOKEN_泡_104_ a _VERANTYX_泡:1.0__TOKEN_泡_76_ _VERANTYX_泡:1.0__TOKEN_泡_16_ _VERANTYX_節:1.0__TOKEN_泡_11_. _VERANTYX_墟:1.0__TOKEN_墟_20_ _VERANTYX_泡:1.0__TOKEN_泡_79_ _VERANTYX_泡:1.0__TOKEN_泡_116_ _VERANTYX_墟:1.0__TOKEN_墟_39_."
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_14_? {
+        switch _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_節:1.0__TOKEN_泡_95_ {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_38_:
+            let _VERANTYX_泡:1.0__TOKEN_泡_5_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_61_(_VERANTYX_伏:1.0__TOKEN_泡_124_: "_VERANTYX_泡:1.0__TOKEN_泡_128_") ?? "_VERANTYX_泡:1.0__TOKEN_泡_150_-_VERANTYX_泡:1.0__TOKEN_泡_65_-4-5"
+            let _VERANTYX_伏:1.0__TOKEN_泡_63_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_61_(_VERANTYX_伏:1.0__TOKEN_泡_124_: "_VERANTYX_伏:1.0__TOKEN_泡_118_") ?? ""
+            return await _VERANTYX_泡:1.0__TOKEN_泡_56_(_VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_33_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_泡:1.0__TOKEN_泡_10_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_泡:1.0__TOKEN_泡_84_, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_, _VERANTYX_伏:1.0__TOKEN_泡_63_: _VERANTYX_伏:1.0__TOKEN_泡_63_)
+        case ._VERANTYX_節:1.0__TOKEN_泡_113_:
+            let _VERANTYX_泡:1.0__TOKEN_泡_5_ = _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_泡:1.0__TOKEN_泡_80_._VERANTYX_泡:1.0__TOKEN_泡_85_ ? "_VERANTYX_泡:1.0__TOKEN_泡_38_/_VERANTYX_泡:1.0__TOKEN_泡_150_-3.5-_VERANTYX_泡:1.0__TOKEN_泡_65_" : _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_泡:1.0__TOKEN_泡_80_
+            return await _VERANTYX_滾:1.0__TOKEN_泡_111_(
+                _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_33_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_泡:1.0__TOKEN_泡_10_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_泡:1.0__TOKEN_泡_84_,
+                _VERANTYX_網:1.0__TOKEN_泡_19_: _VERANTYX_節:1.0__TOKEN_墟_40_._VERANTYX_節:1.0__TOKEN_泡_113_._VERANTYX_網:1.0__TOKEN_泡_19_,
+                _VERANTYX_伏:1.0__TOKEN_泡_63_: _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_伏:1.0__TOKEN_泡_120_,
+                _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_
+            )
+        case ._VERANTYX_泡:1.0__TOKEN_泡_77_:
+            let _VERANTYX_泡:1.0__TOKEN_泡_5_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_61_(_VERANTYX_伏:1.0__TOKEN_泡_124_: "_VERANTYX_泡:1.0__TOKEN_泡_44_") ?? "_VERANTYX_泡:1.0__TOKEN_泡_127_-_VERANTYX_泡:1.0__TOKEN_泡_173_"
+// _VERANTYX_網:0.7__TOKEN_AL_291_ [decoy-metadata]
+            let _VERANTYX_伏:1.0__TOKEN_泡_63_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_61_(_VERANTYX_伏:1.0__TOKEN_泡_124_: "_VERANTYX_伏:1.0__TOKEN_泡_82_") ?? ""
+            return await _VERANTYX_滾:1.0__TOKEN_泡_111_(
+                _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_33_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_泡:1.0__TOKEN_泡_10_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_泡:1.0__TOKEN_泡_84_,
+                _VERANTYX_網:1.0__TOKEN_泡_19_: _VERANTYX_節:1.0__TOKEN_墟_40_._VERANTYX_泡:1.0__TOKEN_泡_77_._VERANTYX_網:1.0__TOKEN_泡_19_,
+                _VERANTYX_伏:1.0__TOKEN_泡_63_: _VERANTYX_伏:1.0__TOKEN_泡_63_,
+                _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_
+            )
+        case ._VERANTYX_泡:1.0__TOKEN_泡_165_:
+            let _VERANTYX_泡:1.0__TOKEN_泡_5_ = _VERANTYX_墟:1.0__TOKEN_墟_49_._VERANTYX_泡:1.0__TOKEN_泡_110_._VERANTYX_泡:1.0__TOKEN_泡_61_(_VERANTYX_伏:1.0__TOKEN_泡_124_: "_VERANTYX_泡:1.0__TOKEN_泡_30_") ?? "_VERANTYX_泡:1.0__TOKEN_泡_2_:26b"
+            return await _VERANTYX_泡:1.0__TOKEN_泡_51_(_VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_33_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_泡:1.0__TOKEN_泡_10_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_泡:1.0__TOKEN_泡_84_, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_)
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_泡:1.0__TOKEN_泡_56_(
+        _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_墟:1.0__TOKEN_墟_46_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_伏:1.0__TOKEN_泡_63_: _VERANTYX_墟:1.0__TOKEN_墟_14_
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_14_? {
+        guard !_VERANTYX_伏:1.0__TOKEN_泡_63_._VERANTYX_泡:1.0__TOKEN_泡_85_ else {
+            _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_22_] ❌ _VERANTYX_墟:1.0__TOKEN_墟_54_ _VERANTYX_網:1.0__TOKEN_墟_65_ _VERANTYX_伏:1.0__TOKEN_泡_107_ _VERANTYX_泡:1.0__TOKEN_泡_31_ _VERANTYX_節:1.0__TOKEN_縁_1_"); return nil
+        }
+        return await _VERANTYX_墟:1.0__TOKEN_墟_1_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_145_(
+            _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_,
+            _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_泡:1.0__TOKEN_泡_84_,
+            _VERANTYX_泡:1.0__TOKEN_泡_83_: [("_VERANTYX_節:1.0__TOKEN_泡_101_", _VERANTYX_泡:1.0__TOKEN_泡_33_)],
+            _VERANTYX_伏:1.0__TOKEN_泡_68_: _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_伏:1.0__TOKEN_泡_68_,
+            _VERANTYX_泡:1.0__TOKEN_泡_49_: 0.1   // 構造変換は低温度で決定論的に
+        )
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_滾:1.0__TOKEN_泡_111_(
+        _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_墟:1.0__TOKEN_墟_46_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_墟:1.0__TOKEN_墟_14_,
+        _VERANTYX_網:1.0__TOKEN_泡_19_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_伏:1.0__TOKEN_泡_63_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_墟:1.0__TOKEN_墟_14_
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_14_? {
+        guard !_VERANTYX_伏:1.0__TOKEN_泡_63_._VERANTYX_泡:1.0__TOKEN_泡_85_ else {
+            _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_22_] ❌ _VERANTYX_網:1.0__TOKEN_墟_65_ _VERANTYX_伏:1.0__TOKEN_泡_107_ _VERANTYX_泡:1.0__TOKEN_泡_31_ _VERANTYX_節:1.0__TOKEN_縁_1_ for \(_VERANTYX_網:1.0__TOKEN_泡_19_)"); return nil
+        }
+        guard let _VERANTYX_網:1.0__TOKEN_泡_36_ = _VERANTYX_網:1.0__TOKEN_墟_29_(_VERANTYX_泡:1.0__TOKEN_泡_61_: "\(_VERANTYX_網:1.0__TOKEN_泡_19_)/_VERANTYX_泡:1.0__TOKEN_泡_173_/_VERANTYX_泡:1.0__TOKEN_泡_99_") else { return nil }
+
+        var _VERANTYX_泡:1.0__TOKEN_泡_135_ = _VERANTYX_網:1.0__TOKEN_墟_5_(_VERANTYX_網:1.0__TOKEN_泡_36_: _VERANTYX_網:1.0__TOKEN_泡_36_)
+        _VERANTYX_泡:1.0__TOKEN_泡_135_._VERANTYX_網:1.0__TOKEN_泡_161_ = "_VERANTYX_墟:1.0__TOKEN_墟_41_"
+        _VERANTYX_泡:1.0__TOKEN_泡_135_._VERANTYX_節:1.0__TOKEN_縁_2_("_VERANTYX_泡:1.0__TOKEN_泡_138_/_VERANTYX_泡:1.0__TOKEN_泡_92_", _VERANTYX_網:1.0__TOKEN_泡_166_: "_VERANTYX_墟:1.0__TOKEN_墟_63_-_VERANTYX_墟:1.0__TOKEN_墟_66_")
+        _VERANTYX_泡:1.0__TOKEN_泡_135_._VERANTYX_節:1.0__TOKEN_縁_2_("_VERANTYX_節:1.0__TOKEN_墟_31_ \(_VERANTYX_伏:1.0__TOKEN_泡_63_)", _VERANTYX_網:1.0__TOKEN_泡_166_: "_VERANTYX_墟:1.0__TOKEN_墟_45_")
+        _VERANTYX_泡:1.0__TOKEN_泡_135_._VERANTYX_泡:1.0__TOKEN_泡_100_ = 120
+
+        let _VERANTYX_泡:1.0__TOKEN_泡_50_: [_VERANTYX_墟:1.0__TOKEN_墟_14_: _VERANTYX_墟:1.0__TOKEN_墟_11_] = [
+            "_VERANTYX_泡:1.0__TOKEN_泡_5_": _VERANTYX_泡:1.0__TOKEN_泡_5_,
+            "_VERANTYX_泡:1.0__TOKEN_泡_83_": [
+                ["_VERANTYX_泡:1.0__TOKEN_泡_129_": "_VERANTYX_泡:1.0__TOKEN_泡_86_", "_VERANTYX_泡:1.0__TOKEN_泡_172_": _VERANTYX_泡:1.0__TOKEN_泡_84_],
+                ["_VERANTYX_泡:1.0__TOKEN_泡_129_": "_VERANTYX_節:1.0__TOKEN_泡_101_",   "_VERANTYX_泡:1.0__TOKEN_泡_172_": _VERANTYX_泡:1.0__TOKEN_泡_33_]
+            ],
+            "_VERANTYX_伏:1.0__TOKEN_泡_134_": _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_伏:1.0__TOKEN_泡_68_,
+            "_VERANTYX_泡:1.0__TOKEN_泡_49_": 0.1,
+            "_VERANTYX_泡:1.0__TOKEN_泡_121_": false
+        ]
+
+        guard let _VERANTYX_泡:1.0__TOKEN_泡_59_ = try? _VERANTYX_墟:1.0__TOKEN_墟_24_._VERANTYX_泡:1.0__TOKEN_泡_132_(_VERANTYX_泡:1.0__TOKEN_泡_105_: _VERANTYX_泡:1.0__TOKEN_泡_50_) else { return nil }
+        _VERANTYX_泡:1.0__TOKEN_泡_135_._VERANTYX_網:1.0__TOKEN_泡_148_ = _VERANTYX_泡:1.0__TOKEN_泡_59_
+
+        do {
+            let (_VERANTYX_泡:1.0__TOKEN_泡_132_, _VERANTYX_泡:1.0__TOKEN_泡_12_) = try await _VERANTYX_網:1.0__TOKEN_墟_47_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_132_(for: _VERANTYX_泡:1.0__TOKEN_泡_135_)
+            guard (_VERANTYX_泡:1.0__TOKEN_泡_12_ as? _VERANTYX_網:1.0__TOKEN_墟_26_)?._VERANTYX_泡:1.0__TOKEN_泡_15_ == 200 else {
+                let _VERANTYX_泡:1.0__TOKEN_泡_50_ = _VERANTYX_墟:1.0__TOKEN_墟_14_(_VERANTYX_泡:1.0__TOKEN_泡_132_: _VERANTYX_泡:1.0__TOKEN_泡_132_, _VERANTYX_泡:1.0__TOKEN_泡_23_: ._VERANTYX_泡:1.0__TOKEN_泡_52_) ?? ""
+                _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_22_] ❌ _VERANTYX_網:1.0__TOKEN_墟_16_ _VERANTYX_泡:1.0__TOKEN_泡_141_: \((_VERANTYX_泡:1.0__TOKEN_泡_12_ as? _VERANTYX_網:1.0__TOKEN_墟_26_)?._VERANTYX_泡:1.0__TOKEN_泡_15_ ?? -1) — \(_VERANTYX_泡:1.0__TOKEN_泡_50_._VERANTYX_泡:1.0__TOKEN_泡_34_(200))")
+                return nil
+            }
+            guard let _VERANTYX_泡:1.0__TOKEN_泡_92_ = try? _VERANTYX_墟:1.0__TOKEN_墟_24_._VERANTYX_泡:1.0__TOKEN_泡_7_(_VERANTYX_泡:1.0__TOKEN_泡_117_: _VERANTYX_泡:1.0__TOKEN_泡_132_) as? [_VERANTYX_墟:1.0__TOKEN_墟_14_: _VERANTYX_墟:1.0__TOKEN_墟_11_],
+                  let _VERANTYX_泡:1.0__TOKEN_泡_71_ = _VERANTYX_泡:1.0__TOKEN_泡_92_["_VERANTYX_泡:1.0__TOKEN_泡_71_"] as? [[_VERANTYX_墟:1.0__TOKEN_墟_14_: _VERANTYX_墟:1.0__TOKEN_墟_11_]],
+// _VERANTYX_泡:0.2__TOKEN_BC_433_ [decoy-metadata]
+                  let _VERANTYX_泡:1.0__TOKEN_泡_57_ = _VERANTYX_泡:1.0__TOKEN_泡_71_._VERANTYX_泡:1.0__TOKEN_泡_152_?["_VERANTYX_泡:1.0__TOKEN_泡_57_"] as? [_VERANTYX_墟:1.0__TOKEN_墟_14_: _VERANTYX_墟:1.0__TOKEN_墟_11_],
+                  let _VERANTYX_泡:1.0__TOKEN_泡_172_ = _VERANTYX_泡:1.0__TOKEN_泡_57_["_VERANTYX_泡:1.0__TOKEN_泡_172_"] as? _VERANTYX_墟:1.0__TOKEN_墟_14_
+            else { return nil }
+            return _VERANTYX_泡:1.0__TOKEN_泡_172_._VERANTYX_泡:1.0__TOKEN_泡_58_(in: ._VERANTYX_泡:1.0__TOKEN_泡_112_)
+        } catch {
+            _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_22_] ❌ _VERANTYX_網:1.0__TOKEN_墟_60_ _VERANTYX_泡:1.0__TOKEN_泡_158_: \(_VERANTYX_泡:1.0__TOKEN_泡_141_)"); return nil
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_泡:1.0__TOKEN_泡_51_(
+        _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_墟:1.0__TOKEN_墟_46_, _VERANTYX_泡:1.0__TOKEN_泡_84_: _VERANTYX_墟:1.0__TOKEN_墟_14_, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_墟:1.0__TOKEN_墟_14_
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_14_? {
+        let _VERANTYX_泡:1.0__TOKEN_泡_131_ = "\(_VERANTYX_泡:1.0__TOKEN_泡_84_)\n\n\(_VERANTYX_泡:1.0__TOKEN_泡_33_)"
+        return await _VERANTYX_墟:1.0__TOKEN_墟_17_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_145_(
+            _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_,
+            _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_131_,
+            _VERANTYX_伏:1.0__TOKEN_泡_68_: _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_伏:1.0__TOKEN_泡_68_,
+            _VERANTYX_泡:1.0__TOKEN_泡_49_: 0.1
+        )
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+actor _VERANTYX_墟:1.0__TOKEN_墟_44_ {
+
+    static let _VERANTYX_泡:1.0__TOKEN_泡_96_ = _VERANTYX_墟:1.0__TOKEN_墟_44_()
+    private init() {}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _VERANTYX_泡:1.0__TOKEN_泡_29_(
+        _VERANTYX_泡:1.0__TOKEN_泡_25_: _VERANTYX_墟:1.0__TOKEN_墟_14_,
+        _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_墟:1.0__TOKEN_墟_30_,
+        ir: _VERANTYX_墟:1.0__TOKEN_墟_55_,
+        _VERANTYX_泡:1.0__TOKEN_泡_10_: _VERANTYX_墟:1.0__TOKEN_墟_46_
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_52_ {
+        switch _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_泡:1.0__TOKEN_泡_81_ {
+        case ._VERANTYX_泡:1.0__TOKEN_泡_108_:
+// [metadata-stripped]
+            return await _VERANTYX_墟:1.0__TOKEN_墟_13_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_29_(
+                _VERANTYX_泡:1.0__TOKEN_泡_25_: _VERANTYX_泡:1.0__TOKEN_泡_25_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir
+            )
+
+        case ._VERANTYX_泡:1.0__TOKEN_泡_165_:
+// _VERANTYX_網:0.4__TOKEN_EL_663_ [decoy-metadata]
+// [metadata-stripped]
+            if let _VERANTYX_泡:1.0__TOKEN_泡_94_ = await _VERANTYX_泡:1.0__TOKEN_泡_43_(
+                _VERANTYX_泡:1.0__TOKEN_泡_89_: _VERANTYX_泡:1.0__TOKEN_泡_25_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir, _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_10_._VERANTYX_泡:1.0__TOKEN_泡_91_
+            ) {
+                return _VERANTYX_泡:1.0__TOKEN_泡_94_
+            }
+// [metadata-stripped]
+            _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_25_] _VERANTYX_墟:1.0__TOKEN_墟_33_ _VERANTYX_泡:1.0__TOKEN_泡_158_, _VERANTYX_泡:1.0__TOKEN_泡_146_ _VERANTYX_泡:1.0__TOKEN_泡_106_ to _VERANTYX_泡:1.0__TOKEN_泡_14_-_VERANTYX_泡:1.0__TOKEN_泡_69_")
+            return await _VERANTYX_墟:1.0__TOKEN_墟_13_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_29_(
+                _VERANTYX_泡:1.0__TOKEN_泡_25_: _VERANTYX_泡:1.0__TOKEN_泡_25_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir
+            )
+
+        case ._VERANTYX_泡:1.0__TOKEN_泡_170_:
+// [metadata-stripped]
+// [metadata-stripped]
+            _VERANTYX_泡:1.0__TOKEN_泡_123_("[_VERANTYX_墟:1.0__TOKEN_墟_25_] _VERANTYX_墟:1.0__TOKEN_墟_27_ _VERANTYX_泡:1.0__TOKEN_泡_162_ _VERANTYX_泡:1.0__TOKEN_泡_40_ _VERANTYX_泡:1.0__TOKEN_泡_31_ _VERANTYX_泡:1.0__TOKEN_泡_122_ _VERANTYX_泡:1.0__TOKEN_泡_24_, _VERANTYX_泡:1.0__TOKEN_泡_45_ _VERANTYX_泡:1.0__TOKEN_泡_14_-_VERANTYX_泡:1.0__TOKEN_泡_69_")
+            return await _VERANTYX_墟:1.0__TOKEN_墟_13_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_29_(
+                _VERANTYX_泡:1.0__TOKEN_泡_25_: _VERANTYX_泡:1.0__TOKEN_泡_25_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir
+            )
+
+        case ._VERANTYX_泡:1.0__TOKEN_泡_35_:
+// [metadata-stripped]
+// [metadata-stripped]
+            return await _VERANTYX_墟:1.0__TOKEN_墟_13_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_29_(
+                _VERANTYX_泡:1.0__TOKEN_泡_25_: _VERANTYX_泡:1.0__TOKEN_泡_25_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_泡:1.0__TOKEN_泡_43_(
+        _VERANTYX_泡:1.0__TOKEN_泡_89_: _VERANTYX_墟:1.0__TOKEN_墟_14_,
+        _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_墟:1.0__TOKEN_墟_30_,
+        ir: _VERANTYX_墟:1.0__TOKEN_墟_55_,
+        _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_墟:1.0__TOKEN_墟_14_
+// _VERANTYX_泡:0.8__TOKEN_DG_719_ [decoy-metadata]
+    ) async -> _VERANTYX_墟:1.0__TOKEN_墟_52_? {
+        let _VERANTYX_泡:1.0__TOKEN_泡_97_ = _VERANTYX_泡:1.0__TOKEN_泡_130_._VERANTYX_泡:1.0__TOKEN_泡_18_()._VERANTYX_泡:1.0__TOKEN_泡_34_(10)
+            ._VERANTYX_泡:1.0__TOKEN_泡_119_ { "  _VERANTYX_墟:1.0__TOKEN_墟_18_[\($0._VERANTYX_泡:1.0__TOKEN_泡_37_._VERANTYX_泡:1.0__TOKEN_泡_26_)]: \($0._VERANTYX_泡:1.0__TOKEN_泡_156_?._VERANTYX_泡:1.0__TOKEN_泡_157_ ?? "?")" }
+            ._VERANTYX_泡:1.0__TOKEN_泡_114_(_VERANTYX_泡:1.0__TOKEN_泡_54_: "\n")
+
+        let _VERANTYX_泡:1.0__TOKEN_泡_33_ = """
+        [_VERANTYX_墟:1.0__TOKEN_墟_38_ _VERANTYX_墟:1.0__TOKEN_墟_6_]
+        ユーザー指示: \(_VERANTYX_泡:1.0__TOKEN_泡_89_)
+
+        IRの主要ノード（Vault参照）:
+        \(_VERANTYX_泡:1.0__TOKEN_泡_97_)
+
+        以下の_VERANTYX_墟:1.0__TOKEN_墟_39_のみを返せ（説明不要）:
+        {
+          "_VERANTYX_泡:1.0__TOKEN_泡_20_": "_VERANTYX_泡:1.0__TOKEN_泡_115_|_VERANTYX_泡:1.0__TOKEN_泡_151_|_VERANTYX_泡:1.0__TOKEN_泡_13_|_VERANTYX_泡:1.0__TOKEN_泡_153_|_VERANTYX_泡:1.0__TOKEN_泡_6_",
+          "_VERANTYX_伏:1.0__TOKEN_泡_3_": "対象の関数名・クラス名のキーワード",
+          "_VERANTYX_泡:1.0__TOKEN_泡_1_": "_VERANTYX_泡:1.0__TOKEN_泡_136_|_VERANTYX_節:1.0__TOKEN_泡_155_|_VERANTYX_泡:1.0__TOKEN_泡_73_|_VERANTYX_泡:1.0__TOKEN_泡_32_|_VERANTYX_泡:1.0__TOKEN_泡_88_|_VERANTYX_泡:1.0__TOKEN_泡_55_|_VERANTYX_泡:1.0__TOKEN_泡_66_",
+          "_VERANTYX_泡:1.0__TOKEN_泡_168_": "_VERANTYX_泡:1.0__TOKEN_泡_137_|_VERANTYX_節:1.0__TOKEN_泡_126_|_VERANTYX_泡:1.0__TOKEN_泡_41_|_VERANTYX_泡:1.0__TOKEN_泡_125_|_VERANTYX_泡:1.0__TOKEN_泡_64_|_VERANTYX_泡:1.0__TOKEN_泡_103_|_VERANTYX_泡:1.0__TOKEN_泡_143_"
+        }
+        """
+
+        guard let _VERANTYX_泡:1.0__TOKEN_泡_163_ = await _VERANTYX_墟:1.0__TOKEN_墟_17_._VERANTYX_泡:1.0__TOKEN_泡_96_._VERANTYX_泡:1.0__TOKEN_泡_145_(
+            _VERANTYX_泡:1.0__TOKEN_泡_5_: _VERANTYX_泡:1.0__TOKEN_泡_5_, _VERANTYX_泡:1.0__TOKEN_泡_33_: _VERANTYX_泡:1.0__TOKEN_泡_33_, _VERANTYX_伏:1.0__TOKEN_泡_68_: 256, _VERANTYX_泡:1.0__TOKEN_泡_49_: 0.1
+        ) else { return nil }
+
+// [metadata-stripped]
+        return _VERANTYX_泡:1.0__TOKEN_泡_149_(_VERANTYX_泡:1.0__TOKEN_泡_163_, _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_泡:1.0__TOKEN_泡_130_, ir: ir)
+    }
+
+    private func _VERANTYX_泡:1.0__TOKEN_泡_149_(
+        _ _VERANTYX_泡:1.0__TOKEN_泡_163_: _VERANTYX_墟:1.0__TOKEN_墟_14_,
+        _VERANTYX_泡:1.0__TOKEN_泡_130_: _VERANTYX_墟:1.0__TOKEN_墟_30_,
+        ir: _VERANTYX_墟:1.0__TOKEN_墟_55_
+    ) -> _VERANTYX_墟:1.0__TOKEN_墟_52_? {
+// [metadata-stripped]
+        guard let _VERANTYX_泡:1.0__TOKEN_泡_46_ = _VERANTYX_泡:1.0__TOKEN_泡_163_._VERANTYX_泡:1.0__TOKEN_泡_72_(of: "{"),
+              let _VERANTYX_泡:1.0__TOKEN_泡_8_ = _VERANTYX_泡:1.0__TOKEN_泡_163_._VERANTYX_泡:1.0__TOKEN_泡_21_(of: "}") else { return nil }
+        let _VERANTYX_泡:1.0__TOKEN_泡_47_ = _VERANTYX_墟:1.0__TOKEN_墟_14_(_VERANTYX_泡:1.0__TOKEN_泡_163_[_VERANTYX_泡:1.0__TOKEN_泡_46_..._VERANTYX_泡:1.0__TOKEN_泡_8_])
+        guard let _VERANTYX_泡:1.0__TOKEN_泡_132_ = _VERANTYX_泡:1.0__TOKEN_泡_47_._VERANTYX_泡:1.0__TOKEN_泡_132_(_VERANTYX_泡:1.0__TOKEN_泡_45_: ._VERANTYX_泡:1.0__TOKEN_泡_52_),
+              let _VERANTYX_泡:1.0__TOKEN_泡_92_ = try? _VERANTYX_墟:1.0__TOKEN_墟_24_._VERANTYX_泡:1.0__TOKEN_泡_7_(_VERANTYX_泡:1.0__TOKEN_泡_117_: _VERANTYX_泡:1.0__TOKEN_泡_132_) as? [_VERANTYX_墟:1.0__TOKEN_墟_14_: _VERANTYX_墟:1.0__TOKEN_墟_11_]
+        else { return nil }
+
+        let _VERANTYX_泡:1.0__TOKEN_泡_42_ = _VERANTYX_泡:1.0__TOKEN_泡_92_["_VERANTYX_泡:1.0__TOKEN_泡_20_"] as? _VERANTYX_墟:1.0__TOKEN_墟_14_ ?? "_VERANTYX_泡:1.0__TOKEN_泡_151_"
+        let _VERANTYX_伏:1.0__TOKEN_泡_154_ = _VERANTYX_泡:1.0__TOKEN_泡_92_["_VERANTYX_伏:1.0__TOKEN_泡_3_"] as? _VERANTYX_墟:1.0__TOKEN_墟_14_ ?? ""
+        let _VERANTYX_泡:1.0__TOKEN_泡_139_ = _VERANTYX_泡:1.0__TOKEN_泡_92_["_VERANTYX_泡:1.0__TOKEN_泡_1_"] as? _VERANTYX_墟:1.0__TOKEN_墟_14_ ?? ""
+        let _VERANTYX_泡:1.0__TOKEN_泡_17_ = _VERANTYX_泡:1.0__TOKEN_泡_92_["_VERANTYX_泡:1.0__TOKEN_泡_168_"] as? _VERANTYX_墟:1.0__TOKEN_墟_14_ ?? "_VERANTYX_泡:1.0__TOKEN_泡_143_"
+
+        let _VERANTYX_泡:1.0__TOKEN_泡_20_ = _VERANTYX_墟:1.0__TOKEN_墟_52_._VERANTYX_墟:1.0__TOKEN_墟_4_(_VERANTYX_泡:1.0__TOKEN_泡_39_: _VERANTYX_泡:1.0__TOKEN_泡_42_) ?? ._VERANTYX_泡:1.0__TOKEN_泡_151_
+        let cf = _VERANTYX_泡:1.0__TOKEN_泡_139_ == "_VERANTYX_泡:1.0__TOKEN_泡_66_" ? nil : _VERANTYX_墟:1.0__TOKEN_墟_52_._VERANTYX_墟:1.0__TOKEN_墟_57_(_VERANTYX_泡:1.0__TOKEN_泡_39_: _VERANTYX_泡:1.0__TOKEN_泡_139_)
+        let _VERANTYX_泡:1.0__TOKEN_泡_109_ = _VERANTYX_墟:1.0__TOKEN_墟_52_._VERANTYX_墟:1.0__TOKEN_墟_23_(_VERANTYX_泡:1.0__TOKEN_泡_39_: _VERANTYX_泡:1.0__TOKEN_泡_17_) ?? ._VERANTYX_泡:1.0__TOKEN_泡_143_
+
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0__TOKEN_泡_102_ = _VERANTYX_泡:1.0__TOKEN_泡_130_._VERANTYX_泡:1.0__TOKEN_泡_18_()
+        var _VERANTYX_泡:1.0__TOKEN_泡_37_ = "_VERANTYX_墟:1.0__TOKEN_墟_32_"
+        if !_VERANTYX_伏:1.0__TOKEN_泡_154_._VERANTYX_泡:1.0__TOKEN_泡_85_ {
+            let _VERANTYX_節:1.0__TOKEN_泡_133_ = _VERANTYX_伏:1.0__TOKEN_泡_154_._VERANTYX_泡:1.0__TOKEN_泡_53_()
+            for _VERANTYX_泡:1.0__TOKEN_泡_93_ in _VERANTYX_泡:1.0__TOKEN_泡_102_ {
+                if let _VERANTYX_泡:1.0__TOKEN_泡_74_ = _VERANTYX_泡:1.0__TOKEN_泡_93_._VERANTYX_泡:1.0__TOKEN_泡_156_?._VERANTYX_泡:1.0__TOKEN_泡_157_._VERANTYX_泡:1.0__TOKEN_泡_53_(),
+                   _VERANTYX_泡:1.0__TOKEN_泡_74_._VERANTYX_泡:1.0__TOKEN_泡_70_(_VERANTYX_節:1.0__TOKEN_泡_133_) || _VERANTYX_節:1.0__TOKEN_泡_133_._VERANTYX_泡:1.0__TOKEN_泡_70_(_VERANTYX_泡:1.0__TOKEN_泡_74_) {
+                    _VERANTYX_泡:1.0__TOKEN_泡_37_ = _VERANTYX_泡:1.0__TOKEN_泡_93_._VERANTYX_泡:1.0__TOKEN_泡_37_._VERANTYX_泡:1.0__TOKEN_泡_26_
+                    break
+                }
+            }
+        }
+
+        return _VERANTYX_墟:1.0__TOKEN_墟_52_(
+            _VERANTYX_泡:1.0__TOKEN_泡_20_: _VERANTYX_泡:1.0__TOKEN_泡_20_,
+            _VERANTYX_泡:1.0__TOKEN_泡_144_: _VERANTYX_泡:1.0__TOKEN_泡_37_,
+            _VERANTYX_泡:1.0__TOKEN_泡_28_: cf,
+            _VERANTYX_泡:1.0__TOKEN_泡_168_: _VERANTYX_泡:1.0__TOKEN_泡_109_,
+            _VERANTYX_泡:1.0__TOKEN_泡_62_: [:],
+            _VERANTYX_泡:1.0__TOKEN_泡_98_: nil
+        )
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

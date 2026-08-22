@@ -1,0 +1,49 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CCE6888A ver:1778159650
+// ⚠️ One-time schema — expires after response
+
+__jcross_霰:1.0___TOKEN_霰_2_ __jcross_霰:1.0___TOKEN_霰_15_ import __jcross_礎:1.0___TOKEN_礎_2_
+__jcross_霰:1.0___TOKEN_霰_2_ __jcross_霰:1.0___TOKEN_霰_30_.__jcross_霰:1.0___TOKEN_霰_10_.__jcross_型:1.0___TOKEN_霰_11_ import __jcross_霰:1.0___TOKEN_霰_32_
+__jcross_霰:1.0___TOKEN_霰_2_ __jcross_霰:1.0___TOKEN_霰_30_.__jcross_霰:1.0___TOKEN_霰_1_.__jcross_霰:1.0___TOKEN_霰_31_ import __jcross_礎:1.0___TOKEN_礎_3_
+
+__jcross_霰:1.0___TOKEN_霰_25_ __jcross_涌:1.0___TOKEN_霰_19_(__jcross_霰:1.0___TOKEN_霰_8_: __jcross_霰:1.0___TOKEN_霰_26_[__jcross_霰:1.0___TOKEN_霰_29_], __jcross_霰:1.0___TOKEN_霰_27_: __jcross_礎:1.0___TOKEN_礎_2_):
+    """
+    形状シグネチャに基づいて問題タイプを分類し、ReasoningCrossの状態を更新する。
+    """
+    __jcross_霰:1.0___TOKEN_霰_16_ = __jcross_霰:1.0___TOKEN_霰_32_(__jcross_霰:1.0___TOKEN_霰_8_)
+
+// __jcross_霰:0.6___TOKEN_MX_548_ [decoy-metadata]
+    if __jcross_霰:1.0___TOKEN_霰_22_ __jcross_霰:1.0___TOKEN_霰_16_:
+// [metadata-stripped]
+        __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_34_["__jcross_霰:1.0___TOKEN_霰_13_"] = "__jcross_霰:1.0___TOKEN_霰_36_"
+        return __jcross_霰:1.0___TOKEN_霰_27_
+
+// [metadata-stripped]
+    __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_12_ = __jcross_霰:1.0___TOKEN_霰_16_.__jcross_霰:1.0___TOKEN_霰_9_
+// __jcross_霰:0.9___TOKEN_EA_377_ [decoy-metadata]
+// __jcross_匳:0.2___TOKEN_CW_777_ [decoy-metadata]
+    __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_34_["__jcross_霰:1.0___TOKEN_霰_4_"] = __jcross_霰:1.0___TOKEN_霰_16_.__jcross_霰:1.0___TOKEN_霰_4_
+    __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_34_["__jcross_霰:1.0___TOKEN_霰_13_"] = __jcross_霰:1.0___TOKEN_霰_16_.__jcross_霰:1.0___TOKEN_霰_9_
+
+// [metadata-stripped]
+    __jcross_霰:1.0___TOKEN_霰_5_ = []
+    for __jcross_霰:1.0___TOKEN_霰_17_ in __jcross_霰:1.0___TOKEN_霰_16_.__jcross_霰:1.0___TOKEN_霰_21_:
+        if __jcross_霰:1.0___TOKEN_霰_17_ == "__jcross_涌:1.0___TOKEN_霰_20_" __jcross_霰:1.0___TOKEN_霰_3_ __jcross_霰:1.0___TOKEN_霰_22_ (__jcross_霰:1.0___TOKEN_霰_27_.__jcross_涌:1.0___TOKEN_霰_14_ or __jcross_霰:1.0___TOKEN_霰_27_.__jcross_涌:1.0___TOKEN_霰_24_):
+            __jcross_霰:1.0___TOKEN_霰_5_.__jcross_霰:1.0___TOKEN_霰_35_("__jcross_涌:1.0___TOKEN_霰_20_")
+        if __jcross_霰:1.0___TOKEN_霰_17_ == "__jcross_霰:1.0___TOKEN_霰_23_" __jcross_霰:1.0___TOKEN_霰_3_ __jcross_霰:1.0___TOKEN_霰_22_ __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_18_:
+// __jcross_匳:0.1___TOKEN_FM_137_ [decoy-metadata]
+// __jcross_匳:0.7___TOKEN_GG_555_ [decoy-metadata]
+            __jcross_霰:1.0___TOKEN_霰_5_.__jcross_霰:1.0___TOKEN_霰_35_("__jcross_霰:1.0___TOKEN_霰_23_")
+
+// __jcross_縁:0.2___TOKEN_XZ_372_ [decoy-metadata]
+    if __jcross_霰:1.0___TOKEN_霰_5_:
+// [metadata-stripped]
+        __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_28_ = __jcross_礎:1.0___TOKEN_礎_3_.__jcross_礎:1.0___TOKEN_礎_4_
+        __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_34_["__jcross_霰:1.0___TOKEN_霰_33_"] = __jcross_霰:1.0___TOKEN_霰_5_
+    else:
+// [metadata-stripped]
+        __jcross_霰:1.0___TOKEN_霰_27_.__jcross_霰:1.0___TOKEN_霰_34_["__jcross_型:1.0___TOKEN_霰_7_"] = __jcross_礎:1.0___TOKEN_礎_1_
+
+    return __jcross_霰:1.0___TOKEN_霰_27_
+
+// POLYMORPHIC_JCROSS_END

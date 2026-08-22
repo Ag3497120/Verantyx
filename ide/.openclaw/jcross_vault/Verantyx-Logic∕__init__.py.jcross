@@ -1,0 +1,507 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:ED2EEC81 ver:1778159617
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+"""
+_TOKEN_庭:1.0___node_庭_8__ _TOKEN_庭:1.0___node_庭_58__ _TOKEN_道:1.0___node_庭_84__ (_TOKEN_庭:1.0___node_庭_22__, _TOKEN_雰:1.0___node_雰_176__, _TOKEN_雰:1.0___node_雰_173__)
+- _TOKEN_庭:1.0___node_庭_79__ _TOKEN_雰:1.0___node_雰_82__ KB _TOKEN_雰:1.0___node_雰_143__ _TOKEN_雰:1.0___node_雰_121__ _TOKEN_雰:1.0___node_雰_111__/_TOKEN_雰:1.0___node_雰_68__
+- _TOKEN_庭:1.0___node_庭_11__ _TOKEN_庭:1.0___node_庭_22__ _TOKEN_雰:1.0___node_雰_220__ + _TOKEN_雰:1.0___node_雰_211__ _TOKEN_庫:1.0___node_雰_157__
+- _TOKEN_庭:1.0___node_庭_30__ _TOKEN_雰:1.0___node_雰_35__ _TOKEN_雰:1.0___node_雰_294__ (_TOKEN_雰:1.0___node_雰_203__, _TOKEN_雰:1.0___node_雰_9__, _TOKEN_雰:1.0___node_雰_16__ _TOKEN_雰:1.0___node_雰_127__, _TOKEN_雰:1.0___node_雰_315__ _TOKEN_雰:1.0___node_雰_261__)
+- _TOKEN_庭:1.0___node_庭_75__ by id, _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_2__ re-_TOKEN_雰:1.0___node_雰_253__ _TOKEN_雰:1.0___node_雰_299__ (_TOKEN_雰:1.0___node_雰_355__)
+
+// _TOKEN_隠:0.1___node_EY_157__ [decoy-metadata]
+_TOKEN_庭:1.0___node_庭_73__ (_TOKEN_雰:1.0___node_雰_30__):
+  _TOKEN_雰:1.0___node_雰_19__ _TOKEN_雰:1.0___node_雰_332__.py \
+    --_TOKEN_雰:1.0___node_雰_274__ _TOKEN_雰:1.0___node_雰_283__ \
+    --_TOKEN_縁:1.0___node_雰_27__ _TOKEN_縁:1.0___node_雰_55__://_TOKEN_雰:1.0___node_雰_421__:8000/v1 \
+    --_TOKEN_隠:1.0___node_雰_275__ _TOKEN_隠:1.0___node_庭_68__ \
+// _TOKEN_庭:0.2___node_LE_618__ [decoy-metadata]
+    --_TOKEN_雰:1.0___node_雰_241__ _TOKEN_雰:1.0___node_雰_309__/_TOKEN_雰:1.0___node_雰_233__-_TOKEN_雰:1.0___node_雰_45__ \
+    --_TOKEN_雰:1.0___node_雰_14__ _TOKEN_雰:1.0___node_雰_379__/db/_TOKEN_雰:1.0___node_雰_291__ \
+// _TOKEN_碑:0.1___node_KB_956__ [decoy-metadata]
+    --_TOKEN_雰:1.0___node_雰_111__ _TOKEN_雰:1.0___node_雰_342__ _TOKEN_雰:1.0___node_雰_242__ \
+    --_TOKEN_雰:1.0___node_雰_76__ 250
+
+If _TOKEN_雰:1.0___node_雰_358__ _TOKEN_雰:1.0___node_雰_415__ _TOKEN_雰:1.0___node_雰_345__ _TOKEN_浪:1.0___node_雰_279__:
+  _TOKEN_雰:1.0___node_雰_19__ _TOKEN_雰:1.0___node_雰_332__.py --_TOKEN_雰:1.0___node_雰_274__ _TOKEN_浪:1.0___node_雰_279__ --_TOKEN_雰:1.0___node_雰_119__ /_TOKEN_雰:1.0___node_雰_413__/to/_TOKEN_雰:1.0___node_雰_241__ ...
+"""
+
+_TOKEN_雰:1.0___node_雰_306__ _TOKEN_雰:1.0___node_雰_153__ import _TOKEN_雰:1.0___node_雰_217__
+
+import _TOKEN_雰:1.0___node_雰_395__
+import _TOKEN_雰:1.0___node_雰_18__
+import _TOKEN_雰:1.0___node_雰_181__
+import os
+import _TOKEN_雰:1.0___node_雰_313__
+import re
+import _TOKEN_雰:1.0___node_雰_183__
+import _TOKEN_雰:1.0___node_雰_386__
+_TOKEN_雰:1.0___node_雰_306__ _TOKEN_雰:1.0___node_雰_18__ import _TOKEN_雰:1.0___node_雰_205__
+_TOKEN_雰:1.0___node_雰_306__ _TOKEN_雰:1.0___node_雰_312__ import _TOKEN_雰:1.0___node_雰_190__
+_TOKEN_雰:1.0___node_雰_306__ _TOKEN_雰:1.0___node_雰_43__ import _TOKEN_庭:1.0___node_庭_54__, _TOKEN_庭:1.0___node_庭_37__, _TOKEN_庭:1.0___node_庭_88__, _TOKEN_庭:1.0___node_庭_71__, _TOKEN_庭:1.0___node_庭_66__, _TOKEN_庭:1.0___node_庭_38__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_庭:1.0___node_庭_57__: _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_10__]] = {
+// [metadata-stripped]
+    "_TOKEN_雰:1.0___node_雰_342__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 50, "_TOKEN_雰:1.0___node_雰_370__": 40, "_TOKEN_雰:1.0___node_雰_305__": 80, "_TOKEN_雰:1.0___node_雰_353__": 50, "_TOKEN_雰:1.0___node_雰_272__": 30
+    },
+    "_TOKEN_雰:1.0___node_雰_242__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 40, "_TOKEN_雰:1.0___node_雰_305__": 90, "_TOKEN_雰:1.0___node_雰_353__": 60, "_TOKEN_雰:1.0___node_雰_272__": 30
+    },
+    "_TOKEN_雰:1.0___node_雰_22__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 30, "_TOKEN_雰:1.0___node_雰_305__": 90, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 30
+    },
+    "_TOKEN_雰:1.0___node_雰_260__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 110, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+    "_TOKEN_雰:1.0___node_雰_364__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 110, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+    "_TOKEN_雰:1.0___node_雰_376__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 70, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 110, "_TOKEN_雰:1.0___node_雰_353__": 30, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+    "_TOKEN_雰:1.0___node_雰_141__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 70, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 80, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+    "_TOKEN_雰:1.0___node_雰_411__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 110, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+    "_TOKEN_雰:1.0___node_雰_90__": {
+        "_TOKEN_雰:1.0___node_雰_212__": 60, "_TOKEN_雰:1.0___node_雰_370__": 20, "_TOKEN_雰:1.0___node_雰_305__": 110, "_TOKEN_雰:1.0___node_雰_353__": 40, "_TOKEN_雰:1.0___node_雰_272__": 20
+    },
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+@_TOKEN_雰:1.0___node_雰_205__
+class _TOKEN_庭:1.0___node_庭_89__:
+    id: _TOKEN_雰:1.0___node_雰_302__
+    _TOKEN_雰:1.0___node_雰_204__: _TOKEN_雰:1.0___node_雰_302__
+    _TOKEN_雰:1.0___node_雰_256__: _TOKEN_雰:1.0___node_雰_302__  # _TOKEN_雰:1.0___node_雰_212__ | _TOKEN_雰:1.0___node_雰_370__ | _TOKEN_雰:1.0___node_雰_305__ | _TOKEN_雰:1.0___node_雰_353__ | _TOKEN_雰:1.0___node_雰_272__
+    _TOKEN_雰:1.0___node_雰_326__: _TOKEN_雰:1.0___node_雰_302__
+    _TOKEN_雰:1.0___node_雰_188__: _TOKEN_雰:1.0___node_雰_302__
+    _TOKEN_雰:1.0___node_雰_315__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]
+    _TOKEN_雰:1.0___node_雰_130__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]
+    _TOKEN_雰:1.0___node_雰_16__: _TOKEN_庭:1.0___node_庭_66__[_TOKEN_雰:1.0___node_雰_302__]
+    _TOKEN_雰:1.0___node_雰_381__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]
+    _TOKEN_雰:1.0___node_雰_203__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]
+
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_323__(self) -> _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_庭:1.0___node_庭_54__]:
+        return _TOKEN_雰:1.0___node_雰_18__._TOKEN_雰:1.0___node_雰_281__(self)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+class _TOKEN_庭:1.0___node_庭_62__:
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_410__(self, _TOKEN_雰:1.0___node_雰_324__: _TOKEN_雰:1.0___node_雰_302__, *, _TOKEN_雰:1.0___node_雰_198__: _TOKEN_雰:1.0___node_雰_262__ = 0.2, _TOKEN_隠:1.0___node_雰_182__: _TOKEN_雰:1.0___node_雰_10__ = 1800) -> _TOKEN_雰:1.0___node_雰_302__:
+        _TOKEN_雰:1.0___node_雰_264__ _TOKEN_庭:1.0___node_庭_14__
+
+class _TOKEN_庭:1.0___node_庭_26__(_TOKEN_庭:1.0___node_庭_62__):
+    """_TOKEN_庭:1.0___node_庭_21__-_TOKEN_雰:1.0___node_雰_286__ /v1/_TOKEN_雰:1.0___node_雰_49__/_TOKEN_雰:1.0___node_雰_200__ _TOKEN_雰:1.0___node_雰_274__."""
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_385__(self, _TOKEN_縁:1.0___node_雰_27__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_隠:1.0___node_雰_275__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_241__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_392__: _TOKEN_雰:1.0___node_雰_10__ = 120):
+        import _TOKEN_縁:1.0___node_雰_307__  # _TOKEN_雰:1.0___node_雰_345__ import
+        self._TOKEN_縁:1.0___node_雰_408__ = _TOKEN_縁:1.0___node_雰_307__
+        self._TOKEN_縁:1.0___node_雰_27__ = _TOKEN_縁:1.0___node_雰_27__._TOKEN_雰:1.0___node_雰_92__("/")
+        self._TOKEN_隠:1.0___node_雰_275__ = _TOKEN_隠:1.0___node_雰_275__
+        self._TOKEN_雰:1.0___node_雰_241__ = _TOKEN_雰:1.0___node_雰_241__
+        self._TOKEN_雰:1.0___node_雰_392__ = _TOKEN_雰:1.0___node_雰_392__
+
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_410__(self, _TOKEN_雰:1.0___node_雰_324__: _TOKEN_雰:1.0___node_雰_302__, *, _TOKEN_雰:1.0___node_雰_198__: _TOKEN_雰:1.0___node_雰_262__ = 0.2, _TOKEN_隠:1.0___node_雰_182__: _TOKEN_雰:1.0___node_雰_10__ = 1800) -> _TOKEN_雰:1.0___node_雰_302__:
+        _TOKEN_縁:1.0___node_雰_46__ = f"{self._TOKEN_縁:1.0___node_雰_27__}/_TOKEN_雰:1.0___node_雰_49__/_TOKEN_雰:1.0___node_雰_200__"
+        _TOKEN_雰:1.0___node_雰_206__ = {
+            "_TOKEN_庭:1.0___node_庭_52__": f"_TOKEN_道:1.0___node_庭_24__ {self._TOKEN_隠:1.0___node_雰_275__}",
+            "_TOKEN_庭:1.0___node_庭_29__-_TOKEN_庭:1.0___node_庭_13__": "_TOKEN_雰:1.0___node_雰_63__/_TOKEN_雰:1.0___node_雰_181__",
+        }
+        _TOKEN_庫:1.0___node_雰_397__ = {
+            "_TOKEN_雰:1.0___node_雰_241__": self._TOKEN_雰:1.0___node_雰_241__,
+            "_TOKEN_雰:1.0___node_雰_75__": [
+                {"_TOKEN_雰:1.0___node_雰_84__": "_TOKEN_雰:1.0___node_雰_81__", "_TOKEN_雰:1.0___node_雰_282__": "_TOKEN_庭:1.0___node_庭_40__ _TOKEN_雰:1.0___node_雰_96__ _TOKEN_庭:1.0___node_庭_35__ _TOKEN_雰:1.0___node_雰_4__ _TOKEN_庭:1.0___node_庭_23__. No _TOKEN_雰:1.0___node_雰_167__. No _TOKEN_雰:1.0___node_雰_24__."},
+                {"_TOKEN_雰:1.0___node_雰_84__": "_TOKEN_道:1.0___node_雰_284__", "_TOKEN_雰:1.0___node_雰_282__": _TOKEN_雰:1.0___node_雰_324__},
+            ],
+            "_TOKEN_雰:1.0___node_雰_198__": _TOKEN_雰:1.0___node_雰_198__,
+            "_TOKEN_隠:1.0___node_雰_182__": _TOKEN_隠:1.0___node_雰_182__,
+        }
+        r = self._TOKEN_縁:1.0___node_雰_408__._TOKEN_雰:1.0___node_雰_163__(_TOKEN_縁:1.0___node_雰_46__, _TOKEN_雰:1.0___node_雰_206__=_TOKEN_雰:1.0___node_雰_206__, _TOKEN_雰:1.0___node_雰_181__=_TOKEN_庫:1.0___node_雰_397__, _TOKEN_雰:1.0___node_雰_15__=self._TOKEN_雰:1.0___node_雰_392__)
+        r._TOKEN_浪:1.0___node_雰_243__()
+        _TOKEN_雰:1.0___node_雰_425__ = r._TOKEN_雰:1.0___node_雰_181__()
+        return _TOKEN_雰:1.0___node_雰_425__["_TOKEN_雰:1.0___node_雰_6__"][0]["_TOKEN_雰:1.0___node_雰_11__"]["_TOKEN_雰:1.0___node_雰_282__"]
+
+class _TOKEN_庭:1.0___node_庭_46__(_TOKEN_庭:1.0___node_庭_62__):
+    """_TOKEN_庭:1.0___node_庭_50__ _TOKEN_浪:1.0___node_雰_279__ _TOKEN_雰:1.0___node_雰_274__. (_TOKEN_庭:1.0___node_庭_43__ _TOKEN_雰:1.0___node_雰_360__ _TOKEN_庭:1.0___node_庭_82__ _TOKEN_雰:1.0___node_雰_367__ on _TOKEN_雰:1.0___node_雰_241__ _TOKEN_雰:1.0___node_雰_210__)."""
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_385__(self, _TOKEN_雰:1.0___node_雰_119__: _TOKEN_雰:1.0___node_雰_302__):
+        _TOKEN_雰:1.0___node_雰_306__ _TOKEN_浪:1.0___node_雰_279__ import _TOKEN_隠:1.0___node_庭_44__, _TOKEN_庭:1.0___node_庭_9__
+        import _TOKEN_雰:1.0___node_雰_51__
+        self._TOKEN_雰:1.0___node_雰_184__ = _TOKEN_隠:1.0___node_庭_44__._TOKEN_雰:1.0___node_雰_164__(_TOKEN_雰:1.0___node_雰_119__, _TOKEN_雰:1.0___node_雰_12__=_TOKEN_庭:1.0___node_庭_25__)
+        self._TOKEN_雰:1.0___node_雰_241__ = _TOKEN_庭:1.0___node_庭_9__._TOKEN_雰:1.0___node_雰_164__(_TOKEN_雰:1.0___node_雰_119__, _TOKEN_雰:1.0___node_雰_273__="_TOKEN_雰:1.0___node_雰_36__", _TOKEN_雰:1.0___node_雰_216__=_TOKEN_雰:1.0___node_雰_51__._TOKEN_雰:1.0___node_雰_403__)
+        self._TOKEN_雰:1.0___node_雰_241__._TOKEN_雰:1.0___node_雰_115__()
+
+    _TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_410__(self, _TOKEN_雰:1.0___node_雰_324__: _TOKEN_雰:1.0___node_雰_302__, *, _TOKEN_雰:1.0___node_雰_198__: _TOKEN_雰:1.0___node_雰_262__ = 0.2, _TOKEN_隠:1.0___node_雰_182__: _TOKEN_雰:1.0___node_雰_10__ = 1800) -> _TOKEN_雰:1.0___node_雰_302__:
+        import _TOKEN_雰:1.0___node_雰_51__
+        _TOKEN_雰:1.0___node_雰_336__ = self._TOKEN_雰:1.0___node_雰_184__(_TOKEN_雰:1.0___node_雰_324__, _TOKEN_雰:1.0___node_雰_339__="pt").to(self._TOKEN_雰:1.0___node_雰_241__._TOKEN_雰:1.0___node_雰_249__)
+        _TOKEN_雰:1.0___node_雰_179__ _TOKEN_雰:1.0___node_雰_51__._TOKEN_雰:1.0___node_雰_100__():
+            _TOKEN_雰:1.0___node_雰_31__ = self._TOKEN_雰:1.0___node_雰_241__._TOKEN_雰:1.0___node_雰_424__(
+                **_TOKEN_雰:1.0___node_雰_336__,
+                _TOKEN_雰:1.0___node_雰_171__=_TOKEN_庭:1.0___node_庭_25__,
+                _TOKEN_雰:1.0___node_雰_198__=_TOKEN_雰:1.0___node_雰_198__,
+                _TOKEN_隠:1.0___node_雰_77__=_TOKEN_隠:1.0___node_雰_182__,
+                _TOKEN_隠:1.0___node_雰_137__=self._TOKEN_雰:1.0___node_雰_184__._TOKEN_隠:1.0___node_雰_137__,
+            )
+        _TOKEN_雰:1.0___node_雰_325__ = self._TOKEN_雰:1.0___node_雰_184__._TOKEN_雰:1.0___node_雰_88__(_TOKEN_雰:1.0___node_雰_31__[0], _TOKEN_隠:1.0___node_雰_59__=_TOKEN_庭:1.0___node_庭_25__)
+// [metadata-stripped]
+        return _TOKEN_雰:1.0___node_雰_162__(_TOKEN_雰:1.0___node_雰_325__) or _TOKEN_雰:1.0___node_雰_325__._TOKEN_雰:1.0___node_雰_373__()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_427__(_TOKEN_雰:1.0___node_雰_204__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_256__: _TOKEN_雰:1.0___node_雰_302__, n: _TOKEN_雰:1.0___node_雰_10__, _TOKEN_雰:1.0___node_雰_168__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]) -> _TOKEN_雰:1.0___node_雰_302__:
+    """
+    _TOKEN_庭:1.0___node_庭_56__ for _TOKEN_庭:1.0___node_庭_12__ n _TOKEN_雰:1.0___node_雰_143__ as _TOKEN_庭:1.0___node_庭_23__ _TOKEN_雰:1.0___node_雰_338__.
+    """
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_116__ = _TOKEN_雰:1.0___node_雰_168__[-20:] if _TOKEN_雰:1.0___node_雰_168__ else []
+    _TOKEN_雰:1.0___node_雰_145__ = "\n"._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_116__)
+
+    _TOKEN_雰:1.0___node_雰_402__ = {
+        "id": "_TOKEN_雰:1.0___node_雰_192__ (_TOKEN_雰:1.0___node_雰_225__, _TOKEN_雰:1.0___node_雰_204__-_TOKEN_雰:1.0___node_雰_234__, e.g. _TOKEN_雰:1.0___node_雰_52__._TOKEN_雰:1.0___node_雰_369__.001)",
+        "_TOKEN_雰:1.0___node_雰_204__": _TOKEN_雰:1.0___node_雰_204__,
+        "_TOKEN_雰:1.0___node_雰_256__": _TOKEN_雰:1.0___node_雰_256__,
+        "_TOKEN_雰:1.0___node_雰_326__": "_TOKEN_雰:1.0___node_雰_70__",
+        "_TOKEN_雰:1.0___node_雰_188__": "_TOKEN_雰:1.0___node_雰_150__-_TOKEN_雰:1.0___node_雰_375__ _TOKEN_雰:1.0___node_雰_175__ _TOKEN_雰:1.0___node_雰_188__/_TOKEN_雰:1.0___node_雰_212__",
+// _TOKEN_隠:0.2___node_EZ_215__ [decoy-metadata]
+        "_TOKEN_雰:1.0___node_雰_315__": ["_TOKEN_雰:1.0___node_雰_78__"],
+        "_TOKEN_雰:1.0___node_雰_130__": ["_TOKEN_雰:1.0___node_雰_78__"],
+        "_TOKEN_雰:1.0___node_雰_16__": "_TOKEN_雰:1.0___node_雰_371__ or a _TOKEN_雰:1.0___node_雰_70__ _TOKEN_雰:1.0___node_雰_127__/_TOKEN_雰:1.0___node_雰_303__ _TOKEN_雰:1.0___node_雰_86__",
+        "_TOKEN_雰:1.0___node_雰_381__": ["_TOKEN_隠:1.0___node_雰_136__, _TOKEN_雰:1.0___node_雰_254__. _TOKEN_庭:1.0___node_庭_48__ _TOKEN_雰:1.0___node_雰_343__ _TOKEN_雰:1.0___node_雰_161__ _TOKEN_雰:1.0___node_雰_301__"],
+        "_TOKEN_雰:1.0___node_雰_203__": ["_TOKEN_雰:1.0___node_雰_160__ of _TOKEN_雰:1.0___node_雰_215__ _TOKEN_雰:1.0___node_雰_143__ (>=1)"]
+    }
+
+    _TOKEN_雰:1.0___node_雰_335__ = f"""
+_TOKEN_庭:1.0___node_庭_40__ _TOKEN_雰:1.0___node_雰_321__ _TOKEN_雰:1.0___node_雰_96__ _TOKEN_庭:1.0___node_庭_35__ a _TOKEN_庭:1.0___node_庭_23__ _TOKEN_雰:1.0___node_雰_338__ of _TOKEN_庭:1.0___node_庭_12__ {n} _TOKEN_雰:1.0___node_雰_389__.
+No _TOKEN_雰:1.0___node_雰_167__. No _TOKEN_雰:1.0___node_雰_295__. No _TOKEN_雰:1.0___node_雰_229__ _TOKEN_雰:1.0___node_雰_325__.
+
+_TOKEN_庭:1.0___node_庭_27__ _TOKEN_雰:1.0___node_雰_335__:
+- _TOKEN_庭:1.0___node_庭_85__ _TOKEN_雰:1.0___node_雰_93__ _TOKEN_雰:1.0___node_雰_321__ _TOKEN_雰:1.0___node_雰_252__ _TOKEN_雰:1.0___node_雰_138__ _TOKEN_雰:1.0___node_雰_402__ _TOKEN_雰:1.0___node_雰_194__:
+{_TOKEN_雰:1.0___node_雰_181__._TOKEN_雰:1.0___node_雰_426__(_TOKEN_雰:1.0___node_雰_402__, _TOKEN_雰:1.0___node_雰_1__=_TOKEN_庭:1.0___node_庭_16__, _TOKEN_雰:1.0___node_雰_122__=2)}
+
+- _TOKEN_雰:1.0___node_雰_160__ _TOKEN_雰:1.0___node_雰_321__ be _TOKEN_雰:1.0___node_雰_225__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_7__ a _TOKEN_雰:1.0___node_雰_223__ _TOKEN_雰:1.0___node_雰_388__ for _TOKEN_雰:1.0___node_雰_138__ _TOKEN_雰:1.0___node_雰_204__.
+- _TOKEN_雰:1.0___node_雰_203__: _TOKEN_雰:1.0___node_雰_321__ _TOKEN_雰:1.0___node_雰_310__ at _TOKEN_雰:1.0___node_雰_106__ 1 _TOKEN_雰:1.0___node_雰_29__ _TOKEN_道:1.0___node_雰_407__ _TOKEN_雰:1.0___node_雰_346__ (no _TOKEN_雰:1.0___node_雰_25__ _TOKEN_雰:1.0___node_雰_91__).
+- _TOKEN_雰:1.0___node_雰_272__ _TOKEN_雰:1.0___node_雰_256__: _TOKEN_雰:1.0___node_雰_16__ _TOKEN_庭:1.0___node_庭_5__ _TOKEN_雰:1.0___node_雰_310__ a "_TOKEN_庭:1.0___node_庭_2__:" _TOKEN_雰:1.0___node_雰_44__ _TOKEN_雰:1.0___node_雰_86__.
+- _TOKEN_雰:1.0___node_雰_315__ _TOKEN_雰:1.0___node_雰_330__ _TOKEN_雰:1.0___node_雰_261__ _TOKEN_雰:1.0___node_雰_197__ be _TOKEN_雰:1.0___node_雰_347__; _TOKEN_雰:1.0___node_雰_310__ _TOKEN_雰:1.0___node_雰_315__ where _TOKEN_雰:1.0___node_雰_117__.
+- _TOKEN_庭:1.0___node_庭_63__ _TOKEN_雰:1.0___node_雰_107__ _TOKEN_雰:1.0___node_雰_276__ _TOKEN_雰:1.0___node_雰_120__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_105__.
+
+_TOKEN_庭:1.0___node_庭_74__ _TOKEN_雰:1.0___node_雰_296__ _TOKEN_雰:1.0___node_雰_363__ _TOKEN_雰:1.0___node_雰_160__ (_TOKEN_雰:1.0___node_雰_267__ _TOKEN_雰:1.0___node_雰_414__):
+{_TOKEN_雰:1.0___node_雰_145__ if _TOKEN_雰:1.0___node_雰_145__ else "(_TOKEN_雰:1.0___node_雰_74__)"}
+"""._TOKEN_雰:1.0___node_雰_373__()
+
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_5__ = _TOKEN_庭:1.0___node_庭_36__._TOKEN_道:1.0___node_碑_2__(_TOKEN_雰:1.0___node_雰_204__, "")
+    return f"{_TOKEN_雰:1.0___node_雰_335__}\n\_TOKEN_雰:1.0___node_雰_394__ _TOKEN_雰:1.0___node_雰_47__:\n{_TOKEN_雰:1.0___node_雰_5__}\n\_TOKEN_雰:1.0___node_雰_72__ _TOKEN_雰:1.0___node_雰_424__ {n} _TOKEN_雰:1.0___node_雰_143__ for _TOKEN_雰:1.0___node_雰_204__={_TOKEN_雰:1.0___node_雰_204__}, _TOKEN_雰:1.0___node_雰_256__={_TOKEN_雰:1.0___node_雰_256__}."
+
+_TOKEN_庭:1.0___node_庭_36__: _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_302__] = {
+    "_TOKEN_雰:1.0___node_雰_342__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_244__/_TOKEN_雰:1.0___node_雰_269__, _TOKEN_庭:1.0___node_庭_28__/_TOKEN_庭:1.0___node_庭_10__, _TOKEN_雰:1.0___node_雰_334__/_TOKEN_雰:1.0___node_雰_139__, _TOKEN_雰:1.0___node_雰_156__ _TOKEN_雰:1.0___node_雰_208__, _TOKEN_雰:1.0___node_雰_159__ _TOKEN_雰:1.0___node_雰_297__, _TOKEN_雰:1.0___node_雰_26__-_TOKEN_雰:1.0___node_雰_337__ _TOKEN_雰:1.0___node_雰_257__.",
+    "_TOKEN_雰:1.0___node_雰_242__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_368__, _TOKEN_雰:1.0___node_雰_177__, _TOKEN_浪:1.0___node_雰_384__, _TOKEN_庭:1.0___node_庭_20__, _TOKEN_雰:1.0___node_雰_298__, Löwenheim–_TOKEN_庭:1.0___node_庭_51__, _TOKEN_雰:1.0___node_雰_139__, _TOKEN_雰:1.0___node_雰_387__ _TOKEN_浪:1.0___node_雰_350__.",
+    "_TOKEN_雰:1.0___node_雰_22__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_380__, _TOKEN_雰:1.0___node_雰_50__, _TOKEN_雰:1.0___node_雰_341__ _TOKEN_雰:1.0___node_雰_390__, _TOKEN_雰:1.0___node_雰_37__, _TOKEN_道:1.0___node_雰_20__ _TOKEN_雰:1.0___node_雰_58__ (_TOKEN_雰:1.0___node_雰_83__), _TOKEN_雰:1.0___node_雰_399__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_146__.",
+    "_TOKEN_雰:1.0___node_雰_260__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_290__ _TOKEN_雰:1.0___node_雰_94__, _TOKEN_庭:1.0___node_庭_32__, _TOKEN_雰:1.0___node_雰_378__, _TOKEN_雰:1.0___node_雰_285__ _TOKEN_雰:1.0___node_雰_228__, _TOKEN_雰:1.0___node_雰_61__ _TOKEN_雰:1.0___node_雰_400__ (_TOKEN_雰:1.0___node_雰_83__), _TOKEN_雰:1.0___node_雰_319__ _TOKEN_雰:1.0___node_雰_251__.",
+    "_TOKEN_雰:1.0___node_雰_364__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_259__, _TOKEN_庭:1.0___node_庭_83__/_TOKEN_庭:1.0___node_庭_81__, _TOKEN_庭:1.0___node_庭_61__, _TOKEN_雰:1.0___node_雰_288__, _TOKEN_雰:1.0___node_雰_108__ _TOKEN_雰:1.0___node_雰_134__, _TOKEN_雰:1.0___node_雰_322__ _TOKEN_雰:1.0___node_雰_147__, _TOKEN_雰:1.0___node_雰_248__/_TOKEN_雰:1.0___node_雰_277__/_TOKEN_雰:1.0___node_雰_255__ _TOKEN_雰:1.0___node_雰_259__.",
+    "_TOKEN_雰:1.0___node_雰_376__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_95__ _TOKEN_雰:1.0___node_雰_383__, _TOKEN_雰:1.0___node_雰_298__, _TOKEN_雰:1.0___node_雰_154__, _TOKEN_雰:1.0___node_雰_114__ _TOKEN_雰:1.0___node_雰_376__, _TOKEN_雰:1.0___node_雰_322__, _TOKEN_雰:1.0___node_雰_123__ _TOKEN_雰:1.0___node_雰_221__ _TOKEN_雰:1.0___node_雰_134__, _TOKEN_雰:1.0___node_雰_38__.",
+    "_TOKEN_雰:1.0___node_雰_141__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_21__, _TOKEN_雰:1.0___node_雰_352__ _TOKEN_浪:1.0___node_雰_142__, _TOKEN_雰:1.0___node_雰_135__/_TOKEN_雰:1.0___node_雰_193__ (_TOKEN_雰:1.0___node_雰_83__), _TOKEN_雰:1.0___node_雰_218__ (_TOKEN_雰:1.0___node_雰_13__), _TOKEN_庭:1.0___node_庭_87__ (_TOKEN_雰:1.0___node_雰_83__ _TOKEN_雰:1.0___node_雰_188__).",
+    "_TOKEN_雰:1.0___node_雰_411__": "_TOKEN_庭:1.0___node_庭_1__: P/NP, _TOKEN_雰:1.0___node_雰_270__, _TOKEN_雰:1.0___node_雰_139__, _TOKEN_雰:1.0___node_雰_316__ _TOKEN_雰:1.0___node_雰_224__, _TOKEN_雰:1.0___node_雰_393__ _TOKEN_雰:1.0___node_雰_134__, _TOKEN_庭:1.0___node_庭_31__ (_TOKEN_雰:1.0___node_雰_366__-_TOKEN_雰:1.0___node_雰_412__), _TOKEN_雰:1.0___node_雰_231__ _TOKEN_雰:1.0___node_雰_89__ _TOKEN_雰:1.0___node_雰_134__.",
+    "_TOKEN_雰:1.0___node_雰_90__": "_TOKEN_庭:1.0___node_庭_1__: _TOKEN_雰:1.0___node_雰_422__, _TOKEN_雰:1.0___node_雰_226__, _TOKEN_雰:1.0___node_雰_202__, _TOKEN_雰:1.0___node_雰_189__, _TOKEN_雰:1.0___node_雰_56__, _TOKEN_雰:1.0___node_雰_62__ _TOKEN_雰:1.0___node_雰_134__, _TOKEN_雰:1.0___node_雰_159__ _TOKEN_雰:1.0___node_雰_38__."
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_162__(_TOKEN_雰:1.0___node_雰_325__: _TOKEN_雰:1.0___node_雰_302__) -> _TOKEN_庭:1.0___node_庭_66__[_TOKEN_雰:1.0___node_雰_302__]:
+// [metadata-stripped]
+    m = re._TOKEN_雰:1.0___node_雰_287__(r"(\{.*\}|\[.*\])", _TOKEN_雰:1.0___node_雰_325__, _TOKEN_雰:1.0___node_雰_3__=re._TOKEN_庭:1.0___node_庭_72__)
+    return m[-1] if m else _TOKEN_庭:1.0___node_庭_65__
+
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_112__(_TOKEN_雰:1.0___node_雰_67__: _TOKEN_雰:1.0___node_雰_302__) -> _TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__]:
+    _TOKEN_雰:1.0___node_雰_67__ = _TOKEN_雰:1.0___node_雰_67__._TOKEN_雰:1.0___node_雰_373__()
+// [metadata-stripped]
+    if _TOKEN_雰:1.0___node_雰_331__ _TOKEN_雰:1.0___node_雰_67__._TOKEN_雰:1.0___node_雰_351__("["):
+        _TOKEN_雰:1.0___node_雰_23__ = _TOKEN_雰:1.0___node_雰_162__(_TOKEN_雰:1.0___node_雰_67__)
+        if _TOKEN_雰:1.0___node_雰_23__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_23__._TOKEN_雰:1.0___node_雰_351__("["):
+            _TOKEN_雰:1.0___node_雰_67__ = _TOKEN_雰:1.0___node_雰_23__
+    _TOKEN_雰:1.0___node_雰_425__ = _TOKEN_雰:1.0___node_雰_181__._TOKEN_庫:1.0___node_雰_419__(_TOKEN_雰:1.0___node_雰_67__)
+    if _TOKEN_雰:1.0___node_雰_331__ _TOKEN_雰:1.0___node_雰_124__(_TOKEN_雰:1.0___node_雰_425__, _TOKEN_雰:1.0___node_雰_263__):
+        _TOKEN_雰:1.0___node_雰_264__ _TOKEN_庭:1.0___node_庭_86__("_TOKEN_庭:1.0___node_庭_6__ _TOKEN_雰:1.0___node_雰_96__ _TOKEN_雰:1.0___node_雰_321__ be a _TOKEN_庭:1.0___node_庭_23__ _TOKEN_雰:1.0___node_雰_338__.")
+    _TOKEN_雰:1.0___node_雰_143__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__] = []
+    for _TOKEN_雰:1.0___node_雰_333__ in _TOKEN_雰:1.0___node_雰_425__:
+        _TOKEN_雰:1.0___node_雰_143__._TOKEN_雰:1.0___node_雰_66__(_TOKEN_庭:1.0___node_庭_89__(
+            id=_TOKEN_雰:1.0___node_雰_302__(_TOKEN_雰:1.0___node_雰_333__["id"]),
+            _TOKEN_雰:1.0___node_雰_204__=_TOKEN_雰:1.0___node_雰_302__(_TOKEN_雰:1.0___node_雰_333__["_TOKEN_雰:1.0___node_雰_204__"]),
+            _TOKEN_雰:1.0___node_雰_256__=_TOKEN_雰:1.0___node_雰_302__(_TOKEN_雰:1.0___node_雰_333__["_TOKEN_雰:1.0___node_雰_256__"]),
+            _TOKEN_雰:1.0___node_雰_326__=_TOKEN_雰:1.0___node_雰_302__(_TOKEN_雰:1.0___node_雰_333__["_TOKEN_雰:1.0___node_雰_326__"]),
+            _TOKEN_雰:1.0___node_雰_188__=_TOKEN_雰:1.0___node_雰_302__(_TOKEN_雰:1.0___node_雰_333__["_TOKEN_雰:1.0___node_雰_188__"]),
+            _TOKEN_雰:1.0___node_雰_315__=_TOKEN_雰:1.0___node_雰_263__(_TOKEN_雰:1.0___node_雰_333__._TOKEN_道:1.0___node_碑_2__("_TOKEN_雰:1.0___node_雰_315__") or []),
+            _TOKEN_雰:1.0___node_雰_130__=_TOKEN_雰:1.0___node_雰_263__(_TOKEN_雰:1.0___node_雰_333__._TOKEN_道:1.0___node_碑_2__("_TOKEN_雰:1.0___node_雰_130__") or []),
+            _TOKEN_雰:1.0___node_雰_16__=_TOKEN_雰:1.0___node_雰_333__._TOKEN_道:1.0___node_碑_2__("_TOKEN_雰:1.0___node_雰_16__", _TOKEN_庭:1.0___node_庭_65__),
+            _TOKEN_雰:1.0___node_雰_381__=_TOKEN_雰:1.0___node_雰_263__(_TOKEN_雰:1.0___node_雰_333__._TOKEN_道:1.0___node_碑_2__("_TOKEN_雰:1.0___node_雰_381__") or []),
+            _TOKEN_雰:1.0___node_雰_203__=_TOKEN_雰:1.0___node_雰_263__(_TOKEN_雰:1.0___node_雰_333__._TOKEN_道:1.0___node_碑_2__("_TOKEN_雰:1.0___node_雰_203__") or []),
+        ))
+// _TOKEN_隠:0.4___node_HG_326__ [decoy-metadata]
+    return _TOKEN_雰:1.0___node_雰_143__
+
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_196__(_TOKEN_雰:1.0___node_雰_143__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__], *, _TOKEN_雰:1.0___node_雰_372__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_102__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_329__: _TOKEN_道:1.0___node_碑_1__) -> _TOKEN_庭:1.0___node_庭_38__[_TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__], _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__]]:
+    _TOKEN_雰:1.0___node_雰_128__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__] = []
+    ok: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__] = []
+
+    for e in _TOKEN_雰:1.0___node_雰_143__:
+        if e._TOKEN_雰:1.0___node_雰_204__ != _TOKEN_雰:1.0___node_雰_372__:
+            _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_304__ _TOKEN_雰:1.0___node_雰_204__ {e._TOKEN_雰:1.0___node_雰_204__} != {_TOKEN_雰:1.0___node_雰_372__}")
+            continue
+        if e._TOKEN_雰:1.0___node_雰_256__ != _TOKEN_雰:1.0___node_雰_102__:
+            _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_304__ _TOKEN_雰:1.0___node_雰_256__ {e._TOKEN_雰:1.0___node_雰_256__} != {_TOKEN_雰:1.0___node_雰_102__}")
+            continue
+        if e.id in _TOKEN_雰:1.0___node_雰_329__:
+            _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_8__ id")
+            continue
+        if _TOKEN_雰:1.0___node_雰_331__ e._TOKEN_雰:1.0___node_雰_203__ or _TOKEN_雰:1.0___node_雰_320__(e._TOKEN_雰:1.0___node_雰_203__) < 1:
+            _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_416__ _TOKEN_雰:1.0___node_雰_203__")
+            continue
+        if e._TOKEN_雰:1.0___node_雰_256__ == "_TOKEN_雰:1.0___node_雰_272__":
+            _TOKEN_雰:1.0___node_雰_73__ = (e._TOKEN_雰:1.0___node_雰_16__ or "")._TOKEN_道:1.0___node_雰_235__()
+            if "_TOKEN_雰:1.0___node_雰_127__" _TOKEN_雰:1.0___node_雰_331__ in _TOKEN_雰:1.0___node_雰_73__:
+                _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_272__ _TOKEN_雰:1.0___node_雰_416__ _TOKEN_庭:1.0___node_庭_2__ in _TOKEN_雰:1.0___node_雰_16__")
+                continue
+// [metadata-stripped]
+        if _TOKEN_雰:1.0___node_雰_320__(e._TOKEN_雰:1.0___node_雰_326__) < 3 or _TOKEN_雰:1.0___node_雰_320__(e._TOKEN_雰:1.0___node_雰_188__) < 10:
+            _TOKEN_雰:1.0___node_雰_128__._TOKEN_雰:1.0___node_雰_66__(f"{e.id}: _TOKEN_雰:1.0___node_雰_109__ _TOKEN_雰:1.0___node_雰_70__")
+            continue
+
+        ok._TOKEN_雰:1.0___node_雰_66__(e)
+
+    return ok, _TOKEN_雰:1.0___node_雰_128__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_庫:1.0___node_雰_268__(_TOKEN_雰:1.0___node_雰_14__: _TOKEN_雰:1.0___node_雰_302__) -> _TOKEN_道:1.0___node_碑_1__:
+    _TOKEN_雰:1.0___node_雰_160__ = _TOKEN_道:1.0___node_碑_1__()
+    if _TOKEN_雰:1.0___node_雰_331__ os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_39__(_TOKEN_雰:1.0___node_雰_14__):
+        return _TOKEN_雰:1.0___node_雰_160__
+    for fn in os._TOKEN_雰:1.0___node_雰_213__(_TOKEN_雰:1.0___node_雰_14__):
+        if _TOKEN_雰:1.0___node_雰_331__ fn._TOKEN_雰:1.0___node_雰_17__("._TOKEN_雰:1.0___node_雰_180__"):
+            continue
+        _TOKEN_雰:1.0___node_雰_413__ = os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_14__, fn)
+        _TOKEN_雰:1.0___node_雰_179__ open(_TOKEN_雰:1.0___node_雰_413__, "r", _TOKEN_雰:1.0___node_雰_377__="_TOKEN_雰:1.0___node_雰_118__-8") as f:
+            for _TOKEN_雰:1.0___node_雰_99__ in f:
+                _TOKEN_雰:1.0___node_雰_99__ = _TOKEN_雰:1.0___node_雰_99__._TOKEN_雰:1.0___node_雰_373__()
+                if _TOKEN_雰:1.0___node_雰_331__ _TOKEN_雰:1.0___node_雰_99__:
+                    continue
+                try:
+                    _TOKEN_雰:1.0___node_雰_333__ = _TOKEN_雰:1.0___node_雰_181__._TOKEN_庫:1.0___node_雰_419__(_TOKEN_雰:1.0___node_雰_99__)
+                    _TOKEN_雰:1.0___node_雰_160__._TOKEN_雰:1.0___node_雰_418__(_TOKEN_雰:1.0___node_雰_333__["id"])
+                _TOKEN_雰:1.0___node_雰_271__ _TOKEN_庭:1.0___node_庭_34__:
+                    _TOKEN_雰:1.0___node_雰_57__
+    return _TOKEN_雰:1.0___node_雰_160__
+
+// _TOKEN_縁:0.3___node_GX_473__ [decoy-metadata]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_152__(_TOKEN_雰:1.0___node_雰_413__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_143__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_庭:1.0___node_庭_89__]) -> _TOKEN_庭:1.0___node_庭_65__:
+    os._TOKEN_雰:1.0___node_雰_98__(os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_186__(_TOKEN_雰:1.0___node_雰_413__), _TOKEN_雰:1.0___node_雰_314__=_TOKEN_庭:1.0___node_庭_25__)
+    _TOKEN_雰:1.0___node_雰_179__ open(_TOKEN_雰:1.0___node_雰_413__, "a", _TOKEN_雰:1.0___node_雰_377__="_TOKEN_雰:1.0___node_雰_118__-8") as f:
+        for e in _TOKEN_雰:1.0___node_雰_143__:
+            f._TOKEN_雰:1.0___node_雰_391__(_TOKEN_雰:1.0___node_雰_181__._TOKEN_雰:1.0___node_雰_426__(e._TOKEN_雰:1.0___node_雰_323__(), _TOKEN_雰:1.0___node_雰_1__=_TOKEN_庭:1.0___node_庭_16__) + "\n")
+
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_132__(_TOKEN_雰:1.0___node_雰_14__: _TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_185__: _TOKEN_雰:1.0___node_雰_302__) -> _TOKEN_庭:1.0___node_庭_65__:
+    _TOKEN_雰:1.0___node_雰_155__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__] = []
+    for fn in _TOKEN_雰:1.0___node_雰_158__(os._TOKEN_雰:1.0___node_雰_213__(_TOKEN_雰:1.0___node_雰_14__)):
+        if fn._TOKEN_雰:1.0___node_雰_17__("._TOKEN_雰:1.0___node_雰_180__") _TOKEN_雰:1.0___node_雰_113__ fn != os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_359__(_TOKEN_雰:1.0___node_雰_185__):
+            _TOKEN_雰:1.0___node_雰_179__ open(os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_14__, fn), "r", _TOKEN_雰:1.0___node_雰_377__="_TOKEN_雰:1.0___node_雰_118__-8") as f:
+                _TOKEN_雰:1.0___node_雰_155__._TOKEN_雰:1.0___node_雰_289__([ln for ln in f if ln._TOKEN_雰:1.0___node_雰_373__()])
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_214__ = _TOKEN_道:1.0___node_碑_1__()
+    _TOKEN_雰:1.0___node_雰_211__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__] = []
+    for ln in _TOKEN_雰:1.0___node_雰_155__:
+        _TOKEN_雰:1.0___node_雰_333__ = _TOKEN_雰:1.0___node_雰_181__._TOKEN_庫:1.0___node_雰_419__(ln)
+        if _TOKEN_雰:1.0___node_雰_333__["id"] in _TOKEN_雰:1.0___node_雰_214__:
+            continue
+        _TOKEN_雰:1.0___node_雰_214__._TOKEN_雰:1.0___node_雰_418__(_TOKEN_雰:1.0___node_雰_333__["id"])
+        _TOKEN_雰:1.0___node_雰_211__._TOKEN_雰:1.0___node_雰_66__(_TOKEN_雰:1.0___node_雰_181__._TOKEN_雰:1.0___node_雰_426__(_TOKEN_雰:1.0___node_雰_333__, _TOKEN_雰:1.0___node_雰_1__=_TOKEN_庭:1.0___node_庭_16__))
+    _TOKEN_雰:1.0___node_雰_179__ open(_TOKEN_雰:1.0___node_雰_185__, "w", _TOKEN_雰:1.0___node_雰_377__="_TOKEN_雰:1.0___node_雰_118__-8") as f:
+        f._TOKEN_雰:1.0___node_雰_391__("\n"._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_211__) + ("\n" if _TOKEN_雰:1.0___node_雰_211__ else ""))
+
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_庫:1.0___node_雰_239__(_TOKEN_雰:1.0___node_雰_413__: _TOKEN_雰:1.0___node_雰_302__) -> _TOKEN_雰:1.0___node_雰_302__:
+    h = _TOKEN_雰:1.0___node_雰_190__()
+    _TOKEN_雰:1.0___node_雰_179__ open(_TOKEN_雰:1.0___node_雰_413__, "rb") as f:
+        while _TOKEN_庭:1.0___node_庭_25__:
+            b = f._TOKEN_雰:1.0___node_雰_101__(1024 * 1024)
+            if _TOKEN_雰:1.0___node_雰_331__ b:
+                break
+            h._TOKEN_雰:1.0___node_雰_170__(b)
+    return h._TOKEN_雰:1.0___node_雰_148__()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_178__(_TOKEN_雰:1.0___node_雰_149__: _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_10__], _TOKEN_雰:1.0___node_雰_79__: _TOKEN_雰:1.0___node_雰_10__) -> _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_10__]:
+    s = _TOKEN_雰:1.0___node_雰_227__(_TOKEN_雰:1.0___node_雰_149__._TOKEN_雰:1.0___node_雰_110__())
+    if s == 0:
+        return _TOKEN_雰:1.0___node_雰_149__
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_230__ = {k: _TOKEN_雰:1.0___node_雰_255__(1, _TOKEN_雰:1.0___node_雰_10__(_TOKEN_雰:1.0___node_雰_266__(v * _TOKEN_雰:1.0___node_雰_79__ / s))) for k, v in _TOKEN_雰:1.0___node_雰_149__._TOKEN_雰:1.0___node_雰_187__()}
+// [metadata-stripped]
+    _TOKEN_浪:1.0___node_雰_129__ = _TOKEN_雰:1.0___node_雰_79__ - _TOKEN_雰:1.0___node_雰_227__(_TOKEN_雰:1.0___node_雰_230__._TOKEN_雰:1.0___node_雰_110__())
+    _TOKEN_隠:1.0___node_雰_238__ = _TOKEN_雰:1.0___node_雰_263__(_TOKEN_雰:1.0___node_雰_230__._TOKEN_隠:1.0___node_雰_238__())
+    i = 0
+    while _TOKEN_浪:1.0___node_雰_129__ != 0 _TOKEN_雰:1.0___node_雰_113__ _TOKEN_隠:1.0___node_雰_238__:
+        k = _TOKEN_隠:1.0___node_雰_238__[i % _TOKEN_雰:1.0___node_雰_320__(_TOKEN_隠:1.0___node_雰_238__)]
+        if _TOKEN_浪:1.0___node_雰_129__ > 0:
+            _TOKEN_雰:1.0___node_雰_230__[k] += 1
+            _TOKEN_浪:1.0___node_雰_129__ -= 1
+        else:
+            if _TOKEN_雰:1.0___node_雰_230__[k] > 1:
+                _TOKEN_雰:1.0___node_雰_230__[k] -= 1
+                _TOKEN_浪:1.0___node_雰_129__ += 1
+        i += 1
+    return _TOKEN_雰:1.0___node_雰_230__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_104__(
+    _TOKEN_雰:1.0___node_雰_274__: _TOKEN_庭:1.0___node_庭_62__,
+    _TOKEN_雰:1.0___node_雰_14__: _TOKEN_雰:1.0___node_雰_302__,
+    _TOKEN_雰:1.0___node_雰_204__: _TOKEN_雰:1.0___node_雰_302__,
+    _TOKEN_雰:1.0___node_雰_149__: _TOKEN_庭:1.0___node_庭_37__[_TOKEN_雰:1.0___node_雰_302__, _TOKEN_雰:1.0___node_雰_10__],
+    *,
+    _TOKEN_雰:1.0___node_雰_125__: _TOKEN_雰:1.0___node_雰_10__ = 25,
+    _TOKEN_雰:1.0___node_雰_198__: _TOKEN_雰:1.0___node_雰_262__ = 0.2,
+    _TOKEN_雰:1.0___node_雰_361__: _TOKEN_雰:1.0___node_雰_10__ = 5,
+    _TOKEN_雰:1.0___node_雰_258__: _TOKEN_雰:1.0___node_雰_262__ = 1.0,
+) -> _TOKEN_庭:1.0___node_庭_65__:
+    _TOKEN_雰:1.0___node_雰_329__ = _TOKEN_庫:1.0___node_雰_268__(_TOKEN_雰:1.0___node_雰_14__)
+    _TOKEN_雰:1.0___node_雰_168__: _TOKEN_庭:1.0___node_庭_71__[_TOKEN_雰:1.0___node_雰_302__] = _TOKEN_雰:1.0___node_雰_158__(_TOKEN_雰:1.0___node_雰_329__)
+
+    for _TOKEN_雰:1.0___node_雰_256__, _TOKEN_雰:1.0___node_雰_169__ in _TOKEN_雰:1.0___node_雰_149__._TOKEN_雰:1.0___node_雰_187__():
+        _TOKEN_雰:1.0___node_雰_420__ = _TOKEN_雰:1.0___node_雰_169__
+        _TOKEN_雰:1.0___node_雰_133__ = os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_14__, f"{_TOKEN_雰:1.0___node_雰_204__}__{_TOKEN_雰:1.0___node_雰_256__}._TOKEN_雰:1.0___node_雰_180__")
+
+// [metadata-stripped]
+        _TOKEN_雰:1.0___node_雰_267__ = 0
+        if os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_71__(_TOKEN_雰:1.0___node_雰_133__):
+            _TOKEN_雰:1.0___node_雰_179__ open(_TOKEN_雰:1.0___node_雰_133__, "r", _TOKEN_雰:1.0___node_雰_377__="_TOKEN_雰:1.0___node_雰_118__-8") as f:
+                for ln in f:
+                    if ln._TOKEN_雰:1.0___node_雰_373__():
+                        _TOKEN_雰:1.0___node_雰_267__ += 1
+        _TOKEN_雰:1.0___node_雰_420__ = _TOKEN_雰:1.0___node_雰_255__(0, _TOKEN_雰:1.0___node_雰_169__ - _TOKEN_雰:1.0___node_雰_267__)
+        if _TOKEN_雰:1.0___node_雰_420__ == 0:
+            _TOKEN_雰:1.0___node_雰_53__(f"[_TOKEN_庭:1.0___node_庭_69__] {_TOKEN_雰:1.0___node_雰_204__}/{_TOKEN_雰:1.0___node_雰_256__}: _TOKEN_雰:1.0___node_雰_267__ {_TOKEN_雰:1.0___node_雰_169__}")
+            continue
+
+        _TOKEN_雰:1.0___node_雰_53__(f"[_TOKEN_庭:1.0___node_庭_47__] {_TOKEN_雰:1.0___node_雰_204__}/{_TOKEN_雰:1.0___node_雰_256__}: _TOKEN_雰:1.0___node_雰_236__ {_TOKEN_雰:1.0___node_雰_420__} _TOKEN_雰:1.0___node_雰_348__ (_TOKEN_雰:1.0___node_雰_79__ {_TOKEN_雰:1.0___node_雰_169__})")
+
+        while _TOKEN_雰:1.0___node_雰_420__ > 0:
+            n = _TOKEN_雰:1.0___node_雰_33__(_TOKEN_雰:1.0___node_雰_125__, _TOKEN_雰:1.0___node_雰_420__)
+            _TOKEN_雰:1.0___node_雰_324__ = _TOKEN_雰:1.0___node_雰_427__(_TOKEN_雰:1.0___node_雰_204__, _TOKEN_雰:1.0___node_雰_256__, n, _TOKEN_雰:1.0___node_雰_168__)
+
+            _TOKEN_雰:1.0___node_雰_317__ = 0
+            while _TOKEN_庭:1.0___node_庭_25__:
+                _TOKEN_雰:1.0___node_雰_317__ += 1
+                try:
+                    _TOKEN_雰:1.0___node_雰_67__ = _TOKEN_雰:1.0___node_雰_274__._TOKEN_雰:1.0___node_雰_410__(_TOKEN_雰:1.0___node_雰_324__, _TOKEN_雰:1.0___node_雰_198__=_TOKEN_雰:1.0___node_雰_198__, _TOKEN_隠:1.0___node_雰_182__=1800)
+                    _TOKEN_雰:1.0___node_雰_143__ = _TOKEN_雰:1.0___node_雰_112__(_TOKEN_雰:1.0___node_雰_67__)
+                    if _TOKEN_雰:1.0___node_雰_320__(_TOKEN_雰:1.0___node_雰_143__) != n:
+                        _TOKEN_雰:1.0___node_雰_264__ _TOKEN_庭:1.0___node_庭_86__(f"_TOKEN_庭:1.0___node_庭_15__ {n} _TOKEN_雰:1.0___node_雰_143__, _TOKEN_雰:1.0___node_雰_40__ {_TOKEN_雰:1.0___node_雰_320__(_TOKEN_雰:1.0___node_雰_143__)}")
+
+                    ok, _TOKEN_雰:1.0___node_雰_357__ = _TOKEN_雰:1.0___node_雰_196__(_TOKEN_雰:1.0___node_雰_143__, _TOKEN_雰:1.0___node_雰_372__=_TOKEN_雰:1.0___node_雰_204__, _TOKEN_雰:1.0___node_雰_102__=_TOKEN_雰:1.0___node_雰_256__, _TOKEN_雰:1.0___node_雰_329__=_TOKEN_雰:1.0___node_雰_329__)
+                    if _TOKEN_雰:1.0___node_雰_320__(ok) != n:
+                        _TOKEN_雰:1.0___node_雰_264__ _TOKEN_庭:1.0___node_庭_86__("_TOKEN_庭:1.0___node_庭_19__ _TOKEN_雰:1.0___node_雰_245__: " + "; "._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_357__[:10]))
+
+// [metadata-stripped]
+                    _TOKEN_雰:1.0___node_雰_152__(_TOKEN_雰:1.0___node_雰_133__, ok)
+                    for e in ok:
+                        _TOKEN_雰:1.0___node_雰_329__._TOKEN_雰:1.0___node_雰_418__(e.id)
+                        _TOKEN_雰:1.0___node_雰_168__._TOKEN_雰:1.0___node_雰_66__(e.id)
+
+                    _TOKEN_雰:1.0___node_雰_420__ -= n
+                    _TOKEN_雰:1.0___node_雰_53__(f"  + _TOKEN_雰:1.0___node_雰_278__ {n} _TOKEN_雰:1.0___node_雰_143__ -> _TOKEN_雰:1.0___node_雰_420__ {_TOKEN_雰:1.0___node_雰_420__}")
+                    break
+
+                _TOKEN_雰:1.0___node_雰_271__ _TOKEN_庭:1.0___node_庭_34__ as e:
+                    if _TOKEN_雰:1.0___node_雰_317__ >= _TOKEN_雰:1.0___node_雰_361__:
+                        _TOKEN_雰:1.0___node_雰_53__(f"[_TOKEN_庭:1.0___node_庭_67__] {_TOKEN_雰:1.0___node_雰_204__}/{_TOKEN_雰:1.0___node_雰_256__} _TOKEN_雰:1.0___node_雰_60__ n={n} _TOKEN_道:1.0___node_雰_250__ {_TOKEN_雰:1.0___node_雰_317__} _TOKEN_雰:1.0___node_雰_265__: {e}")
+                        _TOKEN_雰:1.0___node_雰_264__
+// [metadata-stripped]
+                    t2 = _TOKEN_雰:1.0___node_雰_33__(0.7, _TOKEN_雰:1.0___node_雰_198__ + 0.1 * _TOKEN_雰:1.0___node_雰_317__)
+                    _TOKEN_雰:1.0___node_雰_53__(f"[_TOKEN_庭:1.0___node_庭_33__] {_TOKEN_雰:1.0___node_雰_204__}/{_TOKEN_雰:1.0___node_雰_256__} _TOKEN_雰:1.0___node_雰_60__ n={n} _TOKEN_雰:1.0___node_雰_317__ {_TOKEN_雰:1.0___node_雰_317__}: {e} (_TOKEN_雰:1.0___node_雰_240__->{t2})")
+                    _TOKEN_雰:1.0___node_雰_198__ = t2
+                    _TOKEN_雰:1.0___node_雰_386__._TOKEN_雰:1.0___node_雰_401__(_TOKEN_雰:1.0___node_雰_258__ + _TOKEN_雰:1.0___node_雰_313__._TOKEN_雰:1.0___node_雰_313__())
+
+            _TOKEN_雰:1.0___node_雰_386__._TOKEN_雰:1.0___node_雰_401__(_TOKEN_雰:1.0___node_雰_258__)
+
+_TOKEN_雰:1.0___node_雰_369__ _TOKEN_雰:1.0___node_雰_327__():
+    ap = _TOKEN_雰:1.0___node_雰_395__._TOKEN_道:1.0___node_庭_3__()
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_274__", _TOKEN_雰:1.0___node_雰_6__=["_TOKEN_雰:1.0___node_雰_283__", "_TOKEN_浪:1.0___node_雰_279__"], _TOKEN_雰:1.0___node_雰_42__=_TOKEN_庭:1.0___node_庭_25__)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_14__", _TOKEN_雰:1.0___node_雰_42__=_TOKEN_庭:1.0___node_庭_25__)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_111__", _TOKEN_雰:1.0___node_雰_199__="*", _TOKEN_雰:1.0___node_雰_293__=[])
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_76__", _TOKEN_雰:1.0___node_雰_280__=_TOKEN_雰:1.0___node_雰_10__, _TOKEN_雰:1.0___node_雰_293__=250)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_125__", _TOKEN_雰:1.0___node_雰_280__=_TOKEN_雰:1.0___node_雰_10__, _TOKEN_雰:1.0___node_雰_293__=25)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_198__", _TOKEN_雰:1.0___node_雰_280__=_TOKEN_雰:1.0___node_雰_262__, _TOKEN_雰:1.0___node_雰_293__=0.2)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_361__", _TOKEN_雰:1.0___node_雰_280__=_TOKEN_雰:1.0___node_雰_10__, _TOKEN_雰:1.0___node_雰_293__=5)
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_258__", _TOKEN_雰:1.0___node_雰_280__=_TOKEN_雰:1.0___node_雰_262__, _TOKEN_雰:1.0___node_雰_293__=0.8)
+
+// [metadata-stripped]
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_縁:1.0___node_雰_27__", _TOKEN_雰:1.0___node_雰_293__="")
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_隠:1.0___node_雰_275__", _TOKEN_雰:1.0___node_雰_293__="")
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_241__", _TOKEN_雰:1.0___node_雰_293__="")
+
+// [metadata-stripped]
+    ap._TOKEN_雰:1.0___node_雰_406__("--_TOKEN_雰:1.0___node_雰_119__", _TOKEN_雰:1.0___node_雰_293__="")
+
+    _TOKEN_雰:1.0___node_雰_151__ = ap._TOKEN_雰:1.0___node_雰_318__()
+
+    os._TOKEN_雰:1.0___node_雰_98__(_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_14__, _TOKEN_雰:1.0___node_雰_314__=_TOKEN_庭:1.0___node_庭_25__)
+
+// [metadata-stripped]
+    if _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_274__ == "_TOKEN_雰:1.0___node_雰_283__":
+        if _TOKEN_雰:1.0___node_雰_331__ (_TOKEN_雰:1.0___node_雰_151__._TOKEN_縁:1.0___node_雰_27__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_151__._TOKEN_隠:1.0___node_雰_275__ _TOKEN_雰:1.0___node_雰_113__ _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_241__):
+            _TOKEN_雰:1.0___node_雰_53__("_TOKEN_雰:1.0___node_雰_283__ _TOKEN_雰:1.0___node_雰_87__ --_TOKEN_縁:1.0___node_雰_27__ --_TOKEN_隠:1.0___node_雰_275__ --_TOKEN_雰:1.0___node_雰_241__", _TOKEN_庫:1.0___node_雰_157__=_TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_126__)
+            _TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_396__(2)
+        _TOKEN_雰:1.0___node_雰_274__: _TOKEN_庭:1.0___node_庭_62__ = _TOKEN_庭:1.0___node_庭_26__(_TOKEN_雰:1.0___node_雰_151__._TOKEN_縁:1.0___node_雰_27__, _TOKEN_雰:1.0___node_雰_151__._TOKEN_隠:1.0___node_雰_275__, _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_241__)
+    else:
+        if _TOKEN_雰:1.0___node_雰_331__ _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_119__:
+            _TOKEN_雰:1.0___node_雰_53__("_TOKEN_浪:1.0___node_雰_279__ _TOKEN_雰:1.0___node_雰_87__ --_TOKEN_雰:1.0___node_雰_119__", _TOKEN_庫:1.0___node_雰_157__=_TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_126__)
+            _TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_396__(2)
+        _TOKEN_雰:1.0___node_雰_274__ = _TOKEN_庭:1.0___node_庭_46__(_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_119__)
+
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_111__ = _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_111__ or _TOKEN_雰:1.0___node_雰_263__(_TOKEN_庭:1.0___node_庭_57__._TOKEN_隠:1.0___node_雰_238__())
+    for d in _TOKEN_雰:1.0___node_雰_111__:
+        if d _TOKEN_雰:1.0___node_雰_331__ in _TOKEN_庭:1.0___node_庭_57__:
+            _TOKEN_雰:1.0___node_雰_53__(f"_TOKEN_庭:1.0___node_庭_17__ _TOKEN_雰:1.0___node_雰_204__: {d}. _TOKEN_庭:1.0___node_庭_77__: {_TOKEN_雰:1.0___node_雰_263__(_TOKEN_庭:1.0___node_庭_57__._TOKEN_隠:1.0___node_雰_238__())}", _TOKEN_庫:1.0___node_雰_157__=_TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_126__)
+            _TOKEN_雰:1.0___node_雰_183__._TOKEN_雰:1.0___node_雰_396__(2)
+
+// [metadata-stripped]
+    for d in _TOKEN_雰:1.0___node_雰_111__:
+        _TOKEN_雰:1.0___node_雰_54__ = _TOKEN_庭:1.0___node_庭_57__[d]
+        _TOKEN_雰:1.0___node_雰_149__ = _TOKEN_雰:1.0___node_雰_178__(_TOKEN_雰:1.0___node_雰_54__, _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_76__)
+        _TOKEN_雰:1.0___node_雰_53__(f"\n=== _TOKEN_庭:1.0___node_庭_60__ {d} _TOKEN_雰:1.0___node_雰_149__={_TOKEN_雰:1.0___node_雰_149__} _TOKEN_雰:1.0___node_雰_227__={_TOKEN_雰:1.0___node_雰_227__(_TOKEN_雰:1.0___node_雰_149__._TOKEN_雰:1.0___node_雰_110__())} ===")
+        _TOKEN_雰:1.0___node_雰_104__(
+            _TOKEN_雰:1.0___node_雰_274__,
+            _TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_14__,
+            d,
+            _TOKEN_雰:1.0___node_雰_149__,
+            _TOKEN_雰:1.0___node_雰_125__=_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_125__,
+            _TOKEN_雰:1.0___node_雰_198__=_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_198__,
+            _TOKEN_雰:1.0___node_雰_361__=_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_361__,
+            _TOKEN_雰:1.0___node_雰_258__=_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_258__,
+        )
+
+// [metadata-stripped]
+    _TOKEN_雰:1.0___node_雰_211__ = os._TOKEN_雰:1.0___node_雰_413__._TOKEN_雰:1.0___node_雰_340__(_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_14__, "_TOKEN_雰:1.0___node_雰_311__._TOKEN_雰:1.0___node_雰_180__")
+    _TOKEN_雰:1.0___node_雰_132__(_TOKEN_雰:1.0___node_雰_151__._TOKEN_雰:1.0___node_雰_14__, _TOKEN_雰:1.0___node_雰_211__)
+    _TOKEN_雰:1.0___node_雰_53__(f"\n[_TOKEN_庭:1.0___node_庭_64__] {_TOKEN_雰:1.0___node_雰_211__}")
+    _TOKEN_雰:1.0___node_雰_53__(f"[_TOKEN_庭:1.0___node_庭_59__] {_TOKEN_庫:1.0___node_雰_239__(_TOKEN_雰:1.0___node_雰_211__)}")
+
+if _TOKEN_雰:1.0___node_雰_382__ == "_TOKEN_雰:1.0___node_雰_247__":
+    _TOKEN_雰:1.0___node_雰_327__()
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,123 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E81CEFC0 ver:1778150006
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_泡:1.0__ASTNODE_泡_35_ _ID_泡:1.0__ASTNODE_泡_71_::_ID_泡:1.0__ASTNODE_泡_88_::_ID_庖:1.0__ASTNODE_庖_30_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_泡:1.0__ASTNODE_泡_38_ enum _ID_庖:1.0__ASTNODE_庖_26_ { _ID_庖:1.0__ASTNODE_庖_28_, _ID_庖:1.0__ASTNODE_庖_29_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_泡:1.0__ASTNODE_泡_38_ enum _ID_庖:1.0__ASTNODE_庖_19_ { _ID_庖:1.0__ASTNODE_庖_32_, _ID_庖:1.0__ASTNODE_庖_18_, _ID_庖:1.0__ASTNODE_庖_46_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_泡:1.0__ASTNODE_泡_38_ struct _ID_庖:1.0__ASTNODE_庖_14_ {
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_42_: _ID_庖:1.0__ASTNODE_庖_26_,
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_74_: _ID_庖:1.0__ASTNODE_庖_19_,
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_5_: _ID_泡:1.0__ASTNODE_泡_22_, // _ID_泡:1.0__ASTNODE_泡_32_-_ID_泡:1.0__ASTNODE_泡_47_
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_100_: _ID_泡:1.0__ASTNODE_泡_62_, // _ID_庖:1.0__ASTNODE_庖_13_ _ID_泡:1.0__ASTNODE_泡_77_
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_泡:1.0__ASTNODE_泡_38_ struct _ID_庖:1.0__ASTNODE_庖_21_ {
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_61_: _ID_泡:1.0__ASTNODE_泡_40_,
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_106_: _ID_泡:1.0__ASTNODE_泡_62_, // _ID_庖:1.0__ASTNODE_庖_39_ _ID_泡:1.0__ASTNODE_泡_83_ _ID_泡:1.0__ASTNODE_泡_46_ _ID_泡:1.0__ASTNODE_泡_108_
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_55_: _ID_泡:1.0__ASTNODE_泡_62_, // _ID_庖:1.0__ASTNODE_庖_9_ _ID_泡:1.0__ASTNODE_泡_45_ _ID_泡:1.0__ASTNODE_泡_95_ _ID_泡:1.0__ASTNODE_泡_115_
+}
+
+// [metadata-stripped]
+_ID_泡:1.0__ASTNODE_泡_38_ struct _ID_庖:1.0__ASTNODE_庖_3_ {
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_76_: _ID_庖:1.0__ASTNODE_庖_30_<_ID_泡:1.0__ASTNODE_泡_40_, _ID_庖:1.0__ASTNODE_庖_14_>,
+    _ID_泡:1.0__ASTNODE_泡_38_ _ID_泡:1.0__ASTNODE_泡_52_: _ID_庖:1.0__ASTNODE_庖_5_<_ID_庖:1.0__ASTNODE_庖_21_>, // _ID_庖:1.0__ASTNODE_庖_25_ of _ID_泡:1.0__ASTNODE_泡_110_ _ID_泡:1.0__ASTNODE_泡_81_ _ID_泡:1.0__ASTNODE_泡_101_
+}
+
+_ID_泡:1.0__ASTNODE_泡_1_ _ID_庖:1.0__ASTNODE_庖_3_ {
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_17_() -> _ID_庖:1.0__ASTNODE_庖_40_ {
+        _ID_庖:1.0__ASTNODE_庖_40_ {
+            _ID_泡:1.0__ASTNODE_泡_76_: _ID_庖:1.0__ASTNODE_庖_30_::_ID_泡:1.0__ASTNODE_泡_17_(),
+            _ID_泡:1.0__ASTNODE_泡_52_: _ID_庖:1.0__ASTNODE_庖_5_::_ID_泡:1.0__ASTNODE_泡_17_(),
+        }
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_65_(&_ID_泡:1.0__ASTNODE_泡_80_ self, _ID_泡:1.0__ASTNODE_泡_87_: _ID_泡:1.0__ASTNODE_泡_40_, _ID_泡:1.0__ASTNODE_泡_79_: _ID_庖:1.0__ASTNODE_庖_14_) {
+        self._ID_泡:1.0__ASTNODE_泡_76_._ID_泡:1.0__ASTNODE_泡_28_(_ID_泡:1.0__ASTNODE_泡_87_, _ID_泡:1.0__ASTNODE_泡_79_);
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_19_(&_ID_泡:1.0__ASTNODE_泡_80_ self, _ID_泡:1.0__ASTNODE_泡_87_: _ID_泡:1.0__ASTNODE_泡_40_) {
+        if let _ID_庖:1.0__ASTNODE_庖_22_(_ID_泡:1.0__ASTNODE_泡_79_) = self._ID_泡:1.0__ASTNODE_泡_76_._ID_則:1.0__ASTNODE_粋_2_(&_ID_泡:1.0__ASTNODE_泡_87_) {
+            if _ID_泡:1.0__ASTNODE_泡_79_._ID_泡:1.0__ASTNODE_泡_42_ == _ID_庖:1.0__ASTNODE_庖_26_::_ID_庖:1.0__ASTNODE_庖_28_ {
+                self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_107_(_ID_庖:1.0__ASTNODE_庖_21_ {
+                    _ID_泡:1.0__ASTNODE_泡_61_: _ID_泡:1.0__ASTNODE_泡_87_,
+                    _ID_泡:1.0__ASTNODE_泡_106_: _ID_泡:1.0__ASTNODE_泡_79_._ID_泡:1.0__ASTNODE_泡_100_,
+                    _ID_泡:1.0__ASTNODE_泡_55_: 0.0,
+                });
+// _ID_庖:0.3__ASTNODE_AA_574_ [decoy-metadata]
+            }
+        }
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_98_(&_ID_泡:1.0__ASTNODE_泡_80_ self, _ID_泡:1.0__ASTNODE_泡_87_: _ID_泡:1.0__ASTNODE_泡_40_) {
+        if let _ID_庖:1.0__ASTNODE_庖_22_(_ID_泡:1.0__ASTNODE_泡_70_) = self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_66_() {
+            if _ID_泡:1.0__ASTNODE_泡_70_._ID_泡:1.0__ASTNODE_泡_61_ == _ID_泡:1.0__ASTNODE_泡_87_ {
+                self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_56_();
+            }
+        }
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_59_(&self, _ID_泡:1.0__ASTNODE_泡_87_: _ID_泡:1.0__ASTNODE_泡_40_, _ID_泡:1.0__ASTNODE_泡_91_: _ID_泡:1.0__ASTNODE_泡_62_) -> _ID_泡:1.0__ASTNODE_泡_62_ {
+        let _ID_泡:1.0__ASTNODE_泡_79_ = _ID_泡:1.0__ASTNODE_泡_117_ self._ID_泡:1.0__ASTNODE_泡_76_._ID_則:1.0__ASTNODE_粋_2_(&_ID_泡:1.0__ASTNODE_泡_87_) {
+            _ID_庖:1.0__ASTNODE_庖_22_(c) => c,
+            _ID_庖:1.0__ASTNODE_庖_32_ => return _ID_泡:1.0__ASTNODE_泡_91_,
+        };
+
+        if _ID_泡:1.0__ASTNODE_泡_79_._ID_泡:1.0__ASTNODE_泡_74_ == _ID_庖:1.0__ASTNODE_庖_19_::_ID_庖:1.0__ASTNODE_庖_32_ || self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_18_() {
+            return _ID_泡:1.0__ASTNODE_泡_91_;
+// _ID_泡:0.7__ASTNODE_DB_655_ [decoy-metadata]
+        }
+
+        let _ID_泡:1.0__ASTNODE_泡_70_ = self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_66_()._ID_泡:1.0__ASTNODE_泡_67_();
+// _ID_緞:0.9__ASTNODE_KF_387_ [decoy-metadata]
+// [metadata-stripped]
+        let _ID_泡:1.0__ASTNODE_泡_10_ = (_ID_泡:1.0__ASTNODE_泡_91_ / _ID_泡:1.0__ASTNODE_泡_70_._ID_泡:1.0__ASTNODE_泡_106_)._ID_泡:1.0__ASTNODE_泡_30_();
+        _ID_泡:1.0__ASTNODE_泡_10_ * _ID_泡:1.0__ASTNODE_泡_70_._ID_泡:1.0__ASTNODE_泡_106_
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__ASTNODE_泡_38_ fn _ID_泡:1.0__ASTNODE_泡_113_(&self, _ID_泡:1.0__ASTNODE_泡_87_: _ID_泡:1.0__ASTNODE_泡_40_) -> _ID_庖:1.0__ASTNODE_庖_10_ {
+        let _ID_泡:1.0__ASTNODE_泡_103_ = _ID_泡:1.0__ASTNODE_泡_117_ self._ID_泡:1.0__ASTNODE_泡_76_._ID_則:1.0__ASTNODE_粋_2_(&_ID_泡:1.0__ASTNODE_泡_87_) {
+            _ID_庖:1.0__ASTNODE_庖_22_(c) => _ID_漕:1.0__ASTNODE_泡_104_!("_ID_庖:1.0__ASTNODE_庖_31_: {:?}, _ID_庖:1.0__ASTNODE_庖_33_-_ID_庖:1.0__ASTNODE_庖_42_: {:?}", c._ID_泡:1.0__ASTNODE_泡_42_, c._ID_泡:1.0__ASTNODE_泡_74_),
+            _ID_庖:1.0__ASTNODE_庖_32_ => "No _ID_泡:1.0__ASTNODE_泡_70_ _ID_泡:1.0__ASTNODE_泡_99_"._ID_泡:1.0__ASTNODE_泡_105_(),
+        };
+        
+        let _ID_泡:1.0__ASTNODE_泡_82_ = if let _ID_庖:1.0__ASTNODE_庖_22_(g) = self._ID_泡:1.0__ASTNODE_泡_52_._ID_泡:1.0__ASTNODE_泡_66_() {
+            _ID_漕:1.0__ASTNODE_泡_104_!("_ID_庖:1.0__ASTNODE_庖_42_ _ID_庖:1.0__ASTNODE_庖_23_ -> _ID_庖:1.0__ASTNODE_庖_8_ _ID_泡:1.0__ASTNODE_泡_9_ #{} (_ID_庖:1.0__ASTNODE_庖_15_: {:.1}px)", g._ID_泡:1.0__ASTNODE_泡_61_, g._ID_泡:1.0__ASTNODE_泡_106_)
+// _ID_緞:0.2__ASTNODE_YE_598_ [decoy-metadata]
+        } else {
+            "No _ID_泡:1.0__ASTNODE_泡_92_ _ID_泡:1.0__ASTNODE_泡_12_ _ID_泡:1.0__ASTNODE_泡_102_ _ID_泡:1.0__ASTNODE_泡_70_"._ID_泡:1.0__ASTNODE_泡_105_()
+        };
+// _ID_粋:0.7__ASTNODE_MV_445_ [decoy-metadata]
+
+        _ID_漕:1.0__ASTNODE_泡_104_!("📐 _ID_庖:1.0__ASTNODE_庖_16_ _ID_庖:1.0__ASTNODE_庖_33_ _ID_庖:1.0__ASTNODE_庖_8_ (_ID_庖:1.0__ASTNODE_庖_6_ #{}): {}\n  - {}", _ID_泡:1.0__ASTNODE_泡_87_, _ID_泡:1.0__ASTNODE_泡_103_, _ID_泡:1.0__ASTNODE_泡_82_)
+    }
+}
+// _ID_漕:0.9__ASTNODE_WB_276_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

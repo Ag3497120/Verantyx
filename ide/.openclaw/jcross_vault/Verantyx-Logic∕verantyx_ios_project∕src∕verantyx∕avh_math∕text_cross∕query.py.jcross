@@ -1,0 +1,50 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7312A11D ver:1778159687
+// ⚠️ One-time schema — expires after response
+
+__node_霞:1.0___ASTNODE_霞_4_ __node_霞:1.0___ASTNODE_霞_11_ import __node_殻:1.0___ASTNODE_殻_4_
+
+__node_霞:1.0___ASTNODE_霞_4_ .__node_霞:1.0___ASTNODE_霞_35_ import __node_殻:1.0___ASTNODE_殻_2_
+__node_霞:1.0___ASTNODE_霞_4_ .__node_霞:1.0___ASTNODE_霞_9_ import __node_霞:1.0___ASTNODE_霞_5_, __node_匳:1.0___ASTNODE_霞_2_
+__node_霞:1.0___ASTNODE_霞_4_ .__node_霞:1.0___ASTNODE_霞_22_ import __node_霞:1.0___ASTNODE_霞_22_
+__node_霞:1.0___ASTNODE_霞_4_ .__node_霞:1.0___ASTNODE_霞_36_ import __node_匳:1.0___ASTNODE_霞_13_
+
+
+__node_霞:1.0___ASTNODE_霞_38_ __node_霞:1.0___ASTNODE_霞_10_(__node_霞:1.0___ASTNODE_霞_35_: __node_殻:1.0___ASTNODE_殻_2_, __node_霞:1.0___ASTNODE_霞_17_: __node_霞:1.0___ASTNODE_霞_34_ = 3) -> __node_殻:1.0___ASTNODE_殻_4_[__node_殻:1.0___ASTNODE_殻_2_]:
+// __node_漕:0.7___ASTNODE_WE_192_ [decoy-metadata]
+    __node_霞:1.0___ASTNODE_霞_36_ = __node_匳:1.0___ASTNODE_霞_13_()
+    if __node_霞:1.0___ASTNODE_霞_36_:
+// [metadata-stripped]
+        __node_霞:1.0___ASTNODE_霞_15_ = {n.__node_霞:1.0___ASTNODE_霞_29_.__node_法:1.0___ASTNODE_弧_1_("__node_霞:1.0___ASTNODE_霞_20_", "") for n in __node_霞:1.0___ASTNODE_霞_35_.__node_霞:1.0___ASTNODE_霞_23_.__node_霞:1.0___ASTNODE_霞_33_()}
+        __node_霞:1.0___ASTNODE_霞_32_ = []
+        for __node_霞:1.0___ASTNODE_霞_16_, __node_霞:1.0___ASTNODE_霞_37_ in __node_霞:1.0___ASTNODE_霞_36_.__node_霞:1.0___ASTNODE_霞_1_():
+            __node_霞:1.0___ASTNODE_霞_18_ = __node_法:1.0___ASTNODE_弧_2_(__node_霞:1.0___ASTNODE_霞_37_.__node_霞:1.0___ASTNODE_霞_28_("|")) if __node_霞:1.0___ASTNODE_霞_37_ else __node_法:1.0___ASTNODE_弧_2_()
+            if __node_霞:1.0___ASTNODE_霞_19_ __node_霞:1.0___ASTNODE_霞_18_:
+                continue
+            __node_霞:1.0___ASTNODE_霞_30_ = __node_霞:1.0___ASTNODE_霞_14_(__node_霞:1.0___ASTNODE_霞_15_ & __node_霞:1.0___ASTNODE_霞_18_) / __node_霞:1.0___ASTNODE_霞_26_(__node_霞:1.0___ASTNODE_霞_14_(__node_霞:1.0___ASTNODE_霞_15_), 1)
+            if __node_霞:1.0___ASTNODE_霞_30_ > 0:
+                __node_霞:1.0___ASTNODE_霞_32_.__node_霞:1.0___ASTNODE_霞_27_((__node_霞:1.0___ASTNODE_霞_30_, __node_霞:1.0___ASTNODE_霞_16_))
+        __node_霞:1.0___ASTNODE_霞_32_.__node_霞:1.0___ASTNODE_霞_6_(__node_底:1.0___ASTNODE_霞_3_=__node_霞:1.0___ASTNODE_霞_21_ x: x[0], __node_霞:1.0___ASTNODE_霞_25_=__node_殻:1.0___ASTNODE_殻_1_)
+        __node_霞:1.0___ASTNODE_霞_12_ = []
+        for _, __node_霞:1.0___ASTNODE_霞_7_ in __node_霞:1.0___ASTNODE_霞_32_[:__node_霞:1.0___ASTNODE_霞_17_ * 4]:
+            c = __node_匳:1.0___ASTNODE_霞_2_(__node_霞:1.0___ASTNODE_霞_7_)
+// __node_法:0.4___ASTNODE_YL_181_ [decoy-metadata]
+            if c:
+// __node_漕:0.3___ASTNODE_CA_843_ [decoy-metadata]
+                __node_霞:1.0___ASTNODE_霞_12_.__node_霞:1.0___ASTNODE_霞_27_(c)
+            if __node_霞:1.0___ASTNODE_霞_14_(__node_霞:1.0___ASTNODE_霞_12_) >= __node_霞:1.0___ASTNODE_霞_17_:
+                break
+        return __node_霞:1.0___ASTNODE_霞_12_
+// __node_底:0.7___ASTNODE_WD_792_ [decoy-metadata]
+
+// __node_法:0.5___ASTNODE_FX_902_ [decoy-metadata]
+    __node_霞:1.0___ASTNODE_霞_8_ = []
+    for c in __node_霞:1.0___ASTNODE_霞_5_():
+// __node_殻:0.2___ASTNODE_ZB_487_ [decoy-metadata]
+        s = __node_霞:1.0___ASTNODE_霞_22_(__node_霞:1.0___ASTNODE_霞_35_, c)
+        if s > 0:
+            __node_霞:1.0___ASTNODE_霞_8_.__node_霞:1.0___ASTNODE_霞_27_((s, c))
+    __node_霞:1.0___ASTNODE_霞_8_.__node_霞:1.0___ASTNODE_霞_6_(__node_底:1.0___ASTNODE_霞_3_=__node_霞:1.0___ASTNODE_霞_21_ x: x[0], __node_霞:1.0___ASTNODE_霞_25_=__node_殻:1.0___ASTNODE_殻_1_)
+    return [c for _, c in __node_霞:1.0___ASTNODE_霞_8_[:__node_霞:1.0___ASTNODE_霞_17_]]
+
+// POLYMORPHIC_JCROSS_END

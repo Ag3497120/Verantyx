@@ -1,0 +1,251 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AF568C0E ver:1778164023
+// ⚠️ One-time schema — expires after response
+
+import _ID_庵:1.0__TOKEN_庵_16_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_蔵:0.1__TOKEN_KZ_535_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+struct _ID_庵:1.0__TOKEN_庵_41_: _ID_庵:1.0__TOKEN_庵_47_ {
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_80_: _ID_庵:1.0__TOKEN_庵_44_
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_85_: _ID_庵:1.0__TOKEN_庵_42_
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_11_: _ID_庵:1.0__TOKEN_庵_39_?
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_33_: _ID_庵:1.0__TOKEN_庵_23_
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_92_: [_ID_庵:1.0__TOKEN_庵_42_: _ID_律:1.0__TOKEN_庵_21_]
+// [metadata-stripped]
+    let _ID_泡:1.0__TOKEN_泡_7_: _ID_庵:1.0__TOKEN_庵_42_?
+
+    enum _ID_庵:1.0__TOKEN_庵_44_: _ID_庵:1.0__TOKEN_庵_42_, _ID_庵:1.0__TOKEN_庵_47_ {
+        case _ID_泡:1.0__TOKEN_泡_83_       // 新しいノードを挿入
+        case _ID_泡:1.0__TOKEN_泡_21_         // 既存ノードをラップ
+        case _ID_泡:1.0__TOKEN_泡_6_      // ノードを置換
+        case _ID_泡:1.0__TOKEN_泡_57_     // ノード間にエッジを追加
+        case _ID_泡:1.0__TOKEN_泡_49_       // ノードを削除
+    }
+
+    enum _ID_庵:1.0__TOKEN_庵_39_: _ID_庵:1.0__TOKEN_庵_42_, _ID_庵:1.0__TOKEN_庵_47_ {
+        case _ID_泡:1.0__TOKEN_泡_81_             // リトライ / ループ
+        case _ID_律:1.0__TOKEN_泡_84_  // タイムアウト
+        case _ID_泡:1.0__TOKEN_泡_47_   // エラーハンドリング
+        case _ID_泡:1.0__TOKEN_泡_52_        // 条件分岐
+        case _ID_泡:1.0__TOKEN_泡_63_      // 非同期待機
+        case _ID_泡:1.0__TOKEN_泡_43_             // 排他制御
+    }
+
+    enum _ID_庵:1.0__TOKEN_庵_23_: _ID_庵:1.0__TOKEN_庵_42_, _ID_庵:1.0__TOKEN_庵_47_ {
+        case _ID_泡:1.0__TOKEN_泡_17_         // ネットワーク / 非同期I/O
+        case _ID_律:1.0__TOKEN_泡_34_        // UIレンダリング
+        case _ID_泡:1.0__TOKEN_泡_58_          // 純粋計算
+        case _ID_泡:1.0__TOKEN_泡_71_          // ファイル / DB
+        case _ID_泡:1.0__TOKEN_泡_31_         // 認証 / 暗号
+        case _ID_泡:1.0__TOKEN_泡_78_              // プロセス間通信（_ID_庵:1.0__TOKEN_庵_28_など）
+        case _ID_泡:1.0__TOKEN_泡_2_
+    }
+
+// [metadata-stripped]
+    struct _ID_律:1.0__TOKEN_庵_21_: _ID_庵:1.0__TOKEN_庵_47_ {
+        let _ID_泡:1.0__TOKEN_泡_32_: _ID_庵:1.0__TOKEN_庵_42_  // "_ID_泡:1.0__TOKEN_泡_72_", "_ID_泡:1.0__TOKEN_泡_101_", "_ID_泡:1.0__TOKEN_泡_54_", "_ID_泡:1.0__TOKEN_泡_27_"
+// _ID_縁:0.6__TOKEN_WA_779_ [decoy-metadata]
+        let _ID_律:1.0__TOKEN_泡_46_: _ID_庵:1.0__TOKEN_庵_42_   // _ID_庵:1.0__TOKEN_庵_2_キー（ローカル側で実値に解決）
+    }
+}
+
+// [metadata-stripped]
+
+private struct _ID_律:1.0__TOKEN_庵_13_ {
+
+// [metadata-stripped]
+    static func _ID_澎:1.0__TOKEN_泡_42_(_ _ID_泡:1.0__TOKEN_泡_40_: _ID_庵:1.0__TOKEN_庵_42_) -> (_ID_庵:1.0__TOKEN_庵_41_._ID_庵:1.0__TOKEN_庵_44_, _ID_庵:1.0__TOKEN_庵_41_._ID_庵:1.0__TOKEN_庵_39_?) {
+        let _ID_律:1.0__TOKEN_泡_26_ = _ID_泡:1.0__TOKEN_泡_40_._ID_泡:1.0__TOKEN_泡_67_()
+
+// [metadata-stripped]
+// _ID_泡:0.5__TOKEN_KL_476_ [decoy-metadata]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("リトライ") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_77_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("繰り返") {
+            return (._ID_泡:1.0__TOKEN_泡_21_, ._ID_泡:1.0__TOKEN_泡_81_)
+        }
+// [metadata-stripped]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("タイムアウト") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_89_") {
+            return (._ID_泡:1.0__TOKEN_泡_21_, ._ID_律:1.0__TOKEN_泡_84_)
+        }
+// [metadata-stripped]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("エラー") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_95_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("失敗") {
+            return (._ID_泡:1.0__TOKEN_泡_83_, ._ID_泡:1.0__TOKEN_泡_47_)
+        }
+// [metadata-stripped]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("非同期") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("async") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("await") {
+            return (._ID_泡:1.0__TOKEN_泡_21_, ._ID_泡:1.0__TOKEN_泡_63_)
+        }
+// [metadata-stripped]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("条件") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("if") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("チェック") {
+            return (._ID_泡:1.0__TOKEN_泡_83_, ._ID_泡:1.0__TOKEN_泡_52_)
+        }
+// [metadata-stripped]
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("削除") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_93_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("消して") {
+            return (._ID_泡:1.0__TOKEN_泡_49_, nil)
+        }
+        return (._ID_泡:1.0__TOKEN_泡_83_, nil)
+    }
+}
+
+// [metadata-stripped]
+
+private struct _ID_庵:1.0__TOKEN_庵_32_ {
+
+// [metadata-stripped]
+// [metadata-stripped]
+    static func _ID_泡:1.0__TOKEN_泡_25_(
+        for _ID_玄:1.0__TOKEN_泡_50_: _ID_庵:1.0__TOKEN_庵_42_,
+        in _ID_泡:1.0__TOKEN_泡_62_: _ID_庵:1.0__TOKEN_庵_12_
+    ) -> (_ID_泡:1.0__TOKEN_泡_64_: _ID_庵:1.0__TOKEN_庵_42_, _ID_泡:1.0__TOKEN_泡_100_: _ID_庵:1.0__TOKEN_庵_41_._ID_庵:1.0__TOKEN_庵_23_) {
+        let _ID_律:1.0__TOKEN_泡_26_ = _ID_玄:1.0__TOKEN_泡_50_._ID_泡:1.0__TOKEN_泡_67_()
+        let _ID_泡:1.0__TOKEN_泡_12_ = _ID_泡:1.0__TOKEN_泡_62_._ID_泡:1.0__TOKEN_泡_51_()
+
+// [metadata-stripped]
+        for _ID_泡:1.0__TOKEN_泡_18_ in _ID_泡:1.0__TOKEN_泡_12_ {
+            guard let _ID_泡:1.0__TOKEN_泡_82_ = _ID_泡:1.0__TOKEN_泡_18_._ID_泡:1.0__TOKEN_泡_4_ else { continue }
+            let _ID_泡:1.0__TOKEN_泡_16_ = _ID_泡:1.0__TOKEN_泡_82_._ID_泡:1.0__TOKEN_泡_45_._ID_泡:1.0__TOKEN_泡_67_()
+            if _ID_泡:1.0__TOKEN_泡_16_._ID_泡:1.0__TOKEN_泡_9_(_ID_律:1.0__TOKEN_泡_26_) || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_(_ID_泡:1.0__TOKEN_泡_16_) {
+                let _ID_泡:1.0__TOKEN_泡_36_ = _ID_泡:1.0__TOKEN_泡_56_(_ID_泡:1.0__TOKEN_泡_73_: _ID_泡:1.0__TOKEN_泡_18_._ID_泡:1.0__TOKEN_泡_38_?._ID_泡:1.0__TOKEN_泡_97_ ?? "")
+                return (_ID_泡:1.0__TOKEN_泡_18_._ID_泡:1.0__TOKEN_泡_64_._ID_泡:1.0__TOKEN_泡_44_, _ID_泡:1.0__TOKEN_泡_36_)
+            }
+        }
+
+// [metadata-stripped]
+        if let _ID_泡:1.0__TOKEN_泡_24_ = _ID_泡:1.0__TOKEN_泡_12_._ID_泡:1.0__TOKEN_泡_24_ {
+            return (_ID_泡:1.0__TOKEN_泡_24_._ID_泡:1.0__TOKEN_泡_64_._ID_泡:1.0__TOKEN_泡_44_, ._ID_泡:1.0__TOKEN_泡_2_)
+        }
+        return ("_ID_庵:1.0__TOKEN_庵_46_", ._ID_泡:1.0__TOKEN_泡_2_)
+    }
+
+    private static func _ID_泡:1.0__TOKEN_泡_56_(_ID_泡:1.0__TOKEN_泡_73_: _ID_庵:1.0__TOKEN_庵_42_) -> _ID_庵:1.0__TOKEN_庵_41_._ID_庵:1.0__TOKEN_庵_23_ {
+// _ID_庵:0.4__TOKEN_HM_631_ [decoy-metadata]
+        let _ID_律:1.0__TOKEN_泡_26_ = _ID_泡:1.0__TOKEN_泡_73_._ID_泡:1.0__TOKEN_泡_67_()
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("async") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_59_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_律:1.0__TOKEN_縁_1_") { return ._ID_泡:1.0__TOKEN_泡_17_ }
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_102_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("ui") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_律:1.0__TOKEN_泡_65_") { return ._ID_律:1.0__TOKEN_泡_34_ }
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_23_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_78_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_29_") { return ._ID_泡:1.0__TOKEN_泡_78_ }
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_蔵:1.0__TOKEN_泡_69_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_30_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("db") { return ._ID_泡:1.0__TOKEN_泡_71_ }
+        if _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_79_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_99_") || _ID_律:1.0__TOKEN_泡_26_._ID_泡:1.0__TOKEN_泡_9_("_ID_泡:1.0__TOKEN_泡_90_") { return ._ID_泡:1.0__TOKEN_泡_31_ }
+        return ._ID_泡:1.0__TOKEN_泡_58_
+    }
+}
+
+// _ID_澎:0.3__TOKEN_ZE_774_ [decoy-metadata]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+final class _ID_庵:1.0__TOKEN_庵_48_ {
+
+    static let _ID_泡:1.0__TOKEN_泡_28_ = _ID_庵:1.0__TOKEN_庵_48_()
+    private init() {}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ID_泡:1.0__TOKEN_泡_37_(
+        _ID_泡:1.0__TOKEN_泡_1_: _ID_庵:1.0__TOKEN_庵_42_,
+        _ID_泡:1.0__TOKEN_泡_62_: _ID_庵:1.0__TOKEN_庵_12_,
+        ir: _ID_庵:1.0__TOKEN_庵_15_
+    ) async -> _ID_庵:1.0__TOKEN_庵_41_ {
+
+// [metadata-stripped]
+        let (_ID_泡:1.0__TOKEN_泡_80_, _ID_泡:1.0__TOKEN_泡_91_) = _ID_律:1.0__TOKEN_庵_13_._ID_澎:1.0__TOKEN_泡_42_(_ID_泡:1.0__TOKEN_泡_1_)
+// _ID_律:0.9__TOKEN_GB_167_ [decoy-metadata]
+
+// [metadata-stripped]
+        let _ID_玄:1.0__TOKEN_泡_50_ = _ID_玄:1.0__TOKEN_泡_88_(_ID_泡:1.0__TOKEN_泡_87_: _ID_泡:1.0__TOKEN_泡_1_)
+        let (_ID_泡:1.0__TOKEN_泡_64_, _ID_泡:1.0__TOKEN_泡_100_) = _ID_庵:1.0__TOKEN_庵_32_._ID_泡:1.0__TOKEN_泡_25_(for: _ID_玄:1.0__TOKEN_泡_50_, in: _ID_泡:1.0__TOKEN_泡_62_)
+
+// [metadata-stripped]
+        let _ID_泡:1.0__TOKEN_泡_96_ = _ID_泡:1.0__TOKEN_泡_41_(in: ir)
+
+// [metadata-stripped]
+        var _ID_泡:1.0__TOKEN_泡_68_: [_ID_庵:1.0__TOKEN_庵_42_: _ID_庵:1.0__TOKEN_庵_41_._ID_律:1.0__TOKEN_庵_21_] = [:]
+        if _ID_泡:1.0__TOKEN_泡_91_ == ._ID_泡:1.0__TOKEN_泡_81_ {
+// [metadata-stripped]
+            _ID_泡:1.0__TOKEN_泡_68_["_ID_泡:1.0__TOKEN_泡_74_"] = .init(_ID_泡:1.0__TOKEN_泡_32_: "_ID_泡:1.0__TOKEN_泡_72_", _ID_律:1.0__TOKEN_泡_46_: "_ID_庵:1.0__TOKEN_庵_9_:_ID_泡:1.0__TOKEN_泡_10_")
+        }
+        if _ID_泡:1.0__TOKEN_泡_91_ == ._ID_律:1.0__TOKEN_泡_84_ {
+            _ID_泡:1.0__TOKEN_泡_68_["_ID_泡:1.0__TOKEN_泡_94_"] = .init(_ID_泡:1.0__TOKEN_泡_32_: "_ID_泡:1.0__TOKEN_泡_27_", _ID_律:1.0__TOKEN_泡_46_: "_ID_庵:1.0__TOKEN_庵_9_:_ID_泡:1.0__TOKEN_泡_14_")
+        }
+
+        return _ID_庵:1.0__TOKEN_庵_41_(
+            _ID_泡:1.0__TOKEN_泡_80_: _ID_泡:1.0__TOKEN_泡_80_,
+            _ID_泡:1.0__TOKEN_泡_85_: _ID_泡:1.0__TOKEN_泡_64_,
+            _ID_泡:1.0__TOKEN_泡_11_: _ID_泡:1.0__TOKEN_泡_91_,
+            _ID_泡:1.0__TOKEN_泡_33_: _ID_泡:1.0__TOKEN_泡_100_,
+            _ID_泡:1.0__TOKEN_泡_92_: _ID_泡:1.0__TOKEN_泡_68_,
+            _ID_泡:1.0__TOKEN_泡_7_: _ID_泡:1.0__TOKEN_泡_96_
+        )
+    }
+
+// [metadata-stripped]
+
+    private func _ID_玄:1.0__TOKEN_泡_88_(_ID_泡:1.0__TOKEN_泡_87_ _ID_泡:1.0__TOKEN_泡_40_: _ID_庵:1.0__TOKEN_庵_42_) -> _ID_庵:1.0__TOKEN_庵_42_ {
+// [metadata-stripped]
+        let _ID_泡:1.0__TOKEN_泡_61_ = [
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        ]
+        for _ID_泡:1.0__TOKEN_泡_86_ in _ID_泡:1.0__TOKEN_泡_61_ {
+            if let _ID_泡:1.0__TOKEN_泡_48_ = try? _ID_庵:1.0__TOKEN_庵_3_(_ID_泡:1.0__TOKEN_泡_86_: _ID_泡:1.0__TOKEN_泡_86_),
+               let _ID_泡:1.0__TOKEN_泡_19_ = _ID_泡:1.0__TOKEN_泡_48_._ID_泡:1.0__TOKEN_泡_20_(in: _ID_泡:1.0__TOKEN_泡_40_, _ID_泡:1.0__TOKEN_泡_60_: _ID_庵:1.0__TOKEN_庵_33_(_ID_泡:1.0__TOKEN_泡_40_._ID_泡:1.0__TOKEN_泡_75_..., in: _ID_泡:1.0__TOKEN_泡_40_)) {
+                for i in 1..<_ID_泡:1.0__TOKEN_泡_19_._ID_泡:1.0__TOKEN_泡_53_ {
+                    if let _ID_泡:1.0__TOKEN_泡_60_ = _ID_庵:1.0__TOKEN_庵_19_(_ID_泡:1.0__TOKEN_泡_19_._ID_泡:1.0__TOKEN_泡_60_(at: i), in: _ID_泡:1.0__TOKEN_泡_40_) {
+                        return _ID_庵:1.0__TOKEN_庵_42_(_ID_泡:1.0__TOKEN_泡_40_[_ID_泡:1.0__TOKEN_泡_60_])
+                    }
+                }
+            }
+        }
+// [metadata-stripped]
+        return _ID_泡:1.0__TOKEN_泡_40_
+    }
+
+    private func _ID_泡:1.0__TOKEN_泡_41_(in ir: _ID_庵:1.0__TOKEN_庵_15_) -> _ID_庵:1.0__TOKEN_庵_42_? {
+// [metadata-stripped]
+        for (id, _ID_泡:1.0__TOKEN_泡_13_) in ir._ID_泡:1.0__TOKEN_泡_35_ {
+            if _ID_泡:1.0__TOKEN_泡_13_._ID_泡:1.0__TOKEN_泡_66_ == ._ID_泡:1.0__TOKEN_泡_76_,
+               _ID_泡:1.0__TOKEN_泡_13_._ID_泡:1.0__TOKEN_泡_70_?._ID_泡:1.0__TOKEN_泡_98_ == ._ID_泡:1.0__TOKEN_泡_39_ {
+                return id._ID_泡:1.0__TOKEN_泡_44_
+            }
+        }
+        return nil
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

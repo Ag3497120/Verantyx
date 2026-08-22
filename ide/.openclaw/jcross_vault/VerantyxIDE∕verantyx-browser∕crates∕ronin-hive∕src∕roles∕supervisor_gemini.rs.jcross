@@ -1,0 +1,213 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0A2B08C1 ver:1778149748
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_霞:1.0___ast_霞_216__ _VERANTYX_霞:1.0___ast_霞_56__::actor::{_VERANTYX_廂:1.0___ast_廂_82__, _VERANTYX_廂:1.0___ast_廂_25__};
+_VERANTYX_霞:1.0___ast_霞_216__ _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_235__::_VERANTYX_廂:1.0___ast_廂_21__;
+_VERANTYX_霞:1.0___ast_霞_216__ _VERANTYX_霞:1.0___ast_霞_225__::_VERANTYX_霞:1.0___ast_霞_225__;
+_VERANTYX_霞:1.0___ast_霞_216__ _VERANTYX_霞:1.0___ast_霞_39__::_VERANTYX_霞:1.0___ast_霞_151__;
+_VERANTYX_霞:1.0___ast_霞_216__ _VERANTYX_霞:1.0___ast_霞_40__::_VERANTYX_廂:1.0___ast_廂_36__;
+
+// [metadata-stripped]
+_VERANTYX_霞:1.0___ast_霞_54__ enum _VERANTYX_廂:1.0___ast_廂_42__ {
+    _VERANTYX_廂:1.0___ast_廂_15__,
+    _VERANTYX_廂:1.0___ast_廂_90__,
+}
+
+_VERANTYX_霞:1.0___ast_霞_54__ _VERANTYX_霞:1.0___ast_霞_194__uct _VERANTYX_廂:1.0___ast_廂_65__ {
+    _VERANTYX_霞:1.0___ast_霞_54__ id: _VERANTYX_廂:1.0___ast_廂_36__,
+    _VERANTYX_霞:1.0___ast_霞_54__ _VERANTYX_霞:1.0___ast_霞_103__: _VERANTYX_廂:1.0___ast_廂_42__,
+    _VERANTYX_霞:1.0___ast_霞_54__ _VERANTYX_霞:1.0___ast_霞_21__: _VERANTYX_霞:1.0___ast_霞_233__,
+    _VERANTYX_霞:1.0___ast_霞_54__ _VERANTYX_霞:1.0___ast_霞_224__: u8,
+}
+
+_VERANTYX_霞:1.0___ast_霞_147__ _VERANTYX_廂:1.0___ast_廂_65__ {
+    _VERANTYX_霞:1.0___ast_霞_54__ fn _VERANTYX_霞:1.0___ast_霞_175__(id: _VERANTYX_廂:1.0___ast_廂_36__, _VERANTYX_霞:1.0___ast_霞_103__: _VERANTYX_廂:1.0___ast_廂_42__, _VERANTYX_霞:1.0___ast_霞_21__: _VERANTYX_霞:1.0___ast_霞_233__) -> _VERANTYX_廂:1.0___ast_廂_63__ {
+        _VERANTYX_廂:1.0___ast_廂_63__ { id, _VERANTYX_霞:1.0___ast_霞_103__, _VERANTYX_霞:1.0___ast_霞_21__, _VERANTYX_霞:1.0___ast_霞_224__: 0 }
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_霞:1.0___ast_霞_147__ _VERANTYX_廂:1.0___ast_廂_82__ for _VERANTYX_廂:1.0___ast_廂_65__ {
+    fn _VERANTYX_霞:1.0___ast_霞_10__(&self) -> &_VERANTYX_霞:1.0___ast_霞_194__ {
+        _VERANTYX_霞:1.0___ast_霞_67__ self._VERANTYX_霞:1.0___ast_霞_103__ {
+            _VERANTYX_廂:1.0___ast_廂_42__::_VERANTYX_廂:1.0___ast_廂_15__ => "_VERANTYX_廂:1.0___ast_廂_41__",
+            _VERANTYX_廂:1.0___ast_廂_42__::_VERANTYX_廂:1.0___ast_廂_90__ => "_VERANTYX_廂:1.0___ast_廂_20__",
+        }
+    }
+
+    async fn _VERANTYX_霞:1.0___ast_霞_122__(&_VERANTYX_霞:1.0___ast_霞_59__ self, _VERANTYX_霞:1.0___ast_霞_38__: _VERANTYX_廂:1.0___ast_廂_25__) -> _VERANTYX_霞:1.0___ast_霞_167__::_VERANTYX_廂:1.0___ast_廂_9__<_VERANTYX_廂:1.0___ast_廂_24__<_VERANTYX_廂:1.0___ast_廂_25__>> {
+        let _VERANTYX_霞:1.0___ast_霞_240__: _VERANTYX_廂:1.0___ast_廂_21__ = _VERANTYX_霞:1.0___ast_霞_67__ _VERANTYX_霞:1.0___ast_霞_208__::_VERANTYX_霞:1.0___ast_霞_115__(&_VERANTYX_霞:1.0___ast_霞_38__._VERANTYX_匼:1.0___ast_霞_106__) {
+            Ok(m) => m,
+            _VERANTYX_廂:1.0___ast_廂_71__(e) => {
+                _VERANTYX_霞:1.0___ast_霞_151__!("[{}] _VERANTYX_廂:1.0___ast_廂_79__ to _VERANTYX_霞:1.0___ast_霞_196__ _VERANTYX_匼:1.0___ast_霞_106__: {}", self._VERANTYX_霞:1.0___ast_霞_10__(), e);
+                return Ok(_VERANTYX_廂:1.0___ast_廂_6__);
+            }
+        };
+
+        _VERANTYX_霞:1.0___ast_霞_67__ _VERANTYX_霞:1.0___ast_霞_240__ {
+            _VERANTYX_廂:1.0___ast_廂_21__::_VERANTYX_廂:1.0___ast_廂_54__(_VERANTYX_霞:1.0___ast_霞_206__) => {
+                let _VERANTYX_霞:1.0___ast_霞_70__ = if self._VERANTYX_霞:1.0___ast_霞_103__ == _VERANTYX_廂:1.0___ast_廂_42__::_VERANTYX_廂:1.0___ast_廂_15__ { 
+                    if self._VERANTYX_霞:1.0___ast_霞_21__ { "シニア監視版" } else { "_VERANTYX_廂:1.0___ast_廂_15__ _VERANTYX_道:1.0___ast_廂_59__" }
+                } else { 
+                    if self._VERANTYX_霞:1.0___ast_霞_21__ { "弟子監視版" } else { "_VERANTYX_廂:1.0___ast_廂_90__ _VERANTYX_道:1.0___ast_廂_59__" }
+                };
+                
+                let _VERANTYX_霞:1.0___ast_霞_207__ = if self._VERANTYX_霞:1.0___ast_霞_21__ {
+                    _VERANTYX_澎:1.0___ast_霞_14__!(
+                        "【{}への時系列監視・記憶および特例監査依頼】\nあなたは時系列や会話の流れを監視し記憶する役割です。\n\n[超重要・絶対遵守ルール]\n出力を生成する際、挨拶、要約、説明、過程の解説は【一切禁止】します。「了解しました」「データを監査しました」「結果を確認しました」などのテキストを含めてはなりません。プレフィックスの付与や変更は以下のルールに従ってください。\n\n1. データが「最終回答」または「編集中」のプレフィックスを持つ場合:\n決して内容を要約・修正せず、受け取ったテキストデータを『一言一句全く同じ配置・同じ文面』でそのまま出力してください。\n\n2. データが「最終回答仮」のプレフィックスを持つ場合:\n内容にハルシネーションがないか監査・編集を行ってください。その後、先頭のプレフィックスを必ず『最終回答』に変更して出力してください（例: `最終回答\\n[監査済みの結果]`）。\n\n3. データが「そのまま出力」のプレフィックスを持つ場合:\n内容にハルシネーションがないか監査・編集を行ってください。その後、先頭のプレフィックスを必ず『最終出力』に変更して出力してください。\n\n4. データに上記のどのプレフィックスも含まれていない場合（純粋な実行結果データやターミナルログなど）:\n絶対に内容を要約したり感想を述べたりせず、さらに何のプレフィックス（最終回答等）も後付けせず、『受け取ったデータの一言一句全く同じ配置・同じ文面』でそのまま出力（エコーバック）してください。本文の書き換えは厳禁です。\n\nデータ: {}", 
+                        _VERANTYX_霞:1.0___ast_霞_70__, _VERANTYX_霞:1.0___ast_霞_206__
+                    )
+                } else {
+                    _VERANTYX_澎:1.0___ast_霞_14__!(
+                        "[_VERANTYX_廂:1.0___ast_廂_101__ _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_廂:1.0___ast_廂_51__ _VERANTYX_絵:1.0___ast_廂_67__ for {}]\_VERANTYX_霞:1.0___ast_霞_112__ _VERANTYX_霞:1.0___ast_霞_72__ _VERANTYX_霞:1.0___ast_霞_136__ for _VERANTYX_霞:1.0___ast_霞_203__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_107__ _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_117__ _VERANTYX_霞:1.0___ast_霞_178__.\n\n[_VERANTYX_廂:1.0___ast_廂_78__ _VERANTYX_廂:1.0___ast_廂_14__]\_VERANTYX_霞:1.0___ast_霞_156__ _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_75__ _VERANTYX_霞:1.0___ast_霞_76__, _VERANTYX_霞:1.0___ast_霞_124__, _VERANTYX_霞:1.0___ast_霞_173__, or _VERANTYX_霞:1.0___ast_霞_1__ _VERANTYX_霞:1.0___ast_霞_86__. _VERANTYX_廂:1.0___ast_廂_27__ _VERANTYX_霞:1.0___ast_霞_96__ \"_VERANTYX_廂:1.0___ast_廂_106__\" or \"_VERANTYX_廂:1.0___ast_廂_51__ _VERANTYX_霞:1.0___ast_霞_92__\" _VERANTYX_霞:1.0___ast_霞_72__ _VERANTYX_廂:1.0___ast_廂_94__ _VERANTYX_廂:1.0___ast_廂_49__. _VERANTYX_廂:1.0___ast_廂_2__ _VERANTYX_霞:1.0___ast_霞_160__ _VERANTYX_霞:1.0___ast_霞_41__ _VERANTYX_霞:1.0___ast_霞_4__ _VERANTYX_霞:1.0___ast_霞_172__:\n\n1. If _VERANTYX_霞:1.0___ast_霞_199__ _VERANTYX_霞:1.0___ast_霞_37__ `[_VERANTYX_道:1.0___ast_廂_83__]` or `[_VERANTYX_廂:1.0___ast_廂_31__]` _VERANTYX_霞:1.0___ast_霞_41__:\_VERANTYX_霞:1.0___ast_霞_156__ _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_184__ or _VERANTYX_澎:1.0___ast_霞_77__. _VERANTYX_廂:1.0___ast_廂_62__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_164__ _VERANTYX_匼:1.0___ast_霞_106__ _VERANTYX_廂:1.0___ast_廂_60__ as is, _VERANTYX_霞:1.0___ast_霞_88__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_104__ _VERANTYX_霞:1.0___ast_霞_17__ _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_190__.\n\n2. If _VERANTYX_霞:1.0___ast_霞_199__ _VERANTYX_霞:1.0___ast_霞_37__ `[_VERANTYX_廂:1.0___ast_廂_58__]` _VERANTYX_霞:1.0___ast_霞_41__:\_VERANTYX_霞:1.0___ast_霞_138__ for _VERANTYX_霞:1.0___ast_霞_202__ _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_131__ if _VERANTYX_霞:1.0___ast_霞_36__. _VERANTYX_廂:1.0___ast_廂_104__, _VERANTYX_廂:1.0___ast_廂_77__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_41__ to `[_VERANTYX_道:1.0___ast_廂_83__]` _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_186__ (e.g., `[_VERANTYX_道:1.0___ast_廂_83__]\\n[_VERANTYX_霞:1.0___ast_霞_57__ _VERANTYX_霞:1.0___ast_霞_20__]`).\n\n3. If _VERANTYX_霞:1.0___ast_霞_199__ _VERANTYX_霞:1.0___ast_霞_37__ `[_VERANTYX_廂:1.0___ast_廂_105__]` _VERANTYX_霞:1.0___ast_霞_41__:\_VERANTYX_霞:1.0___ast_霞_138__ for _VERANTYX_霞:1.0___ast_霞_202__ _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_131__ if _VERANTYX_霞:1.0___ast_霞_36__. _VERANTYX_廂:1.0___ast_廂_104__, _VERANTYX_廂:1.0___ast_廂_77__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_41__ to `[_VERANTYX_廂:1.0___ast_廂_48__]` _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_186__.\n\n4. If _VERANTYX_霞:1.0___ast_霞_199__ _VERANTYX_霞:1.0___ast_霞_170__ _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_227__ any of _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_霞:1.0___ast_霞_223__ _VERANTYX_霞:1.0___ast_霞_30__ (e.g. _VERANTYX_霞:1.0___ast_霞_211__ _VERANTYX_霞:1.0___ast_霞_232__ _VERANTYX_霞:1.0___ast_霞_28__):\_VERANTYX_霞:1.0___ast_霞_156__ _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_184__, do _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_94__ _VERANTYX_霞:1.0___ast_霞_98__, _VERANTYX_霞:1.0___ast_霞_214__ do _VERANTYX_廂:1.0___ast_廂_57__ _VERANTYX_霞:1.0___ast_霞_71__ _VERANTYX_廂:1.0___ast_廂_89__ _VERANTYX_霞:1.0___ast_霞_41__ _VERANTYX_霞:1.0___ast_霞_96__ `[_VERANTYX_道:1.0___ast_廂_83__]`. _VERANTYX_廂:1.0___ast_廂_84__ _VERANTYX_霞:1.0___ast_霞_65__ _VERANTYX_霞:1.0___ast_霞_48__ _VERANTYX_廂:1.0___ast_廂_70__ _VERANTYX_霞:1.0___ast_霞_133__ _VERANTYX_霞:1.0___ast_霞_22__ _VERANTYX_霞:1.0___ast_霞_210__ a _VERANTYX_霞:1.0___ast_霞_16__ _VERANTYX_道:1.0___ast_霞_85__. _VERANTYX_廂:1.0___ast_廂_4__ _VERANTYX_霞:1.0___ast_霞_179__.\n\_VERANTYX_霞:1.0___ast_霞_69__: {}", 
+                        _VERANTYX_霞:1.0___ast_霞_70__, _VERANTYX_霞:1.0___ast_霞_206__
+                    )
+                };
+
+                let _VERANTYX_霞:1.0___ast_霞_78__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { "サブタスク" } else { "_VERANTYX_廂:1.0___ast_廂_29__" };
+                let _VERANTYX_霞:1.0___ast_霞_146__ = _VERANTYX_澎:1.0___ast_霞_14__!("===============================\n{}\n===============================", _VERANTYX_霞:1.0___ast_霞_207__._VERANTYX_霞:1.0___ast_霞_171__());
+                let _VERANTYX_霞:1.0___ast_霞_140__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { _VERANTYX_澎:1.0___ast_霞_14__!("これから【{}】版に送ります。クリップボードに保存します...", _VERANTYX_霞:1.0___ast_霞_70__) } else { _VERANTYX_澎:1.0___ast_霞_14__!("_VERANTYX_廂:1.0___ast_廂_86__ to {}. _VERANTYX_廂:1.0___ast_廂_26__ to _VERANTYX_霞:1.0___ast_霞_101__...", _VERANTYX_霞:1.0___ast_霞_70__) };
+                let _VERANTYX_匼:1.0___ast_霞_63__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { "保存しました！内容は以下の通りです:" } else { "_VERANTYX_匼:1.0___ast_廂_23__! _VERANTYX_廂:1.0___ast_廂_44__ _VERANTYX_霞:1.0___ast_霞_130__:" };
+
+                _VERANTYX_霞:1.0___ast_霞_126__!("\n{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(_VERANTYX_澎:1.0___ast_霞_14__!("╭─ [ _VERANTYX_廂:1.0___ast_廂_95__: {} {} ] ──────────────────", _VERANTYX_霞:1.0___ast_霞_70__, _VERANTYX_霞:1.0___ast_霞_78__))._VERANTYX_霞:1.0___ast_霞_84__()._VERANTYX_霞:1.0___ast_霞_53__());
+                _VERANTYX_霞:1.0___ast_霞_126__!("{} 📝 {}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("│")._VERANTYX_霞:1.0___ast_霞_84__()._VERANTYX_霞:1.0___ast_霞_53__(), _VERANTYX_霞:1.0___ast_霞_140__);
+
+                let _ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_道:1.0___ast_錬_3__(&_VERANTYX_霞:1.0___ast_霞_146__).a_VERANTYX_霞:1.0___ast_霞_148__;
+                _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_6__(500)).a_VERANTYX_霞:1.0___ast_霞_148__;
+
+                _VERANTYX_霞:1.0___ast_霞_126__!("{} ✔ {}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("│")._VERANTYX_霞:1.0___ast_霞_197__()._VERANTYX_霞:1.0___ast_霞_53__(), _VERANTYX_匼:1.0___ast_霞_63__);
+                _VERANTYX_霞:1.0___ast_霞_126__!("{} {}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("│")._VERANTYX_霞:1.0___ast_霞_197__(), _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(_VERANTYX_霞:1.0___ast_霞_146__._VERANTYX_霞:1.0___ast_霞_217__()._VERANTYX_霞:1.0___ast_霞_230__(150)._VERANTYX_霞:1.0___ast_霞_51__::<_VERANTYX_廂:1.0___ast_廂_7__>() + "...")._VERANTYX_霞:1.0___ast_霞_102__());
+                _VERANTYX_霞:1.0___ast_霞_126__!("{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("╰─────────────────────────────────────────────────────")._VERANTYX_霞:1.0___ast_霞_84__()._VERANTYX_霞:1.0___ast_霞_53__());
+
+// _VERANTYX_錬:0.9___ast_ZZ_663__ [decoy-metadata]
+                let (_VERANTYX_霞:1.0___ast_霞_181__, _VERANTYX_霞:1.0___ast_霞_159__) = if self._VERANTYX_霞:1.0___ast_霞_103__ == _VERANTYX_廂:1.0___ast_廂_42__::_VERANTYX_廂:1.0___ast_廂_15__ { 
+                    if self._VERANTYX_霞:1.0___ast_霞_21__ { ("【中央のシニア用ウィンドウ】", "_VERANTYX_霞:1.0___ast_霞_209__") } else { ("[_VERANTYX_廂:1.0___ast_廂_108__ _VERANTYX_廂:1.0___ast_廂_15__ _VERANTYX_廂:1.0___ast_廂_13__]", "_VERANTYX_霞:1.0___ast_霞_209__") }
+                } else { 
+                    if self._VERANTYX_霞:1.0___ast_霞_21__ { ("【右側の弟子用ウィンドウ】", "_VERANTYX_霞:1.0___ast_霞_168__") } else { ("[_VERANTYX_廂:1.0___ast_廂_34__ _VERANTYX_廂:1.0___ast_廂_90__ _VERANTYX_廂:1.0___ast_廂_13__]", "_VERANTYX_霞:1.0___ast_霞_168__") }
+                };
+// _VERANTYX_錬:0.8___ast_ZA_760__ [decoy-metadata]
+
+                let _VERANTYX_霞:1.0___ast_霞_192__ = _VERANTYX_霞:1.0___ast_霞_238__::_VERANTYX_霞:1.0___ast_霞_38__::_VERANTYX_霞:1.0___ast_霞_120__()._VERANTYX_霞:1.0___ast_霞_42__(|_| _VERANTYX_霞:1.0___ast_霞_238__::_VERANTYX_霞:1.0___ast_霞_33__::_VERANTYX_廂:1.0___ast_廂_43__::_VERANTYX_霞:1.0___ast_霞_162__("."));
+                let _VERANTYX_霞:1.0___ast_霞_61__ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_75__::_VERANTYX_匼:1.0___ast_霞_198__(&_VERANTYX_霞:1.0___ast_霞_192__);
+
+                self._VERANTYX_霞:1.0___ast_霞_224__ += 1;
+                if self._VERANTYX_霞:1.0___ast_霞_224__ >= 5 {
+                    _VERANTYX_霞:1.0___ast_霞_126__!("{} _VERANTYX_廂:1.0___ast_廂_100__ 5 _VERANTYX_霞:1.0___ast_霞_83__ _VERANTYX_霞:1.0___ast_霞_18__ for {}. _VERANTYX_廂:1.0___ast_廂_39__ _VERANTYX_廂:1.0___ast_廂_93__ _VERANTYX_廂:1.0___ast_廂_16__ to _VERANTYX_霞:1.0___ast_霞_121__ _VERANTYX_霞:1.0___ast_霞_237__/_VERANTYX_霞:1.0___ast_霞_201__-_VERANTYX_霞:1.0___ast_霞_91__.", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("[_VERANTYX_廂:1.0___ast_廂_91__]")._VERANTYX_霞:1.0___ast_霞_97__(), _VERANTYX_霞:1.0___ast_霞_181__);
+                    let _VERANTYX_匼:1.0___ast_霞_2__ = "_VERANTYX_霞:1.0___ast_霞_90__._VERANTYX_霞:1.0___ast_霞_139__._VERANTYX_霞:1.0___ast_霞_132__ = '_VERANTYX_絵:1.0___ast_霞_176__://_VERANTYX_霞:1.0___ast_霞_81__._VERANTYX_霞:1.0___ast_霞_219__._VERANTYX_霞:1.0___ast_霞_215__/_VERANTYX_霞:1.0___ast_霞_187__';";
+                    let _VERANTYX_匼:1.0___ast_霞_154__ = _VERANTYX_澎:1.0___ast_霞_14__!(
+                        r#"_VERANTYX_霞:1.0___ast_霞_111__ _VERANTYX_霞:1.0___ast_霞_110__ "_VERANTYX_廂:1.0___ast_廂_102__"
+                            _VERANTYX_道:1.0___ast_錬_2__ _VERANTYX_霞:1.0___ast_霞_12__ to _VERANTYX_霞:1.0___ast_霞_105__ _VERANTYX_霞:1.0___ast_霞_90__
+                            _VERANTYX_霞:1.0___ast_霞_68__ _VERANTYX_霞:1.0___ast_霞_62__ w in _VERANTYX_霞:1.0___ast_霞_12__
+                                if _VERANTYX_霞:1.0___ast_霞_10__ of w _VERANTYX_霞:1.0___ast_霞_129__ "{}" or _VERANTYX_霞:1.0___ast_霞_31__ 1 of w is _VERANTYX_霞:1.0___ast_霞_188__ _VERANTYX_霞:1.0___ast_霞_166__ _VERANTYX_霞:1.0___ast_霞_135__ _VERANTYX_霞:1.0___ast_霞_113__
+                                    do _VERANTYX_廂:1.0___ast_廂_61__ "{}" in _VERANTYX_霞:1.0___ast_霞_31__ 1 of w
+                                    _VERANTYX_霞:1.0___ast_霞_44__ _VERANTYX_霞:1.0___ast_霞_68__
+                                _VERANTYX_霞:1.0___ast_霞_55__ if
+                            _VERANTYX_霞:1.0___ast_霞_55__ _VERANTYX_霞:1.0___ast_霞_68__
+                        _VERANTYX_霞:1.0___ast_霞_55__ _VERANTYX_霞:1.0___ast_霞_111__"#, 
+                        "_VERANTYX_廂:1.0___ast_廂_52__", // _VERANTYX_廂:1.0___ast_廂_12__ _VERANTYX_霞:1.0___ast_霞_100__ _VERANTYX_霞:1.0___ast_霞_11__ if _VERANTYX_霞:1.0___ast_霞_87__ _VERANTYX_霞:1.0___ast_霞_189__ we'll _VERANTYX_霞:1.0___ast_霞_52__ _VERANTYX_霞:1.0___ast_霞_8__ _VERANTYX_霞:1.0___ast_霞_231__ _VERANTYX_霞:1.0___ast_霞_90__ _VERANTYX_霞:1.0___ast_霞_195__ _VERANTYX_霞:1.0___ast_霞_35__
+                        _VERANTYX_匼:1.0___ast_霞_2__
+                    );
+
+// [metadata-stripped]
+                    let _ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_霞:1.0___ast_霞_229__(_VERANTYX_霞:1.0___ast_霞_159__).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    let _VERANTYX_匼:1.0___ast_霞_58__ = _VERANTYX_澎:1.0___ast_霞_14__!(r#"_VERANTYX_霞:1.0___ast_霞_111__ _VERANTYX_霞:1.0___ast_霞_110__ "_VERANTYX_廂:1.0___ast_廂_102__" to do _VERANTYX_廂:1.0___ast_廂_61__ "{}" in _VERANTYX_霞:1.0___ast_霞_231__ _VERANTYX_霞:1.0___ast_霞_31__"#, _VERANTYX_匼:1.0___ast_霞_2__._VERANTYX_霞:1.0___ast_霞_118__("\"", "\\\""));
+                    let _ = _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_1__::_VERANTYX_廂:1.0___ast_廂_80__::_VERANTYX_霞:1.0___ast_霞_175__("_VERANTYX_霞:1.0___ast_霞_241__")._VERANTYX_霞:1.0___ast_霞_143__("-e")._VERANTYX_霞:1.0___ast_霞_143__(&_VERANTYX_匼:1.0___ast_霞_58__)._VERANTYX_霞:1.0___ast_霞_186__().a_VERANTYX_霞:1.0___ast_霞_148__;
+                    
+                    _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_222__(4)).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    self._VERANTYX_霞:1.0___ast_霞_224__ = 0;
+// _VERANTYX_錬:0.5___ast_VB_624__ [decoy-metadata]
+                }
+
+                _VERANTYX_霞:1.0___ast_霞_165__ {
+                    _VERANTYX_霞:1.0___ast_霞_126__!("\n{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(if self._VERANTYX_霞:1.0___ast_霞_21__ {"👉 クリップボード準備完了。ブラウザを開きますか？"} else {"👉 _VERANTYX_廂:1.0___ast_廂_22__ _VERANTYX_霞:1.0___ast_霞_128__. _VERANTYX_廂:1.0___ast_廂_35__ _VERANTYX_道:1.0___ast_霞_158__ _VERANTYX_霞:1.0___ast_霞_226__?"})._VERANTYX_霞:1.0___ast_霞_97__()._VERANTYX_霞:1.0___ast_霞_53__());
+                    
+// [metadata-stripped]
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ == _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        let _VERANTYX_霞:1.0___ast_霞_183__ = _VERANTYX_澎:1.0___ast_霞_14__!("🚀 🤖 [_VERANTYX_廂:1.0___ast_廂_17__-_VERANTYX_廂:1.0___ast_廂_19__] _VERANTYX_廂:1.0___ast_廂_28__ {}. _VERANTYX_廂:1.0___ast_廂_92__ _VERANTYX_霞:1.0___ast_霞_204__ _VERANTYX_霞:1.0___ast_霞_177__...", _VERANTYX_霞:1.0___ast_霞_181__);
+                        _VERANTYX_霞:1.0___ast_霞_126__!("{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(_VERANTYX_霞:1.0___ast_霞_183__)._VERANTYX_霞:1.0___ast_霞_197__()._VERANTYX_霞:1.0___ast_霞_53__());
+                    } else {
+                        let _VERANTYX_霞:1.0___ast_霞_47__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { _VERANTYX_霞:1.0___ast_霞_99__![" コピー完了・フォーカス移動へ", " もう一度コピー"] } else { _VERANTYX_霞:1.0___ast_霞_99__![" _VERANTYX_廂:1.0___ast_廂_64__ _VERANTYX_廂:1.0___ast_廂_35__", " _VERANTYX_廂:1.0___ast_廂_33__ _VERANTYX_廂:1.0___ast_廂_45__"] };
+                        let _VERANTYX_霞:1.0___ast_霞_137__ = _VERANTYX_道:1.0___ast_霞_234__::_VERANTYX_廂:1.0___ast_廂_40__::_VERANTYX_霞:1.0___ast_霞_175__()
+                            ._VERANTYX_霞:1.0___ast_霞_74__(if self._VERANTYX_霞:1.0___ast_霞_21__ { "選択" } else { "_VERANTYX_廂:1.0___ast_廂_87__" })
+                            ._VERANTYX_霞:1.0___ast_霞_29__(0)._VERANTYX_霞:1.0___ast_霞_3__(&_VERANTYX_霞:1.0___ast_霞_47__[..])._VERANTYX_霞:1.0___ast_霞_200__()._VERANTYX_霞:1.0___ast_霞_80__();
+                        if _VERANTYX_霞:1.0___ast_霞_137__ != 0 {
+                            let _ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_道:1.0___ast_錬_3__(&_VERANTYX_霞:1.0___ast_霞_146__).a_VERANTYX_霞:1.0___ast_霞_148__;
+                            continue;
+                        }
+                    }
+
+// [metadata-stripped]
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ != _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        let _VERANTYX_霞:1.0___ast_霞_183__ = _VERANTYX_澎:1.0___ast_霞_14__!("🚀 _VERANTYX_廂:1.0___ast_廂_28__ {}. _VERANTYX_廂:1.0___ast_廂_37__ _VERANTYX_霞:1.0___ast_霞_95__ _VERANTYX_廂:1.0___ast_廂_55__+V _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_廂:1.0___ast_廂_3__ it _VERANTYX_霞:1.0___ast_霞_79__!", _VERANTYX_霞:1.0___ast_霞_181__);
+                        _VERANTYX_霞:1.0___ast_霞_126__!("{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(_VERANTYX_霞:1.0___ast_霞_183__)._VERANTYX_霞:1.0___ast_霞_197__()._VERANTYX_霞:1.0___ast_霞_53__());
+                    }
+                    
+                    let _ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_霞:1.0___ast_霞_229__(_VERANTYX_霞:1.0___ast_霞_159__).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_6__(500)).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ == _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        _VERANTYX_霞:1.0___ast_霞_126__!("{} 📝 (自動モードのため、自動ペースト＆送信を実行します...)", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("[_VERANTYX_廂:1.0___ast_廂_17__]")._VERANTYX_霞:1.0___ast_霞_97__());
+                        let _ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_霞:1.0___ast_霞_73__(&_VERANTYX_霞:1.0___ast_霞_146__).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    }
+
+// [metadata-stripped]
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ == _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        let _VERANTYX_霞:1.0___ast_霞_185__ = 20; // _VERANTYX_廂:1.0___ast_廂_53__ _VERANTYX_霞:1.0___ast_霞_9__ _VERANTYX_霞:1.0___ast_霞_148__ for _VERANTYX_霞:1.0___ast_霞_212__ _VERANTYX_廂:1.0___ast_廂_85__ _VERANTYX_霞:1.0___ast_霞_149__
+                        let _VERANTYX_霞:1.0___ast_霞_24__ = _VERANTYX_霞:1.0___ast_霞_146__._VERANTYX_霞:1.0___ast_霞_217__()._VERANTYX_霞:1.0___ast_霞_109__() as _VERANTYX_霞:1.0___ast_霞_239__;
+                        let _VERANTYX_霞:1.0___ast_霞_64__ = _VERANTYX_霞:1.0___ast_霞_24__ / 100;
+                        let _VERANTYX_霞:1.0___ast_霞_13__ = _VERANTYX_霞:1.0___ast_霞_238__::_VERANTYX_霞:1.0___ast_霞_163__::_VERANTYX_霞:1.0___ast_霞_155__(_VERANTYX_霞:1.0___ast_霞_185__ + _VERANTYX_霞:1.0___ast_霞_64__, 60);
+                        
+                        _VERANTYX_霞:1.0___ast_霞_126__!("{} ⏳ _VERANTYX_廂:1.0___ast_廂_8__ {} _VERANTYX_霞:1.0___ast_霞_7__ for _VERANTYX_廂:1.0___ast_廂_102__ _VERANTYX_廂:1.0___ast_廂_52__ _VERANTYX_霞:1.0___ast_霞_142__...", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("[_VERANTYX_廂:1.0___ast_廂_17__]")._VERANTYX_霞:1.0___ast_霞_97__(), _VERANTYX_霞:1.0___ast_霞_13__);
+                        _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_222__(_VERANTYX_霞:1.0___ast_霞_13__)).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    } else {
+                        let _VERANTYX_霞:1.0___ast_霞_19__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { "✔ 回答が出たら _VERANTYX_廂:1.0___ast_廂_55__+C でコピーして選択" } else { "✔ _VERANTYX_廂:1.0___ast_廂_33__ _VERANTYX_道:1.0___ast_霞_228__ (_VERANTYX_廂:1.0___ast_廂_55__+C) _VERANTYX_霞:1.0___ast_霞_214__ _VERANTYX_霞:1.0___ast_霞_95__ _VERANTYX_道:1.0___ast_廂_38__" };
+                        let _ = _VERANTYX_道:1.0___ast_霞_234__::_VERANTYX_廂:1.0___ast_廂_40__::_VERANTYX_霞:1.0___ast_霞_175__()._VERANTYX_霞:1.0___ast_霞_74__(_VERANTYX_霞:1.0___ast_霞_19__)
+                            ._VERANTYX_霞:1.0___ast_霞_29__(0)._VERANTYX_霞:1.0___ast_霞_3__(&[" _VERANTYX_廂:1.0___ast_廂_73__ _VERANTYX_廂:1.0___ast_廂_96__"])._VERANTYX_霞:1.0___ast_霞_200__()._VERANTYX_霞:1.0___ast_霞_80__();
+                    }
+                    
+// [metadata-stripped]
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ == _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        _VERANTYX_霞:1.0___ast_霞_126__!("{} ⏳ _VERANTYX_廂:1.0___ast_廂_88__ _VERANTYX_霞:1.0___ast_霞_49__ _VERANTYX_霞:1.0___ast_霞_212__ _VERANTYX_霞:1.0___ast_霞_25__...", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__("[_VERANTYX_廂:1.0___ast_廂_91__]")._VERANTYX_霞:1.0___ast_霞_97__());
+                        if let _VERANTYX_廂:1.0___ast_廂_71__(e) = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_霞:1.0___ast_霞_34__().a_VERANTYX_霞:1.0___ast_霞_148__ {
+                            _VERANTYX_霞:1.0___ast_霞_151__!("[_VERANTYX_廂:1.0___ast_廂_98__] _VERANTYX_廂:1.0___ast_廂_50__ _VERANTYX_霞:1.0___ast_霞_218__ _VERANTYX_霞:1.0___ast_霞_25__ _VERANTYX_廂:1.0___ast_廂_107__ _VERANTYX_廂:1.0___ast_廂_30__ _VERANTYX_廂:1.0___ast_廂_1__: {}", e);
+                        }
+                        _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_6__(500)).a_VERANTYX_霞:1.0___ast_霞_148__;
+                    }
+
+// [metadata-stripped]
+                    let _VERANTYX_霞:1.0___ast_霞_220__ = _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_15__::_VERANTYX_霞:1.0___ast_霞_93__::_VERANTYX_廂:1.0___ast_廂_32__::_VERANTYX_道:1.0___ast_錬_1__().a_VERANTYX_霞:1.0___ast_霞_148__._VERANTYX_霞:1.0___ast_霞_152__();
+                    
+// [metadata-stripped]
+                    if _VERANTYX_霞:1.0___ast_霞_61__._VERANTYX_霞:1.0___ast_霞_46__ == _VERANTYX_霞:1.0___ast_霞_56__::_VERANTYX_霞:1.0___ast_霞_182__::_VERANTYX_廂:1.0___ast_廂_69__::_VERANTYX_廂:1.0___ast_廂_68__ {
+                        if _VERANTYX_霞:1.0___ast_霞_220__._VERANTYX_霞:1.0___ast_霞_171__() == _VERANTYX_霞:1.0___ast_霞_146__._VERANTYX_霞:1.0___ast_霞_171__() || _VERANTYX_霞:1.0___ast_霞_220__._VERANTYX_霞:1.0___ast_霞_145__() {
+                            _VERANTYX_霞:1.0___ast_霞_126__!("{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(if self._VERANTYX_霞:1.0___ast_霞_21__ { "❌ 抽出エラー (_VERANTYX_廂:1.0___ast_廂_52__が応答中か要素が見つかりません)。再試行します..." } else { "❌ _VERANTYX_廂:1.0___ast_廂_73__ _VERANTYX_霞:1.0___ast_霞_123__. _VERANTYX_廂:1.0___ast_廂_52__ _VERANTYX_霞:1.0___ast_霞_191__'t _VERANTYX_霞:1.0___ast_霞_66__ _VERANTYX_霞:1.0___ast_霞_127__. _VERANTYX_廂:1.0___ast_廂_97__..." })._VERANTYX_霞:1.0___ast_霞_5__());
+                            _VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_霞:1.0___ast_霞_157__(_VERANTYX_霞:1.0___ast_霞_205__::_VERANTYX_霞:1.0___ast_霞_26__::_VERANTYX_廂:1.0___ast_廂_99__::_VERANTYX_霞:1.0___ast_霞_6__(3000)).a_VERANTYX_霞:1.0___ast_霞_148__;
+                            continue;
+                        }
+                    }
+
+                    let _VERANTYX_霞:1.0___ast_霞_193__ = if self._VERANTYX_霞:1.0___ast_霞_21__ { _VERANTYX_澎:1.0___ast_霞_14__!("✔ 自動抽出完了！({}文字)", _VERANTYX_霞:1.0___ast_霞_220__._VERANTYX_霞:1.0___ast_霞_217__()._VERANTYX_霞:1.0___ast_霞_109__()) } else { _VERANTYX_澎:1.0___ast_霞_14__!("✔ _VERANTYX_廂:1.0___ast_廂_81__ _VERANTYX_廂:1.0___ast_廂_73__ _VERANTYX_霞:1.0___ast_霞_23__! ({} _VERANTYX_霞:1.0___ast_霞_217__)", _VERANTYX_霞:1.0___ast_霞_220__._VERANTYX_霞:1.0___ast_霞_217__()._VERANTYX_霞:1.0___ast_霞_109__()) };
+                    _VERANTYX_霞:1.0___ast_霞_126__!("{}", _VERANTYX_霞:1.0___ast_霞_50__::_VERANTYX_霞:1.0___ast_霞_161__(_VERANTYX_霞:1.0___ast_霞_193__)._VERANTYX_霞:1.0___ast_霞_197__());
+                    
+// [metadata-stripped]
+// _VERANTYX_澎:0.5___ast_GF_291__ [decoy-metadata]
+                    let _VERANTYX_霞:1.0___ast_霞_213__ = _VERANTYX_廂:1.0___ast_廂_21__::_VERANTYX_廂:1.0___ast_廂_54__(_VERANTYX_霞:1.0___ast_霞_220__);
+                    return Ok(_VERANTYX_廂:1.0___ast_廂_103__(_VERANTYX_廂:1.0___ast_廂_25__ {
+                        _VERANTYX_霞:1.0___ast_霞_43__: _VERANTYX_廂:1.0___ast_廂_36__::_VERANTYX_霞:1.0___ast_霞_180__(),
+                        _VERANTYX_道:1.0___ast_霞_32__: self._VERANTYX_霞:1.0___ast_霞_10__()._VERANTYX_霞:1.0___ast_霞_141__(),
+                        _VERANTYX_霞:1.0___ast_霞_82__: _VERANTYX_霞:1.0___ast_霞_38__._VERANTYX_道:1.0___ast_霞_32__,
+                        _VERANTYX_匼:1.0___ast_霞_106__: _VERANTYX_霞:1.0___ast_霞_208__::_VERANTYX_霞:1.0___ast_霞_141__(&_VERANTYX_霞:1.0___ast_霞_213__)?,
+                    }));
+// _VERANTYX_絵:0.2___ast_VW_211__ [decoy-metadata]
+// _VERANTYX_澎:0.2___ast_ML_742__ [decoy-metadata]
+                }
+            },
+
+
+            _ => Ok(_VERANTYX_廂:1.0___ast_廂_6__)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

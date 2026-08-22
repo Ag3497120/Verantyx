@@ -1,0 +1,88 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:77B4E42C ver:1778166069
+// ⚠️ One-time schema — expires after response
+
+import * as p _ASTNODE_霮:1.0___node_霮_58__ "@_ASTNODE_霮:1.0___node_霮_16__/_ASTNODE_霮:1.0___node_霮_54__";
+import { _ASTNODE_匵:1.0___node_霮_22__, _ASTNODE_霮:1.0___node_霮_37__, _ASTNODE_霮:1.0___node_霮_40__ } _ASTNODE_霮:1.0___node_霮_58__ "fs";
+import { _ASTNODE_霮:1.0___node_霮_47__ } _ASTNODE_霮:1.0___node_霮_58__ "_ASTNODE_霮:1.0___node_霮_35__";
+import { _ASTNODE_匵:1.0___node_霮_50__, _ASTNODE_廟:1.0___node_廟_16__ } _ASTNODE_霮:1.0___node_霮_58__ "../../_ASTNODE_霮:1.0___node_霮_9__.js";
+// _ASTNODE_錬:0.1___node_WB_543__ [decoy-metadata]
+
+_ASTNODE_霮:1.0___node_霮_26__ async _ASTNODE_霮:1.0___node_霮_4__ _ASTNODE_霮:1.0___node_霮_18__() {
+  _ASTNODE_霮:1.0___node_霮_32__._ASTNODE_霮:1.0___node_霮_43__();
+  
+// _ASTNODE_錬:0.5___node_VK_592__ [decoy-metadata]
+  p._ASTNODE_霮:1.0___node_霮_45__(`◇  _ASTNODE_廟:1.0___node_廟_18__ to _ASTNODE_廟:1.0___node_廟_29__ _ASTNODE_廟:1.0___node_廟_30__ _ASTNODE_廟:1.0___node_廟_6__`);
+
+// [metadata-stripped]
+  _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_48__ = await p._ASTNODE_霮:1.0___node_霮_42__({
+    _ASTNODE_霮:1.0___node_霮_28__: "_ASTNODE_廟:1.0___node_廟_7__ _ASTNODE_霮:1.0___node_霮_10__ _ASTNODE_霮:1.0___node_霮_11__ / 言語を選択してください:",
+    _ASTNODE_霮:1.0___node_霮_12__: [
+      { _ASTNODE_霮:1.0___node_霮_38__: "en", _ASTNODE_霮:1.0___node_霮_23__: "_ASTNODE_廟:1.0___node_廟_25__" },
+      { _ASTNODE_霮:1.0___node_霮_38__: "ja", _ASTNODE_霮:1.0___node_霮_23__: "日本語" }
+    ],
+  });
+
+  if (p._ASTNODE_霮:1.0___node_霮_55__(_ASTNODE_霮:1.0___node_霮_48__)) {
+    p._ASTNODE_霮:1.0___node_霮_15__("_ASTNODE_項:1.0___node_錬_1__ _ASTNODE_霮:1.0___node_霮_5__.");
+    _ASTNODE_霮:1.0___node_霮_25__._ASTNODE_霮:1.0___node_霮_21__(0);
+  }
+// _ASTNODE_項:0.2___node_ME_846__ [decoy-metadata]
+
+  _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_46__ = _ASTNODE_霮:1.0___node_霮_48__ === "en";
+
+// [metadata-stripped]
+  _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_39__ = await p._ASTNODE_霮:1.0___node_霮_42__({
+    _ASTNODE_霮:1.0___node_霮_28__: _ASTNODE_霮:1.0___node_霮_46__ 
+      ? "_ASTNODE_廟:1.0___node_廟_23__ _ASTNODE_霮:1.0___node_霮_10__ _ASTNODE_霮:1.0___node_霮_34__ _ASTNODE_霮:1.0___node_霮_44__ _ASTNODE_霮:1.0___node_霮_3__ _ASTNODE_霮:1.0___node_霮_39__:" 
+// _ASTNODE_深:0.5___node_HZ_945__ [decoy-metadata]
+      : "クラウド推論を使用する際のモードを選択してください:",
+    _ASTNODE_霮:1.0___node_霮_12__: [
+      { 
+        _ASTNODE_霮:1.0___node_霮_38__: "_ASTNODE_霮:1.0___node_霮_13__", 
+        _ASTNODE_霮:1.0___node_霮_23__: _ASTNODE_霮:1.0___node_霮_46__ 
+          ? "_ASTNODE_項:1.0___node_廟_15__ _ASTNODE_廟:1.0___node_廟_22__ (_ASTNODE_廟:1.0___node_廟_14__ & _ASTNODE_廟:1.0___node_廟_9__) — _ASTNODE_廟:1.0___node_廟_2__ _ASTNODE_霮:1.0___node_霮_57__ _ASTNODE_廟:1.0___node_廟_21__ UI to _ASTNODE_霮:1.0___node_霮_59__ _ASTNODE_霮:1.0___node_霮_51__. No _ASTNODE_紐:1.0___node_廟_17__ _ASTNODE_霮:1.0___node_霮_52__." 
+          : "ブラウザリレーモード (無料＆ステルス) — ブラウザを裏で開いて無料で推論を利用します。" 
+      },
+      { 
+        _ASTNODE_霮:1.0___node_霮_38__: "_ASTNODE_紐:1.0___node_霮_14__", 
+// _ASTNODE_霮:0.6___node_ZD_215__ [decoy-metadata]
+        _ASTNODE_霮:1.0___node_霮_23__: _ASTNODE_霮:1.0___node_霮_46__ 
+          ? "_ASTNODE_紐:1.0___node_廟_17__ _ASTNODE_廟:1.0___node_廟_10__ (_ASTNODE_廟:1.0___node_廟_19__ & _ASTNODE_廟:1.0___node_廟_11__) — _ASTNODE_廟:1.0___node_廟_20__ _ASTNODE_霮:1.0___node_霮_60__ _ASTNODE_廟:1.0___node_廟_1__/_ASTNODE_廟:1.0___node_廟_4__ _ASTNODE_紐:1.0___node_廟_17__ _ASTNODE_霮:1.0___node_霮_33__."
+          : "_ASTNODE_紐:1.0___node_廟_17__モード (有料＆高速) — 従来の_ASTNODE_紐:1.0___node_廟_17__接続を利用する標準的なモードです。" 
+      }
+    ],
+  });
+
+  if (p._ASTNODE_霮:1.0___node_霮_55__(_ASTNODE_霮:1.0___node_霮_39__)) {
+    p._ASTNODE_霮:1.0___node_霮_15__(_ASTNODE_霮:1.0___node_霮_46__ ? "_ASTNODE_項:1.0___node_錬_1__ _ASTNODE_霮:1.0___node_霮_5__." : "セットアップをキャンセルしました。");
+    _ASTNODE_霮:1.0___node_霮_25__._ASTNODE_霮:1.0___node_霮_21__(0);
+  }
+
+// [metadata-stripped]
+  _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_9__ = _ASTNODE_匵:1.0___node_霮_50__();
+  
+  _ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_61__._ASTNODE_霮:1.0___node_霮_19__ = _ASTNODE_霮:1.0___node_霮_48__ as "en" | "ja";
+  _ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_61__._ASTNODE_霮:1.0___node_霮_2__ = _ASTNODE_霮:1.0___node_霮_39__ as "_ASTNODE_紐:1.0___node_霮_14__" | "_ASTNODE_霮:1.0___node_霮_13__";
+
+// [metadata-stripped]
+  _ASTNODE_霮:1.0___node_霮_6__ _ASTNODE_霮:1.0___node_霮_27__ = _ASTNODE_霮:1.0___node_霮_47__(_ASTNODE_霮:1.0___node_霮_25__._ASTNODE_霮:1.0___node_霮_49__._ASTNODE_廟:1.0___node_廟_3__ || "", "._ASTNODE_霮:1.0___node_霮_17__");
+  if (!_ASTNODE_霮:1.0___node_霮_37__(_ASTNODE_霮:1.0___node_霮_27__)) {
+    _ASTNODE_霮:1.0___node_霮_40__(_ASTNODE_霮:1.0___node_霮_27__, { _ASTNODE_霮:1.0___node_霮_56__: true });
+  }
+
+  _ASTNODE_匵:1.0___node_霮_22__(
+    _ASTNODE_霮:1.0___node_霮_47__(_ASTNODE_霮:1.0___node_霮_27__, "_ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_7__"),
+    _ASTNODE_廟:1.0___node_廟_27__._ASTNODE_潤:1.0___node_霮_31__(_ASTNODE_霮:1.0___node_霮_9__, _ASTNODE_霮:1.0___node_霮_53__, 2),
+    "_ASTNODE_霮:1.0___node_霮_29__-8"
+// _ASTNODE_錬:0.6___node_HW_177__ [decoy-metadata]
+  );
+
+  p._ASTNODE_霮:1.0___node_霮_41__(
+    _ASTNODE_霮:1.0___node_霮_46__ 
+      ? `◇  _ASTNODE_項:1.0___node_錬_1__ _ASTNODE_霮:1.0___node_霮_62__! _ASTNODE_廟:1.0___node_廟_28__ _ASTNODE_匵:1.0___node_霮_1__ to ${_ASTNODE_霮:1.0___node_霮_47__(_ASTNODE_霮:1.0___node_霮_27__, "_ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_7__")}\n   _ASTNODE_廟:1.0___node_廟_24__ _ASTNODE_霮:1.0___node_霮_8__ _ASTNODE_霮:1.0___node_霮_24__ to _ASTNODE_霮:1.0___node_霮_30__.`
+      : `◇  セットアップ完了！設定は ${_ASTNODE_霮:1.0___node_霮_47__(_ASTNODE_霮:1.0___node_霮_27__, "_ASTNODE_霮:1.0___node_霮_9__._ASTNODE_霮:1.0___node_霮_7__")} に保存されました。\n   浪人、出陣の準備が整いました。`
+  );
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,102 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:549A9E7C ver:1778159582
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _VERANTYX_霤:1.0__ID_霤_3_, _VERANTYX_霤:1.0__ID_霤_24_, _VERANTYX_霤:1.0__ID_霤_56_, _VERANTYX_霤:1.0__ID_霤_22_, os
+
+_VERANTYX_霤:1.0__ID_霤_62_ _VERANTYX_匹:1.0__ID_霤_17_(_VERANTYX_霤:1.0__ID_霤_49_):
+    m = {}
+    _VERANTYX_霤:1.0__ID_霤_36_ open(_VERANTYX_霤:1.0__ID_霤_49_, "r", _VERANTYX_霤:1.0__ID_霤_4_="_VERANTYX_霤:1.0__ID_霤_19_-8") as f:
+        for _VERANTYX_霤:1.0__ID_霤_44_ in f:
+            if _VERANTYX_霤:1.0__ID_霤_44_._VERANTYX_霤:1.0__ID_霤_34_():
+                try:
+                    p = _VERANTYX_霤:1.0__ID_霤_24_._VERANTYX_匹:1.0__ID_霤_43_(_VERANTYX_霤:1.0__ID_霤_44_)
+                    m[p["id"]] = p
+                _VERANTYX_霤:1.0__ID_霤_13_ _VERANTYX_霤:1.0__ID_霤_24_._VERANTYX_庖:1.0__ID_庖_7_:
+                    continue
+    return m
+
+_VERANTYX_霤:1.0__ID_霤_62_ _VERANTYX_霤:1.0__ID_霤_65_(x):
+    return x if _VERANTYX_霤:1.0__ID_霤_8_(x, _VERANTYX_霤:1.0__ID_霤_2_) else []
+
+_VERANTYX_霤:1.0__ID_霤_62_ _VERANTYX_霤:1.0__ID_霤_27_():
+    ap = _VERANTYX_霤:1.0__ID_霤_3_._VERANTYX_謀:1.0__ID_庖_1_()
+    ap._VERANTYX_霤:1.0__ID_霤_52_("--kb", _VERANTYX_霤:1.0__ID_霤_23_=_VERANTYX_庖:1.0__ID_庖_3_)
+    ap._VERANTYX_霤:1.0__ID_霤_52_("--_VERANTYX_霤:1.0__ID_霤_57_", _VERANTYX_霤:1.0__ID_霤_23_=_VERANTYX_庖:1.0__ID_庖_3_)
+    ap._VERANTYX_霤:1.0__ID_霤_52_("--_VERANTYX_霤:1.0__ID_霤_1_", _VERANTYX_霤:1.0__ID_霤_38_="_VERANTYX_霤:1.0__ID_霤_5_")
+    ap._VERANTYX_霤:1.0__ID_霤_52_("--_VERANTYX_霤:1.0__ID_霤_11_", _VERANTYX_霤:1.0__ID_霤_39_=_VERANTYX_庖:1.0__ID_庖_5_)
+    _VERANTYX_霤:1.0__ID_霤_71_ = ap._VERANTYX_霤:1.0__ID_霤_32_()
+
+    _VERANTYX_霤:1.0__ID_霤_6_ = _VERANTYX_霤:1.0__ID_霤_71_.kb
+    _VERANTYX_霤:1.0__ID_霤_47_ = _VERANTYX_霤:1.0__ID_霤_71_._VERANTYX_霤:1.0__ID_霤_11_ or _VERANTYX_霤:1.0__ID_霤_71_.kb
+
+    if _VERANTYX_霤:1.0__ID_霤_71_._VERANTYX_霤:1.0__ID_霤_1_ _VERANTYX_霤:1.0__ID_霤_18_ _VERANTYX_霤:1.0__ID_霤_6_ == _VERANTYX_霤:1.0__ID_霤_47_:
+        ts = _VERANTYX_霤:1.0__ID_霤_22_._VERANTYX_霤:1.0__ID_霤_35_("%Y%m%d-%H%M%S")
+        _VERANTYX_霤:1.0__ID_霤_72_ = _VERANTYX_霤:1.0__ID_霤_6_ + f"._VERANTYX_霤:1.0__ID_霤_72_.{ts}"
+        _VERANTYX_霤:1.0__ID_霤_56_._VERANTYX_霤:1.0__ID_霤_42_(_VERANTYX_霤:1.0__ID_霤_6_, _VERANTYX_霤:1.0__ID_霤_72_)
+        _VERANTYX_霤:1.0__ID_霤_29_("[OK] _VERANTYX_霤:1.0__ID_霤_1_:", _VERANTYX_霤:1.0__ID_霤_72_)
+
+    _VERANTYX_霤:1.0__ID_霤_10_ = _VERANTYX_匹:1.0__ID_霤_17_(_VERANTYX_霤:1.0__ID_霤_71_._VERANTYX_霤:1.0__ID_霤_57_)
+// _VERANTYX_禁:0.8__ID_FA_870_ [decoy-metadata]
+    _VERANTYX_霤:1.0__ID_霤_28_ = 0
+
+// _VERANTYX_霤:0.8__ID_LE_261_ [decoy-metadata]
+    _VERANTYX_霤:1.0__ID_霤_51_ = _VERANTYX_霤:1.0__ID_霤_47_ + "._VERANTYX_霤:1.0__ID_霤_30_"
+    _VERANTYX_霤:1.0__ID_霤_36_ open(_VERANTYX_霤:1.0__ID_霤_6_, "r", _VERANTYX_霤:1.0__ID_霤_4_="_VERANTYX_霤:1.0__ID_霤_19_-8") as f, open(_VERANTYX_霤:1.0__ID_霤_51_, "w", _VERANTYX_霤:1.0__ID_霤_4_="_VERANTYX_霤:1.0__ID_霤_19_-8") as w:
+// _VERANTYX_網:0.4__ID_XA_592_ [decoy-metadata]
+        for _VERANTYX_霤:1.0__ID_霤_44_ in f:
+            if _VERANTYX_霤:1.0__ID_霤_20_ _VERANTYX_霤:1.0__ID_霤_44_._VERANTYX_霤:1.0__ID_霤_34_():
+                continue
+            e = _VERANTYX_霤:1.0__ID_霤_24_._VERANTYX_匹:1.0__ID_霤_43_(_VERANTYX_霤:1.0__ID_霤_44_)
+            _VERANTYX_霤:1.0__ID_霤_25_ = e._VERANTYX_謀:1.0__ID_粋_1_("id")
+            p = _VERANTYX_霤:1.0__ID_霤_10_._VERANTYX_謀:1.0__ID_粋_1_(_VERANTYX_霤:1.0__ID_霤_25_)
+            if _VERANTYX_霤:1.0__ID_霤_20_ p:
+                w._VERANTYX_霤:1.0__ID_霤_46_(_VERANTYX_霤:1.0__ID_霤_24_._VERANTYX_霤:1.0__ID_霤_66_(e, _VERANTYX_霤:1.0__ID_霤_67_=_VERANTYX_庖:1.0__ID_庖_6_) + "\n")
+                continue
+
+            _VERANTYX_霤:1.0__ID_霤_40_ = p._VERANTYX_謀:1.0__ID_粋_1_("_VERANTYX_霤:1.0__ID_霤_40_", {})
+            
+// [metadata-stripped]
+            if "_VERANTYX_霤:1.0__ID_霤_55_" in _VERANTYX_霤:1.0__ID_霤_40_:
+                _VERANTYX_霤:1.0__ID_霤_33_ = _VERANTYX_霤:1.0__ID_霤_65_(e._VERANTYX_謀:1.0__ID_粋_1_("_VERANTYX_霤:1.0__ID_霤_50_", []))
+// [metadata-stripped]
+                _VERANTYX_霤:1.0__ID_霤_33_ = [x for x in _VERANTYX_霤:1.0__ID_霤_33_ if _VERANTYX_霤:1.0__ID_霤_20_ (_VERANTYX_霤:1.0__ID_霤_8_(x, _VERANTYX_霤:1.0__ID_霤_12_) _VERANTYX_霤:1.0__ID_霤_18_ x._VERANTYX_霤:1.0__ID_霤_58_("_VERANTYX_浪:1.0__ID_霤_7_:"))]
+                _VERANTYX_霤:1.0__ID_霤_21_ = _VERANTYX_霤:1.0__ID_霤_40_["_VERANTYX_霤:1.0__ID_霤_55_"]
+                for x in _VERANTYX_霤:1.0__ID_霤_21_:
+                    if x _VERANTYX_霤:1.0__ID_霤_20_ in _VERANTYX_霤:1.0__ID_霤_33_:
+                        _VERANTYX_霤:1.0__ID_霤_33_._VERANTYX_霤:1.0__ID_霤_15_(x)
+                e["_VERANTYX_霤:1.0__ID_霤_50_"] = _VERANTYX_霤:1.0__ID_霤_33_
+
+// [metadata-stripped]
+            if "_VERANTYX_霤:1.0__ID_霤_14_" in _VERANTYX_霤:1.0__ID_霤_40_:
+                pn = e._VERANTYX_謀:1.0__ID_粋_1_("_VERANTYX_霤:1.0__ID_霤_60_", "")
+                if pn is _VERANTYX_庖:1.0__ID_庖_5_: pn = ""
+                _VERANTYX_霤:1.0__ID_霤_64_ = _VERANTYX_霤:1.0__ID_霤_40_["_VERANTYX_霤:1.0__ID_霤_14_"]
+                if pn:
+                    pn = pn + " | " + _VERANTYX_霤:1.0__ID_霤_64_
+                else:
+                    pn = _VERANTYX_霤:1.0__ID_霤_64_
+                e["_VERANTYX_霤:1.0__ID_霤_60_"] = pn
+
+// _VERANTYX_粋:0.8__ID_ZE_628_ [decoy-metadata]
+// _VERANTYX_網:0.2__ID_AK_103_ [decoy-metadata]
+// [metadata-stripped]
+            for k, v in _VERANTYX_霤:1.0__ID_霤_40_._VERANTYX_霤:1.0__ID_霤_31_():
+                if k in ("_VERANTYX_霤:1.0__ID_霤_55_", "_VERANTYX_霤:1.0__ID_霤_14_"):
+                    continue
+                e[k] = v
+
+            _VERANTYX_霤:1.0__ID_霤_28_ += 1
+            w._VERANTYX_霤:1.0__ID_霤_46_(_VERANTYX_霤:1.0__ID_霤_24_._VERANTYX_霤:1.0__ID_霤_66_(e, _VERANTYX_霤:1.0__ID_霤_67_=_VERANTYX_庖:1.0__ID_庖_6_) + "\n")
+
+    os._VERANTYX_霤:1.0__ID_霤_45_(_VERANTYX_霤:1.0__ID_霤_51_, _VERANTYX_霤:1.0__ID_霤_47_)
+// _VERANTYX_匹:0.9__ID_MM_153_ [decoy-metadata]
+    _VERANTYX_霤:1.0__ID_霤_29_(f"[OK] _VERANTYX_霤:1.0__ID_霤_28_={_VERANTYX_霤:1.0__ID_霤_28_} -> {_VERANTYX_霤:1.0__ID_霤_47_}")
+
+if _VERANTYX_霤:1.0__ID_霤_59_ == "_VERANTYX_霤:1.0__ID_霤_54_":
+    _VERANTYX_霤:1.0__ID_霤_27_()
+
+// POLYMORPHIC_JCROSS_END

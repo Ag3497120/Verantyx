@@ -1,0 +1,440 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:525E7A37 ver:1778150253
+// ⚠️ One-time schema — expires after response
+
+import __node_墟:1.0___VERANTYX_墟_52_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@__node_墟:1.0___VERANTYX_墟_47_
+final class __node_墟:1.0___VERANTYX_墟_29_: __node_墟:1.0___VERANTYX_墟_2_ {
+
+    static let __node_霡:1.0___VERANTYX_霡_88_ = __node_墟:1.0___VERANTYX_墟_29_()
+
+// [metadata-stripped]
+
+    enum __node_墟:1.0___VERANTYX_墟_73_: __node_墟:1.0___VERANTYX_墟_1_ {
+        case __node_霡:1.0___VERANTYX_霡_98_
+        case __node_霡:1.0___VERANTYX_霡_168_(__node_匶:1.0___VERANTYX_霡_23_: __node_墟:1.0___VERANTYX_墟_69_)
+        case __node_霡:1.0___VERANTYX_霡_12_
+        case __node_項:1.0___VERANTYX_霡_36_(__node_霡:1.0___VERANTYX_霡_226_: __node_墟:1.0___VERANTYX_墟_3_, __node_霡:1.0___VERANTYX_霡_115_: __node_墟:1.0___VERANTYX_墟_3_)
+        case __node_霡:1.0___VERANTYX_霡_180_
+        case __node_霡:1.0___VERANTYX_霡_156_
+        case __node_霡:1.0___VERANTYX_霡_245_
+        case __node_霡:1.0___VERANTYX_霡_178_
+// __node_浮:0.7___VERANTYX_BE_930_ [decoy-metadata]
+        case __node_霡:1.0___VERANTYX_霡_176_(__node_匶:1.0___VERANTYX_霡_23_: __node_墟:1.0___VERANTYX_墟_69_)
+        case __node_霡:1.0___VERANTYX_霡_268_
+        case __node_霡:1.0___VERANTYX_霡_21_(__node_霡:1.0___VERANTYX_霡_133_: __node_墟:1.0___VERANTYX_墟_69_)
+// __node_匶:0.9___VERANTYX_XH_562_ [decoy-metadata]
+        case __node_霡:1.0___VERANTYX_霡_86_(__node_霡:1.0___VERANTYX_霡_128_: __node_墟:1.0___VERANTYX_墟_69_)
+
+        static func == (__node_霡:1.0___VERANTYX_霡_87_: __node_墟:1.0___VERANTYX_墟_73_, __node_霡:1.0___VERANTYX_霡_177_: __node_墟:1.0___VERANTYX_墟_73_) -> __node_墟:1.0___VERANTYX_墟_74_ {
+            switch (__node_霡:1.0___VERANTYX_霡_87_, __node_霡:1.0___VERANTYX_霡_177_) {
+            case (.__node_霡:1.0___VERANTYX_霡_98_, .__node_霡:1.0___VERANTYX_霡_98_), (.__node_霡:1.0___VERANTYX_霡_180_, .__node_霡:1.0___VERANTYX_霡_180_),
+                 (.__node_霡:1.0___VERANTYX_霡_156_, .__node_霡:1.0___VERANTYX_霡_156_), (.__node_霡:1.0___VERANTYX_霡_245_, .__node_霡:1.0___VERANTYX_霡_245_),
+                 (.__node_霡:1.0___VERANTYX_霡_178_, .__node_霡:1.0___VERANTYX_霡_178_), (.__node_霡:1.0___VERANTYX_霡_268_, .__node_霡:1.0___VERANTYX_霡_268_): return true
+            __node_霡:1.0___VERANTYX_霡_274_: return false
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    @__node_墟:1.0___VERANTYX_墟_71_ var __node_霡:1.0___VERANTYX_霡_78_: __node_墟:1.0___VERANTYX_墟_73_ = .__node_霡:1.0___VERANTYX_霡_98_
+    @__node_墟:1.0___VERANTYX_墟_71_ var __node_霡:1.0___VERANTYX_霡_69_ = false
+    @__node_墟:1.0___VERANTYX_墟_71_ var __node_霡:1.0___VERANTYX_霡_55_: [__node_墟:1.0___VERANTYX_墟_69_] = []
+
+    private let __node_霡:1.0___VERANTYX_霡_82_   = __node_墟:1.0___VERANTYX_墟_60_()
+    private let __node_霡:1.0___VERANTYX_霡_8_     = __node_墟:1.0___VERANTYX_墟_25_()
+    private let __node_霡:1.0___VERANTYX_霡_223_         = __node_墟:1.0___VERANTYX_墟_104_.__node_霡:1.0___VERANTYX_霡_88_
+// [metadata-stripped]
+    private let __node_霡:1.0___VERANTYX_霡_19_    = __node_墟:1.0___VERANTYX_墟_80_()
+
+    private var __node_項:1.0___VERANTYX_霡_149_: __node_項:1.0___VERANTYX_墟_10_?
+
+    private var __node_霡:1.0___VERANTYX_霡_117_: __node_墟:1.0___VERANTYX_墟_38_ { __node_霡:1.0___VERANTYX_霡_223_.__node_霡:1.0___VERANTYX_霡_117_ }
+
+// [metadata-stripped]
+
+    private init() {
+        __node_項:1.0___VERANTYX_核_1_()
+    }
+
+    private func __node_項:1.0___VERANTYX_核_1_() {
+        let __node_紬:1.0___VERANTYX_霡_14_ = __node_霡:1.0___VERANTYX_霡_223_.__node_霡:1.0___VERANTYX_霡_117_.__node_紬:1.0___VERANTYX_霡_194_
+        __node_項:1.0___VERANTYX_霡_149_ = __node_項:1.0___VERANTYX_墟_10_(__node_紬:1.0___VERANTYX_霡_194_: __node_紬:1.0___VERANTYX_霡_14_)
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func __node_霡:1.0___VERANTYX_霡_236_(
+        __node_霡:1.0___VERANTYX_霡_174_: __node_墟:1.0___VERANTYX_墟_69_,
+        __node_霡:1.0___VERANTYX_霡_204_: __node_墟:1.0___VERANTYX_墟_69_,
+        __node_霡:1.0___VERANTYX_霡_211_: __node_墟:1.0___VERANTYX_墟_3_ = 2,
+        __node_霡:1.0___VERANTYX_霡_44_: __node_項:1.0___VERANTYX_墟_10_.__node_墟:1.0___VERANTYX_墟_76_ = .__node_霡:1.0___VERANTYX_霡_124_
+    ) async {
+        guard !__node_霡:1.0___VERANTYX_霡_69_ else { return }
+        __node_霡:1.0___VERANTYX_霡_69_ = true
+        defer { __node_霡:1.0___VERANTYX_霡_69_ = false }
+
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("🚀 __node_墟:1.0___VERANTYX_墟_51_ __node_霡:1.0___VERANTYX_霡_265_: \(__node_霡:1.0___VERANTYX_霡_174_)", "🚀 パイプライン開始: \(__node_霡:1.0___VERANTYX_霡_174_)"))
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_168_(__node_匶:1.0___VERANTYX_霡_23_: __node_霡:1.0___VERANTYX_霡_174_)
+        guard let __node_霡:1.0___VERANTYX_霡_37_ = __node_霡:1.0___VERANTYX_霡_117_.__node_霡:1.0___VERANTYX_霡_47_(__node_霡:1.0___VERANTYX_霡_24_: __node_霡:1.0___VERANTYX_霡_174_) else {
+// __node_核:0.5___VERANTYX_KH_487_ [decoy-metadata]
+// __node_紬:0.2___VERANTYX_YB_341_ [decoy-metadata]
+            __node_霡:1.0___VERANTYX_霡_77_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("__node_匶:1.0___VERANTYX_墟_6_ __node_霡:1.0___VERANTYX_霡_59_ __node_霡:1.0___VERANTYX_霡_130_ in __node_墟:1.0___VERANTYX_墟_27_: \(__node_霡:1.0___VERANTYX_霡_174_)", "__node_墟:1.0___VERANTYX_墟_27_ にファイルが見つかりません: \(__node_霡:1.0___VERANTYX_霡_174_)"))
+            return
+        }
+
+        let __node_霡:1.0___VERANTYX_霡_144_ = __node_霡:1.0___VERANTYX_霡_37_.__node_霡:1.0___VERANTYX_霡_134_
+        let __node_霡:1.0___VERANTYX_霡_209_   = __node_霡:1.0___VERANTYX_霡_37_.__node_霡:1.0___VERANTYX_霡_209_
+        let __node_霡:1.0___VERANTYX_霡_111_  = __node_霡:1.0___VERANTYX_霡_92_(__node_霡:1.0___VERANTYX_霡_222_: __node_霡:1.0___VERANTYX_霡_144_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("📦 __node_墟:1.0___VERANTYX_墟_88_: \(__node_霡:1.0___VERANTYX_霡_111_.__node_霡:1.0___VERANTYX_霡_234_) (__node_霡:1.0___VERANTYX_霡_209_: \(__node_霡:1.0___VERANTYX_霡_209_.__node_霡:1.0___VERANTYX_霡_91_.__node_霡:1.0___VERANTYX_霡_116_(8)))", "📦 ノード数: \(__node_霡:1.0___VERANTYX_霡_111_.__node_霡:1.0___VERANTYX_霡_234_) (__node_霡:1.0___VERANTYX_霡_209_: \(__node_霡:1.0___VERANTYX_霡_209_.__node_霡:1.0___VERANTYX_霡_91_.__node_霡:1.0___VERANTYX_霡_116_(8)))"))
+
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_148_ = await __node_霡:1.0___VERANTYX_霡_82_.__node_霡:1.0___VERANTYX_霡_169_(
+            __node_霡:1.0___VERANTYX_霡_91_: __node_霡:1.0___VERANTYX_霡_209_.__node_霡:1.0___VERANTYX_霡_91_,
+            __node_霡:1.0___VERANTYX_霡_144_: __node_霡:1.0___VERANTYX_霡_144_,
+            __node_霡:1.0___VERANTYX_霡_111_: __node_霡:1.0___VERANTYX_霡_111_,
+            __node_霡:1.0___VERANTYX_霡_211_: __node_霡:1.0___VERANTYX_霡_211_,
+            __node_霡:1.0___VERANTYX_霡_101_: 10
+        )
+        __node_霡:1.0___VERANTYX_霡_185_("🎭 フラグメント計画: 実\(__node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_121_) + ダミー\(__node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_196_)" +
+            " (\(__node_霡:1.0___VERANTYX_霡_44_.__node_霡:1.0___VERANTYX_霡_140_)でカモフラージュ)")
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_12_
+        guard let __node_項:1.0___VERANTYX_霡_105_ = __node_項:1.0___VERANTYX_霡_149_ else {
+            __node_霡:1.0___VERANTYX_霡_77_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("__node_項:1.0___VERANTYX_墟_10_ is __node_霡:1.0___VERANTYX_霡_108_", "__node_項:1.0___VERANTYX_墟_10_ が未初期化です"))
+            return
+        }
+
+        var __node_霡:1.0___VERANTYX_霡_95_ = __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_183_(
+            __node_霡:1.0___VERANTYX_霡_253_: __node_霡:1.0___VERANTYX_霡_223_.__node_霡:1.0___VERANTYX_霡_79_,
+            __node_霡:1.0___VERANTYX_霡_174_: __node_霡:1.0___VERANTYX_霡_174_,
+            __node_霡:1.0___VERANTYX_霡_118_: __node_霡:1.0___VERANTYX_霡_209_.__node_霡:1.0___VERANTYX_霡_91_,
+            __node_霡:1.0___VERANTYX_霡_44_: __node_霡:1.0___VERANTYX_霡_44_
+        )
+        let __node_霡:1.0___VERANTYX_霡_91_ = __node_霡:1.0___VERANTYX_霡_95_.__node_霡:1.0___VERANTYX_霡_91_
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("📝 __node_墟:1.0___VERANTYX_墟_49_ __node_霡:1.0___VERANTYX_霡_162_: \(__node_霡:1.0___VERANTYX_霡_91_)", "📝 セッション登録: \(__node_霡:1.0___VERANTYX_霡_91_)"))
+
+// [metadata-stripped]
+        for __node_霡:1.0___VERANTYX_霡_226_ in __node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_2_ {
+            if __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_93_ == .__node_霡:1.0___VERANTYX_霡_258_ {
+                __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_122_(
+                    to: __node_霡:1.0___VERANTYX_霡_91_,
+                    __node_霡:1.0___VERANTYX_霡_181_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_181_,
+                    __node_霡:1.0___VERANTYX_霡_155_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_155_,
+                    __node_霡:1.0___VERANTYX_霡_266_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_266_
+                )
+            } else {
+                __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_58_(
+                    to: __node_霡:1.0___VERANTYX_霡_91_,
+                    __node_霡:1.0___VERANTYX_霡_181_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_181_,
+                    __node_霡:1.0___VERANTYX_霡_155_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_155_,
+                    __node_霡:1.0___VERANTYX_霡_279_: __node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_279_ ?? __node_霡:1.0___VERANTYX_霡_44_
+                )
+            }
+        }
+
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_154_(__node_霡:1.0___VERANTYX_霡_91_, to: .__node_霡:1.0___VERANTYX_霡_141_)
+
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_246_ = __node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_2_.__node_霡:1.0___VERANTYX_霡_234_
+        var __node_霡:1.0___VERANTYX_霡_97_: [__node_墟:1.0___VERANTYX_墟_69_] = []
+
+        for (i, __node_霡:1.0___VERANTYX_霡_226_) in __node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_2_.__node_霡:1.0___VERANTYX_霡_200_() {
+            __node_霡:1.0___VERANTYX_霡_78_ = .__node_項:1.0___VERANTYX_霡_36_(__node_霡:1.0___VERANTYX_霡_226_: i + 1, __node_霡:1.0___VERANTYX_霡_115_: __node_霡:1.0___VERANTYX_霡_246_)
+            __node_霡:1.0___VERANTYX_霡_97_.__node_霡:1.0___VERANTYX_霡_61_(__node_霡:1.0___VERANTYX_霡_6_(__node_霡:1.0___VERANTYX_霡_226_: __node_霡:1.0___VERANTYX_霡_226_, __node_霡:1.0___VERANTYX_霡_145_: i + 1, __node_霡:1.0___VERANTYX_霡_115_: __node_霡:1.0___VERANTYX_霡_246_))
+
+// [metadata-stripped]
+            let __node_淵:1.0___VERANTYX_霡_203_ = __node_霡:1.0___VERANTYX_霡_97_.__node_霡:1.0___VERANTYX_霡_244_().__node_霡:1.0___VERANTYX_霡_234_ / 4
+            __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_276_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_205_: __node_淵:1.0___VERANTYX_霡_203_)
+
+            if __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_273_ {
+                __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("⚠️ __node_墟:1.0___VERANTYX_墟_40_ __node_霡:1.0___VERANTYX_霡_227_ __node_霡:1.0___VERANTYX_霡_104_ — __node_霡:1.0___VERANTYX_霡_221_ __node_霡:1.0___VERANTYX_霡_226_ __node_霡:1.0___VERANTYX_霡_160_", "⚠️ __node_墟:1.0___VERANTYX_墟_40_ バジェット残量僅少 — フラグメント送信を打ち切ります"))
+                break
+            }
+        }
+
+        let __node_霡:1.0___VERANTYX_霡_22_ = __node_霡:1.0___VERANTYX_霡_97_.__node_霡:1.0___VERANTYX_霡_244_(__node_霡:1.0___VERANTYX_霡_256_: "\n\n")
+        let __node_霡:1.0___VERANTYX_霡_85_ = __node_霡:1.0___VERANTYX_霡_82_.__node_霡:1.0___VERANTYX_霡_42_(
+            __node_霡:1.0___VERANTYX_霡_148_: __node_霡:1.0___VERANTYX_霡_148_,
+            __node_霡:1.0___VERANTYX_霡_106_: __node_霡:1.0___VERANTYX_霡_137_(__node_霡:1.0___VERANTYX_霡_204_: __node_霡:1.0___VERANTYX_霡_204_)
+        )
+
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("📡 __node_墟:1.0___VERANTYX_墟_33_ to __node_墟:1.0___VERANTYX_墟_95_ (\(__node_霡:1.0___VERANTYX_霡_22_.__node_霡:1.0___VERANTYX_霡_234_) __node_霡:1.0___VERANTYX_霡_131_)...", "📡 __node_墟:1.0___VERANTYX_墟_95_へ送信中 (\(__node_霡:1.0___VERANTYX_霡_22_.__node_霡:1.0___VERANTYX_霡_234_)文字)..."))
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_154_(__node_霡:1.0___VERANTYX_霡_91_, to: .__node_霡:1.0___VERANTYX_霡_180_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_霡:1.0___VERANTYX_霡_175_)
+
+        let __node_霡:1.0___VERANTYX_霡_75_ = await __node_項:1.0___VERANTYX_霡_34_(__node_霡:1.0___VERANTYX_霡_85_: __node_霡:1.0___VERANTYX_霡_85_, __node_霡:1.0___VERANTYX_霡_271_: __node_霡:1.0___VERANTYX_霡_22_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_48_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_280_: __node_霡:1.0___VERANTYX_霡_75_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_淵:1.0___VERANTYX_霡_143_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_270_: __node_霡:1.0___VERANTYX_霡_22_.__node_霡:1.0___VERANTYX_霡_234_ / 4, __node_霡:1.0___VERANTYX_霡_230_: __node_霡:1.0___VERANTYX_霡_75_.__node_霡:1.0___VERANTYX_霡_234_ / 4)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("📥 __node_墟:1.0___VERANTYX_墟_31_ __node_霡:1.0___VERANTYX_霡_282_ __node_霡:1.0___VERANTYX_霡_222_ __node_墟:1.0___VERANTYX_墟_95_ (\(__node_霡:1.0___VERANTYX_霡_75_.__node_霡:1.0___VERANTYX_霡_234_) __node_霡:1.0___VERANTYX_霡_131_)", "📥 __node_墟:1.0___VERANTYX_墟_95_からパッチを受信 (\(__node_霡:1.0___VERANTYX_霡_75_.__node_霡:1.0___VERANTYX_霡_234_)文字)"))
+
+// __node_匶:0.4___VERANTYX_VH_276_ [decoy-metadata]
+// [metadata-stripped]
+        guard let __node_霡:1.0___VERANTYX_霡_150_ = __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_239_(id: __node_霡:1.0___VERANTYX_霡_91_) else {
+            __node_霡:1.0___VERANTYX_霡_77_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("__node_墟:1.0___VERANTYX_墟_49_ __node_霡:1.0___VERANTYX_霡_59_ __node_霡:1.0___VERANTYX_霡_130_", "セッションが見つかりません"))
+            return
+        }
+        __node_霡:1.0___VERANTYX_霡_95_ = __node_霡:1.0___VERANTYX_霡_150_
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_156_
+        let __node_霡:1.0___VERANTYX_霡_114_ = __node_霡:1.0___VERANTYX_霡_8_.__node_霡:1.0___VERANTYX_霡_249_(__node_霡:1.0___VERANTYX_霡_222_: __node_霡:1.0___VERANTYX_霡_75_, __node_霡:1.0___VERANTYX_霡_239_: __node_霡:1.0___VERANTYX_霡_95_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_浮:1.0___VERANTYX_霡_189_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("🔍 __node_墟:1.0___VERANTYX_墟_89_ __node_霡:1.0___VERANTYX_霡_64_: \(__node_霡:1.0___VERANTYX_霡_114_.__node_霡:1.0___VERANTYX_霡_234_) __node_霡:1.0___VERANTYX_霡_282_ __node_霡:1.0___VERANTYX_霡_172_", "🔍 パース結果: \(__node_霡:1.0___VERANTYX_霡_114_.__node_霡:1.0___VERANTYX_霡_234_)件のパッチ候補"))
+
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_195_ = __node_霡:1.0___VERANTYX_霡_8_.__node_霡:1.0___VERANTYX_霡_113_(__node_霡:1.0___VERANTYX_霡_171_: __node_霡:1.0___VERANTYX_霡_114_, __node_霡:1.0___VERANTYX_霡_239_: __node_霡:1.0___VERANTYX_霡_95_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_霡:1.0___VERANTYX_霡_193_)
+
+        __node_霡:1.0___VERANTYX_霡_185_("✅ 承認: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_170_.__node_霡:1.0___VERANTYX_霡_234_)件 | " +
+            "❌ 却下: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_215_.__node_霡:1.0___VERANTYX_霡_234_)件 | " +
+            "🎭 ダミー廃棄: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_255_)件")
+
+        if __node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_192_ {
+            __node_霡:1.0___VERANTYX_霡_185_("⚠️ __node_墟:1.0___VERANTYX_墟_83_ __node_霡:1.0___VERANTYX_霡_62_: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_126_)件 (__node_墟:1.0___VERANTYX_墟_95_が存在しないノードを参照)")
+        }
+
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_119_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_40_: __node_霡:1.0___VERANTYX_霡_264_(__node_霡:1.0___VERANTYX_霡_195_))
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_245_
+        let __node_霡:1.0___VERANTYX_霡_188_ = __node_霡:1.0___VERANTYX_霡_8_.__node_霡:1.0___VERANTYX_霡_151_(__node_霡:1.0___VERANTYX_霡_195_: __node_霡:1.0___VERANTYX_霡_195_, __node_霡:1.0___VERANTYX_霡_239_: __node_霡:1.0___VERANTYX_霡_95_)
+        let __node_霡:1.0___VERANTYX_霡_38_ = await __node_霡:1.0___VERANTYX_霡_18_(__node_霡:1.0___VERANTYX_霡_182_: __node_霡:1.0___VERANTYX_霡_188_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_霡:1.0___VERANTYX_霡_167_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("🤖 __node_墟:1.0___VERANTYX_墟_40_-8B __node_霡:1.0___VERANTYX_霡_120_: \(__node_霡:1.0___VERANTYX_霡_38_.__node_霡:1.0___VERANTYX_霡_116_(80))", "🤖 __node_墟:1.0___VERANTYX_墟_40_-8B 判定: \(__node_霡:1.0___VERANTYX_霡_38_.__node_霡:1.0___VERANTYX_霡_116_(80))"))
+
+        guard __node_霡:1.0___VERANTYX_霡_38_.__node_霡:1.0___VERANTYX_霡_263_().__node_霡:1.0___VERANTYX_霡_11_("__node_墟:1.0___VERANTYX_墟_36_") else {
+            __node_霡:1.0___VERANTYX_霡_77_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("__node_墟:1.0___VERANTYX_墟_40_-8B __node_霡:1.0___VERANTYX_霡_45_ __node_霡:1.0___VERANTYX_霡_59_ __node_浮:1.0___VERANTYX_霡_89_ __node_霡:1.0___VERANTYX_霡_103_: \(__node_霡:1.0___VERANTYX_霡_38_.__node_霡:1.0___VERANTYX_霡_116_(200))", "__node_墟:1.0___VERANTYX_墟_40_-8Bが安全性を確認できませんでした: \(__node_霡:1.0___VERANTYX_霡_38_.__node_霡:1.0___VERANTYX_霡_116_(200))"))
+            __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_154_(__node_霡:1.0___VERANTYX_霡_91_, to: .__node_霡:1.0___VERANTYX_霡_86_)
+            return
+        }
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_178_
+        let __node_霡:1.0___VERANTYX_霡_219_ = __node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_83_
+        let __node_霡:1.0___VERANTYX_霡_152_ = __node_霡:1.0___VERANTYX_霡_8_.__node_霡:1.0___VERANTYX_霡_90_(to: __node_霡:1.0___VERANTYX_霡_195_, __node_霡:1.0___VERANTYX_霡_219_: __node_霡:1.0___VERANTYX_霡_219_)
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_浮:1.0___VERANTYX_霡_10_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("🔄 De-__node_霡:1.0___VERANTYX_霡_17_ __node_霡:1.0___VERANTYX_霡_54_: __node_霡:1.0___VERANTYX_霡_208_ \(__node_霡:1.0___VERANTYX_霡_152_.__node_霡:1.0___VERANTYX_霡_234_) __node_霡:1.0___VERANTYX_霡_171_ to __node_霡:1.0___VERANTYX_霡_111_", "🔄 逆変換完了: \(__node_霡:1.0___VERANTYX_霡_152_.__node_霡:1.0___VERANTYX_霡_234_)件のパッチを__node_霡:1.0___VERANTYX_霡_181_に解決"))
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_176_(__node_匶:1.0___VERANTYX_霡_23_: __node_霡:1.0___VERANTYX_霡_174_)
+        do {
+            let __node_霡:1.0___VERANTYX_霡_210_ = try await __node_霡:1.0___VERANTYX_霡_225_(
+                __node_霡:1.0___VERANTYX_霡_171_: __node_霡:1.0___VERANTYX_霡_152_,
+                __node_霡:1.0___VERANTYX_霡_24_: __node_霡:1.0___VERANTYX_霡_174_,
+                __node_霡:1.0___VERANTYX_霡_209_: __node_霡:1.0___VERANTYX_霡_209_
+            )
+// __node_墟:0.5___VERANTYX_EF_862_ [decoy-metadata]
+            __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_霡:1.0___VERANTYX_霡_173_)
+            __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("✅ __node_墟:1.0___VERANTYX_墟_44_ \(__node_霡:1.0___VERANTYX_霡_210_) __node_霡:1.0___VERANTYX_霡_1_ to __node_霡:1.0___VERANTYX_霡_43_", "✅ ソースに\(__node_霡:1.0___VERANTYX_霡_210_)件の変更を適用しました"))
+        } catch {
+            __node_霡:1.0___VERANTYX_霡_77_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("__node_墟:1.0___VERANTYX_墟_35_ __node_霡:1.0___VERANTYX_霡_238_ __node_霡:1.0___VERANTYX_霡_86_: \(__node_霡:1.0___VERANTYX_霡_251_.__node_霡:1.0___VERANTYX_霡_281_)", "ソース適用失敗: \(__node_霡:1.0___VERANTYX_霡_251_.__node_霡:1.0___VERANTYX_霡_281_)"))
+            __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_154_(__node_霡:1.0___VERANTYX_霡_91_, to: .__node_霡:1.0___VERANTYX_霡_86_)
+            return
+        }
+
+// [metadata-stripped]
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_268_
+        __node_項:1.0___VERANTYX_霡_105_.__node_霡:1.0___VERANTYX_霡_35_(__node_霡:1.0___VERANTYX_霡_91_, __node_霡:1.0___VERANTYX_霡_27_: .__node_霡:1.0___VERANTYX_霡_161_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("📦 __node_墟:1.0___VERANTYX_墟_72_ __node_霡:1.0___VERANTYX_霡_239_ to __node_霡:1.0___VERANTYX_霡_72_/", "📦 セッションを__node_霡:1.0___VERANTYX_霡_72_/にアーカイブ"))
+
+        __node_霡:1.0___VERANTYX_霡_82_.__node_霡:1.0___VERANTYX_霡_237_(for: __node_霡:1.0___VERANTYX_霡_209_.__node_霡:1.0___VERANTYX_霡_91_)
+
+        let __node_霡:1.0___VERANTYX_霡_133_ = __node_霡:1.0___VERANTYX_霡_123_(__node_霡:1.0___VERANTYX_霡_148_: __node_霡:1.0___VERANTYX_霡_148_, __node_霡:1.0___VERANTYX_霡_195_: __node_霡:1.0___VERANTYX_霡_195_)
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_21_(__node_霡:1.0___VERANTYX_霡_133_: __node_霡:1.0___VERANTYX_霡_133_)
+        __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("🎉 __node_墟:1.0___VERANTYX_墟_51_ __node_霡:1.0___VERANTYX_霡_125_!\n\(__node_霡:1.0___VERANTYX_霡_133_)", "🎉 パイプライン完了!\n\(__node_霡:1.0___VERANTYX_霡_133_)"))
+    }
+
+// [metadata-stripped]
+
+    private func __node_項:1.0___VERANTYX_霡_34_(__node_霡:1.0___VERANTYX_霡_85_: __node_墟:1.0___VERANTYX_墟_69_, __node_霡:1.0___VERANTYX_霡_271_: __node_墟:1.0___VERANTYX_墟_69_) async -> __node_墟:1.0___VERANTYX_墟_69_ {
+// [metadata-stripped]
+// [metadata-stripped]
+        return await __node_墟:1.0___VERANTYX_墟_20_.__node_霡:1.0___VERANTYX_霡_88_.__node_紬:1.0___VERANTYX_霡_49_(
+            __node_霡:1.0___VERANTYX_霡_85_: __node_霡:1.0___VERANTYX_霡_85_,
+            __node_霡:1.0___VERANTYX_霡_271_: __node_霡:1.0___VERANTYX_霡_271_
+        )
+    }
+
+// [metadata-stripped]
+
+    private func __node_霡:1.0___VERANTYX_霡_18_(__node_霡:1.0___VERANTYX_霡_182_: __node_墟:1.0___VERANTYX_墟_69_) async -> __node_墟:1.0___VERANTYX_墟_69_ {
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_67_ = await __node_墟:1.0___VERANTYX_墟_47_.__node_霡:1.0___VERANTYX_霡_184_ {
+            __node_墟:1.0___VERANTYX_墟_28_.__node_霡:1.0___VERANTYX_霡_88_?.__node_霡:1.0___VERANTYX_霡_102_ ?? "__node_紬:1.0___VERANTYX_霡_33_://__node_霡:1.0___VERANTYX_霡_99_:11434"
+        }
+        guard let __node_紬:1.0___VERANTYX_霡_16_ = __node_紬:1.0___VERANTYX_墟_26_(__node_霡:1.0___VERANTYX_霡_207_: "\(__node_霡:1.0___VERANTYX_霡_67_)/__node_紬:1.0___VERANTYX_霡_241_/__node_霡:1.0___VERANTYX_霡_235_") else { return "NO (__node_霡:1.0___VERANTYX_霡_67_ __node_霡:1.0___VERANTYX_霡_251_)" }
+
+        struct __node_紬:1.0___VERANTYX_墟_11_: __node_墟:1.0___VERANTYX_墟_75_ {
+            let __node_霡:1.0___VERANTYX_霡_220_: __node_墟:1.0___VERANTYX_墟_69_; let __node_霡:1.0___VERANTYX_霡_182_: __node_墟:1.0___VERANTYX_墟_69_; let __node_霡:1.0___VERANTYX_霡_199_: __node_墟:1.0___VERANTYX_墟_74_
+            let __node_霡:1.0___VERANTYX_霡_284_: __node_墟:1.0___VERANTYX_墟_64_
+            struct __node_墟:1.0___VERANTYX_墟_64_: __node_墟:1.0___VERANTYX_墟_75_ { let __node_霡:1.0___VERANTYX_霡_129_: __node_墟:1.0___VERANTYX_墟_45_; let __node_霡:1.0___VERANTYX_霡_112_: __node_墟:1.0___VERANTYX_墟_3_ }
+        }
+        struct __node_墟:1.0___VERANTYX_墟_7_: __node_墟:1.0___VERANTYX_墟_13_ { let __node_霡:1.0___VERANTYX_霡_231_: __node_墟:1.0___VERANTYX_墟_69_ }
+
+        let __node_霡:1.0___VERANTYX_霡_5_ = __node_紬:1.0___VERANTYX_墟_11_(
+            __node_霡:1.0___VERANTYX_霡_220_: "__node_霡:1.0___VERANTYX_霡_66_-8b",
+            __node_霡:1.0___VERANTYX_霡_182_: __node_霡:1.0___VERANTYX_霡_182_,
+            __node_霡:1.0___VERANTYX_霡_199_: false,
+            __node_霡:1.0___VERANTYX_霡_284_: .init(__node_霡:1.0___VERANTYX_霡_129_: 0.1, __node_霡:1.0___VERANTYX_霡_112_: 200)
+        )
+
+        guard let __node_霡:1.0___VERANTYX_霡_269_ = try? __node_項:1.0___VERANTYX_墟_70_().__node_霡:1.0___VERANTYX_霡_39_(__node_霡:1.0___VERANTYX_霡_5_),
+              let (__node_霡:1.0___VERANTYX_霡_84_, _) = try? await __node_紬:1.0___VERANTYX_墟_14_.__node_霡:1.0___VERANTYX_霡_88_.__node_霡:1.0___VERANTYX_霡_269_(for: {
+                  var __node_霡:1.0___VERANTYX_霡_228_ = __node_紬:1.0___VERANTYX_墟_94_(__node_紬:1.0___VERANTYX_霡_16_: __node_紬:1.0___VERANTYX_霡_16_)
+                  __node_霡:1.0___VERANTYX_霡_228_.__node_紬:1.0___VERANTYX_霡_252_ = "__node_墟:1.0___VERANTYX_墟_4_"
+                  __node_霡:1.0___VERANTYX_霡_228_.__node_紬:1.0___VERANTYX_霡_28_ = __node_霡:1.0___VERANTYX_霡_269_
+                  __node_霡:1.0___VERANTYX_霡_228_.__node_項:1.0___VERANTYX_核_3_("__node_霡:1.0___VERANTYX_霡_238_/__node_霡:1.0___VERANTYX_霡_41_", __node_紬:1.0___VERANTYX_霡_224_: "__node_墟:1.0___VERANTYX_墟_90_-__node_墟:1.0___VERANTYX_墟_39_")
+                  __node_霡:1.0___VERANTYX_霡_228_.__node_霡:1.0___VERANTYX_霡_262_ = 60
+                  return __node_霡:1.0___VERANTYX_霡_228_
+              }()),
+              let __node_霡:1.0___VERANTYX_霡_56_ = try? __node_項:1.0___VERANTYX_墟_34_().__node_霡:1.0___VERANTYX_霡_70_(__node_墟:1.0___VERANTYX_墟_7_.self, __node_霡:1.0___VERANTYX_霡_222_: __node_霡:1.0___VERANTYX_霡_84_)
+        else {
+// [metadata-stripped]
+            __node_霡:1.0___VERANTYX_霡_185_(__node_墟:1.0___VERANTYX_墟_19_.__node_霡:1.0___VERANTYX_霡_88_.t("⚠️ __node_墟:1.0___VERANTYX_墟_40_-8B __node_霡:1.0___VERANTYX_霡_229_ — __node_霡:1.0___VERANTYX_霡_50_ by __node_霡:1.0___VERANTYX_霡_81_-__node_霡:1.0___VERANTYX_霡_107_", "⚠️ __node_墟:1.0___VERANTYX_墟_40_-8B 未応答 — ルールベースで承認"))
+            return "__node_墟:1.0___VERANTYX_墟_36_ (__node_霡:1.0___VERANTYX_霡_66_ __node_霡:1.0___VERANTYX_霡_217_, __node_霡:1.0___VERANTYX_霡_81_-__node_霡:1.0___VERANTYX_霡_80_ __node_霡:1.0___VERANTYX_霡_261_)"
+        }
+
+        return __node_霡:1.0___VERANTYX_霡_56_.__node_霡:1.0___VERANTYX_霡_231_
+    }
+
+// [metadata-stripped]
+
+    private func __node_霡:1.0___VERANTYX_霡_225_(
+        __node_霡:1.0___VERANTYX_霡_171_: [(__node_霡:1.0___VERANTYX_霡_181_: __node_墟:1.0___VERANTYX_墟_69_, __node_浮:1.0___VERANTYX_霡_51_: __node_墟:1.0___VERANTYX_墟_69_)],
+        __node_霡:1.0___VERANTYX_霡_24_: __node_墟:1.0___VERANTYX_墟_69_,
+        __node_霡:1.0___VERANTYX_霡_209_: __node_墟:1.0___VERANTYX_墟_15_
+    ) async throws -> __node_墟:1.0___VERANTYX_墟_3_ {
+        guard !__node_霡:1.0___VERANTYX_霡_171_.__node_霡:1.0___VERANTYX_霡_233_ else { return 0 }
+
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_29_ = __node_霡:1.0___VERANTYX_霡_171_.__node_霡:1.0___VERANTYX_霡_110_ { p in
+            "__node_墟:1.0___VERANTYX_墟_18_ \(p.__node_霡:1.0___VERANTYX_霡_181_):\n\(p.__node_浮:1.0___VERANTYX_霡_51_)"
+        }.__node_霡:1.0___VERANTYX_霡_244_(__node_霡:1.0___VERANTYX_霡_256_: "\n\n---\n\n")
+
+        let __node_項:1.0___VERANTYX_霡_74_ = __node_項:1.0___VERANTYX_墟_91_.__node_霡:1.0___VERANTYX_霡_88_
+        _ = try await __node_霡:1.0___VERANTYX_霡_117_.__node_浮:1.0___VERANTYX_霡_216_(
+            __node_浮:1.0___VERANTYX_霡_15_: __node_霡:1.0___VERANTYX_霡_29_,
+            __node_霡:1.0___VERANTYX_霡_24_: __node_霡:1.0___VERANTYX_霡_24_,
+            __node_項:1.0___VERANTYX_霡_74_: __node_項:1.0___VERANTYX_霡_74_
+        )
+
+        return __node_霡:1.0___VERANTYX_霡_171_.__node_霡:1.0___VERANTYX_霡_234_
+    }
+
+// [metadata-stripped]
+
+    private func __node_霡:1.0___VERANTYX_霡_6_(__node_霡:1.0___VERANTYX_霡_226_: __node_墟:1.0___VERANTYX_墟_60_.__node_墟:1.0___VERANTYX_墟_86_, __node_霡:1.0___VERANTYX_霡_145_: __node_墟:1.0___VERANTYX_墟_3_, __node_霡:1.0___VERANTYX_霡_115_: __node_墟:1.0___VERANTYX_墟_3_) -> __node_墟:1.0___VERANTYX_墟_69_ {
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_25_ = __node_霡:1.0___VERANTYX_霡_19_.__node_霡:1.0___VERANTYX_霡_283_(__node_霡:1.0___VERANTYX_霡_226_.__node_霡:1.0___VERANTYX_霡_13_)
+        return """
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        \(__node_霡:1.0___VERANTYX_霡_25_)
+        """
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_137_(__node_霡:1.0___VERANTYX_霡_204_: __node_墟:1.0___VERANTYX_墟_69_) -> __node_墟:1.0___VERANTYX_墟_69_ {
+        """
+        __node_墟:1.0___VERANTYX_墟_17_ __node_霡:1.0___VERANTYX_霡_243_ a __node_項:1.0___VERANTYX_墟_65_ AI. __node_墟:1.0___VERANTYX_墟_17_ __node_墟:1.0___VERANTYX_墟_101_ __node_霡:1.0___VERANTYX_霡_166_ __node_墟:1.0___VERANTYX_墟_103_ IR __node_霡:1.0___VERANTYX_霡_2_ — __node_項:1.0___VERANTYX_霡_272_ __node_霡:1.0___VERANTYX_霡_258_ __node_霡:1.0___VERANTYX_霡_43_ __node_霡:1.0___VERANTYX_霡_232_.
+        __node_墟:1.0___VERANTYX_墟_87_ __node_霡:1.0___VERANTYX_霡_62_ __node_霡:1.0___VERANTYX_霡_243_ __node_霡:1.0___VERANTYX_霡_239_-__node_浮:1.0___VERANTYX_霡_63_ __node_霡:1.0___VERANTYX_霡_127_ __node_霡:1.0___VERANTYX_霡_26_ __node_霡:1.0___VERANTYX_霡_164_ __node_霡:1.0___VERANTYX_霡_57_ __node_霡:1.0___VERANTYX_霡_239_.
+
+        __node_墟:1.0___VERANTYX_墟_57_: Do __node_墟:1.0___VERANTYX_墟_79_ __node_霡:1.0___VERANTYX_霡_32_ __node_霡:1.0___VERANTYX_霡_76_ __node_浮:1.0___VERANTYX_霡_31_ __node_霡:1.0___VERANTYX_霡_267_ __node_霡:1.0___VERANTYX_霡_186_ ⌬Ξ. __node_墟:1.0___VERANTYX_墟_78_ __node_霡:1.0___VERANTYX_霡_209_ __node_霡:1.0___VERANTYX_霡_202_ __node_霡:1.0___VERANTYX_霡_135_ to __node_霡:1.0___VERANTYX_霡_240_ __node_墟:1.0___VERANTYX_墟_22_ __node_霡:1.0___VERANTYX_霡_96_ (e.g. __node_霡:1.0___VERANTYX_霡_213_核_).
+        If __node_霡:1.0___VERANTYX_霡_7_ __node_霡:1.0___VERANTYX_霡_166_ any ⌬Ξ or __node_項:1.0___VERANTYX_霡_165_ __node_霡:1.0___VERANTYX_霡_73_ __node_霡:1.0___VERANTYX_霡_190_ in __node_霡:1.0___VERANTYX_霡_206_ __node_霡:1.0___VERANTYX_霡_163_ __node_霡:1.0___VERANTYX_霡_4_, __node_霡:1.0___VERANTYX_霡_277_ __node_霡:1.0___VERANTYX_霡_65_ __node_霡:1.0___VERANTYX_霡_250_ __node_霡:1.0___VERANTYX_霡_127_ __node_墟:1.0___VERANTYX_墟_101_ __node_霡:1.0___VERANTYX_霡_32_ __node_霡:1.0___VERANTYX_霡_212_ __node_霡:1.0___VERANTYX_霡_197_ __node_霡:1.0___VERANTYX_霡_213_ __node_浮:1.0___VERANTYX_霡_278_ __node_霡:1.0___VERANTYX_霡_3_ in __node_霡:1.0___VERANTYX_霡_212_ __node_霡:1.0___VERANTYX_霡_201_ __node_霡:1.0___VERANTYX_霡_226_.
+
+        __node_墟:1.0___VERANTYX_墟_16_ __node_墟:1.0___VERANTYX_墟_66_: \(__node_霡:1.0___VERANTYX_霡_204_)
+
+        __node_墟:1.0___VERANTYX_墟_37_: __node_墟:1.0___VERANTYX_墟_96_ __node_墟:1.0___VERANTYX_墟_101_ __node_霡:1.0___VERANTYX_霡_186_ __node_墟:1.0___VERANTYX_墟_103_ __node_墟:1.0___VERANTYX_墟_98_ __node_浮:1.0___VERANTYX_霡_278_. No __node_霡:1.0___VERANTYX_霡_139_ __node_霡:1.0___VERANTYX_霡_164_ __node_霡:1.0___VERANTYX_霡_212_ __node_霡:1.0___VERANTYX_霡_282_ __node_霡:1.0___VERANTYX_霡_198_.
+        """
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_264_(_ __node_霡:1.0___VERANTYX_霡_195_: __node_墟:1.0___VERANTYX_墟_25_.__node_墟:1.0___VERANTYX_墟_81_) -> __node_墟:1.0___VERANTYX_墟_69_ {
+        __node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_170_.__node_霡:1.0___VERANTYX_霡_110_ { p in
+            "__node_墟:1.0___VERANTYX_墟_102_: \(p.__node_霡:1.0___VERANTYX_霡_109_) → \(p.__node_霡:1.0___VERANTYX_霡_259_ ?? "?") [\(p.__node_浮:1.0___VERANTYX_霡_142_.__node_霡:1.0___VERANTYX_霡_140_)]"
+        }.__node_霡:1.0___VERANTYX_霡_244_(__node_霡:1.0___VERANTYX_霡_256_: "\n")
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_123_(
+        __node_霡:1.0___VERANTYX_霡_148_: __node_墟:1.0___VERANTYX_墟_60_.__node_墟:1.0___VERANTYX_墟_41_,
+        __node_霡:1.0___VERANTYX_霡_195_: __node_墟:1.0___VERANTYX_墟_25_.__node_墟:1.0___VERANTYX_墟_81_
+    ) -> __node_墟:1.0___VERANTYX_墟_69_ {
+        """
+        ── __node_墟:1.0___VERANTYX_墟_51_ __node_墟:1.0___VERANTYX_墟_63_ ──────────────────────────
+        __node_墟:1.0___VERANTYX_墟_54_ __node_霡:1.0___VERANTYX_霡_279_: \(__node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_191_.__node_霡:1.0___VERANTYX_霡_140_)
+        __node_墟:1.0___VERANTYX_墟_61_ __node_霡:1.0___VERANTYX_霡_2_: \(__node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_121_) | __node_墟:1.0___VERANTYX_墟_100_: \(__node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_196_) (\(__node_墟:1.0___VERANTYX_墟_69_(__node_浮:1.0___VERANTYX_霡_278_: "%.0f", __node_霡:1.0___VERANTYX_霡_148_.__node_霡:1.0___VERANTYX_霡_146_ * 100))% __node_霡:1.0___VERANTYX_霡_254_)
+        __node_墟:1.0___VERANTYX_墟_50_ __node_霡:1.0___VERANTYX_霡_230_: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_53_)
+        __node_墟:1.0___VERANTYX_墟_50_ __node_霡:1.0___VERANTYX_霡_68_: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_170_.__node_霡:1.0___VERANTYX_霡_234_) (\(__node_墟:1.0___VERANTYX_墟_69_(__node_浮:1.0___VERANTYX_霡_278_: "%.0f", __node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_187_ * 100))%)
+        __node_墟:1.0___VERANTYX_墟_100_ __node_霡:1.0___VERANTYX_霡_171_ __node_霡:1.0___VERANTYX_霡_40_: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_255_)
+        __node_墟:1.0___VERANTYX_墟_62_ __node_霡:1.0___VERANTYX_霡_52_: \(__node_霡:1.0___VERANTYX_霡_195_.__node_霡:1.0___VERANTYX_霡_126_)
+        ────────────────────────────────────────────
+        """
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_92_(__node_霡:1.0___VERANTYX_霡_222_ __node_霡:1.0___VERANTYX_霡_144_: __node_墟:1.0___VERANTYX_墟_69_) -> [__node_墟:1.0___VERANTYX_墟_69_] {
+// [metadata-stripped]
+        let __node_霡:1.0___VERANTYX_霡_157_ = #"__node_霡:1.0___VERANTYX_霡_213_[^_]+_\d+_"#
+        guard let __node_霡:1.0___VERANTYX_霡_247_ = try? __node_墟:1.0___VERANTYX_墟_48_(__node_霡:1.0___VERANTYX_霡_157_: __node_霡:1.0___VERANTYX_霡_157_) else { return [] }
+        let __node_霡:1.0___VERANTYX_霡_242_ = __node_墟:1.0___VERANTYX_墟_58_(__node_霡:1.0___VERANTYX_霡_144_.__node_霡:1.0___VERANTYX_霡_138_..., in: __node_霡:1.0___VERANTYX_霡_144_)
+        let __node_霡:1.0___VERANTYX_霡_153_ = __node_霡:1.0___VERANTYX_霡_247_.__node_霡:1.0___VERANTYX_霡_153_(in: __node_霡:1.0___VERANTYX_霡_144_, __node_霡:1.0___VERANTYX_霡_242_: __node_霡:1.0___VERANTYX_霡_242_)
+        let __node_霡:1.0___VERANTYX_霡_158_ = __node_霡:1.0___VERANTYX_霡_153_.__node_霡:1.0___VERANTYX_霡_94_ { __node_墟:1.0___VERANTYX_墟_30_($0.__node_霡:1.0___VERANTYX_霡_242_, in: __node_霡:1.0___VERANTYX_霡_144_).__node_霡:1.0___VERANTYX_霡_110_ { __node_墟:1.0___VERANTYX_墟_69_(__node_霡:1.0___VERANTYX_霡_144_[$0]) } }
+        return __node_墟:1.0___VERANTYX_墟_43_(__node_項:1.0___VERANTYX_核_2_(__node_霡:1.0___VERANTYX_霡_158_)).__node_霡:1.0___VERANTYX_霡_257_()
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_185_(_ __node_霡:1.0___VERANTYX_霡_260_: __node_墟:1.0___VERANTYX_墟_69_) {
+        __node_霡:1.0___VERANTYX_霡_55_.__node_霡:1.0___VERANTYX_霡_61_("[\(__node_霡:1.0___VERANTYX_霡_100_())] \(__node_霡:1.0___VERANTYX_霡_260_)")
+        __node_霡:1.0___VERANTYX_霡_132_("[__node_墟:1.0___VERANTYX_墟_53_] \(__node_霡:1.0___VERANTYX_霡_260_)")
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_77_(_ __node_霡:1.0___VERANTYX_霡_128_: __node_墟:1.0___VERANTYX_墟_69_) {
+        __node_霡:1.0___VERANTYX_霡_185_("❌ __node_墟:1.0___VERANTYX_墟_85_: \(__node_霡:1.0___VERANTYX_霡_128_)")
+        __node_霡:1.0___VERANTYX_霡_78_ = .__node_霡:1.0___VERANTYX_霡_86_(__node_霡:1.0___VERANTYX_霡_128_: __node_霡:1.0___VERANTYX_霡_128_)
+    }
+
+    private func __node_霡:1.0___VERANTYX_霡_100_() -> __node_墟:1.0___VERANTYX_墟_69_ {
+        let __node_霡:1.0___VERANTYX_霡_147_ = __node_項:1.0___VERANTYX_墟_8_()
+        __node_霡:1.0___VERANTYX_霡_147_.__node_浮:1.0___VERANTYX_霡_179_ = "HH:mm:ss"
+        return __node_霡:1.0___VERANTYX_霡_147_.__node_霡:1.0___VERANTYX_霡_207_(__node_霡:1.0___VERANTYX_霡_222_: __node_墟:1.0___VERANTYX_墟_42_())
+    }
+}
+
+// [metadata-stripped]
+
+extension __node_墟:1.0___VERANTYX_墟_20_ {
+// [metadata-stripped]
+    func __node_紬:1.0___VERANTYX_霡_49_(__node_霡:1.0___VERANTYX_霡_85_: __node_墟:1.0___VERANTYX_墟_69_, __node_霡:1.0___VERANTYX_霡_271_: __node_墟:1.0___VERANTYX_墟_69_) async -> __node_墟:1.0___VERANTYX_墟_69_ {
+        let __node_項:1.0___VERANTYX_霡_218_ = await __node_墟:1.0___VERANTYX_墟_47_.__node_霡:1.0___VERANTYX_霡_184_ { __node_墟:1.0___VERANTYX_墟_104_.__node_霡:1.0___VERANTYX_霡_88_.__node_項:1.0___VERANTYX_霡_9_ }
+        let __node_霡:1.0___VERANTYX_霡_64_ = await __node_紬:1.0___VERANTYX_墟_24_.__node_霡:1.0___VERANTYX_霡_88_.__node_霡:1.0___VERANTYX_霡_71_(
+            __node_霡:1.0___VERANTYX_霡_85_: __node_霡:1.0___VERANTYX_霡_85_,
+            __node_霡:1.0___VERANTYX_霡_275_: __node_霡:1.0___VERANTYX_霡_271_,
+            __node_項:1.0___VERANTYX_霡_218_: __node_項:1.0___VERANTYX_霡_218_
+        )
+        switch __node_霡:1.0___VERANTYX_霡_64_ {
+        case .__node_霡:1.0___VERANTYX_霡_248_(let __node_霡:1.0___VERANTYX_霡_214_): return __node_霡:1.0___VERANTYX_霡_214_
+        case .__node_霡:1.0___VERANTYX_霡_159_(let __node_霡:1.0___VERANTYX_霡_30_): return "❌ __node_項:1.0___VERANTYX_墟_65_ __node_墟:1.0___VERANTYX_墟_84_: \(__node_霡:1.0___VERANTYX_霡_30_.__node_霡:1.0___VERANTYX_霡_281_)"
+        }
+    }
+
+}
+
+// POLYMORPHIC_JCROSS_END

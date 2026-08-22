@@ -1,0 +1,51 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C6E18289 ver:1778152981
+// __jcross_道:0.9___SYM_LK_383_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+__jcross_霞:1.0___SYM_霞_29_ __jcross_庭:1.0___SYM_庭_1_ = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}(?:\.\d{3})?Z$/;
+__jcross_霞:1.0___SYM_霞_29_ __jcross_庭:1.0___SYM_庭_4_ = /^__jcross_霞:1.0___SYM_霞_27_\.__jcross_霞:1.0___SYM_霞_30_\.__jcross_霞:1.0___SYM_霞_10_\.\d+$/;
+__jcross_霞:1.0___SYM_霞_4_ __jcross_霞:1.0___SYM_霞_43_(__jcross_匾:1.0___SYM_霞_12_, __jcross_霞:1.0___SYM_霞_41_) {
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_道:1.0___SYM_霞_35_ = `.${__jcross_霞:1.0___SYM_霞_41_}.`;
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_霞:1.0___SYM_霞_3_ = __jcross_匾:1.0___SYM_霞_12_.__jcross_霞:1.0___SYM_霞_31_(__jcross_道:1.0___SYM_霞_35_);
+	if (__jcross_霞:1.0___SYM_霞_3_ < 0) return false;
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_霞:1.0___SYM_霞_25_ = __jcross_匾:1.0___SYM_霞_12_.__jcross_霞:1.0___SYM_霞_42_(__jcross_霞:1.0___SYM_霞_3_ + __jcross_道:1.0___SYM_霞_35_.__jcross_霞:1.0___SYM_霞_37_);
+	return __jcross_庭:1.0___SYM_庭_1_.__jcross_霞:1.0___SYM_霞_22_(__jcross_霞:1.0___SYM_霞_25_);
+}
+__jcross_霞:1.0___SYM_霞_4_ __jcross_漕:1.0___SYM_霞_5_(__jcross_匾:1.0___SYM_霞_12_) {
+	if (__jcross_庭:1.0___SYM_庭_4_.__jcross_霞:1.0___SYM_霞_22_(__jcross_匾:1.0___SYM_霞_12_)) return true;
+	return __jcross_霞:1.0___SYM_霞_43_(__jcross_匾:1.0___SYM_霞_12_, "__jcross_霞:1.0___SYM_霞_38_") || __jcross_霞:1.0___SYM_霞_43_(__jcross_匾:1.0___SYM_霞_12_, "__jcross_霞:1.0___SYM_霞_33_") || __jcross_霞:1.0___SYM_霞_43_(__jcross_匾:1.0___SYM_霞_12_, "__jcross_霞:1.0___SYM_霞_10_");
+}
+__jcross_霞:1.0___SYM_霞_4_ __jcross_匾:1.0___SYM_霞_19_(__jcross_匾:1.0___SYM_霞_12_) {
+	if (__jcross_匾:1.0___SYM_霞_12_ === "__jcross_霞:1.0___SYM_霞_27_.__jcross_霞:1.0___SYM_霞_30_") return false;
+	if (!__jcross_匾:1.0___SYM_霞_12_.__jcross_霞:1.0___SYM_霞_1_(".__jcross_霞:1.0___SYM_霞_36_")) return false;
+	return !__jcross_漕:1.0___SYM_霞_5_(__jcross_匾:1.0___SYM_霞_12_);
+}
+__jcross_霞:1.0___SYM_霞_4_ __jcross_漕:1.0___SYM_霞_11_(__jcross_霞:1.0___SYM_霞_24_ = __jcross_庭:1.0___SYM_庭_3_.__jcross_霞:1.0___SYM_霞_20_()) {
+	return __jcross_霞:1.0___SYM_霞_23_ __jcross_庭:1.0___SYM_庭_3_(__jcross_霞:1.0___SYM_霞_24_).__jcross_霞:1.0___SYM_霞_14_().__jcross_霞:1.0___SYM_霞_32_(":", "-");
+}
+// __jcross_紋:0.5___SYM_LX_151_ [decoy-metadata]
+__jcross_霞:1.0___SYM_霞_4_ __jcross_霞:1.0___SYM_霞_7_(__jcross_霞:1.0___SYM_霞_25_) {
+	__jcross_霞:1.0___SYM_霞_29_ [__jcross_霞:1.0___SYM_霞_21_, __jcross_霞:1.0___SYM_霞_17_] = __jcross_霞:1.0___SYM_霞_25_.__jcross_霞:1.0___SYM_霞_16_("T");
+	if (!__jcross_霞:1.0___SYM_霞_21_ || !__jcross_霞:1.0___SYM_霞_17_) return __jcross_霞:1.0___SYM_霞_25_;
+	return `${__jcross_霞:1.0___SYM_霞_21_}T${__jcross_霞:1.0___SYM_霞_17_.__jcross_霞:1.0___SYM_霞_34_(/-/g, ":")}`;
+}
+__jcross_霞:1.0___SYM_霞_4_ __jcross_霞:1.0___SYM_霞_40_(__jcross_匾:1.0___SYM_霞_12_, __jcross_霞:1.0___SYM_霞_41_) {
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_道:1.0___SYM_霞_35_ = `.${__jcross_霞:1.0___SYM_霞_41_}.`;
+// __jcross_庭:0.4___SYM_DV_998_ [decoy-metadata]
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_霞:1.0___SYM_霞_3_ = __jcross_匾:1.0___SYM_霞_12_.__jcross_霞:1.0___SYM_霞_31_(__jcross_道:1.0___SYM_霞_35_);
+	if (__jcross_霞:1.0___SYM_霞_3_ < 0) return __jcross_霞:1.0___SYM_霞_13_;
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_霞:1.0___SYM_霞_25_ = __jcross_匾:1.0___SYM_霞_12_.__jcross_霞:1.0___SYM_霞_42_(__jcross_霞:1.0___SYM_霞_3_ + __jcross_道:1.0___SYM_霞_35_.__jcross_霞:1.0___SYM_霞_37_);
+// __jcross_道:0.3___SYM_XL_114_ [decoy-metadata]
+	if (!__jcross_霞:1.0___SYM_霞_25_) return __jcross_霞:1.0___SYM_霞_13_;
+	if (!__jcross_庭:1.0___SYM_庭_1_.__jcross_霞:1.0___SYM_霞_22_(__jcross_霞:1.0___SYM_霞_25_)) return __jcross_霞:1.0___SYM_霞_13_;
+	__jcross_霞:1.0___SYM_霞_29_ __jcross_霞:1.0___SYM_霞_28_ = __jcross_庭:1.0___SYM_庭_3_.__jcross_霞:1.0___SYM_霞_9_(__jcross_霞:1.0___SYM_霞_7_(__jcross_霞:1.0___SYM_霞_25_));
+	return __jcross_道:1.0___SYM_庭_2_.__jcross_霞:1.0___SYM_霞_26_(__jcross_霞:1.0___SYM_霞_28_) ? __jcross_霞:1.0___SYM_霞_13_ : __jcross_霞:1.0___SYM_霞_28_;
+}
+// __jcross_霞:0.6___SYM_FY_558_ [decoy-metadata]
+// [metadata-stripped]
+// __jcross_霞:0.6___SYM_FB_818_ [decoy-metadata]
+__jcross_霞:1.0___SYM_霞_15_ { __jcross_霞:1.0___SYM_霞_40_ as i, __jcross_匾:1.0___SYM_霞_19_ as n, __jcross_漕:1.0___SYM_霞_5_ as r, __jcross_漕:1.0___SYM_霞_11_ as t };
+
+// POLYMORPHIC_JCROSS_END

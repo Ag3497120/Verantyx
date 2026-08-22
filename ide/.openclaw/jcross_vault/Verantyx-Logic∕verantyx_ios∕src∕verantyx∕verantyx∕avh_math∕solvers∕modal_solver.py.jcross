@@ -1,0 +1,275 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:86CB276F ver:1778162899
+// ⚠️ One-time schema — expires after response
+
+__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_134_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_116_ import __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_92_
+__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_134_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_27_ import __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_8_
+__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_134_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_22_ import __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_, _ASTNODE_庵:1.0__ID_庵_9_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_29_, _ASTNODE_型:1.0__ID_礎_2_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_17_
+import __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_110_
+import re
+
+// [metadata-stripped]
+@__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_8_
+class __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_:
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_23_: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_88_: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_ | __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_: "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_ | __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_" = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_: "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_ | __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_" = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_: "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_ | __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_" = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_ # _ASTNODE_庵:1.0__ID_庵_43_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_70_ _ASTNODE_霩:1.0__ID_霩_126_ (_ASTNODE_庵:1.0__ID_庵_37_, _ASTNODE_庵:1.0__ID_庵_46_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_)
+
+__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_134_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_87_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_4_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_106_ import __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_19_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_16_
+
+@__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_19_.__ASTNODE_庵:1.0__ID_庵_42_NODE_型:1.0__ID_霩_113_(__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_16_(
+    id="__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_94_:__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_43_",
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_93_="__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_49_",
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_15_="__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_14_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_45_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_28_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_7_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_20_",
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_78_=[r"[]", r"<>", r"_ASTNODE_霩:1.0__ID_霩_121_", r"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_117_", r"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_54_", r"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_57_"],
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_26_=3,
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_59_=2000,
+    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_48_=["__ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_", "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_", "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_"]
+))
+class __ASTNODE_庵:1.0__ID_庵_42_NODE_型:1.0__ID_庵_32_:
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_100_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_: _ASTNODE_霩:1.0__ID_霩_104_ = 3):
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_
+// [metadata-stripped]
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_42_ = re.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_122_(
+            r"\s+|"
+            r"(<->|↔)|(->|→)|"
+            r"(∧|&)|(∨|\|)|(¬|~|!)|"
+            r"(\[\]|□|\__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_47_\b)|(<>|◇|\__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_115_\b)|"
+            r"([()])|"
+            r"([A-Za-z][A-Za-z0-9_]*)"
+        )
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_89_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_], __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_]) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_, _ASTNODE_庵:1.0__ID_庵_9_]:
+        try:
+// [metadata-stripped]
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_107_(f"[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_22_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_36_] __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_13_ '{__ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_}' __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_98_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_: {__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_}")
+            
+            _ASTNODE_霩:1.0__ID_霩_74_ = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_37_(__ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_)
+// [metadata-stripped]
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_108_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_6_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_127_(self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_33_(_ASTNODE_霩:1.0__ID_霩_74_)))
+            if _ASTNODE_霩:1.0__ID_霩_30_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_108_
+            
+// [metadata-stripped]
+            if _ASTNODE_霩:1.0__ID_霩_67_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_) > 6:
+                return {"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_124_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_型:1.0__ID_霩_52_", "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_2_": "_ASTNODE_庵:1.0__ID_庵_30_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_36_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_ for __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_35_."}
+
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_127_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_46_(self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_))
+            
+// [metadata-stripped]
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_103_ = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_79_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_)
+            
+// [metadata-stripped]
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_102_ = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_84_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_)
+            
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_ = 0
+            
+            for R in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_103_:
+                for V in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_102_:
+                    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_ = (__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_, R, V)
+                    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_ += 1
+                    
+// [metadata-stripped]
+                    __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_105_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_
+                    for w in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_:
+                        if _ASTNODE_霩:1.0__ID_霩_30_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(_ASTNODE_霩:1.0__ID_霩_74_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w):
+                            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_105_ = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_
+                            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_ = {
+                                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_,
+                                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_109_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_6_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_127_(R)), # _ASTNODE_型:1.0__ID_礎_1_ to __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_127_ for __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_26_
+                                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_97_": V,
+                                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_128_": w
+                            }
+                            break
+                    
+                    if _ASTNODE_霩:1.0__ID_霩_30_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_105_:
+                        break
+                if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_:
+                    break
+            
+            if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_:
+                return {
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_124_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_29_",
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_16_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_41_",
+// _ASTNODE_底:0.4__ID_HX_498_ [decoy-metadata]
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_111_,
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_125_": 1.0,
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_130_": f"__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_4_ by __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_28_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_ ({__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_} __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_118_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_28_).",
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_95_": {"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_": self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_, "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_71_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_}
+                }
+            else:
+                return {
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_124_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_68_",
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_16_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_41_",
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_125_": 1.0,
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_130_": f"__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_5_ in _ASTNODE_霩:1.0__ID_霩_24_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_28_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_28_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_118_ (__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_83_ <= {self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_}, {__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_} __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_71_).",
+                    "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_95_": {"__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_": self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_132_, "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_71_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_38_}
+                }
+
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_11_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_52_ as e:
+            return {
+                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_124_": "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_123_",
+                "__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_123_": __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_(e)
+            }
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_79_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[_ASTNODE_霩:1.0__ID_霩_104_], __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_]) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[_ASTNODE_型:1.0__ID_礎_2_[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_17_[_ASTNODE_霩:1.0__ID_霩_104_, _ASTNODE_霩:1.0__ID_霩_104_]]]:
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_19_ = [(i, j) for i in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_ for j in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_]
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_53_ = []
+        
+// [metadata-stripped]
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_39_ = any("__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_58_" in a for a in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_)
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_82_ = any("__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_64_" in a for a in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_)
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_34_ = any("__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_31_" in a for a in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_)
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_7_ = any("__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_61_" in a for a in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_73_)
+        
+        for __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_81_ in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_110_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_25_([__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_], __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_96_=_ASTNODE_霩:1.0__ID_霩_67_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_19_)):
+            R = {__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_19_[i] for i, b in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_86_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_81_) if b}
+            
+            if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_39_ _ASTNODE_霩:1.0__ID_霩_56_ _ASTNODE_霩:1.0__ID_霩_30_ _ASTNODE_霩:1.0__ID_霩_24_((w,w) in R for w in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_): continue
+            if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_7_ _ASTNODE_霩:1.0__ID_霩_56_ _ASTNODE_霩:1.0__ID_霩_30_ _ASTNODE_霩:1.0__ID_霩_24_(any((w,v) in R for v in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_) for w in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_): continue
+            if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_34_ _ASTNODE_霩:1.0__ID_霩_56_ _ASTNODE_霩:1.0__ID_霩_30_ _ASTNODE_霩:1.0__ID_霩_24_((v,w) in R for (w,v) in R): continue
+            if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_82_ _ASTNODE_霩:1.0__ID_霩_56_ _ASTNODE_霩:1.0__ID_霩_30_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_50_(R): continue
+            
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_53_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_(R)
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_53_
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_50_(self, R: _ASTNODE_型:1.0__ID_礎_2_[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_17_[_ASTNODE_霩:1.0__ID_霩_104_, _ASTNODE_霩:1.0__ID_霩_104_]]) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_65_:
+        for (a, b) in R:
+            for (c, d) in R:
+                if b == c _ASTNODE_霩:1.0__ID_霩_56_ (a, d) _ASTNODE_霩:1.0__ID_霩_30_ in R: return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_84_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[_ASTNODE_霩:1.0__ID_霩_104_], __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_]) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_[_ASTNODE_霩:1.0__ID_霩_104_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_65_]]]:
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_45_ = []
+// [metadata-stripped]
+        for __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_81_ in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_110_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_25_([__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_], __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_96_=_ASTNODE_霩:1.0__ID_霩_67_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_) * _ASTNODE_霩:1.0__ID_霩_67_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_)):
+            V = {}
+            _ASTNODE_霩:1.0__ID_霩_77_ = 0
+            for w in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_:
+                V[w] = {}
+                for a in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_135_:
+                    V[w][a] = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_81_[_ASTNODE_霩:1.0__ID_霩_77_]
+                    _ASTNODE_霩:1.0__ID_霩_77_ += 1
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_45_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_(V)
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_45_
+
+// _ASTNODE_礎:0.2__ID_DK_816_ [decoy-metadata]
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_17_[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[_ASTNODE_霩:1.0__ID_霩_104_], _ASTNODE_型:1.0__ID_礎_2_[__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_17_[_ASTNODE_霩:1.0__ID_霩_104_, _ASTNODE_霩:1.0__ID_霩_104_]], __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_[_ASTNODE_霩:1.0__ID_霩_104_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_40_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_65_]]], w: _ASTNODE_霩:1.0__ID_霩_104_) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_65_:
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_, R, V = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_
+        k = __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_23_
+        
+        if k == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_49_": return V[w]._ASTNODE_型:1.0__ID_礎_3_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_88_, __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_)
+        if k == "_ASTNODE_庵:1.0__ID_庵_37_": return _ASTNODE_霩:1.0__ID_霩_30_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)
+        if k == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_50_": return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w) _ASTNODE_霩:1.0__ID_霩_56_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)
+        if k == "OR": return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w) or self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)
+        if k == "_ASTNODE_庵:1.0__ID_庵_39_": return (_ASTNODE_霩:1.0__ID_霩_30_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)) or self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)
+        if k == "_ASTNODE_庵:1.0__ID_庵_10_": return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w) == self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, w)
+        
+        if k == "_ASTNODE_庵:1.0__ID_庵_46_":
+            for v in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_:
+                if (w, v) in R:
+                    if _ASTNODE_霩:1.0__ID_霩_30_ self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, v): return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_
+            return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_
+            
+        if k == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_":
+            for v in __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_20_:
+                if (w, v) in R:
+                    if self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_69_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_9_, v): return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_6_
+            return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_41_
+            
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_32_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_11_(f"__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_18_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_: {k}")
+
+// [metadata-stripped]
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_37_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_:
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_10_ = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_72_(__ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_101_)
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_85_ = 0
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_ = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_114_()
+        if self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_85_ < _ASTNODE_霩:1.0__ID_霩_67_(self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_10_):
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_32_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_11_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_48_ __ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_17_ at _ASTNODE_霩:1.0__ID_霩_12_")
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_33_(self, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_: __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_) -> _ASTNODE_型:1.0__ID_礎_2_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_]:
+// _ASTNODE_滾:0.3__ID_LX_361_ [decoy-metadata]
+        if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_23_ == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_49_": return {__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_88_}
+        s = _ASTNODE_型:1.0__ID_礎_1_()
+        if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_: s |= self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_33_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_)
+        if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_: s |= self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_33_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_)
+        if __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_: s |= self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_33_(__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_13_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_)
+        return s
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_72_(self, s: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_) -> __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_1_[__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_60_]:
+        __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_ = []
+        for m in self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_42_.__ASTNODE_庵:1.0__ID_庵_42_NODE_型:1.0__ID_霩_3_(s):
+            if m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(0).__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_80_(): continue
+            if m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(1): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("_ASTNODE_庵:1.0__ID_庵_10_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(2): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("_ASTNODE_庵:1.0__ID_庵_39_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(3): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_50_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(4): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("OR")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(5): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("_ASTNODE_庵:1.0__ID_庵_37_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(6): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("_ASTNODE_庵:1.0__ID_庵_46_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(7): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_")
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(8): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_(m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(8))
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_91_ m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(9): __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_120_(m.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_129_(9))
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_76_
+// _ASTNODE_縺:0.2__ID_XV_685_ [decoy-metadata]
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_(self): return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_10_[self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_85_] if self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_85_ < _ASTNODE_霩:1.0__ID_霩_67_(self.__ASTNODE_庵:1.0__ID_庵_42_NODE_底:1.0__ID_霩_10_) else __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_(self, ex=__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_):
+        t = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_()
+        if ex _ASTNODE_霩:1.0__ID_霩_56_ t != ex: __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_32_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_11_(f"__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_34_ {ex}, _ASTNODE_霩:1.0__ID_霩_21_ {t}")
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_85_ += 1
+        return t
+
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_114_(self): return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_62_()
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_滾:1.0__ID_霩_62_(self):
+        n = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_14_()
+        while self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_() == "_ASTNODE_庵:1.0__ID_庵_10_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            n = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("_ASTNODE_庵:1.0__ID_庵_10_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_=n, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_14_())
+        return n
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_14_(self):
+        n = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_119_()
+        while self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_() == "_ASTNODE_庵:1.0__ID_庵_39_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            n = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("_ASTNODE_庵:1.0__ID_庵_39_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_=n, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_14_()) # __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_35_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_51_
+        return n
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_119_(self):
+        n = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_44_()
+        while self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_() == "OR":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            n = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("OR", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_=n, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_44_())
+        return n
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_44_(self):
+        n = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_()
+        while self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_() == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_50_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            n = __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_50_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_18_=n, __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_75_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_())
+// _ASTNODE_底:0.9__ID_VC_212_ [decoy-metadata]
+        return n
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_(self):
+        t = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_()
+        if t == "_ASTNODE_庵:1.0__ID_庵_37_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("_ASTNODE_庵:1.0__ID_庵_37_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_())
+        if t == "_ASTNODE_庵:1.0__ID_庵_46_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("_ASTNODE_庵:1.0__ID_庵_46_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_())
+        if t == "__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_133_=self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_5_())
+        return self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_66_()
+    _ASTNODE_霩:1.0__ID_霩_112_ __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_66_(self):
+        t = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_99_()
+        if t == "(":
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+            n = self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_114_()
+// _ASTNODE_箱:0.7__ID_GX_604_ [decoy-metadata]
+            self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_(")")
+            return n
+        if t in ("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_50_","OR","_ASTNODE_庵:1.0__ID_庵_39_","_ASTNODE_庵:1.0__ID_庵_10_","_ASTNODE_庵:1.0__ID_庵_37_","_ASTNODE_庵:1.0__ID_庵_46_","__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_24_",")",__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_31_):
+            __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_32_ __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_11_(f"__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_48_: {t}")
+        self.__ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_131_()
+        return __ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_2_("__ASTNODE_庵:1.0__ID_庵_42_NODE_庵:1.0__ID_庵_49_", __ASTNODE_庵:1.0__ID_庵_42_NODE_霩:1.0__ID_霩_88_=t)
+// POLYMORPHIC_JCROSS_END

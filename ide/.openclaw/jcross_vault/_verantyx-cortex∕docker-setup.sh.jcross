@@ -1,0 +1,628 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:503569BF ver:1778166015
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_TOKEN_型:1.0___ast_廉_5__ -_TOKEN_霩:1.0___ast_霩_117__ _TOKEN_霩:1.0___ast_霩_46__
+
+_TOKEN_廬:1.0___ast_廬_65__="$(cd "$(_TOKEN_霩:1.0___ast_霩_156__ "${_TOKEN_廬:1.0___ast_廬_15__[0]}")" && _TOKEN_霩:1.0___ast_霩_11__)"
+_TOKEN_匾:1.0___ast_廬_64__="$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_型:1.0___ast_霩_56__-_TOKEN_霩:1.0___ast_霩_145__._TOKEN_霩:1.0___ast_霩_24__"
+_TOKEN_匾:1.0___ast_廬_54__="$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_型:1.0___ast_霩_56__-_TOKEN_霩:1.0___ast_霩_145__._TOKEN_霩:1.0___ast_霩_6__._TOKEN_霩:1.0___ast_霩_24__"
+_TOKEN_廬:1.0___ast_廬_93__="${_TOKEN_廬:1.0___ast_廬_6__:-_TOKEN_霩:1.0___ast_霩_110__:_TOKEN_霩:1.0___ast_霩_116__}"
+_TOKEN_廬:1.0___ast_廬_26__="${_TOKEN_廬:1.0___ast_廬_81__:-}"
+// _TOKEN_霩:0.3___ast_FY_628__ [decoy-metadata]
+_TOKEN_廬:1.0___ast_廬_50__="${_TOKEN_廬:1.0___ast_廬_75__:-}"
+_TOKEN_廬:1.0___ast_廬_68__="${_TOKEN_廬:1.0___ast_廬_95__:-}"
+_TOKEN_廬:1.0___ast_廬_5__=""
+_TOKEN_廬:1.0___ast_廬_34__="${_TOKEN_廬:1.0___ast_廬_14__:-}"
+_TOKEN_廬:1.0___ast_廬_45__="${_TOKEN_廬:1.0___ast_廬_77__:-}"
+
+_TOKEN_霩:1.0___ast_霩_245__() {
+  _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_88__: $*" >&2
+  _TOKEN_霩:1.0___ast_霩_327__ 1
+}
+
+_TOKEN_霩:1.0___ast_霩_269__() {
+  if ! _TOKEN_霩:1.0___ast_霩_134__ -v "$1" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_30__ _TOKEN_霩:1.0___ast_霩_273__: $1" >&2
+    _TOKEN_霩:1.0___ast_霩_327__ 1
+  fi
+}
+
+_TOKEN_霩:1.0___ast_霩_354__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_164__="${1:-}"
+  _TOKEN_霩:1.0___ast_霩_164__="$(_TOKEN_霩:1.0___ast_霩_63__ '%s' "$_TOKEN_霩:1.0___ast_霩_164__" | tr '[:_TOKEN_型:1.0___ast_霩_172__:]' '[:_TOKEN_型:1.0___ast_霩_198__:]')"
+  case "$_TOKEN_霩:1.0___ast_霩_164__" in
+    1 | true | _TOKEN_霩:1.0___ast_霩_344__ | on) return 0 ;;
+    *) return 1 ;;
+  _TOKEN_霩:1.0___ast_霩_304__
+}
+
+_TOKEN_深:1.0___ast_霩_232__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_352__="$_TOKEN_廬:1.0___ast_廬_33__/_TOKEN_霩:1.0___ast_霩_110__._TOKEN_霩:1.0___ast_霩_362__"
+  if [[ ! -f "$_TOKEN_霩:1.0___ast_霩_352__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    return 0
+  fi
+  if _TOKEN_霩:1.0___ast_霩_134__ -v _TOKEN_霩:1.0___ast_霩_363__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_363__ - "$_TOKEN_霩:1.0___ast_霩_352__" <<'PY'
+im_TOKEN_霩:1.0___ast_霩_242__ _TOKEN_霩:1.0___ast_霩_362__
+im_TOKEN_霩:1.0___ast_霩_242__ _TOKEN_霩:1.0___ast_霩_356__
+
+_TOKEN_霩:1.0___ast_霩_265__ = _TOKEN_霩:1.0___ast_霩_356__._TOKEN_霩:1.0___ast_霩_68__[1]
+try:
+    _TOKEN_霩:1.0___ast_霩_135__ open(_TOKEN_霩:1.0___ast_霩_265__, "r", _TOKEN_霩:1.0___ast_霩_25__="_TOKEN_霩:1.0___ast_霩_15__-8") as f:
+        _TOKEN_霩:1.0___ast_霩_112__ = _TOKEN_霩:1.0___ast_霩_362__._TOKEN_匾:1.0___ast_霩_192__(f)
+_TOKEN_霩:1.0___ast_霩_219__ _TOKEN_廬:1.0___ast_廬_43__:
+    _TOKEN_霩:1.0___ast_霩_130__ _TOKEN_廬:1.0___ast_廬_72__(0)
+
+_TOKEN_霩:1.0___ast_霩_262__ = _TOKEN_霩:1.0___ast_霩_112__._TOKEN_型:1.0___ast_廉_2__("_TOKEN_霩:1.0___ast_霩_262__")
+if _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_289__(_TOKEN_霩:1.0___ast_霩_262__, _TOKEN_霩:1.0___ast_霩_240__):
+    _TOKEN_霩:1.0___ast_霩_130__ _TOKEN_廬:1.0___ast_廬_72__(0)
+_TOKEN_霩:1.0___ast_霩_47__ = _TOKEN_霩:1.0___ast_霩_262__._TOKEN_型:1.0___ast_廉_2__("_TOKEN_霩:1.0___ast_霩_47__")
+if _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_289__(_TOKEN_霩:1.0___ast_霩_47__, _TOKEN_霩:1.0___ast_霩_240__):
+    _TOKEN_霩:1.0___ast_霩_130__ _TOKEN_廬:1.0___ast_廬_72__(0)
+_TOKEN_深:1.0___ast_霩_4__ = _TOKEN_霩:1.0___ast_霩_47__._TOKEN_型:1.0___ast_廉_2__("_TOKEN_深:1.0___ast_霩_4__")
+if _TOKEN_霩:1.0___ast_霩_289__(_TOKEN_深:1.0___ast_霩_4__, _TOKEN_霩:1.0___ast_霩_17__):
+    _TOKEN_深:1.0___ast_霩_4__ = _TOKEN_深:1.0___ast_霩_4__._TOKEN_霩:1.0___ast_霩_305__()
+    if _TOKEN_深:1.0___ast_霩_4__:
+        _TOKEN_霩:1.0___ast_霩_155__(_TOKEN_深:1.0___ast_霩_4__)
+PY
+    return 0
+  fi
+  if _TOKEN_霩:1.0___ast_霩_134__ -v _TOKEN_霩:1.0___ast_霩_367__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_367__ - "$_TOKEN_霩:1.0___ast_霩_352__" <<'_TOKEN_廬:1.0___ast_廬_10__'
+_TOKEN_霩:1.0___ast_霩_82__ fs = _TOKEN_霩:1.0___ast_霩_225__("_TOKEN_霩:1.0___ast_霩_367__:fs");
+_TOKEN_霩:1.0___ast_霩_82__ _TOKEN_霩:1.0___ast_霩_207__ = _TOKEN_霩:1.0___ast_霩_216__._TOKEN_霩:1.0___ast_霩_68__[2];
+try {
+  _TOKEN_霩:1.0___ast_霩_82__ _TOKEN_霩:1.0___ast_霩_112__ = _TOKEN_廬:1.0___ast_廬_18__._TOKEN_霩:1.0___ast_霩_136__(fs._TOKEN_匾:1.0___ast_霩_148__(_TOKEN_霩:1.0___ast_霩_207__, "_TOKEN_霩:1.0___ast_霩_246__"));
+  _TOKEN_霩:1.0___ast_霩_82__ _TOKEN_深:1.0___ast_霩_4__ = _TOKEN_霩:1.0___ast_霩_112__?._TOKEN_霩:1.0___ast_霩_262__?._TOKEN_霩:1.0___ast_霩_47__?._TOKEN_深:1.0___ast_霩_4__;
+  if (_TOKEN_霩:1.0___ast_霩_340__ _TOKEN_深:1.0___ast_霩_4__ === "_TOKEN_霩:1.0___ast_霩_102__" && _TOKEN_深:1.0___ast_霩_4__._TOKEN_霩:1.0___ast_霩_254__()._TOKEN_霩:1.0___ast_霩_299__ > 0) {
+    _TOKEN_霩:1.0___ast_霩_216__._TOKEN_霩:1.0___ast_霩_350__._TOKEN_霩:1.0___ast_霩_175__(_TOKEN_深:1.0___ast_霩_4__._TOKEN_霩:1.0___ast_霩_254__());
+  }
+} _TOKEN_霩:1.0___ast_霩_12__ch {
+// [metadata-stripped]
+}
+_TOKEN_廬:1.0___ast_廬_10__
+  fi
+}
+
+_TOKEN_深:1.0___ast_霩_128__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_318__="$1"
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_107__=""
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_深:1.0___ast_霩_4__=""
+  if [[ ! -f "$_TOKEN_霩:1.0___ast_霩_318__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    return 0
+  fi
+  while _TOKEN_廬:1.0___ast_廬_85__= _TOKEN_霩:1.0___ast_霩_27__ -r _TOKEN_霩:1.0___ast_霩_107__ || [[ -n "$_TOKEN_霩:1.0___ast_霩_107__" ]]; do
+    _TOKEN_霩:1.0___ast_霩_107__="${_TOKEN_霩:1.0___ast_霩_107__%$'\r'}"
+    if [[ "$_TOKEN_霩:1.0___ast_霩_107__" == _TOKEN_深:1.0___ast_廬_89__=* ]]; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_深:1.0___ast_霩_4__="${_TOKEN_霩:1.0___ast_霩_107__#_TOKEN_深:1.0___ast_廬_89__=}"
+    fi
+  _TOKEN_霩:1.0___ast_霩_229__ <"$_TOKEN_霩:1.0___ast_霩_318__"
+  if [[ -n "$_TOKEN_深:1.0___ast_霩_4__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_63__ '%s' "$_TOKEN_深:1.0___ast_霩_4__"
+  fi
+}
+
+_TOKEN_霩:1.0___ast_霩_214__() {
+  if [[ "${_TOKEN_廬:1.0___ast_廬_76__}" == "_TOKEN_霩:1.0___ast_霩_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    return 0
+  fi
+
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_122__
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_271__
+  _TOKEN_霩:1.0___ast_霩_122__="$(_TOKEN_霩:1.0___ast_霩_63__ '["_TOKEN_縫:1.0___ast_霩_296__://127.0.0.1:%s"]' "$_TOKEN_廬:1.0___ast_廬_80__")"
+  _TOKEN_霩:1.0___ast_霩_271__="$(
+    _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+      _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_2__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_184__._TOKEN_霩:1.0___ast_霩_165__ 2>/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ || true
+  )"
+  _TOKEN_霩:1.0___ast_霩_271__="${_TOKEN_霩:1.0___ast_霩_271__//$'\r'/}"
+
+  if [[ -n "$_TOKEN_霩:1.0___ast_霩_271__" && "$_TOKEN_霩:1.0___ast_霩_271__" != "_TOKEN_霩:1.0___ast_霩_69__" && "$_TOKEN_霩:1.0___ast_霩_271__" != "[]" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_69__ UI _TOKEN_霩:1.0___ast_霩_94__ _TOKEN_霩:1.0___ast_霩_309__ _TOKEN_霩:1.0___ast_霩_263__; _TOKEN_霩:1.0___ast_霩_329__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_184__._TOKEN_霩:1.0___ast_霩_165__ _TOKEN_霩:1.0___ast_霩_274__."
+    return 0
+  fi
+
+  _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_184__._TOKEN_霩:1.0___ast_霩_165__ "$_TOKEN_霩:1.0___ast_霩_122__" --_TOKEN_霩:1.0___ast_霩_348__-_TOKEN_霩:1.0___ast_霩_362__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__
+  _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_型:1.0___ast_廉_4__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_184__._TOKEN_霩:1.0___ast_霩_165__ to $_TOKEN_霩:1.0___ast_霩_122__ for _TOKEN_霩:1.0___ast_霩_279__-_TOKEN_霩:1.0___ast_霩_5__ _TOKEN_霩:1.0___ast_霩_16__."
+}
+
+_TOKEN_霩:1.0___ast_霩_186__() {
+  _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_20__ _TOKEN_霩:1.0___ast_霩_116__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__
+  _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_16__ "$_TOKEN_廬:1.0___ast_廬_76__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__
+  _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_28__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_20__=_TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_310__ _TOKEN_霩:1.0___ast_霩_262__._TOKEN_霩:1.0___ast_霩_16__=$_TOKEN_廬:1.0___ast_廬_76__ for _TOKEN_型:1.0___ast_廬_22__ _TOKEN_型:1.0___ast_廉_3__."
+}
+
+_TOKEN_霩:1.0___ast_霩_146__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_253__="$1"
+  [[ "$_TOKEN_霩:1.0___ast_霩_253__" == *$'\n'* || "$_TOKEN_霩:1.0___ast_霩_253__" == *$'\r'* || "$_TOKEN_霩:1.0___ast_霩_253__" == *$'\t'* ]]
+}
+
+_TOKEN_霩:1.0___ast_霩_285__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_253__="$1"
+  [[ -e "/_TOKEN_霩:1.0___ast_霩_365__/_TOKEN_霩:1.0___ast_霩_366__/_TOKEN_霩:1.0___ast_霩_260__/$_TOKEN_霩:1.0___ast_霩_253__" && ! -d "/_TOKEN_霩:1.0___ast_霩_365__/_TOKEN_霩:1.0___ast_霩_366__/_TOKEN_霩:1.0___ast_霩_260__/$_TOKEN_霩:1.0___ast_霩_253__" ]]
+}
+
+_TOKEN_霩:1.0___ast_霩_23__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_3__="$1"
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_253__="$2"
+  if [[ -z "$_TOKEN_霩:1.0___ast_霩_253__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "$_TOKEN_霩:1.0___ast_霩_3__ _TOKEN_霩:1.0___ast_霩_28__ be _TOKEN_霩:1.0___ast_霩_96__."
+  fi
+  if _TOKEN_霩:1.0___ast_霩_146__ "$_TOKEN_霩:1.0___ast_霩_253__"; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "$_TOKEN_霩:1.0___ast_霩_3__ _TOKEN_霩:1.0___ast_霩_173__ _TOKEN_霩:1.0___ast_霩_72__ _TOKEN_霩:1.0___ast_霩_190__ _TOKEN_霩:1.0___ast_霩_284__."
+  fi
+  if [[ "$_TOKEN_霩:1.0___ast_霩_253__" =~ [[:_TOKEN_霩:1.0___ast_霩_261__:]] ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "$_TOKEN_霩:1.0___ast_霩_3__ _TOKEN_霩:1.0___ast_霩_28__ _TOKEN_霩:1.0___ast_霩_147__ _TOKEN_霩:1.0___ast_霩_308__."
+  fi
+}
+
+_TOKEN_霩:1.0___ast_霩_60__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_253__="$1"
+  if [[ ! "$_TOKEN_霩:1.0___ast_霩_253__" =~ ^[A-Za-z0-9][A-Za-z0-9_.-]*$ ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_75__ _TOKEN_霩:1.0___ast_霩_206__ _TOKEN_霩:1.0___ast_霩_349__ [A-Za-z0-9][A-Za-z0-9_.-]* _TOKEN_霩:1.0___ast_霩_361__ _TOKEN_霩:1.0___ast_霩_252__ a _TOKEN_霩:1.0___ast_霩_243__ _TOKEN_霩:1.0___ast_霩_58__."
+  fi
+}
+
+_TOKEN_霩:1.0___ast_霩_341__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_141__="$1"
+  if _TOKEN_霩:1.0___ast_霩_146__ "$_TOKEN_霩:1.0___ast_霩_141__"; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_81__ _TOKEN_霩:1.0___ast_霩_226__ _TOKEN_霩:1.0___ast_霩_28__ _TOKEN_霩:1.0___ast_霩_147__ _TOKEN_霩:1.0___ast_霩_190__ _TOKEN_霩:1.0___ast_霩_284__."
+  fi
+// [metadata-stripped]
+// [metadata-stripped]
+  if [[ ! "$_TOKEN_霩:1.0___ast_霩_141__" =~ ^[^[:_TOKEN_霩:1.0___ast_霩_261__:],:]+:[^[:_TOKEN_霩:1.0___ast_霩_261__:],:]+(:[^[:_TOKEN_霩:1.0___ast_霩_261__:],:]+)?$ ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_97__ _TOKEN_霩:1.0___ast_霩_141__ _TOKEN_泳:1.0___ast_霩_209__ '$_TOKEN_霩:1.0___ast_霩_141__'. _TOKEN_廬:1.0___ast_廬_16__ _TOKEN_霩:1.0___ast_霩_255__:_TOKEN_霩:1.0___ast_霩_193__[:_TOKEN_霩:1.0___ast_霩_62__] _TOKEN_霩:1.0___ast_霩_79__ _TOKEN_霩:1.0___ast_霩_332__."
+  fi
+}
+
+_TOKEN_霩:1.0___ast_霩_269__ _TOKEN_型:1.0___ast_霩_56__
+if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ _TOKEN_霩:1.0___ast_霩_81__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_型:1.0___ast_廬_22__ _TOKEN_廬:1.0___ast_廬_110__ _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_326__ (try: _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ _TOKEN_霩:1.0___ast_霩_81__)" >&2
+  _TOKEN_霩:1.0___ast_霩_327__ 1
+fi
+
+if [[ -z "$_TOKEN_廬:1.0___ast_廬_34__" && "${_TOKEN_廬:1.0___ast_廬_38__:-}" == _TOKEN_霩:1.0___ast_霩_38__://* ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_廬:1.0___ast_廬_34__="${_TOKEN_廬:1.0___ast_廬_38__#_TOKEN_霩:1.0___ast_霩_38__://}"
+fi
+if [[ -z "$_TOKEN_廬:1.0___ast_廬_34__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_廬:1.0___ast_廬_34__="/var/_TOKEN_霩:1.0___ast_霩_80__/_TOKEN_型:1.0___ast_霩_56__._TOKEN_霩:1.0___ast_霩_295__"
+fi
+if _TOKEN_霩:1.0___ast_霩_354__ "$_TOKEN_廬:1.0___ast_廬_68__"; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_廬:1.0___ast_廬_5__="1"
+fi
+
+_TOKEN_廬:1.0___ast_廬_33__="${_TOKEN_廬:1.0___ast_廬_33__:-$_TOKEN_廬:1.0___ast_廬_42__/._TOKEN_霩:1.0___ast_霩_110__}"
+_TOKEN_廬:1.0___ast_廬_107__="${_TOKEN_廬:1.0___ast_廬_107__:-$_TOKEN_廬:1.0___ast_廬_42__/._TOKEN_霩:1.0___ast_霩_110__/_TOKEN_霩:1.0___ast_霩_70__}"
+
+_TOKEN_霩:1.0___ast_霩_23__ "_TOKEN_廬:1.0___ast_廬_33__" "$_TOKEN_廬:1.0___ast_廬_33__"
+_TOKEN_霩:1.0___ast_霩_23__ "_TOKEN_廬:1.0___ast_廬_107__" "$_TOKEN_廬:1.0___ast_廬_107__"
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_50__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  if [[ "$_TOKEN_廬:1.0___ast_廬_50__" == *"/"* ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_23__ "_TOKEN_廬:1.0___ast_廬_75__" "$_TOKEN_廬:1.0___ast_廬_50__"
+  else
+    _TOKEN_霩:1.0___ast_霩_60__ "$_TOKEN_廬:1.0___ast_廬_50__"
+  fi
+fi
+if _TOKEN_霩:1.0___ast_霩_146__ "$_TOKEN_廬:1.0___ast_廬_26__"; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_81__ _TOKEN_霩:1.0___ast_霩_28__ _TOKEN_霩:1.0___ast_霩_147__ _TOKEN_霩:1.0___ast_霩_190__ _TOKEN_霩:1.0___ast_霩_284__."
+fi
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_霩:1.0___ast_霩_23__ "_TOKEN_廬:1.0___ast_廬_14__" "$_TOKEN_廬:1.0___ast_廬_34__"
+fi
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_45__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  if _TOKEN_霩:1.0___ast_霩_146__ "$_TOKEN_廬:1.0___ast_廬_45__"; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_77__ _TOKEN_霩:1.0___ast_霩_173__ _TOKEN_霩:1.0___ast_霩_72__ _TOKEN_霩:1.0___ast_霩_190__ _TOKEN_霩:1.0___ast_霩_284__."
+  fi
+  if [[ ! "$_TOKEN_廬:1.0___ast_廬_45__" =~ ^[A-Za-z0-9/_+\-]+$ ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_77__ _TOKEN_霩:1.0___ast_霩_206__ be a _TOKEN_霩:1.0___ast_霩_235__ _TOKEN_廬:1.0___ast_廬_92__ _TOKEN_霩:1.0___ast_霩_187__ _TOKEN_霩:1.0___ast_霩_102__ (e.g. _TOKEN_廬:1.0___ast_廬_99__/_TOKEN_廬:1.0___ast_廬_27__)."
+  fi
+// _TOKEN_廉:0.1___ast_LC_431__ [decoy-metadata]
+// _TOKEN_匾:0.9___ast_MW_589__ [decoy-metadata]
+  if ! _TOKEN_霩:1.0___ast_霩_285__ "$_TOKEN_廬:1.0___ast_廬_45__"; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_245__ "_TOKEN_廬:1.0___ast_廬_77__ _TOKEN_霩:1.0___ast_霩_206__ _TOKEN_霩:1.0___ast_霩_349__ a _TOKEN_霩:1.0___ast_霩_187__ in /_TOKEN_霩:1.0___ast_霩_365__/_TOKEN_霩:1.0___ast_霩_366__/_TOKEN_霩:1.0___ast_霩_260__ (e.g. _TOKEN_廬:1.0___ast_廬_99__/_TOKEN_廬:1.0___ast_廬_27__)."
+  fi
+fi
+
+_TOKEN_霩:1.0___ast_霩_189__ -p "$_TOKEN_廬:1.0___ast_廬_33__"
+_TOKEN_霩:1.0___ast_霩_189__ -p "$_TOKEN_廬:1.0___ast_廬_107__"
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_霩:1.0___ast_霩_189__ -p "$_TOKEN_廬:1.0___ast_廬_33__/_TOKEN_霩:1.0___ast_霩_32__"
+_TOKEN_霩:1.0___ast_霩_189__ -p "$_TOKEN_廬:1.0___ast_廬_33__/_TOKEN_霩:1.0___ast_霩_330__/_TOKEN_霩:1.0___ast_霩_238__/_TOKEN_霩:1.0___ast_霩_286__"
+_TOKEN_霩:1.0___ast_霩_189__ -p "$_TOKEN_廬:1.0___ast_廬_33__/_TOKEN_霩:1.0___ast_霩_330__/_TOKEN_霩:1.0___ast_霩_238__/_TOKEN_霩:1.0___ast_霩_73__"
+
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_33__
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_107__
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_80__="${_TOKEN_廬:1.0___ast_廬_80__:-18789}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_63__="${_TOKEN_廬:1.0___ast_廬_63__:-18790}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_76__="${_TOKEN_廬:1.0___ast_廬_76__:-_TOKEN_霩:1.0___ast_霩_280__}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_6__="$_TOKEN_廬:1.0___ast_廬_93__"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_37__="${_TOKEN_廬:1.0___ast_廬_37__:-}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_103__="${_TOKEN_廬:1.0___ast_廬_103__:-}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_81__="$_TOKEN_廬:1.0___ast_廬_26__"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_75__="$_TOKEN_廬:1.0___ast_廬_50__"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_109__="${_TOKEN_廬:1.0___ast_廬_109__:-}"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_95__="$_TOKEN_廬:1.0___ast_廬_5__"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_14__="$_TOKEN_廬:1.0___ast_廬_34__"
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_77__="$_TOKEN_廬:1.0___ast_廬_45__"
+
+// [metadata-stripped]
+_TOKEN_廬:1.0___ast_廬_19__=""
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" && -S "$_TOKEN_廬:1.0___ast_廬_34__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_廬:1.0___ast_廬_19__="$(_TOKEN_霩:1.0___ast_霩_276__ -c '%g' "$_TOKEN_廬:1.0___ast_廬_34__" 2>/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ || _TOKEN_霩:1.0___ast_霩_276__ -f '%g' "$_TOKEN_廬:1.0___ast_廬_34__" 2>/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ || _TOKEN_霩:1.0___ast_霩_22__ "")"
+fi
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_19__
+
+if [[ -z "${_TOKEN_深:1.0___ast_廬_89__:-}" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_深:1.0___ast_廬_84__="$(_TOKEN_深:1.0___ast_霩_232__ || true)"
+  if [[ -n "$_TOKEN_深:1.0___ast_廬_84__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_深:1.0___ast_廬_89__="$_TOKEN_深:1.0___ast_廬_84__"
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_59__ _TOKEN_霩:1.0___ast_霩_262__ _TOKEN_深:1.0___ast_霩_4__ _TOKEN_霩:1.0___ast_霩_109__ $_TOKEN_廬:1.0___ast_廬_33__/_TOKEN_霩:1.0___ast_霩_110__._TOKEN_霩:1.0___ast_霩_362__"
+  else
+    _TOKEN_深:1.0___ast_廬_105__="$(_TOKEN_深:1.0___ast_霩_128__ "$_TOKEN_廬:1.0___ast_廬_65__/._TOKEN_霩:1.0___ast_霩_220__" || true)"
+    if [[ -n "$_TOKEN_深:1.0___ast_廬_105__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_深:1.0___ast_廬_89__="$_TOKEN_深:1.0___ast_廬_105__"
+      _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_59__ _TOKEN_霩:1.0___ast_霩_262__ _TOKEN_深:1.0___ast_霩_4__ _TOKEN_霩:1.0___ast_霩_109__ $_TOKEN_廬:1.0___ast_廬_65__/._TOKEN_霩:1.0___ast_霩_220__"
+    _TOKEN_泳:1.0___ast_霩_118__ _TOKEN_霩:1.0___ast_霩_134__ -v _TOKEN_霩:1.0___ast_霩_312__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_深:1.0___ast_廬_89__="$(_TOKEN_霩:1.0___ast_霩_312__ _TOKEN_霩:1.0___ast_霩_95__ -_TOKEN_霩:1.0___ast_霩_45__ 32)"
+    else
+      _TOKEN_深:1.0___ast_廬_89__="$(_TOKEN_霩:1.0___ast_霩_363__ - <<'PY'
+im_TOKEN_霩:1.0___ast_霩_242__ _TOKEN_深:1.0___ast_霩_49__
+_TOKEN_霩:1.0___ast_霩_155__(_TOKEN_深:1.0___ast_霩_49__._TOKEN_深:1.0___ast_霩_342__(32))
+PY
+)"
+    fi
+  fi
+fi
+_TOKEN_霩:1.0___ast_霩_311__ _TOKEN_深:1.0___ast_廬_89__
+
+_TOKEN_匾:1.0___ast_廬_83__=("$_TOKEN_匾:1.0___ast_廬_64__")
+_TOKEN_廬:1.0___ast_廬_56__=()
+
+_TOKEN_霩:1.0___ast_霩_10__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_123__="$1"
+  _TOKEN_泳:1.0___ast_霩_359__
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_141__
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_127__
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_278__
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_9__
+
+  _TOKEN_霩:1.0___ast_霩_12__ >"$_TOKEN_匾:1.0___ast_廬_54__" <<'_TOKEN_廬:1.0___ast_廬_17__'
+_TOKEN_霩:1.0___ast_霩_76__:
+  _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__:
+    _TOKEN_霩:1.0___ast_霩_224__:
+_TOKEN_廬:1.0___ast_廬_17__
+
+  if [[ -n "$_TOKEN_霩:1.0___ast_霩_123__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_127__="${_TOKEN_霩:1.0___ast_霩_123__}:/_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__"
+    _TOKEN_霩:1.0___ast_霩_278__="${_TOKEN_廬:1.0___ast_廬_33__}:/_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__/._TOKEN_霩:1.0___ast_霩_110__"
+    _TOKEN_霩:1.0___ast_霩_9__="${_TOKEN_廬:1.0___ast_廬_107__}:/_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__/._TOKEN_霩:1.0___ast_霩_110__/_TOKEN_霩:1.0___ast_霩_70__"
+    _TOKEN_霩:1.0___ast_霩_341__ "$_TOKEN_霩:1.0___ast_霩_127__"
+    _TOKEN_霩:1.0___ast_霩_341__ "$_TOKEN_霩:1.0___ast_霩_278__"
+    _TOKEN_霩:1.0___ast_霩_341__ "$_TOKEN_霩:1.0___ast_霩_9__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_127__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_278__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_9__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+  fi
+
+  for _TOKEN_霩:1.0___ast_霩_141__ in "$@"; do
+    _TOKEN_霩:1.0___ast_霩_341__ "$_TOKEN_霩:1.0___ast_霩_141__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_141__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+  _TOKEN_霩:1.0___ast_霩_229__
+
+  _TOKEN_霩:1.0___ast_霩_12__ >>"$_TOKEN_匾:1.0___ast_廬_54__" <<'_TOKEN_廬:1.0___ast_廬_17__'
+  _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__:
+    _TOKEN_霩:1.0___ast_霩_224__:
+_TOKEN_廬:1.0___ast_廬_17__
+
+  if [[ -n "$_TOKEN_霩:1.0___ast_霩_123__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_127__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_278__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_9__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+  fi
+
+  for _TOKEN_霩:1.0___ast_霩_141__ in "$@"; do
+    _TOKEN_霩:1.0___ast_霩_341__ "$_TOKEN_霩:1.0___ast_霩_141__"
+    _TOKEN_霩:1.0___ast_霩_63__ '      - %s\n' "$_TOKEN_霩:1.0___ast_霩_141__" >>"$_TOKEN_匾:1.0___ast_廬_54__"
+  _TOKEN_霩:1.0___ast_霩_229__
+
+  if [[ -n "$_TOKEN_霩:1.0___ast_霩_123__" && "$_TOKEN_霩:1.0___ast_霩_123__" != *"/"* ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_60__ "$_TOKEN_霩:1.0___ast_霩_123__"
+    _TOKEN_霩:1.0___ast_霩_12__ >>"$_TOKEN_匾:1.0___ast_廬_54__" <<_TOKEN_廬:1.0___ast_廬_17__
+_TOKEN_霩:1.0___ast_霩_224__:
+  ${_TOKEN_霩:1.0___ast_霩_123__}:
+_TOKEN_廬:1.0___ast_廬_17__
+  fi
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  if [[ -z "${_TOKEN_廬:1.0___ast_廬_94__:-}" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_311__ _TOKEN_廬:1.0___ast_廬_94__=1
+  fi
+fi
+
+_TOKEN_廬:1.0___ast_廬_35__=()
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_26__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_廬:1.0___ast_廬_85__=',' _TOKEN_霩:1.0___ast_霩_27__ -r -a _TOKEN_霩:1.0___ast_霩_55__ <<<"$_TOKEN_廬:1.0___ast_廬_26__"
+  for _TOKEN_霩:1.0___ast_霩_141__ in "${_TOKEN_霩:1.0___ast_霩_55__[@]}"; do
+    _TOKEN_霩:1.0___ast_霩_141__="${_TOKEN_霩:1.0___ast_霩_141__#"${_TOKEN_霩:1.0___ast_霩_141__%%[![:_TOKEN_霩:1.0___ast_霩_261__:]]*}"}"
+    _TOKEN_霩:1.0___ast_霩_141__="${_TOKEN_霩:1.0___ast_霩_141__%"${_TOKEN_霩:1.0___ast_霩_141__##*[![:_TOKEN_霩:1.0___ast_霩_261__:]]}"}"
+    if [[ -n "$_TOKEN_霩:1.0___ast_霩_141__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_廬:1.0___ast_廬_35__+=("$_TOKEN_霩:1.0___ast_霩_141__")
+    fi
+  _TOKEN_霩:1.0___ast_霩_229__
+fi
+
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_50__" || ${#_TOKEN_廬:1.0___ast_廬_35__[@]} -gt 0 ]]; _TOKEN_霩:1.0___ast_霩_124__
+// [metadata-stripped]
+  if [[ ${#_TOKEN_廬:1.0___ast_廬_35__[@]} -gt 0 ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_10__ "$_TOKEN_廬:1.0___ast_廬_50__" "${_TOKEN_廬:1.0___ast_廬_35__[@]}"
+  else
+    _TOKEN_霩:1.0___ast_霩_10__ "$_TOKEN_廬:1.0___ast_廬_50__"
+  fi
+  _TOKEN_匾:1.0___ast_廬_83__+=("$_TOKEN_匾:1.0___ast_廬_54__")
+fi
+for _TOKEN_匾:1.0___ast_霩_317__ in "${_TOKEN_匾:1.0___ast_廬_83__[@]}"; do
+  _TOKEN_廬:1.0___ast_廬_56__+=("-f" "$_TOKEN_匾:1.0___ast_霩_317__")
+_TOKEN_霩:1.0___ast_霩_229__
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_廬:1.0___ast_廬_3__=("${_TOKEN_廬:1.0___ast_廬_56__[@]}")
+_TOKEN_廬:1.0___ast_廬_9__="_TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__"
+for _TOKEN_匾:1.0___ast_霩_317__ in "${_TOKEN_匾:1.0___ast_廬_83__[@]}"; do
+  _TOKEN_廬:1.0___ast_廬_9__+=" -f ${_TOKEN_匾:1.0___ast_霩_317__}"
+_TOKEN_霩:1.0___ast_霩_229__
+
+_TOKEN_匾:1.0___ast_廬_86__="$_TOKEN_廬:1.0___ast_廬_65__/._TOKEN_霩:1.0___ast_霩_220__"
+_TOKEN_霩:1.0___ast_霩_177__() {
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_匾:1.0___ast_霩_176__="$1"
+  _TOKEN_泳:1.0___ast_霩_359__
+  _TOKEN_霩:1.0___ast_霩_116__ -a _TOKEN_深:1.0___ast_霩_137__=("$@")
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_211__
+  _TOKEN_霩:1.0___ast_霩_211__="$(_TOKEN_霩:1.0___ast_霩_293__)"
+// [metadata-stripped]
+// [metadata-stripped]
+  _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_14__=" "
+
+  if [[ -f "$_TOKEN_匾:1.0___ast_霩_176__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    while _TOKEN_廬:1.0___ast_廬_85__= _TOKEN_霩:1.0___ast_霩_27__ -r _TOKEN_霩:1.0___ast_霩_107__ || [[ -n "$_TOKEN_霩:1.0___ast_霩_107__" ]]; do
+      _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_深:1.0___ast_霩_162__="${_TOKEN_霩:1.0___ast_霩_107__%%=*}"
+      _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_203__=false
+      for k in "${_TOKEN_深:1.0___ast_霩_137__[@]}"; do
+        if [[ "$_TOKEN_深:1.0___ast_霩_162__" == "$k" ]]; _TOKEN_霩:1.0___ast_霩_124__
+          _TOKEN_霩:1.0___ast_霩_63__ '%s=%s\n' "$k" "${!k-}" >>"$_TOKEN_霩:1.0___ast_霩_211__"
+          _TOKEN_霩:1.0___ast_霩_14__="$_TOKEN_霩:1.0___ast_霩_14__$k "
+          _TOKEN_霩:1.0___ast_霩_203__=true
+          break
+        fi
+      _TOKEN_霩:1.0___ast_霩_229__
+      if [[ "$_TOKEN_霩:1.0___ast_霩_203__" == false ]]; _TOKEN_霩:1.0___ast_霩_124__
+        _TOKEN_霩:1.0___ast_霩_63__ '%s\n' "$_TOKEN_霩:1.0___ast_霩_107__" >>"$_TOKEN_霩:1.0___ast_霩_211__"
+      fi
+    _TOKEN_霩:1.0___ast_霩_229__ <"$_TOKEN_匾:1.0___ast_霩_176__"
+  fi
+
+  for k in "${_TOKEN_深:1.0___ast_霩_137__[@]}"; do
+    if [[ "$_TOKEN_霩:1.0___ast_霩_14__" != *" $k "* ]]; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_霩:1.0___ast_霩_63__ '%s=%s\n' "$k" "${!k-}" >>"$_TOKEN_霩:1.0___ast_霩_211__"
+    fi
+  _TOKEN_霩:1.0___ast_霩_229__
+
+  mv "$_TOKEN_霩:1.0___ast_霩_211__" "$_TOKEN_匾:1.0___ast_霩_176__"
+}
+
+_TOKEN_霩:1.0___ast_霩_177__ "$_TOKEN_匾:1.0___ast_廬_86__" \
+  _TOKEN_廬:1.0___ast_廬_33__ \
+  _TOKEN_廬:1.0___ast_廬_107__ \
+  _TOKEN_廬:1.0___ast_廬_80__ \
+  _TOKEN_廬:1.0___ast_廬_63__ \
+  _TOKEN_廬:1.0___ast_廬_76__ \
+  _TOKEN_深:1.0___ast_廬_89__ \
+  _TOKEN_廬:1.0___ast_廬_6__ \
+  _TOKEN_廬:1.0___ast_廬_81__ \
+  _TOKEN_廬:1.0___ast_廬_75__ \
+  _TOKEN_廬:1.0___ast_廬_37__ \
+  _TOKEN_廬:1.0___ast_廬_103__ \
+  _TOKEN_廬:1.0___ast_廬_95__ \
+  _TOKEN_廬:1.0___ast_廬_14__ \
+  _TOKEN_廬:1.0___ast_廬_19__ \
+  _TOKEN_廬:1.0___ast_廬_94__ \
+  _TOKEN_廬:1.0___ast_廬_109__ \
+  _TOKEN_廬:1.0___ast_廬_77__
+
+if [[ "$_TOKEN_廬:1.0___ast_廬_93__" == "_TOKEN_霩:1.0___ast_霩_110__:_TOKEN_霩:1.0___ast_霩_116__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_46__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_114__: $_TOKEN_廬:1.0___ast_廬_93__"
+  _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_292__ \
+    --_TOKEN_霩:1.0___ast_霩_292__-_TOKEN_霩:1.0___ast_霩_34__ "_TOKEN_廬:1.0___ast_廬_37__=${_TOKEN_廬:1.0___ast_廬_37__}" \
+    --_TOKEN_霩:1.0___ast_霩_292__-_TOKEN_霩:1.0___ast_霩_34__ "_TOKEN_廬:1.0___ast_廬_103__=${_TOKEN_廬:1.0___ast_廬_103__}" \
+    --_TOKEN_霩:1.0___ast_霩_292__-_TOKEN_霩:1.0___ast_霩_34__ "_TOKEN_廬:1.0___ast_廬_94__=${_TOKEN_廬:1.0___ast_廬_94__:-}" \
+    -t "$_TOKEN_廬:1.0___ast_廬_93__" \
+    -f "$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_匾:1.0___ast_廬_29__" \
+    "$_TOKEN_廬:1.0___ast_廬_65__"
+else
+  _TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_78__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_114__: $_TOKEN_廬:1.0___ast_廬_93__"
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_230__ "$_TOKEN_廬:1.0___ast_廬_93__"; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_88__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_霩:1.0___ast_霩_230__ _TOKEN_霩:1.0___ast_霩_114__ $_TOKEN_廬:1.0___ast_廬_93__. _TOKEN_廬:1.0___ast_廬_32__ _TOKEN_霩:1.0___ast_霩_264__ _TOKEN_霩:1.0___ast_霩_19__ _TOKEN_霩:1.0___ast_霩_114__ _TOKEN_霩:1.0___ast_霩_61__ _TOKEN_霩:1.0___ast_霩_310__ _TOKEN_霩:1.0___ast_霩_160__ _TOKEN_霩:1.0___ast_霩_199__ _TOKEN_霩:1.0___ast_霩_236__." >&2
+    _TOKEN_霩:1.0___ast_霩_327__ 1
+  fi
+fi
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_104__ _TOKEN_霩:1.0___ast_霩_161__-_TOKEN_霩:1.0___ast_霩_258__ _TOKEN_霩:1.0___ast_霩_236__"
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --_TOKEN_型:1.0___ast_霩_313__ _TOKEN_霩:1.0___ast_霩_357__ --_TOKEN_霩:1.0___ast_霩_281__ sh _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ -c \
+  '_TOKEN_霩:1.0___ast_霩_355__ /_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__/._TOKEN_霩:1.0___ast_霩_110__ -_TOKEN_霩:1.0___ast_霩_30__ -_TOKEN_霩:1.0___ast_霩_251__ _TOKEN_霩:1.0___ast_霩_291__ _TOKEN_霩:1.0___ast_霩_367__:_TOKEN_霩:1.0___ast_霩_367__ {} +; \
+   [ -d /_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__/._TOKEN_霩:1.0___ast_霩_110__/_TOKEN_霩:1.0___ast_霩_70__/._TOKEN_霩:1.0___ast_霩_110__ ] && _TOKEN_霩:1.0___ast_霩_291__ -R _TOKEN_霩:1.0___ast_霩_367__:_TOKEN_霩:1.0___ast_霩_367__ /_TOKEN_霩:1.0___ast_霩_298__/_TOKEN_霩:1.0___ast_霩_367__/._TOKEN_霩:1.0___ast_霩_110__/_TOKEN_霩:1.0___ast_霩_70__/._TOKEN_霩:1.0___ast_霩_110__ || true'
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_8__ (_TOKEN_霩:1.0___ast_霩_221__)"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_型:1.0___ast_廬_22__ _TOKEN_型:1.0___ast_廉_3__ _TOKEN_霩:1.0___ast_霩_51__ _TOKEN_廬:1.0___ast_廬_71__ _TOKEN_霩:1.0___ast_霩_20__ to _TOKEN_霩:1.0___ast_霩_116__."
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_71__ _TOKEN_霩:1.0___ast_霩_168__ _TOKEN_霩:1.0___ast_霩_16__ _TOKEN_霩:1.0___ast_霩_151__ _TOKEN_霩:1.0___ast_霩_109__ _TOKEN_廬:1.0___ast_廬_76__ (_TOKEN_霩:1.0___ast_霩_21__: _TOKEN_霩:1.0___ast_霩_280__)."
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_1__ _TOKEN_霩:1.0___ast_霩_168__ _TOKEN_霩:1.0___ast_霩_16__: $_TOKEN_廬:1.0___ast_廬_76__"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_71__ _TOKEN_深:1.0___ast_霩_4__: $_TOKEN_深:1.0___ast_廬_89__"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_101__ _TOKEN_霩:1.0___ast_霩_333__: _TOKEN_廬:1.0___ast_廬_25__ (_TOKEN_霩:1.0___ast_霩_347__ _TOKEN_霩:1.0___ast_霩_105__-_TOKEN_霩:1.0___ast_霩_228__ _TOKEN_霩:1.0___ast_霩_233__/_TOKEN_廬:1.0___ast_廬_101__ _TOKEN_型:1.0___ast_廉_3__ _TOKEN_霩:1.0___ast_霩_201__)."
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_98__ _TOKEN_廬:1.0___ast_廬_71__ _TOKEN_霩:1.0___ast_霩_78__: No (_TOKEN_霩:1.0___ast_霩_200__ by _TOKEN_型:1.0___ast_廬_22__ _TOKEN_廬:1.0___ast_廬_110__)"
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ _TOKEN_霩:1.0___ast_霩_153__ --_TOKEN_霩:1.0___ast_霩_20__ _TOKEN_霩:1.0___ast_霩_116__ --no-_TOKEN_霩:1.0___ast_霩_181__-_TOKEN_霩:1.0___ast_霩_78__
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_262__ _TOKEN_霩:1.0___ast_霩_353__"
+_TOKEN_霩:1.0___ast_霩_186__
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_69__ UI _TOKEN_霩:1.0___ast_霩_322__ _TOKEN_霩:1.0___ast_霩_94__"
+_TOKEN_霩:1.0___ast_霩_214__
+// _TOKEN_霩:0.7___ast_YW_730__ [decoy-metadata]
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_型:1.0___ast_廬_60__ _TOKEN_型:1.0___ast_廉_3__ (_TOKEN_霩:1.0___ast_霩_210__)"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_51__ (QR):"
+_TOKEN_霩:1.0___ast_霩_22__ "  ${_TOKEN_廬:1.0___ast_廬_9__} _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ _TOKEN_霩:1.0___ast_霩_321__ _TOKEN_霩:1.0___ast_霩_44__"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_44__ (_TOKEN_霩:1.0___ast_霩_85__ _TOKEN_深:1.0___ast_霩_4__):"
+_TOKEN_霩:1.0___ast_霩_22__ "  ${_TOKEN_廬:1.0___ast_廬_9__} _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ _TOKEN_霩:1.0___ast_霩_321__ _TOKEN_霩:1.0___ast_霩_87__ --_TOKEN_霩:1.0___ast_霩_150__ _TOKEN_霩:1.0___ast_霩_182__ --_TOKEN_深:1.0___ast_霩_4__ <_TOKEN_深:1.0___ast_霩_4__>"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_41__ (_TOKEN_霩:1.0___ast_霩_85__ _TOKEN_深:1.0___ast_霩_4__):"
+_TOKEN_霩:1.0___ast_霩_22__ "  ${_TOKEN_廬:1.0___ast_廬_9__} _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ _TOKEN_霩:1.0___ast_霩_321__ _TOKEN_霩:1.0___ast_霩_87__ --_TOKEN_霩:1.0___ast_霩_150__ _TOKEN_霩:1.0___ast_霩_42__ --_TOKEN_深:1.0___ast_霩_4__ <_TOKEN_深:1.0___ast_霩_4__>"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_79__: _TOKEN_縫:1.0___ast_霩_185__://_TOKEN_霩:1.0___ast_霩_157__._TOKEN_霩:1.0___ast_霩_110__.ai/_TOKEN_霩:1.0___ast_霩_321__"
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_47__ _TOKEN_霩:1.0___ast_霩_262__"
+_TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" up -d _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__
+
+// [metadata-stripped]
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+  _TOKEN_霩:1.0___ast_霩_22__ ""
+  _TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_49__ _TOKEN_型:1.0___ast_廉_3__"
+
+// [metadata-stripped]
+  if [[ -f "$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_匾:1.0___ast_廬_29__._TOKEN_霩:1.0___ast_霩_267__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_46__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_114__: _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_267__:_TOKEN_霩:1.0___ast_霩_343__-_TOKEN_霩:1.0___ast_霩_41__"
+    _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_292__ \
+      -t "_TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_267__:_TOKEN_霩:1.0___ast_霩_343__-_TOKEN_霩:1.0___ast_霩_41__" \
+      -f "$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_匾:1.0___ast_廬_29__._TOKEN_霩:1.0___ast_霩_267__" \
+      "$_TOKEN_廬:1.0___ast_廬_65__"
+  else
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_匾:1.0___ast_廬_29__._TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_346__ in $_TOKEN_廬:1.0___ast_廬_65__" >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  _TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_霩:1.0___ast_霩_320__ be _TOKEN_霩:1.0___ast_霩_294__ _TOKEN_霩:1.0___ast_霩_178__ no _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_114__ _TOKEN_霩:1.0___ast_霩_320__ be _TOKEN_霩:1.0___ast_霩_331__." >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  _TOKEN_廬:1.0___ast_廬_48__ _TOKEN_霩:1.0___ast_霩_251__ _TOKEN_霩:1.0___ast_霩_248__ _TOKEN_霩:1.0___ast_霩_245__ if _TOKEN_霩:1.0___ast_霩_19__ _TOKEN_霩:1.0___ast_霩_263__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_114__ _TOKEN_霩:1.0___ast_霩_119__ _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_52__." >&2
+  fi
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --_TOKEN_霩:1.0___ast_霩_281__ _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__ --_TOKEN_霩:1.0___ast_霩_81__ >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__ 2>&1; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_型:1.0___ast_廬_22__ _TOKEN_廬:1.0___ast_廬_40__ _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_346__ _TOKEN_霩:1.0___ast_霩_195__ _TOKEN_霩:1.0___ast_霩_19__ _TOKEN_型:1.0___ast_霩_215__ _TOKEN_霩:1.0___ast_霩_114__." >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  _TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_71__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_廬:1.0___ast_廬_40__. _TOKEN_廬:1.0___ast_廬_82__ _TOKEN_霩:1.0___ast_霩_135__ --_TOKEN_霩:1.0___ast_霩_292__-_TOKEN_霩:1.0___ast_霩_34__ _TOKEN_廬:1.0___ast_廬_94__=1" >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  or _TOKEN_霩:1.0___ast_霩_347__ a _TOKEN_霩:1.0___ast_霩_116__ _TOKEN_霩:1.0___ast_霩_292__ (_TOKEN_廬:1.0___ast_廬_6__=_TOKEN_霩:1.0___ast_霩_110__:_TOKEN_霩:1.0___ast_霩_116__). _TOKEN_廬:1.0___ast_廬_7__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_型:1.0___ast_廉_3__." >&2
+    _TOKEN_廬:1.0___ast_廬_5__=""
+  fi
+fi
+
+// [metadata-stripped]
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  if [[ -S "$_TOKEN_廬:1.0___ast_廬_34__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_匾:1.0___ast_廬_12__="$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_型:1.0___ast_霩_56__-_TOKEN_霩:1.0___ast_霩_145__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_24__"
+    _TOKEN_霩:1.0___ast_霩_12__ >"$_TOKEN_匾:1.0___ast_廬_12__" <<_TOKEN_廬:1.0___ast_廬_17__
+_TOKEN_霩:1.0___ast_霩_76__:
+  _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__:
+    _TOKEN_霩:1.0___ast_霩_224__:
+      - ${_TOKEN_廬:1.0___ast_廬_34__}:/var/_TOKEN_霩:1.0___ast_霩_80__/_TOKEN_型:1.0___ast_霩_56__._TOKEN_霩:1.0___ast_霩_295__
+_TOKEN_廬:1.0___ast_廬_17__
+// _TOKEN_泳:0.9___ast_MA_487__ [decoy-metadata]
+    if [[ -n "${_TOKEN_廬:1.0___ast_廬_19__:-}" ]]; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_霩:1.0___ast_霩_12__ >>"$_TOKEN_匾:1.0___ast_廬_12__" <<_TOKEN_廬:1.0___ast_廬_17__
+    _TOKEN_霩:1.0___ast_霩_48__:
+      - "${_TOKEN_廬:1.0___ast_廬_19__}"
+_TOKEN_廬:1.0___ast_廬_17__
+    fi
+    _TOKEN_廬:1.0___ast_廬_56__+=("-f" "$_TOKEN_匾:1.0___ast_廬_12__")
+// _TOKEN_匾:0.2___ast_KH_286__ [decoy-metadata]
+    _TOKEN_霩:1.0___ast_霩_22__ "==> _TOKEN_廬:1.0___ast_廬_49__: _TOKEN_霩:1.0___ast_霩_227__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_77__ _TOKEN_霩:1.0___ast_霩_141__"
+  else
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_95__ _TOKEN_霩:1.0___ast_霩_88__ _TOKEN_霩:1.0___ast_霩_178__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_77__ _TOKEN_霩:1.0___ast_霩_231__ _TOKEN_霩:1.0___ast_霩_346__ at $_TOKEN_廬:1.0___ast_廬_34__." >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  _TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_71__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_77__ _TOKEN_霩:1.0___ast_霩_199__. _TOKEN_廬:1.0___ast_廬_7__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_型:1.0___ast_廉_3__." >&2
+    _TOKEN_廬:1.0___ast_廬_5__=""
+  fi
+fi
+
+if [[ -n "$_TOKEN_廬:1.0___ast_廬_5__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+// [metadata-stripped]
+  _TOKEN_霩:1.0___ast_霩_188__=true
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --no-_TOKEN_霩:1.0___ast_霩_29__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__ "_TOKEN_霩:1.0___ast_霩_279__-_TOKEN_霩:1.0___ast_霩_238__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__" >&2
+    _TOKEN_霩:1.0___ast_霩_188__=false
+  fi
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --no-_TOKEN_霩:1.0___ast_霩_29__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_249__ "_TOKEN_霩:1.0___ast_霩_286__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_249__" >&2
+    _TOKEN_霩:1.0___ast_霩_188__=false
+  fi
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --no-_TOKEN_霩:1.0___ast_霩_29__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_120__ "_TOKEN_霩:1.0___ast_霩_59__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_120__" >&2
+    _TOKEN_霩:1.0___ast_霩_188__=false
+  fi
+
+  if [[ "$_TOKEN_霩:1.0___ast_霩_188__" == true ]]; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_88__: _TOKEN_霩:1.0___ast_霩_20__=_TOKEN_霩:1.0___ast_霩_279__-_TOKEN_霩:1.0___ast_霩_238__, _TOKEN_霩:1.0___ast_霩_249__=_TOKEN_霩:1.0___ast_霩_286__, _TOKEN_霩:1.0___ast_霩_120__=_TOKEN_霩:1.0___ast_霩_59__"
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_79__: _TOKEN_縫:1.0___ast_霩_185__://_TOKEN_霩:1.0___ast_霩_157__._TOKEN_霩:1.0___ast_霩_110__.ai/_TOKEN_霩:1.0___ast_霩_262__/_TOKEN_霩:1.0___ast_霩_257__"
+// [metadata-stripped]
+    _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" up -d _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__
+  else
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_霩:1.0___ast_霩_208__ _TOKEN_霩:1.0___ast_霩_197__ _TOKEN_霩:1.0___ast_霩_294__. _TOKEN_廬:1.0___ast_廬_73__ _TOKEN_霩:1.0___ast_霩_324__ _TOKEN_霩:1.0___ast_霩_223__." >&2
+    _TOKEN_霩:1.0___ast_霩_22__ "  _TOKEN_廬:1.0___ast_廬_7__ _TOKEN_霩:1.0___ast_霩_262__ _TOKEN_霩:1.0___ast_霩_163__ to _TOKEN_霩:1.0___ast_霩_266__ _TOKEN_霩:1.0___ast_霩_18__ _TOKEN_型:1.0___ast_廬_22__ _TOKEN_霩:1.0___ast_霩_77__ _TOKEN_霩:1.0___ast_霩_79__ a _TOKEN_霩:1.0___ast_霩_259__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_129__." >&2
+    if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_3__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm --no-_TOKEN_霩:1.0___ast_霩_29__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+      _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__ "_TOKEN_霩:1.0___ast_霩_167__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__; _TOKEN_霩:1.0___ast_霩_124__
+      _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_霩:1.0___ast_霩_1__ _TOKEN_霩:1.0___ast_霩_57__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__ to _TOKEN_霩:1.0___ast_霩_167__" >&2
+    else
+      _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_49__ _TOKEN_霩:1.0___ast_霩_20__ _TOKEN_霩:1.0___ast_霩_31__ _TOKEN_霩:1.0___ast_霩_57__ to _TOKEN_霩:1.0___ast_霩_167__ _TOKEN_霩:1.0___ast_霩_183__ to _TOKEN_霩:1.0___ast_霩_2__ _TOKEN_霩:1.0___ast_霩_267__ _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_霩:1.0___ast_霩_213__."
+    fi
+    if [[ -n "${_TOKEN_匾:1.0___ast_廬_12__:-}" ]]; _TOKEN_霩:1.0___ast_霩_124__
+      rm -f "$_TOKEN_匾:1.0___ast_廬_12__"
+    fi
+// [metadata-stripped]
+    _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_3__[@]}" up -d --_TOKEN_泳:1.0___ast_霩_336__-_TOKEN_霩:1.0___ast_霩_65__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__
+  fi
+else
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  if ! _TOKEN_型:1.0___ast_霩_56__ _TOKEN_霩:1.0___ast_霩_145__ "${_TOKEN_廬:1.0___ast_廬_56__[@]}" _TOKEN_霩:1.0___ast_霩_80__ --rm _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_138__ \
+    _TOKEN_霩:1.0___ast_霩_8__ _TOKEN_型:1.0___ast_廉_5__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__ "_TOKEN_霩:1.0___ast_霩_167__" >/_TOKEN_霩:1.0___ast_霩_40__/_TOKEN_霩:1.0___ast_霩_69__; _TOKEN_霩:1.0___ast_霩_124__
+    _TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_62__: _TOKEN_廬:1.0___ast_廬_61__ to _TOKEN_霩:1.0___ast_霩_237__ _TOKEN_霩:1.0___ast_霩_330__._TOKEN_霩:1.0___ast_霩_353__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_20__ to _TOKEN_霩:1.0___ast_霩_167__" >&2
+  fi
+  if [[ -f "$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_型:1.0___ast_霩_56__-_TOKEN_霩:1.0___ast_霩_145__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_24__" ]]; _TOKEN_霩:1.0___ast_霩_124__
+    rm -f "$_TOKEN_廬:1.0___ast_廬_65__/_TOKEN_型:1.0___ast_霩_56__-_TOKEN_霩:1.0___ast_霩_145__._TOKEN_霩:1.0___ast_霩_267__._TOKEN_霩:1.0___ast_霩_24__"
+  fi
+fi
+
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_71__ _TOKEN_霩:1.0___ast_霩_306__ _TOKEN_霩:1.0___ast_霩_135__ _TOKEN_霩:1.0___ast_霩_105__ _TOKEN_霩:1.0___ast_霩_242__ _TOKEN_霩:1.0___ast_霩_345__."
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_74__ _TOKEN_霩:1.0___ast_霩_109__ _TOKEN_霩:1.0___ast_霩_233__ _TOKEN_霩:1.0___ast_霩_256__ _TOKEN_霩:1.0___ast_霩_191__ _TOKEN_霩:1.0___ast_霩_19__ _TOKEN_霩:1.0___ast_霩_105__'s _TOKEN_霩:1.0___ast_霩_233__ IP."
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_58__: $_TOKEN_廬:1.0___ast_廬_33__"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_106__: $_TOKEN_廬:1.0___ast_廬_107__"
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_深:1.0___ast_廬_31__: $_TOKEN_深:1.0___ast_廬_89__"
+_TOKEN_霩:1.0___ast_霩_22__ ""
+_TOKEN_霩:1.0___ast_霩_22__ "_TOKEN_廬:1.0___ast_廬_102__:"
+_TOKEN_霩:1.0___ast_霩_22__ "  ${_TOKEN_廬:1.0___ast_廬_9__} _TOKEN_霩:1.0___ast_霩_75__ -f _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__"
+_TOKEN_霩:1.0___ast_霩_22__ "  ${_TOKEN_廬:1.0___ast_廬_9__} _TOKEN_霩:1.0___ast_霩_251__ _TOKEN_霩:1.0___ast_霩_110__-_TOKEN_霩:1.0___ast_霩_262__ _TOKEN_霩:1.0___ast_霩_367__ _TOKEN_霩:1.0___ast_霩_334__/_TOKEN_霩:1.0___ast_霩_111__.js _TOKEN_霩:1.0___ast_霩_180__ --_TOKEN_深:1.0___ast_霩_4__ \"$_TOKEN_深:1.0___ast_廬_89__\""
+
+// POLYMORPHIC_JCROSS_END

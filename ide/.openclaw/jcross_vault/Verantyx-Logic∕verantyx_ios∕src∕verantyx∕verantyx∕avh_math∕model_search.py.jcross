@@ -1,0 +1,101 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BAF35FE0 ver:1778162902
+// ⚠️ One-time schema — expires after response
+
+_VERANTYX_雰:1.0__OPAQUE_雰_81_ _VERANTYX_雰:1.0__OPAQUE_雰_79_ import _VERANTYX_雰:1.0__OPAQUE_雰_7_
+_VERANTYX_雰:1.0__OPAQUE_雰_81_ _VERANTYX_雰:1.0__OPAQUE_雰_38_ import _VERANTYX_雰:1.0__OPAQUE_雰_70_
+_VERANTYX_雰:1.0__OPAQUE_雰_81_ _VERANTYX_雰:1.0__OPAQUE_雰_84_ import _VERANTYX_庖:1.0__OPAQUE_庖_16_, _VERANTYX_庖:1.0__OPAQUE_庖_4_, _VERANTYX_業:1.0__OPAQUE_凛_2_, _VERANTYX_庖:1.0__OPAQUE_庖_8_, _VERANTYX_庖:1.0__OPAQUE_庖_7_, _VERANTYX_庖:1.0__OPAQUE_庖_12_
+import _VERANTYX_雰:1.0__OPAQUE_雰_39_
+
+// [metadata-stripped]
+
+@_VERANTYX_雰:1.0__OPAQUE_雰_70_(_VERANTYX_雰:1.0__OPAQUE_雰_71_=_VERANTYX_庖:1.0__OPAQUE_庖_5_)
+class _VERANTYX_庖:1.0__OPAQUE_庖_14_:
+    _VERANTYX_雰:1.0__OPAQUE_雰_16_: _VERANTYX_雰:1.0__OPAQUE_雰_34_
+    _VERANTYX_雰:1.0__OPAQUE_雰_33_: _VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_34_], ...]
+    _VERANTYX_雰:1.0__OPAQUE_雰_86_: _VERANTYX_庖:1.0__OPAQUE_庖_16_[_VERANTYX_雰:1.0__OPAQUE_雰_9_, _VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, ...]]  # _VERANTYX_雰:1.0__OPAQUE_雰_69_ -> _VERANTYX_雰:1.0__OPAQUE_雰_60_ where true
+
+    _VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_雰:1.0__OPAQUE_雰_61_(self, w: _VERANTYX_雰:1.0__OPAQUE_雰_34_) -> _VERANTYX_庖:1.0__OPAQUE_庖_4_[_VERANTYX_雰:1.0__OPAQUE_雰_34_]:
+        return [v for (x, v) in self._VERANTYX_雰:1.0__OPAQUE_雰_33_ if x == w]
+// _VERANTYX_緞:0.8__OPAQUE_AZ_671_ [decoy-metadata]
+
+_VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_雰:1.0__OPAQUE_雰_32_(
+    _VERANTYX_雰:1.0__OPAQUE_雰_90_: _VERANTYX_雰:1.0__OPAQUE_雰_34_,
+    _VERANTYX_雰:1.0__OPAQUE_雰_85_: _VERANTYX_庖:1.0__OPAQUE_庖_4_[_VERANTYX_雰:1.0__OPAQUE_雰_9_],
+    _VERANTYX_雰:1.0__OPAQUE_雰_50_: _VERANTYX_雰:1.0__OPAQUE_雰_22_ = _VERANTYX_庖:1.0__OPAQUE_庖_6_,
+    _VERANTYX_雰:1.0__OPAQUE_雰_57_: _VERANTYX_雰:1.0__OPAQUE_雰_22_ = _VERANTYX_庖:1.0__OPAQUE_庖_6_,
+    _VERANTYX_雰:1.0__OPAQUE_雰_29_: _VERANTYX_庖:1.0__OPAQUE_庖_7_[_VERANTYX_雰:1.0__OPAQUE_雰_34_] = _VERANTYX_庖:1.0__OPAQUE_庖_13_,
+) -> _VERANTYX_庖:1.0__OPAQUE_庖_12_[_VERANTYX_庖:1.0__OPAQUE_庖_14_]:
+    """
+    _VERANTYX_庖:1.0__OPAQUE_庖_15_-_VERANTYX_湧:1.0__OPAQUE_雰_68_ _VERANTYX_雰:1.0__OPAQUE_雰_82_ _VERANTYX_雰:1.0__OPAQUE_雰_2_ up to _VERANTYX_雰:1.0__OPAQUE_雰_90_. _VERANTYX_庖:1.0__OPAQUE_庖_1_ _VERANTYX_雰:1.0__OPAQUE_雰_13_ n, _VERANTYX_雰:1.0__OPAQUE_雰_59_ _VERANTYX_雰:1.0__OPAQUE_雰_44_ _VERANTYX_業:1.0__OPAQUE_凛_3_ (_VERANTYX_雰:1.0__OPAQUE_雰_78_ _VERANTYX_雰:1.0__OPAQUE_雰_17_),
+    _VERANTYX_雰:1.0__OPAQUE_雰_93_ _VERANTYX_雰:1.0__OPAQUE_雰_59_ _VERANTYX_雰:1.0__OPAQUE_雰_18_ for _VERANTYX_雰:1.0__OPAQUE_雰_85_.
+    """
+    for n in _VERANTYX_雰:1.0__OPAQUE_雰_46_(1, _VERANTYX_雰:1.0__OPAQUE_雰_90_ + 1):
+        _VERANTYX_雰:1.0__OPAQUE_雰_40_ = [(i, j) for i in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n) for j in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n)]
+// _VERANTYX_業:0.5__OPAQUE_FZ_988_ [decoy-metadata]
+// [metadata-stripped]
+        _VERANTYX_雰:1.0__OPAQUE_雰_75_ = _VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_40_, _VERANTYX_雰:1.0__OPAQUE_雰_29_=_VERANTYX_雰:1.0__OPAQUE_雰_29_)
+        for _VERANTYX_雰:1.0__OPAQUE_雰_33_ in _VERANTYX_雰:1.0__OPAQUE_雰_75_:
+            if _VERANTYX_雰:1.0__OPAQUE_雰_57_ _VERANTYX_雰:1.0__OPAQUE_雰_58_ _VERANTYX_雰:1.0__OPAQUE_雰_31_ _VERANTYX_雰:1.0__OPAQUE_雰_91_((i, i) in _VERANTYX_雰:1.0__OPAQUE_雰_33_ for i in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n)):
+                continue
+            if _VERANTYX_雰:1.0__OPAQUE_雰_50_ _VERANTYX_雰:1.0__OPAQUE_雰_58_ _VERANTYX_雰:1.0__OPAQUE_雰_31_ _VERANTYX_雰:1.0__OPAQUE_雰_35_(n, _VERANTYX_雰:1.0__OPAQUE_雰_33_):
+                continue
+
+            _VERANTYX_雰:1.0__OPAQUE_雰_10_ = _VERANTYX_雰:1.0__OPAQUE_雰_77_(_VERANTYX_雰:1.0__OPAQUE_雰_25_(_VERANTYX_雰:1.0__OPAQUE_雰_33_))
+// _VERANTYX_業:0.6__OPAQUE_YH_495_ [decoy-metadata]
+// [metadata-stripped]
+            for _VERANTYX_雰:1.0__OPAQUE_雰_86_ in _VERANTYX_雰:1.0__OPAQUE_雰_67_(n, _VERANTYX_雰:1.0__OPAQUE_雰_85_):
+                _VERANTYX_雰:1.0__OPAQUE_雰_43_ _VERANTYX_庖:1.0__OPAQUE_庖_14_(_VERANTYX_雰:1.0__OPAQUE_雰_16_=n, _VERANTYX_雰:1.0__OPAQUE_雰_33_=_VERANTYX_雰:1.0__OPAQUE_雰_10_, _VERANTYX_雰:1.0__OPAQUE_雰_86_=_VERANTYX_雰:1.0__OPAQUE_雰_86_)
+
+_VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_雰:1.0__OPAQUE_雰_54_(_VERANTYX_雰:1.0__OPAQUE_雰_88_: _VERANTYX_庖:1.0__OPAQUE_庖_4_[_VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_34_]], _VERANTYX_雰:1.0__OPAQUE_雰_29_: _VERANTYX_庖:1.0__OPAQUE_庖_7_[_VERANTYX_雰:1.0__OPAQUE_雰_34_]) -> _VERANTYX_庖:1.0__OPAQUE_庖_12_[_VERANTYX_業:1.0__OPAQUE_凛_2_[_VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_34_]]]:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    
+    _VERANTYX_雰:1.0__OPAQUE_雰_26_ = _VERANTYX_雰:1.0__OPAQUE_雰_47_(_VERANTYX_雰:1.0__OPAQUE_雰_88_) + 1 if _VERANTYX_雰:1.0__OPAQUE_雰_29_ is _VERANTYX_庖:1.0__OPAQUE_庖_13_ else _VERANTYX_雰:1.0__OPAQUE_雰_12_(_VERANTYX_雰:1.0__OPAQUE_雰_29_, _VERANTYX_雰:1.0__OPAQUE_雰_47_(_VERANTYX_雰:1.0__OPAQUE_雰_88_)) + 1
+    
+// _VERANTYX_渕:0.3__OPAQUE_YK_866_ [decoy-metadata]
+// [metadata-stripped]
+    for r in _VERANTYX_雰:1.0__OPAQUE_雰_46_(1, _VERANTYX_雰:1.0__OPAQUE_雰_26_):
+        for _VERANTYX_雰:1.0__OPAQUE_雰_48_ in _VERANTYX_雰:1.0__OPAQUE_雰_39_._VERANTYX_雰:1.0__OPAQUE_雰_96_(_VERANTYX_雰:1.0__OPAQUE_雰_88_, r):
+            _VERANTYX_雰:1.0__OPAQUE_雰_43_ _VERANTYX_業:1.0__OPAQUE_凛_1_(_VERANTYX_雰:1.0__OPAQUE_雰_48_)
+            
+// [metadata-stripped]
+    _VERANTYX_雰:1.0__OPAQUE_雰_43_ _VERANTYX_業:1.0__OPAQUE_凛_1_()
+
+_VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_雰:1.0__OPAQUE_雰_67_(n: _VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_85_: _VERANTYX_庖:1.0__OPAQUE_庖_4_[_VERANTYX_雰:1.0__OPAQUE_雰_9_]) -> _VERANTYX_庖:1.0__OPAQUE_庖_12_[_VERANTYX_庖:1.0__OPAQUE_庖_16_[_VERANTYX_雰:1.0__OPAQUE_雰_9_, _VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, ...]]]:
+    _VERANTYX_雰:1.0__OPAQUE_雰_11_ = _VERANTYX_雰:1.0__OPAQUE_雰_92_(_VERANTYX_雰:1.0__OPAQUE_雰_46_(n))
+// [metadata-stripped]
+    for _VERANTYX_雰:1.0__OPAQUE_雰_73_ in _VERANTYX_雰:1.0__OPAQUE_雰_39_._VERANTYX_雰:1.0__OPAQUE_雰_72_([0, 1], _VERANTYX_雰:1.0__OPAQUE_雰_20_=n * _VERANTYX_雰:1.0__OPAQUE_雰_47_(_VERANTYX_雰:1.0__OPAQUE_雰_85_)):
+        _VERANTYX_雰:1.0__OPAQUE_雰_86_: _VERANTYX_庖:1.0__OPAQUE_庖_16_[_VERANTYX_雰:1.0__OPAQUE_雰_9_, _VERANTYX_庖:1.0__OPAQUE_庖_4_[_VERANTYX_雰:1.0__OPAQUE_雰_34_]] = {a: [] for a in _VERANTYX_雰:1.0__OPAQUE_雰_85_}
+        _VERANTYX_雰:1.0__OPAQUE_雰_24_ = 0
+        for a in _VERANTYX_雰:1.0__OPAQUE_雰_85_:
+            for w in _VERANTYX_雰:1.0__OPAQUE_雰_11_:
+                if _VERANTYX_雰:1.0__OPAQUE_雰_73_[_VERANTYX_雰:1.0__OPAQUE_雰_24_] == 1:
+                    _VERANTYX_雰:1.0__OPAQUE_雰_86_[a]._VERANTYX_雰:1.0__OPAQUE_雰_89_(w)
+                _VERANTYX_雰:1.0__OPAQUE_雰_24_ += 1
+        _VERANTYX_雰:1.0__OPAQUE_雰_43_ {a: _VERANTYX_雰:1.0__OPAQUE_雰_77_(ws) for a, ws in _VERANTYX_雰:1.0__OPAQUE_雰_86_._VERANTYX_雰:1.0__OPAQUE_雰_65_()}
+
+_VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_雰:1.0__OPAQUE_雰_35_(n: _VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_33_: _VERANTYX_業:1.0__OPAQUE_凛_2_[_VERANTYX_庖:1.0__OPAQUE_庖_8_[_VERANTYX_雰:1.0__OPAQUE_雰_34_, _VERANTYX_雰:1.0__OPAQUE_雰_34_]]) -> _VERANTYX_雰:1.0__OPAQUE_雰_22_:
+// _VERANTYX_凛:0.7__OPAQUE_YV_771_ [decoy-metadata]
+// [metadata-stripped]
+    for a in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n):
+        for b in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n):
+            if (a, b) _VERANTYX_雰:1.0__OPAQUE_雰_31_ in _VERANTYX_雰:1.0__OPAQUE_雰_33_:
+                continue
+            for c in _VERANTYX_雰:1.0__OPAQUE_雰_46_(n):
+                if (b, c) in _VERANTYX_雰:1.0__OPAQUE_雰_33_ _VERANTYX_雰:1.0__OPAQUE_雰_58_ (a, c) _VERANTYX_雰:1.0__OPAQUE_雰_31_ in _VERANTYX_雰:1.0__OPAQUE_雰_33_:
+                    return _VERANTYX_庖:1.0__OPAQUE_庖_6_
+    return _VERANTYX_庖:1.0__OPAQUE_庖_5_
+
+_VERANTYX_雰:1.0__OPAQUE_雰_66_ _VERANTYX_湧:1.0__OPAQUE_雰_37_(_VERANTYX_雰:1.0__OPAQUE_雰_42_: _VERANTYX_雰:1.0__OPAQUE_雰_9_, _VERANTYX_雰:1.0__OPAQUE_雰_94_: _VERANTYX_雰:1.0__OPAQUE_雰_9_, _VERANTYX_雰:1.0__OPAQUE_雰_74_: _VERANTYX_雰:1.0__OPAQUE_雰_92_[_VERANTYX_雰:1.0__OPAQUE_雰_9_], _VERANTYX_雰:1.0__OPAQUE_雰_90_: _VERANTYX_雰:1.0__OPAQUE_雰_34_ = 4, _VERANTYX_雰:1.0__OPAQUE_雰_51_: _VERANTYX_雰:1.0__OPAQUE_雰_34_ = 3, _VERANTYX_雰:1.0__OPAQUE_雰_62_: _VERANTYX_雰:1.0__OPAQUE_雰_28_ = 1.5) -> _VERANTYX_雰:1.0__OPAQUE_雰_63_:
+    """
+// _VERANTYX_庖:0.7__OPAQUE_KW_851_ [decoy-metadata]
+    _VERANTYX_庖:1.0__OPAQUE_庖_17_:
+      {"_VERANTYX_雰:1.0__OPAQUE_雰_95_": "_VERANTYX_湧:1.0__OPAQUE_雰_53_", "_VERANTYX_雰:1.0__OPAQUE_雰_52_": "<_VERANTYX_庖:1.0__OPAQUE_庖_10_-_VERANTYX_湧:1.0__OPAQUE_雰_87_ _VERANTYX_雰:1.0__OPAQUE_雰_8_>", "_VERANTYX_雰:1.0__OPAQUE_雰_83_": {...}}
+      {"_VERANTYX_雰:1.0__OPAQUE_雰_95_": "_VERANTYX_雰:1.0__OPAQUE_雰_21_", "_VERANTYX_雰:1.0__OPAQUE_雰_52_": _VERANTYX_庖:1.0__OPAQUE_庖_13_, "_VERANTYX_雰:1.0__OPAQUE_雰_83_": {...}}
+    """
+// [metadata-stripped]
+// [metadata-stripped]
+    return {"_VERANTYX_雰:1.0__OPAQUE_雰_95_": "_VERANTYX_雰:1.0__OPAQUE_雰_21_", "_VERANTYX_雰:1.0__OPAQUE_雰_52_": _VERANTYX_庖:1.0__OPAQUE_庖_13_, "_VERANTYX_雰:1.0__OPAQUE_雰_83_": {"_VERANTYX_雰:1.0__OPAQUE_雰_41_": "_VERANTYX_業:1.0__OPAQUE_雰_14_ _VERANTYX_湧:1.0__OPAQUE_雰_37_() - _VERANTYX_雰:1.0__OPAQUE_雰_55_ _VERANTYX_雰:1.0__OPAQUE_雰_49_ _VERANTYX_雰:1.0__OPAQUE_雰_80_"}}
+// POLYMORPHIC_JCROSS_END

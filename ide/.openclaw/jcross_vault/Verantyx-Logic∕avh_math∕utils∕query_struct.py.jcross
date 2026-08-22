@@ -1,0 +1,48 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D32DA17F ver:1778159754
+// ⚠️ One-time schema — expires after response
+// _VERANTYX_靄:0.9__ID_CW_385_ [decoy-metadata]
+
+// [metadata-stripped]
+import re
+_VERANTYX_靄:1.0__ID_靄_9_ _VERANTYX_靄:1.0__ID_靄_19_ import _VERANTYX_靄:1.0__ID_靄_2_, _VERANTYX_靄:1.0__ID_靄_14_
+_VERANTYX_靄:1.0__ID_靄_9_ _VERANTYX_靄:1.0__ID_靄_21_ import _VERANTYX_庸:1.0__ID_庸_10_, _VERANTYX_庸:1.0__ID_庸_9_
+// _VERANTYX_碑:0.4__ID_YF_753_ [decoy-metadata]
+
+@_VERANTYX_靄:1.0__ID_靄_2_
+class _VERANTYX_庸:1.0__ID_庸_2_:
+    _VERANTYX_靄:1.0__ID_靄_10_: _VERANTYX_靄:1.0__ID_靄_27_
+    _VERANTYX_靄:1.0__ID_靄_32_: _VERANTYX_庸:1.0__ID_庸_10_[_VERANTYX_靄:1.0__ID_靄_27_] = _VERANTYX_庸:1.0__ID_庸_1_
+    _VERANTYX_靄:1.0__ID_靄_35_: _VERANTYX_庸:1.0__ID_庸_9_[_VERANTYX_靄:1.0__ID_靄_27_] = _VERANTYX_靄:1.0__ID_靄_14_(_VERANTYX_靄:1.0__ID_靄_1_=_VERANTYX_靄:1.0__ID_靄_16_)
+    _VERANTYX_湧:1.0__ID_靄_36_: _VERANTYX_庸:1.0__ID_庸_10_[_VERANTYX_靄:1.0__ID_靄_27_] = _VERANTYX_庸:1.0__ID_庸_1_
+
+// [metadata-stripped]
+_VERANTYX_庸:1.0__ID_庸_13_ = re._VERANTYX_靄:1.0__ID_靄_25_(r"(?im)^_VERANTYX_庸:1.0__ID_庸_8_\s*[:=]\s*([a-zA-Z0-9_]+)\s*$")
+_VERANTYX_庸:1.0__ID_庸_3_ = re._VERANTYX_靄:1.0__ID_靄_25_(r"(?im)^_VERANTYX_庸:1.0__ID_庸_12_(?:s)?\s*[:=]\s*(.+?)\s*$")
+_VERANTYX_庸:1.0__ID_庸_7_ = re._VERANTYX_靄:1.0__ID_靄_25_(r"(?im)^_VERANTYX_庸:1.0__ID_庸_11_\s*[:=]\s*(.+?)\s*$")
+
+_VERANTYX_靄:1.0__ID_靄_11_ _VERANTYX_靄:1.0__ID_靄_8_(_VERANTYX_靄:1.0__ID_靄_37_: _VERANTYX_靄:1.0__ID_靄_27_) -> _VERANTYX_庸:1.0__ID_庸_2_:
+    _VERANTYX_靄:1.0__ID_靄_32_ = _VERANTYX_庸:1.0__ID_庸_1_
+    m = _VERANTYX_庸:1.0__ID_庸_13_._VERANTYX_靄:1.0__ID_靄_30_(_VERANTYX_靄:1.0__ID_靄_37_)
+    if m:
+        _VERANTYX_靄:1.0__ID_靄_32_ = m._VERANTYX_靄:1.0__ID_靄_4_(1)._VERANTYX_靄:1.0__ID_靄_7_()
+
+    _VERANTYX_靄:1.0__ID_靄_35_: _VERANTYX_庸:1.0__ID_庸_9_[_VERANTYX_靄:1.0__ID_靄_27_] = []
+// [metadata-stripped]
+    for m in _VERANTYX_庸:1.0__ID_庸_3_._VERANTYX_則:1.0__ID_靄_17_(_VERANTYX_靄:1.0__ID_靄_37_):
+// _VERANTYX_湧:0.3__ID_XG_689_ [decoy-metadata]
+// [metadata-stripped]
+        _VERANTYX_靄:1.0__ID_靄_12_ = re._VERANTYX_靄:1.0__ID_靄_5_(r"[,\s]+", m._VERANTYX_靄:1.0__ID_靄_4_(1)._VERANTYX_靄:1.0__ID_靄_7_())
+        _VERANTYX_靄:1.0__ID_靄_35_._VERANTYX_靄:1.0__ID_靄_3_([p for p in _VERANTYX_靄:1.0__ID_靄_12_ if p])
+// _VERANTYX_湧:0.3__ID_GC_358_ [decoy-metadata]
+
+    _VERANTYX_湧:1.0__ID_靄_36_ = _VERANTYX_庸:1.0__ID_庸_1_
+    m = _VERANTYX_庸:1.0__ID_庸_7_._VERANTYX_靄:1.0__ID_靄_30_(_VERANTYX_靄:1.0__ID_靄_37_)
+    if m:
+        _VERANTYX_湧:1.0__ID_靄_36_ = m._VERANTYX_靄:1.0__ID_靄_4_(1)._VERANTYX_靄:1.0__ID_靄_7_()
+    
+// _VERANTYX_則:0.8__ID_LY_582_ [decoy-metadata]
+    return _VERANTYX_庸:1.0__ID_庸_2_(_VERANTYX_靄:1.0__ID_靄_10_=_VERANTYX_靄:1.0__ID_靄_37_, _VERANTYX_靄:1.0__ID_靄_32_=_VERANTYX_靄:1.0__ID_靄_32_, _VERANTYX_靄:1.0__ID_靄_35_=_VERANTYX_靄:1.0__ID_靄_35_, _VERANTYX_湧:1.0__ID_靄_36_=_VERANTYX_湧:1.0__ID_靄_36_)
+// _VERANTYX_庸:0.3__ID_KG_665_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

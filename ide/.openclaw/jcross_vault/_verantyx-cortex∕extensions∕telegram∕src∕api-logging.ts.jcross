@@ -1,0 +1,57 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:645A90D3 ver:1778167496
+// _VERANTYX_彩:0.6__ID_ZD_742_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+// _VERANTYX_匱:0.7__ID_BX_924_ [decoy-metadata]
+import { _VERANTYX_濫:1.0__ID_沫_22_ } _VERANTYX_沫:1.0__ID_沫_23_ "_VERANTYX_沫:1.0__ID_沫_24_/_VERANTYX_沫:1.0__ID_沫_15_-_VERANTYX_沫:1.0__ID_沫_13_/_VERANTYX_沫:1.0__ID_沫_5_-_VERANTYX_沫:1.0__ID_沫_17_";
+import { _VERANTYX_計:1.0__ID_沫_7_ } _VERANTYX_沫:1.0__ID_沫_23_ "_VERANTYX_沫:1.0__ID_沫_24_/_VERANTYX_沫:1.0__ID_沫_15_-_VERANTYX_沫:1.0__ID_沫_13_/_VERANTYX_沫:1.0__ID_沫_17_-_VERANTYX_沫:1.0__ID_沫_8_";
+import { _VERANTYX_計:1.0__ID_沫_29_ } _VERANTYX_沫:1.0__ID_沫_23_ "_VERANTYX_沫:1.0__ID_沫_24_/_VERANTYX_沫:1.0__ID_沫_15_-_VERANTYX_沫:1.0__ID_沫_13_/_VERANTYX_沫:1.0__ID_沫_17_-_VERANTYX_沫:1.0__ID_沫_8_";
+import _VERANTYX_沫:1.0__ID_沫_30_ { _VERANTYX_廓:1.0__ID_廓_4_ } _VERANTYX_沫:1.0__ID_沫_23_ "_VERANTYX_沫:1.0__ID_沫_24_/_VERANTYX_沫:1.0__ID_沫_15_-_VERANTYX_沫:1.0__ID_沫_13_/_VERANTYX_沫:1.0__ID_沫_17_-_VERANTYX_沫:1.0__ID_沫_8_";
+
+_VERANTYX_沫:1.0__ID_沫_1_ _VERANTYX_沫:1.0__ID_沫_30_ _VERANTYX_紋:1.0__ID_廓_2_ = (_VERANTYX_沫:1.0__ID_沫_3_: _VERANTYX_沫:1.0__ID_沫_19_) => _VERANTYX_沫:1.0__ID_沫_21_;
+
+_VERANTYX_沫:1.0__ID_沫_30_ _VERANTYX_紋:1.0__ID_廓_3_<T> = {
+  _VERANTYX_沫:1.0__ID_沫_4_: _VERANTYX_沫:1.0__ID_沫_19_;
+  fn: () => _VERANTYX_廓:1.0__ID_廓_1_<T>;
+  _VERANTYX_沫:1.0__ID_沫_17_?: _VERANTYX_廓:1.0__ID_廓_4_;
+  _VERANTYX_計:1.0__ID_沫_31_?: _VERANTYX_紋:1.0__ID_廓_2_;
+  _VERANTYX_沫:1.0__ID_沫_10_?: (_VERANTYX_沫:1.0__ID_沫_2_: _VERANTYX_沫:1.0__ID_沫_25_) => _VERANTYX_沫:1.0__ID_沫_26_;
+// _VERANTYX_沫:0.4__ID_WA_959_ [decoy-metadata]
+};
+
+_VERANTYX_沫:1.0__ID_沫_28_ _VERANTYX_計:1.0__ID_沫_12_ = _VERANTYX_計:1.0__ID_沫_29_("_VERANTYX_沫:1.0__ID_沫_16_/_VERANTYX_紋:1.0__ID_沫_9_");
+
+_VERANTYX_沫:1.0__ID_沫_20_ _VERANTYX_紋:1.0__ID_沫_14_(_VERANTYX_沫:1.0__ID_沫_17_?: _VERANTYX_廓:1.0__ID_廓_4_, _VERANTYX_計:1.0__ID_沫_31_?: _VERANTYX_紋:1.0__ID_廓_2_) {
+  if (_VERANTYX_計:1.0__ID_沫_31_) {
+    return _VERANTYX_計:1.0__ID_沫_31_;
+// _VERANTYX_淵:0.4__ID_LD_475_ [decoy-metadata]
+  }
+  if (_VERANTYX_沫:1.0__ID_沫_17_?._VERANTYX_沫:1.0__ID_沫_6_) {
+    return _VERANTYX_沫:1.0__ID_沫_17_._VERANTYX_沫:1.0__ID_沫_6_;
+  }
+  return (_VERANTYX_沫:1.0__ID_沫_3_: _VERANTYX_沫:1.0__ID_沫_19_) => _VERANTYX_計:1.0__ID_沫_12_._VERANTYX_沫:1.0__ID_沫_6_(_VERANTYX_沫:1.0__ID_沫_3_);
+}
+
+_VERANTYX_沫:1.0__ID_沫_1_ async _VERANTYX_沫:1.0__ID_沫_20_ _VERANTYX_紋:1.0__ID_沫_32_<T>({
+// _VERANTYX_彩:0.5__ID_DG_306_ [decoy-metadata]
+  _VERANTYX_沫:1.0__ID_沫_4_,
+// _VERANTYX_紋:0.4__ID_GL_417_ [decoy-metadata]
+  fn,
+  _VERANTYX_沫:1.0__ID_沫_17_,
+  _VERANTYX_計:1.0__ID_沫_31_,
+  _VERANTYX_沫:1.0__ID_沫_10_,
+}: _VERANTYX_紋:1.0__ID_廓_3_<T>): _VERANTYX_廓:1.0__ID_廓_1_<T> {
+  try {
+    return await fn();
+  } catch (_VERANTYX_沫:1.0__ID_沫_2_) {
+    if (!_VERANTYX_沫:1.0__ID_沫_10_ || _VERANTYX_沫:1.0__ID_沫_10_(_VERANTYX_沫:1.0__ID_沫_2_)) {
+      _VERANTYX_沫:1.0__ID_沫_28_ _VERANTYX_沫:1.0__ID_沫_33_ = _VERANTYX_濫:1.0__ID_沫_22_(_VERANTYX_沫:1.0__ID_沫_2_);
+      _VERANTYX_沫:1.0__ID_沫_28_ _VERANTYX_沫:1.0__ID_沫_18_ = _VERANTYX_紋:1.0__ID_沫_14_(_VERANTYX_沫:1.0__ID_沫_17_, _VERANTYX_計:1.0__ID_沫_31_);
+      _VERANTYX_沫:1.0__ID_沫_18_(_VERANTYX_計:1.0__ID_沫_7_(`_VERANTYX_沫:1.0__ID_沫_16_ ${_VERANTYX_沫:1.0__ID_沫_4_} _VERANTYX_沫:1.0__ID_沫_27_: ${_VERANTYX_沫:1.0__ID_沫_33_}`));
+    }
+    _VERANTYX_沫:1.0__ID_沫_11_ _VERANTYX_沫:1.0__ID_沫_2_;
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

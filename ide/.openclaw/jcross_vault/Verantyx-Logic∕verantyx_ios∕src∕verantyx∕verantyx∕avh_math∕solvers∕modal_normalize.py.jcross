@@ -1,0 +1,114 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:366C3958 ver:1778162900
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_SYM_滴:1.0___jcross_滴_65__ _SYM_滴:1.0___jcross_滴_64__ import _SYM_滴:1.0___jcross_滴_6__
+import re
+_SYM_滴:1.0___jcross_滴_65__ _SYM_滴:1.0___jcross_滴_28__ import _SYM_滴:1.0___jcross_滴_63__, _SYM_滴:1.0___jcross_滴_45__
+_SYM_滴:1.0___jcross_滴_65__ _SYM_滴:1.0___jcross_滴_68__ import _SYM_廬:1.0___jcross_廬_10__, _SYM_廬:1.0___jcross_廬_4__, _SYM_廬:1.0___jcross_廬_7__, _SYM_廬:1.0___jcross_廬_8__
+
+@_SYM_滴:1.0___jcross_滴_63__
+class _SYM_廬:1.0___jcross_廬_9__:
+    ok: _SYM_滴:1.0___jcross_滴_15__
+    _SYM_漂:1.0___jcross_滴_50__: _SYM_滴:1.0___jcross_滴_10__
+    _SYM_滴:1.0___jcross_滴_18__: _SYM_廬:1.0___jcross_廬_10__[_SYM_滴:1.0___jcross_滴_10__, _SYM_滴:1.0___jcross_滴_10__] = _SYM_滴:1.0___jcross_滴_45__(_SYM_滴:1.0___jcross_滴_4__=_SYM_滴:1.0___jcross_滴_55__)
+    _SYM_滴:1.0___jcross_滴_11__: _SYM_廬:1.0___jcross_廬_4__[_SYM_滴:1.0___jcross_滴_10__] = _SYM_滴:1.0___jcross_滴_45__(_SYM_滴:1.0___jcross_滴_4__=_SYM_滴:1.0___jcross_滴_79__)
+    _SYM_滴:1.0___jcross_滴_80__: _SYM_廬:1.0___jcross_廬_4__[_SYM_滴:1.0___jcross_滴_10__] = _SYM_滴:1.0___jcross_滴_45__(_SYM_滴:1.0___jcross_滴_4__=_SYM_滴:1.0___jcross_滴_79__)
+
+_SYM_滴:1.0___jcross_滴_29__ = re._SYM_滴:1.0___jcross_滴_70__(r"[\_SYM_滴:1.0___jcross_滴_47__\_SYM_滴:1.0___jcross_滴_23__\_SYM_滴:1.0___jcross_滴_76__\_SYM_滴:1.0___jcross_滴_30__]")
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_71__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_滴:1.0___jcross_滴_10__:
+    s = (s or "")._SYM_滴:1.0___jcross_滴_39__()
+    s = _SYM_滴:1.0___jcross_滴_29__._SYM_滴:1.0___jcross_滴_58__("", s)
+    s = s._SYM_滴:1.0___jcross_滴_52__("（", "(")._SYM_滴:1.0___jcross_滴_52__("）", ")")
+    s = re._SYM_滴:1.0___jcross_滴_58__(r"\s+", " ", s)._SYM_滴:1.0___jcross_滴_39__()
+    return s
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_77__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_滴:1.0___jcross_滴_10__:
+    s = s._SYM_滴:1.0___jcross_滴_52__("→", "->")._SYM_滴:1.0___jcross_滴_52__("⇒", "->")
+    s = s._SYM_滴:1.0___jcross_滴_52__("¬", "~")._SYM_滴:1.0___jcross_滴_52__("∧", "&")._SYM_滴:1.0___jcross_滴_52__("∨", "|")
+    s = s._SYM_滴:1.0___jcross_滴_52__("□", "_SYM_滴:1.0___jcross_滴_24__ ")._SYM_滴:1.0___jcross_滴_52__("◇", "_SYM_滴:1.0___jcross_滴_3__ ")
+    return s
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_鍵:1.0___jcross_滴_16__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_滴:1.0___jcross_滴_10__:
+    s = re._SYM_滴:1.0___jcross_滴_58__(r"\_SYM_滴:1.0___jcross_滴_1__\b", "_SYM_滴:1.0___jcross_滴_24__", s, _SYM_滴:1.0___jcross_滴_81__=re._SYM_廬:1.0___jcross_廬_1__)
+    s = re._SYM_滴:1.0___jcross_滴_58__(r"\_SYM_滴:1.0___jcross_滴_19__\b", "_SYM_滴:1.0___jcross_滴_3__", s, _SYM_滴:1.0___jcross_滴_81__=re._SYM_廬:1.0___jcross_廬_1__)
+    return s
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_2__(s: _SYM_滴:1.0___jcross_滴_10__, _SYM_滴:1.0___jcross_滴_38__: _SYM_滴:1.0___jcross_滴_15__ = _SYM_廬:1.0___jcross_廬_5__) -> _SYM_廬:1.0___jcross_廬_8__[_SYM_滴:1.0___jcross_滴_10__, _SYM_廬:1.0___jcross_廬_10__[_SYM_滴:1.0___jcross_滴_10__, _SYM_滴:1.0___jcross_滴_10__]]:
+    _SYM_滴:1.0___jcross_滴_18__: _SYM_廬:1.0___jcross_廬_10__[_SYM_滴:1.0___jcross_滴_10__, _SYM_滴:1.0___jcross_滴_10__] = {}
+    if _SYM_滴:1.0___jcross_滴_25__ _SYM_滴:1.0___jcross_滴_38__:
+        return s, _SYM_滴:1.0___jcross_滴_18__
+    
+// [metadata-stripped]
+    _SYM_鍵:1.0___jcross_滴_56__ = {"_SYM_滴:1.0___jcross_滴_24__", "_SYM_滴:1.0___jcross_滴_3__", "true", "false", "_SYM_滴:1.0___jcross_滴_53__", "or", "_SYM_滴:1.0___jcross_滴_25__"}
+    _SYM_滴:1.0___jcross_滴_69__ = _SYM_滴:1.0___jcross_滴_21__(_SYM_則:1.0___jcross_嵐_1__(re._SYM_滴:1.0___jcross_滴_36__(r"\b([A-Za-z])\b", s)))
+    _SYM_滴:1.0___jcross_滴_33__ = _SYM_滴:1.0___jcross_滴_79__("_SYM_滴:1.0___jcross_滴_72__")
+    
+    for a in _SYM_滴:1.0___jcross_滴_69__:
+        if a._SYM_則:1.0___jcross_滴_46__() in _SYM_鍵:1.0___jcross_滴_56__: continue
+        if a._SYM_則:1.0___jcross_滴_46__() in ("p","q","r"):
+            _SYM_滴:1.0___jcross_滴_18__[a] = a._SYM_則:1.0___jcross_滴_46__()
+        else:
+            if _SYM_滴:1.0___jcross_滴_33__:
+                _SYM_滴:1.0___jcross_滴_27__ = _SYM_滴:1.0___jcross_滴_33__._SYM_滴:1.0___jcross_滴_43__(0)
+                while _SYM_滴:1.0___jcross_滴_27__ in ("p", "q", "r") _SYM_滴:1.0___jcross_滴_53__ _SYM_滴:1.0___jcross_滴_33__:
+                    _SYM_滴:1.0___jcross_滴_27__ = _SYM_滴:1.0___jcross_滴_33__._SYM_滴:1.0___jcross_滴_43__(0)
+                _SYM_滴:1.0___jcross_滴_18__[a] = _SYM_滴:1.0___jcross_滴_27__
+            else:
+                _SYM_滴:1.0___jcross_滴_18__[a] = a._SYM_則:1.0___jcross_滴_46__()
+
+    for _SYM_滴:1.0___jcross_滴_57__, _SYM_滴:1.0___jcross_滴_27__ in _SYM_滴:1.0___jcross_滴_18__._SYM_滴:1.0___jcross_滴_61__():
+        s = re._SYM_滴:1.0___jcross_滴_58__(rf"\b{re._SYM_滴:1.0___jcross_滴_49__(_SYM_滴:1.0___jcross_滴_57__)}\b", _SYM_滴:1.0___jcross_滴_27__, s)
+    return s, _SYM_滴:1.0___jcross_滴_18__
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_41__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_滴:1.0___jcross_滴_10__:
+    s = re._SYM_滴:1.0___jcross_滴_58__(r"\_SYM_滴:1.0___jcross_滴_1__\s*", "[]", s, _SYM_滴:1.0___jcross_滴_81__=re._SYM_廬:1.0___jcross_廬_1__)
+    s = re._SYM_滴:1.0___jcross_滴_58__(r"\_SYM_滴:1.0___jcross_滴_19__\s*", "<>", s, _SYM_滴:1.0___jcross_滴_81__=re._SYM_廬:1.0___jcross_廬_1__)
+    return s
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_44__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_滴:1.0___jcross_滴_10__:
+    s = s._SYM_滴:1.0___jcross_滴_52__(" ", "")
+// [metadata-stripped]
+    s = s._SYM_滴:1.0___jcross_滴_52__("<->", " <-> ")._SYM_滴:1.0___jcross_滴_52__("->", " -> ")
+// _SYM_嵐:0.5___jcross_WX_841__ [decoy-metadata]
+// _SYM_則:0.6___jcross_LL_566__ [decoy-metadata]
+    s = s._SYM_滴:1.0___jcross_滴_52__("&", " & ")._SYM_滴:1.0___jcross_滴_52__("|", " | ")
+    return re._SYM_滴:1.0___jcross_滴_58__(r"\s+", " ", s)._SYM_滴:1.0___jcross_滴_39__()
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_滴:1.0___jcross_滴_22__(s: _SYM_滴:1.0___jcross_滴_10__) -> _SYM_廬:1.0___jcross_廬_4__[_SYM_滴:1.0___jcross_滴_10__]:
+// _SYM_廬:0.8___jcross_ZX_992__ [decoy-metadata]
+    _SYM_滴:1.0___jcross_滴_8__ = []
+    if s._SYM_滴:1.0___jcross_滴_20__(("->", "&", "|", "<->")):
+        _SYM_滴:1.0___jcross_滴_8__._SYM_滴:1.0___jcross_滴_75__("_SYM_滴:1.0___jcross_滴_26__")
+    if s._SYM_滴:1.0___jcross_滴_12__("(") != s._SYM_滴:1.0___jcross_滴_12__(")"):
+        _SYM_滴:1.0___jcross_滴_8__._SYM_滴:1.0___jcross_滴_75__("_SYM_滴:1.0___jcross_滴_59__")
+    if _SYM_滴:1.0___jcross_滴_25__ any(op in s for op in ("->", "&", "|", "[]", "<>", "<->")):
+        _SYM_滴:1.0___jcross_滴_8__._SYM_滴:1.0___jcross_滴_75__("_SYM_滴:1.0___jcross_滴_51__")
+    return _SYM_滴:1.0___jcross_滴_8__
+
+_SYM_滴:1.0___jcross_滴_62__ _SYM_漂:1.0___jcross_滴_78__(_SYM_漂:1.0___jcross_滴_50__: _SYM_滴:1.0___jcross_滴_10__, _SYM_滴:1.0___jcross_滴_67__: _SYM_滴:1.0___jcross_滴_15__ = _SYM_廬:1.0___jcross_廬_5__) -> _SYM_廬:1.0___jcross_廬_9__:
+    try:
+// _SYM_嵐:0.6___jcross_FD_688__ [decoy-metadata]
+        s = _SYM_滴:1.0___jcross_滴_71__(_SYM_漂:1.0___jcross_滴_50__)
+        s = _SYM_滴:1.0___jcross_滴_77__(s)
+        s = _SYM_鍵:1.0___jcross_滴_16__(s)
+// _SYM_糸:0.3___jcross_CL_864__ [decoy-metadata]
+        
+// [metadata-stripped]
+        s = re._SYM_滴:1.0___jcross_滴_58__(r"\b(a|an|_SYM_滴:1.0___jcross_滴_66__|_SYM_滴:1.0___jcross_滴_42__|_SYM_滴:1.0___jcross_滴_9__|_SYM_滴:1.0___jcross_滴_73__)\b\s*$", "", s, _SYM_滴:1.0___jcross_滴_81__=re._SYM_廬:1.0___jcross_廬_1__)._SYM_滴:1.0___jcross_滴_39__()
+
+        _SYM_滴:1.0___jcross_滴_14__ = {}
+        if _SYM_滴:1.0___jcross_滴_67__:
+// _SYM_糸:0.1___jcross_DF_984__ [decoy-metadata]
+            s, _SYM_滴:1.0___jcross_滴_14__ = _SYM_滴:1.0___jcross_滴_2__(s)
+        
+        s = _SYM_滴:1.0___jcross_滴_41__(s)
+        s = _SYM_滴:1.0___jcross_滴_44__(s)
+        
+        _SYM_滴:1.0___jcross_滴_8__ = _SYM_滴:1.0___jcross_滴_22__(s)
+        return _SYM_廬:1.0___jcross_廬_9__(ok=(_SYM_滴:1.0___jcross_滴_35__(_SYM_滴:1.0___jcross_滴_8__) == 0), _SYM_漂:1.0___jcross_滴_50__=s, _SYM_滴:1.0___jcross_滴_18__=_SYM_滴:1.0___jcross_滴_14__, _SYM_滴:1.0___jcross_滴_11__=_SYM_滴:1.0___jcross_滴_8__)
+    _SYM_滴:1.0___jcross_滴_34__ _SYM_廬:1.0___jcross_廬_3__ as e:
+        return _SYM_廬:1.0___jcross_廬_9__(ok=_SYM_廬:1.0___jcross_廬_6__, _SYM_漂:1.0___jcross_滴_50__=_SYM_漂:1.0___jcross_滴_50__, _SYM_滴:1.0___jcross_滴_11__=[_SYM_滴:1.0___jcross_滴_10__(e)])
+// POLYMORPHIC_JCROSS_END

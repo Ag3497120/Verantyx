@@ -1,0 +1,305 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:370FF0D3 ver:1778150746
+// ⚠️ One-time schema — expires after response
+
+import __node_廳:1.0____ast_廳_8__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class __node_廳:1.0____ast_廳_16__: __node_廳:1.0____ast_廳_35__ {
+
+// [metadata-stripped]
+
+    struct __node_庫:1.0____ast_廳_20__: __node_廳:1.0____ast_廳_4__, __node_廳:1.0____ast_廳_30__ {
+        let id: __node_廳:1.0____ast_廳_9__  // __node_露:1.0____ast_露_146__ __node_露:1.0____ast_露_117__
+        let __node_露:1.0____ast_露_117__: __node_廳:1.0____ast_廳_9__
+        let __node_露:1.0____ast_露_67__: __node_庫:1.0____ast_廳_6__
+
+        enum __node_庫:1.0____ast_廳_6__: __node_廳:1.0____ast_廳_9__ {
+            case __node_涌:1.0____ast_露_152__  = "M"
+            case __node_露:1.0____ast_露_159__     = "A"
+            case __node_露:1.0____ast_露_178__   = "D"
+            case __node_露:1.0____ast_露_70__ = "?"
+            case __node_露:1.0____ast_露_88__   = "R"
+            case __node_露:1.0____ast_露_144__    = "C"
+            case __node_露:1.0____ast_露_23__   = " "
+
+            var __node_露:1.0____ast_露_2__: __node_廳:1.0____ast_廳_9__ {
+                switch self {
+                case .__node_涌:1.0____ast_露_152__:  return "__node_露:1.0____ast_露_147__"
+                case .__node_露:1.0____ast_露_159__:     return "__node_露:1.0____ast_露_102__"
+                case .__node_露:1.0____ast_露_178__:   return "__node_露:1.0____ast_露_66__"
+                case .__node_露:1.0____ast_露_70__: return "__node_露:1.0____ast_露_161__"
+                __node_露:1.0____ast_露_24__:         return "__node_露:1.0____ast_露_1__"
+                }
+            }
+
+            var __node_露:1.0____ast_露_156__: __node_廳:1.0____ast_廳_9__ {
+                switch self {
+                case .__node_涌:1.0____ast_露_152__:  return "__node_露:1.0____ast_露_170__.__node_露:1.0____ast_露_27__"
+                case .__node_露:1.0____ast_露_159__:     return "__node_露:1.0____ast_露_75__.__node_露:1.0____ast_露_27__"
+                case .__node_露:1.0____ast_露_178__:   return "__node_露:1.0____ast_露_105__.__node_露:1.0____ast_露_27__"
+                case .__node_露:1.0____ast_露_70__: return "__node_露:1.0____ast_露_25__.__node_露:1.0____ast_露_27__"
+                __node_露:1.0____ast_露_24__:         return "__node_露:1.0____ast_露_27__"
+                }
+            }
+        }
+    }
+
+    struct __node_廳:1.0____ast_廳_24__: __node_廳:1.0____ast_廳_4__, __node_廳:1.0____ast_廳_30__ {
+        let id: __node_廳:1.0____ast_廳_3__   // __node_露:1.0____ast_露_115__ __node_要:1.0____ast_露_54__ (1-__node_露:1.0____ast_露_139__)
+        let __node_要:1.0____ast_露_172__: __node_廳:1.0____ast_廳_3__
+        let __node_露:1.0____ast_露_114__: __node_廳:1.0____ast_廳_13__
+// __node_庫:0.4____ast_XL_337__ [decoy-metadata]
+
+        enum __node_廳:1.0____ast_廳_13__ { case __node_露:1.0____ast_露_159__, __node_涌:1.0____ast_露_152__, __node_露:1.0____ast_露_178__ }
+    }
+
+    struct __node_廳:1.0____ast_廳_11__: __node_廳:1.0____ast_廳_4__ {
+        let id: __node_廳:1.0____ast_廳_9__  // __node_露:1.0____ast_露_39__
+        let __node_露:1.0____ast_露_39__: __node_廳:1.0____ast_廳_9__
+        let __node_露:1.0____ast_露_28__: __node_廳:1.0____ast_廳_9__
+        let __node_露:1.0____ast_露_169__: __node_廳:1.0____ast_廳_9__
+        let __node_露:1.0____ast_露_127__: __node_廳:1.0____ast_廳_9__
+        let __node_露:1.0____ast_露_42__: __node_廳:1.0____ast_廳_9__
+    }
+
+// [metadata-stripped]
+
+    @__node_廳:1.0____ast_廳_23__ var __node_庫:1.0____ast_露_19__: [__node_庫:1.0____ast_廳_20__] = []
+    @__node_廳:1.0____ast_廳_23__ var __node_庫:1.0____ast_露_113__: [__node_庫:1.0____ast_廳_20__] = []
+    @__node_廳:1.0____ast_廳_23__ var __node_露:1.0____ast_露_153__: __node_廳:1.0____ast_廳_9__ = ""
+// __node_紋:0.7____ast_DH_405__ [decoy-metadata]
+    @__node_廳:1.0____ast_廳_23__ var __node_露:1.0____ast_露_116__: [__node_廳:1.0____ast_廳_11__] = []
+    @__node_廳:1.0____ast_廳_23__ var __node_庫:1.0____ast_露_83__: __node_廳:1.0____ast_廳_33__ = false
+    @__node_廳:1.0____ast_廳_23__ var __node_露:1.0____ast_露_174__: __node_廳:1.0____ast_廳_9__? = nil
+
+    private var __node_露:1.0____ast_露_85__: __node_紋:1.0____ast_廳_5__?
+
+// [metadata-stripped]
+
+    func __node_露:1.0____ast_露_36__(__node_露:1.0____ast_露_85__: __node_紋:1.0____ast_廳_5__) {
+        self.__node_露:1.0____ast_露_85__ = __node_露:1.0____ast_露_85__
+        __node_廳:1.0____ast_廳_32__ { await __node_露:1.0____ast_露_179__() }
+    }
+
+    @__node_廳:1.0____ast_廳_29__
+    func __node_露:1.0____ast_露_179__() async {
+        guard let __node_露:1.0____ast_露_85__ else { return }
+        __node_庫:1.0____ast_露_83__ = true
+        defer { __node_庫:1.0____ast_露_83__ = false }
+
+        __node_露:1.0____ast_露_153__ = (try? await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_30__-__node_露:1.0____ast_露_12__", "--__node_露:1.0____ast_露_130__-__node_露:1.0____ast_露_58__", "__node_廳:1.0____ast_廳_37__"], in: __node_露:1.0____ast_露_85__))
+            .__node_露:1.0____ast_露_79__ { $0.__node_露:1.0____ast_露_65__(in: .__node_露:1.0____ast_露_99__) } ?? "__node_露:1.0____ast_露_23__"
+
+        let __node_露:1.0____ast_露_93__ = (try? await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_67__", "--__node_露:1.0____ast_露_158__", "-u"], in: __node_露:1.0____ast_露_85__)) ?? ""
+        __node_露:1.0____ast_露_140__(__node_露:1.0____ast_露_93__ ?? "", __node_露:1.0____ast_露_85__: __node_露:1.0____ast_露_85__)
+
+        let __node_露:1.0____ast_露_120__ = (try? await __node_露:1.0____ast_露_41__([
+            "__node_露:1.0____ast_露_81__", "--__node_露:1.0____ast_露_73__", "--__node_露:1.0____ast_露_123__=__node_涌:1.0____ast_露_125__:%H|%h|%s|%an|%ar", "-n", "20"
+        ], in: __node_露:1.0____ast_露_85__)) ?? ""
+        __node_露:1.0____ast_露_133__(__node_露:1.0____ast_露_120__ ?? "")
+    }
+
+// [metadata-stripped]
+
+    func __node_露:1.0____ast_露_163__(for __node_紋:1.0____ast_露_50__: __node_紋:1.0____ast_廳_5__) async -> [__node_廳:1.0____ast_廳_24__] {
+        guard let __node_露:1.0____ast_露_85__ else { return [] }
+        guard let __node_涌:1.0____ast_露_154__ = try? await __node_露:1.0____ast_露_41__(
+// __node_涌:0.2____ast_LL_738__ [decoy-metadata]
+            ["__node_涌:1.0____ast_露_92__", "--__node_涌:1.0____ast_露_31__=0", __node_紋:1.0____ast_露_50__.__node_露:1.0____ast_露_117__], in: __node_露:1.0____ast_露_85__
+        ) else { return [] }
+        return __node_露:1.0____ast_露_61__(__node_露:1.0____ast_露_96__: __node_涌:1.0____ast_露_154__ ?? "")
+    }
+
+// [metadata-stripped]
+// __node_隠:0.6____ast_GX_447__ [decoy-metadata]
+
+    @__node_露:1.0____ast_露_37__
+    func __node_露:1.0____ast_露_57__() async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        return try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_142__", "-A"], in: __node_露:1.0____ast_露_85__) ?? ""
+    }
+
+    @__node_露:1.0____ast_露_37__
+    func __node_庫:1.0____ast_露_126__(_ __node_紋:1.0____ast_露_50__: __node_紋:1.0____ast_廳_5__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        return try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_142__", __node_紋:1.0____ast_露_50__.__node_露:1.0____ast_露_117__], in: __node_露:1.0____ast_露_85__) ?? ""
+    }
+
+    @__node_露:1.0____ast_露_37__
+    func __node_庫:1.0____ast_露_16__(_ __node_紋:1.0____ast_露_50__: __node_紋:1.0____ast_廳_5__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        return try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_168__", "__node_廳:1.0____ast_廳_37__", __node_紋:1.0____ast_露_50__.__node_露:1.0____ast_露_117__], in: __node_露:1.0____ast_露_85__) ?? ""
+    }
+
+    func __node_露:1.0____ast_露_11__(__node_露:1.0____ast_露_169__: __node_廳:1.0____ast_廳_9__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        guard !__node_露:1.0____ast_露_169__.__node_露:1.0____ast_露_65__(in: .__node_露:1.0____ast_露_99__).__node_露:1.0____ast_露_104__ else {
+            __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_182__
+        }
+        let __node_露:1.0____ast_露_134__ = try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_11__", "-m", __node_露:1.0____ast_露_169__], in: __node_露:1.0____ast_露_85__)
+        await __node_露:1.0____ast_露_179__()
+        return __node_露:1.0____ast_露_134__ ?? ""
+    }
+
+    func __node_露:1.0____ast_露_10__() async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        return try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_10__", "__node_露:1.0____ast_露_101__", "__node_廳:1.0____ast_廳_37__"], in: __node_露:1.0____ast_露_85__) ?? ""
+    }
+
+    func __node_露:1.0____ast_露_94__() async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        let __node_露:1.0____ast_露_134__ = try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_94__", "--__node_露:1.0____ast_露_132__"], in: __node_露:1.0____ast_露_85__)
+        await __node_露:1.0____ast_露_179__()
+        return __node_露:1.0____ast_露_134__ ?? ""
+    }
+
+    func __node_露:1.0____ast_露_64__(_ __node_露:1.0____ast_露_47__: __node_廳:1.0____ast_廳_9__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        return try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_76__", "-b", __node_露:1.0____ast_露_47__], in: __node_露:1.0____ast_露_85__) ?? ""
+    }
+
+    func __node_露:1.0____ast_露_150__(_ __node_露:1.0____ast_露_47__: __node_廳:1.0____ast_廳_9__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__ {
+        guard let __node_露:1.0____ast_露_85__ else { __node_露:1.0____ast_露_95__ __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_165__ }
+        let __node_露:1.0____ast_露_134__ = try await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_76__", __node_露:1.0____ast_露_47__], in: __node_露:1.0____ast_露_85__)
+        await __node_露:1.0____ast_露_179__()
+        return __node_露:1.0____ast_露_134__ ?? ""
+    }
+
+    func __node_露:1.0____ast_露_173__() async -> [__node_廳:1.0____ast_廳_9__] {
+        guard let __node_露:1.0____ast_露_85__ else { return [] }
+        let __node_露:1.0____ast_露_56__ = (try? await __node_露:1.0____ast_露_41__(["__node_露:1.0____ast_露_80__", "--__node_涌:1.0____ast_露_125__=%(__node_露:1.0____ast_露_143__:__node_露:1.0____ast_露_40__)"], in: __node_露:1.0____ast_露_85__)) ?? ""
+        return (__node_露:1.0____ast_露_56__ ?? "").__node_露:1.0____ast_露_84__(__node_露:1.0____ast_露_90__: "\n").__node_要:1.0____ast_露_49__ { !$0.__node_露:1.0____ast_露_104__ }
+    }
+
+// [metadata-stripped]
+
+    private func __node_露:1.0____ast_露_140__(_ __node_露:1.0____ast_露_56__: __node_廳:1.0____ast_廳_9__, __node_露:1.0____ast_露_85__: __node_紋:1.0____ast_廳_5__) {
+        var __node_露:1.0____ast_露_176__: [__node_庫:1.0____ast_廳_20__] = []
+        var __node_露:1.0____ast_露_148__: [__node_庫:1.0____ast_廳_20__] = []
+
+        for __node_露:1.0____ast_露_115__ in __node_露:1.0____ast_露_56__.__node_露:1.0____ast_露_84__(__node_露:1.0____ast_露_90__: "\n") where __node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_100__ >= 3 {
+            let xy = __node_廳:1.0____ast_廳_36__(__node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_38__(2))
+            let __node_露:1.0____ast_露_68__ = __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_74__(3))
+            let __node_露:1.0____ast_露_117__ = __node_露:1.0____ast_露_68__.__node_露:1.0____ast_露_65__(in: .__node_露:1.0____ast_露_91__)
+
+            let __node_露:1.0____ast_露_109__ = __node_庫:1.0____ast_廳_20__.__node_庫:1.0____ast_廳_6__(__node_露:1.0____ast_露_160__: __node_廳:1.0____ast_廳_9__(xy[0])) ?? .__node_露:1.0____ast_露_23__
+            let __node_露:1.0____ast_露_69__  = __node_庫:1.0____ast_廳_20__.__node_庫:1.0____ast_廳_6__(__node_露:1.0____ast_露_160__: __node_廳:1.0____ast_廳_9__(xy[1])) ?? .__node_露:1.0____ast_露_23__
+
+            if __node_露:1.0____ast_露_109__ != .__node_露:1.0____ast_露_23__ && __node_露:1.0____ast_露_109__.__node_露:1.0____ast_露_160__ != " " {
+                __node_露:1.0____ast_露_176__.__node_露:1.0____ast_露_71__(__node_庫:1.0____ast_廳_20__(id: "s-\(__node_露:1.0____ast_露_117__)", __node_露:1.0____ast_露_117__: __node_露:1.0____ast_露_117__, __node_露:1.0____ast_露_67__: __node_露:1.0____ast_露_109__))
+            }
+            if __node_露:1.0____ast_露_69__ != .__node_露:1.0____ast_露_23__ && __node_露:1.0____ast_露_69__.__node_露:1.0____ast_露_160__ != " " && __node_露:1.0____ast_露_69__.__node_露:1.0____ast_露_160__ != "?" {
+                __node_露:1.0____ast_露_148__.__node_露:1.0____ast_露_71__(__node_庫:1.0____ast_廳_20__(id: "u-\(__node_露:1.0____ast_露_117__)", __node_露:1.0____ast_露_117__: __node_露:1.0____ast_露_117__, __node_露:1.0____ast_露_67__: __node_露:1.0____ast_露_69__))
+            } else if xy[0] == "?" && xy[1] == "?" {
+                __node_露:1.0____ast_露_148__.__node_露:1.0____ast_露_71__(__node_庫:1.0____ast_廳_20__(id: "u-\(__node_露:1.0____ast_露_117__)", __node_露:1.0____ast_露_117__: __node_露:1.0____ast_露_117__, __node_露:1.0____ast_露_67__: .__node_露:1.0____ast_露_70__))
+            }
+        }
+
+// __node_涌:0.1____ast_DG_424__ [decoy-metadata]
+        __node_廳:1.0____ast_廳_17__.__node_露:1.0____ast_露_181__.async {
+            self.__node_庫:1.0____ast_露_19__   = __node_露:1.0____ast_露_176__
+            self.__node_庫:1.0____ast_露_113__ = __node_露:1.0____ast_露_148__
+        }
+    }
+
+    private func __node_露:1.0____ast_露_133__(_ __node_露:1.0____ast_露_56__: __node_廳:1.0____ast_廳_9__) {
+        let __node_露:1.0____ast_露_110__ = __node_露:1.0____ast_露_56__.__node_露:1.0____ast_露_84__(__node_露:1.0____ast_露_90__: "\n").__node_露:1.0____ast_露_44__ { __node_露:1.0____ast_露_115__ -> __node_廳:1.0____ast_廳_11__? in
+            let __node_露:1.0____ast_露_155__ = __node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_20__(__node_露:1.0____ast_露_106__: "|", __node_露:1.0____ast_露_166__: 4, __node_露:1.0____ast_露_77__: false)
+            guard __node_露:1.0____ast_露_155__.__node_露:1.0____ast_露_100__ == 5 else { return nil }
+            return __node_廳:1.0____ast_廳_11__(
+                id: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[0]),
+                __node_露:1.0____ast_露_39__: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[0]),
+                __node_露:1.0____ast_露_28__: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[1]),
+                __node_露:1.0____ast_露_169__: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[2]),
+                __node_露:1.0____ast_露_127__: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[3]),
+                __node_露:1.0____ast_露_42__: __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_155__[4])
+            )
+        }
+        __node_廳:1.0____ast_廳_17__.__node_露:1.0____ast_露_181__.async { self.__node_露:1.0____ast_露_116__ = __node_露:1.0____ast_露_110__ }
+    }
+
+    private func __node_露:1.0____ast_露_61__(__node_露:1.0____ast_露_96__ __node_涌:1.0____ast_露_92__: __node_廳:1.0____ast_廳_9__) -> [__node_廳:1.0____ast_廳_24__] {
+// [metadata-stripped]
+        var __node_露:1.0____ast_露_129__: [__node_廳:1.0____ast_廳_24__] = []
+        let __node_露:1.0____ast_露_135__ = try? __node_廳:1.0____ast_廳_2__(__node_露:1.0____ast_露_7__: #"@@\s+-\d+(?:,\d+)?\s+\+(\d+)(?:,(\d+))?\s+@@"#)
+        var __node_露:1.0____ast_露_151__ = 0
+
+        for __node_露:1.0____ast_露_115__ in __node_涌:1.0____ast_露_92__.__node_露:1.0____ast_露_84__(__node_露:1.0____ast_露_90__: "\n") {
+            if __node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_107__("@@") {
+                if let __node_露:1.0____ast_露_97__ = __node_露:1.0____ast_露_135__?.__node_露:1.0____ast_露_6__(in: __node_露:1.0____ast_露_115__, __node_露:1.0____ast_露_87__: __node_廳:1.0____ast_廳_14__(__node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_121__..., in: __node_露:1.0____ast_露_115__)),
+                   let r1 = __node_廳:1.0____ast_廳_10__(__node_露:1.0____ast_露_97__.__node_露:1.0____ast_露_87__(at: 1), in: __node_露:1.0____ast_露_115__) {
+                    __node_露:1.0____ast_露_151__ = __node_廳:1.0____ast_廳_3__(__node_露:1.0____ast_露_115__[r1]) ?? 0
+                }
+            } else if __node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_107__("+") {
+                __node_露:1.0____ast_露_129__.__node_露:1.0____ast_露_71__(__node_廳:1.0____ast_廳_24__(id: __node_露:1.0____ast_露_151__, __node_要:1.0____ast_露_172__: __node_露:1.0____ast_露_151__, __node_露:1.0____ast_露_114__: .__node_露:1.0____ast_露_159__))
+                __node_露:1.0____ast_露_151__ += 1
+            } else if __node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_107__("-") {
+                __node_露:1.0____ast_露_129__.__node_露:1.0____ast_露_71__(__node_廳:1.0____ast_廳_24__(id: -__node_露:1.0____ast_露_151__, __node_要:1.0____ast_露_172__: __node_露:1.0____ast_露_151__, __node_露:1.0____ast_露_114__: .__node_露:1.0____ast_露_178__))
+// [metadata-stripped]
+            } else if !__node_露:1.0____ast_露_115__.__node_露:1.0____ast_露_107__("\\") {
+                __node_露:1.0____ast_露_151__ += 1
+            }
+        }
+        return __node_露:1.0____ast_露_129__
+    }
+
+// [metadata-stripped]
+
+    @__node_露:1.0____ast_露_37__
+    private func __node_露:1.0____ast_露_41__(_ __node_露:1.0____ast_露_62__: [__node_廳:1.0____ast_廳_9__], in __node_露:1.0____ast_露_34__: __node_紋:1.0____ast_廳_5__) async __node_露:1.0____ast_露_95__s -> __node_廳:1.0____ast_廳_9__? {
+        try await __node_露:1.0____ast_露_63__ { __node_露:1.0____ast_露_171__ in
+            __node_廳:1.0____ast_廳_17__.__node_露:1.0____ast_露_43__(__node_露:1.0____ast_露_8__: .__node_露:1.0____ast_露_15__).async {
+                do {
+                    let __node_露:1.0____ast_露_103__ = __node_廳:1.0____ast_廳_31__()
+                    let __node_露:1.0____ast_露_180__ = __node_廳:1.0____ast_廳_7__()
+                    __node_露:1.0____ast_露_103__.__node_紋:1.0____ast_露_128__ = __node_紋:1.0____ast_廳_5__(__node_紋:1.0____ast_露_33__: "/__node_露:1.0____ast_露_53__/__node_露:1.0____ast_露_111__/__node_露:1.0____ast_露_108__")
+                    __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_32__ = __node_露:1.0____ast_露_62__
+                    __node_露:1.0____ast_露_103__.__node_紋:1.0____ast_露_89__ = __node_露:1.0____ast_露_34__
+                    __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_21__ = __node_露:1.0____ast_露_180__
+                    __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_72__ = __node_露:1.0____ast_露_180__
+                    try __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_41__()
+// [metadata-stripped]
+// [metadata-stripped]
+// __node_涌:0.6____ast_WM_789__ [decoy-metadata]
+                    let __node_露:1.0____ast_露_48__ = __node_露:1.0____ast_露_180__.__node_庫:1.0____ast_露_175__.__node_庫:1.0____ast_露_51__()
+                    __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_78__()
+                    let __node_露:1.0____ast_露_56__ = __node_廳:1.0____ast_廳_9__(__node_露:1.0____ast_露_48__: __node_露:1.0____ast_露_48__, __node_露:1.0____ast_露_119__: .__node_露:1.0____ast_露_136__) ?? ""
+                    if __node_露:1.0____ast_露_103__.__node_露:1.0____ast_露_157__ == 0 {
+                        __node_露:1.0____ast_露_171__.__node_露:1.0____ast_露_29__(__node_露:1.0____ast_露_137__: __node_露:1.0____ast_露_56__)
+                    } else {
+                        __node_露:1.0____ast_露_171__.__node_露:1.0____ast_露_29__(__node_露:1.0____ast_露_5__: __node_廳:1.0____ast_廳_26__.__node_露:1.0____ast_露_13__(__node_露:1.0____ast_露_56__))
+                    }
+                } catch {
+                    __node_露:1.0____ast_露_171__.__node_露:1.0____ast_露_29__(__node_露:1.0____ast_露_5__: __node_露:1.0____ast_露_14__)
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    enum __node_廳:1.0____ast_廳_26__: __node_廳:1.0____ast_廳_15__ {
+        case __node_露:1.0____ast_露_165__
+        case __node_露:1.0____ast_露_182__
+        case __node_露:1.0____ast_露_13__(__node_廳:1.0____ast_廳_9__)
+
+        var __node_露:1.0____ast_露_17__: __node_廳:1.0____ast_廳_9__? {
+            switch self {
+            case .__node_露:1.0____ast_露_165__:          return "No __node_露:1.0____ast_露_118__ __node_露:1.0____ast_露_85__"
+            case .__node_露:1.0____ast_露_182__:    return "__node_廳:1.0____ast_廳_25__ __node_露:1.0____ast_露_169__ __node_露:1.0____ast_露_22__ be __node_露:1.0____ast_露_82__"
+            case .__node_露:1.0____ast_露_13__(let s): return s.__node_露:1.0____ast_露_104__ ? "__node_廳:1.0____ast_廳_18__ __node_露:1.0____ast_露_98__ __node_露:1.0____ast_露_124__" : s
+            }
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

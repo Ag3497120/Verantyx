@@ -1,0 +1,309 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:3788852F ver:1778164071
+// ⚠️ One-time schema — expires after response
+
+im_SYM_霞:1.0___jcross_霞_35__ _SYM_廱:1.0___jcross_廱_7__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+enum _SYM_廱:1.0___jcross_廱_33__: _SYM_廱:1.0___jcross_廱_8__, _SYM_廱:1.0___jcross_廱_14__, _SYM_廱:1.0___jcross_廱_41__ {
+    case _SYM_霞:1.0___jcross_霞_93__       // 0 or 1 (_SYM_霞:1.0___jcross_霞_17__ _SYM_則:1.0___jcross_霞_11__ — _SYM_霞:1.0___jcross_霞_52__ _SYM_霞:1.0___jcross_霞_16__)
+    case _SYM_霞:1.0___jcross_霞_21__         // 2–99 _SYM_則:1.0___jcross_霞_97__
+    case _SYM_霞:1.0___jcross_霞_81__       // _SYM_霞:1.0___jcross_霞_43__ _SYM_霞:1.0___jcross_霞_34__ _SYM_霞:1.0___jcross_霞_37__ _SYM_霞:1.0___jcross_霞_4__ (_SYM_霞:1.0___jcross_霞_20__ _SYM_霞:1.0___jcross_霞_99__, _SYM_霞:1.0___jcross_霞_104__)
+    case _SYM_霞:1.0___jcross_霞_29__         // ≥1000 _SYM_則:1.0___jcross_霞_97__ (_SYM_霞:1.0___jcross_霞_35__ _SYM_霞:1.0___jcross_霞_101__, _SYM_霞:1.0___jcross_霞_89__)
+    case _SYM_霞:1.0___jcross_霞_26__           // 0x... _SYM_霞:1.0___jcross_霞_84__
+    case _SYM_霞:1.0___jcross_霞_25__        // 0b... _SYM_霞:1.0___jcross_霞_44__
+    case _SYM_霞:1.0___jcross_霞_24__         // 0o... _SYM_霞:1.0___jcross_霞_31__
+    case _SYM_脈:1.0___jcross_霞_53__    // 1.21e5 _SYM_脈:1.0___jcross_霞_6__ _SYM_霞:1.0___jcross_霞_83__
+    case _SYM_霞:1.0___jcross_霞_103__      // _SYM_霞:1.0___jcross_霞_59__ _SYM_霞:1.0___jcross_霞_101__
+    case _SYM_霞:1.0___jcross_霞_91__          // _SYM_霞:1.0___jcross_霞_96__ _SYM_霞:1.0___jcross_霞_14__ < 30 _SYM_霞:1.0___jcross_霞_86__
+    case _SYM_霞:1.0___jcross_霞_22__           // _SYM_霞:1.0___jcross_霞_96__ _SYM_霞:1.0___jcross_霞_14__ ≥ 30 _SYM_霞:1.0___jcross_霞_86__
+    case _SYM_霞:1.0___jcross_霞_41__       // true / false
+    case _SYM_霞:1.0___jcross_霞_18__
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_80__: _SYM_廱:1.0___jcross_廱_3__ {
+        switch self {
+        case ._SYM_霞:1.0___jcross_霞_81__:    return 10  // 税率・利率 → 最高優先
+        case ._SYM_霞:1.0___jcross_霞_29__:      return 8   // ポート番号・タイムアウト
+        case ._SYM_霞:1.0___jcross_霞_26__:        return 8   // バイナリ定数・フラグ
+        case ._SYM_脈:1.0___jcross_霞_53__: return 7
+        case ._SYM_霞:1.0___jcross_霞_103__:   return 6
+        case ._SYM_霞:1.0___jcross_霞_91__:       return 6
+        case ._SYM_霞:1.0___jcross_霞_22__:        return 5
+        case ._SYM_霞:1.0___jcross_霞_21__:      return 4
+// _SYM_組:0.2___jcross_VV_874__ [decoy-metadata]
+        case ._SYM_霞:1.0___jcross_霞_25__:     return 3
+        case ._SYM_霞:1.0___jcross_霞_24__:      return 3
+        case ._SYM_霞:1.0___jcross_霞_41__:    return 1
+        case ._SYM_霞:1.0___jcross_霞_93__:    return 0   // マスク不要
+        case ._SYM_霞:1.0___jcross_霞_18__:           return 2
+        }
+    }
+}
+
+// [metadata-stripped]
+
+struct _SYM_廱:1.0___jcross_廱_22__: _SYM_廱:1.0___jcross_廱_14__ {
+// [metadata-stripped]
+    let _SYM_霞:1.0___jcross_霞_55__: _SYM_廱:1.0___jcross_廱_8__
+// [metadata-stripped]
+    let _SYM_霞:1.0___jcross_霞_105__: _SYM_廱:1.0___jcross_廱_8__
+// [metadata-stripped]
+    let _SYM_霞:1.0___jcross_霞_115__: _SYM_廱:1.0___jcross_廱_33__
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_40__: _SYM_廱:1.0___jcross_廱_3__
+// [metadata-stripped]
+    let _SYM_霞:1.0___jcross_霞_79__: _SYM_廱:1.0___jcross_廱_25__
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_7__: _SYM_廱:1.0___jcross_廱_47__ { false }
+}
+
+// [metadata-stripped]
+
+struct _SYM_廱:1.0___jcross_廱_28__ {
+// _SYM_脈:0.8___jcross_MB_189__ [decoy-metadata]
+    let _SYM_霞:1.0___jcross_霞_9__: _SYM_廱:1.0___jcross_廱_3__
+    let _SYM_霞:1.0___jcross_霞_45__: _SYM_廱:1.0___jcross_廱_3__
+    let _SYM_霞:1.0___jcross_霞_61__: _SYM_廱:1.0___jcross_廱_3__
+// _SYM_廱:0.1___jcross_XE_791__ [decoy-metadata]
+    let _SYM_霞:1.0___jcross_霞_63__: [_SYM_廱:1.0___jcross_廱_33__: _SYM_廱:1.0___jcross_廱_3__]
+    let _SYM_霞:1.0___jcross_霞_54__: _SYM_廱:1.0___jcross_廱_37__
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+final class _SYM_廱:1.0___jcross_廱_20__: @_SYM_霞:1.0___jcross_霞_85__ _SYM_廱:1.0___jcross_廱_49__ {
+
+// [metadata-stripped]
+
+    private var _SYM_霞:1.0___jcross_霞_32__:    [_SYM_廱:1.0___jcross_廱_8__: _SYM_廱:1.0___jcross_廱_22__] = [:]  // _SYM_霞:1.0___jcross_霞_55__ → _SYM_霞:1.0___jcross_霞_95__
+    private var _SYM_霞:1.0___jcross_霞_68__:   [_SYM_廱:1.0___jcross_廱_8__: _SYM_廱:1.0___jcross_廱_8__]            = [:]  // _SYM_霞:1.0___jcross_霞_105__ → _SYM_霞:1.0___jcross_霞_55__ (重複防止)
+    private var _SYM_霞:1.0___jcross_霞_109__:     _SYM_則:1.0___jcross_縁_1__<_SYM_廱:1.0___jcross_廱_8__>                 = []
+    private let _SYM_霞:1.0___jcross_霞_71__ = _SYM_廱:1.0___jcross_廱_15__()
+
+// [metadata-stripped]
+    private var _SYM_則:1.0___jcross_霞_66__: _SYM_廱:1.0___jcross_廱_3__ = 0
+    private var _SYM_則:1.0___jcross_霞_65__:    _SYM_廱:1.0___jcross_廱_3__ = 0
+
+// [metadata-stripped]
+    private let _SYM_霞:1.0___jcross_霞_112__: _SYM_廱:1.0___jcross_廱_8__
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_49__: _SYM_廱:1.0___jcross_廱_3__ = 1
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_100__: _SYM_廱:1.0___jcross_廱_3__ = 2
+
+// [metadata-stripped]
+
+    init(_SYM_霞:1.0___jcross_霞_112__: _SYM_廱:1.0___jcross_廱_8__ = _SYM_廱:1.0___jcross_廱_8__(_SYM_廱:1.0___jcross_廱_32__()._SYM_霞:1.0___jcross_霞_74__._SYM_霞:1.0___jcross_霞_27__(4)._SYM_霞:1.0___jcross_霞_33__())) {
+// _SYM_縁:0.4___jcross_GK_599__ [decoy-metadata]
+        self._SYM_霞:1.0___jcross_霞_112__ = _SYM_霞:1.0___jcross_霞_112__
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    func _SYM_霞:1.0___jcross_霞_90__(_SYM_霞:1.0___jcross_霞_105__: _SYM_廱:1.0___jcross_廱_8__, _SYM_霞:1.0___jcross_霞_115__: _SYM_廱:1.0___jcross_廱_33__) -> _SYM_廱:1.0___jcross_廱_8__? {
+        guard _SYM_霞:1.0___jcross_霞_115__._SYM_霞:1.0___jcross_霞_80__ >= _SYM_霞:1.0___jcross_霞_49__ else { return nil }
+
+        return _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+// [metadata-stripped]
+            if let _SYM_霞:1.0___jcross_霞_114__ = _SYM_霞:1.0___jcross_霞_68__[_SYM_霞:1.0___jcross_霞_105__] {
+                _SYM_霞:1.0___jcross_霞_32__[_SYM_霞:1.0___jcross_霞_114__]?._SYM_霞:1.0___jcross_霞_40__ += 1
+                return _SYM_霞:1.0___jcross_霞_114__
+            }
+
+// [metadata-stripped]
+            _SYM_則:1.0___jcross_霞_66__ += 1
+            let _SYM_霞:1.0___jcross_霞_23__ = _SYM_霞:1.0___jcross_霞_48__(_SYM_則:1.0___jcross_霞_66__)
+// _SYM_廱:0.9___jcross_CZ_539__ [decoy-metadata]
+            let _SYM_霞:1.0___jcross_霞_55__ = "_SYM_廱:1.0___jcross_廱_51__:\(_SYM_霞:1.0___jcross_霞_112__)\(_SYM_霞:1.0___jcross_霞_23__)"
+
+            let _SYM_霞:1.0___jcross_霞_95__ = _SYM_廱:1.0___jcross_廱_22__(
+                _SYM_霞:1.0___jcross_霞_55__: _SYM_霞:1.0___jcross_霞_55__,
+                _SYM_霞:1.0___jcross_霞_105__: _SYM_霞:1.0___jcross_霞_105__,
+                _SYM_霞:1.0___jcross_霞_115__: _SYM_霞:1.0___jcross_霞_115__,
+                _SYM_霞:1.0___jcross_霞_40__: 1,
+                _SYM_霞:1.0___jcross_霞_79__: _SYM_廱:1.0___jcross_廱_25__()
+            )
+            _SYM_霞:1.0___jcross_霞_32__[_SYM_霞:1.0___jcross_霞_55__] = _SYM_霞:1.0___jcross_霞_95__
+            _SYM_霞:1.0___jcross_霞_68__[_SYM_霞:1.0___jcross_霞_105__] = _SYM_霞:1.0___jcross_霞_55__
+            return _SYM_霞:1.0___jcross_霞_55__
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _SYM_霞:1.0___jcross_霞_58__() -> _SYM_廱:1.0___jcross_廱_8__ {
+// _SYM_封:0.5___jcross_CB_460__ [decoy-metadata]
+        return _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+            _SYM_則:1.0___jcross_霞_65__ += 1
+            let _SYM_霞:1.0___jcross_霞_108__ = "_SYM_廱:1.0___jcross_廱_42__:\(_SYM_霞:1.0___jcross_霞_112__)\(_SYM_霞:1.0___jcross_霞_48__(_SYM_則:1.0___jcross_霞_65__ + 10000))"
+            _SYM_霞:1.0___jcross_霞_109__._SYM_霞:1.0___jcross_霞_75__(_SYM_霞:1.0___jcross_霞_108__)
+            return _SYM_霞:1.0___jcross_霞_108__
+        }
+    }
+
+// [metadata-stripped]
+    func _SYM_霞:1.0___jcross_霞_47__(_ id: _SYM_廱:1.0___jcross_廱_8__) -> _SYM_廱:1.0___jcross_廱_47__ {
+        id._SYM_霞:1.0___jcross_霞_78__("_SYM_廱:1.0___jcross_廱_42__:")
+    }
+
+// [metadata-stripped]
+    func _SYM_霞:1.0___jcross_霞_5__(_ id: _SYM_廱:1.0___jcross_廱_8__) -> _SYM_廱:1.0___jcross_廱_47__ {
+        id._SYM_霞:1.0___jcross_霞_78__("_SYM_廱:1.0___jcross_廱_51__:")
+    }
+
+// [metadata-stripped]
+    func _SYM_霞:1.0___jcross_霞_105__(for _SYM_霞:1.0___jcross_霞_55__: _SYM_廱:1.0___jcross_廱_8__) -> _SYM_廱:1.0___jcross_廱_8__? {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ { _SYM_霞:1.0___jcross_霞_32__[_SYM_霞:1.0___jcross_霞_55__]?._SYM_霞:1.0___jcross_霞_105__ }
+    }
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_57__: [_SYM_廱:1.0___jcross_廱_8__: _SYM_廱:1.0___jcross_廱_8__] {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+            _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_113__ { $0._SYM_霞:1.0___jcross_霞_105__ }
+        }
+    }
+
+// [metadata-stripped]
+    var _SYM_霞:1.0___jcross_霞_8__: _SYM_則:1.0___jcross_縁_1__<_SYM_廱:1.0___jcross_廱_8__> {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ { _SYM_霞:1.0___jcross_霞_109__ }
+    }
+
+// [metadata-stripped]
+
+    var _SYM_霞:1.0___jcross_霞_110__: _SYM_廱:1.0___jcross_廱_28__ {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+            var _SYM_霞:1.0___jcross_霞_82__: [_SYM_廱:1.0___jcross_廱_33__: _SYM_廱:1.0___jcross_廱_3__] = [:]
+            var _SYM_霞:1.0___jcross_霞_2__ = 0
+            let _SYM_霞:1.0___jcross_霞_15__ = _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_73__._SYM_則:1.0___jcross_霞_39__ { $0._SYM_霞:1.0___jcross_霞_115__._SYM_霞:1.0___jcross_霞_80__ >= 6 }._SYM_霞:1.0___jcross_霞_69__
+
+            for _SYM_霞:1.0___jcross_霞_95__ in _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_73__ {
+                _SYM_霞:1.0___jcross_霞_82__[_SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_115__, _SYM_霞:1.0___jcross_霞_19__: 0] += 1
+                _SYM_霞:1.0___jcross_霞_2__ += _SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_115__._SYM_霞:1.0___jcross_霞_80__
+            }
+            let _SYM_霞:1.0___jcross_霞_62__ = _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_72__ ? 0.0 : _SYM_廱:1.0___jcross_廱_37__(_SYM_霞:1.0___jcross_霞_2__) / _SYM_廱:1.0___jcross_廱_37__(_SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_69__)
+
+            return _SYM_廱:1.0___jcross_廱_28__(
+                _SYM_霞:1.0___jcross_霞_9__: _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_69__,
+                _SYM_霞:1.0___jcross_霞_45__: _SYM_霞:1.0___jcross_霞_109__._SYM_霞:1.0___jcross_霞_69__,
+                _SYM_霞:1.0___jcross_霞_61__: _SYM_霞:1.0___jcross_霞_15__,
+                _SYM_霞:1.0___jcross_霞_63__: _SYM_霞:1.0___jcross_霞_82__,
+                _SYM_霞:1.0___jcross_霞_54__: _SYM_霞:1.0___jcross_霞_62__
+            )
+        }
+    }
+
+// [metadata-stripped]
+
+    struct _SYM_廱:1.0___jcross_廱_40__: _SYM_廱:1.0___jcross_廱_14__ {
+        let _SYM_霞:1.0___jcross_霞_112__: _SYM_廱:1.0___jcross_廱_8__
+        let _SYM_霞:1.0___jcross_霞_32__: [_SYM_廱:1.0___jcross_廱_8__: _SYM_廱:1.0___jcross_廱_22__]
+        let _SYM_霞:1.0___jcross_霞_68__: [_SYM_廱:1.0___jcross_廱_8__: _SYM_廱:1.0___jcross_廱_8__]
+        let _SYM_霞:1.0___jcross_霞_109__: [_SYM_廱:1.0___jcross_廱_8__]
+        let _SYM_則:1.0___jcross_霞_66__: _SYM_廱:1.0___jcross_廱_3__
+        let _SYM_則:1.0___jcross_霞_65__: _SYM_廱:1.0___jcross_廱_3__
+    }
+
+    func _SYM_霞:1.0___jcross_霞_106__() -> _SYM_廱:1.0___jcross_廱_13__? {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+            let sv = _SYM_廱:1.0___jcross_廱_40__(
+                _SYM_霞:1.0___jcross_霞_112__: _SYM_霞:1.0___jcross_霞_112__,
+                _SYM_霞:1.0___jcross_霞_32__: _SYM_霞:1.0___jcross_霞_32__,
+                _SYM_霞:1.0___jcross_霞_68__: _SYM_霞:1.0___jcross_霞_68__,
+                _SYM_霞:1.0___jcross_霞_109__: _SYM_廱:1.0___jcross_廱_48__(_SYM_霞:1.0___jcross_霞_109__),
+                _SYM_則:1.0___jcross_霞_66__: _SYM_則:1.0___jcross_霞_66__,
+                _SYM_則:1.0___jcross_霞_65__: _SYM_則:1.0___jcross_霞_65__
+            )
+            return try? _SYM_則:1.0___jcross_廱_5__()._SYM_霞:1.0___jcross_霞_13__(sv)
+        }
+    }
+
+    static func _SYM_霞:1.0___jcross_霞_107__(_SYM_霞:1.0___jcross_霞_67__ _SYM_霞:1.0___jcross_霞_38__: _SYM_廱:1.0___jcross_廱_13__) -> _SYM_廱:1.0___jcross_廱_20__? {
+        guard let sv = try? _SYM_則:1.0___jcross_廱_2__()._SYM_霞:1.0___jcross_霞_3__(_SYM_廱:1.0___jcross_廱_40__.self, _SYM_霞:1.0___jcross_霞_67__: _SYM_霞:1.0___jcross_霞_38__) else { return nil }
+        let _SYM_霞:1.0___jcross_霞_60__ = _SYM_廱:1.0___jcross_廱_20__(_SYM_霞:1.0___jcross_霞_112__: sv._SYM_霞:1.0___jcross_霞_112__)
+        _SYM_霞:1.0___jcross_霞_60__._SYM_霞:1.0___jcross_霞_32__ = sv._SYM_霞:1.0___jcross_霞_32__
+        _SYM_霞:1.0___jcross_霞_60__._SYM_霞:1.0___jcross_霞_68__ = sv._SYM_霞:1.0___jcross_霞_68__
+        _SYM_霞:1.0___jcross_霞_60__._SYM_霞:1.0___jcross_霞_109__ = _SYM_則:1.0___jcross_縁_1__(sv._SYM_霞:1.0___jcross_霞_109__)
+        _SYM_霞:1.0___jcross_霞_60__._SYM_則:1.0___jcross_霞_66__ = sv._SYM_則:1.0___jcross_霞_66__
+        _SYM_霞:1.0___jcross_霞_60__._SYM_則:1.0___jcross_霞_65__ = sv._SYM_則:1.0___jcross_霞_65__
+        return _SYM_霞:1.0___jcross_霞_60__
+    }
+
+// [metadata-stripped]
+
+    var _SYM_霞:1.0___jcross_霞_1__: _SYM_廱:1.0___jcross_廱_8__ {
+        _SYM_霞:1.0___jcross_霞_71__._SYM_霞:1.0___jcross_霞_36__ {
+            var _SYM_霞:1.0___jcross_霞_10__ = [
+                "╔══ Z-_SYM_廱:1.0___jcross_廱_30__ _SYM_廱:1.0___jcross_廱_11__ _SYM_廱:1.0___jcross_廱_55__ ══════════════════════════════",
+                "║  _SYM_廱:1.0___jcross_廱_39__: \(_SYM_霞:1.0___jcross_霞_112__)  _SYM_廱:1.0___jcross_廱_9__: \(_SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_69__)  _SYM_廱:1.0___jcross_廱_42__: \(_SYM_霞:1.0___jcross_霞_109__._SYM_霞:1.0___jcross_霞_69__)",
+                "║  ⚠️  _SYM_廱:1.0___jcross_廱_36__ _SYM_廱:1.0___jcross_廱_16__ — DO _SYM_廱:1.0___jcross_廱_18__ _SYM_廱:1.0___jcross_廱_45__ TO _SYM_廱:1.0___jcross_廱_31__ _SYM_廱:1.0___jcross_廱_35__ OR _SYM_廱:1.0___jcross_廱_27__ _SYM_廱:1.0___jcross_廱_54__",
+                "╠══════════════════════════════════════════════════════"
+            ]
+            for _SYM_霞:1.0___jcross_霞_95__ in _SYM_霞:1.0___jcross_霞_32__._SYM_霞:1.0___jcross_霞_73__._SYM_霞:1.0___jcross_霞_88__(by: { $0._SYM_霞:1.0___jcross_霞_55__ < $1._SYM_霞:1.0___jcross_霞_55__ }) {
+                let _SYM_霞:1.0___jcross_霞_16__ = _SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_115__._SYM_霞:1.0___jcross_霞_80__
+                let _SYM_霞:1.0___jcross_霞_98__ = _SYM_廱:1.0___jcross_廱_8__(_SYM_霞:1.0___jcross_霞_92__: "★", _SYM_霞:1.0___jcross_霞_69__: _SYM_霞:1.0___jcross_霞_70__(_SYM_霞:1.0___jcross_霞_16__, 5))
+                _SYM_霞:1.0___jcross_霞_10__._SYM_霞:1.0___jcross_霞_46__("║  \(_SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_55__)  =  \"\(_SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_105__)\"")
+                _SYM_霞:1.0___jcross_霞_10__._SYM_霞:1.0___jcross_霞_46__("║     [\(_SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_115__._SYM_霞:1.0___jcross_霞_105__)]  _SYM_霞:1.0___jcross_霞_16__:\(_SYM_霞:1.0___jcross_霞_16__)\(_SYM_霞:1.0___jcross_霞_98__)  ×\(_SYM_霞:1.0___jcross_霞_95__._SYM_霞:1.0___jcross_霞_40__)")
+            }
+            _SYM_霞:1.0___jcross_霞_10__._SYM_霞:1.0___jcross_霞_46__("╚══════════════════════════════════════════════════════")
+            return _SYM_霞:1.0___jcross_霞_10__._SYM_霞:1.0___jcross_霞_30__(_SYM_霞:1.0___jcross_霞_77__: "\n")
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+    private static let _SYM_霞:1.0___jcross_霞_64__ = _SYM_廱:1.0___jcross_廱_48__("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+    private func _SYM_霞:1.0___jcross_霞_48__(_ n: _SYM_廱:1.0___jcross_廱_3__) -> _SYM_廱:1.0___jcross_廱_8__ {
+        guard n > 0 else { return "0" }
+        var _SYM_霞:1.0___jcross_霞_94__ = ""
+        var _SYM_霞:1.0___jcross_霞_56__ = n
+        let _SYM_霞:1.0___jcross_霞_111__ = _SYM_廱:1.0___jcross_廱_24__._SYM_霞:1.0___jcross_霞_64__._SYM_霞:1.0___jcross_霞_69__
+        while _SYM_霞:1.0___jcross_霞_56__ > 0 {
+            _SYM_霞:1.0___jcross_霞_94__ = _SYM_廱:1.0___jcross_廱_8__(_SYM_廱:1.0___jcross_廱_24__._SYM_霞:1.0___jcross_霞_64__[_SYM_霞:1.0___jcross_霞_56__ % _SYM_霞:1.0___jcross_霞_111__]) + _SYM_霞:1.0___jcross_霞_94__
+            _SYM_霞:1.0___jcross_霞_56__ /= _SYM_霞:1.0___jcross_霞_111__
+        }
+// [metadata-stripped]
+        while _SYM_霞:1.0___jcross_霞_94__._SYM_霞:1.0___jcross_霞_69__ < 4 { _SYM_霞:1.0___jcross_霞_94__ = "0" + _SYM_霞:1.0___jcross_霞_94__ }
+        return _SYM_霞:1.0___jcross_霞_94__
+    }
+}
+
+
+
+// POLYMORPHIC_JCROSS_END

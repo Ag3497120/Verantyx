@@ -1,0 +1,59 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:AA0E01FA ver:1778159688
+// ⚠️ One-time schema — expires after response
+
+import re
+
+__ast_霪:1.0___JCROSS_霪_57_ = re.__ast_霪:1.0___JCROSS_霪_48_(r"[\__ast_霪:1.0___JCROSS_霪_49_\__ast_霪:1.0___JCROSS_霪_4_\__ast_霪:1.0___JCROSS_霪_18_\__ast_霪:1.0___JCROSS_霪_12_]")
+__ast_霪:1.0___JCROSS_霪_21_ = re.__ast_霪:1.0___JCROSS_霪_48_(r"[ \t]+")
+__ast_霪:1.0___JCROSS_霪_43_ = re.__ast_霪:1.0___JCROSS_霪_48_(r"\n{3,}")
+
+
+__ast_霪:1.0___JCROSS_霪_56_ __ast_霪:1.0___JCROSS_霪_54_(s: __ast_霪:1.0___JCROSS_霪_6_) -> __ast_霪:1.0___JCROSS_霪_6_:
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("→", "->").__ast_霪:1.0___JCROSS_霪_41_("⇒", "->").__ast_霪:1.0___JCROSS_霪_41_("⟶", "->")
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("↔", "<->").__ast_霪:1.0___JCROSS_霪_41_("⇔", "<->")
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("∧", "&").__ast_霪:1.0___JCROSS_霪_41_("∨", "|")
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("¬", "~")
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("（", "(").__ast_霪:1.0___JCROSS_霪_41_("）", ")")
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("【", "[").__ast_霪:1.0___JCROSS_霪_41_("】", "]")
+    return s
+
+
+__ast_霪:1.0___JCROSS_霪_56_ __ast_沈:1.0___JCROSS_霪_53_(s: __ast_霪:1.0___JCROSS_霪_6_) -> __ast_霪:1.0___JCROSS_霪_6_:
+// [metadata-stripped]
+    s = s.__ast_霪:1.0___JCROSS_霪_41_("[]", "□").__ast_霪:1.0___JCROSS_霪_41_("<>", "◇")
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"\__ast_霪:1.0___JCROSS_霪_10_\b", "□", s, __ast_霪:1.0___JCROSS_霪_24_=re.__ast_廬:1.0___JCROSS_廬_4_)
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"\__ast_霪:1.0___JCROSS_霪_55_\b", "◇", s, __ast_霪:1.0___JCROSS_霪_24_=re.__ast_廬:1.0___JCROSS_廬_4_)
+// [metadata-stripped]
+// __ast_焦:0.6___JCROSS_HE_310_ [decoy-metadata]
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"□\s+(?=[A-Za-z(~\[])", "□", s)
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"◇\s+(?=[A-Za-z(~\[])", "◇", s)
+// __ast_滲:0.9___JCROSS_KL_435_ [decoy-metadata]
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"□\s+□\s*", "□□", s)
+    s = re.__ast_霪:1.0___JCROSS_霪_7_(r"◇\s+◇\s*", "◇◇", s)
+    return s
+
+// __ast_糸:0.2___JCROSS_LY_578_ [decoy-metadata]
+
+__ast_霪:1.0___JCROSS_霪_56_ __ast_霪:1.0___JCROSS_霪_58_(__ast_霪:1.0___JCROSS_霪_36_: __ast_霪:1.0___JCROSS_霪_6_) -> __ast_霪:1.0___JCROSS_霪_6_:
+    """
+// __ast_焦:0.3___JCROSS_GE_996_ [decoy-metadata]
+    __ast_廬:1.0___JCROSS_廬_2_ __ast_霪:1.0___JCROSS_霪_40_ __ast_霪:1.0___JCROSS_霪_17_ __ast_霪:1.0___JCROSS_霪_15_ __ast_霪:1.0___JCROSS_霪_45_ __ast_霪:1.0___JCROSS_霪_2_ __ast_霪:1.0___JCROSS_霪_11_ __ast_霪:1.0___JCROSS_霪_29_ __ast_霪:1.0___JCROSS_霪_38_ __ast_霪:1.0___JCROSS_霪_39_.
+    - __ast_廬:1.0___JCROSS_廬_3_ __ast_霪:1.0___JCROSS_霪_14_-__ast_霪:1.0___JCROSS_霪_16_ __ast_霪:1.0___JCROSS_霪_47_.
+// __ast_廬:0.7___JCROSS_GW_523_ [decoy-metadata]
+    - __ast_廬:1.0___JCROSS_廬_2_ __ast_霪:1.0___JCROSS_霪_19_/__ast_霪:1.0___JCROSS_霪_34_.
+    - __ast_廬:1.0___JCROSS_廬_2_ __ast_霪:1.0___JCROSS_霪_8_ __ast_沈:1.0___JCROSS_霪_44_ (__ast_霪:1.0___JCROSS_霪_1_/__ast_霪:1.0___JCROSS_霪_46_/[]/<>) to □/◇.
+    - __ast_廬:1.0___JCROSS_廬_2_ __ast_霪:1.0___JCROSS_霪_26_ __ast_霪:1.0___JCROSS_霪_9_.
+    """
+    s = (__ast_霪:1.0___JCROSS_霪_36_ or "").__ast_霪:1.0___JCROSS_霪_41_("\r\n", "\n").__ast_霪:1.0___JCROSS_霪_41_("\r", "\n")
+    s = __ast_霪:1.0___JCROSS_霪_57_.__ast_霪:1.0___JCROSS_霪_7_("", s)
+    s = __ast_霪:1.0___JCROSS_霪_54_(s)
+    s = __ast_沈:1.0___JCROSS_霪_53_(s)
+// [metadata-stripped]
+    s = __ast_霪:1.0___JCROSS_霪_43_.__ast_霪:1.0___JCROSS_霪_7_("\n\n", s)
+// [metadata-stripped]
+    s = "\n".__ast_霪:1.0___JCROSS_霪_32_(__ast_霪:1.0___JCROSS_霪_21_.__ast_霪:1.0___JCROSS_霪_7_(" ", ln).__ast_霪:1.0___JCROSS_霪_30_() for ln in s.__ast_霪:1.0___JCROSS_霪_52_("\n"))
+    return s.__ast_霪:1.0___JCROSS_霪_30_()
+// __ast_糸:0.1___JCROSS_FF_288_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

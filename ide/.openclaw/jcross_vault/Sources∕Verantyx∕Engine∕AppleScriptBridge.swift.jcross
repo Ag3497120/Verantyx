@@ -1,0 +1,245 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BBCA725F ver:1778164069
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_廡:1.0___ast_廡_14__
+import _OPAQUE_廡:1.0___ast_廡_46__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _OPAQUE_傑:0.5___ast_FL_156__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+actor _OPAQUE_廡:1.0___ast_廡_24__ {
+
+    static let _OPAQUE_靄:1.0___ast_靄_152__ = _OPAQUE_廡:1.0___ast_廡_24__()
+
+    enum _OPAQUE_型:1.0___ast_廡_23__: _OPAQUE_廡:1.0___ast_廡_17__, _OPAQUE_廡:1.0___ast_廡_44__ {
+        case _OPAQUE_靄:1.0___ast_靄_31__ = "_OPAQUE_廡:1.0___ast_廡_50__"
+        case _OPAQUE_靄:1.0___ast_靄_20__ = "_OPAQUE_廡:1.0___ast_廡_29__ _OPAQUE_廡:1.0___ast_廡_7__"
+        case _OPAQUE_靄:1.0___ast_靄_146__    = "_OPAQUE_廡:1.0___ast_廡_51__"
+        case _OPAQUE_靄:1.0___ast_靄_19__  = "_OPAQUE_廡:1.0___ast_廡_36__ _OPAQUE_型:1.0___ast_廡_34__"
+
+        var _OPAQUE_靄:1.0___ast_靄_117__: _OPAQUE_廡:1.0___ast_廡_49__ {
+            let ws = _OPAQUE_廡:1.0___ast_廡_38__._OPAQUE_靄:1.0___ast_靄_63__(_OPAQUE_型:1.0___ast_靄_141__: _OPAQUE_靄:1.0___ast_靄_139__)
+            return !ws._OPAQUE_靄:1.0___ast_靄_104__
+        }
+
+        var _OPAQUE_靄:1.0___ast_靄_139__: _OPAQUE_廡:1.0___ast_廡_17__ {
+            switch self {
+            case ._OPAQUE_靄:1.0___ast_靄_31__: return "_OPAQUE_靄:1.0___ast_靄_81__._OPAQUE_靄:1.0___ast_靄_125__._OPAQUE_廡:1.0___ast_廡_50__"
+            case ._OPAQUE_靄:1.0___ast_靄_20__: return "_OPAQUE_靄:1.0___ast_靄_81__._OPAQUE_靄:1.0___ast_靄_124__._OPAQUE_廡:1.0___ast_廡_7__"
+            case ._OPAQUE_靄:1.0___ast_靄_146__:    return "_OPAQUE_靄:1.0___ast_靄_11__._OPAQUE_型:1.0___ast_靄_126__._OPAQUE_型:1.0___ast_廡_34__"
+            case ._OPAQUE_靄:1.0___ast_靄_19__:  return "_OPAQUE_靄:1.0___ast_靄_81__._OPAQUE_靄:1.0___ast_靄_19__._OPAQUE_型:1.0___ast_廡_34__"
+            }
+        }
+// _OPAQUE_靄:0.7___ast_LX_327__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+
+    func open(_ _OPAQUE_緞:1.0___ast_靄_55__: _OPAQUE_廡:1.0___ast_廡_17__, in _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_型:1.0___ast_靄_72__ = (_OPAQUE_型:1.0___ast_靄_154__ == ._OPAQUE_靄:1.0___ast_靄_31__) ? "_OPAQUE_靄:1.0___ast_靄_49__ _OPAQUE_靄:1.0___ast_靄_25__" : "_OPAQUE_靄:1.0___ast_靄_148__ _OPAQUE_靄:1.0___ast_靄_25__"
+        let _OPAQUE_靄:1.0___ast_靄_155__ = """
+        _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ "\(_OPAQUE_型:1.0___ast_靄_154__._OPAQUE_靄:1.0___ast_靄_142__)"
+            _OPAQUE_靄:1.0___ast_靄_30__
+// _OPAQUE_傑:0.6___ast_WE_208__ [decoy-metadata]
+            open _OPAQUE_靄:1.0___ast_靄_150__ "\(_OPAQUE_緞:1.0___ast_靄_55__._OPAQUE_浸:1.0___ast_靄_97__)"
+            _OPAQUE_靄:1.0___ast_靄_23__ 2
+            return _OPAQUE_緞:1.0___ast_廡_6__ of \(_OPAQUE_型:1.0___ast_靄_72__) of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__
+        _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+        """
+        return try await _OPAQUE_靄:1.0___ast_靄_113__(_OPAQUE_靄:1.0___ast_靄_155__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_型:1.0___ast_傑_1__(_OPAQUE_靄:1.0___ast_靄_96__ _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_靄:1.0___ast_靄_155__: _OPAQUE_廡:1.0___ast_廡_17__
+        if _OPAQUE_型:1.0___ast_靄_154__ == ._OPAQUE_靄:1.0___ast_靄_31__ {
+            _OPAQUE_靄:1.0___ast_靄_155__ = """
+            _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ "_OPAQUE_廡:1.0___ast_廡_50__"
+                return _OPAQUE_靄:1.0___ast_靄_52__ of _OPAQUE_靄:1.0___ast_靄_49__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__
+            _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+            """
+        } else {
+            _OPAQUE_靄:1.0___ast_靄_155__ = """
+            _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ "\(_OPAQUE_型:1.0___ast_靄_154__._OPAQUE_靄:1.0___ast_靄_142__)"
+                return _OPAQUE_靄:1.0___ast_靄_118__ of _OPAQUE_靄:1.0___ast_靄_148__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__
+            _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+            """
+        }
+        return try await _OPAQUE_靄:1.0___ast_靄_113__(_OPAQUE_靄:1.0___ast_靄_155__)
+// _OPAQUE_緞:0.2___ast_EF_572__ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_型:1.0___ast_傑_4__(_OPAQUE_靄:1.0___ast_靄_96__ _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let js = "_OPAQUE_靄:1.0___ast_靄_90__._OPAQUE_靄:1.0___ast_靄_92__._OPAQUE_靄:1.0___ast_靄_7__._OPAQUE_靄:1.0___ast_靄_79__(0, 8000)"
+        let _OPAQUE_靄:1.0___ast_靄_17__ = try await _OPAQUE_靄:1.0___ast_靄_135__(js, in: _OPAQUE_型:1.0___ast_靄_154__)
+        return _OPAQUE_靄:1.0___ast_靄_17__
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_靄:1.0___ast_靄_135__(_ _OPAQUE_靄:1.0___ast_靄_155__: _OPAQUE_廡:1.0___ast_廡_17__, in _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_靄:1.0___ast_靄_56__ = _OPAQUE_靄:1.0___ast_靄_155__._OPAQUE_浸:1.0___ast_靄_97__
+        let _OPAQUE_靄:1.0___ast_靄_3__: _OPAQUE_廡:1.0___ast_廡_17__
+
+        if _OPAQUE_型:1.0___ast_靄_154__ == ._OPAQUE_靄:1.0___ast_靄_31__ {
+            _OPAQUE_靄:1.0___ast_靄_3__ = """
+            _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ "_OPAQUE_廡:1.0___ast_廡_50__"
+                return do _OPAQUE_廡:1.0___ast_廡_33__ "\(_OPAQUE_靄:1.0___ast_靄_56__)" in _OPAQUE_靄:1.0___ast_靄_49__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__
+            _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+            """
+        } else {
+// [metadata-stripped]
+// [metadata-stripped]
+            _OPAQUE_靄:1.0___ast_靄_3__ = """
+            _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ "\(_OPAQUE_型:1.0___ast_靄_154__._OPAQUE_靄:1.0___ast_靄_142__)"
+                _OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_148__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__
+                    _OPAQUE_靄:1.0___ast_靄_127__ _OPAQUE_靄:1.0___ast_靄_87__ "\(_OPAQUE_靄:1.0___ast_靄_56__)"
+                _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+            _OPAQUE_靄:1.0___ast_靄_122__ _OPAQUE_靄:1.0___ast_靄_16__
+            """
+        }
+        return try await _OPAQUE_靄:1.0___ast_靄_113__(_OPAQUE_靄:1.0___ast_靄_3__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_靄:1.0___ast_靄_106__(_ _OPAQUE_靄:1.0___ast_靄_1__: _OPAQUE_廡:1.0___ast_廡_17__, _OPAQUE_靄:1.0___ast_靄_121__: _OPAQUE_廡:1.0___ast_廡_15__ = ._OPAQUE_靄:1.0___ast_靄_124__, in _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_靄:1.0___ast_靄_38__ = _OPAQUE_靄:1.0___ast_靄_1__._OPAQUE_靄:1.0___ast_靄_100__(_OPAQUE_靄:1.0___ast_靄_80__: ._OPAQUE_緞:1.0___ast_靄_143__) ?? _OPAQUE_靄:1.0___ast_靄_1__
+        let _OPAQUE_緞:1.0___ast_靄_36__ = _OPAQUE_靄:1.0___ast_靄_121__._OPAQUE_緞:1.0___ast_靄_36__(for: _OPAQUE_靄:1.0___ast_靄_38__)
+        _ = try await open(_OPAQUE_緞:1.0___ast_靄_36__, in: _OPAQUE_型:1.0___ast_靄_154__)
+
+// [metadata-stripped]
+        try await _OPAQUE_廡:1.0___ast_廡_40__._OPAQUE_靄:1.0___ast_靄_57__(_OPAQUE_靄:1.0___ast_靄_39__: 3_000_000_000)
+        return try await _OPAQUE_型:1.0___ast_傑_4__(_OPAQUE_靄:1.0___ast_靄_96__: _OPAQUE_型:1.0___ast_靄_154__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_緞:1.0___ast_傑_2__(_OPAQUE_靄:1.0___ast_靄_96__ _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_靄:1.0___ast_靄_155__: _OPAQUE_廡:1.0___ast_廡_17__
+        if _OPAQUE_型:1.0___ast_靄_154__ == ._OPAQUE_靄:1.0___ast_靄_31__ {
+            _OPAQUE_靄:1.0___ast_靄_155__ = "_OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ \"_OPAQUE_廡:1.0___ast_廡_50__\" to return _OPAQUE_緞:1.0___ast_廡_6__ of _OPAQUE_靄:1.0___ast_靄_49__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__"
+        } else {
+            _OPAQUE_靄:1.0___ast_靄_155__ = "_OPAQUE_靄:1.0___ast_靄_16__ _OPAQUE_靄:1.0___ast_靄_151__ \"\(_OPAQUE_型:1.0___ast_靄_154__._OPAQUE_靄:1.0___ast_靄_142__)\" to return _OPAQUE_緞:1.0___ast_廡_6__ of _OPAQUE_靄:1.0___ast_靄_148__ _OPAQUE_靄:1.0___ast_靄_25__ of _OPAQUE_靄:1.0___ast_靄_32__ _OPAQUE_靄:1.0___ast_靄_27__"
+        }
+        return try await _OPAQUE_靄:1.0___ast_靄_113__(_OPAQUE_靄:1.0___ast_靄_155__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_靄:1.0___ast_靄_86__(_OPAQUE_靄:1.0___ast_靄_138__: _OPAQUE_廡:1.0___ast_廡_17__, in _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let js = "_OPAQUE_靄:1.0___ast_靄_90__._OPAQUE_靄:1.0___ast_靄_71__('\(_OPAQUE_靄:1.0___ast_靄_138__)')?._OPAQUE_靄:1.0___ast_靄_86__(); '_OPAQUE_靄:1.0___ast_靄_95__'"
+        return try await _OPAQUE_靄:1.0___ast_靄_135__(js, in: _OPAQUE_型:1.0___ast_靄_154__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_靄:1.0___ast_靄_69__(_OPAQUE_靄:1.0___ast_靄_138__: _OPAQUE_廡:1.0___ast_廡_17__, _OPAQUE_靄:1.0___ast_靄_83__: _OPAQUE_廡:1.0___ast_廡_17__, in _OPAQUE_型:1.0___ast_靄_154__: _OPAQUE_型:1.0___ast_廡_23__ = ._OPAQUE_靄:1.0___ast_靄_31__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        let _OPAQUE_靄:1.0___ast_靄_149__ = _OPAQUE_靄:1.0___ast_靄_83__._OPAQUE_靄:1.0___ast_靄_134__(of: "\"", _OPAQUE_靄:1.0___ast_靄_48__: "\\\"")
+        let js = """
+        var el = _OPAQUE_靄:1.0___ast_靄_90__._OPAQUE_靄:1.0___ast_靄_71__('\(_OPAQUE_靄:1.0___ast_靄_138__)');
+        if (el) { el._OPAQUE_靄:1.0___ast_靄_83__ = '\(_OPAQUE_靄:1.0___ast_靄_149__)'; el._OPAQUE_靄:1.0___ast_靄_47__(_OPAQUE_靄:1.0___ast_靄_64__ _OPAQUE_廡:1.0___ast_廡_4__('_OPAQUE_靄:1.0___ast_靄_119__', {_OPAQUE_靄:1.0___ast_靄_12__:true})); 'ok'; } else { '_OPAQUE_靄:1.0___ast_靄_76__ _OPAQUE_靄:1.0___ast_靄_35__'; }
+        """
+        return try await _OPAQUE_靄:1.0___ast_靄_135__(js, in: _OPAQUE_型:1.0___ast_靄_154__)
+    }
+
+// [metadata-stripped]
+
+    func _OPAQUE_靄:1.0___ast_靄_114__() -> [_OPAQUE_型:1.0___ast_廡_23__] {
+        _OPAQUE_型:1.0___ast_廡_23__._OPAQUE_靄:1.0___ast_靄_42__._OPAQUE_型:1.0___ast_靄_54__ { $0._OPAQUE_靄:1.0___ast_靄_117__ || _OPAQUE_匼:1.0___ast_廡_10__._OPAQUE_靄:1.0___ast_靄_28__._OPAQUE_匼:1.0___ast_靄_67__(_OPAQUE_靄:1.0___ast_靄_22__: "/_OPAQUE_廡:1.0___ast_廡_8__/\($0._OPAQUE_靄:1.0___ast_靄_142__)._OPAQUE_靄:1.0___ast_靄_157__") }
+    }
+
+// [metadata-stripped]
+
+    @_OPAQUE_靄:1.0___ast_靄_41__
+    private func _OPAQUE_靄:1.0___ast_靄_113__(_ _OPAQUE_靄:1.0___ast_靄_155__: _OPAQUE_廡:1.0___ast_廡_17__) async throws -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        return try await _OPAQUE_靄:1.0___ast_靄_68__ { _OPAQUE_靄:1.0___ast_靄_88__ in
+            _OPAQUE_廡:1.0___ast_廡_19__._OPAQUE_靄:1.0___ast_靄_44__(_OPAQUE_靄:1.0___ast_靄_10__: ._OPAQUE_靄:1.0___ast_靄_14__).async {
+                let _OPAQUE_靄:1.0___ast_靄_105__ = _OPAQUE_廡:1.0___ast_廡_39__()
+                _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_緞:1.0___ast_靄_116__ = _OPAQUE_緞:1.0___ast_廡_6__(_OPAQUE_緞:1.0___ast_靄_37__: "/_OPAQUE_靄:1.0___ast_靄_62__/_OPAQUE_靄:1.0___ast_靄_108__/_OPAQUE_靄:1.0___ast_靄_75__")
+                _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_34__ = ["-e", _OPAQUE_靄:1.0___ast_靄_155__]
+
+                let _OPAQUE_靄:1.0___ast_靄_59__ = _OPAQUE_廡:1.0___ast_廡_12__()
+                _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_24__ = _OPAQUE_靄:1.0___ast_靄_59__
+                _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_78__  = _OPAQUE_靄:1.0___ast_靄_59__   // ⚠️ 同一パイプ — _OPAQUE_靄:1.0___ast_靄_21__-_OPAQUE_靄:1.0___ast_靄_158__ _OPAQUE_靄:1.0___ast_靄_136__ 防止
+
+                do {
+                    try _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_43__()
+
+                    let _OPAQUE_靄:1.0___ast_靄_8__ = _OPAQUE_靄:1.0___ast_靄_59__._OPAQUE_匼:1.0___ast_靄_156__._OPAQUE_匼:1.0___ast_靄_60__()
+
+                    _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_84__()
+
+                    if _OPAQUE_靄:1.0___ast_靄_105__._OPAQUE_靄:1.0___ast_靄_140__ != 0 {
+                        let _OPAQUE_靄:1.0___ast_靄_82__ = _OPAQUE_廡:1.0___ast_廡_17__(_OPAQUE_靄:1.0___ast_靄_53__: _OPAQUE_靄:1.0___ast_靄_8__, _OPAQUE_靄:1.0___ast_靄_111__: ._OPAQUE_靄:1.0___ast_靄_130__) ?? "_OPAQUE_靄:1.0___ast_靄_26__ _OPAQUE_靄:1.0___ast_靄_13__"
+                        _OPAQUE_靄:1.0___ast_靄_88__._OPAQUE_靄:1.0___ast_靄_33__(_OPAQUE_靄:1.0___ast_靄_5__: _OPAQUE_廡:1.0___ast_廡_9__._OPAQUE_靄:1.0___ast_靄_93__(_OPAQUE_靄:1.0___ast_靄_82__))
+                    } else {
+                        let _OPAQUE_靄:1.0___ast_靄_123__ = (_OPAQUE_廡:1.0___ast_廡_17__(_OPAQUE_靄:1.0___ast_靄_53__: _OPAQUE_靄:1.0___ast_靄_8__, _OPAQUE_靄:1.0___ast_靄_111__: ._OPAQUE_靄:1.0___ast_靄_130__) ?? "")._OPAQUE_靄:1.0___ast_靄_70__(in: ._OPAQUE_靄:1.0___ast_靄_99__)
+                        _OPAQUE_靄:1.0___ast_靄_88__._OPAQUE_靄:1.0___ast_靄_33__(_OPAQUE_靄:1.0___ast_靄_131__: _OPAQUE_靄:1.0___ast_靄_123__)
+                    }
+                } catch {
+                    _OPAQUE_靄:1.0___ast_靄_88__._OPAQUE_靄:1.0___ast_靄_33__(_OPAQUE_靄:1.0___ast_靄_5__: _OPAQUE_靄:1.0___ast_靄_13__)
+                }
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+
+enum _OPAQUE_廡:1.0___ast_廡_15__: _OPAQUE_廡:1.0___ast_廡_17__, _OPAQUE_廡:1.0___ast_廡_44__ {
+    case _OPAQUE_靄:1.0___ast_靄_4__     = "_OPAQUE_廡:1.0___ast_廡_1__"
+    case _OPAQUE_靄:1.0___ast_靄_58__ = "_OPAQUE_廡:1.0___ast_廡_5__"
+    case _OPAQUE_靄:1.0___ast_靄_124__         = "_OPAQUE_廡:1.0___ast_廡_29__"
+    case _OPAQUE_靄:1.0___ast_靄_6__           = "_OPAQUE_廡:1.0___ast_廡_47__"
+
+    func _OPAQUE_緞:1.0___ast_靄_36__(for _OPAQUE_靄:1.0___ast_靄_1__: _OPAQUE_廡:1.0___ast_廡_17__) -> _OPAQUE_廡:1.0___ast_廡_17__ {
+        switch self {
+        case ._OPAQUE_靄:1.0___ast_靄_4__:     return "_OPAQUE_緞:1.0___ast_靄_61__://_OPAQUE_靄:1.0___ast_靄_4__._OPAQUE_靄:1.0___ast_靄_81__/?q=\(_OPAQUE_靄:1.0___ast_靄_1__)"
+        case ._OPAQUE_靄:1.0___ast_靄_58__: return "_OPAQUE_緞:1.0___ast_靄_61__://_OPAQUE_靄:1.0___ast_靄_50__._OPAQUE_靄:1.0___ast_靄_4__._OPAQUE_靄:1.0___ast_靄_81__/_OPAQUE_靄:1.0___ast_靄_50__/?q=\(_OPAQUE_靄:1.0___ast_靄_1__)"
+        case ._OPAQUE_靄:1.0___ast_靄_124__:         return "_OPAQUE_緞:1.0___ast_靄_61__://_OPAQUE_靄:1.0___ast_靄_107__._OPAQUE_靄:1.0___ast_靄_124__._OPAQUE_靄:1.0___ast_靄_81__/_OPAQUE_靄:1.0___ast_靄_106__?q=\(_OPAQUE_靄:1.0___ast_靄_1__)"
+        case ._OPAQUE_靄:1.0___ast_靄_6__:           return "_OPAQUE_緞:1.0___ast_靄_61__://_OPAQUE_靄:1.0___ast_靄_107__._OPAQUE_靄:1.0___ast_靄_6__._OPAQUE_靄:1.0___ast_靄_81__/_OPAQUE_靄:1.0___ast_靄_106__?q=\(_OPAQUE_靄:1.0___ast_靄_1__)"
+        }
+    }
+}
+
+// [metadata-stripped]
+
+enum _OPAQUE_廡:1.0___ast_廡_9__: _OPAQUE_廡:1.0___ast_廡_2__, _OPAQUE_廡:1.0___ast_廡_18__ {
+    case _OPAQUE_靄:1.0___ast_靄_93__(_OPAQUE_廡:1.0___ast_廡_17__)
+    case _OPAQUE_靄:1.0___ast_靄_98__(_OPAQUE_廡:1.0___ast_廡_17__)
+
+    var _OPAQUE_靄:1.0___ast_靄_18__: _OPAQUE_廡:1.0___ast_廡_17__? {
+        switch self {
+        case ._OPAQUE_靄:1.0___ast_靄_93__(let m):    return "_OPAQUE_廡:1.0___ast_廡_16__ _OPAQUE_靄:1.0___ast_靄_13__: \(m)"
+        case ._OPAQUE_靄:1.0___ast_靄_98__(let b): return "\(b) is _OPAQUE_靄:1.0___ast_靄_76__ _OPAQUE_靄:1.0___ast_靄_132__ or _OPAQUE_靄:1.0___ast_靄_94__."
+// _OPAQUE_廡:0.6___ast_CY_933__ [decoy-metadata]
+        }
+    }
+}
+
+// [metadata-stripped]
+
+private extension _OPAQUE_廡:1.0___ast_廡_17__ {
+    var _OPAQUE_浸:1.0___ast_靄_97__: _OPAQUE_廡:1.0___ast_廡_17__ {
+        self
+            ._OPAQUE_靄:1.0___ast_靄_134__(of: "\\", _OPAQUE_靄:1.0___ast_靄_48__: "\\\\")
+            ._OPAQUE_靄:1.0___ast_靄_134__(of: "\"", _OPAQUE_靄:1.0___ast_靄_48__: "\\\"")
+            ._OPAQUE_靄:1.0___ast_靄_134__(of: "\n", _OPAQUE_靄:1.0___ast_靄_48__: "\\n")
+            ._OPAQUE_靄:1.0___ast_靄_134__(of: "\r", _OPAQUE_靄:1.0___ast_靄_48__: "\\r")
+    }
+}
+// _OPAQUE_型:0.5___ast_CV_396__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

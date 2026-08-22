@@ -1,0 +1,360 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:16357656 ver:1778166419
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// _VERANTYX_廉:0.4___node_GG_490__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_VERANTYX_礫:1.0___node_礫_108__ _VERANTYX_礫:1.0___node_礫_84__::_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_119__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_52__;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ struct _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__ {
+    _VERANTYX_礫:1.0___node_礫_36__ x: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ y: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__: _VERANTYX_礫:1.0___node_礫_6__,
+}
+
+_VERANTYX_礫:1.0___node_礫_66__ _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__ {
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_171__(x: _VERANTYX_礫:1.0___node_礫_6__, y: _VERANTYX_礫:1.0___node_礫_6__, w: _VERANTYX_礫:1.0___node_礫_6__, h: _VERANTYX_礫:1.0___node_礫_6__) -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { x, y, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__: w, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__: h } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_139__() -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { x: 0.0, y: 0.0, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__: 0.0, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__: 0.0 } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_133__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { self.y }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_155__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { self.x }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { self.y + self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__ }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { self.x + self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__ }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_77__(&self, dx: _VERANTYX_礫:1.0___node_礫_6__, dy: _VERANTYX_礫:1.0___node_礫_6__) -> _VERANTYX_廷:1.0___node_廷_1__ {
+        _VERANTYX_廷:1.0___node_廷_1__ { x: self.x + dx, y: self.y + dy, ..*self }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ struct _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_9__ {
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0___node_礫_133__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_10__<_VERANTYX_礫:1.0___node_礫_6__>,
+// _VERANTYX_濫:0.1___node_MD_368__ [decoy-metadata]
+// _VERANTYX_濫:0.3___node_GE_305__ [decoy-metadata]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_10__<_VERANTYX_礫:1.0___node_礫_6__>,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_10__<_VERANTYX_礫:1.0___node_礫_6__>,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0___node_礫_155__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_10__<_VERANTYX_礫:1.0___node_礫_6__>,
+}
+
+_VERANTYX_礫:1.0___node_礫_66__ _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_9__ {
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_171__() -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_礫:1.0___node_礫_133__: _VERANTYX_廷:1.0___node_廷_39__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__: _VERANTYX_廷:1.0___node_廷_39__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__: _VERANTYX_廷:1.0___node_廷_39__, _VERANTYX_礫:1.0___node_礫_155__: _VERANTYX_廷:1.0___node_廷_39__ } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_133__(px: _VERANTYX_礫:1.0___node_礫_6__) -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_礫:1.0___node_礫_133__: _VERANTYX_廷:1.0___node_廷_48__(px), .._VERANTYX_廷:1.0___node_廷_1__::_VERANTYX_礫:1.0___node_礫_171__() } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__(px: _VERANTYX_礫:1.0___node_礫_6__) -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__: _VERANTYX_廷:1.0___node_廷_48__(px), .._VERANTYX_廷:1.0___node_廷_1__::_VERANTYX_礫:1.0___node_礫_171__() } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_104__(t: _VERANTYX_礫:1.0___node_礫_6__, b: _VERANTYX_礫:1.0___node_礫_6__) -> _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_礫:1.0___node_礫_133__: _VERANTYX_廷:1.0___node_廷_48__(t), _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__: _VERANTYX_廷:1.0___node_廷_48__(b), .._VERANTYX_廷:1.0___node_廷_1__::_VERANTYX_礫:1.0___node_礫_171__() } }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_161__(&self) -> _VERANTYX_礫:1.0___node_礫_35__ {
+        self._VERANTYX_礫:1.0___node_礫_133__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_101__() || self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_101__() || self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_101__() || self._VERANTYX_礫:1.0___node_礫_155__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_101__()
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ enum _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__ {
+// [metadata-stripped]
+    _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_53__,
+// [metadata-stripped]
+    _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_12__,
+// [metadata-stripped]
+    _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_40__,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ struct _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_28__ {
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_9__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_100__: _VERANTYX_礫:1.0___node_礫_96__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_164__: _VERANTYX_礫:1.0___node_礫_28__,
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_175__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_3__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__,
+}
+
+_VERANTYX_礫:1.0___node_礫_66__ _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_28__ {
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_171__(
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_9__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_100__: _VERANTYX_礫:1.0___node_礫_96__,
+    ) -> _VERANTYX_廷:1.0___node_廷_1__ {
+        _VERANTYX_廷:1.0___node_廷_1__ {
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_100__,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_164__: 0,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_175__: 0.0,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_3__: 0.0,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_53__,
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_27__(&self) -> _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__ {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_77__(self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_3__, self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_175__)
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_132__(
+        &_VERANTYX_礫:1.0___node_礫_170__ self,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__: _VERANTYX_礫:1.0___node_礫_6__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__: _VERANTYX_礫:1.0___node_礫_6__,
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_105__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,  // _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_2__ _VERANTYX_礫:1.0___node_礫_173__ of _VERANTYX_礫:1.0___node_礫_106__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_88__ _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__
+    ) {
+        let _VERANTYX_礫:1.0___node_礫_170__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_37__ = 0.0_VERANTYX_礫:1.0___node_礫_6__;
+        let _VERANTYX_礫:1.0___node_礫_170__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_165__ = 0.0_VERANTYX_礫:1.0___node_礫_6__;
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_138__ = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__.y - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__;
+        let _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_61__ = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__() - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__;
+        let _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_63__ = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__() - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__;
+        let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_14__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_105__._VERANTYX_礫:1.0___node_礫_133__();
+        
+        if let _VERANTYX_廷:1.0___node_廷_48__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_29__) = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__._VERANTYX_礫:1.0___node_礫_133__ {
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_14__ + _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_29__;
+            
+            if _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_138__ < _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ {
+// [metadata-stripped]
+                let _VERANTYX_礫:1.0___node_礫_40__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ - _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_138__;
+                
+// [metadata-stripped]
+                let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_83__ = (_VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_63__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_14__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_29__ - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__)._VERANTYX_礫:1.0___node_礫_16__(0.0);
+                _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_37__ = _VERANTYX_礫:1.0___node_礫_40__._VERANTYX_礫:1.0___node_礫_187__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_83__);
+                
+                self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__ = if _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_37__ >= _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_83__ {
+                    _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_40__
+                } else {
+                    _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_12__
+                };
+            } else {
+                self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__ = _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_53__;
+            }
+        }
+        
+        if let _VERANTYX_廷:1.0___node_廷_48__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_42__) = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__ {
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_186__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_105__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_69__();
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_186__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_42__ - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__;
+            
+            if _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_138__ > _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ {
+                let _VERANTYX_礫:1.0___node_礫_131__ = _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_138__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__;
+                let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_122__ = if self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__.y > self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__.y {
+                    (self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__.y - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__.y)
+                } else { 0.0 };
+                _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_37__ = -_VERANTYX_礫:1.0___node_礫_131__._VERANTYX_礫:1.0___node_礫_187__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_122__);
+                
+                if self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__ == _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_53__ {
+                    self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__ = _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_12__;
+                }
+            }
+        }
+        
+// [metadata-stripped]
+        let _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_174__ = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__.x - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__;
+        let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_180__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_105__._VERANTYX_礫:1.0___node_礫_155__();
+        
+        if let _VERANTYX_廷:1.0___node_廷_48__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_78__) = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__._VERANTYX_礫:1.0___node_礫_155__ {
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_180__ + _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_78__;
+            if _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_174__ < _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ {
+                let _VERANTYX_礫:1.0___node_礫_40__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ - _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_174__;
+                let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_83__ = (self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_79__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__() - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__() - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_78__)._VERANTYX_礫:1.0___node_礫_16__(0.0);
+                _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_165__ = _VERANTYX_礫:1.0___node_礫_40__._VERANTYX_礫:1.0___node_礫_187__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_83__);
+            }
+        }
+        
+        if let _VERANTYX_廷:1.0___node_廷_48__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_152__) = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_54__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__ {
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_166__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_105__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_116__();
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_166__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_152__ - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_43__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__;
+            if _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_174__ > _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__ {
+                let _VERANTYX_礫:1.0___node_礫_131__ = _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_174__ - _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_183__;
+                _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_165__ = -_VERANTYX_礫:1.0___node_礫_131__;
+            }
+        }
+        
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_175__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_37__;
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_3__ = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_165__;
+// _VERANTYX_処:0.5___node_ZF_873__ [decoy-metadata]
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ struct _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廷_15__ {
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__: _VERANTYX_礫:1.0___node_礫_6__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__,
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_50__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_34__: _VERANTYX_礫:1.0___node_礫_6__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_148__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_176__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__,
+}
+
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ enum _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__ { _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_30__, _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_33__, _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_42__, _VERANTYX_廷:1.0___node_廷_17__, _VERANTYX_廷:1.0___node_廷_45__ }
+
+_VERANTYX_礫:1.0___node_礫_66__ _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廷_15__ {
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_171__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__) -> _VERANTYX_廷:1.0___node_廷_1__ {
+        _VERANTYX_廷:1.0___node_廷_1__ {
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__: 0.0, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__: 0.0,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_50__: _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_34__: _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_148__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0___node_廷_17__,
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_176__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0___node_廷_17__,
+        }
+    }
+    
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_13__(&self) -> _VERANTYX_礫:1.0___node_礫_35__ { _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_11__!(self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_148__, _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_42__ | _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0___node_廷_17__) }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_153__(&self) -> _VERANTYX_礫:1.0___node_礫_35__ { _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_11__!(self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_176__, _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_42__ | _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_41__::_VERANTYX_廷:1.0___node_廷_17__) }
+    
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_60__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { (self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_50__ - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_10__)._VERANTYX_礫:1.0___node_礫_16__(0.0) }
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_38__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ { (self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_34__ - self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_17__)._VERANTYX_礫:1.0___node_礫_16__(0.0) }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_156__(&_VERANTYX_礫:1.0___node_礫_170__ self, x: _VERANTYX_礫:1.0___node_礫_6__, y: _VERANTYX_礫:1.0___node_礫_6__) {
+        if self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_13__() { self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__ = x._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_147__(0.0, self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_60__()); }
+        if self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_153__() { self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__ = y._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_147__(0.0, self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_38__()); }
+    }
+    
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_7__(&_VERANTYX_礫:1.0___node_礫_170__ self, dx: _VERANTYX_礫:1.0___node_礫_6__, dy: _VERANTYX_礫:1.0___node_礫_6__) {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_156__(self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__ + dx, self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__ + dy);
+    }
+    
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_89__(&self) -> _VERANTYX_礫:1.0___node_礫_6__ {
+        let _VERANTYX_礫:1.0___node_礫_16__ = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_38__();
+        if _VERANTYX_礫:1.0___node_礫_16__ == 0.0 { 0.0 } else { self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__ / _VERANTYX_礫:1.0___node_礫_16__ }
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_礫:1.0___node_礫_36__ struct _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_27__ {
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_52__<_VERANTYX_礫:1.0___node_礫_96__, _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廷_15__>,
+    _VERANTYX_礫:1.0___node_礫_36__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__: _VERANTYX_廷:1.0___node_廷_51__<_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_28__>,
+// _VERANTYX_廷:0.4___node_KE_403__ [decoy-metadata]
+}
+
+_VERANTYX_礫:1.0___node_礫_66__ _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_27__ {
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0___node_礫_171__() -> _VERANTYX_廷:1.0___node_廷_1__ {
+        _VERANTYX_廷:1.0___node_廷_1__ { _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_52__::_VERANTYX_礫:1.0___node_礫_171__(), _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__: _VERANTYX_廷:1.0___node_廷_51__::_VERANTYX_礫:1.0___node_礫_171__() }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_144__(&_VERANTYX_礫:1.0___node_礫_170__ self, _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__: _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廷_15__) {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_71__(_VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__);
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_4__(&_VERANTYX_礫:1.0___node_礫_170__ self, _VERANTYX_礫:1.0___node_礫_135__: _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_28__) {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__._VERANTYX_礫:1.0___node_礫_40__(_VERANTYX_礫:1.0___node_礫_135__);
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_8__(&_VERANTYX_礫:1.0___node_礫_170__ self, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__: _VERANTYX_礫:1.0___node_礫_96__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__: _VERANTYX_礫:1.0___node_礫_6__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__: _VERANTYX_礫:1.0___node_礫_6__) {
+        if let _VERANTYX_廷:1.0___node_廷_48__(_VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__) = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__._VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廉_2__(&_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__) {
+            _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_156__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__);
+        }
+        
+        self._VERANTYX_濫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_53__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__);
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_濫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_53__(&_VERANTYX_礫:1.0___node_礫_170__ self, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__: _VERANTYX_礫:1.0___node_礫_96__) {
+        let (_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__) = {
+            let c = _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_20__ self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__._VERANTYX_処:1.0___node_廉_3__(&_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__) {
+                _VERANTYX_廷:1.0___node_廷_48__(c) => c,
+                _VERANTYX_廷:1.0___node_廷_39__ => return,
+            };
+            (c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__, c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__, c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__)
+        };
+        
+        for _VERANTYX_礫:1.0___node_礫_135__ in &_VERANTYX_礫:1.0___node_礫_170__ self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__ {
+            if _VERANTYX_礫:1.0___node_礫_135__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_100__ == _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_59__ {
+                _VERANTYX_礫:1.0___node_礫_135__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_132__(_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__);
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_107__(&_VERANTYX_礫:1.0___node_礫_170__ self) {
+        let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_134__: _VERANTYX_廷:1.0___node_廷_51__<(_VERANTYX_礫:1.0___node_礫_96__, _VERANTYX_礫:1.0___node_礫_6__, _VERANTYX_礫:1.0___node_礫_6__, _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__)> = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_169__()
+            ._VERANTYX_礫:1.0___node_礫_87__(|c| (c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_24__, c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__, c._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_172__))
+            ._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_137__();
+        
+        for (_VERANTYX_礫:1.0___node_礫_49__, sx, sy, _VERANTYX_礫:1.0___node_礫_173__) in _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_134__ {
+            for _VERANTYX_礫:1.0___node_礫_135__ in &_VERANTYX_礫:1.0___node_礫_170__ self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__ {
+                if _VERANTYX_礫:1.0___node_礫_135__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_100__ == _VERANTYX_礫:1.0___node_礫_49__ {
+                    _VERANTYX_礫:1.0___node_礫_135__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_132__(sx, sy, _VERANTYX_礫:1.0___node_礫_173__);
+                }
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_27__(&self, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__) -> _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_10__<_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_38__> {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__._VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_136__()
+            ._VERANTYX_礫:1.0___node_礫_46__(|e| e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__ == _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__)
+            ._VERANTYX_礫:1.0___node_礫_87__(|e| e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_27__())
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_73__(&self, _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__: _VERANTYX_礫:1.0___node_礫_96__) -> _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__ {
+        self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__._VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_136__()
+            ._VERANTYX_礫:1.0___node_礫_46__(|e| e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__ == _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__)
+            ._VERANTYX_礫:1.0___node_礫_87__(|e| e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__)
+            ._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_110__(_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_53__)
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_礫:1.0___node_礫_36__ fn _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_32__(&self) -> _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_25__ {
+        let _VERANTYX_礫:1.0___node_礫_170__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_126__ = _VERANTYX_廷:1.0___node_廷_51__::_VERANTYX_礫:1.0___node_礫_171__();
+        
+        for _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__ in self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_141__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_169__() {
+            let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_51__ = (_VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_89__() * 100.0) as _VERANTYX_礫:1.0___node_礫_154__;
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_126__._VERANTYX_礫:1.0___node_礫_40__(_VERANTYX_濫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_114__!(
+                "📜 _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___廷_15__ #{}: {:.0}px/{:.0}px ({_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_51__}% _VERANTYX_礫:1.0___node_礫_103__)",
+                _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_12__, _VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_47__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_38__()
+            ));
+        }
+        
+// _VERANTYX_網:0.2___node_YY_777__ [decoy-metadata]
+        let _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_159__: _VERANTYX_廷:1.0___node_廷_51__<&_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_28__> = self._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_182__._VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_136__()
+            ._VERANTYX_処:1.0____VERANTYX_礫:1.0___node_礫_41___礫_151__(|e| e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_99__ == _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_29__::_VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_12__)
+            ._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_137__();
+        
+        if !_VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_159__._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_130__() {
+            _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_126__._VERANTYX_礫:1.0___node_礫_40__(_VERANTYX_濫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_114__!("📌 _VERANTYX_廷:1.0____VERANTYX_礫:1.0___node_礫_41___廷_12__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_121__ _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_167__ ({}):", _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_159__._VERANTYX_礫:1.0___node_礫_146__()));
+            for e in _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_159__ {
+                let r = e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_27__();
+                _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_126__._VERANTYX_礫:1.0___node_礫_40__(_VERANTYX_濫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_114__!("  _VERANTYX_礫:1.0___node_礫_41__#{} at ({:.0},{:.0})", e._VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_44__, r.x, r.y));
+            }
+        }
+        
+        _VERANTYX_礫:1.0____VERANTYX_礫:1.0___node_礫_41___礫_126__._VERANTYX_礫:1.0___node_礫_62__("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

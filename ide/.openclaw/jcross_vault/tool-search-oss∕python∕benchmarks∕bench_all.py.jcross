@@ -1,0 +1,402 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C9FEAADB ver:1778164271
+// ⚠️ One-time schema — expires after response
+
+"""
+_OPAQUE_霢:1.0__ID_霢_64_.py — _OPAQUE_霢:1.0__ID_霢_85_-_OPAQUE_霢:1.0__ID_霢_39_-_OPAQUE_霢:1.0__ID_霢_196_ ベンチマーク完全版
+
+4指標を計測して _OPAQUE_廟:1.0__ID_廟_69_ テーブルを出力する:
+  ① _OPAQUE_廟:1.0__ID_廟_14_ _OPAQUE_廟:1.0__ID_廟_3_ _OPAQUE_廟:1.0__ID_廟_26_  — _OPAQUE_淵:1.0__ID_霢_147_ によるトークン数実計測
+  ② _OPAQUE_廟:1.0__ID_廟_15_ _OPAQUE_廟:1.0__ID_廟_19_ _OPAQUE_廟:1.0__ID_廟_50_         — _OPAQUE_廟:1.0__ID_廟_10_時間の推定値 (_OPAQUE_廟:1.0__ID_廟_49_ _OPAQUE_廟:1.0__ID_廟_67_ モデル)
+  ③ _OPAQUE_廟:1.0__ID_廟_42_ _OPAQUE_廟:1.0__ID_廟_24_            — _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-1 正解率 vs ランダム選択
+  ④ _OPAQUE_紐:1.0__ID_廟_48_ _OPAQUE_廟:1.0__ID_廟_62_ _OPAQUE_廟:1.0__ID_廟_43_            — _OPAQUE_廟:1.0__ID_廟_39_/_OPAQUE_廟:1.0__ID_廟_25_-4o 単価ベースの年間コスト削減額
+
+依存: _OPAQUE_淵:1.0__ID_霢_147_ (_OPAQUE_霢:1.0__ID_霢_159_ _OPAQUE_霢:1.0__ID_霢_163_ _OPAQUE_淵:1.0__ID_霢_147_)
+_OPAQUE_廟:1.0__ID_廟_12_不要: 完全ローカル計測
+"""
+
+_OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_307_ import _OPAQUE_霢:1.0__ID_霢_242_
+
+import _OPAQUE_霢:1.0__ID_霢_98_
+import _OPAQUE_霢:1.0__ID_霢_109_
+import _OPAQUE_霢:1.0__ID_霢_53_
+import _OPAQUE_霢:1.0__ID_霢_36_
+import _OPAQUE_霢:1.0__ID_霢_164_
+_OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_161_ import _OPAQUE_廟:1.0__ID_廟_16_
+_OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_141_ import _OPAQUE_廟:1.0__ID_廟_6_
+
+// [metadata-stripped]
+try:
+    import _OPAQUE_淵:1.0__ID_霢_147_
+    _OPAQUE_廟:1.0__ID_廟_44_ = _OPAQUE_淵:1.0__ID_霢_147_._OPAQUE_策:1.0__ID_礎_6_("_OPAQUE_霢:1.0__ID_霢_236_")
+    _OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_淵:1.0__ID_霢_221_(_OPAQUE_霢:1.0__ID_霢_202_: _OPAQUE_霢:1.0__ID_霢_224_) -> _OPAQUE_霢:1.0__ID_霢_103_:
+        return _OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_44_._OPAQUE_霢:1.0__ID_霢_140_(_OPAQUE_霢:1.0__ID_霢_202_))
+    _OPAQUE_淵:1.0__ID_廟_59_ = "_OPAQUE_淵:1.0__ID_霢_147_/_OPAQUE_霢:1.0__ID_霢_236_"
+_OPAQUE_霢:1.0__ID_霢_264_ _OPAQUE_廟:1.0__ID_廟_28_:
+    _OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_淵:1.0__ID_霢_221_(_OPAQUE_霢:1.0__ID_霢_202_: _OPAQUE_霢:1.0__ID_霢_224_) -> _OPAQUE_霢:1.0__ID_霢_103_:  # _OPAQUE_霢:1.0__ID_霢_252_: _OPAQUE_霢:1.0__ID_霢_96_[_OPAQUE_霢:1.0__ID_霢_102_]
+        return _OPAQUE_霢:1.0__ID_霢_223_(1, _OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_霢:1.0__ID_霢_202_) // 4)
+    _OPAQUE_淵:1.0__ID_廟_59_ = "_OPAQUE_霢:1.0__ID_霢_58_/4 _OPAQUE_霢:1.0__ID_霢_134_"
+
+_OPAQUE_霢:1.0__ID_霢_53_._OPAQUE_霢:1.0__ID_霢_89_._OPAQUE_霢:1.0__ID_霢_243_(0, _OPAQUE_霢:1.0__ID_霢_224_(_OPAQUE_廟:1.0__ID_廟_16_(_OPAQUE_区:1.0__ID_霢_111_)._OPAQUE_霢:1.0__ID_霢_312_._OPAQUE_霢:1.0__ID_霢_312_))
+_OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_191_._OPAQUE_策:1.0__ID_霢_22_ import _OPAQUE_策:1.0__ID_廟_1_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_廟:1.0__ID_廟_51_: _OPAQUE_霢:1.0__ID_霢_295_[_OPAQUE_霢:1.0__ID_霢_212_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_廟:1.0__ID_廟_6_]] = _OPAQUE_霢:1.0__ID_霢_98_._OPAQUE_区:1.0__ID_霢_12_(
+    (_OPAQUE_廟:1.0__ID_廟_16_(_OPAQUE_区:1.0__ID_霢_111_)._OPAQUE_霢:1.0__ID_霢_312_._OPAQUE_霢:1.0__ID_霢_312_ / "_OPAQUE_霢:1.0__ID_霢_290_" / "_OPAQUE_霢:1.0__ID_霢_210_._OPAQUE_霢:1.0__ID_霢_98_")._OPAQUE_霢:1.0__ID_霢_97_()
+)
+
+// [metadata-stripped]
+_OPAQUE_廟:1.0__ID_廟_22_ = {
+    "_OPAQUE_霢:1.0__ID_霢_252_": "_OPAQUE_霢:1.0__ID_霢_211_",
+    "_OPAQUE_霢:1.0__ID_霢_27_": {
+        "_OPAQUE_霢:1.0__ID_霢_89_":    {"_OPAQUE_霢:1.0__ID_霢_252_": "_OPAQUE_霢:1.0__ID_霢_176_", "_OPAQUE_霢:1.0__ID_霢_20_": "_OPAQUE_廟:1.0__ID_廟_37_ or _OPAQUE_霢:1.0__ID_霢_311_ _OPAQUE_区:1.0__ID_霢_43_ _OPAQUE_霢:1.0__ID_霢_89_"},
+        "_OPAQUE_霢:1.0__ID_霢_237_": {"_OPAQUE_霢:1.0__ID_霢_252_": "_OPAQUE_霢:1.0__ID_霢_176_", "_OPAQUE_霢:1.0__ID_霢_20_": "_OPAQUE_区:1.0__ID_廟_73_ _OPAQUE_霢:1.0__ID_霢_237_ to _OPAQUE_霢:1.0__ID_霢_198_"},
+        "_OPAQUE_霢:1.0__ID_霢_150_":   {"_OPAQUE_霢:1.0__ID_霢_252_": "_OPAQUE_霢:1.0__ID_霢_176_", "_OPAQUE_霢:1.0__ID_霢_20_": "_OPAQUE_廟:1.0__ID_廟_18_ _OPAQUE_霢:1.0__ID_霢_150_ or _OPAQUE_廟:1.0__ID_廟_61_ _OPAQUE_霢:1.0__ID_霢_124_"},
+        "_OPAQUE_霢:1.0__ID_霢_105_":   {"_OPAQUE_霢:1.0__ID_霢_252_": "_OPAQUE_策:1.0__ID_霢_309_", "_OPAQUE_霢:1.0__ID_霢_20_": "_OPAQUE_廟:1.0__ID_廟_64_ _OPAQUE_策:1.0__ID_霢_108_ of _OPAQUE_霢:1.0__ID_霢_267_", "_OPAQUE_霢:1.0__ID_霢_298_": 10},
+// _OPAQUE_淵:0.4__ID_GX_790_ [decoy-metadata]
+    },
+}
+for t in _OPAQUE_廟:1.0__ID_廟_51_:
+    t._OPAQUE_策:1.0__ID_礎_3_("_OPAQUE_霢:1.0__ID_霢_281_", _OPAQUE_廟:1.0__ID_廟_22_)
+
+
+// _OPAQUE_浮:0.1__ID_YF_623_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_廟:1.0__ID_廟_40_: _OPAQUE_霢:1.0__ID_霢_295_[_OPAQUE_霢:1.0__ID_霢_174_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_霢:1.0__ID_霢_224_]] = [
+    ("_OPAQUE_霢:1.0__ID_霢_132_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_296_ of a _OPAQUE_霢:1.0__ID_霢_8_ _OPAQUE_区:1.0__ID_霢_43_",        "_OPAQUE_区:1.0__ID_霢_294_"),
+    ("_OPAQUE_霢:1.0__ID_霢_198_ _OPAQUE_霢:1.0__ID_霢_38_ _OPAQUE_霢:1.0__ID_霢_50_ to a _OPAQUE_区:1.0__ID_霢_43_",               "_OPAQUE_区:1.0__ID_霢_265_"),
+    ("_OPAQUE_霢:1.0__ID_霢_295_ _OPAQUE_霢:1.0__ID_霢_246_ _OPAQUE_区:1.0__ID_霢_279_ in _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_142_ _OPAQUE_霢:1.0__ID_霢_90_",   "_OPAQUE_霢:1.0__ID_霢_249_"),
+    ("_OPAQUE_霢:1.0__ID_霢_39_ for _OPAQUE_廟:1.0__ID_廟_4_ _OPAQUE_区:1.0__ID_霢_279_ _OPAQUE_霢:1.0__ID_霢_117_ a _OPAQUE_霢:1.0__ID_霢_263_","_OPAQUE_区:1.0__ID_霢_222_"),
+    ("_OPAQUE_霢:1.0__ID_霢_165_ a _OPAQUE_霢:1.0__ID_霢_116_ _OPAQUE_霢:1.0__ID_霢_197_",                    "_OPAQUE_霢:1.0__ID_霢_31_"),
+    ("_OPAQUE_霢:1.0__ID_霢_314_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_142_ _OPAQUE_霢:1.0__ID_霢_56_ _OPAQUE_霢:1.0__ID_霢_44_",                "_OPAQUE_霢:1.0__ID_霢_317_"),
+    ("_OPAQUE_霢:1.0__ID_霢_291_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_144_ _OPAQUE_霢:1.0__ID_霢_115_ for _OPAQUE_霢:1.0__ID_霢_304_",           "_OPAQUE_霢:1.0__ID_霢_152_"),
+    ("_OPAQUE_浮:1.0__ID_霢_119_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_115_ _OPAQUE_霢:1.0__ID_霢_274_",             "_OPAQUE_浮:1.0__ID_霢_306_"),
+    ("_OPAQUE_霢:1.0__ID_霢_308_ _OPAQUE_廟:1.0__ID_廟_66_ _OPAQUE_霢:1.0__ID_霢_160_",                    "_OPAQUE_霢:1.0__ID_霢_247_"),
+    ("_OPAQUE_霢:1.0__ID_霢_128_ a _OPAQUE_廟:1.0__ID_廟_74_ _OPAQUE_霢:1.0__ID_霢_112_",                     "_OPAQUE_霢:1.0__ID_霢_261_"),
+    ("_OPAQUE_霢:1.0__ID_霢_193_ a _OPAQUE_霢:1.0__ID_霢_13_ to _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_288_",           "_OPAQUE_霢:1.0__ID_霢_86_"),
+    ("_OPAQUE_霢:1.0__ID_霢_295_ open _OPAQUE_霢:1.0__ID_霢_326_ _OPAQUE_紐:1.0__ID_霢_24_",                   "_OPAQUE_霢:1.0__ID_霢_231_"),
+    ("_OPAQUE_霢:1.0__ID_霢_273_ a _OPAQUE_霢:1.0__ID_霢_219_ to _OPAQUE_廟:1.0__ID_廟_56_",                   "_OPAQUE_霢:1.0__ID_霢_19_"),
+    ("_OPAQUE_霢:1.0__ID_霢_273_ an _OPAQUE_霢:1.0__ID_霢_94_ _OPAQUE_浮:1.0__ID_霢_65_",                "_OPAQUE_霢:1.0__ID_霢_42_"),
+    ("_OPAQUE_霢:1.0__ID_霢_150_ _OPAQUE_霢:1.0__ID_霢_50_ _OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_135_",              "_OPAQUE_霢:1.0__ID_霢_47_"),
+    ("_OPAQUE_霢:1.0__ID_霢_243_ a _OPAQUE_霢:1.0__ID_霢_220_ _OPAQUE_霢:1.0__ID_霢_278_ _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_135_",         "_OPAQUE_霢:1.0__ID_霢_40_"),
+    ("_OPAQUE_霢:1.0__ID_霢_183_ a _OPAQUE_霢:1.0__ID_霢_135_ _OPAQUE_霢:1.0__ID_霢_91_",                     "_OPAQUE_霢:1.0__ID_霢_104_"),
+    ("_OPAQUE_霢:1.0__ID_霢_151_ an _OPAQUE_紐:1.0__ID_廟_30_ _OPAQUE_策:1.0__ID_礎_1_ _OPAQUE_紐:1.0__ID_霢_15_",                  "_OPAQUE_紐:1.0__ID_霢_195_"),
+    ("open a _OPAQUE_霢:1.0__ID_霢_14_ in _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_策:1.0__ID_霢_139_",             "_OPAQUE_霢:1.0__ID_霢_32_"),
+    ("_OPAQUE_霢:1.0__ID_霢_4_ a _OPAQUE_霢:1.0__ID_霢_259_ of _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_45_",             "_OPAQUE_霢:1.0__ID_霢_106_"),
+    ("_OPAQUE_区:1.0__ID_霢_30_ _OPAQUE_霢:1.0__ID_霢_68_ to _OPAQUE_霢:1.0__ID_霢_293_ _OPAQUE_霢:1.0__ID_霢_230_",       "_OPAQUE_策:1.0__ID_霢_216_"),
+    ("_OPAQUE_霢:1.0__ID_霢_39_ _OPAQUE_霢:1.0__ID_霢_305_ _OPAQUE_霢:1.0__ID_霢_158_ _OPAQUE_霢:1.0__ID_霢_72_",            "_OPAQUE_霢:1.0__ID_霢_321_"),
+    ("_OPAQUE_策:1.0__ID_礎_4_ _OPAQUE_霢:1.0__ID_霢_129_ _OPAQUE_霢:1.0__ID_霢_37_",             "_OPAQUE_策:1.0__ID_礎_5_"),
+    ("_OPAQUE_霢:1.0__ID_霢_123_ a _OPAQUE_策:1.0__ID_廟_23_ _OPAQUE_霢:1.0__ID_霢_118_",                      "_OPAQUE_霢:1.0__ID_霢_241_"),
+    ("_OPAQUE_霢:1.0__ID_霢_233_ _OPAQUE_霢:1.0__ID_霢_202_ to _OPAQUE_策:1.0__ID_霢_122_ _OPAQUE_霢:1.0__ID_霢_229_",        "_OPAQUE_霢:1.0__ID_霢_17_"),
+    ("_OPAQUE_霢:1.0__ID_霢_21_ a _OPAQUE_区:1.0__ID_霢_43_",                             "_OPAQUE_区:1.0__ID_霢_186_"),
+    ("_OPAQUE_霢:1.0__ID_霢_282_ or _OPAQUE_霢:1.0__ID_霢_283_ a _OPAQUE_区:1.0__ID_霢_43_",                     "_OPAQUE_区:1.0__ID_霢_73_"),
+    ("_OPAQUE_霢:1.0__ID_霢_314_ a _OPAQUE_霢:1.0__ID_霢_54_ _OPAQUE_区:1.0__ID_霢_43_",                         "_OPAQUE_霢:1.0__ID_霢_172_"),
+    ("_OPAQUE_霢:1.0__ID_霢_225_ a _OPAQUE_霢:1.0__ID_霢_255_ _OPAQUE_霢:1.0__ID_霢_1_",                    "_OPAQUE_霢:1.0__ID_霢_181_"),
+    ("_OPAQUE_霢:1.0__ID_霢_99_ a _OPAQUE_霢:1.0__ID_霢_115_ _OPAQUE_浮:1.0__ID_霢_258_",                        "_OPAQUE_浮:1.0__ID_霢_70_"),
+    ("_OPAQUE_霢:1.0__ID_霢_295_ _OPAQUE_廟:1.0__ID_廟_74_ _OPAQUE_霢:1.0__ID_霢_23_",                         "_OPAQUE_霢:1.0__ID_霢_59_"),
+    ("_OPAQUE_霢:1.0__ID_霢_132_ a _OPAQUE_区:1.0__ID_霢_43_ _OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_廟:1.0__ID_廟_74_",                   "_OPAQUE_区:1.0__ID_霢_179_"),
+    ("_OPAQUE_霢:1.0__ID_霢_256_ a _OPAQUE_霢:1.0__ID_霢_326_ _OPAQUE_紐:1.0__ID_霢_15_",                      "_OPAQUE_霢:1.0__ID_霢_190_"),
+    ("_OPAQUE_霢:1.0__ID_霢_295_ _OPAQUE_霢:1.0__ID_霢_260_ _OPAQUE_廟:1.0__ID_廟_56_ _OPAQUE_霢:1.0__ID_霢_67_",                "_OPAQUE_霢:1.0__ID_霢_303_"),
+    ("_OPAQUE_霢:1.0__ID_霢_21_ _OPAQUE_霢:1.0__ID_霢_277_ _OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_135_",                 "_OPAQUE_霢:1.0__ID_霢_328_"),
+    ("_OPAQUE_紐:1.0__ID_廟_30_ _OPAQUE_廟:1.0__ID_廟_9_ _OPAQUE_紐:1.0__ID_霢_15_ _OPAQUE_霢:1.0__ID_霢_136_ _OPAQUE_廟:1.0__ID_廟_47_",               "_OPAQUE_紐:1.0__ID_霢_131_"),
+    ("_OPAQUE_霢:1.0__ID_霢_271_ an _OPAQUE_霢:1.0__ID_霢_177_ on _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_45_",              "_OPAQUE_霢:1.0__ID_霢_299_"),
+    ("_OPAQUE_霢:1.0__ID_霢_252_ _OPAQUE_霢:1.0__ID_霢_202_ _OPAQUE_霢:1.0__ID_霢_278_ a _OPAQUE_浮:1.0__ID_霢_300_",                     "_OPAQUE_霢:1.0__ID_霢_113_"),
+    ("_OPAQUE_霢:1.0__ID_霢_200_ _OPAQUE_霢:1.0__ID_霢_202_ _OPAQUE_霢:1.0__ID_霢_213_ a _OPAQUE_霢:1.0__ID_霢_14_",               "_OPAQUE_霢:1.0__ID_霢_80_"),
+    ("_OPAQUE_霢:1.0__ID_霢_132_ a _OPAQUE_浮:1.0__ID_霢_227_ _OPAQUE_霢:1.0__ID_霢_230_ _OPAQUE_霢:1.0__ID_霢_199_",              "_OPAQUE_霢:1.0__ID_霢_203_"),
+    ("_OPAQUE_霢:1.0__ID_霢_183_ _OPAQUE_霢:1.0__ID_霢_8_ _OPAQUE_策:1.0__ID_礎_2_",                    "_OPAQUE_策:1.0__ID_礎_8_"),
+    ("_OPAQUE_霢:1.0__ID_霢_295_ _OPAQUE_霢:1.0__ID_霢_246_ _OPAQUE_霢:1.0__ID_霢_287_ _OPAQUE_霢:1.0__ID_霢_210_",                  "_OPAQUE_霢:1.0__ID_霢_48_"),
+    ("_OPAQUE_霢:1.0__ID_霢_128_ a _OPAQUE_霢:1.0__ID_霢_214_ _OPAQUE_霢:1.0__ID_霢_178_",                       "_OPAQUE_霢:1.0__ID_霢_95_"),
+    ("_OPAQUE_霢:1.0__ID_霢_308_ _OPAQUE_霢:1.0__ID_霢_214_ _OPAQUE_霢:1.0__ID_霢_302_",                          "_OPAQUE_霢:1.0__ID_霢_10_"),
+    ("_OPAQUE_霢:1.0__ID_霢_228_ _OPAQUE_霢:1.0__ID_霢_13_ _OPAQUE_霢:1.0__ID_霢_301_",                       "_OPAQUE_霢:1.0__ID_霢_269_"),
+    ("_OPAQUE_霢:1.0__ID_霢_314_ a _OPAQUE_策:1.0__ID_廟_23_ _OPAQUE_策:1.0__ID_霢_69_",                    "_OPAQUE_霢:1.0__ID_霢_257_"),
+    ("_OPAQUE_霢:1.0__ID_霢_5_ a _OPAQUE_霢:1.0__ID_霢_61_ _OPAQUE_霢:1.0__ID_霢_251_",                       "_OPAQUE_霢:1.0__ID_霢_81_"),
+    ("_OPAQUE_霢:1.0__ID_霢_273_ a _OPAQUE_霢:1.0__ID_霢_138_ _OPAQUE_浮:1.0__ID_霢_65_",               "_OPAQUE_浮:1.0__ID_霢_29_"),
+    ("_OPAQUE_霢:1.0__ID_霢_180_ _OPAQUE_霢:1.0__ID_霢_202_ _OPAQUE_霢:1.0__ID_霢_136_ an _OPAQUE_廟:1.0__ID_廟_12_",                "_OPAQUE_霢:1.0__ID_霢_157_"),
+    ("_OPAQUE_霢:1.0__ID_霢_180_ _OPAQUE_霢:1.0__ID_霢_202_ _OPAQUE_霢:1.0__ID_霢_100_",                  "_OPAQUE_霢:1.0__ID_霢_137_"),
+]
+
+
+// [metadata-stripped]
+// _OPAQUE_霢:0.9__ID_YC_114_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_145_() -> _OPAQUE_霢:1.0__ID_霢_212_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_廟:1.0__ID_廟_6_]:
+    """
+    比較:
+      _OPAQUE_廟:1.0__ID_廟_65_ _OPAQUE_策:1.0__ID_霢_22_: 全50ツール定義をプロンプトに入れる
+      _OPAQUE_廟:1.0__ID_廟_27_ _OPAQUE_策:1.0__ID_霢_22_:    _OPAQUE_霢:1.0__ID_霢_153_ (軽量カタログ) + _OPAQUE_霢:1.0__ID_霢_204_ の定義3件
+    """
+    _OPAQUE_策:1.0__ID_霢_22_ = _OPAQUE_策:1.0__ID_廟_1_()
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_74_ = "_OPAQUE_廟:1.0__ID_廟_52_ _OPAQUE_霢:1.0__ID_霢_168_ _OPAQUE_霢:1.0__ID_霢_2_ to _OPAQUE_霢:1.0__ID_霢_253_ _OPAQUE_霢:1.0__ID_霢_130_ _OPAQUE_霢:1.0__ID_霢_210_:\n\n"
+    for t in _OPAQUE_廟:1.0__ID_廟_51_:
+        _OPAQUE_霢:1.0__ID_霢_74_ += f"_OPAQUE_廟:1.0__ID_廟_63_: {t['_OPAQUE_霢:1.0__ID_霢_185_']}\n"
+        _OPAQUE_霢:1.0__ID_霢_74_ += f"_OPAQUE_廟:1.0__ID_廟_54_: {t['_OPAQUE_霢:1.0__ID_霢_20_']}\n"
+        _OPAQUE_霢:1.0__ID_霢_74_ += f"_OPAQUE_廟:1.0__ID_廟_46_: {_OPAQUE_霢:1.0__ID_霢_98_._OPAQUE_霢:1.0__ID_霢_57_(t._OPAQUE_策:1.0__ID_礎_4_('_OPAQUE_霢:1.0__ID_霢_281_', {}))}\n\n"
+
+    _OPAQUE_淵:1.0__ID_霢_272_ = _OPAQUE_淵:1.0__ID_霢_221_(_OPAQUE_霢:1.0__ID_霢_74_)
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_133_ = _OPAQUE_策:1.0__ID_霢_22_._OPAQUE_霢:1.0__ID_霢_143_(_OPAQUE_廟:1.0__ID_廟_51_)
+    _OPAQUE_霢:1.0__ID_霢_267_ = _OPAQUE_策:1.0__ID_霢_22_._OPAQUE_霢:1.0__ID_霢_205_("_OPAQUE_霢:1.0__ID_霢_132_ _OPAQUE_区:1.0__ID_霢_43_ _OPAQUE_霢:1.0__ID_霢_213_ _OPAQUE_霢:1.0__ID_霢_318_", _OPAQUE_廟:1.0__ID_廟_51_, _OPAQUE_霢:1.0__ID_霢_49_=3)
+    _OPAQUE_霢:1.0__ID_霢_187_ = f"_OPAQUE_霢:1.0__ID_霢_204_ _OPAQUE_霢:1.0__ID_霢_310_:\n"
+    for r in _OPAQUE_霢:1.0__ID_霢_267_:
+        _OPAQUE_霢:1.0__ID_霢_16_ = {k: v for k, v in r._OPAQUE_霢:1.0__ID_霢_245_() if _OPAQUE_霢:1.0__ID_霢_26_ k._OPAQUE_霢:1.0__ID_霢_35_("_")}
+// _OPAQUE_紐:0.7__ID_KX_276_ [decoy-metadata]
+        _OPAQUE_霢:1.0__ID_霢_187_ += _OPAQUE_霢:1.0__ID_霢_98_._OPAQUE_霢:1.0__ID_霢_57_(_OPAQUE_霢:1.0__ID_霢_16_) + "\n"
+
+    _OPAQUE_霢:1.0__ID_霢_182_ = _OPAQUE_霢:1.0__ID_霢_133_ + "\n\n" + _OPAQUE_霢:1.0__ID_霢_187_
+    _OPAQUE_淵:1.0__ID_霢_226_ = _OPAQUE_淵:1.0__ID_霢_221_(_OPAQUE_霢:1.0__ID_霢_182_)
+
+    _OPAQUE_霢:1.0__ID_霢_60_ = (1 - _OPAQUE_淵:1.0__ID_霢_226_ / _OPAQUE_淵:1.0__ID_霢_272_) * 100
+
+    return {
+        "_OPAQUE_淵:1.0__ID_霢_272_": _OPAQUE_淵:1.0__ID_霢_272_,
+        "_OPAQUE_淵:1.0__ID_霢_226_":    _OPAQUE_淵:1.0__ID_霢_226_,
+        "_OPAQUE_霢:1.0__ID_霢_60_":  _OPAQUE_霢:1.0__ID_霢_60_,
+        "_OPAQUE_霢:1.0__ID_霢_52_": f"{_OPAQUE_淵:1.0__ID_霢_272_:,} → {_OPAQUE_淵:1.0__ID_霢_226_:,} _OPAQUE_淵:1.0__ID_霢_149_",
+    }
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_206_(_OPAQUE_淵:1.0__ID_霢_272_: _OPAQUE_霢:1.0__ID_霢_103_, _OPAQUE_淵:1.0__ID_霢_226_: _OPAQUE_霢:1.0__ID_霢_103_) -> _OPAQUE_霢:1.0__ID_霢_212_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_廟:1.0__ID_廟_6_]:
+    """
+    _OPAQUE_廟:1.0__ID_廟_49_ _OPAQUE_廟:1.0__ID_廟_67_ (M3/M4) の _OPAQUE_廟:1.0__ID_廟_10_ スループット実測値から _OPAQUE_廟:1.0__ID_廟_15_ を推定。
+    モデルごとの実測 _OPAQUE_霢:1.0__ID_霢_292_ 速度:
+      _OPAQUE_霢:1.0__ID_霢_82_-3-4b  : ~3,000 _OPAQUE_淵:1.0__ID_霢_149_/_OPAQUE_霢:1.0__ID_霢_154_ (4-_OPAQUE_霢:1.0__ID_霢_324_)
+      _OPAQUE_霢:1.0__ID_霢_82_-3-12b : ~1,200 _OPAQUE_淵:1.0__ID_霢_149_/_OPAQUE_霢:1.0__ID_霢_154_
+      _OPAQUE_霢:1.0__ID_霢_6_-3.1-8b: ~2,000 _OPAQUE_淵:1.0__ID_霢_149_/_OPAQUE_霢:1.0__ID_霢_154_
+    """
+// _OPAQUE_霢:0.6__ID_HF_843_ [decoy-metadata]
+    _OPAQUE_霢:1.0__ID_霢_315_ = {
+        "_OPAQUE_霢:1.0__ID_霢_82_-3-4b (4-_OPAQUE_霢:1.0__ID_霢_324_)":   3000,
+        "_OPAQUE_霢:1.0__ID_霢_6_-3.1-8b (4-_OPAQUE_霢:1.0__ID_霢_324_)": 2000,
+        "_OPAQUE_霢:1.0__ID_霢_82_-3-12b (4-_OPAQUE_霢:1.0__ID_霢_324_)":  1200,
+    }
+
+    _OPAQUE_霢:1.0__ID_霢_267_ = {}
+    for _OPAQUE_霢:1.0__ID_霢_51_, _OPAQUE_霢:1.0__ID_霢_170_ in _OPAQUE_霢:1.0__ID_霢_315_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_166_ = (_OPAQUE_淵:1.0__ID_霢_272_ / _OPAQUE_霢:1.0__ID_霢_170_) * 1000
+        _OPAQUE_霢:1.0__ID_霢_232_    = (_OPAQUE_淵:1.0__ID_霢_226_    / _OPAQUE_霢:1.0__ID_霢_170_) * 1000
+        _OPAQUE_霢:1.0__ID_霢_125_        = _OPAQUE_霢:1.0__ID_霢_166_ - _OPAQUE_霢:1.0__ID_霢_232_
+        _OPAQUE_霢:1.0__ID_霢_79_         = _OPAQUE_霢:1.0__ID_霢_166_ / _OPAQUE_霢:1.0__ID_霢_223_(_OPAQUE_霢:1.0__ID_霢_232_, 1)
+        _OPAQUE_霢:1.0__ID_霢_267_[_OPAQUE_霢:1.0__ID_霢_51_] = {
+            "_OPAQUE_霢:1.0__ID_霢_166_": _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_166_),
+            "_OPAQUE_霢:1.0__ID_霢_232_":    _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_232_),
+            "_OPAQUE_霢:1.0__ID_霢_125_":        _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_125_),
+            "_OPAQUE_霢:1.0__ID_霢_79_":         _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_79_, 1),
+        }
+    return _OPAQUE_霢:1.0__ID_霢_267_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_25_() -> _OPAQUE_霢:1.0__ID_霢_212_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_廟:1.0__ID_廟_6_]:
+    _OPAQUE_策:1.0__ID_霢_22_ = _OPAQUE_策:1.0__ID_廟_1_()
+    _OPAQUE_策:1.0__ID_霢_22_._OPAQUE_霢:1.0__ID_霢_171_._OPAQUE_霢:1.0__ID_霢_188_(_OPAQUE_廟:1.0__ID_廟_51_)
+
+    _OPAQUE_霢:1.0__ID_霢_280_  = 0
+    _OPAQUE_霢:1.0__ID_霢_162_  = 0
+    _OPAQUE_霢:1.0__ID_霢_189_  = 0
+    _OPAQUE_霢:1.0__ID_霢_329_: _OPAQUE_霢:1.0__ID_霢_295_[_OPAQUE_霢:1.0__ID_霢_75_] = []
+
+    for _OPAQUE_霢:1.0__ID_霢_167_, _OPAQUE_霢:1.0__ID_霢_18_ in _OPAQUE_廟:1.0__ID_廟_40_:
+        t0 = _OPAQUE_霢:1.0__ID_霢_36_._OPAQUE_策:1.0__ID_霢_289_()
+        _OPAQUE_霢:1.0__ID_霢_267_ = _OPAQUE_策:1.0__ID_霢_22_._OPAQUE_霢:1.0__ID_霢_205_(_OPAQUE_霢:1.0__ID_霢_167_, _OPAQUE_廟:1.0__ID_廟_51_, _OPAQUE_霢:1.0__ID_霢_49_=5)
+        _OPAQUE_霢:1.0__ID_霢_276_ = _OPAQUE_霢:1.0__ID_霢_36_._OPAQUE_策:1.0__ID_霢_289_() - t0
+        _OPAQUE_霢:1.0__ID_霢_329_._OPAQUE_霢:1.0__ID_霢_46_(_OPAQUE_霢:1.0__ID_霢_276_ * 1000)
+
+        _OPAQUE_霢:1.0__ID_霢_270_ = [r["_OPAQUE_霢:1.0__ID_霢_185_"] for r in _OPAQUE_霢:1.0__ID_霢_267_]
+        if _OPAQUE_霢:1.0__ID_霢_270_ _OPAQUE_霢:1.0__ID_霢_88_ _OPAQUE_霢:1.0__ID_霢_270_[0] == _OPAQUE_霢:1.0__ID_霢_18_:
+            _OPAQUE_霢:1.0__ID_霢_280_ += 1
+        if _OPAQUE_霢:1.0__ID_霢_18_ in _OPAQUE_霢:1.0__ID_霢_270_[:3]:
+            _OPAQUE_霢:1.0__ID_霢_162_ += 1
+        if _OPAQUE_霢:1.0__ID_霢_18_ in _OPAQUE_霢:1.0__ID_霢_270_[:5]:
+            _OPAQUE_霢:1.0__ID_霢_189_ += 1
+
+    n = _OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_40_)
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_126_ = 1 / _OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_51_) * 100
+
+    return {
+        "_OPAQUE_霢:1.0__ID_霢_63_":    n,
+        "_OPAQUE_霢:1.0__ID_霢_238_":     _OPAQUE_霢:1.0__ID_霢_280_ / n * 100,
+        "_OPAQUE_霢:1.0__ID_霢_78_":     _OPAQUE_霢:1.0__ID_霢_162_ / n * 100,
+        "_OPAQUE_霢:1.0__ID_霢_207_":     _OPAQUE_霢:1.0__ID_霢_189_ / n * 100,
+        "_OPAQUE_霢:1.0__ID_霢_126_":  _OPAQUE_霢:1.0__ID_霢_126_,
+        "_OPAQUE_浮:1.0__ID_霢_325_":         (_OPAQUE_霢:1.0__ID_霢_280_ / n * 100) / _OPAQUE_霢:1.0__ID_霢_126_,
+        "_OPAQUE_霢:1.0__ID_霢_77_":       _OPAQUE_霢:1.0__ID_霢_164_._OPAQUE_霢:1.0__ID_霢_250_(_OPAQUE_霢:1.0__ID_霢_329_),
+        "_OPAQUE_霢:1.0__ID_霢_254_":       _OPAQUE_霢:1.0__ID_霢_7_(_OPAQUE_霢:1.0__ID_霢_329_)[_OPAQUE_霢:1.0__ID_霢_103_(n * 0.99)],
+    }
+
+
+// _OPAQUE_礎:0.1__ID_CD_985_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_297_(_OPAQUE_淵:1.0__ID_霢_272_: _OPAQUE_霢:1.0__ID_霢_103_, _OPAQUE_淵:1.0__ID_霢_226_: _OPAQUE_霢:1.0__ID_霢_103_) -> _OPAQUE_霢:1.0__ID_霢_212_[_OPAQUE_霢:1.0__ID_霢_224_, _OPAQUE_廟:1.0__ID_廟_6_]:
+    """
+    料金表 (2026年5月時点):
+      _OPAQUE_廟:1.0__ID_廟_39_ 3.5 _OPAQUE_廟:1.0__ID_廟_8_: $0.80 / 1M _OPAQUE_霢:1.0__ID_霢_275_ _OPAQUE_淵:1.0__ID_霢_149_
+      _OPAQUE_廟:1.0__ID_廟_39_ 3.5 _OPAQUE_廟:1.0__ID_廟_31_: $3.00 / 1M _OPAQUE_霢:1.0__ID_霢_275_ _OPAQUE_淵:1.0__ID_霢_149_
+      _OPAQUE_廟:1.0__ID_廟_25_-4o:            $2.50 / 1M _OPAQUE_霢:1.0__ID_霢_275_ _OPAQUE_淵:1.0__ID_霢_149_
+      _OPAQUE_廟:1.0__ID_廟_25_-4o _OPAQUE_霢:1.0__ID_霢_93_:       $0.15 / 1M _OPAQUE_霢:1.0__ID_霢_275_ _OPAQUE_淵:1.0__ID_霢_149_
+    """
+    _OPAQUE_淵:1.0__ID_霢_184_ = _OPAQUE_淵:1.0__ID_霢_272_ - _OPAQUE_淵:1.0__ID_霢_226_
+    _OPAQUE_霢:1.0__ID_霢_315_ = {
+        "_OPAQUE_廟:1.0__ID_廟_39_ 3.5 _OPAQUE_廟:1.0__ID_廟_8_":  0.80,
+        "_OPAQUE_廟:1.0__ID_廟_39_ 3.5 _OPAQUE_廟:1.0__ID_廟_31_": 3.00,
+        "_OPAQUE_廟:1.0__ID_廟_25_-4o":            2.50,
+        "_OPAQUE_廟:1.0__ID_廟_25_-4o _OPAQUE_霢:1.0__ID_霢_93_":       0.15,
+    }
+    _OPAQUE_霢:1.0__ID_霢_267_ = {}
+    for _OPAQUE_霢:1.0__ID_霢_51_, _OPAQUE_霢:1.0__ID_霢_107_ in _OPAQUE_霢:1.0__ID_霢_315_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_169_    = _OPAQUE_淵:1.0__ID_霢_184_ / 1_000_000 * _OPAQUE_霢:1.0__ID_霢_107_
+        _OPAQUE_霢:1.0__ID_霢_66_  = _OPAQUE_霢:1.0__ID_霢_169_ * 1_000
+        _OPAQUE_霢:1.0__ID_霢_194_    = _OPAQUE_霢:1.0__ID_霢_66_ * 365
+        _OPAQUE_霢:1.0__ID_霢_201_ = _OPAQUE_霢:1.0__ID_霢_194_ * 150  # _OPAQUE_廟:1.0__ID_廟_70_→_OPAQUE_廟:1.0__ID_廟_17_ 概算
+        _OPAQUE_霢:1.0__ID_霢_267_[_OPAQUE_霢:1.0__ID_霢_51_] = {
+            "_OPAQUE_霢:1.0__ID_霢_107_":  _OPAQUE_霢:1.0__ID_霢_107_,
+            "_OPAQUE_区:1.0__ID_霢_268_": _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_169_, 6),
+            "_OPAQUE_区:1.0__ID_霢_120_": _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_66_, 4),
+            "_OPAQUE_区:1.0__ID_霢_33_": _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_194_, 2),
+            "_OPAQUE_区:1.0__ID_霢_235_": _OPAQUE_霢:1.0__ID_霢_114_(_OPAQUE_霢:1.0__ID_霢_201_),
+        }
+    return _OPAQUE_霢:1.0__ID_霢_267_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_3_(_OPAQUE_霢:1.0__ID_霢_327_: _OPAQUE_霢:1.0__ID_霢_224_) -> _OPAQUE_廟:1.0__ID_廟_55_:
+    _OPAQUE_霢:1.0__ID_霢_323_(f"\n{'─'*60}")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  {_OPAQUE_霢:1.0__ID_霢_327_}")
+    _OPAQUE_霢:1.0__ID_霢_323_('─'*60)
+
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_84_() -> _OPAQUE_廟:1.0__ID_廟_55_:
+    _OPAQUE_霢:1.0__ID_霢_323_(f"_OPAQUE_霢:1.0__ID_霢_85_-_OPAQUE_霢:1.0__ID_霢_39_-_OPAQUE_霢:1.0__ID_霢_196_ _OPAQUE_廟:1.0__ID_廟_29_ _OPAQUE_廟:1.0__ID_廟_36_")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"_OPAQUE_淵:1.0__ID_廟_2_: {_OPAQUE_淵:1.0__ID_廟_59_}")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"_OPAQUE_廟:1.0__ID_廟_34_:   {_OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_51_)} _OPAQUE_霢:1.0__ID_霢_210_")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"_OPAQUE_廟:1.0__ID_廟_76_ _OPAQUE_策:1.0__ID_礎_7_:  {_OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_40_)} _OPAQUE_霢:1.0__ID_霢_34_")
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_3_("① _OPAQUE_廟:1.0__ID_廟_14_ _OPAQUE_廟:1.0__ID_廟_3_ _OPAQUE_廟:1.0__ID_廟_26_")
+    _OPAQUE_霢:1.0__ID_霢_215_ = _OPAQUE_霢:1.0__ID_霢_145_()
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_65_ _OPAQUE_策:1.0__ID_霢_22_ : {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_272_']:>6,} _OPAQUE_淵:1.0__ID_霢_149_ (_OPAQUE_霢:1.0__ID_霢_246_ {_OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_51_)} _OPAQUE_霢:1.0__ID_霢_85_ _OPAQUE_霢:1.0__ID_霢_173_)")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_27_ _OPAQUE_策:1.0__ID_霢_22_    : {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_226_']:>6,} _OPAQUE_淵:1.0__ID_霢_149_ (_OPAQUE_霢:1.0__ID_霢_133_ + _OPAQUE_霢:1.0__ID_霢_322_-3 _OPAQUE_霢:1.0__ID_霢_173_)")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_45_      : {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_霢:1.0__ID_霢_60_']:.1f}%  ({_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_霢:1.0__ID_霢_52_']})")
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_3_("② _OPAQUE_廟:1.0__ID_廟_15_ _OPAQUE_廟:1.0__ID_廟_19_ (_OPAQUE_廟:1.0__ID_廟_49_ _OPAQUE_廟:1.0__ID_廟_67_ _OPAQUE_霢:1.0__ID_霢_134_)")
+    _OPAQUE_霢:1.0__ID_霢_248_ = _OPAQUE_霢:1.0__ID_霢_206_(_OPAQUE_霢:1.0__ID_霢_215_["_OPAQUE_淵:1.0__ID_霢_272_"], _OPAQUE_霢:1.0__ID_霢_215_["_OPAQUE_淵:1.0__ID_霢_226_"])
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  {'_OPAQUE_廟:1.0__ID_廟_11_':<26} {'_OPAQUE_廟:1.0__ID_廟_75_':>10} {'_OPAQUE_廟:1.0__ID_廟_57_':>8} {'_OPAQUE_区:1.0__ID_廟_68_':>10} {'_OPAQUE_廟:1.0__ID_廟_53_':>8}")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  {'─'*62}")
+    for _OPAQUE_霢:1.0__ID_霢_51_, v in _OPAQUE_霢:1.0__ID_霢_248_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_323_(f"  {_OPAQUE_霢:1.0__ID_霢_51_:<26} {v['_OPAQUE_霢:1.0__ID_霢_166_']:>8}ms {v['_OPAQUE_霢:1.0__ID_霢_232_']:>6}ms "
+              f"{v['_OPAQUE_霢:1.0__ID_霢_125_']:>8}ms {v['_OPAQUE_霢:1.0__ID_霢_79_']:>7}x")
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_3_("③ _OPAQUE_廟:1.0__ID_廟_42_ _OPAQUE_廟:1.0__ID_廟_24_ (_OPAQUE_廟:1.0__ID_廟_20_ vs _OPAQUE_霢:1.0__ID_霢_101_ _OPAQUE_霢:1.0__ID_霢_192_)")
+    _OPAQUE_霢:1.0__ID_霢_11_ = _OPAQUE_霢:1.0__ID_霢_25_()
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_60_ _OPAQUE_霢:1.0__ID_霢_319_ : {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_63_']}")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-1     : {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_238_']:.1f}%  (_OPAQUE_霢:1.0__ID_霢_101_ _OPAQUE_霢:1.0__ID_霢_192_: {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_126_']:.1f}%)")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-3     : {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_78_']:.1f}%")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-5     : {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_207_']:.1f}%")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_24_ _OPAQUE_浮:1.0__ID_霢_325_  : {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_浮:1.0__ID_霢_325_']:.1f}x _OPAQUE_策:1.0__ID_霢_239_ _OPAQUE_霢:1.0__ID_霢_101_")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_廟:1.0__ID_廟_18_ _OPAQUE_霢:1.0__ID_霢_208_ : _OPAQUE_霢:1.0__ID_霢_110_ {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_77_']:.2f}ms / _OPAQUE_霢:1.0__ID_霢_121_ {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_254_']:.2f}ms")
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_3_("④ _OPAQUE_紐:1.0__ID_廟_48_ _OPAQUE_廟:1.0__ID_廟_62_ _OPAQUE_廟:1.0__ID_廟_43_ (1,000 _OPAQUE_霢:1.0__ID_霢_41_/_OPAQUE_霢:1.0__ID_霢_266_, 365 _OPAQUE_霢:1.0__ID_霢_262_/_OPAQUE_霢:1.0__ID_霢_313_)")
+    _OPAQUE_霢:1.0__ID_霢_244_ = _OPAQUE_霢:1.0__ID_霢_297_(_OPAQUE_霢:1.0__ID_霢_215_["_OPAQUE_淵:1.0__ID_霢_272_"], _OPAQUE_霢:1.0__ID_霢_215_["_OPAQUE_淵:1.0__ID_霢_226_"])
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  _OPAQUE_区:1.0__ID_廟_68_ _OPAQUE_淵:1.0__ID_霢_149_/_OPAQUE_霢:1.0__ID_霢_316_: {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_272_'] - _OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_226_']:,}")
+    _OPAQUE_霢:1.0__ID_霢_323_()
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  {'_OPAQUE_廟:1.0__ID_廟_11_':<22} {'$/1M _OPAQUE_霢:1.0__ID_霢_83_':>9} {'$/_OPAQUE_霢:1.0__ID_霢_316_':>10} {'$/_OPAQUE_霢:1.0__ID_霢_266_(1k)':>12} {'$/_OPAQUE_霢:1.0__ID_霢_313_':>10} {'¥/_OPAQUE_霢:1.0__ID_霢_313_':>12}")
+    _OPAQUE_霢:1.0__ID_霢_323_(f"  {'─'*78}")
+    for _OPAQUE_霢:1.0__ID_霢_51_, v in _OPAQUE_霢:1.0__ID_霢_244_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_323_(f"  {_OPAQUE_霢:1.0__ID_霢_51_:<22} {v['_OPAQUE_霢:1.0__ID_霢_107_']:>8.2f} "
+              f"{v['_OPAQUE_区:1.0__ID_霢_268_']:>9.5f} "
+              f"{v['_OPAQUE_区:1.0__ID_霢_120_']:>11.3f} "
+              f"{v['_OPAQUE_区:1.0__ID_霢_33_']:>10,.2f} "
+              f"{v['_OPAQUE_区:1.0__ID_霢_235_']:>11,}")
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_3_("_OPAQUE_廟:1.0__ID_廟_35_ _OPAQUE_廟:1.0__ID_廟_69_ (_OPAQUE_霢:1.0__ID_霢_217_-_OPAQUE_霢:1.0__ID_霢_127_ _OPAQUE_霢:1.0__ID_霢_87_)")
+    md = _OPAQUE_霢:1.0__ID_霢_218_(_OPAQUE_霢:1.0__ID_霢_215_, _OPAQUE_霢:1.0__ID_霢_248_, _OPAQUE_霢:1.0__ID_霢_11_, _OPAQUE_霢:1.0__ID_霢_244_)
+    _OPAQUE_霢:1.0__ID_霢_323_(md)
+
+// [metadata-stripped]
+    _OPAQUE_霢:1.0__ID_霢_76_ = _OPAQUE_廟:1.0__ID_廟_16_(_OPAQUE_区:1.0__ID_霢_111_)._OPAQUE_霢:1.0__ID_霢_312_ / "_OPAQUE_霢:1.0__ID_霢_240_.md"
+    _OPAQUE_霢:1.0__ID_霢_76_._OPAQUE_霢:1.0__ID_霢_284_(md)
+    _OPAQUE_霢:1.0__ID_霢_323_(f"\n✅ _OPAQUE_廟:1.0__ID_廟_58_ _OPAQUE_区:1.0__ID_霢_55_ to {_OPAQUE_霢:1.0__ID_霢_76_}")
+
+
+_OPAQUE_霢:1.0__ID_霢_9_ _OPAQUE_霢:1.0__ID_霢_218_(_OPAQUE_霢:1.0__ID_霢_215_, _OPAQUE_霢:1.0__ID_霢_248_, _OPAQUE_霢:1.0__ID_霢_11_, _OPAQUE_霢:1.0__ID_霢_244_) -> _OPAQUE_霢:1.0__ID_霢_224_:
+    _OPAQUE_霢:1.0__ID_霢_286_ = [
+        "## _OPAQUE_廟:1.0__ID_廟_71_",
+        "",
+        f"> _OPAQUE_廟:1.0__ID_廟_5_ on {_OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_51_)}-_OPAQUE_霢:1.0__ID_霢_85_ _OPAQUE_霢:1.0__ID_霢_28_ · {_OPAQUE_霢:1.0__ID_霢_155_(_OPAQUE_廟:1.0__ID_廟_40_)} _OPAQUE_霢:1.0__ID_霢_146_ _OPAQUE_霢:1.0__ID_霢_34_ · _OPAQUE_淵:1.0__ID_廟_2_: `{_OPAQUE_淵:1.0__ID_廟_59_}`",
+        "",
+        "### ① _OPAQUE_廟:1.0__ID_廟_14_ _OPAQUE_廟:1.0__ID_廟_3_",
+        "",
+        "| | _OPAQUE_淵:1.0__ID_廟_38_ | vs _OPAQUE_霢:1.0__ID_霢_192_ |",
+        "|---|---|---|",
+        f"| **_OPAQUE_廟:1.0__ID_廟_75_ _OPAQUE_霢:1.0__ID_霢_85_-_OPAQUE_霢:1.0__ID_霢_39_-_OPAQUE_霢:1.0__ID_霢_196_** | {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_272_']:,} | — |",
+        f"| **_OPAQUE_廟:1.0__ID_廟_57_ _OPAQUE_霢:1.0__ID_霢_85_-_OPAQUE_霢:1.0__ID_霢_39_-_OPAQUE_霢:1.0__ID_霢_196_** | {_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_淵:1.0__ID_霢_226_']:,} | **{_OPAQUE_霢:1.0__ID_霢_215_['_OPAQUE_霢:1.0__ID_霢_60_']:.0f}% _OPAQUE_霢:1.0__ID_霢_320_** |",
+        "",
+        "### ② _OPAQUE_廟:1.0__ID_廟_15_ _OPAQUE_廟:1.0__ID_廟_41_ (_OPAQUE_廟:1.0__ID_廟_49_ _OPAQUE_廟:1.0__ID_廟_67_, _OPAQUE_霢:1.0__ID_霢_156_ _OPAQUE_廟:1.0__ID_廟_12_)",
+        "",
+        "| _OPAQUE_廟:1.0__ID_廟_11_ | _OPAQUE_廟:1.0__ID_廟_75_ | _OPAQUE_廟:1.0__ID_廟_57_ | _OPAQUE_区:1.0__ID_廟_68_ | _OPAQUE_廟:1.0__ID_廟_53_ |",
+        "|---|---|---|---|---|",
+    ]
+    for _OPAQUE_霢:1.0__ID_霢_51_, v in _OPAQUE_霢:1.0__ID_霢_248_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_286_._OPAQUE_霢:1.0__ID_霢_46_(
+            f"| {_OPAQUE_霢:1.0__ID_霢_51_} | {v['_OPAQUE_霢:1.0__ID_霢_166_']}ms | {v['_OPAQUE_霢:1.0__ID_霢_232_']}ms"
+            f" | {v['_OPAQUE_霢:1.0__ID_霢_125_']}ms | **{v['_OPAQUE_霢:1.0__ID_霢_79_']}x** |"
+        )
+    _OPAQUE_霢:1.0__ID_霢_286_ += [
+        "",
+        "### ③ _OPAQUE_廟:1.0__ID_廟_42_ _OPAQUE_廟:1.0__ID_廟_24_",
+        "",
+        "| _OPAQUE_廟:1.0__ID_廟_32_ | _OPAQUE_廟:1.0__ID_廟_72_ |",
+        "|---|---|",
+        f"| _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-1 _OPAQUE_霢:1.0__ID_霢_234_ | **{_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_238_']:.0f}%** |",
+        f"| _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-3 _OPAQUE_霢:1.0__ID_霢_234_ | {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_78_']:.0f}% |",
+        f"| _OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_霢:1.0__ID_霢_322_-5 _OPAQUE_霢:1.0__ID_霢_234_ | {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_207_']:.0f}% |",
+        f"| _OPAQUE_廟:1.0__ID_廟_21_ _OPAQUE_霢:1.0__ID_霢_192_ (50 _OPAQUE_霢:1.0__ID_霢_210_) | {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_126_']:.1f}% |",
+        f"| _OPAQUE_廟:1.0__ID_廟_24_ _OPAQUE_浮:1.0__ID_霢_325_ | **{_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_浮:1.0__ID_霢_325_']:.0f}x** _OPAQUE_策:1.0__ID_霢_239_ _OPAQUE_霢:1.0__ID_霢_101_ |",
+        f"| _OPAQUE_廟:1.0__ID_廟_18_ _OPAQUE_霢:1.0__ID_霢_208_ (_OPAQUE_霢:1.0__ID_霢_110_ / _OPAQUE_霢:1.0__ID_霢_121_) | {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_77_']:.2f}ms / {_OPAQUE_霢:1.0__ID_霢_11_['_OPAQUE_霢:1.0__ID_霢_254_']:.2f}ms |",
+        "",
+        "### ④ _OPAQUE_紐:1.0__ID_廟_48_ _OPAQUE_廟:1.0__ID_廟_62_ _OPAQUE_廟:1.0__ID_廟_43_ (1,000 _OPAQUE_霢:1.0__ID_霢_41_/_OPAQUE_霢:1.0__ID_霢_266_)",
+        "",
+        "| _OPAQUE_廟:1.0__ID_廟_11_ | _OPAQUE_区:1.0__ID_廟_68_/_OPAQUE_霢:1.0__ID_霢_316_ | _OPAQUE_区:1.0__ID_廟_68_/_OPAQUE_霢:1.0__ID_霢_313_ |",
+        "|---|---|---|",
+    ]
+    for _OPAQUE_霢:1.0__ID_霢_51_, v in _OPAQUE_霢:1.0__ID_霢_244_._OPAQUE_霢:1.0__ID_霢_245_():
+        _OPAQUE_霢:1.0__ID_霢_286_._OPAQUE_霢:1.0__ID_霢_46_(
+            f"| {_OPAQUE_霢:1.0__ID_霢_51_} | ${v['_OPAQUE_区:1.0__ID_霢_268_']:.5f} "
+            f"| **${v['_OPAQUE_区:1.0__ID_霢_33_']:,.0f}** (¥{v['_OPAQUE_区:1.0__ID_霢_235_']:,}) |"
+        )
+    return "\n"._OPAQUE_霢:1.0__ID_霢_71_(_OPAQUE_霢:1.0__ID_霢_286_)
+
+
+if _OPAQUE_霢:1.0__ID_霢_209_ == "_OPAQUE_霢:1.0__ID_霢_148_":
+    _OPAQUE_霢:1.0__ID_霢_84_()
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,52 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:90E2F307 ver:1778163896
+// ⚠️ One-time schema — expires after response
+
+// _ASTNODE_漂:0.2___node_WM_135__ [decoy-metadata]
+// _ASTNODE_式:0.1___node_ZZ_152__ [decoy-metadata]
+import os
+import re
+
+_ASTNODE_霰:1.0___node_霰_9__ _ASTNODE_匶:1.0___node_霰_28__(_ASTNODE_霰:1.0___node_霰_26__):
+    _ASTNODE_霰:1.0___node_霰_50__ open(_ASTNODE_霰:1.0___node_霰_26__, 'r') as f:
+        _ASTNODE_霰:1.0___node_霰_41__ = f._ASTNODE_霰:1.0___node_霰_10__()
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+    _ASTNODE_霰:1.0___node_霰_47__ = _ASTNODE_霰:1.0___node_霰_41__._ASTNODE_霰:1.0___node_霰_21__('\n')
+    _ASTNODE_霰:1.0___node_霰_54__ = _ASTNODE_庭:1.0___node_庭_6__
+// _ASTNODE_匶:0.4___node_KV_699__ [decoy-metadata]
+// _ASTNODE_匶:0.7___node_KL_360__ [decoy-metadata]
+    
+    for i in _ASTNODE_霰:1.0___node_霰_17__(_ASTNODE_霰:1.0___node_霰_52__(_ASTNODE_霰:1.0___node_霰_47__)):
+        _ASTNODE_霰:1.0___node_霰_39__ = _ASTNODE_霰:1.0___node_霰_47__[i]
+// _ASTNODE_庭:0.4___node_WL_369__ [decoy-metadata]
+        if '._ASTNODE_霰:1.0___node_霰_37__(._ASTNODE_霰:1.0___node_霰_18__)' in _ASTNODE_霰:1.0___node_霰_39__:
+// [metadata-stripped]
+            _ASTNODE_霰:1.0___node_霰_8__ = _ASTNODE_霰:1.0___node_霰_47__[i-1] if i > 0 else ""
+// _ASTNODE_繕:0.8___node_FE_600__ [decoy-metadata]
+            if '._ASTNODE_霰:1.0___node_霰_15__(_ASTNODE_庭:1.0___node_庭_7__())' _ASTNODE_霰:1.0___node_霰_33__ in _ASTNODE_霰:1.0___node_霰_8__ _ASTNODE_霰:1.0___node_霰_48__ '._ASTNODE_霰:1.0___node_霰_15__(_ASTNODE_庭:1.0___node_庭_7__())' _ASTNODE_霰:1.0___node_霰_33__ in _ASTNODE_霰:1.0___node_霰_39__:
+// [metadata-stripped]
+                _ASTNODE_霰:1.0___node_霰_23__ = _ASTNODE_霰:1.0___node_霰_52__(_ASTNODE_霰:1.0___node_霰_39__) - _ASTNODE_霰:1.0___node_霰_52__(_ASTNODE_霰:1.0___node_霰_39__._ASTNODE_霰:1.0___node_霰_12__())
+                _ASTNODE_霰:1.0___node_霰_16__ = " " * _ASTNODE_霰:1.0___node_霰_23__ + "._ASTNODE_霰:1.0___node_霰_15__(_ASTNODE_庭:1.0___node_庭_7__())"
+                
+// [metadata-stripped]
+                if '}._ASTNODE_霰:1.0___node_霰_37__(._ASTNODE_霰:1.0___node_霰_18__)' in _ASTNODE_霰:1.0___node_霰_39__:
+                    _ASTNODE_霰:1.0___node_霰_47__[i] = _ASTNODE_霰:1.0___node_霰_39__._ASTNODE_霰:1.0___node_霰_25__('}._ASTNODE_霰:1.0___node_霰_37__(._ASTNODE_霰:1.0___node_霰_18__)', '}\n' + _ASTNODE_霰:1.0___node_霰_16__ + '\n' + " " * _ASTNODE_霰:1.0___node_霰_23__ + '._ASTNODE_霰:1.0___node_霰_37__(._ASTNODE_霰:1.0___node_霰_18__)')
+                else:
+                    _ASTNODE_霰:1.0___node_霰_47__[i] = _ASTNODE_霰:1.0___node_霰_16__ + '\n' + _ASTNODE_霰:1.0___node_霰_39__
+                _ASTNODE_霰:1.0___node_霰_54__ = _ASTNODE_庭:1.0___node_庭_1__
+
+    if _ASTNODE_霰:1.0___node_霰_54__:
+        _ASTNODE_霰:1.0___node_霰_50__ open(_ASTNODE_霰:1.0___node_霰_26__, 'w') as f:
+            f._ASTNODE_霰:1.0___node_霰_24__('\n'._ASTNODE_霰:1.0___node_霰_19__(_ASTNODE_霰:1.0___node_霰_47__))
+        _ASTNODE_霰:1.0___node_霰_27__(f"_ASTNODE_庭:1.0___node_庭_2__ {_ASTNODE_霰:1.0___node_霰_26__}")
+
+for _ASTNODE_霰:1.0___node_霰_46__, _, _ASTNODE_匶:1.0___node_霰_29__ in os._ASTNODE_霰:1.0___node_霰_38__('.'):
+    for f in _ASTNODE_匶:1.0___node_霰_29__:
+        if f._ASTNODE_霰:1.0___node_霰_44__('._ASTNODE_漂:1.0___node_霰_1__'):
+            _ASTNODE_匶:1.0___node_霰_28__(os._ASTNODE_霰:1.0___node_霰_26__._ASTNODE_霰:1.0___node_霰_19__(_ASTNODE_霰:1.0___node_霰_46__, f))
+
+// POLYMORPHIC_JCROSS_END

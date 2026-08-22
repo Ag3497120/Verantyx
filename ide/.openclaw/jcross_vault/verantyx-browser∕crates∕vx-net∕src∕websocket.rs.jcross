@@ -1,0 +1,496 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E63FECB9 ver:1778158760
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_霢:1.0___node_霢_35__ _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_23__::_JCROSS_廨:1.0___node_廨_74__;
+_JCROSS_霢:1.0___node_霢_35__ _JCROSS_霢:1.0___node_霢_98__::{_JCROSS_廨:1.0___node_廨_43__ as _, _JCROSS_霢:1.0___node_霢_120__::_JCROSS_霢:1.0___node_霢_20__::_JCROSS_廨:1.0___node_廨_59__ as _JCROSS_廨:1.0___node_廨_92__};
+_JCROSS_霢:1.0___node_霢_35__ _JCROSS_霢:1.0___node_霢_74__::{_JCROSS_廨:1.0___node_廨_97__, _JCROSS_廨:1.0___node_廨_55__};
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _JCROSS_封:0.9___node_ZC_476__ [decoy-metadata]
+_JCROSS_霢:1.0___node_霢_105__ enum _JCROSS_廨:1.0___node_廨_22__ {
+    _JCROSS_廨:1.0___node_廨_79__,
+    _JCROSS_廨:1.0___node_廨_42__,
+    _JCROSS_廨:1.0___node_廨_36__,
+    _JCROSS_廨:1.0___node_廨_21__,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ enum _JCROSS_廨:1.0___node_廨_66__ {
+    _JCROSS_廨:1.0___node_廨_7__ = 0x0,
+    _JCROSS_廨:1.0___node_廨_8__         = 0x1,
+    _JCROSS_廨:1.0___node_廨_69__       = 0x2,
+// [metadata-stripped]
+    _JCROSS_廨:1.0___node_廨_86__        = 0x8,
+    _JCROSS_廨:1.0___node_廨_53__         = 0x9,
+    _JCROSS_廨:1.0___node_廨_89__         = 0xA,
+// [metadata-stripped]
+}
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_廨:1.0___node_廨_66__ {
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_108__(b: u8) -> _JCROSS_廨:1.0___node_廨_77__<_JCROSS_廨:1.0___node_廨_100__> {
+        _JCROSS_霢:1.0___node_霢_210__ b {
+            0x0 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_7__),
+            0x1 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_8__),
+            0x2 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_69__),
+            0x8 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_86__),
+            0x9 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_53__),
+            0xA => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_89__),
+            _ => _JCROSS_廨:1.0___node_廨_99__,
+        }
+    }
+    
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_95__(&self) -> _JCROSS_霢:1.0___node_霢_86__ {
+        _JCROSS_霢:1.0___node_霢_214__!(self, _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_86__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_53__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_89__)
+    }
+    
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_82__(&self) -> _JCROSS_霢:1.0___node_霢_86__ {
+        _JCROSS_霢:1.0___node_霢_214__!(self, _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_8__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_69__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_7__)
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ enum _JCROSS_廨:1.0___node_廨_60__ {
+    _JCROSS_廨:1.0___node_廨_107__       = 1000,
+    _JCROSS_廨:1.0___node_廨_44__           = 1001,
+    _JCROSS_廨:1.0___node_廨_15__       = 1002,
+    _JCROSS_廨:1.0___node_廨_33__     = 1003,
+    _JCROSS_廨:1.0___node_廨_70__    = 1005, // _JCROSS_廨:1.0___node_廨_71__ _JCROSS_霢:1.0___node_霢_88__ in _JCROSS_霢:1.0___node_霢_171__ _JCROSS_廨:1.0___node_廨_86__ _JCROSS_霢:1.0___node_霢_30__
+    _JCROSS_廨:1.0___node_廨_9__     = 1006, // _JCROSS_廨:1.0___node_廨_71__ _JCROSS_霢:1.0___node_霢_88__ in _JCROSS_霢:1.0___node_霢_171__ _JCROSS_廨:1.0___node_廨_86__ _JCROSS_霢:1.0___node_霢_30__
+    _JCROSS_医:1.0___node_廨_13__      = 1007,
+    _JCROSS_廨:1.0___node_廨_3__     = 1008,
+    _JCROSS_廨:1.0___node_廨_10__       = 1009,
+// _JCROSS_焦:0.6___node_KX_211__ [decoy-metadata]
+    _JCROSS_廨:1.0___node_廨_34__  = 1010,
+// _JCROSS_焦:0.4___node_WY_682__ [decoy-metadata]
+    _JCROSS_廨:1.0___node_廨_47__       = 1011,
+    _JCROSS_廨:1.0___node_廨_35__      = 1012,
+    _JCROSS_図:1.0___node_廨_72__       = 1013,
+    _JCROSS_廨:1.0___node_廨_110__        = 1015, // _JCROSS_廨:1.0___node_廨_71__ _JCROSS_霢:1.0___node_霢_88__ in _JCROSS_霢:1.0___node_霢_171__ _JCROSS_廨:1.0___node_廨_86__ _JCROSS_霢:1.0___node_霢_30__
+// [metadata-stripped]
+// [metadata-stripped]
+}
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_廨:1.0___node_廨_60__ {
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_90__(_JCROSS_霢:1.0___node_霢_12__: _JCROSS_霢:1.0___node_霢_87__) -> _JCROSS_廨:1.0___node_廨_77__<_JCROSS_廨:1.0___node_廨_100__> {
+        _JCROSS_霢:1.0___node_霢_210__ _JCROSS_霢:1.0___node_霢_12__ {
+            1000 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_107__),
+            1001 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_44__),
+            1002 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_15__),
+            1003 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_33__),
+            1005 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_70__),
+            1006 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_9__),
+            1007 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_医:1.0___node_廨_13__),
+            1008 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_3__),
+            1009 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_10__),
+            1010 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_34__),
+            1011 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_47__),
+            1012 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_35__),
+            1013 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_図:1.0___node_廨_72__),
+            1015 => _JCROSS_廨:1.0___node_廨_105__(_JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_110__),
+            _ => _JCROSS_廨:1.0___node_廨_99__,
+        }
+    }
+    
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_45__(&self) -> _JCROSS_霢:1.0___node_霢_86__ {
+        !_JCROSS_霢:1.0___node_霢_214__!(self,
+            _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_70__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_9__ | _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_110__
+        )
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_55__uct _JCROSS_廨:1.0___node_廨_85__ {
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_215__: _JCROSS_霢:1.0___node_霢_86__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_199__: _JCROSS_霢:1.0___node_霢_86__,       // _JCROSS_廨:1.0___node_廨_75__ by _JCROSS_霢:1.0___node_霢_141__-_JCROSS_霢:1.0___node_霢_207__
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_173__: _JCROSS_霢:1.0___node_霢_86__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_21__: _JCROSS_霢:1.0___node_霢_86__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_126__: _JCROSS_霢:1.0___node_霢_86__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_医:1.0___node_霢_161__: _JCROSS_廨:1.0___node_廨_1__<u8>,
+}
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_廨:1.0___node_廨_85__ {
+// [metadata-stripped]
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_177__(_JCROSS_霢:1.0___node_霢_133__: &[u8]) -> _JCROSS_廨:1.0___node_廨_77__<(_JCROSS_廨:1.0___node_廨_100__, _JCROSS_霢:1.0___node_霢_6__)> {
+// _JCROSS_図:0.8___node_WH_501__ [decoy-metadata]
+        if _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_192__() < 2 { return _JCROSS_廨:1.0___node_廨_99__; }
+        
+        let _JCROSS_霢:1.0___node_霢_84__ = _JCROSS_霢:1.0___node_霢_133__[0];
+        let _JCROSS_霢:1.0___node_霢_169__ = _JCROSS_霢:1.0___node_霢_133__[1];
+        
+        let _JCROSS_霢:1.0___node_霢_215__  = (_JCROSS_霢:1.0___node_霢_84__ & 0x80) != 0;
+        let _JCROSS_霢:1.0___node_霢_199__ = (_JCROSS_霢:1.0___node_霢_84__ & 0x40) != 0;
+        let _JCROSS_霢:1.0___node_霢_173__ = (_JCROSS_霢:1.0___node_霢_84__ & 0x20) != 0;
+        let _JCROSS_霢:1.0___node_霢_21__ = (_JCROSS_霢:1.0___node_霢_84__ & 0x10) != 0;
+        let _JCROSS_霢:1.0___node_霢_194__ = _JCROSS_霢:1.0___node_霢_84__ & 0x0F;
+        let _JCROSS_霢:1.0___node_霢_126__ = (_JCROSS_霢:1.0___node_霢_169__ & 0x80) != 0;
+        let _JCROSS_医:1.0___node_霢_198__ = (_JCROSS_霢:1.0___node_霢_169__ & 0x7F) as _JCROSS_霢:1.0___node_霢_6__;
+        
+        let _JCROSS_霢:1.0___node_霢_203__ = _JCROSS_廨:1.0___node_廨_66__::_JCROSS_霢:1.0___node_霢_108__(_JCROSS_霢:1.0___node_霢_194__)?;
+        
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_霢:1.0___node_霢_202__ = 2_JCROSS_霢:1.0___node_霢_6__;
+        
+// [metadata-stripped]
+        let _JCROSS_医:1.0___node_霢_151__ = _JCROSS_霢:1.0___node_霢_210__ _JCROSS_医:1.0___node_霢_198__ {
+            126 => {
+                if _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_192__() < _JCROSS_霢:1.0___node_霢_202__ + 2 { return _JCROSS_廨:1.0___node_廨_99__; }
+                let _JCROSS_霢:1.0___node_霢_192__ = _JCROSS_霢:1.0___node_霢_87__::_JCROSS_霢:1.0___node_霢_145__([_JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+1]]) as _JCROSS_霢:1.0___node_霢_6__;
+                _JCROSS_霢:1.0___node_霢_202__ += 2;
+                _JCROSS_霢:1.0___node_霢_192__
+            }
+            127 => {
+                if _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_192__() < _JCROSS_霢:1.0___node_霢_202__ + 8 { return _JCROSS_廨:1.0___node_廨_99__; }
+                let _JCROSS_霢:1.0___node_霢_192__ = _JCROSS_霢:1.0___node_霢_107__::_JCROSS_霢:1.0___node_霢_145__([
+                    _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+1], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+2], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+3],
+                    _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+4], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+5], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+6], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+7],
+                ]) as _JCROSS_霢:1.0___node_霢_6__;
+                _JCROSS_霢:1.0___node_霢_202__ += 8;
+                _JCROSS_霢:1.0___node_霢_192__
+            }
+            n => n,
+        };
+        
+// [metadata-stripped]
+        let _JCROSS_封:1.0___node_霢_208__ = if _JCROSS_霢:1.0___node_霢_126__ {
+            if _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_192__() < _JCROSS_霢:1.0___node_霢_202__ + 4 { return _JCROSS_廨:1.0___node_廨_99__; }
+            let _JCROSS_封:1.0___node_霢_14__ = [_JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+1], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+2], _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__+3]];
+            _JCROSS_霢:1.0___node_霢_202__ += 4;
+            _JCROSS_廨:1.0___node_廨_105__(_JCROSS_封:1.0___node_霢_14__)
+        } else {
+            _JCROSS_廨:1.0___node_廨_99__
+        };
+        
+// [metadata-stripped]
+        if _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_192__() < _JCROSS_霢:1.0___node_霢_202__ + _JCROSS_医:1.0___node_霢_151__ { return _JCROSS_廨:1.0___node_廨_99__; }
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_医:1.0___node_霢_161__ = _JCROSS_霢:1.0___node_霢_133__[_JCROSS_霢:1.0___node_霢_202__.._JCROSS_霢:1.0___node_霢_202__+_JCROSS_医:1.0___node_霢_151__]._JCROSS_霢:1.0___node_霢_93__();
+        
+        if let _JCROSS_廨:1.0___node_廨_105__(_JCROSS_封:1.0___node_霢_14__) = _JCROSS_封:1.0___node_霢_208__ {
+            for (i, _JCROSS_霢:1.0___node_霢_36__) in _JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_50__()._JCROSS_霢:1.0___node_霢_131__() {
+                *_JCROSS_霢:1.0___node_霢_36__ ^= _JCROSS_封:1.0___node_霢_14__[i % 4];
+            }
+        }
+        
+        _JCROSS_霢:1.0___node_霢_202__ += _JCROSS_医:1.0___node_霢_151__;
+        
+        _JCROSS_廨:1.0___node_廨_105__((_JCROSS_廨:1.0___node_廨_85__ { _JCROSS_霢:1.0___node_霢_215__, _JCROSS_霢:1.0___node_霢_199__, _JCROSS_霢:1.0___node_霢_173__, _JCROSS_霢:1.0___node_霢_21__, _JCROSS_霢:1.0___node_霢_203__, _JCROSS_霢:1.0___node_霢_126__, _JCROSS_医:1.0___node_霢_161__ }, _JCROSS_霢:1.0___node_霢_202__))
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_211__(&self, _JCROSS_封:1.0___node_霢_208__: [u8; 4]) -> _JCROSS_廨:1.0___node_廨_1__<u8> {
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_霢:1.0___node_霢_133__ = _JCROSS_廨:1.0___node_廨_1__::_JCROSS_霢:1.0___node_霢_164__();
+        
+        let _JCROSS_霢:1.0___node_霢_84__ = ((self._JCROSS_霢:1.0___node_霢_215__ as u8) << 7)
+            | ((self._JCROSS_霢:1.0___node_霢_199__ as u8) << 6)
+            | ((self._JCROSS_霢:1.0___node_霢_173__ as u8) << 5)
+            | ((self._JCROSS_霢:1.0___node_霢_21__ as u8) << 4)
+            | (self._JCROSS_霢:1.0___node_霢_203__ as u8);
+        _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_84__);
+        
+        let _JCROSS_医:1.0___node_霢_151__ = self._JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_192__();
+        let _JCROSS_霢:1.0___node_霢_64__ = 0x80u8;
+        
+        if _JCROSS_医:1.0___node_霢_151__ < 126 {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_64__ | _JCROSS_医:1.0___node_霢_151__ as u8);
+        } else if _JCROSS_医:1.0___node_霢_151__ < 65536 {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_64__ | 126);
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&(_JCROSS_医:1.0___node_霢_151__ as _JCROSS_霢:1.0___node_霢_87__)._JCROSS_霢:1.0___node_霢_184__());
+        } else {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_64__ | 127);
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&(_JCROSS_医:1.0___node_霢_151__ as _JCROSS_霢:1.0___node_霢_107__)._JCROSS_霢:1.0___node_霢_184__());
+        }
+        
+        _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&_JCROSS_封:1.0___node_霢_208__);
+        
+        for (i, &_JCROSS_霢:1.0___node_霢_36__) in self._JCROSS_医:1.0___node_霢_161__._JCROSS_図:1.0___node_霢_178__()._JCROSS_霢:1.0___node_霢_131__() {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_36__ ^ _JCROSS_封:1.0___node_霢_208__[i % 4]);
+        }
+        
+        _JCROSS_霢:1.0___node_霢_133__
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_163__(&self) -> _JCROSS_廨:1.0___node_廨_1__<u8> {
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_霢:1.0___node_霢_133__ = _JCROSS_廨:1.0___node_廨_1__::_JCROSS_霢:1.0___node_霢_164__();
+        
+        let _JCROSS_霢:1.0___node_霢_84__ = ((self._JCROSS_霢:1.0___node_霢_215__ as u8) << 7) | (self._JCROSS_霢:1.0___node_霢_203__ as u8);
+        _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_霢:1.0___node_霢_84__);
+        
+        let _JCROSS_医:1.0___node_霢_151__ = self._JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_192__();
+        if _JCROSS_医:1.0___node_霢_151__ < 126 {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(_JCROSS_医:1.0___node_霢_151__ as u8);
+        } else if _JCROSS_医:1.0___node_霢_151__ < 65536 {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(126);
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&(_JCROSS_医:1.0___node_霢_151__ as _JCROSS_霢:1.0___node_霢_87__)._JCROSS_霢:1.0___node_霢_184__());
+        } else {
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_17__(127);
+            _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&(_JCROSS_医:1.0___node_霢_151__ as _JCROSS_霢:1.0___node_霢_107__)._JCROSS_霢:1.0___node_霢_184__());
+        }
+        
+        _JCROSS_霢:1.0___node_霢_133__._JCROSS_霢:1.0___node_霢_77__(&self._JCROSS_医:1.0___node_霢_161__);
+        _JCROSS_霢:1.0___node_霢_133__
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_81__(_JCROSS_霢:1.0___node_霢_81__: &_JCROSS_霢:1.0___node_霢_55__) -> _JCROSS_廨:1.0___node_廨_100__ {
+        _JCROSS_廨:1.0___node_廨_100__ { _JCROSS_霢:1.0___node_霢_215__: true, _JCROSS_霢:1.0___node_霢_199__: false, _JCROSS_霢:1.0___node_霢_173__: false, _JCROSS_霢:1.0___node_霢_21__: false,
+               _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_8__, _JCROSS_霢:1.0___node_霢_126__: false, _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_81__._JCROSS_霢:1.0___node_霢_5__()._JCROSS_霢:1.0___node_霢_93__() }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_19__(_JCROSS_霢:1.0___node_霢_124__: _JCROSS_廨:1.0___node_廨_1__<u8>) -> _JCROSS_廨:1.0___node_廨_100__ {
+        _JCROSS_廨:1.0___node_廨_100__ { _JCROSS_霢:1.0___node_霢_215__: true, _JCROSS_霢:1.0___node_霢_199__: false, _JCROSS_霢:1.0___node_霢_173__: false, _JCROSS_霢:1.0___node_霢_21__: false,
+               _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_69__, _JCROSS_霢:1.0___node_霢_126__: false, _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_124__ }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_44__(_JCROSS_霢:1.0___node_霢_124__: _JCROSS_廨:1.0___node_廨_1__<u8>) -> _JCROSS_廨:1.0___node_廨_100__ {
+        _JCROSS_廨:1.0___node_廨_100__ { _JCROSS_霢:1.0___node_霢_215__: true, _JCROSS_霢:1.0___node_霢_199__: false, _JCROSS_霢:1.0___node_霢_173__: false, _JCROSS_霢:1.0___node_霢_21__: false,
+               _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_53__, _JCROSS_霢:1.0___node_霢_126__: false, _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_124__ }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_32__(_JCROSS_霢:1.0___node_霢_168__: _JCROSS_廨:1.0___node_廨_1__<u8>) -> _JCROSS_廨:1.0___node_廨_100__ {
+        _JCROSS_廨:1.0___node_廨_100__ { _JCROSS_霢:1.0___node_霢_215__: true, _JCROSS_霢:1.0___node_霢_199__: false, _JCROSS_霢:1.0___node_霢_173__: false, _JCROSS_霢:1.0___node_霢_21__: false,
+               _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_89__, _JCROSS_霢:1.0___node_霢_126__: false, _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_168__ }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_128__(_JCROSS_霢:1.0___node_霢_12__: _JCROSS_廨:1.0___node_廨_60__, _JCROSS_霢:1.0___node_霢_70__: &_JCROSS_霢:1.0___node_霢_55__) -> _JCROSS_廨:1.0___node_廨_100__ {
+        let _JCROSS_霢:1.0___node_霢_180__ = (_JCROSS_霢:1.0___node_霢_12__ as _JCROSS_霢:1.0___node_霢_87__)._JCROSS_霢:1.0___node_霢_184__();
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_医:1.0___node_霢_161__ = _JCROSS_霢:1.0___node_霢_180__._JCROSS_霢:1.0___node_霢_93__();
+        _JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_77__(_JCROSS_霢:1.0___node_霢_70__._JCROSS_霢:1.0___node_霢_5__());
+        
+        _JCROSS_廨:1.0___node_廨_100__ { _JCROSS_霢:1.0___node_霢_215__: true, _JCROSS_霢:1.0___node_霢_199__: false, _JCROSS_霢:1.0___node_霢_173__: false, _JCROSS_霢:1.0___node_霢_21__: false,
+               _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_86__, _JCROSS_霢:1.0___node_霢_126__: false, _JCROSS_医:1.0___node_霢_161__ }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_医:1.0___node_霢_41__(_JCROSS_医:1.0___node_霢_161__: &[u8]) -> (_JCROSS_廨:1.0___node_廨_77__<_JCROSS_霢:1.0___node_霢_87__>, _JCROSS_廨:1.0___node_廨_77__<_JCROSS_廨:1.0___node_廨_106__>) {
+        if _JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_192__() < 2 {
+            return (_JCROSS_廨:1.0___node_廨_99__, _JCROSS_廨:1.0___node_廨_99__);
+        }
+        let _JCROSS_霢:1.0___node_霢_12__ = _JCROSS_霢:1.0___node_霢_87__::_JCROSS_霢:1.0___node_霢_145__([_JCROSS_医:1.0___node_霢_161__[0], _JCROSS_医:1.0___node_霢_161__[1]]);
+        let _JCROSS_霢:1.0___node_霢_70__ = if _JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_192__() > 2 {
+            _JCROSS_廨:1.0___node_廨_106__::_JCROSS_霢:1.0___node_霢_188__(_JCROSS_医:1.0___node_霢_161__[2..]._JCROSS_霢:1.0___node_霢_93__()).ok()
+        } else {
+            _JCROSS_廨:1.0___node_廨_99__
+        };
+        (_JCROSS_廨:1.0___node_廨_105__(_JCROSS_霢:1.0___node_霢_12__), _JCROSS_霢:1.0___node_霢_70__)
+    }
+}
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_55__uct _JCROSS_廨:1.0___node_廨_23__;
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_廨:1.0___node_廨_23__ {
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_165__ _JCROSS_廨:1.0___node_廨_28__: &'static _JCROSS_霢:1.0___node_霢_55__ = "258EAFA5-_JCROSS_廨:1.0___node_廨_73__-47DA-95CA-_JCROSS_廨:1.0___node_廨_67__";
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_134__(_JCROSS_封:1.0___node_霢_14__: &_JCROSS_霢:1.0___node_霢_55__) -> _JCROSS_廨:1.0___node_廨_106__ {
+// [metadata-stripped]
+// [metadata-stripped]
+        let _JCROSS_霢:1.0___node_霢_147__ = _JCROSS_漕:1.0___node_霢_60__!("{}{}", _JCROSS_封:1.0___node_霢_14__._JCROSS_霢:1.0___node_霢_205__(), _JCROSS_廨:1.0___node_廨_100__::_JCROSS_廨:1.0___node_廨_28__);
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_図:1.0___node_霢_160__ = _JCROSS_廨:1.0___node_廨_97__::_JCROSS_霢:1.0___node_霢_164__();
+        _JCROSS_図:1.0___node_霢_160__._JCROSS_霢:1.0___node_霢_144__(_JCROSS_霢:1.0___node_霢_147__._JCROSS_霢:1.0___node_霢_5__());
+        let _JCROSS_霢:1.0___node_霢_136__ = _JCROSS_図:1.0___node_霢_160__._JCROSS_霢:1.0___node_霢_154__();
+        _JCROSS_廨:1.0___node_廨_92__._JCROSS_霢:1.0___node_霢_72__(&_JCROSS_霢:1.0___node_霢_136__[..20]) // _JCROSS_廨:1.0___node_廨_18__ to 20 _JCROSS_霢:1.0___node_霢_201__ to _JCROSS_霢:1.0___node_霢_210__ _JCROSS_廨:1.0___node_廨_31__-1 _JCROSS_霢:1.0___node_霢_97__ _JCROSS_霢:1.0___node_霢_212__
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_封:1.0___node_霢_143__() -> _JCROSS_廨:1.0___node_廨_106__ {
+        _JCROSS_霢:1.0___node_霢_35__ _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_58__::{_JCROSS_廨:1.0___node_廨_88__, _JCROSS_廨:1.0___node_廨_2__};
+        let _JCROSS_霢:1.0___node_霢_157__ = _JCROSS_廨:1.0___node_廨_88__::_JCROSS_霢:1.0___node_霢_137__()
+            ._JCROSS_霢:1.0___node_霢_53__(_JCROSS_廨:1.0___node_廨_2__)
+            ._JCROSS_霢:1.0___node_霢_189__()
+            ._JCROSS_霢:1.0___node_霢_8__();
+        let _JCROSS_霢:1.0___node_霢_181__ = _JCROSS_霢:1.0___node_霢_157__._JCROSS_霢:1.0___node_霢_109__();
+// [metadata-stripped]
+        let _JCROSS_霢:1.0___node_霢_156__ = [_JCROSS_霢:1.0___node_霢_181__[0], _JCROSS_霢:1.0___node_霢_181__[1], _JCROSS_霢:1.0___node_霢_181__[2], _JCROSS_霢:1.0___node_霢_181__[3],
+                      _JCROSS_霢:1.0___node_霢_181__[0] ^ 0xAA, _JCROSS_霢:1.0___node_霢_181__[1] ^ 0x55, _JCROSS_霢:1.0___node_霢_181__[2] ^ 0xFF, _JCROSS_霢:1.0___node_霢_181__[3] ^ 0x0F,
+                      0x42, 0x0E, 0x6F, 0x72,
+                      0x61, 0x6E, 0x67, 0x65];
+        _JCROSS_廨:1.0___node_廨_92__._JCROSS_霢:1.0___node_霢_72__(&_JCROSS_霢:1.0___node_霢_156__)
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_紋:1.0___node_霢_78__(_JCROSS_霢:1.0___node_霢_103__: &_JCROSS_霢:1.0___node_霢_55__, _JCROSS_霢:1.0___node_霢_200__: &_JCROSS_霢:1.0___node_霢_55__, _JCROSS_霢:1.0___node_霢_209__: &[&_JCROSS_霢:1.0___node_霢_55__]) -> (_JCROSS_廨:1.0___node_廨_106__, _JCROSS_廨:1.0___node_廨_106__) {
+        let _JCROSS_封:1.0___node_霢_14__ = _JCROSS_廨:1.0___node_廨_100__::_JCROSS_封:1.0___node_霢_143__();
+        let _JCROSS_霢:1.0___node_霢_152__ _JCROSS_紋:1.0___node_霢_63__ = _JCROSS_漕:1.0___node_霢_60__!(
+            "_JCROSS_図:1.0___node_焦_1__ {} _JCROSS_紋:1.0___node_廨_11__/1.1\r\n\
+             _JCROSS_廨:1.0___node_廨_27__: {}\r\n\
+             _JCROSS_廨:1.0___node_廨_54__: _JCROSS_霢:1.0___node_霢_119__\r\n\
+             _JCROSS_廨:1.0___node_廨_80__: _JCROSS_廨:1.0___node_廨_54__\r\n\
+             _JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_封:1.0___node_廨_95__: {}\r\n\
+             _JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_廨:1.0___node_廨_46__: 13\r\n",
+            _JCROSS_霢:1.0___node_霢_200__, _JCROSS_霢:1.0___node_霢_103__, _JCROSS_封:1.0___node_霢_14__
+        );
+        
+        if !_JCROSS_霢:1.0___node_霢_209__._JCROSS_霢:1.0___node_霢_191__() {
+            _JCROSS_紋:1.0___node_霢_63__._JCROSS_霢:1.0___node_霢_11__(&_JCROSS_漕:1.0___node_霢_60__!("_JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_廨:1.0___node_廨_87__: {}\r\n", _JCROSS_霢:1.0___node_霢_209__._JCROSS_霢:1.0___node_霢_4__(", ")));
+        }
+        
+        _JCROSS_紋:1.0___node_霢_63__._JCROSS_霢:1.0___node_霢_11__("\r\n");
+        (_JCROSS_紋:1.0___node_霢_63__, _JCROSS_封:1.0___node_霢_14__)
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_125__(_JCROSS_霢:1.0___node_霢_10__: &_JCROSS_霢:1.0___node_霢_55__, _JCROSS_封:1.0___node_霢_135__: &_JCROSS_霢:1.0___node_霢_55__) -> _JCROSS_廨:1.0___node_廨_50__<(), _JCROSS_廨:1.0___node_廨_106__> {
+        if !_JCROSS_霢:1.0___node_霢_10__._JCROSS_霢:1.0___node_霢_56__("_JCROSS_紋:1.0___node_廨_11__/1.1 101") {
+            return _JCROSS_廨:1.0___node_廨_91__(_JCROSS_漕:1.0___node_霢_60__!("_JCROSS_廨:1.0___node_廨_19__ 101 _JCROSS_廨:1.0___node_廨_45__ _JCROSS_廨:1.0___node_廨_90__, _JCROSS_霢:1.0___node_霢_116__: {}", &_JCROSS_霢:1.0___node_霢_10__[.._JCROSS_霢:1.0___node_霢_10__._JCROSS_霢:1.0___node_霢_213__('\r')._JCROSS_霢:1.0___node_霢_99__(50)]));
+        }
+        
+        let _JCROSS_霢:1.0___node_霢_18__ = _JCROSS_廨:1.0___node_廨_100__::_JCROSS_霢:1.0___node_霢_134__(_JCROSS_封:1.0___node_霢_135__);
+        let _JCROSS_図:1.0___node_霢_216__ = "_JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_廨:1.0___node_廨_108__:";
+        
+        let _JCROSS_霢:1.0___node_霢_27__ = _JCROSS_霢:1.0___node_霢_10__._JCROSS_霢:1.0___node_霢_39__()
+            ._JCROSS_霢:1.0___node_霢_213__(|_JCROSS_霢:1.0___node_霢_101__| _JCROSS_霢:1.0___node_霢_101__._JCROSS_霢:1.0___node_霢_38__()._JCROSS_霢:1.0___node_霢_56__(&_JCROSS_図:1.0___node_霢_216__._JCROSS_霢:1.0___node_霢_38__()))
+            ._JCROSS_霢:1.0___node_霢_186__(|_JCROSS_霢:1.0___node_霢_101__| _JCROSS_霢:1.0___node_霢_101__._JCROSS_霢:1.0___node_霢_162__(2, ':')._JCROSS_霢:1.0___node_霢_40__(1))
+            ._JCROSS_霢:1.0___node_霢_140__(|v| v._JCROSS_霢:1.0___node_霢_205__()._JCROSS_霢:1.0___node_霢_139__());
+        
+        _JCROSS_霢:1.0___node_霢_210__ _JCROSS_霢:1.0___node_霢_27__ {
+            _JCROSS_廨:1.0___node_廨_99__ => _JCROSS_廨:1.0___node_廨_91__("_JCROSS_廨:1.0___node_廨_101__ _JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_廨:1.0___node_廨_108__ _JCROSS_図:1.0___node_霢_92__"._JCROSS_霢:1.0___node_霢_139__()),
+            _JCROSS_廨:1.0___node_廨_105__(v) if v != _JCROSS_霢:1.0___node_霢_18__ => _JCROSS_廨:1.0___node_廨_91__(_JCROSS_漕:1.0___node_霢_60__!(
+                "_JCROSS_廨:1.0___node_廨_4__-_JCROSS_廨:1.0___node_廨_82__-_JCROSS_廨:1.0___node_廨_108__ _JCROSS_霢:1.0___node_霢_106__: _JCROSS_霢:1.0___node_霢_153__ {}, _JCROSS_霢:1.0___node_霢_116__ {}", _JCROSS_霢:1.0___node_霢_18__, v
+            )),
+            _ => Ok(()),
+        }
+    }
+}
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_55__uct _JCROSS_図:1.0___node_廨_94__ {
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_25__: _JCROSS_廨:1.0___node_廨_77__<_JCROSS_廨:1.0___node_廨_66__>,
+    _JCROSS_医:1.0___node_霢_33__: _JCROSS_廨:1.0___node_廨_1__<u8>,
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_146__: _JCROSS_廨:1.0___node_廨_74__<_JCROSS_廨:1.0___node_廨_58__>,
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_114__: _JCROSS_霢:1.0___node_霢_6__,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_55__uct _JCROSS_廨:1.0___node_廨_58__ {
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_霢:1.0___node_霢_203__: _JCROSS_廨:1.0___node_廨_66__,
+    _JCROSS_霢:1.0___node_霢_105__ _JCROSS_医:1.0___node_霢_161__: _JCROSS_廨:1.0___node_廨_1__<u8>,
+}
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_廨:1.0___node_廨_58__ {
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_81__(&self) -> _JCROSS_廨:1.0___node_廨_77__<&_JCROSS_霢:1.0___node_霢_55__> {
+        if self._JCROSS_霢:1.0___node_霢_203__ == _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_8__ {
+            _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_55__::_JCROSS_霢:1.0___node_霢_188__(&self._JCROSS_医:1.0___node_霢_161__).ok()
+        } else {
+            _JCROSS_廨:1.0___node_廨_99__
+        }
+    }
+    
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_19__(&self) -> _JCROSS_廨:1.0___node_廨_77__<&[u8]> {
+        if self._JCROSS_霢:1.0___node_霢_203__ == _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_69__ { _JCROSS_廨:1.0___node_廨_105__(&self._JCROSS_医:1.0___node_霢_161__) } else { _JCROSS_廨:1.0___node_廨_99__ }
+    }
+}
+
+_JCROSS_霢:1.0___node_霢_112__ _JCROSS_図:1.0___node_廨_94__ {
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_164__(_JCROSS_霢:1.0___node_霢_114__: _JCROSS_霢:1.0___node_霢_6__) -> _JCROSS_廨:1.0___node_廨_100__ {
+        _JCROSS_廨:1.0___node_廨_100__ {
+            _JCROSS_霢:1.0___node_霢_25__: _JCROSS_廨:1.0___node_廨_99__,
+            _JCROSS_医:1.0___node_霢_33__: _JCROSS_廨:1.0___node_廨_1__::_JCROSS_霢:1.0___node_霢_164__(),
+            _JCROSS_霢:1.0___node_霢_146__: _JCROSS_廨:1.0___node_廨_74__::_JCROSS_霢:1.0___node_霢_164__(),
+            _JCROSS_霢:1.0___node_霢_114__,
+        }
+    }
+    
+// [metadata-stripped]
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_62__(&_JCROSS_霢:1.0___node_霢_152__ self, _JCROSS_霢:1.0___node_霢_115__: _JCROSS_廨:1.0___node_廨_85__) -> _JCROSS_廨:1.0___node_廨_50__<(), _JCROSS_廨:1.0___node_廨_106__> {
+// [metadata-stripped]
+        if _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__._JCROSS_霢:1.0___node_霢_95__() {
+            if !_JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_215__ {
+                return _JCROSS_廨:1.0___node_廨_91__("_JCROSS_廨:1.0___node_廨_76__ _JCROSS_霢:1.0___node_霢_30__ _JCROSS_霢:1.0___node_霢_190__ _JCROSS_霢:1.0___node_霢_37__ be _JCROSS_霢:1.0___node_霢_91__"._JCROSS_霢:1.0___node_霢_139__());
+            }
+// _JCROSS_霢:0.4___node_YA_819__ [decoy-metadata]
+            if _JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__._JCROSS_霢:1.0___node_霢_192__() > 125 {
+// _JCROSS_霢:0.2___node_AE_951__ [decoy-metadata]
+                return _JCROSS_廨:1.0___node_廨_91__("_JCROSS_廨:1.0___node_廨_76__ _JCROSS_霢:1.0___node_霢_115__ _JCROSS_医:1.0___node_霢_161__ _JCROSS_霢:1.0___node_霢_46__ _JCROSS_霢:1.0___node_霢_142__ (_JCROSS_霢:1.0___node_霢_54__ 125 _JCROSS_霢:1.0___node_霢_201__)"._JCROSS_霢:1.0___node_霢_139__());
+            }
+            self._JCROSS_霢:1.0___node_霢_146__._JCROSS_霢:1.0___node_霢_155__(_JCROSS_廨:1.0___node_廨_58__ {
+                _JCROSS_霢:1.0___node_霢_203__: _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__,
+                _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__,
+            });
+            return Ok(());
+        }
+        
+        if _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__ == _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_7__ {
+// [metadata-stripped]
+            if self._JCROSS_霢:1.0___node_霢_25__._JCROSS_霢:1.0___node_霢_206__() {
+                return _JCROSS_廨:1.0___node_廨_91__("_JCROSS_廨:1.0___node_廨_7__ _JCROSS_霢:1.0___node_霢_115__ _JCROSS_霢:1.0___node_霢_148__ _JCROSS_霢:1.0___node_霢_61__ _JCROSS_霢:1.0___node_霢_115__"._JCROSS_霢:1.0___node_霢_139__());
+            }
+            self._JCROSS_医:1.0___node_霢_33__._JCROSS_霢:1.0___node_霢_77__(&_JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__);
+            
+            if self._JCROSS_医:1.0___node_霢_33__._JCROSS_霢:1.0___node_霢_192__() > self._JCROSS_霢:1.0___node_霢_114__ {
+                return _JCROSS_廨:1.0___node_廨_91__(_JCROSS_漕:1.0___node_霢_60__!("_JCROSS_廨:1.0___node_廨_17__ _JCROSS_霢:1.0___node_霢_46__ _JCROSS_霢:1.0___node_霢_142__ (_JCROSS_霢:1.0___node_霢_54__ {} _JCROSS_霢:1.0___node_霢_201__)", self._JCROSS_霢:1.0___node_霢_114__));
+            }
+            
+            if _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_215__ {
+                let _JCROSS_霢:1.0___node_霢_203__ = self._JCROSS_霢:1.0___node_霢_25__._JCROSS_霢:1.0___node_霢_170__()._JCROSS_霢:1.0___node_霢_176__();
+                let _JCROSS_医:1.0___node_霢_161__ = _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_122__::_JCROSS_霢:1.0___node_霢_170__(&_JCROSS_霢:1.0___node_霢_152__ self._JCROSS_医:1.0___node_霢_33__);
+                
+// [metadata-stripped]
+                if _JCROSS_霢:1.0___node_霢_203__ == _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_8__ {
+                    _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_55__::_JCROSS_霢:1.0___node_霢_188__(&_JCROSS_医:1.0___node_霢_161__)
+                        ._JCROSS_霢:1.0___node_霢_121__(|e| _JCROSS_漕:1.0___node_霢_60__!("_JCROSS_廨:1.0___node_廨_14__ _JCROSS_廨:1.0___node_廨_84__-8 in _JCROSS_廨:1.0___node_廨_8__ _JCROSS_霢:1.0___node_霢_57__: {}", e))?;
+                }
+                
+                self._JCROSS_霢:1.0___node_霢_146__._JCROSS_霢:1.0___node_霢_155__(_JCROSS_廨:1.0___node_廨_58__ { _JCROSS_霢:1.0___node_霢_203__, _JCROSS_医:1.0___node_霢_161__ });
+            }
+        } else {
+// [metadata-stripped]
+            if self._JCROSS_霢:1.0___node_霢_25__._JCROSS_霢:1.0___node_霢_129__() {
+                return _JCROSS_廨:1.0___node_廨_91__("_JCROSS_廨:1.0___node_廨_103__ _JCROSS_霢:1.0___node_霢_124__ _JCROSS_霢:1.0___node_霢_115__ _JCROSS_霢:1.0___node_霢_73__ while _JCROSS_霢:1.0___node_霢_183__ _JCROSS_霢:1.0___node_霢_57__ is _JCROSS_霢:1.0___node_霢_52__"._JCROSS_霢:1.0___node_霢_139__());
+            }
+            
+            if _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_215__ {
+// [metadata-stripped]
+                if _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__ == _JCROSS_廨:1.0___node_廨_66__::_JCROSS_廨:1.0___node_廨_8__ {
+                    _JCROSS_霢:1.0___node_霢_187__::_JCROSS_霢:1.0___node_霢_55__::_JCROSS_霢:1.0___node_霢_188__(&_JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__)
+                        ._JCROSS_霢:1.0___node_霢_121__(|e| _JCROSS_漕:1.0___node_霢_60__!("_JCROSS_廨:1.0___node_廨_14__ _JCROSS_廨:1.0___node_廨_84__-8 in _JCROSS_廨:1.0___node_廨_8__ _JCROSS_霢:1.0___node_霢_57__: {}", e))?;
+                }
+                self._JCROSS_霢:1.0___node_霢_146__._JCROSS_霢:1.0___node_霢_155__(_JCROSS_廨:1.0___node_廨_58__ {
+                    _JCROSS_霢:1.0___node_霢_203__: _JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__,
+                    _JCROSS_医:1.0___node_霢_161__: _JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__,
+                });
+            } else {
+// [metadata-stripped]
+                self._JCROSS_霢:1.0___node_霢_25__ = _JCROSS_廨:1.0___node_廨_105__(_JCROSS_霢:1.0___node_霢_115__._JCROSS_霢:1.0___node_霢_203__);
+                self._JCROSS_医:1.0___node_霢_33__ = _JCROSS_霢:1.0___node_霢_115__._JCROSS_医:1.0___node_霢_161__;
+            }
+        }
+        
+        Ok(())
+    }
+    
+    _JCROSS_霢:1.0___node_霢_105__ fn _JCROSS_霢:1.0___node_霢_22__(&_JCROSS_霢:1.0___node_霢_152__ self) -> _JCROSS_廨:1.0___node_廨_77__<_JCROSS_廨:1.0___node_廨_58__> {
+        self._JCROSS_霢:1.0___node_霢_146__._JCROSS_霢:1.0___node_霢_69__()
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

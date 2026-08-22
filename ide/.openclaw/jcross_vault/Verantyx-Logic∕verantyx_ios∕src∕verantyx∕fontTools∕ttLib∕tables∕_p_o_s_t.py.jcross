@@ -1,0 +1,331 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EB30650B ver:1778162229
+// ⚠️ One-time schema — expires after response
+
+__node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_ import __node_霜:1.0___OPAQUE_霜_125_
+__node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_.__node_霜:1.0___OPAQUE_霜_125_.__node_謀:1.0___OPAQUE_霜_131_ import __node_謀:1.0___OPAQUE_霜_131_
+__node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_.__node_霜:1.0___OPAQUE_霜_141_ import __node_霜:1.0___OPAQUE_霜_29_
+__node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_.__node_霜:1.0___OPAQUE_霜_141_.__node_霜:1.0___OPAQUE_霜_81_ import __node_霜:1.0___OPAQUE_霜_157_, __node_霜:1.0___OPAQUE_霜_187_, __node_霜:1.0___OPAQUE_霜_74_, __node_霜:1.0___OPAQUE_霜_97_, __node_霜:1.0___OPAQUE_霜_12_, __node_霜:1.0___OPAQUE_霜_109_
+__node_霜:1.0___OPAQUE_霜_36_ . import __node_殻:1.0___OPAQUE_殻_16_
+import __node_霜:1.0___OPAQUE_霜_181_
+import struct
+import __node_霜:1.0___OPAQUE_霜_213_
+import __node_霜:1.0___OPAQUE_霜_75_
+
+__node_霜:1.0___OPAQUE_霜_30_ = __node_霜:1.0___OPAQUE_霜_75_.__node_謀:1.0___OPAQUE_碑_1_(__node_霜:1.0___OPAQUE_霜_206_)
+
+__node_渦:1.0___OPAQUE_霜_220_ = """
+	>
+	__node_渦:1.0___OPAQUE_霜_152_:			16.16F
+// __node_碑:0.9___OPAQUE_HG_605_ [decoy-metadata]
+	__node_霜:1.0___OPAQUE_霜_15_:		16.16F		# __node_霜:1.0___OPAQUE_霜_34_ __node_霜:1.0___OPAQUE_霜_116_ in __node_霜:1.0___OPAQUE_霜_66_
+	__node_霜:1.0___OPAQUE_霜_71_:	h
+	__node_霜:1.0___OPAQUE_霜_124_:	h
+	__node_霜:1.0___OPAQUE_霜_178_:		L
+// __node_渦:0.5___OPAQUE_BE_782_ [decoy-metadata]
+	__node_霜:1.0___OPAQUE_霜_174_:		L			# __node_霜:1.0___OPAQUE_霜_50_ __node_霜:1.0___OPAQUE_霜_57_ if __node_殻:1.0___OPAQUE_殻_8_ __node_霜:1.0___OPAQUE_霜_23_ is __node_匶:1.0___OPAQUE_霜_147_
+	__node_霜:1.0___OPAQUE_霜_9_:		L			# __node_霜:1.0___OPAQUE_霜_84_ __node_霜:1.0___OPAQUE_霜_57_ if __node_殻:1.0___OPAQUE_殻_8_ __node_霜:1.0___OPAQUE_霜_23_ is __node_匶:1.0___OPAQUE_霜_147_
+	__node_霜:1.0___OPAQUE_霜_204_:		L			# __node_霜:1.0___OPAQUE_霜_50_ __node_霜:1.0___OPAQUE_霜_57_ if __node_殻:1.0___OPAQUE_殻_15_ __node_霜:1.0___OPAQUE_霜_23_ is __node_匶:1.0___OPAQUE_霜_147_
+	__node_霜:1.0___OPAQUE_霜_145_:		L			# __node_霜:1.0___OPAQUE_霜_84_ __node_霜:1.0___OPAQUE_霜_57_ if __node_殻:1.0___OPAQUE_殻_15_ __node_霜:1.0___OPAQUE_霜_23_ is __node_匶:1.0___OPAQUE_霜_147_
+"""
+
+__node_渦:1.0___OPAQUE_霜_226_ = __node_霜:1.0___OPAQUE_霜_29_.__node_霜:1.0___OPAQUE_霜_148_(__node_渦:1.0___OPAQUE_霜_220_)
+
+
+class __node_霜:1.0___OPAQUE_霜_191_(__node_殻:1.0___OPAQUE_殻_16_.__node_殻:1.0___OPAQUE_殻_16_):
+    """__node_殻:1.0___OPAQUE_殻_11_ __node_霜:1.0___OPAQUE_霜_129_
+
+    __node_殻:1.0___OPAQUE_殻_9_ ``__node_霜:1.0___OPAQUE_霜_26_`` __node_霜:1.0___OPAQUE_霜_129_ __node_霜:1.0___OPAQUE_霜_5_ __node_渦:1.0___OPAQUE_霜_54_ __node_霜:1.0___OPAQUE_霜_172_ to __node_霜:1.0___OPAQUE_霜_82_ __node_霜:1.0___OPAQUE_霜_41_ __node_霜:1.0___OPAQUE_霜_23_ on
+    __node_殻:1.0___OPAQUE_殻_11_ __node_霜:1.0___OPAQUE_霜_142_, __node_霜:1.0___OPAQUE_霜_218_ __node_霜:1.0___OPAQUE_霜_41_ __node_殻:1.0___OPAQUE_殻_11_ __node_霜:1.0___OPAQUE_霜_10_ of __node_霜:1.0___OPAQUE_霜_25_ __node_霜:1.0___OPAQUE_霜_68_
+    __node_霜:1.0___OPAQUE_霜_7_ __node_霜:1.0___OPAQUE_霜_90_ __node_霜:1.0___OPAQUE_霜_70_ __node_霜:1.0___OPAQUE_霜_113_ in __node_霜:1.0___OPAQUE_霜_41_ ``__node_殻:1.0___OPAQUE_殻_14_`` __node_霜:1.0___OPAQUE_霜_208_ for __node_殻:1.0___OPAQUE_殻_20_ 1 __node_霜:1.0___OPAQUE_霜_150_.
+
+    __node_殻:1.0___OPAQUE_殻_3_ __node_霜:1.0___OPAQUE_霜_126_ __node_網:1.0___OPAQUE_霜_67_://__node_霜:1.0___OPAQUE_霜_154_.__node_霜:1.0___OPAQUE_霜_171_.__node_霜:1.0___OPAQUE_霜_207_/en-us/__node_霜:1.0___OPAQUE_霜_92_/__node_霜:1.0___OPAQUE_霜_136_/__node_霜:1.0___OPAQUE_霜_104_/__node_霜:1.0___OPAQUE_霜_26_
+    """
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_16_(self, __node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_29_.__node_霜:1.0___OPAQUE_霜_86_(__node_渦:1.0___OPAQUE_霜_220_, __node_霜:1.0___OPAQUE_霜_7_[:__node_渦:1.0___OPAQUE_霜_226_], self)
+        __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_[__node_渦:1.0___OPAQUE_霜_226_:]
+        if self.__node_渦:1.0___OPAQUE_霜_152_ == 1.0:
+            self.__node_渦:1.0___OPAQUE_霜_201_(__node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_)
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 2.0:
+            self.__node_渦:1.0___OPAQUE_霜_11_(__node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_)
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 3.0:
+            self.__node_渦:1.0___OPAQUE_霜_170_(__node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_)
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 4.0:
+            self.__node_渦:1.0___OPAQUE_霜_186_(__node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_)
+        else:
+// [metadata-stripped]
+            __node_霜:1.0___OPAQUE_霜_195_ __node_霜:1.0___OPAQUE_霜_125_.__node_殻:1.0___OPAQUE_殻_6_(
+                "'__node_霜:1.0___OPAQUE_霜_26_' __node_霜:1.0___OPAQUE_霜_129_ __node_渦:1.0___OPAQUE_霜_1_ %f __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_33_" % self.__node_渦:1.0___OPAQUE_霜_152_
+            )
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_146_(self, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_29_.__node_霜:1.0___OPAQUE_霜_37_(__node_渦:1.0___OPAQUE_霜_220_, self)
+        if self.__node_渦:1.0___OPAQUE_霜_152_ == 1.0:
+            __node_霜:1.0___OPAQUE_霜_120_  # we're __node_霜:1.0___OPAQUE_霜_190_
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 2.0:
+            __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_ + self.__node_渦:1.0___OPAQUE_霜_19_(__node_霜:1.0___OPAQUE_霜_128_)
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 3.0:
+            __node_霜:1.0___OPAQUE_霜_120_  # we're __node_霜:1.0___OPAQUE_霜_190_
+        __node_渦:1.0___OPAQUE_霜_6_ self.__node_渦:1.0___OPAQUE_霜_152_ == 4.0:
+            __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_ + self.__node_渦:1.0___OPAQUE_霜_209_(__node_霜:1.0___OPAQUE_霜_128_)
+        else:
+// [metadata-stripped]
+            __node_霜:1.0___OPAQUE_霜_195_ __node_霜:1.0___OPAQUE_霜_125_.__node_殻:1.0___OPAQUE_殻_6_(
+                "'__node_霜:1.0___OPAQUE_霜_26_' __node_霜:1.0___OPAQUE_霜_129_ __node_渦:1.0___OPAQUE_霜_1_ %f __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_33_" % self.__node_渦:1.0___OPAQUE_霜_152_
+            )
+        return __node_霜:1.0___OPAQUE_霜_7_
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_謀:1.0___OPAQUE_碑_7_(self):
+        """__node_殻:1.0___OPAQUE_殻_5_ __node_霜:1.0___OPAQUE_霜_78_ __node_霜:1.0___OPAQUE_霜_214_ __node_謀:1.0___OPAQUE_碑_3_ __node_霜:1.0___OPAQUE_霜_162_ by a __node_霜:1.0___OPAQUE_霜_125_.__node_殻:1.0___OPAQUE_殻_13_ __node_霜:1.0___OPAQUE_霜_40_.
+        Do __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_76_ __node_霜:1.0___OPAQUE_霜_203_ __node_霜:1.0___OPAQUE_霜_78_ __node_霜:1.0___OPAQUE_霜_64_, __node_霜:1.0___OPAQUE_霜_82_ __node_殻:1.0___OPAQUE_殻_13_().__node_謀:1.0___OPAQUE_碑_7_()
+        or __node_霜:1.0___OPAQUE_霜_224_ __node_霜:1.0___OPAQUE_霜_189_ __node_霜:1.0___OPAQUE_霜_35_!
+        """
+        if __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_119_(self, "__node_謀:1.0___OPAQUE_霜_158_"):
+            __node_霜:1.0___OPAQUE_霜_195_ __node_霜:1.0___OPAQUE_霜_125_.__node_殻:1.0___OPAQUE_殻_6_("__node_霜:1.0___OPAQUE_霜_63_ __node_霜:1.0___OPAQUE_霜_82_ of __node_謀:1.0___OPAQUE_碑_7_()")
+        __node_謀:1.0___OPAQUE_霜_158_ = self.__node_謀:1.0___OPAQUE_霜_158_
+        __node_霜:1.0___OPAQUE_霜_215_ self.__node_謀:1.0___OPAQUE_霜_158_
+        return __node_謀:1.0___OPAQUE_霜_158_
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_201_(self, __node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_):
+        self.__node_謀:1.0___OPAQUE_霜_158_ = __node_謀:1.0___OPAQUE_霜_131_[: __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_]
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_11_(self, __node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_):
+        (__node_霜:1.0___OPAQUE_霜_27_,) = struct.__node_霜:1.0___OPAQUE_霜_86_(">H", __node_霜:1.0___OPAQUE_霜_7_[:2])
+        __node_霜:1.0___OPAQUE_霜_27_ = __node_霜:1.0___OPAQUE_霜_56_(__node_霜:1.0___OPAQUE_霜_27_)
+        if __node_霜:1.0___OPAQUE_霜_27_ > __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            __node_霜:1.0___OPAQUE_霜_27_ = __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_
+        __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_[2:]
+        __node_霜:1.0___OPAQUE_霜_155_ = __node_霜:1.0___OPAQUE_霜_213_.__node_霜:1.0___OPAQUE_霜_213_("H")
+        __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_200_(__node_霜:1.0___OPAQUE_霜_7_[: 2 * __node_霜:1.0___OPAQUE_霜_27_])
+        if __node_霜:1.0___OPAQUE_霜_181_.__node_謀:1.0___OPAQUE_霜_185_ != "__node_霜:1.0___OPAQUE_霜_219_":
+            __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_31_()
+        __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_[2 * __node_霜:1.0___OPAQUE_霜_27_ :]
+        __node_霜:1.0___OPAQUE_霜_110_ = __node_霜:1.0___OPAQUE_霜_192_(__node_霜:1.0___OPAQUE_霜_155_)
+        self.__node_霜:1.0___OPAQUE_霜_88_ = __node_霜:1.0___OPAQUE_霜_88_ = __node_霜:1.0___OPAQUE_霜_69_(__node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_110_ - 257)
+        self.__node_謀:1.0___OPAQUE_霜_158_ = __node_謀:1.0___OPAQUE_霜_158_ = [""] * __node_霜:1.0___OPAQUE_霜_56_(__node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_)
+        for __node_霜:1.0___OPAQUE_霜_77_ in __node_霜:1.0___OPAQUE_霜_167_(__node_霜:1.0___OPAQUE_霜_27_):
+            __node_霜:1.0___OPAQUE_霜_98_ = __node_霜:1.0___OPAQUE_霜_155_[__node_霜:1.0___OPAQUE_霜_77_]
+            if __node_霜:1.0___OPAQUE_霜_98_ > 257:
+                try:
+                    __node_霜:1.0___OPAQUE_霜_17_ = __node_霜:1.0___OPAQUE_霜_88_[__node_霜:1.0___OPAQUE_霜_98_ - 258]
+                __node_霜:1.0___OPAQUE_霜_87_ __node_殻:1.0___OPAQUE_殻_21_:
+                    __node_霜:1.0___OPAQUE_霜_17_ = ""
+            else:
+// [metadata-stripped]
+                __node_霜:1.0___OPAQUE_霜_17_ = __node_謀:1.0___OPAQUE_霜_131_[__node_霜:1.0___OPAQUE_霜_98_]
+            __node_謀:1.0___OPAQUE_霜_158_[__node_霜:1.0___OPAQUE_霜_77_] = __node_霜:1.0___OPAQUE_霜_17_
+        self.__node_霜:1.0___OPAQUE_霜_130_(__node_霜:1.0___OPAQUE_霜_128_)
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_130_(self, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_217_ = {}
+        __node_霜:1.0___OPAQUE_霜_168_ = {}
+        __node_霜:1.0___OPAQUE_霜_223_ = __node_謀:1.0___OPAQUE_碑_2_(self.__node_謀:1.0___OPAQUE_霜_158_)
+        for i in __node_霜:1.0___OPAQUE_霜_167_(__node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_):
+            __node_霜:1.0___OPAQUE_霜_183_ = __node_霜:1.0___OPAQUE_霜_169_ = self.__node_謀:1.0___OPAQUE_霜_158_[i]
+            if __node_霜:1.0___OPAQUE_霜_183_ == "":
+                __node_霜:1.0___OPAQUE_霜_183_ = "__node_霜:1.0___OPAQUE_霜_173_%.5d" % i
+
+            if __node_霜:1.0___OPAQUE_霜_183_ in __node_霜:1.0___OPAQUE_霜_168_:
+// [metadata-stripped]
+                n = __node_霜:1.0___OPAQUE_霜_168_[__node_霜:1.0___OPAQUE_霜_183_]
+// [metadata-stripped]
+                while f"{__node_霜:1.0___OPAQUE_霜_183_}.{n}" in __node_霜:1.0___OPAQUE_霜_223_:
+                    n += 1
+                __node_霜:1.0___OPAQUE_霜_168_[__node_霜:1.0___OPAQUE_霜_183_] = n + 1
+                __node_霜:1.0___OPAQUE_霜_183_ = f"{__node_霜:1.0___OPAQUE_霜_183_}.{n}"
+
+            __node_霜:1.0___OPAQUE_霜_168_[__node_霜:1.0___OPAQUE_霜_183_] = 1
+            if __node_霜:1.0___OPAQUE_霜_183_ != __node_霜:1.0___OPAQUE_霜_169_:
+                self.__node_謀:1.0___OPAQUE_霜_158_[i] = __node_霜:1.0___OPAQUE_霜_183_
+                __node_霜:1.0___OPAQUE_霜_217_[__node_霜:1.0___OPAQUE_霜_183_] = __node_霜:1.0___OPAQUE_霜_169_
+
+        self.__node_霜:1.0___OPAQUE_霜_217_ = __node_霜:1.0___OPAQUE_霜_217_
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_170_(self, __node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_):
+// [metadata-stripped]
+// [metadata-stripped]
+        self.__node_謀:1.0___OPAQUE_霜_158_ = __node_殻:1.0___OPAQUE_殻_1_
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_186_(self, __node_霜:1.0___OPAQUE_霜_7_, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_ import __node_霜:1.0___OPAQUE_霜_62_
+
+        __node_霜:1.0___OPAQUE_霜_27_ = __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_
+        __node_霜:1.0___OPAQUE_霜_155_ = __node_霜:1.0___OPAQUE_霜_213_.__node_霜:1.0___OPAQUE_霜_213_("H")
+        __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_200_(__node_霜:1.0___OPAQUE_霜_7_)
+        if __node_霜:1.0___OPAQUE_霜_181_.__node_謀:1.0___OPAQUE_霜_185_ != "__node_霜:1.0___OPAQUE_霜_219_":
+            __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_31_()
+// [metadata-stripped]
+// [metadata-stripped]
+        self.__node_謀:1.0___OPAQUE_霜_158_ = __node_謀:1.0___OPAQUE_霜_158_ = [""] * __node_霜:1.0___OPAQUE_霜_56_(__node_霜:1.0___OPAQUE_霜_27_)
+        for i in __node_霜:1.0___OPAQUE_霜_167_(__node_霜:1.0___OPAQUE_霜_194_(__node_霜:1.0___OPAQUE_霜_135_(__node_霜:1.0___OPAQUE_霜_155_), __node_霜:1.0___OPAQUE_霜_27_)):
+            if __node_霜:1.0___OPAQUE_霜_155_[i] == 0xFFFF:
+                self.__node_謀:1.0___OPAQUE_霜_158_[i] = ""
+            __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_155_[i] in __node_霜:1.0___OPAQUE_霜_62_.__node_殻:1.0___OPAQUE_殻_19_:
+                self.__node_謀:1.0___OPAQUE_霜_158_[i] = __node_霜:1.0___OPAQUE_霜_62_.__node_殻:1.0___OPAQUE_殻_19_[__node_霜:1.0___OPAQUE_霜_155_[i]]
+            else:
+                self.__node_謀:1.0___OPAQUE_霜_158_[i] = "__node_霜:1.0___OPAQUE_霜_159_%04X" % __node_霜:1.0___OPAQUE_霜_155_[i]
+        self.__node_霜:1.0___OPAQUE_霜_130_(__node_霜:1.0___OPAQUE_霜_128_)
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_19_(self, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_27_ = __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_
+        __node_謀:1.0___OPAQUE_霜_158_ = __node_霜:1.0___OPAQUE_霜_128_.__node_謀:1.0___OPAQUE_碑_7_()
+        __node_霜:1.0___OPAQUE_霜_198_ __node_霜:1.0___OPAQUE_霜_135_(__node_謀:1.0___OPAQUE_霜_158_) == __node_霜:1.0___OPAQUE_霜_27_
+        __node_霜:1.0___OPAQUE_霜_155_ = __node_霜:1.0___OPAQUE_霜_213_.__node_霜:1.0___OPAQUE_霜_213_("H")
+        __node_霜:1.0___OPAQUE_霜_46_ = {}
+        __node_霜:1.0___OPAQUE_霜_88_ = self.__node_霜:1.0___OPAQUE_霜_88_ = [
+            n for n in self.__node_霜:1.0___OPAQUE_霜_88_ if n __node_霜:1.0___OPAQUE_霜_140_ in __node_謀:1.0___OPAQUE_霜_131_
+        ]
+        for i, __node_霜:1.0___OPAQUE_霜_17_ in __node_霜:1.0___OPAQUE_霜_115_(__node_霜:1.0___OPAQUE_霜_88_):
+            __node_霜:1.0___OPAQUE_霜_46_[__node_霜:1.0___OPAQUE_霜_17_] = i
+        for __node_霜:1.0___OPAQUE_霜_183_ in __node_謀:1.0___OPAQUE_霜_158_:
+            if __node_霜:1.0___OPAQUE_霜_183_ in self.__node_霜:1.0___OPAQUE_霜_217_:
+                __node_霜:1.0___OPAQUE_霜_169_ = self.__node_霜:1.0___OPAQUE_霜_217_[__node_霜:1.0___OPAQUE_霜_183_]
+            else:
+                __node_霜:1.0___OPAQUE_霜_169_ = __node_霜:1.0___OPAQUE_霜_183_
+            if __node_霜:1.0___OPAQUE_霜_169_ in __node_霜:1.0___OPAQUE_霜_46_:
+                __node_霜:1.0___OPAQUE_霜_98_ = 258 + __node_霜:1.0___OPAQUE_霜_46_[__node_霜:1.0___OPAQUE_霜_169_]
+            __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_169_ in __node_謀:1.0___OPAQUE_霜_131_:
+                __node_霜:1.0___OPAQUE_霜_98_ = __node_謀:1.0___OPAQUE_霜_131_.__node_霜:1.0___OPAQUE_霜_98_(__node_霜:1.0___OPAQUE_霜_169_)
+            else:
+                __node_霜:1.0___OPAQUE_霜_98_ = 258 + __node_霜:1.0___OPAQUE_霜_135_(__node_霜:1.0___OPAQUE_霜_88_)
+                __node_霜:1.0___OPAQUE_霜_46_[__node_霜:1.0___OPAQUE_霜_169_] = __node_霜:1.0___OPAQUE_霜_135_(__node_霜:1.0___OPAQUE_霜_88_)
+                __node_霜:1.0___OPAQUE_霜_88_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_169_)
+            __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_98_)
+        if __node_霜:1.0___OPAQUE_霜_181_.__node_謀:1.0___OPAQUE_霜_185_ != "__node_霜:1.0___OPAQUE_霜_219_":
+            __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_31_()
+        return (
+            struct.__node_霜:1.0___OPAQUE_霜_37_(">H", __node_霜:1.0___OPAQUE_霜_27_) + __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_74_() + __node_霜:1.0___OPAQUE_霜_107_(__node_霜:1.0___OPAQUE_霜_88_)
+        )
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_渦:1.0___OPAQUE_霜_209_(self, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_3_ import __node_霜:1.0___OPAQUE_霜_62_
+
+        __node_霜:1.0___OPAQUE_霜_27_ = __node_霜:1.0___OPAQUE_霜_128_["__node_霜:1.0___OPAQUE_霜_179_"].__node_霜:1.0___OPAQUE_霜_27_
+        __node_謀:1.0___OPAQUE_霜_158_ = __node_霜:1.0___OPAQUE_霜_128_.__node_謀:1.0___OPAQUE_碑_7_()
+        __node_霜:1.0___OPAQUE_霜_198_ __node_霜:1.0___OPAQUE_霜_135_(__node_謀:1.0___OPAQUE_霜_158_) == __node_霜:1.0___OPAQUE_霜_27_
+        __node_霜:1.0___OPAQUE_霜_155_ = __node_霜:1.0___OPAQUE_霜_213_.__node_霜:1.0___OPAQUE_霜_213_("H")
+        for __node_霜:1.0___OPAQUE_霜_77_ in __node_謀:1.0___OPAQUE_霜_158_:
+            __node_霜:1.0___OPAQUE_霜_77_ = __node_霜:1.0___OPAQUE_霜_77_.__node_霜:1.0___OPAQUE_霜_91_("#")[0]
+            if __node_霜:1.0___OPAQUE_霜_77_ in __node_霜:1.0___OPAQUE_霜_62_.__node_殻:1.0___OPAQUE_殻_2_:
+                __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_62_.__node_殻:1.0___OPAQUE_殻_2_[__node_霜:1.0___OPAQUE_霜_77_])
+            __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_135_(__node_霜:1.0___OPAQUE_霜_77_) == 7 __node_霜:1.0___OPAQUE_霜_68_ __node_霜:1.0___OPAQUE_霜_77_[:3] == "__node_霜:1.0___OPAQUE_霜_159_":
+                __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_56_(__node_霜:1.0___OPAQUE_霜_77_[3:], 16))
+            else:
+                __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_122_(0xFFFF)
+        if __node_霜:1.0___OPAQUE_霜_181_.__node_謀:1.0___OPAQUE_霜_185_ != "__node_霜:1.0___OPAQUE_霜_219_":
+            __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_31_()
+        return __node_霜:1.0___OPAQUE_霜_155_.__node_霜:1.0___OPAQUE_霜_74_()
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_65_(self, __node_謀:1.0___OPAQUE_霜_212_, __node_霜:1.0___OPAQUE_霜_128_):
+        __node_渦:1.0___OPAQUE_霜_61_, __node_霜:1.0___OPAQUE_霜_10_, __node_霜:1.0___OPAQUE_霜_182_ = __node_霜:1.0___OPAQUE_霜_29_.__node_謀:1.0___OPAQUE_碑_5_(__node_渦:1.0___OPAQUE_霜_220_)
+        for __node_霜:1.0___OPAQUE_霜_17_ in __node_霜:1.0___OPAQUE_霜_10_:
+            __node_霜:1.0___OPAQUE_霜_202_ = __node_謀:1.0___OPAQUE_碑_9_(self, __node_霜:1.0___OPAQUE_霜_17_)
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_55_(__node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_202_=__node_霜:1.0___OPAQUE_霜_202_)
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+        if __node_霜:1.0___OPAQUE_霜_119_(self, "__node_霜:1.0___OPAQUE_霜_217_"):
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_89_("__node_霜:1.0___OPAQUE_霜_79_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_28_(
+                "__node_殻:1.0___OPAQUE_殻_5_ __node_匶:1.0___OPAQUE_霜_38_ __node_霜:1.0___OPAQUE_霜_149_ __node_霜:1.0___OPAQUE_霜_73_ __node_霜:1.0___OPAQUE_霜_173_ __node_霜:1.0___OPAQUE_霜_10_ __node_霜:1.0___OPAQUE_霜_21_ on __node_霜:1.0___OPAQUE_霜_41_ __node_渦:1.0___OPAQUE_霜_54_\n"
+                "__node_霜:1.0___OPAQUE_霜_43_ in __node_霜:1.0___OPAQUE_霜_41_ '__node_霜:1.0___OPAQUE_霜_26_' __node_霜:1.0___OPAQUE_霜_129_. __node_殻:1.0___OPAQUE_殻_7_ __node_霜:1.0___OPAQUE_霜_93_ __node_霜:1.0___OPAQUE_霜_10_ __node_霜:1.0___OPAQUE_霜_137_ __node_霜:1.0___OPAQUE_霜_140_ be __node_霜:1.0___OPAQUE_霜_73_,\n"
+// __node_網:0.1___OPAQUE_FZ_694_ [decoy-metadata]
+                "we __node_霜:1.0___OPAQUE_霜_180_ to __node_霜:1.0___OPAQUE_霜_112_ __node_渦:1.0___OPAQUE_霜_210_ __node_霜:1.0___OPAQUE_霜_10_ in case of __node_霜:1.0___OPAQUE_霜_8_. In __node_謀:1.0___OPAQUE_霜_196_ to\n"
+                "be __node_霜:1.0___OPAQUE_霜_48_ to __node_霜:1.0___OPAQUE_霜_85_ __node_霜:1.0___OPAQUE_霜_41_ __node_霜:1.0___OPAQUE_霜_42_ __node_渦:1.0___OPAQUE_霜_54_, we __node_霜:1.0___OPAQUE_霜_163_ a __node_霜:1.0___OPAQUE_霜_17_ to\n"
+                "ps __node_霜:1.0___OPAQUE_霜_17_ __node_霜:1.0___OPAQUE_霜_217_ for __node_霜:1.0___OPAQUE_霜_105_ __node_霜:1.0___OPAQUE_霜_83_ where __node_霜:1.0___OPAQUE_霜_96_ __node_謀:1.0___OPAQUE_霜_106_. __node_殻:1.0___OPAQUE_殻_17_'s __node_霜:1.0___OPAQUE_霜_184_\n"
+                "__node_霜:1.0___OPAQUE_霜_94_ __node_霜:1.0___OPAQUE_霜_199_ __node_霜:1.0___OPAQUE_霜_72_.\n"
+            )
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_霜:1.0___OPAQUE_霜_132_ = __node_霜:1.0___OPAQUE_霜_51_(self.__node_霜:1.0___OPAQUE_霜_217_.__node_霜:1.0___OPAQUE_霜_132_())
+            for __node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_169_ in __node_霜:1.0___OPAQUE_霜_132_:
+                __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_55_("__node_霜:1.0___OPAQUE_霜_169_", __node_霜:1.0___OPAQUE_霜_17_=__node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_169_=__node_霜:1.0___OPAQUE_霜_169_)
+                __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_193_("__node_霜:1.0___OPAQUE_霜_79_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+        if __node_霜:1.0___OPAQUE_霜_119_(self, "__node_霜:1.0___OPAQUE_霜_88_"):
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_89_("__node_霜:1.0___OPAQUE_霜_88_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_28_(
+                "__node_霜:1.0___OPAQUE_霜_45_ __node_霜:1.0___OPAQUE_霜_151_ __node_霜:1.0___OPAQUE_霜_41_ __node_霜:1.0___OPAQUE_霜_17_ __node_霜:1.0___OPAQUE_霜_90_ __node_霜:1.0___OPAQUE_霜_151_ __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_18_ __node_霜:1.0___OPAQUE_霜_36_ __node_霜:1.0___OPAQUE_霜_41_ __node_霜:1.0___OPAQUE_霜_103_ __node_殻:1.0___OPAQUE_殻_18_ __node_霜:1.0___OPAQUE_霜_173_ __node_謀:1.0___OPAQUE_霜_196_"
+            )
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            for __node_霜:1.0___OPAQUE_霜_17_ in self.__node_霜:1.0___OPAQUE_霜_88_:
+                __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_55_("__node_霜:1.0___OPAQUE_霜_169_", __node_霜:1.0___OPAQUE_霜_17_=__node_霜:1.0___OPAQUE_霜_17_)
+                __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_193_("__node_霜:1.0___OPAQUE_霜_88_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+        if __node_霜:1.0___OPAQUE_霜_119_(self, "__node_霜:1.0___OPAQUE_霜_7_"):
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_89_("__node_霜:1.0___OPAQUE_霜_44_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_133_(self.__node_霜:1.0___OPAQUE_霜_7_)
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_193_("__node_霜:1.0___OPAQUE_霜_44_")
+            __node_謀:1.0___OPAQUE_霜_212_.__node_霜:1.0___OPAQUE_霜_160_()
+
+    __node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_60_(self, __node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_161_, __node_霜:1.0___OPAQUE_霜_144_, __node_霜:1.0___OPAQUE_霜_128_):
+        if __node_霜:1.0___OPAQUE_霜_17_ __node_霜:1.0___OPAQUE_霜_140_ in ("__node_霜:1.0___OPAQUE_霜_79_", "__node_霜:1.0___OPAQUE_霜_88_", "__node_霜:1.0___OPAQUE_霜_44_"):
+            __node_謀:1.0___OPAQUE_碑_6_(self, __node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_12_(__node_霜:1.0___OPAQUE_霜_161_["__node_霜:1.0___OPAQUE_霜_202_"]))
+// __node_渦:0.4___OPAQUE_KZ_788_ [decoy-metadata]
+        __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_17_ == "__node_霜:1.0___OPAQUE_霜_79_":
+            self.__node_霜:1.0___OPAQUE_霜_217_ = {}
+            for __node_霜:1.0___OPAQUE_霜_32_ in __node_霜:1.0___OPAQUE_霜_144_:
+                if __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_111_(__node_霜:1.0___OPAQUE_霜_32_, __node_霜:1.0___OPAQUE_霜_205_):
+                    continue
+                __node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_161_, __node_霜:1.0___OPAQUE_霜_144_ = __node_霜:1.0___OPAQUE_霜_32_
+                if __node_霜:1.0___OPAQUE_霜_17_ == "__node_霜:1.0___OPAQUE_霜_169_":
+                    self.__node_霜:1.0___OPAQUE_霜_217_[__node_霜:1.0___OPAQUE_霜_161_["__node_霜:1.0___OPAQUE_霜_17_"]] = __node_霜:1.0___OPAQUE_霜_161_["__node_霜:1.0___OPAQUE_霜_169_"]
+// __node_渦:0.7___OPAQUE_CE_438_ [decoy-metadata]
+        __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_17_ == "__node_霜:1.0___OPAQUE_霜_88_":
+            self.__node_霜:1.0___OPAQUE_霜_88_ = []
+            for __node_霜:1.0___OPAQUE_霜_32_ in __node_霜:1.0___OPAQUE_霜_144_:
+                if __node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_111_(__node_霜:1.0___OPAQUE_霜_32_, __node_霜:1.0___OPAQUE_霜_205_):
+                    continue
+                __node_霜:1.0___OPAQUE_霜_17_, __node_霜:1.0___OPAQUE_霜_161_, __node_霜:1.0___OPAQUE_霜_144_ = __node_霜:1.0___OPAQUE_霜_32_
+                if __node_霜:1.0___OPAQUE_霜_17_ == "__node_霜:1.0___OPAQUE_霜_169_":
+                    self.__node_霜:1.0___OPAQUE_霜_88_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_161_["__node_霜:1.0___OPAQUE_霜_17_"])
+        else:
+            self.__node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_109_(__node_霜:1.0___OPAQUE_霜_144_)
+
+
+__node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_69_(__node_霜:1.0___OPAQUE_霜_7_, n):
+// [metadata-stripped]
+// [metadata-stripped]
+
+    __node_霜:1.0___OPAQUE_霜_99_ = []
+    __node_霜:1.0___OPAQUE_霜_98_ = 0
+    __node_霜:1.0___OPAQUE_霜_138_ = __node_霜:1.0___OPAQUE_霜_135_(__node_霜:1.0___OPAQUE_霜_7_)
+
+    for _ in __node_霜:1.0___OPAQUE_霜_167_(n):
+        if __node_霜:1.0___OPAQUE_霜_138_ <= __node_霜:1.0___OPAQUE_霜_98_:
+            __node_霜:1.0___OPAQUE_霜_221_ = 0
+        else:
+            __node_霜:1.0___OPAQUE_霜_221_ = __node_霜:1.0___OPAQUE_霜_187_(__node_霜:1.0___OPAQUE_霜_7_[__node_霜:1.0___OPAQUE_霜_98_])
+// __node_網:0.1___OPAQUE_CB_202_ [decoy-metadata]
+        __node_霜:1.0___OPAQUE_霜_98_ += 1
+
+        if __node_霜:1.0___OPAQUE_霜_138_ <= __node_霜:1.0___OPAQUE_霜_98_ + __node_霜:1.0___OPAQUE_霜_221_ - 1:
+            __node_霜:1.0___OPAQUE_霜_17_ = ""
+        else:
+            __node_霜:1.0___OPAQUE_霜_17_ = __node_霜:1.0___OPAQUE_霜_97_(__node_霜:1.0___OPAQUE_霜_7_[__node_霜:1.0___OPAQUE_霜_98_ : __node_霜:1.0___OPAQUE_霜_98_ + __node_霜:1.0___OPAQUE_霜_221_], __node_霜:1.0___OPAQUE_霜_52_="__node_霜:1.0___OPAQUE_霜_143_")
+        __node_霜:1.0___OPAQUE_霜_99_.__node_霜:1.0___OPAQUE_霜_122_(__node_霜:1.0___OPAQUE_霜_17_)
+        __node_霜:1.0___OPAQUE_霜_98_ += __node_霜:1.0___OPAQUE_霜_221_
+
+    if __node_霜:1.0___OPAQUE_霜_98_ < __node_霜:1.0___OPAQUE_霜_138_:
+        __node_霜:1.0___OPAQUE_霜_30_.__node_霜:1.0___OPAQUE_霜_14_("%d __node_霜:1.0___OPAQUE_霜_39_ __node_霜:1.0___OPAQUE_霜_20_ in __node_霜:1.0___OPAQUE_霜_26_.__node_霜:1.0___OPAQUE_霜_95_ __node_霜:1.0___OPAQUE_霜_213_", __node_霜:1.0___OPAQUE_霜_138_ - __node_霜:1.0___OPAQUE_霜_98_)
+
+    __node_渦:1.0___OPAQUE_霜_6_ __node_霜:1.0___OPAQUE_霜_138_ < __node_霜:1.0___OPAQUE_霜_98_:
+        __node_霜:1.0___OPAQUE_霜_30_.__node_霜:1.0___OPAQUE_霜_14_("__node_霜:1.0___OPAQUE_霜_140_ __node_霜:1.0___OPAQUE_霜_22_ __node_霜:1.0___OPAQUE_霜_7_ in __node_霜:1.0___OPAQUE_霜_26_.__node_霜:1.0___OPAQUE_霜_95_ __node_霜:1.0___OPAQUE_霜_213_")
+
+    return __node_霜:1.0___OPAQUE_霜_99_
+
+
+__node_霜:1.0___OPAQUE_霜_197_ __node_霜:1.0___OPAQUE_霜_107_(__node_霜:1.0___OPAQUE_霜_99_):
+    __node_霜:1.0___OPAQUE_霜_7_ = b""
+    for s in __node_霜:1.0___OPAQUE_霜_99_:
+        __node_霜:1.0___OPAQUE_霜_7_ = __node_霜:1.0___OPAQUE_霜_7_ + __node_霜:1.0___OPAQUE_霜_157_(__node_霜:1.0___OPAQUE_霜_135_(s)) + __node_霜:1.0___OPAQUE_霜_74_(s, __node_霜:1.0___OPAQUE_霜_52_="__node_霜:1.0___OPAQUE_霜_143_")
+    return __node_霜:1.0___OPAQUE_霜_7_
+
+// POLYMORPHIC_JCROSS_END

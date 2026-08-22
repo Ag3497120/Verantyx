@@ -1,0 +1,68 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:21B7CA6D ver:1778159685
+// ⚠️ One-time schema — expires after response
+
+// __ast_霤:0.5____node_CD_346__ [decoy-metadata]
+// __ast_霤:0.7____node_CD_952__ [decoy-metadata]
+// [metadata-stripped]
+import re
+__ast_霤:1.0____node_霤_6__ __ast_霤:1.0____node_霤_27__ import __ast_礎:1.0____node_礎_11__, __ast_礎:1.0____node_礎_5__
+__ast_霤:1.0____node_霤_6__ .__ast_霤:1.0____node_霤_26__ import __ast_道:1.0____node_礎_7__, __ast_礎:1.0____node_礎_2__
+__ast_霤:1.0____node_霤_6__ .__ast_霤:1.0____node_霤_13__ import __ast_霤:1.0____node_霤_17__
+// __ast_綾:0.3____node_CC_696__ [decoy-metadata]
+
+class __ast_道:1.0____node_礎_12__(__ast_道:1.0____node_礎_7__):
+    __ast_霤:1.0____node_霤_46__ __ast_霤:1.0____node_霤_40__(self, __ast_霤:1.0____node_霤_41__: __ast_霤:1.0____node_霤_8__, __ast_霤:1.0____node_霤_34__: __ast_礎:1.0____node_礎_11__[__ast_霤:1.0____node_霤_8__, __ast_礎:1.0____node_礎_5__]) -> __ast_霤:1.0____node_霤_30__:
+// [metadata-stripped]
+        __ast_霤:1.0____node_霤_1__ = __ast_霤:1.0____node_霤_34__.__ast_道:1.0____node_燦_1__("__ast_霤:1.0____node_霤_1__", [])
+        if __ast_霤:1.0____node_霤_16__ __ast_霤:1.0____node_霤_1__:
+            return 0.0
+            
+        __ast_霤:1.0____node_霤_42__ = any(any(m in c for m in ["[]", "<>", "□", "◇"]) for c in __ast_霤:1.0____node_霤_1__)
+        if __ast_霤:1.0____node_霤_16__ __ast_霤:1.0____node_霤_42__:
+            return 0.9 # 命題論理の可能性が高い
+        return 0.0
+
+    __ast_霤:1.0____node_霤_46__ __ast_霤:1.0____node_霤_35__(self, __ast_霤:1.0____node_霤_41__: __ast_霤:1.0____node_霤_8__, __ast_霤:1.0____node_霤_34__: __ast_礎:1.0____node_礎_11__[__ast_霤:1.0____node_霤_8__, __ast_礎:1.0____node_礎_5__], __ast_霤:1.0____node_霤_36__: __ast_礎:1.0____node_礎_11__[__ast_霤:1.0____node_霤_8__, __ast_礎:1.0____node_礎_5__]) -> __ast_礎:1.0____node_礎_2__:
+        __ast_霤:1.0____node_霤_1__ = __ast_霤:1.0____node_霤_34__.__ast_道:1.0____node_燦_1__("__ast_霤:1.0____node_霤_1__", [])
+        __ast_霤:1.0____node_霤_37__ = []
+        
+        try:
+            for f in __ast_霤:1.0____node_霤_1__:
+                __ast_霤:1.0____node_霤_39__, __ast_霤:1.0____node_霤_9__ = __ast_霤:1.0____node_霤_17__(f)
+                __ast_霤:1.0____node_霤_32__ = "__ast_霤:1.0____node_霤_23__" if __ast_霤:1.0____node_霤_39__ else "__ast_霤:1.0____node_霤_18__"
+                __ast_霤:1.0____node_霤_11__ = "__ast_礎:1.0____node_礎_6__" if __ast_霤:1.0____node_霤_39__ else "__ast_礎:1.0____node_礎_4__"
+                
+                __ast_霤:1.0____node_霤_2__ = {"__ast_浪:1.0____node_霤_21__": f}
+                if __ast_霤:1.0____node_霤_9__:
+                    __ast_霤:1.0____node_霤_2__["__ast_霤:1.0____node_霤_47__"] = {"__ast_礎:1.0____node_礎_1__": {"__ast_霤:1.0____node_霤_38__": __ast_霤:1.0____node_霤_9__}}
+                
+                __ast_霤:1.0____node_霤_37__.__ast_霤:1.0____node_霤_14__({
+// __ast_浪:0.2____node_WK_852__ [decoy-metadata]
+                    "__ast_浪:1.0____node_霤_21__": f,
+                    "__ast_霤:1.0____node_霤_32__": __ast_霤:1.0____node_霤_32__,
+                    "__ast_道:1.0____node_霤_10__": __ast_霤:1.0____node_霤_11__,
+                    "__ast_霤:1.0____node_霤_2__": __ast_霤:1.0____node_霤_2__
+                })
+            
+// __ast_綾:0.1____node_YG_452__ [decoy-metadata]
+// [metadata-stripped]
+            __ast_霤:1.0____node_霤_33__ = __ast_霤:1.0____node_霤_24__(1 for r in __ast_霤:1.0____node_霤_37__ if r["__ast_霤:1.0____node_霤_32__"] == "__ast_霤:1.0____node_霤_23__")
+            if __ast_霤:1.0____node_霤_33__ == __ast_霤:1.0____node_霤_20__(__ast_霤:1.0____node_霤_37__):
+                __ast_霤:1.0____node_霤_4__ = "__ast_霤:1.0____node_霤_23__"
+                __ast_霤:1.0____node_霤_29__ = f"__ast_礎:1.0____node_礎_10__ __ast_礎:1.0____node_礎_6__: {', '.__ast_霤:1.0____node_霤_25__(__ast_霤:1.0____node_霤_1__)}"
+            else:
+                __ast_霤:1.0____node_霤_4__ = "__ast_霤:1.0____node_霤_18__"
+// __ast_礎:0.9____node_CL_291__ [decoy-metadata]
+                __ast_霤:1.0____node_霤_29__ = "__ast_礎:1.0____node_礎_9__ __ast_霤:1.0____node_霤_1__ __ast_霤:1.0____node_霤_22__ __ast_霤:1.0____node_霤_5__."
+
+            return __ast_礎:1.0____node_礎_2__(
+                __ast_霤:1.0____node_霤_32__=__ast_霤:1.0____node_霤_4__,
+                __ast_道:1.0____node_霤_10__=__ast_霤:1.0____node_霤_29__,
+                __ast_霤:1.0____node_霤_19__=1.0,
+                __ast_霤:1.0____node_霤_2__={"__ast_霤:1.0____node_霤_37__": __ast_霤:1.0____node_霤_37__, "__ast_霤:1.0____node_霤_45__": "__ast_霤:1.0____node_霤_3__"}
+            )
+        __ast_霤:1.0____node_霤_12__ __ast_礎:1.0____node_礎_8__ as e:
+            return __ast_礎:1.0____node_礎_2__("__ast_霤:1.0____node_霤_7__", f"__ast_礎:1.0____node_礎_3__ __ast_道:1.0____node_霤_31__ __ast_霤:1.0____node_霤_15__: {e}", 0.0)
+
+// POLYMORPHIC_JCROSS_END

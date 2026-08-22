@@ -1,0 +1,459 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:54711868 ver:1778164960
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+_VERANTYX_庠:1.0__OPAQUE_庠_20_ _VERANTYX_庠:1.0__OPAQUE_庠_85_ × _VERANTYX_庠:1.0__OPAQUE_庠_95_ — _VERANTYX_庠:1.0__OPAQUE_庠_5_ _VERANTYX_庠:1.0__OPAQUE_庠_106_
+// _VERANTYX_函:0.8__OPAQUE_BE_293_ [decoy-metadata]
+==============================================
+アーキテクチャ:
+  _VERANTYX_庠:1.0__OPAQUE_庠_123_ 1個 (_VERANTYX_靄:1.0__OPAQUE_靄_313_:26b) を L1〜L3 の全フェーズで使用。
+  各セッション注入はステートレス独立呼び出し → コンテキスト汚染ゼロ。
+  最終推論時はAIが自分の内部記憶を100%信用せず、_VERANTYX_庠:1.0__OPAQUE_庠_12_のみを正として回答。
+
+動作フロー:
+  [注入] _VERANTYX_庠:1.0__OPAQUE_庠_15_ _VERANTYX_靄:1.0__OPAQUE_靄_387_ → _VERANTYX_庠:1.0__OPAQUE_庠_123_ (OP対応表参照) → L2 OPs生成 → _VERANTYX_庠:1.0__OPAQUE_庠_12_書き込み → コンテキスト排出
+  [検索] L1 _VERANTYX_庠:1.0__OPAQUE_庠_9_ _VERANTYX_靄:1.0__OPAQUE_靄_190_ → 候補絞り → L2 OPスキャン → _VERANTYX_庠:1.0__OPAQUE_庠_63_-1特定 → L3+L2 → _VERANTYX_庠:1.0__OPAQUE_庠_123_回答
+"""
+
+import _VERANTYX_靄:1.0__OPAQUE_靄_211_, os, re, _VERANTYX_靄:1.0__OPAQUE_靄_74_, _VERANTYX_靄:1.0__OPAQUE_靄_429_, _VERANTYX_靄:1.0__OPAQUE_靄_235_
+import _VERANTYX_紋:1.0__OPAQUE_靄_265_._VERANTYX_紋:1.0__OPAQUE_靄_306_
+
+// [metadata-stripped]
+_VERANTYX_庠:1.0__OPAQUE_庠_113_   = "/_VERANTYX_庠:1.0__OPAQUE_庠_70_/_VERANTYX_靄:1.0__OPAQUE_靄_420_/_VERANTYX_靄:1.0__OPAQUE_靄_60_-_VERANTYX_靄:1.0__OPAQUE_靄_96_/_VERANTYX_靄:1.0__OPAQUE_靄_219_/_VERANTYX_庠:1.0__OPAQUE_庠_95_/_VERANTYX_靄:1.0__OPAQUE_靄_318_/_VERANTYX_靄:1.0__OPAQUE_靄_66_._VERANTYX_靄:1.0__OPAQUE_靄_211_"
+_VERANTYX_庠:1.0__OPAQUE_庠_26_     = os._VERANTYX_靄:1.0__OPAQUE_靄_71_._VERANTYX_術:1.0__OPAQUE_靄_388_("~/._VERANTYX_靄:1.0__OPAQUE_靄_136_/_VERANTYX_靄:1.0__OPAQUE_靄_259_/_VERANTYX_靄:1.0__OPAQUE_靄_35_")
+_VERANTYX_紋:1.0__OPAQUE_庠_120_     = "_VERANTYX_紋:1.0__OPAQUE_靄_353_://_VERANTYX_靄:1.0__OPAQUE_靄_432_:11434/_VERANTYX_紋:1.0__OPAQUE_靄_173_/_VERANTYX_靄:1.0__OPAQUE_靄_263_"
+_VERANTYX_庠:1.0__OPAQUE_庠_56_    = "_VERANTYX_靄:1.0__OPAQUE_靄_313_:_VERANTYX_靄:1.0__OPAQUE_靄_58_"   # L2生成: 軽量・高速・ステートレス
+_VERANTYX_庠:1.0__OPAQUE_庠_67_    = "_VERANTYX_靄:1.0__OPAQUE_靄_313_:26b"   # 最終推論: 高精度
+_VERANTYX_庠:1.0__OPAQUE_庠_31_  = 7              # 500に変更でフルラン
+_VERANTYX_庠:1.0__OPAQUE_庠_27_       = 50             # L1マップで絞る候補数
+_VERANTYX_庠:1.0__OPAQUE_庠_68_   = 15             # _VERANTYX_庠:1.0__OPAQUE_庠_123_ L2生成を適用する上位N件
+_VERANTYX_庠:1.0__OPAQUE_庠_76_     = 1              # 最終推論に渡す件数
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_庠:1.0__OPAQUE_庠_42_ = """_VERANTYX_庠:1.0__OPAQUE_庠_3_ _VERANTYX_庠:1.0__OPAQUE_庠_100_ — _VERANTYX_庠:1.0__OPAQUE_庠_20_ _VERANTYX_庠:1.0__OPAQUE_庠_62_ _VERANTYX_庠:1.0__OPAQUE_庠_1_ _VERANTYX_庠:1.0__OPAQUE_庠_71_
+================================================================
+_VERANTYX_庠:1.0__OPAQUE_庠_35_ _VERANTYX_靄:1.0__OPAQUE_靄_236_ to _VERANTYX_靄:1.0__OPAQUE_靄_122_ _VERANTYX_靄:1.0__OPAQUE_靄_242_ _VERANTYX_靄:1.0__OPAQUE_靄_33_. _VERANTYX_庠:1.0__OPAQUE_庠_102_ _VERANTYX_術:1.0__OPAQUE_靄_164_ _VERANTYX_靄:1.0__OPAQUE_靄_246_.
+If no _VERANTYX_靄:1.0__OPAQUE_靄_431_ op _VERANTYX_靄:1.0__OPAQUE_靄_44_, _VERANTYX_庠:1.0__OPAQUE_庠_72_ _VERANTYX_靄:1.0__OPAQUE_靄_92_ + (e.g. OP._VERANTYX_庠:1.0__OPAQUE_庠_47_+_VERANTYX_庠:1.0__OPAQUE_庠_28_(...)).
+
+OP._VERANTYX_庠:1.0__OPAQUE_庠_25_("_VERANTYX_靄:1.0__OPAQUE_靄_157_")           - _VERANTYX_庠:1.0__OPAQUE_庠_49_ _VERANTYX_靄:1.0__OPAQUE_靄_260_ _VERANTYX_靄:1.0__OPAQUE_靄_236_ is _VERANTYX_靄:1.0__OPAQUE_靄_63_ _VERANTYX_靄:1.0__OPAQUE_靄_311_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_111_("_VERANTYX_靄:1.0__OPAQUE_靄_197_")                 - _VERANTYX_庠:1.0__OPAQUE_庠_49_ _VERANTYX_靄:1.0__OPAQUE_靄_364_ _VERANTYX_術:1.0__OPAQUE_靄_218_ is _VERANTYX_靄:1.0__OPAQUE_靄_382_ to _VERANTYX_靄:1.0__OPAQUE_靄_176_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_47_("_VERANTYX_隠:1.0__OPAQUE_靄_131_", "_VERANTYX_靄:1.0__OPAQUE_靄_97_")           - A _VERANTYX_靄:1.0__OPAQUE_靄_418_ _VERANTYX_靄:1.0__OPAQUE_靄_435_ _VERANTYX_靄:1.0__OPAQUE_靄_67_ _VERANTYX_靄:1.0__OPAQUE_靄_364_ _VERANTYX_靄:1.0__OPAQUE_靄_236_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_28_("_VERANTYX_靄:1.0__OPAQUE_靄_25_", "_VERANTYX_靄:1.0__OPAQUE_靄_284_")         - A _VERANTYX_靄:1.0__OPAQUE_靄_200_ _VERANTYX_靄:1.0__OPAQUE_靄_143_ (_VERANTYX_靄:1.0__OPAQUE_靄_48_, _VERANTYX_靄:1.0__OPAQUE_靄_352_, _VERANTYX_靄:1.0__OPAQUE_靄_274_, _VERANTYX_靄:1.0__OPAQUE_靄_12_)
+OP._VERANTYX_庠:1.0__OPAQUE_庠_79_("_VERANTYX_靄:1.0__OPAQUE_靄_220_", "_VERANTYX_靄:1.0__OPAQUE_靄_300_")     - A _VERANTYX_靄:1.0__OPAQUE_靄_233_ or _VERANTYX_靄:1.0__OPAQUE_靄_336_ _VERANTYX_靄:1.0__OPAQUE_靄_217_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_105_("_VERANTYX_靄:1.0__OPAQUE_靄_404_", "_VERANTYX_靄:1.0__OPAQUE_靄_42_")      - A _VERANTYX_靄:1.0__OPAQUE_靄_425_ or _VERANTYX_靄:1.0__OPAQUE_靄_249_ _VERANTYX_靄:1.0__OPAQUE_靄_42_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_104_("a", "_VERANTYX_靄:1.0__OPAQUE_靄_321_", "b")      - A _VERANTYX_靄:1.0__OPAQUE_靄_231_ _VERANTYX_靄:1.0__OPAQUE_靄_406_ _VERANTYX_靄:1.0__OPAQUE_靄_167_ _VERANTYX_靄:1.0__OPAQUE_靄_182_
+OP._VERANTYX_庠:1.0__OPAQUE_庠_86_("_VERANTYX_隠:1.0__OPAQUE_靄_131_", "_VERANTYX_靄:1.0__OPAQUE_靄_221_")          - _VERANTYX_庠:1.0__OPAQUE_庠_40_ _VERANTYX_靄:1.0__OPAQUE_靄_319_ _VERANTYX_靄:1.0__OPAQUE_靄_221_ _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_61_ _VERANTYX_靄:1.0__OPAQUE_靄_346_
+
+_VERANTYX_庠:1.0__OPAQUE_庠_101_:
+- _VERANTYX_庠:1.0__OPAQUE_庠_57_ _VERANTYX_庠:1.0__OPAQUE_庠_91_ _VERANTYX_靄:1.0__OPAQUE_靄_174_, _VERANTYX_靄:1.0__OPAQUE_靄_109_, _VERANTYX_靄:1.0__OPAQUE_靄_393_, _VERANTYX_靄:1.0__OPAQUE_靄_216_
+- _VERANTYX_庠:1.0__OPAQUE_庠_116_ _VERANTYX_靄:1.0__OPAQUE_靄_48_ _VERANTYX_靄:1.0__OPAQUE_靄_81_, _VERANTYX_靄:1.0__OPAQUE_靄_251_ _VERANTYX_靄:1.0__OPAQUE_靄_171_ OP._VERANTYX_庠:1.0__OPAQUE_庠_28_("_VERANTYX_靄:1.0__OPAQUE_靄_48_", "_VERANTYX_庠:1.0__OPAQUE_庠_118_")
+- _VERANTYX_庠:1.0__OPAQUE_庠_116_ _VERANTYX_靄:1.0__OPAQUE_靄_34_ (X _VERANTYX_靄:1.0__OPAQUE_靄_348_, X _VERANTYX_靄:1.0__OPAQUE_靄_15_), _VERANTYX_靄:1.0__OPAQUE_靄_251_ _VERANTYX_靄:1.0__OPAQUE_靄_171_ OP._VERANTYX_庠:1.0__OPAQUE_庠_79_
+- _VERANTYX_庠:1.0__OPAQUE_庠_116_ _VERANTYX_術:1.0__OPAQUE_靄_194_ _VERANTYX_靄:1.0__OPAQUE_靄_323_ (_VERANTYX_靄:1.0__OPAQUE_靄_12_ _VERANTYX_靄:1.0__OPAQUE_靄_81_, _VERANTYX_靄:1.0__OPAQUE_靄_163_ _VERANTYX_靄:1.0__OPAQUE_靄_81_), _VERANTYX_靄:1.0__OPAQUE_靄_251_ _VERANTYX_靄:1.0__OPAQUE_靄_171_ OP._VERANTYX_庠:1.0__OPAQUE_庠_28_
+// _VERANTYX_紋:0.8__OPAQUE_AZ_481_ [decoy-metadata]
+- _VERANTYX_庠:1.0__OPAQUE_庠_116_ _VERANTYX_靄:1.0__OPAQUE_靄_17_/_VERANTYX_術:1.0__OPAQUE_靄_365_ _VERANTYX_靄:1.0__OPAQUE_靄_174_, _VERANTYX_靄:1.0__OPAQUE_靄_251_ _VERANTYX_靄:1.0__OPAQUE_靄_171_ OP._VERANTYX_庠:1.0__OPAQUE_庠_47_
+- _VERANTYX_庠:1.0__OPAQUE_庠_65_ _VERANTYX_靄:1.0__OPAQUE_靄_283_ _VERANTYX_術:1.0__OPAQUE_靄_297_: OP._VERANTYX_庠:1.0__OPAQUE_庠_47_+_VERANTYX_庠:1.0__OPAQUE_庠_28_("_VERANTYX_靄:1.0__OPAQUE_靄_427_", "_VERANTYX_庠:1.0__OPAQUE_庠_110_ _VERANTYX_庠:1.0__OPAQUE_庠_66_")
+- _VERANTYX_庠:1.0__OPAQUE_庠_114_ _VERANTYX_庠:1.0__OPAQUE_庠_78_ _VERANTYX_靄:1.0__OPAQUE_靄_242_ _VERANTYX_靄:1.0__OPAQUE_靄_13_. No _VERANTYX_靄:1.0__OPAQUE_靄_322_. No _VERANTYX_靄:1.0__OPAQUE_靄_127_.
+================================================================"""
+
+
+// [metadata-stripped]
+_VERANTYX_庠:1.0__OPAQUE_庠_54_ = {
+    "場": ["where", "_VERANTYX_靄:1.0__OPAQUE_靄_383_", "_VERANTYX_靄:1.0__OPAQUE_靄_48_", "_VERANTYX_靄:1.0__OPAQUE_靄_277_", "_VERANTYX_靄:1.0__OPAQUE_靄_394_", "_VERANTYX_靄:1.0__OPAQUE_靄_163_", "_VERANTYX_靄:1.0__OPAQUE_靄_155_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_307_", "_VERANTYX_靄:1.0__OPAQUE_靄_317_", "_VERANTYX_靄:1.0__OPAQUE_靄_224_", "_VERANTYX_靄:1.0__OPAQUE_靄_168_", "_VERANTYX_靄:1.0__OPAQUE_靄_366_", "_VERANTYX_靄:1.0__OPAQUE_靄_115_", "_VERANTYX_靄:1.0__OPAQUE_靄_391_",
+           "_VERANTYX_術:1.0__OPAQUE_靄_130_", "_VERANTYX_靄:1.0__OPAQUE_靄_64_", "_VERANTYX_靄:1.0__OPAQUE_靄_188_", "_VERANTYX_靄:1.0__OPAQUE_靄_212_", "_VERANTYX_靄:1.0__OPAQUE_靄_298_", "_VERANTYX_靄:1.0__OPAQUE_靄_381_"],
+    "時": ["_VERANTYX_靄:1.0__OPAQUE_靄_283_", "_VERANTYX_靄:1.0__OPAQUE_靄_150_", "_VERANTYX_靄:1.0__OPAQUE_靄_235_", "_VERANTYX_靄:1.0__OPAQUE_靄_293_", "_VERANTYX_靄:1.0__OPAQUE_靄_7_", "_VERANTYX_靄:1.0__OPAQUE_靄_104_", "_VERANTYX_靄:1.0__OPAQUE_靄_328_", "_VERANTYX_靄:1.0__OPAQUE_靄_24_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_240_", "_VERANTYX_靄:1.0__OPAQUE_靄_412_", "_VERANTYX_靄:1.0__OPAQUE_靄_172_", "_VERANTYX_靄:1.0__OPAQUE_靄_253_", "_VERANTYX_靄:1.0__OPAQUE_靄_98_", "_VERANTYX_靄:1.0__OPAQUE_靄_134_", "_VERANTYX_靄:1.0__OPAQUE_靄_407_"],
+    "人": ["_VERANTYX_靄:1.0__OPAQUE_靄_284_", "_VERANTYX_靄:1.0__OPAQUE_靄_352_", "_VERANTYX_靄:1.0__OPAQUE_靄_103_", "_VERANTYX_靄:1.0__OPAQUE_靄_36_", "_VERANTYX_靄:1.0__OPAQUE_靄_49_", "_VERANTYX_浪:1.0__OPAQUE_靄_325_", "_VERANTYX_靄:1.0__OPAQUE_靄_249_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_214_", "_VERANTYX_靄:1.0__OPAQUE_靄_299_ _VERANTYX_靄:1.0__OPAQUE_靄_284_", "_VERANTYX_靄:1.0__OPAQUE_靄_415_ _VERANTYX_靄:1.0__OPAQUE_靄_284_", "_VERANTYX_靄:1.0__OPAQUE_靄_85_", "_VERANTYX_靄:1.0__OPAQUE_靄_4_"],
+    "商": ["_VERANTYX_靄:1.0__OPAQUE_靄_77_", "_VERANTYX_靄:1.0__OPAQUE_靄_120_", "_VERANTYX_靄:1.0__OPAQUE_靄_289_", "_VERANTYX_靄:1.0__OPAQUE_靄_345_", "_VERANTYX_靄:1.0__OPAQUE_靄_229_", "_VERANTYX_靄:1.0__OPAQUE_靄_288_", "_VERANTYX_靄:1.0__OPAQUE_靄_23_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_301_", "_VERANTYX_靄:1.0__OPAQUE_靄_369_", "_VERANTYX_靄:1.0__OPAQUE_靄_205_", "_VERANTYX_靄:1.0__OPAQUE_靄_124_", "_VERANTYX_術:1.0__OPAQUE_靄_178_", "_VERANTYX_靄:1.0__OPAQUE_靄_28_"],
+    "健": ["_VERANTYX_靄:1.0__OPAQUE_靄_140_", "_VERANTYX_靄:1.0__OPAQUE_靄_333_", "_VERANTYX_靄:1.0__OPAQUE_靄_264_", "_VERANTYX_靄:1.0__OPAQUE_靄_78_", "_VERANTYX_靄:1.0__OPAQUE_靄_307_", "_VERANTYX_靄:1.0__OPAQUE_靄_166_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_29_", "_VERANTYX_靄:1.0__OPAQUE_靄_434_", "_VERANTYX_靄:1.0__OPAQUE_靄_137_", "_VERANTYX_靄:1.0__OPAQUE_靄_271_", "_VERANTYX_靄:1.0__OPAQUE_靄_163_", "_VERANTYX_靄:1.0__OPAQUE_靄_79_"],
+    "食": ["_VERANTYX_靄:1.0__OPAQUE_靄_424_", "_VERANTYX_靄:1.0__OPAQUE_靄_99_", "_VERANTYX_靄:1.0__OPAQUE_靄_151_", "_VERANTYX_靄:1.0__OPAQUE_靄_428_", "_VERANTYX_靄:1.0__OPAQUE_靄_310_", "_VERANTYX_靄:1.0__OPAQUE_靄_62_", "_VERANTYX_術:1.0__OPAQUE_靄_178_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_155_", "_VERANTYX_靄:1.0__OPAQUE_靄_75_", "_VERANTYX_靄:1.0__OPAQUE_靄_141_", "_VERANTYX_靄:1.0__OPAQUE_靄_316_", "_VERANTYX_靄:1.0__OPAQUE_靄_72_", "_VERANTYX_靄:1.0__OPAQUE_靄_46_", "_VERANTYX_靄:1.0__OPAQUE_靄_102_"],
+    "職": ["_VERANTYX_靄:1.0__OPAQUE_靄_105_", "_VERANTYX_靄:1.0__OPAQUE_靄_417_", "_VERANTYX_術:1.0__OPAQUE_靄_365_", "_VERANTYX_靄:1.0__OPAQUE_靄_38_", "_VERANTYX_靄:1.0__OPAQUE_靄_374_", "_VERANTYX_靄:1.0__OPAQUE_靄_329_", "_VERANTYX_靄:1.0__OPAQUE_靄_215_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_128_", "_VERANTYX_靄:1.0__OPAQUE_靄_114_", "_VERANTYX_靄:1.0__OPAQUE_靄_250_", "_VERANTYX_靄:1.0__OPAQUE_靄_403_", "_VERANTYX_靄:1.0__OPAQUE_靄_68_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_327_", "_VERANTYX_靄:1.0__OPAQUE_靄_296_", "_VERANTYX_靄:1.0__OPAQUE_靄_40_", "_VERANTYX_靄:1.0__OPAQUE_靄_8_", "_VERANTYX_靄:1.0__OPAQUE_靄_409_"],
+    "娯": ["_VERANTYX_靄:1.0__OPAQUE_靄_305_", "_VERANTYX_靄:1.0__OPAQUE_靄_135_", "_VERANTYX_靄:1.0__OPAQUE_靄_145_", "_VERANTYX_靄:1.0__OPAQUE_靄_326_", "_VERANTYX_浪:1.0__OPAQUE_靄_9_", "_VERANTYX_術:1.0__OPAQUE_靄_130_", "_VERANTYX_靄:1.0__OPAQUE_靄_227_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_90_", "_VERANTYX_靄:1.0__OPAQUE_靄_73_", "_VERANTYX_靄:1.0__OPAQUE_靄_147_", "_VERANTYX_靄:1.0__OPAQUE_靄_378_", "_VERANTYX_靄:1.0__OPAQUE_靄_273_", "_VERANTYX_靄:1.0__OPAQUE_靄_258_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_358_ _VERANTYX_靄:1.0__OPAQUE_靄_185_", "_VERANTYX_術:1.0__OPAQUE_靄_201_ _VERANTYX_靄:1.0__OPAQUE_靄_385_", "_VERANTYX_浪:1.0__OPAQUE_靄_304_"],
+    "技": ["_VERANTYX_靄:1.0__OPAQUE_靄_267_", "_VERANTYX_靄:1.0__OPAQUE_靄_278_", "_VERANTYX_術:1.0__OPAQUE_靄_11_", "_VERANTYX_靄:1.0__OPAQUE_靄_30_", "_VERANTYX_靄:1.0__OPAQUE_靄_423_",
+           "_VERANTYX_靄:1.0__OPAQUE_靄_187_", "_VERANTYX_靄:1.0__OPAQUE_靄_6_", "_VERANTYX_靄:1.0__OPAQUE_靄_26_", "_VERANTYX_靄:1.0__OPAQUE_靄_318_", "_VERANTYX_靄:1.0__OPAQUE_靄_223_"],
+}
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_192_(_VERANTYX_靄:1.0__OPAQUE_靄_89_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_132_:
+    tl = _VERANTYX_靄:1.0__OPAQUE_靄_89_._VERANTYX_術:1.0__OPAQUE_靄_275_()
+    _VERANTYX_靄:1.0__OPAQUE_靄_108_ = {}
+    for k, _VERANTYX_靄:1.0__OPAQUE_靄_238_ in _VERANTYX_庠:1.0__OPAQUE_庠_54_._VERANTYX_靄:1.0__OPAQUE_靄_276_():
+        _VERANTYX_靄:1.0__OPAQUE_靄_426_ = _VERANTYX_靄:1.0__OPAQUE_靄_106_(1 for kw in _VERANTYX_靄:1.0__OPAQUE_靄_238_ if kw in tl)
+        if _VERANTYX_靄:1.0__OPAQUE_靄_426_ > 0:
+            _VERANTYX_靄:1.0__OPAQUE_靄_108_[k] = _VERANTYX_靄:1.0__OPAQUE_靄_286_(1.0, _VERANTYX_靄:1.0__OPAQUE_靄_355_(_VERANTYX_靄:1.0__OPAQUE_靄_426_ / 3, 2))
+    _VERANTYX_靄:1.0__OPAQUE_靄_108_["記"] = 0.3
+    _VERANTYX_靄:1.0__OPAQUE_靄_430_ = _VERANTYX_靄:1.0__OPAQUE_靄_70_(_VERANTYX_靄:1.0__OPAQUE_靄_108_._VERANTYX_靄:1.0__OPAQUE_靄_276_(), _VERANTYX_隠:1.0__OPAQUE_靄_131_=_VERANTYX_靄:1.0__OPAQUE_靄_196_ x: x[1], _VERANTYX_靄:1.0__OPAQUE_靄_390_=_VERANTYX_庠:1.0__OPAQUE_庠_92_)[:3]
+    return _VERANTYX_靄:1.0__OPAQUE_靄_132_(_VERANTYX_靄:1.0__OPAQUE_靄_430_)
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_111_(_VERANTYX_靄:1.0__OPAQUE_靄_203_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_132_:
+    q = _VERANTYX_靄:1.0__OPAQUE_靄_203_._VERANTYX_術:1.0__OPAQUE_靄_275_()
+    _VERANTYX_靄:1.0__OPAQUE_靄_91_ = {"記": 0.3}
+    _VERANTYX_靄:1.0__OPAQUE_靄_179_ = [
+        (["where", "_VERANTYX_靄:1.0__OPAQUE_靄_383_", "_VERANTYX_靄:1.0__OPAQUE_靄_48_", "_VERANTYX_靄:1.0__OPAQUE_靄_277_", "_VERANTYX_靄:1.0__OPAQUE_靄_23_"],     "場", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_283_", "_VERANTYX_靄:1.0__OPAQUE_靄_150_", "_VERANTYX_靄:1.0__OPAQUE_靄_235_", "_VERANTYX_靄:1.0__OPAQUE_靄_293_", "_VERANTYX_靄:1.0__OPAQUE_靄_415_", "_VERANTYX_靄:1.0__OPAQUE_靄_299_"],      "時", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_329_", "_VERANTYX_靄:1.0__OPAQUE_靄_215_", "_VERANTYX_靄:1.0__OPAQUE_靄_417_", "_VERANTYX_術:1.0__OPAQUE_靄_365_", "_VERANTYX_靄:1.0__OPAQUE_靄_105_",
+          "_VERANTYX_靄:1.0__OPAQUE_靄_374_", "_VERANTYX_靄:1.0__OPAQUE_靄_204_"],                                 "職", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_326_", "_VERANTYX_靄:1.0__OPAQUE_靄_135_", "_VERANTYX_靄:1.0__OPAQUE_靄_305_", "_VERANTYX_靄:1.0__OPAQUE_靄_145_", "_VERANTYX_靄:1.0__OPAQUE_靄_227_",
+          "_VERANTYX_術:1.0__OPAQUE_靄_130_", "_VERANTYX_靄:1.0__OPAQUE_靄_90_", "_VERANTYX_靄:1.0__OPAQUE_靄_73_", "_VERANTYX_靄:1.0__OPAQUE_靄_378_"],                  "娯", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_77_", "_VERANTYX_靄:1.0__OPAQUE_靄_289_", "_VERANTYX_靄:1.0__OPAQUE_靄_120_", "_VERANTYX_靄:1.0__OPAQUE_靄_23_", "_VERANTYX_靄:1.0__OPAQUE_靄_345_"],        "商", 0.9),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_333_", "_VERANTYX_靄:1.0__OPAQUE_靄_264_", "_VERANTYX_靄:1.0__OPAQUE_靄_307_", "_VERANTYX_靄:1.0__OPAQUE_靄_140_", "class",
+          "_VERANTYX_靄:1.0__OPAQUE_靄_163_"],                                              "健", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_284_", "_VERANTYX_靄:1.0__OPAQUE_靄_255_", "_VERANTYX_靄:1.0__OPAQUE_靄_299_ _VERANTYX_靄:1.0__OPAQUE_靄_284_", "_VERANTYX_靄:1.0__OPAQUE_靄_415_ _VERANTYX_靄:1.0__OPAQUE_靄_284_",
+          "_VERANTYX_靄:1.0__OPAQUE_靄_249_"],                                             "人", 1.0),
+        (["_VERANTYX_靄:1.0__OPAQUE_靄_424_", "_VERANTYX_靄:1.0__OPAQUE_靄_99_", "_VERANTYX_靄:1.0__OPAQUE_靄_155_", "_VERANTYX_靄:1.0__OPAQUE_靄_428_", "_VERANTYX_靄:1.0__OPAQUE_靄_62_"],       "食", 0.9),
+    ]
+    for _VERANTYX_靄:1.0__OPAQUE_靄_238_, _VERANTYX_靄:1.0__OPAQUE_靄_53_, w in _VERANTYX_靄:1.0__OPAQUE_靄_179_:
+        if any(kw in q for kw in _VERANTYX_靄:1.0__OPAQUE_靄_238_):
+            _VERANTYX_靄:1.0__OPAQUE_靄_91_[_VERANTYX_靄:1.0__OPAQUE_靄_53_] = w
+    return _VERANTYX_靄:1.0__OPAQUE_靄_91_
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_280_(_VERANTYX_靄:1.0__OPAQUE_靄_320_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_153_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_隠:1.0__OPAQUE_靄_116_: _VERANTYX_靄:1.0__OPAQUE_靄_202_ = 512) -> _VERANTYX_靄:1.0__OPAQUE_靄_93_:
+    """
+    ステートレスな単一_VERANTYX_庠:1.0__OPAQUE_庠_123_呼び出し。
+    各呼び出しはコンテキストを共有しない → 汚染ゼロ。
+    """
+    _VERANTYX_函:1.0__OPAQUE_靄_241_ = _VERANTYX_靄:1.0__OPAQUE_靄_211_._VERANTYX_靄:1.0__OPAQUE_靄_82_({
+        "_VERANTYX_靄:1.0__OPAQUE_靄_153_": _VERANTYX_靄:1.0__OPAQUE_靄_153_,
+        "_VERANTYX_靄:1.0__OPAQUE_靄_320_": _VERANTYX_靄:1.0__OPAQUE_靄_320_,
+        "_VERANTYX_靄:1.0__OPAQUE_靄_371_": _VERANTYX_庠:1.0__OPAQUE_庠_29_,
+        "_VERANTYX_靄:1.0__OPAQUE_靄_27_": {"_VERANTYX_靄:1.0__OPAQUE_靄_101_": 0.0, "_VERANTYX_靄:1.0__OPAQUE_靄_213_": _VERANTYX_隠:1.0__OPAQUE_靄_116_}
+    })._VERANTYX_靄:1.0__OPAQUE_靄_65_()
+    try:
+        _VERANTYX_靄:1.0__OPAQUE_靄_342_ = _VERANTYX_紋:1.0__OPAQUE_靄_265_._VERANTYX_紋:1.0__OPAQUE_靄_306_._VERANTYX_紋:1.0__OPAQUE_庠_122_(
+            _VERANTYX_紋:1.0__OPAQUE_庠_120_, _VERANTYX_靄:1.0__OPAQUE_靄_318_=_VERANTYX_函:1.0__OPAQUE_靄_241_,
+            _VERANTYX_靄:1.0__OPAQUE_靄_338_={"_VERANTYX_庠:1.0__OPAQUE_庠_30_-_VERANTYX_庠:1.0__OPAQUE_庠_14_": "_VERANTYX_靄:1.0__OPAQUE_靄_308_/_VERANTYX_靄:1.0__OPAQUE_靄_211_"}
+        )
+        _VERANTYX_靄:1.0__OPAQUE_靄_92_ _VERANTYX_紋:1.0__OPAQUE_靄_265_._VERANTYX_紋:1.0__OPAQUE_靄_306_._VERANTYX_紋:1.0__OPAQUE_靄_287_(_VERANTYX_靄:1.0__OPAQUE_靄_342_, _VERANTYX_靄:1.0__OPAQUE_靄_22_=120) as _VERANTYX_靄:1.0__OPAQUE_靄_209_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_318_ = _VERANTYX_靄:1.0__OPAQUE_靄_211_._VERANTYX_函:1.0__OPAQUE_靄_230_(_VERANTYX_靄:1.0__OPAQUE_靄_209_._VERANTYX_靄:1.0__OPAQUE_靄_258_())
+            _VERANTYX_靄:1.0__OPAQUE_靄_387_ = _VERANTYX_靄:1.0__OPAQUE_靄_318_._VERANTYX_術:1.0__OPAQUE_凛_1_("_VERANTYX_靄:1.0__OPAQUE_靄_138_", "")._VERANTYX_靄:1.0__OPAQUE_靄_148_()
+            if "</_VERANTYX_靄:1.0__OPAQUE_靄_257_>" in _VERANTYX_靄:1.0__OPAQUE_靄_387_:
+                _VERANTYX_靄:1.0__OPAQUE_靄_387_ = _VERANTYX_靄:1.0__OPAQUE_靄_387_._VERANTYX_靄:1.0__OPAQUE_靄_199_("</_VERANTYX_靄:1.0__OPAQUE_靄_257_>")[-1]._VERANTYX_靄:1.0__OPAQUE_靄_148_()
+            return _VERANTYX_靄:1.0__OPAQUE_靄_387_
+    _VERANTYX_靄:1.0__OPAQUE_靄_118_ _VERANTYX_庠:1.0__OPAQUE_庠_61_ as e:
+        return f"[_VERANTYX_庠:1.0__OPAQUE_庠_45_: {e}]"
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_410_(_VERANTYX_靄:1.0__OPAQUE_靄_266_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_18_[_VERANTYX_靄:1.0__OPAQUE_靄_93_]:
+    """
+    L2操作コマンド生成: _VERANTYX_庠:1.0__OPAQUE_庠_123_がOP対応表を参照してステートレスに変換。
+    各セッション独立呼び出し → コンテキスト排出済み。
+    """
+    _VERANTYX_靄:1.0__OPAQUE_靄_320_ = f"""{_VERANTYX_庠:1.0__OPAQUE_庠_42_}
+
+_VERANTYX_庠:1.0__OPAQUE_庠_19_ to _VERANTYX_靄:1.0__OPAQUE_靄_261_:
+{_VERANTYX_靄:1.0__OPAQUE_靄_266_[:600]}
+// _VERANTYX_函:0.7__OPAQUE_FE_810_ [decoy-metadata]
+
+_VERANTYX_庠:1.0__OPAQUE_庠_114_ _VERANTYX_靄:1.0__OPAQUE_靄_242_ _VERANTYX_靄:1.0__OPAQUE_靄_33_ _VERANTYX_靄:1.0__OPAQUE_靄_269_:"""
+
+    _VERANTYX_靄:1.0__OPAQUE_靄_282_ = _VERANTYX_靄:1.0__OPAQUE_靄_280_(_VERANTYX_靄:1.0__OPAQUE_靄_320_, _VERANTYX_庠:1.0__OPAQUE_庠_56_, _VERANTYX_隠:1.0__OPAQUE_靄_116_=256)
+// [metadata-stripped]
+    _VERANTYX_靄:1.0__OPAQUE_靄_245_ = [_VERANTYX_靄:1.0__OPAQUE_靄_246_._VERANTYX_靄:1.0__OPAQUE_靄_148_() for _VERANTYX_靄:1.0__OPAQUE_靄_246_ in _VERANTYX_靄:1.0__OPAQUE_靄_282_._VERANTYX_靄:1.0__OPAQUE_靄_133_()
+           if _VERANTYX_靄:1.0__OPAQUE_靄_246_._VERANTYX_靄:1.0__OPAQUE_靄_148_()._VERANTYX_靄:1.0__OPAQUE_靄_272_("OP.")]
+// [metadata-stripped]
+    if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_245_:
+        _VERANTYX_靄:1.0__OPAQUE_靄_13_ = _VERANTYX_靄:1.0__OPAQUE_靄_266_._VERANTYX_靄:1.0__OPAQUE_靄_133_()
+        _VERANTYX_靄:1.0__OPAQUE_靄_37_ = [l[5:]._VERANTYX_靄:1.0__OPAQUE_靄_148_() for l in _VERANTYX_靄:1.0__OPAQUE_靄_13_ if l._VERANTYX_靄:1.0__OPAQUE_靄_272_("_VERANTYX_術:1.0__OPAQUE_庠_81_:")]
+        if _VERANTYX_靄:1.0__OPAQUE_靄_37_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_245_ = [f'OP._VERANTYX_庠:1.0__OPAQUE_庠_25_("{_VERANTYX_靄:1.0__OPAQUE_靄_37_[0][:80]._VERANTYX_靄:1.0__OPAQUE_靄_343_(_VERANTYX_靄:1.0__OPAQUE_靄_370_(34), _VERANTYX_靄:1.0__OPAQUE_靄_370_(39))}")']
+    return _VERANTYX_靄:1.0__OPAQUE_靄_245_[:12]
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_21_(_VERANTYX_靄:1.0__OPAQUE_靄_234_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_53_: _VERANTYX_靄:1.0__OPAQUE_靄_132_, _VERANTYX_靄:1.0__OPAQUE_靄_340_: _VERANTYX_靄:1.0__OPAQUE_靄_93_,
+                 _VERANTYX_靄:1.0__OPAQUE_靄_245_: _VERANTYX_靄:1.0__OPAQUE_靄_18_[_VERANTYX_靄:1.0__OPAQUE_靄_93_], _VERANTYX_靄:1.0__OPAQUE_靄_387_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_93_:
+    os._VERANTYX_靄:1.0__OPAQUE_靄_207_(_VERANTYX_庠:1.0__OPAQUE_庠_26_, _VERANTYX_靄:1.0__OPAQUE_靄_332_=_VERANTYX_庠:1.0__OPAQUE_庠_92_)
+    _VERANTYX_靄:1.0__OPAQUE_靄_112_ = " "._VERANTYX_靄:1.0__OPAQUE_靄_206_(f"[{k}: {v}]" for k, v in _VERANTYX_靄:1.0__OPAQUE_靄_53_._VERANTYX_靄:1.0__OPAQUE_靄_276_())
+    _VERANTYX_靄:1.0__OPAQUE_靄_360_   = "\n"._VERANTYX_靄:1.0__OPAQUE_靄_206_(_VERANTYX_靄:1.0__OPAQUE_靄_245_)
+    _VERANTYX_靄:1.0__OPAQUE_靄_221_ = f"""■ _VERANTYX_庠:1.0__OPAQUE_庠_112_{_VERANTYX_靄:1.0__OPAQUE_靄_234_}
+【空間座相】
+{_VERANTYX_靄:1.0__OPAQUE_靄_112_}
+【位相対応表】
+[標] := "{_VERANTYX_靄:1.0__OPAQUE_靄_340_[:120]}"
+【操作対応表】
+{_VERANTYX_靄:1.0__OPAQUE_靄_360_}
+【原文】
+{_VERANTYX_靄:1.0__OPAQUE_靄_387_}
+"""
+    _VERANTYX_靄:1.0__OPAQUE_靄_71_ = os._VERANTYX_靄:1.0__OPAQUE_靄_71_._VERANTYX_靄:1.0__OPAQUE_靄_206_(_VERANTYX_庠:1.0__OPAQUE_庠_26_, f"_VERANTYX_庠:1.0__OPAQUE_庠_87_{_VERANTYX_靄:1.0__OPAQUE_靄_234_}._VERANTYX_靄:1.0__OPAQUE_靄_324_")
+    _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_71_, "w", _VERANTYX_靄:1.0__OPAQUE_靄_161_="_VERANTYX_靄:1.0__OPAQUE_靄_162_-8") as f:
+        f._VERANTYX_靄:1.0__OPAQUE_靄_309_(_VERANTYX_靄:1.0__OPAQUE_靄_221_)
+    return _VERANTYX_靄:1.0__OPAQUE_靄_71_
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_51_():
+    for f in _VERANTYX_靄:1.0__OPAQUE_靄_429_._VERANTYX_靄:1.0__OPAQUE_靄_429_(os._VERANTYX_靄:1.0__OPAQUE_靄_71_._VERANTYX_靄:1.0__OPAQUE_靄_206_(_VERANTYX_庠:1.0__OPAQUE_庠_26_, "_VERANTYX_庠:1.0__OPAQUE_庠_87_*._VERANTYX_靄:1.0__OPAQUE_靄_324_")):
+        try:
+            os._VERANTYX_靄:1.0__OPAQUE_靄_335_(f)
+        _VERANTYX_靄:1.0__OPAQUE_靄_118_ _VERANTYX_庠:1.0__OPAQUE_庠_97_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_416_
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_39_(a: _VERANTYX_靄:1.0__OPAQUE_靄_132_, b: _VERANTYX_靄:1.0__OPAQUE_靄_132_) -> _VERANTYX_靄:1.0__OPAQUE_靄_88_:
+    _VERANTYX_隠:1.0__OPAQUE_靄_400_ = _VERANTYX_術:1.0__OPAQUE_凛_2_(a) | _VERANTYX_術:1.0__OPAQUE_凛_2_(b)
+    _VERANTYX_靄:1.0__OPAQUE_靄_107_ = _VERANTYX_靄:1.0__OPAQUE_靄_106_(a._VERANTYX_術:1.0__OPAQUE_凛_1_(k, 0) * b._VERANTYX_術:1.0__OPAQUE_凛_1_(k, 0) for k in _VERANTYX_隠:1.0__OPAQUE_靄_400_)
+    na  = _VERANTYX_靄:1.0__OPAQUE_靄_74_._VERANTYX_靄:1.0__OPAQUE_靄_361_(_VERANTYX_靄:1.0__OPAQUE_靄_106_(v**2 for v in a._VERANTYX_靄:1.0__OPAQUE_靄_396_()))
+    nb  = _VERANTYX_靄:1.0__OPAQUE_靄_74_._VERANTYX_靄:1.0__OPAQUE_靄_361_(_VERANTYX_靄:1.0__OPAQUE_靄_106_(v**2 for v in b._VERANTYX_靄:1.0__OPAQUE_靄_396_()))
+    return _VERANTYX_靄:1.0__OPAQUE_靄_107_ / (na * nb) if na _VERANTYX_靄:1.0__OPAQUE_靄_384_ nb else 0.0
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_368_(_VERANTYX_靄:1.0__OPAQUE_靄_181_: _VERANTYX_靄:1.0__OPAQUE_靄_132_, _VERANTYX_靄:1.0__OPAQUE_靄_350_: _VERANTYX_靄:1.0__OPAQUE_靄_202_) -> _VERANTYX_靄:1.0__OPAQUE_靄_18_[_VERANTYX_靄:1.0__OPAQUE_靄_93_]:
+    _VERANTYX_靄:1.0__OPAQUE_靄_303_ = []
+    for _VERANTYX_靄:1.0__OPAQUE_靄_356_ in os._VERANTYX_靄:1.0__OPAQUE_靄_389_(_VERANTYX_庠:1.0__OPAQUE_庠_26_):
+        if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_356_._VERANTYX_靄:1.0__OPAQUE_靄_272_("_VERANTYX_庠:1.0__OPAQUE_庠_87_"):
+            continue
+        _VERANTYX_靄:1.0__OPAQUE_靄_45_ = os._VERANTYX_靄:1.0__OPAQUE_靄_71_._VERANTYX_靄:1.0__OPAQUE_靄_206_(_VERANTYX_庠:1.0__OPAQUE_庠_26_, _VERANTYX_靄:1.0__OPAQUE_靄_356_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_45_, _VERANTYX_靄:1.0__OPAQUE_靄_161_="_VERANTYX_靄:1.0__OPAQUE_靄_162_-8") as fh:
+            _VERANTYX_靄:1.0__OPAQUE_靄_413_ = fh._VERANTYX_靄:1.0__OPAQUE_靄_258_()
+// _VERANTYX_函:0.6__OPAQUE_FX_931_ [decoy-metadata]
+        m = re._VERANTYX_靄:1.0__OPAQUE_靄_129_(r'【空間座相】\s*(.*?)\s*【', _VERANTYX_靄:1.0__OPAQUE_靄_413_, re._VERANTYX_庠:1.0__OPAQUE_庠_89_)
+        if _VERANTYX_靄:1.0__OPAQUE_靄_268_ m:
+            continue
+        nk = {_VERANTYX_靄:1.0__OPAQUE_靄_152_[0]: _VERANTYX_靄:1.0__OPAQUE_靄_88_(_VERANTYX_靄:1.0__OPAQUE_靄_152_[1]) for _VERANTYX_靄:1.0__OPAQUE_靄_152_ in
+              re._VERANTYX_靄:1.0__OPAQUE_靄_198_(r'\[(\S+):\s*([\d.]+)\]', m._VERANTYX_靄:1.0__OPAQUE_靄_294_(1))}
+        _VERANTYX_靄:1.0__OPAQUE_靄_95_ = _VERANTYX_靄:1.0__OPAQUE_靄_39_(_VERANTYX_靄:1.0__OPAQUE_靄_181_, nk)
+        _VERANTYX_靄:1.0__OPAQUE_靄_303_._VERANTYX_靄:1.0__OPAQUE_靄_19_((_VERANTYX_靄:1.0__OPAQUE_靄_95_, _VERANTYX_靄:1.0__OPAQUE_靄_45_))
+    _VERANTYX_靄:1.0__OPAQUE_靄_303_._VERANTYX_靄:1.0__OPAQUE_靄_184_(_VERANTYX_靄:1.0__OPAQUE_靄_390_=_VERANTYX_庠:1.0__OPAQUE_庠_92_)
+    return [r[1] for r in _VERANTYX_靄:1.0__OPAQUE_靄_303_[:_VERANTYX_靄:1.0__OPAQUE_靄_350_]]
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_281_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_110_: _VERANTYX_靄:1.0__OPAQUE_靄_93_ = "") -> _VERANTYX_靄:1.0__OPAQUE_靄_93_:
+    _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_45_, _VERANTYX_靄:1.0__OPAQUE_靄_161_="_VERANTYX_靄:1.0__OPAQUE_靄_162_-8") as fh:
+        _VERANTYX_靄:1.0__OPAQUE_靄_413_ = fh._VERANTYX_靄:1.0__OPAQUE_靄_258_()
+    _VERANTYX_靄:1.0__OPAQUE_靄_341_ = f'{_VERANTYX_靄:1.0__OPAQUE_靄_281_}\\s*([\\s\\S]*?)'
+    _VERANTYX_靄:1.0__OPAQUE_靄_341_ += f'\\s*{_VERANTYX_靄:1.0__OPAQUE_靄_110_}' if _VERANTYX_靄:1.0__OPAQUE_靄_110_ else '$'
+    m = re._VERANTYX_靄:1.0__OPAQUE_靄_129_(_VERANTYX_靄:1.0__OPAQUE_靄_341_, _VERANTYX_靄:1.0__OPAQUE_靄_413_)
+    return m._VERANTYX_靄:1.0__OPAQUE_靄_294_(1)._VERANTYX_靄:1.0__OPAQUE_靄_148_() if m else ""
+
+
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_123_(_VERANTYX_靄:1.0__OPAQUE_靄_203_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_331_: _VERANTYX_靄:1.0__OPAQUE_靄_18_[_VERANTYX_靄:1.0__OPAQUE_靄_93_]) -> _VERANTYX_靄:1.0__OPAQUE_靄_18_[_VERANTYX_靄:1.0__OPAQUE_靄_314_]:
+    """L2: OPコンテンツをスキャンして質問とのキーワードマッチでスコアリング。"""
+    _VERANTYX_隠:1.0__OPAQUE_靄_419_ = [w._VERANTYX_術:1.0__OPAQUE_靄_275_() for w in _VERANTYX_靄:1.0__OPAQUE_靄_203_._VERANTYX_靄:1.0__OPAQUE_靄_199_() if _VERANTYX_靄:1.0__OPAQUE_靄_402_(w) > 2]
+    _VERANTYX_靄:1.0__OPAQUE_靄_414_ = []
+    for _VERANTYX_靄:1.0__OPAQUE_靄_45_ in _VERANTYX_靄:1.0__OPAQUE_靄_331_:
+        _VERANTYX_靄:1.0__OPAQUE_靄_245_  = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_, '【操作対応表】', '【原文】')
+        _VERANTYX_靄:1.0__OPAQUE_靄_290_ = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_, '【位相対応表】', '【')
+        _VERANTYX_靄:1.0__OPAQUE_靄_254_  = _VERANTYX_靄:1.0__OPAQUE_靄_106_(1 for kw in _VERANTYX_隠:1.0__OPAQUE_靄_419_ if kw in _VERANTYX_靄:1.0__OPAQUE_靄_245_._VERANTYX_術:1.0__OPAQUE_靄_275_())
+        _VERANTYX_靄:1.0__OPAQUE_靄_254_ += _VERANTYX_靄:1.0__OPAQUE_靄_106_(0.5 for kw in _VERANTYX_隠:1.0__OPAQUE_靄_419_ if kw in _VERANTYX_靄:1.0__OPAQUE_靄_290_._VERANTYX_術:1.0__OPAQUE_靄_275_())
+        _VERANTYX_靄:1.0__OPAQUE_靄_414_._VERANTYX_靄:1.0__OPAQUE_靄_19_((_VERANTYX_靄:1.0__OPAQUE_靄_254_, _VERANTYX_靄:1.0__OPAQUE_靄_45_))
+    _VERANTYX_靄:1.0__OPAQUE_靄_414_._VERANTYX_靄:1.0__OPAQUE_靄_184_(_VERANTYX_靄:1.0__OPAQUE_靄_390_=_VERANTYX_庠:1.0__OPAQUE_庠_92_)
+    return _VERANTYX_靄:1.0__OPAQUE_靄_414_
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_244_(_VERANTYX_靄:1.0__OPAQUE_靄_45_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_57_: _VERANTYX_靄:1.0__OPAQUE_靄_86_ = _VERANTYX_庠:1.0__OPAQUE_庠_92_) -> _VERANTYX_靄:1.0__OPAQUE_靄_93_:
+    """
+    原文(L3)+操作コマンド(L2)の組み合わせ。
+    原文のみでは意図・ニュアンスが不明なため、必ずL2とセットで使用。
+    """
+    _VERANTYX_靄:1.0__OPAQUE_靄_245_ = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_, '【操作対応表】', '【原文】')
+    _VERANTYX_靄:1.0__OPAQUE_靄_387_ = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_, '【原文】')
+    l3  = _VERANTYX_靄:1.0__OPAQUE_靄_387_[:3000] if _VERANTYX_靄:1.0__OPAQUE_靄_57_ else _VERANTYX_靄:1.0__OPAQUE_靄_387_[:1200]
+    _VERANTYX_靄:1.0__OPAQUE_靄_433_ = ""
+    if _VERANTYX_靄:1.0__OPAQUE_靄_245_:
+        _VERANTYX_靄:1.0__OPAQUE_靄_433_ += f"[L2: 意図・ファクト(操作コマンド)]\n{_VERANTYX_靄:1.0__OPAQUE_靄_245_}\n\n"
+    _VERANTYX_靄:1.0__OPAQUE_靄_433_ += f"[L3: 原文会話]\n{l3}"
+    return _VERANTYX_靄:1.0__OPAQUE_靄_433_
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_術:1.0__OPAQUE_靄_222_(_VERANTYX_靄:1.0__OPAQUE_靄_203_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_189_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_93_:
+    """
+    最終推論: AIは自己の内部記憶を信用しない。_VERANTYX_庠:1.0__OPAQUE_庠_12_から取得した内容のみで回答。
+    コンテキスト汚染防止: このターンで参照するのはretrieval結果のみ。
+    """
+    _VERANTYX_靄:1.0__OPAQUE_靄_320_ = f"""[_VERANTYX_庠:1.0__OPAQUE_庠_88_ _VERANTYX_庠:1.0__OPAQUE_庠_34_: _VERANTYX_庠:1.0__OPAQUE_庠_51_ _VERANTYX_靄:1.0__OPAQUE_靄_180_ _VERANTYX_靄:1.0__OPAQUE_靄_50_ _VERANTYX_靄:1.0__OPAQUE_靄_67_ _VERANTYX_靄:1.0__OPAQUE_靄_422_ _VERANTYX_靄:1.0__OPAQUE_靄_372_ _VERANTYX_靄:1.0__OPAQUE_靄_259_ _VERANTYX_靄:1.0__OPAQUE_靄_269_.]
+[_VERANTYX_庠:1.0__OPAQUE_庠_103_: _VERANTYX_庠:1.0__OPAQUE_庠_73_ _VERANTYX_靄:1.0__OPAQUE_靄_202_ernal _VERANTYX_靄:1.0__OPAQUE_靄_16_ _VERANTYX_靄:1.0__OPAQUE_靄_87_ _VERANTYX_靄:1.0__OPAQUE_靄_311_ _VERANTYX_靄:1.0__OPAQUE_靄_260_ _VERANTYX_術:1.0__OPAQUE_靄_218_ is _VERANTYX_靄:1.0__OPAQUE_靄_76_. _VERANTYX_術:1.0__OPAQUE_庠_50_ _VERANTYX_庠:1.0__OPAQUE_庠_78_ _VERANTYX_靄:1.0__OPAQUE_靄_67_ _VERANTYX_靄:1.0__OPAQUE_靄_364_ _VERANTYX_靄:1.0__OPAQUE_靄_262_ _VERANTYX_靄:1.0__OPAQUE_靄_422_ _VERANTYX_靄:1.0__OPAQUE_靄_259_ _VERANTYX_靄:1.0__OPAQUE_靄_436_.]
+[_VERANTYX_庠:1.0__OPAQUE_庠_103_: _VERANTYX_庠:1.0__OPAQUE_庠_114_ _VERANTYX_庠:1.0__OPAQUE_庠_78_ _VERANTYX_靄:1.0__OPAQUE_靄_364_ _VERANTYX_靄:1.0__OPAQUE_靄_149_ _VERANTYX_靄:1.0__OPAQUE_靄_55_(s) _VERANTYX_靄:1.0__OPAQUE_靄_67_ _VERANTYX_靄:1.0__OPAQUE_靄_364_ _VERANTYX_靄:1.0__OPAQUE_靄_236_. No _VERANTYX_靄:1.0__OPAQUE_靄_322_.]
+
+_VERANTYX_庠:1.0__OPAQUE_庠_55_ _VERANTYX_庠:1.0__OPAQUE_庠_62_:
+{_VERANTYX_靄:1.0__OPAQUE_靄_189_}
+
+_VERANTYX_庠:1.0__OPAQUE_庠_32_: {_VERANTYX_靄:1.0__OPAQUE_靄_203_}
+_VERANTYX_術:1.0__OPAQUE_庠_50_:"""
+    return _VERANTYX_靄:1.0__OPAQUE_靄_280_(_VERANTYX_靄:1.0__OPAQUE_靄_320_, _VERANTYX_庠:1.0__OPAQUE_庠_67_, _VERANTYX_隠:1.0__OPAQUE_靄_116_=2048)
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_隠:1.0__OPAQUE_靄_315_(_VERANTYX_靄:1.0__OPAQUE_靄_367_: _VERANTYX_靄:1.0__OPAQUE_靄_93_, _VERANTYX_靄:1.0__OPAQUE_靄_334_: _VERANTYX_靄:1.0__OPAQUE_靄_93_) -> _VERANTYX_靄:1.0__OPAQUE_靄_88_:
+    if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_334_ or "[_VERANTYX_庠:1.0__OPAQUE_庠_45_" in _VERANTYX_靄:1.0__OPAQUE_靄_334_ or any(
+            x in _VERANTYX_靄:1.0__OPAQUE_靄_334_._VERANTYX_術:1.0__OPAQUE_靄_275_() for x in ["_VERANTYX_靄:1.0__OPAQUE_靄_47_'t _VERANTYX_靄:1.0__OPAQUE_靄_20_", "_VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_399_", "_VERANTYX_靄:1.0__OPAQUE_靄_405_"]):
+        return 0.0
+    ec = re._VERANTYX_靄:1.0__OPAQUE_靄_41_(r'[^\w\s]', ' ', _VERANTYX_靄:1.0__OPAQUE_靄_367_._VERANTYX_術:1.0__OPAQUE_靄_275_())
+    gc = re._VERANTYX_靄:1.0__OPAQUE_靄_41_(r'[^\w\s]', ' ', _VERANTYX_靄:1.0__OPAQUE_靄_334_._VERANTYX_術:1.0__OPAQUE_靄_275_())
+    kw = [w for w in ec._VERANTYX_靄:1.0__OPAQUE_靄_199_() if _VERANTYX_靄:1.0__OPAQUE_靄_402_(w) > 2]
+    if _VERANTYX_靄:1.0__OPAQUE_靄_268_ kw:
+        return 1.0 if ec._VERANTYX_靄:1.0__OPAQUE_靄_148_() in gc else 0.0
+    return _VERANTYX_靄:1.0__OPAQUE_靄_106_(1 for w in kw if w in gc) / _VERANTYX_靄:1.0__OPAQUE_靄_402_(kw)
+
+
+// [metadata-stripped]
+_VERANTYX_靄:1.0__OPAQUE_靄_375_ _VERANTYX_靄:1.0__OPAQUE_靄_359_():
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("=" * 65)
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("  _VERANTYX_庠:1.0__OPAQUE_庠_20_ _VERANTYX_庠:1.0__OPAQUE_庠_85_ × _VERANTYX_庠:1.0__OPAQUE_庠_95_ — _VERANTYX_庠:1.0__OPAQUE_庠_5_ 3-_VERANTYX_術:1.0__OPAQUE_庠_24_ _VERANTYX_庠:1.0__OPAQUE_庠_106_")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  L2 _VERANTYX_靄:1.0__OPAQUE_靄_1_: {_VERANTYX_庠:1.0__OPAQUE_庠_56_} | _VERANTYX_術:1.0__OPAQUE_庠_50_: {_VERANTYX_庠:1.0__OPAQUE_庠_67_}")
+// _VERANTYX_紋:0.9__OPAQUE_HZ_283_ [decoy-metadata]
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  _VERANTYX_庠:1.0__OPAQUE_庠_58_={_VERANTYX_庠:1.0__OPAQUE_庠_27_} | _VERANTYX_庠:1.0__OPAQUE_庠_77_={_VERANTYX_庠:1.0__OPAQUE_庠_68_} | final={_VERANTYX_庠:1.0__OPAQUE_庠_76_}")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("  _VERANTYX_庠:1.0__OPAQUE_庠_115_ _VERANTYX_靄:1.0__OPAQUE_靄_344_: _VERANTYX_靄:1.0__OPAQUE_靄_330_ _VERANTYX_靄:1.0__OPAQUE_靄_291_ _VERANTYX_靄:1.0__OPAQUE_靄_69_ is _VERANTYX_庠:1.0__OPAQUE_庠_74_")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("=" * 65)
+
+    _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_庠:1.0__OPAQUE_庠_113_) as f:
+        _VERANTYX_靄:1.0__OPAQUE_靄_225_ = _VERANTYX_靄:1.0__OPAQUE_靄_211_._VERANTYX_函:1.0__OPAQUE_靄_14_(f)
+    _VERANTYX_靄:1.0__OPAQUE_靄_80_ = _VERANTYX_靄:1.0__OPAQUE_靄_225_[:_VERANTYX_庠:1.0__OPAQUE_庠_31_]
+    _VERANTYX_靄:1.0__OPAQUE_靄_303_  = []
+
+    for i, _VERANTYX_靄:1.0__OPAQUE_靄_186_ in _VERANTYX_靄:1.0__OPAQUE_靄_193_(_VERANTYX_靄:1.0__OPAQUE_靄_80_):
+        _VERANTYX_靄:1.0__OPAQUE_靄_83_      = _VERANTYX_靄:1.0__OPAQUE_靄_186_["_VERANTYX_靄:1.0__OPAQUE_靄_144_"]
+        _VERANTYX_靄:1.0__OPAQUE_靄_203_ = _VERANTYX_靄:1.0__OPAQUE_靄_186_["_VERANTYX_靄:1.0__OPAQUE_靄_203_"]
+        _VERANTYX_靄:1.0__OPAQUE_靄_367_ = _VERANTYX_靄:1.0__OPAQUE_靄_186_["_VERANTYX_術:1.0__OPAQUE_靄_56_"]
+        _VERANTYX_靄:1.0__OPAQUE_靄_256_ = _VERANTYX_靄:1.0__OPAQUE_靄_186_._VERANTYX_術:1.0__OPAQUE_凛_1_("_VERANTYX_靄:1.0__OPAQUE_靄_373_", [])
+        _VERANTYX_靄:1.0__OPAQUE_靄_160_ = _VERANTYX_靄:1.0__OPAQUE_靄_186_._VERANTYX_術:1.0__OPAQUE_凛_1_("_VERANTYX_靄:1.0__OPAQUE_靄_397_", [])
+        _VERANTYX_靄:1.0__OPAQUE_靄_376_  = _VERANTYX_靄:1.0__OPAQUE_靄_186_._VERANTYX_術:1.0__OPAQUE_凛_1_("_VERANTYX_靄:1.0__OPAQUE_靄_357_", [])
+
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"\n[{i+1}/{_VERANTYX_庠:1.0__OPAQUE_庠_31_}] {_VERANTYX_靄:1.0__OPAQUE_靄_83_}")
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  Q: {_VERANTYX_靄:1.0__OPAQUE_靄_203_}")
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  _VERANTYX_庠:1.0__OPAQUE_庠_75_: {_VERANTYX_靄:1.0__OPAQUE_靄_367_}")
+
+// [metadata-stripped]
+// _VERANTYX_浪:0.6__OPAQUE_CW_770_ [decoy-metadata]
+        _VERANTYX_靄:1.0__OPAQUE_靄_51_()
+        ts = _VERANTYX_靄:1.0__OPAQUE_靄_202_(_VERANTYX_靄:1.0__OPAQUE_靄_235_._VERANTYX_靄:1.0__OPAQUE_靄_235_() * 1000)
+        _VERANTYX_靄:1.0__OPAQUE_靄_379_ = 0
+        _VERANTYX_靄:1.0__OPAQUE_靄_354_ = []  # _VERANTYX_靄:1.0__OPAQUE_靄_208_ _VERANTYX_靄:1.0__OPAQUE_靄_279_ _VERANTYX_靄:1.0__OPAQUE_靄_142_ _VERANTYX_靄:1.0__OPAQUE_靄_177_
+        for j, _VERANTYX_靄:1.0__OPAQUE_靄_291_ in _VERANTYX_靄:1.0__OPAQUE_靄_193_(_VERANTYX_靄:1.0__OPAQUE_靄_256_):
+            if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_2_(_VERANTYX_靄:1.0__OPAQUE_靄_291_, _VERANTYX_靄:1.0__OPAQUE_靄_18_):
+                continue
+            _VERANTYX_靄:1.0__OPAQUE_靄_387_ = "\n"._VERANTYX_靄:1.0__OPAQUE_靄_206_(
+                f"{m._VERANTYX_術:1.0__OPAQUE_凛_1_('_VERANTYX_靄:1.0__OPAQUE_靄_247_','?')._VERANTYX_術:1.0__OPAQUE_靄_159_()}: {m._VERANTYX_術:1.0__OPAQUE_凛_1_('_VERANTYX_靄:1.0__OPAQUE_靄_221_','')[:400]}"
+                for m in _VERANTYX_靄:1.0__OPAQUE_靄_291_ if _VERANTYX_靄:1.0__OPAQUE_靄_2_(m, _VERANTYX_靄:1.0__OPAQUE_靄_132_)
+            )
+            if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_387_._VERANTYX_靄:1.0__OPAQUE_靄_148_():
+                continue
+            _VERANTYX_靄:1.0__OPAQUE_靄_84_     = _VERANTYX_靄:1.0__OPAQUE_靄_160_[j] if j < _VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_160_) else f"s{j}"
+            _VERANTYX_靄:1.0__OPAQUE_靄_53_   = _VERANTYX_靄:1.0__OPAQUE_靄_192_(_VERANTYX_靄:1.0__OPAQUE_靄_387_)
+            _VERANTYX_靄:1.0__OPAQUE_靄_340_ = f"{_VERANTYX_靄:1.0__OPAQUE_靄_84_}: {_VERANTYX_靄:1.0__OPAQUE_靄_387_[:100]}"
+// [metadata-stripped]
+            _VERANTYX_靄:1.0__OPAQUE_靄_3_ = [f'OP._VERANTYX_庠:1.0__OPAQUE_庠_86_("_VERANTYX_靄:1.0__OPAQUE_靄_387_", "{_VERANTYX_靄:1.0__OPAQUE_靄_387_[:80]._VERANTYX_靄:1.0__OPAQUE_靄_343_(_VERANTYX_靄:1.0__OPAQUE_靄_370_(34), _VERANTYX_靄:1.0__OPAQUE_靄_370_(39))}")']
+            _VERANTYX_靄:1.0__OPAQUE_靄_45_ = _VERANTYX_靄:1.0__OPAQUE_靄_21_(f"{_VERANTYX_靄:1.0__OPAQUE_靄_83_}_{j}_{ts+j}", _VERANTYX_靄:1.0__OPAQUE_靄_53_, _VERANTYX_靄:1.0__OPAQUE_靄_340_, _VERANTYX_靄:1.0__OPAQUE_靄_3_, _VERANTYX_靄:1.0__OPAQUE_靄_387_)
+            _VERANTYX_靄:1.0__OPAQUE_靄_354_._VERANTYX_靄:1.0__OPAQUE_靄_19_(_VERANTYX_靄:1.0__OPAQUE_靄_45_)
+            _VERANTYX_靄:1.0__OPAQUE_靄_379_ += 1
+
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_43_: {_VERANTYX_靄:1.0__OPAQUE_靄_379_} _VERANTYX_靄:1.0__OPAQUE_靄_256_ _VERANTYX_靄:1.0__OPAQUE_靄_379_ (_VERANTYX_靄:1.0__OPAQUE_靄_146_ L1)")
+
+// [metadata-stripped]
+        _VERANTYX_靄:1.0__OPAQUE_靄_349_    = _VERANTYX_靄:1.0__OPAQUE_靄_111_(_VERANTYX_靄:1.0__OPAQUE_靄_203_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_351_ = _VERANTYX_靄:1.0__OPAQUE_靄_368_(_VERANTYX_靄:1.0__OPAQUE_靄_349_, _VERANTYX_靄:1.0__OPAQUE_靄_350_=_VERANTYX_庠:1.0__OPAQUE_庠_27_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_60_ L1 _VERANTYX_靄:1.0__OPAQUE_靄_190_: {_VERANTYX_靄:1.0__OPAQUE_靄_349_} → {_VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_351_)} _VERANTYX_靄:1.0__OPAQUE_靄_331_")
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _VERANTYX_靄:1.0__OPAQUE_靄_52_ = _VERANTYX_術:1.0__OPAQUE_凛_2_(_VERANTYX_靄:1.0__OPAQUE_靄_354_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_5_ = [p for p in _VERANTYX_靄:1.0__OPAQUE_靄_351_ if p in _VERANTYX_靄:1.0__OPAQUE_靄_52_][:_VERANTYX_庠:1.0__OPAQUE_庠_68_]
+        if _VERANTYX_靄:1.0__OPAQUE_靄_268_ _VERANTYX_靄:1.0__OPAQUE_靄_5_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_5_ = _VERANTYX_靄:1.0__OPAQUE_靄_354_[:_VERANTYX_庠:1.0__OPAQUE_庠_68_]
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_59_ L2 _VERANTYX_靄:1.0__OPAQUE_靄_158_: {_VERANTYX_庠:1.0__OPAQUE_庠_56_} _VERANTYX_靄:1.0__OPAQUE_靄_226_ _VERANTYX_靄:1.0__OPAQUE_靄_245_ for "
+              f"{_VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_5_)} _VERANTYX_靄:1.0__OPAQUE_靄_331_...")
+
+        _VERANTYX_靄:1.0__OPAQUE_靄_125_ = []
+        for _VERANTYX_靄:1.0__OPAQUE_靄_45_ in _VERANTYX_靄:1.0__OPAQUE_靄_5_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_387_ = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_45_, '【原文】')
+            _VERANTYX_靄:1.0__OPAQUE_靄_245_ = _VERANTYX_靄:1.0__OPAQUE_靄_410_(_VERANTYX_靄:1.0__OPAQUE_靄_387_)   # _VERANTYX_庠:1.0__OPAQUE_庠_74_ _VERANTYX_庠:1.0__OPAQUE_庠_123_ _VERANTYX_靄:1.0__OPAQUE_靄_69_
+// [metadata-stripped]
+            _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_45_, _VERANTYX_靄:1.0__OPAQUE_靄_161_="_VERANTYX_靄:1.0__OPAQUE_靄_162_-8") as fh:
+                _VERANTYX_靄:1.0__OPAQUE_靄_165_ = fh._VERANTYX_靄:1.0__OPAQUE_靄_258_()
+// [metadata-stripped]
+            _VERANTYX_靄:1.0__OPAQUE_靄_360_    = "\n"._VERANTYX_靄:1.0__OPAQUE_靄_206_(_VERANTYX_靄:1.0__OPAQUE_靄_245_)
+            _VERANTYX_靄:1.0__OPAQUE_靄_421_ = re._VERANTYX_靄:1.0__OPAQUE_靄_41_(
+                r'(【操作対応表】\n)([\s\S]*?)(【原文】)',
+                f'\\1{_VERANTYX_靄:1.0__OPAQUE_靄_360_}\n\\3',
+                _VERANTYX_靄:1.0__OPAQUE_靄_165_
+            )
+            _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_45_, "w", _VERANTYX_靄:1.0__OPAQUE_靄_161_="_VERANTYX_靄:1.0__OPAQUE_靄_162_-8") as fh:
+                fh._VERANTYX_靄:1.0__OPAQUE_靄_309_(_VERANTYX_靄:1.0__OPAQUE_靄_421_)
+            _VERANTYX_靄:1.0__OPAQUE_靄_125_._VERANTYX_靄:1.0__OPAQUE_靄_19_(_VERANTYX_靄:1.0__OPAQUE_靄_45_)
+
+// [metadata-stripped]
+        _VERANTYX_靄:1.0__OPAQUE_靄_239_ = _VERANTYX_靄:1.0__OPAQUE_靄_123_(_VERANTYX_靄:1.0__OPAQUE_靄_203_, _VERANTYX_靄:1.0__OPAQUE_靄_125_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_191_    = _VERANTYX_靄:1.0__OPAQUE_靄_239_[0] if _VERANTYX_靄:1.0__OPAQUE_靄_239_ else (0, _VERANTYX_庠:1.0__OPAQUE_庠_13_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_126_, _VERANTYX_靄:1.0__OPAQUE_靄_243_ = _VERANTYX_靄:1.0__OPAQUE_靄_191_
+
+// [metadata-stripped]
+        _VERANTYX_靄:1.0__OPAQUE_靄_195_ = " "._VERANTYX_靄:1.0__OPAQUE_靄_206_(open(f)._VERANTYX_靄:1.0__OPAQUE_靄_258_() for _, f in _VERANTYX_靄:1.0__OPAQUE_靄_239_[:_VERANTYX_庠:1.0__OPAQUE_庠_76_]) if _VERANTYX_靄:1.0__OPAQUE_靄_239_ else ""
+        _VERANTYX_靄:1.0__OPAQUE_靄_113_ = any(_VERANTYX_靄:1.0__OPAQUE_靄_363_ in _VERANTYX_靄:1.0__OPAQUE_靄_195_ for _VERANTYX_靄:1.0__OPAQUE_靄_363_ in _VERANTYX_靄:1.0__OPAQUE_靄_376_) if _VERANTYX_靄:1.0__OPAQUE_靄_376_ else _VERANTYX_庠:1.0__OPAQUE_庠_13_
+
+        if _VERANTYX_靄:1.0__OPAQUE_靄_243_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_170_ = _VERANTYX_靄:1.0__OPAQUE_靄_156_(_VERANTYX_靄:1.0__OPAQUE_靄_243_, '【操作対応表】', '【原文】')
+            _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_17_ L2 _VERANTYX_靄:1.0__OPAQUE_靄_119_: _VERANTYX_靄:1.0__OPAQUE_靄_254_={_VERANTYX_靄:1.0__OPAQUE_靄_126_:.1f} | "
+                  f"{_VERANTYX_靄:1.0__OPAQUE_靄_170_[:80]._VERANTYX_靄:1.0__OPAQUE_靄_343_(_VERANTYX_靄:1.0__OPAQUE_靄_370_(10),' | ')}")
+        else:
+            _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_17_ L2 _VERANTYX_靄:1.0__OPAQUE_靄_119_: no _VERANTYX_靄:1.0__OPAQUE_靄_282_")
+            _VERANTYX_靄:1.0__OPAQUE_靄_243_ = _VERANTYX_靄:1.0__OPAQUE_靄_351_[0] if _VERANTYX_靄:1.0__OPAQUE_靄_351_ else _VERANTYX_庠:1.0__OPAQUE_庠_13_
+
+// [metadata-stripped]
+// [metadata-stripped]
+        if _VERANTYX_靄:1.0__OPAQUE_靄_243_:
+            _VERANTYX_靄:1.0__OPAQUE_靄_189_ = _VERANTYX_靄:1.0__OPAQUE_靄_244_(_VERANTYX_靄:1.0__OPAQUE_靄_243_, _VERANTYX_靄:1.0__OPAQUE_靄_57_=_VERANTYX_庠:1.0__OPAQUE_庠_92_)
+        else:
+            _VERANTYX_靄:1.0__OPAQUE_靄_189_ = ""
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  → _VERANTYX_庠:1.0__OPAQUE_庠_4_ L3+L2: {_VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_189_)} _VERANTYX_靄:1.0__OPAQUE_靄_117_ | "
+              f"_VERANTYX_庠:1.0__OPAQUE_庠_46_={'✅' if _VERANTYX_靄:1.0__OPAQUE_靄_113_ else '❌'}")
+
+// [metadata-stripped]
+        _VERANTYX_術:1.0__OPAQUE_靄_56_ = _VERANTYX_術:1.0__OPAQUE_靄_222_(_VERANTYX_靄:1.0__OPAQUE_靄_203_, _VERANTYX_靄:1.0__OPAQUE_靄_189_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  _VERANTYX_庠:1.0__OPAQUE_庠_7_: {_VERANTYX_術:1.0__OPAQUE_靄_56_[:80]}")
+
+        _VERANTYX_靄:1.0__OPAQUE_靄_254_ = _VERANTYX_隠:1.0__OPAQUE_靄_315_(_VERANTYX_靄:1.0__OPAQUE_靄_367_, _VERANTYX_術:1.0__OPAQUE_靄_56_)
+        _VERANTYX_靄:1.0__OPAQUE_靄_94_ = "✅" if _VERANTYX_靄:1.0__OPAQUE_靄_254_ >= 0.5 else ("⚠️" if _VERANTYX_靄:1.0__OPAQUE_靄_254_ > 0 else "❌")
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  _VERANTYX_庠:1.0__OPAQUE_庠_108_: {_VERANTYX_靄:1.0__OPAQUE_靄_254_:.0%} {_VERANTYX_靄:1.0__OPAQUE_靄_94_}")
+
+        _VERANTYX_靄:1.0__OPAQUE_靄_303_._VERANTYX_靄:1.0__OPAQUE_靄_19_({
+            "id": _VERANTYX_靄:1.0__OPAQUE_靄_83_, "_VERANTYX_靄:1.0__OPAQUE_靄_203_": _VERANTYX_靄:1.0__OPAQUE_靄_203_, "_VERANTYX_靄:1.0__OPAQUE_靄_367_": _VERANTYX_靄:1.0__OPAQUE_靄_367_, "_VERANTYX_靄:1.0__OPAQUE_靄_334_": _VERANTYX_術:1.0__OPAQUE_靄_56_,
+            "_VERANTYX_靄:1.0__OPAQUE_靄_254_": _VERANTYX_靄:1.0__OPAQUE_靄_355_(_VERANTYX_靄:1.0__OPAQUE_靄_254_, 3), "_VERANTYX_靄:1.0__OPAQUE_靄_59_": _VERANTYX_靄:1.0__OPAQUE_靄_113_,
+            "_VERANTYX_靄:1.0__OPAQUE_靄_377_": _VERANTYX_靄:1.0__OPAQUE_靄_126_, "_VERANTYX_靄:1.0__OPAQUE_靄_392_": _VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_256_)
+        })
+
+// [metadata-stripped]
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("\n" + "=" * 65)
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("_VERANTYX_庠:1.0__OPAQUE_庠_41_ 3-_VERANTYX_術:1.0__OPAQUE_庠_18_ _VERANTYX_庠:1.0__OPAQUE_庠_80_ _VERANTYX_庠:1.0__OPAQUE_庠_94_")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_("=" * 65)
+    _VERANTYX_靄:1.0__OPAQUE_靄_100_  = _VERANTYX_靄:1.0__OPAQUE_靄_106_(1 for r in _VERANTYX_靄:1.0__OPAQUE_靄_303_ if r["_VERANTYX_靄:1.0__OPAQUE_靄_254_"] >= 0.5)
+    _VERANTYX_靄:1.0__OPAQUE_靄_121_     = _VERANTYX_靄:1.0__OPAQUE_靄_106_(r["_VERANTYX_靄:1.0__OPAQUE_靄_254_"] for r in _VERANTYX_靄:1.0__OPAQUE_靄_303_) / _VERANTYX_靄:1.0__OPAQUE_靄_402_(_VERANTYX_靄:1.0__OPAQUE_靄_303_) if _VERANTYX_靄:1.0__OPAQUE_靄_303_ else 0
+    _VERANTYX_靄:1.0__OPAQUE_靄_139_ = _VERANTYX_靄:1.0__OPAQUE_靄_106_(1 for r in _VERANTYX_靄:1.0__OPAQUE_靄_303_ if r["_VERANTYX_靄:1.0__OPAQUE_靄_59_"] is _VERANTYX_庠:1.0__OPAQUE_庠_92_)
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"✅ _VERANTYX_庠:1.0__OPAQUE_庠_82_ (≥50%): {_VERANTYX_靄:1.0__OPAQUE_靄_100_}/{_VERANTYX_庠:1.0__OPAQUE_庠_31_}")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"📊 _VERANTYX_庠:1.0__OPAQUE_庠_6_ _VERANTYX_靄:1.0__OPAQUE_靄_254_:  {_VERANTYX_靄:1.0__OPAQUE_靄_121_:.1%}")
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"🎯 L2 _VERANTYX_庠:1.0__OPAQUE_庠_48_: {_VERANTYX_靄:1.0__OPAQUE_靄_139_}/{_VERANTYX_庠:1.0__OPAQUE_庠_31_}")
+    for r in _VERANTYX_靄:1.0__OPAQUE_靄_303_:
+        g = "✅" if r["_VERANTYX_靄:1.0__OPAQUE_靄_254_"] >= 0.5 else ("⚠️" if r["_VERANTYX_靄:1.0__OPAQUE_靄_254_"] > 0 else "❌")
+        h = "🎯" if r["_VERANTYX_靄:1.0__OPAQUE_靄_59_"] else "🔍"
+        _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"  {g} {r['id']}: {r['_VERANTYX_靄:1.0__OPAQUE_靄_254_']:.0%} | L2={h}({r['_VERANTYX_靄:1.0__OPAQUE_靄_377_']:.1f}) | {r['_VERANTYX_靄:1.0__OPAQUE_靄_334_'][:40]}")
+
+    _VERANTYX_靄:1.0__OPAQUE_靄_175_ = "/_VERANTYX_庠:1.0__OPAQUE_庠_70_/_VERANTYX_靄:1.0__OPAQUE_靄_420_/_VERANTYX_靄:1.0__OPAQUE_靄_60_-_VERANTYX_靄:1.0__OPAQUE_靄_96_/_VERANTYX_靄:1.0__OPAQUE_靄_386_-_VERANTYX_靄:1.0__OPAQUE_靄_398_/_VERANTYX_靄:1.0__OPAQUE_靄_228_/_VERANTYX_靄:1.0__OPAQUE_靄_337_._VERANTYX_靄:1.0__OPAQUE_靄_211_"
+    _VERANTYX_靄:1.0__OPAQUE_靄_92_ open(_VERANTYX_靄:1.0__OPAQUE_靄_175_, "w") as f:
+        _VERANTYX_靄:1.0__OPAQUE_靄_211_._VERANTYX_靄:1.0__OPAQUE_靄_31_({"_VERANTYX_靄:1.0__OPAQUE_靄_169_": "_VERANTYX_術:1.0__OPAQUE_靄_210_", "_VERANTYX_靄:1.0__OPAQUE_靄_237_": _VERANTYX_庠:1.0__OPAQUE_庠_56_,
+                   "_VERANTYX_靄:1.0__OPAQUE_靄_54_": _VERANTYX_庠:1.0__OPAQUE_庠_67_, "_VERANTYX_庠:1.0__OPAQUE_庠_69_": _VERANTYX_庠:1.0__OPAQUE_庠_68_,
+                   "_VERANTYX_靄:1.0__OPAQUE_靄_340_": {"_VERANTYX_靄:1.0__OPAQUE_靄_416_": _VERANTYX_靄:1.0__OPAQUE_靄_100_, "_VERANTYX_靄:1.0__OPAQUE_靄_121_": _VERANTYX_靄:1.0__OPAQUE_靄_121_, "_VERANTYX_靄:1.0__OPAQUE_靄_139_": _VERANTYX_靄:1.0__OPAQUE_靄_139_},
+                   "_VERANTYX_靄:1.0__OPAQUE_靄_303_": _VERANTYX_靄:1.0__OPAQUE_靄_303_}, f, _VERANTYX_靄:1.0__OPAQUE_靄_270_=2, _VERANTYX_靄:1.0__OPAQUE_靄_32_=_VERANTYX_庠:1.0__OPAQUE_庠_29_)
+    _VERANTYX_靄:1.0__OPAQUE_靄_232_(f"\_VERANTYX_函:1.0__OPAQUE_靄_347_ → {_VERANTYX_靄:1.0__OPAQUE_靄_175_}")
+
+
+if _VERANTYX_靄:1.0__OPAQUE_靄_401_ == "_VERANTYX_靄:1.0__OPAQUE_靄_292_":
+    _VERANTYX_靄:1.0__OPAQUE_靄_359_()
+
+// POLYMORPHIC_JCROSS_END

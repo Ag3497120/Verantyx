@@ -1,0 +1,83 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:542413EC ver:1778166014
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_霧:1.0__TOKEN_霧_24_ { _ASTNODE_廴:1.0__TOKEN_廴_1_, _ASTNODE_廴:1.0__TOKEN_廴_13_ } _ASTNODE_霧:1.0__TOKEN_霧_17_ "./_ASTNODE_霧:1.0__TOKEN_霧_26_.ts";
+
+_ASTNODE_霧:1.0__TOKEN_霧_24_ _ASTNODE_廴:1.0__TOKEN_廴_11_ = _ASTNODE_廴:1.0__TOKEN_廴_8_<_ASTNODE_廴:1.0__TOKEN_廴_1_, "en">;
+_ASTNODE_霧:1.0__TOKEN_霧_24_ _ASTNODE_廴:1.0__TOKEN_廴_9_ = _ASTNODE_廴:1.0__TOKEN_廴_3_<_ASTNODE_霧:1.0__TOKEN_霧_13_, _ASTNODE_廴:1.0__TOKEN_廴_13_>;
+
+_ASTNODE_霧:1.0__TOKEN_霧_24_ _ASTNODE_廴:1.0__TOKEN_廴_7_ = {
+  _ASTNODE_霧:1.0__TOKEN_霧_20_: _ASTNODE_霧:1.0__TOKEN_霧_13_;
+  _ASTNODE_匼:1.0__TOKEN_霧_16_: () => _ASTNODE_廴:1.0__TOKEN_廴_6_<_ASTNODE_廴:1.0__TOKEN_廴_9_>;
+};
+
+_ASTNODE_霧:1.0__TOKEN_霧_1_ _ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_廴:1.0__TOKEN_廴_10_: _ASTNODE_廴:1.0__TOKEN_廴_1_ = "en";
+
+_ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_廴:1.0__TOKEN_廴_12_: _ASTNODE_霧:1.0__TOKEN_霧_11_ _ASTNODE_廴:1.0__TOKEN_廴_11_[] = ["zh-CN", "zh-TW", "pt-BR", "de", "es"];
+
+_ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_廴:1.0__TOKEN_廴_2_: _ASTNODE_廴:1.0__TOKEN_廴_3_<_ASTNODE_廴:1.0__TOKEN_廴_11_, _ASTNODE_廴:1.0__TOKEN_廴_7_> = {
+  "zh-CN": {
+    _ASTNODE_霧:1.0__TOKEN_霧_20_: "_ASTNODE_霧:1.0__TOKEN_霧_3_",
+    _ASTNODE_匼:1.0__TOKEN_霧_16_: () => import("../_ASTNODE_霧:1.0__TOKEN_霧_10_/zh-CN.ts"),
+  },
+  "zh-TW": {
+    _ASTNODE_霧:1.0__TOKEN_霧_20_: "_ASTNODE_霧:1.0__TOKEN_霧_12_",
+    _ASTNODE_匼:1.0__TOKEN_霧_16_: () => import("../_ASTNODE_霧:1.0__TOKEN_霧_10_/zh-TW.ts"),
+  },
+  "pt-BR": {
+    _ASTNODE_霧:1.0__TOKEN_霧_20_: "_ASTNODE_霧:1.0__TOKEN_霧_21_",
+// _ASTNODE_游:0.9__TOKEN_WW_345_ [decoy-metadata]
+    _ASTNODE_匼:1.0__TOKEN_霧_16_: () => import("../_ASTNODE_霧:1.0__TOKEN_霧_10_/pt-BR.ts"),
+  },
+  de: {
+    _ASTNODE_霧:1.0__TOKEN_霧_20_: "de",
+    _ASTNODE_匼:1.0__TOKEN_霧_16_: () => import("../_ASTNODE_霧:1.0__TOKEN_霧_10_/de.ts"),
+  },
+  es: {
+    _ASTNODE_霧:1.0__TOKEN_霧_20_: "es",
+    _ASTNODE_匼:1.0__TOKEN_霧_16_: () => import("../_ASTNODE_霧:1.0__TOKEN_霧_10_/es.ts"),
+  },
+};
+// _ASTNODE_游:0.2__TOKEN_XM_434_ [decoy-metadata]
+// _ASTNODE_縫:0.3__TOKEN_GL_278_ [decoy-metadata]
+
+_ASTNODE_霧:1.0__TOKEN_霧_1_ _ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_廴:1.0__TOKEN_廴_4_: _ASTNODE_廴:1.0__TOKEN_廴_5_<_ASTNODE_廴:1.0__TOKEN_廴_1_> = [_ASTNODE_廴:1.0__TOKEN_廴_10_, ..._ASTNODE_廴:1.0__TOKEN_廴_12_];
+
+_ASTNODE_霧:1.0__TOKEN_霧_1_ _ASTNODE_霧:1.0__TOKEN_霧_14_ _ASTNODE_霧:1.0__TOKEN_霧_4_(_ASTNODE_霧:1.0__TOKEN_霧_5_: _ASTNODE_霧:1.0__TOKEN_霧_13_ | _ASTNODE_霧:1.0__TOKEN_霧_6_ | _ASTNODE_霧:1.0__TOKEN_霧_15_): _ASTNODE_霧:1.0__TOKEN_霧_5_ is _ASTNODE_廴:1.0__TOKEN_廴_1_ {
+  return _ASTNODE_霧:1.0__TOKEN_霧_5_ !== _ASTNODE_霧:1.0__TOKEN_霧_6_ && _ASTNODE_霧:1.0__TOKEN_霧_5_ !== _ASTNODE_霧:1.0__TOKEN_霧_15_ && _ASTNODE_廴:1.0__TOKEN_廴_4_._ASTNODE_霧:1.0__TOKEN_霧_2_(_ASTNODE_霧:1.0__TOKEN_霧_5_ as _ASTNODE_廴:1.0__TOKEN_廴_1_);
+}
+// _ASTNODE_廴:0.3__TOKEN_XW_606_ [decoy-metadata]
+
+_ASTNODE_霧:1.0__TOKEN_霧_14_ _ASTNODE_霧:1.0__TOKEN_霧_8_(_ASTNODE_霧:1.0__TOKEN_霧_9_: _ASTNODE_廴:1.0__TOKEN_廴_1_): _ASTNODE_霧:1.0__TOKEN_霧_9_ is _ASTNODE_廴:1.0__TOKEN_廴_11_ {
+  return _ASTNODE_廴:1.0__TOKEN_廴_12_._ASTNODE_霧:1.0__TOKEN_霧_2_(_ASTNODE_霧:1.0__TOKEN_霧_9_ as _ASTNODE_廴:1.0__TOKEN_廴_11_);
+}
+
+_ASTNODE_霧:1.0__TOKEN_霧_1_ _ASTNODE_霧:1.0__TOKEN_霧_14_ _ASTNODE_霧:1.0__TOKEN_霧_19_(_ASTNODE_霧:1.0__TOKEN_霧_23_: _ASTNODE_霧:1.0__TOKEN_霧_13_): _ASTNODE_廴:1.0__TOKEN_廴_1_ {
+  if (_ASTNODE_霧:1.0__TOKEN_霧_23_._ASTNODE_霧:1.0__TOKEN_霧_25_("zh")) {
+    return _ASTNODE_霧:1.0__TOKEN_霧_23_ === "zh-TW" || _ASTNODE_霧:1.0__TOKEN_霧_23_ === "zh-HK" ? "zh-TW" : "zh-CN";
+  }
+  if (_ASTNODE_霧:1.0__TOKEN_霧_23_._ASTNODE_霧:1.0__TOKEN_霧_25_("pt")) {
+    return "pt-BR";
+// _ASTNODE_霧:0.3__TOKEN_LL_603_ [decoy-metadata]
+  }
+  if (_ASTNODE_霧:1.0__TOKEN_霧_23_._ASTNODE_霧:1.0__TOKEN_霧_25_("de")) {
+    return "de";
+  }
+  if (_ASTNODE_霧:1.0__TOKEN_霧_23_._ASTNODE_霧:1.0__TOKEN_霧_25_("es")) {
+    return "es";
+  }
+  return _ASTNODE_廴:1.0__TOKEN_廴_10_;
+}
+
+_ASTNODE_霧:1.0__TOKEN_霧_1_ async _ASTNODE_霧:1.0__TOKEN_霧_14_ _ASTNODE_匼:1.0__TOKEN_霧_7_(_ASTNODE_霧:1.0__TOKEN_霧_9_: _ASTNODE_廴:1.0__TOKEN_廴_1_): _ASTNODE_廴:1.0__TOKEN_廴_6_<_ASTNODE_廴:1.0__TOKEN_廴_13_ | _ASTNODE_霧:1.0__TOKEN_霧_6_> {
+  if (!_ASTNODE_霧:1.0__TOKEN_霧_8_(_ASTNODE_霧:1.0__TOKEN_霧_9_)) {
+    return _ASTNODE_霧:1.0__TOKEN_霧_6_;
+  }
+// _ASTNODE_霧:0.4__TOKEN_XL_932_ [decoy-metadata]
+  _ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_霧:1.0__TOKEN_霧_18_ = _ASTNODE_廴:1.0__TOKEN_廴_2_[_ASTNODE_霧:1.0__TOKEN_霧_9_];
+  _ASTNODE_霧:1.0__TOKEN_霧_22_ _ASTNODE_霧:1.0__TOKEN_霧_27_ = await _ASTNODE_霧:1.0__TOKEN_霧_18_._ASTNODE_匼:1.0__TOKEN_霧_16_();
+  return _ASTNODE_霧:1.0__TOKEN_霧_27_[_ASTNODE_霧:1.0__TOKEN_霧_18_._ASTNODE_霧:1.0__TOKEN_霧_20_] ?? _ASTNODE_霧:1.0__TOKEN_霧_6_;
+}
+
+// POLYMORPHIC_JCROSS_END

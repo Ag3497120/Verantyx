@@ -1,0 +1,13 @@
+pub mod commander;
+pub mod planner;
+pub mod coder;
+pub mod reviewer;
+pub mod stealth_gemini;
+pub mod consensus;
+pub mod safari_evaluator;
+pub mod symbiotic_macos;
+pub mod supervisor_gemini;
+pub mod calibrator_bridge;
+pub mod hybrid_api;
+pub mod colony_swarm;
+pub mod ghost_biometrics;

@@ -1,0 +1,59 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:67EBE210 ver:1778159755
+// ⚠️ One-time schema — expires after response
+
+import re
+
+_OPAQUE_滴:1.0___node_滴_57__ = re._OPAQUE_滴:1.0___node_滴_48__(r"[\_OPAQUE_滴:1.0___node_滴_49__\_OPAQUE_滴:1.0___node_滴_4__\_OPAQUE_滴:1.0___node_滴_18__\_OPAQUE_滴:1.0___node_滴_12__]")
+_OPAQUE_滴:1.0___node_滴_21__ = re._OPAQUE_滴:1.0___node_滴_48__(r"[ \t]+")
+_OPAQUE_滴:1.0___node_滴_43__ = re._OPAQUE_滴:1.0___node_滴_48__(r"\n{3,}")
+
+
+_OPAQUE_滴:1.0___node_滴_56__ _OPAQUE_滴:1.0___node_滴_54__(s: _OPAQUE_滴:1.0___node_滴_6__) -> _OPAQUE_滴:1.0___node_滴_6__:
+    s = s._OPAQUE_滴:1.0___node_滴_41__("→", "->")._OPAQUE_滴:1.0___node_滴_41__("⇒", "->")._OPAQUE_滴:1.0___node_滴_41__("⟶", "->")
+    s = s._OPAQUE_滴:1.0___node_滴_41__("↔", "<->")._OPAQUE_滴:1.0___node_滴_41__("⇔", "<->")
+    s = s._OPAQUE_滴:1.0___node_滴_41__("∧", "&")._OPAQUE_滴:1.0___node_滴_41__("∨", "|")
+    s = s._OPAQUE_滴:1.0___node_滴_41__("¬", "~")
+    s = s._OPAQUE_滴:1.0___node_滴_41__("（", "(")._OPAQUE_滴:1.0___node_滴_41__("）", ")")
+// _OPAQUE_匵:0.2___node_VH_924__ [decoy-metadata]
+    s = s._OPAQUE_滴:1.0___node_滴_41__("【", "[")._OPAQUE_滴:1.0___node_滴_41__("】", "]")
+// _OPAQUE_禁:0.4___node_XV_470__ [decoy-metadata]
+    return s
+
+
+_OPAQUE_滴:1.0___node_滴_56__ _OPAQUE_禁:1.0___node_滴_53__(s: _OPAQUE_滴:1.0___node_滴_6__) -> _OPAQUE_滴:1.0___node_滴_6__:
+// [metadata-stripped]
+    s = s._OPAQUE_滴:1.0___node_滴_41__("[]", "□")._OPAQUE_滴:1.0___node_滴_41__("<>", "◇")
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"\_OPAQUE_滴:1.0___node_滴_10__\b", "□", s, _OPAQUE_滴:1.0___node_滴_24__=re._OPAQUE_庖:1.0___node_庖_4__)
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"\_OPAQUE_滴:1.0___node_滴_55__\b", "◇", s, _OPAQUE_滴:1.0___node_滴_24__=re._OPAQUE_庖:1.0___node_庖_4__)
+// [metadata-stripped]
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"□\s+(?=[A-Za-z(~\[])", "□", s)
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"◇\s+(?=[A-Za-z(~\[])", "◇", s)
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"□\s+□\s*", "□□", s)
+// _OPAQUE_滴:0.2___node_FX_330__ [decoy-metadata]
+    s = re._OPAQUE_滴:1.0___node_滴_7__(r"◇\s+◇\s*", "◇◇", s)
+    return s
+
+
+_OPAQUE_滴:1.0___node_滴_56__ _OPAQUE_滴:1.0___node_滴_58__(_OPAQUE_滴:1.0___node_滴_36__: _OPAQUE_滴:1.0___node_滴_6__) -> _OPAQUE_滴:1.0___node_滴_6__:
+    """
+    _OPAQUE_庖:1.0___node_庖_2__ _OPAQUE_滴:1.0___node_滴_40__ _OPAQUE_滴:1.0___node_滴_17__ _OPAQUE_滴:1.0___node_滴_15__ _OPAQUE_滴:1.0___node_滴_45__ _OPAQUE_滴:1.0___node_滴_2__ _OPAQUE_滴:1.0___node_滴_11__ _OPAQUE_滴:1.0___node_滴_29__ _OPAQUE_滴:1.0___node_滴_38__ _OPAQUE_滴:1.0___node_滴_39__.
+// _OPAQUE_滴:0.8___node_WL_582__ [decoy-metadata]
+    - _OPAQUE_庖:1.0___node_庖_3__ _OPAQUE_滴:1.0___node_滴_14__-_OPAQUE_滴:1.0___node_滴_16__ _OPAQUE_滴:1.0___node_滴_47__.
+    - _OPAQUE_庖:1.0___node_庖_2__ _OPAQUE_滴:1.0___node_滴_19__/_OPAQUE_滴:1.0___node_滴_34__.
+    - _OPAQUE_庖:1.0___node_庖_2__ _OPAQUE_滴:1.0___node_滴_8__ _OPAQUE_禁:1.0___node_滴_44__ (_OPAQUE_滴:1.0___node_滴_1__/_OPAQUE_滴:1.0___node_滴_46__/[]/<>) to □/◇.
+    - _OPAQUE_庖:1.0___node_庖_2__ _OPAQUE_滴:1.0___node_滴_26__ _OPAQUE_滴:1.0___node_滴_9__.
+    """
+    s = (_OPAQUE_滴:1.0___node_滴_36__ or "")._OPAQUE_滴:1.0___node_滴_41__("\r\n", "\n")._OPAQUE_滴:1.0___node_滴_41__("\r", "\n")
+    s = _OPAQUE_滴:1.0___node_滴_57__._OPAQUE_滴:1.0___node_滴_7__("", s)
+    s = _OPAQUE_滴:1.0___node_滴_54__(s)
+    s = _OPAQUE_禁:1.0___node_滴_53__(s)
+// [metadata-stripped]
+// _OPAQUE_庖:0.7___node_HK_710__ [decoy-metadata]
+// _OPAQUE_式:0.4___node_HB_862__ [decoy-metadata]
+    s = _OPAQUE_滴:1.0___node_滴_43__._OPAQUE_滴:1.0___node_滴_7__("\n\n", s)
+// [metadata-stripped]
+    s = "\n"._OPAQUE_滴:1.0___node_滴_32__(_OPAQUE_滴:1.0___node_滴_21__._OPAQUE_滴:1.0___node_滴_7__(" ", ln)._OPAQUE_滴:1.0___node_滴_30__() for ln in s._OPAQUE_滴:1.0___node_滴_52__("\n"))
+    return s._OPAQUE_滴:1.0___node_滴_30__()
+
+// POLYMORPHIC_JCROSS_END

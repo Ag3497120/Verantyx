@@ -1,0 +1,65 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C812B208 ver:1778166266
+// ⚠️ One-time schema — expires after response
+
+_SYM_霮:1.0__TOKEN_霮_27_ _SYM_霮:1.0__TOKEN_霮_3_::_SYM_霮:1.0__TOKEN_霮_22_::_SYM_庭:1.0__TOKEN_庭_18_;
+_SYM_霮:1.0__TOKEN_霮_27_ _SYM_霮:1.0__TOKEN_霮_36_::_SYM_霮:1.0__TOKEN_霮_11_::_SYM_霮:1.0__TOKEN_霮_10_;
+_SYM_霮:1.0__TOKEN_霮_27_ _SYM_霮:1.0__TOKEN_霮_43_::{_SYM_霮:1.0__TOKEN_霮_4_, _SYM_霮:1.0__TOKEN_霮_28_};
+_SYM_霮:1.0__TOKEN_霮_27_ _SYM_霮:1.0__TOKEN_霮_26_::actor::{_SYM_庭:1.0__TOKEN_庭_6_, _SYM_庭:1.0__TOKEN_庭_5_};
+
+_SYM_霮:1.0__TOKEN_霮_38_ struct _SYM_庭:1.0__TOKEN_庭_21_ {
+    _SYM_霮:1.0__TOKEN_霮_30_: _SYM_庭:1.0__TOKEN_庭_18_<_SYM_庭:1.0__TOKEN_庭_12_, _SYM_庭:1.0__TOKEN_庭_2_<_SYM_霮:1.0__TOKEN_霮_42_ _SYM_庭:1.0__TOKEN_庭_6_>>,
+    _SYM_霮:1.0__TOKEN_霮_21_: _SYM_霮:1.0__TOKEN_霮_10_::_SYM_律:1.0__TOKEN_庭_11_<_SYM_庭:1.0__TOKEN_庭_5_>,
+    _SYM_霮:1.0__TOKEN_霮_9_: _SYM_霮:1.0__TOKEN_霮_10_::_SYM_律:1.0__TOKEN_庭_10_<_SYM_庭:1.0__TOKEN_庭_5_>,
+}
+
+_SYM_霮:1.0__TOKEN_霮_25_ _SYM_庭:1.0__TOKEN_庭_21_ {
+    _SYM_霮:1.0__TOKEN_霮_38_ fn _SYM_霮:1.0__TOKEN_霮_41_() -> _SYM_庭:1.0__TOKEN_庭_20_ {
+// _SYM_燦:0.8__TOKEN_LL_467_ [decoy-metadata]
+        let (tx, rx) = _SYM_霮:1.0__TOKEN_霮_10_::_SYM_霮:1.0__TOKEN_霮_44_(100);
+        _SYM_庭:1.0__TOKEN_庭_20_ {
+            _SYM_霮:1.0__TOKEN_霮_30_: _SYM_庭:1.0__TOKEN_庭_18_::_SYM_霮:1.0__TOKEN_霮_41_(),
+            _SYM_霮:1.0__TOKEN_霮_21_: tx,
+            _SYM_霮:1.0__TOKEN_霮_9_: rx,
+        }
+    }
+
+// _SYM_霮:0.6__TOKEN_AF_943_ [decoy-metadata]
+// _SYM_禁:0.5__TOKEN_FM_666_ [decoy-metadata]
+// _SYM_律:0.8__TOKEN_AX_191_ [decoy-metadata]
+    _SYM_霮:1.0__TOKEN_霮_38_ fn _SYM_霮:1.0__TOKEN_霮_32_(&_SYM_霮:1.0__TOKEN_霮_29_ self, _SYM_霮:1.0__TOKEN_霮_39_: _SYM_庭:1.0__TOKEN_庭_2_<_SYM_霮:1.0__TOKEN_霮_42_ _SYM_庭:1.0__TOKEN_庭_6_>) {
+        _SYM_霮:1.0__TOKEN_霮_4_!("[_SYM_庭:1.0__TOKEN_庭_21_] _SYM_庭:1.0__TOKEN_庭_13_ _SYM_霮:1.0__TOKEN_霮_39_ _SYM_霮:1.0__TOKEN_霮_13_: {}", _SYM_霮:1.0__TOKEN_霮_39_._SYM_霮:1.0__TOKEN_霮_7_());
+        self._SYM_霮:1.0__TOKEN_霮_30_._SYM_霮:1.0__TOKEN_霮_31_(_SYM_霮:1.0__TOKEN_霮_39_._SYM_霮:1.0__TOKEN_霮_7_()._SYM_霮:1.0__TOKEN_霮_8_(), _SYM_霮:1.0__TOKEN_霮_39_);
+// _SYM_禁:0.4__TOKEN_HF_236_ [decoy-metadata]
+    }
+
+    _SYM_霮:1.0__TOKEN_霮_38_ fn _SYM_律:1.0__TOKEN_燦_1_(&self) -> _SYM_霮:1.0__TOKEN_霮_10_::_SYM_律:1.0__TOKEN_庭_11_<_SYM_庭:1.0__TOKEN_庭_5_> {
+        self._SYM_霮:1.0__TOKEN_霮_21_._SYM_霮:1.0__TOKEN_霮_1_()
+    }
+
+// _SYM_禁:0.6__TOKEN_VE_110_ [decoy-metadata]
+    _SYM_霮:1.0__TOKEN_霮_38_ a_SYM_霮:1.0__TOKEN_霮_11_ fn _SYM_霮:1.0__TOKEN_霮_35_(&_SYM_霮:1.0__TOKEN_霮_29_ self) -> _SYM_霮:1.0__TOKEN_霮_2_::_SYM_庭:1.0__TOKEN_庭_14_<()> {
+        _SYM_霮:1.0__TOKEN_霮_4_!("[_SYM_庭:1.0__TOKEN_庭_21_] _SYM_庭:1.0__TOKEN_庭_8_ _SYM_霮:1.0__TOKEN_霮_18_ _SYM_霮:1.0__TOKEN_霮_40_.");
+        
+        while let _SYM_庭:1.0__TOKEN_庭_1_(_SYM_霮:1.0__TOKEN_霮_12_) = self._SYM_霮:1.0__TOKEN_霮_9_._SYM_霮:1.0__TOKEN_霮_46_().await {
+            _SYM_霮:1.0__TOKEN_霮_28_!("[_SYM_庭:1.0__TOKEN_庭_21_] _SYM_庭:1.0__TOKEN_庭_19_ _SYM_霮:1.0__TOKEN_霮_23_ _SYM_霮:1.0__TOKEN_霮_45_ {} to {}", _SYM_霮:1.0__TOKEN_霮_12_._SYM_律:1.0__TOKEN_霮_37_, _SYM_霮:1.0__TOKEN_霮_12_._SYM_霮:1.0__TOKEN_霮_20_);
+            
+// [metadata-stripped]
+            if let _SYM_庭:1.0__TOKEN_庭_1_(actor) = self._SYM_霮:1.0__TOKEN_霮_30_._SYM_律:1.0__TOKEN_燦_2_(&_SYM_霮:1.0__TOKEN_霮_12_._SYM_霮:1.0__TOKEN_霮_20_) {
+                if let Ok(_SYM_庭:1.0__TOKEN_庭_1_(_SYM_霮:1.0__TOKEN_霮_5_)) = actor._SYM_霮:1.0__TOKEN_霮_33_(_SYM_霮:1.0__TOKEN_霮_12_).await {
+                    let _ = self._SYM_霮:1.0__TOKEN_霮_21_._SYM_霮:1.0__TOKEN_霮_14_(_SYM_霮:1.0__TOKEN_霮_5_).await;
+                }
+            } else if _SYM_霮:1.0__TOKEN_霮_12_._SYM_霮:1.0__TOKEN_霮_20_ == "_SYM_庭:1.0__TOKEN_庭_7_" {
+// [metadata-stripped]
+            } else if _SYM_霮:1.0__TOKEN_霮_12_._SYM_霮:1.0__TOKEN_霮_20_ == "_SYM_庭:1.0__TOKEN_庭_16_" && _SYM_霮:1.0__TOKEN_霮_12_._SYM_匱:1.0__TOKEN_霮_16_ == "_SYM_庭:1.0__TOKEN_庭_17_" {
+                _SYM_霮:1.0__TOKEN_霮_4_!("[_SYM_庭:1.0__TOKEN_庭_21_] _SYM_庭:1.0__TOKEN_庭_3_ _SYM_霮:1.0__TOKEN_霮_34_ _SYM_霮:1.0__TOKEN_霮_19_.");
+                break;
+            } else {
+                _SYM_霮:1.0__TOKEN_霮_28_!("[_SYM_庭:1.0__TOKEN_庭_21_] _SYM_庭:1.0__TOKEN_庭_9_ _SYM_霮:1.0__TOKEN_霮_20_: {}", _SYM_霮:1.0__TOKEN_霮_12_._SYM_霮:1.0__TOKEN_霮_20_);
+            }
+        }
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,80 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F6AF9DDF ver:1778150518
+// ⚠️ One-time schema — expires after response
+// _ASTNODE_匣:0.6__TOKEN_AB_687_ [decoy-metadata]
+// _ASTNODE_蔽:0.2__TOKEN_YX_139_ [decoy-metadata]
+
+import _ASTNODE_礎:1.0__TOKEN_礎_16_
+
+// _ASTNODE_浮:0.7__TOKEN_DK_373_ [decoy-metadata]
+struct _ASTNODE_礎:1.0__TOKEN_礎_11_ {
+    let id: _ASTNODE_礎:1.0__TOKEN_礎_6_
+    let _ASTNODE_霰:1.0__TOKEN_霰_9_: _ASTNODE_礎:1.0__TOKEN_礎_6_
+    let _ASTNODE_霰:1.0__TOKEN_霰_35_: _ASTNODE_礎:1.0__TOKEN_礎_13_?
+}
+
+struct _ASTNODE_礎:1.0__TOKEN_礎_3_ {
+    let _ASTNODE_霰:1.0__TOKEN_霰_25_: _ASTNODE_礎:1.0__TOKEN_礎_1_
+    let _ASTNODE_計:1.0__TOKEN_霰_41_: _ASTNODE_礎:1.0__TOKEN_礎_1_
+}
+
+@_ASTNODE_礎:1.0__TOKEN_礎_12_
+final class _ASTNODE_計:1.0__TOKEN_礎_10_: _ASTNODE_礎:1.0__TOKEN_礎_17_ {
+    static let _ASTNODE_霰:1.0__TOKEN_霰_18_ = _ASTNODE_計:1.0__TOKEN_礎_10_()
+
+    @_ASTNODE_礎:1.0__TOKEN_礎_5_ var _ASTNODE_霰:1.0__TOKEN_霰_21_: [_ASTNODE_礎:1.0__TOKEN_礎_6_: _ASTNODE_礎:1.0__TOKEN_礎_11_] = [:]
+
+    private init() {}
+
+    func _ASTNODE_計:1.0__TOKEN_霰_33_(id: _ASTNODE_礎:1.0__TOKEN_礎_6_, _ASTNODE_霰:1.0__TOKEN_霰_9_: _ASTNODE_礎:1.0__TOKEN_礎_6_, _ASTNODE_霰:1.0__TOKEN_霰_35_: _ASTNODE_礎:1.0__TOKEN_礎_13_?) {
+        _ASTNODE_霰:1.0__TOKEN_霰_21_[id] = _ASTNODE_礎:1.0__TOKEN_礎_11_(id: id, _ASTNODE_霰:1.0__TOKEN_霰_9_: _ASTNODE_霰:1.0__TOKEN_霰_9_, _ASTNODE_霰:1.0__TOKEN_霰_35_: _ASTNODE_霰:1.0__TOKEN_霰_35_)
+    }
+
+    func _ASTNODE_計:1.0__TOKEN_霰_12_(id: _ASTNODE_礎:1.0__TOKEN_礎_6_) {
+        _ASTNODE_霰:1.0__TOKEN_霰_21_._ASTNODE_霰:1.0__TOKEN_霰_14_(_ASTNODE_蔽:1.0__TOKEN_霰_19_: id)
+    }
+
+// [metadata-stripped]
+    func _ASTNODE_霰:1.0__TOKEN_霰_22_(for _ASTNODE_霰:1.0__TOKEN_霰_40_: _ASTNODE_紐:1.0__TOKEN_礎_8_, at _ASTNODE_霰:1.0__TOKEN_霰_24_: _ASTNODE_礎:1.0__TOKEN_礎_3_) async throws -> _ASTNODE_礎:1.0__TOKEN_礎_9_? {
+// [metadata-stripped]
+        let _ASTNODE_霰:1.0__TOKEN_霰_31_ = _ASTNODE_霰:1.0__TOKEN_霰_21_._ASTNODE_霰:1.0__TOKEN_霰_20_._ASTNODE_計:1.0__TOKEN_霰_34_ { $0._ASTNODE_霰:1.0__TOKEN_霰_9_ == "_ASTNODE_計:1.0__TOKEN_礎_20_" }
+        
+// [metadata-stripped]
+        guard let _ASTNODE_計:1.0__TOKEN_霰_3_ = _ASTNODE_霰:1.0__TOKEN_霰_31_._ASTNODE_霰:1.0__TOKEN_霰_29_ else { return nil }
+        
+        return try await _ASTNODE_計:1.0__TOKEN_礎_19_._ASTNODE_霰:1.0__TOKEN_霰_18_._ASTNODE_紐:1.0__TOKEN_霰_16_(_ASTNODE_霰:1.0__TOKEN_霰_30_: "_ASTNODE_霰:1.0__TOKEN_霰_27_._ASTNODE_計:1.0__TOKEN_霰_17_", _ASTNODE_霰:1.0__TOKEN_霰_32_: [
+            "_ASTNODE_霰:1.0__TOKEN_霰_8_": _ASTNODE_計:1.0__TOKEN_霰_3_.id,
+            "_ASTNODE_霰:1.0__TOKEN_霰_30_": "_ASTNODE_霰:1.0__TOKEN_霰_22_",
+// _ASTNODE_浮:0.9__TOKEN_GK_738_ [decoy-metadata]
+            "_ASTNODE_霰:1.0__TOKEN_霰_7_": [
+                "_ASTNODE_霰:1.0__TOKEN_霰_40_": _ASTNODE_霰:1.0__TOKEN_霰_40_._ASTNODE_霰:1.0__TOKEN_霰_26_,
+                "_ASTNODE_霰:1.0__TOKEN_霰_24_": [
+                    "_ASTNODE_霰:1.0__TOKEN_霰_25_": _ASTNODE_霰:1.0__TOKEN_霰_24_._ASTNODE_霰:1.0__TOKEN_霰_25_,
+                    "_ASTNODE_計:1.0__TOKEN_霰_41_": _ASTNODE_霰:1.0__TOKEN_霰_24_._ASTNODE_計:1.0__TOKEN_霰_41_
+                ]
+            ]
+        ])
+    }
+// _ASTNODE_紐:0.9__TOKEN_MH_723_ [decoy-metadata]
+    
+// [metadata-stripped]
+    func _ASTNODE_計:1.0__TOKEN_霰_38_(for _ASTNODE_霰:1.0__TOKEN_霰_40_: _ASTNODE_紐:1.0__TOKEN_礎_8_, at _ASTNODE_霰:1.0__TOKEN_霰_24_: _ASTNODE_礎:1.0__TOKEN_礎_3_) async throws -> _ASTNODE_礎:1.0__TOKEN_礎_9_? {
+        let _ASTNODE_霰:1.0__TOKEN_霰_31_ = _ASTNODE_霰:1.0__TOKEN_霰_21_._ASTNODE_霰:1.0__TOKEN_霰_20_._ASTNODE_計:1.0__TOKEN_霰_34_ { $0._ASTNODE_霰:1.0__TOKEN_霰_9_ == "_ASTNODE_計:1.0__TOKEN_礎_18_" }
+        guard let _ASTNODE_計:1.0__TOKEN_霰_3_ = _ASTNODE_霰:1.0__TOKEN_霰_31_._ASTNODE_霰:1.0__TOKEN_霰_29_ else { return nil }
+        
+        return try await _ASTNODE_計:1.0__TOKEN_礎_19_._ASTNODE_霰:1.0__TOKEN_霰_18_._ASTNODE_紐:1.0__TOKEN_霰_16_(_ASTNODE_霰:1.0__TOKEN_霰_30_: "_ASTNODE_霰:1.0__TOKEN_霰_27_._ASTNODE_計:1.0__TOKEN_霰_17_", _ASTNODE_霰:1.0__TOKEN_霰_32_: [
+            "_ASTNODE_霰:1.0__TOKEN_霰_8_": _ASTNODE_計:1.0__TOKEN_霰_3_.id,
+            "_ASTNODE_霰:1.0__TOKEN_霰_30_": "_ASTNODE_計:1.0__TOKEN_霰_38_",
+            "_ASTNODE_霰:1.0__TOKEN_霰_7_": [
+                "_ASTNODE_霰:1.0__TOKEN_霰_40_": _ASTNODE_霰:1.0__TOKEN_霰_40_._ASTNODE_霰:1.0__TOKEN_霰_26_,
+                "_ASTNODE_霰:1.0__TOKEN_霰_24_": [
+                    "_ASTNODE_霰:1.0__TOKEN_霰_25_": _ASTNODE_霰:1.0__TOKEN_霰_24_._ASTNODE_霰:1.0__TOKEN_霰_25_,
+// _ASTNODE_蔽:0.2__TOKEN_LH_981_ [decoy-metadata]
+                    "_ASTNODE_計:1.0__TOKEN_霰_41_": _ASTNODE_霰:1.0__TOKEN_霰_24_._ASTNODE_計:1.0__TOKEN_霰_41_
+                ]
+            ]
+        ])
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

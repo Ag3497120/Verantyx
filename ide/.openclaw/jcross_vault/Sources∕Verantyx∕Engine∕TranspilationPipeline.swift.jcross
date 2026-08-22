@@ -1,0 +1,562 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2D9C77D1 ver:1778164045
+// ⚠️ One-time schema — expires after response
+
+import _VERANTYX_廬:1.0__ASTNODE_廬_105_
+import _VERANTYX_廬:1.0__ASTNODE_廬_13_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_涌:0.6__ASTNODE_GK_784_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+struct _VERANTYX_廬:1.0__ASTNODE_廬_106_: _VERANTYX_廬:1.0__ASTNODE_廬_55_, _VERANTYX_廬:1.0__ASTNODE_廬_39_ {
+    let id: _VERANTYX_廬:1.0__ASTNODE_廬_107_
+    let _VERANTYX_滴:1.0__ASTNODE_滴_262_: _VERANTYX_廬:1.0__ASTNODE_廬_72_
+    let _VERANTYX_滴:1.0__ASTNODE_滴_16_: _VERANTYX_廬:1.0__ASTNODE_廬_72_
+    let _VERANTYX_滴:1.0__ASTNODE_滴_170_: _VERANTYX_廬:1.0__ASTNODE_廬_72_
+    let _VERANTYX_滴:1.0__ASTNODE_滴_10_: _VERANTYX_廬:1.0__ASTNODE_廬_101_
+    var _VERANTYX_滴:1.0__ASTNODE_滴_46_: _VERANTYX_廬:1.0__ASTNODE_廬_114_
+    var _VERANTYX_滴:1.0__ASTNODE_滴_117_: _VERANTYX_廬:1.0__ASTNODE_廬_101_
+    var _VERANTYX_滴:1.0__ASTNODE_滴_257_: _VERANTYX_廬:1.0__ASTNODE_廬_72_?
+    var _VERANTYX_滴:1.0__ASTNODE_滴_284_: _VERANTYX_廬:1.0__ASTNODE_廬_56_?
+
+    enum _VERANTYX_廬:1.0__ASTNODE_廬_114_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_廬:1.0__ASTNODE_廬_55_ {
+        case _VERANTYX_滴:1.0__ASTNODE_滴_245_, _VERANTYX_滴:1.0__ASTNODE_滴_86_, _VERANTYX_滴:1.0__ASTNODE_滴_241_, _VERANTYX_滴:1.0__ASTNODE_滴_15_, _VERANTYX_滴:1.0__ASTNODE_滴_22_
+    }
+
+    init(_VERANTYX_滴:1.0__ASTNODE_滴_262_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_16_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_170_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_10_: _VERANTYX_廬:1.0__ASTNODE_廬_101_) {
+        self.id = _VERANTYX_廬:1.0__ASTNODE_廬_107_()
+        self._VERANTYX_滴:1.0__ASTNODE_滴_262_ = _VERANTYX_滴:1.0__ASTNODE_滴_262_
+        self._VERANTYX_滴:1.0__ASTNODE_滴_16_ = _VERANTYX_滴:1.0__ASTNODE_滴_16_
+        self._VERANTYX_滴:1.0__ASTNODE_滴_170_ = _VERANTYX_滴:1.0__ASTNODE_滴_170_
+        self._VERANTYX_滴:1.0__ASTNODE_滴_10_ = _VERANTYX_滴:1.0__ASTNODE_滴_10_
+        self._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_245_
+        self._VERANTYX_滴:1.0__ASTNODE_滴_117_ = 0
+    }
+}
+
+// [metadata-stripped]
+
+enum _VERANTYX_廬:1.0__ASTNODE_廬_36_ {
+    case _VERANTYX_滴:1.0__ASTNODE_滴_141_      // 2B以下: _VERANTYX_廬:1.0__ASTNODE_廬_49_ タグのみ
+    case _VERANTYX_滴:1.0__ASTNODE_滴_105_     // 7-8B: タグ + OP._VERANTYX_廬:1.0__ASTNODE_廬_31_
+    case _VERANTYX_滴:1.0__ASTNODE_滴_269_   // デフォルト: 差分 + 構造地図
+    case _VERANTYX_滴:1.0__ASTNODE_滴_69_   // 27B+: L1〜L3 全層
+}
+
+// [metadata-stripped]
+
+@_VERANTYX_廬:1.0__ASTNODE_廬_18_
+final class _VERANTYX_廬:1.0__ASTNODE_廬_68_: _VERANTYX_廬:1.0__ASTNODE_廬_83_ {
+
+    static let _VERANTYX_滴:1.0__ASTNODE_滴_139_ = _VERANTYX_廬:1.0__ASTNODE_廬_68_()
+
+    @_VERANTYX_廬:1.0__ASTNODE_廬_65_ var _VERANTYX_滴:1.0__ASTNODE_滴_188_: [_VERANTYX_廬:1.0__ASTNODE_廬_106_] = []
+    @_VERANTYX_廬:1.0__ASTNODE_廬_65_ var _VERANTYX_滴:1.0__ASTNODE_滴_300_ = false
+    @_VERANTYX_廬:1.0__ASTNODE_廬_65_ var _VERANTYX_滴:1.0__ASTNODE_滴_73_: _VERANTYX_廬:1.0__ASTNODE_廬_101_ = 0
+    @_VERANTYX_廬:1.0__ASTNODE_廬_65_ var _VERANTYX_滴:1.0__ASTNODE_滴_312_: [_VERANTYX_廬:1.0__ASTNODE_廬_72_] = []
+
+// [metadata-stripped]
+    var _VERANTYX_滴:1.0__ASTNODE_滴_102_: _VERANTYX_廬:1.0__ASTNODE_廬_72_ {
+        guard !_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_272_ else { return _VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("_VERANTYX_廬:1.0__ASTNODE_廬_77_", "待機中") }
+        let _VERANTYX_滴:1.0__ASTNODE_滴_17_ = _VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_要:1.0__ASTNODE_滴_216_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_46_ == ._VERANTYX_滴:1.0__ASTNODE_滴_241_ }._VERANTYX_滴:1.0__ASTNODE_滴_99_
+        let _VERANTYX_滴:1.0__ASTNODE_滴_252_ = _VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_157_._VERANTYX_滴:1.0__ASTNODE_滴_231_(_VERANTYX_滴:1.0__ASTNODE_滴_73_)
+            ? _VERANTYX_縺:1.0__ASTNODE_廬_4_(_VERANTYX_縺:1.0__ASTNODE_滴_226_: _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_73_]._VERANTYX_滴:1.0__ASTNODE_滴_262_)._VERANTYX_滴:1.0__ASTNODE_滴_290_
+            : ""
+        return _VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("\(_VERANTYX_滴:1.0__ASTNODE_滴_17_)/\(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_) _VERANTYX_廬:1.0__ASTNODE_廬_37_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_17_)/\(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_) 完了") + (_VERANTYX_滴:1.0__ASTNODE_滴_252_._VERANTYX_滴:1.0__ASTNODE_滴_272_ ? "" : " → \(_VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_252_._VERANTYX_滴:1.0__ASTNODE_滴_132_(40)))")
+    }
+
+    private let _VERANTYX_滴:1.0__ASTNODE_滴_3_ = _VERANTYX_廬:1.0__ASTNODE_廬_26_._VERANTYX_滴:1.0__ASTNODE_滴_139_
+    private var _VERANTYX_滴:1.0__ASTNODE_滴_98_: _VERANTYX_廬:1.0__ASTNODE_廬_32_ { _VERANTYX_廬:1.0__ASTNODE_廬_82_._VERANTYX_滴:1.0__ASTNODE_滴_139_._VERANTYX_滴:1.0__ASTNODE_滴_98_ }
+    private let _VERANTYX_滴:1.0__ASTNODE_滴_161_ = _VERANTYX_廬:1.0__ASTNODE_廬_79_._VERANTYX_滴:1.0__ASTNODE_滴_139_
+    private let _VERANTYX_滴:1.0__ASTNODE_滴_39_ = _VERANTYX_廬:1.0__ASTNODE_廬_111_._VERANTYX_滴:1.0__ASTNODE_滴_139_
+// [metadata-stripped]
+    private var _VERANTYX_滴:1.0__ASTNODE_滴_13_: _VERANTYX_廬:1.0__ASTNODE_廬_81_ = _VERANTYX_要:1.0__ASTNODE_廬_93_._VERANTYX_滴:1.0__ASTNODE_滴_131_(for: "_VERANTYX_滴:1.0__ASTNODE_滴_127_.5:14b")
+
+    private init() {}
+
+// [metadata-stripped]
+
+    func _VERANTYX_滴:1.0__ASTNODE_滴_42_(_VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_, _VERANTYX_滴:1.0__ASTNODE_滴_88_: _VERANTYX_廬:1.0__ASTNODE_廬_101_ = 3) async {
+        guard !_VERANTYX_滴:1.0__ASTNODE_滴_300_ else { return }
+        _VERANTYX_滴:1.0__ASTNODE_滴_300_ = true
+        defer { _VERANTYX_滴:1.0__ASTNODE_滴_300_ = false }
+
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_24_ = _VERANTYX_廬:1.0__ASTNODE_廬_82_._VERANTYX_滴:1.0__ASTNODE_滴_139_._VERANTYX_滴:1.0__ASTNODE_滴_154_
+        _VERANTYX_滴:1.0__ASTNODE_滴_13_ = _VERANTYX_要:1.0__ASTNODE_廬_93_._VERANTYX_滴:1.0__ASTNODE_滴_131_(for: _VERANTYX_滴:1.0__ASTNODE_滴_24_)
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_("📐 _VERANTYX_廬:1.0__ASTNODE_廬_91_ _VERANTYX_廬:1.0__ASTNODE_廬_70_: \(_VERANTYX_要:1.0__ASTNODE_廬_93_._VERANTYX_滴:1.0__ASTNODE_滴_63_(_VERANTYX_滴:1.0__ASTNODE_滴_13_))")
+
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_218_ = _VERANTYX_廬:1.0__ASTNODE_廬_74_._VERANTYX_滴:1.0__ASTNODE_滴_143_(_VERANTYX_滴:1.0__ASTNODE_滴_251_: _VERANTYX_滴:1.0__ASTNODE_滴_23_)
+        let _VERANTYX_滴:1.0__ASTNODE_滴_142_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_121_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_183_-_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+
+// _VERANTYX_底:0.6__ASTNODE_BL_521_ [decoy-metadata]
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("🚀 _VERANTYX_廬:1.0__ASTNODE_廬_17_ _VERANTYX_滴:1.0__ASTNODE_滴_227_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(60))", "🚀 _VERANTYX_廬:1.0__ASTNODE_廬_17_ 開始: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(60))"))
+        if let lp = _VERANTYX_滴:1.0__ASTNODE_滴_218_ {
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("🔍 _VERANTYX_廬:1.0__ASTNODE_廬_11_: \(lp._VERANTYX_滴:1.0__ASTNODE_滴_271_) → \(lp._VERANTYX_滴:1.0__ASTNODE_滴_89_) | _VERANTYX_廬:1.0__ASTNODE_廬_1_: \(_VERANTYX_滴:1.0__ASTNODE_滴_142_)/", "🔍 言語: \(lp._VERANTYX_滴:1.0__ASTNODE_滴_271_) → \(lp._VERANTYX_滴:1.0__ASTNODE_滴_89_) | 出力: \(_VERANTYX_滴:1.0__ASTNODE_滴_142_)/"))
+        } else {
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("⚠️ _VERANTYX_廬:1.0__ASTNODE_廬_11_ _VERANTYX_滴:1.0__ASTNODE_滴_18_ _VERANTYX_滴:1.0__ASTNODE_滴_172_ _VERANTYX_滴:1.0__ASTNODE_滴_302_ — _VERANTYX_廬:1.0__ASTNODE_廬_69_ _VERANTYX_滴:1.0__ASTNODE_滴_251_ _VERANTYX_滴:1.0__ASTNODE_滴_263_ _VERANTYX_滴:1.0__ASTNODE_滴_256_ _VERANTYX_滴:1.0__ASTNODE_滴_159_", "⚠️ 言語ペア未検出 — ワークスペースの主要言語から推定します"))
+        }
+
+// [metadata-stripped]
+        if _VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_177_ == nil {
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("🗺️ _VERANTYX_廬:1.0__ASTNODE_廬_9_ 1: _VERANTYX_廬:1.0__ASTNODE_廬_108_ _VERANTYX_滴:1.0__ASTNODE_滴_267_ L2.5 _VERANTYX_滴:1.0__ASTNODE_滴_271_ _VERANTYX_滴:1.0__ASTNODE_滴_162_ _VERANTYX_滴:1.0__ASTNODE_滴_223_...", "🗺️ _VERANTYX_廬:1.0__ASTNODE_廬_9_ 1: L2.5 ソースコード地図を _VERANTYX_廬:1.0__ASTNODE_廬_108_ が生成中..."))
+            await _VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_287_(_VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_)
+        } else {
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("🗺️ _VERANTYX_廬:1.0__ASTNODE_廬_9_ 1: _VERANTYX_廬:1.0__ASTNODE_廬_60_ L2.5 _VERANTYX_滴:1.0__ASTNODE_滴_223_ (\(_VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_177_?._VERANTYX_匽:1.0__ASTNODE_滴_206_ ?? 0) _VERANTYX_匽:1.0__ASTNODE_滴_123_)", "🗺️ _VERANTYX_廬:1.0__ASTNODE_廬_9_ 1: L2.5 地図を再利用 (\(_VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_177_?._VERANTYX_匽:1.0__ASTNODE_滴_206_ ?? 0) ファイル)"))
+        }
+        let _VERANTYX_滴:1.0__ASTNODE_滴_189_ = _VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_189_(_VERANTYX_匽:1.0__ASTNODE_滴_130_: 40)
+
+// [metadata-stripped]
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("📋 _VERANTYX_廬:1.0__ASTNODE_廬_9_ 2: _VERANTYX_廬:1.0__ASTNODE_廬_108_ _VERANTYX_滴:1.0__ASTNODE_滴_267_ _VERANTYX_廬:1.0__ASTNODE_廬_29_ _VERANTYX_滴:1.0__ASTNODE_滴_68_...", "📋 _VERANTYX_廬:1.0__ASTNODE_廬_9_ 2: _VERANTYX_廬:1.0__ASTNODE_廬_108_ が _VERANTYX_廬:1.0__ASTNODE_廬_29_ リストを生成中..."))
+        let _VERANTYX_滴:1.0__ASTNODE_滴_221_ = await _VERANTYX_滴:1.0__ASTNODE_滴_94_(_VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_滴:1.0__ASTNODE_滴_189_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+        _VERANTYX_滴:1.0__ASTNODE_滴_188_ = _VERANTYX_滴:1.0__ASTNODE_滴_221_
+// _VERANTYX_滴:0.1__ASTNODE_KX_898_ [decoy-metadata]
+
+// [metadata-stripped]
+        await _VERANTYX_匽:1.0__ASTNODE_滴_112_(_VERANTYX_滴:1.0__ASTNODE_滴_188_: _VERANTYX_滴:1.0__ASTNODE_滴_221_, _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_)
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("💾 _VERANTYX_匽:1.0__ASTNODE_廬_102_ \(_VERANTYX_滴:1.0__ASTNODE_滴_221_._VERANTYX_滴:1.0__ASTNODE_滴_99_) _VERANTYX_廬:1.0__ASTNODE_廬_38_ to L2 _VERANTYX_滴:1.0__ASTNODE_滴_147_", "💾 _VERANTYX_廬:1.0__ASTNODE_廬_29_ \(_VERANTYX_滴:1.0__ASTNODE_滴_221_._VERANTYX_滴:1.0__ASTNODE_滴_99_) 件を L2 記憶に保存"))
+
+        guard !_VERANTYX_滴:1.0__ASTNODE_滴_221_._VERANTYX_滴:1.0__ASTNODE_滴_272_ else {
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("⚠️ No _VERANTYX_廬:1.0__ASTNODE_廬_38_ _VERANTYX_滴:1.0__ASTNODE_滴_40_. _VERANTYX_廬:1.0__ASTNODE_廬_115_ _VERANTYX_滴:1.0__ASTNODE_滴_55_ _VERANTYX_滴:1.0__ASTNODE_滴_258_ _VERANTYX_滴:1.0__ASTNODE_滴_219_.", "⚠️ _VERANTYX_廬:1.0__ASTNODE_廬_29_ が生成されませんでした。指示を見直してください。"))
+            return
+        }
+
+// [metadata-stripped]
+        for (_VERANTYX_滴:1.0__ASTNODE_滴_57_, _) in _VERANTYX_滴:1.0__ASTNODE_滴_221_._VERANTYX_滴:1.0__ASTNODE_滴_103_() {
+            _VERANTYX_滴:1.0__ASTNODE_滴_73_ = _VERANTYX_滴:1.0__ASTNODE_滴_57_
+            guard _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_57_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ == ._VERANTYX_滴:1.0__ASTNODE_滴_245_ else { continue }
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_("⚙️ [\(_VERANTYX_滴:1.0__ASTNODE_滴_57_+1)/\(_VERANTYX_滴:1.0__ASTNODE_滴_221_._VERANTYX_滴:1.0__ASTNODE_滴_99_)] \(_VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_57_]._VERANTYX_滴:1.0__ASTNODE_滴_262_)")
+            await _VERANTYX_滴:1.0__ASTNODE_滴_144_(
+                _VERANTYX_滴:1.0__ASTNODE_滴_5_: _VERANTYX_滴:1.0__ASTNODE_滴_57_, _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_滴:1.0__ASTNODE_滴_189_,
+                _VERANTYX_滴:1.0__ASTNODE_滴_88_: _VERANTYX_滴:1.0__ASTNODE_滴_88_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_
+            )
+        }
+
+        let _VERANTYX_滴:1.0__ASTNODE_滴_241_ = _VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_要:1.0__ASTNODE_滴_216_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_46_ == ._VERANTYX_滴:1.0__ASTNODE_滴_241_ }._VERANTYX_滴:1.0__ASTNODE_滴_99_
+        let _VERANTYX_滴:1.0__ASTNODE_滴_15_    = _VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_要:1.0__ASTNODE_滴_216_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_46_ == ._VERANTYX_滴:1.0__ASTNODE_滴_15_ }._VERANTYX_滴:1.0__ASTNODE_滴_99_
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("✅ _VERANTYX_廬:1.0__ASTNODE_廬_37_: _VERANTYX_廬:1.0__ASTNODE_廬_14_ \(_VERANTYX_滴:1.0__ASTNODE_滴_241_) / _VERANTYX_廬:1.0__ASTNODE_廬_10_ \(_VERANTYX_滴:1.0__ASTNODE_滴_15_) / _VERANTYX_廬:1.0__ASTNODE_廬_12_ \(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_)", "✅ 完了: 成功 \(_VERANTYX_滴:1.0__ASTNODE_滴_241_) / 失敗 \(_VERANTYX_滴:1.0__ASTNODE_滴_15_) / 合計 \(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_)"))
+        await _VERANTYX_匽:1.0__ASTNODE_滴_285_(_VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_滴:1.0__ASTNODE_滴_241_: _VERANTYX_滴:1.0__ASTNODE_滴_241_, _VERANTYX_滴:1.0__ASTNODE_滴_15_: _VERANTYX_滴:1.0__ASTNODE_滴_15_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_)
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_94_(_VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?) async -> [_VERANTYX_廬:1.0__ASTNODE_廬_106_] {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_236_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_107_  ?? ""
+        let _VERANTYX_滴:1.0__ASTNODE_滴_48_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_133_  ?? ""
+        let _VERANTYX_滴:1.0__ASTNODE_滴_173_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_121_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_183_-_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_4_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_271_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_271_"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_297_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_89_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_167_ = """
+// [metadata-stripped]
+        _VERANTYX_廬:1.0__ASTNODE_廬_7_ _VERANTYX_滴:1.0__ASTNODE_滴_137_ a _VERANTYX_滴:1.0__ASTNODE_滴_23_ _VERANTYX_要:1.0__ASTNODE_滴_207_. _VERANTYX_廬:1.0__ASTNODE_廬_1_ a _VERANTYX_廬:1.0__ASTNODE_廬_43_ _VERANTYX_滴:1.0__ASTNODE_滴_41_ of _VERANTYX_匽:1.0__ASTNODE_滴_123_ to _VERANTYX_滴:1.0__ASTNODE_滴_49_.
+        _VERANTYX_廬:1.0__ASTNODE_廬_35_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(200))
+        _VERANTYX_廬:1.0__ASTNODE_廬_27_ _VERANTYX_滴:1.0__ASTNODE_滴_159_: \(_VERANTYX_滴:1.0__ASTNODE_滴_4_) | _VERANTYX_廬:1.0__ASTNODE_廬_116_ _VERANTYX_滴:1.0__ASTNODE_滴_159_: \(_VERANTYX_滴:1.0__ASTNODE_滴_297_)
+
+        L2.5 _VERANTYX_廬:1.0__ASTNODE_廬_62_ _VERANTYX_廬:1.0__ASTNODE_廬_58_ (_VERANTYX_廬:1.0__ASTNODE_廬_49_ _VERANTYX_滴:1.0__ASTNODE_滴_72_ — _VERANTYX_滴:1.0__ASTNODE_滴_150_ is _VERANTYX_廬:1.0__ASTNODE_廬_100_ _VERANTYX_滴:1.0__ASTNODE_滴_85_ _VERANTYX_滴:1.0__ASTNODE_滴_19_, no _VERANTYX_滴:1.0__ASTNODE_滴_214_ _VERANTYX_滴:1.0__ASTNODE_滴_271_):
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_189_._VERANTYX_滴:1.0__ASTNODE_滴_132_(1500))
+
+        _VERANTYX_廬:1.0__ASTNODE_廬_1_ _VERANTYX_廬:1.0__ASTNODE_廬_21_ _VERANTYX_滴:1.0__ASTNODE_滴_194_ _VERANTYX_廬:1.0__ASTNODE_廬_43_:
+        [{"_VERANTYX_滴:1.0__ASTNODE_滴_262_":"_VERANTYX_滴:1.0__ASTNODE_滴_26_/_VERANTYX_匽:1.0__ASTNODE_滴_171_\(_VERANTYX_滴:1.0__ASTNODE_滴_236_)","_VERANTYX_滴:1.0__ASTNODE_滴_16_":"\(_VERANTYX_滴:1.0__ASTNODE_滴_173_)/_VERANTYX_滴:1.0__ASTNODE_滴_26_/_VERANTYX_匽:1.0__ASTNODE_滴_171_\(_VERANTYX_滴:1.0__ASTNODE_滴_48_)","_VERANTYX_滴:1.0__ASTNODE_滴_10_":1,"_VERANTYX_滴:1.0__ASTNODE_滴_268_":"_VERANTYX_滴:1.0__ASTNODE_滴_264_"}]
+// [metadata-stripped]
+        """
+
+        if let _VERANTYX_滴:1.0__ASTNODE_滴_224_ = await _VERANTYX_廬:1.0__ASTNODE_廬_19_._VERANTYX_滴:1.0__ASTNODE_滴_139_._VERANTYX_滴:1.0__ASTNODE_滴_106_(_VERANTYX_滴:1.0__ASTNODE_滴_167_: _VERANTYX_滴:1.0__ASTNODE_滴_167_, _VERANTYX_滴:1.0__ASTNODE_滴_124_: "") {
+            let _VERANTYX_滴:1.0__ASTNODE_滴_244_ = _VERANTYX_滴:1.0__ASTNODE_滴_229_(_VERANTYX_滴:1.0__ASTNODE_滴_224_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+            if !_VERANTYX_滴:1.0__ASTNODE_滴_244_._VERANTYX_滴:1.0__ASTNODE_滴_272_ { return _VERANTYX_滴:1.0__ASTNODE_滴_244_ }
+        }
+        return _VERANTYX_滴:1.0__ASTNODE_滴_79_(_VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+    }
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_229_(_ _VERANTYX_滴:1.0__ASTNODE_滴_261_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?) -> [_VERANTYX_廬:1.0__ASTNODE_廬_106_] {
+        guard let s = _VERANTYX_滴:1.0__ASTNODE_滴_261_._VERANTYX_滴:1.0__ASTNODE_滴_240_(of: "["), let e = _VERANTYX_滴:1.0__ASTNODE_滴_261_._VERANTYX_滴:1.0__ASTNODE_滴_203_(of: "]") else {
+            return _VERANTYX_滴:1.0__ASTNODE_滴_79_(_VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+        }
+        guard let _VERANTYX_滴:1.0__ASTNODE_滴_260_ = _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_261_[s...e])._VERANTYX_滴:1.0__ASTNODE_滴_260_(_VERANTYX_滴:1.0__ASTNODE_滴_292_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_),
+              let _VERANTYX_滴:1.0__ASTNODE_滴_308_ = try? _VERANTYX_要:1.0__ASTNODE_廬_3_()._VERANTYX_滴:1.0__ASTNODE_滴_169_([[_VERANTYX_廬:1.0__ASTNODE_廬_72_: _VERANTYX_廬:1.0__ASTNODE_廬_72_]].self, _VERANTYX_滴:1.0__ASTNODE_滴_251_: _VERANTYX_滴:1.0__ASTNODE_滴_260_) else {
+            return _VERANTYX_滴:1.0__ASTNODE_滴_79_(_VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+        }
+        return _VERANTYX_滴:1.0__ASTNODE_滴_308_._VERANTYX_滴:1.0__ASTNODE_滴_103_()._VERANTYX_滴:1.0__ASTNODE_滴_237_ { (i, _VERANTYX_滴:1.0__ASTNODE_滴_52_) in
+            guard let _VERANTYX_滴:1.0__ASTNODE_滴_152_ = _VERANTYX_滴:1.0__ASTNODE_滴_52_["_VERANTYX_滴:1.0__ASTNODE_滴_262_"], let _VERANTYX_滴:1.0__ASTNODE_滴_208_ = _VERANTYX_滴:1.0__ASTNODE_滴_52_["_VERANTYX_滴:1.0__ASTNODE_滴_16_"] else { return nil }
+            let _VERANTYX_滴:1.0__ASTNODE_滴_311_ = _VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_177_?._VERANTYX_滴:1.0__ASTNODE_滴_1_[_VERANTYX_滴:1.0__ASTNODE_滴_152_]?._VERANTYX_滴:1.0__ASTNODE_滴_44_ ?? _VERANTYX_滴:1.0__ASTNODE_滴_152_
+            return _VERANTYX_廬:1.0__ASTNODE_廬_106_(_VERANTYX_滴:1.0__ASTNODE_滴_262_: _VERANTYX_滴:1.0__ASTNODE_滴_152_, _VERANTYX_滴:1.0__ASTNODE_滴_16_: _VERANTYX_滴:1.0__ASTNODE_滴_208_, _VERANTYX_滴:1.0__ASTNODE_滴_170_: _VERANTYX_滴:1.0__ASTNODE_滴_311_, _VERANTYX_滴:1.0__ASTNODE_滴_10_: i)
+        }
+    }
+
+// [metadata-stripped]
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_79_(_VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?) -> [_VERANTYX_廬:1.0__ASTNODE_廬_106_] {
+        guard let _VERANTYX_滴:1.0__ASTNODE_滴_223_ = _VERANTYX_滴:1.0__ASTNODE_滴_3_._VERANTYX_滴:1.0__ASTNODE_滴_177_ else { return [] }
+        let _VERANTYX_滴:1.0__ASTNODE_滴_4_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_271_ ?? _VERANTYX_滴:1.0__ASTNODE_滴_12_(_VERANTYX_滴:1.0__ASTNODE_滴_223_: _VERANTYX_滴:1.0__ASTNODE_滴_223_)
+        let _VERANTYX_滴:1.0__ASTNODE_滴_236_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_107_ ?? _VERANTYX_廬:1.0__ASTNODE_廬_74_._VERANTYX_滴:1.0__ASTNODE_滴_190_[_VERANTYX_滴:1.0__ASTNODE_滴_4_] ?? ".\(_VERANTYX_滴:1.0__ASTNODE_滴_4_)"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_48_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_133_ ?? "._VERANTYX_滴:1.0__ASTNODE_滴_228_"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_173_  = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_121_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_183_-_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+
+        return _VERANTYX_滴:1.0__ASTNODE_滴_223_._VERANTYX_滴:1.0__ASTNODE_滴_1_._VERANTYX_滴:1.0__ASTNODE_滴_128_
+            ._VERANTYX_要:1.0__ASTNODE_滴_216_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_159_ == _VERANTYX_滴:1.0__ASTNODE_滴_4_ || $0._VERANTYX_滴:1.0__ASTNODE_滴_262_._VERANTYX_滴:1.0__ASTNODE_滴_110_(_VERANTYX_滴:1.0__ASTNODE_滴_236_) }
+            ._VERANTYX_滴:1.0__ASTNODE_滴_151_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_97_ < $1._VERANTYX_滴:1.0__ASTNODE_滴_97_ }
+            ._VERANTYX_滴:1.0__ASTNODE_滴_103_()._VERANTYX_滴:1.0__ASTNODE_滴_223_ { (i, _VERANTYX_滴:1.0__ASTNODE_滴_114_) in
+                let _VERANTYX_滴:1.0__ASTNODE_滴_20_ = _VERANTYX_縺:1.0__ASTNODE_廬_4_(_VERANTYX_縺:1.0__ASTNODE_滴_226_: _VERANTYX_滴:1.0__ASTNODE_滴_114_._VERANTYX_滴:1.0__ASTNODE_滴_262_)._VERANTYX_滴:1.0__ASTNODE_滴_163_()._VERANTYX_滴:1.0__ASTNODE_滴_290_
+                return _VERANTYX_廬:1.0__ASTNODE_廬_106_(
+                    _VERANTYX_滴:1.0__ASTNODE_滴_262_: _VERANTYX_滴:1.0__ASTNODE_滴_114_._VERANTYX_滴:1.0__ASTNODE_滴_262_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_16_: "\(_VERANTYX_滴:1.0__ASTNODE_滴_173_)/_VERANTYX_滴:1.0__ASTNODE_滴_26_/\(_VERANTYX_滴:1.0__ASTNODE_滴_20_)\(_VERANTYX_滴:1.0__ASTNODE_滴_48_)",
+                    _VERANTYX_滴:1.0__ASTNODE_滴_170_: _VERANTYX_滴:1.0__ASTNODE_滴_114_._VERANTYX_滴:1.0__ASTNODE_滴_44_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_10_: i
+                )
+            }
+    }
+
+// [metadata-stripped]
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_12_(_VERANTYX_滴:1.0__ASTNODE_滴_223_: _VERANTYX_廬:1.0__ASTNODE_廬_41_) -> _VERANTYX_廬:1.0__ASTNODE_廬_72_ {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_148_ = _VERANTYX_廬:1.0__ASTNODE_廬_59_(_VERANTYX_滴:1.0__ASTNODE_滴_47_: _VERANTYX_滴:1.0__ASTNODE_滴_223_._VERANTYX_滴:1.0__ASTNODE_滴_1_._VERANTYX_滴:1.0__ASTNODE_滴_128_, by: \._VERANTYX_滴:1.0__ASTNODE_滴_159_)._VERANTYX_滴:1.0__ASTNODE_滴_249_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_99_ }
+        return _VERANTYX_滴:1.0__ASTNODE_滴_148_._VERANTYX_滴:1.0__ASTNODE_滴_115_(by: { $0._VERANTYX_滴:1.0__ASTNODE_滴_233_ < $1._VERANTYX_滴:1.0__ASTNODE_滴_233_ })?._VERANTYX_底:1.0__ASTNODE_滴_234_ ?? "_VERANTYX_涌:1.0__ASTNODE_滴_303_"
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_144_(
+        _VERANTYX_滴:1.0__ASTNODE_滴_5_: _VERANTYX_廬:1.0__ASTNODE_廬_101_, _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_廬:1.0__ASTNODE_廬_72_,
+        _VERANTYX_滴:1.0__ASTNODE_滴_88_: _VERANTYX_廬:1.0__ASTNODE_廬_101_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?
+    ) async {
+        _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_86_
+        let _VERANTYX_滴:1.0__ASTNODE_滴_201_ = _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]
+
+        let _VERANTYX_滴:1.0__ASTNODE_滴_84_ = _VERANTYX_滴:1.0__ASTNODE_滴_8_()
+        let _VERANTYX_滴:1.0__ASTNODE_滴_179_ = _VERANTYX_滴:1.0__ASTNODE_滴_197_(_VERANTYX_滴:1.0__ASTNODE_滴_84_: _VERANTYX_滴:1.0__ASTNODE_滴_84_, _VERANTYX_滴:1.0__ASTNODE_滴_276_: _VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)
+
+// [metadata-stripped]
+        let _VERANTYX_縺:1.0__ASTNODE_滴_136_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)
+        guard let _VERANTYX_滴:1.0__ASTNODE_滴_271_ = try? _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_273_: _VERANTYX_縺:1.0__ASTNODE_滴_136_, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_) else {
+            _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_22_
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("⚠️ _VERANTYX_廬:1.0__ASTNODE_廬_27_ _VERANTYX_滴:1.0__ASTNODE_滴_293_ _VERANTYX_滴:1.0__ASTNODE_滴_15_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)", "⚠️ ソース読み込み失敗: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)"))
+            return
+        }
+
+        var _VERANTYX_滴:1.0__ASTNODE_滴_283_ = _VERANTYX_滴:1.0__ASTNODE_滴_88_
+        while _VERANTYX_滴:1.0__ASTNODE_滴_283_ >= 0 {
+            let _VERANTYX_滴:1.0__ASTNODE_滴_167_ = _VERANTYX_滴:1.0__ASTNODE_滴_53_(
+                _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_, _VERANTYX_滴:1.0__ASTNODE_滴_271_: _VERANTYX_滴:1.0__ASTNODE_滴_271_,
+                _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_滴:1.0__ASTNODE_滴_189_, _VERANTYX_滴:1.0__ASTNODE_滴_120_: _VERANTYX_滴:1.0__ASTNODE_滴_179_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_,
+                _VERANTYX_滴:1.0__ASTNODE_滴_149_: ._VERANTYX_滴:1.0__ASTNODE_滴_30_, _VERANTYX_滴:1.0__ASTNODE_滴_87_: ""
+            )
+            _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  🤖 _VERANTYX_廬:1.0__ASTNODE_廬_42_ to _VERANTYX_滴:1.0__ASTNODE_滴_259_ (\(_VERANTYX_滴:1.0__ASTNODE_滴_283_) _VERANTYX_滴:1.0__ASTNODE_滴_254_ _VERANTYX_滴:1.0__ASTNODE_滴_309_)...", "  🤖 モデルに送信中 (残り\(_VERANTYX_滴:1.0__ASTNODE_滴_283_)回)..."))
+
+            let _VERANTYX_滴:1.0__ASTNODE_滴_6_ = await _VERANTYX_滴:1.0__ASTNODE_滴_161_._VERANTYX_滴:1.0__ASTNODE_滴_45_(
+                _VERANTYX_滴:1.0__ASTNODE_滴_167_: _VERANTYX_滴:1.0__ASTNODE_滴_167_,
+                _VERANTYX_滴:1.0__ASTNODE_滴_124_: _VERANTYX_滴:1.0__ASTNODE_滴_119_(_VERANTYX_滴:1.0__ASTNODE_滴_84_: _VERANTYX_滴:1.0__ASTNODE_滴_84_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+            )
+
+            let (_VERANTYX_滴:1.0__ASTNODE_滴_74_, _VERANTYX_滴:1.0__ASTNODE_滴_2_) = await _VERANTYX_涌:1.0__ASTNODE_滴_315_(
+                _VERANTYX_滴:1.0__ASTNODE_滴_6_: _VERANTYX_滴:1.0__ASTNODE_滴_6_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_
+            )
+
+            if _VERANTYX_滴:1.0__ASTNODE_滴_74_ {
+                _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_241_
+                _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_284_ = _VERANTYX_廬:1.0__ASTNODE_廬_56_()
+                if let _VERANTYX_滴:1.0__ASTNODE_滴_205_ = try? _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_273_: _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_), _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_) {
+                    _VERANTYX_滴:1.0__ASTNODE_滴_98_._VERANTYX_涌:1.0__ASTNODE_滴_156_(_VERANTYX_滴:1.0__ASTNODE_滴_262_: _VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_, _VERANTYX_滴:1.0__ASTNODE_滴_220_: "", _VERANTYX_滴:1.0__ASTNODE_滴_277_: _VERANTYX_滴:1.0__ASTNODE_滴_205_,
+                                        _VERANTYX_滴:1.0__ASTNODE_滴_301_: "_VERANTYX_滴:1.0__ASTNODE_滴_27_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(50))")
+                }
+                _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  ✅ _VERANTYX_廬:1.0__ASTNODE_廬_14_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)", "  ✅ 成功: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)"))
+                return
+            } else {
+// [metadata-stripped]
+                let _VERANTYX_滴:1.0__ASTNODE_滴_278_ = await _VERANTYX_滴:1.0__ASTNODE_滴_39_._VERANTYX_滴:1.0__ASTNODE_滴_31_(
+                    _VERANTYX_滴:1.0__ASTNODE_滴_129_: _VERANTYX_滴:1.0__ASTNODE_滴_2_, _VERANTYX_滴:1.0__ASTNODE_滴_6_: _VERANTYX_滴:1.0__ASTNODE_滴_6_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_117_: _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_117_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_
+                )
+                _VERANTYX_滴:1.0__ASTNODE_滴_238_("  🔍 _VERANTYX_廬:1.0__ASTNODE_廬_78_: \(_VERANTYX_滴:1.0__ASTNODE_滴_278_._VERANTYX_滴:1.0__ASTNODE_滴_268_) → \(_VERANTYX_滴:1.0__ASTNODE_滴_278_._VERANTYX_滴:1.0__ASTNODE_滴_149_)")
+
+                if _VERANTYX_滴:1.0__ASTNODE_滴_278_._VERANTYX_滴:1.0__ASTNODE_滴_149_ == ._VERANTYX_滴:1.0__ASTNODE_滴_33_ {
+                    _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_15_
+                    _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  🛑 _VERANTYX_廬:1.0__ASTNODE_廬_80_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_) — _VERANTYX_廬:1.0__ASTNODE_廬_103_", "  🛑 _VERANTYX_廬:1.0__ASTNODE_廬_80_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_) — 回復不能"))
+                    return
+                }
+
+                _VERANTYX_滴:1.0__ASTNODE_滴_283_ -= 1
+                _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_117_ += 1
+                _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_257_ = _VERANTYX_滴:1.0__ASTNODE_滴_2_
+                await _VERANTYX_匽:1.0__ASTNODE_滴_58_(_VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_, _VERANTYX_滴:1.0__ASTNODE_滴_129_: _VERANTYX_滴:1.0__ASTNODE_滴_2_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_)
+
+// [metadata-stripped]
+                let _VERANTYX_滴:1.0__ASTNODE_滴_239_ = _VERANTYX_滴:1.0__ASTNODE_滴_53_(
+                    _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_滴:1.0__ASTNODE_滴_23_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_, _VERANTYX_滴:1.0__ASTNODE_滴_271_: _VERANTYX_滴:1.0__ASTNODE_滴_271_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_滴:1.0__ASTNODE_滴_189_, _VERANTYX_滴:1.0__ASTNODE_滴_120_: _VERANTYX_滴:1.0__ASTNODE_滴_179_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_149_: _VERANTYX_滴:1.0__ASTNODE_滴_278_._VERANTYX_滴:1.0__ASTNODE_滴_149_, _VERANTYX_滴:1.0__ASTNODE_滴_87_: _VERANTYX_滴:1.0__ASTNODE_滴_278_._VERANTYX_滴:1.0__ASTNODE_滴_166_
+                )
+// [metadata-stripped]
+                let _VERANTYX_滴:1.0__ASTNODE_滴_215_ = await _VERANTYX_滴:1.0__ASTNODE_滴_161_._VERANTYX_滴:1.0__ASTNODE_滴_45_(
+                    _VERANTYX_滴:1.0__ASTNODE_滴_167_: _VERANTYX_滴:1.0__ASTNODE_滴_239_,
+                    _VERANTYX_滴:1.0__ASTNODE_滴_124_: _VERANTYX_滴:1.0__ASTNODE_滴_119_(_VERANTYX_滴:1.0__ASTNODE_滴_84_: _VERANTYX_滴:1.0__ASTNODE_滴_84_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_滴:1.0__ASTNODE_滴_218_)
+                )
+                let (_VERANTYX_滴:1.0__ASTNODE_滴_160_, _VERANTYX_滴:1.0__ASTNODE_滴_125_) = await _VERANTYX_涌:1.0__ASTNODE_滴_315_(
+                    _VERANTYX_滴:1.0__ASTNODE_滴_6_: _VERANTYX_滴:1.0__ASTNODE_滴_215_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_滴:1.0__ASTNODE_滴_201_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_滴_64_
+                )
+                if _VERANTYX_滴:1.0__ASTNODE_滴_160_ {
+                    _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_241_
+                    _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_284_ = _VERANTYX_廬:1.0__ASTNODE_廬_56_()
+                    _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  ✅ _VERANTYX_廬:1.0__ASTNODE_廬_14_ _VERANTYX_要:1.0__ASTNODE_滴_7_ _VERANTYX_滴:1.0__ASTNODE_滴_149_ _VERANTYX_滴:1.0__ASTNODE_滴_270_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)", "  ✅ 戦略変更後に成功: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)"))
+                    return
+                } else {
+                    _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_257_ = _VERANTYX_滴:1.0__ASTNODE_滴_125_
+                    _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  ❌ _VERANTYX_廬:1.0__ASTNODE_廬_104_ _VERANTYX_滴:1.0__ASTNODE_滴_192_ _VERANTYX_要:1.0__ASTNODE_滴_7_ _VERANTYX_滴:1.0__ASTNODE_滴_149_ _VERANTYX_滴:1.0__ASTNODE_滴_270_ (\(_VERANTYX_滴:1.0__ASTNODE_滴_283_) _VERANTYX_滴:1.0__ASTNODE_滴_254_ _VERANTYX_滴:1.0__ASTNODE_滴_309_)", "  ❌ 戦略変更後もエラー (残り\(_VERANTYX_滴:1.0__ASTNODE_滴_283_)回)"))
+                }
+            }
+        }
+        _VERANTYX_滴:1.0__ASTNODE_滴_188_[_VERANTYX_滴:1.0__ASTNODE_滴_5_]._VERANTYX_滴:1.0__ASTNODE_滴_46_ = ._VERANTYX_滴:1.0__ASTNODE_滴_15_
+        _VERANTYX_滴:1.0__ASTNODE_滴_238_(_VERANTYX_廬:1.0__ASTNODE_廬_66_._VERANTYX_滴:1.0__ASTNODE_滴_139_.t("  💀 _VERANTYX_廬:1.0__ASTNODE_廬_94_ _VERANTYX_滴:1.0__ASTNODE_滴_254_ _VERANTYX_滴:1.0__ASTNODE_滴_217_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)", "  💀 最大リトライ到達: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)"))
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_53_(
+        _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_廬:1.0__ASTNODE_廬_106_, _VERANTYX_滴:1.0__ASTNODE_滴_271_: _VERANTYX_廬:1.0__ASTNODE_廬_72_,
+        _VERANTYX_滴:1.0__ASTNODE_滴_189_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_120_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?,
+        _VERANTYX_滴:1.0__ASTNODE_滴_149_: _VERANTYX_廬:1.0__ASTNODE_廬_8_ = ._VERANTYX_滴:1.0__ASTNODE_滴_30_, _VERANTYX_滴:1.0__ASTNODE_滴_87_: _VERANTYX_廬:1.0__ASTNODE_廬_72_ = ""
+    ) -> _VERANTYX_廬:1.0__ASTNODE_廬_72_ {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_4_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_271_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_271_"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_297_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_89_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_195_ = _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_189_._VERANTYX_滴:1.0__ASTNODE_滴_132_(_VERANTYX_滴:1.0__ASTNODE_滴_13_._VERANTYX_滴:1.0__ASTNODE_滴_181_))
+        let _VERANTYX_滴:1.0__ASTNODE_滴_35_ = _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_120_._VERANTYX_滴:1.0__ASTNODE_滴_132_(_VERANTYX_滴:1.0__ASTNODE_滴_13_._VERANTYX_滴:1.0__ASTNODE_滴_222_))
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_246_ = _VERANTYX_滴:1.0__ASTNODE_滴_39_._VERANTYX_滴:1.0__ASTNODE_滴_250_()
+
+// [metadata-stripped]
+        let (_VERANTYX_滴:1.0__ASTNODE_滴_294_, _VERANTYX_滴:1.0__ASTNODE_滴_56_): (_VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_廬:1.0__ASTNODE_廬_72_) = {
+            switch _VERANTYX_滴:1.0__ASTNODE_滴_149_ {
+            case ._VERANTYX_滴:1.0__ASTNODE_滴_91_:
+// [metadata-stripped]
+                let _VERANTYX_滴:1.0__ASTNODE_滴_50_ = _VERANTYX_滴:1.0__ASTNODE_滴_271_._VERANTYX_滴:1.0__ASTNODE_滴_71_(_VERANTYX_滴:1.0__ASTNODE_滴_178_: "\n")
+                    ._VERANTYX_滴:1.0__ASTNODE_滴_132_(50)._VERANTYX_滴:1.0__ASTNODE_滴_59_(_VERANTYX_滴:1.0__ASTNODE_滴_298_: "\n")
+                return (_VERANTYX_滴:1.0__ASTNODE_滴_50_, "_VERANTYX_廬:1.0__ASTNODE_廬_97_ _VERANTYX_廬:1.0__ASTNODE_廬_21_ _VERANTYX_滴:1.0__ASTNODE_滴_150_ _VERANTYX_滴:1.0__ASTNODE_滴_280_ _VERANTYX_滴:1.0__ASTNODE_滴_162_. _VERANTYX_廬:1.0__ASTNODE_廬_1_ a _VERANTYX_滴:1.0__ASTNODE_滴_65_ _VERANTYX_滴:1.0__ASTNODE_滴_34_ if _VERANTYX_滴:1.0__ASTNODE_滴_113_ _VERANTYX_滴:1.0__ASTNODE_滴_137_ _VERANTYX_滴:1.0__ASTNODE_滴_242_.")
+            case ._VERANTYX_滴:1.0__ASTNODE_滴_122_:
+                let _VERANTYX_滴:1.0__ASTNODE_滴_37_ = _VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_99_(_VERANTYX_滴:1.0__ASTNODE_滴_13_._VERANTYX_滴:1.0__ASTNODE_滴_196_) * 0.5)
+                return (_VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_271_._VERANTYX_滴:1.0__ASTNODE_滴_132_(_VERANTYX_滴:1.0__ASTNODE_滴_37_)), "_VERANTYX_廬:1.0__ASTNODE_廬_61_ _VERANTYX_滴:1.0__ASTNODE_滴_248_ _VERANTYX_滴:1.0__ASTNODE_滴_65_. _VERANTYX_廬:1.0__ASTNODE_廬_98_ _VERANTYX_滴:1.0__ASTNODE_滴_60_ _VERANTYX_滴:1.0__ASTNODE_滴_11_.")
+            _VERANTYX_滴:1.0__ASTNODE_滴_116_:
+                return (_VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_271_._VERANTYX_滴:1.0__ASTNODE_滴_132_(_VERANTYX_滴:1.0__ASTNODE_滴_13_._VERANTYX_滴:1.0__ASTNODE_滴_196_)), "")
+            }
+        }()
+
+        let _VERANTYX_滴:1.0__ASTNODE_滴_32_: _VERANTYX_廬:1.0__ASTNODE_廬_72_ = {
+            if !_VERANTYX_滴:1.0__ASTNODE_滴_87_._VERANTYX_滴:1.0__ASTNODE_滴_272_ { return _VERANTYX_滴:1.0__ASTNODE_滴_87_ }
+            switch _VERANTYX_滴:1.0__ASTNODE_滴_297_ {
+            case "_VERANTYX_滴:1.0__ASTNODE_滴_185_":
+                return "_VERANTYX_廬:1.0__ASTNODE_廬_112_ _VERANTYX_滴:1.0__ASTNODE_滴_212_@2, _VERANTYX_滴:1.0__ASTNODE_滴_279_@1, _VERANTYX_滴:1.0__ASTNODE_滴_230_@1 _VERANTYX_廬:1.0__ASTNODE_廬_21_. No _VERANTYX_滴:1.0__ASTNODE_滴_211_, no _VERANTYX_滴:1.0__ASTNODE_滴_175_. _VERANTYX_廬:1.0__ASTNODE_廬_47_<_VERANTYX_廬:1.0__ASTNODE_廬_87_<T>> for _VERANTYX_滴:1.0__ASTNODE_滴_51_."
+            case "_VERANTYX_滴:1.0__ASTNODE_滴_9_":
+                return "_VERANTYX_廬:1.0__ASTNODE_廬_51_ 3.11+. _VERANTYX_廬:1.0__ASTNODE_廬_44_. _VERANTYX_廬:1.0__ASTNODE_廬_63_ _VERANTYX_滴:1.0__ASTNODE_滴_200_. _VERANTYX_滴:1.0__ASTNODE_滴_168_."
+            case "_VERANTYX_滴:1.0__ASTNODE_滴_77_":
+                return "_VERANTYX_廬:1.0__ASTNODE_廬_16_ 5+. _VERANTYX_廬:1.0__ASTNODE_廬_95_ _VERANTYX_滴:1.0__ASTNODE_滴_108_. No any."
+            case "go":
+                return "Go 1.21+. _VERANTYX_廬:1.0__ASTNODE_廬_76_ _VERANTYX_滴:1.0__ASTNODE_滴_62_ _VERANTYX_滴:1.0__ASTNODE_滴_11_."
+            case "_VERANTYX_滴:1.0__ASTNODE_滴_90_":
+                return "_VERANTYX_廬:1.0__ASTNODE_廬_20_ 1.9+. _VERANTYX_廬:1.0__ASTNODE_廬_75_. _VERANTYX_廬:1.0__ASTNODE_廬_34_ _VERANTYX_滴:1.0__ASTNODE_滴_109_."
+            _VERANTYX_滴:1.0__ASTNODE_滴_116_:
+                return "_VERANTYX_廬:1.0__ASTNODE_廬_2_ _VERANTYX_滴:1.0__ASTNODE_滴_21_ \(_VERANTYX_滴:1.0__ASTNODE_滴_297_) _VERANTYX_滴:1.0__ASTNODE_滴_210_."
+            }
+        }()
+
+        return """
+        _VERANTYX_廬:1.0__ASTNODE_廬_35_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(200))
+
+// [metadata-stripped]
+        - _VERANTYX_廬:1.0__ASTNODE_廬_7_ _VERANTYX_滴:1.0__ASTNODE_滴_19_ _VERANTYX_廬:1.0__ASTNODE_廬_21_ _VERANTYX_滴:1.0__ASTNODE_滴_187_ L2.5 _VERANTYX_滴:1.0__ASTNODE_滴_223_ _VERANTYX_滴:1.0__ASTNODE_滴_289_ _VERANTYX_廬:1.0__ASTNODE_廬_23_ _VERANTYX_匽:1.0__ASTNODE_滴_171_. No _VERANTYX_滴:1.0__ASTNODE_滴_263_ _VERANTYX_滴:1.0__ASTNODE_滴_75_.
+        - \(_VERANTYX_滴:1.0__ASTNODE_滴_32_)
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_56_._VERANTYX_滴:1.0__ASTNODE_滴_272_ ? "" : "- " + _VERANTYX_滴:1.0__ASTNODE_滴_56_)
+
+// [metadata-stripped]
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_195_)
+
+// [metadata-stripped]
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_35_)
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_246_._VERANTYX_滴:1.0__ASTNODE_滴_272_ ? "" : _VERANTYX_滴:1.0__ASTNODE_滴_246_)
+
+// [metadata-stripped]
+        _VERANTYX_廬:1.0__ASTNODE_廬_27_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_) | _VERANTYX_廬:1.0__ASTNODE_廬_116_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_170_)
+
+        ```\(_VERANTYX_滴:1.0__ASTNODE_滴_4_)
+        \(_VERANTYX_滴:1.0__ASTNODE_滴_294_)
+// _VERANTYX_要:0.6__ASTNODE_WE_651_ [decoy-metadata]
+        ```
+
+// [metadata-stripped]
+        ```\(_VERANTYX_滴:1.0__ASTNODE_滴_297_)
+// [metadata-stripped]
+        <_VERANTYX_滴:1.0__ASTNODE_滴_104_ _VERANTYX_滴:1.0__ASTNODE_滴_162_>
+        ```
+        """
+// _VERANTYX_滴:0.5__ASTNODE_FM_398_ [decoy-metadata]
+    }
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_119_(_VERANTYX_滴:1.0__ASTNODE_滴_84_: _VERANTYX_廬:1.0__ASTNODE_廬_36_, _VERANTYX_滴:1.0__ASTNODE_滴_218_: _VERANTYX_廬:1.0__ASTNODE_廬_28_?) -> _VERANTYX_廬:1.0__ASTNODE_廬_72_ {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_26_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_271_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_271_"
+        let _VERANTYX_滴:1.0__ASTNODE_滴_208_ = _VERANTYX_滴:1.0__ASTNODE_滴_218_?._VERANTYX_滴:1.0__ASTNODE_滴_89_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+        switch _VERANTYX_滴:1.0__ASTNODE_滴_84_ {
+        case ._VERANTYX_滴:1.0__ASTNODE_滴_141_:   return "_VERANTYX_廬:1.0__ASTNODE_廬_7_ _VERANTYX_滴:1.0__ASTNODE_滴_137_ a \(_VERANTYX_滴:1.0__ASTNODE_滴_208_) _VERANTYX_滴:1.0__ASTNODE_滴_162_ _VERANTYX_滴:1.0__ASTNODE_滴_118_. _VERANTYX_廬:1.0__ASTNODE_廬_1_ _VERANTYX_滴:1.0__ASTNODE_滴_11_ _VERANTYX_滴:1.0__ASTNODE_滴_162_."
+        case ._VERANTYX_滴:1.0__ASTNODE_滴_105_, ._VERANTYX_滴:1.0__ASTNODE_滴_269_:
+            return "_VERANTYX_廬:1.0__ASTNODE_廬_7_ _VERANTYX_滴:1.0__ASTNODE_滴_137_ a \(_VERANTYX_滴:1.0__ASTNODE_滴_26_)-to-\(_VERANTYX_滴:1.0__ASTNODE_滴_208_) _VERANTYX_要:1.0__ASTNODE_滴_43_. _VERANTYX_廬:1.0__ASTNODE_廬_2_ _VERANTYX_滴:1.0__ASTNODE_滴_187_ _VERANTYX_匽:1.0__ASTNODE_滴_171_ _VERANTYX_涌:1.0__ASTNODE_滴_184_ _VERANTYX_滴:1.0__ASTNODE_滴_28_."
+        case ._VERANTYX_滴:1.0__ASTNODE_滴_69_:
+            return "_VERANTYX_廬:1.0__ASTNODE_廬_7_ _VERANTYX_滴:1.0__ASTNODE_滴_137_ a _VERANTYX_廬:1.0__ASTNODE_廬_85_ _VERANTYX_廬:1.0__ASTNODE_廬_57_-_VERANTYX_廬:1.0__ASTNODE_廬_11_ _VERANTYX_要:1.0__ASTNODE_廬_52_. \(_VERANTYX_滴:1.0__ASTNODE_滴_26_)→\(_VERANTYX_滴:1.0__ASTNODE_滴_208_). _VERANTYX_廬:1.0__ASTNODE_廬_54_ _VERANTYX_滴:1.0__ASTNODE_滴_70_ _VERANTYX_滴:1.0__ASTNODE_滴_60_. _VERANTYX_廬:1.0__ASTNODE_廬_1_ _VERANTYX_滴:1.0__ASTNODE_滴_11_ _VERANTYX_滴:1.0__ASTNODE_滴_162_."
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_8_() -> _VERANTYX_廬:1.0__ASTNODE_廬_36_ {
+        guard _VERANTYX_廬:1.0__ASTNODE_廬_89_._VERANTYX_匽:1.0__ASTNODE_滴_54_()?._VERANTYX_滴:1.0__ASTNODE_滴_126_ == true else { return ._VERANTYX_滴:1.0__ASTNODE_滴_269_ }
+        let _VERANTYX_滴:1.0__ASTNODE_滴_259_ = _VERANTYX_廬:1.0__ASTNODE_廬_82_._VERANTYX_滴:1.0__ASTNODE_滴_139_._VERANTYX_滴:1.0__ASTNODE_滴_154_._VERANTYX_滴:1.0__ASTNODE_滴_80_()
+        if _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("2b") || _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("1b") { return ._VERANTYX_滴:1.0__ASTNODE_滴_141_ }
+        if _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("7b") || _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("8b") { return ._VERANTYX_滴:1.0__ASTNODE_滴_105_ }
+        if _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("27b") || _VERANTYX_滴:1.0__ASTNODE_滴_259_._VERANTYX_滴:1.0__ASTNODE_滴_231_("32b") { return ._VERANTYX_滴:1.0__ASTNODE_滴_69_ }
+        return ._VERANTYX_滴:1.0__ASTNODE_滴_269_
+    }
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_197_(_VERANTYX_滴:1.0__ASTNODE_滴_84_: _VERANTYX_廬:1.0__ASTNODE_廬_36_, _VERANTYX_滴:1.0__ASTNODE_滴_276_: _VERANTYX_廬:1.0__ASTNODE_廬_72_) -> _VERANTYX_廬:1.0__ASTNODE_廬_72_ {
+        var _VERANTYX_滴:1.0__ASTNODE_滴_317_ = ""
+        if _VERANTYX_滴:1.0__ASTNODE_滴_84_ != ._VERANTYX_滴:1.0__ASTNODE_滴_141_, let _VERANTYX_滴:1.0__ASTNODE_滴_5_ = _VERANTYX_滴:1.0__ASTNODE_滴_98_._VERANTYX_滴:1.0__ASTNODE_滴_66_ {
+            let _VERANTYX_滴:1.0__ASTNODE_滴_247_ = _VERANTYX_滴:1.0__ASTNODE_滴_5_._VERANTYX_滴:1.0__ASTNODE_滴_1_._VERANTYX_滴:1.0__ASTNODE_滴_128_
+                ._VERANTYX_滴:1.0__ASTNODE_滴_237_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_209_?._VERANTYX_滴:1.0__ASTNODE_滴_44_ }
+                ._VERANTYX_滴:1.0__ASTNODE_滴_132_(8)._VERANTYX_滴:1.0__ASTNODE_滴_59_(_VERANTYX_滴:1.0__ASTNODE_滴_298_: "\n")
+            if !_VERANTYX_滴:1.0__ASTNODE_滴_247_._VERANTYX_滴:1.0__ASTNODE_滴_272_ { _VERANTYX_滴:1.0__ASTNODE_滴_317_ += "[L1.5 _VERANTYX_廬:1.0__ASTNODE_廬_84_ _VERANTYX_廬:1.0__ASTNODE_廬_73_]\n\(_VERANTYX_滴:1.0__ASTNODE_滴_247_)\n\n" }
+        }
+        if _VERANTYX_滴:1.0__ASTNODE_滴_84_ == ._VERANTYX_滴:1.0__ASTNODE_滴_269_ || _VERANTYX_滴:1.0__ASTNODE_滴_84_ == ._VERANTYX_滴:1.0__ASTNODE_滴_69_ {
+            let _VERANTYX_滴:1.0__ASTNODE_滴_295_ = _VERANTYX_滴:1.0__ASTNODE_滴_98_._VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_("._VERANTYX_滴:1.0__ASTNODE_滴_204_/_VERANTYX_滴:1.0__ASTNODE_滴_96_")
+            if let _VERANTYX_匽:1.0__ASTNODE_滴_123_ = try? _VERANTYX_匽:1.0__ASTNODE_廬_53_._VERANTYX_滴:1.0__ASTNODE_滴_116_._VERANTYX_滴:1.0__ASTNODE_滴_299_(at: _VERANTYX_滴:1.0__ASTNODE_滴_295_, _VERANTYX_底:1.0__ASTNODE_滴_100_: nil) {
+                let _VERANTYX_滴:1.0__ASTNODE_滴_134_ = _VERANTYX_匽:1.0__ASTNODE_滴_123_._VERANTYX_滴:1.0__ASTNODE_滴_151_ { $0._VERANTYX_滴:1.0__ASTNODE_滴_290_ > $1._VERANTYX_滴:1.0__ASTNODE_滴_290_ }
+// _VERANTYX_縺:0.1__ASTNODE_YW_206_ [decoy-metadata]
+                    ._VERANTYX_滴:1.0__ASTNODE_滴_132_(2)
+                    ._VERANTYX_滴:1.0__ASTNODE_滴_237_ { try? _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_273_: $0, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_) }
+                    ._VERANTYX_滴:1.0__ASTNODE_滴_223_ { _VERANTYX_廬:1.0__ASTNODE_廬_72_($0._VERANTYX_滴:1.0__ASTNODE_滴_132_(150)) }
+                    ._VERANTYX_滴:1.0__ASTNODE_滴_59_(_VERANTYX_滴:1.0__ASTNODE_滴_298_: "\n---\n")
+                if !_VERANTYX_滴:1.0__ASTNODE_滴_134_._VERANTYX_滴:1.0__ASTNODE_滴_272_ { _VERANTYX_滴:1.0__ASTNODE_滴_317_ += "[L2 _VERANTYX_廬:1.0__ASTNODE_廬_71_ _VERANTYX_廬:1.0__ASTNODE_廬_22_]\n\(_VERANTYX_滴:1.0__ASTNODE_滴_134_)\n" }
+            }
+        }
+        return _VERANTYX_滴:1.0__ASTNODE_滴_317_._VERANTYX_滴:1.0__ASTNODE_滴_272_ ? "(no _VERANTYX_滴:1.0__ASTNODE_滴_174_ _VERANTYX_滴:1.0__ASTNODE_滴_301_)" : _VERANTYX_滴:1.0__ASTNODE_滴_317_
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_涌:1.0__ASTNODE_滴_315_(
+        _VERANTYX_滴:1.0__ASTNODE_滴_6_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_廬:1.0__ASTNODE_廬_106_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_
+    ) async -> (_VERANTYX_廬:1.0__ASTNODE_廬_92_, _VERANTYX_廬:1.0__ASTNODE_廬_72_) {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_101_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_(
+            _VERANTYX_縺:1.0__ASTNODE_廬_4_(_VERANTYX_縺:1.0__ASTNODE_滴_226_: _VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)._VERANTYX_滴:1.0__ASTNODE_滴_158_._VERANTYX_滴:1.0__ASTNODE_滴_193_ ?? "_VERANTYX_滴:1.0__ASTNODE_滴_183_-_VERANTYX_滴:1.0__ASTNODE_滴_89_"
+        )
+        let _VERANTYX_縺:1.0__ASTNODE_滴_36_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_16_)
+
+        guard let _VERANTYX_滴:1.0__ASTNODE_滴_162_ = _VERANTYX_滴:1.0__ASTNODE_滴_232_(_VERANTYX_滴:1.0__ASTNODE_滴_251_: _VERANTYX_滴:1.0__ASTNODE_滴_6_) else {
+            return (false, "No _VERANTYX_滴:1.0__ASTNODE_滴_162_ _VERANTYX_滴:1.0__ASTNODE_滴_313_ _VERANTYX_滴:1.0__ASTNODE_滴_135_ in _VERANTYX_滴:1.0__ASTNODE_滴_6_")
+        }
+        try? _VERANTYX_匽:1.0__ASTNODE_廬_53_._VERANTYX_滴:1.0__ASTNODE_滴_116_._VERANTYX_滴:1.0__ASTNODE_滴_82_(
+            at: _VERANTYX_縺:1.0__ASTNODE_滴_36_._VERANTYX_滴:1.0__ASTNODE_滴_305_(), _VERANTYX_滴:1.0__ASTNODE_滴_243_: true
+        )
+        if _VERANTYX_縺:1.0__ASTNODE_滴_36_._VERANTYX_滴:1.0__ASTNODE_滴_290_ == "_VERANTYX_廬:1.0__ASTNODE_廬_45_._VERANTYX_滴:1.0__ASTNODE_滴_191_" {
+            try? _VERANTYX_滴:1.0__ASTNODE_滴_162_._VERANTYX_滴:1.0__ASTNODE_滴_213_(to: _VERANTYX_縺:1.0__ASTNODE_滴_36_, _VERANTYX_滴:1.0__ASTNODE_滴_38_: true, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_)
+            _VERANTYX_滴:1.0__ASTNODE_滴_161_._VERANTYX_滴:1.0__ASTNODE_滴_180_(_VERANTYX_縺:1.0__ASTNODE_滴_14_: _VERANTYX_縺:1.0__ASTNODE_滴_36_)
+        } else {
+            try? _VERANTYX_滴:1.0__ASTNODE_滴_162_._VERANTYX_滴:1.0__ASTNODE_滴_213_(to: _VERANTYX_縺:1.0__ASTNODE_滴_36_, _VERANTYX_滴:1.0__ASTNODE_滴_38_: true, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_)
+        }
+
+// [metadata-stripped]
+        let _VERANTYX_滴:1.0__ASTNODE_滴_111_ = _VERANTYX_縺:1.0__ASTNODE_滴_36_._VERANTYX_滴:1.0__ASTNODE_滴_274_
+        if _VERANTYX_滴:1.0__ASTNODE_滴_111_ == "rs" || _VERANTYX_縺:1.0__ASTNODE_滴_36_._VERANTYX_滴:1.0__ASTNODE_滴_290_ == "_VERANTYX_廬:1.0__ASTNODE_廬_45_._VERANTYX_滴:1.0__ASTNODE_滴_191_" {
+            return await _VERANTYX_滴:1.0__ASTNODE_滴_161_._VERANTYX_滴:1.0__ASTNODE_滴_255_(_VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_滴:1.0__ASTNODE_滴_101_, _VERANTYX_縺:1.0__ASTNODE_滴_36_: _VERANTYX_縺:1.0__ASTNODE_滴_36_)
+        }
+        return (true, "")
+    }
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_232_(_VERANTYX_滴:1.0__ASTNODE_滴_251_ _VERANTYX_滴:1.0__ASTNODE_滴_6_: _VERANTYX_廬:1.0__ASTNODE_廬_72_) -> _VERANTYX_廬:1.0__ASTNODE_廬_72_? {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_155_ = #"```[a-zA-Z]*\n([\s\S]*?)```"#
+        guard let _VERANTYX_滴:1.0__ASTNODE_滴_67_ = try? _VERANTYX_廬:1.0__ASTNODE_廬_15_(_VERANTYX_滴:1.0__ASTNODE_滴_155_: _VERANTYX_滴:1.0__ASTNODE_滴_155_),
+              let _VERANTYX_滴:1.0__ASTNODE_滴_76_ = _VERANTYX_滴:1.0__ASTNODE_滴_67_._VERANTYX_滴:1.0__ASTNODE_滴_253_(in: _VERANTYX_滴:1.0__ASTNODE_滴_6_, _VERANTYX_滴:1.0__ASTNODE_滴_78_: _VERANTYX_廬:1.0__ASTNODE_廬_24_(_VERANTYX_滴:1.0__ASTNODE_滴_6_._VERANTYX_滴:1.0__ASTNODE_滴_288_..., in: _VERANTYX_滴:1.0__ASTNODE_滴_6_)),
+              let _VERANTYX_滴:1.0__ASTNODE_滴_78_ = _VERANTYX_廬:1.0__ASTNODE_廬_5_(_VERANTYX_滴:1.0__ASTNODE_滴_76_._VERANTYX_滴:1.0__ASTNODE_滴_78_(at: 1), in: _VERANTYX_滴:1.0__ASTNODE_滴_6_) else { return nil }
+        return _VERANTYX_廬:1.0__ASTNODE_廬_72_(_VERANTYX_滴:1.0__ASTNODE_滴_6_[_VERANTYX_滴:1.0__ASTNODE_滴_78_])._VERANTYX_滴:1.0__ASTNODE_滴_186_(in: ._VERANTYX_滴:1.0__ASTNODE_滴_306_)
+    }
+
+// [metadata-stripped]
+
+    private func _VERANTYX_匽:1.0__ASTNODE_滴_112_(_VERANTYX_滴:1.0__ASTNODE_滴_188_: [_VERANTYX_廬:1.0__ASTNODE_廬_106_], _VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_) async {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_202_ = _VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_103_()
+            ._VERANTYX_滴:1.0__ASTNODE_滴_223_ { "[\($0.0+1)] \($0.1._VERANTYX_滴:1.0__ASTNODE_滴_262_) → \($0.1._VERANTYX_滴:1.0__ASTNODE_滴_16_)" }
+            ._VERANTYX_滴:1.0__ASTNODE_滴_59_(_VERANTYX_滴:1.0__ASTNODE_滴_298_: "\n")
+        let _VERANTYX_滴:1.0__ASTNODE_滴_304_ = """
+        ■ _VERANTYX_廬:1.0__ASTNODE_廬_64_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))
+        【空間座相】[令:1.0][変:0.9][廻:0.8]
+        【L1.5索引】[令変廻] | "_VERANTYX_滴:1.0__ASTNODE_滴_307_: \(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_)_VERANTYX_匽:1.0__ASTNODE_滴_123_"
+        【操作対応表】
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_23_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(100))")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_199_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_188_._VERANTYX_滴:1.0__ASTNODE_滴_99_)")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_88_("_VERANTYX_滴:1.0__ASTNODE_滴_95_", "_VERANTYX_廬:1.0__ASTNODE_廬_40_")
+        【原文】_VERANTYX_廬:1.0__ASTNODE_廬_35_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_)\_VERANTYX_滴:1.0__ASTNODE_滴_153_:\n\(_VERANTYX_滴:1.0__ASTNODE_滴_202_)
+        """
+        let _VERANTYX_滴:1.0__ASTNODE_滴_182_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_("._VERANTYX_滴:1.0__ASTNODE_滴_204_/_VERANTYX_滴:1.0__ASTNODE_滴_314_")
+        try? _VERANTYX_匽:1.0__ASTNODE_廬_53_._VERANTYX_滴:1.0__ASTNODE_滴_116_._VERANTYX_滴:1.0__ASTNODE_滴_82_(at: _VERANTYX_滴:1.0__ASTNODE_滴_182_, _VERANTYX_滴:1.0__ASTNODE_滴_243_: true)
+        try? _VERANTYX_滴:1.0__ASTNODE_滴_304_._VERANTYX_滴:1.0__ASTNODE_滴_213_(to: _VERANTYX_滴:1.0__ASTNODE_滴_182_._VERANTYX_滴:1.0__ASTNODE_滴_282_("_VERANTYX_滴:1.0__ASTNODE_滴_164_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))._VERANTYX_滴:1.0__ASTNODE_滴_275_"),
+                        _VERANTYX_滴:1.0__ASTNODE_滴_38_: true, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_)
+    }
+
+    private func _VERANTYX_匽:1.0__ASTNODE_滴_58_(_VERANTYX_滴:1.0__ASTNODE_滴_201_: _VERANTYX_廬:1.0__ASTNODE_廬_106_, _VERANTYX_滴:1.0__ASTNODE_滴_129_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_) async {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_304_ = """
+        ■ _VERANTYX_廬:1.0__ASTNODE_廬_67_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))
+        【空間座相】[誤:1.0][変:0.9][捕:0.8]
+        【L1.5索引】[誤変捕] | "\(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_._VERANTYX_滴:1.0__ASTNODE_滴_132_(30)): \(_VERANTYX_滴:1.0__ASTNODE_滴_129_._VERANTYX_滴:1.0__ASTNODE_滴_132_(30))"
+        【操作対応表】
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_匽:1.0__ASTNODE_滴_286_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_129_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_129_._VERANTYX_滴:1.0__ASTNODE_滴_132_(200)._VERANTYX_滴:1.0__ASTNODE_滴_146_(of: "\"", _VERANTYX_滴:1.0__ASTNODE_滴_93_: "'"))")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_83_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_117_)")
+        【原文】_VERANTYX_匽:1.0__ASTNODE_廬_109_: \(_VERANTYX_滴:1.0__ASTNODE_滴_201_._VERANTYX_滴:1.0__ASTNODE_滴_262_)\_VERANTYX_滴:1.0__ASTNODE_滴_296_: \(_VERANTYX_滴:1.0__ASTNODE_滴_129_._VERANTYX_滴:1.0__ASTNODE_滴_132_(500))
+        """
+        let _VERANTYX_滴:1.0__ASTNODE_滴_182_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_("._VERANTYX_滴:1.0__ASTNODE_滴_204_/_VERANTYX_滴:1.0__ASTNODE_滴_96_")
+        try? _VERANTYX_匽:1.0__ASTNODE_廬_53_._VERANTYX_滴:1.0__ASTNODE_滴_116_._VERANTYX_滴:1.0__ASTNODE_滴_82_(at: _VERANTYX_滴:1.0__ASTNODE_滴_182_, _VERANTYX_滴:1.0__ASTNODE_滴_243_: true)
+        try? _VERANTYX_滴:1.0__ASTNODE_滴_304_._VERANTYX_滴:1.0__ASTNODE_滴_213_(to: _VERANTYX_滴:1.0__ASTNODE_滴_182_._VERANTYX_滴:1.0__ASTNODE_滴_282_("_VERANTYX_滴:1.0__ASTNODE_滴_265_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))._VERANTYX_滴:1.0__ASTNODE_滴_275_"),
+                        _VERANTYX_滴:1.0__ASTNODE_滴_38_: true, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_)
+    }
+
+    private func _VERANTYX_匽:1.0__ASTNODE_滴_285_(_VERANTYX_滴:1.0__ASTNODE_滴_23_: _VERANTYX_廬:1.0__ASTNODE_廬_72_, _VERANTYX_滴:1.0__ASTNODE_滴_241_: _VERANTYX_廬:1.0__ASTNODE_廬_101_, _VERANTYX_滴:1.0__ASTNODE_滴_15_: _VERANTYX_廬:1.0__ASTNODE_廬_101_, _VERANTYX_縺:1.0__ASTNODE_滴_64_: _VERANTYX_縺:1.0__ASTNODE_廬_4_) async {
+        let _VERANTYX_滴:1.0__ASTNODE_滴_304_ = """
+        ■ _VERANTYX_廬:1.0__ASTNODE_廬_6_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))
+        【空間座相】[成:1.0][令:0.9][変:0.8]
+        【L1.5索引】[成令変] | "_VERANTYX_滴:1.0__ASTNODE_滴_241_:\(_VERANTYX_滴:1.0__ASTNODE_滴_241_) _VERANTYX_滴:1.0__ASTNODE_滴_15_:\(_VERANTYX_滴:1.0__ASTNODE_滴_15_)"
+        【操作対応表】
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_23_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_23_._VERANTYX_滴:1.0__ASTNODE_滴_132_(100))")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_241_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_241_)")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_31_("_VERANTYX_滴:1.0__ASTNODE_滴_15_", "\(_VERANTYX_滴:1.0__ASTNODE_滴_15_)")
+        OP._VERANTYX_廬:1.0__ASTNODE_廬_88_("_VERANTYX_滴:1.0__ASTNODE_滴_95_", "_VERANTYX_廬:1.0__ASTNODE_廬_90_")
+        【原文】_VERANTYX_廬:1.0__ASTNODE_廬_35_: \(_VERANTYX_滴:1.0__ASTNODE_滴_23_)\_VERANTYX_滴:1.0__ASTNODE_滴_165_: \(_VERANTYX_滴:1.0__ASTNODE_滴_241_) _VERANTYX_滴:1.0__ASTNODE_滴_241_, \(_VERANTYX_滴:1.0__ASTNODE_滴_15_) _VERANTYX_滴:1.0__ASTNODE_滴_15_
+        """
+        let _VERANTYX_滴:1.0__ASTNODE_滴_182_ = _VERANTYX_縺:1.0__ASTNODE_滴_64_._VERANTYX_滴:1.0__ASTNODE_滴_282_("._VERANTYX_滴:1.0__ASTNODE_滴_204_/_VERANTYX_滴:1.0__ASTNODE_滴_281_")
+        try? _VERANTYX_匽:1.0__ASTNODE_廬_53_._VERANTYX_滴:1.0__ASTNODE_滴_116_._VERANTYX_滴:1.0__ASTNODE_滴_82_(at: _VERANTYX_滴:1.0__ASTNODE_滴_182_, _VERANTYX_滴:1.0__ASTNODE_滴_243_: true)
+        try? _VERANTYX_滴:1.0__ASTNODE_滴_304_._VERANTYX_滴:1.0__ASTNODE_滴_213_(to: _VERANTYX_滴:1.0__ASTNODE_滴_182_._VERANTYX_滴:1.0__ASTNODE_滴_282_("_VERANTYX_滴:1.0__ASTNODE_滴_235_\(_VERANTYX_廬:1.0__ASTNODE_廬_101_(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_滴:1.0__ASTNODE_滴_81_))._VERANTYX_滴:1.0__ASTNODE_滴_275_"),
+                        _VERANTYX_滴:1.0__ASTNODE_滴_38_: true, _VERANTYX_滴:1.0__ASTNODE_滴_29_: ._VERANTYX_滴:1.0__ASTNODE_滴_198_)
+    }
+
+    private func _VERANTYX_滴:1.0__ASTNODE_滴_238_(_ _VERANTYX_滴:1.0__ASTNODE_滴_310_: _VERANTYX_廬:1.0__ASTNODE_廬_72_) {
+        _VERANTYX_滴:1.0__ASTNODE_滴_312_._VERANTYX_滴:1.0__ASTNODE_滴_140_("[\(_VERANTYX_廬:1.0__ASTNODE_廬_56_()._VERANTYX_涌:1.0__ASTNODE_滴_145_(._VERANTYX_滴:1.0__ASTNODE_滴_138_._VERANTYX_滴:1.0__ASTNODE_滴_291_()._VERANTYX_滴:1.0__ASTNODE_滴_266_()._VERANTYX_滴:1.0__ASTNODE_滴_25_()))] \(_VERANTYX_滴:1.0__ASTNODE_滴_310_)")
+        if _VERANTYX_滴:1.0__ASTNODE_滴_312_._VERANTYX_滴:1.0__ASTNODE_滴_99_ > 300 { _VERANTYX_滴:1.0__ASTNODE_滴_312_._VERANTYX_滴:1.0__ASTNODE_滴_225_(50) }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

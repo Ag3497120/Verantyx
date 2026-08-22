@@ -1,0 +1,60 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D5C99805 ver:1778159744
+// ⚠️ One-time schema — expires after response
+
+import _JCROSS_靄:1.0__OPAQUE_靄_17_
+import re
+_JCROSS_靄:1.0__OPAQUE_靄_7_ _JCROSS_靄:1.0__OPAQUE_靄_22_ import _JCROSS_廊:1.0__OPAQUE_廊_8_, _JCROSS_廊:1.0__OPAQUE_廊_6_, _JCROSS_廊:1.0__OPAQUE_廊_1_, _JCROSS_廊:1.0__OPAQUE_廊_3_
+
+_JCROSS_靄:1.0__OPAQUE_靄_13_ _JCROSS_靄:1.0__OPAQUE_靄_2_(_JCROSS_濫:1.0__OPAQUE_靄_35_: _JCROSS_靄:1.0__OPAQUE_靄_27_, _JCROSS_靄:1.0__OPAQUE_靄_6_: _JCROSS_廊:1.0__OPAQUE_廊_6_[_JCROSS_靄:1.0__OPAQUE_靄_27_, _JCROSS_靄:1.0__OPAQUE_靄_34_]) -> _JCROSS_靄:1.0__OPAQUE_靄_34_:
+    """
+    論理式を指定された真理値割り当てで評価する。
+    """
+// [metadata-stripped]
+    _JCROSS_靄:1.0__OPAQUE_靄_10_ = _JCROSS_濫:1.0__OPAQUE_靄_35_._JCROSS_靄:1.0__OPAQUE_靄_5_("->", " <= ")._JCROSS_靄:1.0__OPAQUE_靄_5_("<->", " == ")
+// _JCROSS_網:0.1__OPAQUE_MF_537_ [decoy-metadata]
+    _JCROSS_靄:1.0__OPAQUE_靄_10_ = _JCROSS_靄:1.0__OPAQUE_靄_10_._JCROSS_靄:1.0__OPAQUE_靄_5_("&", " _JCROSS_靄:1.0__OPAQUE_靄_24_ ")._JCROSS_靄:1.0__OPAQUE_靄_5_("|", " or ")._JCROSS_靄:1.0__OPAQUE_靄_5_("~", " _JCROSS_靄:1.0__OPAQUE_靄_9_ ")
+    
+    try:
+// [metadata-stripped]
+// _JCROSS_濫:0.2__OPAQUE_EM_697_ [decoy-metadata]
+        _JCROSS_靄:1.0__OPAQUE_靄_4_ = _JCROSS_靄:1.0__OPAQUE_靄_23_(_JCROSS_靄:1.0__OPAQUE_靄_10_, {"_JCROSS_靄:1.0__OPAQUE_靄_21_": _JCROSS_廊:1.0__OPAQUE_廊_4_}, _JCROSS_靄:1.0__OPAQUE_靄_6_)
+        return _JCROSS_靄:1.0__OPAQUE_靄_34_(_JCROSS_靄:1.0__OPAQUE_靄_4_)
+    _JCROSS_靄:1.0__OPAQUE_靄_18_ _JCROSS_廊:1.0__OPAQUE_廊_5_:
+        return _JCROSS_廊:1.0__OPAQUE_廊_4_
+
+_JCROSS_靄:1.0__OPAQUE_靄_13_ _JCROSS_靄:1.0__OPAQUE_靄_32_(_JCROSS_濫:1.0__OPAQUE_靄_35_: _JCROSS_靄:1.0__OPAQUE_靄_27_, _JCROSS_靄:1.0__OPAQUE_靄_8_: _JCROSS_廊:1.0__OPAQUE_廊_8_[_JCROSS_靄:1.0__OPAQUE_靄_27_]) -> _JCROSS_廊:1.0__OPAQUE_廊_8_[_JCROSS_廊:1.0__OPAQUE_廊_6_[_JCROSS_靄:1.0__OPAQUE_靄_27_, _JCROSS_廊:1.0__OPAQUE_廊_3_]]:
+    """
+    主要なケース（全偽、全真、一部真など）でシミュレーションを実行する。
+    """
+    _JCROSS_靄:1.0__OPAQUE_靄_3_ = []
+// [metadata-stripped]
+// _JCROSS_網:0.9__OPAQUE_KX_968_ [decoy-metadata]
+    if _JCROSS_靄:1.0__OPAQUE_靄_15_(_JCROSS_靄:1.0__OPAQUE_靄_8_) > 5:
+        _JCROSS_靄:1.0__OPAQUE_靄_20_ = [
+            _JCROSS_靄:1.0__OPAQUE_靄_31_([_JCROSS_廊:1.0__OPAQUE_廊_2_] * _JCROSS_靄:1.0__OPAQUE_靄_15_(_JCROSS_靄:1.0__OPAQUE_靄_8_)),
+// _JCROSS_濫:0.7__OPAQUE_FW_106_ [decoy-metadata]
+            _JCROSS_靄:1.0__OPAQUE_靄_31_([_JCROSS_廊:1.0__OPAQUE_廊_7_] * _JCROSS_靄:1.0__OPAQUE_靄_15_(_JCROSS_靄:1.0__OPAQUE_靄_8_)),
+// _JCROSS_網:0.3__OPAQUE_ZA_551_ [decoy-metadata]
+        ]
+    else:
+        _JCROSS_靄:1.0__OPAQUE_靄_20_ = _JCROSS_靄:1.0__OPAQUE_靄_16_(_JCROSS_靄:1.0__OPAQUE_靄_17_._JCROSS_靄:1.0__OPAQUE_靄_11_([_JCROSS_廊:1.0__OPAQUE_廊_2_, _JCROSS_廊:1.0__OPAQUE_廊_7_], _JCROSS_靄:1.0__OPAQUE_靄_12_=_JCROSS_靄:1.0__OPAQUE_靄_15_(_JCROSS_靄:1.0__OPAQUE_靄_8_)))
+
+// _JCROSS_函:0.9__OPAQUE_YF_926_ [decoy-metadata]
+    for _JCROSS_靄:1.0__OPAQUE_靄_26_ in _JCROSS_靄:1.0__OPAQUE_靄_20_:
+        _JCROSS_靄:1.0__OPAQUE_靄_6_ = _JCROSS_靄:1.0__OPAQUE_靄_25_(_JCROSS_靄:1.0__OPAQUE_靄_29_(_JCROSS_靄:1.0__OPAQUE_靄_8_, _JCROSS_靄:1.0__OPAQUE_靄_26_))
+        _JCROSS_靄:1.0__OPAQUE_靄_4_ = _JCROSS_靄:1.0__OPAQUE_靄_2_(_JCROSS_濫:1.0__OPAQUE_靄_35_, _JCROSS_靄:1.0__OPAQUE_靄_6_)
+        if _JCROSS_靄:1.0__OPAQUE_靄_4_ is _JCROSS_靄:1.0__OPAQUE_靄_9_ _JCROSS_廊:1.0__OPAQUE_廊_4_:
+            _JCROSS_靄:1.0__OPAQUE_靄_3_._JCROSS_靄:1.0__OPAQUE_靄_1_({
+                "_JCROSS_靄:1.0__OPAQUE_靄_14_": "_JCROSS_靄:1.0__OPAQUE_靄_38_",
+                "_JCROSS_靄:1.0__OPAQUE_靄_36_": _JCROSS_靄:1.0__OPAQUE_靄_6_,
+                "_JCROSS_靄:1.0__OPAQUE_靄_33_": _JCROSS_靄:1.0__OPAQUE_靄_4_,
+                "_JCROSS_靄:1.0__OPAQUE_靄_37_": "_JCROSS_靄:1.0__OPAQUE_靄_30_" if _JCROSS_靄:1.0__OPAQUE_靄_4_ else "_JCROSS_靄:1.0__OPAQUE_靄_19_"
+            })
+// [metadata-stripped]
+            if _JCROSS_靄:1.0__OPAQUE_靄_9_ _JCROSS_靄:1.0__OPAQUE_靄_4_:
+                break
+                
+    return _JCROSS_靄:1.0__OPAQUE_靄_3_
+
+// POLYMORPHIC_JCROSS_END

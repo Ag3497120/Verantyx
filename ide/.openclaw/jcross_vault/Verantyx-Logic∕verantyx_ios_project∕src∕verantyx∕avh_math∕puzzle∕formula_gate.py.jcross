@@ -1,0 +1,123 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:93F0B873 ver:1778159671
+// _ASTNODE_浮:0.6__TOKEN_MC_688_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import re
+
+_ASTNODE_泡:1.0__TOKEN_泡_3_ _ASTNODE_浮:1.0__TOKEN_泡_35_(_ASTNODE_泡:1.0__TOKEN_泡_19_: _ASTNODE_泡:1.0__TOKEN_泡_37_) -> _ASTNODE_泡:1.0__TOKEN_泡_12_:
+    """
+    論理式の構造が数学的に完結しているか（壊れていないか）を判定する。
+    """
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ _ASTNODE_泡:1.0__TOKEN_泡_19_:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+    
+    _ASTNODE_泡:1.0__TOKEN_泡_19_ = _ASTNODE_泡:1.0__TOKEN_泡_19_._ASTNODE_泡:1.0__TOKEN_泡_17_(" ", "")
+    if _ASTNODE_泡:1.0__TOKEN_泡_22_(_ASTNODE_泡:1.0__TOKEN_泡_19_) < 2:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_19_._ASTNODE_泡:1.0__TOKEN_泡_23_(("->", "→", "~", "&", "|", "⊕", "<", "=", ">")):
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+    if "->" in _ASTNODE_泡:1.0__TOKEN_泡_19_:
+        _ASTNODE_泡:1.0__TOKEN_泡_36_ = _ASTNODE_泡:1.0__TOKEN_泡_19_._ASTNODE_泡:1.0__TOKEN_泡_5_("->")
+        if any(_ASTNODE_泡:1.0__TOKEN_泡_40_ p for p in _ASTNODE_泡:1.0__TOKEN_泡_36_):
+// _ASTNODE_匸:0.3__TOKEN_GV_696_ [decoy-metadata]
+            return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    _ASTNODE_泡:1.0__TOKEN_泡_2_ = 0
+    for ch in _ASTNODE_泡:1.0__TOKEN_泡_19_:
+        if ch == "(":
+// _ASTNODE_浮:0.1__TOKEN_AC_469_ [decoy-metadata]
+            _ASTNODE_泡:1.0__TOKEN_泡_2_ += 1
+        _ASTNODE_浮:1.0__TOKEN_泡_29_ ch == ")":
+            _ASTNODE_泡:1.0__TOKEN_泡_2_ -= 1
+            if _ASTNODE_泡:1.0__TOKEN_泡_2_ < 0:
+                return _ASTNODE_廟:1.0__TOKEN_廟_4_
+    if _ASTNODE_泡:1.0__TOKEN_泡_2_ != 0:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ re._ASTNODE_泡:1.0__TOKEN_泡_1_(r'^[A-Za-z0-9\(\)\-\>\<\[\]\&\|\~□◇⊕]+$', _ASTNODE_泡:1.0__TOKEN_泡_19_):
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ any(c._ASTNODE_泡:1.0__TOKEN_泡_30_() for c in _ASTNODE_泡:1.0__TOKEN_泡_19_):
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+    return _ASTNODE_廟:1.0__TOKEN_廟_3_
+
+_ASTNODE_泡:1.0__TOKEN_泡_3_ _ASTNODE_浮:1.0__TOKEN_泡_9_(_ASTNODE_泡:1.0__TOKEN_泡_28_, _ASTNODE_泡:1.0__TOKEN_泡_21_):
+    """
+    抽出された式候補が、文全体の中心的な問い（全体式）であるかを判定する。
+    """
+    _ASTNODE_泡:1.0__TOKEN_泡_26_ = _ASTNODE_泡:1.0__TOKEN_泡_28_._ASTNODE_律:1.0__TOKEN_廉_1_("_ASTNODE_泡:1.0__TOKEN_泡_26_")
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ _ASTNODE_泡:1.0__TOKEN_泡_26_:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ _ASTNODE_浮:1.0__TOKEN_泡_35_(_ASTNODE_泡:1.0__TOKEN_泡_28_["_ASTNODE_泡:1.0__TOKEN_泡_25_"]):
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+    _ASTNODE_泡:1.0__TOKEN_泡_4_ = re._ASTNODE_泡:1.0__TOKEN_泡_43_(r"\s+", "", _ASTNODE_泡:1.0__TOKEN_泡_21_)
+    _ASTNODE_泡:1.0__TOKEN_泡_24_ = re._ASTNODE_泡:1.0__TOKEN_泡_43_(r"\s+", "", _ASTNODE_泡:1.0__TOKEN_泡_28_["_ASTNODE_泡:1.0__TOKEN_泡_31_"])
+    
+    _ASTNODE_泡:1.0__TOKEN_泡_7_ = _ASTNODE_泡:1.0__TOKEN_泡_22_(_ASTNODE_泡:1.0__TOKEN_泡_24_) / _ASTNODE_泡:1.0__TOKEN_泡_6_(_ASTNODE_泡:1.0__TOKEN_泡_22_(_ASTNODE_泡:1.0__TOKEN_泡_4_), 1)
+    
+// [metadata-stripped]
+// _ASTNODE_泡:0.9__TOKEN_YC_177_ [decoy-metadata]
+// [metadata-stripped]
+    _ASTNODE_暗:1.0__TOKEN_泡_41_ = ["_ASTNODE_泡:1.0__TOKEN_泡_15_", "_ASTNODE_泡:1.0__TOKEN_泡_27_", "_ASTNODE_泡:1.0__TOKEN_泡_39_", "_ASTNODE_泡:1.0__TOKEN_泡_16_", "_ASTNODE_泡:1.0__TOKEN_泡_13_", "推移", "反射", "対称", "妥当", "恒真"]
+    _ASTNODE_泡:1.0__TOKEN_泡_38_ = any(m in _ASTNODE_泡:1.0__TOKEN_泡_28_["_ASTNODE_泡:1.0__TOKEN_泡_25_"] for m in ["[]", "□", "<>", "◇"])
+    _ASTNODE_暗:1.0__TOKEN_泡_18_ = any(k in _ASTNODE_泡:1.0__TOKEN_泡_21_._ASTNODE_律:1.0__TOKEN_泡_8_() for k in _ASTNODE_暗:1.0__TOKEN_泡_41_)
+    
+    if _ASTNODE_泡:1.0__TOKEN_泡_38_ _ASTNODE_泡:1.0__TOKEN_泡_42_ _ASTNODE_暗:1.0__TOKEN_泡_18_:
+// [metadata-stripped]
+        if _ASTNODE_泡:1.0__TOKEN_泡_7_ > 0.15:
+            return _ASTNODE_廟:1.0__TOKEN_廟_3_
+// _ASTNODE_暗:0.3__TOKEN_ZX_622_ [decoy-metadata]
+
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_7_ < 0.6:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    if _ASTNODE_泡:1.0__TOKEN_泡_28_["_ASTNODE_泡:1.0__TOKEN_泡_26_"][0] > _ASTNODE_泡:1.0__TOKEN_泡_22_(_ASTNODE_泡:1.0__TOKEN_泡_21_) * 0.25:
+        return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+// [metadata-stripped]
+// [metadata-stripped]
+    _ASTNODE_泡:1.0__TOKEN_泡_10_ = ["[]", "□", "◇", "<>"]
+// _ASTNODE_匸:0.5__TOKEN_FY_742_ [decoy-metadata]
+    for m in _ASTNODE_泡:1.0__TOKEN_泡_10_:
+        if m in _ASTNODE_泡:1.0__TOKEN_泡_21_ _ASTNODE_泡:1.0__TOKEN_泡_42_ m _ASTNODE_泡:1.0__TOKEN_泡_40_ in _ASTNODE_泡:1.0__TOKEN_泡_28_["_ASTNODE_泡:1.0__TOKEN_泡_25_"]:
+// [metadata-stripped]
+            return _ASTNODE_廟:1.0__TOKEN_廟_4_
+
+    return _ASTNODE_廟:1.0__TOKEN_廟_3_
+
+_ASTNODE_泡:1.0__TOKEN_泡_3_ _ASTNODE_浮:1.0__TOKEN_泡_32_(_ASTNODE_泡:1.0__TOKEN_泡_33_, _ASTNODE_泡:1.0__TOKEN_泡_21_):
+    """
+    候補群から全体式を選定する。
+    """
+    if _ASTNODE_泡:1.0__TOKEN_泡_40_ _ASTNODE_泡:1.0__TOKEN_泡_33_:
+        return _ASTNODE_廟:1.0__TOKEN_廟_1_, "_ASTNODE_泡:1.0__TOKEN_泡_20_"
+
+// [metadata-stripped]
+    _ASTNODE_泡:1.0__TOKEN_泡_34_ = [
+        c for c in _ASTNODE_泡:1.0__TOKEN_泡_33_
+        if _ASTNODE_浮:1.0__TOKEN_泡_9_(c, _ASTNODE_泡:1.0__TOKEN_泡_21_)
+    ]
+
+    if _ASTNODE_泡:1.0__TOKEN_泡_34_:
+// [metadata-stripped]
+        return _ASTNODE_泡:1.0__TOKEN_泡_34_[0], "_ASTNODE_泡:1.0__TOKEN_泡_14_"
+
+// [metadata-stripped]
+// [metadata-stripped]
+    return _ASTNODE_泡:1.0__TOKEN_泡_33_[0], "_ASTNODE_泡:1.0__TOKEN_泡_11_"
+
+// POLYMORPHIC_JCROSS_END

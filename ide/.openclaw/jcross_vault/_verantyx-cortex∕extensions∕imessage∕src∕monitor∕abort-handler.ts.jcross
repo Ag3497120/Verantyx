@@ -1,0 +1,46 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D7028DBE ver:1778167650
+// _ID_匣:0.5__JCROSS_VH_630_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+_ID_靄:1.0__JCROSS_靄_26_ _ID_靄:1.0__JCROSS_靄_15_ _ID_庖:1.0__JCROSS_庖_3_ = {
+  _ID_縺:1.0__JCROSS_靄_27_: (_ID_靄:1.0__JCROSS_靄_10_: _ID_靄:1.0__JCROSS_靄_11_, _ID_靄:1.0__JCROSS_靄_8_?: _ID_庖:1.0__JCROSS_庖_2_<_ID_靄:1.0__JCROSS_靄_11_, _ID_靄:1.0__JCROSS_靄_24_>) => _ID_庖:1.0__JCROSS_庖_1_<_ID_靄:1.0__JCROSS_靄_24_>;
+  _ID_靄:1.0__JCROSS_靄_22_: () => _ID_庖:1.0__JCROSS_庖_1_<_ID_靄:1.0__JCROSS_靄_12_>;
+};
+
+_ID_靄:1.0__JCROSS_靄_26_ _ID_靄:1.0__JCROSS_靄_29_ _ID_則:1.0__JCROSS_靄_7_(_ID_靄:1.0__JCROSS_靄_8_: {
+// _ID_則:0.7__JCROSS_WD_132_ [decoy-metadata]
+  _ID_靄:1.0__JCROSS_靄_17_?: _ID_庖:1.0__JCROSS_庖_4_;
+  _ID_靄:1.0__JCROSS_靄_2_: _ID_庖:1.0__JCROSS_庖_3_;
+  _ID_則:1.0__JCROSS_覇_1_: () => _ID_則:1.0__JCROSS_靄_9_ | _ID_靄:1.0__JCROSS_靄_1_;
+}): () => _ID_靄:1.0__JCROSS_靄_12_ {
+  _ID_靄:1.0__JCROSS_靄_16_ _ID_靄:1.0__JCROSS_靄_3_ = _ID_靄:1.0__JCROSS_靄_8_._ID_靄:1.0__JCROSS_靄_17_;
+  if (!_ID_靄:1.0__JCROSS_靄_3_) {
+    return () => {};
+  }
+// _ID_靄:0.2__JCROSS_FH_314_ [decoy-metadata]
+
+  _ID_靄:1.0__JCROSS_靄_16_ _ID_靄:1.0__JCROSS_靄_6_ = () => {
+    _ID_靄:1.0__JCROSS_靄_16_ _ID_靄:1.0__JCROSS_靄_13_ = _ID_靄:1.0__JCROSS_靄_8_._ID_則:1.0__JCROSS_覇_1_();
+// _ID_靄:0.3__JCROSS_EZ_508_ [decoy-metadata]
+    if (_ID_靄:1.0__JCROSS_靄_13_) {
+      _ID_靄:1.0__JCROSS_靄_12_ _ID_靄:1.0__JCROSS_靄_8_._ID_靄:1.0__JCROSS_靄_2_
+// _ID_覇:0.9__JCROSS_LK_140_ [decoy-metadata]
+        ._ID_縺:1.0__JCROSS_靄_27_("_ID_靄:1.0__JCROSS_靄_25_._ID_靄:1.0__JCROSS_靄_21_", {
+          _ID_靄:1.0__JCROSS_靄_20_: _ID_靄:1.0__JCROSS_靄_13_,
+        })
+        .catch(() => {
+// [metadata-stripped]
+        });
+    }
+    _ID_靄:1.0__JCROSS_靄_12_ _ID_靄:1.0__JCROSS_靄_8_._ID_靄:1.0__JCROSS_靄_2_._ID_靄:1.0__JCROSS_靄_22_().catch(() => {
+// _ID_則:0.3__JCROSS_ZA_922_ [decoy-metadata]
+// [metadata-stripped]
+    });
+  };
+
+  _ID_靄:1.0__JCROSS_靄_3_._ID_則:1.0__JCROSS_靄_14_("_ID_靄:1.0__JCROSS_靄_3_", _ID_靄:1.0__JCROSS_靄_6_, { _ID_靄:1.0__JCROSS_靄_28_: true });
+  return () => _ID_靄:1.0__JCROSS_靄_3_._ID_則:1.0__JCROSS_靄_5_("_ID_靄:1.0__JCROSS_靄_3_", _ID_靄:1.0__JCROSS_靄_6_);
+}
+
+// POLYMORPHIC_JCROSS_END

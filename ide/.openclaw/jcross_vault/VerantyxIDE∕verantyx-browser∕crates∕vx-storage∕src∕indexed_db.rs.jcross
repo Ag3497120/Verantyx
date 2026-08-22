@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:650A36DD ver:1778149962
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// _JCROSS_箱:0.2___jcross_EM_724__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_霢:1.0___jcross_霢_31__ _JCROSS_霢:1.0___jcross_霢_37__::_JCROSS_霢:1.0___jcross_霢_30__::_JCROSS_庵:1.0___jcross_庵_16__;
+_JCROSS_霢:1.0___jcross_霢_31__ _JCROSS_霢:1.0___jcross_霢_41__::_JCROSS_庵:1.0___jcross_庵_37__;
+_JCROSS_霢:1.0___jcross_霢_31__ _JCROSS_霢:1.0___jcross_霢_51__::{_JCROSS_庵:1.0___jcross_庵_12__, _JCROSS_庵:1.0___jcross_庵_9__};
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_22__uct _JCROSS_庵:1.0___jcross_庵_14__ {
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_26__: _JCROSS_庵:1.0___jcross_庵_27__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_42__: _JCROSS_霢:1.0___jcross_霢_18__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_47__: _JCROSS_庵:1.0___jcross_庵_16__<_JCROSS_庵:1.0___jcross_庵_27__, _JCROSS_庵:1.0___jcross_庵_24__>,
+}
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_22__uct _JCROSS_庵:1.0___jcross_庵_24__ {
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_26__: _JCROSS_庵:1.0___jcross_庵_27__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_奥:1.0___jcross_霢_39__: _JCROSS_庵:1.0___jcross_庵_25__<_JCROSS_庵:1.0___jcross_庵_27__>,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_38__: _JCROSS_霢:1.0___jcross_霢_46__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_8__: _JCROSS_庵:1.0___jcross_庵_16__<_JCROSS_庵:1.0___jcross_庵_27__, _JCROSS_霢:1.0___jcross_霢_2__::_JCROSS_庵:1.0___jcross_庵_18__>,
+}
+
+_JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_22__uct _JCROSS_格:1.0___jcross_庵_7__ {
+    _JCROSS_霢:1.0___jcross_霢_24__: _JCROSS_庵:1.0___jcross_庵_27__,
+    db: _JCROSS_霢:1.0___jcross_霢_40__::Db,
+}
+
+_JCROSS_霢:1.0___jcross_霢_33__ _JCROSS_格:1.0___jcross_庵_7__ {
+    _JCROSS_霢:1.0___jcross_霢_32__ fn _JCROSS_霢:1.0___jcross_霢_13__(_JCROSS_霢:1.0___jcross_霢_24__: &_JCROSS_霢:1.0___jcross_霢_22__, _JCROSS_霢:1.0___jcross_霢_49__: &_JCROSS_霢:1.0___jcross_霢_37__::_JCROSS_霢:1.0___jcross_霢_48__::_JCROSS_庵:1.0___jcross_庵_32__) -> _JCROSS_庵:1.0___jcross_庵_37__<_JCROSS_庵:1.0___jcross_庵_21__> {
+        let db = _JCROSS_霢:1.0___jcross_霢_40__::open(_JCROSS_霢:1.0___jcross_霢_49__)?;
+// _JCROSS_箱:0.8___jcross_DE_252__ [decoy-metadata]
+        Ok(_JCROSS_庵:1.0___jcross_庵_21__ {
+            _JCROSS_霢:1.0___jcross_霢_24__: _JCROSS_霢:1.0___jcross_霢_24__._JCROSS_霢:1.0___jcross_霢_27__(),
+            db,
+        })
+    }
+
+    _JCROSS_霢:1.0___jcross_霢_32__ async fn _JCROSS_霢:1.0___jcross_霢_6__(&self, _JCROSS_霢:1.0___jcross_霢_26__: &_JCROSS_霢:1.0___jcross_霢_22__, _JCROSS_霢:1.0___jcross_霢_42__: _JCROSS_霢:1.0___jcross_霢_18__) -> _JCROSS_庵:1.0___jcross_庵_37__<_JCROSS_庵:1.0___jcross_庵_14__> {
+        let _JCROSS_奥:1.0___jcross_霢_12__ = _JCROSS_浸:1.0___jcross_霢_3__!("_JCROSS_霢:1.0___jcross_霢_10__{}_{}", self._JCROSS_霢:1.0___jcross_霢_24__, _JCROSS_霢:1.0___jcross_霢_26__);
+        if let _JCROSS_庵:1.0___jcross_庵_17__(_JCROSS_霢:1.0___jcross_霢_50__) = self.db._JCROSS_格:1.0___jcross_碑_1__(&_JCROSS_奥:1.0___jcross_霢_12__)? {
+            let _JCROSS_霢:1.0___jcross_霢_1__ _JCROSS_霢:1.0___jcross_霢_21__: _JCROSS_庵:1.0___jcross_庵_14__ = _JCROSS_霢:1.0___jcross_霢_2__::_JCROSS_霢:1.0___jcross_霢_5__(&_JCROSS_霢:1.0___jcross_霢_50__)?;
+            if _JCROSS_霢:1.0___jcross_霢_21__._JCROSS_霢:1.0___jcross_霢_42__ < _JCROSS_霢:1.0___jcross_霢_42__ {
+// [metadata-stripped]
+                _JCROSS_霢:1.0___jcross_霢_21__._JCROSS_霢:1.0___jcross_霢_42__ = _JCROSS_霢:1.0___jcross_霢_42__;
+                self._JCROSS_箱:1.0___jcross_霢_52__(&_JCROSS_霢:1.0___jcross_霢_21__)?;
+            }
+            Ok(_JCROSS_霢:1.0___jcross_霢_21__)
+        } else {
+            let _JCROSS_霢:1.0___jcross_霢_21__ = _JCROSS_庵:1.0___jcross_庵_14__ {
+                _JCROSS_霢:1.0___jcross_霢_26__: _JCROSS_霢:1.0___jcross_霢_26__._JCROSS_霢:1.0___jcross_霢_27__(),
+                _JCROSS_霢:1.0___jcross_霢_42__,
+                _JCROSS_霢:1.0___jcross_霢_47__: _JCROSS_庵:1.0___jcross_庵_16__::_JCROSS_霢:1.0___jcross_霢_13__(),
+            };
+            self._JCROSS_箱:1.0___jcross_霢_52__(&_JCROSS_霢:1.0___jcross_霢_21__)?;
+            Ok(_JCROSS_霢:1.0___jcross_霢_21__)
+// _JCROSS_箱:0.3___jcross_HW_476__ [decoy-metadata]
+// _JCROSS_碑:0.2___jcross_HB_820__ [decoy-metadata]
+        }
+    }
+
+    _JCROSS_霢:1.0___jcross_霢_32__ fn _JCROSS_箱:1.0___jcross_霢_52__(&self, _JCROSS_霢:1.0___jcross_霢_21__: &_JCROSS_庵:1.0___jcross_庵_14__) -> _JCROSS_庵:1.0___jcross_庵_37__<()> {
+        let _JCROSS_奥:1.0___jcross_霢_12__ = _JCROSS_浸:1.0___jcross_霢_3__!("_JCROSS_霢:1.0___jcross_霢_10__{}_{}", self._JCROSS_霢:1.0___jcross_霢_24__, _JCROSS_霢:1.0___jcross_霢_21__._JCROSS_霢:1.0___jcross_霢_26__);
+        let _JCROSS_霢:1.0___jcross_霢_50__ = _JCROSS_霢:1.0___jcross_霢_2__::_JCROSS_霢:1.0___jcross_霢_4__(_JCROSS_霢:1.0___jcross_霢_21__)?;
+        self.db._JCROSS_霢:1.0___jcross_霢_15__(_JCROSS_奥:1.0___jcross_霢_12__, _JCROSS_霢:1.0___jcross_霢_50__)?;
+        self.db._JCROSS_霢:1.0___jcross_霢_45__()?;
+        Ok(())
+    }
+
+    _JCROSS_霢:1.0___jcross_霢_32__ fn _JCROSS_霢:1.0___jcross_霢_20__(&self, _JCROSS_霢:1.0___jcross_霢_26__: &_JCROSS_霢:1.0___jcross_霢_22__) -> _JCROSS_庵:1.0___jcross_庵_37__<()> {
+        let _JCROSS_奥:1.0___jcross_霢_12__ = _JCROSS_浸:1.0___jcross_霢_3__!("_JCROSS_霢:1.0___jcross_霢_10__{}_{}", self._JCROSS_霢:1.0___jcross_霢_24__, _JCROSS_霢:1.0___jcross_霢_26__);
+        self.db._JCROSS_霢:1.0___jcross_霢_36__(_JCROSS_奥:1.0___jcross_霢_12__)?;
+        self.db._JCROSS_霢:1.0___jcross_霢_45__()?;
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_22__uct _JCROSS_庵:1.0___jcross_庵_26__ {
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_17__: _JCROSS_庵:1.0___jcross_庵_27__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_23__: _JCROSS_庵:1.0___jcross_庵_4__,
+    _JCROSS_霢:1.0___jcross_霢_32__ _JCROSS_霢:1.0___jcross_霢_47__: _JCROSS_庵:1.0___jcross_庵_33__<_JCROSS_庵:1.0___jcross_庵_27__>,
+}
+// _JCROSS_奥:0.4___jcross_XB_454__ [decoy-metadata]
+
+// [metadata-stripped]
+_JCROSS_霢:1.0___jcross_霢_32__ enum _JCROSS_庵:1.0___jcross_庵_4__ {
+    _JCROSS_庵:1.0___jcross_庵_6__,
+// _JCROSS_縁:0.5___jcross_VZ_175__ [decoy-metadata]
+    _JCROSS_庵:1.0___jcross_庵_30__,
+    _JCROSS_庵:1.0___jcross_庵_5__,
+}
+
+// POLYMORPHIC_JCROSS_END

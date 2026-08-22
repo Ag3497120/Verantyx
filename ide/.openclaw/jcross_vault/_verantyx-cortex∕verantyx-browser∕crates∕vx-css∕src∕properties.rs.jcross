@@ -1,0 +1,530 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1A33784A ver:1778166303
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+
+__ast_礫:1.0___ASTNODE_礫_17_ __ast_礫:1.0___ASTNODE_礫_119_::__ast_礫:1.0___ASTNODE_礫_31_;
+__ast_礫:1.0___ASTNODE_礫_17_ __ast_礫:1.0___ASTNODE_礫_46_::__ast_礫:1.0___ASTNODE_礫_79_::__ast_廬:1.0___ASTNODE_廬_72_;
+__ast_礫:1.0___ASTNODE_礫_17_ __ast_礫:1.0___ASTNODE_礫_46_::__ast_礫:1.0___ASTNODE_礫_63_::{__ast_廬:1.0___ASTNODE_廬_184_, __ast_廬:1.0___ASTNODE_廬_126_, __ast_廬:1.0___ASTNODE_廬_32_, __ast_廬:1.0___ASTNODE_廬_236_};
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_礫:1.0___ASTNODE_礫_111_ __ast_礫:1.0___ASTNODE_礫_29_uct __ast_廬:1.0___ASTNODE_廬_47_ {
+    __ast_礫:1.0___ASTNODE_礫_111_ __ast_礫:1.0___ASTNODE_礫_48_: __ast_廬:1.0___ASTNODE_廬_259_,
+    __ast_礫:1.0___ASTNODE_礫_111_ __ast_礫:1.0___ASTNODE_礫_60_: __ast_廬:1.0___ASTNODE_廬_224_,
+    __ast_礫:1.0___ASTNODE_礫_111_ __ast_礫:1.0___ASTNODE_礫_82_: __ast_礫:1.0___ASTNODE_礫_80_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_礫:1.0___ASTNODE_礫_111_ enum __ast_廬:1.0___ASTNODE_廬_224_ {
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_150_,
+    __ast_廬:1.0___ASTNODE_廬_7_,
+    __ast_廬:1.0___ASTNODE_廬_282_,
+    __ast_廬:1.0___ASTNODE_廬_135_,
+    __ast_謀:1.0___ASTNODE_廬_81_,
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_370_(__ast_廬:1.0___ASTNODE_廬_72_),
+    __ast_廬:1.0___ASTNODE_廬_184_(__ast_廬:1.0___ASTNODE_廬_184_),
+    __ast_廬:1.0___ASTNODE_廬_126_(__ast_廬:1.0___ASTNODE_廬_126_),
+    __ast_廬:1.0___ASTNODE_廬_32_(__ast_廬:1.0___ASTNODE_廬_32_),
+    __ast_謀:1.0___ASTNODE_廬_298_(__ast_礫:1.0___ASTNODE_礫_106_),
+    __ast_謀:1.0___ASTNODE_廬_359_(__ast_礫:1.0___ASTNODE_礫_112_),
+    __ast_禁:1.0___ASTNODE_廬_373_(__ast_廬:1.0___ASTNODE_廬_259_),
+    __ast_廬:1.0___ASTNODE_廬_259_(__ast_廬:1.0___ASTNODE_廬_259_),
+    __ast_廬:1.0___ASTNODE_廬_28_,
+    __ast_廬:1.0___ASTNODE_廬_244_,
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_340_(__ast_廬:1.0___ASTNODE_廬_380_<__ast_廬:1.0___ASTNODE_廬_224_>),
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_153_(__ast_廬:1.0___ASTNODE_廬_259_),
+}
+
+__ast_礫:1.0___ASTNODE_礫_14_ __ast_廬:1.0___ASTNODE_廬_224_ {
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_141_(s: &__ast_礫:1.0___ASTNODE_礫_29_) -> __ast_廬:1.0___ASTNODE_廬_271_ {
+        let s = s.__ast_礫:1.0___ASTNODE_礫_134_();
+        __ast_礫:1.0___ASTNODE_礫_125_ s {
+            "__ast_礫:1.0___ASTNODE_礫_65_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_150_,
+            "__ast_礫:1.0___ASTNODE_礫_162_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_7_,
+            "__ast_礫:1.0___ASTNODE_礫_180_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_282_,
+            "__ast_礫:1.0___ASTNODE_礫_98_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_135_,
+            "__ast_礫:1.0___ASTNODE_礫_98_-__ast_謀:1.0___ASTNODE_礫_56_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_81_,
+            "__ast_礫:1.0___ASTNODE_礫_145_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_28_,
+            "__ast_礫:1.0___ASTNODE_礫_108_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_244_,
+            _ => {
+                if let __ast_廬:1.0___ASTNODE_廬_71_(c) = __ast_廬:1.0___ASTNODE_廬_72_::__ast_礫:1.0___ASTNODE_礫_141_(s) {
+                    return __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_370_(c);
+                }
+                if let __ast_廬:1.0___ASTNODE_廬_71_(l) = __ast_廬:1.0___ASTNODE_廬_184_::__ast_礫:1.0___ASTNODE_礫_141_(s) {
+                    return __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_184_(l);
+                }
+                if let __ast_廬:1.0___ASTNODE_廬_71_(p) = __ast_廬:1.0___ASTNODE_廬_32_::__ast_礫:1.0___ASTNODE_礫_141_(s) {
+                    return __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_32_(p);
+                }
+                if let Ok(n) = s.__ast_礫:1.0___ASTNODE_礫_141_::<__ast_礫:1.0___ASTNODE_礫_106_>() {
+                    return __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_298_(n);
+                }
+                __ast_廬:1.0___ASTNODE_廬_271_::__ast_禁:1.0___ASTNODE_廬_373_(s.__ast_礫:1.0___ASTNODE_礫_132_())
+            }
+        }
+    }
+
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_93_(&self) -> __ast_廬:1.0___ASTNODE_廬_82_<&__ast_廬:1.0___ASTNODE_廬_72_> {
+        __ast_礫:1.0___ASTNODE_礫_125_ self { __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_370_(c) => __ast_廬:1.0___ASTNODE_廬_71_(c), _ => __ast_廬:1.0___ASTNODE_廬_28_ }
+    }
+
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_126_(&self, __ast_礫:1.0___ASTNODE_礫_12_: __ast_礫:1.0___ASTNODE_礫_106_) -> __ast_廬:1.0___ASTNODE_廬_82_<__ast_礫:1.0___ASTNODE_礫_106_> {
+        __ast_礫:1.0___ASTNODE_礫_125_ self {
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_184_(l) => {
+                __ast_礫:1.0___ASTNODE_礫_17_ __ast_礫:1.0___ASTNODE_礫_46_::__ast_礫:1.0___ASTNODE_礫_63_::{__ast_廬:1.0___ASTNODE_廬_30_, __ast_廬:1.0___ASTNODE_廬_160_, __ast_廬:1.0___ASTNODE_廬_43_};
+                let __ast_礫:1.0___ASTNODE_礫_149_ = __ast_廬:1.0___ASTNODE_廬_160_ { __ast_礫:1.0___ASTNODE_礫_12_, ..__ast_廬:1.0___ASTNODE_廬_175_::__ast_礫:1.0___ASTNODE_礫_100_() };
+                __ast_廬:1.0___ASTNODE_廬_71_(l.__ast_礫:1.0___ASTNODE_礫_10_(&__ast_礫:1.0___ASTNODE_礫_149_, &__ast_廬:1.0___ASTNODE_廬_43_::__ast_礫:1.0___ASTNODE_礫_100_()))
+            }
+            _ => __ast_廬:1.0___ASTNODE_廬_28_,
+        }
+    }
+
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_禁:1.0___ASTNODE_礫_99_(&self, kw: &__ast_礫:1.0___ASTNODE_礫_29_) -> __ast_礫:1.0___ASTNODE_礫_80_ {
+        __ast_礫:1.0___ASTNODE_礫_9_!(self, __ast_廬:1.0___ASTNODE_廬_271_::__ast_禁:1.0___ASTNODE_廬_373_(k) if k.__ast_礫:1.0___ASTNODE_礫_139_(kw))
+    }
+}
+
+__ast_礫:1.0___ASTNODE_礫_14_ __ast_礫:1.0___ASTNODE_礫_31_::__ast_廬:1.0___ASTNODE_廬_40_ for __ast_廬:1.0___ASTNODE_廬_224_ {
+    fn __ast_礫:1.0___ASTNODE_礫_31_(&self, f: &__ast_礫:1.0___ASTNODE_礫_36_ __ast_礫:1.0___ASTNODE_礫_31_::__ast_謀:1.0___ASTNODE_廬_94_<'_>) -> __ast_礫:1.0___ASTNODE_礫_31_::__ast_廬:1.0___ASTNODE_廬_251_ {
+        __ast_礫:1.0___ASTNODE_礫_125_ self {
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_150_ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "__ast_礫:1.0___ASTNODE_礫_65_"),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_7_ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "__ast_礫:1.0___ASTNODE_礫_162_"),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_282_ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "__ast_礫:1.0___ASTNODE_礫_180_"),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_28_ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "__ast_礫:1.0___ASTNODE_礫_145_"),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_244_ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "__ast_礫:1.0___ASTNODE_礫_108_"),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_370_(c) => __ast_礫:1.0___ASTNODE_礫_27_!(f, "{}", c),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_184_(l) => __ast_礫:1.0___ASTNODE_礫_27_!(f, "{}", l),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_298_(n) => __ast_礫:1.0___ASTNODE_礫_27_!(f, "{}", n),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_禁:1.0___ASTNODE_廬_373_(k) => __ast_礫:1.0___ASTNODE_礫_27_!(f, "{}", k),
+            _ => __ast_礫:1.0___ASTNODE_礫_27_!(f, "<__ast_礫:1.0___ASTNODE_礫_60_>"),
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+__ast_礫:1.0___ASTNODE_礫_111_ enum __ast_廬:1.0___ASTNODE_廬_338_ {
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_370_,
+    __ast_廬:1.0___ASTNODE_廬_281_,
+    __ast_廬:1.0___ASTNODE_廬_6_,
+    __ast_廬:1.0___ASTNODE_廬_194_,
+    __ast_廬:1.0___ASTNODE_廬_213_,
+    __ast_廬:1.0___ASTNODE_廬_382_,
+    __ast_廬:1.0___ASTNODE_廬_268_,
+    __ast_廬:1.0___ASTNODE_廬_284_,
+    __ast_廬:1.0___ASTNODE_廬_257_,
+// __ast_泡:0.1___ASTNODE_EF_905_ [decoy-metadata]
+    __ast_廬:1.0___ASTNODE_廬_53_,
+    __ast_廬:1.0___ASTNODE_廬_10_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_117_, __ast_廬:1.0___ASTNODE_廬_185_, __ast_廬:1.0___ASTNODE_廬_376_,
+    __ast_廬:1.0___ASTNODE_廬_182_, __ast_廬:1.0___ASTNODE_廬_62_, __ast_廬:1.0___ASTNODE_廬_189_,
+    __ast_廬:1.0___ASTNODE_廬_79_, __ast_廬:1.0___ASTNODE_廬_262_, __ast_廬:1.0___ASTNODE_廬_164_, __ast_廬:1.0___ASTNODE_廬_288_, __ast_廬:1.0___ASTNODE_廬_318_,
+    __ast_廬:1.0___ASTNODE_廬_112_, __ast_廬:1.0___ASTNODE_廬_21_, __ast_廬:1.0___ASTNODE_廬_14_,
+    __ast_廬:1.0___ASTNODE_廬_90_, __ast_廬:1.0___ASTNODE_廬_212_, __ast_廬:1.0___ASTNODE_廬_80_,
+    __ast_廬:1.0___ASTNODE_廬_329_, __ast_廬:1.0___ASTNODE_廬_127_, __ast_廬:1.0___ASTNODE_廬_198_, __ast_廬:1.0___ASTNODE_廬_26_, __ast_廬:1.0___ASTNODE_廬_269_,
+    __ast_廬:1.0___ASTNODE_廬_104_, __ast_廬:1.0___ASTNODE_廬_155_, __ast_廬:1.0___ASTNODE_廬_208_,
+    __ast_廬:1.0___ASTNODE_廬_161_, __ast_廬:1.0___ASTNODE_廬_372_, __ast_廬:1.0___ASTNODE_廬_73_,
+    __ast_謀:1.0___ASTNODE_廬_1_, __ast_廬:1.0___ASTNODE_廬_22_, __ast_廬:1.0___ASTNODE_廬_39_, __ast_廬:1.0___ASTNODE_廬_222_, __ast_廬:1.0___ASTNODE_廬_258_,
+    __ast_廬:1.0___ASTNODE_廬_64_, __ast_廬:1.0___ASTNODE_廬_38_, __ast_廬:1.0___ASTNODE_廬_206_, __ast_廬:1.0___ASTNODE_廬_13_, __ast_廬:1.0___ASTNODE_廬_183_,
+    __ast_廬:1.0___ASTNODE_廬_151_, __ast_廬:1.0___ASTNODE_廬_375_, __ast_廬:1.0___ASTNODE_廬_123_, __ast_廬:1.0___ASTNODE_廬_330_, __ast_廬:1.0___ASTNODE_廬_215_,
+    __ast_廬:1.0___ASTNODE_廬_343_, __ast_廬:1.0___ASTNODE_廬_68_, __ast_廬:1.0___ASTNODE_廬_219_, __ast_廬:1.0___ASTNODE_廬_111_, __ast_廬:1.0___ASTNODE_廬_275_,
+    __ast_廬:1.0___ASTNODE_廬_325_, __ast_廬:1.0___ASTNODE_廬_260_, __ast_廬:1.0___ASTNODE_廬_169_, __ast_廬:1.0___ASTNODE_廬_84_, __ast_廬:1.0___ASTNODE_廬_137_,
+    __ast_廬:1.0___ASTNODE_廬_309_, __ast_廬:1.0___ASTNODE_廬_279_, __ast_廬:1.0___ASTNODE_廬_120_, __ast_廬:1.0___ASTNODE_廬_102_, __ast_廬:1.0___ASTNODE_廬_192_, __ast_廬:1.0___ASTNODE_廬_231_,
+    __ast_廬:1.0___ASTNODE_廬_221_,
+    __ast_廬:1.0___ASTNODE_廬_97_,
+    __ast_廬:1.0___ASTNODE_廬_313_, __ast_廬:1.0___ASTNODE_廬_267_, __ast_廬:1.0___ASTNODE_廬_369_, __ast_廬:1.0___ASTNODE_廬_381_, __ast_廬:1.0___ASTNODE_廬_34_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_40_,
+    __ast_廬:1.0___ASTNODE_廬_188_,
+    __ast_廬:1.0___ASTNODE_廬_8_, __ast_廬:1.0___ASTNODE_廬_158_, __ast_廬:1.0___ASTNODE_廬_193_,
+    __ast_廬:1.0___ASTNODE_廬_361_, __ast_廬:1.0___ASTNODE_廬_360_, __ast_廬:1.0___ASTNODE_廬_355_,
+    __ast_廬:1.0___ASTNODE_廬_365_,
+    __ast_廬:1.0___ASTNODE_廬_291_, __ast_廬:1.0___ASTNODE_廬_379_, __ast_廬:1.0___ASTNODE_廬_199_, __ast_廬:1.0___ASTNODE_廬_124_,
+    __ast_廬:1.0___ASTNODE_廬_154_, __ast_廬:1.0___ASTNODE_廬_217_, __ast_廬:1.0___ASTNODE_廬_322_,
+    __ast_廬:1.0___ASTNODE_廬_243_, __ast_廬:1.0___ASTNODE_廬_105_, __ast_廬:1.0___ASTNODE_廬_91_,
+    __ast_廬:1.0___ASTNODE_廬_170_,
+    __ast_廬:1.0___ASTNODE_廬_152_,
+    __ast_廬:1.0___ASTNODE_廬_191_,
+    __ast_廬:1.0___ASTNODE_廬_311_,
+    __ast_廬:1.0___ASTNODE_廬_349_, __ast_廬:1.0___ASTNODE_廬_59_,
+    __ast_廬:1.0___ASTNODE_廬_41_, __ast_廬:1.0___ASTNODE_廬_202_, __ast_廬:1.0___ASTNODE_廬_136_, __ast_廬:1.0___ASTNODE_廬_362_,
+    __ast_廬:1.0___ASTNODE_廬_109_, __ast_廬:1.0___ASTNODE_廬_306_,
+    __ast_廬:1.0___ASTNODE_廬_366_,
+    __ast_廬:1.0___ASTNODE_廬_171_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_69_,
+    __ast_廬:1.0___ASTNODE_廬_146_,
+    __ast_廬:1.0___ASTNODE_廬_16_,
+    __ast_廬:1.0___ASTNODE_廬_103_,
+    __ast_廬:1.0___ASTNODE_廬_210_,
+    __ast_廬:1.0___ASTNODE_廬_285_,
+    __ast_廬:1.0___ASTNODE_廬_307_,
+    __ast_廬:1.0___ASTNODE_廬_341_,
+    __ast_廬:1.0___ASTNODE_廬_147_,
+    __ast_謀:1.0___ASTNODE_廬_326_,
+    __ast_廬:1.0___ASTNODE_廬_327_, __ast_廬:1.0___ASTNODE_廬_356_, __ast_廬:1.0___ASTNODE_廬_78_, __ast_廬:1.0___ASTNODE_廬_118_,
+    __ast_廬:1.0___ASTNODE_廬_287_, __ast_廬:1.0___ASTNODE_廬_253_, __ast_廬:1.0___ASTNODE_廬_230_,
+    __ast_廬:1.0___ASTNODE_廬_312_, __ast_廬:1.0___ASTNODE_廬_190_, __ast_廬:1.0___ASTNODE_廬_139_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_142_,
+    __ast_廬:1.0___ASTNODE_廬_179_,
+    __ast_廬:1.0___ASTNODE_廬_299_,
+    __ast_廬:1.0___ASTNODE_廬_319_,
+    __ast_廬:1.0___ASTNODE_廬_110_,
+    __ast_廬:1.0___ASTNODE_廬_320_,
+    __ast_廬:1.0___ASTNODE_廬_264_,
+    __ast_廬:1.0___ASTNODE_廬_323_,
+    __ast_廬:1.0___ASTNODE_廬_101_, __ast_廬:1.0___ASTNODE_廬_156_, __ast_廬:1.0___ASTNODE_廬_227_,
+    __ast_廬:1.0___ASTNODE_廬_218_, __ast_廬:1.0___ASTNODE_廬_85_, __ast_廬:1.0___ASTNODE_廬_145_,
+    __ast_廬:1.0___ASTNODE_廬_321_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_225_,
+    __ast_廬:1.0___ASTNODE_廬_180_,
+    __ast_廬:1.0___ASTNODE_廬_157_,
+    __ast_廬:1.0___ASTNODE_廬_57_,
+// __ast_燦:0.9___ASTNODE_EM_292_ [decoy-metadata]
+    __ast_廬:1.0___ASTNODE_廬_368_, __ast_廬:1.0___ASTNODE_廬_56_, __ast_廬:1.0___ASTNODE_廬_76_, __ast_廬:1.0___ASTNODE_廬_144_,
+    __ast_廬:1.0___ASTNODE_廬_195_,
+    __ast_廬:1.0___ASTNODE_廬_301_,
+    __ast_廬:1.0___ASTNODE_廬_89_,
+    __ast_廬:1.0___ASTNODE_廬_15_,
+    __ast_廬:1.0___ASTNODE_廬_304_,
+    __ast_廬:1.0___ASTNODE_廬_272_,
+    __ast_廬:1.0___ASTNODE_廬_239_,
+    __ast_廬:1.0___ASTNODE_廬_250_,
+    __ast_廬:1.0___ASTNODE_廬_294_,
+    __ast_廬:1.0___ASTNODE_廬_116_, __ast_廬:1.0___ASTNODE_廬_92_, __ast_廬:1.0___ASTNODE_廬_363_, __ast_廬:1.0___ASTNODE_廬_176_, __ast_廬:1.0___ASTNODE_廬_100_,
+    __ast_廬:1.0___ASTNODE_廬_300_,
+    __ast_廬:1.0___ASTNODE_廬_367_, __ast_廬:1.0___ASTNODE_廬_314_,
+    __ast_廬:1.0___ASTNODE_廬_54_,
+    __ast_廬:1.0___ASTNODE_廬_129_,
+    __ast_廬:1.0___ASTNODE_廬_292_,
+    __ast_廬:1.0___ASTNODE_廬_290_, __ast_廬:1.0___ASTNODE_廬_232_, __ast_廬:1.0___ASTNODE_廬_353_,
+    __ast_廬:1.0___ASTNODE_廬_63_, __ast_廬:1.0___ASTNODE_廬_17_,
+    __ast_廬:1.0___ASTNODE_廬_296_,
+    __ast_廬:1.0___ASTNODE_廬_254_, __ast_廬:1.0___ASTNODE_廬_141_,
+    __ast_廬:1.0___ASTNODE_廬_348_,
+    __ast_廬:1.0___ASTNODE_廬_332_,
+    __ast_廬:1.0___ASTNODE_廬_93_,
+    __ast_廬:1.0___ASTNODE_廬_86_,
+    __ast_廬:1.0___ASTNODE_廬_119_,
+    __ast_廬:1.0___ASTNODE_廬_42_,
+    __ast_廬:1.0___ASTNODE_廬_333_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_23_, __ast_廬:1.0___ASTNODE_廬_131_, __ast_廬:1.0___ASTNODE_廬_256_, __ast_廬:1.0___ASTNODE_廬_168_,
+    __ast_廬:1.0___ASTNODE_廬_205_, __ast_廬:1.0___ASTNODE_廬_159_, __ast_廬:1.0___ASTNODE_廬_18_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_241_, __ast_廬:1.0___ASTNODE_廬_52_, __ast_廬:1.0___ASTNODE_廬_286_,
+    __ast_廬:1.0___ASTNODE_廬_132_, __ast_廬:1.0___ASTNODE_廬_77_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_70_, __ast_廬:1.0___ASTNODE_廬_249_, __ast_廬:1.0___ASTNODE_廬_277_, __ast_廬:1.0___ASTNODE_廬_247_,
+    __ast_廬:1.0___ASTNODE_廬_181_, __ast_廬:1.0___ASTNODE_廬_214_, __ast_廬:1.0___ASTNODE_廬_61_, __ast_廬:1.0___ASTNODE_廬_178_,
+    __ast_廬:1.0___ASTNODE_廬_339_, __ast_廬:1.0___ASTNODE_廬_378_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_261_,
+    __ast_廬:1.0___ASTNODE_廬_143_, __ast_廬:1.0___ASTNODE_廬_358_,
+    __ast_廬:1.0___ASTNODE_廬_20_,
+    __ast_廬:1.0___ASTNODE_廬_216_, __ast_廬:1.0___ASTNODE_廬_25_, __ast_廬:1.0___ASTNODE_廬_67_,
+    __ast_廬:1.0___ASTNODE_廬_220_, __ast_廬:1.0___ASTNODE_廬_162_, __ast_廬:1.0___ASTNODE_廬_280_, __ast_廬:1.0___ASTNODE_廬_270_, __ast_廬:1.0___ASTNODE_廬_233_,
+    __ast_廬:1.0___ASTNODE_廬_99_, __ast_廬:1.0___ASTNODE_廬_357_, __ast_廬:1.0___ASTNODE_廬_345_, __ast_廬:1.0___ASTNODE_廬_163_, __ast_廬:1.0___ASTNODE_廬_5_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_174_, __ast_廬:1.0___ASTNODE_廬_234_, __ast_廬:1.0___ASTNODE_廬_75_, __ast_廬:1.0___ASTNODE_廬_196_,
+    __ast_廬:1.0___ASTNODE_廬_31_, __ast_廬:1.0___ASTNODE_廬_121_, __ast_廬:1.0___ASTNODE_廬_209_,
+    __ast_廬:1.0___ASTNODE_廬_66_, __ast_廬:1.0___ASTNODE_廬_65_, __ast_廬:1.0___ASTNODE_廬_130_,
+    __ast_廬:1.0___ASTNODE_廬_273_, __ast_廬:1.0___ASTNODE_廬_351_, __ast_廬:1.0___ASTNODE_廬_315_, __ast_廬:1.0___ASTNODE_廬_106_, __ast_廬:1.0___ASTNODE_廬_201_,
+    __ast_廬:1.0___ASTNODE_廬_149_, __ast_廬:1.0___ASTNODE_廬_203_, __ast_廬:1.0___ASTNODE_廬_166_, __ast_廬:1.0___ASTNODE_廬_36_, __ast_廬:1.0___ASTNODE_廬_242_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_354_, __ast_廬:1.0___ASTNODE_廬_165_,
+    __ast_廬:1.0___ASTNODE_廬_55_,
+    __ast_廬:1.0___ASTNODE_廬_310_,
+    __ast_廬:1.0___ASTNODE_廬_317_, __ast_廬:1.0___ASTNODE_廬_98_,
+    __ast_廬:1.0___ASTNODE_廬_207_,
+    __ast_廬:1.0___ASTNODE_廬_200_, __ast_廬:1.0___ASTNODE_廬_107_,
+    __ast_廬:1.0___ASTNODE_廬_223_,
+    __ast_廬:1.0___ASTNODE_廬_346_,
+    __ast_廬:1.0___ASTNODE_廬_2_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_328_, __ast_廬:1.0___ASTNODE_廬_204_, __ast_廬:1.0___ASTNODE_廬_266_,
+    __ast_廬:1.0___ASTNODE_廬_337_, __ast_廬:1.0___ASTNODE_廬_265_, __ast_廬:1.0___ASTNODE_廬_138_,
+    __ast_廬:1.0___ASTNODE_廬_46_, __ast_廬:1.0___ASTNODE_廬_334_,
+    __ast_廬:1.0___ASTNODE_廬_95_, __ast_廬:1.0___ASTNODE_廬_347_, __ast_廬:1.0___ASTNODE_廬_140_,
+    __ast_謀:1.0___ASTNODE_廬_186_, __ast_廬:1.0___ASTNODE_廬_255_, __ast_廬:1.0___ASTNODE_廬_248_, __ast_廬:1.0___ASTNODE_廬_113_,
+    __ast_廬:1.0___ASTNODE_廬_316_, __ast_廬:1.0___ASTNODE_廬_133_,
+    __ast_廬:1.0___ASTNODE_廬_295_, __ast_廬:1.0___ASTNODE_廬_33_,
+    __ast_廬:1.0___ASTNODE_廬_235_,
+    __ast_廬:1.0___ASTNODE_廬_245_,
+    __ast_廬:1.0___ASTNODE_廬_11_, __ast_廬:1.0___ASTNODE_廬_177_, __ast_廬:1.0___ASTNODE_廬_148_, __ast_廬:1.0___ASTNODE_廬_228_,
+    __ast_廬:1.0___ASTNODE_廬_364_, __ast_廬:1.0___ASTNODE_廬_226_,
+
+// [metadata-stripped]
+    __ast_謀:1.0___ASTNODE_廬_252_, __ast_謀:1.0___ASTNODE_廬_335_,
+    __ast_廬:1.0___ASTNODE_廬_305_,
+    __ast_廬:1.0___ASTNODE_廬_246_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_229_, __ast_廬:1.0___ASTNODE_廬_240_, __ast_廬:1.0___ASTNODE_廬_172_, __ast_廬:1.0___ASTNODE_廬_114_, __ast_廬:1.0___ASTNODE_廬_263_, __ast_廬:1.0___ASTNODE_廬_83_, __ast_廬:1.0___ASTNODE_廬_197_, __ast_廬:1.0___ASTNODE_廬_49_, __ast_廬:1.0___ASTNODE_廬_60_,
+    __ast_謀:1.0___ASTNODE_廬_303_, __ast_廬:1.0___ASTNODE_廬_211_, __ast_廬:1.0___ASTNODE_廬_350_, __ast_廬:1.0___ASTNODE_廬_125_, __ast_廬:1.0___ASTNODE_廬_187_, __ast_廬:1.0___ASTNODE_廬_74_, __ast_廬:1.0___ASTNODE_廬_371_,
+    __ast_廬:1.0___ASTNODE_廬_115_, __ast_廬:1.0___ASTNODE_廬_35_, __ast_廬:1.0___ASTNODE_廬_344_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_134_,
+    __ast_廬:1.0___ASTNODE_廬_289_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_278_, __ast_謀:1.0___ASTNODE_廬_4_, __ast_廬:1.0___ASTNODE_廬_27_,
+    __ast_廬:1.0___ASTNODE_廬_342_, __ast_謀:1.0___ASTNODE_廬_324_, __ast_廬:1.0___ASTNODE_廬_45_,
+    __ast_廬:1.0___ASTNODE_廬_238_, __ast_廬:1.0___ASTNODE_廬_374_,
+    __ast_廬:1.0___ASTNODE_廬_167_,
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_24_(__ast_廬:1.0___ASTNODE_廬_259_),
+
+// [metadata-stripped]
+    __ast_廬:1.0___ASTNODE_廬_122_(__ast_廬:1.0___ASTNODE_廬_259_),
+}
+
+__ast_礫:1.0___ASTNODE_礫_14_ __ast_廬:1.0___ASTNODE_廬_338_ {
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_141_(s: &__ast_礫:1.0___ASTNODE_礫_29_) -> __ast_廬:1.0___ASTNODE_廬_271_ {
+        if s.__ast_礫:1.0___ASTNODE_礫_30_("--") {
+            return __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_24_(s.__ast_礫:1.0___ASTNODE_礫_132_());
+        }
+        __ast_礫:1.0___ASTNODE_礫_125_ s.__ast_礫:1.0___ASTNODE_礫_165_().__ast_礫:1.0___ASTNODE_礫_168_() {
+            "__ast_礫:1.0___ASTNODE_礫_79_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_370_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_79_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_281_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_41_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_6_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_39_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_194_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_153_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_213_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_92_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_382_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_148_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_268_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_170_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_284_,
+            "__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_97_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_257_,
+            "__ast_礫:1.0___ASTNODE_礫_54_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_53_,
+            "__ast_礫:1.0___ASTNODE_礫_133_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_10_,
+            "__ast_礫:1.0___ASTNODE_礫_171_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_117_,
+            "__ast_礫:1.0___ASTNODE_礫_43_-__ast_礫:1.0___ASTNODE_礫_171_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_185_,
+// __ast_礫:0.8___ASTNODE_DB_924_ [decoy-metadata]
+            "__ast_礫:1.0___ASTNODE_礫_38_-__ast_礫:1.0___ASTNODE_礫_171_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_376_,
+            "__ast_礫:1.0___ASTNODE_礫_163_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_182_,
+            "__ast_礫:1.0___ASTNODE_礫_43_-__ast_礫:1.0___ASTNODE_礫_163_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_62_,
+            "__ast_礫:1.0___ASTNODE_礫_38_-__ast_礫:1.0___ASTNODE_礫_163_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_189_,
+            "__ast_礫:1.0___ASTNODE_礫_128_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_79_,
+            "__ast_礫:1.0___ASTNODE_礫_128_-__ast_礫:1.0___ASTNODE_礫_136_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_262_,
+            "__ast_礫:1.0___ASTNODE_礫_128_-__ast_礫:1.0___ASTNODE_礫_44_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_164_,
+            "__ast_礫:1.0___ASTNODE_礫_128_-__ast_礫:1.0___ASTNODE_礫_159_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_288_,
+            "__ast_礫:1.0___ASTNODE_礫_128_-__ast_礫:1.0___ASTNODE_礫_57_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_318_,
+            "__ast_礫:1.0___ASTNODE_礫_4_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_329_,
+            "__ast_礫:1.0___ASTNODE_礫_4_-__ast_礫:1.0___ASTNODE_礫_136_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_127_,
+            "__ast_礫:1.0___ASTNODE_礫_4_-__ast_礫:1.0___ASTNODE_礫_44_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_198_,
+            "__ast_礫:1.0___ASTNODE_礫_4_-__ast_礫:1.0___ASTNODE_礫_159_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_26_,
+            "__ast_礫:1.0___ASTNODE_礫_4_-__ast_礫:1.0___ASTNODE_礫_57_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_269_,
+            "__ast_謀:1.0___ASTNODE_礫_173_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_1_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_182_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_325_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_136_-__ast_礫:1.0___ASTNODE_礫_57_-__ast_礫:1.0___ASTNODE_礫_182_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_260_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_136_-__ast_礫:1.0___ASTNODE_礫_44_-__ast_礫:1.0___ASTNODE_礫_182_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_169_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_159_-__ast_礫:1.0___ASTNODE_礫_57_-__ast_礫:1.0___ASTNODE_礫_182_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_84_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_159_-__ast_礫:1.0___ASTNODE_礫_44_-__ast_礫:1.0___ASTNODE_礫_182_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_137_,
+            "__ast_礫:1.0___ASTNODE_礫_7_-__ast_礫:1.0___ASTNODE_礫_77_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_221_,
+            "__ast_礫:1.0___ASTNODE_礫_7_-__ast_礫:1.0___ASTNODE_礫_15_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_97_,
+            "__ast_礫:1.0___ASTNODE_礫_121_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_313_,
+            "__ast_礫:1.0___ASTNODE_礫_76_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_40_,
+            "__ast_礫:1.0___ASTNODE_礫_26_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_188_,
+// __ast_廬:0.3___ASTNODE_DH_516_ [decoy-metadata]
+            "__ast_礫:1.0___ASTNODE_礫_155_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_8_,
+            "__ast_礫:1.0___ASTNODE_礫_155_-x" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_158_,
+            "__ast_礫:1.0___ASTNODE_礫_155_-y" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_193_,
+            "__ast_礫:1.0___ASTNODE_礫_39_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_365_,
+            "__ast_礫:1.0___ASTNODE_礫_136_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_291_,
+            "__ast_礫:1.0___ASTNODE_礫_44_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_379_,
+            "__ast_礫:1.0___ASTNODE_礫_159_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_199_,
+            "__ast_礫:1.0___ASTNODE_礫_57_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_124_,
+            "z-__ast_礫:1.0___ASTNODE_礫_78_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_152_,
+            "__ast_礫:1.0___ASTNODE_礫_176_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_191_,
+            "__ast_礫:1.0___ASTNODE_礫_124_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_311_,
+            "__ast_泡:1.0___ASTNODE_礫_64_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_41_,
+            "__ast_泡:1.0___ASTNODE_礫_64_-__ast_礫:1.0___ASTNODE_礫_97_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_202_,
+            "__ast_礫:1.0___ASTNODE_礫_131_-__ast_礫:1.0___ASTNODE_礫_50_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_171_,
+            "__ast_礫:1.0___ASTNODE_礫_160_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_327_,
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_113_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_69_,
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_13_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_146_,
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_6_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_16_,
+// __ast_泡:0.3___ASTNODE_LL_604_ [decoy-metadata]
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_103_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_356_,
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_42_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_78_,
+            "__ast_礫:1.0___ASTNODE_礫_160_-__ast_礫:1.0___ASTNODE_礫_140_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_118_,
+            "__ast_泡:1.0___ASTNODE_礫_167_-__ast_礫:1.0___ASTNODE_礫_61_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_103_,
+            "__ast_礫:1.0___ASTNODE_礫_186_-__ast_礫:1.0___ASTNODE_礫_101_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_210_,
+            "__ast_礫:1.0___ASTNODE_礫_186_-__ast_礫:1.0___ASTNODE_礫_61_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_285_,
+            "__ast_礫:1.0___ASTNODE_礫_186_-self" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_307_,
+            "__ast_泡:1.0___ASTNODE_礫_167_-self" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_341_,
+            "__ast_泡:1.0___ASTNODE_礫_167_-__ast_礫:1.0___ASTNODE_礫_101_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_147_,
+            "__ast_謀:1.0___ASTNODE_礫_2_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_326_,
+            "__ast_礫:1.0___ASTNODE_礫_104_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_287_,
+            "__ast_礫:1.0___ASTNODE_礫_107_-__ast_礫:1.0___ASTNODE_礫_104_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_253_,
+            "__ast_礫:1.0___ASTNODE_礫_184_-__ast_礫:1.0___ASTNODE_礫_104_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_230_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_70_-__ast_礫:1.0___ASTNODE_礫_178_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_142_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_70_-__ast_礫:1.0___ASTNODE_礫_20_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_179_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_70_-__ast_礫:1.0___ASTNODE_礫_115_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_299_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_108_-__ast_礫:1.0___ASTNODE_礫_178_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_110_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_108_-__ast_礫:1.0___ASTNODE_礫_20_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_320_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_108_-__ast_礫:1.0___ASTNODE_礫_6_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_264_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_184_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_101_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_184_-__ast_礫:1.0___ASTNODE_礫_58_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_156_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_184_-__ast_礫:1.0___ASTNODE_礫_47_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_227_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_107_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_218_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_107_-__ast_礫:1.0___ASTNODE_礫_58_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_85_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_107_-__ast_礫:1.0___ASTNODE_礫_47_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_145_,
+            "__ast_礫:1.0___ASTNODE_礫_72_-__ast_礫:1.0___ASTNODE_礫_95_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_321_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_161_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_225_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_153_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_180_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_147_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_157_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_1_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_57_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_75_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_368_,
+            "__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_114_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_195_,
+            "__ast_礫:1.0___ASTNODE_礫_149_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_304_,
+            "__ast_礫:1.0___ASTNODE_礫_74_-__ast_礫:1.0___ASTNODE_礫_163_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_272_,
+            "__ast_謀:1.0___ASTNODE_礫_181_-__ast_礫:1.0___ASTNODE_礫_94_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_239_,
+            "__ast_礫:1.0___ASTNODE_礫_24_-__ast_礫:1.0___ASTNODE_礫_94_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_250_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_泡:1.0___ASTNODE_礫_64_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_294_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_157_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_116_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_157_-__ast_礫:1.0___ASTNODE_礫_74_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_92_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_157_-__ast_礫:1.0___ASTNODE_礫_1_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_363_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_157_-__ast_礫:1.0___ASTNODE_礫_79_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_176_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_186_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_367_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_186_-__ast_礫:1.0___ASTNODE_礫_158_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_314_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_35_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_54_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_155_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_129_,
+            "__ast_礫:1.0___ASTNODE_礫_66_-__ast_礫:1.0___ASTNODE_礫_15_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_292_,
+            "__ast_礫:1.0___ASTNODE_礫_105_-__ast_礫:1.0___ASTNODE_礫_164_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_63_,
+            "__ast_礫:1.0___ASTNODE_礫_24_-break" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_296_,
+            "__ast_礫:1.0___ASTNODE_礫_155_-__ast_礫:1.0___ASTNODE_礫_13_" | "__ast_礫:1.0___ASTNODE_礫_24_-__ast_礫:1.0___ASTNODE_礫_13_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_254_,
+            "__ast_礫:1.0___ASTNODE_礫_96_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_348_,
+            "__ast_礫:1.0___ASTNODE_礫_129_-__ast_礫:1.0___ASTNODE_礫_186_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_332_,
+            "__ast_礫:1.0___ASTNODE_礫_113_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_119_,
+            "__ast_礫:1.0___ASTNODE_礫_146_-__ast_礫:1.0___ASTNODE_礫_68_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_42_,
+            "__ast_礫:1.0___ASTNODE_礫_37_-__ast_礫:1.0___ASTNODE_礫_1_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_23_,
+            "__ast_礫:1.0___ASTNODE_礫_37_-__ast_礫:1.0___ASTNODE_礫_1_-__ast_礫:1.0___ASTNODE_礫_137_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_131_,
+            "__ast_謀:1.0___ASTNODE_礫_173_-__ast_礫:1.0___ASTNODE_礫_91_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_241_,
+            "__ast_礫:1.0___ASTNODE_礫_152_-__ast_礫:1.0___ASTNODE_礫_143_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_77_,
+            "__ast_礫:1.0___ASTNODE_礫_73_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_55_,
+            "__ast_謀:1.0___ASTNODE_礫_16_-__ast_礫:1.0___ASTNODE_礫_40_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_310_,
+            "__ast_謀:1.0___ASTNODE_礫_71_-__ast_礫:1.0___ASTNODE_礫_185_" | "-__ast_礫:1.0___ASTNODE_礫_88_-__ast_謀:1.0___ASTNODE_礫_71_-__ast_礫:1.0___ASTNODE_礫_185_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_317_,
+            "__ast_礫:1.0___ASTNODE_礫_117_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_207_,
+            "__ast_礫:1.0___ASTNODE_礫_61_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_134_,
+            "__ast_謀:1.0___ASTNODE_礫_135_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_252_,
+            "__ast_礫:1.0___ASTNODE_礫_67_-__ast_謀:1.0___ASTNODE_礫_135_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_謀:1.0___ASTNODE_廬_335_,
+            "__ast_礫:1.0___ASTNODE_礫_102_-__ast_礫:1.0___ASTNODE_礫_49_-__ast_礫:1.0___ASTNODE_礫_68_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_305_,
+            "__ast_礫:1.0___ASTNODE_礫_110_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_174_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_122_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_234_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_45_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_75_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_83_-__ast_礫:1.0___ASTNODE_礫_22_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_196_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_172_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_31_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_69_-__ast_礫:1.0___ASTNODE_礫_8_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_121_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_113_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_209_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_55_-__ast_礫:1.0___ASTNODE_礫_68_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_66_,
+            "__ast_礫:1.0___ASTNODE_礫_110_-__ast_礫:1.0___ASTNODE_礫_3_-__ast_礫:1.0___ASTNODE_礫_123_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_65_,
+            "__ast_礫:1.0___ASTNODE_礫_174_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_273_,
+            "__ast_礫:1.0___ASTNODE_礫_174_-__ast_礫:1.0___ASTNODE_礫_48_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_351_,
+            "__ast_礫:1.0___ASTNODE_礫_174_-__ast_礫:1.0___ASTNODE_礫_45_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_315_,
+            "__ast_礫:1.0___ASTNODE_礫_174_-__ast_礫:1.0___ASTNODE_礫_83_-__ast_礫:1.0___ASTNODE_礫_22_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_106_,
+            "__ast_礫:1.0___ASTNODE_礫_174_-__ast_礫:1.0___ASTNODE_礫_172_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_201_,
+            "__ast_礫:1.0___ASTNODE_礫_55_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_328_,
+            "__ast_礫:1.0___ASTNODE_礫_33_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_337_,
+            "__ast_礫:1.0___ASTNODE_礫_33_-__ast_礫:1.0___ASTNODE_礫_171_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_265_,
+            "__ast_礫:1.0___ASTNODE_礫_170_-__ast_礫:1.0___ASTNODE_礫_84_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_59_,
+            "__ast_礫:1.0___ASTNODE_礫_169_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_229_,
+            "__ast_礫:1.0___ASTNODE_礫_18_-__ast_礫:1.0___ASTNODE_礫_89_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_115_,
+            "__ast_礫:1.0___ASTNODE_礫_28_-__ast_礫:1.0___ASTNODE_礫_59_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_261_,
+            "__ast_礫:1.0___ASTNODE_礫_11_-__ast_礫:1.0___ASTNODE_礫_79_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_223_,
+            "__ast_礫:1.0___ASTNODE_礫_79_-__ast_礫:1.0___ASTNODE_礫_144_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_346_,
+            "__ast_礫:1.0___ASTNODE_礫_62_" | "-__ast_礫:1.0___ASTNODE_礫_88_-__ast_礫:1.0___ASTNODE_礫_62_" => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_354_,
+            __ast_謀:1.0___ASTNODE_礫_118_ => __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_122_(__ast_謀:1.0___ASTNODE_礫_118_.__ast_礫:1.0___ASTNODE_礫_132_()),
+        }
+    }
+
+// [metadata-stripped]
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_179_(&self) -> __ast_礫:1.0___ASTNODE_礫_80_ {
+        __ast_礫:1.0___ASTNODE_礫_9_!(self,
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_370_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_225_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_180_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_157_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_57_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_368_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_195_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_304_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_272_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_239_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_250_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_294_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_116_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_367_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_54_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_292_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_63_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_296_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_254_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_348_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_119_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_42_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_333_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_23_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_131_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_168_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_188_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_55_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_310_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_328_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_204_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_337_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_265_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_289_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_238_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_374_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_241_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_52_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_286_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_132_ | __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_77_ |
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_24_(_)
+        )
+    }
+
+    __ast_礫:1.0___ASTNODE_礫_111_ fn __ast_礫:1.0___ASTNODE_礫_122_(&self) -> __ast_廬:1.0___ASTNODE_廬_259_ {
+        __ast_礫:1.0___ASTNODE_礫_125_ self {
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_24_(n) => n.__ast_礫:1.0___ASTNODE_礫_183_(),
+            __ast_廬:1.0___ASTNODE_廬_271_::__ast_廬:1.0___ASTNODE_廬_122_(n) => n.__ast_礫:1.0___ASTNODE_礫_183_(),
+            __ast_謀:1.0___ASTNODE_礫_118_ => __ast_泡:1.0___ASTNODE_礫_166_!("{:?}", __ast_謀:1.0___ASTNODE_礫_118_).__ast_礫:1.0___ASTNODE_礫_165_().__ast_礫:1.0___ASTNODE_礫_32_('_', "-"),
+        }
+    }
+}
+
+// [metadata-stripped]
+__ast_礫:1.0___ASTNODE_礫_156_ __ast_礫:1.0___ASTNODE_礫_120_ {
+    __ast_礫:1.0___ASTNODE_礫_17_ super::*;
+
+// [metadata-stripped]
+    fn __ast_礫:1.0___ASTNODE_礫_34_() {
+        __ast_礫:1.0___ASTNODE_礫_109_!(__ast_廬:1.0___ASTNODE_廬_338_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_79_"), __ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_370_);
+        __ast_礫:1.0___ASTNODE_礫_109_!(__ast_廬:1.0___ASTNODE_廬_338_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_149_-__ast_礫:1.0___ASTNODE_礫_153_"), __ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_180_);
+        __ast_礫:1.0___ASTNODE_礫_109_!(__ast_廬:1.0___ASTNODE_廬_338_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_54_-__ast_礫:1.0___ASTNODE_礫_79_"), __ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_281_);
+    }
+
+// [metadata-stripped]
+    fn __ast_礫:1.0___ASTNODE_礫_142_() {
+        __ast_礫:1.0___ASTNODE_礫_151_!(__ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_370_.__ast_礫:1.0___ASTNODE_礫_179_());
+        __ast_礫:1.0___ASTNODE_礫_151_!(!__ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_117_.__ast_礫:1.0___ASTNODE_礫_179_());
+        __ast_礫:1.0___ASTNODE_礫_151_!(__ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_180_.__ast_礫:1.0___ASTNODE_礫_179_());
+        __ast_礫:1.0___ASTNODE_礫_151_!(!__ast_廬:1.0___ASTNODE_廬_338_::__ast_廬:1.0___ASTNODE_廬_281_.__ast_礫:1.0___ASTNODE_礫_179_());
+    }
+
+// [metadata-stripped]
+// __ast_廬:0.7___ASTNODE_BD_240_ [decoy-metadata]
+    fn __ast_礫:1.0___ASTNODE_礫_25_() {
+        let v = __ast_廬:1.0___ASTNODE_廬_224_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_81_");
+        __ast_礫:1.0___ASTNODE_礫_151_!(__ast_礫:1.0___ASTNODE_礫_9_!(v, __ast_廬:1.0___ASTNODE_廬_224_::__ast_廬:1.0___ASTNODE_廬_370_(_)));
+
+        let v = __ast_廬:1.0___ASTNODE_廬_224_::__ast_礫:1.0___ASTNODE_礫_141_("16px");
+        __ast_礫:1.0___ASTNODE_礫_151_!(__ast_礫:1.0___ASTNODE_礫_9_!(v, __ast_廬:1.0___ASTNODE_廬_224_::__ast_廬:1.0___ASTNODE_廬_184_(_)));
+
+        let v = __ast_廬:1.0___ASTNODE_廬_224_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_145_");
+        __ast_礫:1.0___ASTNODE_礫_109_!(v, __ast_廬:1.0___ASTNODE_廬_224_::__ast_廬:1.0___ASTNODE_廬_28_);
+
+        let v = __ast_廬:1.0___ASTNODE_廬_224_::__ast_礫:1.0___ASTNODE_礫_141_("__ast_礫:1.0___ASTNODE_礫_108_");
+        __ast_礫:1.0___ASTNODE_礫_109_!(v, __ast_廬:1.0___ASTNODE_廬_224_::__ast_廬:1.0___ASTNODE_廬_244_);
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

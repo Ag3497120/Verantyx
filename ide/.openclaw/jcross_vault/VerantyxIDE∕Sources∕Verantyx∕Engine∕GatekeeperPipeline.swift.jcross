@@ -1,0 +1,512 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D86FCD71 ver:1778150506
+// ⚠️ One-time schema — expires after response
+
+import _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_49_
+
+// [metadata-stripped]
+
+enum _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_13_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_19_ {
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_105_
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_53_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_50_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_118_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_84_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_10_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_199_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)          // v2.2: nanoモデル警告
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_)        // v2.2: L1-L3記憶保存通知
+}
+
+enum _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_53_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_19_ {
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_193_ = "⓪ モデル検証"   // v2.2 追加
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_95_    = "① IR 生成"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_113_ = "② _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_ 分離"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_24_ = "③ 意図翻訳"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_188_     = "④ プロンプト生成"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_161_         = "⑤ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_41_ _ASTNODE_庖:1.0__TOKEN_庖_17_ 呼び出し"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_      = "⑥ パッチ解析"
+    case _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_157_  = "⑦ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_ 注入・復元"
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_1_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_19_ {
+
+    static let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_1_()
+    private init() {}
+
+// [metadata-stripped]
+
+    func _ASTNODE_霜:1.0__TOKEN_霜_76_(
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_庖_59_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_24_ = ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_62_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_58_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_? = nil,   // v2.2: セッション記憶
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_: @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_19_ @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__糸:1.0__TOKEN_霜_163_ (_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_13_) async -> _ASTNODE_庖:1.0__TOKEN_庖_3_
+    ) async {
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_105_)
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_193_, "Gatekeeperモード: モデル検証中…"))
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_193_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_33_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_82_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_110_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_123_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_153_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_65_
+        )
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_58_
+        switch _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_193_ {
+        case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_152_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_67_, let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_147_):
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_("⚠️ \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_67_)\n→ フォールバック: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_147_) で実行します"))
+// [metadata-stripped]
+            var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_75_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_75_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_123_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_147_
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_75_
+        case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_109_(_, let _ASTNODE_霜:1.0__TOKEN_霜_150_):
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_("⚠️ \(_ASTNODE_霜:1.0__TOKEN_霜_150_)"))
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_
+        case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_32_:
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_
+        }
+
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_193_,
+            "✅ モデル: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_123_) (\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_65_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_)) — L2/L3記憶対応"))
+
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_ ?? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_26_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_99_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_56_(_ASTNODE_霜:1.0__TOKEN_霜_180_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_)
+        )
+// _ASTNODE_庖:0.7__TOKEN_YD_602_ [decoy-metadata]
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_95_, "ソースコードを6軸IRに変換 + 具体値を_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_へ分離中…"))
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_34_()
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_174_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_14_()
+        let ir = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_174_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_41_(_ASTNODE_霜:1.0__TOKEN_霜_180_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_)
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_  = ir._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_44_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_4_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_138_()._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_95_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[迅IR生:0.9] [ノード\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_):0.8]",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_)ソースを\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_)ノードのIRに変換、\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_4_)エントリを_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_に分離",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: [
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_160_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_)\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_140_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_4_)\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_192_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_)\")",
+                "OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_129_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_\")",
+            ],
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(1000)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: "IR: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_) _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_44_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_196_ (_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_134_ v2.2)"
+        )
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: IR生成完了"))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_113_,
+            "IR生成完了: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_101_)ノード / _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_4_)エントリ（意味軸を分離）"))
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_24_, "意図翻訳中: 「\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(40))…」"))
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_ = await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_39_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_46_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_,
+            ir: ir,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_
+        )
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_24_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[意翻:\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_58_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_):0.9]",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "意図翻訳: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_58_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_) → _ASTNODE_庖:1.0__TOKEN_庖_30_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_13_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(8))]",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: [
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_117_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_58_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_)\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_181_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_13_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(8))\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_42_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_91_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_)\")",
+                "OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_19_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_\")",
+// _ASTNODE_霜:0.9__TOKEN_LB_296_ [decoy-metadata]
+            ],
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_63_: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_58_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_) on \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_13_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(8))"
+        )
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: 意図翻訳完了"))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_24_,
+            "翻訳完了: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_58_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_) → _ASTNODE_庖:1.0__TOKEN_庖_30_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_13_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(8))](\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_91_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_86_()))"))
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_188_, "Gatekeeperプロンプトを構築中（L1〜L3記憶を注入）…"))
+
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_126_ = await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_135_()
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_116_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_庖_7_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_194_(
+            ir: ir, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_
+        )
+
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_83_ = """
+        \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_126_)
+
+// [metadata-stripped]
+
+        \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_116_)
+        """
+
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_50_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_83_))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_188_,
+            "プロンプト準備完了: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_83_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)文字（L1〜L3記憶注入済み・意味ゼロ・構造フル）"))
+
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_66_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_65_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_130_    = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_123_
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_161_, "\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_66_) / \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_130_) に構造パズルを送信中…"))
+
+        guard let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_ = await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_20_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_132_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_5_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_83_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_111_
+        ) else {
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_199_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_41_ _ASTNODE_庖:1.0__TOKEN_庖_17_ からの応答が取得できませんでした。APIキーと設定を確認してください。"))
+            return
+        }
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_161_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[_ASTNODE_庖:1.0__TOKEN_庖_17_応:\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_130_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(10)):0.8]",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_41_ _ASTNODE_庖:1.0__TOKEN_庖_17_応答受信: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)文字",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: [
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_184_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_130_)\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_57_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)\")",
+                "OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_125_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_\")",
+            ],
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_11_: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_83_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(300))...",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(500)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_
+        )
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: _ASTNODE_庖:1.0__TOKEN_庖_17_応答"))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_118_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_161_, "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_41_ _ASTNODE_庖:1.0__TOKEN_庖_17_ 応答受信: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)文字"))
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_, "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_41_ _ASTNODE_庖:1.0__TOKEN_庖_17_の応答から_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_6_を抽出中…"))
+
+        guard let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_10_(_ASTNODE_霜:1.0__TOKEN_霜_180_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_) else {
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_, "⚠️ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_6_ではなくテキスト応答を検出。_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_注入を試みます。"))
+            let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_182_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_159_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_)
+// [metadata-stripped]
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_,
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[テキスト応:0.7]",
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_6_なし → テキスト応答を_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_注入で補完",
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: ["OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_88_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_122_\")"],
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(300)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_,
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_182_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(300)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_
+            )
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: テキスト応答パス"))
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_182_))
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_22_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._ASTNODE_匴:1.0__TOKEN_霜_155_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_106_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_)
+            return
+        }
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[グラフ解析:0.9]",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_解析成功: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_)",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: [
+// _ASTNODE_糸:0.9__TOKEN_KB_643_ [decoy-metadata]
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_168_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_)\")",
+                "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_127_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_108_ ?? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_78_ ?? "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_34_")\")",
+                "OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_88_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_14_\")",
+            ],
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_38_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(300)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_)"
+        )
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: パッチ解析"))
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_104_, "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_解析成功: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_)"))
+
+// [metadata-stripped]
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_157_, "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_から実値を注入してコードを復元中…"))
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_庖_56_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_143_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_87_,
+            ir: ir,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_
+        )
+
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_84_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_))
+
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_14_, let _ASTNODE_霜:1.0__TOKEN_霜_64_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_55_ {
+            let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_85_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_171_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_191_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_31_: "\n")
+
+// [metadata-stripped]
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_74_(_ASTNODE_霜:1.0__TOKEN_霜_64_, _ASTNODE_霜:1.0__TOKEN_霜_175_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_)
+
+// [metadata-stripped]
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_8_(
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_157_,
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_49_: "[復元完:0.9] [コード\(_ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)字:0.8]",
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_23_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_注入・コード復元完了: \(_ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)文字",
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_28_: [
+                    "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_169_\", \"\(_ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)\")",
+                    "OP._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_5_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_54_\", \"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_14_\")",
+                    "OP._ASTNODE_庖:1.0__TOKEN_庖_26_(\"_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_171_\", \"\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_171_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)件\")",
+                ],
+// _ASTNODE_巌:0.7__TOKEN_FG_986_ [decoy-metadata]
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_96_: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_52_: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_)",
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_47_: _ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(500)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_148_
+            )
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_("L1-L3 記録: コード復元完了"))
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_157_, "復元完了:\n\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_85_)"))
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_(_ASTNODE_霜:1.0__TOKEN_霜_64_))
+
+// [metadata-stripped]
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_124_()
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_22_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._ASTNODE_匴:1.0__TOKEN_霜_155_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_106_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_)
+
+        } else {
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_81_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_199_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_44_注入に失敗しました: \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_51_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_171_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_191_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_31_: ", "))"))
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_56_(_ASTNODE_霜:1.0__TOKEN_霜_180_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_173_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_) -> _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ {
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_173_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_198_()
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_45_") || _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("錆")         { return "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_45_" }
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_112_") || _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("蛇")       { return "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_112_" }
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_80_") || _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("型")   { return "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_80_" }
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_187_") || _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("晶")       { return "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_187_" }
+        if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("go") || _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_霜_189_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_27_")       { return "go" }
+        return "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_34_"
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    private func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_74_(
+        _ _ASTNODE_霜:1.0__TOKEN_霜_64_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _ASTNODE_霜:1.0__TOKEN_霜_175_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_
+    ) async {
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_200_ = _ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_133_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_107_: "\n")
+        for _ASTNODE_霜:1.0__TOKEN_霜_36_ in _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_200_ {
+            if _ASTNODE_霜:1.0__TOKEN_霜_36_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("→") && _ASTNODE_霜:1.0__TOKEN_霜_36_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_137_("//") {
+                let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_93_ = _ASTNODE_霜:1.0__TOKEN_霜_36_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_133_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_107_: "→")
+                if _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_93_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_ == 2 {
+                    let _ASTNODE_霜:1.0__TOKEN_霜_180_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_93_[0]._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_25_(in: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_59_)
+                        ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "//", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: "")
+                        ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_25_(in: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_59_)
+                    let to = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_93_[1]._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_25_(in: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_59_)
+                    if !_ASTNODE_霜:1.0__TOKEN_霜_180_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_195_ && !to._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_195_ && _ASTNODE_霜:1.0__TOKEN_霜_180_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_ < 50 && to._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_ < 50 {
+                        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_98_(_ASTNODE_霜:1.0__TOKEN_霜_180_, to)
+                    }
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_10_(_ASTNODE_霜:1.0__TOKEN_霜_180_ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_71_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_) -> _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_? {
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_165_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_17_(_ASTNODE_霜:1.0__TOKEN_霜_180_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_71_)
+        guard let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_131_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_165_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_131_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_183_: ._ASTNODE_霜:1.0__TOKEN_霜_18_) else { return nil }
+
+        if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_ = try? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_庖_25_()._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_63_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_.self, _ASTNODE_霜:1.0__TOKEN_霜_180_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_131_) {
+            return _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_149_
+        }
+
+        guard let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_ = try? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_18_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_186_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_131_) as? [_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_: _ASTNODE_庖:1.0__TOKEN_庖_54_] else {
+            return nil
+        }
+
+        return _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_32_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_78_:    _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_["_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_78_"]    as? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_108_:     _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_["_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_108_"]     as? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_["_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_128_"] as? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ ?? "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_28_:_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_34_",
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_22_:     _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_["_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_22_"]     as? [_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_] ?? [:],
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_2_:      _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_["_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_2_"]      as? _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ ?? ""
+        )
+    }
+
+    private func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_17_(_ASTNODE_霜:1.0__TOKEN_霜_180_ _ASTNODE_霜:1.0__TOKEN_霜_167_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_) -> _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ {
+        var t = _ASTNODE_霜:1.0__TOKEN_霜_167_
+        if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_(of: "```_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_100_"),
+           let _ASTNODE_霜:1.0__TOKEN_霜_77_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_(of: "```", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_6_..<t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_145_) {
+            t = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_(t[_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_6_..<_ASTNODE_霜:1.0__TOKEN_霜_77_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_72_])
+        } else if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_(of: "```"),
+                  let _ASTNODE_霜:1.0__TOKEN_霜_77_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_(of: "```", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_12_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_6_..<t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_145_) {
+            t = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_(t[_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_6_..<_ASTNODE_霜:1.0__TOKEN_霜_77_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_72_])
+        }
+        if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_61_(of: "{"), let _ASTNODE_霜:1.0__TOKEN_霜_77_ = t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_97_(of: "}") {
+            return _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_(t[_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_114_..._ASTNODE_霜:1.0__TOKEN_霜_77_])
+        }
+        return t._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_25_(in: ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_37_)
+    }
+
+// [metadata-stripped]
+
+// _ASTNODE_糸:0.2__TOKEN_YE_534_ [decoy-metadata]
+    private func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_159_(
+        _ _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_71_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_34_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_185_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_
+    ) -> _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ {
+        var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_71_
+
+// [metadata-stripped]
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_144_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_102_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_138_()
+        for _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_ in _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_144_ {
+            let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_94_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_158_._ASTNODE_霜:1.0__TOKEN_霜_20_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_29_(2)._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_79_(8))._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_86_()
+            let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_1_  = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_158_._ASTNODE_霜:1.0__TOKEN_霜_20_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_86_()
+            if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_90_?._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_179_ {
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "_ASTNODE_庖:1.0__TOKEN_庖_30_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_94_)]", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_)
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "_ASTNODE_庖:1.0__TOKEN_庖_23_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_94_)]", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_)
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "_ASTNODE_庖:1.0__TOKEN_庖_30_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_1_)]",  _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_)
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "_ASTNODE_庖:1.0__TOKEN_庖_23_[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_1_)]",  _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_)
+            }
+            if let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_90_?._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_179_ {
+                _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_164_(of: "_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_15_:\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_103_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_158_._ASTNODE_霜:1.0__TOKEN_霜_20_)", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_154_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_121_)
+            }
+        }
+        return _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_
+    }
+}
+
+// [metadata-stripped]
+
+@_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_29_
+final class _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_62_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_2_ {
+
+    static let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_62_()
+    private init() {}
+
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_68_: _ASTNODE_庖:1.0__TOKEN_庖_43_ = false
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_39_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_53_? = nil
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_: [(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_)] = []
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_120_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ = ""
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_11_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ = ""
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_136_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_ = ""
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_89_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_? = nil
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_? = nil          // v2.2: nanoモデル警告
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_141_: [_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_] = []             // v2.2: L1-L3記憶ログ
+    @_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_46_ var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_58_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_58_._ASTNODE_匴:1.0__TOKEN_霜_9_()
+
+// [metadata-stripped]
+    private var _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_? = nil
+
+    func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__匴:1.0__TOKEN_霜_40_() {
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_._ASTNODE_匴:1.0__TOKEN_霜_155_()
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_178_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_173_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_26_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_99_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_) {
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_16_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_173_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_26_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_26_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_99_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_99_
+        )
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_141_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_70_()
+    }
+
+    func _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_16_(
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_8_,
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__型:1.0__TOKEN_庖_59_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_24_ = ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_62_
+// _ASTNODE_匴:0.6__TOKEN_LF_519_ [decoy-metadata]
+    ) async {
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_68_ = true
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_70_()
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_89_ = nil
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_136_ = ""
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_120_ = ""
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_11_ = ""
+        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_ = nil
+
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_146_  = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_
+        let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_53_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_
+
+        await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_1_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_92_._ASTNODE_霜:1.0__TOKEN_霜_76_(
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_151_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_156_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_35_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_177_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_146_,
+            _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_142_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_53_
+        ) { [weak self] _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_52_ in
+            guard let self else { return }
+            await _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_29_._ASTNODE_霜:1.0__TOKEN_霜_76_ {
+                switch _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_52_ {
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_105_:
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: "開始", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: "Gatekeeperパイプライン v2.2 起動", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_, let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_39_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_33_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_50_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_5_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_120_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_5_
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_118_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_176_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_11_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_176_
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_84_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((
+                        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: "パッチ適用",
+                        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_197_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_171_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_191_(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_31_: "\n"),
+                        _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()
+                    ))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_15_(let _ASTNODE_霜:1.0__TOKEN_霜_64_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_136_ = _ASTNODE_霜:1.0__TOKEN_霜_64_
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_68_ = false
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_39_ = nil
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: "✅ 完了", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: "\(_ASTNODE_霜:1.0__TOKEN_霜_64_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_)文字のコードを生成", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_199_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_60_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_89_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_60_
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_68_ = false
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_39_ = nil
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: "❌ エラー", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_60_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_109_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_139_ = _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_109_
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_190_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_((_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_21_: "⚠️ モデル警告", _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_162_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_109_, _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_48_: _AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()))
+
+                case ._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_172_(let _AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_43_):
+                    self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_141_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_3_("[\(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__庖:1.0__TOKEN_庖_57_()._AST_ASTNODE_庖:1.0__TOKEN_庖_30__渦:1.0__TOKEN_霜_7_(._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_73_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_166_()._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_30_()._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_119_()))] \(_AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_43_)")
+                    if self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_141_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_69_ > 100 { self._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_141_._AST_ASTNODE_庖:1.0__TOKEN_庖_30__霜:1.0__TOKEN_霜_115_(20) }
+                }
+            }
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

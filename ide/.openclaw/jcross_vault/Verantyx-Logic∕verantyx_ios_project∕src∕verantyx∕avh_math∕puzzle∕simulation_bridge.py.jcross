@@ -1,0 +1,173 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:D5271951 ver:1778159671
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_61_ import _TOKEN_廳:1.0__ASTNODE_廳_11_, _TOKEN_廳:1.0__ASTNODE_廳_24_, _TOKEN_廳:1.0__ASTNODE_廳_10_
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_74_._TOKEN_礫:1.0__ASTNODE_礫_37_ import _TOKEN_廳:1.0__ASTNODE_廳_2_
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_44_._TOKEN_礫:1.0__ASTNODE_礫_65_ import _TOKEN_廳:1.0__ASTNODE_廳_8_, _TOKEN_廳:1.0__ASTNODE_廳_26_
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_44_._TOKEN_礫:1.0__ASTNODE_礫_27_ import _TOKEN_廳:1.0__ASTNODE_廳_12_
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_44_._TOKEN_項:1.0__ASTNODE_礫_15_ import _TOKEN_項:1.0__ASTNODE_廳_5_
+_TOKEN_礫:1.0__ASTNODE_礫_40_ _TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_78_._TOKEN_礫:1.0__ASTNODE_礫_29_._TOKEN_礫:1.0__ASTNODE_礫_36_ import _TOKEN_廳:1.0__ASTNODE_廳_3_
+
+class _TOKEN_廳:1.0__ASTNODE_廳_15_:
+    _TOKEN_礫:1.0__ASTNODE_礫_21_ _TOKEN_礫:1.0__ASTNODE_礫_32_(self, _TOKEN_礫:1.0__ASTNODE_礫_89_: _TOKEN_礫:1.0__ASTNODE_礫_84_ = _TOKEN_廳:1.0__ASTNODE_廳_27_):
+        self._TOKEN_礫:1.0__ASTNODE_礫_52_ = _TOKEN_廳:1.0__ASTNODE_廳_12_()
+        self._TOKEN_項:1.0__ASTNODE_礫_15_ = _TOKEN_項:1.0__ASTNODE_廳_5_(_TOKEN_礫:1.0__ASTNODE_礫_89_) if _TOKEN_礫:1.0__ASTNODE_礫_89_ else _TOKEN_廳:1.0__ASTNODE_廳_27_
+
+    _TOKEN_礫:1.0__ASTNODE_礫_21_ _TOKEN_礫:1.0__ASTNODE_礫_86_(self, tc: _TOKEN_廳:1.0__ASTNODE_廳_2_) -> _TOKEN_廳:1.0__ASTNODE_廳_8_:
+        """_TOKEN_廳:1.0__ASTNODE_廳_29_-_TOKEN_廳:1.0__ASTNODE_廳_17_ の結果から _TOKEN_廳:1.0__ASTNODE_廳_14_ _TOKEN_廳:1.0__ASTNODE_廳_17_（実験場）を構築"""
+        _TOKEN_礫:1.0__ASTNODE_礫_11_ = _TOKEN_廳:1.0__ASTNODE_廳_8_(_TOKEN_礫:1.0__ASTNODE_礫_19_=tc._TOKEN_礫:1.0__ASTNODE_礫_19_)
+        _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_漂:1.0__ASTNODE_礫_73_ = tc._TOKEN_漂:1.0__ASTNODE_礫_73_
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        for _TOKEN_礫:1.0__ASTNODE_礫_68_ in tc._TOKEN_礫:1.0__ASTNODE_礫_22_:
+            _TOKEN_礫:1.0__ASTNODE_礫_47_ = _TOKEN_礫:1.0__ASTNODE_礫_68_._TOKEN_礫:1.0__ASTNODE_礫_90_("_TOKEN_礫:1.0__ASTNODE_礫_67_:", "")._TOKEN_礫:1.0__ASTNODE_礫_63_()
+            _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_70_("_TOKEN_礫:1.0__ASTNODE_礫_60_", _TOKEN_礫:1.0__ASTNODE_礫_47_)
+            
+// [metadata-stripped]
+        for f in tc._TOKEN_漂:1.0__ASTNODE_礫_16_:
+            if f != tc._TOKEN_漂:1.0__ASTNODE_礫_73_:
+                _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_70_("_TOKEN_漂:1.0__ASTNODE_礫_54_", f)
+                
+        return _TOKEN_礫:1.0__ASTNODE_礫_11_
+
+    _TOKEN_礫:1.0__ASTNODE_礫_21_ _TOKEN_蔵:1.0__ASTNODE_礫_93_(self, _TOKEN_礫:1.0__ASTNODE_礫_11_: _TOKEN_廳:1.0__ASTNODE_廳_8_, _TOKEN_礫:1.0__ASTNODE_礫_36_: _TOKEN_廳:1.0__ASTNODE_廳_3_):
+        """KBから関連知識（部品）を検索して_TOKEN_廳:1.0__ASTNODE_廳_8_にロード"""
+        if _TOKEN_礫:1.0__ASTNODE_礫_76_ self._TOKEN_項:1.0__ASTNODE_礫_15_:
+            return
+
+// _TOKEN_廳:0.6__ASTNODE_VA_821_ [decoy-metadata]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_3_ = []
+        if _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_漂:1.0__ASTNODE_礫_73_:
+            _TOKEN_礫:1.0__ASTNODE_礫_3_._TOKEN_礫:1.0__ASTNODE_礫_62_(_TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_漂:1.0__ASTNODE_礫_73_)
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_3_._TOKEN_礫:1.0__ASTNODE_礫_6_([n._TOKEN_礫:1.0__ASTNODE_礫_72_ for n in _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_80_ if n._TOKEN_礫:1.0__ASTNODE_礫_82_ == "_TOKEN_漂:1.0__ASTNODE_礫_54_"])
+        
+        _TOKEN_礫:1.0__ASTNODE_礫_13_ = _TOKEN_礫:1.0__ASTNODE_礫_34_(_TOKEN_項:1.0__ASTNODE_雄_1_(_TOKEN_礫:1.0__ASTNODE_礫_3_))
+        
+        for _TOKEN_漂:1.0__ASTNODE_礫_54_ in _TOKEN_礫:1.0__ASTNODE_礫_13_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _TOKEN_礫:1.0__ASTNODE_礫_9_ = self._TOKEN_項:1.0__ASTNODE_礫_15_._TOKEN_礫:1.0__ASTNODE_礫_2_(
+                _TOKEN_漂:1.0__ASTNODE_礫_54_, 
+// _TOKEN_廳:0.1__ASTNODE_KX_860_ [decoy-metadata]
+                _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_22_, 
+                _TOKEN_礫:1.0__ASTNODE_礫_36_=_TOKEN_礫:1.0__ASTNODE_礫_36_
+            )
+            
+            _TOKEN_礫:1.0__ASTNODE_礫_85_ = _TOKEN_礫:1.0__ASTNODE_礫_9_._TOKEN_項:1.0__ASTNODE_雄_3_("_TOKEN_礫:1.0__ASTNODE_礫_85_")
+            if _TOKEN_礫:1.0__ASTNODE_礫_85_:
+// [metadata-stripped]
+// [metadata-stripped]
+                _TOKEN_礫:1.0__ASTNODE_礫_59_ = "_TOKEN_礫:1.0__ASTNODE_礫_17_" 
+                if "_TOKEN_礫:1.0__ASTNODE_礫_33_" in _TOKEN_礫:1.0__ASTNODE_礫_85_:
+                    _TOKEN_礫:1.0__ASTNODE_礫_59_ = "_TOKEN_礫:1.0__ASTNODE_礫_33_"
+                _TOKEN_漂:1.0__ASTNODE_礫_56_ "_TOKEN_礫:1.0__ASTNODE_礫_46_" in _TOKEN_礫:1.0__ASTNODE_礫_84_(_TOKEN_礫:1.0__ASTNODE_礫_85_._TOKEN_項:1.0__ASTNODE_雄_3_("_TOKEN_礫:1.0__ASTNODE_礫_1_", ""))._TOKEN_項:1.0__ASTNODE_礫_71_():
+                    _TOKEN_礫:1.0__ASTNODE_礫_59_ = "_TOKEN_礫:1.0__ASTNODE_礫_46_"
+                    
+                _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_70_(
+                    _TOKEN_礫:1.0__ASTNODE_礫_82_=_TOKEN_礫:1.0__ASTNODE_礫_59_,
+                    _TOKEN_礫:1.0__ASTNODE_礫_72_=_TOKEN_礫:1.0__ASTNODE_礫_85_._TOKEN_項:1.0__ASTNODE_雄_3_("_TOKEN_礫:1.0__ASTNODE_礫_1_"), # または _TOKEN_礫:1.0__ASTNODE_礫_41_ _TOKEN_礫:1.0__ASTNODE_礫_35_
+                    _TOKEN_礫:1.0__ASTNODE_礫_24_=_TOKEN_礫:1.0__ASTNODE_礫_85_._TOKEN_項:1.0__ASTNODE_雄_3_("_TOKEN_礫:1.0__ASTNODE_礫_49_"),
+// _TOKEN_奥:0.6__ASTNODE_KB_257_ [decoy-metadata]
+                    _TOKEN_礫:1.0__ASTNODE_礫_57_=0.9
+                )
+
+    _TOKEN_礫:1.0__ASTNODE_礫_21_ _TOKEN_礫:1.0__ASTNODE_礫_30_(self, tc: _TOKEN_廳:1.0__ASTNODE_廳_2_) -> _TOKEN_廳:1.0__ASTNODE_廳_24_[_TOKEN_礫:1.0__ASTNODE_礫_84_, _TOKEN_廳:1.0__ASTNODE_廳_11_]:
+        """
+        統合実行パイプライン
+        1. 構築 (_TOKEN_廳:1.0__ASTNODE_廳_21_)
+        2. KBロード (_TOKEN_蔵:1.0__ASTNODE_廳_18_)
+        3. 実行 (_TOKEN_廳:1.0__ASTNODE_廳_6_)
+        4. 判定 (_TOKEN_廳:1.0__ASTNODE_廳_7_)
+        """
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_81_ = self._TOKEN_礫:1.0__ASTNODE_礫_86_(tc)
+        
+// [metadata-stripped]
+        self._TOKEN_蔵:1.0__ASTNODE_礫_93_(_TOKEN_礫:1.0__ASTNODE_礫_81_, tc._TOKEN_礫:1.0__ASTNODE_礫_36_)
+        
+// _TOKEN_項:0.2__ASTNODE_LB_455_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_漂:0.1__ASTNODE_XL_967_ [decoy-metadata]
+// [metadata-stripped]
+        
+// [metadata-stripped]
+        import re
+        _TOKEN_礫:1.0__ASTNODE_礫_91_ = _TOKEN_項:1.0__ASTNODE_雄_1_()
+        _TOKEN_漂:1.0__ASTNODE_礫_77_ = [n._TOKEN_礫:1.0__ASTNODE_礫_72_ for n in _TOKEN_礫:1.0__ASTNODE_礫_81_._TOKEN_礫:1.0__ASTNODE_礫_80_ if n._TOKEN_礫:1.0__ASTNODE_礫_82_ == "_TOKEN_漂:1.0__ASTNODE_礫_54_"]
+        if _TOKEN_礫:1.0__ASTNODE_礫_81_._TOKEN_漂:1.0__ASTNODE_礫_73_: _TOKEN_漂:1.0__ASTNODE_礫_77_._TOKEN_礫:1.0__ASTNODE_礫_62_(_TOKEN_礫:1.0__ASTNODE_礫_81_._TOKEN_漂:1.0__ASTNODE_礫_73_)
+        
+        for f in _TOKEN_漂:1.0__ASTNODE_礫_77_:
+            _TOKEN_礫:1.0__ASTNODE_礫_91_._TOKEN_礫:1.0__ASTNODE_礫_8_(re._TOKEN_礫:1.0__ASTNODE_礫_14_(r"\b[_TOKEN_礫:1.0__ASTNODE_礫_23_-Z]\b", _TOKEN_礫:1.0__ASTNODE_礫_84_(f)))
+        _TOKEN_礫:1.0__ASTNODE_礫_45_ = _TOKEN_礫:1.0__ASTNODE_礫_31_(_TOKEN_礫:1.0__ASTNODE_礫_34_(_TOKEN_礫:1.0__ASTNODE_礫_91_))
+
+        self._TOKEN_礫:1.0__ASTNODE_礫_52_._TOKEN_礫:1.0__ASTNODE_礫_53_(_TOKEN_礫:1.0__ASTNODE_礫_81_, _TOKEN_礫:1.0__ASTNODE_礫_45_)
+        
+// [metadata-stripped]
+// _TOKEN_雄:0.3__ASTNODE_KC_161_ [decoy-metadata]
+        return self._TOKEN_礫:1.0__ASTNODE_礫_25_(_TOKEN_礫:1.0__ASTNODE_礫_81_, tc._TOKEN_礫:1.0__ASTNODE_礫_36_)
+
+    _TOKEN_礫:1.0__ASTNODE_礫_21_ _TOKEN_礫:1.0__ASTNODE_礫_25_(self, _TOKEN_礫:1.0__ASTNODE_礫_11_: _TOKEN_廳:1.0__ASTNODE_廳_8_, _TOKEN_礫:1.0__ASTNODE_礫_36_: _TOKEN_廳:1.0__ASTNODE_廳_3_) -> _TOKEN_廳:1.0__ASTNODE_廳_24_[_TOKEN_礫:1.0__ASTNODE_礫_84_, _TOKEN_廳:1.0__ASTNODE_廳_11_]:
+        """_TOKEN_廳:1.0__ASTNODE_廳_14_結果から最終的なSolverResult（辞書形式）を生成"""
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        _TOKEN_礫:1.0__ASTNODE_礫_38_ = _TOKEN_礫:1.0__ASTNODE_礫_11_._TOKEN_礫:1.0__ASTNODE_礫_38_
+        if _TOKEN_礫:1.0__ASTNODE_礫_76_ _TOKEN_礫:1.0__ASTNODE_礫_38_:
+             return {
+                "_TOKEN_礫:1.0__ASTNODE_礫_66_": "_TOKEN_礫:1.0__ASTNODE_礫_92_",
+                "_TOKEN_項:1.0__ASTNODE_礫_79_": "No _TOKEN_礫:1.0__ASTNODE_礫_12_ _TOKEN_礫:1.0__ASTNODE_礫_38_ _TOKEN_礫:1.0__ASTNODE_礫_39_.",
+                "_TOKEN_礫:1.0__ASTNODE_礫_57_": 0.0,
+                "_TOKEN_礫:1.0__ASTNODE_礫_5_": {"_TOKEN_礫:1.0__ASTNODE_礫_88_": "_TOKEN_礫:1.0__ASTNODE_礫_75_"}
+            }
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_51_ = [r for r in _TOKEN_礫:1.0__ASTNODE_礫_38_ if r._TOKEN_礫:1.0__ASTNODE_礫_66_ == "_TOKEN_礫:1.0__ASTNODE_礫_10_"]
+        if _TOKEN_礫:1.0__ASTNODE_礫_51_:
+            _TOKEN_礫:1.0__ASTNODE_礫_58_ = _TOKEN_礫:1.0__ASTNODE_礫_51_[0]
+            return {
+                "_TOKEN_礫:1.0__ASTNODE_礫_66_": "_TOKEN_礫:1.0__ASTNODE_礫_10_",
+                "_TOKEN_項:1.0__ASTNODE_礫_79_": f"_TOKEN_廳:1.0__ASTNODE_廳_9_ _TOKEN_礫:1.0__ASTNODE_礫_42_: {_TOKEN_礫:1.0__ASTNODE_礫_58_._TOKEN_礫:1.0__ASTNODE_礫_1_}",
+                "_TOKEN_礫:1.0__ASTNODE_礫_57_": _TOKEN_礫:1.0__ASTNODE_礫_58_._TOKEN_礫:1.0__ASTNODE_礫_57_,
+                "_TOKEN_礫:1.0__ASTNODE_礫_5_": {
+                    "_TOKEN_礫:1.0__ASTNODE_礫_43_": _TOKEN_礫:1.0__ASTNODE_礫_58_._TOKEN_礫:1.0__ASTNODE_礫_43_,
+                    "_TOKEN_礫:1.0__ASTNODE_礫_33_": _TOKEN_礫:1.0__ASTNODE_礫_58_._TOKEN_礫:1.0__ASTNODE_礫_33_
+                }
+            }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__ASTNODE_礫_50_ = [r for r in _TOKEN_礫:1.0__ASTNODE_礫_38_ if r._TOKEN_礫:1.0__ASTNODE_礫_66_ == "_TOKEN_礫:1.0__ASTNODE_礫_4_"]
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        if _TOKEN_礫:1.0__ASTNODE_礫_69_(_TOKEN_礫:1.0__ASTNODE_礫_50_) == _TOKEN_礫:1.0__ASTNODE_礫_69_(_TOKEN_礫:1.0__ASTNODE_礫_38_) _TOKEN_礫:1.0__ASTNODE_礫_28_ _TOKEN_礫:1.0__ASTNODE_礫_69_(_TOKEN_礫:1.0__ASTNODE_礫_38_) > 0:
+            _TOKEN_礫:1.0__ASTNODE_礫_18_ = _TOKEN_礫:1.0__ASTNODE_礫_48_(r._TOKEN_礫:1.0__ASTNODE_礫_57_ for r in _TOKEN_礫:1.0__ASTNODE_礫_50_)
+            return {
+                "_TOKEN_礫:1.0__ASTNODE_礫_66_": "_TOKEN_礫:1.0__ASTNODE_礫_4_" if _TOKEN_礫:1.0__ASTNODE_礫_18_ > 0.8 else "_TOKEN_項:1.0__ASTNODE_礫_83_",
+                "_TOKEN_項:1.0__ASTNODE_礫_79_": "_TOKEN_廳:1.0__ASTNODE_廳_34_ in _TOKEN_礫:1.0__ASTNODE_礫_12_.",
+                "_TOKEN_礫:1.0__ASTNODE_礫_57_": _TOKEN_礫:1.0__ASTNODE_礫_18_,
+                "_TOKEN_礫:1.0__ASTNODE_礫_5_": {
+                    "_TOKEN_礫:1.0__ASTNODE_礫_43_": _TOKEN_礫:1.0__ASTNODE_礫_50_[0]._TOKEN_礫:1.0__ASTNODE_礫_43_,
+                    "_TOKEN_礫:1.0__ASTNODE_礫_1_": "_TOKEN_廳:1.0__ASTNODE_廳_28_ _TOKEN_礫:1.0__ASTNODE_礫_64_ _TOKEN_礫:1.0__ASTNODE_礫_7_."
+                }
+            }
+
+        return {
+            "_TOKEN_礫:1.0__ASTNODE_礫_66_": "_TOKEN_項:1.0__ASTNODE_礫_83_",
+            "_TOKEN_項:1.0__ASTNODE_礫_79_": "_TOKEN_廳:1.0__ASTNODE_廳_14_ _TOKEN_礫:1.0__ASTNODE_礫_26_.",
+            "_TOKEN_礫:1.0__ASTNODE_礫_57_": 0.4,
+            "_TOKEN_礫:1.0__ASTNODE_礫_5_": {"_TOKEN_礫:1.0__ASTNODE_礫_1_": "_TOKEN_廳:1.0__ASTNODE_廳_25_ or weak _TOKEN_礫:1.0__ASTNODE_礫_38_."}
+        }
+
+// POLYMORPHIC_JCROSS_END

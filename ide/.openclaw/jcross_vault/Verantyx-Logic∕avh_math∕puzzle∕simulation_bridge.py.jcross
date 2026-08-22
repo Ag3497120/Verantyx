@@ -1,0 +1,173 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F6753EBF ver:1778159737
+// ⚠️ One-time schema — expires after response
+
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_61_ import _TOKEN_廓:1.0__SYM_廓_11_, _TOKEN_廓:1.0__SYM_廓_24_, _TOKEN_廓:1.0__SYM_廓_10_
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_74_._TOKEN_露:1.0__SYM_露_37_ import _TOKEN_廓:1.0__SYM_廓_2_
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_44_._TOKEN_露:1.0__SYM_露_65_ import _TOKEN_廓:1.0__SYM_廓_8_, _TOKEN_廓:1.0__SYM_廓_26_
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_44_._TOKEN_露:1.0__SYM_露_27_ import _TOKEN_廓:1.0__SYM_廓_12_
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_44_._TOKEN_道:1.0__SYM_露_15_ import _TOKEN_道:1.0__SYM_廓_5_
+_TOKEN_露:1.0__SYM_露_40_ _TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_78_._TOKEN_露:1.0__SYM_露_29_._TOKEN_露:1.0__SYM_露_36_ import _TOKEN_廓:1.0__SYM_廓_3_
+
+class _TOKEN_廓:1.0__SYM_廓_15_:
+    _TOKEN_露:1.0__SYM_露_21_ _TOKEN_露:1.0__SYM_露_32_(self, _TOKEN_露:1.0__SYM_露_89_: _TOKEN_露:1.0__SYM_露_84_ = _TOKEN_廓:1.0__SYM_廓_27_):
+        self._TOKEN_露:1.0__SYM_露_52_ = _TOKEN_廓:1.0__SYM_廓_12_()
+        self._TOKEN_道:1.0__SYM_露_15_ = _TOKEN_道:1.0__SYM_廓_5_(_TOKEN_露:1.0__SYM_露_89_) if _TOKEN_露:1.0__SYM_露_89_ else _TOKEN_廓:1.0__SYM_廓_27_
+
+// _TOKEN_脈:0.9__SYM_BA_750_ [decoy-metadata]
+    _TOKEN_露:1.0__SYM_露_21_ _TOKEN_露:1.0__SYM_露_86_(self, tc: _TOKEN_廓:1.0__SYM_廓_2_) -> _TOKEN_廓:1.0__SYM_廓_8_:
+// _TOKEN_露:0.4__SYM_KH_237_ [decoy-metadata]
+        """_TOKEN_廓:1.0__SYM_廓_29_-_TOKEN_廓:1.0__SYM_廓_17_ の結果から _TOKEN_廓:1.0__SYM_廓_14_ _TOKEN_廓:1.0__SYM_廓_17_（実験場）を構築"""
+// _TOKEN_露:0.2__SYM_HY_911_ [decoy-metadata]
+        _TOKEN_露:1.0__SYM_露_11_ = _TOKEN_廓:1.0__SYM_廓_8_(_TOKEN_露:1.0__SYM_露_19_=tc._TOKEN_露:1.0__SYM_露_19_)
+        _TOKEN_露:1.0__SYM_露_11_._TOKEN_脈:1.0__SYM_露_73_ = tc._TOKEN_脈:1.0__SYM_露_73_
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        for _TOKEN_露:1.0__SYM_露_68_ in tc._TOKEN_露:1.0__SYM_露_22_:
+            _TOKEN_露:1.0__SYM_露_47_ = _TOKEN_露:1.0__SYM_露_68_._TOKEN_露:1.0__SYM_露_90_("_TOKEN_露:1.0__SYM_露_67_:", "")._TOKEN_露:1.0__SYM_露_63_()
+            _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_70_("_TOKEN_露:1.0__SYM_露_60_", _TOKEN_露:1.0__SYM_露_47_)
+            
+// [metadata-stripped]
+        for f in tc._TOKEN_脈:1.0__SYM_露_16_:
+            if f != tc._TOKEN_脈:1.0__SYM_露_73_:
+                _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_70_("_TOKEN_脈:1.0__SYM_露_54_", f)
+                
+        return _TOKEN_露:1.0__SYM_露_11_
+
+    _TOKEN_露:1.0__SYM_露_21_ _TOKEN_匣:1.0__SYM_露_93_(self, _TOKEN_露:1.0__SYM_露_11_: _TOKEN_廓:1.0__SYM_廓_8_, _TOKEN_露:1.0__SYM_露_36_: _TOKEN_廓:1.0__SYM_廓_3_):
+        """KBから関連知識（部品）を検索して_TOKEN_廓:1.0__SYM_廓_8_にロード"""
+        if _TOKEN_露:1.0__SYM_露_76_ self._TOKEN_道:1.0__SYM_露_15_:
+            return
+
+// _TOKEN_匣:0.4__SYM_WK_885_ [decoy-metadata]
+// [metadata-stripped]
+        _TOKEN_露:1.0__SYM_露_3_ = []
+        if _TOKEN_露:1.0__SYM_露_11_._TOKEN_脈:1.0__SYM_露_73_:
+            _TOKEN_露:1.0__SYM_露_3_._TOKEN_露:1.0__SYM_露_62_(_TOKEN_露:1.0__SYM_露_11_._TOKEN_脈:1.0__SYM_露_73_)
+// [metadata-stripped]
+        _TOKEN_露:1.0__SYM_露_3_._TOKEN_露:1.0__SYM_露_6_([n._TOKEN_露:1.0__SYM_露_72_ for n in _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_80_ if n._TOKEN_露:1.0__SYM_露_82_ == "_TOKEN_脈:1.0__SYM_露_54_"])
+        
+        _TOKEN_露:1.0__SYM_露_13_ = _TOKEN_露:1.0__SYM_露_34_(_TOKEN_道:1.0__SYM_錬_1_(_TOKEN_露:1.0__SYM_露_3_))
+        
+        for _TOKEN_脈:1.0__SYM_露_54_ in _TOKEN_露:1.0__SYM_露_13_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _TOKEN_露:1.0__SYM_露_9_ = self._TOKEN_道:1.0__SYM_露_15_._TOKEN_露:1.0__SYM_露_2_(
+                _TOKEN_脈:1.0__SYM_露_54_, 
+                _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_22_, 
+                _TOKEN_露:1.0__SYM_露_36_=_TOKEN_露:1.0__SYM_露_36_
+            )
+            
+            _TOKEN_露:1.0__SYM_露_85_ = _TOKEN_露:1.0__SYM_露_9_._TOKEN_道:1.0__SYM_錬_3_("_TOKEN_露:1.0__SYM_露_85_")
+            if _TOKEN_露:1.0__SYM_露_85_:
+// [metadata-stripped]
+// [metadata-stripped]
+                _TOKEN_露:1.0__SYM_露_59_ = "_TOKEN_露:1.0__SYM_露_17_" 
+                if "_TOKEN_露:1.0__SYM_露_33_" in _TOKEN_露:1.0__SYM_露_85_:
+                    _TOKEN_露:1.0__SYM_露_59_ = "_TOKEN_露:1.0__SYM_露_33_"
+                _TOKEN_脈:1.0__SYM_露_56_ "_TOKEN_露:1.0__SYM_露_46_" in _TOKEN_露:1.0__SYM_露_84_(_TOKEN_露:1.0__SYM_露_85_._TOKEN_道:1.0__SYM_錬_3_("_TOKEN_露:1.0__SYM_露_1_", ""))._TOKEN_道:1.0__SYM_露_71_():
+                    _TOKEN_露:1.0__SYM_露_59_ = "_TOKEN_露:1.0__SYM_露_46_"
+                    
+                _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_70_(
+                    _TOKEN_露:1.0__SYM_露_82_=_TOKEN_露:1.0__SYM_露_59_,
+                    _TOKEN_露:1.0__SYM_露_72_=_TOKEN_露:1.0__SYM_露_85_._TOKEN_道:1.0__SYM_錬_3_("_TOKEN_露:1.0__SYM_露_1_"), # または _TOKEN_露:1.0__SYM_露_41_ _TOKEN_露:1.0__SYM_露_35_
+                    _TOKEN_露:1.0__SYM_露_24_=_TOKEN_露:1.0__SYM_露_85_._TOKEN_道:1.0__SYM_錬_3_("_TOKEN_露:1.0__SYM_露_49_"),
+                    _TOKEN_露:1.0__SYM_露_57_=0.9
+                )
+
+    _TOKEN_露:1.0__SYM_露_21_ _TOKEN_露:1.0__SYM_露_30_(self, tc: _TOKEN_廓:1.0__SYM_廓_2_) -> _TOKEN_廓:1.0__SYM_廓_24_[_TOKEN_露:1.0__SYM_露_84_, _TOKEN_廓:1.0__SYM_廓_11_]:
+        """
+        統合実行パイプライン
+        1. 構築 (_TOKEN_廓:1.0__SYM_廓_21_)
+        2. KBロード (_TOKEN_匣:1.0__SYM_廓_18_)
+        3. 実行 (_TOKEN_廓:1.0__SYM_廓_6_)
+        4. 判定 (_TOKEN_廓:1.0__SYM_廓_7_)
+        """
+// [metadata-stripped]
+        _TOKEN_露:1.0__SYM_露_81_ = self._TOKEN_露:1.0__SYM_露_86_(tc)
+        
+// [metadata-stripped]
+        self._TOKEN_匣:1.0__SYM_露_93_(_TOKEN_露:1.0__SYM_露_81_, tc._TOKEN_露:1.0__SYM_露_36_)
+        
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_匣:0.5__SYM_KZ_409_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        
+// [metadata-stripped]
+        import re
+        _TOKEN_露:1.0__SYM_露_91_ = _TOKEN_道:1.0__SYM_錬_1_()
+        _TOKEN_脈:1.0__SYM_露_77_ = [n._TOKEN_露:1.0__SYM_露_72_ for n in _TOKEN_露:1.0__SYM_露_81_._TOKEN_露:1.0__SYM_露_80_ if n._TOKEN_露:1.0__SYM_露_82_ == "_TOKEN_脈:1.0__SYM_露_54_"]
+        if _TOKEN_露:1.0__SYM_露_81_._TOKEN_脈:1.0__SYM_露_73_: _TOKEN_脈:1.0__SYM_露_77_._TOKEN_露:1.0__SYM_露_62_(_TOKEN_露:1.0__SYM_露_81_._TOKEN_脈:1.0__SYM_露_73_)
+        
+        for f in _TOKEN_脈:1.0__SYM_露_77_:
+            _TOKEN_露:1.0__SYM_露_91_._TOKEN_露:1.0__SYM_露_8_(re._TOKEN_露:1.0__SYM_露_14_(r"\b[_TOKEN_露:1.0__SYM_露_23_-Z]\b", _TOKEN_露:1.0__SYM_露_84_(f)))
+        _TOKEN_露:1.0__SYM_露_45_ = _TOKEN_露:1.0__SYM_露_31_(_TOKEN_露:1.0__SYM_露_34_(_TOKEN_露:1.0__SYM_露_91_))
+
+        self._TOKEN_露:1.0__SYM_露_52_._TOKEN_露:1.0__SYM_露_53_(_TOKEN_露:1.0__SYM_露_81_, _TOKEN_露:1.0__SYM_露_45_)
+        
+// [metadata-stripped]
+        return self._TOKEN_露:1.0__SYM_露_25_(_TOKEN_露:1.0__SYM_露_81_, tc._TOKEN_露:1.0__SYM_露_36_)
+
+    _TOKEN_露:1.0__SYM_露_21_ _TOKEN_露:1.0__SYM_露_25_(self, _TOKEN_露:1.0__SYM_露_11_: _TOKEN_廓:1.0__SYM_廓_8_, _TOKEN_露:1.0__SYM_露_36_: _TOKEN_廓:1.0__SYM_廓_3_) -> _TOKEN_廓:1.0__SYM_廓_24_[_TOKEN_露:1.0__SYM_露_84_, _TOKEN_廓:1.0__SYM_廓_11_]:
+        """_TOKEN_廓:1.0__SYM_廓_14_結果から最終的なSolverResult（辞書形式）を生成"""
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        _TOKEN_露:1.0__SYM_露_38_ = _TOKEN_露:1.0__SYM_露_11_._TOKEN_露:1.0__SYM_露_38_
+        if _TOKEN_露:1.0__SYM_露_76_ _TOKEN_露:1.0__SYM_露_38_:
+             return {
+                "_TOKEN_露:1.0__SYM_露_66_": "_TOKEN_露:1.0__SYM_露_92_",
+                "_TOKEN_道:1.0__SYM_露_79_": "No _TOKEN_露:1.0__SYM_露_12_ _TOKEN_露:1.0__SYM_露_38_ _TOKEN_露:1.0__SYM_露_39_.",
+                "_TOKEN_露:1.0__SYM_露_57_": 0.0,
+                "_TOKEN_露:1.0__SYM_露_5_": {"_TOKEN_露:1.0__SYM_露_88_": "_TOKEN_露:1.0__SYM_露_75_"}
+            }
+
+// [metadata-stripped]
+        _TOKEN_露:1.0__SYM_露_51_ = [r for r in _TOKEN_露:1.0__SYM_露_38_ if r._TOKEN_露:1.0__SYM_露_66_ == "_TOKEN_露:1.0__SYM_露_10_"]
+        if _TOKEN_露:1.0__SYM_露_51_:
+// _TOKEN_廓:0.5__SYM_XD_632_ [decoy-metadata]
+            _TOKEN_露:1.0__SYM_露_58_ = _TOKEN_露:1.0__SYM_露_51_[0]
+            return {
+                "_TOKEN_露:1.0__SYM_露_66_": "_TOKEN_露:1.0__SYM_露_10_",
+                "_TOKEN_道:1.0__SYM_露_79_": f"_TOKEN_廓:1.0__SYM_廓_9_ _TOKEN_露:1.0__SYM_露_42_: {_TOKEN_露:1.0__SYM_露_58_._TOKEN_露:1.0__SYM_露_1_}",
+                "_TOKEN_露:1.0__SYM_露_57_": _TOKEN_露:1.0__SYM_露_58_._TOKEN_露:1.0__SYM_露_57_,
+                "_TOKEN_露:1.0__SYM_露_5_": {
+                    "_TOKEN_露:1.0__SYM_露_43_": _TOKEN_露:1.0__SYM_露_58_._TOKEN_露:1.0__SYM_露_43_,
+                    "_TOKEN_露:1.0__SYM_露_33_": _TOKEN_露:1.0__SYM_露_58_._TOKEN_露:1.0__SYM_露_33_
+                }
+            }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _TOKEN_露:1.0__SYM_露_50_ = [r for r in _TOKEN_露:1.0__SYM_露_38_ if r._TOKEN_露:1.0__SYM_露_66_ == "_TOKEN_露:1.0__SYM_露_4_"]
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        if _TOKEN_露:1.0__SYM_露_69_(_TOKEN_露:1.0__SYM_露_50_) == _TOKEN_露:1.0__SYM_露_69_(_TOKEN_露:1.0__SYM_露_38_) _TOKEN_露:1.0__SYM_露_28_ _TOKEN_露:1.0__SYM_露_69_(_TOKEN_露:1.0__SYM_露_38_) > 0:
+            _TOKEN_露:1.0__SYM_露_18_ = _TOKEN_露:1.0__SYM_露_48_(r._TOKEN_露:1.0__SYM_露_57_ for r in _TOKEN_露:1.0__SYM_露_50_)
+            return {
+                "_TOKEN_露:1.0__SYM_露_66_": "_TOKEN_露:1.0__SYM_露_4_" if _TOKEN_露:1.0__SYM_露_18_ > 0.8 else "_TOKEN_道:1.0__SYM_露_83_",
+                "_TOKEN_道:1.0__SYM_露_79_": "_TOKEN_廓:1.0__SYM_廓_34_ in _TOKEN_露:1.0__SYM_露_12_.",
+                "_TOKEN_露:1.0__SYM_露_57_": _TOKEN_露:1.0__SYM_露_18_,
+                "_TOKEN_露:1.0__SYM_露_5_": {
+                    "_TOKEN_露:1.0__SYM_露_43_": _TOKEN_露:1.0__SYM_露_50_[0]._TOKEN_露:1.0__SYM_露_43_,
+                    "_TOKEN_露:1.0__SYM_露_1_": "_TOKEN_廓:1.0__SYM_廓_28_ _TOKEN_露:1.0__SYM_露_64_ _TOKEN_露:1.0__SYM_露_7_."
+                }
+            }
+
+        return {
+            "_TOKEN_露:1.0__SYM_露_66_": "_TOKEN_道:1.0__SYM_露_83_",
+            "_TOKEN_道:1.0__SYM_露_79_": "_TOKEN_廓:1.0__SYM_廓_14_ _TOKEN_露:1.0__SYM_露_26_.",
+            "_TOKEN_露:1.0__SYM_露_57_": 0.4,
+            "_TOKEN_露:1.0__SYM_露_5_": {"_TOKEN_露:1.0__SYM_露_1_": "_TOKEN_廓:1.0__SYM_廓_25_ or weak _TOKEN_露:1.0__SYM_露_38_."}
+        }
+
+// POLYMORPHIC_JCROSS_END

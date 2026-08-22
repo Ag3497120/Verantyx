@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:773DC774 ver:1778166170
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_VERANTYX_粒:1.0__ID_粒_7_ _VERANTYX_粒:1.0__ID_粒_63_::{_VERANTYX_廷:1.0__ID_廷_4_, _VERANTYX_廷:1.0__ID_廷_7_};
+_VERANTYX_粒:1.0__ID_粒_7_ _VERANTYX_粒:1.0__ID_粒_26_::_VERANTYX_粒:1.0__ID_粒_2_::_VERANTYX_廷:1.0__ID_廷_26_;
+
+// _VERANTYX_泡:0.4__ID_AH_115_ [decoy-metadata]
+// [metadata-stripped]
+_VERANTYX_粒:1.0__ID_粒_40_ enum _VERANTYX_廷:1.0__ID_廷_29_ {
+    _VERANTYX_廷:1.0__ID_廷_24_,  // _VERANTYX_廷:1.0__ID_廷_25_ _VERANTYX_粒:1.0__ID_粒_12_ (_VERANTYX_廷:1.0__ID_廷_31_ in _VERANTYX_粒:1.0__ID_粒_10_)
+    _VERANTYX_廷:1.0__ID_廷_9_,   // _VERANTYX_廷:1.0__ID_廷_21_ _VERANTYX_粒:1.0__ID_粒_17_ _VERANTYX_粒:1.0__ID_粒_47_ _VERANTYX_粒:1.0__ID_粒_15_ _VERANTYX_粒:1.0__ID_粒_59_
+    _VERANTYX_廷:1.0__ID_廷_10_,    // _VERANTYX_廷:1.0__ID_廷_33_ _VERANTYX_粒:1.0__ID_粒_46_ or _VERANTYX_粒:1.0__ID_粒_34_ _VERANTYX_粒:1.0__ID_粒_49_
+    _VERANTYX_廷:1.0__ID_廷_27_,   // _VERANTYX_廷:1.0__ID_廷_19_-_VERANTYX_粒:1.0__ID_粒_65_ _VERANTYX_粒:1.0__ID_粒_4_ _VERANTYX_粒:1.0__ID_粒_23_/_VERANTYX_粒:1.0__ID_粒_22_
+}
+
+_VERANTYX_粒:1.0__ID_粒_20_ _VERANTYX_廷:1.0__ID_廷_29_ {
+    _VERANTYX_粒:1.0__ID_粒_40_ fn _VERANTYX_粒:1.0__ID_粒_1_(&self) -> &'static _VERANTYX_粒:1.0__ID_粒_56_ {
+        _VERANTYX_粒:1.0__ID_粒_45_ self {
+            _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_24_ => "_VERANTYX_廷:1.0__ID_廷_5_",
+            _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_9_ => "_VERANTYX_廷:1.0__ID_廷_30_",
+            _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_10_ => "_VERANTYX_廷:1.0__ID_廷_23_",
+            _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_27_ => "_VERANTYX_廷:1.0__ID_廷_12_",
+        }
+    }
+}
+
+_VERANTYX_粒:1.0__ID_粒_40_ _VERANTYX_粒:1.0__ID_粒_56_uct _VERANTYX_廷:1.0__ID_廷_16_;
+// _VERANTYX_律:0.6__ID_AB_996_ [decoy-metadata]
+
+_VERANTYX_粒:1.0__ID_粒_20_ _VERANTYX_廷:1.0__ID_廷_16_ {
+// [metadata-stripped]
+    _VERANTYX_粒:1.0__ID_粒_40_ fn _VERANTYX_粒:1.0__ID_粒_21_(_VERANTYX_粒:1.0__ID_粒_24_: &[(_VERANTYX_粒:1.0__ID_粒_27_, _VERANTYX_廷:1.0__ID_廷_14_, _VERANTYX_粒:1.0__ID_粒_30_, _VERANTYX_粒:1.0__ID_粒_30_)]) -> _VERANTYX_廷:1.0__ID_廷_7_ {
+        let _VERANTYX_粒:1.0__ID_粒_57_ _VERANTYX_粒:1.0__ID_粒_6_ = _VERANTYX_廷:1.0__ID_廷_26_::_VERANTYX_粒:1.0__ID_粒_9_();
+        for (id, _VERANTYX_粒:1.0__ID_粒_8_, x, y) in _VERANTYX_粒:1.0__ID_粒_24_ {
+            let _VERANTYX_沈:1.0__ID_粒_14_ = _VERANTYX_泡:1.0__ID_粒_32_!("_VERANTYX_粒:1.0__ID_粒_19_{}", id);
+            let _VERANTYX_粒:1.0__ID_粒_35_ = _VERANTYX_泡:1.0__ID_粒_32_!("\"{}\" at ({:.0}, {:.0})", _VERANTYX_粒:1.0__ID_粒_8_, x, y);
+            _VERANTYX_粒:1.0__ID_粒_6_._VERANTYX_粒:1.0__ID_粒_54_(_VERANTYX_沈:1.0__ID_粒_14_, _VERANTYX_粒:1.0__ID_粒_35_);
+// _VERANTYX_律:0.6__ID_DY_227_ [decoy-metadata]
+        }
+
+        _VERANTYX_廷:1.0__ID_廷_7_ {
+            _VERANTYX_粒:1.0__ID_粒_42_: _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_24_._VERANTYX_粒:1.0__ID_粒_1_()._VERANTYX_粒:1.0__ID_粒_53_(),
+            _VERANTYX_粒:1.0__ID_粒_6_,
+            _VERANTYX_粒:1.0__ID_粒_51_: "_VERANTYX_廷:1.0__ID_廷_13_-_VERANTYX_粒:1.0__ID_粒_13_ _VERANTYX_粒:1.0__ID_粒_43_ _VERANTYX_粒:1.0__ID_粒_24_ in _VERANTYX_粒:1.0__ID_粒_50_ _VERANTYX_粒:1.0__ID_粒_44_ _VERANTYX_粒:1.0__ID_粒_36_."._VERANTYX_粒:1.0__ID_粒_53_(),
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_粒:1.0__ID_粒_40_ fn _VERANTYX_粒:1.0__ID_粒_39_(_VERANTYX_紋:1.0__ID_粒_55_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_48_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_59_: &_VERANTYX_粒:1.0__ID_粒_56_) -> _VERANTYX_廷:1.0__ID_廷_7_ {
+        let _VERANTYX_粒:1.0__ID_粒_57_ _VERANTYX_粒:1.0__ID_粒_6_ = _VERANTYX_廷:1.0__ID_廷_26_::_VERANTYX_粒:1.0__ID_粒_9_();
+        _VERANTYX_粒:1.0__ID_粒_6_._VERANTYX_粒:1.0__ID_粒_54_("_VERANTYX_紋:1.0__ID_粒_55_"._VERANTYX_粒:1.0__ID_粒_53_(), _VERANTYX_紋:1.0__ID_粒_55_._VERANTYX_粒:1.0__ID_粒_53_());
+        _VERANTYX_粒:1.0__ID_粒_6_._VERANTYX_粒:1.0__ID_粒_54_("_VERANTYX_粒:1.0__ID_粒_48_"._VERANTYX_粒:1.0__ID_粒_53_(), _VERANTYX_粒:1.0__ID_粒_48_._VERANTYX_粒:1.0__ID_粒_53_());
+        _VERANTYX_粒:1.0__ID_粒_6_._VERANTYX_粒:1.0__ID_粒_54_("_VERANTYX_粒:1.0__ID_粒_69_"._VERANTYX_粒:1.0__ID_粒_53_(), _VERANTYX_粒:1.0__ID_粒_59_._VERANTYX_粒:1.0__ID_粒_53_());
+
+        _VERANTYX_廷:1.0__ID_廷_7_ {
+            _VERANTYX_粒:1.0__ID_粒_42_: _VERANTYX_廷:1.0__ID_廷_29_::_VERANTYX_廷:1.0__ID_廷_9_._VERANTYX_粒:1.0__ID_粒_1_()._VERANTYX_粒:1.0__ID_粒_53_(),
+            _VERANTYX_粒:1.0__ID_粒_6_,
+            _VERANTYX_粒:1.0__ID_粒_51_: "_VERANTYX_廷:1.0__ID_廷_2_ _VERANTYX_粒:1.0__ID_粒_18_ _VERANTYX_粒:1.0__ID_粒_66_ _VERANTYX_粒:1.0__ID_粒_47_ _VERANTYX_粒:1.0__ID_粒_28_-_VERANTYX_粒:1.0__ID_粒_62_ _VERANTYX_粒:1.0__ID_粒_4_ _VERANTYX_粒:1.0__ID_粒_33_."._VERANTYX_粒:1.0__ID_粒_53_(),
+        }
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_粒:1.0__ID_粒_40_ _VERANTYX_粒:1.0__ID_粒_29_ _VERANTYX_廷:1.0__ID_廷_20_ {
+    fn _VERANTYX_粒:1.0__ID_粒_5_(&_VERANTYX_粒:1.0__ID_粒_57_ self, _VERANTYX_紋:1.0__ID_粒_55_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_48_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_59_: &_VERANTYX_粒:1.0__ID_粒_56_);
+}
+
+_VERANTYX_粒:1.0__ID_粒_20_ _VERANTYX_廷:1.0__ID_廷_20_ for _VERANTYX_廷:1.0__ID_廷_4_ {
+// _VERANTYX_廷:0.9__ID_YX_657_ [decoy-metadata]
+// _VERANTYX_泡:0.1__ID_DF_640_ [decoy-metadata]
+    fn _VERANTYX_粒:1.0__ID_粒_5_(&_VERANTYX_粒:1.0__ID_粒_57_ self, _VERANTYX_紋:1.0__ID_粒_55_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_48_: &_VERANTYX_粒:1.0__ID_粒_56_, _VERANTYX_粒:1.0__ID_粒_59_: &_VERANTYX_粒:1.0__ID_粒_56_) {
+        self._VERANTYX_粒:1.0__ID_粒_37_(_VERANTYX_廷:1.0__ID_廷_16_::_VERANTYX_粒:1.0__ID_粒_39_(_VERANTYX_紋:1.0__ID_粒_55_, _VERANTYX_粒:1.0__ID_粒_48_, _VERANTYX_粒:1.0__ID_粒_59_));
+// _VERANTYX_紋:0.8__ID_GC_520_ [decoy-metadata]
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

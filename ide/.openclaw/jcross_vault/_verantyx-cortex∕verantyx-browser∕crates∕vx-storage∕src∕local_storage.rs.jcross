@@ -1,0 +1,121 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BF5EDC9F ver:1778166417
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_TOKEN_霪:1.0__OPAQUE_霪_23_ _TOKEN_霪:1.0__OPAQUE_霪_44_::_TOKEN_霪:1.0__OPAQUE_霪_53_::_TOKEN_廬:1.0__OPAQUE_廬_20_;
+_TOKEN_霪:1.0__OPAQUE_霪_23_ _TOKEN_霪:1.0__OPAQUE_霪_44_::_TOKEN_霪:1.0__OPAQUE_霪_16_::{_TOKEN_廬:1.0__OPAQUE_廬_11_, _TOKEN_廬:1.0__OPAQUE_廬_23_};
+_TOKEN_霪:1.0__OPAQUE_霪_23_ _TOKEN_霪:1.0__OPAQUE_霪_54_::_TOKEN_廬:1.0__OPAQUE_廬_2_;
+_TOKEN_霪:1.0__OPAQUE_霪_23_ _TOKEN_霪:1.0__OPAQUE_霪_52_::{_TOKEN_廬:1.0__OPAQUE_廬_16_, _TOKEN_廬:1.0__OPAQUE_廬_25_};
+
+// [metadata-stripped]
+_TOKEN_霪:1.0__OPAQUE_霪_25_ _TOKEN_霪:1.0__OPAQUE_霪_5_uct _TOKEN_廬:1.0__OPAQUE_廬_6_ {
+// _TOKEN_計:0.1__OPAQUE_DW_407_ [decoy-metadata]
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ _TOKEN_霪:1.0__OPAQUE_霪_37_: _TOKEN_廬:1.0__OPAQUE_廬_20_<_TOKEN_廬:1.0__OPAQUE_廬_5_, _TOKEN_廬:1.0__OPAQUE_廬_5_>,
+}
+
+_TOKEN_霪:1.0__OPAQUE_霪_25_ _TOKEN_霪:1.0__OPAQUE_霪_5_uct _TOKEN_廬:1.0__OPAQUE_廬_13_ {
+    _TOKEN_霪:1.0__OPAQUE_霪_13_: _TOKEN_廬:1.0__OPAQUE_廬_5_,
+    _TOKEN_霪:1.0__OPAQUE_霪_22_: _TOKEN_廬:1.0__OPAQUE_廬_11_<_TOKEN_廬:1.0__OPAQUE_廬_23_<_TOKEN_廬:1.0__OPAQUE_廬_6_>>,
+    db: _TOKEN_霪:1.0__OPAQUE_霪_64_::Db,
+}
+
+_TOKEN_霪:1.0__OPAQUE_霪_1_ _TOKEN_廬:1.0__OPAQUE_廬_13_ {
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_霪:1.0__OPAQUE_霪_11_(_TOKEN_霪:1.0__OPAQUE_霪_13_: &_TOKEN_霪:1.0__OPAQUE_霪_5_, _TOKEN_霪:1.0__OPAQUE_霪_43_: &_TOKEN_霪:1.0__OPAQUE_霪_44_::_TOKEN_霪:1.0__OPAQUE_霪_32_::_TOKEN_廬:1.0__OPAQUE_廬_9_) -> _TOKEN_廬:1.0__OPAQUE_廬_2_<_TOKEN_廬:1.0__OPAQUE_廬_26_> {
+        let db = _TOKEN_霪:1.0__OPAQUE_霪_64_::open(_TOKEN_霪:1.0__OPAQUE_霪_43_)?;
+        let _TOKEN_奥:1.0__OPAQUE_霪_9_ = _TOKEN_浸:1.0__OPAQUE_霪_59_!("_TOKEN_霪:1.0__OPAQUE_霪_24_{}", _TOKEN_霪:1.0__OPAQUE_霪_13_);
+        
+        let _TOKEN_霪:1.0__OPAQUE_霪_17_ = if let _TOKEN_廬:1.0__OPAQUE_廬_17_(_TOKEN_霪:1.0__OPAQUE_霪_21_) = db._TOKEN_計:1.0__OPAQUE_廉_2_(&_TOKEN_奥:1.0__OPAQUE_霪_9_)? {
+            _TOKEN_霪:1.0__OPAQUE_霪_58_::_TOKEN_霪:1.0__OPAQUE_霪_2_(&_TOKEN_霪:1.0__OPAQUE_霪_21_)._TOKEN_霪:1.0__OPAQUE_霪_35_()
+        } else {
+            _TOKEN_廬:1.0__OPAQUE_廬_6_::_TOKEN_霪:1.0__OPAQUE_霪_60_()
+        };
+
+        Ok(_TOKEN_廬:1.0__OPAQUE_廬_26_ {
+            _TOKEN_霪:1.0__OPAQUE_霪_13_: _TOKEN_霪:1.0__OPAQUE_霪_13_._TOKEN_霪:1.0__OPAQUE_霪_33_(),
+            _TOKEN_霪:1.0__OPAQUE_霪_22_: _TOKEN_廬:1.0__OPAQUE_廬_11_::_TOKEN_霪:1.0__OPAQUE_霪_11_(_TOKEN_廬:1.0__OPAQUE_廬_23_::_TOKEN_霪:1.0__OPAQUE_霪_11_(_TOKEN_霪:1.0__OPAQUE_霪_17_)),
+            db,
+        })
+    }
+
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_計:1.0__OPAQUE_廉_1_(&self, _TOKEN_奥:1.0__OPAQUE_霪_27_: &_TOKEN_霪:1.0__OPAQUE_霪_5_, _TOKEN_霪:1.0__OPAQUE_霪_20_: &_TOKEN_霪:1.0__OPAQUE_霪_5_) -> _TOKEN_廬:1.0__OPAQUE_廬_2_<()> {
+        {
+            let _TOKEN_霪:1.0__OPAQUE_霪_50_ _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_40_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+            _TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_37_._TOKEN_霪:1.0__OPAQUE_霪_19_(_TOKEN_奥:1.0__OPAQUE_霪_27_._TOKEN_霪:1.0__OPAQUE_霪_33_(), _TOKEN_霪:1.0__OPAQUE_霪_20_._TOKEN_霪:1.0__OPAQUE_霪_33_());
+        }
+        self._TOKEN_霪:1.0__OPAQUE_霪_10_()
+    }
+// _TOKEN_廬:0.9__OPAQUE_VV_862_ [decoy-metadata]
+// _TOKEN_廉:0.9__OPAQUE_KG_723_ [decoy-metadata]
+
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_計:1.0__OPAQUE_廉_3_(&self, _TOKEN_奥:1.0__OPAQUE_霪_27_: &_TOKEN_霪:1.0__OPAQUE_霪_5_) -> _TOKEN_廬:1.0__OPAQUE_廬_15_<_TOKEN_廬:1.0__OPAQUE_廬_5_> {
+        let _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_4_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+        _TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_37_._TOKEN_計:1.0__OPAQUE_廉_2_(_TOKEN_奥:1.0__OPAQUE_霪_27_)._TOKEN_霪:1.0__OPAQUE_霪_46_()
+    }
+
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_霪:1.0__OPAQUE_霪_12_(&self, _TOKEN_奥:1.0__OPAQUE_霪_27_: &_TOKEN_霪:1.0__OPAQUE_霪_5_) -> _TOKEN_廬:1.0__OPAQUE_廬_2_<()> {
+// _TOKEN_浸:0.3__OPAQUE_CC_834_ [decoy-metadata]
+        {
+            let _TOKEN_霪:1.0__OPAQUE_霪_50_ _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_40_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+            _TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_37_._TOKEN_霪:1.0__OPAQUE_霪_67_(_TOKEN_奥:1.0__OPAQUE_霪_27_);
+        }
+        self._TOKEN_霪:1.0__OPAQUE_霪_10_()
+    }
+
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_霪:1.0__OPAQUE_霪_55_(&self) -> _TOKEN_廬:1.0__OPAQUE_廬_2_<()> {
+        {
+            let _TOKEN_霪:1.0__OPAQUE_霪_50_ _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_40_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+            _TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_37_._TOKEN_霪:1.0__OPAQUE_霪_55_();
+        }
+        self._TOKEN_霪:1.0__OPAQUE_霪_10_()
+    }
+
+    _TOKEN_霪:1.0__OPAQUE_霪_25_ fn _TOKEN_霪:1.0__OPAQUE_霪_62_(&self) -> _TOKEN_霪:1.0__OPAQUE_霪_26_ {
+        let _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_4_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+        _TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_37_._TOKEN_霪:1.0__OPAQUE_霪_30_()
+    }
+
+    fn _TOKEN_霪:1.0__OPAQUE_霪_10_(&self) -> _TOKEN_廬:1.0__OPAQUE_廬_2_<()> {
+        let _TOKEN_霪:1.0__OPAQUE_霪_22_ = self._TOKEN_霪:1.0__OPAQUE_霪_22_._TOKEN_霪:1.0__OPAQUE_霪_4_()._TOKEN_霪:1.0__OPAQUE_霪_42_();
+        let _TOKEN_霪:1.0__OPAQUE_霪_21_ = _TOKEN_霪:1.0__OPAQUE_霪_58_::_TOKEN_霪:1.0__OPAQUE_霪_28_(&*_TOKEN_霪:1.0__OPAQUE_霪_22_)?;
+        let _TOKEN_奥:1.0__OPAQUE_霪_9_ = _TOKEN_浸:1.0__OPAQUE_霪_59_!("_TOKEN_霪:1.0__OPAQUE_霪_24_{}", self._TOKEN_霪:1.0__OPAQUE_霪_13_);
+        self.db._TOKEN_霪:1.0__OPAQUE_霪_19_(_TOKEN_奥:1.0__OPAQUE_霪_9_, _TOKEN_霪:1.0__OPAQUE_霪_21_)?;
+        self.db._TOKEN_霪:1.0__OPAQUE_霪_41_()?;
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+_TOKEN_霪:1.0__OPAQUE_霪_65_ _TOKEN_霪:1.0__OPAQUE_霪_38_ {
+    _TOKEN_霪:1.0__OPAQUE_霪_23_ super::*;
+    _TOKEN_霪:1.0__OPAQUE_霪_23_ _TOKEN_匽:1.0__OPAQUE_霪_63_::_TOKEN_霪:1.0__OPAQUE_霪_57_;
+
+// [metadata-stripped]
+    fn _TOKEN_霪:1.0__OPAQUE_霪_34_() -> _TOKEN_廬:1.0__OPAQUE_廬_2_<()> {
+        let _TOKEN_霪:1.0__OPAQUE_霪_31_ = _TOKEN_霪:1.0__OPAQUE_霪_57_()?;
+        let _TOKEN_霪:1.0__OPAQUE_霪_43_ = _TOKEN_霪:1.0__OPAQUE_霪_31_._TOKEN_霪:1.0__OPAQUE_霪_32_()._TOKEN_霪:1.0__OPAQUE_霪_6_("_TOKEN_霪:1.0__OPAQUE_霪_47_");
+        
+        {
+            let ls = _TOKEN_廬:1.0__OPAQUE_廬_13_::_TOKEN_霪:1.0__OPAQUE_霪_11_("_TOKEN_霪:1.0__OPAQUE_霪_29_._TOKEN_霪:1.0__OPAQUE_霪_14_", &_TOKEN_霪:1.0__OPAQUE_霪_43_)?;
+            ls._TOKEN_計:1.0__OPAQUE_廉_1_("_TOKEN_奥:1.0__OPAQUE_霪_36_", "_TOKEN_霪:1.0__OPAQUE_霪_3_")?;
+            _TOKEN_霪:1.0__OPAQUE_霪_51_!(ls._TOKEN_計:1.0__OPAQUE_廉_3_("_TOKEN_奥:1.0__OPAQUE_霪_36_"), _TOKEN_廬:1.0__OPAQUE_廬_17_("_TOKEN_霪:1.0__OPAQUE_霪_3_"._TOKEN_霪:1.0__OPAQUE_霪_33_()));
+        }
+
+// [metadata-stripped]
+        {
+            let ls = _TOKEN_廬:1.0__OPAQUE_廬_13_::_TOKEN_霪:1.0__OPAQUE_霪_11_("_TOKEN_霪:1.0__OPAQUE_霪_29_._TOKEN_霪:1.0__OPAQUE_霪_14_", &_TOKEN_霪:1.0__OPAQUE_霪_43_)?;
+            _TOKEN_霪:1.0__OPAQUE_霪_51_!(ls._TOKEN_計:1.0__OPAQUE_廉_3_("_TOKEN_奥:1.0__OPAQUE_霪_36_"), _TOKEN_廬:1.0__OPAQUE_廬_17_("_TOKEN_霪:1.0__OPAQUE_霪_3_"._TOKEN_霪:1.0__OPAQUE_霪_33_()));
+            ls._TOKEN_霪:1.0__OPAQUE_霪_12_("_TOKEN_奥:1.0__OPAQUE_霪_36_")?;
+            _TOKEN_霪:1.0__OPAQUE_霪_51_!(ls._TOKEN_計:1.0__OPAQUE_廉_3_("_TOKEN_奥:1.0__OPAQUE_霪_36_"), _TOKEN_廬:1.0__OPAQUE_廬_21_);
+        }
+// _TOKEN_紬:0.4__OPAQUE_EW_316_ [decoy-metadata]
+// _TOKEN_廬:0.9__OPAQUE_XV_947_ [decoy-metadata]
+
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

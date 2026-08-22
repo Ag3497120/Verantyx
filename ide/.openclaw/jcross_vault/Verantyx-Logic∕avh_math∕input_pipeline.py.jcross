@@ -1,0 +1,240 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:4FB50990 ver:1778159734
+// ⚠️ One-time schema — expires after response
+
+// _SYM_霰:0.5___jcross_AY_611__ [decoy-metadata]
+import _SYM_霰:1.0___jcross_霰_109__
+import re
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_50__ import _SYM_庸:1.0___jcross_庸_30__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_9__ import _SYM_庸:1.0___jcross_庸_39__, _SYM_庸:1.0___jcross_庸_35__, _SYM_庸:1.0___jcross_庸_40__, _SYM_庸:1.0___jcross_庸_15__
+
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_35__._SYM_節:1.0___jcross_霰_12__ import _SYM_霰:1.0___jcross_霰_28__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_35__._SYM_霰:1.0___jcross_霰_43__ import (
+    _SYM_霰:1.0___jcross_霰_107__,
+    _SYM_霰:1.0___jcross_霰_122__,
+)
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_35__._SYM_濫:1.0___jcross_霰_71__ import (
+    _SYM_濫:1.0___jcross_霰_69__,
+    _SYM_濫:1.0___jcross_霰_17__,
+)
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_35__._SYM_霰:1.0___jcross_霰_125__ import _SYM_霰:1.0___jcross_霰_19__, _SYM_霰:1.0___jcross_霰_96__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_83__._SYM_濫:1.0___jcross_霰_46__ import _SYM_濫:1.0___jcross_霰_108__
+
+try:
+    _SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_101__ import _SYM_節:1.0___jcross_霰_136__ as _SYM_霰:1.0___jcross_霰_18__
+_SYM_霰:1.0___jcross_霰_25__ _SYM_庸:1.0___jcross_庸_37__:
+    _SYM_霰:1.0___jcross_霰_18__ = _SYM_庸:1.0___jcross_庸_28__
+
+try:
+    _SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_81__._SYM_霰:1.0___jcross_霰_36__ import (
+        _SYM_濫:1.0___jcross_霰_116__ as _SYM_濫:1.0___jcross_霰_130__,
+        _SYM_霰:1.0___jcross_霰_2__ as _SYM_霰:1.0___jcross_霰_115__,
+        _SYM_濫:1.0___jcross_霰_138__ as _SYM_濫:1.0___jcross_霰_32__,
+    )
+_SYM_霰:1.0___jcross_霰_25__ _SYM_庸:1.0___jcross_庸_37__:
+    _SYM_濫:1.0___jcross_霰_130__ = _SYM_庸:1.0___jcross_庸_28__
+    _SYM_霰:1.0___jcross_霰_115__ = _SYM_庸:1.0___jcross_庸_28__
+    _SYM_濫:1.0___jcross_霰_32__ = _SYM_庸:1.0___jcross_庸_28__
+
+_SYM_伏:1.0___jcross_霰_152__ = re._SYM_霰:1.0___jcross_霰_118__(r'(?:[]|<>)|'|~|&||'|->|<->')
+_SYM_霰:1.0___jcross_霰_82__ = re._SYM_霰:1.0___jcross_霰_118__(
+    r"^\s*(【入力ルール】|_SYM_庸:1.0___jcross_庸_21__:\s*|_SYM_庸:1.0___jcross_庸_7__ _SYM_霰:1.0___jcross_霰_126__:|_SYM_庸:1.0___jcross_庸_2__\b|_SYM_庸:1.0___jcross_庸_17__\b|_SYM_庸:1.0___jcross_庸_12__ _SYM_庸:1.0___jcross_庸_9__:|_SYM_庸:1.0___jcross_庸_20__ _SYM_庸:1.0___jcross_庸_16__|_SYM_庸:1.0___jcross_庸_3__|_SYM_庸:1.0___jcross_庸_18__ / _SYM_庸:1.0___jcross_庸_41__|_SYM_庸:1.0___jcross_庸_19__ _SYM_庸:1.0___jcross_庸_26__|_SYM_伏:1.0___jcross_庸_29__:\s*q_|_SYM_庸:1.0___jcross_庸_33__ _SYM_庸:1.0___jcross_庸_5__|_SYM_庸:1.0___jcross_庸_22__ _SYM_庸:1.0___jcross_庸_34__|_SYM_庸:1.0___jcross_庸_2__ \(_SYM_庸:1.0___jcross_庸_34__\)|_SYM_霰:1.0___jcross_霰_24__:)\b",
+// _SYM_濫:0.8___jcross_ZL_722__ [decoy-metadata]
+    re._SYM_庸:1.0___jcross_庸_4__,
+)
+
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_霰:1.0___jcross_霰_13__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_霰:1.0___jcross_霰_21__:
+    _SYM_霰:1.0___jcross_霰_54__ = []
+    for _SYM_霰:1.0___jcross_霰_30__ in (_SYM_霰:1.0___jcross_霰_66__ or "")._SYM_霰:1.0___jcross_霰_143__():
+        if _SYM_霰:1.0___jcross_霰_82__._SYM_霰:1.0___jcross_霰_16__(_SYM_霰:1.0___jcross_霰_30__):
+            continue
+        _SYM_霰:1.0___jcross_霰_54__._SYM_霰:1.0___jcross_霰_3__(_SYM_霰:1.0___jcross_霰_30__)
+    return "\n"._SYM_霰:1.0___jcross_霰_65__(_SYM_霰:1.0___jcross_霰_54__)._SYM_霰:1.0___jcross_霰_110__()
+
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_節:1.0___jcross_霰_136__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_庸:1.0___jcross_庸_35__[_SYM_霰:1.0___jcross_霰_21__, _SYM_庸:1.0___jcross_庸_39__]:
+    if _SYM_霰:1.0___jcross_霰_18__:
+        _SYM_霰:1.0___jcross_霰_52__ = _SYM_霰:1.0___jcross_霰_18__(_SYM_霰:1.0___jcross_霰_66__)
+        return {
+            "_SYM_霰:1.0___jcross_霰_87__": _SYM_霰:1.0___jcross_霰_52__._SYM_霰:1.0___jcross_霰_87__,
+            "_SYM_霰:1.0___jcross_霰_102__": _SYM_霰:1.0___jcross_霰_52__._SYM_霰:1.0___jcross_霰_102__,
+            "_SYM_濫:1.0___jcross_霰_64__": _SYM_霰:1.0___jcross_霰_52__._SYM_濫:1.0___jcross_霰_64__,
+            "_SYM_霰:1.0___jcross_霰_104__": _SYM_霰:1.0___jcross_霰_52__._SYM_霰:1.0___jcross_霰_104__,
+        }
+    return {"_SYM_霰:1.0___jcross_霰_87__": _SYM_庸:1.0___jcross_庸_28__, "_SYM_霰:1.0___jcross_霰_102__": [], "_SYM_濫:1.0___jcross_霰_64__": _SYM_庸:1.0___jcross_庸_28__, "_SYM_霰:1.0___jcross_霰_104__": _SYM_霰:1.0___jcross_霰_66__}
+
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_濫:1.0___jcross_霰_116__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]:
+    if _SYM_濫:1.0___jcross_霰_130__:
+        return _SYM_濫:1.0___jcross_霰_130__(_SYM_霰:1.0___jcross_霰_66__)
+    return []
+
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_霰:1.0___jcross_霰_53__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_霰:1.0___jcross_霰_21__:
+    """
+    入力テキストからドメインを推定する（最優先ルール）。
+    """
+    t = (_SYM_霰:1.0___jcross_霰_66__ or "")._SYM_節:1.0___jcross_霰_45__()
+    
+// [metadata-stripped]
+    _SYM_伏:1.0___jcross_霰_4__ = [
+// _SYM_錬:0.1___jcross_KE_447__ [decoy-metadata]
+        "_SYM_霰:1.0___jcross_霰_20__", "_SYM_霰:1.0___jcross_霰_73__", "_SYM_霰:1.0___jcross_霰_124__", "_SYM_霰:1.0___jcross_霰_90__", "_SYM_霰:1.0___jcross_霰_11__", "_SYM_霰:1.0___jcross_霰_113__",
+        "民法", "刑法", "法律", "条文", "規定", "裁判", "判例", "契約", "売主", "買主"
+    ]
+    if any(k in t for k in _SYM_伏:1.0___jcross_霰_4__):
+        return "_SYM_霰:1.0___jcross_霰_20__"
+
+// [metadata-stripped]
+    if re._SYM_霰:1.0___jcross_霰_16__(r"\d", t) _SYM_霰:1.0___jcross_霰_78__ any(op in t for op in ["+", "-", "*", "/", "="]):
+        if _SYM_霰:1.0___jcross_霰_22__ any(_SYM_霰:1.0___jcross_霰_112__ in t for _SYM_霰:1.0___jcross_霰_112__ in ["[]", "<>", "->", "_SYM_濫:1.0___jcross_霰_88__", "_SYM_霰:1.0___jcross_霰_67__", "_SYM_霰:1.0___jcross_霰_27__", "_SYM_霰:1.0___jcross_霰_150__"]):
+            return "_SYM_霰:1.0___jcross_霰_41__"
+
+// [metadata-stripped]
+    if _SYM_霰:1.0___jcross_霰_115__:
+        d = _SYM_霰:1.0___jcross_霰_115__(_SYM_霰:1.0___jcross_霰_66__)
+        if d _SYM_霰:1.0___jcross_霰_78__ d != "_SYM_霰:1.0___jcross_霰_14__":
+            return d
+
+// _SYM_伏:0.5___jcross_DG_594__ [decoy-metadata]
+// [metadata-stripped]
+    if ("∀" in t) or ("∃" in t) or ("_SYM_節:1.0___jcross_霰_1__" in t) or ("_SYM_霰:1.0___jcross_霰_39__-_SYM_節:1.0___jcross_霰_40__" in t) or ("述語" in t):
+        return "_SYM_霰:1.0___jcross_霰_37__"
+    if ("_SYM_霰:1.0___jcross_霰_94__" in t) or ("□" in t) or ("◇" in t) or ("[]" in t) or ("様相" in t):
+        return "_SYM_霰:1.0___jcross_霰_55__"
+    if ("_SYM_霰:1.0___jcross_霰_140__" in t) or ("恒真" in t) or ("真理値" in t):
+        return "_SYM_霰:1.0___jcross_霰_141__"
+    
+    return "_SYM_霰:1.0___jcross_霰_14__"
+
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_濫:1.0___jcross_霰_138__(s: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_霰:1.0___jcross_霰_21__:
+    if _SYM_濫:1.0___jcross_霰_32__:
+        return _SYM_濫:1.0___jcross_霰_32__(s)
+    return (s or "")._SYM_霰:1.0___jcross_霰_110__()
+
+// [metadata-stripped]
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_濫:1.0___jcross_霰_29__(s: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_霰:1.0___jcross_霰_21__:
+    s = (s or "")._SYM_霰:1.0___jcross_霰_110__()
+    s = s._SYM_霰:1.0___jcross_霰_23__("\_SYM_霰:1.0___jcross_霰_58__", "")._SYM_霰:1.0___jcross_霰_23__("\_SYM_霰:1.0___jcross_霰_33__", "")
+    
+// [metadata-stripped]
+    if _SYM_霰:1.0___jcross_霰_93__(s) > 2 _SYM_霰:1.0___jcross_霰_78__ ((s[0] == '"' _SYM_霰:1.0___jcross_霰_78__ s[-1] == '"') or (s[0] == '“' _SYM_霰:1.0___jcross_霰_78__ s[-1] == '”')):
+        s = s[1:-1]._SYM_霰:1.0___jcross_霰_110__()
+
+// [metadata-stripped]
+    s = s._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_72__", "&")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_10__", "|")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_147__", "~")
+    s = s._SYM_霰:1.0___jcross_霰_23__(r"\to", "->")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_8__", "->")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_106__", "<->")
+    s = s._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_27__", "[]")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_150__", "<>")
+    
+    s = re._SYM_霰:1.0___jcross_霰_59__(r"\_SYM_霰:1.0___jcross_霰_74__\b", "[]", s, _SYM_霰:1.0___jcross_霰_132__=re._SYM_庸:1.0___jcross_庸_4__)
+    s = re._SYM_霰:1.0___jcross_霰_59__(r"\_SYM_霰:1.0___jcross_霰_79__\b", "<>", s, _SYM_霰:1.0___jcross_霰_132__=re._SYM_庸:1.0___jcross_庸_4__)
+    s = s._SYM_霰:1.0___jcross_霰_23__("□", "[]")._SYM_霰:1.0___jcross_霰_23__("◇", "<>")
+    s = s._SYM_霰:1.0___jcross_霰_23__("→", "->")._SYM_霰:1.0___jcross_霰_23__("−", "-")._SYM_霰:1.0___jcross_霰_23__("÷", "/")
+    
+// [metadata-stripped]
+    if s._SYM_霰:1.0___jcross_霰_114__("->"): s = s[2:]._SYM_霰:1.0___jcross_霰_110__()
+    if s._SYM_霰:1.0___jcross_霰_114__("→"): s = s[1:]._SYM_霰:1.0___jcross_霰_110__()
+    
+// [metadata-stripped]
+    s = re._SYM_霰:1.0___jcross_霰_59__(r"\s+", "", s)
+    
+    if s in ("[]", "<>", "->", ""):
+        return ""
+    return s
+
+@_SYM_霰:1.0___jcross_霰_34__
+class _SYM_庸:1.0___jcross_庸_31__:
+    _SYM_霰:1.0___jcross_霰_87__: _SYM_霰:1.0___jcross_霰_21__
+    _SYM_濫:1.0___jcross_霰_84__: _SYM_庸:1.0___jcross_庸_15__[_SYM_霰:1.0___jcross_霰_21__]
+    _SYM_霰:1.0___jcross_霰_51__: _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]
+    _SYM_霰:1.0___jcross_霰_102__: _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]
+    _SYM_霰:1.0___jcross_霰_85__: _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]
+    _SYM_霰:1.0___jcross_霰_95__: _SYM_庸:1.0___jcross_庸_35__[_SYM_霰:1.0___jcross_霰_21__, _SYM_庸:1.0___jcross_庸_39__] = _SYM_霰:1.0___jcross_霰_103__(_SYM_霰:1.0___jcross_霰_47__=_SYM_霰:1.0___jcross_霰_121__)
+    _SYM_霰:1.0___jcross_霰_62__: _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__] = _SYM_霰:1.0___jcross_霰_103__(_SYM_霰:1.0___jcross_霰_47__=_SYM_霰:1.0___jcross_霰_142__)
+    _SYM_霰:1.0___jcross_霰_31__: _SYM_庸:1.0___jcross_庸_13__ = _SYM_庸:1.0___jcross_庸_13__._SYM_庸:1.0___jcross_庸_25__
+    _SYM_霰:1.0___jcross_霰_75__: _SYM_庸:1.0___jcross_庸_36__ = _SYM_庸:1.0___jcross_庸_36__._SYM_庸:1.0___jcross_庸_8__
+// _SYM_伏:0.3___jcross_XX_169__ [decoy-metadata]
+    _SYM_霰:1.0___jcross_霰_49__: _SYM_庸:1.0___jcross_庸_15__[_SYM_霰:1.0___jcross_霰_21__] = _SYM_庸:1.0___jcross_庸_28__
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_霰:1.0___jcross_霰_120__(_SYM_霰:1.0___jcross_霰_135__: _SYM_霰:1.0___jcross_霰_21__, _SYM_濫:1.0___jcross_霰_84__: _SYM_庸:1.0___jcross_庸_15__[_SYM_霰:1.0___jcross_霰_21__], _SYM_霰:1.0___jcross_霰_102__: _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]) -> _SYM_庸:1.0___jcross_庸_36__:
+    q = (_SYM_霰:1.0___jcross_霰_135__ or "")._SYM_節:1.0___jcross_霰_45__()
+    _SYM_伏:1.0___jcross_霰_146__ = ["_SYM_霰:1.0___jcross_霰_97__ is", "_SYM_霰:1.0___jcross_霰_105__", "_SYM_霰:1.0___jcross_霰_80__", "_SYM_霰:1.0___jcross_霰_61__ of", "_SYM_霰:1.0___jcross_霰_60__", "_SYM_霰:1.0___jcross_霰_91__", "とは", "意味"]
+    if any(k in q for k in _SYM_伏:1.0___jcross_霰_146__) or q._SYM_霰:1.0___jcross_霰_5__("?"):
+        return _SYM_庸:1.0___jcross_庸_36__._SYM_庸:1.0___jcross_庸_10__
+    return _SYM_庸:1.0___jcross_庸_36__._SYM_庸:1.0___jcross_庸_8__
+
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_44__._SYM_節:1.0___jcross_霰_144__ import _SYM_節:1.0___jcross_庸_23__
+// _SYM_紬:0.2___jcross_DD_327__ [decoy-metadata]
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_99__._SYM_霰:1.0___jcross_霰_31__ import _SYM_庸:1.0___jcross_庸_13__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_99__._SYM_霰:1.0___jcross_霰_75__ import _SYM_庸:1.0___jcross_庸_36__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_83__._SYM_濫:1.0___jcross_霰_46__ import _SYM_濫:1.0___jcross_霰_129__, _SYM_濫:1.0___jcross_霰_108__
+_SYM_霰:1.0___jcross_霰_139__ _SYM_霰:1.0___jcross_霰_111__._SYM_霰:1.0___jcross_霰_70__ import _SYM_霰:1.0___jcross_霰_70__
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_霰:1.0___jcross_霰_77__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__, _SYM_霰:1.0___jcross_霰_134__: _SYM_霰:1.0___jcross_霰_153__ = 0.25) -> _SYM_庸:1.0___jcross_庸_31__:
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_66__ = _SYM_霰:1.0___jcross_霰_66__._SYM_霰:1.0___jcross_霰_23__("“", '"')._SYM_霰:1.0___jcross_霰_23__("”", '"')._SYM_霰:1.0___jcross_霰_23__("‘", "'")._SYM_霰:1.0___jcross_霰_23__("’", "'")
+    _SYM_霰:1.0___jcross_霰_66__ = _SYM_霰:1.0___jcross_霰_66__._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_72__", "&")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_10__", "|")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_147__", "~")
+    _SYM_霰:1.0___jcross_霰_66__ = _SYM_霰:1.0___jcross_霰_66__._SYM_霰:1.0___jcross_霰_23__(r"\to", "->")._SYM_霰:1.0___jcross_霰_23__(r"\_SYM_霰:1.0___jcross_霰_8__", "->")
+    
+    _SYM_霰:1.0___jcross_霰_62__ = []
+    
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_87__ = _SYM_霰:1.0___jcross_霰_53__(_SYM_霰:1.0___jcross_霰_66__)
+    _SYM_霰:1.0___jcross_霰_38__(f"[_SYM_庸:1.0___jcross_庸_14__ _SYM_庸:1.0___jcross_庸_1__] _SYM_庸:1.0___jcross_庸_27__ _SYM_霰:1.0___jcross_霰_87__: {_SYM_霰:1.0___jcross_霰_87__}")
+    
+// [metadata-stripped]
+    _SYM_節:1.0___jcross_霰_144__ = _SYM_節:1.0___jcross_庸_23__()
+    _SYM_霰:1.0___jcross_霰_123__ = _SYM_節:1.0___jcross_霰_144__._SYM_霰:1.0___jcross_霰_26__(_SYM_霰:1.0___jcross_霰_66__)
+    _SYM_霰:1.0___jcross_霰_137__ = _SYM_霰:1.0___jcross_霰_123__._SYM_節:1.0___jcross_錬_2__("_SYM_霰:1.0___jcross_霰_51__", [])
+    
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_102__ = _SYM_霰:1.0___jcross_霰_117__(_SYM_霰:1.0___jcross_霰_66__)
+    _SYM_霰:1.0___jcross_霰_6__ = _SYM_霰:1.0___jcross_霰_123__._SYM_節:1.0___jcross_錬_2__("_SYM_霰:1.0___jcross_霰_48__", [])
+    for a in _SYM_霰:1.0___jcross_霰_6__:
+        if a _SYM_霰:1.0___jcross_霰_22__ in _SYM_霰:1.0___jcross_霰_102__: _SYM_霰:1.0___jcross_霰_102__._SYM_霰:1.0___jcross_霰_3__(a)
+    
+// [metadata-stripped]
+    _SYM_濫:1.0___jcross_霰_84__ = _SYM_庸:1.0___jcross_庸_28__
+    _SYM_霰:1.0___jcross_霰_51__ = [c._SYM_節:1.0___jcross_錬_2__("_SYM_霰:1.0___jcross_霰_15__") if _SYM_霰:1.0___jcross_霰_57__(c, _SYM_霰:1.0___jcross_霰_121__) else c for c in _SYM_霰:1.0___jcross_霰_137__]
+    _SYM_霰:1.0___jcross_霰_51__ = [c for c in _SYM_霰:1.0___jcross_霰_51__ if c]
+    
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_56__, _SYM_濫:1.0___jcross_霰_148__ = _SYM_濫:1.0___jcross_霰_108__(_SYM_霰:1.0___jcross_霰_137__, _SYM_霰:1.0___jcross_霰_66__)
+    if _SYM_霰:1.0___jcross_霰_56__:
+        _SYM_濫:1.0___jcross_霰_84__ = _SYM_霰:1.0___jcross_霰_56__["_SYM_霰:1.0___jcross_霰_15__"]
+    
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_75__ = _SYM_霰:1.0___jcross_霰_120__(_SYM_霰:1.0___jcross_霰_66__, _SYM_濫:1.0___jcross_霰_84__, _SYM_霰:1.0___jcross_霰_102__)
+    
+// [metadata-stripped]
+    if _SYM_霰:1.0___jcross_霰_87__ == "_SYM_霰:1.0___jcross_霰_20__" or _SYM_霰:1.0___jcross_霰_75__ == _SYM_庸:1.0___jcross_庸_36__._SYM_庸:1.0___jcross_庸_10__:
+        if _SYM_霰:1.0___jcross_霰_22__ _SYM_濫:1.0___jcross_霰_84__:
+            _SYM_濫:1.0___jcross_霰_84__ = _SYM_霰:1.0___jcross_霰_66__._SYM_霰:1.0___jcross_霰_110__()
+            _SYM_霰:1.0___jcross_霰_62__._SYM_霰:1.0___jcross_霰_3__(f"[救済] _SYM_濫:1.0___jcross_霰_84__ _SYM_節:1.0___jcross_錬_1__ to _SYM_霰:1.0___jcross_霰_76__ _SYM_霰:1.0___jcross_霰_66__ (_SYM_霰:1.0___jcross_霰_98__={_SYM_霰:1.0___jcross_霰_75__._SYM_霰:1.0___jcross_霰_149__})")
+        if _SYM_霰:1.0___jcross_霰_66__ _SYM_霰:1.0___jcross_霰_22__ in _SYM_霰:1.0___jcross_霰_51__:
+            _SYM_霰:1.0___jcross_霰_51__._SYM_霰:1.0___jcross_霰_3__(_SYM_霰:1.0___jcross_霰_66__)
+
+// [metadata-stripped]
+    _SYM_霰:1.0___jcross_霰_31__ = _SYM_庸:1.0___jcross_庸_13__._SYM_節:1.0___jcross_錬_3__ if "_SYM_霰:1.0___jcross_霰_86__" in _SYM_霰:1.0___jcross_霰_66__._SYM_節:1.0___jcross_霰_45__() or "_SYM_霰:1.0___jcross_霰_92__" in _SYM_霰:1.0___jcross_霰_66__._SYM_節:1.0___jcross_霰_45__() else _SYM_庸:1.0___jcross_庸_13__._SYM_庸:1.0___jcross_庸_25__
+    
+    return _SYM_庸:1.0___jcross_庸_31__(
+        _SYM_霰:1.0___jcross_霰_87__=_SYM_霰:1.0___jcross_霰_87__,
+        _SYM_濫:1.0___jcross_霰_84__=_SYM_濫:1.0___jcross_霰_84__,
+        _SYM_霰:1.0___jcross_霰_51__=_SYM_霰:1.0___jcross_霰_51__,
+        _SYM_霰:1.0___jcross_霰_102__=_SYM_霰:1.0___jcross_霰_102__,
+        _SYM_霰:1.0___jcross_霰_85__=["p"], # 簡易化
+        _SYM_霰:1.0___jcross_霰_31__=_SYM_霰:1.0___jcross_霰_31__,
+        _SYM_霰:1.0___jcross_霰_75__=_SYM_霰:1.0___jcross_霰_75__
+    )
+
+_SYM_霰:1.0___jcross_霰_89__ _SYM_霰:1.0___jcross_霰_117__(_SYM_霰:1.0___jcross_霰_66__: _SYM_霰:1.0___jcross_霰_21__) -> _SYM_庸:1.0___jcross_庸_40__[_SYM_霰:1.0___jcross_霰_21__]:
+    t = (_SYM_霰:1.0___jcross_霰_66__ or "")._SYM_節:1.0___jcross_霰_45__()
+    _SYM_霰:1.0___jcross_霰_7__ = []
+    if "_SYM_霰:1.0___jcross_霰_131__" in t: _SYM_霰:1.0___jcross_霰_7__._SYM_霰:1.0___jcross_霰_3__("_SYM_霰:1.0___jcross_霰_42__:_SYM_霰:1.0___jcross_霰_131__")
+    if "_SYM_霰:1.0___jcross_霰_128__" in t: _SYM_霰:1.0___jcross_霰_7__._SYM_霰:1.0___jcross_霰_3__("_SYM_霰:1.0___jcross_霰_42__:_SYM_霰:1.0___jcross_霰_128__")
+    return _SYM_霰:1.0___jcross_霰_7__
+
+// POLYMORPHIC_JCROSS_END

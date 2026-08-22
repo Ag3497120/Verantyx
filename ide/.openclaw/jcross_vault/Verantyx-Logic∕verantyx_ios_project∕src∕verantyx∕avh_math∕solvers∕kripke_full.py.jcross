@@ -1,0 +1,185 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:CE52B346 ver:1778159683
+// ⚠️ One-time schema — expires after response
+
+_JCROSS_霤:1.0__OPAQUE_霤_78_ _JCROSS_霤:1.0__OPAQUE_霤_83_ import _JCROSS_霤:1.0__OPAQUE_霤_18_
+
+_JCROSS_霤:1.0__OPAQUE_霤_78_ _JCROSS_霤:1.0__OPAQUE_霤_60_ import _JCROSS_霤:1.0__OPAQUE_霤_26_
+_JCROSS_霤:1.0__OPAQUE_霤_78_ _JCROSS_霤:1.0__OPAQUE_霤_2_ import _JCROSS_廂:1.0__OPAQUE_廂_15_, _JCROSS_廂:1.0__OPAQUE_廂_17_, _JCROSS_廂:1.0__OPAQUE_廂_5_, _JCROSS_技:1.0__OPAQUE_縁_1_, _JCROSS_廂:1.0__OPAQUE_廂_2_
+import _JCROSS_霤:1.0__OPAQUE_霤_42_
+
+_JCROSS_霤:1.0__OPAQUE_霤_78_ _JCROSS_霤:1.0__OPAQUE_霤_65_._JCROSS_霤:1.0__OPAQUE_霤_49_._JCROSS_霤:1.0__OPAQUE_霤_85_ import _JCROSS_廂:1.0__OPAQUE_廂_10_, _JCROSS_廂:1.0__OPAQUE_廂_9_, _JCROSS_廂:1.0__OPAQUE_廂_7_, Or, _JCROSS_廂:1.0__OPAQUE_廂_11_, _JCROSS_廂:1.0__OPAQUE_廂_6_, _JCROSS_廂:1.0__OPAQUE_廂_19_, _JCROSS_廂:1.0__OPAQUE_廂_4_, _JCROSS_廂:1.0__OPAQUE_廂_8_
+
+
+@_JCROSS_霤:1.0__OPAQUE_霤_26_
+class _JCROSS_廂:1.0__OPAQUE_廂_13_:
+    _JCROSS_霤:1.0__OPAQUE_霤_4_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_70_]
+    R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]]
+    V: _JCROSS_廂:1.0__OPAQUE_廂_15_[_JCROSS_霤:1.0__OPAQUE_霤_11_, _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_霤:1.0__OPAQUE_霤_70_]]
+
+
+@_JCROSS_霤:1.0__OPAQUE_霤_26_
+class _JCROSS_廂:1.0__OPAQUE_廂_16_:
+    _JCROSS_霤:1.0__OPAQUE_霤_43_: _JCROSS_霤:1.0__OPAQUE_霤_11_  # _JCROSS_霤:1.0__OPAQUE_霤_19_ | _JCROSS_霤:1.0__OPAQUE_霤_46_ | _JCROSS_霤:1.0__OPAQUE_霤_6_
+    _JCROSS_霤:1.0__OPAQUE_霤_57_: _JCROSS_廂:1.0__OPAQUE_廂_5_[_JCROSS_廂:1.0__OPAQUE_廂_15_[_JCROSS_霤:1.0__OPAQUE_霤_11_, _JCROSS_霤:1.0__OPAQUE_霤_63_]] = _JCROSS_廂:1.0__OPAQUE_廂_12_
+    _JCROSS_霤:1.0__OPAQUE_霤_38_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_11_] = _JCROSS_廂:1.0__OPAQUE_廂_12_
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_21_(R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]], w: _JCROSS_霤:1.0__OPAQUE_霤_70_) -> _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_70_]:
+    return [v for (x, v) in R if x == w]
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_: _JCROSS_廂:1.0__OPAQUE_廂_8_, w: _JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_41_: _JCROSS_廂:1.0__OPAQUE_廂_13_) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_10_):
+        return w in _JCROSS_霤:1.0__OPAQUE_霤_41_.V._JCROSS_技:1.0__OPAQUE_縁_3_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_17_, _JCROSS_技:1.0__OPAQUE_縁_2_())
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_9_):
+        return _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_29_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_7_):
+        return _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_39_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_) _JCROSS_霤:1.0__OPAQUE_霤_48_ _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_22_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+// _JCROSS_医:0.1__OPAQUE_XC_822_ [decoy-metadata]
+// _JCROSS_封:0.9__OPAQUE_CV_818_ [decoy-metadata]
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, Or):
+// _JCROSS_廂:0.2__OPAQUE_EG_637_ [decoy-metadata]
+        return _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_39_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_) or _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_22_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_11_):
+        a = _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_39_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+        b = _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_22_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+        return (_JCROSS_霤:1.0__OPAQUE_霤_14_ a) or b
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_6_):
+        a = _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_39_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+        b = _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_22_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_)
+        return a == b
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_19_):
+        _JCROSS_霤:1.0__OPAQUE_霤_71_ = _JCROSS_霤:1.0__OPAQUE_霤_21_(_JCROSS_霤:1.0__OPAQUE_霤_41_.R, w)
+        return _JCROSS_霤:1.0__OPAQUE_霤_55_(_JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_29_, v, _JCROSS_霤:1.0__OPAQUE_霤_41_) for v in _JCROSS_霤:1.0__OPAQUE_霤_71_)
+    if _JCROSS_霤:1.0__OPAQUE_霤_37_(_JCROSS_霤:1.0__OPAQUE_霤_25_, _JCROSS_廂:1.0__OPAQUE_廂_4_):
+        _JCROSS_霤:1.0__OPAQUE_霤_71_ = _JCROSS_霤:1.0__OPAQUE_霤_21_(_JCROSS_霤:1.0__OPAQUE_霤_41_.R, w)
+        return any(_JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_._JCROSS_霤:1.0__OPAQUE_霤_29_, v, _JCROSS_霤:1.0__OPAQUE_霤_41_) for v in _JCROSS_霤:1.0__OPAQUE_霤_71_)
+    return _JCROSS_廂:1.0__OPAQUE_廂_18_
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_12_(_JCROSS_霤:1.0__OPAQUE_霤_4_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_70_], R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]]) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    return _JCROSS_霤:1.0__OPAQUE_霤_55_((w, w) in R for w in _JCROSS_霤:1.0__OPAQUE_霤_4_)
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_72_(R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]]) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    return _JCROSS_霤:1.0__OPAQUE_霤_55_((b, a) in R for (a, b) in R)
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_67_(R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]]) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    for (a, b) in R:
+        for (c, d) in R:
+            if b == c _JCROSS_霤:1.0__OPAQUE_霤_48_ (a, d) _JCROSS_霤:1.0__OPAQUE_霤_14_ in R:
+                return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    return _JCROSS_廂:1.0__OPAQUE_廂_3_
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_69_(_JCROSS_霤:1.0__OPAQUE_霤_4_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_70_], R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]]) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    for w in _JCROSS_霤:1.0__OPAQUE_霤_4_:
+        if _JCROSS_霤:1.0__OPAQUE_霤_14_ any(x == w for (x, _) in R):
+            return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    return _JCROSS_廂:1.0__OPAQUE_廂_3_
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_31_(_JCROSS_霤:1.0__OPAQUE_霤_4_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_70_], R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]], _JCROSS_霤:1.0__OPAQUE_霤_61_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_11_]) -> _JCROSS_霤:1.0__OPAQUE_霤_34_:
+    if "_JCROSS_霤:1.0__OPAQUE_霤_73_" in _JCROSS_霤:1.0__OPAQUE_霤_61_ _JCROSS_霤:1.0__OPAQUE_霤_48_ _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_12_(_JCROSS_霤:1.0__OPAQUE_霤_4_, R):
+        return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    if "_JCROSS_霤:1.0__OPAQUE_霤_35_" in _JCROSS_霤:1.0__OPAQUE_霤_61_ _JCROSS_霤:1.0__OPAQUE_霤_48_ _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_72_(R):
+        return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    if "_JCROSS_霤:1.0__OPAQUE_霤_75_" in _JCROSS_霤:1.0__OPAQUE_霤_61_ _JCROSS_霤:1.0__OPAQUE_霤_48_ _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_67_(R):
+        return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    if "_JCROSS_霤:1.0__OPAQUE_霤_66_" in _JCROSS_霤:1.0__OPAQUE_霤_61_ _JCROSS_霤:1.0__OPAQUE_霤_48_ _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_69_(_JCROSS_霤:1.0__OPAQUE_霤_4_, R):
+        return _JCROSS_廂:1.0__OPAQUE_廂_18_
+    return _JCROSS_廂:1.0__OPAQUE_廂_3_
+
+
+_JCROSS_霤:1.0__OPAQUE_霤_54_ _JCROSS_霤:1.0__OPAQUE_霤_80_(
+    _JCROSS_霤:1.0__OPAQUE_霤_25_: _JCROSS_廂:1.0__OPAQUE_廂_8_,
+    _JCROSS_霤:1.0__OPAQUE_霤_53_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_11_],
+    _JCROSS_霤:1.0__OPAQUE_霤_61_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_11_],
+    _JCROSS_霤:1.0__OPAQUE_霤_58_: _JCROSS_霤:1.0__OPAQUE_霤_70_ = 3,
+    _JCROSS_霤:1.0__OPAQUE_霤_30_: _JCROSS_霤:1.0__OPAQUE_霤_70_ = 6,
+) -> _JCROSS_廂:1.0__OPAQUE_廂_16_:
+    _JCROSS_霤:1.0__OPAQUE_霤_38_: _JCROSS_廂:1.0__OPAQUE_廂_17_[_JCROSS_霤:1.0__OPAQUE_霤_11_] = []
+    _JCROSS_霤:1.0__OPAQUE_霤_53_ = [a for a in _JCROSS_霤:1.0__OPAQUE_霤_53_ if a._JCROSS_霤:1.0__OPAQUE_霤_47_()]
+    if _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_53_:
+        _JCROSS_霤:1.0__OPAQUE_霤_53_ = ["p"]
+    
+// [metadata-stripped]
+    _JCROSS_霤:1.0__OPAQUE_霤_15_ = []
+    for a in _JCROSS_霤:1.0__OPAQUE_霤_61_:
+        _JCROSS_霤:1.0__OPAQUE_霤_7_ = a._JCROSS_霤:1.0__OPAQUE_霤_16_("_JCROSS_霤:1.0__OPAQUE_霤_32_:", "")._JCROSS_霤:1.0__OPAQUE_霤_64_()._JCROSS_技:1.0__OPAQUE_霤_33_()
+// [metadata-stripped]
+        if _JCROSS_霤:1.0__OPAQUE_霤_7_._JCROSS_霤:1.0__OPAQUE_霤_68_("_JCROSS_霤:1.0__OPAQUE_霤_41_:"):
+            _JCROSS_霤:1.0__OPAQUE_霤_84_ = _JCROSS_霤:1.0__OPAQUE_霤_7_._JCROSS_霤:1.0__OPAQUE_霤_74_(":")[1]
+            if _JCROSS_霤:1.0__OPAQUE_霤_84_ == "k4": _JCROSS_霤:1.0__OPAQUE_霤_15_._JCROSS_霤:1.0__OPAQUE_霤_1_("_JCROSS_霤:1.0__OPAQUE_霤_75_")
+            _JCROSS_浸:1.0__OPAQUE_霤_77_ _JCROSS_霤:1.0__OPAQUE_霤_84_ == "s4": _JCROSS_霤:1.0__OPAQUE_霤_15_._JCROSS_霤:1.0__OPAQUE_霤_52_(["_JCROSS_霤:1.0__OPAQUE_霤_73_", "_JCROSS_霤:1.0__OPAQUE_霤_75_"])
+// _JCROSS_医:0.2__OPAQUE_DY_840_ [decoy-metadata]
+            _JCROSS_浸:1.0__OPAQUE_霤_77_ _JCROSS_霤:1.0__OPAQUE_霤_84_ == "s5": _JCROSS_霤:1.0__OPAQUE_霤_15_._JCROSS_霤:1.0__OPAQUE_霤_52_(["_JCROSS_霤:1.0__OPAQUE_霤_73_", "_JCROSS_霤:1.0__OPAQUE_霤_75_", "_JCROSS_霤:1.0__OPAQUE_霤_20_"])
+        else:
+            _JCROSS_霤:1.0__OPAQUE_霤_15_._JCROSS_霤:1.0__OPAQUE_霤_1_(_JCROSS_霤:1.0__OPAQUE_霤_7_)
+    
+// _JCROSS_医:0.1__OPAQUE_DD_995_ [decoy-metadata]
+// [metadata-stripped]
+    _JCROSS_霤:1.0__OPAQUE_霤_15_ = _JCROSS_霤:1.0__OPAQUE_霤_81_(_JCROSS_技:1.0__OPAQUE_縁_2_(_JCROSS_霤:1.0__OPAQUE_霤_15_))
+
+    for n in _JCROSS_霤:1.0__OPAQUE_霤_62_(1, _JCROSS_霤:1.0__OPAQUE_霤_58_ + 1):
+        _JCROSS_霤:1.0__OPAQUE_霤_4_ = _JCROSS_霤:1.0__OPAQUE_霤_81_(_JCROSS_霤:1.0__OPAQUE_霤_62_(n))
+        _JCROSS_霤:1.0__OPAQUE_霤_13_ = _JCROSS_霤:1.0__OPAQUE_霤_81_(_JCROSS_霤:1.0__OPAQUE_霤_42_._JCROSS_霤:1.0__OPAQUE_霤_45_(_JCROSS_霤:1.0__OPAQUE_霤_4_, _JCROSS_霤:1.0__OPAQUE_霤_4_))
+// _JCROSS_浸:0.9__OPAQUE_MC_810_ [decoy-metadata]
+
+        for _JCROSS_霤:1.0__OPAQUE_霤_40_ in _JCROSS_霤:1.0__OPAQUE_霤_62_(1 << _JCROSS_霤:1.0__OPAQUE_霤_56_(_JCROSS_霤:1.0__OPAQUE_霤_13_)):
+            R: _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_廂:1.0__OPAQUE_廂_2_[_JCROSS_霤:1.0__OPAQUE_霤_70_, _JCROSS_霤:1.0__OPAQUE_霤_70_]] = _JCROSS_技:1.0__OPAQUE_縁_2_()
+            for i, _JCROSS_霤:1.0__OPAQUE_霤_5_ in _JCROSS_霤:1.0__OPAQUE_霤_86_(_JCROSS_霤:1.0__OPAQUE_霤_13_):
+                if (_JCROSS_霤:1.0__OPAQUE_霤_40_ >> i) & 1:
+                    R._JCROSS_霤:1.0__OPAQUE_霤_82_(_JCROSS_霤:1.0__OPAQUE_霤_5_)
+            
+// [metadata-stripped]
+            if "_JCROSS_霤:1.0__OPAQUE_霤_75_" in _JCROSS_霤:1.0__OPAQUE_霤_15_:
+// [metadata-stripped]
+                while _JCROSS_廂:1.0__OPAQUE_廂_3_:
+                    _JCROSS_霤:1.0__OPAQUE_霤_8_ = {(a, d) for (a, b) in R for (c, d) in R if b == c _JCROSS_霤:1.0__OPAQUE_霤_48_ (a, d) _JCROSS_霤:1.0__OPAQUE_霤_14_ in R}
+                    if _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_8_: break
+                    R._JCROSS_霤:1.0__OPAQUE_霤_76_(_JCROSS_霤:1.0__OPAQUE_霤_8_)
+            
+            if "_JCROSS_霤:1.0__OPAQUE_霤_73_" in _JCROSS_霤:1.0__OPAQUE_霤_15_:
+                for w in _JCROSS_霤:1.0__OPAQUE_霤_4_: R._JCROSS_霤:1.0__OPAQUE_霤_82_((w, w))
+
+            if _JCROSS_霤:1.0__OPAQUE_霤_56_(R) > _JCROSS_霤:1.0__OPAQUE_霤_30_:
+                continue
+            
+// [metadata-stripped]
+            if _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_31_(_JCROSS_霤:1.0__OPAQUE_霤_4_, R, _JCROSS_霤:1.0__OPAQUE_霤_15_):
+                continue
+
+// [metadata-stripped]
+            for _JCROSS_霤:1.0__OPAQUE_霤_9_ in _JCROSS_霤:1.0__OPAQUE_霤_62_(1 << (n * _JCROSS_霤:1.0__OPAQUE_霤_56_(_JCROSS_霤:1.0__OPAQUE_霤_53_))):
+                V: _JCROSS_廂:1.0__OPAQUE_廂_15_[_JCROSS_霤:1.0__OPAQUE_霤_11_, _JCROSS_技:1.0__OPAQUE_縁_1_[_JCROSS_霤:1.0__OPAQUE_霤_70_]] = {a: _JCROSS_技:1.0__OPAQUE_縁_2_() for a in _JCROSS_霤:1.0__OPAQUE_霤_53_}
+                _JCROSS_霤:1.0__OPAQUE_霤_28_ = 0
+                for a in _JCROSS_霤:1.0__OPAQUE_霤_53_:
+                    for w in _JCROSS_霤:1.0__OPAQUE_霤_4_:
+                        if (_JCROSS_霤:1.0__OPAQUE_霤_9_ >> _JCROSS_霤:1.0__OPAQUE_霤_28_) & 1:
+                            V[a]._JCROSS_霤:1.0__OPAQUE_霤_82_(w)
+                        _JCROSS_霤:1.0__OPAQUE_霤_28_ += 1
+                _JCROSS_霤:1.0__OPAQUE_霤_41_ = _JCROSS_廂:1.0__OPAQUE_廂_13_(_JCROSS_霤:1.0__OPAQUE_霤_4_=_JCROSS_霤:1.0__OPAQUE_霤_4_, R=R, V=V)
+                for w in _JCROSS_霤:1.0__OPAQUE_霤_4_:
+                    if _JCROSS_霤:1.0__OPAQUE_霤_14_ _JCROSS_霤:1.0__OPAQUE_霤_36_(_JCROSS_霤:1.0__OPAQUE_霤_25_, w, _JCROSS_霤:1.0__OPAQUE_霤_41_):
+                        _JCROSS_霤:1.0__OPAQUE_霤_38_._JCROSS_霤:1.0__OPAQUE_霤_1_("[CE] _JCROSS_霤:1.0__OPAQUE_霤_27_")
+// [metadata-stripped]
+                        return _JCROSS_廂:1.0__OPAQUE_廂_16_(
+                            _JCROSS_霤:1.0__OPAQUE_霤_43_="_JCROSS_霤:1.0__OPAQUE_霤_46_",
+                            _JCROSS_霤:1.0__OPAQUE_霤_57_={
+                                "_JCROSS_霤:1.0__OPAQUE_霤_59_": "_JCROSS_霤:1.0__OPAQUE_霤_23_",
+                                "_JCROSS_霤:1.0__OPAQUE_霤_4_": _JCROSS_霤:1.0__OPAQUE_霤_4_,
+                                "_JCROSS_霤:1.0__OPAQUE_霤_50_": _JCROSS_霤:1.0__OPAQUE_霤_24_(_JCROSS_霤:1.0__OPAQUE_霤_81_(R)),
+                                "_JCROSS_霤:1.0__OPAQUE_霤_3_": {k: _JCROSS_霤:1.0__OPAQUE_霤_24_(_JCROSS_霤:1.0__OPAQUE_霤_81_(v)) for k, v in V._JCROSS_霤:1.0__OPAQUE_霤_10_()},
+                                "_JCROSS_浸:1.0__OPAQUE_霤_44_": w,
+                                "_JCROSS_霤:1.0__OPAQUE_霤_51_": _JCROSS_霤:1.0__OPAQUE_霤_15_
+                            },
+                            _JCROSS_霤:1.0__OPAQUE_霤_38_=_JCROSS_霤:1.0__OPAQUE_霤_38_,
+                        )
+
+    _JCROSS_霤:1.0__OPAQUE_霤_38_._JCROSS_霤:1.0__OPAQUE_霤_1_("[OK] _JCROSS_霤:1.0__OPAQUE_霤_79_")
+    return _JCROSS_廂:1.0__OPAQUE_廂_16_(_JCROSS_霤:1.0__OPAQUE_霤_43_="_JCROSS_霤:1.0__OPAQUE_霤_19_", _JCROSS_霤:1.0__OPAQUE_霤_57_=_JCROSS_廂:1.0__OPAQUE_廂_12_, _JCROSS_霤:1.0__OPAQUE_霤_38_=_JCROSS_霤:1.0__OPAQUE_霤_38_)
+
+// POLYMORPHIC_JCROSS_END

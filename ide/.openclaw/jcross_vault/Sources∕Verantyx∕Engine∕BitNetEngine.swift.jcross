@@ -1,0 +1,953 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:377D2DE7 ver:1778163979
+// ⚠️ One-time schema — expires after response
+
+import _ID_廷:1.0___jcross_廷_87__
+import _ID_廷:1.0___jcross_廷_120__
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+
+struct _ID_廷:1.0___jcross_廷_86__: _ID_廷:1.0___jcross_廷_53__ {
+    let _ID_雰:1.0___jcross_雰_241__: _ID_廷:1.0___jcross_廷_110__
+    let _ID_雰:1.0___jcross_雰_372__: _ID_廷:1.0___jcross_廷_110__
+    let _ID_隠:1.0___jcross_雰_374__: _ID_廷:1.0___jcross_廷_143__
+    let _ID_雰:1.0___jcross_雰_305__: _ID_廷:1.0___jcross_廷_105__
+    let _ID_雰:1.0___jcross_雰_229__: _ID_廷:1.0___jcross_廷_110__
+    let _ID_雰:1.0___jcross_雰_181__: _ID_廷:1.0___jcross_廷_110__
+    let _ID_雰:1.0___jcross_雰_159__: _ID_廷:1.0___jcross_廷_110__
+
+    var _ID_雰:1.0___jcross_雰_102__: _ID_廷:1.0___jcross_廷_55__ {
+        _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_匽:1.0___jcross_雰_101__(_ID_雰:1.0___jcross_雰_224__: _ID_雰:1.0___jcross_雰_241__) &&
+        _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_匽:1.0___jcross_雰_101__(_ID_雰:1.0___jcross_雰_224__: _ID_雰:1.0___jcross_雰_372__)
+    }
+
+    static let _ID_雰:1.0___jcross_雰_164__: _ID_廷:1.0___jcross_廷_110__ = {
+        let _ID_雰:1.0___jcross_雰_206__ = _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_繍:1.0___jcross_雰_385__(for: ._ID_雰:1.0___jcross_雰_156__, in: ._ID_雰:1.0___jcross_雰_376__)._ID_雰:1.0___jcross_雰_289__!
+        return _ID_雰:1.0___jcross_雰_206__._ID_雰:1.0___jcross_雰_115__("_ID_廷:1.0___jcross_廷_54__/_ID_雰:1.0___jcross_雰_282__._ID_雰:1.0___jcross_雰_31__")._ID_雰:1.0___jcross_雰_196__
+    }()
+
+    static func _ID_匽:1.0___jcross_雰_38__() -> _ID_廷:1.0___jcross_廷_86__? {
+        guard let _ID_雰:1.0___jcross_雰_301__ = try? _ID_廷:1.0___jcross_廷_67__(_ID_雰:1.0___jcross_雰_258__: _ID_繍:1.0___jcross_廷_79__(_ID_繍:1.0___jcross_雰_266__: _ID_雰:1.0___jcross_雰_164__)),
+              let _ID_雰:1.0___jcross_雰_212__ = try? _ID_術:1.0___jcross_廷_42__()._ID_雰:1.0___jcross_雰_333__(_ID_廷:1.0___jcross_廷_86__.self, _ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_301__)
+        else { return nil }
+        return _ID_雰:1.0___jcross_雰_212__
+    }
+
+    enum _ID_隠:1.0___jcross_廷_58__: _ID_廷:1.0___jcross_廷_110__, _ID_隠:1.0___jcross_廷_101__ {
+        case _ID_雰:1.0___jcross_雰_241__ = "_ID_雰:1.0___jcross_雰_162__"
+        case _ID_雰:1.0___jcross_雰_372__ = "_ID_雰:1.0___jcross_雰_36__"
+        case _ID_隠:1.0___jcross_雰_374__ = "_ID_隠:1.0___jcross_雰_261__"
+        case _ID_雰:1.0___jcross_雰_305__
+        case _ID_雰:1.0___jcross_雰_229__ = "_ID_雰:1.0___jcross_雰_90__"
+        case _ID_雰:1.0___jcross_雰_181__ = "_ID_雰:1.0___jcross_雰_56__"
+        case _ID_雰:1.0___jcross_雰_159__ = "_ID_雰:1.0___jcross_雰_186__"
+    }
+}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+final class _ID_廷:1.0___jcross_廷_57__: _ID_廷:1.0___jcross_廷_94__, @_ID_雰:1.0___jcross_雰_388__ _ID_廷:1.0___jcross_廷_37__ {
+
+    private let _ID_雰:1.0___jcross_雰_212__: _ID_廷:1.0___jcross_廷_86__
+    private let _ID_雰:1.0___jcross_雰_384__ = _ID_廷:1.0___jcross_廷_11__(_ID_雰:1.0___jcross_雰_259__: 1)  // 同時実行1件のみ
+
+    init(_ID_雰:1.0___jcross_雰_212__: _ID_廷:1.0___jcross_廷_86__) {
+        self._ID_雰:1.0___jcross_雰_212__ = _ID_雰:1.0___jcross_雰_212__
+    }
+
+// [metadata-stripped]
+
+    func _ID_漂:1.0___jcross_雰_295__(_ID_雰:1.0___jcross_雰_53__ _ID_雰:1.0___jcross_雰_148__: _ID_廷:1.0___jcross_廷_110__) a_ID_雰:1.0___jcross_雰_303__ -> [_ID_廷:1.0___jcross_廷_110__] {
+// [metadata-stripped]
+// _ID_覇:0.9___jcross_GE_506__ [decoy-metadata]
+        guard _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_102__ else {
+// [metadata-stripped]
+            return a_ID_雰:1.0___jcross_雰_68__ _ID_廷:1.0___jcross_廷_122__()._ID_漂:1.0___jcross_雰_295__(_ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_148__)
+        }
+
+// [metadata-stripped]
+        let _ID_雰:1.0___jcross_雰_51__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_148__._ID_雰:1.0___jcross_雰_160__(4000))
+
+        let _ID_雰:1.0___jcross_雰_307__ = _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_159__
+            ._ID_雰:1.0___jcross_雰_285__(of: "{_ID_廷:1.0___jcross_廷_131__}", _ID_雰:1.0___jcross_雰_34__: _ID_雰:1.0___jcross_雰_51__)
+
+        do {
+            let _ID_雰:1.0___jcross_雰_300__ = try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_178__(_ID_雰:1.0___jcross_雰_307__: _ID_雰:1.0___jcross_雰_307__)
+            let _ID_雰:1.0___jcross_雰_331__ = _ID_雰:1.0___jcross_雰_174__(_ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_300__)
+
+            if _ID_雰:1.0___jcross_雰_331__._ID_雰:1.0___jcross_雰_46__ {
+// [metadata-stripped]
+                let _ID_雰:1.0___jcross_雰_183__ = a_ID_雰:1.0___jcross_雰_68__ _ID_廷:1.0___jcross_廷_122__()._ID_漂:1.0___jcross_雰_295__(_ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_148__)
+                return _ID_雰:1.0___jcross_雰_183__
+            }
+
+            return _ID_雰:1.0___jcross_雰_331__
+        } catch {
+// [metadata-stripped]
+            _ID_雰:1.0___jcross_雰_69__("⚠️ _ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_46__ _ID_雰:1.0___jcross_雰_127__: \(_ID_雰:1.0___jcross_雰_95__._ID_雰:1.0___jcross_雰_1__) — _ID_雰:1.0___jcross_雰_78__ _ID_雰:1.0___jcross_雰_24__ to _ID_雰:1.0___jcross_雰_365__-_ID_雰:1.0___jcross_雰_11__")
+            return a_ID_雰:1.0___jcross_雰_68__ _ID_廷:1.0___jcross_廷_122__()._ID_漂:1.0___jcross_雰_295__(_ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_148__)
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _ID_雰:1.0___jcross_雰_178__(_ID_雰:1.0___jcross_雰_307__: _ID_廷:1.0___jcross_廷_110__) a_ID_雰:1.0___jcross_雰_303__ throws -> _ID_廷:1.0___jcross_廷_110__ {
+        return try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_47__ { _ID_雰:1.0___jcross_雰_157__ in
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _ID_廷:1.0___jcross_廷_96__._ID_雰:1.0___jcross_雰_155__(_ID_雰:1.0___jcross_雰_33__: ._ID_雰:1.0___jcross_雰_256__).a_ID_雰:1.0___jcross_雰_303__ { [weak self] in
+                guard let self else {
+                    _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_117__._ID_雰:1.0___jcross_雰_9__)
+                    return
+                }
+                self._ID_雰:1.0___jcross_雰_384__._ID_雰:1.0___jcross_雰_68__()
+
+                let _ID_雰:1.0___jcross_雰_209__ = _ID_廷:1.0___jcross_廷_127__()
+                _ID_雰:1.0___jcross_雰_209__._ID_繍:1.0___jcross_雰_110__ = _ID_繍:1.0___jcross_廷_79__(_ID_繍:1.0___jcross_雰_266__: self._ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_241__)
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_344__ = [
+                    "-m", self._ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_372__,
+                    "-p", _ID_雰:1.0___jcross_雰_307__,
+                    "-n", _ID_廷:1.0___jcross_廷_110__(self._ID_雰:1.0___jcross_雰_212__._ID_隠:1.0___jcross_雰_374__),
+                    "--_ID_雰:1.0___jcross_雰_105__", _ID_廷:1.0___jcross_廷_110__(self._ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_305__),
+                    "-c", "2048",
+                    "--_ID_雰:1.0___jcross_雰_133__", _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_14__(1, _ID_廷:1.0___jcross_廷_138__._ID_雰:1.0___jcross_雰_270__._ID_雰:1.0___jcross_雰_126__ / 2)),
+                    "--no-_ID_雰:1.0___jcross_雰_180__",
+                ]
+
+                let _ID_雰:1.0___jcross_雰_189__ = _ID_廷:1.0___jcross_廷_115__()
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_55__ = _ID_雰:1.0___jcross_雰_189__
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_8__  = _ID_匽:1.0___jcross_廷_41__._ID_雰:1.0___jcross_雰_185__  // ⚠️ _ID_雰:1.0___jcross_雰_351__ → _ID_雰:1.0___jcross_雰_185__ — _ID_術:1.0___jcross_雰_350__ 内の _ID_雰:1.0___jcross_雰_62__ _ID_雰:1.0___jcross_雰_251__ 防止
+
+// [metadata-stripped]
+                let _ID_雰:1.0___jcross_雰_75__ = _ID_雰:1.0___jcross_雰_39__()
+                _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = { _ID_雰:1.0___jcross_雰_187__ in
+                    let _ID_雰:1.0___jcross_雰_124__ = _ID_雰:1.0___jcross_雰_187__._ID_雰:1.0___jcross_雰_238__
+                    guard !_ID_雰:1.0___jcross_雰_124__._ID_雰:1.0___jcross_雰_46__, let _ID_雰:1.0___jcross_雰_377__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_301__: _ID_雰:1.0___jcross_雰_124__, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__) else { return }
+                    _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_373__(_ID_雰:1.0___jcross_雰_377__)
+                }
+
+                let _ID_雰:1.0___jcross_雰_233__ = _ID_雰:1.0___jcross_雰_328__()
+
+                let _ID_雰:1.0___jcross_雰_9__ = _ID_廷:1.0___jcross_廷_129__ {
+                    if _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_264__ { _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_71__() }
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    self._ID_雰:1.0___jcross_雰_384__._ID_雰:1.0___jcross_雰_226__()
+                    if _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_117__._ID_雰:1.0___jcross_雰_9__)
+                    }
+                }
+                _ID_廷:1.0___jcross_廷_96__._ID_雰:1.0___jcross_雰_155__()._ID_術:1.0___jcross_雰_247__(_ID_雰:1.0___jcross_雰_106__: ._ID_雰:1.0___jcross_雰_323__() + 30, _ID_雰:1.0___jcross_雰_213__: _ID_雰:1.0___jcross_雰_9__)
+
+                _ID_雰:1.0___jcross_雰_209__._ID_術:1.0___jcross_雰_350__ = { [weak self] _ID_雰:1.0___jcross_雰_132__ in
+                    _ID_雰:1.0___jcross_雰_9__._ID_雰:1.0___jcross_雰_218__()
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    if let _ID_術:1.0___jcross_雰_242__ = try? _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_雰:1.0___jcross_雰_62__(),
+                       let _ID_雰:1.0___jcross_雰_377__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_301__: _ID_術:1.0___jcross_雰_242__, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__) {
+                        _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_373__(_ID_雰:1.0___jcross_雰_377__)
+                    }
+
+                    let _ID_雰:1.0___jcross_雰_355__ = _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_259__._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+                    self?._ID_雰:1.0___jcross_雰_384__._ID_雰:1.0___jcross_雰_226__()
+
+                    guard _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() else { return }
+                    if _ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__ == 0 || !_ID_雰:1.0___jcross_雰_355__._ID_雰:1.0___jcross_雰_46__ {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_296__: _ID_雰:1.0___jcross_雰_355__)
+                    } else {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_117__._ID_雰:1.0___jcross_雰_16__("_ID_雰:1.0___jcross_雰_117__ _ID_雰:1.0___jcross_雰_148__ \(_ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__)"))
+                    }
+                }
+
+                do {
+                    try _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_104__()
+                } catch {
+                    _ID_雰:1.0___jcross_雰_9__._ID_雰:1.0___jcross_雰_218__()
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    self._ID_雰:1.0___jcross_雰_384__._ID_雰:1.0___jcross_雰_226__()
+                    if _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_117__._ID_雰:1.0___jcross_雰_211__(_ID_雰:1.0___jcross_雰_95__))
+                    }
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+
+    private func _ID_雰:1.0___jcross_雰_174__(_ID_雰:1.0___jcross_雰_53__ _ID_雰:1.0___jcross_雰_300__: _ID_廷:1.0___jcross_廷_110__) -> [_ID_廷:1.0___jcross_廷_110__] {
+// [metadata-stripped]
+        guard let _ID_雰:1.0___jcross_雰_336__ = _ID_雰:1.0___jcross_雰_300__._ID_雰:1.0___jcross_雰_58__(of: "["),
+              let _ID_雰:1.0___jcross_雰_253__   = _ID_雰:1.0___jcross_雰_300__._ID_雰:1.0___jcross_雰_21__(of: "]"),
+              _ID_雰:1.0___jcross_雰_336__ <= _ID_雰:1.0___jcross_雰_253__
+        else { return [] }
+
+        let _ID_雰:1.0___jcross_雰_89__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_300__[_ID_雰:1.0___jcross_雰_336__..._ID_雰:1.0___jcross_雰_253__])
+        guard let _ID_雰:1.0___jcross_雰_301__ = _ID_雰:1.0___jcross_雰_89__._ID_雰:1.0___jcross_雰_301__(_ID_雰:1.0___jcross_雰_35__: ._ID_雰:1.0___jcross_雰_192__),
+              let _ID_雰:1.0___jcross_雰_230__ = try? _ID_術:1.0___jcross_廷_42__()._ID_雰:1.0___jcross_雰_333__([_ID_廷:1.0___jcross_廷_110__].self, _ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_301__)
+        else { return [] }
+
+// [metadata-stripped]
+        return _ID_雰:1.0___jcross_雰_230__._ID_術:1.0___jcross_雰_234__ { $0._ID_雰:1.0___jcross_雰_240__ >= 3 && $0._ID_雰:1.0___jcross_雰_354__ { $0._ID_術:1.0___jcross_雰_325__ || $0._ID_術:1.0___jcross_雰_337__ || $0 == "_" } }
+    }
+
+// [metadata-stripped]
+
+    enum _ID_廷:1.0___jcross_廷_117__: _ID_廷:1.0___jcross_廷_142__, _ID_廷:1.0___jcross_廷_47__ {
+        case _ID_雰:1.0___jcross_雰_9__
+        case _ID_雰:1.0___jcross_雰_16__(_ID_廷:1.0___jcross_廷_110__)
+        case _ID_雰:1.0___jcross_雰_211__(_ID_廷:1.0___jcross_廷_142__)
+        case _ID_雰:1.0___jcross_雰_2__
+
+        var _ID_雰:1.0___jcross_雰_120__: _ID_廷:1.0___jcross_廷_110__? {
+            switch self {
+            case ._ID_雰:1.0___jcross_雰_9__:           return "_ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_46__ _ID_雰:1.0___jcross_雰_360__ _ID_雰:1.0___jcross_雰_54__ (30s)"
+            case ._ID_雰:1.0___jcross_雰_16__(let m): return "_ID_廷:1.0___jcross_廷_60__ _ID_雰:1.0___jcross_雰_209__ _ID_雰:1.0___jcross_雰_95__: \(m._ID_雰:1.0___jcross_雰_160__(200))"
+            case ._ID_雰:1.0___jcross_雰_211__(let e): return "_ID_廷:1.0___jcross_廷_60__ _ID_雰:1.0___jcross_雰_84__ _ID_雰:1.0___jcross_雰_127__: \(e._ID_雰:1.0___jcross_雰_1__)"
+            case ._ID_雰:1.0___jcross_雰_2__:     return "_ID_廷:1.0___jcross_廷_60__ _ID_雰:1.0___jcross_雰_390__ _ID_雰:1.0___jcross_雰_114__ _ID_雰:1.0___jcross_雰_85__"
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+
+@_ID_廷:1.0___jcross_廷_69__
+final class _ID_術:1.0___jcross_廷_22__: _ID_廷:1.0___jcross_廷_111__ {
+
+    static let _ID_雰:1.0___jcross_雰_202__ = _ID_術:1.0___jcross_廷_22__()
+
+// [metadata-stripped]
+
+    enum _ID_廷:1.0___jcross_廷_38__: _ID_廷:1.0___jcross_廷_23__ {
+        case _ID_雰:1.0___jcross_雰_99__        // セットアップ未実施
+        case _ID_雰:1.0___jcross_雰_320__            // 確認中
+        case _ID_雰:1.0___jcross_雰_272__(_ID_雰:1.0___jcross_雰_181__: _ID_廷:1.0___jcross_廷_110__, _ID_雰:1.0___jcross_雰_111__: _ID_廷:1.0___jcross_廷_143__)  // 使用可能
+        case _ID_雰:1.0___jcross_雰_95__(_ID_廷:1.0___jcross_廷_110__)       // エラー
+        case _ID_雰:1.0___jcross_雰_134__          // インストール中
+    }
+
+    @_ID_廷:1.0___jcross_廷_26__ var _ID_雰:1.0___jcross_雰_291__: _ID_廷:1.0___jcross_廷_38__ = ._ID_雰:1.0___jcross_雰_320__
+    @_ID_廷:1.0___jcross_廷_26__ var _ID_雰:1.0___jcross_雰_30__: (any _ID_廷:1.0___jcross_廷_94__)?
+    @_ID_廷:1.0___jcross_廷_26__ var _ID_術:1.0___jcross_覇_8__: _ID_廷:1.0___jcross_廷_110__ = ""
+    @_ID_廷:1.0___jcross_廷_26__ var _ID_術:1.0___jcross_覇_4__: [_ID_廷:1.0___jcross_廷_110__] = []
+// [metadata-stripped]
+    @_ID_廷:1.0___jcross_廷_26__ var _ID_匽:1.0___jcross_雰_278__: _ID_廷:1.0___jcross_廷_105__ = 0.0
+
+    private var _ID_術:1.0___jcross_覇_6__: _ID_廷:1.0___jcross_廷_127__?
+
+    private init() {
+        _ID_廷:1.0___jcross_廷_97__ { a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_383__() }
+    }
+
+// [metadata-stripped]
+
+    func _ID_雰:1.0___jcross_雰_383__() a_ID_雰:1.0___jcross_雰_303__ {
+// [metadata-stripped]
+        if case ._ID_雰:1.0___jcross_雰_134__ = _ID_雰:1.0___jcross_雰_291__ { return }
+        _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_320__
+        guard let _ID_雰:1.0___jcross_雰_212__ = _ID_廷:1.0___jcross_廷_86__._ID_匽:1.0___jcross_雰_38__(), _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_102__ else {
+            _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_99__
+            return
+        }
+
+// [metadata-stripped]
+        let _ID_雰:1.0___jcross_雰_73__  = try? _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_雰:1.0___jcross_雰_19__(_ID_雰:1.0___jcross_雰_224__: _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_372__)
+        let _ID_雰:1.0___jcross_雰_363__  = (_ID_雰:1.0___jcross_雰_73__?[._ID_雰:1.0___jcross_雰_176__] as? _ID_廷:1.0___jcross_廷_143__) ?? 0
+        let _ID_雰:1.0___jcross_雰_111__ = _ID_雰:1.0___jcross_雰_363__ / 1_048_576
+
+        _ID_雰:1.0___jcross_雰_30__ = _ID_廷:1.0___jcross_廷_57__(_ID_雰:1.0___jcross_雰_212__: _ID_雰:1.0___jcross_雰_212__)
+        _ID_雰:1.0___jcross_雰_291__    = ._ID_雰:1.0___jcross_雰_272__(_ID_雰:1.0___jcross_雰_181__: _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_181__, _ID_雰:1.0___jcross_雰_111__: _ID_雰:1.0___jcross_雰_111__)
+    }
+
+// [metadata-stripped]
+
+    func _ID_雰:1.0___jcross_雰_49__() a_ID_雰:1.0___jcross_雰_303__ {
+        _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_134__
+        _ID_術:1.0___jcross_覇_4__ = []
+        _ID_匽:1.0___jcross_雰_278__ = 0.0
+        _ID_術:1.0___jcross_覇_8__ = "セットアップスクリプトを起動中..."
+
+        let _ID_雰:1.0___jcross_雰_294__ = self._ID_術:1.0___jcross_覇_2__()
+
+// [metadata-stripped]
+        guard _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_匽:1.0___jcross_雰_101__(_ID_雰:1.0___jcross_雰_224__: _ID_雰:1.0___jcross_雰_294__) else {
+            _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_95__("_ID_術:1.0___jcross_覇_7__.sh が見つかりません: \(_ID_雰:1.0___jcross_雰_294__)")
+            return
+        }
+
+        do {
+            try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_345__(_ID_雰:1.0___jcross_雰_294__)
+// [metadata-stripped]
+// [metadata-stripped]
+            _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_320__  // 一時的に ._ID_雰:1.0___jcross_雰_320__ へ（UI上は確認中スピナー）
+            a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_383__()
+            if case ._ID_雰:1.0___jcross_雰_272__ = _ID_雰:1.0___jcross_雰_291__ {
+                _ID_雰:1.0___jcross_雰_352__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("✅ _ID_廷:1.0___jcross_廷_60__ b1.58 _ID_術:1.0___jcross_覇_5__ _ID_雰:1.0___jcross_雰_37__!", "✅ _ID_廷:1.0___jcross_廷_60__ b1.58 セットアップ完了!"))
+                _ID_匽:1.0___jcross_雰_278__ = 1.0
+            } else {
+                _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_95__("インストール後の確認に失敗しました。再試行してください。")
+            }
+        } catch {
+            _ID_雰:1.0___jcross_雰_291__ = ._ID_雰:1.0___jcross_雰_95__("セットアップ失敗: \(_ID_雰:1.0___jcross_雰_95__._ID_雰:1.0___jcross_雰_1__)")
+            _ID_雰:1.0___jcross_雰_352__("❌ \(_ID_雰:1.0___jcross_雰_95__._ID_雰:1.0___jcross_雰_1__)")
+        }
+    }
+
+    private func _ID_雰:1.0___jcross_雰_345__(_ _ID_雰:1.0___jcross_雰_196__: _ID_廷:1.0___jcross_廷_110__) a_ID_雰:1.0___jcross_雰_303__ throws {
+        try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_47__ { (_ID_雰:1.0___jcross_雰_157__: _ID_廷:1.0___jcross_廷_15__<_ID_廷:1.0___jcross_廷_70__, _ID_廷:1.0___jcross_廷_142__>) in
+            let _ID_雰:1.0___jcross_雰_209__ = _ID_廷:1.0___jcross_廷_127__()
+            _ID_雰:1.0___jcross_雰_209__._ID_繍:1.0___jcross_雰_110__ = _ID_繍:1.0___jcross_廷_79__(_ID_繍:1.0___jcross_雰_266__: "/_ID_雰:1.0___jcross_雰_237__/_ID_雰:1.0___jcross_雰_346__")
+            _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_344__ = [_ID_雰:1.0___jcross_雰_196__]
+
+            let _ID_雰:1.0___jcross_雰_338__ = _ID_廷:1.0___jcross_廷_115__()
+            _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_55__ = _ID_雰:1.0___jcross_雰_338__
+            _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_8__  = _ID_雰:1.0___jcross_雰_338__
+
+// [metadata-stripped]
+            _ID_雰:1.0___jcross_雰_338__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = { [weak self] _ID_雰:1.0___jcross_雰_187__ in
+                let _ID_雰:1.0___jcross_雰_301__ = _ID_雰:1.0___jcross_雰_187__._ID_雰:1.0___jcross_雰_238__
+                guard !_ID_雰:1.0___jcross_雰_301__._ID_雰:1.0___jcross_雰_46__,
+                      let _ID_雰:1.0___jcross_雰_366__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_301__: _ID_雰:1.0___jcross_雰_301__, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__)?
+                          ._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__),
+                      !_ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_46__
+                else { return }
+                _ID_廷:1.0___jcross_廷_96__._ID_雰:1.0___jcross_雰_98__.a_ID_雰:1.0___jcross_雰_303__ {
+                    self?._ID_雰:1.0___jcross_雰_352__(_ID_雰:1.0___jcross_雰_366__)
+                    self?._ID_術:1.0___jcross_覇_8__ = _ID_雰:1.0___jcross_雰_366__
+// [metadata-stripped]
+                    if let _ID_雰:1.0___jcross_雰_293__ = _ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_329__(of: #"(\d+)%"#, _ID_雰:1.0___jcross_雰_319__: ._ID_雰:1.0___jcross_雰_163__)
+                           ._ID_雰:1.0___jcross_雰_281__({ _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_366__[$0]) })
+                           ._ID_雰:1.0___jcross_雰_182__({ _ID_廷:1.0___jcross_廷_143__($0._ID_雰:1.0___jcross_雰_348__()) }) {
+                        self?._ID_匽:1.0___jcross_雰_278__ = _ID_廷:1.0___jcross_廷_105__(_ID_雰:1.0___jcross_雰_293__) / 100.0
+                    } else if _ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_100__()._ID_雰:1.0___jcross_雰_334__("_ID_匽:1.0___jcross_雰_119__") {
+                        self?._ID_匽:1.0___jcross_雰_278__ = _ID_雰:1.0___jcross_雰_249__((self?._ID_匽:1.0___jcross_雰_278__ ?? 0) + 0.02, 0.95)
+                    } else if _ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_100__()._ID_雰:1.0___jcross_雰_334__("_ID_雰:1.0___jcross_雰_142__") || _ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_100__()._ID_雰:1.0___jcross_雰_334__("_ID_雰:1.0___jcross_雰_343__") {
+// [metadata-stripped]
+                        if (self?._ID_匽:1.0___jcross_雰_278__ ?? 0) < 0.5 {
+                            self?._ID_匽:1.0___jcross_雰_278__ = 0.5
+                        }
+                    }
+                }
+            }
+
+            _ID_雰:1.0___jcross_雰_209__._ID_術:1.0___jcross_雰_350__ = { _ID_雰:1.0___jcross_雰_132__ in
+                _ID_雰:1.0___jcross_雰_338__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                if _ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__ == 0 {
+                    _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__()
+                } else {
+                    _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_術:1.0___jcross_覇_3__._ID_雰:1.0___jcross_雰_127__(_ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__))
+                }
+            }
+
+// _ID_繍:0.1___jcross_VA_227__ [decoy-metadata]
+            do {
+                try _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_104__()
+                _ID_術:1.0___jcross_覇_6__ = _ID_雰:1.0___jcross_雰_209__
+            } catch {
+                _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_雰:1.0___jcross_雰_95__)
+            }
+        }
+    }
+
+    private func _ID_雰:1.0___jcross_雰_352__(_ _ID_雰:1.0___jcross_雰_366__: _ID_廷:1.0___jcross_廷_110__) {
+        _ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_373__(_ID_雰:1.0___jcross_雰_366__)
+        if _ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_240__ > 500 { _ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_45__(100) }  // ログが膨らみすぎないよう管理
+    }
+
+    private func _ID_術:1.0___jcross_覇_2__() -> _ID_廷:1.0___jcross_廷_110__ {
+// [metadata-stripped]
+        if let _ID_雰:1.0___jcross_雰_314__ = _ID_廷:1.0___jcross_廷_25__._ID_雰:1.0___jcross_雰_98__._ID_雰:1.0___jcross_雰_196__(_ID_漂:1.0___jcross_雰_150__: "_ID_術:1.0___jcross_覇_7__", _ID_雰:1.0___jcross_雰_308__: "sh") {
+            return _ID_雰:1.0___jcross_雰_314__
+        }
+        return "/_ID_廷:1.0___jcross_廷_113__/_ID_雰:1.0___jcross_雰_243__/_ID_雰:1.0___jcross_雰_57__-_ID_雰:1.0___jcross_雰_339__/_ID_廷:1.0___jcross_廷_54__/_ID_術:1.0___jcross_覇_7__.sh"
+    }
+
+    enum _ID_術:1.0___jcross_覇_3__: _ID_廷:1.0___jcross_廷_142__, _ID_廷:1.0___jcross_廷_47__ {
+        case _ID_雰:1.0___jcross_雰_127__(_ID_廷:1.0___jcross_廷_121__)
+        var _ID_雰:1.0___jcross_雰_120__: _ID_廷:1.0___jcross_廷_110__? { "セットアップスクリプトが終了コード \(self) で失敗しました" }
+    }
+
+// [metadata-stripped]
+
+    func _ID_術:1.0___jcross_雰_103__(_ID_雰:1.0___jcross_雰_148__: _ID_廷:1.0___jcross_廷_110__ = #"let _ID_隠:1.0___jcross_雰_254__ = "_ID_雰:1.0___jcross_雰_166__"; let _ID_雰:1.0___jcross_雰_268__ = "_ID_雰:1.0___jcross_雰_59__@_ID_雰:1.0___jcross_雰_231__._ID_雰:1.0___jcross_雰_265__""#) a_ID_雰:1.0___jcross_雰_303__ -> [_ID_廷:1.0___jcross_廷_110__] {
+        guard let _ID_雰:1.0___jcross_雰_232__ = _ID_雰:1.0___jcross_雰_30__ else { return [] }
+        return a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_232__._ID_漂:1.0___jcross_雰_295__(_ID_雰:1.0___jcross_雰_53__: _ID_雰:1.0___jcross_雰_148__)
+    }
+}
+
+// [metadata-stripped]
+
+struct _ID_廷:1.0___jcross_廷_62__: _ID_廷:1.0___jcross_廷_43__ {
+    @_ID_廷:1.0___jcross_廷_145__ private var _ID_術:1.0___jcross_雰_170__ = _ID_術:1.0___jcross_廷_22__._ID_雰:1.0___jcross_雰_202__
+    @_ID_廷:1.0___jcross_廷_35__ private var _ID_雰:1.0___jcross_雰_81__: [_ID_廷:1.0___jcross_廷_110__] = []
+    @_ID_廷:1.0___jcross_廷_35__ private var _ID_雰:1.0___jcross_雰_342__ = false
+
+
+    var _ID_雰:1.0___jcross_雰_23__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 0) {
+// [metadata-stripped]
+            _ID_廷:1.0___jcross_廷_123__ {
+                _ID_廷:1.0___jcross_廷_146__(_ID_雰:1.0___jcross_雰_257__: "_ID_雰:1.0___jcross_雰_245__._ID_雰:1.0___jcross_雰_198__")
+                    ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_208__)
+                    ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_94__)
+                _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_60__ b1.58 — _ID_廷:1.0___jcross_廷_52__ 1-_ID_雰:1.0___jcross_雰_387__ _ID_廷:1.0___jcross_廷_9__", "_ID_廷:1.0___jcross_廷_60__ b1.58 — ローカル 1-_ID_雰:1.0___jcross_雰_387__ _ID_廷:1.0___jcross_廷_9__"))
+                    ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_22__)
+                _ID_術:1.0___jcross_廷_32__()
+                _ID_雰:1.0___jcross_雰_52__
+            }
+            ._ID_雰:1.0___jcross_雰_171__()
+            ._ID_雰:1.0___jcross_雰_86__(._ID_雰:1.0___jcross_雰_284__)
+
+            _ID_術:1.0___jcross_廷_65__()
+
+            _ID_廷:1.0___jcross_廷_44__ {
+                _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 16) {
+
+// [metadata-stripped]
+                    _ID_雰:1.0___jcross_雰_260__
+
+// [metadata-stripped]
+                    switch _ID_術:1.0___jcross_雰_170__._ID_雰:1.0___jcross_雰_291__ {
+                    case ._ID_雰:1.0___jcross_雰_99__:
+                        _ID_雰:1.0___jcross_雰_379__
+
+                    case ._ID_雰:1.0___jcross_雰_320__:
+                        _ID_匽:1.0___jcross_雰_107__
+
+                    case ._ID_雰:1.0___jcross_雰_272__(let _ID_雰:1.0___jcross_雰_275__, let _ID_雰:1.0___jcross_雰_176__):
+                        _ID_雰:1.0___jcross_雰_370__(_ID_雰:1.0___jcross_雰_390__: _ID_雰:1.0___jcross_雰_275__, _ID_雰:1.0___jcross_雰_176__: _ID_雰:1.0___jcross_雰_176__)
+
+                    case ._ID_雰:1.0___jcross_雰_134__:
+                        _ID_雰:1.0___jcross_雰_276__
+
+                    case ._ID_雰:1.0___jcross_雰_95__(let _ID_雰:1.0___jcross_雰_88__):
+                        _ID_雰:1.0___jcross_雰_280__(_ID_雰:1.0___jcross_雰_88__)
+                    }
+
+// [metadata-stripped]
+                    if case ._ID_雰:1.0___jcross_雰_272__ = _ID_術:1.0___jcross_雰_170__._ID_雰:1.0___jcross_雰_291__ {
+                        _ID_雰:1.0___jcross_雰_77__
+                    }
+                }
+                ._ID_雰:1.0___jcross_雰_171__()
+            }
+        }
+// [metadata-stripped]
+        ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_246__: ._ID_雰:1.0___jcross_雰_321__)
+    }
+
+// [metadata-stripped]
+
+    @_ID_術:1.0___jcross_廷_5__
+    private var _ID_雰:1.0___jcross_雰_52__: some _ID_廷:1.0___jcross_廷_43__ {
+        switch _ID_術:1.0___jcross_雰_170__._ID_雰:1.0___jcross_雰_291__ {
+        case ._ID_雰:1.0___jcross_雰_272__:
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_13__", "稼働中"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_74__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+        case ._ID_雰:1.0___jcross_雰_134__:
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_10__", "インストール中"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_67__._ID_雰:1.0___jcross_雰_7__._ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_179__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+        case ._ID_雰:1.0___jcross_雰_99__:
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_135__ _ID_廷:1.0___jcross_廷_82__", "未インストール"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_129__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+        _ID_雰:1.0___jcross_雰_347__:
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_80__", "確認中"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_311__._ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_158__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+        }
+    }
+
+    private var _ID_雰:1.0___jcross_雰_260__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 8) {
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_109__", "アーキテクチャ"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_378__.3._ID_雰:1.0___jcross_雰_392__.3d")
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_197__._ID_雰:1.0___jcross_雰_290__())
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_208__)
+
+            _ID_廷:1.0___jcross_廷_108__("""
+            _ID_廷:1.0___jcross_廷_118__ ──→ [_ID_廷:1.0___jcross_廷_30__] ──→ _ID_雰:1.0___jcross_雰_297__-_ID_雰:1.0___jcross_雰_339__ _ID_雰:1.0___jcross_雰_207__
+                         │                      │
+                    _ID_雰:1.0___jcross_雰_341__/_ID_雰:1.0___jcross_雰_371__ _ID_雰:1.0___jcross_雰_338__      _ID_廷:1.0___jcross_廷_60__ b1.58 _ID_雰:1.0___jcross_雰_27__ (._ID_雰:1.0___jcross_雰_203__)
+                         │                 (_ID_雰:1.0___jcross_雰_27__ _ID_雰:1.0___jcross_雰_225__ 1.58-_ID_雰:1.0___jcross_雰_387__ = _ID_雰:1.0___jcross_雰_219__ _ID_雰:1.0___jcross_雰_288__)
+                    [_ID_術:1.0___jcross_廷_46__ _ID_廷:1.0___jcross_廷_84__ _ID_廷:1.0___jcross_廷_16__]            │
+                         │                 _ID_廷:1.0___jcross_廷_48__ _ID_廷:1.0___jcross_廷_6__ _ID_雰:1.0___jcross_雰_279__ _ID_雰:1.0___jcross_雰_133__ _ID_雰:1.0___jcross_雰_353__
+                    [_ID_廷:1.0___jcross_廷_128__ _ID_術:1.0___jcross_廷_106__]    No _ID_廷:1.0___jcross_廷_61__/_ID_廷:1.0___jcross_廷_72__ _ID_雰:1.0___jcross_雰_29__
+            """)
+            ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_362__(._ID_雰:1.0___jcross_雰_236__, _ID_雰:1.0___jcross_雰_184__: ._ID_雰:1.0___jcross_雰_10__))
+            ._ID_雰:1.0___jcross_雰_171__(10)
+            ._ID_雰:1.0___jcross_雰_86__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_208__._ID_雰:1.0___jcross_雰_391__(0.08))
+            ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 8))
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(._ID_雰:1.0___jcross_雰_130__)
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+
+    private var _ID_雰:1.0___jcross_雰_379__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 12) {
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_60__ b1.58 is _ID_雰:1.0___jcross_雰_114__ _ID_雰:1.0___jcross_雰_262__", "_ID_廷:1.0___jcross_廷_60__ b1.58 が未インストールです"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_138__._ID_雰:1.0___jcross_雰_4__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_179__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_197__._ID_雰:1.0___jcross_雰_290__())
+
+            _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_術:1.0___jcross_覇_1__ _ID_雰:1.0___jcross_雰_13__ _ID_雰:1.0___jcross_雰_113__ _ID_雰:1.0___jcross_雰_330__-_ID_雰:1.0___jcross_雰_169__ _ID_廷:1.0___jcross_廷_107__, _ID_雰:1.0___jcross_雰_343__, _ID_雰:1.0___jcross_雰_172__._ID_雰:1.0___jcross_雰_5__, _ID_雰:1.0___jcross_雰_228__ _ID_匽:1.0___jcross_雰_119__ 2B _ID_雰:1.0___jcross_雰_390__ (~800MB).", "セットアップスクリプトが _ID_廷:1.0___jcross_廷_107__・_ID_雰:1.0___jcross_雰_343__・_ID_雰:1.0___jcross_雰_172__._ID_雰:1.0___jcross_雰_5__ を自動インストールし、2B モデル (~800MB) をダウンロードします。"))
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+
+            _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_103__ _ID_雰:1.0___jcross_雰_139__: 10-30 _ID_雰:1.0___jcross_雰_249__ for _ID_雰:1.0___jcross_雰_250__ _ID_雰:1.0___jcross_雰_289__ _ID_雰:1.0___jcross_雰_139__ (_ID_雰:1.0___jcross_雰_142__ & _ID_匽:1.0___jcross_雰_119__)", "所要時間: 初回約 10〜30分（ビルドとダウンロード）"))
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_145__)
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+
+            _ID_廷:1.0___jcross_廷_66__ {
+                _ID_廷:1.0___jcross_廷_97__ { a_ID_雰:1.0___jcross_雰_68__ _ID_術:1.0___jcross_雰_170__._ID_雰:1.0___jcross_雰_49__() }
+            } _ID_雰:1.0___jcross_雰_199__: {
+                _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_術:1.0___jcross_覇_1__ _ID_廷:1.0___jcross_廷_60__ b1.58", "_ID_廷:1.0___jcross_廷_60__ b1.58 をセットアップ"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_67__._ID_雰:1.0___jcross_雰_7__._ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                    ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_246__: ._ID_雰:1.0___jcross_雰_321__)
+            }
+            ._ID_雰:1.0___jcross_雰_222__(._ID_雰:1.0___jcross_雰_235__)
+            ._ID_雰:1.0___jcross_雰_121__(._ID_雰:1.0___jcross_雰_118__)
+            ._ID_雰:1.0___jcross_雰_48__(._ID_雰:1.0___jcross_雰_208__)
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(._ID_雰:1.0___jcross_雰_130__)
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+
+    private var _ID_匽:1.0___jcross_雰_107__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_123__ {
+            _ID_廷:1.0___jcross_廷_112__()._ID_雰:1.0___jcross_雰_6__(0.8)
+            _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_80__ _ID_雰:1.0___jcross_雰_263__ _ID_雰:1.0___jcross_雰_291__...", "インストール状態を確認中..."))
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+    }
+
+// _ID_繍:0.4___jcross_DC_959__ [decoy-metadata]
+    private func _ID_雰:1.0___jcross_雰_370__(_ID_雰:1.0___jcross_雰_390__: _ID_廷:1.0___jcross_廷_110__, _ID_雰:1.0___jcross_雰_176__: _ID_廷:1.0___jcross_廷_143__) -> some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 8) {
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_60__ b1.58 — _ID_廷:1.0___jcross_廷_147__", "_ID_廷:1.0___jcross_廷_60__ b1.58 — 使用可能"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_147__._ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_74__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_197__._ID_雰:1.0___jcross_雰_290__())
+
+            _ID_廷:1.0___jcross_廷_95__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_193__: 16, _ID_雰:1.0___jcross_雰_173__: 4) {
+                _ID_廷:1.0___jcross_廷_56__ {
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_39__", "モデル"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                    _ID_廷:1.0___jcross_廷_108__(_ID_雰:1.0___jcross_雰_390__)._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                }
+                _ID_廷:1.0___jcross_廷_56__ {
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_93__", "サイズ"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                    _ID_廷:1.0___jcross_廷_108__("\(_ID_雰:1.0___jcross_雰_176__) MB")._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                }
+                _ID_廷:1.0___jcross_廷_56__ {
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_73__", "精度"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("1.58-_ID_雰:1.0___jcross_雰_387__ (_ID_廷:1.0___jcross_廷_144__ -1/0/+1)", "1.58-_ID_雰:1.0___jcross_雰_387__ (三値 -1/0/+1)"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                }
+                _ID_廷:1.0___jcross_廷_56__ {
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_97__", "タスク"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__)._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_術:1.0___jcross_廷_46__ → _ID_廷:1.0___jcross_廷_128__ _ID_廷:1.0___jcross_廷_132__", "_ID_術:1.0___jcross_廷_46__ → _ID_廷:1.0___jcross_廷_128__ トランスパイル"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                }
+            }
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_74__._ID_雰:1.0___jcross_雰_391__(0.08))
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+
+    private var _ID_雰:1.0___jcross_雰_276__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 10) {
+// [metadata-stripped]
+            _ID_廷:1.0___jcross_廷_123__(_ID_雰:1.0___jcross_雰_244__: 8) {
+                _ID_廷:1.0___jcross_廷_112__()
+                    ._ID_雰:1.0___jcross_雰_6__(0.75)
+                    ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_327__: 14, _ID_雰:1.0___jcross_雰_25__: 14)
+                _ID_廷:1.0___jcross_廷_108__(_ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_覇_8__._ID_雰:1.0___jcross_雰_46__
+                        ? _ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_術:1.0___jcross_覇_10__ up...", "セットアップ中...")
+                        : _ID_廷:1.0___jcross_廷_110__(_ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_覇_8__._ID_雰:1.0___jcross_雰_160__(80)))
+                    ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_362__(_ID_雰:1.0___jcross_雰_176__: 11))
+                    ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+                    ._ID_雰:1.0___jcross_雰_324__(2)
+                _ID_術:1.0___jcross_廷_32__()
+// [metadata-stripped]
+                if _ID_術:1.0___jcross_雰_170__._ID_匽:1.0___jcross_雰_278__ > 0 {
+                    _ID_廷:1.0___jcross_廷_108__("\(_ID_廷:1.0___jcross_廷_143__(_ID_術:1.0___jcross_雰_170__._ID_匽:1.0___jcross_雰_278__ * 100))%")
+                        ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_362__(_ID_雰:1.0___jcross_雰_176__: 11, _ID_雰:1.0___jcross_雰_217__: ._ID_雰:1.0___jcross_雰_32__, _ID_雰:1.0___jcross_雰_184__: ._ID_雰:1.0___jcross_雰_10__))
+                        ._ID_漂:1.0___jcross_雰_168__(_ID_廷:1.0___jcross_廷_63__(_ID_雰:1.0___jcross_雰_309__: 0.7, _ID_雰:1.0___jcross_雰_74__: 0.4, _ID_雰:1.0___jcross_雰_158__: 1.0))
+                }
+            }
+
+// [metadata-stripped]
+            _ID_術:1.0___jcross_廷_126__ { _ID_雰:1.0___jcross_雰_310__ in
+                _ID_廷:1.0___jcross_廷_140__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__) {
+                    _ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 3)
+                        ._ID_雰:1.0___jcross_雰_198__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_315__._ID_雰:1.0___jcross_雰_391__(0.08))
+                        ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_25__: 6)
+                    _ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 3)
+                        ._ID_雰:1.0___jcross_雰_198__(
+                            _ID_廷:1.0___jcross_廷_104__(
+                                _ID_雰:1.0___jcross_雰_195__: [_ID_廷:1.0___jcross_廷_63__(_ID_雰:1.0___jcross_雰_309__: 0.5, _ID_雰:1.0___jcross_雰_74__: 0.2, _ID_雰:1.0___jcross_雰_158__: 0.9),
+                                         _ID_廷:1.0___jcross_廷_63__(_ID_雰:1.0___jcross_雰_309__: 0.7, _ID_雰:1.0___jcross_雰_74__: 0.4, _ID_雰:1.0___jcross_雰_158__: 1.0)],
+                                _ID_雰:1.0___jcross_雰_190__: ._ID_雰:1.0___jcross_雰_194__,
+                                _ID_雰:1.0___jcross_雰_200__: ._ID_雰:1.0___jcross_雰_394__
+                            )
+                        )
+                        ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_327__: _ID_雰:1.0___jcross_雰_14__(6, _ID_雰:1.0___jcross_雰_310__._ID_雰:1.0___jcross_雰_176__._ID_雰:1.0___jcross_雰_327__ * _ID_術:1.0___jcross_雰_170__._ID_匽:1.0___jcross_雰_278__), _ID_雰:1.0___jcross_雰_25__: 6)
+                        ._ID_雰:1.0___jcross_雰_42__(._ID_雰:1.0___jcross_雰_215__(_ID_雰:1.0___jcross_雰_131__: 0.3), _ID_雰:1.0___jcross_雰_259__: _ID_術:1.0___jcross_雰_170__._ID_匽:1.0___jcross_雰_278__)
+                }
+            }
+            ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_25__: 6)
+
+            _ID_術:1.0___jcross_廷_59__ { _ID_雰:1.0___jcross_雰_3__ in
+                _ID_廷:1.0___jcross_廷_44__ {
+                    _ID_廷:1.0___jcross_廷_89__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__) {
+                        _ID_廷:1.0___jcross_廷_1__(_ID_廷:1.0___jcross_廷_33__(_ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_205__()), id: \._ID_雰:1.0___jcross_雰_143__) { i, _ID_雰:1.0___jcross_雰_366__ in
+                            _ID_廷:1.0___jcross_廷_108__(_ID_雰:1.0___jcross_雰_366__)
+                                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_362__(._ID_雰:1.0___jcross_雰_145__, _ID_雰:1.0___jcross_雰_184__: ._ID_雰:1.0___jcross_雰_10__))
+                                ._ID_漂:1.0___jcross_雰_168__(_ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_128__("✓") ? ._ID_雰:1.0___jcross_雰_74__ :
+                                                 _ID_雰:1.0___jcross_雰_366__._ID_雰:1.0___jcross_雰_128__("❌") ? ._ID_雰:1.0___jcross_雰_309__ : ._ID_雰:1.0___jcross_雰_123__)
+                                .id(i)
+                        }
+                    }
+                    ._ID_雰:1.0___jcross_雰_171__(8)
+                }
+                ._ID_雰:1.0___jcross_雰_382__(_ID_雰:1.0___jcross_雰_25__: 200)
+                ._ID_雰:1.0___jcross_雰_86__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_167__._ID_雰:1.0___jcross_雰_391__(0.6))
+                ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 8))
+                ._ID_雰:1.0___jcross_雰_299__(of: _ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_240__) { _, _ in
+                    _ID_雰:1.0___jcross_雰_3__._ID_雰:1.0___jcross_雰_66__(_ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_覇_4__._ID_雰:1.0___jcross_雰_240__ - 1, _ID_雰:1.0___jcross_雰_255__: ._ID_雰:1.0___jcross_雰_204__)
+                }
+            }
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(._ID_雰:1.0___jcross_雰_130__)
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+
+    private func _ID_雰:1.0___jcross_雰_280__(_ _ID_雰:1.0___jcross_雰_88__: _ID_廷:1.0___jcross_廷_110__) -> some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 8) {
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_142__", "エラー"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_125__._ID_雰:1.0___jcross_雰_129__._ID_雰:1.0___jcross_雰_198__")
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_309__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_197__._ID_雰:1.0___jcross_雰_290__())
+            _ID_廷:1.0___jcross_廷_108__(_ID_雰:1.0___jcross_雰_88__)
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+            _ID_廷:1.0___jcross_廷_66__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_90__", "再試行")) {
+                _ID_廷:1.0___jcross_廷_97__ { a_ID_雰:1.0___jcross_雰_68__ _ID_術:1.0___jcross_雰_170__._ID_雰:1.0___jcross_雰_49__() }
+            }
+            ._ID_雰:1.0___jcross_雰_121__(._ID_雰:1.0___jcross_雰_118__)
+// _ID_覇:0.6___jcross_CA_955__ [decoy-metadata]
+            ._ID_雰:1.0___jcross_雰_48__(._ID_雰:1.0___jcross_雰_309__)
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_309__._ID_雰:1.0___jcross_雰_391__(0.08))
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+
+    private var _ID_雰:1.0___jcross_雰_77__: some _ID_廷:1.0___jcross_廷_43__ {
+        _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 8) {
+            _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_術:1.0___jcross_廷_46__ _ID_廷:1.0___jcross_廷_18__", "_ID_術:1.0___jcross_廷_46__ テスト"), _ID_雰:1.0___jcross_雰_375__: "_ID_漂:1.0___jcross_雰_136__")
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_197__._ID_雰:1.0___jcross_雰_290__())
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_208__)
+
+            _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_18__ _ID_雰:1.0___jcross_雰_304__: let _ID_隠:1.0___jcross_雰_254__ = \"_ID_雰:1.0___jcross_雰_191__\"; let _ID_雰:1.0___jcross_雰_271__ = \"192.168.1.45\"", "テスト入力: let _ID_隠:1.0___jcross_雰_254__ = \"_ID_雰:1.0___jcross_雰_191__\"; let _ID_雰:1.0___jcross_雰_271__ = \"192.168.1.45\""))
+                ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_364__)
+
+            _ID_廷:1.0___jcross_廷_66__ {
+                _ID_雰:1.0___jcross_雰_342__ = true
+                _ID_廷:1.0___jcross_廷_97__ {
+                    _ID_雰:1.0___jcross_雰_81__ = a_ID_雰:1.0___jcross_雰_68__ _ID_術:1.0___jcross_雰_170__._ID_術:1.0___jcross_雰_103__()
+                    _ID_雰:1.0___jcross_雰_342__ = false
+                }
+            } _ID_雰:1.0___jcross_雰_199__: {
+                if _ID_雰:1.0___jcross_雰_342__ {
+                    _ID_廷:1.0___jcross_廷_112__()._ID_雰:1.0___jcross_雰_6__(0.7)
+                } else {
+                    _ID_廷:1.0___jcross_廷_50__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_124__ _ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_46__", "_ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_46__ を実行"), _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_368__._ID_雰:1.0___jcross_雰_198__")
+                }
+            }
+            ._ID_雰:1.0___jcross_雰_121__(._ID_雰:1.0___jcross_雰_65__)
+            ._ID_雰:1.0___jcross_雰_357__(_ID_雰:1.0___jcross_雰_342__)
+
+            if !_ID_雰:1.0___jcross_雰_81__._ID_雰:1.0___jcross_雰_46__ {
+                _ID_廷:1.0___jcross_廷_100__(_ID_雰:1.0___jcross_雰_80__: ._ID_雰:1.0___jcross_雰_194__, _ID_雰:1.0___jcross_雰_244__: 4) {
+                    _ID_廷:1.0___jcross_廷_108__(_ID_廷:1.0___jcross_廷_133__._ID_雰:1.0___jcross_雰_202__.t("_ID_廷:1.0___jcross_廷_31__ _ID_雰:1.0___jcross_雰_20__:", "検出結果:"))._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_290__())
+                    _ID_廷:1.0___jcross_廷_1__(_ID_雰:1.0___jcross_雰_81__, id: \.self) { _ID_隠:1.0___jcross_雰_359__ in
+                        _ID_廷:1.0___jcross_廷_50__(_ID_隠:1.0___jcross_雰_359__, _ID_雰:1.0___jcross_雰_375__: "_ID_雰:1.0___jcross_雰_70__._ID_雰:1.0___jcross_雰_198__")
+                            ._ID_雰:1.0___jcross_雰_302__(._ID_雰:1.0___jcross_雰_236__._ID_雰:1.0___jcross_雰_10__())
+                            ._ID_漂:1.0___jcross_雰_168__(._ID_雰:1.0___jcross_雰_179__)
+                    }
+                }
+                ._ID_雰:1.0___jcross_雰_171__(8)
+                ._ID_雰:1.0___jcross_雰_86__(_ID_廷:1.0___jcross_廷_63__._ID_雰:1.0___jcross_雰_179__._ID_雰:1.0___jcross_雰_391__(0.08))
+                ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 8))
+            }
+        }
+        ._ID_雰:1.0___jcross_雰_171__()
+        ._ID_雰:1.0___jcross_雰_86__(._ID_雰:1.0___jcross_雰_130__)
+        ._ID_雰:1.0___jcross_雰_227__(_ID_廷:1.0___jcross_廷_77__(_ID_雰:1.0___jcross_雰_356__: 12))
+    }
+// _ID_繍:0.2___jcross_EW_351__ [decoy-metadata]
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _ID_廷:1.0___jcross_廷_8__: @_ID_雰:1.0___jcross_雰_388__ _ID_廷:1.0___jcross_廷_37__ {
+
+    static let _ID_雰:1.0___jcross_雰_202__ = _ID_廷:1.0___jcross_廷_8__()
+
+    private let _ID_雰:1.0___jcross_雰_340__ = _ID_廷:1.0___jcross_廷_11__(_ID_雰:1.0___jcross_雰_259__: 1)  // _ID_術:1.0___jcross_廷_125__ は同時1件
+
+    private init() {}
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ID_雰:1.0___jcross_雰_317__() a_ID_雰:1.0___jcross_雰_303__ -> _ID_廷:1.0___jcross_廷_55__ {
+        _ID_廷:1.0___jcross_廷_86__._ID_匽:1.0___jcross_雰_38__()?._ID_雰:1.0___jcross_雰_102__ == true
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+    func _ID_雰:1.0___jcross_雰_380__(_ID_雰:1.0___jcross_雰_307__: _ID_廷:1.0___jcross_廷_110__, _ID_雰:1.0___jcross_雰_18__: _ID_廷:1.0___jcross_廷_110__) a_ID_雰:1.0___jcross_雰_303__ -> _ID_廷:1.0___jcross_廷_110__? {
+        guard let _ID_雰:1.0___jcross_雰_212__ = _ID_廷:1.0___jcross_廷_86__._ID_匽:1.0___jcross_雰_38__(), _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_102__ else {
+            return nil  // 未インストール → _ID_廷:1.0___jcross_廷_27__ フォールバック
+        }
+
+// [metadata-stripped]
+        let _ID_雰:1.0___jcross_雰_358__: _ID_廷:1.0___jcross_廷_110__
+        if _ID_雰:1.0___jcross_雰_18__._ID_雰:1.0___jcross_雰_46__ {
+            _ID_雰:1.0___jcross_雰_358__ = _ID_雰:1.0___jcross_雰_307__
+        } else {
+            _ID_雰:1.0___jcross_雰_358__ = "### _ID_廷:1.0___jcross_廷_3__:\n\(_ID_雰:1.0___jcross_雰_18__)\n\n\(_ID_雰:1.0___jcross_雰_307__)\n\n### _ID_廷:1.0___jcross_廷_130__:\n"
+        }
+
+        do {
+            let _ID_雰:1.0___jcross_雰_300__ = try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_12__(_ID_雰:1.0___jcross_雰_212__: _ID_雰:1.0___jcross_雰_212__, _ID_雰:1.0___jcross_雰_307__: _ID_雰:1.0___jcross_雰_358__)
+            return _ID_雰:1.0___jcross_雰_300__
+        } catch {
+            _ID_雰:1.0___jcross_雰_69__("⚠️ _ID_廷:1.0___jcross_廷_8__: \(_ID_雰:1.0___jcross_雰_95__._ID_雰:1.0___jcross_雰_1__) — _ID_雰:1.0___jcross_雰_78__ _ID_雰:1.0___jcross_雰_24__ to _ID_廷:1.0___jcross_廷_27__")
+            return nil
+        }
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    private func _ID_雰:1.0___jcross_雰_12__(_ID_雰:1.0___jcross_雰_212__: _ID_廷:1.0___jcross_廷_86__, _ID_雰:1.0___jcross_雰_307__: _ID_廷:1.0___jcross_廷_110__) a_ID_雰:1.0___jcross_雰_303__ throws -> _ID_廷:1.0___jcross_廷_110__ {
+// [metadata-stripped]
+        let _ID_雰:1.0___jcross_雰_41__  = _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_雰:1.0___jcross_雰_60__
+        let _ID_匽:1.0___jcross_雰_137__ = _ID_雰:1.0___jcross_雰_41__._ID_雰:1.0___jcross_雰_115__("_ID_雰:1.0___jcross_雰_15__\(_ID_廷:1.0___jcross_廷_143__(_ID_廷:1.0___jcross_廷_91__()._ID_雰:1.0___jcross_雰_287__))._ID_雰:1.0___jcross_雰_248__")
+        try _ID_雰:1.0___jcross_雰_307__._ID_雰:1.0___jcross_雰_298__(to: _ID_匽:1.0___jcross_雰_137__, _ID_雰:1.0___jcross_雰_214__: true, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__)
+        defer { try? _ID_匽:1.0___jcross_廷_64__._ID_雰:1.0___jcross_雰_347__._ID_雰:1.0___jcross_雰_63__(at: _ID_匽:1.0___jcross_雰_137__) }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        return try a_ID_雰:1.0___jcross_雰_68__ _ID_雰:1.0___jcross_雰_47__ { _ID_雰:1.0___jcross_雰_157__ in
+            _ID_廷:1.0___jcross_廷_96__._ID_雰:1.0___jcross_雰_155__(_ID_雰:1.0___jcross_雰_33__: ._ID_雰:1.0___jcross_雰_256__).a_ID_雰:1.0___jcross_雰_303__ { [weak self] in
+                guard let self else {
+                    _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_74__._ID_雰:1.0___jcross_雰_9__)
+                    return
+                }
+                self._ID_雰:1.0___jcross_雰_340__._ID_雰:1.0___jcross_雰_68__()
+
+                let _ID_雰:1.0___jcross_雰_209__ = _ID_廷:1.0___jcross_廷_127__()
+                _ID_雰:1.0___jcross_雰_209__._ID_繍:1.0___jcross_雰_110__ = _ID_繍:1.0___jcross_廷_79__(_ID_繍:1.0___jcross_雰_266__: _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_241__)
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_344__ = [
+                    "-m", _ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_372__,
+                    "-p", _ID_雰:1.0___jcross_雰_307__,
+                    "-n", "512",
+                    "--_ID_雰:1.0___jcross_雰_105__", _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_212__._ID_雰:1.0___jcross_雰_305__),
+                    "-c", "2048",
+                    "--_ID_雰:1.0___jcross_雰_133__", _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_14__(2, _ID_廷:1.0___jcross_廷_138__._ID_雰:1.0___jcross_雰_270__._ID_雰:1.0___jcross_雰_126__ / 2)),
+                    "--_ID_雰:1.0___jcross_雰_274__-_ID_雰:1.0___jcross_雰_144__", "1.15",
+                    "--no-_ID_雰:1.0___jcross_雰_180__",
+                    "-r", "###",
+                    "-r", "### _ID_廷:1.0___jcross_廷_3__:",
+                    "-r", "_ID_術:1.0___jcross_廷_14__:"
+                ]
+
+                let _ID_雰:1.0___jcross_雰_93__ = _ID_廷:1.0___jcross_廷_115__()
+                let _ID_雰:1.0___jcross_雰_189__ = _ID_廷:1.0___jcross_廷_115__()
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_220__ = _ID_雰:1.0___jcross_雰_93__
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_55__ = _ID_雰:1.0___jcross_雰_189__
+                _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_8__  = _ID_匽:1.0___jcross_廷_41__._ID_雰:1.0___jcross_雰_185__  // ⚠️ _ID_雰:1.0___jcross_雰_351__ → _ID_雰:1.0___jcross_雰_185__ — _ID_術:1.0___jcross_雰_350__ 内の _ID_雰:1.0___jcross_雰_62__ _ID_雰:1.0___jcross_雰_251__ 防止
+
+                try? _ID_雰:1.0___jcross_雰_93__._ID_匽:1.0___jcross_雰_292__._ID_雰:1.0___jcross_雰_112__()
+
+                let _ID_雰:1.0___jcross_雰_75__ = _ID_雰:1.0___jcross_雰_39__()
+                _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = { _ID_雰:1.0___jcross_雰_187__ in
+                    let _ID_雰:1.0___jcross_雰_124__ = _ID_雰:1.0___jcross_雰_187__._ID_雰:1.0___jcross_雰_238__
+                    guard !_ID_雰:1.0___jcross_雰_124__._ID_雰:1.0___jcross_雰_46__,
+                          let _ID_雰:1.0___jcross_雰_377__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_301__: _ID_雰:1.0___jcross_雰_124__, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__)
+                    else { return }
+                    _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_373__(_ID_雰:1.0___jcross_雰_377__)
+                }
+
+                let _ID_雰:1.0___jcross_雰_233__ = _ID_雰:1.0___jcross_雰_328__()
+
+                let _ID_雰:1.0___jcross_雰_9__ = _ID_廷:1.0___jcross_廷_129__ {
+                    if _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_264__ { _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_71__() }
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    self._ID_雰:1.0___jcross_雰_340__._ID_雰:1.0___jcross_雰_226__()
+                    if _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_74__._ID_雰:1.0___jcross_雰_9__)
+                    }
+                }
+                _ID_廷:1.0___jcross_廷_96__._ID_雰:1.0___jcross_雰_155__()._ID_術:1.0___jcross_雰_247__(_ID_雰:1.0___jcross_雰_106__: ._ID_雰:1.0___jcross_雰_323__() + 90, _ID_雰:1.0___jcross_雰_213__: _ID_雰:1.0___jcross_雰_9__)
+
+                _ID_雰:1.0___jcross_雰_209__._ID_術:1.0___jcross_雰_350__ = { [weak self] _ID_雰:1.0___jcross_雰_132__ in
+// _ID_雰:0.3___jcross_AK_317__ [decoy-metadata]
+                    _ID_雰:1.0___jcross_雰_9__._ID_雰:1.0___jcross_雰_218__()
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    if let _ID_術:1.0___jcross_雰_242__ = try? _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_雰:1.0___jcross_雰_62__(),
+                       let _ID_雰:1.0___jcross_雰_377__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_301__: _ID_術:1.0___jcross_雰_242__, _ID_雰:1.0___jcross_雰_61__: ._ID_雰:1.0___jcross_雰_192__) {
+                        _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_373__(_ID_雰:1.0___jcross_雰_377__)
+                    }
+
+                    let _ID_雰:1.0___jcross_雰_355__ = _ID_雰:1.0___jcross_雰_75__._ID_雰:1.0___jcross_雰_259__._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+                    self?._ID_雰:1.0___jcross_雰_340__._ID_雰:1.0___jcross_雰_226__()
+
+                    guard _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() else { return }
+                    if _ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__ == 0 || !_ID_雰:1.0___jcross_雰_355__._ID_雰:1.0___jcross_雰_46__ {
+                        let _ID_雰:1.0___jcross_雰_283__ = _ID_廷:1.0___jcross_廷_98__._ID_雰:1.0___jcross_雰_223__(_ID_雰:1.0___jcross_雰_355__: _ID_雰:1.0___jcross_雰_355__, _ID_雰:1.0___jcross_雰_307__: _ID_雰:1.0___jcross_雰_307__)
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_296__: _ID_雰:1.0___jcross_雰_283__)
+                    } else {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_74__._ID_雰:1.0___jcross_雰_16__("_ID_雰:1.0___jcross_雰_117__ _ID_雰:1.0___jcross_雰_148__ \(_ID_雰:1.0___jcross_雰_132__._ID_雰:1.0___jcross_雰_50__)"))
+                    }
+                }
+
+                do {
+                    try _ID_雰:1.0___jcross_雰_209__._ID_雰:1.0___jcross_雰_104__()
+                } catch {
+                    _ID_雰:1.0___jcross_雰_9__._ID_雰:1.0___jcross_雰_218__()
+                    _ID_雰:1.0___jcross_雰_189__._ID_匽:1.0___jcross_雰_135__._ID_術:1.0___jcross_雰_326__ = nil
+                    self._ID_雰:1.0___jcross_雰_340__._ID_雰:1.0___jcross_雰_226__()
+                    if _ID_雰:1.0___jcross_雰_233__._ID_雰:1.0___jcross_雰_316__() {
+                        _ID_雰:1.0___jcross_雰_157__._ID_雰:1.0___jcross_雰_177__(_ID_雰:1.0___jcross_雰_43__: _ID_廷:1.0___jcross_廷_74__._ID_雰:1.0___jcross_雰_211__(_ID_雰:1.0___jcross_雰_95__))
+                    }
+                }
+            }
+        }
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+    private static func _ID_雰:1.0___jcross_雰_223__(_ID_雰:1.0___jcross_雰_355__: _ID_廷:1.0___jcross_廷_110__, _ID_雰:1.0___jcross_雰_307__: _ID_廷:1.0___jcross_廷_110__) -> _ID_廷:1.0___jcross_廷_110__ {
+// [metadata-stripped]
+// [metadata-stripped]
+        var _ID_雰:1.0___jcross_雰_283__ = _ID_雰:1.0___jcross_雰_355__
+        if _ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_334__("\u{1B}[") {
+// [metadata-stripped]
+            if let _ID_雰:1.0___jcross_雰_267__ = try? _ID_廷:1.0___jcross_廷_85__(_ID_雰:1.0___jcross_雰_17__: "\\_ID_雰:1.0___jcross_雰_381__\\[[0-9;]*[_ID_雰:1.0___jcross_雰_76__]") {
+                let _ID_雰:1.0___jcross_雰_329__ = _ID_廷:1.0___jcross_廷_51__(_ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_149__..., in: _ID_雰:1.0___jcross_雰_283__)
+                _ID_雰:1.0___jcross_雰_283__ = _ID_雰:1.0___jcross_雰_267__._ID_雰:1.0___jcross_雰_239__(in: _ID_雰:1.0___jcross_雰_283__, _ID_雰:1.0___jcross_雰_329__: _ID_雰:1.0___jcross_雰_329__, _ID_雰:1.0___jcross_雰_216__: "")
+            }
+        }
+// [metadata-stripped]
+        _ID_雰:1.0___jcross_雰_283__ = _ID_雰:1.0___jcross_雰_283__
+            ._ID_雰:1.0___jcross_雰_285__(of: "\u{_ID_廷:1.0___jcross_廷_137__}", _ID_雰:1.0___jcross_雰_34__: "")
+            ._ID_雰:1.0___jcross_雰_285__(of: "\u{0000}", _ID_雰:1.0___jcross_雰_34__: "")
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _ID_術:1.0___jcross_雰_389__ = "### _ID_廷:1.0___jcross_廷_130__:"
+        if let _ID_雰:1.0___jcross_雰_329__ = _ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_329__(of: _ID_術:1.0___jcross_雰_389__) {
+            var _ID_雰:1.0___jcross_雰_20__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_283__[_ID_雰:1.0___jcross_雰_329__._ID_雰:1.0___jcross_雰_312__...])._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+            while _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_210__("#") { _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_82__() }
+            return _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+        }
+// [metadata-stripped]
+        for _ID_術:1.0___jcross_雰_72__ in ["### _ID_廷:1.0___jcross_廷_119__:", "### _ID_廷:1.0___jcross_廷_130__:", "<|_ID_雰:1.0___jcross_雰_313__|>", "[/_ID_廷:1.0___jcross_廷_75__]"] {
+            if let _ID_雰:1.0___jcross_雰_329__ = _ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_329__(of: _ID_術:1.0___jcross_雰_72__) {
+                var _ID_雰:1.0___jcross_雰_20__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_283__[_ID_雰:1.0___jcross_雰_329__._ID_雰:1.0___jcross_雰_312__...])._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+                while _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_210__("#") { _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_82__() }
+                return _ID_雰:1.0___jcross_雰_20__._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+            }
+        }
+
+// [metadata-stripped]
+// [metadata-stripped]
+        let _ID_雰:1.0___jcross_雰_161__ = _ID_雰:1.0___jcross_雰_249__(_ID_雰:1.0___jcross_雰_307__._ID_雰:1.0___jcross_雰_240__, 120)
+        if _ID_雰:1.0___jcross_雰_161__ > 10 {
+            let _ID_雰:1.0___jcross_雰_393__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_307__._ID_雰:1.0___jcross_雰_160__(_ID_雰:1.0___jcross_雰_161__))
+            if _ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_128__(_ID_雰:1.0___jcross_雰_393__) {
+                let _ID_雰:1.0___jcross_雰_122__ = _ID_廷:1.0___jcross_廷_110__(_ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_26__(_ID_雰:1.0___jcross_雰_307__._ID_雰:1.0___jcross_雰_240__))
+                    ._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+                if !_ID_雰:1.0___jcross_雰_122__._ID_雰:1.0___jcross_雰_46__ { return _ID_雰:1.0___jcross_雰_122__ }
+            }
+        }
+
+        return _ID_雰:1.0___jcross_雰_283__._ID_雰:1.0___jcross_雰_152__(in: ._ID_雰:1.0___jcross_雰_64__)
+    }
+
+// [metadata-stripped]
+
+    enum _ID_廷:1.0___jcross_廷_74__: _ID_廷:1.0___jcross_廷_142__, _ID_廷:1.0___jcross_廷_47__ {
+        case _ID_雰:1.0___jcross_雰_9__
+        case _ID_雰:1.0___jcross_雰_16__(_ID_廷:1.0___jcross_廷_110__)
+        case _ID_雰:1.0___jcross_雰_211__(_ID_廷:1.0___jcross_廷_142__)
+
+        var _ID_雰:1.0___jcross_雰_120__: _ID_廷:1.0___jcross_廷_110__? {
+            switch self {
+            case ._ID_雰:1.0___jcross_雰_9__:             return "_ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_125__ _ID_雰:1.0___jcross_雰_360__ _ID_雰:1.0___jcross_雰_54__ (90s)"
+            case ._ID_雰:1.0___jcross_雰_16__(let m): return "_ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_125__ _ID_雰:1.0___jcross_雰_209__ _ID_雰:1.0___jcross_雰_95__: \(m._ID_雰:1.0___jcross_雰_160__(200))"
+            case ._ID_雰:1.0___jcross_雰_211__(let e): return "_ID_廷:1.0___jcross_廷_60__ _ID_術:1.0___jcross_廷_125__ _ID_雰:1.0___jcross_雰_84__ _ID_雰:1.0___jcross_雰_127__: \(e._ID_雰:1.0___jcross_雰_1__)"
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+final class _ID_雰:1.0___jcross_雰_39__: @_ID_雰:1.0___jcross_雰_388__ _ID_廷:1.0___jcross_廷_37__ {
+    private var _ID_雰:1.0___jcross_雰_109__: _ID_廷:1.0___jcross_廷_110__ = ""
+    private let _ID_雰:1.0___jcross_雰_151__ = _ID_廷:1.0___jcross_廷_96__(_ID_雰:1.0___jcross_雰_199__: "vx._ID_雰:1.0___jcross_雰_83__", _ID_雰:1.0___jcross_雰_33__: ._ID_雰:1.0___jcross_雰_349__)
+
+    var _ID_雰:1.0___jcross_雰_259__: _ID_廷:1.0___jcross_廷_110__ { _ID_雰:1.0___jcross_雰_151__._ID_雰:1.0___jcross_雰_303__ { _ID_雰:1.0___jcross_雰_109__ } }
+
+    func _ID_雰:1.0___jcross_雰_373__(_ _ID_雰:1.0___jcross_雰_377__: _ID_廷:1.0___jcross_廷_110__) {
+        _ID_雰:1.0___jcross_雰_151__._ID_雰:1.0___jcross_雰_303__ { self._ID_雰:1.0___jcross_雰_109__ += _ID_雰:1.0___jcross_雰_377__ }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

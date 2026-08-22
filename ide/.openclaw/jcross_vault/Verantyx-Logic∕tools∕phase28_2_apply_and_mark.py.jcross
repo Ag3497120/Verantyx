@@ -1,0 +1,105 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A30E88C1 ver:1778159566
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+import _ID_塵:1.0__OPAQUE_塵_50_, _ID_塵:1.0__OPAQUE_塵_3_, _ID_塵:1.0__OPAQUE_塵_36_, _ID_塵:1.0__OPAQUE_塵_77_
+
+_ID_塵:1.0__OPAQUE_塵_25_ _ID_区:1.0__OPAQUE_塵_52_(_ID_塵:1.0__OPAQUE_塵_87_):
+    _ID_塵:1.0__OPAQUE_塵_16_ = []
+    _ID_塵:1.0__OPAQUE_塵_68_ open(_ID_塵:1.0__OPAQUE_塵_87_, "r", _ID_塵:1.0__OPAQUE_塵_65_="_ID_塵:1.0__OPAQUE_塵_75_-8") as f:
+        for _ID_塵:1.0__OPAQUE_塵_26_ in f:
+            if _ID_塵:1.0__OPAQUE_塵_26_._ID_塵:1.0__OPAQUE_塵_18_():
+                try:
+                    _ID_塵:1.0__OPAQUE_塵_16_._ID_塵:1.0__OPAQUE_塵_9_(_ID_塵:1.0__OPAQUE_塵_3_._ID_区:1.0__OPAQUE_塵_47_(_ID_塵:1.0__OPAQUE_塵_26_))
+                _ID_塵:1.0__OPAQUE_塵_70_ _ID_塵:1.0__OPAQUE_塵_3_._ID_廬:1.0__OPAQUE_廬_3_:
+                    continue
+    return _ID_塵:1.0__OPAQUE_塵_16_
+
+_ID_塵:1.0__OPAQUE_塵_25_ _ID_塵:1.0__OPAQUE_塵_81_():
+    ap = _ID_塵:1.0__OPAQUE_塵_50_._ID_律:1.0__OPAQUE_廬_4_()
+    ap._ID_塵:1.0__OPAQUE_塵_67_("--kb", _ID_塵:1.0__OPAQUE_塵_58_=_ID_廬:1.0__OPAQUE_廬_9_)
+    ap._ID_塵:1.0__OPAQUE_塵_67_("--_ID_塵:1.0__OPAQUE_塵_16_", _ID_塵:1.0__OPAQUE_塵_58_=_ID_廬:1.0__OPAQUE_廬_9_)
+    ap._ID_塵:1.0__OPAQUE_塵_67_("--_ID_塵:1.0__OPAQUE_塵_34_", _ID_塵:1.0__OPAQUE_塵_38_="_ID_塵:1.0__OPAQUE_塵_49_")
+    ap._ID_塵:1.0__OPAQUE_塵_67_("--_ID_塵:1.0__OPAQUE_塵_40_", _ID_塵:1.0__OPAQUE_塵_53_=_ID_廬:1.0__OPAQUE_廬_7_, _ID_塵:1.0__OPAQUE_塵_27_="_ID_塵:1.0__OPAQUE_塵_80_ kb _ID_塵:1.0__OPAQUE_塵_87_; _ID_塵:1.0__OPAQUE_塵_53_ _ID_塵:1.0__OPAQUE_塵_44_")
+    _ID_塵:1.0__OPAQUE_塵_42_ = ap._ID_塵:1.0__OPAQUE_塵_72_()
+
+    _ID_塵:1.0__OPAQUE_塵_15_ = _ID_塵:1.0__OPAQUE_塵_42_.kb
+    _ID_塵:1.0__OPAQUE_塵_61_ = _ID_塵:1.0__OPAQUE_塵_42_._ID_塵:1.0__OPAQUE_塵_40_ or _ID_塵:1.0__OPAQUE_塵_42_.kb
+// _ID_塵:0.7__OPAQUE_CK_218_ [decoy-metadata]
+
+    if _ID_塵:1.0__OPAQUE_塵_42_._ID_塵:1.0__OPAQUE_塵_34_ _ID_塵:1.0__OPAQUE_塵_92_ _ID_塵:1.0__OPAQUE_塵_15_ == _ID_塵:1.0__OPAQUE_塵_61_:
+        ts = _ID_塵:1.0__OPAQUE_塵_77_._ID_塵:1.0__OPAQUE_塵_88_("%Y%m%d-%H%M%S")
+        _ID_塵:1.0__OPAQUE_塵_71_ = _ID_塵:1.0__OPAQUE_塵_15_ + f"._ID_塵:1.0__OPAQUE_塵_71_.{ts}"
+        _ID_塵:1.0__OPAQUE_塵_36_._ID_塵:1.0__OPAQUE_塵_11_(_ID_塵:1.0__OPAQUE_塵_15_, _ID_塵:1.0__OPAQUE_塵_71_)
+        _ID_塵:1.0__OPAQUE_塵_69_("[OK] _ID_塵:1.0__OPAQUE_塵_34_:", _ID_塵:1.0__OPAQUE_塵_71_)
+
+    _ID_塵:1.0__OPAQUE_塵_16_ = _ID_区:1.0__OPAQUE_塵_52_(_ID_塵:1.0__OPAQUE_塵_42_._ID_塵:1.0__OPAQUE_塵_16_)
+    _ID_塵:1.0__OPAQUE_塵_90_ = {}
+    for p in _ID_塵:1.0__OPAQUE_塵_16_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _ID_塵:1.0__OPAQUE_塵_22_ = p._ID_律:1.0__OPAQUE_焦_1_("id") or p._ID_律:1.0__OPAQUE_焦_1_("_ID_塵:1.0__OPAQUE_塵_37_")
+        if _ID_塵:1.0__OPAQUE_塵_22_:
+            _ID_塵:1.0__OPAQUE_塵_90_[_ID_塵:1.0__OPAQUE_塵_22_] = p
+
+    _ID_塵:1.0__OPAQUE_塵_85_ = 0
+
+    import os
+    _ID_塵:1.0__OPAQUE_塵_13_ = _ID_塵:1.0__OPAQUE_塵_61_ + "._ID_塵:1.0__OPAQUE_塵_89_"
+
+    _ID_塵:1.0__OPAQUE_塵_68_ open(_ID_塵:1.0__OPAQUE_塵_15_, "r", _ID_塵:1.0__OPAQUE_塵_65_="_ID_塵:1.0__OPAQUE_塵_75_-8") as f, open(_ID_塵:1.0__OPAQUE_塵_13_, "w", _ID_塵:1.0__OPAQUE_塵_65_="_ID_塵:1.0__OPAQUE_塵_75_-8") as w:
+        for _ID_塵:1.0__OPAQUE_塵_26_ in f:
+            if _ID_塵:1.0__OPAQUE_塵_59_ _ID_塵:1.0__OPAQUE_塵_26_._ID_塵:1.0__OPAQUE_塵_18_():
+                continue
+            e = _ID_塵:1.0__OPAQUE_塵_3_._ID_区:1.0__OPAQUE_塵_47_(_ID_塵:1.0__OPAQUE_塵_26_)
+            _ID_塵:1.0__OPAQUE_塵_22_ = e._ID_律:1.0__OPAQUE_焦_1_("id")
+            if _ID_塵:1.0__OPAQUE_塵_22_ in _ID_塵:1.0__OPAQUE_塵_90_:
+                p = _ID_塵:1.0__OPAQUE_塵_90_[_ID_塵:1.0__OPAQUE_塵_22_]
+                
+// [metadata-stripped]
+                if p._ID_律:1.0__OPAQUE_焦_1_("op") == "_ID_塵:1.0__OPAQUE_塵_74_":
+                    _ID_塵:1.0__OPAQUE_塵_73_ = p._ID_律:1.0__OPAQUE_焦_1_("_ID_塵:1.0__OPAQUE_塵_73_", {})
+                    for k, v in _ID_塵:1.0__OPAQUE_塵_73_._ID_塵:1.0__OPAQUE_塵_2_():
+                        e[k] = v
+                
+// [metadata-stripped]
+                _ID_漕:1.0__OPAQUE_塵_60_ "_ID_塵:1.0__OPAQUE_塵_19_" in p:
+                     for op in p["_ID_塵:1.0__OPAQUE_塵_19_"]:
+                        _ID_冥:1.0__OPAQUE_塵_28_ = op["_ID_塵:1.0__OPAQUE_塵_87_"]._ID_塵:1.0__OPAQUE_塵_78_("/")
+                        if op["op"] == "_ID_塵:1.0__OPAQUE_塵_35_":
+                             _ID_塵:1.0__OPAQUE_塵_20_ = _ID_律:1.0__OPAQUE_焦_2_(e._ID_律:1.0__OPAQUE_焦_1_(_ID_冥:1.0__OPAQUE_塵_28_, []))
+                             for _ID_塵:1.0__OPAQUE_塵_84_ in op["_ID_塵:1.0__OPAQUE_塵_14_"]:
+                                 _ID_塵:1.0__OPAQUE_塵_20_._ID_塵:1.0__OPAQUE_塵_41_(_ID_塵:1.0__OPAQUE_塵_84_)
+                             e[_ID_冥:1.0__OPAQUE_塵_28_] = _ID_塵:1.0__OPAQUE_塵_43_(_ID_塵:1.0__OPAQUE_塵_20_)
+                        _ID_漕:1.0__OPAQUE_塵_60_ op["op"] == "_ID_律:1.0__OPAQUE_焦_2_":
+                             e[_ID_冥:1.0__OPAQUE_塵_28_] = op["_ID_塵:1.0__OPAQUE_塵_12_"]
+                        _ID_漕:1.0__OPAQUE_塵_60_ op["op"] == "_ID_塵:1.0__OPAQUE_塵_55_":
+                             e[_ID_冥:1.0__OPAQUE_塵_28_] = _ID_塵:1.0__OPAQUE_塵_33_(e._ID_律:1.0__OPAQUE_焦_1_(_ID_冥:1.0__OPAQUE_塵_28_, "")) + op["_ID_塵:1.0__OPAQUE_塵_12_"]
+// _ID_律:0.7__OPAQUE_DC_505_ [decoy-metadata]
+
+// [metadata-stripped]
+                _ID_塵:1.0__OPAQUE_塵_8_ = e._ID_律:1.0__OPAQUE_焦_1_("_ID_塵:1.0__OPAQUE_塵_57_", [])
+                if _ID_塵:1.0__OPAQUE_塵_59_ _ID_塵:1.0__OPAQUE_塵_23_(_ID_塵:1.0__OPAQUE_塵_8_, _ID_塵:1.0__OPAQUE_塵_43_):
+// _ID_冥:0.8__OPAQUE_MG_442_ [decoy-metadata]
+// _ID_焦:0.1__OPAQUE_YE_930_ [decoy-metadata]
+                    _ID_塵:1.0__OPAQUE_塵_8_ = []
+                if "_ID_塵:1.0__OPAQUE_塵_45_:_ID_塵:1.0__OPAQUE_塵_4_.2" _ID_塵:1.0__OPAQUE_塵_59_ in _ID_塵:1.0__OPAQUE_塵_8_:
+// _ID_区:0.5__OPAQUE_BX_425_ [decoy-metadata]
+                    _ID_塵:1.0__OPAQUE_塵_8_._ID_塵:1.0__OPAQUE_塵_9_("_ID_塵:1.0__OPAQUE_塵_45_:_ID_塵:1.0__OPAQUE_塵_4_.2")
+                e["_ID_塵:1.0__OPAQUE_塵_57_"] = _ID_塵:1.0__OPAQUE_塵_8_
+                
+                _ID_塵:1.0__OPAQUE_塵_85_ += 1
+            w._ID_塵:1.0__OPAQUE_塵_82_(_ID_塵:1.0__OPAQUE_塵_3_._ID_塵:1.0__OPAQUE_塵_29_(e, _ID_塵:1.0__OPAQUE_塵_10_=_ID_廬:1.0__OPAQUE_廬_8_) + "\n")
+
+    os._ID_塵:1.0__OPAQUE_塵_5_(_ID_塵:1.0__OPAQUE_塵_13_, _ID_塵:1.0__OPAQUE_塵_61_)
+// _ID_漕:0.2__OPAQUE_BC_389_ [decoy-metadata]
+    _ID_塵:1.0__OPAQUE_塵_69_(f"[OK] _ID_塵:1.0__OPAQUE_塵_85_={_ID_塵:1.0__OPAQUE_塵_85_} -> {_ID_塵:1.0__OPAQUE_塵_61_}")
+
+if _ID_塵:1.0__OPAQUE_塵_86_ == "_ID_塵:1.0__OPAQUE_塵_66_":
+    _ID_塵:1.0__OPAQUE_塵_81_()
+
+// POLYMORPHIC_JCROSS_END

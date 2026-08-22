@@ -1,0 +1,60 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F4DFA650 ver:1778159677
+// ⚠️ One-time schema — expires after response
+
+import _SYM_霰:1.0__OPAQUE_霰_38_
+import re
+_SYM_霰:1.0__OPAQUE_霰_5_ _SYM_霰:1.0__OPAQUE_霰_25_ import _SYM_礎:1.0__OPAQUE_礎_8_, _SYM_礎:1.0__OPAQUE_礎_7_, _SYM_礎:1.0__OPAQUE_礎_1_, _SYM_礎:1.0__OPAQUE_礎_3_
+
+_SYM_霰:1.0__OPAQUE_霰_34_ _SYM_霰:1.0__OPAQUE_霰_23_(_SYM_浮:1.0__OPAQUE_霰_22_: _SYM_霰:1.0__OPAQUE_霰_8_, _SYM_霰:1.0__OPAQUE_霰_27_: _SYM_礎:1.0__OPAQUE_礎_7_[_SYM_霰:1.0__OPAQUE_霰_8_, _SYM_霰:1.0__OPAQUE_霰_7_]) -> _SYM_霰:1.0__OPAQUE_霰_7_:
+// _SYM_浮:0.9__OPAQUE_ED_391_ [decoy-metadata]
+// _SYM_礎:0.4__OPAQUE_VW_838_ [decoy-metadata]
+// _SYM_紬:0.6__OPAQUE_XY_909_ [decoy-metadata]
+    """
+    論理式を指定された真理値割り当てで評価する。
+// _SYM_策:0.8__OPAQUE_WB_670_ [decoy-metadata]
+    """
+// [metadata-stripped]
+    _SYM_霰:1.0__OPAQUE_霰_6_ = _SYM_浮:1.0__OPAQUE_霰_22_._SYM_霰:1.0__OPAQUE_霰_30_("->", " <= ")._SYM_霰:1.0__OPAQUE_霰_30_("<->", " == ")
+    _SYM_霰:1.0__OPAQUE_霰_6_ = _SYM_霰:1.0__OPAQUE_霰_6_._SYM_霰:1.0__OPAQUE_霰_30_("&", " _SYM_霰:1.0__OPAQUE_霰_16_ ")._SYM_霰:1.0__OPAQUE_霰_30_("|", " or ")._SYM_霰:1.0__OPAQUE_霰_30_("~", " _SYM_霰:1.0__OPAQUE_霰_17_ ")
+    
+    try:
+// [metadata-stripped]
+        _SYM_霰:1.0__OPAQUE_霰_33_ = _SYM_霰:1.0__OPAQUE_霰_32_(_SYM_霰:1.0__OPAQUE_霰_6_, {"_SYM_霰:1.0__OPAQUE_霰_26_": _SYM_礎:1.0__OPAQUE_礎_4_}, _SYM_霰:1.0__OPAQUE_霰_27_)
+        return _SYM_霰:1.0__OPAQUE_霰_7_(_SYM_霰:1.0__OPAQUE_霰_33_)
+    _SYM_霰:1.0__OPAQUE_霰_11_ _SYM_礎:1.0__OPAQUE_礎_5_:
+        return _SYM_礎:1.0__OPAQUE_礎_4_
+// _SYM_策:0.2__OPAQUE_DY_429_ [decoy-metadata]
+
+_SYM_霰:1.0__OPAQUE_霰_34_ _SYM_霰:1.0__OPAQUE_霰_24_(_SYM_浮:1.0__OPAQUE_霰_22_: _SYM_霰:1.0__OPAQUE_霰_8_, _SYM_霰:1.0__OPAQUE_霰_4_: _SYM_礎:1.0__OPAQUE_礎_8_[_SYM_霰:1.0__OPAQUE_霰_8_]) -> _SYM_礎:1.0__OPAQUE_礎_8_[_SYM_礎:1.0__OPAQUE_礎_7_[_SYM_霰:1.0__OPAQUE_霰_8_, _SYM_礎:1.0__OPAQUE_礎_3_]]:
+    """
+    主要なケース（全偽、全真、一部真など）でシミュレーションを実行する。
+    """
+    _SYM_霰:1.0__OPAQUE_霰_31_ = []
+// [metadata-stripped]
+    if _SYM_霰:1.0__OPAQUE_霰_21_(_SYM_霰:1.0__OPAQUE_霰_4_) > 5:
+        _SYM_霰:1.0__OPAQUE_霰_35_ = [
+            _SYM_霰:1.0__OPAQUE_霰_20_([_SYM_礎:1.0__OPAQUE_礎_6_] * _SYM_霰:1.0__OPAQUE_霰_21_(_SYM_霰:1.0__OPAQUE_霰_4_)),
+            _SYM_霰:1.0__OPAQUE_霰_20_([_SYM_礎:1.0__OPAQUE_礎_2_] * _SYM_霰:1.0__OPAQUE_霰_21_(_SYM_霰:1.0__OPAQUE_霰_4_)),
+        ]
+    else:
+        _SYM_霰:1.0__OPAQUE_霰_35_ = _SYM_霰:1.0__OPAQUE_霰_2_(_SYM_霰:1.0__OPAQUE_霰_38_._SYM_霰:1.0__OPAQUE_霰_13_([_SYM_礎:1.0__OPAQUE_礎_6_, _SYM_礎:1.0__OPAQUE_礎_2_], _SYM_霰:1.0__OPAQUE_霰_14_=_SYM_霰:1.0__OPAQUE_霰_21_(_SYM_霰:1.0__OPAQUE_霰_4_)))
+
+    for _SYM_霰:1.0__OPAQUE_霰_15_ in _SYM_霰:1.0__OPAQUE_霰_35_:
+        _SYM_霰:1.0__OPAQUE_霰_27_ = _SYM_霰:1.0__OPAQUE_霰_3_(_SYM_霰:1.0__OPAQUE_霰_9_(_SYM_霰:1.0__OPAQUE_霰_4_, _SYM_霰:1.0__OPAQUE_霰_15_))
+        _SYM_霰:1.0__OPAQUE_霰_33_ = _SYM_霰:1.0__OPAQUE_霰_23_(_SYM_浮:1.0__OPAQUE_霰_22_, _SYM_霰:1.0__OPAQUE_霰_27_)
+        if _SYM_霰:1.0__OPAQUE_霰_33_ is _SYM_霰:1.0__OPAQUE_霰_17_ _SYM_礎:1.0__OPAQUE_礎_4_:
+            _SYM_霰:1.0__OPAQUE_霰_31_._SYM_霰:1.0__OPAQUE_霰_12_({
+                "_SYM_霰:1.0__OPAQUE_霰_18_": "_SYM_霰:1.0__OPAQUE_霰_37_",
+                "_SYM_霰:1.0__OPAQUE_霰_19_": _SYM_霰:1.0__OPAQUE_霰_27_,
+                "_SYM_霰:1.0__OPAQUE_霰_28_": _SYM_霰:1.0__OPAQUE_霰_33_,
+                "_SYM_霰:1.0__OPAQUE_霰_29_": "_SYM_霰:1.0__OPAQUE_霰_36_" if _SYM_霰:1.0__OPAQUE_霰_33_ else "_SYM_霰:1.0__OPAQUE_霰_10_"
+            })
+// [metadata-stripped]
+// _SYM_匵:0.8__OPAQUE_AH_530_ [decoy-metadata]
+            if _SYM_霰:1.0__OPAQUE_霰_17_ _SYM_霰:1.0__OPAQUE_霰_33_:
+                break
+                
+    return _SYM_霰:1.0__OPAQUE_霰_31_
+
+// POLYMORPHIC_JCROSS_END

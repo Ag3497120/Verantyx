@@ -1,0 +1,71 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:F4AD8D10 ver:1778159744
+// ⚠️ One-time schema — expires after response
+
+__ast_霰:1.0___OPAQUE_霰_10_ __ast_霰:1.0___OPAQUE_霰_18_ import __ast_霰:1.0___OPAQUE_霰_30_
+// __ast_緞:0.3___OPAQUE_DV_785_ [decoy-metadata]
+__ast_霰:1.0___OPAQUE_霰_10_ __ast_霰:1.0___OPAQUE_霰_22_ import __ast_庠:1.0___OPAQUE_庠_4_, __ast_庠:1.0___OPAQUE_庠_3_, __ast_庠:1.0___OPAQUE_庠_2_
+import __ast_霰:1.0___OPAQUE_霰_28_
+
+// __ast_節:0.4___OPAQUE_AF_933_ [decoy-metadata]
+__ast_霰:1.0___OPAQUE_霰_13_ __ast_霰:1.0___OPAQUE_霰_2_(__ast_霰:1.0___OPAQUE_霰_4_: __ast_庠:1.0___OPAQUE_庠_2_) -> __ast_庠:1.0___OPAQUE_庠_4_[__ast_庠:1.0___OPAQUE_庠_3_[__ast_霰:1.0___OPAQUE_霰_29_, __ast_庠:1.0___OPAQUE_庠_2_]]:
+    """
+    __ast_庠:1.0___OPAQUE_庠_1_ の __ast_霰:1.0___OPAQUE_霰_31_ 軸から、利用可能な公理や定理のピースを抽出する。
+    """
+// [metadata-stripped]
+    __ast_霰:1.0___OPAQUE_霰_33_ = []
+    for ev in __ast_節:1.0___OPAQUE_礎_1_(__ast_霰:1.0___OPAQUE_霰_4_, '__ast_霰:1.0___OPAQUE_霰_31_', []):
+        if ev.__ast_節:1.0___OPAQUE_礎_2_("__ast_霰:1.0___OPAQUE_霰_34_") in ("__ast_霰:1.0___OPAQUE_霰_23_", "__ast_霰:1.0___OPAQUE_霰_14_", "__ast_霰:1.0___OPAQUE_霰_21_"):
+// [metadata-stripped]
+            if "__ast_霰:1.0___OPAQUE_霰_19_" in ev or "__ast_霰:1.0___OPAQUE_霰_15_" in ev:
+                __ast_霰:1.0___OPAQUE_霰_33_.__ast_霰:1.0___OPAQUE_霰_1_(ev)
+    return __ast_霰:1.0___OPAQUE_霰_33_
+
+// __ast_隠:0.8___OPAQUE_MD_816_ [decoy-metadata]
+__ast_霰:1.0___OPAQUE_霰_13_ __ast_漂:1.0___OPAQUE_霰_20_(a: __ast_霰:1.0___OPAQUE_霰_29_, b: __ast_霰:1.0___OPAQUE_霰_29_, __ast_霰:1.0___OPAQUE_霰_25_: __ast_霰:1.0___OPAQUE_霰_29_) -> __ast_霰:1.0___OPAQUE_霰_29_:
+    """
+    2つの式を特定の推論モードで合成する。
+    """
+// [metadata-stripped]
+// __ast_節:0.4___OPAQUE_CC_953_ [decoy-metadata]
+    a, b = a.__ast_霰:1.0___OPAQUE_霰_9_(), b.__ast_霰:1.0___OPAQUE_霰_9_()
+    
+    if __ast_霰:1.0___OPAQUE_霰_25_ == "__ast_霰:1.0___OPAQUE_霰_12_":
+        return f"({a}) -> ({b})"
+    if __ast_霰:1.0___OPAQUE_霰_25_ == "__ast_霰:1.0___OPAQUE_霰_5_":
+        return f"({a}) & ({b})"
+    if __ast_霰:1.0___OPAQUE_霰_25_ == "__ast_霰:1.0___OPAQUE_霰_24_":
+// [metadata-stripped]
+        return f"(({a}) & ({a} -> {b})) -> {b}"
+    return ""
+// __ast_節:0.2___OPAQUE_WF_695_ [decoy-metadata]
+
+__ast_霰:1.0___OPAQUE_霰_13_ __ast_霰:1.0___OPAQUE_霰_6_(__ast_霰:1.0___OPAQUE_霰_33_: __ast_庠:1.0___OPAQUE_庠_4_[__ast_庠:1.0___OPAQUE_庠_3_[__ast_霰:1.0___OPAQUE_霰_29_, __ast_庠:1.0___OPAQUE_庠_2_]]) -> __ast_庠:1.0___OPAQUE_庠_4_[__ast_庠:1.0___OPAQUE_庠_3_[__ast_霰:1.0___OPAQUE_霰_29_, __ast_庠:1.0___OPAQUE_庠_2_]]:
+    """
+    抽出された公理ピースの組み合わせから、新しい合成候補を生成する。
+    """
+    __ast_霰:1.0___OPAQUE_霰_26_ = []
+    
+// [metadata-stripped]
+    for p1, p2 in __ast_霰:1.0___OPAQUE_霰_30_(__ast_霰:1.0___OPAQUE_霰_33_, 2):
+        f1 = p1.__ast_節:1.0___OPAQUE_礎_2_("__ast_霰:1.0___OPAQUE_霰_19_") or p1.__ast_節:1.0___OPAQUE_礎_2_("__ast_霰:1.0___OPAQUE_霰_15_")
+        f2 = p2.__ast_節:1.0___OPAQUE_礎_2_("__ast_霰:1.0___OPAQUE_霰_19_") or p2.__ast_節:1.0___OPAQUE_礎_2_("__ast_霰:1.0___OPAQUE_霰_15_")
+        
+// __ast_庠:0.2___OPAQUE_AX_615_ [decoy-metadata]
+        if __ast_霰:1.0___OPAQUE_霰_11_ f1 or __ast_霰:1.0___OPAQUE_霰_11_ f2:
+            continue
+
+        for __ast_霰:1.0___OPAQUE_霰_25_ in ["__ast_霰:1.0___OPAQUE_霰_12_", "__ast_霰:1.0___OPAQUE_霰_5_", "__ast_霰:1.0___OPAQUE_霰_24_"]:
+            __ast_霰:1.0___OPAQUE_霰_27_ = __ast_漂:1.0___OPAQUE_霰_20_(f1, f2, __ast_霰:1.0___OPAQUE_霰_25_)
+            if __ast_霰:1.0___OPAQUE_霰_27_:
+                __ast_霰:1.0___OPAQUE_霰_26_.__ast_霰:1.0___OPAQUE_霰_1_({
+                    "id": f"__ast_霰:1.0___OPAQUE_霰_17_{__ast_霰:1.0___OPAQUE_霰_28_.__ast_霰:1.0___OPAQUE_霰_16_().__ast_霰:1.0___OPAQUE_霰_8_[:8]}",
+                    "__ast_漂:1.0___OPAQUE_霰_32_": __ast_霰:1.0___OPAQUE_霰_27_,
+                    "__ast_霰:1.0___OPAQUE_霰_7_": [p1.__ast_節:1.0___OPAQUE_礎_2_("id"), p2.__ast_節:1.0___OPAQUE_礎_2_("id")],
+                    "__ast_霰:1.0___OPAQUE_霰_25_": __ast_霰:1.0___OPAQUE_霰_25_,
+                    "__ast_霰:1.0___OPAQUE_霰_3_": 0.7 # 合成候補なので初期確信度は中程度
+                })
+                
+    return __ast_霰:1.0___OPAQUE_霰_26_
+
+// POLYMORPHIC_JCROSS_END

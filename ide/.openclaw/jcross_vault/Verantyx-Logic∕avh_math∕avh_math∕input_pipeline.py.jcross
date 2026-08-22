@@ -1,0 +1,669 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E27C369D ver:1778159757
+// ⚠️ One-time schema — expires after response
+
+import __node_靄:1.0___VERANTYX_靄_248_
+import re
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_258_ import __node_廴:1.0___VERANTYX_廴_35_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_281_ import __node_廴:1.0___VERANTYX_廴_10_, __node_廴:1.0___VERANTYX_廴_75_, __node_廴:1.0___VERANTYX_廴_85_, __node_廴:1.0___VERANTYX_廴_25_
+
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_41_.__node_式:1.0___VERANTYX_靄_97_ import __node_靄:1.0___VERANTYX_靄_228_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_41_.__node_靄:1.0___VERANTYX_靄_4_ import (
+    __node_靄:1.0___VERANTYX_靄_12_,
+    __node_靄:1.0___VERANTYX_靄_141_,
+)
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_41_.__node_游:1.0___VERANTYX_靄_206_ import (
+    __node_游:1.0___VERANTYX_靄_244_,
+    __node_游:1.0___VERANTYX_靄_86_,
+)
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_41_.__node_靄:1.0___VERANTYX_靄_255_ import __node_靄:1.0___VERANTYX_靄_254_, __node_靄:1.0___VERANTYX_靄_235_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_79_.__node_游:1.0___VERANTYX_靄_109_ import __node_游:1.0___VERANTYX_靄_213_
+
+try:
+    __node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_112_ import __node_式:1.0___VERANTYX_靄_233_ as __node_靄:1.0___VERANTYX_靄_249_
+__node_靄:1.0___VERANTYX_靄_46_ __node_廴:1.0___VERANTYX_廴_77_:
+    __node_靄:1.0___VERANTYX_靄_249_ = __node_廴:1.0___VERANTYX_廴_64_
+
+try:
+    __node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_114_.__node_靄:1.0___VERANTYX_靄_68_ import (
+        __node_游:1.0___VERANTYX_靄_186_ as __node_游:1.0___VERANTYX_靄_171_,
+        __node_靄:1.0___VERANTYX_靄_56_ as __node_靄:1.0___VERANTYX_靄_182_,
+        __node_游:1.0___VERANTYX_靄_169_ as __node_游:1.0___VERANTYX_靄_242_,
+    )
+__node_靄:1.0___VERANTYX_靄_46_ __node_廴:1.0___VERANTYX_廴_77_:
+    __node_游:1.0___VERANTYX_靄_171_ = __node_廴:1.0___VERANTYX_廴_64_
+    __node_靄:1.0___VERANTYX_靄_182_ = __node_廴:1.0___VERANTYX_廴_64_
+    __node_游:1.0___VERANTYX_靄_242_ = __node_廴:1.0___VERANTYX_廴_64_
+
+__node_奥:1.0___VERANTYX_靄_137_ = re.__node_靄:1.0___VERANTYX_靄_272_(r"(?:[]|<>|\(|\)|~|&|\||->|<->)")
+__node_靄:1.0___VERANTYX_靄_77_ = re.__node_靄:1.0___VERANTYX_靄_272_(
+    r"^\s*(【入力ルール】|__node_廴:1.0___VERANTYX_廴_58_:\s*|__node_廴:1.0___VERANTYX_廴_7_ __node_靄:1.0___VERANTYX_靄_237_:|__node_廴:1.0___VERANTYX_廴_50_\b|__node_廴:1.0___VERANTYX_廴_28_\b|__node_廴:1.0___VERANTYX_廴_55_ __node_廴:1.0___VERANTYX_廴_72_:|__node_廴:1.0___VERANTYX_廴_32_ __node_廴:1.0___VERANTYX_廴_37_|__node_廴:1.0___VERANTYX_廴_30_|__node_廴:1.0___VERANTYX_廴_36_ / __node_廴:1.0___VERANTYX_廴_14_|__node_廴:1.0___VERANTYX_廴_2_ __node_廴:1.0___VERANTYX_廴_60_|__node_奥:1.0___VERANTYX_廴_15_:\s*q_|__node_廴:1.0___VERANTYX_廴_76_ __node_廴:1.0___VERANTYX_廴_51_|__node_廴:1.0___VERANTYX_廴_87_ __node_廴:1.0___VERANTYX_廴_67_|__node_廴:1.0___VERANTYX_廴_50_ \(__node_廴:1.0___VERANTYX_廴_67_\)|__node_靄:1.0___VERANTYX_靄_292_:)\b",
+    re.__node_廴:1.0___VERANTYX_廴_83_,
+)
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_289_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    __node_靄:1.0___VERANTYX_靄_159_ = []
+    for __node_靄:1.0___VERANTYX_靄_143_ in (__node_靄:1.0___VERANTYX_靄_189_ or "").__node_靄:1.0___VERANTYX_靄_147_():
+        if __node_靄:1.0___VERANTYX_靄_77_.__node_靄:1.0___VERANTYX_靄_98_(__node_靄:1.0___VERANTYX_靄_143_):
+            continue
+        __node_靄:1.0___VERANTYX_靄_159_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_143_)
+    return "\n".__node_靄:1.0___VERANTYX_靄_165_(__node_靄:1.0___VERANTYX_靄_159_).__node_靄:1.0___VERANTYX_靄_154_()
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_式:1.0___VERANTYX_靄_233_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]:
+    if __node_靄:1.0___VERANTYX_靄_249_:
+        __node_靄:1.0___VERANTYX_靄_88_ = __node_靄:1.0___VERANTYX_靄_249_(__node_靄:1.0___VERANTYX_靄_189_)
+        return {
+            "__node_靄:1.0___VERANTYX_靄_279_": __node_靄:1.0___VERANTYX_靄_88_.__node_靄:1.0___VERANTYX_靄_279_,
+            "__node_靄:1.0___VERANTYX_靄_7_": __node_靄:1.0___VERANTYX_靄_88_.__node_靄:1.0___VERANTYX_靄_7_,
+            "__node_游:1.0___VERANTYX_靄_65_": __node_靄:1.0___VERANTYX_靄_88_.__node_游:1.0___VERANTYX_靄_65_,
+            "__node_靄:1.0___VERANTYX_靄_157_": __node_靄:1.0___VERANTYX_靄_88_.__node_靄:1.0___VERANTYX_靄_157_,
+        }
+    return {"__node_靄:1.0___VERANTYX_靄_279_": __node_廴:1.0___VERANTYX_廴_64_, "__node_靄:1.0___VERANTYX_靄_7_": [], "__node_游:1.0___VERANTYX_靄_65_": __node_廴:1.0___VERANTYX_廴_64_, "__node_靄:1.0___VERANTYX_靄_157_": __node_靄:1.0___VERANTYX_靄_189_}
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_186_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]:
+    if __node_游:1.0___VERANTYX_靄_171_:
+        return __node_游:1.0___VERANTYX_靄_171_(__node_靄:1.0___VERANTYX_靄_189_)
+    return []
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_144_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    t = (__node_靄:1.0___VERANTYX_靄_189_ or "")
+    
+// [metadata-stripped]
+    if any(k in t for k in ["民法", "刑法", "条文", "契約", "売主", "買主", "責任", "違法", "適法", "損害賠償", "解除"]):
+        return "__node_靄:1.0___VERANTYX_靄_57_"
+
+    if __node_靄:1.0___VERANTYX_靄_182_:
+        d = __node_靄:1.0___VERANTYX_靄_182_(__node_靄:1.0___VERANTYX_靄_189_)
+        if d __node_靄:1.0___VERANTYX_靄_16_ d != "__node_靄:1.0___VERANTYX_靄_238_":
+            return d
+
+    tl = t.__node_式:1.0___VERANTYX_靄_232_()
+
+    if ("∀" in t) or ("∃" in t) or ("__node_式:1.0___VERANTYX_靄_208_" in tl) or ("__node_靄:1.0___VERANTYX_靄_22_-__node_式:1.0___VERANTYX_靄_286_" in tl) or ("述語" in t) or ("一階" in t) or ("モデル" in t __node_靄:1.0___VERANTYX_靄_16_ "構造" in t):
+        return "__node_靄:1.0___VERANTYX_靄_61_"
+    if ("__node_靄:1.0___VERANTYX_靄_252_" in tl) or ("□" in t) or ("◇" in t) or ("[]" in tl) or ("<>" in tl) or ("様様" in t):
+        return "__node_靄:1.0___VERANTYX_靄_55_"
+    if ("__node_靄:1.0___VERANTYX_靄_181_" in tl) or ("恒真" in t) or ("真理値表" in t):
+// __node_廴:0.6___VERANTYX_LB_573_ [decoy-metadata]
+        return "__node_靄:1.0___VERANTYX_靄_241_"
+    if ("__node_靄:1.0___VERANTYX_靄_280_" in tl) or ("行列" in t) or ("対称" in t) or ("次元" in t):
+        return "__node_靄:1.0___VERANTYX_靄_133_"
+    return "__node_靄:1.0___VERANTYX_靄_238_"
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_169_(s: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    if __node_游:1.0___VERANTYX_靄_242_:
+        return __node_游:1.0___VERANTYX_靄_242_(s)
+    return (s or "").__node_靄:1.0___VERANTYX_靄_154_()
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_295_(__node_靄:1.0___VERANTYX_靄_151_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]:
+    __node_靄:1.0___VERANTYX_靄_10_ = __node_靄:1.0___VERANTYX_靄_289_(__node_靄:1.0___VERANTYX_靄_151_)
+    __node_靄:1.0___VERANTYX_靄_88_ = __node_式:1.0___VERANTYX_靄_233_(__node_靄:1.0___VERANTYX_靄_10_)
+    __node_靄:1.0___VERANTYX_靄_279_ = __node_靄:1.0___VERANTYX_靄_88_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_279_") or __node_靄:1.0___VERANTYX_靄_144_(__node_靄:1.0___VERANTYX_靄_10_)
+    __node_靄:1.0___VERANTYX_靄_7_ = __node_靄:1.0___VERANTYX_靄_221_(__node_靄:1.0___VERANTYX_靄_88_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_7_") or [])
+    __node_靄:1.0___VERANTYX_靄_288_ = __node_游:1.0___VERANTYX_靄_186_(__node_靄:1.0___VERANTYX_靄_10_)
+    __node_靄:1.0___VERANTYX_靄_135_ = []
+    if __node_靄:1.0___VERANTYX_靄_288_:
+        __node_靄:1.0___VERANTYX_靄_135_ = [__node_游:1.0___VERANTYX_靄_169_(q) for q in __node_靄:1.0___VERANTYX_靄_288_ if __node_游:1.0___VERANTYX_靄_169_(q)]
+    __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_88_.__node_式:1.0___VERANTYX_傑_3_("__node_游:1.0___VERANTYX_靄_65_") or (__node_靄:1.0___VERANTYX_靄_135_[0] if __node_靄:1.0___VERANTYX_靄_135_ else "")
+    return {
+        "__node_靄:1.0___VERANTYX_靄_151_": __node_靄:1.0___VERANTYX_靄_151_,
+// __node_傑:0.2___VERANTYX_XF_448_ [decoy-metadata]
+        "__node_靄:1.0___VERANTYX_靄_66_": __node_靄:1.0___VERANTYX_靄_10_,
+        "__node_靄:1.0___VERANTYX_靄_279_": __node_靄:1.0___VERANTYX_靄_279_,
+        "__node_靄:1.0___VERANTYX_靄_7_": __node_靄:1.0___VERANTYX_靄_7_,
+        "__node_靄:1.0___VERANTYX_靄_288_": __node_靄:1.0___VERANTYX_靄_288_,
+        "__node_靄:1.0___VERANTYX_靄_135_": __node_靄:1.0___VERANTYX_靄_135_,
+        "__node_游:1.0___VERANTYX_靄_103_": __node_游:1.0___VERANTYX_靄_103_,
+    }
+
+// [metadata-stripped]
+__node_靄:1.0___VERANTYX_靄_117_ = [
+    r"^\s*【入力ルール】",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_58_:\s*",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_7_ __node_靄:1.0___VERANTYX_靄_237_:",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_50_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_28_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_68_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_56_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_40_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_55_ __node_廴:1.0___VERANTYX_廴_72_:",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_31_ in\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_32_ __node_廴:1.0___VERANTYX_廴_37_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_30_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_36_\s*/\s*__node_廴:1.0___VERANTYX_廴_14_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_2_ __node_廴:1.0___VERANTYX_廴_60_\b",
+    r"^\s*__node_奥:1.0___VERANTYX_廴_15_:\s*q_[0-9a-f]+\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_63_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_6_ __node_廴:1.0___VERANTYX_廴_4_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_69_ __node_廴:1.0___VERANTYX_廴_17_\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_45_ __node_廴:1.0___VERANTYX_廴_26_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_9_ \"__node_廴:1.0___VERANTYX_廴_84_\"",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_76_ __node_廴:1.0___VERANTYX_廴_51_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_87_ __node_廴:1.0___VERANTYX_廴_67_\b",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_50_ \(__node_廴:1.0___VERANTYX_廴_67_\)\b",
+    r"^\s*__node_靄:1.0___VERANTYX_靄_292_:\s*$",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_66_:\s*",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_3_[s]*:\s*",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_8_:\s*",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_57_:\s*",
+    r"^\s*__node_廴:1.0___VERANTYX_廴_47_:\s*",
+]
+__node_靄:1.0___VERANTYX_靄_264_ = re.__node_靄:1.0___VERANTYX_靄_272_("|".__node_靄:1.0___VERANTYX_靄_165_(__node_靄:1.0___VERANTYX_靄_117_), re.__node_廴:1.0___VERANTYX_廴_83_)
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_164_(__node_靄:1.0___VERANTYX_靄_151_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    __node_靄:1.0___VERANTYX_靄_159_ = (__node_靄:1.0___VERANTYX_靄_151_ or "").__node_靄:1.0___VERANTYX_靄_147_()
+    __node_靄:1.0___VERANTYX_靄_163_ = []
+    for ln in __node_靄:1.0___VERANTYX_靄_159_:
+        s = ln.__node_靄:1.0___VERANTYX_靄_154_()
+        if __node_靄:1.0___VERANTYX_靄_28_ s:
+            continue
+        if __node_靄:1.0___VERANTYX_靄_264_.__node_靄:1.0___VERANTYX_靄_98_(s):
+            continue
+        if re.__node_靄:1.0___VERANTYX_靄_166_(r"^\s*[=\-]{4,}\s*$", s):
+            continue
+        __node_靄:1.0___VERANTYX_靄_163_.__node_靄:1.0___VERANTYX_靄_277_(ln)
+    return "\n".__node_靄:1.0___VERANTYX_靄_165_(__node_靄:1.0___VERANTYX_靄_163_).__node_靄:1.0___VERANTYX_靄_154_()
+
+__node_靄:1.0___VERANTYX_靄_52_ = re.__node_靄:1.0___VERANTYX_靄_272_(r'"([^"]{1,500})"|“([^”
+]{1,500})”|「([^」
+]{1,500})」')
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_39_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]:
+    __node_靄:1.0___VERANTYX_靄_27_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    for m in __node_靄:1.0___VERANTYX_靄_52_.__node_式:1.0___VERANTYX_靄_146_(__node_靄:1.0___VERANTYX_靄_189_ or ""):
+        s = __node_靄:1.0___VERANTYX_靄_107_((g for g in m.__node_靄:1.0___VERANTYX_靄_115_() if g), "")
+        s = (s or "").__node_靄:1.0___VERANTYX_靄_154_()
+        if s:
+            __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_(s)
+    return __node_靄:1.0___VERANTYX_靄_27_
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_35_(s: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    s = (s or "").__node_靄:1.0___VERANTYX_靄_154_()
+    s = s.__node_靄:1.0___VERANTYX_靄_89_("\__node_靄:1.0___VERANTYX_靄_222_", "").__node_靄:1.0___VERANTYX_靄_89_("\__node_靄:1.0___VERANTYX_靄_92_", "")
+    
+// [metadata-stripped]
+    s = s.__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_180_", "&").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_142_", "|").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_47_", "~")
+    s = s.__node_靄:1.0___VERANTYX_靄_89_(r"\to", "->").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_132_", "->").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_193_", "<->")
+    s = s.__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_125_", "[]").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_188_", "<>")
+    
+    s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\__node_靄:1.0___VERANTYX_靄_64_\b", "[]", s, __node_靄:1.0___VERANTYX_靄_136_=re.__node_廴:1.0___VERANTYX_廴_83_)
+    s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\__node_靄:1.0___VERANTYX_靄_190_\b", "<>", s, __node_靄:1.0___VERANTYX_靄_136_=re.__node_廴:1.0___VERANTYX_廴_83_)
+    s = s.__node_靄:1.0___VERANTYX_靄_89_("□", "[]").__node_靄:1.0___VERANTYX_靄_89_("◇", "<>")
+    s = s.__node_靄:1.0___VERANTYX_靄_89_("→", "->").__node_靄:1.0___VERANTYX_靄_89_("−", "-").__node_靄:1.0___VERANTYX_靄_89_("÷", "/")
+    
+// [metadata-stripped]
+    if __node_靄:1.0___VERANTYX_靄_28_ (s.__node_靄:1.0___VERANTYX_靄_34_('"') __node_靄:1.0___VERANTYX_靄_16_ s.__node_靄:1.0___VERANTYX_靄_82_('"')):
+        s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\s+", "", s)
+    else:
+// [metadata-stripped]
+        s = s.__node_靄:1.0___VERANTYX_靄_154_('"')
+        s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\s+", " ", s).__node_靄:1.0___VERANTYX_靄_154_()
+    
+    if s in ("[]", "<>", "->", ""):
+        return ""
+    return s
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_38_(__node_靄:1.0___VERANTYX_靄_66_: __node_靄:1.0___VERANTYX_靄_290_, __node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]) -> __node_靄:1.0___VERANTYX_靄_290_:
+    t = (__node_靄:1.0___VERANTYX_靄_66_ or "").__node_式:1.0___VERANTYX_靄_232_()
+    __node_靄:1.0___VERANTYX_靄_174_ = " ".__node_靄:1.0___VERANTYX_靄_165_(__node_靄:1.0___VERANTYX_靄_135_).__node_式:1.0___VERANTYX_靄_232_()
+    if "[]" in __node_靄:1.0___VERANTYX_靄_174_ or "<>" in __node_靄:1.0___VERANTYX_靄_174_:
+        return "__node_靄:1.0___VERANTYX_靄_55_"
+    if any(x in __node_靄:1.0___VERANTYX_靄_174_ for x in ["∀", "∃", "__node_游:1.0___VERANTYX_靄_285_", "__node_靄:1.0___VERANTYX_靄_274_"]):
+        return "__node_靄:1.0___VERANTYX_靄_61_"
+    if any(x in __node_靄:1.0___VERANTYX_靄_174_ for x in ["__node_靄:1.0___VERANTYX_靄_183_ __node_靄:1.0___VERANTYX_靄_210_", "__node_靄:1.0___VERANTYX_靄_187_(", "__node_靄:1.0___VERANTYX_靄_280_", " 対称行列", "行列", "次元"]):
+        return "__node_靄:1.0___VERANTYX_靄_133_"
+    if any(k in t for k in ["クリプケ", "__node_靄:1.0___VERANTYX_靄_252_", "推移性", "反射性", "様相", "必然", "可能"]):
+        return "__node_靄:1.0___VERANTYX_靄_55_"
+    if any(k in t for k in ["恒真", "命題論理", "真理値", "トートロジー"]):
+        return "__node_靄:1.0___VERANTYX_靄_241_"
+    if any(k in t for k in [r"\__node_靄:1.0___VERANTYX_靄_180_", r"\__node_靄:1.0___VERANTYX_靄_142_", r"\to", r"\__node_靄:1.0___VERANTYX_靄_47_"]):
+        return "__node_靄:1.0___VERANTYX_靄_241_"
+    if any(k in t for k in ["全称", "存在", "述語", "一階", "モデル", "充足"]):
+        return "__node_靄:1.0___VERANTYX_靄_61_"
+    if any(k in t for k in ["対称行列", "次元", "線形", "固有値", "__node_靄:1.0___VERANTYX_靄_187_"]):
+        return "__node_靄:1.0___VERANTYX_靄_133_"
+    if any(k in t for k in ["民法", "刑法", "条文", "契約", "売主", "買主", "責任", "違法", "適法", "損害賠償", "解除"]):
+        return "__node_靄:1.0___VERANTYX_靄_57_"
+    return "__node_靄:1.0___VERANTYX_靄_238_"
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_266_(__node_靄:1.0___VERANTYX_靄_151_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]:
+    __node_靄:1.0___VERANTYX_靄_204_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    __node_靄:1.0___VERANTYX_靄_10_ = __node_靄:1.0___VERANTYX_靄_164_(__node_靄:1.0___VERANTYX_靄_151_ or "")
+    __node_靄:1.0___VERANTYX_靄_204_.__node_靄:1.0___VERANTYX_靄_277_(f"[V2] __node_靄:1.0___VERANTYX_靄_119_={__node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_10_)}")
+
+    __node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    __node_靄:1.0___VERANTYX_靄_288_ = __node_游:1.0___VERANTYX_靄_39_(__node_靄:1.0___VERANTYX_靄_10_)
+    if __node_靄:1.0___VERANTYX_靄_288_:
+        __node_靄:1.0___VERANTYX_靄_204_.__node_靄:1.0___VERANTYX_靄_277_(f"[V2] __node_靄:1.0___VERANTYX_靄_288_={__node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_288_)}")
+        for q in __node_靄:1.0___VERANTYX_靄_288_[:50]:
+            f = __node_游:1.0___VERANTYX_靄_35_(q)
+            if f:
+                __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_277_(f)
+
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_135_:
+        __node_靄:1.0___VERANTYX_靄_204_.__node_靄:1.0___VERANTYX_靄_277_("[V2] __node_靄:1.0___VERANTYX_靄_48_; __node_靄:1.0___VERANTYX_靄_3_ __node_靄:1.0___VERANTYX_靄_291_")
+        for m in re.__node_式:1.0___VERANTYX_靄_146_(r"(\[\][^\n]{1,120})", __node_靄:1.0___VERANTYX_靄_10_):
+            f = __node_游:1.0___VERANTYX_靄_35_(m.__node_靄:1.0___VERANTYX_靄_90_(1))
+            if f:
+                __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_277_(f)
+                break
+        if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_135_:
+            for m in re.__node_式:1.0___VERANTYX_靄_146_(r"([A-Za-z\(\)~\|\&\s\[\]□◇]{0,60}->[A-Za-z\(\)~\|\&\s\[\]□◇]{1,60})", __node_靄:1.0___VERANTYX_靄_10_):
+                f = __node_游:1.0___VERANTYX_靄_35_(m.__node_靄:1.0___VERANTYX_靄_90_(1))
+                if f:
+                    __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_277_(f)
+                    break
+
+    __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_135_[0] if __node_靄:1.0___VERANTYX_靄_135_ else __node_靄:1.0___VERANTYX_靄_10_
+    __node_靄:1.0___VERANTYX_靄_279_ = __node_靄:1.0___VERANTYX_靄_38_(__node_靄:1.0___VERANTYX_靄_10_, __node_靄:1.0___VERANTYX_靄_135_)
+    if __node_靄:1.0___VERANTYX_靄_44_(__node_游:1.0___VERANTYX_靄_103_, __node_靄:1.0___VERANTYX_靄_290_) __node_靄:1.0___VERANTYX_靄_16_ __node_游:1.0___VERANTYX_靄_103_.__node_靄:1.0___VERANTYX_靄_82_("->"):
+        __node_靄:1.0___VERANTYX_靄_204_.__node_靄:1.0___VERANTYX_靄_277_("[V2][__node_廴:1.0___VERANTYX_廴_13_] __node_靄:1.0___VERANTYX_靄_100_ __node_靄:1.0___VERANTYX_靄_82_ -> ; __node_靄:1.0___VERANTYX_靄_177_ to __node_靄:1.0___VERANTYX_靄_10_")
+        __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_10_
+
+    return {
+        "__node_靄:1.0___VERANTYX_靄_151_": __node_靄:1.0___VERANTYX_靄_151_ or "",
+        "__node_靄:1.0___VERANTYX_靄_66_": __node_靄:1.0___VERANTYX_靄_10_,
+        "__node_靄:1.0___VERANTYX_靄_75_": __node_靄:1.0___VERANTYX_靄_279_,
+        "__node_靄:1.0___VERANTYX_靄_7_": [],
+        "__node_靄:1.0___VERANTYX_靄_135_": __node_靄:1.0___VERANTYX_靄_135_,
+        "__node_游:1.0___VERANTYX_靄_103_": __node_游:1.0___VERANTYX_靄_103_,
+        "__node_靄:1.0___VERANTYX_靄_204_": __node_靄:1.0___VERANTYX_靄_204_,
+    }
+
+
+// [metadata-stripped]
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_283_ import __node_靄:1.0___VERANTYX_靄_5_, __node_靄:1.0___VERANTYX_靄_173_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_106_.__node_靄:1.0___VERANTYX_靄_217_ import __node_廴:1.0___VERANTYX_廴_79_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_106_.__node_靄:1.0___VERANTYX_靄_220_ import __node_廴:1.0___VERANTYX_廴_41_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_79_.__node_游:1.0___VERANTYX_靄_109_ import __node_游:1.0___VERANTYX_靄_96_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_68_ import (
+    __node_游:1.0___VERANTYX_靄_168_,
+    __node_靄:1.0___VERANTYX_靄_111_,
+    __node_游:1.0___VERANTYX_靄_175_,
+    __node_游:1.0___VERANTYX_靄_116_,
+)
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_161_ import __node_靄:1.0___VERANTYX_靄_161_
+
+__node_靄:1.0___VERANTYX_靄_278_ = re.__node_靄:1.0___VERANTYX_靄_272_(r"(^|\n|\s)([A-D])\s*[\.:]\s*([\s\S]+?)(?=\n\s*[A-D]\s*[\.:]|\Z)", re.__node_廴:1.0___VERANTYX_廴_39_)
+__node_靄:1.0___VERANTYX_靄_268_ = __node_廴:1.0___VERANTYX_廴_35_(__node_匴:1.0___VERANTYX_靄_2_).__node_靄:1.0___VERANTYX_靄_70_().__node_靄:1.0___VERANTYX_靄_139_ / "db" / "__node_靄:1.0___VERANTYX_靄_215_.__node_靄:1.0___VERANTYX_靄_192_.__node_靄:1.0___VERANTYX_靄_259_.__node_靄:1.0___VERANTYX_靄_201_"
+__node_靄:1.0___VERANTYX_靄_131_: __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_85_[__node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]]] = {}
+__node_奥:1.0___VERANTYX_靄_194_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+__node_匴:1.0___VERANTYX_靄_287_ = __node_廴:1.0___VERANTYX_廴_16_
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_83_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]:
+    __node_靄:1.0___VERANTYX_靄_27_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    for m in __node_靄:1.0___VERANTYX_靄_278_.__node_式:1.0___VERANTYX_靄_146_(__node_靄:1.0___VERANTYX_靄_189_ or ""):
+        __node_靄:1.0___VERANTYX_靄_157_ = (m.__node_靄:1.0___VERANTYX_靄_90_(3) or "").__node_靄:1.0___VERANTYX_靄_154_()
+        if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_157_:
+            continue
+        if __node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_157_) > 800:
+            continue
+        try:
+            __node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_68_ import __node_游:1.0___VERANTYX_靄_128_  # __node_靄:1.0___VERANTYX_靄_33_: __node_靄:1.0___VERANTYX_靄_25_
+        __node_靄:1.0___VERANTYX_靄_46_ __node_廴:1.0___VERANTYX_廴_77_:
+            __node_游:1.0___VERANTYX_靄_128_ = __node_廴:1.0___VERANTYX_廴_64_
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_(__node_游:1.0___VERANTYX_靄_128_(__node_靄:1.0___VERANTYX_靄_157_) if __node_游:1.0___VERANTYX_靄_128_ else __node_靄:1.0___VERANTYX_靄_157_)
+    __node_靄:1.0___VERANTYX_靄_6_ = __node_式:1.0___VERANTYX_傑_1_()
+    __node_靄:1.0___VERANTYX_靄_148_ = []
+    for x in __node_靄:1.0___VERANTYX_靄_27_:
+        if x __node_靄:1.0___VERANTYX_靄_16_ x __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_6_:
+            __node_靄:1.0___VERANTYX_靄_6_.__node_靄:1.0___VERANTYX_靄_17_(x)
+            __node_靄:1.0___VERANTYX_靄_148_.__node_靄:1.0___VERANTYX_靄_277_(x)
+    return __node_靄:1.0___VERANTYX_靄_148_
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_251_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]:
+    t = __node_靄:1.0___VERANTYX_靄_189_ or ""
+    tl = t.__node_式:1.0___VERANTYX_靄_232_()
+    __node_靄:1.0___VERANTYX_靄_27_ = []
+    if ("推移" in t) or ("__node_靄:1.0___VERANTYX_靄_253_" in tl):
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_("__node_靄:1.0___VERANTYX_靄_45_:__node_靄:1.0___VERANTYX_靄_253_")
+    if ("反射" in t) or ("__node_靄:1.0___VERANTYX_靄_231_" in tl):
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_("__node_靄:1.0___VERANTYX_靄_45_:__node_靄:1.0___VERANTYX_靄_231_")
+    if ("対称" in t) or ("__node_靄:1.0___VERANTYX_靄_184_" in tl):
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_("__node_靄:1.0___VERANTYX_靄_45_:__node_靄:1.0___VERANTYX_靄_184_")
+    if ("ユークリッド" in t) or ("__node_靄:1.0___VERANTYX_靄_87_" in tl):
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_("__node_靄:1.0___VERANTYX_靄_45_:__node_靄:1.0___VERANTYX_靄_87_")
+// __node_奥:0.6___VERANTYX_GZ_380_ [decoy-metadata]
+    if ("全称" in t) or ("存在" in t) or ("∀" in t) or ("∃" in t) or ("__node_游:1.0___VERANTYX_靄_285_" in tl) or ("__node_靄:1.0___VERANTYX_靄_274_" in tl):
+        __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_277_("__node_靄:1.0___VERANTYX_靄_45_:__node_靄:1.0___VERANTYX_靄_113_")
+    __node_靄:1.0___VERANTYX_靄_27_.__node_靄:1.0___VERANTYX_靄_230_(__node_靄:1.0___VERANTYX_靄_111_(__node_靄:1.0___VERANTYX_靄_189_))
+    return __node_靄:1.0___VERANTYX_靄_211_(__node_式:1.0___VERANTYX_傑_1_(__node_靄:1.0___VERANTYX_靄_27_))
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_18_(s: __node_靄:1.0___VERANTYX_靄_290_) -> __node_靄:1.0___VERANTYX_靄_290_:
+    s = (s or "").__node_靄:1.0___VERANTYX_靄_154_()
+    s = s.__node_靄:1.0___VERANTYX_靄_89_(" ", "")
+    s = s.__node_靄:1.0___VERANTYX_靄_89_("→", "->").__node_靄:1.0___VERANTYX_靄_89_("¬", "~").__node_靄:1.0___VERANTYX_靄_89_("∧", "&").__node_靄:1.0___VERANTYX_靄_89_("∨", "|")
+    s = s.__node_靄:1.0___VERANTYX_靄_89_("□", "[]").__node_靄:1.0___VERANTYX_靄_89_("◇", "<>")
+    s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\__node_靄:1.0___VERANTYX_靄_64_\b", "[]", s, __node_靄:1.0___VERANTYX_靄_136_=re.__node_廴:1.0___VERANTYX_廴_83_)
+    s = re.__node_靄:1.0___VERANTYX_靄_15_(r"\__node_靄:1.0___VERANTYX_靄_190_\b", "<>", s, __node_靄:1.0___VERANTYX_靄_136_=re.__node_廴:1.0___VERANTYX_廴_83_)
+    return s
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_匴:1.0___VERANTYX_靄_126_() -> __node_廴:1.0___VERANTYX_廴_64_:
+    __node_靄:1.0___VERANTYX_靄_32_ __node_匴:1.0___VERANTYX_靄_287_, __node_奥:1.0___VERANTYX_靄_194_
+    if __node_匴:1.0___VERANTYX_靄_287_:
+        return
+    __node_匴:1.0___VERANTYX_靄_287_ = __node_廴:1.0___VERANTYX_廴_65_
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_268_.__node_靄:1.0___VERANTYX_靄_274_():
+        return
+    __node_靄:1.0___VERANTYX_靄_95_: __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_85_[__node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]]] = {}
+    __node_靄:1.0___VERANTYX_靄_198_ __node_靄:1.0___VERANTYX_靄_268_.open("r", __node_靄:1.0___VERANTYX_靄_205_="__node_靄:1.0___VERANTYX_靄_209_-8") as __node_靄:1.0___VERANTYX_靄_294_:
+        for __node_靄:1.0___VERANTYX_靄_143_ in __node_靄:1.0___VERANTYX_靄_294_:
+            __node_靄:1.0___VERANTYX_靄_143_ = __node_靄:1.0___VERANTYX_靄_143_.__node_靄:1.0___VERANTYX_靄_154_()
+            if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_143_:
+                continue
+            try:
+                __node_靄:1.0___VERANTYX_靄_273_ = __node_靄:1.0___VERANTYX_靄_248_.__node_匴:1.0___VERANTYX_靄_195_(__node_靄:1.0___VERANTYX_靄_143_)
+            __node_靄:1.0___VERANTYX_靄_46_ __node_廴:1.0___VERANTYX_廴_77_:
+// __node_匴:0.8___VERANTYX_EX_160_ [decoy-metadata]
+                continue
+            __node_靄:1.0___VERANTYX_靄_279_ = (__node_靄:1.0___VERANTYX_靄_273_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_279_") or "").__node_靄:1.0___VERANTYX_靄_154_().__node_式:1.0___VERANTYX_靄_232_()
+            __node_靄:1.0___VERANTYX_靄_42_ = __node_靄:1.0___VERANTYX_靄_273_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_42_") or ""
+            __node_靄:1.0___VERANTYX_靄_40_ = __node_靄:1.0___VERANTYX_靄_273_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_40_") or []
+            __node_奥:1.0___VERANTYX_靄_214_ = []
+            if __node_靄:1.0___VERANTYX_靄_42_:
+                __node_奥:1.0___VERANTYX_靄_214_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_42_)
+            for __node_靄:1.0___VERANTYX_靄_245_ in __node_靄:1.0___VERANTYX_靄_40_:
+                if __node_靄:1.0___VERANTYX_靄_245_:
+                    __node_奥:1.0___VERANTYX_靄_214_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_245_)
+            for __node_奥:1.0___VERANTYX_靄_104_ in __node_奥:1.0___VERANTYX_靄_214_:
+                if __node_靄:1.0___VERANTYX_靄_28_ __node_游:1.0___VERANTYX_靄_116_(__node_靄:1.0___VERANTYX_靄_290_(__node_奥:1.0___VERANTYX_靄_104_)):
+                    continue
+                __node_靄:1.0___VERANTYX_靄_176_ = __node_游:1.0___VERANTYX_靄_18_(__node_靄:1.0___VERANTYX_靄_290_(__node_奥:1.0___VERANTYX_靄_104_))
+                if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_176_:
+                    continue
+                __node_靄:1.0___VERANTYX_靄_95_.__node_式:1.0___VERANTYX_傑_2_(__node_靄:1.0___VERANTYX_靄_176_, []).__node_靄:1.0___VERANTYX_靄_277_(
+                    {
+                        "id": __node_靄:1.0___VERANTYX_靄_273_.__node_式:1.0___VERANTYX_傑_3_("id"),
+                        "__node_靄:1.0___VERANTYX_靄_279_": __node_靄:1.0___VERANTYX_靄_279_,
+                        "__node_靄:1.0___VERANTYX_靄_42_": __node_靄:1.0___VERANTYX_靄_42_,
+                        "__node_靄:1.0___VERANTYX_靄_51_": __node_奥:1.0___VERANTYX_靄_104_,
+                    }
+                )
+    __node_靄:1.0___VERANTYX_靄_131_.__node_靄:1.0___VERANTYX_靄_1_(__node_靄:1.0___VERANTYX_靄_95_)
+    __node_奥:1.0___VERANTYX_靄_194_ = __node_靄:1.0___VERANTYX_靄_211_(__node_靄:1.0___VERANTYX_靄_95_.__node_奥:1.0___VERANTYX_靄_214_(), __node_奥:1.0___VERANTYX_靄_104_=__node_靄:1.0___VERANTYX_靄_260_, __node_靄:1.0___VERANTYX_靄_267_=__node_廴:1.0___VERANTYX_廴_65_)
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_游:1.0___VERANTYX_靄_293_(__node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_], __node_游:1.0___VERANTYX_靄_103_: __node_靄:1.0___VERANTYX_靄_290_, __node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_25_[__node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_]]:
+    __node_匴:1.0___VERANTYX_靄_126_()
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_131_:
+        return __node_廴:1.0___VERANTYX_廴_64_
+    __node_靄:1.0___VERANTYX_靄_276_ = []
+    if __node_游:1.0___VERANTYX_靄_103_:
+        __node_靄:1.0___VERANTYX_靄_276_.__node_靄:1.0___VERANTYX_靄_277_(__node_游:1.0___VERANTYX_靄_103_)
+    __node_靄:1.0___VERANTYX_靄_276_.__node_靄:1.0___VERANTYX_靄_230_(__node_靄:1.0___VERANTYX_靄_135_)
+    __node_靄:1.0___VERANTYX_靄_50_ = __node_游:1.0___VERANTYX_靄_175_(__node_靄:1.0___VERANTYX_靄_189_ or "")
+    if __node_靄:1.0___VERANTYX_靄_50_:
+        __node_靄:1.0___VERANTYX_靄_276_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_50_)
+    for __node_靄:1.0___VERANTYX_靄_236_ in __node_靄:1.0___VERANTYX_靄_276_:
+        if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_236_:
+            continue
+        __node_靄:1.0___VERANTYX_靄_176_ = __node_游:1.0___VERANTYX_靄_18_(__node_靄:1.0___VERANTYX_靄_236_)
+        __node_靄:1.0___VERANTYX_靄_123_ = __node_靄:1.0___VERANTYX_靄_131_.__node_式:1.0___VERANTYX_傑_3_(__node_靄:1.0___VERANTYX_靄_176_)
+        if __node_靄:1.0___VERANTYX_靄_123_:
+            __node_靄:1.0___VERANTYX_靄_84_ = __node_靄:1.0___VERANTYX_靄_123_[0]
+            return {
+                "__node_游:1.0___VERANTYX_靄_65_": __node_靄:1.0___VERANTYX_靄_236_,
+                "__node_靄:1.0___VERANTYX_靄_279_": __node_靄:1.0___VERANTYX_靄_84_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_279_") or "__node_靄:1.0___VERANTYX_靄_238_",
+                "__node_靄:1.0___VERANTYX_靄_263_": __node_靄:1.0___VERANTYX_靄_84_.__node_式:1.0___VERANTYX_傑_3_("id"),
+                "__node_靄:1.0___VERANTYX_靄_51_": __node_靄:1.0___VERANTYX_靄_84_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_51_") or __node_靄:1.0___VERANTYX_靄_84_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_42_"),
+            }
+    return __node_廴:1.0___VERANTYX_廴_64_
+
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_49_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_25_[__node_靄:1.0___VERANTYX_靄_290_]:
+    __node_匴:1.0___VERANTYX_靄_126_()
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_奥:1.0___VERANTYX_靄_194_:
+        return __node_廴:1.0___VERANTYX_廴_64_
+    __node_靄:1.0___VERANTYX_靄_99_ = __node_游:1.0___VERANTYX_靄_18_(__node_靄:1.0___VERANTYX_靄_189_ or "")
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_99_:
+        return __node_廴:1.0___VERANTYX_廴_64_
+    for __node_奥:1.0___VERANTYX_靄_104_ in __node_奥:1.0___VERANTYX_靄_194_:
+        if __node_奥:1.0___VERANTYX_靄_104_ __node_靄:1.0___VERANTYX_靄_16_ __node_奥:1.0___VERANTYX_靄_104_ in __node_靄:1.0___VERANTYX_靄_99_:
+            return __node_奥:1.0___VERANTYX_靄_104_
+    return __node_廴:1.0___VERANTYX_廴_64_
+
+
+@__node_靄:1.0___VERANTYX_靄_5_
+class __node_廴:1.0___VERANTYX_廴_43_:
+    __node_靄:1.0___VERANTYX_靄_279_: __node_靄:1.0___VERANTYX_靄_290_
+    __node_游:1.0___VERANTYX_靄_103_: __node_廴:1.0___VERANTYX_廴_25_[__node_靄:1.0___VERANTYX_靄_290_]
+    __node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]
+    __node_靄:1.0___VERANTYX_靄_7_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]
+    __node_靄:1.0___VERANTYX_靄_225_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]
+    __node_靄:1.0___VERANTYX_靄_30_: __node_廴:1.0___VERANTYX_廴_75_[__node_靄:1.0___VERANTYX_靄_290_, __node_廴:1.0___VERANTYX_廴_10_] = __node_靄:1.0___VERANTYX_靄_173_(__node_靄:1.0___VERANTYX_靄_101_=__node_靄:1.0___VERANTYX_靄_216_)
+    __node_靄:1.0___VERANTYX_靄_204_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = __node_靄:1.0___VERANTYX_靄_173_(__node_靄:1.0___VERANTYX_靄_101_=__node_靄:1.0___VERANTYX_靄_221_)
+    __node_靄:1.0___VERANTYX_靄_217_: __node_廴:1.0___VERANTYX_廴_79_ = __node_廴:1.0___VERANTYX_廴_79_.__node_廴:1.0___VERANTYX_廴_59_
+    __node_靄:1.0___VERANTYX_靄_220_: __node_廴:1.0___VERANTYX_廴_41_ = __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_80_
+    __node_靄:1.0___VERANTYX_靄_162_: __node_廴:1.0___VERANTYX_廴_25_[__node_靄:1.0___VERANTYX_靄_290_] = __node_廴:1.0___VERANTYX_廴_64_ # __node_廴:1.0___VERANTYX_廴_54_ __node_靄:1.0___VERANTYX_靄_173_
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_110_(__node_靄:1.0___VERANTYX_靄_269_: __node_靄:1.0___VERANTYX_靄_290_, __node_游:1.0___VERANTYX_靄_103_: __node_廴:1.0___VERANTYX_廴_25_[__node_靄:1.0___VERANTYX_靄_290_], __node_靄:1.0___VERANTYX_靄_7_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]) -> __node_廴:1.0___VERANTYX_廴_41_:
+    q = (__node_靄:1.0___VERANTYX_靄_269_ or "").__node_式:1.0___VERANTYX_靄_232_()
+    
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_游:1.0___VERANTYX_靄_103_ or __node_靄:1.0___VERANTYX_靄_28_ __node_游:1.0___VERANTYX_靄_96_(__node_游:1.0___VERANTYX_靄_103_):
+        return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_80_ 
+
+    if "反例" in q or "__node_靄:1.0___VERANTYX_靄_262_" in q:
+        return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_48_
+
+    if __node_靄:1.0___VERANTYX_靄_7_:
+        return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_19_
+
+    if "常に" in q or "任意の" in q or "__node_靄:1.0___VERANTYX_靄_71_" in q or "__node_靄:1.0___VERANTYX_靄_134_" in q or "恒真" in q:
+        return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_80_
+        
+    if "充足" in q or "__node_靄:1.0___VERANTYX_靄_76_" in q:
+        return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_53_
+
+    return __node_廴:1.0___VERANTYX_廴_41_.__node_廴:1.0___VERANTYX_廴_80_
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_63_(__node_靄:1.0___VERANTYX_靄_269_: __node_靄:1.0___VERANTYX_靄_290_, __node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_], __node_游:1.0___VERANTYX_靄_103_: __node_廴:1.0___VERANTYX_廴_25_[__node_靄:1.0___VERANTYX_靄_290_] = __node_廴:1.0___VERANTYX_廴_64_) -> __node_廴:1.0___VERANTYX_廴_79_:
+    q = (__node_靄:1.0___VERANTYX_靄_269_ or "").__node_式:1.0___VERANTYX_靄_232_()
+    __node_靄:1.0___VERANTYX_靄_158_ = any(w in q for w in ["か", "？", "?", "定理", "成り立つ", "恒真", "__node_靄:1.0___VERANTYX_靄_134_"])
+    
+    if any(w in q for w in ["同値", "__node_靄:1.0___VERANTYX_靄_81_"]) or "↔" in q:
+        return __node_廴:1.0___VERANTYX_廴_79_.__node_廴:1.0___VERANTYX_廴_38_
+    if any(w in q for w in ["すべて", "全て", "__node_靄:1.0___VERANTYX_靄_246_", "すべての式", "常に", "任意の", "__node_靄:1.0___VERANTYX_靄_284_", "__node_靄:1.0___VERANTYX_靄_71_"]):
+        return __node_廴:1.0___VERANTYX_廴_79_.__node_式:1.0___VERANTYX_傑_5_
+    if any(w in q for w in ["どれか", "いずれか", "any", "存在", "__node_靄:1.0___VERANTYX_靄_274_"]):
+        return __node_廴:1.0___VERANTYX_廴_79_.__node_式:1.0___VERANTYX_傑_4_
+    if __node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_135_) >= 2:
+        return __node_廴:1.0___VERANTYX_廴_79_.__node_式:1.0___VERANTYX_傑_5_
+    return __node_廴:1.0___VERANTYX_廴_79_.__node_廴:1.0___VERANTYX_廴_59_
+
+
+// __node_奥:0.2___VERANTYX_LY_949_ [decoy-metadata]
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_219_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_) -> __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_]:
+    __node_靄:1.0___VERANTYX_靄_189_ = (__node_靄:1.0___VERANTYX_靄_189_ or "").__node_靄:1.0___VERANTYX_靄_89_("，", ",")
+    __node_靄:1.0___VERANTYX_靄_129_ = []
+    __node_靄:1.0___VERANTYX_靄_91_ = ""
+    __node_靄:1.0___VERANTYX_靄_172_ = 0
+    for ch in __node_靄:1.0___VERANTYX_靄_189_:
+        if ch in "([{": __node_靄:1.0___VERANTYX_靄_172_ += 1
+        __node_游:1.0___VERANTYX_靄_37_ ch in ")]}": __node_靄:1.0___VERANTYX_靄_172_ -= 1
+        if ch == "," __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_172_ == 0:
+            if __node_靄:1.0___VERANTYX_靄_91_.__node_靄:1.0___VERANTYX_靄_154_(): __node_靄:1.0___VERANTYX_靄_129_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_91_.__node_靄:1.0___VERANTYX_靄_154_())
+            __node_靄:1.0___VERANTYX_靄_91_ = ""
+        else: __node_靄:1.0___VERANTYX_靄_91_ += ch
+    if __node_靄:1.0___VERANTYX_靄_91_.__node_靄:1.0___VERANTYX_靄_154_(): __node_靄:1.0___VERANTYX_靄_129_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_91_.__node_靄:1.0___VERANTYX_靄_154_())
+    return __node_靄:1.0___VERANTYX_靄_129_
+
+
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_257_.__node_式:1.0___VERANTYX_靄_218_ import __node_式:1.0___VERANTYX_廴_11_
+__node_靄:1.0___VERANTYX_靄_185_ __node_靄:1.0___VERANTYX_靄_26_.__node_靄:1.0___VERANTYX_靄_257_.__node_式:1.0___VERANTYX_靄_85_ import __node_式:1.0___VERANTYX_廴_29_
+
+__node_靄:1.0___VERANTYX_靄_227_ __node_靄:1.0___VERANTYX_靄_72_(__node_靄:1.0___VERANTYX_靄_189_: __node_靄:1.0___VERANTYX_靄_290_, __node_靄:1.0___VERANTYX_靄_67_: __node_靄:1.0___VERANTYX_靄_54_ = 0.25) -> __node_廴:1.0___VERANTYX_廴_43_:
+    __node_靄:1.0___VERANTYX_靄_130_("!!! __node_匴:1.0___VERANTYX_廴_20_ __node_廴:1.0___VERANTYX_廴_23_ !!!")
+    __node_靄:1.0___VERANTYX_靄_189_ = __node_靄:1.0___VERANTYX_靄_189_.__node_靄:1.0___VERANTYX_靄_89_("“", '"').__node_靄:1.0___VERANTYX_靄_89_("”", '"').__node_靄:1.0___VERANTYX_靄_89_("‘", "'").__node_靄:1.0___VERANTYX_靄_89_("’", "'")
+    __node_靄:1.0___VERANTYX_靄_204_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    
+    __node_靄:1.0___VERANTYX_靄_105_ = re.__node_靄:1.0___VERANTYX_靄_98_(r"(?im)^\s*__node_廴:1.0___VERANTYX_廴_47_\s*:\s*(.+?)(?=\n\s*(?:__node_廴:1.0___VERANTYX_廴_66_|__node_廴:1.0___VERANTYX_廴_3_|__node_廴:1.0___VERANTYX_廴_8_|__node_廴:1.0___VERANTYX_廴_57_):|\Z)", __node_靄:1.0___VERANTYX_靄_189_, re.S)
+    __node_靄:1.0___VERANTYX_靄_162_ = __node_靄:1.0___VERANTYX_靄_105_.__node_靄:1.0___VERANTYX_靄_90_(1).__node_靄:1.0___VERANTYX_靄_154_() if __node_靄:1.0___VERANTYX_靄_105_ else __node_廴:1.0___VERANTYX_廴_64_
+    
+    __node_靄:1.0___VERANTYX_靄_189_ = __node_靄:1.0___VERANTYX_靄_189_.__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_180_", "&").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_142_", "|").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_47_", "~")
+    __node_靄:1.0___VERANTYX_靄_189_ = __node_靄:1.0___VERANTYX_靄_189_.__node_靄:1.0___VERANTYX_靄_89_(r"\to", "->").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_132_", "->").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_193_", "<->")
+    __node_靄:1.0___VERANTYX_靄_189_ = __node_靄:1.0___VERANTYX_靄_189_.__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_125_", "[]").__node_靄:1.0___VERANTYX_靄_89_(r"\__node_靄:1.0___VERANTYX_靄_188_", "<>")
+    
+    __node_式:1.0___VERANTYX_靄_218_ = __node_式:1.0___VERANTYX_廴_11_()
+    __node_靄:1.0___VERANTYX_靄_74_ = __node_式:1.0___VERANTYX_靄_218_.__node_靄:1.0___VERANTYX_靄_21_(__node_靄:1.0___VERANTYX_靄_189_)
+    __node_靄:1.0___VERANTYX_靄_121_ = __node_靄:1.0___VERANTYX_靄_74_["__node_靄:1.0___VERANTYX_靄_135_"]
+    __node_靄:1.0___VERANTYX_靄_108_ = __node_靄:1.0___VERANTYX_靄_74_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_120_", [])
+    __node_靄:1.0___VERANTYX_靄_135_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    __node_靄:1.0___VERANTYX_靄_14_ = __node_靄:1.0___VERANTYX_靄_121_[0]["__node_靄:1.0___VERANTYX_靄_78_"] if __node_靄:1.0___VERANTYX_靄_121_ else __node_廴:1.0___VERANTYX_廴_64_
+    
+    __node_靄:1.0___VERANTYX_靄_88_ = __node_式:1.0___VERANTYX_靄_233_(__node_靄:1.0___VERANTYX_靄_289_(__node_靄:1.0___VERANTYX_靄_189_))
+    if __node_靄:1.0___VERANTYX_靄_88_.__node_式:1.0___VERANTYX_傑_3_("__node_游:1.0___VERANTYX_靄_65_"):
+        __node_靄:1.0___VERANTYX_靄_8_ = {"__node_靄:1.0___VERANTYX_靄_78_": __node_游:1.0___VERANTYX_靄_169_(__node_靄:1.0___VERANTYX_靄_88_["__node_游:1.0___VERANTYX_靄_65_"]), "__node_靄:1.0___VERANTYX_靄_226_": 5.0, "__node_靄:1.0___VERANTYX_靄_250_": __node_靄:1.0___VERANTYX_靄_88_["__node_游:1.0___VERANTYX_靄_65_"], "__node_靄:1.0___VERANTYX_靄_240_": (0, __node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_189_))}
+        __node_游:1.0___VERANTYX_靄_239_ = "__node_式:1.0___VERANTYX_靄_256_"
+    else:
+        __node_靄:1.0___VERANTYX_靄_8_, __node_游:1.0___VERANTYX_靄_239_ = __node_游:1.0___VERANTYX_靄_213_(__node_靄:1.0___VERANTYX_靄_121_, __node_靄:1.0___VERANTYX_靄_189_)
+    
+    __node_靄:1.0___VERANTYX_靄_93_ = __node_游:1.0___VERANTYX_靄_168_(__node_靄:1.0___VERANTYX_靄_189_)
+    __node_靄:1.0___VERANTYX_靄_59_ = __node_靄:1.0___VERANTYX_靄_161_(__node_靄:1.0___VERANTYX_靄_189_, __node_游:1.0___VERANTYX_靄_103_=__node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_)
+    __node_靄:1.0___VERANTYX_靄_41_ = __node_靄:1.0___VERANTYX_靄_228_(__node_靄:1.0___VERANTYX_靄_189_ or "")
+    __node_靄:1.0___VERANTYX_靄_118_ = [n.__node_靄:1.0___VERANTYX_靄_170_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_60_", "") for n in __node_靄:1.0___VERANTYX_靄_41_.__node_靄:1.0___VERANTYX_靄_224_.__node_靄:1.0___VERANTYX_靄_203_() if __node_靄:1.0___VERANTYX_靄_44_(n.__node_靄:1.0___VERANTYX_靄_170_, __node_靄:1.0___VERANTYX_靄_216_)]
+    __node_靄:1.0___VERANTYX_靄_234_ = __node_靄:1.0___VERANTYX_靄_141_(__node_靄:1.0___VERANTYX_靄_118_, __node_靄:1.0___VERANTYX_靄_62_=3)
+    __node_靄:1.0___VERANTYX_靄_53_ = ""
+    if __node_靄:1.0___VERANTYX_靄_234_:
+        __node_靄:1.0___VERANTYX_靄_53_ = __node_靄:1.0___VERANTYX_靄_12_(__node_靄:1.0___VERANTYX_靄_234_[0])
+        if __node_靄:1.0___VERANTYX_靄_53_ __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_28_ __node_游:1.0___VERANTYX_靄_116_(__node_靄:1.0___VERANTYX_靄_53_): __node_靄:1.0___VERANTYX_靄_53_ = ""
+    __node_靄:1.0___VERANTYX_靄_178_ = [__node_靄:1.0___VERANTYX_靄_54_(c.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_152_", 0.0)) for c in __node_靄:1.0___VERANTYX_靄_234_ if __node_靄:1.0___VERANTYX_靄_44_(c, __node_靄:1.0___VERANTYX_靄_216_)]
+    __node_靄:1.0___VERANTYX_靄_94_ = __node_靄:1.0___VERANTYX_靄_212_(__node_靄:1.0___VERANTYX_靄_178_) if __node_靄:1.0___VERANTYX_靄_178_ else 0.0
+    
+    __node_靄:1.0___VERANTYX_靄_243_ = __node_游:1.0___VERANTYX_靄_86_([{"__node_奥:1.0___VERANTYX_靄_265_": n.__node_靄:1.0___VERANTYX_靄_170_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_250_", ""), "__node_靄:1.0___VERANTYX_靄_60_": n.__node_靄:1.0___VERANTYX_靄_170_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_60_", "")} for n in __node_靄:1.0___VERANTYX_靄_41_.__node_靄:1.0___VERANTYX_靄_224_.__node_靄:1.0___VERANTYX_靄_203_() if __node_靄:1.0___VERANTYX_靄_44_(n.__node_靄:1.0___VERANTYX_靄_170_, __node_靄:1.0___VERANTYX_靄_216_)])
+    if __node_靄:1.0___VERANTYX_靄_243_ __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_243_) > 2:
+        __node_靄:1.0___VERANTYX_靄_80_ = __node_游:1.0___VERANTYX_靄_35_(__node_靄:1.0___VERANTYX_靄_243_)
+        if __node_靄:1.0___VERANTYX_靄_80_ __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_80_ __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_135_:
+            __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_199_(0, __node_靄:1.0___VERANTYX_靄_80_)
+
+    __node_靄:1.0___VERANTYX_靄_223_ = __node_靄:1.0___VERANTYX_靄_235_(__node_靄:1.0___VERANTYX_靄_118_)
+    __node_靄:1.0___VERANTYX_靄_24_ = ""
+    if __node_靄:1.0___VERANTYX_靄_234_:
+        __node_靄:1.0___VERANTYX_靄_122_ = {}
+        for c in __node_靄:1.0___VERANTYX_靄_234_:
+            if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_44_(c, __node_靄:1.0___VERANTYX_靄_216_): continue
+            __node_靄:1.0___VERANTYX_靄_191_ = (c.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_279_") or "").__node_靄:1.0___VERANTYX_靄_154_().__node_式:1.0___VERANTYX_靄_232_()
+            if __node_靄:1.0___VERANTYX_靄_191_: __node_靄:1.0___VERANTYX_靄_122_[__node_靄:1.0___VERANTYX_靄_191_] = __node_靄:1.0___VERANTYX_靄_122_.__node_式:1.0___VERANTYX_傑_3_(__node_靄:1.0___VERANTYX_靄_191_, 0) + 1
+        if __node_靄:1.0___VERANTYX_靄_122_: __node_靄:1.0___VERANTYX_靄_24_ = __node_靄:1.0___VERANTYX_靄_212_(__node_靄:1.0___VERANTYX_靄_122_, __node_奥:1.0___VERANTYX_靄_104_=__node_靄:1.0___VERANTYX_靄_122_.__node_式:1.0___VERANTYX_傑_3_)
+
+    __node_靄:1.0___VERANTYX_靄_13_ = __node_靄:1.0___VERANTYX_靄_144_(__node_靄:1.0___VERANTYX_靄_189_)
+    __node_靄:1.0___VERANTYX_靄_155_ = __node_靄:1.0___VERANTYX_靄_74_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_279_")
+    if __node_靄:1.0___VERANTYX_靄_155_: __node_靄:1.0___VERANTYX_靄_279_ = __node_靄:1.0___VERANTYX_靄_155_
+    __node_游:1.0___VERANTYX_靄_37_ __node_靄:1.0___VERANTYX_靄_13_ == "__node_靄:1.0___VERANTYX_靄_57_": __node_靄:1.0___VERANTYX_靄_279_ = "__node_靄:1.0___VERANTYX_靄_57_"
+    else: __node_靄:1.0___VERANTYX_靄_279_ = __node_靄:1.0___VERANTYX_靄_59_.__node_靄:1.0___VERANTYX_靄_75_ or __node_靄:1.0___VERANTYX_靄_223_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_75_") or __node_靄:1.0___VERANTYX_靄_24_ or __node_靄:1.0___VERANTYX_靄_13_ or "__node_靄:1.0___VERANTYX_靄_238_"
+        
+    __node_靄:1.0___VERANTYX_靄_7_ = __node_靄:1.0___VERANTYX_靄_251_(__node_靄:1.0___VERANTYX_靄_189_)
+    if __node_靄:1.0___VERANTYX_靄_108_:
+        for a in __node_靄:1.0___VERANTYX_靄_108_:
+            if a __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_7_: __node_靄:1.0___VERANTYX_靄_7_.__node_靄:1.0___VERANTYX_靄_277_(a)
+    __node_靄:1.0___VERANTYX_靄_150_ = __node_式:1.0___VERANTYX_靄_233_(__node_靄:1.0___VERANTYX_靄_189_).__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_7_", [])
+    for a in __node_靄:1.0___VERANTYX_靄_150_:
+        if a __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_7_: __node_靄:1.0___VERANTYX_靄_7_.__node_靄:1.0___VERANTYX_靄_277_(a)
+    
+    __node_靄:1.0___VERANTYX_靄_138_ = (__node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_ is __node_靄:1.0___VERANTYX_靄_28_ __node_廴:1.0___VERANTYX_廴_64_) or (__node_靄:1.0___VERANTYX_靄_260_(__node_游:1.0___VERANTYX_靄_244_(__node_靄:1.0___VERANTYX_靄_189_)) == 1)
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_138_:
+        for a in __node_靄:1.0___VERANTYX_靄_223_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_7_") or []:
+            if a __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_7_: __node_靄:1.0___VERANTYX_靄_7_.__node_靄:1.0___VERANTYX_靄_277_(a)
+
+    __node_靄:1.0___VERANTYX_靄_19_ = __node_靄:1.0___VERANTYX_靄_83_(__node_靄:1.0___VERANTYX_靄_189_)
+    __node_靄:1.0___VERANTYX_靄_19_ = [c for c in __node_靄:1.0___VERANTYX_靄_19_ if __node_游:1.0___VERANTYX_靄_116_(c)]
+    __node_靄:1.0___VERANTYX_靄_9_ = __node_游:1.0___VERANTYX_靄_293_(__node_靄:1.0___VERANTYX_靄_19_, __node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_ or "", __node_靄:1.0___VERANTYX_靄_189_)
+    __node_游:1.0___VERANTYX_靄_153_ = (__node_靄:1.0___VERANTYX_靄_9_ or {}).__node_式:1.0___VERANTYX_傑_3_("__node_游:1.0___VERANTYX_靄_65_") or ""
+    __node_靄:1.0___VERANTYX_靄_102_ = __node_靄:1.0___VERANTYX_靄_49_(__node_靄:1.0___VERANTYX_靄_189_ or "")
+
+    __node_靄:1.0___VERANTYX_靄_36_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    if __node_靄:1.0___VERANTYX_靄_74_.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_33_") == "__node_靄:1.0___VERANTYX_靄_167_":
+        for c in __node_靄:1.0___VERANTYX_靄_121_:
+            if c.__node_式:1.0___VERANTYX_傑_3_("__node_靄:1.0___VERANTYX_靄_78_"): __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_277_(c["__node_靄:1.0___VERANTYX_靄_78_"])
+    else:
+        if __node_靄:1.0___VERANTYX_靄_102_ __node_靄:1.0___VERANTYX_靄_16_ __node_游:1.0___VERANTYX_靄_116_(__node_靄:1.0___VERANTYX_靄_102_): __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_102_)
+        if __node_游:1.0___VERANTYX_靄_153_ __node_靄:1.0___VERANTYX_靄_16_ __node_游:1.0___VERANTYX_靄_116_(__node_游:1.0___VERANTYX_靄_153_): __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_277_(__node_游:1.0___VERANTYX_靄_153_)
+        if __node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_ __node_靄:1.0___VERANTYX_靄_16_ __node_游:1.0___VERANTYX_靄_116_(__node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_): __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_)
+        if __node_靄:1.0___VERANTYX_靄_53_ __node_靄:1.0___VERANTYX_靄_16_ __node_游:1.0___VERANTYX_靄_116_(__node_靄:1.0___VERANTYX_靄_53_) __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_94_ >= __node_靄:1.0___VERANTYX_靄_67_:
+            __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_53_)
+        __node_靄:1.0___VERANTYX_靄_36_.__node_靄:1.0___VERANTYX_靄_230_(__node_靄:1.0___VERANTYX_靄_19_)
+
+    __node_靄:1.0___VERANTYX_靄_135_ = []
+    __node_靄:1.0___VERANTYX_靄_160_ = ("__node_靄:1.0___VERANTYX_靄_279_:", "__node_靄:1.0___VERANTYX_靄_200_:", "__node_游:1.0___VERANTYX_靄_65_:", "__node_靄:1.0___VERANTYX_靄_197_:", "__node_靄:1.0___VERANTYX_靄_11_:", "__node_靄:1.0___VERANTYX_靄_275_:")
+    for c in __node_靄:1.0___VERANTYX_靄_36_:
+        __node_靄:1.0___VERANTYX_靄_247_ = c.__node_靄:1.0___VERANTYX_靄_154_()
+        if any(__node_靄:1.0___VERANTYX_靄_247_.__node_式:1.0___VERANTYX_靄_232_().__node_靄:1.0___VERANTYX_靄_34_(h) for h in __node_靄:1.0___VERANTYX_靄_160_): continue
+        if __node_靄:1.0___VERANTYX_靄_247_ __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_247_ __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_135_: __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_247_)
+
+    __node_靄:1.0___VERANTYX_靄_225_: __node_廴:1.0___VERANTYX_廴_85_[__node_靄:1.0___VERANTYX_靄_290_] = []
+    __node_游:1.0___VERANTYX_靄_145_ = (__node_靄:1.0___VERANTYX_靄_93_.__node_游:1.0___VERANTYX_靄_103_ or "")
+    if __node_靄:1.0___VERANTYX_靄_279_ in ("__node_靄:1.0___VERANTYX_靄_241_", "__node_靄:1.0___VERANTYX_靄_55_"):
+        __node_靄:1.0___VERANTYX_靄_6_ = []
+        for m in re.__node_式:1.0___VERANTYX_靄_146_(r"\b([A-Za-z])\b", __node_游:1.0___VERANTYX_靄_145_ or __node_靄:1.0___VERANTYX_靄_189_):
+            __node_靄:1.0___VERANTYX_靄_210_ = m.__node_靄:1.0___VERANTYX_靄_90_(1)
+            if __node_靄:1.0___VERANTYX_靄_210_ __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_6_: __node_靄:1.0___VERANTYX_靄_6_.__node_靄:1.0___VERANTYX_靄_277_(__node_靄:1.0___VERANTYX_靄_210_)
+        __node_靄:1.0___VERANTYX_靄_225_ = __node_靄:1.0___VERANTYX_靄_211_(__node_式:1.0___VERANTYX_傑_1_([s.__node_式:1.0___VERANTYX_靄_232_() for s in __node_靄:1.0___VERANTYX_靄_6_]))
+    if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_225_: __node_靄:1.0___VERANTYX_靄_225_ = ["p"] if __node_靄:1.0___VERANTYX_靄_279_ in ("__node_靄:1.0___VERANTYX_靄_241_", "__node_靄:1.0___VERANTYX_靄_55_") else ["x", "y", "z"]
+
+    if __node_靄:1.0___VERANTYX_靄_279_ == "__node_靄:1.0___VERANTYX_靄_57_": __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_189_
+    __node_游:1.0___VERANTYX_靄_37_ __node_靄:1.0___VERANTYX_靄_8_: __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_8_["__node_靄:1.0___VERANTYX_靄_78_"]
+    __node_游:1.0___VERANTYX_靄_37_ __node_靄:1.0___VERANTYX_靄_14_: __node_游:1.0___VERANTYX_靄_103_ = __node_靄:1.0___VERANTYX_靄_14_
+    else: __node_游:1.0___VERANTYX_靄_103_ = __node_廴:1.0___VERANTYX_廴_64_
+
+// [metadata-stripped]
+    __node_靄:1.0___VERANTYX_靄_140_ = []
+    
+// [metadata-stripped]
+    __node_靄:1.0___VERANTYX_靄_130_("[__node_廴:1.0___VERANTYX_廴_70_ __node_廴:1.0___VERANTYX_廴_78_] __node_廴:1.0___VERANTYX_廴_52_ __node_廴:1.0___VERANTYX_廴_21_ __node_廴:1.0___VERANTYX_廴_1_")
+    for __node_靄:1.0___VERANTYX_靄_143_ in __node_靄:1.0___VERANTYX_靄_189_.__node_靄:1.0___VERANTYX_靄_147_():
+        __node_靄:1.0___VERANTYX_靄_143_ = __node_靄:1.0___VERANTYX_靄_143_.__node_靄:1.0___VERANTYX_靄_154_()
+        if __node_靄:1.0___VERANTYX_靄_28_ __node_靄:1.0___VERANTYX_靄_143_: continue
+        
+// [metadata-stripped]
+        if re.__node_靄:1.0___VERANTYX_靄_166_(r"^(__node_廴:1.0___VERANTYX_廴_57_|__node_廴:1.0___VERANTYX_廴_47_|__node_廴:1.0___VERANTYX_廴_66_|__node_廴:1.0___VERANTYX_廴_3_|__node_廴:1.0___VERANTYX_廴_8_|__node_廴:1.0___VERANTYX_廴_74_):", __node_靄:1.0___VERANTYX_靄_143_, re.I):
+            __node_靄:1.0___VERANTYX_靄_130_(f"[__node_廴:1.0___VERANTYX_廴_70_ __node_廴:1.0___VERANTYX_廴_78_] __node_廴:1.0___VERANTYX_廴_61_ __node_式:1.0___VERANTYX_靄_20_ __node_靄:1.0___VERANTYX_靄_143_: {__node_靄:1.0___VERANTYX_靄_143_[:30]}...")
+            continue
+
+// [metadata-stripped]
+        if ("->" in __node_靄:1.0___VERANTYX_靄_143_ or "[]" in __node_靄:1.0___VERANTYX_靄_143_ or "<>" in __node_靄:1.0___VERANTYX_靄_143_) __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_260_(__node_靄:1.0___VERANTYX_靄_143_) < 200:
+            if re.__node_靄:1.0___VERANTYX_靄_98_(r"(__node_式:1.0___VERANTYX_廴_33_|__node_廴:1.0___VERANTYX_廴_5_|__node_廴:1.0___VERANTYX_廴_12_|__node_廴:1.0___VERANTYX_廴_49_|__node_廴:1.0___VERANTYX_廴_86_|__node_廴:1.0___VERANTYX_廴_22_|__node_靄:1.0___VERANTYX_靄_58_|__node_靄:1.0___VERANTYX_靄_73_|__node_靄:1.0___VERANTYX_靄_179_|__node_靄:1.0___VERANTYX_靄_134_)", __node_靄:1.0___VERANTYX_靄_143_, re.I):
+                __node_靄:1.0___VERANTYX_靄_130_(f"[__node_廴:1.0___VERANTYX_廴_70_ __node_廴:1.0___VERANTYX_廴_78_] __node_廴:1.0___VERANTYX_廴_46_ as NL: {__node_靄:1.0___VERANTYX_靄_143_[:30]}...")
+                continue
+                
+            f = __node_游:1.0___VERANTYX_靄_35_(__node_靄:1.0___VERANTYX_靄_143_)
+            __node_靄:1.0___VERANTYX_靄_130_(f"[__node_廴:1.0___VERANTYX_廴_70_ __node_廴:1.0___VERANTYX_廴_78_] __node_廴:1.0___VERANTYX_廴_73_: {f}")
+// __node_緋:0.8___VERANTYX_BE_197_ [decoy-metadata]
+            
+            if f __node_靄:1.0___VERANTYX_靄_16_ __node_靄:1.0___VERANTYX_靄_260_(f) > 3:
+                if f __node_靄:1.0___VERANTYX_靄_28_ in __node_靄:1.0___VERANTYX_靄_135_:
+                    __node_靄:1.0___VERANTYX_靄_135_.__node_靄:1.0___VERANTYX_靄_277_(f)
+                    __node_靄:1.0___VERANTYX_靄_130_(f"[__node_廴:1.0___VERANTYX_廴_70_ __node_廴:1.0___VERANTYX_廴_78_] __node_廴:1.0___VERANTYX_廴_54_ __node_靄:1.0___VERANTYX_靄_202_: {f}")
+                
+                if __node_游:1.0___VERANTYX_靄_103_ __node_靄:1.0___VERANTYX_靄_16_ f != __node_游:1.0___VERANTYX_靄_103_:
+                    __node_靄:1.0___VERANTYX_靄_140_.__node_靄:1.0___VERANTYX_靄_277_(f)
+                __node_游:1.0___VERANTYX_靄_37_ __node_靄:1.0___VERANTYX_靄_28_ __node_游:1.0___VERANTYX_靄_103_:
+                    __node_靄:1.0___VERANTYX_靄_140_.__node_靄:1.0___VERANTYX_靄_277_(f)
+
+    __node_靄:1.0___VERANTYX_靄_30_ = {
+        "__node_靄:1.0___VERANTYX_靄_162_": __node_靄:1.0___VERANTYX_靄_162_, 
+        "__node_靄:1.0___VERANTYX_靄_261_": __node_靄:1.0___VERANTYX_靄_223_, 
+        "__node_靄:1.0___VERANTYX_靄_207_": __node_靄:1.0___VERANTYX_靄_9_ or {},
+        "__node_靄:1.0___VERANTYX_靄_140_": __node_靄:1.0___VERANTYX_靄_140_ 
+    }
+
+    __node_靄:1.0___VERANTYX_靄_29_ = []
+    for c in __node_靄:1.0___VERANTYX_靄_135_: __node_靄:1.0___VERANTYX_靄_29_.__node_靄:1.0___VERANTYX_靄_230_(__node_靄:1.0___VERANTYX_靄_219_(c))
+    __node_靄:1.0___VERANTYX_靄_135_ = [c for c in __node_靄:1.0___VERANTYX_靄_29_ if c.__node_靄:1.0___VERANTYX_靄_154_()]
+    __node_靄:1.0___VERANTYX_靄_217_ = __node_靄:1.0___VERANTYX_靄_63_(__node_靄:1.0___VERANTYX_靄_189_, __node_靄:1.0___VERANTYX_靄_135_, __node_游:1.0___VERANTYX_靄_103_)
+    __node_靄:1.0___VERANTYX_靄_220_ = __node_靄:1.0___VERANTYX_靄_110_(__node_靄:1.0___VERANTYX_靄_189_, __node_游:1.0___VERANTYX_靄_103_, __node_靄:1.0___VERANTYX_靄_7_)
+
+    return __node_廴:1.0___VERANTYX_廴_43_(
+        __node_靄:1.0___VERANTYX_靄_279_=__node_靄:1.0___VERANTYX_靄_279_, __node_游:1.0___VERANTYX_靄_103_=__node_游:1.0___VERANTYX_靄_103_, __node_靄:1.0___VERANTYX_靄_135_=__node_靄:1.0___VERANTYX_靄_135_, 
+        __node_靄:1.0___VERANTYX_靄_7_=__node_靄:1.0___VERANTYX_靄_7_, __node_靄:1.0___VERANTYX_靄_225_=__node_靄:1.0___VERANTYX_靄_225_, __node_靄:1.0___VERANTYX_靄_30_=__node_靄:1.0___VERANTYX_靄_30_, __node_靄:1.0___VERANTYX_靄_204_=__node_靄:1.0___VERANTYX_靄_204_, 
+        __node_靄:1.0___VERANTYX_靄_217_=__node_靄:1.0___VERANTYX_靄_217_, __node_靄:1.0___VERANTYX_靄_220_=__node_靄:1.0___VERANTYX_靄_220_, __node_靄:1.0___VERANTYX_靄_162_=__node_靄:1.0___VERANTYX_靄_162_
+    )
+// POLYMORPHIC_JCROSS_END

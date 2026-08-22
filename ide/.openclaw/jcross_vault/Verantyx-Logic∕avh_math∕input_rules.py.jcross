@@ -1,0 +1,323 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:02887116 ver:1778159745
+// ⚠️ One-time schema — expires after response
+
+_ID_滴:1.0__VERANTYX_滴_104_ _ID_滴:1.0__VERANTYX_滴_63_ import _ID_滴:1.0__VERANTYX_滴_160_
+
+import re
+_ID_滴:1.0__VERANTYX_滴_104_ _ID_滴:1.0__VERANTYX_滴_72_ import _ID_滴:1.0__VERANTYX_滴_48_
+_ID_滴:1.0__VERANTYX_滴_104_ _ID_滴:1.0__VERANTYX_滴_84_ import _ID_廟:1.0__VERANTYX_廟_4_, _ID_廟:1.0__VERANTYX_廟_11_
+// _ID_伏:0.8__VERANTYX_BZ_931_ [decoy-metadata]
+
+_ID_滴:1.0__VERANTYX_滴_57_ = re._ID_滴:1.0__VERANTYX_滴_179_(r'"([^"]+)"')
+// [metadata-stripped]
+_ID_滴:1.0__VERANTYX_滴_5_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"([\[\]<>&|~()A-Za-z\->\s\\]{3,})")
+_ID_滴:1.0__VERANTYX_滴_117_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(∫|dx|dy|dz|_ID_滴:1.0__VERANTYX_滴_118_|_ID_滴:1.0__VERANTYX_滴_113_|_ID_滴:1.0__VERANTYX_滴_27_|_ID_滴:1.0__VERANTYX_滴_88_|ln|_ID_滴:1.0__VERANTYX_滴_197_|_ID_滴:1.0__VERANTYX_滴_170_|_ID_滴:1.0__VERANTYX_滴_141_|_ID_滴:1.0__VERANTYX_滴_128_|_ID_滴:1.0__VERANTYX_滴_39_|∞|_ID_滴:1.0__VERANTYX_滴_121_|_ID_滴:1.0__VERANTYX_滴_107_|_ID_滴:1.0__VERANTYX_滴_174_|行列|次元|対称)", re._ID_廟:1.0__VERANTYX_廟_9_)
+_ID_滴:1.0__VERANTYX_滴_71_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"[φψχαβγδλμνπστω]")
+_ID_滴:1.0__VERANTYX_滴_142_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"_ID_滴:1.0__VERANTYX_滴_107_ of (_ID_滴:1.0__VERANTYX_滴_177_ )?_ID_滴:1.0__VERANTYX_滴_34_ of (n\s*x\s*n|n×n) _ID_滴:1.0__VERANTYX_滴_167_ _ID_滴:1.0__VERANTYX_滴_156_", re._ID_廟:1.0__VERANTYX_廟_9_)
+_ID_滴:1.0__VERANTYX_滴_115_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(実|複素)?n次対称行列の空間の次元|対称行列の空間の次元")
+_ID_滴:1.0__VERANTYX_滴_201_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"_ID_滴:1.0__VERANTYX_滴_107_ of (_ID_滴:1.0__VERANTYX_滴_177_ )?_ID_滴:1.0__VERANTYX_滴_34_ of (n\s*x\s*n|n×n) _ID_滴:1.0__VERANTYX_滴_156_", re._ID_廟:1.0__VERANTYX_廟_9_)
+_ID_滴:1.0__VERANTYX_滴_159_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(実|複素)?n次行列の空間の次元|行列の空間の次元")
+
+_ID_滴:1.0__VERANTYX_滴_126_ = [
+    ("→", "->"),
+    ("⇒", "->"),
+    ("⟶", "->"),
+    ("⟹", "->"),
+    ("↦", "->"),
+]
+_ID_滴:1.0__VERANTYX_滴_192_ = [
+    ("\_ID_滴:1.0__VERANTYX_滴_74_", ""),
+    ("\_ID_滴:1.0__VERANTYX_滴_193_", ""),
+    ("\_ID_滴:1.0__VERANTYX_滴_157_", ""),
+// _ID_縁:0.8__VERANTYX_MB_838_ [decoy-metadata]
+    ("\_ID_滴:1.0__VERANTYX_滴_36_", ""),
+    (r"\_ID_滴:1.0__VERANTYX_滴_33_", "&"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_43_", "|"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_12_", "~"),
+    (r"\to", "->"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_98_", "->"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_102_", "<->"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_120_", "[]"),
+    (r"\_ID_滴:1.0__VERANTYX_滴_9_", "<>"),
+    ("¬", "~"),
+    ("∧", "&"),
+    ("∨", "|"),
+    ("□", "[]"),
+    ("◇", "<>"),
+]
+_ID_滴:1.0__VERANTYX_滴_108_ = [
+    (re._ID_滴:1.0__VERANTYX_滴_179_(r"\_ID_滴:1.0__VERANTYX_滴_169_\b", re._ID_廟:1.0__VERANTYX_廟_9_), "[]"),
+    (re._ID_滴:1.0__VERANTYX_滴_179_(r"\_ID_滴:1.0__VERANTYX_滴_61_\b", re._ID_廟:1.0__VERANTYX_廟_9_), "<>"),
+]
+_ID_滴:1.0__VERANTYX_滴_38_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(\[\]|\<\>)\s+")
+_ID_伏:1.0__VERANTYX_滴_30_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(\-\>|\&|\||~|\[\]|\<\>|\(|\))")
+_ID_滴:1.0__VERANTYX_滴_147_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(\[\].{1,240}?->.{1,240})", re._ID_廟:1.0__VERANTYX_廟_5_)
+_ID_滴:1.0__VERANTYX_滴_66_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(\<\>.{1,240}?->.{1,240})", re._ID_廟:1.0__VERANTYX_廟_5_)
+_ID_滴:1.0__VERANTYX_滴_99_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"([A-Za-z0-9_()\s~&|]+->[\sA-Za-z0-9_()~&|]+)", re._ID_廟:1.0__VERANTYX_廟_5_)
+_ID_漕:1.0__VERANTYX_滴_155_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"[A-Za-z0-9_\[\]<>~&|()*/=\+\-]+")
+_ID_滴:1.0__VERANTYX_滴_53_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"[一-龥ぁ-んァ-ン]")
+_ID_伏:1.0__VERANTYX_滴_91_ = re._ID_滴:1.0__VERANTYX_滴_179_(r"(∫|dx|dy|dz|_ID_滴:1.0__VERANTYX_滴_118_|_ID_滴:1.0__VERANTYX_滴_113_|_ID_滴:1.0__VERANTYX_滴_27_|_ID_滴:1.0__VERANTYX_滴_88_|ln|_ID_滴:1.0__VERANTYX_滴_197_|_ID_滴:1.0__VERANTYX_滴_170_|_ID_滴:1.0__VERANTYX_滴_141_|_ID_滴:1.0__VERANTYX_滴_128_|_ID_滴:1.0__VERANTYX_滴_39_|\^|/|∞)", re._ID_廟:1.0__VERANTYX_廟_9_)
+
+_ID_滴:1.0__VERANTYX_滴_195_ = {
+    "_ID_滴:1.0__VERANTYX_滴_153_:_ID_滴:1.0__VERANTYX_滴_199_": ["推移", "推移性", "_ID_滴:1.0__VERANTYX_滴_199_"],
+    "_ID_滴:1.0__VERANTYX_滴_153_:_ID_滴:1.0__VERANTYX_滴_129_": ["反射", "反射性", "_ID_滴:1.0__VERANTYX_滴_129_"],
+    "_ID_滴:1.0__VERANTYX_滴_153_:_ID_滴:1.0__VERANTYX_滴_167_": ["対称", "対称性", "_ID_滴:1.0__VERANTYX_滴_167_"],
+    "_ID_滴:1.0__VERANTYX_滴_153_:_ID_滴:1.0__VERANTYX_滴_100_": ["逐次", "_ID_滴:1.0__VERANTYX_滴_100_"],
+    "_ID_滴:1.0__VERANTYX_滴_153_:_ID_滴:1.0__VERANTYX_滴_114_": ["ユークリッド", "_ID_滴:1.0__VERANTYX_滴_114_"],
+}
+
+
+@_ID_滴:1.0__VERANTYX_滴_48_
+class _ID_廟:1.0__VERANTYX_廟_1_:
+    _ID_滴:1.0__VERANTYX_滴_11_: _ID_滴:1.0__VERANTYX_滴_97_
+    _ID_漕:1.0__VERANTYX_滴_90_: _ID_廟:1.0__VERANTYX_廟_11_[_ID_滴:1.0__VERANTYX_滴_97_]
+    _ID_漕:1.0__VERANTYX_滴_56_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_]
+    _ID_滴:1.0__VERANTYX_滴_161_: _ID_滴:1.0__VERANTYX_滴_97_
+    _ID_滴:1.0__VERANTYX_滴_95_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_]
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_125_(s: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_滴:1.0__VERANTYX_滴_97_:
+    s = s._ID_滴:1.0__VERANTYX_滴_173_()
+    _ID_滴:1.0__VERANTYX_滴_112_ = _ID_滴:1.0__VERANTYX_滴_106_(_ID_伏:1.0__VERANTYX_滴_91_._ID_滴:1.0__VERANTYX_滴_119_(s))
+    for a, b in _ID_滴:1.0__VERANTYX_滴_126_:
+        s = s._ID_滴:1.0__VERANTYX_滴_82_(a, b)
+    for a, b in _ID_滴:1.0__VERANTYX_滴_192_:
+        s = s._ID_滴:1.0__VERANTYX_滴_82_(a, b)
+    for _ID_滴:1.0__VERANTYX_滴_2_, _ID_滴:1.0__VERANTYX_滴_131_ in _ID_滴:1.0__VERANTYX_滴_108_:
+        s = _ID_滴:1.0__VERANTYX_滴_2_._ID_滴:1.0__VERANTYX_滴_44_(_ID_滴:1.0__VERANTYX_滴_131_, s)
+    s = s._ID_滴:1.0__VERANTYX_滴_82_("\n", " ")._ID_滴:1.0__VERANTYX_滴_82_("\r", " ")
+    s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s+", " ", s)._ID_滴:1.0__VERANTYX_滴_173_()
+    s = _ID_滴:1.0__VERANTYX_滴_38_._ID_滴:1.0__VERANTYX_滴_44_(r"\1", s)
+    s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s*->\s*", "->", s)
+    s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s*&\s*", "&", s)
+    s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s*\|\s*", "|", s)
+    s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s*~\s*", "~", s)
+    if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_112_:
+// [metadata-stripped]
+        s = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s+[a-zA-Z]\s*$", "", s)._ID_滴:1.0__VERANTYX_滴_173_()
+    return s
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_96_(_ID_滴:1.0__VERANTYX_滴_149_: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_]:
+    _ID_滴:1.0__VERANTYX_滴_150_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_] = []
+    for m in _ID_滴:1.0__VERANTYX_滴_57_._ID_業:1.0__VERANTYX_滴_87_(_ID_滴:1.0__VERANTYX_滴_149_ or ""):
+        g = _ID_滴:1.0__VERANTYX_滴_122_((x for x in m._ID_滴:1.0__VERANTYX_滴_196_() if x), _ID_廟:1.0__VERANTYX_廟_14_)
+        if _ID_滴:1.0__VERANTYX_滴_75_ g:
+            continue
+        f = _ID_漕:1.0__VERANTYX_滴_125_(g)
+        if f:
+            _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(f)
+    _ID_滴:1.0__VERANTYX_滴_8_ = _ID_業:1.0__VERANTYX_縁_1_()
+    _ID_滴:1.0__VERANTYX_滴_19_ = []
+    for f in _ID_滴:1.0__VERANTYX_滴_150_:
+        if f _ID_滴:1.0__VERANTYX_滴_75_ in _ID_滴:1.0__VERANTYX_滴_8_:
+            _ID_滴:1.0__VERANTYX_滴_8_._ID_滴:1.0__VERANTYX_滴_168_(f)
+            _ID_滴:1.0__VERANTYX_滴_19_._ID_滴:1.0__VERANTYX_滴_73_(f)
+    return _ID_滴:1.0__VERANTYX_滴_19_
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_176_(_ID_滴:1.0__VERANTYX_滴_149_: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_]:
+    _ID_滴:1.0__VERANTYX_滴_150_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_] = []
+    _ID_滴:1.0__VERANTYX_滴_11_ = _ID_滴:1.0__VERANTYX_滴_149_ or ""
+// [metadata-stripped]
+    _ID_滴:1.0__VERANTYX_滴_145_ = _ID_漕:1.0__VERANTYX_滴_139_(_ID_滴:1.0__VERANTYX_滴_11_)
+
+// [metadata-stripped]
+    if _ID_滴:1.0__VERANTYX_滴_142_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_) or _ID_滴:1.0__VERANTYX_滴_115_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_):
+        _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_漕:1.0__VERANTYX_滴_125_("_ID_滴:1.0__VERANTYX_滴_121_ _ID_廟:1.0__VERANTYX_廟_6_(n,R)"))
+    if _ID_滴:1.0__VERANTYX_滴_201_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_) or _ID_滴:1.0__VERANTYX_滴_159_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_):
+        _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_漕:1.0__VERANTYX_滴_125_("_ID_滴:1.0__VERANTYX_滴_121_ M(n,n,R)"))
+
+// [metadata-stripped]
+    for _ID_滴:1.0__VERANTYX_滴_132_ in _ID_滴:1.0__VERANTYX_滴_11_._ID_滴:1.0__VERANTYX_滴_6_():
+        if _ID_滴:1.0__VERANTYX_滴_117_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_132_):
+// [metadata-stripped]
+            _ID_滴:1.0__VERANTYX_滴_89_ = _ID_漕:1.0__VERANTYX_滴_125_(_ID_滴:1.0__VERANTYX_滴_132_)
+// _ID_滴:0.5__VERANTYX_MV_437_ [decoy-metadata]
+            if _ID_滴:1.0__VERANTYX_滴_89_:
+// [metadata-stripped]
+// _ID_滴:0.9__VERANTYX_FF_104_ [decoy-metadata]
+                _ID_滴:1.0__VERANTYX_滴_111_ = _ID_滴:1.0__VERANTYX_滴_151_(re._ID_滴:1.0__VERANTYX_滴_162_(r"[\\[\\]<>~&|()]", _ID_滴:1.0__VERANTYX_滴_89_)) + _ID_滴:1.0__VERANTYX_滴_89_._ID_滴:1.0__VERANTYX_滴_110_("->") + _ID_滴:1.0__VERANTYX_滴_89_._ID_滴:1.0__VERANTYX_滴_110_("<->")
+                _ID_滴:1.0__VERANTYX_滴_101_ = _ID_滴:1.0__VERANTYX_滴_151_(re._ID_滴:1.0__VERANTYX_滴_162_(r"[A-Za-z一-龥ぁ-んァ-ン]", _ID_滴:1.0__VERANTYX_滴_132_))
+                if _ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_89_) > 120 _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_111_ < 2 _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_101_ > 10:
+                    continue
+                _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_滴:1.0__VERANTYX_滴_89_)
+
+// [metadata-stripped]
+    for m in _ID_滴:1.0__VERANTYX_滴_5_._ID_業:1.0__VERANTYX_滴_87_(_ID_滴:1.0__VERANTYX_滴_11_):
+        _ID_滴:1.0__VERANTYX_滴_204_ = m._ID_滴:1.0__VERANTYX_滴_4_(1) or ""
+        if "->" in _ID_滴:1.0__VERANTYX_滴_204_ or "&" in _ID_滴:1.0__VERANTYX_滴_204_ or "|" in _ID_滴:1.0__VERANTYX_滴_204_ or "[]" in _ID_滴:1.0__VERANTYX_滴_204_ or "<>" in _ID_滴:1.0__VERANTYX_滴_204_ or "~" in _ID_滴:1.0__VERANTYX_滴_204_:
+            f = _ID_漕:1.0__VERANTYX_滴_125_(_ID_滴:1.0__VERANTYX_滴_204_)
+            if f:
+                _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(f)
+
+// [metadata-stripped]
+    if _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_75_ in _ID_滴:1.0__VERANTYX_滴_150_:
+        _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_滴:1.0__VERANTYX_滴_145_)
+
+// [metadata-stripped]
+    if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_150_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_71_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_) _ID_滴:1.0__VERANTYX_滴_47_ _ID_伏:1.0__VERANTYX_滴_30_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_11_):
+        _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_漕:1.0__VERANTYX_滴_125_("φ"))
+
+    _ID_滴:1.0__VERANTYX_滴_8_ = _ID_業:1.0__VERANTYX_縁_1_()
+    _ID_滴:1.0__VERANTYX_滴_19_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_] = []
+    for f in _ID_滴:1.0__VERANTYX_滴_150_:
+        if f _ID_滴:1.0__VERANTYX_滴_75_ in _ID_滴:1.0__VERANTYX_滴_8_:
+            _ID_滴:1.0__VERANTYX_滴_8_._ID_滴:1.0__VERANTYX_滴_168_(f)
+            _ID_滴:1.0__VERANTYX_滴_19_._ID_滴:1.0__VERANTYX_滴_73_(f)
+    return _ID_滴:1.0__VERANTYX_滴_19_
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_163_(s: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_滴:1.0__VERANTYX_滴_106_:
+    if _ID_滴:1.0__VERANTYX_滴_75_ s:
+        return _ID_廟:1.0__VERANTYX_廟_22_
+    return _ID_滴:1.0__VERANTYX_滴_106_(_ID_伏:1.0__VERANTYX_滴_30_._ID_滴:1.0__VERANTYX_滴_119_(s) or _ID_伏:1.0__VERANTYX_滴_91_._ID_滴:1.0__VERANTYX_滴_119_(s))
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_25_(s: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_滴:1.0__VERANTYX_滴_106_:
+    """
+    _ID_業:1.0__VERANTYX_廟_18_ _ID_滴:1.0__VERANTYX_滴_68_ _ID_滴:1.0__VERANTYX_滴_29_ for _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_21_ (_ID_滴:1.0__VERANTYX_滴_146_ _ID_滴:1.0__VERANTYX_滴_28_ [] or _ID_滴:1.0__VERANTYX_滴_58_ _ID_滴:1.0__VERANTYX_滴_37_).
+    """
+    if _ID_滴:1.0__VERANTYX_滴_75_ s:
+        return _ID_廟:1.0__VERANTYX_廟_22_
+    if _ID_伏:1.0__VERANTYX_滴_91_._ID_滴:1.0__VERANTYX_滴_119_(s):
+        return _ID_廟:1.0__VERANTYX_廟_20_
+    return _ID_滴:1.0__VERANTYX_滴_106_(re._ID_滴:1.0__VERANTYX_滴_119_(r"(->|<->|&|\||~)", s))
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_139_(_ID_滴:1.0__VERANTYX_滴_149_: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_廟:1.0__VERANTYX_廟_11_[_ID_滴:1.0__VERANTYX_滴_97_]:
+    """
+    _ID_廟:1.0__VERANTYX_廟_10_ a _ID_滴:1.0__VERANTYX_滴_144_ _ID_漕:1.0__VERANTYX_滴_20_-_ID_滴:1.0__VERANTYX_滴_165_ _ID_滴:1.0__VERANTYX_滴_77_ _ID_滴:1.0__VERANTYX_滴_104_ a _ID_滴:1.0__VERANTYX_滴_22_ _ID_滴:1.0__VERANTYX_滴_200_.
+    _ID_廟:1.0__VERANTYX_廟_21_: _ID_滴:1.0__VERANTYX_滴_42_ _ID_滴:1.0__VERANTYX_滴_180_, _ID_滴:1.0__VERANTYX_滴_190_ _ID_滴:1.0__VERANTYX_滴_69_-_ID_滴:1.0__VERANTYX_滴_165_ _ID_滴:1.0__VERANTYX_滴_3_.
+    """
+    if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_149_:
+        return _ID_廟:1.0__VERANTYX_廟_14_
+    m = _ID_滴:1.0__VERANTYX_滴_147_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_149_)
+    if m:
+        if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_53_._ID_滴:1.0__VERANTYX_滴_119_(m._ID_滴:1.0__VERANTYX_滴_4_(1)):
+            return _ID_漕:1.0__VERANTYX_滴_125_(m._ID_滴:1.0__VERANTYX_滴_4_(1))
+    m = _ID_滴:1.0__VERANTYX_滴_66_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_149_)
+    if m:
+        if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_53_._ID_滴:1.0__VERANTYX_滴_119_(m._ID_滴:1.0__VERANTYX_滴_4_(1)):
+            return _ID_漕:1.0__VERANTYX_滴_125_(m._ID_滴:1.0__VERANTYX_滴_4_(1))
+    m = _ID_滴:1.0__VERANTYX_滴_99_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_149_)
+    if m:
+        if _ID_滴:1.0__VERANTYX_滴_75_ _ID_滴:1.0__VERANTYX_滴_53_._ID_滴:1.0__VERANTYX_滴_119_(m._ID_滴:1.0__VERANTYX_滴_4_(1)):
+            return _ID_漕:1.0__VERANTYX_滴_125_(m._ID_滴:1.0__VERANTYX_滴_4_(1))
+
+// [metadata-stripped]
+    _ID_滴:1.0__VERANTYX_滴_127_ = _ID_廟:1.0__VERANTYX_廟_14_
+    _ID_滴:1.0__VERANTYX_滴_70_ = -1
+    for _ID_滴:1.0__VERANTYX_滴_124_ in _ID_漕:1.0__VERANTYX_滴_155_._ID_滴:1.0__VERANTYX_滴_162_(_ID_滴:1.0__VERANTYX_滴_149_):
+        if _ID_滴:1.0__VERANTYX_滴_53_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_124_):
+            continue
+        if _ID_滴:1.0__VERANTYX_滴_75_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_124_):
+            continue
+// _ID_箱:0.7__VERANTYX_HF_636_ [decoy-metadata]
+        _ID_滴:1.0__VERANTYX_滴_54_ = 0
+        if _ID_漕:1.0__VERANTYX_滴_25_(_ID_滴:1.0__VERANTYX_滴_124_):
+            _ID_滴:1.0__VERANTYX_滴_54_ += 3
+        _ID_滴:1.0__VERANTYX_滴_54_ += _ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_124_)
+        if _ID_滴:1.0__VERANTYX_滴_54_ > _ID_滴:1.0__VERANTYX_滴_70_:
+            _ID_滴:1.0__VERANTYX_滴_70_ = _ID_滴:1.0__VERANTYX_滴_54_
+            _ID_滴:1.0__VERANTYX_滴_127_ = _ID_滴:1.0__VERANTYX_滴_124_
+    if _ID_滴:1.0__VERANTYX_滴_127_:
+        return _ID_漕:1.0__VERANTYX_滴_125_(_ID_滴:1.0__VERANTYX_滴_127_)
+    return _ID_廟:1.0__VERANTYX_廟_14_
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_漕:1.0__VERANTYX_滴_198_(_ID_滴:1.0__VERANTYX_滴_149_: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_廟:1.0__VERANTYX_廟_1_:
+    _ID_滴:1.0__VERANTYX_滴_148_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_] = []
+    _ID_滴:1.0__VERANTYX_滴_11_ = _ID_滴:1.0__VERANTYX_滴_149_ or ""
+
+    _ID_滴:1.0__VERANTYX_滴_41_ = _ID_漕:1.0__VERANTYX_滴_96_(_ID_滴:1.0__VERANTYX_滴_11_)
+    if _ID_滴:1.0__VERANTYX_滴_41_:
+        _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_(f"_ID_漕:1.0__VERANTYX_滴_94_={_ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_41_)}")
+        _ID_滴:1.0__VERANTYX_滴_26_ = _ID_滴:1.0__VERANTYX_滴_41_[0]
+// [metadata-stripped]
+        if _ID_滴:1.0__VERANTYX_滴_26_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_75_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_26_):
+            _ID_滴:1.0__VERANTYX_滴_145_ = _ID_漕:1.0__VERANTYX_滴_139_(_ID_滴:1.0__VERANTYX_滴_11_)
+            if _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_145_):
+                _ID_滴:1.0__VERANTYX_滴_26_ = _ID_滴:1.0__VERANTYX_滴_145_
+                _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_("_ID_漕:1.0__VERANTYX_滴_203_")
+// [metadata-stripped]
+        if _ID_滴:1.0__VERANTYX_滴_26_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_26_):
+            _ID_滴:1.0__VERANTYX_滴_145_ = _ID_漕:1.0__VERANTYX_滴_139_(_ID_滴:1.0__VERANTYX_滴_26_)
+            if _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_145_) _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_145_) < _ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_26_):
+                _ID_滴:1.0__VERANTYX_滴_26_ = _ID_滴:1.0__VERANTYX_滴_145_
+                _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_("_ID_滴:1.0__VERANTYX_滴_32_")
+        _ID_滴:1.0__VERANTYX_滴_133_ = _ID_滴:1.0__VERANTYX_滴_41_[1:]
+        _ID_滴:1.0__VERANTYX_滴_18_ = _ID_滴:1.0__VERANTYX_滴_57_._ID_滴:1.0__VERANTYX_滴_44_(" ", _ID_滴:1.0__VERANTYX_滴_11_)
+        _ID_滴:1.0__VERANTYX_滴_18_ = re._ID_滴:1.0__VERANTYX_滴_44_(r"\s+", " ", _ID_滴:1.0__VERANTYX_滴_18_)._ID_滴:1.0__VERANTYX_滴_173_()
+        return _ID_廟:1.0__VERANTYX_廟_1_(
+// _ID_箱:0.4__VERANTYX_XZ_111_ [decoy-metadata]
+            _ID_滴:1.0__VERANTYX_滴_11_=_ID_滴:1.0__VERANTYX_滴_11_,
+            _ID_漕:1.0__VERANTYX_滴_90_=_ID_滴:1.0__VERANTYX_滴_26_,
+            _ID_漕:1.0__VERANTYX_滴_56_=_ID_滴:1.0__VERANTYX_滴_133_,
+            _ID_滴:1.0__VERANTYX_滴_161_=_ID_滴:1.0__VERANTYX_滴_18_,
+            _ID_滴:1.0__VERANTYX_滴_95_=_ID_滴:1.0__VERANTYX_滴_148_,
+        )
+
+    _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_("_ID_漕:1.0__VERANTYX_滴_158_")
+    _ID_滴:1.0__VERANTYX_滴_60_ = _ID_漕:1.0__VERANTYX_滴_176_(_ID_滴:1.0__VERANTYX_滴_11_)
+    if _ID_滴:1.0__VERANTYX_滴_60_:
+        _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_(f"_ID_滴:1.0__VERANTYX_滴_10_={_ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_60_)}")
+        _ID_滴:1.0__VERANTYX_滴_26_ = _ID_滴:1.0__VERANTYX_滴_60_[0]
+// [metadata-stripped]
+        if _ID_滴:1.0__VERANTYX_滴_26_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_151_(_ID_滴:1.0__VERANTYX_滴_26_) > 120:
+            _ID_滴:1.0__VERANTYX_滴_145_ = _ID_漕:1.0__VERANTYX_滴_139_(_ID_滴:1.0__VERANTYX_滴_11_)
+            if _ID_滴:1.0__VERANTYX_滴_145_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_漕:1.0__VERANTYX_滴_163_(_ID_滴:1.0__VERANTYX_滴_145_):
+                _ID_滴:1.0__VERANTYX_滴_26_ = _ID_滴:1.0__VERANTYX_滴_145_
+                _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_("_ID_漕:1.0__VERANTYX_滴_189_")
+        _ID_滴:1.0__VERANTYX_滴_133_ = _ID_滴:1.0__VERANTYX_滴_60_[1:]
+// [metadata-stripped]
+        if _ID_滴:1.0__VERANTYX_滴_71_._ID_滴:1.0__VERANTYX_滴_16_(_ID_滴:1.0__VERANTYX_滴_26_) _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_75_ _ID_伏:1.0__VERANTYX_滴_30_._ID_滴:1.0__VERANTYX_滴_119_(_ID_滴:1.0__VERANTYX_滴_26_):
+            _ID_滴:1.0__VERANTYX_滴_148_._ID_滴:1.0__VERANTYX_滴_73_("_ID_滴:1.0__VERANTYX_滴_134_")
+            _ID_滴:1.0__VERANTYX_滴_26_ = _ID_廟:1.0__VERANTYX_廟_14_
+            _ID_滴:1.0__VERANTYX_滴_133_ = []
+        return _ID_廟:1.0__VERANTYX_廟_1_(
+            _ID_滴:1.0__VERANTYX_滴_11_=_ID_滴:1.0__VERANTYX_滴_11_,
+            _ID_漕:1.0__VERANTYX_滴_90_=_ID_滴:1.0__VERANTYX_滴_26_,
+            _ID_漕:1.0__VERANTYX_滴_56_=_ID_滴:1.0__VERANTYX_滴_133_,
+            _ID_滴:1.0__VERANTYX_滴_161_=_ID_滴:1.0__VERANTYX_滴_11_._ID_滴:1.0__VERANTYX_滴_173_(),
+            _ID_滴:1.0__VERANTYX_滴_95_=_ID_滴:1.0__VERANTYX_滴_148_,
+        )
+
+    return _ID_廟:1.0__VERANTYX_廟_1_(
+        _ID_滴:1.0__VERANTYX_滴_11_=_ID_滴:1.0__VERANTYX_滴_11_,
+        _ID_漕:1.0__VERANTYX_滴_90_=_ID_廟:1.0__VERANTYX_廟_14_,
+        _ID_漕:1.0__VERANTYX_滴_56_=[],
+        _ID_滴:1.0__VERANTYX_滴_161_=_ID_滴:1.0__VERANTYX_滴_11_._ID_滴:1.0__VERANTYX_滴_173_(),
+        _ID_滴:1.0__VERANTYX_滴_95_=_ID_滴:1.0__VERANTYX_滴_148_,
+    )
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_滴:1.0__VERANTYX_滴_67_() -> _ID_滴:1.0__VERANTYX_滴_97_:
+    return (
+        "【入力ルール】\n"
+        "・式らしい部分を自動抽出します（必要なら引用してもOK）。\n"
+        "・括弧・矢印・論理記号は正しく入力してください。\n"
+        '例: ((A -> B) & A) -> B / []p -> [][]p / _ID_滴:1.0__VERANTYX_滴_121_ _ID_廟:1.0__VERANTYX_廟_6_(n,R)'
+    )
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_滴:1.0__VERANTYX_滴_51_() -> _ID_滴:1.0__VERANTYX_滴_97_:
+    return (
+        "_ID_廟:1.0__VERANTYX_廟_3_: We _ID_滴:1.0__VERANTYX_滴_93_-_ID_滴:1.0__VERANTYX_滴_83_ _ID_漕:1.0__VERANTYX_滴_20_-_ID_滴:1.0__VERANTYX_滴_165_ _ID_滴:1.0__VERANTYX_滴_178_ (_ID_滴:1.0__VERANTYX_滴_80_ is _ID_滴:1.0__VERANTYX_滴_85_).\n"
+        "_ID_廟:1.0__VERANTYX_廟_12_ _ID_滴:1.0__VERANTYX_滴_205_ _ID_滴:1.0__VERANTYX_滴_24_ _ID_滴:1.0__VERANTYX_滴_47_ _ID_滴:1.0__VERANTYX_滴_138_.\n"
+        "_ID_廟:1.0__VERANTYX_廟_19_: ((A -> B) & A) -> B, []p -> [][]p, _ID_滴:1.0__VERANTYX_滴_121_ _ID_廟:1.0__VERANTYX_廟_6_(n,R)"
+    )
+
+
+_ID_滴:1.0__VERANTYX_滴_184_ _ID_滴:1.0__VERANTYX_滴_185_(_ID_滴:1.0__VERANTYX_滴_149_: _ID_滴:1.0__VERANTYX_滴_97_) -> _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_]:
+    t = (_ID_滴:1.0__VERANTYX_滴_149_ or "")._ID_業:1.0__VERANTYX_滴_35_()
+    _ID_滴:1.0__VERANTYX_滴_150_: _ID_廟:1.0__VERANTYX_廟_4_[_ID_滴:1.0__VERANTYX_滴_97_] = []
+    for _ID_滴:1.0__VERANTYX_滴_181_, _ID_伏:1.0__VERANTYX_滴_194_ in _ID_滴:1.0__VERANTYX_滴_195_._ID_滴:1.0__VERANTYX_滴_76_():
+        for k in _ID_伏:1.0__VERANTYX_滴_194_:
+            if k._ID_業:1.0__VERANTYX_滴_35_() in t:
+                _ID_滴:1.0__VERANTYX_滴_150_._ID_滴:1.0__VERANTYX_滴_73_(_ID_滴:1.0__VERANTYX_滴_181_)
+                break
+    return _ID_滴:1.0__VERANTYX_滴_140_(_ID_業:1.0__VERANTYX_縁_1_(_ID_滴:1.0__VERANTYX_滴_150_))
+
+// POLYMORPHIC_JCROSS_END

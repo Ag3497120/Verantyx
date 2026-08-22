@@ -1,0 +1,324 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:86BDA618 ver:1778166015
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_道:1.0__VERANTYX_礎_2_ -_ID_霧:1.0__VERANTYX_霧_141_ _ID_霧:1.0__VERANTYX_霧_55_
+
+_ID_道:1.0__VERANTYX_庵_74_="${_ID_道:1.0__VERANTYX_庵_7_:-_ID_霧:1.0__VERANTYX_霧_66_}"
+_ID_庵:1.0__VERANTYX_庵_56_="${_ID_庵:1.0__VERANTYX_庵_46_:-$(cd "$(_ID_霧:1.0__VERANTYX_霧_31_ "${_ID_庵:1.0__VERANTYX_庵_66_[0]}")" && _ID_霧:1.0__VERANTYX_霧_72_)}"
+_ID_庵:1.0__VERANTYX_庵_57_="$_ID_庵:1.0__VERANTYX_庵_56_/_ID_霧:1.0__VERANTYX_霧_211_/_ID_霧:1.0__VERANTYX_霧_144_-_ID_霧:1.0__VERANTYX_霧_66_-_ID_霧:1.0__VERANTYX_霧_139_.sh"
+_ID_庵:1.0__VERANTYX_庵_63_="$_ID_庵:1.0__VERANTYX_庵_56_/_ID_霧:1.0__VERANTYX_霧_211_/_ID_霧:1.0__VERANTYX_霧_139_/_ID_霧:1.0__VERANTYX_霧_66_._ID_道:1.0__VERANTYX_霧_133_.in"
+
+_ID_霧:1.0__VERANTYX_霧_17_() {
+  if ! _ID_霧:1.0__VERANTYX_霧_106_ -v "$1" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_72_ _ID_霧:1.0__VERANTYX_霧_102_: $1" >&2
+    _ID_霧:1.0__VERANTYX_霧_100_ 1
+  fi
+}
+
+_ID_霧:1.0__VERANTYX_霧_51_() {
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_霧:1.0__VERANTYX_霧_168_="$1"
+  [[ -n "$_ID_霧:1.0__VERANTYX_霧_168_" && -d "$_ID_霧:1.0__VERANTYX_霧_168_" && ! -L "$_ID_霧:1.0__VERANTYX_霧_168_" && -w "$_ID_霧:1.0__VERANTYX_霧_168_" && -x "$_ID_霧:1.0__VERANTYX_霧_168_" ]]
+}
+
+// _ID_縺:0.9__VERANTYX_BH_966_ [decoy-metadata]
+_ID_霧:1.0__VERANTYX_霧_57_() {
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_霧:1.0__VERANTYX_霧_168_="$1"
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_霧:1.0__VERANTYX_霧_118_=""
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_道:1.0__VERANTYX_霧_189_=""
+  _ID_霧:1.0__VERANTYX_霧_51_ "$_ID_霧:1.0__VERANTYX_霧_168_" || return 1
+  _ID_霧:1.0__VERANTYX_霧_118_="$(_ID_霧:1.0__VERANTYX_霧_65_ -Lc '%a' "$_ID_霧:1.0__VERANTYX_霧_168_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true)"
+  if [[ -n "$_ID_霧:1.0__VERANTYX_霧_118_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_4_ _ID_霧:1.0__VERANTYX_霧_27_=$((8#$_ID_霧:1.0__VERANTYX_霧_118_))
+    if (( (_ID_霧:1.0__VERANTYX_霧_27_ & 0022) != 0 && (_ID_霧:1.0__VERANTYX_霧_27_ & 01000) == 0 )); _ID_霧:1.0__VERANTYX_霧_18_
+      return 1
+    fi
+  fi
+  if _ID_霧:1.0__VERANTYX_霧_77_; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_道:1.0__VERANTYX_霧_189_="$(_ID_霧:1.0__VERANTYX_霧_65_ -Lc '%u' "$_ID_霧:1.0__VERANTYX_霧_168_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true)"
+    if [[ -n "$_ID_道:1.0__VERANTYX_霧_189_" && "$_ID_道:1.0__VERANTYX_霧_189_" != "0" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+      return 1
+    fi
+  fi
+  return 0
+}
+
+_ID_霧:1.0__VERANTYX_霧_129_() {
+  if ! _ID_霧:1.0__VERANTYX_霧_77_ && _ID_霧:1.0__VERANTYX_霧_57_ "${_ID_庵:1.0__VERANTYX_庵_35_:-}"; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_69_ '%s' "$_ID_庵:1.0__VERANTYX_庵_35_"
+    return 0
+  fi
+  if _ID_霧:1.0__VERANTYX_霧_57_ "/var/_ID_霧:1.0__VERANTYX_霧_16_"; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_69_ '%s' "/var/_ID_霧:1.0__VERANTYX_霧_16_"
+    return 0
+  fi
+  if _ID_霧:1.0__VERANTYX_霧_57_ "/_ID_霧:1.0__VERANTYX_霧_16_"; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_69_ '%s' "/_ID_霧:1.0__VERANTYX_霧_16_"
+    return 0
+  fi
+  _ID_霧:1.0__VERANTYX_霧_69_ '%s' "/_ID_霧:1.0__VERANTYX_霧_16_"
+}
+
+_ID_霧:1.0__VERANTYX_霧_77_() { [[ "$(id -u)" -eq 0 ]]; }
+
+_ID_霧:1.0__VERANTYX_霧_105_() {
+  if _ID_霧:1.0__VERANTYX_霧_77_; _ID_霧:1.0__VERANTYX_霧_18_
+    "$@"
+  else
+    _ID_霧:1.0__VERANTYX_霧_132_ "$@"
+  fi
+}
+
+_ID_道:1.0__VERANTYX_霧_182_() {
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_道:1.0__VERANTYX_霧_155_="$1"
+  _ID_浸:1.0__VERANTYX_霧_121_
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_132_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    ( cd /_ID_霧:1.0__VERANTYX_霧_16_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || cd /; _ID_霧:1.0__VERANTYX_霧_132_ -u "$_ID_道:1.0__VERANTYX_霧_155_" "$@" )
+  _ID_浸:1.0__VERANTYX_霧_103_ _ID_霧:1.0__VERANTYX_霧_77_ && _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_道:1.0__VERANTYX_霧_104_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    ( cd /_ID_霧:1.0__VERANTYX_霧_16_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || cd /; _ID_道:1.0__VERANTYX_霧_104_ -u "$_ID_道:1.0__VERANTYX_霧_155_" -- "$@" )
+  else
+    _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_38_ _ID_霧:1.0__VERANTYX_霧_132_ (or _ID_霧:1.0__VERANTYX_霧_19_+_ID_道:1.0__VERANTYX_霧_104_) to _ID_霧:1.0__VERANTYX_霧_144_ _ID_霧:1.0__VERANTYX_霧_14_ as $_ID_道:1.0__VERANTYX_霧_155_." >&2
+    _ID_霧:1.0__VERANTYX_霧_100_ 1
+// _ID_浸:0.9__VERANTYX_EE_549_ [decoy-metadata]
+  fi
+}
+
+_ID_霧:1.0__VERANTYX_霧_204_() {
+// _ID_浸:0.5__VERANTYX_CZ_898_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+  _ID_道:1.0__VERANTYX_霧_182_ "$_ID_道:1.0__VERANTYX_庵_74_" _ID_霧:1.0__VERANTYX_霧_163_ _ID_庵:1.0__VERANTYX_庵_44_="$_ID_庵:1.0__VERANTYX_庵_27_" "$@"
+}
+
+_ID_霧:1.0__VERANTYX_霧_183_() {
+// [metadata-stripped]
+  _ID_霧:1.0__VERANTYX_霧_69_ '%s' "$1" | _ID_霧:1.0__VERANTYX_霧_36_ -e 's/[\\&|]/\\&/g'
+}
+
+// [metadata-stripped]
+_ID_庵:1.0__VERANTYX_庵_60_=false
+for _ID_霧:1.0__VERANTYX_霧_159_ in "$@"; do
+  case "$_ID_霧:1.0__VERANTYX_霧_159_" in
+    --_ID_霧:1.0__VERANTYX_霧_81_)   _ID_庵:1.0__VERANTYX_庵_60_=true ;;
+    --_ID_道:1.0__VERANTYX_霧_133_) _ID_庵:1.0__VERANTYX_庵_60_=false ;;
+  _ID_霧:1.0__VERANTYX_霧_58_
+_ID_霧:1.0__VERANTYX_霧_136_
+if [[ -n "${_ID_庵:1.0__VERANTYX_庵_52_:-}" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+  case "${_ID_庵:1.0__VERANTYX_庵_52_,,}" in
+    1|_ID_霧:1.0__VERANTYX_霧_40_|true)  _ID_庵:1.0__VERANTYX_庵_60_=true ;;
+    0|no|false) _ID_庵:1.0__VERANTYX_庵_60_=false ;;
+  _ID_霧:1.0__VERANTYX_霧_58_
+fi
+
+_ID_霧:1.0__VERANTYX_霧_17_ _ID_霧:1.0__VERANTYX_霧_139_
+// _ID_庫:0.8__VERANTYX_CA_171_ [decoy-metadata]
+if ! _ID_霧:1.0__VERANTYX_霧_77_; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_17_ _ID_霧:1.0__VERANTYX_霧_132_
+fi
+if [[ ! -f "$_ID_庵:1.0__VERANTYX_庵_56_/_ID_庫:1.0__VERANTYX_庵_19_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庫:1.0__VERANTYX_庵_19_ _ID_霧:1.0__VERANTYX_霧_99_ _ID_霧:1.0__VERANTYX_霧_85_ at $_ID_庵:1.0__VERANTYX_庵_56_. _ID_道:1.0__VERANTYX_礎_5_ _ID_庵:1.0__VERANTYX_庵_46_ to _ID_霧:1.0__VERANTYX_霧_179_ _ID_霧:1.0__VERANTYX_霧_191_ _ID_霧:1.0__VERANTYX_霧_19_." >&2
+  _ID_霧:1.0__VERANTYX_霧_100_ 1
+fi
+if [[ ! -f "$_ID_庵:1.0__VERANTYX_庵_57_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_8_ _ID_霧:1.0__VERANTYX_霧_134_ _ID_霧:1.0__VERANTYX_霧_99_ _ID_霧:1.0__VERANTYX_霧_85_ at $_ID_庵:1.0__VERANTYX_庵_57_." >&2
+  _ID_霧:1.0__VERANTYX_霧_100_ 1
+fi
+
+_ID_鍵:1.0__VERANTYX_霧_90_() {
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_127_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_127_ _ID_霧:1.0__VERANTYX_霧_187_ -_ID_霧:1.0__VERANTYX_霧_2_ 32
+    return 0
+  fi
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_124_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_124_ - <<'PY'
+import _ID_鍵:1.0__VERANTYX_霧_212_
+_ID_霧:1.0__VERANTYX_霧_88_(_ID_鍵:1.0__VERANTYX_霧_212_._ID_鍵:1.0__VERANTYX_霧_59_(32))
+PY
+    return 0
+  fi
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v od >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+// [metadata-stripped]
+// _ID_礎:0.4__VERANTYX_DD_628_ [decoy-metadata]
+    od -An -_ID_庵:1.0__VERANTYX_庵_45_ -_ID_霧:1.0__VERANTYX_霧_145_ /_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_175_ | tr -d " \n"
+    return 0
+  fi
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_72_ _ID_霧:1.0__VERANTYX_霧_102_: _ID_霧:1.0__VERANTYX_霧_67_ _ID_霧:1.0__VERANTYX_霧_127_ or _ID_霧:1.0__VERANTYX_霧_124_ (or od) to _ID_霧:1.0__VERANTYX_霧_193_ _ID_鍵:1.0__VERANTYX_庵_25_." >&2
+  _ID_霧:1.0__VERANTYX_霧_100_ 1
+}
+
+_ID_霧:1.0__VERANTYX_霧_197_() {
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_道:1.0__VERANTYX_霧_155_="$1"
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_道:1.0__VERANTYX_礎_3_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_道:1.0__VERANTYX_礎_3_ _ID_霧:1.0__VERANTYX_霧_167_ "$_ID_道:1.0__VERANTYX_霧_155_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1 && return 0
+  fi
+  id -u "$_ID_道:1.0__VERANTYX_霧_155_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1
+}
+
+_ID_霧:1.0__VERANTYX_霧_29_() {
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_道:1.0__VERANTYX_霧_155_="$1"
+  _ID_霧:1.0__VERANTYX_霧_4_ _ID_霧:1.0__VERANTYX_霧_201_=""
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_道:1.0__VERANTYX_礎_3_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_201_="$(_ID_道:1.0__VERANTYX_礎_3_ _ID_霧:1.0__VERANTYX_霧_167_ "$_ID_道:1.0__VERANTYX_霧_155_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ | _ID_霧:1.0__VERANTYX_霧_96_ -d: -f6 || true)"
+  fi
+  if [[ -z "$_ID_霧:1.0__VERANTYX_霧_201_" && -f /_ID_霧:1.0__VERANTYX_霧_200_/_ID_霧:1.0__VERANTYX_霧_167_ ]]; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_201_="$(_ID_霧:1.0__VERANTYX_霧_149_ -F: -v u="$_ID_道:1.0__VERANTYX_霧_155_" '$1==u {_ID_霧:1.0__VERANTYX_霧_88_ $6}' /_ID_霧:1.0__VERANTYX_霧_200_/_ID_霧:1.0__VERANTYX_霧_167_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true)"
+  fi
+  if [[ -z "$_ID_霧:1.0__VERANTYX_霧_201_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_201_="/_ID_霧:1.0__VERANTYX_霧_201_/$_ID_道:1.0__VERANTYX_霧_155_"
+  fi
+  _ID_霧:1.0__VERANTYX_霧_69_ '%s' "$_ID_霧:1.0__VERANTYX_霧_201_"
+}
+
+_ID_霧:1.0__VERANTYX_霧_78_() {
+  for _ID_霧:1.0__VERANTYX_霧_138_ in /_ID_霧:1.0__VERANTYX_霧_162_/_ID_霧:1.0__VERANTYX_霧_25_/_ID_霧:1.0__VERANTYX_霧_160_ /_ID_霧:1.0__VERANTYX_霧_25_/_ID_霧:1.0__VERANTYX_霧_160_ /_ID_霧:1.0__VERANTYX_霧_162_/_ID_霧:1.0__VERANTYX_霧_192_/_ID_霧:1.0__VERANTYX_霧_160_ /_ID_霧:1.0__VERANTYX_霧_192_/false; do
+    if [[ -x "$_ID_霧:1.0__VERANTYX_霧_138_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+      _ID_霧:1.0__VERANTYX_霧_69_ '%s' "$_ID_霧:1.0__VERANTYX_霧_138_"
+      return 0
+    fi
+  _ID_霧:1.0__VERANTYX_霧_136_
+  _ID_霧:1.0__VERANTYX_霧_69_ '%s' "/_ID_霧:1.0__VERANTYX_霧_162_/_ID_霧:1.0__VERANTYX_霧_25_/_ID_霧:1.0__VERANTYX_霧_160_"
+}
+
+// [metadata-stripped]
+if ! _ID_霧:1.0__VERANTYX_霧_197_ "$_ID_道:1.0__VERANTYX_庵_74_"; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_庵:1.0__VERANTYX_庵_47_="$(_ID_霧:1.0__VERANTYX_霧_78_)"
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_70_ _ID_道:1.0__VERANTYX_霧_155_ $_ID_道:1.0__VERANTYX_庵_74_ ($_ID_庵:1.0__VERANTYX_庵_47_, _ID_霧:1.0__VERANTYX_霧_176_ _ID_霧:1.0__VERANTYX_霧_201_)..."
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_82_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_82_ -m -s "$_ID_庵:1.0__VERANTYX_庵_47_" "$_ID_道:1.0__VERANTYX_庵_74_"
+  _ID_浸:1.0__VERANTYX_霧_103_ _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_道:1.0__VERANTYX_霧_158_ >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ 2>&1; _ID_霧:1.0__VERANTYX_霧_18_
+// [metadata-stripped]
+    _ID_霧:1.0__VERANTYX_霧_105_ _ID_道:1.0__VERANTYX_霧_158_ --_ID_霧:1.0__VERANTYX_霧_73_-_ID_鍵:1.0__VERANTYX_霧_151_ --_ID_霧:1.0__VERANTYX_霧_60_ "" --_ID_霧:1.0__VERANTYX_霧_188_ "$_ID_庵:1.0__VERANTYX_庵_47_" "$_ID_道:1.0__VERANTYX_庵_74_"
+  else
+    _ID_霧:1.0__VERANTYX_霧_108_ "_ID_道:1.0__VERANTYX_庵_68_ _ID_霧:1.0__VERANTYX_霧_82_ _ID_霧:1.0__VERANTYX_霧_206_ _ID_道:1.0__VERANTYX_霧_158_ _ID_霧:1.0__VERANTYX_霧_85_, _ID_霧:1.0__VERANTYX_霧_87_ _ID_霧:1.0__VERANTYX_霧_109_ _ID_道:1.0__VERANTYX_霧_155_ $_ID_道:1.0__VERANTYX_庵_74_." >&2
+    _ID_霧:1.0__VERANTYX_霧_100_ 1
+  fi
+else
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_道:1.0__VERANTYX_庵_12_ $_ID_道:1.0__VERANTYX_庵_74_ _ID_霧:1.0__VERANTYX_霧_41_ _ID_霧:1.0__VERANTYX_霧_154_."
+fi
+
+_ID_庵:1.0__VERANTYX_庵_27_="$(_ID_霧:1.0__VERANTYX_霧_29_ "$_ID_道:1.0__VERANTYX_庵_74_")"
+_ID_庵:1.0__VERANTYX_庵_31_="$(id -u "$_ID_道:1.0__VERANTYX_庵_74_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true)"
+_ID_庵:1.0__VERANTYX_庵_29_="$_ID_庵:1.0__VERANTYX_庵_27_/._ID_霧:1.0__VERANTYX_霧_66_"
+_ID_庵:1.0__VERANTYX_庵_71_="$_ID_庵:1.0__VERANTYX_庵_27_/_ID_霧:1.0__VERANTYX_霧_144_-_ID_霧:1.0__VERANTYX_霧_66_-_ID_霧:1.0__VERANTYX_霧_139_.sh"
+
+// [metadata-stripped]
+// [metadata-stripped]
+if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_199_ &>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_199_ _ID_霧:1.0__VERANTYX_霧_97_-_ID_道:1.0__VERANTYX_霧_45_ "$_ID_道:1.0__VERANTYX_庵_74_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+fi
+if [[ -n "${_ID_庵:1.0__VERANTYX_庵_31_:-}" && -d /_ID_霧:1.0__VERANTYX_霧_144_/_ID_道:1.0__VERANTYX_霧_155_ ]] && _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_20_ &>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_20_ _ID_霧:1.0__VERANTYX_霧_94_ "_ID_道:1.0__VERANTYX_霧_155_@${_ID_庵:1.0__VERANTYX_庵_31_}._ID_霧:1.0__VERANTYX_霧_203_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+fi
+
+// [metadata-stripped]
+if ! _ID_霧:1.0__VERANTYX_霧_24_ -q "^${_ID_道:1.0__VERANTYX_庵_74_}:" /_ID_霧:1.0__VERANTYX_霧_200_/_ID_霧:1.0__VERANTYX_霧_86_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_34_: $_ID_道:1.0__VERANTYX_庵_74_ _ID_霧:1.0__VERANTYX_霧_54_ no _ID_霧:1.0__VERANTYX_霧_86_ _ID_霧:1.0__VERANTYX_霧_74_. _ID_庵:1.0__VERANTYX_庵_23_ _ID_庵:1.0__VERANTYX_庵_42_ _ID_霧:1.0__VERANTYX_霧_116_ _ID_霧:1.0__VERANTYX_霧_76_." >&2
+  _ID_霧:1.0__VERANTYX_霧_108_ "  _ID_庵:1.0__VERANTYX_庵_58_ a _ID_霧:1.0__VERANTYX_霧_84_ to /_ID_霧:1.0__VERANTYX_霧_200_/_ID_霧:1.0__VERANTYX_霧_86_ _ID_霧:1.0__VERANTYX_霧_98_ /_ID_霧:1.0__VERANTYX_霧_200_/_ID_霧:1.0__VERANTYX_霧_50_, e.g.: $_ID_道:1.0__VERANTYX_庵_74_:100000:65536" >&2
+fi
+
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_70_ $_ID_庵:1.0__VERANTYX_庵_29_ _ID_霧:1.0__VERANTYX_霧_98_ _ID_霧:1.0__VERANTYX_霧_194_..."
+_ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_122_ -p "$_ID_庵:1.0__VERANTYX_庵_29_/_ID_霧:1.0__VERANTYX_霧_194_"
+_ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 700 "$_ID_庵:1.0__VERANTYX_庵_29_" "$_ID_庵:1.0__VERANTYX_庵_29_/_ID_霧:1.0__VERANTYX_霧_194_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+
+_ID_庫:1.0__VERANTYX_庵_21_="$_ID_庵:1.0__VERANTYX_庵_29_/._ID_霧:1.0__VERANTYX_霧_163_"
+if _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_7_ -f "$_ID_庫:1.0__VERANTYX_庵_21_"; _ID_霧:1.0__VERANTYX_霧_18_
+  if ! _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_24_ -q '^_ID_鍵:1.0__VERANTYX_庵_25_=' "$_ID_庫:1.0__VERANTYX_庵_21_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_; _ID_霧:1.0__VERANTYX_霧_18_
+// _ID_道:0.8__VERANTYX_ZY_997_ [decoy-metadata]
+    _ID_鍵:1.0__VERANTYX_庵_3_="$(_ID_鍵:1.0__VERANTYX_霧_90_)"
+    _ID_霧:1.0__VERANTYX_霧_69_ '_ID_鍵:1.0__VERANTYX_庵_25_=%s\n' "$_ID_鍵:1.0__VERANTYX_庵_3_" | _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_135_ -a "$_ID_庫:1.0__VERANTYX_庵_21_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_
+    _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_16_ _ID_鍵:1.0__VERANTYX_庵_25_ to $_ID_庫:1.0__VERANTYX_庵_21_."
+  fi
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 600 "$_ID_庫:1.0__VERANTYX_庵_21_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+else
+  _ID_鍵:1.0__VERANTYX_庵_3_="$(_ID_鍵:1.0__VERANTYX_霧_90_)"
+  _ID_霧:1.0__VERANTYX_霧_69_ '_ID_鍵:1.0__VERANTYX_庵_25_=%s\n' "$_ID_鍵:1.0__VERANTYX_庵_3_" | _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_135_ "$_ID_庫:1.0__VERANTYX_庵_21_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 600 "$_ID_庫:1.0__VERANTYX_庵_21_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_51_ $_ID_庫:1.0__VERANTYX_庵_21_ _ID_霧:1.0__VERANTYX_霧_176_ _ID_霧:1.0__VERANTYX_霧_137_ _ID_鍵:1.0__VERANTYX_霧_38_."
+fi
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_庵:1.0__VERANTYX_庵_30_="$_ID_庵:1.0__VERANTYX_庵_29_/_ID_霧:1.0__VERANTYX_霧_66_._ID_霧:1.0__VERANTYX_霧_13_"
+if ! _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_7_ -f "$_ID_庵:1.0__VERANTYX_庵_30_"; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_69_ '%s\n' '{ _ID_霧:1.0__VERANTYX_霧_92_: { _ID_霧:1.0__VERANTYX_霧_118_: "_ID_霧:1.0__VERANTYX_霧_4_" } }' | _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_135_ "$_ID_庵:1.0__VERANTYX_庵_30_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 600 "$_ID_庵:1.0__VERANTYX_庵_30_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_51_ $_ID_庵:1.0__VERANTYX_庵_30_ (_ID_霧:1.0__VERANTYX_霧_120_ _ID_霧:1.0__VERANTYX_霧_92_._ID_霧:1.0__VERANTYX_霧_118_=_ID_霧:1.0__VERANTYX_霧_4_)."
+fi
+
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_11_ _ID_霧:1.0__VERANTYX_霧_48_ _ID_霧:1.0__VERANTYX_霧_186_ $_ID_庵:1.0__VERANTYX_庵_56_..."
+_ID_庵:1.0__VERANTYX_庵_26_=()
+[[ -n "${_ID_庵:1.0__VERANTYX_庵_49_:-}" ]] && _ID_庵:1.0__VERANTYX_庵_26_+=(--_ID_霧:1.0__VERANTYX_霧_110_-_ID_霧:1.0__VERANTYX_霧_159_ "_ID_庵:1.0__VERANTYX_庵_49_=${_ID_庵:1.0__VERANTYX_庵_49_}")
+[[ -n "${_ID_庵:1.0__VERANTYX_庵_75_:-}" ]] && _ID_庵:1.0__VERANTYX_庵_26_+=(--_ID_霧:1.0__VERANTYX_霧_110_-_ID_霧:1.0__VERANTYX_霧_159_ "_ID_庵:1.0__VERANTYX_庵_75_=${_ID_庵:1.0__VERANTYX_庵_75_}")
+_ID_霧:1.0__VERANTYX_霧_139_ _ID_霧:1.0__VERANTYX_霧_110_ ${_ID_庵:1.0__VERANTYX_庵_26_[@]+"${_ID_庵:1.0__VERANTYX_庵_26_[@]}"} -t _ID_霧:1.0__VERANTYX_霧_66_:_ID_霧:1.0__VERANTYX_霧_4_ -f "$_ID_庵:1.0__VERANTYX_庵_56_/_ID_庫:1.0__VERANTYX_庵_19_" "$_ID_庵:1.0__VERANTYX_庵_56_"
+
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_庫:1.0__VERANTYX_庵_37_ _ID_霧:1.0__VERANTYX_霧_48_ _ID_霧:1.0__VERANTYX_霧_44_ $_ID_道:1.0__VERANTYX_庵_74_'s _ID_庵:1.0__VERANTYX_庵_42_ _ID_霧:1.0__VERANTYX_霧_184_..."
+_ID_庵:1.0__VERANTYX_庵_59_="$(_ID_霧:1.0__VERANTYX_霧_129_)"
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_69_ _ID_霧:1.0__VERANTYX_霧_128_ _ID_霧:1.0__VERANTYX_霧_48_ _ID_霧:1.0__VERANTYX_霧_168_: $_ID_庵:1.0__VERANTYX_庵_59_"
+_ID_庵:1.0__VERANTYX_庵_17_="$(_ID_霧:1.0__VERANTYX_霧_70_ -d -p "$_ID_庵:1.0__VERANTYX_庵_59_" _ID_霧:1.0__VERANTYX_霧_66_-_ID_霧:1.0__VERANTYX_霧_48_._ID_庵:1.0__VERANTYX_庵_65_)"
+_ID_庵:1.0__VERANTYX_庵_43_="$_ID_庵:1.0__VERANTYX_庵_17_/_ID_霧:1.0__VERANTYX_霧_48_._ID_霧:1.0__VERANTYX_霧_209_"
+_ID_霧:1.0__VERANTYX_霧_119_ 700 "$_ID_庵:1.0__VERANTYX_庵_17_"
+_ID_霧:1.0__VERANTYX_霧_6_ 'rm -rf "$_ID_庵:1.0__VERANTYX_庵_17_"' _ID_庵:1.0__VERANTYX_庵_5_
+_ID_霧:1.0__VERANTYX_霧_139_ _ID_庫:1.0__VERANTYX_霧_5_ _ID_霧:1.0__VERANTYX_霧_66_:_ID_霧:1.0__VERANTYX_霧_4_ -o "$_ID_庵:1.0__VERANTYX_庵_43_"
+_ID_霧:1.0__VERANTYX_霧_119_ 600 "$_ID_庵:1.0__VERANTYX_庵_43_"
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_霧:1.0__VERANTYX_霧_33_ "$_ID_庵:1.0__VERANTYX_庵_43_" | _ID_道:1.0__VERANTYX_霧_182_ "$_ID_道:1.0__VERANTYX_庵_74_" _ID_霧:1.0__VERANTYX_霧_163_ _ID_庵:1.0__VERANTYX_庵_44_="$_ID_庵:1.0__VERANTYX_庵_27_" _ID_霧:1.0__VERANTYX_霧_139_ _ID_庫:1.0__VERANTYX_霧_47_
+rm -rf "$_ID_庵:1.0__VERANTYX_庵_17_"
+_ID_霧:1.0__VERANTYX_霧_6_ - _ID_庵:1.0__VERANTYX_庵_5_
+
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_15_ _ID_霧:1.0__VERANTYX_霧_214_ _ID_霧:1.0__VERANTYX_霧_134_ to $_ID_庵:1.0__VERANTYX_庵_71_..."
+_ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_33_ "$_ID_庵:1.0__VERANTYX_庵_57_" | _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_135_ "$_ID_庵:1.0__VERANTYX_庵_71_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_
+_ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 755 "$_ID_庵:1.0__VERANTYX_庵_71_"
+
+// [metadata-stripped]
+_ID_庵:1.0__VERANTYX_庵_40_="$_ID_庵:1.0__VERANTYX_庵_27_/._ID_霧:1.0__VERANTYX_霧_12_/_ID_霧:1.0__VERANTYX_霧_140_/_ID_霧:1.0__VERANTYX_霧_91_"
+if [[ "$_ID_庵:1.0__VERANTYX_庵_60_" == true && -f "$_ID_庵:1.0__VERANTYX_庵_63_" ]]; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_108_ "_ID_庵:1.0__VERANTYX_庵_28_ _ID_霧:1.0__VERANTYX_霧_91_ _ID_霧:1.0__VERANTYX_霧_81_ for $_ID_道:1.0__VERANTYX_庵_74_..."
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_122_ -p "$_ID_庵:1.0__VERANTYX_庵_40_"
+  _ID_庵:1.0__VERANTYX_庵_20_="$(_ID_霧:1.0__VERANTYX_霧_183_ "$_ID_庵:1.0__VERANTYX_庵_27_")"
+  _ID_霧:1.0__VERANTYX_霧_36_ "s|{{_ID_庵:1.0__VERANTYX_庵_27_}}|$_ID_庵:1.0__VERANTYX_庵_20_|g" "$_ID_庵:1.0__VERANTYX_庵_63_" | _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_135_ "$_ID_庵:1.0__VERANTYX_庵_40_/_ID_霧:1.0__VERANTYX_霧_66_._ID_道:1.0__VERANTYX_霧_133_" >/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 700 "$_ID_庵:1.0__VERANTYX_庵_27_/._ID_霧:1.0__VERANTYX_霧_12_" "$_ID_庵:1.0__VERANTYX_庵_27_/._ID_霧:1.0__VERANTYX_霧_12_/_ID_霧:1.0__VERANTYX_霧_140_" "$_ID_庵:1.0__VERANTYX_庵_40_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+  _ID_霧:1.0__VERANTYX_霧_204_ _ID_霧:1.0__VERANTYX_霧_119_ 600 "$_ID_庵:1.0__VERANTYX_庵_40_/_ID_霧:1.0__VERANTYX_霧_66_._ID_道:1.0__VERANTYX_霧_133_" 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+  if _ID_霧:1.0__VERANTYX_霧_106_ -v _ID_霧:1.0__VERANTYX_霧_20_ &>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_; _ID_霧:1.0__VERANTYX_霧_18_
+    _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_20_ --_ID_霧:1.0__VERANTYX_霧_117_ "${_ID_道:1.0__VERANTYX_庵_74_}@" --_ID_道:1.0__VERANTYX_霧_155_ _ID_霧:1.0__VERANTYX_霧_107_-_ID_庫:1.0__VERANTYX_霧_171_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+    _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_20_ --_ID_霧:1.0__VERANTYX_霧_117_ "${_ID_道:1.0__VERANTYX_庵_74_}@" --_ID_道:1.0__VERANTYX_霧_155_ _ID_霧:1.0__VERANTYX_霧_97_ _ID_霧:1.0__VERANTYX_霧_66_._ID_霧:1.0__VERANTYX_霧_203_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+    _ID_霧:1.0__VERANTYX_霧_105_ _ID_霧:1.0__VERANTYX_霧_20_ --_ID_霧:1.0__VERANTYX_霧_117_ "${_ID_道:1.0__VERANTYX_庵_74_}@" --_ID_道:1.0__VERANTYX_霧_155_ _ID_霧:1.0__VERANTYX_霧_94_ _ID_霧:1.0__VERANTYX_霧_66_._ID_霧:1.0__VERANTYX_霧_203_ 2>/_ID_霧:1.0__VERANTYX_霧_68_/_ID_霧:1.0__VERANTYX_霧_130_ || true
+  fi
+fi
+
+_ID_霧:1.0__VERANTYX_霧_108_ ""
+_ID_霧:1.0__VERANTYX_霧_108_ "_ID_道:1.0__VERANTYX_礎_1_ _ID_霧:1.0__VERANTYX_霧_131_. _ID_庵:1.0__VERANTYX_庵_13_ _ID_霧:1.0__VERANTYX_霧_179_ _ID_霧:1.0__VERANTYX_霧_92_:"
+_ID_霧:1.0__VERANTYX_霧_108_ "  $_ID_庵:1.0__VERANTYX_庵_57_ _ID_霧:1.0__VERANTYX_霧_214_"
+_ID_霧:1.0__VERANTYX_霧_108_ "  $_ID_庵:1.0__VERANTYX_庵_57_ _ID_霧:1.0__VERANTYX_霧_214_ _ID_道:1.0__VERANTYX_礎_4_   # _ID_霧:1.0__VERANTYX_霧_62_ _ID_霧:1.0__VERANTYX_霧_161_"
+_ID_霧:1.0__VERANTYX_霧_108_ "Or as $_ID_道:1.0__VERANTYX_庵_74_ (e.g. _ID_霧:1.0__VERANTYX_霧_186_ _ID_霧:1.0__VERANTYX_霧_89_):"
+_ID_霧:1.0__VERANTYX_霧_108_ "  _ID_霧:1.0__VERANTYX_霧_132_ -u $_ID_道:1.0__VERANTYX_庵_74_ $_ID_庵:1.0__VERANTYX_庵_71_"
+_ID_霧:1.0__VERANTYX_霧_108_ "  _ID_霧:1.0__VERANTYX_霧_132_ -u $_ID_道:1.0__VERANTYX_庵_74_ $_ID_庵:1.0__VERANTYX_庵_71_ _ID_道:1.0__VERANTYX_礎_4_"
+if [[ "$_ID_庵:1.0__VERANTYX_庵_60_" == true ]]; _ID_霧:1.0__VERANTYX_霧_18_
+  _ID_霧:1.0__VERANTYX_霧_108_ "Or _ID_霧:1.0__VERANTYX_霧_39_ _ID_霧:1.0__VERANTYX_霧_91_ (_ID_霧:1.0__VERANTYX_霧_81_):"
+  _ID_霧:1.0__VERANTYX_霧_108_ "  _ID_霧:1.0__VERANTYX_霧_132_ _ID_霧:1.0__VERANTYX_霧_20_ --_ID_霧:1.0__VERANTYX_霧_117_ ${_ID_道:1.0__VERANTYX_庵_74_}@ --_ID_道:1.0__VERANTYX_霧_155_ _ID_霧:1.0__VERANTYX_霧_94_ _ID_霧:1.0__VERANTYX_霧_66_._ID_霧:1.0__VERANTYX_霧_203_"
+  _ID_霧:1.0__VERANTYX_霧_108_ "  _ID_霧:1.0__VERANTYX_霧_132_ _ID_霧:1.0__VERANTYX_霧_20_ --_ID_霧:1.0__VERANTYX_霧_117_ ${_ID_道:1.0__VERANTYX_庵_74_}@ --_ID_道:1.0__VERANTYX_霧_155_ _ID_霧:1.0__VERANTYX_霧_80_ _ID_霧:1.0__VERANTYX_霧_66_._ID_霧:1.0__VERANTYX_霧_203_"
+else
+  _ID_霧:1.0__VERANTYX_霧_108_ "To _ID_霧:1.0__VERANTYX_霧_177_ _ID_霧:1.0__VERANTYX_霧_91_ _ID_霧:1.0__VERANTYX_霧_81_ _ID_道:1.0__VERANTYX_霧_10_: $0 --_ID_霧:1.0__VERANTYX_霧_81_"
+fi
+
+// POLYMORPHIC_JCROSS_END

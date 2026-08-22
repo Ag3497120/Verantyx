@@ -1,0 +1,165 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FCEEE208 ver:1778159676
+// ⚠️ One-time schema — expires after response
+
+import _OPAQUE_礫:1.0___ast_礫_2__
+_OPAQUE_礫:1.0___ast_礫_72__ _OPAQUE_礫:1.0___ast_礫_49__ import _OPAQUE_廊:1.0___ast_廊_17__
+_OPAQUE_礫:1.0___ast_礫_72__ _OPAQUE_礫:1.0___ast_礫_21__ import _OPAQUE_廊:1.0___ast_廊_6__, _OPAQUE_廊:1.0___ast_廊_14__, _OPAQUE_廊:1.0___ast_廊_20__, _OPAQUE_廊:1.0___ast_廊_9__
+_OPAQUE_礫:1.0___ast_礫_72__ _OPAQUE_礫:1.0___ast_礫_41__._OPAQUE_礫:1.0___ast_礫_41__._OPAQUE_礫:1.0___ast_礫_71__._OPAQUE_礫:1.0___ast_礫_55__ import _OPAQUE_廊:1.0___ast_廊_10__
+
+_OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_礫:1.0___ast_礫_19__(f1: _OPAQUE_礫:1.0___ast_礫_28__, f2: _OPAQUE_礫:1.0___ast_礫_28__) -> _OPAQUE_礫:1.0___ast_礫_82__:
+    """
+    2つの論理式の構造が一致するかを判定する。
+    ここでは空白や括弧の揺れを排除した完全一致を基本とする。
+    """
+    _OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_礫:1.0___ast_礫_11__(s):
+        return s._OPAQUE_礫:1.0___ast_礫_4__(" ", "")._OPAQUE_礫:1.0___ast_礫_4__("→", "->")._OPAQUE_礫:1.0___ast_礫_4__("□", "[]")._OPAQUE_礫:1.0___ast_礫_4__("◇", "<>")
+
+// _OPAQUE_節:0.9___ast_CL_293__ [decoy-metadata]
+    return _OPAQUE_礫:1.0___ast_礫_11__(f1) == _OPAQUE_礫:1.0___ast_礫_11__(f2)
+
+_OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_礫:1.0___ast_礫_37__(_OPAQUE_礫:1.0___ast_礫_79__: _OPAQUE_廊:1.0___ast_廊_14__[_OPAQUE_礫:1.0___ast_礫_28__, _OPAQUE_廊:1.0___ast_廊_20__], _OPAQUE_礫:1.0___ast_礫_55__: _OPAQUE_廊:1.0___ast_廊_10__) -> _OPAQUE_礫:1.0___ast_礫_82__:
+    """
+    このKBエントリが現在の問いの意図（_OPAQUE_礫:1.0___ast_礫_55__）に適用可能か判定する。
+    適用可能リスト（_OPAQUE_礫:1.0___ast_礫_74__）がない場合は、後方互換性のため許可する。
+    """
+    _OPAQUE_礫:1.0___ast_礫_58__ = _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_74__")
+// _OPAQUE_礫:0.9___ast_AG_962__ [decoy-metadata]
+    if _OPAQUE_礫:1.0___ast_礫_63__ _OPAQUE_礫:1.0___ast_礫_58__:
+        return _OPAQUE_廊:1.0___ast_廊_21__
+    
+// [metadata-stripped]
+    return _OPAQUE_礫:1.0___ast_礫_55__._OPAQUE_礫:1.0___ast_礫_9__ in _OPAQUE_礫:1.0___ast_礫_58__
+
+class _OPAQUE_節:1.0___ast_廊_2__:
+    _OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_礫:1.0___ast_礫_44__(self, _OPAQUE_礫:1.0___ast_礫_89__: _OPAQUE_礫:1.0___ast_礫_28__):
+        self._OPAQUE_礫:1.0___ast_礫_89__ = _OPAQUE_廊:1.0___ast_廊_17__(_OPAQUE_礫:1.0___ast_礫_89__)
+        self._OPAQUE_礫:1.0___ast_礫_61__: _OPAQUE_廊:1.0___ast_廊_6__[_OPAQUE_廊:1.0___ast_廊_14__[_OPAQUE_礫:1.0___ast_礫_28__, _OPAQUE_廊:1.0___ast_廊_20__]] = []
+        self._OPAQUE_匸:1.0___ast_礫_46__()
+
+    _OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_匸:1.0___ast_礫_36__(self):
+// [metadata-stripped]
+        if _OPAQUE_礫:1.0___ast_礫_63__ self._OPAQUE_礫:1.0___ast_礫_89__._OPAQUE_礫:1.0___ast_礫_22__():
+            return
+        _OPAQUE_礫:1.0___ast_礫_68__ self._OPAQUE_礫:1.0___ast_礫_89__.open("r", _OPAQUE_礫:1.0___ast_礫_67__="_OPAQUE_礫:1.0___ast_礫_75__-8") as f:
+            for _OPAQUE_礫:1.0___ast_礫_16__ in f:
+                try:
+                    _OPAQUE_礫:1.0___ast_礫_26__ = _OPAQUE_礫:1.0___ast_礫_2__._OPAQUE_匸:1.0___ast_礫_43__(_OPAQUE_礫:1.0___ast_礫_16__)
+                    if _OPAQUE_礫:1.0___ast_礫_26__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_81__") in ("_OPAQUE_礫:1.0___ast_礫_8__", "_OPAQUE_礫:1.0___ast_礫_42__", "_OPAQUE_礫:1.0___ast_礫_38__"):
+                        self._OPAQUE_礫:1.0___ast_礫_61__._OPAQUE_礫:1.0___ast_礫_5__(_OPAQUE_礫:1.0___ast_礫_26__)
+                _OPAQUE_礫:1.0___ast_礫_69__:
+                    continue
+
+// [metadata-stripped]
+        _OPAQUE_礫:1.0___ast_礫_65__ = self._OPAQUE_礫:1.0___ast_礫_89__._OPAQUE_礫:1.0___ast_礫_80__ / "_OPAQUE_礫:1.0___ast_礫_78__._OPAQUE_礫:1.0___ast_礫_25__"
+        if _OPAQUE_礫:1.0___ast_礫_65__._OPAQUE_礫:1.0___ast_礫_22__():
+            _OPAQUE_礫:1.0___ast_礫_68__ _OPAQUE_礫:1.0___ast_礫_65__.open("r", _OPAQUE_礫:1.0___ast_礫_67__="_OPAQUE_礫:1.0___ast_礫_75__-8") as f:
+                for _OPAQUE_礫:1.0___ast_礫_16__ in f:
+                    try:
+                        _OPAQUE_礫:1.0___ast_礫_26__ = _OPAQUE_礫:1.0___ast_礫_2__._OPAQUE_匸:1.0___ast_礫_43__(_OPAQUE_礫:1.0___ast_礫_16__)
+// [metadata-stripped]
+                        if _OPAQUE_礫:1.0___ast_礫_26__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_81__") in ("_OPAQUE_礫:1.0___ast_礫_8__", "_OPAQUE_礫:1.0___ast_礫_42__", "_OPAQUE_礫:1.0___ast_礫_38__", "_OPAQUE_礫:1.0___ast_礫_45__", "_OPAQUE_礫:1.0___ast_礫_56__", "_OPAQUE_礫:1.0___ast_礫_77__"):
+                            self._OPAQUE_礫:1.0___ast_礫_61__._OPAQUE_礫:1.0___ast_礫_5__(_OPAQUE_礫:1.0___ast_礫_26__)
+                    _OPAQUE_礫:1.0___ast_礫_69__:
+                        continue
+
+    _OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_匸:1.0___ast_礫_46__(self):
+        self._OPAQUE_匸:1.0___ast_礫_36__()
+
+    _OPAQUE_礫:1.0___ast_礫_15__ _OPAQUE_礫:1.0___ast_礫_51__(self, _OPAQUE_浪:1.0___ast_礫_70__: _OPAQUE_礫:1.0___ast_礫_28__, _OPAQUE_礫:1.0___ast_礫_48__: _OPAQUE_廊:1.0___ast_廊_6__[_OPAQUE_礫:1.0___ast_礫_28__] = _OPAQUE_廊:1.0___ast_廊_13__, _OPAQUE_礫:1.0___ast_礫_55__: _OPAQUE_廊:1.0___ast_廊_10__ = _OPAQUE_廊:1.0___ast_廊_10__._OPAQUE_廊:1.0___ast_廊_1__) -> _OPAQUE_廊:1.0___ast_廊_14__[_OPAQUE_礫:1.0___ast_礫_28__, _OPAQUE_廊:1.0___ast_廊_20__]:
+        """
+        式に一致する確実な知見を KB から探し出す。
+        返り値は {'_OPAQUE_礫:1.0___ast_礫_20__': _OPAQUE_廊:1.0___ast_廊_9__[_OPAQUE_廊:1.0___ast_廊_14__], '_OPAQUE_礫:1.0___ast_礫_24__': _OPAQUE_廊:1.0___ast_廊_6__[_OPAQUE_礫:1.0___ast_礫_28__]} の形式。
+        """
+        if _OPAQUE_礫:1.0___ast_礫_48__ is _OPAQUE_廊:1.0___ast_廊_13__:
+            _OPAQUE_礫:1.0___ast_礫_48__ = []
+        
+        _OPAQUE_礫:1.0___ast_礫_14__ = {a._OPAQUE_礫:1.0___ast_礫_4__("_OPAQUE_礫:1.0___ast_礫_54__:", "")._OPAQUE_礫:1.0___ast_礫_12__()._OPAQUE_節:1.0___ast_礫_52__() for a in _OPAQUE_礫:1.0___ast_礫_48__}
+        _OPAQUE_礫:1.0___ast_礫_24__ = []
+
+        for _OPAQUE_礫:1.0___ast_礫_79__ in self._OPAQUE_礫:1.0___ast_礫_61__:
+            _OPAQUE_礫:1.0___ast_礫_27__ = _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_27__")
+            if _OPAQUE_礫:1.0___ast_礫_63__ _OPAQUE_礫:1.0___ast_礫_27__:
+                continue
+            
+            _OPAQUE_礫:1.0___ast_礫_35__ = _OPAQUE_廊:1.0___ast_廊_19__
+// [metadata-stripped]
+            if _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_40__") == "_OPAQUE_礫:1.0___ast_礫_53__":
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                _OPAQUE_礫:1.0___ast_礫_23__ = _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_23__", [])
+                if _OPAQUE_礫:1.0___ast_礫_23__ _OPAQUE_礫:1.0___ast_礫_90__ _OPAQUE_礫:1.0___ast_礫_7__(t in _OPAQUE_浪:1.0___ast_礫_70__ for t in _OPAQUE_礫:1.0___ast_礫_23__[:2]): # 最初の2つのタグがあればマッチとみなす（仮）
+                     _OPAQUE_礫:1.0___ast_礫_35__ = _OPAQUE_廊:1.0___ast_廊_21__
+// [metadata-stripped]
+                _OPAQUE_浪:1.0___ast_礫_64__ _OPAQUE_礫:1.0___ast_礫_27__ in _OPAQUE_浪:1.0___ast_礫_70__ or _OPAQUE_浪:1.0___ast_礫_70__ in _OPAQUE_礫:1.0___ast_礫_27__:
+                     _OPAQUE_礫:1.0___ast_礫_35__ = _OPAQUE_廊:1.0___ast_廊_21__
+            else:
+                _OPAQUE_礫:1.0___ast_礫_35__ = _OPAQUE_礫:1.0___ast_礫_19__(_OPAQUE_浪:1.0___ast_礫_70__, _OPAQUE_礫:1.0___ast_礫_27__)
+
+            if _OPAQUE_礫:1.0___ast_礫_35__:
+// [metadata-stripped]
+                if _OPAQUE_礫:1.0___ast_礫_63__ _OPAQUE_礫:1.0___ast_礫_37__(_OPAQUE_礫:1.0___ast_礫_79__, _OPAQUE_礫:1.0___ast_礫_55__):
+                    _OPAQUE_礫:1.0___ast_礫_24__._OPAQUE_礫:1.0___ast_礫_5__(f"_OPAQUE_廊:1.0___ast_廊_11__ '{_OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__('id')}' (_OPAQUE_礫:1.0___ast_礫_55__ _OPAQUE_礫:1.0___ast_礫_17__: {_OPAQUE_礫:1.0___ast_礫_55__._OPAQUE_礫:1.0___ast_礫_9__} _OPAQUE_礫:1.0___ast_礫_63__ in {_OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__('_OPAQUE_礫:1.0___ast_礫_74__')})")
+                    continue
+// _OPAQUE_傑:0.8___ast_ZC_135__ [decoy-metadata]
+
+                _OPAQUE_礫:1.0___ast_礫_81__ = _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_81__")
+                _OPAQUE_礫:1.0___ast_礫_50__ = _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_50__", "_OPAQUE_礫:1.0___ast_礫_73__") # デフォルト
+                
+// [metadata-stripped]
+                if _OPAQUE_礫:1.0___ast_礫_81__ in ("_OPAQUE_礫:1.0___ast_礫_8__", "_OPAQUE_礫:1.0___ast_礫_42__", "_OPAQUE_礫:1.0___ast_礫_45__", "_OPAQUE_礫:1.0___ast_礫_77__"):
+// [metadata-stripped]
+// [metadata-stripped]
+                    _OPAQUE_礫:1.0___ast_礫_6__ = {p._OPAQUE_礫:1.0___ast_礫_4__("_OPAQUE_礫:1.0___ast_礫_54__:", "")._OPAQUE_礫:1.0___ast_礫_12__()._OPAQUE_節:1.0___ast_礫_52__() for p in _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_18__", [])}
+                    if _OPAQUE_礫:1.0___ast_礫_63__ _OPAQUE_礫:1.0___ast_礫_6__ or _OPAQUE_礫:1.0___ast_礫_6__._OPAQUE_礫:1.0___ast_礫_57__(_OPAQUE_礫:1.0___ast_礫_14__):
+                        return {
+                            "_OPAQUE_礫:1.0___ast_礫_20__": {
+                                "_OPAQUE_礫:1.0___ast_礫_62__": "_OPAQUE_礫:1.0___ast_礫_3__", # 決定打：条件を満たせば _OPAQUE_廊:1.0___ast_廊_7__ (適法/肯定)
+// _OPAQUE_浪:0.3___ast_MY_705__ [decoy-metadata]
+                                "_OPAQUE_礫:1.0___ast_礫_33__": "_OPAQUE_礫:1.0___ast_礫_83__",
+                                "_OPAQUE_礫:1.0___ast_礫_50__": _OPAQUE_礫:1.0___ast_礫_50__,
+                                "_OPAQUE_礫:1.0___ast_礫_76__": _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("id"),
+                                "_OPAQUE_礫:1.0___ast_礫_59__": f"_OPAQUE_廊:1.0___ast_廊_15__ _OPAQUE_礫:1.0___ast_礫_1__ {_OPAQUE_礫:1.0___ast_礫_81__}: {_OPAQUE_礫:1.0___ast_礫_27__}",
+                                "_OPAQUE_礫:1.0___ast_礫_34__": 1.0 if _OPAQUE_礫:1.0___ast_礫_50__ == "_OPAQUE_礫:1.0___ast_礫_47__" else 0.9
+                            },
+                            "_OPAQUE_礫:1.0___ast_礫_24__": _OPAQUE_礫:1.0___ast_礫_24__
+                        }
+                    else:
+                        _OPAQUE_礫:1.0___ast_礫_24__._OPAQUE_礫:1.0___ast_礫_5__(f"_OPAQUE_廊:1.0___ast_廊_11__ {_OPAQUE_礫:1.0___ast_礫_81__} '{_OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__('id')}': _OPAQUE_礫:1.0___ast_礫_10__ _OPAQUE_礫:1.0___ast_礫_6__ {_OPAQUE_礫:1.0___ast_礫_6__ - _OPAQUE_礫:1.0___ast_礫_14__}")
+                
+// [metadata-stripped]
+                _OPAQUE_浪:1.0___ast_礫_64__ _OPAQUE_礫:1.0___ast_礫_81__ in ("_OPAQUE_礫:1.0___ast_礫_38__", "_OPAQUE_礫:1.0___ast_礫_56__"):
+// _OPAQUE_礫:0.4___ast_ME_953__ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+                    
+                    _OPAQUE_礫:1.0___ast_礫_30__ = {c._OPAQUE_礫:1.0___ast_礫_4__("_OPAQUE_礫:1.0___ast_礫_54__:", "")._OPAQUE_礫:1.0___ast_礫_12__()._OPAQUE_節:1.0___ast_礫_52__() for c in _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_浪:1.0___ast_礫_87__", [])}
+                    
+// [metadata-stripped]
+                    _OPAQUE_礫:1.0___ast_礫_91__ = _OPAQUE_礫:1.0___ast_礫_30__._OPAQUE_礫:1.0___ast_礫_13__(_OPAQUE_礫:1.0___ast_礫_14__)
+                    if _OPAQUE_礫:1.0___ast_礫_91__:
+                        _OPAQUE_礫:1.0___ast_礫_24__._OPAQUE_礫:1.0___ast_礫_5__(f"_OPAQUE_廊:1.0___ast_廊_11__ _OPAQUE_廊:1.0___ast_廊_3__ '{_OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__('id')}': _OPAQUE_礫:1.0___ast_礫_66__ by _OPAQUE_礫:1.0___ast_礫_48__ {_OPAQUE_礫:1.0___ast_礫_91__}")
+                        continue
+                    
+// [metadata-stripped]
+                    return {
+                        "_OPAQUE_礫:1.0___ast_礫_20__": {
+                            "_OPAQUE_礫:1.0___ast_礫_62__": "_OPAQUE_礫:1.0___ast_礫_88__",
+                            "_OPAQUE_礫:1.0___ast_礫_33__": "_OPAQUE_礫:1.0___ast_礫_83__",
+                            "_OPAQUE_礫:1.0___ast_礫_50__": _OPAQUE_礫:1.0___ast_礫_50__,
+                            "_OPAQUE_礫:1.0___ast_礫_76__": _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("id"),
+                            "_OPAQUE_礫:1.0___ast_礫_84__": _OPAQUE_礫:1.0___ast_礫_79__._OPAQUE_節:1.0___ast_傑_1__("_OPAQUE_礫:1.0___ast_礫_39__"),
+                            "_OPAQUE_礫:1.0___ast_礫_59__": f"_OPAQUE_廊:1.0___ast_廊_15__ _OPAQUE_礫:1.0___ast_礫_1__ _OPAQUE_礫:1.0___ast_礫_31__ _OPAQUE_礫:1.0___ast_礫_85__: {_OPAQUE_礫:1.0___ast_礫_27__}",
+                            "_OPAQUE_礫:1.0___ast_礫_34__": 1.0 if _OPAQUE_礫:1.0___ast_礫_50__ == "_OPAQUE_礫:1.0___ast_礫_47__" else 0.9
+                        },
+                        "_OPAQUE_礫:1.0___ast_礫_24__": _OPAQUE_礫:1.0___ast_礫_24__
+                    }
+        
+        return {"_OPAQUE_礫:1.0___ast_礫_20__": _OPAQUE_廊:1.0___ast_廊_13__, "_OPAQUE_礫:1.0___ast_礫_24__": _OPAQUE_礫:1.0___ast_礫_24__}
+// _OPAQUE_傑:0.3___ast_CM_431__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

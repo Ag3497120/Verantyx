@@ -1,0 +1,66 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:DC03BF81 ver:1778159810
+// ⚠️ One-time schema — expires after response
+
+"""_SYM_廡:1.0__OPAQUE_廡_2_ _SYM_霤:1.0__OPAQUE_霤_36_ _SYM_霤:1.0__OPAQUE_霤_31_ _SYM_霤:1.0__OPAQUE_霤_9_ _SYM_涌:1.0__OPAQUE_霤_27_."""
+
+_SYM_霤:1.0__OPAQUE_霤_5_ ._SYM_霤:1.0__OPAQUE_霤_31_ import *
+import _SYM_霤:1.0__OPAQUE_霤_7_
+import _SYM_霤:1.0__OPAQUE_霤_28_
+// _SYM_凱:0.5__OPAQUE_AE_140_ [decoy-metadata]
+
+_SYM_廡:1.0__OPAQUE_廡_1_ = 0.05
+
+
+_SYM_霤:1.0__OPAQUE_霤_1_ _SYM_霤:1.0__OPAQUE_霤_10_():
+    return [
+        _SYM_霤:1.0__OPAQUE_霤_34_(_SYM_霤:1.0__OPAQUE_霤_18_(_SYM_霤:1.0__OPAQUE_霤_7_._SYM_霤:1.0__OPAQUE_霤_19_(0, 2048)) for _SYM_霤:1.0__OPAQUE_霤_33_ in _SYM_霤:1.0__OPAQUE_霤_12_(2))
+        for _SYM_霤:1.0__OPAQUE_霤_14_ in _SYM_霤:1.0__OPAQUE_霤_12_(4)
+    ]
+
+
+_SYM_霤:1.0__OPAQUE_霤_1_ _SYM_道:1.0__OPAQUE_凱_5_():
+    return _SYM_霤:1.0__OPAQUE_霤_10_(), _SYM_廡:1.0__OPAQUE_廡_1_
+
+
+_SYM_霤:1.0__OPAQUE_霤_1_ _SYM_道:1.0__OPAQUE_凱_2_():
+    _SYM_霤:1.0__OPAQUE_霤_2_ = 3
+    return ([_SYM_霤:1.0__OPAQUE_霤_10_() for _SYM_霤:1.0__OPAQUE_霤_23_ in _SYM_霤:1.0__OPAQUE_霤_12_(_SYM_霤:1.0__OPAQUE_霤_2_)], [_SYM_廡:1.0__OPAQUE_廡_1_] * _SYM_霤:1.0__OPAQUE_霤_2_)
+
+
+_SYM_霤:1.0__OPAQUE_霤_1_ _SYM_霤:1.0__OPAQUE_霤_15_(_SYM_霤:1.0__OPAQUE_霤_20_, _SYM_霤:1.0__OPAQUE_霤_25_, _SYM_道:1.0__OPAQUE_凱_1_="", _SYM_霤:1.0__OPAQUE_霤_35_=5, _SYM_道:1.0__OPAQUE_霤_21_=1000):
+// _SYM_廡:0.5__OPAQUE_EV_107_ [decoy-metadata]
+    _SYM_道:1.0__OPAQUE_凱_4_ = "_SYM_道:1.0__OPAQUE_凱_3_" + _SYM_霤:1.0__OPAQUE_霤_25_
+    if _SYM_道:1.0__OPAQUE_凱_1_:
+        _SYM_霤:1.0__OPAQUE_霤_26_("%s _SYM_霤:1.0__OPAQUE_霤_30_ %s:" % (_SYM_霤:1.0__OPAQUE_霤_25_, _SYM_道:1.0__OPAQUE_凱_1_), _SYM_霤:1.0__OPAQUE_霤_16_="")
+        _SYM_道:1.0__OPAQUE_凱_4_ += "_" + _SYM_道:1.0__OPAQUE_凱_1_
+    else:
+        _SYM_霤:1.0__OPAQUE_霤_26_("%s:" % _SYM_霤:1.0__OPAQUE_霤_25_, _SYM_霤:1.0__OPAQUE_霤_16_="")
+
+    _SYM_霤:1.0__OPAQUE_霤_1_ _SYM_道:1.0__OPAQUE_霤_8_(_SYM_霤:1.0__OPAQUE_霤_25_, _SYM_道:1.0__OPAQUE_凱_4_):
+        _SYM_霤:1.0__OPAQUE_霤_25_ = _SYM_霤:1.0__OPAQUE_霤_3_()[_SYM_霤:1.0__OPAQUE_霤_25_]
+        _SYM_道:1.0__OPAQUE_凱_4_ = _SYM_霤:1.0__OPAQUE_霤_3_()[_SYM_道:1.0__OPAQUE_凱_4_]
+// _SYM_涌:0.8__OPAQUE_CY_219_ [decoy-metadata]
+
+        _SYM_霤:1.0__OPAQUE_霤_1_ _SYM_霤:1.0__OPAQUE_霤_29_():
+            return _SYM_霤:1.0__OPAQUE_霤_25_(*_SYM_道:1.0__OPAQUE_凱_4_())
+
+// _SYM_匽:0.7__OPAQUE_MV_342_ [decoy-metadata]
+        return _SYM_霤:1.0__OPAQUE_霤_29_
+// _SYM_組:0.4__OPAQUE_MW_285_ [decoy-metadata]
+
+    _SYM_霤:1.0__OPAQUE_霤_32_ = _SYM_霤:1.0__OPAQUE_霤_28_._SYM_霤:1.0__OPAQUE_霤_35_(_SYM_道:1.0__OPAQUE_霤_8_(_SYM_霤:1.0__OPAQUE_霤_25_, _SYM_道:1.0__OPAQUE_凱_4_), _SYM_霤:1.0__OPAQUE_霤_35_=_SYM_霤:1.0__OPAQUE_霤_35_, _SYM_道:1.0__OPAQUE_霤_21_=_SYM_道:1.0__OPAQUE_霤_21_)
+    _SYM_霤:1.0__OPAQUE_霤_26_("\t%5.1fus" % (_SYM_霤:1.0__OPAQUE_霤_11_(_SYM_霤:1.0__OPAQUE_霤_32_) * 1000000.0 / _SYM_道:1.0__OPAQUE_霤_21_))
+
+
+_SYM_霤:1.0__OPAQUE_霤_1_ _SYM_霤:1.0__OPAQUE_霤_6_():
+    _SYM_霤:1.0__OPAQUE_霤_15_("_SYM_霤:1.0__OPAQUE_霤_31_", "_SYM_霤:1.0__OPAQUE_霤_4_")
+    _SYM_霤:1.0__OPAQUE_霤_15_("_SYM_霤:1.0__OPAQUE_霤_31_", "_SYM_霤:1.0__OPAQUE_霤_17_")
+
+
+if _SYM_霤:1.0__OPAQUE_霤_13_ == "_SYM_霤:1.0__OPAQUE_霤_24_":
+// _SYM_凱:0.6__OPAQUE_KC_421_ [decoy-metadata]
+    _SYM_霤:1.0__OPAQUE_霤_7_._SYM_霤:1.0__OPAQUE_霤_22_(1)
+    _SYM_霤:1.0__OPAQUE_霤_6_()
+
+// POLYMORPHIC_JCROSS_END

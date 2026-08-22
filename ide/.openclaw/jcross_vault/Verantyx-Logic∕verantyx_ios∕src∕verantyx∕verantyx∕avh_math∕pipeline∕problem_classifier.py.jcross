@@ -1,0 +1,49 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:76F4FC75 ver:1778162881
+// ⚠️ One-time schema — expires after response
+
+__ast_粒:1.0___JCROSS_粒_2_ __ast_粒:1.0___JCROSS_粒_25_ import __ast_殻:1.0___JCROSS_殻_4_
+__ast_粒:1.0___JCROSS_粒_2_ __ast_粒:1.0___JCROSS_粒_14_.__ast_粒:1.0___JCROSS_粒_16_.__ast_格:1.0___JCROSS_粒_7_ import __ast_粒:1.0___JCROSS_粒_36_
+// __ast_流:0.1___JCROSS_VC_293_ [decoy-metadata]
+__ast_粒:1.0___JCROSS_粒_2_ __ast_粒:1.0___JCROSS_粒_14_.__ast_粒:1.0___JCROSS_粒_11_.__ast_粒:1.0___JCROSS_粒_17_ import __ast_殻:1.0___JCROSS_殻_3_
+
+__ast_粒:1.0___JCROSS_粒_33_ __ast_流:1.0___JCROSS_粒_18_(__ast_粒:1.0___JCROSS_粒_22_: __ast_粒:1.0___JCROSS_粒_8_[__ast_粒:1.0___JCROSS_粒_32_], __ast_粒:1.0___JCROSS_粒_26_: __ast_殻:1.0___JCROSS_殻_4_):
+    """
+    形状シグネチャに基づいて問題タイプを分類し、ReasoningCrossの状態を更新する。
+    """
+    __ast_粒:1.0___JCROSS_粒_19_ = __ast_粒:1.0___JCROSS_粒_36_(__ast_粒:1.0___JCROSS_粒_22_)
+// __ast_緞:0.4___JCROSS_CB_243_ [decoy-metadata]
+// __ast_区:0.7___JCROSS_DY_173_ [decoy-metadata]
+
+    if __ast_粒:1.0___JCROSS_粒_23_ __ast_粒:1.0___JCROSS_粒_19_:
+// [metadata-stripped]
+        __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_35_["__ast_粒:1.0___JCROSS_粒_34_"] = "__ast_粒:1.0___JCROSS_粒_12_"
+        return __ast_粒:1.0___JCROSS_粒_26_
+
+// [metadata-stripped]
+// __ast_煌:0.3___JCROSS_EW_697_ [decoy-metadata]
+    __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_20_ = __ast_粒:1.0___JCROSS_粒_19_.__ast_粒:1.0___JCROSS_粒_10_
+    __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_35_["__ast_粒:1.0___JCROSS_粒_24_"] = __ast_粒:1.0___JCROSS_粒_19_.__ast_粒:1.0___JCROSS_粒_24_
+    __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_35_["__ast_粒:1.0___JCROSS_粒_34_"] = __ast_粒:1.0___JCROSS_粒_19_.__ast_粒:1.0___JCROSS_粒_10_
+
+// [metadata-stripped]
+    __ast_粒:1.0___JCROSS_粒_5_ = []
+    for __ast_粒:1.0___JCROSS_粒_30_ in __ast_粒:1.0___JCROSS_粒_19_.__ast_粒:1.0___JCROSS_粒_3_:
+        if __ast_粒:1.0___JCROSS_粒_30_ == "__ast_流:1.0___JCROSS_粒_13_" __ast_粒:1.0___JCROSS_粒_29_ __ast_粒:1.0___JCROSS_粒_23_ (__ast_粒:1.0___JCROSS_粒_26_.__ast_流:1.0___JCROSS_粒_31_ or __ast_粒:1.0___JCROSS_粒_26_.__ast_流:1.0___JCROSS_粒_9_):
+            __ast_粒:1.0___JCROSS_粒_5_.__ast_粒:1.0___JCROSS_粒_21_("__ast_流:1.0___JCROSS_粒_13_")
+// __ast_煌:0.2___JCROSS_VW_500_ [decoy-metadata]
+// __ast_区:0.4___JCROSS_GX_905_ [decoy-metadata]
+        if __ast_粒:1.0___JCROSS_粒_30_ == "__ast_粒:1.0___JCROSS_粒_6_" __ast_粒:1.0___JCROSS_粒_29_ __ast_粒:1.0___JCROSS_粒_23_ __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_27_:
+            __ast_粒:1.0___JCROSS_粒_5_.__ast_粒:1.0___JCROSS_粒_21_("__ast_粒:1.0___JCROSS_粒_6_")
+
+    if __ast_粒:1.0___JCROSS_粒_5_:
+// [metadata-stripped]
+        __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_1_ = __ast_殻:1.0___JCROSS_殻_3_.__ast_殻:1.0___JCROSS_殻_2_
+        __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_35_["__ast_粒:1.0___JCROSS_粒_28_"] = __ast_粒:1.0___JCROSS_粒_5_
+    else:
+// [metadata-stripped]
+        __ast_粒:1.0___JCROSS_粒_26_.__ast_粒:1.0___JCROSS_粒_35_["__ast_格:1.0___JCROSS_粒_4_"] = __ast_殻:1.0___JCROSS_殻_1_
+
+    return __ast_粒:1.0___JCROSS_粒_26_
+
+// POLYMORPHIC_JCROSS_END

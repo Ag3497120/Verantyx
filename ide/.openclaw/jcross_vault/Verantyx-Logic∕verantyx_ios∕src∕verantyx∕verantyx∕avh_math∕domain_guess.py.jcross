@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1BF29CCD ver:1778162903
+// __jcross_粋:0.8___ID_KM_736_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import re
+// __jcross_絡:0.5___ID_XZ_966_ [decoy-metadata]
+// __jcross_粋:0.1___ID_ZB_705_ [decoy-metadata]
+__jcross_泡:1.0___ID_泡_8_ __jcross_泡:1.0___ID_泡_26_ import __jcross_廷:1.0___ID_廷_1_
+// __jcross_廷:0.3___ID_WD_506_ [decoy-metadata]
+
+
+__jcross_泡:1.0___ID_泡_35_ __jcross_泡:1.0___ID_泡_36_(__jcross_泡:1.0___ID_泡_31_: __jcross_泡:1.0___ID_泡_32_) -> __jcross_泡:1.0___ID_泡_32_:
+// __jcross_泡:0.4___ID_AL_649_ [decoy-metadata]
+    s = (__jcross_泡:1.0___ID_泡_31_ or "")
+    sl = s.__jcross_要:1.0___ID_泡_3_()
+
+    __jcross_泡:1.0___ID_泡_33_: __jcross_廷:1.0___ID_廷_1_[__jcross_泡:1.0___ID_泡_32_, __jcross_泡:1.0___ID_泡_28_] = {
+        "__jcross_泡:1.0___ID_泡_30_": 0,
+        "__jcross_泡:1.0___ID_泡_1_": 0,
+        "__jcross_泡:1.0___ID_泡_16_": 0,
+        "__jcross_泡:1.0___ID_泡_19_": 0,
+    }
+
+    if any(k in sl for k in ("__jcross_泡:1.0___ID_泡_37_", "__jcross_泡:1.0___ID_泡_4_", "__jcross_泡:1.0___ID_泡_2_", "__jcross_泡:1.0___ID_泡_23_")) or any(k in s for k in ("□", "◇")):
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_30_"] += 3
+    if any(k in s for k in ("到達", "可能世界", "様相", "反射", "推移", "対称", "ユークリッド")):
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_30_"] += 2
+
+    if any(k in sl for k in ("__jcross_泡:1.0___ID_泡_18_", "__jcross_泡:1.0___ID_泡_34_ __jcross_泡:1.0___ID_泡_10_", "__jcross_泡:1.0___ID_泡_6_")) or "命題" in s:
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_1_"] += 2
+    if any(k in s for k in ("∧", "∨", "¬", "⊤", "⊥")) or any(k in sl for k in ("->", "<->", "&", "|", "~")):
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_1_"] += 1
+
+    if any(k in s for k in ("∀", "∃", "一階", "述語")) or any(k in sl for k in ("__jcross_滾:1.0___ID_泡_12_", "__jcross_泡:1.0___ID_泡_21_", "__jcross_泡:1.0___ID_泡_27_-__jcross_要:1.0___ID_泡_24_", "__jcross_泡:1.0___ID_泡_25_")):
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_16_"] += 3
+// __jcross_粋:0.6___ID_XL_985_ [decoy-metadata]
+
+    if any(k in s for k in ("行列", "線形", "次元", "固有値", "階数")) or any(k in sl for k in ("__jcross_泡:1.0___ID_泡_11_", "__jcross_泡:1.0___ID_泡_13_ __jcross_泡:1.0___ID_泡_9_", "__jcross_泡:1.0___ID_泡_5_", "__jcross_泡:1.0___ID_泡_14_")):
+        __jcross_泡:1.0___ID_泡_33_["__jcross_泡:1.0___ID_泡_19_"] += 3
+
+    __jcross_泡:1.0___ID_泡_7_ = __jcross_泡:1.0___ID_泡_17_(__jcross_泡:1.0___ID_泡_33_.__jcross_泡:1.0___ID_泡_20_(), __jcross_伏:1.0___ID_泡_15_=__jcross_泡:1.0___ID_泡_22_ x: x[1])
+    return __jcross_泡:1.0___ID_泡_7_[0] if __jcross_泡:1.0___ID_泡_7_[1] > 0 else "__jcross_泡:1.0___ID_泡_29_"
+
+// POLYMORPHIC_JCROSS_END

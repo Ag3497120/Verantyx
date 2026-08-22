@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:79DBB27D ver:1778159670
+// ⚠️ One-time schema — expires after response
+
+_SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_8_ import _SYM_廬:1.0__ID_廬_8_, _SYM_廬:1.0__ID_廬_4_, _SYM_廬:1.0__ID_廬_1_, _SYM_廬:1.0__ID_廬_3_
+_SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_22_._SYM_粒:1.0__ID_粒_1_._SYM_粒:1.0__ID_粒_23_ import _SYM_廬:1.0__ID_廬_2_
+_SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_22_._SYM_粒:1.0__ID_粒_1_._SYM_法:1.0__ID_粒_2_ import _SYM_泡:1.0__ID_粒_9_
+_SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_22_._SYM_粒:1.0__ID_粒_1_._SYM_法:1.0__ID_粒_24_ import _SYM_泡:1.0__ID_粒_15_
+// _SYM_泡:0.3__ID_ED_904_ [decoy-metadata]
+_SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_22_._SYM_粒:1.0__ID_粒_1_._SYM_法:1.0__ID_粒_30_ import _SYM_泡:1.0__ID_粒_28_
+// _SYM_廬:0.3__ID_HM_976_ [decoy-metadata]
+
+_SYM_粒:1.0__ID_粒_16_ _SYM_粒:1.0__ID_粒_7_(
+    _SYM_粒:1.0__ID_粒_5_: _SYM_廬:1.0__ID_廬_2_,
+// _SYM_法:0.6__ID_ZX_667_ [decoy-metadata]
+    _SYM_泡:1.0__ID_粒_11_: _SYM_粒:1.0__ID_粒_20_,
+    _SYM_粒:1.0__ID_粒_13_: _SYM_粒:1.0__ID_粒_20_,
+    _SYM_粒:1.0__ID_粒_10_: _SYM_粒:1.0__ID_粒_17_,
+// _SYM_法:0.3__ID_DB_581_ [decoy-metadata]
+    _SYM_粒:1.0__ID_粒_4_: _SYM_粒:1.0__ID_粒_17_
+) -> _SYM_廬:1.0__ID_廬_8_[_SYM_廬:1.0__ID_廬_2_, _SYM_廬:1.0__ID_廬_3_[_SYM_廬:1.0__ID_廬_4_[_SYM_粒:1.0__ID_粒_20_, _SYM_廬:1.0__ID_廬_1_]]]:
+    """
+    現在のステータスが _SYM_廬:1.0__ID_廬_5_ であれば、厳密な検証器を走らせて確定を試みる。
+    """
+    if _SYM_粒:1.0__ID_粒_5_ != _SYM_廬:1.0__ID_廬_2_._SYM_法:1.0__ID_廬_7_:
+        return _SYM_粒:1.0__ID_粒_5_, _SYM_廬:1.0__ID_廬_6_
+
+// [metadata-stripped]
+    _SYM_泡:1.0__ID_粒_21_ = _SYM_泡:1.0__ID_粒_28_(_SYM_泡:1.0__ID_粒_11_)
+// _SYM_廬:0.9__ID_ZG_691_ [decoy-metadata]
+    if _SYM_粒:1.0__ID_粒_14_ _SYM_泡:1.0__ID_粒_21_:
+        return _SYM_廬:1.0__ID_廬_2_._SYM_廬:1.0__ID_廬_9_, {"_SYM_粒:1.0__ID_粒_29_": "_SYM_廬:1.0__ID_廬_10_ _SYM_粒:1.0__ID_粒_14_ _SYM_粒:1.0__ID_粒_25_ _SYM_粒:1.0__ID_粒_26_ _SYM_泡:1.0__ID_粒_11_ _SYM_粒:1.0__ID_粒_3_ _SYM_粒:1.0__ID_粒_27_."}
+
+    if _SYM_粒:1.0__ID_粒_13_ == "_SYM_粒:1.0__ID_粒_6_":
+        _SYM_粒:1.0__ID_粒_18_, _SYM_粒:1.0__ID_粒_19_ = _SYM_泡:1.0__ID_粒_9_(_SYM_泡:1.0__ID_粒_21_, _SYM_粒:1.0__ID_粒_4_)
+        return _SYM_廬:1.0__ID_廬_2_._SYM_粒:1.0__ID_粒_31_(_SYM_粒:1.0__ID_粒_18_), _SYM_粒:1.0__ID_粒_19_
+// _SYM_粒:0.9__ID_VD_172_ [decoy-metadata]
+
+    if _SYM_粒:1.0__ID_粒_13_ == "_SYM_粒:1.0__ID_粒_12_":
+        _SYM_粒:1.0__ID_粒_18_, _SYM_粒:1.0__ID_粒_19_ = _SYM_泡:1.0__ID_粒_15_(_SYM_泡:1.0__ID_粒_21_, _SYM_粒:1.0__ID_粒_10_, _SYM_粒:1.0__ID_粒_4_)
+        return _SYM_廬:1.0__ID_廬_2_._SYM_粒:1.0__ID_粒_31_(_SYM_粒:1.0__ID_粒_18_), _SYM_粒:1.0__ID_粒_19_
+
+    return _SYM_粒:1.0__ID_粒_5_, _SYM_廬:1.0__ID_廬_6_
+
+// POLYMORPHIC_JCROSS_END

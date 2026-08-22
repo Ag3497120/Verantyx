@@ -1,0 +1,118 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:027E17F3 ver:1778163377
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霮:1.0__SYM_霮_51_
+import _TOKEN_縫:1.0__SYM_霮_48_
+import re
+import os
+import _TOKEN_霮:1.0__SYM_霮_90_
+_TOKEN_霮:1.0__SYM_霮_14_ _TOKEN_霮:1.0__SYM_霮_83_ import _TOKEN_霮:1.0__SYM_霮_83_
+
+_TOKEN_縫:1.0__SYM_礎_16_ = "_TOKEN_縫:1.0__SYM_霮_92_://_TOKEN_霮:1.0__SYM_霮_89_:11434/v1/_TOKEN_霮:1.0__SYM_霮_77_/_TOKEN_霮:1.0__SYM_霮_72_"
+_TOKEN_礎:1.0__SYM_礎_17_ = "_TOKEN_霮:1.0__SYM_霮_56_-_TOKEN_霮:1.0__SYM_霮_85_"
+_TOKEN_礎:1.0__SYM_礎_15_ = "/_TOKEN_礎:1.0__SYM_礎_25_/_TOKEN_霮:1.0__SYM_霮_21_/_TOKEN_霮:1.0__SYM_霮_56_-_TOKEN_霮:1.0__SYM_霮_50_/_TOKEN_霮:1.0__SYM_霮_74_-_TOKEN_霮:1.0__SYM_霮_75_/_TOKEN_霮:1.0__SYM_霮_57_/_TOKEN_霮:1.0__SYM_霮_96_._TOKEN_霮:1.0__SYM_霮_51_"
+_TOKEN_蔵:1.0__SYM_礎_20_ = "/_TOKEN_礎:1.0__SYM_礎_25_/_TOKEN_霮:1.0__SYM_霮_21_/_TOKEN_霮:1.0__SYM_霮_56_-_TOKEN_霮:1.0__SYM_霮_50_/_TOKEN_霮:1.0__SYM_霮_104_/_TOKEN_礎:1.0__SYM_礎_9_/_TOKEN_霮:1.0__SYM_霮_80_._TOKEN_霮:1.0__SYM_霮_51_"
+_TOKEN_蔵:1.0__SYM_礎_13_ = "/_TOKEN_礎:1.0__SYM_礎_25_/_TOKEN_霮:1.0__SYM_霮_21_/_TOKEN_霮:1.0__SYM_霮_56_-_TOKEN_霮:1.0__SYM_霮_50_/_TOKEN_霮:1.0__SYM_霮_104_/_TOKEN_礎:1.0__SYM_礎_9_/_TOKEN_霮:1.0__SYM_霮_1_._TOKEN_霮:1.0__SYM_霮_18_"
+
+_TOKEN_霮:1.0__SYM_霮_61_ _TOKEN_霮:1.0__SYM_霮_105_(_TOKEN_霮:1.0__SYM_霮_101_):
+    if _TOKEN_霮:1.0__SYM_霮_42_ os._TOKEN_霮:1.0__SYM_霮_94_._TOKEN_霮:1.0__SYM_霮_76_(_TOKEN_礎:1.0__SYM_礎_15_):
+        return "_TOKEN_礎:1.0__SYM_礎_4_ _TOKEN_霮:1.0__SYM_霮_32_ _TOKEN_霮:1.0__SYM_霮_42_ _TOKEN_霮:1.0__SYM_霮_68_."
+    
+    _TOKEN_霮:1.0__SYM_霮_40_ open(_TOKEN_礎:1.0__SYM_礎_15_, 'r') as f:
+        db = _TOKEN_霮:1.0__SYM_霮_51_._TOKEN_蔵:1.0__SYM_霮_63_(f)
+    
+// [metadata-stripped]
+    _TOKEN_暗:1.0__SYM_霮_82_ = [w._TOKEN_策:1.0__SYM_霮_13_()._TOKEN_霮:1.0__SYM_霮_41_(",.?!") for w in _TOKEN_霮:1.0__SYM_霮_101_._TOKEN_霮:1.0__SYM_霮_43_() if _TOKEN_霮:1.0__SYM_霮_64_(w) > 2]
+    if _TOKEN_霮:1.0__SYM_霮_42_ _TOKEN_暗:1.0__SYM_霮_82_:
+        return f"_TOKEN_礎:1.0__SYM_礎_6_ '{_TOKEN_霮:1.0__SYM_霮_101_}' _TOKEN_霮:1.0__SYM_霮_49_ _TOKEN_霮:1.0__SYM_霮_4_ for _TOKEN_霮:1.0__SYM_霮_7_."
+        
+    _TOKEN_霮:1.0__SYM_霮_22_ = []
+    for _TOKEN_霮:1.0__SYM_霮_93_ in db['_TOKEN_霮:1.0__SYM_霮_70_']:
+        _TOKEN_霮:1.0__SYM_霮_6_ = _TOKEN_霮:1.0__SYM_霮_8_(1 for kw in _TOKEN_暗:1.0__SYM_霮_82_ if kw in _TOKEN_霮:1.0__SYM_霮_93_._TOKEN_策:1.0__SYM_霮_13_())
+        if _TOKEN_霮:1.0__SYM_霮_6_ > 0:
+            _TOKEN_霮:1.0__SYM_霮_22_._TOKEN_霮:1.0__SYM_霮_58_((_TOKEN_霮:1.0__SYM_霮_6_, _TOKEN_霮:1.0__SYM_霮_93_))
+            
+    _TOKEN_霮:1.0__SYM_霮_22_._TOKEN_霮:1.0__SYM_霮_24_(_TOKEN_暗:1.0__SYM_霮_28_=_TOKEN_霮:1.0__SYM_霮_26_ x: x[0], _TOKEN_霮:1.0__SYM_霮_78_=_TOKEN_礎:1.0__SYM_礎_11_)
+    
+    if _TOKEN_霮:1.0__SYM_霮_42_ _TOKEN_霮:1.0__SYM_霮_22_:
+        return f"No _TOKEN_霮:1.0__SYM_霮_45_ _TOKEN_漂:1.0__SYM_霮_91_ _TOKEN_霮:1.0__SYM_霮_68_ for _TOKEN_暗:1.0__SYM_霮_82_: {_TOKEN_暗:1.0__SYM_霮_82_}"
+    
+// [metadata-stripped]
+    return "\n---\n"._TOKEN_霮:1.0__SYM_霮_23_([n for s, n in _TOKEN_霮:1.0__SYM_霮_22_[:5]])
+
+_TOKEN_霮:1.0__SYM_霮_61_ _TOKEN_霮:1.0__SYM_霮_99_(_TOKEN_霮:1.0__SYM_霮_37_):
+    _TOKEN_霮:1.0__SYM_霮_100_ = [
+        {"_TOKEN_霮:1.0__SYM_霮_12_": "_TOKEN_策:1.0__SYM_霮_39_", "_TOKEN_霮:1.0__SYM_霮_71_": _TOKEN_霮:1.0__SYM_霮_37_}
+    ]
+    
+    for _ in _TOKEN_霮:1.0__SYM_霮_20_(3):  # _TOKEN_礎:1.0__SYM_礎_3_ 3 _TOKEN_霮:1.0__SYM_霮_11_
+        _TOKEN_霮:1.0__SYM_霮_34_ = _TOKEN_縫:1.0__SYM_霮_48_._TOKEN_霮:1.0__SYM_霮_88_(_TOKEN_縫:1.0__SYM_礎_16_, _TOKEN_霮:1.0__SYM_霮_51_={
+            "_TOKEN_霮:1.0__SYM_霮_15_": _TOKEN_礎:1.0__SYM_礎_17_,
+            "_TOKEN_霮:1.0__SYM_霮_100_": _TOKEN_霮:1.0__SYM_霮_100_,
+            "_TOKEN_霮:1.0__SYM_霮_62_": 0
+        })._TOKEN_霮:1.0__SYM_霮_51_()
+// _TOKEN_策:0.2__SYM_XM_642_ [decoy-metadata]
+        
+        _TOKEN_霮:1.0__SYM_霮_71_ = _TOKEN_霮:1.0__SYM_霮_34_['_TOKEN_霮:1.0__SYM_霮_31_'][0]['_TOKEN_霮:1.0__SYM_霮_5_']['_TOKEN_霮:1.0__SYM_霮_71_']
+        _TOKEN_霮:1.0__SYM_霮_100_._TOKEN_霮:1.0__SYM_霮_58_({"_TOKEN_霮:1.0__SYM_霮_12_": "_TOKEN_霮:1.0__SYM_霮_38_", "_TOKEN_霮:1.0__SYM_霮_71_": _TOKEN_霮:1.0__SYM_霮_71_})
+        
+// _TOKEN_縫:0.7__SYM_AV_589_ [decoy-metadata]
+// [metadata-stripped]
+// _TOKEN_縫:0.3__SYM_CW_414_ [decoy-metadata]
+        _TOKEN_霮:1.0__SYM_霮_17_ = re._TOKEN_霮:1.0__SYM_霮_35_(r"_TOKEN_礎:1.0__SYM_礎_27_: ([\w_]+)", _TOKEN_霮:1.0__SYM_霮_71_)
+        _TOKEN_霮:1.0__SYM_霮_29_ = re._TOKEN_霮:1.0__SYM_霮_35_(r"_TOKEN_礎:1.0__SYM_礎_27_ _TOKEN_礎:1.0__SYM_礎_1_: ({.*?})", _TOKEN_霮:1.0__SYM_霮_71_)
+        
+        if _TOKEN_霮:1.0__SYM_霮_17_ _TOKEN_霮:1.0__SYM_霮_81_ _TOKEN_霮:1.0__SYM_霮_29_:
+            _TOKEN_霮:1.0__SYM_霮_25_ = _TOKEN_霮:1.0__SYM_霮_17_._TOKEN_霮:1.0__SYM_霮_59_(1)
+            try:
+                _TOKEN_霮:1.0__SYM_霮_30_ = _TOKEN_霮:1.0__SYM_霮_51_._TOKEN_蔵:1.0__SYM_霮_95_(_TOKEN_霮:1.0__SYM_霮_29_._TOKEN_霮:1.0__SYM_霮_59_(1))
+                _TOKEN_霮:1.0__SYM_霮_101_ = _TOKEN_霮:1.0__SYM_霮_30_._TOKEN_策:1.0__SYM_碑_1_("_TOKEN_霮:1.0__SYM_霮_101_", "")
+            _TOKEN_霮:1.0__SYM_霮_65_:
+// _TOKEN_礎:0.4__SYM_KY_769_ [decoy-metadata]
+                _TOKEN_霮:1.0__SYM_霮_101_ = ""
+                
+            if _TOKEN_霮:1.0__SYM_霮_25_ == "_TOKEN_霮:1.0__SYM_霮_69_":
+                _TOKEN_霮:1.0__SYM_霮_47_(f"  [_TOKEN_礎:1.0__SYM_礎_22_ _TOKEN_礎:1.0__SYM_礎_8_] _TOKEN_霮:1.0__SYM_霮_69_: '{_TOKEN_霮:1.0__SYM_霮_101_}'")
+                _TOKEN_霮:1.0__SYM_霮_84_ = _TOKEN_霮:1.0__SYM_霮_105_(_TOKEN_霮:1.0__SYM_霮_101_)
+                _TOKEN_霮:1.0__SYM_霮_100_._TOKEN_霮:1.0__SYM_霮_58_({"_TOKEN_霮:1.0__SYM_霮_12_": "_TOKEN_策:1.0__SYM_霮_39_", "_TOKEN_霮:1.0__SYM_霮_71_": f"_TOKEN_礎:1.0__SYM_礎_19_: {_TOKEN_霮:1.0__SYM_霮_84_}"})
+            else:
+                break # _TOKEN_礎:1.0__SYM_礎_12_ _TOKEN_霮:1.0__SYM_霮_79_
+        else:
+// [metadata-stripped]
+            break
+            
+// [metadata-stripped]
+    _TOKEN_霮:1.0__SYM_霮_16_ = re._TOKEN_霮:1.0__SYM_霮_35_(r"_TOKEN_礎:1.0__SYM_礎_18_ _TOKEN_策:1.0__SYM_礎_2_: (.*)", _TOKEN_霮:1.0__SYM_霮_71_, re._TOKEN_礎:1.0__SYM_礎_23_)
+    if _TOKEN_霮:1.0__SYM_霮_16_:
+        return _TOKEN_霮:1.0__SYM_霮_16_._TOKEN_霮:1.0__SYM_霮_59_(1)._TOKEN_霮:1.0__SYM_霮_41_()
+    return _TOKEN_霮:1.0__SYM_霮_71_._TOKEN_霮:1.0__SYM_霮_41_()
+
+_TOKEN_霮:1.0__SYM_霮_61_ _TOKEN_霮:1.0__SYM_霮_97_():
+    _TOKEN_霮:1.0__SYM_霮_40_ open(_TOKEN_蔵:1.0__SYM_礎_20_, 'r') as f:
+        _TOKEN_霮:1.0__SYM_霮_67_ = _TOKEN_霮:1.0__SYM_霮_51_._TOKEN_蔵:1.0__SYM_霮_63_(f)
+    
+    _TOKEN_霮:1.0__SYM_霮_98_ = []
+    for _TOKEN_霮:1.0__SYM_霮_103_ in _TOKEN_霮:1.0__SYM_霮_83_(_TOKEN_霮:1.0__SYM_霮_67_):
+        _TOKEN_霮:1.0__SYM_霮_47_(f"\_TOKEN_霮:1.0__SYM_霮_87_: {_TOKEN_霮:1.0__SYM_霮_103_['_TOKEN_霮:1.0__SYM_霮_60_']}")
+        _TOKEN_霮:1.0__SYM_霮_3_ = _TOKEN_霮:1.0__SYM_霮_99_(_TOKEN_霮:1.0__SYM_霮_103_['_TOKEN_霮:1.0__SYM_霮_37_'])
+        _TOKEN_霮:1.0__SYM_霮_47_(f"  _TOKEN_礎:1.0__SYM_礎_7_: {_TOKEN_霮:1.0__SYM_霮_3_}")
+        
+        _TOKEN_霮:1.0__SYM_霮_98_._TOKEN_霮:1.0__SYM_霮_58_({
+            "_TOKEN_霮:1.0__SYM_霮_60_": _TOKEN_霮:1.0__SYM_霮_103_['_TOKEN_霮:1.0__SYM_霮_60_'],
+            "_TOKEN_霮:1.0__SYM_霮_3_": _TOKEN_霮:1.0__SYM_霮_3_,
+// _TOKEN_漂:0.6__SYM_HE_110_ [decoy-metadata]
+// _TOKEN_策:0.2__SYM_DB_716_ [decoy-metadata]
+            "_TOKEN_霮:1.0__SYM_霮_53_": _TOKEN_霮:1.0__SYM_霮_103_['_TOKEN_霮:1.0__SYM_霮_53_']
+        })
+        
+// [metadata-stripped]
+        _TOKEN_霮:1.0__SYM_霮_40_ open(_TOKEN_蔵:1.0__SYM_礎_13_, 'a') as f:
+            f._TOKEN_霮:1.0__SYM_霮_54_(_TOKEN_霮:1.0__SYM_霮_51_._TOKEN_霮:1.0__SYM_霮_73_(_TOKEN_霮:1.0__SYM_霮_98_[-1]) + "\n")
+
+    _TOKEN_霮:1.0__SYM_霮_47_(f"\_TOKEN_霮:1.0__SYM_霮_27_ _TOKEN_霮:1.0__SYM_霮_46_. _TOKEN_礎:1.0__SYM_礎_14_ _TOKEN_蔵:1.0__SYM_霮_10_ to {_TOKEN_蔵:1.0__SYM_礎_13_}")
+
+if _TOKEN_霮:1.0__SYM_霮_86_ == "_TOKEN_霮:1.0__SYM_霮_55_":
+    _TOKEN_霮:1.0__SYM_霮_97_()
+
+// POLYMORPHIC_JCROSS_END

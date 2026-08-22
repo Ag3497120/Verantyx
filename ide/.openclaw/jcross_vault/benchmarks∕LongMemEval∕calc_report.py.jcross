@@ -1,0 +1,48 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:9D914C61 ver:1778163110
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霧:1.0___ast_霧_5__
+// _TOKEN_霧:0.8___ast_ZK_281__ [decoy-metadata]
+
+_TOKEN_匼:1.0___ast_庠_1__ = "/_TOKEN_庠:1.0___ast_庠_2__/_TOKEN_霧:1.0___ast_霧_1__/_TOKEN_霧:1.0___ast_霧_20__-_TOKEN_霧:1.0___ast_霧_8__/_TOKEN_霧:1.0___ast_霧_29__/_TOKEN_庠:1.0___ast_庠_7__/_TOKEN_霧:1.0___ast_霧_32__._TOKEN_霧:1.0___ast_霧_31__"
+_TOKEN_霧:1.0___ast_霧_6__ = 0
+_TOKEN_霧:1.0___ast_霧_36__ = 0
+// _TOKEN_絵:0.9___ast_AX_761__ [decoy-metadata]
+// _TOKEN_庠:0.5___ast_XG_923__ [decoy-metadata]
+
+_TOKEN_霧:1.0___ast_霧_34__ _TOKEN_霧:1.0___ast_霧_9__(_TOKEN_霧:1.0___ast_霧_25__, gt):
+    _TOKEN_型:1.0___ast_霧_2__ = _TOKEN_霧:1.0___ast_霧_33__(_TOKEN_霧:1.0___ast_霧_25__)._TOKEN_型:1.0___ast_霧_3__()
+    _TOKEN_型:1.0___ast_霧_22__ = _TOKEN_霧:1.0___ast_霧_33__(gt)._TOKEN_型:1.0___ast_霧_3__()
+    
+// [metadata-stripped]
+    if _TOKEN_型:1.0___ast_霧_22__ in _TOKEN_型:1.0___ast_霧_2__:
+        return _TOKEN_庠:1.0___ast_庠_4__
+    
+// [metadata-stripped]
+    if "_TOKEN_霧:1.0___ast_霧_16__ _TOKEN_霧:1.0___ast_霧_19__" in _TOKEN_型:1.0___ast_霧_22__ _TOKEN_霧:1.0___ast_霧_26__ "_TOKEN_霧:1.0___ast_霧_16__ _TOKEN_霧:1.0___ast_霧_19__" in _TOKEN_型:1.0___ast_霧_2__: return _TOKEN_庠:1.0___ast_庠_4__
+    if "_TOKEN_霧:1.0___ast_霧_11__" in _TOKEN_型:1.0___ast_霧_22__ _TOKEN_霧:1.0___ast_霧_26__ ("_TOKEN_霧:1.0___ast_霧_11__" in _TOKEN_型:1.0___ast_霧_2__ or "バイク" in _TOKEN_型:1.0___ast_霧_2__): return _TOKEN_庠:1.0___ast_庠_4__
+    if "_TOKEN_霧:1.0___ast_霧_4__ _TOKEN_霧:1.0___ast_霧_28__" in _TOKEN_型:1.0___ast_霧_22__ _TOKEN_霧:1.0___ast_霧_26__ ("_TOKEN_霧:1.0___ast_霧_4__" in _TOKEN_型:1.0___ast_霧_2__ or "サムスン" in _TOKEN_型:1.0___ast_霧_2__): return _TOKEN_庠:1.0___ast_庠_4__
+    if "_TOKEN_霧:1.0___ast_霧_7__" in _TOKEN_型:1.0___ast_霧_22__ _TOKEN_霧:1.0___ast_霧_26__ "_TOKEN_霧:1.0___ast_霧_7__" in _TOKEN_型:1.0___ast_霧_2__: return _TOKEN_庠:1.0___ast_庠_4__
+    
+    return _TOKEN_庠:1.0___ast_庠_3__
+// _TOKEN_型:0.2___ast_XD_144__ [decoy-metadata]
+
+_TOKEN_霧:1.0___ast_霧_23__ = []
+_TOKEN_霧:1.0___ast_霧_13__ open(_TOKEN_匼:1.0___ast_庠_1__, 'r') as f:
+    for _TOKEN_霧:1.0___ast_霧_27__ in f:
+        d = _TOKEN_霧:1.0___ast_霧_5__._TOKEN_匼:1.0___ast_霧_24__(_TOKEN_霧:1.0___ast_霧_27__)
+        _TOKEN_霧:1.0___ast_霧_23__._TOKEN_霧:1.0___ast_霧_14__(d)
+// _TOKEN_型:0.5___ast_HG_192__ [decoy-metadata]
+        _TOKEN_霧:1.0___ast_霧_36__ += 1
+// _TOKEN_霧:0.3___ast_FF_944__ [decoy-metadata]
+        _TOKEN_霧:1.0___ast_霧_10__ = _TOKEN_霧:1.0___ast_霧_9__(d['_TOKEN_霧:1.0___ast_霧_30__'], d['_TOKEN_霧:1.0___ast_霧_21__'])
+        if _TOKEN_霧:1.0___ast_霧_10__:
+            _TOKEN_霧:1.0___ast_霧_6__ += 1
+            
+_TOKEN_霧:1.0___ast_霧_12__(f"_TOKEN_庠:1.0___ast_庠_6__: {_TOKEN_霧:1.0___ast_霧_6__}/{_TOKEN_霧:1.0___ast_霧_36__} ({_TOKEN_霧:1.0___ast_霧_6__/_TOKEN_霧:1.0___ast_霧_36__*100:.2f}%)")
+for d in _TOKEN_霧:1.0___ast_霧_23__:
+    if _TOKEN_霧:1.0___ast_霧_17__ _TOKEN_霧:1.0___ast_霧_9__(d['_TOKEN_霧:1.0___ast_霧_30__'], d['_TOKEN_霧:1.0___ast_霧_21__']):
+        _TOKEN_霧:1.0___ast_霧_12__(f"[_TOKEN_庠:1.0___ast_庠_5__] Q: {d['_TOKEN_霧:1.0___ast_霧_35__']} | GT: {d['_TOKEN_霧:1.0___ast_霧_21__']} | _TOKEN_庠:1.0___ast_庠_8__: {d['_TOKEN_霧:1.0___ast_霧_30__'][:100]}")
+
+// POLYMORPHIC_JCROSS_END

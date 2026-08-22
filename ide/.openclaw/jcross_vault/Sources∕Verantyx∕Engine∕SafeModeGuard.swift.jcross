@@ -1,0 +1,421 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2C3587FB ver:1778164075
+// ⚠️ One-time schema — expires after response
+
+import __node_廨:1.0___ASTNODE_廨_54_
+import __node_廨:1.0___ASTNODE_廨_21_
+import __node_廨:1.0___ASTNODE_廨_20_
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+@__node_廨:1.0___ASTNODE_廨_73_
+final class __node_廨:1.0___ASTNODE_廨_14_: __node_廨:1.0___ASTNODE_廨_85_ {
+
+    static let __node_霰:1.0___ASTNODE_霰_217_ = __node_廨:1.0___ASTNODE_廨_14_()
+
+    @__node_廨:1.0___ASTNODE_廨_44_ var __node_霰:1.0___ASTNODE_霰_60_: __node_廨:1.0___ASTNODE_廨_74_ = false
+    @__node_廨:1.0___ASTNODE_廨_44_ var __node_霰:1.0___ASTNODE_霰_194_: __node_廨:1.0___ASTNODE_廨_62_ = ""
+    @__node_廨:1.0___ASTNODE_廨_44_ var __node_霰:1.0___ASTNODE_霰_77_: [__node_廨:1.0___ASTNODE_廨_46_] = []
+
+    struct __node_廨:1.0___ASTNODE_廨_46_: __node_廨:1.0___ASTNODE_廨_59_ {
+        let id: __node_廨:1.0___ASTNODE_廨_18_ = __node_廨:1.0___ASTNODE_廨_18_()
+        let __node_霰:1.0___ASTNODE_霰_222_: __node_廨:1.0___ASTNODE_廨_62_
+        let __node_霰:1.0___ASTNODE_霰_97_: __node_廨:1.0___ASTNODE_廨_62_
+        let __node_霰:1.0___ASTNODE_霰_84_: __node_廨:1.0___ASTNODE_廨_62_
+    }
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func __node_霰:1.0___ASTNODE_霰_12_() -> __node_廨:1.0___ASTNODE_廨_74_ {
+// [metadata-stripped]
+        let __node_潤:1.0___ASTNODE_霰_164_ = __node_廨:1.0___ASTNODE_廨_77_.__node_隠:1.0___ASTNODE_霰_114_(.__node_霰:1.0___ASTNODE_霰_112_, __node_隠:1.0___ASTNODE_霰_124_: __node_隠:1.0___ASTNODE_廨_60_(56)) // __node_霰:1.0___ASTNODE_霰_32_ __node_潤:1.0___ASTNODE_霰_125_
+                     || __node_廨:1.0___ASTNODE_廨_77_.__node_隠:1.0___ASTNODE_霰_114_(.__node_霰:1.0___ASTNODE_霰_112_, __node_隠:1.0___ASTNODE_霰_124_: __node_隠:1.0___ASTNODE_廨_60_(60)) // __node_霰:1.0___ASTNODE_霰_128_ __node_潤:1.0___ASTNODE_霰_125_
+
+        if __node_潤:1.0___ASTNODE_霰_164_ || __node_廨:1.0___ASTNODE_廨_68_.__node_霰:1.0___ASTNODE_霰_103_.__node_霰:1.0___ASTNODE_霰_127_["__node_廨:1.0___ASTNODE_廨_86_"] == "1" {
+            __node_霰:1.0___ASTNODE_霰_60_ = true
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("⚠️ __node_廨:1.0___ASTNODE_廨_64_ __node_廨:1.0___ASTNODE_廨_91_ __node_霰:1.0___ASTNODE_霰_229_", "⚠️ __node_廨:1.0___ASTNODE_廨_64_ __node_廨:1.0___ASTNODE_廨_91_ 起動を検知"))
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("  __node_廨:1.0___ASTNODE_廨_72_ __node_隠:1.0___ASTNODE_霰_124_ __node_霰:1.0___ASTNODE_霰_165_ __node_霰:1.0___ASTNODE_霰_63_ __node_霰:1.0___ASTNODE_霰_159_ __node_霰:1.0___ASTNODE_霰_91_ __node_霰:1.0___ASTNODE_霰_179_", "  __node_廨:1.0___ASTNODE_廨_72_ キーが押された状態でアプリが起動されました"))
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("  __node_廨:1.0___ASTNODE_廨_67_ __node_霰:1.0___ASTNODE_霰_19_ a __node_霰:1.0___ASTNODE_霰_113_ __node_霰:1.0___ASTNODE_霰_58_", "  リカバリー操作を選択してください"))
+            __node_廨:1.0___ASTNODE_廨_82_ { await __node_匴:1.0___ASTNODE_霰_195_() }
+            return true
+        }
+        return false
+    }
+// __node_潤:0.2___ASTNODE_XV_621_ [decoy-metadata]
+
+// [metadata-stripped]
+
+// [metadata-stripped]
+    func __node_霰:1.0___ASTNODE_霰_182_() async -> __node_廨:1.0___ASTNODE_廨_74_ {
+        await __node_潤:1.0___ASTNODE_霰_146_(to: "__node_廨:1.0___ASTNODE_廨_84_~1")
+    }
+
+// [metadata-stripped]
+    func __node_霰:1.0___ASTNODE_霰_76_(__node_霰:1.0___ASTNODE_霰_222_: __node_廨:1.0___ASTNODE_廨_62_) async -> __node_廨:1.0___ASTNODE_廨_74_ {
+        await __node_潤:1.0___ASTNODE_霰_146_(to: __node_霰:1.0___ASTNODE_霰_222_)
+    }
+
+// [metadata-stripped]
+// __node_廨:0.5___ASTNODE_YG_823_ [decoy-metadata]
+    func __node_霰:1.0___ASTNODE_霰_41_() async -> __node_廨:1.0___ASTNODE_廨_74_ {
+        guard let __node_霰:1.0___ASTNODE_霰_152_ = __node_廨:1.0___ASTNODE_廨_1_.__node_霰:1.0___ASTNODE_霰_217_.__node_霰:1.0___ASTNODE_霰_170_ else {
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("❌ __node_廨:1.0___ASTNODE_廨_65_ __node_霰:1.0___ASTNODE_霰_18_ __node_霰:1.0___ASTNODE_霰_130_", "❌ リポジトリが見つかりません")); return false
+        }
+        let __node_霰:1.0___ASTNODE_霰_35_ = await __node_霰:1.0___ASTNODE_霰_46_(["__node_霰:1.0___ASTNODE_霰_147_", "--__node_霰:1.0___ASTNODE_霰_132_", "--__node_霰:1.0___ASTNODE_霰_199_=0"], in: __node_霰:1.0___ASTNODE_霰_152_)
+        if __node_霰:1.0___ASTNODE_霰_35_.__node_霰:1.0___ASTNODE_霰_151_ || __node_霰:1.0___ASTNODE_霰_35_.__node_霰:1.0___ASTNODE_霰_79_("__node_霰:1.0___ASTNODE_霰_68_") {
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("⚠️ __node_廨:1.0___ASTNODE_廨_83_ __node_霰:1.0___ASTNODE_霰_18_ __node_霰:1.0___ASTNODE_霰_130_. __node_廨:1.0___ASTNODE_廨_5_ __node_霰:1.0___ASTNODE_霰_57_ to __node_廨:1.0___ASTNODE_廨_84_~1", "⚠️ タグが見つかりません。__node_廨:1.0___ASTNODE_廨_84_~1 にロールバックします"))
+            return await __node_霰:1.0___ASTNODE_霰_182_()
+        }
+        return await __node_潤:1.0___ASTNODE_霰_146_(to: __node_霰:1.0___ASTNODE_霰_35_)
+    }
+
+    private func __node_潤:1.0___ASTNODE_霰_146_(to __node_霰:1.0___ASTNODE_霰_62_: __node_廨:1.0___ASTNODE_廨_62_) async -> __node_廨:1.0___ASTNODE_廨_74_ {
+        guard let __node_霰:1.0___ASTNODE_霰_152_ = __node_廨:1.0___ASTNODE_廨_1_.__node_霰:1.0___ASTNODE_霰_217_.__node_霰:1.0___ASTNODE_霰_170_ else {
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("❌ __node_廨:1.0___ASTNODE_廨_65_ __node_霰:1.0___ASTNODE_霰_18_ __node_霰:1.0___ASTNODE_霰_130_", "❌ リポジトリが見つかりません")); return false
+        }
+        __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("🔄 __node_廨:1.0___ASTNODE_廨_69_ __node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_ \(__node_霰:1.0___ASTNODE_霰_62_)...", "🔄 __node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_ \(__node_霰:1.0___ASTNODE_霰_62_) を実行中…"))
+
+// [metadata-stripped]
+        _ = await __node_霰:1.0___ASTNODE_霰_46_(["__node_霰:1.0___ASTNODE_霰_11_", "--__node_霰:1.0___ASTNODE_霰_129_-__node_霰:1.0___ASTNODE_霰_176_"], in: __node_霰:1.0___ASTNODE_霰_152_)
+
+        let __node_霰:1.0___ASTNODE_霰_26_ = await __node_霰:1.0___ASTNODE_霰_46_(["__node_霰:1.0___ASTNODE_霰_23_", "--__node_霰:1.0___ASTNODE_霰_15_", __node_霰:1.0___ASTNODE_霰_62_], in: __node_霰:1.0___ASTNODE_霰_152_)
+        __node_霰:1.0___ASTNODE_霰_215_(__node_霰:1.0___ASTNODE_霰_26_)
+
+        if __node_霰:1.0___ASTNODE_霰_26_.__node_霰:1.0___ASTNODE_霰_79_("__node_廨:1.0___ASTNODE_廨_84_ is __node_霰:1.0___ASTNODE_霰_189_ at") || __node_霰:1.0___ASTNODE_霰_26_.__node_霰:1.0___ASTNODE_霰_79_("__node_廨:1.0___ASTNODE_廨_56_ __node_匴:1.0___ASTNODE_霰_119_") {
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("✅ __node_廨:1.0___ASTNODE_廨_90_ __node_霰:1.0___ASTNODE_霰_149_: \(__node_霰:1.0___ASTNODE_霰_62_)", "✅ ロールバック完了: \(__node_霰:1.0___ASTNODE_霰_62_)"))
+            return true
+        } else {
+            __node_霰:1.0___ASTNODE_霰_215_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("❌ __node_廨:1.0___ASTNODE_廨_90_ __node_霰:1.0___ASTNODE_霰_228_: \(__node_霰:1.0___ASTNODE_霰_26_)", "❌ ロールバック失敗: \(__node_霰:1.0___ASTNODE_霰_26_)"))
+            return false
+        }
+    }
+
+// [metadata-stripped]
+
+    func __node_匴:1.0___ASTNODE_霰_195_() async {
+        guard let __node_霰:1.0___ASTNODE_霰_152_ = __node_廨:1.0___ASTNODE_廨_1_.__node_霰:1.0___ASTNODE_霰_217_.__node_霰:1.0___ASTNODE_霰_170_ else { return }
+// [metadata-stripped]
+        let __node_霰:1.0___ASTNODE_霰_99_ = await __node_霰:1.0___ASTNODE_霰_46_(
+            ["__node_霰:1.0___ASTNODE_霰_99_", "--__node_霰:1.0___ASTNODE_霰_175_", "--__node_潤:1.0___ASTNODE_霰_14_=%H|%s|%ar", "-n", "20"],
+            in: __node_霰:1.0___ASTNODE_霰_152_
+        )
+        let __node_霰:1.0___ASTNODE_霰_88_: [__node_廨:1.0___ASTNODE_廨_46_] = __node_霰:1.0___ASTNODE_霰_99_.__node_霰:1.0___ASTNODE_霰_82_(__node_霰:1.0___ASTNODE_霰_6_: "\n")
+            .__node_霰:1.0___ASTNODE_霰_148_ { __node_霰:1.0___ASTNODE_霰_69_ -> __node_廨:1.0___ASTNODE_廨_46_? in
+                let __node_霰:1.0___ASTNODE_霰_73_ = __node_霰:1.0___ASTNODE_霰_69_.__node_霰:1.0___ASTNODE_霰_82_(__node_霰:1.0___ASTNODE_霰_6_: "|")
+                guard __node_霰:1.0___ASTNODE_霰_73_.__node_霰:1.0___ASTNODE_霰_210_ >= 3 else { return nil }
+                return __node_廨:1.0___ASTNODE_廨_46_(__node_霰:1.0___ASTNODE_霰_222_: __node_廨:1.0___ASTNODE_廨_62_(__node_霰:1.0___ASTNODE_霰_73_[0].__node_霰:1.0___ASTNODE_霰_64_(8)),
+                                    __node_霰:1.0___ASTNODE_霰_97_: __node_霰:1.0___ASTNODE_霰_73_[1], __node_霰:1.0___ASTNODE_霰_84_: __node_霰:1.0___ASTNODE_霰_73_[2])
+            }
+        __node_霰:1.0___ASTNODE_霰_77_ = __node_霰:1.0___ASTNODE_霰_88_
+    }
+
+// [metadata-stripped]
+
+    @__node_霰:1.0___ASTNODE_霰_157_
+    func __node_霰:1.0___ASTNODE_霰_46_(_ __node_霰:1.0___ASTNODE_霰_25_: [__node_廨:1.0___ASTNODE_廨_62_], in __node_霰:1.0___ASTNODE_霰_220_: __node_紋:1.0___ASTNODE_廨_25_) async -> __node_廨:1.0___ASTNODE_廨_62_ {
+        await __node_霰:1.0___ASTNODE_霰_28_ { __node_霰:1.0___ASTNODE_霰_145_ in
+            __node_廨:1.0___ASTNODE_廨_92_.__node_霰:1.0___ASTNODE_霰_110_(__node_霰:1.0___ASTNODE_霰_225_: .__node_霰:1.0___ASTNODE_霰_21_).async {
+                let p = __node_廨:1.0___ASTNODE_廨_8_()
+                p.__node_紋:1.0___ASTNODE_霰_2_ = __node_紋:1.0___ASTNODE_廨_25_(__node_紋:1.0___ASTNODE_霰_140_: "/__node_霰:1.0___ASTNODE_霰_183_/__node_霰:1.0___ASTNODE_霰_204_/__node_霰:1.0___ASTNODE_霰_24_")
+                p.__node_霰:1.0___ASTNODE_霰_122_ = __node_霰:1.0___ASTNODE_霰_25_
+                p.__node_紋:1.0___ASTNODE_霰_59_ = __node_霰:1.0___ASTNODE_霰_220_
+                let __node_霰:1.0___ASTNODE_霰_92_ = __node_廨:1.0___ASTNODE_廨_63_()
+                p.__node_霰:1.0___ASTNODE_霰_78_ = __node_霰:1.0___ASTNODE_霰_92_
+                p.__node_霰:1.0___ASTNODE_霰_169_  = __node_霰:1.0___ASTNODE_霰_92_   // ⚠️ 同一パイプ — __node_霰:1.0___ASTNODE_霰_85_-__node_霰:1.0___ASTNODE_霰_92_ __node_霰:1.0___ASTNODE_霰_168_ 防止
+                try? p.__node_霰:1.0___ASTNODE_霰_143_()
+                let __node_霰:1.0___ASTNODE_霰_42_ = __node_廨:1.0___ASTNODE_廨_62_(__node_霰:1.0___ASTNODE_霰_108_: __node_霰:1.0___ASTNODE_霰_92_.__node_匴:1.0___ASTNODE_霰_184_.__node_匴:1.0___ASTNODE_霰_86_(), __node_霰:1.0___ASTNODE_霰_200_: .__node_霰:1.0___ASTNODE_霰_141_) ?? ""
+                p.__node_霰:1.0___ASTNODE_霰_95_()
+                __node_霰:1.0___ASTNODE_霰_145_.__node_霰:1.0___ASTNODE_霰_116_(__node_霰:1.0___ASTNODE_霰_133_: __node_霰:1.0___ASTNODE_霰_42_.__node_霰:1.0___ASTNODE_霰_61_(in: .__node_霰:1.0___ASTNODE_霰_13_))
+            }
+        }
+    }
+
+    private func __node_霰:1.0___ASTNODE_霰_215_(_ __node_霰:1.0___ASTNODE_霰_53_: __node_廨:1.0___ASTNODE_廨_62_) {
+        __node_霰:1.0___ASTNODE_霰_194_ += __node_霰:1.0___ASTNODE_霰_53_ + "\n"
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+
+struct __node_廨:1.0___ASTNODE_廨_28_: __node_廨:1.0___ASTNODE_廨_88_ {
+    @__node_廨:1.0___ASTNODE_廨_26_ private var __node_霰:1.0___ASTNODE_霰_163_ = __node_廨:1.0___ASTNODE_廨_14_.__node_霰:1.0___ASTNODE_霰_217_
+    @__node_廨:1.0___ASTNODE_廨_10_ private var __node_霰:1.0___ASTNODE_霰_209_ = false
+    @__node_廨:1.0___ASTNODE_廨_10_ private var __node_霰:1.0___ASTNODE_霰_221_ = false
+    @__node_廨:1.0___ASTNODE_廨_10_ private var __node_霰:1.0___ASTNODE_霰_8_: __node_廨:1.0___ASTNODE_廨_62_? = nil
+
+    var __node_霰:1.0___ASTNODE_霰_166_: some __node_廨:1.0___ASTNODE_廨_88_ {
+        __node_廨:1.0___ASTNODE_廨_33_ {
+// [metadata-stripped]
+            __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.08, __node_霰:1.0___ASTNODE_霰_203_: 0.04, __node_霰:1.0___ASTNODE_霰_202_: 0.04)
+                .__node_霰:1.0___ASTNODE_霰_186_()
+
+// [metadata-stripped]
+            __node_処:1.0___ASTNODE_廨_29_ { __node_霰:1.0___ASTNODE_霰_3_ in
+                __node_廨:1.0___ASTNODE_廨_50_ { __node_霰:1.0___ASTNODE_霰_211_, __node_霰:1.0___ASTNODE_霰_160_ in
+                    let __node_霰:1.0___ASTNODE_霰_117_ = 30.0
+                    var x: __node_廨:1.0___ASTNODE_廨_57_ = 0.0
+                    while x < __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_105_ + __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_100_ {
+                        let __node_霰:1.0___ASTNODE_霰_161_ = __node_廨:1.0___ASTNODE_廨_43_ { p in
+                            p.__node_霰:1.0___ASTNODE_霰_9_(to: __node_廨:1.0___ASTNODE_廨_34_(x: x, y: 0))
+                            p.__node_霰:1.0___ASTNODE_霰_55_(to: __node_廨:1.0___ASTNODE_廨_34_(x: x + __node_霰:1.0___ASTNODE_霰_117_, y: 0))
+                            p.__node_霰:1.0___ASTNODE_霰_55_(to: __node_廨:1.0___ASTNODE_廨_34_(x: x + __node_霰:1.0___ASTNODE_霰_117_ - __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_100_, y: __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_100_))
+                            p.__node_霰:1.0___ASTNODE_霰_55_(to: __node_廨:1.0___ASTNODE_廨_34_(x: x - __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_100_, y: __node_霰:1.0___ASTNODE_霰_160_.__node_霰:1.0___ASTNODE_霰_100_))
+                        }
+                        __node_霰:1.0___ASTNODE_霰_211_.__node_霰:1.0___ASTNODE_霰_134_(__node_霰:1.0___ASTNODE_霰_161_, __node_霰:1.0___ASTNODE_霰_66_: .__node_霰:1.0___ASTNODE_霰_43_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 1.0, __node_霰:1.0___ASTNODE_霰_203_: 0.5, __node_霰:1.0___ASTNODE_霰_202_: 0.0).__node_霰:1.0___ASTNODE_霰_96_(0.04)))
+                        x += __node_霰:1.0___ASTNODE_霰_117_ * 2
+                    }
+                }
+            }
+            .__node_霰:1.0___ASTNODE_霰_186_()
+
+            __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_71_: 0) {
+// [metadata-stripped]
+                __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_71_: 10) {
+                    __node_廨:1.0___ASTNODE_廨_48_(__node_霰:1.0___ASTNODE_霰_71_: 14) {
+                        __node_廨:1.0___ASTNODE_廨_4_(__node_霰:1.0___ASTNODE_霰_20_: "__node_霰:1.0___ASTNODE_霰_10_.__node_霰:1.0___ASTNODE_霰_17_.__node_霰:1.0___ASTNODE_霰_134_")
+                            .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 42))
+                            .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 1.0, __node_霰:1.0___ASTNODE_霰_203_: 0.45, __node_霰:1.0___ASTNODE_霰_202_: 0.1))
+                            .__node_霰:1.0___ASTNODE_霰_48_(.__node_霰:1.0___ASTNODE_霰_16_)
+
+                        __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_196_, __node_霰:1.0___ASTNODE_霰_71_: 4) {
+                            __node_廨:1.0___ASTNODE_廨_79_("__node_廨:1.0___ASTNODE_廨_40_ __node_廨:1.0___ASTNODE_廨_64_ __node_廨:1.0___ASTNODE_廨_91_")
+                                .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 22, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_111_, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                                .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 1.0, __node_霰:1.0___ASTNODE_霰_203_: 0.45, __node_霰:1.0___ASTNODE_霰_202_: 0.15))
+                            __node_廨:1.0___ASTNODE_廨_79_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_72_ __node_隠:1.0___ASTNODE_霰_124_ __node_霰:1.0___ASTNODE_霰_90_ — __node_霰:1.0___ASTNODE_霰_120_ __node_霰:1.0___ASTNODE_霰_19_ a __node_霰:1.0___ASTNODE_霰_113_ __node_霰:1.0___ASTNODE_霰_58_", "__node_廨:1.0___ASTNODE_廨_72_ キーが検知されました — リカバリー操作を選択してください"))
+                                .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 12))
+                                .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.80, __node_霰:1.0___ASTNODE_霰_203_: 0.65, __node_霰:1.0___ASTNODE_霰_202_: 0.55))
+                        }
+                    }
+                    .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_171_, 40)
+
+// [metadata-stripped]
+                    __node_廨:1.0___ASTNODE_廨_3_()
+                        .__node_霰:1.0___ASTNODE_霰_134_(
+                            __node_廨:1.0___ASTNODE_廨_7_(
+                                __node_霰:1.0___ASTNODE_霰_224_: [.__node_霰:1.0___ASTNODE_霰_185_, __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 1.0, __node_霰:1.0___ASTNODE_霰_203_: 0.4, __node_霰:1.0___ASTNODE_霰_202_: 0.1), .__node_霰:1.0___ASTNODE_霰_185_],
+                                __node_霰:1.0___ASTNODE_霰_207_: .__node_霰:1.0___ASTNODE_霰_196_, __node_霰:1.0___ASTNODE_霰_172_: .__node_霰:1.0___ASTNODE_霰_98_
+                            )
+                        )
+                        .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_100_: 1)
+                        .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_190_, 60)
+                }
+
+// [metadata-stripped]
+                __node_廨:1.0___ASTNODE_廨_48_(__node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_171_, __node_霰:1.0___ASTNODE_霰_71_: 20) {
+// [metadata-stripped]
+                    __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_71_: 12) {
+                        __node_霰:1.0___ASTNODE_霰_38_(
+                            __node_霰:1.0___ASTNODE_霰_191_: "__node_霰:1.0___ASTNODE_霰_197_.__node_霰:1.0___ASTNODE_霰_153_.__node_霰:1.0___ASTNODE_霰_173_.__node_霰:1.0___ASTNODE_霰_178_.__node_霰:1.0___ASTNODE_霰_134_",
+                            __node_霰:1.0___ASTNODE_霰_115_: __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_90_ 1 __node_霰:1.0___ASTNODE_霰_40_", "1コミット前にロールバック"),
+                            __node_霰:1.0___ASTNODE_霰_54_: "__node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_ __node_廨:1.0___ASTNODE_廨_84_~1",
+                            __node_霰:1.0___ASTNODE_霰_43_: __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.9, __node_霰:1.0___ASTNODE_霰_203_: 0.35, __node_霰:1.0___ASTNODE_霰_202_: 0.15)
+                        ) {
+                            __node_霰:1.0___ASTNODE_霰_209_ = true
+                            let ok = await __node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_182_()
+                            if ok { __node_霰:1.0___ASTNODE_霰_221_ = true } else { __node_霰:1.0___ASTNODE_霰_209_ = false }
+                        }
+
+                        __node_霰:1.0___ASTNODE_霰_38_(
+                            __node_霰:1.0___ASTNODE_霰_191_: "__node_霰:1.0___ASTNODE_霰_35_.__node_霰:1.0___ASTNODE_霰_178_.__node_霰:1.0___ASTNODE_霰_134_",
+                            __node_霰:1.0___ASTNODE_霰_115_: __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_90_ to __node_霰:1.0___ASTNODE_霰_167_ __node_霰:1.0___ASTNODE_霰_107_ __node_霰:1.0___ASTNODE_霰_35_", "最新の安定タグに戻す"),
+                            __node_霰:1.0___ASTNODE_霰_54_: "__node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_ <__node_霰:1.0___ASTNODE_霰_167_-__node_霰:1.0___ASTNODE_霰_35_>",
+                            __node_霰:1.0___ASTNODE_霰_43_: __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.55, __node_霰:1.0___ASTNODE_霰_203_: 0.35, __node_霰:1.0___ASTNODE_霰_202_: 0.90)
+                        ) {
+                            __node_霰:1.0___ASTNODE_霰_209_ = true
+                            let ok = await __node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_41_()
+                            if ok { __node_霰:1.0___ASTNODE_霰_221_ = true } else { __node_霰:1.0___ASTNODE_霰_209_ = false }
+                        }
+
+                        __node_霰:1.0___ASTNODE_霰_38_(
+                            __node_霰:1.0___ASTNODE_霰_191_: "__node_霰:1.0___ASTNODE_霰_197_.__node_霰:1.0___ASTNODE_霰_128_.__node_霰:1.0___ASTNODE_霰_178_.__node_霰:1.0___ASTNODE_霰_134_",
+                            __node_霰:1.0___ASTNODE_霰_115_: __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_11_ __node_霰:1.0___ASTNODE_霰_162_", "このまま起動する"),
+                            __node_霰:1.0___ASTNODE_霰_54_: __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_87_ __node_霰:1.0___ASTNODE_霰_18_ be __node_霰:1.0___ASTNODE_霰_139_", "安全ではない可能性"),
+                            __node_霰:1.0___ASTNODE_霰_43_: __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.35, __node_霰:1.0___ASTNODE_霰_203_: 0.65, __node_霰:1.0___ASTNODE_霰_202_: 0.40)
+                        ) {
+                            __node_霰:1.0___ASTNODE_霰_221_ = true
+                        }
+
+                        __node_霰:1.0___ASTNODE_霰_38_(
+                            __node_霰:1.0___ASTNODE_霰_191_: "__node_霰:1.0___ASTNODE_霰_74_.__node_霰:1.0___ASTNODE_霰_178_.__node_霰:1.0___ASTNODE_霰_134_",
+                            __node_霰:1.0___ASTNODE_霰_115_: __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_53_", "終了する"),
+                            __node_霰:1.0___ASTNODE_霰_54_: "__node_廨:1.0___ASTNODE_廨_6_.__node_霰:1.0___ASTNODE_霰_101_",
+                            __node_霰:1.0___ASTNODE_霰_43_: __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.55, __node_霰:1.0___ASTNODE_霰_203_: 0.55, __node_霰:1.0___ASTNODE_霰_202_: 0.65)
+                        ) {
+                            __node_廨:1.0___ASTNODE_廨_6_.__node_霰:1.0___ASTNODE_霰_101_(nil)
+                        }
+                    }
+                    .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_105_: 320)
+
+// [metadata-stripped]
+                    __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_196_, __node_霰:1.0___ASTNODE_霰_71_: 8) {
+                        __node_廨:1.0___ASTNODE_廨_79_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_45_ __node_霰:1.0___ASTNODE_霰_188_ __node_霰:1.0___ASTNODE_霰_40_ __node_霰:1.0___ASTNODE_霰_180_", "コミット履歴から選択"))
+                            .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 11, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_37_, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                            .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.7, __node_霰:1.0___ASTNODE_霰_203_: 0.65, __node_霰:1.0___ASTNODE_霰_202_: 0.6))
+
+                        if __node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_77_.__node_霰:1.0___ASTNODE_霰_151_ {
+                            __node_廨:1.0___ASTNODE_廨_75_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_匴:1.0___ASTNODE_廨_23_ __node_霰:1.0___ASTNODE_霰_180_...", "履歴を読み込み中…"))
+                                .__node_潤:1.0___ASTNODE_霰_214_(.__node_霰:1.0___ASTNODE_霰_44_)
+                                .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_177_: .__node_霰:1.0___ASTNODE_霰_201_, __node_霰:1.0___ASTNODE_霰_150_: .__node_処:1.0___ASTNODE_霰_70_)
+                                .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_171_, 20)
+                        } else {
+                            __node_廨:1.0___ASTNODE_廨_38_ {
+                                __node_廨:1.0___ASTNODE_廨_19_(__node_霰:1.0___ASTNODE_霰_71_: 1) {
+                                    __node_廨:1.0___ASTNODE_廨_36_(__node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_77_) { __node_霰:1.0___ASTNODE_霰_40_ in
+                                        __node_霰:1.0___ASTNODE_霰_223_(__node_霰:1.0___ASTNODE_霰_40_)
+                                    }
+                                }
+                            }
+                            .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_22_: 220)
+// __node_処:0.8___ASTNODE_DK_476_ [decoy-metadata]
+                            .__node_霰:1.0___ASTNODE_霰_51_(__node_廨:1.0___ASTNODE_廨_81_.__node_霰:1.0___ASTNODE_霰_135_.__node_霰:1.0___ASTNODE_霰_96_(0.03), in: __node_廨:1.0___ASTNODE_廨_37_(__node_霰:1.0___ASTNODE_霰_34_: 8))
+
+                            if let __node_霰:1.0___ASTNODE_霰_222_ = __node_霰:1.0___ASTNODE_霰_8_ {
+                                __node_廨:1.0___ASTNODE_廨_80_ {
+                                    __node_霰:1.0___ASTNODE_霰_209_ = true
+                                    __node_廨:1.0___ASTNODE_廨_82_ {
+                                        let ok = await __node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_76_(__node_霰:1.0___ASTNODE_霰_222_: __node_霰:1.0___ASTNODE_霰_222_)
+                                        if ok { __node_霰:1.0___ASTNODE_霰_221_ = true } else { __node_霰:1.0___ASTNODE_霰_209_ = false }
+                                    }
+                                } __node_霰:1.0___ASTNODE_霰_49_: {
+                                    __node_廨:1.0___ASTNODE_廨_49_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_ to __node_霰:1.0___ASTNODE_霰_213_ __node_霰:1.0___ASTNODE_霰_40_", "このコミットに __node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ --__node_霰:1.0___ASTNODE_霰_15_"), __node_霰:1.0___ASTNODE_霰_123_: "__node_霰:1.0___ASTNODE_霰_197_.__node_霰:1.0___ASTNODE_霰_153_.__node_霰:1.0___ASTNODE_霰_173_")
+                                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 11, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_226_))
+                                        .__node_潤:1.0___ASTNODE_霰_214_(.__node_霰:1.0___ASTNODE_霰_135_)
+                                        .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_177_: .__node_霰:1.0___ASTNODE_霰_201_)
+                                        .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_174_, 8)
+                                        .__node_霰:1.0___ASTNODE_霰_51_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.7, __node_霰:1.0___ASTNODE_霰_203_: 0.25, __node_霰:1.0___ASTNODE_霰_202_: 0.1), in: __node_廨:1.0___ASTNODE_廨_37_(__node_霰:1.0___ASTNODE_霰_34_: 6))
+                                }
+                                .__node_霰:1.0___ASTNODE_霰_4_(.__node_霰:1.0___ASTNODE_霰_56_)
+                            }
+                        }
+                    }
+                    .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_177_: .__node_霰:1.0___ASTNODE_霰_201_)
+                }
+                .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_190_, 60)
+                .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_171_, 24)
+
+// [metadata-stripped]
+                __node_処:1.0___ASTNODE_廨_32_(__node_霰:1.0___ASTNODE_霰_80_: 10)
+
+                __node_廨:1.0___ASTNODE_廨_38_ {
+// __node_処:0.2___ASTNODE_FF_340_ [decoy-metadata]
+                    __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_194_.__node_霰:1.0___ASTNODE_霰_151_
+                         ? __node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_138_ __node_霰:1.0___ASTNODE_霰_156_ __node_霰:1.0___ASTNODE_霰_33_ __node_霰:1.0___ASTNODE_霰_65_ __node_霰:1.0___ASTNODE_霰_30_...", "__node_霰:1.0___ASTNODE_霰_24_ コマンドのログがここに表示されます…")
+                         : __node_霰:1.0___ASTNODE_霰_163_.__node_霰:1.0___ASTNODE_霰_194_)
+                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 9, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                        .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.5, __node_霰:1.0___ASTNODE_霰_203_: 0.85, __node_霰:1.0___ASTNODE_霰_202_: 0.5))
+                        .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_177_: .__node_霰:1.0___ASTNODE_霰_201_, __node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_196_)
+                        .__node_霰:1.0___ASTNODE_霰_67_(8)
+                }
+                .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_100_: 80)
+                .__node_霰:1.0___ASTNODE_霰_51_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.04, __node_霰:1.0___ASTNODE_霰_203_: 0.06, __node_霰:1.0___ASTNODE_霰_202_: 0.04))
+                .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_190_, 60)
+                .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_216_, 20)
+
+// [metadata-stripped]
+                if __node_霰:1.0___ASTNODE_霰_221_ {
+                    __node_廨:1.0___ASTNODE_廨_79_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("✅ __node_廨:1.0___ASTNODE_廨_52_ __node_霰:1.0___ASTNODE_霰_149_ — __node_霰:1.0___ASTNODE_霰_39_ __node_霰:1.0___ASTNODE_霰_52_ __node_霰:1.0___ASTNODE_霰_31_", "✅ リカバリー完了 — 通常起動を続行します"))
+                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 12, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_37_))
+                        .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.4, __node_霰:1.0___ASTNODE_霰_203_: 0.9, __node_霰:1.0___ASTNODE_霰_202_: 0.5))
+                        .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_216_, 16)
+                }
+            }
+
+// [metadata-stripped]
+            if __node_霰:1.0___ASTNODE_霰_209_ && !__node_霰:1.0___ASTNODE_霰_221_ {
+                __node_廨:1.0___ASTNODE_廨_81_.__node_霰:1.0___ASTNODE_霰_111_.__node_霰:1.0___ASTNODE_霰_96_(0.6).__node_霰:1.0___ASTNODE_霰_186_()
+                __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_71_: 14) {
+                    __node_廨:1.0___ASTNODE_廨_75_().__node_霰:1.0___ASTNODE_霰_109_(1.2)
+                    __node_廨:1.0___ASTNODE_廨_79_(__node_廨:1.0___ASTNODE_廨_51_.__node_霰:1.0___ASTNODE_霰_217_.t("__node_廨:1.0___ASTNODE_廨_69_ __node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_...", "__node_霰:1.0___ASTNODE_霰_24_ __node_霰:1.0___ASTNODE_霰_23_ を実行中…"))
+                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 13, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                        .__node_潤:1.0___ASTNODE_霰_214_(.__node_霰:1.0___ASTNODE_霰_44_)
+                }
+            }
+        }
+        .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_142_: 700, __node_霰:1.0___ASTNODE_霰_206_: 520)
+    }
+
+    private func __node_霰:1.0___ASTNODE_霰_38_(
+        __node_霰:1.0___ASTNODE_霰_191_: __node_廨:1.0___ASTNODE_廨_62_, __node_霰:1.0___ASTNODE_霰_115_: __node_廨:1.0___ASTNODE_廨_62_, __node_霰:1.0___ASTNODE_霰_54_: __node_廨:1.0___ASTNODE_廨_62_, __node_霰:1.0___ASTNODE_霰_43_: __node_廨:1.0___ASTNODE_廨_81_,
+        __node_霰:1.0___ASTNODE_霰_58_: @__node_紋:1.0___ASTNODE_霰_75_ () async -> __node_廨:1.0___ASTNODE_廨_24_
+    ) -> some __node_廨:1.0___ASTNODE_廨_88_ {
+        __node_廨:1.0___ASTNODE_廨_80_ {
+            __node_廨:1.0___ASTNODE_廨_82_ { await __node_霰:1.0___ASTNODE_霰_58_() }
+        } __node_霰:1.0___ASTNODE_霰_49_: {
+            __node_廨:1.0___ASTNODE_廨_48_(__node_霰:1.0___ASTNODE_霰_71_: 12) {
+// __node_隠:0.8___ASTNODE_ZZ_948_ [decoy-metadata]
+                __node_廨:1.0___ASTNODE_廨_4_(__node_霰:1.0___ASTNODE_霰_20_: __node_霰:1.0___ASTNODE_霰_191_)
+// __node_嵐:0.7___ASTNODE_WC_808_ [decoy-metadata]
+                    .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 22))
+                    .__node_潤:1.0___ASTNODE_霰_214_(__node_霰:1.0___ASTNODE_霰_43_)
+                    .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_105_: 32)
+                __node_廨:1.0___ASTNODE_廨_70_(__node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_196_, __node_霰:1.0___ASTNODE_霰_71_: 3) {
+                    __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_115_)
+                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 12, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_37_))
+                        .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.88, __node_霰:1.0___ASTNODE_霰_203_: 0.88, __node_霰:1.0___ASTNODE_霰_202_: 0.92))
+                    __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_54_)
+                        .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 9, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                        .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.50, __node_霰:1.0___ASTNODE_霰_203_: 0.50, __node_霰:1.0___ASTNODE_霰_202_: 0.60))
+                }
+                __node_処:1.0___ASTNODE_廨_32_()
+                __node_廨:1.0___ASTNODE_廨_4_(__node_霰:1.0___ASTNODE_霰_20_: "__node_霰:1.0___ASTNODE_霰_219_.__node_霰:1.0___ASTNODE_霰_128_")
+                    .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 9))
+                    .__node_潤:1.0___ASTNODE_霰_214_(.__node_霰:1.0___ASTNODE_霰_227_)
+            }
+            .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_190_, 14).__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_174_, 11)
+            .__node_霰:1.0___ASTNODE_霰_51_(
+                __node_廨:1.0___ASTNODE_廨_37_(__node_霰:1.0___ASTNODE_霰_34_: 8)
+                    .__node_霰:1.0___ASTNODE_霰_134_(__node_廨:1.0___ASTNODE_廨_81_.__node_霰:1.0___ASTNODE_霰_135_.__node_霰:1.0___ASTNODE_霰_96_(0.05))
+                    .__node_霰:1.0___ASTNODE_霰_50_(
+                        __node_廨:1.0___ASTNODE_廨_37_(__node_霰:1.0___ASTNODE_霰_34_: 8)
+                            .__node_霰:1.0___ASTNODE_霰_158_(__node_霰:1.0___ASTNODE_霰_43_.__node_霰:1.0___ASTNODE_霰_96_(0.25), __node_霰:1.0___ASTNODE_霰_144_: 0.8)
+                    )
+            )
+        }
+        .__node_霰:1.0___ASTNODE_霰_4_(.__node_霰:1.0___ASTNODE_霰_56_)
+        .__node_霰:1.0___ASTNODE_霰_1_(__node_霰:1.0___ASTNODE_霰_209_)
+    }
+
+    private func __node_霰:1.0___ASTNODE_霰_223_(_ __node_霰:1.0___ASTNODE_霰_40_: __node_廨:1.0___ASTNODE_廨_14_.__node_廨:1.0___ASTNODE_廨_46_) -> some __node_廨:1.0___ASTNODE_廨_88_ {
+        __node_廨:1.0___ASTNODE_廨_80_ {
+            __node_霰:1.0___ASTNODE_霰_8_ = __node_霰:1.0___ASTNODE_霰_8_ == __node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_222_ ? nil : __node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_222_
+        } __node_霰:1.0___ASTNODE_霰_49_: {
+            __node_廨:1.0___ASTNODE_廨_48_(__node_霰:1.0___ASTNODE_霰_71_: 8) {
+                __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_222_)
+                    .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 9, __node_霰:1.0___ASTNODE_霰_7_: .__node_霰:1.0___ASTNODE_霰_226_, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                    .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.5, __node_霰:1.0___ASTNODE_霰_203_: 0.75, __node_霰:1.0___ASTNODE_霰_202_: 1.0))
+                    .__node_霰:1.0___ASTNODE_霰_81_(__node_霰:1.0___ASTNODE_霰_105_: 60, __node_霰:1.0___ASTNODE_霰_150_: .__node_霰:1.0___ASTNODE_霰_196_)
+                __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_97_)
+                    .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 9, __node_霰:1.0___ASTNODE_霰_36_: .__node_霰:1.0___ASTNODE_霰_5_))
+                    .__node_潤:1.0___ASTNODE_霰_214_(__node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.72, __node_霰:1.0___ASTNODE_霰_203_: 0.72, __node_霰:1.0___ASTNODE_霰_202_: 0.80))
+                    .__node_霰:1.0___ASTNODE_霰_106_(1)
+                __node_処:1.0___ASTNODE_廨_32_()
+                __node_廨:1.0___ASTNODE_廨_79_(__node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_84_)
+                    .__node_霰:1.0___ASTNODE_霰_89_(.__node_霰:1.0___ASTNODE_霰_102_(__node_霰:1.0___ASTNODE_霰_160_: 8)).__node_潤:1.0___ASTNODE_霰_214_(.__node_霰:1.0___ASTNODE_霰_227_)
+            }
+            .__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_190_, 8).__node_霰:1.0___ASTNODE_霰_67_(.__node_霰:1.0___ASTNODE_霰_174_, 4)
+            .__node_霰:1.0___ASTNODE_霰_51_(
+                __node_霰:1.0___ASTNODE_霰_8_ == __node_霰:1.0___ASTNODE_霰_40_.__node_霰:1.0___ASTNODE_霰_222_
+                    ? __node_廨:1.0___ASTNODE_廨_81_(__node_霰:1.0___ASTNODE_霰_212_: 0.7, __node_霰:1.0___ASTNODE_霰_203_: 0.25, __node_霰:1.0___ASTNODE_霰_202_: 0.1).__node_霰:1.0___ASTNODE_霰_96_(0.25)
+                    : __node_廨:1.0___ASTNODE_廨_81_.__node_霰:1.0___ASTNODE_霰_185_
+            )
+        }
+        .__node_霰:1.0___ASTNODE_霰_4_(.__node_霰:1.0___ASTNODE_霰_56_)
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

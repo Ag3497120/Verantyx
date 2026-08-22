@@ -1,0 +1,38 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:ED2154C5 ver:1778165767
+// __node_匯:0.9____jcross_YL_468__ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+__node_滴:1.0____jcross_滴_21__ __node_滴:1.0____jcross_滴_11__ __node_匯:1.0____jcross_廂_1__ = 20;
+
+__node_滴:1.0____jcross_滴_21__ __node_滴:1.0____jcross_滴_24__ __node_匯:1.0____jcross_煌_2__<T>(
+  __node_滴:1.0____jcross_滴_16__: __node_廂:1.0____jcross_廂_2__<__node_滴:1.0____jcross_滴_8__, T>,
+// __node_滲:0.9____jcross_CL_836__ [decoy-metadata]
+  __node_沈:1.0____jcross_滴_14__: __node_滴:1.0____jcross_滴_8__,
+  __node_滴:1.0____jcross_滴_5__: () => T,
+): T {
+  if (__node_滴:1.0____jcross_滴_16__.__node_滴:1.0____jcross_滴_3__(__node_沈:1.0____jcross_滴_14__)) {
+    __node_滴:1.0____jcross_滴_11__ __node_滴:1.0____jcross_滴_1__ = __node_滴:1.0____jcross_滴_16__.__node_術:1.0____jcross_煌_1__(__node_沈:1.0____jcross_滴_14__) as T;
+// [metadata-stripped]
+    __node_滴:1.0____jcross_滴_16__.__node_滴:1.0____jcross_滴_7__(__node_沈:1.0____jcross_滴_14__);
+    __node_滴:1.0____jcross_滴_16__.__node_術:1.0____jcross_煌_3__(__node_沈:1.0____jcross_滴_14__, __node_滴:1.0____jcross_滴_1__);
+    return __node_滴:1.0____jcross_滴_1__;
+  }
+
+// __node_廂:0.8____jcross_BK_897__ [decoy-metadata]
+  __node_滴:1.0____jcross_滴_11__ __node_滴:1.0____jcross_滴_2__ = __node_滴:1.0____jcross_滴_5__();
+  __node_滴:1.0____jcross_滴_16__.__node_術:1.0____jcross_煌_3__(__node_沈:1.0____jcross_滴_14__, __node_滴:1.0____jcross_滴_2__);
+  while (__node_滴:1.0____jcross_滴_16__.__node_滴:1.0____jcross_滴_18__ > __node_匯:1.0____jcross_廂_1__) {
+    __node_滴:1.0____jcross_滴_11__ __node_滴:1.0____jcross_滴_9__ = __node_滴:1.0____jcross_滴_16__.__node_沈:1.0____jcross_滴_23__().__node_滴:1.0____jcross_滴_4__().__node_滴:1.0____jcross_滴_12__;
+    if (__node_滴:1.0____jcross_滴_15__ __node_滴:1.0____jcross_滴_9__ !== "__node_滴:1.0____jcross_滴_8__") {
+      break;
+    }
+    __node_滴:1.0____jcross_滴_16__.__node_滴:1.0____jcross_滴_7__(__node_滴:1.0____jcross_滴_9__);
+// __node_術:0.5____jcross_BM_425__ [decoy-metadata]
+  }
+  return __node_滴:1.0____jcross_滴_2__;
+// __node_術:0.7____jcross_DC_773__ [decoy-metadata]
+}
+// __node_廂:0.6____jcross_HX_601__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,580 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:8C1E719E ver:1778159719
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_149_ import _TOKEN_礫:1.0__SYM_礫_258_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_301_ import _TOKEN_廓:1.0__SYM_廓_92_, _TOKEN_廓:1.0__SYM_廓_25_, _TOKEN_廓:1.0__SYM_廓_37_, _TOKEN_廓:1.0__SYM_廓_45_, _TOKEN_廓:1.0__SYM_廓_78_
+import os, _TOKEN_礫:1.0__SYM_礫_121_, re
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_128_ import (
+    _TOKEN_廓:1.0__SYM_廓_57_, _TOKEN_廓:1.0__SYM_廓_106_, _TOKEN_廓:1.0__SYM_廓_94_, _TOKEN_廓:1.0__SYM_廓_51_, _TOKEN_廓:1.0__SYM_廓_89_, _TOKEN_廓:1.0__SYM_廓_76_
+)
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_56_._TOKEN_礫:1.0__SYM_礫_288_ import _TOKEN_礫:1.0__SYM_礫_170_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_99_._TOKEN_礫:1.0__SYM_礫_185_ import _TOKEN_礫:1.0__SYM_礫_155_
+
+// [metadata-stripped]
+_TOKEN_廓:1.0__SYM_廓_22_ = _TOKEN_廓:1.0__SYM_廓_1_
+try:
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_263_ import _TOKEN_廓:1.0__SYM_廓_22_
+_TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+    try:
+        _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_263_ import _TOKEN_廓:1.0__SYM_廓_22_
+    _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+        _TOKEN_礫:1.0__SYM_礫_217_
+
+_TOKEN_礫:1.0__SYM_礫_257_ = _TOKEN_廓:1.0__SYM_廓_1_
+_TOKEN_秘:1.0__SYM_礫_271_ = _TOKEN_廓:1.0__SYM_廓_1_
+try:
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_272_ import _TOKEN_礫:1.0__SYM_礫_257_, _TOKEN_秘:1.0__SYM_礫_271_
+_TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+    _TOKEN_礫:1.0__SYM_礫_217_
+
+_TOKEN_廓:1.0__SYM_廓_42_ = _TOKEN_廓:1.0__SYM_廓_1_
+_TOKEN_礫:1.0__SYM_礫_270_ = _TOKEN_廓:1.0__SYM_廓_1_
+_TOKEN_礫:1.0__SYM_礫_120_ = _TOKEN_廓:1.0__SYM_廓_1_
+try:
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_267_ import _TOKEN_廓:1.0__SYM_廓_42_
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_計:1.0__SYM_礫_95_ import _TOKEN_礫:1.0__SYM_礫_270_
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_計:1.0__SYM_礫_95_ import _TOKEN_礫:1.0__SYM_礫_120_
+_TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+    _TOKEN_礫:1.0__SYM_礫_217_
+
+_TOKEN_礫:1.0__SYM_礫_115_ = _TOKEN_廓:1.0__SYM_廓_1_
+try:
+    _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_56_._TOKEN_礫:1.0__SYM_礫_10_ import _TOKEN_礫:1.0__SYM_礫_115_
+_TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+    try:
+        _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_56_._TOKEN_礫:1.0__SYM_礫_10_ import _TOKEN_礫:1.0__SYM_礫_115_
+    _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+        _TOKEN_礫:1.0__SYM_礫_217_
+
+// [metadata-stripped]
+_TOKEN_秘:1.0__SYM_礫_161_ = re._TOKEN_礫:1.0__SYM_礫_13_(r"[A-Za-z][A-Za-z0-9_]*|->|<->|\[\]|<>|[()~&|!]|□|◇")
+
+_TOKEN_浪:1.0__SYM_礫_209_ = re._TOKEN_礫:1.0__SYM_礫_13_(r'["“”]([^"“”]+)["“”]|「([^」]+)」|『([^』]+)』')
+
+_TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_浪:1.0__SYM_礫_133_(s: _TOKEN_礫:1.0__SYM_礫_292_) -> _TOKEN_礫:1.0__SYM_礫_292_:
+    """純粋な式トークンだけで再構成し、末尾の冠詞を除去する"""
+    _TOKEN_礫:1.0__SYM_礫_32_ = _TOKEN_秘:1.0__SYM_礫_161_._TOKEN_礫:1.0__SYM_礫_151_(s)
+    if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_32_:
+        return ""
+    
+// [metadata-stripped]
+    _TOKEN_礫:1.0__SYM_礫_313_ = " "._TOKEN_礫:1.0__SYM_礫_249_(_TOKEN_礫:1.0__SYM_礫_32_)._TOKEN_礫:1.0__SYM_礫_210_("  ", " ")._TOKEN_礫:1.0__SYM_礫_284_()
+    _TOKEN_礫:1.0__SYM_礫_313_ = _TOKEN_礫:1.0__SYM_礫_27_(_TOKEN_礫:1.0__SYM_礫_313_)
+    
+// [metadata-stripped]
+    _TOKEN_礫:1.0__SYM_礫_313_ = re._TOKEN_礫:1.0__SYM_礫_137_(r"\b(a|an|_TOKEN_礫:1.0__SYM_礫_148_)\b\s*$", "", _TOKEN_礫:1.0__SYM_礫_313_, _TOKEN_礫:1.0__SYM_礫_255_=re._TOKEN_廓:1.0__SYM_廓_67_)._TOKEN_礫:1.0__SYM_礫_284_()
+    return _TOKEN_礫:1.0__SYM_礫_313_
+
+_TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_27_(s: _TOKEN_礫:1.0__SYM_礫_292_) -> _TOKEN_礫:1.0__SYM_礫_292_:
+// [metadata-stripped]
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"\[\]\s+(?=[A-Za-z(~\[])", "[]", s)
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"<>\s+(?=[A-Za-z(~\[])", "<>", s)
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"□\s+(?=[A-Za-z(~\[])", "□", s)
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"◇\s+(?=[A-Za-z(~\[])", "◇", s)
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"\[\]\s+\[\]\s*", "[][]", s)
+    s = re._TOKEN_礫:1.0__SYM_礫_137_(r"<>\s+<>\s*", "<><>", s)
+    return s
+// _TOKEN_繕:0.3__SYM_CM_841_ [decoy-metadata]
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_99_._TOKEN_浪:1.0__SYM_礫_205_ import _TOKEN_浪:1.0__SYM_礫_172_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_浪:1.0__SYM_礫_77_ import _TOKEN_浪:1.0__SYM_礫_193_, _TOKEN_浪:1.0__SYM_礫_182_
+
+_TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_浪:1.0__SYM_礫_319_(_TOKEN_礫:1.0__SYM_礫_79_: _TOKEN_礫:1.0__SYM_礫_292_) -> _TOKEN_礫:1.0__SYM_礫_292_:
+    """自然文から論理式だけを抽出し、正規化する。全体式条件を満たすもののみを返す。"""
+// [metadata-stripped]
+    _TOKEN_礫:1.0__SYM_礫_291_ = re._TOKEN_礫:1.0__SYM_礫_24_(r"(?im)^\s*_TOKEN_廓:1.0__SYM_廓_79_\s*:\s*(.+)$", _TOKEN_礫:1.0__SYM_礫_79_)
+    if _TOKEN_礫:1.0__SYM_礫_291_:
+        return _TOKEN_礫:1.0__SYM_礫_291_._TOKEN_礫:1.0__SYM_礫_300_(1)._TOKEN_礫:1.0__SYM_礫_284_()
+
+    _TOKEN_礫:1.0__SYM_礫_109_ = _TOKEN_浪:1.0__SYM_礫_172_(_TOKEN_礫:1.0__SYM_礫_79_)
+    _TOKEN_礫:1.0__SYM_礫_283_, _TOKEN_浪:1.0__SYM_礫_243_ = _TOKEN_浪:1.0__SYM_礫_182_(_TOKEN_礫:1.0__SYM_礫_109_, _TOKEN_礫:1.0__SYM_礫_79_)
+    
+    if _TOKEN_礫:1.0__SYM_礫_283_:
+        return _TOKEN_礫:1.0__SYM_礫_283_["_TOKEN_礫:1.0__SYM_礫_203_"]
+    
+    return ""
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_127_ import _TOKEN_廓:1.0__SYM_廓_24_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_58_._TOKEN_礫:1.0__SYM_礫_136_ import _TOKEN_廓:1.0__SYM_廓_26_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_58_._TOKEN_礫:1.0__SYM_礫_129_ import _TOKEN_廓:1.0__SYM_廓_14_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_302_ import _TOKEN_廓:1.0__SYM_廓_29_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_計:1.0__SYM_礫_6_ import _TOKEN_計:1.0__SYM_廓_44_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_144_ import _TOKEN_礫:1.0__SYM_礫_144_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_3_._TOKEN_礫:1.0__SYM_礫_82_ import _TOKEN_礫:1.0__SYM_礫_315_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_281_ import _TOKEN_礫:1.0__SYM_礫_26_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_180_ import _TOKEN_廓:1.0__SYM_廓_32_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_箱:1.0__SYM_礫_20_ import _TOKEN_箱:1.0__SYM_廓_16_, _TOKEN_礫:1.0__SYM_礫_29_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_計:1.0__SYM_礫_278_ import _TOKEN_計:1.0__SYM_廓_13_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_浪:1.0__SYM_礫_36_ import _TOKEN_廓:1.0__SYM_廓_88_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_247_ import _TOKEN_浪:1.0__SYM_礫_188_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_162_._TOKEN_礫:1.0__SYM_礫_154_ import _TOKEN_礫:1.0__SYM_礫_44_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_162_._TOKEN_礫:1.0__SYM_礫_282_ import _TOKEN_廓:1.0__SYM_廓_31_
+
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_273_ import _TOKEN_廓:1.0__SYM_廓_56_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_99_._TOKEN_礫:1.0__SYM_礫_268_ import _TOKEN_廓:1.0__SYM_廓_50_
+// _TOKEN_箱:0.9__SYM_GB_294_ [decoy-metadata]
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_295_._TOKEN_礫:1.0__SYM_礫_126_ import _TOKEN_廓:1.0__SYM_廓_99_
+
+// [metadata-stripped]
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_298_._TOKEN_計:1.0__SYM_礫_228_ import _TOKEN_計:1.0__SYM_廓_2_
+_TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_298_._TOKEN_計:1.0__SYM_礫_119_ import _TOKEN_計:1.0__SYM_廓_75_
+
+class _TOKEN_計:1.0__SYM_廓_101_:
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_54_(self, _TOKEN_礫:1.0__SYM_礫_169_: _TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_礫:1.0__SYM_礫_304_: _TOKEN_廓:1.0__SYM_廓_25_[_TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_廓:1.0__SYM_廓_92_]):
+        self._TOKEN_礫:1.0__SYM_礫_169_ = _TOKEN_礫:1.0__SYM_礫_169_
+        self._TOKEN_礫:1.0__SYM_礫_242_ = os._TOKEN_礫:1.0__SYM_礫_97_._TOKEN_礫:1.0__SYM_礫_163_(_TOKEN_礫:1.0__SYM_礫_169_)
+        self._TOKEN_礫:1.0__SYM_礫_304_ = _TOKEN_礫:1.0__SYM_礫_304_
+        self._TOKEN_礫:1.0__SYM_礫_19_ = _TOKEN_廓:1.0__SYM_廓_22_(_TOKEN_礫:1.0__SYM_礫_242_=self._TOKEN_礫:1.0__SYM_礫_242_) if _TOKEN_廓:1.0__SYM_廓_22_ else _TOKEN_廓:1.0__SYM_廓_1_
+        
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_289_ = os._TOKEN_礫:1.0__SYM_礫_97_._TOKEN_礫:1.0__SYM_礫_249_(self._TOKEN_礫:1.0__SYM_礫_242_, "_TOKEN_礫:1.0__SYM_礫_35_._TOKEN_礫:1.0__SYM_礫_45_")
+        self._TOKEN_礫:1.0__SYM_礫_302_ = _TOKEN_廓:1.0__SYM_廓_29_(self._TOKEN_礫:1.0__SYM_礫_289_)
+        self._TOKEN_計:1.0__SYM_礫_218_ = _TOKEN_計:1.0__SYM_廓_44_(_TOKEN_礫:1.0__SYM_礫_19_=self._TOKEN_礫:1.0__SYM_礫_19_, _TOKEN_礫:1.0__SYM_礫_169_=self._TOKEN_礫:1.0__SYM_礫_169_)
+        self._TOKEN_礫:1.0__SYM_礫_197_ = _TOKEN_廓:1.0__SYM_廓_32_()
+        self._TOKEN_浪:1.0__SYM_礫_36_ = _TOKEN_廓:1.0__SYM_廓_88_()
+        self._TOKEN_礫:1.0__SYM_礫_207_ = _TOKEN_廓:1.0__SYM_廓_99_(_TOKEN_礫:1.0__SYM_礫_169_=self._TOKEN_礫:1.0__SYM_礫_169_)
+        
+// [metadata-stripped]
+        self._TOKEN_計:1.0__SYM_礫_228_ = _TOKEN_計:1.0__SYM_廓_2_()
+        self._TOKEN_計:1.0__SYM_礫_119_ = _TOKEN_計:1.0__SYM_廓_75_()
+        
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_312_ = os._TOKEN_礫:1.0__SYM_礫_97_._TOKEN_礫:1.0__SYM_礫_249_(self._TOKEN_礫:1.0__SYM_礫_242_, "_TOKEN_礫:1.0__SYM_礫_309_._TOKEN_礫:1.0__SYM_礫_45_")
+        self._TOKEN_礫:1.0__SYM_礫_273_ = _TOKEN_廓:1.0__SYM_廓_56_(self._TOKEN_礫:1.0__SYM_礫_169_, self._TOKEN_礫:1.0__SYM_礫_312_)
+        
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_22_ = _TOKEN_廓:1.0__SYM_廓_31_(_TOKEN_礫:1.0__SYM_礫_102_=10)
+        
+// [metadata-stripped]
+        self._TOKEN_箱:1.0__SYM_礫_250_ = _TOKEN_箱:1.0__SYM_廓_16_()
+        self._TOKEN_計:1.0__SYM_礫_256_ = _TOKEN_計:1.0__SYM_廓_13_(self._TOKEN_箱:1.0__SYM_礫_250_)
+        
+        self._TOKEN_礫:1.0__SYM_礫_150_ = _TOKEN_廓:1.0__SYM_廓_1_
+        self._TOKEN_礫:1.0__SYM_礫_64_ = os._TOKEN_礫:1.0__SYM_礫_97_._TOKEN_礫:1.0__SYM_礫_249_(self._TOKEN_礫:1.0__SYM_礫_242_, "_TOKEN_礫:1.0__SYM_礫_135_._TOKEN_礫:1.0__SYM_礫_50_")
+
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_88_(self, _TOKEN_礫:1.0__SYM_礫_109_: _TOKEN_廓:1.0__SYM_廓_37_[_TOKEN_礫:1.0__SYM_礫_292_], _TOKEN_礫:1.0__SYM_礫_136_: _TOKEN_廓:1.0__SYM_廓_26_, _TOKEN_礫:1.0__SYM_礫_114_: _TOKEN_廓:1.0__SYM_廓_37_[_TOKEN_礫:1.0__SYM_礫_292_]) -> _TOKEN_廓:1.0__SYM_廓_78_[_TOKEN_廓:1.0__SYM_廓_24_, _TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_廓:1.0__SYM_廓_25_[_TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_廓:1.0__SYM_廓_92_]]:
+        """複数の候補式を順次検証し、結果を集約する"""
+        _TOKEN_礫:1.0__SYM_礫_212_ = []
+        _TOKEN_礫:1.0__SYM_礫_286_ = _TOKEN_廓:1.0__SYM_廓_87_
+        _TOKEN_礫:1.0__SYM_礫_241_ = _TOKEN_廓:1.0__SYM_廓_68_
+        _TOKEN_礫:1.0__SYM_礫_14_ = _TOKEN_廓:1.0__SYM_廓_1_
+
+        for f in _TOKEN_礫:1.0__SYM_礫_109_:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            try:
+// [metadata-stripped]
+                _TOKEN_礫:1.0__SYM_礫_318_ = self._TOKEN_計:1.0__SYM_礫_218_._TOKEN_浪:1.0__SYM_礫_234_(f, _TOKEN_礫:1.0__SYM_礫_114_)
+                _TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_礫:1.0__SYM_礫_318_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_60_")
+                
+                _TOKEN_礫:1.0__SYM_礫_212_._TOKEN_礫:1.0__SYM_礫_166_({"_TOKEN_浪:1.0__SYM_礫_206_": f, "_TOKEN_礫:1.0__SYM_礫_60_": _TOKEN_礫:1.0__SYM_礫_60_, "_TOKEN_礫:1.0__SYM_礫_268_": _TOKEN_礫:1.0__SYM_礫_318_})
+                
+                if _TOKEN_礫:1.0__SYM_礫_60_ == "_TOKEN_礫:1.0__SYM_礫_233_":
+                    _TOKEN_礫:1.0__SYM_礫_241_ = _TOKEN_廓:1.0__SYM_廓_87_
+                _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_60_ == "_TOKEN_礫:1.0__SYM_礫_158_":
+                    _TOKEN_礫:1.0__SYM_礫_286_ = _TOKEN_廓:1.0__SYM_廓_68_
+                    _TOKEN_礫:1.0__SYM_礫_14_ = {"_TOKEN_浪:1.0__SYM_礫_206_": f, "_TOKEN_礫:1.0__SYM_礫_268_": _TOKEN_礫:1.0__SYM_礫_318_}
+                else:
+                    _TOKEN_礫:1.0__SYM_礫_286_ = _TOKEN_廓:1.0__SYM_廓_68_
+            _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_5_ as e:
+                _TOKEN_礫:1.0__SYM_礫_212_._TOKEN_礫:1.0__SYM_礫_166_({"_TOKEN_浪:1.0__SYM_礫_206_": f, "_TOKEN_礫:1.0__SYM_礫_60_": "_TOKEN_礫:1.0__SYM_礫_17_", "_TOKEN_礫:1.0__SYM_礫_17_": _TOKEN_礫:1.0__SYM_礫_292_(e)})
+                _TOKEN_礫:1.0__SYM_礫_286_ = _TOKEN_廓:1.0__SYM_廓_68_
+
+        if _TOKEN_礫:1.0__SYM_礫_136_ == _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_計:1.0__SYM_粋_1_:
+            if _TOKEN_礫:1.0__SYM_礫_286_:
+                return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_27_, "全ての式が妥当であることを確認しました。", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_}
+            _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_14_:
+                return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_12_, f"一部の式に反例が見つかりました: {_TOKEN_礫:1.0__SYM_礫_14_['_TOKEN_浪:1.0__SYM_礫_206_']}", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_, "_TOKEN_礫:1.0__SYM_礫_152_": _TOKEN_礫:1.0__SYM_礫_14_}
+            else:
+                return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_, "一部の式の妥当性を確認できませんでした。", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_}
+        
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_136_ == _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_計:1.0__SYM_粋_6_:
+            if _TOKEN_礫:1.0__SYM_礫_241_:
+                return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_27_, "少なくとも1つの式が妥当であることを確認しました。", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_}
+            else:
+                return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_12_, "妥当な式が見つかりませんでした。", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_}
+        
+        return _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_, "検証を完了できませんでした。", {"_TOKEN_礫:1.0__SYM_礫_212_": _TOKEN_礫:1.0__SYM_礫_212_}
+
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_232_(self, _TOKEN_礫:1.0__SYM_礫_177_: _TOKEN_廓:1.0__SYM_廓_73_) -> _TOKEN_廓:1.0__SYM_廓_37_[_TOKEN_廓:1.0__SYM_廓_25_[_TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_廓:1.0__SYM_廓_92_]]:
+        """ドメインとコンテキストに基づいて、有用な定理や公理をDBから提案する"""
+        _TOKEN_礫:1.0__SYM_礫_181_ = []
+        if _TOKEN_礫:1.0__SYM_礫_213_ self._TOKEN_計:1.0__SYM_礫_218_._TOKEN_計:1.0__SYM_礫_33_:
+            return _TOKEN_礫:1.0__SYM_礫_181_
+            
+// [metadata-stripped]
+        for _TOKEN_礫:1.0__SYM_礫_86_ in self._TOKEN_計:1.0__SYM_礫_218_._TOKEN_計:1.0__SYM_礫_33_._TOKEN_礫:1.0__SYM_礫_303_:
+            if _TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_105_") == _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_105_:
+// [metadata-stripped]
+                if any(_TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("id") in a for a in _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_):
+                    continue
+                
+// [metadata-stripped]
+                if _TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_18_") in ("_TOKEN_礫:1.0__SYM_礫_251_", "_TOKEN_礫:1.0__SYM_礫_235_", "_TOKEN_礫:1.0__SYM_礫_78_"):
+                    _TOKEN_礫:1.0__SYM_礫_181_._TOKEN_礫:1.0__SYM_礫_166_({
+                        "id": _TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("id"),
+                        "_TOKEN_礫:1.0__SYM_礫_184_": _TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_184_"),
+                        "_TOKEN_礫:1.0__SYM_礫_18_": _TOKEN_礫:1.0__SYM_礫_86_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_18_"),
+                        "_TOKEN_礫:1.0__SYM_礫_307_": 1.0 # 簡易スコア
+                    })
+        
+// [metadata-stripped]
+        return _TOKEN_礫:1.0__SYM_礫_181_[:5]
+
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_51_(self, _TOKEN_礫:1.0__SYM_礫_145_: _TOKEN_礫:1.0__SYM_礫_292_) -> _TOKEN_廓:1.0__SYM_廓_25_[_TOKEN_礫:1.0__SYM_礫_292_, _TOKEN_廓:1.0__SYM_廓_92_]:
+        _TOKEN_礫:1.0__SYM_礫_264_ = _TOKEN_礫:1.0__SYM_礫_121_._TOKEN_礫:1.0__SYM_礫_121_()
+        q = (_TOKEN_礫:1.0__SYM_礫_145_ or "")._TOKEN_礫:1.0__SYM_礫_284_()
+        _TOKEN_秘:1.0__SYM_礫_76_ = _TOKEN_秘:1.0__SYM_礫_271_(q) if _TOKEN_秘:1.0__SYM_礫_271_ else f"q_{_TOKEN_礫:1.0__SYM_礫_214_(_TOKEN_礫:1.0__SYM_礫_40_(q))}"
+        
+        _TOKEN_礫:1.0__SYM_礫_9_ = _TOKEN_廓:1.0__SYM_廓_76_(_TOKEN_礫:1.0__SYM_礫_57_=[], _TOKEN_礫:1.0__SYM_礫_221_=self._TOKEN_礫:1.0__SYM_礫_304_)
+        _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_317_(_TOKEN_礫:1.0__SYM_礫_143_: _TOKEN_礫:1.0__SYM_礫_292_, **kv):
+            _TOKEN_礫:1.0__SYM_礫_9_._TOKEN_礫:1.0__SYM_礫_57_._TOKEN_礫:1.0__SYM_礫_166_({"_TOKEN_礫:1.0__SYM_礫_143_": _TOKEN_礫:1.0__SYM_礫_143_, "_TOKEN_礫:1.0__SYM_礫_72_": _TOKEN_礫:1.0__SYM_礫_138_((_TOKEN_礫:1.0__SYM_礫_121_._TOKEN_礫:1.0__SYM_礫_121_()-_TOKEN_礫:1.0__SYM_礫_264_)*1000), **kv})
+
+        if _TOKEN_礫:1.0__SYM_礫_213_ q:
+            return _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_._TOKEN_礫:1.0__SYM_礫_48_, _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_="_TOKEN_廓:1.0__SYM_廓_66_ is _TOKEN_礫:1.0__SYM_礫_30_.")._TOKEN_礫:1.0__SYM_礫_276_()
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_227_ import _TOKEN_礫:1.0__SYM_礫_11_
+        _TOKEN_礫:1.0__SYM_礫_47_ = _TOKEN_礫:1.0__SYM_礫_11_(q)
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_] _TOKEN_廓:1.0__SYM_廓_41_ _TOKEN_礫:1.0__SYM_礫_31_: {_TOKEN_礫:1.0__SYM_礫_31_(_TOKEN_礫:1.0__SYM_礫_47_)}")
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_] _TOKEN_浪:1.0__SYM_礫_140_: {_TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, '_TOKEN_浪:1.0__SYM_礫_140_', '_TOKEN_廓:1.0__SYM_廓_52_')}")
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_] _TOKEN_礫:1.0__SYM_礫_109_ _TOKEN_礫:1.0__SYM_礫_46_: {_TOKEN_礫:1.0__SYM_礫_46_(_TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, '_TOKEN_礫:1.0__SYM_礫_109_', []))}")
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_] _TOKEN_礫:1.0__SYM_礫_136_ _TOKEN_礫:1.0__SYM_礫_15_: {_TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, '_TOKEN_礫:1.0__SYM_礫_136_', '_TOKEN_廓:1.0__SYM_廓_52_')}")
+
+        if _TOKEN_礫:1.0__SYM_礫_310_(_TOKEN_礫:1.0__SYM_礫_47_, _TOKEN_礫:1.0__SYM_礫_266_):
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(
+                _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_47_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_60_", "_TOKEN_礫:1.0__SYM_礫_7_"),
+                _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_,
+                _TOKEN_礫:1.0__SYM_礫_145_=q,
+                _TOKEN_礫:1.0__SYM_礫_110_="完結した全体式が確定できないため、推論を保留します。"
+            )
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_198_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_229_")
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_9_ = _TOKEN_礫:1.0__SYM_礫_9_
+            return _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_276_()
+// _TOKEN_計:0.8__SYM_HG_209_ [decoy-metadata]
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_204_ = _TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, "_TOKEN_浪:1.0__SYM_礫_140_", _TOKEN_廓:1.0__SYM_廓_1_)
+        _TOKEN_礫:1.0__SYM_礫_136_ = _TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, "_TOKEN_礫:1.0__SYM_礫_136_", _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_廓:1.0__SYM_廓_102_)
+        _TOKEN_礫:1.0__SYM_礫_38_ = _TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, "_TOKEN_礫:1.0__SYM_礫_129_", _TOKEN_廓:1.0__SYM_廓_14_._TOKEN_廓:1.0__SYM_廓_96_)
+        _TOKEN_礫:1.0__SYM_礫_109_ = _TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, "_TOKEN_礫:1.0__SYM_礫_109_", [])
+        
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_38_ == _TOKEN_廓:1.0__SYM_廓_14_._TOKEN_廓:1.0__SYM_廓_17_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_204_:
+            _TOKEN_礫:1.0__SYM_礫_204_ = q
+            _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_159_", _TOKEN_礫:1.0__SYM_礫_204_=_TOKEN_礫:1.0__SYM_礫_204_)
+        
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_204_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_109_:
+            _TOKEN_礫:1.0__SYM_礫_204_ = _TOKEN_礫:1.0__SYM_礫_109_[0]
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_浪:1.0__SYM_礫_187_", _TOKEN_礫:1.0__SYM_礫_204_=_TOKEN_礫:1.0__SYM_礫_204_)
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_116_ = _TOKEN_礫:1.0__SYM_礫_136_ in (_TOKEN_廓:1.0__SYM_廓_26_._TOKEN_計:1.0__SYM_粋_1_, _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_計:1.0__SYM_粋_6_, _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_廓:1.0__SYM_廓_48_)
+        _TOKEN_礫:1.0__SYM_礫_219_ = _TOKEN_礫:1.0__SYM_礫_116_ or _TOKEN_礫:1.0__SYM_礫_38_ == _TOKEN_廓:1.0__SYM_廓_14_._TOKEN_廓:1.0__SYM_廓_17_
+
+        if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_204_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_219_:
+            _TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(
+                _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_,
+                _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_,
+                _TOKEN_礫:1.0__SYM_礫_145_=q,
+                _TOKEN_礫:1.0__SYM_礫_110_="No _TOKEN_礫:1.0__SYM_礫_269_ _TOKEN_礫:1.0__SYM_礫_68_ _TOKEN_浪:1.0__SYM_礫_206_ or _TOKEN_礫:1.0__SYM_礫_53_ _TOKEN_礫:1.0__SYM_礫_145_ _TOKEN_礫:1.0__SYM_礫_84_. _TOKEN_廓:1.0__SYM_廓_33_ _TOKEN_礫:1.0__SYM_礫_178_ _TOKEN_礫:1.0__SYM_礫_254_ _TOKEN_礫:1.0__SYM_礫_231_."
+            )
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_9_ = _TOKEN_礫:1.0__SYM_礫_9_
+            return _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_276_()
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_316_", _TOKEN_礫:1.0__SYM_礫_204_=_TOKEN_礫:1.0__SYM_礫_204_, _TOKEN_礫:1.0__SYM_礫_136_=_TOKEN_礫:1.0__SYM_礫_136_)
+        
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_49_(self._TOKEN_計:1.0__SYM_礫_218_, '_TOKEN_計:1.0__SYM_礫_33_') _TOKEN_礫:1.0__SYM_礫_194_ self._TOKEN_計:1.0__SYM_礫_218_._TOKEN_計:1.0__SYM_礫_33_:
+            self._TOKEN_計:1.0__SYM_礫_218_._TOKEN_計:1.0__SYM_礫_33_._TOKEN_箱:1.0__SYM_礫_70_()
+            
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_59_ = q._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_83_", "&")._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_293_", "|")._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_179_", "~")
+        _TOKEN_礫:1.0__SYM_礫_59_ = _TOKEN_礫:1.0__SYM_礫_59_._TOKEN_礫:1.0__SYM_礫_210_(r"\to", "->")._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_141_", "->")._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_252_", "<->")
+        _TOKEN_礫:1.0__SYM_礫_59_ = _TOKEN_礫:1.0__SYM_礫_59_._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_39_", "[]")._TOKEN_礫:1.0__SYM_礫_210_(r"\_TOKEN_礫:1.0__SYM_礫_299_", "<>")
+        
+        _TOKEN_礫:1.0__SYM_礫_177_ = _TOKEN_礫:1.0__SYM_礫_144_(_TOKEN_礫:1.0__SYM_礫_59_, self._TOKEN_礫:1.0__SYM_礫_302_)
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_46_ _TOKEN_礫:1.0__SYM_礫_191_. _TOKEN_廓:1.0__SYM_廓_6_: {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_} (_TOKEN_礫:1.0__SYM_礫_31_: {_TOKEN_礫:1.0__SYM_礫_31_(_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_)})")
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_46_ _TOKEN_礫:1.0__SYM_礫_114_ (init): {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_}")
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_314_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_21_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_314_", [])
+        if _TOKEN_礫:1.0__SYM_礫_314_:
+            _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_90_ {_TOKEN_礫:1.0__SYM_礫_46_(_TOKEN_礫:1.0__SYM_礫_314_)} _TOKEN_礫:1.0__SYM_礫_16_ _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_廓:1.0__SYM_廓_71_")
+            for _TOKEN_浪:1.0__SYM_礫_206_ in _TOKEN_礫:1.0__SYM_礫_314_:
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_21_._TOKEN_礫:1.0__SYM_礫_166_({
+                    "_TOKEN_礫:1.0__SYM_礫_18_": "_TOKEN_礫:1.0__SYM_礫_156_",
+                    "_TOKEN_浪:1.0__SYM_礫_206_": _TOKEN_浪:1.0__SYM_礫_206_,
+                    "_TOKEN_礫:1.0__SYM_礫_34_": 1.0,
+                    "_TOKEN_礫:1.0__SYM_礫_101_": "_TOKEN_礫:1.0__SYM_礫_196_"
+                })
+                if _TOKEN_浪:1.0__SYM_礫_206_ _TOKEN_礫:1.0__SYM_礫_213_ in _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_139_:
+                    _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_139_._TOKEN_礫:1.0__SYM_礫_166_(_TOKEN_浪:1.0__SYM_礫_206_)
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_浪:1.0__SYM_礫_140_:
+            _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_浪:1.0__SYM_礫_140_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_浪:1.0__SYM_礫_140_
+            _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_計:1.0__SYM_粋_2_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_浪:1.0__SYM_礫_140_ _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_47_: {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_浪:1.0__SYM_礫_140_}")
+
+        if _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_105_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_105_ != "_TOKEN_礫:1.0__SYM_礫_71_":
+            _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_105_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_105_
+            _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_計:1.0__SYM_粋_2_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_105_ _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_47_: {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_105_}")
+
+        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_136_ = _TOKEN_礫:1.0__SYM_礫_136_ # 意図を _TOKEN_廓:1.0__SYM_廓_46_ に転記
+        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_129_ = _TOKEN_計:1.0__SYM_粋_5_(_TOKEN_礫:1.0__SYM_礫_47_, "_TOKEN_礫:1.0__SYM_礫_129_", _TOKEN_廓:1.0__SYM_廓_14_._TOKEN_廓:1.0__SYM_廓_96_)
+        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_109_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_109_ # 候補を _TOKEN_廓:1.0__SYM_廓_46_ に転記
+        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_230_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_230_ # 決定打：論理変数リストを転記
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_261_ = _TOKEN_礫:1.0__SYM_礫_47_._TOKEN_礫:1.0__SYM_礫_114_ or []
+        if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_261_:
+            try:
+                _TOKEN_礫:1.0__SYM_礫_211_ _TOKEN_礫:1.0__SYM_礫_146_._TOKEN_礫:1.0__SYM_礫_227_ import _TOKEN_礫:1.0__SYM_礫_55_
+                _TOKEN_礫:1.0__SYM_礫_261_ = _TOKEN_礫:1.0__SYM_礫_55_(q)
+                _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_47_ _TOKEN_礫:1.0__SYM_礫_114_ _TOKEN_礫:1.0__SYM_礫_23_: {_TOKEN_礫:1.0__SYM_礫_261_}")
+            _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_38_:
+                _TOKEN_礫:1.0__SYM_礫_217_
+
+        if _TOKEN_礫:1.0__SYM_礫_261_:
+            _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_82_ _TOKEN_礫:1.0__SYM_礫_114_: {_TOKEN_礫:1.0__SYM_礫_261_}")
+            _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_ = _TOKEN_礫:1.0__SYM_礫_113_(_TOKEN_計:1.0__SYM_粋_4_((_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_ or []) + _TOKEN_礫:1.0__SYM_礫_261_))
+            
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_46_ _TOKEN_礫:1.0__SYM_礫_114_ (final): {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_}")
+        
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_105_ == "_TOKEN_礫:1.0__SYM_礫_142_" _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_114_:
+            if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_:
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_
+                _TOKEN_礫:1.0__SYM_礫_176_("[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] No _TOKEN_礫:1.0__SYM_礫_62_ _TOKEN_礫:1.0__SYM_礫_114_ _TOKEN_礫:1.0__SYM_礫_84_. _TOKEN_廓:1.0__SYM_廓_74_ to _TOKEN_廓:1.0__SYM_廓_53_ for _TOKEN_廓:1.0__SYM_廓_7_ K _TOKEN_計:1.0__SYM_礫_222_.")
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_:
+            _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_
+        
+        _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_236_", _TOKEN_礫:1.0__SYM_礫_63_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_63_, _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_)
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_80_ _TOKEN_計:1.0__SYM_礫_256_. _TOKEN_廓:1.0__SYM_廓_6_: {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_}")
+        _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_19_ _TOKEN_廓:1.0__SYM_廓_59_] _TOKEN_廓:1.0__SYM_廓_15_ _TOKEN_礫:1.0__SYM_礫_178_: {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_} _TOKEN_礫:1.0__SYM_礫_213_ in ({_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_}, {_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_}) -> {_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ _TOKEN_礫:1.0__SYM_礫_213_ in (_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_, _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_)}")
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ _TOKEN_礫:1.0__SYM_礫_213_ in (_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_, _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_):
+            _TOKEN_礫:1.0__SYM_礫_177_ = self._TOKEN_計:1.0__SYM_礫_256_._TOKEN_礫:1.0__SYM_礫_1_(_TOKEN_礫:1.0__SYM_礫_177_, self._TOKEN_礫:1.0__SYM_礫_197_, self._TOKEN_計:1.0__SYM_礫_218_)
+            
+// [metadata-stripped]
+            if "_TOKEN_礫:1.0__SYM_礫_215_" in _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_:
+                _TOKEN_礫:1.0__SYM_礫_215_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_215_"]
+                _TOKEN_礫:1.0__SYM_礫_9_._TOKEN_礫:1.0__SYM_礫_221_["_TOKEN_礫:1.0__SYM_礫_238_"] = _TOKEN_礫:1.0__SYM_礫_215_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_85_", "?")
+                if "_TOKEN_礫:1.0__SYM_礫_75_" in _TOKEN_礫:1.0__SYM_礫_215_:
+                    _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_100_", _TOKEN_礫:1.0__SYM_礫_226_=_TOKEN_礫:1.0__SYM_礫_215_["_TOKEN_礫:1.0__SYM_礫_75_"])
+            
+            _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_浪:1.0__SYM_礫_244_", _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_)
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_:
+            try:
+                _TOKEN_礫:1.0__SYM_礫_177_ = _TOKEN_浪:1.0__SYM_礫_188_(_TOKEN_礫:1.0__SYM_礫_177_)
+                _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_277_", _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_)
+            _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_5_ as e:
+                _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_285_", _TOKEN_礫:1.0__SYM_礫_17_=_TOKEN_礫:1.0__SYM_礫_292_(e))
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ in (_TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_, _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_):
+            try:
+                _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_90_")
+                _TOKEN_礫:1.0__SYM_礫_279_ = _TOKEN_礫:1.0__SYM_礫_44_(_TOKEN_礫:1.0__SYM_礫_177_)
+                _TOKEN_礫:1.0__SYM_礫_92_ = self._TOKEN_礫:1.0__SYM_礫_22_._TOKEN_礫:1.0__SYM_礫_157_(_TOKEN_礫:1.0__SYM_礫_279_, _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_230_)
+                
+                _TOKEN_礫:1.0__SYM_礫_199_ = _TOKEN_礫:1.0__SYM_礫_92_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_28_")
+                _TOKEN_礫:1.0__SYM_礫_311_ = _TOKEN_礫:1.0__SYM_礫_92_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_311_", [])
+                
+                if _TOKEN_礫:1.0__SYM_礫_199_:
+// [metadata-stripped]
+                    if _TOKEN_礫:1.0__SYM_礫_306_(r is _TOKEN_廓:1.0__SYM_廓_87_ for r in _TOKEN_礫:1.0__SYM_礫_199_):
+                        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_27_
+                        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_248_["_TOKEN_礫:1.0__SYM_礫_73_"] = "_TOKEN_浪:1.0__SYM_礫_262_"
+                    else:
+// [metadata-stripped]
+                        for i, r in _TOKEN_礫:1.0__SYM_礫_107_(_TOKEN_礫:1.0__SYM_礫_199_):
+                            if r is _TOKEN_廓:1.0__SYM_廓_68_:
+// [metadata-stripped]
+                                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_12_
+                                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_248_["_TOKEN_礫:1.0__SYM_礫_73_"] = "_TOKEN_礫:1.0__SYM_礫_225_"
+                                if i < _TOKEN_礫:1.0__SYM_礫_46_(_TOKEN_礫:1.0__SYM_礫_311_):
+                                    _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_43_._TOKEN_礫:1.0__SYM_礫_166_(_TOKEN_礫:1.0__SYM_礫_311_[i])
+                                break
+                
+                _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_296_", _TOKEN_礫:1.0__SYM_礫_60_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_)
+            _TOKEN_礫:1.0__SYM_礫_103_ _TOKEN_廓:1.0__SYM_廓_5_ as e:
+                _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_173_", _TOKEN_礫:1.0__SYM_礫_17_=_TOKEN_礫:1.0__SYM_礫_292_(e))
+
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_302_._TOKEN_礫:1.0__SYM_礫_216_(_TOKEN_礫:1.0__SYM_礫_177_)
+        
+// [metadata-stripped]
+        _TOKEN_浪:1.0__SYM_礫_259_ = self._TOKEN_浪:1.0__SYM_礫_36_._TOKEN_礫:1.0__SYM_礫_80_(_TOKEN_礫:1.0__SYM_礫_177_, self._TOKEN_礫:1.0__SYM_礫_302_)
+        _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_245_", _TOKEN_礫:1.0__SYM_礫_268_=_TOKEN_浪:1.0__SYM_礫_259_)
+
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_273_._TOKEN_礫:1.0__SYM_礫_93_(_TOKEN_礫:1.0__SYM_礫_177_)
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_237_"):
+            _TOKEN_礫:1.0__SYM_礫_317_("_TOKEN_礫:1.0__SYM_礫_52_", _TOKEN_礫:1.0__SYM_礫_91_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_171_"))
+
+// _TOKEN_礫:0.8__SYM_HV_491_ [decoy-metadata]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_177_ = _TOKEN_礫:1.0__SYM_礫_315_(_TOKEN_礫:1.0__SYM_礫_177_)
+
+// [metadata-stripped]
+        self._TOKEN_礫:1.0__SYM_礫_220_(_TOKEN_礫:1.0__SYM_礫_177_)
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_111_ = self._TOKEN_計:1.0__SYM_礫_228_._TOKEN_礫:1.0__SYM_礫_67_(_TOKEN_礫:1.0__SYM_礫_177_)
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_195_ = self._TOKEN_計:1.0__SYM_礫_119_._TOKEN_浪:1.0__SYM_礫_234_(_TOKEN_礫:1.0__SYM_礫_111_, _TOKEN_礫:1.0__SYM_礫_177_)
+        
+        if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_195_:
+            _TOKEN_計:1.0__SYM_礫_2_ = self._TOKEN_計:1.0__SYM_礫_228_._TOKEN_計:1.0__SYM_礫_175_(_TOKEN_礫:1.0__SYM_礫_111_)
+        else:
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_176_(f"[_TOKEN_廓:1.0__SYM_廓_34_] _TOKEN_廓:1.0__SYM_廓_55_ _TOKEN_廓:1.0__SYM_廓_18_ _TOKEN_礫:1.0__SYM_礫_152_: {_TOKEN_礫:1.0__SYM_礫_195_}")
+            _TOKEN_浪:1.0__SYM_礫_275_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_浪:1.0__SYM_礫_239_ or _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_浪:1.0__SYM_礫_140_
+            _TOKEN_計:1.0__SYM_礫_2_ = f"[{_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_._TOKEN_礫:1.0__SYM_礫_48_._TOKEN_計:1.0__SYM_礫_174_()}] _TOKEN_廓:1.0__SYM_廓_23_: {_TOKEN_浪:1.0__SYM_礫_275_}. _TOKEN_廓:1.0__SYM_廓_9_ _TOKEN_礫:1.0__SYM_礫_201_ for _TOKEN_礫:1.0__SYM_礫_223_."
+// _TOKEN_計:0.1__SYM_MG_765_ [decoy-metadata]
+
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_27_:
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_="_TOKEN_礫:1.0__SYM_礫_233_", _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_=_TOKEN_計:1.0__SYM_礫_2_)
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_290_ = _TOKEN_廓:1.0__SYM_廓_106_(_TOKEN_礫:1.0__SYM_礫_73_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_248_._TOKEN_計:1.0__SYM_粋_7_('_TOKEN_礫:1.0__SYM_礫_73_', '_TOKEN_礫:1.0__SYM_礫_108_'), _TOKEN_礫:1.0__SYM_礫_61_=["_TOKEN_廓:1.0__SYM_廓_100_ _TOKEN_礫:1.0__SYM_礫_190_ _TOKEN_礫:1.0__SYM_礫_68_ _TOKEN_礫:1.0__SYM_礫_42_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_240_ _TOKEN_礫:1.0__SYM_礫_265_."])
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_12_:
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_104_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_43_[0] if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_43_ else _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_305_", {})
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_="_TOKEN_礫:1.0__SYM_礫_158_", _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_=_TOKEN_計:1.0__SYM_礫_2_)
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_37_ = _TOKEN_廓:1.0__SYM_廓_94_(_TOKEN_礫:1.0__SYM_礫_73_=_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_248_._TOKEN_計:1.0__SYM_粋_7_('_TOKEN_礫:1.0__SYM_礫_73_', '_TOKEN_礫:1.0__SYM_礫_108_'), _TOKEN_礫:1.0__SYM_礫_41_=_TOKEN_礫:1.0__SYM_礫_104_)
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_91_:
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_="_TOKEN_礫:1.0__SYM_礫_7_", _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_=_TOKEN_計:1.0__SYM_礫_2_)
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_198_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_229_", "_TOKEN_廓:1.0__SYM_廓_98_ _TOKEN_礫:1.0__SYM_礫_280_.")
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_4_:
+             _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_="_TOKEN_計:1.0__SYM_礫_153_", _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_=_TOKEN_計:1.0__SYM_礫_2_)
+             _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_198_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_69_", "_TOKEN_廓:1.0__SYM_廓_81_ _TOKEN_礫:1.0__SYM_礫_106_ _TOKEN_礫:1.0__SYM_礫_186_.")
+        else:
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_200_ = _TOKEN_廓:1.0__SYM_廓_57_(_TOKEN_礫:1.0__SYM_礫_60_="_TOKEN_計:1.0__SYM_礫_153_", _TOKEN_秘:1.0__SYM_礫_76_=_TOKEN_秘:1.0__SYM_礫_76_, _TOKEN_礫:1.0__SYM_礫_145_=q, _TOKEN_礫:1.0__SYM_礫_110_=_TOKEN_計:1.0__SYM_礫_2_)
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_198_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_125_", "_TOKEN_廓:1.0__SYM_廓_65_ _TOKEN_礫:1.0__SYM_礫_98_ _TOKEN_礫:1.0__SYM_礫_122_.")
+            
+            _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_260_ = {
+                "_TOKEN_礫:1.0__SYM_礫_136_": _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_136_._TOKEN_礫:1.0__SYM_礫_48_,
+                "_TOKEN_礫:1.0__SYM_礫_308_": _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_297_", []),
+                "_TOKEN_礫:1.0__SYM_礫_34_": _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_34_", 0.0)
+            }
+
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_181_ = self._TOKEN_礫:1.0__SYM_礫_232_(_TOKEN_礫:1.0__SYM_礫_177_)
+        _TOKEN_礫:1.0__SYM_礫_123_ = _TOKEN_礫:1.0__SYM_礫_200_._TOKEN_礫:1.0__SYM_礫_276_()
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_123_["_TOKEN_礫:1.0__SYM_礫_111_"] = _TOKEN_礫:1.0__SYM_礫_111_
+        if _TOKEN_礫:1.0__SYM_礫_195_:
+            _TOKEN_礫:1.0__SYM_礫_123_["_TOKEN_礫:1.0__SYM_礫_195_"] = _TOKEN_礫:1.0__SYM_礫_195_
+
+        if _TOKEN_礫:1.0__SYM_礫_181_:
+            _TOKEN_礫:1.0__SYM_礫_123_["_TOKEN_礫:1.0__SYM_礫_12_"] = _TOKEN_礫:1.0__SYM_礫_181_
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_134_ = _TOKEN_礫:1.0__SYM_礫_123_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_81_", [])
+            for s in _TOKEN_礫:1.0__SYM_礫_181_[:3]:
+                _TOKEN_礫:1.0__SYM_礫_164_ = f"_TOKEN_廓:1.0__SYM_廓_54_ {s['_TOKEN_礫:1.0__SYM_礫_18_']}: {s['id']}"
+                if _TOKEN_礫:1.0__SYM_礫_164_ _TOKEN_礫:1.0__SYM_礫_213_ in _TOKEN_礫:1.0__SYM_礫_134_:
+                    _TOKEN_礫:1.0__SYM_礫_134_._TOKEN_礫:1.0__SYM_礫_166_(_TOKEN_礫:1.0__SYM_礫_164_)
+            _TOKEN_礫:1.0__SYM_礫_123_["_TOKEN_礫:1.0__SYM_礫_81_"] = _TOKEN_礫:1.0__SYM_礫_134_
+
+        return _TOKEN_礫:1.0__SYM_礫_123_
+
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_65_(self, _TOKEN_礫:1.0__SYM_礫_177_: _TOKEN_廓:1.0__SYM_廓_73_) -> _TOKEN_礫:1.0__SYM_礫_294_:
+        """Verantyx流: 根拠の厚みを計算する"""
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_307_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_34_", 0.0)
+        
+        if _TOKEN_礫:1.0__SYM_礫_307_ > 0:
+            return _TOKEN_礫:1.0__SYM_礫_160_(_TOKEN_礫:1.0__SYM_礫_307_, 1.0)
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _TOKEN_粋:0.3__SYM_BC_764_ [decoy-metadata]
+        _TOKEN_礫:1.0__SYM_礫_66_ = [ev._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_34_", 0.0) for ev in _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_21_ if ev._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_18_") == "_TOKEN_礫:1.0__SYM_礫_132_"]
+        if _TOKEN_礫:1.0__SYM_礫_66_:
+            _TOKEN_礫:1.0__SYM_礫_307_ += _TOKEN_礫:1.0__SYM_礫_96_(_TOKEN_礫:1.0__SYM_礫_66_)
+            
+// [metadata-stripped]
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_73_ = _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_248_._TOKEN_計:1.0__SYM_粋_7_("_TOKEN_礫:1.0__SYM_礫_73_")
+        if _TOKEN_礫:1.0__SYM_礫_73_ in ("_TOKEN_礫:1.0__SYM_礫_117_", "_TOKEN_礫:1.0__SYM_礫_19_", "_TOKEN_計:1.0__SYM_礫_224_"):
+            _TOKEN_礫:1.0__SYM_礫_307_ += 0.3
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_73_ == "_TOKEN_礫:1.0__SYM_礫_130_":
+            _TOKEN_礫:1.0__SYM_礫_307_ += 0.1
+            
+// [metadata-stripped]
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_136_ != _TOKEN_廓:1.0__SYM_廓_26_._TOKEN_廓:1.0__SYM_廓_102_:
+// [metadata-stripped]
+             if "_TOKEN_計:1.0__SYM_粋_3_" in _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_ or _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_253_:
+                 _TOKEN_礫:1.0__SYM_礫_307_ += 0.2
+
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_213_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_43_ _TOKEN_礫:1.0__SYM_礫_194_ _TOKEN_礫:1.0__SYM_礫_73_ _TOKEN_礫:1.0__SYM_礫_213_ in ("_TOKEN_礫:1.0__SYM_礫_117_", "_TOKEN_礫:1.0__SYM_礫_19_"):
+// [metadata-stripped]
+            _TOKEN_礫:1.0__SYM_礫_307_ -= 0.1
+
+        return _TOKEN_礫:1.0__SYM_礫_160_(_TOKEN_礫:1.0__SYM_礫_96_(_TOKEN_礫:1.0__SYM_礫_307_, 0.0), 1.0)
+
+    _TOKEN_礫:1.0__SYM_礫_274_ _TOKEN_礫:1.0__SYM_礫_220_(self, _TOKEN_礫:1.0__SYM_礫_177_: _TOKEN_廓:1.0__SYM_廓_73_):
+        """計算された_TOKEN_廓:1.0__SYM_廓_81_と閾値に基づいて最終ステータスを決定する"""
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        
+        _TOKEN_礫:1.0__SYM_礫_34_ = self._TOKEN_礫:1.0__SYM_礫_65_(_TOKEN_礫:1.0__SYM_礫_177_)
+        _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_34_"] = _TOKEN_礫:1.0__SYM_礫_34_
+        
+// [metadata-stripped]
+        _TOKEN_礫:1.0__SYM_礫_192_ = self._TOKEN_箱:1.0__SYM_礫_250_._TOKEN_計:1.0__SYM_粋_8_(_TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_136_)
+        
+// [metadata-stripped]
+        if _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_廓:1.0__SYM_廓_27_:
+// [metadata-stripped]
+            if _TOKEN_礫:1.0__SYM_礫_34_ < _TOKEN_礫:1.0__SYM_礫_192_["_TOKEN_礫:1.0__SYM_礫_233_"]:
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ = _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_94_"] = "_TOKEN_廓:1.0__SYM_廓_81_ _TOKEN_礫:1.0__SYM_礫_106_ _TOKEN_廓:1.0__SYM_廓_27_ _TOKEN_礫:1.0__SYM_礫_186_"
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_297_"] = ["_TOKEN_礫:1.0__SYM_礫_246_ _TOKEN_浪:1.0__SYM_礫_183_"]
+        
+        _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_60_ == _TOKEN_廓:1.0__SYM_廓_24_._TOKEN_計:1.0__SYM_廓_93_:
+// [metadata-stripped]
+            if _TOKEN_礫:1.0__SYM_礫_34_ >= _TOKEN_礫:1.0__SYM_礫_192_["_TOKEN_礫:1.0__SYM_礫_233_"]:
+// [metadata-stripped]
+                _TOKEN_礫:1.0__SYM_礫_217_ 
+            _TOKEN_浪:1.0__SYM_礫_4_ _TOKEN_礫:1.0__SYM_礫_34_ < _TOKEN_礫:1.0__SYM_礫_192_["_TOKEN_礫:1.0__SYM_礫_131_"]:
+// [metadata-stripped]
+// [metadata-stripped]
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_112_"] = _TOKEN_廓:1.0__SYM_廓_87_
+                _TOKEN_礫:1.0__SYM_礫_177_._TOKEN_礫:1.0__SYM_礫_208_["_TOKEN_礫:1.0__SYM_礫_69_"] = "_TOKEN_廓:1.0__SYM_廓_81_ _TOKEN_礫:1.0__SYM_礫_106_ _TOKEN_廓:1.0__SYM_廓_53_ _TOKEN_礫:1.0__SYM_礫_186_"
+                
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,156 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E6738D97 ver:1778159681
+// ⚠️ One-time schema — expires after response
+
+_ID_霜:1.0___jcross_霜_27__ _ID_霜:1.0___jcross_霜_72__ _ID_霜:1.0___jcross_霜_82__ort _ID_霜:1.0___jcross_霜_78__
+_ID_霜:1.0___jcross_霜_27__ _ID_霜:1.0___jcross_霜_31__ _ID_霜:1.0___jcross_霜_82__ort _ID_霜:1.0___jcross_霜_18__
+_ID_霜:1.0___jcross_霜_27__ _ID_霜:1.0___jcross_霜_56__ _ID_霜:1.0___jcross_霜_82__ort _ID_廬:1.0___jcross_廬_11__, _ID_廬:1.0___jcross_廬_3__, _ID_廬:1.0___jcross_廬_24__, _ID_廬:1.0___jcross_廬_26__
+
+// [metadata-stripped]
+@_ID_霜:1.0___jcross_霜_18__(_ID_霜:1.0___jcross_霜_12__=_ID_廬:1.0___jcross_廬_10__)
+class _ID_廬:1.0___jcross_廬_31__:
+    op: _ID_霜:1.0___jcross_霜_73__  # "var", "_ID_霜:1.0___jcross_霜_70__", "_ID_霜:1.0___jcross_霜_19__", "or", "_ID_霜:1.0___jcross_霜_82__", "_ID_泳:1.0___jcross_霜_42__"
+    a: _ID_廬:1.0___jcross_廬_3__[_ID_廬:1.0___jcross_廬_31__] = _ID_廬:1.0___jcross_廬_30__
+// _ID_紬:0.1___jcross_VM_887__ [decoy-metadata]
+    b: _ID_廬:1.0___jcross_廬_3__[_ID_廬:1.0___jcross_廬_31__] = _ID_廬:1.0___jcross_廬_30__
+    _ID_霜:1.0___jcross_霜_62__: _ID_廬:1.0___jcross_廬_3__[_ID_霜:1.0___jcross_霜_73__] = _ID_廬:1.0___jcross_廬_30__
+
+_ID_霜:1.0___jcross_霜_10__ _ID_廬:1.0___jcross_廬_25__(_ID_霜:1.0___jcross_霜_62__: _ID_霜:1.0___jcross_霜_73__) -> _ID_廬:1.0___jcross_廬_31__:
+    return _ID_廬:1.0___jcross_廬_31__(op="var", _ID_霜:1.0___jcross_霜_62__=_ID_霜:1.0___jcross_霜_62__)
+
+_ID_霜:1.0___jcross_霜_10__ _ID_廬:1.0___jcross_廬_17__(x: _ID_廬:1.0___jcross_廬_31__) -> _ID_廬:1.0___jcross_廬_31__:
+    return _ID_廬:1.0___jcross_廬_31__(op="_ID_霜:1.0___jcross_霜_70__", a=x)
+
+_ID_霜:1.0___jcross_霜_10__ _ID_廬:1.0___jcross_廬_13__(a: _ID_廬:1.0___jcross_廬_31__, b: _ID_廬:1.0___jcross_廬_31__) -> _ID_廬:1.0___jcross_廬_31__:
+    return _ID_廬:1.0___jcross_廬_31__(op="_ID_霜:1.0___jcross_霜_19__", a=a, b=b)
+// _ID_泳:0.4___jcross_BE_772__ [decoy-metadata]
+
+_ID_霜:1.0___jcross_霜_10__ Or(a: _ID_廬:1.0___jcross_廬_31__, b: _ID_廬:1.0___jcross_廬_31__) -> _ID_廬:1.0___jcross_廬_31__:
+    return _ID_廬:1.0___jcross_廬_31__(op="or", a=a, b=b)
+
+_ID_霜:1.0___jcross_霜_10__ _ID_廬:1.0___jcross_廬_28__(a: _ID_廬:1.0___jcross_廬_31__, b: _ID_廬:1.0___jcross_廬_31__) -> _ID_廬:1.0___jcross_廬_31__:
+    return _ID_廬:1.0___jcross_廬_31__(op="_ID_霜:1.0___jcross_霜_82__", a=a, b=b)
+
+_ID_霜:1.0___jcross_霜_10__ _ID_廬:1.0___jcross_廬_9__(a: _ID_廬:1.0___jcross_廬_31__, b: _ID_廬:1.0___jcross_廬_31__) -> _ID_廬:1.0___jcross_廬_31__:
+// _ID_紬:0.8___jcross_DD_534__ [decoy-metadata]
+    return _ID_廬:1.0___jcross_廬_31__(op="_ID_泳:1.0___jcross_霜_42__", a=a, b=b)
+
+// [metadata-stripped]
+_ID_廬:1.0___jcross_廬_20__ = {
+    "¬": "_ID_廬:1.0___jcross_廬_21__", "~": "_ID_廬:1.0___jcross_廬_21__", "!": "_ID_廬:1.0___jcross_廬_21__",
+    "∧": "_ID_廬:1.0___jcross_廬_1__", "&": "_ID_廬:1.0___jcross_廬_1__",
+    "∨": "OR",  "|": "OR",
+    "→": "_ID_廬:1.0___jcross_廬_18__", "->": "_ID_廬:1.0___jcross_廬_18__",
+    "↔": "_ID_廬:1.0___jcross_廬_16__", "<->": "_ID_廬:1.0___jcross_廬_16__",
+    "(": "LP", ")": "RP",
+}
+
+_ID_霜:1.0___jcross_霜_10__ _ID_暗:1.0___jcross_霜_37__(s: _ID_霜:1.0___jcross_霜_73__) -> _ID_廬:1.0___jcross_廬_11__[_ID_霜:1.0___jcross_霜_73__]:
+// [metadata-stripped]
+    s = s._ID_霜:1.0___jcross_霜_80__("<->", " ↔ ")._ID_霜:1.0___jcross_霜_80__("->", " → ")
+// [metadata-stripped]
+    _ID_霜:1.0___jcross_霜_33__ = []
+    i = 0
+    while i < _ID_霜:1.0___jcross_霜_63__(s):
+        ch = s[i]
+        if ch._ID_霜:1.0___jcross_霜_66__():
+            i += 1
+            continue
+        if ch in ("(", ")"):
+            _ID_霜:1.0___jcross_霜_33__._ID_霜:1.0___jcross_霜_58__(ch); i += 1; continue
+// [metadata-stripped]
+// _ID_法:0.5___jcross_EZ_456__ [decoy-metadata]
+        if ch in _ID_廬:1.0___jcross_廬_20__:
+            _ID_霜:1.0___jcross_霜_33__._ID_霜:1.0___jcross_霜_58__(_ID_廬:1.0___jcross_廬_20__[ch]); i += 1; continue
+// [metadata-stripped]
+        j = i
+        while j < _ID_霜:1.0___jcross_霜_63__(s) _ID_霜:1.0___jcross_霜_19__ (s[j]._ID_霜:1.0___jcross_霜_11__() or s[j] in ("_", ":")):
+            j += 1
+        if j == i:
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+            _ID_霜:1.0___jcross_霜_25__ _ID_廬:1.0___jcross_廬_23__(f"_ID_廬:1.0___jcross_廬_27__ _ID_霜:1.0___jcross_霜_7__ at {i}: {_ID_霜:1.0___jcross_霜_32__(ch)}")
+        _ID_霜:1.0___jcross_霜_33__._ID_霜:1.0___jcross_霜_58__("_ID_廬:1.0___jcross_廬_2__:" + s[i:j])
+        i = j
+    return _ID_霜:1.0___jcross_霜_33__
+
+// [metadata-stripped]
+_ID_廬:1.0___jcross_廬_22__ = {
+    "_ID_廬:1.0___jcross_廬_16__": 10,
+    "_ID_廬:1.0___jcross_廬_18__": 20,
+    "OR":  30,
+    "_ID_廬:1.0___jcross_廬_1__": 40,
+    "_ID_廬:1.0___jcross_廬_21__": 50,
+}
+_ID_廬:1.0___jcross_廬_15__ = {"_ID_廬:1.0___jcross_廬_18__", "_ID_廬:1.0___jcross_廬_16__"}  # _ID_霜:1.0___jcross_霜_26__ as _ID_霜:1.0___jcross_霜_6__-_ID_霜:1.0___jcross_霜_67__ for _ID_霜:1.0___jcross_霜_41__
+
+class _ID_法:1.0___jcross_廬_29__:
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_21__(self, _ID_暗:1.0___jcross_霜_35__: _ID_廬:1.0___jcross_廬_11__[_ID_霜:1.0___jcross_霜_73__]):
+        self._ID_霜:1.0___jcross_霜_34__ = _ID_暗:1.0___jcross_霜_35__
+        self._ID_霜:1.0___jcross_霜_57__ = 0
+
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_76__(self) -> _ID_廬:1.0___jcross_廬_3__[_ID_霜:1.0___jcross_霜_73__]:
+        return self._ID_霜:1.0___jcross_霜_34__[self._ID_霜:1.0___jcross_霜_57__] if self._ID_霜:1.0___jcross_霜_57__ < _ID_霜:1.0___jcross_霜_63__(self._ID_霜:1.0___jcross_霜_34__) else _ID_廬:1.0___jcross_廬_30__
+
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_17__(self) -> _ID_霜:1.0___jcross_霜_73__:
+        t = self._ID_霜:1.0___jcross_霜_76__()
+        if t: self._ID_霜:1.0___jcross_霜_57__ += 1
+        return t
+
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_39__(self) -> _ID_廬:1.0___jcross_廬_31__:
+        t = self._ID_霜:1.0___jcross_霜_17__()
+        if _ID_霜:1.0___jcross_霜_70__ t: _ID_霜:1.0___jcross_霜_25__ _ID_廬:1.0___jcross_廬_23__("_ID_廬:1.0___jcross_廬_27__ _ID_廬:1.0___jcross_廬_7__")
+        if t == "_ID_廬:1.0___jcross_廬_21__":
+            return _ID_廬:1.0___jcross_廬_17__(self._ID_霜:1.0___jcross_霜_14__(_ID_廬:1.0___jcross_廬_22__["_ID_廬:1.0___jcross_廬_21__"]))
+        if t == "LP":
+            e = self._ID_霜:1.0___jcross_霜_14__(0)
+            if self._ID_霜:1.0___jcross_霜_17__() != "RP":
+                _ID_霜:1.0___jcross_霜_25__ _ID_廬:1.0___jcross_廬_23__("_ID_廬:1.0___jcross_廬_12__ )")
+            return e
+        if t._ID_霜:1.0___jcross_霜_51__("_ID_廬:1.0___jcross_廬_2__:"):
+// _ID_霜:0.6___jcross_VV_339__ [decoy-metadata]
+            return _ID_廬:1.0___jcross_廬_25__(t[4:])
+        _ID_霜:1.0___jcross_霜_25__ _ID_廬:1.0___jcross_廬_23__(f"_ID_廬:1.0___jcross_廬_27__ _ID_暗:1.0___jcross_霜_61__: {t}")
+
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_14__(self, _ID_霜:1.0___jcross_霜_77__: _ID_霜:1.0___jcross_霜_2__) -> _ID_廬:1.0___jcross_廬_31__:
+        _ID_霜:1.0___jcross_霜_81__ = self._ID_霜:1.0___jcross_霜_39__()
+        while _ID_廬:1.0___jcross_廬_10__:
+            k = self._ID_霜:1.0___jcross_霜_76__()
+            if _ID_霜:1.0___jcross_霜_70__ k or k _ID_霜:1.0___jcross_霜_70__ in _ID_廬:1.0___jcross_廬_22__:
+                break
+            
+// [metadata-stripped]
+            _ID_霜:1.0___jcross_霜_23__ = _ID_廬:1.0___jcross_廬_22__[k]
+            if _ID_霜:1.0___jcross_霜_23__ < _ID_霜:1.0___jcross_霜_77__:
+                break
+            
+            self._ID_霜:1.0___jcross_霜_17__() # _ID_霜:1.0___jcross_霜_43__ op
+            _ID_霜:1.0___jcross_霜_44__ = _ID_霜:1.0___jcross_霜_23__ + (0 if k in _ID_廬:1.0___jcross_廬_15__ else 1)
+            _ID_霜:1.0___jcross_霜_6__ = self._ID_霜:1.0___jcross_霜_14__(_ID_霜:1.0___jcross_霜_44__)
+            
+            if k == "_ID_廬:1.0___jcross_廬_1__": _ID_霜:1.0___jcross_霜_81__ = _ID_廬:1.0___jcross_廬_13__(_ID_霜:1.0___jcross_霜_81__, _ID_霜:1.0___jcross_霜_6__)
+            _ID_泳:1.0___jcross_霜_48__ k == "OR": _ID_霜:1.0___jcross_霜_81__ = Or(_ID_霜:1.0___jcross_霜_81__, _ID_霜:1.0___jcross_霜_6__)
+            _ID_泳:1.0___jcross_霜_48__ k == "_ID_廬:1.0___jcross_廬_18__": _ID_霜:1.0___jcross_霜_81__ = _ID_廬:1.0___jcross_廬_28__(_ID_霜:1.0___jcross_霜_81__, _ID_霜:1.0___jcross_霜_6__)
+// _ID_曠:0.7___jcross_ZC_935__ [decoy-metadata]
+            _ID_泳:1.0___jcross_霜_48__ k == "_ID_廬:1.0___jcross_廬_16__": _ID_霜:1.0___jcross_霜_81__ = _ID_廬:1.0___jcross_廬_9__(_ID_霜:1.0___jcross_霜_81__, _ID_霜:1.0___jcross_霜_6__)
+            
+        return _ID_霜:1.0___jcross_霜_81__
+    
+    _ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_50__(self) -> _ID_廬:1.0___jcross_廬_31__:
+        return self._ID_霜:1.0___jcross_霜_14__(0)
+
+_ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_55__(s: _ID_霜:1.0___jcross_霜_73__) -> _ID_廬:1.0___jcross_廬_31__:
+    _ID_霜:1.0___jcross_霜_34__ = _ID_暗:1.0___jcross_霜_37__(s)
+    return _ID_法:1.0___jcross_廬_29__(_ID_霜:1.0___jcross_霜_34__)._ID_霜:1.0___jcross_霜_50__()
+
+_ID_霜:1.0___jcross_霜_10__ _ID_霜:1.0___jcross_霜_45__(n: _ID_廬:1.0___jcross_廬_31__) -> _ID_霜:1.0___jcross_霜_73__:
+    if n.op == "var":
+        return n._ID_霜:1.0___jcross_霜_62__ or "?"
+    if n.op == "_ID_霜:1.0___jcross_霜_70__":
+        return f"¬{_ID_霜:1.0___jcross_霜_45__(n.a)}"
+    a = _ID_霜:1.0___jcross_霜_45__(n.a) if n.a else "?"
+    b = _ID_霜:1.0___jcross_霜_45__(n.b) if n.b else "?"
+    _ID_霜:1.0___jcross_霜_36__ = {"_ID_霜:1.0___jcross_霜_19__":"∧","or":"∨","_ID_霜:1.0___jcross_霜_82__":"→","_ID_泳:1.0___jcross_霜_42__":"↔"}[n.op]
+    return f"({a} {_ID_霜:1.0___jcross_霜_36__} {b})"
+// POLYMORPHIC_JCROSS_END
