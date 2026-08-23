@@ -314,6 +314,17 @@ found, each of which had been reported as working:
 This is one working pipeline, not a product. The four things below are the
 ones most likely to matter to you, and none of them is close to solved.
 
+Each is open as an issue with the experiment that would settle it, because
+these are questions rather than tasks — if you have a garment, a tape and some
+footage, you can answer one of them without touching the code:
+
+| | |
+| --- | --- |
+| [#1](https://github.com/Ag3497120/photoloset/issues/1) | Does the observe step fail loudly or quietly on cinematic footage? |
+| [#2](https://github.com/Ag3497120/photoloset/issues/2) | Why does the seam gap widen with more iterations, and is 16x the right default? |
+| [#3](https://github.com/Ag3497120/photoloset/issues/3) | Second clip — does any of this generalise? |
+| [#4](https://github.com/Ag3497120/photoloset/issues/4) | The sleeve is non-unique. Is refusing right, or is there a principled pick? |
+
 **One garment, and only one.** The drafting block is a single hard-coded
 three-piece body — front bodice, back bodice, sleeve. There is no notion of a
 garment *type*. A jacket with darts and a canvas front, a shirt with a yoke and
@@ -331,13 +342,13 @@ and dishonest if you read it as "film to measurements". If you do not have the
 physical garment, or something close enough to measure, this tool cannot draft
 for you.
 
-**It has been run end to end on exactly one clip.** That clip happened to suit
+**It has been run end to end on exactly one clip** ([#3](https://github.com/Ag3497120/photoloset/issues/3)). That clip happened to suit
 it: the coat is presented plainly, the light is even, the framing is stable, and
 a reference garment was on hand. There is no second clip, no held-out set, and
 therefore no evidence about how any of this behaves on footage it has not seen.
 Every number in this README comes from that one run.
 
-**Cinematic footage is untested, and it is the intended target.** A film frame
+**Cinematic footage is untested, and it is the intended target** ([#1](https://github.com/Ag3497120/photoloset/issues/1)). A film frame
 is graded, key-lit, shadowed, often motion-blurred and often grainy. All of
 those change what a vision model reads out of a frame, and none of them has been
 measured here. The honest position is that we do not know whether the observe
@@ -348,7 +359,7 @@ experiment that has not been run. Until it has, treat any proposal drawn from
 stylised footage as untrustworthy in a way the tool cannot currently flag for
 you.
 
-**Computation is not solved either.** The solver is pure Python, roughly
+**Computation is not solved either** ([#2](https://github.com/Ag3497120/photoloset/issues/2), [#4](https://github.com/Ag3497120/photoloset/issues/4)). The solver is pure Python, roughly
 O(iterations x edges): about 4 seconds for 2000 iterations over 303 points and
 954 edges. It stops because it hits the iteration cap, not because it converged
 — and running it longer can make the worst seam gap *worse*, not better,
