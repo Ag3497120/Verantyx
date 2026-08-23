@@ -13,6 +13,7 @@
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-black.svg">
   <img alt="no dependencies" src="https://img.shields.io/badge/dependencies-none-black.svg">
   <img alt="English and Japanese" src="https://img.shields.io/badge/output-English%20%2F%20%E6%97%A5%E6%9C%AC%E8%AA%9E-black.svg">
+  <a href="https://github.com/Ag3497120/photoloset/actions/workflows/ci.yml"><img alt="checks" src="https://github.com/Ag3497120/photoloset/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 ---
@@ -182,6 +183,7 @@ correct on paper.
 | Convert cm / mm / inch, and refuse unknown units | Guess a unit that was not given |
 | Name the piece it cannot determine | Return a shape it cannot justify |
 | Export SVG at 1:1 | Export DXF/AAMA, markers, BOMs, or graded size runs |
+| Serve the whole engine over MCP, and run as a macOS app | Any of it on Windows or Linux — the app is macOS only; the engine is not |
 | Record who adopted each fact | Correct a fact once adopted — there is no amendment path yet |
 
 **Measured limits worth knowing before you trust a number:**
@@ -226,30 +228,46 @@ and says so when it starts.
 
 ### The macOS app in the film
 
-The frames throughout this README come from a demo of
-**[Verantyx](https://github.com/Ag3497120/Verantyx)**, a macOS agent IDE that
-opens on this workbench. It is a separate program and is **not vendored here** —
-it is public, it is large, and a copy of it living in two repositories would
-drift apart, which is the same reason the English output in this package is a
-translation layer rather than a fork.
+The frames throughout this README come from **`app/`**, which is in this
+repository. It is a macOS agent IDE, it opens on this workbench, and it is
+what the demo shows.
+
+```bash
+open app/Verantyx.xcodeproj      # ⌘R, or:
+cd app && xcodebuild -scheme Verantyx -configuration Debug build
+```
 
 Building the workbench on an agent IDE rather than as a purpose-built garment
 app is deliberate. It arrives carrying the parts a garment tool would otherwise
 have to grow itself: model clients for the vision step, an MCP host, a file
 tree, a console. What this package adds is the half that has to be exact.
 
-The two meet at the tool surface, not at a shared build. `python3 -m
-photoloset.mcp` exposes the same 37 tools the app calls — the same names, the
-same typed refusals — with five of them absent and saying so. Nothing here
-depends on that app, and nothing in that app is needed to use this.
+**It runs on this package's engine.** The app used to embed a 78 MB frozen
+helper for the same 37 tools; it now launches `python3 -m photoloset.mcp`
+instead, found in its own bundle Resources, where a build phase copies the
+250 KB Python package. So the two halves are one program, and the tool surface
+is the seam between them.
 
-To see the whole pipeline run end to end:
+Three things did not come across, and it is worth knowing why:
+
+| | |
+| --- | --- |
+| the 78 MB `vera-memory` binary | replaced by `photoloset.mcp` |
+| a 75 MB backup of it | a stale copy of the same thing |
+| `verantyx-browser/` | a separate Rust project — and the source of four paths with colons in their names, which cannot be checked out on Windows at all |
+
+Five of the 37 tools answer `UNKNOWN_NOT_IN_THIS_BUILD` rather than working:
+`garment_cross` and the four `fabric_*` tools need a coordinate memory and its
+language engine, about 15,700 lines that are not part of this package. Fabric
+properties are read from `~/.photoloset/fabrics.json` instead.
+
+To see the whole pipeline run end to end, with no app at all:
 
 ```bash
 python3 examples/black_coat.py
 ```
 
-Or drive it from an agent, which is what the app in the film does:
+Or drive it from any agent, which is what the app does:
 
 ```bash
 python3 -m photoloset.mcp        # 37 tools over stdio, standard library only
@@ -310,6 +328,20 @@ Every coordinate is left exactly as the engine emitted it.
 <br>
 
 ## How it is checked
+
+```bash
+python3 tests/run_checks.py
+```
+
+The same thing CI runs, on every push and pull request, across Python 3.9 and
+3.12 on Linux and macOS, plus a macOS build of the app. Each check prints what
+it measured rather than just PASS, because a check that only says PASS tells
+you nothing on the day it starts lying.
+
+It re-measures the numbers quoted in this file, so the document cannot drift
+away from the code in silence — and it asserts that the default stitch
+stiffness still **fails** to close the garment. If that ever starts passing,
+this README is the thing that is wrong.
 
 Behaviour is pre-registered: the falsifying condition is written down before
 the check is run, so a check that cannot fail is caught as a check that cannot

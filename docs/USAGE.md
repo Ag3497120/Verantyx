@@ -74,8 +74,9 @@ language.
 
 **What the browser app does not cover.** Drafting, marks, sewing and draping
 are driven from Python; the page shows the ledger and the pattern. The frames
-in the README come from a **native macOS app** built on the same engine, which
-is a separate program and is not in this repository.
+in the README come from the macOS app in **`app/`**, which is in this
+repository and covers all of it — see [The macOS
+app](#the-macos-app).
 
 ---
 
@@ -113,6 +114,28 @@ A refusal crosses the wire as a normal return value with a verdict beginning
 `UNKNOWN_` or `CONTESTED_`, never as an exception — so a caller cannot mistake
 "it declined" for "it crashed". A genuine crash returns `ERROR` with a
 traceback, and is not dressed up as a refusal.
+
+---
+
+## The macOS app
+
+```bash
+open app/Verantyx.xcodeproj      # then run it
+```
+
+It opens on the Atelier and drives this package over MCP: a build phase copies
+`photoloset/` into the app's `Contents/Resources`, and `MCPEngine` launches
+`python3 -m photoloset.mcp` from there. No separate install, no frozen helper —
+the 78 MB binary the app used to embed did the same 37 tools in 250 KB less
+readable form.
+
+If you move the built `.app` somewhere odd and the ledger comes up
+`UNKNOWN_ENGINE_UNREACHABLE`, that is the resolver failing to find
+`photoloset/mcp.py`. It looks in the bundle's Resources first, then walks up
+from the running binary; each candidate is checked for that file before it is
+used. Rebuilding restores the embedded copy.
+
+`app/` is macOS only. Everything else in this package runs anywhere Python does.
 
 ---
 
