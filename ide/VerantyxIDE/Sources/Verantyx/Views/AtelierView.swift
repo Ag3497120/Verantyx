@@ -2112,7 +2112,7 @@ private struct MeasurePanel: View {
                 .padding(.horizontal, 14).padding(.vertical, 8)
             } else {
                 PatternFigure(pieces: m.patternPieces)
-                    .frame(height: 170)
+                    .frame(height: 210)
                     .padding(10)
                     .frame(maxWidth: .infinity)
                     .background(RoundedRectangle(cornerRadius: 4)
@@ -2125,6 +2125,88 @@ private struct MeasurePanel: View {
                          + m.patternSleeveMissing.joined(separator: "、"))
                         .font(.system(size: 10)).foregroundStyle(AT.warn)
                         .padding(.horizontal, 14).padding(.top, 4)
+                }
+
+                Text(app.t("solid = sew line · dashed = cut line · "
+                           + "green = grain · dots = notches "
+                           + "(large = double, the back)",
+                           "実線=出来上がり線 / 破線=裁ち切り線 / "
+                           + "緑=布目線 / 点=合印（大きい方が双＝後ろ）"))
+                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .padding(.horizontal, 14).padding(.top, 4)
+
+                // **合印はいせを運ぶ。** 区間ごとの数字を出さないと、
+                // 「印が付いた」だけで中身が見えない。
+                if !m.easeSegments.isEmpty {
+                    HStack(spacing: 8) {
+                        Text(app.t("EASE BY NOTCH SEGMENT",
+                                   "いせの配分 — 合印で区切った区間"))
+                            .railHead()
+                        Spacer(minLength: 0)
+                        Text(app.t("\(m.notchPairCount) pairs · "
+                                   + "\(m.notchUnpaired) unpaired",
+                                   "\(m.notchPairCount) 対 ・ "
+                                   + "相手なし \(m.notchUnpaired)"))
+                            .font(.system(size: 9))
+                            .foregroundStyle(m.notchUnpaired == 0
+                                             ? AT.faint : AT.bad)
+                            .padding(.trailing, 14)
+                    }
+                    .padding(.top, 10)
+                    ForEach(m.easeSegments) { e in
+                        HStack(spacing: 8) {
+                            Text("\(e.from) → \(e.to)")
+                                .font(.system(size: 10))
+                                .frame(width: 130, alignment: .leading)
+                            Text(String(format: "%.2f / %.2f",
+                                        e.capCm, e.armholeCm))
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                            Text(String(format: "%+.2fcm", e.easeCm))
+                                .font(.system(size: 11, weight: .semibold))
+                                // 脇の下のいせ 0 は正しい姿。
+                                .foregroundStyle(abs(e.easeCm) < 0.05
+                                                 ? AT.dim : AT.ok)
+                            if abs(e.easeCm) < 0.05 {
+                                Text(app.t("no ease (armpit)",
+                                           "いせ無し（脇の下）"))
+                                    .font(.system(size: 9))
+                                    .foregroundStyle(AT.faint)
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 14).padding(.vertical, 2)
+                    }
+                }
+
+                if !m.allowanceRows.isEmpty {
+                    Text(app.t("SEAM ALLOWANCE — by edge",
+                               "縫い代 — 辺ごと")).railHead()
+                        .padding(.top, 10)
+                    ForEach(m.allowanceRows) { r in
+                        HStack(spacing: 8) {
+                            Text(r.edge).font(.system(size: 10))
+                                .frame(width: 90, alignment: .leading)
+                            Text(String(format: "%.2fcm", r.cm))
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(r.cm == 0 ? AT.faint : AT.dim)
+                            Text(r.imperial)
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                            Text(r.why).font(.system(size: 9))
+                                .foregroundStyle(AT.faint)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 14).padding(.vertical, 2)
+                    }
+                    if !m.marksStandardNote.isEmpty {
+                        Text(m.marksStandardNote)
+                            .font(.system(size: 9))
+                            .foregroundStyle(AT.faint)
+                            .padding(.horizontal, 14).padding(.top, 3)
+                    }
                 }
 
                 // **縫い合わせの差を必ず出す。** 合っていることを主張
@@ -3484,6 +3566,14 @@ private struct SolidView: NSViewRepresentable {
 /// 型紙のピースを並べて描く。**エンジンが返した座標をそのまま引く。**
 private struct PatternFigure: View {
     let pieces: [AtelierModel.PatternPiece]
+    /// 辺の折れ線は engine が返したものをそのまま使う。**輪郭のどこが
+    /// その辺かを画面側で引き直さない** — 引き直せば必ずずれる。
+    private func edgePoints(_ p: AtelierModel.PatternPiece,
+                            _ edge: String, _ shift: CGFloat) -> [CGPoint] {
+        (p.edges[edge] ?? []).map {
+            CGPoint(x: $0.x + shift, y: $0.y + 4)
+        }
+    }
 
     var body: some View {
         GeometryReader { g in
@@ -3492,21 +3582,71 @@ private struct PatternFigure: View {
                         g.size.height / max(laid.height, 1))
             ZStack(alignment: .topLeading) {
                 ForEach(Array(laid.shapes.enumerated()), id: \.offset) { _, sh in
-                    Path { p in
-                        guard let first = sh.points.first else { return }
-                        p.move(to: CGPoint(x: first.x * s, y: first.y * s))
-                        for pt in sh.points.dropFirst() {
-                            p.addLine(to: CGPoint(x: pt.x * s, y: pt.y * s))
-                        }
-                        p.closeSubpath()
+                    // 裁ち切り線は破線。**裁つのはこちら。**
+                    if !sh.cut.isEmpty {
+                        poly(sh.cut, s)
+                            .stroke(AT.bad,
+                                    style: StrokeStyle(lineWidth: 0.6,
+                                                       dash: [3, 2]))
                     }
-                    .stroke(Color.black, lineWidth: 0.9)
+                    poly(sh.points, s).stroke(AT.dim, lineWidth: 0.9)
+                    if sh.grain.count == 2 {
+                        Path { p in
+                            p.move(to: CGPoint(x: sh.grain[0].x * s,
+                                               y: sh.grain[0].y * s))
+                            p.addLine(to: CGPoint(x: sh.grain[1].x * s,
+                                                  y: sh.grain[1].y * s))
+                        }.stroke(AT.ok, lineWidth: 0.8)
+                    }
+                    // **合印は実物 2.5mm。** 画面ではそのままだと見えない
+                    // ので、印の位置に丸を打つ。深さは表で出す。
+                    ForEach(Array(sh.notches.enumerated()),
+                            id: \.offset) { _, n in
+                        Circle()
+                            .fill(n.double ? AT.sel : Color(AT.line))
+                            .frame(width: n.double ? 5 : 3.5,
+                                   height: n.double ? 5 : 3.5)
+                            .position(x: n.at.x * s, y: n.at.y * s)
+                    }
                 }
             }
         }
     }
 
-    private struct Placed { var points: [CGPoint] }
+    private struct NotchDot { var at: CGPoint; var double: Bool }
+    private struct Placed {
+        var points: [CGPoint]
+        var cut: [CGPoint] = []
+        var grain: [CGPoint] = []
+        var notches: [NotchDot] = []
+    }
+
+    private func poly(_ pts: [CGPoint], _ s: CGFloat) -> Path {
+        Path { p in
+            guard let first = pts.first else { return }
+            p.move(to: CGPoint(x: first.x * s, y: first.y * s))
+            for pt in pts.dropFirst() {
+                p.addLine(to: CGPoint(x: pt.x * s, y: pt.y * s))
+            }
+            p.closeSubpath()
+        }
+    }
+
+    /// 合印の弧長を、辺の折れ線上の点に直す。
+    private func point(on pts: [CGPoint], arc: CGFloat) -> CGPoint? {
+        guard pts.count >= 2 else { return nil }
+        var run: CGFloat = 0
+        for (a, b) in zip(pts, pts.dropFirst()) {
+            let d = hypot(b.x - a.x, b.y - a.y)
+            if run + d >= arc || b == pts.last {
+                let t = d == 0 ? 0 : min(max((arc - run) / d, 0), 1)
+                return CGPoint(x: a.x + (b.x - a.x) * t,
+                               y: a.y + (b.y - a.y) * t)
+            }
+            run += d
+        }
+        return pts.last
+    }
 
     /// 横に並べる。**形は変えない** — 置く位置だけ動かす。
     private func layout() -> (shapes: [Placed], width: CGFloat,
@@ -3519,11 +3659,23 @@ private struct PatternFigure: View {
             let minX = p.outline.map(\.x).min() ?? 0
             let maxX = p.outline.map(\.x).max() ?? 0
             let shift = x - minX
-            out.append(Placed(points: p.outline.map {
-                CGPoint(x: $0.x + shift, y: $0.y + 4)
-            }))
+            func move(_ q: [CGPoint]) -> [CGPoint] {
+                q.map { CGPoint(x: $0.x + shift, y: $0.y + 4) }
+            }
+            let moved = move(p.outline)
+            // 合印は辺ごとの弧長。ここでは輪郭上の弧長として置き直す。
+            var dots: [NotchDot] = []
+            for n in p.notches {
+                if let q = point(on: edgePoints(p, n.edge, shift),
+                                 arc: CGFloat(n.arcCm)) {
+                    dots.append(NotchDot(at: q, double: n.kind == "double"))
+                }
+            }
+            out.append(Placed(points: moved, cut: move(p.cutLine),
+                              grain: move(p.grain), notches: dots))
             x += (maxX - minX) + 8
-            maxY = max(maxY, (p.outline.map(\.y).max() ?? 0) + 8)
+            maxY = max(maxY, ((p.cutLine.isEmpty ? p.outline : p.cutLine)
+                .map(\.y).max() ?? 0) + 8)
         }
         return (out, x, maxY)
     }

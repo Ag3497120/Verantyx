@@ -1,0 +1,244 @@
+{
+ "prereg": "experiments/garment/PREREG14_MARKS.md",
+ "checks": {
+  "VN1_six_balance_notches_with_stated_basis": {
+   "pass": true,
+   "roles_per_piece": {
+    "前身頃": [
+     "前振り",
+     "前胸",
+     "肩点",
+     "脇"
+    ],
+    "後身頃": [
+     "後振り",
+     "後肩甲",
+     "肩点",
+     "脇"
+    ],
+    "袖": [
+     "前振り",
+     "前胸",
+     "後振り",
+     "後肩甲",
+     "肩点(前)",
+     "肩点(後)",
+     "脇(前)",
+     "脇(後)"
+    ]
+   },
+   "the_six": [
+    "前振り",
+    "前胸",
+    "後振り",
+    "後肩甲",
+    "肩点",
+    "脇"
+   ],
+   "front_pitch_basis": "前振り: 本来は前ゴージから2cm上だが、**この製図には衿とゴージが無い**。規則が使えないので後振りと同じ高さ (y=9.75cm) で代用している。実測ではなく代用"
+  },
+  "VN2_single_is_front_double_is_back": {
+   "pass": true,
+   "back_pitch_kind": "double",
+   "front_kinds": [
+    "single"
+   ],
+   "cap_back_pitch_kind": "double"
+  },
+  "VN3_every_notch_is_paired": {
+   "pass": true,
+   "pairs": 8,
+   "unpaired": 0,
+   "kinds_agree_all": true,
+   "roles": [
+    "前振り",
+    "前胸",
+    "後振り",
+    "後肩甲",
+    "肩点",
+    "脇"
+   ]
+  },
+  "VN4_ease_is_not_spread_evenly": {
+   "pass": true,
+   "underarm_segments": [
+    {
+     "seg": "脇→前振り",
+     "ease_cm": 0.0
+    },
+    {
+     "seg": "後振り→脇",
+     "ease_cm": 0.0
+    }
+   ],
+   "upper_segments": [
+    {
+     "seg": "前振り→前胸",
+     "ease_cm": 0.504
+    },
+    {
+     "seg": "前胸→肩点",
+     "ease_cm": 0.505
+    },
+    {
+     "seg": "肩点→後肩甲",
+     "ease_cm": 0.491
+    },
+    {
+     "seg": "後肩甲→後振り",
+     "ease_cm": 0.49
+    }
+   ],
+   "total_ease_cm": 1.99
+  },
+  "VN5_allowance_varies_by_edge_with_imperial_source": {
+   "pass": true,
+   "per_edge": {
+    "衿ぐり": {
+     "cm": 0.64,
+     "imperial": "1/4\""
+    },
+    "肩線": {
+     "cm": 1.27,
+     "imperial": "1/2\""
+    },
+    "袖ぐり": {
+     "cm": 0.95,
+     "imperial": "3/8\""
+    },
+    "脇線": {
+     "cm": 1.27,
+     "imperial": "1/2\""
+    },
+    "裾": {
+     "cm": 2.54,
+     "imperial": "1\""
+    },
+    "中心線": {
+     "cm": 0.0,
+     "imperial": "—"
+    }
+   },
+   "distinct_values": 5
+  },
+  "VN6_the_sew_line_never_moves": {
+   "pass": true,
+   "pieces_checked": [
+    "後身頃",
+    "前身頃",
+    "袖"
+   ],
+   "mismatched": [],
+   "layers": {
+    "sew_line": 14,
+    "cut_line": 1
+   }
+  },
+  "VN7_notch_depth_bounded_by_allowance": {
+   "pass": true,
+   "all_within": true,
+   "depth_cm": 0.25,
+   "neckline_allowance_cm": 0.64,
+   "max_allowed_cm": 0.32,
+   "gate_bites_on_too_deep": true
+  },
+  "VN8_changing_allowance_moves_only_the_cut_line": {
+   "pass": true,
+   "sew_line_identical": true,
+   "cut_line_changed": true,
+   "max_cut_line_shift_cm": 1.957
+  },
+  "VN9_grain_is_one_line_direction_only": {
+   "pass": true,
+   "pieces": [
+    "後身頃",
+    "前身頃",
+    "袖"
+   ],
+   "points_per_line": [
+    2
+   ],
+   "angle_deg": [
+    90.0
+   ],
+   "orientation": [
+    "UNKNOWN_NAP_NOT_RECORDED"
+   ],
+   "why_unknown": "毛並みは生地の性質で、台帳に記録がない"
+  },
+  "VN10_rotation_carries_the_grain": {
+   "pass": true,
+   "grain_line_turned_deg": 44.9999,
+   "angle_before": 90.0,
+   "angle_after": 135.0,
+   "notch_arcs_unchanged": true
+  },
+  "VN11_impossible_allowance_is_refused": {
+   "pass": true,
+   "verdict": "UNKNOWN_SEAM_ALLOWANCE_SELF_INTERSECTS",
+   "returned_a_shape": false,
+   "how_to_close": "縫い代を狭めるか、輪郭の角を丸める"
+  },
+  "VN12_notches_change_the_drape": {
+   "pass": true,
+   "same_mesh": true,
+   "worst_difference_cm": 2.597,
+   "mean_difference_cm": 0.216,
+   "correspondence": {
+    "前身頃/肩線 ↔ 後身頃/肩線": "proportional",
+    "前身頃/脇線 ↔ 後身頃/脇線": "proportional",
+    "袖/袖山(前半) ↔ 前身頃/袖ぐり": "notched",
+    "袖/袖山(後半) ↔ 後身頃/袖ぐり": "notched"
+   },
+   "meaning": "メッシュが同一なので、差は縫い目の対応だけから来る"
+  },
+  "VN13_the_cut_line_encloses_the_sew_line": {
+   "pass": true,
+   "areas": [
+    {
+     "piece": "後身頃",
+     "sew_cm2": 2427.8,
+     "cut_cm2": 2633.3
+    },
+    {
+     "piece": "前身頃",
+     "sew_cm2": 2379.3,
+     "cut_cm2": 2588.1
+    },
+    {
+     "piece": "袖",
+     "sew_cm2": 1220.0,
+     "cut_cm2": 1488.8
+    }
+   ],
+   "failures": [],
+   "why": "向きの取り違えは、面積を見る検査だけが捕まえる"
+  },
+  "VN14_no_mitre_spike": {
+   "pass": true,
+   "per_piece": [
+    {
+     "piece": "後身頃",
+     "worst_cm": 3.031,
+     "widest_allowance_cm": 2.54,
+     "bevelled": 0
+    },
+    {
+     "piece": "前身頃",
+     "worst_cm": 2.84,
+     "widest_allowance_cm": 2.54,
+     "bevelled": 0
+    },
+    {
+     "piece": "袖",
+     "worst_cm": 3.086,
+     "widest_allowance_cm": 2.54,
+     "bevelled": 2
+    }
+   ],
+   "mitre_limit": 4.0,
+   "failures": []
+  }
+ },
+ "summary": "14/14 passed"
+}

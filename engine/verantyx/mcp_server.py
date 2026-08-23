@@ -4124,6 +4124,34 @@ def build(store_path: str):
         return json.dumps(_draft(_measures()), ensure_ascii=False)
 
     @mcp.tool()
+    def pattern_marks() -> str:
+        """型紙に**合印・縫い代・布目線**を入れて返す。
+
+        事前登録: experiments/garment/PREREG14_MARKS.md
+
+        辺の長さが合っていても、**どこをどこに合わせるか**が無ければ
+        組み方は決まりません。合印は飾りではなく、いせの配分を型紙の側
+        から決めるものです。テーラードの袖では脇の下にいせを入れません。
+
+        **合印は二枚の間の約束です。** 相手のいない印は通しません。
+
+        縫い代は値として持ちません。出来上がり線(層14)と裁ち切り線(層1)
+        の差が縫い代です。片方だけ持つと復元できません。
+
+        層番号は内部の呼び名です。ASTM D6673-10 は 2019年1月に廃止され
+        後継がないので、規格対応は名乗りません。"""
+        from .garment_marks import apply as _marks
+        from .garment_material import Fabrics
+        from .garment_pattern import draft as _draft
+
+        try:
+            fab = Fabrics.load(_fabrics_path())
+        except Exception:
+            fab = None
+        return json.dumps(_marks(_draft(_measures()), fab),
+                          ensure_ascii=False)
+
+    @mcp.tool()
     def pattern_save(path: str) -> str:
         """型紙を SVG で書き出し、**生成物の印を付ける**。
 

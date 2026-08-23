@@ -152,10 +152,19 @@ def _nearest(pts: Sequence[Tuple[float, float]],
 
 
 def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
-          stitches: int = 0) -> Dict[str, Any]:
+          stitches: int = 0,
+          marks: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """型紙から縫い合わせたメッシュを組む。
 
     返すのは頂点・辺・縫い目の対・**どの頂点がどのピース由来か**。
+
+    `marks` に合印(`garment_marks.apply` の出力)を渡すと、縫い目の対応を
+    **合印で区切って**作ります。渡さないと弧長に比例して割ります。
+
+    この違いは小さくありません。比例配分は「いせを全長に均等に配る」と
+    黙って決めているのと同じで、テーラードの袖では間違いです
+    (脇の下にいせは要らない)。どちらを使ったかは `seams[].correspondence`
+    に残します。
     """
     if draft_out.get("verdict") != "ANSWER":
         return {"verdict": NO_PATTERN,
@@ -209,8 +218,16 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         span_len = abs(span[1] - span[0]) * ra["length"]
         n_st = stitches or max(2, int(round(min(span_len, rb["length"])
                                             / cell)) + 1)
-        sa = _sample(ra["points"], n_st, span=span)
-        sb = _sample(rb["points"], n_st)
+        here = [p for p in (marks or {}).get("notch_pairs", [])
+                if p["seam"] == name]
+        if len(here) >= 2:
+            sa, sb = _sample_by_notches(ra["points"], rb["points"],
+                                        here, cell)
+            mode = "notched"
+        else:
+            sa = _sample(ra["points"], n_st, span=span)
+            sb = _sample(rb["points"], n_st)
+            mode = "proportional"
         made = 0
         for ta, tb in zip(sa, sb):
             ia = piece_base[pa] + _nearest(piece_flat[pa], ta)
@@ -222,6 +239,8 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         span_share = abs(span[1] - span[0])
         seam_rows.append({"seam": name,
                           "state": "SEWN", "stitches": made,
+                          "correspondence": mode,
+                          "notches_used": len(here),
                           "length_a": round(ra["length"] * span_share, 2),
                           "length_b": rb["length"]})
 
@@ -235,6 +254,41 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         "note": "縫い目は型紙の名前付き辺から決めています。"
                 "近さで勝手に繋いでいません",
     }
+
+
+def _sample_by_notches(pts_a: Sequence[Sequence[float]],
+                       pts_b: Sequence[Sequence[float]],
+                       pairs: Sequence[Dict[str, Any]],
+                       cell: float
+                       ) -> Tuple[List[Tuple[float, float]],
+                                  List[Tuple[float, float]]]:
+    """**合印で区切って対応を作る。** 区間の中だけを比例で割る。
+
+    合印は二枚の間の約束なので、区間の端は必ず合印どうしで合います。
+    区間の中まで型紙が指定していないので、そこは比例で割る — これは
+    「決めていないことは決めない」であって、全長を比例で割るのとは違い
+    ます。全長を比例で割ると、脇の下にもいせが入ります。
+    """
+    from .garment_marks import at_arc
+
+    order = sorted(pairs, key=lambda p: p["a"]["arc_cm"])
+    out_a: List[Tuple[float, float]] = []
+    out_b: List[Tuple[float, float]] = []
+    for x, y in zip(order, order[1:]):
+        a0, a1 = x["a"]["arc_cm"], y["a"]["arc_cm"]
+        b0, b1 = x["b"]["arc_cm"], y["b"]["arc_cm"]
+        span = min(abs(a1 - a0), abs(b1 - b0))
+        n = max(2, int(round(span / cell)) + 1)
+        for k in range(n):
+            t = k / (n - 1)
+            pa = at_arc(pts_a, a0 + (a1 - a0) * t)
+            pb = at_arc(pts_b, b0 + (b1 - b0) * t)
+            if out_a and abs(out_a[-1][0] - pa[0]) < 1e-9 \
+                    and abs(out_a[-1][1] - pa[1]) < 1e-9:
+                continue
+            out_a.append(pa)
+            out_b.append(pb)
+    return out_a, out_b
 
 
 def _seam_gap(pos: Sequence[Sequence[float]],
@@ -418,7 +472,9 @@ def validate(measures: Any, material: Dict[str, Any], *,
     if material.get("verdict") != "ANSWER":
         return {"verdict": NO_MATERIAL,
                 "why": "生地の物性が無ければ落としません"}
-    built = build(draft(measures), cell=cell)
+    from .garment_marks import apply as _marks
+    drafted = draft(measures)
+    built = build(drafted, cell=cell, marks=_marks(drafted))
     if built["verdict"] != "ANSWER":
         return built
 

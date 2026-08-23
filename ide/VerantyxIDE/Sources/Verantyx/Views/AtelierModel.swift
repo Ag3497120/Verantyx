@@ -120,6 +120,11 @@ final class AtelierModel: ObservableObject {
     @Published var patternHowToClose = ""
     @Published var patternPieces: [PatternPiece] = []
     @Published var patternChecks: [SeamCheck] = []
+    @Published var easeSegments: [EaseSegment] = []
+    @Published var allowanceRows: [AllowanceRow] = []
+    @Published var notchPairCount = 0
+    @Published var notchUnpaired = 0
+    @Published var marksStandardNote = ""
     @Published var patternTotalArea: Double = 0
     @Published var patternSleeveMissing: [String] = []
     @Published var patternFormulas: [(String, String)] = []
@@ -272,8 +277,36 @@ final class AtelierModel: ObservableObject {
     struct PatternPiece: Identifiable {
         let id = UUID()
         var name = ""
-        var outline: [CGPoint] = []
+        var outline: [CGPoint] = []          // 出来上がり線 (層14)
+        /// 名前付き辺の折れ線。合印は辺ごとの弧長で持つので、これが要る。
+        var edges: [String: [CGPoint]] = [:]
+        var cutLine: [CGPoint] = []          // 裁ち切り線 (層1)
+        var grain: [CGPoint] = []            // 布目線 (層7)
+        var notches: [PatternNotch] = []     // 合印 (層4)
         var areaCm2: Double = 0
+        var bevelled = 0
+    }
+
+    /// 合印。**弧長で持つ** — 型紙を回しても値が変わらない。
+    struct PatternNotch: Identifiable {
+        let id = UUID()
+        var edge = ""; var role = ""; var kind = ""
+        var arcCm: Double = 0
+        var depthCm: Double = 0
+        var basis = ""
+    }
+
+    /// 合印で区切った区間ごとのいせ。**脇の下が 0 に寄る。**
+    struct EaseSegment: Identifiable {
+        let id = UUID()
+        var seam = ""; var from = ""; var to = ""
+        var capCm: Double = 0; var armholeCm: Double = 0
+        var easeCm: Double = 0
+    }
+
+    struct AllowanceRow: Identifiable {
+        let id = UUID()
+        var edge = ""; var cm: Double = 0; var imperial = ""; var why = ""
     }
 
     struct SeamCheck: Identifiable {
@@ -852,24 +885,72 @@ final class AtelierModel: ObservableObject {
 
     /// 型紙を引く。**縫い合わせの差を必ず読む。**
     func loadPattern() async {
-        let d = await call("pattern_draft")
+        // **合印まで入った型紙を読む。** 出来上がり線だけでは、どこを
+        // どこに合わせるかが画面に出ない。
+        let d = await call("pattern_marks")
         patternVerdict = d["verdict"] as? String ?? ""
         patternMissing = d["missing"] as? [String] ?? []
         patternHowToClose = d["how_to_close"] as? String ?? ""
         patternSleeveMissing = d["sleeve_missing"] as? [String] ?? []
         patternTotalArea = (d["total_area_cm2"] as? Double) ?? 0
-        patternSeamAllowance = d["seam_allowance"] as? String ?? ""
+        patternSeamAllowance = d["marks_note"] as? String ?? ""
         patternNotPublished = d["not_a_published_system"] as? String ?? ""
         patternFormulas = (d["formulas"] as? [String: String] ?? [:])
             .sorted { $0.key < $1.key }.map { ($0.key, $0.value) }
-        patternPieces = (d["pieces"] as? [[String: Any]] ?? []).map { p in
-            PatternPiece(
-                name: p["name"] as? String ?? "",
-                outline: (p["outline"] as? [[Double]] ?? []).map {
-                    CGPoint(x: $0.first ?? 0, y: $0.count > 1 ? $0[1] : 0)
-                },
-                areaCm2: (p["area_cm2"] as? Double) ?? 0)
+        let allNotches = d["notches"] as? [String: [[String: Any]]] ?? [:]
+        let allowance = d["seam_allowance"] as? [String: [String: Any]] ?? [:]
+        let grains = d["grain"] as? [[String: Any]] ?? []
+        func pts(_ v: Any?) -> [CGPoint] {
+            (v as? [[Double]] ?? []).map {
+                CGPoint(x: $0.first ?? 0, y: $0.count > 1 ? $0[1] : 0)
+            }
         }
+        patternPieces = (d["pieces"] as? [[String: Any]] ?? []).map { p in
+            let name = p["name"] as? String ?? ""
+            let off = allowance[name] ?? [:]
+            let ok = (off["verdict"] as? String) == "ANSWER"
+            let grainRec = grains.first(where: {
+                $0["piece"] as? String == name })
+            return PatternPiece(
+                name: name,
+                outline: pts(p["outline"]),
+                edges: (p["edges"] as? [String: [String: Any]] ?? [:])
+                    .mapValues { pts($0["points"]) },
+                cutLine: ok ? pts(off["cut_line"]) : [],
+                grain: pts(grainRec?["line"]),
+                notches: (allNotches[name] ?? []).map {
+                    PatternNotch(edge: $0["edge"] as? String ?? "",
+                                 role: $0["role"] as? String ?? "",
+                                 kind: $0["kind"] as? String ?? "",
+                                 arcCm: $0["arc_cm"] as? Double ?? 0,
+                                 depthCm: $0["depth_cm"] as? Double ?? 0,
+                                 basis: $0["basis"] as? String ?? "")
+                },
+                areaCm2: (p["area_cm2"] as? Double) ?? 0,
+                bevelled: off["bevelled_corners"] as? Int ?? 0)
+        }
+        easeSegments = (d["ease_by_segment"] as? [[String: Any]] ?? []).map {
+            EaseSegment(seam: $0["seam"] as? String ?? "",
+                        from: $0["from"] as? String ?? "",
+                        to: $0["to"] as? String ?? "",
+                        capCm: $0["cap_cm"] as? Double ?? 0,
+                        armholeCm: $0["armhole_cm"] as? Double ?? 0,
+                        easeCm: $0["ease_cm"] as? Double ?? 0)
+        }
+        var seenEdge = Set<String>()
+        allowanceRows = (allowance.values.compactMap {
+            $0["segment_allowance"] as? [[String: Any]] }.flatMap { $0 })
+            .compactMap { r in
+                let e = r["edge"] as? String ?? ""
+                guard !seenEdge.contains(e) else { return nil }
+                seenEdge.insert(e)
+                return AllowanceRow(edge: e, cm: r["cm"] as? Double ?? 0,
+                                    imperial: r["imperial"] as? String ?? "",
+                                    why: r["why"] as? String ?? "")
+            }.sorted { $0.cm > $1.cm }
+        notchPairCount = (d["notch_pairs"] as? [[String: Any]] ?? []).count
+        notchUnpaired = (d["notch_unpaired"] as? [[String: Any]] ?? []).count
+        marksStandardNote = d["standard_note"] as? String ?? ""
         patternChecks = (d["seam_checks"] as? [[String: Any]] ?? []).map { c in
             SeamCheck(label: c["label"] as? String ?? "",
                       a: c["a"] as? String ?? "",

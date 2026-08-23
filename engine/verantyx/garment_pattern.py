@@ -270,42 +270,130 @@ def _seam_checks(pieces: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def to_svg(draft_out: Dict[str, Any]) -> str:
-    """型紙を SVG にする。**注記を図の中に残す。**"""
+    """型紙を SVG にする。**注記を図の中に残す。**
+
+    `garment_marks.apply` を通した型紙なら、裁ち切り線・合印・布目線も
+    描きます。**縮尺は 1:1(cm)** — 合印は実物どおり 2.5mm なので小さい。
+    見やすさのために太らせると、深さが縫い代を超えているかどうかが図から
+    読めなくなる。
+    """
     if draft_out.get("verdict") != "ANSWER":
         return ""
+    from .garment_marks import at_arc, arc_lengths
+
     pad, gap = 30.0, 20.0
     x_cursor = pad
     parts: List[str] = []
     max_y = 0.0
+    sa = draft_out.get("seam_allowance")
+    marked = isinstance(sa, dict)
+    notches = draft_out.get("notches", {})
+    grains = {g["piece"]: g for g in draft_out.get("grain", [])}
+
     for p in draft_out["pieces"]:
         xs = [pt[0] for pt in p["outline"]]
         ys = [pt[1] for pt in p["outline"]]
         w = max(xs) - min(xs)
         shift = x_cursor - min(xs)
-        pts = " ".join(f"{x + shift:.1f},{y + pad:.1f}"
-                       for x, y in p["outline"])
+
+        def place(pt):
+            return f"{pt[0] + shift:.2f},{pt[1] + pad:.2f}"
+
+        off = sa.get(p["name"], {}) if marked else {}
+        if off.get("verdict") == "ANSWER":
+            cut = " ".join(place(q) for q in off["cut_line"])
+            # 裁ち切り線は破線。**裁つのはこちら**だが、
+            # 出来上がり線と取り違えないように線種を変える。
+            parts.append(f'<polygon points="{cut}" fill="none" '
+                         f'stroke="#b04" stroke-width="0.4" '
+                         f'stroke-dasharray="3 2" data-layer="1"/>')
+            xs += [q[0] for q in off["cut_line"]]
+            ys += [q[1] for q in off["cut_line"]]
+            w = max(xs) - min(xs)
+
+        pts = " ".join(place(q) for q in p["outline"])
         parts.append(f'<polygon points="{pts}" fill="none" stroke="#111" '
-                     f'stroke-width="0.8" data-piece="{p["name"]}"/>')
-        parts.append(f'<text x="{x_cursor:.1f}" y="{pad - 8:.1f}" '
-                     f'font-size="9" fill="#111">{p["name"]} '
-                     f'{p["area_cm2"]}cm²</text>')
+                     f'stroke-width="0.8" data-piece="{p["name"]}" '
+                     f'data-layer="14"/>')
+
+        for n in notches.get(p["name"], []):
+            edge = p["edges"].get(n["edge"])
+            if not edge:
+                continue
+            pl = edge["points"]
+            total = arc_lengths(pl)[-1]
+            base = at_arc(pl, n["arc_cm"])
+            ahead = at_arc(pl, min(n["arc_cm"] + 0.5, total))
+            back = at_arc(pl, max(n["arc_cm"] - 0.5, 0.0))
+            tx, ty = ahead[0] - back[0], ahead[1] - back[1]
+            L = math.hypot(tx, ty) or 1.0
+            nx, ny = ty / L, -tx / L          # 辺に直交する向き
+            d = n["depth_cm"]
+            # 双は 2 本。**前後を取り違えないための約束**なので、
+            # 間隔も実物どおり(0.6cm)。
+            offsets = (0.0,) if n["kind"] == "single" else (-0.3, 0.3)
+            for o in offsets:
+                bx = base[0] + tx / L * o
+                by = base[1] + ty / L * o
+                parts.append(
+                    f'<line x1="{bx + shift:.2f}" y1="{by + pad:.2f}" '
+                    f'x2="{bx + nx * d + shift:.2f}" '
+                    f'y2="{by + ny * d + pad:.2f}" stroke="#06c" '
+                    f'stroke-width="0.35" data-layer="4" '
+                    f'data-role="{n["role"]}"/>')
+
+        g = grains.get(p["name"])
+        if g:
+            (gx1, gy1), (gx2, gy2) = g["line"]
+            parts.append(
+                f'<line x1="{gx1 + shift:.2f}" y1="{gy1 + pad:.2f}" '
+                f'x2="{gx2 + shift:.2f}" y2="{gy2 + pad:.2f}" '
+                f'stroke="#0a6" stroke-width="0.5" data-layer="7"/>')
+            parts.append(
+                f'<text x="{gx2 + shift + 1:.2f}" y="{gy2 + pad:.2f}" '
+                f'font-size="4" fill="#0a6">たて地</text>')
+
+        # **単位は cm。** 9pt の文字は 26cm 幅のピースより広く、
+        # 隣の見出しに重なっていた(実測)。図の寸法に合わせる。
+        parts.append(f'<text x="{x_cursor:.1f}" y="{pad - 9:.1f}" '
+                     f'font-size="4" fill="#111">{p["name"]}</text>')
+        parts.append(f'<text x="{x_cursor:.1f}" y="{pad - 4:.1f}" '
+                     f'font-size="3" fill="#666">{p["area_cm2"]}cm²'
+                     f'</text>')
         x_cursor += w + gap
         max_y = max(max_y, max(ys))
+
     width = int(x_cursor + pad)
-    height = int(max_y + pad * 2 + 60)
+    height = int(max_y + pad * 2 + 46)
     head = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" '
             f'height="{height}" viewBox="0 0 {width} {height}">',
             '<rect width="100%" height="100%" fill="#fff"/>']
     y = max_y + pad + 20
-    foot = [
-        f'<text x="{pad}" y="{y:.1f}" font-size="9" fill="#b04">'
-        f'{draft_out["seam_allowance"]}</text>',
-        f'<text x="{pad}" y="{y + 14:.1f}" font-size="9" fill="#666">'
-        f'{draft_out["not_a_published_system"]}</text>',
-        f'<text x="{pad}" y="{y + 28:.1f}" font-size="9" fill="#666">'
-        f'{draft_out["note"]}</text>',
-        "</svg>",
-    ]
+    if marked:
+        note = ("実線=出来上がり線 / 破線=裁ち切り線 / 青=合印(単は前・"
+                "双は後) / 緑=布目線。縮尺 1:1(cm)")
+        std = draft_out.get("standard_note", "")
+    else:
+        note = str(sa)
+        std = ""
+    lines = [(note, "#b04"),
+             (draft_out["not_a_published_system"], "#666"),
+             (draft_out["note"], "#666")]
+    if std:
+        lines.append((std, "#666"))
+    if marked:
+        lines.append(("合印は実物どおり 2.5mm で描いています。"
+                      "1:1 で刷れば見えます", "#666"))
+    foot = []
+    for k, (txt, col) in enumerate(lines):
+        # 長い注記は幅で折る。切れて読めない注記は注記ではない。
+        # 和文は font-size とほぼ同じ幅を食う。1.8 で割ると溢れる(実測)。
+        per = max(20, int((width - pad * 2) / 3.05))
+        for r, chunk in enumerate([txt[i:i + per]
+                                   for i in range(0, len(txt), per)]):
+            foot.append(f'<text x="{pad}" y="{y + (k * 2 + r) * 4.5:.1f}" '
+                        f'font-size="3" fill="{col}">{chunk}</text>')
+    foot.append("</svg>")
     return "\n".join(head + parts + foot)
 
 
@@ -315,14 +403,17 @@ def save(measures: Any, path: Any) -> Dict[str, Any]:
 
     from .garment import mark_generated
 
-    out = draft(measures)
+    from .garment_marks import apply as _marks
+
+    out = _marks(draft(measures))
     if out.get("verdict") != "ANSWER":
         return out
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(to_svg(out), encoding="utf-8")
     stamp = mark_generated(p)
-    return {k: v for k, v in out.items() if k != "pieces"} | {
+    return {k: v for k, v in out.items()
+            if k not in ("pieces", "notches", "seam_allowance")} | {
         "path": str(p), "stamp": str(stamp),
         "pieces": [{"name": x["name"], "area_cm2": x["area_cm2"]}
                    for x in out["pieces"]]}
