@@ -12,6 +12,7 @@
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-black.svg"></a>
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-black.svg">
   <img alt="no dependencies" src="https://img.shields.io/badge/dependencies-none-black.svg">
+  <img alt="English and Japanese" src="https://img.shields.io/badge/output-English%20%2F%20%E6%97%A5%E6%9C%AC%E8%AA%9E-black.svg">
 </p>
 
 ---
@@ -192,24 +193,56 @@ correct on paper.
   a seam the tool itself reports as open. The residual is printed on every run.
 - The drape is a **generated shape**. It is not evidence and cannot be cited as
   an observation. The tool says so in its own output, not only here.
-- The tool's own messages and piece names are **Japanese today**. English is
-  planned; the geometry and the state machine are language-independent.
+- English output is a **translation layer over the engine**, not a rewrite of
+  it, because the drafting code is shared with a larger project and two copies
+  would drift. A string the table does not know comes back in Japanese — and
+  `i18n.missing(result)` lists exactly which, so the gap is visible rather than
+  papered over. Measured across every output path the engine has (ledger,
+  worklist, tech pack, measurements, draft, marks, sew, drape, all five
+  refusals and the SVG): **0 untranslated**.
 
 <br>
 
-## Install
+## Install and run
 
 No dependencies. Python 3.9 or newer.
 
 ```bash
 git clone https://github.com/Ag3497120/photoloset.git
 cd photoloset
+python3 -m photoloset --lang en
+```
+
+That is the application: a local page on `127.0.0.1:8910`, stdlib only, no
+build step and no framework. It shows the ledger as a garment — colour is
+state, clicking a part opens the structure inspector on the right, proposals
+carry an adopt button that demands a name, and the tech pack prints. Nothing
+leaves the machine unless you pass `--lan`, which opens it to your own network
+and says so when it starts.
+
+<p align="center">
+  <img src="docs/frames/03-adopt.jpg" alt="The ledger as a garment, with a proposal waiting to be adopted" width="720">
+</p>
+
+The frames throughout this README come from a demo film of a **native macOS
+app** built on the same engine. That app is a separate program and is **not in
+this repository**; what is here is the engine and the browser application
+above, which covers the ledger, adoption, the worklist, the tech pack and the
+pattern (`/api/pattern.svg`). Drafting, marking, sewing and draping are driven
+from Python — see the walkthrough.
+
+To see the whole pipeline run end to end:
+
+```bash
 python3 examples/black_coat.py
 ```
 
 ## Thirty seconds of it
 
 ```python
+import photoloset
+photoloset.set_language("en")     # or leave it and get the engine's Japanese
+
 from photoloset import Measure, Measures
 from photoloset import garment_marks, garment_pattern, garment_sew
 
@@ -241,6 +274,20 @@ ms.state("sleeve_length")
 ```
 
 **Full walkthrough: [docs/USAGE.md](docs/USAGE.md).**
+
+### Language
+
+```python
+import photoloset
+photoloset.set_language("en")        # every entry point returns English
+photoloset.i18n.missing(result)      # what it could not translate — should be []
+photoloset.i18n.coverage(result)     # (translated, total)
+```
+
+`photoloset.en(value)` translates a single value without changing the default,
+and `i18n.svg(document)` translates a pattern SVG — labels and notes only, with
+the notes re-wrapped for English line lengths and the canvas grown to fit.
+Every coordinate is left exactly as the engine emitted it.
 
 <br>
 

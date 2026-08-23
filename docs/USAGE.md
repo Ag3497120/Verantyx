@@ -4,6 +4,8 @@ Everything below is runnable. The numbers quoted are the ones the tool actually
 prints; if yours differ, yours are right and this document is stale.
 
 - [Requirements](#requirements)
+- [Run the application](#run-the-application)
+- [English](#english)
 - [The five states](#the-five-states)
 - [1. Record what a model proposed](#1-record-what-a-model-proposed)
 - [2. Adopt it, by name](#2-adopt-it-by-name)
@@ -33,6 +35,90 @@ python3 examples/black_coat.py
 
 That example is the same nine steps as this document, end to end, in about
 five seconds.
+
+---
+
+## Run the application
+
+```bash
+python3 -m photoloset --lang en
+```
+
+A local page on `127.0.0.1:8910`. Standard library only — no build step, no
+framework, no network calls. It is the ledger drawn as a garment: colour is
+state, clicking a part opens the structure inspector, a proposal carries an
+adopt button that refuses to submit without a name, and the tech pack prints.
+
+| Flag | |
+| --- | --- |
+| `--lang en` / `--lang ja` | interface and API language (default `ja`) |
+| `--port N` | default 8910 |
+| `--lan` | serve to this LAN as well; it prints your address and warns you |
+| `--no-browser` | do not open a browser |
+
+The ledger lives in `~/.photoloset/ledger.json` and measurements in
+`~/.photoloset/measures.json`. Routes:
+
+| Route | |
+| --- | --- |
+| `GET /` | the page |
+| `GET /api/spec` | the ledger, its timeline and the parts |
+| `GET /api/techpack` | the tech pack |
+| `GET /api/pattern.svg` | the pattern, or a typed refusal if the measurements are not there |
+| `POST /api/add` | record an observation, inference or proposal |
+| `POST /api/adopt` | adopt a proposal — **400 `UNKNOWN_NO_ADOPTER` without a name** |
+
+`?lang=en` works per request, so one running server can answer in either
+language.
+
+**What the browser app does not cover.** Drafting, marks, sewing and draping
+are driven from Python; the page shows the ledger and the pattern. The frames
+in the README come from a **native macOS app** built on the same engine, which
+is a separate program and is not in this repository.
+
+---
+
+## English
+
+The engine's own strings are Japanese. English is produced by a translation
+layer over its output rather than by rewriting it, because the drafting code is
+shared with a larger project and forking it would let the two copies drift.
+
+```python
+import photoloset
+photoloset.set_language("en")      # every entry point returns English
+photoloset.set_language("ja")      # and back; the wrappers are removed
+```
+
+Three ways in, depending on how explicit you want to be:
+
+```python
+photoloset.set_language("en")      # a default for the whole process
+photoloset.en(result)              # one value, default untouched
+photoloset.i18n.svg(document)      # a pattern SVG
+```
+
+The honest edge of this design is that a string the table does not know comes
+back in Japanese. So the layer reports it:
+
+```python
+photoloset.i18n.missing(result)    # every Japanese string with no translation
+photoloset.i18n.coverage(result)   # (translated, total)
+```
+
+If `missing()` returns anything, the English is incomplete at exactly those
+strings and you can see which. Measured across every output path the engine
+has — ledger, worklist, tech pack, measurement sheet, contested measurements,
+draft, marks, build, drape, all five refusal verdicts and the SVG —
+**0 untranslated**.
+
+For the SVG there is one more thing to know. `to_svg` hard-wraps its notes
+across several `<text>` elements, so `i18n.svg` rejoins each paragraph,
+translates it as one, and re-wraps it for English, which needs about twice the
+characters per line at the same font size. That can produce more lines than the
+Japanese had, so the text below shifts and the canvas grows (210x220 becomes
+210x238 on the demo coat). Every coordinate belonging to the pattern itself is
+byte-identical.
 
 ---
 
@@ -365,15 +451,19 @@ names what it cannot.
 | `garment_drape` | the mass-spring solver and its five checks |
 | `garment_draw` | ledger-to-drawing |
 | `garment_rights` | provenance and derivation records |
+| `garment_app` | the browser application, standard library only |
+| `i18n` | English output, and the report of what it could not translate |
+| `__main__` | `python3 -m photoloset` |
 
 ---
 
 ## Things that will bite you
 
-1. **Piece names and messages are Japanese.** `'後身頃'`, `'前身頃'`, `'袖'` are
-   back bodice, front bodice, sleeve. `how_to_close` strings are Japanese too.
-   The geometry and the state machine are language-independent; the strings are
-   not. English is planned.
+1. **The engine speaks Japanese by default.** `'後身頃'`, `'前身頃'`, `'袖'` are
+   back bodice, front bodice, sleeve. Call `photoloset.set_language("en")` and
+   they come back in English — and check `i18n.missing()` if you are relying on
+   it, because an unknown string falls through untranslated rather than
+   guessing.
 2. **`to_svg(draft)` silently omits the marks.** Pass `marks`.
 3. **The default `stitch_k` does not close this garment.** See step 8.
 4. **`closed` is not `verdict`.** A drape can return `ANSWER` and still report
