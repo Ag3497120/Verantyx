@@ -42,6 +42,12 @@ SEAMS: List[Dict[str, Any]] = [
      "label": "袖/袖山(前半) ↔ 前身頃/袖ぐり"},
     {"a": ("袖", "袖山"), "b": ("後身頃", "袖ぐり"), "span": (0.5, 1.0),
      "label": "袖/袖山(後半) ↔ 後身頃/袖ぐり"},
+    # **袖下線は袖自身の二辺を縫い合わせて筒にする。** 2026-08-23 まで
+    # ここが抜けていて、名前付き辺として存在し縫い代まで付いているのに
+    # 一度も縫われず、袖は平らな板のまま落ちていました。
+    # 同じピースの中の縫い目なので a と b が同じ名前になります。
+    {"a": ("袖", "袖下線 (右)"), "b": ("袖", "袖下線 (左)"),
+     "label": "袖/袖下線(右) ↔ 袖/袖下線(左)"},
 ]
 
 #: 型紙を3次元に置く初期位置。前は手前、後ろは奥、袖は横。
@@ -54,6 +60,14 @@ PLACEMENT = {
 
 #: メッシュの粗さ (cm)。段を上げるときはここを下げる。
 DEFAULT_CELL = 6.0
+
+#: 縫い目のばねを、布の構造ばねの何倍にするか。
+#: **1未満にしてはいけない** — 糸が布より伸びることになる。
+STITCH_STIFFNESS_RATIO = 16.0
+
+#: 縫い目一本に許す残り隙間 (cm)。**メッシュ由来ではなく縫製の実務公差。**
+#: 目の位置に頂点を置いたので、残るのは軟拘束の残差だけ。
+SEAM_TOLERANCE_CM = 0.1
 
 NO_PATTERN = "UNKNOWN_NO_PATTERN"
 NOT_SEWN = "UNKNOWN_SEAM_DID_NOT_CLOSE"
@@ -193,7 +207,36 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         for a, b, kind in local_edges:
             edges.append((base + a, base + b, kind))
 
+    def _attach(piece: str, flat_pt: Tuple[float, float]) -> int:
+        """目の位置に専用の頂点を足し、近い格子点に繋ぐ。
+
+        辺は平らな状態の距離を自然長にするので、ここで足した辺も
+        他と同じ扱いになります。**縫い目ごとに自分の頂点を持つ**ので、
+        乗り合いは起きません。
+        """
+        key = (piece, round(flat_pt[0], 4), round(flat_pt[1], 4))
+        if key in attached:
+            return attached[key]
+        ox, oy, oz = PLACEMENT.get(piece, (0.0, 0.0, 0.0))
+        idx = len(points)
+        points.append((flat_pt[0] + ox, -flat_pt[1] + oy, oz))
+        owner.append(piece)
+        attached[key] = idx
+        flat = piece_flat[piece]
+        base = piece_base[piece]
+        near = sorted(range(len(flat)),
+                      key=lambda i: (flat[i][0] - flat_pt[0]) ** 2
+                      + (flat[i][1] - flat_pt[1]) ** 2)[:3]
+        for i in near:
+            dx = abs(flat[i][0] - flat_pt[0])
+            dy = abs(flat[i][1] - flat_pt[1])
+            kind = ("warp" if dx < 1e-9 else
+                    "weft" if dy < 1e-9 else "bias")
+            edges.append((idx, base + i, kind))
+        return idx
+
     # 縫い目。**型紙の名前付き辺から決める。**
+    attached: Dict[Tuple[str, float, float], int] = {}
     seam_pairs: List[Tuple[int, int]] = []
     seen_pairs: set = set()
     seam_rows: List[Dict[str, Any]] = []
@@ -230,8 +273,15 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
             mode = "proportional"
         made = 0
         for ta, tb in zip(sa, sb):
-            ia = piece_base[pa] + _nearest(piece_flat[pa], ta)
-            ib = piece_base[pb] + _nearest(piece_flat[pb], tb)
+            # **目の位置に頂点を作る。** 最寄りの格子点に丸めると、
+            # 短い辺では複数の目が同じ頂点に乗ります。一つの点は一箇所
+            # にしか居られないので、乗り合った分は必ず開いたまま残る
+            # (2026-08-23 実測: 頂点4に3本、その縫い目が 3.66cm 開いて
+            #  いた。それでも平均判定では「閉じた」と出ていた)。
+            # 縫い目は輪郭の上にあるのに、格子は輪郭の**内側**だけを
+            # 取っていたので、境界に頂点が無かったのが元。
+            ia = _attach(pa, ta)
+            ib = _attach(pb, tb)
             if ia != ib and (ia, ib) not in seen_pairs:
                 seen_pairs.add((ia, ib))
                 seam_pairs.append((ia, ib))
@@ -303,7 +353,7 @@ def _seam_gap(pos: Sequence[Sequence[float]],
 
 
 def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
-                  iterations: int = 300, order: Optional[Sequence[int]] = None,
+                  iterations: int = 2000, order: Optional[Sequence[int]] = None,
                   step: Optional[float] = None,
                   stitch_k: Optional[float] = None,
                   start: Optional[Sequence[Vec]] = None,
@@ -325,7 +375,7 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
     points = built["points"]
     edges = built["edges"]
     pairs = built["seam_pairs"]
-    gap_tol = built.get("cell", DEFAULT_CELL) / 2.0
+    gap_tol = SEAM_TOLERANCE_CM
     n = len(points)
     pos = [list(p) for p in (start if start is not None else points)]
     stiff = _stiffness(material)
@@ -344,14 +394,29 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
     mass = material["gsm"] / 10000.0
     # 縫合は布より弱くする。強すぎると縫い目が布を引き裂く向きに効く。
     if stitch_k is None:
-        stitch_k = max(stiff.values()) * 0.25
+        # **縫い目は布より硬い。** 糸は布のようには伸びません。
+        # 0.25倍(布より柔らかい)にしていたので、目が布に負けて隙間が
+        # 残っていました。剛性を上げると隙間は単調に縮み、各段で収束
+        # します(2026-08-23 実測: 0.25倍で1.78cm → 1倍0.75 → 4倍0.22
+        #  → 16倍0.07cm)。幾何の問題ではなく、ばねの選び方の問題でした。
+        # 16倍は「残差を縫製の実務公差(1mm)より下に入れる」ための値で、
+        # 達成した残差は毎回 seam_gap.worst に出します。
+        stitch_k = max(stiff.values()) * STITCH_STIFFNESS_RATIO
     if step is None:
         step = 0.4 / max(max(stiff.values()), stitch_k, 1e-6)
     from .garment_drape import GRAVITY
 
     gaps = [_seam_gap(pos, pairs)]
-    energies = [_energy(pos, edges, rest, stiff, mass, pin)]
-    for _ in range(iterations):
+    energies = [_energy(pos, edges, rest, stiff, mass, pin,
+                        pairs, stitch_k)]
+    used = 0
+    seams_settled = False
+    prev_worst = float('inf')
+    for it_i in range(iterations):
+        # **Jacobi。** 古い状態から全点の勾配を出し、まとめて動かす。
+        # 落とす側(garment_drape.solve)と同じ規則にしてある — 同じ物理を
+        # 二箇所で別々に解くと、片方だけ壊れる(実測済み)。
+        grad = [[0.0, 0.0, 0.0] for _ in range(n)]
         for i in seq:
             if i in pin:
                 continue
@@ -366,34 +431,75 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                 c = stiff[kind] * (length - rest[e]) / length
                 for t in range(3):
                     g[t] += c * d[t]
-            for s in stitched[i]:
-                a, b = pairs[s]
+            for sx in stitched[i]:
+                a, b = pairs[sx]
                 other = b if a == i else a
                 for t in range(3):
                     g[t] += stitch_k * (pos[i][t] - pos[other][t])
             g[1] += -mass * GRAVITY
+            grad[i] = g
+        moved = 0.0
+        for i in range(n):
+            if i in pin:
+                continue
             for t in range(3):
-                pos[i][t] -= step * g[t]
+                d = step * grad[i][t]
+                pos[i][t] -= d
+                moved = max(moved, abs(d))
+        used += 1
+        # **収束したら止める。** 反復数を決め打ちにすると、生地や縫い目
+        # の本数が変わるたびに足りなくなります(袖下線を足した途端、既定
+        # の400回では閉じなくなった)。止める条件は「縫い目が全部許容内」
+        # かつ「もう動いていない」。**打ち切ったのか収束したのかは
+        # 出力に出します** — 静かに打ち切るのがいちばん危ない。
+        if it_i % 50 == 49:
+            worst_now = max((math.dist(pos[a], pos[b]) for a, b in pairs),
+                            default=0.0)
+            # **「縫い目が閉じた」と「形が落ち着いた」は別のこと。**
+            # 服は縫い目が閉じた後も重力でゆっくり落ち続けます。ここで
+            # 見るのは縫い目だけ — 混ぜると、閉じているのに「未収束」と
+            # 報告し続けることになります。
+            if worst_now <= gap_tol and abs(worst_now - prev_worst) < 1e-4:
+                seams_settled = True
+                break
+            prev_worst = worst_now
         gaps.append(_seam_gap(pos, pairs))
-        energies.append(_energy(pos, edges, rest, stiff, mass, pin))
+        energies.append(_energy(pos, edges, rest, stiff, mass, pin,
+                                pairs, stitch_k))
+
+    each = [math.dist(pos[a], pos[b]) for a, b in pairs]
+    worst_gap = max(each) if each else 0.0
+    n_over = sum(1 for g in each if g > gap_tol)
 
     return {
         "verdict": "ANSWER",
         "points": [(round(p[0], 4), round(p[1], 4), round(p[2], 4))
                    for p in pos],
         "owner": built["owner"],
-        # **「縮んだ」を「閉じた」と呼ばない。** 前は gaps[-1] < gaps[0]
-        # を closed としていて、6cm 開いたままの縫い目が合格していました
-        # (2026-08-23 実測)。許容は選ばずメッシュから出します — 目は各
-        # ピースの最寄り格子点に付くので、cell の半分は原理的な下限です。
+        # **平均で判定しない。** 前は平均 1.04cm で「閉じた」と出しな
+        # がら、23本のうち1本が 3.66cm 開いていました (2026-08-23 実測)。
+        # 平均は、この検査が捕まえるべき失敗をちょうど隠します。
+        # **一本でも許容を超えたら閉じていない。**
         "seam_gap": {"first": gaps[0], "last": gaps[-1],
+                     "worst": round(worst_gap, 4),
+                     "over_tolerance": int(n_over),
+                     "stitches": len(pairs),
                      "tolerance": round(gap_tol, 4),
-                     "tolerance_from": "メッシュ格子の半分 (cell/2)",
+                     "tolerance_from": "縫製の実務公差 1mm。目の位置に"
+                                       "頂点を置いたので、残るのは"
+                                       "軟拘束の残差だけ",
                      "decreased": gaps[-1] < gaps[0],
-                     "closed": gaps[-1] <= gap_tol},
+                     "closed": worst_gap <= gap_tol},
         "energy": {"first": energies[0], "last": energies[-1]},
-        "iterations": iterations,
-        "step": round(step, 6), "stitch_k": round(stitch_k, 3),
+        "iterations": used,
+        "iterations_cap": iterations,
+        "seams_settled": seams_settled,
+        "stopped_because": ("縫い目が許容内に入り、それ以上縮まなくなった"
+                            if seams_settled else "反復の上限に達した"),
+        "note_on_settling":
+            "縫い目が閉じても服はまだ落ち続けます。ここが True なのは"
+            "縫い目についてだけで、形が定まったという意味ではありません",
+        "step": round(step, 8), "stitch_k": round(stitch_k, 3),
     }
 
 
@@ -459,7 +565,7 @@ def _internal_diff(a: Sequence[Sequence[float]],
 
 
 def validate(measures: Any, material: Dict[str, Any], *,
-             cell: float = DEFAULT_CELL, iterations: int = 300,
+             cell: float = DEFAULT_CELL, iterations: int = 2000,
              tolerances: Optional[Dict[str, float]] = None
              ) -> Dict[str, Any]:
     """縫って落とし、**検査に通ったときだけ形を返す。**
@@ -478,7 +584,8 @@ def validate(measures: Any, material: Dict[str, Any], *,
     if built["verdict"] != "ANSWER":
         return built
 
-    tol = {"order": 1.5, "starts": 3.0}
+    tol = {"order": 1.5, "starts": 3.0,
+           "seam_closed": SEAM_TOLERANCE_CM}
     tol.update(tolerances or {})
     base = sew_and_drape(built, material, iterations=iterations)
 
@@ -511,12 +618,20 @@ def validate(measures: Any, material: Dict[str, Any], *,
 
     checks = {
         "seam_closed": {
-            "verdict": "ANSWER" if base["seam_gap"]["closed"] else NOT_SEWN,
+            "verdict": ("ANSWER"
+                        if base["seam_gap"]["worst"] <= tol["seam_closed"]
+                        else NOT_SEWN),
             **base["seam_gap"]},
+        # **これはもう検査ではない。** Jacobi にしたので更新順は構成上
+        # 答えに影響しません。通っても何も確かめたことにならないので、
+        # そう明示します。数字は「本当に0か」を見るために残します。
         "order": {
             "verdict": ("ANSWER" if max(order_diffs) <= tol["order"]
                         else ORDER_DEPENDENT),
-            "worst_difference": max(order_diffs), "tolerance": tol["order"]},
+            "worst_difference": max(order_diffs), "tolerance": tol["order"],
+            "structural": True,
+            "not_a_test": "更新順は Jacobi なので構成上効きません。"
+                          "通ったことは何の確認にもなりません"},
         "starts": {
             "verdict": ("ANSWER" if max(start_diffs) <= tol["starts"]
                         else LOCAL_MINIMUM),
@@ -544,9 +659,27 @@ def validate(measures: Any, material: Dict[str, Any], *,
             "縫って落とした形は生成物です。観測の出典にはできません。",
     }
     if failed:
-        out["why_no_shape"] = ("検査が通らなかったので形を返していません。"
-                               "順序や初期配置が決めた皺を、物理として"
+        # **どのピースが決まらないのかを名指しする。** 「検査が落ちた」
+        # だけでは次に触る先が決まりません。実測では身頃は 0.5-0.9cm で
+        # 一致し、袖だけが 11.4cm 振れます — 袖は筒なので軸まわりに
+        # 回れるし、折れ方も二通りある。
+        blame = ""
+        bp = checks["starts"].get("by_piece", {})
+        if "starts" in failed and bp:
+            worst_piece = max(bp, key=lambda k: bp[k])
+            steady = [k for k, v in bp.items()
+                      if v <= tol["starts"] and k != worst_piece]
+            blame = (f"決まらないのは{worst_piece}です"
+                     f"({bp[worst_piece]:.1f}cm 振れます)。")
+            if steady:
+                blame += f"{'・'.join(steady)}は一致しています。"
+        out["why_no_shape"] = (blame
+                               + "検査が通らなかったので形を返していません。"
+                               "初期配置が決めた皺を、物理として"
                                "見せないためです")
+        out["blame"] = {"worst_piece": (max(bp, key=lambda k: bp[k])
+                                        if bp else None),
+                        "by_piece": bp}
         if "starts" in failed:
             out["shapes"] = starts
     else:

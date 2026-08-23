@@ -4080,7 +4080,7 @@ def build(store_path: str):
                           ensure_ascii=False)
 
     @mcp.tool()
-    def sew_and_drape(fabric: str, iterations: int = 600,
+    def sew_and_drape(fabric: str, iterations: int = 2000,
                       cell: float = 6.0) -> str:
         """**型紙を縫い合わせて落とす。** ここまでで唯一、この一着を落とす口。
 

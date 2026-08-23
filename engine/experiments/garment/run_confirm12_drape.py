@@ -55,38 +55,58 @@ def ve1():
 
 # ---------------------------------------------------------------- VE2
 def ve2():
-    """**順序不変。** 落ちたら形を返さない。
+    """**順序不変は、いまや構成上の性質であって検査ではない。**
 
-    そして検査が本当に発火することを確かめる — 発火しない検査は
-    通っても意味が無い。
+    2026-08-23 書き直し。以前は Gauss-Seidel(その場で書き換え)で解いて
+    いたので順序が効き、この検査は本当に発火しました。縫い目のばねを
+    正しい硬さにした途端、縫った服で順序差が 1.7cm 残って落ちました —
+    順序が効いていた証拠です。
+
+    そこで解法を Jacobi(古い状態から全点の勾配を出してまとめて動かす)に
+    変えました。**更新順は構成上答えに影響しません。**
+
+    だからここで測るのは「差がゼロであること」ではなく、
+    **「これは検査ではないと出力が名乗っていること」**です。
+    通っても何も確かめていない検査を、確かめたことにしないために。
     """
     pts, edges, pin, mat = setup()
     loose = check_order(pts, edges, pin, mat, iterations=300)
     strict = check_order(pts, edges, pin, mat, iterations=300,
-                         tolerance=0.001)
+                         tolerance=0.0)
     ok = (loose["verdict"] == "ANSWER"
-          and strict["verdict"] == ORDER_DEPENDENT
-          and strict.get("how_to_close")
-          and loose["worst_difference"] > 0)   # 差は実在する
-    record("VE2_order_invariance_is_checked_and_the_check_can_fail", ok,
+          and loose["worst_difference"] == 0.0
+          and strict["verdict"] == "ANSWER")   # 0 <= 0
+    record("VE2_order_invariance_is_structural_not_a_test", ok,
            {"difference": loose["worst_difference"],
-            "loose": loose["verdict"], "strict": strict["verdict"]})
+            "at_zero_tolerance": strict["verdict"],
+            "solver": "Jacobi",
+            "was": "Gauss-Seidel のときは差が実在し、この検査は発火した",
+            "why_it_matters": "構成で真になった性質を「検査に通った」と"
+                              "報告すると、確かめていないことを"
+                              "確かめたと言うことになる"})
 
 
 # ---------------------------------------------------------------- VE3
 def ve3():
-    """**順序依存は反復とともに育つ。** 収束させても消えない。
+    """**「よく収束させた」は「順序に依らない」を意味しない。**
 
-    「よく収束させた」ことが「順序に依らない」を意味しない — これが
-    分かっていないと、反復を増やして安心してしまう。
+    Gauss-Seidel のときの実測は 50/300/800 反復で差が**育って**いた —
+    収束させるほど順序依存が大きくなる。反復を増やして安心するのは
+    間違いだ、という発見だった。
+
+    Jacobi にしたので、いまはどの反復数でも差はゼロ。**元の発見が
+    消えたのではなく、原因を構成で断った**ので、ここでは
+    「反復に関わらずゼロ」を測る。
     """
     pts, edges, pin, mat = setup()
     diffs = [check_order(pts, edges, pin, mat,
                          iterations=it)["worst_difference"]
              for it in (50, 300, 800)]
-    ok = (diffs[0] < diffs[1] < diffs[2])
-    record("VE3_order_dependence_grows_with_iterations", ok,
-           {"iterations": [50, 300, 800], "differences": diffs})
+    ok = all(d == 0.0 for d in diffs)
+    record("VE3_order_dependence_is_zero_at_every_iteration_count", ok,
+           {"iterations": [50, 300, 800], "differences": diffs,
+            "gauss_seidel_history": "差は 50<300<800 と育っていた",
+            "now": "Jacobi なので構成上ゼロ"})
 
 
 # ---------------------------------------------------------------- VE4
@@ -181,8 +201,10 @@ def ve8():
             refused = "UNKNOWN_GENERATED_NOT_EVIDENCE" in str(e)
     mat = material_from(fabrics(), "テスト布")
     good = validate(material=mat, iterations=200)
+    # 順序は構成上ゼロになったので、そこでは噛ませられない。
+    # **まだ経験的に効く検査**(多点始動)で噛ませる。
     bad = validate(material=mat, iterations=200,
-                   tolerances={"order": 0.0001})
+                   tolerances={"starts": 0.0})
     ok = (refused
           and "points" in good and good["verdict"] == "ANSWER"
           and "points" not in bad

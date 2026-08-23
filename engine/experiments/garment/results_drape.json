@@ -8,15 +8,17 @@
     "vertices": 81
    }
   },
-  "VE2_order_invariance_is_checked_and_the_check_can_fail": {
+  "VE2_order_invariance_is_structural_not_a_test": {
    "pass": true,
    "detail": {
-    "difference": 0.0048,
-    "loose": "ANSWER",
-    "strict": "UNKNOWN_ORDER_DEPENDENT"
+    "difference": 0.0,
+    "at_zero_tolerance": "ANSWER",
+    "solver": "Jacobi",
+    "was": "Gauss-Seidel のときは差が実在し、この検査は発火した",
+    "why_it_matters": "構成で真になった性質を「検査に通った」と報告すると、確かめていないことを確かめたと言うことになる"
    }
   },
-  "VE3_order_dependence_grows_with_iterations": {
+  "VE3_order_dependence_is_zero_at_every_iteration_count": {
    "pass": true,
    "detail": {
     "iterations": [
@@ -25,10 +27,12 @@
      800
     ],
     "differences": [
-     0.0004,
-     0.0048,
-     0.0078
-    ]
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gauss_seidel_history": "差は 50<300<800 と育っていた",
+    "now": "Jacobi なので構成上ゼロ"
    }
   },
   "VE4_split_starts_return_every_shape_not_one": {
@@ -43,8 +47,8 @@
    "pass": true,
    "detail": {
     "differences": [
-     0.053,
-     0.037
+     0.052,
+     0.033
     ],
     "shrinking": true,
     "tight": "UNKNOWN_NOT_CONVERGED"
@@ -54,7 +58,7 @@
    "pass": true,
    "detail": {
     "first": 0.0,
-    "last": -2880.723613,
+    "last": -2868.698349,
     "rises": 0,
     "steps": 400
    }
@@ -79,7 +83,7 @@
     "good": "ANSWER",
     "failed_returns_no_shape": true,
     "failed": [
-     "order"
+     "starts"
     ]
    }
   }

@@ -255,25 +255,38 @@ def vn11():
 
 # --------------------------------------------------------------- VN12
 def vn12():
-    """**合印で縫うと落ちる形が変わる。** これが崩れたら合印は絵。"""
+    """**合印で縫うと落ちる形が変わる。** これが崩れたら合印は絵。
+
+    2026-08-23 追記: 目の位置に専用の頂点を置くようにしたので、比例配分
+    と合印配分では**メッシュ自体も変わります**(目の位置が違うので)。
+    それは実態に近い — 目がどこに落ちるかを決めているのは合印です。
+    だから比較は**両方に共通する格子の頂点だけ**で取ります。そこは
+    どちらの組み方でも同一なので、差は縫い目の対応から来ています。
+    """
     d = draft(measures())
     mat = material()
     b_prop = build(d, marks=None)
     b_notch = build(d, marks=apply(d))
-    same_mesh = b_prop["points"] == b_notch["points"]
+    grid = sum(v["vertices"] for v in b_prop["pieces"].values())
+    grid_n = sum(v["vertices"] for v in b_notch["pieces"].values())
+    same_grid = (grid == grid_n
+                 and b_prop["points"][:grid] == b_notch["points"][:grid])
     a = sew_and_drape(b_prop, mat, iterations=800)["points"]
     c = sew_and_drape(b_notch, mat, iterations=800)["points"]
-    n = min(len(a), len(c))
-    worst = max(math.dist(a[i], c[i]) for i in range(n))
+    worst = max(math.dist(a[i], c[i]) for i in range(grid))
     modes = {r["seam"]: r.get("correspondence") for r in b_notch["seams"]}
-    ok = (same_mesh and worst > 0.5
+    ok = (same_grid and worst > 0.5
           and any(v == "notched" for v in modes.values()))
     record("VN12_notches_change_the_drape", ok,
-           {"same_mesh": same_mesh, "worst_difference_cm": round(worst, 3),
+           {"shared_grid_vertices": grid, "grid_identical": same_grid,
+            "worst_difference_cm": round(worst, 3),
             "mean_difference_cm": round(
-                sum(math.dist(a[i], c[i]) for i in range(n)) / n, 3),
+                sum(math.dist(a[i], c[i]) for i in range(grid)) / grid, 3),
+            "stitch_vertices_proportional": len(b_prop["points"]) - grid,
+            "stitch_vertices_notched": len(b_notch["points"]) - grid,
             "correspondence": modes,
-            "meaning": "メッシュが同一なので、差は縫い目の対応だけから来る"})
+            "meaning": "格子の頂点は両方で同一なので、そこの差は縫い目の"
+                       "対応から来る。目の頂点は合印が決めるので別々"})
 
 
 # --------------------------------------------------------------- VN13
@@ -283,7 +296,6 @@ def vn13():
     2026-08-23 に見つけた欠陥: 外向きの符号が逆で、三枚とも縫い代が
     **内側**に付いていた。それでも VN5-VN8・VN11 は全部通っていた —
     どれも「向き」を見ていなかったから。図を描くまで気付かなかった。
-    面積で見れば一行で捕まる。
     """
     from verantyx.garment_marks import _signed_area
 
@@ -299,7 +311,6 @@ def vn13():
                      "cut_cm2": round(a_cut, 1)})
         if a_cut <= a_sew:
             bad.append(name)
-        # 出来上がり線の全頂点が、裁ち切り線の内側にあること
         for q in off["sew_line"]:
             if not _inside(off["cut_line"], q):
                 bad.append(f"{name}:頂点が外")

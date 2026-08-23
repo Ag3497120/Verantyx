@@ -95,17 +95,30 @@ def vf4():
     """
     b = build(draft(measures()))
     mat = material()
-    runs = [sew_and_drape(b, mat, iterations=it) for it in (500, 2000)]
+    # 2026-08-23: 縫い目のばねを正しい硬さにし、袖下線を足したので、
+    # 500 回では閉じません。**数字を下げて通すのではなく、閉じるまでに
+    # 要る回数を測って書きます。** 既定は収束で止まるので実行回数も出す。
+    runs = [sew_and_drape(b, mat, iterations=it) for it in (2000, 8000)]
     gaps = [r["seam_gap"] for r in runs]
     finite = all(g["last"] == g["last"] for g in gaps)     # nan 除け
     ok = (finite
           and all(g["closed"] for g in gaps)
           and gaps[0]["last"] < gaps[0]["first"]
           # 収束: 反復を4倍にしても隙間が動かない
-          and abs(gaps[1]["last"] - gaps[0]["last"]) < 0.5)
+          and abs(gaps[1]["worst"] - gaps[0]["worst"]) < 0.02
+          # **一本でも許容を超えていたら閉じていない**
+          and all(g["over_tolerance"] == 0 for g in gaps))
     record("VF4_the_seam_gap_shrinks_and_settles", ok,
-           {"first": gaps[0]["first"], "at_500": gaps[0]["last"],
-            "at_2000": gaps[1]["last"], "step": runs[0]["step"]})
+           {"first": gaps[0]["first"],
+            "worst_at_2000": gaps[0]["worst"],
+            "worst_at_8000": gaps[1]["worst"],
+            "tolerance": gaps[0]["tolerance"],
+            "over_tolerance": [gaps[0]["over_tolerance"],
+                               gaps[1]["over_tolerance"]],
+            "iterations_used": [runs[0]["iterations"], runs[1]["iterations"]],
+            "seams_settled": [runs[0]["seams_settled"],
+                              runs[1]["seams_settled"]],
+            "step": runs[0]["step"]})
 
 
 # ---------------------------------------------------------------- VF5
@@ -116,34 +129,49 @@ def vf5():
     局所最小に落ちる(VF8)。通らないのが正しい振る舞いなので、
     そこを測る。
     """
-    got = validate(measures(), material(), iterations=400)
-    strict = validate(measures(), material(), iterations=400,
-                      tolerances={"order": 0.00001})
-    # 2026-08-23 書き直し。以前は「必ず落ちる」を assert していたが、
-    # それは **始点の検査が壊れていたから落ちていた** だけだった
-    # (VF11 参照)。直したら既定の反復では通る。門が効くことは、
-    # 落ちる側と通る側の両方で確かめる。
-    tight = validate(measures(), material(), iterations=400,
-                     tolerances={"starts": 0.001})
+    got = validate(measures(), material())
+    # 順序は Jacobi で構成上 0 なので、そこは噛ませられない。
+    # 噛むのは縫い目の側に変える。
+    strict = validate(measures(), material(),
+                      tolerances={"seam_closed": 0.0})
+    # 2026-08-23 書き直し(二度目)。門が効くことは、**落ちる側と通る側の
+    # 両方**で確かめます。袖を筒にしたので、袖のある一着は初期配置に
+    # よって袖が 11cm 振れ、形を返しません。袖の無い二枚仕立ては
+    # 0.9cm で一致して形を返します。**同じ道具が、決まるものは返し、
+    # 決まらないものは名指しして断る** — そこを測ります。
+    class _NoSleeve:
+        def sheet(self):
+            sh = measures().sheet()
+            return {**sh, "measured": [r for r in sh["measured"]
+                                       if r["spot"] != "sleeve_length"]}
+
+    passes = validate(_NoSleeve(), material())
+    tight = validate(measures(), material(),
+                     tolerances={"starts": 0.0001})
     ok = (set(got["checks"]) == {"seam_closed", "order", "starts"}
           and got["checks"]["seam_closed"]["verdict"] == "ANSWER"
-          # 通る側: 形が返り、割れた形の一覧は返らない
-          and got["verdict"] == "ANSWER"
-          and "points" in got and not got.get("shapes")
-          # 落ちる側(始点): 形を返さず、代わりに全部の形を返す
+          # 落ちる側: 袖のある一着は形を返さず、責任のピースを名指しする
+          and got["verdict"] != "ANSWER"
+          and "points" not in got
+          and got.get("blame", {}).get("worst_piece") == "袖"
+          and "袖" in got.get("why_no_shape", "")
+          # 通る側: 袖の無い二枚仕立ては形を返す
+          and passes["verdict"] == "ANSWER" and "points" in passes
+          and not passes.get("shapes")
+          # 極端に締めれば、通っていた側も落ちる
           and tight["verdict"] != "ANSWER"
-          and "points" not in tight
-          and tight.get("why_no_shape")
           and len(tight.get("shapes", [])) == 3
-          # 落ちる側(順序)
-          and strict["verdict"] != "ANSWER"
-          and "points" not in strict)
-    record("VF5_the_validator_bites_both_ways", ok,
-           {"default": got["verdict"],
-            "default_returned_shape": "points" in got,
-            "tight_starts": tight["verdict"],
+          # 順序は構成上そうなるので、検査として数えない
+          and got["checks"]["order"].get("structural") is True)
+    record("VF5_the_validator_bites_and_names_the_piece", ok,
+           {"with_sleeve": got["verdict"],
+            "with_sleeve_blame": got.get("blame", {}).get("worst_piece"),
+            "with_sleeve_by_piece": got.get("blame", {}).get("by_piece"),
+            "two_piece": passes["verdict"],
+            "two_piece_returned_shape": "points" in passes,
             "tight_shapes_returned": len(tight.get("shapes", [])),
-            "tight_order": strict["verdict"]})
+            "order_is_structural":
+                got["checks"]["order"].get("structural")})
 
 
 # ---------------------------------------------------------------- VF8
@@ -190,7 +218,11 @@ def _start_gradients(iterations=5000):
     mass = mat["gsm"] / 10000.0
     rest = [_m.dist(b["points"][x], b["points"][y]) for x, y, _ in edges]
     pin = set(_shoulder_pins(b))
-    k_st = round(max(stiff.values()) * 0.25, 3)
+    # **最小化している式と同じ定数を使う。** 0.25 を直に書いていたので、
+    # 縫い目の剛性を直した後、別の式の勾配を測っていました
+    # (2026-08-23: 0.037 と出たが、実際は 0.00017 だった)。
+    from verantyx.garment_sew import STITCH_STIFFNESS_RATIO
+    k_st = round(max(stiff.values()) * STITCH_STIFFNESS_RATIO, 3)
 
     def gnorm(pos):
         n = len(pos)

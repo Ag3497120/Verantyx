@@ -18,14 +18,16 @@
     "seams": [
      "前身頃/肩線 ↔ 後身頃/肩線",
      "前身頃/脇線 ↔ 後身頃/脇線",
+     "袖/袖下線(右) ↔ 袖/袖下線(左)",
      "袖/袖山(前半) ↔ 前身頃/袖ぐり",
      "袖/袖山(後半) ↔ 後身頃/袖ぐり"
     ],
     "stitches": {
      "前身頃/肩線 ↔ 後身頃/肩線": 3,
-     "前身頃/脇線 ↔ 後身頃/脇線": 13,
-     "袖/袖山(前半) ↔ 前身頃/袖ぐり": 3,
-     "袖/袖山(後半) ↔ 後身頃/袖ぐり": 3
+     "前身頃/脇線 ↔ 後身頃/脇線": 14,
+     "袖/袖山(前半) ↔ 前身頃/袖ぐり": 4,
+     "袖/袖山(後半) ↔ 後身頃/袖ぐり": 4,
+     "袖/袖下線(右) ↔ 袖/袖下線(左)": 11
     }
    }
   },
@@ -33,29 +35,48 @@
    "pass": true,
    "detail": {
     "counts": {
-     "後身頃": 75,
-     "前身頃": 74,
-     "袖": 32
+     "後身頃": 94,
+     "前身頃": 93,
+     "袖": 59
     }
    }
   },
   "VF4_the_seam_gap_shrinks_and_settles": {
    "pass": true,
    "detail": {
-    "first": 22.236,
-    "at_500": 0.7733,
-    "at_2000": 0.8064,
-    "step": 0.000245
+    "first": 20.7796,
+    "worst_at_2000": 0.0421,
+    "worst_at_8000": 0.0421,
+    "tolerance": 0.1,
+    "over_tolerance": [
+     0,
+     0
+    ],
+    "iterations_used": [
+     1350,
+     1350
+    ],
+    "seams_settled": [
+     true,
+     true
+    ],
+    "step": 1.531e-05
    }
   },
-  "VF5_the_validator_bites_both_ways": {
+  "VF5_the_validator_bites_and_names_the_piece": {
    "pass": true,
    "detail": {
-    "default": "ANSWER",
-    "default_returned_shape": true,
-    "tight_starts": "UNKNOWN_LOCAL_MINIMUM",
+    "with_sleeve": "UNKNOWN_LOCAL_MINIMUM",
+    "with_sleeve_blame": "袖",
+    "with_sleeve_by_piece": {
+     "前身頃": 1.034,
+     "袖": 11.437,
+     "後身頃": 0.504
+    },
+    "two_piece": "ANSWER",
+    "two_piece_returned_shape": true,
     "tight_shapes_returned": 3,
-    "tight_order": "UNKNOWN_ORDER_DEPENDENT"
+    "order_is_structural": true
    }
   },
   "VF6_deterministic": {
@@ -63,7 +84,7 @@
    "detail": {
     "same_drape": true,
     "same_build": true,
-    "vertices": 181
+    "vertices": 246
    }
   },
   "VF7_the_sewn_garment_is_generated": {
@@ -82,16 +103,16 @@
      5000
     ],
     "start_differences": [
-     1.2854,
-     1.4736,
-     3.5894
+     9.4404,
+     11.361,
+     11.361
     ],
     "tolerance": 3.0,
     "grows_with_iterations": true,
     "gradient_ratio_per_start": [
-     0.000786,
-     0.000773,
-     0.000821
+     0.000388,
+     0.000301,
+     0.000311
     ],
     "all_converged": true,
     "why": "勾配が初期の1%未満まで落ちていれば極小。そこで形が違うなら、回し足りないのではなく解が一つに決まらない"
@@ -100,13 +121,13 @@
   "VF9_swing_and_different_shape_are_told_apart": {
    "pass": true,
    "detail": {
-    "coordinate_difference": 1.2515,
-    "internal_distance_difference": 1.1808,
-    "same_shape_moved": true,
+    "coordinate_difference": 10.7534,
+    "internal_distance_difference": 11.6307,
+    "same_shape_moved": false,
     "by_piece": {
-     "前身頃": 1.43,
-     "袖": 0.649,
-     "後身頃": 1.099
+     "前身頃": 0.82,
+     "袖": 10.76,
+     "後身頃": 0.454
     }
    }
   },
@@ -114,25 +135,25 @@
    "pass": true,
    "detail": {
     "pins": [
-     79,
-     82
+     75,
+     78
     ],
     "pin_pieces": [
      "前身頃"
     ],
     "pins_on_stitches": [],
-    "gap_last": 0.7885,
-    "gap_tolerance": 3.0
+    "gap_last": 0.0185,
+    "gap_tolerance": 0.1
    }
   },
   "VF11_the_start_does_not_change_the_cloth": {
    "pass": true,
    "detail": {
-    "total_edge_flat_start_cm": 3837.9,
-    "total_edge_moved_start_cm": 3837.5,
-    "total_edge_old_broken_path_cm": 3846.8,
-    "moved_start_drift": 9e-05,
-    "broken_path_drift": 0.00231,
+    "total_edge_flat_start_cm": 5236.7,
+    "total_edge_moved_start_cm": 5240.3,
+    "total_edge_old_broken_path_cm": 5263.5,
+    "moved_start_drift": 0.0007,
+    "broken_path_drift": 0.00513,
     "why": "始点は解き始める場所であって布ではない。自然長は平らな型紙から取る"
    }
   }

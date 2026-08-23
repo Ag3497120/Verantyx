@@ -38,6 +38,18 @@ FORMULAS = {
     "袖幅 (袖口側)": "chest / 8 + 2.0",
     "袖山の幅": "袖山の長さが「袖ぐりの合計 + いせ込み」になるよう解く",
     "いせ込み": "2.0cm（この道具の既定）",
+    # ここから下は 2026-08-23 追加。**それまで式を出していなかった。**
+    # 「全ての式を書き出す」と書きながら、袖ぐりと袖山の曲がりを決める
+    # 定数がソースにしかありませんでした。服飾の人がいちばん異議を
+    # 唱えたい数字が、出していない数字だったことになります。
+    "肩先の位置 (x)": "shoulder / 2 ※ shoulder は肩幅の全長とみなす",
+    "後袖ぐりの control 点 (x)": "身頃幅 − 1.0（固定）",
+    "前袖ぐりの control 点 (x)": "身頃幅 − 1.6（固定）"
+                            " ※ 前後の袖ぐりの違いはこの 0.6cm だけ",
+    "袖ぐりの control 点 (y)": "袖ぐり深さ × 0.55",
+    "袖山の control 点 (x)": "袖山の幅 × 0.5",
+    "袖山の control 点 (y)": "袖山の高さ × 0.22",
+    "袖山の幅の解き方": "二分探索 60 回、範囲 (0.1, 袖ぐりの合計)",
 }
 
 #: 袖山を袖ぐりより長くする分(cm)。**この道具が決めた値**で、
@@ -45,16 +57,40 @@ FORMULAS = {
 EASE_IN = 2.0
 
 
-def _need(measures: Any, spots: Tuple[str, ...]) -> Tuple[Dict[str, float],
-                                                          List[str]]:
-    """必要な寸法を集める。**既定で埋めない。**"""
+#: 長さを cm に直す係数。**製図は cm で書いてある。**
+TO_CM = {"cm": 1.0, "mm": 0.1, "inch": 2.54, "in": 2.54, "": 1.0}
+
+
+def _need(measures: Any, spots: Tuple[str, ...]
+          ) -> Tuple[Dict[str, float], List[str], Dict[str, Any]]:
+    """必要な寸法を集める。**既定で埋めない。単位を cm に直す。**
+
+    2026-08-23 の欠陥: `float(row["value"])` だけを読んで `row["unit"]` を
+    見ていませんでした。インチで入れた寸法がそのまま cm として製図に
+    入り、面積 6027cm² が 511cm² になって、**警告なしに ANSWER** が
+    返っていました(実測)。「単位のない数字は受け取らない」門は入口に
+    あったのに、単位の**違い**は誰も見ていなかった。
+
+    知らない単位は換算しません。埋めずに missing に落とします —
+    1 と決めてしまうのが、いちばん静かな間違い方です。
+    """
     have: Dict[str, float] = {}
+    used_units: Dict[str, str] = {}
+    unknown: List[Dict[str, str]] = []
     if measures is not None:
         sheet = measures.sheet()
         for row in sheet["measured"] + sheet["derived"]:
-            have[row["spot"]] = float(row["value"])
+            unit = (row.get("unit") or "").strip().lower()
+            k = TO_CM.get(unit)
+            if k is None:
+                unknown.append({"spot": row["spot"], "unit": row.get("unit")})
+                continue
+            have[row["spot"]] = float(row["value"]) * k
+            used_units[row["spot"]] = unit or "cm"
     missing = [s for s in spots if s not in have]
-    return have, missing
+    return have, missing, {"units_seen": used_units,
+                           "unknown_unit": unknown,
+                           "converted_to": "cm"}
 
 
 def _length(points: List[Tuple[float, float]]) -> float:
@@ -78,12 +114,13 @@ def _area(points: List[Tuple[float, float]]) -> float:
 
 def draft(measures: Any) -> Dict[str, Any]:
     """型紙を引く。返すのはピースと、**縫い合わせの検算**。"""
-    have, missing = _need(measures, REQUIRED)
+    have, missing, units = _need(measures, REQUIRED)
     if missing:
         return {
             "verdict": "UNKNOWN_MISSING_MEASUREMENTS",
             "missing": list(missing),
             "how_to_close": "、".join(missing) + " を実測すれば引ける",
+            "units": units,
             "formulas": dict(FORMULAS),
             "note": "型紙は裁つものなので、足りない寸法を既定で埋めません。"
                     "立体(見るもの)とはここが違います",
@@ -159,7 +196,7 @@ def draft(measures: Any) -> Dict[str, Any]:
 
     # ---- 袖 --------------------------------------------------------
     sleeve_missing: List[str] = []
-    _, sleeve_missing = _need(measures, SLEEVE_REQUIRED)
+    _, sleeve_missing, _u = _need(measures, SLEEVE_REQUIRED)
     if not sleeve_missing:
         sl = have["sleeve_length"]
         cap_h = armhole_depth * 0.78
@@ -206,6 +243,8 @@ def draft(measures: Any) -> Dict[str, Any]:
         "seam_checks": checks,
         "used": {k: round(v, 2) for k, v in have.items()
                  if k in REQUIRED + SLEEVE_REQUIRED},
+        # **どの単位で入った値を、何に直して使ったか。**
+        "units": units,
         "sleeve_missing": sleeve_missing,
         "formulas": dict(FORMULAS),
         "total_area_cm2": round(sum(p["area_cm2"] for p in pieces), 1),
@@ -236,12 +275,24 @@ def _seam_checks(pieces: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             return
         la = by_name[pa]["edges"][ea]["length"]
         lb = by_name[pb]["edges"][eb]["length"]
+        # **同じ点から作った辺どうしを比べても、何も確かめていない。**
+        # 前後の肩線・脇線は製図側が同じ点対を使っているので、差は必ず
+        # ゼロになります。通ったことを「縫えると確かめた」と読ませない
+        # ために、構成上そうなる場合はそう名乗ります。
+        # 決め打ちの札ではなく、**点を比べて判定**します — 将来この製図
+        # が前後で違う辺を引くようになれば、自動で本当の検査に戻ります。
+        same_points = (by_name[pa]["edges"][ea]["points"]
+                       == by_name[pb]["edges"][eb]["points"])
         diff = round(la - lb, 2)
         out.append({
             "label": label, "a": f"{pa}/{ea}", "b": f"{pb}/{eb}",
             "length_a": la, "length_b": lb, "difference": diff,
             "tolerance": tolerance,
             "sewable": abs(diff) <= tolerance,
+            "structural": same_points,
+            "not_a_test": ("前後で同じ点から引いているので、差は構成上"
+                           "ゼロです。通っても何も確かめていません"
+                           if same_points else None),
             "why": why,
         })
 
@@ -263,6 +314,14 @@ def _seam_checks(pieces: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             # ただし**それを既定で正しいとしない** — 範囲を出して人が見る。
             "tolerance": 4.0,
             "sewable": -0.5 <= diff <= 4.0,
+            # 袖山の幅は「袖ぐり + いせ込み」になるまで二分探索して
+            # 決めているので、この差は EASE_IN に張り付きます。
+            # **これは型紙の検算ではなく、探索が収束した確認です。**
+            "structural": abs(diff - EASE_IN) < 0.05,
+            "not_a_test": ("袖山の幅はこの差が いせ込み になるまで"
+                           "二分探索で決めています。だからこれは型紙の"
+                           "検算ではなく、探索が収束したことの確認です"
+                           if abs(diff - EASE_IN) < 0.05 else None),
             "why": "袖山は袖ぐりよりやや長いのが普通(いせ込み)。"
                    "短ければ入らず、長すぎれば縫い込めない",
         })

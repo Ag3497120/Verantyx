@@ -93,9 +93,19 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
 
     構想は「各ノードのエネルギー比率が変わり、一番安定状態で終了」
     だったので、素直にエネルギーを下る。頂点を**順に**更新する
-    Gauss-Seidel なので順序依存は残り、順序不変の検査は効く。
+    **Jacobi。** 全点の勾配を古い状態から出してから、まとめて動かす。
+    こうすると更新順は**構成上**答えに影響しません。
 
-    `order` は頂点の更新順。検証器がここを揺らす。
+    以前は Gauss-Seidel(その場で書き換え)で、順序不変は経験的に確かめる
+    ものでした。縫い目のばねを正しい硬さ(布より硬い)にした途端、順序差が
+    1.7cm 残って検査が落ちました — 順序が本当に効いていたということです。
+    ここは経験に頼らず構成で断ちます。
+
+    その代わり **順序不変はもう「検査」ではありません。** 構成上そうなる
+    ので、通っても何も確かめたことになりません。出力ではそう明示します。
+
+    `order` は受け取りますが、答えには影響しません(そのことを測るために
+    残してあります)。
     """
     n = len(points)
     pos = [list(p) for p in points]
@@ -117,6 +127,7 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
 
     energies: List[float] = [_energy(pos, edges, rest, stiff, mass, pin)]
     for _ in range(iterations):
+        grad = [[0.0, 0.0, 0.0] for _ in range(n)]
         for i in seq:
             if i in pin:
                 continue
@@ -135,9 +146,14 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
                 gz += c * d[2]
             # 重力の勾配。位置エネルギー -m·g·y の y 微分。
             gy += -mass * GRAVITY
-            pos[i][0] -= step * gx
-            pos[i][1] -= step * gy
-            pos[i][2] -= step * gz
+            grad[i] = [gx, gy, gz]
+        # **まとめて動かす。** ここが Jacobi の要で、順序が消える。
+        for i in range(n):
+            if i in pin:
+                continue
+            pos[i][0] -= step * grad[i][0]
+            pos[i][1] -= step * grad[i][1]
+            pos[i][2] -= step * grad[i][2]
         energies.append(_energy(pos, edges, rest, stiff, mass, pin))
 
     return {
@@ -149,18 +165,28 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
     }
 
 
-def _energy(pos, edges, rest, stiff, mass, pin) -> float:
-    """全エネルギー。ばねの伸び + 位置エネルギー。
+def _energy(pos, edges, rest, stiff, mass, pin,
+            pairs=None, stitch_k=0.0) -> float:
+    """全エネルギー。ばねの伸び + 縫い目 + 位置エネルギー。
 
     **両方を同じ単位で足す。** 最初は位置エネルギーだけ 1/1000 して
     いて、合計が意味を持たなかった(実測 VE6)。単位を揃えないと、
     「エネルギーが下がった」は何も言っていない。
+
+    **縫い目の項も入れる。** 2026-08-23 まで入っておらず、縫った服では
+    *最小化している目的関数と、報告しているエネルギーが別物*でした。
+    目のばねが弱いうちは差が小さくて見えず、剛性を上げた瞬間に
+    「エネルギーが上がる」として表に出ました。検査が名指しした量を
+    測っていなければ、その検査は何も拘束しません。
     """
     e = 0.0
     for i, (a, b, kind) in enumerate(edges):
         d = [pos[b][t] - pos[a][t] for t in range(3)]
         length = math.sqrt(sum(x * x for x in d))
         e += 0.5 * stiff[kind] * (length - rest[i]) ** 2
+    for a, b in (pairs or ()):
+        d = [pos[b][t] - pos[a][t] for t in range(3)]
+        e += 0.5 * stitch_k * sum(x * x for x in d)
     for i, p in enumerate(pos):
         if i not in pin:
             e += -mass * GRAVITY * p[1]

@@ -970,7 +970,9 @@ final class AtelierModel: ObservableObject {
     }
 
     /// 型紙を縫って落とす。**検査に通ったときだけ形が返る。**
-    func sewAndDrape(fabric: String, iterations: Int = 600) async {
+    /// 既定の反復は engine 側(2000)に合わせる。600 では縫い目が
+    /// 閉じきらず、画面だけ「閉じていない」と出ていました。
+    func sewAndDrape(fabric: String, iterations: Int = 2000) async {
         sewBusy = true
         sewFabric = fabric
         defer { sewBusy = false }
@@ -997,6 +999,10 @@ final class AtelierModel: ObservableObject {
                              as? Double ?? v["last"] as? Double,
                          tolerance: v["tolerance"] as? Double,
                          detail: {
+                             if let over = v["over_tolerance"] as? Int,
+                                let n = v["stitches"] as? Int {
+                                 return "\(n) 本中 \(over) 本が許容超え"
+                             }
                              if let last = v["last"] as? Double,
                                 let first = v["first"] as? Double {
                                  return String(format: "%.2f → %.2f cm",

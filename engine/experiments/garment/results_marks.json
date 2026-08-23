@@ -181,16 +181,20 @@
   },
   "VN12_notches_change_the_drape": {
    "pass": true,
-   "same_mesh": true,
-   "worst_difference_cm": 2.597,
-   "mean_difference_cm": 0.216,
+   "shared_grid_vertices": 181,
+   "grid_identical": true,
+   "worst_difference_cm": 0.685,
+   "mean_difference_cm": 0.059,
+   "stitch_vertices_proportional": 65,
+   "stitch_vertices_notched": 69,
    "correspondence": {
     "前身頃/肩線 ↔ 後身頃/肩線": "proportional",
     "前身頃/脇線 ↔ 後身頃/脇線": "proportional",
     "袖/袖山(前半) ↔ 前身頃/袖ぐり": "notched",
-    "袖/袖山(後半) ↔ 後身頃/袖ぐり": "notched"
+    "袖/袖山(後半) ↔ 後身頃/袖ぐり": "notched",
+    "袖/袖下線(右) ↔ 袖/袖下線(左)": "proportional"
    },
-   "meaning": "メッシュが同一なので、差は縫い目の対応だけから来る"
+   "meaning": "格子の頂点は両方で同一なので、そこの差は縫い目の対応から来る。目の頂点は合印が決めるので別々"
   },
   "VN13_the_cut_line_encloses_the_sew_line": {
    "pass": true,
