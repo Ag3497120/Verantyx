@@ -5,6 +5,7 @@ prints; if yours differ, yours are right and this document is stale.
 
 - [Requirements](#requirements)
 - [Run the application](#run-the-application)
+- [As an MCP server](#as-an-mcp-server)
 - [English](#english)
 - [The five states](#the-five-states)
 - [1. Record what a model proposed](#1-record-what-a-model-proposed)
@@ -75,6 +76,43 @@ language.
 are driven from Python; the page shows the ledger and the pattern. The frames
 in the README come from a **native macOS app** built on the same engine, which
 is a separate program and is not in this repository.
+
+---
+
+## As an MCP server
+
+```bash
+python3 -m photoloset.mcp
+```
+
+JSON-RPC 2.0 over stdin/stdout — `initialize`, `tools/list`, `tools/call`. No
+MCP SDK: the whole package promises no dependencies, and the three methods a
+tool server needs are about a hundred lines of `json` and a loop.
+
+Point Claude Code, Claude Desktop or Cursor at it:
+
+```json
+{ "mcpServers": { "photoloset": {
+    "command": "python3", "args": ["-m", "photoloset.mcp"],
+    "cwd": "/path/to/photoloset" } } }
+```
+
+37 tools: intake, the ledger, measurements, the pattern and its marks, sewing
+and drape, the reference body, the solid, design and rights. The store is
+`~/.photoloset/`.
+
+**Five of them are absent and say so.** `garment_cross` and the four `fabric_*`
+tools need the coordinate memory and its language engine — about 15,700 lines
+that are not part of this package. They return `UNKNOWN_NOT_IN_THIS_BUILD`
+with what would close it, rather than failing. Fabric properties are read from
+`~/.photoloset/fabrics.json` instead; an entry missing `gsm`, `thickness` or
+`stiffness` refuses rather than being filled in with a default, because a
+guessed weight changes how the whole garment hangs.
+
+A refusal crosses the wire as a normal return value with a verdict beginning
+`UNKNOWN_` or `CONTESTED_`, never as an exception — so a caller cannot mistake
+"it declined" for "it crashed". A genuine crash returns `ERROR` with a
+traceback, and is not dressed up as a refusal.
 
 ---
 
@@ -452,6 +490,9 @@ names what it cannot.
 | `garment_draw` | ledger-to-drawing |
 | `garment_rights` | provenance and derivation records |
 | `garment_app` | the browser application, standard library only |
+| `garment_body` | the reference body, grading and ease |
+| `garment_solid` | the proportion block — not a fit simulation |
+| `mcp` | an MCP server over stdio, 37 tools, standard library only |
 | `i18n` | English output, and the report of what it could not translate |
 | `__main__` | `python3 -m photoloset` |
 
