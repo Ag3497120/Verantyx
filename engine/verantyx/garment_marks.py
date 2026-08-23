@@ -211,6 +211,8 @@ def cap_notches(cap: Sequence[Sequence[float]],
                 return n
         return None
 
+    if not cap or not front_arm or not back_arm:
+        return out
     for side, arm, notches, sign in (
             ("前", front_arm, front_notches, -1),
             ("後", back_arm, back_notches, +1)):

@@ -27,8 +27,19 @@ def record(name, ok, detail):
           f"{json.dumps(detail, ensure_ascii=False)[:340]}")
 
 
+#: **検査は利用者の台帳に依存しない。** 2026-08-23: 実寸の食い違い検出を
+#: 入れた途端、利用者の store に入っていた袖丈の食い違いのせいで袖が
+#: 引かれなくなり、この一式が KeyError で落ちました。可変のデータの上で
+#: 走る検査は再現できません。ここで寸法を固定します。
+FIXTURE = {"body_length": 96.0, "chest": 104.0,
+           "shoulder": 47.0, "sleeve_length": 59.0}
+
+
 def measures():
-    return Measures.load(STORE / "measures.json")
+    m = Measures()
+    for spot, value in FIXTURE.items():
+        m.measured(spot, value, "cm", "PREREG14 の固定値", by="事前登録")
+    return m
 
 
 def material():

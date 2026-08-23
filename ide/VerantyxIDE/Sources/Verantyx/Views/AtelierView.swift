@@ -2007,6 +2007,8 @@ private struct MeasurePanel: View {
                             m.measureCounts["measured"] ?? 0, AT.ok)
                     counter(app.t("derived", "計算値"),
                             m.measureCounts["derived"] ?? 0, AT.warn)
+                    counter(app.t("contested", "食い違い"),
+                            m.measureCounts["contested"] ?? 0, AT.bad)
                     counter(app.t("not taken", "未取得"),
                             m.measureCounts["open"] ?? 0, AT.dim)
                 }
@@ -2035,6 +2037,30 @@ private struct MeasurePanel: View {
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundStyle(r.state == "DERIVED"
                                                      ? AT.warn : AT.fg)
+                            }
+                            // **食い違いは両方出す。** どちらかを選んで
+                            // 見せると、選んだのが誰なのか分からなくなる。
+                            ForEach(r.sides) { side in
+                                HStack(spacing: 8) {
+                                    Text(String(format: "%.1f %@",
+                                                side.value, side.unit))
+                                        .font(.system(size: 14,
+                                                      weight: .semibold))
+                                        .foregroundStyle(AT.bad)
+                                    Text(side.source)
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(AT.faint)
+                                    if !side.by.isEmpty {
+                                        Text("測: " + side.by)
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(AT.faint)
+                                    }
+                                    Spacer(minLength: 0)
+                                }
+                            }
+                            if !r.why.isEmpty {
+                                Text(r.why).font(.system(size: 10))
+                                    .foregroundStyle(AT.bad)
                             }
                             if !r.from.isEmpty {
                                 // 計算値は、どこから出たかを必ず伴う。

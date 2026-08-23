@@ -22,6 +22,12 @@ from typing import Any, Dict, List, Optional
 
 UNITS = ("cm", "mm", "inch")
 
+#: cm に直す係数。製図は cm。
+TO_CM = {"cm": 1.0, "mm": 0.1, "inch": 2.54}
+
+#: 同じ場所の実測が食い違っている。**どちらも捨てない。**
+CONTESTED = "CONTESTED_MEASUREMENT"
+
 #: 一着について決めるべき寸法(閉じた表)。閉じているから欠けを数えられる。
 SPOTS: Dict[str, str] = {
     "body_length": "着丈",
@@ -89,12 +95,49 @@ class Measures:
         return m
 
     # -- 読む ------------------------------------------------------------
-    def _measured_of(self, spot: str) -> Optional[Measure]:
-        rows = [e for e in self.entries
+    #: 同じ場所を二度測ったとき、これ以内なら同じ測定とみなす(cm 換算)。
+    #: **選んだ数字ではなく実務の公差**: POM の一般的な許容は身幅で ±1cm、
+    #: 襟などの細部で ±0.5cm。ここは細部側の 0.5cm を採る。
+    SAME_MEASUREMENT_CM = 0.5
+
+    def _measured_rows(self, spot: str) -> List[Measure]:
+        return [e for e in self.entries
                 if e.spot == spot and e.kind == "measured"]
+
+    def _measured_of(self, spot: str) -> Optional[Measure]:
+        rows = self._measured_rows(spot)
         return rows[0] if rows else None
 
+    def _conflict(self, spot: str) -> Optional[List[Measure]]:
+        """同じ場所の実測が食い違っているか。
+
+        2026-08-23 の欠陥: `rows[0]` だけを読んでいたので、後から入れた
+        違う値は **台帳に残ったまま画面に出ませんでした**。観測の側は
+        矛盾を検出するのに、寸法の側は最初の一件を黙って使っていた。
+        裁つのは寸法のほうなので、こちらが黙るのは重い。
+
+        **どちらが正しいかは決めません。** 両方出して人が選びます。
+        """
+        rows = self._measured_rows(spot)
+        if len(rows) < 2:
+            return None
+        cm = [r.value * TO_CM.get(r.unit, 1.0) for r in rows]
+        if max(cm) - min(cm) <= self.SAME_MEASUREMENT_CM:
+            return None
+        return rows
+
     def state(self, spot: str) -> Dict[str, Any]:
+        clash = self._conflict(spot)
+        if clash:
+            return {"spot": spot, "name": SPOTS[spot], "state": CONTESTED,
+                    "sides": [{"value": r.value, "unit": r.unit,
+                               "source": r.source, "by": r.by}
+                              for r in clash],
+                    "tolerance_cm": self.SAME_MEASUREMENT_CM,
+                    "how_to_close": f"{SPOTS[spot]}をもう一度測って、"
+                                    "どちらが正しいか決める",
+                    "why": "同じ場所の実測が食い違っています。"
+                           "どちらかを勝手に採りません"}
         m = self._measured_of(spot)
         if m:
             return {"spot": spot, "name": SPOTS[spot], "state": "MEASURED",
@@ -127,12 +170,18 @@ class Measures:
             "verdict": "ANSWER",
             "measured": [r for r in rows if r["state"] == "MEASURED"],
             "derived": [r for r in rows if r["state"] == "DERIVED"],
-            "open": [r for r in rows if r["state"] in (NOT_TAKEN, NO_BASIS)],
+            "contested": [r for r in rows if r["state"] == CONTESTED],
+            # 食い違いは open に入れる — **裁つ根拠にならないから。**
+            "open": [r for r in rows
+                     if r["state"] in (NOT_TAKEN, NO_BASIS, CONTESTED)],
             "counts": {
                 "measured": sum(1 for r in rows if r["state"] == "MEASURED"),
                 "derived": sum(1 for r in rows if r["state"] == "DERIVED"),
+                "contested": sum(1 for r in rows
+                                 if r["state"] == CONTESTED),
                 "open": sum(1 for r in rows
-                            if r["state"] in (NOT_TAKEN, NO_BASIS)),
+                            if r["state"] in (NOT_TAKEN, NO_BASIS,
+                                              CONTESTED)),
             },
             "note": "derived は比率×基準の計算値で、実測ではない。"
                     "裁つ前に実測で確かめる",

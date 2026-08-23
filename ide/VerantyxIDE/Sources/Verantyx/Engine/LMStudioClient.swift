@@ -220,7 +220,12 @@ actor LMStudioClient {
         imageBase64: String,
         mimeType: String = "image/jpeg",
         temperature: Double = 0.15,
-        maxTokens: Int = 900,
+        // 900 では足りません。**enable_thinking を解さないサーバがあり**、
+        // 思考だけで枠を使い切って本文が空で返ります(2026-08-23 実測:
+        // qwen3.6-35b-a3b @ LM Studio, reasoning_tokens 1799 / content 0)。
+        // 4000 は同じ組で本文が出た値。上限なしは別の壊れ方(15分返らない)
+        // をするので外しません。
+        maxTokens: Int = 4000,
         noThink: Bool = true
     ) async -> String? {
         guard let url = URL(string: "\(await baseURL())/chat/completions")
@@ -271,8 +276,26 @@ actor LMStudioClient {
         guard let json = try? JSONSerialization.jsonObject(with: data)
                 as? [String: Any],
               let choices = json["choices"] as? [[String: Any]],
-              let msg = choices.first?["message"] as? [String: Any],
-              let text = msg["content"] as? String else { return nil }
+              let first = choices.first,
+              let msg = first["message"] as? [String: Any]
+        else { return nil }
+        let text = (msg["content"] as? String) ?? ""
+        if text.isEmpty {
+            // **「考えの途中で切った」と「何も言わなかった」を区別する。**
+            // 混ぜると、枠が足りないだけなのに「モデルが答えない」と
+            // 読めてしまい、直す先を間違えます。
+            let reason = first["finish_reason"] as? String ?? ""
+            let usage = json["usage"] as? [String: Any] ?? [:]
+            let detail = (usage["completion_tokens_details"]
+                          as? [String: Any]) ?? [:]
+            let think = detail["reasoning_tokens"] as? Int ?? 0
+            if reason == "length" || think > 0 {
+                return "LM Studio: 本文が空です。思考に \(think) トークン"
+                    + " 使い、上限 \(maxTokens) で切れました"
+                    + "(finish_reason=\(reason))。上限を上げてください"
+            }
+            return nil
+        }
         return text
     }
 

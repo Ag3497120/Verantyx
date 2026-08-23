@@ -199,6 +199,16 @@ final class AtelierModel: ObservableObject {
         var spot = ""; var name = ""; var state = ""
         var value: Double?
         var unit = ""; var from = ""; var howToClose = ""; var source = ""
+        /// 同じ場所の実測が食い違ったとき、**両方**を持つ。
+        /// どちらが正しいかは道具が決めません。
+        var sides: [MeasureSide] = []
+        var why = ""
+    }
+
+    struct MeasureSide: Identifiable {
+        let id = UUID()
+        var value: Double = 0; var unit = ""
+        var source = ""; var by = ""
     }
 
     struct DrawShape: Identifiable {
@@ -599,6 +609,7 @@ final class AtelierModel: ObservableObject {
         let d = await call("measure_sheet")
         measureCounts = (d["counts"] as? [String: Int]) ?? [:]
         var rows: [MeasureRow] = []
+        // contested は open にも入っているので、ここでは足しません。
         for key in ["measured", "derived", "open"] {
             for o in (d[key] as? [[String: Any]] ?? []) {
                 var r = MeasureRow()
@@ -610,6 +621,13 @@ final class AtelierModel: ObservableObject {
                 r.from = o["from"] as? String ?? ""
                 r.howToClose = o["how_to_close"] as? String ?? ""
                 r.source = o["source"] as? String ?? ""
+                r.why = o["why"] as? String ?? ""
+                r.sides = (o["sides"] as? [[String: Any]] ?? []).map {
+                    MeasureSide(value: $0["value"] as? Double ?? 0,
+                                unit: $0["unit"] as? String ?? "",
+                                source: $0["source"] as? String ?? "",
+                                by: $0["by"] as? String ?? "")
+                }
                 rows.append(r)
             }
         }
