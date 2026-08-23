@@ -221,13 +221,13 @@ def garment_adopt(part: str, aspect: str, value: str, by: str) -> str:
 @tool
 def garment_worklist() -> str:
     """What has not been observed yet, each with the action that would close it."""
-    return _ok(_ledger().worklist())
+    return _ok({"verdict": "ANSWER", "worklist": _ledger().worklist()})
 
 
 @tool
 def garment_timeline() -> str:
     """Every entry in the order it was recorded."""
-    return _ok(_ledger().timeline())
+    return _ok({"verdict": "ANSWER", "timeline": _ledger().timeline()})
 
 
 @tool
@@ -445,7 +445,8 @@ def design_sheet() -> str:
 @tool
 def design_history(part: str, aspect: str) -> str:
     """How one aspect got to where it is."""
-    return _ok(_design().history(part, aspect))
+    return _ok({"verdict": "ANSWER",
+                "history": _design().history(part, aspect)})
 
 
 @tool

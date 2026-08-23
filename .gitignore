@@ -6,3 +6,12 @@ build/
 dist/
 *.egg-info/
 examples/black_coat.svg
+
+# Xcode / the macOS app
+app/build/
+app/.build/
+app/DerivedData/
+**/xcuserdata/
+*.xcuserdatad
+app/Vendor/vera-memory
+app/Vendor/*.app-backup-*

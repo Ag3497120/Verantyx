@@ -1,0 +1,2428 @@
+import SwiftUI
+
+// MARK: - SettingsView
+// Functional settings — all controls are wired to live AppState values.
+// Tabs: Model | API Keys | Tools | Agent | Memory | Privacy | MCP
+
+struct SettingsView: View {
+    @EnvironmentObject var app: AppState
+    @ObservedObject private var pipeSession = PipeSession.shared
+    @ObservedObject private var pipeCoordinator = PipeCoordinator.shared
+    @State private var showPipeSheet = false
+    @State private var lmStudioReachable: Bool? = nil
+    @State private var lmStudioModelCount = 0
+    @State private var lmStudioDiagnosis: LMStudioClient.Diagnosis?
+    @State private var lmStudioBusy = false
+    @State private var lmStudioProblem: String?
+    @State private var selectedTab: SettingsTab = .model
+    @AppStorage("jcross_menu_style") private var jcrossMenuStyle = JCrossMenuStyle.connect.rawValue
+    /// Honours `AppState.requestedSettingsTab` so an answer from the support
+    /// bot can land on the screen it names instead of describing where it is.
+    /// An unrecognised name leaves the current tab alone rather than throwing,
+    /// because a tab that was renamed should not break navigation entirely.
+    private func applyRequestedTab() {
+        guard let name = app.requestedSettingsTab else { return }
+        if let tab = SettingsTab(rawValue: name) { selectedTab = tab }
+        app.requestedSettingsTab = nil
+    }
+    @State private var testingConnection = false
+    @State private var connectionTestResult: String? = nil
+    @State private var testingAnthropic = false
+    @State private var anthropicTestResult: String? = nil
+    @State private var showAnthropicKey = false
+    @State private var showOpenAIKey = false
+    @State private var showDeepSeekKey = false
+    @State private var showGeminiKey = false
+    @State private var showAssetMap = false
+    @State private var hfRepoId = ""
+    @ObservedObject private var updater = SelfUpdater.shared
+    @ObservedObject private var vault = OSAssetMemoryVault.shared
+
+    enum SettingsTab: String, CaseIterable {
+        /// Every screen in the app, listed. First because the question this
+        /// sheet gets asked most is "where do I change X", and until now the
+        /// answer depended on which of five kinds of place X happened to
+        /// live in.
+        case allScreens = "All"
+        case general = "General"
+        case model   = "Model"
+        case apiKeys = "API Keys"
+        case tools   = "Tools"
+        case agent   = "Agent"
+        case memory  = "Memory"
+        case privacy = "Privacy"
+        case mcp     = "MCP"
+
+        var icon: String {
+            switch self {
+            case .allScreens: return "square.grid.2x2"
+            case .general: return "gearshape"
+            case .model:   return "cpu"
+            case .apiKeys: return "key.fill"
+            case .tools:   return "puzzlepiece.extension"
+            case .agent:   return "bolt.circle"
+            case .memory:  return "brain"
+            case .privacy: return "lock.shield"
+            case .mcp:     return "network"
+            }
+        }
+
+        var color: Color {
+            switch self {
+            case .allScreens: return Color(red: 0.55, green: 0.78, blue: 1.0)
+            case .general: return Color(red: 0.7, green: 0.7, blue: 0.8)
+            case .model:   return Color(red: 0.4, green: 0.7, blue: 1.0)
+            case .apiKeys: return Color(red: 0.9, green: 0.7, blue: 0.3)
+            case .tools:   return Color(red: 0.6, green: 0.4, blue: 1.0)
+            case .agent:   return Color(red: 0.3, green: 0.9, blue: 0.6)
+            case .memory:  return Color(red: 0.8, green: 0.5, blue: 1.0)
+            case .privacy: return Color(red: 0.4, green: 0.9, blue: 0.5)
+            case .mcp:     return Color(red: 0.3, green: 0.8, blue: 1.0)
+            }
+        }
+    }
+
+    var onDismiss: (() -> Void)? = nil
+
+    // MARK: - すべての画面
+    //
+    // Generated from `VeraSettingsRegistry`, which is also where the summon
+    // words come from. Two hand-written lists — "everything configurable" and
+    // "everything sayable" — would have to agree, and nothing would check
+    // that they did; this way a screen missing from one cannot exist.
+    //
+    // Each row shows the word as well as the button, because the button is
+    // the slow path. Someone who reads "ミラー" here once does not open this
+    // sheet again to reach it.
+    private var allScreensList: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(AppLanguage.shared.t(
+                "Every screen in the app, and the word that opens it.",
+                "このアプリの全画面と、それを開く語です。"))
+                .font(.system(size: 11)).foregroundStyle(.secondary)
+
+            // The one switch that had no home: it lived in the footer of the
+            // plus menu and nowhere else. It stays there too — a choice made
+            // twenty times a day belongs beside the thing it changes — and
+            // both read the same key, so they cannot disagree.
+            VStack(alignment: .leading, spacing: 5) {
+                Text(AppLanguage.shared.t("Menu opening", "メニューの開き方"))
+                    .font(.system(size: 12, weight: .semibold))
+                Picker("", selection: $jcrossMenuStyle) {
+                    ForEach(JCrossMenuStyle.allCases) { style in
+                        Text(style.label(japanese: AppLanguage.shared.isJapanese))
+                            .tag(style.rawValue)
+                    }
+                }
+                .pickerStyle(.segmented).labelsHidden().frame(width: 220)
+                Text(AppLanguage.shared.t(
+                    "How the plus menu opens. Also in the menu's own footer.",
+                    "＋メニューの開き方。メニュー内の脚注からも変えられます。"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            }
+            .padding(.bottom, 4)
+
+            Divider().opacity(0.2)
+
+            ForEach(VeraSettingsRegistry.screens) { screen in
+                HStack(alignment: .top, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(screen.title)
+                            .font(.system(size: 12, weight: .semibold))
+                        Text(screen.blurbJa)
+                            .font(.system(size: 10)).foregroundStyle(.tertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 8)
+                    Text("「\(screen.say)」")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                    Button(AppLanguage.shared.t("Open", "開く")) { open(screen) }
+                        .buttonStyle(.bordered).controlSize(.small)
+                }
+                .padding(.vertical, 3)
+            }
+        }
+    }
+
+    /// Opening from the list does exactly what saying the word does — the
+    /// same destinations, so the two routes cannot drift into meaning
+    /// different things.
+    private func open(_ screen: VeraSettingsRegistry.Screen) {
+        switch screen.destination {
+        case .panel(let p):
+            onDismiss?()
+            app.veraEngineMode = .veraBot
+            app.sendMessage(with: p.title)
+        case .full(let f):
+            onDismiss?()
+            app.requestedDockTab = nil
+            app.fullSurface = f
+        case .dock(let tab):
+            onDismiss?()
+            app.requestedDockTab = tab
+            app.fullSurface = .veraSettings
+        case .settingsTab(let t):
+            if let tab = SettingsTab(rawValue: t) { selectedTab = tab }
+        }
+    }
+
+    var body: some View {
+        VStack(spacing: 0) {
+
+            // ── Header bar ─────────────────────────────────────────────────
+            HStack(spacing: 10) {
+                // Close button
+                Button {
+                    onDismiss?()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                        .frame(width: 22, height: 22)
+                        .background(Color.white.opacity(0.07), in: Circle())
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .keyboardShortcut(.escape, modifiers: [])
+                .help(app.t("Close Settings (Esc)", "設定を閉じる (Esc)"))
+
+                Spacer()
+
+                Text("Settings")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.88))
+
+                Spacer()
+
+                // Version badge
+                Text("v0.1")
+                    .font(.system(size: 9, design: .monospaced))
+                    .foregroundStyle(.quaternary)
+                    .frame(width: 22)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .overlay(Rectangle().fill(Color.white.opacity(0.07)).frame(height: 0.5), alignment: .bottom)
+
+            // ── Main body (sidebar + content) — FIXED HEIGHT ───────────────
+            HStack(spacing: 0) {
+
+                // ── Sidebar ─────────────────────────────────────────────────
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("SETTINGS")
+                        .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                        .padding(.horizontal, 12)
+                        .padding(.top, 14)
+                        .padding(.bottom, 6)
+
+                    ForEach(SettingsTab.allCases, id: \.self) { tab in
+                        Button {
+                            // Do NOT animate size — just switch content
+                            selectedTab = tab
+                        } label: {
+                            HStack(spacing: 8) {
+                                Image(systemName: tab.icon)
+                                    .font(.system(size: 11))
+                                    .frame(width: 16)
+                                    .foregroundStyle(selectedTab == tab ? tab.color : .secondary)
+                                Text(tab.rawValue)
+                                    .font(.system(size: 12, weight: .medium))
+
+                                if tab == .apiKeys &&
+                                   (app.anthropicApiKey.isEmpty || app.activeAnthropicModel.isEmpty) {
+                                    Spacer()
+                                    Circle()
+                                        .fill(Color(red: 0.9, green: 0.4, blue: 0.2))
+                                        .frame(width: 6, height: 6)
+                                }
+                            }
+                            .foregroundStyle(selectedTab == tab ? .white : Color(red: 0.6, green: 0.6, blue: 0.7))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 7)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                selectedTab == tab
+                                    ? tab.color.opacity(0.15)
+                                    : Color.clear,
+                                in: RoundedRectangle(cornerRadius: 6)
+                            )
+                            .overlay(
+                                selectedTab == tab
+                                    ? RoundedRectangle(cornerRadius: 6)
+                                        .strokeBorder(tab.color.opacity(0.3), lineWidth: 0.5)
+                                    : nil
+                            )
+                        }
+                        .contentShape(Rectangle())
+                        .buttonStyle(.plain)
+                        .padding(.horizontal, 6)
+                    }
+
+                    Spacer()
+                }
+                // FIXED width — tab clicks must NOT change sidebar size
+                .frame(width: 155, alignment: .topLeading)
+                .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+
+                Divider().opacity(0.3)
+
+                // ── Content area — FIXED width, scrolls internally ──────────
+                // All tabs use the same ScrollView+VStack structure so the
+                // container size never changes between tab switches.
+                // (MCPView was replaced by mcpSettings to avoid HSplitView
+                //  layout conflicts inside the fixed 525pt panel width.)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        switch selectedTab {
+                        case .allScreens: allScreensList
+                        case .general: generalSettings
+                        case .model:   modelSettings
+                        case .apiKeys: apiKeysSettings
+                        case .tools:   toolsSettings
+                        case .agent:   agentSettings
+                        case .memory:  memorySettings
+                        case .privacy: privacySettings
+                        case .mcp:     mcpSettings
+                        }
+                    }
+                    .padding(22)
+                    .frame(width: 521, alignment: .topLeading)
+                }
+                // FIXED width — prevents any expansion when scrolling content
+                .frame(width: 525, alignment: .topLeading)
+                .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+            }
+            // This height = total 560 - 44 (header) - 46 (footer)
+            .frame(width: 680, height: 470)
+
+            // ── Footer bar ─────────────────────────────────────────────────
+            HStack(spacing: 10) {
+                Spacer()
+                Button(app.t("Cancel", "キャンセル")) {
+                    onDismiss?()
+                }
+                .keyboardShortcut(.escape, modifiers: [])
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+
+                Button(app.t("Done", "完了")) {
+                    onDismiss?()
+                }
+                .keyboardShortcut(.return, modifiers: [.command])
+                .buttonStyle(.borderedProminent)
+                .controlSize(.regular)
+                .tint(Color(red: 0.25, green: 0.45, blue: 0.85))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .overlay(Rectangle().fill(Color.white.opacity(0.07)).frame(height: 0.5), alignment: .top)
+        }
+        // FIXED total size — prevents any window resize
+        .frame(width: 680, height: 560)
+        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sheet(isPresented: $showAssetMap) { AssetMapView(vault: vault) }
+        // Both, because the sheet is kept alive between presentations: onAppear
+        // alone misses a second request while it is already open, and onChange
+        // alone misses the first one that arrives with it.
+        .onAppear { applyRequestedTab() }
+        .onChange(of: app.requestedSettingsTab) { _, _ in applyRequestedTab() }
+    }
+
+    // MARK: - General Settings (Language, Appearance)
+
+    private var generalSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Software Update", icon: "arrow.triangle.2.circlepath")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Verantyx \(updater.currentVersion)")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(.white)
+                            
+                            if updater.isChecking {
+                                Text("Checking for updates...")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(.secondary)
+                            } else if updater.updateAvailable {
+                                Text("Update available: v\(updater.latestVersion)")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                            } else {
+                                Text("Verantyx is up to date.")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(.secondary)
+                            }
+                            
+                            if let error = updater.errorMessage {
+                                Text(error)
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.red)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        if updater.updateAvailable {
+                            Button {
+                                updater.downloadAndInstallUpdate()
+                            } label: {
+                                if updater.isDownloading {
+                                    HStack(spacing: 6) {
+                                        ProgressView().scaleEffect(0.6).frame(width: 12, height: 12)
+                                        Text("Downloading...")
+                                    }
+                                } else {
+                                    Text("Update Now")
+                                        .bold()
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(Color(red: 0.3, green: 0.6, blue: 1.0))
+                            .disabled(updater.isDownloading)
+                        } else {
+                            Button("Check for Updates") {
+                                Task { await updater.checkForUpdates() }
+                            }
+                            .buttonStyle(.bordered)
+                            .disabled(updater.isChecking)
+                        }
+                    }
+                }
+            }
+            .onAppear {
+                Task { await updater.checkForUpdates(background: true) }
+            }
+
+            sectionHeader("Language / 言語", icon: "globe")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 16) {
+                    // Language selector - big cards
+                    HStack(spacing: 10) {
+                        ForEach(AppState.UILanguage.allCases, id: \.self) { lang in
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.15)) {
+                                    app.appLanguage = lang
+                                }
+                            } label: {
+                                VStack(spacing: 8) {
+                                    Text(lang.flag)
+                                        .font(.system(size: 28))
+                                    Text(lang.rawValue)
+                                        .font(.system(size: 11, weight: .semibold))
+                                        .foregroundStyle(app.appLanguage == lang ? .white : Color(red: 0.55, green: 0.55, blue: 0.7))
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(
+                                    app.appLanguage == lang
+                                        ? Color(red: 0.25, green: 0.35, blue: 0.60).opacity(0.7)
+                                        : Color.white.opacity(0.04),
+                                    in: RoundedRectangle(cornerRadius: 8)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .strokeBorder(
+                                            app.appLanguage == lang
+                                                ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.6)
+                                                : Color.white.opacity(0.06),
+                                            lineWidth: 1
+                                        )
+                                )
+                            }
+                            .contentShape(Rectangle())
+                            .buttonStyle(.plain)
+                        }
+                    }
+
+                    if app.appLanguage == .system {
+                        HStack(spacing: 6) {
+                            Image(systemName: "info.circle")
+                                .font(.system(size: 10))
+                                .foregroundStyle(.secondary)
+                            Text("System language: \(Locale.current.localizedString(forLanguageCode: Locale.current.language.languageCode?.identifier ?? "en") ?? "Unknown")")
+                                .font(.system(size: 10))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            }
+
+            sectionHeader("Appearance", icon: "paintbrush")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Theme") {
+                        Text("Dark (fixed)")
+                            .font(.system(size: 11, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                    }
+                    Text("Verantyx uses a fixed high-contrast dark theme optimised for code editing.")
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
+
+                }
+            }
+
+            sectionHeader(app.t("External Integration", "外部連携 (追加機能)"), icon: "network")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(app.t(
+                        "You can connect the verantyx-compiler to Antigravity or Claude Desktop to let external AIs access the Verantyx Spatial Memory and Gatekeeper tools.",
+                        "Antigravity や Claude Desktop に verantyx-compiler を追加することで、外部の AI が Verantyx の空間記憶や Gatekeeper ツールにアクセスできるようになります。"
+                    ))
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+                    
+                    Text(app.t("1. Open your MCP config file (e.g., claude_desktop_config.json)", "1. MCP の設定ファイル (claude_desktop_config.json など) を開きます"))
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(.white)
+                    
+                    Text(app.t("2. Add the verantyx-compiler server:", "2. 以下の通り verantyx-compiler サーバーを追加します:"))
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(.white)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        let ws = app.cortexWorkspacePath ?? app.workspaceURL?.path ?? ""
+                        let base = ws.hasSuffix("VerantyxIDE") ? URL(fileURLWithPath: ws).deletingLastPathComponent().path : (ws.isEmpty ? "/path/to/verantyx-cli" : ws)
+                        
+                        Text("\"verantyx-compiler\": {\n  \"command\": \"node\",\n  \"args\": [\n    \"--import\", \"tsx\",\n    \"\(base)/src/verantyx/mcp/server.ts\"\n  ]\n}")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color(red: 0.8, green: 0.85, blue: 0.95))
+                    }
+                    .padding(10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(red: 0.08, green: 0.08, blue: 0.1), in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.white.opacity(0.1), lineWidth: 1))
+                    
+                    Text(app.t(
+                        "3. Restart your external AI client. It will automatically sync with this IDE via the shared workspace.",
+                        "3. 外部の AI クライアントを再起動してください。共有ワークスペースを通じて、この IDE と自動的に連携・同期します。"
+                    ))
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(.white)
+                }
+            }
+        }
+    }
+
+    // MARK: - Model Settings
+
+
+    private var modelSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Model Configuration", icon: "cpu")
+            modelConfigurationCard
+
+            sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
+            inferenceParametersCard
+
+            sectionHeader(app.t("Two-Mac Model", "2台構成"), icon: "rectangle.connected.to.line.below")
+            pipeCard
+
+            sectionHeader("LM Studio", icon: "desktopcomputer")
+            lmStudioCard
+
+            // Grouped: a VStack with this many children exceeds what the
+            // type checker will chew through in reasonable time.
+            Group {
+                bitnetSettings
+                jgenSettings
+            }
+
+            sectionHeader("System Prompt", icon: "text.bubble")
+            systemPromptCard
+        }
+    }
+
+    /// Running one model across two Macs.
+    ///
+    /// The card stays deliberately thin — status and a way in. Everything that
+    /// needs explaining lives in the sheet, which can afford to be linear and
+    /// wordy; a settings card that tried to hold the whole flow is how the
+    /// previous attempt at this became unusable.
+    private var pipeCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel(app.t("Status", "状態")) {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(pipeSession.isPaired ? Color.green
+                                  : (pipeCoordinator.isEnabled ? Color.orange : Color.gray))
+                            .frame(width: 6, height: 6)
+                        Text(pipeStatusText).font(.system(size: 11)).foregroundStyle(.secondary)
+                        Button(app.t("Set up…", "設定…")) { showPipeSheet = true }
+                            .buttonStyle(.bordered).controlSize(.small)
+                    }
+                }
+                Text(app.t(
+                    "Splits one model's layers across two Macs so a model too large for either alone can run. It does not make replies faster — only one Mac computes at a time.",
+                    "1つのモデルの層を2台のMacに分けて、単体では大きすぎるモデルを動かせるようにします。返答が速くなる機能ではありません — 計算するのは常に片方だけです。"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .sheet(isPresented: $showPipeSheet) {
+            PipeConnectSheet().environmentObject(app)
+        }
+    }
+
+    private var pipeStatusText: String {
+        if pipeSession.isPaired {
+            let role = pipeSession.role == .master
+                ? app.t("running the first half", "前半を担当")
+                : app.t("running the second half", "後半を担当")
+            return "\(pipeSession.peer?.deviceName ?? "") — \(role)"
+        }
+        return pipeCoordinator.isEnabled
+            ? app.t("Visible, not connected", "検出可能・未接続")
+            : app.t("Off", "オフ")
+    }
+
+    /// LM Studio's OpenAI-compatible server.
+    ///
+    /// It is not started automatically — unlike Ollama, nothing runs until the
+    /// user turns on Local Server inside LM Studio. That single fact accounts for
+    /// essentially every "LM Studio doesn't work" report, so the status line
+    /// leads and says what to do rather than just showing a red dot.
+    private var lmStudioCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel(app.t("Server", "サーバー")) {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(lmStudioDotColor)
+                            .frame(width: 6, height: 6)
+                        Text(lmStudioStatusText)
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                        Button(app.t("Check", "確認")) { Task { await checkLMStudio() } }
+                            .buttonStyle(.bordered).controlSize(.small)
+                            .disabled(lmStudioBusy)
+                        // The remedy sits beside the diagnosis, not in a
+                        // paragraph three lines down. `lms server start`
+                        // launches the app too, so this one button covers
+                        // "closed" and "open with the server off" alike.
+                        if case .serverOff(let canStart) = lmStudioDiagnosis, canStart {
+                            Button(app.t("Start server", "サーバーを起動")) {
+                                Task { await startLMStudio() }
+                            }
+                            .buttonStyle(.borderedProminent).controlSize(.small)
+                            .disabled(lmStudioBusy)
+                        }
+                        if lmStudioBusy { ProgressView().controlSize(.small) }
+                    }
+                }
+                if let lmStudioProblem {
+                    Text(lmStudioProblem)
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 0.95, green: 0.6, blue: 0.4))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Text(lmStudioAdvice)
+                .font(.system(size: 10)).foregroundStyle(.tertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
+                Divider().opacity(0.2)
+
+                rowLabel(app.t("Endpoint", "エンドポイント")) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        TextField(LMStudioClient.defaultEndpoint, text: $app.lmStudioEndpoint)
+                            .textFieldStyle(.roundedBorder)
+                            .font(.system(size: 11, design: .monospaced))
+                            .frame(width: 240)
+                        // Shown whenever the typed text is not what will be
+                        // requested. `127.0.0.1:1234` and `localhost/v1/` both
+                        // used to fail with no explanation; now the rewrite is
+                        // visible instead of silent.
+                        let resolved = LMStudioClient.normalized(app.lmStudioEndpoint)
+                        if resolved != app.lmStudioEndpoint.trimmingCharacters(in: .whitespacesAndNewlines) {
+                            Text(app.t("Will connect to ", "接続先: ") + resolved)
+                                .font(.system(size: 9, design: .monospaced))
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private var lmStudioStatusText: String {
+        switch lmStudioDiagnosis {
+        case .ready(let n):
+            return app.t("Running — \(n) model(s)", "起動中 — モデル\(n)件")
+        case .noModels:
+            return app.t("Running — no chat model loaded", "起動中 — チャットモデル未読込")
+        case .serverOff:
+            return app.t("LM Studio's Local Server is off", "LM Studio のローカルサーバーが停止中")
+        case .notInstalled:
+            return app.t("LM Studio not found", "LM Studio が見つかりません")
+        case .badEndpoint(let status, _):
+            return status == 0
+                ? app.t("Endpoint is not a valid URL", "エンドポイントが不正です")
+                : app.t("Answered HTTP \(status) — wrong endpoint?",
+                        "HTTP \(status) — エンドポイント違い?")
+        case nil:
+            return app.t("Not checked", "未確認")
+        }
+    }
+
+    private var lmStudioDotColor: Color {
+        switch lmStudioDiagnosis {
+        case .ready:        return .green
+        case .noModels:     return .yellow
+        case .serverOff, .badEndpoint: return .orange
+        case .notInstalled: return .red
+        case nil:           return .gray
+        }
+    }
+
+    /// One sentence, matched to the diagnosis — not the same generic
+    /// instruction under every state.
+    private var lmStudioAdvice: String {
+        switch lmStudioDiagnosis {
+        case .ready:
+            return app.t("Models are chosen from the model bar above the chat input.",
+                         "モデルはチャット入力欄の上のモデルバーから選びます。")
+        case .noModels:
+            return app.t("The server is up but holds no chat model. Download or load one in LM Studio; embedding models are not offered here.",
+                         "サーバーは動いていますがチャットモデルがありません。LM Studio でモデルを読み込んでください(埋め込みモデルは対象外です)。")
+        case .serverOff(let canStart):
+            return canStart
+                ? app.t("Press Start server, or open LM Studio → Developer → Start Server.",
+                        "「サーバーを起動」を押すか、LM Studio → Developer → Start Server を実行してください。")
+                : app.t("Open LM Studio → Developer → Start Server.",
+                        "LM Studio → Developer → Start Server を実行してください。")
+        case .notInstalled:
+            return app.t("Nothing is listening and LM Studio is not installed at /Applications. Install it, or point the endpoint at any OpenAI-compatible server.",
+                         "接続先に応答がなく、/Applications に LM Studio もありません。導入するか、OpenAI互換サーバーのエンドポイントを指定してください。")
+        case .badEndpoint(_, let resolved):
+            return app.t("Something answered at \(resolved) but not with a model list. LM Studio's is \(LMStudioClient.defaultEndpoint).",
+                         "\(resolved) から応答はありましたがモデル一覧ではありません。LM Studio の既定は \(LMStudioClient.defaultEndpoint) です。")
+        case nil:
+            return app.t("Press Check. LM Studio does not start its server on its own.",
+                         "「確認」を押してください。LM Studio はサーバーを自動起動しません。")
+        }
+    }
+
+    private func checkLMStudio() async {
+        lmStudioBusy = true; lmStudioProblem = nil
+        defer { lmStudioBusy = false }
+        let d = await LMStudioClient.shared.diagnose()
+        lmStudioDiagnosis = d
+        lmStudioReachable = d.isReady
+        if case .ready(let n) = d { lmStudioModelCount = n } else { lmStudioModelCount = 0 }
+    }
+
+    private func startLMStudio() async {
+        lmStudioBusy = true; lmStudioProblem = nil
+        defer { lmStudioBusy = false }
+        lmStudioProblem = await LMStudioClient.shared.startServer()
+        let d = await LMStudioClient.shared.diagnose()
+        lmStudioDiagnosis = d
+        lmStudioReachable = d.isReady
+        if case .ready(let n) = d { lmStudioModelCount = n } else { lmStudioModelCount = 0 }
+    }
+
+    private var modelConfigurationCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel("Ollama endpoint") {
+                    TextField("http://localhost:11434", text: $app.ollamaEndpoint)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11, design: .monospaced))
+                        .frame(width: 200)
+                        .onSubmit { app.connectOllama() }
+                }
+
+                if let result = connectionTestResult {
+                    Text(result)
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(result.contains("✓") ? .green : .red)
+                }
+
+                Divider().opacity(0.2)
+                mlxModelSelector
+            }
+        }
+    }
+
+    private var mlxModelSelector: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("MLX model")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                Spacer()
+                // Show currently loaded MLX model
+                if case .mlxReady(let m) = app.modelStatus {
+                    HStack(spacing: 4) {
+                        Circle().fill(Color.green).frame(width: 6, height: 6)
+                        Text(m.components(separatedBy: "/").last ?? m)
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(.green)
+                    }
+                }
+            }
+
+            // Popular models list
+            VStack(spacing: 4) {
+                ForEach(MLXRunner.popularModels) { model in
+                    mlxModelRow(model: model)
+                }
+            }
+
+            // Load button
+            HStack(spacing: 8) {
+                Button {
+                    app.loadMLXModel(model: app.activeMlxModel)
+                } label: {
+                    HStack(spacing: 6) {
+                        if case .connecting = app.modelStatus {
+                            ProgressView().scaleEffect(0.65).frame(width: 12, height: 12)
+                            Text("Loading…")
+                        } else {
+                            Image(systemName: "bolt.fill")
+                            Text(app.t("Launch MLX", "MLXを起動"))
+                        }
+                    }
+                    .font(.system(size: 12, weight: .semibold))
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.regular)
+                .tint(Color(red: 0.25, green: 0.55, blue: 0.35))
+                .disabled({
+                    if case .connecting = app.modelStatus { return true }
+                    return false
+                }())
+
+                // Custom path field
+                TextField(app.t("or enter HF ID directly…", "または HF ID を直接入力…"), text: $app.activeMlxModel)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 10, design: .monospaced))
+            }
+        }
+    }
+
+    private func mlxModelRow(model: MLXModel) -> some View {
+        let isSelected = app.activeMlxModel == model.id
+        let isLoaded: Bool = {
+            if case .mlxReady(let m) = app.modelStatus { return m == model.id }
+            return false
+        }()
+        
+        let bgColor: Color = isLoaded 
+            ? Color(red: 0.15, green: 0.30, blue: 0.18).opacity(0.7) 
+            : (isSelected ? Color(red: 0.18, green: 0.22, blue: 0.35).opacity(0.7) : Color.white.opacity(0.03))
+            
+        let strokeColor: Color = isLoaded
+            ? Color(red: 0.3, green: 0.8, blue: 0.45).opacity(0.5)
+            : (isSelected ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.4) : Color.white.opacity(0.05))
+            
+        let strokeWidth: CGFloat = (isSelected || isLoaded) ? 1 : 0.5
+        let downloadIconColor: Color = model.isDownloaded ? Color(red: 0.35, green: 0.85, blue: 0.5) : Color(red: 0.45, green: 0.45, blue: 0.6)
+        let titleColor: Color = isSelected ? .white : Color(red: 0.75, green: 0.75, blue: 0.88)
+        let indicatorStrokeColor: Color = isSelected ? Color(red: 0.4, green: 0.7, blue: 1.0) : Color.white.opacity(0.2)
+        
+        return Button {
+            app.activeMlxModel = model.id
+        } label: {
+            HStack(spacing: 10) {
+                // Selection indicator
+                ZStack {
+                    Circle()
+                        .stroke(indicatorStrokeColor, lineWidth: isSelected ? 2 : 1)
+                        .frame(width: 14, height: 14)
+                    if isSelected {
+                        Circle()
+                            .fill(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(model.displayName)
+                        .font(.system(size: 11, weight: isSelected ? .semibold : .regular))
+                        .foregroundStyle(titleColor)
+                        .lineLimit(1)
+                    Text(model.id)
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                        .lineLimit(1)
+                }
+
+                Spacer()
+
+                // Tags
+                HStack(spacing: 3) {
+                    ForEach(model.tags.prefix(2), id: \.self) { tag in
+                        Text(tag)
+                            .font(.system(size: 8, weight: .medium))
+                            .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color(red: 0.4, green: 0.7, blue: 1.0).opacity(0.12),
+                                        in: Capsule())
+                    }
+                }
+
+                // Size badge
+                Text("\(String(format: "%.0f", model.sizeGB))GB")
+                    .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                    .frame(width: 30)
+
+                // Download status
+                Image(systemName: model.isDownloaded ? "checkmark.circle.fill" : "arrow.down.circle")
+                    .font(.system(size: 11))
+                    .foregroundStyle(downloadIconColor)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .background(bgColor, in: RoundedRectangle(cornerRadius: 7))
+            .overlay(
+                RoundedRectangle(cornerRadius: 7)
+                    .strokeBorder(strokeColor, lineWidth: strokeWidth)
+            )
+        }
+        .contentShape(Rectangle())
+        .buttonStyle(.plain)
+    }
+
+    private var inferenceParametersCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Temperature") {
+                        Text(String(format: "%.2f", app.temperature))
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(tempColor)
+                            .frame(width: 40)
+                    }
+                    Slider(value: $app.temperature, in: 0...1.5, step: 0.05)
+                        .tint(tempColor)
+                    HStack {
+                        Text("0 = deterministic").font(.system(size: 9)).foregroundStyle(.tertiary)
+                        Spacer()
+                        Text("0.1–0.3 = coding  ·  0.7–1.0 = creative").font(.system(size: 9)).foregroundStyle(.tertiary)
+                    }
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Max tokens (Ollama)") {
+                        Text("\(app.maxTokensOllama)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
+                    }
+                    Slider(value: Binding(get: { Double(app.maxTokensOllama) }, set: { app.maxTokensOllama = Int($0) }), in: 256...8192, step: 256)
+                        .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                }
+
+                Divider().opacity(0.2)
+
+                // Downloading an MLX model by HuggingFace repo id used to live
+                // in ModelPickerView, which had zero call sites -- so
+                // AppState.downloadMLXModel was unreachable from the UI
+                // entirely. Surfaced here instead of in the chat model bar,
+                // which needs to stay compact.
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Download MLX model (HuggingFace)") {
+                        HStack(spacing: 6) {
+                            TextField("mlx-community/…", text: $hfRepoId)
+                                .textFieldStyle(.roundedBorder)
+                                .font(.system(size: 11, design: .monospaced))
+                                .frame(width: 220)
+                            Button("Download") {
+                                let id = hfRepoId.trimmingCharacters(in: .whitespaces)
+                                guard !id.isEmpty else { return }
+                                app.downloadMLXModel(repoId: id)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            .disabled(hfRepoId.trimmingCharacters(in: .whitespaces).isEmpty)
+                        }
+                    }
+                    Text("Downloads into ~/Library/Caches/models. Only MLX-format repos work here (look for an \"-mlx\" or \"mlx-community/\" repo); GGUF repos should go through Ollama or the JGEN converter instead.")
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Max tokens (MLX)") {
+                        Text("\(app.maxTokensMLX)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
+                    }
+                    Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...131072, step: 512)
+                        .tint(Color(red: 0.4, green: 0.9, blue: 0.6))
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel(app.t("Max tokens per reply", "1回答のMax tokens")) {
+                        Picker("", selection: Binding(
+                            get: { app.maxTokensOverride },
+                            set: { app.maxTokensOverride = $0 }
+                        )) {
+                            Text(app.t("Auto (by model size)", "自動(モデルサイズ)")).tag(0)
+                            Text("8192").tag(8_192)
+                            Text("16384").tag(16_384)
+                            Text("32768").tag(32_768)
+                            Text("65536").tag(65_536)
+                            Text("131072").tag(131_072)
+                        }
+                        .labelsHidden().frame(width: 180)
+                    }
+                    Text(app.t("Overrides every ceiling, including the tier table and the JGEN safety clamp.",
+                               "ティア表・JGEN安全上限を含む全ての上限より優先されます。"))
+                        .font(.system(size: 9)).foregroundStyle(.tertiary)
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel(app.t("Context window (tokens)", "コンテキスト（トークン）")) {
+                        Picker("", selection: Binding(
+                            get: { app.contextWindowOverride },
+                            set: { app.contextWindowOverride = $0 }
+                        )) {
+                            Text(app.t("Auto (by model size)", "自動（モデルサイズ）")).tag(0)
+                            Text("8K").tag(8_000)
+                            Text("16K").tag(16_000)
+                            Text("32K").tag(32_000)
+                            Text("64K").tag(64_000)
+                            Text("128K").tag(128_000)
+                            Text("256K").tag(256_000)
+                            Text(app.t("Unlimited (never compress)", "無制限（圧縮しない）")).tag(999_999)
+                        }
+                        .labelsHidden()
+                        .frame(width: 200)
+                    }
+                    // Labeled in tokens now, and converted internally
+                    // (~4 chars per token). It used to be a character
+                    // budget wearing a number that reads like tokens: a
+                    // setting of 32000 bought ~8k tokens of history, and
+                    // runs compressed every second turn while the profile
+                    // line claimed the context was manual.
+                    Text(app.t(
+                        "How much conversation history stays uncompressed before it is summarized. \"Auto\" picks a value from the detected model size; \"Unlimited\" never compresses (a physically full KV cache still flushes — that is hardware, not policy).",
+                        "要約される前に、会話履歴をどれだけ圧縮せずに保つか。「自動」は検出したモデルサイズから決定し、「無制限」は圧縮しません（KVキャッシュが物理的に満杯の場合のみフラッシュします — これは方針ではなくハードウェアの制約です）。"))
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
+                }
+
+            }
+        }
+    }
+
+    private var systemPromptCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Injected at the start of every request").font(.system(size: 11)).foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Reset") {
+                        app.systemPrompt = "You are Verantyx, an expert AI coding assistant running on Apple Silicon. Be concise and precise. Prefer code over prose."
+                    }
+                    .buttonStyle(.bordered).controlSize(.small)
+                }
+                TextEditor(text: $app.systemPrompt)
+                    .font(.system(size: 11, design: .monospaced))
+                    .frame(minHeight: 80, maxHeight: 120)
+                    .scrollContentBackground(.hidden)
+                    .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+            }
+        }
+    }
+
+    private var fineTuningCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(app.t("Select the base model that will be fine-tuned using the automatically collected training data.", "自動収集された学習データを用いてファインチューニング（重みの更新）を行う際のベースモデルを選択します。"))
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+                
+                HStack(spacing: 8) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    Text(app.t("Data is collected at ~/.openclaw/memory/training_data/verantyx_dataset.jsonl", "~/.openclaw/memory/training_data/verantyx_dataset.jsonl にデータが蓄積されます。"))
+                        .font(.system(size: 10))
+                        .foregroundStyle(.tertiary)
+                    
+                    Spacer()
+                    
+                    Button {
+                        app.clearFineTuningData()
+                    } label: {
+                        Text(app.t("Archive Dataset", "データをアーカイブ"))
+                            .font(.system(size: 10))
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .help(app.t("Archive the current dataset to prevent duplicate fine-tuning.", "現在のデータセットを退避し、重複した学習を防ぎます。"))
+                }
+            }
+        }
+    }
+
+    // MARK: - Local engines, folded in from their former top-level tabs
+    //
+    // BitNet and JGEN are live backends with real generation paths, so they
+    // are not deleted — but a tab each put them at the same weight as Privacy
+    // and MCP, for engines most sessions never touch. They belong beside the
+    // other local engines they compete with.
+
+    // MARK: - API Keys Settings
+
+    private var apiKeysSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Models & API Keys", icon: "key.fill")
+
+            infoBlock("🔐 キーは UserDefaults（サンドボックス内のローカル保存）にあります。各社のAPIエンドポイント以外へは送信されません。キーとモデルは同じカードにまとまっており、一覧は各社に問い合わせて自動更新されます。")
+
+            // Generated from CloudProvider.allCases. The previous version was
+            // four hand-written cards, which is why the eleven providers added
+            // later were invisible here — the same class of bug as the tool
+            // docs: a list maintained by hand next to a table that grew.
+            ForEach(CloudProvider.allCases, id: \.self) { provider in
+                CloudProviderCard(provider: provider)
+            }
+        }
+    }
+
+    // MARK: - Tools Settings
+
+    private var toolsSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Tool Toggles", icon: "puzzlepiece.extension")
+            Text("Enable or disable each tool the AI can use. Changes take effect on the next request.")
+                .font(.system(size: 11)).foregroundStyle(.secondary)
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 0) {
+                    toolToggleRow(icon: "globe",          iconColor: Color(red: 0.3, green: 0.7, blue: 1.0),
+                                  title: "Web Browser",   description: "AI can browse URLs using the Rust browser engine or system browser",
+                                  isOn: $app.toolBrowserEnabled)
+                    Divider().opacity(0.15)
+                    toolToggleRow(icon: "magnifyingglass", iconColor: Color(red: 0.4, green: 0.9, blue: 0.6),
+                                  title: "Web Search",    description: "AI can search the web for documentation, code examples, and answers",
+                                  isOn: $app.toolWebSearchEnabled)
+                    Divider().opacity(0.15)
+                    toolToggleRow(icon: "terminal",       iconColor: Color(red: 0.9, green: 0.6, blue: 0.2),
+                                  title: "Terminal",      description: "AI can run shell commands, build scripts, and tests",
+                                  isOn: $app.toolTerminalEnabled)
+                    Divider().opacity(0.15)
+                    toolToggleRow(icon: "arrow.left.arrow.right", iconColor: Color(red: 0.7, green: 0.4, blue: 1.0),
+                                  title: "Diff & Apply",  description: "AI can propose file changes via side-by-side diff viewer",
+                                  isOn: $app.toolDiffEnabled)
+                    Divider().opacity(0.15)
+                    toolToggleRow(icon: "brain",          iconColor: Color(red: 0.4, green: 0.9, blue: 0.6),
+                                  title: "JCross Memory", description: "AI can read/write long-term memory nodes (JCross spatial index)",
+                                  isOn: $app.toolJCrossEnabled)
+                }
+            }
+
+            settingsCard {
+                HStack(spacing: 12) {
+                    Button("Enable All") {
+                        app.toolBrowserEnabled = true; app.toolWebSearchEnabled = true
+                        app.toolTerminalEnabled = true; app.toolDiffEnabled = true; app.toolJCrossEnabled = true
+                    }
+                    .buttonStyle(.borderedProminent).controlSize(.small)
+
+                    Button("Disable All") {
+                        app.toolBrowserEnabled = false; app.toolWebSearchEnabled = false
+                        app.toolTerminalEnabled = false; app.toolDiffEnabled = false; app.toolJCrossEnabled = false
+                    }
+                    .buttonStyle(.bordered).controlSize(.small).tint(.red)
+
+                    Spacer()
+
+                    let n = [app.toolBrowserEnabled, app.toolWebSearchEnabled,
+                             app.toolTerminalEnabled, app.toolDiffEnabled, app.toolJCrossEnabled]
+                        .filter { $0 }.count
+                    Text("\(n)/5 tools enabled")
+                        .font(.system(size: 10, design: .monospaced)).foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
+
+    // MARK: - Agent Settings
+
+    private var agentSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Agent Loop", icon: "bolt.circle")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Autonomous Mode") {
+                        Toggle("", isOn: $app.agentLoopEnabled).toggleStyle(.switch).scaleEffect(0.85)
+                    }
+                    Text("Agent can create files, scaffold projects, run build commands, and fix errors autonomously across multiple turns.")
+                        .font(.system(size: 11)).foregroundStyle(.secondary).lineSpacing(2)
+
+                    if app.agentLoopEnabled {
+                        Divider().opacity(0.2)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Example prompts:")
+                                .font(.system(size: 10, weight: .semibold)).foregroundStyle(.tertiary)
+                            Group {
+                                Text("• \"Create a new Python calculator app\"")
+                                Text("• \"Scaffold a Rust CLI project called 'todo'\"")
+                                Text("• \"Set up a React TypeScript project\"")
+                                Text("• \"Fix all build errors and run tests\"")
+                            }
+                            .font(.system(size: 10, design: .monospaced)).foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Divider().opacity(0.2)
+                    
+                    rowLabel("Non-Coding Tasks (e.g. Q&A, Search)") {
+                        Picker("", selection: $app.nonCodingTaskEngine) {
+                            ForEach(AppState.NonCodingTaskEngine.allCases, id: \.self) { engine in
+                                Text(engine.rawValue).tag(engine)
+                            }
+                        }
+                        .frame(width: 220)
+                    }
+                    Text("Choose how simple tasks that do not modify the codebase are handled.")
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
+
+    // MARK: - Memory Settings
+
+    private var memorySettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Cortex Memory", icon: "brain")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Enable Cortex") {
+                        Toggle("", isOn: Binding(
+                            get: { app.cortex.isEnabled },
+                            set: { app.cortex.isEnabled = $0 }
+                        ))
+                        .toggleStyle(.switch).scaleEffect(0.85)
+                    }
+                    Text("Prevents context overflow by compressing old conversation turns into persistent memory nodes.")
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+
+                    if app.cortex.isEnabled {
+                        Divider().opacity(0.2)
+
+                        VStack(alignment: .leading, spacing: 6) {
+                            rowLabel("Compression threshold") {
+                                Text("\(app.cortex.contextThreshold) tokens")
+                                    .font(.system(size: 11, design: .monospaced))
+                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    .frame(width: 80)
+                            }
+                            Slider(value: Binding(
+                                get: { Double(app.cortex.contextThreshold) },
+                                set: { app.cortex.contextThreshold = Int($0) }
+                            ), in: 500...8000, step: 500)
+                            .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            Text("Lower = more aggressive. Recommended: 3000 for 8B, 6000 for 27B+")
+                                .font(.system(size: 9)).foregroundStyle(.tertiary)
+                        }
+
+                        Divider().opacity(0.2)
+
+                        HStack(spacing: 16) {
+                            statCard("Nodes",     value: "\(app.cortex.nodes.count)",
+                                     icon: "square.stack.3d.up", color: Color(red: 0.4, green: 0.7, blue: 1.0))
+                            statCard("Compressed", value: "\(app.cortex.compressedCount)",
+                                     icon: "arrow.compress", color: Color(red: 0.7, green: 0.5, blue: 1.0))
+                            statCard("Active",    value: "\(app.cortex.nodes.filter { $0.zone == .front || $0.zone == .near }.count)",
+                                     icon: "bolt.fill", color: Color(red: 0.4, green: 0.9, blue: 0.5))
+                        }
+
+                        if !app.cortex.nodes.isEmpty {
+                            Divider().opacity(0.2)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text("Memory nodes")
+                                    .font(.system(size: 10, weight: .semibold)).foregroundStyle(.tertiary)
+                                ForEach(app.cortex.nodes.prefix(15)) { node in memoryNodeRow(node) }
+                                if app.cortex.nodes.count > 15 {
+                                    Text("… and \(app.cortex.nodes.count - 15) more")
+                                        .font(.system(size: 9)).foregroundStyle(.tertiary)
+                                }
+                            }
+                        }
+
+                        Divider().opacity(0.2)
+
+                        Button(role: .destructive) { app.cortex.clearAll() } label: {
+                            Label("Clear All Memory", systemImage: "trash").font(.system(size: 11))
+                        }
+                        .buttonStyle(.bordered).controlSize(.small).tint(.red)
+                    }
+                }
+            }
+            
+            sectionHeader("Vera-α Memory", icon: "checkmark.seal")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Save approval") {
+                        Picker("", selection: $app.veraSaveApprovalMode) {
+                            ForEach(VeraSaveApprovalMode.allCases) { mode in
+                                Text(mode.displayName).tag(mode)
+                            }
+                        }
+                        .labelsHidden()
+                        .frame(width: 200)
+                    }
+                    Text(app.veraSaveApprovalMode.description)
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+
+                    if !app.pendingVeraSaveQueue.isEmpty {
+                        Divider().opacity(0.2)
+                        Text("\(app.pendingVeraSaveQueue.count + (app.pendingVeraSave != nil ? 1 : 0)) save(s) waiting for review")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.2))
+                    }
+
+                    Divider().opacity(0.2)
+
+                    Toggle(isOn: Binding(
+                        get: { UserDefaults.standard.object(forKey: "zone_layer_memory_enabled") as? Bool ?? false },
+                        set: { UserDefaults.standard.set($0, forKey: "zone_layer_memory_enabled") }
+                    )) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Also inject L1–L3 zone memory")
+                                .font(.system(size: 12))
+                            Text("Off by default. Vera-α is the memory; running both put two stores' past context in the same prompt with no rule for which wins. Archiving continues either way.")
+                                .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(1)
+                        }
+                    }
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                }
+            }
+
+            sectionHeader("人間の操作データ", icon: "hand.draw")
+
+            settingsCard {
+                DemonstrationSettingsView().environmentObject(app)
+            }
+
+            sectionHeader("Phone Relay", icon: "iphone.gen3.radiowaves.left.and.right")
+
+            settingsCard {
+                PhoneRelayPanel().environmentObject(app)
+            }
+
+            sectionHeader("L3.5 PC Asset Map (System Memory)", icon: "macwindow")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    if vault.isScanning {
+                        VStack(alignment: .leading, spacing: 6) {
+                            ProgressView(value: vault.scanProgressValue)
+                                .tint(.orange)
+                            HStack {
+                                Text(vault.currentProcessingFile)
+                                    .font(.caption2.monospaced())
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                                Spacer()
+                                if vault.totalFilesToScan > 0 {
+                                    Text("\(vault.processedFilesCount) / \(vault.totalFilesToScan) (\(Int(vault.scanProgressValue * 100))%)")
+                                        .font(.caption2)
+                                } else {
+                                    Text("\(Int(vault.scanProgressValue * 100))%")
+                                        .font(.caption2)
+                                }
+                            }
+                            if !vault.estimatedTimeRemaining.isEmpty {
+                                Text("Estimated time: \(vault.estimatedTimeRemaining)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.orange)
+                            }
+                            if !vault.conversionLog.isEmpty {
+                                ScrollView {
+                                    LazyVStack(alignment: .leading) {
+                                        ForEach(vault.conversionLog.suffix(8), id: \.self) { line in
+                                            Text(line)
+                                                .font(.caption2.monospaced())
+                                                .foregroundStyle(line.contains("✓") ? .green : .primary)
+                                        }
+                                    }
+                                    .padding(6)
+                                }
+                                .frame(height: 100)
+                                .background(Color.black.opacity(0.6))
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                            }
+                        }
+                    } else {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("User Directories (Scan Targets)")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(.secondary)
+                            
+                            VStack(spacing: 1) {
+                                ForEach($vault.scanTargets) { $target in
+                                    HStack {
+                                        Toggle(target.name, isOn: $target.isEnabled)
+                                            .toggleStyle(.switch)
+                                            .controlSize(.mini)
+                                        
+                                        Spacer()
+                                        
+                                        if target.isEnabled {
+                                            HStack(spacing: 8) {
+                                                Text("Depth: \(target.scanDepth)")
+                                                    .font(.system(size: 11, design: .monospaced))
+                                                    .foregroundStyle(.secondary)
+                                                Stepper("", value: $target.scanDepth, in: 1...10)
+                                                    .labelsHidden()
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 8)
+                                    .background(Color.white.opacity(0.03))
+                                }
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        
+                        Divider().opacity(0.2)
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            Toggle(isOn: $vault.isBitNetModeEnabled) {
+                                Text("BitNet Semantic Scan (Deep Content Analysis)")
+                                    .font(.system(size: 11, weight: .semibold))
+                            }
+                            .tint(.purple)
+                            
+                            if vault.isBitNetModeEnabled {
+                                Text(L("⚠️ Warning: the scan reads file contents with an LLM, so it can take tens of minutes to several hours.", "⚠️ 警告: ファイルの中身をLLMで解釈するため、スキャンに数十分〜数時間かかる場合があります。"))
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.orange)
+                            } else {
+                                Text(L("Reads file contents with an LLM, summarises what each is for, and records it on the map. Very slow.", "ファイルの中身をLLMで読み取り、実装目的を要約して地図に記録します。非常に時間がかかります。"))
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        
+                        Divider().opacity(0.2)
+                        
+                        HStack(spacing: 12) {
+                            Button {
+                                addCustomFolder()
+                            } label: {
+                                Label(L("Add folder", "フォルダを追加"), systemImage: "folder.badge.plus")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.blue)
+                            
+                            Button {
+                                vault.scanBackground()
+                            } label: {
+                                Label(L("Re-convert (full scan)", "再変換 (フルスキャン)"), systemImage: "arrow.triangle.2.circlepath")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.bordered)
+                            
+                            Button(role: .destructive) {
+                                vault.deleteMap()
+                            } label: {
+                                Label(L("Delete", "削除"), systemImage: "trash")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.bordered).tint(.red)
+                            
+                            if vault.assetMap != nil {
+                                Button {
+                                    showAssetMap = true
+                                } label: {
+                                    Label(L("View map", "地図を見る"), systemImage: "map")
+                                        .font(.system(size: 11))
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        
+                        if let map = vault.assetMap {
+                            let stats = Dictionary(grouping: map.entries.values, by: { $0.category })
+                                .map { "\($0.key) (\($0.value.count)件)" }
+                                .joined(separator: ", ")
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(L("Converted targets:", "変換済み対象:"))
+                                    .font(.caption).foregroundStyle(.secondary)
+                                Text(L("• /Applications\n• /System/Applications\n• Safari History\n• Running processes\n• System Settings", "• /Applications\n• /System/Applications\n• Safari History\n• 起動中プロセス\n• システム設定"))
+                                    .font(.caption2).foregroundStyle(.tertiary)
+                                Text(L("Details: \(stats)", "詳細: \(stats)"))
+                                    .font(.caption2).foregroundStyle(.secondary)
+                                    .padding(.top, 2)
+                            }
+                            .padding(.top, 4)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - Privacy Settings
+
+    private var privacySettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("Privacy & Mode", icon: "lock.shield")
+
+            // ── Inference mode ─────────────────────────────────────────
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Inference mode") {
+                        Picker("", selection: $app.inferenceMode) {
+                            Text("Local Only").tag(InferenceMode.localOnly)
+                            Text("Privacy Shield").tag(InferenceMode.privacyShield)
+                            Text("Cloud Direct").tag(InferenceMode.cloudDirect)
+                        }
+                        .pickerStyle(.segmented).frame(width: 320)
+                    }
+
+                    switch app.inferenceMode {
+                    case .localOnly:
+                        infoBlock("🔒 100% offline. No data leaves your machine. Runs on Apple Silicon via Ollama or MLX.")
+                    case .privacyShield:
+                        infoBlock("🛡 Code is anonymized before being sent to cloud. Real identifiers stay on your Mac. Cloud only sees abstract logic.")
+                    case .cloudDirect:
+                        infoBlock("☁️ Direct cloud inference. Fastest responses, but code is sent as-is to the provider.")
+                    case .paranoiaMode:
+                        infoBlock("🔴 Paranoia Mode: AST-level symbol extraction + Gemma 4 classification + Rust byte-offset masking. Maximum privacy.")
+                    }
+
+                    if app.inferenceMode != .localOnly {
+                        Divider().opacity(0.2)
+                        rowLabel("Cloud provider") {
+                            Picker("", selection: $app.cloudProvider) {
+                                Text("Claude").tag(CloudProvider.claude)
+                                Text("GPT-4").tag(CloudProvider.openai)
+                                Text("Gemini").tag(CloudProvider.gemini)
+                                Text("DeepSeek").tag(CloudProvider.deepseek)
+                            }
+                            .pickerStyle(.segmented).frame(width: 340)
+                        }
+                    }
+                }
+            }
+
+            // ── Privacy Gateway settings (Privacy Shield only) ─────────
+            if app.inferenceMode == .privacyShield {
+                sectionHeader("Privacy Gateway Configuration", icon: "shield.lefthalf.filled")
+
+                settingsCard {
+                    VStack(alignment: .leading, spacing: 0) {
+                        // Phase 1: Always on
+                        HStack(spacing: 12) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 0.4, green: 0.9, blue: 0.5).opacity(0.15))
+                                    .frame(width: 32, height: 32)
+                                Text("P1")
+                                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                            }
+                            VStack(alignment: .leading, spacing: 2) {
+                                HStack(spacing: 6) {
+                                    Text("Regex Masking")
+                                        .font(.system(size: 12, weight: .semibold)).foregroundStyle(.white)
+                                    Text("Always ON")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                        .padding(.horizontal, 6).padding(.vertical, 2)
+                                        .background(Color(red: 0.4, green: 0.9, blue: 0.5).opacity(0.1), in: Capsule())
+                                }
+                                Text("Detects FUNC_xxx, CLASS_xxx, VAR_xxx, secrets via regex patterns. Fast, deterministic.")
+                                    .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(2)
+                            }
+                            Spacer()
+                        }
+                        .padding(.vertical, 12)
+
+                        Divider().opacity(0.15)
+
+                        // Phase 2: Togglable
+                        HStack(spacing: 12) {
+                            ZStack {
+                                Circle()
+                                    .fill(app.gemmaSemanticMaskingEnabled
+                                          ? Color(red: 0.8, green: 0.5, blue: 1.0).opacity(0.15)
+                                          : Color.white.opacity(0.05))
+                                    .frame(width: 32, height: 32)
+                                Text("P2")
+                                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                                    .foregroundStyle(app.gemmaSemanticMaskingEnabled
+                                                     ? Color(red: 0.8, green: 0.5, blue: 1.0)
+                                                     : .secondary)
+                            }
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Gemma Semantic Scan")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(app.gemmaSemanticMaskingEnabled ? .white : .secondary)
+                                Text("Local Gemma LLM detects domain-specific identifiers missed by regex (e.g. paymentGatewayURL → SEMID_000). Slower but more thorough.")
+                                    .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(2)
+                            }
+                            Spacer()
+                            Toggle("", isOn: $app.gemmaSemanticMaskingEnabled)
+                                .toggleStyle(.switch).scaleEffect(0.85)
+                        }
+                        .padding(.vertical, 12)
+                        .opacity(app.gemmaSemanticMaskingEnabled ? 1.0 : 0.6)
+                        .animation(.easeInOut(duration: 0.15), value: app.gemmaSemanticMaskingEnabled)
+
+                        if !app.gemmaSemanticMaskingEnabled {
+                            infoBlock("⚡️ Regex-only mode: ~3× faster. Recommended when Ollama is not loaded or for large files. Some domain-specific identifiers may not be masked.")
+                        }
+                    }
+                }
+
+                // Processing pipeline visual
+                settingsCard {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Processing Pipeline")
+                            .font(.system(size: 11, weight: .semibold)).foregroundStyle(.secondary)
+
+                        HStack(spacing: 4) {
+                            pipelineStep("JCross\nQuery",   color: Color(red: 0.8, green: 0.5, blue: 1.0), number: 1)
+                            pipelineArrow()
+                            pipelineStep("Regex\nMask",     color: Color(red: 0.4, green: 0.9, blue: 0.5), number: 2)
+                            pipelineArrow()
+                            if app.gemmaSemanticMaskingEnabled {
+                                pipelineStep("Gemma\nScan", color: Color(red: 0.9, green: 0.6, blue: 0.2), number: 3)
+                                pipelineArrow()
+                            }
+                            pipelineStep("Cloud\nAPI",      color: Color(red: 0.4, green: 0.7, blue: 1.0), number: app.gemmaSemanticMaskingEnabled ? 4 : 3)
+                            pipelineArrow()
+                            pipelineStep("Gemma\nRestore",  color: Color(red: 0.9, green: 0.4, blue: 0.4), number: app.gemmaSemanticMaskingEnabled ? 5 : 4)
+                        }
+                        .animation(.easeInOut(duration: 0.2), value: app.gemmaSemanticMaskingEnabled)
+
+                        Text("★ Your real code never reaches external APIs — only abstract logic identifiers.")
+                            .font(.system(size: 10)).foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                            .padding(.top, 4)
+                    }
+                }
+            }
+
+            // ── Airplane mode indicator ────────────────────────────────
+            settingsCard {
+                HStack(spacing: 12) {
+                    Image(systemName: "airplane")
+                        .font(.system(size: 20))
+                        .foregroundStyle(app.inferenceMode == .localOnly
+                                         ? Color(red: 0.3, green: 1.0, blue: 0.5) : .secondary)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(app.inferenceMode == .localOnly ? "Airplane-mode capable ✓" : "Requires internet connection")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(app.inferenceMode == .localOnly ? .white : .secondary)
+                        Text("Local Only mode works with Wi-Fi completely disabled")
+                            .font(.system(size: 10)).foregroundStyle(.tertiary)
+                    }
+                    Spacer()
+                }
+            }
+
+            // ── Gatekeeper（レガシー / 既定では無効）──────────────────────
+            // 廃止理由: 「ソースを Cloud LLM に一切見せない」という前提自体が、
+            // 学習利用を禁じる企業契約が一般化したことで費用対効果を失った。
+            // IR 往復は精度と速度を確実に損なう一方、防ぐはずのリスクは契約で
+            // カバーされる。機能は残すが既定オフ・折りたたみに降格する。
+            DisclosureGroup {
+                Text(AppLanguage.shared.t(
+                    "Legacy mode. Sends only zero-semantic JCross IR to the Cloud LLM instead of source code. Retired as the default: the IR round-trip costs accuracy, while the risk it addressed is now typically covered by enterprise no-training contracts. Kept for users who still require it.",
+                    "レガシーモードです。ソースコードの代わりに意味ゼロの JCross IR のみを Cloud LLM へ送信します。IR 往復は精度を損なう一方、対象としていたリスクは学習利用を禁じる企業契約で担保されるのが一般的になったため、既定では無効にしました。必要な場合のみご利用ください。"))
+                    .font(.system(size: 11)).foregroundStyle(.secondary)
+                    .padding(.bottom, 6)
+
+                UnifiedGatekeeperCard()
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "shield.lefthalf.filled")
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+                    Text(AppLanguage.shared.t("Gatekeeper Mode (legacy)", "Gatekeeper モード（レガシー）"))
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(AppLanguage.shared.t("disabled by default", "既定で無効"))
+                        .font(.system(size: 9))
+                        .padding(.horizontal, 5).padding(.vertical, 1)
+                        .background(Color.orange.opacity(0.18), in: Capsule())
+                        .foregroundStyle(.orange)
+                }
+            }
+        }
+    }
+
+    // MARK: - Unified Gatekeeper Card
+    // Gatekeeper Mode + リトライ（失敗時再送）+ Pipeline を1つのカードに統合
+    // 旧: GatekeeperQuickSettingsCard + GatekeeperPipelineSettingsView が別々に存在して混乱を招いていた
+
+    private struct UnifiedGatekeeperCard: View {
+        @EnvironmentObject var app: AppState
+        @ObservedObject private var gk = GatekeeperModeState.shared
+        @State private var availableModels: [String] = []
+        @State private var showPipelineDetail = false
+        @State private var showFullView = false
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 0) {
+                // ── Enable toggle ──────────────────────────────────────
+                HStack(spacing: 12) {
+                    ZStack {
+                        Circle()
+                            .fill(gk.isEnabled
+                                  ? Color.green.opacity(0.15)
+                                  : Color.white.opacity(0.05))
+                            .frame(width: 36, height: 36)
+                        Image(systemName: gk.isEnabled ? "shield.lefthalf.filled" : "shield")
+                            .font(.system(size: 16))
+                            .foregroundStyle(gk.isEnabled ? .green : .secondary)
+                    }
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Gatekeeper Mode")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(.white)
+                        Text(gk.isEnabled
+                             ? app.t("🟢 Enabled — Local LLM commands. APIs only see JCross IR.", "🟢 有効 — ローカル LLM が司令官。外部 API は JCross IR しか見えない")
+                             : app.t("Set Local LLM as commander to hide source code from APIs", "局所 LLM を司令官にして外部 API からソースコードを隠す"))
+                            .font(.system(size: 10))
+                            .foregroundStyle(gk.isEnabled ? Color.green : .secondary)
+                            .lineSpacing(2)
+                    }
+                    Spacer()
+                    Toggle("", isOn: $gk.isEnabled)
+                        .toggleStyle(.switch)
+                        .scaleEffect(0.85)
+                        .tint(.green)
+                }
+                .padding(.vertical, 12)
+
+                if gk.isEnabled {
+                    Divider().opacity(0.15)
+
+                    // ── Commander model ────────────────────────────────
+                    HStack(spacing: 8) {
+                        Image(systemName: "cpu").font(.system(size: 11)).foregroundStyle(.green)
+                        Text("Commander")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Picker("", selection: $gk.commanderModel) {
+                            ForEach(availableModels.isEmpty ? [gk.commanderModel] : availableModels, id: \.self) { m in
+                                Text(m).tag(m)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(width: 240)
+                    }
+                    .padding(.vertical, 10)
+
+                    Divider().opacity(0.15)
+
+                    // ── 失敗時 Cloud LLM 再送回数（旧: Max Worker Retries）────
+                    // 変換が失敗した際にエラー内容を Cloud LLM へ再送して修正を依頼する回数
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .font(.system(size: 11)).foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(AppLanguage.shared.t("Cloud LLM Resend Count on Failure", "失敗時 Cloud LLM 再送回数"))
+                                    .font(.system(size: 11)).foregroundStyle(.white)
+                                Text(AppLanguage.shared.t("Max times to send bug info back to Cloud LLM to request fixes on conversion error", "変換エラー発生時にバグ内容を Cloud LLM に返して修正を依頼する最大回数"))
+                                    .font(.system(size: 9)).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Text(gk.maxWorkerRetries == -1 ? "無制限" : "\(gk.maxWorkerRetries) 回")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .foregroundStyle(gk.maxWorkerRetries == -1 ? .orange : .white)
+                        }
+                        Slider(value: Binding(
+                            get: { gk.maxWorkerRetries == -1 ? 20 : Double(gk.maxWorkerRetries) },
+                            set: { val in gk.maxWorkerRetries = Int(val) == 20 ? -1 : Int(val) }
+                        ), in: 0...20, step: 1)
+                        .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        HStack {
+                            Text(AppLanguage.shared.t("0 (No resends)", "0（再送なし）"))
+                            Spacer()
+                            Text(AppLanguage.shared.t("Unlimited", "無制限"))
+                        }
+                        .font(.system(size: 8)).foregroundStyle(.tertiary)
+                    }
+                    .padding(.vertical, 10)
+
+                    Divider().opacity(0.15)
+
+                    // ── External LLM Toggle ────────────────────────────────
+                    HStack(spacing: 8) {
+                        Image(systemName: "cpu").font(.system(size: 11)).foregroundStyle(.blue)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(app.t("Allow External LLM Commander", "外部LLM司令官の許可"))
+                                .font(.system(size: 11)).foregroundStyle(.white)
+                            Text(app.t("If OFF, BitNet forces as Commander", "オフ時はBitNetが強制的にCommanderとして動作"))
+                                .font(.system(size: 9)).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $gk.allowExternalLLMForCommander).toggleStyle(.switch).scaleEffect(0.85)
+                    }
+                    .padding(.vertical, 5)
+
+                    if !gk.allowExternalLLMForCommander {
+                        HStack(spacing: 8) {
+                            Image(systemName: "brain").font(.system(size: 11)).foregroundStyle(.purple)
+                            Text(app.t("BitNet Memory", "BitNet 記憶階層"))
+                                .font(.system(size: 11)).foregroundStyle(.secondary)
+                            Spacer()
+                            Picker("", selection: $gk.bitnetMemoryLayerMode) {
+                                Text("L1 Only (2B)").tag(GatekeeperModeState.MemoryLayerMode.l1Only)
+                                Text("L1-L3 (Large)").tag(GatekeeperModeState.MemoryLayerMode.l1ToL3)
+                            }.pickerStyle(.segmented).frame(width: 160)
+                        }
+                        .padding(.vertical, 5)
+                    }
+
+                    Divider().opacity(0.15)
+
+                    // ── Ollama NER Engine ──────────────────────────────────
+                    HStack(spacing: 8) {
+                        Image(systemName: "bolt.fill").font(.system(size: 11)).foregroundStyle(gk.useOllamaNER ? .yellow : .secondary)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(app.t("Use Ollama NER Engine", "Ollama NER エンジンを使用"))
+                                .font(.system(size: 11)).foregroundStyle(.white)
+                            Text(app.t("Requires local Ollama. Disable to fix timeouts if Ollama is off.", "ローカルOllama必須。未起動時のフリーズを防ぐにはオフにしてください"))
+                                .font(.system(size: 9)).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $gk.useOllamaNER).toggleStyle(.switch).scaleEffect(0.85)
+                    }
+                    .padding(.vertical, 5)
+
+                    Divider().opacity(0.15)
+
+                    // ── Vault status ───────────────────────────────────
+                    HStack(spacing: 8) {
+                        Image(systemName: "externaldrive.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.orange)
+                        Group {
+                            switch gk.vault.vaultStatus {
+                            case .notInitialized:
+                                Text(app.t("Vault Uninitialized — Auto-conversion on enable", "Vault 未初期化 — 有効化すると自動変換開始"))
+                                    .foregroundStyle(.secondary)
+                            case .converting(let p, _):
+                                Text(app.t("Converting \(Int(p * 100))%...", "変換中 \(Int(p * 100))%..."))
+                                    .foregroundStyle(.orange)
+                            case .ready(let n, _):
+                                Text(app.t("\(n) files converted ✓", "\(n) ファイル変換済み ✓"))
+                                    .foregroundStyle(.green)
+                            case .error(let e):
+                                Text(e).foregroundStyle(.red)
+                            }
+                        }
+                        .font(.system(size: 10))
+                        Spacer()
+                        Button(L("Details", "詳細")) { showFullView = true }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                            .font(.system(size: 10))
+                    }
+                    .padding(.vertical, 10)
+
+                    Divider().opacity(0.15)
+
+                    // ── Pipeline 折りたたみサマリー ──────────────────────────
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) { showPipelineDetail.toggle() }
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.triangle.branch")
+                                .font(.system(size: 11)).foregroundStyle(.cyan)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(AppLanguage.shared.t("Processing Pipeline", "処理パイプライン"))
+                                    .font(.system(size: 11, weight: .semibold)).foregroundStyle(.white)
+                                Text(AppLanguage.shared.t("IR Gen → Vault Split → Cloud LLM → Apply Patch", "IR生成 → Vault分離 → Cloud LLM → パッチ適用"))
+                                    .font(.system(size: 9)).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: showPipelineDetail ? "chevron.up" : "chevron.down")
+                                .font(.caption2).foregroundStyle(.secondary)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.vertical, 8)
+
+                    if showPipelineDetail {
+                        GatekeeperPipelineSettingsView()
+                            .padding(.top, 4)
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+                }
+            }
+            .padding(.horizontal, 14)
+            .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(gk.isEnabled ? Color.green.opacity(0.3) : Color.white.opacity(0.07), lineWidth: 1)
+            )
+            .task { await loadModels() }
+            .sheet(isPresented: $showFullView) {
+                GatekeeperModeView()
+                    .frame(width: 540, height: 750)
+            }
+        }
+
+        private func loadModels() async {
+            var models: [String] = []
+            
+            // 1. Fetch Ollama models
+            struct TagsResp: Decodable {
+                struct M: Decodable { let name: String }
+                let models: [M]
+            }
+            if let url = URL(string: "http://localhost:11434/api/tags"),
+               let (data, _) = try? await URLSession.shared.data(from: url),
+               let json = try? JSONDecoder().decode(TagsResp.self, from: data) {
+                models.append(contentsOf: json.models.map { $0.name })
+            }
+            
+            // 2. Add MLX models
+            models.append(contentsOf: MLXRunner.popularModels.map { $0.id })
+            
+            self.availableModels = models
+        }
+    }
+
+    // MARK: - MCP Settings (inline — avoids HSplitView layout conflict)
+
+    @ObservedObject private var mcp = MCPEngine.shared
+
+    private var mcpSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            sectionHeader("MCP Servers", icon: "network")
+
+            infoBlock(app.t(
+                "Manage Model Context Protocol servers. Full configuration is in the external-operation surface below.",
+                "Model Context Protocol サーバーを管理します。詳細な設定は下の外部運用の画面から開けます。"
+            ))
+
+            // ── Server list ──────────────────────────────────────────────
+            settingsCard {
+                VStack(alignment: .leading, spacing: 0) {
+                    if mcp.servers.isEmpty {
+                        mcpEmptyState
+                    } else {
+                        mcpServerRows
+                    }
+                }
+            }
+
+            // ── Open full MCP panel ──────────────────────────────────────
+            settingsCard {
+                HStack(spacing: 12) {
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.system(size: 16))
+                        .foregroundStyle(Color(red: 0.3, green: 0.8, blue: 1.0))
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(app.t("Open Full MCP Panel", "フル MCP パネルを開く"))
+                            .font(.system(size: 12, weight: .semibold)).foregroundStyle(.white)
+                        Text(app.t(
+                            "Memory stores, the JGEN picker and the raw server "
+                            + "list, in one full-window surface.",
+                            "記憶ストア・JGENの選択・サーバー一覧を、"
+                            + "ひとつの全画面にまとめた画面です"
+                        ))
+                            .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(2)
+                    }
+                    Spacer()
+                    // Was: post OpenMCPPanel, which docked the raw server list
+                    // as a left column — a surface reached through an activity
+                    // bar that no longer exists, describing itself in terms of
+                    // that bar. Straight to the hub now, and no 0.3s sleep
+                    // hoping the sheet has finished closing.
+                    Button(app.t("Close & Open", "設定を閉じて開く")) {
+                        onDismiss?()
+                        app.fullSurface = .mcp
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.small)
+                    .tint(Color(red: 0.2, green: 0.5, blue: 0.85))
+                }
+            }
+
+            // ── Global kill switch (visible only when a call is active) ──
+            if mcp.activeCall != nil {
+                settingsCard {
+                    HStack(spacing: 12) {
+                        Circle().fill(Color.red).frame(width: 8, height: 8)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("MCP RUNNING")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                            if let call = mcp.activeCall {
+                                Text("\(call.serverName) → \(call.toolName)  [\(call.elapsedSeconds)s]")
+                                    .font(.system(size: 10, design: .monospaced))
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        Spacer()
+                        Button {
+                            mcp.killActiveCall()
+                        } label: {
+                            Label("KILL", systemImage: "exclamationmark.octagon.fill")
+                                .font(.system(size: 11, weight: .bold))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
+                        .controlSize(.regular)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder private var mcpEmptyState: some View {
+        HStack {
+            Spacer()
+            VStack(spacing: 8) {
+                Image(systemName: "network.slash")
+                    .font(.system(size: 28))
+                    .foregroundStyle(.tertiary)
+                Text(app.t("No MCP servers registered", "MCPサーバーが未登録です"))
+                    .font(.system(size: 12)).foregroundStyle(.secondary)
+                Text(app.t("Add servers from the external-operation surface.", "外部運用の画面から追加できます"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            }
+            .padding(.vertical, 24)
+            Spacer()
+        }
+    }
+
+    /// One row per server — dedicated @ViewBuilder avoids ForEach Binding overload.
+    @ViewBuilder private var mcpServerRows: some View {
+        ForEach(mcp.servers, id: \.id) { server in
+            mcpServerRow(server)
+        }
+    }
+
+    private func mcpServerRow(_ server: MCPServerConfig) -> some View {
+        let isFirst   = mcp.servers.first?.id == server.id
+        let isRunning = mcp.activeCall?.serverName == server.name
+        let status    = mcp.connectionStatus[server.id] ?? .disconnected
+        let cmdLabel  = server.transport == .stdio
+            ? (server.command.components(separatedBy: " ").first ?? server.command)
+            : (server.url.isEmpty ? "http://…" : server.url)
+        let modeColor = server.mode == .ai
+            ? Color(red: 0.4, green: 0.8, blue: 1.0)
+            : Color(red: 0.9, green: 0.7, blue: 0.3)
+
+        // Real connection status (was: only reflected an in-flight call,
+        // so a server that never even started looked identical to an
+        // idle-but-working one). An active call always shows green
+        // regardless of `status` -- it's proof positive the server works.
+        let statusColor: Color = {
+            if isRunning { return .green }
+            switch status {
+            case .connected:      return .green
+            case .connecting:     return Color(red: 0.9, green: 0.7, blue: 0.3)
+            case .error:          return Color(red: 1.0, green: 0.35, blue: 0.35)
+            case .disconnected:   return Color(red: 0.4, green: 0.4, blue: 0.5)
+            }
+        }()
+        let errorDetail: String? = {
+            if case .error(let message) = status { return message }
+            return nil
+        }()
+
+        return VStack(alignment: .leading, spacing: 0) {
+            if !isFirst { Divider().opacity(0.15) }
+            HStack(spacing: 10) {
+                Circle()
+                    .fill(statusColor)
+                    .frame(width: 7, height: 7)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(server.name)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.white)
+                    Text(cmdLabel)
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                        .lineLimit(1)
+                    if let errorDetail {
+                        Text(errorDetail)
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.5))
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                Spacer()
+                Text(server.mode == .ai ? "AI" : "Human")
+                    .font(.system(size: 9, weight: .semibold))
+                    .foregroundStyle(modeColor)
+                    .padding(.horizontal, 6).padding(.vertical, 2)
+                    .background(modeColor.opacity(0.12), in: Capsule())
+                if isRunning {
+                    Button { mcp.killActiveCall() } label: {
+                        Label(app.t("Stop", "停止"), systemImage: "stop.fill")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .tint(Color(red: 1.0, green: 0.4, blue: 0.4))
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+        }
+    }
+
+
+
+    // MARK: - Pipeline step helpers
+
+    private func pipelineStep(_ label: String, color: Color, number: Int) -> some View {
+        VStack(spacing: 3) {
+            ZStack {
+                Circle().fill(color.opacity(0.2)).frame(width: 28, height: 28)
+                Text("\(number)").font(.system(size: 10, weight: .bold, design: .monospaced)).foregroundStyle(color)
+            }
+            Text(label)
+                .font(.system(size: 8, design: .monospaced))
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(minWidth: 36)
+    }
+
+    private func pipelineArrow() -> some View {
+        Image(systemName: "arrow.right")
+            .font(.system(size: 8))
+            .foregroundStyle(.tertiary)
+            .frame(maxWidth: .infinity)
+    }
+
+    // MARK: - Components
+
+    private func sectionHeader(_ title: String, icon: String) -> some View {
+        HStack(spacing: 7) {
+            Image(systemName: icon)
+                .font(.system(size: 11))
+                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+            Text(title)
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(.white)
+        }
+    }
+
+    private func settingsCard<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .padding(14)
+            .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 9))
+            .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(Color.white.opacity(0.08), lineWidth: 0.5))
+    }
+
+    private func rowLabel<Content: View>(_ label: String, @ViewBuilder trailing: () -> Content) -> some View {
+        HStack {
+            Text(label)
+                .font(.system(size: 12))
+                .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.88))
+            Spacer()
+            trailing()
+        }
+    }
+
+    private func toolToggleRow(icon: String, iconColor: Color, title: String,
+                                description: String, isOn: Binding<Bool>) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 14))
+                .foregroundStyle(isOn.wrappedValue ? iconColor : .secondary)
+                .frame(width: 24)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(isOn.wrappedValue ? .white : .secondary)
+                Text(description).font(.system(size: 10)).foregroundStyle(.tertiary).lineLimit(2)
+            }
+            Spacer()
+            Toggle("", isOn: isOn).toggleStyle(.switch).scaleEffect(0.8)
+        }
+        .padding(.vertical, 10)
+        .opacity(isOn.wrappedValue ? 1.0 : 0.6)
+        .animation(.easeInOut(duration: 0.15), value: isOn.wrappedValue)
+    }
+
+    private func statCard(_ label: String, value: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon).font(.system(size: 14)).foregroundStyle(color)
+            Text(value).font(.system(size: 16, weight: .bold, design: .monospaced)).foregroundStyle(.white)
+            Text(label).font(.system(size: 9)).foregroundStyle(.tertiary)
+        }
+        .frame(maxWidth: .infinity).padding(10)
+        .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 7))
+    }
+
+    private func memoryNodeRow(_ node: MemoryNode) -> some View {
+        HStack(spacing: 8) {
+            Circle().fill(zoneColor(node.zone)).frame(width: 5, height: 5)
+            Text(node.key)
+                .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.9))
+                .frame(width: 130, alignment: .leading)
+            Text(node.value.prefix(60) + (node.value.count > 60 ? "…" : ""))
+                .font(.system(size: 9)).foregroundStyle(.secondary).lineLimit(1)
+            Spacer()
+        }
+        .padding(.horizontal, 6).padding(.vertical, 2)
+    }
+
+    private func infoBlock(_ text: String) -> some View {
+        Text(text)
+            .font(.system(size: 11))
+            .foregroundStyle(Color(red: 0.6, green: 0.75, blue: 0.9))
+            .lineSpacing(3).padding(10)
+            .background(Color(red: 0.12, green: 0.20, blue: 0.30).opacity(0.8),
+                        in: RoundedRectangle(cornerRadius: 6))
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func zoneColor(_ zone: MemoryNode.Zone) -> Color {
+        switch zone {
+        case .front: return Color(red: 0.4, green: 0.9, blue: 0.5)
+        case .near:  return Color(red: 0.4, green: 0.7, blue: 1.0)
+        case .mid:   return Color(red: 0.8, green: 0.6, blue: 1.0)
+        case .deep:  return Color(red: 0.5, green: 0.5, blue: 0.7)
+        }
+    }
+
+    private var tempColor: Color {
+        app.temperature < 0.3 ? Color(red: 0.3, green: 0.9, blue: 0.5)
+        : app.temperature < 0.7 ? Color(red: 0.9, green: 0.8, blue: 0.3)
+        : Color(red: 0.9, green: 0.5, blue: 0.3)
+    }
+
+    // MARK: - Actions
+
+    private func testConnection() {
+        testingConnection = true
+        connectionTestResult = nil
+        Task {
+            let models = await OllamaClient.shared.listModels()
+            await MainActor.run {
+                testingConnection = false
+                if models.isEmpty {
+                    connectionTestResult = "✗ No models found at \(app.ollamaEndpoint)"
+                } else {
+                    connectionTestResult = "✓ \(models.count) model(s): \(models.prefix(3).joined(separator: ", "))"
+                    app.ollamaModels = models
+                    if models.contains(app.activeOllamaModel) {
+                        app.modelStatus = .ollamaReady(model: app.activeOllamaModel)
+                    }
+                }
+            }
+        }
+    }
+
+    private func testAnthropic() {
+        testingAnthropic = true
+        anthropicTestResult = nil
+        Task {
+            await AnthropicClient.shared.configure(apiKey: app.anthropicApiKey)
+            // Send a minimal ping request
+            let stream = AnthropicClient.shared.streamGenerate(
+                model: app.activeAnthropicModel,
+                systemPrompt: "You are a test assistant.",
+                messages: [("user", "Respond with exactly: OK")],
+                maxTokens: 10
+            )
+            var result = ""
+            do {
+                for try await event in stream {
+                    if case .token(let t) = event { result += t }
+                    if case .done = event { break }
+                    if case .error(let e) = event { result = "ERROR: \(e)"; break }
+                }
+            } catch {
+                result = "ERROR: \(error.localizedDescription)"
+            }
+            await MainActor.run {
+                testingAnthropic = false
+                if result.lowercased().contains("ok") || result.lowercased().contains("error") == false {
+                    anthropicTestResult = "✓ Connected (\(app.activeAnthropicModel))"
+                    app.modelStatus = .anthropicReady(model: app.activeAnthropicModel, maskedKey: "sk-ant-***")
+                } else {
+                    anthropicTestResult = "✗ \(result.prefix(60))"
+                }
+            }
+        }
+    }
+
+    // MARK: - BitNet Settings
+
+    private var bitnetSettings: some View {
+        VStack(alignment: .leading, spacing: 20) {
+
+            // ── Gatekeeper Commander 説明 ─────────────────────────────────
+            sectionHeader("Gatekeeper Commander", icon: "lock.shield")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.15))
+                                .frame(width: 36, height: 36)
+                            Image(systemName: "cpu.fill")
+                                .font(.system(size: 16))
+                                .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                        }
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(app.t("BitNet b1.58 — Local Commander LLM", "BitNet b1.58 — ローカル Commander LLM"))
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundStyle(.white)
+                            Text(app.t("Gatekeeper Mode exclusive. Zero-network, privacy-first inference.", "Gatekeeper Mode 専用。ゼロネットワーク・プライバシー優先推論"))
+                                .font(.system(size: 10))
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+
+                        // ステータスバッジ
+                        Group {
+                            switch BitNetEngineManager.shared.status {
+                            case .ready(let name, _):
+                                Label(name, systemImage: "circle.fill")
+                                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .padding(.horizontal, 8).padding(.vertical, 3)
+                                    .background(Color(red: 0.3, green: 0.9, blue: 0.5).opacity(0.1),
+                                                in: Capsule())
+                            case .notInstalled:
+                                Label(app.t("Not Installed", "未インストール"), systemImage: "circle")
+                                    .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .padding(.horizontal, 8).padding(.vertical, 3)
+                                    .background(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.1),
+                                                in: Capsule())
+                            default:
+                                EmptyView()
+                            }
+                        }
+                    }
+
+                    Divider().opacity(0.2)
+
+                    // フロー説明
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(app.t("Priority:", "優先順位:"))
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(.secondary)
+
+                        HStack(spacing: 8) {
+                            Text("①")
+                                .font(.system(size: 10, design: .monospaced))
+                                .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                            Text(app.t("BitNet b1.58 (If installed)", "BitNet b1.58 (インストール済みの場合)"))
+                                .font(.system(size: 10))
+                                .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.95))
+                        }
+                        HStack(spacing: 8) {
+                            Text("②")
+                                .font(.system(size: 10, design: .monospaced))
+                                .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 1.0))
+                            Text(app.t("Ollama (localhost:11434) — Auto Fallback", "Ollama (localhost:11434) — 自動フォールバック"))
+                                .font(.system(size: 10))
+                                .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.75))
+                        }
+                    }
+                    .padding(10)
+                    .background(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.05),
+                                in: RoundedRectangle(cornerRadius: 8))
+                }
+            }
+
+            // ── BitNetSetupView を埋め込み ──────────────────────────────────
+            sectionHeader(app.t("BitNet b1.58 Setup", "BitNet b1.58 セットアップ"), icon: "arrow.down.circle")
+
+            BitNetSetupView()
+                .frame(maxWidth: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.25), lineWidth: 1)
+                )
+        }
+    }
+
+    // MARK: - JGEN Settings
+
+    private var jgenSettings: some View {
+        JGenSettingsSection()
+    }
+
+    @MainActor
+    private func addCustomFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        panel.canCreateDirectories = false
+        
+        if panel.runModal() == .OK {
+            for url in panel.urls {
+                if !vault.scanTargets.contains(where: { $0.url == url }) {
+                    vault.scanTargets.append(ScanTarget(
+                        url: url,
+                        name: url.lastPathComponent,
+                        isEnabled: true,
+                        scanDepth: 3
+                    ))
+                }
+            }
+        }
+    }
+}
+
+// MARK: - AssetMapView
+
+struct AssetMapView: View {
+    @ObservedObject var vault: OSAssetMemoryVault
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("L3.5 PC Asset Map (JCross)")
+                    .font(.headline)
+                Spacer()
+                Button(L("Close", "閉じる")) { dismiss() }
+            }
+            .padding()
+            .background(Color(NSColor.windowBackgroundColor))
+            
+            Divider()
+            
+            TextEditor(text: .constant(vault.assetMap?.toJCrossString() ?? "No map available."))
+                .font(.system(size: 11, design: .monospaced))
+                .padding()
+        }
+        .frame(minWidth: 500, minHeight: 600)
+    }
+}

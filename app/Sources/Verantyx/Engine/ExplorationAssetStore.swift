@@ -1,0 +1,647 @@
+import Foundation
+
+// MARK: - ExplorationAssetStore
+//
+// Infinite exploration assets for JGEN Act — Voyager-style substrate reuse.
+//
+// Failures leave logs (eternal + JCross wisdom + vector-bus stamp).
+// Success forges a compact SkillLibrary macro (`source: exploration-asset`)
+// so the next similar goal gets `[PRIOR_ASSET]` guidance (“一発で行ける”).
+// Recall prefers JGEN eternal cosine + skill: identity stamps; TF-IDF fallback.
+//
+// Deliberately NOT a parallel mega-system: persistence is SkillLibrary +
+// EternalMemoryStore + SessionMemoryArchiver — same sinks AgentLoop / FORGE_SKILL use.
+// Short facts also sync to Vera CrossStore via EternalVeraBridge (API text only).
+
+enum ExplorationAssetStore {
+
+    static let sourceTag = "exploration-asset"
+    static let forgedBy = "jgen-act-exploration"
+    static let tagExploration = "exploration-asset"
+    static let tagJgenAct = "jgen-act"
+
+    // MARK: - Tool → macro payload line
+
+    /// Bracket tag suitable for SkillNode.macro payload / PRIOR_ASSET steps.
+    nonisolated static func toolTag(_ tool: AgentTool) -> String? {
+        switch tool {
+        case .openApp(let name):
+            return "[OPEN_APP: \(name)]"
+        case .desktopSnapshot:
+            return "[DESKTOP_SNAPSHOT]"
+        case .desktopAct(let action):
+            return "[DESKTOP_ACT: \(action)]"
+        case .axAct(let action):
+            return "[AX_ACT: \(action)]"
+        case .pastePayload:
+            return "[PASTE_PAYLOAD]"
+        case .waitUntilStable(let stable, let timeout):
+            return "[WAIT_UNTIL_STABLE: \(stable) \(timeout)]"
+        default:
+            return nil
+        }
+    }
+
+    // MARK: - Goal helpers
+
+    nonisolated static func goalIsJapanese(_ goal: String) -> Bool {
+        for s in goal.unicodeScalars {
+            let v = s.value
+            if (0x3040...0x30FF).contains(v) || (0x4E00...0x9FFF).contains(v) {
+                return true
+            }
+        }
+        return false
+    }
+
+    nonisolated static func goalFingerprint(_ goal: String) -> String {
+        // Keep letters/digits and CJK so Japanese goals stay stable.
+        let mapped = goal.lowercased().map { c -> Character in
+            if c.isLetter || c.isNumber { return c }
+            if let v = c.unicodeScalars.first?.value,
+               (0x3040...0x30FF).contains(v) || (0x4E00...0x9FFF).contains(v) {
+                return c
+            }
+            return "_"
+        }
+        let collapsed = String(mapped)
+            .replacingOccurrences(of: "_+", with: "_", options: .regularExpression)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "_"))
+        if collapsed.count < 2 {
+            var hasher = Hasher()
+            hasher.combine(goal)
+            let hex = String(UInt64(bitPattern: Int64(hasher.finalize())), radix: 16)
+            return String(hex.prefix(12))
+        }
+        return String(collapsed.prefix(48))
+    }
+
+    nonisolated static func skillName(for goal: String, appHint: String?) -> String {
+        var parts = ["act"]
+        if let app = appHint?.trimmingCharacters(in: .whitespacesAndNewlines), !app.isEmpty {
+            parts.append(sanitize(app))
+        }
+        parts.append(goalFingerprint(goal))
+        return String(parts.joined(separator: "_").prefix(56))
+    }
+
+    nonisolated private static func sanitize(_ s: String) -> String {
+        let mapped = s.lowercased().map { c -> Character in
+            (c.isLetter || c.isNumber) ? c : "_"
+        }
+        return String(String(mapped).prefix(24))
+    }
+
+    // MARK: - Failure log
+
+    /// Structured exploration failure — persists so next runs can avoid the dead end.
+    static func logFailure(
+        goal: String,
+        actionTried: String,
+        result: String,
+        turn: Int,
+        sessionId: String?
+    ) async {
+        let fp = goalFingerprint(goal)
+        let ts = ISO8601DateFormatter().string(from: Date())
+        let resultClass = classifyResult(result)
+        let clipped = String(result.prefix(280))
+            .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
+        let line = """
+        [探索資産/fail] fp=\(fp) turn=\(turn) action=\(actionTried) class=\(resultClass) at=\(ts)
+        detail: \(clipped)
+        """
+
+        try? await EternalMemoryStore.shared.add(
+            text: line,
+            concepts: [tagExploration, tagJgenAct, "exploration-fail", resultClass]
+        )
+
+        let chunkId = "explore_fail_\(fp)_\(turn)_\(Int(Date().timeIntervalSince1970) % 100000)"
+        SessionMemoryArchiver.shared.archiveWisdomChunk(
+            chunkId: chunkId,
+            taskTitle: "ExploreFail \(fp)",
+            l1: "🗂 fail \(actionTried) → \(resultClass)",
+            l2: "OP.FACT(\"explore_fp\", \"\(fp)\")\nOP.FACT(\"explore_action\", \"\(String(actionTried.prefix(80)))\")\nOP.FACT(\"explore_class\", \"\(resultClass)\")",
+            l3: line
+        )
+
+        await JGenVectorBusMemory.stampObservation(
+            label: "explore_fail",
+            detail: line,
+            sessionId: sessionId,
+            stepIndex: turn,
+            actionLabel: actionTried,
+            changedRegion: nil,
+            concepts: [tagExploration, "exploration-fail", tagJgenAct]
+        )
+        EternalVeraBridge.shareToVera(
+            "explore fail fp=\(fp) class=\(resultClass) action=\(String(actionTried.prefix(40)))",
+            kind: .exploreFail
+        )
+    }
+
+    nonisolated static func classifyResult(_ result: String) -> String {
+        let u = result.uppercased()
+        if u.contains("MISMATCH") { return "mismatch" }
+        if u.contains("NO VISUAL CHANGE") { return "no_visual_change" }
+        if u.contains("DESKTOP_BLOCKED") || u.contains("BLOCKED") { return "blocked" }
+        if u.contains("ERROR") { return "error" }
+        if u.contains("FAILED") { return "failed" }
+        return "other"
+    }
+
+    nonisolated static func looksLikeFailure(_ observation: String) -> Bool {
+        let u = observation.uppercased()
+        return u.contains("MISMATCH")
+            || u.contains("NO VISUAL CHANGE")
+            || u.contains("DESKTOP_BLOCKED")
+            || (u.contains("ERROR") && !u.contains("NO ERROR"))
+            || u.contains("(BLOCKED")
+            || u.contains("(REJECTED")
+    }
+
+    // MARK: - Forge on success
+
+    /// Compact reusable asset from a successful Act DONE path.
+    @discardableResult
+    static func forgeOnSuccess(
+        goal: String,
+        appHint: String?,
+        successfulTags: [String],
+        notes: String,
+        missionKind: MissionKind = .act,
+        sessionId: String? = nil
+    ) async -> SkillNode? {
+        let tags = successfulTags
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        // Need at least one act-ish step (open / sense / act). Snapshots alone are weak.
+        let meaningful = tags.filter {
+            $0.hasPrefix("[OPEN_APP:") || $0.hasPrefix("[AX_ACT:")
+                || $0.hasPrefix("[DESKTOP_ACT:") || $0.hasPrefix("[PASTE_PAYLOAD")
+        }
+        guard !meaningful.isEmpty else { return nil }
+
+        await SkillLibrary.shared.loadIndex()
+        let name = skillName(for: goal, appHint: appHint)
+        let desc = MissionKindClassifier.goalShort(from: goal)
+        var nodeTags = [
+            tagExploration,
+            tagJgenAct,
+            "voyager",
+            MissionKindClassifier.assetTag(for: missionKind),
+        ]
+        if let app = appHint, !app.isEmpty {
+            nodeTags.append(sanitize(app))
+        }
+
+        var node = SkillNode(
+            name: name,
+            description: desc.isEmpty ? "Act exploration path" : desc,
+            version: 1,
+            createdAt: Date(),
+            updatedAt: Date(),
+            tags: nodeTags,
+            executionType: .macro,
+            payload: Array(tags.prefix(16))
+        )
+        node.source = sourceTag
+        node.forgedBy = forgedBy
+        if !notes.isEmpty {
+            node.kanjiTags = String(notes.prefix(80))
+        }
+
+        let saved = await SkillLibrary.shared.save(node)
+
+        let skillKey = "skill:\(saved.name)"
+        let digest = payloadDigest(saved.payload)
+        // Clear skill identity so JGEN cosine recall can find this asset later.
+        let stamp = """
+        [探索資産/forge] \(skillKey) v\(saved.version) steps=\(saved.payload.count) \(MissionKindClassifier.assetTag(for: missionKind))
+        goal: \(String(desc.prefix(120)))
+        digest: \(digest)
+        path: \(saved.payload.prefix(8).joined(separator: " → "))
+        """
+        let forgeConcepts = [
+            tagExploration, tagJgenAct, "exploration-forge",
+            MissionKindClassifier.assetTag(for: missionKind), skillKey,
+        ]
+        try? await EternalMemoryStore.shared.add(text: stamp, concepts: forgeConcepts)
+        await JGenVectorBusMemory.stampObservation(
+            label: "explore_forge",
+            detail: stamp,
+            sessionId: sessionId,
+            stepIndex: saved.payload.count,
+            actionLabel: saved.name,
+            changedRegion: nil,
+            concepts: forgeConcepts
+        )
+        // Best-effort Vera CrossStore sync (short fact only).
+        EternalVeraBridge.shareToVera(
+            "\(skillKey) forged — \(String(desc.prefix(80)))",
+            kind: .exploreForge
+        )
+        return saved
+    }
+
+    /// Compact payload fingerprint for eternal identity / embed text.
+    nonisolated static func payloadDigest(_ payload: [String], maxSteps: Int = 4) -> String {
+        let steps = payload.prefix(maxSteps).map {
+            String($0.prefix(40))
+        }
+        return steps.joined(separator: " → ")
+    }
+
+    nonisolated static func skillEmbedText(_ node: SkillNode) -> String {
+        let digest = payloadDigest(node.payload)
+        return "skill:\(node.name) \(node.description) \(digest)"
+    }
+
+    nonisolated static func isExplorationAsset(_ node: SkillNode) -> Bool {
+        node.source == sourceTag
+            || node.forgedBy == forgedBy
+            || node.tags.contains(tagExploration)
+            || node.name.hasPrefix("act_")
+    }
+
+    nonisolated static func isActishPayload(_ node: SkillNode) -> Bool {
+        node.payload.contains { line in
+            line.contains("OPEN_APP") || line.contains("DESKTOP_") || line.contains("AX_ACT")
+        }
+    }
+
+    /// Pull `skill:act_…` / `name=` tokens from eternal forge stamps.
+    nonisolated static func extractSkillNames(from eternalText: String) -> [String] {
+        var names: [String] = []
+        let patterns = [
+            #"skill:([a-zA-Z0-9_]+)"#,
+            #"name=([a-zA-Z0-9_]+)"#,
+        ]
+        for pattern in patterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
+            let range = NSRange(eternalText.startIndex..., in: eternalText)
+            for match in regex.matches(in: eternalText, range: range) {
+                guard let r = Range(match.range(at: 1), in: eternalText) else { continue }
+                let name = String(eternalText[r])
+                if name.hasPrefix("act_") || name.count >= 4 {
+                    if !names.contains(name) { names.append(name) }
+                }
+            }
+        }
+        return names
+    }
+
+    nonisolated private static func cosine(_ a: [Float], _ b: [Float]) -> Float {
+        let n = min(a.count, b.count)
+        guard n > 0 else { return 0 }
+        var dot: Float = 0, na: Float = 0, nb: Float = 0
+        for i in 0..<n {
+            dot += a[i] * b[i]
+            na += a[i] * a[i]
+            nb += b[i] * b[i]
+        }
+        let denom = sqrt(na) * sqrt(nb)
+        return denom > 0 ? dot / denom : 0
+    }
+
+    /// Prefer stored `mission_kind:*` from a recalled exploration asset.
+    static func recallMissionKind(for goal: String) async -> MissionKind? {
+        let hits = await recall(for: goal, topK: 3)
+        for node in hits {
+            if let kind = missionKind(from: node) {
+                return kind
+            }
+        }
+        return nil
+    }
+
+    nonisolated static func missionKind(from node: SkillNode) -> MissionKind? {
+        for tag in node.tags {
+            if tag == MissionKindClassifier.assetTag(for: .act) { return .act }
+            if tag == MissionKindClassifier.assetTag(for: .speak) { return .speak }
+            if tag.hasPrefix(MissionKindClassifier.assetTagPrefix) {
+                let raw = String(tag.dropFirst(MissionKindClassifier.assetTagPrefix.count))
+                if let kind = MissionKind(rawValue: raw) { return kind }
+            }
+        }
+        // Legacy act_* exploration assets without explicit tag → act.
+        if node.source == sourceTag || node.forgedBy == forgedBy || node.name.hasPrefix("act_") {
+            return .act
+        }
+        return nil
+    }
+
+    // MARK: - Recall
+
+    /// Top similar exploration assets for this goal.
+    /// Prefers JGEN embedding search (Eternal hits → skill: names, then
+    /// cosine re-rank of SkillLibrary candidates). Falls back to TF-IDF
+    /// when JGEN is unloaded or encode fails.
+    static func recall(for goal: String, topK: Int = 2) async -> [SkillNode] {
+        await SkillLibrary.shared.loadIndex()
+
+        if await JCrossChatManager.shared.isLoaded,
+           let embedded = await recallViaEmbedding(for: goal, topK: topK),
+           !embedded.isEmpty {
+            return embedded
+        }
+        return await recallViaTFIDF(for: goal, topK: topK)
+    }
+
+    /// TF-IDF SkillLibrary path (legacy / fallback).
+    private static func recallViaTFIDF(for goal: String, topK: Int) async -> [SkillNode] {
+        let hits = await SkillLibrary.shared.search(query: goal, topK: max(topK * 4, 8))
+        let filtered = hits.filter(isExplorationAsset)
+        if !filtered.isEmpty {
+            return Array(filtered.prefix(topK))
+        }
+        return Array(hits.filter(isActishPayload).prefix(topK))
+    }
+
+    /// Encode goal → Eternal search for skill refs → cosine-rank candidates.
+    private static func recallViaEmbedding(for goal: String, topK: Int) async -> [SkillNode]? {
+        let goalShort = MissionKindClassifier.goalShort(from: goal)
+        let fp = goalFingerprint(goal)
+        let querySeed = goalShort.isEmpty ? goal : goalShort
+        let encodeQuery = PromptBudget.truncateForEncode("\(querySeed) \(fp)")
+
+        var ordered: [SkillNode] = []
+        var seen = Set<String>()
+
+        // 1) Eternal cosine: forge stamps that name skill:act_…
+        if let hits = try? await EternalMemoryStore.shared.search(
+            query: encodeQuery, k: max(topK * 3, 6)
+        ) {
+            for hit in hits {
+                for name in extractSkillNames(from: hit.text) {
+                    guard !seen.contains(name),
+                          let node = await SkillLibrary.shared.skill(named: name),
+                          isExplorationAsset(node) || isActishPayload(node)
+                    else { continue }
+                    seen.insert(name)
+                    ordered.append(node)
+                    if ordered.count >= topK { return ordered }
+                }
+            }
+        }
+
+        // 2) Candidate pool: TF-IDF + exploration nodes → re-rank by encode.
+        var pool: [SkillNode] = ordered
+        let tfidf = await SkillLibrary.shared.search(query: goal, topK: max(topK * 4, 8))
+        for node in tfidf where !seen.contains(node.name) {
+            if isExplorationAsset(node) || isActishPayload(node) {
+                seen.insert(node.name)
+                pool.append(node)
+            }
+        }
+        if pool.count < topK * 2 {
+            for node in await SkillLibrary.shared.allNodes() where !seen.contains(node.name) {
+                guard isExplorationAsset(node) else { continue }
+                seen.insert(node.name)
+                pool.append(node)
+                if pool.count >= 12 { break }
+            }
+        }
+
+        let candidates = Array(pool.prefix(12))
+        guard !candidates.isEmpty else {
+            return ordered.isEmpty ? nil : ordered
+        }
+
+        let qVec: [Float]
+        do {
+            qVec = try await JCrossChatManager.shared.encodeText(encodeQuery)
+        } catch {
+            return ordered.isEmpty ? nil : Array(ordered.prefix(topK))
+        }
+
+        var scored: [(SkillNode, Float)] = []
+        for node in candidates {
+            let emb = PromptBudget.truncateForEncode(skillEmbedText(node))
+            guard let v = try? await JCrossChatManager.shared.encodeText(emb) else { continue }
+            scored.append((node, cosine(qVec, v)))
+        }
+        scored.sort { $0.1 > $1.1 }
+        let ranked = scored.filter { $0.1 > 0.02 }.prefix(topK).map(\.0)
+        if !ranked.isEmpty { return Array(ranked) }
+        return ordered.isEmpty ? nil : Array(ordered.prefix(topK))
+    }
+
+    nonisolated static func formatPriorAsset(_ node: SkillNode) -> String {
+        let steps = node.payload.prefix(12).joined(separator: "\n")
+        let kind = missionKind(from: node)?.rawValue ?? "act"
+        let tagNames = node.tags
+            .filter { !$0.hasPrefix("exploration") && $0 != "voyager" && $0 != tagJgenAct }
+            .prefix(6)
+            .joined(separator: ", ")
+        return """
+        [PRIOR_ASSET]
+        name: \(node.name) v\(node.version)
+        mission_kind: \(kind)
+        description: \(node.description)
+        tags: \(tagNames.isEmpty ? MissionKindClassifier.assetTag(for: .act) : tagNames)
+        wins: \(node.successCount) fails: \(node.failCount)
+        Prefer this learned path (adapt AX ids if UI shifted). On MISMATCH explore then success forges an update.
+        steps:
+        \(steps)
+        [/PRIOR_ASSET]
+        """
+    }
+
+    /// Compact prior-asset names for `[DIRECTIVE]` (not full step dump).
+    nonisolated static func directivePriorTags(_ nodes: [SkillNode]) -> String {
+        let names = nodes.prefix(2).map(\.name)
+        guard !names.isEmpty else { return "" }
+        return names.joined(separator: ", ")
+    }
+
+    /// Build the short `[DIRECTIVE]` block for Act ChatML (not procedure prose).
+    nonisolated static func formatDirective(
+        goalShort: String,
+        openHint: String?,
+        priorTags: String,
+        selected: String? = nil
+    ) -> String {
+        var lines = [
+            "[DIRECTIVE]",
+            "kind: act",
+            "goal_short: \(String(goalShort.prefix(120)))",
+        ]
+        if !priorTags.isEmpty {
+            lines.append("prior_asset: \(priorTags)")
+        }
+        if let openHint, !openHint.isEmpty {
+            lines.append("open_hint: \(openHint)")
+        }
+        if let selected, !selected.isEmpty {
+            lines.append("selected: \(String(selected.prefix(160)))")
+        }
+        lines.append("[/DIRECTIVE]")
+        return lines.joined(separator: "\n")
+    }
+
+    nonisolated static func hintFromPriorAsset(_ node: SkillNode?) -> String? {
+        guard let node, let first = node.payload.first else { return nil }
+        return "PRIOR_ASSET \(node.name): prefer \(first) then follow listed steps; do not invent coords."
+    }
+}
+
+// MARK: - ExplorationNarrator
+//
+// Occasional 現状説明 + short 独り言 during long Act exploration.
+// Same channel as `🛠 [L2 JGEN Act]…` (LoopEvent.systemLog).
+
+struct ExplorationNarrator: Sendable {
+    let japanese: Bool
+    private var lastStatusTurn: Int = 0
+    private var lastMutterTurn: Int = 0
+    /// Status at most once per this many turns.
+    private let statusEvery: Int = 2
+    /// Mutter rarer than status.
+    private let mutterEvery: Int = 3
+
+    init(goal: String) {
+        japanese = ExplorationAssetStore.goalIsJapanese(goal)
+        lastStatusTurn = 0
+        lastMutterTurn = 0
+    }
+
+    /// User-visible status line (現状説明). Nil when cadence says wait.
+    mutating func statusIfDue(
+        turn: Int,
+        openAppSucceeded: Bool,
+        appHint: String?,
+        lastObservation: String?,
+        force: Bool = false
+    ) -> String? {
+        let due = force || (turn - lastStatusTurn) >= statusEvery
+        guard due, turn > 0 else { return nil }
+        lastStatusTurn = turn
+
+        let app = appHint ?? (japanese ? "アプリ" : "app")
+        let obs = lastObservation ?? ""
+        let u = obs.uppercased()
+
+        let body: String
+        if japanese {
+            if !openAppSucceeded {
+                body = "\(app) を開こうとしている"
+            } else if u.contains("MISMATCH") || u.contains("NO VISUAL CHANGE") {
+                body = "\(app) は開いた。さっきの操作は外れ — 別の手がかりを探す"
+            } else if u.contains("OPEN") || u.contains("OPENED") {
+                body = "\(app) は開いた。画面を読んで次の一手を探している"
+            } else if u.contains("UI MAP") || u.contains("SNAPSHOT") || u.contains("SEMANTIC") {
+                body = "画面マップを得た。目標に効く操作を選んでいる"
+            } else if u.contains("PASTE") {
+                body = "ペイロードを貼った。結果を確認している"
+            } else {
+                body = "探索中（ターン \(turn)）。失敗はログに残し、成功したら資産化する"
+            }
+            return "🗣 [現状] \(body)"
+        } else {
+            if !openAppSucceeded {
+                body = "Trying to open \(app)"
+            } else if u.contains("MISMATCH") || u.contains("NO VISUAL CHANGE") {
+                body = "\(app) is open; last action missed — trying another cue"
+            } else if u.contains("OPEN") || u.contains("OPENED") {
+                body = "\(app) opened; sensing the screen for the next move"
+            } else if u.contains("UI MAP") || u.contains("SNAPSHOT") || u.contains("SEMANTIC") {
+                body = "Got a UI map; picking an action toward the goal"
+            } else if u.contains("PASTE") {
+                body = "Pasted payload; checking the result"
+            } else {
+                body = "Exploring (turn \(turn)). Failures log; success becomes a reusable asset"
+            }
+            return "🗣 [status] \(body)"
+        }
+    }
+
+    /// Soft progress warn every N turns on long / unlimited exploration.
+    mutating func softWarnIfDue(turn: Int, turnsLabel: String, unlimited: Bool, every: Int = 10) -> String? {
+        guard turn > 0, every > 0, turn % every == 0 else { return nil }
+        // Finite budgets: skip if status already covered this turn.
+        // Unlimited: always remind about safety brakes (streak / DONE).
+        if !unlimited, turn == lastStatusTurn { return nil }
+        if japanese {
+            let note = unlimited
+                ? "まだ探索中（ターン \(turn)/\(turnsLabel)）。GAP未解決の間は同一CYCLEのみ遮断し、別の肢で継続します"
+                : "探索が続いています（ターン \(turn)/\(turnsLabel)）— GAPが開いている限り諦めません"
+            return "🗣 [現状] \(note)"
+        } else {
+            let note = unlimited
+                ? "Still exploring (turn \(turn)/\(turnsLabel)). Cycle limbs blocked; GAP open ⇒ keep trying different limbs"
+                : "Exploration continuing (turn \(turn)/\(turnsLabel)) — no early surrender while GAP open"
+            return "🗣 [status] \(note)"
+        }
+    }
+
+    /// Short self-talk (独り言). Rarer than status.
+    mutating func mutterIfDue(
+        turn: Int,
+        hadMismatch: Bool,
+        hadPriorAsset: Bool,
+        force: Bool = false
+    ) -> String? {
+        let due = force || hadMismatch || (turn - lastMutterTurn) >= mutterEvery
+        // Keep mutter rarer than status: require at least 2 turns since last mutter
+        // unless it's a mismatch and we haven't muttered this turn window.
+        guard due, turn > 0 else { return nil }
+        if !force && !hadMismatch && (turn - lastMutterTurn) < mutterEvery {
+            return nil
+        }
+        // Don't mutter on the exact same turn we just status'd unless mismatch.
+        if turn == lastStatusTurn && !hadMismatch && !force {
+            return nil
+        }
+        lastMutterTurn = turn
+
+        if japanese {
+            if hadPriorAsset && hadMismatch {
+                return "💭 前はここに成功した…今は違うかも"
+            }
+            if hadMismatch {
+                return "💭 ここじゃないな"
+            }
+            if hadPriorAsset {
+                return "💭 覚えている道を辿ってみる"
+            }
+            let pool = ["💭 もう少し探してみるか", "💭 別の入り口があるはず", "💭 焦らず、観測を積む"]
+            return pool[turn % pool.count]
+        } else {
+            if hadPriorAsset && hadMismatch {
+                return "💭 Prior path worked before — UI may have shifted"
+            }
+            if hadMismatch {
+                return "💭 Not this one"
+            }
+            if hadPriorAsset {
+                return "💭 Following a remembered path"
+            }
+            let pool = ["💭 Keep sensing", "💭 Another angle…", "💭 Log the miss, try again"]
+            return pool[turn % pool.count]
+        }
+    }
+
+    mutating func forgeAnnounce(skillName: String) -> String {
+        if japanese {
+            return "🗂 [探索資産] 成功パスを記録: \(skillName) — 次回は一発を狙う"
+        }
+        return "🗂 [探索資産] forged success path: \(skillName) — next similar goal can one-shot"
+    }
+
+    mutating func recallAnnounce(skillName: String) -> String {
+        if japanese {
+            return "🗂 [探索資産] 類似成功を想起: \(skillName)"
+        }
+        return "🗂 [探索資産] recalled prior success: \(skillName)"
+    }
+
+    mutating func failAnnounce(action: String) -> String {
+        let short = String(action.prefix(40))
+        if japanese {
+            return "🗂 [探索資産] 失敗を記録: \(short)"
+        }
+        return "🗂 [探索資産] logged failure: \(short)"
+    }
+}

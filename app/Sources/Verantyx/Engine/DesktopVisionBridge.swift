@@ -1,0 +1,533 @@
+import Foundation
+import SwiftUI
+import AppKit
+
+class DesktopVisionBridge {
+    static let shared = DesktopVisionBridge()
+
+    /// Click a point that is ALREADY in screen coordinates.
+    ///
+    /// `hidClick` guesses what its arguments mean: values ≤1000 are read
+    /// as a vision model's 0–1000 normalized space, larger ones are
+    /// divided by the Retina scale. Accessibility returns neither — it
+    /// returns real logical screen points, and a link in a nav bar at
+    /// (940, 45) got read as normalized and clicked somewhere else
+    /// entirely. That is why CLICK_LINK reported success on links that
+    /// never opened. This path does no interpretation: the point is the
+    /// point. Motion, landing check and trace recording are the same as
+    /// every other click.
+    func clickAtScreenPoint(_ target: CGPoint, label: String = "") async throws {
+        await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
+        defer { Task { @MainActor in AppState.shared?.isAgentControllingMouse = false } }
+
+        let screenHeight = NSScreen.screens.first?.frame.height ?? 0
+        let start = NSEvent.mouseLocation
+        let currentPoint = CGPoint(x: start.x, y: screenHeight - start.y)
+        let display = CGMainDisplayID()
+        let logicalWidth = Double(CGDisplayPixelsWide(display))
+        let logicalHeight = Double(CGDisplayPixelsHigh(display))
+
+        let app = await MainActor.run {
+            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+        }
+        let cell = "ax_\(Int(target.x / 50))_\(Int(target.y / 50))"
+
+        let model = await EternalMemoryStore.shared.motionModel(
+            screenW: logicalWidth, screenH: logicalHeight)
+        let span = hypot(target.x - currentPoint.x, target.y - currentPoint.y)
+        let ux = span > 0 ? (target.x - currentPoint.x) / span : 0
+        let uy = span > 0 ? (target.y - currentPoint.y) / span : 0
+        let nx = -uy, ny = ux
+        let stray = model.map { $0.jitterRatio * span } ?? 25.0
+        let bounded = min(max(stray, 2.0), 90.0) * (Bool.random() ? 1.0 : -1.0)
+        let peakAt = model?.peakAt ?? 0.5
+        let steps = model?.steps ?? 30
+
+        var path: [CGPoint] = [currentPoint]
+        for i in 1..<steps {
+            let u = Double(i) / Double(steps)
+            let t = model?.progress(at: u) ?? u
+            let shaped = t < peakAt
+                ? sin((t / max(peakAt, 0.01)) * .pi / 2)
+                : cos(((t - peakAt) / max(1 - peakAt, 0.01)) * .pi / 2)
+            let offset = bounded * shaped
+            path.append(CGPoint(x: currentPoint.x + ux * span * t + nx * offset,
+                                y: currentPoint.y + uy * span * t + ny * offset))
+        }
+        if let overshoot = model?.overshoot, overshoot > 0.005, span > 40 {
+            let past = min(overshoot, 0.06) * span
+            path.append(CGPoint(x: target.x + ux * past, y: target.y + uy * past))
+        }
+        path.append(target)
+
+        for p in path {
+            CGEvent(mouseEventSource: nil, mouseType: .mouseMoved,
+                    mouseCursorPosition: p, mouseButton: .left)?.post(tap: .cghidEventTap)
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        try? await Task.sleep(nanoseconds: 60_000_000)
+
+        let after = NSEvent.mouseLocation
+        let reached = CGPoint(x: after.x, y: screenHeight - after.y)
+        let landed = hypot(reached.x - target.x, reached.y - target.y) <= 6.0
+
+        if landed {
+            CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown,
+                    mouseCursorPosition: target, mouseButton: .left)?.post(tap: .cghidEventTap)
+            try? await Task.sleep(nanoseconds: 50_000_000)
+            CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp,
+                    mouseCursorPosition: target, mouseButton: .left)?.post(tap: .cghidEventTap)
+        }
+
+        await EternalMemoryStore.shared.recordMouseTrace(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight,
+            reqX: target.x, reqY: target.y,
+            reachedX: reached.x, reachedY: reached.y,
+            calibX: 1.0, calibY: 1.0,
+            path: path.suffix(24).map { "\(Int($0.x)),\(Int($0.y))" }.joined(separator: ";"),
+            ok: landed,
+            episodeId: await MainActor.run { AppState.shared?.currentEpisodeId ?? "" })
+
+        if !landed {
+            throw BrowserError.ioError(
+                "pointer stopped \(Int(hypot(reached.x - target.x, reached.y - target.y)))pt short of \(label.isEmpty ? "the target" : label)")
+        }
+    }
+
+    /// The semantic name of whatever sits under a screen point, via
+    /// accessibility. A click record that says only "(512, 300)" cannot
+    /// be reasoned about later; one that says "Send button" can.
+    /// Returns "" when AX is unavailable or the element is anonymous.
+    static func elementLabel(atScreenX x: Double, atScreenY y: Double) -> String {
+        let system = AXUIElementCreateSystemWide()
+        var element: AXUIElement?
+        guard AXUIElementCopyElementAtPosition(system, Float(x), Float(y), &element) == .success,
+              let element else { return "" }
+        for attribute in [kAXTitleAttribute, kAXDescriptionAttribute, kAXValueAttribute,
+                          kAXRoleDescriptionAttribute] {
+            var value: CFTypeRef?
+            if AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success,
+               let text = value as? String,
+               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return String(text.prefix(120))
+            }
+        }
+        return ""
+    }
+
+    /// Landings at the same neighbourhood before the *calibration probe*
+    /// is skipped. The probe is a 50pt hop and back that teaches the
+    /// multimodal loop nothing; once a calibration is established here it
+    /// is pure overhead on every click.
+    ///
+    /// The APPROACH itself is never skipped, and that is deliberate.
+    /// Teleporting the cursor breaks the perception loop this agent runs
+    /// on: with no intermediate motion there are no hover states, no
+    /// frame-to-frame delta for a video model to attribute, and nothing
+    /// in the screenshot that says where the pointer went — so the model
+    /// mis-reads the result, retries, and the mistakes stack up as what
+    /// looks like latency. Motion is not decoration here; it is the
+    /// signal the next decision is made from.
+    static let skipProbeAfter = 3
+
+    func takeScreenshot() async throws -> String {
+        if !ScreenCapturePermission.isGranted {
+            ScreenCapturePermission.request()
+        }
+
+        let mainDisplay = CGMainDisplayID()
+        let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
+        let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
+
+        guard let image = await DisplayCapture.mainDisplay() else {
+            throw BrowserError.ioError(DisplayCapture.failureReason)
+        }
+
+        let pixelWidth = Double(image.width)
+        let pixelHeight = Double(image.height)
+        let scaleX = pixelWidth / logicalWidth
+        let scaleY = pixelHeight / logicalHeight
+
+        let nsImage = NSImage(cgImage: image, size: NSSize(width: pixelWidth, height: pixelHeight))
+        nsImage.lockFocus()
+
+        // --- GRID AND WATERMARKS ---
+        let watermarkText = "VERANTYX DESKTOP" as NSString
+        let watermarkFont = NSFont.boldSystemFont(ofSize: 48)
+        let watermarkAttributes: [NSAttributedString.Key: Any] = [
+            .font: watermarkFont,
+            .foregroundColor: NSColor.blue.withAlphaComponent(0.15)
+        ]
+        for wx in stride(from: 0, to: pixelWidth, by: 400.0) {
+            for wy in stride(from: 0, to: pixelHeight, by: 300.0) {
+                watermarkText.draw(at: NSPoint(x: wx, y: wy), withAttributes: watermarkAttributes)
+            }
+        }
+        
+        // Draw Double Grid Lines (10x10)
+        NSColor.yellow.withAlphaComponent(0.5).setStroke()
+        let path = NSBezierPath()
+        let stepX = pixelWidth / 10.0
+        let stepY = pixelHeight / 10.0
+        
+        let labelFont = NSFont.monospacedSystemFont(ofSize: 24, weight: .bold)
+        let labelAttrs: [NSAttributedString.Key: Any] = [
+            .font: labelFont,
+            .foregroundColor: NSColor.yellow.withAlphaComponent(0.8),
+            .backgroundColor: NSColor.black.withAlphaComponent(0.5)
+        ]
+        
+        for i in 1...9 {
+            let vx = Double(i) * stepX
+            path.move(to: NSPoint(x: vx - 2, y: 0))
+            path.line(to: NSPoint(x: vx - 2, y: pixelHeight))
+            path.move(to: NSPoint(x: vx + 2, y: 0))
+            path.line(to: NSPoint(x: vx + 2, y: pixelHeight))
+            
+            let vy = Double(i) * stepY
+            path.move(to: NSPoint(x: 0, y: vy - 2))
+            path.line(to: NSPoint(x: pixelWidth, y: vy - 2))
+            path.move(to: NSPoint(x: 0, y: vy + 2))
+            path.line(to: NSPoint(x: pixelWidth, y: vy + 2))
+            
+            // Draw coordinate labels at intersections
+            for j in 1...9 {
+                let interX = Double(j) * stepX
+                let labelText = "[\(j*100), \((10-i)*100)]" as NSString
+                labelText.draw(at: NSPoint(x: interX + 5, y: vy + 5), withAttributes: labelAttrs)
+            }
+        }
+        path.lineWidth = 1.0
+        path.stroke()
+
+        // Mouse location logic
+        let mouseLoc = NSEvent.mouseLocation
+        let screenHeight = NSScreen.screens.first?.frame.height ?? 0
+        let topYMouse = screenHeight - mouseLoc.y
+
+        if mouseLoc.x >= 0 && mouseLoc.x <= logicalWidth && topYMouse >= 0 && topYMouse <= logicalHeight {
+            let pxX = mouseLoc.x * scaleX
+            let nsImageMouseY = pixelHeight - (topYMouse * scaleY)
+
+            let circleRect = NSRect(x: pxX - 10, y: nsImageMouseY - 10, width: 20, height: 20)
+            NSColor.red.setFill()
+            let path = NSBezierPath(ovalIn: circleRect)
+            path.fill()
+            
+            NSColor.white.setStroke()
+            path.lineWidth = 2
+            path.stroke()
+        }
+
+        nsImage.unlockFocus()
+
+        guard let tiffData = nsImage.tiffRepresentation,
+              let bitmapRep = NSBitmapImageRep(data: tiffData),
+              let jpegData = bitmapRep.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
+            throw BrowserError.ioError("Failed to encode image to JPEG")
+        }
+
+        return jpegData.base64EncodedString()
+    }
+
+    func hidClick(x: Double, y: Double) async throws {
+        let mainDisplay = CGMainDisplayID()
+        let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
+        let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
+
+        guard let image = await DisplayCapture.mainDisplay() else {
+            throw BrowserError.ioError("座標計算用の画面取得に失敗: \(DisplayCapture.failureReason)")
+        }
+        
+        let pixelWidth = Double(image.width)
+        let pixelHeight = Double(image.height)
+        
+        let logicalClickX: Double
+        let logicalClickY: Double
+        
+        if x <= 1000 && y <= 1000 && (pixelWidth >= 1000 || pixelHeight >= 1000) {
+            logicalClickX = (x / 1000.0) * logicalWidth
+            logicalClickY = (y / 1000.0) * logicalHeight
+        } else {
+            let scaleX = pixelWidth / logicalWidth
+            let scaleY = pixelHeight / logicalHeight
+            logicalClickX = x / scaleX
+            logicalClickY = y / scaleY
+        }
+
+        await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
+
+        let calibStartPoint = NSEvent.mouseLocation
+        let screenHeight = NSScreen.screens.first?.frame.height ?? 0
+        let currentPoint = CGPoint(x: calibStartPoint.x, y: screenHeight - calibStartPoint.y)
+
+        let app = await MainActor.run {
+            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+        }
+        let cell = "\(Int(x / 50))_\(Int(y / 50))"
+        let hint = await EternalMemoryStore.shared.mouseHint(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
+        let successes = await EternalMemoryStore.shared.mouseSuccessCount(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
+
+        // ── Skip the probe, keep the approach ─────────────────────────
+        // Only the calibration hop is dropped once this neighbourhood has
+        // an established calibration: it teaches the perception loop
+        // nothing and costs a visible jump on every click. The approach
+        // itself still runs — see `skipProbeAfter` for why teleporting
+        // the cursor is not an optimization here but a way to blind the
+        // model that has to read the result.
+        let probeEstablished = successes >= Self.skipProbeAfter && hint != nil
+        if probeEstablished {
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🖱 Calibration established here (\(successes) landings) — probe skipped, approach still driven\n</think>",
+                    "<think>\n🖱 この位置の校正は確立済み（成功\(successes)回）— プローブを省略し、接近動作は実行します\n</think>"))
+            }
+        }
+
+        let calibDelta: Double = 50.0
+        var actualDx = 0.0
+        var actualDy = 0.0
+        if !probeEstablished {
+            let calibTest = CGPoint(x: currentPoint.x + calibDelta, y: currentPoint.y + calibDelta)
+            if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: calibTest, mouseButton: .left) {
+                moveEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 30_000_000)
+
+            let calibEndPoint = NSEvent.mouseLocation
+            let actualPoint = CGPoint(x: calibEndPoint.x, y: screenHeight - calibEndPoint.y)
+            actualDx = actualPoint.x - currentPoint.x
+            actualDy = actualPoint.y - currentPoint.y
+        }
+
+        // ── Calibration, with vera-a's remembered trajectories as backup ──
+        // The probe measures how far the cursor ACTUALLY moved for a known
+        // synthetic delta. When the system swallows the motion (the very
+        // "the agent cannot move the mouse" failure), both deltas come back
+        // ~0, the guard below fails, and the scale used to stay a blind
+        // 1.0 — putting the click somewhere else entirely. A calibration
+        // that verifiably worked on this display is a far better default
+        // than 1.0, so the memory is consulted first and the fresh probe
+        // overrides it only when the probe actually measured something.
+        var fallbackCalib: (Double, Double)? = hint.map { ($0.calibX, $0.calibY) }
+        if fallbackCalib == nil {
+            fallbackCalib = await EternalMemoryStore.shared.lastGoodCalibration(
+                screenW: logicalWidth, screenH: logicalHeight)
+        }
+
+        var calibScaleX: Double = fallbackCalib?.0 ?? 1.0
+        var calibScaleY: Double = fallbackCalib?.1 ?? 1.0
+        var calibratedNow = false
+
+        if abs(actualDx) > 1.0 && abs(actualDy) > 1.0 {
+            calibScaleX = calibDelta / actualDx
+            calibScaleY = calibDelta / actualDy
+            calibratedNow = true
+        } else if fallbackCalib != nil {
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🖱 Calibration probe measured nothing — using a trajectory vera remembers working here\n</think>",
+                    "<think>\n🖱 校正プローブが反応なし — veraが覚えている成功時の軌跡を使用します\n</think>"))
+            }
+        }
+        
+        // Return hop only matters when the probe actually moved the cursor.
+        if !probeEstablished {
+            if let retEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: currentPoint, mouseButton: .left) {
+                retEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 20_000_000)
+        }
+
+        var targetPoint = CGPoint(
+            x: currentPoint.x + (logicalClickX - currentPoint.x) * calibScaleX,
+            y: currentPoint.y + (logicalClickY - currentPoint.y) * calibScaleY
+        )
+        // Strongest hint available: a click at this very neighbourhood that
+        // previously LANDED. Trusted only when the probe could not measure —
+        // a live measurement always beats a remembered one.
+        if !calibratedNow, let hint {
+            targetPoint = CGPoint(x: hint.reachedX, y: hint.reachedY)
+        }
+        
+        let entropy = await MainActor.run { AppState.shared?.lastEntropy }
+        
+        var path: [CGPoint] = []
+        if let ent = entropy, ent.count > 5 {
+            path.append(currentPoint)
+            let dx = targetPoint.x - currentPoint.x
+            let dy = targetPoint.y - currentPoint.y
+            
+            let entStart = ent.first!
+            let entEnd = ent.last!
+            let entDx = entEnd.x - entStart.x
+            let entDy = entEnd.y - entStart.y
+            let entDist = sqrt(entDx*entDx + entDy*entDy)
+            
+            for i in 1..<(ent.count - 1) {
+                let p = ent[i]
+                let pctX = entDist > 0 ? (p.x - entStart.x) / entDist : Double(i)/Double(ent.count)
+                let pctY = entDist > 0 ? (p.y - entStart.y) / entDist : Double(i)/Double(ent.count)
+                
+                let px = currentPoint.x + dx * pctX
+                let py = currentPoint.y + dy * pctY
+                path.append(CGPoint(x: px, y: py))
+            }
+            path.append(targetPoint)
+        } else {
+            path.append(currentPoint)
+            // Human uncertainty, measured instead of assumed. ±50pt was a
+            // guess about how far a pointer strays; vera-a has every
+            // trajectory this Mac actually drove, so the stray is computed
+            // from them (peak deviation ÷ distance travelled) and scaled to
+            // THIS move's length. Falls back to the old constant until
+            // enough trajectories exist to measure.
+            let model = await EternalMemoryStore.shared.motionModel(
+                screenW: logicalWidth, screenH: logicalHeight)
+            let span = hypot(targetPoint.x - currentPoint.x, targetPoint.y - currentPoint.y)
+            // jitterRatio is peak deviation ÷ distance, so × span puts it
+            // back in points. A quadratic Bézier peaks at half its control
+            // offset, hence the doubling.
+            // Every measured feature is applied, not just the stray: where
+            // the curve bulges (peakAt), how much distance each moment
+            // covers (easing — the slow-fast-slow a machine does not
+            // have), and whether the hand goes past its target before
+            // settling (overshoot). Without demonstrations this degrades
+            // to a symmetric, constant-speed arc.
+            let ux = span > 0 ? (targetPoint.x - currentPoint.x) / span : 0
+            let uy = span > 0 ? (targetPoint.y - currentPoint.y) / span : 0
+            let nx = -uy, ny = ux      // the axis a hand strays along
+            let stray = model.map { $0.jitterRatio * span } ?? 25.0
+            let bounded = min(max(stray, 2.0), 90.0) * (Bool.random() ? 1.0 : -1.0)
+            let peakAt = model?.peakAt ?? 0.5
+            let steps = model?.steps ?? 30
+
+            for i in 1..<steps {
+                let u = Double(i) / Double(steps)
+                // Progress is not the clock: the measured easing decides
+                // how much of the distance this moment covers.
+                let t = model?.progress(at: u) ?? u
+                // A sine arch peaking at the measured fraction rather than
+                // at the midpoint, so the bulge leans where a hand leans.
+                let shaped = t < peakAt
+                    ? sin((t / max(peakAt, 0.01)) * .pi / 2)
+                    : cos(((t - peakAt) / max(1 - peakAt, 0.01)) * .pi / 2)
+                let offset = bounded * shaped
+                path.append(CGPoint(x: currentPoint.x + ux * span * t + nx * offset,
+                                    y: currentPoint.y + uy * span * t + ny * offset))
+            }
+
+            // Overshoot and settle, when the demonstrations did that.
+            if let overshoot = model?.overshoot, overshoot > 0.005, span > 40 {
+                let past = min(overshoot, 0.06) * span
+                path.append(CGPoint(x: targetPoint.x + ux * past, y: targetPoint.y + uy * past))
+                path.append(CGPoint(x: targetPoint.x + ux * past * 0.4,
+                                    y: targetPoint.y + uy * past * 0.4))
+            }
+            path.append(targetPoint)
+        }
+        
+        for p in path {
+            if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: p, mouseButton: .left) {
+                moveEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+
+        try? await Task.sleep(nanoseconds: 50_000_000)
+
+        // ── Did the cursor actually get there? ────────────────────────
+        // Read the real position back rather than assuming the posted
+        // events took effect — that assumption is exactly what makes a
+        // failed move look like a successful click. The verdict decides
+        // whether this trajectory is worth remembering as a hint.
+        let afterPoint = NSEvent.mouseLocation
+        let reached = CGPoint(x: afterPoint.x, y: screenHeight - afterPoint.y)
+        let drift = hypot(reached.x - targetPoint.x, reached.y - targetPoint.y)
+        let landed = drift <= 4.0
+        let traceString = path.suffix(24)
+            .map { "\(Int($0.x)),\(Int($0.y))" }
+            .joined(separator: ";")
+        await EternalMemoryStore.shared.recordMouseTrace(
+            app: app, cell: cell,
+            screenW: logicalWidth, screenH: logicalHeight,
+            reqX: x, reqY: y,
+            reachedX: reached.x, reachedY: reached.y,
+            calibX: calibScaleX, calibY: calibScaleY,
+            path: traceString, ok: landed,
+            episodeId: await MainActor.run { AppState.shared?.currentEpisodeId ?? "" })
+        if !landed {
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🖱 Cursor stopped \(Int(drift))pt short of the target — recorded as a failed trajectory, not offered as a hint\n</think>",
+                    "<think>\n🖱 カーソルが目標から\(Int(drift))pt ずれて停止 — 失敗軌跡として記録し、ヒントには使いません\n</think>"))
+            }
+        }
+        
+        guard let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: targetPoint, mouseButton: .left),
+              let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: targetPoint, mouseButton: .left) else {
+            await MainActor.run { AppState.shared?.isAgentControllingMouse = false }
+            throw BrowserError.ioError("Failed to create CGEvent")
+        }
+
+        mouseDown.post(tap: .cghidEventTap)
+        try? await Task.sleep(nanoseconds: 50_000_000)
+        mouseUp.post(tap: .cghidEventTap)
+        
+        await MainActor.run { AppState.shared?.isAgentControllingMouse = false }
+    }
+
+    func typeText(_ text: String) async throws {
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        let kEntropy = await MainActor.run { AppState.shared?.lastKeyboardEntropy }
+        
+        let source = CGEventSource(stateID: .hidSystemState)
+        for (i, char) in text.enumerated() {
+            let s = String(char)
+            var buf = [UInt16](repeating: 0, count: s.utf16.count)
+            let _ = s.utf16.map { $0 }.withUnsafeBufferPointer { ptr in
+                for i in 0..<ptr.count { buf[i] = ptr[i] }
+            }
+
+            if let eventDown = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true) {
+                eventDown.keyboardSetUnicodeString(stringLength: buf.count, unicodeString: buf)
+                eventDown.post(tap: .cghidEventTap)
+            }
+            
+            let holdMs: UInt64
+            if let ke = kEntropy, !ke.isEmpty {
+                let e = ke[(i * 2) % ke.count]
+                holdMs = UInt64(10 + e * 40)
+            } else {
+                holdMs = UInt64(Int.random(in: 15...35))
+            }
+            try? await Task.sleep(nanoseconds: holdMs * 1_000_000)
+            
+            if let eventUp = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) {
+                eventUp.keyboardSetUnicodeString(stringLength: buf.count, unicodeString: buf)
+                eventUp.post(tap: .cghidEventTap)
+            }
+            
+            let intervalMs: UInt64
+            if let ke = kEntropy, !ke.isEmpty {
+                let e = ke[(i * 2 + 1) % ke.count]
+                intervalMs = UInt64(20 + e * 130)
+            } else {
+                intervalMs = UInt64(Int.random(in: 30...100))
+            }
+            try? await Task.sleep(nanoseconds: intervalMs * 1_000_000)
+        }
+    }
+
+    func scroll(direction: String) async throws {
+        let scrollAmount = direction == "up" ? 10 : -10
+        for _ in 0..<10 {
+            if let scrollEvent = CGEvent(scrollWheelEvent2Source: nil, units: .line, wheelCount: 1, wheel1: Int32(scrollAmount), wheel2: 0, wheel3: 0) {
+                scrollEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 20_000_000)
+        }
+    }
+}
