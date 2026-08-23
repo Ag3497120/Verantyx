@@ -91,13 +91,6 @@ final class AppState: ObservableObject {
     @Published var workspaceURL: URL?
     @Published var workspaceFiles: [URL] = []
 
-    /// Milestone T: toggled by tapping the "Gatekeeper" chip in
-    /// ModelSelectorBarView. When true, HumanPriorityModeView renders a
-    /// completely separate full-screen-chat layout (no activity bar, no
-    /// file tree) instead of its normal VS-Code-style 4-pane layout. Purely
-    /// additive -- the existing layout and its state (activitySection,
-    /// showStereoCrossGraph, etc.) are untouched either way.
-    @Published var isVeraAMode: Bool = false
 
     // ── Act episode context ─────────────────────────────────────────────
     // The three things an action record needs that the action itself does
@@ -1017,28 +1010,29 @@ final class AppState: ObservableObject {
     /// Which tab of the Vera dock a summon named, when it named one.
     @Published var requestedDockTab: String? = nil
 
-    // ── Vera engine mode: 単体 Vera-a か、jgen 合議か ─────────────────────
+    // ── Vera engine mode ─────────────────────────────────────────────────
     //
-    // 単体(standalone)は決定論の経路だけで答える: 質問は vera-memory の
-    // `ask` に直行し、型付き判定(ANSWER / UNKNOWN_*)がそのまま返る。LLM は
-    // 一切呼ばれない。合議(council)は従来のエージェント/LLM 経路。
-    // 二つを「モデルの設定」ではなくモードにしたのは、答えの性格が変わる
-    // からで、いま読んでいる答えがどちらの性格かは常に見えるべきだからです。
+    // Atelier is the mode this app is for; the others are the surfaces it
+    // kept from the general-purpose IDE it grew out of.
+    //
+    // jgen 合議 (`council`) and 単体 Vera-a (`standalone`) were removed
+    // outright rather than hidden. A mode that is unreachable from the menu
+    // but still constructible from a persisted string is not removed, it is
+    // just harder to find — and it would keep its branches alive in the turn
+    // handler where nobody exercises them. `restore()` maps either stored
+    // value onto `.atelier` so an existing install comes back somewhere real
+    // instead of failing to decode.
     enum VeraEngineMode: String, CaseIterable {
         // 服飾のワークベンチ。作業面がチャットではなく「服の状態」になる。
         // 背景のパイプ(モデル登録・ローカルLLM・MCP)はそのまま使い、
         // 情報整理だけが必ず Vera の台帳を通る。
         case atelier = "atelier"        // Vera Atelier (服飾)
-        case council = "council"        // jgen 合議 (LLM/エージェント)
-        case standalone = "standalone"  // 単体 Vera-a (決定論のみ)
         // Named `localLLM` for its stored value only — the mode is "just an
         // LLM", and since cloud providers became selectable in the model menu
         // that LLM can equally be Claude or Grok. The raw value stays as it is
         // because it is persisted.
         case localLLM = "local_llm"     // 通常のLLM (合議もVeraも通さない)
-        // The Vera MODEL as the responder — no LLM anywhere in the turn.
-        // Vera-a above is the dual path (a model answers, Vera manages
-        // memory beside it); this mode is the store itself talking:
+        // The Vera MODEL as the responder — no LLM anywhere in the turn:
         // typed verdicts verbatim, structural diff for 違い questions,
         // constructed explanations and typo evidence on refusals. What
         // the browser's ASK is to the 3D page, this is to the IDE.
@@ -1190,23 +1184,9 @@ final class AppState: ObservableObject {
         UserDefaults.standard.string(forKey: "memory_organ_model") ?? "" {
         didSet { UserDefaults.standard.set(memoryOrganModel, forKey: "memory_organ_model") }
     }
-    @Published var veraAComposerModel: String =
-        UserDefaults.standard.string(forKey: "vera_a_composer") ?? "auto" {
-        didSet { UserDefaults.standard.set(veraAComposerModel, forKey: "vera_a_composer") }
-    }
 
     /// Vera-a drives the machine the user is actually looking at.
     ///
-    /// The hidden-window path mirrors an app into a private surface, which is
-    /// the right tool when the agent must not disturb the screen. Vera-a is
-    /// the opposite case: it operates the user's own apps through [USE_APP],
-    /// menus and keys, and a mirrored copy is not what those act on. Entering
-    /// the mode therefore ends any offscreen session rather than leaving two
-    /// notions of "the window" in play.
-    private func applyVeraAOperatingDefaults() {
-        guard veraEngineMode == .standalone else { return }
-        Task { @MainActor in await HiddenWindowAutomation.shared.endOffscreenSession() }
-    }
 
     /// The surface the person summoned by name. Nil is the resting
     /// state: chrome is gone, so nothing is on screen that was not
@@ -1225,9 +1205,8 @@ final class AppState: ObservableObject {
         veraEngineMode != .veraModel && veraEngineMode != .veraBot
     }
 
-    @Published var veraEngineMode: VeraEngineMode = .council {
-        didSet { applyVeraAOperatingDefaults()
-                 UserDefaults.standard.set(veraEngineMode.rawValue,
+    @Published var veraEngineMode: VeraEngineMode = .atelier {
+        didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
                                            forKey: "vera_engine_mode") }
     }
 
@@ -1609,7 +1588,7 @@ final class AppState: ObservableObject {
         } else {
             lines.append("🚫 **\(verdict)**")
             if let reason = obj["reason"] as? String { lines.append(reason) }
-            lines.append("単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。")
+            lines.append("Vera は知らないことを推測しません。文書を投入するか、LLM モードに切り替えてください。")
         }
         return lines.joined(separator: "\n")
     }
@@ -1683,68 +1662,6 @@ final class AppState: ObservableObject {
         return nil
     }
 
-    private func planWebQueries(for question: String) async -> (needs: Bool, queries: [String]) {
-        // Query analysis, simplest honest form first: a query that already
-        // produced evidence for this exact question is reused without
-        // replanning — Vera's accumulated log outranks a fresh guess.
-        if let proven = await EternalMemoryStore.shared.reusableQuery(forQuestion: question) {
-            return (true, [proven])
-        }
-        let system = """
-        You plan web searches. Reply ONLY with JSON, no prose:
-        {"needs": true|false, "queries": ["q1", "q2"]}
-        ALWAYS provide 1-2 queries, even when needs=false. needs=false only \
-        for greetings and coding/file tasks. Queries: short keyword strings \
-        matched to the question's INTENT — weather → place + weather + today; \
-        a concept → the concept + explanation; a company position or anything \
-        that changes over time → the topic + latest. Use the question's \
-        language or English.
-        """
-        let user = "Question: \(String(question.prefix(300)))"
-
-        var out: String? = nil
-        let choice = veraAComposerModel
-        if choice.hasPrefix("lmstudio:") {
-            out = await LMStudioClient.shared.generateConversation(
-                model: String(choice.dropFirst("lmstudio:".count)),
-                messages: [("system", system), ("user", user)],
-                maxTokens: 120, temperature: 0.0)
-        } else if choice.hasPrefix("ollama:") {
-            out = await OllamaClient.shared.generateConversation(
-                model: String(choice.dropFirst("ollama:".count)),
-                messages: [("system", system), ("user", user)])
-        } else {
-            switch modelStatus {
-            case .lmStudioReady(let m):
-                out = await LMStudioClient.shared.generateConversation(
-                    model: m, messages: [("system", system), ("user", user)],
-                    maxTokens: 120, temperature: 0.0)
-            case .ollamaReady(let m):
-                out = await OllamaClient.shared.generateConversation(
-                    model: m, messages: [("system", system), ("user", user)])
-            default:
-                break
-            }
-        }
-
-        if let out,
-           let start = out.firstIndex(of: "{"),
-           let end = out.lastIndex(of: "}"),
-           let d = String(out[start...end]).data(using: .utf8),
-           let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
-            let needs = (obj["needs"] as? Bool) ?? false
-            let queries = ((obj["queries"] as? [Any]) ?? [])
-                .compactMap { $0 as? String }
-                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .filter { !$0.isEmpty && $0.count <= 80 }
-            if !queries.isEmpty { return (needs, Array(queries.prefix(2))) }
-        }
-        // Planner unavailable or unparseable: the bare extracted target is
-        // the only safe static fallback (no GitHub/official templates —
-        // wrong for concepts).
-        if let target = Self.searchTarget(from: question) { return (true, [target]) }
-        return (false, [])
-    }
 
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -1878,7 +1795,7 @@ final class AppState: ObservableObject {
             let names = attachedFiles.map { $0.lastPathComponent }
                 .prefix(3).joined(separator: "・")
             addSystemMessage("<think>\n▸ \(names) をどうしますか?"
-                + "「はい」で Vera-a に取り込み(事実として)、"
+                + "「はい」で Vera に取り込み(事実として)、"
                 + "「分野」でこの文書の語彙として登録(言葉だけ)、"
                 + "それ以外は会話の中だけで扱います。\n</think>")
         }
@@ -1917,7 +1834,6 @@ final class AppState: ObservableObject {
             // words that reach what they used to reach. Saying the name
             // again closes it, so the same word is both doors.
             if let s = r.surface {
-                isVeraAMode = false
                 // The word may have named a tab inside the surface. Landing
                 // on the surface's default instead would turn 「ミラー」 into
                 // "open the dock and find mirror yourself", which is not
@@ -2000,153 +1916,7 @@ final class AppState: ObservableObject {
             return
         }
 
-        // ── Vera-a: the dual path ────────────────────────────────────────
-        // "Chat with anything; Vera manages its memory in parallel."
-        // The conversation model answers the question NORMALLY — full
-        // quality, its own knowledge. Vera is not a gate in front of it
-        // but the memory manager running alongside, app-side and
-        // unconditional (nothing for a model to forget to call):
-        //   ・before the reply: ask + eternal recall run in parallel;
-        //     verified facts and associations are injected as background
-        //     the model may use. An UNKNOWN verdict stays SILENT — it
-        //     must never become the reply.
-        //   ・with the reply: when the store actually knows something
-        //     (ANSWER), its provenance appears as a small footnote.
-        //   ・after the reply: the save gate → approval → core tags,
-        //     cooling, quarantine, skill proposal — the learning loop —
-        //     runs exactly as in the agent path.
-        if veraEngineMode == .standalone && !isSpotlight {
-            inferenceTask = Task {
-                // Truth and association gathered concurrently, app-side.
-                async let askTask = MCPEngine.shared.callTool(
-                    serverName: "vera-memory", toolName: "ask",
-                    arguments: ["query": text])
-                async let recallTask = EternalMemoryStore.shared.recallBlock(for: text, k: 3)
-                let raw = await askTask
-                let recall = await recallTask
-
-                var verdict = ""
-                if let d = raw.data(using: .utf8),
-                   let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
-                    verdict = (obj["verdict"] as? String) ?? ""
-                }
-                let hasVerifiedAnswer = verdict == "ANSWER"
-
-                // The search plan runs HERE, app-invoked on every UNKNOWN
-                // turn — the model fills in queries (dynamic, intent-
-                // matched: weather gets place+today, a concept gets
-                // concept+explanation) but never decides whether to be
-                // asked. Evidence arrives before the agent thinks.
-                var webEvidence = ""
-                var webQueryUsed = ""
-                var webSourceHost = ""
-                // A reply that picks from a list this app just offered is
-                // an answer, not a question: a real run web-searched
-                // "１番 意味" because the selection went through the
-                // planner like any other message.
-                //
-                // A browsing task ("hackernewsを開いて…") is also not a
-                // question for this planner. Fetching its answer headlessly
-                // here would satisfy the agent with text and leave the
-                // browser showing nothing — the site never gets opened,
-                // which was the actual instruction.
-                if !hasVerifiedAnswer, Self.looksLikeChoiceReply(text) == nil,
-                   !AgentToolExecutor.isBrowsingGoal(text) {
-                    let (plannerNeeds, planned) = await self.planWebQueries(for: text)
-                    // Vera's rule outranks the planner's self-assessment:
-                    // an informational question with an UNKNOWN store gets
-                    // searched even if the model thinks it already knows.
-                    let mustSearch = plannerNeeds || Self.looksInformational(text)
-                    let queries = mustSearch
-                        ? (planned.isEmpty
-                            ? (Self.searchTarget(from: text).map { [$0] }
-                                ?? [AgentToolParser.keywordQuery(from: text)])
-                            : planned)
-                        : []
-                    for q in queries {
-                        let r = await WebSearchEngine.shared.search(query: q)
-                        let snippet = r.contextSnippet.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if !snippet.isEmpty {
-                            webQueryUsed = q
-                            // The grounding rule rides INSIDE the evidence
-                            // block: a real run blended fresh evidence with
-                            // stale training prose ("100K tokens") with no
-                            // way to tell which was which.
-                            webEvidence = "[WEB EVIDENCE — query chosen by Vera: \(q)]\n"
-                                + "Source: \(r.url)\n\(String(snippet.prefix(1800)))\n"
-                                + "RULES: For claims about current products, versions, prices or dates, "
-                                + "use ONLY this evidence and name the source. If the evidence does not "
-                                + "cover a point, write (未検証) after that claim instead of reciting "
-                                + "training data as fact.\n[END WEB EVIDENCE]"
-                            webSourceHost = URL(string: r.url)?.host ?? ""
-                            // Feed the query memory: this question→query
-                            // pairing worked; next time it is reused, and
-                            // the pair table learns the mapping.
-                            await EternalMemoryStore.shared.recordQueryPlan(
-                                question: text, query: q, url: r.url)
-                            break
-                        }
-                    }
-                }
-
-                // The parallel drive, visible but faint: one think-styled
-                // status line, not a wall of verdict text.
-                let recallHits = recall.components(separatedBy: "🧠").count - 1
-                let webNote = webQueryUsed.isEmpty
-                    ? ""
-                    : " · web \"\(webQueryUsed)\"\(webSourceHost.isEmpty ? "" : " (\(webSourceHost))")"
-                await MainActor.run {
-                    self.addSystemMessage(self.t(
-                        "<think>\n🧿 Vera-a parallel: verdict \(verdict.isEmpty ? "-" : verdict) · recall \(max(recallHits, 0)) hit(s)\(webNote) → injected; learning runs after the reply\n</think>",
-                        "<think>\n🧿 Vera-a並行駆動: 判定 \(verdict.isEmpty ? "-" : verdict)・想起 \(max(recallHits, 0))件\(webNote) → 注入済み・応答後に学習ループ\n</think>"))
-                }
-
-                // This is NOT a Q&A shortcut: the FULL agent loop runs —
-                // file edits, tools, everything — with Vera's background
-                // (verified fact + associations) prepended to the task and
-                // the memory layer forced to .vera inside runAgentLoop, so
-                // recall/save/governance/skill-proposal all fire while the
-                // agent works. An UNKNOWN verdict injects nothing.
-                var bg: [String] = []
-                // What is already open comes FIRST: a run that searched
-                // from scratch for a page it had just opened is the
-                // failure this prevents.
-                let openPage = await MainActor.run { BrowserSession.shared.contextBlock() }
-                if !openPage.isEmpty { bg.append(openPage) }
-                // "この画面を操作して" points at something we can see but the
-                // model cannot. Name it, so the reference resolves to the app
-                // the user is actually in — any app, not just a browser.
-                let pointing = await MainActor.run { ForegroundAppOperator.pointingContext(for: text) }
-                if !pointing.isEmpty { bg.append(pointing) }
-                if hasVerifiedAnswer {
-                    bg.append("[VERIFIED MEMORY — deterministic, citable]\n\(String(raw.prefix(1200)))")
-                }
-                if !recall.isEmpty { bg.append(recall) }
-                if !webEvidence.isEmpty { bg.append(webEvidence) }
-                let instruction = bg.isEmpty
-                    ? text
-                    : bg.joined(separator: "\n\n") + "\n\n[TASK]\n" + text
-
-                let history = await MainActor.run { Array(self.messages.dropLast()) }
-                // Council only when the CHAT model is a JGEN — the memory
-                // organ being loaded is not a council; asking for one just
-                // printed "Council needs a JGEN" every turn.
-                let chatIsJGen = await MainActor.run {
-                    if case .jcrossReady = self.modelStatus { return true }
-                    return false
-                }
-                let useLayered = CouncilSettingsStore.shared.useCouncilForChat && chatIsJGen
-                await self.runAgentLoop(instruction: instruction,
-                                        images: snapshotImages,
-                                        files: snapshotFiles,
-                                        previousMessages: history,
-                                        useLayered: useLayered)
-                await MainActor.run { self.isGenerating = false }
-            }
-            return
-        }
-
-        // Auto-create session if there isn't one yet
+// Auto-create session if there isn't one yet
         if sessions.activeSessionId == nil {
             _ = sessions.newSession(messages: messages, workspacePath: workspaceURL?.path)
         }
@@ -3071,11 +2841,7 @@ final class AppState: ObservableObject {
             cortex: cortex,
             selfFixMode: snap_selfFix,
             operationMode: snap_operationMode,
-            // Vera-a mode forces the Vera memory layer: recall and the
-            // save gate route through vera-memory regardless of what the
-            // session had, because managing that memory IS the mode.
-            memoryLayer: veraEngineMode == .standalone
-                ? .vera : (sessions.activeSession?.activeLayer ?? .l2),
+            memoryLayer: sessions.activeSession?.activeLayer ?? .l2,
             chatSessionId: vxChatSessionId,
             previousMessages: previousMessages,
             onProgress: handler
@@ -3544,10 +3310,16 @@ final class AppState: ObservableObject {
 
         }
 
+        // The app opens on the Atelier, always. The stored mode is read only
+        // to migrate the two removed values off disk — a build with the old
+        // string still saved would otherwise fail to decode and silently keep
+        // whatever the default happened to be, which is the same bug in a
+        // quieter form.
         if let raw = ud.string(forKey: "vera_engine_mode"),
-           let mode = VeraEngineMode(rawValue: raw) {
-            veraEngineMode = mode
+           raw == "council" || raw == "standalone" {
+            ud.set(VeraEngineMode.atelier.rawValue, forKey: "vera_engine_mode")
         }
+        veraEngineMode = .atelier
 
         // ── Anthropic ──────────────────────────────────────────────────────
         if let key = ud.string(forKey: "anthropic_api_key"), !key.isEmpty {

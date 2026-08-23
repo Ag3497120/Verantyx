@@ -89,7 +89,7 @@ enum VeraSettingsRegistry {
                words: ["記憶", "きおく", "memory", "記憶パネル"],
                destination: .panel(.memory)),
         Screen(id: "modes", ja: "モード", en: "Modes",
-               blurbJa: "どの性格が答えるか。合議 / Vera-a / Vera / Bot / LLM",
+               blurbJa: "どの性格が答えるか。Atelier / Vera / Bot / LLM",
                words: ["モード", "modes", "モード切替"],
                destination: .panel(.modes)),
         Screen(id: "model", ja: "モデル", en: "Model",
@@ -113,9 +113,9 @@ enum VeraSettingsRegistry {
                blurbJa: "記憶ストア・JGENの選択・MCPサーバー一覧",
                words: ["mcp", "外部運用", "外部"],
                destination: .full(.mcp)),
-        Screen(id: "veraSettings", ja: "Vera-a設定", en: "Vera-a settings",
-               blurbJa: "Vera-a機能のドック全体",
-               words: ["vera-a設定", "vera設定", "ドック", "dock"],
+        Screen(id: "veraSettings", ja: "Vera 設定", en: "Vera settings",
+               blurbJa: "Vera 機能のドック全体",
+               words: ["vera設定", "vera設定", "ドック", "dock"],
                destination: .full(.veraSettings)),
         Screen(id: "growth", ja: "学習（成長）", en: "Learning",
                blurbJa: "何を覚え、何が隔離されたか",
@@ -238,7 +238,7 @@ enum VeraSummon {
     /// Full-window surfaces, formerly the rail's icons.
     private static let surfaces: [String: AppState.FullSurface] = [
         "mcp": .mcp, "外部運用": .mcp, "外部": .mcp,
-        "vera-a設定": .veraSettings, "vera設定": .veraSettings,
+        "vera設定": .veraSettings, "vera設定": .veraSettings,
         "ドック": .veraSettings,
         "成長": .growth, "学習": .growth, "growth": .growth,
         "進化": .evolution, "自己進化": .evolution, "evolution": .evolution,
@@ -258,9 +258,8 @@ enum VeraSummon {
     /// Switching the engine mode by name. Same closed discipline.
     private static let modes: [String: AppState.VeraEngineMode] = [
         "veraモード": .veraModel, "vera": .veraModel,
-        "vera-aモード": .standalone, "vera-a": .standalone,
         "llmモード": .localLLM, "llm": .localLLM,
-        "jgen合議": .council, "合議": .council, "jgen": .council,
+        "atelier": .atelier, "アトリエ": .atelier, "服飾": .atelier,
         "veraぼっと": .veraBot, "ぼっと": .veraBot, "bot": .veraBot,
         "verabot": .veraBot, "vera bot": .veraBot,
     ]

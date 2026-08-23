@@ -346,9 +346,6 @@ struct AgentChatView: View {
                 set: { app.veraEngineMode = $0 })) {
                 Text("Atelier").tag(AppState.VeraEngineMode.atelier)
                 Divider()
-                Text(app.t("Council (jgen)", "jgen 合議"))
-                    .tag(AppState.VeraEngineMode.council)
-                Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
                 Text("Vera").tag(AppState.VeraEngineMode.veraModel)
                 Text("Bot").tag(AppState.VeraEngineMode.veraBot)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
@@ -359,13 +356,12 @@ struct AgentChatView: View {
             .controlSize(.small)
             .font(.system(size: 10))
             .help(app.t(
-                "Council routes through jgen/LLM agents. Vera-a is the dual "
-                + "path: the store's typed verdict first (verbatim), eternal "
-                + "recall injected, and your active chat model composes under "
-                + "it; the turn ends with the save gate.",
-                "合議は jgen/LLM エージェント経路。Vera-a は併用経路: "
-                + "型付き判定を原文のまま先頭に、永遠記憶を注入し、"
-                + "会話中のモデルがその下で回答を合成。最後に保存ゲート。"))
+                "Atelier is the garment workbench. Vera answers from the store "
+                + "alone — typed verdicts, no LLM in the turn. Bot answers about "
+                + "the app itself. LLM is just a model, with nothing in front of it.",
+                "Atelier は服飾の作業面。Vera は台帳だけで答える(型付き判定・"
+                + "ターン内でLLMを呼ばない)。Bot はこのアプリについて答える。"
+                + "LLM は素のモデル。"))
 
             // Which stamped Vera release answers — only when one does.
             if app.veraEngineMode == .veraModel {
@@ -461,12 +457,6 @@ struct AgentChatView: View {
                 // arrived in. Still when nothing is asked; lit by the
                 // real call when one is. It reports and never decides —
                 // no gate reads this, exactly like the grain band.
-                // Vera mode has the cross as its own pane; only the
-                // dual path (Vera-a) needs the band over the transcript.
-                if app.veraEngineMode == .standalone {
-                    VeraRouteBand()
-                        .padding(.leading, 14)
-                }
                 Spacer()
                 Button {
                     withAnimation(.easeInOut(duration: 0.15)) {

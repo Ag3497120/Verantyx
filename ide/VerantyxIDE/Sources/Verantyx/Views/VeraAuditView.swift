@@ -473,21 +473,6 @@ struct VeraAuditView: View {
     /// Gatekeeper bar, with less in it.
     private var chatToolbar: some View {
         HStack(spacing: 8) {
-            // The same chip that entered this mode leaves it — identical
-            // gesture to the Gatekeeper/Vera-a chip in the model bar.
-            Button {
-                app.isVeraAMode.toggle()
-            } label: {
-                Text("Vera-a")
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(Color.purple)
-                    .padding(.horizontal, 6).padding(.vertical, 4)
-                    .background(Color.purple.opacity(0.1))
-                    .cornerRadius(4)
-            }
-            .buttonStyle(.plain)
-            .help(app.t("Back to Gatekeeper mode", "ゲートキーパーモードへ戻る"))
-
             // JGEN only, by design: the agent's memory injection rides the
             // hidden-state engine, and an Ollama model would silently get a
             // memoryless variant of the same conversation.
@@ -620,7 +605,7 @@ struct VeraAuditView: View {
         } else {
             VStack(alignment: .leading, spacing: 3) {
                 HStack(spacing: 6) {
-                    Text("Vera-a")
+                    Text("Vera")
                         .font(.system(size: 8, weight: .bold)).foregroundStyle(Color.purple)
                     copyButton(m.text)
                 }
@@ -882,7 +867,7 @@ final class VeraAAgent: ObservableObject {
         else { return }
         var req = URLRequest(url: url)
         req.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
-        req.setValue("verantyx-ide vera-a", forHTTPHeaderField: "User-Agent")
+        req.setValue("verantyx-ide vera", forHTTPHeaderField: "User-Agent")
         req.timeoutInterval = 15
         guard let (data, _) = try? await URLSession.shared.data(for: req),
               let arr = (try? JSONSerialization.jsonObject(with: data)) as? [[String: Any]]
@@ -923,7 +908,7 @@ final class VeraAAgent: ObservableObject {
 
     /// One engine turn under the audit framing, usable from anywhere.
     ///
-    /// This is THE definition of what "Vera-a" answers like — the audit
+    /// This is THE definition of what Vera answers like — the audit
     /// screen's send() and the normal chat's 単体 Vera-a segment both call
     /// it, so the two can no longer drift apart (they had: the segment was
     /// still a bare verdict-reader while the mode had grown memory, demand,

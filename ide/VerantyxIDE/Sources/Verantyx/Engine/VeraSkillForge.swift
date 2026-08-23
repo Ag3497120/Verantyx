@@ -136,7 +136,7 @@ enum VeraJGenSkillProposer {
             payload: ["[MCP_CALL: vera-memory.ask]{\"query\": \"\(short.replacingOccurrences(of: "\"", with: ""))\"}[/MCP_CALL]"]
         )
         node.source = "vera-propose"
-        node.forgedBy = "vera-alpha-save-hook"
+        node.forgedBy = "veralpha-save-hook"
 
         let stamp = "SKILL \(name): \(short) → vera-memory.ask"
             + (hint.map { " [limb:\($0.rawValue)]" } ?? "")

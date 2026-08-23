@@ -1591,7 +1591,7 @@ actor AgentToolExecutor {
         let usable = tallies.filter { $0.successes > 0 }
         let broken = tallies.filter { $0.rate < 0.4 && $0.attempts >= 2 }
 
-        var lines: [String] = ["== \(app) の実績（vera-a に蓄積された経験）=="]
+        var lines: [String] = ["== \(app) の実績（vera に蓄積された経験）=="]
         if let best = usable.first {
             lines.append("• まず試す: \(best.method)（\(best.successes)/\(best.attempts) 成功）")
         }
@@ -1799,13 +1799,13 @@ actor AgentToolExecutor {
            ev.browser + ev.headless >= 2 {
             if ev.browser > ev.headless {
                 return (true, AppLanguage.shared.t(
-                    "vera-a: \(ev.browser)/\(ev.browser + ev.headless) similar goals needed the browser (e.g. \"\(ev.example)\")",
-                    "vera-a: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.browser) 件がブラウザ経路（例:「\(ev.example)」）"))
+                    "vera: \(ev.browser)/\(ev.browser + ev.headless) similar goals needed the browser (e.g. \"\(ev.example)\")",
+                    "vera: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.browser) 件がブラウザ経路（例:「\(ev.example)」）"))
             }
             if ev.headless > ev.browser * 2 {
                 return (false, AppLanguage.shared.t(
-                    "vera-a: \(ev.headless)/\(ev.browser + ev.headless) similar goals were answered headlessly",
-                    "vera-a: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.headless) 件がヘッドレスで解決"))
+                    "vera: \(ev.headless)/\(ev.browser + ev.headless) similar goals were answered headlessly",
+                    "vera: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.headless) 件がヘッドレスで解決"))
             }
         }
 
@@ -2765,7 +2765,7 @@ actor AgentToolExecutor {
             [APP_CAPS]
             \(caps.summary)
             \(learned.isEmpty
-              ? "（このアプリの操作実績はまだありません — 試した結果は vera-a に残ります）"
+              ? "（このアプリの操作実績はまだありません — 試した結果は vera に残ります）"
               : learned)
             """
 

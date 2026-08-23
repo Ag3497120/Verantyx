@@ -398,7 +398,7 @@ struct NewSessionSheet: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                Text(app.t("Vera-a memory", "Vera-aの記憶"))
+                Text(app.t("Vera memory", "Vera の記憶"))
                     .font(.system(size: 10, weight: .semibold)).foregroundStyle(.secondary)
                 Picker("", selection: $memory) {
                     Text(app.t("Continue accumulated memory", "これまでの記憶を引き継ぐ")).tag(Memory.carry)

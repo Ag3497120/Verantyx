@@ -328,8 +328,8 @@ class DesktopVisionBridge {
         } else if fallbackCalib != nil {
             await MainActor.run {
                 AppState.shared?.addSystemMessage(AppLanguage.shared.t(
-                    "<think>\n🖱 Calibration probe measured nothing — using a trajectory vera-a remembers working here\n</think>",
-                    "<think>\n🖱 校正プローブが反応なし — vera-aが覚えている成功時の軌跡を使用します\n</think>"))
+                    "<think>\n🖱 Calibration probe measured nothing — using a trajectory vera remembers working here\n</think>",
+                    "<think>\n🖱 校正プローブが反応なし — veraが覚えている成功時の軌跡を使用します\n</think>"))
             }
         }
         

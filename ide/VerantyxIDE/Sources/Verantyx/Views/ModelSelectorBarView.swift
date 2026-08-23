@@ -125,53 +125,41 @@ struct ModelSelectorBarView: View {
                 // The Gatekeeper chip is the door to every non-chat
                 // surface: a menu whose picks swap the CENTER surface
                 // (MCP/model settings, Vera-a settings, growth,
-                // self-evolution) — plus the Vera-a mode switch it always
-                // carried. Selections land in HumanPriorityModeView
+                // self-evolution). Selections land in HumanPriorityModeView
                 // through `app.fullSurface`, the one route these screens
                 // have.
                 Menu {
-                    Button(app.isVeraAMode
-                           ? app.t("Leave Vera-a mode", "Vera-aモードを終了")
-                           : app.t("Vera-a mode (audit screen)", "Vera-aモード（監査画面）")) {
-                        app.fullSurface = nil
-                        app.isVeraAMode.toggle()
-                    }
-                    Divider()
-                    // Each surface takes the FULL window (like the Vera-a
-                    // audit screen), not a pane beside the chat.
+                    // Each surface takes the FULL window, not a pane beside
+                    // the chat.
                     Button(app.t("MCP / external operation", "MCP・外部運用")) {
-                        app.isVeraAMode = false
                         app.fullSurface = .mcp
                     }
                     Button(app.t("Model / API settings", "モデル・API設定")) {
                         app.showSettingsRequested = true
                     }
-                    Button(app.t("Vera-a settings", "Vera-a設定")) {
-                        app.isVeraAMode = false
+                    Button(app.t("Vera settings", "Vera 設定")) {
                         app.fullSurface = .veraSettings
                     }
                     Button(app.t("Learning / Growth", "学習（成長）")) {
-                        app.isVeraAMode = false
                         app.fullSurface = .growth
                     }
                     Button(app.t("Self-evolution", "自己進化")) {
-                        app.isVeraAMode = false
                         app.fullSurface = .evolution
                     }
                 } label: {
-                    Text(app.isVeraAMode ? "Vera-a" : "Gatekeeper")
+                    Text("Gatekeeper")
                         .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(app.isVeraAMode ? Color.purple : Color.green)
+                        .foregroundStyle(Color.green)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 4)
-                        .background((app.isVeraAMode ? Color.purple : Color.green).opacity(0.1))
+                        .background(Color.green.opacity(0.1))
                         .cornerRadius(4)
                 }
                 .menuStyle(.borderlessButton)
                 .menuIndicator(.hidden)
                 .fixedSize()
-                .help(app.t("Mode & surfaces: Vera-a, MCP, model settings, learning",
-                             "モードと画面: Vera-a・MCP・モデル設定・学習"))
+                .help(app.t("Mode & surfaces: Vera, MCP, model settings, learning",
+                             "モードと画面: Vera・MCP・モデル設定・学習"))
 
                 modelMenu
 
@@ -184,8 +172,8 @@ struct ModelSelectorBarView: View {
                         .foregroundStyle(Color(red: 0.55, green: 0.8, blue: 1.0))
                 }
                 .buttonStyle(.plain)
-                .help(app.t("Model roles: chat / memory organ / Vera-a composer",
-                             "モデルの役割: 会話用・記憶用・Vera-a用"))
+                .help(app.t("Model roles: chat / memory organ / Vera composer",
+                             "モデルの役割: 会話用・記憶用・Vera用"))
                 .popover(isPresented: $showModelRoles) { modelRolesPopover }
 
                 // JGEN-only: the memory sources and layer knobs only mean
@@ -388,47 +376,6 @@ struct ModelSelectorBarView: View {
             Text(app.t(
                 "Small JGEN recommended (autoloads at launch, ≤9 GB). Loads the engine only — chat is untouched. Note: JGEN chat shares this one engine slot.",
                 "小型JGEN推奨（起動時に自動ロード・9GB以下）。エンジンのみロードし、会話モデルには触れません。注: 会話にJGENを使う場合はこの1エンジンを共有します。"
-            ))
-            .font(.system(size: 9)).foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-
-            // Vera-a用 — who composes under the verdict.
-            HStack(spacing: 8) {
-                Text("Vera-a")
-                    .font(.system(size: 11)).frame(width: 70, alignment: .leading)
-                Menu {
-                    Button(app.t("Follow chat model (auto)", "会話用に従う（自動）")) {
-                        app.veraAComposerModel = "auto"
-                    }
-                    if !lmStudioModels.isEmpty {
-                        Section("LM Studio") {
-                            ForEach(lmStudioModels, id: \.self) { m in
-                                Button(m) { app.veraAComposerModel = "lmstudio:\(m)" }
-                            }
-                        }
-                    }
-                    if !app.ollamaModels.isEmpty {
-                        Section("Ollama") {
-                            ForEach(app.ollamaModels, id: \.self) { m in
-                                Button(m) { app.veraAComposerModel = "ollama:\(m)" }
-                            }
-                        }
-                    }
-                } label: {
-                    Text(app.veraAComposerModel == "auto"
-                         ? app.t("auto (chat model)", "自動（会話用と同じ）")
-                         : app.veraAComposerModel
-                             .replacingOccurrences(of: "lmstudio:", with: "LM Studio: ")
-                             .replacingOccurrences(of: "ollama:", with: "Ollama: "))
-                        .font(.system(size: 10, design: .monospaced))
-                        .lineLimit(1).truncationMode(.middle)
-                }
-                .menuStyle(.borderlessButton)
-                .frame(maxWidth: 220, alignment: .leading)
-            }
-            Text(app.t(
-                "Composes the conversational part of Vera-a mode, under the verbatim verdict.",
-                "Vera-aモードで型付き判定の下に会話文を合成するモデルです。"
             ))
             .font(.system(size: 9)).foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)

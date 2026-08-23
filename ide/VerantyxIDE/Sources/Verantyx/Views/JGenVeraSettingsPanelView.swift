@@ -35,8 +35,8 @@ struct JGenVeraSettingsPanelView: View {
             pathRow(app.t("Corpus (vera-corpus)", "コーパス (vera-corpus)"),
                     value: $veraCorpusPath, key: "vera.corpusPath",
                     validate: { FileManager.default.fileExists(atPath: $0 + "/build/vera.db") })
-            Text(app.t("Empty = the ~/Projects defaults. Takes effect on the next Vera-a engine start.",
-                       "空欄 = ~/Projects の既定。次回のVera-aエンジン起動から反映されます。"))
+            Text(app.t("Empty = the ~/Projects defaults. Takes effect on the next Vera engine start.",
+                       "空欄 = ~/Projects の既定。次回のVera エンジン起動から反映されます。"))
                 .font(.system(size: 9)).foregroundStyle(.tertiary)
         }
         .padding(8)

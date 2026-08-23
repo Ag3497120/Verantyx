@@ -157,12 +157,10 @@ struct SettingsView: View {
         case .full(let f):
             onDismiss?()
             app.requestedDockTab = nil
-            app.isVeraAMode = false
             app.fullSurface = f
         case .dock(let tab):
             onDismiss?()
             app.requestedDockTab = tab
-            app.isVeraAMode = false
             app.fullSurface = .veraSettings
         case .settingsTab(let t):
             if let tab = SettingsTab(rawValue: t) { selectedTab = tab }

@@ -171,8 +171,6 @@ struct VeraSummonedPanel: View {
     private func label(for m: AppState.VeraEngineMode) -> String {
         switch m {
         case .atelier:    return "Vera Atelier(服飾)"
-        case .council:    return "jgen 合議"
-        case .standalone: return "Vera-a(併用)"
         case .veraModel:  return "Vera(単体・LLM不使用)"
         case .veraBot:    return "Vera Bot(設定・UIの案内)"
         case .localLLM:   return "LLM"
@@ -183,8 +181,6 @@ struct VeraSummonedPanel: View {
     private func say(for m: AppState.VeraEngineMode) -> String {
         switch m {
         case .atelier:    return "atelier"
-        case .council:    return "合議"
-        case .standalone: return "vera-a"
         case .veraModel:  return "vera"
         case .veraBot:    return "bot"
         case .localLLM:   return "llm"

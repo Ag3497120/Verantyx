@@ -110,7 +110,7 @@ struct ActivityBarView: View {
         case .git:       return app.t("Source Control", "ソース管理")
         case .evolution: return app.t("IDE patches (build/PR)", "IDEパッチ（ビルド/PR）")
         case .growth:    return app.t("Vera growth (M/O + quarantine)", "Vera成長（M/O・検疫）")
-        case .vera:      return app.t("Vera-a features (memory/3D/two-Mac…)", "Vera-a機能（記憶・3D・2台…）")
+        case .vera:      return app.t("Vera features (memory/3D/two-Mac…)", "Vera 機能（記憶・3D・2台…）")
         case .extensions: return app.t("Extensions", "拡張機能")
         case .settings:  return app.t("Settings", "設定")
         }

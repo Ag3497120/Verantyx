@@ -63,16 +63,9 @@ struct HumanPriorityModeView: View {
     }
 
     var body: some View {
-        // Milestone T: Vera-a mode is a completely separate top-level
-        // layout (chat full-screen + a feature side panel, no activity
-        // bar, no file tree) -- branching here, before the existing
-        // ZStack, means the normal layout below is entirely untouched
-        // when this is off (the default).
-        if app.isVeraAMode {
-            veraAModeLayout
-        } else if let surface = app.fullSurface {
-            // Gatekeeper-menu surfaces take the WHOLE window, exactly like
-            // Vera-a mode does — not a pane swap beside the chat.
+        // A Gatekeeper-menu surface takes the WHOLE window — not a pane
+        // swap beside the chat.
+        if let surface = app.fullSurface {
             fullSurfaceLayout(surface)
         } else {
             normalModeBody
@@ -94,7 +87,7 @@ struct HumanPriorityModeView: View {
                 Text({
                     switch surface {
                     case .mcp:          return app.t("MCP", "MCP")
-                    case .veraSettings: return app.t("Vera-a settings", "Vera-a設定")
+                    case .veraSettings: return app.t("Vera settings", "Vera 設定")
                     case .growth:       return app.t("Learning / Growth", "学習（成長）")
                     case .evolution:    return app.t("Self-evolution", "自己進化")
                     }
@@ -334,14 +327,6 @@ struct HumanPriorityModeView: View {
         }
     }
 
-    private var veraAModeLayout: some View {
-        // Milestone U: the mode's body is the audit screen — the published
-        // page live on one side, its source and the publish lever on the
-        // other, gap resolution through the page's own governed flow. The
-        // previous chat layout is preserved below as veraALegacyLayout,
-        // unmounted: replacing a screen should not delete its history.
-        VeraAuditView().environmentObject(app)
-    }
 
     private var veraALegacyLayout: some View {
         HStack(spacing: 0) {
@@ -391,13 +376,6 @@ struct HumanPriorityModeView: View {
                 .help(tab.title(app))
             }
             Spacer()
-            // Way back out, in the same place the way in was.
-            Button { app.isVeraAMode = false } label: {
-                Image(systemName: "arrow.uturn.backward")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.55))
-                    .frame(width: 40, height: 34)
-            }
             .buttonStyle(.plain)
             .help(app.t("Back to the editor layout", "エディタ表示に戻る"))
         }
@@ -726,9 +704,7 @@ struct HumanPriorityModeView: View {
                     Picker("", selection: Binding(
                         get: { app.veraEngineMode },
                         set: { app.veraEngineMode = $0 })) {
-                        Text(app.t("Council (jgen)", "jgen 合議"))
-                            .tag(AppState.VeraEngineMode.council)
-                        Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
+                        Text("Atelier").tag(AppState.VeraEngineMode.atelier)
                         Text("Vera").tag(AppState.VeraEngineMode.veraModel)
                         Text("Bot")
                             .tag(AppState.VeraEngineMode.veraBot)

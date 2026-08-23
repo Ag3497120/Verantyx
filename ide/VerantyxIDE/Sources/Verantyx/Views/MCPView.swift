@@ -221,8 +221,8 @@ struct MCPView: View {
                     .buttonStyle(.borderless)
                 }
                 Text(app.t(
-                    "Vera-a runs natively inside this IDE — nothing to configure here. Paste the copied snippet into Claude Code (.mcp.json), Claude Desktop (claude_desktop_config.json) or Cursor (.cursor/mcp.json) to point them at the same vera-memory binary and the same store.",
-                    "このIDE内のVera-aはネイティブ動作なので、ここでの設定は不要です。コピーした設定を Claude Code (.mcp.json)、Claude Desktop (claude_desktop_config.json)、Cursor (.cursor/mcp.json) に貼ると、同じ vera-memory バイナリ・同じ記憶ストアに繋がります。"
+                    "Vera runs natively inside this IDE — nothing to configure here. Paste the copied snippet into Claude Code (.mcp.json), Claude Desktop (claude_desktop_config.json) or Cursor (.cursor/mcp.json) to point them at the same vera-memory binary and the same store.",
+                    "このIDE内のVeraはネイティブ動作なので、ここでの設定は不要です。コピーした設定を Claude Code (.mcp.json)、Claude Desktop (claude_desktop_config.json)、Cursor (.cursor/mcp.json) に貼ると、同じ vera-memory バイナリ・同じ記憶ストアに繋がります。"
                 ))
                 .font(.system(size: 9))
                 .foregroundStyle(.secondary)
