@@ -4080,6 +4080,31 @@ def build(store_path: str):
                           ensure_ascii=False)
 
     @mcp.tool()
+    def sew_and_drape(fabric: str, iterations: int = 600,
+                      cell: float = 6.0) -> str:
+        """**型紙を縫い合わせて落とす。** ここまでで唯一、この一着を落とす口。
+
+        事前登録: experiments/garment/PREREG13_SEW.md
+
+        立体(寸法から作る塊)・型紙(寸法から引く平面)・布シミュ(平らな
+        正方形)は、それぞれ別に寸法から生えていて互いを見ていなかった。
+        ここが繋ぐ。
+
+        **縫い目は型紙の名前付き辺から決まる** — 肩線と肩線、脇線と脇線、
+        袖山と袖ぐり。近いから縫う、をやると型紙を無視した形になる。
+
+        検査(縫い目が閉じる・順序不変・多点始動)に通ったときだけ形を
+        返します。割れたら**片方を選ばず全部の形を返します。**"""
+        from .garment_drape import material_from as _mat
+        from .garment_material import Fabrics
+        from .garment_sew import validate as _validate
+
+        mat = _mat(Fabrics.load(_fabrics_path()), fabric)
+        return json.dumps(
+            _validate(_measures(), mat, cell=cell, iterations=iterations),
+            ensure_ascii=False)
+
+    @mcp.tool()
     def pattern_draft() -> str:
         """型紙を引く。**この道具の簡易製図であって、既存の製図法ではない。**
 

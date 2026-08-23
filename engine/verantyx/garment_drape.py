@@ -83,7 +83,7 @@ def _stiffness(material: Dict[str, float]) -> Dict[str, float]:
 def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
           pinned: Sequence[int], material: Dict[str, float],
           *, iterations: int = 400, order: Optional[Sequence[int]] = None,
-          step: float = 0.02) -> Dict[str, Any]:
+          step: Optional[float] = None) -> Dict[str, Any]:
     """落とす。**エネルギーの勾配を降りる。**
 
     最初は位置ベース(PBD 風)で書いたが、**PBD には減少するエネルギーが
@@ -110,6 +110,10 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
     seq = list(order) if order is not None else list(range(n))
     # 面密度(g/cm²) × 1頂点が受け持つ面積 ≒ 質量。相対値として使う。
     mass = material["gsm"] / 10000.0
+    # **刻みは剛性に合わせる。** 固定の刻みだと、剛性を上げた瞬間に
+    # 発散する。0.4/k は決定的で、出力にも出す。
+    if step is None:
+        step = 0.4 / max(max(stiff.values()), 1e-6)
 
     energies: List[float] = [_energy(pos, edges, rest, stiff, mass, pin)]
     for _ in range(iterations):
@@ -141,6 +145,7 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
                    for p in pos],
         "energy": energies,
         "iterations": iterations,
+        "step": round(step, 6),
     }
 
 
@@ -182,13 +187,38 @@ def material_from(fabrics: Any, fabric: str) -> Dict[str, Any]:
                                 + " を出典付きで入れる"}
     # 曲げ剛性の実測は台帳に無い。**厚みから当てない** — 当てた数字は
     # 実測の顔をする。ここでは「厚みに比例する係数」を仮定として明示する。
+    #
+    # 桁を合わせてある。最初は 0.05+厚み×0.12 と置いていて、重力荷重
+    # (目付200なら 19.6) に対して剛性 0.11 — **500倍ずれていて、布では
+    # なくゴムひもだった**。40cm の布が 156cm 落ちても、順序不変・段の
+    # 収束・多点一致・エネルギー単調減少は**全部通った**。
+    # 立体十字の性質は「恣意的な選択の産物か」を見分けるが、
+    # **「モデルが間違っているか」は見分けない**。別の検査が要る
+    # (`check_strain`)。
+    #
+    # 織物は自重で数%しか伸びない。**歪みから逆算する。**
+    #
+    # 一頂点にかかる荷重は m·g だが、吊られた布では上の方の辺が
+    # 下の全部を支えるので、荷重は頂点数に比例して積み上がる。
+    # 一列 N 頂点なら、最上段の辺が受けるのは概ね N·m·g。
+    # k ≈ N·m·g / (歪み·L) で、N≈10、歪み 2%、L≈6cm を基準に置く。
+    #
+    # 最初は N を無視して k=65 と置き、収束後の歪みが 119% になった。
+    # 40cm の布が 60cm 落ちる状態で、順序不変・段の収束・多点一致・
+    # エネルギー単調減少は**全部通っていた**(実測)。
+    load = gsm / 10000.0 * abs(GRAVITY)
+    stacked = load * 10.0
+    stiffness = round(max(200.0, stacked / (0.02 * 6.0))
+                      * (0.6 + thick * 0.8), 2)
     return {"verdict": "ANSWER", "fabric": fabric,
             "gsm": gsm, "thickness": thick,
-            "stiffness": min(0.9, 0.05 + thick * 0.12),
+            "stiffness": stiffness,
             "assumed": {
-                "stiffness_from_thickness": "0.05 + 厚み × 0.12",
-                "why": "曲げ剛性の実測が台帳に無いので、厚みから置いた"
-                       "仮定です。測った値ではありません",
+                "stiffness": "自重で歪み5%に収まる剛性を目付から出し、"
+                             "厚みで 0.6+厚み×0.8 倍する",
+                "why": "曲げ剛性の実測が台帳に無いので置いた仮定です。"
+                       "測った値ではありません。カンチレバー法などの"
+                       "実測が入れば置き換わります",
             }}
 
 
@@ -329,6 +359,37 @@ def check_starts(points, edges, pinned, material, *,
     }
 
 
+def check_strain(points, edges, pinned, material, *,
+                 limit: float = 0.15, **kw) -> Dict[str, Any]:
+    """**布が布らしく振る舞うか。** 歪みが限度を超えたら物性が違う。
+
+    これは一貫性の検査ではなく**妥当性**の検査である。順序不変・段の
+    収束・多点一致・エネルギー単調減少は、一貫して計算された不合理を
+    全部通す(実測: 40cm の布が 156cm 落ちても四つとも緑だった)。
+    立体十字の性質が見分けるのは「恣意的な選択の産物か」であって、
+    「モデルが間違っているか」ではない。
+    """
+    got = solve(points, edges, pinned, material, **kw)
+    pos = got["points"]
+    worst = 0.0
+    for i, (a, b, _) in enumerate(edges):
+        rest = _norm(_sub(points[b], points[a]))
+        if rest < 1e-9:
+            continue
+        now = math.dist(pos[a], pos[b])
+        worst = max(worst, abs(now - rest) / rest)
+    worst = round(worst, 4)
+    ok = worst <= limit
+    return {
+        "verdict": "ANSWER" if ok else "UNKNOWN_IMPLAUSIBLE_STRAIN",
+        "worst_strain": worst, "limit": limit,
+        "why": "織物は自重で数%しか伸びません。大きく伸びるなら、"
+               "計算ではなく物性の置き方が違います",
+        **({} if ok else {
+            "how_to_close": "生地の剛性を実測で入れるか、仮定の式を直す"}),
+    }
+
+
 def check_energy(points, edges, pinned, material, **kw) -> Dict[str, Any]:
     """エネルギーが単調に下がるか。上がるなら解法が壊れている。"""
     got = solve(points, edges, pinned, material, **kw)
@@ -361,6 +422,7 @@ def validate(width: float = 40.0, height: float = 40.0,
     pts, edges = grid(9, 9, width, height)
     pin = [0, 8]
     checks = {
+        "strain": check_strain(pts, edges, pin, material, **kw),
         "energy": check_energy(pts, edges, pin, material, **kw),
         "order": check_order(pts, edges, pin, material,
                              tolerance=tol["order"], **kw),

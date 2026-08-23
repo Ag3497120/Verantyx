@@ -1,0 +1,91 @@
+{
+ "prereg": "experiments/garment/PREREG13_SEW.md",
+ "checks": {
+  "VF1_no_pattern_no_sewing": {
+   "pass": true,
+   "detail": {
+    "verdict": "UNKNOWN_NO_PATTERN",
+    "missing": [
+     "body_length",
+     "chest",
+     "shoulder"
+    ]
+   }
+  },
+  "VF2_seams_come_from_named_pattern_edges": {
+   "pass": true,
+   "detail": {
+    "seams": [
+     "前身頃/肩線 ↔ 後身頃/肩線",
+     "前身頃/脇線 ↔ 後身頃/脇線",
+     "袖/袖山 ↔ 前身頃/袖ぐり"
+    ],
+    "stitches": {
+     "前身頃/肩線 ↔ 後身頃/肩線": 7,
+     "前身頃/脇線 ↔ 後身頃/脇線": 7,
+     "袖/袖山 ↔ 前身頃/袖ぐり": 7
+    }
+   }
+  },
+  "VF3_every_vertex_remembers_its_piece": {
+   "pass": true,
+   "detail": {
+    "counts": {
+     "後身頃": 75,
+     "前身頃": 74,
+     "袖": 32
+    }
+   }
+  },
+  "VF4_the_seam_gap_shrinks_and_settles": {
+   "pass": true,
+   "detail": {
+    "first": 22.1435,
+    "at_500": 5.9989,
+    "at_2000": 5.9556,
+    "step": 0.000245
+   }
+  },
+  "VF5_the_validator_bites_and_withholds_the_shape": {
+   "pass": true,
+   "detail": {
+    "verdict": "UNKNOWN_LOCAL_MINIMUM",
+    "shapes_returned": 3,
+    "seam": "ANSWER",
+    "strict": "UNKNOWN_ORDER_DEPENDENT"
+   }
+  },
+  "VF6_deterministic": {
+   "pass": true,
+   "detail": {
+    "same_drape": true,
+    "same_build": true,
+    "vertices": 181
+   }
+  },
+  "VF7_the_sewn_garment_is_generated": {
+   "pass": true,
+   "detail": {
+    "observe_refused": true,
+    "assumption_shown": true
+   }
+  },
+  "VF8_the_sewn_garment_sits_in_a_local_minimum": {
+   "pass": true,
+   "detail": {
+    "iterations": [
+     400,
+     1500,
+     5000
+    ],
+    "start_differences": [
+     21.8386,
+     21.9019,
+     21.8963
+    ],
+    "does_not_shrink": true
+   }
+  }
+ },
+ "summary": "8/8 passed"
+}
