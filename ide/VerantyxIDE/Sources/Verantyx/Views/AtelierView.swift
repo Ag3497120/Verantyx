@@ -2365,6 +2365,14 @@ private struct EvidencePanel: View {
 private struct MaterialsPanel: View {
     @ObservedObject var m: AtelierModel
     @EnvironmentObject var app: AppState
+    @State private var newFabric = ""
+    @State private var newProp = "weight"
+    @State private var newValue = ""
+    @State private var newSource = ""
+    @State private var said = ""
+    @State private var inner = ""
+    @State private var outer = ""
+    @State private var layers = ""
 
     private var materialParts: [String] { m.nonSpatial }
 
@@ -2402,12 +2410,210 @@ private struct MaterialsPanel: View {
                             .font(.system(size: 11))
                             .foregroundStyle(AT.faint).padding(14)
                     }
+                    Divider().opacity(0.2).padding(.top, 10)
+                    fabricLibrary
+                    Divider().opacity(0.2)
+                    stack
                 }
                 .padding(.bottom, 12)
             }
         }
         .background(AT.bg)
-        .task { await m.load() }
+        .task {
+            await m.load()
+            await m.loadFabrics()
+        }
+    }
+
+    // MARK: 生地台帳（立体十字に載る）
+
+    /// 生地の性質。**出典が食い違えば片方を勝たせない。**
+    ///
+    /// ここが立体十字の一番素直な使い所です。同じ「メルトン」でも一社が
+    /// 420g/m²、別の資料が 450g/m² と書く。どちらかが嘘なのではなく、
+    /// 別のものを指している可能性がある。一つに丸めると、選んだことが
+    /// 消えます。
+    private var fabricLibrary: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(app.t("FABRIC LIBRARY", "生地台帳")).railHead()
+                Spacer()
+                Text("\(m.fabricCounts["contested"] ?? 0)"
+                     + app.t(" split", " 件が割れている"))
+                    .font(.system(size: 10))
+                    .foregroundStyle((m.fabricCounts["contested"] ?? 0) > 0
+                                     ? AT.bad : AT.faint)
+                    .padding(.trailing, 14)
+            }
+            .padding(.top, 8)
+            ForEach(m.fabricRows.filter { $0.state != "UNKNOWN_NOT_RECORDED" }) { r in
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 8) {
+                        Text(r.fabric).font(.system(size: 11,
+                                                    weight: .semibold))
+                        Text(r.prop).font(.system(size: 10,
+                                                  design: .monospaced))
+                            .foregroundStyle(AT.dim)
+                        Spacer(minLength: 0)
+                        if r.state == "CONTESTED" {
+                            Text(app.t("split", "割れている"))
+                                .font(.system(size: 9, weight: .semibold))
+                                .padding(.horizontal, 6).padding(.vertical, 1)
+                                .background(Capsule().stroke(AT.bad,
+                                                             lineWidth: 1))
+                                .foregroundStyle(AT.bad)
+                        }
+                    }
+                    if r.state == "CONTESTED" {
+                        // **両方見せる。** どちらかを選ぶのは人。
+                        ForEach(Array(r.sides.enumerated()),
+                                id: \.offset) { _, side in
+                            HStack(spacing: 6) {
+                                Text(side.value)
+                                    .font(.system(size: 12,
+                                                  weight: .semibold))
+                                Text("← " + side.sources
+                                        .joined(separator: " · "))
+                                    .font(.system(size: 9,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                            }
+                        }
+                        Text("→ " + r.howToClose).font(.system(size: 10))
+                            .foregroundStyle(AT.warn)
+                    } else {
+                        HStack(spacing: 6) {
+                            Text(r.value).font(.system(size: 12,
+                                                       weight: .semibold))
+                            Text(r.sources.joined(separator: " · "))
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                    }
+                }
+                .padding(.horizontal, 14).padding(.vertical, 5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Divider().opacity(0.1)
+            }
+            recorder
+        }
+    }
+
+    private var recorder: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 6) {
+                TextField(app.t("fabric", "生地名"), text: $newFabric)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                    .frame(width: 120)
+                Picker("", selection: $newProp) {
+                    Text("weight (g/m²)").tag("weight")
+                    Text("thickness (mm)").tag("thickness")
+                    Text("width (cm)").tag("width")
+                    Text(app.t("composition", "組成")).tag("composition")
+                }.labelsHidden().frame(width: 140)
+                TextField(app.t("value", "値"), text: $newValue)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                    .frame(width: 80)
+            }
+            HStack(spacing: 8) {
+                TextField(app.t("source (required)", "出典（必須）"),
+                          text: $newSource)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                Button(app.t("Place", "置く")) {
+                    Task {
+                        said = await m.addFabric(fabric: newFabric,
+                                                 prop: newProp,
+                                                 value: newValue,
+                                                 source: newSource)
+                        if said == "ANSWER" { newValue = "" }
+                    }
+                }
+                .font(.system(size: 11))
+                .disabled(newFabric.trimmingCharacters(in: .whitespaces).isEmpty
+                          || newValue.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
+            if !said.isEmpty && said != "ANSWER" {
+                Text(said).font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.bad)
+            }
+            Text(app.t("A property with no source is refused — an unsourced "
+                       + "weight is not even a number somebody said.",
+                       "出典の無い性質は断ります。出典の無い目付は、"
+                       + "誰かが言った数字ですらありません。"))
+                .font(.system(size: 9)).foregroundStyle(AT.faint)
+        }
+        .padding(13)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(AT.panel)
+    }
+
+    // MARK: 重ね着（引き算）
+
+    /// 重ねて入るか。**布の落ち方は計算していない。**
+    private var stack: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(app.t("LAYERING — subtraction, not drape",
+                       "重ね着 — 引き算であって着装計算ではない")).railHead()
+                .padding(.top, 8)
+            HStack(spacing: 6) {
+                TextField(app.t("inner girth", "内側の外周"), text: $inner)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                    .frame(width: 100)
+                TextField(app.t("outer girth", "外側の内周"), text: $outer)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                    .frame(width: 100)
+                TextField(app.t("layers (comma)", "層の生地（カンマ）"),
+                          text: $layers)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                Button(app.t("Check", "見る")) {
+                    Task {
+                        await m.loadLayerFit(
+                            inner: Double(inner) ?? 0,
+                            outer: Double(outer) ?? 0,
+                            fabrics: layers.split(separator: ",")
+                                .map { $0.trimmingCharacters(in: .whitespaces) })
+                    }
+                }.font(.system(size: 11))
+            }
+            if let r = m.layerResult {
+                if r.verdict == "ANSWER", let slack = r.slack {
+                    HStack(spacing: 8) {
+                        Text(String(format: "%+.1fcm", slack))
+                            .font(.system(size: 16, weight: .semibold))
+                            // **負を丸めない。** 入らない服は入らない。
+                            .foregroundStyle(slack < 0 ? AT.bad : AT.ok)
+                        Text(r.fits ? app.t("goes over", "入る")
+                                    : app.t("does not go over", "入らない"))
+                            .font(.system(size: 11))
+                            .foregroundStyle(slack < 0 ? AT.bad : AT.ok)
+                        Text(String(format: app.t("(layers add %.1fcm)",
+                                                  "（層が %.1fcm 足す）"),
+                                    r.thicknessAdds))
+                            .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    }
+                    ForEach(Array(r.layers.enumerated()), id: \.offset) { _, l in
+                        Text("· \(l.fabric): "
+                             + (l.thickness.map { String(format: "%.1fmm", $0) }
+                                ?? app.t("thickness unknown", "厚み不明"))
+                             + (l.state == "CONTESTED"
+                                ? app.t(" (split)", "（割れている）") : ""))
+                            .font(.system(size: 10))
+                            .foregroundStyle(l.thickness == nil ? AT.warn
+                                                                : AT.dim)
+                    }
+                } else {
+                    Text(r.missing.joined(separator: "、")
+                         + app.t(" missing", " が足りません"))
+                        .font(.system(size: 11)).foregroundStyle(AT.warn)
+                    Text("→ " + r.howToClose).font(.system(size: 10))
+                        .foregroundStyle(AT.warn)
+                }
+                Text(r.disclaimer).font(.system(size: 9))
+                    .foregroundStyle(AT.faint)
+            }
+        }
+        .padding(.horizontal, 14).padding(.bottom, 10)
     }
 
     private func row(_ part: String, _ aspect: String) -> some View {

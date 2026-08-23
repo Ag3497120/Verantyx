@@ -3936,6 +3936,75 @@ def build(store_path: str):
         return json.dumps(_save(_garment(), path, _measures()),
                           ensure_ascii=False)
 
+    def _fabrics():
+        from .garment_material import Fabrics
+
+        return Fabrics.load(_fabrics_path())
+
+    def _fabrics_path():
+        return Path.home() / ".vera_garment" / "fabrics.json"
+
+    @mcp.tool()
+    def fabric_record(fabric: str, prop: str, value: str, source: str,
+                      note: str = "") -> str:
+        """生地の性質を置く (weight / thickness / width / composition)。
+
+        **出典の無い性質は受け付けない。** 出典の無い目付は、誰かが
+        言った数字ですらない。
+
+        同じ生地の同じ性質に別の値が立てば**割れ**として残り、片方を
+        勝たせない — 別のものを指している可能性がある。"""
+        led = _fabrics()
+        try:
+            e = led.record(fabric, prop, value, source, note)
+        except ValueError as ex:
+            return _refused(ex)
+        led.save(_fabrics_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__,
+                           "state": led.state(fabric, prop)},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def fabric_report() -> str:
+        """生地台帳。出典が食い違うものは割れとして出る。"""
+        return json.dumps(_fabrics().report(), ensure_ascii=False)
+
+    @mcp.tool()
+    def fabric_cloth_estimate(fabric: str) -> str:
+        """立体の表面積から重さを見積もる。**必要量ではなく下限の目安。**
+
+        立体は型紙ではありません。縫い代も裁ち都合も重なりも入って
+        いないので、これは下限であって必要な生地量ではありません。
+        目付が割れていれば計算そのものを止めます。"""
+        from .garment_material import cloth_estimate as _est
+        from .garment_solid import build as _build
+
+        return json.dumps(
+            _est(_build(_garment(), _measures()), _fabrics(), fabric),
+            ensure_ascii=False)
+
+    @mcp.tool()
+    def fabric_layer_fit(inner_girth: float, outer_girth: float,
+                         fabrics: str = "") -> str:
+        """外側が内側の上に入るか。**引き算であって着装計算ではない。**
+
+        余り = 外の内周 − 内の外周 − 厚みの合計。布の落ち方・皺・
+        動きやすさは計算していません。負なら入らないと言います。
+
+        `fabrics` は層になる生地名をカンマ区切りで。厚みが台帳に
+        無ければ、可否も出ません。"""
+        from .garment_material import layer_fit as _fit
+
+        led = _fabrics()
+        names = [x.strip() for x in fabrics.split(",") if x.strip()]
+        thick = [led.number(n, "thickness") for n in names] or [0.0]
+        out = _fit(inner_girth, outer_girth, thick)
+        out["layers"] = [{"fabric": n,
+                          "thickness": led.number(n, "thickness"),
+                          "state": led.state(n, "thickness")["state"]}
+                         for n in names]
+        return json.dumps(out, ensure_ascii=False)
+
     @mcp.tool()
     def body_reference(size: str = "M") -> str:
         """基準体の寸法 (S/M/L/XL)。**これは着用者ではありません。**

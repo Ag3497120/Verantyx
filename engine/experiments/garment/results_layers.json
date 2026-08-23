@@ -1,0 +1,86 @@
+{
+ "prereg": "experiments/garment/PREREG10_LAYERS.md",
+ "checks": {
+  "VL1_a_property_without_a_source_is_refused": {
+   "pass": true,
+   "detail": {
+    "refused": [
+     true,
+     true
+    ],
+    "unknown_property_refused": true,
+    "ledger_empty": true
+   }
+  },
+  "VL2_disagreeing_sources_are_kept_as_a_split": {
+   "pass": true,
+   "detail": {
+    "state": "CONTESTED",
+    "sides": [
+     "420",
+     "450"
+    ],
+    "cross_agrees": true,
+    "not_turned_into_a_number": true
+   }
+  },
+  "VL3_weight_from_area_is_derived_not_measured": {
+   "pass": true,
+   "detail": {
+    "state": "DERIVED",
+    "from": "1.156m² × 450.0g/m²",
+    "weight_g": 520.2
+   }
+  },
+  "VL4_it_says_this_is_not_a_yardage": {
+   "pass": true,
+   "detail": {
+    "disclaimer": "立体は型紙ではありません。縫い代も裁ち都合も重なりも入っていないので、これは**下限の目"
+   }
+  },
+  "VL5_layer_fit_is_a_subtraction_and_needs_every_side": {
+   "pass": true,
+   "detail": {
+    "slack": 8.5,
+    "missing_inner": [
+     "内側の外周"
+    ],
+    "missing_thickness": [
+     "層の厚み"
+    ]
+   }
+  },
+  "VL6_a_garment_that_does_not_go_over_says_so": {
+   "pass": true,
+   "detail": {
+    "slack": -3.5,
+    "fits": false
+   }
+  },
+  "VL7_it_does_not_claim_how_the_cloth_falls": {
+   "pass": true,
+   "detail": {
+    "claiming_words_found": []
+   }
+  },
+  "VL8_deterministic": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "empty_solid_area": 0.0
+   }
+  },
+  "VL9_the_cross_never_writes_back_to_the_fabric_ledger": {
+   "pass": true,
+   "detail": {
+    "unchanged": true,
+    "empty_stays_empty": {
+     "recorded": 0,
+     "contested": 0,
+     "unknown": 0
+    }
+   }
+  }
+ },
+ "summary": "9/9 passed"
+}

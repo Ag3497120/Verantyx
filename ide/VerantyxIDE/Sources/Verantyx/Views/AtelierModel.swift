@@ -84,6 +84,12 @@ final class AtelierModel: ObservableObject {
     @Published var gradeBase = "M"
     @Published var gradeTable: [String: [GradeRow]] = [:]
 
+    // -- 生地の性質と重ね着。**割れを隠さない** ------------------------
+    @Published var fabricRows: [FabricRow] = []
+    @Published var fabricCounts: [String: Int] = [:]
+    @Published var clothEstimate: ClothEstimate?
+    @Published var layerResult: LayerFit?
+
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
     @Published var designCounts: [String: Int] = [:]
@@ -174,6 +180,33 @@ final class AtelierModel: ObservableObject {
         var value: Double?
         var unit = "cm"; var from = ""
         var howToClose = ""
+    }
+
+    struct FabricRow: Identifiable {
+        let id = UUID()
+        var fabric = ""; var prop = ""; var state = ""
+        var value = ""
+        var sources: [String] = []
+        var sides: [(value: String, sources: [String])] = []
+        var howToClose = ""
+    }
+
+    struct ClothEstimate {
+        var fabric = ""; var state = ""
+        var areaM2: Double = 0
+        var gsm: Double?
+        var weightG: Double?
+        var from = ""; var howToClose = ""; var disclaimer = ""
+    }
+
+    struct LayerFit {
+        var verdict = ""
+        var slack: Double?
+        var fits = false
+        var thicknessAdds: Double = 0
+        var missing: [String] = []
+        var howToClose = ""; var disclaimer = ""
+        var layers: [(fabric: String, thickness: Double?, state: String)] = []
     }
 
     struct CrossArm {
@@ -575,6 +608,69 @@ final class AtelierModel: ObservableObject {
             }
         }
         gradeTable = out
+    }
+
+    /// 生地台帳。**出典が食い違うものは片方を勝たせない。**
+    func loadFabrics() async {
+        let d = await call("fabric_report")
+        fabricCounts = (d["counts"] as? [String: Int]) ?? [:]
+        fabricRows = (d["rows"] as? [[String: Any]] ?? []).map { r in
+            FabricRow(
+                fabric: r["fabric"] as? String ?? "",
+                prop: r["prop"] as? String ?? "",
+                state: r["state"] as? String ?? "",
+                value: r["value"] as? String ?? "",
+                sources: r["sources"] as? [String] ?? [],
+                sides: (r["sides"] as? [[String: Any]] ?? []).map {
+                    (value: $0["value"] as? String ?? "",
+                     sources: $0["sources"] as? [String] ?? [])
+                },
+                howToClose: r["how_to_close"] as? String ?? "")
+        }
+    }
+
+    func addFabric(fabric: String, prop: String, value: String,
+                   source: String) async -> String {
+        let d = await call("fabric_record",
+                           ["fabric": fabric, "prop": prop,
+                            "value": value, "source": source])
+        await loadFabrics()
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    /// 面積から重さを見積もる。**必要量ではなく下限の目安。**
+    func loadClothEstimate(fabric: String) async {
+        let d = await call("fabric_cloth_estimate", ["fabric": fabric])
+        clothEstimate = ClothEstimate(
+            fabric: d["fabric"] as? String ?? fabric,
+            state: d["state"] as? String ?? "",
+            areaM2: (d["surface_area_m2"] as? Double) ?? 0,
+            gsm: d["gsm"] as? Double,
+            weightG: d["weight_g"] as? Double,
+            from: d["from"] as? String ?? "",
+            howToClose: d["how_to_close"] as? String ?? "",
+            disclaimer: d["not_a_yardage"] as? String ?? "")
+    }
+
+    /// 外が内の上に入るか。**引き算であって着装計算ではない。**
+    func loadLayerFit(inner: Double, outer: Double,
+                      fabrics: [String]) async {
+        let d = await call("fabric_layer_fit",
+                           ["inner_girth": inner, "outer_girth": outer,
+                            "fabrics": fabrics.joined(separator: ",")])
+        layerResult = LayerFit(
+            verdict: d["verdict"] as? String ?? "",
+            slack: d["slack_cm"] as? Double,
+            fits: (d["fits"] as? Bool) ?? false,
+            thicknessAdds: (d["thickness_adds_cm"] as? Double) ?? 0,
+            missing: d["missing"] as? [String] ?? [],
+            howToClose: d["how_to_close"] as? String ?? "",
+            disclaimer: d["not_a_drape"] as? String ?? "",
+            layers: (d["layers"] as? [[String: Any]] ?? []).map {
+                (fabric: $0["fabric"] as? String ?? "",
+                 thickness: $0["thickness"] as? Double,
+                 state: $0["state"] as? String ?? "")
+            })
     }
 
     func loadDesign() async {
