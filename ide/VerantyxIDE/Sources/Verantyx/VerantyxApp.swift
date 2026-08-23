@@ -275,6 +275,11 @@ struct VerantyxApp: App {
                 // scroll toolbar, flexible-width chat input, resizable
                 // split) can actually do their job.
                 .frame(minWidth: 900, maxWidth: .infinity, minHeight: 600, maxHeight: .infinity)
+                // **窓は画面いっぱいに開く。** 服飾の作業面は横に三列
+                // (工程・作業・インスペクタ)あり、既定の窓幅では作業面が
+                // 潰れて図も表も読めなかった。初回だけ広げる — 以後は
+                // 使う人が決めたサイズを尊重する。
+                .onAppear { Self.fillScreenOnce() }
                 // The window edge carries the agent's state — put it on the
                 // root so it frames everything, whichever pane is showing.
                 .agentPerimeterGlow()
@@ -518,6 +523,26 @@ class SpotlightPanel: NSPanel {
     
     func toggle() {
         SpotlightPanelManager.shared.toggle()
+    }
+}
+
+/// 初回だけ窓を画面いっぱいに開く。
+///
+/// 二度目からは触らない。使う人が小さくしたのを毎回戻すのは、
+/// 設定を無視することになる。
+extension VerantyxApp {
+    static func fillScreenOnce() {
+        guard !UserDefaults.standard.bool(forKey: "did_fill_screen") else {
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            guard let win = NSApplication.shared.windows.first(where: {
+                $0.title == "Verantyx IDE" || $0.isMainWindow
+            }), let screen = win.screen ?? NSScreen.main else { return }
+            let f = screen.visibleFrame
+            win.setFrame(f.insetBy(dx: 6, dy: 6), display: true, animate: false)
+            UserDefaults.standard.set(true, forKey: "did_fill_screen")
+        }
     }
 }
 

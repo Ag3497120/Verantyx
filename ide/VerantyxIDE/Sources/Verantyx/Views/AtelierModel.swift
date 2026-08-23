@@ -102,6 +102,19 @@ final class AtelierModel: ObservableObject {
     @Published var patternSeamAllowance = ""
     @Published var patternNotPublished = ""
 
+    // -- 縫って落とす。**この一着を落とす唯一の口** ---------------------
+    @Published var sewVerdict = ""
+    @Published var sewPoints: [[Double]] = []
+    @Published var sewOwner: [String] = []
+    @Published var sewShapes: [[[Double]]] = []
+    /// メッシュの辺。点だけ描くと布に見えない。
+    @Published var sewEdges: [[Int]] = []
+    @Published var sewSeams: [SewSeam] = []
+    @Published var sewChecks: [SewCheck] = []
+    @Published var sewWhyNoShape = ""
+    @Published var sewBusy = false
+    @Published var sewFabric = ""
+
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
     @Published var designCounts: [String: Int] = [:]
@@ -237,6 +250,28 @@ final class AtelierModel: ObservableObject {
         var tolerance: Double = 0
         var sewable = false
         var why = ""
+    }
+
+    struct SewSeam: Identifiable {
+        let id = UUID()
+        var seam = ""; var state = ""; var stitches = 0
+        var lengthA: Double?; var lengthB: Double?
+    }
+
+    struct SewCheck: Identifiable {
+        let id = UUID()
+        var name = ""; var verdict = ""
+        var difference: Double?
+        var tolerance: Double?
+        var detail = ""
+        /// 「同じ形が揺れた」のか「別の形に落ちた」のか。形の中の距離で
+        /// 分かる — 座標の差だけでは区別が付かない。
+        var sameShapeMoved: Bool?
+        var shapeDifference: Double?
+        /// どのピースがどれだけ動いたか。一枚だけなら、そこを疑える。
+        var byPiece: [String: Double] = [:]
+        /// 許容の出どころ。選んだ数字か、何かから出した数字か。
+        var toleranceFrom = ""
     }
 
     struct CrossArm {
@@ -739,6 +774,48 @@ final class AtelierModel: ObservableObject {
     func savePattern(to path: String) async -> String {
         let d = await call("pattern_save", ["path": path])
         return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    /// 型紙を縫って落とす。**検査に通ったときだけ形が返る。**
+    func sewAndDrape(fabric: String, iterations: Int = 600) async {
+        sewBusy = true
+        sewFabric = fabric
+        defer { sewBusy = false }
+        let d = await call("sew_and_drape",
+                           ["fabric": fabric, "iterations": iterations])
+        sewVerdict = d["verdict"] as? String ?? ""
+        sewPoints = d["points"] as? [[Double]] ?? []
+        sewOwner = d["owner"] as? [String] ?? []
+        sewShapes = d["shapes"] as? [[[Double]]] ?? []
+        sewEdges = d["edges"] as? [[Int]] ?? []
+        sewWhyNoShape = d["why_no_shape"] as? String ?? ""
+        sewSeams = (d["seams"] as? [[String: Any]] ?? []).map {
+            SewSeam(seam: $0["seam"] as? String ?? "",
+                    state: $0["state"] as? String ?? "",
+                    stitches: $0["stitches"] as? Int ?? 0,
+                    lengthA: $0["length_a"] as? Double,
+                    lengthB: $0["length_b"] as? Double)
+        }
+        sewChecks = (d["checks"] as? [String: [String: Any]] ?? [:])
+            .sorted { $0.key < $1.key }.map { key, v in
+                SewCheck(name: key,
+                         verdict: v["verdict"] as? String ?? "",
+                         difference: v["worst_difference"]
+                             as? Double ?? v["last"] as? Double,
+                         tolerance: v["tolerance"] as? Double,
+                         detail: {
+                             if let last = v["last"] as? Double,
+                                let first = v["first"] as? Double {
+                                 return String(format: "%.2f → %.2f cm",
+                                               first, last)
+                             }
+                             return ""
+                         }(),
+                         sameShapeMoved: v["same_shape_moved"] as? Bool,
+                         shapeDifference: v["shape_difference"] as? Double,
+                         byPiece: v["by_piece"] as? [String: Double] ?? [:],
+                         toleranceFrom: v["tolerance_from"] as? String ?? "")
+            }
     }
 
     func loadDesign() async {

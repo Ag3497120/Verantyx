@@ -60,7 +60,10 @@ def vf2():
     """**縫い目は名前付き辺から決まる。** 近さで勝手に繋がない。"""
     b = build(draft(measures()))
     names = {r["seam"] for r in b["seams"]}
-    expected = {f"{pa}/{ea} ↔ {pb}/{eb}" for pa, ea, pb, eb, _ in SEAMS}
+    expected = {spec.get("label",
+                         f"{spec['a'][0]}/{spec['a'][1]} ↔ "
+                         f"{spec['b'][0]}/{spec['b'][1]}")
+                for spec in SEAMS}
     sewn = [r for r in b["seams"] if r["state"] == "SEWN"]
     ok = (names == expected and len(sewn) == len(SEAMS)
           and all(r["stitches"] > 0 for r in sewn)
@@ -135,19 +138,76 @@ def vf5():
 def vf8():
     """**縫った服は局所最小に落ちる。反復では消えない。**
 
-    始点を変えると 22cm 違う形に落ち着き、反復を 12 倍にしても
-    差は縮まない。VE3(順序依存が反復で育つ)と同じ形の発見で、
-    「もっと回した」は答えにならない。
+    2026-08-23 に測り直し。前の版は差が 22cm で横ばい (>10 かつ幅<1)
+    でしたが、その数字は三つの欠陥の上で出たものでした:
+      1. 袖山を前身頃の袖ぐりだけに縫っていた (半分が何にも付かない)
+      2. 前と後ろを別々に吊っていた (肩の縫い目が動けない点を結ぶ)
+      3. 目の数が固定 7 本で、短い辺では同じ格子点に潰れていた
+    直した後は 5.9 → 12.6cm と、**反復を増やすほど広がります。**
+    向きが違うのではなく別の形に落ちています(VF9)。
+    「もっと回せばよい」はどちらにしても答えになりません。
     """
     diffs = []
     for it in (400, 1500, 5000):
         v = validate(measures(), material(), iterations=it)
         diffs.append(v["checks"]["starts"]["worst_difference"])
-    spread = max(diffs) - min(diffs)
-    ok = (all(d > 10.0 for d in diffs) and spread < 1.0)
+    tol = 3.0
+    ok = (all(d > tol for d in diffs)
+          # 反復を増やしても縮まない。等号を許すのは「横ばい」も
+          # 同じ結論だからで、縮んだときだけ落ちる。
+          and diffs[-1] >= diffs[0] - 0.5)
     record("VF8_the_sewn_garment_sits_in_a_local_minimum", ok,
            {"iterations": [400, 1500, 5000], "start_differences": diffs,
-            "does_not_shrink": spread < 1.0})
+            "tolerance": tol, "does_not_shrink": diffs[-1] >= diffs[0] - 0.5})
+
+
+# ---------------------------------------------------------------- VF9
+def vf9():
+    """**揺れているのか、別の形なのかを分ける。**
+
+    座標の差だけでは区別が付きません。同じ形が吊り点まわりに振れた
+    だけなら、形の中の距離は変わらないはずです。実測では中の距離まで
+    10cm 動いていて、**別の畳まれ方**に落ちています。
+    """
+    v = validate(measures(), material(), iterations=800)
+    st = v["checks"]["starts"]
+    ok = ("shape_difference" in st and "same_shape_moved" in st
+          and st["shape_difference"] > st["tolerance"]
+          and st["same_shape_moved"] is False
+          and set(st["by_piece"]) == {"前身頃", "後身頃", "袖"}
+          # 一枚だけが動いているのではない — 全体が別の形になる
+          and all(d > 1.0 for d in st["by_piece"].values()))
+    record("VF9_disagreement_is_a_different_shape_not_a_swing", ok,
+           {"coordinate_difference": st["worst_difference"],
+            "internal_distance_difference": st["shape_difference"],
+            "same_shape_moved": st["same_shape_moved"],
+            "by_piece": st["by_piece"]})
+
+
+# --------------------------------------------------------------- VF10
+def vf10():
+    """**吊った点には目を付けない。**
+
+    吊った点は動けないので、そこに縫い目が乗ると原理的に閉じません。
+    前の版は前後の肩を別々に吊っていて、肩の縫い目が初期の前後間隔
+    24.0cm をそのまま抱えたまま「縮んだので閉じた」と報告していました。
+    """
+    from verantyx.garment_sew import _shoulder_pins
+
+    b = build(draft(measures()))
+    pins = _shoulder_pins(b)
+    sewn = {i for pair in b["seam_pairs"] for i in pair}
+    owners = {b["owner"][i] for i in pins}
+    gap = sew_and_drape(b, material(), iterations=800)["seam_gap"]
+    ok = (len(pins) >= 1
+          and not (set(pins) & sewn)
+          # 前だけで吊る。後ろは肩の縫い目を通してぶら下がる。
+          and owners == {"前身頃"}
+          and gap["closed"] and gap["last"] <= gap["tolerance"])
+    record("VF10_pins_never_sit_on_a_stitch", ok,
+           {"pins": pins, "pin_pieces": sorted(owners),
+            "pins_on_stitches": sorted(set(pins) & sewn),
+            "gap_last": gap["last"], "gap_tolerance": gap["tolerance"]})
 
 
 # ---------------------------------------------------------------- VF6
@@ -191,7 +251,7 @@ def vf7():
 
 
 if __name__ == "__main__":
-    for f in (vf1, vf2, vf3, vf4, vf5, vf6, vf7, vf8):
+    for f in (vf1, vf2, vf3, vf4, vf5, vf6, vf7, vf8, vf9, vf10):
         f()
     n = len(RESULTS["checks"])
     p = sum(1 for c in RESULTS["checks"].values() if c["pass"])

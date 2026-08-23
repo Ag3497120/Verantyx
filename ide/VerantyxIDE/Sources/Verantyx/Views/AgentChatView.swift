@@ -230,6 +230,11 @@ struct AgentChatView: View {
     private var tabBar: some View {
         HStack {
             Spacer()
+            if app.veraEngineMode == .atelier {
+                // **服飾の面では、中央は服を選ぶところ。**
+                // 会話の履歴より、いま何を作っているかの方が上位。
+                garmentPicker
+            } else {
             Button {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                     showingHistory.toggle()
@@ -258,9 +263,10 @@ struct AgentChatView: View {
                 )
             }
             .buttonStyle(.plain)
+            }
             Spacer()
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 5)
         .background(Color(red: 0.15, green: 0.15, blue: 0.19))
         .overlay(alignment: .leading) {
             veraModeControls.padding(.leading, 12)
@@ -268,6 +274,59 @@ struct AgentChatView: View {
         .overlay(alignment: .trailing) {
             overflowMenu.padding(.trailing, 12)
         }
+    }
+
+    // MARK: - どの服を見ているか
+
+    /// 服の選択。**以前のチャット選択欄をここに転用した。**
+    ///
+    /// 会話の切替より、いま何を作っているかの方が、この道具では上位に
+    /// あります。複数の服を持つときはここで替えます。
+    private var garmentPicker: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "square.on.square")
+                .font(.system(size: 11))
+                .foregroundStyle(Color(red: 0.45, green: 0.72, blue: 1.0))
+            Menu {
+                ForEach(app.garmentProjects, id: \.self) { name in
+                    Button {
+                        app.activeGarment = name
+                    } label: {
+                        if name == app.activeGarment {
+                            Label(name, systemImage: "checkmark")
+                        } else {
+                            Text(name)
+                        }
+                    }
+                }
+                Divider()
+                Button(app.t("New garment…", "新しい服…")) {
+                    app.newGarmentProject()
+                }
+                Button(app.t("Chat history", "会話の履歴")) {
+                    withAnimation(.spring(response: 0.4,
+                                          dampingFraction: 0.8)) {
+                        showingHistory.toggle()
+                    }
+                }
+            } label: {
+                HStack(spacing: 6) {
+                    Text(app.activeGarment)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.white)
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(.white.opacity(0.55))
+                }
+            }
+            .menuStyle(.borderlessButton)
+            .fixedSize()
+        }
+        .padding(.horizontal, 12).padding(.vertical, 4)
+        .background(
+            Capsule().fill(Color(red: 0.2, green: 0.2, blue: 0.25))
+                .overlay(Capsule().stroke(Color.white.opacity(0.1),
+                                          lineWidth: 1)))
     }
 
     // MARK: - Which engine answers
@@ -279,18 +338,26 @@ struct AgentChatView: View {
     // you are reading.
     private var veraModeControls: some View {
         HStack(spacing: 6) {
+            // **この道具は服飾のものなので、モード選択は小さく畳む。**
+            // 以前のモードは動くまま残す — 消すと、動いていたものを
+            // 消したことになる。ただし常に見えている必要は無い。
             Picker("", selection: Binding(
                 get: { app.veraEngineMode },
                 set: { app.veraEngineMode = $0 })) {
+                Text("Atelier").tag(AppState.VeraEngineMode.atelier)
+                Divider()
                 Text(app.t("Council (jgen)", "jgen 合議"))
                     .tag(AppState.VeraEngineMode.council)
                 Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
                 Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                Text("Atelier").tag(AppState.VeraEngineMode.atelier)
                 Text("Bot").tag(AppState.VeraEngineMode.veraBot)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
             }
-            .frame(width: 140)
+            .pickerStyle(.menu)
+            .labelsHidden()
+            .frame(width: 92)
+            .controlSize(.small)
+            .font(.system(size: 10))
             .help(app.t(
                 "Council routes through jgen/LLM agents. Vera-a is the dual "
                 + "path: the store's typed verdict first (verbatim), eternal "
@@ -901,7 +968,14 @@ struct AgentChatView: View {
     private var placeholderRotation: String {
         // <verantyx>タグ投入は廃止(2026-08-19) — 投入は OPERATOR の
         // 文書/分野画面の共通フォームだけ。案内も消す。
-        app.t("Ask Vera…", "Vera に質問")
+        //
+        // 服飾の面では用途が違う。**台帳に入れる観測はここからは
+        // 入らない** — 入口は右の記録フォームだけ。ここは「もっと丸い
+        // 襟にしたい」のような、まだ形になっていない要望を書く場所。
+        app.veraEngineMode == .atelier
+            ? app.t("Say what you want changed…",
+                    "どうしたいかを書く（例: もっと丸い襟に）")
+            : app.t("Ask Vera…", "Vera に質問")
     }
 
     @ViewBuilder
@@ -1247,7 +1321,12 @@ struct AgentChatView: View {
     /// stops and scrolling starts: past roughly eight lines a taller box stops
     /// helping and starts hiding the conversation it is about.
     private var composerHeight: CGFloat {
-        min(max(composerContentHeight, 24), 200)
+        // **服飾の面では入力欄を畳む。** 主役は服の状態で、会話ではない。
+        // ただし消さない — 「もっと丸い襟にしたい」のような要望を書く
+        // 場所は要る。書き始めれば伸びる。
+        let cap: CGFloat = app.veraEngineMode == .atelier ? 76 : 200
+        let floor: CGFloat = app.veraEngineMode == .atelier ? 20 : 24
+        return min(max(composerContentHeight, floor), cap)
     }
 
     private func sendMessage() {

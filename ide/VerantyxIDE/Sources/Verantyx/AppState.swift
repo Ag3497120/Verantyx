@@ -162,6 +162,37 @@ final class AppState: ObservableObject {
     /// settings section so both show the same spinner/error.
     @Published var jgenLoadingModel: String?
     @Published var jgenLoadError: String?
+    // ── いま作っている服 ────────────────────────────────────────
+    //
+    // 以前は「チャットの選択」だった場所を、服の選択に転用した。この
+    // 道具では、会話の切替より **いま何を作っているか** の方が上位に
+    // ある。台帳は服ごとに別なので、切替は台帳の切替でもある。
+    @Published var garmentProjects: [String] = {
+        UserDefaults.standard.stringArray(forKey: "garment_projects")
+            ?? ["Black Coat"]
+    }() {
+        didSet { UserDefaults.standard.set(garmentProjects,
+                                           forKey: "garment_projects") }
+    }
+    @Published var activeGarment: String = {
+        UserDefaults.standard.string(forKey: "active_garment") ?? "Black Coat"
+    }() {
+        didSet { UserDefaults.standard.set(activeGarment,
+                                           forKey: "active_garment") }
+    }
+
+    /// 服を増やす。**既存の台帳は触らない** — 増やすだけ。
+    func newGarmentProject() {
+        var n = 2
+        var name = t("Garment \(n)", "服 \(n)")
+        while garmentProjects.contains(name) {
+            n += 1
+            name = t("Garment \(n)", "服 \(n)")
+        }
+        garmentProjects.append(name)
+        activeGarment = name
+    }
+
     @Published var ollamaModels: [String] = []
     // activeOllamaModel は下記(L412付近)でdidSetつきで宣言済み
     @Published var anthropicApiKey: String = "" {

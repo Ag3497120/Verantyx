@@ -508,11 +508,22 @@ actor StdioSession {
         let (stream, cont) = AsyncStream<Data>.makeStream()
         self.continuation = cont
 
-        stdoutPipe.fileHandleForReading.readabilityHandler = { fh in
+        stdoutPipe.fileHandleForReading.readabilityHandler = { [weak p] fh in
             let chunk = fh.availableData
             if chunk.isEmpty {
-                cont.finish()
-                fh.readabilityHandler = nil
+                // **空読みは EOF とは限らない。** 起動に10秒かかる凍結
+                // バイナリ (PyInstaller onefile) では、書き手が生きたまま
+                // 0 バイトで起きることがあります。それを EOF と読むと、
+                // 実際には応答できるサーバーに対して
+                // 「No initialize response」と誤報します
+                // (2026-08-23 実測: プロセスは生きたまま画面だけ
+                //  UNKNOWN_ENGINE_UNREACHABLE になった)。
+                // 本当に終わったのかはプロセスに訊く。取りこぼしても
+                // terminationHandler が finish するので止まりません。
+                if p?.isRunning != true {
+                    cont.finish()
+                    fh.readabilityHandler = nil
+                }
             } else {
                 cont.yield(chunk)
             }
@@ -531,8 +542,10 @@ actor StdioSession {
         }
 
         do {
-            // Perform MCP initialize handshake (up to 20 s for npx cold-start / Puppeteer)
-            try await performHandshake(stream: stream, maxWait: 20.0)
+            // 凍結バイナリ (81MB, PyInstaller onefile) の冷起動は実測
+            // 10.3 秒。GUI から初回に起動すると Gatekeeper の検査が
+            // 乗るので、20 秒では足りないことがあります。
+            try await performHandshake(stream: stream, maxWait: 45.0)
         } catch let error as MCPError {
             // Give the readabilityHandler a beat to flush dying-process stderr.
             try? await Task.sleep(nanoseconds: 80_000_000)
@@ -572,27 +585,40 @@ actor StdioSession {
         }
 
         var buf = Data()
-        let deadline = Date().addingTimeInterval(maxWait)
+        let started = Date()
         var initResponse: [String: Any]?
 
-        outer: for await chunk in stream {
-            buf.append(chunk)
-            let (lines, remainder) = splitLines(buf)
-            buf = remainder
-            for line in lines {
-                if let json = parseJSON(line),
-                   let idValue = json["id"], "\(idValue)" == "1" {
-                    initResponse = json
-                    break outer
+        // **黙ったサーバーで固まらないようにする。** 締切の判定を
+        // チャンク到着の中に置いていたので、一度も喋らないサーバーでは
+        // 判定自体が回らず、時間切れが報告されませんでした。
+        let reader = Task { () -> [String: Any]? in
+            for await chunk in stream {
+                buf.append(chunk)
+                let (lines, remainder) = splitLines(buf)
+                buf = remainder
+                for line in lines {
+                    if let json = parseJSON(line),
+                       let idValue = json["id"], "\(idValue)" == "1" {
+                        return json
+                    }
                 }
+                try Task.checkCancellation()
             }
-            if Date() > deadline {
-                let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
-                throw MCPError.processLaunchFailed(
-                    VeraMemoryPaths.annotateLaunchFailure(
-                        "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.\(stderr)"))
-            }
-            try Task.checkCancellation()
+            return nil
+        }
+        let timer = Task {
+            try await Task.sleep(nanoseconds: UInt64(maxWait * 1_000_000_000))
+            reader.cancel()
+        }
+        initResponse = try? await reader.value
+        timer.cancel()
+
+        if initResponse == nil, Date().timeIntervalSince(started) >= maxWait {
+            let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
+            throw MCPError.processLaunchFailed(
+                VeraMemoryPaths.annotateLaunchFailure(
+                    "Initialize timed out (>\(Int(maxWait))s). "
+                    + "Server may not be installed.\(stderr)"))
         }
 
         guard let initResponse else {

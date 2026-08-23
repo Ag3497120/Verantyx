@@ -173,33 +173,14 @@ struct MainSplitView: View {
     // MARK: - Toolbar
 
     @ToolbarContentBuilder
+    /// ウィンドウ上部の道具は置かない。
+    ///
+    /// 「フォルダーを開く」と「ターミナル切替」はここにあったが、服飾の
+    /// 作業面には要らないものが常に見えている状態だった。どちらも他から
+    /// 届く(ワークスペースは左のツリー、ターミナルは ⌘⇧L)ので、
+    /// **窓の上を空けて作業面を広く取る**。
     private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .navigation) {
-            Button { app.openWorkspace() } label: {
-                Image(systemName: "folder.badge.plus").help(app.t("Open Folder", "フォルダーを開く"))
-            }
-        }
-
-
-
-        // (MCP toolbar icon removed — the activity bar's MCP section is the
-        // one entry point now, so the same control existed twice.)
-
-        // ── Terminal toggle ─────────────────────────────────────────────────
-        ToolbarItem(placement: .primaryAction) {
-            Button {
-                withAnimation(.easeInOut(duration: 0.15)) { app.showProcessLog.toggle() }
-            } label: {
-                Image(systemName: "terminal")
-                    .symbolVariant(app.showProcessLog ? .fill : .none)
-                    .foregroundStyle(app.showProcessLog
-                                     ? Color(red: 0.3, green: 1.0, blue: 0.5)
-                                     : .secondary)
-            }
-            .help(app.t("Toggle Terminal (⌘⇧L)", "ターミナル切替 (⌘⇧L)"))
-        }
-
-        // (Extension-store toolbar icon removed by request.)
+        ToolbarItem(placement: .navigation) { EmptyView() }
     }
 
     private var shortModelLabel: String {

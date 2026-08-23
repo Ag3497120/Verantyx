@@ -18,12 +18,14 @@
     "seams": [
      "前身頃/肩線 ↔ 後身頃/肩線",
      "前身頃/脇線 ↔ 後身頃/脇線",
-     "袖/袖山 ↔ 前身頃/袖ぐり"
+     "袖/袖山(前半) ↔ 前身頃/袖ぐり",
+     "袖/袖山(後半) ↔ 後身頃/袖ぐり"
     ],
     "stitches": {
-     "前身頃/肩線 ↔ 後身頃/肩線": 7,
-     "前身頃/脇線 ↔ 後身頃/脇線": 7,
-     "袖/袖山 ↔ 前身頃/袖ぐり": 7
+     "前身頃/肩線 ↔ 後身頃/肩線": 3,
+     "前身頃/脇線 ↔ 後身頃/脇線": 13,
+     "袖/袖山(前半) ↔ 前身頃/袖ぐり": 3,
+     "袖/袖山(後半) ↔ 後身頃/袖ぐり": 3
     }
    }
   },
@@ -40,9 +42,9 @@
   "VF4_the_seam_gap_shrinks_and_settles": {
    "pass": true,
    "detail": {
-    "first": 22.1435,
-    "at_500": 5.9989,
-    "at_2000": 5.9556,
+    "first": 22.236,
+    "at_500": 0.7733,
+    "at_2000": 0.8064,
     "step": 0.000245
    }
   },
@@ -79,13 +81,42 @@
      5000
     ],
     "start_differences": [
-     21.8386,
-     21.9019,
-     21.8963
+     5.8779,
+     8.1492,
+     12.6086
     ],
+    "tolerance": 3.0,
     "does_not_shrink": true
+   }
+  },
+  "VF9_disagreement_is_a_different_shape_not_a_swing": {
+   "pass": true,
+   "detail": {
+    "coordinate_difference": 6.7049,
+    "internal_distance_difference": 9.5242,
+    "same_shape_moved": false,
+    "by_piece": {
+     "前身頃": 8.848,
+     "後身頃": 8.843,
+     "袖": 5.897
+    }
+   }
+  },
+  "VF10_pins_never_sit_on_a_stitch": {
+   "pass": true,
+   "detail": {
+    "pins": [
+     79,
+     82
+    ],
+    "pin_pieces": [
+     "前身頃"
+    ],
+    "pins_on_stitches": [],
+    "gap_last": 0.7885,
+    "gap_tolerance": 3.0
    }
   }
  },
- "summary": "8/8 passed"
+ "summary": "10/10 passed"
 }

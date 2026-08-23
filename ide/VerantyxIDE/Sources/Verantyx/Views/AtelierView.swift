@@ -2813,6 +2813,7 @@ private struct SolidPanel: View {
     @ObservedObject var m: AtelierModel
     @EnvironmentObject var app: AppState
     @State private var said = ""
+    @State private var sewFabric = ""
 
     private static let sizes = ["S", "M", "L", "XL"]
 
@@ -2825,6 +2826,8 @@ private struct SolidPanel: View {
                 Divider().opacity(0.2)
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
+                        sewSection
+                        Divider().opacity(0.2)
                         easeSection
                         Divider().opacity(0.2)
                         gradeSection
@@ -2837,6 +2840,7 @@ private struct SolidPanel: View {
             await m.loadSolid()
             await m.loadEase()
             await m.loadGrade()
+            await m.loadFabrics()
         }
     }
 
@@ -2908,6 +2912,178 @@ private struct SolidPanel: View {
                 .padding(.horizontal, 14)
             }
             Spacer(minLength: 0)
+        }
+    }
+
+    // MARK: 縫って落とす
+
+    /// **型紙を縫い合わせて落とす。** ここまでで唯一、この一着を落とす面。
+    ///
+    /// 立体(寸法から作る塊)は見るためのもので、この一着ではありません。
+    /// ここは型紙の名前付き辺を縫って、実際に落とします。
+    /// 検査に通らなければ**形を返しません**。
+    @ViewBuilder
+    private var sewSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 8) {
+                Text(app.t("SEW & DRAPE — this garment",
+                           "縫って落とす — この一着")).railHead()
+                Spacer()
+                Picker("", selection: $sewFabric) {
+                    Text(app.t("pick a fabric", "生地を選ぶ")).tag("")
+                    ForEach(fabricNames, id: \.self) { Text($0).tag($0) }
+                }.labelsHidden().frame(width: 150)
+                if m.sewBusy { ProgressView().controlSize(.small) }
+                Button(app.t("Sew", "縫う")) {
+                    Task { await m.sewAndDrape(fabric: sewFabric) }
+                }
+                .font(.system(size: 11))
+                .disabled(sewFabric.isEmpty || m.sewBusy)
+            }
+            .padding(.top, 10).padding(.trailing, 14)
+
+            Text(app.t("Seams come from the pattern's named edges — not from "
+                       + "proximity. The shape is withheld unless the checks "
+                       + "pass.",
+                       "縫い目は型紙の名前付き辺から決まります（近さでは"
+                       + "決めません）。検査に通らなければ形は返しません。"))
+                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .padding(.horizontal, 14).padding(.top, 2)
+
+            if !m.sewVerdict.isEmpty {
+                ForEach(m.sewSeams) { s in
+                    HStack(spacing: 8) {
+                        Text(s.seam).font(.system(size: 10,
+                                                  design: .monospaced))
+                            .foregroundStyle(AT.dim)
+                        Text(s.state == "SEWN"
+                             ? app.t("\(s.stitches) stitches",
+                                     "\(s.stitches) 針")
+                             : s.state)
+                            .font(.system(size: 10))
+                            .foregroundStyle(s.state == "SEWN" ? AT.ok : AT.bad)
+                        if let a = s.lengthA, let b = s.lengthB {
+                            Text(String(format: "%.1f / %.1f cm", a, b))
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 3)
+                }
+
+                ForEach(m.sewChecks) { c in
+                    HStack(spacing: 8) {
+                        Text(checkLabel(c.name))
+                            .font(.system(size: 11)).frame(width: 110,
+                                                           alignment: .leading)
+                        Text(c.verdict == "ANSWER"
+                             ? app.t("passed", "通った") : c.verdict)
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(c.verdict == "ANSWER"
+                                             ? AT.ok : AT.bad)
+                        if let d = c.difference {
+                            Text(String(format: "%.2f", d)
+                                 + (c.tolerance.map {
+                                     String(format: " / 許容 %.2f", $0) } ?? ""))
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                        if !c.detail.isEmpty {
+                            Text(c.detail).font(.system(size: 9,
+                                                        design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 3)
+
+                    if !c.toleranceFrom.isEmpty {
+                        Text(app.t("tolerance: \(c.toleranceFrom)",
+                                   "許容の出どころ: \(c.toleranceFrom)"))
+                            .font(.system(size: 9)).foregroundStyle(AT.faint)
+                            .padding(.leading, 132)
+                    }
+                    // **揺れと別形を分けて言う。** 「合わない」だけでは
+                    // 次に何を触ればよいか分からない。
+                    if let same = c.sameShapeMoved {
+                        Text(same
+                             ? app.t("the same shape, moved", "同じ形が動いた")
+                             : app.t("a different shape — not a swing "
+                                     + "(inner distances differ by "
+                                     + String(format: "%.1f", c.shapeDifference ?? 0)
+                                     + " cm)",
+                                     "別の形です。揺れではありません"
+                                     + "（形の中の距離が "
+                                     + String(format: "%.1f", c.shapeDifference ?? 0)
+                                     + " cm 違う）"))
+                            .font(.system(size: 9))
+                            .foregroundStyle(same ? AT.dim : AT.warn)
+                            .padding(.leading, 132)
+                    }
+                    if !c.byPiece.isEmpty {
+                        Text(c.byPiece.sorted { $0.key < $1.key }
+                            .map { String(format: "%@ %.1f", $0.key, $0.value) }
+                            .joined(separator: "   "))
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(AT.faint)
+                            .padding(.leading, 132)
+                    }
+                }
+
+                if !m.sewPoints.isEmpty {
+                    SewnView(points: m.sewPoints, owner: m.sewOwner,
+                             edges: m.sewEdges)
+                        .frame(height: 220)
+                        .padding(.horizontal, 14).padding(.top, 6)
+                } else if !m.sewWhyNoShape.isEmpty {
+                    // **形を返していない理由を書く。** 空欄は「まだ押して
+                    // いない」と読まれる。
+                    Text(m.sewWhyNoShape).font(.system(size: 10))
+                        .foregroundStyle(AT.warn)
+                        .padding(.horizontal, 14).padding(.top, 4)
+                    if !m.sewShapes.isEmpty {
+                        Text(app.t("all \(m.sewShapes.count) shapes are "
+                                   + "returned — none is chosen",
+                                   "\(m.sewShapes.count) つの形を全部返して"
+                                   + "います。どれも選んでいません"))
+                            .font(.system(size: 10)).foregroundStyle(AT.dim)
+                            .padding(.horizontal, 14)
+                        HStack(spacing: 10) {
+                            ForEach(Array(m.sewShapes.enumerated()),
+                                    id: \.offset) { i, sh in
+                                VStack(spacing: 2) {
+                                    SewnView(points: sh, owner: m.sewOwner,
+                                              edges: m.sewEdges)
+                                        .frame(width: 140, height: 150)
+                                    Text(app.t("start \(i + 1)",
+                                               "始点 \(i + 1)"))
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(AT.faint)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 14).padding(.top, 4)
+                    }
+                }
+            }
+        }
+        .padding(.bottom, 8)
+    }
+
+    private var fabricNames: [String] {
+        Array(Set(m.fabricRows.filter { $0.state != "UNKNOWN_NOT_RECORDED" }
+            .map(\.fabric))).sorted()
+    }
+
+    private func checkLabel(_ key: String) -> String {
+        switch key {
+        case "seam_closed": return app.t("seam closes", "縫い目が閉じる")
+        case "order": return app.t("order invariant", "順序不変")
+        case "starts": return app.t("multi-start", "多点始動")
+        default: return key
         }
     }
 
@@ -3110,5 +3286,84 @@ private struct PatternFigure: View {
             maxY = max(maxY, (p.outline.map(\.y).max() ?? 0) + 8)
         }
         return (out, x, maxY)
+    }
+}
+
+/// 縫って落とした服を描く。**ピースごとに色を変える** — どの型紙が
+/// どこに来たかが分からないと、直すときに触る先が決まらない。
+private struct SewnView: NSViewRepresentable {
+    let points: [[Double]]
+    let owner: [String]
+    /// メッシュの辺。**布は面なので、点だけでは読めない。**
+    var edges: [[Int]] = []
+
+    func makeNSView(context: Context) -> SCNView {
+        let v = SCNView()
+        v.allowsCameraControl = true
+        v.autoenablesDefaultLighting = true
+        v.backgroundColor = .clear
+        return v
+    }
+
+    func updateNSView(_ v: SCNView, context: Context) {
+        let scene = SCNScene()
+        let colours: [String: NSColor] = [
+            "前身頃": NSColor(red: 0.55, green: 0.72, blue: 0.95, alpha: 1),
+            "後身頃": NSColor(red: 0.95, green: 0.72, blue: 0.55, alpha: 1),
+            "袖": NSColor(red: 0.62, green: 0.90, blue: 0.68, alpha: 1),
+        ]
+        let ys = points.compactMap { $0.count > 1 ? $0[1] : nil }
+        guard let lo = ys.min(), let hi = ys.max() else { return }
+        let scale = 2.2 / CGFloat(max(hi - lo, 1))
+        let mid = CGFloat((lo + hi) / 2)
+        if edges.isEmpty {
+            for (i, p) in points.enumerated() where p.count == 3 {
+                let dot = SCNSphere(radius: 0.035 / scale)
+                let mat = SCNMaterial()
+                mat.diffuse.contents = colours[i < owner.count ? owner[i] : ""]
+                    ?? NSColor.gray
+                dot.materials = [mat]
+                let node = SCNNode(geometry: dot)
+                node.position = SCNVector3(CGFloat(p[0]), CGFloat(p[1]),
+                                           CGFloat(p[2]))
+                scene.rootNode.addChildNode(node)
+            }
+        } else {
+            // ピースごとに線でまとめて描く。色は出身のまま —
+            // どの型紙がどこに来たかが分からないと直せない。
+            var byPiece: [String: [Int32]] = [:]
+            for e in edges where e.count == 2 {
+                let a = e[0], b = e[1]
+                guard a < points.count, b < points.count else { continue }
+                let name = a < owner.count ? owner[a] : ""
+                byPiece[name, default: []] += [Int32(a), Int32(b)]
+            }
+            let verts = points.filter { $0.count == 3 }.map {
+                SCNVector3(CGFloat($0[0]), CGFloat($0[1]), CGFloat($0[2]))
+            }
+            guard verts.count == points.count else { return }
+            let source = SCNGeometrySource(vertices: verts)
+            for (name, idx) in byPiece {
+                let data = Data(bytes: idx,
+                                count: idx.count * MemoryLayout<Int32>.size)
+                let element = SCNGeometryElement(
+                    data: data, primitiveType: .line,
+                    primitiveCount: idx.count / 2,
+                    bytesPerIndex: MemoryLayout<Int32>.size)
+                let geo = SCNGeometry(sources: [source], elements: [element])
+                let mat = SCNMaterial()
+                mat.diffuse.contents = colours[name] ?? NSColor.gray
+                mat.lightingModel = .constant
+                geo.materials = [mat]
+                scene.rootNode.addChildNode(SCNNode(geometry: geo))
+            }
+        }
+        let root = SCNNode()
+        for child in scene.rootNode.childNodes { root.addChildNode(child) }
+        scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
+        root.position = SCNVector3(0, -mid * scale, 0)
+        root.scale = SCNVector3(scale, scale, scale)
+        scene.rootNode.addChildNode(root)
+        v.scene = scene
     }
 }
