@@ -26,7 +26,7 @@ Python 3.9 or newer. No third-party packages — no numpy, no scipy, nothing to
 install.
 
 ```bash
-git clone https://github.com/<you>/photoloset.git
+git clone https://github.com/Ag3497120/photoloset.git
 cd photoloset
 python3 examples/black_coat.py
 ```
