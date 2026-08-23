@@ -48,13 +48,14 @@
     "step": 0.000245
    }
   },
-  "VF5_the_validator_bites_and_withholds_the_shape": {
+  "VF5_the_validator_bites_both_ways": {
    "pass": true,
    "detail": {
-    "verdict": "UNKNOWN_LOCAL_MINIMUM",
-    "shapes_returned": 3,
-    "seam": "ANSWER",
-    "strict": "UNKNOWN_ORDER_DEPENDENT"
+    "default": "ANSWER",
+    "default_returned_shape": true,
+    "tight_starts": "UNKNOWN_LOCAL_MINIMUM",
+    "tight_shapes_returned": 3,
+    "tight_order": "UNKNOWN_ORDER_DEPENDENT"
    }
   },
   "VF6_deterministic": {
@@ -72,7 +73,7 @@
     "assumption_shown": true
    }
   },
-  "VF8_the_sewn_garment_sits_in_a_local_minimum": {
+  "VF8_all_starts_converge_yet_disagree": {
    "pass": true,
    "detail": {
     "iterations": [
@@ -81,24 +82,31 @@
      5000
     ],
     "start_differences": [
-     5.8779,
-     8.1492,
-     12.6086
+     1.2593,
+     1.9243,
+     3.1891
     ],
     "tolerance": 3.0,
-    "does_not_shrink": true
+    "grows_with_iterations": true,
+    "gradient_ratio_per_start": [
+     0.000786,
+     0.000773,
+     0.000821
+    ],
+    "all_converged": true,
+    "why": "勾配が初期の1%未満まで落ちていれば極小。そこで形が違うなら、回し足りないのではなく解が一つに決まらない"
    }
   },
-  "VF9_disagreement_is_a_different_shape_not_a_swing": {
+  "VF9_swing_and_different_shape_are_told_apart": {
    "pass": true,
    "detail": {
-    "coordinate_difference": 6.7049,
-    "internal_distance_difference": 9.5242,
-    "same_shape_moved": false,
+    "coordinate_difference": 1.624,
+    "internal_distance_difference": 2.1238,
+    "same_shape_moved": true,
     "by_piece": {
-     "前身頃": 8.848,
-     "後身頃": 8.843,
-     "袖": 5.897
+     "前身頃": 2.027,
+     "袖": 1.02,
+     "後身頃": 1.441
     }
    }
   },
@@ -116,7 +124,18 @@
     "gap_last": 0.7885,
     "gap_tolerance": 3.0
    }
+  },
+  "VF11_the_start_does_not_change_the_cloth": {
+   "pass": true,
+   "detail": {
+    "total_edge_flat_start_cm": 3837.9,
+    "total_edge_moved_start_cm": 3837.5,
+    "total_edge_old_broken_path_cm": 3846.8,
+    "moved_start_drift": 9e-05,
+    "broken_path_drift": 0.00231,
+    "why": "始点は解き始める場所であって布ではない。自然長は平らな型紙から取る"
+   }
   }
  },
- "summary": "10/10 passed"
+ "summary": "11/11 passed"
 }

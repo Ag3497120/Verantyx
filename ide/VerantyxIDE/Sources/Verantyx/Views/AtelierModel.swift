@@ -78,11 +78,35 @@ final class AtelierModel: ObservableObject {
 
     @Published var bodySize = "M"
     @Published var easeRows: [EaseRow] = []
+    /// 基準体そのもの。**着用者ではない。** ゆとりは服 − これ。
+    /// これを出さないと、何から引いた差なのかが画面に無い。
+    @Published var bodyRef: [String: Double] = [:]
+    @Published var bodyRefNote = ""
     @Published var easeNegative: [String] = []
     @Published var easeDisclaimer = ""
     @Published var gradeSizes: [String] = []
     @Published var gradeBase = "M"
     @Published var gradeTable: [String: [GradeRow]] = [:]
+
+    /// 裁断前に潰すことの一覧。**UNKNOWN は失敗ではなく、次に探すもの。**
+    @Published var worklist: [WorkItem] = []
+
+    /// 設計値の派生元。値を変えた後も、どこから来たかが残る。
+    @Published var designTrail: [String: [DesignStep]] = [:]
+
+    /// このコマがどの素材のどこから来たか。
+    @Published var clipOrigins: [String: String] = [:]
+
+    /// 平らな布を落としてみた結果。**型紙の前に、生地だけを試す口。**
+    /// 生地の物性がおかしければ、縫っても直らない。
+    @Published var drapeFabric = ""
+    @Published var drapeVerdict = ""
+    @Published var drapeChecks: [SewCheck] = []
+    @Published var drapeWhyNoShape = ""
+    /// 置いた仮定。**辞書のまま持つ** — String(describing:) に通すと
+    /// 日本語が \Uxxxx に化けて画面に出ます(2026-08-23 実測)。
+    @Published var drapeAssumed: [String: String] = [:]
+    @Published var drapeBusy = false
 
     // -- 生地の性質と重ね着。**割れを隠さない** ------------------------
     @Published var fabricRows: [FabricRow] = []
@@ -187,6 +211,17 @@ final class AtelierModel: ObservableObject {
     }
 
     struct SolidGroup { var part = ""; var firstFace = 0; var faces = 0 }
+
+    struct WorkItem: Identifiable {
+        let id = UUID()
+        var part = ""; var aspect = ""; var state = ""
+        var howToClose = ""
+    }
+
+    struct DesignStep: Identifiable {
+        let id = UUID()
+        var stage = ""; var value = ""; var source = ""; var note = ""
+    }
 
     struct EaseRow: Identifiable {
         let id = UUID()
@@ -436,6 +471,9 @@ final class AtelierModel: ObservableObject {
         await loadDesign()
         await loadMeasures()
         await loadCross()
+        // 台帳を読んだら、そのつど「次に潰すこと」も引く。画面側で
+        // counts の変化を見張ると、読み込みのたびに呼びが二重になる。
+        await loadWorklist()
         let tl = await call("garment_timeline")
         timeline = (tl["timeline"] as? [[String: Any]] ?? []).map { row in
             let r = row["ref"] as? [String: Any] ?? [:]
@@ -640,6 +678,80 @@ final class AtelierModel: ObservableObject {
     }
 
     /// ゆとり。**引き算であって着装計算ではない。**
+    /// 基準体を引く。**着用者ではないと画面にも書く。**
+    func loadBodyRef() async {
+        let d = await call("body_reference", ["size": bodySize])
+        bodyRef = d["measurements"] as? [String: Double] ?? [:]
+        bodyRefNote = d["note"] as? String ?? ""
+    }
+
+    /// 裁断前に潰すことの一覧。
+    func loadWorklist() async {
+        let d = await call("garment_worklist")
+        worklist = (d["worklist"] as? [[String: Any]] ?? []).map {
+            WorkItem(part: $0["part"] as? String ?? "",
+                     aspect: $0["aspect"] as? String ?? "",
+                     state: $0["state"] as? String ?? "",
+                     howToClose: $0["how_to_close"] as? String ?? "")
+        }
+    }
+
+    /// 一項目の派生元。開いたときだけ引く — 全部を先に引く必要はない。
+    func loadDesignTrail(part: String, aspect: String) async {
+        let key = "\(part)/\(aspect)"
+        let d = await call("design_history",
+                           ["part": part, "aspect": aspect])
+        designTrail[key] = (d["history"] as? [[String: Any]] ?? []).map {
+            DesignStep(stage: $0["stage"] as? String
+                           ?? $0["state"] as? String ?? "",
+                       value: String(describing: $0["value"] ?? ""),
+                       source: $0["source"] as? String ?? "",
+                       note: $0["note"] as? String ?? "")
+        }
+    }
+
+    /// このコマの出どころ。**紐づいていなければ、そう言う。**
+    func loadClipOrigin(_ clipPath: String) async {
+        let d = await call("intake_origin", ["clip_path": clipPath])
+        if let o = d["origin"] as? [String: Any] {
+            let src = o["source"] as? String ?? ""
+            let at = o["at"] as? String ?? o["time"] as? String ?? ""
+            clipOrigins[clipPath] = at.isEmpty ? src : "\(src) \(at)"
+        } else {
+            clipOrigins[clipPath] = d["verdict"] as? String
+                ?? "UNKNOWN_CLIP_NOT_REGISTERED"
+        }
+    }
+
+    /// 平らな布を落とす。**型紙は要らない。生地だけを測る。**
+    func drapeValidate(fabric: String, iterations: Int = 400) async {
+        drapeBusy = true
+        drapeFabric = fabric
+        defer { drapeBusy = false }
+        let d = await call("drape_validate",
+                           ["fabric": fabric, "iterations": iterations])
+        drapeVerdict = d["verdict"] as? String ?? ""
+        drapeWhyNoShape = d["why_no_shape"] as? String ?? ""
+        drapeAssumed = d["assumed"] as? [String: String] ?? [:]
+        drapeChecks = (d["checks"] as? [String: [String: Any]] ?? [:])
+            .sorted { $0.key < $1.key }.map { key, v in
+                SewCheck(name: key,
+                         verdict: v["verdict"] as? String ?? "",
+                         difference: v["worst_difference"] as? Double
+                             ?? v["worst_strain"] as? Double
+                             ?? v["last"] as? Double,
+                         tolerance: v["tolerance"] as? Double,
+                         detail: {
+                             if let last = v["last"] as? Double,
+                                let first = v["first"] as? Double {
+                                 return String(format: "%.2f → %.2f",
+                                               first, last)
+                             }
+                             return ""
+                         }())
+            }
+    }
+
     func loadEase() async {
         let d = await call("body_ease", ["size": bodySize])
         easeRows = (d["rows"] as? [[String: Any]] ?? []).map { r in

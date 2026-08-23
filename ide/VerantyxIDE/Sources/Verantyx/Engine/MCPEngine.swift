@@ -413,9 +413,23 @@ actor StdioSession {
 
     // ── Public API ──────────────────────────────────────────────────────────
 
+    /// 起動中の一本。**actor は await のたびに他の呼びが入れる** ので、
+    /// これが無いと最初の二つの呼びがそれぞれサーバーを起こし、後から
+    /// 起こした方が先の握手中のプロセスを殺します。殺された側は
+    /// 「No initialize response」と報告する — サーバーは動いているのに。
+    /// (2026-08-23 実測: 起動のたびにサーバー2本、3回中3回)
+    private var starting: Task<Void, Error>?
+
     func ensureRunning() async throws {
         if isReady, let p = process, p.isRunning { return }
-        try await startProcess()
+        if let inFlight = starting {
+            try await inFlight.value
+            return
+        }
+        let task = Task { try await self.startProcess() }
+        starting = task
+        defer { starting = nil }
+        try await task.value
     }
 
     /// Send one JSON-RPC request and return the matching response.
@@ -622,10 +636,18 @@ actor StdioSession {
         }
 
         guard let initResponse else {
+            // **なぜ来なかったのかを書く。** 「返事が無い」だけだと、
+            // 落ちたのか・黙っているのか・こちらが降りたのかが区別
+            // できず、直す先が決まりません。
             let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
+            let alive = (process?.isRunning ?? false)
+            let secs = String(format: "%.1f",
+                              Date().timeIntervalSince(started))
             throw MCPError.processLaunchFailed(
                 VeraMemoryPaths.annotateLaunchFailure(
-                    "No initialize response from MCP server\(stderr)"))
+                    "No initialize response after \(secs)s "
+                    + "(process \(alive ? "still running" : "exited"), "
+                    + "read \(buf.count) unparsed bytes)\(stderr)"))
         }
         if let err = initResponse["error"] as? [String: Any] {
             let msg = (err["message"] as? String) ?? String(describing: err)

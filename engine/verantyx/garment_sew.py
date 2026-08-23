@@ -252,20 +252,30 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                   iterations: int = 300, order: Optional[Sequence[int]] = None,
                   step: Optional[float] = None,
                   stitch_k: Optional[float] = None,
+                  start: Optional[Sequence[Vec]] = None,
                   pinned: Optional[Sequence[int]] = None) -> Dict[str, Any]:
     """縫って落とす。縫い目は**距離ゼロに引く拘束**として効く。
 
     刻みは落とす側と同じ規則で剛性から決める。固定にしていたら、
     剛性を桁で直した瞬間に nan で発散した(実測)。**同じ物理を解く
     二箇所が別の刻みを持つと、片方だけ壊れる。**
+
+    `start` は**解き始める位置**で、布そのものではありません。
+    自然長は必ず `built["points"]`(型紙を置いた平らな状態)から取ります。
+
+    2026-08-23 に直した欠陥: 以前は初期位置と自然長の両方を
+    `built["points"]` から取っていたので、多点始動の検査が
+    `built["points"]` を差し替えて**別の布**を作ってしまっていました。
+    「始点を変えたら形が変わる」ではなく「違う服を三着比べていた」。
     """
     points = built["points"]
     edges = built["edges"]
     pairs = built["seam_pairs"]
     gap_tol = built.get("cell", DEFAULT_CELL) / 2.0
     n = len(points)
-    pos = [list(p) for p in points]
+    pos = [list(p) for p in (start if start is not None else points)]
     stiff = _stiffness(material)
+    # **自然長は平らな型紙から。** ここを start から取ると布が変わる。
     rest = [math.dist(points[a], points[b]) for a, b, _ in edges]
     touching: List[List[int]] = [[] for _ in range(n)]
     for e, (a, b, _) in enumerate(edges):
@@ -426,11 +436,10 @@ def validate(measures: Any, material: Dict[str, Any], *,
 
     starts = []
     for k in (0.0, 0.8, -0.8):
-        moved = dict(built)
-        moved["points"] = [(p[0], p[1] + k * math.sin(i * 0.7),
-                            p[2] + k * 0.4)
-                           for i, p in enumerate(built["points"])]
-        starts.append(sew_and_drape(moved, material,
+        # **布は同じ。置き始める場所だけ動かす。**
+        begin = [(p[0], p[1] + k * math.sin(i * 0.7), p[2] + k * 0.4)
+                 for i, p in enumerate(built["points"])]
+        starts.append(sew_and_drape(built, material, start=begin,
                                     iterations=iterations)["points"])
     start_diffs = [_vertex_diff(starts[0], s) for s in starts]
     # **同じ形が向きだけ違うのか、違う形なのか**を分ける。

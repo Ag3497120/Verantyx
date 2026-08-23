@@ -15,6 +15,10 @@ import SwiftUI
 /// 採用者の名前が残ります。モデルの選択欄(上のモデルピッカー)は、
 /// のちに「どの AI に解析させるか」を選ぶ場所になります。
 struct AtelierView: View {
+    /// 証拠帯を開いているか。**面をまたいで覚える** — 面を変えるたびに
+    /// 開き直されると、畳んだ意味がありません。
+    @AppStorage("atelier_evidence_open") private var evidenceOpen = false
+
     @EnvironmentObject var app: AppState
     @StateObject private var m = AtelierModel()
     @StateObject private var an = AtelierAnalyst()
@@ -34,7 +38,35 @@ struct AtelierView: View {
                 inspector.frame(width: 300)
             }
             Divider().opacity(0.35)
-            bottom.frame(height: 168)
+            // **証拠帯は畳める。** どの面でも 168pt を占めていて、
+            // 型紙も生地台帳も下が切れていました。畳んでも「ある」ことは
+            // 見出しに残します — 消すのではなく、しまう。
+            HStack(spacing: 6) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.15)) {
+                        evidenceOpen.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 5) {
+                        Text(evidenceOpen ? "▾" : "▸")
+                            .font(.system(size: 9))
+                        Text(app.t("EVIDENCE", "証拠"))
+                            .font(.system(size: 10, weight: .semibold))
+                        Text("\(m.timeline.count)")
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(AT.faint)
+                    }
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(AT.dim)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 12).padding(.vertical, 3)
+            .background(AT.panel)
+            if evidenceOpen {
+                Divider().opacity(0.25)
+                bottom.frame(height: 168)
+            }
         }
         .background(AT.bg)
         .task {
@@ -392,6 +424,7 @@ struct AtelierView: View {
                 }
             }
             Divider().opacity(0.25)
+            ScrollView {
             VStack(alignment: .leading, spacing: 7) {
                 bar("OBSERVED", m.counts["confirmed"] ?? 0, AT.ok)
                 // 裁つ前に**どれを確かめ直せるか**。確定の本数だけでは、
@@ -420,9 +453,59 @@ struct AtelierView: View {
                            + "一致したかです。UNKNOWN は失敗ではなく、次に"
                            + "探すもの。"))
                     .font(.system(size: 10)).foregroundStyle(AT.faint)
+
+                // **「次に探すもの」を実際に並べる。** 数だけ出して
+                // 一覧が無いと、UNKNOWN は数え上げで終わってしまう。
+                Divider().opacity(0.2).padding(.vertical, 2)
+                HStack(spacing: 6) {
+                    Text(app.t("BEFORE CUTTING", "裁つ前に潰すこと"))
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(AT.dim)
+                    Spacer(minLength: 0)
+                    Text("\(m.worklist.count)")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                }
+                // **空欄を「無い」と読ませない。** 引けていないのか、
+                // 本当に片付いているのかは、別のことです。
+                if m.worklist.isEmpty {
+                    Text(m.counts.isEmpty
+                         ? app.t("not read yet", "まだ引けていません")
+                         : app.t("nothing open", "開いている項目はありません"))
+                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                }
+                if !m.worklist.isEmpty {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Group {
+                            ForEach(m.worklist) { w in
+                                VStack(alignment: .leading, spacing: 2) {
+                                    HStack(spacing: 5) {
+                                        Text("\(w.part) / \(w.aspect)")
+                                            .font(.system(size: 10,
+                                                design: .monospaced))
+                                            .foregroundStyle(AT.dim)
+                                        Spacer(minLength: 0)
+                                    }
+                                    if !w.howToClose.isEmpty {
+                                        Text("→ " + w.howToClose)
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(AT.warn)
+                                            .fixedSize(
+                                                horizontal: false,
+                                                vertical: true)
+                                    }
+                                }
+                                .contentShape(Rectangle())
+                                .onTapGesture { m.selected = w.part }
+                            }
+                        }
+                    }
+                }
                 Spacer(minLength: 0)
             }
             .padding(12).frame(width: 300)
+            }
+            .frame(width: 300)
         }
         .background(AT.panel)
     }
@@ -1537,6 +1620,44 @@ private struct DesignPanel: View {
                                                   design: .monospaced))
                                     .foregroundStyle(AT.faint)
                             }
+
+                            // **原作品 → 観測 → 設計 の全段を出す。**
+                            // 一つ前だけでは、二度変えた値の出どころが
+                            // 消えます。開いたときだけ引きます。
+                            let key = "\(r.part)/\(r.aspect)"
+                            if let trail = m.designTrail[key] {
+                                ForEach(trail) { st in
+                                    HStack(spacing: 6) {
+                                        Text(st.stage)
+                                            .font(.system(size: 9,
+                                                weight: .semibold))
+                                            .foregroundStyle(AT.dim)
+                                            .frame(width: 76,
+                                                   alignment: .leading)
+                                        Text(st.value)
+                                            .font(.system(size: 9,
+                                                design: .monospaced))
+                                        if !st.source.isEmpty {
+                                            Text(st.source)
+                                                .font(.system(size: 9))
+                                                .foregroundStyle(AT.faint)
+                                        }
+                                        Spacer(minLength: 0)
+                                    }
+                                }
+                                .padding(.leading, 10).padding(.top, 2)
+                            } else {
+                                Button(app.t("where did this come from?",
+                                             "どこから来たか")) {
+                                    Task {
+                                        await m.loadDesignTrail(
+                                            part: r.part, aspect: r.aspect)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                .font(.system(size: 9))
+                                .foregroundStyle(AT.sel)
+                            }
                         }
                         .padding(.horizontal, 14).padding(.vertical, 6)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -2422,17 +2543,40 @@ private struct EvidencePanel: View {
     private func reference(_ r: AtelierModel.Evidence) -> some View {
         switch r.refStatus {
         case "VERIFIABLE":
-            Button {
-                open(r)
-            } label: {
-                HStack(spacing: 4) {
-                    Text("◉").font(.system(size: 9))
-                    Text(shortRef(r)).font(.system(size: 10,
-                                                   design: .monospaced))
+            VStack(alignment: .leading, spacing: 1) {
+                Button {
+                    open(r)
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("◉").font(.system(size: 9))
+                        Text(shortRef(r)).font(.system(size: 10,
+                                                       design: .monospaced))
+                    }
+                }
+                .buttonStyle(.link)
+                .foregroundStyle(AT.ok)
+
+                // **コマの出どころ。** ファイル名だけでは、どの素材の
+                // どこを見たのかが残らない。紐づいていなければそう言う。
+                if !r.refPath.isEmpty {
+                    if let o = m.clipOrigins[r.refPath] {
+                        Text(o.hasPrefix("UNKNOWN")
+                             ? app.t("not tied to a source",
+                                     "元の素材に紐づいていません")
+                             : o)
+                            .font(.system(size: 9))
+                            .foregroundStyle(o.hasPrefix("UNKNOWN")
+                                             ? AT.warn : AT.faint)
+                    } else {
+                        Button(app.t("which source?", "どの素材から？")) {
+                            Task { await m.loadClipOrigin(r.refPath) }
+                        }
+                        .buttonStyle(.plain)
+                        .font(.system(size: 9))
+                        .foregroundStyle(AT.sel)
+                    }
                 }
             }
-            .buttonStyle(.link)
-            .foregroundStyle(AT.ok)
         case "UNKNOWN_SOURCE_NOT_FOUND":
             // **「手元に無い」であって「無い」ではない。** 外付けを
             // 繋げば開ける。消えたものと同じ顔にしない。
@@ -2502,8 +2646,14 @@ private struct MaterialsPanel: View {
     @State private var inner = ""
     @State private var outer = ""
     @State private var layers = ""
+    @State private var tryFabric = ""
 
     private var materialParts: [String] { m.nonSpatial }
+
+    private var fabricNames: [String] {
+        Array(Set(m.fabricRows.filter { $0.state != "UNKNOWN_NOT_RECORDED" }
+            .map(\.fabric))).sorted()
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -2575,6 +2725,82 @@ private struct MaterialsPanel: View {
                     .padding(.trailing, 14)
             }
             .padding(.top, 8)
+            // **型紙の前に、生地だけを落としてみる。** 生地の物性が
+            // おかしければ縫っても直らないので、先に切り分けられる。
+            HStack(spacing: 8) {
+                Text(app.t("DROP A PLAIN 40×40 SQUARE",
+                           "平らな 40×40 の布を落としてみる"))
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(AT.dim)
+                Spacer(minLength: 0)
+                Picker("", selection: $tryFabric) {
+                    Text(app.t("pick", "生地")).tag("")
+                    ForEach(fabricNames, id: \.self) { Text($0).tag($0) }
+                }.labelsHidden().frame(width: 130)
+                if m.drapeBusy { ProgressView().controlSize(.small) }
+                Button(app.t("Drop", "落とす")) {
+                    Task { await m.drapeValidate(fabric: tryFabric) }
+                }
+                .font(.system(size: 11))
+                .disabled(tryFabric.isEmpty || m.drapeBusy)
+            }
+            .padding(.horizontal, 14).padding(.top, 8)
+
+            if !m.drapeVerdict.isEmpty {
+                ForEach(m.drapeChecks) { c in
+                    HStack(spacing: 8) {
+                        Text(c.name).font(.system(size: 10,
+                                                  design: .monospaced))
+                            .foregroundStyle(AT.dim)
+                            .frame(width: 70, alignment: .leading)
+                        Text(c.verdict == "ANSWER"
+                             ? app.t("passed", "通った") : c.verdict)
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(c.verdict == "ANSWER"
+                                             ? AT.ok : AT.bad)
+                        if let d = c.difference {
+                            Text(String(format: "%.3f", d)
+                                 + (c.tolerance.map {
+                                     String(format: " / %.2f", $0) } ?? ""))
+                                .font(.system(size: 9,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                        if !c.detail.isEmpty {
+                            Text(c.detail).font(.system(size: 9,
+                                                        design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 2)
+                }
+                if !m.drapeAssumed.isEmpty {
+                    ForEach(m.drapeAssumed.sorted { $0.key < $1.key },
+                            id: \.key) { k, v in
+                        HStack(alignment: .top, spacing: 6) {
+                            Text(k == "why"
+                                 ? app.t("why", "なぜ")
+                                 : app.t("assumed", "仮定"))
+                                .font(.system(size: 9, weight: .semibold))
+                                .foregroundStyle(AT.warn)
+                                .frame(width: 34, alignment: .leading)
+                            Text(v).font(.system(size: 9))
+                                .foregroundStyle(AT.warn)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 14)
+                    }
+                }
+                if !m.drapeWhyNoShape.isEmpty {
+                    Text(m.drapeWhyNoShape).font(.system(size: 10))
+                        .foregroundStyle(AT.warn)
+                        .padding(.horizontal, 14).padding(.bottom, 4)
+                }
+            }
+            Divider().opacity(0.15).padding(.vertical, 6)
+
             ForEach(m.fabricRows.filter { $0.state != "UNKNOWN_NOT_RECORDED" }) { r in
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 8) {
@@ -2839,6 +3065,7 @@ private struct SolidPanel: View {
         .task {
             await m.loadSolid()
             await m.loadEase()
+            await m.loadBodyRef()
             await m.loadGrade()
             await m.loadFabrics()
         }
@@ -3094,6 +3321,19 @@ private struct SolidPanel: View {
             Text(m.easeDisclaimer).font(.system(size: 10))
                 .foregroundStyle(AT.warn)
                 .padding(.horizontal, 14).padding(.bottom, 6)
+            // **何から引いた差なのかを画面に出す。** 基準体が見えないと、
+            // ゆとりは出どころの無い数字になる。
+            if !m.bodyRef.isEmpty {
+                Text(m.bodyRef.sorted { $0.key < $1.key }
+                    .map { String(format: "%@ %.1f", $0.key, $0.value) }
+                    .joined(separator: "   "))
+                    .font(.system(size: 9, design: .monospaced))
+                    .foregroundStyle(AT.faint)
+                    .padding(.horizontal, 14)
+                Text(m.bodyRefNote).font(.system(size: 9))
+                    .foregroundStyle(AT.faint)
+                    .padding(.horizontal, 14).padding(.bottom, 6)
+            }
             ForEach(m.easeRows) { r in
                 HStack(spacing: 10) {
                     Text(r.spot).font(.system(size: 11, design: .monospaced))

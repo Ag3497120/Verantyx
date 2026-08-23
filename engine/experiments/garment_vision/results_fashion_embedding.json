@@ -1,0 +1,104 @@
+{
+ "prereg": "PREREG4_FASHION_EMBEDDING.md",
+ "device": "cpu",
+ "mps": "使用不可 (Metal assertion, torch 2.8.0 / macOS 26.5)",
+ "checks": {
+  "VE0_apple_distance_reproduced": {
+   "pass": true,
+   "max_abs_difference": 5.960464477539063e-08,
+   "why": "Apple の computeDistance と自前の L2 が一致しなければ、以降の比較は指標の取り違えになる",
+   "dim": 768,
+   "element_type": "float32"
+  },
+  "VE1_same_garment_across_views": {
+   "pass": true,
+   "marqo": {
+    "n": 990,
+    "recall@1": 0.6575757575757576,
+    "recall@5": 0.8797979797979798,
+    "mrr": 0.7553034984923976,
+    "ms_per_image_incl_load": 75.8
+   },
+   "siglip_base": {
+    "n": 990,
+    "recall@1": 0.5707070707070707,
+    "recall@5": 0.8626262626262626,
+    "mrr": 0.6969100169438681,
+    "ms_per_image_incl_load": 69.7
+   },
+   "apple_featureprint": {
+    "n": 990,
+    "recall@1": 0.3414141414141414,
+    "recall@5": 0.6050505050505051,
+    "mrr": 0.46290702819920043
+   },
+   "marqo_vs_apple": {
+    "delta_mrr": 0.2923964702931972,
+    "ci95": [
+     0.2640148940093042,
+     0.32176930652485153
+    ],
+    "excludes_zero": true
+   },
+   "marqo_vs_base_siglip": {
+    "delta_mrr": 0.058393481548529524,
+    "ci95": [
+     0.04116973383752265,
+     0.07563433495028653
+    ],
+    "excludes_zero": true
+   }
+  },
+  "VE2_material_ranking_survives_replacement": {
+   "pass": false,
+   "top1_flip_rate": {
+    "crop90": 0.1,
+    "flip": 0.085,
+    "bright+15%": 0.09,
+    "bright-15%": 0.065,
+    "jpeg40": 0.15
+   },
+   "worst": 0.15,
+   "threshold": 0.05,
+   "n_images": 200,
+   "meaning": "素材の情報を持ち去らない変換で1位が入れ替わるなら、その順位は素材の証拠にならない"
+  },
+  "VE4_is_it_material_or_colour": {
+   "pass": true,
+   "top1_flip_rate": {
+    "greyscale": 0.165
+   },
+   "n_images": 200,
+   "meaning": "色を落として大きく入れ替わるなら、素材の順位は相当が色の順位"
+  },
+  "VE3_the_score_cannot_say_unknown": {
+   "pass": true,
+   "real_photo": {
+    "n": 200,
+    "margin_mean": 0.0199760552495718,
+    "margin_p05": 0.0011652596294879913,
+    "margin_p95": 0.0468919612467289
+   },
+   "line_drawing": {
+    "n": 8,
+    "margin_mean": 0.0020417990162968636,
+    "inside_real_p05_p95": 0.625
+   },
+   "uniform_noise": {
+    "n": 32,
+    "margin_mean": 0.01510263979434967,
+    "inside_real_p05_p95": 1.0
+   },
+   "prediction_was": "材質が写っていない入力でも margin は 実写の分布に紛れる（＝棄権の signal が無い）"
+  },
+  "VE5_cost": {
+   "pass": true,
+   "marqo_ms_per_image_warm": 67.2,
+   "apple_ms_per_image": 4.3907192018296985,
+   "params_millions": 203.2,
+   "embed_dim": 768,
+   "device": "cpu"
+  }
+ },
+ "summary": "5/6 predictions held"
+}
