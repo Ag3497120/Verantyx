@@ -5,7 +5,7 @@ Anything that was not measured is named as not measured, and the tool declines
 to draft around it.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.0.0"
 
 from .garment import (  # noqa: F401
     CONTESTED,

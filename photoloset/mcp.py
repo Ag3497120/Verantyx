@@ -546,7 +546,7 @@ def handle(req: Dict[str, Any]) -> Any:
     if method == "initialize":
         return {"protocolVersion": PROTOCOL,
                 "capabilities": {"tools": {}},
-                "serverInfo": {"name": "photoloset", "version": "0.1.0"}}
+                "serverInfo": {"name": "photoloset", "version": "0.0.0"}}
     if method in ("notifications/initialized", "initialized"):
         return None                                          # a notification
     if method == "tools/list":
