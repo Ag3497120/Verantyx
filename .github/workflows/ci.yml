@@ -1,0 +1,63 @@
+name: checks
+
+# Runs on pushes and pull requests both. A check that only runs after merge
+# tells you what you already shipped.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  engine:
+    name: engine (${{ matrix.os }}, python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      # No install step, and that is the point: the package has no
+      # dependencies, and one of the checks below is what makes that
+      # claim checkable rather than asserted.
+      - name: Run the checks
+        run: python3 tests/run_checks.py
+
+  app:
+    name: macOS app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show the toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+      - name: Build
+        working-directory: app
+        # Unsigned: CI proves it compiles and that the embed phase finds the
+        # Python package beside it. Signing belongs to the release, not here.
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Verantyx.xcodeproj \
+            -scheme Verantyx \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build | tail -40
+      - name: The Python package must be inside the bundle
+        working-directory: app
+        # The app talks to photoloset.mcp. If this is missing the build still
+        # succeeds and the ledger is unreadable at runtime — which is exactly
+        # the failure this repository already had once.
+        run: |
+          DEST="build/Build/Products/Debug/Verantyx.app/Contents/Resources/photoloset"
+          ls "$DEST/mcp.py"
+          echo "embedded $(ls "$DEST" | wc -l | tr -d ' ') files"

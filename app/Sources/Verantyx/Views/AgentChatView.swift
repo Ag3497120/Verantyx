@@ -588,9 +588,19 @@ struct AgentChatView: View {
     /// / a stamped release) already live in the top bar's veraModeControls
     /// — that is where Vera's own "which model answers" question is
     /// answered, so nothing is lost by hiding this bar here.
+    ///
+    /// The Atelier is hidden for the same reason, one step further along.
+    /// It already has a model picker of its own — the ANALYSIS AI row in the
+    /// left rail, which names the model and says what it is allowed to do
+    /// ("writes proposals only") and opens the analyst sheet when tapped.
+    /// Two selectors for one question is worse than either alone: the answer
+    /// to "which AI is reading this garment" was in two places that could
+    /// disagree, and neither said which one won. The composer itself stays —
+    /// it is where re-design intent is typed ("もっと丸い襟に"), which is a
+    /// different question from which backend answers it.
     private var modelSelectorBar: some View {
         HStack(spacing: 8) {
-            if app.veraEngineMode != .veraModel {
+            if app.veraEngineMode != .veraModel && app.veraEngineMode != .atelier {
                 ModelSelectorBarView()
             }
 

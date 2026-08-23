@@ -138,7 +138,12 @@ def intake_add_clip(source_path: str, clip_path: str, mark: str,
 @tool
 def intake_origin(clip_path: str) -> str:
     """Where a frame came from. A frame whose source is unknown says so."""
-    return _ok(_intake().origin(clip_path))
+    o = _intake().origin_of(clip_path)
+    if o is None:
+        return _ok({"verdict": "UNKNOWN_CLIP_NOT_REGISTERED",
+                    "how_to_close": "link the frame to its source with "
+                                    "intake_add_clip"})
+    return _ok({"verdict": "ANSWER", "origin": o})
 
 
 @tool
