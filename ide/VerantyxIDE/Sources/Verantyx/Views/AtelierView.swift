@@ -1936,6 +1936,8 @@ private struct MeasurePanel: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         Divider().opacity(0.12)
                     }
+                    Divider().opacity(0.2).padding(.top, 10)
+                    patternSection
                 }
             }
 
@@ -1943,7 +1945,134 @@ private struct MeasurePanel: View {
             recorder
         }
         .background(AT.bg)
-        .task { await m.loadMeasures() }
+        .task {
+            await m.loadMeasures()
+            await m.loadPattern()
+        }
+    }
+
+    // MARK: 型紙
+
+    /// 型紙の節。**足りない寸法を既定で埋めない。**
+    ///
+    /// 立体(見るもの)は既定の比率で補ってよいが、型紙は裁つものなので、
+    /// 無い寸法は無いと言って引きません。
+    @ViewBuilder
+    private var patternSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(app.t("PATTERN", "型紙")).railHead()
+                Spacer()
+                if m.patternVerdict == "ANSWER" {
+                    Text(String(format: "%.0f cm²", m.patternTotalArea))
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                    Button(app.t("Save SVG…", "SVGで書き出す…")) {
+                        savePattern()
+                    }.font(.system(size: 10))
+                }
+            }
+            .padding(.top, 8).padding(.trailing, 14)
+
+            if m.patternVerdict != "ANSWER" {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(app.t("cannot draft yet — missing: ",
+                               "まだ引けません。足りない寸法: ")
+                         + m.patternMissing.joined(separator: "、"))
+                        .font(.system(size: 11)).foregroundStyle(AT.warn)
+                    Text("→ " + m.patternHowToClose)
+                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                    Text(app.t("A pattern is cut from. Missing measurements "
+                               + "are not filled with defaults here.",
+                               "型紙は裁つものなので、足りない寸法を既定で"
+                               + "埋めません。"))
+                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                }
+                .padding(.horizontal, 14).padding(.vertical, 8)
+            } else {
+                PatternFigure(pieces: m.patternPieces)
+                    .frame(height: 170)
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
+                    .background(RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white))
+                    .padding(.horizontal, 14)
+
+                if !m.patternSleeveMissing.isEmpty {
+                    Text(app.t("sleeve not drafted — missing: ",
+                               "袖は引いていない。足りない寸法: ")
+                         + m.patternSleeveMissing.joined(separator: "、"))
+                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                        .padding(.horizontal, 14).padding(.top, 4)
+                }
+
+                // **縫い合わせの差を必ず出す。** 合っていることを主張
+                // するのではなく、差を見せる。
+                Text(app.t("SEAM CHECK — the difference, not a verdict",
+                           "縫い合わせの検算 — 差を出す")).railHead()
+                    .padding(.top, 10)
+                ForEach(m.patternChecks) { c in
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 8) {
+                            Text(c.label).font(.system(size: 11,
+                                                       weight: .semibold))
+                            Text(String(format: "%.2f vs %.2f",
+                                        c.lengthA, c.lengthB))
+                                .font(.system(size: 10,
+                                              design: .monospaced))
+                                .foregroundStyle(AT.faint)
+                            Text(String(format: "%+.2fcm", c.difference))
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundStyle(c.sewable ? AT.ok : AT.bad)
+                            Text(c.sewable ? app.t("sewable", "縫える")
+                                           : app.t("does not sew",
+                                                   "このままでは縫えない"))
+                                .font(.system(size: 10))
+                                .foregroundStyle(c.sewable ? AT.ok : AT.bad)
+                            Spacer(minLength: 0)
+                        }
+                        Text(c.why).font(.system(size: 9))
+                            .foregroundStyle(AT.faint)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 5)
+                    Divider().opacity(0.1)
+                }
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(m.patternSeamAllowance).font(.system(size: 10))
+                        .foregroundStyle(AT.bad)
+                    Text(m.patternNotPublished).font(.system(size: 9))
+                        .foregroundStyle(AT.faint)
+                    // 式を全部見せる。名前だけ借りると監査できない。
+                    DisclosureGroup(app.t("formulas used",
+                                          "使った式（全部）")) {
+                        ForEach(Array(m.patternFormulas.enumerated()),
+                                id: \.offset) { _, f in
+                            HStack(alignment: .top, spacing: 8) {
+                                Text(f.0).font(.system(size: 10))
+                                    .foregroundStyle(AT.dim)
+                                    .frame(width: 150, alignment: .leading)
+                                Text(f.1).font(.system(size: 10,
+                                                       design: .monospaced))
+                                Spacer(minLength: 0)
+                            }
+                        }
+                    }
+                    .font(.system(size: 10))
+                }
+                .padding(.horizontal, 14).padding(.vertical, 8)
+            }
+        }
+    }
+
+    private func savePattern() {
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "pattern.svg"
+        panel.message = AppLanguage.shared.t(
+            "Save the pattern (finished lines; no seam allowance)",
+            "型紙を保存する（出来上がり線。縫い代は入っていません）")
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        Task { said = await m.savePattern(to: url.path) }
     }
 
     private var recorder: some View {
@@ -2933,5 +3062,53 @@ private struct SolidView: NSViewRepresentable {
         let scale = 2.4 / CGFloat(max(ys.max()! - ys.min()!, 1))
         node.scale = SCNVector3(scale, scale, scale)
         return node
+    }
+}
+
+/// 型紙のピースを並べて描く。**エンジンが返した座標をそのまま引く。**
+private struct PatternFigure: View {
+    let pieces: [AtelierModel.PatternPiece]
+
+    var body: some View {
+        GeometryReader { g in
+            let laid = layout()
+            let s = min(g.size.width / max(laid.width, 1),
+                        g.size.height / max(laid.height, 1))
+            ZStack(alignment: .topLeading) {
+                ForEach(Array(laid.shapes.enumerated()), id: \.offset) { _, sh in
+                    Path { p in
+                        guard let first = sh.points.first else { return }
+                        p.move(to: CGPoint(x: first.x * s, y: first.y * s))
+                        for pt in sh.points.dropFirst() {
+                            p.addLine(to: CGPoint(x: pt.x * s, y: pt.y * s))
+                        }
+                        p.closeSubpath()
+                    }
+                    .stroke(Color.black, lineWidth: 0.9)
+                }
+            }
+        }
+    }
+
+    private struct Placed { var points: [CGPoint] }
+
+    /// 横に並べる。**形は変えない** — 置く位置だけ動かす。
+    private func layout() -> (shapes: [Placed], width: CGFloat,
+                              height: CGFloat) {
+        var x: CGFloat = 4
+        var out: [Placed] = []
+        var maxY: CGFloat = 0
+        for p in pieces {
+            guard !p.outline.isEmpty else { continue }
+            let minX = p.outline.map(\.x).min() ?? 0
+            let maxX = p.outline.map(\.x).max() ?? 0
+            let shift = x - minX
+            out.append(Placed(points: p.outline.map {
+                CGPoint(x: $0.x + shift, y: $0.y + 4)
+            }))
+            x += (maxX - minX) + 8
+            maxY = max(maxY, (p.outline.map(\.y).max() ?? 0) + 8)
+        }
+        return (out, x, maxY)
     }
 }

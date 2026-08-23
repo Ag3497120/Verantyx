@@ -90,6 +90,18 @@ final class AtelierModel: ObservableObject {
     @Published var clothEstimate: ClothEstimate?
     @Published var layerResult: LayerFit?
 
+    // -- 型紙。**足りない寸法を既定で埋めない** ------------------------
+    @Published var patternVerdict = ""
+    @Published var patternMissing: [String] = []
+    @Published var patternHowToClose = ""
+    @Published var patternPieces: [PatternPiece] = []
+    @Published var patternChecks: [SeamCheck] = []
+    @Published var patternTotalArea: Double = 0
+    @Published var patternSleeveMissing: [String] = []
+    @Published var patternFormulas: [(String, String)] = []
+    @Published var patternSeamAllowance = ""
+    @Published var patternNotPublished = ""
+
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
     @Published var designCounts: [String: Int] = [:]
@@ -207,6 +219,24 @@ final class AtelierModel: ObservableObject {
         var missing: [String] = []
         var howToClose = ""; var disclaimer = ""
         var layers: [(fabric: String, thickness: Double?, state: String)] = []
+    }
+
+    struct PatternPiece: Identifiable {
+        let id = UUID()
+        var name = ""
+        var outline: [CGPoint] = []
+        var areaCm2: Double = 0
+    }
+
+    struct SeamCheck: Identifiable {
+        let id = UUID()
+        var label = ""; var a = ""; var b = ""
+        var lengthA: Double = 0
+        var lengthB: Double = 0
+        var difference: Double = 0
+        var tolerance: Double = 0
+        var sewable = false
+        var why = ""
     }
 
     struct CrossArm {
@@ -671,6 +701,44 @@ final class AtelierModel: ObservableObject {
                  thickness: $0["thickness"] as? Double,
                  state: $0["state"] as? String ?? "")
             })
+    }
+
+    /// 型紙を引く。**縫い合わせの差を必ず読む。**
+    func loadPattern() async {
+        let d = await call("pattern_draft")
+        patternVerdict = d["verdict"] as? String ?? ""
+        patternMissing = d["missing"] as? [String] ?? []
+        patternHowToClose = d["how_to_close"] as? String ?? ""
+        patternSleeveMissing = d["sleeve_missing"] as? [String] ?? []
+        patternTotalArea = (d["total_area_cm2"] as? Double) ?? 0
+        patternSeamAllowance = d["seam_allowance"] as? String ?? ""
+        patternNotPublished = d["not_a_published_system"] as? String ?? ""
+        patternFormulas = (d["formulas"] as? [String: String] ?? [:])
+            .sorted { $0.key < $1.key }.map { ($0.key, $0.value) }
+        patternPieces = (d["pieces"] as? [[String: Any]] ?? []).map { p in
+            PatternPiece(
+                name: p["name"] as? String ?? "",
+                outline: (p["outline"] as? [[Double]] ?? []).map {
+                    CGPoint(x: $0.first ?? 0, y: $0.count > 1 ? $0[1] : 0)
+                },
+                areaCm2: (p["area_cm2"] as? Double) ?? 0)
+        }
+        patternChecks = (d["seam_checks"] as? [[String: Any]] ?? []).map { c in
+            SeamCheck(label: c["label"] as? String ?? "",
+                      a: c["a"] as? String ?? "",
+                      b: c["b"] as? String ?? "",
+                      lengthA: (c["length_a"] as? Double) ?? 0,
+                      lengthB: (c["length_b"] as? Double) ?? 0,
+                      difference: (c["difference"] as? Double) ?? 0,
+                      tolerance: (c["tolerance"] as? Double) ?? 0,
+                      sewable: (c["sewable"] as? Bool) ?? false,
+                      why: c["why"] as? String ?? "")
+        }
+    }
+
+    func savePattern(to path: String) async -> String {
+        let d = await call("pattern_save", ["path": path])
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
     }
 
     func loadDesign() async {

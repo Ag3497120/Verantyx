@@ -1,0 +1,81 @@
+{
+ "prereg": "experiments/garment/PREREG11_PATTERN.md",
+ "checks": {
+  "VT1_the_pattern_is_derived_and_names_its_inputs": {
+   "pass": true,
+   "detail": {
+    "used": {
+     "body_length": 96.0,
+     "chest": 104.0,
+     "shoulder": 47.0,
+     "sleeve_length": 59.0
+    }
+   }
+  },
+  "VT2_missing_measurements_are_never_filled_with_defaults": {
+   "pass": true,
+   "detail": {
+    "empty": [
+     "body_length",
+     "chest",
+     "shoulder"
+    ],
+    "partial": [
+     "body_length",
+     "shoulder"
+    ],
+    "pieces_without_sleeve": [
+     "後身頃",
+     "前身頃"
+    ]
+   }
+  },
+  "VT3_deterministic": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "pieces": 3
+   }
+  },
+  "VT4_every_seam_pair_reports_its_difference": {
+   "pass": true,
+   "detail": {
+    "肩線": 0.0,
+    "脇線": 0.0,
+    "袖山と袖ぐり": 1.99
+   }
+  },
+  "VT5_the_pattern_cannot_be_read_back_as_evidence": {
+   "pass": true,
+   "detail": {
+    "marked": true,
+    "observe_refused": true
+   }
+  },
+  "VT6_it_does_not_claim_a_published_drafting_system": {
+   "pass": true,
+   "detail": {
+    "claimed_names": [],
+    "formulas": 10
+   }
+  },
+  "VT7_it_says_there_is_no_seam_allowance": {
+   "pass": true,
+   "detail": {
+    "note": "縫い代は入っていません。引いたのは出来上がり線です。"
+   }
+  },
+  "VT8_area_per_piece_is_reported": {
+   "pass": true,
+   "detail": {
+    "areas": {
+     "後身頃": 2427.8,
+     "前身頃": 2379.3,
+     "袖": 1219.8
+    },
+    "total": 6026.9
+   }
+  }
+ },
+ "summary": "8/8 passed"
+}

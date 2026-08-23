@@ -4048,6 +4048,34 @@ def build(store_path: str):
             return _refused(e)
 
     @mcp.tool()
+    def pattern_draft() -> str:
+        """型紙を引く。**この道具の簡易製図であって、既存の製図法ではない。**
+
+        事前登録: experiments/garment/PREREG11_PATTERN.md
+
+        文化式・ドレメ式は公表された体系で、正しく実装したとは検証でき
+        ません。名乗れば検証できない主張になるので、**式を全部出して
+        監査可能に**しています。違うと思ったら式を見てください。
+
+        **足りない寸法を既定で埋めません。** 立体(見るもの)とはここが
+        違います — 型紙は裁つものです。
+
+        縫い合わせる辺の長さの差を必ず出します。袖ぐりと袖山が合わなけれ
+        ば、その型紙は縫えません。裁ってから分かるより先に言います。"""
+        from .garment_pattern import draft as _draft
+
+        return json.dumps(_draft(_measures()), ensure_ascii=False)
+
+    @mcp.tool()
+    def pattern_save(path: str) -> str:
+        """型紙を SVG で書き出し、**生成物の印を付ける**。
+
+        縫い代は入っていません。引いたのは出来上がり線です。"""
+        from .garment_pattern import save as _save
+
+        return json.dumps(_save(_measures(), path), ensure_ascii=False)
+
+    @mcp.tool()
     def garment_solid() -> str:
         """立体を**組み立てる**。生成モデルは呼ばない。
 
