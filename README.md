@@ -224,17 +224,35 @@ and says so when it starts.
   <img src="docs/frames/03-adopt.jpg" alt="The ledger as a garment, with a proposal waiting to be adopted" width="720">
 </p>
 
-The frames throughout this README come from a demo film of a **native macOS
-app** built on the same engine. That app is a separate program and is **not in
-this repository**; what is here is the engine and the browser application
-above, which covers the ledger, adoption, the worklist, the tech pack and the
-pattern (`/api/pattern.svg`). Drafting, marking, sewing and draping are driven
-from Python — see the walkthrough.
+### The macOS app in the film
+
+The frames throughout this README come from a demo of
+**[Verantyx](https://github.com/Ag3497120/Verantyx)**, a macOS agent IDE that
+opens on this workbench. It is a separate program and is **not vendored here** —
+it is public, it is large, and a copy of it living in two repositories would
+drift apart, which is the same reason the English output in this package is a
+translation layer rather than a fork.
+
+Building the workbench on an agent IDE rather than as a purpose-built garment
+app is deliberate. It arrives carrying the parts a garment tool would otherwise
+have to grow itself: model clients for the vision step, an MCP host, a file
+tree, a console. What this package adds is the half that has to be exact.
+
+The two meet at the tool surface, not at a shared build. `python3 -m
+photoloset.mcp` exposes the same 37 tools the app calls — the same names, the
+same typed refusals — with five of them absent and saying so. Nothing here
+depends on that app, and nothing in that app is needed to use this.
 
 To see the whole pipeline run end to end:
 
 ```bash
 python3 examples/black_coat.py
+```
+
+Or drive it from an agent, which is what the app in the film does:
+
+```bash
+python3 -m photoloset.mcp        # 37 tools over stdio, standard library only
 ```
 
 ## Thirty seconds of it
