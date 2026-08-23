@@ -1,0 +1,88 @@
+{
+ "prereg": "experiments/garment/PREREG12_DRAPE.md",
+ "checks": {
+  "VE1_deterministic": {
+   "pass": true,
+   "detail": {
+    "same_points": true,
+    "vertices": 81
+   }
+  },
+  "VE2_order_invariance_is_checked_and_the_check_can_fail": {
+   "pass": true,
+   "detail": {
+    "difference": 0.1699,
+    "loose": "ANSWER",
+    "strict": "UNKNOWN_ORDER_DEPENDENT"
+   }
+  },
+  "VE3_order_dependence_grows_with_iterations": {
+   "pass": true,
+   "detail": {
+    "iterations": [
+     50,
+     300,
+     800
+    ],
+    "differences": [
+     0.0042,
+     0.1699,
+     0.3363
+    ]
+   }
+  },
+  "VE4_split_starts_return_every_shape_not_one": {
+   "pass": true,
+   "detail": {
+    "strict": "UNKNOWN_LOCAL_MINIMUM",
+    "shapes": 3,
+    "loose": "ANSWER"
+   }
+  },
+  "VE5_scale_convergence_is_measured_and_can_fail": {
+   "pass": true,
+   "detail": {
+    "differences": [
+     5.704,
+     1.378
+    ],
+    "shrinking": true,
+    "tight": "UNKNOWN_NOT_CONVERGED"
+   }
+  },
+  "VE6_energy_decreases_monotonically": {
+   "pass": true,
+   "detail": {
+    "first": 0.0,
+    "last": -234585.937897,
+    "rises": 0,
+    "steps": 400
+   }
+  },
+  "VE7_no_material_no_drape": {
+   "pass": true,
+   "detail": {
+    "empty": [
+     "weight",
+     "thickness"
+    ],
+    "half": [
+     "thickness"
+    ],
+    "contested_weight_blocks_it": "UNKNOWN_NO_MATERIAL"
+   }
+  },
+  "VE8_the_drape_is_generated_and_withheld_when_checks_fail": {
+   "pass": true,
+   "detail": {
+    "observe_refused": true,
+    "good": "ANSWER",
+    "failed_returns_no_shape": true,
+    "failed": [
+     "order"
+    ]
+   }
+  }
+ },
+ "summary": "8/8 passed"
+}

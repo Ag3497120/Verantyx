@@ -4048,6 +4048,38 @@ def build(store_path: str):
             return _refused(e)
 
     @mcp.tool()
+    def drape_validate(fabric: str, width: float = 40.0,
+                       height: float = 40.0, iterations: int = 300) -> str:
+        """布を落とし、**四つの検査に通ったときだけ形を返す。**
+
+        事前登録: experiments/garment/PREREG12_DRAPE.md
+
+        立体十字の四つの性質を布に当てています。
+
+        - **配置は情報を増やさない** → 頂点の更新順で形が変わらない
+        - **24面の壁(段は幾何が強制)** → 粗中細で収束する
+        - **エネルギー系・断面の一致** → 複数の初期配置から同じ形へ
+        - **同点は棄権** → 決められないなら決めない
+
+        検査が落ちたら形を返しません。順序や初期配置が決めた皺を、
+        物理として見せないためです。割れた場合は**片方を選ばず全部の
+        形を返します。**
+
+        生地の目付と厚みが台帳に無ければ落としません。割れていても
+        落としません — 420 で計算するか 450 で計算するかを装置が
+        決めないためです。曲げ剛性は実測が無いので厚みからの**仮定**で、
+        そう明示されます。"""
+        from .garment_drape import material_from as _mat
+        from .garment_drape import validate as _validate
+        from .garment_material import Fabrics
+
+        fabrics = Fabrics.load(_fabrics_path())
+        mat = _mat(fabrics, fabric)
+        return json.dumps(_validate(width, height, mat,
+                                    iterations=iterations),
+                          ensure_ascii=False)
+
+    @mcp.tool()
     def pattern_draft() -> str:
         """型紙を引く。**この道具の簡易製図であって、既存の製図法ではない。**
 
