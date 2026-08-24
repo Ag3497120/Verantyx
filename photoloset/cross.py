@@ -6,228 +6,843 @@
 だからこの店は**容量を超えた要求を黙って拡張しない** — 子コアに分れる
 (マトリョーシカは選択ではなく幾何が要求すること)。
 
+**腕は三つの双対で、書く側は腕を選べない。**
+
+    x: support+ / support-   何が支えるか / 何が反するか
+    y: cause+   / cause-     何が生んだか / 何を生むか
+    z: kind+    / kind-      何に抽象されるか / 何がその例か
+
+書く側が言うのは**主張の種別 (kind)** だけで、腕は ``KIND_ARM`` が決める
+(親プロジェクトの ``arm_schema.ARMS`` / ``garment_cross.ARM_OF_KIND`` と
+同じ形)。選べる引き出しが無いので「都合のいい腕に書く」ができない。
+
+- ``support-`` は表に無い。**名指しで書けない腕**で、同じ住所に違う値が
+  立ったときにだけ現れる。腕が住所の一部でないのはこのため — 腕まで
+  住所に含めると support+ の観測と support- の観測は別住所になり、
+  永久にぶつからない。
+- ``no_match`` (探して無かった) は**載らない**。不在は主張ではない。
+- ``proposed`` は腕を持たず ``<core>#proposed`` に隔離される。質量に
+  混ぜない。
+
+**住所は (core, key) で、腕は席の性質であって座標ではない。**
+容量は (core, 腕) ごとに**住所の数**で数える — 4人が同じ寸法に同意
+しても席は1つで、重み (weight) が増えるだけ。だから
+``GENERIC_MIN_SOURCES`` (一般構造の主張は独立した出典2本で買う) が
+言葉として成立する。
+
 守っている性質と、その根拠:
 
-- **同点は棄権。** 同じ住所に値が違い複数立ったら、どちらも捨てずに
+- **同点は棄権。** 同じ住所に値が違うものが立ったら、どちらも捨てずに
   CONTESTED を返す。多数決もアルファベット順も使わない — 恣意的な
   同点崩しは一致を捏造した (実測: 辞書順タイブレークで全一致の精度が
-  73.3% → 23.7% に落ちた)。
-- **配置は情報を増やさない。** 取り出し答えが格納順に依ってよい理由は
-  ない。`placement_check()` が店じゅうを二つの決定的な順で歩き、
-  答えが一つでも動いたら ORDER_DEPENDENT を返す。
+  73.3% → 23.7% に落ちた)。**割れの判定は nest 閉包の全体で行う** —
+  マトリョーシカで別コアに落ちた値が「一致」に見えてはいけない。
+- **格納順は答えを動かさない。** これを確かめるのは
+  ``ingest_order_check()`` で、同じ書き込み計画を**別の順で入れ直して**
+  住所→値の地図・割れの集合・断られた書き込みの集合を比べる。
+  (以前ここにあった ``placement_check()`` は同じ店を二度**読む**だけで、
+  構造上落ちようがなかった。互換のため残してあるが、本物はこちら。)
 - **辺は関係の席。** 面(facet)は「何が在るか」、辺(edge)は「何と何が
-  約束しているか」。縫い目のように二枚の間でしか成立しないものは、
-  面に置かず辺で結ぶ。
+  約束しているか」。片端しかない辺、居ない核を指す辺は**入れない**。
+- **読みは何も作らない。** 無い核を読んでも核はできない。
+- **店は値を所有する。** 出し入れで複製する。外から握ったままの
+  オブジェクトを書き換えて CONTESTED を ANSWER に戻せない。
+- **断りは戻り値。** 例外で境界を越えない。
 """
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
+import copy
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 #: 幾何。**この数は測定から来ている。** 変えるなら測定し直すこと。
-ARMS = ("pieces", "measures", "seams", "params", "settings", "rules")
+#: 親プロジェクトの ``arm_schema.ARMS`` と同一。
+ARMS = ("support+", "support-", "cause+", "cause-", "kind+", "kind-")
 FACES_PER_ARM = 4
 CAPACITY_PER_CORE = len(ARMS) * FACES_PER_ARM      # 24
+
+#: 主張の種別 → 腕。**書く側が言うのは左、店が決めるのは右。**
+#:
+#: ``support-`` が無いのは意図的で、反証は**書けない**。同じ住所で値が
+#: 割れたときに現れるだけ。``None`` の二つは腕を持たない:
+#: ``proposed`` は隔離席へ、``no_match`` は載らない。
+KIND_ARM: Dict[str, Optional[str]] = {
+    "measured": "support+",   # 実測がその値を支える
+    "cited":    "support+",   # 外の文献がその値を支える
+    "input":    "cause+",     # 引くために要る実測 — 型紙を生む側
+    "derived":  "cause+",     # 式・手順がその値を生んだ
+    "feeds":    "cause-",     # この値があの値を生む
+    "generic":  "kind+",      # 一般構造の主張(この一着のものではない)
+    "specific": "kind-",      # この宣言が決めたこと
+    "declared": "kind-",      # 名乗りも「この一着のもの」という実例側
+    "proposed": None,         # 言われただけ。質量に混ぜない
+    "no_match": None,         # 探して無かったは主張ではない。載せない
+}
+
+#: 空の腕 → 型付きの欠落。親プロジェクトの ``_ARM_GAP_VERDICT`` と同一。
+ARM_GAP_VERDICT: Dict[str, str] = {
+    "support+": "UNKNOWN_NO_SUPPORT_RECORDED",
+    "support-": "UNKNOWN_NO_COUNTEREVIDENCE_RECORDED",
+    "cause+":   "UNKNOWN_NO_CAUSE_RECORDED",
+    "cause-":   "UNKNOWN_NO_EFFECT_RECORDED",
+    "kind+":    "UNKNOWN_NO_GENERALIZATION_RECORDED",
+    "kind-":    "UNKNOWN_NO_INSTANCE_RECORDED",
+}
+
+#: 一般構造の主張は**独立した出典2本で買う。** 1本の kind+ は
+#: 「そう言われている」であって「一般にそうである」ではない。
+GENERIC_MIN_SOURCES = 2
+
+#: 辺の閉じた語彙。``seam:`` だけ接頭辞で開いている(縫い目の名前が入る)。
+EDGE_LABELS = ("nest", "part_of", "feeds")
+EDGE_LABEL_PREFIXES = ("seam:",)
 
 NOT_IN_CROSS = "UNKNOWN_NOT_IN_CROSS"
 CONTESTED_IN_CROSS = "CONTESTED_IN_CROSS"
 ARM_FULL = "UNKNOWN_CROSS_ARM_FULL"
 ORDER_DEPENDENT = "UNKNOWN_ORDER_DEPENDENT"
+NO_SUCH_KIND = "UNKNOWN_NO_SUCH_KIND"
+NOT_A_CLAIM = "UNKNOWN_ABSENCE_IS_NOT_A_CLAIM"
+DANGLING_EDGE = "UNKNOWN_DANGLING_EDGE"
+ARM_NOT_DERIVED = "UNKNOWN_ARM_NOT_DERIVED"
+DUPLICATE_ADDRESS = "UNKNOWN_DUPLICATE_ADDRESS"
+OVER_CAPACITY = "UNKNOWN_OVER_CAPACITY"
+ORPHANED_CORE = "UNKNOWN_ORPHANED_CORE"
+ALIASED_VALUE = "UNKNOWN_ALIASED_VALUE"
+GENERIC_NOT_BOUGHT = "UNKNOWN_GENERIC_NOT_BOUGHT"
 
-Addr = Tuple[str, str, str]          # (core, arm, key)
+Addr = Tuple[str, str]          # (core, key) — **腕は住所に入らない**
 
 
 class CrossFullError(ValueError):
-    """腕の4面が埋まった。**黙って拡張しない** — 子コアに分ける。"""
+    """腕の4面が埋まった。
+
+    **もう送出されません。** 容量は ``put_strict()`` の戻り値
+    (``verdict == ARM_FULL``) で返る — 断りは戻り値であって例外では
+    ないため。この名前は import 互換のために残してあります。
+    """
+
+
+def _is_addr(a: Any) -> bool:
+    return (isinstance(a, (tuple, list)) and len(a) == 2
+            and isinstance(a[0], str) and a[0] != ""
+            and isinstance(a[1], str))
+
+
+def _label_ok(label: Any) -> bool:
+    if not isinstance(label, str) or not label:
+        return False
+    return (label in EDGE_LABELS
+            or any(label.startswith(p) for p in EDGE_LABEL_PREFIXES))
 
 
 class CrossStore:
-    """核の集まりと、核どうしを結ぶ辺。"""
+    """核の集まりと、核どうしを結ぶ辺。
+
+    核は**席(seat)の並び**。1席 = 1住所 = ``{key, arm, seq, values}``。
+    ``values`` は ``{value, kind, sources}`` の並びで、長さが2以上なら
+    その住所は割れている。
+    """
 
     def __init__(self) -> None:
-        self.cores: Dict[str, Dict[str, List[Dict[str, Any]]]] = {}
-        # 面は挿入順を保つ。**並べ替えで答えが変わってはいけない**ので、
-        # 順序は保持しつつ、依存していないことを placement_check が確かめる。
+        self.cores: Dict[str, List[Dict[str, Any]]] = {}
         self.edges: List[Dict[str, Any]] = []
+        #: 宣言の序数。**並びは格納ではなく宣言の内容**なので、
+        #: 席が自分で覚える(散らばっても読む順が動かない)。
+        self._seq = 0
+        #: 断りの控え。書き口が返した非 ANSWER を溜める。
+        self.refusals: List[Dict[str, Any]] = []
+        self.load_verdict: Dict[str, Any] = {"verdict": "ANSWER",
+                                             "note": "built, not loaded"}
 
-    # ------------------------------------------------------------ 格納
-    def _core(self, name: str) -> Dict[str, List[Dict[str, Any]]]:
+    # ------------------------------------------------------------ 内部
+    def _core(self, name: str) -> List[Dict[str, Any]]:
+        """**書き口専用。** 読みからは絶対に呼ばない(呼ぶと核ができる)。"""
         if name not in self.cores:
-            self.cores[name] = {arm: [] for arm in ARMS}
+            self.cores[name] = []
         return self.cores[name]
 
-    def put(self, core: str, arm: str, key: str, value: Any,
-            source: str = "") -> Dict[str, Any]:
-        """面に載せる。同じ主張の再掲は増えない(同じ絵を9回見ても1件)。"""
-        if arm not in ARMS:
-            raise ValueError(f"UNKNOWN_NO_SUCH_ARM: {arm} — arms are {ARMS}")
-        c = self._core(core)
-        slots = c[arm]
-        for i, f in enumerate(slots):
-            if f["key"] == key and f["value"] == value \
-                    and f["source"] == source:
-                return {"core": core, "arm": arm, "face": i,
-                        "state": "already"}
-        if len(slots) >= FACES_PER_ARM:
-            raise CrossFullError(
-                f"{ARM_FULL}: {core}/{arm} は4面とも埋まっています。"
-                "黙って拡張せず、子コアに分けてください "
-                "(マトリョーシカは幾何が要求すること)")
-        slots.append({"key": key, "value": value, "source": source})
-        return {"core": core, "arm": arm, "face": len(slots) - 1,
-                "state": "placed"}
+    def _next_seq(self) -> int:
+        self._seq += 1
+        return self._seq
 
-    def get(self, core: str, arm: str, key: str) -> Dict[str, Any]:
-        """取り出す。**同点は棄権する。**
+    def has_core(self, name: str) -> bool:
+        return name in self.cores
+
+    # ------------------------------------------------------------ 閉包
+    def _closure(self, core: str) -> List[str]:
+        """nest 辺で繋がった核の連結成分。**これが一つの住所空間。**
+
+        マトリョーシカは幾何が要求した分割であって別の主題ではないので、
+        鎖の全体で1つの住所空間として解決する。``part_of`` は辿らない
+        — ``block:coat`` と ``block:coat/piece:袖`` は**別の主題**で、
+        同じ鍵が両方に立っても矛盾ではない。
+        """
+        out = [core]
+        seen = {core}
+        i = 0
+        while i < len(out):
+            cur = out[i]
+            i += 1
+            for e in self.edges:
+                if e["label"] != "nest":
+                    continue
+                for x, y in ((e["a"], e["b"]), (e["b"], e["a"])):
+                    if not _is_addr(x) or not _is_addr(y):
+                        continue
+                    if x[0] == cur and y[0] not in seen:
+                        seen.add(y[0])
+                        out.append(y[0])
+        return out
+
+    def _find_seat(self, core: str, key: str
+                   ) -> Optional[Tuple[str, Dict[str, Any]]]:
+        """閉包の中で住所 (core, key) の席を探す。**核は作らない。**"""
+        for cname in self._closure(core):
+            for s in self.cores.get(cname, []):
+                if s["key"] == key:
+                    return cname, s
+        return None
+
+    def _arm_load(self, core: str, arm: str) -> int:
+        return sum(1 for s in self.cores.get(core, []) if s["arm"] == arm)
+
+    # ------------------------------------------------------------ 格納
+    def put_strict(self, core: str, key: str, value: Any, kind: str,
+                   source: str = "", seq: Optional[int] = None
+                   ) -> Dict[str, Any]:
+        """**分けない書き口。** 腕が埋まったら ARM_FULL を返す。
+
+        住所を先に解決する — 既に席がある住所への二つ目の値は
+        「新しい席をくれ」ではなく「その席で争う」なので、**容量より
+        先に争いを見る**。これが逆だと、埋まった腕の上では矛盾が
+        「腕が満杯」に化けて永久に見えない。
+        """
+        if kind not in KIND_ARM:
+            return {"verdict": NO_SUCH_KIND, "which": kind,
+                    "known": sorted(KIND_ARM),
+                    "how_to_close": "宣言に主張の種別を書く"}
+        if kind == "no_match":
+            return {"verdict": NOT_A_CLAIM, "stored": False,
+                    "core": core, "key": key,
+                    "why": "探して無かった、は主張ではない。載せません"}
+
+        arm = KIND_ARM[kind]
+        if arm is None:                     # proposed — 隔離席へ
+            core = f"{core}#proposed"
+
+        found = self._find_seat(core, key)
+        if found is not None:
+            where, seat = found
+            for entry in seat["values"]:
+                if entry["value"] == value:
+                    state = "already"
+                    if source not in entry["sources"]:
+                        entry["sources"].append(source)
+                        state = "corroborated"
+                    return {"verdict": "ANSWER", "state": state,
+                            "core": where, "key": key, "arm": seat["arm"],
+                            "weight": len(entry["sources"]),
+                            "seat_created": False}
+            # 値が違う → **席は増やさない。その席で争う。**
+            seat["values"].append({"value": copy.deepcopy(value),
+                                   "kind": kind, "sources": [source]})
+            return {"verdict": CONTESTED_IN_CROSS, "core": where, "key": key,
+                    "arm": seat["arm"], "also_on": "support-",
+                    "sides": len(seat["values"]), "seat_created": False,
+                    "how_to_close": "宣言を確かめて、正しい方だけを残す"}
+
+        if arm is not None and self._arm_load(core, arm) >= FACES_PER_ARM:
+            return {"verdict": ARM_FULL, "core": core, "arm": arm,
+                    "key": key,
+                    "how_to_close": "子コアに分ける "
+                                    "(マトリョーシカは幾何が要求すること)"}
+
+        seat = {"key": key, "arm": arm,
+                "seq": self._next_seq() if seq is None else seq,
+                "values": [{"value": copy.deepcopy(value), "kind": kind,
+                            "sources": [source]}]}
+        self._core(core).append(seat)
+        return {"verdict": "ANSWER", "state": "placed", "core": core,
+                "key": key, "arm": arm, "weight": 1, "seat_created": True}
+
+    def put(self, core: str, key: str, value: Any, kind: str,
+            source: str = "", seq: Optional[int] = None) -> Dict[str, Any]:
+        """**分ける書き口。** 腕が埋まったら子コアに分れ、nest 辺で繋ぐ。
+
+        黙って席を増やさない — 分割は店の幾何(4面)が決めること。
+        住所の解決は閉包の全体なので、分れた先に同じ鍵の別の値が
+        落ちることはない(そちらは争いになる)。
+        """
+        r = self.put_strict(core, key, value, kind, source, seq)
+        if r["verdict"] != ARM_FULL:
+            if r["verdict"] != "ANSWER":
+                self.refusals.append(dict(r))
+            return r
+
+        arm = KIND_ARM[kind]
+        chain = self._closure(core)
+        for cur in chain[1:]:
+            r = self.put_strict(cur, key, value, kind, source, seq)
+            if r["verdict"] != ARM_FULL:
+                if r["verdict"] != "ANSWER":
+                    self.refusals.append(dict(r))
+                return r
+
+        n = len(chain)
+        child = f"{core}·{arm}·{n}"
+        while child in self.cores:
+            n += 1
+            child = f"{core}·{arm}·{n}"
+        self._core(child)
+        self.link((chain[-1], ""), (child, ""), "nest")
+        r = self.put_strict(child, key, value, kind, source, seq)
+        if r["verdict"] != "ANSWER":
+            self.refusals.append(dict(r))
+        return r
+
+    def put_all(self, root: str, items: Sequence[Tuple[str, Any, str]],
+                source: str) -> List[str]:
+        """``(key, value, kind)`` を順に載せる。戻り値は載った核の列。"""
+        for key, value, kind in items:
+            self.put(root, key, value, kind, source)
+        return self._closure(root)
+
+    # ------------------------------------------------------------ 取り出し
+    def resolve(self, core: str, key: str) -> Dict[str, Any]:
+        """住所を解決する。**同点は棄権する。読みは何も作らない。**
 
         - 無い → UNKNOWN_NOT_IN_CROSS(「無い」は「0件の検索結果」と別)
-        - 一意 → ANSWER
+        - 一意 → ANSWER(``weight`` は独立した出典の数)
         - 値が違うものが複数 → CONTESTED_IN_CROSS。両方を出し、
-          **どちらも選ばない**
+          **どちらも選ばない**。その住所は ``support-`` にも数える。
         """
-        for f in self._core(core)[arm]:
-            if f["key"] != key:
-                continue
-            sides = [f]
-            for g in self._core(core)[arm]:
-                if g is not f and g["key"] == key:
-                    sides.append(g)
-            values = [s["value"] for s in sides]
-            if all(v == values[0] for v in values[1:]):
-                return {"verdict": "ANSWER", "value": values[0],
-                        "sources": [s["source"] for s in sides],
-                        "agreed": len(sides),
-                        "where": {"core": core, "arm": arm}}
-            return {"verdict": CONTESTED_IN_CROSS,
-                    "sides": [{"value": s["value"], "source": s["source"]}
-                              for s in sides],
-                    "how_to_close":
-                        "宣言を確かめて、正しい方だけを残す",
-                    "where": {"core": core, "arm": arm}}
-        return {"verdict": NOT_IN_CROSS,
-                "why": f"{core}/{arm} に {key} は載っていない",
-                "how_to_close": "Block の宣言に足す"}
+        seats: List[Tuple[str, Dict[str, Any]]] = []
+        for cname in self._closure(core):
+            for s in self.cores.get(cname, []):
+                if s["key"] == key:
+                    seats.append((cname, s))
+        if not seats:
+            return {"verdict": NOT_IN_CROSS,
+                    "why": f"{core} に {key} は載っていない",
+                    "how_to_close": "宣言に足す"}
 
-    def require(self, core: str, arm: str, key: str) -> Any:
+        entries = [(cn, e) for cn, s in seats for e in s["values"]]
+        first = entries[0][1]["value"]
+        arm = seats[0][1]["arm"]
+        if all(e["value"] == first for _cn, e in entries):
+            sources: List[str] = []
+            for _cn, e in entries:
+                for src in e["sources"]:
+                    if src not in sources:
+                        sources.append(src)
+            return {"verdict": "ANSWER", "value": copy.deepcopy(first),
+                    "sources": list(sources), "weight": len(sources),
+                    "agreed": len(entries), "arm": arm,
+                    "kinds": [e["kind"] for _cn, e in entries],
+                    "seq": min(s["seq"] for _cn, s in seats),
+                    "where": {"core": seats[0][0], "arm": arm}}
+        return {"verdict": CONTESTED_IN_CROSS,
+                "sides": [{"value": copy.deepcopy(e["value"]),
+                           "kind": e["kind"], "sources": list(e["sources"]),
+                           "core": cn} for cn, e in entries],
+                "arm": arm, "also_on": "support-",
+                "seq": min(s["seq"] for _cn, s in seats),
+                "how_to_close": "宣言を確かめて、正しい方だけを残す",
+                "where": {"core": seats[0][0], "arm": arm}}
+
+    def require(self, core: str, key: str) -> Any:
         """値を必須で取る。断られたら例外で止まる(**埋めない**)。"""
-        r = self.get(core, arm, key)
+        r = self.resolve(core, key)
         if r["verdict"] == "ANSWER":
             return r["value"]
-        raise ValueError(f'{r["verdict"]}: {core}/{arm}/{key}')
+        raise ValueError(f'{r["verdict"]}: {core}/{key}')
+
+    def seats(self, core: str, prefix: Optional[str] = None
+              ) -> List[Dict[str, Any]]:
+        """閉包の席を**宣言順(seq)で**返す。``prefix`` で鍵を絞る。
+
+        並びが seq なのは、**宣言の順は宣言の内容であって格納ではない**
+        から。主題コアに散らばっても読む順は動かない。
+        """
+        out: List[Dict[str, Any]] = []
+        seen: set = set()
+        for cname in self._closure(core):
+            for s in self.cores.get(cname, []):
+                if prefix is not None and not s["key"].startswith(prefix):
+                    continue
+                if s["key"] in seen:
+                    continue
+                seen.add(s["key"])
+                r = self.resolve(cname, s["key"])
+                rec = dict(r)
+                rec["core"] = cname
+                rec["key"] = s["key"]
+                rec["arm"] = s["arm"]
+                rec["seq"] = s["seq"]
+                out.append(rec)
+        out.sort(key=lambda r: (r["seq"], r["key"]))
+        return out
+
+    def part_of_children(self, core: str) -> List[str]:
+        """``a part_of b`` の a たち。**主題の子** — 閉包には入らない。"""
+        out: List[str] = []
+        for e in self.edges:
+            if e["label"] == "part_of" and _is_addr(e["a"]) \
+                    and _is_addr(e["b"]) and e["b"][0] == core:
+                if e["a"][0] not in out:
+                    out.append(e["a"][0])
+        return out
 
     def contested(self) -> List[Dict[str, Any]]:
-        """店じゅうの割れの一覧。**片方は選ばれていない。**"""
+        """店じゅうの割れの一覧。**片方は選ばれていない。**
+
+        判定は閉包ごと — 別コアに落ちた同じ鍵の別の値も割れとして見える。
+        """
         out: List[Dict[str, Any]] = []
-        for cname, c in self.cores.items():
-            for arm, slots in c.items():
-                seen: Dict[str, List[Dict[str, Any]]] = {}
-                for f in slots:
-                    seen.setdefault(f["key"], []).append(f)
-                for key, fs in seen.items():
-                    vals = [f["value"] for f in fs]
-                    if any(v != vals[0] for v in vals[1:]):
-                        out.append({"core": cname, "arm": arm, "key": key,
-                                    "sides": len(fs)})
+        done: set = set()
+        for cname in list(self.cores):
+            closure = self._closure(cname)
+            token = frozenset(closure)
+            if token in done:
+                continue
+            done.add(token)
+            by_key: Dict[str, List[Tuple[str, Dict[str, Any]]]] = {}
+            for cn in closure:
+                for s in self.cores.get(cn, []):
+                    by_key.setdefault(s["key"], []).append((cn, s))
+            for key, group in by_key.items():
+                vals = [e["value"] for _cn, s in group for e in s["values"]]
+                if any(v != vals[0] for v in vals[1:]):
+                    out.append({"core": group[0][0], "key": key,
+                                "arm": group[0][1]["arm"],
+                                "also_on": "support-",
+                                "sides": len(vals)})
+        out.sort(key=lambda r: (r["core"], r["key"]))
+        return out
+
+    # ------------------------------------------------------------ 腕の意味
+    def arm_census(self, core: str) -> Dict[str, int]:
+        """閉包の腕ごとの席数。**support- は割れた住所の数。**
+
+        support- は誰も名指しで書けない腕なので、ここでだけ数が入る。
+        """
+        counts = {a: 0 for a in ARMS}
+        closure = set(self._closure(core))
+        for cn in closure:
+            for s in self.cores.get(cn, []):
+                if s["arm"] in counts:
+                    counts[s["arm"]] += 1
+        counts["support-"] = sum(
+            1 for c in self.contested() if c["core"] in closure)
+        return counts
+
+    def gaps(self, core: str) -> List[str]:
+        """空いている腕を**型付きの欠落**として返す。
+
+        「知らない」ではなく「どの種類の知識が無いか」。支えが無ければ
+        UNKNOWN_NO_SUPPORT_RECORDED、由来が無ければ
+        UNKNOWN_NO_CAUSE_RECORDED。
+        """
+        cen = self.arm_census(core)
+        return [ARM_GAP_VERDICT[a] for a in ARMS if not cen[a]]
+
+    def unbought_generics(self) -> List[Dict[str, Any]]:
+        """**独立した出典が2本無い一般構造の主張。** 黙って信じない。"""
+        out: List[Dict[str, Any]] = []
+        for cname, seats in self.cores.items():
+            for s in seats:
+                if s["arm"] != "kind+":
+                    continue
+                weight = max((len(e["sources"]) for e in s["values"]),
+                             default=0)
+                if weight < GENERIC_MIN_SOURCES:
+                    out.append({"verdict": GENERIC_NOT_BOUGHT,
+                                "core": cname, "key": s["key"],
+                                "weight": weight,
+                                "need": GENERIC_MIN_SOURCES,
+                                "how_to_close":
+                                    f"独立した出典を{GENERIC_MIN_SOURCES}本"
+                                    "示すか、specific に落とす"})
+        out.sort(key=lambda r: (r["core"], r["key"]))
         return out
 
     # ------------------------------------------------------------ 辺
     def link(self, a: Addr, b: Addr, label: str,
-             value: Any = None) -> int:
-        """辺を結ぶ。面を消費しない — **関係は席を要らない。**"""
-        self.edges.append({"a": a, "b": b, "label": label, "value": value})
-        return len(self.edges) - 1
+             value: Any = None) -> Dict[str, Any]:
+        """辺を結ぶ。面を消費しない — **関係は席を要らない。**
 
-    def put_all(self, root: str, arm: str, items: List[Tuple[str, Any]],
-                source: str) -> List[str]:
-        """腕に順に載せる。**満杯になったら子コアに分れ、辺で繋ぐ。**
-
-        黙って席を増やさない。分割は店の幾何(4面)が決めることで、
-        どこに何が行ったかは nest 辺が覚えている。戻り値は載った核の列。
+        **片端の辺は関係ではない。** 両端が (core, key) の形で、両方の
+        核が実在し、名前が閉じた語彙にあること。自分自身との関係は
+        正しい(袖下線は一枚の二辺を縫う)。断りは戻り値で、そのとき
+        辺は**増えない**。
         """
-        cores = [root]
-        cur = root
-        no = 0
-        for key, value in items:
-            try:
-                self.put(cur, arm, key, value, source)
-            except CrossFullError:
-                no += 1
-                cur = f"{root}·{arm}{no}"
-                cores.append(cur)
-                self.link((cores[-2], arm, ""), (cur, arm, ""), "nest")
-                self.put(cur, arm, key, value, source)
-        return cores
+        bad: List[str] = []
+        if not _is_addr(a):
+            bad.append(f"a={a!r} は (core, key) の形ではない")
+        elif a[0] not in self.cores:
+            bad.append(f"a の核 {a[0]!r} は店に無い")
+        if not _is_addr(b):
+            bad.append(f"b={b!r} は (core, key) の形ではない")
+        elif b[0] not in self.cores:
+            bad.append(f"b の核 {b[0]!r} は店に無い")
+        if not _label_ok(label):
+            bad.append(f"label={label!r} は閉じた語彙 "
+                       f"{EDGE_LABELS}+{EDGE_LABEL_PREFIXES} に無い")
+        if bad:
+            r = {"verdict": DANGLING_EDGE, "why": bad, "stored": False,
+                 "how_to_close": "両端の核を先に立ててから結ぶ"}
+            self.refusals.append(dict(r))
+            return r
+        self.edges.append({"a": (a[0], a[1]), "b": (b[0], b[1]),
+                           "label": label, "value": copy.deepcopy(value)})
+        return {"verdict": "ANSWER", "index": len(self.edges) - 1,
+                "label": label}
+
+    def edges_are_relations(self) -> Dict[str, Any]:
+        """載っている辺が全部**二端の関係**かを見る(読み込み後の検査)。"""
+        bad: List[Dict[str, Any]] = []
+        for i, e in enumerate(self.edges):
+            why: List[str] = []
+            if not _is_addr(e.get("a")):
+                why.append("a が (core, key) ではない")
+            elif e["a"][0] not in self.cores:
+                why.append(f'a の核 {e["a"][0]!r} が居ない')
+            if not _is_addr(e.get("b")):
+                why.append("b が (core, key) ではない")
+            elif e["b"][0] not in self.cores:
+                why.append(f'b の核 {e["b"][0]!r} が居ない')
+            if not _label_ok(e.get("label")):
+                why.append(f'label {e.get("label")!r} が語彙に無い')
+            if why:
+                bad.append({"verdict": DANGLING_EDGE, "index": i,
+                            "edge": repr(e)[:120], "why": why})
+        if bad:
+            return {"verdict": DANGLING_EDGE, "bad": bad,
+                    "checked": len(self.edges)}
+        return {"verdict": "ANSWER", "checked": len(self.edges)}
 
     def edges_labeled(self, label_prefix: str) -> List[Dict[str, Any]]:
-        out = []
-        for e in self.edges:
-            if e["label"].startswith(label_prefix):
-                out.append(e)
-        return out
+        return [copy.deepcopy(e) for e in self.edges
+                if isinstance(e.get("label"), str)
+                and e["label"].startswith(label_prefix)]
 
     def edges_from(self, core: str) -> List[Dict[str, Any]]:
-        return [e for e in self.edges
-                if e["a"][0] == core or e["b"][0] == core]
+        return [copy.deepcopy(e) for e in self.edges
+                if (_is_addr(e.get("a")) and e["a"][0] == core)
+                or (_is_addr(e.get("b")) and e["b"][0] == core)]
+
+    # ------------------------------------------------------------ 検証
+    def verify(self) -> Dict[str, Any]:
+        """幾何が守られているかを店の全体で見る。**入口は一つではない。**
+
+        ``from_dict`` は手で書いた JSON も受ける口なので、コンストラクタ
+        だけ守っても意味がない。ここで見るのは:
+        腕が既知の六本か / 腕が kind から導かれているか /
+        一つの閉包に同じ住所が二つ無いか / 腕あたりの席が4以下か /
+        辺が全部二端の関係か / 分れた子コアが nest 辺で届くか。
+        """
+        problems: List[Dict[str, Any]] = []
+        for cname, seats in self.cores.items():
+            if not isinstance(seats, list):
+                problems.append({"verdict": "UNKNOWN_MALFORMED_CORE",
+                                 "core": cname})
+                continue
+            for s in seats:
+                arm = s.get("arm")
+                if arm is not None and arm not in ARMS:
+                    problems.append({"verdict": "UNKNOWN_NO_SUCH_ARM",
+                                     "core": cname, "key": s.get("key"),
+                                     "arm": arm})
+                    continue
+                vals = s.get("values") or []
+                for e in vals:
+                    if e.get("kind") not in KIND_ARM:
+                        problems.append({"verdict": NO_SUCH_KIND,
+                                         "core": cname, "key": s.get("key"),
+                                         "kind": e.get("kind")})
+                if vals and vals[0].get("kind") in KIND_ARM:
+                    want = KIND_ARM[vals[0]["kind"]]
+                    if want != arm:
+                        problems.append(
+                            {"verdict": ARM_NOT_DERIVED, "core": cname,
+                             "key": s.get("key"), "arm": arm,
+                             "kind": vals[0]["kind"], "should_be": want,
+                             "why": "腕は kind から導かれる。"
+                                    "書く側が選ぶものではない"})
+            for arm in ARMS:
+                load = sum(1 for s in seats if s.get("arm") == arm)
+                if load > FACES_PER_ARM:
+                    problems.append({"verdict": OVER_CAPACITY,
+                                     "core": cname, "arm": arm,
+                                     "seats": load, "max": FACES_PER_ARM})
+
+        done: set = set()
+        for cname in list(self.cores):
+            closure = self._closure(cname)
+            token = frozenset(closure)
+            if token in done:
+                continue
+            done.add(token)
+            seen: Dict[str, str] = {}
+            for cn in closure:
+                for s in self.cores.get(cn, []):
+                    k = s.get("key")
+                    if k in seen:
+                        problems.append({"verdict": DUPLICATE_ADDRESS,
+                                         "key": k, "cores": [seen[k], cn],
+                                         "why": "一つの閉包に同じ住所が二つ"})
+                    else:
+                        seen[k] = cn
+
+        er = self.edges_are_relations()
+        if er["verdict"] != "ANSWER":
+            problems.extend(er["bad"])
+
+        for cname in self.cores:
+            if "·" not in cname:
+                continue
+            parent = cname.split("·")[0]
+            if parent in self.cores and cname not in self._closure(parent):
+                problems.append(
+                    {"verdict": ORPHANED_CORE, "core": cname,
+                     "parent": parent,
+                     "why": "分れた子が nest 辺で親から届かない — "
+                            "この核の割れは構造上見えない"})
+
+        alias = self.aliased_values()
+        if alias["verdict"] != "ANSWER":
+            problems.extend(alias["bad"])
+
+        if problems:
+            return {"verdict": problems[0]["verdict"], "problems": problems,
+                    "cores": len(self.cores)}
+        return {"verdict": "ANSWER", "cores": len(self.cores),
+                "seats": sum(len(s) for s in self.cores.values()),
+                "edges": len(self.edges)}
+
+    def aliased_values(self) -> Dict[str, Any]:
+        """**同じオブジェクトが二箇所に座っていないか。**
+
+        座っていると、外から一方を書き換えて CONTESTED を ANSWER に
+        戻せてしまう(扉の外側に取っ手が付く)。不変な値は共有されても
+        害が無いので、可変な入れ物だけ見る。
+        """
+        seen: Dict[int, Tuple[str, str]] = {}
+        bad: List[Dict[str, Any]] = []
+        for cname, seats in self.cores.items():
+            for s in seats:
+                for e in (s.get("values") or []):
+                    v = e.get("value")
+                    if not isinstance(v, (dict, list, set, bytearray)):
+                        continue
+                    if id(v) in seen:
+                        first = seen[id(v)]
+                        bad.append({"verdict": ALIASED_VALUE,
+                                    "key": s.get("key"),
+                                    "cores": [first[0], cname],
+                                    "keys": [first[1], s.get("key")],
+                                    "why": "同じオブジェクトが二席に居る。"
+                                           "外から片方を書き換えられる"})
+                    else:
+                        seen[id(v)] = (cname, s.get("key"))
+        if bad:
+            return {"verdict": ALIASED_VALUE, "bad": bad}
+        return {"verdict": "ANSWER", "checked": len(seen)}
 
     # ------------------------------------------------------------ 配置不変性
     def placement_check(self) -> Dict[str, Any]:
-        """店じゅうを二つの決定的な順で歩き、**答えが一つでも動いたら落とす**。
+        """**解決器の後退よけ。** 本物の順序検査は ``ingest_order_check``。
 
-        配置は情報を増やさない。格納順を変えたからといって、取り出せる
-        事実が変わるなら、それは事実ではなく順序の産物です。逆順は
-        決定的でなければならないので reversed(乱数禁止)。これは通っても
-        何かを証明したことにはならない構成上の確認なので structural。
+        ここでやるのは、いま載っている席を書き込み計画として取り出し、
+        分ける書き口で入れ直して、住所→値の地図が動かないことの確認。
+        以前ここにあったものは同じ店を二度**読む**だけで、店は間に
+        変わらないので落ちようがなかった(名前は「格納順」と言って
+        いたのに、見ていたのは読む順)。
         """
-        addresses: List[Tuple[str, str, str]] = []
-        for cname in self.cores:
-            for arm in ARMS:
-                for f in self.cores[cname][arm]:
-                    addresses.append((cname, arm, f["key"]))
-
-        def walk(order: List[int]) -> Dict[Any, Any]:
-            out: Dict[Any, Any] = {}
-            for i in order:
-                core, arm, key = addresses[i]
-                out[(core, arm, key)] = self.get(core, arm, key)
-            return out
-
-        fwd = walk(list(range(len(addresses))))
-        rev = walk(list(reversed(range(len(addresses)))))
-        same = fwd == rev
-        return {
-            "verdict": "ANSWER" if same else ORDER_DEPENDENT,
-            "structural": True,
-            "not_a_test": ("配置を変えても答えは動いてはいけない、という"
-                           "確認です。通っても情報は増えません"),
-            "addresses_checked": len(addresses),
-            "why_it_matters":
-                "配置が答えを決めているなら、それは宣言ではなく並びの産物",
+        plan = self.write_plan()
+        r = ingest_order_check(plan, nest=True)
+        return {"verdict": r["verdict"], "structural": True,
+                "not_a_test": ("いま載っているものを入れ直しても答えが"
+                               "動かない、という後退よけです。本物の"
+                               "順序検査は ingest_order_check"),
+                "addresses_checked": r["addresses"],
+                "orders": r["orders"],
+                "differences": r.get("differences", []),
+                "why_it_matters":
+                    "配置が答えを決めているなら、それは宣言ではなく並びの産物",
         }
+
+    def write_plan(self) -> List[Tuple[str, str, Any, str, str]]:
+        """いま載っているものを ``(core, key, value, kind, source)`` の列に。
+
+        分れた子コアは閉包の代表(親)の名前に畳む — 住所は閉包の全体で
+        一つなので、どの核から書いたかは計画の情報ではない。
+        """
+        roots: Dict[str, str] = {}
+        for cname in sorted(self.cores):
+            if cname in roots:
+                continue
+            closure = self._closure(cname)
+            rep = min(closure, key=lambda n: (len(n), n))
+            for cn in closure:
+                roots[cn] = rep
+        plan: List[Tuple[str, str, Any, str, str]] = []
+        for cname, seats in self.cores.items():
+            for s in seats:
+                for e in s["values"]:
+                    for src in e["sources"]:
+                        plan.append((roots[cname], s["key"],
+                                     copy.deepcopy(e["value"]), e["kind"],
+                                     src))
+        plan.sort(key=lambda t: (t[0], t[1]))
+        return plan
 
     # ------------------------------------------------------------ 出し入れ
     def to_dict(self) -> Dict[str, Any]:
-        return {"cores": {n: {a: [dict(f) for f in slots]
-                              for a, slots in c.items()}
-                          for n, c in self.cores.items()},
-                "edges": [dict(e) for e in self.edges]}
+        return {"cores": {n: copy.deepcopy(seats)
+                          for n, seats in self.cores.items()},
+                "edges": [copy.deepcopy(e) for e in self.edges],
+                "seq": self._seq}
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "CrossStore":
+        """読み込む。**幾何を検査して ``load_verdict`` に控える。**
+
+        戻り値は店のまま(呼ぶ側が壊れない)。道具の境界には
+        ``from_dict_checked`` を使う — 断りは戻り値であって、
+        classmethod が突然 dict を返し始めるのは境界の壊し方。
+        """
         st = cls()
-        st.cores = {n: {a: [dict(f) for f in slots]
-                        for a, slots in c.items()}
-                    for n, c in data["cores"].items()}
-        st.edges = [dict(e) for e in data["edges"]]
+        st.cores = {n: [
+            {"key": s.get("key"), "arm": s.get("arm"),
+             "seq": s.get("seq", 0),
+             "values": [{"value": copy.deepcopy(e.get("value")),
+                         "kind": e.get("kind"),
+                         "sources": list(e.get("sources") or [])}
+                        for e in (s.get("values") or [])]}
+            for s in seats] for n, seats in data.get("cores", {}).items()}
+        st.edges = []
+        for e in data.get("edges", []):
+            a, b = e.get("a"), e.get("b")
+            st.edges.append({
+                "a": tuple(a) if isinstance(a, (list, tuple)) else a,
+                "b": tuple(b) if isinstance(b, (list, tuple)) else b,
+                "label": e.get("label"),
+                "value": copy.deepcopy(e.get("value"))})
+        st._seq = int(data.get("seq") or 0) or max(
+            (s["seq"] for seats in st.cores.values() for s in seats),
+            default=0)
+        st.load_verdict = st.verify()
         return st
+
+    @classmethod
+    def from_dict_checked(cls, data: Dict[str, Any]) -> Dict[str, Any]:
+        """道具の境界用。``{verdict, store}`` を返す。**例外で越えない。**"""
+        st = cls.from_dict(data)
+        return {"verdict": st.load_verdict["verdict"], "store": st,
+                "detail": st.load_verdict}
 
     # ------------------------------------------------------------ 観測
     def census(self) -> Dict[str, Any]:
-        """店の在り方の集計。**席の数は幾どおりに収まっているか。**"""
-        facets = sum(len(s) for c in self.cores.values()
-                     for s in c.values())
-        over = [(n, a, len(s)) for n, c in self.cores.items()
-                for a, s in c.items() if len(s) > FACES_PER_ARM]
-        return {"cores": len(self.cores), "facets": facets,
+        """店の在り方の集計。**席の数は幾何どおりに収まっているか。**
+
+        ``seats`` は住所の数、``facets`` は値の数。4人が同意した1つの
+        寸法は 1席 / 1facet / 4出典 — 同意は席を食わない。
+        """
+        seats = sum(len(s) for s in self.cores.values())
+        facets = sum(len(x["values"]) for s in self.cores.values() for x in s)
+        sources = sum(len(e["sources"]) for s in self.cores.values()
+                      for x in s for e in x["values"])
+        over = []
+        arms = {a: 0 for a in ARMS}
+        for n, s in self.cores.items():
+            for arm in ARMS:
+                load = sum(1 for x in s if x["arm"] == arm)
+                arms[arm] += load
+                if load > FACES_PER_ARM:
+                    over.append((n, arm, load))
+        return {"cores": len(self.cores), "seats": seats, "facets": facets,
+                "sources": sources,
                 "capacity_per_core": CAPACITY_PER_CORE,
                 "over_capacity": over,
+                "arms": arms,
                 "edges": len(self.edges),
                 "contested": len(self.contested())}
+
+
+# ---------------------------------------------------------------------------
+def ingest_order_check(plan: Sequence[Tuple[str, str, Any, str, str]],
+                       nest: bool = True) -> Dict[str, Any]:
+    """**同じ計画を別の順で入れ直して、答えが動かないことを見る。**
+
+    見るのは3つ: 住所 → (verdict, 値の集合, 重み) の地図、割れの集合、
+    そして**断られた書き込みの集合**。ある順では座れて別の順では断られる
+    書き込みがあるなら、それが順序依存の実体です。
+
+    ``nest=False``(分けない書き口)で腕から溢れる計画は**本当に**順序
+    依存になる — 先に来た4つが座り、5つ目が断られるので、どれが座るかは
+    順で決まる。だからこの検査は落ちうるし、だから ``block.ingest`` は
+    分けない書き口を使ってはいけない。
+    """
+    plan = list(plan)
+    n = len(plan)
+    orders = {
+        "forward": list(range(n)),
+        "reversed": list(reversed(range(n))),
+        "rotated": list(range(n // 2, n)) + list(range(n // 2)),
+    }
+    runs: Dict[str, Dict[str, Any]] = {}
+    for name, order in orders.items():
+        st = CrossStore()
+        refused: List[Tuple[str, str]] = []
+        for i in order:
+            core, key, value, kind, source = plan[i]
+            r = (st.put(core, key, value, kind, source) if nest
+                 else st.put_strict(core, key, value, kind, source))
+            if r["verdict"] not in ("ANSWER", CONTESTED_IN_CROSS):
+                refused.append((core, key))
+        amap: Dict[Tuple[str, str], Any] = {}
+        for core, key, _v, _k, _s in plan:
+            r = st.resolve(core, key)
+            if r["verdict"] == "ANSWER":
+                amap[(core, key)] = ("ANSWER", repr(r["value"]), r["weight"])
+            elif r["verdict"] == CONTESTED_IN_CROSS:
+                amap[(core, key)] = (
+                    CONTESTED_IN_CROSS,
+                    tuple(sorted(repr(s["value"]) for s in r["sides"])), 0)
+            else:
+                amap[(core, key)] = (r["verdict"], None, 0)
+        runs[name] = {
+            "map": amap,
+            "contested": sorted((c["core"], c["key"]) for c in st.contested()),
+            "refused": sorted(set(refused)),
+        }
+
+    base = runs["forward"]
+    differences: List[Dict[str, Any]] = []
+    for name, run in runs.items():
+        if name == "forward":
+            continue
+        for addr in sorted(set(base["map"]) | set(run["map"])):
+            if base["map"].get(addr) != run["map"].get(addr):
+                differences.append({"order": name, "address": list(addr),
+                                    "forward": base["map"].get(addr),
+                                    "other": run["map"].get(addr)})
+        if base["contested"] != run["contested"]:
+            differences.append({"order": name, "what": "contested",
+                                "forward": base["contested"],
+                                "other": run["contested"]})
+        if base["refused"] != run["refused"]:
+            differences.append({"order": name, "what": "refused",
+                                "forward": base["refused"],
+                                "other": run["refused"]})
+    return {
+        "verdict": "ANSWER" if not differences else ORDER_DEPENDENT,
+        "orders": len(orders),
+        "addresses": len(base["map"]),
+        "writes": n,
+        "nesting": nest,
+        "differences": differences[:12],
+        "why_it_matters":
+            "格納順が答えを決めているなら、それは宣言ではなく並びの産物",
+    }

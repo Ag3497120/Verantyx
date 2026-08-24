@@ -142,25 +142,49 @@ def _variant(family: str, key: str) -> Optional[Dict[str, Any]]:
     return None
 
 
+def family_core(family: str) -> str:
+    """家族は**主題**。「params」という棚ではない。"""
+    return f"{ROOT}:{family}"
+
+
 def ingest(store: Optional[_cross.CrossStore] = None
            ) -> Tuple[_cross.CrossStore, str]:
-    """ライブラリを店に載せる。戻り値は (店, 根コアの名前)。"""
+    """ライブラリを店に載せる。戻り値は (店, 根コアの名前)。
+
+    **家族と候補は kind+ / kind- の双対そのもの。** 家族(シルエット、
+    開き、ウエストの処理)は「この抽象がある」という一般構造の主張なので
+    kind+、候補(Aライン、ストレート)は「その例がこれ」なので kind-。
+    以前は両方 ``params`` という一つの引き出しに ``_family:x`` と
+    ``x:y`` という鍵で入っていて、抽象と実例の区別は鍵の書き方の
+    習慣でしかなかった。
+
+    家族の主張は**出典1本**(このライブラリ自身)しか持たないので、
+    ``store.unbought_generics()`` は3件を
+    UNKNOWN_GENERIC_NOT_BOUGHT として挙げる。それが正直な読みです —
+    「silhouette は服飾一般の家族である」と言うには、この道具が
+    そう決めたという以上の根拠が要る。
+    """
     st = store if store is not None else _cross.CrossStore()
     source = "library:builtin"
-    items: List[Tuple[str, Any]] = []
+    st.put(ROOT, "library", {"name": "photoloset parts"}, "declared", source)
     for fam in FAMILIES:
-        items.append((f"_family:{fam}", {"open": True}))
+        core = family_core(fam)
+        st.put(core, "family", {"open": True}, "generic", source)
+        st.link((core, ""), (ROOT, ""), "part_of")
     for v in VARIANTS:
         rec = {k: v[k] for k in ("family", "key", "label",
                                  "draftable") if k in v}
         if "why_not" in v:
             rec["why_not"] = v["why_not"]
-        items.append((f'{v["family"]}:{v["key"]}', {
+        core = family_core(v["family"])
+        if not st.has_core(core):
+            st.put(core, "family", {"open": True}, "generic", source)
+            st.link((core, ""), (ROOT, ""), "part_of")
+        st.put(core, f'variant:{v["key"]}', {
             "variant": rec,
             "params": v.get("params", []),
             "formulas": v.get("formulas", []),
-        }))
-    st.put_all(ROOT, "params", items, source)
+        }, "specific", source)
     return st, ROOT
 
 
@@ -222,36 +246,30 @@ class Library:
     def __init__(self, store: Optional[_cross.CrossStore] = None) -> None:
         self.store = store or _cross.CrossStore()
         self.root = ROOT
-        loaded = any(c.get("params") for c in self.store.cores.values())
-        if not loaded:
+        if not self.store.has_core(ROOT):
             ingest(self.store)
 
-    def _chain(self) -> List[str]:
-        """ライブラリの facet が載っている核を鎖の順で。"""
-        return [self.root] + [n for n in self.store.cores
-                              if n.startswith(self.root + "·")]
-
     def families(self) -> List[str]:
+        """家族を**宣言順で**。並びは格納場所ではなく seq が決める。"""
         out = []
-        for cname in self._chain():
-            for f in self.store.cores[cname].get("params", []):
-                if f["key"].startswith("_family:"):
-                    out.append(f["key"].split(":", 1)[1])
-        return out
+        for core in self.store.part_of_children(ROOT):
+            for f in self.store.seats(core, "family"):
+                out.append((f["seq"], core.split(":", 1)[1]))
+        out.sort()
+        return [name for _seq, name in out]
 
     def variants(self, family: str) -> List[Dict[str, Any]]:
+        core = family_core(family)
+        if not self.store.has_core(core):
+            return []
         out = []
-        for cname in self._chain():
-            for f in self.store.cores[cname].get("params", []):
-                if ":" not in f["key"] or f["key"].startswith("_"):
-                    continue
-                fam, key = f["key"].split(":", 1)
-                if fam != family:
-                    continue
-                rec = dict(f["value"]["variant"])
-                rec["params"] = f["value"]["params"]
-                rec["formulas"] = f["value"]["formulas"]
-                out.append(rec)
+        for f in self.store.seats(core, "variant:"):
+            if f["verdict"] != "ANSWER":
+                continue
+            rec = dict(f["value"]["variant"])
+            rec["params"] = f["value"]["params"]
+            rec["formulas"] = f["value"]["formulas"]
+            out.append(rec)
         return out
 
     def variant(self, family: str, key: str) -> Dict[str, Any]:
@@ -264,3 +282,7 @@ class Library:
 
     def census(self) -> Dict[str, Any]:
         return self.store.census()
+
+    def unbought_generics(self) -> List[Dict[str, Any]]:
+        """**出典が2本無い一般構造の主張。** 家族の主張がここに出る。"""
+        return self.store.unbought_generics()

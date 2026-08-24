@@ -345,7 +345,10 @@ def the_block_lives_on_the_cross() -> None:
     One node holds 6 arms x 4 faces = 24 seats. That capacity is measured,
     not chosen, so the declaration splits into child cores when an arm
     overflows — nesting is required by the geometry, not a design taste.
+    The arms are the three dualities, and the arm a fact sits on is derived
+    from what KIND of claim it is; nobody gets to choose a convenient one.
     """
+    import copy as _copy
     import json as _json
 
     from photoloset import block as blk
@@ -353,13 +356,41 @@ def the_block_lives_on_the_cross() -> None:
 
     b = blk.coat()
     cen = b.store.census()
-    root = b.store.cores[b.root]
-    check("coat fills its root node exactly",
-          all(len(s) == cross.FACES_PER_ARM for s in root.values())
-          and not cen["over_capacity"],
-          f'{cen["cores"]} cores, {cen["facets"]} facets, '
-          f'root {sum(len(s) for s in root.values())}/'
-          f'{cross.CAPACITY_PER_CORE}')
+    arms = b.arm_census()
+    # NOTE: this replaces the old "coat fills its root node exactly" check,
+    # which asserted all six arms sat at exactly 4/4. That claim died with
+    # the drawers: it could only ever hold while the arms were storage
+    # categories. Under typed arms it would demand the coat hold 4 measured,
+    # 4 cited, 4 derived, 4 feeds, 4 generic and 4 specific claims, and the
+    # coat holds 0 measured, 0 cited and 0 generic. The replacement is
+    # strictly stronger — it pins the actual shape AND its falsifier below.
+    want = {"support+": 0, "support-": 0, "cause+": 10,
+            "cause-": 0, "kind+": 0, "kind-": 17}
+    check("coat's arms are the three dualities",
+          arms == want and not cen["over_capacity"]
+          and set(cross.ARMS) == set(want),
+          f'{cen["cores"]} cores, {cen["seats"]} seats — root '
+          f'kind- {arms["kind-"]}, cause+ {arms["cause+"]}, '
+          f'support+ {arms["support+"]}, kind+ {arms["kind+"]}')
+
+    # Typed gaps, and the falsifier that must make one of them vanish.
+    gaps = b.gaps()
+    cited = _copy.deepcopy(blk.COAT_DECLARATION)
+    cited["name"] = "coat_cited"
+    cited["params"] = [("half_divisor", 4.0, None, "cited", None)] + [
+        r for r in cited["params"] if r[0] != "half_divisor"]
+    st_c, root_c = blk.ingest(decl=cited)
+    st_c.put(root_c, "param:half_divisor", {"value": 4.0}, "cited",
+             "文化服装学院 文化ファッション大系 改訂版・服飾造形講座")
+    v_c = blk.BlockView(st_c, root_c)
+    falsified = "UNKNOWN_NO_SUPPORT_RECORDED" in v_c.gaps()
+    check("empty arms are typed gaps",
+          "UNKNOWN_NO_SUPPORT_RECORDED" in gaps
+          and "UNKNOWN_NO_GENERALIZATION_RECORDED" in gaps
+          and not falsified,
+          f'{len(gaps)} gaps — nothing measured or cited backs the 20 '
+          f'params, nothing is claimed generic; one `cited` param with a '
+          f'second source removes the support gap ({len(v_c.gaps())} left)')
 
     check("formulas served from the cross",
           b.formulas() == garment_pattern.FORMULAS
@@ -371,48 +402,415 @@ def the_block_lives_on_the_cross() -> None:
           f'{len(b.seams())} seams, {len(b.seam_edges())} '
           'edges between pieces')
 
+    # A fifth ADDRESS on one arm. Refusal is a RETURN VALUE now, and the
+    # nesting writer is what block.ingest uses, so it must not refuse.
     small = cross.CrossStore()
     for i in range(cross.FACES_PER_ARM):
-        small.put("t", "params", f"k{i}", {"value": float(i)}, "src")
-    try:
-        small.put("t", "params", "one-too-many", {"value": 1.0}, "src")
-        refused = "did not refuse"
-    except cross.CrossFullError as e:
-        refused = str(e).split(":")[0]
-    check("a fifth face is refused", refused == cross.ARM_FULL,
-          f"{refused} — split into child cores instead")
+        small.put_strict("t", f"k{i}", {"value": float(i)}, "specific", "src")
+    refused = small.put_strict("t", "one-too-many", {"value": 1.0},
+                               "specific", "src")
+    seated = small.put("t", "one-too-many", {"value": 1.0}, "specific", "src")
+    check("a fifth face is refused",
+          refused["verdict"] == cross.ARM_FULL
+          and seated["verdict"] == "ANSWER"
+          and seated["core"] != "t",
+          f'{refused["verdict"]} from the strict writer — the nesting '
+          f'writer put it on {seated["core"]} instead')
 
+    # The rival goes at the ROOT even though the seat lives on a child core.
+    # Under address-global resolution the holder is irrelevant; under the
+    # old core-local gate this could only be caught by hunting the holder.
     st2, root2 = blk.ingest()
+    holder = next(n for n, seats in st2.cores.items()
+                  if any(s["key"] == "setting:grain_angle_deg"
+                         for s in seats))
+    before_seats = st2.census()["seats"]
+    rival = st2.put(root2, "setting:grain_angle_deg",
+                    {"value": 0.0, "basis": "conflict"},
+                    "specific", "declaration:conflict")
+    sides = st2.resolve(root2, "setting:grain_angle_deg")
     v2 = blk.BlockView(st2, root2)
-    holder = next(n for n, c in st2.cores.items()
-                  if any(f["key"] == "placement:袖" for f in c["settings"]))
-    st2.put(holder, "settings", "placement:袖",
-            {"value": (0.0, 0.0, 99.0), "basis": "conflict"},
-            "declaration:conflict")
-    sides = st2.get(holder, "settings", "placement:袖")
     picked = "kept quiet"
     try:
-        v2.placement()
+        v2.setting("grain_angle_deg")
     except ValueError as e:
         picked = str(e).split(":")[0]
     check("conflicting declarations go contested",
-          sides["verdict"] == cross.CONTESTED_IN_CROSS
+          rival["verdict"] == cross.CONTESTED_IN_CROSS
+          and sides["verdict"] == cross.CONTESTED_IN_CROSS
           and len(sides["sides"]) == 2
+          and st2.census()["seats"] == before_seats
           and picked == cross.CONTESTED_IN_CROSS,
-          f'both kept ({len(sides["sides"])} sides), reader refuses '
-          f"to pick ({picked})")
+          f'seat lives on a child core ({holder}), rival written at the '
+          f'root — both kept '
+          f'({len(sides["sides"])} sides), no seat consumed, reader '
+          f'refuses to pick ({picked})')
 
     inv = b.store.placement_check()
     check("placement does not move answers",
           inv["verdict"] == "ANSWER" and inv.get("structural"),
-          f'{inv["addresses_checked"]} addresses walked forward '
-          "and reversed")
+          f'{inv["addresses_checked"]} addresses re-ingested in '
+          f'{inv["orders"]} orders')
 
     rt = cross.CrossStore.from_dict(
         _json.loads(_json.dumps(b.store.to_dict())))
     check("round trip moves nothing",
-          blk.BlockView(rt, b.root).dump() == b.dump(),
+          blk.BlockView(rt, b.root).dump() == b.dump()
+          and rt.load_verdict["verdict"] == "ANSWER",
           "the served declaration is byte-equal after storage round trip")
+
+
+# ---------------------------------------------------------------------------
+def the_arms_carry_meaning() -> None:
+    """The arm a fact sits on is derived from its kind and has consequences.
+
+    Six drawers named after storage categories would pass every check above
+    while being inert. These are the checks that die if the vocabulary goes
+    back to being decoration: each one names a store that VIOLATES the
+    property and shows it being rejected.
+    """
+    from photoloset import block as blk, cross, parts
+
+    b = blk.coat()
+
+    # --- arms are derived, never chosen ---------------------------------
+    liar = {"cores": {"c": [{"key": "param:x", "arm": "kind+", "seq": 1,
+                             "values": [{"value": 1, "kind": "specific",
+                                         "sources": ["s"]}]}]},
+            "edges": []}
+    bad = cross.CrossStore.from_dict(liar)
+    honest = b.store.verify()
+    every = all(s["arm"] == cross.KIND_ARM[s["values"][0]["kind"]]
+                for seats in b.store.cores.values() for s in seats)
+    check("arms are derived, not chosen",
+          bad.load_verdict["verdict"] == cross.ARM_NOT_DERIVED
+          and honest["verdict"] == "ANSWER" and every,
+          f'a seat claiming kind+ while its claim is `specific` loads as '
+          f'{bad.load_verdict["verdict"]}; all {honest["seats"]} coat seats '
+          'derive')
+
+    # --- support- is unwritable, and emerges ----------------------------
+    st = cross.CrossStore()
+    st.put("c", "param:x", {"v": 1}, "specific", "a")
+    before = st.arm_census("c")["support-"]
+    st.put("c", "param:x", {"v": 2}, "specific", "b")
+    after = st.arm_census("c")["support-"]
+    check("support- is never written, only emerges",
+          "support-" not in [a for a in cross.KIND_ARM.values()]
+          and before == 0 and after == 1
+          and st.resolve("c", "param:x")["also_on"] == "support-",
+          f'no kind maps to support-; a collision moved it {before}→{after}')
+
+    # --- no_match is not stored -----------------------------------------
+    st2 = cross.CrossStore()
+    st2.put("c", "param:y", {"v": 1}, "specific", "a")
+    snap = st2.census()
+    nm = st2.put("c", "param:z", {"v": 9}, "no_match", "search")
+    seated = {"cores": {"c": [{"key": "k", "arm": "kind-", "seq": 1,
+                               "values": [{"value": 1, "kind": "no_match",
+                                           "sources": ["s"]}]}]},
+              "edges": []}
+    seated_store = cross.CrossStore.from_dict(seated)
+    check("absence is not a claim",
+          nm["verdict"] == cross.NOT_A_CLAIM and nm["stored"] is False
+          and st2.census() == snap
+          and seated_store.load_verdict["verdict"] == cross.ARM_NOT_DERIVED,
+          'a no_match put changes nothing; a store that seated one is '
+          f'rejected as {seated_store.load_verdict["verdict"]}')
+
+    # --- agreement makes a seat heavier, not wider ----------------------
+    st3 = cross.CrossStore()
+    for src in ("tape", "second fitter", "photo", "the pattern"):
+        st3.put_strict("c", "measure:chest", {"value": 108.0},
+                       "measured", src)
+    for spot in ("waist", "hip", "shoulder"):
+        st3.put_strict("c", f"measure:{spot}", {"value": 80.0},
+                       "measured", "tape")
+    r = st3.resolve("c", "measure:chest")
+    keys = {s["key"] for s in st3.cores["c"]}
+    others = [st3.resolve("c", f"measure:{x}")["verdict"]
+              for x in ("waist", "hip", "shoulder")]
+    triples = {"cores": {"c": [
+        {"key": "measure:chest", "arm": "support+", "seq": i,
+         "values": [{"value": 108.0, "kind": "measured",
+                     "sources": [f"s{i}"]}]} for i in range(4)]},
+        "edges": []}
+    dup = cross.CrossStore.from_dict(triples)
+    check("agreement does not consume seats",
+          r["weight"] == 4 and len(st3.cores["c"]) == 4
+          and keys == {"measure:chest", "measure:waist", "measure:hip",
+                       "measure:shoulder"}
+          and others == ["ANSWER"] * 3
+          and st3.census()["over_capacity"] == []
+          and dup.load_verdict["verdict"] == cross.DUPLICATE_ADDRESS,
+          f'4 sources on one measurement = 1 seat of weight '
+          f'{r["weight"]}, and 3 OTHER measurements still seat on the same '
+          f'arm ({len(keys)} distinct addresses); the triple-counted shape '
+          f'loads as {dup.load_verdict["verdict"]}')
+
+    # --- a generic claim must be bought ---------------------------------
+    lib = parts.Library()
+    unbought = lib.unbought_generics()
+    bought = cross.CrossStore()
+    bought.put("p:s", "family", {"open": True}, "generic", "文化ファッション大系")
+    bought.put("p:s", "family", {"open": True}, "generic", "文化服装学院")
+    check("a generic claim needs two sources",
+          len(unbought) == 3
+          and all(u["verdict"] == cross.GENERIC_NOT_BOUGHT
+                  for u in unbought)
+          and bought.unbought_generics() == []
+          and b.store.unbought_generics() == [],
+          f'{len(unbought)} family claims rest on the library alone; a '
+          'second independent source clears one; the coat has no generic '
+          'claims at all')
+
+    # --- ordered reads follow the declaration, not the traversal --------
+    honest_order = list(b.formulas())
+    st4, root4 = blk.ingest()
+    st4.put(blk.piece_core(root4, "袖"), "formula:割り込み",
+            "seq 0 に割り込む式", "derived", "declaration:coat", seq=0)
+    v4 = blk.BlockView(st4, root4)
+    injected = list(v4.formulas())
+    check("ordered reads follow the declaration",
+          honest_order == [n for n, _t, _s in blk.FORMULA_ORDER]
+          and injected[0] == "割り込み"
+          and injected[1:] == honest_order,
+          f'17 formulas in declaration order across 4 subject cores; a '
+          f'seat with seq 0 on a piece core reads FIRST ({injected[0]}), '
+          'so the reader sorts by seq, not by traversal')
+
+
+# ---------------------------------------------------------------------------
+def the_cross_refuses_what_it_should() -> None:
+    """Each refusal, with the store that provokes it.
+
+    Every check here was built by first writing the store that violates the
+    property and confirming the check rejects it. A check that cannot fail
+    is not a check; this project shipped two of those, which is how these
+    defects survived a first review.
+    """
+    import copy as _copy
+
+    from photoloset import block as blk, cross
+
+    b = blk.coat()
+
+    # --- P1: the order check that can actually fail ---------------------
+    plan = [("t", f"k{i}", {"value": float(i)}, "specific", "src")
+            for i in range(5)]
+    loose = cross.ingest_order_check(plan, nest=False)
+    tight = cross.ingest_order_check(plan, nest=True)
+    coat_plan = cross.ingest_order_check(b.store.write_plan(), nest=True)
+    check("ingest order does not move answers",
+          loose["verdict"] == cross.ORDER_DEPENDENT
+          and tight["verdict"] == "ANSWER"
+          and coat_plan["verdict"] == "ANSWER",
+          f'5 addresses on one arm through the NON-nesting writer are '
+          f'genuinely order dependent ({len(loose["differences"])} '
+          f'differences); nesting makes the same plan order independent; '
+          f'the coat\'s {coat_plan["addresses"]} addresses re-ingest '
+          f'identically in {coat_plan["orders"]} orders')
+
+    # --- P2: contest is reachable at EVERY address ----------------------
+    subjects = [b.root] + b.store.part_of_children(b.root)
+    addresses = [(s, seat["key"]) for s in subjects
+                 for seat in b.store.seats(s)]
+    bad_addr = []
+    for subj, key in addresses:
+        st, root = blk.ingest()
+        subj2 = subj.replace(b.root, root, 1)
+        before = st.census()["seats"]
+        r = st.put(subj2, key, {"__rival__": True}, "specific", "rival")
+        listed = any(c["key"] == key for c in st.contested())
+        if (r["verdict"] != cross.CONTESTED_IN_CROSS
+                or st.census()["seats"] != before or not listed):
+            bad_addr.append((subj2, key, r["verdict"]))
+    check("contest is reachable at every address",
+          not bad_addr and len(addresses) == 56,
+          f'{len(addresses)} of {len(addresses)} coat addresses answer '
+          f'CONTESTED to a rival value, consume no seat, and appear in '
+          f'contested(); {len(bad_addr)} refused with the wrong verdict')
+
+    # --- P2b: the matryoshka does not hide a contest --------------------
+    st = cross.CrossStore()
+    for i in range(cross.FACES_PER_ARM):
+        st.put("r", f"k{i}", {"v": i}, "specific", "src")
+    spill = st.put("r", "k4", {"v": 4}, "specific", "src")
+    rival = st.put("r", "k0", {"v": 99}, "specific", "other")
+    child = spill["core"]
+    orphan = {"cores": {
+        "r": [{"key": "param:x", "arm": "kind-", "seq": 1,
+               "values": [{"value": 1, "kind": "specific",
+                           "sources": ["a"]}]}],
+        "r·kind-·1": [{"key": "param:x", "arm": "kind-", "seq": 2,
+                       "values": [{"value": 2, "kind": "specific",
+                                   "sources": ["b"]}]}]},
+        "edges": []}
+    orph = cross.CrossStore.from_dict(orphan)
+    check("a contest survives the matryoshka",
+          child != "r" and rival["verdict"] == cross.CONTESTED_IN_CROSS
+          and st.resolve("r", "k0")["verdict"] == cross.CONTESTED_IN_CROSS
+          and st.resolve(child, "k0")["verdict"] == cross.CONTESTED_IN_CROSS
+          and [(c["key"], c["sides"]) for c in st.contested()] == [("k0", 2)]
+          and orph.load_verdict["verdict"] == cross.ORPHANED_CORE,
+          f'k4 spilled to {child}; a rival for k0 contests from both ends '
+          f'of the chain; a child its parent cannot reach loads as '
+          f'{orph.load_verdict["verdict"]}')
+
+    # --- P4: an edge with one end is not a relation ---------------------
+    st2 = cross.CrossStore()
+    st2.put("a", "k", {"v": 1}, "specific", "s")
+    n_before = len(st2.edges)
+    e1 = st2.link(("a", "k"), None, "seam:junk")
+    e2 = st2.link(("nowhere", "k"), ("a", "k"), "nest")
+    e3 = st2.link(("a", "k"), ("a", "k"), "")
+    ok = st2.link(("a", "k"), ("a", "k"), "seam:袖下線")
+    poisoned = cross.CrossStore.from_dict(
+        {"cores": {"a": []},
+         "edges": [{"a": ["a", "k"], "b": None, "label": "nest"},
+                   {"a": ["ghost", "k"], "b": ["a", "k"], "label": "nest"},
+                   {"a": ["a", "k"], "b": ["a", "k"], "label": ""}]})
+    n_bad = len([p for p in poisoned.load_verdict.get("problems", [])
+                 if "index" in p])
+    check("an edge with one end is refused",
+          all(e["verdict"] == cross.DANGLING_EDGE for e in (e1, e2, e3))
+          and ok["verdict"] == "ANSWER"
+          and len(st2.edges) == n_before + 1
+          and poisoned.load_verdict["verdict"] == cross.DANGLING_EDGE
+          and n_bad == 3,
+          f'3 malformed edges refused and NOT stored ({len(st2.edges)} '
+          f'edge, the legal self-relation); a loaded store carrying all '
+          f'three names {n_bad}')
+
+    # --- P5: reads create nothing, loads are verified -------------------
+    st3 = cross.CrossStore()
+    st3.put("a", "k", {"v": 1}, "specific", "s")
+    snap = _copy.deepcopy(st3.to_dict())
+    for i in range(100):
+        st3.resolve(f"ghost{i}", "nope")
+        st3.contested()
+        st3.census()
+    over = cross.CrossStore.from_dict({"cores": {"c": [
+        {"key": f"k{i}", "arm": "kind-", "seq": i,
+         "values": [{"value": i, "kind": "specific", "sources": ["s"]}]}
+        for i in range(5)]}, "edges": []})
+    checked = cross.CrossStore.from_dict_checked({"cores": {}, "edges": []})
+    check("reads create nothing, loads are verified",
+          st3.to_dict() == snap and list(st3.cores) == ["a"]
+          and over.load_verdict["verdict"] == cross.OVER_CAPACITY
+          and checked["verdict"] == "ANSWER"
+          and isinstance(checked["store"], cross.CrossStore),
+          f'100 probes of absent addresses left {len(st3.cores)} core; a '
+          f'hand-edited store with 5 seats on one arm loads as '
+          f'{over.load_verdict["verdict"]}')
+
+    # --- P6: the store owns its values ----------------------------------
+    st4 = cross.CrossStore()
+    held = {"value": 1}
+    st4.put("c", "k", held, "specific", "a")
+    st4.put("c", "k", {"value": 2}, "specific", "b")
+    was = st4.resolve("c", "k")["verdict"]
+    held["value"] = 2
+    still = st4.resolve("c", "k")["verdict"]
+    st4.put("c", "j", {"value": 7}, "specific", "a")
+    got = st4.resolve("c", "j")
+    got["value"]["value"] = 999
+    unmoved = st4.resolve("c", "j")["value"]["value"]
+    shared = {"value": 1}
+    aliased = cross.CrossStore()
+    aliased.cores = {"c": [
+        {"key": "k1", "arm": "kind-", "seq": 1,
+         "values": [{"value": shared, "kind": "specific", "sources": ["a"]}]},
+        {"key": "k2", "arm": "kind-", "seq": 2,
+         "values": [{"value": shared, "kind": "specific", "sources": ["b"]}]}]}
+    check("the store owns its values",
+          was == cross.CONTESTED_IN_CROSS
+          and still == cross.CONTESTED_IN_CROSS
+          and unmoved == 7
+          and aliased.aliased_values()["verdict"] == cross.ALIASED_VALUE
+          and st4.aliased_values()["verdict"] == "ANSWER",
+          'a caller mutating the object it still holds cannot collapse '
+          'CONTESTED into ANSWER, and mutating what resolve() returned '
+          'leaves the seat at 7; two seats sharing one object are named '
+          f'{aliased.aliased_values()["verdict"]}')
+
+    # --- P8: the declaration can grow -----------------------------------
+    grown = _copy.deepcopy(blk.COAT_DECLARATION)
+    grown["name"] = "coat_hooded"
+    grown["pieces"] = list(grown["pieces"]) + [("フード", False)]
+    grown["required"] = tuple(grown["required"]) + ("neck", "waist")
+    grown["placement"]["フード"] = ((0.0, 40.0, 0.0), "フードは上")
+    st5, root5 = blk.ingest(decl=grown)
+    v5 = blk.BlockView(st5, root5)
+    twice = _copy.deepcopy(blk.COAT_DECLARATION)
+    twice["name"] = "coat_twice"
+    twice["pieces"] = list(twice["pieces"]) + [("後身頃", False)]
+    st6, root6 = blk.ingest(decl=twice)
+    v6 = blk.BlockView(st6, root6)
+    dbl = st6.contested()
+    served = "served a list anyway"
+    try:
+        v6.pieces()
+    except ValueError as e:
+        served = str(e).split(":")[0]
+    check("a fourth piece and a fifth measurement are declarable",
+          len(v5.pieces()) == 4 and len(v5.measures()) == 6
+          and st5.census()["over_capacity"] == []
+          and not st5.contested()
+          and len(st6.part_of_children(root6)) == 3
+          and len(dbl) == 1 and dbl[0]["key"] == "role"
+          and served == cross.CONTESTED_IN_CROSS
+          and len(v6.refusals()) == 1,
+          f'{len(v5.pieces())} pieces, {len(v5.measures())} measurements, '
+          f'{st5.census()["cores"]} cores, no crash; re-declaring 後身頃 '
+          f'with a different `required` contests at the existing piece '
+          f'rather than seating a 4th ({len(st6.part_of_children(root6))} '
+          f'pieces), and the reader refuses to serve the list ({served})')
+
+    # --- a subject nobody declared must not swallow the seat ------------
+    ghost = _copy.deepcopy(blk.COAT_DECLARATION)
+    ghost["name"] = "coat_ghost"
+    ghost["params"] = [("half_divisor", 4.0, None, "specific", "存在しない枚")
+                       ] + [r for r in ghost["params"]
+                            if r[0] != "half_divisor"]
+    st8, root8 = blk.ingest(decl=ghost)
+    v8 = blk.BlockView(st8, root8)
+    stranded = [n for n in st8.cores if "存在しない" in n]
+    ref = v8.refusals()
+    try:
+        readable = v8.param("half_divisor")
+    except ValueError as e:
+        readable = str(e).split(":")[0]
+    check("an undeclared subject does not swallow the seat",
+          readable == 4.0
+          and not stranded
+          and len(ref) == 1 and ref[0]["verdict"] == blk.NO_SUCH_SUBJECT
+          and ref[0]["key"] == "param:half_divisor"
+          and not b.refusals(),
+          'a param declared against a piece that was never declared would '
+          'sit in a core no part_of edge reaches — readable by nobody, '
+          f'refused by nobody. It now seats on the root (reads back '
+          f'{readable}) and says '
+          f'{ref[0]["verdict"] if ref else "nothing"}; '
+          f'{len(stranded)} stranded cores')
+
+    # --- the new hazard the reshaping creates ---------------------------
+    st7, root7 = blk.ingest()
+    st7.put(blk.piece_core(root7, "袖"), "param:half_divisor",
+            {"value": 3.0}, "specific", "declaration:sleeve")
+    v7 = blk.BlockView(st7, root7)
+    picked = "silently picked one"
+    try:
+        v7.param("half_divisor")
+    except ValueError as e:
+        picked = str(e).split(":")[0]
+    check("param refuses across subjects",
+          picked == blk.AMBIGUOUS_ACROSS_SUBJECTS
+          and st7.contested() == []
+          and b.param("half_divisor") == 4.0,
+          'block:coat says 4.0 and block:coat/piece:袖 says 3.0 — two '
+          'DIFFERENT addresses, so contested() is correctly silent, and '
+          f'a naive search would return whichever it met first ({picked})')
 
 
 # ---------------------------------------------------------------------------
@@ -748,6 +1146,7 @@ if __name__ == "__main__":
     print(f"photoloset checks — python {sys.version.split()[0]}\n")
     for fn in (no_dependencies, the_example_runs, the_pipeline_still_agrees,
                english_is_complete, the_block_lives_on_the_cross,
+               the_arms_carry_meaning, the_cross_refuses_what_it_should,
                parts_assemble_a_second_garment,
                prompts_switch_per_model_and_keep_discipline,
                compose_builds_a_whole_garment_from_parts,
