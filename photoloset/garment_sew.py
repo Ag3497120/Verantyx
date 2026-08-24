@@ -18,45 +18,28 @@ import math
 import random
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+from . import block as _block
 from .garment_drape import (LOCAL_MINIMUM, NO_MATERIAL, ORDER_DEPENDENT,
                             _energy, _stiffness, _vertex_diff, solve)
 
 Vec = Tuple[float, float, float]
 
-#: 縫う辺の対応。**型紙の名前で書く。** 近さでは決めない。
-#:
-#: span は辺Aを刻む向きと範囲 (始点の割合, 終点の割合)。省略は (0.0, 1.0)。
-#: **袖山は前後の袖ぐりに半分ずつ付く** — 片方だけに付けると、袖山の
-#: 半分が何にも繋がらないまま袖ぐりに引き寄せられ、縫い目が永久に開く。
-#: (2026-08-23 実測: 反復を32倍にしても隙間 6.06→5.96cm で止まった)
-#:
-#: 向きは端点で決まります。袖ぐりは肩線と共有する端から脇線と共有する端
-#: へ走り、袖山は脇の下から肩を通ってもう一方の脇の下へ走ります。だから
-#: 前半は (0.5, 0.0) と逆に刻んで、肩どうし・脇どうしを合わせます。
-#: どちらの半分を前にするかは**この道具が決めた**ことで、測ったもので
-#: はありません(左右対称なので長さは変わりません)。
-SEAMS: List[Dict[str, Any]] = [
-    {"a": ("前身頃", "肩線"), "b": ("後身頃", "肩線")},
-    {"a": ("前身頃", "脇線"), "b": ("後身頃", "脇線")},
-    {"a": ("袖", "袖山"), "b": ("前身頃", "袖ぐり"), "span": (0.5, 0.0),
-     "label": "袖/袖山(前半) ↔ 前身頃/袖ぐり"},
-    {"a": ("袖", "袖山"), "b": ("後身頃", "袖ぐり"), "span": (0.5, 1.0),
-     "label": "袖/袖山(後半) ↔ 後身頃/袖ぐり"},
-    # **袖下線は袖自身の二辺を縫い合わせて筒にする。** 2026-08-23 まで
-    # ここが抜けていて、名前付き辺として存在し縫い代まで付いているのに
-    # 一度も縫われず、袖は平らな板のまま落ちていました。
-    # 同じピースの中の縫い目なので a と b が同じ名前になります。
-    {"a": ("袖", "袖下線 (右)"), "b": ("袖", "袖下線 (左)"),
-     "label": "袖/袖下線(右) ↔ 袖/袖下線(左)"},
-]
+# 縫う辺の対応は **Block の宣言** が持つ。**型紙の名前で書く。近さでは
+# 決めない。** ここは宣言を読んで縫う側(2026-08-24、Block 抽象化)。
+#
+# span は辺Aを刻む向きと範囲 (始点の割合, 終点の割合)。省略は (0.0, 1.0)。
+# **袖山は前後の袖ぐりに半分ずつ付く** — 片方だけに付けると、袖山の
+# 半分が何にも繋がらないまま袖ぐりに引き寄せられ、縫い目が永久に開く。
+# (2026-08-23 実測: 反復を32倍にしても隙間 6.06→5.96cm で止まった)
+#
+# 向きは端点で決まります。袖ぐりは肩線と共有する端から脇線と共有する端
+# へ走り、袖山は脇の下から肩を通ってもう一方の脇の下へ走ります。だから
+# 前半は (0.5, 0.0) と逆に刻んで、肩どうし・脇どうしを合わせます。
+SEAMS: List[Dict[str, Any]] = _block.coat().seams()
 
-#: 型紙を3次元に置く初期位置。前は手前、後ろは奥、袖は横。
+#: 型紙を3次元に置く初期位置。出所: Block 宣言(settings の腕)。
 #: **これは初期配置であって形ではない** — 落とした結果が形。
-PLACEMENT = {
-    "前身頃": (0.0, 0.0, 12.0),
-    "後身頃": (0.0, 0.0, -12.0),
-    "袖": (34.0, 0.0, 0.0),
-}
+PLACEMENT: Dict[str, Tuple[float, float, float]] = _block.coat().placement()
 
 #: メッシュの粗さ (cm)。段を上げるときはここを下げる。
 DEFAULT_CELL = 6.0
@@ -187,6 +170,12 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
                 "how_to_close": draft_out.get("how_to_close", "")}
 
     pieces = {p["name"]: p for p in draft_out["pieces"]}
+    # **縫い目と初期位置は宣言が運ぶ**（Block から来た型紙には載って
+    # いる）。無ければコートの宣言(このモジュールの既定)に倒す。
+    seam_specs = draft_out.get("seam_specs") or SEAMS
+    placement_map = draft_out.get("placement") or PLACEMENT
+    pins_policy = (draft_out.get("settings") or {}).get(
+        "pins_policy") or "shoulder_front_only"
     points: List[Vec] = []
     edges: List[Tuple[int, int, str]] = []
     # **出身を残す。** 混ざると、直すときにどの型紙を触ればよいか
@@ -200,7 +189,7 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         base = len(points)
         piece_base[name] = base
         piece_flat[name] = flat
-        ox, oy, oz = PLACEMENT.get(name, (0.0, 0.0, 0.0))
+        ox, oy, oz = placement_map.get(name, (0.0, 0.0, 0.0))
         for x, y in flat:
             points.append((x + ox, -y + oy, oz))
             owner.append(name)
@@ -217,7 +206,7 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         key = (piece, round(flat_pt[0], 4), round(flat_pt[1], 4))
         if key in attached:
             return attached[key]
-        ox, oy, oz = PLACEMENT.get(piece, (0.0, 0.0, 0.0))
+        ox, oy, oz = placement_map.get(piece, (0.0, 0.0, 0.0))
         idx = len(points)
         points.append((flat_pt[0] + ox, -flat_pt[1] + oy, oz))
         owner.append(piece)
@@ -240,7 +229,7 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
     seam_pairs: List[Tuple[int, int]] = []
     seen_pairs: set = set()
     seam_rows: List[Dict[str, Any]] = []
-    for spec in SEAMS:
+    for spec in seam_specs:
         (pa, ea), (pb, eb) = spec["a"], spec["b"]
         span = spec.get("span", (0.0, 1.0))
         name = spec.get("label", f"{pa}/{ea} ↔ {pb}/{eb}")
@@ -301,6 +290,8 @@ def build(draft_out: Dict[str, Any], *, cell: float = DEFAULT_CELL,
         "pieces": {k: {"vertices": len(v), "base": piece_base[k]}
                    for k, v in piece_flat.items()},
         "cell": cell,
+        # 吊り方の宣言を運ぶ。落とす側(sew_and_drape)がこれを読む。
+        "pins_policy": pins_policy,
         "note": "縫い目は型紙の名前付き辺から決めています。"
                 "近さで勝手に繋いでいません",
     }
@@ -357,7 +348,8 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                   step: Optional[float] = None,
                   stitch_k: Optional[float] = None,
                   start: Optional[Sequence[Vec]] = None,
-                  pinned: Optional[Sequence[int]] = None) -> Dict[str, Any]:
+                  pinned: Optional[Sequence[int]] = None,
+                  wind: Optional[Sequence[float]] = None) -> Dict[str, Any]:
     """縫って落とす。縫い目は**距離ゼロに引く拘束**として効く。
 
     刻みは落とす側と同じ規則で剛性から決める。固定にしていたら、
@@ -389,7 +381,13 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
     for s, (a, b) in enumerate(pairs):
         stitched[a].append(s)
         stitched[b].append(s)
-    pin = set(pinned or _shoulder_pins(built))
+    if pinned is not None:
+        pin = set(pinned)
+    else:
+        # **吊り方は宣言が決める。** 肩の無い服は肩で吊れない。
+        policy = built.get("pins_policy", "shoulder_front_only")
+        pin = set(_waist_pins(built) if policy == "waist_extremes"
+                  else _shoulder_pins(built))
     seq = list(order) if order is not None else list(range(n))
     mass = material["gsm"] / 10000.0
     # 縫合は布より弱くする。強すぎると縫い目が布を引き裂く向きに効く。
@@ -437,6 +435,11 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                 for t in range(3):
                     g[t] += stitch_k * (pos[i][t] - pos[other][t])
             g[1] += -mass * GRAVITY
+            if wind is not None:
+                # **風は加速度として全軸に効く。** 質量に比例するのは
+                # 重力と同じ — 風圧を面に分配する複雑さはまだ持ち込まない。
+                for t in range(3):
+                    g[t] += mass * float(wind[t])
             grad[i] = g
         moved = 0.0
         for i in range(n):
@@ -500,6 +503,7 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
             "縫い目が閉じても服はまだ落ち続けます。ここが True なのは"
             "縫い目についてだけで、形が定まったという意味ではありません",
         "step": round(step, 8), "stitch_k": round(stitch_k, 3),
+        "wind": list(wind) if wind is not None else None,
     }
 
 
@@ -540,6 +544,76 @@ def _shoulder_pins(built: Dict[str, Any]) -> List[int]:
     lo = min(here, key=lambda i: (points[i][0], -points[i][1]))
     hi = max(here, key=lambda i: (points[i][0], points[i][1]))
     return sorted({lo, hi})
+
+
+def _waist_pins(built: Dict[str, Any]) -> List[int]:
+    """ウエストの左右の端を吊る。**肩の無い服のための吊り方。**
+
+    スカートは肩が無い。前身頃の最上段(=ウエスト線)から左右に離れた
+    二点を取り、後ろは脇の縫い目を通してぶら下がる — 服はそう吊れて
+    います。決定的に選ぶ点は _shoulder_pins と同じ規律です。
+    """
+    owner = built["owner"]
+    points = built["points"]
+    sewn = {i for pair in built.get("seam_pairs", []) for i in pair}
+    idx = [i for i, o in enumerate(owner) if o == "前身頃"]
+    if not idx:
+        idx = list(range(len(points)))
+        if not idx:
+            return []
+    top = max(points[i][1] for i in idx)
+    cand = sorted((i for i in idx if i not in sewn),
+                  key=lambda i: -points[i][1])
+    if not cand:
+        return []
+    band = 0.0
+    while True:
+        band += 6.0
+        here = [i for i in cand if points[i][1] >= top - band]
+        xs = {round(points[i][0], 3) for i in here}
+        if len(xs) >= 2 or band > 60.0:
+            break
+    lo = min(here, key=lambda i: (points[i][0], -points[i][1]))
+    hi = max(here, key=lambda i: (points[i][0], points[i][1]))
+    return sorted({lo, hi})
+
+
+def wind_sway(built: Dict[str, Any], material: Dict[str, Any], *,
+              wind: Sequence[float], iterations: int = 2000,
+              stitch_k: Optional[float] = None) -> Dict[str, Any]:
+    """風を当てたときの揺れを測る。**静止形との差で言う。**
+
+    返すのは 裾(最下段)の中心の移動量と、風を止めた形が静止形に戻るか。
+    「戻る」は決定論の系での話で、同じ入力なら常に同じ形に落ちる —
+    だから比較は 風あり形 ↔ 風なし形 の距離で行う。
+    """
+    base = sew_and_drape(built, material, iterations=iterations,
+                         stitch_k=stitch_k)
+    blown = sew_and_drape(built, material, iterations=iterations,
+                          stitch_k=stitch_k, wind=wind)
+    if base.get("verdict") != "ANSWER" or blown.get("verdict") != "ANSWER":
+        return {"verdict": "UNKNOWN_NOT_CONVERGED",
+                "why": "どちらかの解が収束しませんでした"}
+    pb, pf = base["points"], blown["points"]
+    n = len(pb)
+    ys = [p[1] for p in pb]
+    y_min = min(ys)
+    hem = [i for i in range(n) if abs(pb[i][1] - y_min) < 2.0]
+    if not hem:
+        hem = list(range(n))
+    dx = sum(pf[i][0] - pb[i][0] for i in hem) / len(hem)
+    dz = sum(pf[i][2] - pb[i][2] for i in hem) / len(hem)
+    sway = round(math.sqrt(dx * dx + dz * dz), 3)
+    worst = max(math.dist(pb[i], pf[i]) for i in range(n))
+    return {
+        "verdict": "ANSWER",
+        "wind": list(wind),
+        "hem_shift_cm": sway,
+        "worst_point_cm": round(worst, 3),
+        "direction": [round(dx, 3), 0.0, round(dz, 3)],
+        "generated_not_evidence":
+            "風の当て方は一様な加速度で、布が受ける面積は計算していません",
+    }
 
 
 def _internal_diff(a: Sequence[Sequence[float]],

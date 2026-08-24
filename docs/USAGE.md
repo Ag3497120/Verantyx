@@ -98,7 +98,7 @@ Point Claude Code, Claude Desktop or Cursor at it:
     "cwd": "/path/to/photoloset" } } }
 ```
 
-37 tools: intake, the ledger, measurements, the pattern and its marks, sewing
+42 tools: intake, the ledger, measurements, the pattern and its marks, sewing
 and drape, the reference body, the solid, design and rights. The store is
 `~/.photoloset/`.
 
@@ -126,7 +126,7 @@ open app/Verantyx.xcodeproj      # then run it
 It opens on the Atelier and drives this package over MCP: a build phase copies
 `photoloset/` into the app's `Contents/Resources`, and `MCPEngine` launches
 `python3 -m photoloset.mcp` from there. No separate install, no frozen helper —
-the 78 MB binary the app used to embed did the same 37 tools in 250 KB less
+the 78 MB binary the app used to embed did the same 42 tools in 250 KB less
 readable form.
 
 If you move the built `.app` somewhere odd and the ledger comes up
@@ -515,7 +515,7 @@ names what it cannot.
 | `garment_app` | the browser application, standard library only |
 | `garment_body` | the reference body, grading and ease |
 | `garment_solid` | the proportion block — not a fit simulation |
-| `mcp` | an MCP server over stdio, 37 tools, standard library only |
+| `mcp` | an MCP server over stdio, 42 tools, standard library only |
 | `i18n` | English output, and the report of what it could not translate |
 | `__main__` | `python3 -m photoloset` |
 

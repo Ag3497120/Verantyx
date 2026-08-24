@@ -19,42 +19,27 @@ from __future__ import annotations
 import math
 from typing import Any, Dict, List, Optional, Tuple
 
-#: 製図に要る寸法。**一つでも欠ければ引かない。**
-REQUIRED = ("body_length", "chest", "shoulder")
+from . import block as _block
+
+# 製図に要る知識は **Block の宣言** が持つ。このモジュールは宣言を解釈
+# して幾何を作る側に回った — 服を足す = 新しい宣言であって、この
+# ファイルへ定数を書き足すことではない(2026-08-24、Block 抽象化)。
+_COAT = _block.coat()
+
+#: 製図に要る寸法。**一つでも欠ければ引かない。** 出所: Block 宣言。
+REQUIRED: Tuple[str, ...] = _COAT.required()
 
 #: 袖に要る寸法。袖だけ引けないことはある。
-SLEEVE_REQUIRED = ("sleeve_length",)
+SLEEVE_REQUIRED: Tuple[str, ...] = _COAT.sleeve_required()
 
 #: この道具の式。**全部書き出す。** 監査できない式は使わない。
 #: 単位は cm。chest は仕上がり周囲(ゆとり込み)として扱う。
-FORMULAS = {
-    "身頃幅 (前後それぞれ)": "chest / 4",
-    "袖ぐり深さ": "chest / 8 + 6.5",
-    "肩線の下がり": "shoulder / 10",
-    "衿ぐり幅 (前後共通)": "chest / 12 + 1.5",
-    "前衿ぐり深さ": "chest / 12 + 2.0",
-    "後衿ぐり深さ": "2.0（固定）",
-    "袖山の高さ": "袖ぐり深さ × 0.78",
-    "袖幅 (袖口側)": "chest / 8 + 2.0",
-    "袖山の幅": "袖山の長さが「袖ぐりの合計 + いせ込み」になるよう解く",
-    "いせ込み": "2.0cm（この道具の既定）",
-    # ここから下は 2026-08-23 追加。**それまで式を出していなかった。**
-    # 「全ての式を書き出す」と書きながら、袖ぐりと袖山の曲がりを決める
-    # 定数がソースにしかありませんでした。服飾の人がいちばん異議を
-    # 唱えたい数字が、出していない数字だったことになります。
-    "肩先の位置 (x)": "shoulder / 2 ※ shoulder は肩幅の全長とみなす",
-    "後袖ぐりの control 点 (x)": "身頃幅 − 1.0（固定）",
-    "前袖ぐりの control 点 (x)": "身頃幅 − 1.6（固定）"
-                            " ※ 前後の袖ぐりの違いはこの 0.6cm だけ",
-    "袖ぐりの control 点 (y)": "袖ぐり深さ × 0.55",
-    "袖山の control 点 (x)": "袖山の幅 × 0.5",
-    "袖山の control 点 (y)": "袖山の高さ × 0.22",
-    "袖山の幅の解き方": "二分探索 60 回、範囲 (0.1, 袖ぐりの合計)",
-}
+#: 文字列は Block 宣言(rules の腕)が持ち、ここはそれを出すだけ。
+FORMULAS: Dict[str, str] = _COAT.formulas()
 
 #: 袖山を袖ぐりより長くする分(cm)。**この道具が決めた値**で、
 #: 服飾の標準ではない。いせ込みは生地と縫い手で変わる。
-EASE_IN = 2.0
+EASE_IN: float = _COAT.param("ease_in_cm")
 
 
 #: 長さを cm に直す係数。**製図は cm で書いてある。**
@@ -130,12 +115,14 @@ def draft(measures: Any) -> Dict[str, Any]:
     chest = have["chest"]
     shoulder = have["shoulder"]
 
-    half = chest / 4.0                    # 身頃幅
-    armhole_depth = chest / 8.0 + 6.5     # 袖ぐり深さ
-    shoulder_drop = shoulder / 10.0       # 肩線の下がり
-    neck_w = chest / 12.0 + 1.5           # 衿ぐり幅
-    front_neck_d = chest / 12.0 + 2.0     # 前衿ぐり深さ
-    back_neck_d = 2.0                     # 後衿ぐり深さ
+    P = _COAT.param
+    half = chest / P("half_divisor")      # 身頃幅
+    armhole_depth = (chest / P("armhole_depth_div")
+                     + P("armhole_depth_add"))     # 袖ぐり深さ
+    shoulder_drop = shoulder / P("shoulder_drop_div")   # 肩線の下がり
+    neck_w = chest / P("neck_w_div") + P("neck_w_add")  # 衿ぐり幅
+    front_neck_d = chest / P("neck_w_div") + P("front_neck_add")
+    back_neck_d = P("back_neck_depth")   # 後衿ぐり深さ
 
     pieces: List[Dict[str, Any]] = []
 
@@ -153,10 +140,11 @@ def draft(measures: Any) -> Dict[str, Any]:
 
     # ---- 後身頃 ----------------------------------------------------
     # 原点は中心・衿ぐり位置。x は外向き、y は下向き。
-    back_shoulder_end = (shoulder / 2.0, shoulder_drop)
+    back_shoulder_end = (shoulder / P("shoulder_half_div"), shoulder_drop)
     back_armhole = [
         back_shoulder_end,
-        (half - 1.0, armhole_depth * 0.55),
+        (half - P("back_armhole_ctrl_dx"),
+         armhole_depth * P("armhole_ctrl_y_ratio")),
         (half, armhole_depth),
     ]
     back_outline = [
@@ -174,10 +162,11 @@ def draft(measures: Any) -> Dict[str, Any]:
     })
 
     # ---- 前身頃 ----------------------------------------------------
-    front_shoulder_end = (shoulder / 2.0, shoulder_drop)
+    front_shoulder_end = (shoulder / P("shoulder_half_div"), shoulder_drop)
     front_armhole = [
         front_shoulder_end,
-        (half - 1.6, armhole_depth * 0.55),
+        (half - P("front_armhole_ctrl_dx"),
+         armhole_depth * P("armhole_ctrl_y_ratio")),
         (half, armhole_depth),
     ]
     front_outline = [
@@ -199,8 +188,8 @@ def draft(measures: Any) -> Dict[str, Any]:
     _, sleeve_missing, _u = _need(measures, SLEEVE_REQUIRED)
     if not sleeve_missing:
         sl = have["sleeve_length"]
-        cap_h = armhole_depth * 0.78
-        cuff_half = chest / 8.0 + 2.0
+        cap_h = armhole_depth * P("cap_height_ratio")
+        cuff_half = chest / P("cuff_div") + P("cuff_add")
         armhole_total = (_length(back_armhole) + _length(front_armhole))
         # 袖山は袖ぐりに合わせて引く。**合わせるのが目的**で、
         # 合ったことを主張するのではなく、後で差を出して確かめる。
@@ -211,11 +200,16 @@ def draft(measures: Any) -> Dict[str, Any]:
         target = armhole_total + EASE_IN
 
         def cap_points(w: float):
-            return [(-w, cap_h), (-w * 0.5, cap_h * 0.22), (0.0, 0.0),
-                    (w * 0.5, cap_h * 0.22), (w, cap_h)]
+            return [(-w, cap_h),
+                    (-w * P("cap_ctrl_x_ratio"),
+                     cap_h * P("cap_ctrl_y_ratio")),
+                    (0.0, 0.0),
+                    (w * P("cap_ctrl_x_ratio"),
+                     cap_h * P("cap_ctrl_y_ratio")),
+                    (w, cap_h)]
 
-        lo, hi = 0.1, armhole_total
-        for _ in range(60):        # 60回で十分に収束する
+        lo, hi = P("cap_solve_lo"), armhole_total
+        for _ in range(int(P("cap_solve_iterations"))):   # 回数も式として出す
             mid = (lo + hi) / 2.0
             if _length(cap_points(mid)) < target:
                 lo = mid

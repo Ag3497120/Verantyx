@@ -484,6 +484,78 @@ def rights_may_i_make_this() -> str:
 
 
 # ---------------------------------------------------------------------------
+# Prompts — per-model, for the agent loop
+# ---------------------------------------------------------------------------
+
+@tool
+def garment_prompt_for_model(model_id: str = "") -> str:
+    """The decomposition prompt for a model. Switching models switches prompts."""
+    from . import prompts as _prompts
+    return _ok(_prompts.for_model(model_id))
+
+
+@tool
+def garment_parse_decomposition(json_text: str = "", model_id: str = "") -> str:
+    """Validate a model's part decomposition. Refusals are values; nothing guessed."""
+    from . import prompts as _prompts
+    r = _prompts.parse_decomposition(model_id or "default", json_text)
+    if r.get("verdict") == "ANSWER":
+        r["proposals"] = _prompts.to_proposals(r)
+        r["siglip_queries"] = _prompts.siglip_queries(r)
+    return _ok(r)
+
+
+@tool
+def garment_siglip_queries(families: str = "") -> str:
+    """The always-on similarity model's query bank (optionally per family)."""
+    from . import prompts as _prompts
+    fams = [f.strip() for f in families.split(",") if f.strip()] or None
+    return _ok({"verdict": "ANSWER",
+                "queries": _prompts.siglip_queries(families=fams)})
+
+
+@tool
+def garment_adjust(json_text: str = "") -> str:
+    """Adjust zones by number ("2": +1.5, "6-9": -1.0) and re-compose."""
+    from . import compose as _compose
+    from . import zones as _zones
+    try:
+        req = json.loads(json_text) if json_text.strip() else {}
+    except json.JSONDecodeError:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text は {graph, adjustments} の JSON です"})
+    a = _zones.apply(req.get("graph") or {},
+                     req.get("adjustments") or {})
+    if a.get("verdict") != "ANSWER":
+        return _ok(a)
+    r = _compose.compose(a["graph"], _measures())
+    return _ok({"verdict": r.get("verdict", "ERROR"),
+                "applied": a["applied"],
+                "note": a["note"],
+                "draft": {k: v for k, v in r.items()
+                          if k in ("verdict", "label", "pieces",
+                                   "seam_checks", "total_area_cm2"
+                                   if "total_area_cm2" in r else "seam_specs",
+                                   "zones")}})
+
+
+@tool
+def garment_compose(json_text: str = "") -> str:
+    """Compose a garment from a parts graph. Open ports are named, never filled."""
+    from . import compose as _compose
+    try:
+        graph = json.loads(json_text) if json_text.strip() else {}
+    except json.JSONDecodeError:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text は部品グラフの JSON です"})
+    # 台帳から読む。他の寸法依存の道具と同じ台帳でなければ、
+    # measure_sheet に見えている寸法を compose が「欠けている」と言う。
+    # 台帳が空のままでも、欠けている寸法の名前を型付きで返す。
+    # 勝手に既定値で引かない。
+    return _ok(_compose.compose(graph, _measures()))
+
+
+# ---------------------------------------------------------------------------
 # Present in the parent project, absent here
 # ---------------------------------------------------------------------------
 

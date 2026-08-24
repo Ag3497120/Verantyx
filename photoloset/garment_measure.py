@@ -33,12 +33,17 @@ SPOTS: Dict[str, str] = {
     "body_length": "着丈",
     "chest": "胸囲",
     "waist": "胴囲",
+    "hip": "腰囲",
     "shoulder": "肩幅",
     "sleeve_length": "袖丈",
     "cuff_width": "袖口幅",
     "collar_height": "襟の高さ",
     "pocket_position": "ポケット位置(肩からの距離)",
     "hem_width": "裾幅",
+    "skirt_length": "スカート丈",
+    "neck": "襟ぐり周囲",
+    "bodice_length": "上身頃丈",
+    "cape_length": "ケープ丈",
 }
 
 #: 比率が掛かる基準。ここに無いものを基準にはできない。

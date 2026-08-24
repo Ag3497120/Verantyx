@@ -69,6 +69,8 @@ TERMS: Dict[str, str] = {
     "肩幅": "shoulder width",
     "袖丈": "sleeve length",
     "胴囲": "waist",
+    "腰囲": "hip",
+    "スカート丈": "skirt length",
     "袖口幅": "cuff width",
     "裾幅": "hem width",
     "襟の高さ": "collar height",
@@ -109,6 +111,41 @@ TERMS: Dict[str, str] = {
     "袖山と袖ぐり": "cap against armhole",
     "肩線・脇線": "shoulder seam, side seam",
     "前後身頃/袖ぐり の合計": "front + back bodice / armhole, combined",
+    # skirt edges and landmarks
+    "ウエスト": "waist",
+    "ウエスト(カーシング)": "waist (elastic casing)",
+    "丈": "length",
+    "中間": "midpoint",
+    "ヒップ": "hip",
+    "襟ぐり": "neckline",
+    "肩線・脇線に準じる(接続の縫い目)": "after shoulder and side seams "
+                                      "(a joining seam)",
+    "同じ点から引いているので差は構成上ゼロです":
+        "both edges come from the same points, so the difference is zero "
+        "by construction",
+    "衿ぐり (前)": "front neckline",
+    "衿ぐり (後)": "back neckline",
+    "袖山(前半)": "cap (front half)",
+    "袖山(後半)": "cap (back half)",
+    "ケープ": "cape",
+    "スカート前": "skirt front",
+    "スカート後": "skirt back",
+    # cape formula keys
+    "ケープの内半径": "cape inner radius",
+    "ケープの外半径": "cape outer radius",
+    "扇の開き": "sector angle",
+    "弧の分割": "arc subdivision",
+    "ハイローの落ち差": "high-low drop",
+    # zone labels
+    "胸のゆとり": "chest ease",
+    "袖ぐり深さの追加": "extra armhole depth",
+    "袖山のいせ": "cap ease",
+    "袖口の広さ": "cuff width",
+    "フレアの割合": "flare ratio",
+    # new measurement spots (parts)
+    "襟ぐり周囲": "neck circumference",
+    "上身頃丈": "bodice length",
+    "ケープ丈": "cape length",
 }
 
 _SUFFIX = {
@@ -192,6 +229,89 @@ def _rule(s: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 SENTENCES: Dict[str, str] = {
+    # skirt drafting: formula names and texts (declared on the block)
+    "ウエスト幅 (1枚)": "waist width (per panel)",
+    "ヒップ幅 (1枚)": "hip width (per panel)",
+    "ヒップの位置": "hip line position",
+    "ウエストの楽": "waist ease",
+    "ヒップの楽": "hip ease",
+    "waist / 2 + ウエストの楽": "waist / 2 + waist ease",
+    "max(hip / 2 + ヒップの楽, ウエスト幅)":
+        "max(hip / 2 + hip ease, waist width)",
+    "skirt_length の実測そのまま": "the measured skirt_length, as-is",
+    "ウエストから hip_depth 下がったところ": "hip_depth below the waist",
+    "ヒップ幅 × flare_ratio": "hip width × flare_ratio",
+    "+2.0cm（**既定**）": "+2.0 cm (**tool default**)",
+    "1.35（Aライン。**この道具が決めた値**で、服飾の標準ではない）":
+        "1.35 (A-line. **a value this tool chose**, not an industry "
+        "standard)",
+    "1.02（ストレート。**この道具が決めた値**)":
+        "1.02 (straight. **a value this tool chose**)",
+    "1枚あたり +2.0cm。ゴムに寄せる分（**既定**。生地とゴムで変わる）":
+        "+2.0 cm per panel, gathered onto elastic (**default**; varies "
+        "with fabric and elastic)",
+    "20.0cm（**この道具の既定**。標準では約18-20cmとされるが、"
+    "出典を確認していない）":
+        "20.0 cm (**this tool's default**. Commonly cited as about "
+        "18–20 cm; the source is unverified)",
+    '1"相当': 'about 1"',
+    "ゴム通し分。**既定・出典未確認**":
+        "elastic casing. **a tool default; the source is unverified**",
+    # skirt notes
+    "これはこの道具の簡易製図です。式は全て出しているので、違うと"
+    "思ったら式を見てください。":
+        "This is this tool's own simplified drafting. Every formula is "
+        "printed — if it looks wrong, argue with the formula.",
+    "型紙は裁つものなので、足りない寸法を既定で埋めません":
+        "A pattern is cut, so missing measurements are never filled "
+        "with defaults",
+    "脇が合わないと脇が縫えない":
+        "if the side seams do not match, the sides cannot be sewn",
+    "脇線(右): 前 ↔ 後": "side seam (right): front ↔ back",
+    "脇線(左): 前 ↔ 後": "side seam (left): front ↔ back",
+    "辺の弧長の中点。前後で対にして、縫いずれを見つけるための印":
+        "the midpoint of the edge's arc length. Paired front-to-back so "
+        "sewing drift shows up as a mismatch",
+    # parts / composed garments
+    "waist: bodice:1 ↔ skirt:1 (前身頃↔スカート前)": "waist: bodice ↔ skirt front",
+    "waist: bodice:1 ↔ skirt:1 (後身頃↔スカート後)": "waist: bodice ↔ skirt back",
+    "armhole_l: bodice:1 ↔ sleeve:1 (前身頃↔袖(左))": "armhole: bodice ↔ sleeve (front)",
+    "armhole_l: bodice:1 ↔ sleeve:1 (後身頃↔袖(左))": "armhole: bodice ↔ sleeve (back)",
+    "neck: bodice:1 ↔ cape:1 (前身頃↔ケープ)": "neckline: bodice ↔ cape (front)",
+    "neck: bodice:1 ↔ cape:1 (後身頃↔ケープ)": "neckline: bodice ↔ cape (back)",
+    "これはこの道具の簡易製図です。式は全て出しています。":
+        "This is this tool's own simplified drafting. Every formula is "
+        "printed.",
+    "max(hip / 4 + 2.0, ウエスト幅)": "max(hip / 4 + 2.0, waist width)",
+    "ウエスト(カーシング)": "waist (elastic casing)",
+    "ウエスト幅 (1/4)": "waist width (quarter)",
+    "ヒップ幅 (1/4)": "hip width (quarter)",
+    "身頃幅 (胸, 1枚)": "bodice width at chest (per panel)",
+    "身頃幅 (ウエスト, 1枚)": "bodice width at waist (per panel)",
+    "襟ぐり幅": "neckline width",
+    "襟ぐり深さ": "neckline depth",
+    "肩線: 前 ↔ 後": "shoulder seam: front ↔ back",
+    "脇線: 前 ↔ 後": "side seam: front ↔ back",
+    "脇線: スカート前 ↔ スカート後": "side seam: skirt front ↔ skirt back",
+    "袖下線: 袖(左) の筒": "underarm seam: closes left sleeve into a tube",
+    "袖下線: 袖(右) の筒": "underarm seam: closes right sleeve into a tube",
+    "接続する辺の長さ差。**差が出るのが普通** — ギャザーの分だけ"
+    "長い側が寄る":
+        "length difference across a joined edge. **A difference is "
+        "normal** — the longer side gathers onto the shorter",
+    "縫い合わせる辺の長さ差": "length difference of the edges being sewn",
+    "種類名はこの組合せのラベルです。能力は部品の側にあります":
+        "the garment-type name is a label for this combination. The "
+        "capability lives in the parts",
+    "部品の組合せから組み立てました。種類の登録はありません":
+        "assembled from parts. No garment type was registered",
+    "繋がっておらず、処理も決まっていない口があります。"
+    "黙って閉じた服に見せません":
+        "some ports are neither connected nor given a finish. The tool "
+        "will not pretend the garment is closed",
+    "接続するか、port_finish で わ(fold)か 端処理(free) を決める":
+        "connect the port, or declare it in port_finish as fold or free",
+    # coat formulas kept company by the skirt's own:
     "2.0（固定）": "2.0 (fixed)",
     "2.0cm（この道具の既定）": "2.0 cm (this tool's default)",
     "身頃幅 − 1.0（固定）": "bodice width - 1.0 (fixed)",

@@ -243,7 +243,7 @@ have to grow itself: model clients for the vision step, an MCP host, a file
 tree, a console. What this package adds is the half that has to be exact.
 
 **It runs on this package's engine.** The app used to embed a 78 MB frozen
-helper for the same 37 tools; it now launches `python3 -m photoloset.mcp`
+helper for the same 42 tools; it now launches `python3 -m photoloset.mcp`
 instead, found in its own bundle Resources, where a build phase copies the
 250 KB Python package. So the two halves are one program, and the tool surface
 is the seam between them.
@@ -256,7 +256,7 @@ Three things did not come across, and it is worth knowing why:
 | a 75 MB backup of it | a stale copy of the same thing |
 | `verantyx-browser/` | a separate Rust project — and the source of four paths with colons in their names, which cannot be checked out on Windows at all |
 
-Five of the 37 tools answer `UNKNOWN_NOT_IN_THIS_BUILD` rather than working:
+Five of the 42 tools answer `UNKNOWN_NOT_IN_THIS_BUILD` rather than working:
 `garment_cross` and the four `fabric_*` tools need a coordinate memory and its
 language engine, about 15,700 lines that are not part of this package. Fabric
 properties are read from `~/.photoloset/fabrics.json` instead.
@@ -270,7 +270,7 @@ python3 examples/black_coat.py
 Or drive it from any agent, which is what the app does:
 
 ```bash
-python3 -m photoloset.mcp        # 37 tools over stdio, standard library only
+python3 -m photoloset.mcp        # 42 tools over stdio, standard library only
 ```
 
 ## Thirty seconds of it

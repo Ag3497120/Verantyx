@@ -95,7 +95,7 @@ enum VeraMemoryPaths {
 
     /// The directory that *contains* the `photoloset` Python package.
     ///
-    /// photoloset carries its own MCP server — the same 37 garment tools, in
+    /// photoloset carries its own MCP server — the same 42 garment tools, in
     /// about 250 KB of standard-library Python — which is what the Atelier
     /// actually talks to. The frozen `vera-memory` helper this app used to
     /// embed is 78 MB of the same surface plus the memory engine, and is not

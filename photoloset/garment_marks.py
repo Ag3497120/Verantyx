@@ -49,13 +49,30 @@ MITRE_LIMIT = 4.0
 SEAM_ALLOWANCE = {
     "肩線":       (1.27, '1/2"', "肩線・脇線"),
     "脇線":       (1.27, '1/2"', "肩線・脇線"),
+    # スカートの半身は左右で別の名前付き辺になる(同じ幅)。
+    "脇線 (右)":   (1.27, '1/2"', "肩線・脇線に準じる"),
+    "脇線 (左)":   (1.27, '1/2"', "肩線・脇線に準じる"),
     "袖下線 (右)": (1.27, '1/2"', "肩線・脇線に準じる"),
     "袖下線 (左)": (1.27, '1/2"', "肩線・脇線に準じる"),
     "袖ぐり":     (0.95, '3/8"', "力のかかる曲線 (armscye)"),
     "袖山":       (0.95, '3/8"', "力のかかる曲線 (armscye)"),
+    "袖山(前半)": (0.95, '3/8"', "力のかかる曲線 (armscye)"),
+    "袖山(後半)": (0.95, '3/8"', "力のかかる曲線 (armscye)"),
     "衿ぐり":     (0.64, '1/4"', "力のかからない曲線 (neckline)"),
+    "襟ぐり":     (0.64, '1/4"', "力のかからない曲線 (neckline)"),
+    "衿ぐり (前)": (0.64, '1/4"', "力のかからない曲線 (neckline)"),
+    "衿ぐり (後)": (0.64, '1/4"', "力のかからない曲線 (neckline)"),
     "裾":         (2.54, '1"',   "並価格帯の裾。**裾は減らさない**"),
     "袖口":       (2.54, '1"',   "並価格帯の裾に準じる"),
+    # ゴム通し(カーシング)。**この道具の既定で、出典は未確認** —
+    # 裾と同じ幅にしただけです。出典が確認できたら書き換える。
+    "ウエスト(カーシング)": (2.54, '1"相当', "ゴム通し分。**既定・出典未確認**"),
+    # 部品を繋ぐ縫い目としてのウエスト(上身頃↔スカート)。
+    "ウエスト":   (1.27, '1/2"', "肩線・脇線に準じる(接続の縫い目)"),
+    "袖下線(前)": (1.27, '1/2"', "肩線・脇線に準じる"),
+    "袖下線(後)": (1.27, '1/2"', "肩線・脇線に準じる"),
+    "中心線 (前)": (0.0,  "—",   "**わ**（中心）なので縫い代を付けない"),
+    "中心線 (後)": (0.0,  "—",   "**わ**（中心）なので縫い代を付けない"),
     "中心線":     (0.0,  "—",    "**わ**（中心）なので縫い代を付けない"),
 }
 
@@ -66,6 +83,7 @@ NOTCH_DEPTH_CM = 0.25
 #: 袖山のいせ込みを、脇の下側に入れない。
 #: 出典: テーラリングの通説 "most if not all of the ease is on the outer
 #: part of the sleeve. The armpit area does not need any ease at all."
+#: **この値は Block 宣言が持つ**(settings の腕)。互換のための別名。
 EASE_FREE_TO_PITCH = True
 
 
@@ -204,6 +222,10 @@ def cap_notches(cap: Sequence[Sequence[float]],
     total = cum[-1]
     half = total / 2.0
     out: List[Dict[str, Any]] = []
+    # いせを脇の下に入れない規則は **Block 宣言** から読む。
+    from . import block as _block
+
+    ease_free_to_pitch = _block.coat().setting("ease_free_to_pitch")
 
     def by_role(ns, role):
         for n in ns:
@@ -228,7 +250,7 @@ def cap_notches(cap: Sequence[Sequence[float]],
         a_mid = arm_total - mid["arc_cm"]          # 脇→胸/肩甲
         upper = arm_total - a_pitch                # 振り→肩
         # 脇からの袖山側の弧長
-        c_pitch = a_pitch if EASE_FREE_TO_PITCH else a_pitch + ease * (
+        c_pitch = a_pitch if ease_free_to_pitch else a_pitch + ease * (
             a_pitch / arm_total)
         share = 0.0 if upper == 0 else (a_mid - a_pitch) / upper
         c_mid = c_pitch + (a_mid - a_pitch) + ease * share
@@ -254,19 +276,24 @@ def cap_notches(cap: Sequence[Sequence[float]],
 
 
 def pair_notches(pieces: Dict[str, Any],
-                 notches: Dict[str, List[Dict[str, Any]]]
+                 notches: Dict[str, List[Dict[str, Any]]],
+                 seams: Optional[List[Dict[str, Any]]] = None
                  ) -> Dict[str, Any]:
     """合印を対にする。**相手のいない合印は返さない。**
 
     合印は一枚の上の印ではなく、二枚の間の約束。片側にしか無い印は
     組み方を決められないので、印として通さない。
+
+    seams を省略するとコートの縫い目(宣言)を使う — 旧来の呼び出しの
+    互換。Block から来る呼び出しは宣言の seam_specs を渡す。
     """
-    from .garment_sew import SEAMS
+    if seams is None:
+        from .garment_sew import SEAMS as seams
 
     pairs: List[Dict[str, Any]] = []
     unpaired: List[Dict[str, Any]] = []
     used = set()
-    for spec in SEAMS:
+    for spec in seams:
         (pa, ea), (pb, eb) = spec["a"], spec["b"]
         label = spec.get("label", f"{pa}/{ea} ↔ {pb}/{eb}")
         side = "前" if pb == "前身頃" else "後"
@@ -334,6 +361,29 @@ def ease_by_segment(pairs: List[Dict[str, Any]],
                 "ease_pct": round((da - db) / db * 100, 2) if db else None,
             })
     return rows
+
+
+# ------------------------------------------------------- 合印の規則表
+def _midpoint_balance(piece_name: str, edge_name: str,
+                      pts: Sequence[Sequence[float]],
+                      args: Optional[Dict[str, Any]] = None
+                      ) -> List[Dict[str, Any]]:
+    """辺の中間に単合印。**前後で対になる約束の印。**
+
+    脇のように長い縫い目は、中間を合わせないと上下にずれる。位置は
+    弧長の中点 — 始点からの比率ではなく実長で決める。
+    """
+    total = arc_lengths(pts)[-1]
+    return [_notch(edge_name, total * 0.5, total, "single", "中間",
+                   "辺の弧長の中点。前後で対にして、縫いずれを見つける"
+                   "ための印")]
+
+
+#: 宣言(notch_plan)から名前で呼べる手続き。**ここに無い規則は組めない**
+#: ので、宣言が未知の名前を出したら型付きで断る。
+NOTCH_RULES = {
+    "midpoint_balance": _midpoint_balance,
+}
 
 
 # --------------------------------------------------------------- 縫い代
@@ -572,30 +622,57 @@ def apply(draft_out: Dict[str, Any],
     chest = draft_out["used"].get("chest")
     armhole_depth = (chest / 8.0 + 6.5) if chest else None
 
+    plan = draft_out.get("notch_plan")
     notches: Dict[str, List[Dict[str, Any]]] = {}
-    for name in ("前身頃", "後身頃"):
-        p = by_name.get(name)
-        if not p or armhole_depth is None:
-            continue
-        notches[name] = armhole_notches(
-            name, p["edges"]["袖ぐり"]["points"], armhole_depth)
+    if plan is not None:
+        # **宣言が方針を持ち、手続きはここで名前から呼ぶ。**
+        # 組立器は幾何を知らない。知らない規則名が来たら、黙って飛ばさず
+        # 型付きで断る — 合印は縫いの約束なので、無い方がましということは
+        # あっても、勝手に代用されるのは困る。
+        for step in plan:
+            fn = NOTCH_RULES.get(step.get("rule"))
+            if fn is None:
+                return {"verdict": "UNKNOWN_NO_SUCH_NOTCH_RULE",
+                        "which": step.get("rule"),
+                        "how_to_close": "marks.NOTCH_RULES に登録するか、"
+                                        "宣言の方針を変える"}
+            p = by_name.get(step["piece"])
+            e = p["edges"].get(step["edge"]) if p else None
+            if not e:
+                continue
+            notches.setdefault(step["piece"], []).extend(
+                fn(step["piece"], step["edge"], e["points"],
+                   step.get("args")))
+    else:
+        # コートの釣り合い(袖ぐり・袖山)。**手続きはまだこちら側。**
+        # 一般化は2つ目以降のBlockが抽象を証明してから。
+        for name in ("前身頃", "後身頃"):
+            p = by_name.get(name)
+            if not p or armhole_depth is None:
+                continue
+            notches[name] = armhole_notches(
+                name, p["edges"]["袖ぐり"]["points"], armhole_depth)
 
-    if "袖" in by_name and "前身頃" in notches and "後身頃" in notches:
-        notches["袖"] = cap_notches(
-            by_name["袖"]["edges"]["袖山"]["points"],
-            by_name["前身頃"]["edges"]["袖ぐり"]["points"],
-            by_name["後身頃"]["edges"]["袖ぐり"]["points"],
-            notches["前身頃"], notches["後身頃"])
+        if "袖" in by_name and "前身頃" in notches and "後身頃" in notches:
+            notches["袖"] = cap_notches(
+                by_name["袖"]["edges"]["袖山"]["points"],
+                by_name["前身頃"]["edges"]["袖ぐり"]["points"],
+                by_name["後身頃"]["edges"]["袖ぐり"]["points"],
+                notches["前身頃"], notches["後身頃"])
 
-    paired = pair_notches(by_name, notches)
+    paired = pair_notches(by_name, notches,
+                          seams=draft_out.get("seam_specs"))
     ease = ease_by_segment(paired["pairs"], by_name)
 
     allowances, grains, depth_checks = {}, [], []
+    from . import block as _block
+
+    grain_angle = _block.coat().setting("grain_angle_deg")
     for name, p in by_name.items():
         off = offset_outline(p["outline"], p["edges"],
                              piece_name=name)
         allowances[name] = off
-        grains.append(grain_line(p, 90.0, _nap_of(fabrics)))
+        grains.append(grain_line(p, grain_angle, _nap_of(fabrics)))
         depth_checks.append({
             "piece": name,
             **check_notch_depth(notches.get(name, []), {})})
