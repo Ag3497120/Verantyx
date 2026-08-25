@@ -444,19 +444,49 @@ def run(tmp: Path) -> Run:
 #: Each of these regresses ONE repair made in this pass back to the behaviour
 #: the finding measured, and names the check that has to notice it.
 MUTATIONS += [
-    ("#5 put() writes proposals back into a core nobody created",
+    ("#5 a split child does not inherit its parent's quarantine",
      "photoloset/cross.py",
-     '        if arm is None and not _is_quarantine(core):\n'
-     '            home = f"{core}#proposed"\n'
-     '        else:\n'
-     '            home = core',
-     '        home = f"{core}#proposed" if arm is None else core',
+     '        if self._is_quarantine(home):\n'
+     '            self.quarantine.add(child)\n',
+     '',
      ["a proposal stays quarantined"]),
 
     ("#5 quarantine goes back to a substring of a name the writer controls",
      "photoloset/cross.py",
-     '    return core.split("·")[0].endswith("#proposed")',
-     '    return "#proposed" in core',
+     '        return isinstance(core, str) and core in self.quarantine',
+     '        return isinstance(core, str) and "#proposed" in core',
+     ["a proposal stays quarantined"]),
+
+    # The suffix test the LAST pass shipped as "structural". It is not: the
+    # store publishes such names itself, so a writer who round-trips the
+    # store's own core list writes straight into the test.
+    ("#0 quarantine goes back to a suffix of a name the writer controls",
+     "photoloset/cross.py",
+     '        return isinstance(core, str) and core in self.quarantine',
+     '        return (isinstance(core, str)\n'
+     '                and core.split("·")[0].endswith(QUARANTINE_SUFFIX))',
+     ["a proposal stays quarantined"]),
+
+    ("#0 the store stops recording the quarantine core it minted",
+     "photoloset/cross.py",
+     '        self.quarantine.add(home)\n        return home',
+     '        return home',
+     ["a proposal stays quarantined"]),
+
+    ("#0 quarantine does not survive storage", "photoloset/cross.py",
+     '                "quarantine": sorted(self.quarantine),\n', '',
+     ["a proposal stays quarantined"]),
+
+    ("#6 an armed claim may sit inside a quarantine core",
+     "photoloset/cross.py",
+     '        elif arm is not None and self._is_quarantine(core):',
+     '        elif False:',
+     ["a proposal stays quarantined"]),
+
+    ("#6 verify stops naming an armed seat inside quarantine",
+     "photoloset/cross.py",
+     '                if arm is not None and self._is_quarantine(cname):',
+     '                if False:',
      ["a proposal stays quarantined"]),
 
     ("#5 a split whose nest link was refused reports ANSWER again",
@@ -503,9 +533,20 @@ MUTATIONS += [
      '        if False:',
      ["an anonymous source buys nothing"]),
 
+    ("#8 source normalisation drops NFKC and punctuation",
+     "photoloset/cross.py",
+     '    folded = unicodedata.normalize("NFKC", source)\n'
+     '    out = []\n'
+     '    for ch in folded:\n'
+     '        cat = unicodedata.category(ch)\n'
+     '        out.append(" " if cat[0] in _SEPARATOR_CATEGORIES else ch)\n'
+     '    return " ".join("".join(out).split()).casefold()',
+     '    return " ".join(source.split()).casefold()',
+     ["an anonymous source buys nothing"]),
+
     ("#0 source independence goes back to raw string identity",
      "photoloset/cross.py",
-     '    return " ".join(source.split()).casefold()',
+     '    return " ".join("".join(out).split()).casefold()',
      '    return source',
      ["an anonymous source buys nothing"]),
 
@@ -517,8 +558,34 @@ MUTATIONS += [
      ["an anonymous source buys nothing"]),
 
     ("#4 the store accepts values it cannot persist", "photoloset/cross.py",
-     '        why_not = _persistable(value)\n        if why_not:',
-     '        why_not = _persistable(value)\n        if False:',
+     '                ("source", source, _persistable(source))):\n'
+     '            if why_not:',
+     '                ("source", source, _persistable(source))):\n'
+     '            if False:',
+     ["the store refuses what it cannot persist"]),
+
+    ("#1 only the VALUE is checked, as it was", "photoloset/cross.py",
+     '        for field, culprit, why_not in (\n'
+     '                ("core", core, _addressable(core)),\n'
+     '                ("key", key, _addressable(key)),\n'
+     '                ("value", value, _persistable(value)),\n'
+     '                ("source", source, _persistable(source))):',
+     '        for field, culprit, why_not in (\n'
+     '                ("value", value, _persistable(value)),):',
+     ["the store refuses what it cannot persist"]),
+
+    ("#7 NaN and Infinity are floats, so they are persistable again",
+     "photoloset/cross.py",
+     '    if isinstance(v, float):\n'
+     '        if not math.isfinite(v):',
+     '    if isinstance(v, float):\n'
+     '        if False:',
+     ["the store refuses what it cannot persist"]),
+
+    ("#29 a value that contains itself raises out of the store again",
+     "photoloset/cross.py",
+     '    if isinstance(v, (list, tuple, dict)) and id(v) in _path:',
+     '    if False:',
      ["the store refuses what it cannot persist"]),
 
     ("#4 verify stops looking for values the store cannot hold",
@@ -531,11 +598,20 @@ MUTATIONS += [
 
     ("#0 resolve stops pricing a generic claim by its own kind",
      "photoloset/cross.py",
-     '                    "weight_by_kind": {k: len(_independent(v))\n'
-     '                                       for k, v in by_kind.items()},',
-     '                    "weight_by_kind": {k: len(_independent(sources))\n'
-     '                                       for k, _v in by_kind.items()},',
+     '            by_kind_w = {k: len(_independent(v)) '
+     'for k, v in by_kind.items()}',
+     '            by_kind_w = {k: len(_independent(sources)) '
+     'for k, v in by_kind.items()}',
      ["a generic claim is priced by its own kind"]),
+
+    # The number the LAST pass left beside the honest one: `weight` summing
+    # across kinds, so four kinds with one source each read as 4 while the
+    # gate priced the claim at 1.
+    ("#3 weight goes back to the union across kinds", "photoloset/cross.py",
+     '                    "weight": by_kind_w[priced],',
+     '                    "weight": len(_independent(sources)),',
+     ["a generic claim is priced by its own kind",
+      "a seat carries every kind that reached it"]),
 
     ("#1 the free-riding arm stops being reported", "photoloset/cross.py",
      '        if arm is None or arm == seat.get("arm"):\n            return None',
@@ -598,6 +674,51 @@ MUTATIONS += [
      '        return list(FAMILIES)\n'
      '        out = []',
      ["a generic claim needs two sources"]),
+]
+
+
+#: --- pass 5: the store's residuals --------------------------------------
+MUTATIONS += [
+    ("#5 census reads the write-session log instead of the store",
+     "photoloset/cross.py",
+     '                "uncharged": uncharged,',
+     '                "uncharged": [dict(u) for u in self.uncharged],',
+     ["the budget arm is reported, never hidden"]),
+
+    ("#26 the seat-creating write stops naming the arm it charged",
+     "photoloset/cross.py",
+     '                "key": key, "arm": arm, "charged_arm": arm,\n'
+     '                "arms": seat_arms(seat), "weight": 1, '
+     '"seat_created": True}',
+     '                "key": key, "arm": arm,\n'
+     '                "weight": 1, "seat_created": True}',
+     ["the budget arm is reported, never hidden"]),
+
+    ("#2 the loader stops checking the shape of a seat's seq",
+     "photoloset/cross.py",
+     '                if isinstance(seq, bool) or not isinstance(seq, int):',
+     '                if False:',
+     ["the loader never raises"]),
+
+    ("#2 the loader stops checking the shape of a seat's key",
+     "photoloset/cross.py",
+     '                key = s.get("key")\n'
+     '                if _addressable(key):',
+     '                key = s.get("key")\n'
+     '                if False:',
+     ["the loader never raises"]),
+
+    ("#2 the loader takes whatever it is handed for cores",
+     "photoloset/cross.py",
+     '        if not isinstance(cores, dict):',
+     '        if False:',
+     ["the loader never raises"]),
+
+    ("#2 resolve raises again on a seat with no claims",
+     "photoloset/cross.py",
+     '        if not entries:',
+     '        if False:',
+     ["the loader never raises"]),
 ]
 
 
@@ -681,10 +802,156 @@ WHOLE_SUITE = [
 
 
 
+#: --- pass 5: the detectors themselves -------------------------------------
+#: The pass that repaired the scanner added three checks with no falsifier —
+#: the T7 gate, the scanner's self-test, and the readers that now have to
+#: track their stores. A check nobody can turn red is the defect this whole
+#: file exists for, so each is regressed here.
+WHOLE_SUITE += [
+    # T7 by mutation, done BY the harness this time: freeze a reader to the
+    # literal it returns today. Before this pass that left the suite green —
+    # it satisfied every comparison against that literal. Two lines have to
+    # notice now: the one that reads the reader from a SECOND store, and the
+    # ledger gate, whose record is keyed by a digest of this very body.
+    ("#9 a reader is frozen to the literal it returns today",
+     "photoloset/block.py",
+     [("    def sleeve_required(self) -> Tuple[str, ...]:\n"
+       "        return tuple(k for k in self.measures()\n"
+       "                     if k not in self.required())",
+       "    def sleeve_required(self) -> Tuple[str, ...]:\n"
+       "        return (\"sleeve_length\",)")],
+     ["reads follow a second declaration",
+      "every served reader reads its store"]),
+
+    # The ledger is a RECORD. If it can be edited into a clean bill of health
+    # the gate is decoration, so the gate reads what the record SAYS.
+    ("#9 the T7 ledger claims a reader can be bypassed",
+     "tests/t7_readers.json",
+     [('  "BlockView.arm_census": {\n   "bypassable": false,',
+       '  "BlockView.arm_census": {\n   "bypassable": true,')],
+     ["every served reader reads its store"]),
+
+    # B3: chained comparisons were invisible to T1, T4 and T5 at once. The
+    # self-test plants one of each; blinding _comparisons again has to turn
+    # the self-test red rather than quietly reporting a smaller number.
+    ("#B3 the scanner goes blind to chained comparisons again",
+     "tests/unfalsifiable.py",
+     [("        left = n.left\n"
+       "        for op, right in zip(n.ops, n.comparators):",
+       "        continue\n"
+       "        left = n.left\n"
+       "        for op, right in zip(n.ops, n.comparators):")],
+     ["the scanner finds every planted shape"]),
+
+    # B8a: a tautology one call away from the check. Stop following helpers
+    # and the planted `_same_thing(v)` goes unreported.
+    ("#B8a the scanner stops following helpers in the checks file",
+     "tests/unfalsifiable.py",
+     [("                helper = src.helpers.get(n.func.id)",
+       "                helper = None")],
+     ["the scanner finds every planted shape"]),
+]
+
+
 #: --- pass 4: the checks that could not fail, each regressed ---------------
 #: These need the WHOLE suite because the repaired lines live outside the
 #: three cross functions. Every one of them was measured LEAVING THE SUITE
 #: GREEN before this pass; each has to turn its own line red now.
+#: --- pass 5: what only the WHOLE suite can see ---------------------------
+WHOLE_SUITE += [
+    # **THE COAT MUST NOT MOVE, as a number rather than a sentence.** The
+    # gravity constant moves the drape by ~0.02 cm — not enough to change
+    # `closed` or the count over tolerance, which is all the suite used to
+    # assert, and enough to change every coordinate in the mesh. Three lines
+    # have to notice: the two drape figures and the digest over the whole
+    # geometry.
+    ("#11 gravity moves, and the coat moves with it",
+     "photoloset/garment_drape.py",
+     [("GRAVITY = -980.0", "GRAVITY = -1000.0")],
+     ["default stitch_k leaves it open", "64x closes it",
+      "the coat has not moved"]),
+
+    # The other half of #9: arm_census was pinned only as the literal dict
+    # the coat returns, so a frozen dict passed every check.
+    ("#9 arm_census answers from a frozen dict", "photoloset/block.py",
+     [("    def arm_census(self) -> Dict[str, int]:\n"
+       "        return self.store.arm_census(self.root)",
+       "    def arm_census(self) -> Dict[str, int]:\n"
+       "        return {'support+': 0, 'support-': 0, 'cause+': 10,\n"
+       "                'cause-': 0, 'kind+': 0, 'kind-': 17}")],
+     ["the arm census counts the store it is given"]),
+
+    ("#22 the pinned coat digest is not the one it recomputes",
+     "tests/coat_digest.py",
+     [('GEOMETRY_DIGEST = "bbc1d025184d1cff58977def178faf49"',
+       'GEOMETRY_DIGEST = "0" * 32')],
+     ["the coat has not moved"]),
+
+    # **The schema says what the signature says.** Under
+    # `from __future__ import annotations` the annotation is a STRING, so
+    # dropping the resolution puts every numeric parameter back to
+    # {"type": "string"} — which is what shipped, unnoticed, because the
+    # check only asked whether a schema was an object.
+    # **#10: a zone number has to keep naming the same knob.** Both of
+    # these leave the count, the id range and the two-calls-agree clause
+    # exactly as they were — which is all the check used to assert.
+    ("#10 the zone sort order is reversed", "photoloset/zones.py",
+     [('    for inst in sorted(graph.get("parts") or [],\n'
+       '                       key=lambda i: i.get("instance", "")):',
+       '    for inst in sorted(graph.get("parts") or [],\n'
+       '                       key=lambda i: i.get("instance", ""),\n'
+       '                       reverse=True):')],
+     ["zones are numbered deterministically",
+      "applying a delta records what changed"]),
+
+    ("#10 a part's zone catalogue is reordered", "photoloset/zones.py",
+     [('    "bodice": [\n'
+       '        {"param": "chest_ease", "label": "胸のゆとり"},\n'
+       '        {"param": "waist_ease", "label": "ウエストの楽"},\n'
+       '        {"param": "armhole_depth_add", "label": "袖ぐり深さの追加"},\n'
+       '    ],',
+       '    "bodice": [\n'
+       '        {"param": "armhole_depth_add", "label": "袖ぐり深さの追加"},\n'
+       '        {"param": "waist_ease", "label": "ウエストの楽"},\n'
+       '        {"param": "chest_ease", "label": "胸のゆとり"},\n'
+       '    ],')],
+     ["zones are numbered deterministically",
+      "applying a delta records what changed"]),
+
+    # **Where the sweep's writes land.** The mutation points the server at
+    # a fixed directory instead of the HOME it is given, so the temporary
+    # HOME comes back empty. It writes into the system temp, never into the
+    # operator's ledger — which is also why the check is stated positively:
+    # the before/after form could only be falsified by writing there.
+    ("#23 the server ignores the HOME it is given", "photoloset/mcp.py",
+     [('HOME = Path.home() / ".photoloset"',
+       'HOME = Path("/tmp/photoloset-falsifier-not-your-ledger")')],
+     ["the sweep writes into a HOME of its own"]),
+
+    ("#25 the MCP schema stops resolving its own annotations",
+     "photoloset/mcp.py",
+     [("        hints = typing.get_type_hints(fn)", "        hints = {}")],
+     ["every tool has a schema"]),
+
+    ("#25 a stdlib message poses as a verdict again", "photoloset/mcp.py",
+     [('    if not (code.startswith("UNKNOWN_") '
+       'or code.startswith("CONTESTED_")):', "    if False:")],
+     ["a refusal is typed, and the reply is JSON"]),
+
+    ("#24 a measurement may be NaN again",
+     "photoloset/garment_measure.py",
+     [("    if not math.isfinite(v):", "    if False:")],
+     ["a refusal is typed, and the reply is JSON"]),
+
+    # The wide sweep is only worth its classification: a string that is
+    # neither an address, a document nor prompt-bank text is prose an
+    # English caller was meant to read.
+    ("#27 a seat's reason goes back to Japanese only", "photoloset/i18n.py",
+     [('    "袖は横": "the sleeve is off to the side",\n', "")],
+     ["the untranslated residue is measured"]),
+]
+
+
 WHOLE_SUITE += [
     ("the example runs but prints nothing", "examples/black_coat.py",
      [("import sys\nfrom pathlib import Path",

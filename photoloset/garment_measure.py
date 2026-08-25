@@ -16,9 +16,33 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+def _number(value: Any) -> float:
+    """**数でないものと、保存できない数を、書き口で断る。**
+
+    ``float(value)`` は ``"nan"`` も ``"inf"`` も受け取る。受け取ると
+    ``measures.json`` に素の ``NaN`` が書かれ (JSON ではない)、MCP の
+    返事も**一行まるごと**読めなくなる — 実測: ``measure_taken`` に
+    ``value="nan"`` を渡すと ``{"verdict": "ANSWER", "entry": {…
+    "value": NaN …}}`` が stdout に出て、Python 以外の読み手はその返事
+    ごと落ちた。数でない文字列も、素の ``ValueError`` の文面が verdict に
+    化けていた (「could not convert string to float」という名前の断り)。
+    どちらもここで型の付いた断りにする。
+    """
+    try:
+        v = float(value)
+    except (TypeError, ValueError):
+        raise ValueError(f"{NOT_A_NUMBER}: {value!r} は数ではない。"
+                         "寸法は数で書く")
+    if not math.isfinite(v):
+        raise ValueError(f"{NOT_A_NUMBER}: {v!r} は JSON で往復しない "
+                         "(NaN と ±Infinity は JSON の数ではない)")
+    return v
+
 
 UNITS = ("cm", "mm", "inch")
 
@@ -49,6 +73,7 @@ SPOTS: Dict[str, str] = {
 #: 比率が掛かる基準。ここに無いものを基準にはできない。
 BASES = ("body_length", "chest", "shoulder")
 
+NOT_A_NUMBER = "UNKNOWN_NOT_A_NUMBER"
 NO_UNIT = "UNKNOWN_NO_UNIT"
 NO_BASIS = "UNKNOWN_NO_BASIS"
 NOT_TAKEN = "UNKNOWN_NOT_TAKEN"
@@ -80,7 +105,7 @@ class Measures:
                 f"{NO_UNIT}: 単位が要る ({'/'.join(UNITS)})。"
                 "単位の無い数字は、型紙の上で意味を持たない")
         return self._add(Measure(spot=spot, kind="measured",
-                                 value=float(value), unit=unit,
+                                 value=_number(value), unit=unit,
                                  source=source, by=by))
 
     def ratio(self, spot: str, value: float, basis: str,
@@ -90,7 +115,8 @@ class Measures:
             raise ValueError(
                 f"{NO_BASIS}: 基準は {'/'.join(BASES)} のいずれか。"
                 "基準の無い比率は、掛ける先が無い")
-        return self._add(Measure(spot=spot, kind="ratio", value=float(value),
+        return self._add(Measure(spot=spot, kind="ratio",
+                                 value=_number(value),
                                  basis=basis, source=source))
 
     def _add(self, m: Measure) -> Measure:

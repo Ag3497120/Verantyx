@@ -77,7 +77,9 @@
 from __future__ import annotations
 
 import copy
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+import math
+import unicodedata
+from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 #: 幾何。**この数は測定から来ている。** 変えるなら測定し直すこと。
 #: 親プロジェクトの ``arm_schema.ARMS`` と同一。
@@ -138,6 +140,16 @@ DUPLICATE_CLAIM = "UNKNOWN_DUPLICATE_CLAIM"
 QUARANTINE_FULL = "UNKNOWN_QUARANTINE_FULL"
 UNNAMED_SOURCE = "UNKNOWN_UNNAMED_SOURCE"
 UNIDENTIFIABLE_VALUE = "UNKNOWN_UNIDENTIFIABLE_VALUE"
+CLAIM_IN_QUARANTINE = "UNKNOWN_CLAIM_IN_QUARANTINE"
+MALFORMED_STORE = "UNKNOWN_MALFORMED_STORE"
+MALFORMED_CORE = "UNKNOWN_MALFORMED_CORE"
+MALFORMED_SEAT = "UNKNOWN_MALFORMED_SEAT"
+MALFORMED_VALUE = "UNKNOWN_MALFORMED_VALUE"
+
+#: 隔離核の**名前**の目印。名前は人間の目印であって、隔離そのものでは
+#: ない (``CrossStore.quarantine`` が隔離)。書く側がこの綴りの核を作る
+#: ことはあり、それは隔離核ではない。
+QUARANTINE_SUFFIX = "#proposed"
 
 Addr = Tuple[str, str]          # (core, key) — **腕は住所に入らない**
 
@@ -157,7 +169,7 @@ def _is_addr(a: Any) -> bool:
             and isinstance(a[1], str))
 
 
-def _vkey(v: Any) -> Any:
+def _vkey(v: Any, _path: Tuple[int, ...] = ()) -> Any:
     """**値の同一性。型は値の一部。**
 
     ``==`` だけで一致を見ると、区別できるものが「同じ観測」に化ける:
@@ -173,6 +185,12 @@ def _vkey(v: Any) -> Any:
     list と tuple は畳む。この店の保存形式は JSON で、往復すると
     tuple は list になる — 区別すると往復で答えが動いてしまい、
     「格納は答えを動かさない」の方が先に壊れる。
+
+    **自分を含む値で落ちない。** ``cyc = []; cyc.append(cyc)`` を渡すと
+    ここは無限に降りて ``RecursionError`` を投げていた — 例外で境界を
+    越えないと言っている店が、``json.dumps`` なら "Circular reference
+    detected" と**断れる**形で落ちていた。今いる道 (``_path``) を持って
+    降り、同じ入れ物に二度入ったらそこで畳む。
     """
     if isinstance(v, bool):             # bool を int より先に見る
         return ("b", v)
@@ -184,17 +202,23 @@ def _vkey(v: Any) -> Any:
         return ("s", v)
     if v is None:
         return ("n", "")
+    if isinstance(v, (list, tuple, dict, set, frozenset)) and id(v) in _path:
+        # **自分を含む値。** 同一性は「ここで循環している」までしか
+        # 言えないので、そこまでを札にする。
+        return ("cycle",)
     if isinstance(v, (list, tuple)):
-        return ("l", tuple(_vkey(x) for x in v))
+        here = _path + (id(v),)
+        return ("l", tuple(_vkey(x, here) for x in v))
     if isinstance(v, dict):
-        return ("d", tuple(sorted((_vkey(k), _vkey(val))
+        here = _path + (id(v),)
+        return ("d", tuple(sorted((_vkey(k, here), _vkey(val, here))
                                   for k, val in v.items())))
     if isinstance(v, (set, frozenset)):
         # **保存できない形。** set は JSON を往復しない (list/tuple を畳む
         # 理由はここには届かない)。書き口が ``_persistable`` で断るので
         # 店に入ってはこないが、手で書いた dict を ``from_dict`` から
         # 入れる道が残っているので札だけは作る。
-        return ("S", tuple(sorted(_vkey(x) for x in v)))
+        return ("S", tuple(sorted(_vkey(x, _path + (id(v),)) for x in v)))
     # **repr は同一性ではない。** ``repr`` が全ての欄を出さない値
     # (``Length(108, 'cm')`` と ``Length(108, 'in')`` が同じ ``Length(108)``
     # を出す、ごく普通の値オブジェクト) は、ここで**同じ観測に化ける** —
@@ -205,7 +229,8 @@ def _vkey(v: Any) -> Any:
     return ("r", type(v).__name__, repr(v))
 
 
-def _persistable(v: Any, path: str = "") -> List[str]:
+def _persistable(v: Any, path: str = "",
+                 _path: Tuple[int, ...] = ()) -> List[str]:
     """**この店が往復できる値か。** 出来ないものの居場所を並べて返す。
 
     店の保存形式は JSON だと ``_vkey`` の docstring が言っている。だが
@@ -216,38 +241,111 @@ def _persistable(v: Any, path: str = "") -> List[str]:
 
     dict の鍵も見る。JSON は鍵を文字列にするので ``{1: "a"}`` は往復で
     ``{"1": "a"}`` になり、「格納は答えを動かさない」が先に壊れる。
+
+    **NaN と ±Infinity は float だが JSON ではない。** ここは
+    ``isinstance(v, float)`` で通していたので、``put`` は ANSWER を返し、
+    ``json.dumps`` は ``NaN`` / ``Infinity`` という**素の字句**を吐き、
+    RFC 8259 の読み手はその返事ごと拒んだ (MCP の返事は一行の JSON なので
+    返事全体が読めなくなる)。``allow_nan=False`` が断るものは、ここでも
+    断る。
+
+    **自分を含む値で落ちない。** ``json.dumps`` は "Circular reference
+    detected" と断れるのに、この walker は ``RecursionError`` を投げて
+    いた — 保存形式より弱い断り方は断りではない。
     """
     bad: List[str] = []
-    if isinstance(v, (bool, int, float, str)) or v is None:
+    if isinstance(v, bool) or v is None or isinstance(v, (int, str)):
+        return bad
+    if isinstance(v, float):
+        if not math.isfinite(v):
+            bad.append(f"{path or '値'}: {v!r} は JSON で往復しない "
+                       "(NaN と ±Infinity は JSON の数ではない)")
+        return bad
+    if isinstance(v, (list, tuple, dict)) and id(v) in _path:
+        bad.append(f"{path or '値'}: 自分自身を含んでいる — "
+                   "JSON は循環を書けない")
         return bad
     if isinstance(v, (list, tuple)):
+        here = _path + (id(v),)
         for i, x in enumerate(v):
-            bad += _persistable(x, f"{path}[{i}]")
+            bad += _persistable(x, f"{path}[{i}]", here)
         return bad
     if isinstance(v, dict):
+        here = _path + (id(v),)
         for k, x in v.items():
             if not isinstance(k, str):
                 bad.append(f"{path}{{{k!r}}}: 鍵が文字列ではない "
                            f"({type(k).__name__}) — JSON の往復で文字列に"
                            "化ける")
             else:
-                bad += _persistable(x, f"{path}.{k}")
+                bad += _persistable(x, f"{path}.{k}", here)
         return bad
     bad.append(f"{path or '値'}: {type(v).__name__} は JSON で往復しない")
     return bad
 
 
+def _addressable(a: Any) -> List[str]:
+    """**住所として往復できる名前か。** 席は四つの欄でできている。
+
+    値だけを ``_persistable`` に通していたので、**核の名前が tuple**、
+    **鍵が frozenset**、**出典が set** の席が座れた。どれも put は ANSWER、
+    verify も ANSWER、そして ``json.dumps(to_dict())`` が
+    ``TypeError: keys must be str`` で落ちる — 値の側で塞いだのと同じ穴が
+    三つ空いたままだったということ。名前は JSON の鍵になるので文字列で、
+    空でないこと。
+    """
+    if not isinstance(a, str):
+        return [f"{type(a).__name__} — 住所は文字列でなければ "
+                "JSON の鍵として往復しない"]
+    if not a:
+        return ["空の名前は住所ではない"]
+    return []
+
+
+#: 比較用の鍵で**区切りに畳む**字。読点・句点・ハイフン・引用符・
+#: 括弧・中黒 — Unicode の一般分類が ``P`` (punctuation) のもの。
+#: 記号 (``S``) は畳まない: ``C++`` と ``C`` を一本にしてしまう方が、
+#: 出典を二本に割るより悪い。**保存する出典の綴りは畳まない**。
+#: 畳むのは比べる鍵だけで、``census()`` も ``resolve()`` も書かれた
+#: ままの名前を返す。
+_SEPARATOR_CATEGORIES = ("P",)
+
+
 def _source_key(source: Any) -> str:
-    """出典の同一性。**空白と大小は独立性を生まない。**
+    """出典の同一性。**綴りの揺れは独立性を生まない。**
 
     独立性そのものは店には確かめられない — 名乗った名前が別々である
     ことだけが検査できる事実で、独立かどうかは**書く側の主張**です。
-    せめて ``'Lab'`` と ``'lab '`` が二本の出典に化けないように、
-    比べる前に空白を畳んで大小を落とす。
+    だからこの鍵が緩いと、``GENERIC_MIN_SOURCES`` (独立した出典2本で
+    一般構造の主張を買う) が**一人の証人の二通りの書き方**で払われる。
+
+    空白と大小だけを畳んでいたときに実測で通ったもの、全部ひとりの
+    証人:
+
+        'Bunka College, 1999' / 'Bunka College 1999'
+        'Bunka College'       / 'Bunka College.'
+        'Bunka-College'       / 'Bunka College'
+        "O'Hara's"            / 'O’Hara’s'      (直の ' と曲がった ’)
+        '文化 1999'           / '文化 １９９９'  (半角と全角の数字)
+
+    日本語の書き口で全角/半角が混ざるのは**攻撃ではなく日常**なので、
+    まず ``NFKC`` で正規化する — これで全角数字も曲がった引用符の多くも
+    片付く。そのうえで句読点・ハイフン・引用符を**区切り一つ**に畳み、
+    空白を畳んで大小を落とす。
+
+    **残る穴は言葉で言う。** 別名 (``Bunka`` と ``文化服装学院``)、
+    綴り違い、同じ機関の別部署は、この鍵では一本にならない。独立性は
+    書く側の主張であって、店が検査できるのは**名乗った名前の相違**
+    だけ、という線はここでも動いていない。
     """
     if not isinstance(source, str):
         return ""
-    return " ".join(source.split()).casefold()
+    folded = unicodedata.normalize("NFKC", source)
+    out = []
+    for ch in folded:
+        cat = unicodedata.category(ch)
+        out.append(" " if cat[0] in _SEPARATOR_CATEGORIES else ch)
+    return " ".join("".join(out).split()).casefold()
 
 
 def _independent(sources: Sequence[Any]) -> List[str]:
@@ -266,22 +364,6 @@ def _independent(sources: Sequence[Any]) -> List[str]:
         seen.add(k)
         out.append(s)
     return out
-
-
-def _is_quarantine(core: str) -> bool:
-    """隔離核か。分れた子 (``q#proposed·proposed·1``) も隔離核。
-
-    **部分一致で見ない。** 以前は ``"#proposed" in core`` だったので、
-    名前に ``#proposed`` を含むだけの核 — ``review#proposed-revisions``、
-    ``notes#proposedX`` — が隔離核として扱われた。そこでは提案が隔離
-    されず、**噂が実測と同じ住所で争う** (実測: 測った 108.0 に対して
-    「工房で聞いた」999.0 が CONTESTED_IN_CROSS を返し、寸法が読めなく
-    なった)。名前は書く側が握っているので、**構造の形だけを見る**:
-    末尾が ``#proposed`` か、その核から分れた子か。
-    """
-    if not isinstance(core, str):
-        return False
-    return core.split("·")[0].endswith("#proposed")
 
 
 def seat_arms(seat: Dict[str, Any]) -> List[str]:
@@ -342,6 +424,9 @@ class CrossStore:
         #: どう閉じるかは持ち主の決め (``_arm_load``) なので、店は
         #: 決めずに**数える**。
         self.uncharged: List[Dict[str, Any]] = []
+        #: **隔離核の集合。店が作った核だけが入る。**
+        #: 書く側は名前を握っているが、この集合は握っていない。
+        self.quarantine: Set[str] = set()
         self.load_verdict: Dict[str, Any] = {"verdict": "ANSWER",
                                              "note": "built, not loaded"}
 
@@ -472,6 +557,45 @@ class CrossStore:
                     self._arm_load(core, arm) >= FACES_PER_ARM,
                 "why": "この席は座ったときの腕にしか課金されていない"}
 
+    def _is_quarantine(self, core: Any) -> bool:
+        """隔離核か。**店が作った核だけが隔離核。名前では決まらない。**
+
+        ここは三度直っている。最初は ``"#proposed" in core`` で、名前に
+        その字を含むだけの核 (``review#proposed-revisions``) が隔離核に
+        なった。次は ``endswith("#proposed")`` にしたが、**接尾辞は構造
+        ではない**: 書く側が ``review#proposed`` という核を作れば、そこは
+        隔離核として扱われ、提案は隔離されずに実測と同じ住所で争った
+        (実測: 測った 108.0 に噂の 999.0 が CONTESTED_IN_CROSS を返し、
+        寸法が読めなくなった)。しかも**店自身がその名前を publish して
+        いる** — ``put`` は ``q#proposed`` を返し、``to_dict`` と
+        ``census`` はそれを載せるので、書く側は自分で綴らなくても
+        店の返り値を往復させるだけでその核に書けた。
+
+        名前は書く側が握っている。**握られていないものだけが型になる**:
+        隔離は ``self.quarantine`` — 店が ``_mint_quarantine`` で作った
+        ときにだけ入る集合 — で、名前はその核の人間向けの目印にすぎない。
+        集合は ``to_dict``/``from_dict`` を往復する (格納は答えを
+        動かさない)。
+        """
+        return isinstance(core, str) and core in self.quarantine
+
+    def _mint_quarantine(self, core: str) -> str:
+        """**店が隔離核を作る。** 名前は目印、隔離は状態。
+
+        既に誰かが座っている同名の核は使わない。書く側が
+        ``x#proposed`` という名前の核に実測を載せていることはあり得て、
+        そこへ提案を落とすと噂が実測と同じ住所で争う — 名前で隔離を
+        決めていた頃の欠陥が、名前の**衝突**として戻ってくる。空いて
+        いる住所を店が選ぶ。
+        """
+        home = f"{core}{QUARANTINE_SUFFIX}"
+        n = 1
+        while home in self.cores and not self._is_quarantine(home):
+            n += 1
+            home = f"{core}{QUARANTINE_SUFFIX}{n}"
+        self.quarantine.add(home)
+        return home
+
     def _quarantine_load(self, core: str) -> int:
         """隔離核の住所の数。腕を持たない席は**核あたり**で数える。"""
         return sum(1 for s in self.cores.get(core, []) if s["arm"] is None)
@@ -501,13 +625,28 @@ class CrossStore:
         # ということで、店の言う保存形式が嘘になる。同じ断りが
         # ``_vkey`` の repr 落ちも塞ぐ — repr が全ての欄を出さない値は
         # 「同じ観測」に化けて、矛盾したまま重み2の ANSWER になっていた。
-        why_not = _persistable(value)
-        if why_not:
-            return {"verdict": UNIDENTIFIABLE_VALUE, "stored": False,
-                    "core": core, "key": key, "why": why_not[:6],
-                    "type": type(value).__name__,
-                    "how_to_close": "JSON で往復する形 (数・文字列・真偽・"
-                                    "None・list・文字列鍵の dict) に直す"}
+        # **席は四つの欄でできている。** 見ていたのは ``value`` だけ
+        # だったので、出典が set、鍵が frozenset、核の名前が tuple の席が
+        # 座り、put も verify も ANSWER を返し、``json.dumps(to_dict())``
+        # が ``TypeError`` で落ちた。四つとも同じ物差しで見る。
+        for field, culprit, why_not in (
+                ("core", core, _addressable(core)),
+                ("key", key, _addressable(key)),
+                ("value", value, _persistable(value)),
+                ("source", source, _persistable(source))):
+            if why_not:
+                return {"verdict": UNIDENTIFIABLE_VALUE, "stored": False,
+                        "field": field,
+                        # 断り自身が JSON を往復できなければ、道具の
+                        # 境界の向こうにはこの断りも届かない。
+                        "core": core if isinstance(core, str) else repr(core),
+                        "key": key if isinstance(key, str) else repr(key),
+                        "why": why_not[:6],
+                        "type": type(culprit).__name__,
+                        "how_to_close": "JSON で往復する形に直す (核と鍵"
+                                        "は空でない文字列、値と出典は数・"
+                                        "文字列・真偽・None・list・文字列"
+                                        "鍵の dict)"}
 
         # **名無しは出典ではない。** 一般構造の主張は独立した出典2本で
         # 買うと言っている以上、その片方が空文字であってはならない。
@@ -519,8 +658,23 @@ class CrossStore:
                     "how_to_close": "出典を名乗るか、specific に落とす"}
 
         arm = KIND_ARM[kind]
-        if arm is None and not _is_quarantine(core):   # proposed — 隔離席へ
-            core = f"{core}#proposed"
+        if arm is None and not self._is_quarantine(core):  # proposed — 隔離へ
+            core = self._mint_quarantine(core)
+        elif arm is not None and self._is_quarantine(core):
+            # **隔離は一方通行ではない。** 提案を押し込む向きだけ守って
+            # いたので、腕を持つ主張を隔離核に**書き込める**ままだった:
+            # ``put('q#proposed','chest',108.0,'measured','tape')`` は
+            # ANSWER で座り、実腕の予算を食い、しかし親からは nest 辺で
+            # 届かないので ``resolve('q','chest')`` は
+            # UNKNOWN_NOT_IN_CROSS を返した。**測ったものが、誰からも
+            # 読めない場所に受け取られていた。**
+            return {"verdict": CLAIM_IN_QUARANTINE, "stored": False,
+                    "core": core, "key": key, "kind": kind, "arm": arm,
+                    "why": "隔離核は提案の置き場所。腕を持つ主張をここに"
+                           "座らせると、主題の閉包から読めないまま実腕の"
+                           "予算だけを食う",
+                    "how_to_close": "提案を主題の核に採り入れてから、"
+                                    "主題の核に書く"}
 
         vkey = _vkey(value)
         found = self._find_seat(core, key)
@@ -625,8 +779,14 @@ class CrossStore:
                 "values": [{"value": copy.deepcopy(value), "kind": kind,
                             "sources": [source]}]}
         self._core(core).append(seat)
+        # **どの腕が面を払ったかは、受け取ったすべての道で言う。**
+        # ここ (席を作る道、つまり腕が決まる当の場所) だけ ``charged_arm``
+        # が無かったので、読む側は「載った」の形によって別の鍵を読む
+        # 必要があった — README は「put_strict はどの腕が払ったかを言う」
+        # と書いているのに。
         return {"verdict": "ANSWER", "state": "placed", "core": core,
-                "key": key, "arm": arm, "weight": 1, "seat_created": True}
+                "key": key, "arm": arm, "charged_arm": arm,
+                "arms": seat_arms(seat), "weight": 1, "seat_created": True}
 
     def put(self, core: str, key: str, value: Any, kind: str,
             source: str = "", seq: Optional[int] = None) -> Dict[str, Any]:
@@ -651,8 +811,8 @@ class CrossStore:
         # 宙に浮いた。実測: 30本の提案が孤立した6核に散って
         # ``contested()`` は空、``verify()`` は ANSWER、書いた側は二度
         # ANSWER を受け取り、``resolve`` は同じ住所を「無い」と答えた。
-        if arm is None and not _is_quarantine(core):
-            home = f"{core}#proposed"
+        if arm is None and not self._is_quarantine(core):
+            home = self._mint_quarantine(core)
         else:
             home = core
         label = arm if arm is not None else "proposed"
@@ -670,6 +830,10 @@ class CrossStore:
             n += 1
             child = f"{home}·{label}·{n}"
         self._core(child)
+        # **分れた子も隔離核。** 隔離は名前ではなく状態なので、子は
+        # 親から**受け継ぐ**もので、綴りから読み取るものではない。
+        if self._is_quarantine(home):
+            self.quarantine.add(child)
         edge = self.link((chain[-1], ""), (child, ""), "nest")
         if edge["verdict"] != "ANSWER":
             # **繋がらなかった子には座らせない。** 親から届かない核の
@@ -678,6 +842,7 @@ class CrossStore:
             # ``put()`` は ANSWER を返していた — 書いた側は成功したと
             # 思い、読む側は UNKNOWN_NOT_IN_CROSS を受け取った。
             self.cores.pop(child, None)
+            self.quarantine.discard(child)
             r = {"verdict": DANGLING_EDGE, "stored": False, "core": home,
                  "child": child, "key": key, "why": edge.get("why"),
                  "how_to_close": "分ける先の親核を先に立ててから書く"}
@@ -715,6 +880,17 @@ class CrossStore:
                     "how_to_close": "宣言に足す"}
 
         entries = [(cn, e) for cn, s in seats for e in s["values"]]
+        if not entries:
+            # **席はあるが主張が無い。** 店は主張のない席を作らない
+            # (``put_strict`` は必ず一つ目の主張と一緒に席を作る) ので、
+            # これは手で書いた JSON からしか来ない。以前はここで
+            # ``entries[0]`` が ``IndexError`` を上げ、``seats()`` 経由で
+            # ``BlockView`` の読みごと落ちた — **断りは戻り値**の線を、
+            # 空の席一つで越えられた。
+            return {"verdict": NOT_IN_CROSS,
+                    "why": f"{core} の {key} に席はあるが主張が一つも"
+                           "無い (空の席は主張ではない)",
+                    "how_to_close": "宣言に足すか、空の席を消す"}
         first = entries[0][1]["value"]
         arm = seats[0][1]["arm"]
         # **一致は ``_vkey`` で見る。素の ``==`` ではない。**
@@ -736,18 +912,29 @@ class CrossStore:
                 for src in e["sources"]:
                     if src not in by_kind[e["kind"]]:
                         by_kind[e["kind"]].append(src)
+            #: **重みは種別をまたがない。** ここは住所ぜんぶの独立
+            #: した出典を数えていたので、``generic`` 1本 + ``specific``
+            #: 1本 + ``declared`` 1本 + ``measured`` 1本の住所が
+            #: ``weight 4`` と読めた — 門 (``unbought_generics``) は
+            #: その一般構造の主張を**1本ぶんの値段**でしか勘定して
+            #: いないのに。数字を読む側は門より甘い数を渡されていた。
+            #: 今の ``weight`` は**一番強い単一種別**の独立した出典の
+            #: 数で、``GENERIC_MIN_SOURCES`` が値段を付けているのと
+            #: 同じ物差し。またいだ合計は**もう出さない**: 出せば
+            #: 誰かがそれを読む。
+            by_kind_w = {k: len(_independent(v)) for k, v in by_kind.items()}
+            #: 同点は種別名で決める — 格納順に依らないため。
+            priced = max(sorted(by_kind_w), key=lambda k: by_kind_w[k])
             return {"verdict": "ANSWER", "value": copy.deepcopy(first),
-                    "sources": _independent(sources),
-                    "weight": len(_independent(sources)),
-                    #: **種別ごとの重み。** ``weight`` は住所ぜんぶの
-                    #: 独立した出典で、種別をまたいで数える — つまり
-                    #: specific 一本が generic の見かけの重みを 2 に
-                    #: できる (門である ``unbought_generics`` は騙され
-                    #: ないが、読んだ数字は騙される)。
-                    #: ``GENERIC_MIN_SOURCES`` が値段を付けているのは
-                    #: こちらの数。
-                    "weight_by_kind": {k: len(_independent(v))
-                                       for k, v in by_kind.items()},
+                    "sources": _independent(by_kind[priced]),
+                    "weight": by_kind_w[priced],
+                    "weight_kind": priced,
+                    "weight_by_kind": by_kind_w,
+                    "sources_by_kind": {k: _independent(v)
+                                        for k, v in by_kind.items()},
+                    #: **数ではなく名簿。** 書かれた名前を全部、種別を
+                    #: またいで並べる。重みとして読めないように、これは
+                    #: 最初から list。
                     "named_sources": list(sources),
                     "agreed": len(entries), "arm": arm,
                     #: **予算を払った一本**。意味の腕は ``arms``。
@@ -990,13 +1177,34 @@ class CrossStore:
                                  "core": cname})
                 continue
             for s in seats:
+                if not isinstance(s, dict):
+                    problems.append({"verdict": MALFORMED_SEAT,
+                                     "core": cname, "seat": repr(s)[:60],
+                                     "why": "席は dict"})
+                    continue
                 arm = s.get("arm")
+                # **隔離核に腕付きの席は座らない。** 書き口は断るように
+                # なったが、``from_dict`` は手で書いた JSON も受ける口
+                # なのでここでも見る。座っていると、その主張は主題の
+                # 閉包から読めないまま実腕の予算だけを食う。
+                if arm is not None and self._is_quarantine(cname):
+                    problems.append({"verdict": CLAIM_IN_QUARANTINE,
+                                     "core": cname, "key": s.get("key"),
+                                     "arm": arm,
+                                     "why": "隔離核の中の腕付きの席 — "
+                                            "主題から読めないのに予算を"
+                                            "食う"})
                 if arm is not None and arm not in ARMS:
                     problems.append({"verdict": "UNKNOWN_NO_SUCH_ARM",
                                      "core": cname, "key": s.get("key"),
                                      "arm": arm})
                     continue
                 vals = s.get("values") or []
+                if not vals:
+                    problems.append({"verdict": MALFORMED_SEAT,
+                                     "core": cname, "key": s.get("key"),
+                                     "why": "席に主張が一つも無い — "
+                                            "店は空の席を作らない"})
                 for e in vals:
                     if e.get("kind") not in KIND_ARM:
                         problems.append({"verdict": NO_SUCH_KIND,
@@ -1074,7 +1282,20 @@ class CrossStore:
             seen: Dict[str, str] = {}
             for cn in closure:
                 for s in self.cores.get(cn, []):
+                    if not isinstance(s, dict):
+                        continue
                     k = s.get("key")
+                    # **``k in seen`` は鍵が hashable でないと上げる。**
+                    # 実測: ``from_dict_checked`` に鍵が list の席を渡すと
+                    # ``TypeError: unhashable type: 'list'`` がこの行から
+                    # 境界を越えた。``from_dict`` が形を見るようになった
+                    # ので普通は届かないが、店を直接いじった場合の最後の
+                    # 砦としてここでも見る。
+                    if not isinstance(k, str):
+                        problems.append({"verdict": MALFORMED_SEAT,
+                                         "core": cn, "key": repr(k)[:60],
+                                         "why": "席の鍵は文字列"})
+                        continue
                     if k in seen:
                         problems.append({"verdict": DUPLICATE_ADDRESS,
                                          "key": k, "cores": [seen[k], cn],
@@ -1204,45 +1425,194 @@ class CrossStore:
 
     # ------------------------------------------------------------ 出し入れ
     def to_dict(self) -> Dict[str, Any]:
+        """保存の形。**隔離は状態なので、状態として書き出す。**
+
+        名前から読み取れるものだと思っていた間、この鍵は要らなかった。
+        名前は書く側が握っているのでそれは検査ではなかった、というのが
+        ``_is_quarantine`` の三度目の修理で、以来ここが隔離の唯一の
+        出どころ。
+        """
         return {"cores": {n: copy.deepcopy(seats)
                           for n, seats in self.cores.items()},
                 "edges": [copy.deepcopy(e) for e in self.edges],
+                "quarantine": sorted(self.quarantine),
                 "seq": self._seq}
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "CrossStore":
-        """読み込む。**幾何を検査して ``load_verdict`` に控える。**
+        """読み込む。**形を検査してから建てる。何を渡されても上げない。**
 
         戻り値は店のまま(呼ぶ側が壊れない)。道具の境界には
         ``from_dict_checked`` を使う — 断りは戻り値であって、
         classmethod が突然 dict を返し始めるのは境界の壊し方。
+
+        **ここは以前、素の JSON で落ちた。** 形を見ずに建てていたので:
+
+          - 鍵が list の席 → ``verify()`` の ``if k in seen`` が
+            ``TypeError: unhashable type: 'list'`` を上げた。
+          - ``seq`` が文字列の席 → ここの ``max()`` が
+            ``TypeError: '>' not supported between 'int' and 'str'``。
+          - 核の名前が数、``cores`` が list、``data`` が文字列 → どれも
+            ``AttributeError``。
+
+        どれも**手で書いた JSON**で届く形で、しかも
+        ``from_dict_checked`` は「境界では上げない」ために在る入口
+        だった。落ちない検査と同じ病気で、断りを謳う口が断らずに落ちる。
+
+        **今は形の合わないものを載せずに、載せなかったことを言う。**
+        黙って直さない (``seq`` を 0 に読み替えるような修復は、格納が
+        答えを動かすということ)。落とした席は ``load_verdict`` の
+        ``problems`` に一件ずつ名前で挙がる。
         """
         st = cls()
-        st.cores = {n: [
-            {"key": s.get("key"), "arm": s.get("arm"),
-             "seq": s.get("seq", 0),
-             "values": [{"value": copy.deepcopy(e.get("value")),
-                         "kind": e.get("kind"),
-                         "sources": list(e.get("sources") or [])}
-                        for e in (s.get("values") or [])]}
-            for s in seats] for n, seats in data.get("cores", {}).items()}
-        st.edges = []
-        for e in data.get("edges", []):
+        problems: List[Dict[str, Any]] = []
+
+        def drop(verdict: str, **rest: Any) -> None:
+            problems.append(dict({"verdict": verdict}, **rest))
+
+        if not isinstance(data, dict):
+            drop(MALFORMED_STORE, got=type(data).__name__,
+                 why="店の形は dict")
+            data = {}
+
+        cores = data.get("cores")
+        if cores is None:
+            cores = {}
+        if not isinstance(cores, dict):
+            drop(MALFORMED_STORE, where="cores", got=type(cores).__name__,
+                 why="cores は 核の名前 → 席の並び の dict")
+            cores = {}
+        for name, seats in cores.items():
+            if _addressable(name):
+                drop(MALFORMED_CORE, core=repr(name)[:60],
+                     why=_addressable(name))
+                continue
+            if not isinstance(seats, list):
+                drop(MALFORMED_CORE, core=name, got=type(seats).__name__,
+                     why="核は席の並び")
+                continue
+            built: List[Dict[str, Any]] = []
+            for s in seats:
+                if not isinstance(s, dict):
+                    drop(MALFORMED_SEAT, core=name, seat=repr(s)[:60],
+                         why="席は dict")
+                    continue
+                key = s.get("key")
+                if _addressable(key):
+                    drop(MALFORMED_SEAT, core=name, key=repr(key)[:60],
+                         why=_addressable(key))
+                    continue
+                arm = s.get("arm")
+                if arm is not None and not isinstance(arm, str):
+                    drop(MALFORMED_SEAT, core=name, key=key,
+                         arm=repr(arm)[:40], why="腕は名前か None")
+                    continue
+                seq = s.get("seq", 0)
+                if isinstance(seq, bool) or not isinstance(seq, int):
+                    drop(MALFORMED_SEAT, core=name, key=key,
+                         seq=repr(seq)[:40],
+                         why="宣言の序数は整数 — 並べ替えで比べるので、"
+                             "文字列が一つ混ざると seats() が上げる")
+                    continue
+                vals = s.get("values")
+                if vals is None:
+                    vals = []
+                if not isinstance(vals, list):
+                    drop(MALFORMED_SEAT, core=name, key=key,
+                         got=type(vals).__name__, why="values は並び")
+                    continue
+                vbuilt: List[Dict[str, Any]] = []
+                for e in vals:
+                    if not isinstance(e, dict):
+                        drop(MALFORMED_VALUE, core=name, key=key,
+                             entry=repr(e)[:60], why="主張は dict")
+                        continue
+                    srcs = e.get("sources")
+                    if srcs is None:
+                        srcs = []
+                    if not isinstance(srcs, (list, tuple)):
+                        drop(MALFORMED_VALUE, core=name, key=key,
+                             got=type(srcs).__name__, why="出典は並び")
+                        continue
+                    vbuilt.append({"value": copy.deepcopy(e.get("value")),
+                                   "kind": e.get("kind"),
+                                   "sources": list(srcs)})
+                built.append({"key": key, "arm": arm, "seq": seq,
+                              "values": vbuilt})
+            st.cores[name] = built
+
+        edges = data.get("edges")
+        if edges is None:
+            edges = []
+        if not isinstance(edges, list):
+            drop(MALFORMED_STORE, where="edges", got=type(edges).__name__,
+                 why="edges は並び")
+            edges = []
+        for e in edges:
+            if not isinstance(e, dict):
+                drop(MALFORMED_STORE, where="edges", edge=repr(e)[:60],
+                     why="辺は dict")
+                continue
             a, b = e.get("a"), e.get("b")
             st.edges.append({
                 "a": tuple(a) if isinstance(a, (list, tuple)) else a,
                 "b": tuple(b) if isinstance(b, (list, tuple)) else b,
                 "label": e.get("label"),
                 "value": copy.deepcopy(e.get("value"))})
-        st._seq = int(data.get("seq") or 0) or max(
+
+        # **隔離は保存された状態から読む。名前からは読まない。**
+        # ここには一度「``quarantine`` の無い古い保存は名前から復元する」
+        # 移行を書いた。書いた翌日に反証が出た: その移行があると
+        # ``to_dict`` から鍵を落としても往復が通ってしまう — 名前が
+        # 状態の代わりを務めているのだから当然で、**名前は型ではない**を
+        # 読み口で破っていた。落とした結果はこう:
+        #
+        #   鍵の無い dict の ``#proposed`` 核は、ただの核として載る。
+        #   そこへ提案を書けば店が別の隔離核を建てて隔離する (安全な向き)。
+        #   その核が本当に隔離だったのなら、保存側が鍵を書けばよい。
+        q = data.get("quarantine")
+        if q is None:
+            st.quarantine = set()
+        elif isinstance(q, (list, tuple, set, frozenset)):
+            st.quarantine = {n for n in q if isinstance(n, str)}
+            for n in q:
+                if not isinstance(n, str):
+                    drop(MALFORMED_STORE, where="quarantine",
+                         core=repr(n)[:40], why="隔離核の名前は文字列")
+        else:
+            drop(MALFORMED_STORE, where="quarantine",
+                 got=type(q).__name__, why="quarantine は名前の並び")
+
+        seq_raw = data.get("seq") or 0
+        try:
+            st._seq = int(seq_raw)
+        except (TypeError, ValueError):
+            drop(MALFORMED_STORE, where="seq", got=repr(seq_raw)[:40],
+                 why="seq は整数")
+            st._seq = 0
+        st._seq = st._seq or max(
             (s["seq"] for seats in st.cores.values() for s in seats),
             default=0)
+
         st.load_verdict = st.verify()
+        if problems:
+            st.load_verdict = {
+                "verdict": problems[0]["verdict"],
+                "problems": problems
+                + list(st.load_verdict.get("problems", [])),
+                "cores": len(st.cores),
+                "why": "形の合わない席は載せていない — 黙って直すと"
+                       "格納が答えを動かす"}
         return st
 
     @classmethod
     def from_dict_checked(cls, data: Dict[str, Any]) -> Dict[str, Any]:
-        """道具の境界用。``{verdict, store}`` を返す。**例外で越えない。**"""
+        """道具の境界用。``{verdict, store}`` を返す。**例外で越えない。**
+
+        「越えない」は ``from_dict`` が形を検査するようになって初めて
+        本当になった。それまでは list の鍵と文字列の ``seq`` を渡すだけ
+        で、境界の安全のために在るこの入口が ``TypeError`` を上げた。
+        """
         st = cls.from_dict(data)
         return {"verdict": st.load_verdict["verdict"], "store": st,
                 "detail": st.load_verdict}
@@ -1290,12 +1660,34 @@ class CrossStore:
         # という店の看板と食い違う。だから数える: 二つ以上の種別が届いた
         # 住所はいくつあり、そのうち予算を払っていない腕はどれか。
         two_kind = []
+        #: **控えではなく、店から数える。** ``self.uncharged`` は書いた
+        #: セッションの控えなので ``to_dict()``/``from_dict()`` を越え
+        #: ない — 同じ核・同じ辺・同じ答えの二つの店が、**今書いたか
+        #: さっき読んだかで別の数**を報告していた (実測: 書いた直後は
+        #: 1件、往復すると 0件、条件は何一つ変わっていない)。持ち主が
+        #: 予算の腕を決めるための計器がそれでは使えない。同じ事実は席
+        #: から導ける (``seat_arms`` から席の腕を引いた残り) ので、
+        #: 導いて返す。
+        uncharged = []
         for n, s in self.cores.items():
             for x in s:
                 kinds = [e.get("kind") for e in (x.get("values") or [])]
                 if len({KIND_ARM.get(k) for k in kinds if k in KIND_ARM}) > 1:
                     two_kind.append((n, x["key"], x["arm"],
                                      seat_arms(x)))
+                for a in seat_arms(x):
+                    if a == x.get("arm"):
+                        continue
+                    load = self._arm_load(n, a)
+                    uncharged.append(
+                        {"core": n, "key": x.get("key"),
+                         "charged_arm": x.get("arm"), "uncharged_arm": a,
+                         "arm_load": load,
+                         "would_overflow": load >= FACES_PER_ARM,
+                         "why": "この席は座ったときの腕にしか"
+                                "課金されていない"})
+        uncharged.sort(key=lambda u: (u["core"], str(u["key"]),
+                                      u["uncharged_arm"]))
         return {"cores": len(self.cores), "seats": seats, "facets": facets,
                 "quarantined": quarantine,
                 "sources": sources,
@@ -1307,7 +1699,7 @@ class CrossStore:
                 #: ``first_kind_seated`` = 先に座った種別の腕が面を払う。
                 "budget_arm_rule": "first_kind_seated",
                 "two_kind_addresses": sorted(two_kind),
-                "uncharged": [dict(u) for u in self.uncharged],
+                "uncharged": uncharged,
                 "edges": len(self.edges),
                 "contested": len(self.contested())}
 

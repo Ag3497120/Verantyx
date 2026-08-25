@@ -1,0 +1,365 @@
+{
+ "generated": "2026-08-26",
+ "how": "python3 tests/unfalsifiable.py --runtime --write-ledger",
+ "ignored": [
+  "no check that cannot fail",
+  "every served reader reads its store",
+  "the falsifier harness reports every mutation"
+ ],
+ "readers": {
+  "BlockView.arm_census": {
+   "bypassable": false,
+   "file": "block.py:496",
+   "fingerprint": "5217d9374811521d784724ce67cd23ad",
+   "frozen_to": "{'support+': 0, 'support-': 0, 'cause+': 10, 'cause-': 0, 'kind+': 0, 'kind-': 1…",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "coat's arms are the three dualities",
+    "the arm census counts the store it is given",
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.arm_census",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the arm census counts the store it is given cause+ 10 vs 10, kind- 17 vs 17 — the sa…"
+   ]
+  },
+  "BlockView.dump": {
+   "bypassable": false,
+   "file": "block.py:540",
+   "fingerprint": "51c5cd2fafb7bfaa5f641349c490a8e1",
+   "frozen_to": "'{\"census\": {\"arms\": {\"cause+\": 21, \"cause-\": 0, \"kind+\": 0, \"kind-\": 35, \"suppo…",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "dump carries the store it read",
+    "round trip moves nothing"
+   ],
+   "reader": "BlockView.dump",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL dump carries the store it read two stores under one root name, two dumps: the label …"
+   ]
+  },
+  "BlockView.formulas": {
+   "bypassable": false,
+   "file": "block.py:458",
+   "fingerprint": "f9108f5ac841bf9ecc8e2d54d099ea4d",
+   "frozen_to": "{'身頃幅 (前後それぞれ)': 'chest / 4', '袖ぐり深さ': 'chest / 8 + 6.5', '肩線の下がり': 'shoulder / …",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "formulas served from the cross",
+    "ordered reads follow the declaration",
+    "two subjects cannot declare the same thing"
+   ],
+   "reader": "BlockView.formulas",
+   "red_count": 4,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL formulas served from the cross 17 names pinned as literals here, not read off the dr…",
+    "FAIL ordered reads follow the declaration 17 formulas in declaration order across 4 subje…",
+    "FAIL two subjects cannot declare the same thing a duplicate formula name, a duplicate pie…",
+    "FAIL skirt drafts through the shared engine 5652.2 cm2, 17 formulas"
+   ]
+  },
+  "BlockView.gaps": {
+   "bypassable": false,
+   "file": "block.py:484",
+   "fingerprint": "ad8504a754108672b37521f5b0b1b9e3",
+   "frozen_to": "['UNKNOWN_NO_SUPPORT_RECORDED', 'UNKNOWN_NO_COUNTEREVIDENCE_RECORDED', 'UNKNOWN_…",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "empty arms are typed gaps"
+   ],
+   "reader": "BlockView.gaps",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL empty arms are typed gaps 4 gaps — nothing measured or cited backs the 20 params, no…"
+   ]
+  },
+  "BlockView.label": {
+   "bypassable": false,
+   "file": "block.py:422",
+   "fingerprint": "eb5b3568666489a27a6c4e417f97597a",
+   "frozen_to": "'三枚コート（前身頃・後身頃・袖）'",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.label",
+   "red_count": 2,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the whole declaration is served from the cross label, placement, sleeve_required and…",
+    "FAIL dump carries the store it read two stores under one root name, two dumps: the label …"
+   ]
+  },
+  "BlockView.params": {
+   "bypassable": false,
+   "file": "block.py:507",
+   "fingerprint": "662d742b61bcf68622bebee756332d0a",
+   "frozen_to": "{'half_divisor': 4.0, 'armhole_depth_div': 8.0, 'armhole_depth_add': 6.5, 'shoul…",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.params",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the whole declaration is served from the cross label, placement, sleeve_required and…"
+   ]
+  },
+  "BlockView.placement": {
+   "bypassable": false,
+   "file": "block.py:470",
+   "fingerprint": "932bd2a45c723ad1f3f96e4a558ca8b0",
+   "frozen_to": "{'前身頃': (0.0, 0.0, 12.0), '後身頃': (0.0, 0.0, -12.0), '袖': (34.0, 0.0, 0.0)}",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.placement",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the whole declaration is served from the cross label, placement, sleeve_required and…"
+   ]
+  },
+  "BlockView.refusals": {
+   "bypassable": false,
+   "file": "block.py:499",
+   "fingerprint": "e71119bde4f5d1cfc4d179d246c2e60b",
+   "frozen_to": "[]",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "a fourth piece and a fifth measurement are declarable",
+    "an undeclared subject does not swallow the seat"
+   ],
+   "reader": "BlockView.refusals",
+   "red_count": 2,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL a fourth piece and a fifth measurement are declarable 4 pieces, 6 measurements, 11 c…",
+    "FAIL an undeclared subject does not swallow the seat a param declared against a piece tha…"
+   ]
+  },
+  "BlockView.required": {
+   "bypassable": false,
+   "file": "block.py:444",
+   "fingerprint": "1776bc822b0d12caa1cf72107c0ca1aa",
+   "frozen_to": "('body_length', 'chest', 'shoulder')",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "assembled declaration lives on the cross",
+    "reads follow a second declaration",
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.required",
+   "red_count": 5,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL assembled declaration lives on the cross 5 cores, 26 facets",
+    "FAIL skirt drafts through the shared engine None cm2, 9 formulas",
+    "FAIL parts_assemble_a_second_garment completes CRASHED KeyError: 'notch_pairs'",
+    "FAIL reads follow a second declaration the same four readers, two declarations: sleeve_re…",
+    "FAIL no check went missing 99 checks ran, 100 pinned by name, 1 retired on the record — M…"
+   ]
+  },
+  "BlockView.seam_edges": {
+   "bypassable": false,
+   "file": "block.py:466",
+   "fingerprint": "2200b120c7f15f980d762c40c0abe136",
+   "frozen_to": "[{'a': ('block:coat/piece:前身頃', 'role'), 'b': ('block:coat/piece:後身頃', 'role'), …",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "reads follow a second declaration",
+    "seams served from the cross"
+   ],
+   "reader": "BlockView.seam_edges",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL reads follow a second declaration the same four readers, two declarations: sleeve_re…"
+   ]
+  },
+  "BlockView.seams": {
+   "bypassable": false,
+   "file": "block.py:463",
+   "fingerprint": "b1c228e2fe8e115e0f9bebfa715f5052",
+   "frozen_to": "[{'a': ('前身頃', '肩線'), 'b': ('後身頃', '肩線')}, {'a': ('前身頃', '脇線'), 'b': ('後身頃', '脇線…",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "reads follow a second declaration",
+    "seams served from the cross"
+   ],
+   "reader": "BlockView.seams",
+   "red_count": 4,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL seams served from the cross 5 labels pinned as literals here, not read off the sewin…",
+    "FAIL skirt marks pair and face outward 4 notches, 0 pairs, 4 unpaired, 2 pieces offset",
+    "FAIL skirt sews shut hanging from the waist worst 0.0 cm, 0 over, hung by waist_extremes",
+    "FAIL reads follow a second declaration the same four readers, two declarations: sleeve_re…"
+   ]
+  },
+  "BlockView.served": {
+   "bypassable": false,
+   "file": "block.py:517",
+   "fingerprint": "aaf72c7cc65aec7dd92d5739d18ba8ad",
+   "frozen_to": "{'label': '三枚コート（前身頃・後身頃・袖）', 'required': ('body_length', 'chest', 'shoulder'), …",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "round trip moves nothing",
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.served",
+   "red_count": 2,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the whole declaration is served from the cross label, placement, sleeve_required and…",
+    "FAIL dump carries the store it read two stores under one root name, two dumps: the label …"
+   ]
+  },
+  "BlockView.settings": {
+   "bypassable": false,
+   "file": "block.py:512",
+   "fingerprint": "db82d710ddb4c32e2701adba37d3eeb4",
+   "frozen_to": "{'grain_angle_deg': 90.0, 'pins_policy': 'front_only_hanging', 'ease_free_to_pit…",
+   "ignored_reds": 2,
+   "mentioned_by": [
+    "reads follow a second declaration",
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.settings",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL reads follow a second declaration the same four readers, two declarations: sleeve_re…"
+   ]
+  },
+  "BlockView.sleeve_required": {
+   "bypassable": false,
+   "file": "block.py:447",
+   "fingerprint": "8c14f5f8d08c24b805944b57e8e47df8",
+   "frozen_to": "('sleeve_length',)",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "reads follow a second declaration",
+    "the whole declaration is served from the cross"
+   ],
+   "reader": "BlockView.sleeve_required",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL reads follow a second declaration the same four readers, two declarations: sleeve_re…"
+   ]
+  },
+  "BlockView.unbought_generics": {
+   "bypassable": false,
+   "file": "block.py:503",
+   "fingerprint": "19d55d204ebde2b210b321b808a8a39c",
+   "frozen_to": "[]",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "a generic claim is priced by its own kind",
+    "a generic claim needs two sources",
+    "a specific claim cannot buy a generic one",
+    "an anonymous source buys nothing",
+    "the library census counts its own store",
+    "unbought generics come from the store"
+   ],
+   "reader": "BlockView.unbought_generics",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL unbought generics come from the store the coat owes nothing (0); a lone `generic` cl…"
+   ]
+  },
+  "Library.census": {
+   "bypassable": false,
+   "file": "parts.py:283",
+   "fingerprint": "58321d5ece2308aff3cd2b4b963ab768",
+   "frozen_to": "{'cores': 4, 'seats': 9, 'facets': 9, 'quarantined': {}, 'sources': 9, 'capacity…",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "a fourth piece and a fifth measurement are declarable",
+    "absence is not a claim",
+    "agreement does not consume seats",
+    "assembled declaration lives on the cross",
+    "coat's arms are the three dualities",
+    "conflicting declarations go contested",
+    "reads create nothing, loads are verified",
+    "the budget arm is reported, never hidden",
+    "the library census counts its own store",
+    "the quarantine core obeys the same law"
+   ],
+   "reader": "Library.census",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL the library census counts its own store 4 cores / 9 seats against 4 / 9 once one fam…"
+   ]
+  },
+  "Library.families": {
+   "bypassable": false,
+   "file": "parts.py:252",
+   "fingerprint": "8151a21c904670f34d6afbb23d7143aa",
+   "frozen_to": "['silhouette', 'closure', 'waist_finish']",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "a generic claim needs two sources"
+   ],
+   "reader": "Library.families",
+   "red_count": 1,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL a generic claim needs two sources 3 family claims — ['silhouette', 'closure', 'waist…"
+   ]
+  },
+  "Library.unbought_generics": {
+   "bypassable": false,
+   "file": "parts.py:286",
+   "fingerprint": "0d6e3f30d7cfbb7513be90aab33f29ed",
+   "frozen_to": "[{'verdict': 'UNKNOWN_GENERIC_NOT_BOUGHT', 'core': 'parts:closure', 'key': 'fami…",
+   "ignored_reds": 1,
+   "mentioned_by": [
+    "a generic claim is priced by its own kind",
+    "a generic claim needs two sources",
+    "a specific claim cannot buy a generic one",
+    "an anonymous source buys nothing",
+    "the library census counts its own store",
+    "unbought generics come from the store"
+   ],
+   "reader": "Library.unbought_generics",
+   "red_count": 2,
+   "suite_exit": 1,
+   "verdict": "ANSWER",
+   "went_red": [
+    "FAIL a specific claim cannot buy a generic one a `specific` claim agreeing with the famil…",
+    "FAIL the library census counts its own store 4 cores / 9 seats against 5 / 10 once one fa…"
+   ]
+  }
+ },
+ "suite": "tests/run_checks.py",
+ "what": "T7 by mutation: each reader below was replaced by the literal it returns today and the whole suite was re-run. `bypassable` means nothing went red — the reader stopped reading its store and the suite did not notice."
+}

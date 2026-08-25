@@ -199,31 +199,45 @@ correct on paper.
   it, because the drafting code is shared with a larger project and two copies
   would drift. A string the table does not know comes back in Japanese — and
   `i18n.missing(result)` lists exactly which, so the gap is visible rather than
-  papered over. Measured across the **30 output paths the suite sweeps** —
+  papered over. Measured across the **37 output paths the suite sweeps** —
   ledger, worklist, tech pack, measurements, draft, marks, sew, drape, the SVG,
   the skirt and composed garments, and every refusal the cross store, the parts
-  library, the zone catalogue and the prompt parser can return: **0
-  untranslated**.
+  library, the zone catalogue, the measurement writer and the prompt parser can
+  return: **0 untranslated**.
 
-  **What that number does not cover, stated with its own measurement.** The
-  claim above used to say "every output path the engine has", and when the
-  block/cross/parts/zones/prompts surface became load-bearing that stopped
-  being true: **67** Japanese strings were reachable outside the table. 25 of
-  them were refusal texts and catalogue labels — an English caller was being
-  told *why* in Japanese — and those are translated now. The **42** that
-  remain are, deliberately, not output:
+  **What that number does not cover — measured by a check, not by a
+  sentence.** The claim above used to say "every output path the engine has",
+  and when the block/cross/parts/zones/prompts surface became load-bearing
+  that stopped being true. The scope sentence then carried a hand-written
+  number (67, then 42) that nothing re-measured, so it drifted the same way
+  the first claim had: an independent sweep found 43, not 42, and three of
+  the strings it found were prose rather than the addresses the sentence
+  described. Turning that sweep into a check found a fourth.
 
-  - **Store addresses** — core names and seat keys (`formula:袖山の高さ`,
-    `block:coat/piece:袖`) in `to_dict()`, `write_plan()`, `seats()`,
-    `seam_edges()` and `dump()`. These are the store's coordinates, not prose;
-    translating them would make two languages address different seats.
-  - **The prompt bank's text** — `prompts.for_model()` returns the instruction
-    sent to a vision model, in the language the profile was written in. It is
-    input to a model, not output to a reader.
+  So the wide sweep is a check now (`the untranslated residue is measured`):
+  **55 reader and refusal paths** across block, cross, parts, prompts, zones
+  and compose leave **39** untranslated strings, and every one of them is
+  classified —
 
-  `python3 tests/run_checks.py` pins both halves: the 30 paths and their 0, and
-  `tests/unfalsifiable.py` makes sure the check that measures it cannot pass by
-  covering nothing.
+  - **32 store addresses** — core names and seat keys (`formula:袖山の高さ`,
+    `block:coat/piece:袖`, `seam:…`, `placement:…`) in `to_dict()`,
+    `write_plan()`, `seats()` and `seam_edges()`. These are the store's
+    coordinates, not prose; translating them would make two languages address
+    different seats.
+  - **2 whole Japanese documents** — the coat's own `dump()`, and the JSON
+    schema the prompt bank asks a model to fill.
+  - **5 further prompt-bank strings** — `prompts.for_model()` returns the
+    instruction sent to a vision model, in the language the profile was
+    written in. It is input to a model, not output to a reader.
+
+  Anything outside those three groups turns the check red, which is what
+  caught the four that were prose after all: the sleeve's placement reason,
+  two settings reasons and one `how_to_close`. They are translated.
+
+  `python3 tests/run_checks.py` pins every number in this section — the 37
+  paths and their 0, and the 55 paths, the 39 and each group — and
+  `tests/unfalsifiable.py` makes sure the checks that measure them cannot pass
+  by covering nothing.
 
 <br>
 
@@ -381,16 +395,20 @@ found, each of which had been reported as working:
 
 ### The checks that could not fail, and why looking harder is not a method
 
-This project has now found **eight** checks that could not fail, in four
-separate passes — one, then three, then two more, then two more again. Every
-pass someone read the suite more carefully and found more. That is not bad
-luck; it is a search method that does not scale, and the honest response is to
-stop searching by hand:
+This project has now found **eleven** checks that could not fail, in five
+separate passes — one, then three, then two, then two, then three. Every pass
+someone read the suite more carefully and found more. That is not bad luck; it
+is a search method that does not scale, and the honest response is to stop
+searching by hand:
 
 ```bash
 python3 tests/unfalsifiable.py     # every condition, read as an AST
+python3 tests/unfalsifiable.py --self-test   # the detectors, on planted shapes
+python3 tests/unfalsifiable.py --runtime --write-ledger --jobs 4
+                                   # freeze each served reader, re-run the suite
 python3 tests/falsifiers.py        # every check, regressed and re-run
 python3 tests/falsifiers.py --self-test   # the harness's own stopping defect
+python3 tests/coat_digest.py --check      # the coat, bit for bit
 ```
 
 `tests/unfalsifiable.py` reads the AST of every `check(name, condition,
@@ -404,9 +422,31 @@ first raise. It is wired into the suite as a check of its own, with the
 residue enumerated by name and argued in `KNOWN_UNFALSIFIABLE` — **a hit that
 is not on that list turns the suite red.**
 
+**Two of those shapes cannot be decided by reading, and the tool says so.**
+A served reader "pinned to a literal" is not pinned at all: freezing it to the
+literal it returns TODAY satisfies exactly that comparison. So the verdict
+comes from mutation — `--runtime` freezes each reader in turn, re-runs the
+whole suite and records what reddened in `tests/t7_readers.json`, keyed by a
+digest of the reader's own source. The first measured run said seven of
+eighteen readers could be replaced by a constant with the suite green; they
+are pinned against a second store now, and the ledger is re-measured with
+`PHOTOLOSET_T7_RUNTIME=1`. And the detectors themselves are tested: 20 checks
+that pass and cannot fail are planted in `tests/corpus/`, alongside 12 honest
+checks in the same shapes that must NOT be called certainties.
+
 It also states what it cannot see, every time it runs: anything inside the code
 under test, whether a property is the RIGHT one, checks nobody wrote, and
 whether a pinned number is the correct number. Those remain a reader's job.
+
+`tests/coat_digest.py` answers a different version of the same question. Every
+pass carried a sentence like "the coat is unmoved, digest 7ce1a667…" — and the
+pass that tried to verify one could not reproduce it, because the script that
+made it lived in its author's scratch directory. **A number only its author can
+recompute is not a measurement**, which is a check that cannot fail one level
+up. The generator is in the tree, it canonicalises every float to its IEEE-754
+bit pattern with no tolerance, and the suite runs it: geometry
+`bbc1d025184d1cff58977def178faf49` over the draft, the marks, the built mesh
+and seams, both 2000-iteration drapes, the SVG and the headline figures.
 
 `tests/falsifiers.py` is the other direction: it copies the tree, regresses one
 repair at a time back to the behaviour a finding measured, and requires the
@@ -423,9 +463,11 @@ The arm a claim sits on is derived from its kind — nobody chooses it. But a
 seat that is reached by **two** kinds is charged to whichever kind seated
 first, and that is still a write-order effect. The store no longer hides it:
 `census()` reports `budget_arm_rule`, every two-kind address and every arm that
-rode free without paying a face, `ingest_order_check()` counts the differences
-that are the budget arm alone, and `put_strict()` says which arm paid and which
-did not. The coat and the parts library have **zero** two-kind addresses, so no
+rode free without paying a face — **derived from the seats, so it survives
+`to_dict()`/`from_dict()`**, which the write-session log it used to be did not
+— `ingest_order_check()` counts the differences that are the budget arm alone,
+and `put_strict()` returns `charged_arm` on **every** accepted write, including
+the one that creates the seat and therefore chooses the arm. The coat and the parts library have **zero** two-kind addresses, so no
 answer moves today. The three ways to close it, and what each one costs, are in
 `photoloset/cross.py` under `_arm_load` — the choice belongs to whoever owns
 the store's meaning, not to whoever is fixing checks this week.

@@ -24,6 +24,7 @@ import inspect
 import json
 import sys
 import traceback
+import typing
 from pathlib import Path
 from typing import Any, Callable, Dict, List
 
@@ -60,13 +61,43 @@ def _rights():                return _rights_mod.RightsLedger.load(_p("rights.js
 
 
 def _ok(obj: Any) -> str:
-    return json.dumps(obj, ensure_ascii=False)
+    """One reply, as JSON. **``allow_nan=False`` because NaN is not JSON.**
+
+    Without it ``json.dumps`` writes the bare tokens ``NaN`` / ``Infinity``,
+    which RFC 8259 has no room for: the reply line this server prints
+    becomes unreadable to any conforming client (Swift's JSONSerialization
+    in ``app/``, or anything not written in Python), and it is the WHOLE
+    line that fails, not the one number. Measured before this: a measurement
+    written as the string "nan" came back as
+    ``{"verdict": "ANSWER", "entry": {... "value": NaN ...}}``.
+
+    A value that cannot be written is a refusal, not a crash.
+    """
+    try:
+        return json.dumps(obj, ensure_ascii=False, allow_nan=False)
+    except (ValueError, TypeError) as e:
+        return json.dumps({"verdict": "UNKNOWN_UNIDENTIFIABLE_VALUE",
+                           "why": f"this answer does not survive JSON: {e}",
+                           "how_to_close": "the value is not JSON (NaN, "
+                                           "Infinity or an object) — fix it "
+                                           "at the writer"},
+                          ensure_ascii=False)
 
 
 def _refused(exc: BaseException) -> str:
-    """A raised refusal, turned back into the typed value it should have been."""
+    """A raised refusal, turned back into the typed value it should have been.
+
+    **Only a typed verdict may pose as one.** This used to take everything
+    before the first colon, so a stdlib message became the verdict:
+    ``float("abc")`` answered with ``"verdict": "could not convert string to
+    float"``, which contradicts this module's own promise that a refusal
+    reads ``UNKNOWN_`` or ``CONTESTED_``. Anything else is
+    ``UNKNOWN_REFUSED`` with the text kept in ``why``.
+    """
     text = str(exc)
-    code = text.split(":", 1)[0] if ":" in text else "UNKNOWN_REFUSED"
+    code = text.split(":", 1)[0] if ":" in text else ""
+    if not (code.startswith("UNKNOWN_") or code.startswith("CONTESTED_")):
+        code = "UNKNOWN_REFUSED"
     return json.dumps({"verdict": code, "why": text}, ensure_ascii=False)
 
 
@@ -92,11 +123,32 @@ def tool(fn: Callable[..., str]) -> Callable[..., str]:
 
 
 def _schema(fn: Callable[..., str]) -> Dict[str, Any]:
-    """Derive the input schema from the signature — one source of truth."""
+    """Derive the input schema from the signature — one source of truth.
+
+    **The annotations are strings.** This module carries
+    ``from __future__ import annotations``, so ``par.annotation`` is the
+    TEXT ``"float"``, never the type, and the lookup fell through to the
+    default for every one of them: 8 numeric parameters across the 42 tools
+    published ``{"type": "string"}``, two of them beside a numeric default
+    (``{"type": "string", "default": 2000}``). A client that honours the
+    schema then sends "2000" and the tool refuses it. The check that pins
+    this asserted only that a schema is an object with properties, so it
+    stayed green — the derivation it is named for was never measured.
+
+    ``typing.get_type_hints`` resolves the strings against the module's own
+    namespace, which is what the annotation means.
+    """
+    try:
+        hints = typing.get_type_hints(fn)
+    except Exception:                                        # noqa: BLE001
+        # A hint that cannot be resolved is not a reason to serve nothing;
+        # the parameter falls back to "string" as before, and says so by
+        # being absent from the resolved map.
+        hints = {}
     props: Dict[str, Any] = {}
     required: List[str] = []
     for name, par in inspect.signature(fn).parameters.items():
-        kind = _SCHEMA_TYPE.get(par.annotation, "string")
+        kind = _SCHEMA_TYPE.get(hints.get(name, par.annotation), "string")
         props[name] = {"type": kind}
         if par.default is inspect.Parameter.empty:
             required.append(name)

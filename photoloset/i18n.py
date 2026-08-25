@@ -248,7 +248,35 @@ RULES: List[Tuple[re.Pattern, Any]] = [
      lambda m: "skirt ("
                + " / ".join(string(part) for part in m.group(1).split("・"))
                + ")"),
+    # --- the four fields of a seat, and the values JSON cannot hold ------
+    # ``_persistable`` names WHERE it found the trouble, so the path prefix
+    # ("値", "[0]", ".required") is carried through untranslated on purpose:
+    # it is an address inside the caller's own value.
+    (re.compile(r"^(.+?): (\S+) は JSON で往復しない "
+                r"\(NaN と ±Infinity は JSON の数ではない\)$"),
+     lambda m: f"{_path_word(m.group(1))}: {m.group(2)} does not survive the "
+               f"JSON round trip (NaN and +/-Infinity are not JSON numbers)"),
+    (re.compile(r"^(.+?): 自分自身を含んでいる — JSON は循環を書けない$"),
+     lambda m: f"{_path_word(m.group(1))}: contains itself — JSON cannot "
+               f"write a cycle"),
+    (re.compile(r"^(\S+) — 住所は文字列でなければ JSON の鍵として"
+                r"往復しない$"),
+     lambda m: f"{m.group(1)} — an address has to be a string to survive as "
+               f"a JSON key"),
+    (re.compile(r"^(.+?) の (.+?) に席はあるが主張が一つも無い "
+                r"\(空の席は主張ではない\)$"),
+     lambda m: f"{m.group(1)} has a seat at {m.group(2)} but not one claim "
+               f"on it (an empty seat is not a claim)"),
+    # --- a measurement that is not a number ------------------------------
+    (re.compile(r"^(.+?): (.+?) は数ではない。寸法は数で書く$"),
+     lambda m: f"{m.group(1)}: {m.group(2)} is not a number — a measurement "
+               f"is written as one"),
 ]
+
+
+def _path_word(p: str) -> str:
+    """The path prefix ``_persistable`` prints. Only the bare word is ours."""
+    return "value" if p == "値" else p
 
 
 def _rule(s: str) -> Optional[str]:
@@ -292,6 +320,21 @@ SENTENCES: Dict[str, str] = {
         "shoulders cannot hang from the shoulders",
     "前は手前": "the front is nearer",
     "後ろは奥": "the back is further",
+    # **The reason a writer gave, in the writer's own words.** These three
+    # are seat VALUES rather than engine prose, which is why they sat
+    # outside the table while their two neighbours ("the front is nearer",
+    # "the back is further") were translated — the same declaration, the
+    # same reader, half of it in Japanese. An English caller is meant to
+    # read them.
+    "袖は横": "the sleeve is off to the side",
+    "吊るのは前身頃だけ。後ろは肩の縫い目を通してぶら下がる":
+        "only the front bodice is pinned up; the back hangs from it through "
+        "the shoulder seam",
+    "袖山のいせ込みを脇の下側に入れない(テーラリングの通説)":
+        "no sleeve-cap ease below the pitch point (the usual tailoring "
+        "rule)",
+    "propose_variant で先に提案する":
+        "propose it with propose_variant first",
     "脇の中間に単合印。前後で対になる":
         "a single notch at the mid side seam, paired front to back",
     "既知の候補から選ぶ": "choose one of the known variants",
@@ -321,6 +364,50 @@ SENTENCES: Dict[str, str] = {
     "JSON で往復する形 (数・文字列・真偽・None・list・文字列鍵の dict) に直す":
         "use a shape that survives the JSON round trip (number, string, "
         "boolean, None, list, or a dict with string keys)",
+    "JSON で往復する形に直す (核と鍵は空でない文字列、値と出典は数・文字列・"
+    "真偽・None・list・文字列鍵の dict)":
+        "use a shape that survives the JSON round trip (the core and the key "
+        "are non-empty strings; the value and the source are a number, "
+        "string, boolean, None, list, or a dict with string keys)",
+    "空の名前は住所ではない": "an empty name is not an address",
+    # --- the quarantine core is a place, not a spelling ------------------
+    "隔離核は提案の置き場所。腕を持つ主張をここに座らせると、主題の閉包から"
+    "読めないまま実腕の予算だけを食う":
+        "the quarantine core is where proposals live. An armed claim seated "
+        "here cannot be read from the subject's closure and still spends a "
+        "real arm's budget",
+    "提案を主題の核に採り入れてから、主題の核に書く":
+        "adopt the proposal into the subject core, then write it there",
+    "隔離核の中の腕付きの席 — 主題から読めないのに予算を食う":
+        "an armed seat inside a quarantine core — unreadable from the "
+        "subject, and still spending budget",
+    # --- an empty seat, and the shapes the loader will not build ---------
+    "宣言に足すか、空の席を消す": "add it to the declaration, or delete the "
+                                 "empty seat",
+    "席に主張が一つも無い — 店は空の席を作らない":
+        "the seat carries no claim at all — the store never creates one",
+    "形の合わない席は載せていない — 黙って直すと格納が答えを動かす":
+        "seats whose shape does not hold were not loaded — repairing them "
+        "silently would let storage move an answer",
+    "店の形は dict": "a store is a dict",
+    "cores は 核の名前 → 席の並び の dict":
+        "`cores` maps a core name to a list of seats",
+    "核は席の並び": "a core is a list of seats",
+    "席は dict": "a seat is a dict",
+    "腕は名前か None": "an arm is a name or None",
+    "宣言の序数は整数 — 並べ替えで比べるので、文字列が一つ混ざると seats() "
+    "が上げる":
+        "the declaration ordinal is an integer — seats() sorts on it, so one "
+        "string mixed in makes the reader raise",
+    "values は並び": "`values` is a list",
+    "主張は dict": "a claim is a dict",
+    "出典は並び": "`sources` is a list",
+    "edges は並び": "`edges` is a list",
+    "辺は dict": "an edge is a dict",
+    "隔離核の名前は文字列": "a quarantine core's name is a string",
+    "quarantine は名前の並び": "`quarantine` is a list of names",
+    "seq は整数": "`seq` is an integer",
+    "席の鍵は文字列": "a seat's key is a string",
     "子コアに分ける (マトリョーシカは幾何が要求すること)":
         "split into a child core (the matryoshka is required by the "
         "geometry, not a taste)",
