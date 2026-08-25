@@ -109,6 +109,8 @@ OVER_CAPACITY = "UNKNOWN_OVER_CAPACITY"
 ORPHANED_CORE = "UNKNOWN_ORPHANED_CORE"
 ALIASED_VALUE = "UNKNOWN_ALIASED_VALUE"
 GENERIC_NOT_BOUGHT = "UNKNOWN_GENERIC_NOT_BOUGHT"
+DUPLICATE_CLAIM = "UNKNOWN_DUPLICATE_CLAIM"
+QUARANTINE_FULL = "UNKNOWN_QUARANTINE_FULL"
 
 Addr = Tuple[str, str]          # (core, key) — **腕は住所に入らない**
 
@@ -126,6 +128,78 @@ def _is_addr(a: Any) -> bool:
     return (isinstance(a, (tuple, list)) and len(a) == 2
             and isinstance(a[0], str) and a[0] != ""
             and isinstance(a[1], str))
+
+
+def _vkey(v: Any) -> Any:
+    """**値の同一性。型は値の一部。**
+
+    ``==`` だけで一致を見ると、区別できるものが「同じ観測」に化ける:
+    ``True`` と ``1``、``108.0`` と ``108``、``0`` と ``False`` は
+    Python では等しいが、**別の観測**であって片方を黙って捨てて良い
+    ものではない (実測: ``True``/``1`` を別々の出典で書くと重み2の
+    ANSWER になり、どちらが残るかは格納順で決まった)。
+
+    逆に ``float('nan')`` は自分自身と等しくないので、素の ``==`` では
+    **同じ値が自分と争う**。自分と等しくない値は自分の敵ではないので、
+    ここで一つの札に畳む。
+
+    list と tuple は畳む。この店の保存形式は JSON で、往復すると
+    tuple は list になる — 区別すると往復で答えが動いてしまい、
+    「格納は答えを動かさない」の方が先に壊れる。
+    """
+    if isinstance(v, bool):             # bool を int より先に見る
+        return ("b", v)
+    if isinstance(v, int):
+        return ("i", v)
+    if isinstance(v, float):
+        return ("f", "nan" if v != v else repr(v))
+    if isinstance(v, str):
+        return ("s", v)
+    if v is None:
+        return ("n", "")
+    if isinstance(v, (list, tuple)):
+        return ("l", tuple(_vkey(x) for x in v))
+    if isinstance(v, dict):
+        return ("d", tuple(sorted((_vkey(k), _vkey(val))
+                                  for k, val in v.items())))
+    if isinstance(v, (set, frozenset)):
+        return ("S", tuple(sorted(_vkey(x) for x in v)))
+    return ("r", type(v).__name__, repr(v))
+
+
+def _is_quarantine(core: str) -> bool:
+    """隔離核か。分れた子 (``q#proposed·proposed·1``) も隔離核。"""
+    return isinstance(core, str) and "#proposed" in core
+
+
+def seat_arms(seat: Dict[str, Any]) -> List[str]:
+    """**その席が載っている腕、全部。**
+
+    席の腕は一本ではない。``values`` の各主張がそれぞれ自分の kind から
+    腕を導き、席は**届いた種別すべての腕に現れる**。実測で支えられ、かつ
+    式から導かれた値は support+ にも cause+ にも居る — 片方を捨てる理由が
+    無いし、捨てると空いていない腕が「型付きの欠落」として報告される。
+
+    だから**選べる「席の腕」というものが無い**。先に書いた者が腕を
+    決める、が成り立たない (以前は ``values[0]`` だけを見ていたので
+    成り立っていた)。
+    """
+    out: List[str] = []
+    for e in (seat.get("values") or []):
+        a = KIND_ARM.get(e.get("kind"))
+        if a is not None and a not in out:
+            out.append(a)
+    return [a for a in ARMS if a in out]
+
+
+def _arms_of(seats: Sequence[Tuple[str, Dict[str, Any]]]) -> List[str]:
+    """閉包に散った同じ住所の席を合わせて、現れる腕を全部。"""
+    out: List[str] = []
+    for _cn, s in seats:
+        for a in seat_arms(s):
+            if a not in out:
+                out.append(a)
+    return [a for a in ARMS if a in out]
 
 
 def _label_ok(label: Any) -> bool:
@@ -204,7 +278,40 @@ class CrossStore:
         return None
 
     def _arm_load(self, core: str, arm: str) -> int:
+        """腕あたりの**座った住所の数**。容量はこちらで数える。
+
+        **予算と意味は別のもの。** 容量の 24 は節点が区別できる語の数で、
+        一つの住所は二本の腕に現れても一語のまま — だから予算は住所が
+        **座ったとき**の腕 (``seat["arm"]``、最初の主張が導いた腕) で
+        一度だけ数える。席がその後どの腕に現れるかは ``seat_arms`` で、
+        それは意味であって予算ではない (``census()`` は両方を出す)。
+
+        **未決 (持ち主に返す判断)。** 意味の側の腕は導出で順に依らない
+        が、**予算の腕はまだ先に書いた者が決めている**。二つの種別が
+        同じ住所に届いたとき、どちらの腕が面を一つ払うかが格納順で
+        変わる (実測: measured→derived で support+、逆で cause+)。
+        これは今 ``ingest_order_check`` が UNKNOWN_ORDER_DEPENDENT として
+        **報告する** — 隠れてはいない。消すには三つの道があり、どれも
+        ただでは無い:
+
+        (a) ARMS 順の正準な腕にする。順に依らなくなるが、後から来た
+            種別が腕を動かすので、**合法な書き込みで核が容量超過に
+            なりうる** (support+ が既に 4 席の核で cause+ の席が
+            support+ に移ると 5)。
+        (b) 現れる腕すべてに課金する。順に依らないが「一住所 = 一語」
+            という容量の測定根拠と衝突する。
+        (c) 種別の違う二つ目を断る。順に依らないが、先に書いた者が
+            住所を所有することになり、#1 で捨てた案そのもの。
+
+        どれも店の意味を変えるので、ここでは選ばない。コートにも部品
+        ライブラリにも二種別の住所は一つも無いので、今日の答えは
+        どの道でも同じ。
+        """
         return sum(1 for s in self.cores.get(core, []) if s["arm"] == arm)
+
+    def _quarantine_load(self, core: str) -> int:
+        """隔離核の住所の数。腕を持たない席は**核あたり**で数える。"""
+        return sum(1 for s in self.cores.get(core, []) if s["arm"] is None)
 
     # ------------------------------------------------------------ 格納
     def put_strict(self, core: str, key: str, value: Any, kind: str,
@@ -227,33 +334,68 @@ class CrossStore:
                     "why": "探して無かった、は主張ではない。載せません"}
 
         arm = KIND_ARM[kind]
-        if arm is None:                     # proposed — 隔離席へ
+        if arm is None and not _is_quarantine(core):   # proposed — 隔離席へ
             core = f"{core}#proposed"
 
+        vkey = _vkey(value)
         found = self._find_seat(core, key)
         if found is not None:
             where, seat = found
+            # 同じ値で**同じ種別** → 一つの主張の裏付けが増える。
             for entry in seat["values"]:
-                if entry["value"] == value:
-                    state = "already"
-                    if source not in entry["sources"]:
-                        entry["sources"].append(source)
-                        state = "corroborated"
-                    return {"verdict": "ANSWER", "state": state,
-                            "core": where, "key": key, "arm": seat["arm"],
-                            "weight": len(entry["sources"]),
-                            "seat_created": False}
-            # 値が違う → **席は増やさない。その席で争う。**
+                if _vkey(entry["value"]) != vkey or entry["kind"] != kind:
+                    continue
+                state = "already"
+                if source not in entry["sources"]:
+                    entry["sources"].append(source)
+                    state = "corroborated"
+                return {"verdict": "ANSWER", "state": state,
+                        "core": where, "key": key, "arm": seat["arm"],
+                        "arms": seat_arms(seat),
+                        "weight": len(entry["sources"]),
+                        "seat_created": False}
+
+            # ここから先は**新しい主張**。値が合っていても種別が違えば
+            # 別の主張なので、出典だけ足して kind を捨ててはいけない —
+            # 捨てると specific 一本で generic が買えてしまう。
+            # **容量は聞かない。** 席の数は住所の数であって、既にある
+            # 住所への二つ目の主張は「席をくれ」ではない。ここで腕の
+            # 満杯を見ると、矛盾が「腕が満杯」に化けて永久に見えなく
+            # なる — P2 で直したのと同じ欠陥が、別の帽子をかぶって
+            # 戻ってくる (実測: 見た瞬間コートの56住所のうち21で
+            # rival が CONTESTED ではなく ARM_FULL になった)。
+            agrees = any(_vkey(e["value"]) == vkey for e in seat["values"])
             seat["values"].append({"value": copy.deepcopy(value),
                                    "kind": kind, "sources": [source]})
+            if agrees:
+                # 値は一致、種別だけが新しい。**争いではない。**
+                return {"verdict": "ANSWER", "state": "second_kind",
+                        "core": where, "key": key, "arm": seat["arm"],
+                        "arms": seat_arms(seat), "kind": kind,
+                        "weight": len([e for e in seat["values"]
+                                       if _vkey(e["value"]) == vkey
+                                       for _s in e["sources"]]),
+                        "seat_created": False}
+            # 値が違う → **席は増やさない。その席で争う。**
             return {"verdict": CONTESTED_IN_CROSS, "core": where, "key": key,
-                    "arm": seat["arm"], "also_on": "support-",
+                    "arm": seat["arm"], "arms": seat_arms(seat),
+                    "also_on": "support-",
                     "sides": len(seat["values"]), "seat_created": False,
                     "how_to_close": "宣言を確かめて、正しい方だけを残す"}
 
         if arm is not None and self._arm_load(core, arm) >= FACES_PER_ARM:
             return {"verdict": ARM_FULL, "core": core, "arm": arm,
                     "key": key,
+                    "how_to_close": "子コアに分ける "
+                                    "(マトリョーシカは幾何が要求すること)"}
+        if arm is None and self._quarantine_load(core) >= CAPACITY_PER_CORE:
+            # 隔離核も幾何の外ではない。**法は店じゅうで同じ**か、
+            # docstring が嘘かのどちらかで、黙った例外は無し。
+            return {"verdict": ARM_FULL, "core": core, "arm": None,
+                    "key": key, "seats": self._quarantine_load(core),
+                    "max": CAPACITY_PER_CORE,
+                    "why": "隔離核も 1核=24席。腕を持たない席は核あたりで"
+                           "数える",
                     "how_to_close": "子コアに分ける "
                                     "(マトリョーシカは幾何が要求すること)"}
 
@@ -278,9 +420,11 @@ class CrossStore:
             if r["verdict"] != "ANSWER":
                 self.refusals.append(dict(r))
             return r
-
         arm = KIND_ARM[kind]
-        chain = self._closure(core)
+        # ``proposed`` は隔離核に落ちている。分けるのはその核の側。
+        home = f"{core}#proposed" if arm is None else core
+        label = arm if arm is not None else "proposed"
+        chain = self._closure(home)
         for cur in chain[1:]:
             r = self.put_strict(cur, key, value, kind, source, seq)
             if r["verdict"] != ARM_FULL:
@@ -289,10 +433,10 @@ class CrossStore:
                 return r
 
         n = len(chain)
-        child = f"{core}·{arm}·{n}"
+        child = f"{home}·{label}·{n}"
         while child in self.cores:
             n += 1
-            child = f"{core}·{arm}·{n}"
+            child = f"{home}·{label}·{n}"
         self._core(child)
         self.link((chain[-1], ""), (child, ""), "nest")
         r = self.put_strict(child, key, value, kind, source, seq)
@@ -329,7 +473,14 @@ class CrossStore:
         entries = [(cn, e) for cn, s in seats for e in s["values"]]
         first = entries[0][1]["value"]
         arm = seats[0][1]["arm"]
-        if all(e["value"] == first for _cn, e in entries):
+        # **一致は ``_vkey`` で見る。素の ``==`` ではない。**
+        # 書く側で True と 1 を割ったのに、読む側が ``==`` で畳んで
+        # いたら、割れは席の中に居るのに誰にも見えない — 実測: put が
+        # CONTESTED を返した直後に resolve が ANSWER / value=True /
+        # weight 2 を返し、contested() も verify() も静かだった。
+        # 断りが書き口にしか無いのは、断っていないのと同じ。
+        vk_first = _vkey(first)
+        if all(_vkey(e["value"]) == vk_first for _cn, e in entries):
             sources: List[str] = []
             for _cn, e in entries:
                 for src in e["sources"]:
@@ -338,6 +489,10 @@ class CrossStore:
             return {"verdict": "ANSWER", "value": copy.deepcopy(first),
                     "sources": list(sources), "weight": len(sources),
                     "agreed": len(entries), "arm": arm,
+                    #: **腕は読みからも見える。** ``arm`` は予算を払った
+                    #: 一本、``arms`` は届いた種別すべての腕。読みから
+                    #: 見えないと、順序検査が比べようがない。
+                    "arms": _arms_of(seats),
                     "kinds": [e["kind"] for _cn, e in entries],
                     "seq": min(s["seq"] for _cn, s in seats),
                     "where": {"core": seats[0][0], "arm": arm}}
@@ -345,7 +500,7 @@ class CrossStore:
                 "sides": [{"value": copy.deepcopy(e["value"]),
                            "kind": e["kind"], "sources": list(e["sources"]),
                            "core": cn} for cn, e in entries],
-                "arm": arm, "also_on": "support-",
+                "arm": arm, "arms": _arms_of(seats), "also_on": "support-",
                 "seq": min(s["seq"] for _cn, s in seats),
                 "how_to_close": "宣言を確かめて、正しい方だけを残す",
                 "where": {"core": seats[0][0], "arm": arm}}
@@ -412,7 +567,10 @@ class CrossStore:
                     by_key.setdefault(s["key"], []).append((cn, s))
             for key, group in by_key.items():
                 vals = [e["value"] for _cn, s in group for e in s["values"]]
-                if any(v != vals[0] for v in vals[1:]):
+                # 同じく ``_vkey``。NaN は自分と等しくないので素の ``!=``
+                # だと自分自身と割れて見え、True/1 は逆に割れが消える。
+                vks = [_vkey(v) for v in vals]
+                if any(v != vks[0] for v in vks[1:]):
                     out.append({"core": group[0][0], "key": key,
                                 "arm": group[0][1]["arm"],
                                 "also_on": "support-",
@@ -430,8 +588,8 @@ class CrossStore:
         closure = set(self._closure(core))
         for cn in closure:
             for s in self.cores.get(cn, []):
-                if s["arm"] in counts:
-                    counts[s["arm"]] += 1
+                for a in seat_arms(s):
+                    counts[a] += 1
         counts["support-"] = sum(
             1 for c in self.contested() if c["core"] in closure)
         return counts
@@ -451,10 +609,16 @@ class CrossStore:
         out: List[Dict[str, Any]] = []
         for cname, seats in self.cores.items():
             for s in seats:
-                if s["arm"] != "kind+":
+                # **一般構造だと言った主張だけを見る。** 席の腕ではなく
+                # 各主張の kind を見るのは、同じ住所に specific が同意
+                # しても一般構造を買ったことにはならないから。以前は
+                # 出典が席にまとめられていたので、specific 一本で
+                # generic が買えた (実測: parts:closure が 1→2 に増えて
+                # 未購入から消えた)。
+                gen = [e for e in s["values"] if e.get("kind") == "generic"]
+                if not gen:
                     continue
-                weight = max((len(e["sources"]) for e in s["values"]),
-                             default=0)
+                weight = max((len(e["sources"]) for e in gen), default=0)
                 if weight < GENERIC_MIN_SOURCES:
                     out.append({"verdict": GENERIC_NOT_BOUGHT,
                                 "core": cname, "key": s["key"],
@@ -569,12 +733,34 @@ class CrossStore:
                              "kind": vals[0]["kind"], "should_be": want,
                              "why": "腕は kind から導かれる。"
                                     "書く側が選ぶものではない"})
+                # 一つの席で (kind, 値) は一度だけ。同じ主張を二つの
+                # 項目に分けて書くと、出典の数が席の数に化けて
+                # GENERIC_MIN_SOURCES が数え間違える。
+                claims: set = set()
+                for e in vals:
+                    if e.get("kind") not in KIND_ARM:
+                        continue
+                    tok = (e.get("kind"), _vkey(e.get("value")))
+                    if tok in claims:
+                        problems.append(
+                            {"verdict": DUPLICATE_CLAIM, "core": cname,
+                             "key": s.get("key"), "kind": e.get("kind"),
+                             "why": "同じ席に同じ (種別, 値) が二つ。"
+                                    "同じ主張の裏付けは出典を足すこと"})
+                    claims.add(tok)
             for arm in ARMS:
                 load = sum(1 for s in seats if s.get("arm") == arm)
                 if load > FACES_PER_ARM:
                     problems.append({"verdict": OVER_CAPACITY,
                                      "core": cname, "arm": arm,
                                      "seats": load, "max": FACES_PER_ARM})
+            free = sum(1 for s in seats
+                       if isinstance(s, dict) and s.get("arm") is None)
+            if free > CAPACITY_PER_CORE:
+                problems.append({"verdict": OVER_CAPACITY, "core": cname,
+                                 "arm": None, "seats": free,
+                                 "max": CAPACITY_PER_CORE,
+                                 "why": "隔離核も 1核=24席"})
 
         done: set = set()
         for cname in list(self.cores):
@@ -661,7 +847,12 @@ class CrossStore:
         """
         plan = self.write_plan()
         r = ingest_order_check(plan, nest=True)
-        return {"verdict": r["verdict"], "structural": True,
+        # ``"structural": True`` はここに在った。**定数は証拠ではない。**
+        # 読む側はそれを根拠のように使えてしまい (実測: 検査の第二節が
+        # ``inv.get("structural")`` で、機械を全部外しても緑のまま)、
+        # 「通ったことは何かの確認である」と言いたい欄が、何も確認して
+        # いないことの証明書になっていた。落ちうる欄だけを残す。
+        return {"verdict": r["verdict"],
                 "not_a_test": ("いま載っているものを入れ直しても答えが"
                                "動かない、という後退よけです。本物の"
                                "順序検査は ingest_order_check"),
@@ -754,23 +945,49 @@ class CrossStore:
         sources = sum(len(e["sources"]) for s in self.cores.values()
                       for x in s for e in x["values"])
         over = []
+        #: ``arms`` は**座った**住所の数 (予算)。``arms_present`` は
+        #: その腕に**現れる**住所の数 (意味) — 一つの席が二つの種別を
+        #: 抱えていれば両方に現れるので、こちらは 4 を超えうる。
         arms = {a: 0 for a in ARMS}
+        present = {a: 0 for a in ARMS}
+        quarantine = {}
         for n, s in self.cores.items():
             for arm in ARMS:
                 load = sum(1 for x in s if x["arm"] == arm)
                 arms[arm] += load
+                present[arm] += sum(1 for x in s if arm in seat_arms(x))
                 if load > FACES_PER_ARM:
                     over.append((n, arm, load))
+            # **隔離核も数える。** 腕を持たない席は核あたり 24 席まで。
+            # 数えないでいると「この店は容量を超えた要求を黙って
+            # 拡張しない」が proposed の側だけ嘘になる。
+            free = sum(1 for x in s if x["arm"] is None)
+            if free:
+                quarantine[n] = free
+                if free > CAPACITY_PER_CORE:
+                    over.append((n, None, free))
         return {"cores": len(self.cores), "seats": seats, "facets": facets,
+                "quarantined": quarantine,
                 "sources": sources,
                 "capacity_per_core": CAPACITY_PER_CORE,
                 "over_capacity": over,
                 "arms": arms,
+                "arms_present": present,
                 "edges": len(self.edges),
                 "contested": len(self.contested())}
 
 
 # ---------------------------------------------------------------------------
+def _rep(v: Any) -> str:
+    """比較用の札。**店が「同じ観測か」に使うのと同じ物差し。**
+
+    ``repr`` を使っていると ``(1, 2)`` と ``[1, 2]`` が別物に見えるが、
+    この店の保存形式は JSON なので往復すると同じものになる — 検査が
+    往復で落ちるようになってしまう。``_vkey`` はそこを畳む。
+    """
+    return repr(_vkey(v))
+
+
 def ingest_order_check(plan: Sequence[Tuple[str, str, Any, str, str]],
                        nest: bool = True) -> Dict[str, Any]:
     """**同じ計画を別の順で入れ直して、答えが動かないことを見る。**
@@ -801,17 +1018,50 @@ def ingest_order_check(plan: Sequence[Tuple[str, str, Any, str, str]],
                  else st.put_strict(core, key, value, kind, source))
             if r["verdict"] not in ("ANSWER", CONTESTED_IN_CROSS):
                 refused.append((core, key))
+        # **地図には腕も入れる。** (verdict, 値, 重み) だけを
+        # 比べていたので、**腕で答えるものは全部この検査の外に居た** —
+        # arm_census()、gaps()、型付きの欠落、unbought_generics()。
+        # 腕が意味を運ぶという主張の店で、腕の置き場所が順で動いても
+        # 「格納順は答えを動かさない」が ANSWER を返していた
+        # (実測: 同じ値を measured→declared と declared→measured で
+        #  入れると席の腕が support+ と kind- に分かれ、検査は ANSWER)。
+        #
+        # **``seq`` は入れない。入れてはいけない。** seq は「何番目に
+        # 書かれたか」の控えで、答えではなく**格納順そのもの**。逆順で
+        # 入れれば逆順の seq が付くのが正しい振る舞いなので、これを
+        # 比べると検査は何を入れても必ず落ちる (実測: コートの56住所
+        # 全部が forward seq 1..56 / reversed seq 56..1 で「相違」に
+        # なった)。宣言の並びが読みを決めているかは
+        # 「ordered reads follow the declaration」の持ち場で、あちらは
+        # seq を**書く側が指定した**店で測っている。
         amap: Dict[Tuple[str, str], Any] = {}
         for core, key, _v, _k, _s in plan:
             r = st.resolve(core, key)
+            shape = (r.get("arm"), tuple(r.get("arms") or ()))
             if r["verdict"] == "ANSWER":
-                amap[(core, key)] = ("ANSWER", repr(r["value"]), r["weight"])
+                amap[(core, key)] = ("ANSWER", _rep(r["value"]),
+                                     r["weight"], shape)
             elif r["verdict"] == CONTESTED_IN_CROSS:
                 amap[(core, key)] = (
                     CONTESTED_IN_CROSS,
-                    tuple(sorted(repr(s["value"]) for s in r["sides"])), 0)
+                    tuple(sorted(_rep(s["value"]) for s in r["sides"])),
+                    0, shape)
             else:
-                amap[(core, key)] = (r["verdict"], None, 0)
+                amap[(core, key)] = (r["verdict"], None, 0, shape)
+        # **入れてみて外したもの、二つ。** どちらも実測して外した。
+        #
+        # 1. 型付きの欠落 (``gaps`` / ``arm_census``)。#3 が足せと言って
+        #    いた節だが、これは (住所ごとの腕, 計画の核) の関数で、
+        #    どちらも上の ``shape`` と鍵で既に比べている。**落ちようが
+        #    無い節**で、この企画が三度出した「落ちない検査」の四度目に
+        #    なる。腕は ``shape`` が運ぶ。
+        # 2. 核の名前の集合。これは**本当に順で動く** (実測: コートの
+        #    10核が forward では block:coat·cause+·1 / ·cause+·2 /
+        #    ·kind-·3 / ·kind-·4、reversed では ·kind-·1..4 になる —
+        #    どちらの腕が先に溢れたかが子の名前に入るので)。だが動いた
+        #    のは**答えではなく格納の呼び名**で、56住所は全部どちらの
+        #    順でも同じ値・同じ重み・同じ腕に解決する。ここで比べると、
+        #    壊れていないコートを壊れていると言うことになる。
         runs[name] = {
             "map": amap,
             "contested": sorted((c["core"], c["key"]) for c in st.contested()),

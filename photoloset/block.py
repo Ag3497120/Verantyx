@@ -317,21 +317,55 @@ class BlockView:
         """
         return [self.root] + self.store.part_of_children(self.root)
 
-    def _ordered(self, prefix: str) -> List[Dict[str, Any]]:
+    def _ordered(self, prefix: str,
+                 ident: Optional[Any] = None) -> List[Dict[str, Any]]:
         """接頭辞の付いた席を**宣言の序数(seq)の順で**返す。
 
         主題コアに散らばっても並びは動かない — 並びは格納場所ではなく
         宣言の内容だから。値が割れていたら落とす(読む側が黙って
         どちらかを拾うことがないように)。
+
+        **主題をまたいだ同名も落とす。** ``_collect`` (param/setting) に
+        だけ付いていた門がここに無かったので、集まりを出す読みは全部
+        素通りだった。``formulas()`` は名前で辞書を作るので二つの主題が
+        同じ式名を宣言すると**片方が黙って消え**、``measures()`` と
+        ``pieces()`` は逆に**同じ名前を二度並べた** — どちらも割れでも
+        断りでもなく、``verify()`` は静かなまま。実測: 18行宣言して
+        ``formulas()`` が17を返し、宣言した袖山の高さの式が消えた。
+
+        同名が値まで一致していても断る。集まりの読みでは一致は救いに
+        ならない — ``measures()`` は chest を二度並べ、``formulas()`` は
+        一つに畳む。**どちらが正しいか読む側には決められない**ので、
+        黙って畳むのも黙って並べるのも、この店が断るために在るもの。
+
+        ``ident`` は「出された形での同じもの」の定義。既定は住所の鍵
+        (``formula:袖山の高さ`` など)。``role`` のように鍵が主題ごとに
+        同じで**値の中に名前がある**ものは、呼ぶ側が渡す。
         """
         out: List[Dict[str, Any]] = []
         for subj in self._subjects():
-            out.extend(self.store.seats(subj, prefix))
+            for r in self.store.seats(subj, prefix):
+                r = dict(r)
+                r["subject"] = subj
+                out.append(r)
         for r in out:
             if r["verdict"] == _cross.CONTESTED_IN_CROSS:
                 raise ValueError(
                     f'{_cross.CONTESTED_IN_CROSS}: {r["key"]} の宣言が'
                     f'割れています。正しい方だけを残してください')
+        seen: Dict[Any, Dict[str, Any]] = {}
+        for r in out:
+            try:
+                token = _cross._vkey(ident(r) if ident else r["key"])
+            except Exception:                       # 値が読めない = 名乗り無し
+                continue
+            if token in seen:
+                first = seen[token]
+                raise ValueError(
+                    f'{AMBIGUOUS_ACROSS_SUBJECTS}: {r["key"]} — '
+                    f'{first["subject"]} と {r["subject"]} が同じものを'
+                    f'宣言しています。主題を指して読むか、宣言をそろえる')
+            seen[token] = r
         out.sort(key=lambda r: (r["seq"], r["key"]))
         return out
 
@@ -358,7 +392,7 @@ class BlockView:
         for h in hits:
             if h["verdict"] == _cross.CONTESTED_IN_CROSS:
                 return h
-        vals = [h["value"] for h in hits]
+        vals = [_cross._vkey(h["value"]) for h in hits]
         if any(v != vals[0] for v in vals[1:]):
             return {"verdict": AMBIGUOUS_ACROSS_SUBJECTS, "key": key,
                     "subjects": [{"subject": h["subject"],
@@ -371,8 +405,11 @@ class BlockView:
         return self.store.require(self.root, "label")
 
     def pieces(self, required_only: bool = False) -> List[str]:
+        # ``role`` の鍵は一枚一枚のコアで同じなので、出された形での
+        # 同じものは**名前**。名前で見ないと、根に二枚目の後身頃を
+        # 名乗らせて ['後身頃','前身頃','袖','後身頃'] が出た。
         out = []
-        for f in self._ordered("role"):
+        for f in self._ordered("role", ident=lambda r: r["value"]["name"]):
             if required_only and not f["value"]["required"]:
                 continue
             out.append(f["value"]["name"])
