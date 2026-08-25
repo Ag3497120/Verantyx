@@ -3,7 +3,7 @@
 
     python3 tests/falsifiers.py
 
-A check that cannot fail is not a check, and this project shipped FIVE of
+A check that cannot fail is not a check, and this project shipped SIX of
 those before anyone noticed:
 
   1. ``placement_check`` read one unmutated store twice.
@@ -16,6 +16,25 @@ those before anyone noticed:
   5. ``every tool returns an object`` was ``check(name, True, ...)`` — a
      literal. Found by hunting the shape of 3 and 4 across the whole suite
      instead of fixing only the two that were reported.
+  6. ``every tool has a schema`` — the line DIRECTLY ABOVE the fifth, left
+     alone when the fifth was repaired. ``all(pred for t in tools)`` over a
+     list that arrives over the wire is vacuously True when the list is
+     empty, so a server answering ``tools/list`` with ``[]`` left it GREEN
+     while its sibling went red. The count clause lived on a neighbouring
+     check line, which fails separately and therefore protects nothing.
+
+The shape to hunt is wider than "compares a value against itself": it is
+**any condition that cannot be false**. A literal, a self-comparison, and an
+``all()``/``any()`` over a possibly-empty sequence are the same defect.
+
+Measured by a static sweep of all 83 ``check()`` calls in ``run_checks.py``
+that carry a condition: 0 remain whose condition is a non-``False`` literal
+(the 4 literal ``False`` conditions are unconditional FAIL reports on error
+paths), 0 compare against any of the 10 module constants that are read off
+the coat store, and every surviving ``all()`` now has its iterable's length
+pinned **inside the same condition** — which is exactly what 6 was missing,
+because its count lived on the neighbouring ``42 tools`` line and a
+neighbouring line fails separately.
 
 Every one of them survived a review because nobody built the store, or the
 code, that violates the property. That is what this file is for.
@@ -228,6 +247,16 @@ MUTATIONS = [
      'for f in self._ordered("role"):',
      ["two subjects cannot declare the same thing"]),
 
+    # The hole the #2 fix left open: the ident callback can itself fail, and
+    # answering that with `continue` let the malformed seat evade the gate
+    # AND stay in the returned list, so the reader crashed on it.
+    ("#2 a seat that cannot name itself is skipped instead of refused",
+     "photoloset/block.py",
+     '            except Exception as exc:',
+     '            except Exception as exc:\n'
+     '                continue',
+     ["a seat that cannot name itself is refused"]),
+
     # ---- #3 / #11: the arm-valued answers outside the order map ---------
     ("#3 the order check stops comparing the arm", "photoloset/cross.py",
      '            shape = (r.get("arm"), tuple(r.get("arms") or ()))',
@@ -407,6 +436,30 @@ WHOLE_SUITE = [
        '            raise RuntimeError("regressed")\n'
        '        text = fn(**(args or {}))')],
      ["every tool returns an object"]),
+
+    # A SIXTH, and the line directly above the fifth. "every tool has a
+    # schema" was `all(... for t in tools)` over a list that arrives over the
+    # wire — vacuously True when the list is empty. Measured on head before
+    # the repair: `tools/list` mutated to answer `[]` left this line GREEN
+    # while its own sibling went red. The empty case is the falsifier the
+    # count clause exists for; the bad-schema case is the property it is
+    # named for. Both have to go red.
+    ("the sixth tautology: the tool list comes back empty",
+     "photoloset/mcp.py",
+     [('def _list() -> Dict[str, Any]:\n    out = []',
+       'def _list() -> Dict[str, Any]:\n    return {"tools": []}\n    out = []')],
+     ["every tool has a schema"]),
+
+    ("the sixth tautology: one tool's schema is not an object",
+     "photoloset/mcp.py",
+     [('        out.append({"name": name, "description": doc,\n'
+       '                    "inputSchema": _schema(fn)})',
+       '        _sch = _schema(fn)\n'
+       '        if name == "design_sheet":\n'
+       '            _sch = {"type": "string"}\n'
+       '        out.append({"name": name, "description": doc,\n'
+       '                    "inputSchema": _sch})')],
+     ["every tool has a schema"]),
 ]
 
 

@@ -59,6 +59,14 @@ NO_SUBJECT = None
 
 AMBIGUOUS_ACROSS_SUBJECTS = "UNKNOWN_AMBIGUOUS_ACROSS_SUBJECTS"
 NO_SUCH_SUBJECT = "UNKNOWN_NO_SUCH_SUBJECT"
+#: 集まりの読みで、その席が**自分の名を出せない**。``role`` のように
+#: 名前が値の中にあるものは、値が壊れていると名乗りが読めない。以前は
+#: ここで黙って飛ばしていたので、(1) 壊れた値は**同名判定の門をすり抜け**、
+#: (2) その席は ``_ordered`` の戻りには残るので ``pieces()`` が
+#: ``TypeError: string indices must be integers`` で落ちた。飛ばすのは
+#: 「読めないものを黙って無かったことにする」で、この店が断るために
+#: 在る当のものなので、型付きで断る。
+UNNAMED_IN_COLLECTION = "UNKNOWN_UNNAMED_IN_COLLECTION"
 
 
 # ---------------------------------------------------------------------------
@@ -357,8 +365,18 @@ class BlockView:
         for r in out:
             try:
                 token = _cross._vkey(ident(r) if ident else r["key"])
-            except Exception:                       # 値が読めない = 名乗り無し
-                continue
+            except Exception as exc:
+                # **名乗れない席は飛ばさない。** 飛ばすと二つ壊れる:
+                # 壊れた値が上の同名判定をすり抜け、しかも席は out に
+                # 残るので呼ぶ側 (``pieces()`` の ``r["value"]["name"]``)
+                # が生の TypeError で落ちる。実測: 根に ``role`` を素の
+                # 文字列で書くと pieces() が TypeError、辞書から name を
+                # 抜くと KeyError — どちらも断りではなく事故だった。
+                raise ValueError(
+                    f'{UNNAMED_IN_COLLECTION}: {r["key"]} '
+                    f'({r["subject"]}) — {type(exc).__name__}: {exc}。'
+                    '値がその名を出せないので、集まりとして読めない。'
+                    '宣言をそろえるか、その席を直す') from None
             if token in seen:
                 first = seen[token]
                 raise ValueError(

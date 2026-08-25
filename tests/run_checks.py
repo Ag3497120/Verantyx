@@ -164,8 +164,16 @@ def _seam_label(spec: dict) -> str:
 #: rising total hides a retirement perfectly; a pinned set cannot.
 #:
 #: The honest statement of that history is: **57 of the 58 kept, 1 retired
-#: deliberately, 21 added, 78/78 green.** The retirement is recorded in
-#: RETIRED_CHECKS below and its replacement names the reason inline.
+#: deliberately, 24 added, 81 check lines green.** The retirement is recorded
+#: in RETIRED_CHECKS below and its replacement names the reason inline.
+#:
+#: On the arithmetic, because it is easy to state loosely and this list
+#: exists to stop exactly that: the suite prints **81** check lines. 80 of
+#: them are pinned here and reported before the pin runs; the 81st IS the
+#: pin ("no check went missing"), which cannot count itself. One name,
+#: "unknown port refused", legitimately runs TWICE (two ports), so this list
+#: carries it twice as well — the pin compares multiplicity, not a set, so a
+#: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
     "no third-party imports",
     "example runs",
@@ -201,6 +209,7 @@ ALL_CHECK_NAMES = [
     "ordered reads follow the declaration",
     "ingest order does not move answers",
     "two subjects cannot declare the same thing",
+    "a seat that cannot name itself is refused",
     "contest is reachable at every address",
     "a contest survives the matryoshka",
     "an edge with one end is refused",
@@ -486,9 +495,26 @@ def the_mcp_server_answers() -> None:
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
         check("42 tools", len(tools) == 42, f"{len(tools)}")
+        # A SIXTH check that could not fail, and the one directly above the
+        # fifth. `all(... for t in tools)` is vacuously True on an empty
+        # list, so with `tools == []` this line reported PASS while its own
+        # sibling ("every tool returns an object") went red — measured: the
+        # server mutated to answer `tools/list` with `[]` left this GREEN.
+        # An `all()` over a sequence that arrives OVER THE WIRE is the same
+        # defect as a literal True; the count has to be pinned in the same
+        # condition, not on a neighbouring line that fails separately.
+        no_schema = [t.get("name", "?") for t in tools
+                     if t.get("inputSchema", {}).get("type") != "object"]
+        no_props = [t.get("name", "?") for t in tools
+                    if not isinstance(t.get("inputSchema", {})
+                                      .get("properties"), dict)]
         check("every tool has a schema",
-              all(t.get("inputSchema", {}).get("type") == "object" for t in tools),
-              "derived from the signatures")
+              len(tools) == 42 and not no_schema and not no_props,
+              f"{len(tools)} schemas derived from the signatures, "
+              f"{len(no_schema)} not an object, {len(no_props)} without "
+              "properties"
+              + (f" — {no_schema + no_props}" if no_schema or no_props
+                 else ""))
 
         args = {
             "garment_observe": dict(part="collar", aspect="shape", value="v", source="s"),
@@ -520,7 +546,19 @@ def the_mcp_server_answers() -> None:
                 name = t["name"]
                 a = dict(args.get(name, {}))
                 for key in ("path",):
-                    if key in t["inputSchema"]["properties"] and key not in a:
+                    # ``.get``, not ``[...]``: a tool whose schema is
+                    # malformed is exactly what the check above is for, and
+                    # indexing it here aborts the section so "every tool
+                    # returns an object" never runs at all. Measured: the
+                    # non-object-schema mutation used to take the whole
+                    # function down with a KeyError, reported honestly as
+                    # the section crashing but leaving the sibling check
+                    # unmeasured. A check must be able to see the failure
+                    # its neighbour was mutated into.
+                    props = t.get("inputSchema", {}).get("properties")
+                    if not isinstance(props, dict):
+                        props = {}
+                    if key in props and key not in a:
                         a[key] = f"{tmp}/out"
                 r = rpc("tools/call", {"name": name, "arguments": a})
                 body = json.loads(r["result"]["content"][0]["text"])
@@ -1037,6 +1075,7 @@ def the_arms_carry_meaning() -> None:
 # ---------------------------------------------------------------------------
 @declares('ingest order does not move answers',
           'two subjects cannot declare the same thing',
+          'a seat that cannot name itself is refused',
           'contest is reachable at every address',
           'a contest survives the matryoshka',
           'an edge with one end is refused',
@@ -1185,6 +1224,44 @@ def the_cross_refuses_what_it_should() -> None:
               'and verify() stay silent and only the reader can catch it; a '
               f'genuinely new piece still declares ({len(v_e.pieces())} '
               f'pieces, {len(v_e.measures())} measurements)')
+
+    with guard('a seat that cannot name itself is refused'):
+        # --- the hole the #2 fix left open ---------------------------------
+        # ``pieces()`` reads the name out of the VALUE, so the guard above
+        # needs a callback to say what "the same thing" is. That callback can
+        # itself fail on a malformed value, and ``_ordered`` used to answer a
+        # failing callback with ``except Exception: continue``. Skipping broke
+        # it twice over: the malformed seat evaded the same-name gate, and it
+        # stayed in the returned list, so ``pieces()`` died on the raw value
+        # with ``TypeError: string indices must be integers`` — an accident,
+        # not a refusal. Measured before the repair: a bare-string ``role``
+        # gave TypeError and a ``role`` dict with no ``name`` gave KeyError,
+        # both with contested() and verify() silent.
+        def _refuse(fn):
+            try:
+                fn()
+                return "served it anyway"
+            except ValueError as exc:
+                return str(exc).split(":")[0]
+            except Exception as exc:            # 事故は断りではない
+                return f"CRASHED {type(exc).__name__}"
+
+        st_s, root_s = blk.ingest()
+        st_s.put(root_s, "role", "後身頃", "declared", "declaration:bare")
+        st_t, root_t = blk.ingest()
+        st_t.put(root_t, "role", {"required": True}, "declared",
+                 "declaration:noname")
+        broke = [_refuse(blk.BlockView(st_s, root_s).pieces),
+                 _refuse(blk.BlockView(st_t, root_t).pieces)]
+        check("a seat that cannot name itself is refused",
+              broke == [blk.UNNAMED_IN_COLLECTION] * 2
+              and st_s.verify()["verdict"] == "ANSWER"
+              and len(b.pieces()) == 3,
+              f'a role written as a bare string and a role dict with no '
+              f'name both refuse as {broke[0]} instead of crashing the '
+              f'reader; the store itself stays ANSWER, so only the reader '
+              f'can catch it, and the coat still serves {len(b.pieces())} '
+              'pieces')
 
     with guard('contest is reachable at every address'):
         # --- P2: contest is reachable at EVERY address ----------------------
@@ -1422,7 +1499,11 @@ def the_cross_refuses_what_it_should() -> None:
         check("equal is not the same observation",
               verdicts == [cross.CONTESTED_IN_CROSS] * 4
               and read_back == [cross.CONTESTED_IN_CROSS] * 4
-              and all(listed)
+              # `len(listed) == 4` is redundant with the two clauses above
+              # (all three lists are appended in one loop), but `all()` over
+              # a sequence whose length is only implied is the shape that
+              # hid the sixth tautology. State it.
+              and len(listed) == 4 and all(listed)
               and nan.contested() == []
               and nan.resolve("c", "k")["verdict"] == "ANSWER"
               and agree.resolve("c", "k")["verdict"] == "ANSWER"
@@ -1645,12 +1726,21 @@ def prompts_switch_per_model_and_keep_discipline() -> None:
 
     from photoloset import parts as _pv
     bank = prompts.siglip_queries()
+    # The `all()` here iterates PART_VOCAB, so an empty vocabulary would
+    # make it vacuously true — the same shape as the sixth tautology, only
+    # over a module constant instead of a wire response. It cannot empty at
+    # runtime, but "cannot happen today" is what the other five relied on,
+    # so the length is pinned in the SAME condition rather than assumed.
+    uncovered = [fam for fam in _pv.PART_VOCAB
+                 if fam not in prompts.PART_QUERY_BANK]
     check("siglip bank covers the part vocabulary",
-          len(bank) >= len(prompts.PART_QUERY_BANK)
-          and all(fam in prompts.PART_QUERY_BANK
-                  for fam in _pv.PART_VOCAB),
+          len(_pv.PART_VOCAB) == 8
+          and len(bank) >= len(prompts.PART_QUERY_BANK)
+          and not uncovered,
           f"{len(bank)} queries across "
-          f'{len(prompts.PART_QUERY_BANK)} families')
+          f'{len(prompts.PART_QUERY_BANK)} families, covering all '
+          f'{len(_pv.PART_VOCAB)} part families'
+          + (f" — uncovered: {uncovered}" if uncovered else ""))
 
     good = prompts.parse_decomposition("lmstudio:qwen3.6:35b-a3b", _json.dumps({
         "kind_guess": None,
