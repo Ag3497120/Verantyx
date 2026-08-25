@@ -68,6 +68,15 @@ def guard(name: str):
         yield
     except Exception as exc:                                # noqa: BLE001
         detail = f"CRASHED {type(exc).__name__}: {exc}"
+        # **Say when a crash is second-hand.** A guard catches the raise but
+        # lets the function continue, so a name bound in the failed setup is
+        # missing for every check after it and they all report
+        # `UnboundLocalError: local variable 'b'`, which points at the
+        # symptom instead of the cause. The first crash in this run is named
+        # here so the misleading message cannot be read as the root.
+        if CRASHED_NAMES:
+            detail += (f" (after {CRASHED_NAMES[0]!r} crashed — likely a "
+                       f"consequence of that, not the cause)")
         fired = name if name not in REPORTED else f"{name} (after)"
         CRASHED_NAMES.append(fired)
         check(fired, False, detail[:200])
@@ -199,6 +208,7 @@ ALL_CHECK_NAMES = [
     "conflicting declarations go contested",
     "placement does not move answers",
     "round trip moves nothing",
+    "the whole declaration is served from the cross",
     "arms are derived, not chosen",
     "support- is never written, only emerges",
     "absence is not a claim",
@@ -220,6 +230,11 @@ ALL_CHECK_NAMES = [
     "a fourth piece and a fifth measurement are declarable",
     "an undeclared subject does not swallow the seat",
     "param refuses across subjects",
+    "a proposal stays quarantined",
+    "an anonymous source buys nothing",
+    "the store refuses what it cannot persist",
+    "a generic claim is priced by its own kind",
+    "the budget arm is reported, never hidden",
     "unknown slot refused",
     "unknown variant refused",
     "undraftable variant refuses by name",
@@ -255,6 +270,8 @@ ALL_CHECK_NAMES = [
     "every tool returns an object",
     "absent tools say so",
     "anonymous adoption refused",
+    "no check that cannot fail",
+    "the falsifier harness reports every mutation",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -280,7 +297,13 @@ def the_example_runs() -> None:
     r = subprocess.run([sys.executable, "examples/black_coat.py"],
                        cwd=ROOT, capture_output=True, text=True, timeout=600)
     out = r.stdout
-    check("example runs", r.returncode == 0,
+    # The line count sat in the DETAIL and not in the condition, so an
+    # example that exits 0 while printing nothing at all passed. Measured:
+    # `print` rebound to a no-op in examples/black_coat.py left this line
+    # green ("exit 0, 0 lines") while its three siblings went red. The
+    # number was already being computed — it just was not being asserted.
+    check("example runs",
+          r.returncode == 0 and len(out.splitlines()) == 102,
           f"exit {r.returncode}, {len(out.splitlines())} lines")
     for want in ("UNKNOWN_NO_ADOPTER", "CONTESTED_MEASUREMENT", "ANSWER"):
         check(f"example shows {want}", want in out,
@@ -299,7 +322,17 @@ def the_pipeline_still_agrees() -> None:
         ms.measured(spot, value, "cm", source="tape", by="ci")
 
     draft = garment_pattern.draft(ms)
-    check("draft answers", draft["verdict"] == "ANSWER", draft["verdict"])
+    # `verdict == "ANSWER"` alone asks the code under test for its own
+    # verdict and believes it — a drafter that always says ANSWER keeps it
+    # green. The second clause makes the word mean something: the SAME call
+    # with nothing measured has to refuse, so "ANSWER" is a decision rather
+    # than a constant.
+    refused_draft = garment_pattern.draft(Measures())
+    check("draft answers",
+          draft["verdict"] == "ANSWER"
+          and refused_draft["verdict"] == "UNKNOWN_MISSING_MEASUREMENTS",
+          f'{draft["verdict"]}; the same call with no measurements is '
+          f'{refused_draft["verdict"]}')
     check("three pieces", len(draft["pieces"]) == 3,
           str([p["name"] for p in draft["pieces"]]))
     check("area 7306.1 cm2", abs(draft["total_area_cm2"] - 7306.1) < 0.05,
@@ -307,7 +340,13 @@ def the_pipeline_still_agrees() -> None:
     check("17 formulas printed", len(draft["formulas"]) == 17,
           f'{len(draft["formulas"])}')
     structural = [c for c in draft["seam_checks"] if c.get("structural")]
-    check("seam checks self-report", len(structural) == len(draft["seam_checks"]),
+    # `len(structural) == len(seam_checks)` is 0 == 0 on an empty list and
+    # true for any subset that matches in size. Measured: truncating the
+    # drafted seam checks to one of three, and to none at all, both left the
+    # whole suite green. The coat has THREE and the README quotes three, so
+    # both numbers are pinned.
+    check("seam checks self-report",
+          len(draft["seam_checks"]) == 3 and len(structural) == 3,
           f'{len(structural)}/{len(draft["seam_checks"])} labelled structural')
 
     marks = garment_marks.apply(draft)
@@ -436,14 +475,50 @@ def english_is_complete() -> None:
     outs["composed.refused"] = _cp.compose(
         {**dress, "port_finish": {}}, ms3)
 
+    # **The refusals of the newly load-bearing modules ride the same
+    # promise.** They did not, and 67 strings across block/cross/parts/
+    # zones/prompts were untranslated while the README said 0. A refusal a
+    # caller cannot read is the one string that most needs translating, so
+    # every refusal-bearing path is swept here now. What is deliberately
+    # NOT swept — the store's ADDRESSES (to_dict, write_plan, seats,
+    # seam_edges: core names and seat keys) and the prompt bank's text,
+    # which is written for the model — is stated in README.md with its
+    # measured number, because a scope nobody writes down is how "0"
+    # stopped being true.
+    from photoloset import cross as _cross
+    from photoloset import parts as _parts
+    from photoloset import prompts as _prompts
+    from photoloset import zones as _zones
+
+    _st = _cross.CrossStore()
+    _st.put("c", "k", 1, "specific", "s")
+    outs["cross.resolve.absent"] = _st.resolve("c", "no:such:key")
+    outs["cross.put.no_such_kind"] = _st.put_strict("c", "k2", 1, "guess", "s")
+    outs["cross.put.unnamed_source"] = _st.put_strict("c", "k3", 1, "generic")
+    outs["cross.put.unpersistable"] = _st.put_strict("c", "k4", {1, 2},
+                                                     "specific", "s")
+    outs["cross.link.dangling"] = _st.link(("nope", ""), ("c", ""), "nest")
+    outs["parts.unbought_generics"] = _parts.Library().unbought_generics()
+    outs["zones.parse_selection.bad"] = _zones.parse_selection("99", {})
+    outs["prompts.parse.bad"] = _prompts.parse_decomposition("default",
+                                                             "{oops")
+
+    swept = sorted(outs.items())
     total_missing = []
-    for name, value in outs.items():
+    for name, value in swept:
         missing = i18n.missing(i18n.translate(value))
         total_missing += missing
         if missing:
             print(f"        {name}: {missing[:2]}")
-    check("0 untranslated", not total_missing,
-          f"{len(set(total_missing))} strings across {len(outs)} outputs")
+    # The count of OUTPUT PATHS swept sat in the detail only, so dropping a
+    # path from the sweep was invisible — and the README's "0 untranslated"
+    # is only worth what this scope is. Both are pinned here now: the number
+    # of paths, and the fact that the newly load-bearing refusal texts are
+    # among them (they were not, and 67 strings were untranslated outside
+    # this table — see README.md, which now states the scope out loud).
+    check("0 untranslated",
+          not total_missing and len(swept) == 30,
+          f"{len(set(total_missing))} strings across {len(swept)} outputs")
 
     en = i18n.translate(outs["draft"])
     check("pieces read in English",
@@ -456,8 +531,16 @@ def english_is_complete() -> None:
                                                  flags=re.S)).strip()
     geom_same = (strip(outs["svg"]).split("viewBox")[1].split(">")[1:]
                  == strip(svg_en).split("viewBox")[1].split(">")[1:])
-    check("SVG geometry untouched", geom_same,
-          "every path identical apart from the canvas height")
+    # X compared against a transform of X: green whenever the transform is
+    # the IDENTITY, i.e. when nothing is translated at all. Measured: with
+    # i18n.svg() made to return its argument this line stayed green. So the
+    # two documents must be shown to differ where they are supposed to.
+    check("SVG geometry untouched",
+          geom_same and svg_en != outs["svg"] and "back bodice" in svg_en,
+          f"every path identical apart from the canvas height; the two "
+          f"documents do differ in their text "
+          f"({len(svg_en) - len(outs['svg'])} chars) and the English one "
+          f"says 'back bodice'")
 
 
 # ---------------------------------------------------------------------------
@@ -608,7 +691,11 @@ def no_dependencies() -> None:
     # Parsed, not grepped. A line-based scan reads the import examples inside
     # docstrings as imports, and misreads `from . import x` — which is the
     # package talking to itself — as a third party.
-    for path in (ROOT / "photoloset").glob("*.py"):
+    # The glob's SIZE is asserted below: a scan that covers zero files finds
+    # zero third-party imports and used to report "standard library only".
+    # Measured: globbing "*.pyx" instead left this line green.
+    scanned = sorted((ROOT / "photoloset").glob("*.py"))
+    for path in scanned:
         tree = ast.parse(path.read_text(encoding="utf-8"))
         for node in ast.walk(tree):
             if isinstance(node, ast.ImportFrom):
@@ -621,8 +708,11 @@ def no_dependencies() -> None:
                 continue
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
-    check("no third-party imports", not third_party,
-          f"{len(third_party)} found" if third_party else "standard library only")
+    check("no third-party imports",
+          len(scanned) == 26 and not third_party,
+          f"{len(scanned)} modules parsed, "
+          + (f"{len(third_party)} found" if third_party
+             else "standard library only"))
     for t in sorted(third_party):
         print(f"        {t}")
 
@@ -635,7 +725,8 @@ def no_dependencies() -> None:
           'a fifth face is refused',
           'conflicting declarations go contested',
           'placement does not move answers',
-          'round trip moves nothing')
+          'round trip moves nothing',
+          'the whole declaration is served from the cross')
 def the_block_lives_on_the_cross() -> None:
     """The coat's declaration lives on the stereo cross, not in files.
 
@@ -866,10 +957,112 @@ def the_block_lives_on_the_cross() -> None:
         b = coat()
         rt = cross.CrossStore.from_dict(
             _json.loads(_json.dumps(b.store.to_dict())))
+        # `BlockView(rt, root).dump() == b.dump()` is the same method on two
+        # receivers: whatever one side drops, the other drops too. Measured:
+        # deleting `"formulas": self.formulas(),` from served() — the served
+        # declaration silently stops carrying its 17 formulas — left the
+        # whole suite green, and `dump()` returning "" passed as well. So
+        # the SHAPE of what is round-tripped is pinned here, in the same
+        # condition, against literals.
+        served = b.served()
         check("round trip moves nothing",
-              blk.BlockView(rt, b.root).dump() == b.dump()
+              sorted(served) == ["formulas", "label", "params", "pieces",
+                                 "placement", "required", "seam_edges",
+                                 "seams", "settings", "sleeve_required"]
+              and len(served["formulas"]) == 17
+              and len(served["seams"]) == 5
+              and served["seam_edges"] == 4
+              and len(b.dump()) > 2000
+              and blk.BlockView(rt, b.root).dump() == b.dump()
               and rt.load_verdict["verdict"] == "ANSWER",
-              "the served declaration is byte-equal after storage round trip")
+              f'the served declaration is byte-equal after a storage round '
+              f'trip, and it is {len(sorted(served))} sections carrying '
+              f'{len(served["formulas"])} formulas, {len(served["seams"])} '
+              f'seams and {served["seam_edges"]} seam edges — '
+              f'{len(b.dump())} characters of dump, pinned here so a '
+              f'section going missing cannot drop out of both sides at once')
+
+    with guard('the whole declaration is served from the cross'):
+        # #8/#9 again, for the four readers no check pinned to a literal:
+        # label(), placement(), sleeve_required() and arm_census(). Measured
+        # on head: placement() replaced with a frozen dict — it stops
+        # reading the store entirely — kept all 81 checks green, and under
+        # that bypass the SKIRT was served the coat's sleeve placement
+        # (garment_skirt.py calls view.placement()). label() froze the same
+        # way. Each is pinned as a literal here AND has to track the store.
+        b = coat()
+        st_p, root_p = blk.ingest()
+        v_p = blk.BlockView(st_p, root_p)
+        st_p.put(blk.piece_core(root_p, "袖"), "placement:試しの位置",
+                 {"value": (1.0, 2.0, 3.0)}, "specific", "declaration:probe")
+        grew_p = v_p.placement()
+        fewer = _copy.deepcopy(blk.COAT_DECLARATION)
+        fewer["name"] = "coat_flat"
+        fewer["placement"] = {k: v for k, v in fewer["placement"].items()
+                              if k != "袖"}
+        fewer["pieces"] = [pc for pc in fewer["pieces"] if pc[0] != "袖"]
+        fewer["seams"] = [sm for sm in fewer["seams"]
+                          if "袖" not in _seam_label(
+                              sm if isinstance(sm, dict) else {"a": sm[0],
+                                                               "b": sm[1]})]
+        st_q, root_q = blk.ingest(decl=fewer)
+        shrank_p = blk.BlockView(st_q, root_q).placement()
+        # ...and a Block serves only what ITS OWN root declared: the skirt
+        # must not be handed the coat's pieces or the coat's params.
+        import photoloset.assemble as _asm
+        skirt_decl = _asm.assemble({"silhouette": "Aライン",
+                                    "closure": "ゴムウエスト（開き無し）",
+                                    "waist_finish": "シャーリング"})
+        st_s2, root_s2 = blk.ingest(decl=skirt_decl["declaration"],
+                                    formulas=skirt_decl["declaration"]
+                                    ["formulas"])
+        v_s2 = blk.BlockView(st_s2, root_s2)
+        skirt_served = v_s2.served()
+        # ...and the label has to TRACK the store: pinning it against the
+        # literal alone is satisfied by a reader frozen to that literal,
+        # which is the shape of #8/#9 (measured: label() answering from
+        # COAT_DECLARATION for root "block:coat" kept all 81 checks green).
+        # Same root name, different declared label.
+        relabelled = _copy.deepcopy(blk.COAT_DECLARATION)
+        relabelled["label"] = "試しのコート（差し替えた名乗り）"
+        st_l, root_l = blk.ingest(decl=relabelled)
+        other_label = blk.BlockView(st_l, root_l).label()
+        check("the whole declaration is served from the cross",
+              b.label() == "三枚コート（前身頃・後身頃・袖）"
+              and root_l == b.root
+              and other_label == "試しのコート（差し替えた名乗り）"
+              and b.placement() == {"前身頃": (0.0, 0.0, 12.0),
+                                    "後身頃": (0.0, 0.0, -12.0),
+                                    "袖": (34.0, 0.0, 0.0)}
+              and b.sleeve_required() == ("sleeve_length",)
+              and b.required() == ("body_length", "chest", "shoulder")
+              and b.arm_census()["kind-"] == 17
+              and b.arm_census()["cause+"] == 10
+              and b.arm_census()["support+"] == 0
+              and b.params()["half_divisor"] == 4.0
+              and b.params()["cap_height_ratio"] == 0.78
+              and len(b.params()) == 20
+              and b.settings()["grain_angle_deg"] == 90.0
+              and b.settings()["pins_policy"] == "front_only_hanging"
+              and len(b.settings()) == 3
+              and len(grew_p) == 4 and grew_p["試しの位置"] == (1.0, 2.0, 3.0)
+              and len(shrank_p) == 2 and "袖" not in shrank_p
+              and sorted(skirt_served["pieces"]) == ["前身頃", "後身頃"]
+              and sorted(skirt_served["params"]) == [
+                  "flare_ratio", "hip_depth", "hip_ease",
+                  "waist_ease_per_panel"]
+              and skirt_served["placement"] == v_s2.placement()
+              and "袖" not in skirt_served["placement"],
+              f'label, placement, sleeve_required and the arm census are '
+              f'pinned as literals here, not read off the drafting modules '
+              f'(a second declaration under the SAME root name serves '
+              f'{other_label!r}, so a reader frozen to the coat\'s label is '
+              f'caught); '
+              f'writing one `placement:` seat makes the served map '
+              f'{len(grew_p)}, dropping the sleeve declaration makes it '
+              f'{len(shrank_p)}; and a SKIRT block serves its own '
+              f'{len(skirt_served["pieces"])} pieces and its own '
+              f'{len(skirt_served["params"])} params — not the coat\'s')
 
 
 # ---------------------------------------------------------------------------
@@ -904,14 +1097,19 @@ def the_arms_carry_meaning() -> None:
                 "edges": []}
         bad = cross.CrossStore.from_dict(liar)
         honest = b.store.verify()
+        # `all(...)` over the coat's seats is vacuously TRUE on an empty
+        # store, so the number of seats it walked is asserted here rather
+        # than assumed — the shape that hid the sixth tautology.
+        walked = [s for seats in b.store.cores.values() for s in seats]
         every = all(s["arm"] == cross.KIND_ARM[s["values"][0]["kind"]]
-                    for seats in b.store.cores.values() for s in seats)
+                    for s in walked)
         check("arms are derived, not chosen",
               bad.load_verdict["verdict"] == cross.ARM_NOT_DERIVED
-              and honest["verdict"] == "ANSWER" and every,
+              and honest["verdict"] == "ANSWER"
+              and len(walked) == 56 and every,
               f'a seat claiming kind+ while its claim is `specific` loads as '
-              f'{bad.load_verdict["verdict"]}; all {honest["seats"]} coat seats '
-              'derive')
+              f'{bad.load_verdict["verdict"]}; all {len(walked)} coat seats '
+              f'walked here (census says {honest["seats"]}) derive')
 
     with guard('support- is never written, only emerges'):
         # --- support- is unwritable, and emerges ----------------------------
@@ -979,18 +1177,32 @@ def the_arms_carry_meaning() -> None:
         # --- a generic claim must be bought ---------------------------------
         lib = parts.Library()
         unbought = lib.unbought_generics()
+        # ...and families() must TRACK the store, not answer from a list it
+        # carries: a reader frozen to the right literal is the shape of #8
+        # and #9. One more family declared into a fresh store has to appear.
+        grown_lib = parts.Library()
+        gcore = parts.family_core("裾線")
+        grown_lib.store.put(gcore, "family", {"open": True}, "generic",
+                            "library:probe")
+        grown_lib.store.link((gcore, ""), (parts.ROOT, ""), "part_of")
+        grown_families = grown_lib.families()
         bought = cross.CrossStore()
         bought.put("p:s", "family", {"open": True}, "generic", "文化ファッション大系")
         bought.put("p:s", "family", {"open": True}, "generic", "文化服装学院")
         check("a generic claim needs two sources",
-              len(unbought) == 3
+              lib.families() == ["silhouette", "closure", "waist_finish"]
+              and grown_families == ["silhouette", "closure", "waist_finish",
+                                     "裾線"]
+              and len(unbought) == 3
               and all(u["verdict"] == cross.GENERIC_NOT_BOUGHT
                       for u in unbought)
               and bought.unbought_generics() == []
               and b.store.unbought_generics() == [],
-              f'{len(unbought)} family claims rest on the library alone; a '
-              'second independent source clears one; the coat has no generic '
-              'claims at all')
+              f'{len(unbought)} family claims — {lib.families()}, read from '
+              f'the store and pinned here as literals — rest on the library '
+              f'alone; declaring one more family makes the reader answer '
+              f'{grown_families}; a second independent source clears one; '
+              f'the coat has no generic claims at all')
 
     with guard('a seat carries every kind that reached it'):
         # --- #1: there is no single seat arm, so nobody can choose one -----
@@ -1085,7 +1297,12 @@ def the_arms_carry_meaning() -> None:
           'the quarantine core obeys the same law',
           'a fourth piece and a fifth measurement are declarable',
           'an undeclared subject does not swallow the seat',
-          'param refuses across subjects')
+          'param refuses across subjects',
+          'a proposal stays quarantined',
+          'an anonymous source buys nothing',
+          'the store refuses what it cannot persist',
+          'a generic claim is priced by its own kind',
+          'the budget arm is reported, never hidden')
 def the_cross_refuses_what_it_should() -> None:
     """Each refusal, with the store that provokes it.
 
@@ -1099,6 +1316,7 @@ def the_cross_refuses_what_it_should() -> None:
         # scope, so a regressed store raises on IMPORT and every guarded
         # line below would vanish instead of going red.
         import copy as _copy
+        import json as _json
 
         from photoloset import block as blk, cross
 
@@ -1530,19 +1748,68 @@ def the_cross_refuses_what_it_should() -> None:
              "values": [{"value": i, "kind": "proposed", "sources": ["s"]}]}
             for i in range(cross.CAPACITY_PER_CORE + 1)]}, "edges": []})
         cen_q = q.census()
+        # The law was enforced per ARM (4) and per QUARANTINE (24), and
+        # nothing ever compared a core's TOTAL. A core that holds both kinds
+        # of seat therefore ran to 20 armed + 24 quarantined = 44 while
+        # `over_capacity` stayed empty and verify() said ANSWER. Measured
+        # here from both ends: the writer refuses the 25th seat of ANY kind,
+        # and a hand-written 25-seat mixed core loads as OVER_CAPACITY.
+        # A core NAMED as quarantine takes armed writes too — that is how
+        # the 44-seat core was built — so this is where the total is
+        # measured: 5 writable arms x 4 faces = 20 armed seats, then
+        # proposals fill it to exactly 24, then the next seat of ANY kind
+        # is refused because the core itself is full.
+        mixed = cross.CrossStore()
+        for i in range(cross.FACES_PER_ARM):
+            for kind in ("measured", "derived", "feeds", "specific",
+                         "generic"):
+                mixed.put_strict("m#proposed", f"{kind}{i}", float(i), kind,
+                                 "a source")
+        mixed_seats = len(mixed.cores["m#proposed"])
+        spill = [mixed.put_strict("m#proposed", f"extra{i}", float(i),
+                                  "proposed", "said")["verdict"]
+                 for i in range(5)]
+        # 20 armed seats (4 on each of the 5 writable arms) + 5 quarantined
+        # = 25. Every per-arm budget is legal and the quarantine budget is
+        # legal; ONLY the core's own total is broken, so nothing but the
+        # total rule can catch this store.
+        legal_arms = [(k, cross.KIND_ARM[k]) for k in
+                      ("measured", "derived", "feeds", "specific", "generic")]
+        loaded_mixed = cross.CrossStore.from_dict({"cores": {"m": (
+            [{"key": f"{kind}{i}", "arm": arm, "seq": 100 + i,
+              "values": [{"value": float(i), "kind": kind,
+                          "sources": ["a source"]}]}
+             for kind, arm in legal_arms
+             for i in range(cross.FACES_PER_ARM)]
+            + [{"key": f"p{i}", "arm": None, "seq": 200 + i,
+                "values": [{"value": i, "kind": "proposed",
+                            "sources": ["said"]}]}
+               for i in range(5)])}, "edges": []})
         check("the quarantine core obeys the same law",
               max(sizes) <= cross.CAPACITY_PER_CORE and sum(sizes) == 100
               and refused["verdict"] == cross.ARM_FULL
               and hand.load_verdict["verdict"] == cross.OVER_CAPACITY
-              and hand.census()["over_capacity"] == [("z#proposed", None, 25)]
+              and hand.census()["over_capacity"] == [
+                  ("z#proposed", None, 25), ("z#proposed", "total", 25)]
               and cen_q["over_capacity"] == []
-              and sum(cen_q["quarantined"].values()) == 100,
+              and sum(cen_q["quarantined"].values()) == 100
+              # ...and the same 24 counted over the WHOLE core, not per arm.
+              and mixed_seats == 20
+              and spill == ["ANSWER"] * 4 + [cross.ARM_FULL]
+              and len(mixed.cores["m#proposed"]) == cross.CAPACITY_PER_CORE
+              and mixed.census()["over_capacity"] == []
+              and loaded_mixed.load_verdict["verdict"] == cross.OVER_CAPACITY
+              and ("m", "total", 25) in loaded_mixed.census()["over_capacity"],
               f'100 proposals nest into {len(sizes)} cores of {sizes} rather '
               f'than one core of 100; the strict writer refuses the 25th '
               f'({refused["verdict"]}); a hand-written 25-seat quarantine '
               f'core loads as {hand.load_verdict["verdict"]} and census() '
               f'names all {sum(cen_q["quarantined"].values())} quarantined '
-              'seats so the exemption cannot be silent')
+              f'seats so the exemption cannot be silent; a core holding '
+              f'{mixed_seats} armed seats takes 4 proposals and then refuses '
+              f'the 25th seat of ANY kind ({spill[-1]}) because 1 core = 24 '
+              f'seats counts every seat, and a 25-seat mixed core loads as '
+              f'{loaded_mixed.load_verdict["verdict"]}')
 
     with guard('a fourth piece and a fifth measurement are declarable'):
         # --- P8: the declaration can grow -----------------------------------
@@ -1595,7 +1862,7 @@ def the_cross_refuses_what_it_should() -> None:
             readable = str(e).split(":")[0]
         check("an undeclared subject does not swallow the seat",
               readable == 4.0
-              and not stranded
+              and len(st8.cores) == 10 and not stranded
               and len(ref) == 1 and ref[0]["verdict"] == blk.NO_SUCH_SUBJECT
               and ref[0]["key"] == "param:half_divisor"
               and not b.refusals(),
@@ -1604,7 +1871,7 @@ def the_cross_refuses_what_it_should() -> None:
               f'refused by nobody. It now seats on the root (reads back '
               f'{readable}) and says '
               f'{ref[0]["verdict"] if ref else "nothing"}; '
-              f'{len(stranded)} stranded cores')
+              f'{len(stranded)} stranded cores of {len(st8.cores)} scanned)')
 
     with guard('param refuses across subjects'):
         # --- the new hazard the reshaping creates ---------------------------
@@ -1624,6 +1891,248 @@ def the_cross_refuses_what_it_should() -> None:
               'block:coat says 4.0 and block:coat/piece:袖 says 3.0 — two '
               'DIFFERENT addresses, so contested() is correctly silent, and '
               f'a naive search would return whichever it met first ({picked})')
+
+    with guard('a proposal stays quarantined'):
+        # --- #5 residual: the write-back path, and the substring test ------
+        # put() handed back "q#proposed" and then computed the split home as
+        # "q#proposed#proposed" — a core NOBODY EVER CREATED. The nest link
+        # was refused (one end missing), the children floated free, and the
+        # writer was told ANSWER twice for two contradictory values at one
+        # address while the reader was told the address does not exist.
+        w = cross.CrossStore()
+        home = w.put("q", "p0", 0, "proposed", "someone said")["core"]
+        for i in range(1, 30):
+            w.put(home, f"p{i}", i, "proposed", "someone said")
+        nests = sum(1 for e in w.edges if e["label"] == "nest")
+        a = w.put(home, "hem_length", 88.0, "proposed", "the tailor")
+        rival = w.put(home, "hem_length", 999.0, "proposed", "the catalogue")
+        # ...and a core whose name merely CONTAINS the marker is not
+        # quarantine: a rumour written there must not contest a measurement.
+        look = "review#proposed-revisions"
+        n = cross.CrossStore()
+        n.put(look, "measure:chest", 108.0, "measured", "tape")
+        rumour = n.put(look, "measure:chest", 999.0, "proposed",
+                       "a rumour in the studio")
+        # ...and a split child whose parent was never created is an orphan,
+        # which is what made the write-back damage invisible to verify().
+        lost = cross.CrossStore.from_dict({"cores": {
+            "ghost·proposed·1": [
+                {"key": "k", "arm": None, "seq": 1,
+                 "values": [{"value": 1, "kind": "proposed",
+                             "sources": ["s"]}]}]}, "edges": []})
+        # ...and a split that cannot be linked must not report ANSWER.
+        class _NoLink(cross.CrossStore):
+            def link(self, a, b, label, value=None):
+                return {"verdict": cross.DANGLING_EDGE, "why": ["refused"],
+                        "stored": False}
+        nl = _NoLink()
+        for i in range(cross.FACES_PER_ARM):
+            nl.put_strict("c", f"k{i}", float(i), "specific", "s")
+        spilled = nl.put("c", "k9", 9.0, "specific", "s")
+        check("a proposal stays quarantined",
+              home == "q#proposed"
+              and sorted(w.cores) == ["q#proposed", "q#proposed·proposed·1"]
+              and nests == 1
+              and w.verify()["verdict"] == "ANSWER"
+              and rival["verdict"] == cross.CONTESTED_IN_CROSS
+              and len(w.contested()) == 1
+              and w.resolve(home, "hem_length")["verdict"]
+              == cross.CONTESTED_IN_CROSS
+              and not cross._is_quarantine(look)
+              and not cross._is_quarantine("notes#proposedX")
+              and cross._is_quarantine("q#proposed")
+              and cross._is_quarantine("q#proposed·proposed·1")
+              and rumour["core"] == look + "#proposed"
+              and n.contested() == []
+              and n.resolve(look, "measure:chest")["verdict"] == "ANSWER"
+              and lost.load_verdict["verdict"] == cross.ORPHANED_CORE
+              and spilled["verdict"] == cross.DANGLING_EDGE
+              and "c·kind-·1" not in nl.cores,
+              f'30 proposals written back to the core put() itself returned '
+              f'nest into {sorted(w.cores)} with {nests} nest edge — not a '
+              f'"{home}#proposed" nobody created — so two rival hems at one '
+              f'address answer {rival["verdict"]} instead of two ANSWERs the '
+              f'reader cannot see; a core merely NAMED {look!r} is not '
+              f'quarantine, so a rumour is isolated in '
+              f'{rumour["core"]!r} and the measurement still reads '
+              f'{n.resolve(look, "measure:chest")["verdict"]}; a child whose '
+              f'parent was never created loads as '
+              f'{lost.load_verdict["verdict"]}; a split whose nest link is '
+              f'refused answers {spilled["verdict"]} and seats nothing')
+
+    with guard('an anonymous source buys nothing'):
+        # --- #0 residual: "" was counted as one of the two sources ---------
+        an = cross.CrossStore()
+        blank = an.put("c", "k", "wrap fronts cross right over left",
+                       "generic")
+        after_blank = len(an.cores)
+        named = an.put("c", "k", "wrap fronts cross right over left",
+                       "generic", "a textbook")
+        # ...and trivial respellings of ONE witness are not two witnesses.
+        sp = cross.CrossStore()
+        sp.put("c", "k", 1, "generic", "Bunka Fashion College, 1999")
+        sp.put("c", "k", 1, "generic", " bunka fashion college,  1999 ")
+        second = sp.put("c", "k", 1, "generic", "the tailor's own sheet")
+        # ...a blank source on a claim that is NOT generic still stores; the
+        # gate priced here is GENERIC_MIN_SOURCES, not authorship.
+        # ...and a store LOADED from JSON can still carry a blank source,
+        # which is the path the writer's refusal cannot cover: the price is
+        # counted from the named sources only.
+        loaded_blank = cross.CrossStore.from_dict({"cores": {"c": [
+            {"key": "k", "arm": "kind+", "seq": 1,
+             "values": [{"value": 1, "kind": "generic",
+                         "sources": ["", "", "a textbook"]}]}]},
+            "edges": []})
+        sk = cross.CrossStore()
+        specific = sk.put("c", "k", 1, "specific", "")
+        check("an anonymous source buys nothing",
+              blank["verdict"] == cross.UNNAMED_SOURCE
+              and blank["stored"] is False
+              and after_blank == 0
+              and named["verdict"] == "ANSWER"
+              and [g["weight"] for g in an.unbought_generics()] == [1]
+              and an.resolve("c", "k")["weight"] == 1
+              and sp.resolve("c", "k")["weight"] == 2
+              and second["verdict"] == "ANSWER"
+              and sp.unbought_generics() == []
+              and len(sp.cores["c"][0]["values"][0]["sources"]) == 2
+              and [g["weight"] for g in loaded_blank.unbought_generics()]
+              == [1]
+              and loaded_blank.resolve("c", "k")["weight"] == 1
+              and specific["verdict"] == "ANSWER",
+              f'a generic claim with no source is {blank["verdict"]} and '
+              f'stores nothing ({after_blank} cores), so one named source '
+              f'leaves it unbought at weight '
+              f'{[g["weight"] for g in an.unbought_generics()]}; four '
+              f'spellings of one witness count '
+              f'{len(sp.cores["c"][0]["values"][0]["sources"])} and a real '
+              f'second source buys it; a loaded store whose generic claim '
+              f'lists ["", "", "a textbook"] is still unbought at weight '
+              f'{[g["weight"] for g in loaded_blank.unbought_generics()]}; '
+              f'a blank source on a `specific` claim is still '
+              f'{specific["verdict"]}')
+
+    with guard('the store refuses what it cannot persist'):
+        # --- #4/#5 residual: repr() is not identity, and set never
+        # round-trips through the JSON this store says it saves in.
+        class _Length:
+            def __init__(self, n, unit):
+                self.n, self.unit = n, unit
+
+            def __repr__(self):
+                return f"Length({self.n})"
+
+        keep = cross.CrossStore()
+        cm = keep.put("c", "measure:chest", _Length(108, "cm"), "measured",
+                      "the tailor (cm)")
+        inch = keep.put("c", "measure:chest", _Length(108, "in"), "measured",
+                        "the catalogue (inches)")
+        kinds = {name: keep.put("c", f"k:{name}", v, "measured", "x")["verdict"]
+                 for name, v in (("set", {1, 2}),
+                                 ("frozenset", frozenset({1, 2})),
+                                 ("bytes", b"108"),
+                                 ("int-keyed dict", {1: "a"}),
+                                 ("nested", {"a": [1, {2: "b"}]}))}
+        ok_kinds = {name: keep.put("c", f"ok:{name}", v, "measured",
+                                   "x")["verdict"]
+                    for name, v in (("tuple", (0.0, 1.0, 2.0)),
+                                    ("float", 108.0), ("bool", True),
+                                    ("none", None),
+                                    ("dict", {"required": True}))}
+        try:
+            _json.dumps(keep.to_dict())
+            persists = True
+        except TypeError:
+            persists = False
+        loaded = cross.CrossStore.from_dict({"cores": {"c": [
+            {"key": "k", "arm": "support+", "seq": 1,
+             "values": [{"value": {1: "a"}, "kind": "measured",
+                         "sources": ["x"]}]}]}, "edges": []})
+        check("the store refuses what it cannot persist",
+              cm["verdict"] == cross.UNIDENTIFIABLE_VALUE
+              and inch["verdict"] == cross.UNIDENTIFIABLE_VALUE
+              and set(kinds.values()) == {cross.UNIDENTIFIABLE_VALUE}
+              and set(ok_kinds.values()) == {"ANSWER"}
+              and persists
+              and loaded.load_verdict["verdict"]
+              == cross.UNIDENTIFIABLE_VALUE,
+              f'two Length objects whose repr is the same string — '
+              f'Length(108, "cm") and Length(108, "in") — are '
+              f'{cm["verdict"]} at the writer rather than one merged '
+              f'ANSWER of weight 2 carrying whichever unit arrived first; '
+              f'{len(kinds)} shapes the JSON form cannot hold are refused '
+              f'and {len(ok_kinds)} that it can are seated, so '
+              f'json.dumps(to_dict()) holds ({persists}); a hand-written '
+              f'store carrying one loads as {loaded.load_verdict["verdict"]}')
+
+    with guard('a generic claim is priced by its own kind'):
+        # --- #0 residual: the GATE was not fooled, the READ was ------------
+        pr = cross.CrossStore()
+        pr.put("c", "k", 1, "generic", "a textbook")
+        pr.put("c", "k", 1, "specific", "this coat's own sheet")
+        r = pr.resolve("c", "k")
+        check("a generic claim is priced by its own kind",
+              r["weight"] == 2
+              and r["weight_by_kind"] == {"generic": 1, "specific": 1}
+              and [g["weight"] for g in pr.unbought_generics()] == [1]
+              and sorted(r["kinds"]) == ["generic", "specific"],
+              f'one generic source plus one specific source reads as weight '
+              f'{r["weight"]} across kinds, but the number '
+              f'GENERIC_MIN_SOURCES prices is now beside it — '
+              f'{r["weight_by_kind"]} — and matches what the gate says '
+              f'({[g["weight"] for g in pr.unbought_generics()]})')
+
+    with guard('the budget arm is reported, never hidden'):
+        # --- #1 residual: WHO PAYS THE FACE IS STILL THE WRITER'S ORDER ----
+        # This check does not decide the question — it holds the store to
+        # SAYING SO. The three ways out are written into cross._arm_load and
+        # into README.md; whichever is chosen, this check changes with it.
+        bud = cross.CrossStore()
+        for i in range(cross.FACES_PER_ARM):
+            bud.put_strict("c", f"k{i}", float(i), "measured", "tape")
+        direct = bud.put_strict("c", "k5", 99.0, "measured", "tape")
+        first = bud.put_strict("c", "k5", 99.0, "derived", "the formula")
+        second = bud.put_strict("c", "k5", 99.0, "measured", "tape")
+        cen = bud.census()
+        plan = [("m", "measure:chest", 108.0, "measured", "tape"),
+                ("m", "measure:chest", 108.0, "derived", "chest / 4 x 4")]
+        drift = cross.ingest_order_check(plan, nest=True)
+        coat_cen = b.store.census()
+        check("the budget arm is reported, never hidden",
+              direct["verdict"] == cross.ARM_FULL
+              and first["verdict"] == "ANSWER"
+              and second["state"] == "second_kind"
+              and second["charged_arm"] == "cause+"
+              and second["uncharged"]["uncharged_arm"] == "support+"
+              and second["uncharged"]["would_overflow"] is True
+              and cen["budget_arm_rule"] == "first_kind_seated"
+              and len(cen["two_kind_addresses"]) == 1
+              and len(cen["uncharged"]) == 1
+              and cen["arms_present"]["support+"] == 5
+              and cen["arms"]["support+"] == 4
+              and drift["verdict"] == cross.ORDER_DEPENDENT
+              and drift["budget_arm_differences"] == 2
+              # ...and the coat has no such address, which is why the
+              # question is open rather than urgent.
+              and coat_cen["two_kind_addresses"] == []
+              and coat_cen["uncharged"] == [],
+              f'a support+ claim REFUSED directly ({direct["verdict"]}) is '
+              f'accepted as a second kind on a seat opened by cause+ '
+              f'({second["state"]}), so support+ shows '
+              f'{cen["arms_present"]["support+"]} present against '
+              f'{cen["arms"]["support+"]} charged; the store now says which '
+              f'arm paid ({second["charged_arm"]}), which one rode free '
+              f'({second["uncharged"]["uncharged_arm"]}, already full: '
+              f'{second["uncharged"]["would_overflow"]}) and how many '
+              f'addresses this touches ({len(cen["two_kind_addresses"])}); '
+              f'ingest_order_check calls the same plan '
+              f'{drift["verdict"]} with {drift["budget_arm_differences"]} of '
+              f'{len(drift["differences"])} differences being the budget arm '
+              f'alone. THE COAT HAS {len(coat_cen["two_kind_addresses"])} '
+              f'two-kind addresses, so no answer moves today — the choice '
+              f'among (a) canonical ARMS order, (b) charge every arm, '
+              f'(c) refuse the second kind is the owner\'s, and cross.py '
+              f'_arm_load says what each one costs')
 
 
 # ---------------------------------------------------------------------------
@@ -1678,13 +2187,21 @@ def parts_assemble_a_second_garment() -> None:
 
     m = garment_marks.apply(d)
     n_notches = sum(len(v) for v in m.get("notches", {}).values())
-    sa_ok = all(v.get("verdict") == "ANSWER"
-                for v in m.get("seam_allowance", {}).values())
+    # `all()` over a dict that can be empty, with the count in the DETAIL
+    # instead of the condition: deleting the line that records an allowance
+    # made `seam_allowance` come back {} for every piece and this line
+    # stayed green. The count is asserted here now.
+    sa = list(m.get("seam_allowance", {}).values())
+    # The quantifier sits in the condition beside its own count: hoisting it
+    # into a local one line above is exactly how the previous sweep missed
+    # this clause — it read the expression PASSED to check() and saw a bare
+    # name.
     check("skirt marks pair and face outward",
           n_notches == 4 and len(m["notch_pairs"]) == 2
-          and not m["notch_unpaired"] and sa_ok,
+          and not m["notch_unpaired"] and len(sa) == 2
+          and all(v.get("verdict") == "ANSWER" for v in sa),
           f'{n_notches} notches, {len(m["notch_pairs"])} pairs, '
-          f'{len(m["notch_unpaired"])} unpaired')
+          f'{len(m["notch_unpaired"])} unpaired, {len(sa)} pieces offset')
 
     built = garment_sew.build(d, marks=m)
     mat = {"verdict": "ANSWER", "fabric": "twill", "gsm": 280.0,
@@ -1719,10 +2236,38 @@ def prompts_switch_per_model_and_keep_discipline() -> None:
           f'inherits it ({sibling["matched"]}); an unknown family '
           f'falls back to default ({stranger["version"]})')
 
-    missing = [c[:12] for c in prompts.DISCIPLINE
-               if c[:12] not in qwen["text"]]
-    check("discipline is inside every prompt", not missing,
-          f'{len(prompts.DISCIPLINE)} clauses embedded')
+    # The name quantifies over PROMPTS; the condition read one prompt —
+    # qwen's — and the clause count sat in the detail. Measured: replacing
+    # the DEFAULT profile's text with "Describe the garment as JSON." left
+    # this green, and so did emptying DISCIPLINE to () (`not []` over an
+    # empty tuple is vacuously true). Every registered profile plus the
+    # fallback is checked here, and the number of clauses is pinned.
+    # Every profile that INSTRUCTS a model (role "center"), plus the
+    # fallback every unregistered model gets. A "parallel" profile carries a
+    # query bank and no instruction text — it is listed here as having no
+    # text rather than quietly skipped, because a silent skip is how the
+    # single-prompt version of this check missed the default entirely.
+    centers = sorted(mid for mid, v in prompts._PROMPTS.items()
+                     if v.get("role") == "center")
+    textless = sorted(mid for mid, v in prompts._PROMPTS.items()
+                      if not v.get("text"))
+    prompt_ids = centers + ["openai:unknown"]
+    missing = [(mid, c[:12]) for mid in prompt_ids
+               for c in prompts.DISCIPLINE
+               if c[:12] not in (prompts.for_model(mid)["text"] or "")]
+    check("discipline is inside every prompt",
+          len(prompts.DISCIPLINE) == 4 and len(prompt_ids) >= 2
+          # Pinned as a literal rather than quantified: today exactly one
+          # registered profile carries no instruction text, and it is the
+          # siglip query bank. Another one appearing has to be stated in a
+          # diff instead of quietly dropping out of the sweep above.
+          and textless == ["siglip:marqo-fashionSigLIP"]
+          and not missing,
+          f'{len(prompts.DISCIPLINE)} clauses embedded in each of '
+          f'{len(prompt_ids)} instructing prompts ({", ".join(prompt_ids)}); '
+          f'{len(textless)} profile(s) carry no text and all of those are '
+          f'query banks (role "parallel")'
+          + (f' — MISSING {missing[:3]}' if missing else ''))
 
     from photoloset import parts as _pv
     bank = prompts.siglip_queries()
@@ -1850,21 +2395,34 @@ def compose_builds_a_whole_garment_from_parts() -> None:
           f'{len(open_ports)} open, e.g. {open_ports[:3]}')
 
     r = compose.compose(dress, ms)
-    bad = [c for c in r.get("seam_checks", []) if not c["sewable"]]
+    # `not bad` over `r.get("seam_checks", [])` is true when the scan found
+    # nothing AND when it covered nothing — a compose() that emits zero
+    # seam checks would pass. The piece count in the condition pins a
+    # different collection, so the seam checks are counted too.
+    seam_checks = r.get("seam_checks", [])
+    bad = [c for c in seam_checks if not c["sewable"]]
     check("cape dress composes from parts",
-          r["verdict"] == "ANSWER" and len(r["pieces"]) == 6 and not bad,
+          r["verdict"] == "ANSWER" and len(r["pieces"]) == 6
+          and len(seam_checks) == 10 and not bad,
           f'{len(r["pieces"])} pieces, {len(r["seam_specs"])} seams, '
-          f'{len(bad)} not sewable')
+          f'{len(seam_checks)} seam checks, {len(bad)} not sewable')
     check("the type name is only a label",
           r.get("label") == "ケープワンピース" and "ラベル" in
           r.get("kind_note", ""),
           "no registration happened — the label rides the combination")
 
     m = garment_marks.apply(r)
-    sa_ok = all(v.get("verdict") == "ANSWER"
-                for v in m.get("seam_allowance", {}).values())
-    check("allowances face outward on every part", sa_ok,
-          f'{len(m.get("seam_allowance", {}))} pieces offset')
+    # The name says EVERY PART and the condition named no part: `all()` over
+    # a dict that can be empty, with the piece count in the detail. Both are
+    # fixed — the parts are named here as literals and each one's allowance
+    # has to answer.
+    parts_offset = sorted(m.get("seam_allowance", {}))
+    sa = [m["seam_allowance"][name] for name in parts_offset]
+    check("allowances face outward on every part",
+          len(sa) == 6
+          and all(v.get("verdict") == "ANSWER" for v in sa)
+          and parts_offset == sorted(p["name"] for p in r["pieces"]),
+          f'{len(sa)} pieces offset: {parts_offset}')
 
     b = garment_sew.build(r, marks=m)
     mat = {"verdict": "ANSWER", "fabric": "wool melton", "gsm": 420.0,
@@ -1957,10 +2515,145 @@ def zones_number_the_garment_for_adjustment() -> None:
           f'worst {gap["worst"]} cm after adjustment')
 
     from photoloset import garment_pattern
-    coat = garment_pattern.draft(ms if False else Measures())
+    # `draft(ms if False else Measures())` drafts NOTHING: the dead
+    # conditional always takes the empty default, so `coat` was a refusal
+    # dict, and "zones" not in a refusal is true whatever the drafting code
+    # does. Measured: adding `"zones": [...]` to draft()'s ANSWER return —
+    # exactly the regression this line is named for — left the whole suite
+    # green; adding it to the REFUSAL return turned it red, which is where
+    # the check was really looking. So the coat is drafted for real, and
+    # the branch is pinned in the same condition.
+    coat_ms = Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        coat_ms.measured(spot, value, "cm", source="tape", by="ci")
+    coat = garment_pattern.draft(coat_ms)
     check("the coat has no zones (untouched path)",
-          "zones" not in coat,
-          "legacy drafting keeps its byte-identical shape")
+          coat["verdict"] == "ANSWER" and len(coat["pieces"]) == 3
+          and "zones" not in coat,
+          f'legacy drafting keeps its byte-identical shape: '
+          f'{coat["verdict"]}, {len(coat["pieces"])} pieces, '
+          f'{coat["total_area_cm2"]} cm2, no zones key')
+
+
+# ---------------------------------------------------------------------------
+#: **The checks that cannot fail, and why each one is allowed to stand.**
+#: ``tests/unfalsifiable.py`` reads every ``check()`` condition in this file
+#: and reports the shapes that make a line green no matter what the code
+#: does. This project shipped EIGHT of those in four separate passes, each
+#: found by somebody looking harder — a method that does not scale. So the
+#: sweep is a check of its own now, and the residue is enumerated here with
+#: the argument for keeping it. **A hit that is not on this list turns the
+#: suite red**, which is the whole point: the next one has to be argued in a
+#: diff rather than discovered in six months.
+KNOWN_UNFALSIFIABLE = [
+    ("T1", "round trip moves nothing", "borderline",
+     "Two calls of `.dump()` on two receivers IS the shape — but the same "
+     "condition now pins the served sections by name, the formula and seam "
+     "counts, and `len(b.dump()) > 2000` against literals, so a section "
+     "vanishing from served() cannot drop out of both sides unnoticed. The "
+     "tool downgrades it to borderline for exactly that reason. Falsifier: "
+     "'#17 served() quietly stops carrying the formulas'."),
+    ("T2", "a contest survives the matryoshka", "borderline",
+     "The any() is a FILTER inside a list comprehension, not the assertion, "
+     "and it is vacuously FALSE on empty — the direction that makes a check "
+     "fail rather than pass. The tool says so itself."),
+    ("T2", "equal is not the same observation", "borderline",
+     "Same shape, same safe direction: a vacuously FALSE any() inside a "
+     "comprehension. The genuine quantifier beside it, all(listed), carries "
+     "`len(listed) == 4` in the same condition."),
+    ("T4", "SVG geometry untouched", "real",
+     "The property IS 'this document and its translation have the same "
+     "geometry', so both sides necessarily grow from one source; no "
+     "rewriting removes that. What the shape warns about — the transform "
+     "silently becoming the identity — is covered in the same condition by "
+     "`svg_en != outs[\'svg\']` and `\'back bodice\' in svg_en`, and by "
+     "the falsifier 'i18n.svg() becomes the identity', which turns this "
+     "line red."),
+]
+
+
+def no_check_can_pass_by_construction() -> None:
+    """**A check that cannot fail is a defect, and the suite hunts them now.**
+
+    Eight of them shipped before anyone noticed, in four passes: 1, then 3,
+    then 5-6, then 7-8. Every pass someone looked harder and found more.
+    Looking harder is not a method — this is. ``tests/unfalsifiable.py``
+    reads the AST of every ``check()`` in this file and reports the shapes
+    that cannot go red; the residue is pinned in ``KNOWN_UNFALSIFIABLE``
+    with an argument each, and anything new fails here.
+
+    What it cannot see is printed by the tool itself and worth repeating:
+    it reads CONDITIONS, so a perfectly shaped check whose callee answers
+    from a cache is invisible to it, and so is a property nobody wrote a
+    check for at all.
+    """
+    sys.path.insert(0, str(ROOT / "tests"))
+    import unfalsifiable
+
+    out = unfalsifiable.scan(ROOT / "tests" / "run_checks.py",
+                             ROOT / "photoloset",
+                             ROOT / "tests" / "falsifiers.py")
+    hits = out.get("hits", [])
+    known = {(shape, name, conf) for shape, name, conf, _why
+             in KNOWN_UNFALSIFIABLE}
+    got = [(h["shape"], h["check"], h["confidence"]) for h in hits]
+    new_hits = [g for g in got if g not in known]
+    gone = [k for k in known if k not in got]
+    unpinned = out.get("unpinned_readers", [])
+    check("no check that cannot fail",
+          out.get("verdict") == "ANSWER"
+          and not out.get("unscanned")
+          and out.get("checks_with_a_condition", 0) >= 85
+          and len(known) == 4 and len(KNOWN_UNFALSIFIABLE) == 4
+          and len(got) == len(KNOWN_UNFALSIFIABLE)
+          and not new_hits and not gone
+          and not unpinned,
+          f'{out.get("checks_with_a_condition")} conditions swept, '
+          f'{len(hits)} hits — all {len(KNOWN_UNFALSIFIABLE)} of them on '
+          f'the record with a reason; {len(out.get("readers", []))} served '
+          f'readers, {len(unpinned)} of them pinned to nothing; '
+          f'{len(out.get("unscanned", []))} detectors refused'
+          + (f' — NEW {new_hits}' if new_hits else '')
+          + (f' — NO LONGER FIRING (delete it from the list) {gone}'
+             if gone else '')
+          + (f' — UNPINNED READERS {[r["method"] for r in unpinned]}'
+             if unpinned else ''))
+
+
+def the_falsifier_harness_reports_everything() -> None:
+    """**The mutation harness must not stop early either.**
+
+    ``tests/falsifiers.py`` proves each check can go red. It had the defect
+    it exists to find, one level up: a raise anywhere in its own loop ended
+    the sweep at mutation N, the rest neither ran nor were named, no summary
+    printed, and the file it had mutated was never restored — so anything
+    that did continue would have been scored against a poisoned tree.
+
+    ``--self-test`` runs the harness over three entries with a POISONED one
+    in the middle, twice: once raising before the file is read and once
+    raising inside the run, after the file is already mutated. It passes
+    only if the entries after the poison still ran and still went red, the
+    poison was named, the summary printed and the tree came back clean.
+    """
+    r = subprocess.run([sys.executable, "tests/falsifiers.py", "--self-test"],
+                       cwd=ROOT, capture_output=True, text=True, timeout=900)
+    passed = [l for l in r.stdout.splitlines() if l.startswith("  RED ")]
+    # The universal in the name is EVERY MUTATION, so the line names it: in
+    # both poisoned sweeps the harness has to say "ran 3 of 3" — the count
+    # that tells a short run from a complete one — and it has to restore
+    # every file it touched.
+    mutations_reported = [l for l in r.stdout.splitlines()
+                          if l.startswith("        entries named: 3 of 3")]
+    check("the falsifier harness reports every mutation",
+          r.returncode == 0 and len(passed) == 2
+          and len(mutations_reported) == 2
+          and "2/2 harness self-tests" in r.stdout,
+          f'{len(passed)}/2 poisoned sweeps still ran and reported every '
+          f'entry after the raise ({len(mutations_reported)}/2 said "3 of 3"'
+          f'), restored the tree and printed the summary '
+          f'(exit {r.returncode})'
+          + ("" if r.returncode == 0 else f" — {r.stdout[-200:]}"))
 
 
 # ---------------------------------------------------------------------------
@@ -1997,6 +2690,8 @@ if __name__ == "__main__":
                compose_builds_a_whole_garment_from_parts,
                zones_number_the_garment_for_adjustment,
                the_mcp_server_answers,
+               no_check_can_pass_by_construction,
+               the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
         # A crash in shared setup must not take the REST OF THE SUITE with

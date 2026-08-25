@@ -213,6 +213,41 @@ RULES: List[Tuple[re.Pattern, Any]] = [
      lambda m: f"{'front' if m.group(1) == '前' else 'back'} pitch point: half "
                f"the armhole depth below the neckline (y={m.group(2)} cm), the "
                f"usual tailoring rule"),
+    # --- the cross store's own refusals ---------------------------------
+    # **A refusal a caller cannot read is the one string that most needs
+    # translating.** These were outside the table (67 untranslated across
+    # the newly load-bearing modules) while the README said 0; the refusal
+    # texts are in now, and README.md states what is still out of scope.
+    (re.compile(r"^(.+?) に (.+?) は載っていない$"),
+     lambda m: f"{m.group(1)} does not carry {m.group(2)}"),
+    (re.compile(r"^([ab]) の核 (.+?) は店に無い$"),
+     lambda m: f"the {m.group(1)} end names core {m.group(2)}, which is not "
+               f"in the store"),
+    (re.compile(r"^([ab])=(.+?) は \(core, key\) の形ではない$"),
+     lambda m: f"the {m.group(1)} end {m.group(2)} is not a (core, key) pair"),
+    (re.compile(r"^値(.*?): (\S+) は JSON で往復しない$"),
+     lambda m: f"value{m.group(1)}: {m.group(2)} does not survive the JSON "
+               f"round trip this store saves in"),
+    (re.compile(r"^(.+?)\{(.+?)\}: 鍵が文字列ではない \((.+?)\) — "
+                r"JSON の往復で文字列に化ける$"),
+     lambda m: f"{m.group(1)}[{m.group(2)}]: the key is not a string "
+               f"({m.group(3)}) — the JSON round trip turns it into one"),
+    (re.compile(r"^一般構造の主張に出典が無い。空の出典は(\d+)本のうちの"
+                r"1本に数えない$"),
+     lambda m: f"a general claim with no source: an empty source is not one "
+               f"of the {m.group(1)} it costs"),
+    (re.compile(r"^独立した出典を(\d+)本示すか、specific に落とす$"),
+     lambda m: f"name {m.group(1)} independent sources, or write it as "
+               f"`specific`"),
+    (re.compile(r"^(.+?)/(.+?) という候補はライブラリに無い$"),
+     lambda m: f"the library has no {m.group(1)} variant called "
+               f"{m.group(2)}"),
+    (re.compile(r"^(.+?)/(.+?) という候補は無い$"),
+     lambda m: f"there is no {m.group(1)} variant called {m.group(2)}"),
+    (re.compile(r"^スカート（(.+)）$"),
+     lambda m: "skirt ("
+               + " / ".join(string(part) for part in m.group(1).split("・"))
+               + ")"),
 ]
 
 
@@ -229,6 +264,108 @@ def _rule(s: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 SENTENCES: Dict[str, str] = {
+    # --- the parts catalogue: family variants, their notes, the labels ---
+    # These are OUTPUT a reader sees (assemble(), Library.variants(), the
+    # block label), so they are in the table. What is deliberately NOT in
+    # it is stated in README.md: store ADDRESSES (core names and seat keys
+    # in to_dict/write_plan/seats/seam_edges) and the prompt bank's text,
+    # which is written for the model, not for the reader.
+    "Aライン": "A-line",
+    "Aライン（裾に向かって広がる）": "A-line (flares towards the hem)",
+    "ストレート": "straight",
+    "ストレート（裾はほぼ真っ直ぐ）": "straight (an almost straight hem)",
+    "ゴムウエスト（開き無し）": "elastic waist (no opening)",
+    "ゴムウエスト。前後とも中心線は折り(わ)":
+        "elastic waist; both centre lines are folds",
+    "後ろセンターファスナー": "centre-back zip",
+    "後ろ中心に開きを入れる": "an opening at the centre back",
+    "ファスナー用の開き量と、開きを持つ縫い代の取り方はまだ引けない。"
+    "宣言だけ載せてある":
+        "the opening allowance for a zip, and the seam allowance around an "
+        "opening, cannot be drafted yet — only the declaration is on record",
+    "シャーリング": "shirring",
+    "ウエストに楽を持たせてゴムに寄せる":
+        "ease at the waist, gathered onto elastic",
+    "たて地。中心線と平行": "straight grain, parallel to the centre line",
+    "ウエスト線の左右の端を吊る。肩の無い服は肩で吊れない":
+        "hung from the two ends of the waistline — a garment with no "
+        "shoulders cannot hang from the shoulders",
+    "前は手前": "the front is nearer",
+    "後ろは奥": "the back is further",
+    "脇の中間に単合印。前後で対になる":
+        "a single notch at the mid side seam, paired front to back",
+    "既知の候補から選ぶ": "choose one of the known variants",
+    "三枚コート（前身頃・後身頃・袖）":
+        "three-piece coat (front bodice, back bodice, sleeve)",
+    # --- prose the store returns beside a verdict ------------------------
+    "配置が答えを決めているなら、それは宣言ではなく並びの産物":
+        "if placement decides the answer, the answer is a product of the "
+        "arrangement rather than of the declaration",
+    "格納順が答えを決めているなら、それは宣言ではなく並びの産物":
+        "if storage order decides the answer, the answer is a product of "
+        "the ordering rather than of the declaration",
+    "いま載っているものを入れ直しても答えが動かない、という後退よけです。"
+    "本物の順序検査は ingest_order_check":
+        "a regression guard: re-ingesting what is already stored does not "
+        "move any answer. The real order check is ingest_order_check",
+    "モデルの自己申告の数字は事実の欄に入らない(VM2)。"
+    "根拠は領域と複数観測の一致で示す":
+        "a model's self-reported number is not a fact (VM2); ground a claim "
+        "in the image region and in agreement between observations",
+    "該当キーを外して出し直させる": "drop that key and ask again",
+    # --- the cross store's refusals, and how to close them ---------------
+    "宣言に足す": "add it to the declaration",
+    "宣言に主張の種別を書く": "state the kind of claim in the declaration",
+    "出典を名乗るか、specific に落とす":
+        "name a source, or write the claim as `specific`",
+    "JSON で往復する形 (数・文字列・真偽・None・list・文字列鍵の dict) に直す":
+        "use a shape that survives the JSON round trip (number, string, "
+        "boolean, None, list, or a dict with string keys)",
+    "子コアに分ける (マトリョーシカは幾何が要求すること)":
+        "split into a child core (the matryoshka is required by the "
+        "geometry, not a taste)",
+    "隔離核も 1核=24席。腕を持たない席は核あたりで数える":
+        "the quarantine core obeys the same 1 core = 24 seats; seats with "
+        "no arm are counted per core",
+    "1核 = 24席。腕ごとの予算とは別に、核そのものの上限":
+        "1 core = 24 seats — the core's own ceiling, separate from the "
+        "per-arm budget",
+    "1核 = 24席。腕付きの席と隔離席を合わせても超えない":
+        "1 core = 24 seats — armed seats and quarantined seats counted "
+        "together",
+    "両端の核を先に立ててから結ぶ":
+        "create both end cores before linking them",
+    "分ける先の親核を先に立ててから書く":
+        "create the parent core before writing into a split child",
+    "探して無かった、は主張ではない。載せません":
+        "\"looked and did not find it\" is not a claim; nothing is stored",
+    "宣言を確かめて、正しい方だけを残す":
+        "check the declaration and keep only the right one",
+    "腕は kind から導かれる。書く側が選ぶものではない":
+        "the arm is derived from the kind; the writer does not choose it",
+    "この席は座ったときの腕にしか課金されていない":
+        "this seat is charged only to the arm it was seated on",
+    "分れた子が nest 辺で親から届かない — この核の割れは構造上見えない":
+        "a split child the parent cannot reach through a nest edge — a "
+        "contest inside it is structurally invisible",
+    "分れた子の親核が店に無い — この核は誰からも届かない":
+        "the split child's parent core is not in the store — nothing can "
+        "reach this core",
+    "同じ席に同じ (種別, 値) が二つ。同じ主張の裏付けは出典を足すこと":
+        "the same (kind, value) twice on one seat; corroborate a claim by "
+        "adding a source instead",
+    "一つの閉包に同じ住所が二つ":
+        "the same address twice inside one closure",
+    "同じオブジェクトが二席に居る。外から片方を書き換えられる":
+        "one object seated twice — it can be rewritten from outside",
+    "主題を指して読むか、宣言をそろえる":
+        "read against a named subject, or make the declarations agree",
+    "無し": "none",
+    "catalog にある番号から選ぶ": "choose a number listed in the catalog",
+    "JSON として読めない": "not readable as JSON",
+    "モデルに出力を JSON 一つだけにさせる(プロンプトの規律4)":
+        "make the model answer with one JSON object and nothing else "
+        "(prompt discipline 4)",
     # skirt drafting: formula names and texts (declared on the block)
     "ウエスト幅 (1枚)": "waist width (per panel)",
     "ヒップ幅 (1枚)": "hip width (per panel)",

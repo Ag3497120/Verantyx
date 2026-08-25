@@ -504,22 +504,36 @@ class BlockView:
         return self.store.unbought_generics()
 
     # ------------------------------------------------------------ 正準形
+    def params(self) -> Dict[str, float]:
+        """宣言された param を**宣言順で**。鍵は店から読む。"""
+        return {f["key"].split(":", 1)[1]: f["value"]["value"]
+                for f in self._ordered("param:")}
+
+    def settings(self) -> Dict[str, Any]:
+        """宣言された setting を**宣言順で**。鍵は店から読む。"""
+        return {f["key"].split(":", 1)[1]: f["value"]["value"]
+                for f in self._ordered("setting:")}
+
     def served(self) -> Dict[str, Any]:
-        """**提供データの正準形。** 店の形は入らない — 出す中身だけ。"""
+        """**提供データの正準形。** 店の形は入らない — 出す中身だけ。
+
+        **鍵は自分の店から読む。** 以前ここは params と settings の名前を
+        ``COAT_DECLARATION`` から取っていたので、コート以外の Block に
+        コートの宣言を当てていた — スカートの view に ``served()`` を
+        呼ぶと ``ValueError: UNKNOWN_NOT_IN_CROSS: param:half_divisor``
+        が**道具の境界を越えて**飛ぶ。コートの出力は同じ (同じ順、同じ
+        鍵) で、他の Block は自分が宣言したものだけを出す。
+        """
         return {
             "label": self.label(),
             "required": self.required(),
             "sleeve_required": self.sleeve_required(),
             "pieces": self.pieces(),
-            "params": {k: self.param(k)
-                       for k, _v, _f, _kd, _s
-                       in (_param_row(r)
-                           for r in COAT_DECLARATION["params"])},
+            "params": self.params(),
             "formulas": self.formulas(),
             "seams": self.seams(),
             "placement": self.placement(),
-            "settings": {k: self.setting(k)
-                         for k in COAT_DECLARATION["settings"]},
+            "settings": self.settings(),
             "seam_edges": len(self.seam_edges()),
         }
 

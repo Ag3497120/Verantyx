@@ -39,6 +39,24 @@
 
 守っている性質と、その根拠:
 
+- **1核 = 24席は席の種類で割り引かない。** 腕ごとの4面と隔離核の24を
+  別々に数えていたので、名前が隔離核の形をした核は「腕付き20席 + 隔離
+  24席 = 44席」まで伸びて ``census()['over_capacity']`` は空だった。
+  核の総席数も 24 で、書き口は 25 席目を断り ``verify()`` は挙げる。
+- **隔離は名前の部分一致ではなく構造で見る。** ``_is_quarantine`` は
+  末尾が ``#proposed`` か、その核から分れた子かだけを見る。以前は
+  ``"#proposed" in core`` だったので ``review#proposed-revisions`` の
+  ような核では提案が隔離されず、**噂が実測と同じ住所で争えた**。
+- **名無しは出典ではない。** ``generic`` の主張に出典が無ければ断る。
+  空文字が独立した一本として数えられていたので、
+  ``GENERIC_MIN_SOURCES`` の片方が誰でもない状態が作れた。出典の同一性
+  は空白と大小を畳んでから比べる (``Lab`` と ``lab `` は一本)。
+- **保存できない値は受け取らない。** 保存形式は JSON なので、set /
+  frozenset / 自作クラス / 文字列でない dict の鍵は書き口で断る
+  (``UNKNOWN_UNIDENTIFIABLE_VALUE``)。受け取ってから
+  ``json.dumps(to_dict())`` が落ちるのは、書けたのに保存できないという
+  ことで、``_vkey`` の repr 落ちで**区別できる値が同じ観測に化ける**道
+  もここで閉じる。
 - **同点は棄権。** 同じ住所に値が違うものが立ったら、どちらも捨てずに
   CONTESTED を返す。多数決もアルファベット順も使わない — 恣意的な
   同点崩しは一致を捏造した (実測: 辞書順タイブレークで全一致の精度が
@@ -118,6 +136,8 @@ ALIASED_VALUE = "UNKNOWN_ALIASED_VALUE"
 GENERIC_NOT_BOUGHT = "UNKNOWN_GENERIC_NOT_BOUGHT"
 DUPLICATE_CLAIM = "UNKNOWN_DUPLICATE_CLAIM"
 QUARANTINE_FULL = "UNKNOWN_QUARANTINE_FULL"
+UNNAMED_SOURCE = "UNKNOWN_UNNAMED_SOURCE"
+UNIDENTIFIABLE_VALUE = "UNKNOWN_UNIDENTIFIABLE_VALUE"
 
 Addr = Tuple[str, str]          # (core, key) — **腕は住所に入らない**
 
@@ -170,13 +190,98 @@ def _vkey(v: Any) -> Any:
         return ("d", tuple(sorted((_vkey(k), _vkey(val))
                                   for k, val in v.items())))
     if isinstance(v, (set, frozenset)):
+        # **保存できない形。** set は JSON を往復しない (list/tuple を畳む
+        # 理由はここには届かない)。書き口が ``_persistable`` で断るので
+        # 店に入ってはこないが、手で書いた dict を ``from_dict`` から
+        # 入れる道が残っているので札だけは作る。
         return ("S", tuple(sorted(_vkey(x) for x in v)))
+    # **repr は同一性ではない。** ``repr`` が全ての欄を出さない値
+    # (``Length(108, 'cm')`` と ``Length(108, 'in')`` が同じ ``Length(108)``
+    # を出す、ごく普通の値オブジェクト) は、ここで**同じ観測に化ける** —
+    # 実測: 別々の出典が矛盾したまま重み2の ANSWER になり、片方の単位が
+    # 黙って消え、generic なら出典2本の値段まで払えた。だから書き口は
+    # ``_persistable`` で断り、この行は ``from_dict`` から来た値のための
+    # 最後の砦としてだけ残っている (``verify`` がそれを問題として挙げる)。
     return ("r", type(v).__name__, repr(v))
 
 
+def _persistable(v: Any, path: str = "") -> List[str]:
+    """**この店が往復できる値か。** 出来ないものの居場所を並べて返す。
+
+    店の保存形式は JSON だと ``_vkey`` の docstring が言っている。だが
+    書き口は set も frozenset も自作クラスも受け取っていて、
+    ``json.dumps(store.to_dict())`` はそれで ``TypeError`` を出した —
+    **書けたのに保存できない**、つまり店の言う保存形式が嘘になる。
+    受け取れないものは受け取らない。断りは戻り値。
+
+    dict の鍵も見る。JSON は鍵を文字列にするので ``{1: "a"}`` は往復で
+    ``{"1": "a"}`` になり、「格納は答えを動かさない」が先に壊れる。
+    """
+    bad: List[str] = []
+    if isinstance(v, (bool, int, float, str)) or v is None:
+        return bad
+    if isinstance(v, (list, tuple)):
+        for i, x in enumerate(v):
+            bad += _persistable(x, f"{path}[{i}]")
+        return bad
+    if isinstance(v, dict):
+        for k, x in v.items():
+            if not isinstance(k, str):
+                bad.append(f"{path}{{{k!r}}}: 鍵が文字列ではない "
+                           f"({type(k).__name__}) — JSON の往復で文字列に"
+                           "化ける")
+            else:
+                bad += _persistable(x, f"{path}.{k}")
+        return bad
+    bad.append(f"{path or '値'}: {type(v).__name__} は JSON で往復しない")
+    return bad
+
+
+def _source_key(source: Any) -> str:
+    """出典の同一性。**空白と大小は独立性を生まない。**
+
+    独立性そのものは店には確かめられない — 名乗った名前が別々である
+    ことだけが検査できる事実で、独立かどうかは**書く側の主張**です。
+    せめて ``'Lab'`` と ``'lab '`` が二本の出典に化けないように、
+    比べる前に空白を畳んで大小を落とす。
+    """
+    if not isinstance(source, str):
+        return ""
+    return " ".join(source.split()).casefold()
+
+
+def _independent(sources: Sequence[Any]) -> List[str]:
+    """数えられる出典だけ。**名無しは出典ではない。**
+
+    ``put()`` の ``source`` は既定が ``""`` で、空文字が独立した一本と
+    して数えられていた — ``GENERIC_MIN_SOURCES`` (独立した出典2本で買う)
+    の片方が誰でもない、という状態が実測できた。
+    """
+    out: List[str] = []
+    seen: set = set()
+    for s in sources:
+        k = _source_key(s)
+        if not k or k in seen:
+            continue
+        seen.add(k)
+        out.append(s)
+    return out
+
+
 def _is_quarantine(core: str) -> bool:
-    """隔離核か。分れた子 (``q#proposed·proposed·1``) も隔離核。"""
-    return isinstance(core, str) and "#proposed" in core
+    """隔離核か。分れた子 (``q#proposed·proposed·1``) も隔離核。
+
+    **部分一致で見ない。** 以前は ``"#proposed" in core`` だったので、
+    名前に ``#proposed`` を含むだけの核 — ``review#proposed-revisions``、
+    ``notes#proposedX`` — が隔離核として扱われた。そこでは提案が隔離
+    されず、**噂が実測と同じ住所で争う** (実測: 測った 108.0 に対して
+    「工房で聞いた」999.0 が CONTESTED_IN_CROSS を返し、寸法が読めなく
+    なった)。名前は書く側が握っているので、**構造の形だけを見る**:
+    末尾が ``#proposed`` か、その核から分れた子か。
+    """
+    if not isinstance(core, str):
+        return False
+    return core.split("·")[0].endswith("#proposed")
 
 
 def seat_arms(seat: Dict[str, Any]) -> List[str]:
@@ -232,6 +337,11 @@ class CrossStore:
         self._seq = 0
         #: 断りの控え。書き口が返した非 ANSWER を溜める。
         self.refusals: List[Dict[str, Any]] = []
+        #: **予算を払っていない腕の控え。** 既にある席に別の種別が
+        #: 届いたとき、その腕には席が現れるのに面は一つも払われない。
+        #: どう閉じるかは持ち主の決め (``_arm_load``) なので、店は
+        #: 決めずに**数える**。
+        self.uncharged: List[Dict[str, Any]] = []
         self.load_verdict: Dict[str, Any] = {"verdict": "ANSWER",
                                              "note": "built, not loaded"}
 
@@ -298,23 +408,69 @@ class CrossStore:
         同じ住所に届いたとき、どちらの腕が面を一つ払うかが格納順で
         変わる (実測: measured→derived で support+、逆で cause+)。
         これは今 ``ingest_order_check`` が UNKNOWN_ORDER_DEPENDENT として
-        **報告する** — 隠れてはいない。消すには三つの道があり、どれも
-        ただでは無い:
+        **報告する** — 隠れてはいない。
 
-        (a) ARMS 順の正準な腕にする。順に依らなくなるが、後から来た
-            種別が腕を動かすので、**合法な書き込みで核が容量超過に
-            なりうる** (support+ が既に 4 席の核で cause+ の席が
-            support+ に移ると 5)。
-        (b) 現れる腕すべてに課金する。順に依らないが「一住所 = 一語」
-            という容量の測定根拠と衝突する。
-        (c) 種別の違う二つ目を断る。順に依らないが、先に書いた者が
-            住所を所有することになり、#1 で捨てた案そのもの。
+        **これは「どの腕が払うか」より大きい。** 二つ目の種別が既にある
+        席に届く枝 (``put_strict`` の second_kind) は**容量を一度も
+        聞かない**ので、選び方は「書き込みが通るか」と「どの核に載るか」
+        まで決めている。実測: support+ が4席で埋まった核に
+        ``measured`` を直接書くと UNKNOWN_CROSS_ARM_FULL で**断られる**
+        が、先に ``derived`` を書いてから同じ ``measured`` を書くと
+        ANSWER で通り、``arms_present['support+']`` は 5 になる
+        (``over_capacity`` は空、``verify()`` は ANSWER)。分ける書き口
+        では、同じ二つの主張が順によって別の核に載る。
 
-        どれも店の意味を変えるので、ここでは選ばない。コートにも部品
-        ライブラリにも二種別の住所は一つも無いので、今日の答えは
-        どの道でも同じ。
+        **店は決めない。数えて言う。** ``census()`` は
+        ``budget_arm_rule`` (今は ``first_kind_seated``)、
+        ``two_kind_addresses``、``uncharged`` を返し、``put_strict`` は
+        ``charged_arm`` と ``uncharged`` を返し、``ingest_order_check``
+        は ``budget_arm_differences`` を数える。
+
+        消すには三つの道があり、**どれも別のものを壊す**:
+
+        (a) **ARMS 順の正準な腕にする。** 順に依らなくなる。壊れるのは
+            容量で、後から来た種別が腕を動かすので**合法な書き込みで核が
+            容量超過になりうる** (support+ が既に 4 席の核で cause+ の席
+            が support+ に移ると 5)。``verify()`` の OVER_CAPACITY は
+            書き込みの後で真になり、``put_strict`` は「通したのに店が
+            壊れている」状態を作れる。移動のたびに再配置が要る。
+        (b) **現れる腕すべてに課金する。** 順に依らない。壊れるのは
+            容量の測定根拠で、「一住所 = 一語」(24 = 6腕×4面 は節点が
+            区別できる語の数) が「一住所 = 種別の数だけの語」になる。
+            核あたりの実効容量は下がり、今のコート (56住所/10核) は
+            そのままでも、二種別の住所を持つ店は分割が増える。
+        (c) **種別の違う二つ目を断る。** 順に依らない。壊れるのは住所の
+            共有で、先に書いた者が住所を所有する — #1 で捨てた案そのもの
+            であり、実測と導出が同じ値に届いても片方が載らない
+            (``seat_arms`` が二本を返すことも、型付きの欠落が両方
+            埋まることも無くなる)。
+
+        どれを採っても、``verify()`` の ARM_NOT_DERIVED (``values[0]``
+        の kind から席の腕を導く) と ``tests/run_checks.py`` の
+        「arms are derived, not chosen」の pin は一緒に変わる。どちらも
+        今は「腕は最初に来た種別のもの」を書いているため。
+
+        コートにも部品ライブラリにも二種別の住所は一つも無いので、
+        **今日の答えはどの道でも同じ** — だから急ぐ判断ではないが、
+        黙っている判断でもない。
         """
         return sum(1 for s in self.cores.get(core, []) if s["arm"] == arm)
+
+    def _uncharged(self, core: str, seat: Dict[str, Any],
+                   arm: Optional[str]) -> Optional[Dict[str, Any]]:
+        """既にある席に届いた**新しい腕**で、予算を払っていないもの。
+
+        返すのは事実だけ — 課金するのか、断るのか、分けるのかは
+        ``_arm_load`` に書いた三案のどれを採るかで、持ち主の決め。
+        """
+        if arm is None or arm == seat.get("arm"):
+            return None
+        return {"core": core, "charged_arm": seat.get("arm"),
+                "uncharged_arm": arm,
+                "arm_load": self._arm_load(core, arm),
+                "would_overflow":
+                    self._arm_load(core, arm) >= FACES_PER_ARM,
+                "why": "この席は座ったときの腕にしか課金されていない"}
 
     def _quarantine_load(self, core: str) -> int:
         """隔離核の住所の数。腕を持たない席は**核あたり**で数える。"""
@@ -340,6 +496,28 @@ class CrossStore:
                     "core": core, "key": key,
                     "why": "探して無かった、は主張ではない。載せません"}
 
+        # **この店が往復できない値は受け取らない。** 受け取ってから
+        # ``json.dumps(to_dict())`` が落ちるのは、書けたのに保存できない
+        # ということで、店の言う保存形式が嘘になる。同じ断りが
+        # ``_vkey`` の repr 落ちも塞ぐ — repr が全ての欄を出さない値は
+        # 「同じ観測」に化けて、矛盾したまま重み2の ANSWER になっていた。
+        why_not = _persistable(value)
+        if why_not:
+            return {"verdict": UNIDENTIFIABLE_VALUE, "stored": False,
+                    "core": core, "key": key, "why": why_not[:6],
+                    "type": type(value).__name__,
+                    "how_to_close": "JSON で往復する形 (数・文字列・真偽・"
+                                    "None・list・文字列鍵の dict) に直す"}
+
+        # **名無しは出典ではない。** 一般構造の主張は独立した出典2本で
+        # 買うと言っている以上、その片方が空文字であってはならない。
+        if kind == "generic" and not _source_key(source):
+            return {"verdict": UNNAMED_SOURCE, "stored": False,
+                    "core": core, "key": key, "kind": kind,
+                    "why": "一般構造の主張に出典が無い。空の出典は"
+                           f"{GENERIC_MIN_SOURCES}本のうちの1本に数えない",
+                    "how_to_close": "出典を名乗るか、specific に落とす"}
+
         arm = KIND_ARM[kind]
         if arm is None and not _is_quarantine(core):   # proposed — 隔離席へ
             core = f"{core}#proposed"
@@ -353,13 +531,18 @@ class CrossStore:
                 if _vkey(entry["value"]) != vkey or entry["kind"] != kind:
                     continue
                 state = "already"
-                if source not in entry["sources"]:
+                # 同一性は正規化して見る。``'Lab'`` と ``'lab '`` は
+                # 一本の出典であって二本ではない。
+                known = {_source_key(x) for x in entry["sources"]}
+                if _source_key(source) not in known:
                     entry["sources"].append(source)
                     state = "corroborated"
                 return {"verdict": "ANSWER", "state": state,
                         "core": where, "key": key, "arm": seat["arm"],
+                        "charged_arm": seat["arm"],
                         "arms": seat_arms(seat),
-                        "weight": len(entry["sources"]),
+                        "weight": len(_independent(entry["sources"])),
+                        "named_sources": len(entry["sources"]),
                         "seat_created": False}
 
             # ここから先は**新しい主張**。値が合っていても種別が違えば
@@ -374,18 +557,38 @@ class CrossStore:
             agrees = any(_vkey(e["value"]) == vkey for e in seat["values"])
             seat["values"].append({"value": copy.deepcopy(value),
                                    "kind": kind, "sources": [source]})
+            # **課金されない腕を、黙って通さない。** 既にある席に新しい
+            # 種別が届くと、その種別の腕には席が現れる (``seat_arms``) が
+            # 予算は座ったときの腕にしか課されていない — この枝は容量を
+            # 一度も聞かない。実測: support+ が4席で埋まった核に
+            # ``derived`` を先に書いてから ``measured`` を書くと、直接
+            # 書けば ARM_FULL で断られる主張が second_kind として通り、
+            # ``arms_present['support+']`` が 5 になっても
+            # ``over_capacity`` は空で ``verify()`` は ANSWER のまま。
+            # **これをどう閉じるかは持ち主の決め** (``_arm_load`` の三案)
+            # なので、ここでは変えずに**測って返す**: どの腕が課金されて
+            # いないか、その腕が既に満杯か。``census()['uncharged']`` が
+            # 店じゅうの同じものを数える。
+            free_ride = self._uncharged(where, seat, arm)
+            if free_ride is not None:
+                self.uncharged.append(dict(free_ride, key=key))
             if agrees:
                 # 値は一致、種別だけが新しい。**争いではない。**
                 return {"verdict": "ANSWER", "state": "second_kind",
                         "core": where, "key": key, "arm": seat["arm"],
+                        "charged_arm": seat["arm"],
+                        "uncharged": free_ride,
                         "arms": seat_arms(seat), "kind": kind,
-                        "weight": len([e for e in seat["values"]
-                                       if _vkey(e["value"]) == vkey
-                                       for _s in e["sources"]]),
+                        "weight": len(_independent(
+                            [s for e in seat["values"]
+                             if _vkey(e["value"]) == vkey
+                             for s in e["sources"]])),
                         "seat_created": False}
             # 値が違う → **席は増やさない。その席で争う。**
             return {"verdict": CONTESTED_IN_CROSS, "core": where, "key": key,
-                    "arm": seat["arm"], "arms": seat_arms(seat),
+                    "arm": seat["arm"], "charged_arm": seat["arm"],
+                    "uncharged": free_ride,
+                    "arms": seat_arms(seat),
                     "also_on": "support-",
                     "sides": len(seat["values"]), "seat_created": False,
                     "how_to_close": "宣言を確かめて、正しい方だけを残す"}
@@ -395,13 +598,24 @@ class CrossStore:
                     "key": key,
                     "how_to_close": "子コアに分ける "
                                     "(マトリョーシカは幾何が要求すること)"}
-        if arm is None and self._quarantine_load(core) >= CAPACITY_PER_CORE:
-            # 隔離核も幾何の外ではない。**法は店じゅうで同じ**か、
-            # docstring が嘘かのどちらかで、黙った例外は無し。
-            return {"verdict": ARM_FULL, "core": core, "arm": None,
-                    "key": key, "seats": self._quarantine_load(core),
+        # 隔離席だけを数える枝はここに在った。**今は核の総席数が同じ
+        # ことをより強く言う** (隔離席は必ず総席数の一部なので、
+        # 隔離だけの上限は決して先に効かない — 効かない検査は無いのと
+        # 同じで、この企画が八つ見つけた「落ちない検査」のコード版に
+        # なる)。法は下の一箇所で、隔離核も腕付きの核も同じ 24。
+
+        # **核そのものの上限。** 腕ごとの 4 と隔離席の 24 は別々に
+        # 数えられていて、どちらも「核の全席」を見ていなかった — 名前が
+        # 隔離核の形をした核は 20 の腕付き席 + 24 の隔離席 = 44 席まで
+        # 伸びて、``census()['over_capacity']`` は空のままだった。
+        # **1核 = 24席**は核の性質なので、席の種類で割り引かない。
+        if len(self.cores.get(core, [])) >= CAPACITY_PER_CORE:
+            return {"verdict": ARM_FULL, "core": core, "arm": arm,
+                    "key": key, "seats": len(self.cores.get(core, [])),
+                    "quarantined": self._quarantine_load(core),
                     "max": CAPACITY_PER_CORE,
-                    "why": "隔離核も 1核=24席。腕を持たない席は核あたりで"
+                    "why": "1核 = 24席。腕ごとの予算とは別に、核そのものの"
+                           "上限 — 隔離席も腕付きの席も同じ核の席として"
                            "数える",
                     "how_to_close": "子コアに分ける "
                                     "(マトリョーシカは幾何が要求すること)"}
@@ -429,7 +643,18 @@ class CrossStore:
             return r
         arm = KIND_ARM[kind]
         # ``proposed`` は隔離核に落ちている。分けるのはその核の側。
-        home = f"{core}#proposed" if arm is None else core
+        # **既に隔離核の名前なら二度付けない。** ``put_strict`` は
+        # :344 で ``and not _is_quarantine(core)`` を見ているのに、ここは
+        # 見ていなかった — 自分が返した ``q#proposed`` をそのまま渡すと
+        # ``q#proposed#proposed`` という**誰も作っていない核**の名前で
+        # 分割が始まり、nest 辺は片端が居ないので断られ、子コアだけが
+        # 宙に浮いた。実測: 30本の提案が孤立した6核に散って
+        # ``contested()`` は空、``verify()`` は ANSWER、書いた側は二度
+        # ANSWER を受け取り、``resolve`` は同じ住所を「無い」と答えた。
+        if arm is None and not _is_quarantine(core):
+            home = f"{core}#proposed"
+        else:
+            home = core
         label = arm if arm is not None else "proposed"
         chain = self._closure(home)
         for cur in chain[1:]:
@@ -445,7 +670,19 @@ class CrossStore:
             n += 1
             child = f"{home}·{label}·{n}"
         self._core(child)
-        self.link((chain[-1], ""), (child, ""), "nest")
+        edge = self.link((chain[-1], ""), (child, ""), "nest")
+        if edge["verdict"] != "ANSWER":
+            # **繋がらなかった子には座らせない。** 親から届かない核の
+            # 割れは構造上見えないので、そこに座った値は「載った」と
+            # 言えない。以前はここで辺の断りを捨てて席だけ作り、
+            # ``put()`` は ANSWER を返していた — 書いた側は成功したと
+            # 思い、読む側は UNKNOWN_NOT_IN_CROSS を受け取った。
+            self.cores.pop(child, None)
+            r = {"verdict": DANGLING_EDGE, "stored": False, "core": home,
+                 "child": child, "key": key, "why": edge.get("why"),
+                 "how_to_close": "分ける先の親核を先に立ててから書く"}
+            self.refusals.append(dict(r))
+            return r
         r = self.put_strict(child, key, value, kind, source, seq)
         if r["verdict"] != "ANSWER":
             self.refusals.append(dict(r))
@@ -493,12 +730,39 @@ class CrossStore:
                 for src in e["sources"]:
                     if src not in sources:
                         sources.append(src)
+            by_kind: Dict[str, List[str]] = {}
+            for _cn, e in entries:
+                by_kind.setdefault(e["kind"], [])
+                for src in e["sources"]:
+                    if src not in by_kind[e["kind"]]:
+                        by_kind[e["kind"]].append(src)
             return {"verdict": "ANSWER", "value": copy.deepcopy(first),
-                    "sources": list(sources), "weight": len(sources),
+                    "sources": _independent(sources),
+                    "weight": len(_independent(sources)),
+                    #: **種別ごとの重み。** ``weight`` は住所ぜんぶの
+                    #: 独立した出典で、種別をまたいで数える — つまり
+                    #: specific 一本が generic の見かけの重みを 2 に
+                    #: できる (門である ``unbought_generics`` は騙され
+                    #: ないが、読んだ数字は騙される)。
+                    #: ``GENERIC_MIN_SOURCES`` が値段を付けているのは
+                    #: こちらの数。
+                    "weight_by_kind": {k: len(_independent(v))
+                                       for k, v in by_kind.items()},
+                    "named_sources": list(sources),
                     "agreed": len(entries), "arm": arm,
+                    #: **予算を払った一本**。意味の腕は ``arms``。
+                    "charged_arm": arm,
                     #: **腕は読みからも見える。** ``arm`` は予算を払った
                     #: 一本、``arms`` は届いた種別すべての腕。読みから
                     #: 見えないと、順序検査が比べようがない。
+                    #:
+                    #: **``arm`` を読むものは順に依る。** 二種別が届いた
+                    #: 住所では ``resolve()['arm']``、``['where']['arm']``、
+                    #: ``seats()[]['arm']``、``census()['arms']``、
+                    #: ``contested()[]['arm']`` の五つが書いた順で動く
+                    #: (実測)。「単一の腕を読むものは無い」は誤りで、
+                    #: 意味を運ぶのは ``arms`` の方。予算の腕をどう決める
+                    #: かは ``_arm_load`` の未決の三案。
                     "arms": _arms_of(seats),
                     "kinds": [e["kind"] for _cn, e in entries],
                     "seq": min(s["seq"] for _cn, s in seats),
@@ -506,8 +770,10 @@ class CrossStore:
         return {"verdict": CONTESTED_IN_CROSS,
                 "sides": [{"value": copy.deepcopy(e["value"]),
                            "kind": e["kind"], "sources": list(e["sources"]),
+                           "weight": len(_independent(e["sources"])),
                            "core": cn} for cn, e in entries],
-                "arm": arm, "arms": _arms_of(seats), "also_on": "support-",
+                "arm": arm, "charged_arm": arm,
+                "arms": _arms_of(seats), "also_on": "support-",
                 "seq": min(s["seq"] for _cn, s in seats),
                 "how_to_close": "宣言を確かめて、正しい方だけを残す",
                 "where": {"core": seats[0][0], "arm": arm}}
@@ -625,7 +891,12 @@ class CrossStore:
                 gen = [e for e in s["values"] if e.get("kind") == "generic"]
                 if not gen:
                     continue
-                weight = max((len(e["sources"]) for e in gen), default=0)
+                # **名無しは数えない。** 空の出典が一本として数えられて
+                # いたので、``put(...,'generic')`` を出典なしで一度、
+                # 名のある出典で一度書くだけで「独立した出典2本」が
+                # 揃ったことになっていた (実測: 重み2、未購入から消えた)。
+                weight = max((len(_independent(e["sources"])) for e in gen),
+                             default=0)
                 if weight < GENERIC_MIN_SOURCES:
                     out.append({"verdict": GENERIC_NOT_BOUGHT,
                                 "core": cname, "key": s["key"],
@@ -768,6 +1039,30 @@ class CrossStore:
                                  "arm": None, "seats": free,
                                  "max": CAPACITY_PER_CORE,
                                  "why": "隔離核も 1核=24席"})
+            # **核そのものの総席数。** 腕ごとの 4 と隔離核の 24 は
+            # 別々に数えられていて、どちらも核の全体を見ていなかった —
+            # 一つの核が 20 の腕付き席 + 24 の隔離席 = 44 席を持って
+            # いても ``over_capacity`` は空だった。「1核 = 24席」は
+            # 席の種類ではなく核の性質。
+            if len(seats) > CAPACITY_PER_CORE:
+                problems.append({"verdict": OVER_CAPACITY, "core": cname,
+                                 "arm": "total", "seats": len(seats),
+                                 "max": CAPACITY_PER_CORE,
+                                 "why": "1核 = 24席。腕付きの席と隔離席を"
+                                        "合わせても超えない"})
+            # **保存できない値が座っていないか。** 書き口は断るように
+            # なったが、``from_dict`` は手で書いた JSON も受ける口なので
+            # ここでも見る (set や自作クラスは JSON を往復しない)。
+            for s in seats:
+                if not isinstance(s, dict):
+                    continue
+                for e in (s.get("values") or []):
+                    why_not = _persistable(e.get("value"))
+                    if why_not:
+                        problems.append(
+                            {"verdict": UNIDENTIFIABLE_VALUE, "core": cname,
+                             "key": s.get("key"), "why": why_not[:3],
+                             "type": type(e.get("value")).__name__})
 
         done: set = set()
         for cname in list(self.cores):
@@ -795,7 +1090,19 @@ class CrossStore:
             if "·" not in cname:
                 continue
             parent = cname.split("·")[0]
-            if parent in self.cores and cname not in self._closure(parent):
+            # **親が居ない子も孤児。** 以前は ``parent in self.cores`` が
+            # 前提だったので、**親が一度も作られていない**子 — 分割の
+            # 名前だけが立って中身の無い核を指している状態 — は検査を
+            # まるごと素通りした。実測: ``q#proposed#proposed·proposed·1``
+            # から ``·6`` までの6核が誰からも届かないまま
+            # ``verify() == ANSWER``。
+            if parent not in self.cores:
+                problems.append(
+                    {"verdict": ORPHANED_CORE, "core": cname,
+                     "parent": parent,
+                     "why": "分れた子の親核が店に無い — "
+                            "この核は誰からも届かない"})
+            elif cname not in self._closure(parent):
                 problems.append(
                     {"verdict": ORPHANED_CORE, "core": cname,
                      "parent": parent,
@@ -973,6 +1280,22 @@ class CrossStore:
                 quarantine[n] = free
                 if free > CAPACITY_PER_CORE:
                     over.append((n, None, free))
+            # **核の総席数も見る。** 腕ごとと隔離ごとを別々に数えると、
+            # 両方を持つ核はどちらの予算も超えないまま 44 席まで伸びる。
+            if len(s) > CAPACITY_PER_CORE:
+                over.append((n, "total", len(s)))
+        # **予算の腕は今どう決まっているか、口に出す。** 席の腕
+        # (``arms``、予算) は**最初に届いた種別**が決めている。これは
+        # 未決の設計判断で (``_arm_load`` の三案)、隠すと「腕は導かれる」
+        # という店の看板と食い違う。だから数える: 二つ以上の種別が届いた
+        # 住所はいくつあり、そのうち予算を払っていない腕はどれか。
+        two_kind = []
+        for n, s in self.cores.items():
+            for x in s:
+                kinds = [e.get("kind") for e in (x.get("values") or [])]
+                if len({KIND_ARM.get(k) for k in kinds if k in KIND_ARM}) > 1:
+                    two_kind.append((n, x["key"], x["arm"],
+                                     seat_arms(x)))
         return {"cores": len(self.cores), "seats": seats, "facets": facets,
                 "quarantined": quarantine,
                 "sources": sources,
@@ -980,6 +1303,11 @@ class CrossStore:
                 "over_capacity": over,
                 "arms": arms,
                 "arms_present": present,
+                #: **予算の腕の決め方**と、それが効く住所。
+                #: ``first_kind_seated`` = 先に座った種別の腕が面を払う。
+                "budget_arm_rule": "first_kind_seated",
+                "two_kind_addresses": sorted(two_kind),
+                "uncharged": [dict(u) for u in self.uncharged],
                 "edges": len(self.edges),
                 "contested": len(self.contested())}
 
@@ -1093,12 +1421,26 @@ def ingest_order_check(plan: Sequence[Tuple[str, str, Any, str, str]],
             differences.append({"order": name, "what": "refused",
                                 "forward": base["refused"],
                                 "other": run["refused"]})
+    # **予算の腕だけが違う相違を、別に数える。** 値も重みも意味の腕
+    # (``arms``) も同じで、面を払った一本 (``shape[0]``) だけが順で動く
+    # 相違は「答えが動いた」ではなく「**まだ決めていない**」の現れ方。
+    # ``_arm_load`` の三案のどれを採るかで消え方が変わるので、混ぜずに
+    # 数える。
+    budget_only = 0
+    for d in differences:
+        f, o = d.get("forward"), d.get("other")
+        if (isinstance(f, tuple) and isinstance(o, tuple) and len(f) == 4
+                and len(o) == 4 and f[:3] == o[:3]
+                and f[3][1] == o[3][1] and f[3][0] != o[3][0]):
+            budget_only += 1
     return {
         "verdict": "ANSWER" if not differences else ORDER_DEPENDENT,
         "orders": len(orders),
         "addresses": len(base["map"]),
         "writes": n,
         "nesting": nest,
+        "budget_arm_rule": "first_kind_seated",
+        "budget_arm_differences": budget_only,
         "differences": differences[:12],
         "why_it_matters":
             "格納順が答えを決めているなら、それは宣言ではなく並びの産物",

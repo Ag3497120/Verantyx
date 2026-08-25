@@ -168,10 +168,21 @@ photoloset.i18n.coverage(result)   # (translated, total)
 ```
 
 If `missing()` returns anything, the English is incomplete at exactly those
-strings and you can see which. Measured across every output path the engine
-has — ledger, worklist, tech pack, measurement sheet, contested measurements,
-draft, marks, build, drape, all five refusal verdicts and the SVG —
-**0 untranslated**.
+strings and you can see which. Measured across the **30 output paths the suite
+sweeps** — ledger, worklist, tech pack, measurement sheet, contested
+measurements, draft, marks, build, drape, the SVG, the skirt and composed
+garments, and every refusal the cross store, the parts library, the zone
+catalogue and the prompt parser can return — **0 untranslated**.
+
+**Two things are deliberately outside that scope**, and they are the reason
+the number used to be quoted too broadly. **Store addresses** — core names and
+seat keys such as `formula:袖山の高さ` or `block:coat/piece:袖`, which appear
+in `to_dict()`, `write_plan()`, `seats()`, `seam_edges()` and `dump()` — are
+coordinates rather than prose; translating them would make two languages
+address different seats. And **the prompt bank's text** (`prompts.for_model`)
+is written for a vision model, in the language its profile was authored in.
+Together those are 42 Japanese strings that `i18n.missing` will report if you
+sweep them, by design.
 
 For the SVG there is one more thing to know. `to_svg` hard-wraps its notes
 across several `<text>` elements, so `i18n.svg` rejoins each paragraph,

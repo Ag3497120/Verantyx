@@ -137,6 +137,11 @@ def for_model(model_id: str) -> Dict[str, Any]:
                 entry = v
                 break
     e = dict(entry if entry is not None else _DEFAULT)
+    # **答えには verdict が要る。** これは 42 の道具のうち唯一
+    # ``verdict`` を持たない payload だった (MCP 越しに読む側が
+    # ``r["verdict"]`` で分岐すると None になる)。断りが戻り値である
+    # 店の隣で、答えだけ形が違うのは事故のもと。
+    e["verdict"] = "ANSWER"
     e["model_id"] = model_id
     e["matched"] = "default" if entry is None else "profile"
     e["discipline"] = list(DISCIPLINE)

@@ -199,9 +199,31 @@ correct on paper.
   it, because the drafting code is shared with a larger project and two copies
   would drift. A string the table does not know comes back in Japanese — and
   `i18n.missing(result)` lists exactly which, so the gap is visible rather than
-  papered over. Measured across every output path the engine has (ledger,
-  worklist, tech pack, measurements, draft, marks, sew, drape, all five
-  refusals and the SVG): **0 untranslated**.
+  papered over. Measured across the **30 output paths the suite sweeps** —
+  ledger, worklist, tech pack, measurements, draft, marks, sew, drape, the SVG,
+  the skirt and composed garments, and every refusal the cross store, the parts
+  library, the zone catalogue and the prompt parser can return: **0
+  untranslated**.
+
+  **What that number does not cover, stated with its own measurement.** The
+  claim above used to say "every output path the engine has", and when the
+  block/cross/parts/zones/prompts surface became load-bearing that stopped
+  being true: **67** Japanese strings were reachable outside the table. 25 of
+  them were refusal texts and catalogue labels — an English caller was being
+  told *why* in Japanese — and those are translated now. The **42** that
+  remain are, deliberately, not output:
+
+  - **Store addresses** — core names and seat keys (`formula:袖山の高さ`,
+    `block:coat/piece:袖`) in `to_dict()`, `write_plan()`, `seats()`,
+    `seam_edges()` and `dump()`. These are the store's coordinates, not prose;
+    translating them would make two languages address different seats.
+  - **The prompt bank's text** — `prompts.for_model()` returns the instruction
+    sent to a vision model, in the language the profile was written in. It is
+    input to a model, not output to a reader.
+
+  `python3 tests/run_checks.py` pins both halves: the 30 paths and their 0, and
+  `tests/unfalsifiable.py` makes sure the check that measures it cannot pass by
+  covering nothing.
 
 <br>
 
@@ -356,6 +378,57 @@ found, each of which had been reported as working:
 - Three seam checks that **could not fail**, because they compared a point list
   to itself. They now detect the tautology by comparing the point lists, and
   say `structural` in the output instead of claiming a verification.
+
+### The checks that could not fail, and why looking harder is not a method
+
+This project has now found **eight** checks that could not fail, in four
+separate passes — one, then three, then two more, then two more again. Every
+pass someone read the suite more carefully and found more. That is not bad
+luck; it is a search method that does not scale, and the honest response is to
+stop searching by hand:
+
+```bash
+python3 tests/unfalsifiable.py     # every condition, read as an AST
+python3 tests/falsifiers.py        # every check, regressed and re-run
+python3 tests/falsifiers.py --self-test   # the harness's own stopping defect
+```
+
+`tests/unfalsifiable.py` reads the AST of every `check(name, condition,
+detail)` call and reports eight shapes that make a line green whatever the code
+does: both sides of a comparison being one value; `all()`/`any()` over a
+sequence that can be empty; the subject under test being a refusal object; a
+property true by construction; a ratio that holds at zero; the real number
+living in the detail while the condition asserts something weaker; a served
+reader no check pins to a literal; and a mutation harness that stops at the
+first raise. It is wired into the suite as a check of its own, with the
+residue enumerated by name and argued in `KNOWN_UNFALSIFIABLE` — **a hit that
+is not on that list turns the suite red.**
+
+It also states what it cannot see, every time it runs: anything inside the code
+under test, whether a property is the RIGHT one, checks nobody wrote, and
+whether a pinned number is the correct number. Those remain a reader's job.
+
+`tests/falsifiers.py` is the other direction: it copies the tree, regresses one
+repair at a time back to the behaviour a finding measured, and requires the
+named check to go red. **The harness had the same defect one level up** — a
+raise inside its own loop ended the sweep at mutation N, the rest neither ran
+nor were named, no summary printed, and the mutated file was never restored.
+`--self-test` poisons a three-entry sweep in two different ways and passes only
+if the entries after the poison still ran, the tree came back clean and the
+counts printed; the suite runs it.
+
+### One decision this pass deliberately did not make
+
+The arm a claim sits on is derived from its kind — nobody chooses it. But a
+seat that is reached by **two** kinds is charged to whichever kind seated
+first, and that is still a write-order effect. The store no longer hides it:
+`census()` reports `budget_arm_rule`, every two-kind address and every arm that
+rode free without paying a face, `ingest_order_check()` counts the differences
+that are the budget arm alone, and `put_strict()` says which arm paid and which
+did not. The coat and the parts library have **zero** two-kind addresses, so no
+answer moves today. The three ways to close it, and what each one costs, are in
+`photoloset/cross.py` under `_arm_load` — the choice belongs to whoever owns
+the store's meaning, not to whoever is fixing checks this week.
 
 <br>
 
