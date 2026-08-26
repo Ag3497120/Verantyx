@@ -153,6 +153,51 @@ result, not an error: it is the tool reporting the shape of its own ignorance.</
 
 <br>
 
+## What this project actually is
+
+The demo is a coat becoming a pattern. The engineering is somewhere else.
+
+A conventional agent pipeline decides, passes the decision on, decides again,
+and produces a finished thing. Nothing in that chain separates *measured* from
+*guessed*, so the output looks right and may be wrong in ways nobody can point
+at. At the end of this particular chain, somebody cuts cloth.
+
+photoloset puts a deterministic layer between every pair of stages. A claim
+that cannot be supported does not become a weaker claim — it becomes a **typed
+refusal** carrying what somebody would have to do to earn the answer. There
+are 127 of them.
+
+The consequence is that most of the work here is not the garment code:
+
+| | lines |
+|---|---|
+| engine | 14,412 |
+| verification | 9,607 |
+
+The verification is 67% the size of the thing it verifies, and it does not
+only ask whether the checks pass. It mutates the implementation and requires
+each check to **actually go red** — because a check that cannot fail is a
+defect that reads as a pass forever.
+
+```
+139  checks, all passing
+146  falsification mutations, all red, 0 MISS
+127  distinct typed refusals
+ 32  engine modules, standard library only
+```
+
+Recently the scanner caught five tautologies in checks written the same day,
+a falsifier that changed nothing was scored MISS instead of green, and a
+collision between two features surfaced as a refusal rather than as a wrong
+pattern months later.
+
+- **[docs/verification.md](docs/verification.md)** — how falsification works
+  here, three things it caught, and why this is slower on purpose
+- **[docs/architecture.md](docs/architecture.md)** — the store, the two
+  address spaces, the gate
+
+<br>
+
 ## The pattern it produces
 
 <p align="center">
