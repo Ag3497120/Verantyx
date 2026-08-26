@@ -280,7 +280,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "51 tools",
+    "54 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -892,7 +892,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("51 tools", len(tools) == 51, f"{len(tools)}")
+        check("54 tools", len(tools) == 54, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -940,8 +940,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 51 and not no_schema and not no_props
-              and len(published) == 79 and not wrong and not contradicted
+              len(tools) == 54 and not no_schema and not no_props
+              and len(published) == 92 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1006,7 +1006,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 51 and not not_object and not crashed,
+              len(tools) == 54 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed

@@ -39,6 +39,7 @@ from . import garment_pattern as _pattern
 from . import garment_rights as _rights_mod
 from . import garment_sew as _sew
 from . import garment_solid as _solid
+from . import darts as _darts
 from . import points as _points
 from .garment import Intake, Ledger
 from .garment_measure import Measures
@@ -60,6 +61,44 @@ def _measures() -> Measures:  return Measures.load(_p("measures.json"))
 def _intake() -> Intake:      return Intake.load(_p("intake.json"))
 def _design():                return _rights_mod.Design.load(_p("design.json"))
 def _rights():                return _rights_mod.RightsLedger.load(_p("rights.json"))
+
+
+def _dart_store():
+    f = _p("darts.json")
+    if f.exists():
+        return _json.loads(f.read_text(encoding="utf-8"))
+    return []
+
+
+def _dart_call(new):
+    """Apply the stored darts (plus ``new``) to the current draft.
+
+    A dart that the geometry refuses is **not stored** — an overlapping or
+    escaping dart kept on the list would come back and be refused again on
+    every later call, and the refusal would look like a property of the
+    pattern rather than of that one dart.
+    """
+    draft = _pattern.draft(_measures())
+    if draft.get("verdict") != "ANSWER":
+        return _ok(draft)
+    kept = _dart_store()
+    out = _darts.apply(draft, kept + ([new] if new else []))
+    if new is not None and out.get("verdict") == "ANSWER":
+        fresh = [d for d in out.get("darts") or []
+                 if (d["piece"], d["edge"], round(d["t"], 9))
+                 == (new["piece"], new["edge"], round(float(new["t"]), 9))
+                 or d.get("trued")]
+        if len(out.get("darts") or []) > len(kept):
+            kept = kept + [new]
+            _p("darts.json").write_text(
+                _json.dumps(kept, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+        else:
+            out["not_stored"] = ("この一本は幾何に断られたので保存しません。"
+                                 "残すと以後ずっと同じ拒否を返し続け、それが"
+                                 "型紙そのものの性質に見えます")
+    out["stored"] = len(kept)
+    return _ok(out)
 
 
 def _numbering():
@@ -444,6 +483,43 @@ def pattern_span(first: int, last: int) -> str:
     guessed: nobody can say what "loosen it" would mean across the gap.
     """
     return _ok(_points.span(_numbering(), int(first), int(last)))
+
+
+@tool
+def pattern_dart_add(piece: str, edge: str, t: float, intake_cm: float,
+                     length_cm: float = 0.0, role: str = "") -> str:
+    """Add a dart taken perpendicular to its edge, and open it.
+
+    A dart is a wedge cut out so its two legs can be sewn together and the
+    flat panel becomes a cone. Taken perpendicular, both legs are equal by
+    construction. Darts are stored beside the pattern, never written into
+    the outline: inserting their legs as vertices would move every number
+    on that piece.
+    """
+    return _dart_call(_darts.dart(piece, edge, float(t), float(intake_cm),
+                                  float(length_cm), role))
+
+
+@tool
+def pattern_dart_toward(piece: str, edge: str, t: float, intake_cm: float,
+                        toward_x: float, toward_y: float,
+                        role: str = "") -> str:
+    """Add a dart aimed at a point — how real drafting places one.
+
+    A shoulder dart points at the bust apex, which is not perpendicular to
+    its edge, so its legs start out unequal. The dart is TRUED: its centre
+    slides along the edge until the legs match, keeping the intake. The
+    answer reports the t it moved from.
+    """
+    return _dart_call(_darts.dart(piece, edge, float(t), float(intake_cm),
+                                  0.0, role,
+                                  toward=(float(toward_x), float(toward_y))))
+
+
+@tool
+def pattern_darts() -> str:
+    """Every dart on the current pattern, opened, with what each one refuses."""
+    return _dart_call(None)
 
 
 @tool
