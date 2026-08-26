@@ -295,6 +295,13 @@ ALL_CHECK_NAMES = [
     "unknown zone refused",
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
+    "the dress has no notches yet, and marks says so honestly",
+    "a dress piece keeps its number when a piece is inserted ahead of it",
+    "a dart on the dress front closes at the address it sits",
+    "the dress mannequin refuses the measure set the dress actually has",
+    "the dress marker lays seven cut pieces onto real cloth",
+    "the dress BOM answers fabric and refuses three lines it cannot know",
+    "the dress reaches DXF directly, because save() cannot draft it",
     "initialize",
     "61 tools",
     "every tool has a schema",
@@ -346,6 +353,14 @@ ALL_CHECK_NAMES = [
     "every served reader reads its store",
     "the scanner finds every planted shape",
     "the falsifier harness reports every mutation",
+    "a closed sphere totals four pi by angle defect",
+    "a developable cylinder carries no curvature",
+    "the mannequin's total curvature converges while its band "
+    "distribution does not",
+    "the curvature report shares the total, it does not compute a dart "
+    "intake",
+    "curvature refuses missing measurements and a grid too coarse to "
+    "triangulate",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -1178,7 +1193,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 35 and not third_party,
+          len(scanned) == 36 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -3432,6 +3447,260 @@ def zones_number_the_garment_for_adjustment() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("the dress has no notches yet, and marks says so honestly",
+          "a dress piece keeps its number when a piece is inserted ahead of it",
+          "a dart on the dress front closes at the address it sits",
+          "the dress mannequin refuses the measure set the dress actually has",
+          "the dress marker lays seven cut pieces onto real cloth",
+          "the dress BOM answers fabric and refuses three lines it cannot know",
+          "the dress reaches DXF directly, because save() cannot draft it")
+def the_dress_walks_every_stage_past_composition() -> None:
+    """**The second garment, past the point ``compose_builds_a_whole_garment_from_parts``
+    already reaches.**
+
+    That check (above) already proves compose -> marks -> ``garment_sew.build``
+    -> ``sew_and_drape`` closes for the cape dress. This one walks the stages
+    past it: stable numbering, a dart, the mannequin, the marker, the BOM,
+    and the DXF export — each called directly on the SAME composed draft, no
+    new geometry invented. Where a stage refuses, the refusal is pinned as
+    the answer, not routed around.
+
+    **``sewing_order.py`` is not in this walk.** It is not in this
+    repository's git history — ``git log --all`` names no commit that adds
+    it, and no check, falsifier, or import anywhere references it. It exists
+    only as an untracked file sitting in the working copy this task started
+    from. Read (not imported — this suite runs against the committed tree
+    only) and hand-run against both garments: fed the coat's own
+    ``garment_sew.build()`` output it reproduces its own docstring's worked
+    example exactly (β = 5 − 3 + 1 = 3 — the coat has 3 seams that must be
+    sewn in the round). Fed the composed dress's ``build()`` output it
+    refuses ``UNKNOWN_SEAM_NAMES_NO_PIECES``, correctly — one internal seam
+    label from ``garment_parts.draft_sleeve`` ("袖下線: 袖(左) の筒") has no
+    "↔" separator, while every coat-side label does. That refusal is the
+    honest edge of what exists; there is no committed module here to pin a
+    check against, so none is added. (Forcing only that one label past the
+    refusal, to see how deep the mismatch runs, shows the module's own
+    parser is looser than its docstring claims: ``_sides()`` accepts ANY
+    string containing "↔", not only the "裁片/辺 ↔ 裁片/辺" form it
+    documents, so the other nine dress labels — none of which contain "/" —
+    would each mint a bogus one-off "piece" name instead of the real ones
+    and the module would answer ANSWER with a 15-node graph that does not
+    describe this dress. That is a defect in the untracked file itself, not
+    something this task's dress touches, and it is reported rather than
+    fixed — the file is not part of this repository yet, and it is not
+    this check's job to adopt someone else's in-flight module.)
+    """
+    import copy as _copy
+
+    from photoloset import bom as _bom
+    from photoloset import compose, darts as _dt, dxf as _dxf
+    from photoloset import garment_marks, garment_sew
+    from photoloset import mannequin as _mq, marker as _mkr, points as _pt
+    from photoloset import Measures
+
+    ms = Measures()
+    for spot, value in [("chest", 82.0), ("shoulder", 38.0), ("waist", 62.0),
+                        ("bodice_length", 22.0), ("sleeve_length", 52.0),
+                        ("hip", 88.0), ("skirt_length", 45.0),
+                        ("neck", 21.0), ("cape_length", 28.0)]:
+        ms.measured(spot, value, "cm", source="tape", by="ci")
+    dress = {
+        "parts": [
+            {"instance": "bodice:1", "part": "bodice"},
+            {"instance": "skirt:1", "part": "skirt_panel",
+             "params": {"hi_lo_drop": 22.0}},
+            {"instance": "sleeve:1", "part": "sleeve",
+             "params": {"side": "左"}},
+            {"instance": "cape:1", "part": "cape"}],
+        "connections": [
+            {"a": ["bodice:1", "waist"], "b": ["skirt:1", "waist"]},
+            {"a": ["bodice:1", "armhole_l"],
+             "b": ["sleeve:1", "armhole_l"]},
+            {"a": ["bodice:1", "neck"], "b": ["cape:1", "neck"]}],
+        "port_finish": {
+            "cape:1": {"hem": "free", "center_front": "fold",
+                       "center_back": "fold"},
+            "skirt:1": {"hem": "free", "center_front": "fold",
+                        "center_back": "fold"},
+            "bodice:1": {"center_front": "fold", "center_back": "fold"},
+            "sleeve:1": {"cuff_l": "free"}},
+        "label": "ケープワンピース",
+    }
+    r = compose.compose(dress, ms)
+    m = garment_marks.apply(r)
+
+    with guard("the dress has no notches yet, and marks says so honestly"):
+        # compose() ships `"notch_plan": []` — an EMPTY declared plan, not a
+        # missing one. `apply()` reads that as "the declarative branch, zero
+        # steps" rather than falling to the coat's hardcoded armhole-notch
+        # heuristic (which only fires when notch_plan is None). So the dress
+        # gets a real ANSWER with zero notches, which is the honest state of
+        # an unwritten policy — not a crash and not the coat's notches
+        # borrowed by accident.
+        n_notch = sum(len(v) for v in m["notches"].values())
+        sa = m["seam_allowance"]
+        sa_ok = [name for name in sa if sa[name].get("verdict") == "ANSWER"]
+        grain_pieces = {g["piece"] for g in m["grain"]}
+        # The grain angle itself is not the dress's own
+        # `settings.grain_angle_deg` (compose emits one, 90.0) — `apply()`
+        # reads `_block.coat().setting("grain_angle_deg")`, the COAT's
+        # singleton store, and only 90.0 == 90.0 by coincidence hides that a
+        # second garment's marks stage is wired to the first garment's
+        # settings, not its own.
+        from photoloset import block as _block
+        coat_angle = _block.coat().setting("grain_angle_deg")
+        dress_angle = r["settings"]["grain_angle_deg"]
+        check("the dress has no notches yet, and marks says so honestly",
+              m.get("verdict", "ANSWER") == "ANSWER" and n_notch == 0
+              and m["notch_pairs"] == [] and m["notch_unpaired"] == []
+              and len(sa_ok) == 6 == len(sa)
+              and grain_pieces == {p["name"] for p in r["pieces"]}
+              and coat_angle == dress_angle == 90.0,
+              f'0 notches across {len(sa)} pieces (notch_plan is an empty '
+              f'declared list, not a missing one — the coat-only heuristic '
+              f'never runs); {len(sa_ok)} seam allowances answer; grain '
+              f'lines on all {len(grain_pieces)} pieces, drawn at '
+              f'{coat_angle}° read off the COAT\'s store — equal to the '
+              f'dress\'s own declared {dress_angle}° today by coincidence, '
+              f'not because anything reads the dress\'s value')
+
+    reg = _pt.Registry()
+    _pt.label(r, reg)
+    with guard("a dress piece keeps its number when a piece is inserted "
+               "ahead of it"):
+        watch = [("後身頃", "e0", 0.0), ("スカート前", "e2", 0.5),
+                 ("ケープ", "e10", 0.3)]
+        before = [_pt.number(reg, a, b, t) for a, b, t in watch]
+        grown = _copy.deepcopy(r)
+        grown["pieces"].insert(0, {"name": "割り込み", "area_cm2": 1.0,
+                                   "outline": [[0.0, 0.0], [1.0, 0.0],
+                                               [1.0, 1.0]]})
+        probe = _pt.Registry(dict(reg._bases), dict(reg._shape))
+        _pt.label(grown, probe)
+        after = [_pt.number(probe, a, b, t) for a, b, t in watch]
+        where = _pt.resolve(reg, before[0])
+        check("a dress piece keeps its number when a piece is inserted "
+              "ahead of it",
+              before == [600, 1450, 3730] and after == before
+              and where["piece"] == "後身頃" and where["edge"] == "e0"
+              and where["number"] == 600,
+              f'{watch} -> {before}, unchanged at {after} after a piece is '
+              f'inserted at the front of a 6-piece dress (the coat\'s own '
+              f'version of this check inserts at index 1; this one inserts '
+              f'at index 0, the harder position)')
+
+    with guard("a dart on the dress front closes at the address it sits"):
+        # 前身頃/e3 is the side seam (脇線) — verified against the piece's
+        # own named edge before picking it: outline[3]->outline[4] equals
+        # 脇線's two points exactly. Not a bust dart (no `toward` aimed at an
+        # anatomical point); a plain waist-shaping wedge on the side, same
+        # perpendicular construction the coat's own dart check exercises.
+        d = _dt.apply(r, [_dt.dart("前身頃", "e3", 0.5, 2.5, 8.0,
+                                   role="waist")])
+        one = d["darts"][0]
+        n_dart = _pt.number(reg, one["piece"], one["edge"], one["t"])
+        shrink = one["edge_cm_before"] - one["edge_cm_after_closing"]
+        check("a dart on the dress front closes at the address it sits",
+              d["count"] == 1 and d["refused"] == []
+              and abs(shrink - 2.5) < 1e-9
+              and round(one["edge_cm_before"], 4) == 7.6035
+              and round(one["edge_cm_after_closing"], 4) == 5.1035
+              and one["developable"] is False and one["trued"] is False
+              and n_dart == 350,
+              f'{one["edge_cm_before"]:.4f} -> '
+              f'{one["edge_cm_after_closing"]:.4f} cm on 前身頃/脇線, '
+              f'shrink {shrink:.4f} == intake 2.5; addressed at stable '
+              f'number {n_dart}, developable={one["developable"]}')
+
+    with guard("the dress mannequin refuses the measure set the dress "
+               "actually has"):
+        # Exactly the candidate refusal the brief named ahead of time:
+        # mannequin.build() needs chest/waist/hip/body_length, and the dress
+        # graph never declares body_length — it declares bodice_length and
+        # skirt_length as two separate real measurements instead. This is
+        # pinned as the honest result, not routed around by inventing a
+        # body_length nobody measured.
+        man = _mq.build(ms)
+        # Same call through dxf.save(), which internally re-drafts from
+        # `garment_pattern.draft(measures)` — the COAT's fixed shape, not
+        # the composed dress. It refuses on the same missing spot, which is
+        # reassuring (no silent wrong-garment export) but also proves
+        # `save()` cannot be pointed at a composed garment at all — only
+        # `dxf.to_dxf()` on an already-marked draft can, which the next
+        # check below uses instead.
+        import tempfile as _tempfile
+        from pathlib import Path as _Path
+        with _tempfile.TemporaryDirectory() as _tmp:
+            saved = _dxf.save(ms, str(_Path(_tmp) / "dress.dxf"))
+        check("the dress mannequin refuses the measure set the dress "
+              "actually has",
+              man["verdict"] == "UNKNOWN_MISSING_MEASUREMENTS"
+              and man["missing"] == ["body_length"]
+              and saved["verdict"] == "UNKNOWN_MISSING_MEASUREMENTS"
+              and saved["missing"] == ["body_length"],
+              f'mannequin.build(dress measures) -> {man["verdict"]} naming '
+              f'{man["missing"]} (the dress has bodice_length + '
+              f'skirt_length, never body_length); dxf.save() over the same '
+              f'measures refuses identically rather than silently drafting '
+              f'the coat\'s own 3-piece shape from the dress\'s numbers')
+
+    CUT = {"前身頃": 1, "後身頃": 1, "スカート前": 1, "スカート後": 1,
+           "袖(左)": 2, "ケープ": 1}
+    with guard("the dress marker lays seven cut pieces onto real cloth"):
+        no_count = _mkr.lay(r, 150.0, {}, 1.5)
+        good = _mkr.lay(r, 150.0, CUT, 1.5)
+        check("the dress marker lays seven cut pieces onto real cloth",
+              no_count["verdict"] == _mkr.NO_COUNT
+              and sorted(no_count["pieces"]) == sorted(p["name"]
+                                                        for p in r["pieces"])
+              and good["verdict"] == "ANSWER"
+              and good["pieces_laid"] == 7 == sum(CUT.values())
+              and round(good["length_cm"], 1) == 130.2
+              and round(good["utilisation_pct"], 2) == 62.26,
+              f'no counts -> {no_count["verdict"]} naming all '
+              f'{len(no_count["pieces"])} pieces; 7 copies (袖(左) cut '
+              f'twice, mirrored, the rest cut on the fold declared in '
+              f'port_finish) need {good["length_cm"]} cm at '
+              f'{good["utilisation_pct"]}% utilisation')
+
+    with guard("the dress BOM answers fabric and refuses three lines it "
+               "cannot know"):
+        bm = _bom.estimate(r, 150.0, CUT, 1.5)
+        refused = sorted(bm["refused"])
+        check("the dress BOM answers fabric and refuses three lines it "
+              "cannot know",
+              bm["verdict"] == "ANSWER"
+              and bm["known"]["fabric"]["quantity"] == 1.302
+              and bm["known"]["fabric"]["unit"] == "m"
+              and refused == ["interfacing", "notions", "thread"]
+              and not bm["completeness"]["complete"]
+              and bm["completeness"]["known_lines"] == ["fabric"],
+              f'fabric {bm["known"]["fabric"]["quantity"]} m from the '
+              f'marker (not recomputed); refused: {refused}; '
+              f'complete={bm["completeness"]["complete"]}')
+
+    with guard("the dress reaches DXF directly, because save() cannot "
+               "draft it"):
+        out = _dxf.to_dxf(m)
+        names = sorted(p["piece"] for p in out["pieces"])
+        expected_names = sorted(p["name"] for p in r["pieces"])
+        check("the dress reaches DXF directly, because save() cannot "
+              "draft it",
+              out["verdict"] == "ANSWER" and len(out["pieces"]) == 6
+              and names == expected_names
+              and out["cut_line_missing"] == []
+              and sum(out["notch_lines"].values()) == 0
+              and out["extents_cm"]["min"] == [10.0, -37.1]
+              and out["extents_cm"]["max"] == [263.685, 69.682],
+              f'{len(out["pieces"])} pieces {names} written straight from '
+              f'garment_marks.apply() output (to_dxf(), not save() — '
+              f'save() re-drafts from garment_pattern.draft internally and '
+              f'cannot see a composed garment at all); extents '
+              f'{out["extents_cm"]["min"]} .. {out["extents_cm"]["max"]} cm, '
+              f'0 notch lines matching the 0 notches marks produced')
+
+
+# ---------------------------------------------------------------------------
 def served_readers_track_their_stores() -> None:
     """**A reader has to answer from its store, and a literal cannot say so.**
 
@@ -4745,6 +5014,29 @@ KNOWN_UNFALSIFIABLE = [
      "Same shape, same safe direction: a vacuously FALSE any() inside a "
      "comprehension. The genuine quantifier beside it, all(listed), carries "
      "`len(listed) == 4` in the same condition."),
+    ("T2", "the dress has no notches yet, and marks says so honestly", "real",
+     "The scan really is over nothing: compose() hard-codes "
+     "`\"notch_plan\": []` in its own ANSWER — a literal, not derived from "
+     "the input graph — so nothing in this codebase can make a composed "
+     "garment's notch_plan non-empty yet (garment_parts's own docstring "
+     "names this as unfinished: 合印の方針は次の段で宣言ごとに足す). There is "
+     "no non-empty case to point at inside THIS draft for that reason. The "
+     "condition is not vacuous as a whole, though: it also carries "
+     "`len(sa_ok) == 6 == len(sa)`, pinned against the marks pipeline "
+     "actually running seam-allowance offsets on all six pieces, and the "
+     "falsifier 'marks stop computing seam allowances' turns exactly that "
+     "clause — and this check — red by breaking the offset step, without "
+     "touching notch_plan at all."),
+    ("T2", "the dress reaches DXF directly, because save() cannot draft it",
+     "real",
+     "Same reason: with 0 notches produced upstream (see the entry above), "
+     "`out[\"notch_lines\"]` summing to 0 is a certainty, not a discovery. "
+     "The condition also pins `out[\"extents_cm\"]` to two literal "
+     "coordinate pairs, which the falsifier 'the DXF export spaces pieces "
+     "further apart on the sheet' moves by widening GAP_CM — no coat check "
+     "reads extents_cm literally, so that mutation is invisible everywhere "
+     "except this line, which is exactly what makes it a real falsifier "
+     "for this check rather than for the notch count."),
     ("T4", "SVG geometry untouched", "real",
      "The property IS 'this document and its translation have the same "
      "geometry', so both sides necessarily grow from one source; no "
@@ -4802,7 +5094,7 @@ def no_check_can_pass_by_construction() -> None:
           and unscanned == []
           and out.get("checks_with_a_condition", 0) >= 85
           and len(known) == len(KNOWN_UNFALSIFIABLE)
-          and len(KNOWN_UNFALSIFIABLE) == 6
+          and len(KNOWN_UNFALSIFIABLE) == 8
           and len(got) == len(KNOWN_UNFALSIFIABLE)
           and not new_hits and not gone
           and len(readers) == 18,
@@ -5722,6 +6014,208 @@ def the_garment_goes_onto_a_body() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("a closed sphere totals four pi by angle defect",
+          "a developable cylinder carries no curvature",
+          "the mannequin's total curvature converges while its band "
+          "distribution does not",
+          "the curvature report shares the total, it does not compute a "
+          "dart intake",
+          "curvature refuses missing measurements and a grid too coarse "
+          "to triangulate")
+def a_pattern_piece_absorbs_curvature_two_ways() -> None:
+    """**Gauss-Bonnet, made into a number a pattern maker can read.**
+
+    ``curvature.angle_sums`` is checked here against two ground truths it
+    does not depend on the mannequin for: a closed sphere (angle defect
+    must total exactly 4*pi, a topological identity, not an asymptotic
+    one) and a developable cylinder (must total exactly 0, since a
+    cylinder unrolls flat without stretching). A quad four-neighbour
+    scheme — the shape this module's docstring says the first attempt
+    used — satisfies neither identity; only a genuine triangle-fan does.
+
+    Then the mannequin itself: total curvature over (20,12) -> (40,24) ->
+    (80,48) -> (160,96) grids settles (that is a measurement), while the
+    SAME four grids' height-band split swings by tens of degrees (that is
+    the honest limit — the mannequin's five levels are creases, and a
+    crease's curvature lands on whichever grid row is nearest it, which
+    moves as the grid changes). Finally: the report never turns the total
+    into a dart intake in centimetres — the earlier mistake this module's
+    docstring records (90 degrees / 12 cm dart = 18.85 cm, against a real
+    bust dart of 2-4 cm, from ignoring the boundary term) — and it refuses
+    rather than defaults on missing measurements or an untriangulable grid.
+    """
+    import json as _json
+    import math as _math
+
+    from photoloset import curvature as _cv
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+
+    def _sphere_total_deg(segments: int, hsteps: int,
+                          radius: float = 10.0) -> float:
+        """Closed UV sphere with the poles as SINGLE vertices. A naive UV
+        grid that gives each pole `segments` coincident-but-distinct
+        vertices double-counts the pole's angle and reports 1440 degrees
+        instead of 720 — that duplicate-vertex mistake is how this
+        helper's own correctness was checked before it went into the
+        suite, and it is why the poles are collapsed here."""
+        verts = [(0.0, radius, 0.0)]
+        npole = 0
+        ring_start: dict = {}
+        for j in range(1, hsteps):
+            phi = _math.pi * j / hsteps
+            ring_start[j] = len(verts)
+            for i in range(segments):
+                th = 2 * _math.pi * i / segments
+                verts.append((radius * _math.sin(phi) * _math.cos(th),
+                             radius * _math.cos(phi),
+                             radius * _math.sin(phi) * _math.sin(th)))
+        spole = len(verts)
+        verts.append((0.0, -radius, 0.0))
+        faces = []
+        r1 = ring_start[1]
+        for i in range(segments):
+            i2 = (i + 1) % segments
+            faces.append((npole, r1 + i, r1 + i2))
+        for j in range(1, hsteps - 1):
+            ra, rb = ring_start[j], ring_start[j + 1]
+            for i in range(segments):
+                i2 = (i + 1) % segments
+                faces.append((ra + i, ra + i2, rb + i2))
+                faces.append((ra + i, rb + i2, rb + i))
+        r_last = ring_start[hsteps - 1]
+        for i in range(segments):
+            i2 = (i + 1) % segments
+            faces.append((spole, r_last + i2, r_last + i))
+        sums = _cv.angle_sums(verts, faces)
+        return _math.degrees(sum(2 * _math.pi - s for s in sums))
+
+    def _cylinder_total_deg(segments: int, hsteps: int, radius: float = 10.0,
+                            height: float = 20.0) -> float:
+        verts = []
+        for j in range(hsteps + 1):
+            y = height * j / hsteps
+            for i in range(segments):
+                th = 2 * _math.pi * i / segments
+                verts.append((radius * _math.cos(th), y,
+                             radius * _math.sin(th)))
+        faces = []
+        for j in range(hsteps):
+            for i in range(segments):
+                i2 = (i + 1) % segments
+                a_i, b_i = j * segments + i, j * segments + i2
+                c_i, d_i = (j + 1) * segments + i2, (j + 1) * segments + i
+                faces.append((a_i, b_i, c_i))
+                faces.append((a_i, c_i, d_i))
+        sums = _cv.angle_sums(verts, faces)
+        total = 0.0
+        for j in range(1, hsteps):
+            for i in range(segments):
+                total += 2 * _math.pi - sums[j * segments + i]
+        return _math.degrees(total)
+
+    with guard("a closed sphere totals four pi by angle defect"):
+        s_coarse = _sphere_total_deg(20, 10)
+        s_fine = _sphere_total_deg(80, 40)
+        check("a closed sphere totals four pi by angle defect",
+              abs(s_coarse - 720.0) < 1e-6 and abs(s_fine - 720.0) < 1e-6,
+              f'20x10 UV sphere: {s_coarse:.9f} deg, 80x40: {s_fine:.9f} '
+              f'deg — both within 1e-6 of 4*pi = 720 deg. Discrete '
+              f'Gauss-Bonnet on a CLOSED surface is an exact identity, not '
+              f'an asymptotic one, when the per-vertex sum is a genuine '
+              f'triangle-fan')
+
+    with guard("a developable cylinder carries no curvature"):
+        c_coarse = _cylinder_total_deg(20, 12)
+        c_fine = _cylinder_total_deg(80, 48)
+        check("a developable cylinder carries no curvature",
+              abs(c_coarse) < 1e-6 and abs(c_fine) < 1e-6,
+              f'20x12 cylinder: {c_coarse:.2e} deg, 80x48: {c_fine:.2e} '
+              f'deg — both within 1e-6 of 0. A cylinder unrolls flat, so '
+              f'its angle defect must vanish; paired with the sphere '
+              f'above this checks the same primitive against one nonzero '
+              f'and one zero ground truth')
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("waist", 92.0),
+                        ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+    rep = _cv.report(man)
+
+    with guard("the mannequin's total curvature converges while its band "
+              "distribution does not"):
+        totals = [s["total_deg"] for s in rep["refinement"]]
+        # Pairs, not `range(len(totals) - 1)`: the length clause below has
+        # to pin the SAME sequence `all()` consumes, or a static reader
+        # cannot tell the range is non-empty from a length asserted about a
+        # different name (tests/unfalsifiable.py's T2 flagged exactly the
+        # `range(len(totals) - 1)` form as unpinned even with `len(totals)
+        # == 4` sitting right beside it, because the iterable inside all()
+        # was the range object, not `totals` itself).
+        step_pairs = list(zip(totals, totals[1:]))
+        spreads = rep["band_spread_across_refinement_deg"]
+        min_spread = min(spreads.values())
+        spread_summary = {k: round(v, 1) for k, v in spreads.items()}
+        check("the mannequin's total curvature converges while its band "
+              "distribution does not",
+              rep["verdict"] == "ANSWER" and len(totals) == 4
+              and len(step_pairs) == 3
+              and all(a < b for a, b in step_pairs)
+              and round(rep["total_deg_change_last_step"], 4) == 0.0298
+              and 180.0 < rep["total_deg_coarsest"] < rep["total_deg"] < 185.0
+              and min_spread > 10.0,
+              f'total_deg over (20,12)->(40,24)->(80,48)->(160,96): '
+              f'{[round(t, 3) for t in totals]} deg, strictly increasing, '
+              f'settling to a last-step change of '
+              f'{rep["total_deg_change_last_step"]:.4f} deg. Over the SAME '
+              f'four grids every band swings by more than 10 deg, '
+              f'spread {spread_summary} — the total is a measurement, the '
+              f'per-band split is a function of grid alignment against the '
+              f"mannequin's 5 fixed creases")
+
+    with guard("the curvature report shares the total, it does not "
+              "compute a dart intake"):
+        blob = _json.dumps(rep, default=str)
+        forbidden = [k for k in ("dart_intake", "intake_cm", "dart_cm",
+                                 "recommended_dart") if k in blob]
+        check("the curvature report shares the total, it does not "
+              "compute a dart intake",
+              rep["verdict"] == "ANSWER" and not forbidden
+              and "ダーツ" in rep["total_is_shared_not_split"]
+              and "輪郭" in rep["total_is_shared_not_split"],
+              f'{len(forbidden)} forbidden keys found in the report '
+              f'{forbidden}; total_is_shared_not_split names both the '
+              f'outline (輪郭) and darts (ダーツ) as the two payers '
+              f'without assigning either a number of centimetres')
+
+    with guard("curvature refuses missing measurements and a grid too "
+              "coarse to triangulate"):
+        empty_man = _mq.build(_gm.Measures())
+        good = _cv.mesh(man, 20, 12)
+        bad_segments = _cv.mesh(man, 2, 12)
+        bad_height = _cv.mesh(man, 20, 0)
+        one_res = _cv.report(man, [(20, 12)])
+        no_res = _cv.report(man, [])
+        missing = _cv.report(empty_man)
+        check("curvature refuses missing measurements and a grid too "
+              "coarse to triangulate",
+              rep["verdict"] == "ANSWER" and good["verdict"] == "ANSWER"
+              and missing["verdict"] == _mq.NO_MEASURE
+              and bad_segments["verdict"] == _cv.BAD_RESOLUTION
+              and bad_height["verdict"] == _cv.BAD_RESOLUTION
+              and one_res["verdict"] == _cv.NEEDS_TWO
+              and no_res["verdict"] == _cv.NO_RESOLUTIONS,
+              f'good grid (20,12) -> {good["verdict"]}; missing '
+              f'measurements -> {missing["verdict"]}; segments=2 -> '
+              f'{bad_segments["verdict"]}; height_steps=0 -> '
+              f'{bad_height["verdict"]}; one resolution -> '
+              f'{one_res["verdict"]}; zero resolutions -> '
+              f'{no_res["verdict"]}')
+
+
+# ---------------------------------------------------------------------------
 @declares("a marker refuses what it cannot know",
           "the seam allowance is inside the fabric it needs",
           "more copies need more fabric",
@@ -6007,6 +6501,7 @@ if __name__ == "__main__":
                prompts_switch_per_model_and_keep_discipline,
                compose_builds_a_whole_garment_from_parts,
                zones_number_the_garment_for_adjustment,
+               the_dress_walks_every_stage_past_composition,
                retrieval_asks_per_part,
                the_look_becomes_a_shape,
                the_gate_holds,
@@ -6018,6 +6513,7 @@ if __name__ == "__main__":
                darts_make_the_panel_three_dimensional,
                pattern_exports_to_a_cad_file,
                the_garment_goes_onto_a_body,
+               a_pattern_piece_absorbs_curvature_two_ways,
                the_marker_says_how_much_fabric,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,

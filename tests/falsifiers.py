@@ -1330,7 +1330,8 @@ WHOLE_SUITE += [
     ("marks stop computing seam allowances", "photoloset/garment_marks.py",
      [("        allowances[name] = off", "        pass")],
      ["skirt marks pair and face outward",
-      "allowances face outward on every part"]),
+      "allowances face outward on every part",
+      "the dress has no notches yet, and marks says so honestly"]),
 
     ("zones leak into the coat's ANSWER draft",
      "photoloset/garment_pattern.py",
@@ -1396,7 +1397,9 @@ WHOLE_SUITE += [
        "        if k not in self._bases:",
        "        k = self.key(piece, edge)\n"
        "        if True:")],
-     ["a number is a function of its address"]),
+     ["a number is a function of its address",
+      "a dress piece keeps its number when a piece is inserted ahead of "
+      "it"]),
 
     # NOT `len(self._bases) * STRIDE`: at the moment of assignment k is not
     # in _bases yet, so that expression equals self._next exactly and the
@@ -1437,7 +1440,8 @@ WHOLE_SUITE += [
     ("closing a dart stops shortening the edge", "photoloset/darts.py",
      [('        "edge_cm_after_closing": round(edge_len - w, 6),',
        '        "edge_cm_after_closing": round(edge_len, 6),')],
-     ["closing a dart shortens the edge by the intake"]),
+     ["closing a dart shortens the edge by the intake",
+      "a dart on the dress front closes at the address it sits"]),
 
     ("the dart is never trued, so its legs stay unequal",
      "photoloset/darts.py",
@@ -1513,6 +1517,21 @@ WHOLE_SUITE += [
        " \"state\": \"APART\"})\n"
        "            continue")],
      ["the clearance states partition every point"]),
+
+    # The coat's own measure set always has body_length, so this is invisible
+    # against the coat: `have["body_length"]` still gets populated by the
+    # loop above and nothing changes. Fed the DRESS's measure set (which has
+    # bodice_length and skirt_length, never body_length) it stops refusing
+    # and crashes instead at `L = have["body_length"]` — a KeyError the
+    # guard() around the check catches and reports as that check going red.
+    ("the mannequin stops refusing a missing measurement",
+     "photoloset/mannequin.py",
+     [("    if missing:\n"
+       "        return {\"verdict\": NO_MEASURE, \"missing\": missing,",
+       "    if False:\n"
+       "        return {\"verdict\": NO_MEASURE, \"missing\": missing,")],
+     ["the dress mannequin refuses the measure set the dress actually "
+      "has"]),
 
     # ---- convergence.loop() ----------------------------------------------
     ("a new address stops continuing the loop",
@@ -1619,7 +1638,8 @@ WHOLE_SUITE += [
      "photoloset/marker.py",
      [("        cw, ch = w + 2.0 * sa, h + 2.0 * sa",
        "        cw, ch = w, h")],
-     ["the seam allowance is inside the fabric it needs"]),
+     ["the seam allowance is inside the fabric it needs",
+      "the dress marker lays seven cut pieces onto real cloth"]),
 
     # This went MISS the first time, aimed at "more copies need more fabric":
     # the reference coat's pieces are ALREADY generated tallest-first
@@ -1659,7 +1679,9 @@ WHOLE_SUITE += [
      "photoloset/bom.py",
      [('            "quantity": mk["length_m"],',
        '            "quantity": round(mk["length_m"] * 1.1, 3),')],
-     ["the BOM's fabric line is the marker's, not a second calculation"]),
+     ["the BOM's fabric line is the marker's, not a second calculation",
+      "the dress BOM answers fabric and refuses three lines it cannot "
+      "know"]),
 
     ("the thread ratio is named but never used",
      "photoloset/bom.py",
@@ -1768,6 +1790,109 @@ WHOLE_SUITE += [
       "the cut line and sewing line are different curves on separate "
       "layers",
       "the DXF round-trips into rebuilt piece areas"]),
+
+    # No coat check pins a literal extents_cm, so this is invisible to the
+    # existing suite; the dress check does read extents_cm literally, and
+    # widening the gap between laid-out pieces shifts the bounding box's max
+    # x by exactly (pieces - 1) x the widening, moving it off the pin.
+    ("the DXF export spaces pieces further apart on the sheet",
+     "photoloset/dxf.py",
+     [("GAP_CM = 15.0", "GAP_CM = 20.0")],
+     ["the dress reaches DXF directly, because save() cannot draft it"]),
+]
+
+
+#: --- pass 6: curvature.py, Gauss-Bonnet made into a number -----------------
+#: Every entry here was verified in a FRESH interpreter before being wired
+#: in — mutate the file, run ONLY
+#: ``a_pattern_piece_absorbs_curvature_two_ways`` in a subprocess, read
+#: which of its five declared names went red, restore. Two mutations that
+#: looked plausible turned out to be no-ops and are recorded here rather
+#: than silently dropped: (1) breaking ``angle_sums`` to only accumulate two
+#: of a triangle's three vertices reddens the same three checks the z-drop
+#: below does, so it was not kept as a second, redundant entry; (2) removing
+#: the missing-measurement guard from EITHER ``mesh()`` or ``report()``
+#: alone is caught by the OTHER guard before the removed one is ever
+#: reached — the two are independent layers, not one check protected once —
+#: so that specific sub-path has no dedicated entry here. The two
+#: too-coarse-grid mutations below already turn "curvature refuses missing
+#: measurements and a grid too coarse to triangulate" red by a different
+#: door, which is what the falsifier owes the check's NAME, not every
+#: clause inside it.
+WHOLE_SUITE += [
+    # The 3D angle formula drops the z term from its dot product while
+    # still dividing by the full 3D norms — cos_t is no longer any angle's
+    # cosine. A closed sphere no longer totals exactly 4*pi (it becomes
+    # MESH-SIZE DEPENDENT: measured -11126.5 deg at 20x10 and -214722.4 deg
+    # at 80x40, not even close to each other, let alone to 720), a cylinder
+    # no longer totals 0 (-1.48e+04 deg at 20x12), and the mannequin's own
+    # total stops converging to anything sane. One bad primitive, three
+    # ground-truth checks catch it three different ways.
+    ("curvature's 3D angle formula drops the z axis",
+     "photoloset/curvature.py",
+     [("    cos_t = (v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]) "
+       "/ (n1 * n2)",
+       "    cos_t = (v1[0] * v2[0] + v1[1] * v2[1]) / (n1 * n2)")],
+     ["a closed sphere totals four pi by angle defect",
+      "a developable cylinder carries no curvature",
+      "the mannequin's total curvature converges while its band "
+      "distribution does not"]),
+
+    # The interior-vertex loop starts at the HIP ring (j=0) instead of
+    # skipping it — exactly the boundary-inclusion bug this module's own
+    # docstring warns against ("the hip base ring... is outline, not an
+    # interior vertex"). The sphere and cylinder ground-truth checks do not
+    # touch this loop at all (they sum their own meshes directly through
+    # ``angle_sums``) and stay green, which is the point: only a check that
+    # actually exercises the mannequin's boundary notices. Measured: total
+    # jumps from ~183 deg to 3803.6 deg at the coarsest grid alone, and the
+    # hip->waist band alone swings by 25192.8 deg across the refinement
+    # sequence instead of the ~27 deg it swings by honestly.
+    ("curvature sums the hip ring as if it were interior",
+     "photoloset/curvature.py",
+     [("    for j in range(1, height_steps):",
+       "    for j in range(0, height_steps):")],
+     ["the mannequin's total curvature converges while its band "
+      "distribution does not"]),
+
+    # The exact mistake this module's docstring records the FIRST attempt
+    # making: converting the total straight into a dart intake in
+    # centimetres (90 deg / 12 cm dart = 18.85 cm, against a real dart of
+    # 2-4 cm) rather than leaving the outline/dart split to the pattern
+    # maker. Measured: 2 forbidden keys appear in the report the moment
+    # this ships.
+    ("curvature starts converting the total into a dart intake",
+     "photoloset/curvature.py",
+     [('        "total_is_shared_not_split": (',
+       '        "dart_intake_cm": finest["total_deg"] / 7.5,\n'
+       '        "total_is_shared_not_split": (')],
+     ["the curvature report shares the total, it does not compute a dart "
+      "intake"]),
+
+    # mesh() stops refusing a grid too coarse to triangulate (segments < 3
+    # or height_steps < 1) — REFUSE, DON'T DEFAULT, broken. Measured: a
+    # ZeroDivisionError inside mesh() itself (segments=2 makes the ring
+    # step size divide by nothing sensible downstream), caught by the
+    # check's own guard() and reported as a crash rather than the typed
+    # UNKNOWN_RESOLUTION_TOO_COARSE the property promises.
+    ("curvature stops refusing a grid too coarse to triangulate",
+     "photoloset/curvature.py",
+     [("    if segments < MIN_SEGMENTS or height_steps < MIN_HEIGHT_STEPS:",
+       "    if False:")],
+     ["curvature refuses missing measurements and a grid too coarse to "
+      "triangulate"]),
+
+    # report() stops requiring at least two resolutions to show a
+    # refinement sequence — the "single resolution" refusal this function
+    # exists for (there is nothing to call convergence with only one
+    # point) silently disappears. Measured: an IndexError reaching into
+    # ``steps[-2]`` when only one resolution was ever computed.
+    ("curvature's report stops requiring two resolutions to show "
+     "convergence",
+     "photoloset/curvature.py",
+     [("    if len(resolutions) < 2:", "    if False:")],
+     ["curvature refuses missing measurements and a grid too coarse to "
+      "triangulate"]),
 ]
 
 
