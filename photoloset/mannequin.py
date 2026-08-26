@@ -20,6 +20,11 @@ SEGMENTS = 24
 GAP_CM = 1.0
 
 NO_MEASURE = "UNKNOWN_MISSING_MEASUREMENTS"
+#: 人台より上/下には身体が無い。**これは異常ではなく事実。** 人台は胴で、
+#: ロングコートの裾がその下に垂れるのは実際にそうなる。以前ここは例外を
+#: 投げていて、すべての服で ``dress`` が落ちていた — 「この高さに身体は
+#: 無い」という真で有用な答えを、拒否ではなく故障として表していた。
+NO_BODY = "UNKNOWN_NO_BODY_AT_THIS_HEIGHT"
 
 
 def _ellipse_radius(a: float, b: float, theta: float) -> float:
@@ -122,9 +127,18 @@ def build(measures: Any) -> Dict[str, Any]:
     }
 
 
-def radius_at(man: Dict[str, Any], y: float, theta: float) -> float:
-    """高さ y・方向 θ での人台の表面半径。"""
+def radius_at(man: Dict[str, Any], y: float,
+              theta: float) -> Optional[float]:
+    """高さ y・方向 θ での人台の表面半径。**身体が無ければ None。**
+
+    人台は胴体で、上端は襟ぐり、下端は腰。その外側に身体は無い。裾が
+    人台より下に垂れるロングコートは正常で、そこでの正しい答えは
+    「この高さに身体は無い」であって例外ではない。呼ぶ側は None を
+    受けなければならない。
+    """
     levels = man["_levels"]
+    if y < levels[0][0] - 1e-9 or y > levels[-1][0] + 1e-9:
+        return None
     lo = max(i for i in range(len(levels)) if levels[i][0] <= y + 1e-9)
     hi = min(lo + 1, len(levels) - 1)
     y0, a0, b0 = levels[lo]
@@ -143,35 +157,169 @@ def dress(man: Dict[str, Any], points: List[Tuple[float, float, float]],
     """
     if man.get("verdict") != "ANSWER":
         return dict(man)
+    al = align(man, points)
+    if al["verdict"] != "ANSWER":
+        return al
     worn: List[Tuple[float, float, float]] = []
     min_clear = float("inf")
-    for (x, y, z) in points:
+    below = 0
+    for (x, y, z) in al["points"]:
         theta = math.atan2(z, x) if (x or z) else 0.0
         surface = radius_at(man, y, theta)
-        # 腰(y=0)より下は、裾へ向かって直線で広げる。
-        extra = 0.0
-        if y < 0:
-            extra = -y * 0.35          # 広がり率。**仮定**
-        target = surface + gap + extra
+        if surface is None:
+            # 身体が無い高さ。押し出す相手がいないので、布は自分の半径の
+            # まま。**裾の広がりはここでは作らない** — 以前あった
+            # ``-y * 0.35`` は仮定で、身体の無い場所の形を発明していた。
+            below += 1
+            worn.append((x, y, z))
+            continue
+        target = surface + gap
         r = math.hypot(x, z)
         if r < 1e-9:
             worn.append((target, y, 0.0))
-            min_clear = min(min_clear, target - surface)
-            continue
-        worn.append((x / r * target, y, z / r * target))
-        min_clear = min(min_clear, target - surface)
+        else:
+            worn.append((x / r * target, y, z / r * target))
+        min_clear = min(min_clear, gap)
     return {
         "verdict": "ANSWER",
         "what": "garment placed on the dress form",
         "points": [(round(p[0], 4), round(p[1], 4), round(p[2], 4))
                    for p in worn],
         "gap_cm": gap,
-        "min_clearance_cm": round(min_clear, 3),
+        "alignment": al["rule"],
+        "points_below_the_form": below,
+        "min_clearance_cm": (None if min_clear == float("inf")
+                             else round(min_clear, 3)),
+        "clearance_is_by_construction":
+            "身体のある高さでは、この配置は全点を表面+空気層へ押し出すので"
+            "隙間は必ず gap と等しくなります。**この形から着心地は読めません。**"
+            "落ちたままの服と身体の距離は clearance() で測ってください",
         "generated_not_evidence":
             "着せた形は生成物です。観測の出典にはなりません。"
             "布の挙動(衝突・摩擦)は計算していません",
     }
 
+
+def align(man: Dict[str, Any],
+          points: List[Tuple[float, float, float]]) -> Dict[str, Any]:
+    """服を人台の座標系へ移す。**規則を出力に載せる。**
+
+    二つの座標系は原点も向きも違う。実測（参照コート・着丈112cm）::
+
+        服   y -130.92 .. -5.89   x 1.0 .. 40.4 (中心 20.7)
+        人台 y    0.00 .. 69.44   軸 x=0, z=0
+
+    合わせ方は解剖学的な基準点で決める。**服は肩から吊るもの**なので、
+    服の上端を人台の上端（襟ぐり）に合わせ、左右は軸に載せる。裾が人台の
+    下に出るのは正常で、そこには身体が無いだけ。
+
+    **服の幾何は動かしていない** — 剛体移動だけで、形は不変。
+    """
+    if man.get("verdict") != "ANSWER":
+        return dict(man)
+    if not points:
+        return {"verdict": "UNKNOWN_NO_POINTS",
+                "how_to_close": "落とした服の頂点が要ります"}
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    zs = [p[2] for p in points]
+    top = man["_levels"][-1][0]
+    dy = top - max(ys)
+    dx = -(min(xs) + max(xs)) / 2.0
+    dz = -(min(zs) + max(zs)) / 2.0
+    moved = [(x + dx, y + dy, z + dz) for (x, y, z) in points]
+    return {
+        "verdict": "ANSWER",
+        "points": moved,
+        "rule": {
+            "anchor": "服の上端 → 人台の上端(襟ぐり)",
+            "why": "服は肩から吊る。上端どうしが解剖学的に対応する",
+            "dy_cm": round(dy, 4), "dx_cm": round(dx, 4),
+            "dz_cm": round(dz, 4),
+            "garment_was": [round(min(ys), 2), round(max(ys), 2)],
+            "form_is": [round(man["_levels"][0][0], 2), round(top, 2)],
+            "rigid": "平行移動のみ。服の形は変えていない",
+        },
+    }
+
+
+#: 「密着」とみなす隙間(cm)。**閾値であって事実ではない。**
+CLING_CM = 1.5
+
+
+def clearance(man: Dict[str, Any],
+              points: List[Tuple[float, float, float]],
+              cling_cm: float = CLING_CM) -> Dict[str, Any]:
+    """**落ちたままの服**と人台の距離。最初の誠実なフィット評価。
+
+    ``dress`` の出力を測ってはいけない — あれは全点を表面+空気層へ押し出す
+    ので、隙間は構成上どこでも空気層と等しくなる。落ちようのない検査。
+
+    測るのはソルバが出した形そのもの。値の意味::
+
+        正       布は身体から離れている(隙間)
+        0..cling 密着
+        負       **布が身体の中にある**
+
+    負が出るのは欠陥の報告ではなく、**この企画が衝突を計算していないという
+    事実の測定**。ドレープは身体を知らないので、身体のある場所へ落ちる。
+    どこでどれだけ食い込むかが、衝突を入れる前に分かる唯一の数字。
+    """
+    if man.get("verdict") != "ANSWER":
+        return dict(man)
+    al = align(man, points)
+    if al["verdict"] != "ANSWER":
+        return al
+    rows: List[Dict[str, Any]] = []
+    inside = free = clinging = apart = 0
+    lo = hi = None
+    worst: Optional[Dict[str, Any]] = None
+    for i, (x, y, z) in enumerate(al["points"]):
+        theta = math.atan2(z, x) if (x or z) else 0.0
+        surface = radius_at(man, y, theta)
+        if surface is None:
+            free += 1
+            rows.append({"i": i, "y": round(y, 3), "state": NO_BODY})
+            continue
+        c = math.hypot(x, z) - surface
+        lo = c if lo is None else min(lo, c)
+        hi = c if hi is None else max(hi, c)
+        if c < 0.0:
+            inside += 1
+            st = "INSIDE_THE_BODY"
+        elif c <= cling_cm:
+            clinging += 1
+            st = "CLINGING"
+        else:
+            apart += 1
+            st = "APART"
+        row = {"i": i, "y": round(y, 3), "clearance_cm": round(c, 4),
+               "state": st}
+        rows.append(row)
+        if worst is None or c < worst["clearance_cm"]:
+            worst = row
+    return {
+        "verdict": "ANSWER",
+        "what": "distance from the garment AS IT FELL to the dress form",
+        "per_point": rows,
+        "points": len(rows),
+        "inside_the_body": inside,
+        "clinging": clinging,
+        "apart": apart,
+        "no_body_at_that_height": free,
+        "cling_threshold_cm": cling_cm,
+        "min_clearance_cm": None if lo is None else round(lo, 4),
+        "max_clearance_cm": None if hi is None else round(hi, 4),
+        "worst": worst,
+        "alignment": al["rule"],
+        "negative_means": (
+            "布が身体の中にあります。ドレープは衝突を計算していないので、"
+            "身体のある場所へ落ちます。これはこの企画の既知の限界の測定で"
+            "あって、型紙の欠陥の主張ではありません"),
+        "not_a_fit_verdict": (
+            "距離であって着心地ではありません。圧迫・伸び・シワには接触の"
+            "物理が要り、曲げ剛性も摩擦もまだありません"),
+    }
 
 def to_obj(verts: List[Tuple[float, float, float]],
            faces: List[Tuple[int, int, int, int]]) -> str:

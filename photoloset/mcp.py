@@ -40,6 +40,7 @@ from . import garment_rights as _rights_mod
 from . import garment_sew as _sew
 from . import garment_solid as _solid
 from . import darts as _darts
+from . import mannequin as _mq
 from . import points as _points
 from .garment import Intake, Ledger
 from .garment_measure import Measures
@@ -99,6 +100,18 @@ def _dart_call(new):
                                  "型紙そのものの性質に見えます")
     out["stored"] = len(kept)
     return _ok(out)
+
+
+def _fallen(fabric: str, iterations: int):
+    """The garment as the solver left it. Returns the points, or a refusal."""
+    draft = _pattern.draft(_measures())
+    if draft.get("verdict") != "ANSWER":
+        return _ok(draft)
+    built = _sew.build(_marks.apply(draft))
+    mat = _fabric(fabric)
+    if mat.get("verdict") != "ANSWER":
+        return _ok(mat)
+    return _sew.sew_and_drape(built, mat, iterations=iterations)["points"]
 
 
 def _numbering():
@@ -520,6 +533,54 @@ def pattern_dart_toward(piece: str, edge: str, t: float, intake_cm: float,
 def pattern_darts() -> str:
     """Every dart on the current pattern, opened, with what each one refuses."""
     return _dart_call(None)
+
+
+@tool
+def mannequin_form() -> str:
+    """The dress form built from the measurements, with its assumptions named.
+
+    It is a torso: hip at y=0 up to the neckline. There is no body above or
+    below that, and the tool says so rather than pretending. The depth of
+    each cross-section is an ASSUMPTION (a ratio of the width) — a girth is
+    a circumference, not a width, and separating them needs somebody to
+    measure.
+    """
+    return _ok(_mq.build(_measures()))
+
+
+@tool
+def mannequin_dress(fabric: str = "wool melton",
+                    iterations: int = 400, gap_cm: float = 1.0) -> str:
+    """Place the garment on the form. **This is a picture, not a fit.**
+
+    Every point is pushed out to the form's surface plus an air gap, so the
+    clearance of the result is that gap everywhere by construction. Reading
+    fit off this output would be a measurement that cannot come out wrong.
+    Use `mannequin_clearance` for the fit reading.
+    """
+    pts = _fallen(fabric, int(iterations))
+    if isinstance(pts, str):
+        return pts
+    return _ok(_mq.dress(_mq.build(_measures()), pts, gap=float(gap_cm)))
+
+
+@tool
+def mannequin_clearance(fabric: str = "wool melton",
+                        iterations: int = 400,
+                        cling_cm: float = 1.5) -> str:
+    """Distance from the garment **as it fell** to the form. The fit reading.
+
+    Negative means the cloth is inside the body. That is not a defect report
+    — the drape does not compute collision, so it falls through. It is the
+    only number that says where, and by how much, before contact physics
+    exists. On the reference coat: 101 of 297 points inside the body, worst
+    -14.4256 cm.
+    """
+    pts = _fallen(fabric, int(iterations))
+    if isinstance(pts, str):
+        return pts
+    return _ok(_mq.clearance(_mq.build(_measures()), pts,
+                             cling_cm=float(cling_cm)))
 
 
 @tool

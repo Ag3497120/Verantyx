@@ -1464,6 +1464,58 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- 人台に着せる ---------------------------------------------------------
+#: 型紙と「30番から35番をゆとりを」の間の一段。壊し方は「身体の無い高さで
+#: 例外に戻る」「合わせが剛体でなくなる」「押し出した形を測る」「身体の無い
+#: 点を離れとして数える」。
+WHOLE_SUITE += [
+    ("radius_at goes back to raising below the form",
+     "photoloset/mannequin.py",
+     [("    if y < levels[0][0] - 1e-9 or y > levels[-1][0] + 1e-9:\n"
+       "        return None",
+       "    if False:\n        return None")],
+     ["there is no body below the dress form"]),
+
+    ("the alignment scales the garment instead of moving it",
+     "photoloset/mannequin.py",
+     [("    moved = [(x + dx, y + dy, z + dz) for (x, y, z) in points]",
+       "    moved = [((x + dx) * 1.02, y + dy, (z + dz) * 1.02)\n"
+       "             for (x, y, z) in points]")],
+     ["the garment is moved onto the form without changing shape"]),
+
+    ("the garment is anchored by its hem instead of its neckline",
+     "photoloset/mannequin.py",
+     [("    dy = top - max(ys)", "    dy = top - min(ys)")],
+     ["the garment is moved onto the form without changing shape"]),
+
+    ("clearance measures the pushed-out garment, not the fallen one",
+     "photoloset/mannequin.py",
+     [("    al = align(man, points)\n"
+       "    if al[\"verdict\"] != \"ANSWER\":\n"
+       "        return al\n"
+       "    rows: List[Dict[str, Any]] = []",
+       "    al = align(man, dress(man, points)[\"points\"])\n"
+       "    if al[\"verdict\"] != \"ANSWER\":\n"
+       "        return al\n"
+       "    rows: List[Dict[str, Any]] = []")],
+     ["clearance is measured on the garment as it fell"]),
+
+    ("a height with no body is counted as clearance instead",
+     "photoloset/mannequin.py",
+     [("        if surface is None:\n"
+       "            free += 1\n"
+       "            rows.append({\"i\": i, \"y\": round(y, 3),"
+       " \"state\": NO_BODY})\n"
+       "            continue",
+       "        if surface is None:\n"
+       "            apart += 1\n"
+       "            rows.append({\"i\": i, \"y\": round(y, 3),"
+       " \"state\": \"APART\"})\n"
+       "            continue")],
+     ["the clearance states partition every point"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:

@@ -185,6 +185,10 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "there is no body below the dress form",
+    "the garment is moved onto the form without changing shape",
+    "clearance is measured on the garment as it fell",
+    "the clearance states partition every point",
     "closing a dart shortens the edge by the intake",
     "a dart whose apex leaves the panel is refused",
     "truing moves the dart until the legs match",
@@ -280,7 +284,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "54 tools",
+    "57 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -892,7 +896,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("54 tools", len(tools) == 54, f"{len(tools)}")
+        check("57 tools", len(tools) == 57, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -940,8 +944,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 54 and not no_schema and not no_props
-              and len(published) == 92 and not wrong and not contradicted
+              len(tools) == 57 and not no_schema and not no_props
+              and len(published) == 98 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1006,7 +1010,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 54 and not not_object and not crashed,
+              len(tools) == 57 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -4912,6 +4916,140 @@ def darts_make_the_panel_three_dimensional() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("there is no body below the dress form",
+          "the garment is moved onto the form without changing shape",
+          "clearance is measured on the garment as it fell",
+          "the clearance states partition every point")
+def the_garment_goes_onto_a_body() -> None:
+    """**The step between a pattern and "loosen 30 to 35".**
+
+    dress() used to raise on every garment: radius_at did
+    ``max(i for i ... if levels[i][0] <= y)`` and the generator is empty for
+    any height below the form. A long coat's hem hanging below a torso form
+    is not an error — it is what actually happens, and the true answer there
+    is "there is no body at this height".
+
+    The two frames genuinely disagree. Measured on the reference coat: the
+    garment falls from y -5.89 to -130.92 with its x centred on 20.7, while
+    the form stands from 0 to 69.44 on the axis. The alignment is stated in
+    the output rather than assumed.
+    """
+    import math as _math
+
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import garment_sew as _gs
+    from photoloset import mannequin as _mq
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    built = _gs.build(_mk.apply(draft))
+    mat = {"verdict": "ANSWER", "fabric": "wool melton", "gsm": 420.0,
+           "thickness": 0.18, "stiffness": 20.0}
+    fell = _gs.sew_and_drape(built, mat, iterations=400)["points"]
+    man = _mq.build(ms)
+
+    with guard("there is no body below the dress form"):
+        top = man["_levels"][-1][0]
+        inside = _mq.radius_at(man, top * 0.5, 0.0)
+        under = _mq.radius_at(man, -50.0, 0.0)
+        over = _mq.radius_at(man, top + 50.0, 0.0)
+        # Both directions. A radius_at that returned None everywhere would
+        # make dress() answer nothing at all and still pass a one-sided test.
+        check("there is no body below the dress form",
+              isinstance(inside, float) and inside > 0.0
+              and under is None and over is None
+              and round(top, 2) == 69.44,
+              f'the form stands 0..{top:.2f}; at half height the surface is '
+              f'{inside:.3f} cm, at -50 it is {under}, at {top + 50:.0f} it '
+              f'is {over}. This used to raise ValueError for every garment')
+
+    with guard("the garment is moved onto the form without changing shape"):
+        al = _mq.align(man, fell)
+        moved = al["points"]
+
+        def spread(ps):
+            return (max(q[0] for q in ps) - min(q[0] for q in ps),
+                    max(q[1] for q in ps) - min(q[1] for q in ps),
+                    max(q[2] for q in ps) - min(q[2] for q in ps))
+
+        def d(ps, i, j):
+            return _math.dist(ps[i], ps[j])
+
+        pairs = [(0, 40), (5, 120), (77, 200), (12, 296)]
+        kept = sum(1 for i, j in pairs
+                   if abs(d(fell, i, j) - d(moved, i, j)) < 1e-9)
+        before, after = spread(fell), spread(moved)
+        axes = sum(1 for a, b in zip(before, after) if abs(a - b) < 1e-9)
+        check("the garment is moved onto the form without changing shape",
+              kept == len(pairs) == 4
+              and axes == 3 and len(before) == len(after) == 3
+              and round(al["rule"]["dy_cm"], 2) == 75.33
+              and round(al["rule"]["dx_cm"], 2) == -20.71
+              and round(max(q[1] for q in moved), 4)
+              == round(man["_levels"][-1][0], 4),
+              f'dy {al["rule"]["dy_cm"]}, dx {al["rule"]["dx_cm"]}: '
+              f'{kept} of {len(pairs)} sampled distances unchanged to 1e-9 '
+              f'and {axes} of 3 bounding-box axes identical. The top now sits exactly '
+              f'on the form\'s neckline. A scale would have moved both')
+
+    with guard("clearance is measured on the garment as it fell"):
+        worn = _mq.dress(man, fell)
+        c_fell = _mq.clearance(man, fell)
+        c_worn = _mq.clearance(man, worn["points"])
+        # THE POINT. dress() pushes every point out to surface + gap, so the
+        # clearance of a dressed garment is the gap BY CONSTRUCTION. Measuring
+        # fit on that output would be a check that cannot fail. The two are
+        # run side by side here so the difference is a measurement.
+        spread_worn = (c_worn["max_clearance_cm"]
+                       - c_worn["min_clearance_cm"])
+        spread_fell = (c_fell["max_clearance_cm"]
+                       - c_fell["min_clearance_cm"])
+        # The dressed spread is not exactly zero: dress() rounds its points
+        # to four decimals, so 0.0064 cm of rounding survives. That is the
+        # honest number, and it is still three orders of magnitude below the
+        # spread of the garment as it fell.
+        check("clearance is measured on the garment as it fell",
+              spread_worn < 0.01
+              and spread_fell > 20.0
+              and spread_fell / spread_worn > 1000.0
+              and c_fell["inside_the_body"] == 101
+              and c_worn["inside_the_body"] == 0
+              and round(c_fell["min_clearance_cm"], 4) == -14.4256
+              and round(c_fell["max_clearance_cm"], 4) == 12.9008
+              and round(c_worn["min_clearance_cm"], 4) == 0.9968,
+              f'dressed: every clearance is {c_worn["min_clearance_cm"]} cm, '
+              f'spread {spread_worn:.9f} — the gap, by construction. '
+              f'As it fell: {c_fell["min_clearance_cm"]} to '
+              f'{c_fell["max_clearance_cm"]} cm, spread {spread_fell:.2f} — '
+              f'{spread_fell / spread_worn:.0f}x wider — with '
+              f'{c_fell["inside_the_body"]} points inside the body. '
+              f'That is what no collision handling costs')
+
+    with guard("the clearance states partition every point"):
+        c = _mq.clearance(man, fell)
+        total = (c["inside_the_body"] + c["clinging"] + c["apart"]
+                 + c["no_body_at_that_height"])
+        states = {r["state"] for r in c["per_point"]}
+        check("the clearance states partition every point",
+              total == c["points"] == len(fell) == 297
+              and states == {"INSIDE_THE_BODY", "CLINGING", "APART",
+                             _mq.NO_BODY}
+              and c["no_body_at_that_height"] == 138
+              and c["worst"]["state"] == "INSIDE_THE_BODY",
+              f'{c["inside_the_body"]} inside + {c["clinging"]} clinging + '
+              f'{c["apart"]} apart + {c["no_body_at_that_height"]} with no '
+              f'body = {total} = every one of the {len(fell)} points, and '
+              f'all four states occur. A state nothing lands in would let a '
+              f'whole category go unnoticed')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -4952,6 +5090,7 @@ if __name__ == "__main__":
                no_check_can_pass_by_construction,
                numbers_survive_a_revision,
                darts_make_the_panel_three_dimensional,
+               the_garment_goes_onto_a_body,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
