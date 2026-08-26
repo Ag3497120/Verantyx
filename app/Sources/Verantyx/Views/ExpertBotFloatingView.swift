@@ -37,7 +37,7 @@ struct ExpertBotFloatingView: View {
                                 .buttonStyle(.plain)
                             }
                             .padding()
-                            .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+                            .background(Theme.panel2)
                             
                             Divider().opacity(0.3)
                             
@@ -106,10 +106,10 @@ struct ExpertBotFloatingView: View {
                                 .disabled(inputText.isEmpty || engine.isGenerating)
                             }
                             .padding()
-                            .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+                            .background(Theme.panel2)
                         }
                         .frame(width: 380, height: 520)
-                        .background(Color(red: 0.12, green: 0.12, blue: 0.15))
+                        .background(Theme.panel2)
                         .cornerRadius(12)
                         .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 5)
                         .overlay(
@@ -128,7 +128,7 @@ struct ExpertBotFloatingView: View {
                         ZStack {
                             Circle()
                                 .fill(LinearGradient(
-                                    colors: [Color(red: 0.2, green: 0.4, blue: 0.9), Color(red: 0.1, green: 0.2, blue: 0.6)],
+                                    colors: [Theme.sel, Color(red: 0.1, green: 0.2, blue: 0.6)],
                                     startPoint: .topLeading, endPoint: .bottomTrailing
                                 ))
                                 .frame(width: 50, height: 50)
@@ -216,7 +216,7 @@ fileprivate struct ChatBubble: View {
                 Text(message.content)
                     .font(.system(size: 12))
                     .padding(10)
-                    .background(Color(red: 0.2, green: 0.4, blue: 0.8))
+                    .background(Theme.sel)
                     .foregroundStyle(.white)
                     .clipShape(
                         .rect(

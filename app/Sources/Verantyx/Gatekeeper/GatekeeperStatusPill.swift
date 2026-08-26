@@ -45,7 +45,7 @@ struct GatekeeperStatusPill: View {
                     .fill(Color(red: 0.05, green: 0.15, blue: 0.08).opacity(0.92))
                     .overlay(
                         Capsule()
-                            .strokeBorder(Color(red: 0.2, green: 0.9, blue: 0.45).opacity(0.6), lineWidth: 1)
+                            .strokeBorder(Theme.ok.opacity(0.6), lineWidth: 1)
                     )
             )
             .shadow(color: Color(red: 0.1, green: 0.8, blue: 0.4).opacity(0.4), radius: 6, x: 0, y: 2)

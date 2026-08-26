@@ -344,12 +344,12 @@ struct CompletedThinkingBlock: View {
 
     private func color(for kind: String) -> Color {
         switch kind {
-        case "memory":   return Color(red: 0.4, green: 0.9, blue: 0.6)
+        case "memory":   return Theme.ok
         case "tool":     return Color(red: 0.4, green: 0.8, blue: 1.0)
-        case "browser":  return Color(red: 0.9, green: 0.7, blue: 0.3)
+        case "browser":  return Theme.warn
         case "thinking": return Color(red: 0.8, green: 0.8, blue: 1.0)
-        case "perf":     return Color(red: 0.3, green: 1.0, blue: 0.5)
-        default:         return Color(red: 0.6, green: 0.6, blue: 0.6)
+        case "perf":     return Theme.ok
+        default:         return Theme.dim
         }
     }
 

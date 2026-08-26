@@ -84,7 +84,7 @@ struct MCPView: View {
                 .padding(.vertical, 6)
                 Spacer()
             }
-            .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+            .background(Theme.panel)
         }
         .sheet(isPresented: $showAddSheet) {
             MCPServerEditSheet(config: .init(name: "", transport: .stdio, command: "", mode: .ai)) { saved in
@@ -143,7 +143,7 @@ struct MCPView: View {
                 VStack(alignment: .leading, spacing: 1) {
                     Text("MCP RUNNING")
                         .font(.system(size: 10, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                        .foregroundStyle(Theme.bad)
                     Text("\(call.serverName) → \(call.toolName)  [\(call.elapsedSeconds)s]")
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(.secondary)
@@ -200,7 +200,7 @@ struct MCPView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "square.and.arrow.up")
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.5, green: 0.85, blue: 0.6))
+                        .foregroundStyle(Theme.ok)
                     Text(app.t("Use Vera memory in other IDEs", "Veraの記憶を他のIDEで使う"))
                         .font(.system(size: 10, weight: .semibold))
                     Spacer()
@@ -230,7 +230,7 @@ struct MCPView: View {
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .background(Color(red: 0.10, green: 0.13, blue: 0.11))
+            .background(Theme.panel2)
             Divider().opacity(0.3)
         }
     }
@@ -247,7 +247,7 @@ struct MCPView: View {
             } label: {
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.4, green: 0.75, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -258,7 +258,7 @@ struct MCPView: View {
             } label: {
                 Image(systemName: "bolt.fill")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -284,7 +284,7 @@ struct MCPView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
     }
 
     // MARK: - Server detail (inline, stacked vertically under list)
@@ -328,7 +328,7 @@ struct MCPView: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.mini)
-                .tint(Color(red: 0.4, green: 0.75, blue: 1.0))
+                .tint(Theme.sel)
 
                 Button {
                     mcp.disconnect(serverId: server.id)
@@ -356,7 +356,7 @@ struct MCPView: View {
                     } label: {
                         Label(AppLanguage.shared.t("⚠️ Set API Key...", "⚠️ API キーを設定…"), systemImage: "key.fill")
                             .font(.system(size: 10))
-                            .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                            .foregroundStyle(Theme.warn)
                     }
                     .contentShape(Rectangle())
                     .buttonStyle(.plain)
@@ -422,7 +422,7 @@ struct MCPView: View {
             }
         }
         .padding(10)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 
     private var emptyServerList: some View {
@@ -452,13 +452,13 @@ struct MCPView: View {
                 .font(.system(size: 8, weight: .bold, design: .monospaced))
         }
         .foregroundStyle(mode == .ai
-                         ? Color(red: 0.3, green: 1.0, blue: 0.5)
-                         : Color(red: 0.9, green: 0.7, blue: 0.3))
+                         ? Theme.ok
+                         : Theme.warn)
         .padding(.horizontal, 5)
         .padding(.vertical, 2)
         .background((mode == .ai
-                     ? Color(red: 0.3, green: 1.0, blue: 0.5)
-                     : Color(red: 0.9, green: 0.7, blue: 0.3)).opacity(0.12),
+                     ? Theme.ok
+                     : Theme.warn).opacity(0.12),
                     in: RoundedRectangle(cornerRadius: 4))
     }
 
@@ -468,10 +468,10 @@ struct MCPView: View {
 
     private func statusColor(for id: UUID) -> Color {
         switch mcp.connectionStatus[id] ?? .disconnected {
-        case .connected:   return Color(red: 0.3, green: 0.9, blue: 0.5)
-        case .connecting:  return Color(red: 0.9, green: 0.7, blue: 0.3)
-        case .error:       return Color(red: 0.9, green: 0.4, blue: 0.4)
-        case .disconnected: return Color(red: 0.5, green: 0.5, blue: 0.6)
+        case .connected:   return Theme.ok
+        case .connecting:  return Theme.warn
+        case .error:       return Theme.bad
+        case .disconnected: return Theme.dim
         }
     }
 
@@ -499,9 +499,9 @@ struct ServerRow: View {
 
     private var statusDot: Color {
         switch status {
-        case .connected:    return Color(red: 0.3, green: 0.9, blue: 0.5)
-        case .connecting:   return Color(red: 0.9, green: 0.7, blue: 0.3)
-        case .error:        return Color(red: 0.9, green: 0.4, blue: 0.4)
+        case .connected:    return Theme.ok
+        case .connecting:   return Theme.warn
+        case .error:        return Theme.bad
         case .disconnected: return Color(red: 0.4, green: 0.4, blue: 0.5)
         }
     }
@@ -513,7 +513,7 @@ struct ServerRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(server.name)
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(isSelected ? .white : Color(red: 0.88, green: 0.88, blue: 0.95))
+                    .foregroundStyle(isSelected ? .white : Theme.fg)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 Text(server.transport.rawValue)
@@ -529,8 +529,8 @@ struct ServerRow: View {
             Text(server.mode == .ai ? "AI" : "60s")
                 .font(.system(size: 8, weight: .bold, design: .monospaced))
                 .foregroundStyle(server.mode == .ai
-                                 ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                 : Color(red: 0.9, green: 0.7, blue: 0.3))
+                                 ? Theme.ok
+                                 : Theme.warn)
                 .padding(.horizontal, 5)
                 .padding(.vertical, 2)
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 3))
@@ -538,7 +538,7 @@ struct ServerRow: View {
 
             // Enabled indicator
             Circle()
-                .fill(server.isEnabled ? Color(red: 0.3, green: 0.7, blue: 1.0) : Color.secondary.opacity(0.5))
+                .fill(server.isEnabled ? Theme.sel : Color.secondary.opacity(0.5))
                 .frame(width: 5, height: 5)
         }
         .padding(.horizontal, 10)
@@ -656,11 +656,11 @@ struct MCPServerEditSheet: View {
                         if config.mode == .ai {
                             Label("No timeout. Kill switch available. Suitable for AI agent use.",
                                   systemImage: "infinity")
-                                .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                                .foregroundStyle(Theme.ok)
                         } else {
                             Label("60-second timeout per tool call. Safe for interactive use.",
                                   systemImage: "timer")
-                                .foregroundStyle(Color(red: 0.9, green: 0.7, blue: 0.3))
+                                .foregroundStyle(Theme.warn)
                         }
                     }
                     .font(.system(size: 10))
@@ -740,7 +740,7 @@ struct MCPServerEditSheet: View {
             }
         }
         .padding(20)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 }
 
@@ -779,7 +779,7 @@ struct MCPCatalogPickerSheet: View {
             // Header
             HStack {
                 Image(systemName: "square.grid.2x2.fill")
-                    .foregroundStyle(Color(red: 0.4, green: 0.75, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
                 Text(AppLanguage.shared.t("Add from MCP Catalog", "MCP カタログから追加"))
                     .font(.system(size: 14, weight: .bold))
                 Spacer()
@@ -797,7 +797,7 @@ struct MCPCatalogPickerSheet: View {
                         HStack(spacing: 12) {
                             Image(systemName: entry.icon)
                                 .font(.system(size: 18))
-                                .foregroundStyle(Color(red: 0.4, green: 0.75, blue: 1.0))
+                                .foregroundStyle(Theme.sel)
                                 .frame(width: 32)
 
                             VStack(alignment: .leading, spacing: 3) {
@@ -811,10 +811,10 @@ struct MCPCatalogPickerSheet: View {
                                     HStack(spacing: 4) {
                                         Image(systemName: "key.fill")
                                             .font(.system(size: 8))
-                                            .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                                            .foregroundStyle(Theme.warn)
                                         Text(entry.requiredEnv.map(\.key).joined(separator: ", "))
                                             .font(.system(size: 9, design: .monospaced))
-                                            .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                                            .foregroundStyle(Theme.warn)
                                     }
                                 }
                             }
@@ -826,14 +826,14 @@ struct MCPCatalogPickerSheet: View {
                                 .controlSize(.small)
                         }
                         .padding(12)
-                        .background(Color(red: 0.12, green: 0.12, blue: 0.16),
+                        .background(Theme.panel2,
                                     in: RoundedRectangle(cornerRadius: 8))
                     }
                 }
                 .padding(12)
             }
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 }
 
@@ -855,7 +855,7 @@ struct MCPApiKeySheet: View {
             // Header
             HStack(spacing: 8) {
                 Image(systemName: "key.fill")
-                    .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                    .foregroundStyle(Theme.warn)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(AppLanguage.shared.t("\(server.name) — Set API Key", "\(server.name) — API キーを設定"))
                         .font(.system(size: 13, weight: .bold))
@@ -881,7 +881,7 @@ struct MCPApiKeySheet: View {
                                         .font(.system(size: 9, weight: .bold))
                                         .foregroundStyle(.white)
                                         .padding(.horizontal, 5).padding(.vertical, 2)
-                                        .background(Color(red: 0.9, green: 0.3, blue: 0.3),
+                                        .background(Theme.bad,
                                                     in: RoundedRectangle(cornerRadius: 3))
                                     Spacer()
                                     if !spec.helpURL.isEmpty {
@@ -954,7 +954,7 @@ struct MCPApiKeySheet: View {
             }
             .padding(16)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 }
 
@@ -1090,7 +1090,7 @@ struct ExternalOpsView: View {
             .frame(maxWidth: 760, alignment: .leading)
             .frame(maxWidth: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .onAppear {
             profiles = VeraMemoryPaths.listProfiles()
             active = VeraMemoryPaths.activeProfile

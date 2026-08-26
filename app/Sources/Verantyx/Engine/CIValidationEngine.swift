@@ -257,10 +257,10 @@ final class CIValidationEngine: ObservableObject {
     var phaseColor: Color {
         switch currentPhase {
         case .idle:             return .secondary
-        case .preparingBranch:  return Color(red: 0.7, green: 0.65, blue: 0.95)
-        case .compiling:        return Color(red: 0.4, green: 0.7, blue: 1.0)
-        case .fixingErrors:     return Color(red: 1.0, green: 0.75, blue: 0.2)
-        case .passed:           return Color(red: 0.3, green: 0.9, blue: 0.5)
+        case .preparingBranch:  return Theme.accent
+        case .compiling:        return Theme.sel
+        case .fixingErrors:     return Theme.warn
+        case .passed:           return Theme.ok
         case .failed:           return .red
         }
     }

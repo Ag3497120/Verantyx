@@ -20,11 +20,11 @@ struct TerminalEntry: Identifiable {
 
     var displayColor: Color {
         switch kind {
-        case .command:       return Color(red: 0.5, green: 0.9, blue: 0.5) // bright green
-        case .stdout:        return Color(red: 0.88, green: 0.88, blue: 0.88)
-        case .stderr:        return Color(red: 1.0, green: 0.4, blue: 0.3)
-        case .info:          return Color(red: 0.6, green: 0.6, blue: 0.8)
-        case .aiAction:      return Color(red: 0.8, green: 0.6, blue: 1.0) // purple
+        case .command:       return Theme.ok // bright green
+        case .stdout:        return Theme.fg
+        case .stderr:        return Theme.bad
+        case .info:          return Theme.sel
+        case .aiAction:      return Theme.accent // purple
         case .exitCode(let c): return c == 0 ? .green : .red
         }
     }

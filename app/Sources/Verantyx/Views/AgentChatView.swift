@@ -7,26 +7,17 @@ import SwiftUI
 struct AgentChatView: View {
     @EnvironmentObject var app: AppState
     @State private var showingHistory: Bool = false
-    @State private var inputText: String = ""
-    /// 0 = 「Vera に質問」, 1 = 「<verantyx> 〜 </verantyx> で投入」.
-    @State private var placeholderPhase: Int = 0
-    /// Laid-out height of the input's content, reported back from AppKit.
-    @State private var composerContentHeight: CGFloat = 0
     @State private var showingModelPill = false
 
-    /// Drives the composer glow. Eases out after the state settles.
-    @State private var glowPulse: Bool = false
+    /// The pinned composer that used to end this view's body is gone —
+    /// moved to `UnifiedComposerView`, which IDEShellView now positions
+    /// itself (below whatever tab is open, or alone in the empty state).
+    /// The two remaining callers that still want a self-contained chat
+    /// pane (SwarmMonitorView's side-by-side agents; the dormant
+    /// AIModeLayoutView) pass `true` here so they keep a composer of
+    /// their own — the SAME implementation, not a second one.
+    var showsOwnComposer: Bool = true
 
-    /// The composer reads the same state machine as the window edge and the
-    /// menu-bar icon. It used to read `isGenerating || isAgentControllingMouse`
-    /// directly, which made three indicators that could disagree and gave
-    /// planning, generating, exploring and operating one identical colour.
-    @ObservedObject private var activity = AgentActivityCenter.shared
-
-    private var runningGlowColor: Color { activity.state.color }
-    private var runningGlowActive: Bool { activity.state.glows }
-    @FocusState private var inputFocused: Bool
-    
     @State private var showVisualAnchorPrompt: Bool = false
     @State private var visualAnchorText: String = ""
     @State private var showSpotlightPrompt: Bool = false
@@ -73,40 +64,20 @@ struct AgentChatView: View {
                 // no Vera-specific handling, since Vera's replies are
                 // already plain ChatMessage(role:.assistant, content:)
                 // like every other mode.
-                // Every mode gets the same screen: memory and the free
-                // window down the left, the cross as a watermark over
-                // all of it, and the main area filled by whatever this
-                // mode actually answers with — the transcript in every
-                // mode except Bot. Vera runs under all three; only the
-                // reply differs.
+                // Every mode gets the same screen: the main area filled
+                // by whatever this mode actually answers with. Only two
+                // modes remain (2026-08-26 — Vera単体 and Veraぼっと were
+                // removed, see AppState.VeraEngineMode), so this is now a
+                // straight either/or rather than a three-way branch: the
+                // garment workbench, or the ordinary transcript.
+                // **服飾の作業面はここでは描かない。** かつてこの画面が唯一の
+                // 面だった頃の名残で、atelier モードのとき AtelierView を出して
+                // いた。いまはシェルの服飾タブが同じものを描くので、チャットの
+                // タブを開いていると AtelierView が二つ生き、互いの領域に食い
+                // 込んで画面が崩れた（レール連打で再現）。**同じ物を二箇所で
+                // 描かない。** 会話の画面は会話だけを持つ。
                 VeraSovereignLayout {
-                    if app.veraEngineMode == .atelier {
-                        // 服飾の作業面。ここだけは会話が主役ではない —
-                        // 見るのは服の状態で、Vera はその裏で台帳を持つ。
-                        // 上のモデル選択は、のちに「どの AI に解析させるか」
-                        // を選ぶ場所になる。
-                        AtelierView().environmentObject(app)
-                    } else if app.veraEngineMode == .veraBot {
-                        // Bot's replies are screens, and an NSTextView
-                        // cannot hold one. Same messages, rendered as
-                        // views.
-                        //
-                        // The console sits above them because this is the
-                        // one mode whose subject is the machine: naming a
-                        // screen still summons it into the transcript, and
-                        // the settings that never had a control are now
-                        // simply visible. Chrome stays absent everywhere
-                        // the work is a conversation; here the work is
-                        // operating the thing.
-                        VSplitView {
-                            VeraOperatorConsole().environmentObject(app)
-                                .frame(minHeight: 180, idealHeight: 300)
-                            VeraBotTranscript().environmentObject(app)
-                                .frame(minHeight: 160)
-                        }
-                    } else {
-                        chatTranscriptArea
-                    }
+                    chatTranscriptArea
                 }
                 .environmentObject(app)
                     .opacity(showingHistory ? 0 : 1)
@@ -154,7 +125,13 @@ struct AgentChatView: View {
             }
             
             // ── Input ────────────────────────────────────────────────
-            inputBar
+            // IDEShellView mounts UnifiedComposerView itself for the main
+            // shell (below the active tab, or alone in the empty state) —
+            // this only renders here for the two embeds that still want a
+            // self-contained pane.
+            if showsOwnComposer {
+                inputBar
+            }
         }
         .overlay(
             Group {
@@ -184,7 +161,7 @@ struct AgentChatView: View {
                 }
             }
         )
-        .background(Color(red: 0.13, green: 0.13, blue: 0.16))
+        .background(Theme.panel2)
         // ─ Sync state with AppState (for session restore programmatic switch) ─
         .onChange(of: app.activeChatTab) { _, newVal in
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
@@ -243,7 +220,7 @@ struct AgentChatView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "bubble.left.and.bubble.right.fill")
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                     Text(app.t("Chat", "チャット"))
                         .font(.system(size: 13, weight: .bold))
                         .foregroundStyle(Color.white)
@@ -267,7 +244,7 @@ struct AgentChatView: View {
             Spacer()
         }
         .padding(.vertical, 5)
-        .background(Color(red: 0.15, green: 0.15, blue: 0.19))
+        .background(Theme.panel2)
         .overlay(alignment: .leading) {
             veraModeControls.padding(.leading, 12)
         }
@@ -286,7 +263,7 @@ struct AgentChatView: View {
         HStack(spacing: 8) {
             Image(systemName: "square.on.square")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.45, green: 0.72, blue: 1.0))
+                .foregroundStyle(Theme.sel)
             Menu {
                 ForEach(app.garmentProjects, id: \.self) { name in
                     Button {
@@ -339,15 +316,14 @@ struct AgentChatView: View {
     private var veraModeControls: some View {
         HStack(spacing: 6) {
             // **この道具は服飾のものなので、モード選択は小さく畳む。**
-            // 以前のモードは動くまま残す — 消すと、動いていたものを
-            // 消したことになる。ただし常に見えている必要は無い。
+            // 4モードだったうちの Vera単体・Veraぼっと は 2026-08-26 に
+            // 削除(owner指示 — 「モードは2つだけ」)。旧「版の切替」
+            // ピッカー(veraModelVersions/selectVeraModelVersion)も
+            // Vera単体でだけ出ていたので、モードと一緒に消えた。
             Picker("", selection: Binding(
                 get: { app.veraEngineMode },
                 set: { app.veraEngineMode = $0 })) {
                 Text("Atelier").tag(AppState.VeraEngineMode.atelier)
-                Divider()
-                Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                Text("Bot").tag(AppState.VeraEngineMode.veraBot)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
             }
             .pickerStyle(.menu)
@@ -356,34 +332,9 @@ struct AgentChatView: View {
             .controlSize(.small)
             .font(.system(size: 10))
             .help(app.t(
-                "Atelier is the garment workbench. Vera answers from the store "
-                + "alone — typed verdicts, no LLM in the turn. Bot answers about "
-                + "the app itself. LLM is just a model, with nothing in front of it.",
-                "Atelier は服飾の作業面。Vera は台帳だけで答える(型付き判定・"
-                + "ターン内でLLMを呼ばない)。Bot はこのアプリについて答える。"
-                + "LLM は素のモデル。"))
-
-            // Which stamped Vera release answers — only when one does.
-            if app.veraEngineMode == .veraModel {
-                Picker("", selection: Binding(
-                    get: { app.selectedVeraVersionId },
-                    set: { id in Task { await app.selectVeraModelVersion(id) } })) {
-                    Text(app.t("local build", "ローカル")).tag("local")
-                    ForEach(app.veraModelVersions) { v in
-                        Text(v.id).tag(v.id)
-                    }
-                }
-                .pickerStyle(.menu)
-                .frame(maxWidth: 170)
-                .disabled(app.veraVersionBusy)
-                .task { await app.refreshVeraModelVersions() }
-                .help(app.t(
-                    "Switching downloads the version and restarts the engine "
-                    + "process — never a silent reload.",
-                    "切替は版の取得とエンジンプロセスの再起動 — "
-                    + "静かな差し替えはしません。"))
-                if app.veraVersionBusy { ProgressView().controlSize(.small) }
-            }
+                "Atelier is the garment workbench. LLM is just a model, "
+                + "with nothing in front of it.",
+                "Atelier は服飾の作業面。LLM は素のモデル。"))
 
             // Progress only: these two used to be buttons that started long
             // jobs. The words 「マップ」「パイプライン」 start them now; what
@@ -521,10 +472,10 @@ struct AgentChatView: View {
             HStack(spacing: 8) {
                 Image(systemName: "checkmark.seal")
                     .font(.system(size: 12))
-                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.7))
+                    .foregroundStyle(Theme.ok)
                 Text(app.t("Save this turn to Vera?", "この内容を Vera に保存しますか？"))
                     .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(Color(red: 0.9, green: 0.92, blue: 0.98))
+                    .foregroundStyle(Theme.fg)
                 Spacer()
             }
 
@@ -547,7 +498,7 @@ struct AgentChatView: View {
                     app.rejectVeraSave()
                 } label: {
                     Text(app.t("Discard", "破棄")).font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                        .foregroundStyle(Theme.bad)
                         .padding(.horizontal, 12).padding(.vertical, 5)
                         .background(Capsule().fill(Color(red: 0.32, green: 0.1, blue: 0.1).opacity(0.7)))
                 }
@@ -557,7 +508,7 @@ struct AgentChatView: View {
                     app.approveVeraSave()
                 } label: {
                     Text(app.t("Save", "保存")).font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
+                        .foregroundStyle(Theme.ok)
                         .padding(.horizontal, 12).padding(.vertical, 5)
                         .background(Capsule().fill(Color(red: 0.1, green: 0.28, blue: 0.15).opacity(0.8)))
                 }
@@ -567,8 +518,8 @@ struct AgentChatView: View {
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(red: 0.13, green: 0.13, blue: 0.17))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.3, green: 0.9, blue: 0.7).opacity(0.35), lineWidth: 1))
+                .fill(Theme.panel2)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.ok.opacity(0.35), lineWidth: 1))
         )
         .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
         .padding(.horizontal, 14)
@@ -576,68 +527,11 @@ struct AgentChatView: View {
     }
 
 
-    // MARK: - Model selector bar
-
-    /// ModelSelectorBarView is entirely about LLM backends: which one is
-    /// loaded (Gatekeeper chip), the 監視(Auditor)/ERROR badge, the
-    /// 自動/手動 execution-mode stepper. None of it means anything in Vera
-    /// mode — no LLM ever enters that turn (see AppState.sendMessage's
-    /// veraModel branch) — so showing it there was showing controls for a
-    /// backend the mode never calls. Requested 2026-08-19. The engine-mode
-    /// picker and, when Vera mode is active, the version picker ("ローカル"
-    /// / a stamped release) already live in the top bar's veraModeControls
-    /// — that is where Vera's own "which model answers" question is
-    /// answered, so nothing is lost by hiding this bar here.
-    ///
-    /// The Atelier is hidden for the same reason, one step further along.
-    /// It already has a model picker of its own — the ANALYSIS AI row in the
-    /// left rail, which names the model and says what it is allowed to do
-    /// ("writes proposals only") and opens the analyst sheet when tapped.
-    /// Two selectors for one question is worse than either alone: the answer
-    /// to "which AI is reading this garment" was in two places that could
-    /// disagree, and neither said which one won. The composer itself stays —
-    /// it is where re-design intent is typed ("もっと丸い襟に"), which is a
-    /// different question from which backend answers it.
-    private var modelSelectorBar: some View {
-        HStack(spacing: 8) {
-            if app.veraEngineMode != .veraModel && app.veraEngineMode != .atelier {
-                ModelSelectorBarView()
-            }
-
-            Spacer()
-
-            // ── Stop button (visible only while generating) ───────────
-            if app.isGenerating {
-                Button {
-                    app.cancelGeneration()
-                } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "stop.fill").font(.system(size: 11))
-                        Text(app.t("Stop", "停止")).font(.system(size: 11, weight: .semibold))
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 10).padding(.vertical, 5)
-                    .background(
-                        RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                    )
-                    .contentShape(Rectangle())
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .transition(.scale.combined(with: .opacity))
-            }
-
-            // ── Send button ───────────────────────────────────────────
-            if !app.isGenerating {
-            }
-        }
-        .padding(.horizontal, 10).padding(.vertical, 4)
-        .background(Color(red: 0.15, green: 0.15, blue: 0.19))
-        .animation(.easeInOut(duration: 0.15), value: app.isGenerating)
-    }
-
     // MARK: - Input bar
+    //
+    // `modelSelectorBar` moved to UnifiedComposerView.swift along with the
+    // rest of the composer — see that file for the model-hidden-in-Vera/
+    // Atelier-modes reasoning, which still applies unchanged.
 
     /// Box + chrome. The tools, the model and the send action sit BELOW the
     /// text box rather than inside it: inside, they competed with the text for
@@ -693,331 +587,14 @@ struct AgentChatView: View {
         }
     }
 
-    /// The three controls that belong beside what is being written, on their
-    /// own line inside the box. Everything else moved behind the mark.
-    private var composerControls: some View {
-        HStack(spacing: 7) {
-            JCrossMenu(items: [
-                JCrossMenuItem(icon: "photo.badge.plus",
-                               title: app.t("Add a photo", "写真を追加")) {
-                    app.attachedImages.append(contentsOf: AttachmentManager.pickImages())
-                },
-                JCrossMenuItem(icon: "paperclip",
-                               title: app.t("Add a file", "ファイルを追加")) {
-                    app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
-                },
-            ], japanese: AppLanguage.shared.isJapanese)
-            // `modelSelectorBar`, not the bare `ModelSelectorBarView`:
-            // the wrapper carries the STOP button, and its only call site
-            // (`composerChrome`) had been unmounted — so a run in flight
-            // could not be cancelled from the composer at all, and an
-            // `isGenerating` that never cleared was both invisible and
-            // unrecoverable. That is the shape of the dropped sends: the
-            // guard at the top of `sendMessage` returns on `isGenerating`,
-            // and with no Stop and no message there was nothing to see.
-            modelSelectorBar
-                .layoutPriority(1)
-            JCrossSendButton(enabled: canSend) { sendMessage() }
-        }
-    }
-
+    /// The composer itself — text, attach, model, send — now lives in
+    /// `UnifiedComposerView`, shared with IDEShellView so there is exactly
+    /// one implementation instead of the pinned one this file used to carry
+    /// plus the `composerTools` variant below that never had a call site.
+    /// This wrapper is what keeps `showsOwnComposer` call sites working.
     private var inputBar: some View {
-        VStack(spacing: 7) {
-            // The typing-time surface preview is gone. It popped a panel
-            // above the composer as the word was still being typed, and
-            // then pressing Return added the same panel to the log — two
-            // different answers to one action, half a second apart.
-            composerBox
-        }
-    }
-
-    private var composerBox: some View {
-        VStack(spacing: 0) {
-            // ── Attachment preview strip ──────────────────────────────
-            if !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty {
-                attachmentStrip
-                Divider().opacity(0.3)
-            }
-
-            // ── IDE Fix mode banner / normal file badge ───────────────
-            if app.selfFixMode {
-                // Persistent IDE Fix banner — always visible while mode is active
-                HStack(spacing: 8) {
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.15))
-
-                    Text("🔧 IDE Fix Mode")
-                        .font(.system(size: 11, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.30))
-
-                    if let file = app.selectedFile {
-                        Text("▸ \(file.lastPathComponent)")
-                            .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.9, green: 0.6, blue: 0.2).opacity(0.8))
-                            .lineLimit(1)
-                            .truncationMode(.middle)
-                    } else {
-                        Text("▸ IDE Source Index")
-                            .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.9, green: 0.6, blue: 0.2).opacity(0.8))
-                    }
-
-                    Spacer()
-
-                    // Exit button — explicitly exits IDE Fix mode
-                    Button {
-                        app.selfFixMode = false
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 9, weight: .bold))
-                            Text(app.t("Exit Mode", "モード終了"))
-                                .font(.system(size: 10, weight: .semibold))
-                        }
-                        .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.15))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color(red: 1.0, green: 0.65, blue: 0.15).opacity(0.5), lineWidth: 1)
-                        )
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.28, green: 0.18, blue: 0.04),
-                            Color(red: 0.22, green: 0.14, blue: 0.02)
-                        ],
-                        startPoint: .leading, endPoint: .trailing
-                    )
-                )
-                .overlay(
-                    Rectangle()
-                        .fill(Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.6))
-                        .frame(height: 1),
-                    alignment: .bottom
-                )
-            }
-
-            // ── Text input + action buttons ───────────────────────────
-            VStack(alignment: .leading, spacing: 6) {
-                composerTextField
-                composerControls
-            }
-            .padding(.horizontal, 11).padding(.top, 8).padding(.bottom, 7)
-        }
-        .background(
-            app.selfFixMode
-                ? Color(red: 0.22, green: 0.16, blue: 0.08)  // warm amber tint in self-fix mode
-                : Color(red: 0.17, green: 0.17, blue: 0.21),
-            in: RoundedRectangle(cornerRadius: 16, style: .continuous)
-        )
-        // While the agent is working the whole composer breathes. The small
-        // activity icon stays where it was, but it loses to an overlapping
-        // window — a glow the width of the input bar does not.
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(runningGlowActive
-                        ? runningGlowColor.opacity(glowPulse ? 0.95 : 0.35)
-                        : (app.selfFixMode
-                           ? Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.8)
-                           : Color.white.opacity(0.12)),
-                        lineWidth: runningGlowActive ? 2 : 1)
-        )
-        .shadow(color: runningGlowActive
-                ? runningGlowColor.opacity(glowPulse ? 0.55 : 0.12) : .clear,
-                radius: runningGlowActive ? (glowPulse ? 16 : 4) : 0)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 16)
-        .padding(.top, 8)
-        .animation(.easeInOut(duration: 0.2), value: app.selfFixMode)
-        .onChange(of: runningGlowActive) { _, running in
-            if running {
-                withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
-                    glowPulse = true
-                }
-            } else {
-                withAnimation(.easeOut(duration: 0.25)) { glowPulse = false }
-            }
-        }
-        .onAppear {
-            if runningGlowActive {
-                withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
-                    glowPulse = true
-                }
-            }
-        }
-        // Drag-and-drop images onto the input bar
-        .onDrop(of: [.image, .fileURL], isTargeted: nil) { providers in
-            handleDrop(providers: providers)
-            return true
-        }
-    }
-
-    // MARK: - Attachment Strip
-
-    private var attachmentStrip: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                // Image thumbnails
-                ForEach(app.attachedImages) { img in
-                    ZStack(alignment: .topTrailing) {
-                        img.swiftUIImage
-                            .resizable().scaledToFill()
-                            .frame(width: 56, height: 56)
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 6)
-                                    .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
-                            )
-
-                        Button {
-                            app.attachedImages.removeAll { $0.id == img.id }
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.system(size: 13))
-                                .foregroundStyle(.white)
-                                .background(Circle().fill(Color.black.opacity(0.55)))
-                        }
-                        .contentShape(Rectangle())
-                        .buttonStyle(.plain)
-                        .offset(x: 4, y: -4)
-                    }
-                }
-
-                // File chips
-                ForEach(app.attachedFiles, id: \.absoluteString) { url in
-                    HStack(spacing: 5) {
-                        Image(systemName: FileIcons.icon(for: url))
-                            .font(.system(size: 10))
-                            .foregroundStyle(FileIcons.color(for: url))
-                        Text(url.lastPathComponent)
-                            .font(.system(size: 10, design: .monospaced))
-                            .lineLimit(1)
-                        Button {
-                            app.attachedFiles.removeAll { $0 == url }
-                        } label: {
-                            Image(systemName: "xmark").font(.system(size: 8))
-                        }
-                        .contentShape(Rectangle())
-                        .buttonStyle(.plain)
-                    }
-                    .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.85))
-                    .padding(.horizontal, 8).padding(.vertical, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.white.opacity(0.07))
-                    )
-                }
-            }
-            .padding(.horizontal, 10).padding(.vertical, 6)
-        }
-    }
-
-    // MARK: - Drag-and-drop handler
-
-    private func handleDrop(providers: [NSItemProvider]) {
-        for provider in providers {
-            if provider.hasItemConformingToTypeIdentifier("public.image") {
-                _ = provider.loadDataRepresentation(forTypeIdentifier: "public.image") { data, _ in
-                    guard let data, let img = AttachmentManager.loadImage(from: data) else { return }
-                    Task { @MainActor in
-                        guard app.isMultimodalModel else { return }
-                        app.attachedImages.append(img)
-                    }
-                }
-            } else if provider.hasItemConformingToTypeIdentifier("public.file-url") {
-                _ = provider.loadItem(forTypeIdentifier: "public.file-url") { item, _ in
-                    guard let data = item as? Data,
-                          let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
-                    Task { @MainActor in
-                        // If it's an image and model supports multimodal, attach as image
-                        let imgExts: Set<String> = ["png","jpg","jpeg","gif","webp","heic","tiff"]
-                        if imgExts.contains(url.pathExtension.lowercased()), app.isMultimodalModel,
-                           let img = AttachmentManager.loadImage(from: url) {
-                            app.attachedImages.append(img)
-                        } else {
-                            app.attachedFiles.append(url)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // MARK: - Helpers
-
-    /// Extracted from the composer's body on purpose: inline, the surrounding
-    /// expression grew past what the type checker will solve in reasonable
-    /// time, and adding the growth modifiers tipped it over. Splitting is the
-    /// fix SwiftUI actually wants here.
-    /// Two things can be typed here and only one of them was ever named.
-    /// The field alternates so the second is discoverable without a manual:
-    /// a question goes to Vera, and a document wrapped in ⟨verantyx⟩ …
-    /// ⟨/verantyx⟩ goes INTO it as that document's vocabulary.
-    ///
-    /// Five seconds because a hint that changes while you are reading it is
-    /// worse than one that never changes. It stops the moment there is text,
-    /// which is the existing behaviour and stays.
-    private var placeholderRotation: String {
-        // <verantyx>タグ投入は廃止(2026-08-19) — 投入は OPERATOR の
-        // 文書/分野画面の共通フォームだけ。案内も消す。
-        //
-        // 服飾の面では用途が違う。**台帳に入れる観測はここからは
-        // 入らない** — 入口は右の記録フォームだけ。ここは「もっと丸い
-        // 襟にしたい」のような、まだ形になっていない要望を書く場所。
-        app.veraEngineMode == .atelier
-            ? app.t("Say what you want changed…",
-                    "どうしたいかを書く（例: もっと丸い襟に）")
-            : app.t("Ask Vera…", "Vera に質問")
-    }
-
-    @ViewBuilder
-    private var composerTextField: some View {
-        ZStack(alignment: .topLeading) {
-            if inputText.isEmpty {
-                Text(app.selfFixMode
-                     ? app.t("Fix this IDE… (Self Fix Mode)", "このIDEを修正… (Self Fix モード)")
-                     : (app.selectedFile == nil
-                        ? placeholderRotation
-                        : app.t("Describe the changes you want…", "Describe the changes you want…")))
-                    .font(.system(size: 13))
-                    .foregroundStyle(
-                        app.selfFixMode
-                            ? Color(red: 1.0, green: 0.65, blue: 0.15).opacity(0.55)
-                            : Color(red: 0.38, green: 0.38, blue: 0.45)
-                    )
-                    // Matches NSTextView's default lineFragmentPadding (5) + inset (~6)
-                    .padding(.leading, 5)
-                    .task(id: placeholderPhase) {
-                        try? await Task.sleep(nanoseconds: 5_000_000_000)
-                        if !Task.isCancelled { placeholderPhase ^= 1 }
-                    }
-                    .padding(.top, 6)
-                    // No pointer interaction so clicks pass through to TextEditor
-                    .allowsHitTesting(false)
-            }
-            ChatInputTextView(
-                text: $inputText,
-                onSend: { sendMessage() },
-                isFocused: $inputFocused,
-                measuredHeight: $composerContentHeight
-            )
-            // One line to start, growing with the text, and past the
-            // cap it stops growing and scrolls instead — the NSScrollView
-            // underneath already has its scroller, it was simply never
-            // reached because the frame never changed.
-            .frame(maxWidth: .infinity,
-                   minHeight: composerHeight, maxHeight: composerHeight)
-            .animation(.spring(response: 0.24, dampingFraction: 0.9),
-                       value: composerHeight)
-        }
+        UnifiedComposerView()
+            .environmentObject(app)
     }
 
     /// The composer's tools, OUTSIDE the text box.
@@ -1077,7 +654,7 @@ struct AgentChatView: View {
                 ZStack(alignment: .topTrailing) {
                     Image(systemName: "exclamationmark.lock.fill")
                         .font(.system(size: 15))
-                        .foregroundStyle(app.persistentTaskAnchor.isEmpty ? Color(red: 0.9, green: 0.3, blue: 0.3) : Color.orange)
+                        .foregroundStyle(app.persistentTaskAnchor.isEmpty ? Theme.bad : Color.orange)
                         .frame(width: 26, height: 26)
                     
                     if !app.persistentTaskAnchor.isEmpty {
@@ -1170,7 +747,7 @@ struct AgentChatView: View {
                     .foregroundStyle(
                         app.autoVisualAnchorImagesEnabled
                         ? Color(red: 0.6, green: 0.8, blue: 1.0)
-                        : Color(red: 0.5, green: 0.5, blue: 0.55)
+                        : Theme.dim
                     )
                     .frame(width: 26, height: 26)
             }
@@ -1196,7 +773,7 @@ struct AgentChatView: View {
             } label: {
                 Image(systemName: "link.badge.plus")
                     .font(.system(size: 15))
-                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                    .foregroundStyle(Theme.ok)
                     .frame(width: 26, height: 26)
             }
             .contentShape(Rectangle())
@@ -1223,7 +800,7 @@ struct AgentChatView: View {
                     if !verifiedURLStatus.isEmpty {
                         Text(verifiedURLStatus)
                             .font(.caption)
-                            .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                            .foregroundStyle(Theme.ok)
                     }
 
                     HStack {
@@ -1269,11 +846,11 @@ struct AgentChatView: View {
                     .font(.system(size: 13))
                     .foregroundStyle(app.selfFixMode
                                      ? Color.black
-                                     : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                     : Theme.dim)
                     .frame(width: 26, height: 26)
                     .background(
                         app.selfFixMode
-                            ? Color(red: 1.0, green: 0.65, blue: 0.15)
+                            ? Theme.warn
                             : Color.white.opacity(0.06),
                         in: RoundedRectangle(cornerRadius: 5)
                     )
@@ -1292,7 +869,7 @@ struct AgentChatView: View {
             } label: {
                 Image(systemName: "macwindow.badge.plus")
                     .font(.system(size: 13))
-                    .foregroundStyle(assetVault.isScanning ? Color.gray : Color(red: 0.35, green: 0.75, blue: 0.9))
+                    .foregroundStyle(assetVault.isScanning ? Color.gray : Theme.sel)
                     .frame(width: 26, height: 26)
             }
             .contentShape(Rectangle())
@@ -1309,98 +886,9 @@ struct AgentChatView: View {
         .frame(width: 142, alignment: .leading)
     }
 
-    private var canSend: Bool {
-        !inputText.trimmingCharacters(in: .whitespaces).isEmpty
-            || !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty
-    }
-
-    /// One line at rest, capped before it eats the transcript.
-    ///
-    /// The floor is a single line rather than the old 44pt minimum, so an empty
-    /// composer is as small as it can honestly be. The ceiling is where growth
-    /// stops and scrolling starts: past roughly eight lines a taller box stops
-    /// helping and starts hiding the conversation it is about.
-    private var composerHeight: CGFloat {
-        // **服飾の面では入力欄を畳む。** 主役は服の状態で、会話ではない。
-        // ただし消さない — 「もっと丸い襟にしたい」のような要望を書く
-        // 場所は要る。書き始めれば伸びる。
-        let cap: CGFloat = app.veraEngineMode == .atelier ? 76 : 200
-        let floor: CGFloat = app.veraEngineMode == .atelier ? 20 : 24
-        return min(max(composerContentHeight, floor), cap)
-    }
-
-    private func sendMessage() {
-        let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty, !app.isGenerating else { return }
-
-        // Typing here while the agent is out driving the screen is allowed,
-        // but it is worth one sentence first: the run may not finish. This is
-        // a warning, not a lock — the user decides.
-        if needsScreenContentionWarning, !confirmScreenContention() { return }
-
-        // Checked BEFORE clearing the box. AppState guards this too, but by
-        // then the text is already gone — and a dropped send that also
-        // eats what you typed is worse than one that merely says no.
-        guard !app.isGenerating else {
-            app.addSystemMessage("⏳ 生成中のため送信していません。停止してから送ってください。")
-            return
-        }
-        inputText = ""          // ローカル state を即時クリア（@Published を触る前）
-        app.sendMessage(with: text)
-    }
-
-    /// True when sending from the Mac would compete with what the agent is
-    /// doing on screen, or with the phone relay's own input path.
-    private var needsScreenContentionWarning: Bool {
-        app.isAgentControllingMouse || ClipboardChatRelay.shared.isRunning
-    }
-
-    /// Returns true to go ahead. Named rather than inlined so the reason the
-    /// dialog exists stays attached to the text it shows.
-    private func confirmScreenContention() -> Bool {
-        let relayOn = ClipboardChatRelay.shared.isRunning
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = AppLanguage.shared.t(
-            "The agent may not finish what it is doing",
-            "エージェントが探索を完遂できない可能性があります")
-
-        var reasons: [String] = []
-        if app.isAgentControllingMouse {
-            reasons.append(AppLanguage.shared.t(
-                "• The agent is driving the screen. Typing here brings this window forward, "
-                + "and a click meant for the app it is operating can land on the wrong window — "
-                + "the run may stop partway.",
-                "• エージェントが画面を操作中です。ここへ入力するとこのウィンドウが前面に出るため、"
-                + "操作対象のアプリに向けたクリックが別のウィンドウに当たり、途中で探索が止まることがあります。"))
-        }
-        if relayOn {
-            reasons.append(AppLanguage.shared.t(
-                "• The phone relay is running. Sending from both sides interleaves two "
-                + "conversations into one thread.",
-                "• iPhoneリレーが稼働中です。両方から送ると、ひとつの会話に二系統の入力が混ざります。"))
-        }
-        reasons.append(AppLanguage.shared.t(
-            "You can send anyway.", "このまま送信することもできます。"))
-        alert.informativeText = reasons.joined(separator: "\n\n")
-
-        alert.addButton(withTitle: AppLanguage.shared.t("Send anyway", "このまま送信"))
-        alert.addButton(withTitle: AppLanguage.shared.t("Cancel", "やめる"))
-        if relayOn {
-            alert.addButton(withTitle: AppLanguage.shared.t("Stop relay and send",
-                                                            "リレーを止めて送信"))
-        }
-
-        switch alert.runModal() {
-        case .alertFirstButtonReturn:
-            return true
-        case .alertThirdButtonReturn:
-            ClipboardChatRelay.shared.stop()
-            return true
-        default:
-            return false
-        }
-    }
+    // `canSend`/`composerHeight`/`sendMessage`/`needsScreenContentionWarning`/
+    // `confirmScreenContention` moved to UnifiedComposerView.swift with the
+    // rest of the composer.
 
     private var modelDisplayName: String {
         switch app.modelStatus {

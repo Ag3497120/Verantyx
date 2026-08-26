@@ -42,7 +42,7 @@ struct ActivityBarView: View {
             .padding(.bottom, 10)
         }
         .frame(width: 48)
-        .background(Color(red: 0.15, green: 0.15, blue: 0.18))
+        .background(Theme.panel2)
     }
 
     private func activityButton(_ section: ActivitySection) -> some View {
@@ -58,7 +58,7 @@ struct ActivityBarView: View {
                     .font(.system(size: 18))
                     .foregroundStyle(selectedSection == section
                         ? Color.white
-                        : Color(red: 0.55, green: 0.55, blue: 0.60))
+                        : Theme.dim)
                     .frame(width: 48, height: 44)
                     .background(
                         selectedSection == section
@@ -67,7 +67,7 @@ struct ActivityBarView: View {
                     )
                     .overlay(
                         Rectangle()
-                            .fill(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .fill(Theme.sel)
                             .frame(width: 2)
                             .frame(maxHeight: selectedSection == section ? 24 : 0),
                         alignment: .leading
@@ -89,7 +89,7 @@ struct ActivityBarView: View {
                             .offset(x: -6, y: 6)
                     } else if !SelfEvolutionEngine.shared.pendingPatches.isEmpty {
                         Circle()
-                            .fill(Color(red: 1.0, green: 0.65, blue: 0.2))
+                            .fill(Theme.warn)
                             .frame(width: 8, height: 8)
                             .offset(x: -6, y: 6)
                     }
@@ -163,7 +163,7 @@ struct MultiPurposePanel: View {
                 TextEditor(text: $note)
                     .font(.system(size: 12, design: .monospaced))
                     .scrollContentBackground(.hidden)
-                    .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+                    .background(Theme.panel2)
             case "ai":
                 ScrollView {
                     VStack(alignment: .leading, spacing: 6) {
@@ -193,7 +193,7 @@ struct MultiPurposePanel: View {
         Button { tab = key } label: {
             Text(label)
                 .font(.system(size: 10, weight: tab == key ? .bold : .regular))
-                .foregroundStyle(tab == key ? Color.white : Color(red: 0.55, green: 0.55, blue: 0.65))
+                .foregroundStyle(tab == key ? Color.white : Theme.dim)
                 .padding(.horizontal, 8).padding(.vertical, 3)
                 .background(RoundedRectangle(cornerRadius: 4)
                     .fill(tab == key ? Color.white.opacity(0.1) : Color.clear))

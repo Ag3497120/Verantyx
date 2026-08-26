@@ -59,12 +59,12 @@ struct CortexOnboardingSheet: View {
 
     private var backgroundGradient: some View {
         ZStack {
-            Color(red: 0.08, green: 0.09, blue: 0.13)
+            Theme.panel
 
             // Subtle radial glow top-left (brand color)
             RadialGradient(
                 colors: [
-                    Color(red: 0.20, green: 0.45, blue: 0.90).opacity(0.18),
+                    Theme.sel.opacity(0.18),
                     Color.clear
                 ],
                 center: .topLeading,
@@ -75,7 +75,7 @@ struct CortexOnboardingSheet: View {
             // Subtle radial glow bottom-right (teal accent)
             RadialGradient(
                 colors: [
-                    Color(red: 0.10, green: 0.75, blue: 0.65).opacity(0.10),
+                    Theme.ok.opacity(0.10),
                     Color.clear
                 ],
                 center: .bottomTrailing,
@@ -97,8 +97,8 @@ struct CortexOnboardingSheet: View {
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(red: 0.25, green: 0.50, blue: 1.00),
-                                    Color(red: 0.10, green: 0.75, blue: 0.65)
+                                    Theme.sel,
+                                    Theme.ok
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
@@ -143,19 +143,19 @@ struct CortexOnboardingSheet: View {
         VStack(spacing: 10) {
             featureRow(
                 icon: "memorychip",
-                color: Color(red: 0.40, green: 0.70, blue: 1.00),
+                color: Theme.sel,
                 title: AppLanguage.shared.t("Cross-session Long-term Memory", "セッションを超えた長期記憶"),
                 detail: AppLanguage.shared.t("Persists conversations, decisions, and patterns to JCross nodes", "会話・決定・コードパターンを JCross ノードに永続保存")
             )
             featureRow(
                 icon: "arrow.triangle.2.circlepath",
-                color: Color(red: 0.35, green: 0.85, blue: 0.70),
+                color: Theme.ok,
                 title: AppLanguage.shared.t("Share with Claude / Cursor", "Claude / Cursor / Antigravity と共有"),
                 detail: AppLanguage.shared.t("Distill skills from cloud models to local environment", "distill_skill でクラウドモデルのスキルをローカルに蒸留")
             )
             featureRow(
                 icon: "sparkles",
-                color: Color(red: 0.75, green: 0.50, blue: 1.00),
+                color: Theme.accent,
                 title: AppLanguage.shared.t("Auto-inject Memory at Startup", "起動時に記憶を自動注入"),
                 detail: AppLanguage.shared.t("Instantly restore previous context via boot() / guide()", "boot() / guide() で前回の作業コンテキストを即座に復元")
             )
@@ -196,11 +196,11 @@ struct CortexOnboardingSheet: View {
         HStack(spacing: 10) {
             Image(systemName: "terminal")
                 .font(.system(size: 12))
-                .foregroundStyle(Color(red: 0.40, green: 0.85, blue: 0.60))
+                .foregroundStyle(Theme.ok)
 
             Text(npmCommand)
                 .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(Color(red: 0.40, green: 0.85, blue: 0.60))
+                .foregroundStyle(Theme.ok)
 
             Spacer()
 
@@ -224,7 +224,7 @@ struct CortexOnboardingSheet: View {
                 .fill(Color.white.opacity(0.05))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.40, green: 0.85, blue: 0.60).opacity(0.25), lineWidth: 1)
+                        .stroke(Theme.ok.opacity(0.25), lineWidth: 1)
                 )
         )
     }
@@ -241,7 +241,7 @@ struct CortexOnboardingSheet: View {
                         .foregroundStyle(Color.white.opacity(0.50))
                 }
                 .toggleStyle(.checkbox)
-                .tint(Color(red: 0.40, green: 0.70, blue: 1.00))
+                .tint(Theme.sel)
                 Spacer()
             }
 
@@ -283,8 +283,8 @@ struct CortexOnboardingSheet: View {
                             .fill(
                                 LinearGradient(
                                     colors: [
-                                        Color(red: 0.25, green: 0.50, blue: 1.00),
-                                        Color(red: 0.15, green: 0.65, blue: 0.90)
+                                        Theme.sel,
+                                        Theme.sel
                                     ],
                                     startPoint: .leading,
                                     endPoint: .trailing

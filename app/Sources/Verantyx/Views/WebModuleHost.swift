@@ -141,21 +141,21 @@ struct GrowthConsolePanel: View {
             HStack(spacing: 8) {
                 Image(systemName: "leaf.fill")
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.45, green: 0.85, blue: 0.55))
+                    .foregroundStyle(Theme.ok)
                 Text("Vera Growth")
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
+                    .foregroundStyle(Theme.fg)
                 Text("M/O · quarantine · JGEN actuator")
                     .font(.system(size: 9))
                     .foregroundStyle(.tertiary)
                 Spacer()
             }
             .padding(.horizontal, 10).padding(.vertical, 8)
-            .background(Color(red: 0.13, green: 0.13, blue: 0.17))
+            .background(Theme.panel2)
             Divider().opacity(0.3)
             WebModuleHost(moduleId: "growth-console")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
     }
 }

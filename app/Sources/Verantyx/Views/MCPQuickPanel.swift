@@ -68,14 +68,14 @@ struct MCPQuickPanel: View {
             switch self {
             case .server(_, let st):
                 switch st {
-                case .connected:    return Color(red: 0.3, green: 0.9, blue: 0.5)
-                case .connecting:   return Color(red: 0.9, green: 0.7, blue: 0.3)
-                case .error:        return Color(red: 0.9, green: 0.4, blue: 0.4)
-                case .disconnected: return Color(red: 0.4, green: 0.4, blue: 0.55)
+                case .connected:    return Theme.ok
+                case .connecting:   return Theme.warn
+                case .error:        return Theme.bad
+                case .disconnected: return Theme.dim
                 }
             case .tool:     return Color(red: 0.5, green: 0.75, blue: 1.0)
-            case .template: return Color(red: 0.7, green: 0.5, blue: 1.0)
-            case .action:   return Color(red: 0.3, green: 0.9, blue: 0.5)
+            case .template: return Theme.accent
+            case .action:   return Theme.ok
             }
         }
 
@@ -236,7 +236,7 @@ struct MCPQuickPanel: View {
                 }
             }
             .frame(width: 600)
-            .background(Color(red: 0.12, green: 0.12, blue: 0.16), in: RoundedRectangle(cornerRadius: 12))
+            .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 12))
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
@@ -256,7 +256,7 @@ struct MCPQuickPanel: View {
             HStack(spacing: 10) {
                 Image(systemName: "puzzlepiece.extension")
                     .font(.system(size: 14))
-                    .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
                 TextField("Search servers, tools, or type a name to add…", text: $query)
                     .textFieldStyle(.plain)
                     .font(.system(size: 14))
@@ -342,7 +342,7 @@ struct MCPQuickPanel: View {
                         Circle().fill(.red).frame(width: 6, height: 6)
                         Text("\(call.toolName) running…")
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                            .foregroundStyle(Theme.bad)
                         Button("KILL") { mcp.killActiveCall() }
                             .font(.system(size: 9, weight: .bold, design: .monospaced))
                             .foregroundStyle(.red)
@@ -357,7 +357,7 @@ struct MCPQuickPanel: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
-            .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+            .background(Theme.panel2)
             .overlay(Rectangle().fill(Color.white.opacity(0.07)).frame(height: 1), alignment: .top)
         }
         .background(Color.clear)
@@ -445,7 +445,7 @@ private struct ResultRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.title)
                     .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(isSelected ? .white : Color(red: 0.85, green: 0.85, blue: 0.92))
+                    .foregroundStyle(isSelected ? .white : Theme.fg)
                 Text(item.subtitle)
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(isSelected ? Color(red: 0.7, green: 0.7, blue: 0.8) : Color.secondary.opacity(0.6))
@@ -632,7 +632,7 @@ private struct AddCustomServerPanel: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+            .background(Theme.panel2)
         }
         .onAppear { nameFocused = true }
     }
@@ -708,13 +708,13 @@ private struct TemplatePickerPanel: View {
                                         .frame(width: 32, height: 32)
                                     Image(systemName: tmpl.transport == .stdio ? "terminal" : "network")
                                         .font(.system(size: 14))
-                                        .foregroundStyle(Color(red: 0.4, green: 0.75, blue: 1.0))
+                                        .foregroundStyle(Theme.sel)
                                 }
 
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(tmpl.name)
                                         .font(.system(size: 12, weight: .semibold))
-                                        .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                        .foregroundStyle(Theme.fg)
                                     Text(tmpl.transport == .stdio
                                          ? tmpl.command.components(separatedBy: " ").dropFirst(3).joined(separator: " ")
                                          : tmpl.url)
@@ -728,7 +728,7 @@ private struct TemplatePickerPanel: View {
                                             Text(tmpl.envVars.keys.joined(separator: ", "))
                                                 .font(.system(size: 9))
                                         }
-                                        .foregroundStyle(Color(red: 0.9, green: 0.75, blue: 0.3))
+                                        .foregroundStyle(Theme.warn)
                                     }
                                 }
                                 Spacer()
@@ -737,14 +737,14 @@ private struct TemplatePickerPanel: View {
                                 Text(tmpl.mode == .ai ? "AI" : "60s")
                                     .font(.system(size: 8, weight: .bold, design: .monospaced))
                                     .foregroundStyle(tmpl.mode == .ai
-                                                     ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                                     : Color(red: 0.9, green: 0.7, blue: 0.3))
+                                                     ? Theme.ok
+                                                     : Theme.warn)
                                     .padding(.horizontal, 5).padding(.vertical, 2)
                                     .background(.quaternary, in: RoundedRectangle(cornerRadius: 3))
 
                                 Image(systemName: "plus.circle")
                                     .font(.system(size: 14))
-                                    .foregroundStyle(Color(red: 0.4, green: 0.8, blue: 0.5))
+                                    .foregroundStyle(Theme.ok)
                             }
                             .padding(.horizontal, 14)
                             .padding(.vertical, 8)
@@ -808,8 +808,8 @@ private struct InvokeToolPanel: View {
                 Text(server.mode == .ai ? "AI mode · no timeout" : "Human mode · 60s")
                     .font(.system(size: 9, design: .monospaced))
                     .foregroundStyle(server.mode == .ai
-                                     ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                     : Color(red: 0.9, green: 0.7, blue: 0.3))
+                                     ? Theme.ok
+                                     : Theme.warn)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
@@ -837,7 +837,7 @@ private struct InvokeToolPanel: View {
                     .font(.system(size: 12, design: .monospaced))
                     .frame(height: 120)
                     .padding(8)
-                    .background(Color(red: 0.07, green: 0.07, blue: 0.10),
+                    .background(Theme.bg,
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -885,7 +885,7 @@ private struct InvokeToolPanel: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+            .background(Theme.panel2)
         }
         .onAppear { argsFocused = true }
     }

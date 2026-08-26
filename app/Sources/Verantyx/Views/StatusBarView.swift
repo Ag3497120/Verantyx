@@ -37,13 +37,13 @@ struct StatusBarView: View {
                     HStack(spacing: 6) {
                         Text("L2.5")
                             .font(.system(size: 9, weight: .bold, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.6))
+                            .foregroundStyle(Theme.ok)
                         ProgressView(value: l25Engine.indexingProgress)
-                            .progressViewStyle(LinearProgressViewStyle(tint: Color(red: 0.4, green: 0.85, blue: 0.6)))
+                            .progressViewStyle(LinearProgressViewStyle(tint: Theme.ok))
                             .frame(width: 40)
                         Text("\(Int(l25Engine.indexingProgress * 100))%")
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.6))
+                            .foregroundStyle(Theme.ok)
                     }
                 }
 
@@ -52,11 +52,11 @@ struct StatusBarView: View {
                     HStack(spacing: 6) {
                         Text("GK")
                             .font(.system(size: 9, weight: .bold, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.9, green: 0.6, blue: 0.2))
-                        ProgressView().controlSize(.small).scaleEffect(0.7).tint(Color(red: 0.9, green: 0.6, blue: 0.2))
+                            .foregroundStyle(Theme.warn)
+                        ProgressView().controlSize(.small).scaleEffect(0.7).tint(Theme.warn)
                         Text(gkPhaseString(gkOrchestrator.phase))
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.9, green: 0.6, blue: 0.2))
+                            .foregroundStyle(Theme.warn)
                             .lineLimit(1)
                     }
                 }
@@ -66,7 +66,7 @@ struct StatusBarView: View {
 
         }
         .frame(height: 28)
-        .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+        .background(Theme.panel)
     }
 
     // MARK: - Computed

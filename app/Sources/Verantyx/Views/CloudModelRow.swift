@@ -194,7 +194,7 @@ struct CloudProviderCard: View {
                 if catalog.hasKey(provider) {
                     Text("✓")
                         .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                        .foregroundStyle(Theme.ok)
                 }
             }
 

@@ -62,7 +62,7 @@ struct SafeCodeTextView: NSViewRepresentable {
         tv.isSelectable = true
         tv.usesFontPanel = false
         tv.usesFindPanel = false
-        tv.backgroundColor = NSColor(red: 0.08, green: 0.08, blue: 0.11, alpha: 1)
+        tv.backgroundColor = Theme.nsBg
         tv.textContainerInset = NSSize(width: 8, height: 8)
 
         context.coordinator.textView = tv
@@ -85,8 +85,8 @@ struct SafeCodeTextView: NSViewRepresentable {
 
     private static func applyContent(to tv: NSTextView, content: String, showLineNumbers: Bool) {
         let monoFont = NSFont.monospacedSystemFont(ofSize: 11, weight: .regular)
-        let textColor = NSColor(red: 0.82, green: 0.82, blue: 0.88, alpha: 1)
-        let lineNumColor = NSColor(red: 0.38, green: 0.38, blue: 0.48, alpha: 1)
+        let textColor = Theme.nsFg
+        let lineNumColor = Theme.nsFaint
 
         // ── コンテンツをキャップ ──────────────────────────────────────
         let capped: String
@@ -177,8 +177,8 @@ struct RawTextView: NSViewRepresentable {
         tv.isSelectable = true
         tv.usesFontPanel = false
         tv.font         = NSFont.monospacedSystemFont(ofSize: 11, weight: .regular)
-        tv.textColor    = NSColor(red: 0.82, green: 0.82, blue: 0.88, alpha: 1)
-        tv.backgroundColor = NSColor(red: 0.07, green: 0.07, blue: 0.10, alpha: 1)
+        tv.textColor    = Theme.nsFg
+        tv.backgroundColor = Theme.nsBg
         tv.textContainerInset = NSSize(width: 8, height: 8)
 
         context.coordinator.textView = tv

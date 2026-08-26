@@ -46,7 +46,7 @@ struct SelfEvolutionView: View {
                 .padding(.bottom, 20)
             }
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .onAppear {
             evo.loadAppliedFeatures()
             pr.loadConfig()
@@ -59,10 +59,10 @@ struct SelfEvolutionView: View {
         HStack(spacing: 8) {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.55, green: 0.85, blue: 0.55))
+                .foregroundStyle(Theme.ok)
             Text(app.t("IDE Patches", "IDEパッチ"))
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
+                .foregroundStyle(Theme.fg)
             Spacer()
 
             // Safe mode indicator
@@ -80,7 +80,7 @@ struct SelfEvolutionView: View {
                     .font(.system(size: 10))
                     .foregroundStyle(pr.config.githubToken.isEmpty
                                      ? Color.orange
-                                     : Color(red: 0.3, green: 0.85, blue: 0.5))
+                                     : Theme.ok)
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -91,7 +91,7 @@ struct SelfEvolutionView: View {
             }
         }
         .padding(.horizontal, 10).padding(.vertical, 8)
-        .background(Color(red: 0.13, green: 0.13, blue: 0.17))
+        .background(Theme.panel2)
     }
 
     // MARK: - Section tabs
@@ -105,7 +105,7 @@ struct SelfEvolutionView: View {
                     } label: {
                         HStack(spacing: 4) {
                             if sec == .patches && !evo.pendingPatches.isEmpty {
-                                Circle().fill(Color(red: 1.0, green: 0.65, blue: 0.2))
+                                Circle().fill(Theme.warn)
                                     .frame(width: 6, height: 6)
                             }
                             if sec == .build, case .building(_) = evo.buildState {
@@ -114,7 +114,7 @@ struct SelfEvolutionView: View {
                             Text(sec.rawValue)
                                 .font(.system(size: 10, weight: activeSection == sec ? .semibold : .regular))
                         }
-                        .foregroundStyle(activeSection == sec ? .white : Color(red: 0.5, green: 0.5, blue: 0.62))
+                        .foregroundStyle(activeSection == sec ? .white : Theme.sel)
                         .padding(.horizontal, 10).padding(.vertical, 6)
                         .background(activeSection == sec ? Color.white.opacity(0.07) : Color.clear)
                     }
@@ -123,7 +123,7 @@ struct SelfEvolutionView: View {
                 }
             }
         }
-        .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+        .background(Theme.panel2)
     }
 
     // MARK: - Index Section
@@ -135,7 +135,7 @@ struct SelfEvolutionView: View {
                 if let root = evo.repoRoot {
                     Label(root.path, systemImage: "folder.fill")
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.45, green: 0.75, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                         .lineLimit(1).truncationMode(.middle)
                 } else {
                     Label(app.t("Repository not found", "リポジトリが見つかりません"), systemImage: "exclamationmark.triangle")
@@ -162,7 +162,7 @@ struct SelfEvolutionView: View {
                 .padding(.vertical, 8)
                 .background(
                     RoundedRectangle(cornerRadius: 7)
-                        .fill(Color(red: 0.25, green: 0.50, blue: 0.90))
+                        .fill(Theme.sel)
                 )
             }
             .contentShape(Rectangle())
@@ -212,10 +212,10 @@ struct SelfEvolutionView: View {
             if !evo.buildLog.isEmpty {
                 Text(evo.buildLog)
                     .font(.system(size: 9, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.45, green: 0.85, blue: 0.55))
+                    .foregroundStyle(Theme.ok)
                     .padding(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(red: 0.07, green: 0.09, blue: 0.07))
+                    .background(Theme.bg)
                     .padding(.horizontal, 12)
             }
         }
@@ -304,10 +304,10 @@ struct SelfEvolutionView: View {
                 case .pending:
                     Text("PENDING")
                         .font(.system(size: 8, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                        .foregroundStyle(Theme.warn)
                 case .applied:
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5)).font(.system(size: 11))
+                        .foregroundStyle(Theme.ok).font(.system(size: 11))
                 case .failed(let e):
                     Text("ERR: \(e.prefix(20))")
                         .font(.system(size: 8, design: .monospaced)).foregroundStyle(.red)
@@ -320,14 +320,14 @@ struct SelfEvolutionView: View {
                 ForEach(Array(diffLines.enumerated()), id: \.offset) { _, line in
                     Text(line)
                         .font(.system(size: 9, design: .monospaced))
-                        .foregroundStyle(line.hasPrefix("+") ? Color(red: 0.4, green: 0.9, blue: 0.5) :
-                                          line.hasPrefix("-") ? Color(red: 0.9, green: 0.4, blue: 0.4) :
-                                          Color(red: 0.60, green: 0.60, blue: 0.70))
+                        .foregroundStyle(line.hasPrefix("+") ? Theme.ok :
+                                          line.hasPrefix("-") ? Theme.bad :
+                                          Theme.dim)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .padding(6)
-            .background(Color(red: 0.07, green: 0.07, blue: 0.10))
+            .background(Theme.bg)
             .clipShape(RoundedRectangle(cornerRadius: 4))
         }
         .padding(10)
@@ -407,7 +407,7 @@ struct SelfEvolutionView: View {
             .padding(.vertical, 10)
             .background(
                 LinearGradient(
-                    colors: [Color(red: 0.7, green: 0.2, blue: 0.9), Color(red: 0.3, green: 0.2, blue: 0.9)],
+                    colors: [Theme.accent, Color(red: 0.3, green: 0.2, blue: 0.9)],
                     startPoint: .leading, endPoint: .trailing
                 ),
                 in: RoundedRectangle(cornerRadius: 8)
@@ -444,7 +444,7 @@ struct SelfEvolutionView: View {
                     .padding(.vertical, 9)
                     .background(
                         LinearGradient(
-                            colors: [Color(red: 0.2, green: 0.8, blue: 0.55), Color(red: 0.1, green: 0.6, blue: 0.4)],
+                            colors: [Theme.ok, Color(red: 0.1, green: 0.6, blue: 0.4)],
                             startPoint: .leading, endPoint: .trailing
                         ),
                         in: RoundedRectangle(cornerRadius: 8)
@@ -471,7 +471,7 @@ struct SelfEvolutionView: View {
                 } label: {
                     Label(app.t("Create PR", "PR を作成する"), systemImage: "arrow.up.doc.on.clipboard")
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -492,14 +492,14 @@ struct SelfEvolutionView: View {
             case .building(let p):
                 ProgressView(value: p)
                     .progressViewStyle(.linear)
-                    .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    .tint(Theme.sel)
                     .frame(width: 80)
                 Text(String(format: app.t("Building… %.0f%%", "ビルド中… %.0f%%"), p * 100))
-                    .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
             case .succeeded:
                 Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
-                Text(app.t("Build succeeded!", "ビルド成功！")).foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
+                Text(app.t("Build succeeded!", "ビルド成功！")).foregroundStyle(Theme.ok)
             case .failed:
                 Image(systemName: "xmark.circle.fill").foregroundStyle(.red)
                 Text(app.t("Build failed", "ビルド失敗")).foregroundStyle(.red)
@@ -516,13 +516,13 @@ struct SelfEvolutionView: View {
             ScrollView {
                 Text(buildLogContent)
                     .font(.system(size: 9, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.88, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(8)
                     .id("logBottom")
             }
-            .background(Color(red: 0.05, green: 0.07, blue: 0.05))
+            .background(Theme.bg)
             .frame(maxHeight: .infinity)
             .onChange(of: evo.buildLog) { _, _ in
                 withAnimation { proxy.scrollTo("logBottom", anchor: .bottom) }
@@ -561,24 +561,24 @@ struct SelfEvolutionView: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Image(systemName: "checkmark.seal.fill")
-                    .foregroundStyle(Color(red: 0.3, green: 0.85, blue: 0.55))
+                    .foregroundStyle(Theme.ok)
                     .font(.system(size: 10))
                 Text(feat.name)
                     .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
+                    .foregroundStyle(Theme.fg)
                 Spacer()
                 Text(feat.appliedAt, style: .relative)
                     .font(.system(size: 9)).foregroundStyle(.secondary)
             }
             Text(feat.branchName)
                 .font(.system(size: 9, design: .monospaced))
-                .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.65))
+                .foregroundStyle(Theme.dim)
 
             if let prURL = feat.prURL {
                 Link(destination: URL(string: prURL)!) {
                     Label(app.t("View PR", "PR を見る"), systemImage: "arrow.up.right.square")
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                 }
             }
         }
@@ -658,10 +658,10 @@ struct SelfEvolutionView: View {
                     if let rec = submittedPR {
                         HStack(spacing: 6) {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                                .foregroundStyle(Theme.ok)
                             Link(app.t("View PR on GitHub →", "PR を GitHub で見る →"), destination: URL(string: rec.url)!)
                                 .font(.system(size: 11))
-                                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                                .foregroundStyle(Theme.sel)
                         }
                     }
 
@@ -674,7 +674,7 @@ struct SelfEvolutionView: View {
                             HStack {
                                 Circle()
                                     .fill(prec.state == "open"
-                                          ? Color(red: 0.3, green: 0.9, blue: 0.4)
+                                          ? Theme.ok
                                           : Color.purple)
                                     .frame(width: 7, height: 7)
                                 Link(prec.title, destination: URL(string: prec.url)!)
@@ -698,14 +698,14 @@ struct SelfEvolutionView: View {
         HStack(spacing: 8) {
             Image(systemName: "lightbulb.fill")
                 .font(.system(size: 10))
-                .foregroundStyle(Color(red: 1.0, green: 0.85, blue: 0.25))
+                .foregroundStyle(Theme.warn)
             Text(text)
                 .font(.system(size: 10))
                 .foregroundStyle(Color(red: 0.80, green: 0.80, blue: 0.88))
         }
         .padding(10)
         .background(Color(red: 0.15, green: 0.14, blue: 0.08).opacity(0.8))
-        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color(red: 1.0, green: 0.85, blue: 0.25).opacity(0.3), lineWidth: 0.5))
+        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.warn.opacity(0.3), lineWidth: 0.5))
         .clipShape(RoundedRectangle(cornerRadius: 6))
         .padding(.horizontal, 12)
     }
@@ -764,7 +764,7 @@ struct GitHubConfigView: View {
                 .font(.system(size: 9)).foregroundStyle(.secondary)
         }
         .padding(16)
-        .background(Color(red: 0.13, green: 0.13, blue: 0.17))
+        .background(Theme.panel2)
     }
 
     private func configField(_ label: String, text: Binding<String>, secure: Bool = false) -> some View {

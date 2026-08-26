@@ -46,9 +46,9 @@ struct TemplateSetupApprovalSheet: View {
         HStack(spacing: 12) {
             Image(systemName: "square.3.layers.3d")
                 .font(.system(size: 20))
-                .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.35))
+                .foregroundStyle(Theme.warn)
                 .frame(width: 34, height: 34)
-                .background(Color(red: 1.0, green: 0.72, blue: 0.35).opacity(0.12),
+                .background(Theme.warn.opacity(0.12),
                             in: RoundedRectangle(cornerRadius: 8))
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.t("Proposed setup", "提案する構成"))
@@ -78,7 +78,7 @@ struct TemplateSetupApprovalSheet: View {
                              edited.machine.freeDiskGB, need),
                       systemImage: "externaldrive.badge.exclamationmark")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.45))
+                    .foregroundStyle(Theme.bad)
             }
             if edited.machine.totalRAMGB < edited.template.requirements.minRAMGB {
                 Label(String(format: app.t("%.0f GB RAM vs ~%.0f GB expected — expect swapping.",
@@ -86,7 +86,7 @@ struct TemplateSetupApprovalSheet: View {
                              edited.machine.totalRAMGB, edited.template.requirements.minRAMGB),
                       systemImage: "memorychip")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.3))
+                    .foregroundStyle(Theme.warn)
             }
         }
     }
@@ -146,8 +146,8 @@ struct TemplateSetupApprovalSheet: View {
                           ? "xmark.octagon.fill" : "exclamationmark.triangle.fill")
                         .font(.system(size: 10))
                         .foregroundStyle(a.status.isBlocked
-                                         ? Color(red: 1.0, green: 0.45, blue: 0.45)
-                                         : Color(red: 1.0, green: 0.75, blue: 0.3))
+                                         ? Theme.bad
+                                         : Theme.warn)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 if let hint = a.installHint {
@@ -180,7 +180,7 @@ struct TemplateSetupApprovalSheet: View {
         card(app.t("Notes", "注意"), icon: "exclamationmark.triangle") {
             ForEach(edited.warnings, id: \.self) { w in
                 Text("• " + w).font(.system(size: 10))
-                    .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.3))
+                    .foregroundStyle(Theme.warn)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -215,7 +215,7 @@ struct TemplateSetupApprovalSheet: View {
                             "ブロックされた層があります — 解消するか別の構成を選んでください。"),
                       systemImage: "xmark.octagon.fill")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.45))
+                    .foregroundStyle(Theme.bad)
             }
             Spacer()
             Button(app.t("Cancel", "キャンセル")) { app.pendingSetupProposal = nil }
@@ -224,7 +224,7 @@ struct TemplateSetupApprovalSheet: View {
                 app.applySetupProposal(edited)
             }
             .buttonStyle(.borderedProminent)
-            .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
+            .tint(Theme.warn)
             .disabled(!edited.isApplicable)
         }
         .padding(16)

@@ -23,7 +23,7 @@ struct SideBySideDiffView: View {
                 emptyState
             }
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
     }
 
     // MARK: - Header
@@ -32,7 +32,7 @@ struct SideBySideDiffView: View {
         HStack(spacing: 8) {
             Image(systemName: "arrow.left.arrow.right.square")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.4, green: 0.65, blue: 1.0))
+                .foregroundStyle(Theme.sel)
 
             if let diff = app.pendingDiff {
                 Text(diff.fileURL.lastPathComponent)
@@ -43,18 +43,18 @@ struct SideBySideDiffView: View {
                 Spacer(minLength: 6)
 
                 // Stats badges
-                statBadge("+\(diff.addedCount)", color: Color(red: 0.3, green: 0.9, blue: 0.45))
-                statBadge("-\(diff.removedCount)", color: Color(red: 0.9, green: 0.35, blue: 0.35))
+                statBadge("+\(diff.addedCount)", color: Theme.ok)
+                statBadge("-\(diff.removedCount)", color: Theme.bad)
             } else {
                 Text("Diff")
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.7))
+                    .foregroundStyle(Theme.sel)
                 Spacer()
             }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
-        .background(Color(red: 0.13, green: 0.13, blue: 0.17))
+        .background(Theme.panel2)
     }
 
     private func statBadge(_ label: String, color: Color) -> some View {
@@ -72,9 +72,9 @@ struct SideBySideDiffView: View {
         VStack(spacing: 0) {
             // Column headers
             HStack(spacing: 0) {
-                columnHeader("before", color: Color(red: 0.9, green: 0.35, blue: 0.35))
+                columnHeader("before", color: Theme.bad)
                 Divider().frame(width: 1).opacity(0.4)
-                columnHeader("after", color: Color(red: 0.35, green: 0.9, blue: 0.5))
+                columnHeader("after", color: Theme.ok)
             }
 
             Divider().opacity(0.3)
@@ -188,7 +188,7 @@ struct SideBySideDiffView: View {
         HStack {
             Text(label)
                 .font(.system(size: 9, weight: .semibold, design: .monospaced))
-                .foregroundStyle(Color(red: 0.4, green: 0.55, blue: 0.85))
+                .foregroundStyle(Theme.sel)
             Spacer()
         }
         .padding(.horizontal, 12)
@@ -276,8 +276,8 @@ struct SideBySideDiffView: View {
 
     private func glyphColor(kind: DiffLine.Kind) -> Color {
         switch kind {
-        case .added:   return Color(red: 0.35, green: 0.90, blue: 0.50)
-        case .removed: return Color(red: 0.90, green: 0.35, blue: 0.35)
+        case .added:   return Theme.ok
+        case .removed: return Theme.bad
         case .context: return Color.clear
         }
     }
@@ -286,7 +286,7 @@ struct SideBySideDiffView: View {
         switch kind {
         case .added:   return Color(red: 0.85, green: 0.98, blue: 0.88)
         case .removed: return Color(red: 0.98, green: 0.80, blue: 0.78)
-        case .context: return Color(red: 0.62, green: 0.62, blue: 0.75)
+        case .context: return Theme.dim
         }
     }
 
@@ -313,7 +313,7 @@ struct SideBySideDiffView: View {
             let wsPath = app.cortexWorkspacePath ?? app.workspaceURL?.path ?? ""
             Text(wsPath.isEmpty ? diff.fileURL.path : diff.fileURL.path.replacingOccurrences(of: wsPath, with: "~"))
                 .font(.system(size: 10, design: .monospaced))
-                .foregroundStyle(Color(red: 0.42, green: 0.42, blue: 0.58))
+                .foregroundStyle(Theme.dim)
                 .lineLimit(1)
                 .truncationMode(.middle)
 
@@ -329,13 +329,13 @@ struct SideBySideDiffView: View {
             } label: {
                 Text(app.t("Reject", "拒否"))
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.9, green: 0.38, blue: 0.38))
+                    .foregroundStyle(Theme.bad)
                     .padding(.horizontal, 18)
                     .padding(.vertical, 6)
                     .background(Color(red: 0.32, green: 0.10, blue: 0.10).opacity(0.6),
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
-                        .strokeBorder(Color(red: 0.9, green: 0.38, blue: 0.38).opacity(0.4),
+                        .strokeBorder(Theme.bad.opacity(0.4),
                                       lineWidth: 1))
             }
             .contentShape(Rectangle())
@@ -350,13 +350,13 @@ struct SideBySideDiffView: View {
             } label: {
                 Text(app.t("Approve All", "ずっと承認"))
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.9, green: 0.8, blue: 0.2))
+                    .foregroundStyle(Theme.warn)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background(Color(red: 0.3, green: 0.25, blue: 0.05).opacity(0.75),
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
-                        .strokeBorder(Color(red: 0.9, green: 0.8, blue: 0.2).opacity(0.4),
+                        .strokeBorder(Theme.warn.opacity(0.4),
                                       lineWidth: 1))
             }
             .contentShape(Rectangle())
@@ -369,13 +369,13 @@ struct SideBySideDiffView: View {
             } label: {
                 Text(app.t("Approve", "承認"))
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.48))
+                    .foregroundStyle(Theme.ok)
                     .padding(.horizontal, 18)
                     .padding(.vertical, 6)
                     .background(Color(red: 0.10, green: 0.28, blue: 0.16).opacity(0.75),
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
-                        .strokeBorder(Color(red: 0.3, green: 0.92, blue: 0.48).opacity(0.4),
+                        .strokeBorder(Theme.ok.opacity(0.4),
                                       lineWidth: 1))
             }
             .contentShape(Rectangle())
@@ -384,7 +384,7 @@ struct SideBySideDiffView: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 9)
-        .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+        .background(Theme.panel2)
     }
 
     private func applyDiff(_ diff: FileDiff) {
@@ -421,7 +421,7 @@ struct SideBySideDiffView: View {
                 .foregroundStyle(Color(red: 0.28, green: 0.32, blue: 0.45))
             Text("Diff will appear here")
                 .font(.headline)
-                .foregroundStyle(Color(red: 0.40, green: 0.42, blue: 0.58))
+                .foregroundStyle(Theme.dim)
             Text(AppLanguage.shared.t("Diffs will appear here\\nwhen AI makes changes", "AIがファイルを変更すると\\nここにDiffが表示されます"))
                 .font(.callout)
                 .foregroundStyle(Color(red: 0.32, green: 0.32, blue: 0.46))
@@ -436,13 +436,13 @@ struct SideBySideDiffView: View {
             Spacer()
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 34))
-                .foregroundStyle(Color(red: 0.32, green: 0.88, blue: 0.52))
+                .foregroundStyle(Theme.ok)
             Text("No changes detected")
                 .font(.headline)
                 .foregroundStyle(Color(red: 0.60, green: 0.88, blue: 0.68))
             Text(diff.fileURL.lastPathComponent)
                 .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(Color(red: 0.50, green: 0.52, blue: 0.65))
+                .foregroundStyle(Theme.sel)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

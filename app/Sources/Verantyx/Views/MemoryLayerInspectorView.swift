@@ -57,14 +57,14 @@ struct MemoryLayerInspectorView: View {
                      : previewText)
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(previewText.isEmpty
-                        ? Color(red: 0.5, green: 0.5, blue: 0.55)
+                        ? Theme.dim
                         : Color(red: 0.82, green: 0.82, blue: 0.9))
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(10)
             }
         }
-        .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+        .background(Theme.panel)
         .onAppear { refresh() }
     }
 

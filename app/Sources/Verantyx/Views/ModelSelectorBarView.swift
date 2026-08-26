@@ -185,7 +185,7 @@ struct ModelSelectorBarView: View {
                     } label: {
                         Image(systemName: "slider.horizontal.3")
                             .font(.system(size: 11))
-                            .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.35))
+                            .foregroundStyle(Theme.warn)
                     }
                     .buttonStyle(.plain)
                     .help(app.t("JGEN memory & layer options", "JGENの記憶・層オプション"))
@@ -544,27 +544,27 @@ struct ModelSelectorBarView: View {
         let (label, color): (String, Color) = {
             switch app.modelStatus {
             case .ollamaReady:
-                return ("OLLAMA", Color(red: 0.45, green: 0.9, blue: 0.6))
+                return ("OLLAMA", Theme.ok)
             case .mlxReady, .mlxDownloading:
-                return ("MLX", Color(red: 0.65, green: 0.5, blue: 1.0))
+                return ("MLX", Theme.accent)
             case .bitnetReady:
-                return ("BITNET", Color(red: 0.4, green: 0.75, blue: 1.0))
+                return ("BITNET", Theme.sel)
             case .jcrossReady:
-                return ("JGEN", Color(red: 1.0, green: 0.72, blue: 0.35))
+                return ("JGEN", Theme.warn)
             case .claudeAgentReady:
-                return ("AGENT SDK", Color(red: 0.85, green: 0.55, blue: 0.95))
+                return ("AGENT SDK", Theme.accent)
             case .lmStudioReady:
-                return ("LMSTUDIO", Color(red: 0.35, green: 0.8, blue: 0.85))
+                return ("LMSTUDIO", Theme.sel)
             case .anthropicReady:
-                return ("API", Color(red: 0.9, green: 0.6, blue: 0.4))
+                return ("API", Theme.warn)
             case .ready:
                 return ("LOCAL", Color(red: 0.7, green: 0.7, blue: 0.75))
             case .connecting, .downloading:
-                return ("…", Color(red: 0.6, green: 0.6, blue: 0.65))
+                return ("…", Theme.dim)
             case .error:
-                return ("ERROR", Color(red: 0.95, green: 0.45, blue: 0.45))
+                return ("ERROR", Theme.bad)
             case .none:
-                return ("—", Color(red: 0.5, green: 0.5, blue: 0.55))
+                return ("—", Theme.dim)
             }
         }()
         return Button {
@@ -573,7 +573,7 @@ struct ModelSelectorBarView: View {
         } label: {
             Text(label)
                 .font(.system(size: 10, weight: .bold, design: .monospaced))
-                .foregroundStyle(Color(red: 0.15, green: 0.15, blue: 0.18))
+                .foregroundStyle(Theme.panel2)
                 .padding(.horizontal, 6).padding(.vertical, 2)
                 .background(color, in: RoundedRectangle(cornerRadius: 3))
         }

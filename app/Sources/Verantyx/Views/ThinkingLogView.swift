@@ -17,19 +17,19 @@ struct ThinkingLogView: View {
                 // Pulsing dot when active
                 if app.isGenerating {
                     Circle()
-                        .fill(Color(red: 0.3, green: 1.0, blue: 0.5))
+                        .fill(Theme.ok)
                         .frame(width: 6, height: 6)
                         .opacity(0.9)
                 }
 
                 Text("PROCESS LOG")
                     .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                    .foregroundStyle(Theme.ok)
 
                 if app.isGenerating {
                     Text("● LIVE")
                         .font(.system(size: 9, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.3, green: 1.0, blue: 0.5))
+                        .foregroundStyle(Theme.ok)
                 }
 
                 Spacer()
@@ -66,22 +66,22 @@ struct ThinkingLogView: View {
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 5)
-            .background(Color(red: 0.08, green: 0.10, blue: 0.12))
+            .background(Theme.panel)
 
             Divider().opacity(0.3)
 
             // ── Log body (NSTextView — 行をまたいだドラッグ選択が可能) ──
             ProcessLogTranscriptView(entries: app.logStore.entries, autoScroll: autoScroll)
         }
-        .background(Color(red: 0.06, green: 0.08, blue: 0.10))
+        .background(Theme.bg)
     }
 
     private var tpsColor: Color {
         app.tokensPerSecond > 20
             ? Color(red: 0.3, green: 1.0, blue: 0.4)
             : app.tokensPerSecond > 5
-                ? Color(red: 1.0, green: 0.8, blue: 0.2)
-                : Color(red: 0.6, green: 0.6, blue: 0.6)
+                ? Theme.warn
+                : Theme.dim
     }
 }
 

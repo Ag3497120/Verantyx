@@ -84,7 +84,7 @@ struct ResizableHSplit<Left: View, Right: View>: View {
         ZStack {
             Rectangle()
                 .fill(isDragging
-                      ? Color(red: 0.4, green: 0.65, blue: 1.0).opacity(0.60)
+                      ? Theme.sel.opacity(0.60)
                       : Color.white.opacity(0.10))
                 .frame(width: 1)
                 .animation(.easeInOut(duration: 0.12), value: isDragging)
@@ -177,7 +177,7 @@ struct ResizableVSplit<Top: View, Bottom: View>: View {
         ZStack {
             Rectangle()
                 .fill(isDragging
-                      ? Color(red: 0.4, green: 0.65, blue: 1.0).opacity(0.60)
+                      ? Theme.sel.opacity(0.60)
                       : Color.white.opacity(0.10))
                 .frame(height: 1)
                 .animation(.easeInOut(duration: 0.12), value: isDragging)

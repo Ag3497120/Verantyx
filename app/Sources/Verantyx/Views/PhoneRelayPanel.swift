@@ -43,8 +43,8 @@ struct PhoneRelayPanel: View {
                 HStack(spacing: 8) {
                     Circle()
                         .fill(relay.mode == .waitingForPaste
-                              ? Color(red: 1.0, green: 0.75, blue: 0.2)
-                              : Color(red: 0.3, green: 0.9, blue: 0.5))
+                              ? Theme.warn
+                              : Theme.ok)
                         .frame(width: 7, height: 7)
                     Text(relay.lastEvent)
                         .font(.system(size: 11)).foregroundStyle(.secondary)
@@ -79,7 +79,7 @@ struct PhoneRelayPanel: View {
                     Text("このMacでは貼り付けの検知ができません（システムが内容を先読みするため）。"
                          + "長い返信は「次へ」で送ってください。")
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                        .foregroundStyle(Theme.warn)
                 }
 
                 Text("""

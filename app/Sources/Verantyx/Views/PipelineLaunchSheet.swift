@@ -61,7 +61,7 @@ struct PipelineLaunchSheet: View {
                 .buttonStyle(.plain)
             }
             .padding()
-            .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+            .background(Theme.panel2)
 
             Divider()
 
@@ -111,7 +111,7 @@ struct PipelineLaunchSheet: View {
                             .font(.system(size: 12, design: .monospaced))
                             .frame(minHeight: 100, maxHeight: 160)
                             .padding(8)
-                            .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+                            .background(Theme.panel)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
@@ -188,15 +188,15 @@ struct PipelineLaunchSheet: View {
                         .padding(.vertical, 8)
                     }
                     .buttonStyle(.borderedProminent)
-                    .tint(Color(red: 0.2, green: 0.75, blue: 0.45))
+                    .tint(Theme.ok)
                     .disabled(taskText.isEmpty || app.workspaceURL == nil)
                 }
             }
             .padding()
-            .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+            .background(Theme.panel2)
         }
         .frame(width: 560, height: 680)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 
     // MARK: - L2.5 地図カード
@@ -217,7 +217,7 @@ struct PipelineLaunchSheet: View {
             } else if let map = l25Engine.projectMap {
                 Text("✅ \(map.fileCount) files indexed — \(map.globalTopology.prefix(60))")
                     .font(.caption.monospaced())
-                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.6))
+                    .foregroundStyle(Theme.ok)
             } else {
                 HStack {
                     Text(AppLanguage.shared.t("⚠️ Map not generated. Press Start to auto-generate.", "⚠️ 地図未生成。Startボタンを押すと自動生成します。"))

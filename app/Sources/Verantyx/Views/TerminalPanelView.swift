@@ -27,7 +27,7 @@ struct TerminalPanelView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color(red: 0.08, green: 0.08, blue: 0.10))
+        .background(Theme.panel)
         .onChange(of: app.workspaceURL) { _, url in
             if let url = url {
                 terminal.workingDirectory = url
@@ -47,17 +47,17 @@ struct TerminalPanelView: View {
     private var headerBar: some View {
         HStack(spacing: 8) {
             // Traffic lights style dots
-            Circle().fill(Color(red: 0.2, green: 0.8, blue: 0.4)).frame(width: 8, height: 8)
+            Circle().fill(Theme.ok).frame(width: 8, height: 8)
             Text("Terminal")
                 .font(.system(.caption, design: .monospaced))
                 .fontWeight(.semibold)
-                .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                .foregroundStyle(Theme.dim)
 
             if terminal.isRunning {
                 ProgressView().scaleEffect(0.5).frame(width: 12, height: 12)
                 Text("running…")
                     .font(.system(.caption2, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
             }
 
             Spacer()
@@ -94,7 +94,7 @@ struct TerminalPanelView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(Color(red: 0.12, green: 0.12, blue: 0.15))
+        .background(Theme.panel2)
     }
 
     // MARK: - Output log
@@ -152,18 +152,18 @@ struct TerminalPanelView: View {
                     .padding(.horizontal, 12)
                     .padding(.vertical, 5)
                 }
-                .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+                .background(Theme.panel)
             }
 
             // Manual input
             HStack(spacing: 6) {
                 Text("$")
                     .font(.system(.callout, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
 
                 TextField("", text: $input)
                     .font(.system(.callout, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.92, green: 0.92, blue: 0.92))
+                    .foregroundStyle(Theme.fg)
                     .textFieldStyle(.plain)
                     .focused($inputFocused)
                     .onSubmit {
@@ -179,7 +179,7 @@ struct TerminalPanelView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
         }
     }
 }

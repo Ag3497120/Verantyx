@@ -93,7 +93,7 @@ struct VectorLabView: View {
                             if let errorText {
                                 Text(errorText)
                                     .font(.system(size: 11))
-                                    .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                                    .foregroundStyle(Theme.bad)
                             }
                         } else {
                             councilSection
@@ -103,7 +103,7 @@ struct VectorLabView: View {
                 }
             }
         }
-        .background(Color(red: 0.04, green: 0.04, blue: 0.07))
+        .background(Theme.bg)
     }
 
     private var header: some View {
@@ -117,7 +117,7 @@ struct VectorLabView: View {
             if case .jcrossReady(let m) = app.modelStatus {
                 Text("· \(m)")
                     .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .foregroundStyle(Theme.dim)
             }
             Spacer()
         }
@@ -133,7 +133,7 @@ struct VectorLabView: View {
                 "JGENモデルが読み込まれていません。まずSettings → JGENで読み込んでください。"
             ))
             .font(.system(size: 11))
-            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+            .foregroundStyle(Theme.dim)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -154,13 +154,13 @@ struct VectorLabView: View {
                     encode()
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color(red: 0.3, green: 0.6, blue: 0.9))
+                .tint(Theme.sel)
                 .disabled(isBusy || inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 if isBusy { ProgressView().controlSize(.small) }
                 if let vector {
                     Text(app.t("Vector ready (\(vector.count) dims)", "ベクトル準備完了(\(vector.count)次元)"))
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                        .foregroundStyle(Theme.ok)
                 }
             }
         }
@@ -207,7 +207,7 @@ struct VectorLabView: View {
                 "トークンを一切サンプリングせず、選択した層でのエントロピーが下がるようベクトルそのものを直接精錬します。"
             ))
             .font(.system(size: 9))
-            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+            .foregroundStyle(Theme.dim)
 
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 2) {
@@ -223,7 +223,7 @@ struct VectorLabView: View {
             }
             Button(app.t("Optimize", "最適化")) { optimize() }
                 .buttonStyle(.borderedProminent)
-                .tint(Color(red: 0.9, green: 0.5, blue: 0.3))
+                .tint(Theme.bad)
                 .disabled(isBusy)
 
             if let optimizedText, let optimizedEntropy {
@@ -242,7 +242,7 @@ struct VectorLabView: View {
                 "Councilフル移植: 5役割のダイバージェンス・パケット・スコアリング(S = A·C+B·E−C·R+D·N)、マルチトークンのソフトシーケンス注入、収束を受け入れる前の摂動テスト(perturb-test)による頑健性確認。verantyx_council.pyとの残存する簡略化点はCouncilOrchestrator.swiftのコードコメントを参照。"
             ))
             .font(.system(size: 9))
-            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+            .foregroundStyle(Theme.dim)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(app.t("Template", "テンプレート"))
@@ -262,7 +262,7 @@ struct VectorLabView: View {
                 if let preset = CouncilPreset.builtins.first(where: { $0.id == councilPreset }) {
                     Text(app.appLanguage == .japanese ? preset.descriptionJA : preset.description)
                         .font(.system(size: 9))
-                        .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                        .foregroundStyle(Theme.dim)
                 }
             }
 
@@ -357,7 +357,7 @@ struct VectorLabView: View {
             HStack(spacing: 8) {
                 Button(app.t("Run Council", "評議会を実行")) { runCouncil() }
                     .buttonStyle(.borderedProminent)
-                    .tint(Color(red: 0.5, green: 0.4, blue: 0.9))
+                    .tint(Theme.accent)
                     .disabled(councilBusy || councilQuestion.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 if councilBusy { ProgressView().controlSize(.small) }
             }
@@ -365,7 +365,7 @@ struct VectorLabView: View {
             if let councilError {
                 Text(councilError)
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                    .foregroundStyle(Theme.bad)
             }
 
             if let councilResult {
@@ -386,7 +386,7 @@ struct VectorLabView: View {
             resultRow(label: app.t("Next action:", "次アクション:"), value: result.handoff.nextAction)
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.t("Evidence:", "根拠:"))
-                    .font(.system(size: 10)).foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .font(.system(size: 10)).foregroundStyle(Theme.dim)
                 ForEach(result.handoff.evidence, id: \.self) { line in
                     Text("· \(line)")
                         .font(.system(size: 10, design: .monospaced))
@@ -398,16 +398,16 @@ struct VectorLabView: View {
                 Divider().opacity(0.2)
                 Label(app.t("Escalated", "エスカレーション済み"), systemImage: "arrow.up.circle.fill")
                     .font(.system(size: 10, weight: .semibold))
-                    .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                    .foregroundStyle(Theme.warn)
                 if let finalAnswer = result.finalAnswer {
                     Text(finalAnswer)
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                        .foregroundStyle(Theme.fg)
                         .textSelection(.enabled)
                 } else {
                     Text(app.t("No escalation model configured -- reporting only.", "エスカレーション先モデル未設定 — 報告のみ。"))
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                        .foregroundStyle(Theme.dim)
                 }
             }
 
@@ -418,7 +418,7 @@ struct VectorLabView: View {
                         VStack(alignment: .leading, spacing: 3) {
                             Text(app.t("Round \(rt.round)\(rt.converged ? " (converged)" : "")", "ラウンド \(rt.round)\(rt.converged ? "(収束)" : "")"))
                                 .font(.system(size: 9, weight: .semibold))
-                                .foregroundStyle(rt.converged ? Color(red: 0.4, green: 0.9, blue: 0.5) : Color(red: 0.6, green: 0.6, blue: 0.7))
+                                .foregroundStyle(rt.converged ? Theme.ok : Theme.dim)
                             ForEach(rt.roles, id: \.role) { role in
                                 Text("\(role.role): \"\(role.answer)\" (entropy \(String(format: "%.3f", role.entropy)))")
                                     .font(.system(size: 9, design: .monospaced))
@@ -437,10 +437,10 @@ struct VectorLabView: View {
         HStack(spacing: 6) {
             Text(label)
                 .font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                .foregroundStyle(Theme.dim)
             Text(value)
                 .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                .foregroundStyle(Theme.fg)
                 .textSelection(.enabled)
         }
     }

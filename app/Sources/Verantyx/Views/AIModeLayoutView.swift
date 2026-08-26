@@ -24,7 +24,7 @@ struct AIModeLayoutView: View {
             aiPriorityBanner
 
             Divider()
-                .overlay(Color(red: 1.0, green: 0.35, blue: 0.20).opacity(0.7))
+                .overlay(Theme.bad.opacity(0.7))
 
             // ── 2-pane: Chat | Artifact (always visible) ──────────────
             ResizableHSplit(
@@ -65,7 +65,7 @@ struct AIModeLayoutView: View {
             Divider().opacity(0.4)
             StatusBarView(terminal: app.terminal)
         }
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
         .toastOverlay()
     }
 
@@ -79,10 +79,10 @@ struct AIModeLayoutView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("AI PRIORITY MODE")
                     .font(.system(size: 11, weight: .black, design: .monospaced))
-                    .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.30))
+                    .foregroundStyle(Theme.bad)
                 Text(app.t("No approvals · Auto-write · Artifacts auto-show", "承認なし · 自律書き込み · Artifact自動表示"))
                     .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(Color(red: 0.75, green: 0.42, blue: 0.32))
+                    .foregroundStyle(Theme.bad)
             }
 
             Spacer()
@@ -97,7 +97,7 @@ struct AIModeLayoutView: View {
             LinearGradient(
                 colors: [
                     Color(red: 0.22, green: 0.08, blue: 0.06),
-                    Color(red: 0.12, green: 0.09, blue: 0.10)
+                    Theme.panel
                 ],
                 startPoint: .leading, endPoint: .trailing
             )
@@ -112,10 +112,10 @@ struct AIModeLayoutView: View {
             HStack(spacing: 8) {
                 Image(systemName: "atom")
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
                 Text("VerantyxAgent")
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
+                    .foregroundStyle(Theme.fg)
                 Spacer()
 
                 // Terminal toggle only (artifact panel is always visible in AI Mode)
@@ -126,7 +126,7 @@ struct AIModeLayoutView: View {
                         .symbolVariant(app.showProcessLog ? .fill : .none)
                         .font(.system(size: 11))
                         .foregroundStyle(app.showProcessLog
-                                         ? Color(red: 0.3, green: 1.0, blue: 0.5)
+                                         ? Theme.ok
                                          : .secondary)
                 }
                 .contentShape(Rectangle())
@@ -135,7 +135,7 @@ struct AIModeLayoutView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+            .background(Theme.panel2)
 
             Divider().opacity(0.3)
 

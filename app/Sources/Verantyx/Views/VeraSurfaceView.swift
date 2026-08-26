@@ -87,7 +87,7 @@ struct VeraSurfaceView: View {
         .frame(maxWidth: 360, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 13, style: .continuous)
-                .fill(Color(red: 0.125, green: 0.125, blue: 0.155))
+                .fill(Theme.panel2)
                 .shadow(color: .black.opacity(0.4), radius: 18, y: 8)
         )
         .overlay(
@@ -114,7 +114,7 @@ struct VeraSurfaceView: View {
         HStack(spacing: 8) {
             // The mark appears where Vera's own machinery is on screen — not
             // as decoration on every surface in the app.
-            JCrossGlyph(tint: Color(red: 0.55, green: 0.78, blue: 1.0), thickness: 1.6)
+            JCrossGlyph(tint: Theme.sel, thickness: 1.6)
                 .frame(width: 13, height: 13)
             Text(surface.title(japanese: japanese))
                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -149,7 +149,7 @@ struct VeraSurfaceView: View {
                 .font(.system(size: 10)).foregroundStyle(.tertiary)
             Text(app.activeModelName ?? t("none", "未読込"))
                 .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                .foregroundStyle(Theme.sel)
 
             if app.ollamaModels.isEmpty {
                 Text(t("No local model is reachable.", "到達できるローカルモデルがありません。"))
@@ -167,7 +167,7 @@ struct VeraSurfaceView: View {
                                 .strokeBorder(Color.secondary.opacity(0.5), lineWidth: 1)
                                 .background(Circle().fill(
                                     app.activeModelName == name
-                                        ? Color(red: 0.55, green: 0.78, blue: 1.0)
+                                        ? Theme.sel
                                         : .clear))
                                 .frame(width: 9, height: 9)
                             Text(name).font(.system(size: 12, design: .monospaced))

@@ -7,10 +7,10 @@ import SwiftUI
 /// display under room light, where a reading is legible because it is
 /// placed well, not because it shines.
 enum VeraInk {
-    static let verified  = Color(red: 0.42, green: 0.66, blue: 0.49)  // 証拠あり
-    static let unsettled = Color(red: 0.78, green: 0.62, blue: 0.33)  // 未確定・GAP
-    static let contested = Color(red: 0.76, green: 0.42, blue: 0.42)  // 係争
-    static let working   = Color(red: 0.44, green: 0.58, blue: 0.76)  // 検索中
+    static let verified  = Theme.ok  // 証拠あり
+    static let unsettled = Theme.warn  // 未確定・GAP
+    static let contested = Theme.bad  // 係争
+    static let working   = Theme.sel  // 検索中
     static let structure = Color.primary.opacity(0.22)                // 構造線
     static let quiet     = Color.primary.opacity(0.45)
 }

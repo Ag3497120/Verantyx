@@ -29,7 +29,7 @@ struct JCrossGlyph: View {
     /// full width while the other is barely open, and the asymmetry is what
     /// makes it read as a solid seen from three-quarters.
     var phase: Double = 0.035
-    var tint: Color = Color(red: 0.45, green: 0.72, blue: 1.0)
+    var tint: Color = Theme.sel
     /// How far the horizontal plane is tilted away from edge-on. 0 would draw a
     /// flat plus; a shallow angle keeps the arms readable while still reading
     /// as depth.
@@ -93,7 +93,7 @@ struct JCrossGlyph: View {
 
 struct JCrossSpinner: View {
     var active: Bool
-    var tint: Color = Color(red: 1.0, green: 0.55, blue: 0.35)
+    var tint: Color = Theme.warn
     var size: CGFloat = 14
 
     @State private var phase: Double = 0.035
@@ -128,8 +128,8 @@ struct JCrossSendButton: View {
     @State private var hovering = false
 
     private var tint: Color {
-        enabled ? Color(red: 0.45, green: 0.75, blue: 1.0)
-                : Color(red: 0.42, green: 0.42, blue: 0.5)
+        enabled ? Theme.sel
+                : Theme.dim
     }
 
     var body: some View {

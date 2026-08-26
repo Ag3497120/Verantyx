@@ -29,7 +29,7 @@ struct JGenSettingsSection: View {
                     HStack(spacing: 6) {
                         Image(systemName: "shippingbox.fill")
                             .font(.system(size: 10))
-                            .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.55))
+                            .foregroundStyle(Theme.ok)
                         Text(app.t("Converter & engine included in this app",
                                    "コンバータとエンジンはこのアプリに含まれています"))
                             .font(.system(size: 9, weight: .semibold))
@@ -61,7 +61,7 @@ struct JGenSettingsSection: View {
                     Image(systemName: "arrow.clockwise").font(.system(size: 10))
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                .foregroundStyle(Theme.dim)
             }
             card {
                 if converter.discoveredSources.isEmpty {
@@ -86,17 +86,17 @@ struct JGenSettingsSection: View {
                                 HStack(spacing: 8) {
                                     Image(systemName: sourceIcon(src.source))
                                         .font(.system(size: 10))
-                                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                        .foregroundStyle(Theme.dim)
                                         .frame(width: 14)
                                     VStack(alignment: .leading, spacing: 1) {
                                         HStack(spacing: 6) {
                                             Text(src.name)
                                                 .font(.system(size: 11, design: .monospaced))
-                                                .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                                .foregroundStyle(Theme.fg)
                                             if src.looksHybrid {
                                                 Text("hybrid")
                                                     .font(.system(size: 8, weight: .bold))
-                                                    .foregroundStyle(Color(red: 0.35, green: 0.75, blue: 0.95))
+                                                    .foregroundStyle(Theme.sel)
                                                     .padding(.horizontal, 5)
                                                     .padding(.vertical, 1)
                                                     .background(Color(red: 0.2, green: 0.35, blue: 0.45).opacity(0.5))
@@ -105,13 +105,13 @@ struct JGenSettingsSection: View {
                                         }
                                         Text("\(src.source) · \(String(format: "%.2f", src.sizeGB))GB")
                                             .font(.system(size: 9))
-                                            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                                            .foregroundStyle(Theme.dim)
                                     }
                                     Spacer()
                                     if src.converted {
                                         Label(app.t("Converted", "変換済み"), systemImage: "checkmark.circle.fill")
                                             .font(.system(size: 9, weight: .semibold))
-                                            .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                            .foregroundStyle(Theme.ok)
                                         // Re-convert: picks up jgen_forge fixes
                                         // (e.g. the tokenizer-synthesis change)
                                         // without deleting/renaming the old
@@ -124,7 +124,7 @@ struct JGenSettingsSection: View {
                                                 .font(.system(size: 10))
                                         }
                                         .buttonStyle(.plain)
-                                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                        .foregroundStyle(Theme.dim)
                                         .disabled(converter.isRunning)
                                         .help(app.t("Re-convert (e.g. after a jgen_forge update)", "再変換(jgen_forge更新後など)"))
                                     } else {
@@ -134,7 +134,7 @@ struct JGenSettingsSection: View {
                                             Text(app.t("Convert", "変換"))
                                         }
                                         .buttonStyle(.borderedProminent)
-                                        .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
+                                        .tint(Theme.warn)
                                         .controlSize(.small)
                                         .disabled(converter.isRunning)
                                     }
@@ -183,7 +183,7 @@ struct JGenSettingsSection: View {
                             Text(app.t("Scan & Convert New", "新規を検出して変換"))
                         }
                         .buttonStyle(.borderedProminent)
-                        .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
+                        .tint(Theme.warn)
                         .disabled(converter.isRunning)
                     }
                     Text(app.t(
@@ -191,7 +191,7 @@ struct JGenSettingsSection: View {
                         "safetensorsを含むHuggingFaceモデルフォルダ、または.ggufファイルをそのフォルダにドラッグしてからスキャンしてください。"
                     ))
                     .font(.system(size: 9))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                    .foregroundStyle(Theme.dim)
 
                     if converter.isRunning {
                         HStack(spacing: 6) {
@@ -211,18 +211,18 @@ struct JGenSettingsSection: View {
                         ForEach(converter.convertedModels, id: \.self) { name in
                           VStack(alignment: .leading, spacing: 3) {
                             HStack(spacing: 6) {
-                                Circle().fill(Color(red: 0.4, green: 0.9, blue: 0.5)).frame(width: 6, height: 6)
+                                Circle().fill(Theme.ok).frame(width: 6, height: 6)
                                 Text(name)
                                     .font(.system(size: 11, design: .monospaced))
-                                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
+                                    .foregroundStyle(Theme.fg)
                                     .lineLimit(1)
                                     .truncationMode(.middle)
                                 if let badge = converter.archBadge(for: name) {
                                     Text(badge)
                                         .font(.system(size: 8, weight: .bold))
                                         .foregroundStyle(
-                                            badge == "Hybrid" ? Color(red: 0.35, green: 0.75, blue: 0.95)
-                                            : badge == "Lexicon" ? Color(red: 0.75, green: 0.65, blue: 0.35)
+                                            badge == "Hybrid" ? Theme.sel
+                                            : badge == "Lexicon" ? Theme.warn
                                             : Color(red: 0.7, green: 0.7, blue: 0.75)
                                         )
                                 }
@@ -230,13 +230,13 @@ struct JGenSettingsSection: View {
                                 if loadedModel == name {
                                     Label(app.t("Active", "使用中"), systemImage: "bolt.fill")
                                         .font(.system(size: 9, weight: .semibold))
-                                        .foregroundStyle(Color(red: 1.0, green: 0.6, blue: 0.3))
+                                        .foregroundStyle(Theme.warn)
                                 } else if isLoading == name {
                                     ProgressView().controlSize(.mini)
                                 } else if !converter.isArchSupported(name) {
                                     Label(app.t("Unsupported arch (lexicon only)", "非対応アーキ(辞書のみ)"), systemImage: "exclamationmark.triangle")
                                         .font(.system(size: 9))
-                                        .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.4))
+                                        .foregroundStyle(Theme.warn)
                                         .help(app.t(
                                             "This architecture isn't runnable in JCrossEngine yet (lexicon / Vector Lab only).",
                                             "このアーキテクチャはまだJCrossEngineで推論できません（辞書/Vector Labのみ）。"
@@ -290,7 +290,7 @@ struct JGenSettingsSection: View {
                 if let loadError {
                     Text(loadError)
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                        .foregroundStyle(Theme.bad)
                 }
             }
 
@@ -324,7 +324,7 @@ struct JGenSettingsSection: View {
         HStack(spacing: 6) {
             Image(systemName: "questionmark.circle")
                 .font(.system(size: 9))
-                .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.35))
+                .foregroundStyle(Theme.warn)
 
             if let repo = converter.tokenizerSuggestions[name] {
                 Text(app.t("Suggested tokenizer: ", "トークナイザー候補: ") + repo)
@@ -333,7 +333,7 @@ struct JGenSettingsSection: View {
                     .textSelection(.enabled)
                 Text(app.t("(verified)", "(実在確認済み)"))
                     .font(.system(size: 8))
-                    .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
                 Spacer()
                 Button(app.t("Use", "使う")) {
                     // 入れるだけ。再変換は自動で走らせない。
@@ -354,7 +354,7 @@ struct JGenSettingsSection: View {
                 Text(app.t("No real tokenizer — chat can't load this.",
                            "本物のトークナイザーが無く、チャットで読み込めません。"))
                     .font(.system(size: 9))
-                    .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.45))
+                    .foregroundStyle(Theme.warn)
                 Spacer()
                 Button(app.t("Find one", "候補を探す")) {
                     let src = converter.discoveredSources.first(where: {
@@ -415,7 +415,7 @@ struct JGenSettingsSection: View {
             Image(systemName: icon).font(.system(size: 11))
             Text(title).font(.system(size: 11, weight: .semibold))
         }
-        .foregroundStyle(Color(red: 1.0, green: 0.6, blue: 0.3))
+        .foregroundStyle(Theme.warn)
     }
 
     private func card<Content: View>(@ViewBuilder content: () -> Content) -> some View {

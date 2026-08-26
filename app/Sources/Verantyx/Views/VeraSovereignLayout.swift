@@ -1,23 +1,14 @@
 import SwiftUI
 
-/// The Vera screen as the sketch drew it: memory and a free window down
-/// the left, the stereo cross in the middle, the chat on the right.
-///
-/// The cross is the middle because it IS the middle — every answer and
-/// every save takes that road (`VeraRouteState` publishes from the one
-/// call site all doors pass through). Putting it beside the transcript
-/// would make it an ornament next to the work; putting it between the
-/// panes makes the picture and the route the same thing.
-///
-/// ## Narrowing is a reflow, not a shrink
-///
-/// The cross scales down with the window, and past a measured width it
-/// stops being its own column: it folds into the left stack between 記憶
-/// and 自由ウィンドウ as a compact band, and the chat takes the space it
-/// left. Below that again the left stack goes away and the band rides
-/// with the chat. Nothing is hidden without moving somewhere a reader
-/// can still find it — a control that vanishes at a breakpoint is a
-/// control the reader stops trusting.
+/// The Vera screen's main area: whatever `content` is for the current
+/// mode, filling the pane. It used to also carry the stereo cross as a
+/// translucent watermark behind that content (see git history) — that
+/// was the leftover ghost readers kept seeing through the garment and
+/// every other screen, so it was removed. The cross itself is not gone;
+/// it is reachable as a real, clickable panel (VeraSummonedPanel's
+/// `.cross` case) — via Settings › All Screens › Open, same as 記憶 and
+/// 設定 (see SettingsView.open(); the older "say the word in chat" path
+/// went with Bot mode, 2026-08-26).
 struct VeraSovereignLayout<Content: View>: View {
     /// What fills the main area — Vera's console in Vera mode, the
     /// ordinary transcript in the LLM and dual-path modes. The frame is
@@ -27,27 +18,6 @@ struct VeraSovereignLayout<Content: View>: View {
     @ViewBuilder var content: () -> Content
 
     @EnvironmentObject var app: AppState
-    @ObservedObject private var route = VeraRouteState.shared
-
-    /// Where the cross lives at this width.
-    private enum Fold { case column, leftStack, withChat }
-
-    private func fold(_ w: CGFloat) -> Fold {
-        // Measured against the real pane, not a guessed desktop: the
-        // Vera pane is the right half of the window, so the column
-        // layout has to arrive at a width the divider can actually
-        // reach. 880 gives three readable columns; below 620 the left
-        // stack itself stops fitting and the cross rides with the chat.
-        if w >= 880 { return .column }
-        if w >= 620 { return .leftStack }
-        return .withChat
-    }
-
-    private func crossSpan(_ w: CGFloat) -> CGFloat {
-        // Scales with the window, floored so the arms stay legible and
-        // capped so it never becomes the loudest thing on screen.
-        min(260, max(96, w * 0.19))
-    }
 
     var body: some View {
         // VeraStatusStrip (VERA-A / READY / NODES / EVIDENCE …) is off the
@@ -58,48 +28,28 @@ struct VeraSovereignLayout<Content: View>: View {
     }
 
     private var layout: some View {
-        GeometryReader { geo in
-            // The editor half leaves the AI pane narrow in the LLM and
-            // council modes, so the column has to survive a width the
-            // pane actually has. Below this even a 180pt rail would push
-            // the transcript under a readable line length, and then the
-            // watermark alone carries the structure.
-            ZStack {
-                // The left column is gone. 記憶 was a real pane and it
-                // moved into the summoned 記憶 panel — the ledger with its
-                // 承認 buttons is the same object, just called by name.
-                // 自由ウィンドウ was a mock: four tab labels and three lines
-                // of code that never came from anywhere. A pane holding a
-                // drawing of a feature is worse than no pane, in a product
-                // whose whole claim is that what is on screen was measured.
-                HStack(spacing: 10) {
-                    // The summoned panel used to hang here, one at a
-                    // time, above the composer — which meant asking for
-                    // 記憶 after 設定 threw the first one away. Panels are
-                    // turns in the conversation now (VeraBotTranscript),
-                    // so they stack the way the questions did.
-                    content()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .padding(10)
-
-                // ── 立体十字, as a watermark ──────────────────────
-                // A whole column for the instrument was the wrong trade:
-                // the structure is the ground everything else sits on,
-                // not a neighbour competing for width. It reads across
-                // the panes at a weight you notice only when it moves,
-                // takes no clicks, and brightens a little while a call
-                // is out — so the route is still visible without the
-                // screen spending a third of itself on it.
-                StereoCrossView(
-                    span: min(geo.size.width, geo.size.height) * 0.66,
-                    showsLabels: true
-                )
-                .opacity(route.phase == .idle ? 0.07 : 0.16)
-                .allowsHitTesting(false)
-                .animation(.easeInOut(duration: 0.6), value: route.phase)
-            }
+        // The left column is gone. 記憶 was a real pane and it
+        // moved into the summoned 記憶 panel — the ledger with its
+        // 承認 buttons is the same object, just called by name.
+        // 自由ウィンドウ was a mock: four tab labels and three lines
+        // of code that never came from anywhere. A pane holding a
+        // drawing of a feature is worse than no pane, in a product
+        // whose whole claim is that what is on screen was measured.
+        //
+        // 立体十字 no longer rides here as a translucent watermark
+        // behind the content — that ghost (原因/反論/一般/支持/結果
+        // barely visible at 0.07–0.16 opacity) was the leftover the
+        // owner was seeing through every screen. The instrument still
+        // exists and still has a real, clickable home: the 十字 panel
+        // (VeraSummonedPanel's `.cross` case), same as 記憶 and 設定 —
+        // all three now open from Settings › All Screens › Open rather
+        // than by being said in chat (that path was Bot mode's, removed
+        // 2026-08-26 along with VeraBotTranscript).
+        HStack(spacing: 10) {
+            content()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .padding(10)
     }
 
     // MARK: - 記憶

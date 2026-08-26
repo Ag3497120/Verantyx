@@ -44,12 +44,12 @@ enum AgentState: Equatable {
     var color: Color {
         switch self {
         case .idle, .completed: return .clear
-        case .thinking:      return Color(red: 0.55, green: 0.60, blue: 0.95)  // indigo
+        case .thinking:      return Theme.sel  // indigo
         case .generating:    return Color(red: 0.35, green: 0.85, blue: 1.00)  // cyan
-        case .exploring:     return Color(red: 0.40, green: 0.85, blue: 0.55)  // green
-        case .operatingApp:  return Color(red: 1.00, green: 0.65, blue: 0.20)  // amber
-        case .waitingUser:   return Color(red: 0.95, green: 0.85, blue: 0.30)  // yellow
-        case .error:         return Color(red: 1.00, green: 0.35, blue: 0.35)  // red
+        case .exploring:     return Theme.ok  // green
+        case .operatingApp:  return Theme.warn  // amber
+        case .waitingUser:   return Theme.warn  // yellow
+        case .error:         return Theme.bad  // red
         }
     }
 
@@ -108,6 +108,16 @@ final class AgentActivityCenter: ObservableObject {
 
     @Published private(set) var state: AgentState = .idle
 
+    /// Coarse activity log for `AgentActivityStreamView` — one entry per
+    /// state transition, not per tool call. The view was built for
+    /// per-tool-call granularity and had no producer at all before this;
+    /// this is real (every entry is a genuine `set()` transition, the same
+    /// ones that already drive the composer glow and the window edge), just
+    /// coarser than the view's own comments describe. A finer feed would
+    /// need `enter(for:)` to carry the tool's own start/finish, which it
+    /// does not yet report back.
+    @Published private(set) var log: [AgentActivity] = []
+
     private var settleTask: Task<Void, Never>?
 
     /// A run that stops to ask the user still reports `.done` — the loop
@@ -134,6 +144,7 @@ final class AgentActivityCenter: ObservableObject {
     func set(_ next: AgentState) {
         settleTask?.cancel()
         guard state != next else { return }
+        let previous = state
         state = next
 
         // The screen-change detector runs while the agent is out driving the
@@ -146,6 +157,7 @@ final class AgentActivityCenter: ObservableObject {
             ScreenChangeMonitor.shared.stop()
         }
         NotificationCenter.default.post(name: .veraRunStateChanged, object: nil)
+        recordTransition(from: previous, to: next)
 
         // "Done" is a moment, not a state to sit in.
         if case .completed = next {
@@ -155,6 +167,30 @@ final class AgentActivityCenter: ObservableObject {
                 self?.set(.idle)
             }
         }
+    }
+
+    /// Closes the previous row (if it was still `.running`) and opens a new
+    /// one for `next`. Idle never gets a row of its own — nothing is
+    /// happening, so there is nothing to log.
+    private func recordTransition(from previous: AgentState, to next: AgentState) {
+        if !log.isEmpty, log[log.count - 1].state == .running {
+            // 直す前は `previous`（閉じる行そのもの）を見ていたが、それは常に
+            // .exploring 等の実行中状態で、.error になるのは `next` 側。
+            // 一段遅れて次の遷移で誤って別の行を failed にしていたバグの修正。
+            let failed: Bool
+            if case .error = next { failed = true } else { failed = false }
+            log[log.count - 1].state = failed ? .failed : .succeeded
+        }
+        guard next.glows else { return }
+        let kind: AgentActivity.Kind
+        switch next {
+        case .exploring:    kind = .observation
+        case .operatingApp: kind = .tool
+        case .generating:   kind = .command
+        default:            kind = .thought
+        }
+        log.append(AgentActivity(label: next.label, detail: next.hint, state: .running, kind: kind))
+        if log.count > 300 { log.removeFirst(log.count - 300) }
     }
 
     /// Derive the state from a tool about to run. What the agent is *doing* is

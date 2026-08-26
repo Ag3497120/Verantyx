@@ -41,8 +41,8 @@ struct DemonstrationSettingsView: View {
             HStack(spacing: 10) {
                 Image(systemName: "hand.draw")
                     .font(.system(size: 15))
-                    .foregroundStyle(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                                : Color(red: 1.0, green: 0.75, blue: 0.2))
+                    .foregroundStyle(autonomous ? Theme.ok
+                                                : Theme.warn)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("人間の操作データ")
                         .font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
@@ -52,13 +52,13 @@ struct DemonstrationSettingsView: View {
                 Spacer()
                 Text("\(human) / \(autonomyTarget)")
                     .font(.system(size: 12, weight: .bold, design: .monospaced))
-                    .foregroundStyle(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                                : Color(red: 1.0, green: 0.75, blue: 0.2))
+                    .foregroundStyle(autonomous ? Theme.ok
+                                                : Theme.warn)
             }
 
             ProgressView(value: Double(min(human, autonomyTarget)), total: Double(autonomyTarget))
-                .tint(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                 : Color(red: 1.0, green: 0.75, blue: 0.2))
+                .tint(autonomous ? Theme.ok
+                                 : Theme.warn)
 
             // Two thresholds do different jobs and conflating them hid the
             // second one entirely — the user could pass 8, see "sufficient",
@@ -201,7 +201,7 @@ struct DemonstrationSettingsView: View {
                 if autonomous {
                     Label("実行中の確認はもう出ません", systemImage: "checkmark.seal.fill")
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                        .foregroundStyle(Theme.ok)
                 }
 
                 Button("終了") { recording = false }
@@ -217,7 +217,7 @@ struct DemonstrationSettingsView: View {
         HStack(spacing: 6) {
             Image(systemName: reached ? "checkmark.circle.fill" : "circle")
                 .font(.system(size: 9))
-                .foregroundStyle(reached ? Color(red: 0.3, green: 0.9, blue: 0.5) : .secondary)
+                .foregroundStyle(reached ? Theme.ok : .secondary)
             Text("\(n) 件 — \(text)")
                 .font(.system(size: 10))
                 .foregroundStyle(reached ? .secondary : .tertiary)

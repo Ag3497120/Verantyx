@@ -94,7 +94,7 @@ struct JGenVeraSettingsPanelView: View {
 
                 layerBlock(
                     "Layer 0 — " + app.t("Memory", "記憶"),
-                    color: Color(red: 0.5, green: 0.85, blue: 0.6)
+                    color: Theme.ok
                 ) {
                     Toggle(app.t("Vera-α verified facts", "Vera-α 確定事実"), isOn: Binding(
                         get: { council.config.useVeraMemory },
@@ -230,7 +230,7 @@ struct JGenVeraSettingsPanelView: View {
                             .padding(.horizontal, 6).padding(.vertical, 3)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(on ? Color(red: 0.5, green: 0.85, blue: 0.6).opacity(0.25)
+                                    .fill(on ? Theme.ok.opacity(0.25)
                                              : Color.white.opacity(0.06))
                             )
                         }
@@ -239,7 +239,7 @@ struct JGenVeraSettingsPanelView: View {
 
                 layerBlock(
                     "Layer 1 — " + app.t("Council core (same-arch JGEN)", "合議核(同型JGEN)"),
-                    color: Color(red: 1.0, green: 0.72, blue: 0.35)
+                    color: Theme.warn
                 ) {
                     Stepper(app.t("Roles: \(council.config.roleCount)", "役割数: \(council.config.roleCount)"),
                             value: Binding(
@@ -266,7 +266,7 @@ struct JGenVeraSettingsPanelView: View {
 
                 layerBlock(
                     "Layer 2 — " + app.t("Execution agent (tools)", "実行エージェント(ツール)"),
-                    color: Color(red: 0.5, green: 0.7, blue: 1.0)
+                    color: Theme.sel
                 ) {
                     Toggle(isOn: Binding(
                         get: { council.executionUseJGEN },

@@ -44,7 +44,7 @@ struct LoadedModelPanel: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(info.displayName)
                     .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.90, green: 0.90, blue: 0.98))
+                    .foregroundStyle(Theme.fg)
                     .lineLimit(1)
 
 
@@ -58,15 +58,15 @@ struct LoadedModelPanel: View {
                 ForEach(info.kanjiTags, id: \.self) { tag in
                     Text(tag)
                         .font(.system(size: 9, weight: .medium, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.6).opacity(0.8))
+                        .foregroundStyle(Theme.ok.opacity(0.8))
                         .padding(.horizontal, 5).padding(.vertical, 2)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color(red: 0.4, green: 0.85, blue: 0.6).opacity(0.1))
+                                .fill(Theme.ok.opacity(0.1))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 4)
                                         .strokeBorder(
-                                            Color(red: 0.4, green: 0.85, blue: 0.6).opacity(0.25),
+                                            Theme.ok.opacity(0.25),
                                             lineWidth: 0.5
                                         )
                                 )
@@ -80,7 +80,7 @@ struct LoadedModelPanel: View {
         .background(
             ZStack {
                 // Dark glassmorphism base
-                Color(red: 0.08, green: 0.09, blue: 0.14)
+                Theme.bg
                 // Subtle gradient tint matching backend color
                 LinearGradient(
                     colors: [info.accentColor.opacity(0.06), .clear],
@@ -144,7 +144,7 @@ struct LoadedModelPanel: View {
                 displayName: name,
                 backendLabel: "MLX",
                 backendIcon: "cpu",
-                accentColor: Color(red: 0.3, green: 0.85, blue: 0.55),
+                accentColor: Theme.ok,
                 kanjiTags: ["技", "速", "軽"]
             )
         case .ollamaReady(let m):
@@ -153,7 +153,7 @@ struct LoadedModelPanel: View {
                 displayName: name,
                 backendLabel: "Ollama",
                 backendIcon: "externaldrive",
-                accentColor: Color(red: 0.4, green: 0.65, blue: 1.0),
+                accentColor: Theme.sel,
                 kanjiTags: ["技", "通", "外"]
             )
         default:
@@ -172,13 +172,13 @@ struct LoadedModelPanel_Previews: PreviewProvider {
         let app = AppState()
         app.modelStatus = .mlxReady(model: "mlx-community/gemma-3-27b-it-4bit")
         return ZStack(alignment: .bottom) {
-            Color(red: 0.1, green: 0.1, blue: 0.14)
+            Theme.panel2
             VStack(spacing: 0) {
                 Spacer()
                 LoadedModelPanel()
                     .environmentObject(app)
                 Rectangle()
-                    .fill(Color(red: 0.08, green: 0.08, blue: 0.11))
+                    .fill(Theme.panel)
                     .frame(height: 28)
             }
         }

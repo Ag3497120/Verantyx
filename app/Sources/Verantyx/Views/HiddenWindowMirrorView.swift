@@ -37,7 +37,7 @@ struct HiddenWindowMirrorView: View {
                 }
             }
         }
-        .background(Color(red: 0.04, green: 0.04, blue: 0.07))
+        .background(Theme.bg)
         .task {
             await automation.beginMirrorWatch()
             startRefreshLoop()
@@ -130,7 +130,7 @@ struct HiddenWindowMirrorView: View {
                 .multilineTextAlignment(.center)
             Text(placeholderDetail)
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                .foregroundStyle(Theme.dim)
                 .multilineTextAlignment(.center)
             if showsPermissionActions {
                 Button {
@@ -221,7 +221,7 @@ struct HiddenWindowMirrorView: View {
             let px = fittedRect.minX + (el.x / 1000) * fittedRect.width
             let py = fittedRect.minY + (el.y / 1000) * fittedRect.height
             Circle()
-                .stroke(isStale(el) ? Color(red: 1.0, green: 0.7, blue: 0.3) : Color(red: 0.4, green: 0.9, blue: 0.5), lineWidth: 2)
+                .stroke(isStale(el) ? Theme.warn : Theme.ok, lineWidth: 2)
                 .frame(width: 14, height: 14)
                 .position(x: px, y: py)
         }
@@ -237,7 +237,7 @@ struct HiddenWindowMirrorView: View {
             if registeredElements.isEmpty {
                 Text(app.t("None yet — click the mirror to register one.", "まだありません — ミラーをクリックして登録してください。"))
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                    .foregroundStyle(Theme.dim)
                     .padding(10)
             } else {
                 ScrollView {
@@ -245,16 +245,16 @@ struct HiddenWindowMirrorView: View {
                         ForEach(registeredElements) { el in
                             HStack(spacing: 5) {
                                 Circle()
-                                    .fill(isStale(el) ? Color(red: 1.0, green: 0.7, blue: 0.3) : Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    .fill(isStale(el) ? Theme.warn : Theme.ok)
                                     .frame(width: 6, height: 6)
                                 Text(el.element)
                                     .font(.system(size: 11, design: .monospaced))
-                                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
+                                    .foregroundStyle(Theme.fg)
                                     .lineLimit(1)
                                 if isStale(el) {
                                     Image(systemName: "exclamationmark.triangle.fill")
                                         .font(.system(size: 9))
-                                        .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                                        .foregroundStyle(Theme.warn)
                                         .help(app.t(
                                             "App updated since registration (\(el.version) → \(currentAppVersion ?? "?")) — may need re-check",
                                             "登録時からアプリが更新されています（\(el.version) → \(currentAppVersion ?? "?")）— 再確認が必要かもしれません"
@@ -270,7 +270,7 @@ struct HiddenWindowMirrorView: View {
                 Divider().opacity(0.2)
                 Text(statusText)
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
                     .padding(8)
             }
         }
@@ -281,14 +281,14 @@ struct HiddenWindowMirrorView: View {
         HStack(spacing: 10) {
             Image(systemName: "eye.trianglebadge.exclamationmark")
                 .font(.system(size: 13))
-                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                .foregroundStyle(Theme.warn)
             Text(app.t("Act Target Mirror", "操作対象ミラー"))
                 .font(.system(size: 12, weight: .bold))
                 .foregroundStyle(Color(red: 0.85, green: 0.9, blue: 1.0))
             if let name = automation.targetAppName {
                 Text("· \(name)")
                     .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .foregroundStyle(Theme.dim)
             }
             if automation.targetAppName != nil {
                 Text(headerStatusLabel)
@@ -309,8 +309,8 @@ struct HiddenWindowMirrorView: View {
             }
             .buttonStyle(.plain)
             .foregroundStyle(registerMode
-                ? Color(red: 0.4, green: 0.9, blue: 0.5)
-                : Color(red: 0.6, green: 0.6, blue: 0.7))
+                ? Theme.ok
+                : Theme.dim)
 
             if automation.targetAppName != nil {
                 Button {
@@ -323,7 +323,7 @@ struct HiddenWindowMirrorView: View {
                     .font(.system(size: 10, weight: .semibold))
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                .foregroundStyle(Theme.warn)
             }
         }
         .padding(.horizontal, 12)
@@ -387,11 +387,11 @@ struct HiddenWindowMirrorView: View {
     private var headerStatusColor: Color {
         switch automation.lastCaptureStatus {
         case .ok:
-            return Color(red: 0.4, green: 0.9, blue: 0.5)
+            return Theme.ok
         case .permissionDenied, .blank, .failed, .noWindow:
-            return Color(red: 1.0, green: 0.7, blue: 0.3)
+            return Theme.warn
         case .idle, .noTarget:
-            return Color(red: 0.6, green: 0.6, blue: 0.7)
+            return Theme.dim
         }
     }
 

@@ -99,7 +99,7 @@ struct AgentActivityStreamView: View {
                 if run.contains(where: { $0.state == .failed }) {
                     Image(systemName: "exclamationmark.circle.fill")
                         .font(.system(size: 9))
-                        .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.4))
+                        .foregroundStyle(Theme.bad)
                 }
             }
             .contentShape(Rectangle())
@@ -207,7 +207,7 @@ private struct FinishedActivityRow: View {
 
     private var tint: Color {
         activity.state == .failed
-            ? Color(red: 1.0, green: 0.45, blue: 0.4)
+            ? Theme.bad
             : Color.secondary
     }
 
@@ -250,7 +250,7 @@ private struct SparkGlyph: View {
             .font(.system(size: 10, weight: .medium))
             .foregroundStyle(
                 animated
-                    ? Color(red: 1.0, green: 0.55, blue: 0.35)
+                    ? Theme.warn
                     : Color.secondary.opacity(0.6))
             .rotationEffect(.degrees(spin ? 360 : 0))
             .scaleEffect(breathe ? 1.12 : 0.94)

@@ -23,7 +23,7 @@ struct ToastView: View {
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color(red: 0.14, green: 0.14, blue: 0.18))
+                .fill(Theme.panel2)
                 .shadow(color: Color.black.opacity(0.45), radius: 12, x: 0, y: 4)
         )
         .overlay(

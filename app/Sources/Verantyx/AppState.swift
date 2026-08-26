@@ -86,6 +86,13 @@ final class AppState: ObservableObject {
     // ingestArtifact() from actor context without importing the full SwiftUI stack.
     @MainActor static weak var shared: AppState?
 
+    // ── IDE shell layout — tabs, left/right mounts, garment expand. One
+    // model, persisted, read by IDEShellView and written to by anything
+    // that opens a tab (file/folder pickers, aiShow*, panel-mount offers).
+    // See ShellLayoutState.swift for why this replaced the old
+    // `stageMode`/`aiPanels`/`activitySection` patchwork.
+    let shell = ShellLayoutState()
+
     // Workspace
     @Published var activeWebViews: [String: WKWebView] = [:]
     @Published var workspaceURL: URL?
@@ -391,12 +398,15 @@ final class AppState: ObservableObject {
 
         var color: Color {
             switch kind {
-            case .memory:   return Color(red: 0.4, green: 0.9, blue: 0.6)
+            case .memory:   return Theme.ok
             case .tool:     return Color(red: 0.4, green: 0.8, blue: 1.0)
-            case .browser:  return Color(red: 0.9, green: 0.7, blue: 0.3)
+            case .browser:  return Theme.warn
             case .thinking: return Color(red: 0.8, green: 0.8, blue: 1.0)
-            case .system:   return Color(red: 0.6, green: 0.6, blue: 0.6)
-            case .perf:     return Color(red: 0.3, green: 1.0, blue: 0.5)
+            case .system:   return Theme.dim
+            // memory と同じ Theme.ok に丸めると2行が同色になり見分けがつかない
+            // (元は 0.4/0.9/0.6 と 0.3/1.0/0.5 の近似だが別の緑だった) ため
+            // perf だけは accent で視覚的に分離する。
+            case .perf:     return Theme.accent
             }
         }
     }
@@ -1012,16 +1022,24 @@ final class AppState: ObservableObject {
 
     // ── Vera engine mode ─────────────────────────────────────────────────
     //
-    // Atelier is the mode this app is for; the others are the surfaces it
-    // kept from the general-purpose IDE it grew out of.
+    // Atelier is the mode this app is for; LLM is the plain conversation
+    // it kept from the general-purpose IDE it grew out of. That is the
+    // whole set now.
     //
-    // jgen 合議 (`council`) and 単体 Vera-a (`standalone`) were removed
-    // outright rather than hidden. A mode that is unreachable from the menu
-    // but still constructible from a persisted string is not removed, it is
-    // just harder to find — and it would keep its branches alive in the turn
-    // handler where nobody exercises them. `restore()` maps either stored
-    // value onto `.atelier` so an existing install comes back somewhere real
-    // instead of failing to decode.
+    // jgen 合議 (`council`), 単体 Vera-a (`standalone`), Vera単体
+    // (`vera_model`) and Veraぼっと (`vera_bot`) were all removed outright
+    // rather than hidden — the last two on 2026-08-26. veraModel answered
+    // with typed verdicts and no LLM in the turn; veraBot answered
+    // questions about the app itself from the settings registry, and was
+    // also the only mode `VeraSummon.resolve` fired in, so summoning a
+    // panel by typing its name (記憶, 十字, 設定…) left with it — see
+    // VeraSummon.swift and VeraSummonedPanel.swift for what that leaves
+    // orphaned. A mode that is unreachable from the menu but still
+    // constructible from a persisted string is not removed, it is just
+    // harder to find — and it would keep its branches alive in the turn
+    // handler where nobody exercises them. `loadPersistedSettings` maps
+    // any of the four stored values onto `.atelier` so an existing
+    // install comes back somewhere real instead of failing to decode.
     enum VeraEngineMode: String, CaseIterable {
         // 服飾のワークベンチ。作業面がチャットではなく「服の状態」になる。
         // 背景のパイプ(モデル登録・ローカルLLM・MCP)はそのまま使い、
@@ -1032,18 +1050,6 @@ final class AppState: ObservableObject {
         // that LLM can equally be Claude or Grok. The raw value stays as it is
         // because it is persisted.
         case localLLM = "local_llm"     // 通常のLLM (合議もVeraも通さない)
-        // The Vera MODEL as the responder — no LLM anywhere in the turn:
-        // typed verdicts verbatim, structural diff for 違い questions,
-        // constructed explanations and typo evidence on refusals. What
-        // the browser's ASK is to the 3D page, this is to the IDE.
-        case veraModel = "vera_model"   // Vera単体 (LLM不使用・型付き判定)
-        // The bot that answers ABOUT the app: settings, modes, where a
-        // control lives. The summon table is exact by design, so it can
-        // only ever cover names someone already knows — this mode is
-        // where 「フォントを大きくしたい」 goes, and it answers from the
-        // settings registry rather than from a model, so the whole
-        // surface stays deterministic instead of half of it.
-        case veraBot = "vera_bot"       // Veraぼっと (設定・UIの案内)
     }
 
     // ── Vera model versions: the same menu the 3D page's toggle reads ──
@@ -1154,14 +1160,25 @@ final class AppState: ObservableObject {
         }
         if front, let panel = aiPanels.first(where: { $0.title == title }) {
             stageMode = .aiPanel(panel.id)
+            shell.openTab(.aiPanel(id: panel.id))
         }
     }
-    func aiShowDiff(_ diff: String) { stageDiff = diff; stageMode = .diff }
+    func aiShowDiff(_ diff: String) {
+        stageDiff = diff; stageMode = .diff
+        shell.openTab(.diff)
+    }
     func aiShowArtifact(title: String, text: String) {
         stageArtifactTitle = title; stageArtifactText = text; stageMode = .artifact
+        shell.openTab(.artifact)
     }
-    func aiShowTerminal() { stageMode = .terminal }
-    func aiShowMemory() { stageMode = .memory }
+    func aiShowTerminal() {
+        stageMode = .terminal
+        shell.openTab(.terminal)
+    }
+    func aiShowMemory() {
+        stageMode = .memory
+        shell.openTab(.memory)
+    }
 
     /// AI-writable surface in the left multi-purpose panel.
     @Published var flexPanelTitle: String = ""
@@ -1194,16 +1211,11 @@ final class AppState: ObservableObject {
 
     /// LLM バックエンドをこのモードが使うか。
     ///
-    /// veraModel / veraBot は turn の中で LLM を一切呼ばない(単体 Vera-a と
-    /// 設定案内)。それでも `MainSplitView.onAppear` が無条件に
-    /// `connectOllama()` を呼んでいたので、Ollama を起動していない利用者に
-    /// は Vera モードでも接続失敗の警告が出ていた — 動作に影響しないが、
-    /// 「LLM 不使用」を売りにする画面で LLM の警告が出るのは説明と矛盾する。
-    /// 明示操作(モデル選択バーの再接続ボタン)は従来どおり通す: 止めるのは
-    /// 自動接続だけ。
-    var usesLLMBackend: Bool {
-        veraEngineMode != .veraModel && veraEngineMode != .veraBot
-    }
+    /// 2026-08-26 に veraModel / veraBot(turn の中で LLM を一切呼ばない
+    /// 2モード: 単体 Vera-a と 設定案内)を削除。残る atelier / localLLM は
+    /// どちらも LLM を呼ぶので、この関数は常に true — が、削除の記録として
+    /// 残す(呼び出し側 `MainSplitView.onAppear` を変えずに済む)。
+    var usesLLMBackend: Bool { true }
 
     @Published var veraEngineMode: VeraEngineMode = .atelier {
         didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
@@ -1307,6 +1319,7 @@ final class AppState: ObservableObject {
         selectedFile = nil
         selectedFileContent = ""
         terminal.workingDirectory = url
+        shell.openTab(.folder(path: url.path))
         // 再起動後も最後のワークスペースを復元できるよう保存
         UserDefaults.standard.set(url.path, forKey: "last_workspace_path")
         addSystemMessage("📂 Workspace: \(url.lastPathComponent)")
@@ -1404,6 +1417,7 @@ final class AppState: ObservableObject {
     func selectFile(_ url: URL) {
         selectedFile = url          // highlight instantly (no wait)
         selectedFileContent = ""    // clear old content immediately
+        shell.openTab(.file(path: url.path))
 
         // ── Gatekeeper Mode: Vault の JCross IR を表示 ────────────────
         // 有効な場合は実コードの代わりに JCross 変換済みコンテンツを表示する。
@@ -1800,59 +1814,18 @@ final class AppState: ObservableObject {
                 + "それ以外は会話の中だけで扱います。\n</think>")
         }
 
-        // ── Summon by name ────────────────────────────────────────────
-        // The chrome is gone, so the words are the controls. An exact
-        // match on a closed table opens a surface or changes the mode
-        // and the turn ENDS — no model is asked, because summoning is
-        // not a question. Everything else falls through untouched: the
-        // fall-through is what makes the table safe to have.
-        // …but only in Bot mode. Everywhere else 「設定」 is a word in a
-        // sentence, and a panel that opens because the first two
-        // characters matched a table is a panel that interrupts the
-        // question being asked. Bot mode is the mode you are in when the
-        // app itself is the subject, so that is where its names work.
-        if !text.isEmpty, veraEngineMode == .veraBot,
-           let r = VeraSummon.resolve(text) {
-            inputText = ""
-            if let mode = r.mode {
-                veraEngineMode = mode
-                messages.append(ChatMessage(role: .user, content: text))
-                addSystemMessage("<think>\n▸ モード: \(mode.rawValue)\n</think>")
-            }
-            if let panel = r.panel {
-                // Your line, then the panel under it — the same shape as
-                // asking anything else here. Opening 設定 twice leaves two
-                // in the log rather than moving one; the older copy is a
-                // record of what you asked, and VeraBotTranscript makes it
-                // read-only so there is never a question of which one your
-                // typing lands in.
-                messages.append(ChatMessage(role: .user, content: text))
-                messages.append(ChatMessage(role: .system,
-                                            content: VeraSummon.marker(panel)))
-            }
-            // The rail and the header buttons are gone; these are the
-            // words that reach what they used to reach. Saying the name
-            // again closes it, so the same word is both doors.
-            if let s = r.surface {
-                // The word may have named a tab inside the surface. Landing
-                // on the surface's default instead would turn 「ミラー」 into
-                // "open the dock and find mirror yourself", which is not
-                // what was said.
-                requestedDockTab = r.dockTab
-                fullSurface = (fullSurface == s && r.dockTab == nil) ? nil : s
-                addSystemMessage("<think>\n▸ 召喚: \(s.rawValue)\n</think>")
-            }
-            if r.opensSettings {
-                requestedSettingsTab = r.settingsTab
-                showSettingsRequested = true
-                addSystemMessage("<think>\n▸ 召喚: 設定\n</think>")
-            }
-            if let c = r.command {
-                NotificationCenter.default.post(name: c.notification, object: nil)
-                addSystemMessage("<think>\n▸ 召喚: \(c.rawValue)\n</think>")
-            }
-            return
-        }
+        // ── Summon by name: removed with Bot mode (2026-08-26) ─────────
+        // `VeraSummon.resolve` fired ONLY here, gated on Bot mode by
+        // design — the doc comment on `resolve()` said so explicitly:
+        // 「設定」 typed in Atelier or LLM mode is a word in a sentence,
+        // not a request to open the settings panel, so the match was
+        // never meant to run outside the one mode whose subject was the
+        // app itself. With that mode gone, so is this gate; a cross-mode
+        // summon would need a new, deliberate design (word-collision
+        // risk this comment used to guard against), not a silent
+        // reinstatement here. Every registry screen this used to reach
+        // (記憶, 十字, 設定, 監査…) is still reachable from Settings ›
+        // All Screens › Open — see SettingsView.open().
         inputText = ""
 
         // Build the user message (with attachment summary if present)
@@ -1875,46 +1848,14 @@ final class AppState: ObservableObject {
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
 
-        // ── Vera bot: the app answering about itself ──────────────
-        // settings_lookup names the exact tab and field; when it cannot,
-        // settings_search offers candidates instead of a dead end. Both
-        // read the same registry the guide is generated from, so the
-        // answer and the document cannot drift apart — and neither one
-        // is a model's recollection of a menu.
-        if veraEngineMode == .veraBot && !isSpotlight {
-            inferenceTask = Task {
-                let reply = await VeraMemoryBridge.settingsAnswer(for: text)
-                await MainActor.run {
-                    self.messages.append(ChatMessage(
-                        role: .assistant, content: reply,
-                        isSpotlight: self.currentGenerationIsSpotlight))
-                    self.isGenerating = false
-                }
-            }
-            return
-        }
-
-        // ── Vera model mode: the store itself answers, no LLM in the turn ──
-        // Typed verdicts verbatim; 違い questions get the structural diff;
-        // refusals wear their honest hand-offs. The trail core carries the
-        // conversation as a visible, deterministic context — see
-        // VeraMemoryBridge.veraModelTurn.
-        if veraEngineMode == .veraModel && !isSpotlight {
-            let trail = veraTrailCore
-            let only = veraDomainOnly
-            inferenceTask = Task {
-                let r = await VeraMemoryBridge.veraModelTurn(
-                    for: text, trail: trail, storeFirst: only)
-                await MainActor.run {
-                    if let c = r.core { self.veraTrailCore = c }
-                    self.messages.append(ChatMessage(
-                        role: .assistant, content: r.reply,
-                        isSpotlight: self.currentGenerationIsSpotlight))
-                    self.isGenerating = false
-                }
-            }
-            return
-        }
+        // ── Vera bot / Vera model modes: removed 2026-08-26 ────────────
+        // Bot answered questions about the app from the settings
+        // registry (VeraMemoryBridge.settingsAnswer); Vera model
+        // answered with typed verdicts and no LLM in the turn
+        // (VeraMemoryBridge.veraModelTurn, veraTrailCore as its visible
+        // trail). Both functions still exist but are now uncalled —
+        // deleting them was judged out of scope for a mode removal and
+        // is flagged separately rather than done silently.
 
 // Auto-create session if there isn't one yet
         if sessions.activeSessionId == nil {
@@ -3272,7 +3213,7 @@ final class AppState: ObservableObject {
         ToastManager.shared.show(
             self.t("Model ejected", "モデルをリジェクトしました"),
             icon: "eject.fill",
-            color: Color(red: 1.0, green: 0.55, blue: 0.2)
+            color: Theme.warn
         )
     }
 
@@ -3311,13 +3252,26 @@ final class AppState: ObservableObject {
         }
 
         // The app opens on the Atelier, always. The stored mode is read only
-        // to migrate the two removed values off disk — a build with the old
-        // string still saved would otherwise fail to decode and silently keep
+        // to migrate removed values off disk — a build with the old string
+        // still saved would otherwise fail to decode and silently keep
         // whatever the default happened to be, which is the same bug in a
         // quieter form.
-        if let raw = ud.string(forKey: "vera_engine_mode"),
-           raw == "council" || raw == "standalone" {
+        //
+        // Four names have gone through this: council and standalone
+        // (removed earlier), vera_model and vera_bot (removed 2026-08-26).
+        // The earlier two land here silently, same as before — but a user
+        // who was actually IN Vera or Bot mode when this build replaced
+        // theirs deserves to be told why their screen changed on launch,
+        // not to just quietly wake up in Atelier. That is the toast below.
+        let removedModeNames: Set<String> = ["council", "standalone", "vera_model", "vera_bot"]
+        if let raw = ud.string(forKey: "vera_engine_mode"), removedModeNames.contains(raw) {
             ud.set(VeraEngineMode.atelier.rawValue, forKey: "vera_engine_mode")
+            if raw == "vera_model" || raw == "vera_bot" {
+                let name = raw == "vera_model" ? "Vera" : "Bot"
+                ToastManager.shared.show(
+                    "\(name) mode was removed — opening Atelier instead",
+                    icon: "exclamationmark.triangle.fill", color: .orange, duration: 4)
+            }
         }
         veraEngineMode = .atelier
 
@@ -3637,7 +3591,7 @@ final class AppState: ObservableObject {
                     ToastManager.shared.show(
                         "MLX: \(modelId.components(separatedBy: "/").last ?? modelId) ready 🚀",
                         icon: "cpu",
-                        color: Color(red: 0.4, green: 0.85, blue: 0.6)
+                        color: Theme.ok
                     )
                 }
             } catch {

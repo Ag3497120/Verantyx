@@ -44,7 +44,7 @@ struct AppLicenceView: View {
 
     private var header: some View {
         HStack(spacing: 8) {
-            JCrossGlyph(tint: Color(red: 0.55, green: 0.78, blue: 1.0), thickness: 1.6)
+            JCrossGlyph(tint: Theme.sel, thickness: 1.6)
                 .frame(width: 13, height: 13)
             Text(t("LICENCES", "免許"))
                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
@@ -57,7 +57,7 @@ struct AppLicenceView: View {
                 Button(t("Revoke all", "すべて取り消す")) { licences.revokeAll() }
                     .buttonStyle(.plain)
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.45))
+                    .foregroundStyle(Theme.bad)
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 9)
@@ -69,7 +69,7 @@ struct AppLicenceView: View {
         VStack(alignment: .leading, spacing: 7) {
             Text(t("Asked for, and refused", "要求があり、拒否しました"))
                 .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.35))
+                .foregroundStyle(Theme.warn)
             Text("\(r.app.displayName) / \(r.verb.displayName)")
                 .font(.system(size: 12, weight: .semibold, design: .monospaced))
             Text(r.payload)
@@ -101,9 +101,9 @@ struct AppLicenceView: View {
         }
         .padding(11)
         .background(RoundedRectangle(cornerRadius: 8)
-            .fill(Color(red: 1.0, green: 0.72, blue: 0.35).opacity(0.08)))
+            .fill(Theme.warn.opacity(0.08)))
         .overlay(RoundedRectangle(cornerRadius: 8)
-            .strokeBorder(Color(red: 1.0, green: 0.72, blue: 0.35).opacity(0.3), lineWidth: 1))
+            .strokeBorder(Theme.warn.opacity(0.3), lineWidth: 1))
     }
 
     // MARK: Do the tool declarations still hold together
@@ -117,8 +117,8 @@ struct AppLicenceView: View {
         return HStack(spacing: 6) {
             Circle()
                 .fill(!ran ? Color.secondary
-                      : (problems.isEmpty ? Color(red: 0.35, green: 0.85, blue: 0.6)
-                                          : Color(red: 1.0, green: 0.45, blue: 0.4)))
+                      : (problems.isEmpty ? Theme.ok
+                                          : Theme.bad))
                 .frame(width: 5, height: 5)
             if !ran {
                 Text(t("Tool self-check has not run.", "ツール自己検査は未実行です"))
@@ -131,7 +131,7 @@ struct AppLicenceView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     ForEach(problems, id: \.self) { p in
                         Text(p).font(.system(size: 10))
-                            .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.4))
+                            .foregroundStyle(Theme.bad)
                     }
                 }
             }
@@ -198,7 +198,7 @@ struct AppLicenceView: View {
                     }
                     .buttonStyle(.plain)
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
                 }
             }
 
@@ -223,11 +223,11 @@ struct EvidenceRow: View {
 
     private var tint: Color {
         switch evidence.outcome {
-        case .ok:        return Color(red: 0.35, green: 0.85, blue: 0.6)
-        case .failed:    return Color(red: 1.0, green: 0.45, blue: 0.4)
-        case .handedOff: return Color(red: 0.6, green: 0.65, blue: 0.8)
+        case .ok:        return Theme.ok
+        case .failed:    return Theme.bad
+        case .handedOff: return Theme.sel
         case .refusedNoLicence, .refusedOrigin:
-            return Color(red: 1.0, green: 0.72, blue: 0.35)
+            return Theme.warn
         }
     }
 

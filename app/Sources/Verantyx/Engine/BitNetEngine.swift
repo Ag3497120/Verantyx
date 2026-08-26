@@ -647,7 +647,7 @@ struct BitNetSetupView: View {
                 if manager.downloadProgress > 0 {
                     Text("\(Int(manager.downloadProgress * 100))%")
                         .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                        .foregroundStyle(Theme.accent)
                 }
             }
 
@@ -661,7 +661,7 @@ struct BitNetSetupView: View {
                         .fill(
                             LinearGradient(
                                 colors: [Color(red: 0.5, green: 0.2, blue: 0.9),
-                                         Color(red: 0.7, green: 0.4, blue: 1.0)],
+                                         Theme.accent],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )

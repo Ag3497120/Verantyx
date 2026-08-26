@@ -3,8 +3,8 @@ import AppKit
 class LineNumberRulerView: NSRulerView {
     
     var font: NSFont = .monospacedSystemFont(ofSize: 11, weight: .regular)
-    var textColor: NSColor = NSColor(white: 0.5, alpha: 1.0)
-    var backgroundColor: NSColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
+    var textColor: NSColor = Theme.nsFaint
+    var backgroundColor: NSColor = Theme.nsPanel2
     
     init(textView: NSTextView) {
         super.init(scrollView: textView.enclosingScrollView!, orientation: .verticalRuler)

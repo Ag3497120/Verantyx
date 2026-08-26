@@ -25,9 +25,9 @@ enum OperationMode: String, CaseIterable, Codable, Identifiable {
 
     var accentColor: Color {
         switch self {
-        case .gatekeeper:    return Color(red: 0.2,  green: 0.9,  blue: 0.5)
-        case .automatic:     return Color(red: 0.4,  green: 0.7,  blue: 1.0)
-        case .detailed:      return Color(red: 1.0,  green: 0.6,  blue: 0.2)
+        case .gatekeeper:    return Theme.ok
+        case .automatic:     return Theme.sel
+        case .detailed:      return Theme.warn
         }
     }
 

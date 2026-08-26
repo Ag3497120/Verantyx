@@ -18,7 +18,7 @@ struct SessionHistoryView: View {
             HStack {
                 Image(systemName: "clock.arrow.circlepath")
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.75))
+                    .foregroundStyle(Theme.sel)
                 Text(app.t("Session History", "セッション履歴"))
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.95))
@@ -28,7 +28,7 @@ struct SessionHistoryView: View {
                 } label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.system(size: 14))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -51,7 +51,7 @@ struct SessionHistoryView: View {
                         ForEach(groupedSessions, id: \.key) { group in
                             Text(group.key)
                                 .font(.system(size: 10, weight: .semibold))
-                                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.62))
+                                .foregroundStyle(Theme.sel)
                                 .padding(.horizontal, 12).padding(.top, 8)
                             ForEach(group.sessions) { session in
                                 SessionRowView(
@@ -70,7 +70,7 @@ struct SessionHistoryView: View {
                 }
             }
         }
-        .background(Color(red: 0.11, green: 0.11, blue: 0.14))
+        .background(Theme.panel2)
         .sheet(isPresented: $showNewSessionSheet) {
             NewSessionSheet().environmentObject(app)
         }
@@ -114,7 +114,7 @@ struct SessionHistoryView: View {
                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.4))
             Text(app.t("No sessions yet", "まだセッションがありません"))
                 .font(.system(size: 12))
-                .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.55))
+                .foregroundStyle(Theme.dim)
             Text(app.t("Sessions are saved automatically when you start a chat.",
                        "チャットを開始すると自動的に保存されます"))
                 .font(.system(size: 11))
@@ -146,7 +146,7 @@ struct SessionRowView: View {
                 // Active indicator
                 RoundedRectangle(cornerRadius: 2)
                     .fill(isActive
-                          ? Color(red: 0.4, green: 0.7, blue: 1.0)
+                          ? Theme.sel
                           : Color.clear)
                     .frame(width: 3)
                     .padding(.vertical, 4)
@@ -175,7 +175,7 @@ struct SessionRowView: View {
                         // Date
                         Text(session.updatedAt, style: .relative)
                             .font(.system(size: 10))
-                            .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.55))
+                            .foregroundStyle(Theme.dim)
 
                         // Workspace
                         if let wp = session.workspacePath {
@@ -183,7 +183,7 @@ struct SessionRowView: View {
                                 .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.5))
                             Text(URL(fileURLWithPath: wp).lastPathComponent)
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 0.5))
+                                .foregroundStyle(Theme.ok)
                                 .lineLimit(1)
                         }
 
@@ -193,10 +193,10 @@ struct SessionRowView: View {
                                 .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.5))
                             Image(systemName: "brain")
                                 .font(.system(size: 9))
-                                .foregroundStyle(Color(red: 0.6, green: 0.5, blue: 0.9))
+                                .foregroundStyle(Theme.accent)
                             Text("\(session.memoryNodeIds.count)")
                                 .font(.system(size: 10))
-                                .foregroundStyle(Color(red: 0.6, green: 0.5, blue: 0.9))
+                                .foregroundStyle(Theme.accent)
                         }
                     }
                 }
@@ -218,7 +218,7 @@ struct SessionRowView: View {
                     }
                     .contentShape(Rectangle())
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                    .foregroundStyle(Theme.dim)
                     .help(app.t("Rename", "名前を変更"))
 
                     // Delete
@@ -230,7 +230,7 @@ struct SessionRowView: View {
                     }
                     .contentShape(Rectangle())
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color(red: 0.7, green: 0.35, blue: 0.35))
+                    .foregroundStyle(Theme.bad)
                     .help(app.t("Delete", "削除"))
                 }
                 .opacity(isActive ? 1 : 0.5)
@@ -293,7 +293,7 @@ struct SessionRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(app.t("Switch memory layer", "記憶レイヤーを切り替え"))
                 .font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                .foregroundStyle(Theme.dim)
 
             HStack(spacing: 6) {
                 ForEach(JCrossLayer.allCases) { layer in
@@ -321,7 +321,7 @@ struct SessionRowView: View {
                         }
                         .foregroundStyle(session.activeLayer == layer
                                          ? layerColor(layer)
-                                         : Color(red: 0.5, green: 0.5, blue: 0.65))
+                                         : Theme.dim)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 5)
                         .background(
@@ -340,11 +340,14 @@ struct SessionRowView: View {
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.14, green: 0.14, blue: 0.18))
+                .fill(Theme.panel2)
                 .shadow(color: .black.opacity(0.4), radius: 6, y: 2)
         )
     }
 
+    // 5 層を見分けるための固有色。l1_5 と vera がどちらも Theme.ok に
+    // 潰れると凡例として区別できなくなるため、状態トークンには寄せず
+    // レイヤーごとの固有色のまま残す。
     private func layerColor(_ layer: JCrossLayer) -> Color {
         switch layer {
         case .l1:   return Color(red: 0.9, green: 0.7, blue: 0.3)

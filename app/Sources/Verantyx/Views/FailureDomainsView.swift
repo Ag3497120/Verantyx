@@ -87,7 +87,7 @@ struct FailureDomainsView: View {
             packList.frame(minWidth: 210, idealWidth: 240, maxWidth: 320)
             detail.frame(minWidth: 320)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
         .task { await refresh() }
     }
 

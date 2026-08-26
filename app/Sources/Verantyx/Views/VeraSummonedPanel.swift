@@ -1,14 +1,15 @@
 import SwiftUI
 import AppKit
 
-/// A summoned surface, rendered inside the chat rather than beside it.
+/// A summoned surface: its own name, one way to dismiss it, nothing else.
 ///
-/// The panel arrives where the person was already looking — under the
-/// last thing they read, above the line they type — because a surface
-/// that opens somewhere else makes them hunt for what they just asked
-/// for. It carries its own name and one way to dismiss it, and nothing
-/// else: the chrome was removed to stop teaching a second vocabulary,
-/// and rebuilding it inside the card would undo the point.
+/// Originally rendered inside the chat, under the line that asked for
+/// it — that mount point was Bot mode's transcript (VeraBotTranscript,
+/// removed 2026-08-26 with Bot mode itself; see the note below). The
+/// one caller left is SettingsView's "All Screens" list, which presents
+/// this as a sheet instead: same view, same content switch, a plainer
+/// way in. The chrome-free shape (no second vocabulary of its own,
+/// nothing rebuilt inside the card) is still the point either way.
 struct VeraSummonedPanel: View {
     @EnvironmentObject var app: AppState
     let panel: VeraSummon.Panel
@@ -171,8 +172,6 @@ struct VeraSummonedPanel: View {
     private func label(for m: AppState.VeraEngineMode) -> String {
         switch m {
         case .atelier:    return "Vera Atelier(服飾)"
-        case .veraModel:  return "Vera(単体・LLM不使用)"
-        case .veraBot:    return "Vera Bot(設定・UIの案内)"
         case .localLLM:   return "LLM"
         }
     }
@@ -181,8 +180,6 @@ struct VeraSummonedPanel: View {
     private func say(for m: AppState.VeraEngineMode) -> String {
         switch m {
         case .atelier:    return "atelier"
-        case .veraModel:  return "vera"
-        case .veraBot:    return "bot"
         case .localLLM:   return "llm"
         }
     }
@@ -200,96 +197,17 @@ private struct AuditSummonHeader: View {
 }
 
 
-// MARK: - Bot mode's transcript: text and panels in one log
-
-/// Bot mode is a chat, so it reads as one. Your line, then whatever it
-/// produced under it — a settings screen is a reply like any other, and
-/// asking for the next thing puts that below rather than replacing what
-/// you already opened.
-///
-/// The ordinary transcript is an NSTextView (one text storage, so
-/// selection crosses messages), which is the right thing for prose and
-/// cannot hold a live control. This one is the other half: the same
-/// `app.messages`, rendered as views, for the one mode whose replies are
-/// screens.
-struct VeraBotTranscript: View {
-    @EnvironmentObject var app: AppState
-
-    private struct Entry: Identifiable {
-        let id: UUID
-        let message: ChatMessage
-        let panel: VeraSummon.Panel?
-        /// The newest copy of its kind is the one you can touch.
-        let editable: Bool
-    }
-
-    private var entries: [Entry] {
-        // Which index is the newest of each panel kind — computed once,
-        // not per row, so this stays linear as the log grows.
-        var newest: [VeraSummon.Panel: Int] = [:]
-        for (i, m) in app.messages.enumerated() {
-            if let p = VeraSummon.panel(fromMarker: m.content) { newest[p] = i }
-        }
-        return app.messages.enumerated().compactMap { i, m in
-            if let p = VeraSummon.panel(fromMarker: m.content) {
-                return Entry(id: m.id, message: m, panel: p, editable: newest[p] == i)
-            }
-            // System chatter stays out: in Bot mode the panel IS the
-            // acknowledgement, and a "▸ 召喚: 設定" line under a settings
-            // screen is the app narrating what you can already see.
-            guard m.role != .system, !m.isSpotlight,
-                  !m.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            else { return nil }
-            return Entry(id: m.id, message: m, panel: nil, editable: true)
-        }
-    }
-
-    var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 12) {
-                    ForEach(entries) { entry in
-                        row(entry).id(entry.id)
-                    }
-                    Color.clear.frame(height: 1).id("bottom")
-                }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 12)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .onChange(of: app.messages.count) { _, _ in
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.86)) {
-                    proxy.scrollTo("bottom", anchor: .bottom)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func row(_ entry: Entry) -> some View {
-        if let panel = entry.panel {
-            VeraSummonedPanel(panel: panel, editable: entry.editable) {
-                app.messages.removeAll { $0.id == entry.id }
-            }
-            .environmentObject(app)
-            .transition(.opacity.combined(with: .move(edge: .bottom)))
-        } else if entry.message.role == .user {
-            Text(entry.message.content)
-                .font(.system(size: 12.5))
-                .foregroundStyle(.primary.opacity(0.92))
-                .padding(.horizontal, 11).padding(.vertical, 7)
-                .background(.quaternary.opacity(0.35),
-                            in: RoundedRectangle(cornerRadius: 9))
-                .frame(maxWidth: .infinity, alignment: .trailing)
-        } else {
-            Text(entry.message.content)
-                .font(.system(size: 12.5))
-                .foregroundStyle(.primary.opacity(0.88))
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-    }
-}
+// MARK: - Bot mode's transcript: removed with Bot mode (2026-08-26)
+//
+// VeraBotTranscript used to render app.messages as views (settings
+// screens summoned mid-conversation are live controls, not text — the
+// ordinary NSTextView transcript cannot hold one). It read entries by
+// scanning app.messages for VeraSummon.marker(...) system messages,
+// which only AppState.sendMessage's Bot-mode "Summon by name" block
+// ever wrote. That block is gone with Bot mode, so this view had zero
+// producers left and was deleted rather than kept compiling with
+// nothing to show. VeraSummonedPanel (above) is not part of that
+// deletion — it is still mounted from SettingsView's "All Screens" list.
 
 
 // MARK: - 前面に居ながら、写らない
@@ -416,8 +334,8 @@ struct VeraScreenPresenceView: View {
             // false while the switch says true.
             HStack(spacing: 6) {
                 Circle()
-                    .fill(verified == true ? Color(red: 0.35, green: 0.85, blue: 0.6)
-                          : (verified == false ? Color(red: 1.0, green: 0.45, blue: 0.4)
+                    .fill(verified == true ? Theme.ok
+                          : (verified == false ? Theme.bad
                                                : Color.secondary))
                     .frame(width: 5, height: 5)
                 Text(verified == nil
@@ -430,7 +348,7 @@ struct VeraScreenPresenceView: View {
                 Spacer()
                 Button(t("Check", "確認")) { check() }
                     .buttonStyle(.plain).font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                    .foregroundStyle(Theme.sel)
             }
         }
         .padding(12)

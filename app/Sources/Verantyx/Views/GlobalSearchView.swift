@@ -23,12 +23,12 @@ struct GlobalSearchView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "magnifyingglass")
                             .font(.system(size: 11))
-                            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.7))
+                            .foregroundStyle(Theme.sel)
 
                         TextField("Search…", text: $query)
                             .font(.system(size: 12, design: .monospaced))
                             .textFieldStyle(.plain)
-                            .foregroundStyle(Color(red: 0.90, green: 0.90, blue: 0.96))
+                            .foregroundStyle(Theme.fg)
                             .focused($queryFocused)
                             .onSubmit { triggerSearch() }
                             .onChange(of: query) { _, _ in
@@ -42,18 +42,18 @@ struct GlobalSearchView: View {
                             Button { query = ""; engine.clear() } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .font(.system(size: 12))
-                                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                                    .foregroundStyle(Theme.dim)
                             }
                             .contentShape(Rectangle())
                             .buttonStyle(.plain)
                         }
                     }
                     .padding(.horizontal, 8).padding(.vertical, 5)
-                    .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+                    .background(Theme.panel2)
                     .clipShape(RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
                         .stroke(queryFocused
-                                ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.6)
+                                ? Theme.sel.opacity(0.6)
                                 : Color(red: 0.25, green: 0.25, blue: 0.35).opacity(0.5),
                                 lineWidth: 1))
                 }
@@ -71,7 +71,7 @@ struct GlobalSearchView: View {
                     if !engine.groups.isEmpty {
                         Text("\(engine.totalMatches) result\(engine.totalMatches == 1 ? "" : "s")")
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                            .foregroundStyle(Theme.dim)
                     }
                 }
 
@@ -79,7 +79,7 @@ struct GlobalSearchView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "doc.text")
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.6))
+                        .foregroundStyle(Theme.sel)
                     TextField("files to include (e.g. *.swift)", text: $fileFilter)
                         .font(.system(size: 11, design: .monospaced))
                         .textFieldStyle(.plain)
@@ -87,12 +87,12 @@ struct GlobalSearchView: View {
                         .onSubmit { triggerSearch() }
                 }
                 .padding(.horizontal, 8).padding(.vertical, 4)
-                .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+                .background(Theme.panel2)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
 
             Divider().opacity(0.3)
 
@@ -124,7 +124,7 @@ struct GlobalSearchView: View {
             }
             .padding(.vertical, 4)
         }
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
     }
 
     private var noResultsView: some View {
@@ -135,7 +135,7 @@ struct GlobalSearchView: View {
                 .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.4))
             Text("No results for \"\(query)\"")
                 .font(.system(size: 12))
-                .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.60))
+                .foregroundStyle(Theme.sel)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -175,16 +175,16 @@ struct GlobalSearchView: View {
         Button(action: action) {
             Text(label)
                 .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                .foregroundStyle(active ? Color(red: 0.35, green: 0.75, blue: 1.0) : Color(red: 0.5, green: 0.5, blue: 0.65))
+                .foregroundStyle(active ? Theme.sel : Theme.dim)
                 .padding(.horizontal, 7).padding(.vertical, 3)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
                         .fill(active
                               ? Color(red: 0.15, green: 0.30, blue: 0.50).opacity(0.6)
-                              : Color(red: 0.15, green: 0.15, blue: 0.20))
+                              : Theme.panel2)
                         .overlay(RoundedRectangle(cornerRadius: 4)
                             .stroke(active
-                                    ? Color(red: 0.35, green: 0.75, blue: 1.0).opacity(0.4)
+                                    ? Theme.sel.opacity(0.4)
                                     : Color(red: 0.25, green: 0.25, blue: 0.35).opacity(0.3),
                                     lineWidth: 0.8))
                 )
@@ -220,24 +220,24 @@ struct SearchFileSection: View {
 
                     Text(group.file.lastPathComponent)
                         .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.88, green: 0.88, blue: 0.95))
+                        .foregroundStyle(Theme.fg)
 
                     Text(group.file.deletingLastPathComponent().lastPathComponent)
                         .font(.system(size: 9, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.60))
+                        .foregroundStyle(Theme.sel)
 
                     Spacer()
 
                     Text("\(group.results.count)")
                         .font(.system(size: 9, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                         .padding(.horizontal, 5).padding(.vertical, 2)
                         .background(Capsule().fill(Color(red: 0.15, green: 0.25, blue: 0.45).opacity(0.6)))
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .contentShape(Rectangle())
-                .background(Color(red: 0.11, green: 0.11, blue: 0.16))
+                .background(Theme.panel2)
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -265,7 +265,7 @@ struct SearchResultRow: View {
             // Line number gutter
             Text("\(result.lineNumber)")
                 .font(.system(size: 10, design: .monospaced))
-                .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.55))
+                .foregroundStyle(Theme.dim)
                 .frame(width: 40, alignment: .trailing)
                 .padding(.trailing, 8)
 
@@ -298,14 +298,14 @@ struct SearchResultRow: View {
                 let match  = String(text[range])
                 let after  = String(text[range.upperBound...])
                 Text(before)
-                    .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.78))
+                    .foregroundStyle(Theme.dim)
                 + Text(match)
-                    .foregroundStyle(Color(red: 1.0, green: 0.85, blue: 0.3))
+                    .foregroundStyle(Theme.warn)
                     .fontWeight(.semibold)
                 + Text(after)
-                    .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.78))
+                    .foregroundStyle(Theme.dim)
             } else {
-                Text(text).foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.78))
+                Text(text).foregroundStyle(Theme.dim)
             }
         }
     }

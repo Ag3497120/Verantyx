@@ -21,8 +21,8 @@ struct ContextUsageIndicator: View {
     }
 
     private var ringColor: Color {
-        if usageFraction > 0.85 { return Color(red: 1.0, green: 0.4, blue: 0.4) }
-        if usageFraction > 0.6  { return Color(red: 1.0, green: 0.75, blue: 0.3) }
+        if usageFraction > 0.85 { return Theme.bad }
+        if usageFraction > 0.6  { return Theme.warn }
         return Color(red: 0.4, green: 0.8, blue: 1.0)
     }
 
@@ -32,7 +32,7 @@ struct ContextUsageIndicator: View {
         } label: {
             ZStack {
                 Circle()
-                    .stroke(Color(red: 0.35, green: 0.35, blue: 0.4), lineWidth: 2.5)
+                    .stroke(Theme.faint, lineWidth: 2.5)
                     .frame(width: 22, height: 22)
                 Circle()
                     .trim(from: 0, to: usageFraction)
@@ -98,11 +98,11 @@ private struct ContextUsageDetailView: View {
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(.secondary)
 
-                breakdownRow(app.t("System prompt", "システムプロンプト"), chars: usage.systemPromptChars, color: Color(red: 0.6, green: 0.6, blue: 0.7))
-                breakdownRow(app.t("Conversation history", "会話履歴"), chars: usage.conversationHistoryChars, color: Color(red: 0.5, green: 0.7, blue: 1.0))
-                breakdownRow(app.t("L2 zone memory (L1-L3)", "L2ゾーン記憶(L1-L3)"), chars: usage.l2ZoneChars, color: Color(red: 0.5, green: 0.85, blue: 0.6))
-                breakdownRow(app.t("Vera-α", "Vera-α"), chars: usage.veraChars, color: Color(red: 1.0, green: 0.7, blue: 0.3))
-                breakdownRow(app.t("Skills", "スキル"), chars: usage.skillChars, color: Color(red: 0.8, green: 0.6, blue: 1.0))
+                breakdownRow(app.t("System prompt", "システムプロンプト"), chars: usage.systemPromptChars, color: Theme.dim)
+                breakdownRow(app.t("Conversation history", "会話履歴"), chars: usage.conversationHistoryChars, color: Theme.sel)
+                breakdownRow(app.t("L2 zone memory (L1-L3)", "L2ゾーン記憶(L1-L3)"), chars: usage.l2ZoneChars, color: Theme.ok)
+                breakdownRow(app.t("Vera-α", "Vera-α"), chars: usage.veraChars, color: Theme.warn)
+                breakdownRow(app.t("Skills", "スキル"), chars: usage.skillChars, color: Theme.accent)
                 breakdownRow(app.t("Eternal/vector memory", "永遠記憶(ベクトル)"), chars: usage.eternalMemoryChars, color: Color(red: 1.0, green: 0.55, blue: 0.75))
             }
 
@@ -158,7 +158,7 @@ private struct ContextUsageDetailView: View {
                 "トークン数は、使用中のバックエンドがusageを返す場合は実数、それ以外は約4文字/トークンの推定値です。「コンテキストウィンドウ」自体は内部的には文字数ベースの予算です(Settings参照)。"
             ))
             .font(.system(size: 9))
-            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+            .foregroundStyle(Theme.dim)
             .frame(width: 280, alignment: .leading)
         }
         .padding(14)

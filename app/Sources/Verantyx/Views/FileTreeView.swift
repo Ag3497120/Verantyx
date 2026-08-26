@@ -119,7 +119,7 @@ struct FileTreeView: View {
             .buttonStyle(.plain).foregroundStyle(.secondary)
         }
         .padding(.horizontal, 10).padding(.vertical, 7)
-        .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+        .background(Theme.panel2)
     }
 
     // MARK: - Tree List
@@ -159,7 +159,7 @@ struct FileTreeView: View {
                 isScanning = false
             }
             .font(.system(size: 10))
-            .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+            .foregroundStyle(Theme.bad)
             .contentShape(Rectangle())
             .buttonStyle(.plain)
             .padding(.top, 4)
@@ -319,40 +319,40 @@ enum FileIcons {
 
     static func color(ext raw: String) -> Color {
         switch raw.lowercased() {
-        case "swift":              return Color(red: 0.98, green: 0.49, blue: 0.18)
-        case "py","pyw","pyi","ipynb": return Color(red: 0.97, green: 0.77, blue: 0.25)
-        case "ts","tsx":           return Color(red: 0.27, green: 0.56, blue: 0.93)
-        case "js","jsx","mjs":     return Color(red: 0.93, green: 0.80, blue: 0.18)
-        case "vue":                return Color(red: 0.25, green: 0.75, blue: 0.56)
-        case "html","htm":         return Color(red: 0.90, green: 0.40, blue: 0.20)
-        case "css","scss","sass","less": return Color(red: 0.40, green: 0.65, blue: 0.95)
-        case "svg":                return Color(red: 0.95, green: 0.58, blue: 0.18)
-        case "rs":                 return Color(red: 0.86, green: 0.37, blue: 0.20)
-        case "go":                 return Color(red: 0.37, green: 0.75, blue: 0.85)
-        case "kt","kts":           return Color(red: 0.62, green: 0.45, blue: 0.95)
-        case "java":               return Color(red: 0.90, green: 0.31, blue: 0.27)
-        case "scala":              return Color(red: 0.82, green: 0.19, blue: 0.19)
-        case "c":                  return Color(red: 0.56, green: 0.73, blue: 0.90)
-        case "cpp","cc","cxx":     return Color(red: 0.35, green: 0.55, blue: 0.87)
+        case "swift":              return Theme.warn
+        case "py","pyw","pyi","ipynb": return Theme.warn
+        case "ts","tsx":           return Theme.sel
+        case "js","jsx","mjs":     return Theme.warn
+        case "vue":                return Theme.ok
+        case "html","htm":         return Theme.bad
+        case "css","scss","sass","less": return Theme.sel
+        case "svg":                return Theme.warn
+        case "rs":                 return Theme.bad
+        case "go":                 return Theme.sel
+        case "kt","kts":           return Theme.accent
+        case "java":               return Theme.bad
+        case "scala":              return Theme.bad
+        case "c":                  return Theme.sel
+        case "cpp","cc","cxx":     return Theme.sel
         case "h","hpp":            return Color(red: 0.60, green: 0.80, blue: 0.96)
-        case "rb","rake","gemspec": return Color(red: 0.90, green: 0.20, blue: 0.28)
-        case "php":                return Color(red: 0.48, green: 0.52, blue: 0.80)
-        case "sh","bash","zsh","fish","ps1": return Color(red: 0.45, green: 0.90, blue: 0.58)
-        case "json","jsonc":       return Color(red: 0.95, green: 0.75, blue: 0.35)
-        case "yaml","yml","toml":  return Color(red: 0.70, green: 0.65, blue: 0.95)
+        case "rb","rake","gemspec": return Theme.bad
+        case "php":                return Theme.sel
+        case "sh","bash","zsh","fish","ps1": return Theme.ok
+        case "json","jsonc":       return Theme.warn
+        case "yaml","yml","toml":  return Theme.accent
         case "md","mdx","markdown": return Color(red: 0.60, green: 0.85, blue: 0.75)
-        case "dockerfile":         return Color(red: 0.25, green: 0.65, blue: 0.96)
-        case "gitignore","gitattributes": return Color(red: 0.95, green: 0.45, blue: 0.32)
-        case "pdf":                return Color(red: 0.90, green: 0.25, blue: 0.25)
-        case "csv","tsv","sql":    return Color(red: 0.42, green: 0.78, blue: 0.56)
+        case "dockerfile":         return Theme.sel
+        case "gitignore","gitattributes": return Theme.bad
+        case "pdf":                return Theme.bad
+        case "csv","tsv","sql":    return Theme.ok
         case "png","jpg","jpeg","gif","webp","heic","tiff","bmp","ico":
-                                   return Color(red: 0.88, green: 0.55, blue: 0.90)
-        case "mp3","m4a","wav","aiff","flac": return Color(red: 0.95, green: 0.65, blue: 0.35)
-        case "mp4","mov","avi","mkv": return Color(red: 0.58, green: 0.38, blue: 0.92)
-        case "zip","tar","gz","bz2","xz","rar","7z": return Color(red: 0.75, green: 0.55, blue: 0.32)
-        case "lock":               return Color(red: 0.55, green: 0.55, blue: 0.65)
-        case "plist","xcodeproj","xcworkspace": return Color(red: 0.98, green: 0.49, blue: 0.18)
-        default:                   return Color(red: 0.55, green: 0.55, blue: 0.65)
+                                   return Theme.accent
+        case "mp3","m4a","wav","aiff","flac": return Theme.warn
+        case "mp4","mov","avi","mkv": return Theme.accent
+        case "zip","tar","gz","bz2","xz","rar","7z": return Theme.warn
+        case "lock":               return Theme.dim
+        case "plist","xcodeproj","xcworkspace": return Theme.warn
+        default:                   return Theme.dim
         }
     }
 }
@@ -422,7 +422,7 @@ struct TreeRowView: View, Equatable {
             .contentShape(Rectangle())
             .background(
                 isSelected
-                    ? Color(red: 0.2, green: 0.4, blue: 0.8).opacity(0.4)
+                    ? Theme.sel.opacity(0.4)
                     : Color.clear,
                 in: RoundedRectangle(cornerRadius: 3)
             )

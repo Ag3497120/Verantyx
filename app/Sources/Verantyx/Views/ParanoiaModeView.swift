@@ -38,13 +38,13 @@ struct ParanoiaModeView: View {
             }
         }
         .animation(.spring(duration: 0.25), value: isExpanded)
-        .background(Color(red: 0.04, green: 0.04, blue: 0.06))
+        .background(Theme.bg)
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(
                     appState.inferenceMode == .paranoiaMode
-                        ? Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.7)
+                        ? Theme.bad.opacity(0.7)
                         : Color.gray.opacity(0.15),
                     lineWidth: 1
                 )
@@ -60,12 +60,12 @@ struct ParanoiaModeView: View {
                 // Mode badge
                 HStack(spacing: 6) {
                     Image(systemName: "eye.slash.circle.fill")
-                        .foregroundStyle(Color(red: 1.0, green: 0.25, blue: 0.3))
+                        .foregroundStyle(Theme.bad)
                         .symbolEffect(.pulse, isActive: appState.inferenceMode == .paranoiaMode)
 
                     Text("PARANOIA MODE")
                         .font(.system(size: 11, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 1.0, green: 0.25, blue: 0.3))
+                        .foregroundStyle(Theme.bad)
                 }
 
                 Spacer()
@@ -76,8 +76,8 @@ struct ParanoiaModeView: View {
                         .font(.system(size: 10, weight: .semibold, design: .monospaced))
                         .padding(.horizontal, 8)
                         .padding(.vertical, 2)
-                        .background(Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.15))
-                        .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.5))
+                        .background(Theme.bad.opacity(0.15))
+                        .foregroundStyle(Theme.bad)
                         .clipShape(Capsule())
                 }
 
@@ -85,7 +85,7 @@ struct ParanoiaModeView: View {
                 if ParanoiaEngine.shared.isRunning {
                     ProgressView()
                         .scaleEffect(0.6)
-                        .tint(Color(red: 1.0, green: 0.25, blue: 0.3))
+                        .tint(Theme.bad)
                 }
 
                 Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
@@ -97,7 +97,7 @@ struct ParanoiaModeView: View {
         }
         .contentShape(Rectangle())
         .buttonStyle(.plain)
-        .background(Color(red: 0.06, green: 0.04, blue: 0.05))
+        .background(Theme.bg)
     }
 
     // MARK: - Terminal Log
@@ -146,7 +146,7 @@ struct ParanoiaModeView: View {
         .padding(.vertical, 1)
         .background(
             line.kind == .phase
-                ? Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.04)
+                ? Theme.bad.opacity(0.04)
                 : Color.clear,
             in: RoundedRectangle(cornerRadius: 3)
         )
@@ -154,13 +154,13 @@ struct ParanoiaModeView: View {
 
     private func lineColor(_ kind: ParanoiaEngine.LogKind) -> Color {
         switch kind {
-        case .phase:    return Color(red: 1.0, green: 0.45, blue: 0.3)
+        case .phase:    return Theme.bad
         case .info:     return Color(red: 0.7, green: 0.7, blue: 0.75)
-        case .masked:   return Color(red: 1.0, green: 0.35, blue: 0.4)
-        case .safe:     return Color(red: 0.3, green: 0.85, blue: 0.5)
-        case .success:  return Color(red: 0.4, green: 0.95, blue: 0.6)
-        case .error:    return Color(red: 1.0, green: 0.3, blue: 0.3)
-        case .ready:    return Color(red: 0.3, green: 1.0, blue: 0.6)
+        case .masked:   return Theme.bad
+        case .safe:     return Theme.ok
+        case .success:  return Theme.ok
+        case .error:    return Theme.bad
+        case .ready:    return Theme.ok
         }
     }
 
@@ -168,7 +168,7 @@ struct ParanoiaModeView: View {
         VStack(spacing: 8) {
             Image(systemName: "eye.slash")
                 .font(.system(size: 24))
-                .foregroundStyle(Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.4))
+                .foregroundStyle(Theme.bad.opacity(0.4))
 
             Text("Paranoia Mode is armed.")
                 .font(.system(size: 12, weight: .semibold, design: .monospaced))
@@ -198,7 +198,7 @@ struct ParanoiaModeToggle: View {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(
                         appState.inferenceMode == .paranoiaMode
-                            ? Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.2)
+                            ? Theme.bad.opacity(0.2)
                             : Color.white.opacity(0.05)
                     )
                     .frame(width: 36, height: 36)
@@ -207,7 +207,7 @@ struct ParanoiaModeToggle: View {
                     .font(.system(size: 18))
                     .foregroundStyle(
                         appState.inferenceMode == .paranoiaMode
-                            ? Color(red: 1.0, green: 0.25, blue: 0.3)
+                            ? Theme.bad
                             : .secondary
                     )
             }
@@ -218,7 +218,7 @@ struct ParanoiaModeToggle: View {
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(
                             appState.inferenceMode == .paranoiaMode
-                                ? Color(red: 1.0, green: 0.5, blue: 0.5)
+                                ? Theme.bad
                                 : .primary
                         )
 
@@ -227,8 +227,8 @@ struct ParanoiaModeToggle: View {
                             .font(.system(size: 9, weight: .bold, design: .monospaced))
                             .padding(.horizontal, 6)
                             .padding(.vertical, 1)
-                            .background(Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.2))
-                            .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                            .background(Theme.bad.opacity(0.2))
+                            .foregroundStyle(Theme.bad)
                             .clipShape(Capsule())
                     }
                 }
@@ -248,7 +248,7 @@ struct ParanoiaModeToggle: View {
                 }
             ))
             .toggleStyle(.switch)
-            .tint(Color(red: 1.0, green: 0.3, blue: 0.35))
+            .tint(Theme.bad)
             .scaleEffect(0.85)
         }
         .padding(12)
@@ -260,7 +260,7 @@ struct ParanoiaModeToggle: View {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(
                     appState.inferenceMode == .paranoiaMode
-                        ? Color(red: 1.0, green: 0.25, blue: 0.3).opacity(0.3)
+                        ? Theme.bad.opacity(0.3)
                         : Color.white.opacity(0.06),
                     lineWidth: 1
                 )
@@ -275,5 +275,5 @@ struct ParanoiaModeToggle: View {
         .environmentObject(AppState())
         .frame(width: 420)
         .padding()
-        .background(Color(red: 0.07, green: 0.07, blue: 0.09))
+        .background(Theme.bg)
 }

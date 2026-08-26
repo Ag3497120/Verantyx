@@ -353,11 +353,11 @@ struct MCPCallRecord: Identifiable {
 
     var statusColor: Color {
         switch status {
-        case .running:   return Color(red: 0.9, green: 0.7, blue: 0.2)
-        case .completed: return Color(red: 0.3, green: 0.9, blue: 0.5)
+        case .running:   return Theme.warn
+        case .completed: return Theme.ok
         case .timedOut:  return .orange
         case .cancelled: return .red
-        case .failed:    return Color(red: 0.9, green: 0.4, blue: 0.4)
+        case .failed:    return Theme.bad
         }
     }
 }

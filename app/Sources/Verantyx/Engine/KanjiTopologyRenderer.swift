@@ -35,7 +35,7 @@ struct KanjiTopologyView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.1, green: 0.1, blue: 0.12).ignoresSafeArea() // Dark background
+            Theme.panel.ignoresSafeArea() // Dark background
             
             // Draw grid
             Path { path in

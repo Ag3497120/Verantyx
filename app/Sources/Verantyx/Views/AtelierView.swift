@@ -22,7 +22,7 @@ struct AtelierView: View {
     @EnvironmentObject var app: AppState
     @StateObject private var m = AtelierModel()
     @StateObject private var an = AtelierAnalyst()
-    @StateObject private var intake = AtelierIntake()
+    @StateObject private var intake = AtelierIntake.shared
     @State private var showAnalyst = false
 
     var body: some View {
@@ -54,21 +54,21 @@ struct AtelierView: View {
                             .font(.system(size: 10, weight: .semibold))
                         Text("\(m.timeline.count)")
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                     }
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(AT.dim)
+                .foregroundStyle(Theme.dim)
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 12).padding(.vertical, 3)
-            .background(AT.panel)
+            .background(Theme.panel)
             if evidenceOpen {
                 Divider().opacity(0.25)
                 bottom.frame(height: 168)
             }
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task {
             await m.load()
             await intake.restore()
@@ -88,19 +88,19 @@ struct AtelierView: View {
         HStack(spacing: 10) {
             Text("UNKNOWN_ENGINE_UNREACHABLE")
                 .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                .foregroundStyle(AT.bad)
+                .foregroundStyle(Theme.bad)
             Text(app.t("The ledger below is not empty — it is unread.",
                        "下の台帳は空ではなく、読めていません。"))
-                .font(.system(size: 10)).foregroundStyle(AT.dim)
+                .font(.system(size: 10)).foregroundStyle(Theme.dim)
             Text(err).font(.system(size: 9, design: .monospaced))
-                .foregroundStyle(AT.faint).lineLimit(1)
+                .foregroundStyle(Theme.faint).lineLimit(1)
             Spacer(minLength: 0)
             Button(app.t("Reconnect", "接続し直す")) {
                 Task { await m.reconnect() }
             }.font(.system(size: 10))
         }
         .padding(.horizontal, 14).padding(.vertical, 6)
-        .background(AT.bad.opacity(0.12))
+        .background(Theme.bad.opacity(0.12))
     }
 
     // MARK: - 上帯
@@ -109,7 +109,7 @@ struct AtelierView: View {
         HStack(spacing: 12) {
             Text("Vera Atelier").font(.system(size: 13, weight: .semibold))
             Text("Project: \(m.projectName)")
-                .font(.system(size: 11)).foregroundStyle(AT.dim)
+                .font(.system(size: 11)).foregroundStyle(Theme.dim)
             if m.loading { ProgressView().controlSize(.small) }
             Spacer()
             Button(m.anime ? app.t("Film Mode", "実写モード")
@@ -121,7 +121,7 @@ struct AtelierView: View {
             }.font(.system(size: 11))
         }
         .padding(.horizontal, 14).padding(.vertical, 9)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     // MARK: - 左: 工程
@@ -135,17 +135,17 @@ struct AtelierView: View {
                     HStack(spacing: 8) {
                         Text(String(format: "%02d", i + 1))
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                         Text(s).font(.system(size: 12))
                         Spacer(minLength: 0)
                     }
                     .padding(.horizontal, 14).padding(.vertical, 5)
-                    .background(m.step == s ? AT.panel2 : .clear)
+                    .background(m.step == s ? Theme.panel2 : .clear)
                     .overlay(alignment: .leading) {
-                        Rectangle().fill(m.step == s ? AT.sel : .clear)
+                        Rectangle().fill(m.step == s ? Theme.sel : .clear)
                             .frame(width: 2)
                     }
-                    .foregroundStyle(m.step == s ? AT.fg : AT.dim)
+                    .foregroundStyle(m.step == s ? Theme.fg : Theme.dim)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         m.step = s
@@ -155,21 +155,21 @@ struct AtelierView: View {
                 Text("GARMENTS").railHead().padding(.top, 10)
                 HStack(spacing: 8) {
                     Text("001").font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Text(m.projectName).font(.system(size: 12))
                 }
                 .padding(.horizontal, 14).padding(.vertical, 5)
-                .background(AT.panel2)
+                .background(Theme.panel2)
 
                 // 解析に使う AI。ここが LLM のパイプの行き先で、
                 // 選んだ相手が台帳に触れる口は提案だけ。
                 Text("ANALYSIS AI").railHead().padding(.top, 10)
                 VStack(alignment: .leading, spacing: 3) {
                     Text(an.pick.label).font(.system(size: 11))
-                        .foregroundStyle(AT.fg).lineLimit(2)
+                        .foregroundStyle(Theme.fg).lineLimit(2)
                     Text(app.t("writes proposals only",
                                "書けるのは提案だけ"))
-                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
                 }
                 .padding(.horizontal, 14).padding(.vertical, 6)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -178,7 +178,7 @@ struct AtelierView: View {
             }
             .padding(.vertical, 10)
         }
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     // MARK: - 中央: 服そのもの
@@ -214,8 +214,8 @@ struct AtelierView: View {
                     Text(t).font(.system(size: 11))
                         .padding(.horizontal, 12).padding(.vertical, 4)
                         .background(Capsule().stroke(
-                            m.tab == t ? AT.sel : AT.line, lineWidth: 1))
-                        .foregroundStyle(m.tab == t ? AT.fg : AT.dim)
+                            m.tab == t ? Theme.sel : Theme.line, lineWidth: 1))
+                        .foregroundStyle(m.tab == t ? Theme.fg : Theme.dim)
                         .onTapGesture {
                             if t == "Search" { m.step = "Sources" }
                             else if t == "3D" { m.step = "Solid" }
@@ -226,7 +226,7 @@ struct AtelierView: View {
                 if m.tab == "3D" {
                     Text(app.t("solid & ease live in 09-ish — press to go",
                                "立体とゆとりは別の面です。押すと移動します"))
-                        .font(.system(size: 10)).foregroundStyle(AT.faint)
+                        .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 }
             }
             .padding(.horizontal, 14).padding(.top, 10)
@@ -240,31 +240,31 @@ struct AtelierView: View {
                     Text(v).font(.system(size: 11))
                         .padding(.horizontal, 10).padding(.vertical, 2)
                         .background(RoundedRectangle(cornerRadius: 4)
-                            .fill(m.view == v ? AT.panel2 : .clear))
-                        .foregroundStyle(m.view == v ? AT.fg : AT.faint)
+                            .fill(m.view == v ? Theme.panel2 : .clear))
+                        .foregroundStyle(m.view == v ? Theme.fg : Theme.faint)
                         .onTapGesture { m.view = v }
                 }
             }
             HStack(spacing: 8) {
                 ForEach(m.nonSpatial, id: \.self) { mat in
                     let st = m.partState(mat)
-                    Text("\(AT.symbol(st)) \(mat)")
+                    Text("\(Theme.symbol(st)) \(mat)")
                         .font(.system(size: 11))
                         .padding(.horizontal, 11).padding(.vertical, 2)
                         .background(Capsule().stroke(
-                            m.selected == mat ? AT.sel : AT.line, lineWidth: 1))
-                        .foregroundStyle(AT.color(st))
+                            m.selected == mat ? Theme.sel : Theme.line, lineWidth: 1))
+                        .foregroundStyle(Theme.color(st))
                         .onTapGesture { m.selected = mat }
                 }
                 Text(app.t("these have no place on the body",
                            "これらは場所を持たないので図に載せない"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
             }
             .padding(.top, 6)
             Text(app.t("green confirmed · red contested · amber inferred · grey unobserved",
                        "緑=確定 / 赤=割れている / 橙=推論 / 灰=未観測。"
                        + "クリックで右の構造インスペクタが変わります"))
-                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 .padding(.vertical, 10)
         }
     }
@@ -289,14 +289,14 @@ struct AtelierView: View {
         HStack(alignment: .top, spacing: 18) {
             VStack(spacing: 4) {
                 Text(app.t("Original artwork", "原作"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 if let clip = intake.selectedClip ?? intake.clips.first,
                    let img = NSImage(contentsOfFile: clip.path) {
                     Image(nsImage: img).resizable().scaledToFit()
                         .frame(maxWidth: 150, maxHeight: 190)
                     Text(clip.mark).font(.system(size: 9,
                                                  design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                 } else {
                     placeholder(app.t("no material taken in yet",
                                       "まだ素材を入れていません"),
@@ -307,16 +307,16 @@ struct AtelierView: View {
 
             VStack(spacing: 4) {
                 Text(app.t("Interpretation", "Veraが持っている構造"))
-                    .font(.system(size: 10)).foregroundStyle(AT.dim)
+                    .font(.system(size: 10)).foregroundStyle(Theme.dim)
                 figure(scale: 0.85)
                 Text(app.t("observed / split / inferred / unknown",
                            "確定・割れ・推論・未確定"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .font(.system(size: 9)).foregroundStyle(Theme.faint)
             }
 
             VStack(spacing: 4) {
                 Text(app.t("Realization", "作るもの"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 if m.drawShapes.isEmpty {
                     placeholder(app.t("nothing drawn yet",
                                       "まだ作図していません"),
@@ -330,7 +330,7 @@ struct AtelierView: View {
                         .background(RoundedRectangle(cornerRadius: 3)
                             .fill(Color.white))
                     Text(app.t("drafted, not generated", "作図。生成ではない"))
-                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
                 }
             }
             .frame(width: 170)
@@ -341,12 +341,12 @@ struct AtelierView: View {
     /// 無いものを、他のもので埋めない。
     private func placeholder(_ what: String, _ where_: String) -> some View {
         VStack(spacing: 4) {
-            Text(what).font(.system(size: 10)).foregroundStyle(AT.faint)
-            Text(where_).font(.system(size: 9)).foregroundStyle(AT.warn)
+            Text(what).font(.system(size: 10)).foregroundStyle(Theme.faint)
+            Text(where_).font(.system(size: 9)).foregroundStyle(Theme.warn)
         }
         .frame(maxWidth: .infinity, minHeight: 150)
         .background(RoundedRectangle(cornerRadius: 4)
-            .stroke(AT.line, style: StrokeStyle(lineWidth: 1, dash: [3, 3])))
+            .stroke(Theme.line, style: StrokeStyle(lineWidth: 1, dash: [3, 3])))
     }
 
     // MARK: - 右: 構造インスペクタ
@@ -360,7 +360,7 @@ struct AtelierView: View {
             Divider().opacity(0.25)
             RecordForm(m: m)
         }
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     private var inspectorScroll: some View {
@@ -373,7 +373,7 @@ struct AtelierView: View {
                                + "the weakest aspect sets the part",
                                "\(m.aspects(of: m.selected).count) 側面 ・ "
                                + "状態は最も弱い側面に合わせる"))
-                        .font(.system(size: 11)).foregroundStyle(AT.dim)
+                        .font(.system(size: 11)).foregroundStyle(Theme.dim)
                 }
                 .padding(.horizontal, 13).padding(.top, 11).padding(.bottom, 8)
                 Divider().opacity(0.25)
@@ -396,25 +396,25 @@ struct AtelierView: View {
                     if m.timeline.isEmpty {
                         Text(app.t("No evidence yet.",
                                    "証拠がまだありません。右から記録してください。"))
-                            .font(.system(size: 11)).foregroundStyle(AT.faint)
+                            .font(.system(size: 11)).foregroundStyle(Theme.faint)
                             .padding(12)
                     }
                     ForEach(Array(m.timeline.enumerated()), id: \.offset) { _, r in
                         HStack(spacing: 10) {
                             Text(r.at.isEmpty ? "—" : r.at)
                                 .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(AT.sel).frame(width: 62,
+                                .foregroundStyle(Theme.sel).frame(width: 62,
                                                                alignment: .leading)
                             Text("\(r.part) / \(r.aspect)")
                                 .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(AT.dim)
+                                .foregroundStyle(Theme.dim)
                                 .frame(width: 150, alignment: .leading)
                             Text(r.value).font(.system(size: 12))
                             Text(r.kind).font(.system(size: 9))
-                                .foregroundStyle(AT.kindColor(r.kind))
+                                .foregroundStyle(Theme.kindColor(r.kind))
                             Spacer()
                             Text(r.source).font(.system(size: 10))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         .padding(.horizontal, 12).padding(.vertical, 3)
                         .contentShape(Rectangle())
@@ -426,33 +426,33 @@ struct AtelierView: View {
             Divider().opacity(0.25)
             ScrollView {
             VStack(alignment: .leading, spacing: 7) {
-                bar("OBSERVED", m.counts["confirmed"] ?? 0, AT.ok)
+                bar("OBSERVED", m.counts["confirmed"] ?? 0, Theme.ok)
                 // 裁つ前に**どれを確かめ直せるか**。確定の本数だけでは、
                 // 誰も開けない出典と、開ける出典が同じ顔になる。
                 HStack(spacing: 4) {
                     Text(app.t("of which re-openable",
                                "うち見に行けるもの"))
-                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
                     Spacer(minLength: 0)
                     Text("\(m.counts["verifiable"] ?? 0)")
                         .font(.system(size: 9, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                 }
                 .padding(.horizontal, 14).padding(.bottom, 4)
-                bar("CONTESTED", m.counts["contested"] ?? 0, AT.bad)
-                bar("INFERRED", m.counts["inferred"] ?? 0, AT.warn)
+                bar("CONTESTED", m.counts["contested"] ?? 0, Theme.bad)
+                bar("INFERRED", m.counts["inferred"] ?? 0, Theme.warn)
                 // 提案は open の内訳。別の帯にするのは、提案が
                 // 何かを閉じたように見えないようにするため。
                 bar("UNKNOWN", m.counts["unobserved"] ?? m.counts["open"] ?? 0,
-                    AT.line)
-                bar("PROPOSED", m.counts["proposed"] ?? 0, AT.sel)
+                    Theme.line)
+                bar("PROPOSED", m.counts["proposed"] ?? 0, Theme.sel)
                 Text(app.t("confidence here is how many independent readings "
                            + "agreed — never a model's own score. UNKNOWN is "
                            + "not a failure; it is what to look for next.",
                            "確度はモデルの点数ではなく、独立した観測が何本"
                            + "一致したかです。UNKNOWN は失敗ではなく、次に"
                            + "探すもの。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
 
                 // **「次に探すもの」を実際に並べる。** 数だけ出して
                 // 一覧が無いと、UNKNOWN は数え上げで終わってしまう。
@@ -460,11 +460,11 @@ struct AtelierView: View {
                 HStack(spacing: 6) {
                     Text(app.t("BEFORE CUTTING", "裁つ前に潰すこと"))
                         .font(.system(size: 10, weight: .semibold))
-                        .foregroundStyle(AT.dim)
+                        .foregroundStyle(Theme.dim)
                     Spacer(minLength: 0)
                     Text("\(m.worklist.count)")
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                 }
                 // **空欄を「無い」と読ませない。** 引けていないのか、
                 // 本当に片付いているのかは、別のことです。
@@ -472,7 +472,7 @@ struct AtelierView: View {
                     Text(m.counts.isEmpty
                          ? app.t("not read yet", "まだ引けていません")
                          : app.t("nothing open", "開いている項目はありません"))
-                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
                 }
                 if !m.worklist.isEmpty {
                     VStack(alignment: .leading, spacing: 6) {
@@ -483,13 +483,13 @@ struct AtelierView: View {
                                         Text("\(w.part) / \(w.aspect)")
                                             .font(.system(size: 10,
                                                 design: .monospaced))
-                                            .foregroundStyle(AT.dim)
+                                            .foregroundStyle(Theme.dim)
                                         Spacer(minLength: 0)
                                     }
                                     if !w.howToClose.isEmpty {
                                         Text("→ " + w.howToClose)
                                             .font(.system(size: 9))
-                                            .foregroundStyle(AT.warn)
+                                            .foregroundStyle(Theme.warn)
                                             .fixedSize(
                                                 horizontal: false,
                                                 vertical: true)
@@ -507,20 +507,20 @@ struct AtelierView: View {
             }
             .frame(width: 300)
         }
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     private func bar(_ name: String, _ n: Int, _ c: Color) -> some View {
         let total = max(1, m.counts.values.reduce(0, +))
         return VStack(alignment: .leading, spacing: 3) {
             HStack {
-                Text(name).font(.system(size: 11)).foregroundStyle(AT.dim)
+                Text(name).font(.system(size: 11)).foregroundStyle(Theme.dim)
                 Spacer()
-                Text("\(n)").font(.system(size: 11)).foregroundStyle(AT.dim)
+                Text("\(n)").font(.system(size: 11)).foregroundStyle(Theme.dim)
             }
             GeometryReader { g in
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 3).fill(AT.panel2)
+                    RoundedRectangle(cornerRadius: 3).fill(Theme.panel2)
                     RoundedRectangle(cornerRadius: 3).fill(c)
                         .frame(width: g.size.width * CGFloat(n)
                                / CGFloat(total))
@@ -544,13 +544,13 @@ private struct AspectRow: View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 6) {
                 Text(aspect).font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(AT.dim)
-                Text("\(AT.symbol(s.state)) \(AT.short(s.state))")
+                    .foregroundStyle(Theme.dim)
+                Text("\(Theme.symbol(s.state)) \(Theme.short(s.state))")
                     .font(.system(size: 10))
                     .padding(.horizontal, 7).padding(.vertical, 1)
-                    .background(Capsule().stroke(AT.color(s.state),
+                    .background(Capsule().stroke(Theme.color(s.state),
                                                  lineWidth: 1))
-                    .foregroundStyle(AT.color(s.state))
+                    .foregroundStyle(Theme.color(s.state))
                 Spacer()
             }
             switch s.state {
@@ -561,22 +561,22 @@ private struct AspectRow: View {
                      + (s.adoptedBy.isEmpty ? ""
                         : app.t(" · adopted by \(s.adoptedBy)",
                                 " ・ 採用: \(s.adoptedBy)")))
-                    .font(.system(size: 11)).foregroundStyle(AT.dim)
+                    .font(.system(size: 11)).foregroundStyle(Theme.dim)
                 Text(s.sources.joined(separator: " · "))
                     .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
                 // 裁つ前に**どれを確かめ直せるか**。付いていないことは
                 // 見ていないことではないので、そう書く。
                 HStack(spacing: 5) {
                     Text(s.verifiable ? "◉" : "○").font(.system(size: 9))
-                        .foregroundStyle(s.verifiable ? AT.ok : AT.faint)
+                        .foregroundStyle(s.verifiable ? Theme.ok : Theme.faint)
                     Text(s.verifiable
                          ? app.t("can be re-opened", "見に行ける")
                          : (s.unverifiableReason.isEmpty
                             ? app.t("no pointer attached", "参照なし")
                             : s.unverifiableReason))
                         .font(.system(size: 9))
-                        .foregroundStyle(s.verifiable ? AT.ok : AT.faint)
+                        .foregroundStyle(s.verifiable ? Theme.ok : Theme.faint)
                 }
                 ForEach(Array(s.refs.enumerated()), id: \.offset) { _, r in
                     if !r.path.isEmpty || !r.url.isEmpty {
@@ -586,7 +586,7 @@ private struct AspectRow: View {
                              + (r.mark.isEmpty ? "" : " @ \(r.mark)"))
                             .font(.system(size: 9, design: .monospaced))
                             .foregroundStyle(
-                                r.status == "VERIFIABLE" ? AT.dim : AT.warn)
+                                r.status == "VERIFIABLE" ? Theme.dim : Theme.warn)
                     }
                 }
             case "CONTESTED":
@@ -595,52 +595,52 @@ private struct AspectRow: View {
                         Text(side.value).font(.system(size: 13, weight: .semibold))
                         Text("← " + side.sources.joined(separator: " · "))
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                     }
                 }
                 Text(app.t("readings disagree — neither side wins here; "
                            + "a person decides",
                            "観測が食い違っている。片方を勝たせていない — 人が決める"))
-                    .font(.system(size: 11)).foregroundStyle(AT.dim)
+                    .font(.system(size: 11)).foregroundStyle(Theme.dim)
             case "INFERRED":
                 Text(s.value).font(.system(size: 13, weight: .semibold))
                 Text(app.t("reasoned from structure (not observed)",
                            "構造から推した(観測ではない)"))
-                    .font(.system(size: 11)).foregroundStyle(AT.dim)
+                    .font(.system(size: 11)).foregroundStyle(Theme.dim)
                 Text(app.t("basis: ", "根拠: ") + s.basis.joined(separator: " · "))
                     .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
             default:
-                Text("—").font(.system(size: 13)).foregroundStyle(AT.dim)
+                Text("—").font(.system(size: 13)).foregroundStyle(Theme.dim)
                 Text(app.t("no direct observation", "直接の観測が無い"))
-                    .font(.system(size: 11)).foregroundStyle(AT.dim)
+                    .font(.system(size: 11)).foregroundStyle(Theme.dim)
                 // UNKNOWN はエラーではなく次の探索対象。だから閉じ方を出す。
                 VStack(alignment: .leading, spacing: 2) {
                     Text(app.t("what would close it", "次に何をすれば閉じるか"))
-                        .font(.system(size: 11)).foregroundStyle(AT.warn)
+                        .font(.system(size: 11)).foregroundStyle(Theme.warn)
                     ForEach(s.howToClose.components(separatedBy: " / "),
                             id: \.self) { line in
                         Text("• " + line).font(.system(size: 11))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                     }
                 }
                 .padding(7)
                 .background(RoundedRectangle(cornerRadius: 5)
-                    .stroke(AT.line, style: StrokeStyle(lineWidth: 1,
+                    .stroke(Theme.line, style: StrokeStyle(lineWidth: 1,
                                                         dash: [3, 3])))
             }
             ForEach(Array(s.proposals.enumerated()), id: \.offset) { _, p in
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 6) {
                         Text(app.t("proposal", "提案")).font(.system(size: 10))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                         Text(p.value).font(.system(size: 12, weight: .semibold))
                     }
                     Text(p.source + (p.note.isEmpty ? ""
                         : " · \(p.note)" + app.t(" (the source's own claim, not a fact)",
                                                  "(出所の申告であって事実ではない)")))
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Button(app.t("Accept as evidence", "証拠として採用")) {
                         m.pendingAdopt = .init(part: part, aspect: aspect,
                                                value: p.value)
@@ -649,7 +649,7 @@ private struct AspectRow: View {
                 }
                 .padding(7)
                 .background(RoundedRectangle(cornerRadius: 5)
-                    .stroke(AT.line, style: StrokeStyle(lineWidth: 1,
+                    .stroke(Theme.line, style: StrokeStyle(lineWidth: 1,
                                                         dash: [3, 3])))
             }
         }
@@ -675,7 +675,7 @@ private struct RecordForm: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(app.t("Record", "記録する")).font(.system(size: 10))
-                .foregroundStyle(AT.faint)
+                .foregroundStyle(Theme.faint)
             HStack(spacing: 5) {
                 Picker("", selection: $aspect) {
                     ForEach(m.aspects(of: m.selected), id: \.self) {
@@ -718,7 +718,7 @@ private struct RecordForm: View {
                            + "The same frame read twice still counts once.",
                            "付けると後から誰でも同じものを開けます。"
                            + "同じコマを二度読んでも1件のままです。"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .font(.system(size: 9)).foregroundStyle(Theme.faint)
             }
             Button(app.t("Place", "置く")) {
                 Task {
@@ -772,12 +772,12 @@ private struct AdoptSheet: View {
             Text(app.t("Accept as evidence", "証拠として採用する"))
                 .font(.system(size: 13, weight: .semibold))
             Text("\(req.part) / \(req.aspect) — \(req.value)")
-                .font(.system(size: 12)).foregroundStyle(AT.dim)
+                .font(.system(size: 12)).foregroundStyle(Theme.dim)
             // 採用者の名前が残らない採用は受け付けない。裁った後に
             // 「誰が通したか」を辿れないと、間違いの責任が消える。
             Text(app.t("Adoption is a human act and the name is stored.",
                        "採用は人の行為です。名前が台帳に残ります。"))
-                .font(.system(size: 11)).foregroundStyle(AT.faint)
+                .font(.system(size: 11)).foregroundStyle(Theme.faint)
             TextField(app.t("your name", "採用する人の名前"), text: $by)
                 .textFieldStyle(.roundedBorder)
             HStack {
@@ -810,7 +810,7 @@ private struct TechPackSheet: View {
             }
             .padding(.bottom, 6)
             Text(m.techPackNote).font(.system(size: 10))
-                .foregroundStyle(AT.faint)
+                .foregroundStyle(Theme.faint)
             Divider().padding(.vertical, 8)
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
@@ -819,12 +819,12 @@ private struct TechPackSheet: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(sec.no)  \(sec.name)")
                                 .font(.system(size: 12, weight: .semibold))
-                                .foregroundStyle(AT.dim)
+                                .foregroundStyle(Theme.dim)
                             Divider().opacity(0.3)
                             if sec.rows.isEmpty {
                                 Text(app.t("none", "なし"))
                                     .font(.system(size: 11))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                             ForEach(Array(sec.rows.enumerated()),
                                     id: \.offset) { _, r in
@@ -832,13 +832,13 @@ private struct TechPackSheet: View {
                                     Text(r.label)
                                         .font(.system(size: 11,
                                                       design: .monospaced))
-                                        .foregroundStyle(AT.dim)
+                                        .foregroundStyle(Theme.dim)
                                         .frame(width: 210, alignment: .leading)
                                     Text(r.value).font(.system(size: 12))
                                     Spacer()
                                     if !r.state.isEmpty {
-                                        Text(AT.symbol(r.state))
-                                            .foregroundStyle(AT.color(r.state))
+                                        Text(Theme.symbol(r.state))
+                                            .foregroundStyle(Theme.color(r.state))
                                     }
                                 }
                             }
@@ -948,7 +948,7 @@ private struct GarmentFigure: View {
                         }
                         path.closeSubpath()
                     }
-                    .fill(AT.fill(st))
+                    .fill(Theme.fill(st))
                     .overlay(
                         Path { path in
                             guard let first = pts.first else { return }
@@ -960,15 +960,15 @@ private struct GarmentFigure: View {
                             }
                             path.closeSubpath()
                         }
-                        .stroke(selected == name ? AT.sel : AT.color(st),
+                        .stroke(selected == name ? Theme.sel : Theme.color(st),
                                 lineWidth: selected == name ? 2.2 : 1.4)
                     )
                     .contentShape(Rectangle())
                     .onTapGesture { onPick(name) }
                     if label != .zero {
-                        Text("\(name) \(AT.symbol(st))")
+                        Text("\(name) \(Theme.symbol(st))")
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                             .position(x: label.x * s, y: label.y * s)
                             .allowsHitTesting(false)
                     }
@@ -1025,69 +1025,17 @@ private struct GarmentFigure: View {
 }
 
 // MARK: - 色と記号
-
-enum AT {
-    static let bg = Color(red: 0.063, green: 0.063, blue: 0.086)
-    static let panel = Color(red: 0.086, green: 0.086, blue: 0.122)
-    static let panel2 = Color(red: 0.106, green: 0.106, blue: 0.149)
-    static let line = Color(red: 0.157, green: 0.157, blue: 0.212)
-    static let fg = Color(red: 0.914, green: 0.914, blue: 0.949)
-    static let dim = Color(red: 0.541, green: 0.541, blue: 0.616)
-    static let faint = Color(red: 0.357, green: 0.357, blue: 0.431)
-    static let ok = Color(red: 0.349, green: 0.753, blue: 0.541)
-    static let warn = Color(red: 0.851, green: 0.635, blue: 0.290)
-    static let bad = Color(red: 0.878, green: 0.392, blue: 0.373)
-    static let sel = Color(red: 0.357, green: 0.561, blue: 0.839)
-
-    static func color(_ state: String) -> Color {
-        switch state {
-        case "OBSERVED", "MEASURED", "GENERIC_CONSTRUCTION": return ok
-        case "CONTESTED", "CONTESTED_ORIGIN", "SPECIFIC_TO_SOURCE": return bad
-        // 計算値は確定と同じ色にしない。裁つ前に実測で確かめるもの。
-        case "INFERRED", "DERIVED": return warn
-        default: return dim
-        }
-    }
-
-    static func fill(_ state: String) -> Color {
-        color(state).opacity(state == "UNKNOWN_NOT_OBSERVED" ? 0.06 : 0.18)
-    }
-
-    /// 状態の印。**寸法と由来の語彙も知っている必要がある。**
-    ///
-    /// 実測した 96.0cm が「?」で出ていた(実地で踏んだ)。この表を
-    /// 観測の語彙だけで書くと、他の台帳から来た行が全部「不明」に
-    /// 落ちる — 指示書としては嘘になる。
-    static func symbol(_ state: String) -> String {
-        switch state {
-        case "OBSERVED", "MEASURED": return "✓"
-        case "CONTESTED", "CONTESTED_ORIGIN": return "×"
-        case "INFERRED": return "△"
-        case "DERIVED": return "≈"
-        case "PROPOSED": return "·"
-        case "GENERIC_CONSTRUCTION": return "一般"
-        case "SPECIFIC_TO_SOURCE": return "実例"
-        default: return "?"
-        }
-    }
-
-    static func short(_ state: String) -> String {
-        state.replacingOccurrences(of: "_NOT_OBSERVED", with: "")
-    }
-
-    static func kindColor(_ kind: String) -> Color {
-        switch kind {
-        case "observation": return ok
-        case "inference": return warn
-        default: return dim
-        }
-    }
-}
+//
+// この配色 (背景・文字・状態色) と OBSERVED/CONTESTED/INFERRED/PROPOSED/
+// UNKNOWN_NOT_OBSERVED の色対応は、Theme.swift (Sources/Verantyx/Theme.swift)
+// に昇格した — 台帳の状態色は AtelierView だけでなく全画面で同じ意味を
+// 持つべきものだったが、以前はこの enum が private 相当で他の 87 画面から
+// 参照できなかった (実測 0 件)。ここでの呼び出しは全て Theme.* に直接置き換え済み。
 
 private extension Text {
     func railHead() -> some View {
         self.font(.system(size: 10)).tracking(1.2)
-            .foregroundStyle(AT.faint)
+            .foregroundStyle(Theme.faint)
             .padding(.horizontal, 14).padding(.bottom, 5)
     }
 }
@@ -1120,7 +1068,7 @@ private struct AnalystSheet: View {
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
 
             Text(app.t("Whatever you pick can only write PROPOSED entries. "
                        + "A proposal becomes fact only when a person adopts "
@@ -1128,10 +1076,10 @@ private struct AnalystSheet: View {
                        "どれを選んでも、書けるのは提案の欄だけです。"
                        + "提案が事実になるのは、人が名前を書いて採用した"
                        + "ときだけです。"))
-                .font(.system(size: 10)).foregroundStyle(AT.warn)
+                .font(.system(size: 10)).foregroundStyle(Theme.warn)
                 .padding(.horizontal, 14).padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(AT.warn.opacity(0.10))
+                .background(Theme.warn.opacity(0.10))
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
@@ -1220,17 +1168,17 @@ private struct AnalystSheet: View {
                 .disabled(an.busy)
                 if !an.lastRun.isEmpty {
                     Text(an.lastRun).font(.system(size: 10))
-                        .foregroundStyle(an.lastProposals > 0 ? AT.warn : AT.dim)
+                        .foregroundStyle(an.lastProposals > 0 ? Theme.warn : Theme.dim)
                         .lineLimit(2)
                 }
                 Spacer(minLength: 0)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
         }
         .frame(width: 560, height: 560)
-        .background(AT.bg)
+        .background(Theme.bg)
         .onAppear { if lmHost.isEmpty { lmHost = app.lmStudioEndpoint } }
     }
 
@@ -1239,14 +1187,14 @@ private struct AnalystSheet: View {
         VStack(alignment: .leading, spacing: 0) {
             Text(title.uppercased())
                 .font(.system(size: 9, weight: .semibold, design: .monospaced))
-                .foregroundStyle(AT.faint)
+                .foregroundStyle(Theme.faint)
                 .padding(.horizontal, 14).padding(.top, 10).padding(.bottom, 4)
             body()
         }
     }
 
     private func empty(_ s: String) -> some View {
-        Text(s).font(.system(size: 11)).foregroundStyle(AT.faint)
+        Text(s).font(.system(size: 11)).foregroundStyle(Theme.faint)
             .padding(.horizontal, 14).padding(.vertical, 5)
     }
 
@@ -1254,16 +1202,16 @@ private struct AnalystSheet: View {
         let on = an.pick == p
         return HStack(spacing: 8) {
             Text(on ? "●" : "○").font(.system(size: 10))
-                .foregroundStyle(on ? AT.sel : AT.faint)
+                .foregroundStyle(on ? Theme.sel : Theme.faint)
             VStack(alignment: .leading, spacing: 1) {
                 Text(p.label).font(.system(size: 12))
-                    .foregroundStyle(on ? AT.fg : AT.dim)
-                Text(sub).font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .foregroundStyle(on ? Theme.fg : Theme.dim)
+                Text(sub).font(.system(size: 9)).foregroundStyle(Theme.faint)
             }
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 14).padding(.vertical, 5)
-        .background(on ? AT.panel2 : .clear)
+        .background(on ? Theme.panel2 : .clear)
         .contentShape(Rectangle())
         .onTapGesture { an.pick = p }
     }
@@ -1304,7 +1252,7 @@ private struct ProvenancePanel: View {
             Divider().opacity(0.25)
             recorder
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task { await m.loadRights() }
     }
 
@@ -1320,13 +1268,13 @@ private struct ProvenancePanel: View {
             }
             HStack(spacing: 6) {
                 Text(app.t("use", "用途")).font(.system(size: 10))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
                 ForEach(Self.intents, id: \.0) { key, label in
                     Text(label).font(.system(size: 11))
                         .padding(.horizontal, 9).padding(.vertical, 2)
                         .background(Capsule().stroke(
-                            m.intent == key ? AT.sel : AT.line, lineWidth: 1))
-                        .foregroundStyle(m.intent == key ? AT.fg : AT.dim)
+                            m.intent == key ? Theme.sel : Theme.line, lineWidth: 1))
+                        .foregroundStyle(m.intent == key ? Theme.fg : Theme.dim)
                         .onTapGesture { Task { await m.setIntent(key) } }
                 }
             }
@@ -1336,19 +1284,19 @@ private struct ProvenancePanel: View {
                        + "only the homework list does.",
                        "用途は許可証ではありません。どの由来も変わらず、"
                        + "変わるのは宿題の一覧だけです。"))
-                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .font(.system(size: 10)).foregroundStyle(Theme.faint)
             if !m.legalAnswer.isEmpty {
                 Text(m.legalAnswer).font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.warn).textSelection(.enabled)
+                    .foregroundStyle(Theme.warn).textSelection(.enabled)
                     .padding(8)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(RoundedRectangle(cornerRadius: 5)
-                        .fill(AT.warn.opacity(0.10)))
+                        .fill(Theme.warn.opacity(0.10)))
             }
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     private var worklist: some View {
@@ -1358,13 +1306,13 @@ private struct ProvenancePanel: View {
                 Spacer()
                 Text("\(m.rightsWorklist.count)")
                     .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.faint).padding(.trailing, 14)
+                    .foregroundStyle(Theme.faint).padding(.trailing, 14)
             }
             if m.rightsWorklist.isEmpty {
                 Text(app.t("nothing flagged — which is not the same as clear",
                            "挙がっているものはありません（問題が無いという"
                            + "意味ではありません）"))
-                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                    .font(.system(size: 11)).foregroundStyle(Theme.faint)
                     .padding(.horizontal, 14).padding(.bottom, 8)
             }
             ForEach(Array(m.rightsWorklist.enumerated()), id: \.offset) { _, r in
@@ -1376,7 +1324,7 @@ private struct ProvenancePanel: View {
                         Spacer(minLength: 0)
                     }
                     Text(r.why).font(.system(size: 10))
-                        .foregroundStyle(AT.dim)
+                        .foregroundStyle(Theme.dim)
                 }
                 .padding(.horizontal, 14).padding(.vertical, 5)
                 .contentShape(Rectangle())
@@ -1394,30 +1342,30 @@ private struct ProvenancePanel: View {
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(spacing: 8) {
                         Text(key).font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                         stateChip(r.state)
                         Spacer(minLength: 0)
                     }
                     if !r.specificSources.isEmpty {
-                        line("実例", r.specificSources, AT.bad)
+                        line("実例", r.specificSources, Theme.bad)
                     }
                     if !r.genericSources.isEmpty {
-                        line("一般", r.genericSources, AT.ok)
+                        line("一般", r.genericSources, Theme.ok)
                     }
                     if !r.searchedScopes.isEmpty {
-                        line("探した範囲", r.searchedScopes, AT.dim)
+                        line("探した範囲", r.searchedScopes, Theme.dim)
                     }
                     if !r.declaredBy.isEmpty {
-                        line("名乗り", r.declaredBy, AT.sel)
+                        line("名乗り", r.declaredBy, Theme.sel)
                     }
                     if !r.howToClose.isEmpty {
                         Text("→ " + r.howToClose).font(.system(size: 10))
-                            .foregroundStyle(AT.warn)
+                            .foregroundStyle(Theme.warn)
                     }
                 }
                 .padding(.horizontal, 14).padding(.vertical, 6)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(m.selected == r.part ? AT.panel2 : .clear)
+                .background(m.selected == r.part ? Theme.panel2 : .clear)
                 .contentShape(Rectangle())
                 .onTapGesture { m.selected = r.part; aspect = r.aspect }
                 Divider().opacity(0.12)
@@ -1428,7 +1376,7 @@ private struct ProvenancePanel: View {
     private func line(_ label: String, _ items: [String],
                       _ colour: Color) -> some View {
         HStack(alignment: .top, spacing: 6) {
-            Text(label).font(.system(size: 9)).foregroundStyle(AT.faint)
+            Text(label).font(.system(size: 9)).foregroundStyle(Theme.faint)
                 .frame(width: 56, alignment: .leading)
             Text(items.joined(separator: " / "))
                 .font(.system(size: 10, design: .monospaced))
@@ -1440,7 +1388,7 @@ private struct ProvenancePanel: View {
         VStack(alignment: .leading, spacing: 5) {
             HStack(spacing: 6) {
                 Text(app.t("record for", "記録する"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 Text(m.selected).font(.system(size: 11, weight: .semibold))
                 Picker("", selection: $aspect) {
                     ForEach(m.aspects(of: m.selected), id: \.self) {
@@ -1478,18 +1426,18 @@ private struct ProvenancePanel: View {
             }
             if !said.isEmpty && said != "ANSWER" {
                 Text(said).font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.bad)
+                    .foregroundStyle(Theme.bad)
             }
             // 一般は2本要る、という規律を押す前に出しておく。
             Text(app.t("A construction counts as common only with two "
                        + "independent named sources.",
                        "「一般構造」は、名前の付いた独立した出典が2本"
                        + "揃って初めて成立します。"))
-                .font(.system(size: 9)).foregroundStyle(AT.faint)
+                .font(.system(size: 9)).foregroundStyle(Theme.faint)
         }
         .padding(13)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
         .onAppear { if aspect.isEmpty {
             aspect = m.aspects(of: m.selected).first ?? "" } }
         .onChange(of: m.selected) { _ in
@@ -1517,12 +1465,12 @@ private struct ProvenancePanel: View {
 enum RIGHTS {
     static func colour(_ s: String) -> Color {
         switch s {
-        case "SPECIFIC_TO_SOURCE": return AT.bad
-        case "CONTESTED_ORIGIN": return AT.bad
-        case "GENERIC_CONSTRUCTION": return AT.ok
-        case "DECLARED_BY": return AT.sel
-        case "UNKNOWN_NO_MATCH_IN": return AT.warn
-        default: return AT.dim
+        case "SPECIFIC_TO_SOURCE": return Theme.bad
+        case "CONTESTED_ORIGIN": return Theme.bad
+        case "GENERIC_CONSTRUCTION": return Theme.ok
+        case "DECLARED_BY": return Theme.sel
+        case "UNKNOWN_NO_MATCH_IN": return Theme.warn
+        default: return Theme.dim
         }
     }
 
@@ -1566,16 +1514,16 @@ private struct DesignPanel: View {
                            + "came from.",
                            "原作品は観測されたまま動きません。作る側は別の"
                            + "台帳で、各行にどこから来たかが付きます。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 HStack(spacing: 12) {
-                    counter("そのまま", m.designCounts["kept"] ?? 0, AT.dim)
-                    counter("変えた", m.designCounts["changed"] ?? 0, AT.warn)
-                    counter("新しく決めた", m.designCounts["new"] ?? 0, AT.ok)
+                    counter("そのまま", m.designCounts["kept"] ?? 0, Theme.dim)
+                    counter("変えた", m.designCounts["changed"] ?? 0, Theme.warn)
+                    counter("新しく決めた", m.designCounts["new"] ?? 0, Theme.ok)
                 }
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
             Divider().opacity(0.25)
 
             ScrollView {
@@ -1584,7 +1532,7 @@ private struct DesignPanel: View {
                         Text(app.t("Nothing designed yet.",
                                    "まだ何も設計していません。"))
                             .font(.system(size: 11))
-                            .foregroundStyle(AT.faint).padding(14)
+                            .foregroundStyle(Theme.faint).padding(14)
                     }
                     ForEach(Array(m.designRows.enumerated()),
                             id: \.offset) { _, r in
@@ -1593,7 +1541,7 @@ private struct DesignPanel: View {
                                 Text("\(r.part) / \(r.aspect)")
                                     .font(.system(size: 11,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.dim)
+                                    .foregroundStyle(Theme.dim)
                                 Text(kindLabel(r.kind))
                                     .font(.system(size: 9, weight: .semibold))
                                     .padding(.horizontal, 6)
@@ -1604,7 +1552,7 @@ private struct DesignPanel: View {
                                     .foregroundStyle(kindColour(r.kind))
                                 Spacer(minLength: 0)
                                 Text(r.by).font(.system(size: 9))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                             Text(r.value)
                                 .font(.system(size: 12, weight: .semibold))
@@ -1613,12 +1561,12 @@ private struct DesignPanel: View {
                                 Text("← \(r.originalValue)  (\(r.derivedFrom))")
                                     .font(.system(size: 10,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             } else if !r.derivedFrom.isEmpty {
                                 Text("← \(r.derivedFrom)")
                                     .font(.system(size: 10,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
 
                             // **原作品 → 観測 → 設計 の全段を出す。**
@@ -1631,7 +1579,7 @@ private struct DesignPanel: View {
                                         Text(st.stage)
                                             .font(.system(size: 9,
                                                 weight: .semibold))
-                                            .foregroundStyle(AT.dim)
+                                            .foregroundStyle(Theme.dim)
                                             .frame(width: 76,
                                                    alignment: .leading)
                                         Text(st.value)
@@ -1640,7 +1588,7 @@ private struct DesignPanel: View {
                                         if !st.source.isEmpty {
                                             Text(st.source)
                                                 .font(.system(size: 9))
-                                                .foregroundStyle(AT.faint)
+                                                .foregroundStyle(Theme.faint)
                                         }
                                         Spacer(minLength: 0)
                                     }
@@ -1656,7 +1604,7 @@ private struct DesignPanel: View {
                                 }
                                 .buttonStyle(.plain)
                                 .font(.system(size: 9))
-                                .foregroundStyle(AT.sel)
+                                .foregroundStyle(Theme.sel)
                             }
                         }
                         .padding(.horizontal, 14).padding(.vertical, 6)
@@ -1714,19 +1662,19 @@ private struct DesignPanel: View {
                 }
                 if !said.isEmpty && said != "ANSWER" {
                     Text(said).font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.bad)
+                        .foregroundStyle(Theme.bad)
                 }
                 Text(app.t("Only confirmed observations can be kept or "
                            + "changed — an uncertain value must not be cut.",
                            "そのまま／変える は確定した観測にしか使えません。"
                            + "定まっていない値を裁つことになるためです。"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .font(.system(size: 9)).foregroundStyle(Theme.faint)
             }
             .padding(13)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task { await m.loadDesign() }
         .onAppear { if aspect.isEmpty {
             aspect = m.aspects(of: m.selected).first ?? "" } }
@@ -1740,7 +1688,7 @@ private struct DesignPanel: View {
             Text("\(n)").font(.system(size: 13, weight: .semibold,
                                       design: .monospaced))
                 .foregroundStyle(colour)
-            Text(label).font(.system(size: 10)).foregroundStyle(AT.dim)
+            Text(label).font(.system(size: 10)).foregroundStyle(Theme.dim)
         }
     }
 
@@ -1754,9 +1702,9 @@ private struct DesignPanel: View {
 
     private func kindColour(_ k: String) -> Color {
         switch k {
-        case "kept": return AT.dim
-        case "changed": return AT.warn
-        default: return AT.ok
+        case "kept": return Theme.dim
+        case "changed": return Theme.warn
+        default: return Theme.ok
         }
     }
 }
@@ -1785,7 +1733,7 @@ private struct SourcesPanel: View {
             Divider().opacity(0.25)
             logStrip
         }
-        .background(AT.bg)
+        .background(Theme.bg)
     }
 
     private var header: some View {
@@ -1796,11 +1744,11 @@ private struct SourcesPanel: View {
                 if intake.busy {
                     ProgressView().controlSize(.small)
                     Text(intake.stage).font(.system(size: 10))
-                        .foregroundStyle(AT.dim)
+                        .foregroundStyle(Theme.dim)
                 }
                 Spacer()
                 Text(app.t("frames", "コマ数")).font(.system(size: 10))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
                 Stepper(value: $intake.frameCount, in: 1...60) {
                     Text("\(intake.frameCount)")
                         .font(.system(size: 11, design: .monospaced))
@@ -1816,11 +1764,11 @@ private struct SourcesPanel: View {
                        "割るのは計算です。読むのはモデルで、何を読んでも"
                        + "提案にしかなりません。照らすのは距離であって"
                        + "判断ではありません。"))
-                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .font(.system(size: 10)).foregroundStyle(Theme.faint)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     @ViewBuilder
@@ -1837,7 +1785,7 @@ private struct SourcesPanel: View {
             VStack(alignment: .leading, spacing: 0) {
                 if intake.clips.isEmpty {
                     Text(app.t("No material yet.", "まだ素材がありません。"))
-                        .font(.system(size: 11)).foregroundStyle(AT.faint)
+                        .font(.system(size: 11)).foregroundStyle(Theme.faint)
                         .padding(14)
                 }
                 ForEach(intake.clips) { c in
@@ -1848,20 +1796,20 @@ private struct SourcesPanel: View {
                                 .font(.system(size: 10, design: .monospaced))
                             Text(String(format: "%.2f s", c.seconds))
                                 .font(.system(size: 9))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         Spacer(minLength: 0)
                     }
                     .padding(.horizontal, 10).padding(.vertical, 4)
                     .background(intake.selectedClip?.path == c.path
-                                ? AT.panel2 : .clear)
+                                ? Theme.panel2 : .clear)
                     .contentShape(Rectangle())
                     .onTapGesture { intake.selectedClip = c }
                 }
             }
             .padding(.vertical, 6)
         }
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     @ViewBuilder
@@ -1877,7 +1825,7 @@ private struct SourcesPanel: View {
                                                      into: m) }
                         }.font(.system(size: 11)).disabled(intake.busy)
                         Text(an.pick.label).font(.system(size: 10))
-                            .foregroundStyle(AT.dim).lineLimit(1)
+                            .foregroundStyle(Theme.dim).lineLimit(1)
                         Spacer(minLength: 0)
                     }
                     Button(app.t("Find similar frames", "似ているコマを照らす")) {
@@ -1911,7 +1859,7 @@ private struct SourcesPanel: View {
                                     Text(String(format: "距離 %.3f",
                                                 mt.distance))
                                         .font(.system(size: 9))
-                                        .foregroundStyle(AT.faint)
+                                        .foregroundStyle(Theme.faint)
                                 }
                                 Spacer(minLength: 0)
                                 Button(app.t("propose", "提案として置く")) {
@@ -1933,7 +1881,7 @@ private struct SourcesPanel: View {
                 Spacer()
                 Text(app.t("Pick a frame on the left.",
                            "左でコマを選んでください。"))
-                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                    .font(.system(size: 11)).foregroundStyle(Theme.faint)
                 Spacer()
             }
             .frame(maxWidth: .infinity)
@@ -1946,14 +1894,14 @@ private struct SourcesPanel: View {
                 ForEach(Array(intake.log.enumerated().reversed()),
                         id: \.offset) { _, line in
                     Text(line).font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.dim)
+                        .foregroundStyle(Theme.dim)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .padding(.horizontal, 14).padding(.vertical, 6)
         }
         .frame(height: 84)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     private func thumb(_ path: String, side: CGFloat) -> some View {
@@ -1961,7 +1909,7 @@ private struct SourcesPanel: View {
             if let img = NSImage(contentsOfFile: path) {
                 Image(nsImage: img).resizable().scaledToFit()
             } else {
-                RoundedRectangle(cornerRadius: 3).fill(AT.panel2)
+                RoundedRectangle(cornerRadius: 3).fill(Theme.panel2)
             }
         }
         .frame(maxWidth: side, maxHeight: side)
@@ -2001,21 +1949,21 @@ private struct MeasurePanel: View {
                            + "known size in the shot, a ratio stays a ratio.",
                            "映像から採寸はできません。長さの基準が映って"
                            + "いなければ、比率は比率のままです。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 HStack(spacing: 12) {
                     counter(app.t("measured", "実測"),
-                            m.measureCounts["measured"] ?? 0, AT.ok)
+                            m.measureCounts["measured"] ?? 0, Theme.ok)
                     counter(app.t("derived", "計算値"),
-                            m.measureCounts["derived"] ?? 0, AT.warn)
+                            m.measureCounts["derived"] ?? 0, Theme.warn)
                     counter(app.t("contested", "食い違い"),
-                            m.measureCounts["contested"] ?? 0, AT.bad)
+                            m.measureCounts["contested"] ?? 0, Theme.bad)
                     counter(app.t("not taken", "未取得"),
-                            m.measureCounts["open"] ?? 0, AT.dim)
+                            m.measureCounts["open"] ?? 0, Theme.dim)
                 }
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
             Divider().opacity(0.25)
 
             ScrollView {
@@ -2028,7 +1976,7 @@ private struct MeasurePanel: View {
                                 Text(r.spot)
                                     .font(.system(size: 9,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                                 Spacer(minLength: 0)
                                 stateChip(r.state)
                             }
@@ -2036,7 +1984,7 @@ private struct MeasurePanel: View {
                                 Text("\(v, specifier: "%.1f") \(r.unit)")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundStyle(r.state == "DERIVED"
-                                                     ? AT.warn : AT.fg)
+                                                     ? Theme.warn : Theme.fg)
                             }
                             // **食い違いは両方出す。** どちらかを選んで
                             // 見せると、選んだのが誰なのか分からなくなる。
@@ -2046,37 +1994,37 @@ private struct MeasurePanel: View {
                                                 side.value, side.unit))
                                         .font(.system(size: 14,
                                                       weight: .semibold))
-                                        .foregroundStyle(AT.bad)
+                                        .foregroundStyle(Theme.bad)
                                     Text(side.source)
                                         .font(.system(size: 9))
-                                        .foregroundStyle(AT.faint)
+                                        .foregroundStyle(Theme.faint)
                                     if !side.by.isEmpty {
                                         Text("測: " + side.by)
                                             .font(.system(size: 9))
-                                            .foregroundStyle(AT.faint)
+                                            .foregroundStyle(Theme.faint)
                                     }
                                     Spacer(minLength: 0)
                                 }
                             }
                             if !r.why.isEmpty {
                                 Text(r.why).font(.system(size: 10))
-                                    .foregroundStyle(AT.bad)
+                                    .foregroundStyle(Theme.bad)
                             }
                             if !r.from.isEmpty {
                                 // 計算値は、どこから出たかを必ず伴う。
                                 Text("← \(r.from)")
                                     .font(.system(size: 10,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                             if !r.source.isEmpty {
                                 Text(r.source).font(.system(size: 9))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                             if !r.howToClose.isEmpty {
                                 Text("→ " + r.howToClose)
                                     .font(.system(size: 10))
-                                    .foregroundStyle(AT.warn)
+                                    .foregroundStyle(Theme.warn)
                             }
                         }
                         .padding(.horizontal, 14).padding(.vertical, 6)
@@ -2091,7 +2039,7 @@ private struct MeasurePanel: View {
             Divider().opacity(0.25)
             recorder
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task {
             await m.loadMeasures()
             await m.loadPattern()
@@ -2113,7 +2061,7 @@ private struct MeasurePanel: View {
                 if m.patternVerdict == "ANSWER" {
                     Text(String(format: "%.0f cm²", m.patternTotalArea))
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Button(app.t("Save SVG…", "SVGで書き出す…")) {
                         savePattern()
                     }.font(.system(size: 10))
@@ -2126,14 +2074,14 @@ private struct MeasurePanel: View {
                     Text(app.t("cannot draft yet — missing: ",
                                "まだ引けません。足りない寸法: ")
                          + m.patternMissing.joined(separator: "、"))
-                        .font(.system(size: 11)).foregroundStyle(AT.warn)
+                        .font(.system(size: 11)).foregroundStyle(Theme.warn)
                     Text("→ " + m.patternHowToClose)
-                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                        .font(.system(size: 10)).foregroundStyle(Theme.warn)
                     Text(app.t("A pattern is cut from. Missing measurements "
                                + "are not filled with defaults here.",
                                "型紙は裁つものなので、足りない寸法を既定で"
                                + "埋めません。"))
-                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
                 }
                 .padding(.horizontal, 14).padding(.vertical, 8)
             } else {
@@ -2149,7 +2097,7 @@ private struct MeasurePanel: View {
                     Text(app.t("sleeve not drafted — missing: ",
                                "袖は引いていない。足りない寸法: ")
                          + m.patternSleeveMissing.joined(separator: "、"))
-                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                        .font(.system(size: 10)).foregroundStyle(Theme.warn)
                         .padding(.horizontal, 14).padding(.top, 4)
                 }
 
@@ -2158,7 +2106,7 @@ private struct MeasurePanel: View {
                            + "(large = double, the back)",
                            "実線=出来上がり線 / 破線=裁ち切り線 / "
                            + "緑=布目線 / 点=合印（大きい方が双＝後ろ）"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    .font(.system(size: 9)).foregroundStyle(Theme.faint)
                     .padding(.horizontal, 14).padding(.top, 4)
 
                 // **合印はいせを運ぶ。** 区間ごとの数字を出さないと、
@@ -2175,7 +2123,7 @@ private struct MeasurePanel: View {
                                    + "相手なし \(m.notchUnpaired)"))
                             .font(.system(size: 9))
                             .foregroundStyle(m.notchUnpaired == 0
-                                             ? AT.faint : AT.bad)
+                                             ? Theme.faint : Theme.bad)
                             .padding(.trailing, 14)
                     }
                     .padding(.top, 10)
@@ -2188,17 +2136,17 @@ private struct MeasurePanel: View {
                                         e.capCm, e.armholeCm))
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                             Text(String(format: "%+.2fcm", e.easeCm))
                                 .font(.system(size: 11, weight: .semibold))
                                 // 脇の下のいせ 0 は正しい姿。
                                 .foregroundStyle(abs(e.easeCm) < 0.05
-                                                 ? AT.dim : AT.ok)
+                                                 ? Theme.dim : Theme.ok)
                             if abs(e.easeCm) < 0.05 {
                                 Text(app.t("no ease (armpit)",
                                            "いせ無し（脇の下）"))
                                     .font(.system(size: 9))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                             Spacer(minLength: 0)
                         }
@@ -2216,13 +2164,13 @@ private struct MeasurePanel: View {
                                 .frame(width: 90, alignment: .leading)
                             Text(String(format: "%.2fcm", r.cm))
                                 .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(r.cm == 0 ? AT.faint : AT.dim)
+                                .foregroundStyle(r.cm == 0 ? Theme.faint : Theme.dim)
                             Text(r.imperial)
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                             Text(r.why).font(.system(size: 9))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                             Spacer(minLength: 0)
                         }
                         .padding(.horizontal, 14).padding(.vertical, 2)
@@ -2230,7 +2178,7 @@ private struct MeasurePanel: View {
                     if !m.marksStandardNote.isEmpty {
                         Text(m.marksStandardNote)
                             .font(.system(size: 9))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                             .padding(.horizontal, 14).padding(.top, 3)
                     }
                 }
@@ -2249,19 +2197,19 @@ private struct MeasurePanel: View {
                                         c.lengthA, c.lengthB))
                                 .font(.system(size: 10,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                             Text(String(format: "%+.2fcm", c.difference))
                                 .font(.system(size: 12, weight: .semibold))
-                                .foregroundStyle(c.sewable ? AT.ok : AT.bad)
+                                .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
                             Text(c.sewable ? app.t("sewable", "縫える")
                                            : app.t("does not sew",
                                                    "このままでは縫えない"))
                                 .font(.system(size: 10))
-                                .foregroundStyle(c.sewable ? AT.ok : AT.bad)
+                                .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
                             Spacer(minLength: 0)
                         }
                         Text(c.why).font(.system(size: 9))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                     }
                     .padding(.horizontal, 14).padding(.vertical, 5)
                     Divider().opacity(0.1)
@@ -2269,9 +2217,9 @@ private struct MeasurePanel: View {
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(m.patternSeamAllowance).font(.system(size: 10))
-                        .foregroundStyle(AT.bad)
+                        .foregroundStyle(Theme.bad)
                     Text(m.patternNotPublished).font(.system(size: 9))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     // 式を全部見せる。名前だけ借りると監査できない。
                     DisclosureGroup(app.t("formulas used",
                                           "使った式（全部）")) {
@@ -2279,7 +2227,7 @@ private struct MeasurePanel: View {
                                 id: \.offset) { _, f in
                             HStack(alignment: .top, spacing: 8) {
                                 Text(f.0).font(.system(size: 10))
-                                    .foregroundStyle(AT.dim)
+                                    .foregroundStyle(Theme.dim)
                                     .frame(width: 150, alignment: .leading)
                                 Text(f.1).font(.system(size: 10,
                                                        design: .monospaced))
@@ -2360,15 +2308,15 @@ private struct MeasurePanel: View {
             }
             if !said.isEmpty && said != "ANSWER" {
                 Text(said).font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.bad)
+                    .foregroundStyle(Theme.bad)
             }
             Text(app.t("A ratio is not a length until its basis is measured.",
                        "比率は、基準が実測で入るまで長さになりません。"))
-                .font(.system(size: 9)).foregroundStyle(AT.faint)
+                .font(.system(size: 9)).foregroundStyle(Theme.faint)
         }
         .padding(13)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     private func counter(_ label: String, _ n: Int,
@@ -2377,17 +2325,17 @@ private struct MeasurePanel: View {
             Text("\(n)").font(.system(size: 13, weight: .semibold,
                                       design: .monospaced))
                 .foregroundStyle(colour)
-            Text(label).font(.system(size: 10)).foregroundStyle(AT.dim)
+            Text(label).font(.system(size: 10)).foregroundStyle(Theme.dim)
         }
     }
 
     private func stateChip(_ state: String) -> some View {
         let (label, colour): (String, Color) = {
             switch state {
-            case "MEASURED": return ("実測", AT.ok)
-            case "DERIVED": return ("計算値", AT.warn)
-            case "UNKNOWN_NO_BASIS": return ("基準待ち", AT.warn)
-            default: return ("未取得", AT.dim)
+            case "MEASURED": return ("実測", Theme.ok)
+            case "DERIVED": return ("計算値", Theme.warn)
+            case "UNKNOWN_NO_BASIS": return ("基準待ち", Theme.warn)
+            default: return ("未取得", Theme.dim)
             }
         }()
         return Text(label).font(.system(size: 9, weight: .semibold))
@@ -2427,35 +2375,35 @@ private struct DrawingPanel: View {
                            + "ledger always draws the same figure.",
                            "台帳から作図しています。生成ではありません。"
                            + "同じ台帳からは必ず同じ図が出ます。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 if !m.drawSkipped.isEmpty {
                     // **描かなかったものを、図の外でも言う。**
                     Text(app.t("not drawn (nothing confirmed): ",
                                "未確定のため描いていない: ")
                          + m.drawSkipped.joined(separator: "、"))
-                        .font(.system(size: 10)).foregroundStyle(AT.bad)
+                        .font(.system(size: 10)).foregroundStyle(Theme.bad)
                 }
                 if !m.drawDefaulted.isEmpty {
                     Text(app.t("drawn from default ratios: ",
                                "既定の比率で描いた寸法: ")
                          + m.drawDefaulted.joined(separator: "、"))
-                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                        .font(.system(size: 10)).foregroundStyle(Theme.warn)
                 }
                 if !said.isEmpty {
                     Text(said).font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(said == "ANSWER" ? AT.ok : AT.bad)
+                        .foregroundStyle(said == "ANSWER" ? Theme.ok : Theme.bad)
                 }
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
             Divider().opacity(0.25)
 
             ScrollView {
                 if m.drawShapes.isEmpty {
                     Text(app.t("Nothing confirmed yet — nothing to draw.",
                                "確定した項目がまだありません。"))
-                        .font(.system(size: 11)).foregroundStyle(AT.faint)
+                        .font(.system(size: 11)).foregroundStyle(Theme.faint)
                         .padding(24)
                 } else {
                     // **白い紙の上の黒い線。** 設計図は印刷して使う。
@@ -2488,7 +2436,7 @@ private struct DrawingPanel: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task { await m.loadDrawing() }
     }
 
@@ -2572,7 +2520,7 @@ private struct EvidencePanel: View {
                         .font(.system(size: 13, weight: .semibold))
                     Text("\(m.timeline.count)")
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Spacer()
                     Toggle(app.t("only what can be re-opened",
                                  "見に行けるものだけ"),
@@ -2585,11 +2533,11 @@ private struct EvidencePanel: View {
                            "読みは全部残しています（何も消しません）。"
                            + "同じコマの繰り返しを畳むのは、縫製師に渡す"
                            + "資料の中だけです。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
             Divider().opacity(0.25)
 
             ScrollView {
@@ -2598,7 +2546,7 @@ private struct EvidencePanel: View {
                         Text(app.t("Nothing recorded yet.",
                                    "まだ何も記録されていません。"))
                             .font(.system(size: 11))
-                            .foregroundStyle(AT.faint).padding(14)
+                            .foregroundStyle(Theme.faint).padding(14)
                     }
                     ForEach(rows) { r in
                         VStack(alignment: .leading, spacing: 3) {
@@ -2606,12 +2554,12 @@ private struct EvidencePanel: View {
                                 Text(r.at.isEmpty ? "—" : r.at)
                                     .font(.system(size: 11,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.dim)
+                                    .foregroundStyle(Theme.dim)
                                     .frame(width: 52, alignment: .leading)
                                 Text("\(r.part) / \(r.aspect)")
                                     .font(.system(size: 11,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.dim)
+                                    .foregroundStyle(Theme.dim)
                                 Text(r.value)
                                     .font(.system(size: 12, weight: .semibold))
                                 Spacer(minLength: 0)
@@ -2621,19 +2569,19 @@ private struct EvidencePanel: View {
                                 Text(r.source)
                                     .font(.system(size: 10,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                                 if !r.adoptedBy.isEmpty {
                                     Text(app.t("adopted by ", "採用: ")
                                          + r.adoptedBy)
                                         .font(.system(size: 10))
-                                        .foregroundStyle(AT.ok)
+                                        .foregroundStyle(Theme.ok)
                                 }
                                 Spacer(minLength: 0)
                                 reference(r)
                             }
                             if !r.note.isEmpty {
                                 Text(r.note).font(.system(size: 10))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                         }
                         .padding(.horizontal, 14).padding(.vertical, 7)
@@ -2643,7 +2591,7 @@ private struct EvidencePanel: View {
                 }
             }
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task { await m.load() }
     }
 
@@ -2662,7 +2610,7 @@ private struct EvidencePanel: View {
                     }
                 }
                 .buttonStyle(.link)
-                .foregroundStyle(AT.ok)
+                .foregroundStyle(Theme.ok)
 
                 // **コマの出どころ。** ファイル名だけでは、どの素材の
                 // どこを見たのかが残らない。紐づいていなければそう言う。
@@ -2674,14 +2622,14 @@ private struct EvidencePanel: View {
                              : o)
                             .font(.system(size: 9))
                             .foregroundStyle(o.hasPrefix("UNKNOWN")
-                                             ? AT.warn : AT.faint)
+                                             ? Theme.warn : Theme.faint)
                     } else {
                         Button(app.t("which source?", "どの素材から？")) {
                             Task { await m.loadClipOrigin(r.refPath) }
                         }
                         .buttonStyle(.plain)
                         .font(.system(size: 9))
-                        .foregroundStyle(AT.sel)
+                        .foregroundStyle(Theme.sel)
                     }
                 }
             }
@@ -2693,11 +2641,11 @@ private struct EvidencePanel: View {
                 Text(app.t("not on this machine", "この機体には無い"))
                     .font(.system(size: 10))
             }
-            .foregroundStyle(AT.warn)
+            .foregroundStyle(Theme.warn)
             .help(r.refPath)
         default:
             Text(app.t("no pointer", "参照なし"))
-                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .font(.system(size: 10)).foregroundStyle(Theme.faint)
         }
     }
 
@@ -2720,9 +2668,9 @@ private struct EvidencePanel: View {
     private func kindChip(_ kind: String) -> some View {
         let (label, colour): (String, Color) = {
             switch kind {
-            case "observation": return (app.t("observed", "観測"), AT.ok)
-            case "inference": return (app.t("inferred", "推論"), AT.warn)
-            default: return (app.t("proposal", "提案"), AT.sel)
+            case "observation": return (app.t("observed", "観測"), Theme.ok)
+            case "inference": return (app.t("inferred", "推論"), Theme.warn)
+            default: return (app.t("proposal", "提案"), Theme.sel)
             }
         }()
         return Text(label).font(.system(size: 9, weight: .semibold))
@@ -2775,11 +2723,11 @@ private struct MaterialsPanel: View {
                            "素材は身体のどこかにあるものではないので、図に"
                            + "印を打ちません。どこから来た値かを隣に置いて"
                            + "います — 生地は外から入りやすい側面です。"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(AT.panel)
+            .background(Theme.panel)
             Divider().opacity(0.25)
 
             ScrollView {
@@ -2795,7 +2743,7 @@ private struct MaterialsPanel: View {
                         Text(app.t("The engine has not answered yet.",
                                    "engine がまだ答えていません。"))
                             .font(.system(size: 11))
-                            .foregroundStyle(AT.faint).padding(14)
+                            .foregroundStyle(Theme.faint).padding(14)
                     }
                     Divider().opacity(0.2).padding(.top, 10)
                     fabricLibrary
@@ -2805,7 +2753,7 @@ private struct MaterialsPanel: View {
                 .padding(.bottom, 12)
             }
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task {
             await m.load()
             await m.loadFabrics()
@@ -2829,7 +2777,7 @@ private struct MaterialsPanel: View {
                      + app.t(" split", " 件が割れている"))
                     .font(.system(size: 10))
                     .foregroundStyle((m.fabricCounts["contested"] ?? 0) > 0
-                                     ? AT.bad : AT.faint)
+                                     ? Theme.bad : Theme.faint)
                     .padding(.trailing, 14)
             }
             .padding(.top, 8)
@@ -2839,7 +2787,7 @@ private struct MaterialsPanel: View {
                 Text(app.t("DROP A PLAIN 40×40 SQUARE",
                            "平らな 40×40 の布を落としてみる"))
                     .font(.system(size: 10, weight: .semibold))
-                    .foregroundStyle(AT.dim)
+                    .foregroundStyle(Theme.dim)
                 Spacer(minLength: 0)
                 Picker("", selection: $tryFabric) {
                     Text(app.t("pick", "生地")).tag("")
@@ -2859,25 +2807,25 @@ private struct MaterialsPanel: View {
                     HStack(spacing: 8) {
                         Text(c.name).font(.system(size: 10,
                                                   design: .monospaced))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                             .frame(width: 70, alignment: .leading)
                         Text(c.verdict == "ANSWER"
                              ? app.t("passed", "通った") : c.verdict)
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundStyle(c.verdict == "ANSWER"
-                                             ? AT.ok : AT.bad)
+                                             ? Theme.ok : Theme.bad)
                         if let d = c.difference {
                             Text(String(format: "%.3f", d)
                                  + (c.tolerance.map {
                                      String(format: " / %.2f", $0) } ?? ""))
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         if !c.detail.isEmpty {
                             Text(c.detail).font(.system(size: 9,
                                                         design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         Spacer(minLength: 0)
                     }
@@ -2891,10 +2839,10 @@ private struct MaterialsPanel: View {
                                  ? app.t("why", "なぜ")
                                  : app.t("assumed", "仮定"))
                                 .font(.system(size: 9, weight: .semibold))
-                                .foregroundStyle(AT.warn)
+                                .foregroundStyle(Theme.warn)
                                 .frame(width: 34, alignment: .leading)
                             Text(v).font(.system(size: 9))
-                                .foregroundStyle(AT.warn)
+                                .foregroundStyle(Theme.warn)
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)
                         }
@@ -2903,7 +2851,7 @@ private struct MaterialsPanel: View {
                 }
                 if !m.drapeWhyNoShape.isEmpty {
                     Text(m.drapeWhyNoShape).font(.system(size: 10))
-                        .foregroundStyle(AT.warn)
+                        .foregroundStyle(Theme.warn)
                         .padding(.horizontal, 14).padding(.bottom, 4)
                 }
             }
@@ -2916,15 +2864,15 @@ private struct MaterialsPanel: View {
                                                     weight: .semibold))
                         Text(r.prop).font(.system(size: 10,
                                                   design: .monospaced))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                         Spacer(minLength: 0)
                         if r.state == "CONTESTED" {
                             Text(app.t("split", "割れている"))
                                 .font(.system(size: 9, weight: .semibold))
                                 .padding(.horizontal, 6).padding(.vertical, 1)
-                                .background(Capsule().stroke(AT.bad,
+                                .background(Capsule().stroke(Theme.bad,
                                                              lineWidth: 1))
-                                .foregroundStyle(AT.bad)
+                                .foregroundStyle(Theme.bad)
                         }
                     }
                     if r.state == "CONTESTED" {
@@ -2939,11 +2887,11 @@ private struct MaterialsPanel: View {
                                         .joined(separator: " · "))
                                     .font(.system(size: 9,
                                                   design: .monospaced))
-                                    .foregroundStyle(AT.faint)
+                                    .foregroundStyle(Theme.faint)
                             }
                         }
                         Text("→ " + r.howToClose).font(.system(size: 10))
-                            .foregroundStyle(AT.warn)
+                            .foregroundStyle(Theme.warn)
                     } else {
                         HStack(spacing: 6) {
                             Text(r.value).font(.system(size: 12,
@@ -2951,7 +2899,7 @@ private struct MaterialsPanel: View {
                             Text(r.sources.joined(separator: " · "))
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                     }
                 }
@@ -2998,17 +2946,17 @@ private struct MaterialsPanel: View {
             }
             if !said.isEmpty && said != "ANSWER" {
                 Text(said).font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.bad)
+                    .foregroundStyle(Theme.bad)
             }
             Text(app.t("A property with no source is refused — an unsourced "
                        + "weight is not even a number somebody said.",
                        "出典の無い性質は断ります。出典の無い目付は、"
                        + "誰かが言った数字ですらありません。"))
-                .font(.system(size: 9)).foregroundStyle(AT.faint)
+                .font(.system(size: 9)).foregroundStyle(Theme.faint)
         }
         .padding(13)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     // MARK: 重ね着（引き算）
@@ -3045,15 +2993,15 @@ private struct MaterialsPanel: View {
                         Text(String(format: "%+.1fcm", slack))
                             .font(.system(size: 16, weight: .semibold))
                             // **負を丸めない。** 入らない服は入らない。
-                            .foregroundStyle(slack < 0 ? AT.bad : AT.ok)
+                            .foregroundStyle(slack < 0 ? Theme.bad : Theme.ok)
                         Text(r.fits ? app.t("goes over", "入る")
                                     : app.t("does not go over", "入らない"))
                             .font(.system(size: 11))
-                            .foregroundStyle(slack < 0 ? AT.bad : AT.ok)
+                            .foregroundStyle(slack < 0 ? Theme.bad : Theme.ok)
                         Text(String(format: app.t("(layers add %.1fcm)",
                                                   "（層が %.1fcm 足す）"),
                                     r.thicknessAdds))
-                            .font(.system(size: 10)).foregroundStyle(AT.faint)
+                            .font(.system(size: 10)).foregroundStyle(Theme.faint)
                     }
                     ForEach(Array(r.layers.enumerated()), id: \.offset) { _, l in
                         Text("· \(l.fabric): "
@@ -3062,18 +3010,18 @@ private struct MaterialsPanel: View {
                              + (l.state == "CONTESTED"
                                 ? app.t(" (split)", "（割れている）") : ""))
                             .font(.system(size: 10))
-                            .foregroundStyle(l.thickness == nil ? AT.warn
-                                                                : AT.dim)
+                            .foregroundStyle(l.thickness == nil ? Theme.warn
+                                                                : Theme.dim)
                     }
                 } else {
                     Text(r.missing.joined(separator: "、")
                          + app.t(" missing", " が足りません"))
-                        .font(.system(size: 11)).foregroundStyle(AT.warn)
+                        .font(.system(size: 11)).foregroundStyle(Theme.warn)
                     Text("→ " + r.howToClose).font(.system(size: 10))
-                        .foregroundStyle(AT.warn)
+                        .foregroundStyle(Theme.warn)
                 }
                 Text(r.disclaimer).font(.system(size: 9))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
             }
         }
         .padding(.horizontal, 14).padding(.bottom, 10)
@@ -3085,9 +3033,9 @@ private struct MaterialsPanel: View {
         return VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 8) {
                 Text(aspect).font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(AT.dim)
-                Text(AT.symbol(s.state)).font(.system(size: 10))
-                    .foregroundStyle(AT.color(s.state))
+                    .foregroundStyle(Theme.dim)
+                Text(Theme.symbol(s.state)).font(.system(size: 10))
+                    .foregroundStyle(Theme.color(s.state))
                 Text(s.value.isEmpty ? "—" : s.value)
                     .font(.system(size: 13, weight: .semibold))
                 Spacer(minLength: 0)
@@ -3102,20 +3050,20 @@ private struct MaterialsPanel: View {
             if !s.sources.isEmpty {
                 Text(s.sources.joined(separator: " · "))
                     .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
             }
             if !s.adoptedBy.isEmpty {
                 Text(app.t("adopted by ", "採用: ") + s.adoptedBy)
-                    .font(.system(size: 10)).foregroundStyle(AT.ok)
+                    .font(.system(size: 10)).foregroundStyle(Theme.ok)
             }
             ForEach(Array(s.proposals.enumerated()), id: \.offset) { _, p in
                 HStack(spacing: 6) {
                     Text(app.t("proposal", "提案")).font(.system(size: 9))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Text(p.value).font(.system(size: 11))
                     Text(p.source).font(.system(size: 9,
                                                 design: .monospaced))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                     Button(app.t("adopt", "採用")) {
                         m.pendingAdopt = .init(part: part, aspect: aspect,
                                                value: p.value)
@@ -3124,7 +3072,7 @@ private struct MaterialsPanel: View {
             }
             if !s.howToClose.isEmpty {
                 Text("→ " + s.howToClose).font(.system(size: 10))
-                    .foregroundStyle(AT.warn)
+                    .foregroundStyle(Theme.warn)
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 7)
@@ -3169,7 +3117,7 @@ private struct SolidPanel: View {
                 }
             }
         }
-        .background(AT.bg)
+        .background(Theme.bg)
         .task {
             await m.loadSolid()
             await m.loadEase()
@@ -3186,13 +3134,13 @@ private struct SolidPanel: View {
                     .font(.system(size: 13, weight: .semibold))
                 Spacer()
                 Text(app.t("reference body", "基準体"))
-                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 ForEach(Self.sizes, id: \.self) { s in
                     Text(s).font(.system(size: 11))
                         .padding(.horizontal, 9).padding(.vertical, 2)
                         .background(Capsule().stroke(
-                            m.bodySize == s ? AT.sel : AT.line, lineWidth: 1))
-                        .foregroundStyle(m.bodySize == s ? AT.fg : AT.dim)
+                            m.bodySize == s ? Theme.sel : Theme.line, lineWidth: 1))
+                        .foregroundStyle(m.bodySize == s ? Theme.fg : Theme.dim)
                         .onTapGesture {
                             m.bodySize = s
                             Task { await m.loadEase() }
@@ -3205,16 +3153,16 @@ private struct SolidPanel: View {
             // **知らないことを言わない。** ここが一番効く一行。
             if !m.solidDisclaimer.isEmpty {
                 Text(m.solidDisclaimer).font(.system(size: 10))
-                    .foregroundStyle(AT.warn)
+                    .foregroundStyle(Theme.warn)
             }
             if !said.isEmpty {
                 Text(said).font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(said == "ANSWER" ? AT.ok : AT.bad)
+                    .foregroundStyle(said == "ANSWER" ? Theme.ok : Theme.bad)
             }
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AT.panel)
+        .background(Theme.panel)
     }
 
     @ViewBuilder
@@ -3223,7 +3171,7 @@ private struct SolidPanel: View {
             if m.solidVertices.isEmpty {
                 Text(app.t("Nothing confirmed — no surface to build.",
                            "確定した項目がありません。面を作れません。"))
-                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                    .font(.system(size: 11)).foregroundStyle(Theme.faint)
                     .padding(14)
             } else {
                 SolidView(vertices: m.solidVertices, faces: m.solidFaces)
@@ -3233,16 +3181,16 @@ private struct SolidPanel: View {
                         Text(app.t("not built (nothing confirmed): ",
                                    "確定が無いため作っていない: ")
                              + m.solidSkipped.joined(separator: "、"))
-                            .font(.system(size: 10)).foregroundStyle(AT.bad)
+                            .font(.system(size: 10)).foregroundStyle(Theme.bad)
                     }
                     // **仮定を黙って形にしない。**
                     Text(app.t("depth is an assumed ratio of ",
                                "奥行きは仮定の比 ")
                          + String(format: "%.2f", m.solidAssumedDepth)
                          + app.t(" — not measured", "（実測ではない）"))
-                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                        .font(.system(size: 10)).foregroundStyle(Theme.warn)
                     Text(m.solidAssumedWhy).font(.system(size: 9))
-                        .foregroundStyle(AT.faint)
+                        .foregroundStyle(Theme.faint)
                 }
                 .padding(.horizontal, 14)
             }
@@ -3282,7 +3230,7 @@ private struct SolidPanel: View {
                        + "pass.",
                        "縫い目は型紙の名前付き辺から決まります（近さでは"
                        + "決めません）。検査に通らなければ形は返しません。"))
-                .font(.system(size: 10)).foregroundStyle(AT.faint)
+                .font(.system(size: 10)).foregroundStyle(Theme.faint)
                 .padding(.horizontal, 14).padding(.top, 2)
 
             if !m.sewVerdict.isEmpty {
@@ -3290,18 +3238,18 @@ private struct SolidPanel: View {
                     HStack(spacing: 8) {
                         Text(s.seam).font(.system(size: 10,
                                                   design: .monospaced))
-                            .foregroundStyle(AT.dim)
+                            .foregroundStyle(Theme.dim)
                         Text(s.state == "SEWN"
                              ? app.t("\(s.stitches) stitches",
                                      "\(s.stitches) 針")
                              : s.state)
                             .font(.system(size: 10))
-                            .foregroundStyle(s.state == "SEWN" ? AT.ok : AT.bad)
+                            .foregroundStyle(s.state == "SEWN" ? Theme.ok : Theme.bad)
                         if let a = s.lengthA, let b = s.lengthB {
                             Text(String(format: "%.1f / %.1f cm", a, b))
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         Spacer(minLength: 0)
                     }
@@ -3317,19 +3265,19 @@ private struct SolidPanel: View {
                              ? app.t("passed", "通った") : c.verdict)
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundStyle(c.verdict == "ANSWER"
-                                             ? AT.ok : AT.bad)
+                                             ? Theme.ok : Theme.bad)
                         if let d = c.difference {
                             Text(String(format: "%.2f", d)
                                  + (c.tolerance.map {
                                      String(format: " / 許容 %.2f", $0) } ?? ""))
                                 .font(.system(size: 9,
                                               design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         if !c.detail.isEmpty {
                             Text(c.detail).font(.system(size: 9,
                                                         design: .monospaced))
-                                .foregroundStyle(AT.faint)
+                                .foregroundStyle(Theme.faint)
                         }
                         Spacer(minLength: 0)
                     }
@@ -3338,7 +3286,7 @@ private struct SolidPanel: View {
                     if !c.toleranceFrom.isEmpty {
                         Text(app.t("tolerance: \(c.toleranceFrom)",
                                    "許容の出どころ: \(c.toleranceFrom)"))
-                            .font(.system(size: 9)).foregroundStyle(AT.faint)
+                            .font(.system(size: 9)).foregroundStyle(Theme.faint)
                             .padding(.leading, 132)
                     }
                     // **揺れと別形を分けて言う。** 「合わない」だけでは
@@ -3355,7 +3303,7 @@ private struct SolidPanel: View {
                                      + String(format: "%.1f", c.shapeDifference ?? 0)
                                      + " cm 違う）"))
                             .font(.system(size: 9))
-                            .foregroundStyle(same ? AT.dim : AT.warn)
+                            .foregroundStyle(same ? Theme.dim : Theme.warn)
                             .padding(.leading, 132)
                     }
                     if !c.byPiece.isEmpty {
@@ -3363,7 +3311,7 @@ private struct SolidPanel: View {
                             .map { String(format: "%@ %.1f", $0.key, $0.value) }
                             .joined(separator: "   "))
                             .font(.system(size: 9, design: .monospaced))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                             .padding(.leading, 132)
                     }
                 }
@@ -3377,14 +3325,14 @@ private struct SolidPanel: View {
                     // **形を返していない理由を書く。** 空欄は「まだ押して
                     // いない」と読まれる。
                     Text(m.sewWhyNoShape).font(.system(size: 10))
-                        .foregroundStyle(AT.warn)
+                        .foregroundStyle(Theme.warn)
                         .padding(.horizontal, 14).padding(.top, 4)
                     if !m.sewShapes.isEmpty {
                         Text(app.t("all \(m.sewShapes.count) shapes are "
                                    + "returned — none is chosen",
                                    "\(m.sewShapes.count) つの形を全部返して"
                                    + "います。どれも選んでいません"))
-                            .font(.system(size: 10)).foregroundStyle(AT.dim)
+                            .font(.system(size: 10)).foregroundStyle(Theme.dim)
                             .padding(.horizontal, 14)
                         HStack(spacing: 10) {
                             ForEach(Array(m.sewShapes.enumerated()),
@@ -3396,7 +3344,7 @@ private struct SolidPanel: View {
                                     Text(app.t("start \(i + 1)",
                                                "始点 \(i + 1)"))
                                         .font(.system(size: 9))
-                                        .foregroundStyle(AT.faint)
+                                        .foregroundStyle(Theme.faint)
                                 }
                             }
                         }
@@ -3427,7 +3375,7 @@ private struct SolidPanel: View {
             Text(app.t("EASE — garment minus body", "ゆとり — 服 − 体"))
                 .railHead().padding(.top, 10)
             Text(m.easeDisclaimer).font(.system(size: 10))
-                .foregroundStyle(AT.warn)
+                .foregroundStyle(Theme.warn)
                 .padding(.horizontal, 14).padding(.bottom, 6)
             // **何から引いた差なのかを画面に出す。** 基準体が見えないと、
             // ゆとりは出どころの無い数字になる。
@@ -3436,36 +3384,36 @@ private struct SolidPanel: View {
                     .map { String(format: "%@ %.1f", $0.key, $0.value) }
                     .joined(separator: "   "))
                     .font(.system(size: 9, design: .monospaced))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
                     .padding(.horizontal, 14)
                 Text(m.bodyRefNote).font(.system(size: 9))
-                    .foregroundStyle(AT.faint)
+                    .foregroundStyle(Theme.faint)
                     .padding(.horizontal, 14).padding(.bottom, 6)
             }
             ForEach(m.easeRows) { r in
                 HStack(spacing: 10) {
                     Text(r.spot).font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(AT.dim)
+                        .foregroundStyle(Theme.dim)
                         .frame(width: 110, alignment: .leading)
                     if let e = r.ease, let g = r.garment {
                         Text(String(format: "%.1f − %.1f", g, r.body))
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(AT.faint)
+                            .foregroundStyle(Theme.faint)
                         Text(String(format: "%+.1f%@", e, r.unit))
                             .font(.system(size: 13, weight: .semibold))
                             // 負のゆとりは丸めない。入らない服は入らない。
-                            .foregroundStyle(e < 0 ? AT.bad : AT.ok)
+                            .foregroundStyle(e < 0 ? Theme.bad : Theme.ok)
                         if r.fromDerived {
                             Text(app.t("(from a derived length)",
                                        "（計算値の上のゆとり）"))
                                 .font(.system(size: 9))
-                                .foregroundStyle(AT.warn)
+                                .foregroundStyle(Theme.warn)
                         }
                     } else {
                         Text(app.t("no basis", "基準なし"))
-                            .font(.system(size: 11)).foregroundStyle(AT.faint)
+                            .font(.system(size: 11)).foregroundStyle(Theme.faint)
                         Text("→ " + r.howToClose).font(.system(size: 10))
-                            .foregroundStyle(AT.warn)
+                            .foregroundStyle(Theme.warn)
                     }
                     Spacer(minLength: 0)
                 }
@@ -3486,7 +3434,7 @@ private struct SolidPanel: View {
                         if size == m.gradeBase {
                             Text(app.t("base (measured)", "基準（実測）"))
                                 .font(.system(size: 9))
-                                .foregroundStyle(AT.ok)
+                                .foregroundStyle(Theme.ok)
                         }
                         Spacer(minLength: 0)
                     }
@@ -3494,27 +3442,27 @@ private struct SolidPanel: View {
                         HStack(spacing: 8) {
                             Text(r.name.isEmpty ? r.spot : r.name)
                                 .font(.system(size: 10))
-                                .foregroundStyle(AT.dim)
+                                .foregroundStyle(Theme.dim)
                                 .frame(width: 90, alignment: .leading)
                             if let v = r.value {
                                 Text(String(format: "%.1f%@", v, r.unit))
                                     .font(.system(size: 11,
                                                   weight: .semibold))
                                     .foregroundStyle(r.state == "MEASURED"
-                                                     ? AT.fg : AT.warn)
-                                Text(AT.symbol(r.state))
+                                                     ? Theme.fg : Theme.warn)
+                                Text(Theme.symbol(r.state))
                                     .font(.system(size: 9))
-                                    .foregroundStyle(AT.color(r.state))
+                                    .foregroundStyle(Theme.color(r.state))
                                 if !r.from.isEmpty {
                                     Text("← " + r.from)
                                         .font(.system(size: 9,
                                                       design: .monospaced))
-                                        .foregroundStyle(AT.faint)
+                                        .foregroundStyle(Theme.faint)
                                 }
                             } else {
                                 Text("→ " + r.howToClose)
                                     .font(.system(size: 10))
-                                    .foregroundStyle(AT.warn)
+                                    .foregroundStyle(Theme.warn)
                             }
                             Spacer(minLength: 0)
                         }
@@ -3611,25 +3559,25 @@ private struct PatternFigure: View {
                     // 裁ち切り線は破線。**裁つのはこちら。**
                     if !sh.cut.isEmpty {
                         poly(sh.cut, s)
-                            .stroke(AT.bad,
+                            .stroke(Theme.bad,
                                     style: StrokeStyle(lineWidth: 0.6,
                                                        dash: [3, 2]))
                     }
-                    poly(sh.points, s).stroke(AT.dim, lineWidth: 0.9)
+                    poly(sh.points, s).stroke(Theme.dim, lineWidth: 0.9)
                     if sh.grain.count == 2 {
                         Path { p in
                             p.move(to: CGPoint(x: sh.grain[0].x * s,
                                                y: sh.grain[0].y * s))
                             p.addLine(to: CGPoint(x: sh.grain[1].x * s,
                                                   y: sh.grain[1].y * s))
-                        }.stroke(AT.ok, lineWidth: 0.8)
+                        }.stroke(Theme.ok, lineWidth: 0.8)
                     }
                     // **合印は実物 2.5mm。** 画面ではそのままだと見えない
                     // ので、印の位置に丸を打つ。深さは表で出す。
                     ForEach(Array(sh.notches.enumerated()),
                             id: \.offset) { _, n in
                         Circle()
-                            .fill(n.double ? AT.sel : Color(AT.line))
+                            .fill(n.double ? Theme.sel : Color(Theme.line))
                             .frame(width: n.double ? 5 : 3.5,
                                    height: n.double ? 5 : 3.5)
                             .position(x: n.at.x * s, y: n.at.y * s)

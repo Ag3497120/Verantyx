@@ -18,6 +18,13 @@ import Vision
 @MainActor
 final class AtelierIntake: ObservableObject {
 
+    // AtelierView used to own this as a private @StateObject. The shell's
+    // composer (UnifiedComposerView) needs the SAME intake path for a photo
+    // or clip attached in Atelier mode — not a second one that registers
+    // material into a ledger AtelierView never reads from — so this is now
+    // reachable from both.
+    static let shared = AtelierIntake()
+
     @Published var busy = false
     @Published var stage = ""
     @Published var log: [String] = []

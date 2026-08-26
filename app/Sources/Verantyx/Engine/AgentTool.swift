@@ -3427,7 +3427,7 @@ actor AgentToolExecutor {
                 ToastManager.shared.show(
                     "📡 AI が MCP を追加: \(name) (\(toolCount) tools)",
                     icon: "puzzlepiece.extension.fill",
-                    color: Color(red: 0.3, green: 0.85, blue: 0.5),
+                    color: Theme.ok,
                     duration: 4.0
                 )
             }
@@ -3442,7 +3442,7 @@ actor AgentToolExecutor {
                 ToastManager.shared.show(
                     "🗑️ AI が MCP を削除: \(name)",
                     icon: "minus.circle.fill",
-                    color: Color(red: 0.9, green: 0.4, blue: 0.4),
+                    color: Theme.bad,
                     duration: 3.0
                 )
                 return true

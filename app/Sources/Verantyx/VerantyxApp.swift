@@ -310,6 +310,12 @@ struct VerantyxApp: App {
                     // application rather than to this window.
                     ScreenEdgeGlowController.shared.start()
 
+                    // 外観 (System/Light/Dark) は SwiftUI の View が生きる前から
+                    // 効かせる必要がある — NSApp.appearance はウィンドウが最初に
+                    // 描かれる前に決まっていないと、起動直後の一瞬だけ違う配色が
+                    // 見えるちらつきになる。
+                    AppAppearanceMode.loadPersisted().apply()
+
                     // ── 永続化設定を最初に復元（モデル/ワークスペース/APIキー等） ──
                     appState.loadPersistedSettings()
 

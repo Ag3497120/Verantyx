@@ -11,9 +11,10 @@ import Highlightr
 
 struct HumanPriorityModeView: View {
     @EnvironmentObject var app: AppState
-    // Two panes by default: the stage and the chat. Files live as a stage
-    // face now; a left column appears only when an activity icon is opened.
-    @State private var activitySection: ActivityBarView.ActivitySection? = nil
+    // The IDE shell (tabs, left/right panels, garment full-width) now owns
+    // the layout that used to be `activitySection` + the editor @State
+    // below, scattered across this view — see IDEShellView.swift and
+    // ShellLayoutState.swift.
     @State private var showSettings     = false
     @State private var showMCPQuick     = false
     @State private var showL25ConversionAlert = false
@@ -22,12 +23,6 @@ struct HumanPriorityModeView: View {
     /// onChange はどちらでも発火するので、この一段が無いと毎回の起動で尋ねてしまう。
     @State private var hasSeenInitialWorkspace = false
 
-    // Editor state
-    @State private var editorContent: String = ""
-    @State private var editorLanguage: String = "swift"
-    @State private var editorScrollCommand: EditorScrollCommand? = nil
-    @State private var hasUnsavedChanges = false
-    @State private var saveStatus: SaveStatus = .saved
     @State private var showPipelineSheet = false
     @State private var pipelineTask: String = ""
 
@@ -39,8 +34,6 @@ struct HumanPriorityModeView: View {
     @State private var veraAShowConnectSheet = false
     @State private var veraAShowPendingToolCalls = false
     @State private var veraAShowReasoningTimeline = false
-
-    enum SaveStatus { case saved, unsaved, saving }
 
     // MARK: - L2.5 の確認を一度だけにする記録
     //
@@ -96,7 +89,7 @@ struct HumanPriorityModeView: View {
                 Spacer()
             }
             .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+            .background(Theme.panel)
             Divider().opacity(0.3)
 
             Group {
@@ -118,32 +111,21 @@ struct HumanPriorityModeView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .toastOverlay()
     }
 
     private var normalModeBody: some View {
         ZStack {
             VStack(spacing: 0) {
-                HStack(spacing: 0) {
-
-                    // The 48pt icon rail is gone. It was five permanent
-                    // glyphs standing for five screens, and a person who
-                    // wants git says "git" — the rail asked them to learn
-                    // which drawing meant it instead. Every section it
-                    // opened is now summoned by name (VeraSummon), and the
-                    // sections still render exactly where they did.
-
-                    // One surface + chat. An activity selection used to
-                    // dock as a THIRD column with its own divider, showing
-                    // (for example) memory beside the stage's own memory
-                    // tab. Now the selection opens IN the single center
-                    // surface — same place the stage, the AI's terminal,
-                    // and its named panels live — and Explorer returns to
-                    // the stage. One window, one border: the chat's.
-                    centerAndRightPanes
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // The 48pt icon rail, the old 3rd-column activity dock, and
+                // the single-surface "stage" this used to route through are
+                // all gone — IDEShellView is the one shell now: left rail,
+                // centre tabs, right panel, all backed by `app.shell`
+                // (ShellLayoutState) instead of this view's own @State.
+                IDEShellView(shell: app.shell)
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 // ── Loaded Model Panel — shows when model is active ───────
                 Group {
@@ -161,7 +143,7 @@ struct HumanPriorityModeView: View {
                 Divider().opacity(0.4)
                 humanPriorityStatusBar
             }
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
 
             // ── Settings overlay (same pattern as MainSplitView) ─────────────
             if showSettings {
@@ -182,28 +164,25 @@ struct HumanPriorityModeView: View {
         }
         .animation(.easeOut(duration: 0.18), value: showSettings)
         .toastOverlay()
-        // The OpenMCPPanel / OpenVeraDock / OpenGrowthPanel /
-        // OpenEvolutionPanel receivers are gone. Each opened a SECOND copy
-        // of a screen that already had a home: MCP as a docked server list
-        // beside the hub, the Vera dock beside the full-window one, and so
-        // on. Three of the four had no poster left at all — they were doors
-        // standing in a field. Everything routes through `app.fullSurface`
-        // now, which is the one the Gatekeeper menu, the menu bar and the
-        // summon table all already used.
         // ── 名前で呼ばれた画面 ────────────────────────────────────────
-        // Posted by VeraSummon when the person types the word. The rail
-        // that used to post these is gone; the destinations are not.
+        // Posted by VeraSummon when the person types the word. These used
+        // to toggle the old `activitySection`; now they open (or activate)
+        // the equivalent shell tab, the same door a click on the rail uses.
         .onReceive(NotificationCenter.default.publisher(
             for: VeraSummon.Command.files.notification)) { _ in
-            activitySection = (activitySection == .explorer) ? nil : .explorer
+            if let ws = app.workspaceURL {
+                app.shell.openTab(.folder(path: ws.path))
+            } else {
+                app.openWorkspace()
+            }
         }
         .onReceive(NotificationCenter.default.publisher(
             for: VeraSummon.Command.git.notification)) { _ in
-            activitySection = (activitySection == .git) ? nil : .git
+            app.shell.openTab(.panel(.git))
         }
         .onReceive(NotificationCenter.default.publisher(
             for: VeraSummon.Command.search.notification)) { _ in
-            activitySection = (activitySection == .search) ? nil : .search
+            app.shell.openTab(.search)
         }
         // A map is built, not shown: saying マップ starts the L2.5 index
         // over the open workspace, which is what the header button did.
@@ -217,23 +196,11 @@ struct HumanPriorityModeView: View {
             for: VeraSummon.Command.pipeline.notification)) { _ in
             showPipelineSheet = true
         }
-        // ── Settings を開く ──────────────────────────────────────────────────
-        .onChange(of: activitySection) { _, section in
-            if section == .settings {
-                withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    activitySection = nil
-                }
-            }
-        }
-        .onChange(of: app.selectedFile) { _, url in
-            loadFileIntoEditor(url: url)
-        }
-        .onChange(of: app.showGatekeeperRawCode) { _, _ in
-            loadFileIntoEditor(url: app.selectedFile)
+        .sheet(isPresented: $showPipelineSheet) {
+            PipelineLaunchSheet(isPresented: $showPipelineSheet, taskText: $pipelineTask)
+                .environmentObject(app)
         }
         .onAppear {
-            loadFileIntoEditor(url: app.selectedFile)
             // ProcessMonitor 起動 (CPU 監視開始)
             ProcessMonitor.shared.start()
         }
@@ -341,12 +308,15 @@ struct HumanPriorityModeView: View {
                 // side here, the feature panel is the small/secondary one.
                 minLeft: 360, maxLeft: 99999, minRight: 280, initialLeft: 820
             ) {
-                aiChatPanel
+                // `aiChatPanel` moved into IDEShellView; this dead layout
+                // (no call sites — see the comment above `body`) keeps
+                // compiling against the same underlying view directly.
+                AgentChatView().environmentObject(app)
             } right: {
                 veraAFeaturePanel
             }
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .sheet(isPresented: $veraAShowConnectSheet) {
             PipeConnectSheet().environmentObject(app)
         }
@@ -365,7 +335,7 @@ struct HumanPriorityModeView: View {
                         .font(.system(size: 15))
                         .foregroundStyle(veraAPanelTab == tab
                             ? Color(red: 0.55, green: 0.8, blue: 1.0)
-                            : Color(red: 0.45, green: 0.45, blue: 0.55))
+                            : Theme.dim)
                         .frame(width: 40, height: 34)
                         .background(
                             RoundedRectangle(cornerRadius: 6)
@@ -381,7 +351,7 @@ struct HumanPriorityModeView: View {
         }
         .padding(.vertical, 8)
         .frame(width: 48)
-        .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+        .background(Theme.panel)
     }
 
     private var veraAFeaturePanel: some View {
@@ -395,7 +365,7 @@ struct HumanPriorityModeView: View {
                             .font(.system(size: 10, weight: veraAPanelTab == tab ? .bold : .regular))
                             .foregroundStyle(veraAPanelTab == tab
                                 ? Color.white
-                                : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                : Theme.dim)
                             .padding(.horizontal, 8).padding(.vertical, 3)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
@@ -409,7 +379,7 @@ struct HumanPriorityModeView: View {
             .padding(.horizontal, 8)
             .padding(.top, 6)
             .padding(.bottom, 4)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
 
             Divider().opacity(0.25)
 
@@ -438,396 +408,37 @@ struct HumanPriorityModeView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 
-    @ViewBuilder
-    private var centerAndRightPanes: some View {
-        // One screen, every mode. Vera mode already took the whole
-        // surface; the others kept a permanent editor half beside the
-        // chat, which meant the app looked like two different products
-        // depending on a pull-down. It is the same conversation in all
-        // five — only the reply differs — so it gets the same window.
-        //
-        // The editor is not deleted, it is asked for: 「ファイル」「git」
-        // 「検索」 open it beside the chat, and saying the word again
-        // closes it. Nothing is reachable only by having been left open.
-        Group {
-            if activitySection != nil {
-                splitPanes
-            } else {
-                aiChatPanel
-            }
-        }
-    }
-
-    private var splitPanes: some View {
-        // ③ Inner split: [surface] | [AI Chat]
-        ResizableHSplit(
-            // minRight raised from 100 -- same reasoning as MainSplitView's
-            // centerAndRightPanes: the chat pane's own layout needs more
-            // room before its elements start crushing together.
-            minLeft: 100, maxLeft: 99999, minRight: 300, initialLeft: 600
-        ) {
-            // ── Center: the one surface ────────────────────────
-            // Activity sections render here full-size instead of as a
-            // docked side column; Explorer (or deselecting) shows the
-            // stage.
-            // Only the three that belong BESIDE the editor: what you are
-            // looking at, what changed, what you are looking for. MCP, the
-            // Vera dock, growth and self-evolution used to be listed here
-            // too — full-window screens rendered a second time in a 600pt
-            // column. One home each; theirs is `app.fullSurface`.
-            if let section = activitySection, section != .explorer {
-                Group {
-                    switch section {
-                    case .search:    GlobalSearchView().environmentObject(app)
-                    case .git:       GitPanelView().environmentObject(app)
-                    default:         codeEditorPanel
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                codeEditorPanel
-            }
-        } right: {
-            // ── Right: AI Chat ─────────────────────────────────
-            aiChatPanel
-        }
-    }
-
-    // MARK: - Code Editor Panel
-
-    private var codeEditorPanel: some View {
-        VStack(spacing: 0) {
-            editorTabBar
-            L25StatusBar()
-                .environmentObject(app)
-            Divider().opacity(0.3)
-
-            // ── The stage strip: what this single surface is showing ────
-            // Editor / terminal / diff / artifact / memory plus every panel
-            // the agent has defined and named. One surface, many faces —
-            // the terminal is no longer a bottom split, the memory
-            // inspector no longer a separate tab bar.
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 4) {
-                    // Files chip removed by request — the editor tab bar and
-                    // the toolbar's Open Folder cover file access, and the
-                    // stage stays about what's being worked ON.
-                    stageChip(app.t("Editor", "エディタ"), .editor)
-                    stageChip(app.t("Terminal", "ターミナル"), .terminal)
-                    if !app.stageDiff.isEmpty { stageChip("diff", .diff) }
-                    if !app.stageArtifactText.isEmpty {
-                        stageChip(app.stageArtifactTitle.isEmpty
-                                  ? app.t("Artifact", "成果物") : app.stageArtifactTitle, .artifact)
-                    }
-                    stageChip(app.t("Memory", "記憶"), .memory)
-                    ForEach(app.aiPanels) { panel in
-                        stageChip(panel.title, .aiPanel(panel.id))
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal, 8).padding(.vertical, 4)
-            }
-            .frame(height: 26)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
-            Divider().opacity(0.25)
-
-            Group {
-                switch app.stageMode {
-                case .files:
-                    MultiPurposePanel().environmentObject(app)
-                case .editor:
-                    editorBody
-                case .terminal:
-                    TerminalPanelView(terminal: app.terminal)
-                        .environmentObject(app)
-                case .diff:
-                    ScrollView {
-                        Text(app.stageDiff)
-                            .font(.system(size: 11, design: .monospaced))
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(10)
-                    }
-                case .artifact:
-                    ScrollView {
-                        Text(app.stageArtifactText)
-                            .font(.system(size: 12))
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(12)
-                    }
-                case .memory:
-                    MemoryConsoleView()
-                case .aiPanel(let id):
-                    ScrollView {
-                        Text(app.aiPanels.first(where: { $0.id == id })?.text ?? "")
-                            .font(.system(size: 12))
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(12)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
-
-    private func stageChip(_ label: String, _ mode: AppState.StageMode) -> some View {
-        Button {
-            app.stageMode = mode
-        } label: {
-            Text(label)
-                .font(.system(size: 10, weight: app.stageMode == mode ? .bold : .regular))
-                .foregroundStyle(app.stageMode == mode ? Color.white
-                                 : Color(red: 0.55, green: 0.55, blue: 0.65))
-                .padding(.horizontal, 8).padding(.vertical, 3)
-                .background(RoundedRectangle(cornerRadius: 4)
-                    .fill(app.stageMode == mode ? Color.white.opacity(0.1) : Color.clear))
-        }
-        .buttonStyle(.plain)
-    }
-
-    @ViewBuilder
-    private var editorBody: some View {
-        if app.showStereoCrossGraph {
-            StereoCrossGraphView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if app.showVectorLab {
-            VectorLabView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if app.selectedFile != nil {
-            let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
-            ZStack(alignment: .bottomTrailing) {
-                CodeEditorView(
-                    content: $editorContent,
-                    language: editorLanguage,
-                    isEditable: !isJCrossMode,
-                    onEdit: {
-                        if !isJCrossMode {
-                            hasUnsavedChanges = true
-                            saveStatus = .unsaved
-                        }
-                    },
-                    scrollCommand: $editorScrollCommand
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                VStack(spacing: 6) {
-                    Button {
-                        editorScrollCommand = .top
-                    } label: {
-                        Image(systemName: "arrow.up.to.line")
-                            .font(.system(size: 11, weight: .semibold))
-                            .frame(width: 24, height: 24)
-                    }
-                    .help(app.t("Scroll to top", "先頭へスクロール"))
-                    Button {
-                        editorScrollCommand = .bottom
-                    } label: {
-                        Image(systemName: "arrow.down.to.line")
-                            .font(.system(size: 11, weight: .semibold))
-                            .frame(width: 24, height: 24)
-                    }
-                    .help(app.t("Scroll to bottom", "末尾へスクロール"))
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.85))
-                .padding(6)
-                .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
-                .padding(14)
-            }
-        } else {
-            emptyEditorState
-        }
-    }
-
-    // MARK: - Editor Tab Bar
-
-    private var editorTabBar: some View {
-        HStack(spacing: 0) {
-            if let url = app.selectedFile {
-                HStack(spacing: 6) {
-                    // File icon
-                    Image(systemName: fileIcon(for: url))
-                        .font(.system(size: 11))
-                        .foregroundStyle(fileIconColor(for: url))
-
-                    Text(url.lastPathComponent)
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(Color(red: 0.88, green: 0.88, blue: 0.95))
-
-                    // Unsaved dot
-                    if hasUnsavedChanges {
-                        Circle()
-                            .fill(Color(red: 0.9, green: 0.7, blue: 0.3))
-                            .frame(width: 6, height: 6)
-                    }
-                }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 7)
-                .background(Color(red: 0.13, green: 0.13, blue: 0.17))
-                .overlay(
-                    Rectangle()
-                        .fill(Color(red: 0.4, green: 0.75, blue: 1.0).opacity(0.6))
-                        .frame(height: 1),
-                    alignment: .top
-                )
-            }
-
-            Spacer()
-
-            // Save button / status
-            HStack(spacing: 8) {
-
-                // 「非表示ウィンドウ」 (the mirror) is gone. It was a human
-                // preview of an offscreen window — a picture of what the
-                // agent was looking at, next to the agent already telling
-                // you. The automation it previewed
-                // (HiddenWindowAutomation) is untouched; only the window
-                // showing it to a person is removed.
-
-                Divider().frame(height: 16).opacity(0.4)
-
-                if GatekeeperModeState.shared.isEnabled {
-                    Picker("Gatekeeper View", selection: $app.showGatekeeperRawCode) {
-                        Text("JCross IR").tag(false)
-                        Text("Source File").tag(true)
-                    }
-                    // The mode picker stays. Everything else can be
-                    // summoned by name, but the mode decides WHICH
-                    // vocabulary is deterministic — and a control you
-                    // must already be in the right mode to reach is a
-                    // control that can strand you.
-                    Picker("", selection: Binding(
-                        get: { app.veraEngineMode },
-                        set: { app.veraEngineMode = $0 })) {
-                        Text("Atelier").tag(AppState.VeraEngineMode.atelier)
-                        Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                        Text("Bot")
-                            .tag(AppState.VeraEngineMode.veraBot)
-                        Text("LLM").tag(AppState.VeraEngineMode.localLLM)
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: 380)
-                    .labelsHidden()
-                    .frame(width: 150)
-                    
-                    Divider().frame(height: 16).opacity(0.4)
-                }
-
-                if hasUnsavedChanges {
-                    Button(action: saveCurrentFile) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "square.and.arrow.down")
-                                .font(.system(size: 11))
-                            Text("Save")
-                                .font(.system(size: 11, weight: .medium))
-                        }
-                        .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.55))
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .contentShape(Rectangle())
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(Color(red: 0.15, green: 0.32, blue: 0.20).opacity(0.8))
-                        )
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .keyboardShortcut("s", modifiers: .command)
-                    .transition(.scale.combined(with: .opacity))
-                }
-            }
-            .padding(.horizontal, 10)
-            .animation(.easeInOut(duration: 0.15), value: hasUnsavedChanges)
-        }
-        .frame(height: 34)
-        .background(Color(red: 0.11, green: 0.11, blue: 0.15))
-    }
-
-    // MARK: - Empty Editor State
-
-    private var emptyEditorState: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "cursorarrow.rays")
-                .font(.system(size: 48))
-                .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.45))
-
-            VStack(spacing: 6) {
-                Text("No file selected")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.68))
-
-                Text("Select a file from the explorer to start editing")
-                    .font(.system(size: 12))
-                    .foregroundStyle(Color(red: 0.38, green: 0.38, blue: 0.50))
-            }
-
-
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
-    }
-
-    // MARK: - AI Chat Panel (right side)
-
-    private var aiChatPanel: some View {
-        VStack(spacing: 0) {
-            // The chat header band is gone. It held one pull-down and two
-            // buttons; the pull-down moved into the row directly below it
-            // (which was already there), and the buttons became words. A
-            // 34pt band for a single control is a band that exists because
-            // it used to hold five.
-            Divider().opacity(0.25)
-
-            // Vera mode is the sovereign layout: 記憶 / 自由ウィンドウ
-            // down the left, the cross in the middle, the chat on the
-            // right — and the cross reflows into the left stack, then
-            // in with the chat, as the pane narrows. Every other mode
-            // keeps the plain transcript.
-            AgentChatView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
-        .sheet(isPresented: $showPipelineSheet) {
-            PipelineLaunchSheet(isPresented: $showPipelineSheet, taskText: $pipelineTask)
-                .environmentObject(app)
-        }
-    }
+    // `centerAndRightPanes`, `splitPanes`, `codeEditorPanel`, `stageChip`,
+    // `editorBody`, `editorTabBar`, `emptyEditorState` and `aiChatPanel`
+    // all lived here — the ad hoc "one surface, many stage-chip faces"
+    // system this file built before there was a real tabs model. That
+    // system is now IDEShellView + ShellLayoutState: file/terminal/diff/
+    // artifact/memory/aiPanel are shell tab kinds (see
+    // ShellTabKind, and `aiShowDiff`/`aiShowTerminal`/etc. in AppState,
+    // which now open a shell tab as well as setting the old `stageMode`),
+    // Explorer/Search/Git are shell tabs or panels, and the chat pane is
+    // `AgentChatView(showsOwnComposer: false)` inside a `.chat` tab. The
+    // Gatekeeper-only mode picker that lived in `editorTabBar` is gone from
+    // this location; AgentChatView's own tab bar carries the same picker
+    // whenever the chat tab is open.
 
     // MARK: - Status Bar
 
     private var humanPriorityStatusBar: some View {
         HStack(spacing: 12) {
-
-
-            // File info
+            // File info — the language + unsaved dot that used to live here
+            // moved to EditorBufferView's own per-tab header (IDEShellView.swift),
+            // since each open file tab has its own now.
             if let url = app.selectedFile {
                 Text(url.lastPathComponent)
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.70))
-
-                Text("•")
-                    .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.48))
-
-                Text(editorLanguage.uppercased())
-                    .font(.system(size: 10, weight: .medium, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.70))
-
-                if hasUnsavedChanges {
-                    Text("•")
-                        .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.48))
-                    Text("●")
-                        .font(.system(size: 8))
-                        .foregroundStyle(Color(red: 0.9, green: 0.7, blue: 0.3))
-                }
             }
 
             Spacer()
-
 
             // Model status (reuse from StatusBarView)
             StatusBarView(terminal: app.terminal)
@@ -835,147 +446,12 @@ struct HumanPriorityModeView: View {
         }
         .padding(.horizontal, 12)
         .frame(height: 24)
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
     }
 
-
-
-    // MARK: - Actions
-
-    private func loadFileIntoEditor(url: URL?) {
-        guard let url = url else { return }
-        let gatekeeper = GatekeeperModeState.shared
-        if gatekeeper.isEnabled && !app.showGatekeeperRawCode {
-            let relativePath: String
-            if let wsPath = app.workspaceURL?.path,
-               url.path.hasPrefix(wsPath + "/") {
-                relativePath = String(url.path.dropFirst(wsPath.count + 1))
-            } else {
-                relativePath = url.lastPathComponent
-            }
-            Task {
-                let vault = gatekeeper.vault
-                let result = vault.read(relativePath: relativePath)
-                if let vaultResult = result {
-                    let banner = """
-                    ;;; 🛡️ GATEKEEPER MODE — JCross IR View
-                    ;;; Real identifiers have been replaced with node IDs.
-                    ;;; Schema: \(vaultResult.entry.schemaSessionID.prefix(12))
-                    ;;; Nodes: \(vaultResult.entry.nodeCount) | Secrets redacted: \(vaultResult.entry.secretCount)
-                    ;;; Source: \(relativePath)
-                    ;;; 
-                    ;;; (To view raw code, toggle "Source File" above)
-                    ;;;
-                    """
-                    let irContent = banner + "\n" + vaultResult.jcrossContent
-                    await MainActor.run {
-                        editorContent = irContent
-                        editorLanguage = "jcross"
-                        hasUnsavedChanges = false
-                        saveStatus = .saved
-                    }
-                } else {
-                    let raw = (try? String(contentsOf: url, encoding: .utf8)) ?? ""
-                    let warning = app.t("""
-                    ;;; ⚠️ GATEKEEPER MODE — This file is not yet converted to JCross
-                    ;;; Please update the Vault via [Gatekeeper Settings] -> [Start Batch Conversion]
-                    ;;; * The following is the raw source code. This view is temporary.
-                    ;;;
-                    
-                    """, """
-                    ;;; ⚠️ GATEKEEPER MODE — このファイルはまだ JCross 変換されていません
-                    ;;; [Gatekeeper 設定] → [一括変換を開始] でVaultを更新してください
-                    ;;; ※ 以下は実コードです。このビューは一時的なものです
-                    ;;;
-                    
-                    """)
-                    await MainActor.run {
-                        editorContent = warning + raw
-                        editorLanguage = "jcross"
-                        hasUnsavedChanges = false
-                        saveStatus = .saved
-                    }
-                }
-            }
-        } else {
-            do {
-                let content = try String(contentsOf: url, encoding: .utf8)
-                editorContent = content
-                editorLanguage = languageForExtension(url.pathExtension)
-                hasUnsavedChanges = false
-                saveStatus = .saved
-            } catch {
-                editorContent = ""
-            }
-        }
-    }
-
-    private func saveCurrentFile() {
-        guard let url = app.selectedFile, hasUnsavedChanges else { return }
-        saveStatus = .saving
-        do {
-            try editorContent.write(to: url, atomically: true, encoding: .utf8)
-            hasUnsavedChanges = false
-            saveStatus = .saved
-            app.selectedFileContent = editorContent
-            ToastManager.shared.show(
-                "Saved \(url.lastPathComponent)",
-                icon: "checkmark.circle.fill",
-                color: Color(red: 0.3, green: 0.9, blue: 0.5)
-            )
-        } catch {
-            saveStatus = .unsaved
-            ToastManager.shared.show("Save failed: \(error.localizedDescription)", icon: "xmark.circle.fill", color: .red)
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func fileIcon(for url: URL) -> String {
-        switch url.pathExtension.lowercased() {
-        case "swift":  return "swift"
-        case "ts","js","tsx","jsx": return "doc.text"
-        case "py":     return "doc.text"
-        case "json":   return "curlybraces"
-        case "md":     return "doc.richtext"
-        case "html","htm": return "globe"
-        case "css":    return "paintbrush"
-        default:       return "doc.text"
-        }
-    }
-
-    private func fileIconColor(for url: URL) -> Color {
-        switch url.pathExtension.lowercased() {
-        case "swift":  return Color(red: 1.0, green: 0.55, blue: 0.25)
-        case "ts","tsx": return Color(red: 0.3, green: 0.6, blue: 1.0)
-        case "js","jsx": return Color(red: 1.0, green: 0.85, blue: 0.2)
-        case "py":     return Color(red: 0.4, green: 0.8, blue: 0.4)
-        case "json":   return Color(red: 1.0, green: 0.75, blue: 0.3)
-        case "md":     return Color(red: 0.7, green: 0.7, blue: 0.85)
-        case "html","htm": return Color(red: 1.0, green: 0.5, blue: 0.3)
-        default:       return Color(red: 0.6, green: 0.6, blue: 0.75)
-        }
-    }
-
-    private func languageForExtension(_ ext: String) -> String {
-        switch ext.lowercased() {
-        case "swift":        return "swift"
-        case "ts", "tsx":    return "typescript"
-        case "js", "jsx":    return "javascript"
-        case "py":           return "python"
-        case "json":         return "json"
-        case "md":           return "markdown"
-        case "html", "htm":  return "html"
-        case "css":          return "css"
-        case "sh":           return "bash"
-        case "yml", "yaml":  return "yaml"
-        case "rs":           return "rust"
-        case "go":           return "go"
-        case "kt":           return "kotlin"
-        default:             return ext.isEmpty ? "text" : ext
-        }
-    }
-
+    // `loadFileIntoEditor`/`saveCurrentFile`/`fileIcon`/`fileIconColor`/
+    // `languageForExtension` moved to IDEShellView.swift, which now owns
+    // the editor buffer that used to be this view's own @State.
 }
 
 // MARK: - L25StatusBar
@@ -995,14 +471,14 @@ struct L25StatusBar: View {
 
     private var barColor: Color {
         if engine.isStopped {
-            return Color(red: 0.90, green: 0.22, blue: 0.22)  // 赤 (停止済み)
+            return Theme.bad  // 赤 (停止済み)
         }
         switch engine.indexingMode {
-        case .full:        return Color(red: 1.0, green: 0.65, blue: 0.15)
+        case .full:        return Theme.warn
         case .incremental: return Color(red: 0.25, green: 0.85, blue: 1.0)
         case .none:
-            if engine.projectMap != nil { return Color(red: 0.25, green: 0.80, blue: 0.45) }
-            return Color(red: 0.40, green: 0.40, blue: 0.52)
+            if engine.projectMap != nil { return Theme.ok }
+            return Theme.dim
         }
     }
 
@@ -1144,7 +620,7 @@ struct L25StatusBar: View {
                         .padding(.vertical, 3)
                         .background(
                             Capsule()
-                                .fill(Color(red: 0.20, green: 0.55, blue: 0.90))
+                                .fill(Theme.sel)
                                 .shadow(color: Color.blue.opacity(0.4), radius: 4)
                         )
                     }
@@ -1165,7 +641,7 @@ struct L25StatusBar: View {
                         .padding(.vertical, 3)
                         .background(
                             Capsule()
-                                .fill(Color(red: 0.20, green: 0.55, blue: 0.90))
+                                .fill(Theme.sel)
                                 .shadow(color: Color.blue.opacity(0.4), radius: 4)
                         )
                     }
@@ -1206,9 +682,9 @@ struct CPUActivityPanel: View {
             HStack(spacing: 6) {
                 // CPU 合計ゲージ
                 let totalCPU = monitor.totalCPU
-                let gaugeColor: Color = totalCPU > 80 ? Color(red: 1.0, green: 0.3, blue: 0.3)
-                                      : totalCPU > 40 ? Color(red: 1.0, green: 0.75, blue: 0.2)
-                                      :                  Color(red: 0.4, green: 0.85, blue: 0.55)
+                let gaugeColor: Color = totalCPU > 80 ? Theme.bad
+                                      : totalCPU > 40 ? Theme.warn
+                                      :                  Theme.ok
 
                 Image(systemName: "cpu")
                     .font(.system(size: 9))
@@ -1216,7 +692,7 @@ struct CPUActivityPanel: View {
 
                 Text("CPU ACTIVITY")
                     .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                    .foregroundStyle(Theme.dim)
 
                 Text("·")
                     .foregroundStyle(Color(red: 0.3, green: 0.3, blue: 0.42))
@@ -1229,14 +705,14 @@ struct CPUActivityPanel: View {
                 if totalCPU > 80 {
                     Text("⚡ HIGH LOAD")
                         .font(.system(size: 8, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 1.0, green: 0.3, blue: 0.3))
+                        .foregroundStyle(Theme.bad)
                 }
 
                 Spacer()
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color(red: 0.09, green: 0.09, blue: 0.13))
+            .background(Theme.panel)
 
             // ── プロセスリスト ─────────────────────────────────────────
             VStack(spacing: 2) {
@@ -1246,7 +722,7 @@ struct CPUActivityPanel: View {
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 5)
-            .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+            .background(Theme.panel)
         }
     }
 }
@@ -1258,12 +734,12 @@ struct CPUProcessRow: View {
     private var barColor: Color {
         if info.isVerantyxRelated {
             return info.cpuPercent > 80
-                ? Color(red: 1.0, green: 0.3, blue: 0.3)
+                ? Theme.bad
                 : Color(red: 0.3, green: 0.85, blue: 1.0)  // Verantyx 関連 = シアン
         }
         return info.cpuPercent > 50
-            ? Color(red: 0.9, green: 0.5, blue: 0.2)
-            : Color(red: 0.4, green: 0.4, blue: 0.55)
+            ? Theme.warn
+            : Theme.dim
     }
 
     var body: some View {
@@ -1273,7 +749,7 @@ struct CPUProcessRow: View {
                 .font(.system(size: 9, weight: info.isVerantyxRelated ? .semibold : .regular, design: .monospaced))
                 .foregroundStyle(info.isVerantyxRelated
                     ? Color(red: 0.85, green: 0.92, blue: 1.0)
-                    : Color(red: 0.55, green: 0.55, blue: 0.68))
+                    : Theme.sel)
                 .frame(width: 180, alignment: .leading)
                 .lineLimit(1)
 
@@ -1281,7 +757,7 @@ struct CPUProcessRow: View {
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(Color(red: 0.15, green: 0.15, blue: 0.20))
+                        .fill(Theme.panel2)
                     RoundedRectangle(cornerRadius: 2)
                         .fill(barColor.opacity(0.85))
                         .frame(width: max(2, geo.size.width * CGFloat(info.cpuPercent / max(maxCPU, 1))))
@@ -1376,11 +852,11 @@ struct CodeEditorView: NSViewRepresentable {
         textView.usesFontPanel = false
         textView.usesFindPanel = false
         textView.allowsUndo    = true
-        textView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
+        textView.backgroundColor = Theme.nsPanel2
         textView.textContainerInset = NSSize(width: 8, height: 8)
         if !highlighted {
             textView.font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
-            textView.textColor = NSColor(red: 0.88, green: 0.88, blue: 0.95, alpha: 1.0)
+            textView.textColor = Theme.nsFg
         }
         return textView
     }
@@ -1423,7 +899,7 @@ struct CodeEditorView: NSViewRepresentable {
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = true
         scrollView.autohidesScrollers = true
-        scrollView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
+        scrollView.backgroundColor = Theme.nsPanel2
 
         let highlighted = content.count <= Self.highlightMaxChars
         let textView = Self.buildTextView(highlighted: highlighted, language: language, isEditable: isEditable)
@@ -1581,9 +1057,9 @@ struct IsolatedCPUPill: View {
         if !processMonitor.topProcesses.isEmpty {
             let topProc = processMonitor.topProcesses.first
             let cpu = topProc?.cpuPercent ?? 0
-            let color: Color = cpu > 80 ? Color(red: 1.0, green: 0.35, blue: 0.35)
-                             : cpu > 40 ? Color(red: 1.0, green: 0.75, blue: 0.2)
-                             :             Color(red: 0.4, green: 0.9, blue: 0.55)
+            let color: Color = cpu > 80 ? Theme.bad
+                             : cpu > 40 ? Theme.warn
+                             :             Theme.ok
             HStack(spacing: 4) {
                 Circle().fill(color).frame(width: 5, height: 5)
                 Text(topProc?.label ?? "CPU \(Int(cpu))%")
@@ -1615,7 +1091,7 @@ struct IsolatedL25HeaderButton: View {
         } else if l25Engine.projectMap != nil {
             Label("\(l25Engine.projectMap?.fileCount ?? 0) files mapped", systemImage: "map.fill")
                 .font(.system(size: 9, weight: .medium))
-                .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.6))
+                .foregroundStyle(Theme.ok)
         } else if progressOnly {
             EmptyView()
         } else {
@@ -1644,7 +1120,7 @@ struct IsolatedPipelineHeaderButton: View {
                 ProgressView().scaleEffect(0.6)
                 Text("Pipeline \(pipeline.todos.filter{$0.status == .succeeded}.count)/\(pipeline.todos.count)")
                     .font(.system(size: 9, design: .monospaced))
-                    .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.3))
+                    .foregroundStyle(Theme.warn)
             }
         } else if progressOnly {
             EmptyView()
@@ -1732,7 +1208,7 @@ struct VeraFeatureDock: View {
                 if let t = Tab(rawValue: raw) { tab = t }
             }
             .padding(.horizontal, 6).padding(.vertical, 5)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
 
             Divider().opacity(0.25)
 
@@ -1751,7 +1227,7 @@ struct VeraFeatureDock: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
         .onAppear {
             if let raw = initialTab, let t = Tab(rawValue: raw) { tab = t }
         }
@@ -1785,7 +1261,7 @@ private struct FlowChips: View {
                         .background(RoundedRectangle(cornerRadius: 4)
                             .fill(selected == it.id ? Color.white.opacity(0.1) : Color.white.opacity(0.02)))
                         .foregroundStyle(selected == it.id ? Color.white
-                                         : Color(red: 0.6, green: 0.6, blue: 0.7))
+                                         : Theme.dim)
                 }
                 .buttonStyle(.plain)
             }

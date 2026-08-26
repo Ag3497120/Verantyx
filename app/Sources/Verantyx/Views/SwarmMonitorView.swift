@@ -22,7 +22,7 @@ struct SwarmMonitorView: View {
                     Divider().background(Color.black)
                     agentsGridPanel
                 }
-                .background(Color(red: 0.08, green: 0.08, blue: 0.1))
+                .background(Theme.panel)
             } else {
                 HStack(spacing: 0) {
                     AgentChatView()
@@ -30,7 +30,7 @@ struct SwarmMonitorView: View {
                     Divider().background(Color.black)
                     agentsGridPanel
                 }
-                .background(Color(red: 0.08, green: 0.08, blue: 0.1))
+                .background(Theme.panel)
             }
             }
             .blur(radius: fullDiveAgent != nil ? 10 : 0)
@@ -45,7 +45,7 @@ struct SwarmMonitorView: View {
                 
                 AgentFullIDEView(agent: agent, onClose: { fullDiveAgent = nil })
                     .frame(maxWidth: 1100, maxHeight: 750)
-                    .background(Color(red: 0.1, green: 0.1, blue: 0.12))
+                    .background(Theme.panel)
                     .cornerRadius(12)
                     .shadow(radius: 20)
                     .zIndex(2)
@@ -167,7 +167,7 @@ struct SwarmMonitorView: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 8)
-            .background(Color(red: 0.1, green: 0.12, blue: 0.1))
+            .background(Theme.panel)
             
             ScrollView {
                 // Adaptive grid for 50 agents
@@ -315,7 +315,7 @@ struct AgentLiveStatusBox: View {
             .frame(height: 4)
         }
         .padding(10)
-        .background(flashError ? Color.red.opacity(0.6) : Color(red: 0.15, green: 0.15, blue: 0.18))
+        .background(flashError ? Color.red.opacity(0.6) : Theme.panel2)
         .cornerRadius(6)
         .overlay(
             RoundedRectangle(cornerRadius: 6)
@@ -674,7 +674,7 @@ struct AgentFullIDEView: View {
                     .buttonStyle(.plain)
             }
             .padding()
-            .background(Color(red: 0.1, green: 0.1, blue: 0.12))
+            .background(Theme.panel)
             
             // IDE Content: Split view
             HStack(spacing: 0) {
@@ -714,7 +714,7 @@ struct AgentFullIDEView: View {
                     .background(Color.black.opacity(0.3))
                 }
                 .frame(width: 300)
-                .background(Color(red: 0.12, green: 0.12, blue: 0.15))
+                .background(Theme.panel2)
                 
                 Divider().background(Color.gray)
                 
@@ -731,7 +731,7 @@ struct AgentFullIDEView: View {
                         }
                     }
                     .padding()
-                    .background(Color(red: 0.15, green: 0.15, blue: 0.18))
+                    .background(Theme.panel2)
                     
                     TextEditor(text: $editableBuffer)
                         .font(.system(size: 13, design: .monospaced))
@@ -749,7 +749,7 @@ struct AgentFullIDEView: View {
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(red: 0.15, green: 0.15, blue: 0.18))
+                        .background(Theme.panel2)
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 10) {
@@ -791,10 +791,10 @@ struct AgentFullIDEView: View {
                         .disabled(escalationMessage.isEmpty || isEscalating)
                     }
                     .padding()
-                    .background(Color(red: 0.12, green: 0.12, blue: 0.15))
+                    .background(Theme.panel2)
                 }
                 .frame(width: 350)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.12))
+                .background(Theme.panel)
             }
         }
         .frame(minWidth: 1000, minHeight: 650)

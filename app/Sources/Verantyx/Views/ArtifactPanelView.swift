@@ -34,7 +34,7 @@ struct ArtifactPanelView: View {
                     .environmentObject(app)
             }
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .onChange(of: app.currentArtifact?.id) { _, _ in
             // Auto-switch tab when a new artifact arrives
             guard let art = app.currentArtifact else { return }
@@ -63,7 +63,7 @@ struct ArtifactPanelView: View {
                     .padding(.trailing, 5)
                 Text(art.title)
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.88, green: 0.88, blue: 0.94))
+                    .foregroundStyle(Theme.fg)
                     .lineLimit(1)
                 Spacer(minLength: 8)
             } else {
@@ -92,8 +92,8 @@ struct ArtifactPanelView: View {
                     Image(systemName: copyState ? "checkmark" : "doc.on.doc")
                         .font(.system(size: 10))
                         .foregroundStyle(copyState
-                                         ? Color(red: 0.3, green: 0.9, blue: 0.5)
-                                         : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                         ? Theme.ok
+                                         : Theme.dim)
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -104,7 +104,7 @@ struct ArtifactPanelView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
-        .background(Color(red: 0.13, green: 0.13, blue: 0.17))
+        .background(Theme.panel2)
     }
 
 
@@ -142,7 +142,7 @@ struct ArtifactPanelView: View {
                         .padding(14)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .background(Color(red: 0.07, green: 0.07, blue: 0.10))
+                .background(Theme.bg)
             } else {
                 emptyState
             }
@@ -160,30 +160,30 @@ struct ArtifactPanelView: View {
                     .frame(width: 80, height: 80)
                 Image(systemName: "rectangle.on.rectangle.angled")
                     .font(.system(size: 32))
-                    .foregroundStyle(Color(red: 0.35, green: 0.55, blue: 0.85).opacity(0.8))
+                    .foregroundStyle(Theme.sel.opacity(0.8))
             }
             VStack(spacing: 8) {
                 Text("Artifact Preview")
                     .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.60, green: 0.65, blue: 0.80))
+                    .foregroundStyle(Theme.sel)
                 Text(AppLanguage.shared.t("When AI generates code or UI,\nit will be automatically displayed here.", "AIがコードや画面を生成すると\nここに自動表示されます"))
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.40, green: 0.40, blue: 0.55))
+                    .foregroundStyle(Theme.dim)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3)
             }
             VStack(spacing: 8) {
                 hintRow(icon: "chevron.left.forwardslash.chevron.right",
-                        color: Color(red: 0.6, green: 0.4, blue: 1.0),
+                        color: Theme.accent,
                         text: AppLanguage.shared.t("Code block (```swift ...) → Auto display", "コードブロック (```swift ...) → 自動表示"))
                 hintRow(icon: "globe",
-                        color: Color(red: 0.9, green: 0.5, blue: 0.2),
+                        color: Theme.warn,
                         text: AppLanguage.shared.t("Generate HTML → Live preview", "HTMLを生成して → ライブプレビュー"))
                 hintRow(icon: "arrow.triangle.branch",
                         color: Color(red: 0.3, green: 0.8, blue: 1.0),
                         text: AppLanguage.shared.t("Draw Mermaid diagram → Graph display", "Mermaid図を描いて → グラフ表示"))
                 hintRow(icon: "arrow.left.arrow.right.square",
-                        color: Color(red: 0.4, green: 0.85, blue: 0.5),
+                        color: Theme.ok,
                         text: AppLanguage.shared.t("File changes → Show in Diff tab", "ファイル変更 → Diffタブに表示"))
             }
             .padding(.horizontal, 24)
@@ -200,7 +200,7 @@ struct ArtifactPanelView: View {
                 .frame(width: 20)
             Text(text)
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.50, green: 0.52, blue: 0.65))
+                .foregroundStyle(Theme.sel)
             Spacer()
         }
         .padding(.horizontal, 12)
@@ -232,7 +232,7 @@ struct ArtifactPanelView: View {
         } label: {
             Image(systemName: "clock.arrow.circlepath")
                 .font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.62))
+                .foregroundStyle(Theme.sel)
         }
         .menuStyle(.borderlessButton)
         .help(AppLanguage.shared.t("Artifact History", "Artifact履歴"))
@@ -240,6 +240,12 @@ struct ArtifactPanelView: View {
 
     // MARK: - Helpers
 
+    // typeColor/tabAccent は「意味」ではなく「見分け」の色 — 状態を表す
+    // ok/warn/bad/sel/accent トークンに寄せると、html と svg のように別の
+    // 種類が同じ色になって見分けが付かなくなる (実際に typeColor では
+    // markdown と preview の 2 種が Theme.ok に、code と code タブが
+    // Theme.accent に衝突していた)。ここは Theme に統合せず、区別のための
+    // 固有色のまま残す。
     private func typeColor(_ type: Artifact.ArtifactType) -> Color {
         switch type {
         case .html:     return Color(red: 0.90, green: 0.45, blue: 0.20)
@@ -284,7 +290,7 @@ struct ArtifactWebView: NSViewRepresentable {
         config.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let wv = WKWebView(frame: .zero, configuration: config)
         wv.setValue(false, forKey: "drawsBackground")
-        wv.layer?.backgroundColor = NSColor(red: 0.06, green: 0.06, blue: 0.08, alpha: 1).cgColor
+        wv.layer?.backgroundColor = Theme.nsBg.cgColor
         return wv
     }
 

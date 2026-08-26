@@ -44,7 +44,7 @@ struct PipeControlPanelView: View {
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
         .task { await refresh() }
     }
 
@@ -145,7 +145,7 @@ struct PipeControlPanelView: View {
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(plan.masterHeadroomGB < 0 || plan.workerHeadroomGB < 0
                                          ? Color.orange
-                                         : Color(red: 0.5, green: 0.5, blue: 0.58))
+                                         : Theme.dim)
                 }
                 if let planProblem {
                     Text(planProblem).font(.system(size: 9)).foregroundStyle(.orange)
@@ -205,7 +205,7 @@ struct PipeControlPanelView: View {
                             }
                         }
                         .buttonStyle(.plain).font(.system(size: 9))
-                        .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                        .foregroundStyle(Theme.sel)
                     }
                 }
             }
@@ -215,7 +215,7 @@ struct PipeControlPanelView: View {
             }
             Button(app.t("Refresh", "更新")) { Task { await refresh() } }
                 .buttonStyle(.plain).font(.system(size: 9))
-                .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                .foregroundStyle(Theme.sel)
         }
     }
 
@@ -232,7 +232,7 @@ struct PipeControlPanelView: View {
     private func header(_ t: String, icon: String) -> some View {
         HStack(spacing: 5) {
             Image(systemName: icon).font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                .foregroundStyle(Theme.sel)
             Text(t).font(.system(size: 12, weight: .semibold))
         }
     }

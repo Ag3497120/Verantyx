@@ -89,7 +89,7 @@ enum VeraSettingsRegistry {
                words: ["記憶", "きおく", "memory", "記憶パネル"],
                destination: .panel(.memory)),
         Screen(id: "modes", ja: "モード", en: "Modes",
-               blurbJa: "どの性格が答えるか。Atelier / Vera / Bot / LLM",
+               blurbJa: "どの性格が答えるか。Atelier / LLM",
                words: ["モード", "modes", "モード切替"],
                destination: .panel(.modes)),
         Screen(id: "model", ja: "モデル", en: "Model",
@@ -256,12 +256,14 @@ enum VeraSummon {
     ]
 
     /// Switching the engine mode by name. Same closed discipline.
+    ///
+    /// veraモード/vera and veraぼっと/ぼっと/bot/verabot/vera bot named
+    /// modes that no longer exist (removed 2026-08-26) — dropped rather
+    /// than left pointing at nothing. This table itself is now reachable
+    /// from nowhere: see the note on `resolve()` below.
     private static let modes: [String: AppState.VeraEngineMode] = [
-        "veraモード": .veraModel, "vera": .veraModel,
         "llmモード": .localLLM, "llm": .localLLM,
         "atelier": .atelier, "アトリエ": .atelier, "服飾": .atelier,
-        "veraぼっと": .veraBot, "ぼっと": .veraBot, "bot": .veraBot,
-        "verabot": .veraBot, "vera bot": .veraBot,
     ]
 
     /// A surface that takes the whole window. These used to be the left
@@ -395,10 +397,16 @@ enum VeraSummon {
                                  goal: goal, origin: .user)
     }
 
-    /// Called only from Bot mode (see AppState.sendMessage). The table
-    /// keeps every mode name so the way OUT of Bot is a word too — you
-    /// should never have to reach for the pull-down to leave the mode
-    /// that exists for reaching things by name.
+    /// Was called only from Bot mode (AppState.sendMessage's "Summon by
+    /// name" block), gated `veraEngineMode == .veraBot` by design — the
+    /// table kept every mode name so the way OUT of Bot was a word too.
+    /// Bot mode was removed 2026-08-26 along with that gate and its one
+    /// call site, so as of this change nothing calls `resolve()` — typing
+    /// 記憶/設定/十字/監査/etc. in chat no longer opens anything. Left in
+    /// place rather than deleted: `table`/`surfaces`/`commands` reach
+    /// beyond mode-switching (whole-window surfaces, run commands) and
+    /// deciding their fate is bigger than a mode removal. Flagged in the
+    /// removal report rather than resolved here.
     ///
     /// Exact match on the trimmed line, case-folded, with a trailing
     /// 「を開いて」/「を出して」 allowed because those are the same

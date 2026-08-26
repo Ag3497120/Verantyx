@@ -43,7 +43,7 @@ struct GitPanelView: View {
                         // ── Staged Changes ──────────────────────────────
                         if !git.stagedFiles.isEmpty {
                             fileSection(title: "STAGED CHANGES",
-                                        color: Color(red: 0.3, green: 0.85, blue: 0.45),
+                                        color: Theme.ok,
                                         files: git.stagedFiles,
                                         isStaged: true)
                         }
@@ -51,7 +51,7 @@ struct GitPanelView: View {
                         // ── Unstaged Changes ────────────────────────────
                         if !git.unstagedFiles.isEmpty {
                             fileSection(title: "CHANGES",
-                                        color: Color(red: 0.9, green: 0.65, blue: 0.3),
+                                        color: Theme.warn,
                                         files: git.unstagedFiles,
                                         isStaged: false)
                         }
@@ -66,7 +66,7 @@ struct GitPanelView: View {
                     }
                     .padding(.vertical, 4)
                 }
-                .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+                .background(Theme.panel)
             }
         }
         .onAppear {
@@ -110,7 +110,7 @@ struct GitPanelView: View {
             }
         }
         .padding(.horizontal, 10).padding(.vertical, 7)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
     }
 
     // MARK: - Commit Box
@@ -122,19 +122,19 @@ struct GitPanelView: View {
                 if commitMessage.isEmpty {
                     Text(app.t("Message (⌘↩ to commit)", "メッセージ (⌘↩ でコミット)"))
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.55))
+                        .foregroundStyle(Theme.dim)
                         .padding(.horizontal, 8)
                         .padding(.top, 7)
                 }
                 TextEditor(text: $commitMessage)
                     .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.88, green: 0.88, blue: 0.95))
+                    .foregroundStyle(Theme.fg)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     .frame(height: 70)
                     .padding(4)
             }
-            .background(Color(red: 0.12, green: 0.12, blue: 0.17))
+            .background(Theme.panel2)
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .overlay(RoundedRectangle(cornerRadius: 6)
                 .stroke(Color(red: 0.25, green: 0.25, blue: 0.38).opacity(0.5), lineWidth: 1))
@@ -153,14 +153,14 @@ struct GitPanelView: View {
                     Text(git.stagedFiles.isEmpty ? "Commit All" : "Commit Staged")
                         .font(.system(size: 11, weight: .semibold))
                 }
-                .foregroundStyle(Color(red: 0.3, green: 0.85, blue: 0.45))
+                .foregroundStyle(Theme.ok)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 6)
                 .background(
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color(red: 0.12, green: 0.28, blue: 0.18).opacity(0.8))
                         .overlay(RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color(red: 0.3, green: 0.85, blue: 0.45).opacity(0.35), lineWidth: 1))
+                            .stroke(Theme.ok.opacity(0.35), lineWidth: 1))
                 )
             }
             .contentShape(Rectangle())
@@ -169,7 +169,7 @@ struct GitPanelView: View {
             .keyboardShortcut(.return, modifiers: .command)
         }
         .padding(10)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
     }
 
     // MARK: - File Sections
@@ -200,7 +200,7 @@ struct GitPanelView: View {
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.16))
+            .background(Theme.panel2)
 
             Divider().opacity(0.2)
 
@@ -217,10 +217,10 @@ struct GitPanelView: View {
             Spacer(minLength: 20)
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 28))
-                .foregroundStyle(Color(red: 0.3, green: 0.75, blue: 0.4))
+                .foregroundStyle(Theme.ok)
             Text("No changes")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                .foregroundStyle(Theme.dim)
             Spacer(minLength: 10)
         }
         .frame(maxWidth: .infinity)
@@ -233,11 +233,11 @@ struct GitPanelView: View {
             HStack {
                 Text("HISTORY")
                     .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.7))
+                    .foregroundStyle(Theme.sel)
                 Spacer()
             }
             .padding(.horizontal, 10).padding(.vertical, 5)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.16))
+            .background(Theme.panel2)
 
             Divider().opacity(0.2)
 
@@ -245,7 +245,7 @@ struct GitPanelView: View {
                 HStack(spacing: 8) {
                     Text(commit.shortHash)
                         .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                         .frame(width: 52, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 2) {
@@ -255,7 +255,7 @@ struct GitPanelView: View {
                             .lineLimit(1)
                         Text("\(commit.author) · \(commit.date)")
                             .font(.system(size: 9))
-                            .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.60))
+                            .foregroundStyle(Theme.sel)
                     }
                     Spacer()
                 }
@@ -285,7 +285,7 @@ struct GitPanelView: View {
             .contentShape(Rectangle())
             .buttonStyle(.plain)
         }
-        .foregroundStyle(isError ? Color(red: 1.0, green: 0.4, blue: 0.4) : Color(red: 0.3, green: 0.9, blue: 0.5))
+        .foregroundStyle(isError ? Theme.bad : Theme.ok)
         .padding(.horizontal, 10).padding(.vertical, 6)
         .background(
             isError
@@ -335,7 +335,7 @@ struct GitPanelView: View {
         Button(action: action) {
             Image(systemName: icon)
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.70))
+                .foregroundStyle(Theme.sel)
         }
         .contentShape(Rectangle())
         .buttonStyle(.plain)
@@ -354,11 +354,11 @@ struct GitFileRow: View {
 
     var statusColor: Color {
         switch file.status {
-        case .modified:  return Color(red: 0.9, green: 0.65, blue: 0.2)
-        case .added:     return Color(red: 0.3, green: 0.85, blue: 0.45)
-        case .deleted:   return Color(red: 0.9, green: 0.35, blue: 0.35)
-        case .untracked: return Color(red: 0.55, green: 0.55, blue: 0.70)
-        default:         return Color(red: 0.6, green: 0.6, blue: 0.75)
+        case .modified:  return Theme.warn
+        case .added:     return Theme.ok
+        case .deleted:   return Theme.bad
+        case .untracked: return Theme.sel
+        default:         return Theme.sel
         }
     }
 
@@ -392,7 +392,7 @@ struct GitFileRow: View {
             if !dir.isEmpty && dir != "." {
                 Text(dir)
                     .font(.system(size: 9, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.55))
+                    .foregroundStyle(Theme.dim)
                     .lineLimit(1)
             }
 
@@ -415,8 +415,8 @@ struct GitFileRow: View {
                     Image(systemName: isStaged ? "minus.circle" : "plus.circle")
                         .font(.system(size: 12))
                         .foregroundStyle(isStaged
-                                         ? Color(red: 0.9, green: 0.4, blue: 0.4)
-                                         : Color(red: 0.3, green: 0.85, blue: 0.45))
+                                         ? Theme.bad
+                                         : Theme.ok)
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)

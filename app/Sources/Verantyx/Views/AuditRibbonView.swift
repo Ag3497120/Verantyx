@@ -58,10 +58,10 @@ struct AuditSummary: Equatable {
 // screen.
 
 private enum AuditPalette {
-    static let grounded = Color(red: 0.35, green: 0.85, blue: 0.55)
-    static let unverified = Color(red: 1.00, green: 0.75, blue: 0.28)
-    static let disputed = Color(red: 1.00, green: 0.42, blue: 0.38)
-    static let refusal = Color(red: 0.62, green: 0.60, blue: 0.98)
+    static let grounded = Theme.ok
+    static let unverified = Theme.warn
+    static let disputed = Theme.bad
+    static let refusal = Theme.accent
     static let hairline = Color.white.opacity(0.09)
     static let surface = Color.white.opacity(0.035)
 }

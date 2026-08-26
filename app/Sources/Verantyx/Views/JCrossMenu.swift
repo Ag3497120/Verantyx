@@ -63,8 +63,8 @@ struct JCrossMenu: View {
 
     var body: some View {
         JCrossGlyph(phase: 0.035 + reveal * 0.25,
-                    tint: open ? Color(red: 0.55, green: 0.78, blue: 1.0)
-                               : Color(red: 0.52, green: 0.52, blue: 0.6),
+                    tint: open ? Theme.sel
+                               : Theme.dim,
                     thickness: 1.8)
             .frame(width: 15, height: 15)
             .padding(5)
@@ -115,7 +115,7 @@ struct JCrossMenu: View {
         .padding(.vertical, 5)
         .background(
             RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .fill(Color(red: 0.13, green: 0.13, blue: 0.16))
+                .fill(Theme.panel2)
                 .shadow(color: .black.opacity(0.45), radius: 14, y: 6)
         )
         .overlay(
@@ -175,7 +175,7 @@ struct JCrossMenu: View {
                     Text(candidate.label(japanese: japanese))
                         .font(.system(size: 10, weight: style == candidate ? .semibold : .regular))
                         .foregroundStyle(style == candidate
-                                         ? Color(red: 0.55, green: 0.78, blue: 1.0)
+                                         ? Theme.sel
                                          : Color.secondary)
                         .padding(.horizontal, 7).padding(.vertical, 2)
                         .background(
@@ -210,12 +210,12 @@ struct JCrossMenu: View {
                 path.addLine(to: tip)
                 context.stroke(
                     path,
-                    with: .color(Color(red: 0.45, green: 0.72, blue: 1.0).opacity(0.30 * local)),
+                    with: .color(Theme.sel.opacity(0.30 * local)),
                     style: StrokeStyle(lineWidth: 1, lineCap: .round))
             }
             context.fill(
                 Path(ellipseIn: CGRect(x: node.x - 2, y: node.y - 2, width: 4, height: 4)),
-                with: .color(Color(red: 0.45, green: 0.72, blue: 1.0).opacity(0.55 * reveal)))
+                with: .color(Theme.sel.opacity(0.55 * reveal)))
         }
         .allowsHitTesting(false)
     }

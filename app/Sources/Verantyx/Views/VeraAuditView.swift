@@ -264,7 +264,7 @@ struct VeraAuditView: View {
                             Text(tab.title(app))
                                 .font(.system(size: 10, weight: rightTab == tab ? .bold : .regular))
                                 .foregroundStyle(rightTab == tab ? Color.white
-                                                 : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                                 : Theme.dim)
                                 .padding(.horizontal, 8).padding(.vertical, 3)
                                 .background(RoundedRectangle(cornerRadius: 4)
                                     .fill(rightTab == tab ? Color.white.opacity(0.08) : .clear))
@@ -283,7 +283,7 @@ struct VeraAuditView: View {
                 }
             }
             .frame(width: 400)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.14))
+            .background(Theme.panel2)
         }
         .task {
             await refreshDemand()

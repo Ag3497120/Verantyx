@@ -52,14 +52,14 @@ struct StereoCrossGraphView: View {
                 if let errorMessage {
                     Text(errorMessage)
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 1.0, green: 0.55, blue: 0.5))
+                        .foregroundStyle(Theme.bad)
                         .padding(8)
                         .frame(maxWidth: .infinity)
                         .background(Color.black.opacity(0.55))
                 }
             }
         }
-        .background(Color(red: 0.04, green: 0.04, blue: 0.07))
+        .background(Theme.bg)
         .task { await loadGraph() }
         .onChange(of: app.pendingGraphConnection) { newValue in
             guard let label = newValue else { return }
@@ -102,14 +102,14 @@ struct StereoCrossGraphView: View {
                     } else {
                         Text(app.t("\(nodeCount) of \(totalCores) cores", "\(totalCores)個中\(nodeCount)個の核"))
                             .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                            .foregroundStyle(Theme.dim)
                     }
                 } else if isLoadingTrace {
                     ProgressView().controlSize(.small)
                 } else {
                     Text(app.t("\(nodeCount) steps", "\(nodeCount)ステップ"))
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                        .foregroundStyle(Theme.dim)
                 }
 
                 Spacer()
@@ -122,7 +122,7 @@ struct StereoCrossGraphView: View {
                 } label: {
                     Image(systemName: "arrow.clockwise")
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                        .foregroundStyle(Theme.dim)
                 }
                 .buttonStyle(.plain)
                 .help(app.t("Refresh", "再読み込み"))

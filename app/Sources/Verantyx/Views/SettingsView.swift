@@ -9,6 +9,11 @@ struct SettingsView: View {
     @ObservedObject private var pipeSession = PipeSession.shared
     @ObservedObject private var pipeCoordinator = PipeCoordinator.shared
     @State private var showPipeSheet = false
+    /// All Screens list → Open, for a `.panel` destination. Was a mode
+    /// switch into Bot's chat transcript; Bot mode is gone, so this
+    /// presents the same VeraSummonedPanel content as a sheet instead —
+    /// see `open(_:)` below.
+    @State private var summonedPanel: VeraSummon.Panel?
     @State private var lmStudioReachable: Bool? = nil
     @State private var lmStudioModelCount = 0
     @State private var lmStudioDiagnosis: LMStudioClient.Diagnosis?
@@ -16,6 +21,11 @@ struct SettingsView: View {
     @State private var lmStudioProblem: String?
     @State private var selectedTab: SettingsTab = .model
     @AppStorage("jcross_menu_style") private var jcrossMenuStyle = JCrossMenuStyle.connect.rawValue
+    /// キー文字列は Theme.swift の AppAppearanceMode.storageKey と共有 —
+    /// VerantyxApp.swift の起動時復元 (AppAppearanceMode.loadPersisted) が
+    /// 同じキーを UserDefaults から直接読むので、ここで文字列を打ち直すと
+    /// 「設定画面では変わるが再起動すると System に戻る」という不一致になる。
+    @AppStorage(AppAppearanceMode.storageKey) private var appearanceMode = AppAppearanceMode.system.rawValue
     /// Honours `AppState.requestedSettingsTab` so an answer from the support
     /// bot can land on the screen it names instead of describing where it is.
     /// An unrecognised name leaves the current tab alone rather than throwing,
@@ -67,6 +77,11 @@ struct SettingsView: View {
             }
         }
 
+        // 9 個のタブを一目で見分けるための固有色。ok/warn/bad/sel/accent の
+        // 5 トークンに寄せると 9 個は収まらず、実際に allScreens/model が
+        // 同じ青、tools/memory が同じ紫、agent/privacy が同じ緑に潰れて
+        // タブ一覧の「色で場所を覚える」用途が壊れていた — ここは状態では
+        // なく識別のための色なので、固有色のまま残す。
         var color: Color {
             switch self {
             case .allScreens: return Color(red: 0.55, green: 0.78, blue: 1.0)
@@ -91,14 +106,21 @@ struct SettingsView: View {
     // "everything sayable" — would have to agree, and nothing would check
     // that they did; this way a screen missing from one cannot exist.
     //
-    // Each row shows the word as well as the button, because the button is
-    // the slow path. Someone who reads "ミラー" here once does not open this
-    // sheet again to reach it.
+    // Each row still shows the word, as documentation of what used to say
+    // it into existence — but typing it no longer does anything. Every
+    // one of these words only ever resolved through VeraSummon.resolve,
+    // which fired exclusively in Bot mode (see AppState.sendMessage's
+    // former "Summon by name" block). Bot mode was removed 2026-08-26,
+    // so the button below is now the ONLY path, not the slow one.
     private var allScreensList: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(AppLanguage.shared.t(
-                "Every screen in the app, and the word that opens it.",
-                "このアプリの全画面と、それを開く語です。"))
+                "Every screen in the app. Saying its word used to open it "
+                + "from chat (Bot mode); Bot mode is gone, so Open is now "
+                + "the way in.",
+                "このアプリの全画面です。以前はBotモードでその語を言えば"
+                + "開きましたが、Botモードは廃止されたため、いまは「開く」"
+                + "だけが入口です。"))
                 .font(.system(size: 11)).foregroundStyle(.secondary)
 
             // The one switch that had no home: it lived in the footer of the
@@ -136,7 +158,7 @@ struct SettingsView: View {
                     Spacer(minLength: 8)
                     Text("「\(screen.say)」")
                         .font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                     Button(AppLanguage.shared.t("Open", "開く")) { open(screen) }
                         .buttonStyle(.bordered).controlSize(.small)
                 }
@@ -145,15 +167,21 @@ struct SettingsView: View {
         }
     }
 
-    /// Opening from the list does exactly what saying the word does — the
-    /// same destinations, so the two routes cannot drift into meaning
-    /// different things.
+    /// Opening from the list used to do exactly what saying the word did
+    /// — switch to Bot mode and send the panel's name as a message, so
+    /// VeraBotTranscript would pick it up and render it under that line.
+    /// Bot mode is gone (2026-08-26), and with it the only mode
+    /// `VeraSummon.resolve` fired in — so "the word that opens it" in
+    /// this list's own header is no longer literally true for `.panel`
+    /// destinations. Rather than leave the Open button here doing
+    /// nothing (see AtelierView's own rule against exactly that), it
+    /// presents the same VeraSummonedPanel content directly as a sheet,
+    /// without touching the engine mode or the chat at all — Settings
+    /// stays open underneath.
     private func open(_ screen: VeraSettingsRegistry.Screen) {
         switch screen.destination {
         case .panel(let p):
-            onDismiss?()
-            app.veraEngineMode = .veraBot
-            app.sendMessage(with: p.title)
+            summonedPanel = p
         case .full(let f):
             onDismiss?()
             app.requestedDockTab = nil
@@ -178,7 +206,7 @@ struct SettingsView: View {
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                        .foregroundStyle(Theme.dim)
                         .frame(width: 22, height: 22)
                         .background(Color.white.opacity(0.07), in: Circle())
                 }
@@ -203,7 +231,7 @@ struct SettingsView: View {
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
             .overlay(Rectangle().fill(Color.white.opacity(0.07)).frame(height: 0.5), alignment: .bottom)
 
             // ── Main body (sidebar + content) — FIXED HEIGHT ───────────────
@@ -235,11 +263,11 @@ struct SettingsView: View {
                                    (app.anthropicApiKey.isEmpty || app.activeAnthropicModel.isEmpty) {
                                     Spacer()
                                     Circle()
-                                        .fill(Color(red: 0.9, green: 0.4, blue: 0.2))
+                                        .fill(Theme.bad)
                                         .frame(width: 6, height: 6)
                                 }
                             }
-                            .foregroundStyle(selectedTab == tab ? .white : Color(red: 0.6, green: 0.6, blue: 0.7))
+                            .foregroundStyle(selectedTab == tab ? .white : Theme.dim)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 7)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -265,7 +293,7 @@ struct SettingsView: View {
                 }
                 // FIXED width — tab clicks must NOT change sidebar size
                 .frame(width: 155, alignment: .topLeading)
-                .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+                .background(Theme.panel)
 
                 Divider().opacity(0.3)
 
@@ -293,7 +321,7 @@ struct SettingsView: View {
                 }
                 // FIXED width — prevents any expansion when scrolling content
                 .frame(width: 525, alignment: .topLeading)
-                .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+                .background(Theme.panel2)
             }
             // This height = total 560 - 44 (header) - 46 (footer)
             .frame(width: 680, height: 470)
@@ -314,18 +342,24 @@ struct SettingsView: View {
                 .keyboardShortcut(.return, modifiers: [.command])
                 .buttonStyle(.borderedProminent)
                 .controlSize(.regular)
-                .tint(Color(red: 0.25, green: 0.45, blue: 0.85))
+                .tint(Theme.sel)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            .background(Theme.panel)
             .overlay(Rectangle().fill(Color.white.opacity(0.07)).frame(height: 0.5), alignment: .top)
         }
         // FIXED total size — prevents any window resize
         .frame(width: 680, height: 560)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .sheet(isPresented: $showAssetMap) { AssetMapView(vault: vault) }
+        .sheet(item: $summonedPanel) { panel in
+            VeraSummonedPanel(panel: panel) { summonedPanel = nil }
+                .environmentObject(app)
+                .padding(16)
+                .frame(minWidth: 460, minHeight: 340)
+        }
         // Both, because the sheet is kept alive between presentations: onAppear
         // alone misses a second request while it is already open, and onChange
         // alone misses the first one that arrives with it.
@@ -354,7 +388,7 @@ struct SettingsView: View {
                             } else if updater.updateAvailable {
                                 Text("Update available: v\(updater.latestVersion)")
                                     .font(.system(size: 11, weight: .semibold))
-                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    .foregroundStyle(Theme.ok)
                             } else {
                                 Text("Verantyx is up to date.")
                                     .font(.system(size: 11))
@@ -385,7 +419,7 @@ struct SettingsView: View {
                                 }
                             }
                             .buttonStyle(.borderedProminent)
-                            .tint(Color(red: 0.3, green: 0.6, blue: 1.0))
+                            .tint(Theme.sel)
                             .disabled(updater.isDownloading)
                         } else {
                             Button("Check for Updates") {
@@ -418,7 +452,7 @@ struct SettingsView: View {
                                         .font(.system(size: 28))
                                     Text(lang.rawValue)
                                         .font(.system(size: 11, weight: .semibold))
-                                        .foregroundStyle(app.appLanguage == lang ? .white : Color(red: 0.55, green: 0.55, blue: 0.7))
+                                        .foregroundStyle(app.appLanguage == lang ? .white : Theme.sel)
                                 }
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 14)
@@ -432,7 +466,7 @@ struct SettingsView: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .strokeBorder(
                                             app.appLanguage == lang
-                                                ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.6)
+                                                ? Theme.sel.opacity(0.6)
                                                 : Color.white.opacity(0.06),
                                             lineWidth: 1
                                         )
@@ -456,18 +490,57 @@ struct SettingsView: View {
                 }
             }
 
-            sectionHeader("Appearance", icon: "paintbrush")
+            sectionHeader(app.t("Appearance", "外観"), icon: "paintbrush")
 
             settingsCard {
-                VStack(alignment: .leading, spacing: 14) {
-                    rowLabel("Theme") {
-                        Text("Dark (fixed)")
-                            .font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(.secondary)
+                VStack(alignment: .leading, spacing: 16) {
+                    // 言語セレクタと同じ「大きなカード」パターン。System/Light/Dark
+                    // は Theme.swift の 12 トークンが自分で切り替わるので、ここが
+                    // することは NSApp.appearance を差し替えて全ウィンドウ (メニュー
+                    // バー拡張・画面端グロー含む) の実効 appearance を揃えることだけ。
+                    HStack(spacing: 10) {
+                        ForEach(AppAppearanceMode.allCases) { mode in
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.15)) {
+                                    appearanceMode = mode.rawValue
+                                }
+                                mode.apply()
+                            } label: {
+                                VStack(spacing: 8) {
+                                    Image(systemName: mode.icon)
+                                        .font(.system(size: 20))
+                                    Text(app.t(mode.label.0, mode.label.1))
+                                        .font(.system(size: 11, weight: .semibold))
+                                }
+                                .foregroundStyle(appearanceMode == mode.rawValue ? .white : Theme.dim)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(
+                                    appearanceMode == mode.rawValue
+                                        ? Theme.sel.opacity(0.35)
+                                        : Color.white.opacity(0.04),
+                                    in: RoundedRectangle(cornerRadius: 8)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .strokeBorder(
+                                            appearanceMode == mode.rawValue
+                                                ? Theme.sel.opacity(0.6)
+                                                : Color.white.opacity(0.06),
+                                            lineWidth: 1
+                                        )
+                                )
+                            }
+                            .contentShape(Rectangle())
+                            .buttonStyle(.plain)
+                        }
                     }
-                    Text("Verantyx uses a fixed high-contrast dark theme optimised for code editing.")
-                        .font(.system(size: 10)).foregroundStyle(.tertiary)
 
+                    Text(app.t(
+                        "\"System\" follows macOS Appearance in System Settings. \"Light\" and \"Dark\" force that appearance for Verantyx regardless of the system setting.",
+                        "「システム」は macOS の外観設定に従います。「ライト」「ダーク」を選ぶと、システム設定に関わらず Verantyx をその外観に固定します。"
+                    ))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
             }
 
@@ -500,7 +573,7 @@ struct SettingsView: View {
                     }
                     .padding(10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(red: 0.08, green: 0.08, blue: 0.1), in: RoundedRectangle(cornerRadius: 6))
+                    .background(Theme.panel, in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(Color.white.opacity(0.1), lineWidth: 1))
                     
                     Text(app.t(
@@ -624,7 +697,7 @@ struct SettingsView: View {
                 if let lmStudioProblem {
                     Text(lmStudioProblem)
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.95, green: 0.6, blue: 0.4))
+                        .foregroundStyle(Theme.warn)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 Text(lmStudioAdvice)
@@ -824,13 +897,13 @@ struct SettingsView: View {
             : (isSelected ? Color(red: 0.18, green: 0.22, blue: 0.35).opacity(0.7) : Color.white.opacity(0.03))
             
         let strokeColor: Color = isLoaded
-            ? Color(red: 0.3, green: 0.8, blue: 0.45).opacity(0.5)
-            : (isSelected ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.4) : Color.white.opacity(0.05))
+            ? Theme.ok.opacity(0.5)
+            : (isSelected ? Theme.sel.opacity(0.4) : Color.white.opacity(0.05))
             
         let strokeWidth: CGFloat = (isSelected || isLoaded) ? 1 : 0.5
-        let downloadIconColor: Color = model.isDownloaded ? Color(red: 0.35, green: 0.85, blue: 0.5) : Color(red: 0.45, green: 0.45, blue: 0.6)
+        let downloadIconColor: Color = model.isDownloaded ? Theme.ok : Theme.sel
         let titleColor: Color = isSelected ? .white : Color(red: 0.75, green: 0.75, blue: 0.88)
-        let indicatorStrokeColor: Color = isSelected ? Color(red: 0.4, green: 0.7, blue: 1.0) : Color.white.opacity(0.2)
+        let indicatorStrokeColor: Color = isSelected ? Theme.sel : Color.white.opacity(0.2)
         
         return Button {
             app.activeMlxModel = model.id
@@ -843,7 +916,7 @@ struct SettingsView: View {
                         .frame(width: 14, height: 14)
                     if isSelected {
                         Circle()
-                            .fill(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .fill(Theme.sel)
                             .frame(width: 8, height: 8)
                     }
                 }
@@ -866,10 +939,10 @@ struct SettingsView: View {
                     ForEach(model.tags.prefix(2), id: \.self) { tag in
                         Text(tag)
                             .font(.system(size: 8, weight: .medium))
-                            .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .foregroundStyle(Theme.sel)
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2)
-                            .background(Color(red: 0.4, green: 0.7, blue: 1.0).opacity(0.12),
+                            .background(Theme.sel.opacity(0.12),
                                         in: Capsule())
                     }
                 }
@@ -877,7 +950,7 @@ struct SettingsView: View {
                 // Size badge
                 Text("\(String(format: "%.0f", model.sizeGB))GB")
                     .font(.system(size: 9, weight: .semibold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                    .foregroundStyle(Theme.dim)
                     .frame(width: 30)
 
                 // Download status
@@ -923,7 +996,7 @@ struct SettingsView: View {
                         Text("\(app.maxTokensOllama)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
                     }
                     Slider(value: Binding(get: { Double(app.maxTokensOllama) }, set: { app.maxTokensOllama = Int($0) }), in: 256...8192, step: 256)
-                        .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .tint(Theme.sel)
                 }
 
                 Divider().opacity(0.2)
@@ -961,7 +1034,7 @@ struct SettingsView: View {
                         Text("\(app.maxTokensMLX)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
                     }
                     Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...131072, step: 512)
-                        .tint(Color(red: 0.4, green: 0.9, blue: 0.6))
+                        .tint(Theme.ok)
                 }
 
                 Divider().opacity(0.2)
@@ -1037,7 +1110,7 @@ struct SettingsView: View {
                     .font(.system(size: 11, design: .monospaced))
                     .frame(minHeight: 80, maxHeight: 120)
                     .scrollContentBackground(.hidden)
-                    .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+                    .background(Theme.panel)
             }
         }
     }
@@ -1052,7 +1125,7 @@ struct SettingsView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "info.circle")
                         .font(.system(size: 10))
-                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .foregroundStyle(Theme.sel)
                     Text(app.t("Data is collected at ~/.openclaw/memory/training_data/verantyx_dataset.jsonl", "~/.openclaw/memory/training_data/verantyx_dataset.jsonl にデータが蓄積されます。"))
                         .font(.system(size: 10))
                         .foregroundStyle(.tertiary)
@@ -1108,23 +1181,23 @@ struct SettingsView: View {
 
             settingsCard {
                 VStack(alignment: .leading, spacing: 0) {
-                    toolToggleRow(icon: "globe",          iconColor: Color(red: 0.3, green: 0.7, blue: 1.0),
+                    toolToggleRow(icon: "globe",          iconColor: Theme.sel,
                                   title: "Web Browser",   description: "AI can browse URLs using the Rust browser engine or system browser",
                                   isOn: $app.toolBrowserEnabled)
                     Divider().opacity(0.15)
-                    toolToggleRow(icon: "magnifyingglass", iconColor: Color(red: 0.4, green: 0.9, blue: 0.6),
+                    toolToggleRow(icon: "magnifyingglass", iconColor: Theme.ok,
                                   title: "Web Search",    description: "AI can search the web for documentation, code examples, and answers",
                                   isOn: $app.toolWebSearchEnabled)
                     Divider().opacity(0.15)
-                    toolToggleRow(icon: "terminal",       iconColor: Color(red: 0.9, green: 0.6, blue: 0.2),
+                    toolToggleRow(icon: "terminal",       iconColor: Theme.warn,
                                   title: "Terminal",      description: "AI can run shell commands, build scripts, and tests",
                                   isOn: $app.toolTerminalEnabled)
                     Divider().opacity(0.15)
-                    toolToggleRow(icon: "arrow.left.arrow.right", iconColor: Color(red: 0.7, green: 0.4, blue: 1.0),
+                    toolToggleRow(icon: "arrow.left.arrow.right", iconColor: Theme.accent,
                                   title: "Diff & Apply",  description: "AI can propose file changes via side-by-side diff viewer",
                                   isOn: $app.toolDiffEnabled)
                     Divider().opacity(0.15)
-                    toolToggleRow(icon: "brain",          iconColor: Color(red: 0.4, green: 0.9, blue: 0.6),
+                    toolToggleRow(icon: "brain",          iconColor: Theme.ok,
                                   title: "JCross Memory", description: "AI can read/write long-term memory nodes (JCross spatial index)",
                                   isOn: $app.toolJCrossEnabled)
                 }
@@ -1227,14 +1300,14 @@ struct SettingsView: View {
                             rowLabel("Compression threshold") {
                                 Text("\(app.cortex.contextThreshold) tokens")
                                     .font(.system(size: 11, design: .monospaced))
-                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    .foregroundStyle(Theme.ok)
                                     .frame(width: 80)
                             }
                             Slider(value: Binding(
                                 get: { Double(app.cortex.contextThreshold) },
                                 set: { app.cortex.contextThreshold = Int($0) }
                             ), in: 500...8000, step: 500)
-                            .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .tint(Theme.sel)
                             Text("Lower = more aggressive. Recommended: 3000 for 8B, 6000 for 27B+")
                                 .font(.system(size: 9)).foregroundStyle(.tertiary)
                         }
@@ -1243,11 +1316,11 @@ struct SettingsView: View {
 
                         HStack(spacing: 16) {
                             statCard("Nodes",     value: "\(app.cortex.nodes.count)",
-                                     icon: "square.stack.3d.up", color: Color(red: 0.4, green: 0.7, blue: 1.0))
+                                     icon: "square.stack.3d.up", color: Theme.sel)
                             statCard("Compressed", value: "\(app.cortex.compressedCount)",
-                                     icon: "arrow.compress", color: Color(red: 0.7, green: 0.5, blue: 1.0))
+                                     icon: "arrow.compress", color: Theme.accent)
                             statCard("Active",    value: "\(app.cortex.nodes.filter { $0.zone == .front || $0.zone == .near }.count)",
-                                     icon: "bolt.fill", color: Color(red: 0.4, green: 0.9, blue: 0.5))
+                                     icon: "bolt.fill", color: Theme.ok)
                         }
 
                         if !app.cortex.nodes.isEmpty {
@@ -1293,7 +1366,7 @@ struct SettingsView: View {
                         Divider().opacity(0.2)
                         Text("\(app.pendingVeraSaveQueue.count + (app.pendingVeraSave != nil ? 1 : 0)) save(s) waiting for review")
                             .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.2))
+                            .foregroundStyle(Theme.warn)
                     }
 
                     Divider().opacity(0.2)
@@ -1537,11 +1610,11 @@ struct SettingsView: View {
                         HStack(spacing: 12) {
                             ZStack {
                                 Circle()
-                                    .fill(Color(red: 0.4, green: 0.9, blue: 0.5).opacity(0.15))
+                                    .fill(Theme.ok.opacity(0.15))
                                     .frame(width: 32, height: 32)
                                 Text("P1")
                                     .font(.system(size: 10, weight: .bold, design: .monospaced))
-                                    .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    .foregroundStyle(Theme.ok)
                             }
                             VStack(alignment: .leading, spacing: 2) {
                                 HStack(spacing: 6) {
@@ -1549,9 +1622,9 @@ struct SettingsView: View {
                                         .font(.system(size: 12, weight: .semibold)).foregroundStyle(.white)
                                     Text("Always ON")
                                         .font(.system(size: 9, weight: .semibold))
-                                        .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                        .foregroundStyle(Theme.ok)
                                         .padding(.horizontal, 6).padding(.vertical, 2)
-                                        .background(Color(red: 0.4, green: 0.9, blue: 0.5).opacity(0.1), in: Capsule())
+                                        .background(Theme.ok.opacity(0.1), in: Capsule())
                                 }
                                 Text("Detects FUNC_xxx, CLASS_xxx, VAR_xxx, secrets via regex patterns. Fast, deterministic.")
                                     .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(2)
@@ -1567,13 +1640,13 @@ struct SettingsView: View {
                             ZStack {
                                 Circle()
                                     .fill(app.gemmaSemanticMaskingEnabled
-                                          ? Color(red: 0.8, green: 0.5, blue: 1.0).opacity(0.15)
+                                          ? Theme.accent.opacity(0.15)
                                           : Color.white.opacity(0.05))
                                     .frame(width: 32, height: 32)
                                 Text("P2")
                                     .font(.system(size: 10, weight: .bold, design: .monospaced))
                                     .foregroundStyle(app.gemmaSemanticMaskingEnabled
-                                                     ? Color(red: 0.8, green: 0.5, blue: 1.0)
+                                                     ? Theme.accent
                                                      : .secondary)
                             }
                             VStack(alignment: .leading, spacing: 2) {
@@ -1604,22 +1677,22 @@ struct SettingsView: View {
                             .font(.system(size: 11, weight: .semibold)).foregroundStyle(.secondary)
 
                         HStack(spacing: 4) {
-                            pipelineStep("JCross\nQuery",   color: Color(red: 0.8, green: 0.5, blue: 1.0), number: 1)
+                            pipelineStep("JCross\nQuery",   color: Theme.accent, number: 1)
                             pipelineArrow()
-                            pipelineStep("Regex\nMask",     color: Color(red: 0.4, green: 0.9, blue: 0.5), number: 2)
+                            pipelineStep("Regex\nMask",     color: Theme.ok, number: 2)
                             pipelineArrow()
                             if app.gemmaSemanticMaskingEnabled {
-                                pipelineStep("Gemma\nScan", color: Color(red: 0.9, green: 0.6, blue: 0.2), number: 3)
+                                pipelineStep("Gemma\nScan", color: Theme.warn, number: 3)
                                 pipelineArrow()
                             }
-                            pipelineStep("Cloud\nAPI",      color: Color(red: 0.4, green: 0.7, blue: 1.0), number: app.gemmaSemanticMaskingEnabled ? 4 : 3)
+                            pipelineStep("Cloud\nAPI",      color: Theme.sel, number: app.gemmaSemanticMaskingEnabled ? 4 : 3)
                             pipelineArrow()
-                            pipelineStep("Gemma\nRestore",  color: Color(red: 0.9, green: 0.4, blue: 0.4), number: app.gemmaSemanticMaskingEnabled ? 5 : 4)
+                            pipelineStep("Gemma\nRestore",  color: Theme.bad, number: app.gemmaSemanticMaskingEnabled ? 5 : 4)
                         }
                         .animation(.easeInOut(duration: 0.2), value: app.gemmaSemanticMaskingEnabled)
 
                         Text("★ Your real code never reaches external APIs — only abstract logic identifiers.")
-                            .font(.system(size: 10)).foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                            .font(.system(size: 10)).foregroundStyle(Theme.ok)
                             .padding(.top, 4)
                     }
                 }
@@ -1631,7 +1704,7 @@ struct SettingsView: View {
                     Image(systemName: "airplane")
                         .font(.system(size: 20))
                         .foregroundStyle(app.inferenceMode == .localOnly
-                                         ? Color(red: 0.3, green: 1.0, blue: 0.5) : .secondary)
+                                         ? Theme.ok : .secondary)
                     VStack(alignment: .leading, spacing: 3) {
                         Text(app.inferenceMode == .localOnly ? "Airplane-mode capable ✓" : "Requires internet connection")
                             .font(.system(size: 12, weight: .semibold))
@@ -1743,7 +1816,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         HStack(spacing: 8) {
                             Image(systemName: "arrow.triangle.2.circlepath")
-                                .font(.system(size: 11)).foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                                .font(.system(size: 11)).foregroundStyle(Theme.sel)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(AppLanguage.shared.t("Cloud LLM Resend Count on Failure", "失敗時 Cloud LLM 再送回数"))
                                     .font(.system(size: 11)).foregroundStyle(.white)
@@ -1759,7 +1832,7 @@ struct SettingsView: View {
                             get: { gk.maxWorkerRetries == -1 ? 20 : Double(gk.maxWorkerRetries) },
                             set: { val in gk.maxWorkerRetries = Int(val) == 20 ? -1 : Int(val) }
                         ), in: 0...20, step: 1)
-                        .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        .tint(Theme.sel)
                         HStack {
                             Text(AppLanguage.shared.t("0 (No resends)", "0（再送なし）"))
                             Spacer()
@@ -1963,7 +2036,7 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
-                    .tint(Color(red: 0.2, green: 0.5, blue: 0.85))
+                    .tint(Theme.sel)
                 }
             }
 
@@ -1975,7 +2048,7 @@ struct SettingsView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("MCP RUNNING")
                                 .font(.system(size: 11, weight: .bold, design: .monospaced))
-                                .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                                .foregroundStyle(Theme.bad)
                             if let call = mcp.activeCall {
                                 Text("\(call.serverName) → \(call.toolName)  [\(call.elapsedSeconds)s]")
                                     .font(.system(size: 10, design: .monospaced))
@@ -2031,7 +2104,7 @@ struct SettingsView: View {
             : (server.url.isEmpty ? "http://…" : server.url)
         let modeColor = server.mode == .ai
             ? Color(red: 0.4, green: 0.8, blue: 1.0)
-            : Color(red: 0.9, green: 0.7, blue: 0.3)
+            : Theme.warn
 
         // Real connection status (was: only reflected an in-flight call,
         // so a server that never even started looked identical to an
@@ -2041,8 +2114,8 @@ struct SettingsView: View {
             if isRunning { return .green }
             switch status {
             case .connected:      return .green
-            case .connecting:     return Color(red: 0.9, green: 0.7, blue: 0.3)
-            case .error:          return Color(red: 1.0, green: 0.35, blue: 0.35)
+            case .connecting:     return Theme.warn
+            case .error:          return Theme.bad
             case .disconnected:   return Color(red: 0.4, green: 0.4, blue: 0.5)
             }
         }()
@@ -2068,7 +2141,7 @@ struct SettingsView: View {
                     if let errorDetail {
                         Text(errorDetail)
                             .font(.system(size: 9, design: .monospaced))
-                            .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.5))
+                            .foregroundStyle(Theme.bad)
                             .textSelection(.enabled)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -2083,11 +2156,11 @@ struct SettingsView: View {
                     Button { mcp.killActiveCall() } label: {
                         Label(app.t("Stop", "停止"), systemImage: "stop.fill")
                             .font(.system(size: 10, weight: .semibold))
-                            .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
+                            .foregroundStyle(Theme.bad)
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
-                    .tint(Color(red: 1.0, green: 0.4, blue: 0.4))
+                    .tint(Theme.bad)
                 }
             }
             .padding(.horizontal, 12)
@@ -2126,7 +2199,7 @@ struct SettingsView: View {
         HStack(spacing: 7) {
             Image(systemName: icon)
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                .foregroundStyle(Theme.sel)
             Text(title)
                 .font(.system(size: 13, weight: .bold))
                 .foregroundStyle(.white)
@@ -2204,6 +2277,9 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    // 4 つの層を見分けるための固有色。near/deep がどちらも Theme.sel に
+    // 潰れると、空間記憶の可視化で「近い」と「深い」が同じ色になり
+    // レジェンドとして機能しなくなる — ここは意味ではなく識別のための色。
     private func zoneColor(_ zone: MemoryNode.Zone) -> Color {
         switch zone {
         case .front: return Color(red: 0.4, green: 0.9, blue: 0.5)
@@ -2214,9 +2290,9 @@ struct SettingsView: View {
     }
 
     private var tempColor: Color {
-        app.temperature < 0.3 ? Color(red: 0.3, green: 0.9, blue: 0.5)
-        : app.temperature < 0.7 ? Color(red: 0.9, green: 0.8, blue: 0.3)
-        : Color(red: 0.9, green: 0.5, blue: 0.3)
+        app.temperature < 0.3 ? Theme.ok
+        : app.temperature < 0.7 ? Theme.warn
+        : Theme.bad
     }
 
     // MARK: - Actions
@@ -2288,11 +2364,11 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.15))
+                                .fill(Theme.accent.opacity(0.15))
                                 .frame(width: 36, height: 36)
                             Image(systemName: "cpu.fill")
                                 .font(.system(size: 16))
-                                .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                                .foregroundStyle(Theme.accent)
                         }
                         VStack(alignment: .leading, spacing: 3) {
                             Text(app.t("BitNet b1.58 — Local Commander LLM", "BitNet b1.58 — ローカル Commander LLM"))
@@ -2309,17 +2385,17 @@ struct SettingsView: View {
                             switch BitNetEngineManager.shared.status {
                             case .ready(let name, _):
                                 Label(name, systemImage: "circle.fill")
-                                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                                    .foregroundStyle(Theme.ok)
                                     .font(.system(size: 10, weight: .semibold))
                                     .padding(.horizontal, 8).padding(.vertical, 3)
-                                    .background(Color(red: 0.3, green: 0.9, blue: 0.5).opacity(0.1),
+                                    .background(Theme.ok.opacity(0.1),
                                                 in: Capsule())
                             case .notInstalled:
                                 Label(app.t("Not Installed", "未インストール"), systemImage: "circle")
-                                    .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                                    .foregroundStyle(Theme.accent)
                                     .font(.system(size: 10, weight: .semibold))
                                     .padding(.horizontal, 8).padding(.vertical, 3)
-                                    .background(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.1),
+                                    .background(Theme.accent.opacity(0.1),
                                                 in: Capsule())
                             default:
                                 EmptyView()
@@ -2338,7 +2414,7 @@ struct SettingsView: View {
                         HStack(spacing: 8) {
                             Text("①")
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundStyle(Color(red: 0.7, green: 0.4, blue: 1.0))
+                                .foregroundStyle(Theme.accent)
                             Text(app.t("BitNet b1.58 (If installed)", "BitNet b1.58 (インストール済みの場合)"))
                                 .font(.system(size: 10))
                                 .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.95))
@@ -2346,14 +2422,14 @@ struct SettingsView: View {
                         HStack(spacing: 8) {
                             Text("②")
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 1.0))
+                                .foregroundStyle(Theme.sel)
                             Text(app.t("Ollama (localhost:11434) — Auto Fallback", "Ollama (localhost:11434) — 自動フォールバック"))
                                 .font(.system(size: 10))
-                                .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.75))
+                                .foregroundStyle(Theme.dim)
                         }
                     }
                     .padding(10)
-                    .background(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.05),
+                    .background(Theme.accent.opacity(0.05),
                                 in: RoundedRectangle(cornerRadius: 8))
                 }
             }
@@ -2366,7 +2442,7 @@ struct SettingsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .strokeBorder(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.25), lineWidth: 1)
+                        .strokeBorder(Theme.accent.opacity(0.25), lineWidth: 1)
                 )
         }
     }

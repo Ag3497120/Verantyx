@@ -24,20 +24,20 @@ struct VeraSaveApprovalView: View {
             HStack(spacing: 12) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(red: 0.3, green: 0.9, blue: 0.7).opacity(0.18))
+                        .fill(Theme.ok.opacity(0.18))
                         .frame(width: 40, height: 40)
                     Image(systemName: "checkmark.seal")
                         .font(.system(size: 18))
-                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.7))
+                        .foregroundStyle(Theme.ok)
                 }
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(app.t("Save this turn to Vera?", "この内容を Vera に保存しますか？"))
                         .font(.system(size: 14, weight: .bold))
-                        .foregroundStyle(Color(red: 0.92, green: 0.92, blue: 0.98))
+                        .foregroundStyle(Theme.fg)
                     Text(app.t("Vera-α memory layer", "Vera-α 記憶レイヤー"))
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.55, green: 0.65, blue: 0.85))
+                        .foregroundStyle(Theme.sel)
                 }
 
                 Spacer()
@@ -53,14 +53,14 @@ struct VeraSaveApprovalView: View {
                 VStack(alignment: .leading, spacing: 14) {
                     previewSection(
                         badge: app.t("USER — remember()", "USER — remember()"),
-                        badgeColor: Color(red: 0.4, green: 0.7, blue: 1.0),
+                        badgeColor: Theme.sel,
                         note: app.t("Goes straight into Vera's trusted store.",
                                     "そのまま Vera の信頼済みストアに入ります。"),
                         text: req.userPrompt
                     )
                     previewSection(
                         badge: app.t("AI — propose_ai_facts() (quarantined)", "AI — propose_ai_facts()（検疫）"),
-                        badgeColor: Color(red: 1.0, green: 0.65, blue: 0.2),
+                        badgeColor: Theme.warn,
                         note: app.t("Only queued for later human review — never auto-trusted.",
                                     "レビュー待ちで検疫キューに入るだけです。自動的には信頼されません。"),
                         text: req.aiResponse
@@ -69,7 +69,7 @@ struct VeraSaveApprovalView: View {
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .background(Color(red: 0.06, green: 0.06, blue: 0.09))
+            .background(Theme.bg)
             .frame(maxHeight: .infinity)
 
             Divider().opacity(0.25)
@@ -87,13 +87,13 @@ struct VeraSaveApprovalView: View {
                         Text(app.t("Discard", "破棄"))
                             .font(.system(size: 13, weight: .semibold))
                     }
-                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                    .foregroundStyle(Theme.bad)
                     .padding(.horizontal, 20).padding(.vertical, 9)
                     .contentShape(Rectangle())
                     .background(Color(red: 0.32, green: 0.10, blue: 0.10).opacity(0.7),
                                 in: RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.bad.opacity(0.5), lineWidth: 1))
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -108,13 +108,13 @@ struct VeraSaveApprovalView: View {
                         Text(app.t("Save", "保存"))
                             .font(.system(size: 13, weight: .semibold))
                     }
-                    .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
                     .padding(.horizontal, 20).padding(.vertical, 9)
                     .contentShape(Rectangle())
                     .background(Color(red: 0.10, green: 0.28, blue: 0.15).opacity(0.8),
                                 in: RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.3, green: 0.92, blue: 0.5).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.ok.opacity(0.5), lineWidth: 1))
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -122,9 +122,9 @@ struct VeraSaveApprovalView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+            .background(Theme.panel2)
         }
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
         .frame(minWidth: 640, idealWidth: 760, maxWidth: 960,
                minHeight: 420, idealHeight: 560, maxHeight: 720)
     }
@@ -141,7 +141,7 @@ struct VeraSaveApprovalView: View {
             }
             Text(note)
                 .font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                .foregroundStyle(Theme.dim)
             // "(empty)" said nothing about why, so a deliberate exclusion and
             // a broken pipeline looked identical — and this section was empty
             // on every ordinary turn, which made it read as broken.
@@ -151,11 +151,11 @@ struct VeraSaveApprovalView: View {
                     "（検疫するものがありません — このターンには保存対象の主張がありません）")
                  : text)
                 .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
+                .foregroundStyle(Theme.fg)
                 .textSelection(.enabled)
                 .padding(10)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(red: 0.12, green: 0.12, blue: 0.16),
+                .background(Theme.panel2,
                             in: RoundedRectangle(cornerRadius: 6))
         }
     }

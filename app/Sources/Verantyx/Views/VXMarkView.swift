@@ -73,19 +73,19 @@ struct VXMarkView_Previews: PreviewProvider {
             // Toolbar size — white on dark
             VXMarkView(size: 14, color: .white)
                 .padding(6)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.14))
+                .background(Theme.panel2)
                 .cornerRadius(4)
 
             // Medium — white
             VXMarkView(size: 22, color: .white)
                 .padding(6)
-                .background(Color(red: 0.1, green: 0.1, blue: 0.14))
+                .background(Theme.panel2)
                 .cornerRadius(4)
 
             // Large — gray tint
-            VXMarkView(size: 40, color: Color(red: 0.85, green: 0.85, blue: 0.90))
+            VXMarkView(size: 40, color: Theme.fg)
                 .padding(8)
-                .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+                .background(Theme.panel)
                 .cornerRadius(6)
 
             // White on white bg (inverted / light mode)
@@ -95,7 +95,7 @@ struct VXMarkView_Previews: PreviewProvider {
                 .cornerRadius(4)
         }
         .padding(20)
-        .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+        .background(Theme.panel2)
         .previewLayout(.sizeThatFits)
     }
 }

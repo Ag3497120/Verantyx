@@ -32,9 +32,9 @@ struct PendingToolCallsView: View {
         HStack(spacing: 12) {
             Image(systemName: "checkmark.shield")
                 .font(.system(size: 20))
-                .foregroundStyle(Color(red: 0.95, green: 0.6, blue: 0.25))
+                .foregroundStyle(Theme.warn)
                 .frame(width: 34, height: 34)
-                .background(Color(red: 0.95, green: 0.6, blue: 0.25).opacity(0.12),
+                .background(Theme.warn.opacity(0.12),
                             in: RoundedRectangle(cornerRadius: 8))
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.t("Pending tool-call approvals", "承認待ちのツール呼び出し"))

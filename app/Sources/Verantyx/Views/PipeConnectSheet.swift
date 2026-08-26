@@ -67,7 +67,7 @@ struct PipeConnectSheet: View {
             footer
         }
         .frame(width: 620, height: 560)
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .background(Theme.panel)
         .task { await enterFind() }
     }
 
@@ -76,7 +76,7 @@ struct PipeConnectSheet: View {
     private var header: some View {
         HStack(spacing: 10) {
             Image(systemName: "rectangle.connected.to.line.below")
-                .foregroundStyle(Color(red: 0.4, green: 0.8, blue: 0.85))
+                .foregroundStyle(Theme.sel)
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.t("Use two Macs for one model", "2台のMacで1つのモデルを動かす"))
                     .font(.system(size: 14, weight: .semibold))
@@ -93,7 +93,7 @@ struct PipeConnectSheet: View {
         HStack(spacing: 5) {
             ForEach(0..<4, id: \.self) { i in
                 Circle()
-                    .fill(i <= stepIndex ? Color(red: 0.4, green: 0.8, blue: 0.85)
+                    .fill(i <= stepIndex ? Theme.sel
                                          : Color.white.opacity(0.15))
                     .frame(width: 6, height: 6)
             }
@@ -134,7 +134,7 @@ struct PipeConnectSheet: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.95, green: 0.7, blue: 0.35))
+                .foregroundStyle(Theme.warn)
             Text(text)
                 .font(.system(size: 11))
                 .fixedSize(horizontal: false, vertical: true)
@@ -298,7 +298,7 @@ struct PipeConnectSheet: View {
                     .font(.system(size: 10))
                     .foregroundStyle(thisMacShouldLead(peerRAM: Double(c.ramGB))
                                      ? AnyShapeStyle(.tertiary)
-                                     : AnyShapeStyle(Color(red: 0.95, green: 0.72, blue: 0.35)))
+                                     : AnyShapeStyle(Theme.warn))
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -369,7 +369,7 @@ struct PipeConnectSheet: View {
         HStack(spacing: 8) {
             Image(systemName: larger ? "memorychip.fill" : "memorychip")
                 .font(.system(size: 11))
-                .foregroundStyle(larger ? Color(red: 0.45, green: 0.8, blue: 0.5)
+                .foregroundStyle(larger ? Theme.ok
                                         : Color.secondary)
             Text(name).font(.system(size: 11, weight: larger ? .semibold : .regular))
                 .lineLimit(1).truncationMode(.middle)
@@ -381,7 +381,7 @@ struct PipeConnectSheet: View {
                 Text(app.t("more memory", "メモリ多"))
                     .font(.system(size: 9))
                     .padding(.horizontal, 5).padding(.vertical, 1)
-                    .background(Capsule().fill(Color(red: 0.45, green: 0.8, blue: 0.5).opacity(0.18)))
+                    .background(Capsule().fill(Theme.ok.opacity(0.18)))
             }
         }
     }
@@ -390,7 +390,7 @@ struct PipeConnectSheet: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "info.circle")
                 .font(.system(size: 11))
-                .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                .foregroundStyle(Theme.sel)
             Text(app.t(
                 "This does not make replies faster. Only one Mac computes at a time. What it does is let a model that fits on neither Mac alone actually run.",
                 "これは返答が速くなる機能ではありません。計算するのは常に片方だけです。単体では入らないモデルが動くようになる、というものです。"))

@@ -76,7 +76,7 @@ struct MemoryConsoleView: View {
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .background(Theme.panel2)
         .task { await refreshFailures() }
     }
 
@@ -248,17 +248,17 @@ struct MemoryConsoleView: View {
     private func sources(_ u: ContextUsageTracker.InjectionUsage) -> [Source] {
         [
             Source(label: app.t("Eternal (vector recall)", "永遠記憶(ベクトル検索)"),
-                   chars: u.eternalMemoryChars, color: Color(red: 1.0, green: 0.72, blue: 0.35)),
+                   chars: u.eternalMemoryChars, color: Theme.warn),
             Source(label: app.t("Vera facts", "Vera事実"),
-                   chars: u.veraChars, color: Color(red: 0.45, green: 0.9, blue: 0.6)),
+                   chars: u.veraChars, color: Theme.ok),
             Source(label: app.t("Zone L1–L3", "ゾーン L1〜L3"),
-                   chars: u.l2ZoneChars, color: Color(red: 0.65, green: 0.5, blue: 1.0)),
+                   chars: u.l2ZoneChars, color: Theme.accent),
             Source(label: app.t("Skills", "スキル"),
-                   chars: u.skillChars, color: Color(red: 0.4, green: 0.75, blue: 1.0)),
+                   chars: u.skillChars, color: Theme.sel),
             Source(label: app.t("System prompt", "システムプロンプト"),
-                   chars: u.systemPromptChars, color: Color(red: 0.6, green: 0.6, blue: 0.68)),
+                   chars: u.systemPromptChars, color: Theme.dim),
             Source(label: app.t("Conversation", "会話履歴"),
-                   chars: u.conversationHistoryChars, color: Color(red: 0.5, green: 0.5, blue: 0.58)),
+                   chars: u.conversationHistoryChars, color: Theme.dim),
         ]
     }
 
@@ -287,14 +287,14 @@ struct MemoryConsoleView: View {
                     HStack {
                         Text(String(format: "%.3f", hit.score))
                             .font(.system(size: 9, design: .monospaced))
-                            .foregroundStyle(Color(red: 1.0, green: 0.72, blue: 0.35))
+                            .foregroundStyle(Theme.warn)
                         Spacer()
                         Button(app.t("Use as probe label", "プローブに使う")) {
                             probeLabel = hit.text
                         }
                         .buttonStyle(.plain)
                         .font(.system(size: 9))
-                        .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                        .foregroundStyle(Theme.sel)
                     }
                     Text(hit.text)
                         .font(.system(size: 10)).foregroundStyle(.secondary)
@@ -321,7 +321,7 @@ struct MemoryConsoleView: View {
             HStack(alignment: .top, spacing: 7) {
                 Image(systemName: "info.circle")
                     .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                    .foregroundStyle(Theme.sel)
                 Text(app.t(
                     "Chat does not do this. Everything above reaches the model as text; this blends a vector straight into the residual stream and shows what the model's internal state decodes to afterwards. Council rounds and Vera's reflect tool use this path — an ordinary chat turn never does.",
                     "チャットはこれをしていません。上の項目はすべてテキストとしてモデルに届きます。ここではベクトルを残差ストリームに直接混ぜ、その後のモデル内部状態が何に復号されるかを見ます。この経路を使うのは合議ラウンドとVeraのreflectツールだけで、通常のチャットのターンは通りません。"))
@@ -412,7 +412,7 @@ struct MemoryConsoleView: View {
     private func header(_ title: String, icon: String) -> some View {
         HStack(spacing: 5) {
             Image(systemName: icon).font(.system(size: 10))
-                .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                .foregroundStyle(Theme.sel)
             Text(title).font(.system(size: 12, weight: .semibold))
         }
     }

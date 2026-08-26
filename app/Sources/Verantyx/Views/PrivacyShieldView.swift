@@ -55,7 +55,7 @@ struct ModeSelectorView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
-        .background(Color(red: 0.14, green: 0.14, blue: 0.18))
+        .background(Theme.panel2)
     }
 
     private func modeButton(_ mode: InferenceMode) -> some View {
@@ -74,7 +74,7 @@ struct ModeSelectorView: View {
                 Text(mode.rawValue)
                     .font(.system(size: 11, weight: isActive ? .semibold : .regular))
             }
-            .foregroundStyle(isActive ? color : Color(red: 0.45, green: 0.45, blue: 0.6))
+            .foregroundStyle(isActive ? color : Theme.sel)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
             .background(
@@ -121,7 +121,7 @@ struct ModeSelectorView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Cloud Provider")
                 .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.7))
+                .foregroundStyle(Theme.sel)
                 .padding(.bottom, 4)
 
             ForEach(CloudProvider.allCases, id: \.rawValue) { provider in
@@ -132,7 +132,7 @@ struct ModeSelectorView: View {
                     HStack(spacing: 8) {
                         Image(systemName: provider.icon)
                             .font(.system(size: 12))
-                            .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 1.0))
+                            .foregroundStyle(Theme.sel)
                         Text(provider.rawValue)
                             .font(.system(size: 12))
                             .foregroundStyle(Color.white)
@@ -156,7 +156,7 @@ struct ModeSelectorView: View {
         }
         .padding(12)
         .frame(width: 240)
-        .background(Color(red: 0.14, green: 0.14, blue: 0.18))
+        .background(Theme.panel2)
     }
 
     private func apiKeyIndicator(_ provider: CloudProvider) -> some View {
@@ -169,7 +169,7 @@ struct ModeSelectorView: View {
             } else {
                 Text("No key")
                     .font(.system(size: 9))
-                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.8))
+                    .foregroundStyle(Theme.bad.opacity(0.8))
             }
         }
     }
@@ -227,8 +227,8 @@ struct PrivacyShieldStepsView: View {
 
     private var headerColor: Color {
         app.inferenceMode == .paranoiaMode
-            ? Color(red: 1.0, green: 0.35, blue: 0.35)
-            : Color(red: 0.8, green: 0.5, blue: 1.0)
+            ? Theme.bad
+            : Theme.accent
     }
 
     private var backgroundFill: Color {
@@ -239,8 +239,8 @@ struct PrivacyShieldStepsView: View {
 
     private var borderColor: Color {
         app.inferenceMode == .paranoiaMode
-            ? Color(red: 0.9, green: 0.2, blue: 0.2).opacity(0.3)
-            : Color(red: 0.6, green: 0.3, blue: 0.9).opacity(0.3)
+            ? Theme.bad.opacity(0.3)
+            : Theme.accent.opacity(0.3)
     }
 }
 
@@ -256,7 +256,7 @@ struct AssistantText: View {
         return parts.reduce(Text("")) { acc, part in
             acc + (part.isBold
                 ? Text(part.text).bold().foregroundColor(Color.white)
-                : Text(part.text).foregroundColor(Color(red: 0.88, green: 0.88, blue: 0.92))
+                : Text(part.text).foregroundColor(Theme.fg)
             )
         }
         .textSelection(.enabled)

@@ -105,7 +105,7 @@ struct MainSplitView: View {
     private func humanApprovalBanner(diff: FileDiff) -> some View {
         HStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.2))
+                .foregroundStyle(Theme.warn)
                 .font(.system(size: 13))
 
             VStack(alignment: .leading, spacing: 2) {
@@ -114,7 +114,7 @@ struct MainSplitView: View {
                     .foregroundStyle(Color(red: 0.95, green: 0.88, blue: 0.60))
                 Text(app.t("AI has proposed changes. Review in the Diff tab.", "AIが変更を提案しています。Diffタブで内容を確認してください。"))
                     .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.65, green: 0.65, blue: 0.75))
+                    .foregroundStyle(Theme.dim)
             }
 
             Spacer()
@@ -127,12 +127,12 @@ struct MainSplitView: View {
             } label: {
                 Text(app.t("Reject", "却下"))
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                    .foregroundStyle(Theme.bad)
                     .padding(.horizontal, 16).padding(.vertical, 5)
                     .background(Color(red: 0.35, green: 0.12, blue: 0.12).opacity(0.6),
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.bad.opacity(0.5), lineWidth: 1))
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -151,12 +151,12 @@ struct MainSplitView: View {
             } label: {
                 Text(app.t("Approve", "承認"))
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.45))
+                    .foregroundStyle(Theme.ok)
                     .padding(.horizontal, 16).padding(.vertical, 5)
                     .background(Color(red: 0.12, green: 0.30, blue: 0.18).opacity(0.7),
                                 in: RoundedRectangle(cornerRadius: 6))
                     .overlay(RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color(red: 0.3, green: 0.9, blue: 0.45).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.ok.opacity(0.5), lineWidth: 1))
             }
             .contentShape(Rectangle())
             .buttonStyle(.plain)
@@ -164,7 +164,7 @@ struct MainSplitView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(Color(red: 0.16, green: 0.14, blue: 0.08))
-        .overlay(Rectangle().fill(Color(red: 1.0, green: 0.75, blue: 0.2).opacity(0.3)).frame(height: 1),
+        .overlay(Rectangle().fill(Theme.warn.opacity(0.3)).frame(height: 1),
                  alignment: .top)
         .transition(.move(edge: .bottom).combined(with: .opacity))
         .animation(.easeInOut(duration: 0.2), value: app.pendingDiff != nil)
@@ -212,23 +212,23 @@ struct FileApprovalView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(req.isNewFile
-                              ? Color(red: 0.2, green: 0.5, blue: 0.9).opacity(0.18)
-                              : Color(red: 0.9, green: 0.55, blue: 0.1).opacity(0.18))
+                              ? Theme.sel.opacity(0.18)
+                              : Theme.warn.opacity(0.18))
                         .frame(width: 40, height: 40)
                     Image(systemName: req.isNewFile ? "doc.badge.plus" : "pencil.line")
                         .font(.system(size: 18))
                         .foregroundStyle(req.isNewFile
-                                         ? Color(red: 0.4, green: 0.7, blue: 1.0)
-                                         : Color(red: 1.0, green: 0.65, blue: 0.2))
+                                         ? Theme.sel
+                                         : Theme.warn)
                 }
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(req.displayTitle)
                         .font(.system(size: 14, weight: .bold))
-                        .foregroundStyle(Color(red: 0.92, green: 0.92, blue: 0.98))
+                        .foregroundStyle(Theme.fg)
                     Text(req.shortPath)
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.55, green: 0.65, blue: 0.85))
+                        .foregroundStyle(Theme.sel)
                         .lineLimit(1)
                 }
 
@@ -238,18 +238,18 @@ struct FileApprovalView: View {
                 Text(req.isNewFile ? "NEW" : "EDIT")
                     .font(.system(size: 9, weight: .bold, design: .monospaced))
                     .foregroundStyle(req.isNewFile
-                                     ? Color(red: 0.3, green: 0.85, blue: 0.55)
-                                     : Color(red: 1.0, green: 0.65, blue: 0.2))
+                                     ? Theme.ok
+                                     : Theme.warn)
                     .padding(.horizontal, 7).padding(.vertical, 3)
                     .background(
                         Capsule()
                             .fill(req.isNewFile
-                                  ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.15)
-                                  : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.15))
+                                  ? Theme.ok.opacity(0.15)
+                                  : Theme.warn.opacity(0.15))
                             .overlay(Capsule()
                                 .stroke(req.isNewFile
-                                        ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.4)
-                                        : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.4),
+                                        ? Theme.ok.opacity(0.4)
+                                        : Theme.warn.opacity(0.4),
                                         lineWidth: 0.8))
                     )
             }
@@ -267,7 +267,7 @@ struct FileApprovalView: View {
                         ForEach(Array(req.newContent.components(separatedBy: "\n").enumerated()), id: \.offset) { i, line in
                             approvalDiffLine("+", text: "  " + line,
                                             bg: Color(red: 0.1, green: 0.3, blue: 0.15).opacity(0.6),
-                                            fg: Color(red: 0.5, green: 0.95, blue: 0.65))
+                                            fg: Theme.ok)
                         }
                     } else {
                         // Existing file — minimal unified diff (context ±3 lines)
@@ -283,7 +283,7 @@ struct FileApprovalView: View {
                 .padding(.horizontal, 4)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .background(Color(red: 0.06, green: 0.06, blue: 0.09))
+            .background(Theme.bg)
             .frame(maxHeight: .infinity)
 
             Divider().opacity(0.25)
@@ -302,13 +302,13 @@ struct FileApprovalView: View {
                         Text(app.t("Cancel", "キャンセル"))
                             .font(.system(size: 13, weight: .semibold))
                     }
-                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                    .foregroundStyle(Theme.bad)
                     .padding(.horizontal, 20).padding(.vertical, 9)
                     .contentShape(Rectangle())
                     .background(Color(red: 0.32, green: 0.10, blue: 0.10).opacity(0.7),
                                 in: RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.bad.opacity(0.5), lineWidth: 1))
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -324,13 +324,13 @@ struct FileApprovalView: View {
                         Text(app.t("Approve & Apply", "承認して適用"))
                             .font(.system(size: 13, weight: .semibold))
                     }
-                    .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
+                    .foregroundStyle(Theme.ok)
                     .padding(.horizontal, 20).padding(.vertical, 9)
                     .contentShape(Rectangle())
                     .background(Color(red: 0.10, green: 0.28, blue: 0.15).opacity(0.8),
                                 in: RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.3, green: 0.92, blue: 0.5).opacity(0.5), lineWidth: 1))
+                        .stroke(Theme.ok.opacity(0.5), lineWidth: 1))
                 }
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
@@ -338,9 +338,9 @@ struct FileApprovalView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+            .background(Theme.panel2)
         }
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .background(Theme.panel)
         .frame(minWidth: 640, idealWidth: 760, maxWidth: 960,
                minHeight: 420, idealHeight: 560, maxHeight: 720)
     }
@@ -363,7 +363,7 @@ struct FileApprovalView: View {
                 .frame(width: 18, alignment: .center)
             Text(text)
                 .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(marker == " " ? Color(red: 0.55, green: 0.55, blue: 0.68) : fg)
+                .foregroundStyle(marker == " " ? Theme.sel : fg)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -391,13 +391,13 @@ struct FileApprovalView: View {
                 if let ol { // removed
                     entries.append(DiffEntry(marker: "-", text: "  " + ol,
                                              bg: Color(red: 0.35, green: 0.08, blue: 0.08).opacity(0.5),
-                                             fg: Color(red: 1.0, green: 0.45, blue: 0.45)))
+                                             fg: Theme.bad))
                     oIdx += 1
                 }
                 if let ml { // added
                     entries.append(DiffEntry(marker: "+", text: "  " + ml,
                                              bg: Color(red: 0.08, green: 0.28, blue: 0.12).opacity(0.5),
-                                             fg: Color(red: 0.45, green: 0.95, blue: 0.60)))
+                                             fg: Theme.ok))
                     mIdx += 1
                 }
             }

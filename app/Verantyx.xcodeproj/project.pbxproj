@@ -70,6 +70,10 @@
 		4A11C0DE0001000000000147 /* AtelierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000147 /* AtelierModel.swift */; };
 		4A11C0DE0001000000000148 /* AtelierAnalyst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000148 /* AtelierAnalyst.swift */; };
 		4A11C0DE0001000000000149 /* AtelierIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000149 /* AtelierIntake.swift */; };
+		5A11C0DE0001000000000201 /* ShellLayoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000201 /* ShellLayoutState.swift */; };
+		5A11C0DE0001000000000204 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000204 /* Theme.swift */; };
+		5A11C0DE0001000000000202 /* UnifiedComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000202 /* UnifiedComposerView.swift */; };
+		5A11C0DE0001000000000203 /* IDEShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000203 /* IDEShellView.swift */; };
 		4A11C0DE000100000000014A /* AtelierPrompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000014A /* AtelierPrompts.swift */; };
 		4A11C0DE0001000000000146 /* AtelierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000146 /* AtelierView.swift */; };
 		4A11C0DE0001000000000041 /* ModesOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000041 /* ModesOverviewView.swift */; };
@@ -348,6 +352,10 @@
 		4A11C0DE0002000000000147 /* AtelierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierModel.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000148 /* AtelierAnalyst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierAnalyst.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000149 /* AtelierIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierIntake.swift; sourceTree = "<group>"; };
+		5A11C0DE0002000000000201 /* ShellLayoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellLayoutState.swift; sourceTree = "<group>"; };
+		5A11C0DE0002000000000204 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		5A11C0DE0002000000000202 /* UnifiedComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedComposerView.swift; sourceTree = "<group>"; };
+		5A11C0DE0002000000000203 /* IDEShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDEShellView.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000014A /* AtelierPrompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierPrompts.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000146 /* AtelierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000041 /* ModesOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModesOverviewView.swift; sourceTree = "<group>"; };
@@ -692,6 +700,7 @@
 			children = (
 				E93C2041C7D910D0DCA7A80B /* AppLanguage.swift */,
 				BBFBBB5831368FECD08DF846 /* AppState.swift */,
+				5A11C0DE0002000000000204 /* Theme.swift */,
 				912679EC0A7C2086CAB2481C /* Assets.xcassets */,
 				86BF1813B77EAA7D02EC11BB /* Info.plist */,
 				AB8C07A2395C323F940350C6 /* Verantyx.entitlements */,
@@ -766,6 +775,8 @@
 				4A11C0DE0002000000000149 /* AtelierIntake.swift */,
 				4A11C0DE000200000000014A /* AtelierPrompts.swift */,
 				4A11C0DE0002000000000146 /* AtelierView.swift */,
+				5A11C0DE0002000000000202 /* UnifiedComposerView.swift */,
+				5A11C0DE0002000000000203 /* IDEShellView.swift */,
 				4A11C0DE0002000000000041 /* ModesOverviewView.swift */,
 				4A11C0DE000200000000000D /* PipeConnectSheet.swift */,
 				D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */,
@@ -858,6 +869,7 @@
 				A1C0FF33D0E7B41ACB120024 /* ToolSpec.swift */,
 				A1C0FF33D0E7B41ACB120020 /* OSControl.swift */,
 				A1C0FF33D0E7B41ACB12001C /* AgentActivityState.swift */,
+				5A11C0DE0002000000000201 /* ShellLayoutState.swift */,
 				A1C0FF33D0E7B41ACB120016 /* ClipboardChatRelay.swift */,
 				A1C0FF33D0E7B41ACB120014 /* ForegroundAppOperator.swift */,
 				A1C0FF33D0E7B41ACB120004 /* BrowserSession.swift */,
@@ -1292,6 +1304,10 @@ echo \"embedded photoloset ($(ls \"$DEST\" | wc -l | tr -d \" \") files)\"";
 				A1C0FF33D0E7B41ACB120023 /* ToolSpec.swift in Sources */,
 				A1C0FF33D0E7B41ACB12001F /* OSControl.swift in Sources */,
 				A1C0FF33D0E7B41ACB12001B /* AgentActivityState.swift in Sources */,
+				5A11C0DE0001000000000201 /* ShellLayoutState.swift in Sources */,
+				5A11C0DE0001000000000204 /* Theme.swift in Sources */,
+				5A11C0DE0001000000000202 /* UnifiedComposerView.swift in Sources */,
+				5A11C0DE0001000000000203 /* IDEShellView.swift in Sources */,
 				A1C0FF33D0E7B41ACB120015 /* ClipboardChatRelay.swift in Sources */,
 				A1C0FF33D0E7B41ACB120013 /* ForegroundAppOperator.swift in Sources */,
 				A1C0FF33D0E7B41ACB120003 /* BrowserSession.swift in Sources */,
