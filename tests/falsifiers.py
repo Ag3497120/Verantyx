@@ -1513,6 +1513,92 @@ WHOLE_SUITE += [
        " \"state\": \"APART\"})\n"
        "            continue")],
      ["the clearance states partition every point"]),
+
+    # ---- convergence.loop() ----------------------------------------------
+    ("a new address stops continuing the loop",
+     "photoloset/convergence.py",
+     [("    if new_addresses:\n        return dict(base, verdict=CONTINUE,\n",
+       "    if False:\n        return dict(base, verdict=CONTINUE,\n")],
+     ["a new address continues the loop"]),
+
+    ("the fixed point never converges",
+     "photoloset/convergence.py",
+     [('return dict(base, verdict=CONVERGED,\n'
+       '                reason="この周で住所空間は動かなかった — 提案は無いか、"\n'
+       '                       "既にある値と一致した。不動点")',
+       'return dict(base, verdict=CONTINUE,\n'
+       '                reason="この周で住所空間は動かなかった — 提案は無いか、"\n'
+       '                       "既にある値と一致した。不動点")')],
+     ["agreement is a fixed point without another round"]),
+
+    ("a contradiction stops being terminal",
+     "photoloset/convergence.py",
+     [("    if contested:\n        return dict(base, verdict=CONTESTED, contested=contested,\n",
+       "    if False:\n        return dict(base, verdict=CONTESTED, contested=contested,\n")],
+     ["a contradiction is terminal, not a retry"]),
+
+    # A plain store-layer ANSWER (exact match already on file) used to be
+    # read as agreement without ever asking whether the ADDRESS itself was
+    # still contested — a resubmission of one already-disputed side could
+    # silently un-terminal a contradiction. Disabling the resolve() check
+    # this fix added reproduces that exact defect.
+    ("loop stops checking store.resolve before calling a write agreement",
+     "photoloset/convergence.py",
+     [('        resolved = store.resolve(core, key)\n'
+       '        if resolved["verdict"] == CONTESTED_IN_CROSS:',
+       '        resolved = store.resolve(core, key)\n'
+       '        if False:')],
+     ["a contradiction is terminal, not a retry",
+      "reopening an adopted address needs a name"]),
+
+    ("storage order stops being able to stop the loop",
+     "photoloset/convergence.py",
+     [('    order = ingest_order_check(store.write_plan())\n'
+       '    if order["verdict"] != "ANSWER":\n',
+       '    order = ingest_order_check(store.write_plan())\n'
+       '    if False:\n')],
+     ["storage order can stop the loop, not just the address map"]),
+
+    ("an adopted address reopens anonymously",
+     "photoloset/convergence.py",
+     [('        by = str(rev.get("by") or "")\n',
+       '        by = str(rev.get("by") or "") or "auto"\n')],
+     ["reopening an adopted address needs a name"]),
+
+    # The reopen-signature gate used to only look at `prior["state"] ==
+    # OBSERVED`. The first successful reopen adds a second, differing
+    # observation, which flips the ledger's own state to CONTESTED — so a
+    # gate that only fires on OBSERVED silently stops protecting the
+    # address after its first use. This mutation removes the CONTESTED
+    # fallback this fix added, reproducing that exact hole.
+    ("the reopen gate stops surviving past its first use",
+     "photoloset/convergence.py",
+     [('        elif prior["state"] == LEDGER_CONTESTED:\n'
+       '            prior_adopted_value = prior.get("adopted_value")',
+       '        elif False:\n'
+       '            prior_adopted_value = prior.get("adopted_value")')],
+     ["reopening an adopted address needs a name"]),
+
+    ("the loop stops listening to convergence.check's escalation",
+     "photoloset/convergence.py",
+     [('    if conv["verdict"] == ESCALATE:\n'
+       '        return dict(base, verdict=ESCALATE, reason=conv["why_escalate"])\n',
+       '    if False:\n'
+       '        return dict(base, verdict=ESCALATE, reason=conv["why_escalate"])\n')],
+     ["the same rejected claim escalates, a different one each round does not"]),
+
+    # Ledger.state()'s OBSERVED branch used to always read obs[0] — the
+    # first observation in INSERTION order — for adopted_by. A plain
+    # observe() recorded before the matching propose()+adopt() at the same
+    # value sits first, so adopted_by silently read "" even though the
+    # address HAD been adopted. This is the exact value loop()'s reopen
+    # gate reads, so masking it would let an already-adopted address
+    # reopen with no name required.
+    ("Ledger.state reads the first observation instead of the adopted one",
+     "photoloset/garment.py",
+     [("            e0 = last_adopted if last_adopted is not None else obs[0]",
+       "            e0 = obs[0]")],
+     ["reopening an adopted address needs a name"]),
 ]
 
 
@@ -1556,6 +1642,132 @@ WHOLE_SUITE += [
      [('        if x + it["w"] > fabric_width_cm + 1e-9:',
        "        if False:")],
      ["more copies need more fabric"]),
+]
+
+
+#: --- 部材表 ----------------------------------------------------------------
+#: 買うものの一覧。壊し方は「宣言しても拒否が消えない」「生地をここで
+#: 独自に作り直す」「比を渡しても答えが動かない」。
+WHOLE_SUITE += [
+    ("declaring notions does not clear the refusal",
+     "photoloset/bom.py",
+     [("    if not notions:\n        refused[\"notions\"] = {",
+       "    if True:\n        refused[\"notions\"] = {")],
+     ["a BOM names its known lines and its refused lines"]),
+
+    ("the BOM recomputes fabric instead of reading the marker",
+     "photoloset/bom.py",
+     [('            "quantity": mk["length_m"],',
+       '            "quantity": round(mk["length_m"] * 1.1, 3),')],
+     ["the BOM's fabric line is the marker's, not a second calculation"]),
+
+    ("the thread ratio is named but never used",
+     "photoloset/bom.py",
+     [('            "quantity": round(seam_len * ratio / 100.0, 3),',
+       '            "quantity": round(seam_len * 2.75 / 100.0, 3),')],
+     ["the BOM's thread line depends on the ratio it names"]),
+]
+
+
+# ---------------------------------------------------------------------------
+# photoloset/dxf.py — the DXF export has five checks. Every one below is a
+# mutation of the WRITER, never of the check's own reader (that reader is
+# built fresh from group-code pairs inside run_checks.py, independent of
+# ``photoloset.dxf``'s internals — see ``_dxf_blocks``).
+WHOLE_SUITE += [
+    # The LAYER table drops one entry. The five layer NAMES are exactly what
+    # "the layer names must make clear which is which" (the brief this
+    # module answers) is checked against, so losing one is a structural
+    # defect a CAD user would meet as "GRAIN_LINES has no layer" the moment
+    # they tried to isolate it.
+    ("the DXF layer table drops a layer",
+     "photoloset/dxf.py",
+     [("_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_GRAIN, "
+       "LAYER_LABEL)",
+       "_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_LABEL)")],
+     ["the DXF file parses as group-code pairs"]),
+
+    # Every coordinate drifts by a constant 0.3mm. A pure translation moves
+    # nothing about SHAPE — area, "cut differs from sew", notch counts are
+    # all unaffected — so this has to land on exactly the one check that
+    # reads coordinates literally rather than derived quantities from them.
+    ("DXF coordinates drift by a constant offset",
+     "photoloset/dxf.py",
+     [("    v = round(float(v), 4)\n    if v == 0.0:",
+       "    v = round(float(v), 4) + 0.0003\n    if v == 0.0:")],
+     ["every draft vertex survives to its DXF coordinate"]),
+
+    # The cut line is written from the SEWING outline instead of the offset
+    # ``off["cut_line"]`` — "the seam allowance never reached the export",
+    # named directly in the brief as the failure mode to guard against. The
+    # written CUT_LINE polygon becomes identical to SEWING_LINE, so both the
+    # curve-identity check and the round-trip area check (which compares the
+    # rebuilt CUT_LINE area against the marks' own cut_area_cm2) catch it —
+    # two independent measurements of the same real defect, not one check
+    # duplicating the other's math.
+    ("the seam allowance never reaches the cut line",
+     "photoloset/dxf.py",
+     [('cut_line = ([(float(q[0]), float(q[1])) for q in off["cut_line"]]\n'
+       '                    if cut_ok else [])',
+       'cut_line = ([(float(q[0]), float(q[1])) for q in outline]\n'
+       '                    if cut_ok else [])')],
+     ["the cut line and sewing line are different curves on separate "
+      "layers",
+      "the DXF round-trips into rebuilt piece areas"]),
+
+    # A double notch (the back's one and the sleeve cap's matching one) only
+    # gets one line instead of two — the second stroke that tells a cutter
+    # "this side, not the other" silently disappears.
+    ("double notches lose their second line",
+     "photoloset/dxf.py",
+     [('offsets = (0.0,) if n["kind"] == "single" else (-0.3, 0.3)',
+       'offsets = (0.0,)')],
+     ["DXF notch and grain lines land at the marks' own positions"]),
+
+    # The notch normal is flipped to the wrong side of the seam. Every tick
+    # still exists, still has the right depth, and the population count
+    # would not move at all — only a check that recomputes the expected
+    # endpoint from (edge, arc_cm, depth_cm, kind) and matches it exactly
+    # can tell a notch pointing into the garment from one pointing out of
+    # it.
+    ("a notch points to the wrong side of the seam",
+     "photoloset/dxf.py",
+     [("            nx, ny = ty / L, -tx / L",
+       "            nx, ny = -ty / L, tx / L")],
+     ["DXF notch and grain lines land at the marks' own positions"]),
+
+    # The grain line is drawn as an unrelated constant segment instead of
+    # the mark's own ``grain["line"]`` — the count of GRAIN_LINES entities
+    # stays exactly right (one per piece), so only a position check can
+    # tell the file is lying about which way the fabric grain runs.
+    ("the grain line ignores the mark and draws a constant segment",
+     "photoloset/dxf.py",
+     [('            (gx1, gy1), (gx2, gy2) = g["line"]\n'
+       '            a, b = T((gx1, gy1)), T((gx2, gy2))',
+       '            a, b = T((0.0, 0.0)), T((10.0, 10.0))')],
+     ["DXF notch and grain lines land at the marks' own positions"]),
+
+    # The cut line loses its last vertex on the way out — one point short of
+    # what the draft actually offset. The written CUT_LINE polygon has one
+    # fewer vertex than the marks recorded, which the parse-time vertex
+    # total catches (it counts vertices against the draft AND the cut
+    # lines). Measured, not guessed: dropping the vertex next to the
+    # closing edge does not shave a sliver off the polygon — the mitred
+    # corner there means the implicit closing edge (VERTEX list wraps via
+    # the POLYLINE closed flag) now spans a much longer jump, so the
+    # rebuilt CUT_LINE area moves by over a thousand cm2 and even goes
+    # SMALLER than SEWING_LINE on some pieces. Three checks catch three
+    # different symptoms of the one dropped point: the vertex total (file
+    # parses), the cut-no-longer-strictly-encloses-sew comparison (cut
+    # differs from sew), and the rebuilt area (round-trips).
+    ("the cut line loses its last vertex on the way out",
+     "photoloset/dxf.py",
+     [('cut_t = [T(q) for q in cut_line]',
+       'cut_t = [T(q) for q in cut_line[:-1]]')],
+     ["the DXF file parses as group-code pairs",
+      "the cut line and sewing line are different curves on separate "
+      "layers",
+      "the DXF round-trips into rebuilt piece areas"]),
 ]
 
 

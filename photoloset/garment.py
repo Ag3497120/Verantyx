@@ -239,11 +239,29 @@ class Ledger:
         inf = [e for e in rows if e.kind == "inference"]
         pro = [e for e in rows if e.kind == "proposal" and not e.adopted_by]
 
+        # **採用は側面ぜんぶを見て探す、``obs[0]`` を決め打ちしない。**
+        # ``adopt()`` は採用した項目を「消して置き換える」のではなく、
+        # 提案だった行の kind を observation に変えて adopted_by を書く
+        # だけなので、その前に無印の observe() が別の値で置かれていると
+        # 挿入順で最初に来る行はその無印の方になる。**最後に採用された
+        # 行**を選ぶ — 採用は行為であって、記録された時系列を持つ。
+        adopted_obs = [e for e in obs if e.adopted_by]
+        last_adopted = adopted_obs[-1] if adopted_obs else None
+
         if obs:
             values = {e.value for e in obs}
             if len(values) > 1:
                 # 観測が割れたら片方を勝たせない。多数決もしない —
                 # 3対1の誤りは3の側にも普通に起きる。
+                #
+                # **それでも「採用」は側面ぜんぶの性質として持ち出す。**
+                # 一度 ADOPTED になった住所に別の値の observe() が積まれる
+                # と、この分岐(CONTESTED)に落ちる — ここで adopted_by を
+                # 落とすと、「この側面は誰かが名前を出して決めた」という
+                # 事実そのものが消え、再オープンの署名ゲートが二度目から
+                # 効かなくなる(state()がOBSERVEDにしか adopted_by を
+                # 返さないなら、CONTESTED に落ちた瞬間ゲートは永久に
+                # 素通りになる)。だからここでも運ぶ。
                 return {"state": CONTESTED, "part": part, "aspect": aspect,
                         "sides": [{"value": v,
                                    "sources": [e.source for e in obs
@@ -251,8 +269,12 @@ class Ledger:
                                    "refs": [ref_brief(e) for e in obs
                                             if e.value == v]}
                                   for v in sorted(values)],
+                        "adopted_by": (last_adopted.adopted_by
+                                      if last_adopted else ""),
+                        "adopted_value": (last_adopted.value
+                                         if last_adopted else None),
                         "proposals": _brief(pro)}
-            e0 = obs[0]
+            e0 = last_adopted if last_adopted is not None else obs[0]
             # **同じコマを二度読んでも証拠は一つ。** 数えるのは項目では
             # なく参照で、これをしないと同じ画面を繰り返し見るだけで
             # 確度が上がって見える。

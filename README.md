@@ -227,7 +227,9 @@ correct on paper.
 | Sew the pieces and drape them under gravity | Model bending, collision or friction — wrinkles here are mesh artefacts, not cloth |
 | Convert cm / mm / inch, and refuse unknown units | Guess a unit that was not given |
 | Name the piece it cannot determine | Return a shape it cannot justify |
-| Export SVG at 1:1 | Export DXF/AAMA, markers, BOMs, or graded size runs |
+| Export SVG at 1:1, and a plain DXF R12 a CAD system can open | Claim DXF-AAMA / ASTM D6673 conformance (withdrawn 2019, no replacement), or export graded size runs |
+| Lay pieces on cloth and say how much to buy (an upper bound, not a minimum) | Nest concave shapes, or claim AAMA/ASTM marker conformance |
+| Name a fabric line and refuse thread/notions/interfacing until they are declared | Total a BOM across units, or price anything |
 | Serve the whole engine over MCP, and run as a macOS app | Any of it on Windows or Linux — the app is macOS only; the engine is not |
 | Record who adopted each fact | Correct a fact once adopted — there is no amendment path yet |
 

@@ -189,6 +189,9 @@ ALL_CHECK_NAMES = [
     "the seam allowance is inside the fabric it needs",
     "more copies need more fabric",
     "the same order lays the same marker",
+    "a BOM names its known lines and its refused lines",
+    "the BOM's fabric line is the marker's, not a second calculation",
+    "the BOM's thread line depends on the ratio it names",
     "there is no body below the dress form",
     "the garment is moved onto the form without changing shape",
     "clearance is measured on the garment as it fell",
@@ -199,6 +202,11 @@ ALL_CHECK_NAMES = [
     "a dart never edits the outline it sits on",
     "overlapping darts are refused and separated ones are not",
     "a dart is addressed in the stable numbering",
+    "the DXF file parses as group-code pairs",
+    "every draft vertex survives to its DXF coordinate",
+    "the cut line and sewing line are different curves on separate layers",
+    "DXF notch and grain lines land at the marks' own positions",
+    "the DXF round-trips into rebuilt piece areas",
     "a number is a function of its address",
     "adding a piece never moves a number",
     "a reshaped outline is refused, not renumbered",
@@ -288,7 +296,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "58 tools",
+    "61 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -328,6 +336,12 @@ ALL_CHECK_NAMES = [
     "two corpora from one root are not two sources",
     "a repeated structural rejection escalates to a human",
     "convergence counts a rejected claim",
+    "a new address continues the loop",
+    "agreement is a fixed point without another round",
+    "a contradiction is terminal, not a retry",
+    "storage order can stop the loop, not just the address map",
+    "reopening an adopted address needs a name",
+    "the same rejected claim escalates, a different one each round does not",
     "no check that cannot fail",
     "every served reader reads its store",
     "the scanner finds every planted shape",
@@ -900,7 +914,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("58 tools", len(tools) == 58, f"{len(tools)}")
+        check("61 tools", len(tools) == 61, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -948,8 +962,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 58 and not no_schema and not no_props
-              and len(published) == 102 and not wrong and not contradicted
+              len(tools) == 61 and not no_schema and not no_props
+              and len(published) == 111 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1014,7 +1028,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 58 and not not_object and not crashed,
+              len(tools) == 61 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1164,7 +1178,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 33 and not third_party,
+          len(scanned) == 35 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -4370,6 +4384,279 @@ def the_gate_holds() -> None:
     resemble.reset()
 
 
+# ---------------------------------------------------------------------------
+@declares("a new address continues the loop",
+          "agreement is a fixed point without another round",
+          "a contradiction is terminal, not a retry",
+          "storage order can stop the loop, not just the address map",
+          "reopening an adopted address needs a name",
+          "the same rejected claim escalates, a different one each round does not")
+def the_loop_decides_when_a_round_ends() -> None:
+    """**convergence.loop() — the entry point convergence.py was written for.**
+
+    ``check()`` counts what a single state looks like. ``loop()`` decides what
+    a ROUND of revisions against the cross-store does next, and the four ways
+    it can end are structural, not a retry budget: a new address continues,
+    agreement is a fixed point, a contradiction is terminal, and an address
+    the ledger has ADOPTED needs a name to reopen. This is a CLAIM, not a
+    proof — what is measured here is only that each clause can be made to
+    fail on its own mutation, not that the claim is correct.
+    """
+    from photoloset import convergence
+    from photoloset.cross import CrossStore
+    from photoloset.garment import OBSERVED, Ledger
+
+    with guard("a new address continues the loop"):
+        st = CrossStore()
+        r = convergence.loop(
+            [{"id": "r1", "core": "coat", "key": "chest", "value": 108.0,
+              "kind": "measured", "source": "tape"}], st, history=[])
+        check("a new address continues the loop",
+              r["verdict"] == convergence.CONTINUE
+              and r["new_addresses"] == ["r1"]
+              and r["rejected"] == []
+              and r["results"][0]["status"] == "NEW_ADDRESS"
+              and r["results"][0]["seat_created"] is True,
+              f'one revision at an empty store is {r["verdict"]}, landed as '
+              f'{r["results"][0]["status"]} — the address space is finite but '
+              f'not full, so this is progress, not an ending')
+
+    with guard("agreement is a fixed point without another round"):
+        st = CrossStore()
+        history: list = []
+        first = convergence.loop(
+            [{"core": "coat", "key": "chest", "value": 108.0,
+              "kind": "measured", "source": "tape"}], st, history=history)
+        second = convergence.loop(
+            [{"core": "coat", "key": "chest", "value": 108.0,
+              "kind": "measured", "source": "tape2"}], st, history=history)
+        # A round with NO proposals at all is also a fixed point, on the
+        # very first call — it does not need the stagnation counter to have
+        # accumulated three matching rounds first.
+        empty = convergence.loop([], CrossStore(), history=[])
+        check("agreement is a fixed point without another round",
+              first["verdict"] == convergence.CONTINUE
+              and second["verdict"] == convergence.CONVERGED
+              and second["results"][0]["status"] == "AGREES"
+              and second["new_addresses"] == []
+              and len(history) == 2
+              and empty["verdict"] == convergence.CONVERGED
+              and empty["history_len"] == 1,
+              f'placing then re-proposing the SAME value: {first["verdict"]} '
+              f'then {second["verdict"]} after only {len(history)} rounds '
+              f'(not the {convergence.STAGNATION_LIMIT}-round stagnation '
+              f'limit) — the second call agrees with what is already there, '
+              f'so nothing moved and nothing is owed. An empty round against '
+              f'a fresh store is {empty["verdict"]} too')
+
+    with guard("a contradiction is terminal, not a retry"):
+        st = CrossStore()
+        convergence.loop(
+            [{"core": "coat", "key": "chest", "value": 108.0,
+              "kind": "measured", "source": "tape"}], st, history=[])
+        r = convergence.loop(
+            [{"core": "coat", "key": "chest", "value": 999.0,
+              "kind": "measured", "source": "rumor"}], st, history=[])
+        resolved = st.resolve("coat", "chest")
+        sides = sorted(s["value"] for s in resolved.get("sides", []))
+        # **A THIRD round, resubmitting one of the two already-contested
+        # values.** At the STORE layer this is an exact match (verdict
+        # ANSWER, state "corroborated" — the value+kind pair is already
+        # sitting in that seat from round 2). The defect this guards
+        # against: loop() reading that bare ANSWER as agreement without
+        # asking whether the ADDRESS itself is still contested. Measured
+        # against the shipped-before-this-fix behaviour, which read this as
+        # AGREES/CONVERGED — silently un-terminaling a contradiction the
+        # module's own reason string calls terminal.
+        third = convergence.loop(
+            [{"core": "coat", "key": "chest", "value": 108.0,
+              "kind": "measured", "source": "third-source"}], st, history=[])
+        resolved_after = st.resolve("coat", "chest")
+        sides_after = sorted(s["value"] for s in resolved_after.get(
+            "sides", []))
+        check("a contradiction is terminal, not a retry",
+              r["verdict"] == convergence.CONTESTED
+              and r["history_len"] == 1
+              and resolved["verdict"] == "CONTESTED_IN_CROSS"
+              and sides == [108.0, 999.0]
+              and third["verdict"] == convergence.CONTESTED
+              and third["results"][0]["status"] == "CONTESTED"
+              and resolved_after["verdict"] == "CONTESTED_IN_CROSS"
+              and sides_after == [108.0, 999.0],
+              f'a second, different value at an address that already holds '
+              f'one is {r["verdict"]} on the FIRST round it happens (history '
+              f'length {r["history_len"]}), not '
+              f'after retries. The store itself now resolves '
+              f'{resolved["verdict"]} with both {sides} kept — the second '
+              f'value did not overwrite the first, and this loop stopped '
+              f'rather than picking one. A THIRD round resubmitting one of '
+              f'those two sides (108.0, exact match at the store) is '
+              f'{third["verdict"]}, not falsely CONVERGED — the address '
+              f'still resolves {resolved_after["verdict"]} with both '
+              f'{sides_after} kept, and resubmitting a value already on '
+              f'file cannot silently declare the contest settled')
+
+    with guard("storage order can stop the loop, not just the address map"):
+        ordered = CrossStore()
+        history: list = []
+        convergence.loop(
+            [{"core": "x", "key": "k1", "value": 5.0, "kind": "derived",
+              "source": "formula"}], ordered, history=history)
+        moved = convergence.loop(
+            [{"core": "x", "key": "k1", "value": 5.0, "kind": "measured",
+              "source": "tape"}], ordered, history=history)
+        # The negative: two DIFFERENT keys never interact this way, so an
+        # ordinary round is not order-dependent by construction — the check
+        # would not fail if this branch always said ORDER_DEPENDENT either.
+        clean = CrossStore()
+        settled = convergence.loop(
+            [{"core": "y", "key": "k1", "value": 1.0, "kind": "measured",
+              "source": "a"}], clean, history=[])
+        settled2 = convergence.loop(
+            [{"core": "y", "key": "k2", "value": 2.0, "kind": "measured",
+              "source": "b"}], clean, history=[])
+        check("storage order can stop the loop, not just the address map",
+              moved["verdict"] == convergence.ORDER_DEPENDENT
+              and moved["order_check"]["differences"]
+              and settled["verdict"] != convergence.ORDER_DEPENDENT
+              and settled2["verdict"] != convergence.ORDER_DEPENDENT,
+              f'the same key written derived-then-measured is '
+              f'{moved["verdict"]} with '
+              f'{len(moved["order_check"]["differences"])} differing '
+              f'addresses when the plan is re-ingested in another order — '
+              f'cross.py already names this as the unsettled budget-arm rule. '
+              f'Two ordinary, unrelated writes stay {settled["verdict"]} / '
+              f'{settled2["verdict"]}, so the check does not fire on '
+              f'everything')
+
+    with guard("reopening an adopted address needs a name"):
+        anonymous_ledger = Ledger()
+        try:
+            anonymous_ledger.propose("coat", "shoulder", "46", "tape")
+            anonymous_ledger.adopt("coat", "shoulder", "46", by="")
+            raised = None
+        except ValueError as exc:
+            raised = str(exc)
+
+        # **A plain observe(), recorded BEFORE the matching propose()+
+        # adopt() at the SAME value, must not mask the adoption.**
+        # ``Ledger.state`` used to always read ``obs[0]`` — the first
+        # observation in insertion order — for ``adopted_by``. A bare
+        # ``observe()`` predating the adopted entry sits first, so the
+        # state would report ``adopted_by == ""`` even though the address
+        # HAD been adopted (measured directly against the un-fixed code:
+        # this exact sequence returned "" before the fix). This is what
+        # loop()'s reopen gate actually reads, so a masked adopted_by would
+        # make an already-adopted address reopen with no name required.
+        masking_ledger = Ledger()
+        masking_ledger.observe("coat", "waist", "92", "plain-tape")
+        masking_ledger.propose("coat", "waist", "92", "measure-app")
+        masking_ledger.adopt("coat", "waist", "92", by="ci-waist")
+        masked_state = masking_ledger.state("coat", "waist")
+
+        st = CrossStore()
+        led = Ledger()
+        # The store carries the SAME 46 the ledger is about to adopt — a
+        # human approving a measurement that is already sitting on the
+        # cross, the ordinary case, not a fresh address.
+        convergence.loop(
+            [{"core": "coat", "key": "shoulder", "value": 46.0,
+              "kind": "measured", "source": "tape"}], st, history=[])
+        led.propose("coat", "shoulder", "46", "tape")
+        led.adopt("coat", "shoulder", "46", by="ci")
+        blocked = convergence.loop(
+            [{"core": "coat", "key": "shoulder", "value": 47.0,
+              "kind": "measured", "source": "retape"}], st, ledger=led,
+            history=[])
+        untouched = st.resolve("coat", "shoulder")
+        signed = convergence.loop(
+            [{"core": "coat", "key": "shoulder", "value": 47.0,
+              "kind": "measured", "source": "retape", "by": "ci2"}], st,
+            ledger=led, history=[])
+        after = st.resolve("coat", "shoulder")
+        # **A THIRD round, no signature, after the ledger already holds TWO
+        # observations at this address (46 and the reopened 47).** This is
+        # exactly the state where the gate used to break: ``Ledger.state``
+        # had flipped from OBSERVED to CONTESTED the moment the reopen
+        # landed a second differing observation, and the old gate only
+        # fired on ``state == OBSERVED``. Re-asserting the SUPERSEDED value
+        # (46) with no `by` must still be blocked — the address was
+        # adopted, and adoption does not expire after one use.
+        third_superseded = convergence.loop(
+            [{"core": "coat", "key": "shoulder", "value": 46.0,
+              "kind": "measured", "source": "x3"}], st, ledger=led,
+            history=[])
+        # Re-asserting the CURRENTLY adopted value (47) needs no signature
+        # (it matches what was last adopted) — but the ADDRESS itself is
+        # still store-contested (both 46 and 47 are on file, per the fix
+        # above), so this must not be silently reported as agreement.
+        third_current = convergence.loop(
+            [{"core": "coat", "key": "shoulder", "value": 47.0,
+              "kind": "measured", "source": "x4"}], st, ledger=led,
+            history=[])
+        check("reopening an adopted address needs a name",
+              raised is not None and "UNKNOWN_NO_ADOPTER" in raised
+              and masked_state["state"] == OBSERVED
+              and masked_state["adopted_by"] == "ci-waist"
+              and blocked["results"][0]["status"] == "REOPEN_BLOCKED"
+              and blocked["verdict"] != convergence.CONTESTED
+              and untouched["verdict"] == "ANSWER"
+              and untouched["value"] == 46.0
+              and signed["results"][0]["status"] == "REOPENED_OVER_CONTEST"
+              and after["verdict"] == "CONTESTED_IN_CROSS"
+              and third_superseded["results"][0]["status"] == "REOPEN_BLOCKED"
+              and third_current["results"][0]["status"] == "CONTESTED",
+              f'Ledger.adopt on an empty name raises {raised!r}. A plain '
+              f'observe() recorded before the matching propose()+adopt() at '
+              f'the same value still reports adopted_by='
+              f'{masked_state["adopted_by"]!r}, not masked by insertion '
+              f'order. Reopening the ADOPTED shoulder (store: 46) with no '
+              f'adopter is {blocked["results"][0]["status"]} and the store '
+              f'still reads {untouched.get("value")} ({untouched["verdict"]}) '
+              f'— the 47 never landed; with a name it is '
+              f'{signed["results"][0]["status"]} and the store honestly '
+              f'reports {after["verdict"]}. A THIRD round with no name, '
+              f'after the ledger already holds two differing observations '
+              f'at this address, still gets '
+              f'{third_superseded["results"][0]["status"]} on the superseded '
+              f'value (46) — the gate survives past its first use — and '
+              f'{third_current["results"][0]["status"]} on the currently '
+              f'adopted value (47), because the store itself is still '
+              f'contested even though no signature was needed to say so')
+
+    with guard("the same rejected claim escalates, a different one each round does not"):
+        st = CrossStore()
+        led = Ledger()
+        led.propose("coat", "waist", "92", "tape")
+        led.adopt("coat", "waist", "92", by="ci")
+        history: list = []
+        rounds = [convergence.loop(
+            [{"id": "rev-waist", "core": "coat", "key": "waist",
+              "value": 999.0, "kind": "measured", "source": "bad"}], st,
+            ledger=led, history=history) for _ in range(3)]
+        same = [r["verdict"] for r in rounds]
+
+        st2, led2 = CrossStore(), Ledger()
+        h2: list = []
+        rounds2 = []
+        for i in range(3):
+            led2.propose("coat", f"p{i}", "x", "tape")
+            led2.adopt("coat", f"p{i}", "x", by="ci")
+            rounds2.append(convergence.loop(
+                [{"id": f"rev-{i}", "core": "coat", "key": f"p{i}",
+                  "value": "y", "kind": "measured", "source": "bad"}], st2,
+                ledger=led2, history=h2))
+        different = [r["verdict"] for r in rounds2]
+        check("the same rejected claim escalates, a different one each round does not",
+              same == [convergence.CONTINUE, convergence.CONTINUE,
+                       convergence.ESCALATE]
+              and different == [convergence.CONTINUE] * 3,
+              f'the SAME blocked reopen three rounds running: {same}. Three '
+              f'rounds each blocked on a DIFFERENT address: {different} — '
+              f'a loop making progress on different fronts is not held to '
+              f'the same limit as one stuck on one')
+
+
 class _Corpus:
     """A FIXTURE construction corpus. **It measured nothing** — it answers one
     method per query from a literal, and it exists so the gate can be driven
@@ -4930,6 +5217,377 @@ def darts_make_the_panel_three_dimensional() -> None:
 
 
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# A tiny, INDEPENDENT DXF reader — group-code/value pairs, never the writer's
+# own code. It has to read the file the way an outsider's CAD would, so a bug
+# shared between ``photoloset.dxf`` and the check that verifies it could not
+# make a broken export look correct.
+def _dxf_blocks(text: str) -> list:
+    """Split into ``(entity_type, {code: [values...]})`` at each group-0
+    boundary. HEADER variables have no ``0`` of their own, so the whole
+    HEADER section lands in one block — that is read directly by callers
+    that need a header variable, not re-split here."""
+    lines = text.splitlines()
+    pairs = [(int(lines[i].strip()), lines[i + 1])
+             for i in range(0, len(lines) - 1, 2)]
+    blocks: list = []
+    cur_type, cur_codes = None, None
+    for code, val in pairs:
+        if code == 0:
+            if cur_type is not None:
+                blocks.append((cur_type, cur_codes))
+            cur_type, cur_codes = val.strip(), {}
+        elif cur_codes is not None:
+            cur_codes.setdefault(code, []).append(val.strip())
+    if cur_type is not None:
+        blocks.append((cur_type, cur_codes))
+    return blocks
+
+
+def _dxf_polylines(blocks: list) -> list:
+    """Reassemble POLYLINE/VERTEX/SEQEND runs into closed point lists."""
+    polys: list = []
+    i = 0
+    while i < len(blocks):
+        t, codes = blocks[i]
+        if t == "POLYLINE":
+            layer = codes.get(8, ["0"])[0]
+            closed = bool(int(codes.get(70, ["0"])[0]) & 1)
+            verts = []
+            j = i + 1
+            while j < len(blocks) and blocks[j][0] == "VERTEX":
+                vc = blocks[j][1]
+                verts.append((float(vc[10][0]), float(vc[20][0])))
+                j += 1
+            polys.append({"layer": layer, "closed": closed,
+                          "vertices": verts})
+            i = j + 1 if j < len(blocks) and blocks[j][0] == "SEQEND" else j
+            continue
+        i += 1
+    return polys
+
+
+def _dxf_lines(blocks: list) -> list:
+    return [{"layer": codes.get(8, ["0"])[0],
+             "a": (float(codes[10][0]), float(codes[20][0])),
+             "b": (float(codes[11][0]), float(codes[21][0]))}
+            for t, codes in blocks if t == "LINE"]
+
+
+def _dxf_texts(blocks: list) -> list:
+    return [{"layer": codes.get(8, ["0"])[0],
+             "x": float(codes[10][0]), "y": float(codes[20][0]),
+             "text": codes.get(1, [""])[0]}
+            for t, codes in blocks if t == "TEXT"]
+
+
+def _shoelace(points: list) -> float:
+    """Polygon area, independent of ``garment_pattern._area`` — this file
+    reads the parsed coordinates back, it does not call the drafter's own
+    formula on them."""
+    n = len(points)
+    s = 0.0
+    for i in range(n):
+        x1, y1 = points[i]
+        x2, y2 = points[(i + 1) % n]
+        s += x1 * y2 - x2 * y1
+    return abs(s) / 2.0
+
+
+def _pt_close(a: tuple, b: tuple, tol: float = 1e-3) -> bool:
+    return abs(a[0] - b[0]) < tol and abs(a[1] - b[1]) < tol
+
+
+@declares("the DXF file parses as group-code pairs",
+          "every draft vertex survives to its DXF coordinate",
+          "the cut line and sewing line are different curves on separate layers",
+          "DXF notch and grain lines land at the marks' own positions",
+          "the DXF round-trips into rebuilt piece areas")
+def pattern_exports_to_a_cad_file() -> None:
+    """**The piece that lets an outsider verify the whole project.**
+
+    Every other check here reads this project's own data structures. A DXF
+    opens in somebody else's software — this repository verified its own
+    output against ``ezdxf`` while writing it (not shipped: standard library
+    only), and it opened with zero audit errors and every Japanese piece
+    name intact. No ASTM D6673 / DXF-AAMA conformance is claimed — that
+    standard was withdrawn in 2019 with no replacement — so this checks the
+    file as a plain R12 group-code stream, never by grepping for strings.
+    """
+    import math
+    import tempfile
+    from pathlib import Path
+
+    from photoloset import dxf as _dxf
+    from photoloset import garment_marks, garment_pattern
+    from photoloset import garment_measure as _gm
+    from photoloset.garment_marks import arc_lengths, at_arc
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = garment_pattern.draft(ms)
+    marked = garment_marks.apply(draft)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        out = _dxf.save(ms, str(Path(tmp) / "coat.dxf"))
+        raw = Path(out["path"]).read_bytes()
+        text = raw.decode(_dxf.ENCODING)
+        blocks = _dxf_blocks(text)
+        polys = _dxf_polylines(blocks)
+        lines = _dxf_lines(blocks)
+        texts = _dxf_texts(blocks)
+        sew_polys = [p for p in polys if p["layer"] == _dxf.LAYER_SEW]
+        cut_polys = [p for p in polys if p["layer"] == _dxf.LAYER_CUT]
+
+        with guard("the DXF file parses as group-code pairs"):
+            section_names = [c.get(2, [""])[0] for t, c in blocks
+                             if t == "SECTION"]
+            endsec = sum(1 for t, _c in blocks if t == "ENDSEC")
+            eof = sum(1 for t, _c in blocks if t == "EOF")
+            layer_names = sorted(c.get(2, [""])[0] for t, c in blocks
+                                 if t == "LAYER")
+            expected_layers = sorted([_dxf.LAYER_SEW, _dxf.LAYER_CUT,
+                                      _dxf.LAYER_NOTCH, _dxf.LAYER_GRAIN,
+                                      _dxf.LAYER_LABEL])
+            header_block = next(
+                (c for t, c in blocks if t == "SECTION"
+                and c.get(2, [""])[0] == "HEADER"), {})
+            # $DWGCODEPAGE is the only HEADER variable this file writes
+            # under group code 3, so it can be read directly by code —
+            # the other variables ($ACADVER, $INSBASE, $EXTMIN, $EXTMAX)
+            # use different group codes and are not needed here.
+            dwgcodepage = header_block.get(3, [None])[0]
+            total_vertices = sum(len(p["vertices"]) for p in polys)
+            expected_vertices = sum(
+                len(p["outline"])
+                + (len(marked["seam_allowance"][p["name"]]["cut_line"])
+                  if marked["seam_allowance"][p["name"]].get("verdict")
+                  == "ANSWER" else 0)
+                for p in marked["pieces"])
+            # NOT a count on its own: the decoded TEXT strings must equal the
+            # real piece names (a writer that labelled every piece "PIECE"
+            # would still pass a count-only check but fails this).
+            text_names = sorted(t["text"] for t in texts)
+            expected_names = sorted(p["name"] for p in marked["pieces"])
+            check("the DXF file parses as group-code pairs",
+                  section_names == ["HEADER", "TABLES", "ENTITIES"]
+                  and endsec == 3 and eof == 1
+                  and layer_names == expected_layers
+                  and dwgcodepage == _dxf.DWGCODEPAGE
+                  and total_vertices == expected_vertices > 0
+                  and len(texts) == len(marked["pieces"]) == 3
+                  and text_names == expected_names,
+                  f'sections {section_names}, {endsec} ENDSEC, {eof} EOF, '
+                  f'{len(layer_names)} layers {layer_names}, '
+                  f'$DWGCODEPAGE={dwgcodepage}, {total_vertices} POLYLINE '
+                  f'vertices == {expected_vertices} expected from the '
+                  f'draft outlines plus the cut lines, {len(texts)} TEXT '
+                  f'labels reading {text_names} for pieces {expected_names}')
+
+        with guard("every draft vertex survives to its DXF coordinate"):
+            n_pieces = len(marked["pieces"])
+            expected_vertices = sum(len(p["outline"])
+                                    for p in marked["pieces"])
+            checked = 0
+            good = 0
+            mismatches = []
+            for piece, poly in zip(marked["pieces"], sew_polys):
+                dx = out["placement"][piece["name"]][0]
+                draft_pts = [(round(x, 4), round(y, 4))
+                            for x, y in piece["outline"]]
+                file_pts = [(round(x - dx, 4), round(y, 4))
+                           for x, y in poly["vertices"]]
+                checked += len(draft_pts)
+                if file_pts == draft_pts:
+                    good += 1
+                else:
+                    mismatches.append((piece["name"], file_pts[:2],
+                                      draft_pts[:2]))
+            closed_count = sum(1 for p in sew_polys if p["closed"])
+            # **Every clause below names a POSITIVE count and pins it to the
+            # literal 3 on its own** — never one count chained straight
+            # against another (that reads as "however many there happened
+            # to be, they matched", true at zero too). ``good`` is the
+            # number of pieces whose file vertices matched the draft
+            # EXACTLY; a scan that covered nothing leaves ``good == 0``,
+            # which fails ``good == 3`` outright.
+            check("every draft vertex survives to its DXF coordinate",
+                  len(sew_polys) == 3 and n_pieces == 3
+                  and good == 3 and closed_count == 3
+                  and checked == expected_vertices and expected_vertices > 0,
+                  f'{len(sew_polys)} SEWING_LINE polylines for {n_pieces} '
+                  f'pieces, {good}/{n_pieces} exact after subtracting each '
+                  f'piece\'s own placement offset ({checked} vertices '
+                  f'checked against {expected_vertices} in the draft, not '
+                  f'rounded further), {closed_count}/{len(sew_polys)} closed'
+                  + (f' — MISMATCHES {mismatches}' if mismatches else ''))
+
+        with guard("the cut line and sewing line are different curves on "
+                   "separate layers"):
+            pairs = list(zip(sew_polys, cut_polys))
+            n_pairs = len(pairs)
+            # Counted, not all() — a count compared to the SAME literal 3
+            # that pins ``n_pairs`` cannot read "every pair agreed" when
+            # there were zero pairs to agree.
+            layer_hits = sum(1 for a, b in pairs
+                             if a["layer"] == _dxf.LAYER_SEW
+                             and b["layer"] == _dxf.LAYER_CUT)
+            differ_hits = sum(1 for a, b in pairs
+                              if set(a["vertices"]) != set(b["vertices"]))
+            # Area from the FILE's own points, by a formula this file does
+            # not share with ``garment_pattern`` or ``garment_marks`` — the
+            # seam allowance has to have made it out to the export, not
+            # merely be present in the source dict.
+            area_grows = [_shoelace(b["vertices"]) - _shoelace(a["vertices"])
+                         for a, b in pairs]
+            growth_hits = sum(1 for g in area_grows if g > 5.0)
+            check("the cut line and sewing line are different curves on "
+                 "separate layers",
+                  n_pairs == 3 and layer_hits == 3 and differ_hits == 3
+                  and growth_hits == 3,
+                  f'{n_pairs} pieces: SEWING_LINE/CUT_LINE layers correct '
+                  f'on {layer_hits}/{n_pairs}, vertex sets differ on '
+                  f'{differ_hits}/{n_pairs}, cut area exceeds sew area on '
+                  f'{growth_hits}/{n_pairs} by '
+                  f'{[round(g, 1) for g in area_grows]} cm2 — if the seam '
+                  f'allowance never reached the export, cut would equal '
+                  f'sew and none of these would hold')
+
+        with guard("DXF notch and grain lines land at the marks' own "
+                   "positions"):
+            # NOT a population count. For every notch this file's own
+            # to_dxf() drew, INDEPENDENTLY recompute the tangent/normal at
+            # its (edge, arc_cm) and the endpoint its depth_cm and kind
+            # imply, using only garment_marks.arc_lengths/at_arc (never
+            # photoloset.dxf's own code) — then require a NOTCHES-layer
+            # LINE at those exact two points (translated by that piece's
+            # placement offset). This is the check that catches a flipped
+            # notch-normal sign or a zeroed depth: both change the file's
+            # actual endpoints away from what the marks + geometry require,
+            # while a population count could not tell.
+            def _expected_notch_segments():
+                segs = []
+                for p in marked["pieces"]:
+                    name = p["name"]
+                    dx = out["placement"][name][0]
+                    edges = p["edges"]
+                    for n in marked["notches"].get(name, []):
+                        edge = edges.get(n["edge"])
+                        if not edge:
+                            continue
+                        pl = edge["points"]
+                        total = arc_lengths(pl)[-1]
+                        base = at_arc(pl, n["arc_cm"])
+                        ahead = at_arc(pl, min(n["arc_cm"] + 0.5, total))
+                        back = at_arc(pl, max(n["arc_cm"] - 0.5, 0.0))
+                        tx, ty = ahead[0] - back[0], ahead[1] - back[1]
+                        L = math.hypot(tx, ty) or 1.0
+                        nx, ny = ty / L, -tx / L
+                        d = n["depth_cm"]
+                        offsets = (0.0,) if n["kind"] == "single" \
+                            else (-0.3, 0.3)
+                        for o in offsets:
+                            bx = base[0] + tx / L * o
+                            by = base[1] + ty / L * o
+                            a = (bx + dx, by)
+                            b = (bx + nx * d + dx, by + ny * d)
+                            segs.append((a, b))
+                return segs
+
+            def _expected_grain_segments():
+                segs = []
+                grain_by_piece = {g["piece"]: g for g in marked["grain"]}
+                for p in marked["pieces"]:
+                    name = p["name"]
+                    dx = out["placement"][name][0]
+                    g = grain_by_piece.get(name)
+                    if not g:
+                        continue
+                    (gx1, gy1), (gx2, gy2) = g["line"]
+                    segs.append(((gx1 + dx, gy1), (gx2 + dx, gy2)))
+                return segs
+
+            notch_file = [ln for ln in lines if ln["layer"] == _dxf.LAYER_NOTCH]
+            grain_file = [ln for ln in lines if ln["layer"] == _dxf.LAYER_GRAIN]
+            expected_notch = _expected_notch_segments()
+            expected_grain = _expected_grain_segments()
+
+            def _match(expected, file_lines):
+                remaining = list(file_lines)
+                hits = 0
+                for a, b in expected:
+                    for i, ln in enumerate(remaining):
+                        if _pt_close(ln["a"], a) and _pt_close(ln["b"], b):
+                            hits += 1
+                            del remaining[i]
+                            break
+                return hits
+
+            notch_hits = _match(expected_notch, notch_file)
+            grain_hits = _match(expected_grain, grain_file)
+            expected_notch_lines = sum(
+                1 if n["kind"] == "single" else 2
+                for ns in marked["notches"].values() for n in ns)
+            check("DXF notch and grain lines land at the marks' own "
+                 "positions",
+                  len(notch_file) == expected_notch_lines == len(expected_notch)
+                  and notch_hits == expected_notch_lines > 0
+                  and len(grain_file) == len(expected_grain)
+                  == len(marked["grain"])
+                  and grain_hits == len(expected_grain) > 0,
+                  f'{notch_hits}/{expected_notch_lines} NOTCHES-layer LINE '
+                  f'entities land exactly on an independently-recomputed '
+                  f'(edge, arc_cm, depth_cm, kind) endpoint (single=1 line, '
+                  f'double=2); {grain_hits}/{len(expected_grain)} '
+                  f'GRAIN_LINES entities land exactly on the marks\' own '
+                  f'grain["line"], translated by placement — a flipped '
+                  f'notch normal or a zeroed depth moves the actual '
+                  f'endpoint away from this and would drop the hit count')
+
+        with guard("the DXF round-trips into rebuilt piece areas"):
+            piece_area = {p["name"]: p["area_cm2"] for p in marked["pieces"]}
+            sa = marked["seam_allowance"]
+            # **Rounding the outline to 4 decimals before writing it already
+            # moves the shoelace area a measurable amount** — measured
+            # directly on the DRAFT's own stored (2-decimal) outline, before
+            # any DXF is involved: 袖 alone is 0.277 cm2 off from its
+            # reported area_cm2 (which garment_pattern computes on the
+            # UNROUNDED points, then rounds only the final number). 0.35 cm2
+            # sits above that measured noise floor and far below what a
+            # dropped vertex or a mis-offset cut line would move — those are
+            # multiple cm2 at minimum on a piece this size.
+            TOL = 0.35
+            sew_diffs = [abs(_shoelace(poly["vertices"])
+                            - piece_area[piece["name"]])
+                        for piece, poly in zip(marked["pieces"], sew_polys)]
+            cut_diffs = [abs(_shoelace(poly["vertices"])
+                            - sa[piece["name"]]["cut_area_cm2"])
+                        for piece, poly in zip(marked["pieces"], cut_polys)]
+            total_rebuilt = round(sum(_shoelace(p["vertices"])
+                                      for p in sew_polys), 1)
+            n_pieces = len(marked["pieces"])
+            sew_hits = sum(1 for d in sew_diffs if d < TOL)
+            cut_hits = sum(1 for d in cut_diffs if d < TOL)
+            # Each count below is pinned to the literal 3 on its own line —
+            # ``sew_hits`` (how many pieces passed) is never chained
+            # straight against ``len(sew_diffs)`` (how many pieces were
+            # measured), because that pairing would hold at zero too.
+            check("the DXF round-trips into rebuilt piece areas",
+                  n_pieces == 3 and len(sew_diffs) == 3 and len(cut_diffs) == 3
+                  and sew_hits == 3 and cut_hits == 3
+                  and abs(total_rebuilt - draft["total_area_cm2"]) < 1.0,
+                  f'rebuilding each SEWING_LINE polygon from the file and '
+                  f'measuring its area (shoelace, computed in this check — '
+                  f'not garment_pattern\'s) matches area_cm2 to within '
+                  f'{TOL} cm2 on {sew_hits}/{len(sew_diffs)} pieces (worst '
+                  f'{max(sew_diffs):.4f} cm2); the same for CUT_LINE '
+                  f'against cut_area_cm2 on {cut_hits}/{len(cut_diffs)} '
+                  f'(worst {max(cut_diffs):.4f} cm2); total rebuilt '
+                  f'{total_rebuilt} cm2 vs draft\'s '
+                  f'{draft["total_area_cm2"]} cm2')
+
 @declares("there is no body below the dress form",
           "the garment is moved onto the form without changing shape",
           "clearance is measured on the garment as it fell",
@@ -5204,6 +5862,119 @@ def the_marker_says_how_much_fabric() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("a BOM names its known lines and its refused lines",
+          "the BOM's fabric line is the marker's, not a second calculation",
+          "the BOM's thread line depends on the ratio it names")
+def the_bom_says_what_to_buy() -> None:
+    """**What somebody has to buy, once — and what nobody has told it yet.**
+
+    Fabric is a real number (the marker's). Thread needs a ratio this
+    project does not record. Notions and interfacing are not in the pattern
+    at all. A BOM that answered by omission — silently leaving out the
+    buttons — would read as complete and would not be.
+    """
+    from photoloset import bom as _bom
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import marker as _mkr
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    CUT = {"後身頃": 1, "前身頃": 2, "袖": 2}
+
+    with guard("a BOM names its known lines and its refused lines"):
+        bare = _bom.estimate(draft, 150.0, CUT, 1.5)
+        declared = _bom.estimate(draft, 150.0, CUT, 1.5,
+                                 notions={"ボタン": 6})
+        # Nothing declared: fabric is the only known line, and all three of
+        # thread/notions/interfacing are refused BY NAME, not silently
+        # dropped. `complete` says so without anybody having to count.
+        check("a BOM names its known lines and its refused lines",
+              bare["verdict"] == "ANSWER"
+              and bare["completeness"]["complete"] is False
+              and bare["completeness"]["known_lines"] == ["fabric"]
+              and bare["completeness"]["refused_lines"]
+              == ["interfacing", "notions", "thread"]
+              and bare["refused"]["thread"]["verdict"] == _bom.NO_THREAD_RATIO
+              and bare["refused"]["notions"]["verdict"] == _bom.NO_NOTIONS
+              and bare["refused"]["interfacing"]["verdict"]
+              == _bom.NO_INTERFACING
+              # Declare the buttons and ONLY that refusal goes — the other
+              # two are untouched, so this is not one switch that clears
+              # everything at once.
+              and declared["completeness"]["refused_lines"]
+              == ["interfacing", "thread"]
+              and "notions" in declared["completeness"]["known_lines"]
+              and declared["known"]["notions"]["items"] == {"ボタン": 6},
+              f'undeclared: known={bare["completeness"]["known_lines"]}, '
+              f'refused={bare["completeness"]["refused_lines"]} '
+              f'({bare["refused"]["thread"]["verdict"]}, '
+              f'{bare["refused"]["notions"]["verdict"]}, '
+              f'{bare["refused"]["interfacing"]["verdict"]}); declaring '
+              f'6 buttons leaves refused='
+              f'{declared["completeness"]["refused_lines"]}')
+
+    with guard("the BOM's fabric line is the marker's, not a second "
+              "calculation"):
+        one = _bom.estimate(draft, 150.0, CUT, 1.5)
+        mk_one = _mkr.lay(draft, 150.0, CUT, 1.5)
+        DOUBLE = {k: v * 2 for k, v in CUT.items()}
+        twice = _bom.estimate(draft, 150.0, DOUBLE, 1.5)
+        mk_twice = _mkr.lay(draft, 150.0, DOUBLE, 1.5)
+        # Equal to the marker's OWN output on the same order (not just
+        # plausible-looking), and a DIFFERENT order changes both together —
+        # otherwise "equal to the marker" could pass with a hard-coded copy
+        # of one number. Also carries the marker's nap fields through
+        # unchanged, rather than swallowing a freedom marker.py discloses.
+        check("the BOM's fabric line is the marker's, not a second "
+              "calculation",
+              one["known"]["fabric"]["quantity"] == mk_one["length_m"] == 1.966
+              and one["known"]["fabric"]["utilisation_pct"]
+              == mk_one["utilisation_pct"] == 53.91
+              and one["known"]["fabric"]["nap"] == mk_one["nap"]
+              and one["known"]["fabric"]["nap_changes_nothing_here"]
+              == mk_one["nap_changes_nothing_here"]
+              and twice["known"]["fabric"]["quantity"] == mk_twice["length_m"]
+              == 3.116
+              and twice["known"]["fabric"]["quantity"]
+              != one["known"]["fabric"]["quantity"],
+              f'one order: BOM {one["known"]["fabric"]["quantity"]} m == '
+              f'marker {mk_one["length_m"]} m; doubled: BOM '
+              f'{twice["known"]["fabric"]["quantity"]} m == marker '
+              f'{mk_twice["length_m"]} m — the two never disagree and the '
+              f'doubled order moves both')
+
+    with guard("the BOM's thread line depends on the ratio it names"):
+        refused = _bom.estimate(draft, 150.0, CUT, 1.5)
+        low = _bom.estimate(draft, 150.0, CUT, 1.5, thread_ratio=2.75)
+        high = _bom.estimate(draft, 150.0, CUT, 1.5, thread_ratio=3.0)
+        # Two ways this could be a check that cannot fail: the ratio
+        # appearing in the output while the answer ignores it, or the
+        # refusal not naming the seam length it already has. Both are
+        # pinned against measured numbers, not just "is present".
+        check("the BOM's thread line depends on the ratio it names",
+              refused["refused"]["thread"]["verdict"] == _bom.NO_THREAD_RATIO
+              and refused["refused"]["thread"]["seam_length_cm"] == 203.15
+              and "thread" not in refused["known"]
+              and low["known"]["thread"]["consumption_ratio"] == 2.75
+              and low["known"]["thread"]["quantity"] == 5.587
+              and high["known"]["thread"]["consumption_ratio"] == 3.0
+              and high["known"]["thread"]["quantity"] == 6.095
+              and low["known"]["thread"]["quantity"]
+              != high["known"]["thread"]["quantity"]
+              and "thread" not in low["refused"],
+              f'no ratio -> {refused["refused"]["thread"]["verdict"]} naming '
+              f'{refused["refused"]["thread"]["seam_length_cm"]} cm of seam; '
+              f'ratio 2.75 -> {low["known"]["thread"]["quantity"]} m, ratio '
+              f'3.0 -> {high["known"]["thread"]["quantity"]} m — the ratio '
+              f'in the output is the ratio that moved the answer')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -5239,13 +6010,16 @@ if __name__ == "__main__":
                retrieval_asks_per_part,
                the_look_becomes_a_shape,
                the_gate_holds,
+               the_loop_decides_when_a_round_ends,
                the_mcp_server_answers,
                served_readers_track_their_stores,
                no_check_can_pass_by_construction,
                numbers_survive_a_revision,
                darts_make_the_panel_three_dimensional,
+               pattern_exports_to_a_cad_file,
                the_garment_goes_onto_a_body,
                the_marker_says_how_much_fabric,
+               the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")

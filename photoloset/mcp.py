@@ -39,7 +39,11 @@ from . import garment_pattern as _pattern
 from . import garment_rights as _rights_mod
 from . import garment_sew as _sew
 from . import garment_solid as _solid
+from . import bom as _bom
+from . import convergence as _convergence
+from . import cross as _cross
 from . import darts as _darts
+from . import dxf as _dxf
 from . import mannequin as _mq
 from . import marker as _marker
 from . import points as _points
@@ -63,6 +67,36 @@ def _measures() -> Measures:  return Measures.load(_p("measures.json"))
 def _intake() -> Intake:      return Intake.load(_p("intake.json"))
 def _design():                return _rights_mod.Design.load(_p("design.json"))
 def _rights():                return _rights_mod.RightsLedger.load(_p("rights.json"))
+
+
+def _revision_store() -> _cross.CrossStore:
+    """``convergence.loop`` の住所空間。**周をまたいで同じ店を使う** —
+    毎回新しく建てると「既にある値」がその周にしか見えなくなる。
+    """
+    f = _p("revision_cross.json")
+    if f.exists():
+        return _cross.CrossStore.from_dict(
+            _json.loads(f.read_text(encoding="utf-8")))
+    return _cross.CrossStore()
+
+
+def _save_revision_store(st: _cross.CrossStore) -> None:
+    _p("revision_cross.json").write_text(
+        _json.dumps(st.to_dict(), ensure_ascii=False, indent=1),
+        encoding="utf-8")
+
+
+def _revision_history() -> List[Dict[str, Any]]:
+    """``convergence.check`` の停滞カウンタが読む履歴。呼び側(ここ)が持つ。"""
+    f = _p("revision_history.json")
+    if f.exists():
+        return _json.loads(f.read_text(encoding="utf-8"))
+    return []
+
+
+def _save_revision_history(history: List[Dict[str, Any]]) -> None:
+    _p("revision_history.json").write_text(
+        _json.dumps(history, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def _dart_store():
@@ -342,6 +376,47 @@ def garment_adopt(part: str, aspect: str, value: str, by: str) -> str:
 
 
 @tool
+def garment_revision_loop(json_text: str = "") -> str:
+    """Run one round of revisions through the address store. **AI loops don't
+    stop on their own; this decides whether the round does.**
+
+    `json_text` is `{"revisions": [{"core", "key", "value", "kind", "source",
+    "by", "id"}, ...]}`. Each revision lands on the store the same ledger
+    `garment_adopt` writes to, so an address adopted there needs a named `by`
+    here to reopen with a different value — an empty one is refused by the
+    ledger itself, not by this door, and that stays true past the first
+    reopen: a second differing value does not retire the adoption.
+
+    Returns CONVERGED (nothing moved), CONTESTED (two values now sit at one
+    address, kept — this is terminal, not a retry), UNKNOWN_ORDER_DEPENDENT
+    (the store's own answers moved when re-ingested in a different order), or
+    CONTINUE, plus the counters `convergence.check` uses to escalate a claim
+    that keeps getting rejected round after round. A round whose own write
+    matches an address that is still contested with a DIFFERENT value is
+    CONTESTED too, not a false fixed point — matching one side of an
+    existing dispute does not settle it. The store and the round history
+    persist across calls the way the ledger does.
+    """
+    req, err = _json_arg(json_text, '{"revisions": [...]}')
+    if err:
+        return _ok(err)
+    revisions = req.get("revisions")
+    if not isinstance(revisions, list):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": 'json_text の "revisions" は配列です',
+                    "how_to_close": 'pass {"revisions": [{"core", "key", '
+                                    '"value", "kind", "source"}, ...]}'})
+    store = _revision_store()
+    ledger = _ledger()
+    history = _revision_history()
+    result = _convergence.loop(revisions, store, ledger=ledger, history=history)
+    _save_revision_store(store)
+    ledger.save(_p("ledger.json"))
+    _save_revision_history(history)
+    return _ok(result)
+
+
+@tool
 def garment_worklist() -> str:
     """What has not been observed yet, each with the action that would close it."""
     return _ok({"verdict": "ANSWER", "worklist": _ledger().worklist()})
@@ -443,6 +518,21 @@ def pattern_save(path: str) -> str:
     """Draft the pattern and write it to SVG at 1:1."""
     try:
         return _ok(_pattern.save(_measures(), path))
+    except ValueError as e:
+        return _refused(e)
+
+
+@tool
+def pattern_dxf(path: str) -> str:
+    """Write the pattern to a DXF R12 file a real CAD system can open.
+
+    The sewing line and the cut line (sewing line plus seam allowance) are
+    different curves on separate layers; notches and grain lines become real
+    geometry. No ASTM D6673 / DXF-AAMA conformance is claimed — that standard
+    was withdrawn in 2019 with no replacement.
+    """
+    try:
+        return _ok(_dxf.save(_measures(), path))
     except ValueError as e:
         return _refused(e)
 
@@ -610,6 +700,46 @@ def marker_lay(fabric_width_cm: float, cut_json: str,
                            {str(k): int(v) for k, v in cut.items()},
                            float(seam_allowance_cm),
                            nap=(nap or None)))
+
+
+@tool
+def bom_estimate(fabric_width_cm: float, cut_json: str,
+                 seam_allowance_cm: float, thread_ratio: float = 0.0,
+                 notions_json: str = "", interfacing_json: str = "",
+                 nap: str = "") -> str:
+    """What to buy to make this garment once — known lines and refused lines.
+
+    Fabric comes straight from `marker_lay` (not recomputed here). Thread
+    needs a consumption ratio this project does not record — pass
+    `thread_ratio` (seam length x ratio) or get
+    UNKNOWN_THREAD_RATIO_NOT_STATED naming the seam length anyway. Notions
+    and interfacing are not in the pattern at all; declare them as JSON
+    objects (`notions_json`, e.g. `{"ボタン": 6}`) or get a named refusal.
+    There is no total: fabric is metres, thread is metres, notions are a
+    count, and none of it has a price.
+    """
+    try:
+        cut = _json.loads(cut_json) if cut_json else {}
+        notions = _json.loads(notions_json) if notions_json else {}
+        interfacing = _json.loads(interfacing_json) if interfacing_json else {}
+    except ValueError as e:
+        return _refused(e)
+    if not isinstance(cut, dict):
+        return _ok({"verdict": _marker.NO_COUNT,
+                    "how_to_close": 'cut_json は {"裁片名": 枚数} の形で'})
+    if not isinstance(notions, dict) or not isinstance(interfacing, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "how_to_close": "notions_json / interfacing_json は"
+                                    "オブジェクトの形で"})
+    return _ok(_bom.estimate(_pattern.draft(_measures()),
+                             float(fabric_width_cm),
+                             {str(k): int(v) for k, v in cut.items()},
+                             float(seam_allowance_cm),
+                             thread_ratio=(float(thread_ratio)
+                                          if thread_ratio else None),
+                             notions=(notions or None),
+                             interfacing=(interfacing or None),
+                             nap=(nap or None)))
 
 
 @tool
