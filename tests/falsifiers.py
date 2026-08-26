@@ -84,6 +84,8 @@ ran and went red, the poison was named, the summary printed and the tree came
 back clean. The suite runs it as "the falsifier harness reports every
 mutation".
 """
+import concurrent.futures
+import io
 import os
 import re
 import shutil
@@ -91,9 +93,23 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 SRC = Path(__file__).resolve().parent.parent
+
+#: What a mutation sweep must NOT copy. Measured on this tree: the whole
+#: repository is 1.3 GB, of which ``app/build`` alone is 1.2 GB of Xcode
+#: module caches and DerivedData — untracked, gitignored, and referenced by
+#: exactly zero lines of ``run_checks.py`` or this file (grep: 0 hits for
+#: ``app/``). Copying it once per sweep was invisible; copying it once per
+#: PARALLEL WORKER filled a 460 GB disk and killed the run with ENOSPC.
+#: The engine, its tests, docs and examples together are 6.4 MB.
+_COPY_IGNORE = shutil.ignore_patterns(
+    ".git", "__pycache__", "build", ".build", "DerivedData",
+    "*.xcworkspace", "*.xcuserdatad", "ModuleCache.noindex",
+)
+
+
 
 #: The in-process runner, once, over whichever named sections a sweep is
 #: scored against. **The whole suite takes seven minutes**, and a mutation
@@ -1371,7 +1387,8 @@ WHOLE_SUITE += [
 
 
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
-                touched: Optional[set] = None) -> Tuple[int, int]:
+                touched: Optional[set] = None,
+                out: Optional[Any] = None) -> Tuple[int, int]:
     """Run ``run_checks.py`` end to end under a mutation and read its exit.
 
     This is the falsifier for the pinned NAME SET: the failure it exists for
@@ -1383,6 +1400,7 @@ def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
     cannot be reported as a complete one.
     """
     entries = WHOLE_SUITE if entries is None else list(entries)
+    out = sys.stdout if out is None else out
     bad = 0
     ran = 0
     for name, rel, edits, expect in entries:
@@ -1396,7 +1414,7 @@ def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
             body = orig
             missing = [f for f, _r in edits if f not in body]
             if missing:
-                print(f"  SKIP  {name}: anchor not found in {rel}")
+                print(f"  SKIP  {name}: anchor not found in {rel}", file=out)
                 bad += 1
                 continue
             for find, repl in edits:
@@ -1414,21 +1432,130 @@ def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                    if any(f == e or e.startswith(f) for f in failed)]
             ok = len(hit) == len(expect) and r.returncode != 0
             bad += 0 if ok else 1
-            print(f"  {'RED ' if ok else 'MISS'}  {name}")
-            print(f"        expected red: {expect}")
-            print(f"        actually red: {failed}  (exit {r.returncode})")
+            print(f"  {'RED ' if ok else 'MISS'}  {name}", file=out)
+            print(f"        expected red: {expect}", file=out)
+            print(f"        actually red: {failed}  (exit {r.returncode})", file=out)
         except BaseException as exc:                        # noqa: BLE001
             if isinstance(exc, (KeyboardInterrupt, SystemExit)):
                 raise
             bad += 1
             print(f"  MISS  {name}: HARNESS RAISED "
-                  f"{type(exc).__name__}: {exc}")
+                  f"{type(exc).__name__}: {exc}", file=out)
         finally:
             if orig is not None:
                 p.write_text(orig, encoding="utf-8")
                 _clear_pycache(repo)
     _clear_pycache(repo)
     return bad, ran
+
+
+def whole_suite_parallel(repo: Path, entries: Optional[Sequence[Any]] = None,
+                         touched: Optional[set] = None,
+                         jobs: Optional[int] = None) -> Tuple[int, int]:
+    """``whole_suite`` spread over ``jobs`` independent copies of the tree.
+
+    **Threads, not processes.** Every entry's real work happens inside a
+    ``subprocess.run`` of ``run_checks.py``, so the interpreter lock is
+    released for its whole duration and the parent only does file I/O.
+    A process pool bought nothing here and brought its own failure class:
+    the earlier attempt died with ``BrokenPipeError`` in every worker at
+    once, which profiling traced to the DRIVER dying rather than to
+    anything the workers returned.
+
+    **One copy per worker, never a shared one.** ``whole_suite`` mutates
+    the tree in place and restores it in a ``finally``. Two workers in one
+    tree would let one entry's mutation be scored against another entry's
+    run — the exact defect ``_clear_pycache`` exists to prevent, but
+    across workers instead of across iterations.
+
+    **A worker that dies is not a worker that passed.** Its unreached
+    entries are counted as failures and named, because a sweep that
+    silently covers less than it claims is worse than a slow one.
+
+    **Every copy is checked pristine before it is deleted**, so the
+    guarantee ``main`` makes over ``repo`` — that no entry left the tree
+    mutated — still holds over the copies the caller never sees.
+    """
+    entries = list(WHOLE_SUITE if entries is None else entries)
+    if jobs is None:
+        jobs = max(1, min(8, (os.cpu_count() or 2) - 2))
+    if jobs <= 1 or len(entries) <= 1:
+        return whole_suite(repo, entries, touched)
+    jobs = min(jobs, len(entries))
+
+    # Round-robin, not contiguous blocks: the expensive entries are the ones
+    # that mutate a solver file (they miss the memo cache and recompute for
+    # real), and they sit next to each other in WHOLE_SUITE. A contiguous
+    # split would hand one worker all of them.
+    slices = [entries[i::jobs] for i in range(jobs)]
+
+    # **Warm the solver memo ONCE, on the pristine tree, before fanning out.**
+    # Measured: four cold workers took 113s each (2.57x over serial) because
+    # none of them had written the cache entry yet, so all four recomputed
+    # the SAME drape simultaneously — a cache stampede. The one worker that
+    # happened to start warm finished the identical work in 23.5s. Since 31
+    # of the 32 entries never touch a solver file, one unmutated run fills
+    # the cache every later worker will hit.
+    #
+    # It runs the suite on an UNMUTATED tree, so it must come back clean; if
+    # it does not, every verdict below would be scored against a broken
+    # baseline and is worth nothing. That is reported, not swallowed.
+    warm = _RUN_SUITE[0](repo)
+    if warm.returncode != 0:
+        print("  MISS  the pristine tree does not pass its own suite — "
+              f"exit {warm.returncode}. Every verdict below would be "
+              "scored against a broken baseline.")
+        return len(entries), 0
+
+    base = Path(tempfile.mkdtemp(prefix="mutate_par_"))
+    trees: List[Path] = [repo]
+    try:
+        for k in range(1, jobs):
+            d = base / f"repo{k}"
+            shutil.copytree(repo, d, ignore=_COPY_IGNORE)
+            trees.append(d)
+
+        bufs = [io.StringIO() for _ in range(jobs)]
+        marks: List[set] = [set() for _ in range(jobs)]
+        got: List[Optional[Tuple[int, int]]] = [None] * jobs
+        errs: Dict[int, BaseException] = {}
+
+        def work(k: int) -> None:
+            got[k] = whole_suite(trees[k], slices[k], marks[k], bufs[k])
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as ex:
+            futs = {ex.submit(work, k): k for k in range(jobs)}
+            for fut in concurrent.futures.as_completed(futs):
+                k = futs[fut]
+                try:
+                    fut.result()
+                except BaseException as exc:                # noqa: BLE001
+                    errs[k] = exc
+
+        bad = ran = 0
+        for k in range(jobs):
+            print(bufs[k].getvalue(), end="")
+            b, r = got[k] if got[k] else (0, 0)
+            if k in errs:
+                lost = len(slices[k]) - r
+                print(f"  MISS  worker {k} DIED "
+                      f"{type(errs[k]).__name__}: {errs[k]} — {lost} "
+                      f"entr{'y' if lost == 1 else 'ies'} never ran")
+                b += lost
+            bad += b
+            ran += r
+            if touched is not None:
+                touched |= marks[k]
+            # the copy the caller will never see, checked before it goes
+            left = sorted(rel for rel in marks[k]
+                          if (trees[k] / rel).read_text(encoding="utf-8")
+                          != (SRC / rel).read_text(encoding="utf-8"))
+            if left:
+                print(f"  MISS  worker {k} LEFT ITS COPY MUTATED: {left}")
+                bad += len(left)
+        return bad, ran
+    finally:
+        shutil.rmtree(base, ignore_errors=True)
 
 
 def _clear_pycache(repo: Path) -> int:
@@ -1583,7 +1710,8 @@ def _sweep(repo: Path, entries, runner, baseline, touched: set, label: str):
 
 def main(mutations: Optional[Sequence[Any]] = None,
          whole: Optional[Sequence[Any]] = None,
-         loop: Optional[Sequence[Any]] = None) -> int:
+         loop: Optional[Sequence[Any]] = None,
+         jobs: Optional[int] = None) -> int:
     """Three sweeps over one copy of the tree, and the copy checked afterwards.
 
     - CROSS: the store's own sections, in process, seconds per entry.
@@ -1610,8 +1738,7 @@ def main(mutations: Optional[Sequence[Any]] = None,
     whole = list(WHOLE_SUITE if whole is None else whole)
     base = Path(tempfile.mkdtemp(prefix="mutate_"))
     try:
-        shutil.copytree(SRC, base / "repo",
-                        ignore=shutil.ignore_patterns(".git", "__pycache__"))
+        shutil.copytree(SRC, base / "repo", ignore=_COPY_IGNORE)
         repo = base / "repo"
         touched: set = set()
         baseline, code = _baseline(repo, _RUN[0], "cross")
@@ -1628,7 +1755,7 @@ def main(mutations: Optional[Sequence[Any]] = None,
         else:
             lbad, lran = 0, 0
         print("\nand the ones that need the whole suite:")
-        wbad, wran = whole_suite(repo, whole, touched)
+        wbad, wran = whole_suite_parallel(repo, whole, touched, jobs=jobs)
         print(f"\nran {wran} of {len(whole)} whole-suite entries")
         print(f"{len(whole) - wbad} of {len(whole)} whole-suite "
               f"mutations produced the expected failures")
@@ -1727,4 +1854,13 @@ def self_test() -> int:
 if __name__ == "__main__":
     if "--self-test" in sys.argv[1:]:
         raise SystemExit(self_test())
-    raise SystemExit(main())
+    # --jobs N spreads the whole-suite phase over N copies of the tree.
+    # --jobs 1 is the serial path this replaced, kept so the two can be
+    # compared on the same entries rather than trusted to agree.
+    _jobs = None
+    for _i, _a in enumerate(sys.argv[1:]):
+        if _a == "--jobs" and _i + 2 <= len(sys.argv[1:]):
+            _jobs = int(sys.argv[_i + 2])
+        elif _a.startswith("--jobs="):
+            _jobs = int(_a.split("=", 1)[1])
+    raise SystemExit(main(jobs=_jobs))
