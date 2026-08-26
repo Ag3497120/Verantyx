@@ -1516,6 +1516,49 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- マーカー -------------------------------------------------------------
+#: 生地を買う数字。壊し方は「知らないことを既定で埋める」「縫い代を落とす」
+#: 「並べ替えを入力順にする」「幅の超過を通す」。
+WHOLE_SUITE += [
+    ("the marker fills in a cut count nobody stated",
+     "photoloset/marker.py",
+     [("    if missing:\n        return {\"verdict\": NO_COUNT",
+       "    missing = []\n"
+       "    cut = {(p.get(\"name\") or \"?\"): max(1, int(cut.get(\n"
+       "        p.get(\"name\") or \"?\", 1))) for p in pieces}\n"
+       "    if missing:\n        return {\"verdict\": NO_COUNT")],
+     ["a marker refuses what it cannot know"]),
+
+    ("the seam allowance never reaches the cloth",
+     "photoloset/marker.py",
+     [("        cw, ch = w + 2.0 * sa, h + 2.0 * sa",
+       "        cw, ch = w, h")],
+     ["the seam allowance is inside the fabric it needs"]),
+
+    # This went MISS the first time, aimed at "more copies need more fabric":
+    # the reference coat's pieces are ALREADY generated tallest-first
+    # (112, 112, 78.6), so removing the sort changed nothing that check
+    # watched. The check now hands the sleeve in first and requires the same
+    # marker back, which is the property the sort exists for.
+    ("the marker lays pieces in the order they arrived",
+     "photoloset/marker.py",
+     [('    items.sort(key=lambda it: (-it["h"], it["piece"], it["copy"]))',
+       "    pass")],
+     ["the same order lays the same marker"]),
+
+    ("a piece wider than the cloth is laid anyway",
+     "photoloset/marker.py",
+     [("    if over:", "    if False:")],
+     ["a marker refuses what it cannot know"]),
+
+    ("the fabric width stops bounding the shelf",
+     "photoloset/marker.py",
+     [('        if x + it["w"] > fabric_width_cm + 1e-9:',
+       "        if False:")],
+     ["more copies need more fabric"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:

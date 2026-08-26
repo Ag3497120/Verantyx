@@ -185,6 +185,10 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "a marker refuses what it cannot know",
+    "the seam allowance is inside the fabric it needs",
+    "more copies need more fabric",
+    "the same order lays the same marker",
     "there is no body below the dress form",
     "the garment is moved onto the form without changing shape",
     "clearance is measured on the garment as it fell",
@@ -284,7 +288,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "57 tools",
+    "58 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -896,7 +900,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("57 tools", len(tools) == 57, f"{len(tools)}")
+        check("58 tools", len(tools) == 58, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -944,8 +948,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 57 and not no_schema and not no_props
-              and len(published) == 98 and not wrong and not contradicted
+              len(tools) == 58 and not no_schema and not no_props
+              and len(published) == 102 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1010,7 +1014,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 57 and not not_object and not crashed,
+              len(tools) == 58 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1160,7 +1164,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 32 and not third_party,
+          len(scanned) == 33 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -4417,6 +4421,16 @@ class _Corpus:
 #: tautological clause was deleted, and seven readers that could have been
 #: frozen to a constant now answer from two stores in one condition.
 KNOWN_UNFALSIFIABLE = [
+    ("T1", "the same order lays the same marker", "borderline",
+     "`a[\"placement\"] == b[\"placement\"]` on two identical calls IS the T1 "
+     "shape, and a determinism check cannot avoid it — the property under "
+     "test is literally that the same input gives the same output. What "
+     "makes it non-vacuous is the clause beside it: a DIFFERENT order "
+     "(counts doubled) must give a different placement list AND a different "
+     "length. So the equality has to discriminate before its passing means "
+     "anything. Falsifier: 'the marker sorts by insertion order instead of "
+     "height', which makes the two identical calls agree and the doubled "
+     "order stop differing in the way the check pins."),
     ("T1", "a dart is addressed in the stable numbering", "borderline",
      "`n_before == n_after` is literally two calls with the same arguments, "
      "which is the T1 shape. They are not the same value by construction: "
@@ -4501,7 +4515,7 @@ def no_check_can_pass_by_construction() -> None:
           and unscanned == []
           and out.get("checks_with_a_condition", 0) >= 85
           and len(known) == len(KNOWN_UNFALSIFIABLE)
-          and len(KNOWN_UNFALSIFIABLE) == 5
+          and len(KNOWN_UNFALSIFIABLE) == 6
           and len(got) == len(KNOWN_UNFALSIFIABLE)
           and not new_hits and not gone
           and len(readers) == 18,
@@ -5050,6 +5064,146 @@ def the_garment_goes_onto_a_body() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("a marker refuses what it cannot know",
+          "the seam allowance is inside the fabric it needs",
+          "more copies need more fabric",
+          "the same order lays the same marker")
+def the_marker_says_how_much_fabric() -> None:
+    """**The number somebody has to buy against.**
+
+    A correct pattern nobody can order cloth for is not finished. Getting the
+    number needs three things the pattern does not carry, and each is refused
+    rather than defaulted: how many of each piece to cut, the seam allowance
+    (the draft is the SEWING line, so counting on it would always come up
+    short), and the fabric width.
+    """
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import marker as _mkr
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    CUT = {"後身頃": 1, "前身頃": 2, "袖": 2}
+
+    with guard("a marker refuses what it cannot know"):
+        no_count = _mkr.lay(draft, 150.0, {}, 1.5)
+        no_sa = _mkr.lay(draft, 150.0, CUT, None)
+        no_width = _mkr.lay(draft, 0.0, CUT, 1.5)
+        too_wide = _mkr.lay(draft, 25.0, CUT, 1.5)
+        good = _mkr.lay(draft, 150.0, CUT, 1.5)
+        # Five outcomes, four of them refusals and one an answer. A gate that
+        # refused everything would pass any test that only checked refusals.
+        check("a marker refuses what it cannot know",
+              no_count["verdict"] == _mkr.NO_COUNT
+              and sorted(no_count["pieces"]) == ["前身頃", "後身頃", "袖"]
+              and no_sa["verdict"] == _mkr.NO_SA
+              and no_width["verdict"] == _mkr.NO_WIDTH
+              and too_wide["verdict"] == _mkr.TOO_WIDE
+              and round(too_wide["widest_cm"], 2) == 34.0
+              and good["verdict"] == "ANSWER",
+              f'no counts -> {no_count["verdict"]} naming all 3 pieces; '
+              f'no allowance -> {no_sa["verdict"]}; no width -> '
+              f'{no_width["verdict"]}; a 34.0 cm piece on 25 cm cloth -> '
+              f'{too_wide["verdict"]}; and a real order answers')
+
+    with guard("the seam allowance is inside the fabric it needs"):
+        tight = _mkr.lay(draft, 150.0, CUT, 0.0)
+        wide = _mkr.lay(draft, 150.0, CUT, 3.0)
+        one = _mkr.lay(draft, 150.0, CUT, 1.5)
+        # The draft is the sewing line. If the allowance did not reach the
+        # fabric figure, ordering by it would always come up short, and the
+        # error would only appear at the cutting table.
+        check("the seam allowance is inside the fabric it needs",
+              one["sewing_line_area_cm2"] < one["cut_rectangle_area_cm2"]
+              and one["cut_rectangle_area_cm2"] <= one["fabric_area_cm2"]
+              and tight["cut_rectangle_area_cm2"]
+              < one["cut_rectangle_area_cm2"]
+              < wide["cut_rectangle_area_cm2"]
+              and tight["length_cm"] < wide["length_cm"]
+              and round(one["sewing_line_area_cm2"], 1) == 11666.4,
+              f'sewing line {one["sewing_line_area_cm2"]} cm2 < cut '
+              f'rectangles {one["cut_rectangle_area_cm2"]} cm2 <= cloth '
+              f'{one["fabric_area_cm2"]} cm2; 0 cm allowance gives '
+              f'{tight["length_cm"]} cm of cloth and 3 cm gives '
+              f'{wide["length_cm"]} cm')
+
+    with guard("more copies need more fabric"):
+        one = _mkr.lay(draft, 150.0, CUT, 1.5)
+        twice = _mkr.lay(draft, 150.0,
+                         {k: v * 2 for k, v in CUT.items()}, 1.5)
+        narrow = _mkr.lay(draft, 90.0, CUT, 1.5)
+        ratio = twice["length_cm"] / one["length_cm"]
+        # NOT 2x: doubling the order lets the shelves pack better. If this
+        # came out at exactly 2.0 the packer would be laying each copy on its
+        # own row and calling it a marker.
+        check("more copies need more fabric",
+              twice["length_cm"] > one["length_cm"]
+              and 1.4 < ratio < 1.9
+              and twice["pieces_laid"] == 10 == one["pieces_laid"] * 2
+              and narrow["utilisation_pct"] > one["utilisation_pct"]
+              and round(one["utilisation_pct"], 2) == 53.91
+              and round(narrow["utilisation_pct"], 2) == 89.85
+              and round(one["length_m"], 3) == 1.966
+              and round(twice["length_m"], 3) == 3.116,
+              f'5 pieces on 150 cm: {one["length_m"]} m at '
+              f'{one["utilisation_pct"]}%. Ten pieces: {twice["length_m"]} m '
+              f'— {ratio:.2f}x, not 2x, because the shelves fill. The same '
+              f'five on 90 cm cloth: {narrow["utilisation_pct"]}% used')
+
+    with guard("the same order lays the same marker"):
+        import copy as _copy
+
+        a = _mkr.lay(draft, 150.0, CUT, 1.5)
+        b = _mkr.lay(draft, 150.0, CUT, 1.5)
+        # **The marker must not depend on the order the pieces arrive in.**
+        # Found by the sweep: "the marker lays pieces in the order they
+        # arrived" went MISS, because on the reference coat the pieces are
+        # already generated tallest-first (112, 112, 78.6) and removing the
+        # sort changed nothing anybody was watching. Handing the sleeve in
+        # first is the case that can tell.
+        shuffled = _copy.deepcopy(draft)
+        shuffled["pieces"] = (
+            [q for q in shuffled["pieces"] if q["name"] == "袖"]
+            + [q for q in shuffled["pieces"] if q["name"] != "袖"])
+        reordered = _mkr.lay(shuffled, 150.0, CUT, 1.5)
+        napped = _mkr.lay(draft, 150.0, CUT, 1.5, nap="none")
+        # `a == b` on two identical calls is the same-value-on-both-sides
+        # shape, and on its own it would pass even if the comparison could
+        # not tell two markers apart. So a DIFFERENT order is compared too:
+        # the equality has to discriminate before its passing means anything.
+        other = _mkr.lay(draft, 150.0,
+                         {k: v * 2 for k, v in CUT.items()}, 1.5)
+        # Nap is recorded and changes nothing, and the module says so rather
+        # than reporting a freedom it does not use: rotating a bounding
+        # rectangle by 180 degrees gives the same rectangle.
+        check("the same order lays the same marker",
+              a["placement"] == b["placement"]
+              and reordered["placement"] == a["placement"]
+              and [q["name"] for q in shuffled["pieces"]]
+              != [q["name"] for q in draft["pieces"]]
+              and other["placement"] != a["placement"]
+              and other["length_cm"] != a["length_cm"]
+              and a["length_cm"] == b["length_cm"]
+              and napped["length_cm"] == a["length_cm"]
+              and napped["nap"] == "none" and a["nap"] == _mkr.NAP_UNKNOWN
+              and "rotation_used" not in a
+              and len(a["placement"]) == 5,
+              f'two identical orders give the same {len(a["placement"])} '
+              f'placements and the same {a["length_cm"]} cm, while '
+              f'a doubled order gives {len(other["placement"])} placements '
+              f'and {other["length_cm"]} cm — so the comparison discriminates. '
+              f'Handing the sleeve in first lays the identical marker, which '
+              f'is what the height sort is for. '
+              f'Saying the cloth has no nap gives {napped["length_cm"]} cm, '
+              f'the same, and the answer says why rather than flagging a '
+              f'rotation it never performs')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -5091,6 +5245,7 @@ if __name__ == "__main__":
                numbers_survive_a_revision,
                darts_make_the_panel_three_dimensional,
                the_garment_goes_onto_a_body,
+               the_marker_says_how_much_fabric,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")

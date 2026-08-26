@@ -41,6 +41,7 @@ from . import garment_sew as _sew
 from . import garment_solid as _solid
 from . import darts as _darts
 from . import mannequin as _mq
+from . import marker as _marker
 from . import points as _points
 from .garment import Intake, Ledger
 from .garment_measure import Measures
@@ -581,6 +582,34 @@ def mannequin_clearance(fabric: str = "wool melton",
         return pts
     return _ok(_mq.clearance(_mq.build(_measures()), pts,
                              cling_cm=float(cling_cm)))
+
+
+@tool
+def marker_lay(fabric_width_cm: float, cut_json: str,
+               seam_allowance_cm: float, nap: str = "") -> str:
+    """How much cloth to buy, and where each piece sits on it.
+
+    Three things the pattern does not carry are refused rather than guessed:
+    how many of each piece to cut, the seam allowance (the draft is the
+    SEWING line, so a figure taken from it always comes up short), and the
+    fabric width. `cut_json` is like {"後身頃": 1, "前身頃": 2, "袖": 2}.
+
+    The length is an UPPER bound: pieces are laid as bounding rectangles on
+    shelves, and a real marker interlocks their concave shapes. Safe in the
+    direction of buying cloth; not the minimum.
+    """
+    try:
+        cut = _json.loads(cut_json) if cut_json else {}
+    except ValueError as e:
+        return _refused(e)
+    if not isinstance(cut, dict):
+        return _ok({"verdict": _marker.NO_COUNT,
+                    "how_to_close": 'cut_json は {"裁片名": 枚数} の形で'})
+    return _ok(_marker.lay(_pattern.draft(_measures()),
+                           float(fabric_width_cm),
+                           {str(k): int(v) for k, v in cut.items()},
+                           float(seam_allowance_cm),
+                           nap=(nap or None)))
 
 
 @tool
