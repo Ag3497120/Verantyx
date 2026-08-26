@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import inspect
 import json
+import json as _json
 import sys
 import traceback
 import typing
@@ -38,6 +39,7 @@ from . import garment_pattern as _pattern
 from . import garment_rights as _rights_mod
 from . import garment_sew as _sew
 from . import garment_solid as _solid
+from . import points as _points
 from .garment import Intake, Ledger
 from .garment_measure import Measures
 
@@ -58,6 +60,17 @@ def _measures() -> Measures:  return Measures.load(_p("measures.json"))
 def _intake() -> Intake:      return Intake.load(_p("intake.json"))
 def _design():                return _rights_mod.Design.load(_p("design.json"))
 def _rights():                return _rights_mod.RightsLedger.load(_p("rights.json"))
+
+
+def _numbering():
+    """The point-number registry. **Append-only across sessions** — a fresh
+    one every call would renumber the pattern behind the user's back, which
+    is the exact failure ``points.py`` exists to prevent."""
+    f = _p("numbers.json")
+    if f.exists():
+        return _points.Registry.from_json(_json.loads(
+            f.read_text(encoding="utf-8")))
+    return _points.Registry()
 
 
 def _ok(obj: Any) -> str:
@@ -394,6 +407,43 @@ def pattern_marks() -> str:
     if draft.get("verdict") != "ANSWER":
         return _ok(draft)
     return _ok(_marks.apply(draft))
+
+
+@tool
+def pattern_numbers() -> str:
+    """Number every place on the pattern so an adjustment can be pointed at.
+
+    "Loosen 30 to 35" only works if 35 is the same place next time round. The
+    number is derived from the address (piece, edge, position along it), not
+    handed out by walking a list, so adding a piece never moves an existing
+    number. The registry is append-only and persisted beside the measures.
+    """
+    draft = _pattern.draft(_measures())
+    if draft.get("verdict") != "ANSWER":
+        return _ok(draft)
+    reg = _numbering()
+    out = _points.label(draft, reg)
+    if out.get("verdict") == "ANSWER":
+        _p("numbers.json").write_text(
+            _json.dumps(reg.to_json(), ensure_ascii=False, indent=2),
+            encoding="utf-8")
+    return _ok(out)
+
+
+@tool
+def pattern_where(number: int) -> str:
+    """What place a number points at. A number nobody registered is refused."""
+    return _ok(_points.resolve(_numbering(), int(number)))
+
+
+@tool
+def pattern_span(first: int, last: int) -> str:
+    """Turn "30 to 35" into a stretch of one edge.
+
+    A span whose ends sit on two different edges is refused rather than
+    guessed: nobody can say what "loosen it" would mean across the gap.
+    """
+    return _ok(_points.span(_numbering(), int(first), int(last)))
 
 
 @tool

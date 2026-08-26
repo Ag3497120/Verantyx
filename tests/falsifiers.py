@@ -1386,6 +1386,50 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- 点の安定番号 ---------------------------------------------------------
+#: 番号が動くとエージェントループは収束しない。前の周回の「30番から35番」が
+#: 別の場所を指すから。ここはその四つの壊し方を、全部赤にする。
+WHOLE_SUITE += [
+    ("the registry hands out a fresh base every time it is asked",
+     "photoloset/points.py",
+     [("        k = self.key(piece, edge)\n"
+       "        if k not in self._bases:",
+       "        k = self.key(piece, edge)\n"
+       "        if True:")],
+     ["a number is a function of its address"]),
+
+    # NOT `len(self._bases) * STRIDE`: at the moment of assignment k is not
+    # in _bases yet, so that expression equals self._next exactly and the
+    # mutation is a no-op. The sweep caught it as a MISS rather than scoring
+    # it green, which is the whole reason the MISS column exists.
+    ("the registry re-sorts itself, so a new piece shifts the old bases",
+     "photoloset/points.py",
+     [("            self._next += STRIDE\n        return self._bases[k]",
+       "            self._next += STRIDE\n"
+       "        for _i, _k in enumerate(sorted(self._bases)):\n"
+       "            self._bases[_k] = _i * STRIDE\n"
+       "        return self._bases[k]")],
+     ["a number is a function of its address"]),
+
+    ("a reshaped outline is silently renumbered again",
+     "photoloset/points.py",
+     [("    if reshaped:", "    if False:")],
+     ["a reshaped outline is refused, not renumbered"]),
+
+    ("a span stops caring which edge its ends are on",
+     "photoloset/points.py",
+     [('    if (a["piece"], a["edge"]) != (b["piece"], b["edge"]):',
+       '    if False:')],
+     ["a span across two edges is refused"]),
+
+    ("a saved registry is read back under a different stride",
+     "photoloset/points.py",
+     [('        if int(o.get("stride", STRIDE)) != STRIDE:',
+       '        if False:')],
+     ["the registry round-trips"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:

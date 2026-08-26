@@ -185,6 +185,11 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "a number is a function of its address",
+    "adding a piece never moves a number",
+    "a reshaped outline is refused, not renumbered",
+    "a span across two edges is refused",
+    "the registry round-trips",
     "no third-party imports",
     "example runs",
     "example shows UNKNOWN_NO_ADOPTER",
@@ -269,7 +274,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "48 tools",
+    "51 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -881,7 +886,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("48 tools", len(tools) == 48, f"{len(tools)}")
+        check("51 tools", len(tools) == 51, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -929,8 +934,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 48 and not no_schema and not no_props
-              and len(published) == 76 and not wrong and not contradicted
+              len(tools) == 51 and not no_schema and not no_props
+              and len(published) == 79 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -995,7 +1000,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 48 and not not_object and not crashed,
+              len(tools) == 51 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1145,7 +1150,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 30 and not third_party,
+          len(scanned) == 31 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -4566,6 +4571,167 @@ def the_falsifier_harness_reports_everything() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("a number is a function of its address",
+          "adding a piece never moves a number",
+          "a reshaped outline is refused, not renumbered",
+          "a span across two edges is refused",
+          "the registry round-trips")
+def numbers_survive_a_revision() -> None:
+    """**"Loosen 30 to 35" has to mean the same place next time round.**
+
+    If the numbering shifts when the pattern is revised, the user's own
+    instruction changes meaning between iterations and the agent loop cannot
+    converge — it would be chasing a moving target it created itself.
+
+    So the number is DERIVED from the address (piece, edge, t) rather than
+    allocated by walking a list. The failure this exists for is the obvious
+    implementation: enumerate the current pieces and hand out consecutive
+    numbers. That works until a piece is added, and then every number after
+    it points somewhere else.
+    """
+    import copy as _copy
+
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import points as _pt
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+
+    reg = _pt.Registry()
+    labelled = _pt.label(draft, reg)
+
+    with guard("a number is a function of its address"):
+        # **The falsifier, run inline.** The obvious wrong implementation is
+        # to walk the current pieces and hand out consecutive numbers. It
+        # passes any test that only registers once. So this check builds
+        # that implementation, runs BOTH against the same revision, and
+        # requires the naive one to BREAK — if it does not, the property
+        # under test is true by construction and this check is worthless.
+        def naive(d):
+            """Numbering by enumeration — what this module must not be."""
+            out, n = {}, 0
+            for piece in d.get("pieces") or []:
+                nm = piece.get("name") or "?"
+                for k in range(len(piece.get("outline") or [])):
+                    out[f"{nm}/e{k}"] = n
+                    n += _pt.STRIDE
+            return out
+
+        watch = [("後身頃", "e0", 0.0), ("後身頃", "e3", 0.5),
+                 ("袖", "e2", 1.0)]
+        grown0 = _copy.deepcopy(draft)
+        grown0["pieces"].insert(0, {"name": "先頭に割り込む裁片",
+                                    "area_cm2": 1.0,
+                                    "outline": [[0.0, 0.0], [1.0, 0.0],
+                                                [1.0, 1.0]]})
+        mine_before = [_pt.number(reg, a, b, t) for a, b, t in watch]
+        naive_before = naive(draft)
+        probe = _pt.Registry(dict(reg._bases), dict(reg._shape))
+        _pt.label(grown0, probe)
+        mine_after = [_pt.number(probe, a, b, t) for a, b, t in watch]
+        naive_after = naive(grown0)
+        naive_moved = [k for k in naive_before
+                       if naive_after.get(k) != naive_before[k]]
+        check("a number is a function of its address",
+              mine_before == mine_after
+              and len(watch) == 3
+              and len(naive_moved) >= 15
+              and naive_before["後身頃/e0"] != naive_after["後身頃/e0"],
+              f'a piece inserted at the FRONT: these numbers {mine_before} '
+              f'are unchanged, while enumeration moves {len(naive_moved)} '
+              f'of {len(naive_before)} edges including 後身頃/e0 '
+              f'({naive_before["後身頃/e0"]} -> {naive_after["後身頃/e0"]}). '
+              f'If enumeration had survived this, the check would be vacuous')
+
+    with guard("adding a piece never moves a number"):
+        before = _pt.Registry(dict(reg._bases), dict(reg._shape))
+        watched = {n: _pt.resolve(reg, n) for n in (0, 30, 35, 99, 100, 250)}
+        grown = _copy.deepcopy(draft)
+        grown["pieces"].insert(1, {"name": "ケープ", "area_cm2": 200.0,
+                                   "outline": [[0.0, 0.0], [10.0, 0.0],
+                                               [10.0, 20.0], [0.0, 20.0]]})
+        _pt.label(grown, reg)
+        moved = _pt.renumber_check(before, reg)
+        # Counted, not all()-ed: `all` over an empty dict is True, so a
+        # watch list that silently became empty would read as a pass.
+        agreed = sum(
+            1 for n, was in watched.items()
+            if (was["piece"], was["edge"], was["t_lo"])
+            == (_pt.resolve(reg, n)["piece"], _pt.resolve(reg, n)["edge"],
+                _pt.resolve(reg, n)["t_lo"]))
+        check("adding a piece never moves a number",
+              moved["stable"] and agreed == 6 and len(watched) == 6
+              and len(moved["added"]) == 4
+              and moved["checked"] == 21,
+              f'{moved["checked"]} edges checked, {len(moved["moved"])} '
+              f'moved, {len(moved["added"])} added by the cape; '
+              f'{agreed} of {len(watched)} sampled numbers resolve to the '
+              f'same piece/edge/t. A registry that renumbered would have '
+              f'moved every number past the cape')
+
+    with guard("a reshaped outline is refused, not renumbered"):
+        # The remaining hole, made loud. Edge names are eN off the outline's
+        # vertex order, so inserting ONE vertex makes e1 a different segment
+        # while every base stays put — renumber_check says "stable" and the
+        # numbers point somewhere else. Measured before this refusal existed:
+        # 100/150/250/300 all kept their edge NAME across the insertion.
+        reshaped = _copy.deepcopy(draft)
+        for piece in reshaped["pieces"]:
+            if piece["name"] == "後身頃":
+                a, b = piece["outline"][0], piece["outline"][1]
+                piece["outline"].insert(
+                    1, [(a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0])
+        fresh = _pt.Registry(dict(reg._bases), dict(reg._shape))
+        said = _pt.label(reshaped, fresh)
+        blind = _pt.renumber_check(
+            _pt.Registry(dict(reg._bases), dict(reg._shape)), fresh)
+        check("a reshaped outline is refused, not renumbered",
+              said["verdict"] == _pt.RESHAPED
+              and said["pieces"] == [{"piece": "後身頃", "was": 7, "now": 8}]
+              and blind["stable"],
+              f'{said["verdict"]} naming 後身頃 7 -> 8. renumber_check '
+              f'still says stable={blind["stable"]} — no base moved, which '
+              f'is exactly why this refusal has to exist separately')
+
+    with guard("a span across two edges is refused"):
+        inside = _pt.span(reg, 30, 35)
+        across = _pt.span(reg, 95, 105)
+        unknown = _pt.resolve(reg, 10 ** 6)
+        check("a span across two edges is refused",
+              inside["verdict"] == "ANSWER"
+              and inside["piece"] == "後身頃" and inside["edge"] == "e0"
+              and len(inside["numbers"]) == 6
+              and round(inside["t_lo"], 4) == 0.303
+              and round(inside["t_hi"], 4) == 0.3636
+              and across["verdict"] == "UNKNOWN_SPAN_CROSSES_EDGES"
+              and unknown["verdict"] == _pt.NO_NUMBER,
+              f'30..35 is {inside["piece"]}/{inside["edge"]} '
+              f't {inside["t_lo"]:.3f}..{inside["t_hi"]:.3f}; 95..105 '
+              f'crosses an edge and is refused; 10^6 is {unknown["verdict"]}')
+
+    with guard("the registry round-trips"):
+        blob = json.dumps(reg.to_json(), ensure_ascii=False)
+        back = _pt.Registry.from_json(json.loads(blob))
+        stale = dict(reg.to_json())
+        stale["stride"] = _pt.STRIDE + 1
+        try:
+            _pt.Registry.from_json(stale)
+            refused = ""
+        except ValueError as exc:
+            refused = str(exc).split(":")[0]
+        check("the registry round-trips",
+              back._bases == reg._bases and back._shape == reg._shape
+              and refused == _pt.MOVED,
+              f'{len(back._bases)} bases and {len(back._shape)} shapes '
+              f'survive JSON; a saved registry with a different stride is '
+              f'{refused or "ACCEPTED — every saved number would move"}')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -4604,6 +4770,7 @@ if __name__ == "__main__":
                the_mcp_server_answers,
                served_readers_track_their_stores,
                no_check_can_pass_by_construction,
+               numbers_survive_a_revision,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
