@@ -159,44 +159,269 @@ struct IDEShellView: View {
     }
 
     // MARK: - Left rail
+    //
+    // **服飾もチャットも「プロジェクト」— 名前・種類・作成日を持ち、
+    // タブとして開く。** レールはそれを一覧で並べる、参照アプリと同じ形。
+    // 上の小さなアイコン列だけが唯一モードで中身を変える場所 —
+    // フォルダの位置にあるボタンは、LLM では既存のエクスプローラーの
+    // まま、Atelier では「新しいプロジェクト」に差し替わる。同じ位置、
+    // 同じ見た目、違う動詞、というのが owner の言葉どおりの実装。
 
     private var leftRail: some View {
-        VStack(spacing: 4) {
-            railButton(icon: "folder", help: app.t("Explorer", "エクスプローラー")) {
-                if let ws = app.workspaceURL {
-                    shell.openTab(.folder(path: ws.path))
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                if app.veraEngineMode == .atelier {
+                    // **同じ位置・同じ見た目、違う動詞。** LLM ではフォルダを
+                    // 開く場所に、Atelier では新しいプロジェクトを作る場所を置く
+                    // — コードの木を Atelier に持ち込まない、という owner の
+                    // 明言のとおり。
+                    railButton(icon: "folder.badge.plus",
+                              help: app.t("New project", "新しいプロジェクト")) {
+                        createProject()
+                    }
+                    railButton(icon: "tshirt", help: app.t("Garment", "服飾"),
+                              active: shell.activeTab?.kind == .garment) {
+                        shell.openTab(.garment)
+                    }
                 } else {
-                    app.openWorkspace()
+                    railButton(icon: "folder", help: app.t("Explorer", "エクスプローラー")) {
+                        if let ws = app.workspaceURL {
+                            shell.openTab(.folder(path: ws.path))
+                        } else {
+                            app.openWorkspace()
+                        }
+                    }
+                }
+                railButton(icon: "bubble.left.and.bubble.right", help: app.t("Chat", "チャット"),
+                          active: shell.activeTab?.kind == .chat) {
+                    shell.openTab(.chat)
+                }
+
+                ForEach(MountablePanelKind.surfacedCases) { kind in
+                    railButton(icon: kind.icon,
+                              help: kind.title(japanese: AppLanguage.shared.isJapanese),
+                              active: shell.leftPanel == kind) {
+                        shell.toggleRail(.left, default: kind)
+                    }
+                }
+
+                Divider().frame(height: 26).opacity(0.25).padding(.horizontal, 3)
+
+                // ── 設定: モードごとに別の画面を開く ────────────────────────
+                // Atelier と LLM は別の設定を持つ(AppState.swift の
+                // atelierDefaultUnit/atelierOperatorName vs SettingsView の
+                // 既存設定) — このスイッチがその分岐そのもの。ボタン自体は
+                // 1個、開く画面がモードで変わる。
+                switch app.veraEngineMode {
+                case .atelier:
+                    railButton(icon: "gearshape", help: app.t("Atelier settings", "服飾の設定")) {
+                        app.showAtelierSettingsRequested = true
+                    }
+                case .localLLM:
+                    railButton(icon: "gearshape", help: app.t("Settings", "設定")) {
+                        app.showSettingsRequested = true
+                    }
+                }
+
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 6).padding(.vertical, 6)
+
+            Divider().opacity(0.2)
+            // **ScrollView に高さを決めさせない。** 中身が伸びるだけ伸びる
+            // ScrollView を Spacer と並べると、Spacer ではなくこちらが
+            // 中身の分だけ膨らみ、下のボタン列を窓の外へ押し出す —
+            // house rule 2(clip and constrain)と同じ壊れ方。ここで
+            // 明示的に残りの縦幅を割り当てる。
+            projectsSection
+                .frame(maxHeight: .infinity)
+
+            Divider().opacity(0.2)
+            VStack(spacing: 2) {
+                // **選び直す道。** 一度選んだあとも消えない — 起動時の一回
+                // きりでは「間違えて押した」を取り返せない。
+                Button {
+                    app.showModeChooser = true
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .font(.system(size: 11))
+                        Text(app.t("Switch mode", "モードを選び直す"))
+                            .font(.system(size: 10.5, weight: .medium))
+                        Spacer(minLength: 0)
+                    }
+                    .foregroundStyle(Theme.faint)
+                    .padding(.horizontal, 10).padding(.vertical, 5)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                if !shell.isEmpty {
+                    Button {
+                        shell.closeAllTabs()
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "xmark.square")
+                                .font(.system(size: 11))
+                            Text(app.t("Close all tabs", "すべてのタブを閉じる"))
+                                .font(.system(size: 10.5, weight: .medium))
+                            Spacer(minLength: 0)
+                        }
+                        .foregroundStyle(Theme.faint)
+                        .padding(.horizontal, 10).padding(.vertical, 5)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            railButton(icon: "tshirt", help: app.t("Garment", "服飾")) {
-                shell.openTab(.garment)
-            }
-            railButton(icon: "bubble.left.and.bubble.right", help: app.t("Chat", "チャット")) {
-                shell.openTab(.chat)
-            }
+            .padding(.vertical, 4)
+        }
+        .frame(width: 210)
+        .background(Theme.panel)
+        .clipped()
+    }
 
-            Divider().frame(width: 26).opacity(0.25).padding(.vertical, 3)
+    // MARK: - Projects section
+    //
+    // 服飾も会話も同じ形(名前・種類・作成日)で並ぶ、同じ行ビュー。
+    // データの実体は違う ── チャット側は `app.sessions`(本物の、
+    // 各セッション独立の履歴)、服飾側は `app.garmentProjects` / `activeGarment`
+    // (名前の一覧と、いま前面に出す名前 ── Vera 側の台帳自体は共有の
+    // ままで、行を選んでも台帳が服ごとに分かれるわけではない。これは
+    // この一覧が作ったものではなく、この一覧が初めて可視化した既存の姿)。
 
-            ForEach(MountablePanelKind.surfacedCases) { kind in
-                railButton(icon: kind.icon,
-                          help: kind.title(japanese: AppLanguage.shared.isJapanese),
-                          active: shell.leftPanel == kind) {
-                    shell.toggleRail(.left, default: kind)
+    private struct RailProject: Identifiable {
+        enum Kind { case garment, chat }
+        let id: String
+        let name: String
+        let kind: Kind
+        let createdAt: Date
+        let isActive: Bool
+    }
+
+    private var projectRows: [RailProject] {
+        switch app.veraEngineMode {
+        case .atelier:
+            return app.garmentProjects.map { name in
+                RailProject(id: name, name: name, kind: .garment,
+                           createdAt: app.createdDate(forGarment: name),
+                           isActive: name == app.activeGarment)
+            }
+        case .localLLM:
+            return app.sessions.sessions
+                .sorted { $0.createdAt > $1.createdAt }
+                .map { s in
+                    RailProject(id: s.id.uuidString,
+                               name: s.title.isEmpty ? app.t("New chat", "新しいチャット") : s.title,
+                               kind: .chat, createdAt: s.createdAt,
+                               isActive: s.id == app.sessions.activeSessionId)
                 }
+        }
+    }
+
+    private var projectsSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                Text(app.t("PROJECTS", "プロジェクト"))
+                    .font(.system(size: 9.5, weight: .bold))
+                    .tracking(0.5)
+                    .foregroundStyle(Theme.faint)
+                Spacer()
+                Button {
+                    createProject()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 10, weight: .bold))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Theme.sel)
+                .help(app.t("New project", "新しいプロジェクト"))
             }
+            .padding(.horizontal, 10).padding(.top, 8).padding(.bottom, 4)
 
-            Spacer()
-
-            if !shell.isEmpty {
-                railButton(icon: "xmark.square", help: app.t("Close all tabs", "すべてのタブを閉じる")) {
-                    shell.closeAllTabs()
+            if projectRows.isEmpty {
+                Text(app.t("No projects yet", "まだプロジェクトがありません"))
+                    .font(.system(size: 10.5))
+                    .foregroundStyle(Theme.faint)
+                    .padding(.horizontal, 10).padding(.vertical, 4)
+            } else {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 1) {
+                        ForEach(projectRows) { row in
+                            projectRowButton(row)
+                        }
+                    }
+                    .padding(.bottom, 4)
                 }
             }
         }
-        .padding(.vertical, 8)
-        .frame(width: 44)
-        .background(Theme.panel)
+    }
+
+    private func projectRowButton(_ row: RailProject) -> some View {
+        Button {
+            openProject(row)
+        } label: {
+            HStack(spacing: 7) {
+                Image(systemName: row.kind == .garment ? "tshirt" : "bubble.left.and.bubble.right")
+                    .font(.system(size: 10))
+                    .foregroundStyle(row.isActive ? Theme.sel : Theme.faint)
+                    .frame(width: 14)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(row.name)
+                        .font(.system(size: 11.5, weight: row.isActive ? .semibold : .regular))
+                        .foregroundStyle(row.isActive ? Theme.fg : Theme.dim)
+                        .lineLimit(1)
+                    Text(Self.relativeDate(row.createdAt))
+                        .font(.system(size: 9))
+                        .foregroundStyle(Theme.faint)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 10).padding(.vertical, 5)
+            .background(row.isActive ? Theme.sel.opacity(0.12) : .clear,
+                       in: RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal, 4)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// 一つの行を選ぶ ── 服飾なら前面の名前を替えて服飾タブを開く、
+    /// 会話なら本物のセッションを復元してチャットタブを開く。
+    private func openProject(_ row: RailProject) {
+        switch row.kind {
+        case .garment:
+            app.activeGarment = row.name
+            shell.openTab(.garment)
+        case .chat:
+            if let id = UUID(uuidString: row.id) {
+                app.restoreSession(id)
+            }
+            shell.openTab(.chat)
+        }
+    }
+
+    /// 「+」も、Atelier のフォルダ位置ボタンも、ここに集まる ── 同じ
+    /// 行為の入口が二つあるだけで、行為そのものは一つ。
+    private func createProject() {
+        switch app.veraEngineMode {
+        case .atelier:
+            app.newGarmentProject()
+            shell.openTab(.garment)
+        case .localLLM:
+            app.newChatSession()
+            shell.openTab(.chat)
+        }
+    }
+
+    private static let relativeDateFormatter: RelativeDateTimeFormatter = {
+        let f = RelativeDateTimeFormatter()
+        f.unitsStyle = .abbreviated
+        return f
+    }()
+
+    private static func relativeDate(_ date: Date) -> String {
+        relativeDateFormatter.localizedString(for: date, relativeTo: Date())
     }
 
     private func railButton(icon: String, help: String, active: Bool = false,
@@ -481,12 +706,21 @@ struct IDEShellView: View {
                 .environmentObject(app)
                 .frame(maxWidth: 640)
 
+            // **空の画面が差し出すものもモードで変わる。** 服を作る人に
+            // 「フォルダーを開く」を見せない ── コードの木を Atelier に
+            // 持ち込まない、という owner の明言はこの画面にも及ぶ。
             HStack(spacing: 14) {
-                emptyStateLink(app.t("Open a folder", "フォルダーを開く"), icon: "folder") {
-                    app.openWorkspace()
-                }
-                emptyStateLink(app.t("Garment", "服飾"), icon: "tshirt") {
-                    shell.openTab(.garment)
+                if app.veraEngineMode == .atelier {
+                    emptyStateLink(app.t("New project", "新しいプロジェクト"), icon: "folder.badge.plus") {
+                        createProject()
+                    }
+                    emptyStateLink(app.t("Garment", "服飾"), icon: "tshirt") {
+                        shell.openTab(.garment)
+                    }
+                } else {
+                    emptyStateLink(app.t("Open a folder", "フォルダーを開く"), icon: "folder") {
+                        app.openWorkspace()
+                    }
                 }
                 emptyStateLink(app.t("Chat", "チャット"), icon: "bubble.left.and.bubble.right") {
                     shell.openTab(.chat)

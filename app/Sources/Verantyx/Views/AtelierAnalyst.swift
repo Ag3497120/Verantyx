@@ -14,6 +14,18 @@ import SwiftUI
 @MainActor
 final class AtelierAnalyst: ObservableObject {
 
+    // AtelierView used to own this as a private @StateObject, once per
+    // instance. It needed to be one object once the composer grew its own
+    // "Analysis AI" control (UnifiedComposerView, in Atelier mode) — a
+    // second AtelierAnalyst would just be a second pick that could disagree
+    // with the rail's, which is exactly the "compete instead of agree"
+    // shape the owner asked not to build. `pick` was already persisted to
+    // UserDefaults so two instances mostly *looked* consistent after a
+    // fresh read, but `busy` / `lastRun` / the fetched model lists were
+    // not, so a refresh in one place never showed in the other. One
+    // instance, like `AtelierIntake.shared`.
+    static let shared = AtelierAnalyst()
+
     /// 解析に使う相手。`vera` は**モデルを呼ばない**選択で、
     /// 構造(立体十字)と台帳だけで、次に何を見るべきかを出します。
     enum Pick: Equatable {

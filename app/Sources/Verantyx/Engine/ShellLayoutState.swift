@@ -130,6 +130,35 @@ enum ShellTabKind: Equatable, Codable, Hashable {
     }
 }
 
+extension ShellTabKind {
+    /// Whether this tab kind can exist while the shell is in `mode`. The
+    /// two modes are not a label on the same shell — the owner's brief is
+    /// explicit that the pattern differs: a garment person never sees a
+    /// code-editor affordance, an LLM user never sees 服飾. This is the one
+    /// place that answers "can this tab exist here", read by both
+    /// ``ShellLayoutState/pruneTabs(incompatibleWith:)`` (mode switches,
+    /// restore) and the rail (what it offers to open in the first place).
+    func isAllowed(in mode: AppState.VeraEngineMode) -> Bool {
+        switch mode {
+        case .atelier:
+            // コードエディタの道具立て。服を作る人には邪魔で、AI が
+            // 読み込む先にもなり得る、と owner が明言している一群。
+            switch self {
+            case .file, .folder, .terminal, .diff, .search: return false
+            default: return true
+            }
+        case .localLLM:
+            // 服飾は atelier だけの面。LLM モードの人が服飾タブを
+            // 一度も持ったことがなくても、モード切替の直後に前回の
+            // 服飾タブが持ち越されて出てくることはあり得る。
+            switch self {
+            case .garment: return false
+            default: return true
+            }
+        }
+    }
+}
+
 struct ShellTab: Identifiable, Equatable, Codable {
     let id: UUID
     var kind: ShellTabKind
@@ -153,6 +182,16 @@ struct PanelMountRequest: Identifiable, Equatable {
 
 @MainActor
 final class ShellLayoutState: ObservableObject {
+
+    /// Mirrors `AppState.veraEngineMode` — kept in sync from its `didSet`.
+    /// `openTab` reads this so **every** door into a tab (rail clicks, the
+    /// composer, an agent proposing to open a file, a 名前で呼ぶ summon)
+    /// is stopped at the one gate, not just the rail buttons this pass
+    /// happened to touch. Defaults to `.atelier` to match
+    /// `AppState.veraEngineMode`'s own default; nothing observes this
+    /// before `AppState` finishes constructing (see `pruneTabs` for why
+    /// restore-time filtering still needs its own separate call).
+    var currentMode: AppState.VeraEngineMode = .atelier
 
     @Published var leftPanel: MountablePanelKind?
     @Published var rightPanel: MountablePanelKind?
@@ -191,7 +230,17 @@ final class ShellLayoutState: ObservableObject {
     /// the same identity is already open — same as every editor's "already
     /// open" behaviour.
     @discardableResult
-    func openTab(_ kind: ShellTabKind) -> UUID {
+    func openTab(_ kind: ShellTabKind) -> UUID? {
+        // このモードに存在できない種類は、どの呼び出し口から来ても開かない
+        // — レールのボタンはすでにモードごとに絞ってあるが、エージェントの
+        // 提案や 名前で呼ぶ summon はレールを経由しない。ここが唯一の門。
+        // 開けなかった場合は nil を返す(以前は activeTabID ?? UUID() という
+        // 意味のないダミー ID を返していた — 呼び出し側が将来その値を
+        // 「実際に開いたタブの id」と誤読すると、存在しないタブを指す
+        // 宙ぶらりんの id を掴むことになる。nil ならその誤読自体ができない)。
+        guard kind.isAllowed(in: currentMode) else {
+            return nil
+        }
         if let existing = tabs.first(where: { $0.kind.identityKey == kind.identityKey }) {
             activeTabID = existing.id
             save()
@@ -219,6 +268,29 @@ final class ShellLayoutState: ObservableObject {
                 let landIdx = min(idx, tabs.count - 1)
                 activeTabID = tabs[landIdx].id
             }
+        }
+        save()
+    }
+
+    /// Drops every open tab whose kind cannot exist in `mode` — called once
+    /// `AppState.loadPersistedSettings()` knows the real restored mode, and
+    /// again on every live mode switch (``AppState/selectEngineMode(_:)``).
+    ///
+    /// This can't happen inside ``restore()`` itself: `shell` is built
+    /// before `AppState`'s other stored properties finish their own default
+    /// initialization (`let shell = ShellLayoutState()` runs ahead of
+    /// `veraEngineMode`'s persisted value being read), so at restore time
+    /// there is no real mode to prune against yet — the same reason
+    /// ``restore()`` already drops `surfaced == false` panels rather than
+    /// trusting whatever was mounted last. Leaving this step out would mean
+    /// a saved garment tab quietly reappearing in the LLM shell, or a file
+    /// tab in Atelier — the exact regression this mirrors.
+    func pruneTabs(incompatibleWith mode: AppState.VeraEngineMode) {
+        let before = tabs.count
+        tabs.removeAll { !$0.kind.isAllowed(in: mode) }
+        guard tabs.count != before else { return }
+        if let active = activeTabID, !tabs.contains(where: { $0.id == active }) {
+            activeTabID = tabs.first?.id
         }
         save()
     }

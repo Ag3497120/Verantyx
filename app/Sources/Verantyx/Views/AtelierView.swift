@@ -21,7 +21,11 @@ struct AtelierView: View {
 
     @EnvironmentObject var app: AppState
     @StateObject private var m = AtelierModel()
-    @StateObject private var an = AtelierAnalyst()
+    // `.shared`, not a fresh instance — the composer's own "Analysis AI"
+    // chip (UnifiedComposerView) reads and opens the SAME object, so a
+    // pick made from either place is the pick the other one sees. See the
+    // comment on `AtelierAnalyst.shared`.
+    @StateObject private var an = AtelierAnalyst.shared
     @StateObject private var intake = AtelierIntake.shared
     @State private var showAnalyst = false
 
@@ -790,6 +794,9 @@ private struct AdoptSheet: View {
             }
         }
         .padding(18).frame(width: 380)
+        // 設定 › 服飾の設定 の「台帳に残す名前」を初期値にする — 毎回
+        // 空欄から打ち直さずに済む。すでに何か入っていれば上書きしない。
+        .onAppear { if by.isEmpty { by = app.atelierOperatorName } }
     }
 }
 
@@ -1046,9 +1053,16 @@ private extension Text {
 /// **どれを選んでも台帳に書ける口は提案だけ**という一行を、
 /// 選択肢の上に置いてあります。UIの注意書きではなく、扉の側で
 /// 閉じている事実の説明です。
-private struct AnalystSheet: View {
+// Not `private` — the composer (UnifiedComposerView, a different file)
+// presents this same sheet for its own "Analysis AI" chip rather than
+// forking a second picker that could drift from this one. `m` is optional
+// for exactly that call site: the composer has no `AtelierModel` of its
+// own (that is AtelierView's per-screen ledger reader, not a singleton),
+// so it has nothing to hand the "ask about open aspects" action below —
+// picking a model still works without it, running that action does not.
+struct AnalystSheet: View {
     @ObservedObject var an: AtelierAnalyst
-    @ObservedObject var m: AtelierModel
+    var m: AtelierModel? = nil
     @EnvironmentObject var app: AppState
     @Environment(\.dismiss) private var dismiss
     @State private var lmHost = ""
@@ -1158,28 +1172,42 @@ private struct AnalystSheet: View {
                 .padding(.vertical, 8)
             }
 
-            Divider().opacity(0.3)
-            HStack(spacing: 10) {
-                Button(app.t("Ask about the open aspects",
-                             "空いている側面を訊く")) {
-                    Task { await an.analyze(model: m, app: app) }
+            // `m` is only present when AtelierView opened this sheet — the
+            // composer's chip has no ledger to ask about, and offering a
+            // button that would crash or silently no-op there is worse
+            // than not offering it.
+            if let m {
+                Divider().opacity(0.3)
+                HStack(spacing: 10) {
+                    Button(app.t("Ask about the open aspects",
+                                 "空いている側面を訊く")) {
+                        Task { await an.analyze(model: m, app: app) }
+                    }
+                    .font(.system(size: 11))
+                    .disabled(an.busy)
+                    if !an.lastRun.isEmpty {
+                        Text(an.lastRun).font(.system(size: 10))
+                            .foregroundStyle(an.lastProposals > 0 ? Theme.warn : Theme.dim)
+                            .lineLimit(2)
+                    }
+                    Spacer(minLength: 0)
                 }
-                .font(.system(size: 11))
-                .disabled(an.busy)
-                if !an.lastRun.isEmpty {
-                    Text(an.lastRun).font(.system(size: 10))
-                        .foregroundStyle(an.lastProposals > 0 ? Theme.warn : Theme.dim)
-                        .lineLimit(2)
-                }
-                Spacer(minLength: 0)
+                .padding(14)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Theme.panel)
             }
-            .padding(14)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Theme.panel)
         }
         .frame(width: 560, height: 560)
         .background(Theme.bg)
         .onAppear { if lmHost.isEmpty { lmHost = app.lmStudioEndpoint } }
+        .task {
+            // AtelierView also refreshes `an` on its own appear, but the
+            // composer's chip can open this sheet without AtelierView ever
+            // having been on screen (mode switched, garment tab never
+            // opened) — an empty list there would read as "nothing is
+            // available" instead of "not asked yet".
+            await an.refresh(app: app)
+        }
     }
 
     private func group<T: View>(_ title: String,
@@ -1676,8 +1704,11 @@ private struct DesignPanel: View {
         }
         .background(Theme.bg)
         .task { await m.loadDesign() }
-        .onAppear { if aspect.isEmpty {
-            aspect = m.aspects(of: m.selected).first ?? "" } }
+        .onAppear {
+            if aspect.isEmpty { aspect = m.aspects(of: m.selected).first ?? "" }
+            // 設定 › 服飾の設定 の「台帳に残す名前」を初期値にする。
+            if by.isEmpty { by = app.atelierOperatorName }
+        }
         .onChange(of: m.selected) { _ in
             aspect = m.aspects(of: m.selected).first ?? "" }
     }
@@ -2043,6 +2074,11 @@ private struct MeasurePanel: View {
         .task {
             await m.loadMeasures()
             await m.loadPattern()
+        }
+        .onAppear {
+            // 設定 › 服飾の設定 の既定単位・既定の名前を初期値にする。
+            unit = app.atelierDefaultUnit
+            if by.isEmpty { by = app.atelierOperatorName }
         }
     }
 

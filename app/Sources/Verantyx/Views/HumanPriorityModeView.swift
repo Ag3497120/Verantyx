@@ -16,6 +16,7 @@ struct HumanPriorityModeView: View {
     // below, scattered across this view — see IDEShellView.swift and
     // ShellLayoutState.swift.
     @State private var showSettings     = false
+    @State private var showAtelierSettings = false
     @State private var showMCPQuick     = false
     @State private var showL25ConversionAlert = false
     @State private var targetWorkspaceForL25: URL? = nil
@@ -56,9 +57,15 @@ struct HumanPriorityModeView: View {
     }
 
     var body: some View {
-        // A Gatekeeper-menu surface takes the WHOLE window — not a pane
-        // swap beside the chat.
-        if let surface = app.fullSurface {
+        // 何より先に。初回起動(まだ一度も選んでいない)か、レールから
+        // 「選び直す」を押した直後は、Gatekeeper の全画面サーフェスよりも
+        // 先にこの画面が出る — 「何をしに来たか」が決まる前は、
+        // 他のどの画面も出す意味がない。
+        if !app.hasChosenEngineMode || app.showModeChooser {
+            EngineModeChooserView().environmentObject(app)
+        } else if let surface = app.fullSurface {
+            // A Gatekeeper-menu surface takes the WHOLE window — not a pane
+            // swap beside the chat.
             fullSurfaceLayout(surface)
         } else {
             normalModeBody
@@ -161,8 +168,29 @@ struct HumanPriorityModeView: View {
                 .transition(.scale(scale: 0.96).combined(with: .opacity))
                 .zIndex(10)
             }
+
+            // ── Atelier settings overlay ──────────────────────────────────
+            // 別の画面、別の @State — showSettings とは独立に開閉する。
+            // LLM 側の設定を開いている間に服飾側が動いたり、その逆が
+            // 起きたりしない。
+            if showAtelierSettings {
+                Color.black.opacity(0.55)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.easeOut(duration: 0.18)) { showAtelierSettings = false }
+                    }
+                    .transition(.opacity)
+
+                AtelierSettingsView(onDismiss: {
+                    withAnimation(.easeOut(duration: 0.18)) { showAtelierSettings = false }
+                })
+                .environmentObject(app)
+                .transition(.scale(scale: 0.96).combined(with: .opacity))
+                .zIndex(10)
+            }
         }
         .animation(.easeOut(duration: 0.18), value: showSettings)
+        .animation(.easeOut(duration: 0.18), value: showAtelierSettings)
         .toastOverlay()
         // ── 名前で呼ばれた画面 ────────────────────────────────────────
         // Posted by VeraSummon when the person types the word. These used
@@ -211,6 +239,12 @@ struct HumanPriorityModeView: View {
             guard requested else { return }
             withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
             app.showSettingsRequested = false
+        }
+        // 服飾側の設定要求 — ラウンジのボタンが Atelier モードで立てる。
+        .onChange(of: app.showAtelierSettingsRequested) { _, requested in
+            guard requested else { return }
+            withAnimation(.easeOut(duration: 0.18)) { showAtelierSettings = true }
+            app.showAtelierSettingsRequested = false
         }
         // ── L2.5 変換の確認は「ユーザーがワークスペースを切り替えたとき」だけ ─────────
         //

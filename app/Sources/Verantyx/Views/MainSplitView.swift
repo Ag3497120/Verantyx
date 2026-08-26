@@ -44,7 +44,10 @@ struct MainSplitView: View {
             // screens with no door. Settings itself is not lost: the live
             // one is HumanPriorityModeView's, raised by
             // `app.showSettingsRequested`, which is what every caller
-            // already used.
+            // already used. Atelier mode has its own settings screen the
+            // same way, raised by `app.showAtelierSettingsRequested` and
+            // presented alongside it — two independent overlays, not one
+            // screen with a mode switch inside it.
 
             // ── VS Code Extension UI Overlay ──────────────────────────────
             ExtensionUIPanelView()

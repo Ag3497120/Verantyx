@@ -28,6 +28,17 @@ import SwiftUI
 // on top / tools below" rather than "icons inside the caret line". Changing
 // that shape again would be re-running an experiment this codebase already
 // has the scar tissue for.
+//
+// Capped at `composerMaxWidth`, centred — not full-pane. A line of typed
+// text a window's whole width wide is unreadable no matter what is in it.
+//
+// In Atelier mode this is a GARMENT composer, not a general chat box, and
+// says so before anyone types: `atelierScopeBlock` names the open garment
+// and offers example instructions that map 1:1 onto real MCP tools
+// (`photoloset/mcp.py`), and `analystChip` replaces the LLM-backend picker
+// with the SAME "which model proposes" control AtelierView's rail already
+// has (`AtelierAnalyst.shared`) — one decision, shown in two places, never
+// two competing ones.
 struct UnifiedComposerView: View {
     @EnvironmentObject var app: AppState
 
@@ -47,12 +58,31 @@ struct UnifiedComposerView: View {
     /// same instance AtelierView reads its clip list from, so a photo or
     /// clip attached from the composer shows up there immediately.
     @ObservedObject private var intake = AtelierIntake.shared
+    /// Which model reads the garment and proposes — the SAME object
+    /// AtelierView's rail ("ANALYSIS AI") reads, so this chip and that
+    /// picker can never disagree. See `AtelierAnalyst.shared`.
+    @ObservedObject private var an = AtelierAnalyst.shared
+    /// The garment's name, for the scope chip. See `AtelierContext`.
+    @ObservedObject private var atelierCtx = AtelierContext.shared
+    @State private var showAnalyst = false
 
     private var runningGlowColor: Color { activity.state.color }
     private var runningGlowActive: Bool { activity.state.glows }
 
+    /// Half of "spans the entire pane", roughly, and centred rather than
+    /// pinned — a CAP, not a fixed size, so a narrow window still just
+    /// gets whatever width it has. 820 keeps a line of typed text at a
+    /// readable measure the way the reference app (Claude desktop) does.
+    private let composerMaxWidth: CGFloat = 820
+
     var body: some View {
         composerBox
+            .sheet(isPresented: $showAnalyst) {
+                // `m: nil` — the composer has no ledger to run "ask about
+                // open aspects" against, only a model to pick. See the
+                // doc comment on `AnalystSheet.m`.
+                AnalystSheet(an: an, m: nil).environmentObject(app)
+            }
     }
 
     // MARK: - Placeholder
@@ -140,11 +170,16 @@ struct UnifiedComposerView: View {
 
             // ── Text input + action buttons ───────────────────────────
             VStack(alignment: .leading, spacing: 6) {
+                // Scope, shown BEFORE the caret has anywhere to type —
+                // see the file's own header note on why a plain text box
+                // here reads as a general assistant it is not.
+                if app.veraEngineMode == .atelier { atelierScopeBlock }
                 composerTextField
                 composerControls
             }
             .padding(.horizontal, 11).padding(.top, 8).padding(.bottom, 7)
         }
+        .frame(maxWidth: composerMaxWidth)
         .background(
             app.selfFixMode
                 ? Color(red: 0.22, green: 0.16, blue: 0.08)
@@ -269,12 +304,17 @@ struct UnifiedComposerView: View {
 
     /// ModelSelectorBarView is entirely about LLM backends: which one is
     /// loaded (Gatekeeper chip), the 監視(Auditor)/ERROR badge, the
-    /// 自動/手動 execution-mode stepper. Vera model mode used to hide this
-    /// too — no LLM ever entered that turn — but that mode was removed
-    /// 2026-08-26, so the only remaining reason to hide the bar is Atelier.
+    /// 自動/手動 execution-mode stepper. None of that is a question Atelier
+    /// mode asks — Atelier does not hide this row, it REPLACES it with
+    /// `analystChip`, a control over a different, garment-specific
+    /// question: which model reads the garment and proposes. The two
+    /// never show at once, so they never compete over the row's width the
+    /// way the file header's comment warns about for inline placement.
     private var modelSelectorBar: some View {
         HStack(spacing: 8) {
-            if app.veraEngineMode != .atelier {
+            if app.veraEngineMode == .atelier {
+                analystChip
+            } else {
                 ModelSelectorBarView()
             }
 
@@ -304,6 +344,92 @@ struct UnifiedComposerView: View {
         .padding(.horizontal, 10).padding(.vertical, 4)
         .background(Theme.panel2)
         .animation(.easeInOut(duration: 0.15), value: app.isGenerating)
+    }
+
+    /// Opens the SAME `AnalystSheet` AtelierView's rail opens, bound to the
+    /// SAME `AtelierAnalyst.shared` — "agree with it rather than compete",
+    /// in the owner's words. Nothing here decides which model reads the
+    /// garment a second time; it only shows and re-opens the one decision
+    /// that already exists.
+    private var analystChip: some View {
+        Button { showAnalyst = true } label: {
+            HStack(spacing: 5) {
+                Image(systemName: "sparkles").font(.system(size: 9))
+                Text(app.t("Analysis AI:", "解析AI:"))
+                    .font(.system(size: 10))
+                    .foregroundStyle(Theme.faint)
+                Text(an.pick.label)
+                    .font(.system(size: 10, weight: .semibold))
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+            }
+            .foregroundStyle(Theme.dim)
+        }
+        .buttonStyle(.plain)
+        .help(app.t("Whatever it says only reaches a PROPOSAL — a person "
+                    + "still has to adopt it under their name.",
+                    "何を言っても届くのは提案の欄だけです。事実になるのは"
+                    + "人が名前を書いて採用したときだけです。"))
+    }
+
+    // MARK: - Atelier scope block
+    //
+    // 服飾用のチャット入力欄は特に別のことを聞くことにならないように —
+    // プレーンな文字入力欄は一般アシスタントに見え、範囲を知らないまま
+    // 打たれる。範囲を**打つ前に**見せる: どの服の話か(スコープの chip)、
+    // この欄が実際に運べる指示の**形**(実在する道具に対応する例文)、
+    // そして番号で場所を指せること自体が、これを普通のチャットと分けて
+    // いるという点。例文はどちらも photoloset/mcp.py の実在するツール
+    // (garment_adjust による番号区間の調整、garment_worklist の未確認
+    // 一覧)に対応していて、この engine が出来ないことは書いていない。
+
+    @ViewBuilder
+    private var atelierScopeBlock: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: "tshirt").font(.system(size: 9))
+                Text(app.t("This is about:", "この欄が指すのは:"))
+                    .font(.system(size: 10))
+                Text(atelierCtx.projectName.isEmpty
+                     ? app.t("the open garment", "開いている服")
+                     : atelierCtx.projectName)
+                    .font(.system(size: 10, weight: .semibold))
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+            }
+            .foregroundStyle(Theme.sel)
+            .padding(.horizontal, 8).padding(.vertical, 3)
+            .background(Capsule().fill(Theme.sel.opacity(0.16)))
+
+            // Real instructions this composer can carry — each one names
+            // a shape an actual MCP tool answers, not a capability made
+            // up for the demo. Tapping fills the box; it does not send,
+            // because a control that fires a real turn on a single tap
+            // is a worse surprise than a blank text field.
+            HStack(spacing: 6) {
+                exampleChip(app.t("Loosen 30 to 35 a little",
+                                  "30番から35番をもう少しゆとりに"))
+                exampleChip(app.t("What haven't we confirmed yet?",
+                                  "まだ確認できていないのは？"))
+            }
+        }
+        .padding(.bottom, 2)
+    }
+
+    private func exampleChip(_ text: String) -> some View {
+        Button {
+            inputText = text
+            inputFocused = true
+        } label: {
+            Text(text)
+                .font(.system(size: 10))
+                .lineLimit(1)
+                .foregroundStyle(Theme.dim)
+                .padding(.horizontal, 8).padding(.vertical, 4)
+                .background(Capsule().fill(Color.white.opacity(0.06)))
+                .overlay(Capsule().stroke(Color.white.opacity(0.10), lineWidth: 0.5))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Attachment strip

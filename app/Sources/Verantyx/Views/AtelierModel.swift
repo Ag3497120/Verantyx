@@ -473,6 +473,9 @@ final class AtelierModel: ObservableObject {
         if let table = p["parts"] as? [String: [String]] { parts = table }
         let spec = await call("garment_spec")
         if let t = spec["title"] as? String, !t.isEmpty { projectName = t }
+        // The composer's scope chip (UnifiedComposerView, Atelier mode)
+        // reads this — it has no ledger of its own. See AtelierContext.
+        AtelierContext.shared.projectName = projectName
         counts = (spec["counts"] as? [String: Int]) ?? [:]
         var next: [String: AspectState] = [:]
         for key in ["confirmed", "contested", "inferred", "open"] {

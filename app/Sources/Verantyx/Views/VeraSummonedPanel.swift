@@ -132,7 +132,7 @@ struct VeraSummonedPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(AppState.VeraEngineMode.allCases, id: \.self) { mode in
                 Button {
-                    app.veraEngineMode = mode
+                    app.selectEngineMode(mode)
                     onClose()
                 } label: {
                     HStack(spacing: 8) {

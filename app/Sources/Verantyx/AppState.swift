@@ -181,6 +181,40 @@ final class AppState: ObservableObject {
                                            forKey: "active_garment") }
     }
 
+    /// 名前だけの一覧に日付を添える。**台帳自体の作成日ではない** —
+    /// 服の台帳は Vera 側の共有ストアで、この画面はいつ名前を登録したかしか
+    /// 知らない。左レールが「プロジェクト」を服と会話で同じ形式(名前・種類・
+    /// 作成日)で並べる以上、服の側だけ日付を持たないのは片手落ちになる。
+    @Published var garmentProjectCreatedAt: [String: Date] = {
+        guard let data = UserDefaults.standard.data(forKey: "garment_project_created_at"),
+              let decoded = try? JSONDecoder().decode([String: Date].self, from: data)
+        else { return [:] }
+        return decoded
+    }() {
+        didSet {
+            guard let data = try? JSONEncoder().encode(garmentProjectCreatedAt) else { return }
+            UserDefaults.standard.set(data, forKey: "garment_project_created_at")
+        }
+    }
+
+    /// 記録が無ければ「今」を返す純粋な読み出し ── 書き込みは
+    /// `loadPersistedSettings()` が起動時に一度だけ済ませる
+    /// (`backfillGarmentProjectDates`)。View の body から呼ばれる値なので、
+    /// ここで @Published を書くと描画中に状態を変えることになり、
+    /// SwiftUI の警告/再入の種になる。
+    func createdDate(forGarment name: String) -> Date {
+        garmentProjectCreatedAt[name] ?? Date()
+    }
+
+    /// 日付の無い名前(この機能より前からある "Black Coat" 等)に、
+    /// 一度だけ「今」を振る。起動時に一回だけ呼ぶための関数 ── 呼ぶたびに
+    /// 実行すると意味がない(初回で全部埋まる)ので副作用は起動経路からのみ。
+    private func backfillGarmentProjectDates() {
+        for name in garmentProjects where garmentProjectCreatedAt[name] == nil {
+            garmentProjectCreatedAt[name] = Date()
+        }
+    }
+
     /// 服を増やす。**既存の台帳は触らない** — 増やすだけ。
     func newGarmentProject() {
         var n = 2
@@ -190,6 +224,7 @@ final class AppState: ObservableObject {
             name = t("Garment \(n)", "服 \(n)")
         }
         garmentProjects.append(name)
+        garmentProjectCreatedAt[name] = Date()
         activeGarment = name
     }
 
@@ -1020,6 +1055,38 @@ final class AppState: ObservableObject {
     /// Which tab of the Vera dock a summon named, when it named one.
     @Published var requestedDockTab: String? = nil
 
+    // ── Atelier's own settings ────────────────────────────────────────────
+    //
+    // 服飾モード専用。LLM モードの `showSettingsRequested` / SettingsView
+    // とは別物 — 服飾の設定を変えても LLM 側には出ず、その逆も無い。
+    // 言語 (`appLanguage`, 上) だけは例外で、両モードとチューザー画面が
+    // 同じ値を読む。
+
+    /// Raised by the rail's settings button in Atelier mode; observed by
+    /// the same layout that observes `showSettingsRequested`, presenting
+    /// `AtelierSettingsView` instead of `SettingsView`.
+    @Published var showAtelierSettingsRequested: Bool = false
+
+    /// 採寸の既定単位。garment_measure.Measures.measured() は単位の無い
+    /// 数字を UNKNOWN_NO_UNIT で断る (単位は cm/mm/inch の三つだけ) —
+    /// ここは MeasurePanel の単位ピッカーの初期値に使う。都度選び直せる
+    /// ことに変わりは無く、ここは「次にどれで始まるか」だけを決める。
+    @Published var atelierDefaultUnit: String = {
+        let v = UserDefaults.standard.string(forKey: "atelier_default_unit") ?? "cm"
+        return ["cm", "mm", "inch"].contains(v) ? v : "cm"
+    }() {
+        didSet { UserDefaults.standard.set(atelierDefaultUnit, forKey: "atelier_default_unit") }
+    }
+
+    /// 台帳に残る名前の既定値。Ledger.adopt は空の名前を UNKNOWN_NO_ADOPTER
+    /// で断り、実測・再設計の「誰が」欄も同じ理由で人の名前を要る —
+    /// 一人で使っていても採用のたびに打ち直す手間を、ここで一度に減らす。
+    /// 空のままでも良い: その場合は各画面が今まで通り毎回尋ねる。
+    @Published var atelierOperatorName: String =
+        UserDefaults.standard.string(forKey: "atelier_operator_name") ?? "" {
+        didSet { UserDefaults.standard.set(atelierOperatorName, forKey: "atelier_operator_name") }
+    }
+
     // ── Vera engine mode ─────────────────────────────────────────────────
     //
     // Atelier is the mode this app is for; LLM is the plain conversation
@@ -1218,8 +1285,39 @@ final class AppState: ObservableObject {
     var usesLLMBackend: Bool { true }
 
     @Published var veraEngineMode: VeraEngineMode = .atelier {
-        didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
-                                           forKey: "vera_engine_mode") }
+        didSet {
+            UserDefaults.standard.set(veraEngineMode.rawValue,
+                                      forKey: "vera_engine_mode")
+            // shell.openTab の唯一の門がこの値を読む — レール以外の道
+            // (エージェントの提案、summon)からモード外のタブが開くのを
+            // ここで一緒に塞ぐ。
+            shell.currentMode = veraEngineMode
+        }
+    }
+
+    // ── モードの選択画面 ──────────────────────────────────────────
+    //
+    // 「選んだ」は起動時の既定値と区別する。既定は常に .atelier だが、
+    // それはこのプロパティの初期値であって人の選択ではない —
+    // `hasChosenEngineMode` が false のあいだは、その既定値はまだ
+    // 「選ばれていない」。選択画面はこれを見て、初回起動(または
+    // まだ一度も選んでいない状態)でだけ最初の画面になる。
+    @Published var hasChosenEngineMode: Bool =
+        UserDefaults.standard.bool(forKey: "vera_engine_mode_chosen")
+    /// 選択画面へ戻る、明示的な要求。選んだ後でも消えない — 「後から
+    /// 戻れる道」がこの旗そのもの。
+    @Published var showModeChooser: Bool = false
+
+    /// モードを選ぶ、唯一の書き口。選択画面からも、チャット内の切替
+    /// ピッカーからも、名前で呼ばれた一覧からも、ここを通す — でないと
+    /// 「選んだ」が場所ごとに別の意味になる。モードを跨いで存在できない
+    /// タブ(服飾タブが LLM 側に残る、等)もここで畳む。
+    func selectEngineMode(_ mode: VeraEngineMode) {
+        veraEngineMode = mode
+        hasChosenEngineMode = true
+        UserDefaults.standard.set(true, forKey: "vera_engine_mode_chosen")
+        showModeChooser = false
+        shell.pruneTabs(incompatibleWith: mode)
     }
 
     // ── VX-Loop: Chat session-level persistent ID for VXTimeline ─────────
@@ -3251,11 +3349,13 @@ final class AppState: ObservableObject {
 
         }
 
-        // The app opens on the Atelier, always. The stored mode is read only
-        // to migrate removed values off disk — a build with the old string
-        // still saved would otherwise fail to decode and silently keep
-        // whatever the default happened to be, which is the same bug in a
-        // quieter form.
+        // A returning user lands back where they left off — that means the
+        // mode they actually chose, not always Atelier. The stored mode is
+        // read first to migrate removed values off disk (a build with the
+        // old string still saved would otherwise fail to decode and
+        // silently keep whatever the default happened to be, which is the
+        // same bug in a quieter form), then restored if it names a mode
+        // that still exists.
         //
         // Four names have gone through this: council and standalone
         // (removed earlier), vera_model and vera_bot (removed 2026-08-26).
@@ -3273,7 +3373,17 @@ final class AppState: ObservableObject {
                     icon: "exclamationmark.triangle.fill", color: .orange, duration: 4)
             }
         }
-        veraEngineMode = .atelier
+        hasChosenEngineMode = ud.bool(forKey: "vera_engine_mode_chosen")
+        if let raw = ud.string(forKey: "vera_engine_mode"),
+           let restored = VeraEngineMode(rawValue: raw) {
+            veraEngineMode = restored
+        }
+        // モードと同居できないタブ(前回の終了時点で持ち越されたもの)を、
+        // ここで初めて分かった実際のモードに対して畳む。ShellLayoutState.
+        // restore() 自身では出来ない — `shell` は AppState の他のプロパティが
+        // まだ既定値のうちに作られるので、そこではまだこのモードを知らない。
+        shell.pruneTabs(incompatibleWith: veraEngineMode)
+        backfillGarmentProjectDates()
 
         // ── Anthropic ──────────────────────────────────────────────────────
         if let key = ud.string(forKey: "anthropic_api_key"), !key.isEmpty {

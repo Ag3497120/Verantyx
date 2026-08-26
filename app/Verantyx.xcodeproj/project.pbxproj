@@ -70,12 +70,15 @@
 		4A11C0DE0001000000000147 /* AtelierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000147 /* AtelierModel.swift */; };
 		4A11C0DE0001000000000148 /* AtelierAnalyst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000148 /* AtelierAnalyst.swift */; };
 		4A11C0DE0001000000000149 /* AtelierIntake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000149 /* AtelierIntake.swift */; };
+		2C0B05A02FE271777CA03D96 /* AtelierContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904EBE2925D301FC91DC9C5 /* AtelierContext.swift */; };
 		5A11C0DE0001000000000201 /* ShellLayoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000201 /* ShellLayoutState.swift */; };
 		5A11C0DE0001000000000204 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000204 /* Theme.swift */; };
 		5A11C0DE0001000000000202 /* UnifiedComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000202 /* UnifiedComposerView.swift */; };
 		5A11C0DE0001000000000203 /* IDEShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000203 /* IDEShellView.swift */; };
 		4A11C0DE000100000000014A /* AtelierPrompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000014A /* AtelierPrompts.swift */; };
+		6A11C0DE00010000AEB0056E /* EngineModeChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */; };
 		4A11C0DE0001000000000146 /* AtelierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000146 /* AtelierView.swift */; };
+		4829E537BC8AB09F0DA2CC46 /* AtelierSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38D23B935977654F19E5144 /* AtelierSettingsView.swift */; };
 		4A11C0DE0001000000000041 /* ModesOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000041 /* ModesOverviewView.swift */; };
 		4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */; };
 		4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000F /* PipeSelfTest.swift */; };
@@ -352,12 +355,15 @@
 		4A11C0DE0002000000000147 /* AtelierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierModel.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000148 /* AtelierAnalyst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierAnalyst.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000149 /* AtelierIntake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierIntake.swift; sourceTree = "<group>"; };
+		E904EBE2925D301FC91DC9C5 /* AtelierContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierContext.swift; sourceTree = "<group>"; };
 		5A11C0DE0002000000000201 /* ShellLayoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellLayoutState.swift; sourceTree = "<group>"; };
 		5A11C0DE0002000000000204 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		5A11C0DE0002000000000202 /* UnifiedComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedComposerView.swift; sourceTree = "<group>"; };
 		5A11C0DE0002000000000203 /* IDEShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDEShellView.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000014A /* AtelierPrompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierPrompts.swift; sourceTree = "<group>"; };
+		6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineModeChooserView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000146 /* AtelierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierView.swift; sourceTree = "<group>"; };
+		D38D23B935977654F19E5144 /* AtelierSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierSettingsView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000041 /* ModesOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModesOverviewView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMemoryInjection.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000000F /* PipeSelfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeSelfTest.swift; sourceTree = "<group>"; };
@@ -773,8 +779,11 @@
 				4A11C0DE0002000000000147 /* AtelierModel.swift */,
 				4A11C0DE0002000000000148 /* AtelierAnalyst.swift */,
 				4A11C0DE0002000000000149 /* AtelierIntake.swift */,
+				E904EBE2925D301FC91DC9C5 /* AtelierContext.swift */,
 				4A11C0DE000200000000014A /* AtelierPrompts.swift */,
 				4A11C0DE0002000000000146 /* AtelierView.swift */,
+				D38D23B935977654F19E5144 /* AtelierSettingsView.swift */,
+				6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */,
 				5A11C0DE0002000000000202 /* UnifiedComposerView.swift */,
 				5A11C0DE0002000000000203 /* IDEShellView.swift */,
 				4A11C0DE0002000000000041 /* ModesOverviewView.swift */,
@@ -1397,8 +1406,11 @@ echo \"embedded photoloset ($(ls \"$DEST\" | wc -l | tr -d \" \") files)\"";
 				4A11C0DE0001000000000147 /* AtelierModel.swift in Sources */,
 				4A11C0DE0001000000000148 /* AtelierAnalyst.swift in Sources */,
 				4A11C0DE0001000000000149 /* AtelierIntake.swift in Sources */,
+				2C0B05A02FE271777CA03D96 /* AtelierContext.swift in Sources */,
 				4A11C0DE000100000000014A /* AtelierPrompts.swift in Sources */,
+				6A11C0DE00010000AEB0056E /* EngineModeChooserView.swift in Sources */,
 				4A11C0DE0001000000000146 /* AtelierView.swift in Sources */,
+				4829E537BC8AB09F0DA2CC46 /* AtelierSettingsView.swift in Sources */,
 				4A11C0DE0001000000000041 /* ModesOverviewView.swift in Sources */,
 				4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */,
 				4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */,

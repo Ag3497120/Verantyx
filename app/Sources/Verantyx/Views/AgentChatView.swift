@@ -322,7 +322,7 @@ struct AgentChatView: View {
             // Vera単体でだけ出ていたので、モードと一緒に消えた。
             Picker("", selection: Binding(
                 get: { app.veraEngineMode },
-                set: { app.veraEngineMode = $0 })) {
+                set: { app.selectEngineMode($0) })) {
                 Text("Atelier").tag(AppState.VeraEngineMode.atelier)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
             }
