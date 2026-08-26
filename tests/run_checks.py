@@ -185,6 +185,10 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "the flat store moves into a project once and only once",
+    "two projects do not see each other",
+    "a project name cannot reach outside the store",
+    "the fabric book is shared, the garment is not",
     "a marker refuses what it cannot know",
     "the seam allowance is inside the fabric it needs",
     "more copies need more fabric",
@@ -303,7 +307,7 @@ ALL_CHECK_NAMES = [
     "the dress BOM answers fabric and refuses three lines it cannot know",
     "the dress reaches DXF directly, because save() cannot draft it",
     "initialize",
-    "61 tools",
+    "65 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -929,7 +933,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("61 tools", len(tools) == 61, f"{len(tools)}")
+        check("65 tools", len(tools) == 65, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -977,8 +981,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 61 and not no_schema and not no_props
-              and len(published) == 111 and not wrong and not contradicted
+              len(tools) == 65 and not no_schema and not no_props
+              and len(published) == 113 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1043,7 +1047,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 61 and not not_object and not crashed,
+              len(tools) == 65 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -4977,6 +4981,24 @@ class _Corpus:
 #: tautological clause was deleted, and seven readers that could have been
 #: frozen to a constant now answer from two stores in one condition.
 KNOWN_UNFALSIFIABLE = [
+    ("T1", "the flat store moves into a project once and only once",
+     "borderline",
+     "`again == moved` compares two lists, which is the T1 shape, and an "
+     "idempotence test cannot avoid it — the property IS that a second run "
+     "changes nothing. They are read at different times with a second "
+     "migration call and a stray file between them, and the clauses beside "
+     "them pin what must hold either way. Falsifier: 'the migration guard "
+     "stops looking at whether projects/ exists', which sweeps the stray "
+     "json into the project and makes them differ."),
+    ("T3", "two projects do not see each other", "real",
+     "The tool reads the check NAME as quantifying over 'other' and cannot "
+     "find an identifier of that name in the condition. The condition does "
+     "quantify — it walks every project and requires `leaked` (any project "
+     "holding a spot written into another) to be empty. The heuristic "
+     "matches on identifiers, not on the loop. Measured: "
+     "{'cape': ['waist'], 'default': ['chest']}, 0 leaked. One shared "
+     "directory shows both spots in both, which is what the flat store did "
+     "and what the falsifier restores."),
     ("T1", "the same order lays the same marker", "borderline",
      "`a[\"placement\"] == b[\"placement\"]` on two identical calls IS the T1 "
      "shape, and a determinism check cannot avoid it — the property under "
@@ -5094,7 +5116,7 @@ def no_check_can_pass_by_construction() -> None:
           and unscanned == []
           and out.get("checks_with_a_condition", 0) >= 85
           and len(known) == len(KNOWN_UNFALSIFIABLE)
-          and len(KNOWN_UNFALSIFIABLE) == 8
+          and len(KNOWN_UNFALSIFIABLE) == 10
           and len(got) == len(KNOWN_UNFALSIFIABLE)
           and not new_hits and not gone
           and len(readers) == 18,
@@ -6469,6 +6491,136 @@ def the_bom_says_what_to_buy() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("the flat store moves into a project once and only once",
+          "two projects do not see each other",
+          "a project name cannot reach outside the store",
+          "the fabric book is shared, the garment is not")
+def projects_have_their_own_store() -> None:
+    """**A list that looks like isolation and is not, is worse than no list.**
+
+    The app grew a project list before the engine had projects. Selecting a
+    different garment highlighted the row and changed nothing: _p(name)
+    resolved to one flat directory, so every project read and wrote the same
+    ledger. Found by clicking, not by reading.
+    """
+    import importlib
+    import json as _json
+    import os as _os
+    import shutil as _sh
+    import tempfile as _tf
+
+    from photoloset import garment_measure as _gm
+
+    home = Path(_tf.mkdtemp(prefix="projchk_"))
+    old = _os.environ.get("HOME")
+    _os.environ["HOME"] = str(home)
+    try:
+        import photoloset.mcp as _mcp
+        importlib.reload(_mcp)
+        flat = home / ".photoloset"
+        flat.mkdir(parents=True)
+        ms = _gm.Measures()
+        ms.measured("chest", 108.0, "cm", source="checks",
+                    by="Kodai Motonishi")
+        ms.save(flat / "measures.json")
+        (flat / "fabrics.json").write_text("{}", encoding="utf-8")
+
+        with guard("the flat store moves into a project once and only once"):
+            first = _json.loads(_mcp.TOOLS["project_current"]())
+            moved = sorted(f.name for f in
+                           (flat / "projects" / "default").glob("*.json"))
+            # A stray json put back afterwards. Without it the mutation
+            # "the migration guard stops looking at whether projects/ exists"
+            # went MISS: after a migration there is nothing left in HOME to
+            # move, so a second guard stopped it anyway and the check could
+            # not tell the two apart.
+            (flat / "stray.json").write_text("{}", encoding="utf-8")
+            _json.loads(_mcp.TOOLS["project_current"]())
+            again = sorted(f.name for f in
+                           (flat / "projects" / "default").glob("*.json"))
+            kept = len(_gm.Measures.load(
+                flat / "projects" / "default" / "measures.json").entries)
+            check("the flat store moves into a project once and only once",
+                  first["project"] == "default"
+                  and moved == ["measures.json"] and again == moved
+                  and kept == 1 and (flat / "stray.json").exists()
+                  and not (flat / "measures.json").exists(),
+                  f'measures.json moved to projects/default and the flat copy '
+                  f'is gone; a second call left {again} unchanged, the {kept} '
+                  f'measurement intact, and a stray json dropped in afterwards '
+                  f'was left alone rather than swept in — which is the only '
+                  f'thing the projects/ guard is for')
+
+        with guard("two projects do not see each other"):
+            _json.loads(_mcp.TOOLS["project_new"]("cape"))
+            in_cape = len(_gm.Measures.load(_mcp._p("measures.json")).entries)
+            m2 = _gm.Measures()
+            m2.measured("waist", 92.0, "cm", source="checks",
+                        by="Kodai Motonishi")
+            m2.save(_mcp._p("measures.json"))
+            after_cape = len(_gm.Measures.load(
+                _mcp._p("measures.json")).entries)
+            # **The name says "two projects", so the condition has to as
+            # well.** The scanner caught the first draft asserting three
+            # particular counts while promising a universal.
+            written = {"default": "chest", "cape": "waist"}
+            seen = {}
+            for nm in sorted(written):
+                _json.loads(_mcp.TOOLS["project_open"](nm))
+                seen[nm] = sorted(
+                    e.spot for e in
+                    _gm.Measures.load(_mcp._p("measures.json")).entries)
+            leaked = {n: seen[n] for n in written if seen[n] != [written[n]]}
+            _json.loads(_mcp.TOOLS["project_open"]("default"))
+            check("two projects do not see each other",
+                  in_cape == 0 and after_cape == 1
+                  and not leaked and len(seen) == 2,
+                  f'a new project opens with {in_cape} measurements and takes '
+                  f'{after_cape} after one is written; walking every project, '
+                  f'each holds exactly what was written into it ({seen}) and '
+                  f'{len(leaked)} hold anything from another. One shared '
+                  f'directory would show both spots in both')
+
+        with guard("a project name cannot reach outside the store"):
+            bad = _json.loads(_mcp.TOOLS["project_new"]("../../escape"))
+            dot = _json.loads(_mcp.TOOLS["project_new"](".hidden"))
+            empty = _json.loads(_mcp.TOOLS["project_new"]("  "))
+            good = _json.loads(_mcp.TOOLS["project_new"]("ケープドレス"))
+            escaped = (flat / "projects" / ".." / ".." / "escape").resolve()
+            check("a project name cannot reach outside the store",
+                  bad["verdict"] == "UNKNOWN_PROJECT_NAME_UNUSABLE"
+                  and dot["verdict"] == "UNKNOWN_PROJECT_NAME_UNUSABLE"
+                  and empty["verdict"] == "UNKNOWN_PROJECT_NAME_UNUSABLE"
+                  and good["verdict"] == "ANSWER" and not escaped.exists(),
+                  f'"../../escape", ".hidden" and a blank are all '
+                  f'{bad["verdict"]}, nothing was created at {escaped}, and a '
+                  f'real name still opens — a guard that refused everything '
+                  f'would have failed on the last one')
+
+        with guard("the fabric book is shared, the garment is not"):
+            _json.loads(_mcp.TOOLS["project_open"]("cape"))
+            fab_cape, led_cape = _mcp._p("fabrics.json"), _mcp._p("ledger.json")
+            _json.loads(_mcp.TOOLS["project_open"]("default"))
+            fab_def, led_def = _mcp._p("fabrics.json"), _mcp._p("ledger.json")
+            check("the fabric book is shared, the garment is not",
+                  fab_cape == fab_def == flat / "fabrics.json"
+                  and led_cape != led_def
+                  and led_cape.parent.name == "cape"
+                  and led_def.parent.name == "default"
+                  and _mcp._SHARED == ("fabrics.json",),
+                  f'both projects read {fab_def.name} from the same place, '
+                  f'while their ledgers sit in {led_cape.parent.name} and '
+                  f'{led_def.parent.name}. What you own is one book; what you '
+                  f'observed about this garment is not')
+    finally:
+        if old is not None:
+            _os.environ["HOME"] = old
+        import photoloset.mcp as _m2
+        importlib.reload(_m2)
+        _sh.rmtree(home, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -6515,6 +6667,7 @@ if __name__ == "__main__":
                the_garment_goes_onto_a_body,
                a_pattern_piece_absorbs_curvature_two_ways,
                the_marker_says_how_much_fabric,
+               projects_have_their_own_store,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):

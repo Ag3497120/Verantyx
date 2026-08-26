@@ -27,7 +27,7 @@ import sys
 import traceback
 import typing
 from pathlib import Path
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Optional
 
 # Aliased on purpose: several tools are named after the module they call
 # (`garment_draw`, `garment_solid`), and a bare import would be shadowed by the
@@ -57,9 +57,75 @@ PROTOCOL = "2024-11-05"
 # The store
 # ---------------------------------------------------------------------------
 
+#: 置き場をプロジェクトごとに分ける。
+#:
+#: **以前は全部が一つの平らな置き場だった。** UI に「プロジェクト」の一覧が
+#: 出ていて、別の服を選ぶと行の色は変わるのに、開いている服も台帳も変わら
+#: なかった — **分離されているように見えて、されていない**という、見えて
+#: 動かないより悪い状態。ここがその根。
+PROJECTS = HOME / "projects"
+#: いま開いているプロジェクトの名前を持つ一行のファイル。
+CURRENT = HOME / "current_project"
+DEFAULT_PROJECT = "default"
+
+#: **この服のものではなく、世界のもの。** 生地の帳面は「あなたが持っている
+#: 材料」の記録で、どの服を作っていても同じ。だから共有に残す。
+_SHARED = ("fabrics.json",)
+
+
+def _safe_project(name: str) -> Optional[str]:
+    """プロジェクト名として使えるか。**使えない名前は経路になる前に断る。**
+
+    名前はそのままディレクトリ名になるので、``..`` や区切り文字が通ると
+    置き場の外へ書ける。
+    """
+    n = (name or "").strip()
+    if not n or n in (".", ".."):
+        return None
+    if any(c in n for c in "/\\\0") or n.startswith("."):
+        return None
+    return n
+
+
+def _migrate_once() -> Optional[Dict[str, Any]]:
+    """平らな置き場を ``projects/default/`` へ一度だけ移す。
+
+    **べき等。** ``projects/`` が既にあれば何もしない。移すのは名前の
+    付け替え(rename)で、同じファイルシステム内では原子的。共有は動かさない。
+    """
+    if PROJECTS.exists():
+        return None
+    movable = [f for f in HOME.glob("*.json") if f.name not in _SHARED]
+    if not movable:
+        return None
+    dest = PROJECTS / DEFAULT_PROJECT
+    dest.mkdir(parents=True, exist_ok=True)
+    moved = []
+    for f in movable:
+        f.rename(dest / f.name)
+        moved.append(f.name)
+    return {"migrated_to": DEFAULT_PROJECT, "files": sorted(moved)}
+
+
+def _project() -> str:
+    """いま開いているプロジェクト。無ければ ``default``。"""
+    try:
+        n = _safe_project(CURRENT.read_text(encoding="utf-8"))
+        if n:
+            return n
+    except OSError:
+        pass
+    return DEFAULT_PROJECT
+
+
 def _p(name: str) -> Path:
     HOME.mkdir(parents=True, exist_ok=True)
-    return HOME / name
+    if name in _SHARED:
+        return HOME / name
+    _migrate_once()
+    d = PROJECTS / _project()
+    d.mkdir(parents=True, exist_ok=True)
+    return d / name
 
 
 def _ledger() -> Ledger:      return Ledger.load(_p("ledger.json"))
@@ -740,6 +806,80 @@ def bom_estimate(fabric_width_cm: float, cut_json: str,
                              notions=(notions or None),
                              interfacing=(interfacing or None),
                              nap=(nap or None)))
+
+
+@tool
+def project_current() -> str:
+    """Which garment project is open, and where its store sits."""
+    _p("ledger.json")
+    d = PROJECTS / _project()
+    return _ok({"verdict": "ANSWER", "project": _project(), "path": str(d),
+                "files": sorted(f.name for f in d.glob("*.json")),
+                "shared": {n: str(HOME / n) for n in _SHARED},
+                "shared_why": ("生地の帳面は「持っている材料」の記録で、"
+                               "どの服を作っていても同じなので共有です")})
+
+
+@tool
+def project_list() -> str:
+    """Every garment project, and which one is open."""
+    _p("ledger.json")
+    rows = []
+    if PROJECTS.exists():
+        for d in sorted(PROJECTS.iterdir()):
+            if d.is_dir():
+                rows.append({"project": d.name,
+                             "files": sorted(f.name for f in d.glob("*.json")),
+                             "open": d.name == _project()})
+    return _ok({"verdict": "ANSWER", "projects": rows,
+                "current": _project(), "count": len(rows)})
+
+
+@tool
+def project_new(name: str) -> str:
+    """Start a garment project with its own store. **Empty, not a copy.**
+
+    A new project begins with no measurements and no ledger, so the first
+    thing it does is refuse — which is correct: nothing has been observed
+    about this garment yet.
+    """
+    n = _safe_project(name)
+    if n is None:
+        return _ok({"verdict": "UNKNOWN_PROJECT_NAME_UNUSABLE", "name": name,
+                    "how_to_close": ("名前はそのまま置き場のディレクトリに"
+                                     "なります。区切り文字・.. ・先頭の . は"
+                                     "使えません")})
+    _p("ledger.json")
+    d = PROJECTS / n
+    if d.exists():
+        return _ok({"verdict": "UNKNOWN_PROJECT_EXISTS", "project": n,
+                    "how_to_close": "project_open で開いてください"})
+    d.mkdir(parents=True)
+    CURRENT.write_text(n, encoding="utf-8")
+    return _ok({"verdict": "ANSWER", "project": n, "path": str(d),
+                "opened": True,
+                "starts_empty": ("実測も台帳もありません。最初の問いは"
+                                 "拒否で返ります — この服についてはまだ"
+                                 "何も観測されていないので")})
+
+
+@tool
+def project_open(name: str) -> str:
+    """Open an existing garment project. Refuses one that does not exist."""
+    n = _safe_project(name)
+    if n is None:
+        return _ok({"verdict": "UNKNOWN_PROJECT_NAME_UNUSABLE", "name": name})
+    _p("ledger.json")
+    d = PROJECTS / n
+    if not d.is_dir():
+        known = sorted(x.name for x in PROJECTS.iterdir()
+                       if x.is_dir()) if PROJECTS.exists() else []
+        return _ok({"verdict": "UNKNOWN_NO_SUCH_PROJECT", "project": n,
+                    "known": known,
+                    "how_to_close": "project_new で作るか、既存の名前を"})
+    CURRENT.write_text(n, encoding="utf-8")
+    return _ok({"verdict": "ANSWER", "project": n, "path": str(d),
+                "files": sorted(f.name for f in d.glob("*.json"))})
 
 
 @tool

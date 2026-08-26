@@ -1896,6 +1896,37 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- プロジェクトの範囲 ---------------------------------------------------
+#: UI に一覧が出ていて、別の服を選んでも何も変わらなかった。**分離されて
+#: いるように見えて、されていない。**
+WHOLE_SUITE += [
+    ("the migration guard stops looking at whether projects/ exists",
+     "photoloset/mcp.py",
+     [("    if PROJECTS.exists():\n        return None\n"
+       "    movable = [f for f in HOME.glob",
+       "    if False:\n        return None\n"
+       "    movable = [f for f in HOME.glob")],
+     ["the flat store moves into a project once and only once"]),
+
+    ("a project name goes straight into the path", "photoloset/mcp.py",
+     [('    if any(c in n for c in "/\\\\\\0") or n.startswith("."):\n'
+       "        return None",
+       "    if False:\n        return None")],
+     ["a project name cannot reach outside the store"]),
+
+    ("the store forgets which project is open", "photoloset/mcp.py",
+     [("    d = PROJECTS / _project()\n"
+       "    d.mkdir(parents=True, exist_ok=True)\n"
+       "    return d / name",
+       "    return HOME / name")],
+     ["two projects do not see each other"]),
+
+    ("the fabric book is filed under the garment", "photoloset/mcp.py",
+     [('_SHARED = ("fabrics.json",)', "_SHARED = ()")],
+     ["the fabric book is shared, the garment is not"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:
