@@ -185,6 +185,12 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "closing a dart shortens the edge by the intake",
+    "a dart whose apex leaves the panel is refused",
+    "truing moves the dart until the legs match",
+    "a dart never edits the outline it sits on",
+    "overlapping darts are refused and separated ones are not",
+    "a dart is addressed in the stable numbering",
     "a number is a function of its address",
     "adding a piece never moves a number",
     "a reshaped outline is refused, not renumbered",
@@ -1150,7 +1156,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 31 and not third_party,
+          len(scanned) == 32 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -4407,6 +4413,16 @@ class _Corpus:
 #: tautological clause was deleted, and seven readers that could have been
 #: frozen to a constant now answer from two stores in one condition.
 KNOWN_UNFALSIFIABLE = [
+    ("T1", "a dart is addressed in the stable numbering", "borderline",
+     "`n_before == n_after` is literally two calls with the same arguments, "
+     "which is the T1 shape. They are not the same value by construction: "
+     "`_pt.label(grown, reg)` runs BETWEEN them and registers four new edges "
+     "on the same registry object. A registry that renumbered on growth — "
+     "the whole failure `points.py` exists to prevent — makes them differ, "
+     "and that is measured: the falsifier 'the registry re-sorts itself, so "
+     "a new piece shifts the old bases' turns this check red. The tool "
+     "cannot see the mutation between the two calls, so it rates the shape "
+     "and not the timing."),
     ("T1", "round trip moves nothing", "borderline",
      "Two calls of `.dump()` on two receivers IS the shape, and the two "
      "receivers here are DIFFERENT objects — one is the coat, the other is "
@@ -4481,7 +4497,7 @@ def no_check_can_pass_by_construction() -> None:
           and unscanned == []
           and out.get("checks_with_a_condition", 0) >= 85
           and len(known) == len(KNOWN_UNFALSIFIABLE)
-          and len(KNOWN_UNFALSIFIABLE) == 4
+          and len(KNOWN_UNFALSIFIABLE) == 5
           and len(got) == len(KNOWN_UNFALSIFIABLE)
           and not new_hits and not gone
           and len(readers) == 18,
@@ -4732,6 +4748,170 @@ def numbers_survive_a_revision() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("closing a dart shortens the edge by the intake",
+          "a dart whose apex leaves the panel is refused",
+          "truing moves the dart until the legs match",
+          "a dart never edits the outline it sits on",
+          "overlapping darts are refused and separated ones are not",
+          "a dart is addressed in the stable numbering")
+def darts_make_the_panel_three_dimensional() -> None:
+    """**The first thing here that is not a flat development.**
+
+    Every piece so far unrolls flat. A dart is a wedge taken out so the two
+    legs can be sewn together and the cloth becomes a cone — the bust, the
+    shoulder blade, the waist. Without it a garment is a tube.
+
+    The dart is NOT written into the outline. Inserting its legs as vertices
+    would change the vertex count, which is exactly what ``points`` refuses
+    as UNKNOWN_OUTLINE_RESHAPED — every number on that piece would move.
+    So darts are a separate layer addressed at (piece, edge, t), the same
+    address the numbering uses.
+    """
+    import copy as _copy
+
+    from photoloset import darts as _dt
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import points as _pt
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    frozen = _copy.deepcopy(draft)
+
+    with guard("closing a dart shortens the edge by the intake"):
+        r = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 12.0,
+                                       role="ウエスト")])
+        one = r["darts"][0]
+        shrink = one["edge_cm_before"] - one["edge_cm_after_closing"]
+        # The measurable content of a dart: the edge gets shorter by exactly
+        # the intake when the legs are sewn together. An implementation that
+        # forgot to subtract would report the same length twice.
+        check("closing a dart shortens the edge by the intake",
+              r["count"] == 1 and abs(shrink - 3.0) < 1e-9
+              and round(one["edge_cm_before"], 4) == 7.0682
+              and round(one["edge_cm_after_closing"], 4) == 4.0682
+              and one["developable"] is False,
+              f'{one["edge_cm_before"]:.4f} -> '
+              f'{one["edge_cm_after_closing"]:.4f} cm, shrink '
+              f'{shrink:.4f} == intake 3.0; the piece reports '
+              f'developable={one["developable"]}')
+
+    with guard("a dart whose apex leaves the panel is refused"):
+        # Found by the sweep, not by design: the mutation "an apex outside
+        # the panel is accepted" went MISS because nothing here exercised a
+        # dart deep enough to leave the piece. The refusal existed and was
+        # tested by hand; no check constrained it, so deleting it changed
+        # nothing anybody was watching.
+        #
+        # Two failure modes, one accept, and the boundary between them is
+        # 0.5 cm wide — measured on this piece, not chosen:
+        #   26.5 cm  apex inside, margin 0.505  ->  accepted
+        #   27.0 cm  apex inside, margin 0.053  ->  refused, too near the edge
+        #   27.5 cm  apex outside the panel     ->  refused
+        ok = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 26.5)])
+        tight = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 27.0)])
+        gone = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 27.5)])
+        check("a dart whose apex leaves the panel is refused",
+              ok["count"] == 1 and ok["refused"] == []
+              and round(ok["darts"][0]["apex_margin_cm"], 4) == 0.5053
+              and tight["count"] == 0
+              and tight["refused"][0]["verdict"] == _dt.APEX_OUT
+              and round(tight["refused"][0]["margin_cm"], 4) == 0.0526
+              and gone["count"] == 0
+              and gone["refused"][0]["verdict"] == _dt.APEX_OUT
+              and _dt.APEX_MARGIN_CM == 0.5,
+              f'26.5 cm deep is kept with margin '
+              f'{ok["darts"][0]["apex_margin_cm"]:.4f} >= '
+              f'{_dt.APEX_MARGIN_CM}; 27.0 cm is {_dt.APEX_OUT} at margin '
+              f'{tight["refused"][0]["margin_cm"]:.4f}; 27.5 cm leaves the '
+              f'panel entirely. A guard that refused everything would not '
+              f'have kept the first')
+
+    with guard("truing moves the dart until the legs match"):
+        # A perpendicular dart has equal legs BY CONSTRUCTION — the apex sits
+        # on the base's perpendicular bisector — so testing equality there
+        # proves nothing. Only a dart aimed at an anatomical point can have
+        # unequal legs, and truing is what a pattern maker does about it.
+        perp = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 12.0)]
+                         )["darts"][0]
+        aimed = _dt.apply(draft, [_dt.dart("後身頃", "e4", 0.5, 3.0,
+                                           toward=(14.0, 60.0))])["darts"][0]
+        check("truing moves the dart until the legs match",
+              perp["trued"] is False
+              and aimed["trued"] is True
+              and round(aimed["trued_from_t"], 6) == 0.5
+              and round(aimed["t"], 6) == 0.434783
+              and abs(aimed["leg_a_cm"] - aimed["leg_b_cm"]) < 1e-6
+              and abs(perp["leg_a_cm"] - perp["leg_b_cm"]) < 1e-9,
+              f'perpendicular: legs equal without truing (trued='
+              f'{perp["trued"]}); aimed at (14,60): t 0.5 -> '
+              f'{aimed["t"]:.6f} and legs {aimed["leg_a_cm"]:.6f} == '
+              f'{aimed["leg_b_cm"]:.6f}. Untrued legs would differ')
+
+    with guard("a dart never edits the outline it sits on"):
+        _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 3.0, 12.0),
+                          _dt.dart("前身頃", "e2", 0.4, 2.0, 9.0)])
+        counts = {p["name"]: len(p["outline"]) for p in draft["pieces"]}
+        reg = _pt.Registry()
+        _pt.label(frozen, reg)
+        after = _pt.label(draft, _pt.Registry(dict(reg._bases),
+                                              dict(reg._shape)))
+        check("a dart never edits the outline it sits on",
+              draft == frozen and counts == {"後身頃": 7, "前身頃": 7,
+                                             "袖": 7}
+              and after["verdict"] == "ANSWER",
+              f'two darts applied, outlines still {counts} and the draft is '
+              f'byte-identical; the numbering says {after["verdict"]}. '
+              f'Legs written in as vertices would give '
+              f'{_pt.RESHAPED} and move every number on the piece')
+
+    with guard("overlapping darts are refused and separated ones are not"):
+        clash = _dt.apply(draft, [_dt.dart("後身頃", "e4", 0.5, 4.0, 10.0,
+                                           role="A"),
+                                  _dt.dart("後身頃", "e4", 0.51, 4.0, 10.0,
+                                           role="B")])
+        apart = _dt.apply(draft, [_dt.dart("後身頃", "e4", 0.3, 4.0, 10.0,
+                                           role="A"),
+                                  _dt.dart("後身頃", "e4", 0.7, 4.0, 10.0,
+                                           role="B")])
+        # Both directions. A refusal that fires on everything is not a check.
+        check("overlapping darts are refused and separated ones are not",
+              clash["count"] == 1
+              and [x["verdict"] for x in clash["refused"]] == [_dt.OVERLAP]
+              and apart["count"] == 2 and apart["refused"] == [],
+              f'0.50 and 0.51 on a 92 cm edge: {clash["count"]} kept, '
+              f'{[x["verdict"] for x in clash["refused"]]}; 0.30 and 0.70: '
+              f'{apart["count"]} kept, {len(apart["refused"])} refused')
+
+    with guard("a dart is addressed in the stable numbering"):
+        reg = _pt.Registry()
+        _pt.label(draft, reg)
+        d = _dt.apply(draft, [_dt.dart("後身頃", "e4", 0.5, 4.0, 10.0)]
+                      )["darts"][0]
+        n_before = _pt.number(reg, d["piece"], d["edge"], d["t"])
+        grown = _copy.deepcopy(draft)
+        grown["pieces"].insert(0, {"name": "割り込み", "area_cm2": 1.0,
+                                   "outline": [[0.0, 0.0], [1.0, 0.0],
+                                               [1.0, 1.0]]})
+        _pt.label(grown, reg)
+        n_after = _pt.number(reg, d["piece"], d["edge"], d["t"])
+        where = _pt.resolve(reg, n_before)
+        check("a dart is addressed in the stable numbering",
+              n_before == n_after
+              and where["piece"] == "後身頃" and where["edge"] == "e4"
+              and _dt.apply(draft, [_dt.dart("後身頃", "nope", 0.5, 3.0,
+                                             9.0)])["refused"][0]["verdict"]
+              == _dt.NO_EDGE,
+              f'the dart sits at number {n_before}, still {n_after} after a '
+              f'piece is inserted at the front, and resolves to '
+              f'{where["piece"]}/{where["edge"]}. An unknown edge is '
+              f'{_dt.NO_EDGE}')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -4771,6 +4951,7 @@ if __name__ == "__main__":
                served_readers_track_their_stores,
                no_check_can_pass_by_construction,
                numbers_survive_a_revision,
+               darts_make_the_panel_three_dimensional,
                the_falsifier_harness_reports_everything,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")

@@ -1430,6 +1430,40 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- ダーツ ---------------------------------------------------------------
+#: 平らな布を立体にする唯一の道具。壊し方は「縮まない」「真度を取らない」
+#: 「輪郭に焼き込む」「重なりを見ない」「頂点が外でも通す」の五つ。
+WHOLE_SUITE += [
+    ("closing a dart stops shortening the edge", "photoloset/darts.py",
+     [('        "edge_cm_after_closing": round(edge_len - w, 6),',
+       '        "edge_cm_after_closing": round(edge_len, 6),')],
+     ["closing a dart shortens the edge by the intake"]),
+
+    ("the dart is never trued, so its legs stay unequal",
+     "photoloset/darts.py",
+     [("    if abs(la - lb) > LEG_TOLERANCE_CM:\n        lo_u = w / 2.0 / edge_len",
+       "    if False:\n        lo_u = w / 2.0 / edge_len")],
+     ["truing moves the dart until the legs match"]),
+
+    ("the dart writes its legs into the outline", "photoloset/darts.py",
+     [("        r = open_one(out, d)",
+       "        if d['edge'] in es:\n"
+       "            p['outline'] = list(p['outline']) + [[0.0, 0.0]]\n"
+       "        r = open_one(out, d)")],
+     ["a dart never edits the outline it sits on"]),
+
+    ("two darts on one edge stop noticing each other",
+     "photoloset/darts.py",
+     [("                if clash:", "                if False:")],
+     ["overlapping darts are refused and separated ones are not"]),
+
+    ("an apex outside the panel is accepted", "photoloset/darts.py",
+     [("    if not _inside(out, apex) or margin < APEX_MARGIN_CM:",
+       "    if False:")],
+     ["a dart whose apex leaves the panel is refused"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:
