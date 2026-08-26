@@ -455,6 +455,23 @@ class Run:
 #: tree on disk was restored correctly every time.
 _NO_BYTECODE = {"PYTHONDONTWRITEBYTECODE": "1"}
 
+#: **Solver memoization, ON only for the WHOLE_SUITE subprocess.** Profiled:
+#: ``sew_and_drape``+``solve`` are 55.5% of one ``run_checks.py`` process's
+#: wall time (118.28s of 213.28s instrumented), and ``run_suite`` below is
+#: the ONLY caller that re-runs the entire 129-check suite from scratch —
+#: 32 times, one per ``WHOLE_SUITE`` entry, almost always over the SAME
+#: handful of fixtures (the reference coat, the composed cape-dress, the
+#: skirt) since 31 of the 32 entries never touch ``garment_sew.py`` or
+#: ``garment_drape.py``. ``photoloset/_solve_cache.py`` folds the full
+#: source bytes of both solver files into its cache key, so the one entry
+#: that DOES mutate ``garment_drape.py`` ("gravity moves, and the coat
+#: moves with it") still recomputes for real rather than serving a
+#: pre-mutation answer — see that module's docstring for the argument.
+#: Left OFF for ``_run_with`` below (the fast cross/loop path): the
+#: profile only measured solver dominance inside the full suite that
+#: ``run_suite`` runs, and this project's rule is "no number, no change".
+_SOLVER_MEMO = {"PHOTOLOSET_SOLVER_MEMO": "1"}
+
 
 def _run_with(script: str, tmp: Path) -> Run:
     r = subprocess.run([sys.executable, "-B", "-c", script], cwd=tmp,
@@ -761,7 +778,8 @@ def run_suite(repo: Path):
     """The whole suite, once, under whatever mutation is in place."""
     return subprocess.run([sys.executable, "-B", "tests/run_checks.py"],
                           cwd=repo, capture_output=True, text=True,
-                          timeout=1800, env=dict(os.environ, **_NO_BYTECODE))
+                          timeout=1800,
+                          env=dict(os.environ, **_NO_BYTECODE, **_SOLVER_MEMO))
 
 
 #: **Test seams.** ``self_test()`` swaps these so ONE entry raises INSIDE the

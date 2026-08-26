@@ -1120,7 +1120,7 @@ def no_dependencies() -> None:
                            r"random|inspect|pathlib|typing|dataclasses|http|"
                            r"socket|argparse|traceback|subprocess|tempfile|"
                            r"functools|collections|webbrowser|urllib|itertools|"
-                           r"copy|time|datetime|hashlib|struct|unicodedata|"
+                           r"copy|time|datetime|hashlib|pickle|struct|unicodedata|"
                            r"textwrap|difflib|shutil|glob|enum|abc|contextlib|"
                            r"threading|queue|base64|uuid|csv|io|warnings|"
                            r"operator|bisect|heapq|statistics|photoloset)$")
@@ -1145,7 +1145,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 29 and not third_party,
+          len(scanned) == 30 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))

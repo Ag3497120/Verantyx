@@ -22,6 +22,8 @@ from __future__ import annotations
 import math
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+from ._solve_cache import memoize_solver
+
 Vec = Tuple[float, float, float]
 
 #: 重力 (cm/s²)。寸法を cm で扱っているので合わせる。
@@ -80,6 +82,12 @@ def _stiffness(material: Dict[str, float]) -> Dict[str, float]:
     return {"warp": base, "weft": base, "bias": base * 0.25}
 
 
+#: **Memoized, opt-in only (see ``_solve_cache.py``).** ``solve`` is a pure
+#: function of its explicit arguments plus this file's own module-level
+#: constants (``GRAVITY``) and helpers (``_stiffness``, ``_energy``) — the
+#: source hash covers all of it, so a mutation anywhere in THIS file still
+#: invalidates the cache even though it is not a call argument.
+@memoize_solver(source_files=(__file__,))
 def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
           pinned: Sequence[int], material: Dict[str, float],
           *, iterations: int = 400, order: Optional[Sequence[int]] = None,

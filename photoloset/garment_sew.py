@@ -19,6 +19,8 @@ import random
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from . import block as _block
+from . import garment_drape as _garment_drape
+from ._solve_cache import memoize_solver
 from .garment_drape import (LOCAL_MINIMUM, NO_MATERIAL, ORDER_DEPENDENT,
                             _energy, _stiffness, _vertex_diff, solve)
 
@@ -349,6 +351,15 @@ def _seam_gap(pos: Sequence[Sequence[float]],
     return round(total / len(pairs), 4)
 
 
+#: **Memoized, opt-in only (see ``_solve_cache.py``).** ``sew_and_drape``
+#: reads no randomness and no global outside this file and
+#: ``garment_drape.py`` (``SEAM_TOLERANCE_CM`` / ``STITCH_STIFFNESS_RATIO``
+#: here, ``GRAVITY`` / ``_stiffness`` / ``_energy`` there, plus the local
+#: ``_shoulder_pins`` / ``_waist_pins`` helpers used when ``pinned`` is
+#: omitted) — both files' source bytes are in the cache key precisely so a
+#: mutation to either one still invalidates it even though the mutated
+#: line is never one of this call's explicit arguments.
+@memoize_solver(source_files=(__file__, _garment_drape.__file__))
 def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                   iterations: int = 2000, order: Optional[Sequence[int]] = None,
                   step: Optional[float] = None,
