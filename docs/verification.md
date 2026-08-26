@@ -80,10 +80,14 @@ shapes, found repeatedly in this codebase:
 | T7 | a served reader that can bypass its store |
 | T8 | a harness guard too narrow to catch its own mutation |
 
-T7 is a **runtime** probe, not a reading: it freezes each reader to a
-constant, runs the suite, and sees whether anything reddens. The static
-reading said 18 of 18 readers were pinned. The probe said **7 were
-bypassable**.
+T7 is a **runtime** probe, not a reading. It cannot be decided statically:
+freezing a reader to the literal it returns *today* satisfies any comparison
+against that literal, so the static answer was a heuristic being reported as
+a property. The module's own record: **five readers passed the static test
+and could have been replaced by a constant.** `--runtime` freezes each reader,
+re-runs the whole suite, and writes the verdict to `tests/t7_readers.json`
+keyed by a digest of the reader's own source. Those five are fixed; the
+ledger currently reads **18 readers, 0 bypassable**.
 
 Hits that are genuinely acceptable go on a list with a written reason.
 Currently **5 entries**, each explaining why the shape is present and which
