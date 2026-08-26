@@ -98,9 +98,20 @@ Point Claude Code, Claude Desktop or Cursor at it:
     "cwd": "/path/to/photoloset" } } }
 ```
 
-42 tools: intake, the ledger, measurements, the pattern and its marks, sewing
-and drape, the reference body, the solid, design and rights. The store is
-`~/.photoloset/`.
+48 tools: intake, the ledger, measurements, the pattern and its marks, sewing
+and drape, the reference body, the solid, design and rights, and the six that
+drive the look loop — `garment_resemble`, `garment_construct`,
+`garment_confirm_sheet`, `garment_approve_shape`, `garment_reject_shape` and
+`sewing_methods`. The store is `~/.photoloset/`.
+
+**`sewing_methods` takes an approval id and a corpus name and NOTHING else.**
+That is the gate, and it is enforced by the argument surface rather than by
+discipline: a method retrieved for the wrong garment is a plausible wrong
+answer, and plausible wrong answers reach cutting tables. Without an adopted
+approval it answers `UNKNOWN_SHAPE_NOT_APPROVED`; with one whose shape has
+since moved, `UNKNOWN_APPROVAL_STALE`; and with an approval and no corpus,
+`UNKNOWN_NO_SEWING_CORPUS` naming what would close it — this tree ships no
+corpus and `resemble.backends()` is empty on a fresh import.
 
 **Five of them are absent and say so.** `garment_cross` and the four `fabric_*`
 tools need the coordinate memory and its language engine — about 15,700 lines
@@ -126,7 +137,7 @@ open app/Verantyx.xcodeproj      # then run it
 It opens on the Atelier and drives this package over MCP: a build phase copies
 `photoloset/` into the app's `Contents/Resources`, and `MCPEngine` launches
 `python3 -m photoloset.mcp` from there. No separate install, no frozen helper —
-the 78 MB binary the app used to embed did the same 42 tools in 250 KB less
+the 78 MB binary the app used to embed did the same 48 tools in 250 KB less
 readable form.
 
 If you move the built `.app` somewhere odd and the ledger comes up
@@ -486,6 +497,96 @@ plus the marks, which is almost always what you want.
 
 ---
 
+## The look loop: one photograph, and the gate before the sewing methods
+
+The steps above start from a garment you can measure. This one starts from a
+picture of a garment nobody has classified, and it is deliberately the long way
+round: **recognise per part, construct, show, confirm, and only then search for
+sewing methods.**
+
+```python
+from photoloset import compose, confirm, resemble, sewing_search
+
+# What a centre model's decomposition looks like coming in:
+parts = [{"instance": "bodice:1", "part": "bodice"},
+         {"instance": "cape:1", "part": "cape"},
+         {"instance": "skirt_panel:1", "part": "skirt_panel"},
+         {"instance": "sleeve:1", "part": "sleeve"}]
+
+# 0. Nothing is registered. This package ships no model and no corpus.
+resemble.backends()                       # []
+
+resemble.per_part("look.jpg", parts)      # UNKNOWN_NO_RETRIEVAL_BACKEND
+                                          # ...with how_to_close naming
+                                          # resemble.register() and the two
+                                          # profiles prompts.for_model() holds
+```
+
+Register a backend and the shape of the loop is:
+
+```python
+# 1. ASK, per part. A whole-image backend is refused by name here:
+#    one global vector cannot say the cape resembles A while the skirt
+#    resembles B, and per-part retrieval is segmentation BEFORE embedding.
+hits = resemble.per_part("look.jpg", parts, image_id="img1")
+
+# 2. LAND. Every hit is kind="proposed", in the quarantine the store mints.
+#    store.resolve("look:img1:cape:1", "family") answers UNKNOWN_NOT_IN_CROSS
+#    until a person adopts it — a cosine score does not buy the seat a tape
+#    measure buys. Two backends that disagree land at ONE address and come
+#    back CONTESTED with both sides kept and neither chosen.
+landed = resemble.land(store, rights, hits, image_id="img1")
+
+# 3. CONSTRUCT, from the retrieved STRUCTURE and never from the pixels.
+#    A retrieved part with no drafting procedure refuses the WHOLE
+#    construction, listing every offender: a garment silently missing its
+#    cape collects approval for a garment that is not the one retrieved.
+g = compose.graph_from(resemble.structure_from(hits, image_id="img1"))
+draft = compose.compose(g["graph"], measures)
+
+# 4. SHOW. The solid is built from the composed draft's own edge lengths and
+#    says what it does not claim; the sheet is a CLAIM LIST, not a verdict.
+sheet = confirm.sheet(draft, image_ref="look.jpg", retrieval=landed,
+                      graph=g["graph"])
+[c["id"] for c in sheet["claims"]]        # one per retrieval claim, plus one
+                                          # per open port, pre-answered
+                                          # cannot_tell
+sheet["convergence"]["verdict"]           # is the loop ending?
+
+# 5. ANSWER, one structural claim at a time.
+confirm.reject(sheet, ["c3"], by="you", note="the cape is a collar")
+#   ...an empty `which` is UNKNOWN_UNNAMED_REJECTION. There is no field for
+#   "the mesh looks bad", so a correct retrieval cannot be killed by an ugly
+#   render.
+
+# 6. APPROVE, with a name. This is an adoption through Ledger.propose+adopt.
+ok = confirm.approve(sheet, {"c1": "yes", ...}, "Your Name", ledger,
+                     graph=g["graph"])
+ok["approval_id"]                         # the shape digest
+
+# 7. SEARCH. This entry point takes an approval id and a corpus name and
+#    NOTHING else.
+sewing_search.bind(ledger=ledger, measures=measures)
+sewing_search.methods_for(ok["approval_id"])
+#   UNKNOWN_NO_SEWING_CORPUS — naming SewFactory, GarmentCodeData and
+#   GarmentCode, because this tree ships none of them. Not [], which would
+#   say "there are no methods" when the true sentence is "nothing was asked".
+```
+
+**The approval dies when the shape moves.** Run `zones.apply()` to nudge a
+parameter, recompose, and the same approval id answers
+`UNKNOWN_APPROVAL_STALE` with `what_moved` reading `"structure"` or
+`"geometry"`. A person approved a shape, not a session.
+
+**Two independent corpora agreeing buy a generic construction claim; two
+corpora from one generator do not.** GarmentCodeData is generated FROM
+GarmentCode, so `methods_for` refuses `UNKNOWN_SHARED_LINEAGE` naming both and
+their shared root. The cross store can see that two names differ; it cannot
+see lineage, and that is the one place the two-source rule can be paid in
+counterfeit currency.
+
+---
+
 ## Reading a refusal
 
 A refusal is a dict, not an exception (with one exception: anonymous adoption
@@ -526,7 +627,12 @@ names what it cannot.
 | `garment_app` | the browser application, standard library only |
 | `garment_body` | the reference body, grading and ease |
 | `garment_solid` | the proportion block — not a fit simulation |
-| `mcp` | an MCP server over stdio, 42 tools, standard library only |
+| `resemble` | per-part retrieval; refusals with `how_to_close`, no model |
+| `compose` | parts graph -> validated garment, and `graph_from` |
+| `confirm` | the confirmation solid, the claim sheet, and the approval |
+| `sewing_search` | the sewing-method search, and the gate in front of it |
+| `convergence` | is the loop ending, or churning on one rejected claim |
+| `mcp` | an MCP server over stdio, 48 tools, standard library only |
 | `i18n` | English output, and the report of what it could not translate |
 | `__main__` | `python3 -m photoloset` |
 

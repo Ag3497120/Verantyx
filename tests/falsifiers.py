@@ -84,6 +84,7 @@ ran and went red, the poison was named, the summary printed and the tree came
 back clean. The suite runs it as "the falsifier harness reports every
 mutation".
 """
+import os
 import re
 import shutil
 import subprocess
@@ -94,12 +95,18 @@ from typing import Any, Optional, Sequence, Tuple
 
 SRC = Path(__file__).resolve().parent.parent
 
-RUNNER = '''
+#: The in-process runner, once, over whichever named sections a sweep is
+#: scored against. **The whole suite takes seven minutes**, and a mutation
+#: that only a handful of checks can notice does not need the other 120 run
+#: to prove it: the LOOP sweep below regresses the look loop and is scored
+#: against the look loop's own three sections. What still needs the whole
+#: suite — a check DISAPPEARING, which by construction cannot be seen by
+#: running only the functions that still declare it — is in WHOLE_SUITE.
+_RUNNER_TEMPLATE = '''
 import sys, io, contextlib
 sys.path.insert(0, ".")
 import tests.run_checks as rc
-FNS = (rc.the_block_lives_on_the_cross, rc.the_arms_carry_meaning,
-       rc.the_cross_refuses_what_it_should)
+FNS = (%s)
 # Every name these three functions promise, from the functions themselves.
 DECLARED = [n for fn in FNS for n in fn.check_names]
 out = io.StringIO()
@@ -119,7 +126,21 @@ print("::GUARDCRASH::" + repr(rc.CRASHED_NAMES))
 print("::REPORTED::" + repr(rc.REPORTED))
 print("::CRASHED::" + repr(crashes))
 print("::FAILED::" + repr(rc.FAILED_NAMES))
+# **Why** each red line went red, not only which. A mutation that turns an
+# UNEXPECTED check red is a fact about the tree, and reading it used to mean
+# re-running the section by hand.
+print("::WHY::" + repr([f[:300] for f in rc.FAILURES]))
 '''
+
+RUNNER = _RUNNER_TEMPLATE % ("rc.the_block_lives_on_the_cross, "
+                             "rc.the_arms_carry_meaning,\n"
+                             "       rc.the_cross_refuses_what_it_should")
+
+#: The look loop's own three sections: retrieval, construction/confirmation,
+#: and the gate.
+LOOP_RUNNER = _RUNNER_TEMPLATE % ("rc.retrieval_asks_per_part, "
+                                  "rc.the_look_becomes_a_shape,\n"
+                                  "       rc.the_gate_holds")
 
 # (name, file, find, replace, checks we expect to go red)
 MUTATIONS = [
@@ -412,7 +433,7 @@ class Run:
 
     def __init__(self, reported: list, failed: list, crashed: list,
                  note: str = "", declared: list = (), never_ran: list = (),
-                 guard_crash: list = ()) -> None:
+                 guard_crash: list = (), why: list = ()) -> None:
         self.reported = reported
         self.failed = failed
         self.crashed = crashed
@@ -420,14 +441,28 @@ class Run:
         self.declared = list(declared)
         self.never_ran = list(never_ran)
         self.guard_crash = list(guard_crash)
+        self.why = list(why)
 
 
-def run(tmp: Path) -> Run:
-    r = subprocess.run([sys.executable, "-c", RUNNER], cwd=tmp,
-                       capture_output=True, text=True, timeout=900)
+#: **No bytecode, ever, in a mutated tree.** ``-B`` plus the environment
+#: variable, because a cached ``.pyc`` outlives the source it was compiled
+#: from: CPython validates the cache against the source's SIZE and its mtime
+#: IN WHOLE SECONDS, and a mutation whose replacement is the same length
+#: ("no_match" -> "proposed") changes neither when the mutate-and-restore
+#: completes inside one second. Measured before this: the look sweep's
+#: no_match entry leaked into the NEXT entry's run in roughly one run of
+#: three, turning a check red under mutations that cannot reach it, while the
+#: tree on disk was restored correctly every time.
+_NO_BYTECODE = {"PYTHONDONTWRITEBYTECODE": "1"}
+
+
+def _run_with(script: str, tmp: Path) -> Run:
+    r = subprocess.run([sys.executable, "-B", "-c", script], cwd=tmp,
+                       capture_output=True, text=True, timeout=900,
+                       env=dict(os.environ, **_NO_BYTECODE))
     got = {}
     for marker in ("DECLARED", "NEVERRAN", "GUARDCRASH", "REPORTED",
-                   "CRASHED", "FAILED"):
+                   "CRASHED", "FAILED", "WHY"):
         m = re.search(r"::%s::(\[.*\])" % marker, r.stdout)
         if not m:
             return Run([], [], [],
@@ -436,7 +471,7 @@ def run(tmp: Path) -> Run:
         got[marker] = eval(m.group(1))
     return Run(got["REPORTED"], got["FAILED"], got["CRASHED"],
                declared=got["DECLARED"], never_ran=got["NEVERRAN"],
-               guard_crash=got["GUARDCRASH"])
+               guard_crash=got["GUARDCRASH"], why=got["WHY"])
 
 
 
@@ -724,16 +759,284 @@ MUTATIONS += [
 
 def run_suite(repo: Path):
     """The whole suite, once, under whatever mutation is in place."""
-    return subprocess.run([sys.executable, "tests/run_checks.py"], cwd=repo,
-                          capture_output=True, text=True, timeout=1800)
+    return subprocess.run([sys.executable, "-B", "tests/run_checks.py"],
+                          cwd=repo, capture_output=True, text=True,
+                          timeout=1800, env=dict(os.environ, **_NO_BYTECODE))
 
 
 #: **Test seams.** ``self_test()`` swaps these so ONE entry raises INSIDE the
 #: run — after its file is already mutated, which is the case a missing
 #: restore poisons: every later entry would then be scored against a tree
 #: that is still carrying somebody else's mutation. Nothing else reads them.
+def run(tmp: Path) -> Run:
+    """The three cross sections, in process."""
+    return _run_with(RUNNER, tmp)
+
+
+def run_loop(tmp: Path) -> Run:
+    """The three look-loop sections, in process. **Seconds, not minutes** —
+    the whole suite takes seven, and a mutation the loop's own checks are
+    supposed to catch does not need the coat drafted twice to prove it."""
+    return _run_with(LOOP_RUNNER, tmp)
+
+
 _RUN = [run]
+_RUN_LOOP = [run_loop]
 _RUN_SUITE = [run_suite]
+
+
+
+#: --- the look loop ---------------------------------------------------------
+#: Every check the loop added, regressed one at a time back to the behaviour
+#: it forbids. These are scored against the loop's OWN three sections rather
+#: than the whole suite, because the whole suite takes seven minutes and a
+#: mutation in `resemble.py` cannot be noticed by the coat.
+#:
+#: The two that matter most are pinned deliberately: the KEY mutation (the
+#: source in the address, which is what makes ranking possible) and the GATE
+#: mutations (a shape argument on the search, and the digest comparison
+#: deleted). If those three stay green the whole design is decoration.
+LOOP_MUTATIONS = [
+    # ---- resemble: the refusals ----------------------------------------
+    ("retrieval with no backend answers with an empty list",
+     "photoloset/resemble.py",
+     '    if not _BACKENDS:\n        return _no_backend("per_part")',
+     '    if not _BACKENDS:\n        return {"verdict": "ANSWER", "hits": []}',
+     ["retrieval without a backend refuses by name"]),
+
+    ("a backend that found nothing is reported as no backend",
+     "photoloset/resemble.py",
+     '    hits, trouble = _run(per_part_capable, qs)\n'
+     '    return {"verdict": "ANSWER", "hits": hits,',
+     '    hits, trouble = _run(per_part_capable, qs)\n'
+     '    if not hits:\n'
+     '        return _no_backend("per_part")\n'
+     '    return {"verdict": "ANSWER", "hits": hits,',
+     ["an empty result is not a refusal"]),
+
+    ("a whole-image backend is allowed to answer per-part questions",
+     "photoloset/resemble.py",
+     '    per_part_capable = [b for b in ordered\n'
+     '                        if b["modality"] != "image_embedding"]',
+     '    per_part_capable = [b for b in ordered\n'
+     '                        if True]',
+     ["a whole-image backend cannot answer a per-part question"]),
+
+    ("a backend is registered at import", "photoloset/resemble.py",
+     'def whole(image_ref: Any, *, queries: Sequence[str] = (),',
+     'register("siglip:marqo-fashionSigLIP", "parallel", "image_embedding",\n'
+     '         lambda q: {"hits": []})\n\n\n'
+     'def whole(image_ref: Any, *, queries: Sequence[str] = (),',
+     ["photoloset registers no backend at import"]),
+
+    ("a fixture may be registered under a model's name",
+     "photoloset/resemble.py",
+     '    named_fixture = model_id.startswith(FIXTURE_PREFIX)\n'
+     '    if named_fixture != bool(fixture):',
+     '    named_fixture = model_id.startswith(FIXTURE_PREFIX)\n'
+     '    if False:',
+     ["a fixture cannot pass as a backend"]),
+
+    # ---- resemble: the landing -----------------------------------------
+    ("a retrieval hit lands as a claim about this garment",
+     "photoloset/resemble.py",
+     '        r = store.put(core, key, value, "proposed", source)',
+     '        r = store.put(core, key, value, "specific", source)',
+     ["a retrieval hit is unreadable at the part address"]),
+
+    # **The most important entry in the sweep.** With the source in the key
+    # two backends write two addresses, both resolve ANSWER, and somebody
+    # downstream sorts them — which is the ranking the whole design forbids.
+    ("the address carries the source, so rivals stop colliding",
+     "photoloset/resemble.py",
+     '    aspect = str(hit.get("aspect") or "")\n'
+     '    return aspect',
+     '    aspect = str(hit.get("aspect") or "")\n'
+     '    return f\'{aspect}:{hit.get("model_id")}\'',
+     ["two sources that disagree become contested, not ranked"]),
+
+    ("one source buys a generic construction claim",
+     "photoloset/garment_rights.py",
+     'GENERIC_MIN_SOURCES = 2', 'GENERIC_MIN_SOURCES = 1',
+     ["one corpus cannot buy a generic construction claim"]),
+
+    ("a search that found nothing is seated as a proposal",
+     "photoloset/resemble.py",
+     '                          "no_match", _searched_source(searched))',
+     '                          "proposed", _searched_source(searched))',
+     ["a search that found nothing is not seated"]),
+
+    # ---- compose.graph_from --------------------------------------------
+    # Partial construction is the failure that collects approval for a
+    # garment that is not the one retrieved, so TWO checks are pinned to it.
+    ("the construction skips the parts it cannot draft",
+     "photoloset/compose.py",
+     '    if unknown or undraftable:\n'
+     '        known = sorted(_parts.PART_GEOMETRY)',
+     '    records = [r for r in records\n'
+     '               if str(r.get("part")) in _parts.PART_GEOMETRY]\n'
+     '    if False:\n'
+     '        known = sorted(_parts.PART_GEOMETRY)',
+     ["a retrieved family with no procedure refuses the whole construction",
+      "the constructed graph names every part the retrieval named"]),
+
+    ("instance numbers follow the order the retrieval happened to return",
+     "photoloset/compose.py",
+     '    ordered = sorted(records, key=lambda r: (_catalog_rank(r.get("part")),\n'
+     '                                             _shape_key(r)))',
+     '    ordered = list(records)',
+     ["instance numbering does not move between rounds"]),
+
+    # ---- confirm: the solid and the sheet ------------------------------
+    ("the confirmation solid falls back to a body ratio",
+     "photoloset/confirm.py",
+     '    return float(edge["length"]) * factor',
+     '    from .garment_draw import DEFAULT_RATIO\n'
+     '    return 80.0 * DEFAULT_RATIO["chest"] * factor',
+     ["the confirmation solid is built from the composed pieces"]),
+
+    ("the sheet keeps only its own disclaimer", "photoloset/confirm.py",
+     '    does_not_claim = [\n'
+     '        solid.get("not_a_simulation"),\n'
+     '        solid.get("surface_carries_no_information"),\n'
+     '        draft.get("seam_allowance"),\n'
+     '        draft.get("not_a_published_system"),\n'
+     '    ]',
+     '    does_not_claim = [\n'
+     '        solid.get("not_a_simulation"),\n'
+     '    ]',
+     ["the sheet states what the render does not claim"]),
+
+    ("a rejection may name nothing at all", "photoloset/confirm.py",
+     '    if not ids:\n        return {"verdict": UNNAMED_REJECTION,',
+     '    if False:\n        return {"verdict": UNNAMED_REJECTION,',
+     ["a rejection must name a claim"]),
+
+    ("an open port is filled instead of asked about",
+     "photoloset/confirm.py",
+     '    for op in (draft.get("open") or []):\n        n += 1',
+     '    for op in []:\n        n += 1',
+     ["an open port becomes a claim, not a silent default"]),
+
+    # convergence.py had no importer, no check and no falsifier at all: it
+    # could have stopped working and nothing in the tree would have said so.
+    ("the sheet stops asking whether the loop is ending",
+     "photoloset/confirm.py",
+     '    ending = _convergence.check(draft, measures=measures, sew=sew,\n'
+     '                                rejected=list(rejected or []),\n'
+     '                                history=history)',
+     '    ending = {"verdict": "CONVERGED", "counters": {}}',
+     ["an open port becomes a claim, not a silent default"]),
+
+    # ---- confirm: the gate ---------------------------------------------
+    ("an unnamed approval is attributed to the machine",
+     "photoloset/confirm.py",
+     '    if ledger is None:\n        return {"verdict": NO_LEDGER,',
+     '    by = by.strip() or "auto"\n'
+     '    if ledger is None:\n        return {"verdict": NO_LEDGER,',
+     ["an approval carries the name of the approver"]),
+
+    ("the approval stops naming the claims it accepted",
+     "photoloset/confirm.py",
+     '        for c in accepted:\n'
+     '            value = json.dumps(c.get("value"), ensure_ascii=False,',
+     '        for c in []:\n'
+     '            value = json.dumps(c.get("value"), ensure_ascii=False,',
+     ["an approval names the claims it accepted"]),
+
+    ("the shape digest covers only the label", "photoloset/confirm.py",
+     '            "digest": _md5({"structure": structure, "geometry": geometry}),\n'
+     '            "structure_digest": _md5(structure),',
+     '            "digest": _md5(draft.get("label")),\n'
+     '            "structure_digest": _md5(draft.get("label")),',
+     ["an approval dies when the shape moves"]),
+
+    ("the approval is written straight into the entry list",
+     "photoloset/confirm.py",
+     '        ledger.propose(APPROVAL_PART, APPROVAL_ASPECT, shape["digest"],\n'
+     '                       source="confirm.approve",\n'
+     '                       note=f\'{len(accepted)} claims accepted, \'\n'
+     '                            f\'{len(cannot_tell)} not visible\')\n'
+     '        entry = ledger.adopt(APPROVAL_PART, APPROVAL_ASPECT, shape["digest"],\n'
+     '                             by=by)',
+     '        entry = ledger._add(APPROVAL_PART, APPROVAL_ASPECT,\n'
+     '                            shape["digest"], "observation",\n'
+     '                            "confirm.approve", "")',
+     ["approval writes through the same door as an adoption"]),
+
+    # ---- sewing_search: the gate ---------------------------------------
+    # The deliverable. If these stay green the approval is decoration.
+    ("the search grows a convenience argument for a draft",
+     "photoloset/sewing_search.py",
+     'def methods_for(approval_id: str, corpus: str = "") -> Dict[str, Any]:',
+     'def methods_for(approval_id: str, corpus: str = "",\n'
+     '                draft_json: str = "") -> Dict[str, Any]:',
+     ["the sewing search has no argument for an unapproved shape"]),
+
+    ("the MCP tool grows a json_text argument and passes it through",
+     "photoloset/mcp.py",
+     'def sewing_methods(approval_id: str = "", corpus: str = "") -> str:',
+     'def sewing_methods(approval_id: str = "", corpus: str = "",\n'
+     '                   json_text: str = "") -> str:',
+     ["the sewing search has no argument for an unapproved shape"]),
+
+    ("any adopted approval opens the search, whichever shape it named",
+     "photoloset/sewing_search.py",
+     '    entry = _adopted(ledger, _confirm.APPROVAL_PART, _confirm.APPROVAL_ASPECT,\n'
+     '                     key)',
+     '    entry = _adopted(ledger, _confirm.APPROVAL_PART,\n'
+     '                     _confirm.APPROVAL_ASPECT)',
+     ["the sewing search refuses an unknown approval"]),
+
+    ("the digest comparison is deleted, so a stale approval still opens it",
+     "photoloset/sewing_search.py",
+     '    if now.get("digest") != key:', '    if False:',
+     ["a stale approval does not open the search"]),
+
+    ("the refusal stops naming the corpora that would close it",
+     "photoloset/sewing_search.py",
+     '                f"register one with sewing_search.register_corpus(corpus). "\n'
+     '                f"The corpora that would serve: {\', \'.join(WOULD_SERVE)}. "\n',
+     '                f"register one with sewing_search.register_corpus(corpus). "\n',
+     ["the sewing search names the corpora that would close it"]),
+
+    ("an embedding backend is accepted as a construction corpus",
+     "photoloset/sewing_search.py",
+     '    if modality == "image_embedding":', '    if False:',
+     ["an embedding backend cannot be a construction corpus"]),
+
+    ("two corpora from one generator count as two sources",
+     "photoloset/sewing_search.py",
+     '            shared = roots[a] & roots[b]\n            if shared:',
+     '            shared = roots[a] & roots[b]\n            if False:',
+     ["two corpora from one root are not two sources"]),
+
+    # ---- convergence ----------------------------------------------------
+    ("the loop is allowed to churn ninety-nine rounds",
+     "photoloset/convergence.py",
+     'STAGNATION_LIMIT = 3', 'STAGNATION_LIMIT = 99',
+     ["a repeated structural rejection escalates to a human"]),
+
+    ("a rejected claim is not counted", "photoloset/convergence.py",
+     '    counters["rejected_claims"] = len(rejected_ids)',
+     '    counters.pop("rejected_claims", None)',
+     ["convergence counts a rejected claim"]),
+
+    ("stagnation stops looking at WHICH claim was rejected",
+     "photoloset/convergence.py",
+     '            if (prev.get("counters") == counters\n'
+     '                    and prev.get("rejected", []) == rejected_ids):',
+     '            if prev.get("counters") == counters:',
+     ["a repeated structural rejection escalates to a human"]),
+
+    ("the escalation goes back to saying nothing in particular",
+     "photoloset/convergence.py",
+     '    refusal = details.get("refusal")\n'
+     '    if refusal in ("UNKNOWN_NO_SUCH_PART", "UNKNOWN_PART_NOT_DRAFTABLE"):',
+     '    refusal = details.get("refusal")\n'
+     '    if False:',
+     ["a repeated structural rejection escalates to a human"]),
+]
 
 
 #: #6 needs the WHOLE suite, not the three cross functions, because the name
@@ -1020,20 +1323,31 @@ WHOLE_SUITE += [
 
     ("the falsifier harness loses its per-entry guard",
      "tests/falsifiers.py",
-     [("            except BaseException as exc:                    # noqa: BLE001\n"
-       "                # A raise HERE is this entry failing, not the sweep "
+     [("        except BaseException as exc:                    # noqa: BLE001\n"
+       "            # A raise HERE is this entry failing, not the sweep "
        "ending.",
-       "            except KeyboardInterrupt as exc:\n"
-       "                # A raise HERE is this entry failing, not the sweep "
+       "        except KeyboardInterrupt as exc:\n"
+       "            # A raise HERE is this entry failing, not the sweep "
        "ending.")],
      ["the falsifier harness reports every mutation"]),
 
+    # **The anchor carries the comment on purpose.** `whole_suite` and
+    # `_sweep` now end with a byte-identical `finally` block, so the bare
+    # `if orig is not None:` matched the FIRST of the two — `whole_suite`'s —
+    # and the self-test, which runs with `whole=[]`, never touched it. This
+    # entry went MISS on the sweep that found it: a falsifier pointed at the
+    # wrong line is a falsifier for nothing, and it looked exactly like a
+    # passing one.
     ("the falsifier harness stops restoring the file it mutated",
      "tests/falsifiers.py",
-     [("                if orig is not None:\n"
-       "                    p.write_text(orig, encoding=\"utf-8\")",
-       "                if False:\n"
-       "                    p.write_text(orig, encoding=\"utf-8\")")],
+     [("            # SOURCE and the bytecode both, see _clear_pycache.\n"
+       "            if orig is not None:\n"
+       "                p.write_text(orig, encoding=\"utf-8\")\n"
+       "                _clear_pycache(repo)",
+       "            # SOURCE and the bytecode both, see _clear_pycache.\n"
+       "            if False:\n"
+       "                p.write_text(orig, encoding=\"utf-8\")\n"
+       "                _clear_pycache(repo)")],
      ["the falsifier harness reports every mutation"]),
 ]
 
@@ -1070,8 +1384,7 @@ def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
             for find, repl in edits:
                 body = body.replace(find, repl, 1)
             p.write_text(body, encoding="utf-8")
-            for c in repo.rglob("__pycache__"):
-                shutil.rmtree(c, ignore_errors=True)
+            _clear_pycache(repo)
             r = _RUN_SUITE[0](repo)
             # Fixed column, not a whitespace split: the name is padded into
             # a 34-char field, so anything longer runs into its own detail
@@ -1095,127 +1408,208 @@ def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
         finally:
             if orig is not None:
                 p.write_text(orig, encoding="utf-8")
-    for c in repo.rglob("__pycache__"):
-        shutil.rmtree(c, ignore_errors=True)
+                _clear_pycache(repo)
+    _clear_pycache(repo)
     return bad, ran
 
 
-def main(mutations: Optional[Sequence[Any]] = None,
-         whole: Optional[Sequence[Any]] = None) -> int:
-    """Run every mutation, report every mutation, restore the tree.
+def _clear_pycache(repo: Path) -> int:
+    """Delete every cached bytecode file in the copy — **listing them BEFORE
+    deleting any of them.**
+
+    ``for c in repo.rglob("__pycache__"): rmtree(c)`` mutates the tree the
+    generator is walking, so a cache directory it has not reached yet can be
+    skipped. That used to look harmless. It is not:
+
+    A mutation whose replacement is the SAME LENGTH as what it replaces
+    (``"no_match"`` -> ``"proposed"``) leaves the source file's size
+    unchanged, and CPython's cache header records the source's mtime in
+    WHOLE SECONDS. So a mutate-run-restore that completes inside one second
+    produces a restored source the stale bytecode still claims to describe,
+    and if its ``__pycache__`` survived the sweep, the NEXT entry runs
+    against the PREVIOUS entry's regression.
+
+    Measured on this harness before the repair: the look sweep's
+    ``no_match -> proposed`` entry leaked into the following entries in
+    roughly one run in three, turning "a search that found nothing is not
+    seated" red under mutations of ``compose.py`` and ``confirm.py``, which
+    cannot reach it. The tree was restored correctly every time — the file
+    on disk was right and the bytecode was wrong — which is why it read as
+    flakiness rather than as a leak.
+    """
+    caches = list(repo.rglob("__pycache__")) + list(repo.rglob("*.pyc"))
+    for c in caches:
+        if c.is_dir():
+            shutil.rmtree(c, ignore_errors=True)
+        elif c.exists():
+            c.unlink()
+    return len(caches)
+
+
+def _baseline(repo: Path, runner, label: str):
+    """A clean run, and the set of names the FUNCTIONS declare.
+
+    Pinning the observed output instead would let a mutation that suppresses
+    a check agree with a baseline that also suppressed it.
+    """
+    clean = runner(repo)
+    print(f"unmutated: {len(clean.reported)} {label} checks reported, "
+          f"{len(clean.failed)} failing, {len(clean.crashed)} crashed "
+          f"-> {clean.failed or clean.note or 'clean'}")
+    if clean.crashed:
+        print(f"  BASELINE CRASHED: {clean.crashed}")
+    baseline = list(clean.declared)
+    drift = ([n for n in baseline if n not in clean.reported]
+             + [n for n in clean.reported if n not in baseline])
+    print(f"pinned name set: {len(baseline)} declared names"
+          + (f" — DECLARATION DRIFT: {drift}" if drift else "") + "\n")
+    if drift or clean.failed or clean.crashed or clean.never_ran:
+        return baseline, 1
+    return baseline, 0
+
+
+def _sweep(repo: Path, entries, runner, baseline, touched: set, label: str):
+    """Run every entry, report every entry, restore the tree.
 
     **The harness had the defect it exists to find, one level up.** Until
     this was written the loop below carried no guard: one raise — a missing
     file, the ``subprocess.TimeoutExpired`` from ``run``'s own timeout, an
-    ``eval`` of a marker that did not arrive — ended ``main`` at mutation N.
-    The entries after it neither ran nor were named, none of the three
-    summary lines printed, and because the restoring ``write_text`` sat
-    AFTER ``run`` rather than in a ``finally``, the working copy was left
-    MUTATED, so any entry that did continue would have been scored against
-    somebody else's regression. Measured on head before this repair: one
-    poisoned entry at index 35 of 38 printed 35 verdicts, a bare traceback
-    and rc=1, and 7 of 43 entries vanished without a word.
+    ``eval`` of a marker that did not arrive — ended the sweep at mutation N.
+    The entries after it neither ran nor were named, none of the summary
+    lines printed, and because the restoring ``write_text`` sat AFTER ``run``
+    rather than in a ``finally``, the working copy was left MUTATED, so any
+    entry that did continue would have been scored against somebody else's
+    regression. Measured on head before this repair: one poisoned entry at
+    index 35 of 38 printed 35 verdicts, a bare traceback and rc=1, and 7 of
+    43 entries vanished without a word.
 
-    So: every entry is wrapped, a raise is that ENTRY going MISS, the file
-    is restored in ``finally``, the run reports **how many entries it got
-    through** so a short run cannot look like a complete one, and at the end
-    every file it touched is compared against the pristine source.
+    So: every entry is wrapped, a raise is that ENTRY going MISS, the file is
+    restored in ``finally``, and the run reports **how many entries it got
+    through** so a short run cannot look like a complete one.
+    """
+    bad = 0
+    ran = 0
+    for name, rel, find, repl, expect in entries:
+        p = repo / rel
+        orig = None
+        ran += 1
+        try:
+            orig = p.read_text(encoding="utf-8")
+            touched.add(rel)
+            if find not in orig:
+                print(f"  SKIP  {name}: anchor not found in {rel}")
+                bad += 1
+                continue
+            p.write_text(orig.replace(find, repl, 1), encoding="utf-8")
+            _clear_pycache(repo)
+            got = runner(repo)
+            # A hit is the NAMED check going red HAVING RUN. Three things
+            # that look like evidence and are not:
+            #   - a bare function crash, which used to be scraped into the
+            #     failed list and stand in for the check it aborted;
+            #   - a NEVER RAN line, which is red because nothing was
+            #     measured;
+            #   - a line that vanished from the output entirely.
+            # All three are misses. Only a check that reached its own
+            # assertion and rejected the store proves the property is
+            # pinned.
+            hit = [e for e in expect
+                   if e in got.failed and e not in got.never_ran]
+            missing = [n for n in baseline if n not in got.reported]
+            ok = (len(hit) == len(expect) and not got.crashed
+                  and not missing and not got.never_ran and not got.note)
+            if not ok:
+                bad += 1
+            print(f"  {'RED ' if ok else 'MISS'}  {name}")
+            print(f"        expected red: {expect}")
+            print(f"        actually red: "
+                  f"{[f for f in got.failed if f not in got.never_ran]}")
+            surprise = [w for w in got.why
+                        if not any(w.startswith(e) for e in expect)]
+            for w in surprise:
+                print(f"        AND WHY: {w}")
+            if got.guard_crash:
+                print(f"        red by raising in its own setup: "
+                      f"{got.guard_crash}")
+            if got.crashed:
+                print(f"        CRASHED OUT OF section() — the harness "
+                      f"itself is unreliable here: {got.crashed}")
+            if got.never_ran:
+                print(f"        NEVER RAN, so measured nothing (a miss, "
+                      f"not a hit) ({len(got.never_ran)}): "
+                      f"{got.never_ran}")
+            if missing:
+                print(f"        NEVER REPORTED ({len(missing)}): {missing}")
+            if got.note:
+                print(f"        harness note: {got.note}")
+        except BaseException as exc:                    # noqa: BLE001
+            # A raise HERE is this entry failing, not the sweep ending.
+            if isinstance(exc, (KeyboardInterrupt, SystemExit)):
+                raise
+            bad += 1
+            print(f"  MISS  {name}: HARNESS RAISED "
+                  f"{type(exc).__name__}: {exc}")
+        finally:
+            # Restore whatever happened, so the NEXT entry is scored
+            # against a clean tree rather than this one's leftovers — the
+            # SOURCE and the bytecode both, see _clear_pycache.
+            if orig is not None:
+                p.write_text(orig, encoding="utf-8")
+                _clear_pycache(repo)
+    _clear_pycache(repo)
+    print(f"\nran {ran} of {len(entries)} {label} entries")
+    print(f"{len(entries) - bad}/{len(entries)} {label} mutations "
+          f"produced the expected failures with no check going unreported")
+    return bad, ran
+
+
+def main(mutations: Optional[Sequence[Any]] = None,
+         whole: Optional[Sequence[Any]] = None,
+         loop: Optional[Sequence[Any]] = None) -> int:
+    """Three sweeps over one copy of the tree, and the copy checked afterwards.
+
+    - CROSS: the store's own sections, in process, seconds per entry.
+    - LOOP: the look loop's three sections, likewise. It is separate because
+      the whole suite takes seven minutes and a mutation in ``resemble.py``
+      cannot be noticed by the coat; scoring it against 120 unrelated checks
+      would buy nothing and cost hours.
+    - WHOLE SUITE: the entries whose failure is a check DISAPPEARING, which
+      by construction cannot be seen by running only the functions that still
+      declare it.
+
+    The per-entry discipline lives in :func:`_sweep`, which every phase
+    shares — one guard, one restore, one place a defect in the harness can
+    hide. See its docstring for what that guard is for, and
+    :func:`_clear_pycache` for the stale-bytecode leak that made one entry's
+    regression score the NEXT entry's run.
+
+    At the end every file any phase touched is compared against the pristine
+    source, because a ``finally`` that restores is a claim and this is the
+    measurement of it.
     """
     mutations = list(MUTATIONS if mutations is None else mutations)
+    loop = list(LOOP_MUTATIONS if loop is None else loop)
     whole = list(WHOLE_SUITE if whole is None else whole)
     base = Path(tempfile.mkdtemp(prefix="mutate_"))
     try:
         shutil.copytree(SRC, base / "repo",
                         ignore=shutil.ignore_patterns(".git", "__pycache__"))
         repo = base / "repo"
-        clean = _RUN[0](repo)
-        print(f"unmutated: {len(clean.reported)} cross checks reported, "
-              f"{len(clean.failed)} failing, {len(clean.crashed)} crashed "
-              f"-> {clean.failed or clean.note or 'clean'}")
-        if clean.crashed:
-            print(f"  BASELINE CRASHED: {clean.crashed}")
-        # The pinned set is what the FUNCTIONS declare, not what a clean run
-        # happened to print. Pinning the observed output would let a mutation
-        # that suppresses a check agree with a baseline that also suppressed
-        # it.
-        baseline = list(clean.declared)
-        drift = ([n for n in baseline if n not in clean.reported]
-                 + [n for n in clean.reported if n not in baseline])
-        print(f"pinned name set: {len(baseline)} declared names"
-              + (f" — DECLARATION DRIFT: {drift}" if drift else "") + "\n")
-        if drift:
-            return 1
-        bad = 0
-        ran = 0
         touched: set = set()
-        for name, rel, find, repl, expect in mutations:
-            p = repo / rel
-            orig = None
-            ran += 1
-            try:
-                orig = p.read_text(encoding="utf-8")
-                touched.add(rel)
-                if find not in orig:
-                    print(f"  SKIP  {name}: anchor not found in {rel}")
-                    bad += 1
-                    continue
-                p.write_text(orig.replace(find, repl, 1), encoding="utf-8")
-                for c in repo.rglob("__pycache__"):
-                    shutil.rmtree(c, ignore_errors=True)
-                got = _RUN[0](repo)
-                # A hit is the NAMED check going red HAVING RUN. Three things
-                # that look like evidence and are not:
-                #   - a bare function crash, which used to be scraped into the
-                #     failed list and stand in for the check it aborted;
-                #   - a NEVER RAN line, which is red because nothing was
-                #     measured;
-                #   - a line that vanished from the output entirely.
-                # All three are misses. Only a check that reached its own
-                # assertion and rejected the store proves the property is
-                # pinned.
-                hit = [e for e in expect
-                       if e in got.failed and e not in got.never_ran]
-                missing = [n for n in baseline if n not in got.reported]
-                ok = (len(hit) == len(expect) and not got.crashed
-                      and not missing and not got.never_ran and not got.note)
-                if not ok:
-                    bad += 1
-                print(f"  {'RED ' if ok else 'MISS'}  {name}")
-                print(f"        expected red: {expect}")
-                print(f"        actually red: "
-                      f"{[f for f in got.failed if f not in got.never_ran]}")
-                if got.guard_crash:
-                    print(f"        red by raising in its own setup: "
-                          f"{got.guard_crash}")
-                if got.crashed:
-                    print(f"        CRASHED OUT OF section() — the harness "
-                          f"itself is unreliable here: {got.crashed}")
-                if got.never_ran:
-                    print(f"        NEVER RAN, so measured nothing (a miss, "
-                          f"not a hit) ({len(got.never_ran)}): "
-                          f"{got.never_ran}")
-                if missing:
-                    print(f"        NEVER REPORTED ({len(missing)}): {missing}")
-                if got.note:
-                    print(f"        harness note: {got.note}")
-            except BaseException as exc:                    # noqa: BLE001
-                # A raise HERE is this entry failing, not the sweep ending.
-                if isinstance(exc, (KeyboardInterrupt, SystemExit)):
-                    raise
-                bad += 1
-                print(f"  MISS  {name}: HARNESS RAISED "
-                      f"{type(exc).__name__}: {exc}")
-            finally:
-                # Restore whatever happened, so the NEXT entry is scored
-                # against a clean tree rather than this one's leftovers.
-                if orig is not None:
-                    p.write_text(orig, encoding="utf-8")
-        for c in repo.rglob("__pycache__"):
-            shutil.rmtree(c, ignore_errors=True)
-        print(f"\nran {ran} of {len(mutations)} cross entries")
-        print(f"{len(mutations) - bad}/{len(mutations)} cross mutations "
-              f"produced the expected failures with no check going unreported")
-        print("\nand one that needs the whole suite:")
+        baseline, code = _baseline(repo, _RUN[0], "cross")
+        if code:
+            return code
+        bad, ran = _sweep(repo, mutations, _RUN[0], baseline, touched, "cross")
+        if loop:
+            print("\nand the look loop, scored against its own sections:")
+            loop_base, code = _baseline(repo, _RUN_LOOP[0], "loop")
+            if code:
+                return code
+            lbad, lran = _sweep(repo, loop, _RUN_LOOP[0], loop_base, touched,
+                                "loop")
+        else:
+            lbad, lran = 0, 0
+        print("\nand the ones that need the whole suite:")
         wbad, wran = whole_suite(repo, whole, touched)
         print(f"\nran {wran} of {len(whole)} whole-suite entries")
         print(f"{len(whole) - wbad} of {len(whole)} whole-suite "
@@ -1230,14 +1624,14 @@ def main(mutations: Optional[Sequence[Any]] = None,
         print(f"tree restored: {len(touched)} files mutated, {len(still)} "
               f"still differ from the source"
               + (f" — STILL MUTATED: {still}" if still else ""))
-        total = len(mutations) + len(whole)
-        print(f"{total - bad - wbad}/{total} mutations red overall")
-        short = (ran != len(mutations)) or (wran != len(whole))
+        total = len(mutations) + len(loop) + len(whole)
+        print(f"{total - bad - lbad - wbad}/{total} mutations red overall")
+        short = (ran != len(mutations) or lran != len(loop)
+                 or wran != len(whole))
         if short:
             print("THE SWEEP DID NOT REACH EVERY ENTRY — the numbers above "
                   "describe a prefix, not the list")
-        return 1 if (bad or wbad or still or short or clean.failed
-                     or clean.crashed or clean.never_ran) else 0
+        return 1 if (bad or lbad or wbad or still or short) else 0
     finally:
         shutil.rmtree(base, ignore_errors=True)
 
@@ -1304,7 +1698,7 @@ def self_test() -> int:
         _RUN[0] = boom
         try:
             with contextlib.redirect_stdout(buf):
-                code = main([first, poison, last], [])
+                code = main([first, poison, last], [], [])
         finally:
             _RUN[0] = run
         bad += score(label, buf.getvalue(), code, poison[0])

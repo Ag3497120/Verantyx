@@ -24,6 +24,7 @@
 """
 from __future__ import annotations
 
+import json as _json
 from typing import Any, Dict, List, Optional, Tuple
 
 from . import garment_parts as _geom
@@ -366,3 +367,132 @@ def _params_of(instances, iid: str) -> Dict[str, Any]:
         if i.get("instance") == iid:
             return dict(i.get("params") or {})
     return {}
+
+
+# ---------------------------------------------------------------------------
+# 検索で得た構造 → 部品グラフ。**画素からではない。**
+# ---------------------------------------------------------------------------
+
+CONTESTED_STRUCTURE = "UNKNOWN_CONTESTED_STRUCTURE"
+NOT_DRAFTABLE = "UNKNOWN_PART_NOT_DRAFTABLE"
+
+
+def _catalog_rank(part: Any) -> Tuple[int, str]:
+    """部品語彙の宣言順。**番号を決めるのは語彙であって入力順ではない。**"""
+    names = list(_parts.PART_VOCAB)
+    name = str(part or "")
+    return (names.index(name) if name in names else len(names), name)
+
+
+def _shape_key(rec: Dict[str, Any]) -> str:
+    """インスタンス名を**除いた**中身の正準形。同じ中身は同じ鍵。"""
+    body = {k: v for k, v in rec.items()
+            if k not in ("instance", "sources", "refs")}
+    try:
+        return _json.dumps(body, ensure_ascii=False, sort_keys=True,
+                           default=repr)
+    except (TypeError, ValueError):
+        return repr(sorted(body.items(), key=lambda kv: str(kv[0])))
+
+
+def graph_from(structure: Dict[str, Any]) -> Dict[str, Any]:
+    """検索で得た構造を部品グラフにする。**引けない部品があれば全部断る。**
+
+    入力は ``resemble.structure_from()`` の形:
+    ``{"instances": [{"instance", "part", "family", "variant", "params"}],
+    "connections": [...], "port_finish": {...}, "label": ...}``。
+
+    **引ける部分だけ作らない。** ケープが黙って落ちた服は、検索が指した
+    服とは別の服で、その別の服に対して人が承認を出してしまう。承認は
+    次段(縫い方の検索)の門を開ける鍵なので、間違った服の鍵になる。だから
+    語彙に無い部品と手続きの無い部品を**全部並べて**断る。
+
+    **番号は入力順に依らない。** インスタンス名は (語彙の宣言順, 中身の
+    正準形) で並べてから振るので、同じ集合なら並べ替えても同じ名前が
+    付く — 次の周回で「3番」が別の場所を指さない。
+    """
+    if not isinstance(structure, dict):
+        return {"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                "why": "構造は instances を持つ辞書です"}
+    records = [dict(r) for r in (structure.get("instances")
+                                 or structure.get("parts") or [])
+               if isinstance(r, dict)]
+    if not records:
+        return {"verdict": "UNKNOWN_EMPTY_STRUCTURE",
+                "how_to_close": "検索が部品を1つも指していない。"
+                                "先に per_part で部品ごとに聞く"}
+
+    # ---- 門0: 割れている構造は建てない ------------------------------
+    contested = list(structure.get("contested") or [])
+    if contested:
+        return {"verdict": CONTESTED_STRUCTURE,
+                "which": contested,
+                "why": "同じ部品の同じ側面に別々の値が来ている。"
+                       "どちらかを選んで建てると、選んだことが記録に"
+                       "残らないまま承認を集めます",
+                "how_to_close": "割れた側面を人が裁定してから建てる"}
+
+    # ---- 門1: 語彙と手続き。**部分的には作らない** -------------------
+    unknown = sorted({str(r.get("part")) for r in records
+                      if str(r.get("part")) not in _parts.PART_VOCAB})
+    undraftable = sorted({str(r.get("part")) for r in records
+                          if str(r.get("part")) in _parts.PART_VOCAB
+                          and (str(r.get("part")) not in _parts.PART_GEOMETRY
+                               or _procedure(str(r.get("part"))) is None)})
+    if unknown or undraftable:
+        known = sorted(_parts.PART_GEOMETRY)
+        return {"verdict": NO_PART if unknown else NOT_DRAFTABLE,
+                "which": unknown + undraftable,
+                "unknown": unknown,
+                "undraftable": undraftable,
+                "known": known,
+                "asked_for": sorted({str(r.get("part")) for r in records}),
+                "why": "引ける部品だけで建てると、検索が指した服とは"
+                       "別の服に承認が出ます",
+                "how_to_close":
+                    "unknown の部品は parts.PART_VOCAB に足すか new_part "
+                    "として提案する。undraftable の部品は garment_parts に"
+                    "手続きを書き、parts.PART_GEOMETRY に登録する。"
+                    "いま引けるのは known にある部品だけです"}
+
+    # ---- 番号を振る。**決定的** --------------------------------------
+    ordered = sorted(records, key=lambda r: (_catalog_rank(r.get("part")),
+                                             _shape_key(r)))
+    renamed: Dict[str, str] = {}
+    seen: Dict[str, int] = {}
+    instances: List[Dict[str, Any]] = []
+    for rec in ordered:
+        part = str(rec.get("part"))
+        seen[part] = seen.get(part, 0) + 1
+        iid = f"{part}:{seen[part]}"
+        old = str(rec.get("instance") or iid)
+        renamed[old] = iid
+        params = dict(rec.get("params") or {})
+        if rec.get("variant"):
+            params.setdefault("variant", rec["variant"])
+        inst: Dict[str, Any] = {"instance": iid, "part": part}
+        if params:
+            inst["params"] = params
+        instances.append(inst)
+
+    def _end(end: Any) -> Any:
+        if isinstance(end, (list, tuple)) and len(end) == 2:
+            return [renamed.get(str(end[0]), str(end[0])), end[1]]
+        return end
+
+    connections = [{**c, "a": _end(c.get("a")), "b": _end(c.get("b"))}
+                   for c in (structure.get("connections") or [])
+                   if isinstance(c, dict)]
+    port_finish = {renamed.get(str(k), str(k)): v
+                   for k, v in (structure.get("port_finish") or {}).items()}
+
+    return {"verdict": "ANSWER",
+            "graph": {"parts": instances,
+                      "connections": connections,
+                      "port_finish": port_finish,
+                      "label": structure.get("label") or ""},
+            "named": [i["instance"] for i in instances],
+            "renamed": renamed,
+            "from": "検索で得た構造。画素からではありません",
+            "note": "名前は (語彙の宣言順, 中身) で決まります。"
+                    "入力の並びは番号に入りません"}

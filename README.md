@@ -199,11 +199,15 @@ correct on paper.
   it, because the drafting code is shared with a larger project and two copies
   would drift. A string the table does not know comes back in Japanese — and
   `i18n.missing(result)` lists exactly which, so the gap is visible rather than
-  papered over. Measured across the **37 output paths the suite sweeps** —
+  papered over. Measured across the **51 output paths the suite sweeps** —
   ledger, worklist, tech pack, measurements, draft, marks, sew, drape, the SVG,
-  the skirt and composed garments, and every refusal the cross store, the parts
-  library, the zone catalogue, the measurement writer and the prompt parser can
-  return: **0 untranslated**.
+  the skirt and composed garments, the look loop's retrieval, construction,
+  confirmation, approval and sewing-method paths, and every refusal the cross
+  store, the parts library, the zone catalogue, the measurement writer, the
+  prompt parser and the ledger's own adoption door can return:
+  **0 untranslated**. The three look-loop modules answer in English, like
+  `mcp.py`, the boundary they are read through; they are swept as such rather
+  than exempted.
 
   **What that number does not cover — measured by a check, not by a
   sentence.** The claim above used to say "every output path the engine has",
@@ -279,7 +283,7 @@ have to grow itself: model clients for the vision step, an MCP host, a file
 tree, a console. What this package adds is the half that has to be exact.
 
 **It runs on this package's engine.** The app used to embed a 78 MB frozen
-helper for the same 42 tools; it now launches `python3 -m photoloset.mcp`
+helper for the same 48 tools; it now launches `python3 -m photoloset.mcp`
 instead, found in its own bundle Resources, where a build phase copies the
 250 KB Python package. So the two halves are one program, and the tool surface
 is the seam between them.
@@ -292,7 +296,7 @@ Three things did not come across, and it is worth knowing why:
 | a 75 MB backup of it | a stale copy of the same thing |
 | `verantyx-browser/` | a separate Rust project — and the source of four paths with colons in their names, which cannot be checked out on Windows at all |
 
-Five of the 42 tools answer `UNKNOWN_NOT_IN_THIS_BUILD` rather than working:
+Five of the 48 tools answer `UNKNOWN_NOT_IN_THIS_BUILD` rather than working:
 `garment_cross` and the four `fabric_*` tools need a coordinate memory and its
 language engine, about 15,700 lines that are not part of this package. Fabric
 properties are read from `~/.photoloset/fabrics.json` instead.
@@ -306,7 +310,7 @@ python3 examples/black_coat.py
 Or drive it from any agent, which is what the app does:
 
 ```bash
-python3 -m photoloset.mcp        # 42 tools over stdio, standard library only
+python3 -m photoloset.mcp        # 48 tools over stdio, standard library only
 ```
 
 ## Thirty seconds of it
@@ -362,6 +366,105 @@ the notes re-wrapped for English line lengths and the canvas grown to fit.
 Every coordinate is left exactly as the engine emitted it.
 
 <br>
+
+## One photograph, and the gate in front of the sewing methods
+
+A single front-facing image can say a garment RESEMBLES A and B. It can also
+mislead, and from the outside the two are the same sentence. So this package
+takes the long way round: recognise "close to A and B" per part, CONSTRUCT the
+garment that resemblance implies, drop it to 3D, and have a person confirm it
+is the garment they had in mind. **Only then does the search for sewing methods
+run at all.**
+
+**Why per part.** An embedding model produces one global vector for the whole
+image, and one vector answers one question: which image is most similar. An
+unclassifiable garment is compositional — cape + bodice + high-low skirt +
+sleeve — and a global embedding cannot say the cape resembles A while the skirt
+resembles B. Per-part retrieval needs segmentation before embedding, so
+`resemble.per_part()` refuses a whole-image-only stack by name
+(`UNKNOWN_WHOLE_IMAGE_ONLY`, naming `UNKNOWN_NO_SEGMENTER` as the missing
+stage) rather than answering the easier question and calling it the harder one.
+
+**Why not a ranking.** On this project's own earlier benchmark
+Marqo-FashionSigLIP beat Apple by dMRR +0.292 for same-garment retrieval, and
+its material ranking flipped 8.5% under a horizontal flip while uniform noise
+was indistinguishable from real photographs by margin. Similarity is usable for
+"which garment" and is not trustworthy as a ranking of construction. That
+finding is enforced structurally, in two places: retrieval hits land at an
+address derived from the ASPECT alone, so two backends that disagree collide at
+one address and come back `CONTESTED_IN_CROSS` with both sides kept and neither
+chosen; and `sewing_search.register_corpus()` refuses a backend declaring
+`modality="image_embedding"` outright.
+
+**Why the 3D is not decoration.** "Cosine 0.83 to garment A" cannot be checked
+by a person. "Here is the garment that similarity implies" can be checked in
+two seconds. The solid is the falsifier for the retrieval — it turns an
+unverifiable claim into a verifiable one, which is what this whole package is
+for. It is built out of the composed draft's own edge lengths, it is a
+proportion block and not a fit simulation, and the confirmation sheet says so
+by quoting the objects themselves rather than by a sentence written once in a
+docstring.
+
+**Why the order is load-bearing.** Approval comes before the sewing-method
+search, never after. A method retrieved for the wrong garment is worse than no
+method: it is a plausible wrong answer, and plausible wrong answers reach
+cutting tables. The block is therefore on the SEARCH, and it is enforced by the
+argument surface rather than by discipline —
+
+```python
+sewing_search.methods_for(approval_id: str, corpus: str = "") -> dict
+```
+
+and nothing else. No public callable in that module, and no MCP tool that
+reaches it, accepts a draft, a part graph, a structure, an image path or a
+`json_text` blob. A check walks `inspect.signature` over the module and over
+the tool schemas against 30 forbidden parameter names, so adding a convenience
+overload turns the suite red. The module reads the shape back out of the
+ADOPTED ledger entries the approval names, recomposes it against the current
+measurements, and refuses `UNKNOWN_APPROVAL_STALE` if the digest has moved —
+which is what kills an approval after `zones.apply()` nudges a parameter. A
+person approved a shape, not a session.
+
+**Nothing here ships a model.** `resemble.backends()` is empty on a fresh
+import and a check starts a fresh interpreter to measure that rather than
+assert it. There is a fixture backend for driving the loop end to end without
+a model, and it is unmistakable at four levels: its model id starts
+`fixture:`, `register()` refuses it under any other name, every hit it returns
+carries `"fixture": true`, and the source string it stamps on every landed
+claim begins with the same prefix. A fixture that could pass for a backend is
+how a demo becomes a claim.
+
+**And the search itself queries nothing, today.** There is no image-to-pattern
+corpus in this tree, so with a shape approved and no corpus registered the
+honest answer is `UNKNOWN_NO_SEWING_CORPUS`, naming SewFactory, GarmentCodeData
+and GarmentCode as the corpora that would serve and `register_corpus()` as the
+entry point. It is not a stub returning `[]`: an empty list says "there are no
+methods" and the true sentence is "nothing was asked". Nothing about those
+datasets has been measured here — verify every count and licence from the
+dataset card before any of it reaches an output. One trap is closed before any
+of them is wired: GarmentCodeData is generated FROM GarmentCode, so two corpora
+that agree while sharing a root are refused `UNKNOWN_SHARED_LINEAGE` rather
+than counted as the two independent sources a generic construction claim costs.
+`cross._source_key` can see that two names differ; it cannot see lineage.
+
+**Is the loop finished?** `convergence.check()` counts it: open ports +
+contested measurements + unresolved refusals + unsewable seams + failed
+physical checks + claims the human keeps rejecting. Three identical rounds and
+it escalates to a person, naming the likely cause — "no procedure for
+`<part>`; register one in `garment_parts` and add it to `parts.PART_GEOMETRY`"
+— rather than saying try again.
+
+**`mannequin.dress()` is not part of this.** It is left alone deliberately.
+Nothing in this loop calls it: the question here is "is this my garment", which
+is about structure, while `dress()` answers "how does it sit on a form", which
+is about fit. It also does not work — `mannequin.build()` lays y = 0 at the hip
+and increases upward while the sewn drape returns y negative downward, so
+`radius_at()` raises `ValueError: max() arg is an empty sequence` on every
+garment. Two things are wrong there and both need an owner's decision: the
+raise crosses a tool boundary (it should be a typed `UNKNOWN_FRAME_MISMATCH`
+naming both ranges) and the frame conversion between the two modules is assumed
+rather than declared. Neither is on this loop's critical path and neither was
+fixed opportunistically.
 
 ## How it is checked
 

@@ -269,7 +269,7 @@ ALL_CHECK_NAMES = [
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
     "initialize",
-    "42 tools",
+    "48 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -281,6 +281,34 @@ ALL_CHECK_NAMES = [
     "dump carries the store it read",
     "unbought generics come from the store",
     "the library census counts its own store",
+    "retrieval without a backend refuses by name",
+    "an empty result is not a refusal",
+    "a whole-image backend cannot answer a per-part question",
+    "photoloset registers no backend at import",
+    "a fixture cannot pass as a backend",
+    "a retrieval hit is unreadable at the part address",
+    "two sources that disagree become contested, not ranked",
+    "one corpus cannot buy a generic construction claim",
+    "a search that found nothing is not seated",
+    "a retrieved family with no procedure refuses the whole construction",
+    "the constructed graph names every part the retrieval named",
+    "instance numbering does not move between rounds",
+    "the confirmation solid is built from the composed pieces",
+    "the sheet states what the render does not claim",
+    "a rejection must name a claim",
+    "an open port becomes a claim, not a silent default",
+    "an approval carries the name of the approver",
+    "an approval names the claims it accepted",
+    "an approval dies when the shape moves",
+    "approval writes through the same door as an adoption",
+    "the sewing search has no argument for an unapproved shape",
+    "the sewing search refuses an unknown approval",
+    "a stale approval does not open the search",
+    "the sewing search names the corpora that would close it",
+    "an embedding backend cannot be a construction corpus",
+    "two corpora from one root are not two sources",
+    "a repeated structural rejection escalates to a human",
+    "convergence counts a rejected claim",
     "no check that cannot fail",
     "every served reader reads its store",
     "the scanner finds every planted shape",
@@ -597,6 +625,81 @@ def english_is_complete() -> None:
     outs["prompts.parse.bad"] = _prompts.parse_decomposition("default",
                                                              "{oops")
 
+    # **The look loop rides the same promise, from the day it is written.**
+    # Its three new modules answer in English (like `mcp.py`, the boundary
+    # they are read through) and `compose.graph_from` answers in Japanese
+    # like the file it lives in — so this sweep is what says the mixture is
+    # complete rather than a sentence claiming it is. The path that was
+    # untranslated when it was added: graph_from's whole refusal.
+    from photoloset import confirm as _confirm
+    from photoloset import garment_rights as _rights_mod
+    from photoloset import resemble as _resemble
+    from photoloset import sewing_search as _search
+    from photoloset.garment import Ledger as _Ledger
+
+    _resemble.reset()
+    _search.reset()
+    _look = [{"instance": "bodice:1", "part": "bodice"},
+             {"instance": "cape:1", "part": "cape"},
+             {"instance": "skirt_panel:1", "part": "skirt_panel"},
+             {"instance": "sleeve:1", "part": "sleeve"}]
+    outs["resemble.per_part.refused"] = _resemble.per_part("look.jpg", _look)
+    outs["resemble.whole.refused"] = _resemble.whole("look.jpg")
+    _resemble.install_fixture({
+        "bodice:1": [{"aspect": "family", "family": "bodice",
+                      "corpus": "corpusA", "ref": "A", "region": "upper"}],
+        "cape:1": [{"aspect": "family", "family": "cape",
+                    "corpus": "corpusA", "ref": "A", "region": "shoulders"}],
+        "skirt_panel:1": [{"aspect": "family", "family": "skirt_panel",
+                           "corpus": "corpusA", "ref": "B"}],
+        "sleeve:1": [{"aspect": "family", "family": "sleeve",
+                      "corpus": "corpusA", "ref": "A"}]})
+    _res = _resemble.per_part("look.jpg", _look, image_id="img1")
+    outs["resemble.per_part"] = _res
+    _look_store = _cross.CrossStore()
+    _look_store.put("garment", "subject", {"name": "the look"}, "declared",
+                    "ci")
+    outs["resemble.land"] = _resemble.land(_look_store,
+                                           _rights_mod.RightsLedger(), _res,
+                                           image_id="img1")
+    _structure = _resemble.structure_from(_res, image_id="img1")
+    _structure["connections"] = [
+        {"a": ["bodice:1", "waist"], "b": ["skirt_panel:1", "waist"]},
+        {"a": ["bodice:1", "armhole_l"], "b": ["sleeve:1", "armhole_l"]},
+        {"a": ["bodice:1", "neck"], "b": ["cape:1", "neck"]}]
+    _structure["port_finish"] = {
+        "cape:1": {"hem": "free", "center_front": "fold",
+                   "center_back": "fold"},
+        "skirt_panel:1": {"center_front": "fold", "center_back": "fold"},
+        "bodice:1": {"center_front": "fold", "center_back": "fold"},
+        "sleeve:1": {"cuff_l": "free"}}
+    _structure["label"] = "ケープワンピース"
+    outs["resemble.structure_from"] = _structure
+    _g = _cp.graph_from(_structure)
+    outs["compose.graph_from"] = _g
+    outs["compose.graph_from.refused"] = _cp.graph_from(
+        {"instances": [{"instance": "c:1", "part": "collar"},
+                       {"instance": "m:1", "part": "mantle"}]})
+    _draft = _cp.compose(_g["graph"], ms3)
+    outs["confirm.solid"] = _confirm.solid_from_draft(_draft)
+    _sheet = _confirm.sheet(_draft, image_ref="look.jpg",
+                            retrieval=outs["resemble.land"],
+                            graph=_g["graph"])
+    outs["confirm.sheet"] = _sheet
+    outs["confirm.reject.refused"] = _confirm.reject(_sheet, [], "ci")
+    _led = _Ledger(title="ci")
+    outs["confirm.approve.refused"] = _confirm.approve(
+        _sheet, {c["id"]: "yes" for c in _sheet["claims"]}, "", _led)
+    _ap = _confirm.approve(_sheet,
+                           {c["id"]: "yes" for c in _sheet["claims"]},
+                           "ci", _led, graph=_g["graph"])
+    outs["confirm.approve"] = _ap
+    outs["sewing_search.unapproved"] = _search.methods_for("nope")
+    _search.bind(ledger=_led, measures=ms3)
+    outs["sewing_search.no_corpus"] = _search.methods_for(_ap["approval_id"])
+    _resemble.reset()
+    _search.reset()
+
     swept = sorted(outs.items())
     total_missing = []
     for name, value in swept:
@@ -611,7 +714,7 @@ def english_is_complete() -> None:
     # among them (they were not, and 67 strings were untranslated outside
     # this table — see README.md, which now states the scope out loud).
     check("0 untranslated",
-          not total_missing and len(swept) == 37,
+          not total_missing and len(swept) == 51,
           f"{len(set(total_missing))} strings across {len(swept)} outputs")
 
     # **The second number the README states, measured.** "0 untranslated"
@@ -778,7 +881,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("42 tools", len(tools) == 42, f"{len(tools)}")
+        check("48 tools", len(tools) == 48, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -826,8 +929,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 42 and not no_schema and not no_props
-              and len(published) == 65 and not wrong and not contradicted
+              len(tools) == 48 and not no_schema and not no_props
+              and len(published) == 76 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -892,7 +995,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 42 and not not_object and not crashed,
+              len(tools) == 48 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1042,7 +1145,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 26 and not third_party,
+          len(scanned) == 29 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -3404,6 +3507,885 @@ def served_readers_track_their_stores() -> None:
 
 
 # ---------------------------------------------------------------------------
+# The look loop: resemble -> construct -> confirm -> approve -> search
+#
+# The ORDER is the property. Approval comes BEFORE the sewing-method search,
+# because a method retrieved for the wrong garment is a plausible wrong answer
+# and plausible wrong answers reach cutting tables.
+# ---------------------------------------------------------------------------
+
+#: The four parts of the unclassifiable garment, as a centre model would name
+#: them. Instance names are the model's; ``compose.graph_from`` assigns its own
+#: deterministic ones and returns the map.
+LOOK_PARTS = [{"instance": "bodice:1", "part": "bodice"},
+              {"instance": "cape:1", "part": "cape"},
+              {"instance": "skirt_panel:1", "part": "skirt_panel"},
+              {"instance": "sleeve:1", "part": "sleeve"}]
+
+#: What the FIXTURE backend answers. It measured nothing; every hit it returns
+#: is marked ``fixture`` and every source string it stamps begins ``fixture:``.
+LOOK_TABLE = {
+    "bodice:1": [{"aspect": "family", "family": "bodice",
+                  "corpus": "corpusA", "ref": "A", "region": "upper third"}],
+    "cape:1": [{"aspect": "family", "family": "cape",
+                "corpus": "corpusA", "ref": "A", "region": "shoulders"}],
+    "skirt_panel:1": [{"aspect": "family", "family": "skirt_panel",
+                       "corpus": "corpusA", "ref": "B", "region": "lower"},
+                      {"aspect": "variant", "variant": "high-low",
+                       "corpus": "corpusA", "region": "hem"}],
+    "sleeve:1": [{"aspect": "family", "family": "sleeve",
+                  "corpus": "corpusA", "ref": "A", "region": "left arm"}],
+}
+
+LOOK_CONNECTIONS = [
+    {"a": ["bodice:1", "waist"], "b": ["skirt_panel:1", "waist"]},
+    {"a": ["bodice:1", "armhole_l"], "b": ["sleeve:1", "armhole_l"]},
+    {"a": ["bodice:1", "neck"], "b": ["cape:1", "neck"]}]
+
+LOOK_PORT_FINISH = {
+    "cape:1": {"hem": "free", "center_front": "fold", "center_back": "fold"},
+    "skirt_panel:1": {"center_front": "fold", "center_back": "fold"},
+    "bodice:1": {"center_front": "fold", "center_back": "fold"},
+    "sleeve:1": {"cuff_l": "free"}}
+
+
+def _look_measures():
+    from photoloset import Measures
+    ms = Measures()
+    for spot, value in [("chest", 82.0), ("shoulder", 38.0), ("waist", 62.0),
+                        ("bodice_length", 22.0), ("sleeve_length", 52.0),
+                        ("hip", 88.0), ("skirt_length", 45.0),
+                        ("neck", 21.0), ("cape_length", 28.0)]:
+        ms.measured(spot, value, "cm", source="tape", by="ci")
+    return ms
+
+
+def _look_structure(result, image_id="img1"):
+    """The retrieved structure, with the connections and finishes a human
+    would have answered on the previous round's sheet."""
+    from photoloset import resemble
+    s = resemble.structure_from(result, image_id=image_id)
+    s["connections"] = [dict(c) for c in LOOK_CONNECTIONS]
+    s["port_finish"] = {k: dict(v) for k, v in LOOK_PORT_FINISH.items()}
+    s["label"] = "ケープワンピース"
+    return s
+
+
+def _look_retrieval(table=None, image_id="img1"):
+    """Run the fixture backend over the four parts and return its answer."""
+    from photoloset import resemble
+    resemble.reset()
+    resemble.install_fixture(LOOK_TABLE if table is None else table)
+    return resemble.per_part("look.jpg", LOOK_PARTS, image_id=image_id)
+
+
+def _look_store():
+    from photoloset import cross
+    st = cross.CrossStore()
+    st.put("garment", "subject", {"name": "the look"}, "declared", "ci")
+    return st
+
+
+def _look_draft():
+    """retrieval -> structure -> graph -> composed draft. The whole front half
+    of the loop, as the checks below all need it."""
+    from photoloset import compose
+    res = _look_retrieval()
+    g = compose.graph_from(_look_structure(res))
+    ms = _look_measures()
+    return res, g, compose.compose(g["graph"], ms), ms
+
+
+# ---------------------------------------------------------------------------
+@declares("retrieval without a backend refuses by name",
+          "an empty result is not a refusal",
+          "a whole-image backend cannot answer a per-part question",
+          "photoloset registers no backend at import",
+          "a fixture cannot pass as a backend",
+          "a retrieval hit is unreadable at the part address",
+          "two sources that disagree become contested, not ranked",
+          "one corpus cannot buy a generic construction claim",
+          "a search that found nothing is not seated")
+def retrieval_asks_per_part() -> None:
+    """Retrieval is PER PART, and it lands where nobody can read it yet.
+
+    A global embedding answers one question — which image is most similar —
+    and an unclassifiable garment is compositional, so the per-part question
+    needs segmentation before embedding and says so by name when it has none.
+    What comes back lands as ``proposed`` in the store's quarantine: a cosine
+    score must not buy the seat a tape measure buys.
+    """
+    from photoloset import cross, garment_rights, resemble
+
+    resemble.reset()
+    with guard("retrieval without a backend refuses by name"):
+        a = resemble.per_part("look.jpg", LOOK_PARTS, image_id="img1")
+        b = resemble.whole("look.jpg", image_id="img1")
+        check("retrieval without a backend refuses by name",
+              a["verdict"] == "UNKNOWN_NO_RETRIEVAL_BACKEND"
+              and b["verdict"] == "UNKNOWN_NO_RETRIEVAL_BACKEND"
+              and "hits" not in a and "hits" not in b
+              and "resemble.register" in a["how_to_close"]
+              and resemble.backends() == [],
+              f'per_part {a["verdict"]} / whole {b["verdict"]}, neither '
+              f'carrying a hits list — an empty list would say "nothing is '
+              f'similar" and the true sentence is "nothing was asked"')
+
+    with guard("an empty result is not a refusal"):
+        resemble.reset()
+        resemble.install_fixture({})              # ran, found nothing
+        r = resemble.per_part("look.jpg", LOOK_PARTS, image_id="img1")
+        check("an empty result is not a refusal",
+              r["verdict"] == "ANSWER" and r["hits"] == []
+              and sorted(r["searched"]["instances"])
+              == sorted(p["instance"] for p in LOOK_PARTS)
+              and r["searched"]["backends"] == ["fixture:table"]
+              and len(r["searched"]["instances"]) == 4,
+              f'{r["verdict"]} with {len(r["hits"])} hits and the scope of '
+              f'the search attached: {len(r["searched"]["instances"])} '
+              f'instances against {r["searched"]["backends"]}')
+
+    with guard("a whole-image backend cannot answer a per-part question"):
+        resemble.reset()
+        resemble.register("siglip:marqo-fashionSigLIP", "parallel",
+                          "image_embedding",
+                          lambda q: {"hits": [{"aspect": "resembles",
+                                               "ref": "A",
+                                               "corpus": "corpusA"}]})
+        w = resemble.whole("look.jpg", image_id="img1")
+        p = resemble.per_part("look.jpg", LOOK_PARTS, image_id="img1")
+        check("a whole-image backend cannot answer a per-part question",
+              p["verdict"] == "UNKNOWN_WHOLE_IMAGE_ONLY"
+              and p["missing_stage"] == "UNKNOWN_NO_SEGMENTER"
+              and "segmenter" in p["how_to_close"]
+              and "resemble.whole()" in p["how_to_close"]
+              and w["verdict"] == "ANSWER" and len(w["hits"]) == 1,
+              f'the whole-garment question answers ({w["verdict"]}, '
+              f'{len(w["hits"])} hit) and the per-part one refuses '
+              f'{p["verdict"]}, naming the missing stage '
+              f'{p["missing_stage"]} — one global vector cannot say the cape '
+              f'resembles A while the skirt resembles B')
+
+    with guard("photoloset registers no backend at import"):
+        probe = subprocess.run(
+            [sys.executable, "-c",
+             "import json, photoloset.resemble as r, "
+             "photoloset.sewing_search as s; "
+             "print(json.dumps({'backends': r.backends(), "
+             "'segmenters': r.segmenters(), 'corpora': s.corpora()}))"],
+            cwd=ROOT, capture_output=True, text=True, timeout=300)
+        try:
+            fresh = json.loads(probe.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError):
+            fresh = {"backends": ["<unreadable>"], "segmenters": [],
+                     "corpora": []}
+        check("photoloset registers no backend at import",
+              probe.returncode == 0 and fresh["backends"] == []
+              and fresh["segmenters"] == [] and fresh["corpora"] == [],
+              f'a fresh interpreter imports resemble and sewing_search and '
+              f'finds {len(fresh["backends"])} backends, '
+              f'{len(fresh["segmenters"])} segmenters and '
+              f'{len(fresh["corpora"])} corpora — the "ships no model" claim '
+              f'measured rather than asserted'
+              + ("" if probe.returncode == 0
+                 else f' — {probe.stderr[-200:]}'))
+
+    with guard("a fixture cannot pass as a backend"):
+        resemble.reset()
+        wrong_name = resemble.register("siglip:real", "parallel",
+                                       "region_embedding",
+                                       lambda q: {"hits": []}, fixture=True)
+        wrong_flag = resemble.register("fixture:table", "parallel",
+                                       "region_embedding",
+                                       lambda q: {"hits": []})
+        after_refusals = resemble.backends()
+        got = _look_retrieval()
+        marks = {b["model_id"]: b["fixture"] for b in resemble.backends()}
+        fixture_hits = [h for h in got["hits"] if h.get("fixture")]
+        check("a fixture cannot pass as a backend",
+              wrong_name["verdict"] == "UNKNOWN_FIXTURE_NOT_DECLARED"
+              and wrong_flag["verdict"] == "UNKNOWN_FIXTURE_NOT_DECLARED"
+              and after_refusals == []
+              and marks == {"fixture:table": True}
+              and len(fixture_hits) == 5 and len(got["hits"]) == 5,
+              f'a fixture under a real name and a real name under the fixture '
+              f'flag are both {wrong_name["verdict"]}, so nothing registered '
+              f'({len(after_refusals)} backends); the fixture that does '
+              f'register is marked in its id, its registration and all '
+              f'{len(fixture_hits)} of its {len(got["hits"])} hits')
+
+    with guard("a retrieval hit is unreadable at the part address"):
+        st = _look_store()
+        rights = garment_rights.RightsLedger()
+        got = _look_retrieval()
+        land = resemble.land(st, rights, got, image_id="img1")
+        at_part = st.resolve("look:img1:cape:1", "family")
+        in_quarantine = st.resolve("look:img1:cape:1#proposed", "family")
+        kinds = sorted({l["kind"] for l in land["landed"]})
+        armless = [l for l in land["landed"] if l["arm"] is None]
+        check("a retrieval hit is unreadable at the part address",
+              at_part["verdict"] == cross.NOT_IN_CROSS
+              and in_quarantine["verdict"] == "ANSWER"
+              and kinds == ["proposed"]
+              and len(land["landed"]) == 5 and len(armless) == 5,
+              f'{len(land["landed"])} hits landed {kinds}, all '
+              f'{len(armless)} carrying no arm; resolve() at the part\'s own '
+              f'address answers {at_part["verdict"]} while the quarantine '
+              f'core answers {in_quarantine["verdict"]} — a cosine score does '
+              f'not buy the seat a tape measure buys')
+
+    with guard("two sources that disagree become contested, not ranked"):
+        resemble.reset()
+        resemble.install_fixture(LOOK_TABLE)
+        resemble.install_fixture(
+            {"skirt_panel:1": [{"aspect": "variant", "variant": "tiered",
+                                "corpus": "corpusC", "region": "hem"}]},
+            model_id="fixture:rival", segmenter=False)
+        both = resemble.per_part("look.jpg", LOOK_PARTS, image_id="img1")
+        st2 = _look_store()
+        land2 = resemble.land(st2, garment_rights.RightsLedger(), both,
+                              image_id="img1")
+        split = st2.resolve("look:img1:skirt_panel:1#proposed", "variant")
+        keys = sorted({l["key"] for l in land2["landed"]})
+        sides = sorted(s["value"].get("variant") for s in
+                       split.get("sides", []))
+        check("two sources that disagree become contested, not ranked",
+              split["verdict"] == cross.CONTESTED_IN_CROSS
+              and sides == ["high-low", "tiered"]
+              and keys == ["family", "variant"]
+              and len(land2["contested"]) == 1
+              and "value" not in split,
+              f'two backends claiming the variant write to ONE address '
+              f'({keys}) and collide: {split["verdict"]} carrying {sides} '
+              f'with neither chosen. Put the source in the key and they '
+              f'become two addresses, both ANSWER, and somebody downstream '
+              f'sorts them by score')
+
+    with guard("one corpus cannot buy a generic construction claim"):
+        one = garment_rights.RightsLedger()
+        resemble.land(_look_store(), one, _look_retrieval(), image_id="img1")
+        s1 = one.state("cape", "family")
+        two = garment_rights.RightsLedger()
+        resemble.land(_look_store(), two, _look_retrieval(), image_id="img1")
+        resemble.land(_look_store(), two, _look_retrieval(
+            {"cape:1": [{"aspect": "family", "family": "cape",
+                         "corpus": "corpusD", "ref": "A"}]}),
+            image_id="img1")
+        s2 = two.state("cape", "family")
+        check("one corpus cannot buy a generic construction claim",
+              s1["state"] == garment_rights.UNCHECKED
+              and s1["generic_sources"] == ["corpusA"]
+              and "2" in s1["how_to_close"]
+              and s2["state"] == garment_rights.GENERIC
+              and s2["generic_sources"] == ["corpusA", "corpusD"],
+              f'one corpus leaves the construction claim {s1["state"]} with '
+              f'{s1["generic_sources"]}; a second, independently named one '
+              f'makes it {s2["state"]} with {s2["generic_sources"]}. A '
+              f'construction found in one corpus is "traceable to a source", '
+              f'not "general knowledge"')
+
+    with guard("a search that found nothing is not seated"):
+        nothing = _look_retrieval({})
+        st3 = _look_store()
+        rights3 = garment_rights.RightsLedger()
+        land3 = resemble.land(st3, rights3, nothing, image_id="img1")
+        cores = sorted(st3.to_dict()["cores"])
+        verdicts = sorted({n["verdict"] for n in land3["not_seated"]})
+        seen = rights3.state("cape", "resembles")
+        # **The whole core list, not the absence of one prefix.** "No core
+        # under look:" is true when the scan found nothing and when it
+        # covered nothing; the store's entire contents are named here
+        # instead, so a store that lost its subject core is a failure too.
+        check("a search that found nothing is not seated",
+              land3["landed"] == [] and cores == ["garment"]
+              and verdicts == [cross.NOT_A_CLAIM]
+              and len(land3["not_seated"]) == 4
+              and seen["state"] == garment_rights.NO_MATCH
+              and len(seen["searched_scopes"]) == 1
+              and "fixture:table" in seen["searched_scopes"][0],
+              f'the backend ran and found nothing: the store still holds '
+              f'{cores} and nothing under look:, '
+              f'{len(land3["not_seated"])} offers to it all '
+              f'refused {verdicts}, and the record of HAVING SEARCHED on the '
+              f'rights ledger as {seen["state"]} with its scope '
+              f'{seen["searched_scopes"]}. "Searched nothing" cannot be '
+              f'written down as "found nothing"')
+    resemble.reset()
+
+
+# ---------------------------------------------------------------------------
+@declares("a retrieved family with no procedure refuses the whole construction",
+          "the constructed graph names every part the retrieval named",
+          "instance numbering does not move between rounds",
+          "the confirmation solid is built from the composed pieces",
+          "the sheet states what the render does not claim",
+          "a rejection must name a claim",
+          "an open port becomes a claim, not a silent default")
+def the_look_becomes_a_shape() -> None:
+    """The retrieval is CONSTRUCTED and dropped to 3D, so a human can check it.
+
+    "cosine 0.83 to garment A" cannot be checked by a person; "here is the
+    garment that similarity implies" can be checked in two seconds. The solid
+    is therefore the falsifier for the retrieval, and it is built from the
+    composed draft's own edges — never from a body ratio.
+    """
+    import copy as _copy
+
+    from photoloset import compose, confirm, convergence
+
+    res, g, draft, ms = _look_draft()
+    good = _look_structure(res)
+
+    with guard("a retrieved family with no procedure refuses the whole "
+               "construction"):
+        mixed = dict(good)
+        mixed["instances"] = list(good["instances"]) + [
+            {"instance": "collar:1", "part": "collar", "params": {}},
+            {"instance": "mantle:1", "part": "mantle", "params": {}}]
+        m = compose.graph_from(mixed)
+        check("a retrieved family with no procedure refuses the whole "
+              "construction",
+              m["verdict"] == compose.NO_PART
+              and m["undraftable"] == ["collar"]
+              and m["unknown"] == ["mantle"]
+              and "graph" not in m
+              and "PART_GEOMETRY" in m["how_to_close"]
+              and m["known"] == ["bodice", "cape", "skirt_panel", "sleeve"],
+              f'{m["verdict"]} naming every offender — {m["unknown"]} outside '
+              f'the vocabulary and {m["undraftable"]} inside it with no '
+              f'procedure — and no graph at all. A garment silently missing '
+              f'its cape collects approval for the wrong garment')
+
+    with guard("the constructed graph names every part the retrieval named"):
+        mixed = dict(good)
+        mixed["instances"] = list(good["instances"]) + [
+            {"instance": "collar:1", "part": "collar", "params": {}}]
+        m = compose.graph_from(mixed)
+        check("the constructed graph names every part the retrieval named",
+              g["verdict"] == "ANSWER"
+              and sorted(i["part"] for i in g["graph"]["parts"])
+              == sorted(i["part"] for i in good["instances"])
+              and len(g["graph"]["parts"]) == 4
+              and m.get("graph") is None
+              and m["asked_for"] == ["bodice", "cape", "collar",
+                                     "skirt_panel", "sleeve"]
+              and draft["verdict"] == "ANSWER",
+              f'{len(g["graph"]["parts"])} parts in, '
+              f'{len(g["graph"]["parts"])} out, and the composition answers '
+              f'{draft["verdict"]}; add one undraftable part and there is no '
+              f'graph at all rather than a graph of {len(m["asked_for"]) - 1}')
+
+    with guard("instance numbering does not move between rounds"):
+        shuffled = dict(good)
+        shuffled["instances"] = list(reversed(good["instances"]))
+        g2 = compose.graph_from(shuffled)
+        check("instance numbering does not move between rounds",
+              g2["named"] == g["named"]
+              and g2["renamed"] == g["renamed"]
+              and g["named"] == ["bodice:1", "skirt_panel:1", "cape:1",
+                                 "sleeve:1"]
+              and len(g["named"]) == 4,
+              f'the same four parts in the opposite order get the same four '
+              f'names {g2["named"]} — the numbering is (vocabulary order, '
+              f'content), so "zone 3" does not point somewhere else next '
+              f'round')
+
+    with guard("the confirmation solid is built from the composed pieces"):
+        solid = confirm.solid_from_draft(draft)
+        moved = _copy.deepcopy(draft)
+        touched = ""
+        for p in moved["pieces"]:
+            if "裾" in p["edges"]:
+                p["edges"]["裾"]["length"] += 5.0
+                touched = p["name"]
+                break
+        after = confirm.solid_from_draft(moved)
+        sources = sorted({f.split("/")[0] for r in solid["rings"]
+                          for f in r["from"]})
+        check("the confirmation solid is built from the composed pieces",
+              solid["verdict"] == "ANSWER"
+              and after["vertices"] != solid["vertices"]
+              and len(solid["rings"]) == 8
+              and solid["skipped"] == []
+              and sources == sorted(p["name"] for p in draft["pieces"])
+              and len(sources) == 6,
+              f'{len(solid["rings"])} rings read off {len(sources)} composed '
+              f'pieces; lengthening {touched}\'s hem edge by 5 cm moves the '
+              f'vertices ({after["vertices"] != solid["vertices"]}). A girth '
+              f'taken from a body ratio would not have moved')
+
+    with guard("the sheet states what the render does not claim"):
+        solid = confirm.solid_from_draft(draft)
+        sheet = confirm.sheet(draft, solid, image_ref="look.jpg", graph=g["graph"])
+        says = sheet["does_not_claim"]
+        check("the sheet states what the render does not claim",
+              solid["not_a_simulation"] in says
+              and solid["surface_carries_no_information"] in says
+              and draft["seam_allowance"] in says
+              and draft["not_a_published_system"] in says
+              and len(says) == 5
+              and str(confirm.ASSUMED_DEPTH_RATIO) in says[-1]
+              and "not a fit simulation" in solid["not_a_simulation"],
+              f'{len(says)} sentences, quoted from the objects themselves: '
+              f'the solid\'s "not a fit simulation" and its facet count, the '
+              f'draft\'s seam allowance and its "not a published system", and '
+              f'the assumed depth ratio {confirm.ASSUMED_DEPTH_RATIO}. The '
+              f'user is being asked to judge SHAPE, not fit')
+
+    with guard("a rejection must name a claim"):
+        from photoloset import garment_rights as _gr
+        from photoloset import resemble as _resemble
+        res2 = _look_retrieval()
+        land = _resemble.land(_look_store(), _gr.RightsLedger(), res2,
+                              image_id="img1")
+        sheet = confirm.sheet(draft, image_ref="look.jpg", retrieval=land,
+                              graph=g["graph"])
+        unnamed = confirm.reject(sheet, [], "Kodai Motonishi")
+        ghost = confirm.reject(sheet, ["c99"], "Kodai Motonishi")
+        anon = confirm.reject(sheet, ["c1"], "")
+        named = confirm.reject(sheet, ["c1"], "Kodai Motonishi",
+                               note="the mesh looks bad")
+        check("a rejection must name a claim",
+              unnamed["verdict"] == confirm.UNNAMED_REJECTION
+              and ghost["verdict"] == confirm.NO_CLAIM
+              and ghost["which"] == ["c99"]
+              and anon["verdict"] == confirm.NO_REJECTER
+              and named["verdict"] == "ANSWER"
+              and len(named["rejected"]) == 1
+              and named["rejected"][0]["note"] == "the mesh looks bad"
+              and named["rejected"][0]["source"] == sheet["claims"][0]["source"],
+              f'an empty rejection is {unnamed["verdict"]} and an unknown '
+              f'claim is {ghost["verdict"]}; free text rides BESIDE a named '
+              f'claim as a note and is not itself a rejection of anything, so '
+              f'a correct retrieval cannot be killed by an ugly render')
+
+    with guard("an open port becomes a claim, not a silent default"):
+        naked = dict(g["graph"])
+        naked["port_finish"] = {}
+        refused = compose.compose(naked, ms)
+        sheet = confirm.sheet(refused, image_ref="look.jpg", graph=naked)
+        ports = [c for c in sheet["claims"] if c["kind"] == "open_port"]
+        answers = sorted({c["answer"] for c in ports})
+        # ...and the sheet says whether the LOOP is ending, which is
+        # convergence.py's first caller in the tree.
+        ending = sheet.get("convergence") or {}
+        check("an open port becomes a claim, not a silent default",
+              refused["verdict"] == compose.OPEN_PORT
+              and len(ports) == 8
+              and answers == ["cannot_tell"]
+              and sheet["solid"]["verdict"] == confirm.NO_SOLID
+              and all(c["aspect"].startswith("port:") for c in ports)
+              and len(ports) == 8
+              and sheet["shape"]["verdict"] == confirm.NOT_COMPOSED
+              and ending.get("verdict") == convergence.IN_PROGRESS
+              and ending.get("counters", {}).get("open_ports") == 8,
+              f'{len(ports)} ports neither connected nor finished become '
+              f'{len(ports)} claims answered {answers} — on a single '
+              f'front-facing photograph "the back is not visible" is the '
+              f'EXPECTED first state, and it is put to the human rather than '
+              f'filled in with a finish nobody chose. The sheet reports the '
+              f'loop as {ending.get("verdict")} with '
+              f'{ending.get("counters", {}).get("open_ports")} ports still '
+              f'open')
+
+
+# ---------------------------------------------------------------------------
+@declares("an approval carries the name of the approver",
+          "an approval names the claims it accepted",
+          "an approval dies when the shape moves",
+          "approval writes through the same door as an adoption",
+          "the sewing search has no argument for an unapproved shape",
+          "the sewing search refuses an unknown approval",
+          "a stale approval does not open the search",
+          "the sewing search names the corpora that would close it",
+          "an embedding backend cannot be a construction corpus",
+          "two corpora from one root are not two sources",
+          "a repeated structural rejection escalates to a human",
+          "convergence counts a rejected claim")
+def the_gate_holds() -> None:
+    """**The sewing-method search is unreachable without a named approval.**
+
+    A method retrieved for the wrong garment is a plausible wrong answer, and
+    plausible wrong answers reach cutting tables. So the block is on the
+    SEARCH, it is enforced by the argument surface rather than by discipline,
+    and it dies the moment the shape moves.
+    """
+    import inspect
+
+    from photoloset import (compose, confirm, convergence, cross,
+                            garment_rights, resemble, sewing_search, zones)
+    from photoloset.garment import Ledger
+
+    res, g, draft, ms = _look_draft()
+    st = _look_store()
+    land = resemble.land(st, garment_rights.RightsLedger(), res,
+                         image_id="img1")
+    sheet = confirm.sheet(draft, image_ref="look.jpg", retrieval=land,
+                          graph=g["graph"])
+    yes = {c["id"]: "yes" for c in sheet["claims"]}
+    WHO = "Kodai Motonishi"
+
+    with guard("an approval carries the name of the approver"):
+        led = Ledger(title="ci")
+        anon = confirm.approve(sheet, yes, "", led, graph=g["graph"])
+        blank = confirm.approve(sheet, yes, "   ", led, graph=g["graph"])
+        adopters = sorted({e.adopted_by for e in led.entries
+                           if e.kind == "observation"})
+        # The ledger's OWN size is pinned beside the emptiness claim: the one
+        # entry both attempts left behind is an unadopted proposal, so
+        # "nobody adopted anything" is not "nothing was written at all".
+        kinds = sorted(e.kind for e in led.entries)
+        check("an approval carries the name of the approver",
+              anon["verdict"] == confirm.NO_ADOPTER
+              and blank["verdict"] == confirm.NO_ADOPTER
+              and "approval_id" not in anon
+              and adopters == []
+              and len(led.entries) == 1 and kinds == ["proposal"],
+              f'an empty name and a blank one are both {anon["verdict"]} and '
+              f'no approval id came back; the {len(led.entries)} entry both '
+              f'attempts left is {kinds}, adopted by nobody. '
+              f'The check is in Ledger.adopt, not '
+              f'in this door — an earlier version put it in the door and '
+              f'measurement V60 walked around it')
+
+    with guard("an approval names the claims it accepted"):
+        led = Ledger(title="ci")
+        short = confirm.approve(sheet, {}, WHO, led, graph=g["graph"])
+        said_no = confirm.approve(sheet, {**yes, "c1": "no"}, WHO, led,
+                                  graph=g["graph"])
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        named = [a for a in ap.get("adopted", [])
+                 if a["adopted_by"] == WHO and "fixture:" in a["source"]]
+        check("an approval names the claims it accepted",
+              short["verdict"] == confirm.UNANSWERED
+              and said_no["verdict"] == confirm.REJECTED
+              and said_no["which"] == ["c1"]
+              and ap["verdict"] == "ANSWER"
+              and ap["accepted"] == [c["id"] for c in sheet["claims"]]
+              and len(ap["adopted"]) == 5 and len(named) == 5,
+              f'skipping a claim is {short["verdict"]} and rejecting one is '
+              f'{said_no["verdict"]}; a full yes adopts {len(ap["adopted"])} '
+              f'entries, every one carrying {WHO} and the retrieval source '
+              f'that proposed it. The approval is a record of which claims a '
+              f'named person accepted, not one opaque token')
+
+    with guard("an approval dies when the shape moves"):
+        import tests.coat_digest as _coat
+        # **A literal on one side.** `confirm.canon(x) == coat.canon(x)`
+        # alone holds whenever both drop the same thing, so what this module
+        # answers is written out here in full: 1.0, an int, a bool, a null
+        # and 0.1+0.2, each as its exact IEEE-754 bit pattern.
+        sample = {"a": [1.0, 2, True, None], "b": {"x": 0.1 + 0.2}}
+        BITS = ["dict", [[["str", "a"],
+                          ["list", [["f64", "3ff0000000000000"],
+                                    ["int", "2"], ["bool", True],
+                                    ["null"]]]],
+                         [["str", "b"],
+                          ["dict", [[["str", "x"],
+                                     ["f64", "3fd3333333333334"]]]]]]]
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        nudged = zones.apply(g["graph"], {"1": 0.1})
+        after = compose.compose(nudged["graph"], ms)
+        moved = confirm.shape_digest(after, nudged["graph"])
+        sewing_search.reset()
+        sewing_search.bind(ledger=led, measures=ms)
+        led2 = Ledger(title="ci")
+        confirm.approve(confirm.sheet(after, graph=nudged["graph"]), {}, WHO,
+                        led2, graph=nudged["graph"])
+        sewing_search.bind(ledger=led2, measures=ms)
+        stale = sewing_search.methods_for(ap["approval_id"])
+        check("an approval dies when the shape moves",
+              moved["digest"] != ap["digest"]
+              and moved["structure_digest"] != ap["structure_digest"]
+              and confirm.canon(sample) == BITS
+              and _coat.canon(sample) == BITS
+              and stale["verdict"] == sewing_search.SHAPE_NOT_APPROVED,
+              f'a +0.1 cm adjustment on zone 1 recomposes to a different '
+              f'digest ({ap["digest"][:8]} -> {moved["digest"][:8]}), the '
+              f'canonical form is the one tests/coat_digest.py pins the coat '
+              f'with (exact IEEE-754, no tolerance), and the old approval no '
+              f'longer opens the search: {stale["verdict"]}')
+
+    with guard("approval writes through the same door as an adoption"):
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        summary = [e for e in led.entries
+                   if e.part == confirm.APPROVAL_PART
+                   and e.aspect == confirm.APPROVAL_ASPECT]
+        proposals = [e for e in led.entries if e.kind == "proposal"]
+        check("approval writes through the same door as an adoption",
+              ap["verdict"] == "ANSWER"
+              and len(led.entries) == 7
+              and len(summary) == 1
+              and summary[0].kind == "observation"
+              and summary[0].adopted_by == WHO
+              and summary[0].value == ap["approval_id"]
+              and proposals == []
+              and ap["by"] == WHO,
+              f'the summary entry (part={confirm.APPROVAL_PART!r}, '
+              f'aspect={confirm.APPROVAL_ASPECT!r}) is an ADOPTED proposal — '
+              f'kind {summary[0].kind}, adopted_by {summary[0].adopted_by!r} '
+              f'— with {len(proposals)} of {len(led.entries)} entries left '
+              f'unadopted. Written straight into the entry list it would '
+              f'carry no adopter')
+
+    with guard("the sewing search has no argument for an unapproved shape"):
+        from photoloset import mcp as _mcp
+        # **Every parameter the walk READ is collected**, not only the
+        # offending ones: `offenders == []` alone is true when the scan found
+        # nothing and when it covered nothing, and a walk that covered nothing
+        # is exactly how this gate would quietly stop being enforced.
+        walked = []
+        surface = []
+        for name, fn in sorted(vars(sewing_search).items()):
+            if (name.startswith("_") or inspect.isclass(fn)
+                    or not callable(fn)
+                    or getattr(fn, "__module__", "") != sewing_search.__name__):
+                continue
+            surface.append(name)
+            walked += [(name, p) for p in inspect.signature(fn).parameters]
+        reaches = []
+        for tname, tfn in sorted(_mcp.TOOLS.items()):
+            try:
+                src = inspect.getsource(tfn)
+            except (OSError, TypeError):
+                continue
+            if "sewing_search" not in src:
+                continue
+            reaches.append(tname)
+            walked += [(tname, p) for p in inspect.signature(tfn).parameters]
+        offenders = [w for w in walked
+                     if w[1] in sewing_search.FORBIDDEN_PARAMETERS]
+        check("the sewing search has no argument for an unapproved shape",
+              len(offenders) == 0 and len(walked) == 9
+              and reaches == ["sewing_methods"]
+              and sorted(inspect.signature(
+                  sewing_search.methods_for).parameters)
+              == ["approval_id", "corpus"]
+              and surface == ["bind", "corpora", "methods_for",
+                              "register_corpus", "reset"]
+              and len(sewing_search.FORBIDDEN_PARAMETERS) == 30,
+              f'{len(surface)} public callables in sewing_search and '
+              f'{len(reaches)} MCP tool that reaches it, {len(walked)} '
+              f'parameters read and checked against '
+              f'{len(sewing_search.FORBIDDEN_PARAMETERS)} forbidden names: '
+              f'{len(offenders)} offenders. methods_for takes '
+              f'{sorted(inspect.signature(sewing_search.methods_for).parameters)} '
+              f'and nothing else, so the gate cannot be bypassed by adding a '
+              f'convenience overload'
+              + (f' — OFFENDERS {offenders}' if offenders else ''))
+
+    with guard("the sewing search refuses an unknown approval"):
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        sewing_search.reset()
+        unbound = sewing_search.methods_for(ap["approval_id"])
+        sewing_search.bind(ledger=led, measures=ms)
+        ghost = sewing_search.methods_for("deadbeefdeadbeefdeadbeefdeadbeef")
+        empty = sewing_search.methods_for("")
+        fresh = sewing_search.methods_for(ap["approval_id"])
+        check("the sewing search refuses an unknown approval",
+              unbound["verdict"] == sewing_search.NO_RECORDS
+              and ghost["verdict"] == sewing_search.SHAPE_NOT_APPROVED
+              and empty["verdict"] == sewing_search.SHAPE_NOT_APPROVED
+              and "cutting tables" in empty["why"]
+              and fresh["verdict"] == sewing_search.NO_SEWING_CORPUS
+              and fresh["approved_by"] == WHO,
+              f'no records bound is {unbound["verdict"]}, an approval id '
+              f'nobody adopted is {ghost["verdict"]}, and no id at all is '
+              f'{empty["verdict"]}. The one that WAS adopted gets past the '
+              f'gate and stops at {fresh["verdict"]}, which is a different '
+              f'sentence')
+
+    with guard("a stale approval does not open the search"):
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        thicker = _look_measures()
+        thicker.measured("chest", 96.0, "cm", source="tape again", by="ci")
+        thicker.entries = [m for m in thicker.entries
+                           if not (m.spot == "chest" and m.value == 82.0)]
+        sewing_search.reset()
+        sewing_search.bind(ledger=led, measures=thicker)
+        sewing_search.register_corpus(_Corpus("SewFactory", ()))
+        stale = sewing_search.methods_for(ap["approval_id"])
+        sewing_search.bind(measures=ms)
+        opens = sewing_search.methods_for(ap["approval_id"])
+        check("a stale approval does not open the search",
+              stale["verdict"] == sewing_search.APPROVAL_STALE
+              and stale["what_moved"] == "geometry"
+              and "methods" not in stale
+              and opens["verdict"] == "ANSWER"
+              and len(opens["methods"]) == 4,
+              f'the chest is re-measured, the approved structure recomposes '
+              f'to a different digest and the search refuses '
+              f'{stale["verdict"]} ({stale["what_moved"]}) WITH a corpus '
+              f'registered — the gate is before the corpus, not after it. '
+              f'Put the original measurements back and the same approval '
+              f'opens {len(opens["methods"])} methods')
+
+    with guard("the sewing search names the corpora that would close it"):
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        sewing_search.reset()
+        sewing_search.bind(ledger=led, measures=ms)
+        none = sewing_search.methods_for(ap["approval_id"])
+        text = none["how_to_close"]
+        check("the sewing search names the corpora that would close it",
+              none["verdict"] == sewing_search.NO_SEWING_CORPUS
+              and "SewFactory" in text and "GarmentCodeData" in text
+              and "GarmentCode" in text
+              and "register_corpus" in text
+              and len(none["would_serve"]) == 3
+              and "methods" not in none,
+              f'{none["verdict"]} names {len(none["would_serve"])} corpora '
+              f'that would serve and the entry point that would register one, '
+              f'rather than returning an empty list. This tree ships none of '
+              f'them and has measured nothing about them')
+
+    with guard("an embedding backend cannot be a construction corpus"):
+        sewing_search.reset()
+        emb = sewing_search.register_corpus(
+            _Corpus("marqo", (), modality="image_embedding"))
+        nolineage = sewing_search.register_corpus(
+            _Corpus("NoLineage", None))
+        nolicence = sewing_search.register_corpus(
+            _Corpus("NoLicence", (), licence=""))
+        ok = sewing_search.register_corpus(_Corpus("SewFactory", ()))
+        check("an embedding backend cannot be a construction corpus",
+              emb["verdict"] == sewing_search.EMBEDDING_NOT_CONSTRUCTION
+              and "8.5%" in emb["why"]
+              and nolineage["verdict"] == sewing_search.BAD_CORPUS
+              and nolineage["field"] == "derived_from"
+              and nolicence["verdict"] == sewing_search.BAD_CORPUS
+              and ok["verdict"] == "ANSWER"
+              and [c["name"] for c in sewing_search.corpora()] == ["SewFactory"],
+              f'an image-embedding backend is {emb["verdict"]} — this '
+              f'project measured its material ranking flipping 8.5% under a '
+              f'horizontal flip, so the finding is a type error rather than a '
+              f'paragraph — and a corpus with no lineage or no licence is '
+              f'{nolineage["verdict"]}. {len(sewing_search.corpora())} '
+              f'registered')
+
+    with guard("two corpora from one root are not two sources"):
+        led = Ledger(title="ci")
+        ap = confirm.approve(sheet, yes, WHO, led, graph=g["graph"])
+        sewing_search.reset()
+        sewing_search.bind(ledger=led, measures=ms, store=cross.CrossStore(),
+                           rights=garment_rights.RightsLedger())
+        sewing_search.register_corpus(_Corpus("GarmentCode", ()))
+        sewing_search.register_corpus(_Corpus("GarmentCodeData",
+                                              ("GarmentCode",)))
+        clash = sewing_search.methods_for(ap["approval_id"])
+        sewing_search.reset()
+        rights = garment_rights.RightsLedger()
+        sewing_search.bind(ledger=led, measures=ms, store=cross.CrossStore(),
+                           rights=rights)
+        sewing_search.register_corpus(_Corpus("SewFactory", ()))
+        sewing_search.register_corpus(_Corpus("Independent", ()))
+        clean = sewing_search.methods_for(ap["approval_id"])
+        bought = rights.state("bodice", "method:m1")
+        check("two corpora from one root are not two sources",
+              clash["verdict"] == sewing_search.SHARED_LINEAGE
+              and clash["which"] == ["GarmentCode", "GarmentCodeData"]
+              and clash["shared_roots"] == ["GarmentCode"]
+              and "methods" not in clash
+              and clean["verdict"] == "ANSWER"
+              and bought["state"] == garment_rights.GENERIC
+              and bought["generic_sources"] == ["Independent", "SewFactory"],
+              f'GarmentCodeData is generated FROM GarmentCode, so their '
+              f'agreement is one generator agreeing with itself: '
+              f'{clash["verdict"]} naming {clash["which"]} and their shared '
+              f'root {clash["shared_roots"]}. Two corpora with different '
+              f'roots do buy the claim ({bought["state"]} from '
+              f'{bought["generic_sources"]}) — cross._source_key can see that '
+              f'two NAMES differ and cannot see lineage')
+
+    with guard("a repeated structural rejection escalates to a human"):
+        history = []
+        rounds = [convergence.check(draft, rejected=["c1"], history=history)
+                  for _ in range(3)]
+        verdicts = [r["verdict"] for r in rounds]
+        different = []
+        h2 = []
+        for i in range(3):
+            different.append(convergence.check(draft, rejected=[f"c{i}"],
+                                               history=h2)["verdict"])
+        undraftable = compose.compose(
+            {"parts": [{"instance": "collar:1", "part": "collar"}]}, ms)
+        h3 = []
+        stuck = [convergence.check(undraftable, history=h3)["verdict"]
+                 for _ in range(3)][-1]
+        check("a repeated structural rejection escalates to a human",
+              verdicts == [convergence.IN_PROGRESS, convergence.IN_PROGRESS,
+                           convergence.ESCALATE]
+              and different == [convergence.IN_PROGRESS] * 3
+              and stuck == convergence.ESCALATE
+              and "garment_parts" in convergence.check(
+                  undraftable, history=list(h3))["why_escalate"],
+              f'three rounds with the SAME claim rejected: {verdicts}. Three '
+              f'rounds each rejecting a different claim stay '
+              f'{sorted(set(different))} — that loop is making progress. An '
+              f'undraftable part three times over is {stuck}, and the message '
+              f'names the procedure that is missing rather than saying "try '
+              f'again"')
+
+    with guard("convergence counts a rejected claim"):
+        clean = convergence.check(draft, history=[])
+        churning = convergence.check(draft, rejected=["c1"], history=[])
+        check("convergence counts a rejected claim",
+              clean["verdict"] == convergence.CONVERGED
+              and clean["total_open"] == 0
+              and churning["verdict"] == convergence.IN_PROGRESS
+              and churning["counters"]["rejected_claims"] == 1
+              and churning["total_open"] == 1
+              and sorted(clean["counters"]) == ["contested", "failed_checks",
+                                                "not_sewable", "open_ports",
+                                                "rejected_claims", "unknown"],
+              f'the same composed draft is {clean["verdict"]} with nothing '
+              f'rejected and {churning["verdict"]} with one claim the human '
+              f'answered no. Without that counter every other one reads zero '
+              f'and the loop reports CONVERGED on a garment the human keeps '
+              f'rejecting')
+    sewing_search.reset()
+    resemble.reset()
+
+
+class _Corpus:
+    """A FIXTURE construction corpus. **It measured nothing** — it answers one
+    method per query from a literal, and it exists so the gate can be driven
+    end to end without a dataset. Nothing registers it at import."""
+
+    def __init__(self, name, roots, modality="parametric_program",
+                 licence="fixture licence (verify from the dataset card)"):
+        self._name, self._roots = name, roots
+        self._modality, self._licence = modality, licence
+
+    def name(self):
+        return self._name
+
+    def licence(self):
+        return self._licence
+
+    def derived_from(self):
+        return self._roots
+
+    def modality(self):
+        return self._modality
+
+    def synthetic(self):
+        return True
+
+    def find(self, query):
+        return {"verdict": "ANSWER",
+                "methods": [{"id": "m1", "step": "m1",
+                             "panels": query.get("panels"),
+                             "seams": query.get("seam_labels"),
+                             "stitch_order": ["side", "shoulder"]}],
+                "searched": query}
+
+
+# ---------------------------------------------------------------------------
 #: **The checks that cannot fail, and why each one is allowed to stand.**
 #: ``tests/unfalsifiable.py`` reads every ``check()`` condition in this file
 #: and reports the shapes that make a line green no matter what the code
@@ -3616,6 +4598,9 @@ if __name__ == "__main__":
                prompts_switch_per_model_and_keep_discipline,
                compose_builds_a_whole_garment_from_parts,
                zones_number_the_garment_for_adjustment,
+               retrieval_asks_per_part,
+               the_look_becomes_a_shape,
+               the_gate_holds,
                the_mcp_server_answers,
                served_readers_track_their_stores,
                no_check_can_pass_by_construction,

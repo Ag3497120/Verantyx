@@ -608,6 +608,158 @@ def garment_compose(json_text: str = "") -> str:
 
 
 # ---------------------------------------------------------------------------
+# The look loop: resemble -> construct -> confirm -> approve -> search
+#
+# The ORDER is load-bearing. Approval comes BEFORE the sewing-method search,
+# never after: a method retrieved for the wrong garment is a plausible wrong
+# answer, and plausible wrong answers reach cutting tables. `sewing_methods`
+# below therefore takes an approval id and a corpus name and NOTHING ELSE —
+# no draft, no graph, no structure, no image, no json_text — and a check walks
+# these signatures against `sewing_search.FORBIDDEN_PARAMETERS` so a
+# convenience overload turns the suite red instead of opening the gate.
+# ---------------------------------------------------------------------------
+
+def _json_arg(json_text: str, what: str):
+    try:
+        return (json.loads(json_text) if json_text.strip() else {}), None
+    except json.JSONDecodeError as e:
+        return None, {"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                      "why": f"json_text is {what}: {e}"}
+
+
+@tool
+def garment_resemble(json_text: str = "") -> str:
+    """Ask what each PART resembles. Refuses by name when nothing is registered.
+
+    `json_text` is `{"image": ..., "image_id": ..., "parts": [{"instance",
+    "part"}], "queries": [...], "whole": false}`. photoloset ships no model, so
+    without a registered backend this answers UNKNOWN_NO_RETRIEVAL_BACKEND
+    with what would close it — never an empty list, which would say "nothing
+    is similar" when the true sentence is "nothing was asked".
+    """
+    from . import resemble as _resemble
+    req, err = _json_arg(json_text, '{image, image_id, parts, queries}')
+    if err:
+        return _ok(err)
+    if req.get("whole"):
+        return _ok(_resemble.whole(req.get("image"),
+                                   queries=req.get("queries") or [],
+                                   image_id=str(req.get("image_id") or "")))
+    return _ok(_resemble.per_part(req.get("image"),
+                                  req.get("parts") or [],
+                                  regions=req.get("regions"),
+                                  queries=req.get("queries") or [],
+                                  image_id=str(req.get("image_id") or "")))
+
+
+@tool
+def garment_construct(json_text: str = "") -> str:
+    """Build the garment a retrieval implies. Refuses the WHOLE construction.
+
+    `json_text` is the structure from `resemble.structure_from`. A retrieved
+    part the library cannot draft refuses everything and lists every offender:
+    a garment silently missing its cape collects approval for the wrong
+    garment.
+    """
+    from . import compose as _compose
+    req, err = _json_arg(json_text, "the retrieved structure")
+    if err:
+        return _ok(err)
+    g = _compose.graph_from(req)
+    if g["verdict"] != "ANSWER":
+        return _ok(g)
+    draft = _compose.compose(g["graph"], _measures())
+    return _ok({"verdict": draft.get("verdict", "ERROR"),
+                "graph": g["graph"], "named": g["named"],
+                "renamed": g["renamed"], "draft": draft})
+
+
+@tool
+def garment_confirm_sheet(json_text: str = "") -> str:
+    """The confirmation sheet: a claim list and a solid, never a verdict.
+
+    `json_text` is `{"graph": ..., "retrieval": ..., "image_ref": ...}`. The
+    3D is the falsifier for the retrieval — "cosine 0.83 to garment A" cannot
+    be checked by a human and "here is the garment that implies" can.
+    """
+    from . import compose as _compose
+    from . import confirm as _confirm
+    req, err = _json_arg(json_text, "{graph, retrieval, image_ref}")
+    if err:
+        return _ok(err)
+    graph = req.get("graph") or {}
+    if not graph:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "a sheet is about a part graph",
+                    "how_to_close": "pass {graph: ...} from garment_construct"})
+    draft = _compose.compose(graph, _measures())
+    return _ok(_confirm.sheet(draft, image_ref=str(req.get("image_ref") or ""),
+                              retrieval=req.get("retrieval"),
+                              intake=_intake(), graph=graph,
+                              renamed=req.get("renamed")))
+
+
+@tool
+def garment_approve_shape(json_text: str = "", by: str = "") -> str:
+    """Approve the shape. **An adoption, with a name on it, and it opens the gate.**
+
+    `json_text` is `{"sheet": ..., "answers": {claim_id: yes|no|cannot_tell},
+    "graph": ...}`. An empty `by` is refused by the ledger itself
+    (UNKNOWN_NO_ADOPTER), not by this door — an earlier version put that check
+    in the door and measurement V60 walked around it.
+    """
+    from . import confirm as _confirm
+    req, err = _json_arg(json_text, "{sheet, answers, graph}")
+    if err:
+        return _ok(err)
+    sheet_obj = req.get("sheet") or {}
+    if not sheet_obj:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "an approval is of a confirmation sheet",
+                    "how_to_close": "pass {sheet: ...} from "
+                                    "garment_confirm_sheet"})
+    led = _ledger()
+    r = _confirm.approve(sheet_obj, req.get("answers") or {}, by, led,
+                         graph=req.get("graph"))
+    if r.get("verdict") == "ANSWER":
+        led.save(_p("ledger.json"))
+    return _ok(r)
+
+
+@tool
+def garment_reject_shape(json_text: str = "", which: str = "", by: str = "",
+                         note: str = "") -> str:
+    """Reject NAMED claims. There is no field here for "the mesh looks bad".
+
+    `which` is a comma-separated list of claim ids from the sheet. An empty
+    one is UNKNOWN_UNNAMED_REJECTION and an unknown one is
+    UNKNOWN_NO_SUCH_CLAIM, so a correct retrieval cannot be killed by an ugly
+    render.
+    """
+    from . import confirm as _confirm
+    req, err = _json_arg(json_text, "{sheet: ...}")
+    if err:
+        return _ok(err)
+    ids = [x.strip() for x in which.split(",") if x.strip()]
+    return _ok(_confirm.reject(req.get("sheet") or {}, ids, by, note))
+
+
+@tool
+def sewing_methods(approval_id: str = "", corpus: str = "") -> str:
+    """Sewing methods for an APPROVED shape. **No other argument exists.**
+
+    The block is on the SEARCH, not on the display of its results. Without an
+    adopted approval this answers UNKNOWN_SHAPE_NOT_APPROVED; with one whose
+    shape has since moved, UNKNOWN_APPROVAL_STALE; and with an approval and no
+    corpus, UNKNOWN_NO_SEWING_CORPUS naming the corpora that would close it —
+    this tree ships none.
+    """
+    from . import sewing_search as _search
+    _search.bind(ledger=_ledger(), measures=_measures(), rights=_rights())
+    return _ok(_search.methods_for(approval_id, corpus))
+
+
+# ---------------------------------------------------------------------------
 # Present in the parent project, absent here
 # ---------------------------------------------------------------------------
 

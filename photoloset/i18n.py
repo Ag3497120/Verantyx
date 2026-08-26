@@ -524,6 +524,42 @@ SENTENCES: Dict[str, str] = {
         "length difference across a joined edge. **A difference is "
         "normal** — the longer side gathers onto the shorter",
     "縫い合わせる辺の長さ差": "length difference of the edges being sewn",
+    # --- the ledger's own refusal, which the approval gate returns as a
+    # value. It has been in garment.py since V60 and no output path swept it
+    # until the look loop started answering with it.
+    "UNKNOWN_NO_ADOPTER: 採用者の名前が要る。"
+    "誰が通したか辿れない採用は、間違いの責任が消える":
+        "UNKNOWN_NO_ADOPTER: an adoption needs the name of the person making "
+        "it. An adoption nobody can be traced to loses the responsibility "
+        "for a mistake",
+    # --- compose.graph_from: the retrieved structure becomes a parts graph
+    "ケープワンピース": "cape dress",
+    "構造は instances を持つ辞書です":
+        "a structure is a dict carrying instances",
+    "検索が部品を1つも指していない。先に per_part で部品ごとに聞く":
+        "the retrieval named no part at all. Ask per_part first, part by "
+        "part",
+    "同じ部品の同じ側面に別々の値が来ている。"
+    "どちらかを選んで建てると、選んだことが記録に残らないまま承認を集めます":
+        "one part has two different values for one aspect. Building either "
+        "of them collects approval without recording that a choice was made",
+    "割れた側面を人が裁定してから建てる":
+        "have a person settle the split aspect, then build",
+    "引ける部品だけで建てると、検索が指した服とは別の服に承認が出ます":
+        "building only the draftable parts collects approval for a garment "
+        "that is not the one the retrieval named",
+    "unknown の部品は parts.PART_VOCAB に足すか new_part として提案する。"
+    "undraftable の部品は garment_parts に手続きを書き、"
+    "parts.PART_GEOMETRY に登録する。いま引けるのは known にある部品だけです":
+        "add the parts under `unknown` to parts.PART_VOCAB or propose them "
+        "as new_part; write a procedure in garment_parts for the parts under "
+        "`undraftable` and register it in parts.PART_GEOMETRY. What can be "
+        "drafted today is listed under `known`",
+    "検索で得た構造。画素からではありません":
+        "the retrieved structure. Not the pixels",
+    "名前は (語彙の宣言順, 中身) で決まります。入力の並びは番号に入りません":
+        "names come from (vocabulary order, content). The order of the input "
+        "does not enter the numbering",
     "種類名はこの組合せのラベルです。能力は部品の側にあります":
         "the garment-type name is a label for this combination. The "
         "capability lives in the parts",
