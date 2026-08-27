@@ -1329,8 +1329,16 @@ WHOLE_SUITE += [
     # HOME comes back empty. It writes into the system temp, never into the
     # operator's ledger — which is also why the check is stated positively:
     # the before/after form could only be falsified by writing there.
+    # **足場が消えて SKIP になっていた。** 2026-08-27 に mcp.py の HOME が
+    # `Path.home() / ".photoloset"` から PHOTOLOSET_HOME を先に見る式へ
+    # 変わり、この変異の探索文字列がファイルから消えた。ハーネスは
+    # 「anchor not found」で SKIP を出し、そのまま exit 1 を返した ——
+    # **変異が黙って武装解除されるのは、ここが捕まえる設計になっている。**
+    # 消えた足場を新しい式に付け替える。狙いは変わらない: 与えられた
+    # HOME を無視して固定の場所へ書きに行かせる。
     ("#23 the server ignores the HOME it is given", "photoloset/mcp.py",
-     [('HOME = Path.home() / ".photoloset"',
+     [('HOME = Path(os.environ.get("PHOTOLOSET_HOME") '
+       'or (Path.home() / ".photoloset"))',
        'HOME = Path("/tmp/photoloset-falsifier-not-your-ledger")')],
      ["the sweep writes into a HOME of its own"]),
 
@@ -3007,6 +3015,26 @@ WHOLE_SUITE += [
        "(w[1] - w[0]) / 2.0)",
        "        half_widths.append(None if w is None else a)")],
      ["the photograph sets the garment's shape and the tape sets only its scale, and the tape reaches the scale through the shoulder alone"]),
+]
+
+#: --- 足場が消えた変異は何も試していない ------------------------------------
+#: 一本の探索文字列を、対象ファイルに存在しない形へずらす。ハーネスは
+#: SKIP を出して exit 1 を返すが、それが分かるのは20分の掃引の最後。
+#: `every_falsifier_anchor_still_exists` は同じことを2秒で言う。
+#:
+#: **探索文字列をここで分割して書く。** そのまま書くと、狙った #25 の
+#: エントリと、このエントリ自身の中と、ソース中に2回現れてしまい、
+#: 置換が一本目 —— つまり狙いと違う方 —— に当たり得る。隣り合う
+#: 文字列リテラルは取り込み時に一本になるので、値は同じでソースには
+#: 連続して現れない。
+WHOLE_SUITE += [
+    ("a falsifier's anchor stops matching the file it targets",
+     "tests/falsifiers.py",
+     [('("        hints = typing.get_type' '_hints(fn)", '
+       '"        hints = {}")',
+       '("        hints = typing.get_type' '_hints_MOVED(fn)", '
+       '"        hints = {}")')],
+     ["every falsifier's anchor still exists in the file it targets, so a refactor cannot disarm a mutation silently"]),
 ]
 
 

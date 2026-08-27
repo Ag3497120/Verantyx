@@ -458,6 +458,8 @@ ALL_CHECK_NAMES = [
     "the photograph sets the garment's shape and the tape sets "
     "only its scale, and the tape reaches the scale through the "
     "shoulder alone",
+    "every falsifier's anchor still exists in the file it "
+    "targets, so a refactor cannot disarm a mutation silently",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -8034,6 +8036,83 @@ def the_hem_shape_is_measured_across_the_whole_bottom() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("every falsifier's anchor still exists in the file it "
+          "targets, so a refactor cannot disarm a mutation silently")
+def every_falsifier_anchor_still_exists() -> None:
+    """**A mutation whose anchor has moved tests nothing, and the sweep
+    that says so takes twenty minutes to say it.**
+
+    ``WHOLE_SUITE`` entries carry a literal find-string. When the source
+    line it names is edited, the string stops matching, the harness prints
+    ``SKIP ... anchor not found`` and returns 1 — the design is sound and it
+    did fire. But it fires only after the whole sweep has run.
+
+    On 2026-08-27 ``mcp.py``'s ``HOME`` was changed from
+    ``Path.home() / ".photoloset"`` to a form that reads ``PHOTOLOSET_HOME``
+    first. That silently disarmed ``#23 the server ignores the HOME it is
+    given``, and the disarming was found by a twenty-minute run, at the end,
+    in a summary that otherwise read 240/241. This check finds the same
+    thing in about two seconds, which is the difference between noticing
+    while you are still editing the line and noticing after you have moved
+    on.
+
+    **Both directions, for the reason the scanner keeps having to teach.**
+    "No anchor is missing" is an empty list, and an empty list is also what
+    a reader that examines nothing produces. So the same reader is run twice:
+    over the real table, which must come back empty, and over a copy with one
+    anchor deliberately corrupted, which must name exactly that entry.
+    """
+    import importlib.util as _ilu
+
+    name = ("every falsifier's anchor still exists in the file it targets, "
+            "so a refactor cannot disarm a mutation silently")
+    root = Path(__file__).parent.parent
+
+    spec = _ilu.spec_from_file_location(
+        "_fals_anchors", Path(__file__).parent / "falsifiers.py")
+    mod = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    def missing_anchors(table):
+        """Entries whose find-string is not in the file they name."""
+        out = []
+        for entry in table:
+            label, rel, edits = entry[0], entry[1], entry[2]
+            try:
+                src = (root / rel).read_text(encoding="utf-8")
+            except OSError:
+                out.append((label, rel, "unreadable"))
+                continue
+            for find, _repl in edits:
+                if find not in src:
+                    out.append((label, rel, find[:40]))
+        return out
+
+    real = list(mod.WHOLE_SUITE)
+    gone = missing_anchors(real)
+
+    # The wrong table, built here rather than imagined: one anchor corrupted.
+    doctored = list(real)
+    victim = doctored[0]
+    doctored[0] = (victim[0], victim[1],
+                   [("__no_such_anchor_" + "x" * 12 + "__", "")], victim[3])
+    caught = missing_anchors(doctored)
+
+    with guard(name):
+        check(name,
+              len(real) > 100
+              and gone == []
+              and len(caught) == 1
+              and caught[0][0] == victim[0],
+              f'{len(real)} whole-suite entries, {len(gone)} with an anchor '
+              f'their file no longer contains {gone}; the same reader over '
+              f'a copy with one anchor corrupted names {len(caught)} '
+              f'({caught[0][0][:40] if caught else "nothing"}) — so the '
+              f'empty list above is a measurement, not what any reader '
+              f'would have returned')
+
+
+# ---------------------------------------------------------------------------
 @declares("the photograph sets the garment's shape and the tape sets "
           "only its scale, and the tape reaches the scale through the "
           "shoulder alone")
@@ -9232,6 +9311,7 @@ if __name__ == "__main__":
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
                the_hem_shape_is_measured_across_the_whole_bottom,
+               every_falsifier_anchor_still_exists,
                the_photograph_sets_the_shape_and_the_tape_sets_the_scale,
                every_falsifier_is_reachable_when_run_as_a_script,
                projects_have_their_own_store,
