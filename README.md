@@ -1,11 +1,10 @@
 <h1 align="center">photoloset</h1>
 
 <p align="center">
-  <img src="docs/hero.gif" alt="photoloset turning a coat from film footage into a sewable pattern" width="660">
-</p>
-
-<p align="center">
-  <b>From a coat on screen to a sewable 1:1 pattern — every number carries the name of whoever measured it, and anything nobody measured is refused out loud.</b>
+  <b>A garment engine built to refuse. Handed a shape it cannot support, it
+  says so by name — 152 distinct refusal codes — instead of guessing, and
+  the 13,231 lines that check the 17,599-line engine come to 75% of its
+  size, not a footnote.</b>
 </p>
 
 <p align="center">
@@ -18,14 +17,222 @@
 
 ---
 
+## This is not a photo-to-pattern tool
+
+If you came here for a photo in and a sewing pattern out — an anime dress,
+a screenshot, any garment nobody has measured — this is not that tool, and
+saying so first is the point. A fresh interpreter finds this, every run:
+
+```bash
+python3 -c "from photoloset import resemble; print(resemble.backends())"
+# []
+```
+
+**0 image-similarity backends, 0 segmenters, 0 sewing-method corpora.**
+That is measured by the check suite on every push, not a claim written once
+in this file (`docs/architecture.md` → "No models are shipped"). Entering
+the "AI turns a photo into a pattern" category while unable to do the thing
+that category promises is a worse position than not entering it — so this
+page does not open with a photo becoming a pattern.
+
+**What this actually is: a deterministic garment engine that refuses by
+default.** A claim it cannot support does not become a weaker claim — it
+becomes a typed refusal naming what would close it, and there are **152 of
+them** in the engine today:
+
+```bash
+grep -rhoE '"UNKNOWN_[A-Z0-9_]+"' photoloset/*.py | sort -u | wc -l
+# 152
+```
+
+One refusal is the shape of the whole project. Hand it a shape a named
+person has already approved and ask for a sewing method, and it does not
+answer with an empty list — an empty list says "there are no methods," and
+the true sentence is "nothing was asked." It answers this instead:
+
+```
+UNKNOWN_NO_SEWING_CORPUS
+  naming: SewFactory (Sewformer, SIGGRAPH Asia 2023),
+          GarmentCodeData (ECCV 2024),
+          GarmentCode (the parametric program, as a retrieval target)
+  entry point: sewing_search.register_corpus()
+```
+
+(`photoloset/sewing_search.py`. The same door refuses a corpus declaring
+`modality="image_embedding"` outright, and refuses two corpora that agree
+while sharing a generator — GarmentCodeData is generated FROM GarmentCode —
+as `UNKNOWN_SHARED_LINEAGE` rather than counting them as independent.)
+
+Making sure every one of those 152 refusals actually fires, and keeps
+firing as the code under it changes, is most of the work in this
+repository — more of it than the garment code itself:
+
+```bash
+python3 tests/run_checks.py
+# ... 196 checks ran, 196 pinned by name, 3 retired on the record
+# all checks passed
+```
+
+```bash
+python3 -c "
+import sys; sys.path.insert(0, 'tests')
+import falsifiers as f
+print(len(f.MUTATIONS) + len(f.LOOP_MUTATIONS) + len(f.WHOLE_SUITE))"
+# 207
+```
+
+Each of those 207 is a mutation of the implementation that a named check is
+required to catch, by turning red — a mutation that leaves everything green
+is a MISS, and the harness scores it as one rather than as a pass. The
+verification code is **13,231 lines** across 5 files; the engine it checks
+is **17,599 lines** across **40** standard-library-only modules —
+verification at **75%** of the engine's size:
+
+```bash
+wc -l photoloset/*.py                                          # 17599, 40 files
+wc -l tests/dress_digest.py tests/unfalsifiable.py \
+      tests/falsifiers.py tests/run_checks.py tests/coat_digest.py  # 13231
+```
+
+Deeper machinery — the falsification harness, the scanner that reads
+checks for whether they could ever fail, what all of this does not
+claim — is in **[docs/verification.md](docs/verification.md)**. The
+store's address space and the gate in front of sewing-method search are in
+**[docs/architecture.md](docs/architecture.md)**.
+
+<br>
+
+## What it cannot do — before you look at anything else
+
+| It does | It does not |
+| --- | --- |
+| Draft two garments from tape measurements: a 3-piece coat, and a 7-cut-piece cape dress with a collar | Handle any *other* garment, or infer a garment type — each block is hand-built; there is no generic type system |
+| Print all drafting formulas so you can argue with them | Implement a published system (Bunka, Dorémé, …) |
+| Place notches, seam allowance and grain lines | Darts beyond a fixed set, pleats, gathers, facings, linings |
+| Detect two measurements of the same spot disagreeing | Decide which of them is right |
+| Sew the pieces and drape them under gravity | Model collision or friction — 101 of the coat's 297 draped points land *inside* the body, worst −14.4 cm, because nothing stops them |
+| Convert cm / mm / inch, and refuse unknown units | Guess a unit that was not given, or reproduce decoration — ever |
+| Export a plain DXF R12 a real CAD application opens | Claim DXF-AAMA / ASTM D6673 conformance (withdrawn 2019, no replacement) |
+| Say `UNKNOWN_NO_SEWING_CORPUS` and name what would close it | Search a sewing-method corpus — none is registered; see above |
+| Identify a garment from footage, per part, once a corpus and segmenter exist | Do any of that *today* — 0 backends, 0 segmenters, 0 corpora, measured |
+
+**Measured limits worth knowing before you trust a number:**
+
+- **No corpus, no segmenter, no similarity backend.** All three are 0 on a
+  fresh import, checked by the suite, not asserted here. Nothing in this
+  repository can turn a photo of a garment it has not been measured against
+  into a pattern — including, and especially, an anime dress, a stylised
+  drawing, or footage with no reference garment on hand.
+- **Decoration is never reproduced**, now or in any planned version. Prints,
+  embroidery, appliqué — none of it enters the geometry.
+- **Fit is a distance map, not comfort.** The drape has no collision and no
+  friction, so "fit" here means how far a draped point sits from the body's
+  surface, not whether the garment feels right. On the reference coat that
+  distance is negative — inside the body — for 101 of 297 points, worst
+  −14.4256 cm, measured by `python3 tests/run_checks.py` and reported
+  against the project's own interest, not hidden.
+- **Two garments exist, both from measurements, neither from a photo.** The
+  coat (3 pieces, one clip, one lighting condition) and a cape dress (5
+  parts including a collar, 7 cut pieces) are both hard-coded blocks
+  drafted from a tape measure. There is still no notion of a garment
+  *type* — adding a third garment is a new block with new formulas, not a
+  parameter change.
+- The default stitch stiffness (16× the cloth) **does not close the coat**.
+  Measured: worst stitch 0.9154 cm open, 15 of 41 stitches past the 1 mm
+  tolerance. At 64× it closes at 0.0614 cm with 0 over tolerance
+  (`python3 tests/coat_digest.py --check`). The example passes `stitch_k`
+  explicitly rather than accepting a seam the tool itself reports as open.
+- The drape is a **generated shape**. It is not evidence and cannot be
+  cited as an observation. The tool says so in its own output, not only
+  here.
+- English output is a **translation layer over the engine**, not a rewrite
+  of it, because the drafting code is shared with a larger project. A
+  string the table does not know comes back in Japanese, and
+  `i18n.missing(result)` lists exactly which — measured at **0 untranslated**
+  across the reader and refusal paths the suite sweeps, with the residue
+  that is deliberately NOT translated (store addresses, whole documents,
+  prompt-bank instructions to a model) classified by name rather than
+  waved at. Full accounting: **[docs/USAGE.md](docs/USAGE.md)**.
+
+<br>
+
+## The DXF is the part you do not have to take our word for
+
+Everything above is self-reported. This is not: the pattern export is a
+plain-text DXF R12 file, and it opens in **QCAD** — an Apple-notarized,
+independently built CAD application (RibbonSoft GmbH, no relation to this
+project, installs with no admin password; the extraction tool used below
+ships in every edition, including the free, open-source Community Edition)
+— not just a Python parser that happens to agree with itself.
+
+That distinction found a real bug. Every Japanese piece name used to draw
+as a literal **"?"** in QCAD, because no `STYLE` table told the renderer
+which font to use — and a *parser* could not have caught it: `ezdxf`
+decoded the same bytes into the correct string with or without the table,
+because a parser decodes bytes and a CAD application draws glyphs. Only
+the renderer can be missing a kanji glyph. One independent parser is not
+one independent application, and that is the difference, measured.
+
+Re-derive it yourself, from the command line, no GUI needed — this is
+exactly what was run to write this section, today:
+
+```bash
+python3 -c "
+from photoloset import Measures, dxf
+ms = Measures()
+for spot, value in [('body_length', 112.0), ('chest', 108.0),
+                    ('shoulder', 46.0), ('sleeve_length', 63.0)]:
+    ms.measured(spot, value, 'cm', source='tape', by='you')
+dxf.save(ms, 'coat.dxf')"
+
+/Applications/QCAD.app/Contents/Resources/dwg2csv -t Text -p Text coat.dxf
+#  → 後身頃 / 前身頃 / 袖   (read correctly — a STYLE table now names a
+#     font, MS-Gothic, with the glyphs the implicit default lacked)
+
+/Applications/QCAD.app/Contents/Resources/dwg2csv -t Polyline -p Length -p Layer coat.dxf
+#  → 6 closed polylines (3 SEWING_LINE + 3 CUT_LINE). 後身頃's
+#     SEWING_LINE measures 269.131937646584 cm — matching an independent
+#     perimeter recomputation from the same file's vertices to six
+#     decimal places.
+
+python3 -c "import ezdxf; ezdxf.readfile('coat.dxf'); print('strict, no exception')"
+# strict, no exception — and ezdxf's own recover+audit reports 0 errors,
+# 0 fixes: the file was never malformed, only under-declared for a
+# renderer.
+```
+
+The same check on the second garment — a five-part cape dress with a
+collar, composed today — reads **7** piece names
+(`前身頃 後身頃 スカート前 スカート後 袖(左) ケープ 衿`) and **14**
+closed polylines, ケープ's `CUT_LINE` at exactly 174.761110623154 cm.
+**Both of those counts are one pair short of what an older description of
+this dress states (6 names, 12 polylines)** — that description predates
+the collar (衿) being merged into the dress; `tests/dress_digest.py
+--check` pins the current, 7-piece geometry (digest
+`493f74a274d4dac5a97c0bdf57b20037`) and reports it unmoved on this tree.
+If you reproduce a 6/12 dress, you are looking at an older commit.
+
+The full version of this section — the exact bug reproduced from a clean
+DXF, before/after renders, the complete perimeter table, ezdxf's audit, and
+what this project measured about itself rather than had an outsider confirm
+— is **[docs/evidence.md](docs/evidence.md)**.
+
+<br>
+
+## What it draws, step by step
+
+<p align="center">
+  <img src="docs/hero.gif" alt="photoloset turning a coat from film footage into a sewable pattern" width="660">
+</p>
+
 Most garment AI tools answer every question. This one is built the other way
 round: it will tell you the pattern it can draft, and it will tell you, by
 name, what it was never given. A guess that reaches a cutting table costs
 fabric, so nothing that was not measured is allowed to look like something
 that was.
 
-The pipeline below is the whole tool. Each step can refuse, and a refusal
-says what would close it.
+The pipeline below is the whole tool for the first garment. Each step can
+refuse, and a refusal says what would close it.
 
 <br>
 
@@ -165,31 +372,35 @@ at. At the end of this particular chain, somebody cuts cloth.
 photoloset puts a deterministic layer between every pair of stages. A claim
 that cannot be supported does not become a weaker claim — it becomes a **typed
 refusal** carrying what somebody would have to do to earn the answer. There
-are 127 of them.
+are 152 of them (re-derivation and command above).
 
 The consequence is that most of the work here is not the garment code:
 
 | | lines |
 |---|---|
-| engine | 14,412 |
-| verification | 9,607 |
+| engine | 17,599 |
+| verification | 13,231 |
 
-The verification is 67% the size of the thing it verifies, and it does not
+The verification is 75% the size of the thing it verifies, and it does not
 only ask whether the checks pass. It mutates the implementation and requires
 each check to **actually go red** — because a check that cannot fail is a
 defect that reads as a pass forever.
 
 ```
-139  checks, all passing
-146  falsification mutations, all red, 0 MISS
-127  distinct typed refusals
- 32  engine modules, standard library only
+196  checks, all passing
+207  falsification mutations, all required to go red, 0 MISS
+152  distinct typed refusals
+ 40  engine modules, standard library only
 ```
 
-Recently the scanner caught five tautologies in checks written the same day,
-a falsifier that changed nothing was scored MISS instead of green, and a
-collision between two features surfaced as a refusal rather than as a wrong
-pattern months later.
+The scanner that reads checks for whether they could ever fail
+(`python3 tests/unfalsifiable.py`) currently names 10 hits against the
+current check set — 4 it calls real, 6 borderline — each argued by name in
+the source rather than swept under a passing total; a falsifier that
+changed nothing has been caught scored MISS instead of green; and a
+collision between two features has surfaced as a refusal rather than as a
+wrong pattern months later. Details, with the actual incidents, in
+`docs/verification.md`.
 
 - **[docs/verification.md](docs/verification.md)** — how falsification works
   here, three things it caught, and why this is slower on purpose
@@ -216,33 +427,13 @@ correct on paper.
 
 <br>
 
-## What it does, and what it does not
+## The translation layer, measured rather than asserted
 
-| It does | It does not |
-| --- | --- |
-| Draft three pieces (front bodice, back bodice, sleeve) from four measurements | Handle any other garment — the block is hard-coded |
-| Print all 17 drafting formulas so you can argue with them | Implement a published system (Bunka, Dorémé, …) |
-| Place notches, seam allowance and grain lines | Darts, pleats, gathers, facings, linings |
-| Detect two measurements of the same spot disagreeing | Decide which of them is right |
-| Sew the pieces and drape them under gravity | Model bending, collision or friction — wrinkles here are mesh artefacts, not cloth |
-| Convert cm / mm / inch, and refuse unknown units | Guess a unit that was not given |
-| Name the piece it cannot determine | Return a shape it cannot justify |
-| Export SVG at 1:1, and a plain DXF R12 a CAD system can open | Claim DXF-AAMA / ASTM D6673 conformance (withdrawn 2019, no replacement), or export graded size runs |
-| Lay pieces on cloth and say how much to buy (an upper bound, not a minimum) | Nest concave shapes, or claim AAMA/ASTM marker conformance |
-| Name a fabric line and refuse thread/notions/interfacing until they are declared | Total a BOM across units, or price anything |
-| Serve the whole engine over MCP, and run as a macOS app | Any of it on Windows or Linux — the app is macOS only; the engine is not |
-| Record who adopted each fact | Correct a fact once adopted — there is no amendment path yet |
+(The what-it-does/does-not table and the headline measured limits moved to
+the top of this page. This is the one piece of that section detailed enough
+to deserve its own room.)
 
-**Measured limits worth knowing before you trust a number:**
-
-- The default stitch stiffness (16× the cloth) **does not close this garment**.
-  Measured on the three-piece coat: worst stitch 0.91&nbsp;cm open, 15 of 41
-  stitches past the 1&nbsp;mm tolerance. At 64× it closes at 0.06&nbsp;cm with 0
-  over tolerance. The example passes `stitch_k` explicitly rather than accepting
-  a seam the tool itself reports as open. The residual is printed on every run.
-- The drape is a **generated shape**. It is not evidence and cannot be cited as
-  an observation. The tool says so in its own output, not only here.
-- English output is a **translation layer over the engine**, not a rewrite of
+English output is a **translation layer over the engine**, not a rewrite of
   it, because the drafting code is shared with a larger project and two copies
   would drift. A string the table does not know comes back in Japanese — and
   `i18n.missing(result)` lists exactly which, so the gap is visible rather than
@@ -285,7 +476,7 @@ correct on paper.
   caught the four that were prose after all: the sleeve's placement reason,
   two settings reasons and one `how_to_close`. They are translated.
 
-  `python3 tests/run_checks.py` pins every number in this section — the 37
+  `python3 tests/run_checks.py` pins every number in this section — the 51
   paths and their 0, and the 55 paths, the 39 and each group — and
   `tests/unfalsifiable.py` makes sure the checks that measure them cannot pass
   by covering nothing.
@@ -549,7 +740,14 @@ This project has now found **eleven** checks that could not fail, in five
 separate passes — one, then three, then two, then two, then three. Every pass
 someone read the suite more carefully and found more. That is not bad luck; it
 is a search method that does not scale, and the honest response is to stop
-searching by hand:
+searching by hand. (Those eleven found and the **10** entries currently
+argued in `KNOWN_UNFALSIFIABLE`, below, are different tallies on purpose:
+"found once, across five passes" and "still open today" are not the same
+count. Some findings were fixed outright — the property strengthened so the
+shape no longer applies — rather than kept as an argued exception, so they
+count toward the eleven but not toward the ten. Run
+`python3 tests/unfalsifiable.py` for the live residue rather than trusting
+either number as fixed.)
 
 ```bash
 python3 tests/unfalsifiable.py     # every condition, read as an AST
@@ -572,17 +770,24 @@ first raise. It is wired into the suite as a check of its own, with the
 residue enumerated by name and argued in `KNOWN_UNFALSIFIABLE` — **a hit that
 is not on that list turns the suite red.**
 
-**Two of those shapes cannot be decided by reading, and the tool says so.**
+**One of those shapes cannot be decided by reading, and the tool says so.**
 A served reader "pinned to a literal" is not pinned at all: freezing it to the
-literal it returns TODAY satisfies exactly that comparison. So the verdict
+literal it returns TODAY satisfies exactly that comparison, so the *static*
+answer is a heuristic reported as a property — not a verdict. The module's
+own record of what the static reading actually caught: **five readers passed
+that test and could have been replaced by a constant.** The real verdict
 comes from mutation — `--runtime` freezes each reader in turn, re-runs the
 whole suite and records what reddened in `tests/t7_readers.json`, keyed by a
-digest of the reader's own source. The first measured run said seven of
-eighteen readers could be replaced by a constant with the suite green; they
-are pinned against a second store now, and the ledger is re-measured with
-`PHOTOLOSET_T7_RUNTIME=1`. And the detectors themselves are tested: 20 checks
-that pass and cannot fail are planted in `tests/corpus/`, alongside 12 honest
-checks in the same shapes that must NOT be called certainties.
+digest of the reader's own source. Those five are fixed now, pinned against a
+second store, and the ledger currently reads **18 readers, 0 bypassable**,
+re-measured with `PHOTOLOSET_T7_RUNTIME=1`. (An earlier draft of this section
+quoted "seven of eighteen readers" for that first runtime run — that number
+came from a working note, not from anything in the tree, and could not be
+reproduced from a commit or from `tests/t7_readers.json`'s own history; it
+has been withdrawn in favour of the figure above, which does reproduce.) And
+the detectors themselves are tested: 20 checks that pass and cannot fail are
+planted in `tests/corpus/`, alongside 12 honest checks in the same shapes
+that must NOT be called certainties.
 
 It also states what it cannot see, every time it runs: anything inside the code
 under test, whether a property is the RIGHT one, checks nobody wrote, and
@@ -640,13 +845,16 @@ footage, you can answer one of them without touching the code:
 | [#3](https://github.com/Ag3497120/photoloset/issues/3) | Second clip — does any of this generalise? |
 | [#4](https://github.com/Ag3497120/photoloset/issues/4) | The sleeve is non-unique. Is refusing right, or is there a principled pick? |
 
-**One garment, and only one.** The drafting block is a single hard-coded
-three-piece body — front bodice, back bodice, sleeve. There is no notion of a
-garment *type*. A jacket with darts and a canvas front, a shirt with a yoke and
-a collar stand, trousers, a skirt, anything knitted, anything cut on the bias:
-none of these exist here, and adding one is not a parameter change, it is a new
-block with new formulas and new seams. Treat the coat as a worked example of the
-discipline, not as coverage.
+**Two garments, and no notion of a garment *type*.** The drafting blocks are
+hand-built, not parametrised: a three-piece coat (front bodice, back bodice,
+sleeve) and a five-part cape dress (bodice, skirt panel, sleeve, cape,
+collar — 7 cut pieces). A jacket with darts and a canvas front, a shirt with
+a yoke and a collar stand, trousers, anything knitted, anything cut on the
+bias: none of these exist here, and adding one is not a parameter change, it
+is a new block with new formulas and new seams. Treat the two garments as
+worked examples of the discipline, not as coverage — and note that both were
+drafted from a tape measure, not recognised from a photograph; see the
+opening section for why that gap is not closing soon.
 
 **Numbers do not come out of the footage.** This is the caveat to read twice.
 The footage is used to *identify* things — this collar, that pocket — and a
@@ -657,11 +865,15 @@ and dishonest if you read it as "film to measurements". If you do not have the
 physical garment, or something close enough to measure, this tool cannot draft
 for you.
 
-**It has been run end to end on exactly one clip** ([#3](https://github.com/Ag3497120/photoloset/issues/3)). That clip happened to suit
-it: the coat is presented plainly, the light is even, the framing is stable, and
-a reference garment was on hand. There is no second clip, no held-out set, and
-therefore no evidence about how any of this behaves on footage it has not seen.
-Every number in this README comes from that one run.
+**It has been run end to end on one clip and one lighting condition**
+([#3](https://github.com/Ag3497120/photoloset/issues/3)). That clip happened
+to suit it: the coat is presented plainly, the light is even, the framing is
+stable, and a reference garment was on hand. The dress has no footage behind
+it at all — it was composed directly from measured parts, to prove the parts
+graph and every downstream stage (mannequin, marker, BOM, DXF) generalise
+past one hard-coded three-piece shape. There is no second clip, no held-out
+set, and therefore no evidence about how the *observe* step behaves on
+footage it has not seen.
 
 **Cinematic footage is untested, and it is the intended target** ([#1](https://github.com/Ag3497120/photoloset/issues/1)). A film frame
 is graded, key-lit, shadowed, often motion-blurred and often grainy. All of

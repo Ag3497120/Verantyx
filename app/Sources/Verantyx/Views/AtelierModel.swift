@@ -18,7 +18,18 @@ final class AtelierModel: ObservableObject {
     static let spatial: Set<String> = ["collar", "sleeve", "body",
                                        "back", "pocket"]
 
-    @Published var step = "Structure"
+    /// **Mirrored to `AtelierContext.shared.step` on every change.**
+    /// `AtelierModel` is a private `@StateObject` inside `AtelierView` —
+    /// nothing outside that subtree can read it directly (same reason
+    /// `projectName` gets mirrored there, see that type's doc comment).
+    /// UI B's chat pane (`AtelierChatPaneView`) reads the mirror to show
+    /// "where the workbench is now"; it never reads this property.
+    @Published var step = "Structure" {
+        didSet {
+            guard step != oldValue else { return }
+            AtelierContext.shared.step = step
+        }
+    }
     @Published var view = "Front"
     @Published var tab = "Film"
     @Published var selected = "collar"

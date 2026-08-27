@@ -85,17 +85,30 @@ struct IDEShellView: View {
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(Theme.dim)
                 Spacer()
+                atelierModePicker
             }
             .padding(.horizontal, 12).padding(.vertical, 8)
             .background(Theme.panel)
             Divider().opacity(0.3)
 
-            AtelierView()
-                .environmentObject(app)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            UnifiedComposerView()
-                .environmentObject(app)
+            if atelierShowOverview {
+                AttentionOverviewView(onOpenWorkbench: { atelierShowOverview = false })
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                // UI B (owner's brief, verbatim): 「全体を表示しながら
+                // 現在いるuiをチャットが自動で切り替えてくれる」— the
+                // whole workbench stays up, and the chat beside it steers
+                // `AtelierView`'s step. This REPLACES the old stacked
+                // AtelierView+UnifiedComposerView pair that used to render
+                // here: a composer pinned under the workbench is exactly
+                // the shape the owner's brief says must not come back
+                // ("in this layout the chat is a pane, and the workbench
+                // is the other pane" — not a bar underneath it).
+                AtelierWorkbenchSplitView()
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
         .background(Theme.panel2)
         .clipped()
@@ -679,6 +692,7 @@ struct IDEShellView: View {
     private var garmentTabContent: some View {
         VStack(spacing: 0) {
             HStack {
+                atelierModePicker
                 Spacer()
                 Button {
                     shell.toggleGarmentExpanded()
@@ -691,8 +705,50 @@ struct IDEShellView: View {
             }
             .padding(.horizontal, 10).padding(.vertical, 4)
             .background(Theme.panel2)
-            AtelierView().environmentObject(app)
+            if atelierShowOverview {
+                AttentionOverviewView(onOpenWorkbench: { atelierShowOverview = false })
+                    .environmentObject(app)
+            } else {
+                AtelierView().environmentObject(app)
+            }
         }
+    }
+
+    // MARK: - UI A / UI B switch
+    //
+    // **服飾を知らない人はまずカードの概要(UI A, AttentionOverviewView)を
+    // 見る。** ワークベンチ(UI B, AtelierView)はそのまま — ここは同じ
+    // 服飾タブの中身をどちらの面で見せるかを選ぶだけの、最小の切り替え。
+    // タブの構成そのものではないので ShellLayoutState には持ち込まず、
+    // この画面だけの表示状態として @AppStorage に置く。既定は概要側。
+    //
+    // 前提: これが「UI A ⇄ UI B の切り替え」の唯一の実装。他のワーク
+    // フローが並行して同じ切り替えを別の形(例えばタブそのものを分ける)
+    // で作っていた場合は、統合時にどちらかへ寄せる調整が要る。
+    @AppStorage("atelier_overview_shown") private var atelierShowOverview: Bool = true
+
+    private var atelierModePicker: some View {
+        HStack(spacing: 2) {
+            atelierModeChip(app.t("Overview", "概要"), selected: atelierShowOverview) {
+                atelierShowOverview = true
+            }
+            atelierModeChip(app.t("Workbench", "作業台"), selected: !atelierShowOverview) {
+                atelierShowOverview = false
+            }
+        }
+    }
+
+    private func atelierModeChip(_ title: String, selected: Bool,
+                                 action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 10.5, weight: selected ? .bold : .medium))
+                .foregroundStyle(selected ? Theme.fg : Theme.faint)
+                .padding(.horizontal, 9).padding(.vertical, 3)
+                .background(selected ? Theme.sel.opacity(0.16) : .clear,
+                           in: RoundedRectangle(cornerRadius: 6))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Empty state

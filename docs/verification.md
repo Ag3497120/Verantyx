@@ -32,14 +32,15 @@ AI  →  hypothesis  →  store  →  OBSERVED / CONTESTED / INFERRED /
 
 A claim that cannot be supported does not become a weaker claim. It becomes a
 **typed refusal** carrying `how_to_close` — the thing somebody would have to
-do to earn the answer. There are **127 distinct refusal types** in the engine.
+do to earn the answer. There are **152 distinct refusal types** in the engine
+(`grep -rhoE '"UNKNOWN_[A-Z0-9_]+"' photoloset/*.py | sort -u | wc -l`).
 
 ## Three layers
 
 ### 1. Checks
 
 Ordinary assertions over real behaviour: draft the reference coat, sew it,
-read the store, compare against pinned literals. **139 checks.**
+read the store, compare against pinned literals. **196 checks.**
 
 The check set is itself pinned by name. A check that disappears while the
 total goes up is a specific failure this project has had, so
@@ -55,13 +56,13 @@ named check to go **red**. A mutation that leaves everything green is a
 `MISS` — it means the check does not actually constrain the behaviour it
 claims to.
 
-**146 mutations**, in three banks:
+**207 mutations**, in three banks:
 
 | bank | entries | scored against |
 |---|---|---|
 | cross | 73 | the store's own sections, in process |
 | loop | 31 | the retrieval loop's sections |
-| whole suite | 42 | all 139 checks — these exist for the failure of a check *disappearing*, which by construction cannot be seen by running only the checks that still declare themselves |
+| whole suite | 103 | all 196 checks — these exist for the failure of a check *disappearing*, which by construction cannot be seen by running only the checks that still declare themselves |
 
 ### 3. The scanner
 
@@ -90,8 +91,9 @@ keyed by a digest of the reader's own source. Those five are fixed; the
 ledger currently reads **18 readers, 0 bypassable**.
 
 Hits that are genuinely acceptable go on a list with a written reason.
-Currently **5 entries**, each explaining why the shape is present and which
-falsifier turns that check red anyway.
+Currently **10 entries** (`KNOWN_UNFALSIFIABLE` in `tests/run_checks.py`,
+its own length pinned by a check), each explaining why the shape is present
+and which falsifier turns that check red anyway.
 
 ## What it has caught
 
@@ -164,22 +166,36 @@ it surfaced as a refusal on the day the two features met.
 
 ## The numbers
 
+Re-measured 2026-08-27, on the merged tree:
+
 ```
-139  checks, all passing
-146  falsification mutations, all red, 0 MISS
-127  distinct typed refusals in the engine
- 32  engine modules, standard library only
-  5  recorded tautology exemptions, each with a written reason
+196  checks, all passing                    python3 tests/run_checks.py
+207  falsification mutations, 0 MISS         see command below
+152  distinct typed refusals in the engine   grep, see command below
+ 40  engine modules, standard library only   ls photoloset/*.py | wc -l
 ```
+
+```bash
+grep -rhoE '"UNKNOWN_[A-Z0-9_]+"' photoloset/*.py | sort -u | wc -l   # 152
+python3 -c "
+import sys; sys.path.insert(0, 'tests')
+import falsifiers as f
+print(len(f.MUTATIONS) + len(f.LOOP_MUTATIONS) + len(f.WHOLE_SUITE))"  # 207
+```
+
+The tautology-exemption count moves as checks are added; run
+`python3 tests/unfalsifiable.py` for the live list rather than trusting a
+number pinned on a page — it currently names 10 hits (4 real, 6 borderline),
+each argued in `KNOWN_UNFALSIFIABLE` by name.
 
 Sizes:
 
 | | lines |
 |---|---|
-| engine | 14,412 |
-| verification | 9,607 |
+| engine | 17,599 |
+| verification | 13,231 |
 
-The verification code is **67% the size of the thing it verifies**.
+The verification code is **75% the size of the thing it verifies**.
 
 One more measurement the project keeps: the reference coat's geometry digest
 is `bbc1d025184d1cff58977def178faf49`, and it has not changed across the last

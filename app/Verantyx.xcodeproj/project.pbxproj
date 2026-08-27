@@ -77,6 +77,11 @@
 		5A11C0DE0001000000000203 /* IDEShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11C0DE0002000000000203 /* IDEShellView.swift */; };
 		4A11C0DE000100000000014A /* AtelierPrompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000014A /* AtelierPrompts.swift */; };
 		6A11C0DE00010000AEB0056E /* EngineModeChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */; };
+		6A11C0DE00010000AEB0057A /* AttentionOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */; };
+		CF1ECB183B1E454B834F6C73 /* AtelierChatRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113D596947543DB945E17D3 /* AtelierChatRouter.swift */; };
+		044AD92C7DE24C74BD805A4C /* AtelierChatPaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E1002F155248E3B8B1D041 /* AtelierChatPaneView.swift */; };
+		D92FB24392E64285A0D64352 /* AtelierNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A161B5E2B2D44DDC916AD139 /* AtelierNavigator.swift */; };
+		93400AEDC28D4341BC05A44D /* AtelierWorkbenchSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16EFEE23C384F808F798E70 /* AtelierWorkbenchSplitView.swift */; };
 		4A11C0DE0001000000000146 /* AtelierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000146 /* AtelierView.swift */; };
 		4829E537BC8AB09F0DA2CC46 /* AtelierSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38D23B935977654F19E5144 /* AtelierSettingsView.swift */; };
 		4A11C0DE0001000000000041 /* ModesOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000041 /* ModesOverviewView.swift */; };
@@ -362,6 +367,11 @@
 		5A11C0DE0002000000000203 /* IDEShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDEShellView.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000014A /* AtelierPrompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierPrompts.swift; sourceTree = "<group>"; };
 		6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineModeChooserView.swift; sourceTree = "<group>"; };
+		6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionOverviewView.swift; sourceTree = "<group>"; };
+		6113D596947543DB945E17D3 /* AtelierChatRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierChatRouter.swift; sourceTree = "<group>"; };
+		20E1002F155248E3B8B1D041 /* AtelierChatPaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierChatPaneView.swift; sourceTree = "<group>"; };
+		A161B5E2B2D44DDC916AD139 /* AtelierNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierNavigator.swift; sourceTree = "<group>"; };
+		C16EFEE23C384F808F798E70 /* AtelierWorkbenchSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierWorkbenchSplitView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000146 /* AtelierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierView.swift; sourceTree = "<group>"; };
 		D38D23B935977654F19E5144 /* AtelierSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierSettingsView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000041 /* ModesOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModesOverviewView.swift; sourceTree = "<group>"; };
@@ -784,6 +794,10 @@
 				4A11C0DE0002000000000146 /* AtelierView.swift */,
 				D38D23B935977654F19E5144 /* AtelierSettingsView.swift */,
 				6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */,
+				6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */,
+				20E1002F155248E3B8B1D041 /* AtelierChatPaneView.swift */,
+				A161B5E2B2D44DDC916AD139 /* AtelierNavigator.swift */,
+				C16EFEE23C384F808F798E70 /* AtelierWorkbenchSplitView.swift */,
 				5A11C0DE0002000000000202 /* UnifiedComposerView.swift */,
 				5A11C0DE0002000000000203 /* IDEShellView.swift */,
 				4A11C0DE0002000000000041 /* ModesOverviewView.swift */,
@@ -864,6 +878,7 @@
 				DC25A03DB54A65B9B740D72A /* CortexEngine.swift */,
 				7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */,
 				5CB1F19BE03647139918B4AE /* VeraRouteState.swift */,
+				6113D596947543DB945E17D3 /* AtelierChatRouter.swift */,
 				1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */,
 				2B2EBE704F994785AB9B8D34 /* CapabilityRegistry.swift */,
 				A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */,
@@ -1409,6 +1424,11 @@ echo \"embedded photoloset ($(ls \"$DEST\" | wc -l | tr -d \" \") files)\"";
 				2C0B05A02FE271777CA03D96 /* AtelierContext.swift in Sources */,
 				4A11C0DE000100000000014A /* AtelierPrompts.swift in Sources */,
 				6A11C0DE00010000AEB0056E /* EngineModeChooserView.swift in Sources */,
+				6A11C0DE00010000AEB0057A /* AttentionOverviewView.swift in Sources */,
+				CF1ECB183B1E454B834F6C73 /* AtelierChatRouter.swift in Sources */,
+				044AD92C7DE24C74BD805A4C /* AtelierChatPaneView.swift in Sources */,
+				D92FB24392E64285A0D64352 /* AtelierNavigator.swift in Sources */,
+				93400AEDC28D4341BC05A44D /* AtelierWorkbenchSplitView.swift in Sources */,
 				4A11C0DE0001000000000146 /* AtelierView.swift in Sources */,
 				4829E537BC8AB09F0DA2CC46 /* AtelierSettingsView.swift in Sources */,
 				4A11C0DE0001000000000041 /* ModesOverviewView.swift in Sources */,

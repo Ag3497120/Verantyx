@@ -28,6 +28,11 @@ struct AtelierView: View {
     @StateObject private var an = AtelierAnalyst.shared
     @StateObject private var intake = AtelierIntake.shared
     @State private var showAnalyst = false
+    // UI B: the chat pane beside this view (`AtelierChatPaneView`) has no
+    // reference to `m` — it asks through here instead. See
+    // `AtelierNavigator`'s doc comment for why this is the write side of
+    // the same mirror `AtelierContext` already is for `projectName`.
+    @StateObject private var nav = AtelierNavigator.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -81,6 +86,17 @@ struct AtelierView: View {
         .sheet(isPresented: $m.showTechPack) { TechPackSheet(m: m) }
         .sheet(isPresented: $showAnalyst) {
             AnalystSheet(an: an, m: m).environmentObject(app)
+        }
+        // UI B の誘導。**人が工程をクリックすれば、それが常に勝つ** —
+        // このハンドラは chat が新しく解決したときだけ発火し(token が
+        // 上がる)、クリックの直後に古い要求が追いかけて上書くことはない。
+        // 次に chat が送られたときは、その新しい行き先が今度は人の直前の
+        // クリックより後に来た指示として勝つ — 「最後の行為が勝つ」の
+        // 一本の規則で、クリックと chat のどちらが偉いという特別扱いはない。
+        .onChange(of: nav.request) { _, req in
+            guard let req else { return }
+            m.step = req.step
+            if req.step == "Tech Pack" { Task { await m.loadTechPack() } }
         }
     }
 

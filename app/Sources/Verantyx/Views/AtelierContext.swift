@@ -21,4 +21,15 @@ final class AtelierContext: ObservableObject {
     private init() {}
 
     @Published var projectName: String = ""
+
+    /// **Which step the workbench is showing right now** — mirrored from
+    /// `AtelierModel.step` on every change (see that property's own
+    /// comment). Added for UI B (「チャット画面プラス服飾ui」): the chat
+    /// pane beside the workbench needs to say "where am I" without a
+    /// reference to AtelierView's private model. Read-only by convention
+    /// — the one writer is `AtelierModel.step`'s `didSet`. To ask the
+    /// workbench to MOVE, use `AtelierNavigator.shared.go(to:)` instead
+    /// of setting this directly; setting it here would only relabel the
+    /// mirror, not the model it mirrors.
+    @Published var step: String = "Structure"
 }

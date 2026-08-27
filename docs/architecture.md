@@ -135,5 +135,5 @@ empty list.
 
 ## Dependencies
 
-Standard library only, 32 modules. There is a check that parses every module
+Standard library only, 40 modules (`ls photoloset/*.py | wc -l`). There is a check that parses every module
 and fails on a third-party import.
