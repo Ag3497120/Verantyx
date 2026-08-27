@@ -53,6 +53,25 @@ ezdxf(標準ライブラリではない、確かめるためだけに使った)�
 宣言し、ファイル全体をその符号化(``cp932``、標準ライブラリの組み込み
 コーデック)で書く**こと。ezdxf はこの宣言を読んで自動的に正しくデコード
 した(実測で確認)。日本語の実務の DXF が実際にこの経路を使う。
+
+## 文字は正しくても、字形が無ければ描けない
+
+**符号化が合っていても、実機の CAD 画面には「?」が3つ並んだ。** ezdxf は
+文字列として ``"後身頃"`` を正しく返す(パーサだから、字形は要らない)。
+だが QCAD(実機のアプリケーション、標準ライブラリではない — 確かめる
+ためだけに使った。ezdxf とは別の独立した経路)で同じファイルを開いて
+描画すると、TEXT の3文字とも「?」だった。原因は符号化ではなく
+**STYLE テーブルが無かったこと**。R12 は STYLE テーブルを省略しても
+文法上は正当で、その場合 TEXT は暗黙に "STANDARD" スタイルを指すが、
+"STANDARD" に何のフォントを割り当てるかは読む側の実装任せになる。
+QCAD の既定フォントには漢字の字形が無く、全滅した(実測)。
+
+STYLE テーブルに "STANDARD" を明示し、プライマリフォントを
+``MS-Gothic``(和文 DXF が慣習的に使うフォント名 — この Mac に
+"MS-Gothic" という名のフォントは存在しないが、フォント解決系がこの
+名前を手がかりに CJK 対応フォントへ振り替えた)で書いたところ、同じ
+QCAD で「後身頃」の3文字とも正しく描かれた(実測、TEXT 側は一切
+変更していない — ``STYLE`` テーブルを足しただけで直った)。
 """
 from __future__ import annotations
 
@@ -74,6 +93,14 @@ LAYER_LABEL = "LABELS"
 _LAYER_COLOR = {LAYER_SEW: 7, LAYER_CUT: 1, LAYER_NOTCH: 5,
                LAYER_GRAIN: 3, LAYER_LABEL: 7}
 _LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_GRAIN, LAYER_LABEL)
+
+#: TEXT の既定スタイル名と、そこに割り当てるプライマリフォント。
+#: 「文字は正しくても、字形が無ければ描けない」節を参照 — STYLE
+#: テーブルを省いたまま実機(QCAD)で開くと、裁片名の漢字3文字とも
+#: "?" になった(実測)。"STANDARD" を明示し、和文 DXF が慣習的に
+#: 使う ``MS-Gothic`` をプライマリフォントにしたところ直った。
+TEXT_STYLE = "STANDARD"
+TEXT_FONT = "MS-Gothic"
 
 UNMARKED = "UNKNOWN_UNMARKED_DRAFT"
 
@@ -151,13 +178,24 @@ def _header(bbox: Tuple[float, float, float, float]) -> str:
 
 
 def _tables() -> str:
-    """LAYER テーブルだけを持つ。**5層、これで brief の要求を満たす。**"""
+    """LAYER と STYLE、2つのテーブルを持つ。**5層、これで brief の要求を
+    満たす。** STYLE は当初 LAYER だけで済ませていたが、実機の CAD
+    (QCAD)で裁片名の漢字が "?" になる実測を受けて足した ——
+    ``TEXT_STYLE``/``TEXT_FONT`` の節、モジュール冒頭の「文字は正しくても、
+    字形が無ければ描けない」を参照。"""
     parts = [f"0\nSECTION\n2\nTABLES\n0\nTABLE\n2\nLAYER\n70\n"
             f"{len(_LAYER_ORDER)}\n"]
     for name in _LAYER_ORDER:
         parts.append(f"0\nLAYER\n2\n{name}\n70\n0\n"
                      f"62\n{_LAYER_COLOR[name]}\n6\nCONTINUOUS\n")
-    parts.append("0\nENDTAB\n0\nENDSEC\n")
+    parts.append("0\nENDTAB\n")
+    parts.append(
+        "0\nTABLE\n2\nSTYLE\n70\n1\n"
+        f"0\nSTYLE\n2\n{TEXT_STYLE}\n70\n0\n"
+        "40\n0.0\n41\n1.0\n50\n0.0\n71\n0\n42\n1.0\n"
+        f"3\n{TEXT_FONT}\n"
+        "0\nENDTAB\n")
+    parts.append("0\nENDSEC\n")
     return "".join(parts)
 
 

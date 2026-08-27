@@ -34,6 +34,10 @@ ZONE_CATALOG: Dict[str, List[Dict[str, str]]] = {
     "cape": [
         {"param": "sector", "label": "扇の開き"},
     ],
+    "collar": [
+        {"param": "sector", "label": "扇の開き"},
+        {"param": "collar_height", "label": "衿の高さ"},
+    ],
     "skirt_panel": [
         {"param": "waist_ease", "label": "ウエストの楽"},
         {"param": "hip_ease", "label": "ヒップの楽"},

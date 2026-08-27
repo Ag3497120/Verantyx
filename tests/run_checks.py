@@ -211,6 +211,7 @@ ALL_CHECK_NAMES = [
     "the cut line and sewing line are different curves on separate layers",
     "DXF notch and grain lines land at the marks' own positions",
     "the DXF round-trips into rebuilt piece areas",
+    "the DXF declares a text style with a real font",
     "a number is a function of its address",
     "adding a piece never moves a number",
     "a reshaped outline is refused, not renumbered",
@@ -229,6 +230,14 @@ ALL_CHECK_NAMES = [
     "16 notches, 8 paired",
     "default stitch_k leaves it open",
     "64x closes it",
+    "64x closes it is a snapshot, not the equilibrium",
+    "the worst seam gap is non-increasing as iterations grow",
+    "precondition=True changes the answer and stays finite",
+    "precondition=True never declares settled early",
+    "a fabric without bending is refused, the way weight and "
+    "thickness already are",
+    "mcp.py's fabric reader requires bending only where it is read",
+    "bending is not wired in unless it changes the drape",
     "the coat has not moved",
     "0 untranslated",
     "the untranslated residue is measured",
@@ -299,13 +308,16 @@ ALL_CHECK_NAMES = [
     "unknown zone refused",
     "the adjusted dress still sews shut",
     "the coat has no zones (untouched path)",
+    "the collar joins the bodice to the cape and the dress still sews shut",
     "the dress has no notches yet, and marks says so honestly",
     "a dress piece keeps its number when a piece is inserted ahead of it",
     "a dart on the dress front closes at the address it sits",
-    "the dress mannequin refuses the measure set the dress actually has",
-    "the dress marker lays seven cut pieces onto real cloth",
+    "the dress mannequin builds now that body_length is measured, and the "
+    "garment fits onto it",
+    "the dress marker lays eight cut pieces onto real cloth",
     "the dress BOM answers fabric and refuses three lines it cannot know",
     "the dress reaches DXF directly, because save() cannot draft it",
+    "the dress has not moved",
     "initialize",
     "65 tools",
     "every tool has a schema",
@@ -365,6 +377,21 @@ ALL_CHECK_NAMES = [
     "intake",
     "curvature refuses missing measurements and a grid too coarse to "
     "triangulate",
+    "the smooth mannequin keeps the same five levels, and its total "
+    "curvature converges near the linear one while its bands settle "
+    "far tighter",
+    "the monotone spline's four spans stay within their own measured "
+    "girths",
+    "the base garment is the body surface plus a constant radial "
+    "offset",
+    "the base garment ends where the body ends instead of "
+    "extrapolating past it",
+    "flattening a non-developable panel distorts both area and "
+    "angle, measured triangle by triangle",
+    "the smooth mannequin actually reaches base_garment and flatten "
+    "through radius_at, not just curvature",
+    "flatten refuses a grid too coarse to triangulate and a "
+    "mannequin that never stood up",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -381,6 +408,23 @@ RETIRED_CHECKS = [
      "replacement, \"coat's arms are the three dualities\", measures the "
      "actual distribution (10 cores, 56 seats, root kind- 17 / cause+ 10 / "
      "support+ 0 / kind+ 0) and pins over_capacity, and it has a falsifier."),
+    ("the dress mannequin refuses the measure set the dress actually has",
+     "collar-dress-full",
+     "It pinned mannequin.build() refusing UNKNOWN_MISSING_MEASUREMENTS "
+     "on the dress's measure set, because that set never carried "
+     "body_length (only bodice_length + skirt_length). This task adds "
+     "body_length as the dress's real ninth tape measurement, so the "
+     "refusal is no longer what happens — its replacement, \"the dress "
+     "mannequin builds now that body_length is measured, and the garment "
+     "fits onto it\", walks build/align/dress/clearance on the composed, "
+     "collared dress instead of stopping at the gate."),
+    ("the dress marker lays seven cut pieces onto real cloth",
+     "collar-dress-full",
+     "Renamed, not dropped: the dress in this suite now carries a fifth "
+     "part (衿/collar, between the bodice's neckline and the cape), so "
+     "the same CUT dict now sums to eight pieces laid, not seven. Its "
+     "replacement, \"the dress marker lays eight cut pieces onto real "
+     "cloth\", is the identical check with the collar's count included."),
 ]
 
 
@@ -406,8 +450,9 @@ def the_example_runs() -> None:
 # ---------------------------------------------------------------------------
 def the_pipeline_still_agrees() -> None:
     """The numbers the README quotes, re-measured."""
+    import math
     from photoloset import Measures
-    from photoloset import garment_marks, garment_pattern, garment_sew
+    from photoloset import garment_drape, garment_marks, garment_pattern, garment_sew
 
     ms = Measures()
     for spot, value in [("body_length", 112.0), ("chest", 108.0),
@@ -471,6 +516,219 @@ def the_pipeline_still_agrees() -> None:
           tight["closed"] and tight["over_tolerance"] == 0
           and round(tight["worst"], 4) == 0.0614,
           f'worst {tight["worst"]} cm, {tight["over_tolerance"]} over')
+
+    # **"64x closes it" is a snapshot, not the equilibrium.** Diagnosed
+    # 2026-08-27: raising the iteration cap does not shrink the worst gap
+    # further — it GROWS, because the 2000-iteration number sits in an
+    # early, local "nearby points snap together fast" dip, before the
+    # slow, whole-coat gravity settling that follows pulls the worst pair
+    # apart again. Measured off-tree, well past this check's time budget:
+    # left running to a true fixed point (positions stop moving to 4
+    # decimals), 16x plateaus at 3.39 cm and 64x at 0.85 cm — NEITHER
+    # closes under the 0.1 cm tolerance. Here, cheaply, is the direction
+    # of that trend on the real coat: more iterations of the SAME,
+    # unmodified solver make the "64x closes it" number worse, not better.
+    longer = garment_sew.sew_and_drape(built, mat, iterations=8000,
+                                       stitch_k=20.0 * 64)["seam_gap"]
+    check("64x closes it is a snapshot, not the equilibrium",
+          longer["worst"] > tight["worst"]
+          and round(longer["worst"], 4) == 0.231,
+          f'worst grew from {tight["worst"]} cm at 2000 iterations to '
+          f'{longer["worst"]} cm at 8000 — rising, not settling, on the '
+          f'unmodified solver')
+
+    # **The residual does converge — the coat is just too large a mesh to
+    # reach its fixed point inside a check's time budget.** The root cause
+    # of the earlier growth: a stitched vertex is touched by many springs
+    # at once (up to 8 cloth edges plus one or two stitches at 16x cloth
+    # stiffness), and settling has to propagate from every free-hanging
+    # vertex back to the two pins one edge per iteration — a diffusive
+    # process whose iteration count scales with how many such hops the
+    # mesh has. Measured off-tree, past this check's time budget: the full
+    # coat (303 points) does reach a true fixed point, but only after
+    # ~300000 iterations for 64x (worst plateaus at 0.85 cm) or ~900000 for
+    # 1000x (0.05 cm — the first multiplier tried that actually closes
+    # under 0.1 cm at true convergence; 16x, 64x and 100x all plateau
+    # above tolerance). A coarser cut of the SAME pattern (cell=20cm
+    # instead of the default 6cm) has far fewer hops and reaches its fixed
+    # point inside a check that has to run promptly, on the SAME,
+    # completely unmodified solver — proving the convergence itself, not
+    # just the slowdown, is real:
+    coarse = garment_sew.build(draft, cell=20.0, marks=marks)
+    coarse_curve = [
+        garment_sew.sew_and_drape(coarse, mat, iterations=n,
+                                  stitch_k=20.0 * 64)["seam_gap"]["worst"]
+        for n in (400, 1600, 6400)]
+    check("the worst seam gap is non-increasing as iterations grow",
+          coarse_curve[0] >= coarse_curve[1] >= coarse_curve[2]
+          and coarse_curve == [0.0243, 0.0238, 0.0238]
+          and len(coarse["points"]) == 58,
+          f'worst gap at 400 / 1600 / 6400 iterations: {coarse_curve} cm '
+          f'({len(coarse["points"])} points, coarsened so this check '
+          f'finishes) — flat by 1600 and still flat at 100000, separately '
+          f'measured off-tree')
+
+    # **`precondition=True` (this pass) is wired in, not decoration.** It
+    # sizes the step per vertex from that vertex's own total incident
+    # stiffness instead of the single global worst case. It pushes the
+    # worst seam gap under tolerance far sooner than the unmodified solver
+    # does within any budget tested here (see `garment_sew.sew_and_drape`'s
+    # own docstring for the full, corrected account — an earlier claim here
+    # that this reaches "the same 0.85cm fixed point ~3-4x faster" did not
+    # hold up under measurement and has been retracted, not merely because
+    # of the ~80000-iteration number but because that low reading is itself
+    # a transient trough, not a settled value). At only 400 iterations the
+    # bigger per-vertex step for lightly-connected vertices has not settled
+    # yet, so preconditioned is WORSE here, not better — which is exactly
+    # why it has to be opt-in (the coat digest is pinned to the
+    # unpreconditioned number at 2000 iterations). This check is only that
+    # the flag is actually read: it changes the answer, and the answer
+    # stays finite.
+    precond = garment_sew.sew_and_drape(coarse, mat, iterations=400,
+                                        stitch_k=20.0 * 64,
+                                        precondition=True)
+    check("precondition=True changes the answer and stays finite",
+          len(precond["points"]) == 58
+          and all(math.isfinite(c) for p in precond["points"] for c in p)
+          and precond["seam_gap"]["worst"] == 24.2118
+          and coarse_curve[0] == 0.0243,
+          f'preconditioned worst at 400 iterations '
+          f'{precond["seam_gap"]["worst"]} cm over '
+          f'{len(precond["points"])} finite points vs unpreconditioned '
+          f'{coarse_curve[0]} cm — different, and every coordinate finite')
+
+    # **`precondition=True` must never self-declare "settled" early.**
+    # 2026-08-27 実測で見つかった欠陥(``garment_sew.sew_and_drape`` の
+    # docstring 参照): worst seam gap は有限個の対の最大値という滑らか
+    # でない統計量で、その時点の最大を持つ対がたまたま静かでも他の場所は
+    # まだ動いている——だから前処理ありのときは「50反復窓で動いていない」
+    # を根拠にした早期打ち切りをそもそも使わない。ここでは対照実験で
+    # それを直接示す:同じ coat の粗いメッシュ(cell=20)を、前処理なし
+    # なら確実に早期停止する反復上限(100000。既に 550 反復・0.0238cm
+    # で静定すると上の検査が言っている)で解いても前処理ありは全部使い
+    # 切ることを見る。前処理なしは早期停止できるからこそ意味のある
+    # 対照——両方が単に反復上限まで走るだけでは、この検査は「前処理あり
+    # だけ早期停止しない」ことを何も確かめない。
+    uncond_early = garment_sew.sew_and_drape(coarse, mat, iterations=100000,
+                                              stitch_k=20.0 * 64)
+    precond_full = garment_sew.sew_and_drape(coarse, mat, iterations=60000,
+                                              stitch_k=20.0 * 64,
+                                              precondition=True)
+    check("precondition=True never declares settled early",
+          uncond_early["iterations"] < 100000
+          and uncond_early["seams_settled"]
+          and precond_full["iterations"] == 60000
+          and not precond_full["seams_settled"]
+          and precond_full["seam_gap"]["worst"] <= 0.1,
+          f'unpreconditioned: {uncond_early["iterations"]}/100000 used, '
+          f'settled={uncond_early["seams_settled"]} (stops early once '
+          f'quiet); preconditioned: {precond_full["iterations"]}/60000 '
+          f'used, settled={precond_full["seams_settled"]}, worst '
+          f'{precond_full["seam_gap"]["worst"]}cm (already under the '
+          f'0.1cm tolerance, yet still runs the full budget rather than '
+          f'trusting that the same worst-gap window means it is done)')
+
+    # **Bending is required the way weight and thickness already are.**
+    # Test both directions — a stub that refuses every fabric would pass a
+    # one-sided version of this. `fabrics.number` is the only method
+    # `material_from` calls, so a two-line stub is the whole double.
+    class _FabricsStub:
+        def __init__(self, table):
+            self.table = table
+
+        def number(self, fabric, key):
+            return self.table.get(fabric, {}).get(key)
+
+    no_bend = garment_drape.material_from(
+        _FabricsStub({"melton": {"weight": 420.0, "thickness": 0.18}}),
+        "melton")
+    has_bend = garment_drape.material_from(
+        _FabricsStub({"melton": {"weight": 420.0, "thickness": 0.18,
+                                 "bending": 40.0}}), "melton")
+    check("a fabric without bending is refused, the way weight and "
+          "thickness already are",
+          no_bend["verdict"] == garment_drape.NO_MATERIAL
+          and no_bend["missing"] == ["bending"]
+          and has_bend["verdict"] == "ANSWER"
+          and has_bend["bending"] == 40.0,
+          f'missing only bending -> {no_bend["verdict"]} naming '
+          f'{no_bend.get("missing")}; all three present -> '
+          f'{has_bend["verdict"]} bending={has_bend.get("bending")}')
+
+    # **`mcp.py._fabric` requires `bending` only for the tools that read
+    # it.** It has its own, separate fabric-table reader (does not call
+    # `garment_drape.material_from` above) — 2026-08-27, an outside check
+    # found an earlier version of this pass made it require `bending`
+    # unconditionally, which meant `drape_validate` (whose call chain
+    # never reads `bending` — confirmed by reading `garment_drape.validate`
+    # -> `solve`) refused a fabric ledger entry it used to answer for, over
+    # a field with zero effect on what that tool computes. Scoped with a
+    # `require_bending` keyword instead: True (default) for `sew_and_drape`
+    # and the internal `_fallen` used elsewhere, False for `drape_validate`.
+    import importlib as _importlib
+    import os as _os_mcp
+    import tempfile as _tf_mcp
+
+    mcp_home = Path(_tf_mcp.mkdtemp(prefix="fabricscope_"))
+    old_home = _os_mcp.environ.get("HOME")
+    _os_mcp.environ["HOME"] = str(mcp_home)
+    try:
+        import photoloset.mcp as _mcp
+        _importlib.reload(_mcp)
+        flat = mcp_home / ".photoloset"
+        flat.mkdir(parents=True)
+        Measures().save(flat / "measures.json")
+        (flat / "fabrics.json").write_text(
+            json.dumps({"nobend": {"gsm": 300.0, "thickness": 0.1,
+                                   "stiffness": 12.0}}), encoding="utf-8")
+        drape_no_bend = json.loads(
+            _mcp.TOOLS["drape_validate"](fabric="nobend", iterations=20))
+        sew_no_bend = json.loads(
+            _mcp.TOOLS["sew_and_drape"](fabric="nobend"))
+    finally:
+        if old_home is None:
+            _os_mcp.environ.pop("HOME", None)
+        else:
+            _os_mcp.environ["HOME"] = old_home
+    check("mcp.py's fabric reader requires bending only where it is read",
+          drape_no_bend.get("verdict") != "UNKNOWN_NO_MATERIAL"
+          and sew_no_bend.get("verdict") == "UNKNOWN_NO_MATERIAL"
+          and sew_no_bend.get("missing") == ["bending"],
+          f'fabric missing only "bending": drape_validate -> '
+          f'{drape_no_bend.get("verdict")} (must not refuse — that path '
+          f'never reads bending); sew_and_drape -> '
+          f'{sew_no_bend.get("verdict")} naming {sew_no_bend.get("missing")} '
+          f'(must refuse — that path does read it)')
+
+    # **Two fabrics differing only in bending must drape measurably
+    # differently, or bending is not wired in.** A separate, smaller cut
+    # (cell=12) of the same pattern, three otherwise-identical materials
+    # (gsm 200, thickness 0.08, stiffness 10 — a floppy jersey-weight base)
+    # that vary only `bending`, same iteration count, same stitch_k. The
+    # metric is the drape's own vertical spread (top to bottom): a fabric
+    # that resists folding sags less under its own weight, monotonically.
+    bend_built = garment_sew.build(draft, cell=12.0, marks=marks)
+    jersey_mat = {"verdict": "ANSWER", "fabric": "jersey", "gsm": 200.0,
+                  "thickness": 0.08, "stiffness": 10.0}
+
+    def _y_range(bending):
+        m = dict(jersey_mat)
+        if bending is not None:
+            m["bending"] = bending
+        pts = garment_sew.sew_and_drape(bend_built, m, iterations=1500,
+                                        stitch_k=10.0 * 16)["points"]
+        ys = [p[1] for p in pts]
+        return round(max(ys) - min(ys), 2)
+
+    y_none, y_zero, y_low, y_high = (_y_range(None), _y_range(0.0),
+                                     _y_range(5.0), _y_range(200.0))
+    check("bending is not wired in unless it changes the drape",
+          y_none == y_zero  # material.get("bending") is None: same as 0.0
+          and y_zero > y_low > y_high  # stiffer fabric sags less, monotone
+          and (y_none, y_low, y_high) == (164.07, 156.8, 112.46),
+          f'vertical spread with no bending / bending=0 / bending=5 / '
+          f'bending=200: {y_none} / {y_zero} / {y_low} / {y_high} cm — '
+          f'falling as bending rises, no-op when absent')
 
     # **THE COAT MUST NOT MOVE — as a number anyone can recompute.**
     # Every pass of this project has carried a sentence like "the coat is
@@ -1197,7 +1455,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 36 and not third_party,
+          len(scanned) == 39 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -3234,7 +3492,7 @@ def compose_builds_a_whole_garment_from_parts() -> None:
                         ms)
     check("unknown part refused",
           a["verdict"] == "UNKNOWN_NO_SUCH_PART"
-          and len(a.get("known", [])) == 4,
+          and len(a.get("known", [])) == 5,
           f'{a.get("which")} — known: {len(a.get("known", []))}')
     a = compose.compose({"parts": [{"instance": "bodice:1",
                                     "part": "bodice"}],
@@ -3451,23 +3709,46 @@ def zones_number_the_garment_for_adjustment() -> None:
 
 
 # ---------------------------------------------------------------------------
-@declares("the dress has no notches yet, and marks says so honestly",
+@declares("the collar joins the bodice to the cape and the dress still "
+          "sews shut",
+          "the dress has no notches yet, and marks says so honestly",
           "a dress piece keeps its number when a piece is inserted ahead of it",
           "a dart on the dress front closes at the address it sits",
-          "the dress mannequin refuses the measure set the dress actually has",
-          "the dress marker lays seven cut pieces onto real cloth",
+          "the dress mannequin builds now that body_length is measured, "
+          "and the garment fits onto it",
+          "the dress marker lays eight cut pieces onto real cloth",
           "the dress BOM answers fabric and refuses three lines it cannot know",
-          "the dress reaches DXF directly, because save() cannot draft it")
+          "the dress reaches DXF directly, because save() cannot draft it",
+          "the dress has not moved")
 def the_dress_walks_every_stage_past_composition() -> None:
     """**The second garment, past the point ``compose_builds_a_whole_garment_from_parts``
-    already reaches.**
+    already reaches — now with a collar, all the way to the mannequin.**
 
     That check (above) already proves compose -> marks -> ``garment_sew.build``
-    -> ``sew_and_drape`` closes for the cape dress. This one walks the stages
-    past it: stable numbering, a dart, the mannequin, the marker, the BOM,
-    and the DXF export — each called directly on the SAME composed draft, no
-    new geometry invented. Where a stage refuses, the refusal is pinned as
-    the answer, not routed around.
+    -> ``sew_and_drape`` closes for the 4-part cape dress (no collar). This
+    one adds the fifth part — ``collar:1``, sitting between the bodice's
+    neck and the cape (bodice ↔ collar/neck, collar/collar_edge ↔ cape) —
+    and walks every stage past composition: stable numbering, a dart, the
+    mannequin (build, align, dress, clearance — not just the refusal the
+    measure set used to stop at), the marker, the BOM, and the DXF export —
+    each called directly on the SAME composed draft, no new geometry
+    invented beyond ``garment_parts.draft_collar``. Where a stage still
+    refuses, the refusal is pinned as the answer, not routed around.
+
+    ``collar`` used to be undraftable (``UNKNOWN_PART_NOT_DRAFTABLE``) — the
+    fact this suite is now built against is that it drafts. Registering it
+    took one procedure in ``garment_parts.py`` and three lines in
+    ``parts.py`` (``PART_GEOMETRY``, ``PART_MEASURES``, one new port
+    ``collar_edge``) — no branch in ``compose.py``. ``closure`` and
+    ``waist_finish`` remain undraftable (their opening allowance and gather
+    take-up are not designed yet); ``decoration`` was never going to get a
+    procedure — the vocabulary says up front it does not enter the pattern
+    geometry.
+
+    The measure set also grows by one real spot: ``body_length``. The
+    dress's own measures (``bodice_length`` + ``skirt_length``) are panel
+    lengths, not the torso length ``mannequin.build()`` needs — so this is
+    an actual ninth tape measurement, not a default standing in for one.
 
     **``sewing_order.py`` is not in this walk.** It is not in this
     repository's git history — ``git log --all`` names no commit that adds
@@ -3506,7 +3787,8 @@ def the_dress_walks_every_stage_past_composition() -> None:
     for spot, value in [("chest", 82.0), ("shoulder", 38.0), ("waist", 62.0),
                         ("bodice_length", 22.0), ("sleeve_length", 52.0),
                         ("hip", 88.0), ("skirt_length", 45.0),
-                        ("neck", 21.0), ("cape_length", 28.0)]:
+                        ("neck", 21.0), ("cape_length", 28.0),
+                        ("body_length", 90.0)]:
         ms.measured(spot, value, "cm", source="tape", by="ci")
     dress = {
         "parts": [
@@ -3515,23 +3797,89 @@ def the_dress_walks_every_stage_past_composition() -> None:
              "params": {"hi_lo_drop": 22.0}},
             {"instance": "sleeve:1", "part": "sleeve",
              "params": {"side": "左"}},
-            {"instance": "cape:1", "part": "cape"}],
+            {"instance": "cape:1", "part": "cape"},
+            # **Appended, not inserted.** Keeping the first four instances
+            # in their original order keeps every stable-number pin below
+            # unmoved — the numbering test right after this composes the
+            # same point that the earlier plain cape dress compat with,
+            # then separately proves a piece inserted AHEAD does not move
+            # it. Putting collar ahead of cape here would be testing the
+            # same thing this file already tests elsewhere, at the cost of
+            # every downstream pinned address moving for no reason.
+            {"instance": "collar:1", "part": "collar"}],
         "connections": [
             {"a": ["bodice:1", "waist"], "b": ["skirt:1", "waist"]},
             {"a": ["bodice:1", "armhole_l"],
              "b": ["sleeve:1", "armhole_l"]},
-            {"a": ["bodice:1", "neck"], "b": ["cape:1", "neck"]}],
+            # The collar sits between the bodice and the cape — not a
+            # fourth thing fighting bodice:1/neck for the same port. The
+            # bodice's neckline goes to the collar's inner edge; the
+            # cape now mounts on the collar's OUTER edge (port
+            # collar_edge), the real construction order for a caped
+            # collar (cape sewn onto the collar's roll line, not
+            # straight onto the body's neckline).
+            {"a": ["bodice:1", "neck"], "b": ["collar:1", "neck"]},
+            {"a": ["collar:1", "collar_edge"], "b": ["cape:1", "neck"]}],
         "port_finish": {
             "cape:1": {"hem": "free", "center_front": "fold",
                        "center_back": "fold"},
             "skirt:1": {"hem": "free", "center_front": "fold",
                         "center_back": "fold"},
             "bodice:1": {"center_front": "fold", "center_back": "fold"},
-            "sleeve:1": {"cuff_l": "free"}},
+            "sleeve:1": {"cuff_l": "free"},
+            "collar:1": {"center_front": "fold", "center_back": "fold"}},
         "label": "ケープワンピース",
     }
     r = compose.compose(dress, ms)
     m = garment_marks.apply(r)
+
+    with guard("the collar joins the bodice to the cape and the dress "
+               "still sews shut"):
+        # `collar` used to answer UNKNOWN_PART_NOT_DRAFTABLE the moment it
+        # appeared in a parts list — this is the same gate
+        # `compose_builds_a_whole_garment_from_parts` proves for the
+        # collar-less dress, now with the fifth part in. Two NEW seam
+        # checks pair (neck: bodice ↔ collar, and collar_edge: collar ↔
+        # cape) on top of the original ten, and none of the twelve is over
+        # tolerance — the collar's own radius/height defaults
+        # (``garment_parts.COLLAR_SECTOR``/``COLLAR_HEIGHT``) were picked
+        # so the seam it hands the cape is close enough to the cape's own
+        # (independently measured) neckline to sew, not so a check would
+        # pass by construction: the same 6.0cm height this file used to
+        # carry left that seam 7.9cm apart (5.9cm over the 2.0cm tolerance), measured
+        # before this value was lowered.
+        seam_checks = r.get("seam_checks", [])
+        bad = [c for c in seam_checks if not c["sewable"]]
+        new_labels = sorted({c["label"].split(" (", 1)[0] for c in
+                             seam_checks if c["label"].startswith(
+                                 ("neck: bodice:1 ↔ collar:1",
+                                  "collar_edge: collar:1 ↔ cape:1"))})
+        built = garment_sew.build(r, marks=m)
+        mat = {"verdict": "ANSWER", "fabric": "wool melton", "gsm": 420.0,
+               "thickness": 0.18, "stiffness": 20.0}
+        gap = garment_sew.sew_and_drape(built, mat, iterations=6000,
+                                        stitch_k=20.0 * 128)["seam_gap"]
+        # 衿は compose.PLACEMENT_TEMPLATE に明示の初期位置を持つこと —
+        # 無ければ `placement_map.get(name, (0.0,0.0,0.0))` の無言既定に
+        # 落ちる(数値としては同じ (0.0,0.0,0.0) だが、意図して選んだ値と
+        # 無言の既定は別物 — このプロジェクトの規律そのもの)。
+        collar_placed = "衿" in compose.PLACEMENT_TEMPLATE
+        check("the collar joins the bodice to the cape and the dress "
+              "still sews shut",
+              r["verdict"] == "ANSWER" and len(r["pieces"]) == 7
+              and "衿" in [p["name"] for p in r["pieces"]]
+              and len(seam_checks) == 12 and not bad
+              and new_labels == ["collar_edge: collar:1 ↔ cape:1",
+                                 "neck: bodice:1 ↔ collar:1"]
+              and gap["closed"] and gap["over_tolerance"] == 0
+              and round(gap["worst"], 4) == 0.0699
+              and gap["stitches"] == 50
+              and collar_placed,
+              f'{len(r["pieces"])} pieces (was 6 before the collar), '
+              f'{len(seam_checks)} seam checks ({len(bad)} not sewable), '
+              f'collar placement explicit: {collar_placed}, '
+              f'sews shut at worst {gap["worst"]} cm over '
+              f'{gap["stitches"]} stitches (was 45 for the 6-piece dress)')
 
     with guard("the dress has no notches yet, and marks says so honestly"):
         # compose() ships `"notch_plan": []` — an EMPTY declared plan, not a
@@ -3557,7 +3905,7 @@ def the_dress_walks_every_stage_past_composition() -> None:
         check("the dress has no notches yet, and marks says so honestly",
               m.get("verdict", "ANSWER") == "ANSWER" and n_notch == 0
               and m["notch_pairs"] == [] and m["notch_unpaired"] == []
-              and len(sa_ok) == 6 == len(sa)
+              and len(sa_ok) == 7 == len(sa)
               and grain_pieces == {p["name"] for p in r["pieces"]}
               and coat_angle == dress_angle == 90.0,
               f'0 notches across {len(sa)} pieces (notch_plan is an empty '
@@ -3573,7 +3921,7 @@ def the_dress_walks_every_stage_past_composition() -> None:
     with guard("a dress piece keeps its number when a piece is inserted "
                "ahead of it"):
         watch = [("後身頃", "e0", 0.0), ("スカート前", "e2", 0.5),
-                 ("ケープ", "e10", 0.3)]
+                 ("ケープ", "e10", 0.3), ("衿", "e0", 0.3)]
         before = [_pt.number(reg, a, b, t) for a, b, t in watch]
         grown = _copy.deepcopy(r)
         grown["pieces"].insert(0, {"name": "割り込み", "area_cm2": 1.0,
@@ -3585,13 +3933,15 @@ def the_dress_walks_every_stage_past_composition() -> None:
         where = _pt.resolve(reg, before[0])
         check("a dress piece keeps its number when a piece is inserted "
               "ahead of it",
-              before == [600, 1450, 3730] and after == before
+              before == [600, 1450, 3730, 7730] and after == before
               and where["piece"] == "後身頃" and where["edge"] == "e0"
               and where["number"] == 600,
               f'{watch} -> {before}, unchanged at {after} after a piece is '
-              f'inserted at the front of a 6-piece dress (the coat\'s own '
+              f'inserted at the front of a 7-piece dress (the coat\'s own '
               f'version of this check inserts at index 1; this one inserts '
-              f'at index 0, the harder position)')
+              f'at index 0, the harder position). 衿/e0 at 7730 is the '
+              f'collar\'s own address, appended after the original six '
+              f'without moving any of them')
 
     with guard("a dart on the dress front closes at the address it sits"):
         # 前身頃/e3 is the side seam (脇線) — verified against the piece's
@@ -3616,56 +3966,119 @@ def the_dress_walks_every_stage_past_composition() -> None:
               f'shrink {shrink:.4f} == intake 2.5; addressed at stable '
               f'number {n_dart}, developable={one["developable"]}')
 
-    with guard("the dress mannequin refuses the measure set the dress "
-               "actually has"):
-        # Exactly the candidate refusal the brief named ahead of time:
-        # mannequin.build() needs chest/waist/hip/body_length, and the dress
-        # graph never declares body_length — it declares bodice_length and
-        # skirt_length as two separate real measurements instead. This is
-        # pinned as the honest result, not routed around by inventing a
-        # body_length nobody measured.
+    # **A finding, not a routing-around.** dxf.save() still cannot draft
+    # the composed dress — it internally re-drafts from
+    # `garment_pattern.draft(measures)`, the COAT's fixed 3-piece shape,
+    # never reading a parts graph. Before body_length was added, that was
+    # invisible behind a shared refusal: both the dress's mannequin AND
+    # the coat's draft were missing the same spot, so save() answered
+    # UNKNOWN_MISSING_MEASUREMENTS and looked like it was refusing to
+    # touch the dress specifically. It was not — it was refusing for its
+    # OWN reason, on its OWN garment. body_length is also one of the
+    # coat's four required spots (chest, shoulder, sleeve_length,
+    # body_length — all already in this measure set), so now that it is
+    # present, save() answers ANSWER: it silently drafts and writes the
+    # COAT's 前身頃/後身頃/袖, not the dress's seven pieces, to a file named
+    # "dress.dxf". That is measured below rather than assumed, and it is
+    # exactly the "wrong garment gets the approval" failure this codebase
+    # otherwise goes to some lengths to refuse — save() just never learned
+    # to ask which garment. `dxf.to_dxf()` on the already-marked dress
+    # draft (the next check) is the only door that reaches this garment.
+    import tempfile as _tempfile
+    from pathlib import Path as _Path
+    with guard("the dress mannequin builds now that body_length is "
+               "measured, and the garment fits onto it"):
+        # This used to be the refusal the brief named ahead of time:
+        # mannequin.build() needs chest/waist/hip/body_length, and the
+        # dress's own measures (bodice_length + skirt_length) never
+        # supplied it. body_length above is the real ninth tape
+        # measurement that closes that gap — not a default standing in
+        # for one. What follows is the same build/align/dress/clearance
+        # walk `the_garment_goes_onto_a_body` proves for the coat, run
+        # here on the composed, collared dress's own draped points.
         man = _mq.build(ms)
-        # Same call through dxf.save(), which internally re-drafts from
-        # `garment_pattern.draft(measures)` — the COAT's fixed shape, not
-        # the composed dress. It refuses on the same missing spot, which is
-        # reassuring (no silent wrong-garment export) but also proves
-        # `save()` cannot be pointed at a composed garment at all — only
-        # `dxf.to_dxf()` on an already-marked draft can, which the next
-        # check below uses instead.
-        import tempfile as _tempfile
-        from pathlib import Path as _Path
         with _tempfile.TemporaryDirectory() as _tmp:
             saved = _dxf.save(ms, str(_Path(_tmp) / "dress.dxf"))
-        check("the dress mannequin refuses the measure set the dress "
-              "actually has",
-              man["verdict"] == "UNKNOWN_MISSING_MEASUREMENTS"
-              and man["missing"] == ["body_length"]
-              and saved["verdict"] == "UNKNOWN_MISSING_MEASUREMENTS"
-              and saved["missing"] == ["body_length"],
-              f'mannequin.build(dress measures) -> {man["verdict"]} naming '
-              f'{man["missing"]} (the dress has bodice_length + '
-              f'skirt_length, never body_length); dxf.save() over the same '
-              f'measures refuses identically rather than silently drafting '
-              f'the coat\'s own 3-piece shape from the dress\'s numbers')
+        built = garment_sew.build(r, marks=m)
+        mat = {"verdict": "ANSWER", "fabric": "wool melton", "gsm": 420.0,
+               "thickness": 0.18, "stiffness": 20.0}
+        fell = garment_sew.sew_and_drape(built, mat, iterations=6000,
+                                         stitch_k=20.0 * 128)["points"]
+        al = _mq.align(man, fell)
+        worn = _mq.dress(man, fell)
+        c_fell = _mq.clearance(man, fell)
+        c_worn = _mq.clearance(man, worn["points"])
+        total = (c_fell["inside_the_body"] + c_fell["clinging"]
+                 + c_fell["apart"] + c_fell["no_body_at_that_height"])
+        # dxf.save() writes the COAT — measured, not assumed: 3 pieces,
+        # named 前身頃/後身頃/袖. Two of those three names are NOT
+        # distinguishing — draft_bodice() (this dress's own bodice
+        # procedure) happens to name its front/back pieces 前身頃/後身頃
+        # too, so a caller who only checked "does the output mention
+        # 前身頃" would see a false match. What IS distinguishing: the
+        # coat's single sleeve piece is named plain "袖", never "袖(左)"
+        # the way this dress's own sleeve is (draft_sleeve() puts the
+        # side into the name), and the coat has 3 pieces where this dress
+        # has 7. It answers ANSWER, not a refusal — see the comment above
+        # the guard for why that is a finding, not a pass.
+        saved_names = set(saved.get("placement", []))
+        dress_names = {p["name"] for p in r["pieces"]}
+        check("the dress mannequin builds now that body_length is "
+              "measured, and the garment fits onto it",
+              man["verdict"] == "ANSWER" and man["vertices"] == 408
+              and len(man["faces"]) == 384
+              and saved["verdict"] == "ANSWER" and len(saved["pieces"]) == 3
+              and saved_names == {"前身頃", "後身頃", "袖"}
+              and "袖" in saved_names and "袖(左)" not in saved_names
+              and len(dress_names) == 7 and "袖(左)" in dress_names
+              and round(al["rule"]["dy_cm"], 4) == 38.8742
+              and round(al["rule"]["dx_cm"], 4) == -20.4661
+              and worn["verdict"] == "ANSWER"
+              and worn["points_below_the_form"] == 163
+              and worn["min_clearance_cm"] == 1.0
+              and total == c_fell["points"] == len(fell) == 291
+              and c_fell["inside_the_body"] == 44
+              and c_worn["inside_the_body"] == 0
+              and round(c_fell["min_clearance_cm"], 4) == -8.9678
+              and round(c_worn["min_clearance_cm"], 4) == 0.9999,
+              f'mannequin {man["vertices"]}v/{len(man["faces"])}f; the '
+              f'{len(fell)}-point draped dress moved onto it by dy '
+              f'{al["rule"]["dy_cm"]}, dx {al["rule"]["dx_cm"]}; as it fell, '
+              f'{c_fell["inside_the_body"]} of {len(fell)} points sit '
+              f'inside the form (min clearance '
+              f'{c_fell["min_clearance_cm"]} cm); dressed (pushed to '
+              f'surface + gap), 0 do (min clearance '
+              f'{c_worn["min_clearance_cm"]} cm, the gap by construction); '
+              f'dxf.save() over the SAME measures now silently answers '
+              f'{saved["verdict"]} writing {len(saved["pieces"])} pieces '
+              f'named {sorted(saved_names)} — the COAT (this {len(dress_names)}'
+              f'-piece dress\'s own sleeve is "袖(左)", never plain "袖") — '
+              f'because body_length happens to complete the coat\'s own '
+              f'required set too. save() cannot tell these two garments '
+              f'apart; only to_dxf() on this garment\'s own marked draft '
+              f'(next check) can')
 
     CUT = {"前身頃": 1, "後身頃": 1, "スカート前": 1, "スカート後": 1,
-           "袖(左)": 2, "ケープ": 1}
-    with guard("the dress marker lays seven cut pieces onto real cloth"):
+           "袖(左)": 2, "ケープ": 1, "衿": 1}
+    with guard("the dress marker lays eight cut pieces onto real cloth"):
         no_count = _mkr.lay(r, 150.0, {}, 1.5)
         good = _mkr.lay(r, 150.0, CUT, 1.5)
-        check("the dress marker lays seven cut pieces onto real cloth",
+        check("the dress marker lays eight cut pieces onto real cloth",
               no_count["verdict"] == _mkr.NO_COUNT
               and sorted(no_count["pieces"]) == sorted(p["name"]
                                                         for p in r["pieces"])
               and good["verdict"] == "ANSWER"
-              and good["pieces_laid"] == 7 == sum(CUT.values())
+              and good["pieces_laid"] == 8 == sum(CUT.values())
               and round(good["length_cm"], 1) == 130.2
-              and round(good["utilisation_pct"], 2) == 62.26,
+              and round(good["utilisation_pct"], 2) == 63.34,
               f'no counts -> {no_count["verdict"]} naming all '
-              f'{len(no_count["pieces"])} pieces; 7 copies (袖(左) cut '
-              f'twice, mirrored, the rest cut on the fold declared in '
-              f'port_finish) need {good["length_cm"]} cm at '
-              f'{good["utilisation_pct"]}% utilisation')
+              f'{len(no_count["pieces"])} pieces; 8 copies (袖(左) cut '
+              f'twice, mirrored, the rest — now including 衿 — cut on the '
+              f'fold declared in port_finish) need {good["length_cm"]} cm '
+              f'at {good["utilisation_pct"]}% utilisation (up from 62.26% '
+              f'over the same {good["length_cm"]} cm before the collar — '
+              f'the small extra piece fit inside the length already spent, '
+              f'it did not need more of it)')
 
     with guard("the dress BOM answers fabric and refuses three lines it "
                "cannot know"):
@@ -3690,18 +4103,40 @@ def the_dress_walks_every_stage_past_composition() -> None:
         expected_names = sorted(p["name"] for p in r["pieces"])
         check("the dress reaches DXF directly, because save() cannot "
               "draft it",
-              out["verdict"] == "ANSWER" and len(out["pieces"]) == 6
+              out["verdict"] == "ANSWER" and len(out["pieces"]) == 7
               and names == expected_names
               and out["cut_line_missing"] == []
               and sum(out["notch_lines"].values()) == 0
               and out["extents_cm"]["min"] == [10.0, -37.1]
-              and out["extents_cm"]["max"] == [263.685, 69.682],
+              and out["extents_cm"]["max"] == [286.026, 69.682],
               f'{len(out["pieces"])} pieces {names} written straight from '
               f'garment_marks.apply() output (to_dxf(), not save() — '
               f'save() re-drafts from garment_pattern.draft internally and '
               f'cannot see a composed garment at all); extents '
               f'{out["extents_cm"]["min"]} .. {out["extents_cm"]["max"]} cm, '
               f'0 notch lines matching the 0 notches marks produced')
+
+    # **THE DRESS MUST NOT MOVE EITHER — as a number anyone can recompute.**
+    # The same discipline tests/coat_digest.py exists for, applied to the
+    # second garment: the generator is in the tree (tests/dress_digest.py,
+    # not a script in someone's scratch directory), it canonicalises floats
+    # to their exact IEEE-754 bit patterns, and the suite runs it — over
+    # compose, marks, the built mesh and seams, both drape passes, the
+    # mannequin (build/align/dress/clearance), the marker, the BOM, the DXF
+    # export and the SVG, none of which tests/coat_digest.py's own digest
+    # touches (that script only ever drafts the coat).
+    sys.path.insert(0, str(ROOT / "tests"))
+    import dress_digest
+    dd = dress_digest.digests()
+    check("the dress has not moved",
+          dd["geometry"] == dress_digest.GEOMETRY_DIGEST
+          and not dd["errors"]
+          and dress_digest.GEOMETRY_DIGEST
+          == "493f74a274d4dac5a97c0bdf57b20037"
+          and len(dress_digest.GEOMETRY) == 16,
+          f'geometry {dd["geometry"]} over {len(dress_digest.GEOMETRY)} '
+          f'sections, recomputable by anyone with '
+          f'`python3 tests/dress_digest.py --check`')
 
 
 # ---------------------------------------------------------------------------
@@ -4144,19 +4579,28 @@ def the_look_becomes_a_shape() -> None:
 
     with guard("a retrieved family with no procedure refuses the whole "
                "construction"):
+        # `collar` used to be the standing example of an undraftable part
+        # here. It drafts now (garment_parts.draft_collar,
+        # parts.PART_GEOMETRY) — `closure` takes its place: still in
+        # PART_VOCAB, still with no procedure (the opening allowance and
+        # its seam treatment are not designed yet), so this check keeps
+        # testing what it always tested — a part inside the vocabulary but
+        # without a drafting procedure — rather than one that happens not
+        # to draft today.
         mixed = dict(good)
         mixed["instances"] = list(good["instances"]) + [
-            {"instance": "collar:1", "part": "collar", "params": {}},
+            {"instance": "closure:1", "part": "closure", "params": {}},
             {"instance": "mantle:1", "part": "mantle", "params": {}}]
         m = compose.graph_from(mixed)
         check("a retrieved family with no procedure refuses the whole "
               "construction",
               m["verdict"] == compose.NO_PART
-              and m["undraftable"] == ["collar"]
+              and m["undraftable"] == ["closure"]
               and m["unknown"] == ["mantle"]
               and "graph" not in m
               and "PART_GEOMETRY" in m["how_to_close"]
-              and m["known"] == ["bodice", "cape", "skirt_panel", "sleeve"],
+              and m["known"] == ["bodice", "cape", "collar", "skirt_panel",
+                                 "sleeve"],
               f'{m["verdict"]} naming every offender — {m["unknown"]} outside '
               f'the vocabulary and {m["undraftable"]} inside it with no '
               f'procedure — and no graph at all. A garment silently missing '
@@ -4165,7 +4609,7 @@ def the_look_becomes_a_shape() -> None:
     with guard("the constructed graph names every part the retrieval named"):
         mixed = dict(good)
         mixed["instances"] = list(good["instances"]) + [
-            {"instance": "collar:1", "part": "collar", "params": {}}]
+            {"instance": "closure:1", "part": "closure", "params": {}}]
         m = compose.graph_from(mixed)
         check("the constructed graph names every part the retrieval named",
               g["verdict"] == "ANSWER"
@@ -4173,7 +4617,7 @@ def the_look_becomes_a_shape() -> None:
               == sorted(i["part"] for i in good["instances"])
               and len(g["graph"]["parts"]) == 4
               and m.get("graph") is None
-              and m["asked_for"] == ["bodice", "cape", "collar",
+              and m["asked_for"] == ["bodice", "cape", "closure",
                                      "skirt_panel", "sleeve"]
               and draft["verdict"] == "ANSWER",
               f'{len(g["graph"]["parts"])} parts in, '
@@ -4617,8 +5061,11 @@ def the_gate_holds() -> None:
         for i in range(3):
             different.append(convergence.check(draft, rejected=[f"c{i}"],
                                                history=h2)["verdict"])
+        # `collar` drafts now (garment_parts.draft_collar) — `closure`
+        # still does not, so it is the one that still reaches
+        # UNKNOWN_PART_NOT_DRAFTABLE here.
         undraftable = compose.compose(
-            {"parts": [{"instance": "collar:1", "part": "collar"}]}, ms)
+            {"parts": [{"instance": "closure:1", "part": "closure"}]}, ms)
         h3 = []
         stuck = [convergence.check(undraftable, history=h3)["verdict"]
                  for _ in range(3)][-1]
@@ -5044,11 +5491,11 @@ KNOWN_UNFALSIFIABLE = [
      "names this as unfinished: 合印の方針は次の段で宣言ごとに足す). There is "
      "no non-empty case to point at inside THIS draft for that reason. The "
      "condition is not vacuous as a whole, though: it also carries "
-     "`len(sa_ok) == 6 == len(sa)`, pinned against the marks pipeline "
-     "actually running seam-allowance offsets on all six pieces, and the "
-     "falsifier 'marks stop computing seam allowances' turns exactly that "
-     "clause — and this check — red by breaking the offset step, without "
-     "touching notch_plan at all."),
+     "`len(sa_ok) == 7 == len(sa)`, pinned against the marks pipeline "
+     "actually running seam-allowance offsets on all seven pieces (the "
+     "collar included), and the falsifier 'marks stop computing seam "
+     "allowances' turns exactly that clause — and this check — red by "
+     "breaking the offset step, without touching notch_plan at all."),
     ("T2", "the dress reaches DXF directly, because save() cannot draft it",
      "real",
      "Same reason: with 0 notches produced upstream (see the entry above), "
@@ -5595,6 +6042,14 @@ def _dxf_texts(blocks: list) -> list:
             for t, codes in blocks if t == "TEXT"]
 
 
+def _dxf_styles(blocks: list) -> list:
+    """STYLE テーブルの各エントリを ``(name, primary font)`` で返す。
+    group 3 が無い(空文字)エントリも含めて返す — フォントが「無い」
+    ことそのものが、下の check が名指しで見る失敗の形。"""
+    return [(codes.get(2, [""])[0], codes.get(3, [""])[0])
+            for t, codes in blocks if t == "STYLE"]
+
+
 def _shoelace(points: list) -> float:
     """Polygon area, independent of ``garment_pattern._area`` — this file
     reads the parsed coordinates back, it does not call the drafter's own
@@ -5616,7 +6071,8 @@ def _pt_close(a: tuple, b: tuple, tol: float = 1e-3) -> bool:
           "every draft vertex survives to its DXF coordinate",
           "the cut line and sewing line are different curves on separate layers",
           "DXF notch and grain lines land at the marks' own positions",
-          "the DXF round-trips into rebuilt piece areas")
+          "the DXF round-trips into rebuilt piece areas",
+          "the DXF declares a text style with a real font")
 def pattern_exports_to_a_cad_file() -> None:
     """**The piece that lets an outsider verify the whole project.**
 
@@ -5901,6 +6357,41 @@ def pattern_exports_to_a_cad_file() -> None:
                   f'(worst {max(cut_diffs):.4f} cm2); total rebuilt '
                   f'{total_rebuilt} cm2 vs draft\'s '
                   f'{draft["total_area_cm2"]} cm2')
+
+        with guard("the DXF declares a text style with a real font"):
+            # **A parser could not have DISCOVERED this failure mode** —
+            # only a real renderer shows a missing glyph. This check itself
+            # IS a parser (the same group-code reader as the checks above
+            # it), so once you know to look, it can verify the structural
+            # fact — STYLE "STANDARD" names a non-empty font — even though
+            # it cannot confirm that font actually carries CJK glyphs on
+            # every reader. ezdxf decodes the TEXT bytes into the correct
+            # Japanese string with or without a STYLE table — a parser
+            # never draws a glyph, so it cannot see this failure on its
+            # own. QCAD (実機の CAD アプリケーション。標準ライブラリでは
+            # ない — 確かめるためだけに使った、jgen には持ち込まない)did: with
+            # no STYLE table at all, the same three-character piece name
+            # (後身頃) rendered as three "?" — the font QCAD assigned to
+            # the implicit "STANDARD" style carried no kanji, even though
+            # the bytes it decoded were exactly right. Naming a STYLE
+            # entry anything other than "STANDARD" would not have fixed
+            # it either: no TEXT entity here sets group 7, so every reader
+            # falls back to whatever it treats as the implicit default —
+            # which is why this check pins TEXT_STYLE == "STANDARD" AND
+            # its font, not just "a STYLE table exists somewhere".
+            styles = _dxf_styles(blocks)
+            style_names = [n for n, _f in styles]
+            standard_font = dict(styles).get(_dxf.TEXT_STYLE, "")
+            check("the DXF declares a text style with a real font",
+                  _dxf.TEXT_STYLE == "STANDARD"
+                  and style_names.count(_dxf.TEXT_STYLE) == 1
+                  and standard_font == _dxf.TEXT_FONT != "",
+                  f'STYLE table has {style_names}; "{_dxf.TEXT_STYLE}" — '
+                  f'the implicit default every TEXT entity here relies on '
+                  f'(none sets group 7) — carries font "{standard_font}". '
+                  f'Measured in QCAD, a real CAD application: without this '
+                  f'table the same three-kanji piece name drew as three '
+                  f'"?"; with "{_dxf.TEXT_FONT}" declared, it drew correctly')
 
 @declares("there is no body below the dress form",
           "the garment is moved onto the form without changing shape",
@@ -6235,6 +6726,274 @@ def a_pattern_piece_absorbs_curvature_two_ways() -> None:
               f'{bad_height["verdict"]}; one resolution -> '
               f'{one_res["verdict"]}; zero resolutions -> '
               f'{no_res["verdict"]}')
+
+
+# ---------------------------------------------------------------------------
+@declares("the smooth mannequin keeps the same five levels, and its total "
+          "curvature converges near the linear one while its bands settle "
+          "far tighter",
+          "the monotone spline's four spans stay within their own "
+          "measured girths",
+          "the base garment is the body surface plus a constant radial "
+          "offset",
+          "the base garment ends where the body ends instead of "
+          "extrapolating past it",
+          "flattening a non-developable panel distorts both area and "
+          "angle, measured triangle by triangle",
+          "flatten refuses a grid too coarse to triangulate and a "
+          "mannequin that never stood up")
+def a_body_becomes_a_flat_pattern_by_geometry() -> None:
+    """**The geometric route: skin-tight base, offset, flatten. No corpus.**
+
+    Dress the mannequin in a skin-tight base, offset it to make the
+    garment surface, then flatten that surface into panels — the pattern
+    comes from the body's own geometry, not from retrieval. Three modules,
+    one pipeline: ``mannequin_spline`` (a smoother mannequin through the
+    SAME five measured levels), ``base_garment`` (body surface + constant
+    offset, bounded where the body is), and ``flatten`` (that surface cut
+    open and relaxed into 2D, with the resulting distortion measured per
+    triangle rather than hidden).
+
+    ``mannequin.build`` interpolates its five levels linearly, which
+    concentrates curvature at the five creases (``curvature.py``'s own
+    docstring measures this: 89% of the front torso's curvature between
+    chest and shoulder). ``mannequin_spline`` interpolates the SAME five
+    levels with a monotone cubic Hermite spline (Fritsch-Carlson, 1980)
+    instead, and ``curvature.compare_interpolation`` measures what changes:
+    the total converges to nearly the same value (the spline's endpoint
+    tangents are set to the linear secant, so the Gauss-Bonnet boundary
+    term is unchanged) while the band distribution settles far tighter
+    than the linear version's, which never settles at all — its bands
+    swing by tens of degrees at every resolution tested because a crease's
+    angle defect lands on whichever grid row is nearest it, which moves
+    as the grid changes.
+    """
+    import math as _math
+
+    from photoloset import base_garment as _bg
+    from photoloset import curvature as _cv
+    from photoloset import flatten as _fl
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+    from photoloset import mannequin_spline as _sp
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("waist", 92.0),
+                        ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+
+    with guard("the smooth mannequin keeps the same five levels, and its "
+              "total curvature converges near the linear one while its "
+              "bands settle far tighter"):
+        smooth_man = _sp.build(ms)
+        same_levels = (smooth_man["_levels"] == man["_levels"]
+                      and len(smooth_man["_levels"]) == 5)
+        cmp = _cv.compare_interpolation(man)
+        ratios = cmp["band_spread_ratio_linear_over_smooth"]
+        # Every one of the 4 bands must be tighter under the smooth
+        # interpolation, not just the average — a single band that got
+        # WORSE would be hidden by a mean.
+        all_tighter = [ratios[name] is not None and ratios[name] > 2.0
+                      for name in ratios]
+        check("the smooth mannequin keeps the same five levels, and its "
+              "total curvature converges near the linear one while its "
+              "bands settle far tighter",
+              cmp["verdict"] == "ANSWER" and same_levels
+              and cmp["total_settled"] and cmp["distribution_settled"]
+              and cmp["total_deg_gap"] < 2.0
+              and 180.0 < cmp["linear"]["total_deg"] < 186.0
+              and 180.0 < cmp["smooth"]["total_deg"] < 190.0
+              and len(ratios) == 4 == len(all_tighter)
+              and all(all_tighter)
+              and max(cmp["linear"]["band_spread_across_refinement_deg"]
+                      .values()) > 20.0,
+              f'levels unchanged: {same_levels}; total_deg linear='
+              f'{cmp["linear"]["total_deg"]:.2f} smooth='
+              f'{cmp["smooth"]["total_deg"]:.2f} (gap '
+              f'{cmp["total_deg_gap"]} deg); band tightening ratios '
+              f'{ratios}, every one over 2x; linear worst band spread '
+              f'{max(cmp["linear"]["band_spread_across_refinement_deg"].values()):.1f}'
+              f' deg across the same refinement steps that settle the '
+              f'total — the crease distribution never converges, only '
+              f'the total does')
+
+    with guard("the monotone spline's four spans stay within their own "
+              "measured girths"):
+        levels = man["_levels"]
+        # A single running worst-case rather than a list the property could
+        # pass by never being scanned: len(levels) is pinned in the
+        # condition below, so a body with a different level count cannot
+        # make this vacuous by looping zero times.
+        worst_over = 0.0
+        worst_who = None
+        SAMPLES = 40
+        for lo_i in range(len(levels) - 1):
+            y0, y1 = levels[lo_i][0], levels[lo_i + 1][0]
+            a0, a1 = levels[lo_i][1], levels[lo_i + 1][1]
+            b0, b1 = levels[lo_i][2], levels[lo_i + 1][2]
+            a_lo, a_hi = min(a0, a1), max(a0, a1)
+            b_lo, b_hi = min(b0, b1), max(b0, b1)
+            for k in range(SAMPLES + 1):
+                y = y0 + (y1 - y0) * k / SAMPLES
+                r = _sp.radius_at(man, y, 0.0)      # theta=0 -> r == a(y)
+                r90 = _sp.radius_at(man, y, _math.pi / 2)  # -> r == b(y)
+                over_a = max(a_lo - r, r - a_hi, 0.0)
+                over_b = max(b_lo - r90, r90 - b_hi, 0.0)
+                if over_a > worst_over:
+                    worst_over, worst_who = over_a, ("a", lo_i, y, r)
+                if over_b > worst_over:
+                    worst_over, worst_who = over_b, ("b", lo_i, y, r90)
+        checked = (len(levels) - 1) * (SAMPLES + 1) * 2
+        check("the monotone spline's four spans stay within their own "
+              "measured girths",
+              len(levels) == 5 and checked == 328
+              and worst_over <= 1e-6,
+              f'{checked} samples across all 4 spans between the 5 levels '
+              f'(a and b axes each), worst excursion past that span\'s own '
+              f'two endpoint values was {worst_over:.2e}cm — a spline that '
+              f'ignored Fritsch-Carlson\'s limiter would bulge past a '
+              f'measured girth between two others'
+              + (f' at {worst_who}' if worst_who else ''))
+
+    with guard("the base garment is the body surface plus a constant "
+              "radial offset"):
+        gap = 1.3
+        segments = _mq.SEGMENTS
+        base = _bg.build(man, gap=gap, segments=segments)
+        body_lo = man["_levels"][0][0]
+        # Read the ACTUAL built vertices back — the bottom ring is
+        # verts[0:segments], one per i, at theta = 2*pi*i/segments — rather
+        # than recomputing body_r+gap a second time on both sides of the
+        # comparison, which would check nothing about base_garment.build
+        # itself.
+        probe_i = [0, segments // 4, segments // 2, 3 * segments // 4]
+        deltas = []
+        for i in probe_i:
+            theta = 2.0 * _math.pi * i / segments
+            expected_r = _mq.radius_at(man, body_lo, theta) + gap
+            vx, vy, vz = base["verts"][i]
+            got_r = _math.hypot(vx, vz)
+            deltas.append(abs(got_r - expected_r))
+        check("the base garment is the body surface plus a constant "
+              "radial offset",
+              base["verdict"] == "ANSWER" and len(deltas) == 4
+              and all(d < 1e-9 for d in deltas)
+              and base["gap_cm"] == gap,
+              f'4 vertices read back from the built bottom ring '
+              f'(base["verts"][{probe_i}]), each |xz|-radius = body radius '
+              f'at the hip level + {gap}cm as independently computed by '
+              f'mannequin.radius_at, max discrepancy {max(deltas):.2e}cm')
+
+    with guard("the base garment ends where the body ends instead of "
+              "extrapolating past it"):
+        body_lo = man["_levels"][0][0]
+        body_hi = man["_levels"][-1][0]
+        overshoot_below = 40.0
+        long_coat = _bg.build(man, gap=1.0, y_bottom=body_lo - overshoot_below)
+        entirely_outside = _bg.build(man, y_bottom=body_hi + 50.0,
+                                     y_top=body_hi + 100.0)
+        normal = _bg.build(man, gap=1.0)
+        check("the base garment ends where the body ends instead of "
+              "extrapolating past it",
+              long_coat["verdict"] == "ANSWER"
+              and long_coat["y_range_used"][0] == round(body_lo, 4)
+              and long_coat["clipped_bottom_cm"] == overshoot_below
+              and long_coat["rings_dropped_for_no_body"] == 0
+              and entirely_outside["verdict"] == _bg.NO_COVERAGE
+              and normal["verdict"] == "ANSWER"
+              and normal["clipped_bottom_cm"] == 0.0
+              and normal["clipped_top_cm"] == 0.0,
+              f'asking for a hem {overshoot_below}cm below the mannequin\'s '
+              f'own hip level ({body_lo}cm) still starts the mesh AT '
+              f'{long_coat["y_range_used"][0]}cm, reports '
+              f'{long_coat["clipped_bottom_cm"]}cm clipped rather than '
+              f'inventing a shape below it; a range entirely outside the '
+              f'body is refused ({entirely_outside["verdict"]}); asking '
+              f'for exactly the body\'s own range clips nothing')
+
+    with guard("flattening a non-developable panel distorts both area and "
+              "angle, measured triangle by triangle"):
+        seg, hs = 12, 8
+        flat = _fl.build(man, segments=seg, height_steps=hs, iterations=800)
+        n_tri = 2 * seg * hs
+        ar = flat.get("area_ratio", {})
+        ae = flat.get("angle_error_deg", {})
+        check("flattening a non-developable panel distorts both area and "
+              "angle, measured triangle by triangle",
+              flat["verdict"] == "ANSWER" and flat["triangles"] == n_tri
+              and len(flat["per_triangle"]) == n_tri
+              and ar.get("min") is not None and ar["min"] < 1.0
+              and ar.get("max") is not None and ar["max"] > 1.0
+              and ae.get("max", 0.0) > 1.0
+              and flat["relaxation"]["energy_last"]
+              < flat["relaxation"]["energy_first"],
+              f'{n_tri} triangles from a {seg}x{hs} grid, area ratio '
+              f'{ar.get("min")}..{ar.get("max")} (straddles 1.0 — some '
+              f'triangles compressed, some stretched, neither claimed '
+              f'good), worst angle error {ae.get("max")} deg, relax '
+              f'energy {flat["relaxation"]["energy_first"]:.1f} -> '
+              f'{flat["relaxation"]["energy_last"]:.1f}')
+
+    with guard("the smooth mannequin actually reaches base_garment and "
+              "flatten through radius_at, not just curvature"):
+        # **The headline claim was "one pipeline: smoother mannequin feeds
+        # base garment feeds flatten" — but every OTHER check above only
+        # ever calls `base_garment.build`/`flatten.build` with their
+        # default `radius_at` (linear `mannequin.radius_at`), never
+        # `mannequin_spline.radius_at`.** 2026-08-27, an outside check
+        # proved that gap by mutation: silently ignoring the `radius_at`
+        # argument in both functions (always falling back to the linear
+        # one) left the WHOLE suite green. This check closes it — it
+        # passes `mannequin_spline.radius_at` through both `build()`s and
+        # asserts the composed result differs measurably from the linear
+        # one, at every vertex, not just one probed height (a single probe
+        # near the waist/chest midpoint happens to land where the two
+        # curves nearly coincide — a check anchored there would itself be
+        # close to unfalsifiable).
+        base_lin = _bg.build(man, gap=1.3, segments=_mq.SEGMENTS)
+        base_smo = _bg.build(man, gap=1.3, segments=_mq.SEGMENTS,
+                             radius_at=_sp.radius_at)
+        vdiffs = [_math.dist(a, b) for a, b in
+                 zip(base_lin["verts"], base_smo["verts"])]
+        flat_lin = _fl.build(man, segments=12, height_steps=8,
+                             iterations=800)
+        flat_smo = _fl.build(man, segments=12, height_steps=8,
+                             iterations=800, radius_at=_sp.radius_at)
+        check("the smooth mannequin actually reaches base_garment and "
+              "flatten through radius_at, not just curvature",
+              base_lin["verdict"] == "ANSWER"
+              and base_smo["verdict"] == "ANSWER"
+              and len(vdiffs) == len(base_lin["verts"]) == 408
+              and max(vdiffs) > 0.5 and sum(vdiffs) / len(vdiffs) > 0.05
+              and flat_lin["verdict"] == "ANSWER"
+              and flat_smo["verdict"] == "ANSWER"
+              and flat_smo["relaxation"]["energy_last"]
+              != flat_lin["relaxation"]["energy_last"]
+              and flat_smo["angle_error_deg"]["max"]
+              != flat_lin["angle_error_deg"]["max"],
+              f'base_garment: {len(vdiffs)} vertices, linear vs smooth '
+              f'radius_at differ by up to {max(vdiffs):.3f}cm (mean '
+              f'{sum(vdiffs) / len(vdiffs):.3f}cm); flatten: relax energy '
+              f'{flat_lin["relaxation"]["energy_last"]} (linear) vs '
+              f'{flat_smo["relaxation"]["energy_last"]} (smooth), worst '
+              f'angle error {flat_lin["angle_error_deg"]["max"]} vs '
+              f'{flat_smo["angle_error_deg"]["max"]} deg')
+
+    with guard("flatten refuses a grid too coarse to triangulate and a "
+              "mannequin that never stood up"):
+        bad_seg = _fl.build(man, segments=2)
+        bad_height = _fl.build(man, height_steps=0)
+        no_man = _fl.build({"verdict": _mq.NO_MEASURE, "missing": ["chest"]})
+        check("flatten refuses a grid too coarse to triangulate and a "
+              "mannequin that never stood up",
+              bad_seg["verdict"] == _fl.BAD_RESOLUTION
+              and bad_height["verdict"] == _fl.BAD_RESOLUTION
+              and no_man["verdict"] == _fl.NO_MANNEQUIN,
+              f'segments=2 -> {bad_seg["verdict"]}; height_steps=0 -> '
+              f'{bad_height["verdict"]}; an unbuilt mannequin -> '
+              f'{no_man["verdict"]}')
 
 
 # ---------------------------------------------------------------------------
@@ -6666,6 +7425,7 @@ if __name__ == "__main__":
                pattern_exports_to_a_cad_file,
                the_garment_goes_onto_a_body,
                a_pattern_piece_absorbs_curvature_two_ways,
+               a_body_becomes_a_flat_pattern_by_geometry,
                the_marker_says_how_much_fabric,
                projects_have_their_own_store,
                the_bom_says_what_to_buy,

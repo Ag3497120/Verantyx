@@ -1206,7 +1206,68 @@ WHOLE_SUITE += [
      "photoloset/garment_drape.py",
      [("GRAVITY = -980.0", "GRAVITY = -1000.0")],
      ["default stitch_k leaves it open", "64x closes it",
-      "the coat has not moved"]),
+      "the coat has not moved",
+      # 2026-08-27: measured directly (not assumed) that this same
+      # mutation also reddens four of the pass's new checks. The
+      # preconditioned number ITSELF does not move (24.2118 both before
+      # and after — at only 400 iterations that figure is set by the
+      # initial snap, not by gravity's settling) but its check also
+      # asserts `coarse_curve[0] == 0.0243` from the unpreconditioned
+      # baseline above, and THAT moves (to 0.0244), which is enough to
+      # redden the line — a check inheriting a neighbour's number is
+      # exactly what a falsifier is supposed to notice, not paper over.
+      "64x closes it is a snapshot, not the equilibrium",
+      "the worst seam gap is non-increasing as iterations grow",
+      "precondition=True changes the answer and stays finite",
+      "bending is not wired in unless it changes the drape"]),
+
+    # **The 2026-08-27 pass, regressed one fix at a time.**
+    ("#29 the per-vertex step stops being used",
+     "photoloset/garment_sew.py",
+     [("            s = step_vec[i] if step_vec is not None else step",
+       "            s = step")],
+     ["precondition=True changes the answer and stays finite"]),
+
+    ("#29 bending stops changing the drape",
+     "photoloset/garment_sew.py",
+     [('                if bend_k is not None and kind == "bias":\n'
+       '                    cb = bend_k * (length - rest[e]) / length\n'
+       '                    for t in range(3):\n'
+       '                        g[t] += cb * d[t]',
+       '                if False and kind == "bias":\n'
+       '                    cb = bend_k * (length - rest[e]) / length\n'
+       '                    for t in range(3):\n'
+       '                        g[t] += cb * d[t]')],
+     ["bending is not wired in unless it changes the drape"]),
+
+    ("#29 a fabric missing only bending is not refused",
+     "photoloset/garment_drape.py",
+     [("    if bend is None:\n        missing.append(\"bending\")",
+       "    if False:\n        missing.append(\"bending\")")],
+     ["a fabric without bending is refused, the way weight and "
+      "thickness already are"]),
+
+    # **The early-stop fix, regressed.** Puts the pre-fix behaviour back —
+    # `precondition=True` trusts the same 50-iteration worst-gap window a
+    # non-preconditioned solve does, so it can (and, on this coat's coarse
+    # mesh at 6400 iterations, does) declare "settled" before the full
+    # budget runs.
+    ("#29 precondition=True trusts the worst-gap window again",
+     "photoloset/garment_sew.py",
+     [("            if (not precondition and worst_now <= gap_tol\n"
+       "                    and abs(worst_now - prev_worst) < 1e-4):",
+       "            if (worst_now <= gap_tol\n"
+       "                    and abs(worst_now - prev_worst) < 1e-4):")],
+     ["precondition=True never declares settled early"]),
+
+    # **The mcp.py bending-scope fix, regressed.** `drape_validate` goes
+    # back to requiring `bending` even though its own call chain never
+    # reads it.
+    ("#29 drape_validate requires bending again",
+     "photoloset/mcp.py",
+     [("    mat = _fabric(fabric, require_bending=False)",
+       "    mat = _fabric(fabric)")],
+     ["mcp.py's fabric reader requires bending only where it is read"]),
 
     # The other half of #9: arm_census was pinned only as the literal dict
     # the coat returns, so a frozen dict passed every check.
@@ -1223,6 +1284,14 @@ WHOLE_SUITE += [
      [('GEOMETRY_DIGEST = "bbc1d025184d1cff58977def178faf49"',
        'GEOMETRY_DIGEST = "0" * 32')],
      ["the coat has not moved"]),
+
+    # The same defect, one door over: the SECOND garment's own digest
+    # generator, checked the same way #22 checks the coat's.
+    ("the pinned dress digest is not the one it recomputes",
+     "tests/dress_digest.py",
+     [('GEOMETRY_DIGEST = "493f74a274d4dac5a97c0bdf57b20037"',
+       'GEOMETRY_DIGEST = "0" * 32')],
+     ["the dress has not moved"]),
 
     # **The schema says what the signature says.** Under
     # `from __future__ import annotations` the annotation is a STRING, so
@@ -1349,6 +1418,29 @@ WHOLE_SUITE += [
     ("compose() emits no seam checks at all", "photoloset/compose.py",
      [('        "seam_checks": checks,', '        "seam_checks": [],')],
      ["cape dress composes from parts"]),
+
+    # Measured, not guessed: at the shipped default (1.2cm) the collar's
+    # outer edge and the cape's own (independently measured) neckline are
+    # 1.57cm apart, inside the 2.0cm tolerance. Raising the default to what
+    # this file's own COLLAR_HEIGHT constant used to read before it was
+    # tuned down (6.0cm) reopens that gap to 7.9cm, and the "collar joins…"
+    # check's `not bad` catches it directly rather than the drape merely
+    # sitting less flat — a collar tall enough is a collar the cape cannot
+    # be sewn onto with this construction.
+    ("the collar grows past what the cape can be sewn onto",
+     "photoloset/garment_parts.py",
+     [("COLLAR_HEIGHT = 1.2", "COLLAR_HEIGHT = 6.0")],
+     ["the collar joins the bodice to the cape and the dress still sews "
+      "shut"]),
+
+    # 衿の初期位置をテーブルから消すと数値上は同じ (0.0,0.0,0.0) の無言
+    # 既定に落ちる(drape は同じ結果に収束する)が、「明示して選んだ」
+    # という主張そのものが崩れる — この check はその主張だけを見る。
+    ("the collar's placement goes back to a silent default",
+     "photoloset/compose.py",
+     [('    "衿": (0.0, 0.0, 0.0),\n}', '}')],
+     ["the collar joins the bodice to the cape and the dress still sews "
+      "shut"]),
 
     ("a check goes back to being a literal", "tests/run_checks.py",
      [('    check("unknown zone refused",\n'
@@ -1490,7 +1582,13 @@ WHOLE_SUITE += [
     ("the garment is anchored by its hem instead of its neckline",
      "photoloset/mannequin.py",
      [("    dy = top - max(ys)", "    dy = top - min(ys)")],
-     ["the garment is moved onto the form without changing shape"]),
+     ["the garment is moved onto the form without changing shape",
+      # align() is generic — the dress's own draped points run through the
+      # SAME function, and its pinned dy (38.8742) is computed from the
+      # SAME `top - max(ys)`. Measured: with min(ys) it comes out 156.05,
+      # not 38.8742.
+      "the dress mannequin builds now that body_length is measured, and "
+      "the garment fits onto it"]),
 
     ("clearance measures the pushed-out garment, not the fallen one",
      "photoloset/mannequin.py",
@@ -1502,7 +1600,13 @@ WHOLE_SUITE += [
        "    if al[\"verdict\"] != \"ANSWER\":\n"
        "        return al\n"
        "    rows: List[Dict[str, Any]] = []")],
-     ["clearance is measured on the garment as it fell"]),
+     ["clearance is measured on the garment as it fell",
+      # Same function, same effect on the dress's own c_fell — measuring
+      # the pushed-out points instead of the fallen ones moves
+      # inside_the_body and min_clearance_cm off their pins on this
+      # garment too.
+      "the dress mannequin builds now that body_length is measured, and "
+      "the garment fits onto it"]),
 
     ("a height with no body is counted as clearance instead",
      "photoloset/mannequin.py",
@@ -1518,20 +1622,24 @@ WHOLE_SUITE += [
        "            continue")],
      ["the clearance states partition every point"]),
 
-    # The coat's own measure set always has body_length, so this is invisible
-    # against the coat: `have["body_length"]` still gets populated by the
-    # loop above and nothing changes. Fed the DRESS's measure set (which has
-    # bodice_length and skirt_length, never body_length) it stops refusing
-    # and crashes instead at `L = have["body_length"]` — a KeyError the
-    # guard() around the check catches and reports as that check going red.
+    # The coat's own measure set always has body_length, and the dress's own
+    # measure set does too now (this task's ninth spot) — so on either
+    # garment this mutation is invisible: `have[...]` still gets populated
+    # by the loop above and nothing changes. `empty_man =
+    # _mq.build(_gm.Measures())` inside "curvature refuses missing
+    # measurements…" feeds a Measures object with NOTHING recorded, so it
+    # is the one place this suite still calls build() on a measure set that
+    # is missing every spot; with the guard skipped it stops refusing and
+    # crashes instead at `dims(have["hip"])` — a KeyError the guard()
+    # around the check catches and reports as that check going red.
     ("the mannequin stops refusing a missing measurement",
      "photoloset/mannequin.py",
      [("    if missing:\n"
        "        return {\"verdict\": NO_MEASURE, \"missing\": missing,",
        "    if False:\n"
        "        return {\"verdict\": NO_MEASURE, \"missing\": missing,")],
-     ["the dress mannequin refuses the measure set the dress actually "
-      "has"]),
+     ["curvature refuses missing measurements and a grid too coarse to "
+      "triangulate"]),
 
     # ---- convergence.loop() ----------------------------------------------
     ("a new address stops continuing the loop",
@@ -1639,7 +1747,7 @@ WHOLE_SUITE += [
      [("        cw, ch = w + 2.0 * sa, h + 2.0 * sa",
        "        cw, ch = w, h")],
      ["the seam allowance is inside the fabric it needs",
-      "the dress marker lays seven cut pieces onto real cloth"]),
+      "the dress marker lays eight cut pieces onto real cloth"]),
 
     # This went MISS the first time, aimed at "more copies need more fabric":
     # the reference coat's pieces are ALREADY generated tallest-first
@@ -1799,6 +1907,30 @@ WHOLE_SUITE += [
      "photoloset/dxf.py",
      [("GAP_CM = 15.0", "GAP_CM = 20.0")],
      ["the dress reaches DXF directly, because save() cannot draft it"]),
+
+    # The STYLE table's font is blanked. Every TEXT byte is still correct
+    # cp932 — the file still parses, the piece names still round-trip as
+    # strings — so only a check that reads the STYLE table itself can see
+    # this. Measured in QCAD (real CAD application, not this repository's
+    # own code): a blank primary font here is exactly the state that drew
+    # the piece names as three "?" apiece before this table existed at all.
+    ("the STYLE table's font is blanked",
+     "photoloset/dxf.py",
+     [('TEXT_FONT = "MS-Gothic"', 'TEXT_FONT = ""')],
+     ["the DXF declares a text style with a real font"]),
+
+    # The STYLE entry is given a name other than "STANDARD". The table is
+    # still there, the font is still MS-Gothic — but no TEXT entity in this
+    # file sets group 7, so every reader falls back to the IMPLICIT default
+    # style, never to a style that merely exists under some other name. A
+    # check that only asked "is there a STYLE table with a real font"
+    # (dropping the name comparison) would stay green here while a real CAD
+    # application drew "?" again, for the same reason as the blank-font
+    # entry above.
+    ("the STYLE entry is renamed away from the implicit default",
+     "photoloset/dxf.py",
+     [('TEXT_STYLE = "STANDARD"', 'TEXT_STYLE = "JP"')],
+     ["the DXF declares a text style with a real font"]),
 ]
 
 
@@ -1924,6 +2056,112 @@ WHOLE_SUITE += [
     ("the fabric book is filed under the garment", "photoloset/mcp.py",
      [('_SHARED = ("fabrics.json",)', "_SHARED = ()")],
      ["the fabric book is shared, the garment is not"]),
+]
+
+
+#: --- pass 6: the geometric route (mannequin_spline / base_garment /
+#: flatten) --- Measured 2026-08-27 on this suite's reference measurements
+#: (chest 108, waist 92, hip 104, body_length 112): the boundary-tangent
+#: choice moves the smooth mannequin's total curvature from a 0.88deg gap
+#: against the linear one to a 170.6deg gap (12.85 vs 183.40); disabling
+#: the extremum clamp in the Fritsch-Carlson limiter produces a real
+#: 0.081cm overshoot past a measured girth (tolerance is 1e-6cm); dropping
+#: `+ gap` from the radial offset moves every probed vertex by exactly
+#: 1.3cm (the gap this entry's check asks for); removing the clip on a
+#: requested range below the mannequin's own hip level drops 6 rings and
+#: reports 0.0cm clipped instead of the 40.0cm actually missing; faking
+#: every triangle's area ratio to 1.0 collapses the straddle the
+#: distortion check asks for; and deleting the NO_MANNEQUIN refusal turns
+#: an unbuilt mannequin into a bare KeyError on `man["_levels"]`, which
+#: ``guard()`` reports as this check going red under its own name.
+WHOLE_SUITE += [
+    ("the smooth mannequin's boundary tangent stops matching the linear "
+     "secant", "photoloset/mannequin_spline.py",
+     [("    m[0] = d[0]\n    m[-1] = d[-1]",
+       "    m[0] = 0.0\n    m[-1] = 0.0")],
+     ["the smooth mannequin keeps the same five levels, and its total "
+      "curvature converges near the linear one while its bands settle "
+      "far tighter"]),
+
+    ("the monotone limiter stops clamping extrema and the overshoot "
+     "bound", "photoloset/mannequin_spline.py",
+     [("    for i in range(1, n - 1):\n"
+       "        if d[i - 1] == 0.0 or d[i] == 0.0 or (d[i - 1] > 0) != "
+       "(d[i] > 0):\n"
+       "            m[i] = 0.0          # 極値。水平にしないと必ず行き過ぎる\n"
+       "        else:\n"
+       "            m[i] = (d[i - 1] + d[i]) / 2.0\n"
+       "    for i in range(n - 1):\n"
+       "        if d[i] == 0.0:\n"
+       "            m[i] = 0.0\n"
+       "            m[i + 1] = 0.0\n"
+       "            continue\n"
+       "        a, b = m[i] / d[i], m[i + 1] / d[i]\n"
+       "        s = a * a + b * b\n"
+       "        if s > 9.0:",
+       "    for i in range(1, n - 1):\n"
+       "        m[i] = (d[i - 1] + d[i]) / 2.0\n"
+       "    for i in range(n - 1):\n"
+       "        if d[i] == 0.0:\n"
+       "            m[i] = 0.0\n"
+       "            m[i + 1] = 0.0\n"
+       "            continue\n"
+       "        a, b = m[i] / d[i], m[i + 1] / d[i]\n"
+       "        s = a * a + b * b\n"
+       "        if s > 900.0:")],
+     ["the monotone spline's four spans stay within their own measured "
+      "girths"]),
+
+    ("the base garment forgets the air gap", "photoloset/base_garment.py",
+     [("            surface = r + gap", "            surface = r")],
+     ["the base garment is the body surface plus a constant radial "
+      "offset"]),
+
+    ("the base garment stops clipping to where the body actually is",
+     "photoloset/base_garment.py",
+     [("    lo = max(want_lo, body_lo)", "    lo = want_lo")],
+     ["the base garment ends where the body ends instead of "
+      "extrapolating past it"]),
+
+    ("flatten fakes every triangle's area ratio as undistorted",
+     "photoloset/flatten.py",
+     [("        ratio = None if a3 <= 1e-9 else a2 / a3",
+       "        ratio = None if a3 <= 1e-9 else 1.0")],
+     ["flattening a non-developable panel distorts both area and angle, "
+      "measured triangle by triangle"]),
+
+    ("flatten stops refusing a mannequin that never stood up",
+     "photoloset/flatten.py",
+     [('    if man.get("verdict") != "ANSWER":\n'
+       '        return {"verdict": NO_MANNEQUIN,\n'
+       '                "why": "人台が立っていないので平面化できません",\n'
+       '                "upstream_verdict": man.get("verdict")}',
+       '    if False:\n'
+       '        return {"verdict": NO_MANNEQUIN,\n'
+       '                "why": "人台が立っていないので平面化できません",\n'
+       '                "upstream_verdict": man.get("verdict")}')],
+     ["flatten refuses a grid too coarse to triangulate and a mannequin "
+      "that never stood up"]),
+
+    # **The "one pipeline" claim, unwired.** 2026-08-27, an outside check
+    # found that no check anywhere passed `radius_at=mannequin_spline.
+    # radius_at` through to `base_garment.build`/`flatten.build` — silently
+    # discarding the caller's `radius_at` argument (always falling back to
+    # the linear default) left the whole suite green. These two entries
+    # regress that fix one function at a time.
+    ("base_garment silently ignores the caller's radius_at",
+     "photoloset/base_garment.py",
+     [("    rf: RadiusFn = radius_at or _mq.radius_at",
+       "    rf: RadiusFn = _mq.radius_at")],
+     ["the smooth mannequin actually reaches base_garment and flatten "
+      "through radius_at, not just curvature"]),
+
+    ("flatten silently ignores the caller's radius_at",
+     "photoloset/flatten.py",
+     [("    rf: RadiusFn = radius_at or _mq.radius_at",
+       "    rf: RadiusFn = _mq.radius_at")],
+     ["the smooth mannequin actually reaches base_garment and flatten "
+      "through radius_at, not just curvature"]),
 ]
 
 

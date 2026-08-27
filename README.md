@@ -677,14 +677,64 @@ you.
 **Computation is not solved either** ([#2](https://github.com/Ag3497120/photoloset/issues/2), [#4](https://github.com/Ag3497120/photoloset/issues/4)). The solver is pure Python, roughly
 O(iterations x edges): about 4 seconds for 2000 iterations over 303 points and
 954 edges. It stops because it hits the iteration cap, not because it converged
-— and running it longer can make the worst seam gap *worse*, not better,
-because gravity is winning against the stitch springs (measured on this coat:
-2.23 cm at 2000 iterations, 5.50 cm at 8000, 7.22 cm at 20000). There is no
-bending energy, no self-collision and no friction, so the fall of the cloth is a
-plausible-looking artefact of a spring mesh rather than a simulation of fabric.
-A sleeve sewn into a tube is genuinely non-unique — it can rotate about its own
-axis — and multiple starts disagree by 11.4 cm, which is why the tool names the
-piece and declines instead of returning one of them.
+— and at low iteration counts the worst seam gap *grows*, not shrinks, as the
+cap rises (measured on this coat at the default stitch stiffness: 0.92 cm at
+2000 iterations, 2.44 cm at 8000, 3.25 cm at 20000).
+
+That is not the solver diverging — left running far past any iteration count a
+check can afford (2026-08-27: several hundred thousand iterations, off this
+repository's own test budget), it does reach a genuine fixed point rather than
+climbing forever: 3.39 cm at 16x, 0.85 cm at 64x. Neither closes the 0.1 cm
+seam tolerance; the code's own "64x closes it" reading is a snapshot at 2000
+iterations, taken while a fast, local, and misleadingly small dip is still
+underway, before the slow part — the whole coat settling under gravity —
+finishes. The growth is genuine: a stitched vertex is touched by many springs
+at once, and one uniform step size, sized for the single stiffest spring, gives
+every less-connected vertex an unnecessarily tiny step, so gravity's effect on
+the coat has to cross the mesh one edge per iteration. `sew_and_drape` now
+takes an opt-in `precondition=True` that sizes the step per vertex from that
+vertex's own total incident stiffness instead of the single global worst case.
+**An earlier version of this README claimed that was a real ~3-4x speed-up to
+the same 0.85 cm fixed point (~80000 iterations against ~300000 without).
+That claim was wrong** (caught 2026-08-27, in an outside check, reproduced
+independently here): run without early stopping, the preconditioned worst
+seam gap dips to about 0.04-0.06 cm around 80000-120000 iterations and is
+already rising again by 120000 — not a fixed point, a trough on a curve that
+is still moving. An independent, longer replica run (~1,000,000 iterations)
+still had not reached anywhere near 0.85 cm and was still climbing. Whether
+preconditioning eventually reaches the same fixed point as the unmodified
+solver is unverified — there is a reason to expect it should (both are
+descending the same convex elastic energy, so the true minimum does not
+depend on the step-size schedule), but that has not been shown by measurement.
+What IS measured and real: preconditioning pushes the worst seam gap under
+the 0.1 cm sewing tolerance far sooner than the unmodified solver does within
+any budget tested here — useful for getting a quick, closed-looking snapshot,
+worthless as evidence of having reached equilibrium. Because "worst" is a
+maximum over a finite set of seam pairs rather than a smooth quantity,
+`sew_and_drape` no longer trusts a quiet 50-iteration window as proof of
+settling when `precondition=True` — it now always runs the full iteration
+count requested rather than declaring an early, possibly false, "closed".
+None of this is a fix for the underlying diffusive propagation, and it is not
+the default: turning it on moves every solved coordinate, including the two
+the coat's own digest pins.
+
+There is no self-collision or friction, so the fall of the cloth is a
+plausible-looking artefact of a spring mesh rather than a simulation of
+fabric. Bending is now representable — a fabric can declare `bending`
+alongside its weight, thickness and stretch stiffness, and a fabric that omits
+it is refused rather than defaulted, the same as the other two — but it is a
+diagonal-spring approximation to a true hinge (this mesh's cells carry both
+diagonals as stretch edges already; adding bending as a genuinely separate
+face-angle hinge would mean choosing one diagonal as a triangulation, which
+moves the pinned edge count), and it has not been measured against a
+cantilever or any other physical reference — only that raising it visibly
+stiffens the drape (a jersey-weight fabric's own vertical spread under gravity
+falls monotonically as its bending value rises, from 164.1 cm undeclared or
+zero, to 156.8 cm at a low value, to 112.5 cm at a high one — the same coat,
+the same weight, the same everything else). A sleeve sewn into a tube is
+genuinely non-unique — it can rotate about its own axis — and multiple starts
+disagree by 11.4 cm, which is why the tool names the piece and declines
+instead of returning one of them.
 
 ## Licence
 

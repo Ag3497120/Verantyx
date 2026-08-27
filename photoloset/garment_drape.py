@@ -91,7 +91,8 @@ def _stiffness(material: Dict[str, float]) -> Dict[str, float]:
 def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
           pinned: Sequence[int], material: Dict[str, float],
           *, iterations: int = 400, order: Optional[Sequence[int]] = None,
-          step: Optional[float] = None) -> Dict[str, Any]:
+          step: Optional[float] = None,
+          precondition: bool = False) -> Dict[str, Any]:
     """落とす。**エネルギーの勾配を降りる。**
 
     最初は位置ベース(PBD 風)で書いたが、**PBD には減少するエネルギーが
@@ -114,6 +115,24 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
 
     `order` は受け取りますが、答えには影響しません(そのことを測るために
     残してあります)。
+
+    `precondition=True` — **刻みを頂点ごとに変える。** 既定(False)の刻みは
+    「辺の種別のうちいちばん硬いもの一本」だけを見て決まるが、一つの頂点は
+    平均で6〜8本の辺に触れていて、実際に効く硬さはその**合計**(対角優勢な
+    線形系のヤコビ前処理そのもの)。合計を見ずに一本の硬さだけで刻みを
+    決めると、よく繋がった頂点はその合計に対しては歩幅が大きすぎ、疎らな
+    頂点は不必要に小さい歩幅を強いられる — 剛性比が大きいメッシュほど
+    遅くなる、教科書通りの勾配降下の病理。**「前処理ありなら約8万反復で
+    真の平衡(前処理なし約27万反復の到達点と同じ0.85cm)に着く」と当初
+    書いていたが、これは誤りだった(2026-08-27、外部検査で指摘・
+    ``garment_sew.sew_and_drape`` 側で自分でも再現、詳細はそちら側の
+    docstring)。** 前処理ありは worst 系の統計量を許容の下まで速く
+    押し下げるが、それが同じ平衡点に本当に収束した証拠にはならない
+    (この関数自身は縫い目もその early-stop 判定も持たないので、この
+    バグ自体はここには無い——影響を受けるのは呼び出し側の
+    ``garment_sew.sew_and_drape`` の `seams_settled` 判定)。**既定を
+    動かすと縫った服の既定出力(coat digest)が動く**ので、既定は変えず、
+    この引数で選べるようにしてある。
     """
     n = len(points)
     pos = [list(p) for p in points]
@@ -132,6 +151,18 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
     # 発散する。0.4/k は決定的で、出力にも出す。
     if step is None:
         step = 0.4 / max(max(stiff.values()), 1e-6)
+    step_vec: Optional[List[float]] = None
+    if precondition:
+        # **前処理刻み = 安全率 / その頂点に触れる辺の剛性の合計。**
+        # 触れていない頂点は 1e-6 で割らない側に倒す(孤立点は動かない
+        # ので歩幅は無意味だが、0除算だけは避ける)。
+        safety = step if step is not None else 0.4
+        nodal = [0.0] * n
+        for a, b, kind in edges:
+            k = stiff[kind]
+            nodal[a] += k
+            nodal[b] += k
+        step_vec = [safety / max(k, 1e-6) for k in nodal]
 
     energies: List[float] = [_energy(pos, edges, rest, stiff, mass, pin)]
     for _ in range(iterations):
@@ -159,9 +190,10 @@ def solve(points: Sequence[Vec], edges: Sequence[Tuple[int, int, str]],
         for i in range(n):
             if i in pin:
                 continue
-            pos[i][0] -= step * grad[i][0]
-            pos[i][1] -= step * grad[i][1]
-            pos[i][2] -= step * grad[i][2]
+            s = step_vec[i] if step_vec is not None else step
+            pos[i][0] -= s * grad[i][0]
+            pos[i][1] -= s * grad[i][1]
+            pos[i][2] -= s * grad[i][2]
         energies.append(_energy(pos, edges, rest, stiff, mass, pin))
 
     return {
@@ -205,14 +237,24 @@ def material_from(fabrics: Any, fabric: str) -> Dict[str, Any]:
     """生地台帳から物性を取る。**無ければ落とさない。**
 
     型紙と同じで、これは裁つ側の話である。既定で埋めない。
+
+    2026-08-27 追加: `bending`(曲げ剛性)も同じ規律に入れた。厚み・目付と
+    違って**代入する式が無い**——直下のコメントの通り、厚みに比例する
+    係数は昔からここにあったが、それは「曲げの実測が無いので伸び剛性に
+    ムリヤリ効かせておく」という代用品で、曲げそのものの値ではなかった。
+    ジャージーとメルトンを分けるのは曲げそのものなので、無ければ他の
+    二つと同じく拒む——当てた値が実測の顔をするのを防ぐため。
     """
     gsm = fabrics.number(fabric, "weight") if fabrics else None
     thick = fabrics.number(fabric, "thickness") if fabrics else None
+    bend = fabrics.number(fabric, "bending") if fabrics else None
     missing = []
     if gsm is None:
         missing.append("weight")
     if thick is None:
         missing.append("thickness")
+    if bend is None:
+        missing.append("bending")
     if missing:
         return {"verdict": NO_MATERIAL, "fabric": fabric,
                 "missing": missing,
@@ -246,13 +288,15 @@ def material_from(fabrics: Any, fabric: str) -> Dict[str, Any]:
                       * (0.6 + thick * 0.8), 2)
     return {"verdict": "ANSWER", "fabric": fabric,
             "gsm": gsm, "thickness": thick,
-            "stiffness": stiffness,
+            "stiffness": stiffness, "bending": bend,
             "assumed": {
-                "stiffness": "自重で歪み5%に収まる剛性を目付から出し、"
+                "stiffness": "自重で歪み2%に収まる剛性を目付から出し、"
                              "厚みで 0.6+厚み×0.8 倍する",
-                "why": "曲げ剛性の実測が台帳に無いので置いた仮定です。"
-                       "測った値ではありません。カンチレバー法などの"
-                       "実測が入れば置き換わります",
+                "why": "伸び剛性(経緯・バイアス)の実測が台帳に無いので"
+                       "置いた仮定です。測った値ではありません。歪み計での"
+                       "実測が入れば置き換わります。曲げ剛性 `bending` は"
+                       "別の実測項目で、ここでは仮定しません——無ければ"
+                       f"{fabric} は拒まれています(上の missing 参照)",
             }}
 
 

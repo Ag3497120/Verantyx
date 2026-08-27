@@ -165,6 +165,77 @@ def draft_sleeve(measures_get, params: Dict[str, float],
     return out
 
 
+# ---------------------------------------------------------------- 衿
+#: 衿の立ち上がり幅(内周から外周まで、既定)。**この道具の既定は浅い
+#: 平襟(バインダー寄り)** — 弧の外周は内周と同じ扇の開きで伸びるので、
+#: 高さを上げるほど外周は内周より長くなる(半径 × 開き角の関係)。外周に
+#: 何か(ケープ等)を繋いだとき、その相手の襟ぐりとの差は縫い合わせ検査
+#: (compose.py の seam_checks、許容2.0cm)が測る — ここで大きい値を選ぶと
+#: 上に乗る服との差が開き、縫えない服になる。1.2cm は実際にケープ付きの
+#: 衿ワンピースを組み立てて測り、その差が許容に収まる値まで下げた既定。
+COLLAR_HEIGHT = 1.2
+#: 衿の扇の開き(半身、全円=1.0)。ケープの既定(0.375)より広い —
+#: ケープは開いて垂れるが、衿は襟ぐりに沿う。**この道具の既定。**
+COLLAR_SECTOR = 0.42
+COLLAR_ARC_STEPS = 16       # 弧を何点で結ぶか(決定的)
+
+
+def draft_collar(measures_get, params: Dict[str, float]) -> Dict[str, Any]:
+    """衿。**半身・わ裁ち**(前中心・後中心はわ)。ケープと同じ骨格。
+
+    内弧(port neck)は下の身頃に、外弧(port collar_edge)は上に重ねる
+    服に繋がる。**衿を5つ目の特例にしない**ため、袖やケープと同じ
+    「measures_get + params → pieces/edges/ports」の1手続きだけで書く
+    — 組立器(compose)側に collar 専用の分岐は要らない。ケープの
+    「首ぐりを奪い合わない」構図はここで解ける: ケープの neck 港は
+    身頃ではなく衿の collar_edge に繋げばよい。
+    """
+    neck = measures_get("neck")
+    height = params.get("collar_height", COLLAR_HEIGHT)
+    f = params.get("sector", COLLAR_SECTOR)
+
+    r_in = neck / (2.0 * math.pi * f)
+    r_out = r_in + height
+    steps = COLLAR_ARC_STEPS
+    mid = steps // 2
+
+    def arc(r):
+        return [(r * math.cos(-math.pi * f + math.pi * f * 2 * i / steps),
+                 r * math.sin(-math.pi * f + math.pi * f * 2 * i / steps))
+                for i in range(steps + 1)]
+
+    inner = arc(r_in)
+    outer = arc(r_out)
+    outline = inner + outer[::-1]
+    edges = {
+        "衿ぐり (前)": inner[mid:],
+        "衿ぐり (後)": inner[:mid + 1],
+        "衿の外周 (前)": outer[mid:],
+        "衿の外周 (後)": outer[:mid + 1],
+        "中心線 (前)": [inner[-1], outer[-1]],
+        "中心線 (後)": [outer[0], inner[0]],
+    }
+    out = {
+        "formulas": [
+            ("衿の内半径", f"neck / (2pi x sector {f})"),
+            ("衿の外半径", f"inner radius + collar height {height}"),
+            ("扇の開き", f"{f} (half piece; full circle = 1.0; **this "
+                        "tool's default** — wider than the cape's because "
+                        "a collar follows almost the whole neckline, not "
+                        "an open drape)"),
+            ("衿の高さ", f"{height}cm(**この道具の既定**。標準ではない)"),
+            ("弧の分割", f"{steps} points (deterministic)"),
+        ],
+        "pieces": [_piece("衿", outline, edges,
+                          {"neck": ["衿ぐり (前)", "衿ぐり (後)"],
+                           "collar_edge": ["衿の外周 (前)", "衿の外周 (後)"],
+                           "center_front": "中心線 (前)",
+                           "center_back": "中心線 (後)"})],
+        "seams": [],
+    }
+    return out
+
+
 # ---------------------------------------------------------------- ケープ
 def draft_cape(measures_get, params: Dict[str, float]) -> Dict[str, Any]:
     """ケープ。**半身・わ裁ち**(前中心・後中心はわ)。

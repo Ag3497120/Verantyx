@@ -904,20 +904,36 @@ def drape_validate(fabric: str, width: float = 40.0, height: float = 40.0,
     If one fails, no shape is returned — a wrinkle decided by update order or
     by the starting positions must not be shown as physics.
     """
-    mat = _fabric(fabric)
+    # **`drape_validate` does not require `bending`.** Its whole call chain
+    # (`garment_drape.validate` -> `solve`) never reads `material["bending"]`
+    # — confirmed by reading both, `bending` is not implemented for this
+    # path (see `garment_sew.py`'s docstring). Requiring it here anyway
+    # would refuse a real, already-answering fabric ledger entry for a
+    # field with zero effect on this tool's own output — caught 2026-08-27
+    # in an outside check, on the earlier version of this function that
+    # required `bending` unconditionally for every caller.
+    mat = _fabric(fabric, require_bending=False)
     if mat.get("verdict") != "ANSWER":
         return _ok(mat)
     from . import garment_drape
     return _ok(garment_drape.validate(width, height, mat, iterations=iterations))
 
 
-def _fabric(name: str) -> Dict[str, Any]:
+def _fabric(name: str, *, require_bending: bool = True) -> Dict[str, Any]:
     """Fabric properties, read from ~/.photoloset/fabrics.json.
 
     The parent project keeps these on the coordinate memory, which is not part
     of this package. Here it is a plain file, and an absent or incomplete entry
     refuses rather than being filled in with a default — a guessed gsm changes
     how the whole garment hangs.
+
+    `require_bending` defaults to True for the tools that actually feed
+    `garment_sew.sew_and_drape` (bending is required there the same way
+    weight and thickness already are, matching `garment_drape.material_from`'s
+    own contract). Callers whose downstream computation never reads
+    `bending` — currently only `drape_validate` — pass False, so a fabric
+    missing only `bending` is not refused for a reason that does not apply
+    to what that tool computes.
     """
     path = _p("fabrics.json")
     try:
@@ -925,11 +941,21 @@ def _fabric(name: str) -> Dict[str, Any]:
     except Exception:
         table = {}
     row = table.get(name)
+    required = ("gsm", "thickness", "stiffness",
+               *(("bending",) if require_bending else ()))
     if not isinstance(row, dict):
         return {"verdict": "UNKNOWN_NO_MATERIAL", "fabric": name,
-                "how_to_close": f'add "{name}" to {path} with gsm, thickness '
-                                f'and stiffness, each with a source'}
-    missing = [k for k in ("gsm", "thickness", "stiffness") if k not in row]
+                "how_to_close": f'add "{name}" to {path} with '
+                                f'{", ".join(required)}, each with a source'}
+    # `bending` is required the same way the other three are, for callers
+    # that actually consume it: no formula fills it in from gsm or
+    # thickness, because that is the one axis a guessed number cannot
+    # stand in for (it is what tells jersey from melton). Added
+    # 2026-08-27, alongside garment_drape.material_from; scoped to the
+    # callers that read it 2026-08-27 after an outside check found it
+    # was refusing `drape_validate` calls for a field that tool never
+    # uses (see the comment at that call site).
+    missing = [k for k in required if k not in row]
     if missing:
         return {"verdict": "UNKNOWN_NO_MATERIAL", "fabric": name,
                 "missing": missing,

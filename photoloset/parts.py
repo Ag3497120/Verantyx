@@ -46,30 +46,53 @@ PART_VOCAB: Dict[str, str] = {
 }
 
 #: 接続口。部品どうしはここでしか繋がらない。**閉じた語彙。**
+#:
+#: ``collar_edge`` は衿の外周 — 衿の上にもう1枚(ケープなど)を重ねる
+#: ための口。cuff_l/cuff_r が袖ぐりだけでは足りず袖口を要ったのと同じ
+#: 理由で足した: 衿は neck で下(身頃)に繋がり、collar_edge で上に
+#: 重ねる服を受ける。閉じた語彙は「検索やモデルの自由記述を通さない」
+#: という意味であって、開発側が能力を足すたびに固定という意味ではない。
 PORTS: Tuple[str, ...] = (
     "neck", "shoulder_l", "shoulder_r",
     "armhole_l", "armhole_r", "cuff_l", "cuff_r",
     "waist", "hem", "center_front", "center_back",
+    "collar_edge",
 )
 
 #: 部品の幾何手続きレジストリ。**名前 → garment_parts の関数。**
 #: 手続きが無い部品は draftable にならない — 宣言だけの部品を
 #: 引けると言わない。
+#:
+#: collar はここに載った — 衿ぐりに合わせて弧を引き、neck で身頃に、
+#: collar_edge で上に重ねる服(ケープ)に繋がる、袖やケープと同じ形の
+#: 1手続き。branch ではなく PART_GEOMETRY への追記だけで済んだのは、
+#: 「種類の登録は名前だけ、能力は部品の側」という設計どおり。
+#:
+#: closure / waist_finish は**まだ**手続きが無い(開き量・縫い代の
+#: 取り方が引けていない、正直に未完成)。decoration は違う理由で
+#: 無い — PART_VOCAB の定義どおり装飾は型紙の幾何に入らない設計で、
+#: 手続きを書く計画自体が無い(台帳とマーキングのみで扱う)。
 PART_GEOMETRY: Dict[str, str] = {
     "bodice": "draft_bodice",
     "skirt_panel": "draft_skirt_panel",
     "sleeve": "draft_sleeve",
     "cape": "draft_cape",
-    # collar / closure / waist_finish / decoration は手続き未登録。
-    # decoration は幾何に入らない(語彙の定義どおり)。
+    "collar": "draft_collar",
 }
 
 #: 部品が要る実測。**接続で決まるもの(袖山の袖ぐり合計)は除く。**
+#:
+#: collar は cape と同じく neck をそのまま使う(接続先との差は
+#: seam_checks が差として出す — 合っていると主張しない、コートと
+#: 同じ規律)。衿の高さは実測ではなく設計側の既定
+#: (garment_parts.COLLAR_HEIGHT)で、bodice の chest_ease 等と同じ
+#: 置き場所。
 PART_MEASURES: Dict[str, Tuple[str, ...]] = {
     "bodice": ("chest", "shoulder", "waist", "bodice_length"),
     "skirt_panel": ("waist", "hip", "skirt_length"),
     "sleeve": ("chest", "sleeve_length"),
     "cape": ("neck", "cape_length"),
+    "collar": ("neck",),
 }
 
 #: バリアント宣言。値は組立器がそのまま使う形で持つ。

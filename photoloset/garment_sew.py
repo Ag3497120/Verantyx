@@ -366,7 +366,8 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                   stitch_k: Optional[float] = None,
                   start: Optional[Sequence[Vec]] = None,
                   pinned: Optional[Sequence[int]] = None,
-                  wind: Optional[Sequence[float]] = None) -> Dict[str, Any]:
+                  wind: Optional[Sequence[float]] = None,
+                  precondition: bool = False) -> Dict[str, Any]:
     """縫って落とす。縫い目は**距離ゼロに引く拘束**として効く。
 
     刻みは落とす側と同じ規則で剛性から決める。固定にしていたら、
@@ -380,6 +381,59 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
     `built["points"]` から取っていたので、多点始動の検査が
     `built["points"]` を差し替えて**別の布**を作ってしまっていました。
     「始点を変えたら形が変わる」ではなく「違う服を三着比べていた」。
+
+    2026-08-27 実測、収束の診断: 既定の刻みは「辺の種別のうち最大の
+    剛性一本」だけを見て決まる。しかし縫い目の付いた頂点は、布の辺
+    (最大でも8本)に加えて縫い目のばね(布より16倍硬い、しかも同じ頂点に
+    2本乗ることがある)にも触れていて、その頂点に実際に効く硬さは
+    **触れる全部の合計**。合計を見ずに一本だけで刻みを決めると、その
+    頂点は自分の刻みに対して歩幅が大きすぎるのではなく——歩幅自体は
+    安定域に収まる(実測: 最大合計剛性の頂点でも step×nodal_k≈0.82<1)
+    ——**メッシュの反対側にある疎らな頂点が不必要に小さい歩幅を強いられ、
+    重力による全体のたわみが伝わるのに何十万回もかかる**。coat の
+    メッシュで実測: 既定 stitch_k(16倍)は worst seam gap が
+    2000回=0.92cm→8000回=2.44cm→20000回=3.25cm→27万回でようやく
+    3.39cmに落ち着く(それ以上動かない)。stitch_k 64倍も同じ形で、
+    2000回=0.061cm(この値がピン留めされた「64x closes it」)→
+    20000回=0.79cm→30万回で0.85cmに落ち着く。**どちらも真の平衡では
+    ないし、2000回の値はたまたま最初の局所的な「かみ合い」の谷にいた
+    だけ**——縫い目のばねが近くの点を素早く引き寄せる速い過程と、重力で
+    服全体がゆっくり沈む遅い過程の、二つの時定数が最大70倍近く離れて
+    いるのが原因(布より硬い縫い目を作った時点で意図した比率のはず)。
+    残差が発散しているのではない(位置は最後まで有限)——**桁違いに遅く
+    収束しているだけ**。
+
+    `precondition=True` はこの遅さへの対処: 刻みを頂点ごとに
+    「安全率 ÷ その頂点に触れる辺の剛性+縫い目剛性の合計」で決める
+    (対角優勢な線形系のヤコビ前処理)。全点を古い状態からまとめて動かす
+    Jacobi の構成は変えていないので、**順序不変は既定と同じく構成で
+    保たれる**。
+
+    **ここは当初「前処理ありなら同じ coat メッシュで stitch_k 64倍が
+    平衡(0.85cm)に約8万回で落ち着く、前処理なしの約30万回から3〜4倍
+    速い」と書いていたが、この主張は誤りだった(2026-08-27、外部検査で
+    指摘・自分でも再現)。** 前処理ありを早期打ち切りなしで12万反復まで
+    実測すると、worst は8万反復手前で 0.043cm 付近の谷を打った後、
+    12万反復まで単調に**再上昇**していた——「8万回で0.85cmの平衡に
+    落ち着く」のではなく、まだ全然違う場所を通過している途中だった。
+    さらに遠く(前処理あり、100万反復)まで追った独立の numpy 再実装でも
+    worst は 0.13cm 止まりで、まだゆっくり増え続けていて 0.85cm には
+    程遠い。**前処理ありが前処理なしと同じ平衡に最終的に至るのかどうか
+    (至ると考える理由はある——同じ線形の弾性エネルギーを解いているので
+    刻みの選び方に依らず真の平衡は一つのはずだが、それを実測で示せては
+    いない)は未確認のまま。** 分かっているのは: (1) 前処理ありは worst
+    seam gap を許容 (0.1cm) の下まで、前処理なしがどの実務的な反復数
+    でも届かない領域まで速く押し下げる(実測: 8万反復で 0.043-0.06cm
+    程度)——実務上は縫い目を早く許容内に収める道具として使える。
+    (2) だがその値そのものを「平衡に収束した」証拠として扱ってはいけ
+    ない——worst は有限個の縫い目対の**最大値**という滑らかでない
+    統計量で、その時点の最大を持つ対がたまたま止まっていても他の場所は
+    動いていることがあるため、`sew_and_drape` は `precondition=True` の
+    ときこの早期打ち切りを行わない(常に指定された `iterations` を
+    使い切る——詳細は下のループ内コメント)。**この既定を True に
+    変えると縫った服の既定出力(coat digest)が動くので、既定は False の
+    まま**——2000回・16倍・64倍のどの数字も、このモジュールに刻まれた
+    どの検査も動かない。
     """
     points = built["points"]
     edges = built["edges"]
@@ -417,8 +471,54 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
         # 16倍は「残差を縫製の実務公差(1mm)より下に入れる」ための値で、
         # 達成した残差は毎回 seam_gap.worst に出します。
         stitch_k = max(stiff.values()) * STITCH_STIFFNESS_RATIO
+    # **曲げ剛性。** `material["bending"]` が無ければ何もしない
+    # (既定材料はどれも持たないので、既存のどの呼び出しも動かない)。
+    # 曲げの標準形は「隣り合う面のなす角」へのヒンジ拘束だが、この
+    # メッシュは面(三角形)を持たず経緯・バイアスの辺しか持たない。
+    # `_mesh_piece` は格子の各セルに**両方の対角線**を bias 辺として
+    # 引いている(2026-08-27 確認)。セルが対角線 AC で山折り・谷折りに
+    # 折れるとき、折り目上の A・C は動かないが、折り目に乗らないもう
+    # 一方の対角の両端(セルの「翼」の2点)は角度に応じて互いに近づく
+    # ——本と同じで、平らなときが最も遠く、折れるほど近づく。だから
+    # bias 辺の自然長からの短縮は、その辺をまたぐ面のなす角のなまった
+    # 代理量になる(Jakobsen の対角バネによる曲げ近似——三角形分割を
+    # 増やさずに済む、確立された簡略形)。単一の三角形分割を選んで真の
+    # 二面角を計算する方が忠実だが、bias 辺は今すでに両対角線を持って
+    # いて数(954)が縫った服の digest に刻まれている。新しい分割を選ぶと
+    # そこが動くので、既存の bias 辺に**追加の**剛性として乗せる——
+    # 伸び(布のバイアス方向の伸縮)と曲げが同じ辺で混じるのは正確では
+    # ないが、新しい頂点・辺を一切増やさずに済み、既定材料の出力は
+    # 一切変えない(`bending` を持たない材料は今までと同じ式のまま)。
+    bend_k = material.get("bending")
     if step is None:
-        step = 0.4 / max(max(stiff.values()), stitch_k, 1e-6)
+        # bend_k は None のことが多い(既定材料はどれも持たない)ので
+        # `or 0` で数に倒す — 0 は他の項より必ず小さいので、曲げが
+        # 無い呼び出しの刻みは今までと1ビットも変わらない。曲げがある
+        # ときは4倍する: 内部の頂点は bias 辺に最大4本(出て行く2本+
+        # 入って来る2本)触れていて、この既定の刻みは一本の剛性だけを
+        # 見ているので(stitch_k と同じ弱点)、4本分を見込んでおかないと
+        # 曲げ剛性の大きい生地で発散する(実測: bending=200 だと発散し、
+        # 4倍を見込むと発散しない)。
+        step = 0.4 / max(max(stiff.values()), stitch_k,
+                         4.0 * (bend_k or 0), 1e-6)
+    step_vec: Optional[List[float]] = None
+    if precondition:
+        # **頂点ごとの刻み。** docstring 2026-08-27 参照。合計は布の辺
+        # (種別ごとの剛性)+縫い目(縫い目ごとに stitch_k、1頂点に複数
+        # 乗ることもある——2026-08-23 の欠陥修正で分かった通り、乗るのは
+        # 実在する)+曲げ(bias 辺に追加で乗る、上参照)。
+        safety = step if step is not None else 0.4
+        nodal = [0.0] * n
+        for a, b, kind in edges:
+            k = stiff[kind]
+            if bend_k is not None and kind == "bias":
+                k += bend_k
+            nodal[a] += k
+            nodal[b] += k
+        for a, b in pairs:
+            nodal[a] += stitch_k
+            nodal[b] += stitch_k
+        step_vec = [safety / max(k, 1e-6) for k in nodal]
     from .garment_drape import GRAVITY
 
     gaps = [_seam_gap(pos, pairs)]
@@ -427,6 +527,27 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
     used = 0
     seams_settled = False
     prev_worst = float('inf')
+    # **`precondition=True` の早期打ち切りは無効にする。** 2026-08-27
+    # 実測で見つかった欠陥: 「worst seam gap が50反復で1e-4未満しか
+    # 動いていない」を収束の証拠にしていたが、worst は有限個の縫い目対
+    # の**最大値**という滑らかでない統計量で、その時点の最大を持つ対
+    # 自身がたまたまほぼ止まっていても、メッシュの他の場所はまだ大きく
+    # 動いていることがある(実測: coat, 64x, precondition=True で反復数
+    # 上限150000を指定したのに、たった24800反復で「settled」と誤って
+    # 打ち切り、worst=0.0614を返した——同じ設定を早期打ち切りなしで
+    # 12万反復まで追うと、その時点はまだ速い下降の途中で、8.4万反復
+    # 付近でようやく谷(0.0432cm)を打ち、その後12万反復まで単調に
+    # 再上昇していた。窓を10連続=500反復に伸ばしても、同じ理由で
+    # 25250反復まで先送りしただけで誤検知は消えなかった)。窓を
+    # どれだけ伸ばしても、この統計量が滑らかでない限り原理的に同じ罠が
+    # 起こり得る。**だから `precondition=True` のときは常に指定された
+    # `iterations` をそのまま使い切る** — `used == iterations`(打ち切り
+    # なし)。既定材料・既定の `precondition=False` 経路は一切変えて
+    # いない(coat digest はこの経路を通らない)。`closed`/
+    # `seams_settled` は「その反復数で打ち切ったときの値」以上の主張を
+    # しない——`precondition=False` の既存スナップショット(例:
+    # 「64x closes it is a snapshot, not the equilibrium」)と同じ
+    # 認識論的な立ち位置。
     for it_i in range(iterations):
         # **Jacobi。** 古い状態から全点の勾配を出し、まとめて動かす。
         # 落とす側(garment_drape.solve)と同じ規則にしてある — 同じ物理を
@@ -446,6 +567,10 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
                 c = stiff[kind] * (length - rest[e]) / length
                 for t in range(3):
                     g[t] += c * d[t]
+                if bend_k is not None and kind == "bias":
+                    cb = bend_k * (length - rest[e]) / length
+                    for t in range(3):
+                        g[t] += cb * d[t]
             for sx in stitched[i]:
                 a, b = pairs[sx]
                 other = b if a == i else a
@@ -462,8 +587,9 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
         for i in range(n):
             if i in pin:
                 continue
+            s = step_vec[i] if step_vec is not None else step
             for t in range(3):
-                d = step * grad[i][t]
+                d = s * grad[i][t]
                 pos[i][t] -= d
                 moved = max(moved, abs(d))
         used += 1
@@ -478,8 +604,11 @@ def sew_and_drape(built: Dict[str, Any], material: Dict[str, Any], *,
             # **「縫い目が閉じた」と「形が落ち着いた」は別のこと。**
             # 服は縫い目が閉じた後も重力でゆっくり落ち続けます。ここで
             # 見るのは縫い目だけ — 混ぜると、閉じているのに「未収束」と
-            # 報告し続けることになります。
-            if worst_now <= gap_tol and abs(worst_now - prev_worst) < 1e-4:
+            # 報告し続けることになります。**`precondition` のときはこの
+            # 早期打ち切りを使わない**(上のコメント参照——worst は
+            # 滑らかでない最大値で、窓を伸ばしても同じ罠に落ちる)。
+            if (not precondition and worst_now <= gap_tol
+                    and abs(worst_now - prev_worst) < 1e-4):
                 seams_settled = True
                 break
             prev_worst = worst_now

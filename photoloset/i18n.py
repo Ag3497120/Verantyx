@@ -128,6 +128,7 @@ TERMS: Dict[str, str] = {
     "袖山(前半)": "cap (front half)",
     "袖山(後半)": "cap (back half)",
     "ケープ": "cape",
+    "衿": "collar",
     "スカート前": "skirt front",
     "スカート後": "skirt back",
     # cape formula keys
