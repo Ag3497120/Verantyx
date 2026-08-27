@@ -455,6 +455,9 @@ ALL_CHECK_NAMES = [
     "uneven is reachable from an outline that earns it",
     "no falsifier is defined below the line where the harness "
     "starts running, because one defined there is silently skipped",
+    "the photograph sets the garment's shape and the tape sets "
+    "only its scale, and the tape reaches the scale through the "
+    "shoulder alone",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -8031,6 +8034,151 @@ def the_hem_shape_is_measured_across_the_whole_bottom() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("the photograph sets the garment's shape and the tape sets "
+          "only its scale, and the tape reaches the scale through the "
+          "shoulder alone")
+def the_photograph_sets_the_shape_and_the_tape_sets_the_scale() -> None:
+    """**The honest headline, written as something that can go red.**
+
+    "photoloset understands a garment's structure from a photograph" is
+    half true, and this check is where the halves are separated by
+    measurement instead of by prose.
+
+    Running ``photo_to_pattern.run`` over one A-line outline and varying
+    only ONE input at a time:
+
+      the outline's hem 160px -> 100px      area  -3.70%
+      the outline's hem 160px -> 220px      area  +4.86%
+      the outline's shoulder 90px -> 70px   area  -9.58%
+      the tape's chest 88cm -> 108cm        area  -0.86%
+      the tape's hip 94cm -> 114cm          area  -0.55%
+      the tape's waist 68cm -> 88cm         area  -0.63%
+
+    A 20cm chest — a 23% body — moves the pattern less than a percent, and
+    ``scale_cm_per_px`` comes back **byte-identical** at chest 68, 88 and
+    108. The calibration's own ``anchor_kind`` says why: ``shoulder_to_waist``.
+    Only the shoulder measurement and the shoulder-to-waist vertical span
+    reach the scale. Chest, waist and hip circumference never enter it.
+
+    **So this is a scaled copy of a photographed silhouette, not a
+    made-to-measure garment**, and that sentence is the one worth pinning.
+    An implementation that quietly started fitting the body would move the
+    scale and go red here — which is the point: if that ever becomes true,
+    it should be because someone changed it deliberately and re-measured,
+    not because the claim drifted.
+
+    The photo half is pinned in the same breath. If a future change made
+    the outline stop mattering — the failure mode where a photograph is
+    decoration over a body-derived block — the hem sweep's spread would
+    collapse and this goes red too.
+    """
+    from photoloset import photo_to_pattern as _p2p
+    from photoloset import Measures as _Ms
+
+    W, H, AXIS, Y0, Y1 = 800, 1200, 400.0, 250.0, 1150.0
+
+    def _aline(shoulder=90.0, waist=60.0, hem=160.0, n=240):
+        def hw(t):
+            if t <= 0.15:
+                return shoulder
+            if t <= 0.35:
+                return shoulder + (waist - shoulder) * (t - 0.15) / 0.20
+            return waist + (hem - waist) * (t - 0.35) / 0.65
+        pts = []
+        for k in range(n + 1):
+            t = k / n
+            pts.append((AXIS + hw(t), Y0 + (Y1 - Y0) * t))
+        for k in range(n, -1, -1):
+            t = k / n
+            pts.append((AXIS - hw(t), Y0 + (Y1 - Y0) * t))
+        return pts
+
+    def _rec(**kw):
+        return {"outline": _aline(**kw), "width_px": W, "height_px": H,
+                "source": "checks", "fixture": False}
+
+    def _tape(**kw):
+        vals = dict(chest=88.0, waist=68.0, hip=94.0,
+                    body_length=140.0, shoulder=38.0)
+        vals.update(kw)
+        m = _Ms()
+        for spot, v in vals.items():
+            m.measured(spot, v, "cm", source="checks", by="Kodai Motonishi")
+        return m
+
+    def _area(r):
+        return sum(p.get("area_cm2", 0.0) for p in (r.get("pieces") or []))
+
+    base = _p2p.run(_rec(), _tape())
+    b = _area(base)
+    scale = (base.get("calibration") or {}).get("scale_cm_per_px")
+    anchor = (base.get("calibration") or {}).get("anchor_kind")
+
+    def _sweep_outline(cases):
+        """Vary the OUTLINE, hold the tape. Returns {label: area change}."""
+        return {lbl: _area(_p2p.run(_rec(**kw), _tape())) / b - 1.0
+                for lbl, kw in cases}
+
+    def _sweep_tape(cases):
+        """Vary the TAPE, hold the outline. Returns the area changes and
+        every distinct scale the calibration produced along the way."""
+        moves, seen = {}, set()
+        for lbl, kw in cases:
+            r = _p2p.run(_rec(), _tape(**kw))
+            moves[lbl] = _area(r) / b - 1.0
+            seen.add((r.get("calibration") or {}).get("scale_cm_per_px"))
+        return moves, seen
+
+    photo = _sweep_outline([("hem_100", {"hem": 100.0}),
+                            ("hem_220", {"hem": 220.0}),
+                            ("shoulder_70", {"shoulder": 70.0})])
+    TAPE_CASES = ("chest_68", "chest_108", "hip_114", "waist_88")
+    tape, scales = _sweep_tape([("chest_68", {"chest": 68.0}),
+                                ("chest_108", {"chest": 108.0}),
+                                ("hip_114", {"hip": 114.0}),
+                                ("waist_88", {"waist": 88.0})])
+
+    name = ("the photograph sets the garment's shape and the tape sets "
+            "only its scale, and the tape reaches the scale through the "
+            "shoulder alone")
+    with guard(name):
+        check(name,
+              base.get("verdict") == "ANSWER"
+              and anchor == "shoulder_to_waist"
+              # The tape's three circumferences do not reach the scale at
+              # all: one value, not four.
+              and scales == {scale}
+              # ...and barely reach the pattern: under 1% for a 40cm chest
+              # range and a 20cm hip.
+              #
+              # **Read through a literal list of the four keys, not through
+              # the dict's own values().** `all()` over an empty iterable is
+              # True, so "every tape change moved it under 1%" is also what
+              # a sweep that ran zero times reports. Naming the four keys
+              # here asks for more than non-emptiness: a sweep that produced
+              # four DIFFERENT labels raises KeyError instead of passing
+              # quietly. `len(tape) == 4` alone did not do that — it counted
+              # the sweep without ever saying what should be in it.
+              and len(tape) == 4 and len(photo) == 3
+              and len(scales) == 1
+              and all(abs(tape[k]) < 0.01 for k in TAPE_CASES)
+              # The outline does reach it. Pinning only "the tape is small"
+              # would stay green if BOTH went to zero — which is the shape
+              # of a chain that stopped depending on its input at all.
+              and abs(photo["shoulder_70"]) > 0.05
+              and photo["hem_220"] > 0.03 and photo["hem_100"] < -0.03
+              and max(photo.values()) - min(photo.values()) > 0.10,
+              f'anchor {anchor!r} at {scale} cm/px, unchanged across chest '
+              f'68/88/108 and hip 114 ({len(scales)} distinct value); the '
+              f'tape moves the pattern by '
+              f'{ {k: round(v * 100, 2) for k, v in tape.items()} }% and '
+              f'the outline by '
+              f'{ {k: round(v * 100, 2) for k, v in photo.items()} }% — '
+              f'the photograph sets the shape, the tape only the scale, '
+              f'and it reaches the scale through the shoulder alone')
+
+
+# ---------------------------------------------------------------------------
 @declares("no falsifier is defined below the line where the harness "
           "starts running, because one defined there is silently skipped")
 def every_falsifier_is_reachable_when_run_as_a_script() -> None:
@@ -9084,6 +9232,7 @@ if __name__ == "__main__":
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
                the_hem_shape_is_measured_across_the_whole_bottom,
+               the_photograph_sets_the_shape_and_the_tape_sets_the_scale,
                every_falsifier_is_reachable_when_run_as_a_script,
                projects_have_their_own_store,
                the_bom_says_what_to_buy,

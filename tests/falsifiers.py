@@ -2992,6 +2992,24 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- 写真と巻尺の取り分 -----------------------------------------------------
+#: 「写真から構造を理解する」の正直な半分ずつを、両方向から落とす二本。
+WHOLE_SUITE += [
+    ("the px->cm scale starts depending on the body's chest",
+     "photoloset/photo_to_pattern.py",
+     [("    scale = span_cm / span_px",
+       "    scale = span_cm / span_px * (levels[2][1] / 14.0)")],
+     ["the photograph sets the garment's shape and the tape sets only its scale, and the tape reaches the scale through the shoulder alone"]),
+
+    ("the garment stops meeting the outline and becomes the body",
+     "photoloset/silhouette.py",
+     [("        half_widths.append(None if w is None else "
+       "(w[1] - w[0]) / 2.0)",
+       "        half_widths.append(None if w is None else a)")],
+     ["the photograph sets the garment's shape and the tape sets only its scale, and the tape reaches the scale through the shoulder alone"]),
+]
+
+
 if __name__ == "__main__":
     if "--self-test" in sys.argv[1:]:
         raise SystemExit(self_test())
