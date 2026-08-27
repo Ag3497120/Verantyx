@@ -64,35 +64,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSLog("[ToolSpec] SELF-CHECK FAILED:\n%@", toolProblems.joined(separator: "\n"))
         }
 
-        // Request Accessibility (for CGEvent HID clicks)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if !AXIsProcessTrusted() {
-                let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
-                _ = AXIsProcessTrustedWithOptions(options)
-            }
-            
-            // Request Screen Recording (for CGWindowListCreateImage /
-            // CGDisplayCreateImage). Ad-hoc DMG builds often need a reset
-            // cycle — surface that once on launch when still denied.
-            if !ScreenCapturePermission.isGranted {
-                ScreenCapturePermission.request()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    guard !ScreenCapturePermission.isGranted else { return }
-                    let alert = NSAlert()
-                    alert.messageText = AppLanguage.shared.t(
-                        "Screen Recording is off",
-                        "画面収録が無効です"
-                    )
-                    alert.informativeText = ScreenCapturePermission.recoveryMessage
-                    alert.alertStyle = .warning
-                    alert.addButton(withTitle: AppLanguage.shared.t("Open Settings", "設定を開く"))
-                    alert.addButton(withTitle: AppLanguage.shared.t("Later", "後で"))
-                    if alert.runModal() == .alertFirstButtonReturn {
-                        ScreenCapturePermission.openSystemSettings()
-                    }
-                }
-            }
-        }
+        // ── Accessibility / Screen Recording は、ここではもう要求しない ──
+        // 以前はここで無条件に AXIsProcessTrustedWithOptions と
+        // ScreenCapturePermission.request を呼び、2.5 秒後には
+        // NSAlert まで出していた — Atelier(服飾)しか使わない起動でも、
+        // まだ一度もエージェントを動かしていない起動でも、毎回出ていた。
+        // 二つとも Atelier のどの操作にも要らない。
+        //
+        // 今の入口は二つだけ:
+        //   1) LLM モードの設定 → PermissionsSettingsSection.swift
+        //      (SettingsView.swift の privacySettings から埋め込み) —
+        //      ユーザーが自分から開いて、許可ボタンを押した時だけ要求する。
+        //   2) 実際にエージェントがその権限を使おうとした瞬間
+        //      (OSControl / ForegroundAppOperator / AXVisionBridge /
+        //      ScreenChangeMonitor が持つ既存の AXIsProcessTrusted() /
+        //      ScreenCapturePermission.isGranted ガード、そのまま)。
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

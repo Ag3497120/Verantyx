@@ -1560,6 +1560,16 @@ struct SettingsView: View {
 
     private var privacySettings: some View {
         VStack(alignment: .leading, spacing: 20) {
+            // ── macOS permissions (Accessibility / Screen Recording) ────
+            // これがこのアプリで唯一 AXIsProcessTrustedWithOptions /
+            // ScreenCapturePermission.request を呼ぶ場所 — 起動時の
+            // 無条件リクエストは削除済み(VerantyxApp.swift 参照)。Atelier
+            // モードの設定 (AtelierSettingsView) にはこの節はない。
+            sectionHeader(app.t("System Permissions", "システム権限"), icon: "checkmark.shield")
+            settingsCard {
+                PermissionsSettingsSection().environmentObject(app)
+            }
+
             sectionHeader("Privacy & Mode", icon: "lock.shield")
 
             // ── Inference mode ─────────────────────────────────────────

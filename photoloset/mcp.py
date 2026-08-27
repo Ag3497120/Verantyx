@@ -966,6 +966,363 @@ def _fabric(name: str, *, require_bending: bool = True) -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# The geometric route: no corpus, no draft — mannequin.build -> flatten /
+# curvature -> panels -> silhouette. Each of these reads the same skin-tight
+# base as `mannequin_form` / `mannequin_dress` (`_mq.build(_measures())`),
+# built fresh per call the same way those two already do it.
+#
+# `sewing_order_plan` sits apart from that chain: it reads the SEWN mesh from
+# the DRAFTED pattern (`garment_sew.build` on the marked draft), the same
+# `built` `_fallen` above already constructs for draping — not the geometric
+# panels. It takes that built mesh, never the raw draft: a draft has named
+# edges but no seams sewn yet, and `sewing_order.plan` answers
+# UNKNOWN_NO_SEAMS on it rather than seam one silently.
+# ---------------------------------------------------------------------------
+
+@tool
+def sewing_order_plan() -> str:
+    """A sewing order for the drafted pattern, and whether it is minimal.
+
+    Reports which seams sew FLAT (both sides still separate pieces) and
+    which close IN_THE_ROUND, in an order that sews flat whenever it still
+    can. The count that must be IN_THE_ROUND has a floor — seams minus
+    pieces plus connected components — that no ordering can beat; the
+    answer names it and says whether this order reached it
+    (`at_the_minimum`). What it cannot say: whether a needle can physically
+    reach a given seam once the round is closed — this only has pieces and
+    which seams join them, not which side is inside.
+    """
+    from . import sewing_order as _so
+    draft = _pattern.draft(_measures())
+    if draft.get("verdict") != "ANSWER":
+        return _ok(draft)
+    built = _sew.build(_marks.apply(draft))
+    return _ok(_so.plan(built))
+
+
+@tool
+def flatten_build(segments: int = 24, height_steps: int = 16,
+                  gap_cm: float = 1.0, iterations: int = 3000) -> str:
+    """Cut the skin-tight base open along one meridian and flatten it.
+
+    The body is not developable (Gauss's Theorema Egregium: no surface with
+    curvature can be flattened without stretching), so this never claims a
+    good flattening — it relaxes a spring mesh toward each edge's 3D length
+    and reports, triangle by triangle, how far the 2D result is off: area
+    ratio and angle error. This is the whole tube cut along ONE seam, the
+    worst case before any further division; `panels_cut` divides it into
+    several pieces and measures how much distortion that buys back.
+    """
+    from . import flatten as _flat
+    man = _mq.build(_measures())
+    return _ok(_flat.build(man, gap=float(gap_cm), segments=int(segments),
+                           height_steps=int(height_steps),
+                           iterations=int(iterations)))
+
+
+@tool
+def curvature_mesh(segments: int = 24, height_steps: int = 16) -> str:
+    """The mannequin surface as a triangle grid: vertices and faces.
+
+    Coordinates come straight from the radius function, not from a second
+    approximation on top of one. Feeds `curvature_angle_sums` directly —
+    that tool takes any verts/faces in this shape, not only this mesh.
+    """
+    from . import curvature as _cv
+    man = _mq.build(_measures())
+    return _ok(_cv.mesh(man, int(segments), int(height_steps)))
+
+
+@tool
+def curvature_angle_sums(json_text: str = "") -> str:
+    """Angle defect per vertex: 2*pi minus the summed triangle-fan corner angles.
+
+    `json_text` is `{"verts": [[x, y, z], ...], "faces": [[i, j, k], ...]}`
+    — the shape `curvature_mesh` returns, so the two chain directly. This is
+    the actual discrete Gaussian curvature (triangle-fan angle defect); the
+    four-neighbour grid sum some other flattening code uses is NOT the same
+    quantity and does not converge to the right value on a closed surface.
+    """
+    req, err = _json_arg(json_text, '{"verts": [[x, y, z], ...], '
+                                     '"faces": [[i, j, k], ...]}')
+    if err:
+        return _ok(err)
+    verts = req.get("verts")
+    faces = req.get("faces")
+    if not isinstance(verts, list) or not isinstance(faces, list):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text needs both verts and faces, as lists"})
+    from . import curvature as _cv
+    try:
+        sums = _cv.angle_sums([tuple(v) for v in verts],
+                              [tuple(f) for f in faces])
+    except (TypeError, ValueError, IndexError) as e:
+        return _refused(ValueError(f"UNKNOWN_BAD_ARGUMENTS: {e}"))
+    return _ok({"verdict": "ANSWER",
+                "angle_sum_rad": sums,
+                "angle_defect_rad": [_cv.TWO_PI - s for s in sums],
+                "count": len(sums)})
+
+
+@tool
+def curvature_defect(segments: int = 24, height_steps: int = 16) -> str:
+    """Total angle defect at ONE resolution, over interior vertices only.
+
+    The neck and hip rings are the boundary, not interior vertices — their
+    share of Gauss-Bonnet's total (2*pi per disc) is the boundary term
+    (geodesic curvature), which this does not compute. One resolution alone
+    does not say whether the number has converged; `curvature_report` does.
+    """
+    from . import curvature as _cv
+    man = _mq.build(_measures())
+    return _ok(_cv.curvature(man, int(segments), int(height_steps)))
+
+
+def _resolutions_arg(resolutions_json: str):
+    """``[[segments, height_steps], ...]`` or empty for the module's own
+    refinement series. Returns ``(kwargs, error)`` — ``kwargs`` is ``{}``
+    when empty, so the callee's own default (not a guess made here) applies.
+    """
+    if not resolutions_json.strip():
+        return {}, None
+    try:
+        parsed = json.loads(resolutions_json)
+    except json.JSONDecodeError as e:
+        return None, _refused(e)
+    if not isinstance(parsed, list) or not parsed:
+        return None, _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                          "why": "resolutions_json is "
+                                 "[[segments, height_steps], ...]"})
+    try:
+        return {"resolutions": [tuple(r) for r in parsed]}, None
+    except TypeError as e:
+        return None, _refused(ValueError(f"UNKNOWN_BAD_ARGUMENTS: {e}"))
+
+
+@tool
+def curvature_report(resolutions_json: str = "") -> str:
+    """Total curvature, its per-band distribution, and whether refining agrees.
+
+    `resolutions_json` is `[[segments, height_steps], ...]` with at least
+    two steps (refinement is how convergence is shown at all); left empty,
+    curvature.py's own series runs (20x12 up to 160x96 — well under a second
+    on the reference body). Never converts the total into a dart size in cm
+    — splitting it between outline curvature and darts is a pattern-making
+    decision this makes on purpose, not a computation.
+    """
+    from . import curvature as _cv
+    kwargs, err = _resolutions_arg(resolutions_json)
+    if err:
+        return err
+    man = _mq.build(_measures())
+    return _ok(_cv.report(man, **kwargs))
+
+
+@tool
+def curvature_compare_interpolation(resolutions_json: str = "") -> str:
+    """Linear vs. smooth (spline) body interpolation, same grid series, side by side.
+
+    Same `resolutions_json` shape as `curvature_report`. Left empty, this
+    runs curvature.py's own comparison series up to a 640x384 grid — real
+    on the reference body (measured: ~50s) — so pass a coarser
+    `resolutions_json` (e.g. `[[20,12],[80,48]]`, ANSWERs in under a second)
+    for a quick look. Says only whether the total agrees and whether the
+    per-band distribution settles; never claims the smooth body is correct.
+    """
+    from . import curvature as _cv
+    kwargs, err = _resolutions_arg(resolutions_json)
+    if err:
+        return err
+    man = _mq.build(_measures())
+    return _ok(_cv.compare_interpolation(man, **kwargs))
+
+
+@tool
+def panels_cut(n_panels: int = 4, segments: int = 24, height_steps: int = 16,
+               iterations: int = 3000, dart_depth_ratio: float = 0.30) -> str:
+    """Cut the flattened tube into `n_panels` pattern panels, worst distortion first.
+
+    Each cut goes through the currently-worst panel's currently-worst
+    internal grid line, then both sides are re-flattened independently and
+    the distortion index is reported before and after — a measured drop,
+    not an assumed one. Gauss-Bonnet's 360 degrees per panel is split into
+    an interior share (handed to `darts.dart`) and a boundary share (the
+    outline's own, free) and checked to sum back to exactly 360.
+    Distortion never reaches zero — Theorema Egregium holds for any number
+    of panels — only `distortion_bought_total_pct` says how much less.
+    """
+    from . import panels as _pn
+    man = _mq.build(_measures())
+    return _ok(_pn.cut(man, n_panels=int(n_panels), segments=int(segments),
+                       height_steps=int(height_steps),
+                       iterations=int(iterations),
+                       dart_depth_ratio=float(dart_depth_ratio)))
+
+
+@tool
+def panels_to_pieces(json_text: str = "") -> str:
+    """Turn a `panels_cut` result into the same `pieces` shape `pattern_dxf` etc. use.
+
+    `json_text` is the WHOLE object `panels_cut` returned. The ring's
+    closing seam (back to the original meridian cut) is declared here too,
+    not left implicit — every panel's right edge meets the next panel's
+    left edge, including the last back to the first.
+    """
+    req, err = _json_arg(json_text, "the object panels_cut returned")
+    if err:
+        return _ok(err)
+    from . import panels as _pn
+    return _ok(_pn.to_pieces(req))
+
+
+@tool
+def panels_compare_to_draft(json_text: str = "") -> str:
+    """Panels next to the formula-drafted pattern. **Not a similarity claim.**
+
+    `json_text` is the WHOLE object `panels_cut` returned; the draft is
+    drawn fresh from the current ledger's measurements (the same call
+    `pattern_dxf` makes), not passed in. The two routes start from the same
+    measurements and are expected to land on visibly different piece counts
+    and shapes — one carries drafting formulas, the other only a distortion
+    measurement and no notion of "front" or "back".
+    """
+    req, err = _json_arg(json_text, "the object panels_cut returned")
+    if err:
+        return _ok(err)
+    from . import panels as _pn
+    return _ok(_pn.compare_to_draft(req, _pattern.draft(_measures())))
+
+
+def _outline_arg(json_text: str):
+    """``{"outline": [[x, y], ...]}`` — a closed 2D polygon, at least 3 points."""
+    req, err = _json_arg(json_text, '{"outline": [[x, y], ...]}')
+    if err:
+        return None, _ok(err)
+    outline = req.get("outline")
+    if not isinstance(outline, list) or len(outline) < 3:
+        return None, _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                          "why": "json_text needs \"outline\": a closed "
+                                 "polygon of at least 3 [x, y] points"})
+    try:
+        return [tuple(p) for p in outline], None
+    except TypeError as e:
+        return None, _refused(ValueError(f"UNKNOWN_BAD_ARGUMENTS: {e}"))
+
+
+@tool
+def silhouette_match(json_text: str = "", segments: int = 24,
+                     height_steps: int = 16, y_top: float = 0.0,
+                     y_bottom: float = 0.0) -> str:
+    """Fit the skin-tight base's radius, as a function of height, to a photo's outline.
+
+    `json_text` is `{"outline": [[x, y], ...]}` — a closed 2D polygon, no
+    image decoding involved (this package imports nothing that could). A
+    front-view outline constrains projected WIDTH only; depth is not
+    observed from one view, and this says so in the answer rather than
+    inventing depth. `y_top`/`y_bottom` narrow the height range (0 for
+    both uses the mannequin's full range). Refuses by name, with the worst
+    offending height, when the outline cannot fit this one-parameter-per-
+    height radial model — narrower than the body, or wider than the model
+    can honestly represent.
+    """
+    outline, err = _outline_arg(json_text)
+    if err:
+        return err
+    from . import silhouette as _sil
+    man = _mq.build(_measures())
+    return _ok(_sil.match(man, outline, segments=int(segments),
+                          height_steps=int(height_steps),
+                          y_top=(float(y_top) if y_top else None),
+                          y_bottom=(float(y_bottom) if y_bottom else None)))
+
+
+@tool
+def silhouette_width_at(json_text: str = "", y: float = 0.0) -> str:
+    """The outline's left/right x at one height — the primitive `silhouette_match` scans with.
+
+    `json_text` is `{"outline": [[x, y], ...]}`. Only the outer two
+    intersections are used, even if the polygon crosses this height more
+    than twice — an inner crossing is evidence of a concavity, and this
+    (like the visual hull it is part of) discards concavity evidence by
+    construction rather than guessing which pair is the true edge.
+    """
+    outline, err = _outline_arg(json_text)
+    if err:
+        return err
+    from . import silhouette as _sil
+    w = _sil.outline_width_at(outline, float(y))
+    if w is None:
+        return _ok({"verdict": "UNKNOWN_NO_INTERSECTION_AT_HEIGHT", "y": float(y),
+                    "how_to_close": "this outline has fewer than two "
+                                    "crossings at this height — pass a y "
+                                    "the polygon actually spans"})
+    return _ok({"verdict": "ANSWER", "y": float(y),
+                "left_x": w[0], "right_x": w[1], "width": w[1] - w[0]})
+
+
+@tool
+def silhouette_to_surface(json_text: str = "", segments: int = 24,
+                          height_steps: int = 16, y_top: float = 0.0,
+                          y_bottom: float = 0.0, gap_cm: float = 0.0) -> str:
+    """`silhouette_match`, wired straight into a mesh. No new mesh code — this
+    is `base_garment.build` fed the radius function `silhouette_match`'s
+    result implies. Same `json_text` shape as `silhouette_match`; refuses
+    the same way if the outline does not fit. `gap_cm` adds a further
+    constant radial gap on top of the already-fitted ease (0 means the
+    surface sits exactly on the fitted silhouette).
+    """
+    outline, err = _outline_arg(json_text)
+    if err:
+        return err
+    from . import silhouette as _sil
+    man = _mq.build(_measures())
+    res = _sil.match(man, outline, segments=int(segments),
+                     height_steps=int(height_steps),
+                     y_top=(float(y_top) if y_top else None),
+                     y_bottom=(float(y_bottom) if y_bottom else None))
+    if res.get("verdict") != "ANSWER":
+        return _ok(res)
+    return _ok(_sil.to_surface(res, man, gap=float(gap_cm)))
+
+
+@tool
+def structure_from_outline(json_text: str = "") -> str:
+    """Turn a front-view outline into garment STRUCTURE (parts and how they join).
+
+    `json_text` is `{"outline": [[x, y], ...]}` — the same shape
+    `silhouette_match` takes. Geometric route, not retrieval: unlike
+    `garment_resemble` -> `resemble.structure_from`, this reads no image
+    embedding, only the outline's own shape.
+
+    TODO(when `photoloset/structure.py` lands): this calls
+    `structure.from_outline(outline)` as its guess at that module's entry
+    point — a sibling agent is writing that file separately and the real
+    name may differ. Whoever wires it up for real: confirm the symbol name
+    against what `structure.py` actually exports and fix the two lines
+    below (the `getattr` name and this docstring) to match; the shape
+    contract ("takes an outline, returns structure") is what was agreed,
+    the symbol name is not.
+    """
+    outline, err = _outline_arg(json_text)
+    if err:
+        return err
+    try:
+        from . import structure as _structure
+    except ImportError:
+        return _absent("photoloset.structure",
+                       "structure.py has not landed in this checkout yet — "
+                       "a sibling agent is writing it; re-run once it has")
+    fn = getattr(_structure, "from_outline", None)
+    if fn is None:
+        return _ok({"verdict": "UNKNOWN_NOT_IN_THIS_BUILD",
+                    "why": "structure.py exists but has no from_outline(outline)",
+                    "how_to_close": "TODO left in structure_from_outline: "
+                                    "point the getattr(...) call at the real "
+                                    "entry point structure.py landed with"})
+    return _ok(fn(outline))
+
+
+# ---------------------------------------------------------------------------
 # The reference body
 # ---------------------------------------------------------------------------
 

@@ -2345,6 +2345,13 @@ private struct MeasurePanel: View {
                 Text(app.t("SEAM CHECK — the difference, not a verdict",
                            "縫い合わせの検算 — 差を出す")).railHead()
                     .padding(.top, 10)
+                // AttentionOverviewView と同じ罠、同じ直し方: `structural:
+                // true` の比較(前後の肩、両サイドシームなど、同じ式・同じ
+                // 入力から描かれているので必ず一致する)は「縫える」を
+                // 名乗る資格がない — 何も確かめていない。ここを sewable
+                // だけで緑にすると、UI A は静かな灰色で見せているのに
+                // UI B は同じ比較を緑で見せる、という矛盾した画面になる
+                // (owner のチェックが指摘した具体的な穴)。
                 ForEach(m.patternChecks) { c in
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(spacing: 8) {
@@ -2355,17 +2362,29 @@ private struct MeasurePanel: View {
                                 .font(.system(size: 10,
                                               design: .monospaced))
                                 .foregroundStyle(Theme.faint)
-                            Text(String(format: "%+.2fcm", c.difference))
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
-                            Text(c.sewable ? app.t("sewable", "縫える")
-                                           : app.t("does not sew",
-                                                   "このままでは縫えない"))
-                                .font(.system(size: 10))
-                                .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
+                            if c.structural {
+                                Image(systemName: "circle.dashed")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(Theme.faint)
+                                Text(app.t("not tested", "未検査"))
+                                    .font(.system(size: 10, weight: .semibold))
+                                    .foregroundStyle(Theme.faint)
+                            } else {
+                                Text(String(format: "%+.2fcm", c.difference))
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
+                                Text(c.sewable ? app.t("sewable", "縫える")
+                                               : app.t("does not sew",
+                                                       "このままでは縫えない"))
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(c.sewable ? Theme.ok : Theme.bad)
+                            }
                             Spacer(minLength: 0)
                         }
-                        Text(c.why).font(.system(size: 9))
+                        // structural な行は engine 自身の not_a_test 文面を
+                        // そのまま出す — ここで新しい説明文を書かない。
+                        Text(c.structural ? (c.notATest ?? c.why) : c.why)
+                            .font(.system(size: 9))
                             .foregroundStyle(Theme.faint)
                     }
                     .padding(.horizontal, 14).padding(.vertical, 5)
@@ -2960,17 +2979,29 @@ private struct MaterialsPanel: View {
             .padding(.horizontal, 14).padding(.top, 8)
 
             if !m.drapeVerdict.isEmpty {
+                // SeamCheck と同じ罠が sew_and_drape の "order" 検査
+                // (Jacobi 更新なので構成上必ず通る)にもある — structural
+                // な行を verdict だけで緑にしない。
                 ForEach(m.drapeChecks) { c in
                     HStack(spacing: 8) {
                         Text(c.name).font(.system(size: 10,
                                                   design: .monospaced))
                             .foregroundStyle(Theme.dim)
                             .frame(width: 70, alignment: .leading)
+                        if c.structural {
+                            Image(systemName: "circle.dashed")
+                                .font(.system(size: 10))
+                                .foregroundStyle(Theme.faint)
+                            Text(app.t("not tested", "未検査"))
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundStyle(Theme.faint)
+                        } else {
                         Text(c.verdict == "ANSWER"
                              ? app.t("passed", "通った") : c.verdict)
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundStyle(c.verdict == "ANSWER"
                                              ? Theme.ok : Theme.bad)
+                        }
                         if let d = c.difference {
                             Text(String(format: "%.3f", d)
                                  + (c.tolerance.map {
@@ -3413,16 +3444,27 @@ private struct SolidPanel: View {
                     .padding(.horizontal, 14).padding(.vertical, 3)
                 }
 
+                // 同じ罠、同じ直し方 — structural な行を verdict だけで
+                // 緑にしない。
                 ForEach(m.sewChecks) { c in
                     HStack(spacing: 8) {
                         Text(checkLabel(c.name))
                             .font(.system(size: 11)).frame(width: 110,
                                                            alignment: .leading)
+                        if c.structural {
+                            Image(systemName: "circle.dashed")
+                                .font(.system(size: 10))
+                                .foregroundStyle(Theme.faint)
+                            Text(app.t("not tested", "未検査"))
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundStyle(Theme.faint)
+                        } else {
                         Text(c.verdict == "ANSWER"
                              ? app.t("passed", "通った") : c.verdict)
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundStyle(c.verdict == "ANSWER"
                                              ? Theme.ok : Theme.bad)
+                        }
                         if let d = c.difference {
                             Text(String(format: "%.2f", d)
                                  + (c.tolerance.map {
