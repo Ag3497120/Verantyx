@@ -2165,6 +2165,25 @@ WHOLE_SUITE += [
 ]
 
 
+#: --- 縫う順序 -------------------------------------------------------------
+WHOLE_SUITE += [
+    ("every seam is called flat", "photoloset/sewing_order.py",
+     [("        if u.join(r[\"a\"], r[\"b\"]):", "        if True:")],
+     ["the flat seams come before the ones that close a loop"]),
+
+    ("the closing seams are not held back", "photoloset/sewing_order.py",
+     [("            later.append(r)",
+       "            order.append(dict(r, how=ROUND, why=\"\"))")],
+     ["the flat seams come before the ones that close a loop"]),
+
+    ("the cycle rank forgets the components",
+     "photoloset/sewing_order.py",
+     [("    beta = len(rows) - len(pieces) + comps",
+       "    beta = len(rows) - len(pieces)")],
+     ["the number of in-the-round seams is not a choice"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:

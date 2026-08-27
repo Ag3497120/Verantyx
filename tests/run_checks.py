@@ -185,6 +185,8 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "the flat seams come before the ones that close a loop",
+    "the number of in-the-round seams is not a choice",
     "the flat store moves into a project once and only once",
     "two projects do not see each other",
     "a project name cannot reach outside the store",
@@ -1455,7 +1457,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 39 and not third_party,
+          len(scanned) == 40 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -7380,6 +7382,69 @@ def projects_have_their_own_store() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("the flat seams come before the ones that close a loop",
+          "the number of in-the-round seams is not a choice")
+def a_garment_can_be_sewn_in_some_order() -> None:
+    """**"Can a person sew this" is the existence of a valid order.**
+
+    A seam inside an already-closed tube cannot be reached, so construction
+    has an order, and whether one exists is computable — no corpus needed.
+    Finding it proves constructibility and IS the instruction sheet.
+    """
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import garment_sew as _gs
+    from photoloset import sewing_order as _so
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    built = _gs.build(_mk.apply(_gp.draft(ms)))
+    plan = _so.plan(built)
+
+    with guard("the flat seams come before the ones that close a loop"):
+        kinds = [o["how"] for o in plan["order"]]
+        first_round = kinds.index(_so.ROUND) if _so.ROUND in kinds else len(kinds)
+        # A seam is FLAT only while its two sides are still separate pieces.
+        # Every flat one must therefore precede every closing one, or the
+        # classification was not read off the assembly at all.
+        check("the flat seams come before the ones that close a loop",
+              plan["verdict"] == "ANSWER"
+              and kinds[:first_round] == [_so.FLAT] * first_round
+              and set(kinds[first_round:]) <= {_so.ROUND}
+              and plan["flat"] == 2 and plan["in_the_round"] == 3
+              and plan["steps"] == 5
+              and [o["step"] for o in plan["order"]] == [1, 2, 3, 4, 5],
+              f'{plan["flat"]} flat then {plan["in_the_round"]} in the round, '
+              f'steps {[o["step"] for o in plan["order"]]}; the first closing '
+              f'seam is at position {first_round + 1} and nothing flat '
+              f'follows it')
+
+    with guard("the number of in-the-round seams is not a choice"):
+        # beta = seams - pieces + components is the cycle rank, and a spanning
+        # forest is exactly what can be sewn flat. So the count is a property
+        # of the garment, not of the order — and an implementation that got
+        # MORE than beta would be picking badly. Both bounds are asserted.
+        empty = _so.plan({"seams": []})
+        junk = _so.plan({"seams": [{"seam": "no arrow here"}]})
+        check("the number of in-the-round seams is not a choice",
+              plan["in_the_round"] == plan["in_the_round_minimum"] == 3
+              and plan["at_the_minimum"] is True
+              and len(plan["pieces"]) == 3 and plan["components"] == 1
+              and plan["in_the_round_minimum"]
+              == plan["steps"] - len(plan["pieces"]) + plan["components"]
+              and empty["verdict"] == _so.NO_SEAMS
+              and junk["verdict"] == _so.BAD_SEAM
+              and plan["formula"].endswith("= 5 − 3 + 1 = 3"),
+              f'{plan["formula"]}; the plan uses exactly that many, so no '
+              f'other order sews more of it flat. No seams at all is '
+              f'{empty["verdict"]}; a label with no ↔ is {junk["verdict"]}')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -7427,6 +7492,7 @@ if __name__ == "__main__":
                a_pattern_piece_absorbs_curvature_two_ways,
                a_body_becomes_a_flat_pattern_by_geometry,
                the_marker_says_how_much_fabric,
+               a_garment_can_be_sewn_in_some_order,
                projects_have_their_own_store,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,
