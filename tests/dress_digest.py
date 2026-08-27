@@ -70,7 +70,20 @@ sys.path.insert(0, str(ROOT))
 #: dress included. Reproduced twice on this tree, deterministic both
 #: times. A different value from THIS one still means the dress moved —
 #: say so out loud rather than editing this line.
-GEOMETRY_DIGEST = "493f74a274d4dac5a97c0bdf57b20037"
+#: **2026-08-27 に一度だけ動かした。** 前の値は
+#: 493f74a274d4dac5a97c0bdf57b20037。動いた原因は分かっていて、
+#: `garment_marks.offset_outline` が SEAM_ALLOWANCE に載っていない辺名を
+#: 黙って 0.0cm に落としていたのを、`UNKNOWN_SEAM_ALLOWANCE_NOT_STATED`
+#: で断るように直したこと。
+#:
+#: **16節のうち動いたのは marks / dxf / svg の3節だけで、3つとも縮んだ**
+#: (100,123→87,909 / 20,209→18,244 / 8,615→8,057 バイト)。compose・built・
+#: seams・drape 2種・mannequin 4種・marker・bom・headline は1バイトも
+#: 動いていない。効いたのは7裁片のうち**衿ただ一つ**で、「衿の外周 (前)」
+#: 「衿の外周 (後)」に幅を述べた者がいなかった — 以前はそこが 0cm になり、
+#: 裁ち切り線が出来上がり線と同じ位置に引かれていた。**縫えない型紙が
+#: ANSWER として通っていた。**
+GEOMETRY_DIGEST = "4c1dabf60bfafa549f9084d9828b2871"
 
 #: The sections the geometry digest covers, in this order.
 GEOMETRY = ("compose", "marks", "built", "built.seams", "drape_default",

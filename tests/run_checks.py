@@ -321,7 +321,7 @@ ALL_CHECK_NAMES = [
     "the dress reaches DXF directly, because save() cannot draft it",
     "the dress has not moved",
     "initialize",
-    "65 tools",
+    "80 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -421,6 +421,35 @@ ALL_CHECK_NAMES = [
     "layout, not by accident",
     "the drafted coat's own doors answer or refuse the panels for a "
     "reason they name",
+    "the symmetry axis is measured from the outline, not a hardcoded "
+    "constant, and a tilted outline reports a large residual while a "
+    "clean one reports zero",
+    "the reported armpit height moves with the notch that produces it, "
+    "not a fixed constant",
+    "the armpit-vs-waist-taper bump-fraction boundary is a measured "
+    "value, not assumed",
+    "the shoulder search window's upper edge is a measured boundary, "
+    "not open-ended",
+    "from_outline refuses a missing-contract record, a degenerate "
+    "outline, a re-closed outline, a self-crossing outline, and a "
+    "non-positive frame by name -- and answers the valid neighbor of "
+    "each",
+    "the undersampled-outline and too-small-outline refusals fire at "
+    "their exact measured boundary, not approximately there",
+    "each of the six refused topics answers with its own verdict, not "
+    "a shared one, and an unknown topic refuses by a different name "
+    "than any of them",
+    "a resolved hem always carries the front/back attribution refusal, "
+    "and a top-level refusal carries no landmarks at all",
+    "the part instances from_outline emits are consumable by "
+    "resemble.per_part and resemble.structure_from, run for real",
+    "from_outline gives byte-identical output for the same outline "
+    "called twice",
+    "a known edge reads its stated seam allowance, not a substituted "
+    "number",
+    "an edge name missing from the table refuses by name, not by 0cm",
+    "a refused seam allowance leaves no cut line in the DXF, only the "
+    "piece named",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -1220,7 +1249,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("65 tools", len(tools) == 65, f"{len(tools)}")
+        check("80 tools", len(tools) == 80, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -1268,8 +1297,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 65 and not no_schema and not no_props
-              and len(published) == 113 and not wrong and not contradicted
+              len(tools) == 80 and not no_schema and not no_props
+              and len(published) == 152 and not wrong and not contradicted
               and sorted(set(published.values())) == ["integer", "number",
                                                       "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1334,7 +1363,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 65 and not not_object and not crashed,
+              len(tools) == 80 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1484,7 +1513,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 42 and not third_party,
+          len(scanned) == 44 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -3921,6 +3950,8 @@ def the_dress_walks_every_stage_past_composition() -> None:
         n_notch = sum(len(v) for v in m["notches"].values())
         sa = m["seam_allowance"]
         sa_ok = [name for name in sa if sa[name].get("verdict") == "ANSWER"]
+        sa_refused = {name: sa[name]["verdict"] for name in sa
+                      if sa[name].get("verdict") != "ANSWER"}
         grain_pieces = {g["piece"] for g in m["grain"]}
         # The grain angle itself is not the dress's own
         # `settings.grain_angle_deg` (compose emits one, 90.0) — `apply()`
@@ -3934,12 +3965,22 @@ def the_dress_walks_every_stage_past_composition() -> None:
         check("the dress has no notches yet, and marks says so honestly",
               m.get("verdict", "ANSWER") == "ANSWER" and n_notch == 0
               and m["notch_pairs"] == [] and m["notch_unpaired"] == []
-              and len(sa_ok) == 7 == len(sa)
+              # **7 のうち 6。** 衿だけが断る — 「衿の外周 (前)」
+              # 「衿の外周 (後)」の幅を述べた者がいないため。以前は
+              # SEAM_ALLOWANCE に無い辺名が黙って 0.0cm に落ちていて、
+              # 7/7 が ANSWER に見えていた。裁ち切り線が出来上がり線と
+              # 同じ位置に引かれた型紙が通っていたということで、
+              # **数が減ったのは退行ではなく、嘘が一つ消えたということ。**
+              # 断り自体は `sa_refused` で名指しで押さえる — 「6 個通った」
+              # だけなら、どれが落ちても緑のままになってしまう。
+              and len(sa_ok) == 6 and len(sa) == 7
+              and sa_refused == {"衿": "UNKNOWN_SEAM_ALLOWANCE_NOT_STATED"}
               and grain_pieces == {p["name"] for p in r["pieces"]}
               and coat_angle == dress_angle == 90.0,
               f'0 notches across {len(sa)} pieces (notch_plan is an empty '
               f'declared list, not a missing one — the coat-only heuristic '
-              f'never runs); {len(sa_ok)} seam allowances answer; grain '
+              f'never runs); {len(sa_ok)} seam allowances answer and '
+              f'{sorted(sa_refused)} refuses by name; grain '
               f'lines on all {len(grain_pieces)} pieces, drawn at '
               f'{coat_angle}° read off the COAT\'s store — equal to the '
               f'dress\'s own declared {dress_angle}° today by coincidence, '
@@ -4134,15 +4175,32 @@ def the_dress_walks_every_stage_past_composition() -> None:
               "draft it",
               out["verdict"] == "ANSWER" and len(out["pieces"]) == 7
               and names == expected_names
-              and out["cut_line_missing"] == []
+              # **衿だけ裁ち切り線が無い。** 「衿の外周 (前)」「衿の外周
+              # (後)」の縫い代を誰も述べていないので garment_marks が断り、
+              # dxf は出来上がり線だけを書いて裁ち切り線を書かない。
+              # 以前は述べられていない辺が黙って 0.0cm になり、裁ち切り線が
+              # 出来上がり線にぴたりと重なった図が 7/7 で出ていた。
+              # **裁てば縫い代ゼロの衿になる図が ANSWER で通っていた。**
+              # ここを [] ではなく ["衿"] で押さえるのは、空リストだと
+              # 「全部に裁ち切り線がある」と「そもそも書いていない」の
+              # 区別が付かないから。
+              and out["cut_line_missing"] == [
+                  {"piece": "衿",
+                   "verdict": "UNKNOWN_SEAM_ALLOWANCE_NOT_STATED"}]
               and sum(out["notch_lines"].values()) == 0
               and out["extents_cm"]["min"] == [10.0, -37.1]
-              and out["extents_cm"]["max"] == [286.026, 69.682],
+              # x の右端が 286.026 から 285.865cm へ 0.161cm 縮んだ。
+              # 消えたのは衿の裁ち切り線で、0cm でも角の面取りの分だけ
+              # 出来上がり線の外に出ていた。
+              and out["extents_cm"]["max"] == [285.865, 69.682],
               f'{len(out["pieces"])} pieces {names} written straight from '
               f'garment_marks.apply() output (to_dxf(), not save() — '
               f'save() re-drafts from garment_pattern.draft internally and '
               f'cannot see a composed garment at all); extents '
               f'{out["extents_cm"]["min"]} .. {out["extents_cm"]["max"]} cm, '
+              f'no cut line for '
+              f'{[m["piece"] for m in out["cut_line_missing"]]} '
+              f'(its allowance is unstated, not zero); '
               f'0 notch lines matching the 0 notches marks produced')
 
     # **THE DRESS MUST NOT MOVE EITHER — as a number anyone can recompute.**
@@ -4161,7 +4219,7 @@ def the_dress_walks_every_stage_past_composition() -> None:
           dd["geometry"] == dress_digest.GEOMETRY_DIGEST
           and not dd["errors"]
           and dress_digest.GEOMETRY_DIGEST
-          == "493f74a274d4dac5a97c0bdf57b20037"
+          == "4c1dabf60bfafa549f9084d9828b2871"
           and len(dress_digest.GEOMETRY) == 16,
           f'geometry {dd["geometry"]} over {len(dress_digest.GEOMETRY)} '
           f'sections, recomputable by anyone with '
@@ -5543,6 +5601,32 @@ KNOWN_UNFALSIFIABLE = [
      "`svg_en != outs[\'svg\']` and `\'back bodice\' in svg_en`, and by "
      "the falsifier 'i18n.svg() becomes the identity', which turns this "
      "line red."),
+    ("T3", "each of the six refused topics answers with its own verdict, "
+     "not a shared one, and an unknown topic refuses by a different name "
+     "than any of them", "real",
+     "The same heuristic as 'two projects do not see each other': the tool "
+     "reads the check NAME as quantifying over 'the' (from '...refuses by "
+     "a different name than any of THEM') and cannot find an identifier of "
+     "that name in the condition. The condition does quantify — "
+     "`by_topic = {t: cannot_answer(t)[\"verdict\"] for t in "
+     "REFUSED_TOPICS}` walks every one of the six topics, `by_topic == "
+     "expect` requires each to match its OWN named verdict (not a shared "
+     "one), and `len(set(expect.values())) == 6` separately requires the "
+     "six to be pairwise distinct, so a lookup table collapsed to one "
+     "shared verdict for every topic cannot pass. Falsifier: \"cannot_"
+     "answer's topic dispatch collapses to one topic's entry\", which "
+     "makes five of the six by_topic entries disagree with expect."),
+    ("T1", "from_outline gives byte-identical output for the same "
+     "outline called twice", "borderline",
+     "`s1 == s2` on two calls built from two freshly-constructed (not "
+     "shared) input dicts IS the T1 shape, and a determinism check cannot "
+     "avoid it — the property under test is literally that the same "
+     "outline gives the same answer twice. What makes it non-vacuous: "
+     "`_record()` is called separately for r1 and r2, so nothing is "
+     "shared by reference, and the comparison is on the full serialized "
+     "JSON of the answer, not a single field. Falsifier: 'the symmetry "
+     "axis picks up a random term, breaking determinism', which makes "
+     "the two calls disagree even though the input is unchanged."),
 ]
 
 
@@ -5592,7 +5676,7 @@ def no_check_can_pass_by_construction() -> None:
           and unscanned == []
           and out.get("checks_with_a_condition", 0) >= 85
           and len(known) == len(KNOWN_UNFALSIFIABLE)
-          and len(KNOWN_UNFALSIFIABLE) == 10
+          and len(KNOWN_UNFALSIFIABLE) == 12
           and len(got) == len(KNOWN_UNFALSIFIABLE)
           and not new_hits and not gone
           and len(readers) == 18,
@@ -7554,24 +7638,29 @@ def the_flattened_tube_becomes_panels() -> None:
         applied = _dt.apply(pieces, darts_list)
         # garment_marks refuses a seam allowance for every panel — not a
         # crash, a named reason: our 下辺/右辺/上辺/左辺 edge names carry no
-        # entry in garment_marks.SEAM_ALLOWANCE, so every segment defaults
-        # to 0cm, and offset_outline's own strict-growth proof (the cut
-        # line must be STRICTLY larger than the sew line) cannot tell "0cm
-        # added" from "went inward" and refuses both the same way. This is
-        # a naming-vocabulary gap between the two systems, not a folded or
-        # self-intersecting panel — the underlying outline is untouched by
-        # this and dxf.to_dxf still writes the sew line for every panel.
+        # entry in garment_marks.SEAM_ALLOWANCE, so offset_outline refuses
+        # up front, by name, before any width is computed (UNSTATED —
+        # garment_marks.py's own fix for the naming-vocabulary gap: an
+        # unrecognized edge name used to default silently to 0cm and get
+        # refused, misleadingly, as WENT_INWARD, because 0cm added cannot
+        # be told apart from "went inward" inside offset_outline's own
+        # strict-growth proof; it now names the edges and refuses honestly
+        # instead of guessing 0cm). This is a naming-vocabulary gap between
+        # the two systems, not a folded or self-intersecting panel — the
+        # underlying outline is untouched by this and dxf.to_dxf still
+        # writes the sew line for every panel.
         check("the drafted coat's own doors answer or refuse the panels "
               "for a reason they name",
               marked["verdict"] == "ANSWER"
-              and sa_verdicts == ["UNKNOWN_SEAM_ALLOWANCE_WENT_INWARD"]
+              and sa_verdicts == [_mk.UNSTATED]
               and dxf_out["verdict"] == "ANSWER"
               and len(darts_list) == 3
               and applied["verdict"] == "ANSWER"
               and applied["count"] == 3 and len(applied["refused"]) == 0,
               f'garment_marks.apply -> ANSWER, but seam_allowance for '
-              f'every one of 4 panels is {sa_verdicts[0]} (0cm allowance '
-              f'from an edge-name vocabulary gap, not a bad outline); '
+              f'every one of 4 panels is {sa_verdicts[0]} (refused by '
+              f'name, naming the 4 edges, before any width was computed — '
+              f'not a bad outline); '
               f'dxf.to_dxf -> {dxf_out["verdict"]} (writes the sew lines '
               f'regardless); darts.apply against the fine pattern-level '
               f'outline, addressed by the edge panels.cut() itself '
@@ -8029,6 +8118,738 @@ def a_garment_can_be_sewn_in_some_order() -> None:
 
 
 # ---------------------------------------------------------------------------
+# structure.py --- 輪郭からの構造読み取り
+@declares("the symmetry axis is measured from the outline, not a "
+          "hardcoded constant, and a tilted outline reports a large "
+          "residual while a clean one reports zero")
+def symmetry_axis_and_residual_are_measured_not_hardcoded() -> None:
+    """**The symmetry axis is a measurement, not a guess about where the
+    photo was framed.**
+
+    ``_symmetry`` reports ``axis_x_px`` (the median of the per-height
+    midpoints) and a residual (how far the outline actually deviates from
+    that axis). Two failure shapes are equally plausible: an
+    implementation that always answers 0, and one that always answers the
+    frame's own horizontal center. Both are pinned by placing the
+    outline's own true axis at x=250px in an 800px-wide frame
+    (center=400px) -- neither 0 nor the frame center. A second outline,
+    identical except sheared sideways by 100px from top to bottom (the
+    module's own docstring: a photo taken at an angle produces a large
+    residual), must report a residual far above the clean outline's exact
+    zero, and an axis that moved but stayed within the range the shear can
+    possibly have produced.
+    """
+    from photoloset import structure as _st
+
+    def _sym_outline(axis: float, hw: float, shear: float = 0.0,
+                      n: int = 200, y0: float = 100.0, y1: float = 1000.0):
+        pts = []
+        for k in range(n + 1):
+            t = k / n
+            y = y0 + (y1 - y0) * t
+            pts.append((axis + hw + shear * t, y))
+        for k in range(n, -1, -1):
+            t = k / n
+            y = y0 + (y1 - y0) * t
+            pts.append((axis - hw + shear * t, y))
+        return pts
+
+    W, H = 800, 1200
+    AXIS, HW, SHEAR = 250.0, 80.0, 100.0
+    name = ("the symmetry axis is measured from the outline, not a "
+            "hardcoded constant, and a tilted outline reports a large "
+            "residual while a clean one reports zero")
+    with guard(name):
+        clean = _st.from_outline({"outline": _sym_outline(AXIS, HW),
+                                   "width_px": W, "height_px": H,
+                                   "source": "checks", "fixture": True})
+        tilted = _st.from_outline({"outline": _sym_outline(AXIS, HW,
+                                                             shear=SHEAR),
+                                    "width_px": W, "height_px": H,
+                                    "source": "checks", "fixture": True})
+        cs, ts = clean["symmetry"], tilted["symmetry"]
+        check("the symmetry axis is measured from the outline, not a "
+              "hardcoded constant, and a tilted outline reports a "
+              "large residual while a clean one reports zero",
+              clean["verdict"] == "ANSWER" and tilted["verdict"] == "ANSWER"
+              and cs["axis_x_px"] == AXIS
+              and cs["residual_mean_px"] == 0.0
+              and cs["residual_max_px"] == 0.0
+              and AXIS - 1e-6 <= ts["axis_x_px"] <= AXIS + SHEAR + 1e-6
+              and ts["residual_mean_px"] > 5.0,
+              f'clean outline (true axis={AXIS}px in an {W}px-wide frame, '
+              f'center={W / 2}px): reported axis={cs["axis_x_px"]}px, '
+              f'residual_mean={cs["residual_mean_px"]}px -- neither the '
+              f'literal 0 nor the frame center {W / 2}. The same outline '
+              f'sheared {SHEAR}px top-to-bottom: reported axis='
+              f'{ts["axis_x_px"]}px (bounded by construction to '
+              f'[{AXIS}, {AXIS + SHEAR}]), residual_mean='
+              f'{ts["residual_mean_px"]}px vs the clean case\'s exact 0')
+
+
+@declares("the reported armpit height moves with the notch that produces "
+          "it, not a fixed constant")
+def armpit_height_tracks_a_moved_notch() -> None:
+    """**A landmark is only honest if it moves when its evidence moves.**
+
+    The right-side armpit concavity is placed at a single controlled
+    vertex (the "notch"). Moving that vertex down by 0.15 (in height
+    fraction, i.e. 150px in this 900px-tall outline) must move the
+    reported ``armpit_right.height_fraction`` by the same 0.15 -- this
+    follows from height_fraction's own definition, (y - min_y) /
+    height_span, with min_y and height_span unchanged by the shift (the
+    notch never becomes the outline's own extremum).
+    """
+    from photoloset import structure as _st
+
+    def _notch_outline(t_notch: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (140.0, y_at(0.10)),
+                  (60.0, y_at(t_notch)), (70.0, y_at(0.60)),
+                  (100.0, y_at(0.80)), (130.0, y_at(1.0))]
+        left = [(-130.0, y_at(1.0)), (-100.0, y_at(0.80)),
+                 (-70.0, y_at(0.60)), (-80.0, y_at(0.0))]
+        return right + left
+
+    name = ("the reported armpit height moves with the notch that produces "
+            "it, not a fixed constant")
+    with guard(name):
+        r1 = _st.from_outline({"outline": _notch_outline(0.30),
+                                "width_px": 800, "height_px": 1200,
+                                "source": "checks", "fixture": True})
+        r2 = _st.from_outline({"outline": _notch_outline(0.45),
+                                "width_px": 800, "height_px": 1200,
+                                "source": "checks", "fixture": True})
+        a1 = r1["landmarks"]["armpit_right"]
+        a2 = r2["landmarks"]["armpit_right"]
+        check("the reported armpit height moves with the notch that "
+              "produces it, not a fixed constant",
+              r1["verdict"] == "ANSWER" and r2["verdict"] == "ANSWER"
+              and "height_fraction" in a1 and "height_fraction" in a2
+              and a1["point_index"] == 2 and a2["point_index"] == 2
+              and a1["height_fraction"] == 0.30
+              and a2["height_fraction"] == 0.45,
+              f'notch at t=0.30 -> armpit_right.height_fraction='
+              f'{a1["height_fraction"]}; notch moved to t=0.45 (a shift of '
+              f'0.15) -> armpit_right.height_fraction='
+              f'{a2["height_fraction"]}, a shift of '
+              f'{a2["height_fraction"] - a1["height_fraction"]:.4f} -- the '
+              f'same vertex (point_index={a2["point_index"]}) both times')
+
+
+@declares("the armpit-vs-waist-taper bump-fraction boundary is a measured "
+          "value, not assumed")
+def armpit_bump_threshold_boundary_is_measured() -> None:
+    """**A bulge just above the ARMPIT_MIN_BUMP_FRACTION floor is kept; the
+    same bulge fractionally smaller is refused as an ordinary waist taper.**
+
+    ``_armpit`` only accepts a concavity as an armpit if the width bulges
+    out, before the concavity, by at least ``ARMPIT_MIN_BUMP_FRACTION``
+    (5%) of the outline's own max width -- otherwise it looks like a plain
+    taper toward the waist, which has the same convex-hull signature (see
+    the module docstring). This pins the boundary at the peak width that
+    makes rise == bump_floor exactly (measured on this fixture, not
+    asserted): peak=85.0px accepts (rise=10.0px == floor 10.0px),
+    peak=84.9px refuses (rise=9.8px, 0.2px short).
+    """
+    from photoloset import structure as _st
+
+    def _bump_outline(peak: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (peak, y_at(0.10)), (60.0, y_at(0.30)),
+                  (90.0, y_at(0.60)), (100.0, y_at(1.0))]
+        left = [(-100.0, y_at(1.0)), (-90.0, y_at(0.60)),
+                 (-60.0, y_at(0.30)), (-peak, y_at(0.10)), (-80.0, y_at(0.0))]
+        return right + left
+
+    name = ("the armpit-vs-waist-taper bump-fraction boundary is a "
+            "measured value, not assumed")
+    with guard(name):
+        found = _st.from_outline({"outline": _bump_outline(85.0),
+                                   "width_px": 800, "height_px": 1200,
+                                   "source": "checks", "fixture": True})
+        refused = _st.from_outline({"outline": _bump_outline(84.9),
+                                     "width_px": 800, "height_px": 1200,
+                                     "source": "checks", "fixture": True})
+        fa = found["landmarks"]["armpit_right"]
+        ra = refused["landmarks"]["armpit_right"]
+        check("the armpit-vs-waist-taper bump-fraction boundary is a "
+              "measured value, not assumed",
+              fa["height_fraction"] == 0.30
+              and round(fa["preceding_bump"]["rise_px"], 4) == 10.0
+              and ra["verdict"] == _st.ARMPIT_NOT_FOUND
+              and round(ra["rejected_bump"]["rise_px"], 4) == 9.8
+              and round(ra["bump_floor_px"], 4) == 10.0,
+              f'peak=85.0px: bulge rises '
+              f'{fa["preceding_bump"]["rise_px"]}px against a floor of '
+              f'{round(ra["bump_floor_px"], 4)}px -> kept as armpit at '
+              f'height_fraction={fa["height_fraction"]}. peak=84.9px '
+              f'(0.1px shorter): bulge only rises '
+              f'{ra["rejected_bump"]["rise_px"]}px -> refused as '
+              f'{ra["verdict"]}, same floor')
+
+
+@declares("the shoulder search window's upper edge is a measured "
+          "boundary, not open-ended")
+def shoulder_search_window_boundary_is_measured() -> None:
+    """**A knee exactly at SHOULDER_WINDOW_MAX is the shoulder; the same
+    knee one hundredth further down is refused, not stretched for.**
+    """
+    from photoloset import structure as _st
+
+    def _knee_outline(t_knee: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (80.0, y_at(0.05)), (80.0, y_at(t_knee)),
+                  (150.0, y_at(0.60)), (150.0, y_at(1.0))]
+        left = [(-150.0, y_at(1.0)), (-150.0, y_at(0.60)),
+                 (-80.0, y_at(t_knee)), (-80.0, y_at(0.05)),
+                 (-80.0, y_at(0.0))]
+        return right + left
+
+    name = ("the shoulder search window's upper edge is a measured "
+            "boundary, not open-ended")
+    with guard(name):
+        at_edge = _st.from_outline({"outline": _knee_outline(0.20),
+                                     "width_px": 800, "height_px": 1200,
+                                     "source": "checks", "fixture": True})
+        past_edge = _st.from_outline({"outline": _knee_outline(0.21),
+                                       "width_px": 800, "height_px": 1200,
+                                       "source": "checks", "fixture": True})
+        s1 = at_edge["landmarks"]["shoulder"]
+        s2 = past_edge["landmarks"]["shoulder"]
+        check("the shoulder search window's upper edge is a "
+              "measured boundary, not open-ended",
+              s1.get("height_fraction") == 0.20
+              and s2.get("verdict") == _st.SHOULDER_NOT_RESOLVED
+              and s2.get("search_window") == [0.0, _st.SHOULDER_WINDOW_MAX],
+              f'knee at t=0.20 (== SHOULDER_WINDOW_MAX) -> shoulder found '
+              f'at height_fraction={s1.get("height_fraction")}; the same '
+              f'knee moved to t=0.21 -> {s2.get("verdict")} over search '
+              f'window {s2.get("search_window")}')
+
+
+@declares("from_outline refuses a missing-contract record, a degenerate "
+          "outline, a re-closed outline, a self-crossing outline, and a "
+          "non-positive frame by name -- and answers the valid neighbor "
+          "of each")
+def structural_refusals_fire_on_their_input_and_not_on_a_valid_neighbor() -> None:
+    """**Five structural guards in ``_validate``, each pinned against the
+    one valid outline that sits right next to what it refuses.**
+
+    A guard that always fires would make the valid rectangle fail too; a
+    guard that never fires would make its own refused case become ANSWER.
+    Both directions are asserted together so neither failure mode can hide
+    behind the other.
+    """
+    from photoloset import structure as _st
+
+    def _rect(n: int = 5, hw: float = 80.0, y0: float = 0.0,
+              y1: float = 1000.0):
+        pts = []
+        for k in range(n):
+            t = k / (n - 1)
+            pts.append((hw, y0 + (y1 - y0) * t))
+        for k in range(n - 1, -1, -1):
+            t = k / (n - 1)
+            pts.append((-hw, y0 + (y1 - y0) * t))
+        return pts
+
+    VALID = {"outline": _rect(), "width_px": 800, "height_px": 1200,
+             "source": "checks", "fixture": True}
+    name = ("from_outline refuses a missing-contract record, a degenerate "
+            "outline, a re-closed outline, a self-crossing outline, and a "
+            "non-positive frame by name -- and answers the valid neighbor "
+            "of each")
+    with guard(name):
+        valid = _st.from_outline(VALID)
+        no_outline = _st.from_outline({"width_px": 800, "height_px": 1200})
+        not_dict = _st.from_outline([1, 2, 3])
+        two_pts = _st.from_outline({**VALID, "outline": [(0.0, 0.0),
+                                                           (1.0, 1.0)]})
+        nonfinite = _st.from_outline({**VALID, "outline":
+                                       _rect()[:-1] + [(float("nan"), 5.0)]})
+        closed_dup = _st.from_outline({**VALID,
+                                        "outline": _rect() + [_rect()[0]]})
+        crossing_pts = _rect()
+        crossing_pts[1], crossing_pts[7] = crossing_pts[7], crossing_pts[1]
+        crossed = _st.from_outline({**VALID, "outline": crossing_pts})
+        bad_frame = _st.from_outline({**VALID, "width_px": 0})
+        check("from_outline refuses a missing-contract record, a "
+              "degenerate outline, a re-closed outline, a "
+              "self-crossing outline, and a non-positive frame by "
+              "name -- and answers the valid neighbor of each",
+              valid["verdict"] == "ANSWER"
+              and no_outline["verdict"] == _st.NO_OUTLINE
+              and not_dict["verdict"] == _st.NO_OUTLINE
+              and two_pts["verdict"] == _st.BAD_OUTLINE
+              and nonfinite["verdict"] == _st.BAD_OUTLINE
+              and closed_dup["verdict"] == _st.NOT_CLOSED
+              and crossed["verdict"] == _st.SELF_INTERSECTS
+              and crossed["count"] == 2
+              and bad_frame["verdict"] == _st.BAD_FRAME,
+              f'valid rectangle -> {valid["verdict"]}; a record missing '
+              f'"outline" -> {no_outline["verdict"]}; a bare list instead '
+              f'of a record -> {not_dict["verdict"]}; 2 points -> '
+              f'{two_pts["verdict"]}; a non-finite coordinate -> '
+              f'{nonfinite["verdict"]}; the same valid outline with its '
+              f'own first point appended again -> {closed_dup["verdict"]}; '
+              f'two points swapped to force a crossing -> '
+              f'{crossed["verdict"]} ({crossed["count"]} crossing pairs); '
+              f'width_px=0 -> {bad_frame["verdict"]}')
+
+
+@declares("the undersampled-outline and too-small-outline refusals fire "
+          "at their exact measured boundary, not approximately there")
+def numeric_refusal_boundaries_are_measured_not_approximate() -> None:
+    """**Two floors in ``_validate``, each pinned one unit either side of
+    the line.**
+
+    UNDERSAMPLED trips at fewer than MIN_POINTS (8) vertices -- 7 refuses,
+    8 (otherwise identical) answers. TOO_SMALL trips when the outline's
+    own bbox height is under MIN_HEIGHT_FRACTION_OF_FRAME (5%) of the
+    frame height -- 4.99% refuses, 5.01% answers, on the same shape.
+    """
+    from photoloset import structure as _st
+
+    def _n_pt_outline(n: int):
+        left_n = n // 2
+        right_n = n - left_n
+        pts = []
+        for k in range(right_n):
+            t = k / (right_n - 1) if right_n > 1 else 0.0
+            pts.append((80.0, 1000.0 * t))
+        for k in range(left_n - 1, -1, -1):
+            t = k / (left_n - 1) if left_n > 1 else 0.0
+            pts.append((-80.0, 1000.0 * t))
+        return pts
+
+    def _rect(hw: float, y0: float, y1: float, n: int = 5):
+        pts = []
+        for k in range(n):
+            t = k / (n - 1)
+            pts.append((hw, y0 + (y1 - y0) * t))
+        for k in range(n - 1, -1, -1):
+            t = k / (n - 1)
+            pts.append((-hw, y0 + (y1 - y0) * t))
+        return pts
+
+    name = ("the undersampled-outline and too-small-outline refusals fire "
+            "at their exact measured boundary, not approximately there")
+    with guard(name):
+        under = _st.from_outline({"outline": _n_pt_outline(7),
+                                   "width_px": 800, "height_px": 1200,
+                                   "source": "checks", "fixture": True})
+        at_min = _st.from_outline({"outline": _n_pt_outline(8),
+                                    "width_px": 800, "height_px": 1200,
+                                    "source": "checks", "fixture": True})
+        H = 1200
+        too_small = _st.from_outline({
+            "outline": _rect(200.0, 0.0, H * 0.0499),
+            "width_px": 800, "height_px": H,
+            "source": "checks", "fixture": True})
+        just_big_enough = _st.from_outline({
+            "outline": _rect(200.0, 0.0, H * 0.0501),
+            "width_px": 800, "height_px": H,
+            "source": "checks", "fixture": True})
+        check("the undersampled-outline and too-small-outline "
+              "refusals fire at their exact measured boundary, not "
+              "approximately there",
+              len(_n_pt_outline(7)) == 7 and len(_n_pt_outline(8)) == 8
+              and under["verdict"] == _st.UNDERSAMPLED
+              and under["points"] == 7 and under["minimum"] == 8
+              and at_min["verdict"] == "ANSWER"
+              and too_small["verdict"] == _st.TOO_SMALL
+              and round(too_small["height_fraction_of_frame"], 4) == 0.0499
+              and just_big_enough["verdict"] == "ANSWER",
+              f'7 points -> {under["verdict"]} (points={under["points"]}, '
+              f'minimum={under["minimum"]}); the same shape at 8 points -> '
+              f'{at_min["verdict"]}. bbox height at 4.99% of the frame -> '
+              f'{too_small["verdict"]} (height_fraction_of_frame='
+              f'{too_small["height_fraction_of_frame"]}); the same shape '
+              f'at 5.01% -> {just_big_enough["verdict"]}')
+
+
+@declares("each of the six refused topics answers with its own verdict, "
+          "not a shared one, and an unknown topic refuses by a different "
+          "name than any of them")
+def each_refused_topic_answers_by_its_own_name() -> None:
+    """**A closed vocabulary, checked as a lookup table, not as a single
+    boolean 'refused'.**
+    """
+    from photoloset import structure as _st
+
+    name = ("each of the six refused topics answers with its own verdict, "
+            "not a shared one, and an unknown topic refuses by a different "
+            "name than any of them")
+    with guard(name):
+        by_topic = {t: _st.cannot_answer(t)["verdict"]
+                    for t in _st.REFUSED_TOPICS}
+        expect = {
+            "front_or_back": _st.CANNOT_SIDE,
+            "closure": _st.CANNOT_CLOSURE,
+            "layering": _st.CANNOT_LAYERING,
+            "fabric": _st.CANNOT_FABRIC,
+            "seam_position": _st.CANNOT_SEAM,
+            "dart_position": _st.CANNOT_DART,
+        }
+        unknown = _st.cannot_answer("closures")
+        check("each of the six refused topics answers with its own "
+              "verdict, not a shared one, and an unknown topic "
+              "refuses by a different name than any of them",
+              by_topic == expect
+              and len(set(expect.values())) == 6
+              and unknown["verdict"] == _st.NO_SUCH_TOPIC
+              and unknown["verdict"] not in expect.values()
+              and unknown["known"] == sorted(expect),
+              f'{by_topic} -- 6 distinct verdicts for 6 topics; an unknown '
+              f'topic ("closures", one letter off "closure") -> '
+              f'{unknown["verdict"]}, listing known topics as '
+              f'{unknown["known"]}')
+
+
+@declares("a resolved hem always carries the front/back attribution "
+          "refusal, and a top-level refusal carries no landmarks at all")
+def hem_always_states_it_cannot_attribute_to_front_or_back() -> None:
+    """**CANNOT_HEM_ATTRIBUTION is not conditional on the hem's shape -- it
+    is a statement about what a single front view can ever say.**
+    """
+    from photoloset import structure as _st
+
+    def _rect(n: int = 5, hw: float = 80.0, y0: float = 0.0,
+              y1: float = 1000.0):
+        pts = []
+        for k in range(n):
+            t = k / (n - 1)
+            pts.append((hw, y0 + (y1 - y0) * t))
+        for k in range(n - 1, -1, -1):
+            t = k / (n - 1)
+            pts.append((-hw, y0 + (y1 - y0) * t))
+        return pts
+
+    name = ("a resolved hem always carries the front/back attribution "
+            "refusal, and a top-level refusal carries no landmarks at all")
+    with guard(name):
+        resolved = _st.from_outline({"outline": _rect(), "width_px": 800,
+                                      "height_px": 1200, "source": "checks",
+                                      "fixture": True})
+        refused = _st.from_outline({"outline": [(0.0, 0.0), (1.0, 1.0)],
+                                     "width_px": 800, "height_px": 1200,
+                                     "source": "checks", "fixture": True})
+        attr = resolved["landmarks"]["hem"]["front_back_attribution"]
+        check("a resolved hem always carries the front/back "
+              "attribution refusal, and a top-level refusal carries "
+              "no landmarks at all",
+              resolved["verdict"] == "ANSWER"
+              and attr["verdict"] == _st.CANNOT_HEM_ATTRIBUTION
+              and len(attr["why"]) > 20 and len(attr["how_to_close"]) > 10
+              and refused["verdict"] != "ANSWER"
+              and "landmarks" not in refused,
+              f'a resolved outline\'s hem carries '
+              f'front_back_attribution.verdict={attr["verdict"]}; a '
+              f'refused outline ({refused["verdict"]}) carries no '
+              f'"landmarks" key at all, so the attribution cannot be read '
+              f'as though it fired')
+
+
+@declares("the part instances from_outline emits are consumable by "
+          "resemble.per_part and resemble.structure_from, run for real")
+def structure_instances_are_consumable_by_resemble() -> None:
+    """**structure.py's contract with resemble.py is checked by actually
+    running resemble against structure.py's own output, not by asserting
+    the shape looks right.**
+    """
+    from photoloset import resemble as _resemble
+    from photoloset import structure as _st
+
+    def _notch_outline(t_notch: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (140.0, y_at(0.10)),
+                  (60.0, y_at(t_notch)), (70.0, y_at(0.60)),
+                  (100.0, y_at(0.80)), (130.0, y_at(1.0))]
+        left = [(-130.0, y_at(1.0)), (-100.0, y_at(0.80)),
+                 (-70.0, y_at(0.60)), (-80.0, y_at(0.0))]
+        return right + left
+
+    name = ("the part instances from_outline emits are consumable by "
+            "resemble.per_part and resemble.structure_from, run for real")
+    _resemble.reset()
+    with guard(name):
+        res = _st.from_outline({"outline": _notch_outline(0.30),
+                                 "width_px": 800, "height_px": 1200,
+                                 "source": "checks", "fixture": True},
+                                image_id="img1")
+        parts = res["instances"]
+        ids = sorted(p["instance"] for p in parts)
+        _resemble.install_fixture({
+            "body:1": [{"aspect": "family", "family": "coat",
+                        "corpus": "c", "ref": "R1"}],
+            "sleeve:1": [{"aspect": "family", "family": "sleeve",
+                          "corpus": "c", "ref": "R2"}]})
+        got = _resemble.per_part("photo.jpg", parts, image_id="img1")
+        structured = _resemble.structure_from(got, image_id="img1")
+        structured_ids = sorted(i["instance"]
+                                 for i in structured["instances"])
+        check("the part instances from_outline emits are consumable "
+              "by resemble.per_part and resemble.structure_from, run "
+              "for real",
+              res["verdict"] == "ANSWER"
+              and ids == ["body:1", "sleeve:1", "sleeve:2"]
+              and got["verdict"] == "ANSWER"
+              and sorted(got["searched"]["instances"]) == ids
+              and sorted(got["searched"]["regions"]) == ids
+              and structured["verdict"] == "ANSWER"
+              and structured_ids == ["body:1", "sleeve:1"],
+              f'structure.py emitted {ids}; resemble.per_part searched '
+              f'{sorted(got["searched"]["instances"])} and regioned '
+              f'{sorted(got["searched"]["regions"])} -- none dropped; '
+              f'resemble.structure_from carried forward {structured_ids} '
+              f'(the two the fixture table actually answered for)')
+    _resemble.reset()
+
+
+@declares("from_outline gives byte-identical output for the same outline "
+          "called twice")
+def from_outline_is_deterministic_for_the_same_outline() -> None:
+    """**No hidden clock, counter, or iteration-order dependency.**
+
+    Two structurally-identical but NOT object-identical input dicts (built
+    fresh each time, so nothing is shared by reference) must produce
+    byte-identical JSON.
+    """
+    import json as _json
+
+    from photoloset import structure as _st
+
+    def _notch_outline(t_notch: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (140.0, y_at(0.10)),
+                  (60.0, y_at(t_notch)), (70.0, y_at(0.60)),
+                  (100.0, y_at(0.80)), (130.0, y_at(1.0))]
+        left = [(-130.0, y_at(1.0)), (-100.0, y_at(0.80)),
+                 (-70.0, y_at(0.60)), (-80.0, y_at(0.0))]
+        return right + left
+
+    def _record():
+        return {"outline": _notch_outline(0.30), "width_px": 800,
+                "height_px": 1200, "source": "checks", "fixture": True}
+
+    name = ("from_outline gives byte-identical output for the same "
+            "outline called twice")
+    with guard(name):
+        r1 = _st.from_outline(_record(), image_id="img1")
+        r2 = _st.from_outline(_record(), image_id="img1")
+        s1 = _json.dumps(r1, sort_keys=True)
+        s2 = _json.dumps(r2, sort_keys=True)
+        check("from_outline gives byte-identical output for the "
+              "same outline called twice",
+              r1["verdict"] == "ANSWER" and s1 == s2,
+              f'two calls on two freshly-built but structurally identical '
+              f'records ({len(s1)} bytes of JSON each) are byte-identical: '
+              f'{s1 == s2}')
+
+
+# ---------------------------------------------------------------------------
+# garment_marks.py --- 合印・縫い代・布目線
+@declares("a known edge reads its stated seam allowance, not a "
+          "substituted number")
+def a_known_edge_reads_its_stated_seam_allowance() -> None:
+    """**A drafted edge whose name IS in SEAM_ALLOWANCE gets exactly that
+    width, not a value that merely happens to match.**
+
+    The expected centimetres (1.27 / 0.95 / 0.64 / 2.54 / 0.0) are copied by
+    hand from the SEAM_ALLOWANCE table's own entries, not read back as
+    ``garment_marks.SEAM_ALLOWANCE[name][0]`` -- comparing ``offset_outline``'s
+    output against the very table it reads from would be comparing a value
+    with itself, which is exactly the shape this suite's own unfalsifiable
+    scan hunts.
+    """
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+
+    with guard("a known edge reads its stated seam allowance, not a "
+              "substituted number"):
+        back = next(p for p in draft["pieces"] if p["name"] == "後身頃")
+        off = _mk.offset_outline(back["outline"], back["edges"],
+                                 piece_name="後身頃")
+        by_edge = {}
+        for row in off.get("segment_allowance", []):
+            by_edge.setdefault(row["edge"], []).append(row["cm"])
+        # Literal cm, hand-copied from the table -- not read back off it.
+        expect = {"肩線": 1.27, "脇線": 1.27, "袖ぐり": 0.95,
+                  "衿ぐり": 0.64, "裾": 2.54, "中心線": 0.0}
+        # Flattened to (edge, cm) pairs rather than checked with a nested
+        # any() per edge -- a per-edge list that happened to be empty would
+        # make any() vacuously False and silently drop that edge out of
+        # `mismatches` without ever comparing a number. `checked` pins how
+        # many (edge, cm) pairs were actually scanned, so an empty scan
+        # cannot pass as a clean one.
+        checked = [(name, v) for name, vals in by_edge.items()
+                  if name in expect for v in vals]
+        mismatches = {(name, v): expect[name] for name, v in checked
+                     if abs(v - expect[name]) > 1e-9}
+        check("a known edge reads its stated seam allowance, not a "
+              "substituted number",
+              draft["verdict"] == "ANSWER" and off["verdict"] == "ANSWER"
+              and set(expect) <= set(by_edge)
+              and len(checked) == 7 and not mismatches,
+              f'後身頃 segment_allowance by edge: '
+              f'{ {k: v for k, v in by_edge.items() if k in expect} }; '
+              f'expected {expect}; {len(checked)} (edge, cm) pairs '
+              f'checked; mismatches {mismatches}')
+
+
+@declares("an edge name missing from the table refuses by name, not by 0cm")
+def an_edge_name_missing_from_the_table_refuses_by_name() -> None:
+    """**Panel edges (下辺/右辺/上辺/左辺) are not in SEAM_ALLOWANCE's
+    vocabulary. offset_outline must name them and refuse, not fall back to
+    an implicit 0.0cm.**
+
+    Pins the exact defect this task fixes: a 0.0cm default cannot be told
+    apart, inside ``offset_outline``'s own outward-growth proof, from the
+    seam allowance having gone inward -- so a naming-vocabulary gap used to
+    surface as ``UNKNOWN_SEAM_ALLOWANCE_WENT_INWARD`` on a perfectly intact
+    outline. The typed refusal (UNSTATED) must name every missing edge and
+    carry a how_to_close, matching the other 157 refusals' shape.
+    """
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+    from photoloset import panels as _pn
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+    out = _pn.cut(man, n_panels=4, segments=12, height_steps=8,
+                 iterations=800)
+    pieces = _pn.to_pieces(out)
+
+    with guard("an edge name missing from the table refuses by name, not "
+              "by 0cm"):
+        p0 = pieces["pieces"][0]
+        off = _mk.offset_outline(p0["outline"], p0["edges"],
+                                 piece_name=p0["name"])
+        edge_names = sorted(p0["edges"].keys())
+        named = set(off.get("edges") or [])
+        # It must be the TYPED refusal this task adds, not the old
+        # WENT_INWARD verdict the same 0cm default used to produce on this
+        # exact input (regression guard against reverting to the default).
+        # len(edge_names) pinned: a cut() panel is always a 4-sided quad
+        # (下辺/右辺/上辺/左辺), and all() over an empty edge_names would
+        # vacuously pass without ever checking that a single edge name is
+        # absent from the table.
+        check("an edge name missing from the table refuses by name, not "
+              "by 0cm",
+              off.get("verdict") == _mk.UNSTATED
+              and set(edge_names) == named
+              and len(edge_names) == 4
+              and all(n not in _mk.SEAM_ALLOWANCE for n in edge_names)
+              and isinstance(off.get("how_to_close"), str)
+              and len(off["how_to_close"]) > 20
+              and isinstance(off.get("why"), str) and len(off["why"]) > 20,
+              f'panel edges {edge_names}, none in SEAM_ALLOWANCE -> '
+              f'{off.get("verdict")} naming {sorted(named)}')
+
+
+@declares("a refused seam allowance leaves no cut line in the DXF, only "
+          "the piece named")
+def a_refused_seam_allowance_leaves_no_cut_line_in_the_dxf() -> None:
+    """**dxf.to_dxf must not fabricate a cut line for a piece whose seam
+    allowance was refused -- that would be the exact "plausible number
+    standing in for a refusal" shape this project refuses everywhere else.**
+
+    The chosen behaviour (confirmed by reading, not assumed): the export as
+    a whole still answers -- the sewing line, notches and grain for a piece
+    are real regardless of whether its seam allowance is known -- but no
+    CUT_LINE polyline entity is written for that piece, and the piece is
+    named, with the refusal's own verdict, in ``cut_line_missing``.
+    """
+    from photoloset import dxf as _dxf
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+    from photoloset import panels as _pn
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+    out = _pn.cut(man, n_panels=4, segments=12, height_steps=8,
+                 iterations=800)
+    pieces = _pn.to_pieces(out)
+    marked = _mk.apply(pieces)
+
+    with guard("a refused seam allowance leaves no cut line in the DXF, "
+              "only the piece named"):
+        d = _dxf.to_dxf(marked)
+        import re as _re
+        cut_polylines = len(_re.findall(r"0\nPOLYLINE\n8\nCUT_LINE\n",
+                                        d.get("text", "")))
+        # Bare names, scanned directly (rather than re-reading d[...] at
+        # each use site), so a pin on the name's own length is the SAME
+        # iterable the scan below runs over -- not a differently-spelled
+        # reference to it.
+        dxf_pieces = d.get("pieces", [])
+        missing_rows = d.get("cut_line_missing", [])
+        missing_names = {row["piece"] for row in missing_rows}
+        piece_names = {p["name"] for p in marked["pieces"]}
+        cut_vertices_reported = sum(
+            p.get("cut_vertices", 0) for p in dxf_pieces)
+        # Both scans are pinned to the real panel count (4): an empty
+        # dxf_pieces would make "every piece reports 0 cut vertices"
+        # vacuously true (no cut line was ever counted, let alone found
+        # absent), and an empty missing_rows would make all() over it
+        # vacuously True without ever checking a single piece's refusal
+        # verdict.
+        check("a refused seam allowance leaves no cut line in the DXF, "
+              "only the piece named",
+              d.get("verdict") == "ANSWER"
+              and cut_polylines == 0
+              and len(dxf_pieces) == 4
+              and all(p.get("cut_vertices", 0) == 0 for p in dxf_pieces)
+              and len(missing_rows) == 4
+              and missing_names == piece_names
+              and all(row["verdict"] == _mk.UNSTATED
+                      for row in missing_rows),
+              f'dxf verdict {d.get("verdict")}; {cut_polylines} CUT_LINE '
+              f'polyline entities written (0 expected); cut_line_missing '
+              f'names {sorted(missing_names)} of {sorted(piece_names)} '
+              f'pieces, each {_mk.UNSTATED}')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -8082,6 +8903,19 @@ if __name__ == "__main__":
                projects_have_their_own_store,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,
+               symmetry_axis_and_residual_are_measured_not_hardcoded,
+               armpit_height_tracks_a_moved_notch,
+               armpit_bump_threshold_boundary_is_measured,
+               shoulder_search_window_boundary_is_measured,
+               structural_refusals_fire_on_their_input_and_not_on_a_valid_neighbor,
+               numeric_refusal_boundaries_are_measured_not_approximate,
+               each_refused_topic_answers_by_its_own_name,
+               hem_always_states_it_cannot_attribute_to_front_or_back,
+               structure_instances_are_consumable_by_resemble,
+               from_outline_is_deterministic_for_the_same_outline,
+               a_known_edge_reads_its_stated_seam_allowance,
+               an_edge_name_missing_from_the_table_refuses_by_name,
+               a_refused_seam_allowance_leaves_no_cut_line_in_the_dxf,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
         # A crash in shared setup must not take the REST OF THE SUITE with

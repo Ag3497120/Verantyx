@@ -1289,7 +1289,7 @@ WHOLE_SUITE += [
     # generator, checked the same way #22 checks the coat's.
     ("the pinned dress digest is not the one it recomputes",
      "tests/dress_digest.py",
-     [('GEOMETRY_DIGEST = "493f74a274d4dac5a97c0bdf57b20037"',
+     [('GEOMETRY_DIGEST = "4c1dabf60bfafa549f9084d9828b2871"',
        'GEOMETRY_DIGEST = "0" * 32')],
      ["the dress has not moved"]),
 
@@ -2370,6 +2370,122 @@ WHOLE_SUITE += [
      [("DEFAULT_DART_DEPTH_RATIO = 0.30", "DEFAULT_DART_DEPTH_RATIO = 0.50")],
      ["the drafted coat's own doors answer or refuse the panels for a "
       "reason they name"]),
+]
+
+#: --- 輪郭からの構造読み取り (structure.py) -----------------------------------
+WHOLE_SUITE += [
+    ("the symmetry axis goes back to a hardcoded 0.0",
+     "photoloset/structure.py",
+     [("    axis = centers[n // 2] if n % 2 == 1 else "
+       "(centers[n // 2 - 1] + centers[n // 2]) / 2.0",
+       "    axis = 0.0")],
+     ["the symmetry axis is measured from the outline, not a hardcoded "
+      "constant, and a tilted outline reports a large residual while a "
+      "clean one reports zero"]),
+
+    ("a concavity's reported height freezes to the search window's "
+     "midpoint", "photoloset/structure.py",
+     [('            "height_fraction": round((y - min_y) / height_span, 4),',
+       '            "height_fraction": 0.5,')],
+     ["the reported armpit height moves with the notch that produces it, "
+      "not a fixed constant"]),
+
+    ("the armpit bump-floor filter is disabled, so any deep concavity "
+     "passes as an armpit", "photoloset/structure.py",
+     [("    accepted = [(c, b, r) for c, b, r in scored if r >= bump_floor]",
+       "    accepted = scored")],
+     ["the armpit-vs-waist-taper bump-fraction boundary is a measured "
+      "value, not assumed"]),
+
+    ("the shoulder search window's upper edge turns exclusive",
+     "photoloset/structure.py",
+     [('        if k["height_fraction"] <= SHOULDER_WINDOW_MAX:',
+       '        if k["height_fraction"] < SHOULDER_WINDOW_MAX:')],
+     ["the shoulder search window's upper edge is a measured boundary, "
+      "not open-ended"]),
+
+    ("the self-intersection guard in _validate is disabled",
+     "photoloset/structure.py",
+     [("    if hits:", "    if False:")],
+     ["from_outline refuses a missing-contract record, a degenerate "
+      "outline, a re-closed outline, a self-crossing outline, and a "
+      "non-positive frame by name -- and answers the valid neighbor of "
+      "each"]),
+
+    ("the too-small-outline floor is pushed out of reach",
+     "photoloset/structure.py",
+     [("    if area_frac < MIN_COVERAGE_FRACTION or height_frac < "
+       "MIN_HEIGHT_FRACTION_OF_FRAME:",
+       "    if area_frac < MIN_COVERAGE_FRACTION or height_frac < "
+       "MIN_HEIGHT_FRACTION_OF_FRAME - 1000.0:")],
+     ["the undersampled-outline and too-small-outline refusals fire at "
+      "their exact measured boundary, not approximately there"]),
+
+    ("cannot_answer's topic dispatch collapses to one topic's entry",
+     "photoloset/structure.py",
+     [("    hit = REFUSED_TOPICS.get(topic)",
+       '    hit = REFUSED_TOPICS.get("fabric")')],
+     ["each of the six refused topics answers with its own verdict, not "
+      "a shared one, and an unknown topic refuses by a different name "
+      "than any of them"]),
+
+    ("the hem's front/back attribution refusal is dropped from the "
+     "answer", "photoloset/structure.py",
+     [('        "front_back_attribution": {\n'
+       '            "verdict": CANNOT_HEM_ATTRIBUTION,\n'
+       '            "why": "正面1枚の輪郭は外側の境界(visual hull)しか写しませ"\n'
+       '                   "ん。前が短く後ろが長い「ハイロー」は、短い前端が長い"\n'
+       '                   "後ろの陰に隠れて輪郭に現れないことがあり得るので、"\n'
+       '                   "裾の高さ変化を前後に帰属させることはできません。ここ"\n'
+       '                   "で言えるのは輪郭が左右方向にどう変化するかだけです",\n'
+       '            "how_to_close": "側面・背面の写真を追加するか、前後を宣言する"\n'
+       '                             "人による入力を追加してください",\n'
+       '        },\n'
+       '    }',
+       '    }')],
+     ["a resolved hem always carries the front/back attribution refusal, "
+      "and a top-level refusal carries no landmarks at all"]),
+
+    ("a part instance's own name is emitted blank",
+     "photoloset/structure.py",
+     [('"instance": "body:1", "part": "body",',
+       '"instance": "", "part": "body",')],
+     ["the part instances from_outline emits are consumable by "
+      "resemble.per_part and resemble.structure_from, run for real"]),
+
+    ("the symmetry axis picks up a random term, breaking determinism",
+     "photoloset/structure.py",
+     [("    axis = centers[n // 2] if n % 2 == 1 else "
+       "(centers[n // 2 - 1] + centers[n // 2]) / 2.0",
+       "    axis = (centers[n // 2] if n % 2 == 1 else "
+       "(centers[n // 2 - 1] + centers[n // 2]) / 2.0) + "
+       '__import__("random").random() * 10.0')],
+     ["from_outline gives byte-identical output for the same outline "
+      "called twice"]),
+]
+
+
+#: --- 合印・縫い代・布目線 (garment_marks.py / dxf.py) ------------------------
+WHOLE_SUITE += [
+    ("a known edge's width is read with an extra 1cm added",
+     "photoloset/garment_marks.py",
+     [("    width = sa[name] if name in sa else SEAM_ALLOWANCE[name][0]",
+       "    width = sa[name] if name in sa else "
+       "SEAM_ALLOWANCE[name][0] + 1.0")],
+     ["a known edge reads its stated seam allowance, not a substituted "
+      "number"]),
+
+    ("the unstated-edge-name guard in offset_outline is disabled",
+     "photoloset/garment_marks.py",
+     [("    if unstated:", "    if False:")],
+     ["an edge name missing from the table refuses by name, not by 0cm"]),
+
+    ("the DXF export writes a cut line even when the seam allowance was "
+     "refused", "photoloset/dxf.py",
+     [('        cut_ok = off.get("verdict") == "ANSWER"',
+       "        cut_ok = True")],
+     ["a refused seam allowance leaves no cut line in the DXF, only the "
+      "piece named"]),
 ]
 
 
