@@ -453,6 +453,8 @@ ALL_CHECK_NAMES = [
     "the hem's shape is read off the whole bottom boundary, not off "
     "its two ends, and each of level / asymmetric_left_right / "
     "uneven is reachable from an outline that earns it",
+    "no falsifier is defined below the line where the harness "
+    "starts running, because one defined there is silently skipped",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -8029,6 +8031,72 @@ def the_hem_shape_is_measured_across_the_whole_bottom() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("no falsifier is defined below the line where the harness "
+          "starts running, because one defined there is silently skipped")
+def every_falsifier_is_reachable_when_run_as_a_script() -> None:
+    """**A mutation added at the bottom of falsifiers.py does not exist.**
+
+    ``tests/falsifiers.py`` ends with ``if __name__ == "__main__": raise
+    SystemExit(main(...))``. Python runs module statements in order, so a
+    ``WHOLE_SUITE += [...]`` written *after* that block is reached only when
+    the file is IMPORTED, never when it is RUN. The entries are in the list
+    if you import it and count them, and absent from the run that scores
+    them.
+
+    Not hypothetical: three mutations for the hem's shape were appended at
+    the end of the file on 2026-08-27 and the suite reported "ran 131 of 131
+    whole-suite entries" while ``import falsifiers`` showed 134. Nothing
+    said anything was missing — **the count matched itself**, because both
+    numbers came from the same truncated list.
+
+    **Why this check reads the source text and then doctors it.** "Nothing
+    sits below the line" is a claim about an empty list, and an empty list
+    is what a scanner that never appends also produces — `not below` is
+    green either way. So the same scanner is run twice: once over the real
+    file, which must find nothing, and once over a copy with one table
+    statement moved below the guard, which must find exactly that one. A
+    scanner that always answers "nothing" fails the second half.
+    """
+    name = ("no falsifier is defined below the line where the harness "
+            "starts running, because one defined there is silently skipped")
+    GUARD_LINE = 'if __name__ == "__main__":'
+
+    def below_the_guard(src: str):
+        """Table statements that sit after the line that starts the run."""
+        at = src.find(GUARD_LINE)
+        if at < 0:
+            return None
+        found = []
+        for line in src[at:].splitlines():
+            head = line.strip()
+            if (head.startswith(("WHOLE_SUITE", "MUTATIONS",
+                                 "LOOP_MUTATIONS"))
+                    and ("+=" in head or head.endswith("= ["))):
+                found.append(head[:60])
+        return found
+
+    real = (Path(__file__).parent / "falsifiers.py").read_text(
+        encoding="utf-8")
+    # The wrong file, built here rather than imagined — appended at the end,
+    # which is exactly where the three hem mutations were written before
+    # anyone noticed the run could not see them.
+    doctored = real.rstrip() + "\n\nWHOLE_SUITE += []\n"
+
+    clean = below_the_guard(real)
+    dirty = below_the_guard(doctored)
+    with guard(name):
+        check(name,
+              clean == []
+              and dirty is not None and len(dirty) == 1
+              and dirty[0].startswith("WHOLE_SUITE +="),
+              f'the real file has {clean} below the line that starts the '
+              f'run; the same reader over a copy with one table statement '
+              f'moved below it finds {dirty} — so "nothing is below" is a '
+              f'measurement here, not an empty list that any reader would '
+              f'have produced')
+
+
+# ---------------------------------------------------------------------------
 @declares("the flat store moves into a project once and only once",
           "two projects do not see each other",
           "a project name cannot reach outside the store",
@@ -9016,6 +9084,7 @@ if __name__ == "__main__":
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
                the_hem_shape_is_measured_across_the_whole_bottom,
+               every_falsifier_is_reachable_when_run_as_a_script,
                projects_have_their_own_store,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,

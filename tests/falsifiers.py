@@ -2953,21 +2953,6 @@ def self_test() -> int:
     print(f"\n{2 - bad}/2 harness self-tests behaved as they must")
     return 1 if bad else 0
 
-
-if __name__ == "__main__":
-    if "--self-test" in sys.argv[1:]:
-        raise SystemExit(self_test())
-    # --jobs N spreads the whole-suite phase over N copies of the tree.
-    # --jobs 1 is the serial path this replaced, kept so the two can be
-    # compared on the same entries rather than trusted to agree.
-    _jobs = None
-    for _i, _a in enumerate(sys.argv[1:]):
-        if _a == "--jobs" and _i + 2 <= len(sys.argv[1:]):
-            _jobs = int(sys.argv[_i + 2])
-        elif _a.startswith("--jobs="):
-            _jobs = int(_a.split("=", 1)[1])
-    raise SystemExit(main(jobs=_jobs))
-
 #: --- 裾の形は境界全体から (structure.py) ------------------------------------
 #: 反証役が見つけた穴を塞ぐ三本。`_hem` は入力を一切見ない定数関数に
 #: 差し替えても全検査が緑のままだった — 出力を読む検査が、いつも同じ
@@ -2991,3 +2976,32 @@ WHOLE_SUITE += [
        'else "asymmetric_left_right"')],
      ["the hem's shape is read off the whole bottom boundary, not off its two ends, and each of level / asymmetric_left_right / uneven is reachable from an outline that earns it"]),
 ]
+
+
+#: --- 実行部より下に置かれた変異は走らない -----------------------------------
+WHOLE_SUITE += [
+    ("a mutation table is written below the line that starts the run",
+     "tests/falsifiers.py",
+     # **探索文字列をここで分割して書く。** そのまま書くと、この表の
+     # 中に現れた一本目にも当たってしまい、置換が実行部ではなく自分の
+     # エントリの中で起きる。隣り合う文字列リテラルは取り込み時に一本に
+     # なるので値は同じ、ソースには連続して現れない。
+     [("    raise SystemExit(main(" "jobs=_jobs))",
+       "    raise SystemExit(main(" "jobs=_jobs))\n\nWHOLE_SUITE += []")],
+     ['no falsifier is defined below the line where the harness starts running, because one defined there is silently skipped']),
+]
+
+
+if __name__ == "__main__":
+    if "--self-test" in sys.argv[1:]:
+        raise SystemExit(self_test())
+    # --jobs N spreads the whole-suite phase over N copies of the tree.
+    # --jobs 1 is the serial path this replaced, kept so the two can be
+    # compared on the same entries rather than trusted to agree.
+    _jobs = None
+    for _i, _a in enumerate(sys.argv[1:]):
+        if _a == "--jobs" and _i + 2 <= len(sys.argv[1:]):
+            _jobs = int(sys.argv[_i + 2])
+        elif _a.startswith("--jobs="):
+            _jobs = int(_a.split("=", 1)[1])
+    raise SystemExit(main(jobs=_jobs))
