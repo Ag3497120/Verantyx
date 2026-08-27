@@ -6757,9 +6757,17 @@ def a_body_becomes_a_flat_pattern_by_geometry() -> None:
     triangle rather than hidden).
 
     ``mannequin.build`` interpolates its five levels linearly, which
-    concentrates curvature at the five creases (``curvature.py``'s own
-    docstring measures this: 89% of the front torso's curvature between
-    chest and shoulder). ``mannequin_spline`` interpolates the SAME five
+    concentrates curvature at the five creases. Measured by
+    ``curvature.report`` on the reference body, over the FULL
+    circumference: 183.39 degrees in total, of which chest to shoulder
+    carries 185.30 — **more than the whole**, because hip to waist
+    (-16.25) and waist to chest (-1.02) are negative, saddle-shaped.
+    There is no clean percentage to quote here and an earlier draft of
+    this comment quoted one anyway: "89% of the front torso's curvature",
+    attributed to a ``curvature.py`` docstring that does not say it. The
+    89% came from a different region — a hand-run probe over the front
+    HALF only — and was repeated as though it were what the shipped
+    module reports. ``mannequin_spline`` interpolates the SAME five
     levels with a monotone cubic Hermite spline (Fritsch-Carlson, 1980)
     instead, and ``curvature.compare_interpolation`` measures what changes:
     the total converges to nearly the same value (the spline's endpoint
