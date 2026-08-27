@@ -83,6 +83,11 @@ struct AttentionOverviewView: View {
             await m.loadWorklist()
             await m.loadRights()
             await m.loadMeasures()
+            // 型紙の縫い合わせ検査(seam_checks)を読む。**緑タイルの罠は
+            // ここにある** — 前後で同じ点から引いた辺どうしの比較は
+            // 通っても何も確かめていない。engine の `structural` /
+            // `not_a_test` を読んでから緑を出す(下の `cards` 参照)。
+            await m.loadPattern()
         }
         .sheet(item: $selected) { card in
             CardDetailView(card: card, phrased: phrased[card.id],
@@ -109,6 +114,7 @@ struct AttentionOverviewView: View {
                         await m.loadWorklist()
                         await m.loadRights()
                         await m.loadMeasures()
+                        await m.loadPattern()
                     }
                 } label: {
                     Image(systemName: "arrow.clockwise")
@@ -238,29 +244,46 @@ struct AttentionOverviewView: View {
     // MARK: - Card model
 
     struct Card: Identifiable {
+        // **エンジンの五状態そのまま — ここで新しい区分を発明しない。**
+        //   CONTESTED                  → 赤。二つの読みが食い違う。人が選ぶ。
+        //   UNKNOWN_* + how_to_close   → 赤。要確認。閉じ方は engine が言う。
+        //   INFERRED / PROPOSED        → 黄。機械が導いた・提案しただけ。
+        //   OBSERVED                   → 緑。engine が実際に確かめた。
+        //   structural(seam_checks)    → 静か(緑でも黄でも赤でもない)。
+        //     通っても何も確かめていない比較 — engine 自身がそう名乗って
+        //     いる行(`structural: true`)。ここを緑に混ぜると、
+        //     確かめていないことを確かめたと嘘をつく画面になる。
         enum Kind {
-            case contested, blocked, proposed
+            case contested, needsCheck, estimated, confirmed, structural
 
             var icon: String {
                 switch self {
-                case .contested: return "exclamationmark.triangle.fill"
-                case .blocked:   return "questionmark.circle.fill"
-                case .proposed:  return "sparkles"
+                case .contested:  return "exclamationmark.triangle.fill"
+                case .needsCheck: return "questionmark.circle.fill"
+                case .estimated:  return "sparkles"
+                case .confirmed:  return "checkmark.seal.fill"
+                case .structural: return "circle.dashed"
                 }
             }
             var color: Color {
                 switch self {
-                case .contested: return Theme.bad
-                case .blocked:   return Theme.warn
-                case .proposed:  return Theme.sel
+                case .contested:  return Theme.bad
+                case .needsCheck: return Theme.bad
+                case .estimated:  return Theme.warn
+                case .confirmed:  return Theme.ok
+                case .structural: return Theme.faint
                 }
             }
+            /// 色だけに頼らない — 8% の男性は赤緑を見分けにくいので、
+            /// タイルの前面に必ず言葉も出す(owner の三段そのまま)。
             @MainActor
             func label(_ app: AppState) -> String {
                 switch self {
-                case .contested: return app.t("DISAGREEMENT", "食い違い")
-                case .blocked:   return app.t("MISSING", "不明")
-                case .proposed:  return app.t("SUGGESTED", "提案")
+                case .contested:  return app.t("DISAGREEMENT", "食い違い")
+                case .needsCheck: return app.t("NEEDS CHECK", "要確認")
+                case .estimated:  return app.t("ESTIMATED", "推定")
+                case .confirmed:  return app.t("AUTO-CHECKED", "自動確認")
+                case .structural: return app.t("NOT TESTED", "未検査")
                 }
             }
         }
@@ -272,11 +295,20 @@ struct AttentionOverviewView: View {
         let rawState: String
         let howToClose: String
         let value: String
+        /// OBSERVED では出典、INFERRED では根拠(basis)を運ぶ ——
+        /// どちらも「どこから来たか」という同じ役目なので場所を共有する。
         let sources: [String]
         let sides: [(value: String, sources: [String])]
         let proposalValue: String
         let proposalSource: String
         let proposalNote: String
+        /// confirmed / structural(seam check 由来)のときだけ使う、
+        /// engine 自身の文面。ここで文章を新しく書かない — `why` /
+        /// `not_a_test` をそのまま運ぶ。
+        var sentence: String = ""
+        /// 縫い合わせ検査の実測値。"43.20cm vs 43.20cm (差 +0.00cm)" の
+        /// ように、engine が返した数字をそのまま整形しただけ。
+        var numeric: String = ""
     }
 
     // MARK: - Ranking
@@ -288,58 +320,127 @@ struct AttentionOverviewView: View {
         var used = Set<String>()
         var out: [Card] = []
 
-        // Tier 0 — CONTESTED: 二つの読みが食い違う。人がいま選ぶ。
+        // Tier 0 — CONTESTED: 二つの読みが食い違う。人がいま選ぶ。(赤)
         for key in m.states.keys.sorted() {
             guard let s = m.states[key], s.state == "CONTESTED" else { continue }
             used.insert(key)
             out.append(makeCard(key: key, kind: .contested, state: s))
         }
 
-        // Tier 1 — 実際に何かを塞いでいるもの。engine 自身の
-        // 「裁断前に潰す」順(garment_worklist)→ そこに出ない採寸→
-        // 由来の未決着、の順。この tier 内の順序は engine が決める。
-        var blocked: [Card] = []
+        // Tier 1 — UNKNOWN_* + how_to_close: 実際に何かを塞いでいる。(赤)
+        // engine 自身の「裁断前に潰す」順(garment_worklist)→ そこに
+        // 出ない採寸→ 由来の未決着→ 実際に縫えない縫い合わせ、の順。
+        // この tier 内の順序は engine が決める。
+        var needsCheck: [Card] = []
         for w in m.worklist {
             let key = "\(w.part)/\(w.aspect)"
             guard !used.contains(key) else { continue }
             used.insert(key)
-            blocked.append(Card(id: key, kind: .blocked, part: w.part, aspect: w.aspect,
-                                rawState: w.state, howToClose: w.howToClose,
-                                value: "", sources: [], sides: [],
-                                proposalValue: "", proposalSource: "", proposalNote: ""))
+            needsCheck.append(Card(id: key, kind: .needsCheck, part: w.part, aspect: w.aspect,
+                                   rawState: w.state, howToClose: w.howToClose,
+                                   value: "", sources: [], sides: [],
+                                   proposalValue: "", proposalSource: "", proposalNote: ""))
         }
         for r in m.measureRows where r.state.hasPrefix("UNKNOWN") && !r.howToClose.isEmpty {
             let key = "measure/\(r.spot)"
             guard !used.contains(key) else { continue }
             used.insert(key)
-            blocked.append(Card(id: key, kind: .blocked,
-                                part: r.name.isEmpty ? r.spot : r.name, aspect: "",
-                                rawState: r.state, howToClose: r.howToClose,
-                                value: "", sources: [], sides: [],
-                                proposalValue: "", proposalSource: "", proposalNote: ""))
+            needsCheck.append(Card(id: key, kind: .needsCheck,
+                                   part: r.name.isEmpty ? r.spot : r.name, aspect: "",
+                                   rawState: r.state, howToClose: r.howToClose,
+                                   value: "", sources: [], sides: [],
+                                   proposalValue: "", proposalSource: "", proposalNote: ""))
         }
         for r in m.rightsWorklist {
             let key = "rights/\(r.part)/\(r.aspect)"
             guard !used.contains(key) else { continue }
             used.insert(key)
-            blocked.append(Card(id: key, kind: .blocked, part: r.part, aspect: r.aspect,
-                                rawState: r.state, howToClose: r.howToClose,
-                                value: "", sources: [], sides: [],
-                                proposalValue: "", proposalSource: "", proposalNote: ""))
+            needsCheck.append(Card(id: key, kind: .needsCheck, part: r.part, aspect: r.aspect,
+                                   rawState: r.state, howToClose: r.howToClose,
+                                   value: "", sources: [], sides: [],
+                                   proposalValue: "", proposalSource: "", proposalNote: ""))
         }
-        out.append(contentsOf: blocked)
-
-        // Tier 2 — PROPOSED: 機械が提案しただけで、まだ誰も採用して
-        // いない。何かを実際に塞いでいるものより後ろ — 「型紙を止めて
-        // いる採寸の欠落は、襟の未採用の提案より先」という owner の
-        // 例そのまま。
-        for key in m.states.keys.sorted() {
-            guard let s = m.states[key], s.state.hasPrefix("UNKNOWN"),
-                  !s.proposals.isEmpty, !used.contains(key) else { continue }
+        // 縫い合わせが構成上ではなく、実際に合わない。**これも赤** —
+        // 「自動で確認できた」の反対側で、structural とは別物。
+        for c in m.patternChecks where !c.structural && !c.sewable {
+            let key = "seam/\(c.label)"
+            guard !used.contains(key) else { continue }
             used.insert(key)
-            out.append(makeCard(key: key, kind: .proposed, state: s))
+            needsCheck.append(Card(
+                id: key, kind: .needsCheck, part: c.label, aspect: "",
+                rawState: "CONTESTED", howToClose: c.why,
+                value: "", sources: [], sides: [],
+                proposalValue: "", proposalSource: "", proposalNote: "",
+                numeric: seamNumeric(c)))
         }
+        out.append(contentsOf: needsCheck)
+
+        // Tier 2 — INFERRED / PROPOSED: 機械が導いた・提案しただけ。(黄)
+        // 何かを実際に塞いでいるものより後ろ — 「型紙を止めている採寸の
+        // 欠落は、襟の未採用の提案より先」という owner の例そのまま。
+        var estimated: [Card] = []
+        for key in m.states.keys.sorted() {
+            guard let s = m.states[key], !used.contains(key) else { continue }
+            let isProposedOnly = s.state == "PROPOSED"
+                || (s.state.hasPrefix("UNKNOWN") && !s.proposals.isEmpty)
+            guard s.state == "INFERRED" || isProposedOnly else { continue }
+            used.insert(key)
+            estimated.append(makeCard(key: key, kind: .estimated, state: s))
+        }
+        out.append(contentsOf: estimated)
+
+        // Tier 3 — OBSERVED: engine が実際に確かめた。(緑)
+        // **ただし構成上そうなる比較(structural)は緑から除く** —
+        // 通っても何も確かめていないので、緑に混ぜると嘘になる。
+        var confirmed: [Card] = []
+        for key in m.states.keys.sorted() {
+            guard let s = m.states[key], s.state == "OBSERVED",
+                  !used.contains(key) else { continue }
+            used.insert(key)
+            confirmed.append(makeCard(key: key, kind: .confirmed, state: s))
+        }
+        for c in m.patternChecks where !c.structural && c.sewable {
+            let key = "seam/\(c.label)"
+            guard !used.contains(key) else { continue }
+            used.insert(key)
+            confirmed.append(Card(
+                id: key, kind: .confirmed, part: c.label, aspect: "",
+                rawState: "OBSERVED", howToClose: "",
+                value: "", sources: [], sides: [],
+                proposalValue: "", proposalSource: "", proposalNote: "",
+                sentence: app.t("The two edges actually match — this pattern sews.",
+                                "二つの辺の長さが実際に一致 — この型紙は縫えます。"),
+                numeric: seamNumeric(c)))
+        }
+        out.append(contentsOf: confirmed)
+
+        // Tier 4 — 構成上ゼロになる比較。**緑でも赤でもない、静かな段。**
+        // owner の green 例そのもの(前後身頃が同じ点から引かれた
+        // 肩線・脇線)はここに落ちる — engine 自身が「通っても何も
+        // 確かめていない」と言っている行だけを集める。順序は末尾:
+        // 「まだ判断が要るもの」が上に来る画面の趣旨からは外れるが、
+        // 見せない選択肢は無い(hidden にしない)。
+        var byConstruction: [Card] = []
+        for c in m.patternChecks where c.structural {
+            let key = "seam/\(c.label)"
+            guard !used.contains(key) else { continue }
+            used.insert(key)
+            byConstruction.append(Card(
+                id: key, kind: .structural, part: c.label, aspect: "",
+                rawState: "STRUCTURAL", howToClose: "",
+                value: "", sources: [], sides: [],
+                proposalValue: "", proposalSource: "", proposalNote: "",
+                sentence: c.notATest ?? "",
+                numeric: seamNumeric(c)))
+        }
+        out.append(contentsOf: byConstruction)
+
         return out
+    }
+
+    private func seamNumeric(_ c: AtelierModel.SeamCheck) -> String {
+        String(format: "%.2fcm vs %.2fcm  (Δ%+.2fcm)",
+               c.lengthA, c.lengthB, c.difference)
     }
 
     private func makeCard(key: String, kind: Card.Kind,
@@ -348,9 +449,12 @@ struct AttentionOverviewView: View {
         let part = bits.first ?? key
         let aspect = bits.count > 1 ? bits[1] : ""
         let p = s.proposals.first
+        // OBSERVED は sources、INFERRED は basis に出どころを持つ —
+        // 「どこから来たか」という同じ役目のフィールドを共有する。
+        let origin = s.sources.isEmpty ? s.basis : s.sources
         return Card(id: key, kind: kind, part: part, aspect: aspect,
                    rawState: s.state, howToClose: s.howToClose, value: s.value,
-                   sources: s.sources,
+                   sources: origin,
                    sides: s.sides.map { (value: $0.value, sources: $0.sources) },
                    proposalValue: p?.value ?? "", proposalSource: p?.source ?? "",
                    proposalNote: p?.note ?? "")
@@ -378,12 +482,31 @@ struct AttentionOverviewView: View {
         case .contested:
             return app.t("Two readings disagree — someone needs to pick one.",
                          "二つの読みが食い違っています。人が選ぶ必要があります。")
-        case .blocked:
+        case .needsCheck:
+            if !c.numeric.isEmpty {
+                return c.howToClose.isEmpty
+                    ? app.t("The two edges don't match.", "二つの辺の長さが合いません。")
+                    : c.howToClose
+            }
             return app.t("Not known yet.", "まだわかっていません。")
-        case .proposed:
-            let v = c.proposalValue.isEmpty ? "…" : c.proposalValue
-            return app.t("A model suggested “\(v)”. Nobody has accepted it.",
-                         "AI が「\(v)」を提案しました。まだ誰も採用していません。")
+        case .estimated:
+            if !c.proposalValue.isEmpty {
+                let v = c.proposalValue
+                return app.t("A model suggested “\(v)”. Nobody has accepted it.",
+                             "AI が「\(v)」を提案しました。まだ誰も採用していません。")
+            }
+            let v = c.value.isEmpty ? "…" : c.value
+            return app.t("Derived, not observed: “\(v)”.",
+                         "観測ではなく推定です:「\(v)」。")
+        case .confirmed:
+            if !c.sentence.isEmpty { return c.sentence }
+            let v = c.value.isEmpty ? "…" : c.value
+            return app.t("Confirmed: “\(v)”.", "確認済み:「\(v)」。")
+        case .structural:
+            return c.sentence.isEmpty
+                ? app.t("Passes by construction — not a real check.",
+                       "構成上、通ります — 検査ではありません。")
+                : c.sentence
         }
     }
 
@@ -576,32 +699,101 @@ private struct CardDetailView: View {
                     }
                 }
             }
-        case .blocked:
-            Text(app.t("Not known yet.", "まだわかっていません。"))
-                .font(.system(size: 12.5))
-                .foregroundStyle(Theme.dim)
-        case .proposed:
+        case .needsCheck:
+            VStack(alignment: .leading, spacing: 6) {
+                if !card.numeric.isEmpty {
+                    Text(card.numeric)
+                        .font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(Theme.bad)
+                } else {
+                    Text(app.t("Not known yet.", "まだわかっていません。"))
+                        .font(.system(size: 12.5))
+                        .foregroundStyle(Theme.dim)
+                }
+            }
+        case .estimated:
             VStack(alignment: .leading, spacing: 4) {
-                Text(app.t("Suggested value:", "提案された値:"))
-                    .font(.system(size: 11.5, weight: .semibold))
-                    .foregroundStyle(Theme.fg)
-                Text(card.proposalValue.isEmpty ? "—" : card.proposalValue)
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Theme.sel)
-                if !card.proposalSource.isEmpty {
-                    Text(app.t("by ", "提案元: ") + card.proposalSource)
+                if !card.proposalValue.isEmpty {
+                    // PROPOSED: 機械が提案しただけで、誰も採用していない。
+                    Text(app.t("Suggested value:", "提案された値:"))
+                        .font(.system(size: 11.5, weight: .semibold))
+                        .foregroundStyle(Theme.fg)
+                    Text(card.proposalValue)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.warn)
+                    if !card.proposalSource.isEmpty {
+                        Text(app.t("by ", "提案元: ") + card.proposalSource)
+                            .font(.system(size: 10.5))
+                            .foregroundStyle(Theme.faint)
+                    }
+                    if !card.proposalNote.isEmpty {
+                        Text(card.proposalNote)
+                            .font(.system(size: 11))
+                            .foregroundStyle(Theme.dim)
+                    }
+                    Text(app.t("Nobody has accepted this yet — it does not appear in the design.",
+                               "まだ誰も採用していません — 設計には入っていません。"))
+                        .font(.system(size: 10.5))
+                        .foregroundStyle(Theme.faint)
+                } else {
+                    // INFERRED: 観測ではなく、他の記録から機械が導いた値。
+                    Text(app.t("Derived value:", "推定値:"))
+                        .font(.system(size: 11.5, weight: .semibold))
+                        .foregroundStyle(Theme.fg)
+                    Text(card.value.isEmpty ? "—" : card.value)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.warn)
+                    if !card.sources.isEmpty {
+                        Text(app.t("derived from ", "根拠: ")
+                             + card.sources.joined(separator: ", "))
+                            .font(.system(size: 10.5))
+                            .foregroundStyle(Theme.faint)
+                    }
+                    Text(app.t("A machine derived this — it has not been observed directly.",
+                               "機械が他の記録から導いた値です — 直接観測してはいません。"))
                         .font(.system(size: 10.5))
                         .foregroundStyle(Theme.faint)
                 }
-                if !card.proposalNote.isEmpty {
-                    Text(card.proposalNote)
-                        .font(.system(size: 11))
-                        .foregroundStyle(Theme.dim)
+            }
+        case .confirmed:
+            VStack(alignment: .leading, spacing: 4) {
+                Text(card.sentence.isEmpty
+                     ? app.t("Confirmed value:", "確認済みの値:")
+                     : card.sentence)
+                    .font(.system(size: 12.5, weight: .semibold))
+                    .foregroundStyle(Theme.fg)
+                if !card.numeric.isEmpty {
+                    Text(card.numeric)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Theme.ok)
+                } else if !card.value.isEmpty {
+                    Text(card.value)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.ok)
                 }
-                Text(app.t("Nobody has accepted this yet — it does not appear in the design.",
-                           "まだ誰も採用していません — 設計には入っていません。"))
-                    .font(.system(size: 10.5))
-                    .foregroundStyle(Theme.faint)
+                if !card.sources.isEmpty {
+                    Text(app.t("source: ", "出典: ") + card.sources.joined(separator: ", "))
+                        .font(.system(size: 10.5))
+                        .foregroundStyle(Theme.faint)
+                }
+            }
+        case .structural:
+            // **owner の green 例そのもの。** 前後身頃が同じ点から引かれた
+            // 肩線・脇線 — 通っても何も確かめていない、と engine 自身が
+            // 言っている。緑にはしない。engine の文をそのまま出す。
+            VStack(alignment: .leading, spacing: 4) {
+                Text(app.t("This holds by construction — it was not checked.",
+                           "これは構成上そうなっているだけです — 検査していません。"))
+                    .font(.system(size: 11.5, weight: .semibold))
+                    .foregroundStyle(Theme.dim)
+                Text(card.sentence.isEmpty ? "—" : card.sentence)
+                    .font(.system(size: 12.5))
+                    .foregroundStyle(Theme.fg)
+                if !card.numeric.isEmpty {
+                    Text(card.numeric)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Theme.faint)
+                }
             }
         }
     }

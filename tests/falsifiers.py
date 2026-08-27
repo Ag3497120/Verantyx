@@ -2184,6 +2184,195 @@ WHOLE_SUITE += [
 ]
 
 
+
+#: --- 輪郭合わせ (silhouette) ------------------------------------------------
+WHOLE_SUITE += [
+    # The core formula: ease(y) = outline half-width - body half-width.
+    # Biasing it breaks the self-consistency check directly (the base's
+    # own silhouette should come back solving ease==GAP exactly).
+    ("the ease formula picks up a constant bias",
+     "photoloset/silhouette.py",
+     [("    eases = [hw - a for hw, a in zip(half_widths, body_halfs)]",
+       "    eases = [hw - a + 0.5 for hw, a in zip(half_widths, "
+       "body_halfs)]")],
+     ["ease solved from width alone reproduces the base's own silhouette "
+      "near zero"]),
+
+    # The min-ease bound (a body cannot fit into a narrower garment) is
+    # pushed out of reach, so a silhouette narrower than the body at every
+    # height no longer refuses.
+    ("the min-ease bound is pushed out of reach",
+     "photoloset/silhouette.py",
+     [("        if e < MIN_EASE_CM - _EPS:",
+       "        if e < MIN_EASE_CM - _EPS - 1000.0:")],
+     ["a silhouette narrower than the body at any height is refused by "
+      "name and shortfall"]),
+
+    # Same shape on the other bound: a silhouette far wider than this
+    # offset model can represent no longer refuses either.
+    ("the max-ease bound is pushed out of reach",
+     "photoloset/silhouette.py",
+     [("        elif e > MAX_EASE_CM + _EPS:",
+       "        elif e > MAX_EASE_CM + _EPS + 1000.0:")],
+     ["a silhouette far wider than this offset model can reach is "
+      "refused by name and excess"]),
+
+    # One of the three typed one-view-limitation fields is dropped from
+    # the answer — the honest statement stops being three separate,
+    # substantive claims and becomes two.
+    ("one single-view-limits field is dropped from the answer",
+     "photoloset/silhouette.py",
+     [('            "outline_scan_keeps_only_the_outer_extent": (\n'
+       '                "高さごとの水平走査で交点が2点より多くても、外側の最小"\n'
+       '                "・最大だけを幅として使い、内側の交点(凹みの証拠)は捨"\n'
+       '                "てています ── upper boundの具体的な現れです"),\n',
+       '')],
+     ["depth moves as a stated byproduct of width-only ease, not as a "
+      "second measurement"]),
+
+    # The point-count guard is removed. A 2-point outline whose two points
+    # sit at DIFFERENT heights is no longer caught by the height guard
+    # beside it, so it slips past as something other than the typed
+    # refusal.
+    ("the outline point-count guard is removed",
+     "photoloset/silhouette.py",
+     [("    if (len(outline) < 3\n"
+       "            or any(not math.isfinite(v) for p in outline "
+       "for v in p)):",
+       "    if (False\n"
+       "            or any(not math.isfinite(v) for p in outline "
+       "for v in p)):")],
+     ["a degenerate or too-few-point outline is refused, not silently "
+      "scanned"]),
+
+    # outline_width_at stops reading the true leftmost/rightmost x and
+    # instead assumes the outline is symmetric about x=0 — every check
+    # built on a centered fixture stays green, only an off-center outline
+    # can tell the two implementations apart.
+    ("outline_width_at assumes the outline is centered on x=0",
+     "photoloset/silhouette.py",
+     [("    xs = _scan_x(outline, y)\n"
+       "    if len(xs) < 2:\n"
+       "        return None\n"
+       "    return xs[0], xs[-1]",
+       "    xs = _scan_x(outline, y)\n"
+       "    if len(xs) < 2:\n"
+       "        return None\n"
+       "    m = max(abs(xs[0]), abs(xs[-1]))\n"
+       "    return -m, m")],
+     ["an outline whose left and right extents are not equal and "
+      "opposite still solves the same ease"]),
+
+    # OUTLINE_GAP stops being reachable — an outline that leaves some
+    # requested ring heights uncovered is no longer refused by name.
+    ("the outline-gap refusal is disabled",
+     "photoloset/silhouette.py",
+     [("    if missing_outline:",
+       "    if False and missing_outline:")],
+     ["silhouette refuses an unbuilt mannequin, too coarse a grid, a "
+      "height range outside the body, and an outline that leaves a gap"]),
+
+    # to_surface() stops passing its OWN height_steps through to
+    # base_garment.build, so the materialized mesh no longer has the
+    # ring count the match result itself reports.
+    ("to_surface asks base_garment.build for the wrong ring count",
+     "photoloset/silhouette.py",
+     [('                     height_steps=result["height_steps"],',
+       '                     height_steps=result["height_steps"] + 5,')],
+     ["the matched radius function plugs into base_garment.build "
+      "without a second mesh builder"]),
+]
+
+
+#: --- パネル分割 -----------------------------------------------------------
+WHOLE_SUITE += [
+    # #1 The cut criterion goes from "worst" to "least bad" — still cuts
+    # SOMEWHERE, but not where distortion is worst, which moves the seam
+    # positions and every downstream pinned number (before/after indices).
+    ("the cut criterion picks the least-distorted line instead of the "
+     "worst one", "photoloset/panels.py",
+     [("        if s > best_s:\n            best_c, best_s = c, s",
+       "        if s < best_s or best_c is None:\n"
+       "            best_c, best_s = c, s")],
+     ["a seam is placed where the flattened tube's distortion is worst, "
+      "and buys a measured drop in it"]),
+
+    # #1b The panel picked to split next is the LEAST distorted one, not
+    # the worst — same family of defect, different call site.
+    ("the panel chosen to split next is the least distorted one",
+     "photoloset/panels.py",
+     [("        worst = max(candidates, key=lambda p: p[\"flat\"]"
+       "[\"distortion_index\"])",
+       "        worst = min(candidates, key=lambda p: p[\"flat\"]"
+       "[\"distortion_index\"])")],
+     ["a seam is placed where the flattened tube's distortion is worst, "
+      "and buys a measured drop in it"]),
+
+    # #2 The boundary term's reference angle stops being pi (180deg) — the
+    # combinatorial identity (interior + boundary == 2*pi per disc) is a
+    # counting fact, not a geometric one, so ANY wrong reference constant
+    # breaks the residual, whatever the mesh looks like.
+    ("the boundary curvature's reference angle is no longer a straight "
+     "line", "photoloset/panels.py",
+     [("            boundary_deg += 180.0 - s", "            boundary_deg += 170.0 - s")],
+     ["each panel's Gauss-Bonnet total splits into an outline share and "
+      "a dart share, and the two sum back to exactly 360 degrees"]),
+
+    # #3 The panel-count ceiling is loosened past the number of columns
+    # that actually exist, so a request for MORE panels than columns stops
+    # being refused.
+    ("more panels than columns is accepted anyway", "photoloset/panels.py",
+     [("    if n_panels > segments:", "    if n_panels > segments + 5:")],
+     ["panels refuse a count that cannot fit the grid and a mannequin "
+      "that never stood up"]),
+
+    # #4 The ring seam (last panel's right edge back to the first panel's
+    # left edge, closing the theta=0 cut) is dropped, turning a closed
+    # ring of panels into an open chain — beta drops from 1 to 0 and every
+    # seam becomes sewable flat.
+    ("the panel ring never closes back to the first panel",
+     "photoloset/panels.py",
+     [("    n = len(panels)\n    seam_specs = []\n    for i in range(n):",
+       "    n = len(panels)\n    seam_specs = []\n    for i in range(n - 1):")],
+     ["the panel ring sews with exactly one seam in the round"]),
+
+    # #5 The panel-area shoelace formula drops its /2, doubling every
+    # panel's reported area_cm2 — the exact area pins this check reads
+    # move, even though panel_count/draft_piece_count are untouched.
+    ("panel area is reported without halving the shoelace sum",
+     "photoloset/panels.py",
+     [("def _poly_area(poly: Sequence[Vec2]) -> float:\n"
+       "    n = len(poly)\n"
+       "    s = 0.0\n"
+       "    for i in range(n):\n"
+       "        x1, y1 = poly[i]\n"
+       "        x2, y2 = poly[(i + 1) % n]\n"
+       "        s += x1 * y2 - x2 * y1\n"
+       "    return abs(s) / 2.0",
+       "def _poly_area(poly: Sequence[Vec2]) -> float:\n"
+       "    n = len(poly)\n"
+       "    s = 0.0\n"
+       "    for i in range(n):\n"
+       "        x1, y1 = poly[i]\n"
+       "        x2, y2 = poly[(i + 1) % n]\n"
+       "        s += x1 * y2 - x2 * y1\n"
+       "    return abs(s)")],
+     ["panels differ from the drafted coat in piece count and seam "
+      "layout, not by accident"]),
+
+    # #6 The dart depth ratio grows, so every requested intake grows with
+    # it — at 0.5x the panel bounding box, panel 1's dart alone can no
+    # longer fit any of the real seam's 8 segments (all ~9-11cm against a
+    # ~14cm request), so only 2 of the 3 dart-bearing panels place a dart
+    # at all and darts_list drops from 3 to 2.
+    ("the dart depth ratio grows past what the real seam can take",
+     "photoloset/panels.py",
+     [("DEFAULT_DART_DEPTH_RATIO = 0.30", "DEFAULT_DART_DEPTH_RATIO = 0.50")],
+     ["the drafted coat's own doors answer or refuse the panels for a "
+      "reason they name"]),
+]
+
+
 def whole_suite(repo: Path, entries: Optional[Sequence[Any]] = None,
                 touched: Optional[set] = None,
                 out: Optional[Any] = None) -> Tuple[int, int]:

@@ -394,6 +394,33 @@ ALL_CHECK_NAMES = [
     "through radius_at, not just curvature",
     "flatten refuses a grid too coarse to triangulate and a "
     "mannequin that never stood up",
+    "ease solved from width alone reproduces the base's own silhouette "
+    "near zero",
+    "a silhouette narrower than the body at any height is refused by "
+    "name and shortfall",
+    "a silhouette far wider than this offset model can reach is refused "
+    "by name and excess",
+    "depth moves as a stated byproduct of width-only ease, not as a "
+    "second measurement",
+    "a degenerate or too-few-point outline is refused, not silently "
+    "scanned",
+    "an outline whose left and right extents are not equal and opposite "
+    "still solves the same ease",
+    "silhouette refuses an unbuilt mannequin, too coarse a grid, a "
+    "height range outside the body, and an outline that leaves a gap",
+    "the matched radius function plugs into base_garment.build without "
+    "a second mesh builder",
+    "a seam is placed where the flattened tube's distortion is worst, "
+    "and buys a measured drop in it",
+    "each panel's Gauss-Bonnet total splits into an outline share and "
+    "a dart share, and the two sum back to exactly 360 degrees",
+    "panels refuse a count that cannot fit the grid and a mannequin "
+    "that never stood up",
+    "the panel ring sews with exactly one seam in the round",
+    "panels differ from the drafted coat in piece count and seam "
+    "layout, not by accident",
+    "the drafted coat's own doors answer or refuse the panels for a "
+    "reason they name",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -1457,7 +1484,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 40 and not third_party,
+          len(scanned) == 42 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -7007,6 +7034,555 @@ def a_body_becomes_a_flat_pattern_by_geometry() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares(
+    "ease solved from width alone reproduces the base's own silhouette "
+    "near zero",
+    "a silhouette narrower than the body at any height is refused by "
+    "name and shortfall",
+    "a silhouette far wider than this offset model can reach is refused "
+    "by name and excess",
+    "depth moves as a stated byproduct of width-only ease, not as a "
+    "second measurement",
+    "a degenerate or too-few-point outline is refused, not silently "
+    "scanned",
+    "an outline whose left and right extents are not equal and opposite "
+    "still solves the same ease",
+    "silhouette refuses an unbuilt mannequin, too coarse a grid, a "
+    "height range outside the body, and an outline that leaves a gap",
+    "the matched radius function plugs into base_garment.build without "
+    "a second mesh builder",
+)
+def a_silhouette_constrains_only_the_projected_width() -> None:
+    """**The last geometric step: a photo's outline pins width, nothing else.**
+
+    ``silhouette.match`` reads a front-view outline — a closed 2D curve, no
+    image in sight — and solves a per-height ease from ONE thing the
+    outline actually contains: the projected width. It refuses, named by
+    height, when that ease cannot be reached — too little (the body would
+    not fit) or too much (this offset model cannot represent that much
+    ease). Depth is never measured; the answer states what moved as a side
+    effect of the offset model, and this is checked against an
+    independent recomputation, not against the module's own claim about
+    itself — the same discipline ``base_garment``'s own checks use when
+    they read verts back rather than trust a field.
+
+    Two checks were added after an outside read of the first six: an
+    asymmetric outline (so ``outline_width_at`` is pinned on its actual
+    job — true leftmost/rightmost x — not just on symmetric fixtures where
+    a wrong ``max(|left|, |right|)`` shortcut would have looked identical),
+    and the four typed refusal paths (``NO_MANNEQUIN``, ``BAD_RESOLUTION``,
+    ``NO_COVERAGE``, ``OUTLINE_GAP``) that the first six never exercised
+    even once.
+    """
+    import math as _math
+
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+    from photoloset import silhouette as _sil
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("waist", 92.0),
+                        ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+    body_lo, body_hi = man["_levels"][0][0], man["_levels"][-1][0]
+    HS = 16
+    GAP = 1.7
+    # Independently recomputed, not read from anything ``match`` reports:
+    # the ring grid ``match`` itself must be using (same formula as
+    # ``base_garment``/``flatten``), and which of those 17 rings has the
+    # largest body half-width — the ring a correct "worst violation" must
+    # land on, since both the shortfall (narrower) and the excess (wider)
+    # violations below scale with the body's own half-width at that ring.
+    _ring_ys = [body_lo + (body_hi - body_lo) * j / HS for j in range(HS + 1)]
+    _a_vals = [_mq.radius_at(man, y, 0.0) for y in _ring_ys]
+    _worst_y = round(_ring_ys[_a_vals.index(max(_a_vals))], 4)
+
+    def _own_outline(n: int, gap: float):
+        """The base garment's own silhouette, as a closed polygon: right
+        side ascending, left side descending, closing on a flat top and
+        bottom edge (skipped by the scan, same as any horizontal edge)."""
+        pts = []
+        for k in range(n + 1):
+            y = body_lo + (body_hi - body_lo) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((a + gap, y))
+        for k in range(n, -1, -1):
+            y = body_lo + (body_hi - body_lo) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((-(a + gap), y))
+        return pts
+
+    def _scaled_outline(n: int, factor: float):
+        """A silhouette scaled by ``factor`` at every height — narrower
+        (factor<1) or wider (factor>1) than the body itself, never matching
+        the base's own gap."""
+        pts = []
+        for k in range(n + 1):
+            y = body_lo + (body_hi - body_lo) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((a * factor, y))
+        for k in range(n, -1, -1):
+            y = body_lo + (body_hi - body_lo) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((-(a * factor), y))
+        return pts
+
+    def _partial_outline(n: int, gap: float, y_min: float):
+        """The same silhouette, but only over ``[y_min, body_hi]`` — the
+        bottom of the body is left with no scan-line coverage at all, so
+        rings below ``y_min`` cannot be matched from this outline."""
+        pts = []
+        for k in range(n + 1):
+            y = y_min + (body_hi - y_min) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((a + gap, y))
+        for k in range(n, -1, -1):
+            y = y_min + (body_hi - y_min) * k / n
+            a = _mq.radius_at(man, y, 0.0)
+            pts.append((-(a + gap), y))
+        return pts
+
+    with guard("ease solved from width alone reproduces the base's own "
+              "silhouette near zero"):
+        outline = _own_outline(400, GAP)
+        res = _sil.match(man, outline, height_steps=HS)
+        eases = [e for _y, e in res.get("ease_by_height_cm", [])]
+        wr = res.get("width_residual_cm", {})
+        # A scalar, not a quantifier: the worst of the 17 is what the
+        # condition pins AND what the detail prints, so the two cannot
+        # drift apart the way a separate all() and a separate max() could.
+        max_dev_from_gap = (max(abs(e - GAP) for e in eases) if eases
+                            else float("inf"))
+        check("ease solved from width alone reproduces the base's own "
+              "silhouette near zero",
+              res["verdict"] == "ANSWER" and len(eases) == 17
+              and max_dev_from_gap < 1e-6
+              and wr.get("probe_count") == 81 and wr.get("probe_gaps") == 0
+              and wr.get("max", 1.0) < 0.01 and wr.get("mean", 1.0) < 0.01,
+              f'{len(eases)} rings all solved ease={GAP}cm (max deviation '
+              f'from that {max_dev_from_gap:.2e}cm); against '
+              f'{wr.get("probe_count")} finer probe heights '
+              f'({wr.get("probe_gaps")} uncovered) the width residual is '
+              f'max={wr.get("max")}cm mean={wr.get("mean")}cm — the '
+              f'base\'s own outline, fed back in, comes back as itself')
+
+    with guard("a silhouette narrower than the body at any height is "
+              "refused by name and shortfall"):
+        narrow = _scaled_outline(60, 0.3)
+        res_narrow = _sil.match(man, narrow, height_steps=HS)
+        v = res_narrow.get("violations", [])
+        worst = res_narrow.get("worst", {})
+        check("a silhouette narrower than the body at any height is "
+              "refused by name and shortfall",
+              res_narrow["verdict"] == _sil.UNREACHABLE
+              and len(v) == 17 and all(x["bound"] == "min" for x in v)
+              and worst.get("bound") == "min"
+              and worst.get("y") == _worst_y
+              and worst.get("over_by_cm", 0.0) > 5.0,
+              f'{len(v)}/{HS + 1} rings refused as narrower than the body '
+              f'(bound=min); worst at y={worst.get("y")}cm — '
+              f'independently the ring with the largest body half-width '
+              f'is also y={_worst_y}cm — short by '
+              f'{worst.get("over_by_cm")}cm (ease={worst.get("ease_cm")}'
+              f'cm)')
+
+    with guard("a silhouette far wider than this offset model can reach "
+              "is refused by name and excess"):
+        wide = _scaled_outline(60, 6.0)
+        res_wide = _sil.match(man, wide, height_steps=HS)
+        v = res_wide.get("violations", [])
+        worst = res_wide.get("worst", {})
+        check("a silhouette far wider than this offset model can reach "
+              "is refused by name and excess",
+              res_wide["verdict"] == _sil.UNREACHABLE
+              and len(v) == 17 and all(x["bound"] == "max" for x in v)
+              and worst.get("bound") == "max"
+              and worst.get("y") == _worst_y
+              and worst.get("over_by_cm", 0.0) > 50.0,
+              f'{len(v)}/{HS + 1} rings refused as wider than any offset '
+              f'this model reaches (bound=max); worst at y='
+              f'{worst.get("y")}cm — matches the same largest-half-width '
+              f'ring (y={_worst_y}cm) as the narrower case above — over '
+              f'by {worst.get("over_by_cm")}cm (ease={worst.get("ease_cm")}'
+              f'cm)')
+
+    with guard("depth moves as a stated byproduct of width-only ease, "
+              "not as a second measurement"):
+        res2 = _sil.match(man, _own_outline(200, GAP), height_steps=HS)
+        lim = res2.get("single_view_limits", {})
+        rf = _sil.radius_at_for(res2)
+        probe_y = (body_lo + body_hi) / 2.0
+        body_depth = _mq.radius_at(man, probe_y, _math.pi / 2)
+        matched_depth = rf(man, probe_y, _math.pi / 2)
+        check("depth moves as a stated byproduct of width-only ease, "
+              "not as a second measurement",
+              res2["verdict"] == "ANSWER"
+              and set(lim.keys()) == {
+                  "depth_unconstrained_by_this_view",
+                  "visual_hull_is_an_upper_bound",
+                  "outline_scan_keeps_only_the_outer_extent"}
+              and len(lim.get("depth_unconstrained_by_this_view", "")) > 20
+              and len(lim.get("visual_hull_is_an_upper_bound", "")) > 20
+              and len(lim.get("outline_scan_keeps_only_the_outer_extent",
+                              "")) > 20
+              and abs((matched_depth - body_depth) - GAP) < 1e-6,
+              f'independently recomputed: body depth (θ=π/2) at y='
+              f'{probe_y:.2f}cm is {body_depth:.4f}cm, matched depth is '
+              f'{matched_depth:.4f}cm, a shift of '
+              f'{matched_depth - body_depth:.4f}cm — equal to the width-'
+              f'derived ease ({GAP}cm), which the outline never stated '
+              f'about depth; 3 typed fields present, each over 20 chars')
+
+    with guard("a degenerate or too-few-point outline is refused, not "
+              "silently scanned"):
+        # Different y's, so this is caught ONLY by the point-count guard —
+        # not incidentally by the zero-height guard beside it.
+        two_points = _sil.match(man, [(0.0, 0.0), (1.0, 10.0)],
+                                height_steps=HS)
+        flat = _sil.match(man, [(-1.0, 5.0), (1.0, 5.0), (0.0, 5.0)],
+                          height_steps=HS)
+        nonfinite = _sil.match(man, [(-1.0, 0.0), (1.0, 0.0),
+                                     (float("inf"), 10.0)],
+                               height_steps=HS)
+        ok = _sil.match(man, _own_outline(60, GAP), height_steps=HS)
+        check("a degenerate or too-few-point outline is refused, not "
+              "silently scanned",
+              two_points["verdict"] == _sil.BAD_OUTLINE
+              and flat["verdict"] == _sil.BAD_OUTLINE
+              and nonfinite["verdict"] == _sil.BAD_OUTLINE
+              and ok["verdict"] == "ANSWER",
+              f'2 points -> {two_points["verdict"]}; a zero-height triangle'
+              f' -> {flat["verdict"]}; a non-finite coordinate -> '
+              f'{nonfinite["verdict"]}; a real 122-point outline still -> '
+              f'{ok["verdict"]}')
+
+    with guard("an outline whose left and right extents are not equal "
+              "and opposite still solves the same ease"):
+        # Found by an outside attack on the first six checks: a mutant
+        # outline_width_at that returns (-m, m) with m = max(|left|,
+        # |right|) instead of the true (left, right) passes every one of
+        # them unchanged, because every outline they build is symmetric
+        # about x=0 by construction. Shifting the base's own outline
+        # sideways by a constant does not change its true width at any
+        # height (right - left is shift-invariant) but DOES break
+        # left == -right, so this is the minimal fixture that only the
+        # correct implementation gets right.
+        shift = 7.3
+        shifted = [(x + shift, y) for x, y in _own_outline(200, GAP)]
+        res4 = _sil.match(man, shifted, height_steps=HS)
+        eases4 = [e for _y, e in res4.get("ease_by_height_cm", [])]
+        max_dev4 = (max(abs(e - GAP) for e in eases4) if eases4
+                   else float("inf"))
+        check("an outline whose left and right extents are not equal "
+              "and opposite still solves the same ease",
+              res4["verdict"] == "ANSWER" and len(eases4) == 17
+              and max_dev4 < 1e-6,
+              f'outline shifted +{shift}cm off-center at every height '
+              f'(left and right extents no longer equal-and-opposite); '
+              f'{len(eases4)} rings still all solve ease={GAP}cm (max '
+              f'deviation {max_dev4:.2e}cm) — outline_width_at is reading '
+              f'the true leftmost/rightmost x, not a symmetric '
+              f'max(|left|,|right|) shortcut that a centered-only fixture '
+              f'could not have told apart from the real thing')
+
+    with guard("silhouette refuses an unbuilt mannequin, too coarse a "
+              "grid, a height range outside the body, and an outline "
+              "that leaves a gap"):
+        no_man = _sil.match({"verdict": _mq.NO_MEASURE,
+                             "missing": ["chest"]},
+                            _own_outline(60, GAP), height_steps=HS)
+        bad_res = _sil.match(man, _own_outline(60, GAP), segments=2,
+                             height_steps=HS)
+        no_cov = _sil.match(man, _own_outline(60, GAP), height_steps=HS,
+                            y_bottom=body_hi + 10.0, y_top=body_hi + 20.0)
+        y_min = body_lo + 15.0
+        gap_out = _sil.match(man, _partial_outline(60, GAP, y_min),
+                             height_steps=HS)
+        missing_heights = gap_out.get("missing_heights", [])
+        # Same name used for the length pin AND the quantifier below, so
+        # the two cannot drift into different expressions — an all() over
+        # an iterable this condition never proves non-empty is exactly the
+        # T2 shape tests/unfalsifiable.py hunts for.
+        check("silhouette refuses an unbuilt mannequin, too coarse a "
+              "grid, a height range outside the body, and an outline "
+              "that leaves a gap",
+              no_man["verdict"] == _sil.NO_MANNEQUIN
+              and bad_res["verdict"] == _sil.BAD_RESOLUTION
+              and no_cov["verdict"] == _sil.NO_COVERAGE
+              and gap_out["verdict"] == _sil.OUTLINE_GAP
+              and len(missing_heights) > 0
+              and all(h < y_min - 1e-6 for h in missing_heights),
+              f'an unbuilt mannequin -> {no_man["verdict"]}; segments=2 '
+              f'-> {bad_res["verdict"]}; a requested range entirely above '
+              f'the body -> {no_cov["verdict"]}; an outline covering only '
+              f'[{y_min}, {body_hi:.2f}] against the body\'s full '
+              f'[{body_lo:.2f}, {body_hi:.2f}] -> {gap_out["verdict"]}, '
+              f'{len(missing_heights)} rings named as missing, all below '
+              f'{y_min}cm as expected')
+
+    with guard("the matched radius function plugs into base_garment.build "
+              "without a second mesh builder"):
+        res3 = _sil.match(man, _own_outline(200, GAP), height_steps=HS)
+        surf = _sil.to_surface(res3, man)
+        expected_r = _mq.radius_at(man, res3["y_range_used"][0], 0.0) + GAP
+        vx, vy, vz = surf["verts"][0]
+        got_r = _math.hypot(vx, vz)
+        check("the matched radius function plugs into base_garment.build "
+              "without a second mesh builder",
+              surf.get("verdict") == "ANSWER"
+              and surf["vertices"] == res3["segments"] * (HS + 1)
+              and abs(got_r - expected_r) < 1e-6,
+              f'to_surface() routed through base_garment.build: '
+              f'{surf["vertices"]} vertices ({res3["segments"]} segments '
+              f'x {HS + 1} rings), bottom-ring θ=0 radius read back '
+              f'{got_r:.4f}cm vs independently expected '
+              f'{expected_r:.4f}cm (body radius at θ=0 + {GAP}cm ease)')
+
+
+# ---------------------------------------------------------------------------
+@declares("a seam is placed where the flattened tube's distortion is worst, "
+          "and buys a measured drop in it",
+          "each panel's Gauss-Bonnet total splits into an outline share and "
+          "a dart share, and the two sum back to exactly 360 degrees",
+          "panels refuse a count that cannot fit the grid and a mannequin "
+          "that never stood up",
+          "the panel ring sews with exactly one seam in the round",
+          "panels differ from the drafted coat in piece count and seam "
+          "layout, not by accident",
+          "the drafted coat's own doors answer or refuse the panels for a "
+          "reason they name")
+def the_flattened_tube_becomes_panels() -> None:
+    """**Cutting the flattened tube into panels — where, how much, and what
+    it costs the doors built for the drafted coat.**
+
+    ``flatten`` reports the distortion of ONE full-circumference panel cut
+    at a single meridian. That is not a pattern. This measures where a
+    second (and third) seam should go — the place the flattened tube's own
+    per-triangle distortion is worst — cuts there, reflattens both sides,
+    and reports how much each seam actually bought. It also splits each
+    panel's Gauss-Bonnet total between its outline and its darts (verifying
+    the split sums to 360 degrees rather than asserting it), places the
+    dart share through ``darts.py`` unmodified, and feeds the panels
+    through the same doors the drafted coat uses (``garment_marks``,
+    ``dxf``, ``garment_sew`` / ``sewing_order``, ``darts.apply``) to see
+    which open and which refuse.
+
+    **A dart-address bug found by an outside read, fixed here.** The first
+    version placed each dart on a SIMPLIFIED 4-corner outline internal to
+    ``cut()``, addressing the seam edge by the literal name ``"e1"`` —
+    which happens to be the seam only in that 4-point numbering. The same
+    literal ``"e1"``, reused against the fine, many-vertex outline
+    ``to_pieces()`` actually returns, pointed at a short hem segment
+    instead — not the seam. ``panels._place_dart`` now places every dart
+    directly on the real (fine) boundary ``_panel_boundary`` returns, and
+    reports which of the seam's several segments it used, so nothing
+    downstream has to guess an address a second time. All 3 dart-bearing
+    panels' darts now fit the real seam (0 refused, not 1) — the earlier
+    report's claim that a fine-mesh capacity limit was found is wrong; it
+    was an address collision, not a length limit.
+    """
+    from photoloset import darts as _dt
+    from photoloset import dxf as _dxf
+    from photoloset import garment_marks as _mk
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import garment_sew as _gs
+    from photoloset import mannequin as _mq
+    from photoloset import panels as _pn
+    from photoloset import sewing_order as _so
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+    seg, hs, iters = 12, 8, 800
+    out = _pn.cut(man, n_panels=4, segments=seg, height_steps=hs,
+                  iterations=iters)
+
+    with guard("a seam is placed where the flattened tube's distortion is "
+              "worst, and buys a measured drop in it"):
+        seams = out.get("seam_log") or []
+        bought = [s["distortion_bought"] for s in seams]
+        before = out.get("distortion_index_before_any_additional_cut")
+        after = out.get("distortion_index_after_all_cuts")
+        # Every individual seam has to buy something (its own local
+        # before/after strictly improves), or picking "the worst spot"
+        # would not be doing anything — a seam that bought nothing (or
+        # made things worse) would mean the criterion is decoration. Read
+        # as a minimum, not an `all()`, over the length just pinned below —
+        # a 0-seam run would raise on `min([])` and go red through `guard`
+        # rather than pass by never entering a loop.
+        worst_gain = min(bought)
+        check("a seam is placed where the flattened tube's distortion is "
+              "worst, and buys a measured drop in it",
+              out["verdict"] == "ANSWER" and out["n_panels_reached"] == 4
+              and len(seams) == 3 and len(bought) == 3 and worst_gain > 0.0
+              and before is not None and after is not None
+              and after < before
+              and round(before, 4) == 0.1347 and round(after, 4) == 0.0507
+              and out["distortion_bought_total_pct"] > 60.0,
+              f'4 panels reached from a {seg}x{hs} grid, 3 seams cut, each '
+              f'one strictly lowering its own local distortion index '
+              f'{bought}; the whole-tube index goes {before} -> {after} '
+              f'({out["distortion_bought_total_pct"]}% lower) — a single '
+              f'meridian cut alone (flatten.build) cannot be compared to '
+              f'this number directly, since it is a different quantity '
+              f'(mean |area ratio - 1| + mean angle error/45), but it '
+              f'strictly falls with every seam this greedy criterion adds')
+
+    with guard("each panel's Gauss-Bonnet total splits into an outline "
+              "share and a dart share, and the two sum back to exactly "
+              "360 degrees"):
+        panels = out.get("panels") or []
+        residuals = [p["curvature"]["gauss_bonnet_residual_deg"]
+                    for p in panels]
+        interior = [p["curvature"]["interior_deg"] for p in panels]
+        boundary = [p["curvature"]["boundary_deg"] for p in panels]
+        # Every panel is its own disc (one boundary loop), so the identity
+        # holds PANEL BY PANEL, not just on average — a residual hiding in
+        # one panel behind three exact ones would not show in a sum.
+        check("each panel's Gauss-Bonnet total splits into an outline "
+              "share and a dart share, and the two sum back to exactly "
+              "360 degrees",
+              len(panels) == 4 and len(residuals) == 4
+              and len(interior) == 4
+              and all(r < 1e-6 for r in residuals)
+              and all(i >= 0.0 for i in interior)
+              and sum(interior) > 30.0
+              and any(i > 0.0 for i in interior)
+              and out["gauss_bonnet_across_all_panels_deg"]
+              == out["gauss_bonnet_expected_deg"] == 360.0 * 4,
+              f'interior_deg (the dart share) per panel {interior}, '
+              f'boundary_deg (the outline share, computed independently — '
+              f'not 360 minus interior) {[round(b, 2) for b in boundary]}, '
+              f'worst residual between the two computations and 360deg is '
+              f'{max(residuals):.2e} degrees. Summed over all 4 panels: '
+              f'{out["gauss_bonnet_across_all_panels_deg"]} deg == '
+              f'4 * 360 exactly')
+
+    with guard("panels refuse a count that cannot fit the grid and a "
+              "mannequin that never stood up"):
+        too_many = _pn.cut(man, n_panels=seg + 1, segments=seg,
+                           height_steps=hs)
+        bad_count = _pn.cut(man, n_panels=0, segments=seg, height_steps=hs)
+        bad_res = _pn.cut(man, n_panels=2, segments=2, height_steps=hs)
+        no_man = _pn.cut({"verdict": _mq.NO_MEASURE, "missing": ["chest"]},
+                         n_panels=2)
+        check("panels refuse a count that cannot fit the grid and a "
+              "mannequin that never stood up",
+              too_many["verdict"] == _pn.TOO_MANY_PANELS
+              and bad_count["verdict"] == _pn.BAD_PANEL_COUNT
+              and bad_res["verdict"] == _pn.BAD_RESOLUTION
+              and no_man["verdict"] == _pn.NO_MANNEQUIN,
+              f'n_panels={seg + 1} on {seg} columns -> {too_many["verdict"]}; '
+              f'n_panels=0 -> {bad_count["verdict"]}; segments=2 -> '
+              f'{bad_res["verdict"]}; an unbuilt mannequin -> '
+              f'{no_man["verdict"]}')
+
+    pieces = _pn.to_pieces(out)
+
+    with guard("the panel ring sews with exactly one seam in the round"):
+        built = _gs.build(pieces)
+        plan = _so.plan(built)
+        n = out["n_panels_reached"]
+        # N panels in a ring (N seams, N pieces, 1 connected component) has
+        # beta = N - N + 1 = 1 by construction, whatever N is — this is the
+        # SAME formula sewing_order.py already proves for the drafted coat
+        # (5-3+1=3), read here off a completely different garment shape.
+        check("the panel ring sews with exactly one seam in the round",
+              built["verdict"] == "ANSWER" and n == 4
+              and len(built["seams"]) == 4
+              and all(s["state"] == "SEWN" for s in built["seams"])
+              and plan["verdict"] == "ANSWER"
+              and plan["in_the_round"] == 1
+              and plan["flat"] == n - 1
+              and plan["in_the_round_minimum"] == 1
+              and plan["at_the_minimum"] is True
+              and plan["formula"].endswith(f"= {n} − {n} + 1 = 1"),
+              f'{n} panels, {len(built["seams"])} seams (the last one '
+              f'closes the original theta=0 cut back into a ring), all '
+              f'SEWN; {plan["formula"]} — a gored construction like this '
+              f'always has exactly 1 in-the-round seam, unlike the '
+              f'drafted coat\'s 3 (front, back and sleeve are not a ring)')
+
+    with guard("panels differ from the drafted coat in piece count and "
+              "seam layout, not by accident"):
+        draft = _gp.draft(ms)
+        cmp = _pn.compare_to_draft(out, draft)
+        check("panels differ from the drafted coat in piece count and "
+              "seam layout, not by accident",
+              cmp["verdict"] == "ANSWER"
+              and cmp["panel_count"] == 4 and cmp["draft_piece_count"] == 3
+              and cmp["panel_count"] != cmp["draft_piece_count"]
+              and round(cmp["panel_total_area_cm2"], 2) == 6098.32
+              and round(cmp["draft_total_area_cm2"], 1) == 7306.1
+              and cmp["area_ratio_panels_over_draft"] is not None
+              and 0.7 < cmp["area_ratio_panels_over_draft"] < 0.95
+              and len(cmp["seam_positions"]["panels"]) == 3,
+              f'{cmp["panel_count"]} geometric panels vs '
+              f'{cmp["draft_piece_count"]} drafted pieces; total area '
+              f'{cmp["panel_total_area_cm2"]}cm2 vs '
+              f'{cmp["draft_total_area_cm2"]}cm2 (ratio '
+              f'{cmp["area_ratio_panels_over_draft"]}) — the two routes '
+              f'start from the same measurements and land on visibly '
+              f'different shapes, which is the expected result stated up '
+              f'front, not a discrepancy to explain away')
+
+    with guard("the drafted coat's own doors answer or refuse the panels "
+              "for a reason they name"):
+        marked = _mk.apply(pieces)
+        sa_verdicts = sorted({v.get("verdict")
+                              for v in marked.get("seam_allowance", {})
+                              .values()})
+        dxf_out = _dxf.to_dxf(marked)
+        # Each dart's own edge/t come back from panels.cut() itself
+        # (``_place_dart`` reports which of the seam's segments it used),
+        # not a literal re-guessed here — that literal ("e1") is exactly
+        # the bug an outside read found: it happened to be the seam in the
+        # SIMPLIFIED quad cut() used internally, but pointed at a hem
+        # segment once replayed against the fine outline ``pieces`` below
+        # actually carries.
+        darts_list = [_dt.dart(p["name"], p["dart"]["darts_result"]["edge"],
+                               p["dart"]["darts_result"]["t"],
+                               p["dart"]["intake_cm_requested"],
+                               length_cm=p["dart"]["depth_cm"])
+                     for p in out["panels"] if p["dart"]["placed"]]
+        applied = _dt.apply(pieces, darts_list)
+        # garment_marks refuses a seam allowance for every panel — not a
+        # crash, a named reason: our 下辺/右辺/上辺/左辺 edge names carry no
+        # entry in garment_marks.SEAM_ALLOWANCE, so every segment defaults
+        # to 0cm, and offset_outline's own strict-growth proof (the cut
+        # line must be STRICTLY larger than the sew line) cannot tell "0cm
+        # added" from "went inward" and refuses both the same way. This is
+        # a naming-vocabulary gap between the two systems, not a folded or
+        # self-intersecting panel — the underlying outline is untouched by
+        # this and dxf.to_dxf still writes the sew line for every panel.
+        check("the drafted coat's own doors answer or refuse the panels "
+              "for a reason they name",
+              marked["verdict"] == "ANSWER"
+              and sa_verdicts == ["UNKNOWN_SEAM_ALLOWANCE_WENT_INWARD"]
+              and dxf_out["verdict"] == "ANSWER"
+              and len(darts_list) == 3
+              and applied["verdict"] == "ANSWER"
+              and applied["count"] == 3 and len(applied["refused"]) == 0,
+              f'garment_marks.apply -> ANSWER, but seam_allowance for '
+              f'every one of 4 panels is {sa_verdicts[0]} (0cm allowance '
+              f'from an edge-name vocabulary gap, not a bad outline); '
+              f'dxf.to_dxf -> {dxf_out["verdict"]} (writes the sew lines '
+              f'regardless); darts.apply against the fine pattern-level '
+              f'outline, addressed by the edge panels.cut() itself '
+              f'reports (not a re-guessed literal), places all '
+              f'{applied["count"]} of {len(darts_list)} darts — 0 '
+              f'refused, because the real seam has {hs} segments each '
+              f'~9-11cm long, comfortably wider than any of the three '
+              f'requested intakes')
+
+
+# ---------------------------------------------------------------------------
 @declares("a marker refuses what it cannot know",
           "the seam allowance is inside the fabric it needs",
           "more copies need more fabric",
@@ -7499,6 +8075,8 @@ if __name__ == "__main__":
                the_garment_goes_onto_a_body,
                a_pattern_piece_absorbs_curvature_two_ways,
                a_body_becomes_a_flat_pattern_by_geometry,
+               a_silhouette_constrains_only_the_projected_width,
+               the_flattened_tube_becomes_panels,
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
                projects_have_their_own_store,

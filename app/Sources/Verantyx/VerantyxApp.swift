@@ -279,7 +279,7 @@ struct VerantyxApp: App {
                 // (工程・作業・インスペクタ)あり、既定の窓幅では作業面が
                 // 潰れて図も表も読めなかった。初回だけ広げる — 以後は
                 // 使う人が決めたサイズを尊重する。
-                .onAppear { Self.fillScreenOnce() }
+                .onAppear { Self.fillScreenOnce(); Self.applyTestFrameIfRequested() }
                 // The window edge carries the agent's state — put it on the
                 // root so it frames everything, whichever pane is showing.
                 .agentPerimeterGlow()
@@ -318,6 +318,7 @@ struct VerantyxApp: App {
 
                     // ── 永続化設定を最初に復元（モデル/ワークスペース/APIキー等） ──
                     appState.loadPersistedSettings()
+                    Self.applyTestScreenIfRequested(appState)
 
                     appState.registerCIErrorHook()
                     appState.registerRestartHook()
@@ -538,6 +539,11 @@ class SpotlightPanel: NSPanel {
 /// 設定を無視することになる。
 extension VerantyxApp {
     static func fillScreenOnce() {
+        // A requested test frame (see `applyTestFrameIfRequested` below)
+        // is the sole authority on window size for that launch — it must
+        // not race this method's own 0.35s-delayed `setFrame`.
+        guard ProcessInfo.processInfo.environment["VERANTYX_TEST_FRAME_W"] == nil
+        else { return }
         guard !UserDefaults.standard.bool(forKey: "did_fill_screen") else {
             return
         }
@@ -548,6 +554,57 @@ extension VerantyxApp {
             let f = screen.visibleFrame
             win.setFrame(f.insetBy(dx: 6, dy: 6), display: true, animate: false)
             UserDefaults.standard.set(true, forKey: "did_fill_screen")
+        }
+    }
+
+    /// **Test-only hook for the reflow task's own instruction** ("Set
+    /// the frame from code (NSWindow.setFrame) rather than dragging").
+    /// No effect on a normal launch — it only fires when both env vars
+    /// are set, which nothing but a driving test script ever does.
+    static func applyTestFrameIfRequested() {
+        let env = ProcessInfo.processInfo.environment
+        guard let wStr = env["VERANTYX_TEST_FRAME_W"], let w = Double(wStr),
+              let hStr = env["VERANTYX_TEST_FRAME_H"], let h = Double(hStr)
+        else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            guard let win = NSApplication.shared.windows.first(where: {
+                $0.title == "Verantyx IDE" || $0.isMainWindow
+            }) else { return }
+            win.setFrame(NSRect(x: 20, y: 0, width: w, height: h),
+                         display: true, animate: false)
+            // Anchor the TITLE BAR near the screen's visible top rather
+            // than trusting the y above — on a test rig whose physical
+            // screen is shorter than the requested height, `setFrame`'s
+            // y-from-bottom would push the top of a tall window above the
+            // screen instead (title bar and rail head off-screen, the
+            // scrollable bottom on screen — backwards for what a resize
+            // test needs to actually see). `setFrameTopLeftPoint` keeps
+            // the top on screen and lets the bottom run off instead.
+            if let screen = win.screen ?? NSScreen.main {
+                let top = NSPoint(x: 20, y: screen.visibleFrame.maxY - 20)
+                win.setFrameTopLeftPoint(top)
+            }
+        }
+    }
+
+    /// **Test-only.** Drives straight to one of the three screens the
+    /// reflow task's matrix has to cover, without a click — the same
+    /// reason `applyTestFrameIfRequested` exists. `VERANTYX_TEST_SCREEN`
+    /// is one of "chooser" / "uiA" / "uiB"; anything else (including
+    /// unset, a normal launch) leaves navigation exactly as it already
+    /// was. "chooser" does nothing here — reaching that screen is a
+    /// matter of NOT having chosen a mode yet, which the driving script
+    /// gets by clearing `vera_engine_mode_chosen` before launch, not by
+    /// code here undoing a choice the person already made.
+    static func applyTestScreenIfRequested(_ appState: AppState) {
+        guard let screen = ProcessInfo.processInfo.environment["VERANTYX_TEST_SCREEN"]
+        else { return }
+        guard screen == "uiA" || screen == "uiB" else { return }
+        appState.selectEngineMode(.atelier)
+        UserDefaults.standard.set(screen == "uiA", forKey: "atelier_overview_shown")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            appState.shell.openTab(.garment)
+            appState.shell.garmentExpanded = true
         }
     }
 }

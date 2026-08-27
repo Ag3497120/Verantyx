@@ -339,6 +339,14 @@ final class AtelierModel: ObservableObject {
         var tolerance: Double = 0
         var sewable = false
         var why = ""
+        /// **通っても何も確かめていない場合。** 前後で同じ点から引いた
+        /// 辺どうしなど、差が構成上ゼロになる比較。ここが true の行を
+        /// 「自動で確認できた」と見せると、確かめていないことを確かめた
+        /// と嘘をつくことになる — 画面側は必ずこれを読んでから緑を出す。
+        var structural = false
+        /// なぜ検査でないのかを engine 自身が説明した文。ある場合だけ
+        /// 非 nil。画面はここに書く文を自分で作らず、これをそのまま出す。
+        var notATest: String?
     }
 
     struct SewSeam: Identifiable {
@@ -361,6 +369,10 @@ final class AtelierModel: ObservableObject {
         var byPiece: [String: Double] = [:]
         /// 許容の出どころ。選んだ数字か、何かから出した数字か。
         var toleranceFrom = ""
+        /// SeamCheck と同じ罠。`sew_and_drape` の "order" 検査など、
+        /// 構成上(Jacobi 更新なので)必ず通るものがある。
+        var structural = false
+        var notATest: String?
     }
 
     struct CrossArm {
@@ -813,7 +825,9 @@ final class AtelierModel: ObservableObject {
                                                first, last)
                              }
                              return ""
-                         }())
+                         }(),
+                         structural: (v["structural"] as? Bool) ?? false,
+                         notATest: v["not_a_test"] as? String)
             }
     }
 
@@ -992,7 +1006,9 @@ final class AtelierModel: ObservableObject {
                       difference: (c["difference"] as? Double) ?? 0,
                       tolerance: (c["tolerance"] as? Double) ?? 0,
                       sewable: (c["sewable"] as? Bool) ?? false,
-                      why: c["why"] as? String ?? "")
+                      why: c["why"] as? String ?? "",
+                      structural: (c["structural"] as? Bool) ?? false,
+                      notATest: c["not_a_test"] as? String)
         }
     }
 
@@ -1045,7 +1061,9 @@ final class AtelierModel: ObservableObject {
                          sameShapeMoved: v["same_shape_moved"] as? Bool,
                          shapeDifference: v["shape_difference"] as? Double,
                          byPiece: v["by_piece"] as? [String: Double] ?? [:],
-                         toleranceFrom: v["tolerance_from"] as? String ?? "")
+                         toleranceFrom: v["tolerance_from"] as? String ?? "",
+                         structural: (v["structural"] as? Bool) ?? false,
+                         notATest: v["not_a_test"] as? String)
             }
     }
 

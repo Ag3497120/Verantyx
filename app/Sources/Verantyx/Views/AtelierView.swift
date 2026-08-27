@@ -33,18 +33,61 @@ struct AtelierView: View {
     // `AtelierNavigator`'s doc comment for why this is the write side of
     // the same mirror `AtelierContext` already is for `projectName`.
     @StateObject private var nav = AtelierNavigator.shared
+    /// The structure inspector's escape hatch below `inspectorInlineThreshold`
+    /// — see the give-way comment on `body`.
+    @State private var showInspectorSheet = false
+
+    // MARK: - 三列の譲る順 (reflow, not clipping — owner's brief, 2026-08-27)
+    //
+    // The centre figure is the one thing this whole screen exists to
+    // show, so it never gives an inch. Everything else gives way in the
+    // order it is least missed mid-task:
+    //   1. structure inspector (300pt) — side detail on whichever part is
+    //      selected. Useful, but you can keep working without it up all
+    //      the time, so it goes first: below `inspectorInlineThreshold`
+    //      it collapses to a 44pt toggle that opens the same view in a
+    //      sheet, rather than sitting in the row half-crushed.
+    //   2. step rail (168pt) — still needed to move between steps, so it
+    //      never disappears; below `railCompactThreshold` it keeps its
+    //      numbers/icons and drops the step NAMES (the exact text that
+    //      used to get clipped down to "ources" / "tructure" — see the
+    //      task's report), moving the full name to a tooltip instead.
+    //   3. the figure/workspace — never collapses. The sub-panels drawn
+    //      inside it (Sources, Pattern, Materials, …) already scroll
+    //      their own content vertically; this pass did not re-flow each
+    //      of those panels' internal fixed-width columns individually —
+    //      see the task report for what that would still take.
+    //
+    // Both thresholds sit below the app's own declared minimum window
+    // width (900, `VerantyxApp.swift`) MINUS the width the three-column
+    // AtelierWorkbenchSplitView's chat pane can still be taking (that
+    // view collapses the chat pane out of the row first, before this
+    // view ever sees a squeeze — see its own comment). These exist so
+    // this view degrades correctly if it is ever hosted somewhere
+    // narrower than that, not because the shipped app hits them today.
+    private static let inspectorInlineThreshold: CGFloat = 760
+    private static let railCompactThreshold: CGFloat = 620
 
     var body: some View {
         VStack(spacing: 0) {
             header
             Divider().opacity(0.35)
             if let err = m.engineError { engineBanner(err) }
-            HStack(spacing: 0) {
-                rail.frame(width: 168)
-                Divider().opacity(0.25)
-                workspace.frame(maxWidth: .infinity)
-                Divider().opacity(0.25)
-                inspector.frame(width: 300)
+            GeometryReader { geo in
+                let railCompact = geo.size.width < Self.railCompactThreshold
+                let inspectorInline = geo.size.width >= Self.inspectorInlineThreshold
+                HStack(spacing: 0) {
+                    rail(compact: railCompact)
+                        .frame(width: railCompact ? 52 : 168)
+                    Divider().opacity(0.25)
+                    workspace.frame(maxWidth: .infinity)
+                    Divider().opacity(0.25)
+                    if inspectorInline {
+                        inspector.frame(width: 300)
+                    } else {
+                        inspectorToggle
+                    }
+                }
             }
             Divider().opacity(0.35)
             // **証拠帯は畳める。** どの面でも 168pt を占めていて、
@@ -86,6 +129,11 @@ struct AtelierView: View {
         .sheet(isPresented: $m.showTechPack) { TechPackSheet(m: m) }
         .sheet(isPresented: $showAnalyst) {
             AnalystSheet(an: an, m: m).environmentObject(app)
+        }
+        .sheet(isPresented: $showInspectorSheet) {
+            inspector
+                .frame(minWidth: 320, idealWidth: 380, maxWidth: 460,
+                       minHeight: 420, idealHeight: 600, maxHeight: 800)
         }
         // UI B の誘導。**人が工程をクリックすれば、それが常に勝つ** —
         // このハンドラは chat が新しく解決したときだけ発火し(token が
@@ -146,58 +194,115 @@ struct AtelierView: View {
 
     // MARK: - 左: 工程
 
-    private var rail: some View {
+    /// `compact`: below `railCompactThreshold` — see the give-way comment
+    /// on `body`. Numbers/icons and tap targets survive; step NAMES and
+    /// the GARMENTS / ANALYSIS AI sections' text are what give way, moved
+    /// to `.help()` tooltips and single icon buttons respectively, so
+    /// nothing reachable in the full rail becomes unreachable here.
+    private func rail(compact: Bool) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("PROJECT").railHead()
+                if !compact { Text("PROJECT").railHead() }
                 ForEach(Array(AtelierModel.steps.enumerated()), id: \.offset) {
                     i, s in
                     HStack(spacing: 8) {
                         Text(String(format: "%02d", i + 1))
                             .font(.system(size: 10, design: .monospaced))
                             .foregroundStyle(Theme.faint)
-                        Text(s).font(.system(size: 12))
-                        Spacer(minLength: 0)
+                        if !compact {
+                            Text(s).font(.system(size: 12))
+                                .lineLimit(1).truncationMode(.tail)
+                            Spacer(minLength: 0)
+                        }
                     }
-                    .padding(.horizontal, 14).padding(.vertical, 5)
+                    .padding(.horizontal, compact ? 0 : 14).padding(.vertical, 5)
+                    .frame(maxWidth: .infinity, alignment: compact ? .center : .leading)
                     .background(m.step == s ? Theme.panel2 : .clear)
                     .overlay(alignment: .leading) {
-                        Rectangle().fill(m.step == s ? Theme.sel : .clear)
+                        Rectangle().fill(m.step == s && !compact ? Theme.sel : .clear)
                             .frame(width: 2)
                     }
                     .foregroundStyle(m.step == s ? Theme.fg : Theme.dim)
                     .contentShape(Rectangle())
+                    .help(compact ? s : "")
                     .onTapGesture {
                         m.step = s
                         if s == "Tech Pack" { Task { await m.loadTechPack() } }
                     }
                 }
-                Text("GARMENTS").railHead().padding(.top, 10)
-                HStack(spacing: 8) {
-                    Text("001").font(.system(size: 10, design: .monospaced))
-                        .foregroundStyle(Theme.faint)
-                    Text(m.projectName).font(.system(size: 12))
-                }
-                .padding(.horizontal, 14).padding(.vertical, 5)
-                .background(Theme.panel2)
+                if compact {
+                    Divider().opacity(0.2).padding(.vertical, 6)
+                    // 折りたたみ時も届く道を残す — GARMENTS / ANALYSIS AI
+                    // の中身は消えたのではなく、アイコン一つ後ろに退いただけ。
+                    Image(systemName: "tshirt")
+                        .font(.system(size: 13)).foregroundStyle(Theme.dim)
+                        .frame(maxWidth: .infinity, minHeight: 28)
+                        .help(m.projectName)
+                    Button {
+                        showAnalyst = true
+                    } label: {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: 13)).foregroundStyle(Theme.dim)
+                            .frame(maxWidth: .infinity, minHeight: 28)
+                    }
+                    .buttonStyle(.plain)
+                    .help(app.t("Analysis AI: \(an.pick.label)",
+                                "解析AI: \(an.pick.label)"))
+                } else {
+                    Text("GARMENTS").railHead().padding(.top, 10)
+                    HStack(spacing: 8) {
+                        Text("001").font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(Theme.faint)
+                        Text(m.projectName).font(.system(size: 12)).lineLimit(1)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 5)
+                    .background(Theme.panel2)
 
-                // 解析に使う AI。ここが LLM のパイプの行き先で、
-                // 選んだ相手が台帳に触れる口は提案だけ。
-                Text("ANALYSIS AI").railHead().padding(.top, 10)
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(an.pick.label).font(.system(size: 11))
-                        .foregroundStyle(Theme.fg).lineLimit(2)
-                    Text(app.t("writes proposals only",
-                               "書けるのは提案だけ"))
-                        .font(.system(size: 9)).foregroundStyle(Theme.faint)
+                    // 解析に使う AI。ここが LLM のパイプの行き先で、
+                    // 選んだ相手が台帳に触れる口は提案だけ。
+                    Text("ANALYSIS AI").railHead().padding(.top, 10)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(an.pick.label).font(.system(size: 11))
+                            .foregroundStyle(Theme.fg).lineLimit(2)
+                        Text(app.t("writes proposals only",
+                                   "書けるのは提案だけ"))
+                            .font(.system(size: 9)).foregroundStyle(Theme.faint)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 6)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture { showAnalyst = true }
                 }
-                .padding(.horizontal, 14).padding(.vertical, 6)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .contentShape(Rectangle())
-                .onTapGesture { showAnalyst = true }
             }
             .padding(.vertical, 10)
         }
+        .background(Theme.panel)
+    }
+
+    /// The inspector's stand-in below `inspectorInlineThreshold` — a
+    /// single tappable icon, never a dead one (house rule 3), that opens
+    /// the exact same `inspector` view in a sheet.
+    private var inspectorToggle: some View {
+        VStack(spacing: 8) {
+            Button {
+                showInspectorSheet = true
+            } label: {
+                VStack(spacing: 3) {
+                    Image(systemName: "list.bullet.rectangle")
+                        .font(.system(size: 14))
+                    Text(String(m.selected.prefix(3)).uppercased())
+                        .font(.system(size: 8, weight: .bold))
+                }
+                .foregroundStyle(Theme.dim)
+                .frame(width: 44, height: 40)
+            }
+            .buttonStyle(.plain)
+            .help(app.t("Structure inspector: \(m.selected)",
+                        "構造インスペクタ: \(m.selected)"))
+            Spacer(minLength: 0)
+        }
+        .frame(width: 44)
+        .padding(.top, 12)
         .background(Theme.panel)
     }
 
