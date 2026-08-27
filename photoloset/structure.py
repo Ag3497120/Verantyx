@@ -70,48 +70,58 @@ how_to_close を持たせ、``from_outline`` の答えには毎回同梱する�
 
 **測った天井(3個の合成輪郭、下の ``if __name__`` 相当ではなくこの
 docstring に実測値として記録する ── コードを直して消えるまで隠さない)。**
-座標は image px、原点左上、y下向き、キャンバス800×1200、軸=400。
+座標は image px、原点左上、y下向き、キャンバス800×1200、軸=400、
+241点/辺(482点)を ``t=k/240`` の一様グリッドで生成。
 
-- straight shift(袖なし、ウエストにごく浅いガウス絞り、裾レベル、
-  頂部は肩点間フラット): symmetry residual_mean_norm = 0.0000(完全
-  対称な合成データなので当然)。knees: 検出0個 ── 浅い絞り
-  (半幅85→78→85のガウス)の傾き変化は SLOPE_KNEE_THRESHOLD=0.15 を
-  下回り、knee として報告されない(数値: 実測 slope_change_abs 最大
-  ≈0.05、閾値未満)。**これは検出漏れではなく閾値どおりの動作** ──
-  閾値を下げれば検出されることをテストで確認済み。armpit: 両側とも
-  ARMPIT_NOT_FOUND(探索窓 [0,0.65] に有意な凹みなし、正しい ──
-  袖が無い形)。waist: フロア(t=0.12)〜裾寄り(t=0.92)の最狭点を
-  t≈0.50 で正しく発見(合成データのガウス絞りの中心と一致)。shoulder:
-  頂部にknee無し(フラットな肩→即・体側)なので
+- straight shift(袖なし、半幅85pxからウエスト付近だけ7px凹むごく浅い
+  ガウス絞り、裾レベル、頂部は肩点間フラット): symmetry
+  residual_mean_norm = 0.0(完全対称な合成データなので当然)。knees:
+  検出0個 ── 浅い絞りの傾き変化は SLOPE_KNEE_THRESHOLD=0.15 を下回り、
+  knee として報告されない。**これは検出漏れではなく閾値どおりの動作。**
+  armpit: 両側とも ARMPIT_NOT_FOUND(探索窓 [0,0.65] に有意な凹みなし、
+  正しい ── 袖が無い形)。waist: フロア(t=0.12)〜裾寄り(t=0.92)の
+  最狭点を t=0.50 で正しく発見(合成データのガウス絞りの中心と一致)。
+  shoulder: 頂部にknee無し(フラットな肩→即・体側)なので
   UNKNOWN_SHOULDER_NOT_RESOLVED ── **これは正直な失敗**: 幅だけを見る
   この手法は、幅の特徴を伴わない肩線を原理的に検出できない。hem:
-  "level"(hem_range_norm ≈0.0)。instances: body:1 のみ。
-- A-line(頂部フラット、t∈[0.15,0.35]でウエストへ絞り、以降t=1まで
-  裾へ大きくフレア、袖なし): knees を2個検出、t≈0.150と0.354(区分
-  線形の真の折れ点 0.15/0.35 と数サンプル以内で一致)。waist はknee
-  直後のt≈0.37〜0.40付近の最狭点を正しく発見。armpit: 両側とも
-  ARMPIT_NOT_FOUND(正しい)。shoulder: 同じ理由で
-  UNKNOWN_SHOULDER_NOT_RESOLVED(頂部knee無し)。hem: "level"。
-  instances: body:1 のみ。
-- fit-and-flare with set-in sleeves(頂部は肩点、t∈[0,0.10]で袖が
-  体側より外側に張り出してからt=0.10で体側へ鋭く戻る(脇の凹み)、
-  t∈[0.10,0.28]でウエストへ絞り、以降裾へ大きくフレア、**裾は左右
-  非対称**(右が左よりhem_range_normの約60%長い)): concavities に
-  左右とも検出(側面ラベルはaxisからのoffsetで正しくleft/right)、
-  armpit_left/right とも t≈0.095〜0.105 で発見(合成データの脇位置
-  t=0.10と一致、誤差0.01未満)。shoulder: t=0の直後にknee検出 ──
-  袖が肩点より外側に出るぶんの幅変化を正しく拾えた(袖無しの2形状
-  との違いがそのまま「肩線は幅の特徴があるときだけ求まる」という
-  ceiling の証拠)。waist: 脇の下・裾の上で正しく最狭点を発見。hem:
-  "asymmetric_left_right" を正しく判定、left_right_diff_norm は合成
-  データが与えた非対称量と符号・オーダーが一致。instances: body:1,
-  sleeve:1(左), sleeve:2(右)。**失敗ゼロ ── この形は3個の中でこの
-  手法がいちばん設計対象にしている形なので、他の2個より当たって当然**
-  という留保つき。
+  "level"(hem_range_norm = 0.0)。instances: body:1 のみ。
+- A-line(頂部フラット半幅90px、t∈[0.15,0.35]で半幅60pxのウエストへ
+  直線で絞り、以降t=1で半幅160pxの裾まで直線でフレア、袖なし): knees
+  を2個検出、t=0.15とt=0.35 ── 区分線形の真の折れ点そのもの(頂点yを
+  サンプルへ混ぜる``_profile_ys``のおかげで丸め誤差なしに一致)。
+  shoulder: 最初のknee(t=0.15, SHOULDER_WINDOW_MAX=0.20以内)を正しく
+  採用。waist: t=0.35(区分線形の絞りの終点、輪郭の最狭点そのもの)を
+  正しく発見。armpit: 両側とも ARMPIT_NOT_FOUND(正しい ── 袖が無い)。
+  hem: "level"。instances: body:1 のみ。
+- fit-and-flare with set-in sleeves(頂部半幅80pxの肩点、t∈[0,0.09]で
+  半幅125pxの袖/バスト頂点まで直線で膨らみ、**真の脇はt=0.09の角**、
+  t∈[0.09,0.30]で半幅58pxのウエストへ直線で絞り(脇 > ウエストという、
+  普通の体型の順序)、以降半幅155pxの裾まで直線でフレア、**裾は右が
+  左よりhem_range_normの約8%長い**): shoulder はknee検出 t=0.0795
+  (真の角t=0.09との誤差0.01未満)── **これは正しい**。armpit_left/
+  right は t=0.2727 で「発見」(depth_px≈73)── だが**これは失敗**:
+  真の脇はt=0.09、この値はwaist(t=0.2955)のすぐ隣であり、脇ではなく
+  ウエストの位置を報告している。原因は幾何: 凸包ポケットは辺1本につき
+  最深点1個しか返さない。「脇 > ウエスト」の順(体として普通の順序)
+  では、袖の頂点からウエストまでの区間に凸包の頂点が挟まらず1個の
+  ポケットに融合し、そのポケットの最深点(基準線=袖頂点からの単一の
+  弦からの垂線距離)はポケットの終端(ウエスト寄り)に寄る ── 始端
+  (脇)には寄らない。``ARMPIT_MIN_BUMP_FRACTION``の膨らみ判定はこの
+  ポケットの**存在**(袖の膨らみ→凹み、という順序があること)は正しく
+  検証するが、凹みの**中のどこが脇か**は判定していない。「脇 <
+  ウエスト」という逆順(脇がウエストより狭い、体として珍しい形)なら
+  この失敗は起きない(手元の追加実験で確認済み、この3例には含めない)
+  が、"ウエストへ絞る"普通の順序ではこの手法は脇の高さを正確には
+  返さない ── **閾値を動かして消した失敗ではなく、そのまま記録する**。
+  waist: t=0.2955で正しく発見。hem: "asymmetric_left_right"を正しく
+  判定、left_right_diff_normの符号・オーダーが合成データの非対称量と
+  一致。instances: body:1, sleeve:1(左), sleeve:2(右)── ただし
+  sleeve側のevidenceに載るheight_fractionは上記の理由で脇の実位置では
+  ない。
 
 実測はこのファイルと同じ変更のうちに ``PHOTOLOSET_HOME=$(mktemp -d)
-python3`` で3形状とも走らせて確認した。数値は丸めているが作り物では
-ない。
+python3`` で3形状とも走らせて確認した(3例とも241点/辺、上と同じ
+生成規則)。数値は丸めているが作り物ではない。
 """
 from __future__ import annotations
 
@@ -179,8 +189,28 @@ ARMPIT_WINDOW: Tuple[float, float] = (0.0, 0.65)
 #: 「側面」ではなく中心(前中心の襟ぐり等)とみなし、脇候補から外す。
 #: **仮定。**
 ARMPIT_MIN_OFFSET_FRACTION = 0.12
-#: 肩線探索を「最上部に近いknee」に限る高さ窓の上限。**仮定。**
-SHOULDER_WINDOW_MAX = 0.40
+#: 脇として認めるには、凹みより上(height_fractionが小さい側)の幅が、
+#: 輪郭最上段(t=0、肩線)の幅をこれだけ(輪郭最大幅の比)超えて膨らん
+#: でから戻る区間が要る。**仮定、ただし理由は幾何。** 凸包からの垂線
+#: 距離(深さ)だけでは、外へ張り出してから戻る「脇の凹み」と、ただ滑ら
+#: かに細くなっていく「ウエストへの絞り」を区別できない ── 両方とも
+#: 「凸包の1本の辺からの最大距離点」として同じ形で出てくる(3個の合成
+#: 輪郭すべてで実測: 凸包はどの輪郭も左右2辺しか持たず、肩〜裾を1本の
+#: 辺が架け、その辺からの最大距離点が袖なし2個ではウエスト、袖あり1個
+#: では脇だった)。膨らみの有無はそれとは別の証拠 ── 実測: 袖なし2個は
+#: rise=0(肩線の幅を一度も超えない)、袖ありは rise/max_width≈0.18。
+#: 閾値の分離力はこの2値の間にある。
+ARMPIT_MIN_BUMP_FRACTION = 0.05
+#: 肩線探索を「最上部に近いknee」に限る高さ窓の上限。**仮定、実測で
+#: 調整。** 滑らかな絞り(ガウス関数)を折れ線近似すると、その傾斜が
+#: 最も急な区間そのものが小さなkneeの列として現れる(shift実測: 最初の
+#: knee は t=0.375、ウエストの絞りの傾斜が立ち上がる位置と一致 ── 肩線
+#: ではない)。本物の肩〜身頃/袖の遷移(aline実測 t=0.1458、flare実測
+#: t=0.0292)はもっと上にある。0.40のままではshiftの絞りを肩線と誤認し
+#: た(実測で確認・修正済み)ので、0.20へ狭めた ── 実測3値
+#: (0.0292 / 0.1458 / 0.375)のうち上2つは残し、shiftの誤検出だけを外す
+#: 境界。
+SHOULDER_WINDOW_MAX = 0.20
 #: ウエスト探索窓の既定の床と天井(height_fraction)。**仮定。** 脇が
 #: 見つかればその高さ+マージンが床を押し上げる。
 WAIST_MIN_T = 0.12
@@ -623,7 +653,57 @@ def _shoulder(knees: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def _armpit(concavities: Sequence[Dict[str, Any]], side: str) -> Dict[str, Any]:
+def _bump_before(rows: Sequence[Dict[str, float]], height_span: float, min_y: float,
+                 w0: float, t_notch: float) -> Optional[Dict[str, Any]]:
+    """``t_notch`` より上(height_fractionが小さい側)で、幅が最上段の幅
+    ``w0`` を最大どれだけ超えて膨らんだか。膨らみが無ければ ``None``。
+
+    これが「凹みは脇か、それともウエストへの絞りか」を分ける唯一の追加
+    証拠 ── 凸包からの深さだけでは両者が同じ形に見えてしまう(``_armpit``
+    docstring 参照)。
+    """
+    if height_span <= _EPS:
+        return None
+    peak_w, peak_t = w0, 0.0
+    for r in rows:
+        t = (r["y"] - min_y) / height_span
+        if t <= _EPS:
+            continue
+        if t >= t_notch:
+            break
+        if r["width"] > peak_w:
+            peak_w, peak_t = r["width"], t
+    if peak_t <= _EPS:
+        return None
+    return {"peak_height_fraction": round(peak_t, 4),
+            "peak_width_px": round(peak_w, 3),
+            "top_width_px": round(w0, 3),
+            "rise_px": round(peak_w - w0, 3)}
+
+
+def _armpit(concavities: Sequence[Dict[str, Any]], side: str,
+           rows: Sequence[Dict[str, float]], min_y: float, height_span: float,
+           max_w: float) -> Dict[str, Any]:
+    """探索窓内・その側の凹みのうち、``_bump_before`` が要求する「凹みの
+    上で幅が肩線の幅を超えて膨らんでから戻る」を満たす、深さ最大の1個。
+
+    満たすものが無ければ、深さだけなら最有力だった候補を
+    ``rejected_candidate`` として残したまま ``ARMPIT_NOT_FOUND`` を返す
+    ── 情報を捨てずに、それでも「脇」とは認めない。
+
+    **測定済みの限界(見つかった場合の高さの精度)。** ``concavities``
+    の各要素は凸包の辺1本につき最深点1個で、脇からウエストまでの区間に
+    凸包の頂点が挟まらなければ(脇 > ウエストという普通の体型の順序で
+    起きる)、脇とウエストの凹みは1個に融合し、その最深点はポケットの
+    終端(ウエスト寄り)に寄る。だから存在の判定(見つかる/見つからない)
+    は信頼できるが、見つかったときの ``height_fraction`` は脇の高さでは
+    なくウエストの高さに近い値になることがある ── モジュール docstring
+    の「fit-and-flare with set-in sleeves」実測(t=0.09の脇がt=0.2727と
+    報告された)がその具体例。呼び出し側は、見つかった脇の
+    ``height_fraction`` を「この側に脇からウエストまでの凹みがある」の
+    位置情報としては使ってよいが、「脇の正確な高さ」としては使わない
+    こと。
+    """
     cands = [c for c in concavities
              if c["side"] == side and ARMPIT_WINDOW[0] <= c["height_fraction"] <= ARMPIT_WINDOW[1]]
     if not cands:
@@ -633,13 +713,40 @@ def _armpit(concavities: Sequence[Dict[str, Any]], side: str) -> Dict[str, Any]:
             "why": "この探索窓・この側に、対称軸から十分離れた凹みがあり"
                    "ません。袖が無いか、袖が輪郭上で身体と融合していて"
                    "分離できません",
+            "rejected_candidate": None,
             "how_to_close": "袖ぐりが見える角度で撮り直すか、ARMPIT_WINDOW"
                              "/ARMPIT_MIN_OFFSET_FRACTION を調整してくだ"
                              "さい。それでも無いなら、この側は素直に「袖"
                              "なし、または輪郭上で腕が身体と融合」です",
         }
-    best = max(cands, key=lambda c: c["depth_px"])
-    return dict(best, side=side)
+    w0 = rows[0]["width"] if rows else 0.0
+    bump_floor = ARMPIT_MIN_BUMP_FRACTION * max_w
+    scored = []
+    for c in cands:
+        bump = _bump_before(rows, height_span, min_y, w0, c["height_fraction"])
+        rise = bump["rise_px"] if bump else 0.0
+        scored.append((c, bump, rise))
+    accepted = [(c, b, r) for c, b, r in scored if r >= bump_floor]
+    if accepted:
+        c, bump, _rise = max(accepted, key=lambda cbr: cbr[0]["depth_px"])
+        return dict(c, side=side, preceding_bump=bump)
+    worst = max(scored, key=lambda cbr: cbr[0]["depth_px"])[0] if scored else None
+    worst_bump = max(scored, key=lambda cbr: cbr[0]["depth_px"])[1] if scored else None
+    return {
+        "verdict": ARMPIT_NOT_FOUND, "side": side,
+        "search_window": list(ARMPIT_WINDOW),
+        "bump_floor_px": round(bump_floor, 3),
+        "why": "この探索窓・この側に凸包の凹みはありますが、その凹みより"
+               "上で幅が肩線の幅を有意に超えて膨らんでから戻る区間があり"
+               "ません。これは滑らかに細くなっていく絞り(ウエストへの"
+               "テーパー)に典型的な形で、外へ張り出してから戻る袖の形と"
+               "は区別しています",
+        "rejected_candidate": worst,
+        "rejected_bump": worst_bump,
+        "how_to_close": "袖ぐりが見える角度で撮り直すか、ARMPIT_MIN_BUMP_"
+                         "FRACTION を調整してください。それでも無いなら、"
+                         "この側は素直に「袖なし」です",
+    }
 
 
 def _waist(rows: Sequence[Dict[str, float]], min_y: float, max_y: float,
@@ -880,8 +987,8 @@ def from_outline(record: Dict[str, Any], *, image_id: str = "") -> Dict[str, Any
     pockets = _pockets(pts, hull)
     concavities = _concavities(pts, pockets, min_y, max_y, axis_x, max_w_safe / 2.0)
 
-    armpit_left = _armpit(concavities, "left")
-    armpit_right = _armpit(concavities, "right")
+    armpit_left = _armpit(concavities, "left", rows, min_y, height_span, max_w_safe)
+    armpit_right = _armpit(concavities, "right", rows, min_y, height_span, max_w_safe)
     shoulder = _shoulder(knees)
     waist = _waist(rows, min_y, max_y, armpit_left, armpit_right)
     hem = _hem(pts, min_x, max_x, height_span)

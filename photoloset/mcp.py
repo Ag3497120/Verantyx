@@ -26,6 +26,7 @@ import json as _json
 import sys
 import traceback
 import typing
+import os
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
@@ -50,7 +51,20 @@ from . import points as _points
 from .garment import Intake, Ledger
 from .garment_measure import Measures
 
-HOME = Path.home() / ".photoloset"
+#: 置き場の根。既定は ``~/.photoloset`` で、``PHOTOLOSET_HOME`` が立って
+#: いればそちらを使う。
+#:
+#: **切り替え口が無いことが、一度実害を出した。** 2026-08-27、この道具を
+#: 試していた作業者が ``PHOTOLOSET_HOME=$(mktemp -d)`` で隔離したつもりで
+#: ``measure_taken`` を呼び、持ち主の実測6件が入った本物の帳面に、試験用の
+#: 数字8件(chest 88 / waist 68 / hip 94 / body_length 140 を二巡)を書いた。
+#: 実測の chest 108 が試験の 88 に上書きされて見える状態になっていた。
+#: 読み取りは ``Path.home()`` を決め打ちしていて、環境変数を一度も見て
+#: いなかった — **隔離したつもりが隔離になっていなかった。**
+#:
+#: 取り込み時に一度だけ読む。動作中に差し替わらないのは意図で、
+#: 同じ処理の途中で置き場が変わるほうが危ない。
+HOME = Path(os.environ.get("PHOTOLOSET_HOME") or (Path.home() / ".photoloset"))
 PROTOCOL = "2024-11-05"
 
 # ---------------------------------------------------------------------------
@@ -1320,6 +1334,59 @@ def structure_from_outline(json_text: str = "") -> str:
                                     "point the getattr(...) call at the real "
                                     "entry point structure.py landed with"})
     return _ok(fn(outline))
+
+
+def _outline_record_arg(json_text: str):
+    """THE OUTLINE CONTRACT, the whole thing — not just the bare polygon
+    `_outline_arg` above extracts. `structure.from_outline` (and therefore
+    `photo_to_pattern.run`) reads `width_px`/`height_px`/`source`/`fixture`
+    too, so this keeps the whole object instead of throwing the rest away.
+    """
+    req, err = _json_arg(json_text, 'THE OUTLINE CONTRACT: {"outline": '
+                                     '[[x, y], ...], "width_px":, '
+                                     '"height_px":, "source":, "fixture":}')
+    if err:
+        return None, _ok(err)
+    if not isinstance(req, dict) or "outline" not in req:
+        return None, _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                          "why": "json_text needs the whole outline "
+                                 "contract object, not a bare point list"})
+    return req, None
+
+
+@tool
+def photo_pattern(json_text: str = "", n_panels: int = 4, segments: int = 24,
+                  height_steps: int = 16, iterations: int = 3000,
+                  dart_depth_ratio: float = 0.30, image_id: str = "") -> str:
+    """One call: a photographed outline -> a cut pattern (`panels.to_pieces` shape).
+
+    `json_text` is THE OUTLINE CONTRACT, the whole object: `{"outline":
+    [[x, y], ...], "width_px":, "height_px":, "source":, "fixture":}` — px,
+    image coordinates, the same thing `GarmentOutline.extract` on the Swift
+    side produces. Measurements come from the current project's ledger
+    (`_measures()`), the same store `pattern_dxf` and the other draft tools
+    read — a single photo cannot supply real-world scale on its own.
+
+    Runs `structure.from_outline` -> `mannequin.build` -> a px-to-cm
+    calibration (this tool's own job; see `photo_to_pattern.py`'s module
+    docstring for the assumption it makes and the measured ceiling on how
+    much of the photo actually reaches the returned pieces) ->
+    `silhouette.match` -> `silhouette.to_surface` -> `flatten.build` ->
+    `panels.cut` -> `panels.to_pieces`. The answer always carries `hops`
+    (verdict/count/seconds per stage) even on refusal, and `failed_hop`
+    names where it stopped; every refusal is one of the six modules'
+    already-typed verdicts, not a new name invented here.
+    """
+    record, err = _outline_record_arg(json_text)
+    if err:
+        return err
+    from . import photo_to_pattern as _p2p
+    return _ok(_p2p.run(record, _measures(), n_panels=int(n_panels),
+                        segments=int(segments),
+                        height_steps=int(height_steps),
+                        iterations=int(iterations),
+                        dart_depth_ratio=float(dart_depth_ratio),
+                        image_id=image_id))
 
 
 # ---------------------------------------------------------------------------

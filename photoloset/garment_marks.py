@@ -38,6 +38,10 @@ SELF_INTERSECT = "UNKNOWN_SEAM_ALLOWANCE_SELF_INTERSECTS"
 TOO_DEEP = "UNKNOWN_NOTCH_DEEPER_THAN_ALLOWANCE"
 NO_NAP = "UNKNOWN_NAP_NOT_RECORDED"
 INWARD = "UNKNOWN_SEAM_ALLOWANCE_WENT_INWARD"
+#: SEAM_ALLOWANCE (または呼び出し側の allowance 引数) に載っていない辺名。
+#: **0.0cm を仮定しない。** 誰も幅を述べていない辺は「縫い代なし」では
+#: なく「縫い代が未記載」で、そのまま裁てば縫えない型紙が出る。
+UNSTATED = "UNKNOWN_SEAM_ALLOWANCE_NOT_STATED"
 
 #: 留め継ぎの上限。角が尖ると交点が遠くへ飛ぶので、これを超えたら
 #: 角を落とす。縫い代の何倍まで許すか。
@@ -450,12 +454,39 @@ def offset_outline(outline: Sequence[Sequence[float]],
     # 付いていて、VN5-VN8/VN11 は全部通っていた)。
     outward = 1.0 if _signed_area(poly) > 0 else -1.0
 
-    labels, offs, normals = [], [], []
+    labels = [_label_segment(poly[i], poly[(i + 1) % n], edges, hem_y,
+                             piece_name) for i in range(n)]
+    # **辺名で引けなければ、0cm を仮定せず先に断る。** SEAM_ALLOWANCE は
+    # 製図(肩線・脇線・袖ぐり...)の辺名しか持たない。パネル(下辺・右辺・
+    # 上辺・左辺)のように語彙の外から来た辺名を `.get(name, (0.0,))` で
+    # 拾うと、「誰も述べていない」が静かに「0cm」になる — 0cm は
+    # offset_outline 自身の外側判定(cut が sew より真に大きいか)では
+    # 「内側に付いた」と見分けが付かず、原因と違う名前の拒否が返っていた
+    # (実測: UNKNOWN_SEAM_ALLOWANCE_WENT_INWARD、輪郭は無傷なのに)。
+    unstated = sorted({name for name in labels
+                       if name not in sa and name not in SEAM_ALLOWANCE})
+    if unstated:
+        return {
+            "verdict": UNSTATED,
+            "piece": piece_name,
+            "edges": unstated,
+            "how_to_close": (
+                "SEAM_ALLOWANCE に " + "、".join(unstated) + " の幅と出典を"
+                "追加するか(garment_marks.py 冒頭のテーブル)、"
+                "offset_outline(..., allowance={...}) でこの型紙の呼び出し"
+                "側から縫い代を明示してください"),
+            "why": (
+                "この辺の縫い代を誰も述べていません。0cm を代入すると"
+                "裁ち切り線が出来上がり線と同じ位置になり、縫い代なしの"
+                "型紙がそのまま ANSWER として通ってしまいます。それは"
+                "縫えない型紙です"),
+        }
+
+    offs, normals = [], []
     for i in range(n):
         a, b = poly[i], poly[(i + 1) % n]
-        name = _label_segment(a, b, edges, hem_y, piece_name)
-        labels.append(name)
-        width = sa.get(name, SEAM_ALLOWANCE.get(name, (0.0,))[0])
+        name = labels[i]
+        width = sa[name] if name in sa else SEAM_ALLOWANCE[name][0]
         offs.append(width)
         dx, dy = b[0] - a[0], b[1] - a[1]
         L = math.hypot(dx, dy) or 1e-9

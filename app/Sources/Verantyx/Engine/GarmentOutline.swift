@@ -318,7 +318,7 @@ enum GarmentOutline {
         var winner: (index: Int, grid: [Bool], width: Int, height: Int, count: Int)? = nil
         for index in instances {
             guard let buffer = try? observation.generateScaledMaskForImage(forInstances: IndexSet(integer: index), from: handler),
-                  let (grid, width, height) = booleanGrid(from: buffer, threshold: 127) else { continue }
+                  let (grid, width, height) = booleanGrid(from: buffer, threshold: 0.5) else { continue }
             let count = grid.reduce(0) { $0 + ($1 ? 1 : 0) }
             if winner == nil || count > winner!.count {
                 winner = (index, grid, width, height, count)
@@ -346,7 +346,7 @@ enum GarmentOutline {
             return .threw(requestName: "VNGeneratePersonSegmentationRequest", message: error.localizedDescription)
         }
         guard let observation = request.results?.first,
-              let (grid, width, height) = booleanGrid(from: observation.pixelBuffer, threshold: 127) else {
+              let (grid, width, height) = booleanGrid(from: observation.pixelBuffer, threshold: 0.5) else {
             return .empty(requestName: "VNGeneratePersonSegmentationRequest")
         }
         return .success(MaskResult(grid: grid, width: width, height: height,
@@ -380,24 +380,57 @@ enum GarmentOutline {
 
     // MARK: - CVPixelBuffer -> boolean grid
 
-    private static func booleanGrid(from pixelBuffer: CVPixelBuffer, threshold: UInt8) -> (grid: [Bool], width: Int, height: Int)? {
+    /// `threshold` is normalized to `0...1` because the two Vision requests
+    /// this type calls do not agree on pixel format for their masks:
+    /// `VNGeneratePersonSegmentationRequest.pixelBuffer` is
+    /// `kCVPixelFormatType_OneComponent8` (a byte per pixel), but
+    /// `VNInstanceMaskObservation.generateScaledMaskForImage` is
+    /// `kCVPixelFormatType_OneComponent32Float` (a 0.0-1.0 confidence per
+    /// pixel) -- confirmed by running both against a real image and
+    /// printing `CVPixelBufferGetPixelFormatType`, not assumed from
+    /// documentation. An earlier version of this function only accepted
+    /// `OneComponent8` and silently returned `nil` for every instance
+    /// mask Vision ever produced, which made
+    /// `VNGenerateForegroundInstanceMaskRequest` -- the primary detector,
+    /// picked specifically because it can find a mannequin or a folded
+    /// garment that no person is standing in -- a permanent no-op that
+    /// fell through to the person-only fallback on every single call
+    /// without ever saying so.
+    private static func booleanGrid(from pixelBuffer: CVPixelBuffer, threshold: Double) -> (grid: [Bool], width: Int, height: Int)? {
         CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly) }
-        guard CVPixelBufferGetPixelFormatType(pixelBuffer) == kCVPixelFormatType_OneComponent8,
-              let base = CVPixelBufferGetBaseAddress(pixelBuffer) else {
-            return nil
-        }
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
-        guard width > 0, height > 0 else { return nil }
-        let ptr = base.assumingMemoryBound(to: UInt8.self)
+        guard width > 0, height > 0, let base = CVPixelBufferGetBaseAddress(pixelBuffer) else {
+            return nil
+        }
         var grid = [Bool](repeating: false, count: width * height)
-        for y in 0..<height {
-            let rowBase = y * bytesPerRow
-            for x in 0..<width {
-                grid[y * width + x] = ptr[rowBase + x] > threshold
+        switch CVPixelBufferGetPixelFormatType(pixelBuffer) {
+        case kCVPixelFormatType_OneComponent8:
+            let ptr = base.assumingMemoryBound(to: UInt8.self)
+            let byteThreshold = UInt8(max(0.0, min(255.0, threshold * 255.0)))
+            for y in 0..<height {
+                let rowBase = y * bytesPerRow
+                for x in 0..<width {
+                    grid[y * width + x] = ptr[rowBase + x] > byteThreshold
+                }
             }
+        case kCVPixelFormatType_OneComponent32Float:
+            let ptr = base.assumingMemoryBound(to: Float32.self)
+            let floatsPerRow = bytesPerRow / MemoryLayout<Float32>.stride
+            let floatThreshold = Float32(threshold)
+            for y in 0..<height {
+                let rowBase = y * floatsPerRow
+                for x in 0..<width {
+                    grid[y * width + x] = ptr[rowBase + x] > floatThreshold
+                }
+            }
+        default:
+            // A pixel format neither Vision request is documented (or has
+            // been observed) to produce. Refuse rather than reinterpret
+            // unknown bytes as either scale.
+            return nil
         }
         return (grid, width, height)
     }

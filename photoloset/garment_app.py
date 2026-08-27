@@ -18,13 +18,16 @@ from __future__ import annotations
 import json
 import socket
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import os
 from pathlib import Path
 from typing import Any, Dict
 
 from . import i18n
 from .garment import PARTS, Ledger
 
-HOME = Path.home() / ".photoloset"
+#: ``mcp.py`` と同じ根を見る。同じ理由で ``PHOTOLOSET_HOME`` を尊重する
+#: — 決め打ちの読み取りが実データを汚した実績がある(mcp.HOME の注を参照)。
+HOME = Path(os.environ.get("PHOTOLOSET_HOME") or (Path.home() / ".photoloset"))
 LEDGER = HOME / "ledger.json"
 _PORT = 8910
 LANG = "ja"          # serve() overrides this; see --lang
