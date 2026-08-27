@@ -450,6 +450,9 @@ ALL_CHECK_NAMES = [
     "an edge name missing from the table refuses by name, not by 0cm",
     "a refused seam allowance leaves no cut line in the DXF, only the "
     "piece named",
+    "the hem's shape is read off the whole bottom boundary, not off "
+    "its two ends, and each of level / asymmetric_left_right / "
+    "uneven is reachable from an outline that earns it",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -729,6 +732,10 @@ def the_pipeline_still_agrees() -> None:
 
     mcp_home = Path(_tf_mcp.mkdtemp(prefix="fabricscope_"))
     old_home = _os_mcp.environ.get("HOME")
+    # `projects_have_their_own_store` と同じ理由で PHOTOLOSET_HOME も外す
+    # — mcp.HOME はそちらを先に見るので、環境に立っていると HOME の
+    # 差し替えが効かない。
+    old_ph_mcp = _os_mcp.environ.pop("PHOTOLOSET_HOME", None)
     _os_mcp.environ["HOME"] = str(mcp_home)
     try:
         import photoloset.mcp as _mcp
@@ -748,6 +755,8 @@ def the_pipeline_still_agrees() -> None:
             _os_mcp.environ.pop("HOME", None)
         else:
             _os_mcp.environ["HOME"] = old_home
+        if old_ph_mcp is not None:
+            _os_mcp.environ["PHOTOLOSET_HOME"] = old_ph_mcp
     check("mcp.py's fabric reader requires bending only where it is read",
           drape_no_bend.get("verdict") != "UNKNOWN_NO_MATERIAL"
           and sew_no_bend.get("verdict") == "UNKNOWN_NO_MATERIAL"
@@ -1227,7 +1236,12 @@ def the_mcp_server_answers() -> None:
     # Give the server a HOME of its own, the same way the tool sweep already
     # hands it a temporary directory for file outputs.
     home = tempfile.mkdtemp(prefix="photoloset-checks-")
+    # **PHOTOLOSET_HOME も落とす。** 子プロセスの mcp.HOME は
+    # PHOTOLOSET_HOME を先に見るので、これを渡したままだと HOME を
+    # 差し替えても店が動かない — 「自分の HOME に書いた」を確かめる
+    # この検査自身が、外から渡された隔離に壊される。
     env = dict(os.environ, HOME=home)
+    env.pop("PHOTOLOSET_HOME", None)
     proc = subprocess.Popen([sys.executable, "-m", "photoloset.mcp"],
                             cwd=ROOT, stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -7925,6 +7939,96 @@ def the_bom_says_what_to_buy() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("the hem's shape is read off the whole bottom boundary, not off "
+          "its two ends, and each of level / asymmetric_left_right / "
+          "uneven is reachable from an outline that earns it")
+def the_hem_shape_is_measured_across_the_whole_bottom() -> None:
+    """**structure.py's docstring records a hem classification for three
+    synthetic garments. Nothing pinned it until now.**
+
+    A skeptic gutting today's structure.py checks found that ``_hem`` could
+    be replaced by a function ignoring its input entirely — ``pts``,
+    ``min_x``, ``max_x``, ``garment_h``, all of it — and still keep every
+    check green, because the only check reading ``_hem``'s output looked at
+    the front/back refusal it always carries and at nothing else. The
+    module measured ``"level"`` on two garments and
+    ``"asymmetric_left_right"`` on a third, wrote those into its own
+    docstring, and no check could tell whether it still did.
+
+    **The discriminating case is a hem that dips in the middle.** Its two
+    ends sit at exactly the same height, so ``left_right_diff_norm`` is
+    0.0 — an implementation classifying from the two ends calls it
+    ``"level"``. Its ``hem_range_norm`` is over the 0.02 threshold, so an
+    implementation reading the whole boundary calls it ``"uneven"``.
+    Pinning the tilted hem alone cannot tell those two apart; pinning the
+    dip is what makes the word "whole" in this check's name mean anything.
+
+    The sign is pinned too, so an implementation taking ``abs()`` — which
+    would still name every shape correctly — goes red here.
+    """
+    import math
+    from photoloset import structure as _st
+
+    W, H, AXIS, HW, Y0 = 800, 1200, 400.0, 90.0, 250.0
+
+    def _tube(hem_fn, n=240, m=40):
+        pts = []
+        for k in range(n + 1):
+            t = k / n
+            pts.append((AXIS + HW, Y0 + (hem_fn(AXIS + HW) - Y0) * t))
+        for k in range(1, m):
+            x = AXIS + HW - 2 * HW * k / m
+            pts.append((x, hem_fn(x)))
+        for k in range(n, -1, -1):
+            t = k / n
+            pts.append((AXIS - HW, Y0 + (hem_fn(AXIS - HW) - Y0) * t))
+        return pts
+
+    def _hem_of(hem_fn):
+        r = _st.from_outline({"outline": _tube(hem_fn), "width_px": W,
+                              "height_px": H, "source": "checks",
+                              "fixture": False})
+        if r.get("verdict") != "ANSWER":
+            return {"shape": r.get("verdict")}
+        return (r.get("landmarks") or {}).get("hem") or {}
+
+    level = _hem_of(lambda x: 1150.0)
+    dip = _hem_of(lambda x: 1150.0
+                  + 90.0 * math.cos(math.pi * (x - AXIS) / (2 * HW)))
+    right_low = _hem_of(lambda x: 1150.0
+                        + 60.0 * (x - (AXIS - HW)) / (2 * HW))
+    left_low = _hem_of(lambda x: 1150.0
+                       + 60.0 * ((AXIS + HW) - x) / (2 * HW))
+
+    name = ("the hem's shape is read off the whole bottom boundary, not "
+            "off its two ends, and each of level / asymmetric_left_right "
+            "/ uneven is reachable from an outline that earns it")
+    with guard(name):
+        check(name,
+              level.get("shape") == "level"
+              and level.get("hem_range_norm") == 0.0
+              and dip.get("shape") == "uneven"
+              and dip.get("left_right_diff_norm") == 0.0
+              and dip.get("hem_range_norm", 0.0) > 0.05
+              and right_low.get("shape") == "asymmetric_left_right"
+              and left_low.get("shape") == "asymmetric_left_right"
+              and right_low.get("left_right_diff_norm") == 0.05625
+              and left_low.get("left_right_diff_norm") == -0.05625
+              and len({level.get("shape"), dip.get("shape"),
+                       right_low.get("shape")}) == 3,
+              f'level hem -> {level.get("shape")!r} '
+              f'(range {level.get("hem_range_norm")}); a hem dipping in '
+              f'the middle -> {dip.get("shape")!r} with its two ends dead '
+              f'level (left_right_diff_norm '
+              f'{dip.get("left_right_diff_norm")}, range '
+              f'{dip.get("hem_range_norm")}) — classified from the whole '
+              f'boundary, not from the ends; tilted right -> '
+              f'{right_low.get("shape")!r} at '
+              f'{right_low.get("left_right_diff_norm")} and tilted left '
+              f'at {left_low.get("left_right_diff_norm")}, the sign kept')
+
+
+# ---------------------------------------------------------------------------
 @declares("the flat store moves into a project once and only once",
           "two projects do not see each other",
           "a project name cannot reach outside the store",
@@ -7947,6 +8051,15 @@ def projects_have_their_own_store() -> None:
 
     home = Path(_tf.mkdtemp(prefix="projchk_"))
     old = _os.environ.get("HOME")
+    # **PHOTOLOSET_HOME も外す。** この検査は HOME を差し替えて mcp を
+    # 読み直すことで隔離しているが、mcp.HOME は
+    # `os.environ.get("PHOTOLOSET_HOME") or (Path.home() / ".photoloset")`
+    # で、環境に PHOTOLOSET_HOME が立っていればそちらが勝つ。
+    # 2026-08-27、この検査を `PHOTOLOSET_HOME=$(mktemp -d)` の下で回した
+    # 作業者が、無関係な5件の偽の赤を受け取った — **隔離の検査自身が、
+    # 外から渡された隔離に壊されていた。** 差し替えのあいだだけ外し、
+    # 終わったら元に戻す。
+    old_ph = _os.environ.pop("PHOTOLOSET_HOME", None)
     _os.environ["HOME"] = str(home)
     try:
         import photoloset.mcp as _mcp
@@ -8049,6 +8162,8 @@ def projects_have_their_own_store() -> None:
     finally:
         if old is not None:
             _os.environ["HOME"] = old
+        if old_ph is not None:
+            _os.environ["PHOTOLOSET_HOME"] = old_ph
         import photoloset.mcp as _m2
         importlib.reload(_m2)
         _sh.rmtree(home, ignore_errors=True)
@@ -8900,6 +9015,7 @@ if __name__ == "__main__":
                the_flattened_tube_becomes_panels,
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
+               the_hem_shape_is_measured_across_the_whole_bottom,
                projects_have_their_own_store,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,

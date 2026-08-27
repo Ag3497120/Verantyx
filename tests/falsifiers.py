@@ -2967,3 +2967,27 @@ if __name__ == "__main__":
         elif _a.startswith("--jobs="):
             _jobs = int(_a.split("=", 1)[1])
     raise SystemExit(main(jobs=_jobs))
+
+#: --- 裾の形は境界全体から (structure.py) ------------------------------------
+#: 反証役が見つけた穴を塞ぐ三本。`_hem` は入力を一切見ない定数関数に
+#: 差し替えても全検査が緑のままだった — 出力を読む検査が、いつも同じ
+#: 前後帰属の断りしか見ていなかったため。
+WHOLE_SUITE += [
+    ("the hem is classified from its two ends instead of the whole "
+     "boundary", "photoloset/structure.py",
+     [("    if hem_range_norm < HEM_LEVEL_THRESHOLD_NORM:",
+       "    if abs(diff_norm) < HEM_LEVEL_THRESHOLD_NORM:")],
+     ["the hem's shape is read off the whole bottom boundary, not off its two ends, and each of level / asymmetric_left_right / uneven is reachable from an outline that earns it"]),
+
+    ("the left-right difference loses its sign", "photoloset/structure.py",
+     [('        "left_right_diff_norm": round(diff_norm, 5),',
+       '        "left_right_diff_norm": round(abs(diff_norm), 5),')],
+     ["the hem's shape is read off the whole bottom boundary, not off its two ends, and each of level / asymmetric_left_right / uneven is reachable from an outline that earns it"]),
+
+    ("a tilt and a wave swap names", "photoloset/structure.py",
+     [('        shape = "asymmetric_left_right" if sign_changes == 0 '
+       'else "uneven"',
+       '        shape = "uneven" if sign_changes == 0 '
+       'else "asymmetric_left_right"')],
+     ["the hem's shape is read off the whole bottom boundary, not off its two ends, and each of level / asymmetric_left_right / uneven is reachable from an outline that earns it"]),
+]
