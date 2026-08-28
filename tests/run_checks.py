@@ -396,10 +396,12 @@ ALL_CHECK_NAMES = [
     "mannequin that never stood up",
     "ease solved from width alone reproduces the base's own silhouette "
     "near zero",
-    "a silhouette narrower than the body at any height is refused by "
-    "name and shortfall",
-    "a silhouette far wider than this offset model can reach is refused "
-    "by name and excess",
+    "a silhouette narrower than the body is classified as "
+    "compression, not refused",
+    "a silhouette far wider than this offset model can reach "
+    "is classified as standoff, not refused",
+    "a silhouette within the offset model's range is classified "
+    "as fitted at every ring",
     "depth moves as a stated byproduct of width-only ease, not as a "
     "second measurement",
     "a degenerate or too-few-point outline is refused, not silently "
@@ -445,6 +447,27 @@ ALL_CHECK_NAMES = [
     "resemble.per_part and resemble.structure_from, run for real",
     "from_outline gives byte-identical output for the same outline "
     "called twice",
+    "the shoulder-not-resolved refusal assumes the top of the "
+    "outline's own bbox, and that assumed value moves with the flat "
+    "top's own width and height",
+    "the armpit-rejected-by-bump refusal proposes 'no sleeve' with a "
+    "checkable basis naming rise_px vs bump_floor_px, and the "
+    "no-candidate refusal stays a hard stop with no assumed "
+    "value",
+    "the waist-not-resolved refusal falls back to the unmargined "
+    "search window when the armpit-adjusted window is empty, and the "
+    "assumed value moves with the fallback window's narrowest sample",
+    "the waist-not-resolved refusal stays a hard stop, with no "
+    "assumed value, when even the unmargined fallback window has no "
+    "samples",
+    "the hem-not-resolved refusal runs the resolved hem's own "
+    "shape/range formula on exactly two scan samples, and the assumed "
+    "value moves with those two samples",
+    "the hem-not-resolved refusal stays a hard stop, with no assumed "
+    "value, when fewer than two scan samples exist",
+    "the front-or-back topic is proposed with both alternatives named "
+    "and no single assumed value, and the other five refused topics "
+    "stay hard stops with no assumed value at all",
     "a known edge reads its stated seam allowance, not a substituted "
     "number",
     "an edge name missing from the table refuses by name, not by 0cm",
@@ -460,6 +483,82 @@ ALL_CHECK_NAMES = [
     "shoulder alone",
     "every falsifier's anchor still exists in the file it "
     "targets, so a refactor cannot disarm a mutation silently",
+    "photo_to_pattern takes a hop's assumed value and keeps the "
+    "chain going instead of stopping, every assumption actually "
+    "used is named in decisions.collect's own output, and a hop "
+    "with no assumed value still stops the chain for real",
+    "TOO_WIDE proposes the widest intake that still keeps both leg "
+    "bases off the edge's own endpoints, backed off by this file's "
+    "own leg-truing tolerance, not an invented number",
+    "OVERLAP proposes the nearest open slot checked against every "
+    "dart already placed on the edge, not only the one it collided "
+    "with, so a slot that would clash with an EARLIER dart is never "
+    "offered even when it does not clash with the dart that "
+    "triggered the refusal",
+    "marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each propose an "
+    "alternative sourced from this file's own text or an already-"
+    "measured value, never a bare invented number, and NO_COUNT "
+    "proposes none because nothing in the draft can tell one "
+    "piece's cutting count from another's",
+    "bom.estimate's NO_THREAD_RATIO proposes the midpoint of its "
+    "own stated guidance range with both ends as alternatives, and "
+    "NO_INTERFACING proposes nothing because the tool records no "
+    "representative value to borrow",
+    "BAD_RESOLUTION clamps each axis independently up to its own "
+    "measured minimum, only the axis that actually failed",
+    "BAD_PANEL_COUNT rounds a numeric request down to the bare "
+    "floor of 1 it already compares against, and refuses to guess "
+    "at a bool or a NaN",
+    "TOO_MANY_PANELS proposes exactly the segments bound it "
+    "already compares n_panels against",
+    "y_top/y_bottom past the mannequin's own range are solved from "
+    "the outline's own half-width and the nearest real level's "
+    "front/back ratio -- never the body's ease model -- an omitted "
+    "y_top/y_bottom answers byte-identical to before the extension "
+    "existed, and a request the outline itself does not cover in "
+    "the extension zone refuses by the heights that are missing",
+    "decisions.collect sorts a chain result by the inference "
+    "contract, not by convenience: an assumed value with a real "
+    "basis and a valid kind lands in inferred/proposed, an "
+    "assumed value that skips either -- including one that "
+    "claims kind OBSERVED -- is a defect and never "
+    "inferred/proposed, a hard stop with no assumed value is "
+    "blocked, a shared node visited at two different paths is "
+    "counted at both, and a self-referencing node does not loop "
+    "forever",
+    "land_structure routes each landmark by the kind it already "
+    "carries -- INFERRED to ledger.infer(), PROPOSED's assumed AND "
+    "every alternative to ledger.propose() at the same address, a "
+    "kind-less resolved geometry value to ledger.infer() too -- a "
+    "landmark with no matching (part, aspect) or a bare unfilled "
+    "refusal is skipped and named, and ledger.observe() is never "
+    "called so a landed value can never pass as a measurement",
+    "repair_seam.detect finds the worst non-structural unsewable "
+    "seam by re-measuring with garment_pattern's own "
+    "_seam_checks, picks ease under EASE_LIMIT_CM and gather "
+    "between it and GATHER_LIMIT_CM without moving a single "
+    "point, and a repaired edge is marked handled so the next "
+    "detect() does not fire on the exact same edge forever",
+    "repair_dart's TOO_WIDE deepen strategy narrows the intake to "
+    "the exact edge_cm - LEG_TOLERANCE_CM darts.py's own TOO_WIDE "
+    "refusal already proposes, grows the depth to preserve the "
+    "wedge's triangular area exactly, and the repaired dart is "
+    "re-validated through darts.open_one directly -- not trusted "
+    "from the repair's own report",
+    "repair_width.detect delegates entirely to marker.lay and "
+    "reports None on anything but TOO_WIDE, and repair's split "
+    "bisects a too-wide piece at its own bounding-box centre "
+    "into two children whose combined area matches the "
+    "original exactly and whose bounding boxes independently "
+    "re-verify as fitting the fabric through marker.lay again",
+    "make_sewable running the catalogue's own registered repairs "
+    "to problems_remaining == [] is not the same claim as "
+    "sewable == True -- an ease repair that leaves the literal "
+    "seam-length mismatch in place (by design; ease does not "
+    "move a point) still fails measure_sewable's independent "
+    "seam_checks, and that mismatch is confirmed by "
+    "independently recomputing garment_pattern._seam_checks on "
+    "the run's own final pattern, not by trusting its report",
 ]
 
 #: Checks that once existed and no longer do. Retiring one is allowed;
@@ -1512,7 +1611,8 @@ def no_dependencies() -> None:
                            r"copy|time|datetime|hashlib|pickle|struct|unicodedata|"
                            r"textwrap|difflib|shutil|glob|enum|abc|contextlib|"
                            r"threading|queue|base64|uuid|csv|io|warnings|"
-                           r"operator|bisect|heapq|statistics|photoloset)$")
+                           r"operator|bisect|heapq|statistics|importlib|"
+                           r"photoloset)$")
     # Parsed, not grepped. A line-based scan reads the import examples inside
     # docstrings as imports, and misreads `from . import x` — which is the
     # package talking to itself — as a third party.
@@ -1534,7 +1634,7 @@ def no_dependencies() -> None:
             if not stdlib_ok.match(name):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 44 and not third_party,
+          len(scanned) == 50 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -4240,7 +4340,7 @@ def the_dress_walks_every_stage_past_composition() -> None:
           dd["geometry"] == dress_digest.GEOMETRY_DIGEST
           and not dd["errors"]
           and dress_digest.GEOMETRY_DIGEST
-          == "4c1dabf60bfafa549f9084d9828b2871"
+          == "99eaa1ff3f965812f200731be9eecb9e"
           and len(dress_digest.GEOMETRY) == 16,
           f'geometry {dd["geometry"]} over {len(dress_digest.GEOMETRY)} '
           f'sections, recomputable by anyone with '
@@ -6112,6 +6212,148 @@ def darts_make_the_panel_three_dimensional() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("TOO_WIDE proposes the widest intake that still keeps both leg "
+          "bases off the edge's own endpoints, backed off by this file's "
+          "own leg-truing tolerance, not an invented number",
+          "OVERLAP proposes the nearest open slot checked against every "
+          "dart already placed on the edge, not only the one it collided "
+          "with, so a slot that would clash with an EARLIER dart is never "
+          "offered even when it does not clash with the dart that "
+          "triggered the refusal")
+def darts_refusals_propose_a_checkable_alternative() -> None:
+    """**Two of the four refusals this file can give now carry an
+    ``assumed`` alternative** (``TOO_WIDE``, ``OVERLAP`` -- ``APEX_OUT``
+    and ``LEGS_UNEQUAL`` also gained one but are not pinned here). Neither
+    alternative is invented: both are built from a value the refusal
+    already measured, and both are checkable by independent recomputation
+    rather than by trusting the field.
+
+    **TOO_WIDE** backs the intake off by ``LEG_TOLERANCE_CM`` from the
+    edge length the refusal already reports -- pinned against the exact
+    edge length (7.0682cm, ``後身頃``/``e2``, the same fixture
+    ``darts_make_the_panel_three_dimensional`` pins) so the arithmetic is
+    checked, not just "some smaller number came back".
+
+    **OVERLAP's harder property, pinned with a 3-dart fixture built for
+    it:** darts A and B are placed first (non-overlapping), then dart C
+    collides with B alone -- A is nowhere near C's own span. The nearest
+    slot found by pushing off B's boundary alone (ignoring A) would
+    overlap A; the correct search checks every already-placed span, not
+    only the one that clashed, and must skip that invalid slot in favour
+    of the next-nearest one that clashes with nothing. Both the accepted
+    slot and its listed ``alternatives[0]`` are checked against
+    independently-recomputed spans for A and B, not against what the
+    refusal itself claims.
+    """
+    from photoloset import darts as _dt
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+
+    with guard("TOO_WIDE proposes the widest intake that still keeps "
+              "both leg bases off the edge's own endpoints, backed off "
+              "by this file's own leg-truing tolerance, not an invented "
+              "number"):
+        too_wide = _dt.apply(draft, [_dt.dart("後身頃", "e2", 0.5, 8.0,
+                                              3.0)])["refused"][0]
+        edge_cm = too_wide["edge_cm"]
+        expect_assumed = round(edge_cm - _dt.LEG_TOLERANCE_CM, 4)
+        alts = too_wide["alternatives"]
+        check("TOO_WIDE proposes the widest intake that still keeps "
+              "both leg bases off the edge's own endpoints, backed off "
+              "by this file's own leg-truing tolerance, not an invented "
+              "number",
+              too_wide["verdict"] == _dt.TOO_WIDE
+              and edge_cm == 7.0682
+              and too_wide["kind"] == "INFERRED"
+              and too_wide["assumed"] == expect_assumed
+              and len(alts) == 1
+              and alts[0]["value"] == edge_cm
+              and isinstance(alts[0]["basis"], str)
+              and len(alts[0]["basis"]) > 10,
+              f'edge_cm={edge_cm}, LEG_TOLERANCE_CM={_dt.LEG_TOLERANCE_CM}'
+              f' -> assumed {too_wide["assumed"]} == edge_cm - tolerance '
+              f'{expect_assumed}; {len(alts)} alternative(s), value='
+              f'{alts[0]["value"]} == edge_cm, basis length '
+              f'{len(alts[0]["basis"])}')
+
+    with guard("OVERLAP proposes the nearest open slot checked against "
+              "every dart already placed on the edge, not only the one "
+              "it collided with, so a slot that would clash with an "
+              "EARLIER dart is never offered even when it does not "
+              "clash with the dart that triggered the refusal"):
+        intake = 6.0
+        t_a, t_b, t_c = 0.492609, 0.582609, 0.559783
+        r = _dt.apply(draft, [
+            _dt.dart("後身頃", "e4", t_a, intake, 3.0, role="A"),
+            _dt.dart("後身頃", "e4", t_b, intake, 3.0, role="B"),
+            _dt.dart("後身頃", "e4", t_c, intake, 3.0, role="C")])
+        overlap = r["refused"][0]
+        edge_e4 = 92.0
+        halfT = (intake / 2.0) / edge_e4
+        span_a = (t_a - halfT, t_a + halfT)
+        span_b = (t_b - halfT, t_b + halfT)
+
+        # ``assumed``/``alternatives`` values come back through ``round(...,
+        # 6)`` in the real code, which can graze a span's own (unrounded)
+        # boundary by ~1e-6 -- a genuine touch, not an overlap. ``_EPS``
+        # absorbs that rounding without hiding a real overlap: it is three
+        # orders of magnitude below ``halfT`` (~0.0326), so nothing this
+        # fixture actually overlaps by can hide behind it.
+        _EPS = 1e-4
+
+        def _touches(t: float, span) -> bool:
+            lo, hi = t - halfT, t + halfT
+            s_lo, s_hi = span
+            return not (hi <= s_lo + _EPS or lo >= s_hi - _EPS)
+
+        assumed_t = overlap.get("assumed")
+        alt_t = (overlap.get("alternatives") or [{}])[0].get("value")
+        proposal_is_clean = (
+            assumed_t is not None
+            and not _touches(assumed_t, span_a)
+            and not _touches(assumed_t, span_b))
+        alt_is_clean = (alt_t is not None
+                        and not _touches(alt_t, span_a)
+                        and not _touches(alt_t, span_b))
+        # The specific failure this pins: a slot found by pushing off ONLY
+        # the span that clashed (B, on its low side, away from where C
+        # sits) lands at t_b - 2*halfT -- which DOES touch A. A search
+        # that checks candidates against only the clashing span (B), not
+        # every placed span, would find this candidate "clean" and -- at
+        # dt=0.0424, nearer to C's own t than the real winner's dt=0.0880
+        # -- would offer it as the winner instead.
+        narrow_search_candidate = t_b - 2.0 * halfT
+        would_be_offered_by_the_narrower_search = _touches(
+            narrow_search_candidate, span_a)
+        check("OVERLAP proposes the nearest open slot checked against "
+              "every dart already placed on the edge, not only the one "
+              "it collided with, so a slot that would clash with an "
+              "EARLIER dart is never offered even when it does not "
+              "clash with the dart that triggered the refusal",
+              len(r["darts"]) == 2 and len(r["refused"]) == 1
+              and overlap["verdict"] == _dt.OVERLAP
+              and overlap["clashes_with"] == ["B"]
+              and overlap["kind"] == "PROPOSED"
+              and proposal_is_clean and alt_is_clean
+              and round(assumed_t, 6) == 0.647826
+              and round(alt_t, 6) == 0.427392
+              and would_be_offered_by_the_narrower_search,
+              f'2 opened (A, B), 1 refused (C, clashes_with '
+              f'{overlap["clashes_with"]}); assumed t={assumed_t}, clean '
+              f'of both A={span_a} and B={span_b}; alternatives[0] '
+              f't={alt_t}, also clean; the narrower (clash-only) search\'s '
+              f'own candidate {narrow_search_candidate:.6f} DOES touch A '
+              f'-- {would_be_offered_by_the_narrower_search}, which is why '
+              f'the real search must not offer it')
+
+
+# ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # A tiny, INDEPENDENT DXF reader — group-code/value pairs, never the writer's
 # own code. It has to read the file the way an outsider's CAD would, so a bug
@@ -7142,10 +7384,12 @@ def a_body_becomes_a_flat_pattern_by_geometry() -> None:
 @declares(
     "ease solved from width alone reproduces the base's own silhouette "
     "near zero",
-    "a silhouette narrower than the body at any height is refused by "
-    "name and shortfall",
-    "a silhouette far wider than this offset model can reach is refused "
-    "by name and excess",
+    "a silhouette narrower than the body is classified as "
+    "compression, not refused",
+    "a silhouette far wider than this offset model can reach "
+    "is classified as standoff, not refused",
+    "a silhouette within the offset model's range is classified "
+    "as fitted at every ring",
     "depth moves as a stated byproduct of width-only ease, not as a "
     "second measurement",
     "a degenerate or too-few-point outline is refused, not silently "
@@ -7273,45 +7517,77 @@ def a_silhouette_constrains_only_the_projected_width() -> None:
               f'max={wr.get("max")}cm mean={wr.get("mean")}cm — the '
               f'base\'s own outline, fed back in, comes back as itself')
 
-    with guard("a silhouette narrower than the body at any height is "
-              "refused by name and shortfall"):
+    # **2026-08-28 に書き換えた。** 以前はここで狭い/広い輪郭を
+    # UNREACHABLE として拒否することを検査していた。それは嘘だった —
+    # コルセット(狭い)もケープ(広い)も実在し、縫える。UNREACHABLE は
+    # ANSWER と分類(compression/standoff)に置き換わったので、この検査
+    # が確かめるべきことも変わった: 止まらないこと、そして分類が
+    # 正しい高さ・正しい向き・正しい量を名指しすること。
+    with guard("a silhouette narrower than the body is classified as "
+              "compression, not refused"):
         narrow = _scaled_outline(60, 0.3)
         res_narrow = _sil.match(man, narrow, height_steps=HS)
-        v = res_narrow.get("violations", [])
-        worst = res_narrow.get("worst", {})
-        check("a silhouette narrower than the body at any height is "
-              "refused by name and shortfall",
-              res_narrow["verdict"] == _sil.UNREACHABLE
-              and len(v) == 17 and all(x["bound"] == "min" for x in v)
-              and worst.get("bound") == "min"
+        hints = res_narrow.get("structure_hints", [])
+        counts = res_narrow.get("ring_class_counts", {})
+        worst = (max(hints, key=lambda h: h.get("compress_by_cm", 0.0))
+                if hints else {})
+        check("a silhouette narrower than the body is classified as "
+              "compression, not refused",
+              res_narrow["verdict"] == "ANSWER"
+              and counts.get(_sil.COMPRESSION) == 17
+              and counts.get(_sil.FITTED) == 0
+              and counts.get(_sil.STANDOFF) == 0
+              and len(hints) == 17
+              and all(h["classification"] == _sil.COMPRESSION
+                     for h in hints)
               and worst.get("y") == _worst_y
-              and worst.get("over_by_cm", 0.0) > 5.0,
-              f'{len(v)}/{HS + 1} rings refused as narrower than the body '
-              f'(bound=min); worst at y={worst.get("y")}cm — '
-              f'independently the ring with the largest body half-width '
-              f'is also y={_worst_y}cm — short by '
-              f'{worst.get("over_by_cm")}cm (ease={worst.get("ease_cm")}'
-              f'cm)')
+              and worst.get("compress_by_cm", 0.0) > 5.0,
+              f'{counts.get(_sil.COMPRESSION)}/{HS + 1} rings classified '
+              f'compression (not refused — the chain continues); worst at '
+              f'y={worst.get("y")}cm — independently the ring with the '
+              f'largest body half-width is also y={_worst_y}cm — '
+              f'compressed by {worst.get("compress_by_cm")}cm '
+              f'(ease={worst.get("ease_cm")}cm)')
 
     with guard("a silhouette far wider than this offset model can reach "
-              "is refused by name and excess"):
+              "is classified as standoff, not refused"):
         wide = _scaled_outline(60, 6.0)
         res_wide = _sil.match(man, wide, height_steps=HS)
-        v = res_wide.get("violations", [])
-        worst = res_wide.get("worst", {})
+        hints = res_wide.get("structure_hints", [])
+        counts = res_wide.get("ring_class_counts", {})
+        worst = (max(hints, key=lambda h: h.get("standoff_by_cm", 0.0))
+                if hints else {})
         check("a silhouette far wider than this offset model can reach "
-              "is refused by name and excess",
-              res_wide["verdict"] == _sil.UNREACHABLE
-              and len(v) == 17 and all(x["bound"] == "max" for x in v)
-              and worst.get("bound") == "max"
+              "is classified as standoff, not refused",
+              res_wide["verdict"] == "ANSWER"
+              and counts.get(_sil.STANDOFF) == 17
+              and counts.get(_sil.FITTED) == 0
+              and counts.get(_sil.COMPRESSION) == 0
+              and len(hints) == 17
+              and all(h["classification"] == _sil.STANDOFF for h in hints)
               and worst.get("y") == _worst_y
-              and worst.get("over_by_cm", 0.0) > 50.0,
-              f'{len(v)}/{HS + 1} rings refused as wider than any offset '
-              f'this model reaches (bound=max); worst at y='
+              and worst.get("standoff_by_cm", 0.0) > 50.0,
+              f'{counts.get(_sil.STANDOFF)}/{HS + 1} rings classified '
+              f'standoff (not refused — the chain continues); worst at y='
               f'{worst.get("y")}cm — matches the same largest-half-width '
-              f'ring (y={_worst_y}cm) as the narrower case above — over '
-              f'by {worst.get("over_by_cm")}cm (ease={worst.get("ease_cm")}'
-              f'cm)')
+              f'ring (y={_worst_y}cm) as the narrower case above — stands '
+              f'off by {worst.get("standoff_by_cm")}cm '
+              f'(ease={worst.get("ease_cm")}cm)')
+
+    with guard("a silhouette within the offset model's range is "
+              "classified as fitted at every ring"):
+        res_fit = _sil.match(man, outline, height_steps=HS)
+        counts = res_fit.get("ring_class_counts", {})
+        check("a silhouette within the offset model's range is "
+              "classified as fitted at every ring",
+              res_fit["verdict"] == "ANSWER"
+              and counts.get(_sil.FITTED) == 17
+              and counts.get(_sil.COMPRESSION) == 0
+              and counts.get(_sil.STANDOFF) == 0
+              and res_fit.get("structure_hints") == [],
+              f'{counts} — the base garment fed back through itself has '
+              f'no ring outside the offset model\'s range, and '
+              f'structure_hints is empty rather than merely absent')
 
     with guard("depth moves as a stated byproduct of width-only ease, "
               "not as a second measurement"):
@@ -7444,6 +7720,142 @@ def a_silhouette_constrains_only_the_projected_width() -> None:
               f'x {HS + 1} rings), bottom-ring θ=0 radius read back '
               f'{got_r:.4f}cm vs independently expected '
               f'{expected_r:.4f}cm (body radius at θ=0 + {GAP}cm ease)')
+
+
+# ---------------------------------------------------------------------------
+@declares("y_top/y_bottom past the mannequin's own range are solved from "
+          "the outline's own half-width and the nearest real level's "
+          "front/back ratio -- never the body's ease model -- an omitted "
+          "y_top/y_bottom answers byte-identical to before the extension "
+          "existed, and a request the outline itself does not cover in "
+          "the extension zone refuses by the heights that are missing")
+def silhouette_extends_past_the_body_from_the_outline_alone() -> None:
+    """**The extension zone silhouette.match's module docstring adds.**
+
+    Below the hip or above the collar there is no ``mannequin.radius_at``
+    to solve an ``ease(y)`` against -- ``radius_at`` returns ``None`` there
+    by design (see ``mannequin.NO_BODY``'s own docstring). But the OUTLINE
+    still has evidence there (a skirt flare, a collar) for the one thing a
+    front photo ever measures: projected width. Past the body,
+    ``match`` stops solving ``ease`` and instead treats the outline's own
+    half-width at that height as the ellipse's x-radius ``a``, and carries
+    the front/back ratio ``b/a`` from the NEAREST REAL LEVEL (``_levels[0]``
+    below the hip) -- read off ``man["_levels"]`` fresh, not a copy of
+    ``mannequin.DEPTH_RATIO``, though in today's ``mannequin.build`` they
+    are numerically the same constant.
+
+    **The fixture makes this checkable exactly, not approximately.** The
+    flare below the hip is built EXACTLY LINEAR in y
+    (``hw(y) = hw(0) + (0 - y) * FLARE``), so no matter how finely the
+    polygon is sampled, ``outline_width_at`` — which linearly interpolates
+    between the two polygon vertices bracketing a scanned height — recovers
+    the exact analytic value at any probed height in that zone. That is
+    what lets this check compare ``radius_at_for``'s answer against a
+    number computed independently by hand, not just against
+    "did not crash".
+
+    Three behaviours, one outline:
+    1. omitting ``y_top``/``y_bottom`` never enters the extension code at
+       all (``extrapolation`` stays ``None``) -- the default call is
+       unaffected by this feature existing;
+    2. asking for 10cm below the hip, which the outline covers, answers
+       ``ANSWER`` with ``extrapolation["below_body"]`` naming the measured
+       ratio, and ``radius_at_for`` reproduces the outline's own half-width
+       at ``theta=0`` and ``half-width * ratio`` at ``theta=pi/2``, both
+       matched to the hand-computed analytic value;
+    3. asking for 20cm below the hip, which the outline does NOT cover
+       (it only extends 10cm down), refuses ``OUTLINE_GAP`` and names
+       exactly the extension heights the outline has no crossing at.
+    """
+    import math as _math
+
+    from photoloset import mannequin as _mq
+    from photoloset import silhouette as _sil
+
+    # **Hand-built ``_levels``, not ``mannequin.build``.** ``build()``
+    # multiplies every level's width by the SAME module constant
+    # (``DEPTH_RATIO = 0.70``), so a real mannequin can never distinguish
+    # "the extension zone read ``_levels[0]`` afresh" from "it copied the
+    # constant" -- both give 0.700 either way. The hip level here is
+    # deliberately given a ratio 0.6, NOT 0.7, which only ``mannequin.radius_at``
+    # (a real function, called through the module the same as any other
+    # check) needs to make sense of -- it reads nothing but ``_levels``.
+    man = {"verdict": "ANSWER",
+          "_levels": [(0.0, 15.0, 9.0), (50.0, 10.0, 6.5)]}
+    body_lo, body_hi = man["_levels"][0][0], man["_levels"][-1][0]
+    ratio0 = man["_levels"][0][2] / man["_levels"][0][1]   # b0 / a0 = 0.6
+
+    GAP = 2.0       # constant ease within the body zone -- stays in-range
+    FLARE = 0.5     # cm of extra half-width per cm below the hip
+    Y_EXT = -10.0   # how far below the hip this outline actually reaches
+
+    def hw(y: float) -> float:
+        if y >= body_lo:
+            return _mq.radius_at(man, min(y, body_hi), 0.0) + GAP
+        hw0 = _mq.radius_at(man, body_lo, 0.0) + GAP
+        return hw0 + (body_lo - y) * FLARE
+
+    def build_outline(n: int = 400):
+        pts = []
+        for k in range(n + 1):
+            y = Y_EXT + (body_hi - Y_EXT) * k / n
+            pts.append((hw(y), y))
+        for k in range(n, -1, -1):
+            y = Y_EXT + (body_hi - Y_EXT) * k / n
+            pts.append((-hw(y), y))
+        return pts
+
+    outline = build_outline()
+
+    # 1. default call: the extension code must never run.
+    res_default = _sil.match(man, outline)
+
+    # 2. 10cm below the hip -- the outline covers this.
+    res_ext = _sil.match(man, outline, y_bottom=Y_EXT)
+    below = (res_ext.get("extrapolation") or {}).get("below_body") or {}
+    rf = _sil.radius_at_for(res_ext, base_radius_at=_mq.radius_at)
+    y_probe = -5.0
+    a_expected = hw(y_probe)
+    b_expected = a_expected * ratio0
+    a_got = rf(man, y_probe, 0.0)
+    b_got = rf(man, y_probe, _math.pi / 2.0)
+    a_ok = a_got is not None and abs(a_got - a_expected) < 1e-6
+    b_ok = b_got is not None and abs(b_got - b_expected) < 1e-6
+
+    # 3. 20cm below the hip -- the outline only reaches 10cm, so the
+    # extension rings past that have no crossing at all.
+    res_gap = _sil.match(man, outline, y_bottom=Y_EXT * 2.0)
+
+    name = ("y_top/y_bottom past the mannequin's own range are solved "
+            "from the outline's own half-width and the nearest real "
+            "level's front/back ratio -- never the body's ease model -- "
+            "an omitted y_top/y_bottom answers byte-identical to before "
+            "the extension existed, and a request the outline itself "
+            "does not cover in the extension zone refuses by the "
+            "heights that are missing")
+    with guard(name):
+        check(name,
+              res_default.get("verdict") == "ANSWER"
+              and res_default.get("extrapolation") is None
+              and res_ext.get("verdict") == "ANSWER"
+              and below.get("ring_count", 0) > 0
+              and abs(below.get("front_back_ratio", -1) - ratio0) < 1e-6
+              and below.get("y_range_cm") == [round(Y_EXT, 4), 0.0]
+              and a_ok and b_ok
+              and res_gap.get("verdict") == _sil.OUTLINE_GAP
+              and all(y < Y_EXT - 1e-9
+                      for y in res_gap.get("missing_heights", []))
+              and len(res_gap.get("missing_heights", [])) > 0,
+              f'default: verdict={res_default.get("verdict")}, '
+              f'extrapolation={res_default.get("extrapolation")}; '
+              f'10cm-below: verdict={res_ext.get("verdict")}, ratio '
+              f'{below.get("front_back_ratio")} vs measured {ratio0:.6f}, '
+              f'range {below.get("y_range_cm")}; at y={y_probe}: '
+              f'theta=0 got {a_got} vs expected {a_expected:.6f}, '
+              f'theta=pi/2 got {b_got} vs expected {b_expected:.6f}; '
+              f'20cm-below (outline only reaches {Y_EXT}cm): verdict='
+              f'{res_gap.get("verdict")}, missing '
+              f'{res_gap.get("missing_heights")}')
 
 
 # ---------------------------------------------------------------------------
@@ -7693,6 +8105,122 @@ def the_flattened_tube_becomes_panels() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("BAD_RESOLUTION clamps each axis independently up to its own "
+          "measured minimum, only the axis that actually failed",
+          "BAD_PANEL_COUNT rounds a numeric request down to the bare "
+          "floor of 1 it already compares against, and refuses to guess "
+          "at a bool or a NaN",
+          "TOO_MANY_PANELS proposes exactly the segments bound it "
+          "already compares n_panels against")
+def panels_refusals_propose_a_checkable_alternative() -> None:
+    """**Three of ``panels.cut``'s four refusals now carry an ``assumed``
+    alternative**, each read from a number the refusal was already
+    comparing against, not invented for the occasion:
+
+    - ``BAD_RESOLUTION`` clamps ``segments``/``height_steps`` UP to
+      ``flatten.MIN_SEGMENTS``/``MIN_HEIGHT_STEPS`` independently — an
+      axis that already cleared its own floor is left alone, only the one
+      that failed moves.
+    - ``BAD_PANEL_COUNT`` rounds a numeric ``n_panels`` and floors it at
+      1 — but withholds ``assumed`` entirely for a ``bool`` (True/False
+      are not panel counts) or a ``NaN`` (rounds to nothing checkable).
+    - ``TOO_MANY_PANELS`` proposes ``segments`` itself, the exact bound
+      the strict ``>`` comparison already used.
+    """
+    import math as _math
+
+    from photoloset import flatten as _flat
+    from photoloset import garment_measure as _gm
+    from photoloset import mannequin as _mq
+    from photoloset import panels as _pn
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    man = _mq.build(ms)
+
+    with guard("BAD_RESOLUTION clamps each axis independently up to its "
+              "own measured minimum, only the axis that actually failed"):
+        # Two mirrored calls -- one with ONLY segments below the floor,
+        # one with ONLY height_steps below it -- so "independently,
+        # only the failing axis moves" is a property of BOTH axes, not
+        # a single-sample coincidence. Each failing axis's clamped
+        # value is checked against ``per_axis_min`` -- read straight
+        # from ``flatten``'s own module constants, an address that
+        # never passes through ``panels.cut``'s response at all -- not
+        # against a second field of that SAME response, so nothing
+        # here can pass by two fields of one answer agreeing with each
+        # other rather than with the module's real floor.
+        per_axis_min = {"segments": _flat.MIN_SEGMENTS,
+                        "height_steps": _flat.MIN_HEIGHT_STEPS}
+        seg_low = _pn.cut(man, segments=2, height_steps=1)
+        hs_low = _pn.cut(man, segments=5, height_steps=0)
+        check("BAD_RESOLUTION clamps each axis independently up to its "
+              "own measured minimum, only the axis that actually failed",
+              seg_low["verdict"] == _pn.BAD_RESOLUTION
+              and seg_low["kind"] == "INFERRED"
+              and seg_low["assumed"]["segments"] == per_axis_min[
+                  "segments"] == 3
+              and seg_low["assumed"]["height_steps"] == 1
+              and hs_low["verdict"] == _pn.BAD_RESOLUTION
+              and hs_low["kind"] == "INFERRED"
+              and hs_low["assumed"]["height_steps"] == per_axis_min[
+                  "height_steps"] == 1
+              and hs_low["assumed"]["segments"] == 5,
+              f'per-axis floor {per_axis_min}; segments=2 (failing) -> '
+              f'assumed {seg_low["assumed"]}; height_steps=0 (failing) '
+              f'-> assumed {hs_low["assumed"]} -- in each call, only '
+              f'the axis that was below its own minimum moved, the '
+              f'passing axis kept its requested value')
+
+    with guard("BAD_PANEL_COUNT rounds a numeric request down to the "
+              "bare floor of 1 it already compares against, and refuses "
+              "to guess at a bool or a NaN"):
+        frac = _pn.cut(man, n_panels=2.6, segments=8)
+        neg = _pn.cut(man, n_panels=-3, segments=8)
+        # ``True`` acts as the plain int 1 for BOTH the outer gate
+        # (``isinstance(n_panels, int)`` is True for a bool, and
+        # ``True < 1`` is False) and this refusal's own assumed-value
+        # logic -- it never even reaches BAD_PANEL_COUNT, it answers.
+        # ``False`` DOES reach the refusal (``False < 1`` is True) and is
+        # exactly the case the bool exclusion below has to withhold
+        # ``assumed`` for.
+        boolean = _pn.cut(man, n_panels=False, segments=8)
+        nan = _pn.cut(man, n_panels=float("nan"), segments=8)
+        check("BAD_PANEL_COUNT rounds a numeric request down to the "
+              "bare floor of 1 it already compares against, and refuses "
+              "to guess at a bool or a NaN",
+              frac["verdict"] == _pn.BAD_PANEL_COUNT
+              and frac["kind"] == "INFERRED" and frac["assumed"] == 3
+              and frac["alternatives"] == [{"value": 1,
+                                            "basis": frac["alternatives"][0][
+                                                "basis"]}]
+              and neg["verdict"] == _pn.BAD_PANEL_COUNT
+              and neg["assumed"] == 1
+              and boolean["verdict"] == _pn.BAD_PANEL_COUNT
+              and "assumed" not in boolean
+              and nan["verdict"] == _pn.BAD_PANEL_COUNT
+              and "assumed" not in nan,
+              f'n_panels=2.6 -> assumed {frac.get("assumed")} (round then '
+              f'floor at 1); n_panels=-3 -> assumed {neg.get("assumed")}; '
+              f'n_panels=False -> assumed key present: '
+              f'{"assumed" in boolean}; n_panels=nan -> assumed key '
+              f'present: {"assumed" in nan}')
+
+    with guard("TOO_MANY_PANELS proposes exactly the segments bound it "
+              "already compares n_panels against"):
+        res2 = _pn.cut(man, n_panels=100, segments=8)
+        check("TOO_MANY_PANELS proposes exactly the segments bound it "
+              "already compares n_panels against",
+              res2["verdict"] == _pn.TOO_MANY_PANELS
+              and res2["kind"] == "INFERRED"
+              and res2["assumed"] == res2["segments"] == 8,
+              f'n_panels=100, segments=8 -> assumed {res2.get("assumed")}'
+              f' == segments {res2["segments"]}')
+
+
+# ---------------------------------------------------------------------------
 @declares("a marker refuses what it cannot know",
           "the seam allowance is inside the fabric it needs",
           "more copies need more fabric",
@@ -7830,6 +8358,132 @@ def the_marker_says_how_much_fabric() -> None:
               f'Saying the cloth has no nap gives {napped["length_cm"]} cm, '
               f'the same, and the answer says why rather than flagging a '
               f'rotation it never performs')
+
+
+# ---------------------------------------------------------------------------
+@declares("marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each propose an "
+          "alternative sourced from this file's own text or an already-"
+          "measured value, never a bare invented number, and NO_COUNT "
+          "proposes none because nothing in the draft can tell one "
+          "piece's cutting count from another's",
+          "bom.estimate's NO_THREAD_RATIO proposes the midpoint of its "
+          "own stated guidance range with both ends as alternatives, and "
+          "NO_INTERFACING proposes nothing because the tool records no "
+          "representative value to borrow")
+def marker_and_bom_refusals_propose_a_checkable_alternative() -> None:
+    """**Five refusals across two files, checked against what each one
+    is supposed to have borrowed from.**
+
+    ``marker.lay``: ``NO_WIDTH`` proposes 150.0 (PROPOSED, one of the two
+    bolt widths its OWN ``how_to_close`` text already names), ``NO_SA``
+    proposes the mode of ``garment_marks.SEAM_ALLOWANCE`` recounted live
+    (not a copied constant -- checked here by recounting it a SECOND,
+    independent time), ``TOO_WIDE`` proposes ``widest_cm`` -- the exact
+    value the refusal already measured, so INFERRED, not PROPOSED --
+    and ``NO_COUNT`` carries no ``assumed`` at all (checkable count is a
+    production decision with no trace in the outline).
+
+    ``bom.estimate``: ``NO_THREAD_RATIO`` proposes 2.75 (PROPOSED, the
+    midpoint of ``THREAD_RATIO_GUIDANCE``'s own stated 2.5-3.0x range,
+    with both ends listed as ``alternatives``), while ``NO_INTERFACING``
+    carries no ``assumed`` -- there is no table of interfacing choices to
+    take a representative value FROM, unlike seam allowance's table.
+    """
+    from photoloset import bom as _bom
+    from photoloset import garment_marks as _marks
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import marker as _mkr
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0),
+                        ("waist", 92.0), ("hip", 104.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    CUT = {"後身頃": 1, "前身頃": 2, "袖": 2}
+
+    with guard("marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each "
+              "propose an alternative sourced from this file's own text "
+              "or an already-measured value, never a bare invented "
+              "number, and NO_COUNT proposes none because nothing in "
+              "the draft can tell one piece's cutting count from "
+              "another's"):
+        no_width = _mkr.lay(draft, 0.0, CUT, 1.5)
+        no_sa = _mkr.lay(draft, 150.0, CUT, None)
+        too_wide = _mkr.lay(draft, 25.0, CUT, 1.5)
+        no_count = _mkr.lay(draft, 150.0, {}, 1.5)
+        # Recounted a SECOND time, independently of marker.py's own
+        # import of garment_marks -- if that import silently drifted to
+        # a stale copy, this recount would not move with it and the
+        # comparison below would catch it.
+        from collections import Counter as _Counter2
+        counts2 = _Counter2(v[0] for v in _marks.SEAM_ALLOWANCE.values()
+                            if v[0] > 0.0)
+        mode_cm2, mode_n2 = max(counts2.items(),
+                                key=lambda kv: (kv[1], -kv[0]))
+        width_alts = no_width["alternatives"]
+        check("marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each "
+              "propose an alternative sourced from this file's own "
+              "text or an already-measured value, never a bare "
+              "invented number, and NO_COUNT proposes none because "
+              "nothing in the draft can tell one piece's cutting "
+              "count from another's",
+              no_width["verdict"] == _mkr.NO_WIDTH
+              and no_width["kind"] == "PROPOSED"
+              and no_width["assumed"] == 150.0
+              and len(width_alts) == 1
+              and width_alts[0]["value"] == 110.0
+              and isinstance(width_alts[0]["basis"], str)
+              and len(width_alts[0]["basis"]) > 10
+              and no_sa["verdict"] == _mkr.NO_SA
+              and no_sa["kind"] == "PROPOSED"
+              and no_sa["assumed"] == mode_cm2
+              and mode_n2 == max(counts2.values())
+              and too_wide["verdict"] == _mkr.TOO_WIDE
+              and too_wide["kind"] == "INFERRED"
+              and too_wide["assumed"] == too_wide["widest_cm"] == 34.0
+              and no_count["verdict"] == _mkr.NO_COUNT
+              and "assumed" not in no_count
+              and "no_assumption" in no_count,
+              f'NO_WIDTH -> assumed {no_width.get("assumed")}, '
+              f'{len(width_alts)} alternative(s) value='
+              f'{width_alts[0]["value"]}; NO_SA -> assumed '
+              f'{no_sa.get("assumed")}, independently recounted mode '
+              f'{mode_cm2} at frequency {mode_n2} == max frequency '
+              f'{max(counts2.values())}; TOO_WIDE -> assumed '
+              f'{too_wide.get("assumed")} == widest_cm '
+              f'{too_wide.get("widest_cm")}; NO_COUNT -> assumed key '
+              f'present: {"assumed" in no_count}')
+
+    with guard("bom.estimate's NO_THREAD_RATIO proposes the midpoint "
+              "of its own stated guidance range with both ends as "
+              "alternatives, and NO_INTERFACING proposes nothing "
+              "because the tool records no representative value to "
+              "borrow"):
+        bare = _bom.estimate(draft, 150.0, CUT, 1.5)
+        thread = bare["refused"]["thread"]
+        interfacing = bare["refused"]["interfacing"]
+        check("bom.estimate's NO_THREAD_RATIO proposes the midpoint "
+              "of its own stated guidance range with both ends as "
+              "alternatives, and NO_INTERFACING proposes nothing "
+              "because the tool records no representative value to "
+              "borrow",
+              thread["verdict"] == _bom.NO_THREAD_RATIO
+              and thread["kind"] == "PROPOSED"
+              and thread["assumed"] == 2.75
+              and {a["value"] for a in thread["alternatives"]} == {2.5,
+                                                                    3.0}
+              and thread["if_assumed_quantity_m"] == round(
+                  thread["seam_length_cm"] * 2.75 / 100.0, 3)
+              and interfacing["verdict"] == _bom.NO_INTERFACING
+              and "assumed" not in interfacing
+              and "no_assumption" in interfacing,
+              f'NO_THREAD_RATIO -> assumed {thread.get("assumed")}, '
+              f'alternatives {sorted(a["value"] for a in thread["alternatives"])}, '
+              f'if_assumed_quantity_m {thread.get("if_assumed_quantity_m")}'
+              f' == seam_length_cm*2.75/100 rounded; NO_INTERFACING -> '
+              f'assumed key present: {"assumed" in interfacing}')
 
 
 # ---------------------------------------------------------------------------
@@ -9078,6 +9732,384 @@ def from_outline_is_deterministic_for_the_same_outline() -> None:
               f'{s1 == s2}')
 
 
+@declares("the shoulder-not-resolved refusal assumes the top of the "
+          "outline's own bbox, and that assumed value moves with the "
+          "flat top's own width and height")
+def shoulder_assumed_top_of_bbox_moves_with_the_flat_top() -> None:
+    """**The inference-contract fallback for SHOULDER_NOT_RESOLVED, pinned
+    against two different flat tops.**
+
+    A plain rectangle has zero width variation everywhere, so ``_knees``
+    reports none and the shoulder search always falls through to
+    ``UNKNOWN_SHOULDER_NOT_RESOLVED`` -- the same failure mode the module
+    docstring records for the straight-shift fixture. The refusal's
+    ``assumed`` is the outline's own top row (height_fraction=0): this is
+    checked against TWO rectangles with different half-widths and top
+    y-offsets, and ``assumed.width_px`` / ``assumed.y_px`` must equal
+    ``2 * hw`` / ``y0`` exactly for each -- an assumption that is really
+    reading the outline, not a constant it prints regardless of input.
+    """
+    from photoloset import structure as _st
+
+    def _rect(hw: float, y0: float, y1: float = 1000.0, n: int = 5):
+        pts = []
+        for k in range(n):
+            t = k / (n - 1)
+            pts.append((hw, y0 + (y1 - y0) * t))
+        for k in range(n - 1, -1, -1):
+            t = k / (n - 1)
+            pts.append((-hw, y0 + (y1 - y0) * t))
+        return pts
+
+    name = ("the shoulder-not-resolved refusal assumes the top of the "
+            "outline's own bbox, and that assumed value moves with the "
+            "flat top's own width and height")
+    with guard(name):
+        r1 = _st.from_outline({"outline": _rect(80.0, 0.0), "width_px": 800,
+                                "height_px": 1200, "source": "checks",
+                                "fixture": True})
+        r2 = _st.from_outline({"outline": _rect(120.0, 50.0),
+                                "width_px": 800, "height_px": 1200,
+                                "source": "checks", "fixture": True})
+        s1 = r1["landmarks"]["shoulder"]
+        s2 = r2["landmarks"]["shoulder"]
+        check("the shoulder-not-resolved refusal assumes the top of "
+              "the outline's own bbox, and that assumed value moves "
+              "with the flat top's own width and height",
+              s1.get("verdict") == _st.SHOULDER_NOT_RESOLVED
+              and s2.get("verdict") == _st.SHOULDER_NOT_RESOLVED
+              and s1.get("kind") == "INFERRED" and s2.get("kind") == "INFERRED"
+              and s1["assumed"] == {"height_fraction": 0.0, "y_px": 0.0,
+                                    "width_px": 160.0}
+              and s2["assumed"] == {"height_fraction": 0.0, "y_px": 50.0,
+                                    "width_px": 240.0}
+              and isinstance(s1.get("basis"), str) and len(s1["basis"]) > 20
+              and isinstance(s1.get("assumed_breaks_when"), str),
+              f'rectangle half-width=80px, top y=0 -> assumed='
+              f'{s1.get("assumed")}; half-width=120px, top y=50 -> assumed='
+              f'{s2.get("assumed")} -- width_px tracks 2*half-width and '
+              f'y_px tracks the top y exactly, neither is a fixed number')
+
+
+@declares("the armpit-rejected-by-bump refusal proposes 'no sleeve' with "
+          "a checkable basis naming rise_px vs bump_floor_px, and the "
+          "no-candidate refusal stays a hard stop with no assumed "
+          "value")
+def armpit_assumed_only_when_a_candidate_was_actually_rejected() -> None:
+    """**Two different reasons hide behind the same ARMPIT_NOT_FOUND
+    verdict, and only one of them has a checkable basis for a value.**
+
+    "No concavity at all in the window" (a plain rectangle: convex,
+    zero pockets) and "a concavity exists but its bulge is below
+    ARMPIT_MIN_BUMP_FRACTION" (the module's own bump-threshold fixture,
+    reused from ``armpit_bump_threshold_boundary_is_measured`` at
+    peak=84.9px, the refused side of that exact boundary) are structurally
+    different: the first has no way to tell "no sleeve" from "sleeve fused
+    with the body" apart, so it must stay a hard stop. The second has a
+    real discriminator (rise_px vs bump_floor_px) sitting right there in
+    the refusal's own ``rejected_bump`` / ``bump_floor_px`` fields, so it
+    gets ``assumed={"sleeve_present": False}``, ``kind="PROPOSED"`` and one
+    named alternative.
+    """
+    from photoloset import structure as _st
+
+    def _rect(hw: float = 80.0, y0: float = 0.0, y1: float = 1000.0,
+              n: int = 6):
+        pts = []
+        for k in range(n):
+            t = k / (n - 1)
+            pts.append((hw, y0 + (y1 - y0) * t))
+        for k in range(n - 1, -1, -1):
+            t = k / (n - 1)
+            pts.append((-hw, y0 + (y1 - y0) * t))
+        return pts
+
+    def _bump_outline(peak: float, y0: float = 0.0, y1: float = 1000.0):
+        H = y1 - y0
+
+        def y_at(t: float) -> float:
+            return y0 + H * t
+
+        right = [(80.0, y_at(0.0)), (peak, y_at(0.10)), (60.0, y_at(0.30)),
+                  (90.0, y_at(0.60)), (100.0, y_at(1.0))]
+        left = [(-100.0, y_at(1.0)), (-90.0, y_at(0.60)),
+                 (-60.0, y_at(0.30)), (-peak, y_at(0.10)), (-80.0, y_at(0.0))]
+        return right + left
+
+    name = ("the armpit-rejected-by-bump refusal proposes 'no sleeve' "
+            "with a checkable basis naming rise_px vs bump_floor_px, and "
+            "the no-candidate refusal stays a hard stop with no "
+            "assumed value")
+    with guard(name):
+        no_candidate = _st.from_outline({"outline": _rect(), "width_px": 800,
+                                         "height_px": 1200,
+                                         "source": "checks",
+                                         "fixture": True})
+        rejected = _st.from_outline({"outline": _bump_outline(84.9),
+                                     "width_px": 800, "height_px": 1200,
+                                     "source": "checks", "fixture": True})
+        a_none = no_candidate["landmarks"]["armpit_left"]
+        a_rej = rejected["landmarks"]["armpit_right"]
+        check("the armpit-rejected-by-bump refusal proposes 'no "
+              "sleeve' with a checkable basis naming rise_px vs "
+              "bump_floor_px, and the no-candidate refusal "
+              "stays a hard stop with no assumed value",
+              a_none.get("verdict") == _st.ARMPIT_NOT_FOUND
+              and a_none.get("rejected_candidate") is None
+              and "assumed" not in a_none and "kind" not in a_none
+              and a_rej.get("verdict") == _st.ARMPIT_NOT_FOUND
+              and a_rej.get("rejected_candidate") is not None
+              and a_rej.get("assumed") == {"sleeve_present": False}
+              and a_rej.get("kind") == "PROPOSED"
+              and len(a_rej.get("alternatives") or []) == 1
+              and a_rej["alternatives"][0]["value"] == {"sleeve_present": True},
+              f'a convex rectangle (no concavity at all) -> '
+              f'{a_none.get("verdict")} with rejected_candidate='
+              f'{a_none.get("rejected_candidate")}, no "assumed" key; the '
+              f'same side, bump-threshold fixture peak=84.9px (a real '
+              f'concavity that fails the rise test) -> '
+              f'{a_rej.get("verdict")} with assumed={a_rej.get("assumed")}, '
+              f'kind={a_rej.get("kind")}')
+
+
+@declares("the waist-not-resolved refusal falls back to the unmargined "
+          "search window when the armpit-adjusted window is empty, and "
+          "the assumed value moves with the fallback window's narrowest "
+          "sample")
+def waist_assumed_widens_the_window_and_moves_with_the_narrowest_sample() -> None:
+    """**_waist called directly, because the fallback it exercises cannot
+    be reached through ``from_outline``.**
+
+    ``ARMPIT_WINDOW`` caps a found armpit's height_fraction at 0.65, so
+    the armpit-adjusted floor (``armpit_height + 0.02``) can never exceed
+    0.67 -- always short of the ceiling (``WAIST_MAX_T`` = 0.92) by at
+    least 0.25. Combined with ``PROFILE_SAMPLES`` = 41 evenly-spaced rows,
+    a real outline that passes ``_validate`` essentially always has a
+    sample somewhere in that 0.25-wide band, so ``WAIST_NOT_RESOLVED``
+    cannot be produced by any outline this module's own validation lets
+    through. It is still reachable as defence-in-depth (a hand-built
+    ``rows`` list, exactly what a degenerate outline WOULD produce), which
+    is what this test constructs directly against ``_waist``. Two ``rows``
+    variants place the single row inside the fallback window at t=0.30
+    (width 50px) and t=0.40 (width 40px) respectively -- the assumed
+    value's ``height_fraction`` / ``width_px`` must track each exactly.
+    """
+    from photoloset import structure as _st
+
+    armpit_left = {"height_fraction": 0.60}
+    armpit_right = {"verdict": _st.ARMPIT_NOT_FOUND}
+
+    def _rows(mid_t: float, mid_width: float):
+        mid_y = mid_t * 1000.0
+        return [
+            {"y": 50.0, "left": -80.0, "right": 80.0, "width": 160.0,
+             "center": 0.0},
+            {"y": mid_y, "left": -mid_width / 2, "right": mid_width / 2,
+             "width": mid_width, "center": 0.0},
+            {"y": 950.0, "left": -100.0, "right": 100.0, "width": 200.0,
+             "center": 0.0},
+        ]
+
+    name = ("the waist-not-resolved refusal falls back to the unmargined "
+            "search window when the armpit-adjusted window is empty, and "
+            "the assumed value moves with the fallback window's "
+            "narrowest sample")
+    with guard(name):
+        r1 = _st._waist(_rows(0.30, 50.0), 0.0, 1000.0, armpit_left,
+                        armpit_right)
+        r2 = _st._waist(_rows(0.40, 40.0), 0.0, 1000.0, armpit_left,
+                        armpit_right)
+        check("the waist-not-resolved refusal falls back to the "
+              "unmargined search window when the armpit-adjusted "
+              "window is empty, and the assumed value moves with the "
+              "fallback window's narrowest sample",
+              r1["verdict"] == _st.WAIST_NOT_RESOLVED
+              and r1["search_window"] == [0.62, 0.92]
+              and r1["kind"] == "INFERRED"
+              and r1["assumed"] == {"height_fraction": 0.3, "y_px": 300.0,
+                                    "width_px": 50.0, "width_norm": 0.25}
+              and r2["verdict"] == _st.WAIST_NOT_RESOLVED
+              and r2["assumed"] == {"height_fraction": 0.4, "y_px": 400.0,
+                                    "width_px": 40.0, "width_norm": 0.2}
+              and len(r1.get("alternatives") or []) == 1
+              and isinstance(r1.get("assumed_breaks_when"), str),
+              f'armpit found at t=0.60 pushes the search window to '
+              f'{r1["search_window"]}, empty of the 3 rows -> '
+              f'{r1["verdict"]}; falling back to the unmargined window, '
+              f'the narrowest row at t=0.30 (width 50px) -> assumed='
+              f'{r1["assumed"]}; the same row moved to t=0.40 (width '
+              f'40px) -> assumed={r2["assumed"]}')
+
+
+@declares("the waist-not-resolved refusal stays a hard stop, with no "
+          "assumed value, when even the unmargined fallback window has "
+          "no samples")
+def waist_stays_a_hard_stop_when_the_fallback_window_is_also_empty() -> None:
+    """**Rule 1 of the inference contract, checked on the branch that
+    actually has no basis: if the fallback window is ALSO empty, nothing
+    is invented.**
+    """
+    from photoloset import structure as _st
+
+    armpit_left = {"height_fraction": 0.60}
+    armpit_right = {"verdict": _st.ARMPIT_NOT_FOUND}
+    rows_no_middle = [
+        {"y": 50.0, "left": -80.0, "right": 80.0, "width": 160.0,
+         "center": 0.0},
+        {"y": 950.0, "left": -100.0, "right": 100.0, "width": 200.0,
+         "center": 0.0},
+    ]
+    name = ("the waist-not-resolved refusal stays a hard stop, with no "
+            "assumed value, when even the unmargined fallback window has "
+            "no samples")
+    with guard(name):
+        r = _st._waist(rows_no_middle, 0.0, 1000.0, armpit_left,
+                       armpit_right)
+        check("the waist-not-resolved refusal stays a hard stop, with "
+              "no assumed value, when even the unmargined fallback "
+              "window has no samples",
+              r["verdict"] == _st.WAIST_NOT_RESOLVED
+              and "assumed" not in r and "kind" not in r
+              and "alternatives" not in r
+              and sorted(r.keys()) == ["how_to_close", "search_window",
+                                       "verdict", "why"],
+              f'both rows sit outside the fallback window [0.12, 0.92] '
+              f'(t=0.05 and t=0.95) -> {r["verdict"]} with keys '
+              f'{sorted(r.keys())}, no "assumed" invented')
+
+
+@declares("the hem-not-resolved refusal runs the resolved hem's own "
+          "shape/range formula on exactly two scan samples, and the "
+          "assumed value moves with those two samples")
+def hem_assumed_runs_the_resolved_formula_on_two_samples() -> None:
+    """**_hem called directly with a deliberately mismatched min_x/max_x,
+    because HEM_SAMPLES landing on exactly 2 valid columns cannot be
+    reached through ``from_outline``.**
+
+    For any x strictly between a simple closed polygon's own min_x and
+    max_x, the polygon's boundary must cross that vertical line at least
+    once (a closed curve that attains both extremes has to pass back
+    through every value between them) -- so every one of ``from_outline``'s
+    own scan columns, drawn from the outline's own bbox, finds a sample.
+    Getting fewer than 3 requires a caller that scans columns OUTSIDE
+    where the shape actually has any width, which only happens if the
+    caller's ``min_x``/``max_x`` do not match the geometry -- exactly what
+    this test does directly against ``_hem``: a small quadrilateral real
+    x-span [41, 45.5] scanned from a caller-supplied frame [0, 100], whose
+    21-sample grid lands inside [41, 45.5] at exactly indices 8 and 9. The
+    quadrilateral's own y-values are then moved to show the assumed
+    hem_range/left_right_diff move with them, exactly as the resolved
+    path's own formula would compute.
+    """
+    from photoloset import structure as _st
+
+    def _quad(y_top_right: float, y_bottom_right: float):
+        return [(41.0, 100.0), (45.5, y_top_right), (45.5, y_bottom_right),
+                (41.0, 180.0)]
+
+    name = ("the hem-not-resolved refusal runs the resolved hem's own "
+            "shape/range formula on exactly two scan samples, and the "
+            "assumed value moves with those two samples")
+    with guard(name):
+        r1 = _st._hem(_quad(120.0, 260.0), 0.0, 100.0, 1000.0)
+        r2 = _st._hem(_quad(120.0, 340.0), 0.0, 100.0, 1000.0)
+        check("the hem-not-resolved refusal runs the resolved hem's "
+              "own shape/range formula on exactly two scan samples, "
+              "and the assumed value moves with those two samples",
+              r1["verdict"] == _st.HEM_NOT_RESOLVED
+              and "2回しか交わりませんでした" in r1["why"]
+              and r1["kind"] == "INFERRED"
+              and r1["assumed"] == {"shape": "asymmetric_left_right",
+                                    "hem_range_px": 80.0,
+                                    "hem_range_norm": 0.08,
+                                    "left_right_diff_norm": 0.08}
+              and r2["assumed"]["hem_range_px"] == 160.0
+              and r2["assumed"]["hem_range_norm"] == 0.16
+              and len(r1.get("alternatives") or []) == 1
+              and r1["alternatives"][0]["value"] == {"shape": "uneven"}
+              and isinstance(r1.get("assumed_breaks_when"), str),
+              f'quadrilateral with real x-span [41, 45.5] scanned from a '
+              f'caller frame [0, 100] -> exactly 2 of 21 columns hit -> '
+              f'{r1["verdict"]}, assumed={r1["assumed"]}; the same shape '
+              f'with its bottom-right corner moved from y=260 to y=340 -> '
+              f'assumed.hem_range_px={r2["assumed"]["hem_range_px"]} '
+              f'(was 80.0), moving with the vertex')
+
+
+@declares("the hem-not-resolved refusal stays a hard stop, with no "
+          "assumed value, when fewer than two scan samples exist")
+def hem_stays_a_hard_stop_below_two_samples() -> None:
+    """**The floor under the len==2 fallback: one scan sample cannot even
+    define a range, so nothing is invented.**
+    """
+    from photoloset import structure as _st
+
+    name = ("the hem-not-resolved refusal stays a hard stop, with no "
+            "assumed value, when fewer than two scan samples exist")
+    with guard(name):
+        # A 1x100 sliver: real x-span [0, 1], scanned from a caller frame
+        # [0, 1000] whose 21-column grid never lands inside [0, 1] (the
+        # nearest column sits at x=50), so zero samples are found.
+        r = _st._hem([(0.0, 0.0), (0.0, 100.0), (1.0, 100.0), (1.0, 0.0)],
+                    0.0, 1000.0, 1000.0)
+        check("the hem-not-resolved refusal stays a hard stop, with "
+              "no assumed value, when fewer than two scan samples "
+              "exist",
+              r["verdict"] == _st.HEM_NOT_RESOLVED
+              and "assumed" not in r and "kind" not in r
+              and "alternatives" not in r
+              and sorted(r.keys()) == ["how_to_close", "verdict", "why"],
+              f'a 1px-wide sliver scanned from a mismatched [0, 1000] '
+              f'frame -> 0 of 21 columns hit -> {r["verdict"]} with keys '
+              f'{sorted(r.keys())}, no "assumed" invented')
+
+
+@declares("the front-or-back topic is proposed with both alternatives "
+          "named and no single assumed value, and the other five refused "
+          "topics stay hard stops with no assumed value at all")
+def front_or_back_is_proposed_the_rest_stay_hard_stops() -> None:
+    """**Six refused topics, one deliberate split.**
+
+    front/back is a closed 2-way choice with no geometric evidence
+    favouring either side, so it is offered as ``kind="PROPOSED"`` with
+    both values named as alternatives and no single ``assumed``. The other
+    five (closure / layering / fabric / seam_position / dart_position) are
+    each open-ended -- there is no small, enumerable set of alternatives a
+    person could pick from -- so they stay exactly the 3-field refusal
+    shape (verdict/why/how_to_close) they always were.
+    """
+    from photoloset import structure as _st
+
+    name = ("the front-or-back topic is proposed with both alternatives "
+            "named and no single assumed value, and the other five "
+            "refused topics stay hard stops with no assumed value at "
+            "all")
+    with guard(name):
+        fob = _st.cannot_answer("front_or_back")
+        others = {t: _st.cannot_answer(t) for t in _st.REFUSED_TOPICS
+                 if t != "front_or_back"}
+        others_clean = all(
+            "assumed" not in v and "kind" not in v and "alternatives" not in v
+            for v in others.values())
+        check("the front-or-back topic is proposed with both "
+              "alternatives named and no single assumed value, and "
+              "the other five refused topics stay hard stops with no "
+              "assumed value at all",
+              fob["kind"] == "PROPOSED" and "assumed" not in fob
+              and len(fob["alternatives"]) == 2
+              and {a["value"] for a in fob["alternatives"]} == {"front",
+                                                                 "back"}
+              and all(isinstance(a["basis"], str) and len(a["basis"]) > 10
+                      for a in fob["alternatives"])
+              and len(others) == 5 and len(others.values()) == 5
+              and others_clean,
+              f'front_or_back -> kind={fob["kind"]}, alternatives values='
+              f'{sorted(a["value"] for a in fob["alternatives"])}, no '
+              f'"assumed" key; the other {len(others)} topics '
+              f'({sorted(others)}) carry no "assumed"/"kind"/'
+              f'"alternatives" key at all')
+
+
 # ---------------------------------------------------------------------------
 # garment_marks.py --- 合印・縫い代・布目線
 @declares("a known edge reads its stated seam allowance, not a "
@@ -9260,6 +10292,752 @@ def a_refused_seam_allowance_leaves_no_cut_line_in_the_dxf() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares("photo_to_pattern takes a hop's assumed value and keeps the "
+          "chain going instead of stopping, every assumption actually "
+          "used is named in decisions.collect's own output, and a hop "
+          "with no assumed value still stops the chain for real")
+def the_chain_takes_assumed_values_and_records_every_one_it_used() -> None:
+    """**The chain used to stop at the first hop it could not compute.**
+    Now a hop that refuses but carries ``assumed`` (``basis`` + ``kind`` in
+    INFERRED/PROPOSED, the contract ``decisions.py`` reads) is taken and the
+    chain keeps going — but only if the value it took is named in the
+    answer. Hiding how much of an ``ANSWER`` was invented is exactly the
+    failure this pins.
+
+    **One outline forces two separate assumptions along the way, at two
+    different hops.** Its top is flat past ``structure.SHOULDER_WINDOW_MAX``
+    (0.20), so ``structure._shoulder`` cannot find a knee and falls back to
+    the outline's own bbox top — the first assumption, at the
+    ``calibration`` hop. Calling ``run()`` with ``n_panels=30`` against
+    ``segments=24`` then forces ``panels.cut``'s
+    ``UNKNOWN_MORE_PANELS_THAN_COLUMNS``, whose ``assumed`` clamps
+    ``n_panels`` down to ``segments`` — the second, at the ``panels_cut``
+    hop. Both refusals carry a valid ``assumed``/``basis``/``kind``, so
+    ``run()`` reaches ``ANSWER`` with the outline's genuine shoulder and
+    panel count replaced by name.
+
+    **The check does not trust ``assumptions_used`` alone.** It also walks
+    ``decisions.collect(result)`` — the SAME function a caller would run —
+    and requires each of the two consumed refusals to land in its
+    ``inferred`` list at a path under ``$.assumptions_used``. A hop that
+    quietly used its ``assumed`` value without appending it to
+    ``assumptions_used`` reaches ``ANSWER`` too, but with only the OTHER
+    hop's entry present — this is what "must go red" pins, and it is why
+    the check counts to exactly 2, not "at least 1".
+
+    **The negative half, same outline, one call changed.** ``n_panels`` set
+    to a string forces ``panels.cut``'s ``UNKNOWN_PANEL_COUNT_NOT_POSITIVE``
+    with NO ``assumed`` (only a value that rounds to a real number earns
+    one) — a genuine hard stop. The chain still used the shoulder's
+    assumption to get as far as ``panels_cut``, so ``assumptions_used`` has
+    exactly 1 entry, not 0 and not 2, and ``failed_hop`` names ``panels_cut``
+    rather than the run silently answering with an invented panel count.
+    """
+    from photoloset import photo_to_pattern as _p2p
+    from photoloset import Measures as _Ms
+
+    W, H, AXIS, Y0, Y1 = 800, 1200, 400.0, 250.0, 1150.0
+
+    def _flat_top(halfwidth=95.0, waist=66.0, hem=160.0, plateau_end=0.25,
+                 taper_end=0.35, n=240):
+        def hw(t):
+            if t <= plateau_end:
+                return halfwidth
+            if t <= taper_end:
+                return halfwidth + (waist - halfwidth) * (
+                    t - plateau_end) / (taper_end - plateau_end)
+            return waist + (hem - waist) * (t - taper_end) / (1 - taper_end)
+        pts = []
+        for k in range(n + 1):
+            t = k / n
+            pts.append((AXIS + hw(t), Y0 + (Y1 - Y0) * t))
+        for k in range(n, -1, -1):
+            t = k / n
+            pts.append((AXIS - hw(t), Y0 + (Y1 - Y0) * t))
+        return pts
+
+    rec = {"outline": _flat_top(), "width_px": W, "height_px": H,
+          "source": "checks", "fixture": False}
+    m = _Ms()
+    for spot, v in [("chest", 88.0), ("waist", 68.0), ("hip", 94.0),
+                   ("body_length", 140.0)]:
+        m.measured(spot, v, "cm", source="checks", by="Kodai Motonishi")
+
+    # **segments=12/height_steps=8/iterations=300, not the module's own
+    # defaults (24/16/3000).** The default resolution measurably answers
+    # too (checked by hand while writing this, 2 assumptions either way,
+    # ~22s) but panels.cut relaxes every additional panel split from
+    # scratch, and n_panels=30 asks for 23 of them — this lower grid
+    # answers the same two-assumptions-and-ANSWER shape in well under a
+    # second, which is the property this check pins, not the resolution.
+    two = _p2p.run(rec, m, n_panels=30, segments=12, height_steps=8,
+                   iterations=300)
+    used = two.get("assumptions_used") or []
+    used_hops = [d.get("hop") for d in used]
+    dec = two.get("decisions") or {}
+    walked_used_paths = [e["path"] for e in dec.get("inferred", [])
+                         if e["path"].startswith("$.assumptions_used[")]
+
+    one_string_panels = _p2p.run(rec, m, n_panels="not-a-number",
+                                 segments=12, height_steps=8, iterations=300)
+
+    name = ("photo_to_pattern takes a hop's assumed value and keeps the "
+            "chain going instead of stopping, every assumption actually "
+            "used is named in decisions.collect's own output, and a hop "
+            "with no assumed value still stops the chain for real")
+    with guard(name):
+        check(name,
+              two.get("verdict") == "ANSWER"
+              and two.get("failed_hop") is None
+              and len(used) == 2
+              and used_hops == ["calibration", "panels_cut"]
+              and all(d.get("kind") == "INFERRED" for d in used)
+              and dec.get("counts", {}).get("defects") == 0
+              and len(walked_used_paths) == 2
+              and str(one_string_panels.get("verdict", "")).startswith(
+                  "UNKNOWN_")
+              and one_string_panels.get("failed_hop") == "panels_cut"
+              and len(one_string_panels.get("assumptions_used") or []) == 1,
+              f'two-assumption run: verdict {two.get("verdict")!r}, '
+              f'failed_hop {two.get("failed_hop")!r}, {len(used)} '
+              f'assumptions used at hops {used_hops}, '
+              f'{len(walked_used_paths)} of them walked into '
+              f'decisions.collect()["inferred"], defects '
+              f'{dec.get("counts", {}).get("defects")}; '
+              f'no-assumed run: verdict '
+              f'{one_string_panels.get("verdict")!r}, failed_hop '
+              f'{one_string_panels.get("failed_hop")!r}, '
+              f'{len(one_string_panels.get("assumptions_used") or [])} '
+              f'assumptions carried over from before the real stop')
+
+
+# ---------------------------------------------------------------------------
+# decisions.py --- 判断リストの分類(assumed/basis/kind の三段振り分け)
+@declares("decisions.collect sorts a chain result by the inference "
+          "contract, not by convenience: an assumed value with a real "
+          "basis and a valid kind lands in inferred/proposed, an "
+          "assumed value that skips either -- including one that "
+          "claims kind OBSERVED -- is a defect and never "
+          "inferred/proposed, a hard stop with no assumed value is "
+          "blocked, a shared node visited at two different paths is "
+          "counted at both, and a self-"
+          "referencing node does not loop forever")
+def decisions_collect_sorts_by_contract_not_by_shape() -> None:
+    """**The rule this pins is rule 1 of ``decisions.py``'s own docstring:**
+    ``assumed`` present + ``basis`` truthy + ``kind`` in
+    (INFERRED, PROPOSED) is the ONLY way into ``inferred``/``proposed``.
+    Everything else that carries ``assumed`` — no ``basis``, or a ``kind``
+    that is anything else, INCLUDING the specific misuse of claiming
+    ``kind="OBSERVED"`` on a value that was just invented — is a
+    ``defect``, never quietly re-labelled ``inferred``.
+
+    One synthetic result exercises all five buckets plus two structural
+    guarantees in a single walk, built so hand-counting the buckets is
+    checkable by reading the fixture:
+
+    - ``root.a`` -- a plain hard stop (``verdict`` starts ``UNKNOWN_``,
+      no ``assumed``) -> ``blocked``.
+    - ``root.b`` -- ``assumed`` + real ``basis`` + ``kind="INFERRED"`` ->
+      ``inferred``.
+    - ``root.c`` -- ``assumed`` + real ``basis`` + ``kind="PROPOSED"`` ->
+      ``proposed``.
+    - ``root.d`` -- ``assumed`` with NO ``basis`` -> ``defect`` (missing
+      basis named in the reason).
+    - ``root.e`` -- ``assumed`` + a ``basis`` but ``kind="OBSERVED"`` ->
+      ``defect`` (the specific rule-1 misuse), ``module`` read from its
+      own ``source`` field.
+    - ``root.f`` / ``root.g`` -- no ``assumed``, ``kind``/``state``
+      ``"OBSERVED"`` -> ``measured``.
+    - ``twice.first`` and ``twice.second`` are the SAME dict object
+      referenced from two different paths -> both paths land in
+      ``blocked``, not deduplicated to one.
+    - ``cyclic`` contains itself as ``cyclic["loop"]`` -> classified
+      exactly once (``blocked``) and the walk terminates instead of
+      recursing forever.
+
+    Also checked: ``counts`` matches the five list lengths exactly, the
+    returned entries are independent deepcopies (mutating one leaves the
+    original fixture untouched), and defects' ``reason`` text actually
+    names which contract field is missing rather than a generic string.
+    """
+    from photoloset import decisions as _dec
+
+    shared = {"verdict": "UNKNOWN_SHARED", "why": "共有された拒否",
+             "how_to_close": "どちらか一方から直す"}
+    cyc: dict = {"verdict": "UNKNOWN_CYCLIC", "why": "自己参照",
+                "how_to_close": "n/a"}
+    cyc["loop"] = cyc
+    root = {
+        "a": {"verdict": "UNKNOWN_A", "why": "hard stop",
+             "how_to_close": "n/a"},
+        "b": {"assumed": {"x": 1.0}, "basis": "measured elsewhere",
+             "kind": "INFERRED", "verdict": "UNKNOWN_B",
+             "why": "n/a", "how_to_close": "n/a"},
+        "c": {"assumed": {"y": 2.0}, "basis": "chosen alternative",
+             "kind": "PROPOSED"},
+        "d": {"assumed": {"z": 3.0}, "kind": "INFERRED"},
+        "e": {"assumed": {"w": 4.0}, "basis": "a real reason",
+             "kind": "OBSERVED", "source": "garment_marks.offset_outline"},
+        "f": {"kind": "OBSERVED", "value": 42},
+        "g": {"state": "OBSERVED", "value": 7},
+    }
+    result = {"verdict": "ANSWER", "root": root,
+             "twice": {"first": shared, "second": shared},
+             "cyclic": cyc}
+    import copy as _copy
+    fixture_before = _copy.deepcopy(result)
+
+    dec = _dec.collect(result)
+
+    def paths(bucket):
+        return sorted(e["path"] for e in dec[bucket])
+
+    defect_d = next(d for d in dec["defects"] if d["path"] == "$.root.d")
+    defect_e = next(d for d in dec["defects"] if d["path"] == "$.root.e")
+
+    # deepcopy independence: mutate a returned entry, the fixture must not
+    # move.
+    dec["inferred"][0]["entry"]["assumed"]["x"] = 999.0
+    unmoved = result["root"]["b"]["assumed"]["x"] == 1.0 == \
+        fixture_before["root"]["b"]["assumed"]["x"]
+
+    name = ("decisions.collect sorts a chain result by the inference "
+            "contract, not by convenience: an assumed value with a real "
+            "basis and a valid kind lands in inferred/proposed, an "
+            "assumed value that skips either -- including one that "
+            "claims kind OBSERVED -- is a defect and never "
+            "inferred/proposed, a hard stop with no assumed value is "
+            "blocked, a shared node visited at two different paths is "
+            "counted at both, and a self-referencing node does not loop "
+            "forever")
+    with guard(name):
+        # Every bucket's comparison written directly into this boolean
+        # (not via a pre-computed `_ok` local) -- each is its own named
+        # subject compared against its own literal expected path list,
+        # so the property actually measured here is visible in the
+        # condition itself, not delegated to a helper this line only
+        # trusts by name.
+        check(name,
+              dec["verdict"] == "ANSWER"
+              and paths("blocked") == sorted(
+                  ["$.root.a", "$.twice.first", "$.twice.second",
+                   "$.cyclic"])
+              and paths("inferred") == ["$.root.b"]
+              and paths("proposed") == ["$.root.c"]
+              and paths("defects") == ["$.root.d", "$.root.e"]
+              and paths("measured") == ["$.root.f", "$.root.g"]
+              and "basis" in defect_d["reason"]
+              and "kind" in defect_e["reason"]
+              and defect_e["module"] == "garment_marks.offset_outline"
+              and defect_d["module"] is None
+              and dec["counts"] == {"blocked": 4, "defects": 2,
+                                    "proposed": 1, "inferred": 1,
+                                    "measured": 2}
+              and sum(dec["counts"].values()) == 10
+              and unmoved,
+              f'blocked {paths("blocked")}, inferred {paths("inferred")}, '
+              f'proposed {paths("proposed")}, defects {paths("defects")}, '
+              f'measured {paths("measured")}; counts {dec["counts"]}; '
+              f'defect_d.reason names "basis" missing: '
+              f'{"basis" in defect_d["reason"]}; defect_e.module='
+              f'{defect_e["module"]!r} (kind=OBSERVED misuse still a '
+              f'defect, not inferred); mutating a returned entry left '
+              f'the original fixture at x={result["root"]["b"]["assumed"]["x"]}')
+
+
+# ---------------------------------------------------------------------------
+# ledger_bridge.py --- 幾何(structure.py)から台帳(garment.Ledger)へ
+@declares("land_structure routes each landmark by the kind it already "
+          "carries -- INFERRED to ledger.infer(), PROPOSED's assumed AND "
+          "every alternative to ledger.propose() at the same address, a "
+          "kind-less resolved geometry value to ledger.infer() too -- a "
+          "landmark with no matching (part, aspect) or a bare unfilled "
+          "refusal is skipped and named, and ledger.observe() is never "
+          "called so a landed value can never pass as a measurement")
+def ledger_bridge_lands_landmarks_by_their_own_kind() -> None:
+    """**One geometry answer, one ledger, every branch of the routing
+    table exercised at once.**
+
+    A synthetic ``structure.from_outline``-shaped ``landmarks`` dict
+    carries one of each case ``_land_landmarks`` distinguishes:
+    ``shoulder`` (``kind="INFERRED"``), ``waist`` (``kind="PROPOSED"``
+    with one ``assumed`` and one ``alternatives`` entry -- both must
+    land, at the SAME address), ``hem`` (no ``kind``, no ``verdict`` --
+    resolved geometry, still ``infer()``), ``armpit_left`` (no ``kind``,
+    a bare ``verdict`` -- an unfilled refusal, skipped by name), and
+    ``front_or_back`` (a real landmark name this bridge's own address
+    table does not cover -- skipped by name, for a different reason).
+
+    Checked against ``ledger.state()`` itself, not just the bridge's own
+    return value -- so a bridge that landed at the wrong address would be
+    caught even if its own report claimed the right one. ``ledger.
+    observe`` is wrapped with a call counter for the whole run: this
+    bridge's own docstring states it is never called, and this is what
+    makes that a measurement rather than a claim.
+    """
+    from photoloset import garment as _g
+    from photoloset import ledger_bridge as _lb
+
+    ledger = _g.Ledger()
+    observe_calls = []
+    _orig_observe = ledger.observe
+    ledger.observe = lambda *a, **kw: (observe_calls.append((a, kw))
+                                       or _orig_observe(*a, **kw))
+
+    structure_out = {
+        "verdict": "ANSWER",
+        "landmarks": {
+            "shoulder": {"kind": "INFERRED", "assumed": {"y_px": 12.3},
+                        "basis": "top of bbox"},
+            "waist": {"kind": "PROPOSED", "assumed": {"t": 0.5},
+                     "basis": "widened window",
+                     "alternatives": [{"value": {"t": 0.6},
+                                      "basis": "narrower window"}]},
+            "hem": {"shape": "level", "from": "scan"},
+            "armpit_left": {"verdict": "UNKNOWN_ARMPIT_NOT_FOUND",
+                           "why": "no candidate"},
+            "front_or_back": {"kind": "PROPOSED",
+                              "alternatives": [{"value": "front",
+                                               "basis": "x"},
+                                              {"value": "back",
+                                               "basis": "y"}]},
+        },
+    }
+
+    r = _lb.land_structure(ledger, structure_out)
+    sil = ledger.state("body", "silhouette")
+    length = ledger.state("body", "length")
+    skipped_by_name = {s["landmark"]: s["why"] for s in r["skipped"]}
+
+    name = ("land_structure routes each landmark by the kind it already "
+            "carries -- INFERRED to ledger.infer(), PROPOSED's assumed "
+            "AND every alternative to ledger.propose() at the same "
+            "address, a kind-less resolved geometry value to "
+            "ledger.infer() too -- a landmark with no matching (part, "
+            "aspect) or a bare unfilled refusal is skipped and named, "
+            "and ledger.observe() is never called so a landed value "
+            "can never pass as a measurement")
+    with guard(name):
+        check(name,
+              r["verdict"] == "ANSWER"
+              and len(r["landed"]) == 4 and len(r["skipped"]) == 2
+              and sil["state"] == "INFERRED"
+              and sil["value"] == '{"y_px": 12.3}'
+              and len(sil["proposals"]) == 2
+              and {p["value"] for p in sil["proposals"]}
+              == {'{"t": 0.5}', '{"t": 0.6}'}
+              and length["state"] == "INFERRED"
+              and length["value"] == '{"from": "scan", "shape": "level"}'
+              and "armpit_left" in skipped_by_name
+              and "UNKNOWN_ARMPIT_NOT_FOUND" in skipped_by_name[
+                  "armpit_left"]
+              and "front_or_back" in skipped_by_name
+              and "PARTS" in skipped_by_name["front_or_back"]
+              and len(observe_calls) == 0,
+              f'landed {len(r["landed"])} (shoulder INFERRED, waist '
+              f'assumed+1 alternative both PROPOSED, hem kind-less '
+              f'INFERRED), skipped {len(r["skipped"])} '
+              f'({sorted(skipped_by_name)}); body/silhouette state='
+              f'{sil["state"]!r} value={sil["value"]!r} with '
+              f'{len(sil["proposals"])} proposals; body/length state='
+              f'{length["state"]!r}; ledger.observe() called '
+              f'{len(observe_calls)} times')
+
+
+# ---------------------------------------------------------------------------
+# repair_seam.py --- 縫えない辺を一本、直す
+@declares("repair_seam.detect finds the worst non-structural unsewable "
+          "seam by re-measuring with garment_pattern's own "
+          "_seam_checks, picks ease under EASE_LIMIT_CM and gather "
+          "between it and GATHER_LIMIT_CM without moving a single "
+          "point, and a repaired edge is marked handled so the next "
+          "detect() does not fire on the exact same edge forever")
+def repair_seam_picks_by_surplus_and_never_refires_on_the_same_edge(
+) -> None:
+    """**A real drafted coat, one edge stretched by a controlled amount,
+    measured before and after with the SAME function twice.**
+
+    ``前身頃``'s ``肩線`` is set to a length ``surplus`` cm longer than
+    ``後身頃``'s (its points nudged so the comparison is no longer
+    ``structural`` -- a real geometric mismatch, not the front/back-
+    share-the-same-points case ``_seam_checks`` itself would otherwise
+    zero out). Two surpluses exercise the two point-preserving repairs:
+
+    - 1.5cm (<= ``EASE_LIMIT_CM``, 2.0) -> ``method == "ease"``, and
+      ``_seam_checks`` run again on the repaired pattern reports the
+      SAME 1.5cm ``difference`` -- ease does not erase a length
+      difference, it only says the tolerance for absorbing it by hand
+      is not exceeded. That is what ``ease_ok`` in ``after`` states
+      instead.
+    - 4.0cm (between ``EASE_LIMIT_CM`` and ``GATHER_LIMIT_CM``, 6.0) ->
+      ``method == "gather"``, same non-destructive shape.
+
+    **The property the module's own docstring names as the bug this
+    exists to prevent:** run ``detect()`` a second time on the repaired
+    (ease) pattern. The edge is still geometrically 1.5cm off -- nothing
+    about the points changed -- but the repair recorded it in
+    ``construction_notes``, and ``detect()`` excludes any label already
+    there. A second ``detect()`` that still returned this same edge
+    would refire the identical repair forever.
+    """
+    import copy as _copy
+
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import repair_seam as _rs
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    front_shoulder_pts = [tuple(p) for p in
+                          next(p for p in draft["pieces"]
+                               if p["name"] == "前身頃")["edges"][
+                                   "肩線"]["points"]]
+    back_len = next(p for p in draft["pieces"]
+                    if p["name"] == "後身頃")["edges"]["肩線"]["length"]
+
+    def stretched(surplus: float) -> Dict[str, Any]:
+        pieces = _rs._clone_pieces(draft["pieces"])
+        nudged = [(front_shoulder_pts[0][0] + 0.5, front_shoulder_pts[0][1]),
+                 front_shoulder_pts[1]]
+        _rs._set_edge(pieces, "前身頃", "肩線", nudged, back_len + surplus)
+        return dict(draft, pieces=pieces)
+
+    with guard("repair_seam.detect finds the worst non-structural "
+              "unsewable seam by re-measuring with garment_pattern's "
+              "own _seam_checks, picks ease under EASE_LIMIT_CM and "
+              "gather between it and GATHER_LIMIT_CM without moving a "
+              "single point, and a repaired edge is marked handled so "
+              "the next detect() does not fire on the exact same edge "
+              "forever"):
+        p_ease = stretched(1.5)
+        d_ease = _rs.detect(p_ease)
+        r_ease = _rs.repair(p_ease)
+        recheck = _rs._seam_checks(r_ease["pattern"]["pieces"])
+        after_entry = next(c for c in recheck if c["label"] == "肩線")
+        second_detect = _rs.detect(r_ease["pattern"])
+
+        p_gather = stretched(4.0)
+        r_gather = _rs.repair(p_gather)
+
+        check("repair_seam.detect finds the worst non-structural "
+              "unsewable seam by re-measuring with garment_pattern's "
+              "own _seam_checks, picks ease under EASE_LIMIT_CM and "
+              "gather between it and GATHER_LIMIT_CM without moving a "
+              "single point, and a repaired edge is marked handled so "
+              "the next detect() does not fire on the exact same edge "
+              "forever",
+              d_ease is not None and d_ease["where"]["label"] == "肩線"
+              and abs(d_ease["measured"]["difference"] - 1.5) < 1e-9
+              and r_ease["verdict"] == "ANSWER"
+              and r_ease["cost"]["method"] == "ease"
+              and abs(r_ease["cost"]["eased_cm"] - 1.5) < 1e-9
+              and abs(after_entry["difference"] - 1.5) < 1e-9
+              and after_entry["sewable"] is False
+              and r_ease["after"]["ease_ok"] is True
+              and second_detect is None
+              and r_gather["verdict"] == "ANSWER"
+              and r_gather["cost"]["method"] == "gather",
+              f'1.5cm surplus: detect->{d_ease["where"]["label"]} diff='
+              f'{d_ease["measured"]["difference"]}; repair method='
+              f'{r_ease["cost"]["method"]}, eased_cm='
+              f'{r_ease["cost"]["eased_cm"]}; re-measured difference '
+              f'after repair (points untouched)='
+              f'{after_entry["difference"]}, still sewable='
+              f'{after_entry["sewable"]}, ease_ok='
+              f'{r_ease["after"]["ease_ok"]}; detect() run again on the '
+              f'repaired pattern -> {second_detect} (must be None, or '
+              f'the same edge fires forever); 4.0cm surplus -> method='
+              f'{r_gather["cost"]["method"]}')
+
+
+# ---------------------------------------------------------------------------
+# repair_dart.py --- 辺に合わないダーツを darts.py を通して直す
+@declares("repair_dart's TOO_WIDE deepen strategy narrows the intake to "
+          "the exact edge_cm - LEG_TOLERANCE_CM darts.py's own TOO_WIDE "
+          "refusal already proposes, grows the depth to preserve the "
+          "wedge's triangular area exactly, and the repaired dart is "
+          "re-validated through darts.open_one directly -- not trusted "
+          "from the repair's own report")
+def repair_dart_deepens_by_preserving_area_and_reusing_darts_own_tolerance(
+) -> None:
+    """**One real edge, e2 on the drafted coat's 後身頃 (7.0682cm),
+    asked for an 8.0cm intake at 5.0cm depth -- too wide for the edge.**
+
+    ``repair_dart.detect`` must report exactly what ``darts.open_one``
+    itself measured (not a re-derived number): ``intake_cm=8.0``,
+    ``edge_cm=7.0682``. ``repair_dart.repair``'s ``deepen`` strategy
+    then narrows the intake to ``edge_cm - LEG_TOLERANCE_CM`` -- the
+    SAME backoff ``darts.py``'s own ``TOO_WIDE`` refusal already
+    proposes as its ``assumed`` value (pinned by the sibling check
+    ``darts_refusals_propose_a_checkable_alternative``) -- and grows the
+    depth so ``0.5 * width * depth`` (the wedge's own area formula)
+    matches the ORIGINAL request's area exactly, not approximately.
+
+    **The module's own design promise, checked directly rather than
+    trusted:** the repaired dart is re-run through ``darts.open_one`` on
+    the real outline, independently of what ``repair_dart``'s own
+    ``after`` field claims -- only a candidate ``open_one`` itself
+    accepts is allowed to count as a repair.
+    """
+    from photoloset import darts as _dt
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import repair_dart as _rd
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    outline = [tuple(p) for p in
+              next(p for p in draft["pieces"]
+                   if p["name"] == "後身頃")["outline"]]
+    target = _dt.dart("後身頃", "e2", 0.5, 8.0, 5.0)
+    pattern = {"outline": outline, "piece": "後身頃", "darts": [target],
+              "other_darts": []}
+
+    d = _rd.detect(pattern)
+    r = _rd.repair(pattern)
+    repaired_dart = r["pattern"]["darts"][0]
+    revalidated = _dt.open_one(outline, repaired_dart)
+    expected_intake = round(d["measured"]["edge_cm"] - _dt.LEG_TOLERANCE_CM,
+                            4)
+    expected_area = round(0.5 * 8.0 * 5.0, 6)
+
+    name = ("repair_dart's TOO_WIDE deepen strategy narrows the intake "
+            "to the exact edge_cm - LEG_TOLERANCE_CM darts.py's own "
+            "TOO_WIDE refusal already proposes, grows the depth to "
+            "preserve the wedge's triangular area exactly, and the "
+            "repaired dart is re-validated through darts.open_one "
+            "directly -- not trusted from the repair's own report")
+    with guard(name):
+        check(name,
+              d is not None and d["problem"] == _rd.TOO_WIDE
+              and d["measured"]["intake_cm"] == 8.0
+              and d["measured"]["edge_cm"] == 7.0682
+              and r["verdict"] == "ANSWER" and r["strategy"] == "deepen"
+              and round(repaired_dart["intake_cm"], 4) == expected_intake
+              and r["cost"]["area_preserved_cm2"] == expected_area
+              and abs(0.5 * repaired_dart["intake_cm"]
+                      * repaired_dart["length_cm"] - expected_area) < 1e-6
+              and revalidated["verdict"] == "ANSWER",
+              f'detect -> {d["problem"]}, intake_cm='
+              f'{d["measured"]["intake_cm"]}, edge_cm='
+              f'{d["measured"]["edge_cm"]}; repair strategy='
+              f'{r["strategy"]}, narrowed intake='
+              f'{repaired_dart["intake_cm"]} (expected edge_cm - '
+              f'LEG_TOLERANCE_CM = {expected_intake}), depth grown to '
+              f'{repaired_dart["length_cm"]:.4f}, area '
+              f'{0.5 * repaired_dart["intake_cm"] * repaired_dart["length_cm"]:.4f}'
+              f' vs original {expected_area}; independently re-run '
+              f'through darts.open_one -> {revalidated["verdict"]}')
+
+
+# ---------------------------------------------------------------------------
+# repair_width.py --- 生地幅より広い裁片を割る
+@declares("repair_width.detect delegates entirely to marker.lay and "
+          "reports None on anything but TOO_WIDE, and repair's split "
+          "bisects a too-wide piece at its own bounding-box centre "
+          "into two children whose combined area matches the "
+          "original exactly and whose bounding boxes independently "
+          "re-verify as fitting the fabric through marker.lay again")
+def repair_width_splits_at_centre_and_preserves_area() -> None:
+    """**A synthetic 120x60cm piece ('後') on 90cm fabric, too wide by
+    30cm; a 80x60cm piece ('前') that already fits.**
+
+    ``detect`` must be a pure pass-through of ``marker.lay``'s own
+    ``TOO_WIDE`` report -- checked by comparing its ``widest_cm``/
+    ``fabric_width_cm`` against a SEPARATE, direct call to
+    ``marker.lay`` on the same pattern, not by trusting
+    ``repair_width``'s own numbers.
+
+    ``repair``'s split strategy cuts at the bounding box's own centre
+    x=60 (independently recomputed here from the raw outline, not read
+    from the report), so both children come out exactly 60cm wide --
+    under the 90cm fabric. Their combined area
+    (``shoelace`` recomputed independently on each child's returned
+    outline) must equal the original piece's 7200cm² area exactly --
+    a straight vertical cut removes no material. The untouched piece
+    ('前') must still be present, unmodified. Finally, ``marker.lay`` is
+    run a THIRD time, directly on the repaired pattern, to confirm
+    ``ANSWER`` -- the module's own claim of success is never the only
+    evidence.
+    """
+    from photoloset import marker as _mkr
+    from photoloset import repair_width as _rw
+
+    def _shoelace(outline):
+        pts = [tuple(p) for p in outline]
+        s = 0.0
+        for i in range(len(pts)):
+            x1, y1 = pts[i]
+            x2, y2 = pts[(i + 1) % len(pts)]
+            s += x1 * y2 - x2 * y1
+        return abs(s) / 2.0
+
+    pattern = {"verdict": "ANSWER", "pieces": [
+        {"name": "後", "outline": [[0, 0], [120, 0], [120, 60], [0, 60]],
+         "area_cm2": 7200.0, "edges": {}},
+        {"name": "前", "outline": [[0, 0], [80, 0], [80, 60], [0, 60]],
+         "area_cm2": 4800.0, "edges": {}},
+    ]}
+    CUT = {"後": 1, "前": 1}
+    FABRIC = 90.0
+
+    direct_marker = _mkr.lay(pattern, FABRIC, CUT, 0.0)
+    d = _rw.detect(pattern, FABRIC, CUT, 0.0)
+    r = _rw.repair(pattern, FABRIC, CUT, 0.0)
+    children = [p for p in r["pattern"]["pieces"]
+               if p["name"].startswith("後")]
+    untouched = next(p for p in r["pattern"]["pieces"] if p["name"] == "前")
+    combined_area = sum(_shoelace(c["outline"]) for c in children)
+    widths = [max(x for x, _y in c["outline"])
+             - min(x for x, _y in c["outline"]) for c in children]
+    # The repaired pattern has NEW piece names ("後 (右)"/"後 (左)"), so
+    # the original CUT dict (keyed by the pre-split names) does not cover
+    # them -- rebuild it from the repaired pattern's own piece names,
+    # one copy each, same as the original counts.
+    repaired_cut = {p["name"]: 1 for p in r["pattern"]["pieces"]}
+    reverified = _mkr.lay(r["pattern"], FABRIC, repaired_cut, 0.0)
+
+    name = ("repair_width.detect delegates entirely to marker.lay and "
+            "reports None on anything but TOO_WIDE, and repair's split "
+            "bisects a too-wide piece at its own bounding-box centre "
+            "into two children whose combined area matches the "
+            "original exactly and whose bounding boxes independently "
+            "re-verify as fitting the fabric through marker.lay again")
+    with guard(name):
+        check(name,
+              direct_marker["verdict"] == _mkr.TOO_WIDE
+              and d is not None and d["problem"] == direct_marker["verdict"]
+              and d["measured"]["widest_cm"] == direct_marker["widest_cm"]
+              and d["measured"]["fabric_width_cm"]
+              == direct_marker["fabric_width_cm"]
+              and r["verdict"] == "ANSWER"
+              and len(children) == 2
+              and len(widths) == 2
+              and all(abs(w - 60.0) < 1e-6 for w in widths)
+              and all(w <= FABRIC for w in widths)
+              and abs(combined_area - 7200.0) < 1e-6
+              and untouched["outline"] == pattern["pieces"][1]["outline"]
+              and reverified["verdict"] == "ANSWER",
+              f'direct marker.lay -> {direct_marker["verdict"]}, widest '
+              f'{direct_marker.get("widest_cm")}; detect -> '
+              f'{d["problem"] if d else None}, matches direct call: '
+              f'{d and d["measured"]["widest_cm"] == direct_marker.get("widest_cm")}; '
+              f'repair -> {len(children)} children, widths {widths} '
+              f'(fabric {FABRIC}), combined area {combined_area} vs '
+              f'original 7200.0; untouched piece unchanged: '
+              f'{untouched["outline"] == pattern["pieces"][1]["outline"]}; '
+              f'marker.lay re-run on the repaired pattern -> '
+              f'{reverified["verdict"]}')
+
+
+# ---------------------------------------------------------------------------
+# repairs.py --- カタログ本体。全登録修復の diagnose/make_sewable
+@declares("make_sewable running the catalogue's own registered repairs "
+          "to problems_remaining == [] is not the same claim as "
+          "sewable == True -- an ease repair that leaves the literal "
+          "seam-length mismatch in place (by design; ease does not "
+          "move a point) still fails measure_sewable's independent "
+          "seam_checks, and that mismatch is confirmed by "
+          "independently recomputing garment_pattern._seam_checks on "
+          "the run's own final pattern, not by trusting its report")
+def repairs_catalogue_finishing_is_not_the_same_claim_as_sewable() -> None:
+    """**The load-bearing distinction ``repairs.py`` exists to keep
+    separate, reproduced on the exact fixture that surfaced it.**
+
+    The same 1.5cm shoulder-edge stretch ``repair_seam_picks_by_surplus_
+    and_never_refires_on_the_same_edge`` uses, run through the CATALOGUE
+    (``diagnose``/``make_sewable``) rather than ``repair_seam`` directly.
+    ``diagnose`` must name it via the ``repair_seam`` entry. ``make_
+    sewable`` applies the ease repair in round 1; because the repaired
+    edge is then in ``construction_notes``, ``repair_seam.detect`` no
+    longer fires on it (the same anti-refire property, exercised through
+    the catalogue's own loop this time) and the run stops with
+    ``problems_remaining == []`` -- every registered repair the
+    catalogue knows about is satisfied.
+
+    **That is not sewable.** Ease does not move a point, so the
+    1.5 literal centimeters of mismatch are still there. ``measure_
+    sewable``'s ``seam_checks`` is independent of the catalogue's own
+    loop -- checked here by recomputing ``garment_pattern._seam_checks``
+    directly on ``r["pattern"]["pieces"]`` (the run's own final state)
+    and requiring it to still show the SAME difference and label the
+    report's ``mismatches`` entry names.
+    """
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import repair_seam as _rs
+    from photoloset import repairs as _rp
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks", by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    front_pts = [tuple(p) for p in
+                next(p for p in draft["pieces"]
+                     if p["name"] == "前身頃")["edges"]["肩線"]["points"]]
+    back_len = next(p for p in draft["pieces"]
+                    if p["name"] == "後身頃")["edges"]["肩線"]["length"]
+    pieces = _rs._clone_pieces(draft["pieces"])
+    nudged = [(front_pts[0][0] + 0.5, front_pts[0][1]), front_pts[1]]
+    _rs._set_edge(pieces, "前身頃", "肩線", nudged, back_len + 1.5)
+    # A real garment_pattern.draft() with this mismatch would report it
+    # in its OWN seam_checks -- recomputed explicitly here rather than
+    # left stale, so this pattern is what draft() would actually have
+    # produced, not a spliced-together approximation.
+    pattern = dict(draft, pieces=pieces, seam_checks=_gp._seam_checks(pieces))
+
+    diag = _rp.diagnose(pattern)
+    r = _rp.make_sewable(pattern, budget=4)
+    final_check = _gp._seam_checks(r["pattern"]["pieces"])
+    final_entry = next(c for c in final_check if c["label"] == "肩線")
+    reported_mismatch = r["checks"]["seam_checks"]["mismatches"]
+
+    name = ("make_sewable running the catalogue's own registered "
+            "repairs to problems_remaining == [] is not the same "
+            "claim as sewable == True -- an ease repair that leaves "
+            "the literal seam-length mismatch in place (by design; "
+            "ease does not move a point) still fails measure_"
+            "sewable's independent seam_checks, and that mismatch is "
+            "confirmed by independently recomputing "
+            "garment_pattern._seam_checks on the run's own final "
+            "pattern, not by trusting its report")
+    with guard(name):
+        check(name,
+              len(diag) == 1 and diag[0]["repair"] == "repair_seam"
+              and diag[0]["problem"] == _rs.PROBLEM
+              and r["rounds"] == 1
+              and r["transcript"][0]["repair"] == "repair_seam"
+              and r["transcript"][0]["applied"] is True
+              and r["transcript"][0]["cost"]["method"] == "ease"
+              and r["problems_remaining"] == []
+              and "0件になった" in r["stop_reason"]
+              and r["sewable"] is False
+              and r["checks"]["seam_checks"]["ok"] is False
+              and abs(final_entry["difference"] - 1.5) < 1e-9
+              and final_entry["sewable"] is False
+              and len(reported_mismatch) == 1
+              and reported_mismatch[0]["label"] == "肩線",
+              f'diagnose -> {len(diag)} problem(s) via {diag[0]["repair"] if diag else None}; '
+              f'make_sewable: {r["rounds"]} round(s), applied '
+              f'{r["transcript"][0]["repair"] if r["transcript"] else None} '
+              f'({r["transcript"][0]["cost"]["method"] if r["transcript"] else None}), '
+              f'problems_remaining={r["problems_remaining"]}, stop_reason='
+              f'{r["stop_reason"]!r}; overall sewable={r["sewable"]}, '
+              f'seam_checks.ok={r["checks"]["seam_checks"]["ok"]}; '
+              f'independently recomputed final seam_checks for 肩線: '
+              f'difference={final_entry["difference"]}, sewable='
+              f'{final_entry["sewable"]} -- the catalogue finishing '
+              f'does not mean the garment is sewable')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -9302,12 +11080,15 @@ if __name__ == "__main__":
                no_check_can_pass_by_construction,
                numbers_survive_a_revision,
                darts_make_the_panel_three_dimensional,
+               darts_refusals_propose_a_checkable_alternative,
                pattern_exports_to_a_cad_file,
                the_garment_goes_onto_a_body,
                a_pattern_piece_absorbs_curvature_two_ways,
                a_body_becomes_a_flat_pattern_by_geometry,
                a_silhouette_constrains_only_the_projected_width,
+               silhouette_extends_past_the_body_from_the_outline_alone,
                the_flattened_tube_becomes_panels,
+               panels_refusals_propose_a_checkable_alternative,
                the_marker_says_how_much_fabric,
                a_garment_can_be_sewn_in_some_order,
                the_hem_shape_is_measured_across_the_whole_bottom,
@@ -9315,6 +11096,7 @@ if __name__ == "__main__":
                the_photograph_sets_the_shape_and_the_tape_sets_the_scale,
                every_falsifier_is_reachable_when_run_as_a_script,
                projects_have_their_own_store,
+               marker_and_bom_refusals_propose_a_checkable_alternative,
                the_bom_says_what_to_buy,
                the_falsifier_harness_reports_everything,
                symmetry_axis_and_residual_are_measured_not_hardcoded,
@@ -9327,9 +11109,23 @@ if __name__ == "__main__":
                hem_always_states_it_cannot_attribute_to_front_or_back,
                structure_instances_are_consumable_by_resemble,
                from_outline_is_deterministic_for_the_same_outline,
+               shoulder_assumed_top_of_bbox_moves_with_the_flat_top,
+               armpit_assumed_only_when_a_candidate_was_actually_rejected,
+               waist_assumed_widens_the_window_and_moves_with_the_narrowest_sample,
+               waist_stays_a_hard_stop_when_the_fallback_window_is_also_empty,
+               hem_assumed_runs_the_resolved_formula_on_two_samples,
+               hem_stays_a_hard_stop_below_two_samples,
+               front_or_back_is_proposed_the_rest_stay_hard_stops,
                a_known_edge_reads_its_stated_seam_allowance,
                an_edge_name_missing_from_the_table_refuses_by_name,
                a_refused_seam_allowance_leaves_no_cut_line_in_the_dxf,
+               the_chain_takes_assumed_values_and_records_every_one_it_used,
+               decisions_collect_sorts_by_contract_not_by_shape,
+               ledger_bridge_lands_landmarks_by_their_own_kind,
+               repair_seam_picks_by_surplus_and_never_refires_on_the_same_edge,
+               repair_dart_deepens_by_preserving_area_and_reusing_darts_own_tolerance,
+               repair_width_splits_at_centre_and_preserves_area,
+               repairs_catalogue_finishing_is_not_the_same_claim_as_sewable,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
         # A crash in shared setup must not take the REST OF THE SUITE with

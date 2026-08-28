@@ -94,6 +94,58 @@ def _dist_to_boundary(poly: Sequence[Vec], p: Vec) -> float:
     return best
 
 
+#: ``_feasible_apex_search`` の粗いサンプリング数と、その後の二分の
+#: 回数。この探索は受理条件を**変えない**（呼ばれるのは既に断った後）
+#: ので回数はチューニング対象ではないが、断った理由の説明に数字として
+#: 出すので名前を付けておく。
+_APEX_SEARCH_SAMPLES = 200
+_APEX_SEARCH_BISECT_ITERS = 40
+
+
+def _feasible_apex_search(out: Sequence[Vec], mid: Vec, apex: Vec,
+                          required: float,
+                          samples: int = _APEX_SEARCH_SAMPLES,
+                          iters: int = _APEX_SEARCH_BISECT_ITERS
+                          ) -> Optional[Tuple[float, Vec, float]]:
+    """底辺の中点から要求された頂点までの線分の上で、``required`` cm の
+    余白（``_dist_to_boundary``）を保てる一番深い点を探す。
+
+    **受理条件はここでは変えない** — 呼ばれるのは ``open_one`` が既に
+    断ると決めた後で、断りに添える代案の値を測るためだけ。粗く
+    ``samples`` 点走査してから最後の実行可能点と最初の不可能点の間を
+    ``iters`` 回二分する — この探索自身は margin が線分上で一度だけ
+    山になって降りる（unimodal）ことを仮定している。真ん中の頂点候補
+    (``apex1``/``apex2``)を選ぶときと同じ「内側かどうかを実際に測って
+    決める」流儀で、線分上の各点でも ``_inside`` を測り直す。見つからな
+    ければ ``None`` — 呼び出し側はその場合 ``assumed`` を出さない。
+    """
+    def at(f: float) -> Vec:
+        return _add(mid, _mul(_sub(apex, mid), f))
+
+    def ok(f: float) -> bool:
+        p = at(f)
+        return _inside(out, p) and _dist_to_boundary(out, p) >= required
+
+    best_f: Optional[float] = None
+    for k in range(1, samples + 1):
+        f = k / samples
+        if ok(f):
+            best_f = f
+    if best_f is None:
+        return None
+    lo, hi = best_f, min(best_f + 1.0 / samples, 1.0)
+    if not ok(hi):
+        for _ in range(iters):
+            m = (lo + hi) / 2.0
+            if ok(m):
+                lo = m
+            else:
+                hi = m
+        best_f = lo
+    p = at(best_f)
+    return best_f, p, _dist_to_boundary(out, p)
+
+
 def dart(piece: str, edge: str, t: float, intake_cm: float,
          length_cm: float = 0.0, role: str = "",
          toward: Optional[Vec] = None) -> Dict[str, Any]:
@@ -131,6 +183,10 @@ def open_one(outline: Sequence[Vec], d: Dict[str, Any]) -> Dict[str, Any]:
     out = [tuple(map(float, p)) for p in outline]
     es = {name: (i, j) for name, i, j in _edges_of(out)}
     if d["edge"] not in es:
+        # **代案を出さない。** 存在しない辺名の「一番近い」辺は幾何が
+        # 決めるものではなく、綴りの近さで推測するだけになる — それは
+        # この裁片の測定値ではなく、呼び出し側が何を言いたかったかの
+        # 憶測で、外れたときに壊れる数を持てない(basisが検算できない)。
         return {"verdict": NO_EDGE, "edge": d["edge"],
                 "known": sorted(es), "how_to_close": "辺の名前が違います"}
     i, j = es[d["edge"]]
@@ -138,13 +194,52 @@ def open_one(outline: Sequence[Vec], d: Dict[str, Any]) -> Dict[str, Any]:
     edge_len = _len(_sub(b, a))
     w = float(d["intake_cm"])
     if w <= 0.0:
+        # **代案を出さない。** 0の上のどこかが「一番近い正の値」という
+        # 主張はできない — 連続量には最小の刻みが無く、この裁片にも
+        # このファイルにも「これ以上小さいと縫えない」という測定済みの
+        # 下限が無い(下限があるのは TOO_WIDE の側の edge_len だけ)。
         return {"verdict": BAD_INTAKE, "intake_cm": w,
                 "how_to_close": "抜く幅は正でなければ楔になりません"}
     if w >= edge_len:
-        return {"verdict": TOO_WIDE, "intake_cm": w,
-                "edge_cm": round(edge_len, 4),
-                "how_to_close": f"{d['edge']} は {edge_len:.2f}cm しか"
-                                f"ありません"}
+        entry: Dict[str, Any] = {
+            "verdict": TOO_WIDE, "intake_cm": w,
+            "edge_cm": round(edge_len, 4),
+            "how_to_close": f"{d['edge']} は {edge_len:.2f}cm しか"
+                            f"ありません"}
+        # **辺の長さは既にここで測ってある。** 使えるのはそれ未満のどこ
+        # かで、丁度そこは脚の付け根が辺の両端と重なる縮退点。「あと
+        # どれだけ」に単位を与える定数がこのファイルには他にないので、
+        # 脚の長さの許容差(LEG_TOLERANCE_CM)を余白として流用する —
+        # 発明した値ではなく、この裁片に対してこの意味で既に使われて
+        # いる値。
+        assumed_intake = edge_len - LEG_TOLERANCE_CM
+        if assumed_intake > 0.0:
+            entry.update({
+                "assumed": round(assumed_intake, 4),
+                "kind": "INFERRED",
+                "basis": (
+                    f"edge_cm ({edge_len:.4f}) is the exact length this "
+                    f"refusal already measured and compared {w:.4f} "
+                    f"against; intake must stay strictly under it or the "
+                    f"two leg base points coincide with the edge's own "
+                    f"endpoints, so this backs off by LEG_TOLERANCE_CM "
+                    f"({LEG_TOLERANCE_CM}cm), the leg-length-agreement "
+                    f"tolerance this same file already uses for truing"),
+                "breaks_when": (
+                    f"on an edge shorter than 2x LEG_TOLERANCE_CM "
+                    f"({2 * LEG_TOLERANCE_CM}cm) this floors at or below "
+                    f"zero and is withheld below; even where it is "
+                    f"offered, an intake this close to the full edge "
+                    f"leaves no seam allowance at either corner, which "
+                    f"this file does not model"),
+                "alternatives": [{
+                    "value": round(edge_len, 4),
+                    "basis": ("the exact measured edge length being "
+                              "compared against; usable only if the "
+                              "caller independently keeps the two leg "
+                              "base points off the edge's endpoints")}],
+            })
+        return entry
 
     along = _unit(_sub(b, a))
     mid = _at(out, i, j, float(d["t"]))
@@ -195,20 +290,110 @@ def open_one(outline: Sequence[Vec], d: Dict[str, Any]) -> Dict[str, Any]:
 
     margin = _dist_to_boundary(out, apex)
     if not _inside(out, apex) or margin < APEX_MARGIN_CM:
-        return {"verdict": APEX_OUT, "apex": [round(x, 4) for x in apex],
-                "margin_cm": round(margin, 4),
-                "required_cm": APEX_MARGIN_CM,
-                "how_to_close": (f"深さ {d['length_cm']}cm では頂点が裁片の"
-                                 f"外か縁に近すぎます（余白 {margin:.2f}cm）")}
+        entry = {
+            "verdict": APEX_OUT, "apex": [round(x, 4) for x in apex],
+            "margin_cm": round(margin, 4),
+            "required_cm": APEX_MARGIN_CM,
+            "how_to_close": (f"深さ {d['length_cm']}cm では頂点が裁片の"
+                             f"外か縁に近すぎます（余白 {margin:.2f}cm）")}
+        # **この判定の境界(0.5cm)はここでは動かさない。** 探すのは断った
+        #「後」の代案 — 同じ底辺の中点から要求された頂点への線分の上で、
+        # 余白を保てる一番深い点。この境界を動かさないことは
+        # ``tests/run_checks.py`` の "a dart whose apex leaves the panel
+        # is refused" が26.5/27.0/27.5cmの3点で実測して縛っている。
+        depth_before = _len(_sub(apex, mid))
+        found = _feasible_apex_search(out, mid, apex, APEX_MARGIN_CM)
+        if found is not None:
+            f_star, apex_star, margin_star = found
+            entry.update({
+                "assumed": round(f_star * depth_before, 4),
+                "kind": "INFERRED",
+                "assumed_apex": [round(x, 4) for x in apex_star],
+                "basis": (
+                    f"scanned {_APEX_SEARCH_SAMPLES} points then "
+                    f"bisected {_APEX_SEARCH_BISECT_ITERS} steps (the "
+                    f"same coarse-scan-then-bisect idiom this file's own "
+                    f"leg-truing already uses above) along the segment "
+                    f"from this dart's base midpoint to the requested "
+                    f"apex, for the deepest point still inside the panel "
+                    f"with >= {APEX_MARGIN_CM}cm to every edge; found at "
+                    f"depth {f_star * depth_before:.4f}cm of the "
+                    f"requested {depth_before:.4f}cm, margin "
+                    f"{margin_star:.4f}cm"),
+                "breaks_when": (
+                    "this line search only samples the ONE straight "
+                    "line from base to the requested apex, and assumes "
+                    "margin rises then falls at most once along it — "
+                    "true on this piece's e2, where 26.5cm keeps "
+                    "0.5053cm and 27.0cm only 0.0526cm, margin already "
+                    "falling by then. A panel with a concave notch "
+                    "crossing this line could open a second feasible "
+                    "band narrower than "
+                    f"{depth_before / _APEX_SEARCH_SAMPLES:.4f}cm "
+                    "(this scan's own sample spacing), which would be "
+                    "stepped over and reported as no room when there is "
+                    "some, or vice versa"),
+                "alternatives": [],
+            })
+        return entry
     if abs(la - lb) > LEG_TOLERANCE_CM:
         # 真度が取れなかった。辺の上に両脚が揃う中心が存在しない — 頂点が
         # 辺の延長線の側に寄りすぎている。**ずらして誤魔化さない。**
-        return {"verdict": LEGS_UNEQUAL, "leg_a_cm": round(la, 4),
-                "leg_b_cm": round(lb, 4),
-                "difference_cm": round(abs(la - lb), 4),
-                "tolerance_cm": LEG_TOLERANCE_CM,
-                "how_to_close": ("この辺の上に両脚が揃う中心がありません。"
-                                 "頂点を動かすか、別の辺から取ってください")}
+        entry = {
+            "verdict": LEGS_UNEQUAL, "leg_a_cm": round(la, 4),
+            "leg_b_cm": round(lb, 4),
+            "difference_cm": round(abs(la - lb), 4),
+            "tolerance_cm": LEG_TOLERANCE_CM,
+            "how_to_close": ("この辺の上に両脚が揃う中心がありません。"
+                             "頂点を動かすか、別の辺から取ってください")}
+        # **どちらの端がマシか、測って言う。** 上の二分探索自身が
+        # ``la - lb`` は中心位置について単調と仮定している(コメント
+        # 参照)。単調で符号が変わらないなら、区間の中を探すまでもなく
+        # 食い違いの最小は区間の**どちらかの端**にある。
+        lo_u = w / 2.0 / edge_len
+        hi_u = 1.0 - lo_u
+        if lo_u < hi_u:
+            _, _, la_lo, lb_lo = legs_at(_at(out, i, j, lo_u))
+            _, _, la_hi, lb_hi = legs_at(_at(out, i, j, hi_u))
+            diff_lo, diff_hi = abs(la_lo - lb_lo), abs(la_hi - lb_hi)
+            if diff_lo <= diff_hi:
+                best_u, best_diff = lo_u, diff_lo
+                other_u, other_diff = hi_u, diff_hi
+            else:
+                best_u, best_diff = hi_u, diff_hi
+                other_u, other_diff = lo_u, diff_lo
+            entry.update({
+                "assumed": round(best_u, 6),
+                "kind": "PROPOSED",
+                "assumed_difference_cm": round(best_diff, 4),
+                "basis": (
+                    f"la(u)-lb(u) is assumed monotonic along this edge "
+                    f"— the same assumption this file's own truing "
+                    f"bisection above already relies on — so with no "
+                    f"sign change across the valid range u in "
+                    f"[{lo_u:.4f}, {hi_u:.4f}], the smallest "
+                    f"|leg_a-leg_b| sits at one of its two ends; "
+                    f"measured {diff_lo:.4f}cm at u={lo_u:.4f} and "
+                    f"{diff_hi:.4f}cm at u={hi_u:.4f}, so u={best_u:.4f} "
+                    f"is kept"),
+                "breaks_when": (
+                    "if la(u)-lb(u) is not actually monotonic here — a "
+                    "concave bite in the panel near this edge can make "
+                    "the apex-to-base distance dip and rise — the true "
+                    "minimum could sit at an interior u neither endpoint "
+                    f"reaches, and this reports a gap ({best_diff:.4f}cm) "
+                    "worse than achievable. Either way this gap "
+                    f"({best_diff:.4f}cm) still exceeds the "
+                    f"{LEG_TOLERANCE_CM}cm tolerance, so this is a "
+                    "description of the least-bad option, not a fix — a "
+                    "person should still move the apex or the edge"),
+                "alternatives": [{
+                    "value": round(other_u, 6),
+                    "basis": (f"the other end of the same interval; "
+                             f"|leg_a-leg_b|={other_diff:.4f}cm there, "
+                             f"worse than the kept end")}],
+            })
+        return entry
 
     # 面積は楔の三頂点から靴紐公式で。**真度を取った後は二等辺なので
     # 0.5*w*depth と一致する** — ここで公式との差は捕まらない。それでも
@@ -278,12 +463,64 @@ def apply(draft: Dict[str, Any], darts: Sequence[Dict[str, Any]]
                 clash = [o for o in spans.get(key, [])
                          if not (hi <= o[0] or lo >= o[1])]
                 if clash:
-                    refused.append({
+                    entry = {
                         "verdict": OVERLAP, "piece": d["piece"],
                         "edge": d["edge"], "t": d["t"],
                         "clashes_with": [c[2] for c in clash],
                         "how_to_close": ("同じ辺で範囲が重なる二本は、縫うと"
-                                         "互いの脚を食います")})
+                                         "互いの脚を食います")}
+                    # **既に置いてある span の隙間を測る。** 「重ならない
+                    # 最寄りの場所」を、今置いてある全部の span に対して
+                    # 実際に検算してから選ぶ — 衝突した相手だけでなく。
+                    all_spans = spans.get(key, [])
+
+                    def _clashes(c_lo: float, c_hi: float) -> bool:
+                        return any(not (c_hi <= s_lo or c_lo >= s_hi)
+                                  for s_lo, s_hi, _ in all_spans)
+
+                    candidates: List[Tuple[float, float]] = []
+                    for (o_lo, o_hi, _label) in all_spans:
+                        for cand_t in (o_hi + halfT, o_lo - halfT):
+                            c_lo, c_hi = cand_t - halfT, cand_t + halfT
+                            if c_lo < 0.0 or c_hi > 1.0:
+                                continue
+                            if _clashes(c_lo, c_hi):
+                                continue
+                            candidates.append((abs(cand_t - d["t"]), cand_t))
+                    if candidates:
+                        candidates.sort(key=lambda c: c[0])
+                        _best_dt, best_t = candidates[0]
+                        entry.update({
+                            "assumed": round(best_t, 6),
+                            "kind": "PROPOSED",
+                            "basis": (
+                                f"the nearest open slot on this edge "
+                                f"next to the {len(all_spans)} dart(s) "
+                                f"already placed there, found by pushing "
+                                f"this span flush against the nearest "
+                                f"clashing span's boundary and checking "
+                                f"the result against every span already "
+                                f"placed on this edge, not only the one "
+                                f"it clashed with; moved by "
+                                f"{_best_dt:.4f} in t (this edge's own "
+                                f"0..1 parameter, the same one "
+                                f"'points'/this dart's own address use)"),
+                            "breaks_when": (
+                                "this only guarantees no numeric "
+                                "overlap — this file has no minimum gap "
+                                "between two darts on the same edge, so "
+                                "the nudged dart can end up with its "
+                                "base touching its neighbour's exactly "
+                                "at t, reading as one wide dart to a "
+                                "sewer even though the two spans do not "
+                                "overlap"),
+                            "alternatives": (
+                                [{"value": round(candidates[1][1], 6),
+                                  "basis": ("the next-nearest open slot, "
+                                           "on the other side")}]
+                                if len(candidates) > 1 else []),
+                        })
+                    refused.append(entry)
                     continue
                 spans.setdefault(key, []).append(
                     (lo, hi, d.get("role") or f"{d['edge']}@{d['t']}"))

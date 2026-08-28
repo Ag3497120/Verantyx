@@ -352,28 +352,127 @@ def cut(man: Dict[str, Any], *, n_panels: int = 4,
     自分の呼び出しで ``gap=0.0`` を渡しているのと同じ理由。
     """
     if man.get("verdict") != "ANSWER":
+        # **代案を出さない、ここは意図的に。** 人台がどう立てなかったかは
+        # ``man["verdict"]`` の名の数だけあり得て、「たぶんこの寸法」を
+        # 名乗れる幾何的な近傍がここには無い —— NO_MANNEQUIN は他の3つと
+        # 違って「境界を超えた」のではなく「上流が何も返さなかった」の
+        # で、比較していた測定値自体が存在しない。``flatten.build`` の
+        # 同名の断りも同じ理由で代案を持たない。
         return {"verdict": NO_MANNEQUIN,
                 "why": "人台が立っていないのでパネルに切れません",
+                "how_to_close": "man['verdict'] が何と断っているかを見て、"
+                                "人台の側を直してから呼び直してください",
                 "upstream_verdict": man.get("verdict")}
     segments = _mq.SEGMENTS if segments is None else segments
     gap = _mq.GAP_CM if gap is None else gap
     if segments < _flat.MIN_SEGMENTS or height_steps < _flat.MIN_HEIGHT_STEPS:
-        return {"verdict": BAD_RESOLUTION, "segments": segments,
-                "height_steps": height_steps,
-                "minimum_segments": _flat.MIN_SEGMENTS,
-                "minimum_height_steps": _flat.MIN_HEIGHT_STEPS,
-                "how_to_close": f"周方向は{_flat.MIN_SEGMENTS}以上、高さ"
-                                f"方向は{_flat.MIN_HEIGHT_STEPS}以上でなけ"
-                                f"れば三角形が1枚も作れません"}
+        entry: Dict[str, Any] = {
+            "verdict": BAD_RESOLUTION, "segments": segments,
+            "height_steps": height_steps,
+            "minimum_segments": _flat.MIN_SEGMENTS,
+            "minimum_height_steps": _flat.MIN_HEIGHT_STEPS,
+            "how_to_close": f"周方向は{_flat.MIN_SEGMENTS}以上、高さ"
+                            f"方向は{_flat.MIN_HEIGHT_STEPS}以上でなけ"
+                            f"れば三角形が1枚も作れません"}
+        # **比較していた下限そのものが、答えられる最小の格子。** 判定は
+        # 「<」なので下限自体は通る —— 発明ではなく、この断りが既に
+        # 比べていた値をそのまま使う。
+        assumed_segments = max(segments, _flat.MIN_SEGMENTS)
+        assumed_height_steps = max(height_steps, _flat.MIN_HEIGHT_STEPS)
+        if (assumed_segments, assumed_height_steps) != (segments,
+                                                         height_steps):
+            entry.update({
+                "assumed": {"segments": assumed_segments,
+                           "height_steps": assumed_height_steps},
+                "kind": "INFERRED",
+                "basis": (
+                    "minimum_segments/minimum_height_steps are the "
+                    "exact thresholds this refusal already compares "
+                    "against (_flat.MIN_SEGMENTS, _flat."
+                    "MIN_HEIGHT_STEPS); the comparison is strict '<', "
+                    "so the minimum itself is the smallest grid this "
+                    "module accepts — each axis clamped up "
+                    "independently, the other left alone if it already "
+                    "cleared its own floor"),
+                "breaks_when": (
+                    "clamping up silently coarsens or refines only the "
+                    "axis that failed — a caller who asked for "
+                    "segments=2 against a minimum of "
+                    f"{_flat.MIN_SEGMENTS} gets a grid "
+                    f"{_flat.MIN_SEGMENTS / 2:.2g}x finer than "
+                    "requested on that axis alone, and every per-panel "
+                    "distortion number downstream is measured on that "
+                    "grid, not the one asked for"),
+                "alternatives": [],
+            })
+        return entry
     if not isinstance(n_panels, int) or n_panels < 1:
-        return {"verdict": BAD_PANEL_COUNT, "n_panels": n_panels,
+        entry = {"verdict": BAD_PANEL_COUNT, "n_panels": n_panels,
                 "how_to_close": "パネル数は1以上の整数にしてください"}
+        # **整数でない、あるいは1未満。** 「1以上」の1はこの判定が既に
+        # 比べている裸の下限で、発明した値ではない。数として解釈できる
+        # 入力(bool は除く — 真偽値は枚数の意味を持たない)だけ丸めて
+        # から床を当てる。数として解釈できない入力には代案を出さない。
+        if (not isinstance(n_panels, bool)
+                and isinstance(n_panels, (int, float))
+                and not (isinstance(n_panels, float)
+                        and math.isnan(n_panels))):
+            rounded = int(round(n_panels))
+            assumed_n = max(rounded, 1)
+            entry.update({
+                "assumed": assumed_n,
+                "kind": "INFERRED",
+                "basis": (
+                    f"1 is the literal floor this check compares "
+                    f"n_panels against ('n_panels < 1'); the given "
+                    f"value ({n_panels!r}) rounds to {rounded}, then "
+                    f"that floor is applied"),
+                "breaks_when": (
+                    "rounding a fractional request changes which "
+                    "columns get chosen as cut lines outright — 2 vs 3 "
+                    "panels are different seam placements, not a small "
+                    "nudge on one — so a caller who meant a fraction "
+                    "as 'about a quarter cut' should choose the "
+                    "integer explicitly rather than trust this "
+                    "rounding"),
+                "alternatives": [{
+                    "value": 1,
+                    "basis": ("the bare floor this check compares "
+                              "against, ignoring the given value "
+                              "entirely")}],
+            })
+        return entry
     if n_panels > segments:
-        return {"verdict": TOO_MANY_PANELS, "n_panels": n_panels,
-                "segments": segments,
-                "how_to_close": f"周方向の分割が{segments}列しかないので、"
-                                f"パネルは最大{segments}枚までしか切れませ"
-                                f"ん"}
+        return {
+            "verdict": TOO_MANY_PANELS, "n_panels": n_panels,
+            "segments": segments,
+            "how_to_close": f"周方向の分割が{segments}列しかないので、"
+                            f"パネルは最大{segments}枚までしか切れませ"
+                            f"ん",
+            # **segments はこの判定が既に比べている境界そのもの。**
+            # 「>」なので segments 自体は通る —— この境界は動かさない
+            # (``tests/falsifiers.py`` の "more panels than columns is
+            # accepted anyway" が +5 する変異で赤くなることを縛って
+            # いる)。ここは代案を添えるだけで判定式には触れていない。
+            "assumed": segments,
+            "kind": "INFERRED",
+            "basis": (
+                f"segments ({segments}) is the exact bound this "
+                f"refusal already compares n_panels against; the "
+                f"comparison is strict '>', so segments itself is the "
+                f"largest panel count the grid can cut and remains "
+                f"accepted"),
+            "breaks_when": (
+                "cutting into exactly `segments` panels leaves every "
+                "column its own panel with zero interior grid lines "
+                "inside any of them (cut()'s own candidates filter "
+                "needs i_hi - i_lo >= 2 to find a line to split "
+                "further), so every seam attempt beyond the first "
+                "stops immediately via stop_reason — this value is "
+                "feasible for THIS refusal but exhausts the panel-"
+                "splitting margin exactly where the grid is thinnest"),
+            "alternatives": [],
+        }
 
     rf: RadiusFn = radius_at or _mq.radius_at
     v3 = _flat._grid3d(man, segments, height_steps, rf, gap)

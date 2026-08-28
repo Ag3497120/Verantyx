@@ -52,12 +52,59 @@ def lay(draft: Dict[str, Any], fabric_width_cm: float,
         return {"verdict": draft.get("verdict", "UNKNOWN_NO_PIECES"),
                 "note": "マーカーは型紙が引けてから"}
     if not fabric_width_cm or fabric_width_cm <= 0:
+        # **この道具自身の文面から借りる。** how_to_close が挙げる二つの
+        # 例(110、150)は、日本の生地流通でよく見る反物幅の例として
+        # ここに書かれている — それ自体が確かめられる出典(このファイル
+        # を読めば同じ二つの数字が出典)。広い方を assumed に、狭い方を
+        # alternatives に。**どちらも実測ではなく例なので PROPOSED。**
         return {"verdict": NO_WIDTH,
-                "how_to_close": "生地幅(cm)を渡してください。110、150 など"}
+                "how_to_close": "生地幅(cm)を渡してください。110、150 など",
+                "assumed": 150.0,
+                "kind": "PROPOSED",
+                "basis": ("この関数自身の how_to_close が挙げる二例"
+                          "(110cm・150cm)のうち広い方。広い方を選ぶのは、"
+                          "狭く仮定して実際の反物が広いと利用率の見積もり"
+                          "が悪化する側より、広く仮定して実際が狭いと "
+                          "TOO_WIDE で早く止まる側の方が、無言で失敗する"
+                          "危険が小さいため"),
+                "assumption_breaks_when": (
+                    "実際の反物が110・150のどちらでもない場合は的外れ。"
+                    "薄手のコットン等は110cm前後、コート地・毛織物は"
+                    "137〜152cm、レースや一部の特殊生地は90cm以下も"
+                    "珍しくない"),
+                "alternatives": [
+                    {"value": 110.0,
+                     "basis": "この関数自身の how_to_close が挙げるもう"
+                              "一つの例"}]}
     if seam_allowance_cm is None or seam_allowance_cm < 0:
+        # **garment_marks.SEAM_ALLOWANCE の最頻値を借りる。** 度数は
+        # 毎回数え直す(定数を書かない) — テーブルに行が足されても
+        # ここを直さなくて済む。
+        from . import garment_marks as _marks
+        from collections import Counter as _Counter
+        _counts = _Counter(v[0] for v in _marks.SEAM_ALLOWANCE.values()
+                           if v[0] > 0.0)
+        _mode_cm, _mode_n = max(_counts.items(),
+                                key=lambda kv: (kv[1], -kv[0]))
+        _total = sum(_counts.values())
         return {"verdict": NO_SA,
                 "how_to_close": ("縫い代(cm)を渡してください。型紙は"
-                                 "出来上がり線なので、裁ち線はその外側です")}
+                                 "出来上がり線なので、裁ち線はその外側です"),
+                "assumed": _mode_cm,
+                "kind": "PROPOSED",
+                "basis": (f"garment_marks.SEAM_ALLOWANCE で最も多い幅 "
+                          f"({_mode_n}/{_total} 辺、直線の縫い目"
+                          "「肩線・脇線」向け)。ここは裁片1枚に一律の幅を"
+                          "使うので、辺ごとの正しい値ではなく製図全体の"
+                          "代表値を選んでいる"),
+                "assumption_breaks_when": (
+                    "この製図が曲線(袖ぐり・衿ぐり、0.64〜0.95cm)や裾"
+                    "(2.54cm)を多く含むほど外れる。マーカーは辺ごとの"
+                    "幅を持たず1枚に1つの数しか使えないので、たとえ"
+                    "garment_marks側の正しい辺別の値が分かっていても"
+                    "ここでは一律の代表値に潰れる — この関数自身の限界"
+                    "であって、値の選び方だけの問題ではない"),
+                "alternatives": _marks.catalog_alternatives(_mode_cm)}
 
     pieces = draft.get("pieces") or []
     missing = [(p.get("name") or "?") for p in pieces
@@ -65,7 +112,21 @@ def lay(draft: Dict[str, Any], fabric_width_cm: float,
     if missing:
         return {"verdict": NO_COUNT, "pieces": missing,
                 "how_to_close": ("それぞれ何枚裁つか言ってください。"
-                                 "後身頃1枚と2枚では要る生地が倍違います")}
+                                 "後身頃1枚と2枚では要る生地が倍違います"),
+                # **ここは値を仮定しません。** 裁片が「わ」で1枚裁つのか、
+                # 左右で鏡合わせにして2枚裁つのかは、輪郭からは分から
+                # ない製作側の決定(port_finish 等、この関数の入力に無い
+                # 情報)です。1を既定にすると鏡合わせが要る裁片(実際に
+                # 袖は2枚)で静かに半分の生地しか見積もらず、逆に2を既定
+                # にすると、わ裁ちの裁片(後身頃など)で無駄に多く見積もり
+                # ます。どちらの既定も「確かめられる基準」を持たないので、
+                # 置きません。
+                "no_assumption": (
+                    "1枚か2枚(以上)かは輪郭からは分からない製作側の"
+                    "決定で、この関数の入力にその手がかりがありません。"
+                    "1を既定にすると鏡合わせが要る裁片で生地が足りなく"
+                    "なり、2を既定にするとわ裁ちの裁片で無駄が出ます。"
+                    "どちらにも確かめられる基準がないので仮定しません")}
 
     sa = float(seam_allowance_cm)
     items: List[Dict[str, Any]] = []
@@ -83,15 +144,37 @@ def lay(draft: Dict[str, Any], fabric_width_cm: float,
 
     over = [it for it in items if it["w"] > fabric_width_cm]
     if over:
+        widest = round(max(it["w"] for it in over), 2)
+        # **既に計算済みの値を運ぶ。** widest_cm はこの拒否のために新しく
+        # 仮定した数ではなく、直前で実測した「この注文で一番幅の要る
+        # 裁片」そのもの。だから INFERRED — 何かを測った結果から来ている。
+        # 110・150 は NO_WIDTH と同じ、この関数自身の how_to_close の例。
+        wider_catalog = [w for w in (110.0, 150.0) if w >= widest]
         return {"verdict": TOO_WIDE,
                 "pieces": sorted({it["piece"] for it in over}),
-                "widest_cm": round(max(it["w"] for it in over), 2),
+                "widest_cm": widest,
                 "fabric_width_cm": fabric_width_cm,
                 "how_to_close": ("生地幅を広げるか、その裁片を分割して"
                                  "縫い目を増やしてください。布目を90度回す"
                                  "のは、この裁片のたて地を横に使うことなので"
                                  "落ち方が変わります — 幅を稼ぐ手ではありま"
-                                 "せん")}
+                                 "せん"),
+                "assumed": widest,
+                "kind": "INFERRED",
+                "basis": ("この注文で一番幅の要る裁片、widest_cm として"
+                          "上ですでに実測した値そのもの(新しく仮定した"
+                          "数ではない)。これが収まる最小の反物幅"),
+                "assumption_breaks_when": (
+                    "widest_cm ぴったりでは、裁片と反物の耳の間に余白が"
+                    "無い。実際の裁断はピン打ち・耳の織り乱れの分の余白"
+                    "が要るので、これは『最低これ以上』の下限であって、"
+                    "そのまま注文してよい実用幅ではない"),
+                "alternatives": [
+                    {"value": w,
+                     "basis": ("NO_WIDTH と同じ、この関数自身の "
+                               "how_to_close が挙げる例のうち widest_cm "
+                               "以上のもの")}
+                    for w in wider_catalog]}
 
     # **決定的な棚詰め。** 高い順、同高は名前順、同名は複製番号順。乱数も
     # 時刻も使わない — 同じ入力から同じマーカーが出ないと、注文した生地量と

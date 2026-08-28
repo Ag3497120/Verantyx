@@ -125,6 +125,35 @@ final class AtelierModel: ObservableObject {
     @Published var clothEstimate: ClothEstimate?
     @Published var layerResult: LayerFit?
 
+    // -- 一回の型紙の実行(写真 -> 判断リスト)。**`photo_pattern` は
+    // このアプリのどこからも一度も呼ばれていなかった** — engine 側は
+    // `decisions.collect` の結果を自分の返り値へ既に埋め込んでいる
+    // (`photo_to_pattern.py` が `result["decisions"]` を持つ)。 Python
+    // 側は何も足さず、この画面がその既存の扉を初めて開く。
+    @Published var patternRunBusy = false
+    @Published var patternRunVerdict = ""
+    @Published var patternRunHowToClose = ""
+    @Published var patternRunFailedHop = ""
+    @Published var patternRunOutlineSource = ""
+    @Published var patternRunOutlineVerdict = ""
+    @Published var decisionRows: [DecisionRow] = []
+    @Published var decisionCounts: [String: Int] = [:]
+    @Published var decisionNote = ""
+    /// クリックしたが台帳に届かなかった提案。**押した瞬間に画面へ**
+    /// 「まだ配線していない」と出す — 何も起きない死んだボタンにしない。
+    @Published var decisionAdoptAttempt: String?
+
+    // -- 着せた形。**フィットではない、写像。** ------------------------
+    @Published var dressedBusy = false
+    @Published var dressedVerdict = ""
+    @Published var dressedHowToClose = ""
+    @Published var dressedPoints: [[Double]] = []
+    @Published var dressedOwner: [String] = []
+    @Published var dressedEdges: [[Int]] = []
+    @Published var dressedGapCm: Double = 0
+    @Published var dressedMinClearanceCm: Double?
+    @Published var dressedDisclaimer = ""
+
     // -- 型紙。**足りない寸法を既定で埋めない** ------------------------
     @Published var patternVerdict = ""
     @Published var patternMissing: [String] = []
@@ -328,6 +357,38 @@ final class AtelierModel: ObservableObject {
     struct AllowanceRow: Identifiable {
         let id = UUID()
         var edge = ""; var cm: Double = 0; var imperial = ""; var why = ""
+    }
+
+    /// `decisions.collect()` の一行。**engine が返した辞書をそのまま
+    /// 運ぶだけ** — ここで文章を新しく作らない。`decisions.py` の
+    /// docstring が言う五段(blocked/defect/proposed/inferred/measured)
+    /// をそのまま持ち、画面側は `AttentionOverviewView.Card.Kind` の
+    /// 三色(+ 灰)へ writeMap するだけで、四色目は発明しない。
+    struct DecisionRow: Identifiable {
+        let id: String              // path (一意 — collect() 自身がそう作る)
+        enum Tier { case blocked, defect, proposed, inferred, measured }
+        var tier: Tier
+        var path = ""
+        var title = ""              // path の末尾を平易にしただけ
+        var verdict = ""
+        var why = ""
+        var howToClose = ""
+        /// INFERRED/PROPOSED の根拠。**engine の文をそのまま** —
+        /// ここで言い換えない(owner の brief 「説明は知っているものから」)。
+        var basis = ""
+        var kind = ""
+        var assumedValue = ""       // "assumed" を JSON 文字列化しただけ
+        /// defect 専用 — 上流が契約(assumed/basis/kind)を破った理由。
+        var reason = ""
+        var module = ""
+        /// verdict/why/basis の全部が空だったときだけ画面が使う保険 —
+        /// entry 全体を JSON にしただけ。**情報を静かに捨てない。**
+        var rawText = ""
+        var alternatives: [Alternative] = []
+        struct Alternative: Identifiable {
+            let id = UUID()
+            var value = ""; var basis = ""
+        }
     }
 
     struct SeamCheck: Identifiable {
@@ -1170,5 +1231,175 @@ final class AtelierModel: ObservableObject {
             return out
         }
         showTechPack = true
+    }
+
+    // MARK: - 一回の型紙の実行(写真 -> 判断リスト)
+    //
+    // `photo_pattern` は既存の扉(mcp.py はここで一切変えていない —
+    // Python は触らない、が今回の課題そのもの)。返り値には
+    // `decisions.collect()` の結果が engine 側で既に埋め込まれている
+    // (`photo_to_pattern.py` が最後に `result["decisions"] = _decisions.
+    // collect(result)` を一度だけ呼ぶ)。この画面はそれを初めて読む。
+
+    /// 生の JSON 値を文字列にする。**alternatives の value はスカラーの
+    /// 時も dict の時もある**(例: `"front_shorter"` と
+    /// `{"sleeve_present": true}`)ので、両方を同じ表示にする。
+    private static func jsonText(_ v: Any?) -> String {
+        guard let v, !(v is NSNull) else { return "" }
+        if let s = v as? String { return s }
+        if JSONSerialization.isValidJSONObject(v),
+           let d = try? JSONSerialization.data(withJSONObject: v,
+                                               options: [.sortedKeys]),
+           let s = String(data: d, encoding: .utf8) {
+            return s
+        }
+        return "\(v)"
+    }
+
+    /// path の末尾( `$.structure_summary.landmarks.armpit_left` の
+    /// `armpit_left` )を見出しにする。**engine の文を書き換えない** —
+    /// これは住所を見出しに変えているだけで、判断の中身には触れない。
+    private static func titleFromPath(_ path: String) -> String {
+        let last = path.split(separator: ".").last.map(String.init) ?? path
+        let cleaned = last.replacingOccurrences(of: "]", with: "")
+            .split(separator: "[").first.map(String.init) ?? last
+        return cleaned.replacingOccurrences(of: "_", with: " ").capitalized
+    }
+
+    private static func decisionRows(from list: [[String: Any]],
+                                     tier: DecisionRow.Tier) -> [DecisionRow] {
+        list.enumerated().map { i, row in
+            let path = row["path"] as? String ?? "$"
+            let entry = row["entry"] as? [String: Any] ?? [:]
+            var r = DecisionRow(id: "\(tier)/\(path)/\(i)", tier: tier)
+            r.path = path
+            r.title = titleFromPath(path)
+            r.verdict = entry["verdict"] as? String ?? ""
+            r.why = entry["why"] as? String ?? ""
+            r.howToClose = entry["how_to_close"] as? String ?? ""
+            r.basis = entry["basis"] as? String ?? ""
+            r.kind = entry["kind"] as? String ?? ""
+            r.reason = row["reason"] as? String ?? entry["reason"] as? String ?? ""
+            r.module = row["module"] as? String ?? entry["module"] as? String ?? ""
+            r.assumedValue = jsonText(entry["assumed"])
+            // **候補は assumed + alternatives の全部** —
+            // `ledger_bridge._land_landmarks` の PROPOSED 分岐が
+            // 台帳へ置くのと同じ集合(assumed も一つの候補として置く)。
+            var alts: [DecisionRow.Alternative] = []
+            if entry["assumed"] != nil {
+                alts.append(.init(value: jsonText(entry["assumed"]),
+                                  basis: r.basis))
+            }
+            for alt in (entry["alternatives"] as? [[String: Any]] ?? []) {
+                alts.append(.init(value: jsonText(alt["value"]),
+                                  basis: alt["basis"] as? String ?? ""))
+            }
+            r.alternatives = alts
+            if r.verdict.isEmpty && r.why.isEmpty && r.basis.isEmpty {
+                r.rawText = jsonText(entry)
+            }
+            return r
+        }
+    }
+
+    /// 一枚の写真から輪郭を取り、`photo_pattern` を一度呼ぶ。
+    /// `GarmentOutline` はここまで(SourcesPanel 以外)どこからも
+    /// 呼ばれていなかった — この画面が初めて使う。
+    func runPatternDecisions(imagePath: String) async {
+        patternRunBusy = true
+        defer { patternRunBusy = false }
+        patternRunVerdict = ""; patternRunHowToClose = ""
+        patternRunFailedHop = ""; decisionRows = []
+        decisionCounts = [:]; decisionNote = ""
+        let outline = GarmentOutline.extract(
+            fileURL: URL(fileURLWithPath: imagePath))
+        if let v = outline["verdict"] as? String {
+            // 輪郭抽出そのものが拒否した。**写真が悪いのであって、
+            // engine の話ではない** — 別の verdict として別に持つ。
+            patternRunOutlineVerdict = v
+            patternRunHowToClose = outline["how_to_close"] as? String ?? ""
+            return
+        }
+        patternRunOutlineVerdict = ""
+        patternRunOutlineSource = outline["source"] as? String ?? ""
+        guard JSONSerialization.isValidJSONObject(outline),
+              let data = try? JSONSerialization.data(withJSONObject: outline),
+              let text = String(data: data, encoding: .utf8) else {
+            patternRunVerdict = "UNKNOWN_OUTLINE_NOT_ENCODABLE"
+            return
+        }
+        let d = await call("photo_pattern", ["json_text": text])
+        patternRunVerdict = d["verdict"] as? String ?? ""
+        patternRunHowToClose = d["how_to_close"] as? String ?? ""
+        patternRunFailedHop = d["failed_hop"] as? String ?? ""
+        guard patternRunVerdict == "ANSWER" else { return }
+        let dec = d["decisions"] as? [String: Any] ?? [:]
+        decisionCounts = dec["counts"] as? [String: Int] ?? [:]
+        decisionNote = dec["note"] as? String ?? ""
+        var rows: [DecisionRow] = []
+        rows += Self.decisionRows(
+            from: dec["blocked"] as? [[String: Any]] ?? [], tier: .blocked)
+        rows += Self.decisionRows(
+            from: dec["defects"] as? [[String: Any]] ?? [], tier: .defect)
+        rows += Self.decisionRows(
+            from: dec["proposed"] as? [[String: Any]] ?? [], tier: .proposed)
+        rows += Self.decisionRows(
+            from: dec["inferred"] as? [[String: Any]] ?? [], tier: .inferred)
+        rows += Self.decisionRows(
+            from: dec["measured"] as? [[String: Any]] ?? [], tier: .measured)
+        decisionRows = rows
+    }
+
+    /// 提案のボタンを押した。**台帳には届かない、と正直に言う。**
+    /// `photo_pattern` の decisions は幾何(structure.py)から出た提案
+    /// で、`ledger_bridge.land_photo_to_pattern` を通して初めて台帳に
+    /// `PROPOSED` として置かれる — その橋は今どこからも呼ばれていない
+    /// (engine 側、Python は触らない)。ここで `garment_adopt` を呼んでも
+    /// 台帳にこの値の提案が無いので黙って何も採用されない
+    /// (`Ledger.adopt` は見つからなければ `None` を返すだけ) — それは
+    /// 「動いているのに見えて何も起きない」ボタンそのものなので、
+    /// 呼ばずにそう言う。
+    func attemptAdopt(_ row: DecisionRow, value: String) {
+        decisionAdoptAttempt = "\(row.id)::\(value)"
+    }
+
+    // MARK: - 着せた形(写像であって、フィットではない)
+
+    /// `mannequin_dress` と `sew_and_drape` を**同じ fabric・同じ
+    /// iterations**で呼ぶ。`mannequin_dress` は座標だけを返す
+    /// (`points`)— メッシュの辺は持たない。`sew_and_drape` が持つ
+    /// `edges`/`owner` を借りるが、**同じ入力で同じ点数が返った時だけ**
+    /// (rule 1: 信用の前に測る)。点数が揃わなければ辺は使わず、
+    /// 点だけを描く — 揃わない辺をそれらしく繋いで嘘の面を見せない。
+    func loadDressedForm(fabric: String = "wool melton",
+                         iterations: Int = 400) async {
+        dressedBusy = true
+        defer { dressedBusy = false }
+        let dd = await call("mannequin_dress",
+                            ["fabric": fabric, "iterations": iterations])
+        dressedVerdict = dd["verdict"] as? String ?? ""
+        dressedHowToClose = dd["how_to_close"] as? String ?? ""
+        guard dressedVerdict == "ANSWER" else {
+            dressedPoints = []; dressedEdges = []; dressedOwner = []
+            return
+        }
+        dressedGapCm = dd["gap_cm"] as? Double ?? 0
+        dressedMinClearanceCm = dd["min_clearance_cm"] as? Double
+        dressedDisclaimer = dd["generated_not_evidence"] as? String ?? ""
+        dressedPoints = dd["points"] as? [[Double]] ?? []
+
+        let sd = await call("sew_and_drape",
+                            ["fabric": fabric, "iterations": iterations])
+        let sPoints = sd["points"] as? [[Double]] ?? []
+        let sEdges = sd["edges"] as? [[Int]] ?? []
+        let sOwner = sd["owner"] as? [String] ?? []
+        if sd["verdict"] as? String == "ANSWER",
+           sPoints.count == dressedPoints.count, !sEdges.isEmpty {
+            dressedEdges = sEdges
+            dressedOwner = sOwner
+        } else {
+            dressedEdges = []
+            dressedOwner = []
+        }
     }
 }

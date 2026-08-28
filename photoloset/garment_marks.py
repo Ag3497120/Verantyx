@@ -430,6 +430,96 @@ def _segments_cross(p1, p2, p3, p4) -> bool:
     return ((d1 > 0) != (d2 > 0)) and ((d3 > 0) != (d4 > 0))
 
 
+def catalog_alternatives(exclude_cm: Optional[float] = None
+                          ) -> List[Dict[str, Any]]:
+    """SEAM_ALLOWANCE の値ごとの度数を数える。**わ(0cm)は候補にしない**
+    — わの意味は「中心で折る」であって、他の辺に貸せる幅ではない。
+
+    度数は毎回テーブルを数え直す(定数を書かない)。誰かが SEAM_ALLOWANCE
+    に行を足しても、この関数はここを直さなくても正しいままでいる。
+    """
+    counts: Dict[float, int] = {}
+    reason_of: Dict[float, str] = {}
+    for cm, _imp, reason in SEAM_ALLOWANCE.values():
+        if cm <= 0.0:
+            continue
+        counts[cm] = counts.get(cm, 0) + 1
+        reason_of.setdefault(cm, reason)
+    total = sum(counts.values())
+    out = []
+    for cm in sorted(counts, key=lambda v: (-counts[v], v)):
+        if exclude_cm is not None and abs(cm - exclude_cm) < 1e-9:
+            continue
+        out.append({
+            "value": cm,
+            "basis": (f"SEAM_ALLOWANCE の {counts[cm]}/{total} 辺がこの幅 "
+                      f"(「{reason_of[cm]}」向け)"),
+        })
+    return out
+
+
+def _width_of(name: str, sa: Dict[str, float]) -> Optional[float]:
+    if name in sa:
+        return sa[name]
+    if name in SEAM_ALLOWANCE:
+        return SEAM_ALLOWANCE[name][0]
+    return None
+
+
+def _neighbor_assumption(name: str, labels: List[str],
+                         sa: Dict[str, float], unstated_set: set
+                         ) -> Dict[str, Any]:
+    """未記載の辺 name に、型紙上の実際の隣接区間から幅を借りられないか
+    調べる。**わ(0cm)には隣接していても借りない** — 借りると去年直した
+    不具合(未記載の辺が黙って0cmになり、裁ち切り線が出来上がり線に
+    重なった)と同じ形に戻る。安全な(非0の)隣接が無ければ、値を仮定
+    せずそのまま返す — 「基準を書けない仮定は置かない」の実装。
+    """
+    n = len(labels)
+    idxs = [i for i, lb in enumerate(labels) if lb == name]
+    zero_neighbor = None
+    for i in idxs:
+        for j in (i - 1, i + 1):
+            nb = labels[j % n]
+            if nb == name or nb in unstated_set:
+                continue
+            width = _width_of(nb, sa)
+            if width is None:
+                continue
+            if width <= 0.0:
+                zero_neighbor = zero_neighbor or nb
+                continue
+            reason = (SEAM_ALLOWANCE[nb][2] if nb in SEAM_ALLOWANCE
+                      else f"呼び出し側 (allowance引数) が明示した「{nb}」の幅")
+            return {
+                "assumed": width,
+                "kind": "PROPOSED",
+                "basis": (f"型紙上でこの辺に隣接する「{nb}」の幅 {width}cm"
+                          f"を借りた(「{reason}」)。角で接しているのは"
+                          "位置関係で、縫い方が同じという意味ではない"),
+                "assumption_breaks_when": (
+                    f"「{nb}」とこの辺で縫い方の性格(直線か曲線か、力が"
+                    "かかる曲線かどうか)が違えば的外れ。たとえば力のかかる"
+                    "曲線(袖ぐり・袖山)に力のかからない曲線(衿ぐり)の幅"
+                    "0.64cmを借りると、実際に要る0.95cmより0.31cm狭く"
+                    "なる"),
+                "alternatives": catalog_alternatives(width),
+            }
+    if zero_neighbor is not None:
+        return {
+            "no_assumption": (
+                f"隣接する「{zero_neighbor}」の幅は0cm(わ)。わの幅を"
+                "他の辺に転用すると、未記載の辺が黙って0cmになり裁ち切り"
+                "線が出来上がり線に重なった去年の不具合と同じ形になるので"
+                "、借りません"),
+        }
+    return {
+        "no_assumption": (
+            "この辺に隣接する区間もすべて未記載(または SEAM_ALLOWANCE の"
+            "語彙の外)で、型紙上に借りられる幅がありません"),
+    }
+
+
 def offset_outline(outline: Sequence[Sequence[float]],
                    edges: Dict[str, Any],
                    allowance: Optional[Dict[str, float]] = None,
@@ -466,6 +556,15 @@ def offset_outline(outline: Sequence[Sequence[float]],
     unstated = sorted({name for name in labels
                        if name not in sa and name not in SEAM_ALLOWANCE})
     if unstated:
+        # **拒否は止まったままでいい。ただし「その間どう続けるか」は運ぶ。**
+        # 辺ごとに、型紙上の隣接区間から非0の幅を借りられるか調べる —
+        # 借りられれば PROPOSED として運ぶ値になり、借りられなければ
+        # (隣がわ0cm、または隣も未記載)値を仮定せず理由だけ返す。
+        # どちらの場合も verdict は UNSTATED のまま — 裁ち切り線はこの
+        # 関数の中では一切作らない。
+        assumed_by_edge = {name: _neighbor_assumption(name, labels, sa,
+                                                       set(unstated))
+                           for name in unstated}
         return {
             "verdict": UNSTATED,
             "piece": piece_name,
@@ -480,6 +579,11 @@ def offset_outline(outline: Sequence[Sequence[float]],
                 "裁ち切り線が出来上がり線と同じ位置になり、縫い代なしの"
                 "型紙がそのまま ANSWER として通ってしまいます。それは"
                 "縫えない型紙です"),
+            # **辺が複数あり得るので、1つの assumed ではなく辺名で引く**
+            # 辞書にした。各値は assumed/basis/kind/assumption_breaks_when/
+            # alternatives (借りられた場合)か no_assumption (借りられ
+            # なかった場合、理由だけ)のどちらか。
+            "assumed_by_edge": assumed_by_edge,
         }
 
     offs, normals = [], []
@@ -545,7 +649,26 @@ def offset_outline(outline: Sequence[Sequence[float]],
                 "sew_area_cm2": round(abs(_signed_area(poly)), 2),
                 "cut_area_cm2": round(abs(_signed_area(cut)), 2),
                 "why": "縫い代が内側に付きました。裁ち切り線は必ず"
-                       "出来上がり線を囲みます"}
+                       "出来上がり線を囲みます",
+                "how_to_close": "縫い代を狭めるか、輪郭の角を丸めてください"
+                                "(留め継ぎが飛んでいないか mitre_limit も"
+                                "確かめてください)",
+                # **ここは値を仮定しません。** 幅は既に述べられているか
+                # (offset_outline に渡された allowance)、あるいは呼び出し
+                # 側で assumed_by_edge の PROPOSED 値を選んで確定させた
+                # ものです。「未記載」ではなく「述べた/選んだ幅がこの輪郭
+                # とかみ合わない」失敗なので、値を仮定して先に進めても
+                # 正しい答えにはなりません。全辺を一律に縮めれば通ることは
+                # ありますが、問題のない辺まで一緒に狭くする乱暴な直し方で、
+                # 本当に問題な角(crossing_segments を返す SELF_INTERSECT
+                # 側で名指しされる角)を隠してしまいます。だから値は運ばず、
+                # 人が輪郭か幅を見て直すところへ止めます。
+                "no_assumption": (
+                    "この輪郭とこの幅の組み合わせがかみ合わなかった、と"
+                    "いう失敗です。幅を一律に仮定し直しても、狭すぎる"
+                    "角と狭すぎない辺を区別できず、本当に問題な箇所を"
+                    "隠してしまいます。基準にできる値がないので、ここは"
+                    "仮定を置かず止まります")}
 
     return {
         "verdict": "ANSWER",

@@ -51,6 +51,26 @@
    側は "limbs" に ``ARMPIT_NOT_FOUND`` として型付きで載る ── 黙って
    袖を無いことにしない。
 
+**拒否に添える推論契約(assumed/basis/kind/alternatives)。** 5の
+UNKNOWN_SHOULDER_NOT_RESOLVED・UNKNOWN_ARMPIT_NOT_FOUND(凹みは見つかっ
+たがbump判定で落ちた側だけ)・UNKNOWN_WAIST_NOT_RESOLVED(脇マージンを
+外した既定窓が非空だったときだけ)・UNKNOWN_HEM_NOT_RESOLVED(走査点が
+ちょうど2個取れた側だけ)には、根拠を言えるときだけ ``assumed`` /
+``basis`` / ``kind``("INFERRED" か "PROPOSED") / ``alternatives`` を
+足す ── どれも輪郭からもう一度計算した数で、その場しのぎの定数ではな
+い(shoulderはwidth_profile[0]、armpitは"sleeve_present": Falseとその
+根拠のrise_px/bump_floor_px、waistとhemはresolved経路と同じ式を候補を
+広げて/少ない点のまま走らせた値)。根拠が言えない側 ── 凹みが1個も
+無い脇、走査点が1点以下の裾、脇マージンを外しても空になるウエスト窓 ──
+は今までどおり ``verdict``/``why``/``how_to_close`` だけの素通しの拒否
+のまま(``assumed`` を持たせない。契約の規則1: 根拠の言えない値は書か
+ない)。``REFUSED_TOPICS`` のうち "front_or_back" だけは輪郭に根拠が
+literally 無い2択(前身頃か後ろ身頃か)なので ``kind="PROPOSED"`` +
+``alternatives``(front/back、それぞれ何が確認できれば選べるかを添え
+る)を持たせ、``assumed`` は持たせない ── closure/layering/fabric/
+seam_position/dart_position は値の選択肢がそもそも開いていて列挙でき
+ないので、素通しの拒否のまま変えていない。
+
 **断るもの、すべて名指し。** これがこのモジュールの本体: 前身頃か後ろ
 身頃か、開き具の種類と位置、重なりの順序、生地の種類・ドレープ・重さ、
 輪郭の内側にある縫い目の位置、ダーツの位置、輪郭上で身体と融合して見える
@@ -631,7 +651,8 @@ def _concavities(pts: Sequence[Vec2], pockets: Sequence[Tuple[int, int, List[int
 # 5. ランドマーク
 # ---------------------------------------------------------------------------
 
-def _shoulder(knees: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+def _shoulder(knees: Sequence[Dict[str, Any]],
+             rows: Sequence[Dict[str, float]]) -> Dict[str, Any]:
     for k in knees:
         if k["height_fraction"] <= SHOULDER_WINDOW_MAX:
             return {
@@ -640,7 +661,7 @@ def _shoulder(knees: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
                 "from": "最上部寄り(height_fraction <= "
                         f"{SHOULDER_WINDOW_MAX})の幅knee",
             }
-    return {
+    refusal: Dict[str, Any] = {
         "verdict": SHOULDER_NOT_RESOLVED,
         "search_window": [0.0, SHOULDER_WINDOW_MAX],
         "why": "この高さ窓に幅のknee(傾き不連続)がありません。この手法"
@@ -651,6 +672,45 @@ def _shoulder(knees: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
                          "を下げて再解析するか、肩線を人が宣言してくださ"
                          "い",
     }
+    # **正直なフォールバック、輪郭bboxの最上段。** knee が無いのは、
+    # モジュールdocstring実測の straight shift がまさにそれ ── 頂部が
+    # 肩点間フラットで、幅プロファイルの height_fraction=0 の行の幅が
+    # そのまま肩幅と一致する(knee検出0個・肩幅85px一定、実測)。だから
+    # rows[0] は「見つけたふり」ではなく、この輪郭が実際に持っている
+    # いちばん上の幅サンプルそのもの。
+    if rows:
+        top = rows[0]
+        refusal["assumed"] = {
+            "height_fraction": 0.0,
+            "y_px": round(top["y"], 2),
+            "width_px": round(top["width"], 3),
+        }
+        refusal["basis"] = (
+            "輪郭bboxの最上段(width_profileの先頭行、height_fraction=0)"
+            "をそのまま肩線とみなす。knee が見つからないのは、頂部が既に"
+            "肩点間でフラットな輪郭(モジュールdocstring実測の straight "
+            "shift: knee検出0個、頂部の幅=肩幅85pxで一定)で起きる想定"
+            "だから、その行の幅がそのまま肩幅の実測値になる。"
+            "width_profile[0] と照合できる"
+        )
+        refusal["kind"] = "INFERRED"
+        refusal["alternatives"] = [{
+            "value": "SLOPE_KNEE_THRESHOLDを下げて再探索した最初のknee",
+            "basis": f"SLOPE_KNEE_THRESHOLD={SLOPE_KNEE_THRESHOLD} を人が"
+                     "下げて _knees() を計算し直し、その最初のkneeを肩線"
+                     "として採用する ── 閾値をいくつまで下げるかは人が"
+                     "選ぶ",
+        }]
+        refusal["assumed_breaks_when"] = (
+            "輪郭の最上点が肩から肩までの直線ではない場合 ── ホルター"
+            "ネック・片肩ストラップ・深いボートネックのように、最上点が"
+            "肩ではなく首元/ストラップの点になっている輪郭。この場合"
+            "width_profile[0]の幅は真の肩幅より有意に狭い。目安として"
+            "width_profile[0]のwidth_norm(輪郭最大幅比)が低いほど疑わ"
+            "しいが、この手法の3合成輪郭フィクスチャはいずれも頂部が"
+            "肩点間フラットなので、この閾値自体は未実測"
+        )
+    return refusal
 
 
 def _bump_before(rows: Sequence[Dict[str, float]], height_span: float, min_y: float,
@@ -732,6 +792,13 @@ def _armpit(concavities: Sequence[Dict[str, Any]], side: str,
         return dict(c, side=side, preceding_bump=bump)
     worst = max(scored, key=lambda cbr: cbr[0]["depth_px"])[0] if scored else None
     worst_bump = max(scored, key=lambda cbr: cbr[0]["depth_px"])[1] if scored else None
+    # この分岐に来る時点で cands は空でなく、worst は必ず存在する(凹み
+    # 自体は見つかっているが、膨らみ判定で落ちた)。「凹みが1つも無い」
+    # 場合(上の `if not cands` 分岐)とは根拠の質が違う: あちらは「袖な
+    # し」と「袖が身体と融合」のどちらとも決め手が無い正真正銘の手詰まり
+    # だが、こちらは rise_px と bump_floor_px という2つの実測値を直接
+    # 比べれば誰でも検算できる棄却理由がある。だからここだけ assumed を
+    # 持たせる。
     return {
         "verdict": ARMPIT_NOT_FOUND, "side": side,
         "search_window": list(ARMPIT_WINDOW),
@@ -746,6 +813,30 @@ def _armpit(concavities: Sequence[Dict[str, Any]], side: str,
         "how_to_close": "袖ぐりが見える角度で撮り直すか、ARMPIT_MIN_BUMP_"
                          "FRACTION を調整してください。それでも無いなら、"
                          "この側は素直に「袖なし」です",
+        "assumed": {"sleeve_present": False},
+        "basis": "rejected_bump.rise_px(膨らみが無ければrejected_bumpは"
+                 "null=0扱い)が bump_floor_px を下回った(この2つを直接"
+                 "比較すれば検算できる)。ARMPIT_MIN_BUMP_"
+                 "FRACTION はこのモジュール実測(袖ありfit-and-flare "
+                 "rise/max_width≈0.18、袖なし2例 rise=0)で膨らみの"
+                 "有無を分ける床として検証済みなので、床を下回る凹みは"
+                 "袖ではなく滑らかなウエストへの絞りとみなす",
+        "kind": "PROPOSED",
+        "alternatives": [{
+            "value": {"sleeve_present": True},
+            "basis": "rise_px が bump_floor_px よりわずかに小さいだけの、"
+                     "床未満の浅い袖ぐりも幾何的には存在しうる。この"
+                     "モジュールの袖ありフィクスチャはいずれも"
+                     "rise/max_width≈0.18で床を大きく上回っており、床未満"
+                     "の実在する袖を測った例が無いので、この代替を採る"
+                     "根拠も棄てる根拠も無い",
+        }],
+        "assumed_breaks_when": "実在する袖が浅く、rise_pxが"
+                                "bump_floor_px未満に収まる場合。この"
+                                "モジュールの3合成輪郭フィクスチャは"
+                                "すべて床を大きく超えるrise/max_width≈0.18"
+                                "だったので、床の直下にある本物の袖は"
+                                "一度も測っていない",
     }
 
 
@@ -761,7 +852,7 @@ def _waist(rows: Sequence[Dict[str, float]], min_y: float, max_y: float,
     hi = WAIST_MAX_T
     cands = [r for r in rows if lo <= (r["y"] - min_y) / height_span <= hi]
     if not cands:
-        return {
+        refusal: Dict[str, Any] = {
             "verdict": WAIST_NOT_RESOLVED,
             "search_window": [round(lo, 3), round(hi, 3)],
             "why": "脇からフロアまでの探索窓に幅サンプルがありません(輪郭"
@@ -769,6 +860,56 @@ def _waist(rows: Sequence[Dict[str, float]], min_y: float, max_y: float,
             "how_to_close": "y_top/y_bottom側の探索窓を手で指定してくださ"
                              "い",
         }
+        # **窓が空になる実際の原因は、ほぼ常に脇マージンが天井を追い越し
+        # たこと。** 脇マージンを外した既定窓 [WAIST_MIN_T, WAIST_MAX_T]
+        # まで戻せば、41点のプロファイル(_profile_ys)がその範囲を空に
+        # することは通常ない。戻した窓が実際にサンプルを持てたときだけ、
+        # resolved経路とまったく同じ「最狭サンプル」規則で assumed を
+        # 作る ── 規則を複製せず、同じ計算を広い窓で呼び直しているだけ
+        # なので、値が古びる余地がない。
+        fallback_lo = WAIST_MIN_T
+        if fallback_lo < lo:
+            fallback = [r for r in rows
+                       if fallback_lo <= (r["y"] - min_y) / height_span <= hi]
+            if fallback:
+                best = min(fallback, key=lambda r: r["width"])
+                max_w = max((r["width"] for r in rows), default=0.0) or 1.0
+                refusal["assumed"] = {
+                    "height_fraction": round((best["y"] - min_y)
+                                              / height_span, 4),
+                    "y_px": round(best["y"], 2),
+                    "width_px": round(best["width"], 3),
+                    "width_norm": round(best["width"] / max_w, 4),
+                }
+                refusal["basis"] = (
+                    f"脇の高さ+マージンで押し上げた探索窓[{round(lo, 3)}, "
+                    f"{round(hi, 3)}]が空になったので、脇を考慮しない既定窓"
+                    f"[{WAIST_MIN_T}, {WAIST_MAX_T}]まで戻し、resolvedのと"
+                    "きと同じ規則(窓内で幅が最狭のサンプル)で選び直した。"
+                    "脇マージンさえ外せば同じ基準の値になる"
+                )
+                refusal["kind"] = "INFERRED"
+                refusal["alternatives"] = [{
+                    "value": "見つかっている側の脇の高さそのもの",
+                    "basis": "窓が空になるのは脇の高さがWAIST_MAX_T付近"
+                             "まで迫っているときで、脇とウエストの間に"
+                             "ほぼ余裕が無い服を意味する。モジュール"
+                             "docstring実測のfit-and-flareではarmpit "
+                             "t=0.2727・waist t=0.2955で差0.0228(マージン"
+                             "0.02のすぐ上)── この2つがほぼ同じ高さに"
+                             "なる服では脇の高さそのものをウエストの代わ"
+                             "りに使う方が妥当なことがある",
+                }]
+                refusal["assumed_breaks_when"] = (
+                    "脇マージン0.02の中に本物のウエストがある服(脇のすぐ"
+                    "下にウエストがあるクロップド丈など)。この場合、押し"
+                    "戻した既定窓は脇自身の凹み(またはそのごく近く)を"
+                    "拾ってしまい、脇をウエストと誤認する。モジュール"
+                    "docstring実測のfit-and-flare(armpit t=0.2727, waist "
+                    "t=0.2955, 差0.0228)はこの境界のすぐ外側で、この失敗"
+                    "まであと0.0028しか無い"
+                )
+        return refusal
     best = min(cands, key=lambda r: r["width"])
     max_w = max(r["width"] for r in rows) or 1.0
     return {
@@ -798,13 +939,59 @@ def _hem(pts: Sequence[Vec2], min_x: float, max_x: float, garment_h: float
         if y is not None:
             samples.append((x, y))
     if len(samples) < 3:
-        return {
+        refusal: Dict[str, Any] = {
             "verdict": HEM_NOT_RESOLVED,
             "why": "裾の走査で十分な点が取れません(縦の走査線が輪郭に"
                    f"{len(samples)}回しか交わりませんでした)",
             "how_to_close": "HEM_MARGIN_FRACTIONを狭めるか、裾が見える輪郭"
                              "を渡してください",
         }
+        # ちょうど2点なら、resolvedのときとまったく同じ式(range・
+        # left_right_diff)は計算できる ── 1本の弦(2点)に対する範囲と
+        # 差は、2点だけからでも定義通りに求まる。求まらないのは shape の
+        # "uneven" 判定だけ(内部でもう1回上下する裾を見分けるにはサンプ
+        # ルが最低3点要る)。1点以下では範囲すら定義できないので、ここは
+        # 触らない。
+        if len(samples) == 2:
+            two_ys = [s[1] for s in samples]
+            two_range = max(two_ys) - min(two_ys)
+            two_range_norm = two_range / garment_h if garment_h > _EPS else 0.0
+            two_left_y, two_right_y = samples[0][1], samples[-1][1]
+            two_diff_norm = ((two_right_y - two_left_y) / garment_h
+                             if garment_h > _EPS else 0.0)
+            two_shape = ("level" if two_range_norm < HEM_LEVEL_THRESHOLD_NORM
+                        else "asymmetric_left_right")
+            refusal["assumed"] = {
+                "shape": two_shape,
+                "hem_range_px": round(two_range, 3),
+                "hem_range_norm": round(two_range_norm, 5),
+                "left_right_diff_norm": round(two_diff_norm, 5),
+            }
+            refusal["basis"] = (
+                "既定のHEM_SAMPLES=21ではなく実際に取れた2点だけで、"
+                "resolved経路と同じ式(shape/hem_range/left_right_diffの"
+                "算出)をそのまま走らせた値。2点しか無いので'uneven'"
+                "(区間の内部で裾が一度上下する形)は原理的に検出できず、"
+                "shapeは'level'か'asymmetric_left_right'のどちらかにしか"
+                "ならない"
+            )
+            refusal["kind"] = "INFERRED"
+            refusal["alternatives"] = [{
+                "value": {"shape": "uneven"},
+                "basis": "2点の間(サンプルしていないx区間)で裾が一度"
+                         "上下している可能性はこの2点からは排除できない"
+                         "── ノッチ入りやダブルティアーの裾がその例。"
+                         "内部サンプルが無いので確認も反証もできない",
+            }]
+            refusal["assumed_breaks_when"] = (
+                "2つの走査点の間のどこかに、裾の実際の極値(いちばん高い"
+                "/低い点)がある場合。HEM_SAMPLES=21の本来の解像度ならその"
+                "極値点自体がサンプルに含まれるが、2点しか取れない縮退"
+                "ケースではその情報がそもそも存在しない ── 未実測(この"
+                "モジュールの3フィクスチャはいずれもHEM_SAMPLES=21点が"
+                "すべて取れている)"
+            )
+        return refusal
     ys = [s[1] for s in samples]
     hem_range = max(ys) - min(ys)
     hem_range_norm = hem_range / garment_h if garment_h > _EPS else 0.0
@@ -836,6 +1023,21 @@ def _hem(pts: Sequence[Vec2], min_x: float, max_x: float, garment_h: float
                    "で言えるのは輪郭が左右方向にどう変化するかだけです",
             "how_to_close": "側面・背面の写真を追加するか、前後を宣言する"
                              "人による入力を追加してください",
+            # front_or_back と同じ理由(2値択一で輪郭に根拠が無い)で
+            # PROPOSED + alternatives。ここは前後どちらが短いかという
+            # 3値(前・後・同じ)の選択。
+            "kind": "PROPOSED",
+            "alternatives": [
+                {"value": "front_shorter",
+                 "basis": "側面・背面カットで前身頃の裾が後ろ身頃の裾より"
+                          "高い(短い)ことが確認できれば front_shorter"},
+                {"value": "back_shorter",
+                 "basis": "側面・背面カットで後ろ身頃の裾が前身頃の裾より"
+                          "高い(短い)ことが確認できれば back_shorter"},
+                {"value": "even",
+                 "basis": "側面・背面カットで前後の裾の高さが一致するこ"
+                          "とが確認できれば even"},
+            ],
         },
     }
 
@@ -896,6 +1098,22 @@ REFUSED_TOPICS: Dict[str, Dict[str, str]] = {
         "how_to_close": "撮影時にどちらを向けたか記録するか、前後で異な"
                          "る特徴(ポケット・ボタン等)が写る別カットを追"
                          "加してください",
+        # front/back は(closure・fabricなどと違って)取り得る値が
+        # ちょうど2個しかない閉じた選択なので、assumed で片方を勝手に
+        # 選ぶ代わりに両方を alternatives として並べ、人に選ばせる。
+        # 輪郭にはどちらか一方を支持する根拠が literally 無いので、
+        # kind は PROPOSED のまま、assumed は持たせない。
+        "kind": "PROPOSED",
+        "alternatives": [
+            {"value": "front",
+             "basis": "撮影時に前身頃を向けたと記録されているか、前だけ"
+                      "に現れる特徴(前ポケット・ボタン列・ファスナー引手"
+                      "など)が別カットで確認できれば front"},
+            {"value": "back",
+             "basis": "撮影時に後ろ身頃を向けたと記録されているか、後ろ"
+                      "だけに現れる特徴(バックヨーク・背中心の縫い目・"
+                      "後ろファスナーなど)が別カットで確認できれば back"},
+        ],
     },
     "closure": {
         "verdict": CANNOT_CLOSURE,
@@ -989,7 +1207,7 @@ def from_outline(record: Dict[str, Any], *, image_id: str = "") -> Dict[str, Any
 
     armpit_left = _armpit(concavities, "left", rows, min_y, height_span, max_w_safe)
     armpit_right = _armpit(concavities, "right", rows, min_y, height_span, max_w_safe)
-    shoulder = _shoulder(knees)
+    shoulder = _shoulder(knees, rows)
     waist = _waist(rows, min_y, max_y, armpit_left, armpit_right)
     hem = _hem(pts, min_x, max_x, height_span)
 

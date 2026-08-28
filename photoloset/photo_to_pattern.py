@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""写真の輪郭から型紙まで。**一回の呼び出しで、繋ぎ目はすべて型付きで断る。**
+"""写真の輪郭から型紙まで。**一回の呼び出しで、繋ぎ目は根拠のある仮定なら
+記録して続け、根拠が無ければ型付きで断る。**
 
 四つのモジュールが別々に立った: ``structure.py``(輪郭→ランドマーク)、
 ``silhouette.py``(輪郭→密着ベースの変形)、``panels.py``(平面化した筒→
@@ -68,9 +69,10 @@ cm=1.0)`` にそのまま渡すと ``ANSWER``(``length_m≈0.92``、下の CEILI
 **このファイルが追加で断るもの(型付き、``UNKNOWN_`` 接頭辞は他と同じ)。**
 
     UNKNOWN_NO_SHOULDER_ANCHOR_FOR_SCALE  肩が輪郭から解決できず、
-        px→cm の足場が無い(``structure`` は ANSWER でも、その中の
-        ``landmarks.shoulder`` が ``UNKNOWN_SHOULDER_NOT_RESOLVED`` の
-        とき)
+        px→cm の足場が無い ── **かつ**、その拒否が ``assumed`` を持って
+        いないか、``basis``/``kind`` の契約を満たしていない(下の
+        「止まらない」節参照。契約を満たす ``assumed`` があれば、ここは
+        素通りしてそれを使う)
     UNKNOWN_DEGENERATE_PHOTO_SCALE  肩〜裾のpx方向の幅、または人台の
         腰〜襟ぐりのcm方向の幅が実質ゼロ
     UNKNOWN_BAD_MEASURES  ``measures`` が ``Measures`` と同じ形
@@ -82,7 +84,35 @@ cm=1.0)`` にそのまま渡すと ``ANSWER``(``length_m≈0.92``、下の CEILI
 必ず ``failed_hop`` とそこまでの ``hops``(verdict・count・seconds)を
 持つので、どこで止まったかは常に分かる。
 
-**測った天井(実測、2026-08-27)。** ``run()`` は ``measures`` を直接受け取
+**チェーンは止まりっぱなしではない ── assumed を持つ拒否は取って続ける
+(2026-08-28)。** 5本の姉妹ファイル(``structure.py`` / ``mannequin.py`` /
+``silhouette.py`` / ``flatten.py`` / ``panels.py``)は、拒否のうち理由が
+検算できるものに ``assumed`` / ``basis`` / ``kind``
+(``INFERRED``/``PROPOSED``) / ``alternatives`` を持たせるようになった
+(契約は ``decisions.py`` のモジュール docstring)。``run()`` はこの
+チェーンで実際に踏む2箇所 ── ``calibration``(肩の knee が窓
+``structure.SHOULDER_WINDOW_MAX`` 内に無いとき、``structure._shoulder``
+は輪郭bboxの最上段を ``assumed`` として持って拒否する)と ``panels_cut``
+(``BAD_RESOLUTION``/``BAD_PANEL_COUNT``/``TOO_MANY_PANELS`` はどれも、
+既に比べていた境界そのものを ``assumed`` として持って拒否する)── で、
+その ``assumed`` が ``basis`` を持ち ``kind`` が ``INFERRED``/
+``PROPOSED`` のどちらかであることを ``_assumed_ok()`` で確かめてから、
+その値を取って続ける。**確かめずに使わない** ── ``decisions.collect``
+が ``defect``(``basis`` が無い・``kind`` がどちらでもない)として拾う
+条件をこのチェーンが早合点して緑に見せることは絶対にしない。確かめが
+通らなければ、または ``assumed`` 自体が無ければ、今までどおりの
+hard stop(``NO_SHOULDER_ANCHOR`` や下流の verdict そのもの)。
+
+使った仮定は消さない ── 返り値の ``assumptions_used``(実行順のリスト、
+使った拒否辞書そのもの)に必ず載り、これは hard stop で終わった返り値に
+も載る(そこまでに使った分だけ)。さらに返り値の ``decisions`` は
+``decisions.py`` の ``collect()`` を返り値自身の上で呼んだ結果 ──
+呼ぶ側はホップを一つずつ歩かなくても、この裁片(または途中で止まった
+答え)がどれだけ発明で出来ているかを一箇所で見られる。**何かを仮定して
+続けたのにそれを記録しない、という状態を作らないことが、この機能の
+唯一の存在理由。**
+
+**測った天井(実測、2026-08-28)。** ``run()`` は ``measures`` を直接受け取
 る ── ``photoloset.garment_measure.Measures()`` をその場で組み立てて渡した
 だけで、``~/.photoloset`` のどの置き場にも触れていない(念のため注記: この
 リポジトリの ``mcp.py`` は ``PHOTOLOSET_HOME`` 環境変数を一切読まない ──
@@ -118,6 +148,42 @@ cm=1.0)`` にそのまま渡すと ``ANSWER``(``length_m≈0.92``、下の CEILI
 指数を ``0.1186 → 0.0394``(``distortion_bought_total_pct=66.8%``)へ
 落とし、``gauss_bonnet_across_all_panels_deg=1440.0``(期待値
 ``360×4=1440.0``、残差0)。仕上がり面積 ``total_area_cm2=9422.77``。
+
+**「止まらない」を足した後、このA-line輪郭を撮り直した(2026-08-28、
+同じ寸法・同じ解像度で3回)── 数字は上と1バイトも違わない**:
+``outline_height_fraction_used=0.3351``、``total_area_cm2=9422.77``、
+``hops`` の verdict/count も表のまま。``assumptions_used`` は3回とも
+空リスト ── **この輪郭の肩はknee検出で正しく解決し(t=0.15の折れが
+探索窓 ``SHOULDER_WINDOW_MAX=0.20`` の内)、ウエストも解決し、
+``n_panels=4`` は ``segments=24`` の下に収まる**ので、このファイルが
+今日持つ2箇所(``calibration``/``panels_cut``)のどちらも
+``assumed`` を取る必要が一度も起きない。素直なA-lineには発明する
+余地が無く、「止まらない」機能はここでは何もしない ── 起きるはずの
+ことが起きなかった、という測定。
+
+**同じ寸法・別の輪郭で「止まらない」を実際に働かせた場合(2026-08-28)。**
+肩の平らな区間を ``SHOULDER_WINDOW_MAX``(0.20)より先(t=0.25)まで
+延ばした合成輪郭(半幅95px[t≤0.25]→ウエスト66px[t=0.35]→裾160px[t=1]、
+241点/辺、キャンバス800×1200)を、同じ人台実測へ ``n_panels=30``
+(``segments=24`` を上回る値)で通すと:
+
+- ``calibration`` hop で肩のknee検出が窓の外になり
+  ``UNKNOWN_SHOULDER_NOT_RESOLVED`` が輪郭bboxの最上段を ``assumed``
+  (``kind=INFERRED``)として持って拒否 ── 旧版ならここで ``failed_hop:
+  "calibration"`` として止まっていた。ここでは取って続ける
+- ``panels_cut`` hop で ``n_panels=30 > segments=24`` が
+  ``UNKNOWN_MORE_PANELS_THAN_COLUMNS`` を ``assumed=24``
+  (``kind=INFERRED``)付きで拒否 ── 旧版ならここで ``failed_hop:
+  "panels_cut"`` として止まっていた。ここでは ``n_panels=24`` で
+  ``panels.cut`` を呼び直し、``gauss_bonnet_expected_deg=8640.0``
+  (``360×24``)で24パネルに到達
+
+結果は ``verdict: "ANSWER"``、``failed_hop`` は無し、
+``assumptions_used`` は長さ2(``hop`` が ``"calibration"``→
+``"panels_cut"`` の順)。返り値の ``decisions`` (``decisions.collect()``
+そのもの)は、この2件をどちらも ``$.assumptions_used[0]``/
+``$.assumptions_used[1]`` として ``inferred`` に数え、``defects`` は
+0 ── 契約を満たさない ``assumed`` を緑に見せてはいない。
 
 自己交差させた輪郭(同じA-lineの右辺と左辺を入れ替えて交差させたもの)は
 ``structure`` フェーズ(0.009秒)で ``UNKNOWN_OUTLINE_SELF_INTERSECTS`` ──
@@ -169,6 +235,7 @@ import time
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from . import base_garment as _bg          # noqa: F401  (silhouette.to_surface が使う。直接は呼ばない)
+from . import decisions as _decisions
 from . import flatten as _flat
 from . import mannequin as _mq
 from . import mannequin_spline as _mqs
@@ -186,6 +253,29 @@ DEGENERATE_SCALE = "UNKNOWN_DEGENERATE_PHOTO_SCALE"
 BAD_MEASURES = "UNKNOWN_BAD_MEASURES"
 
 _EPS = 1e-6
+
+
+# ---------------------------------------------------------------------------
+# 契約の受け皿: 下流の拒否が assumed を正しく持っていれば、それを取って
+# 続ける。持っていなければ本物の hard stop のまま。
+# ---------------------------------------------------------------------------
+
+def _assumed_ok(node: Dict[str, Any]) -> bool:
+    """``node`` の ``assumed`` が ``decisions.py`` の契約(``basis`` が有り、
+    ``kind`` が ``INFERRED``/``PROPOSED`` のどちらか)を満たしているか。
+
+    **ここで信用を先取りしない。** ``decisions.collect`` が defect として
+    拾う条件(``basis`` が無い・空、``kind`` が二つのどちらでもない)を、
+    このチェーンが「assumed だから使ってよい」と早合点して緑に見せる
+    ことは絶対にしない ── 判定の中身は ``decisions._classify`` の一段目
+    と同じものを、ここでも独立に評価する(import して呼ばないのは、
+    ``decisions.py`` は「読むだけ」でチェーンの判断には関わらないという
+    自身の docstring の約束を守るため)。"""
+    if node.get("assumed") is None:
+        return False
+    basis = node.get("basis")
+    kind = node.get("kind")
+    return bool(basis) and kind in ("INFERRED", "PROPOSED")
 
 
 # ---------------------------------------------------------------------------
@@ -216,16 +306,37 @@ def _calibrate(structure_out: Dict[str, Any], man: Dict[str, Any]
     **この仮定はモジュール docstring に明記した通り検証していない。**
     定規もサイズ表記も写真には無いので、これ以外に px を cm に変換する
     材料がこのチェーンには無い。
+
+    **肩の第一の足場も、止まらないことがある。** knee から肩線が
+    解決していなくても、``structure._shoulder`` の拒否が契約を満たす
+    ``assumed``(輪郭bboxの最上段)を持っていれば、それを ``y_top_px``
+    として使い、返り値の ``assumptions_used`` にその拒否辞書を積む。
+    契約を満たさない、または ``assumed`` 自体が無ければ、今までどおり
+    ``NO_SHOULDER_ANCHOR`` で止まる。
     """
     landmarks = structure_out["landmarks"]
     shoulder = landmarks["shoulder"]
-    if "y_px" not in shoulder:
+    assumptions_used: List[Dict[str, Any]] = []
+    if "y_px" in shoulder:
+        y_top_px = float(shoulder["y_px"])
+    elif _assumed_ok(shoulder) and "y_px" in shoulder.get("assumed", {}):
+        # **止まらない。** structure.py の ``_shoulder`` は knee が見つか
+        # らないとき、輪郭bboxの最上段を ``assumed``(``basis``/``kind``=
+        # INFERRED 付き)として持って拒否する ── ここではそれを肩の
+        # 足場としてそのまま使い、この拒否辞書そのものを
+        # ``assumptions_used`` へ積んで続ける。契約を満たさない
+        # (``_assumed_ok`` が False)ときだけ、下の hard stop に落ちる。
+        y_top_px = float(shoulder["assumed"]["y_px"])
+        assumptions_used.append(dict(
+            shoulder, hop="calibration",
+            used_for="y_top_px(肩の px 高さ、px→cm 較正の第一の足場)"))
+    else:
         return None, {
             "verdict": NO_SHOULDER_ANCHOR,
             "upstream": shoulder,
             "why": "px→cm の較正は肩の y_px を第一の足場にする。この輪郭"
-                   "では structure.from_outline が肩線を解決できなかった "
-                   "(landmarks.shoulder.verdict="
+                   "では structure.from_outline が肩線を解決できず、"
+                   "assumed も持っていない(landmarks.shoulder.verdict="
                    f"{shoulder.get('verdict')})",
             "how_to_close": "肩線が幅の折れとして写る角度で撮り直すか、"
                             "肩の y_px を人が宣言してください",
@@ -233,7 +344,6 @@ def _calibrate(structure_out: Dict[str, Any], man: Dict[str, Any]
     levels = man["_levels"]
     body_lo, body_hi = float(levels[0][0]), float(levels[-1][0])
     waist_level_cm = float(levels[1][0])
-    y_top_px = float(shoulder["y_px"])
 
     waist = landmarks.get("waist", {})
     if "y_px" in waist and float(waist["y_px"]) > y_top_px:
@@ -269,6 +379,12 @@ def _calibrate(structure_out: Dict[str, Any], man: Dict[str, Any]
         "scale_cm_per_px": round(scale, 6),
         "body_lo_cm": body_lo, "body_hi_cm": body_hi,
         "waist_level_cm": waist_level_cm,
+        # **止まらないために使った仮定、この呼び出し限り。** 肩線が
+        # knee から解決していれば空リストのまま ── 何も仮定していない。
+        # 中身は structure.py の拒否辞書そのもの(deepcopy はしない、
+        # ``run()`` がこれをそのまま最終結果へ積んで
+        # ``decisions.collect`` に歩かせる)。
+        "assumptions_used": assumptions_used,
         "assumption": (
             "肩(landmarks.shoulder.y_px)を人台の襟ぐり(body_hi)に、"
             f"第二の足場({anchor_kind})を対応する人台の高さ"
@@ -331,12 +447,24 @@ def _hop(name: str, verdict: Optional[str], count: int, seconds: float
 
 
 def _refuse(hop_name: str, sub_result: Dict[str, Any],
-           hops: List[Dict[str, Any]], t_start: float) -> Dict[str, Any]:
-    """下流の拒否をそのまま持って上がる。**新しい verdict 名に化けない。**"""
+           hops: List[Dict[str, Any]], t_start: float,
+           decisions_used: Optional[List[Dict[str, Any]]] = None
+           ) -> Dict[str, Any]:
+    """下流の拒否をそのまま持って上がる。**新しい verdict 名に化けない。**
+
+    ``decisions_used`` は、ここへ来るまでに(assumed を取って続けた
+    どこかのホップで)実際に使った仮定のリスト ── 空でも必ず載せる。
+    途中で本物の hard stop に当たっても、そこまでに何を仮定していたか
+    は消えない。``decisions.collect`` はこの拒否辞書自身も歩くので、
+    ``sub_result`` が(``_assumed_ok`` を満たさない、真の hard stop の)
+    ``assumed`` 抜きの拒否であっても、blocked としてそのまま数えられる。
+    """
     out = dict(sub_result)
     out["failed_hop"] = hop_name
     out["hops"] = hops
     out["total_seconds"] = round(time.perf_counter() - t_start, 4)
+    out["assumptions_used"] = list(decisions_used or [])
+    out["decisions"] = _decisions.collect(out)
     return out
 
 
@@ -364,9 +492,24 @@ def run(record: Dict[str, Any], measures: Any, *,
     ── ここで新しい名前には化けない(``NO_SHOULDER_ANCHOR`` /
     ``DEGENERATE_SCALE`` / ``BAD_MEASURES`` の3つだけがこのファイル自身の
     拒否)。
+
+    **止まらないことがある。** ``calibration``(肩)と ``panels_cut``
+    (解像度・パネル数)は、下流の拒否が ``assumed``/``basis``/``kind``
+    (``INFERRED``/``PROPOSED``)の契約を満たしていれば、その値を取って
+    続ける ── 契約を満たさなければ、または ``assumed`` 自体が無ければ、
+    今までどおり止まる。使った仮定は返り値の ``assumptions_used``
+    (実行順、hard stop で終わってもそこまでの分は載る)と、返り値自身を
+    ``decisions.collect()`` に通した ``decisions`` の両方に必ず現れる ──
+    どちらも見ずに ``pieces``/``ANSWER`` だけを読むと、この裁片のどれだ
+    けが実測でどれだけが発明かを見落とす。
     """
     t_start = time.perf_counter()
     hops: List[Dict[str, Any]] = []
+    #: 止まらずに続けるため実際に使った仮定、実行順。空のままなら、この
+    #: 呼び出しは一個も発明していない。中身は下流モジュールの拒否辞書
+    #: そのもの(``assumed``/``basis``/``kind`` 付き)── ここで値を作り
+    #: 直したり要約したりしない。
+    decisions_used: List[Dict[str, Any]] = []
 
     if not hasattr(measures, "entries"):
         out = {
@@ -379,6 +522,8 @@ def run(record: Dict[str, Any], measures: Any, *,
         out["failed_hop"] = "measures_shape"
         out["hops"] = hops
         out["total_seconds"] = round(time.perf_counter() - t_start, 4)
+        out["assumptions_used"] = list(decisions_used)
+        out["decisions"] = _decisions.collect(out)
         return out
 
     # ---- 1. structure: 輪郭 -> ランドマーク ----------------------------
@@ -389,7 +534,7 @@ def run(record: Dict[str, Any], measures: Any, *,
                      if st.get("verdict") == "ANSWER" else 0,
                      time.perf_counter() - t0))
     if st.get("verdict") != "ANSWER":
-        return _refuse("structure", st, hops, t_start)
+        return _refuse("structure", st, hops, t_start, decisions_used)
 
     # ---- 2. mannequin: 実測 -> 人台 ------------------------------------
     t0 = time.perf_counter()
@@ -398,7 +543,7 @@ def run(record: Dict[str, Any], measures: Any, *,
     hops.append(_hop("mannequin", man.get("verdict"),
                      man.get("vertices", 0), time.perf_counter() - t0))
     if man.get("verdict") != "ANSWER":
-        return _refuse("mannequin", man, hops, t_start)
+        return _refuse("mannequin", man, hops, t_start, decisions_used)
 
     # ---- 3. calibration: px -> cm(このファイルだけの仕事) -------------
     t0 = time.perf_counter()
@@ -407,7 +552,8 @@ def run(record: Dict[str, Any], measures: Any, *,
                      1 if calib else 0, time.perf_counter() - t0))
     if calib is None:
         assert refusal is not None
-        return _refuse("calibration", refusal, hops, t_start)
+        return _refuse("calibration", refusal, hops, t_start, decisions_used)
+    decisions_used.extend(calib["assumptions_used"])
 
     outline_cm = [_map_point(p, calib) for p in record["outline"]]
 
@@ -418,7 +564,8 @@ def run(record: Dict[str, Any], measures: Any, *,
     hops.append(_hop("silhouette_match", match_res.get("verdict"),
                      height_steps + 1, time.perf_counter() - t0))
     if match_res.get("verdict") != "ANSWER":
-        return _refuse("silhouette_match", match_res, hops, t_start)
+        return _refuse("silhouette_match", match_res, hops, t_start,
+                       decisions_used)
 
     rf = _sil.radius_at_for(match_res)
 
@@ -428,7 +575,8 @@ def run(record: Dict[str, Any], measures: Any, *,
     hops.append(_hop("base_garment_surface", surface.get("verdict"),
                      surface.get("vertices", 0), time.perf_counter() - t0))
     if surface.get("verdict") != "ANSWER":
-        return _refuse("base_garment_surface", surface, hops, t_start)
+        return _refuse("base_garment_surface", surface, hops, t_start,
+                       decisions_used)
 
     # ---- 6. flatten.build: 筒1枚に平面化、歪みを測る -------------------
     # **gap=0.0 を明示する。** rf は既にフィット済みのease分を含むので、
@@ -442,7 +590,7 @@ def run(record: Dict[str, Any], measures: Any, *,
     hops.append(_hop("flatten", flat_res.get("verdict"),
                      flat_res.get("triangles", 0), time.perf_counter() - t0))
     if flat_res.get("verdict") != "ANSWER":
-        return _refuse("flatten", flat_res, hops, t_start)
+        return _refuse("flatten", flat_res, hops, t_start, decisions_used)
 
     # ---- 7. panels.cut: 歪み最悪の場所で切る ---------------------------
     # 同じ理由で gap=0.0 を明示する。
@@ -451,11 +599,35 @@ def run(record: Dict[str, Any], measures: Any, *,
                           height_steps=height_steps, gap=0.0, radius_at=rf,
                           iterations=iterations, step=step,
                           dart_depth_ratio=dart_depth_ratio)
+    if cut_res.get("verdict") != "ANSWER" and _assumed_ok(cut_res):
+        # **止まらない。** panels.cut の BAD_RESOLUTION/BAD_PANEL_COUNT/
+        # TOO_MANY_PANELS はどれも、この呼び出しが既に比べていた境界
+        # そのものを ``assumed`` として持って拒否する(panels.py の該当
+        # docstring 参照)。ここではその値へ差し替えて panels.cut を
+        # 一度だけ呼び直す ── rf は高さ・角度の連続関数で格子解像度に
+        # 依存しないので、segments/height_steps を変えても使い回せる。
+        # 呼び直した結果がまた拒否でも(assumed の無い、あるいは同じ
+        # 拒否が繰り返す)本物の hard stop としてそのまま下へ落とす ──
+        # 二重に仮定を重ねて粘ることはしない。
+        n2, seg2, hs2 = n_panels, segments, height_steps
+        if cut_res["verdict"] == _panels.BAD_RESOLUTION:
+            a = cut_res["assumed"]
+            seg2, hs2 = int(a["segments"]), int(a["height_steps"])
+        else:                                   # BAD_PANEL_COUNT/TOO_MANY_PANELS
+            n2 = int(cut_res["assumed"])
+        decisions_used.append(dict(
+            cut_res, hop="panels_cut",
+            used_for="n_panels/segments/height_steps(panels.cut の"
+                     "呼び直し)"))
+        cut_res = _panels.cut(man, n_panels=n2, segments=seg2,
+                              height_steps=hs2, gap=0.0, radius_at=rf,
+                              iterations=iterations, step=step,
+                              dart_depth_ratio=dart_depth_ratio)
     hops.append(_hop("panels_cut", cut_res.get("verdict"),
                      cut_res.get("n_panels_reached", 0),
                      time.perf_counter() - t0))
     if cut_res.get("verdict") != "ANSWER":
-        return _refuse("panels_cut", cut_res, hops, t_start)
+        return _refuse("panels_cut", cut_res, hops, t_start, decisions_used)
 
     # ---- 8. panels.to_pieces: garment_pattern.draft() と同じ形 ---------
     t0 = time.perf_counter()
@@ -464,7 +636,8 @@ def run(record: Dict[str, Any], measures: Any, *,
                      len(pieces_res.get("pieces", [])),
                      time.perf_counter() - t0))
     if pieces_res.get("verdict") != "ANSWER":
-        return _refuse("panels_to_pieces", pieces_res, hops, t_start)
+        return _refuse("panels_to_pieces", pieces_res, hops, t_start,
+                       decisions_used)
 
     total_seconds = time.perf_counter() - t_start
     used = _outline_fraction_used(st, calib)
@@ -490,7 +663,7 @@ def run(record: Dict[str, Any], measures: Any, *,
             "レベル比率)が決め、輪郭は『どの高さで幅がどう変わるか』と"
             "いう比率しか言わない。ダーツの深さ(panels.DEFAULT_DART_"
             "DEPTH_RATIO)も解剖学的根拠のない既定値のまま")
-    return {
+    result: Dict[str, Any] = {
         "verdict": "ANSWER",
         "what": "a photographed outline, carried through structure -> "
                 "silhouette match -> flatten -> panel cut, to pieces in "
@@ -507,6 +680,15 @@ def run(record: Dict[str, Any], measures: Any, *,
         "silhouette_match_summary": {
             "ease_range_cm": match_res["ease_range_cm"],
             "width_residual_cm": match_res["width_residual_cm"],
+            #: **どこが締まり、どこが離れて立つか。** 2026-08-28 まで
+            #: これを超えると ``UNKNOWN_SILHOUETTE_UNREACHABLE`` で止まって
+            #: いた ── コルセットもケープも実在し、縫えるのに「作れませ
+            #: ん」と嘘をついていた。いまは止めず、この構造を名指しして
+            #: 運ぶ。fitted 以外が1本でもあれば、それは推測ではなく面
+            #: モデルの限界の記録 ── どちらの直しが要るかは
+            #: ``repairs.py`` 側の仕事で、ここではまだ何も直さない。
+            "ring_class_counts": match_res["ring_class_counts"],
+            "structure_hints": match_res["structure_hints"],
         },
         "flatten_summary": {
             "area_ratio": flat_res["area_ratio"],
@@ -534,4 +716,19 @@ def run(record: Dict[str, Any], measures: Any, *,
             "拘束するのは投影幅だけで、それ以外(奥行・丈の絶対値・断面の"
             "形・ダーツの位置)はここまでのモジュールが既に持っていた"
             "仮定です"),
+        # **止まらずに続けるため実際に使った仮定、全部ここに。** どこかの
+        # ホップの assumed を取って続けていれば、その拒否辞書そのものが
+        # ここに並ぶ(``basis``/``kind`` 付き、``decisions.py`` の契約を
+        # 満たしたものだけ)。空のままなら、この裁片は一個も発明していな
+        # い。呼ぶ側はホップを一つずつ歩かなくても、ここを見るだけで
+        # 「この答えのどれだけが仮定か」が分かる。
+        "assumptions_used": decisions_used,
     }
+    # **decisions.collect は result 自身の上で最後に一度だけ呼ぶ。** 先に
+    # 呼ぶと assumptions_used がまだ入っていない部分木を歩くことになり、
+    # 「仮定を使ったのに記録に無い」を作ってしまう ── ここでは
+    # assumptions_used まで詰め終わった後の result 全体を歩かせる。
+    # "decisions" キー自身はまだ result に無いので、collect が自分の
+    # 出力を再帰して数える心配もない。
+    result["decisions"] = _decisions.collect(result)
+    return result

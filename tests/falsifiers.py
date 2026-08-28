@@ -1289,7 +1289,7 @@ WHOLE_SUITE += [
     # generator, checked the same way #22 checks the coat's.
     ("the pinned dress digest is not the one it recomputes",
      "tests/dress_digest.py",
-     [('GEOMETRY_DIGEST = "4c1dabf60bfafa549f9084d9828b2871"',
+     [('GEOMETRY_DIGEST = "99eaa1ff3f965812f200731be9eecb9e"',
        'GEOMETRY_DIGEST = "0" * 32')],
      ["the dress has not moved"]),
 
@@ -2206,24 +2206,65 @@ WHOLE_SUITE += [
      ["ease solved from width alone reproduces the base's own silhouette "
       "near zero"]),
 
-    # The min-ease bound (a body cannot fit into a narrower garment) is
-    # pushed out of reach, so a silhouette narrower than the body at every
-    # height no longer refuses.
-    ("the min-ease bound is pushed out of reach",
+    # **2026-08-28 に書き換えた。** UNREACHABLE が拒否だった頃、この2本
+    # は境界を押し出すと拒否が消えることを狙っていた。いまは拒否ではな
+    # く分類(compression/standoff)なので、境界を押し出すと分類そのもの
+    # が消える — 締めている/離れて立っている輪郭が、何でもない
+    # (fitted)と誤って報告される。
+    ("the min-ease bound is pushed out of reach, hiding compression",
      "photoloset/silhouette.py",
      [("        if e < MIN_EASE_CM - _EPS:",
        "        if e < MIN_EASE_CM - _EPS - 1000.0:")],
-     ["a silhouette narrower than the body at any height is refused by "
-      "name and shortfall"]),
+     ["a silhouette narrower than the body is classified as "
+      "compression, not refused"]),
 
     # Same shape on the other bound: a silhouette far wider than this
-    # offset model can represent no longer refuses either.
-    ("the max-ease bound is pushed out of reach",
+    # offset model can represent stops being classified as standoff.
+    ("the max-ease bound is pushed out of reach, hiding standoff",
      "photoloset/silhouette.py",
      [("        elif e > MAX_EASE_CM + _EPS:",
        "        elif e > MAX_EASE_CM + _EPS + 1000.0:")],
      ["a silhouette far wider than this offset model can reach is "
-      "refused by name and excess"]),
+      "classified as standoff, not refused"]),
+
+    # The two labels swap, so a compressing garment is reported as
+    # standing off and vice versa — every count and every hint's
+    # direction is wrong, but the SHAPE (something classified, ANSWER
+    # returned) looks identical, which is why this needs its own
+    # mutation rather than trusting the bound-pushing ones above to
+    # catch a swap.
+    # **A single edit, not a chain.** A first attempt used a three-step
+    # chain (COMPRESSION -> placeholder -> STANDOFF, STANDOFF -> COMPRESSION)
+    # to dodge edits colliding with each other's output. That collided with
+    # a different rule instead: every_falsifier_anchor_still_exists (and
+    # the harness's own SKIP guard in _mutate_and_check, which checks every
+    # edit's find-string against the file BEFORE any edit in the entry
+    # runs) requires each find-string to exist in the PRISTINE file. The
+    # placeholder text never does, by construction, so the entry silently
+    # SKIPped every real run despite passing an isolated hand-rolled test
+    # that applied the edits directly instead of going through the harness.
+    # Swapping the FIRST BRANCH'S CONDITION onto the second branch's guard
+    # makes the elif beneath it unreachable (same condition, first branch
+    # already claimed every ring that would trigger it), so a ring that
+    # should have been standoff now falls through to fitted instead of
+    # picking up the compression label. That is a different observable
+    # break than a clean label swap, not the same one — measured directly:
+    # a narrow silhouette (should be all compression) comes back all
+    # fitted; a wide one (should be all standoff) comes back all
+    # compression. Both of the two checks this entry targets go red on
+    # exactly that; the third check (fitted-at-every-ring, on an outline
+    # that never enters either branch) is untouched and correctly stays
+    # green, so it is not named as an expected failure here.
+    ("compression and standoff swap labels",
+     "photoloset/silhouette.py",
+     [("        if e < MIN_EASE_CM - _EPS:\n"
+       "            ring_classes.append(COMPRESSION)",
+       "        if e > MAX_EASE_CM + _EPS:\n"
+       "            ring_classes.append(COMPRESSION)")],
+     ["a silhouette narrower than the body is classified as "
+      "compression, not refused",
+      "a silhouette far wider than this offset model can reach is "
+      "classified as standoff, not refused"]),
 
     # One of the three typed one-view-limitation fields is dropped from
     # the answer — the honest statement stops being three separate,
@@ -2437,6 +2478,14 @@ WHOLE_SUITE += [
       "a shared one, and an unknown topic refuses by a different name "
       "than any of them"]),
 
+    # **Anchor re-cut 2026-08-28.** structure.py's own inference-contract
+    # pass (kind/alternatives, matching front_or_back's own PROPOSED shape)
+    # landed BETWEEN this dict's "how_to_close" and its closing brace, so
+    # the previous anchor stopped occurring in the file at all and the
+    # mutation went SKIP rather than RED — caught by "every falsifier's
+    # anchor still exists". Re-cut to the dict's full current text; the
+    # mutated behaviour (front_back_attribution dropped from the answer) is
+    # unchanged.
     ("the hem's front/back attribution refusal is dropped from the "
      "answer", "photoloset/structure.py",
      [('        "front_back_attribution": {\n'
@@ -2448,6 +2497,21 @@ WHOLE_SUITE += [
        '                   "で言えるのは輪郭が左右方向にどう変化するかだけです",\n'
        '            "how_to_close": "側面・背面の写真を追加するか、前後を宣言する"\n'
        '                             "人による入力を追加してください",\n'
+       '            # front_or_back と同じ理由(2値択一で輪郭に根拠が無い)で\n'
+       '            # PROPOSED + alternatives。ここは前後どちらが短いかという\n'
+       '            # 3値(前・後・同じ)の選択。\n'
+       '            "kind": "PROPOSED",\n'
+       '            "alternatives": [\n'
+       '                {"value": "front_shorter",\n'
+       '                 "basis": "側面・背面カットで前身頃の裾が後ろ身頃の裾より"\n'
+       '                          "高い(短い)ことが確認できれば front_shorter"},\n'
+       '                {"value": "back_shorter",\n'
+       '                 "basis": "側面・背面カットで後ろ身頃の裾が前身頃の裾より"\n'
+       '                          "高い(短い)ことが確認できれば back_shorter"},\n'
+       '                {"value": "even",\n'
+       '                 "basis": "側面・背面カットで前後の裾の高さが一致するこ"\n'
+       '                          "とが確認できれば even"},\n'
+       '            ],\n'
        '        },\n'
        '    }',
        '    }')],
@@ -2470,6 +2534,59 @@ WHOLE_SUITE += [
        '__import__("random").random() * 10.0')],
      ["from_outline gives byte-identical output for the same outline "
       "called twice"]),
+
+    ("the shoulder-not-resolved refusal's assumed top-of-bbox width is "
+     "offset by a constant", "photoloset/structure.py",
+     [('            "width_px": round(top["width"], 3),',
+       '            "width_px": round(top["width"] + 999.0, 3),')],
+     ["the shoulder-not-resolved refusal assumes the top of the "
+      "outline's own bbox, and that assumed value moves with the flat "
+      "top's own width and height"]),
+
+    ("the armpit-rejected refusal's proposed sleeve_present flips to True",
+     "photoloset/structure.py",
+     [('        "assumed": {"sleeve_present": False},',
+       '        "assumed": {"sleeve_present": True},')],
+     ["the armpit-rejected-by-bump refusal proposes 'no sleeve' with a "
+      "checkable basis naming rise_px vs bump_floor_px, and the "
+      "no-candidate refusal stays a hard stop with no assumed "
+      "value"]),
+
+    ("the waist-not-resolved fallback to the unmargined window is "
+     "disabled", "photoloset/structure.py",
+     [("        if fallback_lo < lo:", "        if False:")],
+     ["the waist-not-resolved refusal falls back to the unmargined "
+      "search window when the armpit-adjusted window is empty, and the "
+      "assumed value moves with the fallback window's narrowest "
+      "sample"]),
+
+    ("the waist-not-resolved fallback proceeds even when its own widened "
+     "window is empty", "photoloset/structure.py",
+     [("            if fallback:", "            if True:")],
+     ["the waist-not-resolved refusal stays a hard stop, with no "
+      "assumed value, when even the unmargined fallback window has no "
+      "samples"]),
+
+    ("the hem-not-resolved two-sample assumed range is offset by a "
+     "constant", "photoloset/structure.py",
+     [("            two_range = max(two_ys) - min(two_ys)",
+       "            two_range = max(two_ys) - min(two_ys) + 999.0")],
+     ["the hem-not-resolved refusal runs the resolved hem's own "
+      "shape/range formula on exactly two scan samples, and the "
+      "assumed value moves with those two samples"]),
+
+    ("the hem-not-resolved two-sample formula runs on fewer than two "
+     "samples too", "photoloset/structure.py",
+     [("        if len(samples) == 2:", "        if True:")],
+     ["the hem-not-resolved refusal stays a hard stop, with no assumed "
+      "value, when fewer than two scan samples exist"]),
+
+    ("the front_or_back alternative 'back' is duplicated as 'front'",
+     "photoloset/structure.py",
+     [('            {"value": "back",', '            {"value": "front",')],
+     ["the front-or-back topic is proposed with both alternatives "
+      "named and no single assumed value, and the other five refused "
+      "topics stay hard stops with no assumed value at all"]),
 ]
 
 
@@ -3015,6 +3132,269 @@ WHOLE_SUITE += [
        "(w[1] - w[0]) / 2.0)",
        "        half_widths.append(None if w is None else a)")],
      ["the photograph sets the garment's shape and the tape sets only its scale, and the tape reaches the scale through the shoulder alone"]),
+]
+
+#: --- 仮定を使ったのに記録しない ---------------------------------------------
+#: run() が calibration / panels_cut のどちらかで assumed を取って
+#: 続けながら、その拒否辞書を assumptions_used へ積む行だけを消す。
+#: チェーンは今までどおり ANSWER まで届く(何を仮定したかを消しただけ
+#: で、値そのものの使用は消していない)ので、"decisions.collect が"
+#: "assumptions_used を歩けば assumed の全量が見える" の外側だけを
+#: 壊す ── ちょうど pin している性質そのもの。
+WHOLE_SUITE += [
+    ("calibration uses the shoulder's assumed value without recording it",
+     "photoloset/photo_to_pattern.py",
+     [('        y_top_px = float(shoulder["assumed"]["y_px"])\n'
+       '        assumptions_used.append(dict(\n'
+       '            shoulder, hop="calibration",\n'
+       '            used_for="y_top_px(肩の px 高さ、px→cm 較正の第一の足場)"))',
+       '        y_top_px = float(shoulder["assumed"]["y_px"])')],
+     ["photo_to_pattern takes a hop's assumed value and keeps the "
+      "chain going instead of stopping, every assumption actually "
+      "used is named in decisions.collect's own output, and a hop "
+      "with no assumed value still stops the chain for real"]),
+
+    ("panels_cut uses its clamped assumed value without recording it",
+     "photoloset/photo_to_pattern.py",
+     [('        decisions_used.append(dict(\n'
+       '            cut_res, hop="panels_cut",\n'
+       '            used_for="n_panels/segments/height_steps(panels.cut の"\n'
+       '                     "呼び直し)"))\n'
+       '        cut_res = _panels.cut(man, n_panels=n2, segments=seg2,',
+       '        cut_res = _panels.cut(man, n_panels=n2, segments=seg2,')],
+     ["photo_to_pattern takes a hop's assumed value and keeps the "
+      "chain going instead of stopping, every assumption actually "
+      "used is named in decisions.collect's own output, and a hop "
+      "with no assumed value still stops the chain for real"]),
+]
+
+#: --- rule 1 の穴埋め検査そのものを外す -------------------------------------
+#: `if not basis or kind not in _ASSUMPTION_KINDS:` を `if False:` にする
+#: と、basisの無い assumed もkind="OBSERVED"を騙る assumed も、
+#: defectに回らずそのまま(kindがINFERREDでない限り)proposedへ落ちる ──
+#: 「契約を破った上流をinferredに紛れ込ませて緑に見せることは絶対に
+#: しない」という、このモジュールの存在理由そのものを外す変異。
+WHOLE_SUITE += [
+    ("decisions.collect stops checking basis/kind before filing an "
+     "assumed value as inferred/proposed", "photoloset/decisions.py",
+     [("        if not basis or kind not in _ASSUMPTION_KINDS:",
+       "        if False:")],
+     ["decisions.collect sorts a chain result by the inference "
+      "contract, not by convenience: an assumed value with a real "
+      "basis and a valid kind lands in inferred/proposed, an "
+      "assumed value that skips either -- including one that "
+      "claims kind OBSERVED -- is a defect and never "
+      "inferred/proposed, a hard stop with no assumed value is "
+      "blocked, a shared node visited at two different paths is "
+      "counted at both, and a self-referencing node does not loop "
+      "forever"]),
+]
+
+#: --- 拡張ゾーンの比が「読み直す」ではなく「書き写す」に戻る -----------------
+#: `b0 / a0`(その呼び出しの `_levels[0]` から毎回読む)を定数
+#: `0.700` に戻す ── モジュールdocstringが名指しで禁じている「実装が
+#: 変わっても追随しない書き写し」そのもの。実物の `mannequin.build` は
+#: 全レベルの比を一律 `DEPTH_RATIO=0.70` にするので、その経路だけを
+#: 使うテストではこの変異は数値として無害化してしまう。チェック側は
+#: そのため `mannequin.build` を経由せず、腰の比をわざと 0.6 にした
+#: `_levels` を直接組み立てている(`radius_at` 自体は本物の関数を通す)
+#: ── これで定数 0.700 への差し替えは 0.6 と食い違い、確実に赤くなる。
+WHOLE_SUITE += [
+    ("the extension zone's ratio stops reading _levels[0] and returns a "
+     "constant even when the hip has zero width",
+     "photoloset/silhouette.py",
+     [("        ext_below_ratio = None if a0 <= _EPS else b0 / a0",
+       "        ext_below_ratio = 0.700")],
+     ["y_top/y_bottom past the mannequin's own range are solved from "
+      "the outline's own half-width and the nearest real level's "
+      "front/back ratio -- never the body's ease model -- an omitted "
+      "y_top/y_bottom answers byte-identical to before the extension "
+      "existed, and a request the outline itself does not cover in "
+      "the extension zone refuses by the heights that are missing"]),
+]
+
+#: --- darts.py: 提案された代案が計算式を外れる ------------------------------
+WHOLE_SUITE += [
+    ("TOO_WIDE's proposed intake stops backing off from the edge length",
+     "photoloset/darts.py",
+     [("        assumed_intake = edge_len - LEG_TOLERANCE_CM",
+       "        assumed_intake = edge_len")],
+     ["TOO_WIDE proposes the widest intake that still keeps both leg "
+      "bases off the edge's own endpoints, backed off by this file's "
+      "own leg-truing tolerance, not an invented number"]),
+
+    # ``all_spans`` を「今置いてある全部」から「衝突した相手だけ」に
+    # 戻す ── 提案スロットの検算が、既に置いた別のダーツを見落とせる
+    # ようになる。このモジュールdocstringが直接名指しする性質
+    # 「衝突した相手だけでなく」を外す一行。
+    ("OVERLAP's proposed slot is checked against only the dart it "
+     "clashed with, not every dart already placed on the edge",
+     "photoloset/darts.py",
+     [("                    all_spans = spans.get(key, [])",
+       "                    all_spans = clash")],
+     ["OVERLAP proposes the nearest open slot checked against every "
+      "dart already placed on the edge, not only the one it collided "
+      "with, so a slot that would clash with an EARLIER dart is never "
+      "offered even when it does not clash with the dart that "
+      "triggered the refusal"]),
+]
+
+#: --- panels.py: 提案された代案が計算式・除外規則を外れる ------------------
+WHOLE_SUITE += [
+    ("BAD_RESOLUTION's clamped segments loses the axis-independence and "
+     "just doubles the requested value", "photoloset/panels.py",
+     [("        assumed_segments = max(segments, _flat.MIN_SEGMENTS)",
+       "        assumed_segments = segments * 2")],
+     ["BAD_RESOLUTION clamps each axis independently up to its own "
+      "measured minimum, only the axis that actually failed"]),
+
+    ("BAD_PANEL_COUNT stops excluding bool from getting an invented "
+     "assumed value", "photoloset/panels.py",
+     [("        if (not isinstance(n_panels, bool)",
+       "        if (True")],
+     ["BAD_PANEL_COUNT rounds a numeric request down to the bare "
+      "floor of 1 it already compares against, and refuses to guess "
+      "at a bool or a NaN"]),
+
+    ("TOO_MANY_PANELS's proposed alternative drifts off segments by a "
+     "constant", "photoloset/panels.py",
+     [('            "assumed": segments,',
+       '            "assumed": segments + 1,')],
+     ["TOO_MANY_PANELS proposes exactly the segments bound it "
+      "already compares n_panels against"]),
+]
+
+#: --- marker.py / bom.py: 借りてきた値が発明値に戻る ------------------------
+WHOLE_SUITE += [
+    ("marker.lay's NO_WIDTH proposes the narrower bolt width instead of "
+     "the wider one its own text names first",
+     "photoloset/marker.py",
+     [('                "assumed": 150.0,',
+       '                "assumed": 110.0,')],
+     ["marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each propose an "
+      "alternative sourced from this file's own text or an already-"
+      "measured value, never a bare invented number, and NO_COUNT "
+      "proposes none because nothing in the draft can tell one "
+      "piece's cutting count from another's"]),
+
+    ("marker.lay's NO_SA stops recounting garment_marks.SEAM_ALLOWANCE "
+     "and returns the least common width instead of the mode",
+     "photoloset/marker.py",
+     [("        _mode_cm, _mode_n = max(_counts.items(),\n"
+       "                                key=lambda kv: (kv[1], -kv[0]))",
+       "        _mode_cm, _mode_n = min(_counts.items(),\n"
+       "                                key=lambda kv: (kv[1], -kv[0]))")],
+     ["marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each propose an "
+      "alternative sourced from this file's own text or an already-"
+      "measured value, never a bare invented number, and NO_COUNT "
+      "proposes none because nothing in the draft can tell one "
+      "piece's cutting count from another's"]),
+
+    ("marker.lay's TOO_WIDE proposes a number that no longer matches "
+     "its own measured widest_cm",
+     "photoloset/marker.py",
+     [('                "assumed": widest,',
+       '                "assumed": widest + 1.0,')],
+     ["marker.lay's NO_WIDTH/NO_SA/TOO_WIDE refusals each propose an "
+      "alternative sourced from this file's own text or an already-"
+      "measured value, never a bare invented number, and NO_COUNT "
+      "proposes none because nothing in the draft can tell one "
+      "piece's cutting count from another's"]),
+
+    ("bom.estimate's NO_THREAD_RATIO drifts off the guidance range's "
+     "own midpoint", "photoloset/bom.py",
+     [("        _assumed_ratio = 2.75", "        _assumed_ratio = 2.8")],
+     ["bom.estimate's NO_THREAD_RATIO proposes the midpoint of its "
+      "own stated guidance range with both ends as alternatives, and "
+      "NO_INTERFACING proposes nothing because the tool records no "
+      "representative value to borrow"]),
+]
+
+#: --- ledger_bridge.py: PROPOSED の alternatives が運ばれなくなる -----------
+WHOLE_SUITE += [
+    ("land_structure stops carrying a PROPOSED landmark's alternatives, "
+     "only its assumed value", "photoloset/ledger_bridge.py",
+     [('            for alt in (val.get("alternatives") or []):',
+       '            for alt in []:')],
+     ["land_structure routes each landmark by the kind it already "
+      "carries -- INFERRED to ledger.infer(), PROPOSED's assumed AND "
+      "every alternative to ledger.propose() at the same address, a "
+      "kind-less resolved geometry value to ledger.infer() too -- a "
+      "landmark with no matching (part, aspect) or a bare unfilled "
+      "refusal is skipped and named, and ledger.observe() is never "
+      "called so a landed value can never pass as a measurement"]),
+]
+
+#: --- repair_seam.py: 扱い済みの辺を除外しなくなる・境目がずれる ------------
+WHOLE_SUITE += [
+    ("repair_seam.detect stops excluding edges already recorded in "
+     "construction_notes, so a repaired edge fires forever",
+     "photoloset/repair_seam.py",
+     [("    candidates = [c for c in checks\n"
+       "                  if not c.get(\"structural\") and not c.get(\"sewable\")\n"
+       "                  and c[\"label\"] not in handled]",
+       "    candidates = [c for c in checks\n"
+       "                  if not c.get(\"structural\") and not c.get(\"sewable\")]")],
+     ["repair_seam.detect finds the worst non-structural unsewable "
+      "seam by re-measuring with garment_pattern's own "
+      "_seam_checks, picks ease under EASE_LIMIT_CM and gather "
+      "between it and GATHER_LIMIT_CM without moving a single "
+      "point, and a repaired edge is marked handled so the next "
+      "detect() does not fire on the exact same edge forever"]),
+
+    ("repair_seam.repair's ease/gather boundary moves off "
+     "EASE_LIMIT_CM", "photoloset/repair_seam.py",
+     [("    if surplus <= EASE_LIMIT_CM:",
+       "    if surplus <= 1.0:")],
+     ["repair_seam.detect finds the worst non-structural unsewable "
+      "seam by re-measuring with garment_pattern's own "
+      "_seam_checks, picks ease under EASE_LIMIT_CM and gather "
+      "between it and GATHER_LIMIT_CM without moving a single "
+      "point, and a repaired edge is marked handled so the next "
+      "detect() does not fire on the exact same edge forever"]),
+]
+
+#: --- repair_dart.py: deepen が面積を保たなくなる -----------------------
+WHOLE_SUITE += [
+    ("repair_dart's deepen strategy stops preserving the wedge's area",
+     "photoloset/repair_dart.py",
+     [("        depth1 = w0 * depth0 / w1",
+       "        depth1 = w0 * depth0 / w1 * 1.1")],
+     ["repair_dart's TOO_WIDE deepen strategy narrows the intake to "
+      "the exact edge_cm - LEG_TOLERANCE_CM darts.py's own TOO_WIDE "
+      "refusal already proposes, grows the depth to preserve the "
+      "wedge's triangular area exactly, and the repaired dart is "
+      "re-validated through darts.open_one directly -- not trusted "
+      "from the repair's own report"]),
+]
+
+#: --- repair_width.py: 分割線がbboxの中心からずれる --------------------
+WHOLE_SUITE += [
+    ("repair_width's split line drifts off the bounding box's own "
+     "centre", "photoloset/repair_width.py",
+     [("    cx = (x0 + x1) / 2.0", "    cx = (x0 + x1) / 2.0 + 5.0")],
+     ["repair_width.detect delegates entirely to marker.lay and "
+      "reports None on anything but TOO_WIDE, and repair's split "
+      "bisects a too-wide piece at its own bounding-box centre "
+      "into two children whose combined area matches the "
+      "original exactly and whose bounding boxes independently "
+      "re-verify as fitting the fabric through marker.lay again"]),
+]
+
+#: --- repairs.py: sewable が seam_checks を無視するようになる --------------
+WHOLE_SUITE += [
+    ("measure_sewable's overall verdict stops requiring seam_checks to "
+     "pass, only the other three", "photoloset/repairs.py",
+     [("    sewable = seam_ok and order_ok and marker_ok and darts_ok",
+       "    sewable = order_ok and marker_ok and darts_ok")],
+     ["make_sewable running the catalogue's own registered repairs "
+      "to problems_remaining == [] is not the same claim as "
+      "sewable == True -- an ease repair that leaves the literal "
+      "seam-length mismatch in place (by design; ease does not "
+      "move a point) still fails measure_sewable's independent "
+      "seam_checks, and that mismatch is confirmed by "
+      "independently recomputing garment_pattern._seam_checks on "
+      "the run's own final pattern, not by trusting its report"]),
 ]
 
 #: --- 足場が消えた変異は何も試していない ------------------------------------

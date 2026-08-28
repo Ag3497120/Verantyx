@@ -60,6 +60,7 @@ struct AttentionOverviewView: View {
     @State private var phrasing: Set<String> = []
 
     var body: some View {
+        ScrollViewReader { proxy in
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 header
@@ -72,6 +73,14 @@ struct AttentionOverviewView: View {
                 } else {
                     content
                 }
+
+                // Task S: 判断リスト・修復記録・着せた形と型紙を並べて
+                // 見せる。ledger の三段(上の cards)とは別の、一回の
+                // 型紙の実行そのものについての段 ―― 別の Divider で
+                // 区切る。`m.engineError` があっても写真は選べるので、
+                // 上の分岐の外に置く。
+                Divider().opacity(0.3).padding(.vertical, 4)
+                PatternRunSection(m: m).id("patternRun")
             }
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,6 +97,17 @@ struct AttentionOverviewView: View {
             // 通っても何も確かめていない。engine の `structural` /
             // `not_a_test` を読んでから緑を出す(下の `cards` 参照)。
             await m.loadPattern()
+            // **テスト専用。** VERANTYX_TEST_FRAME_W/H(このファイルの
+            // 外、VerantyxApp.swift の reflow テスト用フック)が立って
+            // いる駆動テストの時だけ、新しい段まで自動でスクロールする
+            // ――スクリーンショットを撮る側がクリックで辿り着けない
+            // 自動操縦の下でも、この段のリフローを確認できるように。
+            // 通常起動には効果が無い。
+            if ProcessInfo.processInfo.environment["VERANTYX_TEST_FRAME_W"] != nil {
+                try? await Task.sleep(nanoseconds: 900_000_000)
+                withAnimation(.none) { proxy.scrollTo("patternRun", anchor: .top) }
+            }
+        }
         }
         .sheet(item: $selected) { card in
             CardDetailView(card: card, phrased: phrased[card.id],

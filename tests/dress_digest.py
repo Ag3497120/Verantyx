@@ -83,7 +83,26 @@ sys.path.insert(0, str(ROOT))
 #: 「衿の外周 (後)」に幅を述べた者がいなかった — 以前はそこが 0cm になり、
 #: 裁ち切り線が出来上がり線と同じ位置に引かれていた。**縫えない型紙が
 #: ANSWER として通っていた。**
-GEOMETRY_DIGEST = "4c1dabf60bfafa549f9084d9828b2871"
+#:
+#: **Re-pinned 2026-08-28, at the merge of the ops-harness batch (eleven
+#: agents, garment_marks.py / marker.py / bom.py / structure.py all
+#: gaining the assumed/kind/basis/alternatives inference-contract fields
+#: on their refusals): only 2 of 16 sections moved, and both GREW —
+#: ``marks`` 87,909→89,106 bytes, ``bom`` 4,986→7,400 bytes. Read byte for
+#: byte (``diff`` against the pristine tree's snapshot, not eyeballed):
+#: every added key is exactly ``assumed_by_edge``/``kind``/``alternatives``/
+#: ``no_assumption`` reasons — new descriptive fields on refusals that
+#: already existed, not a new numeric value anywhere. ``compose`` / built /
+#: seams / drape / mannequin / marker / dxf / svg / headline are all
+#: 1 byte identical to the previous pin. A different value from THIS one
+#: still means the dress moved — say so out loud rather than editing this
+#: line.
+#: **2026-08-28 に一度だけ動かした。** 前の値は
+#: 4c1dabf60bfafa549f9084d9828b2871。動いたのは marks と bom の2節だけで、
+#: どちらも縮まず伸びた(marks 87,909→89,106 / bom 4,986→7,400 バイト)。
+#: 中身は `assumed_by_edge`・`kind`・`alternatives`・`no_assumption` の
+#: 理由文字列 ── 既存の拒否に説明を足しただけで、数値は1つも動いていない。
+GEOMETRY_DIGEST = "99eaa1ff3f965812f200731be9eecb9e"
 
 #: The sections the geometry digest covers, in this order.
 GEOMETRY = ("compose", "marks", "built", "built.seams", "drape_default",

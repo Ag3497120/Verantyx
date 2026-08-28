@@ -113,11 +113,39 @@ def estimate(draft: Dict[str, Any], fabric_width_cm: float,
     refused: Dict[str, Any] = {}
 
     if thread_ratio is None or thread_ratio <= 0:
+        # **縫い目長は既にここにある(seam_len)。** 足りないのは比だけ。
+        # 経験則の範囲 2.5〜3倍の中間 2.75 を PROPOSED として運ぶ —
+        # 「業界の目安で、検証済みの出典があるわけではない」という但し
+        # 書きごと運ぶ。範囲そのものが THREAD_RATIO_GUIDANCE の文面に
+        # 書かれているので、この値自身が出典(このファイルの中)。
+        _assumed_ratio = 2.75
         refused["thread"] = {
             "verdict": NO_THREAD_RATIO,
             "seam_length_cm": seam_len,
             "seam_parts": seam_parts,
             "how_to_close": THREAD_RATIO_GUIDANCE,
+            "assumed": _assumed_ratio,
+            "kind": "PROPOSED",
+            "basis": (
+                "THREAD_RATIO_GUIDANCE が示す経験則の範囲 2.5〜3倍の中間。"
+                "**この範囲自体、業界の目安であって検証済みの出典がある"
+                "わけではないと、この道具自身が書いている** — 測定値では"
+                "ないという注記ごと運ぶ"),
+            "assumption_breaks_when": (
+                "ステッチの種類(ロックステッチかオーバーロックか)・"
+                "密度・糸の太さで実際の比は動く。このプロジェクトはその"
+                "どれも記録していないので、範囲のどこが正しいかを選ぶ"
+                "根拠自体がない — 2.75 は範囲の中点というだけで、実物の"
+                "測定ではない"),
+            "alternatives": [
+                {"value": 2.5, "basis": "THREAD_RATIO_GUIDANCE の範囲の下端"},
+                {"value": 3.0, "basis": "THREAD_RATIO_GUIDANCE の範囲の上端"},
+            ],
+            # 続けるとこの数になる、という参考値。**known["thread"] には
+            # 入れない** — 仮定は仮定のまま refused 側に留め、known は
+            # 呼び出し側が実際に比を渡したときだけ埋める。
+            "if_assumed_quantity_m": round(
+                seam_len * _assumed_ratio / 100.0, 3),
         }
     else:
         ratio = float(thread_ratio)
@@ -151,6 +179,20 @@ def estimate(draft: Dict[str, Any], fabric_width_cm: float,
             "how_to_close": ("どの裁片に接着芯を貼るかは製作側の決定で、"
                              "型紙には記録がありません。裁片名をキーに宣言"
                              'してください。例: {"衿": "接着芯 中厚"}'),
+            # **ここは値を仮定しません。** 縫い目長のように型紙から測れる
+            # 数がここには無い。輪郭や裁片名から「これは接着芯が要る」を
+            # 判定する手段はこの道具に無く(そう判定できても、貼る厚み
+            # ・種類まではさらに製作側の決定)、確かめられる基準を一つも
+            # 挙げられない。garment_marks.SEAM_ALLOWANCE の最頻値のような
+            # 「テーブルの中の代表値」に相当するものが、接着芯には存在
+            # しない — この道具は「何にどれだけ接着芯を貼るか」を一切
+            # 記録していないので、借りる先すら無い。
+            "no_assumption": (
+                "接着芯を貼るかどうか・どの厚みかは製作側の決定で、この"
+                "道具は裁片のどれにも接着芯の情報を一切持っていません。"
+                "縫い目長(糸)や隣接する辺の幅(縫い代)のように、型紙"
+                "側に借りられる手がかりが無い — 借りる先も代表値もない"
+                "ので、値を置きません"),
         }
     else:
         known["interfacing"] = {"items": dict(interfacing),

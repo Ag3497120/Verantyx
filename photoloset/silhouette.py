@@ -38,9 +38,44 @@ visual hull の意味で上界でしかない。内側に折れたプリーツ�
 **両方向で測る。** 密着ベース自身の輪郭を渡せば、リングより細かい
 高さで測った残差はほぼゼロで一致するはず ── 一致しない変形は何も
 一致させていない。逆に、身体より狭い輪郭(身体が入らない)や、この
-オフセット・モデルの範囲を遥かに超えて広い輪郭は、
-``UNKNOWN_SILHOUETTE_UNREACHABLE`` として、どの高さで・どれだけ
-外れたかを名指しして拒否する ── 沈黙で諦めの悪い適合をしない。
+オフセット・モデルの範囲を遥かに超えて広い輪郭は、**止めない。**
+``structure_hints`` にどの高さで・どれだけ・どちら側(締める/離れて
+立つ)かを名指しして、``ANSWER`` のまま返す。以前はここで
+``UNKNOWN_SILHOUETTE_UNREACHABLE`` を返して止めていたが、それは
+「作れない」という嘘だった ── コルセットもケープも実在し、縫える。
+この一定半径オフセット・モデルが表せないのは面の形であって、服の
+存在ではない。沈黙で諦めの悪い適合をしないのは変わらない: 一致しない
+高さを黙って一致したことにはしない。ただし「一致しない」の返し方が
+拒否から分類に変わった。
+
+**身体が無い高さでも、幅は写真に写っている。** ``mannequin.radius_at``
+は人台の腰〜襟ぐりの外で ``None`` を返す ── そこには身体が無いから、
+というのが ``mannequin`` にとっての正直な答え。だが輪郭という証拠は
+そこにも写っている: スカートのフレア・裾は腰より下、襟や高い衿は
+襟ぐりより上にあり、投影幅(x方向)は依然として輪郭が測っている。
+無いのは奥行(z方向)だけ。``y_top``/``y_bottom`` で人台の範囲より
+広い範囲を明示的に要求すると、身体が無い高さでは ``ease`` モデル
+(身体の半径 + 一定量)を使わず、代わりに ── その高さの輪郭の半幅を
+そのまま断面の幅半径(``a``)にし、奥行半径(``b``)は最寄りの実在する
+断面の前後比を運んで ``b = a × ratio`` で作る楕円を置く。「最寄り」
+とは、腰より下では ``_levels[0]``(腰)、襟ぐりより上では
+``_levels[-1]``(襟ぐり)── **どちらも ``_levels`` から読む値であって、
+``mannequin.DEPTH_RATIO`` という定数を書き写したものではない**(今の
+``mannequin.build`` ではその定数から作られた値と一致するが、比を
+高さごとに測る実装に変わっても、ここは読み直すだけで追随する)。
+
+**この仮定が壊れる場所を測った。** 前後比0.700を裾までそのまま運ぶ
+のは、裾の断面が実際には円に近づく(サーキュラースカートなら
+比→1.0)ときに最悪になる。実測: 合成の裾(半幅46.04cm、前後比が
+1.0に近づくと仮定)に0.700を運ぶと、奥行半径は32.23cmと出る ──
+真の値46.04cmに対して13.81cm・**30%の過小評価**。腰に近い高さほど
+比0.700は妥当に近づき(そこでの実測はそもそも0.700そのもの)、裾に
+近づくほど誤差は増える。この誤差そのものは輪郭に写っていない ──
+1視点の限界の、もう一つの具体的な現れ。襟ぐりより上(衿・立ち衿など)
+は比の値は同じ式で読めるが、その先が本当に胴の延長(楕円が滑らかに
+続く)である保証はもっと弱い ── 衿は骨格が違う。読める、という
+チェック可能性はあるが、この高さでの物理的な妥当性は腰下より弱いと
+ここで明記しておく。
 
 **この先の面が要る側への接続。** ``radius_at_for()`` がこの結果から
 ``base_garment.build``/``flatten.build`` がそのまま ``radius_at=`` へ
@@ -71,15 +106,29 @@ UNREACHABLE = "UNKNOWN_SILHOUETTE_UNREACHABLE"
 #: ``segments``/``height_steps`` でメッシュを組むので、ここで先に断る)。
 MIN_SEGMENTS = 3
 MIN_HEIGHT_STEPS = 1
-#: 身体はこれより狭い服を着られない ── 布は伸縮しない前提
-#: (base_garment / mannequin と同じ、布の物理は計算しない)なので、
-#: ease が負になる要求は拒否する。わずかな数値誤差の余地だけ許す。
+#: **2026-08-28 に判定から分類へ変えた。** 服がこの二つの境界を跨ぐのは
+#: 失敗ではなく、そこにある構造の名前だった ── ease が負なら、服は
+#: 身体を締めている(コルセット・補整)。ease が MAX_EASE_CM を超えるなら、
+#: 服は身体から離れて立っている(ケープ・マント・パフスリーブ)。どちらも
+#: 実在し、縫える。この一定半径オフセット・モデル(全周へ一様な量を足す
+#: だけ)では**面としては**まだ書けない、というだけで、それは服について
+#: 何も言っていない ── この式の表現力についての事実。
+#:
+#: 以前はここで ``UNKNOWN_SILHOUETTE_UNREACHABLE`` を返して止まっていた。
+#: 「作れません」は嘘だった: ``docs/`` のアニメ服の実測で、肩ケープが
+#: y=47.74cmで ease 46.76cm(上限25を21.76cm超過)を要求した。ケープは
+#: 実在する。作れないのは面の表し方の方で、服の方ではない。
+#:
+#: 境界そのものは変えていない。MIN=0.0(身体はこれより負のeaseを
+#: 力学的には保持できない ── 締める場合は身体が変形する側の話で、
+#: 面のオフセットの話ではない)、MAX=25.0(依然として根拠のない**仮定**
+#: だが、判定の敷居ではなく分類の敷居になったので、外れても止まらない)。
 MIN_EASE_CM = 0.0
-#: この半径オフセット・モデル(全周へ一定量を足す)が正直に表せる
-#: ゆるみの上限。**仮定。** これを超える要求(桁違いのオーバーサイズ)
-#: は、この土台の平行移動では作れない ── 存在し得ないのではなく、
-#: この式では届かない、という拒否。
 MAX_EASE_CM = 25.0
+#: 分類の名前。負のease、範囲内、上限超過の三つ。
+COMPRESSION = "compression"
+FITTED = "fitted"
+STANDOFF = "standoff"
 _EPS = 1e-6
 #: 残差を測る高さの密度。解いたリングの間で目標の幅がどれだけ非線形
 #: でも見逃さないよう、リング数よりも細かく走査する。
@@ -160,10 +209,23 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
     全周へ一様に足す ── ``base_garment.build`` の定数 ``gap`` を高さの
     関数に一般化したもの。
 
-    輪郭がリングの高さを覆っていなければ ``OUTLINE_GAP``、解いた
-    ``ease`` が ``[MIN_EASE_CM, MAX_EASE_CM]`` を外れれば
-    ``UNREACHABLE`` ── どちらも、どの高さで・どれだけ外れたかを
-    名指しして拒否する。
+    輪郭がリングの高さを覆っていなければ ``OUTLINE_GAP`` で拒否する。
+    解いた ``ease`` が ``[MIN_EASE_CM, MAX_EASE_CM]`` を外れても、
+    もう拒否はしない ── ``structure_hints`` にどの高さで・どれだけ
+    ``compression``(締める)か ``standoff``(離れて立つ)かを名指しして
+    ``ANSWER`` を返す。境界内は ``fitted``。``ring_class_counts`` が
+    3分類それぞれの本数を持つ。
+
+    ``y_top``/``y_bottom`` が人台の範囲(``_levels[0][0]``〜
+    ``_levels[-1][0]``)より外へ出ると、その分は ``ease`` モデルではなく
+    モジュールdocstringの「身体が無い高さでも、幅は写真に写っている」
+    節の楕円モデルで解く ── 輪郭の半幅と、最寄りの実在する断面
+    (腰 or 襟ぐり)から読んだ前後比だけを使う。この拡張ゾーンで輪郭が
+    足りなければ、身体ゾーンと同じ ``OUTLINE_GAP``。比が定義できない
+    (``_levels`` の該当する幅がゼロ)なら ``NO_COVERAGE`` ── どちらも
+    どの高さで足りないかを名指しする。``y_top``/``y_bottom`` を省略
+    した既定呼び出しは今までと完全に同じ(人台の範囲だけ)で、この
+    拡張は一切働かない。
     """
     if man.get("verdict") != "ANSWER":
         return {"verdict": NO_MANNEQUIN,
@@ -243,37 +305,115 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
                                 .format(lo, hi)}
 
     eases = [hw - a for hw, a in zip(half_widths, body_halfs)]
-    violations = []
+    #: **分類、拒否ではない。** 各リングの ease がどちらの境界の外にある
+    #: かを名指しするだけで、ここでは何も止めない。止めていた頃の
+    #: ``UNREACHABLE``/``violations`` という名前は、実在する構造(締める・
+    #: 離れて立つ)を「届かない」と誤って呼んでいた。
+    ring_classes: List[str] = []
+    structure_hints: List[Dict[str, Any]] = []
     for y, e, a, hw in zip(ring_ys, eases, body_halfs, half_widths):
         if e < MIN_EASE_CM - _EPS:
-            violations.append({"y": round(y, 4), "ease_cm": round(e, 4),
-                               "bound": "min", "bound_cm": MIN_EASE_CM,
-                               "over_by_cm": round(MIN_EASE_CM - e, 4),
-                               "target_half_width_cm": round(hw, 4),
-                               "body_half_width_cm": round(a, 4)})
+            ring_classes.append(COMPRESSION)
+            structure_hints.append({
+                "y": round(y, 4), "ease_cm": round(e, 4),
+                "classification": COMPRESSION,
+                "compress_by_cm": round(MIN_EASE_CM - e, 4),
+                "target_half_width_cm": round(hw, 4),
+                "body_half_width_cm": round(a, 4),
+                "why": "この高さで輪郭は身体より狭い。服が身体を締めてい"
+                       "ます ── コルセット・補整・タイトな伸縮素材といっ"
+                       "た、身体側を変形させる構造が要ります。この土台は"
+                       "剛体の人台なので、締める側の変形はここでは表現し"
+                       "ません: 圧縮量を記録するところまでがこの関数の仕"
+                       "事です",
+            })
         elif e > MAX_EASE_CM + _EPS:
-            violations.append({"y": round(y, 4), "ease_cm": round(e, 4),
-                               "bound": "max", "bound_cm": MAX_EASE_CM,
-                               "over_by_cm": round(e - MAX_EASE_CM, 4),
-                               "target_half_width_cm": round(hw, 4),
-                               "body_half_width_cm": round(a, 4)})
-    if violations:
-        worst = max(violations, key=lambda v: v["over_by_cm"])
-        return {"verdict": UNREACHABLE,
-                "violations": violations,
-                "worst": worst,
-                "min_ease_cm": MIN_EASE_CM, "max_ease_cm": MAX_EASE_CM,
-                "why": f"{len(violations)}/{len(ring_ys)} 本のリングで、幅"
-                       f"だけから解いた ease が [{MIN_EASE_CM}, "
-                       f"{MAX_EASE_CM}]cm を外れました。最悪は y="
-                       f"{worst['y']}cm で {worst['bound']} を "
-                       f"{worst['over_by_cm']}cm 超過(ease="
-                       f"{worst['ease_cm']}cm)",
-                "how_to_close": (
-                    "min側の超過は、身体よりこの高さで狭い輪郭を渡してい"
-                    "ます ── 身体は入りません。max側の超過は、この一定"
-                    "半径オフセット・モデルが正直に表せるゆるみを超えて"
-                    "います ── ダーツやタックなど別の構造が必要な形です")}
+            ring_classes.append(STANDOFF)
+            structure_hints.append({
+                "y": round(y, 4), "ease_cm": round(e, 4),
+                "classification": STANDOFF,
+                "standoff_by_cm": round(e - MAX_EASE_CM, 4),
+                "target_half_width_cm": round(hw, 4),
+                "body_half_width_cm": round(a, 4),
+                "why": "この高さで輪郭は、一定半径オフセット・モデルが正"
+                       "直に表せるゆるみを超えて身体から離れています ──"
+                       "ケープ・マント・パフスリーブといった、身体から離"
+                       "れて別の支持を持つ構造です。この面モデル(全周へ"
+                       "一様な量を足すだけ)ではこの高さの面を書けません"
+                       "── 服が存在しないのではなく、この式の表現力の外"
+                       "です",
+            })
+        else:
+            ring_classes.append(FITTED)
+
+    # ---- 拡張ゾーン: 要求範囲が人台の範囲より外に出ている分 -----------
+    # ``want_lo``/``want_hi`` は既定では ``body_lo``/``body_hi`` そのもの
+    # なので、y_top/y_bottomを渡さない既存の呼び出しはここを一切通らな
+    # い(下の2つの ``if`` がどちらも False のまま) ── 動作は今までと
+    # 完全に同じ。
+    ring_spacing = (hi - lo) / height_steps
+    ext_below_ys: List[float] = []
+    ext_above_ys: List[float] = []
+    ext_below_ratio: Optional[float] = None
+    ext_above_ratio: Optional[float] = None
+    ext_below_ratio_basis = ext_above_ratio_basis = ""
+    ext_missing: List[float] = []
+
+    if want_lo < lo - _EPS:
+        n = max(1, math.ceil((lo - want_lo) / ring_spacing))
+        ext_below_ys = [want_lo + (lo - want_lo) * k / n for k in range(n)]
+        y0, a0, b0 = levels[0]
+        ext_below_ratio = None if a0 <= _EPS else b0 / a0
+        ext_below_ratio_basis = (
+            f"levels[0] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
+            f"b/a = {ext_below_ratio:.4f}" if ext_below_ratio is not None
+            else "levels[0] の幅(a)がゼロで前後比が定義できません")
+        if ext_below_ratio is None:
+            return {"verdict": NO_COVERAGE,
+                    "requested": [round(want_lo, 4), round(want_hi, 4)],
+                    "body_range": [body_lo, body_hi],
+                    "why": "腰(levels[0])の幅がゼロで、身体の外へ運べる"
+                           "前後比の根拠がありません",
+                    "how_to_close": "腰の半径が正になるように人台を立て"
+                                    "直すか、y_bottomを人台の範囲内に絞っ"
+                                    "てください"}
+        ext_missing += [round(y, 4) for y in ext_below_ys
+                        if outline_width_at(outline, y) is None]
+
+    if want_hi > hi + _EPS:
+        n = max(1, math.ceil((want_hi - hi) / ring_spacing))
+        ext_above_ys = [hi + (want_hi - hi) * (k + 1) / n for k in range(n)]
+        y0, a0, b0 = levels[-1]
+        ext_above_ratio = None if a0 <= _EPS else b0 / a0
+        ext_above_ratio_basis = (
+            f"levels[-1] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
+            f"b/a = {ext_above_ratio:.4f}" if ext_above_ratio is not None
+            else "levels[-1] の幅(a)がゼロで前後比が定義できません")
+        if ext_above_ratio is None:
+            return {"verdict": NO_COVERAGE,
+                    "requested": [round(want_lo, 4), round(want_hi, 4)],
+                    "body_range": [body_lo, body_hi],
+                    "why": "襟ぐり(levels[-1])の幅がゼロで、身体の外へ運"
+                           "べる前後比の根拠がありません",
+                    "how_to_close": "襟ぐりの半径が正になるように人台を立"
+                                    "て直すか、y_topを人台の範囲内に絞っ"
+                                    "てください"}
+        ext_missing += [round(y, 4) for y in ext_above_ys
+                        if outline_width_at(outline, y) is None]
+
+    if ext_missing:
+        ext_missing.sort()
+        return {"verdict": OUTLINE_GAP,
+                "requested": [round(want_lo, 4), round(want_hi, 4)],
+                "missing_heights": ext_missing,
+                "ring_count": len(ext_below_ys) + len(ext_above_ys),
+                "why": f"{len(ext_missing)} 本の拡張リング(身体の外、"
+                       f"輪郭だけが根拠)で輪郭が水平走査に交わりません"
+                       f"でした",
+                "how_to_close": "要求した範囲([{:.2f}, {:.2f}])の全体を"
+                                "覆う輪郭を渡すか、y_top/y_bottomを輪郭が"
+                                "実際に覆う範囲へ絞ってください"
+                                .format(want_lo, want_hi)}
 
     # ---- 残差: リングより細かい高さで、輪郭の実測幅と比較する --------
     probe_n = height_steps * PROBE_MULTIPLIER
@@ -292,17 +432,69 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
     max_dev = max(devs) if devs else 0.0
     mean_dev = (sum(devs) / len(devs)) if devs else 0.0
 
-    return {
+    extrapolation: Optional[Dict[str, Any]] = None
+    extrap_internal: Optional[Dict[str, Any]] = None
+    if ext_below_ys or ext_above_ys:
+        extrapolation = {}
+        if ext_below_ys:
+            extrapolation["below_body"] = {
+                "y_range_cm": [round(want_lo, 4), round(lo, 4)],
+                "ring_count": len(ext_below_ys),
+                "front_back_ratio": round(ext_below_ratio, 6),
+                "ratio_basis": ext_below_ratio_basis,
+                "kind": "INFERRED",
+                "breaks_when": (
+                    "断面が真円に近づく(比→1.0)ほど過小評価になりま"
+                    "す。実測(合成の裾、半幅46.04cm・真の比1.0を仮定): "
+                    "この比を運ぶと奥行半径32.23cm、真値46.04cmに対し"
+                    "13.81cm・30%の過小評価"),
+            }
+        if ext_above_ys:
+            extrapolation["above_body"] = {
+                "y_range_cm": [round(hi, 4), round(want_hi, 4)],
+                "ring_count": len(ext_above_ys),
+                "front_back_ratio": round(ext_above_ratio, 6),
+                "ratio_basis": ext_above_ratio_basis,
+                "kind": "INFERRED",
+                "breaks_when": (
+                    "襟ぐりから上は衿・立ち衿など骨格の違う構造になりや"
+                    "すく、胴の楕円がそのまま続くという前提自体が腰下よ"
+                    "り弱くなります。比の値そのものは腰下と同じ式で読め"
+                    "ますが、この高さでの物理的な妥当性はここでは測って"
+                    "いません"),
+            }
+        extrap_internal = {
+            "outline": list(outline),
+            "body_lo": body_lo, "body_hi": body_hi,
+            "ratio_below": ext_below_ratio, "ratio_above": ext_above_ratio,
+        }
+
+    lo_used = want_lo if ext_below_ys else lo
+    hi_used = want_hi if ext_above_ys else hi
+
+    out = {
         "verdict": "ANSWER",
         "what": ("skin-tight base garment deformed so its projected width "
                  "matches a front-view silhouette outline; depth follows "
                  "the same radial ease as a byproduct, not a measurement"),
         "segments": segments, "height_steps": height_steps,
-        "y_range_used": [round(lo, 4), round(hi, 4)],
+        "y_range_used": [round(lo_used, 4), round(hi_used, 4)],
         "ease_by_height_cm": [[round(y, 4), round(e, 4)]
                               for y, e in zip(ring_ys, eases)],
         "ease_range_cm": [round(min(eases), 4), round(max(eases), 4)],
         "min_ease_cm": MIN_EASE_CM, "max_ease_cm": MAX_EASE_CM,
+        #: **分類、構成する ANSWER の一部として。** どの高さがどちらの
+        #: 面モデルの限界を超えるかを名指しする。空リストは「境界内」で
+        #: はなく「この服はこの高さで身体を締めても離れて立ってもいな
+        #: い」の測定 ── ring_class_counts の fitted 件数と一致する。
+        "structure_hints": structure_hints,
+        "ring_classes": ring_classes,
+        "ring_class_counts": {
+            COMPRESSION: ring_classes.count(COMPRESSION),
+            FITTED: ring_classes.count(FITTED),
+            STANDOFF: ring_classes.count(STANDOFF),
+        },
+        "extrapolation": extrapolation,
         "width_residual_cm": {
             "max": round(max_dev, 6), "mean": round(mean_dev, 6),
             "probe_count": len(devs), "probe_total": probe_n + 1,
@@ -334,6 +526,12 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
             "この ease(y) と残差は生成物です。観測の出典にはなりませ"
             "ん。布の挙動(伸縮・張り・重なり)は計算していません"),
     }
+    if extrap_internal is not None:
+        # ``radius_at_for`` だけが読む配線用の内部データ。拡張ゾーンが
+        # 無い呼び出し(既定)では作らない ── 輪郭全体を複製して結果に
+        # 抱え込むのは、実際に使う呼び出しだけにしたい。
+        out["_extrap"] = extrap_internal
+    return out
 
 
 def radius_at_for(result: Dict[str, Any], *,
@@ -348,6 +546,13 @@ def radius_at_for(result: Dict[str, Any], *,
     作ろうとするのはこの関数の責任ではなく呼ぶ側の誤り ── 他の ``_at``
     関数群と違い typed な UNKNOWN を返さないのは、これは幾何の答えでは
     なく配線の道具だから。
+
+    ``rf(man, y, theta)`` が ``None`` を返す高さ(身体ゾーンの外)では、
+    ``result["_extrap"]`` があれば ── ``match`` が ``y_top``/
+    ``y_bottom`` で身体の外まで解いたときだけ載る ── そこに保存した
+    輪郭と前後比から、その場で ``outline_width_at`` を呼び直して楕円
+    半径を作る。リング間の線形補間ではなく輪郭そのものを毎回読むので、
+    ``base_garment.build`` が要求する任意のyで誤差なく再現する。
     """
     if result.get("verdict") != "ANSWER":
         raise ValueError("cannot build a radius_at from a non-ANSWER match "
@@ -356,12 +561,27 @@ def radius_at_for(result: Dict[str, Any], *,
     pairs = result["ease_by_height_cm"]
     ring_ys = [p[0] for p in pairs]
     ring_g = [p[1] for p in pairs]
+    extrap = result.get("_extrap")
 
     def _fn(man: Dict[str, Any], y: float, theta: float) -> Optional[float]:
         r = rf(man, y, theta)
-        if r is None:
+        if r is not None:
+            return r + _ease_interp(ring_ys, ring_g, y)
+        if extrap is None:
             return None
-        return r + _ease_interp(ring_ys, ring_g, y)
+        if y < extrap["body_lo"] - _EPS:
+            ratio = extrap["ratio_below"]
+        elif y > extrap["body_hi"] + _EPS:
+            ratio = extrap["ratio_above"]
+        else:
+            return None
+        if ratio is None:
+            return None
+        w = outline_width_at(extrap["outline"], y)
+        if w is None:
+            return None
+        a = (w[1] - w[0]) / 2.0
+        return _mq._ellipse_radius(a, a * ratio, theta)
     return _fn
 
 
@@ -373,7 +593,15 @@ def to_surface(result: Dict[str, Any], man: Dict[str, Any], *,
     ``base_garment.build`` へそのまま渡すだけの配線。パネル側
     (``flatten.build``)が要るのも同じ関数なので、そちらへ渡してもよい
     ── ここは一例。
-    """
+
+    ``result`` が拡張ゾーン(``_extrap``)を持つとき ── ``match`` が
+    ``y_top``/``y_bottom`` で身体の外まで解いていたとき ── でも、
+    ``base_garment.build`` 自身は要求範囲を人台の ``_levels`` の範囲へ
+    黙って切り詰める(``base_garment.py`` 自身の設計、ここでは変えない)。
+    ``radius_at`` は拡張ゾーンでも答えられるが、``base_garment.build``
+    はそこまで要求しない ── その分は返り値の ``clipped_bottom_cm``/
+    ``clipped_top_cm``/``y_range_used`` に、``base_garment.build`` 自身
+    の言葉で載る。ここで隠しはしない。"""
     if result.get("verdict") != "ANSWER":
         return dict(result)
     rf = radius_at_for(result, base_radius_at=base_radius_at)
