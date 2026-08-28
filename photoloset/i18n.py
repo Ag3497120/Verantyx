@@ -147,6 +147,65 @@ TERMS: Dict[str, str] = {
     "襟ぐり周囲": "neck circumference",
     "上身頃丈": "bodice length",
     "ケープ丈": "cape length",
+    # --- 2026-08-28: repairs.py / decisions.py / their downstream callers ---
+    # (regression found these missing from english_is_complete's sweep;
+    # they are fixed strings — sewing_order.py / marker.py / repairs.py /
+    # decisions.py notes and refusal prose that do not vary by input. The
+    # ones that DO vary — a formula with numbers in it, a count summary —
+    # are RULES entries below instead, because a SENTENCES entry only
+    # matches the one value it was written against.)
+    "前後身頃": "front and back bodice",
+    "両側がまだ別の塊なので、平らに開いて縫える":
+        "both sides are still separate pieces, so this seam can be sewn "
+        "open, flat",
+    "両側は既に繋がっている。この一本は輪を閉じる":
+        "both sides are already joined; this one seam closes a loop",
+    "順序が在ることは示しましたが、**針が物理的に届くかは別**です。ここが"
+    "持っているのは裁片と縫い目の繋がりだけで、どちらが内側か、開きが"
+    "どこにあるか、立体としてどう置かれるかを持っていません。「輪になる"
+    "／ならない」までが言えることの端です":
+        "this shows an order exists, but **whether a needle can physically "
+        "reach is a separate question**. What this holds is only which "
+        "pieces are joined by which seams — not which side is inside, "
+        "where an opening sits, or how the piece sits in three dimensions. "
+        "\"becomes a loop / does not\" is the edge of what can be said here",
+    "工業の縫製仕様書に準拠していません":
+        "does not conform to any published industrial sewing specification",
+    "AAMA/ASTM のマーカー規格に準拠していません。準拠を名乗るにはその規格"
+    "で検証した誰かが要ります":
+        "does not conform to the AAMA/ASTM marker standards. Claiming "
+        "conformance needs someone who has verified it against that "
+        "standard",
+    "毛並みを言っても、言わなくても、この長さは同じです。裁片を外接矩形"
+    "として置いているので、矩形の180°回転は同じ矩形になります。毛並みが"
+    "効くのは多角形として噛み合わせるようになってから。使えない自由度を"
+    "「使えます」とは報告しません":
+        "this length is the same whether nap is stated or not. Pieces are "
+        "laid as bounding rectangles, and a 180° rotation of a rectangle "
+        "is the same rectangle — nap only matters once pieces are nested "
+        "as polygons. A degree of freedom that cannot be used is not "
+        "reported as usable",
+    "裁片を外接矩形として棚に並べただけです。実際のマーカーは凹んだ形を"
+    "噛み合わせるので、これより短くなります。**最小ではありません。** "
+    "生地を買う向きとしては多めに出る側で安全です":
+        "pieces are shelved as bounding rectangles only. A real marker "
+        "nests the concave shapes into each other and comes out shorter "
+        "than this. **This is not a minimum.** For buying fabric it errs "
+        "on the safe side, giving more rather than less",
+    "pattern に既にある seam_checks (garment_pattern.draft の検算をそのまま"
+    "使用)":
+        "the seam_checks already on the pattern (reusing "
+        "garment_pattern.draft's own recomputation as-is)",
+    "seam_checks (pattern既存 or seam_specsから生成), sewing_order.plan, "
+    "marker.lay, no genuine dart refusal":
+        "seam_checks (existing on the pattern, or generated from "
+        "seam_specs), sewing_order.plan, marker.lay, no genuine dart "
+        "refusal",
+    "仮定も未決も停止も契約不備も見つからなかった — 歩いた先はすべて実測"
+    "マーカーの無いスカラーか空の構造だった":
+        "found no assumption, no open question, no hard stop and no "
+        "malformed contract — everywhere walked was either a scalar with "
+        "no measured marker or an empty structure",
 }
 
 _SUFFIX = {
@@ -184,6 +243,21 @@ def _term(s: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 RULES: List[Tuple[re.Pattern, Any]] = [
+    # --- 2026-08-28: three strings that carry numbers, so no single
+    # SENTENCES entry can match every value they take.
+    (re.compile(r"^β = 縫い目 − 裁片 \+ 連結成分 = (\d+) − (\d+) \+ (\d+) "
+                r"= (-?\d+)$"),
+     lambda m: f"beta = seams - pieces + components "
+               f"= {m.group(1)} - {m.group(2)} + {m.group(3)} "
+               f"= {m.group(4)}"),
+    (re.compile(r"^(\d+)回で、登録済み修復が検出する問題が0件になった$"),
+     lambda m: f"after {m.group(1)} round(s), the registered repairs "
+               f"detect zero remaining problems"),
+    (re.compile(r"^見るべき順に — 停止(\d+)件、契約不備(\d+)件、未決(\d+)"
+                r"件、推定(\d+)件、実測(\d+)件$"),
+     lambda m: f"in the order to look: {m.group(1)} blocked, "
+               f"{m.group(2)} malformed contract, {m.group(3)} open "
+               f"question, {m.group(4)} inferred, {m.group(5)} measured"),
     (re.compile(r"^(\S+) の (\S+) が映るカットを探す / 依頼者に確認(?:する)?$"),
      lambda m: f"find a shot where the {m.group(1)} {m.group(2)} is visible, "
                f"or ask the client"),

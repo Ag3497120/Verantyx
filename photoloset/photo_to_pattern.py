@@ -400,21 +400,54 @@ def _calibrate(structure_out: Dict[str, Any], man: Dict[str, Any]
     }, None
 
 
-def _outline_fraction_used(structure_out: Dict[str, Any], calib: Dict[str, Any]
+def _outline_fraction_used(structure_out: Dict[str, Any], calib: Dict[str, Any],
+                           match_res: Optional[Dict[str, Any]] = None
                            ) -> Optional[Dict[str, Any]]:
     """輪郭の縦方向の広がり(bbox の min_y〜max_y、``structure`` の
-    height_fraction=0〜1)のうち、実際に ``silhouette.match`` の既定範囲
-    (人台の腰〜襟ぐり)へ写る区間だけを、**この呼び出し自身の較正値から**
-    計算する。ハードコードした数字ではない ── ドキュストリングの CEILING
-    実測はこの関数が返した値をそのまま書き写したもの。
+    height_fraction=0〜1)のうち、実際に ``panels.to_pieces()`` の裁片へ
+    届いた区間を報告する。
+
+    **2026-08-28 に直した。** 以前はここで「``silhouette.match`` の既定
+    範囲(人台の腰〜襟ぐり)だけが届く」と較正値から**独立に再計算**して
+    いた。しかし ``silhouette.match`` は同じ日に腰から下・襟ぐりから上へ
+    伸びる拡張ゾーンを実装していて(``y_top``/``y_bottom`` を渡せば前後比
+    を持ち越して答える)、この関数はその存在を知らないまま「腰〜襟ぐり
+    だけ」を書き続けていた。呼び出し側(``run``)も拡張ゾーンの引数を
+    渡さずに ``match`` を呼んでいたので、機能は実装されているのに一度も
+    通り道に乗っていなかった ── **二重の欠陥で、どちらも今日直した。**
+
+    ``match_res`` を渡せば、その ``y_range_used``(実際に解いた範囲、
+    拡張ゾーンを含む)を較正値から誤って再計算するのではなく直接読む。
+    省略時は以前と同じ較正値だけの計算に後退する(古い呼び出し元との
+    互換のため)。
     """
     bbox = structure_out["bbox_px"]
     span_px = float(bbox["max_y"]) - float(bbox["min_y"])
     if span_px <= _EPS or calib["scale_cm_per_px"] <= _EPS:
         return None
-    y_hip_px = calib["y_top_px"] + calib["body_hi_cm"] / calib["scale_cm_per_px"]
-    y_low = max(float(bbox["min_y"]), calib["y_top_px"])
-    y_high = min(float(bbox["max_y"]), y_hip_px)
+    if match_res is not None and match_res.get("verdict") == "ANSWER":
+        lo_cm, hi_cm = match_res["y_range_used"]
+        # cm(人台座標、y上向き)を px(画像座標、y下向き)へ戻す ──
+        # _map_point の逆変換。body_hi_cm が px の基準(y_top_px)。
+        y_high_px = (calib["y_top_px"]
+                    + (calib["body_hi_cm"] - lo_cm) / calib["scale_cm_per_px"])
+        y_low_px = (calib["y_top_px"]
+                   + (calib["body_hi_cm"] - hi_cm) / calib["scale_cm_per_px"])
+        why = ("silhouette.match が実際に解いた範囲(y_range_used、拡張"
+               "ゾーンを含む)を較正で px に戻したもの。この区間の外は、"
+               "写っていても panels.to_pieces() の裁片には一切乗らない")
+    else:
+        y_hip_px = (calib["y_top_px"]
+                   + calib["body_hi_cm"] / calib["scale_cm_per_px"])
+        y_low_px = calib["y_top_px"]
+        y_high_px = y_hip_px
+        why = ("silhouette.match の既定範囲(人台の腰〜襟ぐりだけ、"
+               "mannequin.radius_at がそれより下でNoneを返すため)。"
+               "match_res が渡されなかったので拡張ゾーンは考慮していない。"
+               "輪郭のこの高さ区間の外は、写っていても "
+               "panels.to_pieces() の裁片には一切乗らない")
+    y_low = max(float(bbox["min_y"]), min(y_low_px, y_high_px))
+    y_high = min(float(bbox["max_y"]), max(y_low_px, y_high_px))
     used_px = max(0.0, y_high - y_low)
     return {
         "outline_height_fraction_start": round(
@@ -422,10 +455,7 @@ def _outline_fraction_used(structure_out: Dict[str, Any], calib: Dict[str, Any]
         "outline_height_fraction_end": round(
             (y_high - float(bbox["min_y"])) / span_px, 4),
         "outline_height_fraction_used": round(used_px / span_px, 4),
-        "why": ("silhouette.match の既定範囲は人台の腰〜襟ぐりだけ"
-                "(mannequin.radius_at がそれより下でNoneを返すため)。"
-                "輪郭のこの高さ区間の外は、写っていても panels.to_pieces()"
-                "の裁片には一切乗らない"),
+        "why": why,
     }
 
 
@@ -558,9 +588,18 @@ def run(record: Dict[str, Any], measures: Any, *,
     outline_cm = [_map_point(p, calib) for p in record["outline"]]
 
     # ---- 4. silhouette.match: 高さごとの ease を解く -------------------
+    # **輪郭が実際に覆う高さ全体を渡す。** 2026-08-28 まで、この呼び出しは
+    # y_top/y_bottom を省略していた ── silhouette.match の拡張ゾーン
+    # (腰から下・襟ぐりから上、比を持ち越して奥行を出す)は実装済みで検査
+    # も付いているのに、ここが既定(人台の範囲だけ)のまま呼んでいたので
+    # 一度も点いていなかった。outline_fraction_used が 0.3351 のまま
+    # 動かなかった原因はここ ── silhouette.py 側の欠陥ではなく、この
+    # 呼び出しが自分の変換済み輪郭の高さを一度も見ていなかったこと。
+    _oc_ys = [p[1] for p in outline_cm]
     t0 = time.perf_counter()
     match_res = _sil.match(man, outline_cm, segments=segments,
-                           height_steps=height_steps)
+                           height_steps=height_steps,
+                           y_bottom=min(_oc_ys), y_top=max(_oc_ys))
     hops.append(_hop("silhouette_match", match_res.get("verdict"),
                      height_steps + 1, time.perf_counter() - t0))
     if match_res.get("verdict") != "ANSWER":
@@ -640,7 +679,7 @@ def run(record: Dict[str, Any], measures: Any, *,
                        decisions_used)
 
     total_seconds = time.perf_counter() - t_start
-    used = _outline_fraction_used(st, calib)
+    used = _outline_fraction_used(st, calib, match_res)
     if used is None:
         ceiling_text = (
             "silhouette.match が解くのは高さごとの ease(y) 一個だけ ── "

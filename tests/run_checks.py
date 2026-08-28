@@ -1180,6 +1180,20 @@ def english_is_complete() -> None:
     outs["sewing_search.unapproved"] = _search.methods_for("nope")
     _search.bind(ledger=_led, measures=ms3)
     outs["sewing_search.no_corpus"] = _search.methods_for(_ap["approval_id"])
+
+    # **2026-08-28 に足した。** repairs.py/ledger_bridge.py/decisions.py は
+    # 同じ日に着地した新しい呼び出し面で、この関数がスイープする対象で
+    # はなかった。回帰で実測: repairs.make_sewable() は縫えない型紙1件で
+    # 171個の未翻訳の日本語断片を漏らしていた ── 「0 untranslated」は
+    # このテーブルが数えたパスについてしか言えないのに、新しい呼び出し
+    # 面がテーブルに入っていなかった。
+    from photoloset import repairs as _repairs
+    from photoloset import decisions as _decisions
+    outs["repairs.diagnose"] = _repairs.diagnose(draft)
+    outs["repairs.make_sewable"] = _repairs.make_sewable(draft)
+    outs["decisions.collect.empty"] = _decisions.collect({"verdict": "ANSWER"})
+    outs["decisions.collect.refused"] = _decisions.collect(
+        {"verdict": "UNKNOWN_X", "why": "reason", "how_to_close": "close it"})
     _resemble.reset()
     _search.reset()
 
@@ -1196,8 +1210,11 @@ def english_is_complete() -> None:
     # of paths, and the fact that the newly load-bearing refusal texts are
     # among them (they were not, and 67 strings were untranslated outside
     # this table — see README.md, which now states the scope out loud).
+    # **51 -> 55, 2026-08-28.** repairs.diagnose/repairs.make_sewable/
+    # decisions.collect(empty)/decisions.collect(refused) joined the sweep
+    # — the four new output paths listed just above.
     check("0 untranslated",
-          not total_missing and len(swept) == 51,
+          not total_missing and len(swept) == 55,
           f"{len(set(total_missing))} strings across {len(swept)} outputs")
 
     # **The second number the README states, measured.** "0 untranslated"
