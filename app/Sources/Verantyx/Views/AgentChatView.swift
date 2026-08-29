@@ -441,23 +441,21 @@ struct AgentChatView: View {
 
     private var chatTranscriptArea: some View {
         ZStack(alignment: .bottom) {
-            // NSTextView ベースのトランスクリプト。
-            // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
-            ChatTranscriptView(messages: visibleMessages,
-                               isGenerating: app.isGenerating)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack(spacing: 0) {
+                // NSTextView ベースのトランスクリプト。
+                // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
+                ChatTranscriptView(messages: visibleMessages,
+                                   isGenerating: app.isGenerating)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .layoutPriority(1)
 
-            // Agent-style dynamic work window: it appears over the chat only
-            // when the shared expert workbench has a decision, artifact or
-            // preview worth touching. Its tabs and contents change with the
-            // job instead of reserving a permanent dashboard strip.
-            if app.veraEngineMode == .atelier {
-                VStack {
-                    Spacer()
+                // 必要な候補・3D・型紙・監査内容は、会話を覆う別ウィンドウでは
+                // なく、トランスクリプトの末尾に選択式カードとして差し込む。
+                // 展開しても通常レイアウト内で高さを使うため、本文も入力欄も
+                // 隠さない。同じ factory/job/context を使うので状態の複製もない。
+                if app.veraEngineMode == .atelier {
                     AtelierBeginnerContextCardsView()
                         .environmentObject(app)
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 18)
                 }
             }
 

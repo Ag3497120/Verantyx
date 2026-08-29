@@ -41,7 +41,6 @@ struct IDEShellView: View {
     // caller already has a live `app` in ITS body, so it just hands over
     // `app.shell` directly.
     @ObservedObject var shell: ShellLayoutState
-    @ObservedObject private var activity = AgentActivityCenter.shared
 
     // Per-file-tab editor buffer. One buffer, matching `app.selectedFile` —
     // see the note on `EditorBufferView` for why tabs here are a switchable
@@ -54,26 +53,10 @@ struct IDEShellView: View {
     @State private var editorScrollCommand: EditorScrollCommand? = nil
 
     var body: some View {
-        Group {
-            if let tab = shell.activeTab, tab.kind == .garment, shell.garmentExpanded {
-                garmentFullWidthLayout
-            } else {
-                normalLayout
-            }
-        }
+        normalLayout
         .onChange(of: app.selectedFile) { _, url in loadFileIntoEditor(url: url) }
         .onChange(of: app.showGatekeeperRawCode) { _, _ in loadFileIntoEditor(url: app.selectedFile) }
         .onAppear { loadFileIntoEditor(url: app.selectedFile) }
-        // ── オファー: エージェントが動いている間、活動ログを申し出る ──
-        // 強制はしない — 空いている側に一度だけ申し出て、断られたら
-        // そのパネルがどこかに実際に開くまで黙る。
-        .onChange(of: activity.state.glows) { _, glowing in
-            guard glowing else { return }
-            shell.requestMount(.agentActivity,
-                               reasonEN: "An agent is running — show its activity?",
-                               reasonJA: "エージェントが動いています — 活動を表示しますか？",
-                               suggestedSide: shell.rightPanel == nil ? .right : .left)
-        }
         // ── オファー: 立体十字が動いた（Vera-α の保存が来た）───────────
         .onChange(of: app.pendingVeraSave?.id) { _, newId in
             guard newId != nil else { return }
@@ -82,52 +65,6 @@ struct IDEShellView: View {
                                reasonJA: "台帳への保存が届きました — 立体十字を表示しますか？",
                                suggestedSide: shell.leftPanel == nil ? .left : .right)
         }
-    }
-
-    // MARK: - Full-width garment layout
-
-    private var garmentFullWidthLayout: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                Button {
-                    shell.toggleGarmentExpanded()
-                } label: {
-                    Label(app.t("Collapse", "折りたたむ"), systemImage: "arrow.down.right.and.arrow.up.left")
-                        .font(.system(size: 11, weight: .semibold))
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Theme.sel)
-                Text(app.t("Garment — full width", "服飾 — 全幅"))
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(Theme.dim)
-                Spacer()
-                atelierModePicker
-            }
-            .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(Theme.panel)
-            Divider().opacity(0.3)
-
-            if atelierShowOverview {
-                AttentionOverviewView(onOpenWorkbench: { atelierShowOverview = false })
-                    .environmentObject(app)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                // UI B (owner's brief, verbatim): 「全体を表示しながら
-                // 現在いるuiをチャットが自動で切り替えてくれる」— the
-                // whole workbench stays up, and the chat beside it steers
-                // `AtelierView`'s step. This REPLACES the old stacked
-                // AtelierView+UnifiedComposerView pair that used to render
-                // here: a composer pinned under the workbench is exactly
-                // the shape the owner's brief says must not come back
-                // ("in this layout the chat is a pane, and the workbench
-                // is the other pane" — not a bar underneath it).
-                AtelierWorkbenchSplitView()
-                    .environmentObject(app)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }
-        .background(Theme.panel2)
-        .clipped()
     }
 
     // MARK: - Normal 3-slot layout
@@ -157,7 +94,7 @@ struct IDEShellView: View {
                 } else {
                     tabStrip
                     Divider().opacity(0.25)
-                    if shell.activeTab?.kind == .chat {
+                    if activeTabUsesChatFirstCanvas {
                         beginnerChatCanvas
                     } else {
                         activeTabContent
@@ -177,6 +114,16 @@ struct IDEShellView: View {
             }
         }
         .background(Theme.panel2)
+    }
+
+    /// Atelier has one surface, not separate beginner/expert screens. A
+    /// garment project therefore opens the same Chat-first canvas as chat;
+    /// 3D, pattern, structure, evidence and direct tools are disclosed by the
+    /// contextual card inside that canvas.
+    private var activeTabUsesChatFirstCanvas: Bool {
+        guard let kind = shell.activeTab?.kind else { return false }
+        if kind == .chat { return true }
+        return app.veraEngineMode == .atelier && kind == .garment
     }
 
     /// Beginner chat has one fixed readable measure. The two flexible
@@ -227,7 +174,7 @@ struct IDEShellView: View {
                               help: app.t("New project", "新しいプロジェクト")) {
                         createProject()
                     }
-                    railButton(icon: "tshirt", help: app.t("Garment", "服飾"),
+                    railButton(icon: "tshirt", help: "Atelier",
                               active: shell.activeTab?.kind == .garment) {
                         shell.openTab(.garment)
                     }
@@ -240,9 +187,11 @@ struct IDEShellView: View {
                         }
                     }
                 }
-                railButton(icon: "bubble.left.and.bubble.right", help: app.t("Chat", "チャット"),
-                          active: shell.activeTab?.kind == .chat) {
-                    shell.openTab(.chat)
+                if app.veraEngineMode == .localLLM {
+                    railButton(icon: "bubble.left.and.bubble.right", help: app.t("Chat", "チャット"),
+                              active: shell.activeTab?.kind == .chat) {
+                        shell.openTab(.chat)
+                    }
                 }
 
                 ForEach(MountablePanelKind.surfacedCases) { kind in
@@ -501,21 +450,23 @@ struct IDEShellView: View {
                 .lineLimit(1)
             Spacer()
 
-            Menu {
-                ForEach(MountablePanelKind.surfacedCases) { kind in
-                    Button(kind.title(japanese: AppLanguage.shared.isJapanese)) {
-                        shell.mount(kind, in: shell.rightPanel == nil ? .right : .left)
+            if !MountablePanelKind.surfacedCases.isEmpty {
+                Menu {
+                    ForEach(MountablePanelKind.surfacedCases) { kind in
+                        Button(kind.title(japanese: AppLanguage.shared.isJapanese)) {
+                            shell.mount(kind, in: shell.rightPanel == nil ? .right : .left)
+                        }
                     }
+                } label: {
+                    Image(systemName: "plus.rectangle.on.rectangle")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.72))
                 }
-            } label: {
-                Image(systemName: "plus.rectangle.on.rectangle")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.72))
+                .buttonStyle(.plain)
+                .menuStyle(.borderlessButton)
+                .frame(width: 20)
+                .help(app.t("Show a panel", "パネルを表示"))
             }
-            .buttonStyle(.plain)
-            .menuStyle(.borderlessButton)
-            .frame(width: 20)
-            .help(app.t("Show a panel", "パネルを表示"))
         }
         .padding(.horizontal, 12)
         .frame(height: 34)
@@ -655,7 +606,7 @@ struct IDEShellView: View {
         switch kind {
         case .file(let p):   return URL(fileURLWithPath: p).lastPathComponent
         case .folder(let p): return URL(fileURLWithPath: p).lastPathComponent
-        case .garment:       return app.t("Garment", "服飾")
+        case .garment:       return "Atelier"
         case .chat:          return app.t("Chat", "チャット")
         case .panel(let k):  return k.title(japanese: AppLanguage.shared.isJapanese)
         case .terminal:      return app.t("Terminal", "ターミナル")
@@ -683,7 +634,7 @@ struct IDEShellView: View {
                 case .folder:
                     FileTreeView().environmentObject(app)
                 case .garment:
-                    garmentTabContent
+                    beginnerChatCanvas
                 case .chat:
                     AgentChatView(showsOwnComposer: false).environmentObject(app)
                 case .panel(let kind):
@@ -724,72 +675,6 @@ struct IDEShellView: View {
         }
     }
 
-    private var garmentTabContent: some View {
-        VStack(spacing: 0) {
-            HStack {
-                atelierModePicker
-                Spacer()
-                Button {
-                    shell.toggleGarmentExpanded()
-                } label: {
-                    Label(app.t("Expand", "全幅にする"), systemImage: "arrow.up.left.and.arrow.down.right")
-                        .font(.system(size: 10.5, weight: .semibold))
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Theme.sel)
-            }
-            .padding(.horizontal, 10).padding(.vertical, 4)
-            .background(Theme.panel2)
-            if atelierShowOverview {
-                AttentionOverviewView(onOpenWorkbench: { atelierShowOverview = false })
-                    .environmentObject(app)
-            } else {
-                // Expert mode is the detailed workbench and its steering chat
-                // as one surface. The split view reflows the chat into a sheet
-                // only when the window cannot fit both panes without crushing
-                // the garment controls.
-                AtelierWorkbenchSplitView().environmentObject(app)
-            }
-        }
-    }
-
-    // MARK: - UI A / UI B switch
-    //
-    // **服飾を知らない人はまずカードの概要(UI A, AttentionOverviewView)を
-    // 見る。** ワークベンチ(UI B, AtelierView)はそのまま — ここは同じ
-    // 服飾タブの中身をどちらの面で見せるかを選ぶだけの、最小の切り替え。
-    // タブの構成そのものではないので ShellLayoutState には持ち込まず、
-    // この画面だけの表示状態として @AppStorage に置く。既定は概要側。
-    //
-    // 前提: これが「UI A ⇄ UI B の切り替え」の唯一の実装。他のワーク
-    // フローが並行して同じ切り替えを別の形(例えばタブそのものを分ける)
-    // で作っていた場合は、統合時にどちらかへ寄せる調整が要る。
-    @AppStorage("atelier_overview_shown") private var atelierShowOverview: Bool = true
-
-    private var atelierModePicker: some View {
-        HStack(spacing: 2) {
-            atelierModeChip(app.t("Overview", "概要"), selected: atelierShowOverview) {
-                atelierShowOverview = true
-            }
-            atelierModeChip(app.t("Workbench", "作業台"), selected: !atelierShowOverview) {
-                atelierShowOverview = false
-            }
-        }
-    }
-
-    private func atelierModeChip(_ title: String, selected: Bool,
-                                 action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title)
-                .font(.system(size: 10.5, weight: selected ? .bold : .medium))
-                .foregroundStyle(selected ? Theme.fg : Theme.faint)
-                .padding(.horizontal, 9).padding(.vertical, 3)
-                .background(selected ? Theme.sel.opacity(0.16) : .clear,
-                           in: RoundedRectangle(cornerRadius: 6))
-        }
-        .buttonStyle(.plain)
-    }
-
     // MARK: - Empty state
     //
     // 何もかも閉じても、この画面は「壊れて」いない。書けば始まる。
@@ -809,16 +694,16 @@ struct IDEShellView: View {
                     emptyStateLink(app.t("New project", "新しいプロジェクト"), icon: "folder.badge.plus") {
                         createProject()
                     }
-                    emptyStateLink(app.t("Garment", "服飾"), icon: "tshirt") {
+                    emptyStateLink("Atelier", icon: "tshirt") {
                         shell.openTab(.garment)
                     }
                 } else {
                     emptyStateLink(app.t("Open a folder", "フォルダーを開く"), icon: "folder") {
                         app.openWorkspace()
                     }
-                }
-                emptyStateLink(app.t("Chat", "チャット"), icon: "bubble.left.and.bubble.right") {
-                    shell.openTab(.chat)
+                    emptyStateLink(app.t("Chat", "チャット"), icon: "bubble.left.and.bubble.right") {
+                        shell.openTab(.chat)
+                    }
                 }
             }
             Spacer()

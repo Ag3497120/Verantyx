@@ -724,10 +724,14 @@ struct UnifiedComposerView: View {
         inputText = ""
         app.sendMessage(with: text)
 
-        // Beginner Atelier stays in the existing full-screen Chat tab so the
-        // user can watch proposals, retries and typed stops. The Garment tab
-        // remains available for the full workbench; sending does not force it.
-        app.shell.openTab(.chat)
+        // Atelier is one Chat-first surface. Sending stays in the garment
+        // project where its inline 3D / pattern / inspector cards appear;
+        // there is no second expert workbench or duplicate Atelier chat tab.
+        if app.veraEngineMode == .atelier {
+            app.shell.openTab(.garment)
+        } else {
+            app.shell.openTab(.chat)
+        }
     }
 
     private var needsScreenContentionWarning: Bool {

@@ -20,10 +20,12 @@ private enum AtelierBeginnerFactoryUIAudit {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
         let viewsRoot = appRoot.appendingPathComponent("Sources/Verantyx/Views")
+        let engineRoot = appRoot.appendingPathComponent("Sources/Verantyx/Engine")
         guard let chatPaneRaw = read("AtelierChatPaneView.swift", from: viewsRoot),
               let dynamicRaw = read("AtelierDynamicFlowView.swift", from: viewsRoot),
               let agentChatRaw = read("AgentChatView.swift", from: viewsRoot),
-              let shellRaw = read("IDEShellView.swift", from: viewsRoot)
+              let shellRaw = read("IDEShellView.swift", from: viewsRoot),
+              let shellLayoutRaw = read("ShellLayoutState.swift", from: engineRoot)
         else {
             report.failures.append("BEGINNER_OR_EXPERT_UI_SOURCE_UNREADABLE")
             return report
@@ -32,16 +34,34 @@ private enum AtelierBeginnerFactoryUIAudit {
         let dynamic = executableSource(dynamicRaw)
         let agentChat = executableSource(agentChatRaw)
         let shell = executableSource(shellRaw)
+        let shellLayout = executableSource(shellLayoutRaw)
 
-        require(agentChat.contains("ZStack(alignment: .bottom)") &&
+        require(agentChat.contains("VStack(spacing: 0)") &&
+                agentChat.contains("ChatTranscriptView(messages: visibleMessages") &&
                 agentChat.contains("AtelierBeginnerContextCardsView()") &&
-                agentChat.contains("if app.veraEngineMode == .atelier"),
-                "DYNAMIC_WINDOW_NOT_OVERLAID_ON_BEGINNER_CHAT", into: &report)
+                agentChat.contains(".layoutPriority(1)") &&
+                agentChat.contains("if app.veraEngineMode == .atelier") &&
+                !agentChat.contains(".padding(.bottom, 18)"),
+                "DYNAMIC_CARD_NOT_EMBEDDED_IN_BEGINNER_CHAT", into: &report)
+        if let transcript = agentChat.range(
+                of: "ChatTranscriptView(messages: visibleMessages"),
+           let card = agentChat.range(of: "AtelierBeginnerContextCardsView()") {
+            require(transcript.lowerBound < card.lowerBound,
+                    "DYNAMIC_CARD_IS_NOT_AFTER_CHAT_TRANSCRIPT", into: &report)
+        } else {
+            report.failures.append("DYNAMIC_CARD_ORDER_UNAUDITABLE")
+        }
         require(dynamic.contains("struct AtelierBeginnerContextCardsView") &&
                 dynamic.contains("dismissedRevision") &&
                 dynamic.contains("collapsed.toggle()") &&
-                dynamic.contains("onChange(of: revision)"),
-                "BEGINNER_WINDOW_IS_NOT_CONTEXTUAL_OR_DISMISSIBLE", into: &report)
+                dynamic.contains("@State private var collapsed = true") &&
+                dynamic.contains("collapsed = true") &&
+                dynamic.contains("onChange(of: revision)") &&
+                dynamic.contains("atelier.inline-context-card") &&
+                dynamic.contains("選択して開く") &&
+                !dynamic.contains(".background(.ultraThinMaterial") &&
+                !dynamic.contains(".shadow(color: .black.opacity(0.42)"),
+                "BEGINNER_CARD_IS_NOT_INLINE_SELECTABLE_OR_CONTEXTUAL", into: &report)
         for page in ["case progress", "case threeD", "case pattern",
                      "case manufacturing", "case choices", "case change"] {
             require(dynamic.contains(page),
@@ -118,13 +138,24 @@ private enum AtelierBeginnerFactoryUIAudit {
                 !dynamic.contains("工業認証済み"),
                 "MANUFACTURING_PREVIEW_MISREPRESENTS_CERTIFICATION",
                 into: &report)
-        require(shell.contains("AtelierWorkbenchSplitView()") &&
-                shell.contains("case .chat:") &&
-                shell.contains("AgentChatView(showsOwnComposer: false)"),
-                "EXPERT_SPLIT_OR_EXISTING_BEGINNER_CHAT_NOT_MOUNTED", into: &report)
+        require(shell.contains("activeTabUsesChatFirstCanvas") &&
+                shell.contains("app.veraEngineMode == .atelier && kind == .garment") &&
+                shell.contains("case .garment:") &&
+                shell.contains("beginnerChatCanvas") &&
+                !shell.contains("AtelierWorkbenchSplitView()") &&
+                !shell.contains("atelierModePicker") &&
+                !shell.contains("atelierShowOverview"),
+                "ATELIER_STILL_HAS_SEPARATE_BEGINNER_EXPERT_SURFACES", into: &report)
         require(agentChat.contains("AtelierBeginnerContextCardsView()") &&
-                dynamic.contains("熟練者画面から必要な内容だけを表示"),
-                "LLM_LED_CHAT_LOST_ITS_DYNAMIC_EXPERT_PROJECTION", into: &report)
+                dynamic.contains("Advanced Inspector") &&
+                dynamic.contains("AtelierView()") &&
+                dynamic.contains("atelier.inline-advanced-direct-tools"),
+                "CHAT_FIRST_ATELIER_LOST_PROGRESSIVE_ADVANCED_TOOLS", into: &report)
+        require(shellLayout.contains("case .agentActivity: return false") &&
+                shellLayout.contains("guard case .panel(let kind) = tab.kind") &&
+                shellLayout.contains("return kind.surfaced") &&
+                !shell.contains("requestMount(.agentActivity"),
+                "AGENT_ACTIVITY_IS_STILL_A_VISIBLE_OR_RESTORABLE_PANE", into: &report)
 
         guard let composerRaw = read("UnifiedComposerView.swift", from: viewsRoot)
         else {
@@ -137,9 +168,12 @@ private enum AtelierBeginnerFactoryUIAudit {
                 composer.contains("if app.veraEngineMode == .atelier"),
                 "ATELIER_ATTACHMENT_IS_NOT_A_SINGLE_DIRECT_DOOR", into: &report)
         require(composer.contains("await intake.ingest(url)") &&
-                composer.contains("intake.selectedClip != nil") &&
+                composer.contains("intake.hasComposerAttachment") &&
                 composer.contains("hasComposerAttachments"),
                 "ATELIER_DROP_OR_SEND_DOES_NOT_SHARE_INTAKE_STATE", into: &report)
+        require(composer.contains("if app.veraEngineMode == .atelier") &&
+                composer.contains("app.shell.openTab(.garment)"),
+                "ATELIER_SEND_LEAVES_THE_UNIFIED_PROJECT_SURFACE", into: &report)
 
         require(source.contains("AtelierIntake.shared") &&
                 source.contains("pickAndIngest()") &&

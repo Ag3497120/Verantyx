@@ -604,23 +604,18 @@ extension VerantyxApp {
     }
 
     /// **Test-only.** Drives straight to one of the three screens the
-    /// reflow task's matrix has to cover, without a click — the same
-    /// reason `applyTestFrameIfRequested` exists. `VERANTYX_TEST_SCREEN`
-    /// is one of "chooser" / "uiA" / "uiB"; anything else (including
-    /// unset, a normal launch) leaves navigation exactly as it already
-    /// was. "chooser" does nothing here — reaching that screen is a
-    /// matter of NOT having chosen a mode yet, which the driving script
-    /// gets by clearing `vera_engine_mode_chosen` before launch, not by
-    /// code here undoing a choice the person already made.
+    /// reflow task's matrix has to cover, without a click. `uiA` and `uiB`
+    /// remain accepted as legacy test aliases, but both now land on the one
+    /// Chat-first Atelier surface; beginner/expert are disclosure depth, not
+    /// separate screens.
     static func applyTestScreenIfRequested(_ appState: AppState) {
         guard let screen = ProcessInfo.processInfo.environment["VERANTYX_TEST_SCREEN"]
         else { return }
         guard screen == "uiA" || screen == "uiB" else { return }
         appState.selectEngineMode(.atelier)
-        UserDefaults.standard.set(screen == "uiA", forKey: "atelier_overview_shown")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             appState.shell.openTab(.garment)
-            appState.shell.garmentExpanded = true
+            appState.shell.garmentExpanded = false
         }
     }
 }

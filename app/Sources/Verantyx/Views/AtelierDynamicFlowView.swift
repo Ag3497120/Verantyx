@@ -473,11 +473,14 @@ struct AtelierBeginnerContextCardsView: View {
     @State private var previewingCandidate: String?
     @State private var feedback = ""
     @State private var page: Page = .progress
-    @State private var collapsed = false
+    // 会話に新しい作業が届いた時は、まず一行の選択カードとして見せる。
+    // ユーザーが選んだ時だけ同じ場所で展開し、会話や入力欄を覆わない。
+    @State private var collapsed = true
     @State private var dismissedRevision = ""
     @State private var expandedManufacturingCards: Set<String> = []
     @State private var expandedFailureDiagnostics: Set<String> = []
     @State private var initializedFailureDiagnostics: Set<String> = []
+    @State private var directInspectorExpanded = false
     @State private var selectedExportArtifact: ExportArtifact?
     @State private var targetSculptTool: TargetSculptTool = .orbit
     @State private var targetSculptBrushRings = 2.0
@@ -627,40 +630,46 @@ struct AtelierBeginnerContextCardsView: View {
         if (hasFactoryContext || job.pendingPreview != nil || job.canUndo)
             && dismissedRevision != revision {
             VStack(spacing: 0) {
-                windowHeader
+                inlineCardHeader
                 if !collapsed {
                     Divider().opacity(0.25)
                     pageBar
                     Divider().opacity(0.2)
                     windowContent
+                        .frame(maxHeight: 440)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
-            .frame(minWidth: 420, idealWidth: 620, maxWidth: 760,
-                   minHeight: collapsed ? 38 : 210,
-                   idealHeight: collapsed ? 38 : 380,
-                   maxHeight: collapsed ? 38 : 520)
-            .background(.ultraThinMaterial,
+            .frame(maxWidth: 880)
+            .background(Theme.panel,
                         in: RoundedRectangle(cornerRadius: 13,
                                              style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 13)
                 .stroke(Theme.sel.opacity(0.32), lineWidth: 1))
-            .shadow(color: .black.opacity(0.42), radius: 18, y: 7)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("atelier.inline-context-card")
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 8)
             .sheet(item: $selectedExportArtifact) { artifact in
                 exportArtifactSheet(artifact)
             }
             .onAppear {
                 selectMostRelevantPage()
-                focusFirstPendingCandidateIfNeeded()
             }
             .onChange(of: revision) { _, _ in
                 dismissedRevision = ""
-                collapsed = false
+                collapsed = true
+                candidateControlFocus = nil
                 selectMostRelevantPage()
-                // Candidate controls live in a floating beginner projection,
-                // outside the chat composer's focus section. Move keyboard
-                // focus only when the deterministic factory is explicitly
-                // waiting for a human candidate decision; ordinary chat turns
-                // keep their composer focus.
+            }
+            .onChange(of: collapsed) { _, isCollapsed in
+                if isCollapsed {
+                    candidateControlFocus = nil
+                    return
+                }
+                // 候補操作は、ユーザーが会話内カードを選んで開いた後だけ
+                // フォーカスする。通常の会話ターンでは入力欄を奪わない。
                 Task { @MainActor in
                     await Task.yield()
                     focusFirstPendingCandidateIfNeeded()
@@ -669,19 +678,42 @@ struct AtelierBeginnerContextCardsView: View {
         }
     }
 
-    private var windowHeader: some View {
+    private var inlineCardHeader: some View {
         HStack(spacing: 8) {
-            Image(systemName: "sparkles.rectangle.stack")
-                .foregroundStyle(Theme.sel)
-            VStack(alignment: .leading, spacing: 1) {
-                Text("Vera Atelier")
-                    .font(.system(size: 11.5, weight: .semibold))
-                    .foregroundStyle(Theme.fg)
-                Text("会話・3D・型紙・構造を、必要な深さで表示")
-                    .font(.system(size: 8.5))
-                    .foregroundStyle(Theme.faint)
+            Button {
+                withAnimation(.easeInOut(duration: 0.18)) {
+                    collapsed.toggle()
+                }
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles.rectangle.stack")
+                        .foregroundStyle(Theme.sel)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Vera Atelier")
+                            .font(.system(size: 11.5, weight: .semibold))
+                            .foregroundStyle(Theme.fg)
+                        Text(collapsed
+                             ? "選択して候補・3D・型紙・監査内容を開く"
+                             : "チャット内で \(page.rawValue) を表示中")
+                            .font(.system(size: 8.5))
+                            .foregroundStyle(Theme.faint)
+                    }
+                    Spacer(minLength: 12)
+                    Text(collapsed ? "選択して開く" : "閉じる")
+                        .font(.system(size: 8.5, weight: .semibold))
+                        .foregroundStyle(Theme.sel)
+                    Image(systemName: collapsed ? "chevron.up" : "chevron.down")
+                        .font(.system(size: 9, weight: .semibold))
+                        .foregroundStyle(Theme.dim)
+                }
+                .contentShape(Rectangle())
             }
-            Spacer()
+            .buttonStyle(.plain)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityLabel(collapsed
+                                ? "Vera Atelier の作業カードを開く"
+                                : "Vera Atelier の作業カードを閉じる")
+            .accessibilityIdentifier("atelier.inline-context-card.toggle")
             Menu {
                 ForEach(GarmentFactoryReactController.InitialAuditMode.allCases) { mode in
                     Button {
@@ -706,14 +738,11 @@ struct AtelierBeginnerContextCardsView: View {
             .help("画像取り込み時の監査方法。実行中のジョブは変更せず、次の画像から適用します。")
             .accessibilityIdentifier("atelier.initial-audit-mode")
             if factory.busy { ProgressView().controlSize(.mini) }
-            Button { collapsed.toggle() } label: {
-                Image(systemName: collapsed ? "chevron.up" : "chevron.down")
-            }
-            .buttonStyle(.plain)
             Button { dismissedRevision = revision } label: {
                 Image(systemName: "xmark")
             }
             .buttonStyle(.plain)
+            .help("この作業カードを閉じる。状態が変わると再表示します。")
         }
         .padding(.horizontal, 12).padding(.vertical, 8)
     }
@@ -838,8 +867,9 @@ struct AtelierBeginnerContextCardsView: View {
     }
 
     /// The former separate expert surface, projected as folded inspection
-    /// groups inside the same Atelier window. These disclosures read the live
-    /// typed state; opening them cannot approve or mutate anything.
+    /// groups inside the same Chat-first card. Read-only summaries use the
+    /// live typed factory state; the final direct-tools disclosure embeds the
+    /// existing editor here instead of routing to another mode or window.
     private var advancedInspectorCard: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
@@ -901,6 +931,27 @@ struct AtelierBeginnerContextCardsView: View {
                                  "\(entry.action) → \(entry.verdict)")
                 }
             }
+
+            DisclosureGroup(isExpanded: $directInspectorExpanded) {
+                AtelierView()
+                    .environmentObject(app)
+                    .frame(minHeight: 620, idealHeight: 700)
+                    .padding(.top, 8)
+            } label: {
+                VStack(alignment: .leading, spacing: 2) {
+                    Label("Direct editing / Pattern・Seam・Material・Graph",
+                          systemImage: "ruler")
+                        .font(.system(size: 9.5, weight: .semibold))
+                        .foregroundStyle(Theme.dim)
+                    Text("必要な時だけ、既存の直接編集機能をこのチャット内に展開します")
+                        .font(.system(size: 8.25))
+                        .foregroundStyle(Theme.faint)
+                }
+            }
+            .padding(9)
+            .background(Theme.panel.opacity(0.62),
+                        in: RoundedRectangle(cornerRadius: 8))
+            .accessibilityIdentifier("atelier.inline-advanced-direct-tools")
 
             Text("表示は同じ型付き状態の深掘りです。Inspectorを開いただけでは候補承認・事実昇格・型紙変更は行いません。")
                 .font(.system(size: 8.25))

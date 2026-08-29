@@ -42,9 +42,10 @@ enum MountablePanelKind: String, Codable, CaseIterable, Identifiable {
     /// 開ける。**表に出さないことと、無いことは違う。**
     var surfaced: Bool {
         switch self {
-        // 服を作る作業そのものに属するもの。エージェントが動いている間、
-        // 「働いている」と「詰まっている」の区別がつくのはここだけ。
-        case .agentActivity: return true
+        // Agent Activity は内部の実行状態として composer / status 表示に
+        // 使い続けるが、独立ペインとしては出さない。チャットと服飾の中央面を
+        // 300pt 奪い、同じ進捗を別の場所へ重複表示していたため。
+        case .agentActivity: return false
         // **立体十字のグラフは、この道具の台帳を描いていない。** 自分の
         // docstring がそう書いている — "Live 3D visualization of Vera's
         // CrossStore … `graph_snapshot` MCP tool, Verantyx-Vera-alpha's
@@ -394,8 +395,22 @@ final class ShellLayoutState: ObservableObject {
         // 画面に居座った。実際にそうなった。
         leftPanel = snap.leftPanel.flatMap { $0.surfaced ? $0 : nil }
         rightPanel = snap.rightPanel.flatMap { $0.surfaced ? $0 : nil }
-        tabs = snap.tabs
-        activeTabID = snap.activeTabID
+        // 側面だけでなく中央タブとして保存されていた非公開パネルも外す。
+        // Agent Activity を UI から外しても、以前の保存状態にそのタブが
+        // 残っていると次回起動時だけ復活してしまうため、復元境界で正規化する。
+        tabs = snap.tabs.filter { tab in
+            guard case .panel(let kind) = tab.kind else { return true }
+            return kind.surfaced
+        }
+        if let restoredActive = snap.activeTabID,
+           tabs.contains(where: { $0.id == restoredActive }) {
+            activeTabID = restoredActive
+        } else {
+            activeTabID = tabs.first?.id
+        }
         garmentExpanded = snap.garmentExpanded
+        if tabs.count != snap.tabs.count || activeTabID != snap.activeTabID {
+            save()
+        }
     }
 }

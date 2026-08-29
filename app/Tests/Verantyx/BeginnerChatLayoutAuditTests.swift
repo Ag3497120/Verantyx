@@ -40,12 +40,15 @@ private enum BeginnerChatLayoutAudit {
         let canvas = section(in: shell,
                              from: "private var beginnerChatCanvas",
                              to: "// MARK: - Left rail")
-        require(shell.contains("if shell.activeTab?.kind == .chat") &&
+        require(shell.contains("if activeTabUsesChatFirstCanvas") &&
+                shell.contains("private var activeTabUsesChatFirstCanvas") &&
+                shell.contains("app.veraEngineMode == .atelier && kind == .garment") &&
                 shell.contains("beginnerChatCanvas") &&
                 canvas.contains("AgentChatView(showsOwnComposer: false)") &&
                 canvas.contains("UnifiedComposerView()") &&
                 canvas.contains(".frame(width: BeginnerChatLayout.canvasWidth"),
-                "TRANSCRIPT_AND_COMPOSER_NOT_IN_ONE_FIXED_CANVAS", into: &failures)
+                "ATELIER_AND_CHAT_DO_NOT_SHARE_ONE_FIXED_CHAT_FIRST_CANVAS",
+                into: &failures)
         require(occurrences(of: "Spacer(minLength: BeginnerChatLayout.outerGutter)",
                             in: canvas) == 2,
                 "SYMMETRIC_FLEXIBLE_GUTTERS_MISSING", into: &failures)
