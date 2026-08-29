@@ -246,8 +246,8 @@ struct AtelierView: View {
                             .frame(maxWidth: .infinity, minHeight: 28)
                     }
                     .buttonStyle(.plain)
-                    .help(app.t("Analysis AI: \(an.pick.label)",
-                                "解析AI: \(an.pick.label)"))
+                    .help(app.t("Creation model: \(an.pick.label)",
+                                "制作モデル: \(an.pick.label)"))
                 } else {
                     Text("GARMENTS").railHead().padding(.top, 10)
                     HStack(spacing: 8) {
@@ -260,7 +260,7 @@ struct AtelierView: View {
 
                     // 解析に使う AI。ここが LLM のパイプの行き先で、
                     // 選んだ相手が台帳に触れる口は提案だけ。
-                    Text("ANALYSIS AI").railHead().padding(.top, 10)
+                    Text(app.t("CREATION MODEL", "制作モデル")).railHead().padding(.top, 10)
                     VStack(alignment: .leading, spacing: 3) {
                         Text(an.pick.label).font(.system(size: 11))
                             .foregroundStyle(Theme.fg).lineLimit(2)
@@ -1191,7 +1191,7 @@ struct AnalystSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(app.t("Analysis AI", "解析に使う AI"))
+                Text(app.t("Creation and analysis model", "制作・解析モデル"))
                     .font(.system(size: 13, weight: .semibold))
                 if an.busy { ProgressView().controlSize(.small) }
                 Spacer()
@@ -1215,6 +1215,14 @@ struct AnalystSheet: View {
                 .padding(.horizontal, 14).padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Theme.warn.opacity(0.10))
+
+            Text(app.t(
+                "Qualified means this exact provider/model pair passed the Atelier protocol. Probation models may run, but Vera accepts only output that passes the same typed minimum-quality gate.",
+                "Qualified はこのプロバイダ／モデルの組がAtelier規約を通過済みという意味です。Probation の未知モデルも試行できますが、Veraは同じ型付き最低品質ゲートを通った出力だけを採用します。"))
+                .font(.system(size: 9.5))
+                .foregroundStyle(Theme.dim)
+                .padding(.horizontal, 14).padding(.vertical, 7)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
@@ -1349,13 +1357,33 @@ struct AnalystSheet: View {
 
     private func row(_ p: AtelierAnalyst.Pick, _ sub: String) -> some View {
         let on = an.pick == p
+        let compatibility = GarmentModelCompatibility.profile(
+            sourceName: p.sourceName)
+        let compatibilityColor: Color = {
+            switch compatibility.qualification {
+            case .deterministic, .qualified: return Theme.ok
+            case .probation: return Theme.warn
+            case .unsupported: return Theme.bad
+            }
+        }()
         return HStack(spacing: 8) {
             Text(on ? "●" : "○").font(.system(size: 10))
                 .foregroundStyle(on ? Theme.sel : Theme.faint)
             VStack(alignment: .leading, spacing: 1) {
                 Text(p.label).font(.system(size: 12))
                     .foregroundStyle(on ? Theme.fg : Theme.dim)
-                Text(sub).font(.system(size: 9)).foregroundStyle(Theme.faint)
+                HStack(spacing: 5) {
+                    Text(compatibility.qualification.rawValue)
+                        .font(.system(size: 8, weight: .semibold,
+                                      design: .monospaced))
+                        .foregroundStyle(compatibilityColor)
+                    Text(sub).font(.system(size: 9))
+                        .foregroundStyle(Theme.faint)
+                }
+                Text(compatibility.reason)
+                    .font(.system(size: 8.5))
+                    .foregroundStyle(Theme.faint)
+                    .lineLimit(2)
             }
             Spacer(minLength: 0)
         }
@@ -1956,7 +1984,7 @@ private struct SourcesPanel: View {
                     .background(intake.selectedClip?.path == c.path
                                 ? Theme.panel2 : .clear)
                     .contentShape(Rectangle())
-                    .onTapGesture { intake.selectedClip = c }
+                    .onTapGesture { intake.publishSelection(c) }
                 }
             }
             .padding(.vertical, 6)

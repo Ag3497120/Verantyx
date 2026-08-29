@@ -52,6 +52,7 @@ RadiusFn = _flat.RadiusFn
 NO_MANNEQUIN = "UNKNOWN_NO_MANNEQUIN"
 BAD_RESOLUTION = "UNKNOWN_RESOLUTION_TOO_COARSE"
 BODY_MISSING_IN_GRID = "UNKNOWN_NO_BODY_AT_THIS_HEIGHT"
+BAD_HEIGHT_RANGE = _flat.BAD_HEIGHT_RANGE
 BAD_PANEL_COUNT = "UNKNOWN_PANEL_COUNT_NOT_POSITIVE"
 TOO_MANY_PANELS = "UNKNOWN_MORE_PANELS_THAN_COLUMNS"
 
@@ -326,6 +327,7 @@ def _place_dart(panel_name: str, pf: Dict[str, Any], outline: Sequence[Vec2],
 def cut(man: Dict[str, Any], *, n_panels: int = 4,
         segments: Optional[int] = None, height_steps: int = 16,
         gap: Optional[float] = None, radius_at: Optional[RadiusFn] = None,
+        y_top: Optional[float] = None, y_bottom: Optional[float] = None,
         iterations: int = _flat.DEFAULT_ITERATIONS,
         step: float = _flat.DEFAULT_STEP,
         dart_depth_ratio: float = DEFAULT_DART_DEPTH_RATIO) -> Dict[str, Any]:
@@ -350,6 +352,10 @@ def cut(man: Dict[str, Any], *, n_panels: int = 4,
     ``radius_at`` にこの関数の既定 ``gap``(``mannequin.GAP_CM``)を
     重ねると二重にゆるみを足してしまう ―― ``silhouette.to_surface`` が
     自分の呼び出しで ``gap=0.0`` を渡しているのと同じ理由。
+
+    ``y_bottom``/``y_top`` は平面化する格子の明示範囲。省略時は従来
+    どおり人台の最下段〜最上段で、身体外まで答えられる ``radius_at``
+    と一緒に渡せば裾などの外挿域も実際の裁片へ含める。
     """
     if man.get("verdict") != "ANSWER":
         # **代案を出さない、ここは意図的に。** 人台がどう立てなかったかは
@@ -474,12 +480,39 @@ def cut(man: Dict[str, Any], *, n_panels: int = 4,
             "alternatives": [],
         }
 
+    explicit_height_range = y_top is not None or y_bottom is not None
+    levels = man["_levels"]
+    try:
+        grid_bottom = (float(levels[0][0]) if y_bottom is None
+                       else float(y_bottom))
+        grid_top = (float(levels[-1][0]) if y_top is None
+                    else float(y_top))
+    except (TypeError, ValueError):
+        return {"verdict": BAD_HEIGHT_RANGE,
+                "y_bottom": y_bottom, "y_top": y_top,
+                "how_to_close": "y_bottom/y_top は有限な数で、y_bottom < "
+                                "y_top にしてください"}
+    if (not math.isfinite(grid_bottom) or not math.isfinite(grid_top)
+            or grid_bottom >= grid_top):
+        return {"verdict": BAD_HEIGHT_RANGE,
+                "y_bottom": y_bottom, "y_top": y_top,
+                "how_to_close": "y_bottom/y_top は有限な数で、y_bottom < "
+                                "y_top にしてください"}
+
     rf: RadiusFn = radius_at or _mq.radius_at
-    v3 = _flat._grid3d(man, segments, height_steps, rf, gap)
+    v3 = _flat._grid3d(man, segments, height_steps, rf, gap,
+                       y_bottom=grid_bottom, y_top=grid_top)
     if v3 is None:
-        return {"verdict": BODY_MISSING_IN_GRID,
-                "how_to_close": "この人台とこの範囲では、格子の途中で"
-                                "身体が無い高さに当たりました"}
+        refusal = {"verdict": BODY_MISSING_IN_GRID,
+                   "how_to_close": "この人台とこの範囲では、格子の途中で"
+                                   "身体が無い高さに当たりました"}
+        if explicit_height_range:
+            refusal["requested_y_range"] = [grid_bottom, grid_top]
+            refusal["how_to_close"] = (
+                "要求した高さ全域で値を返す radius_at を渡すか、"
+                "y_bottom/y_top を radius_at が答えられる範囲へ"
+                "絞ってください")
+        return refusal
 
     baseline = _panel_flatten(v3, 0, segments, height_steps, iterations, step)
     panels = [{"i_lo": 0, "i_hi": segments, "flat": baseline}]
@@ -568,7 +601,7 @@ def cut(man: Dict[str, Any], *, n_panels: int = 4,
         sum(pp["curvature"]["interior_deg"] for pp in out_panels)
         + sum(pp["curvature"]["boundary_deg"] for pp in out_panels), 4)
 
-    return {
+    answer = {
         "verdict": "ANSWER",
         "what": "flattened tube cut into pattern panels by distortion",
         "segments": segments, "height_steps": height_steps, "gap_cm": gap,
@@ -605,6 +638,9 @@ def cut(man: Dict[str, Any], *, n_panels: int = 4,
             "パネルの位置・面積・ダーツは生成物です。観測の出典には"
             "なりません。縫い代・布の厚み・張りは計算していません"),
     }
+    if explicit_height_range:
+        answer["y_range_used"] = [round(grid_bottom, 4), round(grid_top, 4)]
+    return answer
 
 
 def to_pieces(cut_out: Dict[str, Any]) -> Dict[str, Any]:

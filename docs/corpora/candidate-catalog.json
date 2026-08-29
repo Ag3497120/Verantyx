@@ -1,0 +1,77 @@
+[
+  {
+    "schema": "garment.corpus-candidate.v1",
+    "candidate_id": "freesewing-source-code",
+    "manifest": {
+      "schema": "garment.corpus-manifest.v1",
+      "name": "FreeSewing source-code candidate",
+      "version": "catalog-2026-08-28",
+      "license": {
+        "spdx": "MIT",
+        "url": "https://raw.githubusercontent.com/freesewing/freesewing/develop/LICENSE",
+        "rights": {"commercial_use": "allowed", "derivatives": "allowed", "redistribution": "allowed"}
+      },
+      "lineage": [{"source": "https://github.com/freesewing/freesewing", "role": "upstream source repository"}],
+      "modalities": [],
+      "record_format": {"units": "explicit_per_field", "schema_url": "https://photoloset.local/schema/garment.corpus-candidate.v1.json"}
+    },
+    "source": {
+      "kind": "code_repository",
+      "url": "https://github.com/freesewing/freesewing",
+      "primary_license_url": "https://raw.githubusercontent.com/freesewing/freesewing/develop/LICENSE",
+      "license_scope": "source_code_only"
+    },
+    "payload": {"bundled": false, "content_sha256": null, "absence_note": "No repository clone, patterns, images, or generated data are bundled."},
+    "record_sha256": "86992213dcb8e925f42db1d4e58f3622eb3751f47182ba9d0f8d3b74b3d0d437"
+  },
+  {
+    "schema": "garment.corpus-candidate.v1",
+    "candidate_id": "garmentcode-source-code",
+    "manifest": {
+      "schema": "garment.corpus-manifest.v1",
+      "name": "GarmentCode source-code candidate",
+      "version": "catalog-2026-08-28",
+      "license": {
+        "spdx": "MIT",
+        "url": "https://raw.githubusercontent.com/maria-korosteleva/GarmentCode/main/LICENSE",
+        "rights": {"commercial_use": "allowed", "derivatives": "allowed", "redistribution": "allowed"}
+      },
+      "lineage": [{"source": "https://github.com/maria-korosteleva/GarmentCode", "role": "upstream source repository"}],
+      "modalities": [],
+      "record_format": {"units": "explicit_per_field", "schema_url": "https://photoloset.local/schema/garment.corpus-candidate.v1.json"}
+    },
+    "source": {
+      "kind": "code_repository",
+      "url": "https://github.com/maria-korosteleva/GarmentCode",
+      "primary_license_url": "https://raw.githubusercontent.com/maria-korosteleva/GarmentCode/main/LICENSE",
+      "license_scope": "source_code_only"
+    },
+    "payload": {"bundled": false, "content_sha256": null, "absence_note": "No repository clone, GarmentCodeData, project sample, image, or generated output is bundled."},
+    "record_sha256": "8237f39b22906da35aee1598270b57a4c362b30afb4f029f1e9e1db6d965d738"
+  },
+  {
+    "schema": "garment.corpus-candidate.v1",
+    "candidate_id": "cc0-per-asset-intake-template",
+    "manifest": {
+      "schema": "garment.corpus-manifest.v1",
+      "name": "CC0 per-asset corpus intake candidate",
+      "version": "catalog-2026-08-28",
+      "license": {
+        "spdx": "CC0-1.0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+        "rights": {"commercial_use": "allowed", "derivatives": "allowed", "redistribution": "allowed"}
+      },
+      "lineage": [{"source": "future per-asset source URL required", "role": "placeholder; no asset admitted"}],
+      "modalities": ["garment_images", "meshes_3d"],
+      "record_format": {"units": "explicit_per_field", "schema_url": "https://photoloset.local/schema/garment.corpus-candidate.v1.json"}
+    },
+    "source": {
+      "kind": "asset_catalog",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "primary_license_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+      "license_scope": "candidate_assets_only_per_asset_verification_required"
+    },
+    "payload": {"bundled": false, "content_sha256": null, "absence_note": "Template only. No CC0 asset bytes are bundled or admitted by this record."},
+    "record_sha256": "a65f05eb32d7dd1581e09548652b8d49b5ad7c1c30ec323cb89f7b363194365b"
+  }
+]

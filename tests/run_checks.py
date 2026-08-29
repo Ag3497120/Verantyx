@@ -185,6 +185,15 @@ def _seam_label(spec: dict) -> str:
 #: carries it twice as well — the pin compares multiplicity, not a set, so a
 #: check quietly running one fewer time is a failure too.
 ALL_CHECK_NAMES = [
+    "multi_view derives 0.7 only from measured orthogonal silhouettes and "
+    "refuses a five-degree pair as insufficient parallax",
+    "repairs reads nested standoff and compression hints, offers only "
+    "PROPOSED choices, and keeps an otherwise sewable draft unsewable until "
+    "a structure is chosen",
+    "panels uses an explicit height range in real geometry, grows when forty "
+    "centimetres are added below the body, and refuses a reversed range by name",
+    "silhouette uses a multi-view ratio and its structured basis in the "
+    "body-external zone, and refuses a non-positive ratio",
     "the flat seams come before the ones that close a loop",
     "the number of in-the-round seams is not a choice",
     "the flat store moves into a project once and only once",
@@ -321,7 +330,7 @@ ALL_CHECK_NAMES = [
     "the dress reaches DXF directly, because save() cannot draft it",
     "the dress has not moved",
     "initialize",
-    "80 tools",
+    "143 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -1386,7 +1395,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("80 tools", len(tools) == 80, f"{len(tools)}")
+        check("143 tools", len(tools) == 143, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -1434,10 +1443,10 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 80 and not no_schema and not no_props
-              and len(published) == 152 and not wrong and not contradicted
-              and sorted(set(published.values())) == ["integer", "number",
-                                                      "string"],
+              len(tools) == 143 and not no_schema and not no_props
+              and len(published) == 231 and not wrong and not contradicted
+              and sorted(set(published.values())) == ["boolean", "integer",
+                                                      "number", "string"],
               f"{len(tools)} schemas derived from the signatures over "
               f"{len(published)} parameters, {len(no_schema)} not an object, "
               f"{len(no_props)} without properties; the {len(numeric)} "
@@ -1500,7 +1509,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 80 and not not_object and not crashed,
+              len(tools) == 143 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1580,7 +1589,8 @@ def the_mcp_server_answers() -> None:
         # its only falsifier would have to write into the real ledger.
         wrote = sorted(f.name for f in Path(home).rglob("*.json"))
         check("the sweep writes into a HOME of its own",
-              wrote == ["intake.json", "ledger.json", "measures.json",
+              wrote == ["garment_factory.json", "generation_job.json",
+                        "intake.json", "ledger.json", "measures.json",
                         "rights.json"]
               and Path(home) != Path.home()
               and not str(Path(home)).startswith(str(Path.home())),
@@ -1628,8 +1638,15 @@ def no_dependencies() -> None:
                            r"copy|time|datetime|hashlib|pickle|struct|unicodedata|"
                            r"textwrap|difflib|shutil|glob|enum|abc|contextlib|"
                            r"threading|queue|base64|uuid|csv|io|warnings|"
-                           r"operator|bisect|heapq|statistics|importlib|"
+                           r"operator|bisect|heapq|statistics|importlib|types|html|"
+                           r"decimal|fractions|asyncio|"
                            r"photoloset)$")
+    optional_adapter_imports = {
+        "body_image_separation_precomputed_adapter.py": {"PIL"},
+        "marqo_fashion_siglip_adapter.py": {
+            "PIL", "torch", "transformers",
+        },
+    }
     # Parsed, not grepped. A line-based scan reads the import examples inside
     # docstrings as imports, and misreads `from . import x` — which is the
     # package talking to itself — as a third party.
@@ -1648,10 +1665,12 @@ def no_dependencies() -> None:
                 name = node.names[0].name.split(".")[0]
             else:
                 continue
-            if not stdlib_ok.match(name):
+            if (not stdlib_ok.match(name)
+                    and name not in optional_adapter_imports.get(
+                        path.name, set())):
                 third_party.add(f"{path.name}: {name}")
     check("no third-party imports",
-          len(scanned) == 50 and not third_party,
+          len(scanned) == 129 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))
@@ -11055,6 +11074,174 @@ def repairs_catalogue_finishing_is_not_the_same_claim_as_sewable() -> None:
 
 
 # ---------------------------------------------------------------------------
+@declares(
+    "multi_view derives 0.7 only from measured orthogonal silhouettes and "
+    "refuses a five-degree pair as insufficient parallax",
+    "repairs reads nested standoff and compression hints, offers only "
+    "PROPOSED choices, and keeps an otherwise sewable draft unsewable "
+    "until a structure is chosen",
+    "panels uses an explicit height range in real geometry, grows when "
+    "forty centimetres are added below the body, and refuses a reversed "
+    "range by name",
+    "silhouette uses a multi-view ratio and its structured basis in the "
+    "body-external zone, and refuses a non-positive ratio")
+def multi_view_and_structure_repairs_are_explicit() -> None:
+    """**Multiple views may replace a ratio assumption; one view may not
+    choose a construction.**"""
+    import math as _math
+    from photoloset import garment_measure as _gm
+    from photoloset import garment_pattern as _gp
+    from photoloset import multi_view as _mv
+    from photoloset import mannequin as _mq
+    from photoloset import panels as _pn
+    from photoloset import repair_standoff as _rst
+    from photoloset import repairs as _rp
+    from photoloset import silhouette as _sil
+
+    def ellipse(rx: float, ry: float = 20.0, n: int = 80):
+        return [(rx * _math.cos(2 * _math.pi * i / n),
+                 ry * _math.sin(2 * _math.pi * i / n))
+                for i in range(n)]
+
+    def view(frame: str, angle: float, radius: float):
+        return {
+            "frame_id": frame, "source": frame,
+            "outline": ellipse(radius), "azimuth_deg": angle,
+            "cm_per_unit": 1.0, "blur_sigma_units": 0.01,
+            "registration_error_units": 0.01,
+        }
+
+    solved = _mv.analyze([view("front", 0.0, 10.0),
+                          view("side", 90.0, 7.0)])
+    refused = _mv.analyze([view("a", 0.0, 10.0),
+                           view("b", 5.0, 9.98)])
+    name = ("multi_view derives 0.7 only from measured orthogonal "
+            "silhouettes and refuses a five-degree pair as insufficient "
+            "parallax")
+    with guard(name):
+        check(name,
+              solved["verdict"] == "ANSWER"
+              and abs(solved["front_back_ratio"]["value"] - 0.7) < 1e-8
+              and solved["front_back_ratio"]["kind"] == "INFERRED"
+              and len(solved["provenance"]) == 2
+              and all(p["kind"] == "OBSERVED"
+                      for p in solved["provenance"])
+              and refused["verdict"] == _mv.INSUFFICIENT_PARALLAX
+              and "front_back_ratio" not in refused,
+              f'orthogonal -> {solved.get("verdict")} ratio '
+              f'{solved.get("front_back_ratio")}; five degrees -> '
+              f'{refused.get("verdict")}')
+
+    ms = _gm.Measures()
+    for spot, value in [("body_length", 112.0), ("chest", 108.0),
+                        ("shoulder", 46.0), ("sleeve_length", 63.0)]:
+        ms.measured(spot, value, "cm", source="checks",
+                    by="Kodai Motonishi")
+    draft = _gp.draft(ms)
+    hints = [
+        {"y": 10.0, "classification": "standoff",
+         "standoff_by_cm": 12.5},
+        {"y": 20.0, "classification": "compression",
+         "compress_by_cm": 2.0},
+    ]
+    pattern = dict(draft, silhouette_match_summary={
+        "structure_hints": hints,
+        "ring_class_counts": {
+            "standoff": 1, "compression": 1, "fitted": 0}})
+    diag = _rp.diagnose(pattern)
+    direct = _rst.repair(pattern)
+    measured = _rp.measure_sewable(pattern)
+    run = _rp.make_sewable(pattern, budget=4)
+    name = ("repairs reads nested standoff and compression hints, offers "
+            "only PROPOSED choices, and keeps an otherwise sewable draft "
+            "unsewable until a structure is chosen")
+    with guard(name):
+        check(name,
+              len(diag) == 1
+              and diag[0]["repair"] == "repair_standoff"
+              and diag[0]["measured"]["standoff_count"] == 1
+              and diag[0]["measured"]["compression_count"] == 1
+              and direct["verdict"] == _rst.CHOICE_REQUIRED
+              and len(direct["alternatives"]) == 6
+              and all(a["kind"] == "PROPOSED"
+                      for a in direct["alternatives"])
+              and measured["checks"]["seam_checks"]["ok"] is True
+              and measured["checks"]["sewing_order.plan"]["ok"] is True
+              and measured["checks"]["marker.lay"]["ok"] is True
+              and measured["checks"]["no_dart_refusing"]["ok"] is True
+              and measured["checks"]["structure_hints"]["ok"] is False
+              and measured["sewable"] is False
+              and run["transcript"][0]["repair"] == "repair_standoff"
+              and run["transcript"][0]["applied"] is False
+              and run["problems_remaining"][0]["repair"]
+              == "repair_standoff"
+              and run["sewable"] is False,
+              f'diagnose={diag}; direct={direct["verdict"]}; '
+              f'four existing checks='
+              f'{[measured["checks"][k]["ok"] for k in ("seam_checks", "sewing_order.plan", "marker.lay", "no_dart_refusing")]}, '
+              f'structure={measured["checks"]["structure_hints"]["ok"]}, '
+              f'sewable={measured["sewable"]}; run transcript='
+              f'{run["transcript"]}')
+
+    # The photo path now asks flatten/panels to mesh the whole calibrated
+    # outline, not merely report outline_fraction_used=1.0 while retaining
+    # the mannequin's old body-only range.
+    for spot, value in [("waist", 82.0), ("hip", 112.0)]:
+        ms.measured(spot, value, "cm", source="checks",
+                    by="Kodai Motonishi")
+    man = _mq.build(ms)
+    lo, hi = man["_levels"][0][0], man["_levels"][-1][0]
+
+    def clamped_radius(m, y, theta):
+        return _mq.radius_at(m, min(hi, max(lo, y)), theta)
+
+    kwargs = dict(n_panels=2, segments=8, height_steps=4, gap=0.0,
+                  radius_at=clamped_radius, iterations=50)
+    body_only = _pn.cut(man, **kwargs)
+    extended = _pn.cut(man, y_bottom=lo - 40.0, y_top=hi, **kwargs)
+    reversed_range = _pn.cut(man, y_bottom=hi, y_top=lo, **kwargs)
+    name = ("panels uses an explicit height range in real geometry, grows "
+            "when forty centimetres are added below the body, and refuses "
+            "a reversed range by name")
+    with guard(name):
+        check(name,
+              body_only["verdict"] == "ANSWER"
+              and extended["verdict"] == "ANSWER"
+              and extended["total_area_cm2"]
+              > body_only["total_area_cm2"] * 1.5
+              and extended["y_range_used"]
+              == [round(lo - 40.0, 4), round(hi, 4)]
+              and reversed_range["verdict"] == _pn.BAD_HEIGHT_RANGE,
+              f'body-only area={body_only.get("total_area_cm2")}; '
+              f'extended area={extended.get("total_area_cm2")} at '
+              f'{extended.get("y_range_used")}; reversed -> '
+              f'{reversed_range.get("verdict")}')
+
+    outline = [(-20.0, lo - 10.0), (20.0, lo - 10.0),
+               (20.0, hi), (-20.0, hi)]
+    basis = {"source": "multi_view", "frame_ids": ["front", "side"]}
+    matched = _sil.match(man, outline, segments=8, height_steps=4,
+                         y_bottom=lo - 10.0, y_top=hi,
+                         front_back_ratio=0.5,
+                         front_back_ratio_basis=basis)
+    bad_ratio = _sil.match(man, outline, segments=8, height_steps=4,
+                           y_bottom=lo - 10.0, y_top=hi,
+                           front_back_ratio=0.0,
+                           front_back_ratio_basis=basis)
+    below = (matched.get("extrapolation") or {}).get("below_body") or {}
+    name = ("silhouette uses a multi-view ratio and its structured basis "
+            "in the body-external zone, and refuses a non-positive ratio")
+    with guard(name):
+        check(name,
+              matched["verdict"] == "ANSWER"
+              and below["front_back_ratio"] == 0.5
+              and below["ratio_basis"] == basis
+              and bad_ratio["verdict"] == _sil.BAD_FRONT_BACK_RATIO,
+              f'matched -> {matched.get("verdict")}, below={below}; '
+              f'zero ratio -> {bad_ratio.get("verdict")}')
+
+
+# ---------------------------------------------------------------------------
 def no_check_went_missing() -> None:
     """**The set of checks is itself pinned.** A retirement has to be stated.
 
@@ -11143,6 +11330,7 @@ if __name__ == "__main__":
                repair_dart_deepens_by_preserving_area_and_reusing_darts_own_tolerance,
                repair_width_splits_at_centre_and_preserves_area,
                repairs_catalogue_finishing_is_not_the_same_claim_as_sewable,
+               multi_view_and_structure_repairs_are_explicit,
                no_check_went_missing):
         print(f"{fn.__doc__.splitlines()[0]}")
         # A crash in shared setup must not take the REST OF THE SUITE with

@@ -234,14 +234,26 @@ actor LMStudioClient {
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.timeoutInterval = 300
+        // LM Studio accepts ``chat_template_kwargs`` but some Qwen-derived
+        // templates silently ignore it.  In the Atelier vision worker this
+        // previously spent the complete 5k-token budget on hidden reasoning
+        // and returned an empty body, so the real pixel proposal was discarded
+        // and every image fell back to the same outline-only candidates.
+        // ``/no_think`` is the template-level equivalent; ``reasoning_effort``
+        // covers OpenAI-compatible runtimes that understand that spelling.
+        let finalUserText = noThink ? "/no_think\n" + userText : userText
+        let finalSystemPrompt = noThink
+            ? "/no_think\nReturn the requested final result immediately. Do not emit reasoning.\n"
+                + systemPrompt
+            : systemPrompt
         let content: [[String: Any]] = [
-            ["type": "text", "text": userText],
+            ["type": "text", "text": finalUserText],
             ["type": "image_url",
              "image_url": ["url": "data:\(mimeType);base64,\(imageBase64)"]],
         ]
         var messages: [[String: Any]] = []
-        if !systemPrompt.isEmpty {
-            messages.append(["role": "system", "content": systemPrompt])
+        if !finalSystemPrompt.isEmpty {
+            messages.append(["role": "system", "content": finalSystemPrompt])
         }
         messages.append(["role": "user", "content": content])
         // **上限を外さない。** 会話用の経路は -1(モデルが止まるまで)で
@@ -259,6 +271,7 @@ actor LMStudioClient {
             // 欲しいのは短い配列一つで、途中の考えではない。
             // この鍵を解さないモデルは無視するだけなので、付けて損はない。
             payload["chat_template_kwargs"] = ["enable_thinking": false]
+            payload["reasoning_effort"] = "none"
         }
         req.httpBody = try? JSONSerialization.data(withJSONObject: payload)
 
@@ -297,6 +310,82 @@ actor LMStudioClient {
             return nil
         }
         return text
+    }
+
+    /// Receives one complete text turn for proposal-only workers.
+    ///
+    /// The ordinary chat path streams reasoning and content until EOS.  That
+    /// is useful for a visible chat transcript, but it is the wrong transport
+    /// for Atelier's model mouth: a proxy can close a long reasoning stream
+    /// after the request was accepted, and the resulting URL error used to be
+    /// displayed as if it were model-authored garment advice.  This bounded,
+    /// non-streaming path asks LM Studio for final content only.  Transport and
+    /// HTTP failures return nil, so Vera can render them as system state rather
+    /// than unverified AI speech.
+    func generateCompleteConversation(
+        model: String,
+        messages: [(role: String, content: String)],
+        maxTokens: Int = 4000,
+        temperature: Double = 0.15,
+        responseFormat: [String: Any]? = nil
+    ) async -> String? {
+        // Proposal workers need the bounded final JSON, not a long hidden
+        // reasoning turn.  Some Qwen templates ignore enable_thinking=false;
+        // the template command and OpenAI-compatible flag close the same gap
+        // already observed on the pixel worker.
+        let finalMessages = messages.map { message -> [String: String] in
+            let prefix = message.role == "user"
+                ? "/no_think\nReturn the requested final JSON object immediately. Do not emit reasoning.\n"
+                : ""
+            return ["role": message.role, "content": prefix + message.content]
+        }
+        guard let url = URL(string: "\(await baseURL())/chat/completions")
+        else { return nil }
+
+        func requestOnce(_ format: [String: Any]?) async -> String? {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.timeoutInterval = 300
+            var body: [String: Any] = [
+                "model": model,
+                "messages": finalMessages,
+                "max_tokens": max(256, maxTokens),
+                "temperature": temperature,
+                "stream": false,
+                "chat_template_kwargs": ["enable_thinking": false],
+                "reasoning_effort": "none",
+            ]
+            if let format { body["response_format"] = format }
+            guard let encoded = try? JSONSerialization.data(withJSONObject: body)
+            else { return nil }
+            request.httpBody = encoded
+            do {
+                let (data, response) = try await session.data(for: request)
+                guard let http = response as? HTTPURLResponse,
+                      (200..<300).contains(http.statusCode),
+                      let json = try? JSONSerialization.jsonObject(with: data)
+                        as? [String: Any],
+                      let choices = json["choices"] as? [[String: Any]],
+                      let message = choices.first?["message"] as? [String: Any],
+                      let content = message["content"] as? String else {
+                    return nil
+                }
+                let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
+                return trimmed.isEmpty ? nil : trimmed
+            } catch {
+                return nil
+            }
+        }
+
+        if let exact = await requestOnce(responseFormat) { return exact }
+        // OpenAI-compatible servers differ in how much JSON Schema they
+        // implement.  A transport-level schema rejection must not masquerade
+        // as an unreachable model: retry once without server-side grammar and
+        // let Atelier's decoder plus Vera capability gate validate the same
+        // closed envelope.  This does not grant the model any extra action.
+        guard responseFormat != nil else { return nil }
+        return await requestOnce(nil)
     }
 
     func generateConversation(

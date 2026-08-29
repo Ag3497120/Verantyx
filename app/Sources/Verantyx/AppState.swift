@@ -28,18 +28,63 @@ struct ChatMessage: Identifiable, Equatable, Codable {
     var content: String
     var timestamp = Date()
     var isSpotlight: Bool = false
+    /// Immutable attachment snapshot for this turn.  Composer state is
+    /// transient; without this field a sent image degraded into a filename
+    /// marker and could not be previewed, enlarged, or restored with history.
+    var attachments: [Attachment] = []
     /// 推論中のプロセスログのスナップショット（折りたたみ可能な Thinking ブロックに表示）
     var thinkingLog: [ThinkingLogEntry] = []
 
-    init(id: UUID = UUID(), role: Role, content: String, isSpotlight: Bool = false, thinkingLog: [ThinkingLogEntry] = []) {
+    init(id: UUID = UUID(), role: Role, content: String,
+         isSpotlight: Bool = false,
+         attachments: [Attachment] = [],
+         thinkingLog: [ThinkingLogEntry] = []) {
         self.id = id
         self.role = role
         self.content = content
         self.isSpotlight = isSpotlight
+        self.attachments = attachments
         self.thinkingLog = thinkingLog
     }
 
     enum Role: String, Codable { case user, assistant, system }
+
+    struct Attachment: Identifiable, Codable, Equatable {
+        enum Kind: String, Codable { case image, file }
+        var id: UUID = UUID()
+        var kind: Kind
+        var name: String
+        /// Absolute local source or transcript-cache path.  Rendering is
+        /// fail-closed when it no longer exists; no placeholder is presented
+        /// as if it were the uploaded image.
+        var path: String
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, role, content, timestamp, isSpotlight, attachments, thinkingLog
+    }
+
+    init(from decoder: Decoder) throws {
+        let box = try decoder.container(keyedBy: CodingKeys.self)
+        id = try box.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        role = try box.decode(Role.self, forKey: .role)
+        content = try box.decodeIfPresent(String.self, forKey: .content) ?? ""
+        timestamp = try box.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
+        isSpotlight = try box.decodeIfPresent(Bool.self, forKey: .isSpotlight) ?? false
+        attachments = try box.decodeIfPresent([Attachment].self, forKey: .attachments) ?? []
+        thinkingLog = try box.decodeIfPresent([ThinkingLogEntry].self, forKey: .thinkingLog) ?? []
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var box = encoder.container(keyedBy: CodingKeys.self)
+        try box.encode(id, forKey: .id)
+        try box.encode(role, forKey: .role)
+        try box.encode(content, forKey: .content)
+        try box.encode(timestamp, forKey: .timestamp)
+        try box.encode(isSpotlight, forKey: .isSpotlight)
+        try box.encode(attachments, forKey: .attachments)
+        try box.encode(thinkingLog, forKey: .thinkingLog)
+    }
 
     // ProcessLogEntry の Codable スナップショット（Color は保存しないためシンプル化）
     struct ThinkingLogEntry: Identifiable, Codable, Equatable {
@@ -226,6 +271,30 @@ final class AppState: ObservableObject {
         garmentProjects.append(name)
         garmentProjectCreatedAt[name] = Date()
         activeGarment = name
+        Task { @MainActor in
+            _ = await MCPEngine.shared.callTool(
+                serverName: "vera-memory", toolName: "project_new",
+                arguments: ["name": name])
+        }
+    }
+
+    /// UIの選択色だけでなく、Python側の台帳名前空間も同時に切り替える。
+    /// 古いUI名だけが残っていて実体が無い場合は、その名前の空プロジェクトを
+    /// 一度だけ作る。任意のコードフォルダは開かない。
+    func activateGarmentProject(_ name: String) {
+        guard garmentProjects.contains(name) else { return }
+        activeGarment = name
+        Task { @MainActor in
+            let raw = await MCPEngine.shared.callTool(
+                serverName: "vera-memory", toolName: "project_open",
+                arguments: ["name": name])
+            guard let data = raw.data(using: .utf8),
+                  let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  result["verdict"] as? String == "UNKNOWN_NO_SUCH_PROJECT" else { return }
+            _ = await MCPEngine.shared.callTool(
+                serverName: "vera-memory", toolName: "project_new",
+                arguments: ["name": name])
+        }
     }
 
     @Published var ollamaModels: [String] = []
@@ -1318,6 +1387,16 @@ final class AppState: ObservableObject {
         UserDefaults.standard.set(true, forKey: "vera_engine_mode_chosen")
         showModeChooser = false
         shell.pruneTabs(incompatibleWith: mode)
+        // 選択直後の着地点もモードの契約に含める。初回Atelierで汎用
+        // composerへ落ちたり、LLMで服飾タブだけが残ったりさせない。
+        switch mode {
+        case .atelier:
+            selectedFile = nil
+            selectedFileContent = ""
+            shell.openTab(.garment)
+        case .localLLM:
+            shell.openTab(.chat)
+        }
     }
 
     // ── VX-Loop: Chat session-level persistent ID for VXTimeline ─────────
@@ -1411,6 +1490,13 @@ final class AppState: ObservableObject {
     }
 
     func openWorkspace() {
+        guard veraEngineMode == .localLLM else {
+            ToastManager.shared.show(
+                t("Code folders are available in LLM mode",
+                  "コードフォルダはLLMモードで利用できます"),
+                icon: "folder.badge.questionmark", color: Theme.warn)
+            return
+        }
         guard let url = workspace.pickFolder() else { return }
         workspaceURL = url
         workspaceFiles = []
@@ -1431,6 +1517,7 @@ final class AppState: ObservableObject {
     /// Progressive directory scan — yields partial results as they arrive.
     /// First batch appears in ~200ms for most workspaces. Tree shows before scan completes.
     func refreshFiles() {
+        guard veraEngineMode == .localLLM else { return }
         guard let root = workspaceURL else { return }
 
         // Broader extension set so all relevant source/config files appear
@@ -1777,7 +1864,9 @@ final class AppState: ObservableObject {
 
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
-        let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
+        let hasAttachments = veraEngineMode == .atelier
+            ? AtelierIntake.shared.hasComposerAttachment
+            : (!attachedImages.isEmpty || !attachedFiles.isEmpty)
         guard !text.isEmpty || hasAttachments else { return }
         // A send dropped in silence is the worst version of this: the box
         // clears, nothing appears, and there is no way to tell a busy app
@@ -1902,7 +1991,7 @@ final class AppState: ObservableObject {
         // そこは文書・分野・両方をトグルで選べる。
 
         // ── A new attachment asks first ───────────────────────────────
-        if !attachedFiles.isEmpty {
+        if veraEngineMode != .atelier, !attachedFiles.isEmpty {
             pendingIngest = attachedFiles
             let names = attachedFiles.map { $0.lastPathComponent }
                 .prefix(3).joined(separator: "・")
@@ -1926,23 +2015,40 @@ final class AppState: ObservableObject {
         // All Screens › Open — see SettingsView.open().
         inputText = ""
 
-        // Build the user message (with attachment summary if present)
-        var displayContent = text
-        if !attachedImages.isEmpty {
-            displayContent += attachedImages.count == 1
-                ? "\n📎 [Image: \(attachedImages[0].name)]"
-                : "\n📎 [\(attachedImages.count) images attached]"
-        }
-        if !attachedFiles.isEmpty {
-            for f in attachedFiles { displayContent += "\n📎 [File: \(f.lastPathComponent)]" }
-        }
-
+        // Snapshot first, then clear the one-turn composer state.  The
+        // transcript renders real attachment objects; filename markers in the
+        // text made the image invisible and polluted the LLM conversation.
         let snapshotImages = attachedImages
         let snapshotFiles  = attachedFiles
+        let atelierComposerClip = veraEngineMode == .atelier
+            ? AtelierIntake.shared.composerSelectedClip : nil
+        let messageAttachments: [ChatMessage.Attachment]
+        if let clip = atelierComposerClip,
+           let attachment = AttachmentManager.transcriptAttachment(
+                forImagePath: clip.path) {
+            messageAttachments = [attachment]
+        } else if veraEngineMode == .atelier {
+            messageAttachments = []
+        } else {
+            let images = snapshotImages.compactMap {
+                AttachmentManager.transcriptAttachment(for: $0)
+            }
+            let files = snapshotFiles.map {
+                ChatMessage.Attachment(kind: .file,
+                                       name: $0.lastPathComponent,
+                                       path: $0.path)
+            }
+            messageAttachments = images + files
+        }
         attachedImages.removeAll()
         attachedFiles.removeAll()
+        if veraEngineMode == .atelier {
+            AtelierIntake.shared.clearComposerSelection()
+        }
 
-        messages.append(ChatMessage(role: .user, content: displayContent, isSpotlight: isSpotlight))
+        messages.append(ChatMessage(role: .user, content: text,
+                                    isSpotlight: isSpotlight,
+                                    attachments: messageAttachments))
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
 
@@ -1961,6 +2067,34 @@ final class AppState: ObservableObject {
         }
 
         inferenceTask = Task {
+            // ── ATELIER BEGINNER CHAT ────────────────────────────────
+            // The existing full-screen Chat tab is the beginner UI. Every
+            // Atelier turn goes to the selected garment LLM instead of the
+            // generic coding AgentLoop. The model owns the natural response
+            // and may attach a typed proposal; Vera remains the only controller
+            // of validation, tools, transitions and human approval.
+            if self.veraEngineMode == .atelier {
+                let model = AtelierAnalyst.shared.pick.label
+                await MainActor.run {
+                    self.messages.append(ChatMessage(
+                        role: .system,
+                        content: "<think>\n制作モデル: \(model)\n自由応答（AI生成を明示）＋ 任意の型付き提案 → Vera検証\n</think>"))
+                }
+                let resolution = await AtelierChatRouter.resolveFlexible(text)
+                let answer = AtelierChatRouter.transcriptText(for: resolution)
+                await MainActor.run {
+                    self.messages.append(ChatMessage(
+                        role: .assistant, content: answer,
+                        isSpotlight: self.currentGenerationIsSpotlight))
+                    self.isGenerating = false
+                    self.sessions.updateActiveSession(
+                        messages: self.messages,
+                        workspacePath: self.workspaceURL?.path)
+                    AgentActivityCenter.shared.finish()
+                }
+                return
+            }
+
             // ── BENCHMARK INTEGRATION ────────────────────────────────────────
             if text.starts(with: "/benchmark") {
                 let parts = text.split(separator: " ")
@@ -3335,7 +3469,10 @@ final class AppState: ObservableObject {
         let ud = UserDefaults.standard
 
         // ── Workspace ──────────────────────────────────────────────────────
-        if let path = ud.string(forKey: "last_workspace_path") {
+        let persistedEngineMode = ud.string(forKey: "vera_engine_mode")
+            .flatMap(VeraEngineMode.init(rawValue:)) ?? .atelier
+        if persistedEngineMode == .localLLM,
+           let path = ud.string(forKey: "last_workspace_path") {
             let url = URL(fileURLWithPath: path)
             var isDir: ObjCBool = false
             if FileManager.default.fileExists(atPath: path, isDirectory: &isDir), isDir.boolValue {

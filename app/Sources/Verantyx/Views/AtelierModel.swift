@@ -136,12 +136,20 @@ final class AtelierModel: ObservableObject {
     @Published var patternRunFailedHop = ""
     @Published var patternRunOutlineSource = ""
     @Published var patternRunOutlineVerdict = ""
+    @Published var patternRunUsedPreviewMannequin = false
     @Published var decisionRows: [DecisionRow] = []
     @Published var decisionCounts: [String: Int] = [:]
     @Published var decisionNote = ""
     /// クリックしたが台帳に届かなかった提案。**押した瞬間に画面へ**
     /// 「まだ配線していない」と出す — 何も起きない死んだボタンにしない。
     @Published var decisionAdoptAttempt: String?
+    @Published var repairBusy = false
+    @Published var repairVerdict = ""
+    @Published var repairStopReason = ""
+    @Published var repairRounds = 0
+    @Published var repairSewable = false
+    @Published var repairTranscript: [RepairStep] = []
+    private var lastConfirmedOutline: [String: Any]?
 
     // -- 着せた形。**フィットではない、写像。** ------------------------
     @Published var dressedBusy = false
@@ -335,6 +343,18 @@ final class AtelierModel: ObservableObject {
         var notches: [PatternNotch] = []     // 合印 (層4)
         var areaCm2: Double = 0
         var bevelled = 0
+    }
+
+    struct RepairStep: Identifiable {
+        let id = UUID()
+        var round = 0
+        var repair = ""
+        var problem = ""
+        var verdict = ""
+        var applied = false
+        var changed = ""
+        var cost = ""
+        var howToClose = ""
     }
 
     /// 合印。**弧長で持つ** — 型紙を回しても値が変わらない。
@@ -1306,13 +1326,23 @@ final class AtelierModel: ObservableObject {
     /// `GarmentOutline` はここまで(SourcesPanel 以外)どこからも
     /// 呼ばれていなかった — この画面が初めて使う。
     func runPatternDecisions(imagePath: String) async {
+        let outline = GarmentOutline.extract(
+            fileURL: URL(fileURLWithPath: imagePath))
+        await runPatternDecisions(confirmedOutline: outline)
+    }
+
+    /// Runs the existing photo → structure → pattern path from a boundary
+    /// already exported in GarmentOutline's dictionary contract. The region
+    /// picker uses this route so the human-confirmed clothing boundary is not
+    /// silently replaced by the full-person Vision mask.
+    func runPatternDecisions(confirmedOutline outline: [String: Any],
+                             previewMannequin: Bool = false) async {
+        lastConfirmedOutline = outline
         patternRunBusy = true
         defer { patternRunBusy = false }
         patternRunVerdict = ""; patternRunHowToClose = ""
         patternRunFailedHop = ""; decisionRows = []
         decisionCounts = [:]; decisionNote = ""
-        let outline = GarmentOutline.extract(
-            fileURL: URL(fileURLWithPath: imagePath))
         if let v = outline["verdict"] as? String {
             // 輪郭抽出そのものが拒否した。**写真が悪いのであって、
             // engine の話ではない** — 別の verdict として別に持つ。
@@ -1328,11 +1358,14 @@ final class AtelierModel: ObservableObject {
             patternRunVerdict = "UNKNOWN_OUTLINE_NOT_ENCODABLE"
             return
         }
-        let d = await call("photo_pattern", ["json_text": text])
+        let d = await call("photo_pattern", ["json_text": text,
+                                               "preview_mannequin": previewMannequin])
         patternRunVerdict = d["verdict"] as? String ?? ""
         patternRunHowToClose = d["how_to_close"] as? String ?? ""
         patternRunFailedHop = d["failed_hop"] as? String ?? ""
+        patternRunUsedPreviewMannequin = d["preview_mannequin"] != nil
         guard patternRunVerdict == "ANSWER" else { return }
+        loadPhotoPatternPieces(from: d)
         let dec = d["decisions"] as? [String: Any] ?? [:]
         decisionCounts = dec["counts"] as? [String: Int] ?? [:]
         decisionNote = dec["note"] as? String ?? ""
@@ -1348,6 +1381,79 @@ final class AtelierModel: ObservableObject {
         rows += Self.decisionRows(
             from: dec["measured"] as? [[String: Any]] ?? [], tier: .measured)
         decisionRows = rows
+        await loadDressedForm(photoPattern: d)
+        await runPhotoPatternRepair(d)
+    }
+
+    func retryPatternWithPreviewMannequin() async {
+        guard let lastConfirmedOutline else { return }
+        await runPatternDecisions(confirmedOutline: lastConfirmedOutline,
+                                  previewMannequin: true)
+    }
+
+    private func runPhotoPatternRepair(_ pattern: [String: Any]) async {
+        repairBusy = true
+        defer { repairBusy = false }
+        repairVerdict = ""; repairStopReason = ""; repairRounds = 0
+        repairSewable = false; repairTranscript = []
+        guard JSONSerialization.isValidJSONObject(pattern),
+              let data = try? JSONSerialization.data(withJSONObject: pattern),
+              let text = String(data: data, encoding: .utf8) else {
+            repairVerdict = "UNKNOWN_PHOTO_PATTERN_NOT_ENCODABLE"
+            return
+        }
+        let result = await call("photo_pattern_repair",
+                                ["json_text": text, "budget": 8])
+        repairVerdict = result["verdict"] as? String ?? ""
+        repairStopReason = result["stop_reason"] as? String ?? ""
+        repairRounds = result["rounds"] as? Int ?? 0
+        repairSewable = result["sewable"] as? Bool ?? false
+        func json(_ value: Any?) -> String {
+            guard let value else { return "" }
+            if JSONSerialization.isValidJSONObject(value),
+               let data = try? JSONSerialization.data(withJSONObject: value,
+                                                       options: [.sortedKeys]),
+               let string = String(data: data, encoding: .utf8) { return string }
+            return String(describing: value)
+        }
+        repairTranscript = (result["transcript"] as? [[String: Any]] ?? []).map {
+            RepairStep(round: $0["round"] as? Int ?? 0,
+                       repair: $0["repair"] as? String ?? "",
+                       problem: $0["problem"] as? String ?? "",
+                       verdict: $0["verdict"] as? String ?? "",
+                       applied: $0["applied"] as? Bool ?? false,
+                       changed: json($0["changed"]), cost: json($0["cost"]),
+                       howToClose: $0["how_to_close"] as? String ?? "")
+        }
+        if repairVerdict == "ANSWER",
+           let repaired = result["pattern"] as? [String: Any],
+           repaired["pieces"] != nil {
+            loadPhotoPatternPieces(from: repaired)
+        }
+    }
+
+    /// Keep the flat pattern on the same photo_pattern result as the 3D
+    /// surface. Previously this pane retained pattern_marks' default coat
+    /// even after a photo run succeeded.
+    private func loadPhotoPatternPieces(from result: [String: Any]) {
+        func points(_ value: Any?) -> [CGPoint] {
+            (value as? [[Double]] ?? []).compactMap { pair in
+                guard pair.count >= 2 else { return nil }
+                return CGPoint(x: pair[0], y: pair[1])
+            }
+        }
+        patternVerdict = result["verdict"] as? String ?? ""
+        patternTotalArea = result["total_area_cm2"] as? Double ?? 0
+        patternPieces = (result["pieces"] as? [[String: Any]] ?? []).map { piece in
+            PatternPiece(
+                name: piece["name"] as? String ?? "",
+                outline: points(piece["outline"]),
+                edges: (piece["edges"] as? [String: [String: Any]] ?? [:])
+                    .mapValues { points($0["points"]) },
+                cutLine: [], grain: [], notches: [],
+                areaCm2: piece["area_cm2"] as? Double ?? 0,
+                bevelled: 0)
+        }
     }
 
     /// 提案のボタンを押した。**台帳には届かない、と正直に言う。**
@@ -1371,12 +1477,20 @@ final class AtelierModel: ObservableObject {
     /// `edges`/`owner` を借りるが、**同じ入力で同じ点数が返った時だけ**
     /// (rule 1: 信用の前に測る)。点数が揃わなければ辺は使わず、
     /// 点だけを描く — 揃わない辺をそれらしく繋いで嘘の面を見せない。
-    func loadDressedForm(fabric: String = "wool melton",
+    func loadDressedForm(photoPattern: [String: Any]? = nil,
+                         fabric: String = "wool melton",
                          iterations: Int = 400) async {
         dressedBusy = true
         defer { dressedBusy = false }
+        var arguments: [String: Any] = ["fabric": fabric, "iterations": iterations]
+        if let surface = photoPattern?["garment_surface"],
+           JSONSerialization.isValidJSONObject(["garment_surface": surface]),
+           let data = try? JSONSerialization.data(withJSONObject: ["garment_surface": surface]),
+           let text = String(data: data, encoding: .utf8) {
+            arguments["garment_json"] = text
+        }
         let dd = await call("mannequin_dress",
-                            ["fabric": fabric, "iterations": iterations])
+                            arguments)
         dressedVerdict = dd["verdict"] as? String ?? ""
         dressedHowToClose = dd["how_to_close"] as? String ?? ""
         guard dressedVerdict == "ANSWER" else {
@@ -1387,6 +1501,12 @@ final class AtelierModel: ObservableObject {
         dressedMinClearanceCm = dd["min_clearance_cm"] as? Double
         dressedDisclaimer = dd["generated_not_evidence"] as? String ?? ""
         dressedPoints = dd["points"] as? [[Double]] ?? []
+
+        if photoPattern != nil {
+            dressedEdges = dd["edges"] as? [[Int]] ?? []
+            dressedOwner = dd["owner"] as? [String] ?? []
+            return
+        }
 
         let sd = await call("sew_and_drape",
                             ["fabric": fabric, "iterations": iterations])

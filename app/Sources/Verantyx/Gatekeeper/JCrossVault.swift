@@ -128,7 +128,10 @@ final class JCrossVault: ObservableObject {
             // MainActor をブロックしないよう、重いディスクI/Oは Task.detached に逃がす。
             let vaultRoot = self.vaultRootURL
             let entries   = existing.entries
-            Task { [weak self] in
+            // Vault refresh is maintenance work. Keep it below interactive
+            // SwiftUI tasks so a large dirty worktree cannot starve photo
+            // picking and other controls immediately after launch.
+            Task(priority: .background) { [weak self] in
                 guard let self else { return }
 
                 // ① スキーマ復元（ファイルごとにディスクI/Oのためバックグラウンドへ）

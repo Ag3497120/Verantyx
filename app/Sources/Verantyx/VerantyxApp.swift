@@ -260,12 +260,19 @@ struct VerantyxApp: App {
                 // size where the existing responsive panes (horizontal
                 // scroll toolbar, flexible-width chat input, resizable
                 // split) can actually do their job.
-                .frame(minWidth: 900, maxWidth: .infinity, minHeight: 600, maxHeight: .infinity)
+                .frame(minWidth: BeginnerChatLayout.minimumWindowContentWidth,
+                       maxWidth: .infinity,
+                       minHeight: BeginnerChatLayout.minimumWindowContentHeight,
+                       maxHeight: .infinity)
                 // **窓は画面いっぱいに開く。** 服飾の作業面は横に三列
                 // (工程・作業・インスペクタ)あり、既定の窓幅では作業面が
                 // 潰れて図も表も読めなかった。初回だけ広げる — 以後は
                 // 使う人が決めたサイズを尊重する。
-                .onAppear { Self.fillScreenOnce(); Self.applyTestFrameIfRequested() }
+                .onAppear {
+                    Self.enforceMainWindowMinimumContentSize()
+                    Self.fillScreenOnce()
+                    Self.applyTestFrameIfRequested()
+                }
                 // The window edge carries the agent's state — put it on the
                 // root so it frames everything, whichever pane is showing.
                 .agentPerimeterGlow()
@@ -434,11 +441,13 @@ struct VerantyxApp: App {
                     appState.openWorkspace()
                 }
                 .keyboardShortcut("o", modifiers: [.command, .shift])
+                .disabled(appState.veraEngineMode == .atelier)
 
                 Button("Refresh Files") {
                     appState.refreshFiles()
                 }
                 .keyboardShortcut("r", modifiers: [.command, .shift])
+                .disabled(appState.veraEngineMode == .atelier)
             }
 
             CommandMenu("Model") {
@@ -460,6 +469,14 @@ struct VerantyxApp: App {
             }
 
             CommandMenu("Tools") {
+                Button("Focus Composer") {
+                    NotificationCenter.default.post(
+                        name: Notification.Name("VerantyxFocusUnifiedComposer"),
+                        object: nil
+                    )
+                }
+                .keyboardShortcut("u", modifiers: [.command, .shift])
+
                 Button("Toggle Process Log") {
                     appState.showProcessLog.toggle()
                 }
@@ -524,6 +541,19 @@ class SpotlightPanel: NSPanel {
 /// 二度目からは触らない。使う人が小さくしたのを毎回戻すのは、
 /// 設定を無視することになる。
 extension VerantyxApp {
+    /// SwiftUI's root minimum protects layout proposals; the NSWindow floor
+    /// protects the actual resize affordance. Set both so the user cannot
+    /// drag the window into a width that would clip the fixed chat canvas.
+    static func enforceMainWindowMinimumContentSize() {
+        DispatchQueue.main.async {
+            guard let win = IDEWindowMonitor.ideWindow() else { return }
+            win.contentMinSize = NSSize(
+                width: BeginnerChatLayout.minimumWindowContentWidth,
+                height: BeginnerChatLayout.minimumWindowContentHeight
+            )
+        }
+    }
+
     static func fillScreenOnce() {
         // A requested test frame (see `applyTestFrameIfRequested` below)
         // is the sole authority on window size for that launch — it must

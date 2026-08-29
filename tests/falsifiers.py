@@ -105,7 +105,7 @@ SRC = Path(__file__).resolve().parent.parent
 #: PARALLEL WORKER filled a 460 GB disk and killed the run with ENOSPC.
 #: The engine, its tests, docs and examples together are 6.4 MB.
 _COPY_IGNORE = shutil.ignore_patterns(
-    ".git", "__pycache__", "build", ".build", "DerivedData",
+    ".git", "__pycache__", ".pytest_cache", "build", "build-*", ".build", "DerivedData",
     "*.xcworkspace", "*.xcuserdatad", "ModuleCache.noindex",
 )
 
@@ -1330,16 +1330,16 @@ WHOLE_SUITE += [
     # operator's ledger — which is also why the check is stated positively:
     # the before/after form could only be falsified by writing there.
     # **足場が消えて SKIP になっていた。** 2026-08-27 に mcp.py の HOME が
-    # `Path.home() / ".photoloset"` から PHOTOLOSET_HOME を先に見る式へ
+    # `Path.home() / ".photoloset"` から HOME / PHOTOLOSET_HOME を明示的に
+    # 見る二段の式へ
     # 変わり、この変異の探索文字列がファイルから消えた。ハーネスは
     # 「anchor not found」で SKIP を出し、そのまま exit 1 を返した ——
     # **変異が黙って武装解除されるのは、ここが捕まえる設計になっている。**
     # 消えた足場を新しい式に付け替える。狙いは変わらない: 与えられた
     # HOME を無視して固定の場所へ書きに行かせる。
     ("#23 the server ignores the HOME it is given", "photoloset/mcp.py",
-     [('HOME = Path(os.environ.get("PHOTOLOSET_HOME") '
-       'or (Path.home() / ".photoloset"))',
-       'HOME = Path("/tmp/photoloset-falsifier-not-your-ledger")')],
+     [('_OS_HOME = Path(os.environ.get("HOME") or Path.home())',
+       '_OS_HOME = Path("/tmp/photoloset-falsifier-not-your-home")')],
      ["the sweep writes into a HOME of its own"]),
 
     ("#25 the MCP schema stops resolving its own annotations",
@@ -3203,8 +3203,10 @@ WHOLE_SUITE += [
     ("the extension zone's ratio stops reading _levels[0] and returns a "
      "constant even when the hip has zero width",
      "photoloset/silhouette.py",
-     [("        ext_below_ratio = None if a0 <= _EPS else b0 / a0",
-       "        ext_below_ratio = 0.700")],
+     [("        ext_below_ratio = (supplied_ratio if supplied_ratio is not None\n"
+       "                           else (None if a0 <= _EPS else b0 / a0))",
+       "        ext_below_ratio = (supplied_ratio if supplied_ratio is not None\n"
+       "                           else 0.700)")],
      ["y_top/y_bottom past the mannequin's own range are solved from "
       "the outline's own half-width and the nearest real level's "
       "front/back ratio -- never the body's ease model -- an omitted "
@@ -3385,8 +3387,8 @@ WHOLE_SUITE += [
 WHOLE_SUITE += [
     ("measure_sewable's overall verdict stops requiring seam_checks to "
      "pass, only the other three", "photoloset/repairs.py",
-     [("    sewable = seam_ok and order_ok and marker_ok and darts_ok",
-       "    sewable = order_ok and marker_ok and darts_ok")],
+     [("    sewable = (seam_ok and order_ok and marker_ok and darts_ok and structure_ok",
+       "    sewable = (order_ok and marker_ok and darts_ok and structure_ok")],
      ["make_sewable running the catalogue's own registered repairs "
       "to problems_remaining == [] is not the same claim as "
       "sewable == True -- an ease repair that leaves the literal "
@@ -3395,6 +3397,43 @@ WHOLE_SUITE += [
       "seam_checks, and that mismatch is confirmed by "
       "independently recomputing garment_pattern._seam_checks on "
       "the run's own final pattern, not by trusting its report"]),
+]
+
+#: --- 複数視点と構造ヒントの新しい接続 ------------------------------------
+WHOLE_SUITE += [
+    ("multi_view reports width/depth instead of depth/width",
+     "photoloset/multi_view.py",
+     [("                           depth_radius / width_radius, residual, widths))",
+       "                           width_radius / depth_radius, residual, widths))")],
+     ["multi_view derives 0.7 only from measured orthogonal silhouettes and "
+      "refuses a five-degree pair as insufficient parallax"]),
+    ("repair_standoff stops reading photo_to_pattern's nested summary",
+     "photoloset/repair_standoff.py",
+     [('            raw = summary.get("structure_hints")',
+       '            raw = None')],
+     ["repairs reads nested standoff and compression hints, offers only "
+      "PROPOSED choices, and keeps an otherwise sewable draft unsewable "
+      "until a structure is chosen"]),
+    ("measure_sewable ignores an unresolved support structure",
+     "photoloset/repairs.py",
+     [("    sewable = (seam_ok and order_ok and marker_ok and darts_ok and structure_ok",
+       "    sewable = (seam_ok and order_ok and marker_ok and darts_ok")],
+     ["repairs reads nested standoff and compression hints, offers only "
+      "PROPOSED choices, and keeps an otherwise sewable draft unsewable "
+      "until a structure is chosen"]),
+    ("panels accepts y_bottom/y_top but does not pass them to the mesh",
+     "photoloset/panels.py",
+     [("                       y_bottom=grid_bottom, y_top=grid_top)",
+       "                       y_bottom=None, y_top=None)")],
+     ["panels uses an explicit height range in real geometry, grows when "
+      "forty centimetres are added below the body, and refuses a reversed "
+      "range by name"]),
+    ("silhouette discards the multi-view ratio in the below-body zone",
+     "photoloset/silhouette.py",
+     [("        ext_below_ratio = (supplied_ratio if supplied_ratio is not None",
+       "        ext_below_ratio = (None if supplied_ratio is not None")],
+     ["silhouette uses a multi-view ratio and its structured basis in the "
+      "body-external zone, and refuses a non-positive ratio"]),
 ]
 
 #: --- 足場が消えた変異は何も試していない ------------------------------------

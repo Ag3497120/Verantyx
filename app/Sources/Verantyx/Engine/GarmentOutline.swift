@@ -157,6 +157,254 @@ enum GarmentOutline {
                     displayWidth: cgImage.width, displayHeight: cgImage.height, options: options)
     }
 
+    /// Produces a local, precomputed provider payload for
+    /// `garment_body_image_separation_propose` from capabilities already
+    /// shipped with macOS and Verantyx:
+    ///
+    /// - Vision person segmentation supplies a *clothed subject envelope*;
+    /// - Vision body pose supplies proposed 2-D joints;
+    /// - RegionPicker evidence supplies one GARMENT mask per retained region.
+    ///
+    /// The BODY-class envelope is deliberately PROPOSED with low confidence.
+    /// It includes clothes and hair and therefore is neither naked anatomy nor
+    /// a body measurement.  No rear, centimetre, fit, material, or
+    /// manufacturing claim is emitted here.  Keeping this provider-shaped
+    /// boundary in one place prevents callers from independently promoting a
+    /// person silhouette to an observed body.
+    static func bodyImageSeparationProvider(
+        fileURL: URL, garmentEvidence: [String: Any], evidenceState: String
+    ) -> [String: Any] {
+        guard let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil),
+              let cgImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil) else {
+            return refusal(
+                imageUnreadable,
+                howToClose: "could not decode the image for local body/garment separation",
+                extra: ["path": fileURL.path])
+        }
+        let orientation = readOrientation(imageSource)
+        let (displayWidth, displayHeight) = displayDimensions(
+            cgImage: cgImage, orientation: orientation)
+        // Vision does not need the source's full print resolution to find a
+        // person or 2-D joints.  Use an upright, cached analysis thumbnail so
+        // a 4K/8K fashion photo does not freeze the chat UI for tens of
+        // seconds.  Normalized pose and mask coordinates are scaled back to
+        // the original upright display grid below.
+        let thumbnailOptions: [CFString: Any] = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: 640,
+            kCGImageSourceShouldCacheImmediately: true,
+        ]
+        let thumbnail = CGImageSourceCreateThumbnailAtIndex(
+            imageSource, 0, thumbnailOptions as CFDictionary)
+        let visionImage = thumbnail ?? cgImage
+        let visionOrientation: CGImagePropertyOrientation = thumbnail == nil
+            ? orientation : .up
+
+        let observedGarment = evidenceState.uppercased() == "OBSERVED"
+        let evidenceWidth = numericInt(garmentEvidence["width_px"])
+            ?? numericInt(garmentEvidence["fused_target_width_px"])
+            ?? displayWidth
+        let evidenceHeight = numericInt(garmentEvidence["height_px"])
+            ?? numericInt(garmentEvidence["fused_target_height_px"])
+            ?? displayHeight
+        let regionScaleX = evidenceWidth > 0
+            ? Double(displayWidth) / Double(evidenceWidth) : 1.0
+        let regionScaleY = evidenceHeight > 0
+            ? Double(displayHeight) / Double(evidenceHeight) : 1.0
+
+        var masks: [[String: Any]] = []
+        let regions = garmentEvidence["regions"] as? [[String: Any]] ?? []
+        for (index, region) in regions.enumerated() {
+            let points = pointArray(region["outline"])
+            guard points.count >= 3 else { continue }
+            let regionObserved = observedGarment
+                && (region["state"] as? String)?.uppercased() == "OBSERVED"
+            let regionID = region["region_id"] as? String ?? "region-\(index + 1)"
+            masks.append([
+                "mask_id": "vision-garment-\(regionID)",
+                "class": "GARMENT",
+                "garment_unit_id": regionID,
+                "outline": points.map { [$0[0] * regionScaleX, $0[1] * regionScaleY] },
+                "confidence": regionObserved ? 1.0 : 0.58,
+                "authority": regionObserved ? "OBSERVED" : "PROPOSED",
+            ])
+        }
+
+        if masks.isEmpty {
+            let usesFusedTarget = pointArray(
+                garmentEvidence["fused_target_outline"]).count >= 3
+            let points = usesFusedTarget
+                ? pointArray(garmentEvidence["fused_target_outline"])
+                : pointArray(garmentEvidence["outline"] ?? garmentEvidence["points"])
+            if points.count >= 3 {
+                let sourceWidth = usesFusedTarget
+                    ? (numericInt(garmentEvidence["fused_target_width_px"])
+                       ?? displayWidth)
+                    : evidenceWidth
+                let sourceHeight = usesFusedTarget
+                    ? (numericInt(garmentEvidence["fused_target_height_px"])
+                       ?? displayHeight)
+                    : evidenceHeight
+                let sx = sourceWidth > 0
+                    ? Double(displayWidth) / Double(sourceWidth) : 1.0
+                let sy = sourceHeight > 0
+                    ? Double(displayHeight) / Double(sourceHeight) : 1.0
+                // A fused target intentionally includes the person. It is
+                // useful for reversible cleanup, but never observed garment.
+                let authority = observedGarment && !usesFusedTarget
+                    ? "OBSERVED" : "PROPOSED"
+                masks.append([
+                    "mask_id": usesFusedTarget
+                        ? "vision-fused-person-garment-target"
+                        : "vision-front-garment-outline",
+                    "class": "GARMENT",
+                    "garment_unit_id": usesFusedTarget
+                        ? "FUSED_CLEANUP_TARGET" : "FRONT_GARMENT",
+                    "outline": points.map { [$0[0] * sx, $0[1] * sy] },
+                    "confidence": authority == "OBSERVED" ? 1.0 : 0.42,
+                    "authority": authority,
+                ])
+            }
+        }
+
+        var personMaskID: String? = nil
+        let personAttempt = runPersonSegmentation(
+            cgImage: visionImage, orientation: visionOrientation,
+            qualityLevel: .balanced)
+        if case .success(let maskResult) = personAttempt,
+           let component = largestComponent(
+                grid: maskResult.grid, width: maskResult.width,
+                height: maskResult.height) {
+            let result = buildOutlineResult(
+                componentGrid: component.grid,
+                maskWidth: maskResult.width, maskHeight: maskResult.height,
+                bbox: component.bbox, pixelCount: component.pixelCount,
+                displayWidth: displayWidth, displayHeight: displayHeight,
+                options: Options(), fixture: false,
+                baseSource: maskResult.sourceDescription)
+            if let outline = result["outline"] as? [[Double]],
+               outline.count >= 3 {
+                let maskID = "vision-clothed-subject-envelope"
+                personMaskID = maskID
+                masks.append([
+                    "mask_id": maskID,
+                    "class": "BODY",
+                    "outline": outline,
+                    "confidence": 0.24,
+                    "authority": "PROPOSED",
+                ])
+            }
+        }
+
+        let pose = proposedBodyPose(
+            cgImage: visionImage, orientation: visionOrientation,
+            displayWidth: displayWidth, displayHeight: displayHeight)
+        guard !masks.isEmpty || !pose.isEmpty else {
+            return refusal(
+                noSubjectFound,
+                howToClose: "Apple Vision found neither a person/pose nor usable RegionPicker garment geometry",
+                extra: ["path": fileURL.path])
+        }
+
+        let garmentMaskIDs = masks.compactMap { mask -> String? in
+            guard (mask["class"] as? String) == "GARMENT" else { return nil }
+            return mask["mask_id"] as? String
+        }
+        var occlusions: [[String: Any]] = []
+        if let personMaskID {
+            for garmentID in garmentMaskIDs {
+                occlusions.append([
+                    "occlusion_id": "front-\(garmentID)-over-subject",
+                    "occluder_mask_id": garmentID,
+                    "occluded_mask_id": personMaskID,
+                    "relation": "OCCLUDES",
+                    "authority": "PROPOSED",
+                ])
+            }
+        }
+
+        return [
+            "provider_id": "apple-vision-local-v1",
+            "provider_kind": "APPLE_VISION_POSE_AND_CLOTHED_SUBJECT_PROXY",
+            "authority": "PROPOSED",
+            "pose_keypoints": pose,
+            "masks": masks,
+            "occlusions": occlusions,
+            "camera": [
+                "orientation": "UP",
+                "view": "UNKNOWN",
+                "state": "OBSERVED",
+                "authority": "OBSERVED",
+                "width_px": displayWidth,
+                "height_px": displayHeight,
+            ],
+            "rear_state": "UNKNOWN_UNOBSERVED",
+            "manufacturing_ready": false,
+            "fact_promotions": [],
+            "warnings": [
+                "BODY mask is a clothed-subject envelope and includes garment/hair pixels",
+                "pose keypoints are Apple Vision proposals, not anatomical measurements",
+                "HAIR and BACKGROUND remain UNKNOWN unless another provider or a person supplies them",
+                "rear geometry, body dimensions, fit and manufacturing remain unobserved",
+            ],
+        ]
+    }
+
+    private static func proposedBodyPose(
+        cgImage: CGImage, orientation: CGImagePropertyOrientation,
+        displayWidth: Int, displayHeight: Int
+    ) -> [[String: Any]] {
+        let request = VNDetectHumanBodyPoseRequest()
+        let handler = VNImageRequestHandler(
+            cgImage: cgImage, orientation: orientation, options: [:])
+        guard (try? handler.perform([request])) != nil,
+              let observation = request.results?.max(by: {
+                  $0.confidence < $1.confidence
+              }) else { return [] }
+        let joints: [(String, VNHumanBodyPoseObservation.JointName)] = [
+            ("nose", .nose), ("neck", .neck), ("root", .root),
+            ("left_shoulder", .leftShoulder),
+            ("right_shoulder", .rightShoulder),
+            ("left_elbow", .leftElbow), ("right_elbow", .rightElbow),
+            ("left_wrist", .leftWrist), ("right_wrist", .rightWrist),
+            ("left_hip", .leftHip), ("right_hip", .rightHip),
+            ("left_knee", .leftKnee), ("right_knee", .rightKnee),
+            ("left_ankle", .leftAnkle), ("right_ankle", .rightAnkle),
+        ]
+        return joints.compactMap { name, joint -> [String: Any]? in
+            guard let point = try? observation.recognizedPoint(joint),
+                  point.confidence >= 0.10 else { return nil }
+            return [
+                "name": name,
+                "point": [
+                    Double(point.location.x) * Double(displayWidth),
+                    (1.0 - Double(point.location.y)) * Double(displayHeight),
+                ],
+                "confidence": Double(point.confidence),
+                "authority": "PROPOSED",
+            ]
+        }
+    }
+
+    private static func numericInt(_ value: Any?) -> Int? {
+        if let value = value as? Int { return value }
+        if let value = value as? NSNumber { return value.intValue }
+        if let value = value as? Double { return Int(value.rounded()) }
+        return nil
+    }
+
+    private static func pointArray(_ value: Any?) -> [[Double]] {
+        if let points = value as? [[Double]] { return points }
+        guard let rows = value as? [[Any]] else { return [] }
+        return rows.compactMap { row in
+            guard row.count >= 2,
+                  let x = (row[0] as? NSNumber)?.doubleValue,
+                  let y = (row[1] as? NSNumber)?.doubleValue else { return nil }
+            return [x, y]
+        }
+    }
+
     // MARK: - Fixture entry point (testing only)
 
     /// Runs the trace/simplify half of the pipeline on a mask a caller
@@ -336,10 +584,13 @@ enum GarmentOutline {
     /// instances -- a second real attempt at finding a subject, not merely
     /// an availability shim, and `source` says which of the two actually
     /// produced the mask.
-    private static func runPersonSegmentation(cgImage: CGImage, orientation: CGImagePropertyOrientation) -> MaskAttempt {
+    private static func runPersonSegmentation(
+        cgImage: CGImage, orientation: CGImagePropertyOrientation,
+        qualityLevel: VNGeneratePersonSegmentationRequest.QualityLevel = .accurate
+    ) -> MaskAttempt {
         let handler = VNImageRequestHandler(cgImage: cgImage, orientation: orientation, options: [:])
         let request = VNGeneratePersonSegmentationRequest()
-        request.qualityLevel = .accurate
+        request.qualityLevel = qualityLevel
         do {
             try handler.perform([request])
         } catch {
@@ -350,7 +601,7 @@ enum GarmentOutline {
             return .empty(requestName: "VNGeneratePersonSegmentationRequest")
         }
         return .success(MaskResult(grid: grid, width: width, height: height,
-                                    sourceDescription: "VNGeneratePersonSegmentationRequest(qualityLevel=.accurate)"))
+                                    sourceDescription: "VNGeneratePersonSegmentationRequest(qualityLevel=\(qualityLevel.rawValue))"))
     }
 
     private static func obtainMask(cgImage: CGImage, orientation: CGImagePropertyOrientation) -> (MaskAttempt, [String]) {

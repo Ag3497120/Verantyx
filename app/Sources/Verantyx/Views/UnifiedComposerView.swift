@@ -48,11 +48,17 @@ struct UnifiedComposerView: View {
     /// Laid-out height of the input's content, reported back from AppKit.
     @State private var composerContentHeight: CGFloat = 0
     @State private var glowPulse: Bool = false
-    @FocusState private var inputFocused: Bool
+    // AppKit owns the actual first responder. This must be ordinary state so
+    // changing it reliably drives ChatInputTextView.updateNSView; FocusState
+    // only propagates through SwiftUI's `.focused` modifier chain.
+    @State private var inputFocused = false
 
     /// The composer reads the same state machine as the window edge and the
     /// menu-bar icon, so all three agree by construction.
     @ObservedObject private var activity = AgentActivityCenter.shared
+    /// Read-only factory progress used to vary the inference animation.  The
+    /// composer never advances this state machine itself.
+    @ObservedObject private var factory = GarmentFactoryReactController.shared
     /// The garment ledger's own intake path — reused here rather than a
     /// second "attach a clip" implementation. `AtelierIntake.shared` is the
     /// same instance AtelierView reads its clip list from, so a photo or
@@ -68,6 +74,36 @@ struct UnifiedComposerView: View {
 
     private var runningGlowColor: Color { activity.state.color }
     private var runningGlowActive: Bool { activity.state.glows }
+
+    /// A closed, deterministic projection of observable engine state. There
+    /// is no timer-driven state guessing and no model-authored UI label.
+    private var inferenceSpinnerPhase: ComposerInferencePhase {
+        if factory.busy {
+            let signal = [
+                factory.phase,
+                factory.lastReport?.verdict ?? "",
+                factory.trace.last?.action ?? "",
+                factory.trace.last?.verdict ?? "",
+            ].joined(separator: " ").uppercased()
+
+            if ["REPAIR", "RETRY", "DIAGNOSE", "MAKE_SEWABLE"].contains(where: { signal.contains($0) }) {
+                return .repair
+            }
+            if ["VALIDAT", "REVIEW", "CANDIDATE", "APPROV", "SIMULATION",
+                "PATTERN", "SEWING", "STRENGTH", "COMFORT"].contains(where: { signal.contains($0) }) {
+                return .validation
+            }
+        }
+
+        switch activity.state {
+        case .error:
+            return .repair
+        case .exploring, .operatingApp, .waitingUser:
+            return .validation
+        default:
+            return .analysis
+        }
+    }
 
     /// Half of "spans the entire pane", roughly, and centred rather than
     /// pinned — a CAP, not a fixed size, so a narrow window still just
@@ -99,9 +135,8 @@ struct UnifiedComposerView: View {
     private var composerBox: some View {
         VStack(spacing: 0) {
             // ── Attachment preview strip ──────────────────────────────
-            if !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty {
+            if hasComposerAttachments {
                 attachmentStrip
-                Divider().opacity(0.3)
             }
 
             // ── IDE Fix mode banner / normal file badge ───────────────
@@ -151,15 +186,9 @@ struct UnifiedComposerView: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                .background(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.28, green: 0.18, blue: 0.04),
-                            Color(red: 0.22, green: 0.14, blue: 0.02)
-                        ],
-                        startPoint: .leading, endPoint: .trailing
-                    )
-                )
+                // Keep one composer surface. Self Fix remains legible through
+                // its warning icon/text and the outer warning stroke.
+                .background(Color.clear)
                 .overlay(
                     Rectangle()
                         .fill(Theme.warn.opacity(0.6))
@@ -198,10 +227,21 @@ struct UnifiedComposerView: View {
         .shadow(color: runningGlowActive
                 ? runningGlowColor.opacity(glowPulse ? 0.55 : 0.12) : .clear,
                 radius: runningGlowActive ? (glowPulse ? 16 : 4) : 0)
+        .overlay(alignment: .topLeading) {
+            if app.isGenerating {
+                ComposerInferenceSpinner(phase: inferenceSpinnerPhase)
+                    .offset(x: 13, y: -27)
+                    .transition(.scale(scale: 0.72, anchor: .bottomLeading)
+                        .combined(with: .opacity))
+            }
+        }
         .padding(.horizontal, 16)
         .padding(.bottom, 16)
-        .padding(.top, 8)
+        // The spinner sits in its own status lane above the text surface and
+        // therefore cannot be mistaken for the send control.
+        .padding(.top, app.isGenerating ? 34 : 8)
         .animation(.easeInOut(duration: 0.2), value: app.selfFixMode)
+        .animation(.easeInOut(duration: 0.18), value: app.isGenerating)
         .onChange(of: runningGlowActive) { _, running in
             if running {
                 withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
@@ -221,6 +261,11 @@ struct UnifiedComposerView: View {
         .onDrop(of: [.image, .fileURL], isTargeted: nil) { providers in
             handleDrop(providers: providers)
             return true
+        }
+        .onReceive(NotificationCenter.default.publisher(
+            for: Notification.Name("VerantyxFocusUnifiedComposer")
+        )) { _ in
+            focusComposerInput()
         }
     }
 
@@ -266,9 +311,73 @@ struct UnifiedComposerView: View {
     /// header comment for why not inline).
     private var composerControls: some View {
         HStack(spacing: 7) {
+            attachmentControl
+
+            modelSelectorBar
+                .layoutPriority(1)
+
+            composerSendButton
+        }
+    }
+
+    /// Sending is intentionally conventional. The six-arm mark now has one
+    /// unambiguous job—showing inference above the composer—while this button
+    /// uses the familiar upward arrow and remains separate from stop/cancel.
+    private var composerSendButton: some View {
+        let enabled = canSend && !app.isGenerating
+        return Button {
+            guard enabled else { return }
+            sendMessage()
+        } label: {
+            Image(systemName: "arrow.up")
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(enabled ? Color.white : Theme.faint)
+                .frame(width: 30, height: 30)
+                .background(
+                    Circle().fill(enabled ? Theme.sel : Color.white.opacity(0.07))
+                )
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled)
+        .help(app.t("Send", "送信"))
+        .accessibilityLabel(app.t("Send message", "メッセージを送信"))
+        .accessibilityHint(app.t(
+            "Sends the current text and attachments",
+            "入力中の文章と添付を送信します"))
+    }
+
+    /// Atelier has one attachment concept: the image/video source in the
+    /// garment intake ledger.  Showing the generic chat file menu beside it
+    /// created two visually identical doors backed by different state; a file
+    /// chip could appear while the composer selection remained nil. Other
+    /// modes keep the ordinary image/file menu.
+    @ViewBuilder
+    private var attachmentControl: some View {
+        if app.veraEngineMode == .atelier {
+            Button(action: attachMedia) {
+                Image(systemName: intake.hasComposerAttachment
+                      ? "photo.fill" : "photo.badge.plus")
+                    .font(.system(size: 15))
+                    .foregroundStyle(Theme.sel)
+                    .frame(width: 28, height: 28)
+            }
+            .buttonStyle(.plain)
+            // The icon-only SwiftUI button was exposed to Accessibility but
+            // macOS skipped it in the keyboard focus chain.  Keep a direct,
+            // deterministic route for assistive operation and UI regression
+            // tests; the action still enters the one shared intake picker.
+            .focusable()
+            .keyboardShortcut("i", modifiers: [.command, .shift])
+            .disabled(intake.busy)
+            .help(app.t("Attach or replace the garment image",
+                        "服の画像・動画を添付／変更"))
+            .accessibilityLabel(app.t("Attach garment image",
+                                      "服の画像を添付"))
+        } else {
             JCrossMenu(items: [
                 JCrossMenuItem(icon: "photo.badge.plus",
-                               title: app.t("Add a photo or clip", "写真・動画を追加")) {
+                               title: app.t("Add a photo", "画像を追加")) {
                     attachMedia()
                 },
                 JCrossMenuItem(icon: "paperclip",
@@ -276,11 +385,6 @@ struct UnifiedComposerView: View {
                     app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
                 },
             ], japanese: AppLanguage.shared.isJapanese)
-
-            modelSelectorBar
-                .layoutPriority(1)
-
-            JCrossSendButton(enabled: canSend) { sendMessage() }
         }
     }
 
@@ -293,13 +397,25 @@ struct UnifiedComposerView: View {
         if app.veraEngineMode == .atelier {
             Task {
                 await intake.pickAndIngest()
-                // 送っていないのに服の面が開くのは早すぎる —
-                // 取り込みが終わってから開く。
-                await MainActor.run { app.shell.openTab(.garment) }
+                if intake.hasComposerAttachment {
+                    // Remove stale generic-chat attachments left by the old
+                    // two-door UI. The garment ledger is the sole source now.
+                    app.attachedImages.removeAll()
+                    app.attachedFiles.removeAll()
+                    focusComposerInput()
+                }
             }
         } else {
             app.attachedImages.append(contentsOf: AttachmentManager.pickImages())
         }
+    }
+
+    private func focusComposerInput() {
+        // Re-asserting `true` is not an observable FocusState transition when
+        // the open panel restored focus elsewhere.  Toggle first, then let the
+        // AppKit bridge make the NSTextView first responder on the next pass.
+        inputFocused = false
+        DispatchQueue.main.async { inputFocused = true }
     }
 
     /// ModelSelectorBarView is entirely about LLM backends: which one is
@@ -342,7 +458,9 @@ struct UnifiedComposerView: View {
             }
         }
         .padding(.horizontal, 10).padding(.vertical, 4)
-        .background(Theme.panel2)
+        // No nested toolbar slab: text, attachment, model and send controls
+        // all live on the composer's single rounded surface.
+        .background(Color.clear)
         .animation(.easeInOut(duration: 0.15), value: app.isGenerating)
     }
 
@@ -355,7 +473,7 @@ struct UnifiedComposerView: View {
         Button { showAnalyst = true } label: {
             HStack(spacing: 5) {
                 Image(systemName: "sparkles").font(.system(size: 9))
-                Text(app.t("Analysis AI:", "解析AI:"))
+                Text(app.t("Creation model:", "制作モデル:"))
                     .font(.system(size: 10))
                     .foregroundStyle(Theme.faint)
                 Text(an.pick.label)
@@ -434,56 +552,84 @@ struct UnifiedComposerView: View {
 
     // MARK: - Attachment strip
 
+    private var hasComposerAttachments: Bool {
+        if app.veraEngineMode == .atelier { return intake.hasComposerAttachment }
+        return !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty
+    }
+
     private var attachmentStrip: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(app.attachedImages) { img in
+                if app.veraEngineMode == .atelier,
+                   let clip = intake.composerSelectedClip,
+                   let image = NSImage(contentsOfFile: clip.path) {
                     ZStack(alignment: .topTrailing) {
-                        img.swiftUIImage
+                        Image(nsImage: image)
                             .resizable().scaledToFill()
+                            .id(intake.selectionRevision)
                             .frame(width: 56, height: 56)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 6)
-                                    .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
-                            )
-
-                        Button {
-                            app.attachedImages.removeAll { $0.id == img.id }
-                        } label: {
+                            .overlay(RoundedRectangle(cornerRadius: 6)
+                                .stroke(Theme.sel.opacity(0.5), lineWidth: 1))
+                        Button { intake.clearComposerSelection() } label: {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 13))
                                 .foregroundStyle(.white)
                                 .background(Circle().fill(Color.black.opacity(0.55)))
                         }
-                        .contentShape(Rectangle())
                         .buttonStyle(.plain)
                         .offset(x: 4, y: -4)
                     }
                 }
+                if app.veraEngineMode != .atelier {
+                    ForEach(app.attachedImages) { img in
+                        ZStack(alignment: .topTrailing) {
+                            img.swiftUIImage
+                                .resizable().scaledToFill()
+                                .frame(width: 56, height: 56)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
+                                )
 
-                ForEach(app.attachedFiles, id: \.absoluteString) { url in
-                    HStack(spacing: 5) {
-                        Image(systemName: FileIcons.icon(for: url))
-                            .font(.system(size: 10))
-                            .foregroundStyle(FileIcons.color(for: url))
-                        Text(url.lastPathComponent)
-                            .font(.system(size: 10, design: .monospaced))
-                            .lineLimit(1)
-                        Button {
-                            app.attachedFiles.removeAll { $0 == url }
-                        } label: {
-                            Image(systemName: "xmark").font(.system(size: 8))
+                            Button {
+                                app.attachedImages.removeAll { $0.id == img.id }
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: 13))
+                                    .foregroundStyle(.white)
+                                    .background(Circle().fill(Color.black.opacity(0.55)))
+                            }
+                            .contentShape(Rectangle())
+                            .buttonStyle(.plain)
+                            .offset(x: 4, y: -4)
                         }
-                        .contentShape(Rectangle())
-                        .buttonStyle(.plain)
                     }
-                    .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.85))
-                    .padding(.horizontal, 8).padding(.vertical, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.white.opacity(0.07))
-                    )
+
+                    ForEach(app.attachedFiles, id: \.absoluteString) { url in
+                        HStack(spacing: 5) {
+                            Image(systemName: FileIcons.icon(for: url))
+                                .font(.system(size: 10))
+                                .foregroundStyle(FileIcons.color(for: url))
+                            Text(url.lastPathComponent)
+                                .font(.system(size: 10, design: .monospaced))
+                                .lineLimit(1)
+                            Button {
+                                app.attachedFiles.removeAll { $0 == url }
+                            } label: {
+                                Image(systemName: "xmark").font(.system(size: 8))
+                            }
+                            .contentShape(Rectangle())
+                            .buttonStyle(.plain)
+                        }
+                        .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.85))
+                        .padding(.horizontal, 8).padding(.vertical, 4)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.white.opacity(0.07))
+                        )
+                    }
                 }
             }
             .padding(.horizontal, 10).padding(.vertical, 6)
@@ -496,17 +642,44 @@ struct UnifiedComposerView: View {
                 _ = provider.loadDataRepresentation(forTypeIdentifier: "public.image") { data, _ in
                     guard let data, let img = AttachmentManager.loadImage(from: data) else { return }
                     Task { @MainActor in
-                        guard app.isMultimodalModel else { return }
-                        app.attachedImages.append(img)
+                        if app.veraEngineMode == .atelier {
+                            let root = FileManager.default.temporaryDirectory
+                                .appendingPathComponent("VerantyxAtelierDrops", isDirectory: true)
+                            try? FileManager.default.createDirectory(
+                                at: root, withIntermediateDirectories: true)
+                            let url = root.appendingPathComponent("\(UUID().uuidString).png")
+                            guard (try? data.write(to: url, options: .atomic)) != nil else { return }
+                            await intake.ingest(url)
+                            app.attachedImages.removeAll()
+                            app.attachedFiles.removeAll()
+                        } else {
+                            guard app.isMultimodalModel else { return }
+                            app.attachedImages.append(img)
+                        }
                     }
                 }
             } else if provider.hasItemConformingToTypeIdentifier("public.file-url") {
                 _ = provider.loadItem(forTypeIdentifier: "public.file-url") { item, _ in
-                    guard let data = item as? Data,
-                          let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
+                    let url: URL?
+                    if let value = item as? URL {
+                        url = value
+                    } else if let value = item as? NSURL {
+                        url = value as URL
+                    } else if let data = item as? Data {
+                        url = URL(dataRepresentation: data, relativeTo: nil)
+                    } else {
+                        url = nil
+                    }
+                    guard let url else { return }
                     Task { @MainActor in
                         let imgExts: Set<String> = ["png","jpg","jpeg","gif","webp","heic","tiff"]
-                        if imgExts.contains(url.pathExtension.lowercased()), app.isMultimodalModel,
+                        let movieExts: Set<String> = ["mp4","mov","m4v","avi","mkv"]
+                        if app.veraEngineMode == .atelier,
+                           imgExts.union(movieExts).contains(url.pathExtension.lowercased()) {
+                            await intake.ingest(url)
+                            app.attachedImages.removeAll()
+                            app.attachedFiles.removeAll()
+                        } else if imgExts.contains(url.pathExtension.lowercased()), app.isMultimodalModel,
                            let img = AttachmentManager.loadImage(from: url) {
                             app.attachedImages.append(img)
                         } else {
@@ -522,7 +695,9 @@ struct UnifiedComposerView: View {
 
     private var canSend: Bool {
         !inputText.trimmingCharacters(in: .whitespaces).isEmpty
-            || !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty
+            || (app.veraEngineMode == .atelier && intake.hasComposerAttachment)
+            || (app.veraEngineMode != .atelier
+                && (!app.attachedImages.isEmpty || !app.attachedFiles.isEmpty))
     }
 
     /// One line at rest, capped before it eats whatever is above it.
@@ -533,7 +708,11 @@ struct UnifiedComposerView: View {
     }
 
     private func sendMessage() {
-        let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let typed = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let text = typed.isEmpty && app.veraEngineMode == .atelier
+            && intake.hasComposerAttachment
+            ? app.t("Make a garment from this image", "この画像から服を作って")
+            : typed
         guard !text.isEmpty, !app.isGenerating else { return }
 
         if needsScreenContentionWarning, !confirmScreenContention() { return }
@@ -545,9 +724,10 @@ struct UnifiedComposerView: View {
         inputText = ""
         app.sendMessage(with: text)
 
-        // 「送って、返ってきたものはタブで開く」 — 何が返るかはモードで
-        // 決まる: 服飾なら服の状態、それ以外は会話。
-        app.shell.openTab(app.veraEngineMode == .atelier ? .garment : .chat)
+        // Beginner Atelier stays in the existing full-screen Chat tab so the
+        // user can watch proposals, retries and typed stops. The Garment tab
+        // remains available for the full workbench; sending does not force it.
+        app.shell.openTab(.chat)
     }
 
     private var needsScreenContentionWarning: Bool {
@@ -597,5 +777,86 @@ struct UnifiedComposerView: View {
         default:
             return false
         }
+    }
+}
+
+// MARK: - Inference spinner
+
+/// Visual modes are intentionally few and typed. They are a view of the
+/// existing ReAct/activity states, not a second workflow state machine.
+private enum ComposerInferencePhase: String, Equatable {
+    case analysis
+    case validation
+    case repair
+
+    var tint: Color {
+        switch self {
+        case .analysis:   return Theme.sel
+        case .validation: return Color(red: 0.35, green: 0.85, blue: 1.00)
+        case .repair:     return Theme.warn
+        }
+    }
+
+    var accessibleName: String {
+        switch self {
+        case .analysis:
+            return AppLanguage.shared.t("Analyzing", "分析中")
+        case .validation:
+            return AppLanguage.shared.t("Validating", "検証中")
+        case .repair:
+            return AppLanguage.shared.t("Repairing", "修復中")
+        }
+    }
+
+    /// Same elapsed time and same phase always produce the same pose. This is
+    /// deliberately mathematical rather than random so phase changes remain
+    /// visually testable and reproducible.
+    func pose(at elapsed: TimeInterval) -> (turn: Double, scale: CGFloat, tilt: Double) {
+        switch self {
+        case .analysis:
+            return (0.035 + elapsed / 3.2, 1.0, 0.52)
+        case .validation:
+            let breath = 1.0 + 0.055 * sin(elapsed * 2.0 * .pi / 1.35)
+            return (0.035 + elapsed / 5.0, CGFloat(breath), 0.42)
+        case .repair:
+            let pulse = 0.94 + 0.10 * abs(sin(elapsed * 2.0 * .pi / 0.72))
+            return (0.035 - elapsed / 1.8, CGFloat(pulse), 0.68)
+        }
+    }
+}
+
+/// A six-arm, projected 3D cross. It is only rendered by the composer while
+/// `AppState.isGenerating` is true; it has no button action and cannot send.
+private struct ComposerInferenceSpinner: View {
+    let phase: ComposerInferencePhase
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var phaseStartedAt = Date()
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { timeline in
+            let elapsed = reduceMotion
+                ? 0
+                : max(0, timeline.date.timeIntervalSince(phaseStartedAt))
+            let pose = phase.pose(at: elapsed)
+
+            JCrossGlyph(
+                phase: pose.turn,
+                tint: phase.tint,
+                tilt: pose.tilt,
+                thickness: 1.8
+            )
+            .frame(width: 18, height: 18)
+            .scaleEffect(pose.scale)
+            .padding(4)
+            .background(Circle().fill(Color.black.opacity(0.22)))
+            .overlay(Circle().stroke(phase.tint.opacity(0.38), lineWidth: 0.6))
+        }
+        .frame(width: 26, height: 26)
+        .onChange(of: phase) { _, _ in phaseStartedAt = Date() }
+        .help(phase.accessibleName)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(AppLanguage.shared.t("Vera inference", "Vera 推論"))
+        .accessibilityValue(phase.accessibleName)
     }
 }

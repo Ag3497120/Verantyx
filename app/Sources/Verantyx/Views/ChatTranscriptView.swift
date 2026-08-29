@@ -21,7 +21,10 @@ struct ChatTranscriptView: NSViewRepresentable {
         tv.isSelectable         = true
         tv.isRichText           = true
         tv.drawsBackground      = true
-        tv.backgroundColor      = Palette.bg
+        // Match the SwiftUI shell exactly. A private transcript gray made
+        // the chat read as a slab inside another panel and exposed the fixed
+        // canvas boundary when the window grew.
+        tv.backgroundColor      = Theme.nsPanel2
         tv.textContainerInset   = NSSize(width: 14, height: 14)
         tv.textContainer?.lineFragmentPadding   = 0
         tv.textContainer?.widthTracksTextView   = true
@@ -48,7 +51,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         sv.hasVerticalScroller = true
         sv.autohidesScrollers  = true
         sv.scrollerStyle       = .overlay
-        sv.backgroundColor     = Palette.bg
+        sv.backgroundColor     = Theme.nsPanel2
 
         context.coordinator.textView   = tv
         context.coordinator.scrollView = sv
@@ -56,6 +59,14 @@ struct ChatTranscriptView: NSViewRepresentable {
             guard let co, idx >= 0, idx < co.currentMessages.count else { return }
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(co.currentMessages[idx].content, forType: .string)
+        }
+        tv.onImageIndex = { [weak co = context.coordinator] messageIndex, attachmentIndex in
+            guard let co,
+                  messageIndex >= 0, messageIndex < co.currentMessages.count,
+                  attachmentIndex >= 0,
+                  attachmentIndex < co.currentMessages[messageIndex].attachments.count else { return }
+            let attachment = co.currentMessages[messageIndex].attachments[attachmentIndex]
+            co.imagePreview.showImage(atPath: attachment.path, title: attachment.name)
         }
         return sv
     }
@@ -68,7 +79,13 @@ struct ChatTranscriptView: NSViewRepresentable {
         let newCount   = messages.count
         let newTail    = messages.last?.content
         let newGen     = isGenerating
-        guard co.lastCount != newCount || co.lastTail != newTail || co.lastGen != newGen
+        let newAttachmentSignature = messages.map { message in
+            message.attachments.map {
+                "\($0.id.uuidString)|\(String(describing: $0.kind))|\($0.name)|\($0.path)"
+            }.joined(separator: "\u{1f}")
+        }.joined(separator: "\u{1e}")
+        let attachmentsChanged = co.lastAttachmentSignature != newAttachmentSignature
+        guard co.lastCount != newCount || co.lastTail != newTail || co.lastGen != newGen || attachmentsChanged
         else { return }
 
         // 更新前にスクロール位置とテキスト選択を保存
@@ -87,7 +104,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         // deleted, history compressed, session switch, first render)
         // falls back to the original full rebuild, which stays correct.
         var changedRange: NSRange
-        if newCount == co.lastCount, newCount > 0 {
+        if !attachmentsChanged, newCount == co.lastCount, newCount > 0 {
             // Same message count -- only the tail message's content
             // changed (the streaming case). Replace just that range.
             let tailAttr = Transcript.buildSingle(message: messages[newCount - 1], index: newCount - 1)
@@ -96,7 +113,7 @@ struct ChatTranscriptView: NSViewRepresentable {
             storage.replaceCharacters(in: range, with: tailAttr)
             storage.endEditing()
             changedRange = NSRange(location: co.lastMessageStartOffset, length: tailAttr.length)
-        } else if newCount == co.lastCount + 1, co.lastCount >= 0 {
+        } else if !attachmentsChanged, newCount == co.lastCount + 1, co.lastCount >= 0 {
             // Exactly one new message appended -- append, don't rebuild.
             let sep = NSAttributedString(string: "\n\n")
             let newMsgAttr = Transcript.buildSingle(message: messages[newCount - 1], index: newCount - 1)
@@ -121,6 +138,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         co.lastCount = newCount
         co.lastTail  = newTail
         co.lastGen   = newGen
+        co.lastAttachmentSignature = newAttachmentSignature
         co.currentMessages = messages
 
         tv.needsLayout  = true
@@ -156,6 +174,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         var lastCount: Int    = -1
         var lastTail:  String? = nil
         var lastGen:   Bool    = false
+        var lastAttachmentSignature = ""
         /// Snapshot of the messages currently rendered, indexed the same
         /// way as the "verantyx-copy://<index>" links Transcript.build()
         /// embeds -- lets the per-message copy link know what to copy
@@ -166,11 +185,12 @@ struct ChatTranscriptView: NSViewRepresentable {
         /// Lets updateNSView replace/append just that message instead of
         /// rebuilding the whole document on every streaming flush.
         var lastMessageStartOffset: Int = 0
+        fileprivate let imagePreview = ImagePreviewPanelController()
 
         /// スクロールが末尾から 60pt 以内なら "末尾にいる" と判定
         func isAtBottom(_ sv: NSScrollView) -> Bool {
-            guard let clip = sv.contentView as? NSClipView,
-                  let doc  = sv.documentView else { return true }
+            let clip = sv.contentView
+            guard let doc = sv.documentView else { return true }
             return doc.frame.maxY - clip.bounds.maxY < 60
         }
 
@@ -178,19 +198,28 @@ struct ChatTranscriptView: NSViewRepresentable {
         /// appended copy links). Custom "verantyx-copy://<index>" scheme,
         /// never a real URL that should be opened.
         func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
-            let indexString: String?
-            if let url = link as? URL, url.scheme == "verantyx-copy" {
-                indexString = url.host
-            } else if let s = link as? String, s.hasPrefix("verantyx-copy://") {
-                indexString = String(s.dropFirst("verantyx-copy://".count))
-            } else {
-                indexString = nil
+            guard let url = (link as? URL) ?? (link as? String).flatMap(URL.init(string:)) else {
+                return false
             }
-            guard let idxStr = indexString, let idx = Int(idxStr),
-                  idx >= 0, idx < currentMessages.count else { return false }
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(currentMessages[idx].content, forType: .string)
-            return true
+            switch url.scheme {
+            case "verantyx-copy":
+                guard let idx = url.host.flatMap(Int.init),
+                      idx >= 0, idx < currentMessages.count else { return false }
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(currentMessages[idx].content, forType: .string)
+                return true
+            case "verantyx-image":
+                guard let messageIndex = url.host.flatMap(Int.init),
+                      let attachmentIndex = url.pathComponents.last.flatMap(Int.init),
+                      messageIndex >= 0, messageIndex < currentMessages.count,
+                      attachmentIndex >= 0,
+                      attachmentIndex < currentMessages[messageIndex].attachments.count else { return false }
+                let attachment = currentMessages[messageIndex].attachments[attachmentIndex]
+                imagePreview.showImage(atPath: attachment.path, title: attachment.name)
+                return true
+            default:
+                return false
+            }
         }
     }
 }
@@ -203,30 +232,22 @@ private final class SelectableTextView: NSTextView {
     /// fired for the custom scheme (which is why the button "existed but
     /// did nothing"), and a hit-test cannot be opted out of by AppKit.
     var onCopyIndex: ((Int) -> Void)?
+    var onImageIndex: ((Int, Int) -> Void)?
 
-    /// Set when mouseDown consumed the click as a copy-button press, so the
-    /// paired mouseUp doesn't also announce a "transcript clicked" event —
-    /// that notification opened the Spotlight prompt on every copy.
-    private var consumedAsCopyPress = false
+    private enum PendingAction: Equatable {
+        case copy(Int)
+        case image(message: Int, attachment: Int)
+    }
+    private var pendingAction: PendingAction?
+    private var pendingActionPoint: NSPoint?
 
     override func mouseDown(with event: NSEvent) {
         let pt = convert(event.locationInWindow, from: nil)
-        if let lm = layoutManager, let tc = textContainer {
-            let adjusted = NSPoint(x: pt.x - textContainerInset.width,
-                                   y: pt.y - textContainerInset.height)
-            let idx = lm.characterIndex(for: adjusted, in: tc,
-                                        fractionOfDistanceBetweenInsertionPoints: nil)
-            if idx < (textStorage?.length ?? 0),
-               let link = textStorage?.attribute(.link, at: idx, effectiveRange: nil),
-               let url = link as? URL, url.scheme == "verantyx-copy",
-               let n = url.host.flatMap(Int.init) {
-                onCopyIndex?(n)
-                consumedAsCopyPress = true
-                // Brief visual receipt: flash the link run.
-                NSSound(named: "Tink")?.play()
-                return   // consume; no selection change for a button press
-            }
-        }
+        pendingAction = action(at: pt)
+        pendingActionPoint = pendingAction == nil ? nil : pt
+        // Do not consume mouseDown. NSTextView must receive the ordinary
+        // event stream so a drag that begins on/near an icon can still grow
+        // into a selection spanning multiple messages.
         super.mouseDown(with: event)
     }
 
@@ -243,15 +264,115 @@ private final class SelectableTextView: NSTextView {
     }
     
     override func mouseUp(with event: NSEvent) {
-        if consumedAsCopyPress {
-            consumedAsCopyPress = false
-            return   // copy-button press: copy already happened, nothing else
+        let pt = convert(event.locationInWindow, from: nil)
+        let downAction = pendingAction
+        let downPoint = pendingActionPoint
+        pendingAction = nil
+        pendingActionPoint = nil
+
+        if let downAction,
+           downAction == action(at: pt),
+           let downPoint,
+           hypot(pt.x - downPoint.x, pt.y - downPoint.y) < 4 {
+            switch downAction {
+            case .copy(let index):
+                onCopyIndex?(index)
+                NSSound(named: "Tink")?.play()
+            case .image(let message, let attachment):
+                onImageIndex?(message, attachment)
+            }
+            return
         }
         super.mouseUp(with: event)
         // If it's a simple click (no text selection)
         if self.selectedRange().length == 0 {
             NotificationCenter.default.post(name: NSNotification.Name("ChatTranscriptClicked"), object: nil)
         }
+    }
+
+    private func action(at point: NSPoint) -> PendingAction? {
+        guard let lm = layoutManager, let tc = textContainer else { return nil }
+        let adjusted = NSPoint(x: point.x - textContainerInset.width,
+                               y: point.y - textContainerInset.height)
+        let idx = lm.characterIndex(for: adjusted, in: tc,
+                                    fractionOfDistanceBetweenInsertionPoints: nil)
+        guard idx < (textStorage?.length ?? 0),
+              let raw = textStorage?.attribute(.link, at: idx, effectiveRange: nil),
+              let url = (raw as? URL) ?? (raw as? String).flatMap(URL.init(string:)) else {
+            return nil
+        }
+        switch url.scheme {
+        case "verantyx-copy":
+            return url.host.flatMap(Int.init).map(PendingAction.copy)
+        case "verantyx-image":
+            guard let message = url.host.flatMap(Int.init),
+                  let attachment = url.pathComponents.last.flatMap(Int.init) else { return nil }
+            return .image(message: message, attachment: attachment)
+        default:
+            return nil
+        }
+    }
+}
+
+// MARK: - In-app image enlargement
+/// Owns a reusable, app-local preview panel.  Thumbnails never launch Finder,
+/// Preview, or a browser; clicking one keeps the user inside the Atelier flow.
+/// An unreadable path is deliberately ignored rather than replaced by a fake
+/// placeholder that could be mistaken for the image that was sent.
+private final class ImagePreviewPanelController: NSObject {
+    private var panel: NSPanel?
+    private var imageView: NSImageView?
+
+    func showImage(atPath path: String, title: String) {
+        guard FileManager.default.isReadableFile(atPath: path),
+              let image = NSImage(contentsOfFile: path) else { return }
+
+        let panel = panel ?? makePanel()
+        panel.title = title.isEmpty ? AppLanguage.shared.t("Image", "画像") : title
+        imageView?.image = image
+        imageView?.setAccessibilityLabel(panel.title)
+
+        let visible = panel.screen?.visibleFrame ?? NSScreen.main?.visibleFrame
+        let maxSize = NSSize(width: min(920, (visible?.width ?? 1100) * 0.82),
+                             height: min(820, (visible?.height ?? 900) * 0.82))
+        let fitted = aspectFit(image.size, inside: maxSize)
+        panel.setContentSize(NSSize(width: max(420, fitted.width),
+                                    height: max(320, fitted.height)))
+        panel.center()
+        panel.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private func makePanel() -> NSPanel {
+        let panel = NSPanel(
+            contentRect: NSRect(x: 0, y: 0, width: 760, height: 620),
+            styleMask: [.titled, .closable, .miniaturizable, .resizable],
+            backing: .buffered,
+            defer: false
+        )
+        panel.isReleasedWhenClosed = false
+        panel.isFloatingPanel = true
+        panel.collectionBehavior = [.fullScreenAuxiliary]
+        panel.minSize = NSSize(width: 360, height: 260)
+        panel.backgroundColor = Palette.bg
+
+        let imageView = NSImageView()
+        imageView.autoresizingMask = [.width, .height]
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+        imageView.imageAlignment = .alignCenter
+        imageView.wantsLayer = true
+        imageView.layer?.backgroundColor = Palette.imagePreviewBg.cgColor
+        panel.contentView = imageView
+
+        self.imageView = imageView
+        self.panel = panel
+        return panel
+    }
+
+    private func aspectFit(_ size: NSSize, inside bounds: NSSize) -> NSSize {
+        guard size.width > 0, size.height > 0 else { return bounds }
+        let scale = min(bounds.width / size.width, bounds.height / size.height, 1.0)
+        return NSSize(width: size.width * scale, height: size.height * scale)
     }
 }
 
@@ -265,14 +386,9 @@ private enum Palette {
     static let userLabel = NSColor(calibratedRed: 0.55, green: 0.55, blue: 0.70, alpha: 1)
     static let assiLabel = NSColor(calibratedRed: 0.50, green: 0.70, blue: 1.00, alpha: 1)
     static let genText   = NSColor(calibratedRed: 0.50, green: 0.70, blue: 1.00, alpha: 0.65)
-    /// User-message "bubble" — NSAttributedString's .backgroundColor draws
-    /// a filled rect behind each line's glyphs. Not a rounded SwiftUI
-    /// bubble (this is plain-text NSTextView rendering, not SwiftUI), but
-    /// a real, visible fill distinguishing user from assistant text,
-    /// which is what was actually missing (see the file header comment
-    /// on why this view exists instead of SwiftUI per-message views).
-    static let userBubbleBg = NSColor(calibratedRed: 0.2, green: 0.35, blue: 0.7, alpha: 1)
+    static let userBubbleBg = NSColor(calibratedRed: 0.20, green: 0.21, blue: 0.25, alpha: 1)
     static let copyLinkColor = NSColor(calibratedRed: 0.5, green: 0.55, blue: 0.68, alpha: 0.8)
+    static let imagePreviewBg = NSColor(calibratedRed: 0.075, green: 0.078, blue: 0.095, alpha: 1)
 }
 
 // MARK: - Transcript (NSAttributedString ビルダー)
@@ -306,8 +422,8 @@ private enum Transcript {
             if i > 0 { result.append(str("\n\n")) }
             if i == messages.count - 1 { lastOffset = result.length }
             switch msg.role {
-            case .user:      appendUser(result, msg.content, index: i)
-            case .assistant: appendAssistant(result, msg.content, index: i)
+            case .user:      appendUser(result, msg, index: i)
+            case .assistant: appendAssistant(result, msg, index: i)
             case .system:    appendSystem(result, msg.content)
             }
         }
@@ -321,66 +437,68 @@ private enum Transcript {
     static func buildSingle(message: ChatMessage, index: Int) -> NSAttributedString {
         let result = NSMutableAttributedString()
         switch message.role {
-        case .user:      appendUser(result, message.content, index: index)
-        case .assistant: appendAssistant(result, message.content, index: index)
+        case .user:      appendUser(result, message, index: index)
+        case .assistant: appendAssistant(result, message, index: index)
         case .system:    appendSystem(result, message.content)
         }
         return result
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 各メッセージ末尾のクリック可能な「コピー」リンク。
+    // 各メッセージ末尾のクリック可能なコピーアイコン。
     // "verantyx-copy://<index>" は本物のURLではなく、
     // ChatTranscriptView.Coordinator.textView(_:clickedOnLink:at:) が
     // 拾って該当メッセージの内容をクリップボードにコピーするだけの合図。
-    private static func appendCopyLink(_ r: NSMutableAttributedString, index: Int,
+    private static func appendCopyIcon(_ r: NSMutableAttributedString, index: Int,
                                        rightAligned: Bool = false) {
         guard let url = URL(string: "verantyx-copy://\(index)") else { return }
-        let cp = mutablePara(); cp.paragraphSpacing = 2
+        let cp = mutablePara(); cp.paragraphSpacing = 2; cp.lineSpacing = 1
         if rightAligned { cp.alignment = .right }
         r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: cp]))
-        r.append(NSAttributedString(
-            string: AppLanguage.shared.t("copy", "コピー"),
-            attributes: [.font: NSFont.systemFont(ofSize: 10),
-                         .foregroundColor: Palette.copyLinkColor,
-                         .link: url,
-                         .cursor: NSCursor.pointingHand,
-                         .paragraphStyle: cp]))
+        let iconRun = NSMutableAttributedString()
+        if let icon = NSImage(systemSymbolName: "doc.on.doc", accessibilityDescription: AppLanguage.shared.t("Copy", "コピー")) {
+            let configured = icon.withSymbolConfiguration(.init(pointSize: 11, weight: .regular)) ?? icon
+            let attachment = NSTextAttachment()
+            attachment.attachmentCell = NSTextAttachmentCell(imageCell: configured)
+            attachment.bounds = NSRect(x: 0, y: -2, width: 13, height: 13)
+            iconRun.append(NSAttributedString(attachment: attachment))
+        } else {
+            iconRun.append(NSAttributedString(string: "⧉", attributes: [.font: NSFont.systemFont(ofSize: 12)]))
+        }
+        iconRun.addAttributes([
+            .foregroundColor: Palette.copyLinkColor,
+            .link: url,
+            .cursor: NSCursor.pointingHand,
+            .paragraphStyle: cp,
+            .toolTip: AppLanguage.shared.t("Copy message", "メッセージをコピー"),
+        ], range: NSRange(location: 0, length: iconRun.length))
+        r.append(iconRun)
     }
 
     // ─────────────────────────────────────────────────────────────
-    // ユーザーメッセージ — 右揃えの「囲い」。Claude/ChatGPT の作法:
-    // 人間の発言は右に寄った塗り付きの塊、AI の答えは中央のカラム。
-    // NSTextView では alignment .right + 左側の大きな headIndent が
-    // その形になる(塗りは従来どおり .backgroundColor が行の字形の
-    // 背後に矩形を描く)。
-    private static func appendUser(_ r: NSMutableAttributedString, _ content: String, index: Int) {
-        let lp = mutablePara(); lp.alignment = .right; lp.paragraphSpacing = 3
-        r.append(NSAttributedString(string: "You",
-            attributes: [.font: NSFont.systemFont(ofSize: 10, weight: .semibold),
-                         .foregroundColor: Palette.userLabel,
-                         .paragraphStyle: lp]))
-        r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: lp]))
-
-        let cp = mutablePara()
-        cp.alignment = .right
-        cp.lineSpacing = 2
-        // The indent is what keeps a long user message from becoming a
-        // full-width right-aligned wall: it can only occupy the right
-        // two-thirds, like a bubble.
-        cp.headIndent = 90
-        cp.firstLineHeadIndent = 90
-        r.append(NSAttributedString(string: " \(content) ",
-            attributes: [.font: NSFont.systemFont(ofSize: 13),
-                         .foregroundColor: Palette.userText,
-                         .backgroundColor: Palette.userBubbleBg,
-                         .paragraphStyle: cp]))
-        appendCopyLink(r, index: index, rightAligned: true)
+    // ユーザーメッセージ — NSTextBlock で一つの面として描く。
+    // glyph-run の背景色と違い、複数行でも段落ごとのギザギザな矩形に
+    // ならず、左マージン 34% / 最大幅 66% の同じブロックを共有する。
+    private static func appendUser(_ r: NSMutableAttributedString, _ message: ChatMessage, index: Int) {
+        let cp = userBubbleParagraph()
+        let content = message.content.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !content.isEmpty {
+            r.append(NSAttributedString(string: content,
+                attributes: [.font: NSFont.systemFont(ofSize: 13),
+                             .foregroundColor: Palette.userText,
+                             .paragraphStyle: cp]))
+        }
+        appendImageAttachments(r, message: message, messageIndex: index,
+                               paragraph: cp, maxSize: NSSize(width: 280, height: 190))
+        // A terminating newline carrying the SAME block closes one coherent
+        // bubble before the action row starts.
+        r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: cp]))
+        appendCopyIcon(r, index: index, rightAligned: true)
     }
 
     // ─────────────────────────────────────────────────────────────
     // アシスタントメッセージ（<think> タグ対応 + **bold** マークダウン）
-    private static func appendAssistant(_ r: NSMutableAttributedString, _ content: String, index: Int) {
+    private static func appendAssistant(_ r: NSMutableAttributedString, _ message: ChatMessage, index: Int) {
         let lp = para(spacing: 3)
         // The reply reads as a centre column, not a left-hugging block:
         // small symmetric margins, text itself stays natural-aligned —
@@ -397,7 +515,7 @@ private enum Transcript {
         cp.firstLineHeadIndent = 12
         cp.tailIndent = -12
 
-        for part in parseThink(content) {
+        for part in parseThink(message.content) {
             let trimmed = part.text.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmed.isEmpty else { continue }
             if part.isThink {
@@ -414,7 +532,88 @@ private enum Transcript {
                            color: Palette.assiText, para: cp)
             }
         }
-        appendCopyLink(r, index: index)
+        appendImageAttachments(r, message: message, messageIndex: index,
+                               paragraph: cp, maxSize: NSSize(width: 340, height: 220))
+        appendCopyIcon(r, index: index)
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Real attachment thumbnails. Missing/unreadable files intentionally
+    // produce no thumbnail: presenting a generic stand-in here would make
+    // it look as if the application had retained image evidence that it no
+    // longer has.
+    private static func appendImageAttachments(
+        _ r: NSMutableAttributedString,
+        message: ChatMessage,
+        messageIndex: Int,
+        paragraph: NSParagraphStyle,
+        maxSize: NSSize
+    ) {
+        for (attachmentIndex, item) in message.attachments.enumerated() {
+            switch item.kind {
+            case .file:
+                continue
+            case .image:
+                break
+            }
+            guard FileManager.default.isReadableFile(atPath: item.path),
+                  let source = NSImage(contentsOfFile: item.path),
+                  let thumbnail = thumbnail(source, fitting: maxSize),
+                  let link = URL(string: "verantyx-image://\(messageIndex)/\(attachmentIndex)") else {
+                continue
+            }
+            if r.length > 0 { r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: paragraph])) }
+            let attachment = NSTextAttachment()
+            attachment.attachmentCell = NSTextAttachmentCell(imageCell: thumbnail)
+            attachment.bounds = NSRect(x: 0, y: -3,
+                                       width: thumbnail.size.width,
+                                       height: thumbnail.size.height)
+            let run = NSMutableAttributedString(attachment: attachment)
+            run.addAttributes([
+                .link: link,
+                .cursor: NSCursor.pointingHand,
+                .paragraphStyle: paragraph,
+                .toolTip: AppLanguage.shared.t("Click to enlarge", "クリックして拡大"),
+            ], range: NSRange(location: 0, length: run.length))
+            r.append(run)
+        }
+    }
+
+    private static func thumbnail(_ source: NSImage, fitting bounds: NSSize) -> NSImage? {
+        guard source.size.width > 0, source.size.height > 0 else { return nil }
+        let scale = min(bounds.width / source.size.width, bounds.height / source.size.height, 1)
+        let size = NSSize(width: max(1, source.size.width * scale),
+                          height: max(1, source.size.height * scale))
+        let image = NSImage(size: size)
+        image.lockFocus()
+        NSGraphicsContext.current?.imageInterpolation = .high
+        source.draw(in: NSRect(origin: .zero, size: size),
+                    from: NSRect(origin: .zero, size: source.size),
+                    operation: .copy,
+                    fraction: 1)
+        image.unlockFocus()
+        return image
+    }
+
+    private static func userBubbleParagraph() -> NSMutableParagraphStyle {
+        let table = NSTextTable()
+        table.collapsesBorders = true
+        let block = NSTextTableBlock(table: table, startingRow: 0, rowSpan: 1,
+                                     startingColumn: 0, columnSpan: 1)
+        block.backgroundColor = Palette.userBubbleBg
+        block.setValue(66, type: .percentageValueType, for: .maximumWidth)
+        block.setWidth(34, type: .percentageValueType, for: .margin, edge: .minX)
+        block.setWidth(10, type: .absoluteValueType, for: .padding, edge: .minX)
+        block.setWidth(10, type: .absoluteValueType, for: .padding, edge: .maxX)
+        block.setWidth(8, type: .absoluteValueType, for: .padding, edge: .minY)
+        block.setWidth(8, type: .absoluteValueType, for: .padding, edge: .maxY)
+
+        let paragraph = mutablePara()
+        paragraph.textBlocks = [block]
+        paragraph.alignment = .left
+        paragraph.lineSpacing = 2
+        paragraph.paragraphSpacing = 0
+        return paragraph
     }
 
     // ─────────────────────────────────────────────────────────────

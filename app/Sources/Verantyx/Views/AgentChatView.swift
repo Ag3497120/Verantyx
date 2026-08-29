@@ -443,8 +443,23 @@ struct AgentChatView: View {
         ZStack(alignment: .bottom) {
             // NSTextView ベースのトランスクリプト。
             // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
-            ChatTranscriptView(messages: visibleMessages, isGenerating: app.isGenerating)
+            ChatTranscriptView(messages: visibleMessages,
+                               isGenerating: app.isGenerating)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            // Agent-style dynamic work window: it appears over the chat only
+            // when the shared expert workbench has a decision, artifact or
+            // preview worth touching. Its tabs and contents change with the
+            // job instead of reserving a permanent dashboard strip.
+            if app.veraEngineMode == .atelier {
+                VStack {
+                    Spacer()
+                    AtelierBeginnerContextCardsView()
+                        .environmentObject(app)
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 18)
+                }
+            }
 
             logToggleChip
 
@@ -925,7 +940,7 @@ struct AgentChatView: View {
 struct ChatInputTextView: NSViewRepresentable {
     @Binding var text: String
     var onSend: () -> Void
-    var isFocused: FocusState<Bool>.Binding
+    @Binding var isFocused: Bool
     /// How tall the text actually is once laid out.
     ///
     /// The composer was not fixed by choice — the frame already said
@@ -988,6 +1003,22 @@ struct ChatInputTextView: NSViewRepresentable {
 
     func updateNSView(_ scrollView: NSScrollView, context: Context) {
         guard let textView = scrollView.documentView as? IMEAwareTextView else { return }
+
+        // SwiftUI's FocusState does not automatically cross an
+        // NSViewRepresentable boundary.  The unified Atelier composer sets
+        // this binding after an image is ingested so the user can continue
+        // typing immediately; without explicitly making the NSTextView the
+        // first responder the binding changed but keyboard focus stayed on
+        // the file picker (and assistive keyboard operation could not enter
+        // the prompt at all).
+        if isFocused,
+           textView.window?.firstResponder !== textView {
+            DispatchQueue.main.async { [weak textView] in
+                guard let textView,
+                      textView.window?.firstResponder !== textView else { return }
+                textView.window?.makeFirstResponder(textView)
+            }
+        }
 
         // ── GUARD 1: Never interrupt active IME composition ──────────
         // Setting textView.string during composition destroys the markedText.
@@ -1057,11 +1088,11 @@ struct ChatInputTextView: NSViewRepresentable {
         }
 
         func textDidBeginEditing(_ notification: Notification) {
-            parent.isFocused.wrappedValue = true
+            parent.isFocused = true
         }
 
         func textDidEndEditing(_ notification: Notification) {
-            parent.isFocused.wrappedValue = false
+            parent.isFocused = false
         }
     }
 }

@@ -64,6 +64,10 @@ struct AttentionOverviewView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 header
+                // 生成ジョブの現在段階から、いま操作が必要な候補と
+                // Approve/Reject/Undoだけを抜き出す。該当が無いときは
+                // EmptyViewなので、既存の台帳ワークリストを押し下げない。
+                AtelierDynamicFlowView()
                 if let err = m.engineError {
                     errorBanner(err)
                 } else if m.loading && cards.isEmpty {

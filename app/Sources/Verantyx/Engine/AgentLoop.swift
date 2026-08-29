@@ -83,6 +83,32 @@ actor AgentLoop {
             }
         }
 
+        // Atelier missions use a separate, bounded ReAct foreman. The
+        // general AgentLoop deliberately does not receive garment_factory as
+        // an executable model tool: it can only hand the user's request to
+        // GarmentFactoryReactController, whose closed phase table chooses all
+        // actions and stops at human approval or missing evidence.
+        let atelierFactoryMission = await MainActor.run {
+            guard AppState.shared?.veraEngineMode == .atelier else { return false }
+            let lower = instruction.lowercased()
+            return ["縫製工場", "工場を続", "服を生成", "画像から服",
+                    "factory loop", "continue factory", "garment factory"]
+                .contains { lower.contains($0.lowercased()) }
+        }
+        if atelierFactoryMission {
+            let pick = await MainActor.run { AtelierAnalyst.shared.pick }
+            let proposer = await MainActor.run {
+                GarmentFactoryModelMouth.proposer(for: pick)
+            }
+            let report = await GarmentFactoryReactController.shared.runUntilPause(
+                userRequest: instruction, proposer: proposer)
+            let text = "\(report.verdict)\n\(report.message)\nphase=\(report.phase)"
+            await onProgress(.systemLog(
+                "Atelier deterministic factory handoff: \(report.phase)"))
+            await onProgress(.done(message: text, workspace: workspaceURL))
+            return
+        }
+
         var currentWorkspace = workspaceURL
         var conversation: [(role: String, content: String)] = []
         var turn = 0

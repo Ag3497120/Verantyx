@@ -424,6 +424,233 @@ def _lineage_clash(names: Sequence[str]) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _hybrid_query(factory_state: Dict[str, Any], candidate: Dict[str, Any]
+                  ) -> Dict[str, Any]:
+    """Typed construction query reconstructed from a verified approval."""
+    structure = candidate.get("structure")
+    structure = structure if isinstance(structure, dict) else {}
+    nodes = [row for row in structure.get("nodes", ())
+             if isinstance(row, dict)]
+    operations = [row for row in structure.get("operations", ())
+                  if isinstance(row, dict)]
+    material = {}
+    approval = factory_state.get("material_approval")
+    sheet = factory_state.get("material_sheet")
+    if isinstance(approval, dict) and isinstance(sheet, dict):
+        selected = next((row for row in sheet.get("candidates", ())
+                         if isinstance(row, dict)
+                         and row.get("candidate_id") == approval.get("candidate_id")), None)
+        if isinstance(selected, dict):
+            material = selected.get("material_ranges", selected)
+    return {
+        "shape": candidate.get("shape", candidate.get("fit", {})),
+        "parts": [str(row.get("kind")) for row in nodes if row.get("kind")],
+        "layers": sorted({int(row.get("layer", 0)) for row in nodes
+                          if isinstance(row.get("layer", 0), int)}),
+        "openings": [row.get("attributes", {}) for row in nodes
+                     if row.get("kind") == "OPENING"],
+        "seam_topology": [{"kind": row.get("kind"),
+                           "source": row.get("source"),
+                           "target": row.get("target")}
+                          for row in operations],
+        "material_ranges": material if isinstance(material, dict) else {},
+        "structure": structure,
+        "pattern_digest": (factory_state.get("pattern", {}) or {}).get("digest")
+                          if isinstance(factory_state.get("pattern"), dict) else None,
+    }
+
+
+def _procedural_methods(query: Dict[str, Any], approval_id: str
+                        ) -> List[Dict[str, Any]]:
+    """Two inspectable assembly hypotheses, never corpus evidence."""
+    nodes = [row for row in query.get("structure", {}).get("nodes", ())
+             if isinstance(row, dict)]
+    ordered = sorted(nodes, key=lambda row: (int(row.get("layer", 0)),
+                                             str(row.get("node_id", ""))))
+    node_steps = [f"prepare primitive {row.get('node_id')} ({row.get('kind')})"
+                  for row in ordered]
+    openings = [row for row in ordered if row.get("kind") == "OPENING"]
+    close = ([f"finish proposed opening {row.get('node_id')} last"
+              for row in openings]
+             or ["reserve a dressability opening; placement remains proposed"])
+    common = {
+        "state": "PROPOSED", "for_approval": approval_id,
+        "origin": "BUILTIN_PROCEDURAL_CONSTRUCTION",
+        "real_corpus_record": False,
+        "manufacturing_validated": False,
+        "requires_human_and_deterministic_validation": True,
+        "provenance": {
+            "kind": "PROCEDURAL_CONSTRUCTION_HYPOTHESIS",
+            "engine": "photoloset.sewing-planner.v1",
+            "corpus": None, "real_corpus_record": False,
+            "note": "derived from approved topology; not a retrieved tailoring precedent",
+        },
+    }
+    return [
+        {**common, "method_id": "procedural:layer-inside-out",
+         "strategy": "assemble lower layers before overlays",
+         "steps": node_steps + close,
+         "unknowns": ["stitch class", "seam allowance", "machine settings",
+                      "empirical seam strength"]},
+        {**common, "method_id": "procedural:opening-last",
+         "strategy": "stabilise load paths and close the opening last",
+         "steps": node_steps[:1] + ["join validated structural operations"]
+                  + node_steps[1:] + close,
+         "unknowns": ["edge finish", "notions", "interfacing",
+                      "operator-feasible sewing order"]},
+    ]
+
+
+def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
+                                 require_commercial: bool = True
+                                 ) -> Dict[str, Any]:
+    """Search local construction records after the factory approval gate.
+
+    Private by design: the public sewing-search surface still accepts only an
+    approval id.  The MCP wrapper passes a complete factory state, and this
+    function recomputes its digest-bound approval before reading a structure.
+    """
+    from . import corpus_manifest
+    from . import garment_factory
+    from . import retrieval_hypothesis
+
+    if (not isinstance(factory_state, dict)
+            or factory_state.get("schema") != garment_factory.SCHEMA):
+        return {"verdict": SHAPE_NOT_APPROVED,
+                "why": "a persisted garment.factory.v1 state is required"}
+    candidate = garment_factory._approval_candidate(factory_state)
+    if not isinstance(candidate, dict):
+        return {"verdict": SHAPE_NOT_APPROVED,
+                "why": "named digest-bound structure approval is required"}
+    approval = factory_state["shape_approval"]
+    approval_id = str(approval["approval_id"])
+    raw_packages = (list(packages) if isinstance(packages, (tuple, list))
+                    else [])
+    eligible, refused = [], []
+    for index, package in enumerate(raw_packages):
+        if not isinstance(package, dict):
+            refused.append({"index": index,
+                            "verdict": "UNKNOWN_BAD_CORPUS_PACKAGE"})
+            continue
+        checked = corpus_manifest.validate(
+            package.get("manifest", {}),
+            require_commercial=bool(require_commercial), purpose="sewing")
+        records = package.get("records")
+        if (checked.get("verdict") != "ANSWER"
+                or not isinstance(records, (tuple, list))):
+            refused.append({"index": index,
+                            "verdict": checked.get("verdict",
+                                                   "UNKNOWN_BAD_CORPUS_RECORDS"),
+                            "manifest_check": checked})
+            continue
+        eligible.append({"manifest": checked["manifest"],
+                         "manifest_digest": checked["digest"],
+                         "records": [dict(row) for row in records
+                                     if isinstance(row, dict)]})
+
+    query = _hybrid_query(factory_state, candidate)
+    query_features = {name: query.get(name)
+                      for name in retrieval_hypothesis._FEATURE_AXES}
+    corpus_methods = []
+    for package in eligible:
+        manifest = package["manifest"]
+        for index, record in enumerate(package["records"]):
+            method = record.get("method", record.get("construction"))
+            if method is None and any(key in record for key in (
+                    "steps", "seams", "stitches", "stitch_order")):
+                method = {key: record[key] for key in (
+                    "steps", "seams", "stitches", "stitch_order", "tools")
+                          if key in record}
+            if not isinstance(method, dict) or not method:
+                continue
+            scored = retrieval_hypothesis._score_features(
+                query_features, retrieval_hypothesis._features(record))
+            record_id = str(record.get("record_id") or record.get("asset_id")
+                            or f"record-{index}")
+            corpus_methods.append({
+                **method,
+                "method_id": str(method.get("method_id")
+                                 or f"corpus:{manifest['name']}:{record_id}"),
+                "state": "PROPOSED", "for_approval": approval_id,
+                "fit": scored, "origin": "LOCAL_RIGHTS_GATED_CORPUS",
+                "real_corpus_record": True,
+                "manufacturing_validated": bool(
+                    record.get("manufacturing_validated", False)),
+                "provenance": {
+                    "kind": "CONSTRUCTION_CORPUS",
+                    "corpus": manifest["name"], "record": record_id,
+                    "manifest_digest": package["manifest_digest"],
+                    "license": manifest["license"],
+                    "lineage": manifest["lineage"],
+                    "real_corpus_record": True, "network_used": False,
+                },
+            })
+    corpus_methods.sort(key=lambda row: (
+        -row["fit"]["coverage"], -row["fit"]["mean_for_ordering_only"],
+        row["method_id"]))
+    procedural = _procedural_methods(query, approval_id)
+    methods = corpus_methods + procedural
+    status = {
+        "received": len(raw_packages), "eligible": len(eligible),
+        "refused": refused,
+        "records_searched": sum(len(row["records"]) for row in eligible),
+        "corpus_methods": len(corpus_methods),
+        "procedural_methods": len(procedural),
+        "real_corpus_search_performed": bool(eligible),
+        "network_used": False,
+        "mode": ("LOCAL_RIGHTS_GATED_PLUS_PROCEDURAL" if eligible
+                 else "PROCEDURAL_ONLY"),
+    }
+    source = {
+        "name": ("hybrid:local-sewing-corpus-plus-procedural"
+                 if corpus_methods else "procedural:sewing-planner-no-corpus"),
+        "real_corpus_records_present": bool(corpus_methods),
+        "procedural_records_present": True,
+    }
+    lineage = [{"source": "photoloset:sewing-planner.v1"}]
+    lineage.extend({"source": row["manifest"]["name"]}
+                   for row in eligible)
+    output_manifest = {
+        "schema": "garment.corpus-manifest.v1",
+        "name": "photoloset-hybrid-sewing-proposals",
+        "version": "1",
+        "license": {
+            "url": "urn:photoloset:builtin-procedural-sewing:v1",
+            "rights": {"commercial_use": "allowed",
+                       "derivatives": "allowed",
+                       "redistribution": "allowed"},
+            "scope": "Photoloset-generated proposal records only; source corpus records retain per-method licences",
+        },
+        "lineage": lineage,
+        "modalities": ["sewing_construction"],
+        "record_format": {
+            "units": "explicit_per_field",
+            "schema_url": "urn:photoloset:hybrid-sewing-method:v1",
+        },
+        "generated": True,
+        "real_corpus_records_present": bool(corpus_methods),
+        "procedural_records_present": True,
+    }
+    factory_event = {
+        "type": "SUBMIT_SEWING_METHODS",
+        "manifest": output_manifest,
+        "methods": methods,
+        "require_commercial": bool(require_commercial),
+    }
+    return {
+        "verdict": "PROPOSED", "source": source, "methods": methods,
+        "manifest": output_manifest,
+        "real_corpus_records_present": bool(corpus_methods),
+        "route": {
+            "shape_approval_id": approval_id,
+            "query_basis": "approved structure, never image embedding",
+            "next": "deterministic sewability/strength/comfort validation",
+            "factory_event": factory_event,
+        },
+        "corpus_status": status,
+    }
+
+
 def methods_for(approval_id: str, corpus: str = "") -> Dict[str, Any]:
     """Sewing methods for an APPROVED shape. **The gate is the first line.**
 

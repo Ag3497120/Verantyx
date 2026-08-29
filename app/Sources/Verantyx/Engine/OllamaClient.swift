@@ -284,6 +284,7 @@ public actor OllamaClient {
         model: String,
         messages: [(role: String, content: String)],
         imagesForLastUserMessage: [String]? = nil,
+        allowImageFallback: Bool = true,
         maxTokens: Int = 2048,
         temperature: Double = 0.15,
         onToken: (@Sendable (String) -> Void)? = nil
@@ -314,7 +315,7 @@ public actor OllamaClient {
         // probe). Retry once with images stripped rather than failing the
         // whole turn -- losing the visual anchor for one turn is much
         // better than every request silently returning nil.
-        if result == nil, hasImages {
+        if result == nil, hasImages, allowImageFallback {
             print("[OllamaClient] Request with images failed -- retrying once without images (model may not actually support the images field)")
             let strippedMessages: [[String: Any]] = messages.map { ["role": $0.role, "content": $0.content] }
             return await streamChat(

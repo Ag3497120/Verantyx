@@ -239,7 +239,9 @@ from . import decisions as _decisions
 from . import flatten as _flat
 from . import mannequin as _mq
 from . import mannequin_spline as _mqs
+from . import multi_view as _multi_view
 from . import panels as _panels
+from . import repairs as _repairs
 from . import silhouette as _sil
 from . import structure as _structure
 
@@ -507,7 +509,9 @@ def run(record: Dict[str, Any], measures: Any, *,
         iterations: int = _flat.DEFAULT_ITERATIONS,
         step: float = _flat.DEFAULT_STEP,
         dart_depth_ratio: float = _panels.DEFAULT_DART_DEPTH_RATIO,
-        smooth: bool = False, image_id: str = "") -> Dict[str, Any]:
+        smooth: bool = False, image_id: str = "",
+        multi_view_result: Optional[Dict[str, Any]] = None
+        ) -> Dict[str, Any]:
     """THE OUTLINE CONTRACT ちょうど1個 + 実測(``measures``)から、
     ``panels.to_pieces()`` と同じ形の裁片を返す一回の呼び出し。
 
@@ -596,10 +600,26 @@ def run(record: Dict[str, Any], measures: Any, *,
     # 動かなかった原因はここ ── silhouette.py 側の欠陥ではなく、この
     # 呼び出しが自分の変換済み輪郭の高さを一度も見ていなかったこと。
     _oc_ys = [p[1] for p in outline_cm]
+    mv_ratio = None
+    mv_basis = None
+    if (isinstance(multi_view_result, dict)
+            and multi_view_result.get("verdict") == "ANSWER"):
+        ratio_record = multi_view_result.get("front_back_ratio")
+        if isinstance(ratio_record, dict):
+            mv_ratio = ratio_record.get("value")
+            mv_basis = multi_view_result.get("ratio_basis")
+            if (ratio_record.get("assumed") is not None
+                    and ratio_record.get("basis") is not None
+                    and ratio_record.get("kind") in ("INFERRED", "PROPOSED")):
+                decisions_used.append(dict(
+                    ratio_record, hop="multi_view",
+                    used_for="silhouette.match 身体外の前後比"))
     t0 = time.perf_counter()
     match_res = _sil.match(man, outline_cm, segments=segments,
                            height_steps=height_steps,
-                           y_bottom=min(_oc_ys), y_top=max(_oc_ys))
+                           y_bottom=min(_oc_ys), y_top=max(_oc_ys),
+                           front_back_ratio=mv_ratio,
+                           front_back_ratio_basis=mv_basis)
     hops.append(_hop("silhouette_match", match_res.get("verdict"),
                      height_steps + 1, time.perf_counter() - t0))
     if match_res.get("verdict") != "ANSWER":
@@ -607,6 +627,10 @@ def run(record: Dict[str, Any], measures: Any, *,
                        decisions_used)
 
     rf = _sil.radius_at_for(match_res)
+    # match_res の y_range_used は表示用に小数4桁へ丸められている。
+    # 輪郭端をその丸めで僅かに越えると外挿 radius_at が None になるため、
+    # match に渡した変換直後の生の範囲をそのままメッシュにも渡す。
+    mesh_y_bottom, mesh_y_top = min(_oc_ys), max(_oc_ys)
 
     # ---- 5. base_garment: フィットした3次元メッシュ(可視化・検算用) ---
     t0 = time.perf_counter()
@@ -625,6 +649,7 @@ def run(record: Dict[str, Any], measures: Any, *,
     t0 = time.perf_counter()
     flat_res = _flat.build(man, gap=0.0, segments=segments,
                            height_steps=height_steps, radius_at=rf,
+                           y_bottom=mesh_y_bottom, y_top=mesh_y_top,
                            iterations=iterations, step=step)
     hops.append(_hop("flatten", flat_res.get("verdict"),
                      flat_res.get("triangles", 0), time.perf_counter() - t0))
@@ -636,6 +661,7 @@ def run(record: Dict[str, Any], measures: Any, *,
     t0 = time.perf_counter()
     cut_res = _panels.cut(man, n_panels=n_panels, segments=segments,
                           height_steps=height_steps, gap=0.0, radius_at=rf,
+                          y_bottom=mesh_y_bottom, y_top=mesh_y_top,
                           iterations=iterations, step=step,
                           dart_depth_ratio=dart_depth_ratio)
     if cut_res.get("verdict") != "ANSWER" and _assumed_ok(cut_res):
@@ -660,6 +686,7 @@ def run(record: Dict[str, Any], measures: Any, *,
                      "呼び直し)"))
         cut_res = _panels.cut(man, n_panels=n2, segments=seg2,
                               height_steps=hs2, gap=0.0, radius_at=rf,
+                              y_bottom=mesh_y_bottom, y_top=mesh_y_top,
                               iterations=iterations, step=step,
                               dart_depth_ratio=dart_depth_ratio)
     hops.append(_hop("panels_cut", cut_res.get("verdict"),
@@ -729,6 +756,10 @@ def run(record: Dict[str, Any], measures: Any, *,
             "ring_class_counts": match_res["ring_class_counts"],
             "structure_hints": match_res["structure_hints"],
         },
+        # The exact image-derived 3D surface used by this run.  Keeping it in
+        # the same result prevents UI callers from silently asking
+        # mannequin_dress to rebuild the unrelated default coat.
+        "garment_surface": surface,
         "flatten_summary": {
             "area_ratio": flat_res["area_ratio"],
             "angle_error_deg": flat_res["angle_error_deg"],
@@ -763,6 +794,14 @@ def run(record: Dict[str, Any], measures: Any, *,
         # 「この答えのどれだけが仮定か」が分かる。
         "assumptions_used": decisions_used,
     }
+    if multi_view_result is not None:
+        result["multi_view"] = multi_view_result
+    # **分類を修復カタログへ実際に渡す接続。** 以前は structure_hints を
+    # 要約に載せるだけで repairs.py は一度も読まなかった。ここで同じ
+    # 完成 pattern を診断・独立検算し、standoff/compression があれば
+    # 人の構造選択が終わるまで sewable=True を名乗らない。
+    result["repair_diagnosis"] = _repairs.diagnose(result)
+    result["sewability"] = _repairs.measure_sewable(result)
     # **decisions.collect は result 自身の上で最後に一度だけ呼ぶ。** 先に
     # 呼ぶと assumptions_used がまだ入っていない部分木を歩くことになり、
     # 「仮定を使ったのに記録に無い」を作ってしまう ── ここでは
@@ -771,3 +810,16 @@ def run(record: Dict[str, Any], measures: Any, *,
     # 出力を再帰して数える心配もない。
     result["decisions"] = _decisions.collect(result)
     return result
+
+
+def run_multi_view(record: Dict[str, Any], measures: Any,
+                   views: Sequence[Dict[str, Any]], **kwargs: Any
+                   ) -> Dict[str, Any]:
+    """複数の較正輪郭を測り、その根拠を保ったまま写真経路を走らせる。
+
+    複数視点が拒否されても単一視点経路は止めない。返り値の multi_view と
+    decisions.blocked が不足を名指しし、身体外は従来の人台比を INFERRED
+    として使う。ANSWER のときだけ、その比を silhouette.match へ渡す。
+    """
+    analysis = _multi_view.analyze(views)
+    return run(record, measures, multi_view_result=analysis, **kwargs)

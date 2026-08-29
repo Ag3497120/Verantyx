@@ -150,7 +150,10 @@ struct HumanPriorityModeView: View {
                 Divider().opacity(0.4)
                 humanPriorityStatusBar
             }
-            .background(Theme.panel)
+            // The shell, transcript gutters and composer surround are one
+            // main surface. IDEShellView paints the left rail with
+            // Theme.panel, so the navigation column remains distinct.
+            .background(Theme.panel2)
 
             // ── Settings overlay (same pattern as MainSplitView) ─────────────
             if showSettings {
@@ -237,12 +240,22 @@ struct HumanPriorityModeView: View {
         // 答えそのものが画面に着地できるようにしている。
         .onChange(of: app.showSettingsRequested) { _, requested in
             guard requested else { return }
+            guard app.veraEngineMode == .localLLM else {
+                app.showSettingsRequested = false
+                return
+            }
+            showAtelierSettings = false
             withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
             app.showSettingsRequested = false
         }
         // 服飾側の設定要求 — ラウンジのボタンが Atelier モードで立てる。
         .onChange(of: app.showAtelierSettingsRequested) { _, requested in
             guard requested else { return }
+            guard app.veraEngineMode == .atelier else {
+                app.showAtelierSettingsRequested = false
+                return
+            }
+            showSettings = false
             withAnimation(.easeOut(duration: 0.18)) { showAtelierSettings = true }
             app.showAtelierSettingsRequested = false
         }

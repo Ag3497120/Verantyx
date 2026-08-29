@@ -430,6 +430,71 @@ enum VeraMemoryBridge {
         }
     }
 
+    /// Persist the result of Atelier's two explicit human gates directly on
+    /// Vera's stereo-cross. This bypasses the ordinary chat save popup because
+    /// the named reviewer has already approved both the visible-front
+    /// inventory and the exact CAD target digest. Hidden rear construction,
+    /// material, body dimensions and sewing remain explicitly unobserved.
+    /// A Vera outage is non-fatal to garment editing and is returned to the
+    /// controller as a typed trace failure instead of stalling the workflow.
+    @discardableResult
+    static func recordHumanReviewedGarmentFrontFacts(
+        reviewer: String, analysisDigest: String, targetDigest: String,
+        inventory: [String]
+    ) async -> Bool {
+        let namedReviewer = reviewer.trimmingCharacters(
+            in: .whitespacesAndNewlines)
+        let analysis = analysisDigest.trimmingCharacters(
+            in: .whitespacesAndNewlines)
+        let target = targetDigest.trimmingCharacters(
+            in: .whitespacesAndNewlines)
+        guard !namedReviewer.isEmpty, !analysis.isEmpty, !target.isEmpty,
+              !inventory.isEmpty else { return false }
+        let boundedReviewer = String(namedReviewer.prefix(80))
+        let bindingSentence = "Human \(boundedReviewer) reviewed garment analysis "
+            + analysis + " and adopted front CAD target " + target + ". "
+            + "Scope is visible front only; rear, hidden "
+            + "construction, material identity, body measurements and sewing "
+            + "are unobserved."
+
+        func persist(_ sentence: String) async -> Bool {
+            let raw = await MCPEngine.shared.callTool(
+                serverName: serverName, toolName: "remember",
+                arguments: ["sentence": String(sentence.prefix(500))],
+                mode: .human)
+            guard let data = raw.data(using: String.Encoding.utf8),
+                  let object = try? JSONSerialization.jsonObject(with: data),
+                  let result = object as? [String: Any] else { return false }
+            if let remembered = result["remembered"] as? String,
+               !remembered.isEmpty { return true }
+            return result["verdict"] as? String == "ANSWER"
+        }
+
+        // Put the exact lineage and its negative authority boundary first so
+        // a long garment inventory can never truncate either one.
+        guard await persist(bindingSentence) else { return false }
+        let rows = inventory.prefix(24).map { String($0.prefix(120)) }
+        var chunks: [String] = []
+        var current = ""
+        for row in rows {
+            let candidate = current.isEmpty ? row : current + "; " + row
+            if candidate.count > 270, !current.isEmpty {
+                chunks.append(current)
+                current = row
+            } else {
+                current = candidate
+            }
+        }
+        if !current.isEmpty { chunks.append(current) }
+        for chunk in chunks {
+            let sentence = "For adopted front CAD target \(target), "
+                + "human-reviewed visible-front inventory includes: "
+                + chunk + ". Hidden and rear properties remain unobserved."
+            guard await persist(sentence) else { return false }
+        }
+        return true
+    }
+
     // MARK: - Verified URL registry
 
     /// Registers a human- or agent-confirmed URL for a named destination

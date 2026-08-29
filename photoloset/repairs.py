@@ -114,6 +114,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from . import marker as _marker
 from . import panels as _panels
 from . import sewing_order as _sewing_order
+from . import garment_engineering_review as _engineering_review
 
 #: このモジュール自身が持ち込む唯一の閾値。根拠は無い――``panels.cut`` は
 #: どこからが「縫えないほど歪んでいるか」を主張しない。上の docstring に
@@ -132,13 +133,14 @@ _DART_NOT_NEEDED_REASONS = {"WIDTH_ONE_NO_INTERIOR", "NO_SURPLUS"}
 
 SURFACE_TOO_DISTORTED = "SURFACE_DISTORTION_EXCEEDS_THRESHOLD"
 
-_SIBLING_MODULES: Tuple[str, ...] = ("repair_seam", "repair_dart",
-                                     "repair_width")
+_SIBLING_MODULES: Tuple[str, ...] = ("repair_standoff", "repair_seam",
+                                     "repair_dart", "repair_width")
 
 #: ``make_sewable`` が修復を試す優先順位。上流(パネル分割)から下流
 #: (生地の並べ方)へ――このファイルの docstring に理由を書いた。
 PRIORITY: Tuple[str, ...] = (
-    "surface_split", "repair_dart", "repair_seam", "repair_width")
+    "repair_standoff", "surface_split", "repair_dart", "repair_seam",
+    "repair_width")
 
 
 # ---------------------------------------------------------------------
@@ -438,14 +440,28 @@ def _darts_ok(pattern: Dict[str, Any]
 
 
 def measure_sewable(pattern: Dict[str, Any]) -> Dict[str, Any]:
-    """「縫える」を、この四つの既存の検査で測る――このモジュール自身の
-    verdict は無い。"""
+    """「縫える」を、既存の四検査と未解決の構造ヒントで測る。
+
+    silhouette.match の standoff/compression は服の不存在ではないが、
+    支持方法を選ばないまま物理的に成立したとも言えない。登録された
+    repair_standoff.detect をもう一度独立に呼び、未解決なら False。
+    """
     seam_ok, seam_checks, seam_mismatches, seam_source = \
         _seam_checks_ok(pattern)
     order_ok, order_result = _sewing_order_ok(pattern)
     marker_ok, marker_result = _marker_ok(pattern)
     darts_ok, darts_list, darts_refusing = _darts_ok(pattern)
-    sewable = seam_ok and order_ok and marker_ok and darts_ok
+    structure_entry = REPAIRS.get("repair_standoff")
+    structure_problem = (structure_entry["detect"](pattern)
+                         if structure_entry is not None else None)
+    structure_ok = structure_problem is None
+    connectivity = (_engineering_review.assembly_connectivity(pattern)
+                    if pattern.get("schema") == "garment.compiled-pattern.v1"
+                    else {"verdict": "NOT_APPLICABLE_LEGACY_PATTERN",
+                          "connected": True})
+    connectivity_ok = connectivity.get("connected") is True
+    sewable = (seam_ok and order_ok and marker_ok and darts_ok and structure_ok
+               and connectivity_ok)
     return {
         "sewable": sewable,
         "checks": {
@@ -460,10 +476,24 @@ def measure_sewable(pattern: Dict[str, Any]) -> Dict[str, Any]:
                            "detail": marker_result},
             "no_dart_refusing": {"ok": darts_ok, "n_darts": len(darts_list),
                                  "refusing": darts_refusing},
+            "structure_hints": {
+                "ok": structure_ok,
+                "problem": structure_problem,
+                "source": ("repair_standoff.detect re-run on the same "
+                           "pattern; unresolved standoff/compression "
+                           "prevents a sewable claim"),
+            },
+            "assembly_connectivity": {
+                "ok": connectivity_ok,
+                "verdict": connectivity.get("verdict"),
+                "detail": connectivity,
+            },
         },
         "which_checks_used": (
-            "seam_checks (pattern既存 or seam_specsから生成), "
-            "sewing_order.plan, marker.lay, no genuine dart refusal"),
+            "seam_checks (existing on pattern or generated from seam_specs), "
+            "sewing_order.plan, marker.lay, no genuine dart refusal, "
+            "no unresolved standoff/compression structure hint, and every "
+            "declared garment unit connected by compiled seams/layers"),
     }
 
 
@@ -491,6 +521,21 @@ def _load_repair_seam() -> Optional[Dict[str, Any]]:
             or not callable(getattr(mod, "repair", None)):
         return None
     return {"detect": mod.detect, "repair": mod.repair, "module": "repair_seam"}
+
+
+def _load_repair_standoff() -> Optional[Dict[str, Any]]:
+    """写真経路の structure_hints を構造選択へ翻訳する。
+
+    この修復は正面輪郭だけからギャザー/タック/別裁片/芯地/ボーンを
+    勝手に選ばない。repair が PROPOSED の選択肢を返して拒否するため、
+    カタログは問題を見失わず、measure_sewable も緑を名乗らない。
+    """
+    mod = _import_sibling("repair_standoff")
+    if mod is None or not callable(getattr(mod, "detect", None)) \
+            or not callable(getattr(mod, "repair", None)):
+        return None
+    return {"detect": mod.detect, "repair": mod.repair,
+            "module": "repair_standoff"}
 
 
 def _load_repair_width() -> Optional[Dict[str, Any]]:
@@ -576,6 +621,7 @@ def _load_repair_dart() -> Optional[Dict[str, Any]]:
 
 
 _SIBLING_LOADERS: Dict[str, Callable[[], Optional[Dict[str, Any]]]] = {
+    "repair_standoff": _load_repair_standoff,
     "repair_seam": _load_repair_seam,
     "repair_dart": _load_repair_dart,
     "repair_width": _load_repair_width,
@@ -678,6 +724,8 @@ def make_sewable(pattern: Dict[str, Any], *, budget: int = 8
             "cost": result.get("cost"),
             "before": result.get("before"),
             "after": result.get("after"),
+            "alternatives": result.get("alternatives"),
+            "how_to_close": result.get("how_to_close"),
         }
         if result.get("verdict") == "ANSWER" and isinstance(
                 result.get("pattern"), dict):

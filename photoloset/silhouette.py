@@ -129,6 +129,7 @@ MAX_EASE_CM = 25.0
 COMPRESSION = "compression"
 FITTED = "fitted"
 STANDOFF = "standoff"
+BAD_FRONT_BACK_RATIO = "UNKNOWN_FRONT_BACK_RATIO_NOT_POSITIVE"
 _EPS = 1e-6
 #: 残差を測る高さの密度。解いたリングの間で目標の幅がどれだけ非線形
 #: でも見逃さないよう、リング数よりも細かく走査する。
@@ -201,7 +202,9 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
          segments: int = _mq.SEGMENTS,
          height_steps: int = 16,
          y_top: Optional[float] = None,
-         y_bottom: Optional[float] = None) -> Dict[str, Any]:
+         y_bottom: Optional[float] = None,
+         front_back_ratio: Optional[float] = None,
+         front_back_ratio_basis: Optional[Any] = None) -> Dict[str, Any]:
     """密着ベースの半径オフセットを高さの関数にし、輪郭の投影幅だけから解く。
 
     ``radius_at``(既定 ``mannequin.radius_at``)が身体の半径。各高さ
@@ -246,6 +249,22 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
                 "why": "輪郭は少なくとも3点の有限な座標が必要です",
                 "how_to_close": "3点以上の有限座標からなる閉多角形を渡して"
                                 "ください"}
+    supplied_ratio: Optional[float] = None
+    if front_back_ratio is not None:
+        try:
+            supplied_ratio = float(front_back_ratio)
+        except (TypeError, ValueError):
+            supplied_ratio = None
+        if (supplied_ratio is None or not math.isfinite(supplied_ratio)
+                or supplied_ratio <= 0.0):
+            return {
+                "verdict": BAD_FRONT_BACK_RATIO,
+                "front_back_ratio": front_back_ratio,
+                "why": "複数視点から渡す前後比は有限な正の数が必要です",
+                "how_to_close": "multi_view.analyze が ANSWER で返した "
+                                "front_back_ratio.value と ratio_basis を"
+                                "そのまま渡してください",
+            }
     ys = [p[1] for p in outline]
     if max(ys) - min(ys) <= _EPS:
         return {"verdict": BAD_OUTLINE,
@@ -363,11 +382,15 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
         n = max(1, math.ceil((lo - want_lo) / ring_spacing))
         ext_below_ys = [want_lo + (lo - want_lo) * k / n for k in range(n)]
         y0, a0, b0 = levels[0]
-        ext_below_ratio = None if a0 <= _EPS else b0 / a0
+        ext_below_ratio = (supplied_ratio if supplied_ratio is not None
+                           else (None if a0 <= _EPS else b0 / a0))
         ext_below_ratio_basis = (
-            f"levels[0] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
-            f"b/a = {ext_below_ratio:.4f}" if ext_below_ratio is not None
-            else "levels[0] の幅(a)がゼロで前後比が定義できません")
+            front_back_ratio_basis
+            if supplied_ratio is not None
+            else (f"levels[0] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
+                  f"b/a = {ext_below_ratio:.4f}"
+                  if ext_below_ratio is not None
+                  else "levels[0] の幅(a)がゼロで前後比が定義できません"))
         if ext_below_ratio is None:
             return {"verdict": NO_COVERAGE,
                     "requested": [round(want_lo, 4), round(want_hi, 4)],
@@ -384,11 +407,15 @@ def match(man: Dict[str, Any], outline: Sequence[Vec2], *,
         n = max(1, math.ceil((want_hi - hi) / ring_spacing))
         ext_above_ys = [hi + (want_hi - hi) * (k + 1) / n for k in range(n)]
         y0, a0, b0 = levels[-1]
-        ext_above_ratio = None if a0 <= _EPS else b0 / a0
+        ext_above_ratio = (supplied_ratio if supplied_ratio is not None
+                           else (None if a0 <= _EPS else b0 / a0))
         ext_above_ratio_basis = (
-            f"levels[-1] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
-            f"b/a = {ext_above_ratio:.4f}" if ext_above_ratio is not None
-            else "levels[-1] の幅(a)がゼロで前後比が定義できません")
+            front_back_ratio_basis
+            if supplied_ratio is not None
+            else (f"levels[-1] = ({y0:.4f}, {a0:.4f}, {b0:.4f}) -> "
+                  f"b/a = {ext_above_ratio:.4f}"
+                  if ext_above_ratio is not None
+                  else "levels[-1] の幅(a)がゼロで前後比が定義できません"))
         if ext_above_ratio is None:
             return {"verdict": NO_COVERAGE,
                     "requested": [round(want_lo, 4), round(want_hi, 4)],

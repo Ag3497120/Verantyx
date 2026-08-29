@@ -57,6 +57,7 @@ RadiusFn = Callable[[Dict[str, Any], float, float], Optional[float]]
 NO_MANNEQUIN = "UNKNOWN_NO_MANNEQUIN"
 BAD_RESOLUTION = "UNKNOWN_RESOLUTION_TOO_COARSE"
 BODY_MISSING_IN_GRID = "UNKNOWN_NO_BODY_AT_THIS_HEIGHT"
+BAD_HEIGHT_RANGE = "UNKNOWN_HEIGHT_RANGE_NOT_ASCENDING"
 
 MIN_SEGMENTS = 3
 MIN_HEIGHT_STEPS = 1
@@ -80,7 +81,9 @@ def _dist3(a: Vec3, b: Vec3) -> float:
 
 
 def _grid3d(man: Dict[str, Any], segments: int, height_steps: int,
-           radius_at: RadiusFn, gap: float
+           radius_at: RadiusFn, gap: float, *,
+           y_top: Optional[float] = None,
+           y_bottom: Optional[float] = None
            ) -> Optional[Dict[Tuple[int, int], Vec3]]:
     """人台の子午線1本(θ=0)で切り開いた格子。i は 0..segments
     (segments列目はi=0と同じ3次元位置 — 切り口の複製)、j は 0..height_steps。
@@ -90,7 +93,8 @@ def _grid3d(man: Dict[str, Any], segments: int, height_steps: int,
     BODY_MISSING_IN_GRID として断る。
     """
     levels = man["_levels"]
-    y0, y1 = levels[0][0], levels[-1][0]
+    y0 = levels[0][0] if y_bottom is None else y_bottom
+    y1 = levels[-1][0] if y_top is None else y_top
     out: Dict[Tuple[int, int], Vec3] = {}
     for j in range(height_steps + 1):
         y = y0 + (y1 - y0) * j / height_steps
@@ -269,6 +273,8 @@ def build(man: Dict[str, Any], *,
           segments: int = _mq.SEGMENTS,
           height_steps: int = 16,
           radius_at: Optional[RadiusFn] = None,
+          y_top: Optional[float] = None,
+          y_bottom: Optional[float] = None,
           iterations: int = DEFAULT_ITERATIONS,
           step: float = DEFAULT_STEP) -> Dict[str, Any]:
     """密着ベースの面(既定 gap=``mannequin.GAP_CM``)を切り開いて緩和し、
@@ -277,6 +283,11 @@ def build(man: Dict[str, Any], *,
     **良い/悪いの判定はしない。** 数字を出すだけ ―― 面積比が1から
     離れているほど、その三角形は伸ばされたか縮められた。角度差が
     大きいほど、その三角形はせん断された。
+
+    ``y_bottom``/``y_top`` を省略すれば、従来どおり人台の最下段〜最上段
+    を使う。明示した範囲は ``radius_at`` が身体外でも答えられる場合
+    (``silhouette.radius_at_for()`` の外挿など)に限って、そのまま格子の
+    高さになる。
     """
     if man.get("verdict") != "ANSWER":
         return {"verdict": NO_MANNEQUIN,
@@ -290,14 +301,40 @@ def build(man: Dict[str, Any], *,
                 "how_to_close": f"周方向は{MIN_SEGMENTS}以上、高さ方向は"
                                 f"{MIN_HEIGHT_STEPS}以上でなければ三角形が"
                                 f"1枚も作れません"}
+    explicit_height_range = y_top is not None or y_bottom is not None
+    levels = man["_levels"]
+    try:
+        grid_bottom = (float(levels[0][0]) if y_bottom is None
+                       else float(y_bottom))
+        grid_top = (float(levels[-1][0]) if y_top is None
+                    else float(y_top))
+    except (TypeError, ValueError):
+        return {"verdict": BAD_HEIGHT_RANGE,
+                "y_bottom": y_bottom, "y_top": y_top,
+                "how_to_close": "y_bottom/y_top は有限な数で、y_bottom < "
+                                "y_top にしてください"}
+    if (not math.isfinite(grid_bottom) or not math.isfinite(grid_top)
+            or grid_bottom >= grid_top):
+        return {"verdict": BAD_HEIGHT_RANGE,
+                "y_bottom": y_bottom, "y_top": y_top,
+                "how_to_close": "y_bottom/y_top は有限な数で、y_bottom < "
+                                "y_top にしてください"}
     rf: RadiusFn = radius_at or _mq.radius_at
-    V3 = _grid3d(man, segments, height_steps, rf, gap)
+    V3 = _grid3d(man, segments, height_steps, rf, gap,
+                 y_bottom=grid_bottom, y_top=grid_top)
     if V3 is None:
-        return {"verdict": BODY_MISSING_IN_GRID,
-                "how_to_close": "この人台とこの範囲では、格子の途中で"
-                                "身体が無い高さに当たりました。人台の"
-                                "範囲内(levels[0][0]〜levels[-1][0])"
-                                "だけを平面化してください"}
+        refusal = {"verdict": BODY_MISSING_IN_GRID,
+                   "how_to_close": "この人台とこの範囲では、格子の途中で"
+                                   "身体が無い高さに当たりました。人台の"
+                                   "範囲内(levels[0][0]〜levels[-1][0])"
+                                   "だけを平面化してください"}
+        if explicit_height_range:
+            refusal["requested_y_range"] = [grid_bottom, grid_top]
+            refusal["how_to_close"] = (
+                "要求した高さ全域で値を返す radius_at を渡すか、"
+                "y_bottom/y_top を radius_at が答えられる範囲へ"
+                "絞ってください")
+        return refusal
 
     edges = _build_edges(V3, segments, height_steps)
     pos = _initial_layout(V3, segments, height_steps)
@@ -338,7 +375,7 @@ def build(man: Dict[str, Any], *,
     over_area = sum(1 for r in area_ratios if r < 0.9 or r > 1.1)
     over_angle = sum(1 for a in angle_errors if a > 5.0)
 
-    return {
+    answer = {
         "verdict": "ANSWER",
         "what": "flattened panel (single meridian cut) and its distortion",
         "segments": segments, "height_steps": height_steps,
@@ -392,3 +429,6 @@ def build(man: Dict[str, Any], *,
             "平面化した位置は生成物です。観測の出典にはなりません。"
             "布の厚み・張り・裁ち代は計算していません"),
     }
+    if explicit_height_range:
+        answer["y_range_used"] = [round(grid_bottom, 4), round(grid_top, 4)]
+    return answer

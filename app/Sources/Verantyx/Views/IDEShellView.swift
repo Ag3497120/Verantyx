@@ -1,5 +1,21 @@
 import SwiftUI
 
+/// Shared geometry for the beginner conversation surface and the main
+/// macOS window. Keeping these values in one place is intentional: if the
+/// transcript width and the window floor drift apart, AppKit can again offer
+/// a size at which the conversation is clipped or rewrapped.
+enum BeginnerChatLayout {
+    static let canvasWidth: CGFloat = 920
+    static let outerGutter: CGFloat = 24
+    static let primarySidebarWidth: CGFloat = 210
+    static let dividerWidth: CGFloat = 1
+    static let minimumMainColumnWidth = canvasWidth + (outerGutter * 2)
+    static let minimumWindowContentWidth = primarySidebarWidth
+        + dividerWidth
+        + minimumMainColumnWidth
+    static let minimumWindowContentHeight: CGFloat = 600
+}
+
 // MARK: - IDEShellView
 //
 // The IDE shell: left rail, centre tabs, right panel — the Claude-desktop
@@ -141,26 +157,18 @@ struct IDEShellView: View {
                 } else {
                     tabStrip
                     Divider().opacity(0.25)
-                    activeTabContent
-                    // **画面の下に固定された入力欄は置かない。** 以前は窓枠に
-                    // 貼り付いていて、それを消すのがこの作り直しの一番はっきりした
-                    // 要求だった。中央の列へ移しただけでは、どのタブの下にも同じ帯が
-                    // 出るので、見た目は消えていない。
-                    //
-                    // 会話のための欄は会話に属する。文書(服・ファイル・パネル)には
-                    // 属さない — Claude デスクトップと同じ扱い。空の画面では
-                    // emptyState が同じ composer を主役として出すので、最小構成の
-                    // ときはそれ自体がアプリになる。
                     if shell.activeTab?.kind == .chat {
-                        UnifiedComposerView()
-                            .environmentObject(app)
+                        beginnerChatCanvas
+                    } else {
+                        activeTabContent
                     }
                 }
             }
             // **中央は潰れてはいけない。** 側面が幅を奪って中央が0に近づくと、
             // 文字が1文字ずつ縦に折り返され、内容が枠の外へ描かれる。下限を
             // 置き、はみ出しを切る。
-            .frame(minWidth: 360, maxWidth: .infinity, maxHeight: .infinity)
+            .frame(minWidth: BeginnerChatLayout.minimumMainColumnWidth,
+                   maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
 
             if let right = shell.rightPanel {
@@ -168,6 +176,33 @@ struct IDEShellView: View {
                 sidePanelColumn(kind: right, side: .right)
             }
         }
+        .background(Theme.panel2)
+    }
+
+    /// Beginner chat has one fixed readable measure. The two flexible
+    /// spacers receive the same proposal from HStack, so a larger window adds
+    /// symmetric outer gutters instead of changing text wrapping. Transcript
+    /// and composer live inside the same fixed canvas and therefore cannot
+    /// acquire independent widths.
+    private var beginnerChatCanvas: some View {
+        HStack(spacing: 0) {
+            Spacer(minLength: BeginnerChatLayout.outerGutter)
+
+            VStack(spacing: 0) {
+                AgentChatView(showsOwnComposer: false)
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                UnifiedComposerView()
+                    .environmentObject(app)
+            }
+            .frame(width: BeginnerChatLayout.canvasWidth)
+            .frame(maxHeight: .infinity)
+            .background(Theme.panel2)
+
+            Spacer(minLength: BeginnerChatLayout.outerGutter)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.panel2)
     }
 
@@ -404,7 +439,7 @@ struct IDEShellView: View {
     private func openProject(_ row: RailProject) {
         switch row.kind {
         case .garment:
-            app.activeGarment = row.name
+            app.activateGarmentProject(row.name)
             shell.openTab(.garment)
         case .chat:
             if let id = UUID(uuidString: row.id) {
@@ -709,7 +744,11 @@ struct IDEShellView: View {
                 AttentionOverviewView(onOpenWorkbench: { atelierShowOverview = false })
                     .environmentObject(app)
             } else {
-                AtelierView().environmentObject(app)
+                // Expert mode is the detailed workbench and its steering chat
+                // as one surface. The split view reflows the chat into a sheet
+                // only when the window cannot fit both panes without crushing
+                // the garment controls.
+                AtelierWorkbenchSplitView().environmentObject(app)
             }
         }
     }

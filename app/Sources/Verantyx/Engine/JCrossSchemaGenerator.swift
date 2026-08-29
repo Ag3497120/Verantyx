@@ -253,7 +253,12 @@ actor PolymorphicTranspilerActor {
         // NER は actor 自身のスレッドで実行（MainActor へのコールバックなし）
         let sensitiveTokens = Set(await ner.extractSensitiveIdentifiers(from: source))
 
-        let result = await Task.detached(priority: .userInitiated) { [schema] in
+        // This conversion is also used by the vault's launch-time refresh.
+        // Running it as userInitiated can monopolize the cooperative executor
+        // for minutes on a large source file and prevent visible UI tasks from
+        // starting. Interactive callers already await the result; utility
+        // priority keeps maintenance conversion from outranking the person.
+        let result = await Task.detached(priority: .utility) { [schema] in
             let identifiers = PolymorphicJCrossTranspiler.extractAllIdentifiers(from: source)
             var nodeMap: [String: String] = [:]
             var reverseMap: [String: String] = [:]

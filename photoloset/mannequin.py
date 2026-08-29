@@ -29,6 +29,12 @@ NO_BODY = "UNKNOWN_NO_BODY_AT_THIS_HEIGHT"
 
 def _ellipse_radius(a: float, b: float, theta: float) -> float:
     """楕円の θ 方向半径。a=幅の半分, b=奥行の半分。"""
+    # A closed garment outline can legitimately end in a single apex (for
+    # example the point of a triangular train).  At that exact height both
+    # semi-axes are zero.  The polar ellipse formula is then 0/0, while the
+    # geometric cross-section is unambiguously the origin itself.
+    if abs(a) <= 1e-12 and abs(b) <= 1e-12:
+        return 0.0
     return (a * b) / math.sqrt((b * math.cos(theta)) ** 2
                                + (a * math.sin(theta)) ** 2)
 

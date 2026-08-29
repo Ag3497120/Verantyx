@@ -18,6 +18,9 @@ import Vision
 @MainActor
 final class AtelierIntake: ObservableObject {
 
+    typealias SelectionInvalidator = @MainActor (_ revision: UInt64,
+                                                  _ imagePath: String) -> Void
+
     // AtelierView used to own this as a private @StateObject. The shell's
     // composer (UnifiedComposerView) needs the SAME intake path for a photo
     // or clip attached in Atelier mode — not a second one that registers
@@ -25,11 +28,36 @@ final class AtelierIntake: ObservableObject {
     // reachable from both.
     static let shared = AtelierIntake()
 
+    private let selectionInvalidator: SelectionInvalidator
+
+    init(selectionInvalidator: @escaping SelectionInvalidator = { revision, imagePath in
+        AtelierChatRouter.consumeSelectionRevision(revision, imagePath: imagePath)
+    }) {
+        self.selectionInvalidator = selectionInvalidator
+    }
+
     @Published var busy = false
     @Published var stage = ""
     @Published var log: [String] = []
     @Published var clips: [Clip] = []
     @Published var selectedClip: Clip?
+    /// Whether the currently selected source is pending in the beginner
+    /// composer.  `selectedClip` is also the factory's active image context,
+    /// so clearing it immediately after Send used to either leave the chip
+    /// visible or race the vision/factory task.  Keep the active source and
+    /// the one-turn composer attachment as two explicit pieces of state.
+    @Published private(set) var composerAttachmentVisible = false
+    /// 同じパスを選び直した場合も、新しい解析要求として識別する番号。
+    /// Clip.id は出典の同一性を保つため path のままにし、操作の同一性だけを
+    /// この番号で分離する（同じ画像を独立した証拠として水増ししない）。
+    @Published private(set) var selectionRevision: UInt64 = 0
+    /// RegionPickerで人が確定した服領域。画像パスと対で保持し、別の画像へ
+    /// 流用しない。自動の人物マスクはここへ入らない。
+    @Published var confirmedClothingOutline: [String: Any]?
+    @Published var confirmedOutlineImagePath: String?
+    /// A confirmed region is valid for one user selection operation, not for
+    /// every future selection of the same path.
+    @Published private(set) var confirmedOutlineSelectionRevision: UInt64?
     @Published var matches: [Match] = []
     /// 一本の動画から取り出すコマ数。多ければ良いものではない —
     /// 同じ場面のコマを増やしても、独立した観測は増えない。
@@ -48,6 +76,31 @@ final class AtelierIntake: ObservableObject {
         let path: String
         let distance: Float
         let mark: String
+    }
+
+    struct AnalysisSelection {
+        let clip: Clip
+        let revision: UInt64
+    }
+
+    var analysisSelection: AnalysisSelection? {
+        guard let selectedClip, selectionRevision > 0 else { return nil }
+        return AnalysisSelection(clip: selectedClip,
+                                 revision: selectionRevision)
+    }
+
+    /// The attachment shown/sent by the beginner composer.  Follow-up turns
+    /// can still refer to `selectedClip` as project context without silently
+    /// re-attaching the same file to every message.
+    var composerSelectedClip: Clip? {
+        composerAttachmentVisible ? selectedClip : nil
+    }
+
+    var hasComposerAttachment: Bool { composerSelectedClip != nil }
+
+    func isCurrent(_ selection: AnalysisSelection) -> Bool {
+        selectionRevision == selection.revision
+            && selectedClip?.path == selection.clip.path
     }
 
     private func say(_ s: String) {
@@ -112,12 +165,24 @@ final class AtelierIntake: ObservableObject {
     // MARK: - 入れる
 
     func pickAndIngest() async {
+        // Every macOS photo button enters through this picker. Drag-and-drop
+        // already has a URL and joins the same pipeline at `ingest(_:)`.
         let panel = NSOpenPanel()
         panel.canChooseFiles = true
+        panel.canChooseDirectories = false
         panel.allowsMultipleSelection = false
         panel.allowedContentTypes = [.movie, .image]
         panel.message = "映像または画像を入れる"
-        guard panel.runModal() == .OK, let url = panel.url else { return }
+        // `runModal()` blocks the main actor. Besides freezing progress UI, it
+        // also breaks assistive/automation clients at the exact moment the
+        // native picker opens. Keep the same single picker, but suspend this
+        // task while AppKit owns the panel instead of blocking the app loop.
+        let url: URL? = await withCheckedContinuation { continuation in
+            panel.begin { response in
+                continuation.resume(returning: response == .OK ? panel.url : nil)
+            }
+        }
+        guard let url else { return }
         await ingest(url)
     }
 
@@ -151,7 +216,51 @@ final class AtelierIntake: ObservableObject {
                           sourcePath: url.path)]
             say("画像1枚として登録")
         }
-        selectedClip = clips.first
+        publishSelection(clips.first)
+    }
+
+    /// Publish a user selection as an operation, not merely as a path value.
+    ///
+    /// `Clip.id` deliberately stays content/source based (`path`) so choosing
+    /// the same file twice cannot manufacture two independent observations.
+    /// `@Published` emits for an equal assignment, so a nil/yield detour is not
+    /// needed and can leave the composer detached after the ledger succeeds.
+    /// One main-actor transaction establishes the new operation identity,
+    /// invalidates all old analysis, and only then publishes the selected clip.
+    func publishSelection(_ clip: Clip?) {
+        guard let clip else {
+            selectedClip = nil
+            composerAttachmentVisible = false
+            confirmedClothingOutline = nil
+            confirmedOutlineImagePath = nil
+            confirmedOutlineSelectionRevision = nil
+            matches = []
+            return
+        }
+        selectionRevision &+= 1
+        confirmedClothingOutline = nil
+        confirmedOutlineImagePath = nil
+        confirmedOutlineSelectionRevision = nil
+        matches = []
+        selectionInvalidator(selectionRevision, clip.path)
+        selectedClip = clip
+        composerAttachmentVisible = true
+    }
+
+    func rememberConfirmedOutline(_ outline: [String: Any], for imagePath: String) {
+        guard selectedClip?.path == imagePath, selectionRevision > 0 else {
+            return
+        }
+        confirmedClothingOutline = outline
+        confirmedOutlineImagePath = imagePath
+        confirmedOutlineSelectionRevision = selectionRevision
+    }
+
+    /// Detach only the one-turn composer attachment.  The active factory
+    /// selection, intake ledger and source file remain intact, so an in-flight
+    /// vision/factory run does not lose its image when the message is sent.
+    func clearComposerSelection() {
+        composerAttachmentVisible = false
     }
 
     /// 動画をコマに割る。**これは計算で、判断ではない。**

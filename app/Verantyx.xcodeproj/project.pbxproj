@@ -39,6 +39,8 @@
 		1D1F295ABFF2C56A98DBFC51 /* BitNetEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDBA7E356F5D044B1D6FB4F /* BitNetEngine.swift */; };
 		1E0E1CD5FAC0427BA33FC1A5 /* WebModuleHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FB3FBAD54427CA94924A2 /* WebModuleHost.swift */; };
 		1FEEE62FCEC39ED1007C73DA /* AppDelegationKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC366C7E1C379A6EC158AAB9 /* AppDelegationKit.swift */; };
+		25DF17844B21E0ED168EF89B /* GarmentFactoryReactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA98F60C35122DDC4F46D9D1 /* GarmentFactoryReactController.swift */; };
+		A5F001000000000000000012 /* GarmentModelCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000012 /* GarmentModelCompatibility.swift */; };
 		267FE0D64902DB5A8D3945CB /* SelfUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9DFCA9C5803699454276A /* SelfUpdater.swift */; };
 		278D282C4D9A4AFBA2B7858B /* TemplateSetupPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B657B3F622B427F899E62AF /* TemplateSetupPlanner.swift */; };
 		292F06655B38F087BBD57724 /* FileTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263AF59FC377D184685C7A9F /* FileTreeView.swift */; };
@@ -135,8 +137,6 @@
 		68D9E9DDCC49B81DFC97C1C3 /* AIModeLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2CA6EE3E2A84DCD0D6179E /* AIModeLayoutView.swift */; };
 		6A11C0DE00010000AEB0056E /* EngineModeChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */; };
 		6A11C0DE00010000AEB0057A /* AttentionOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */; };
-		E58448FF39167E4CE73644EF /* PatternRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FE8DD8BB2995618445D789 /* PatternRunView.swift */; };
-		E54410C674CB2680B349836F /* PermissionsSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B312EF3E04C0F7603D8B955 /* PermissionsSettingsSection.swift */; };
 		6A1D5B5E20A4404268C75D67 /* SelfEvolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B59AAFEB592888A37115C3 /* SelfEvolutionView.swift */; };
 		6A617297591B18BBB925C31D /* ExtensionUIPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ADC885663D166B988131F6 /* ExtensionUIPanelView.swift */; };
 		6BB887B21FC52C9D5FA5BA32 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15486973E28CF61E59D8C702 /* CommandManager.swift */; };
@@ -180,6 +180,7 @@
 		93400AEDC28D4341BC05A44D /* AtelierWorkbenchSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16EFEE23C384F808F798E70 /* AtelierWorkbenchSplitView.swift */; };
 		94555D9271DE23CB6C675172 /* ExtensionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D9AEEC8A3B9CB2109BEE11 /* ExtensionWebView.swift */; };
 		945C548D2AF147669FED993C /* MemoryLayerInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */; };
+		969EA83076FF9EA9DB5D75B0 /* GarmentOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C845A599D5FFBC1CD76CDF /* GarmentOutline.swift */; };
 		96B9213F6B0070B3B58D8117 /* ChatPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338130D0F6553F90814F3B05 /* ChatPanelView.swift */; };
 		97FF46FD8B90BA8AB99E9E0C /* ArtifactEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC9F15B047763755800F66C /* ArtifactEngine.swift */; };
 		9B0A185F90D14161AE858177 /* VisualDiffRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */; };
@@ -227,6 +228,18 @@
 		A5350F03EAF2B9602619D5C0 /* MCPEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAA99AF46D25BCBCE4FD6D8 /* MCPEngine.swift */; };
 		A59E3E0E3129791AB81969ED /* VideoClipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BA741CAC9659536556CA02 /* VideoClipManager.swift */; };
 		A5CE60DC514964475C1E016D /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E25ED97B6E6911D707BD1B2 /* SessionStore.swift */; };
+		A5F001000000000000000001 /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000001 /* RegionPicker.swift */; };
+		A5F001000000000000000002 /* GarmentRegionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000002 /* GarmentRegionPickerView.swift */; };
+		A5F001000000000000000003 /* GarmentCommandIR.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000003 /* GarmentCommandIR.swift */; };
+		A5F001000000000000000004 /* GarmentGenerationJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000004 /* GarmentGenerationJob.swift */; };
+		A5F001000000000000000005 /* GarmentSimulationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000005 /* GarmentSimulationPreview.swift */; };
+		A5F001000000000000000006 /* CrossClothMetalBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000006 /* CrossClothMetalBackend.swift */; };
+		A5F001000000000000000007 /* CrossClothKernels.metal in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000007 /* CrossClothKernels.metal */; };
+		A5F001000000000000000008 /* IntegratedCrossPhysicsGPUCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000008 /* IntegratedCrossPhysicsGPUCoordinator.swift */; };
+		A5F001000000000000000009 /* IntegratedCrossPhysicsAdvancedKernels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000009 /* IntegratedCrossPhysicsAdvancedKernels.swift */; };
+		A5F001000000000000000010 /* AtelierDynamicFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000010 /* AtelierDynamicFlowView.swift */; };
+		A5F001000000000000000011 /* AtelierGarmentRequestPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F002000000000000000011 /* AtelierGarmentRequestPlanner.swift */; };
+		D6A100000000000000000001 /* GarmentDesignRequirementProfileBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A200000000000000000001 /* GarmentDesignRequirementProfileBridge.swift */; };
 		A6FB0E5DAFC79CA704D67754 /* AppleScriptBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC500C787B15580CEAAC2B1 /* AppleScriptBridge.swift */; };
 		A7B8C9D0E1F2031425364758 /* PromptBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9D0E1F20314253647586A /* PromptBudget.swift */; };
 		A7B8C9D0E1F2031425364759 /* VeraRuntimeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */; };
@@ -275,7 +288,6 @@
 		D2E3F405162738495A6B7C8D /* MissionKindClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */; };
 		D38B10B52D88BBB770793AB6 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFBBB5831368FECD08DF846 /* AppState.swift */; };
 		D3A00B8FC26D5F97539D5871 /* AXVisionBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC275F1E0EB46297742664 /* AXVisionBridge.swift */; };
-		969EA83076FF9EA9DB5D75B0 /* GarmentOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C845A599D5FFBC1CD76CDF /* GarmentOutline.swift */; };
 		D44BB0835250449092B3C042 /* JGenSpeakAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */; };
 		D7AB4E8493144C8DA06D472C /* ContextUsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8AA2D4671411593288718 /* ContextUsageTracker.swift */; };
 		D859626ADD63FE4C3A654464 /* L25IndexEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAFC26D99D4C6ED1948D362 /* L25IndexEngine.swift */; };
@@ -291,6 +303,8 @@
 		E20AAC60A7025E03BC9B818A /* BitNetL1Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19116FA01BD2FF3991F62DD3 /* BitNetL1Tagger.swift */; };
 		E45B25831187785AAA981636 /* JCross3DGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5116DB1AF3E0E8388B3B6 /* JCross3DGraph.swift */; };
 		E5143ACFF2CD4391A19B69DF /* AuditVectorIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67D6C1F2F74C879E329871 /* AuditVectorIndex.swift */; };
+		E54410C674CB2680B349836F /* PermissionsSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B312EF3E04C0F7603D8B955 /* PermissionsSettingsSection.swift */; };
+		E58448FF39167E4CE73644EF /* PatternRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FE8DD8BB2995618445D789 /* PatternRunView.swift */; };
 		E5B60910BD05069944CEEFBC /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5374CF26AFCD56A976E7EAC /* NotificationNames.swift */; };
 		E6FC194F9F3EA4FC8FC497AB /* HumanProofPuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF00CC0DD4E29AEA1CAA1D23 /* HumanProofPuzzleView.swift */; };
 		E7702760069E3CB125BB102F /* GatekeeperPipelineSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A5600F862A33AC9CBAD52F /* GatekeeperPipelineSettingsView.swift */; };
@@ -401,6 +415,7 @@
 		331E574E58724DD018686E55 /* PrivacyGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGateway.swift; sourceTree = "<group>"; };
 		338130D0F6553F90814F3B05 /* ChatPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPanelView.swift; sourceTree = "<group>"; };
 		34F90A23BE1370B3E68FB7BC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		35FE8DD8BB2995618445D789 /* PatternRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternRunView.swift; sourceTree = "<group>"; };
 		37801484CD89AA2C31BB003B /* VSIXPackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSIXPackageManager.swift; sourceTree = "<group>"; };
 		37B0DCDAD39999CBC0A66718 /* AttachmentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentManager.swift; sourceTree = "<group>"; };
 		39A6009A87A0CAB7BB027C41 /* ExplorationAssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorationAssetStore.swift; sourceTree = "<group>"; };
@@ -481,8 +496,6 @@
 		68FF3DF8DA1D64DD939DF32A /* VeraSaveApprovalRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraSaveApprovalRequest.swift; sourceTree = "<group>"; };
 		6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineModeChooserView.swift; sourceTree = "<group>"; };
 		6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttentionOverviewView.swift; sourceTree = "<group>"; };
-		35FE8DD8BB2995618445D789 /* PatternRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternRunView.swift; sourceTree = "<group>"; };
-		8B312EF3E04C0F7603D8B955 /* PermissionsSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsSettingsSection.swift; sourceTree = "<group>"; };
 		6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilOrchestrator.swift; sourceTree = "<group>"; };
 		6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenVeraSettingsPanelView.swift; sourceTree = "<group>"; };
 		6C51EFB7C797A6BDE324F322 /* JCrossSchemaGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossSchemaGenerator.swift; sourceTree = "<group>"; };
@@ -512,6 +525,7 @@
 		86DA980AC45244118FC34A65 /* JGenConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenConverter.swift; sourceTree = "<group>"; };
 		8900CE64BBFB018EC941426D /* AgentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentEngine.swift; sourceTree = "<group>"; };
 		892959B83A4902F0E159A8D3 /* GitHubPREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubPREngine.swift; sourceTree = "<group>"; };
+		8B312EF3E04C0F7603D8B955 /* PermissionsSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsSettingsSection.swift; sourceTree = "<group>"; };
 		8CE028571C7727001A93D813 /* ParanoiaModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParanoiaModeView.swift; sourceTree = "<group>"; };
 		8D373F57072F08514D5CEAB6 /* ContextBudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextBudgetManager.swift; sourceTree = "<group>"; };
 		8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = "<group>"; };
@@ -560,6 +574,19 @@
 		A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorGrowthHooks.swift; sourceTree = "<group>"; };
 		A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLayerInspectorView.swift; sourceTree = "<group>"; };
 		A5E5B4F881C230B229B05580 /* TerminalRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRunner.swift; sourceTree = "<group>"; };
+		A5F002000000000000000001 /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
+		A5F002000000000000000002 /* GarmentRegionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentRegionPickerView.swift; sourceTree = "<group>"; };
+		A5F002000000000000000003 /* GarmentCommandIR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentCommandIR.swift; sourceTree = "<group>"; };
+		A5F002000000000000000004 /* GarmentGenerationJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentGenerationJob.swift; sourceTree = "<group>"; };
+		A5F002000000000000000005 /* GarmentSimulationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentSimulationPreview.swift; sourceTree = "<group>"; };
+		A5F002000000000000000006 /* CrossClothMetalBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossClothMetalBackend.swift; sourceTree = "<group>"; };
+		A5F002000000000000000007 /* CrossClothKernels.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CrossClothKernels.metal; sourceTree = "<group>"; };
+		A5F002000000000000000008 /* IntegratedCrossPhysicsGPUCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedCrossPhysicsGPUCoordinator.swift; sourceTree = "<group>"; };
+		A5F002000000000000000009 /* IntegratedCrossPhysicsAdvancedKernels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegratedCrossPhysicsAdvancedKernels.swift; sourceTree = "<group>"; };
+		A5F002000000000000000010 /* AtelierDynamicFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierDynamicFlowView.swift; sourceTree = "<group>"; };
+		A5F002000000000000000011 /* AtelierGarmentRequestPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtelierGarmentRequestPlanner.swift; sourceTree = "<group>"; };
+		A5F002000000000000000012 /* GarmentModelCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentModelCompatibility.swift; sourceTree = "<group>"; };
+		D6A200000000000000000001 /* GarmentDesignRequirementProfileBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentDesignRequirementProfileBridge.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
 		AA0000000000000000C00502 /* VeraOperatorConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraOperatorConsole.swift; sourceTree = "<group>"; };
 		AA0000000000000000C00902 /* VeraDocumentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraDocumentPanel.swift; sourceTree = "<group>"; };
@@ -582,6 +609,7 @@
 		B2E9B6CE70755640BEF14537 /* SelfUpdater.swift.patch */ = {isa = PBXFileReference; path = SelfUpdater.swift.patch; sourceTree = "<group>"; };
 		B445D7F08B71F72FB1178B01 /* JCrossZAxisVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossZAxisVault.swift; sourceTree = "<group>"; };
 		B4976E6D13CC771F9E13A094 /* TalkieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkieModel.swift; sourceTree = "<group>"; };
+		B4C845A599D5FFBC1CD76CDF /* GarmentOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentOutline.swift; sourceTree = "<group>"; };
 		B50306E127984592B5BCC6A4 /* JGenAgentServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenAgentServer.swift; sourceTree = "<group>"; };
 		B542227025FB98F4433139B0 /* VXMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VXMarkView.swift; sourceTree = "<group>"; };
 		B547FEF6389B8FEFAA70CE4C /* GlobalTaskSupervisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTaskSupervisor.swift; sourceTree = "<group>"; };
@@ -589,7 +617,6 @@
 		B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraRuntimeEvent.swift; sourceTree = "<group>"; };
 		B9E2F3D4C5B6A7988796A5B4 /* VeraAVRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraAVRing.swift; sourceTree = "<group>"; };
 		B9FC275F1E0EB46297742664 /* AXVisionBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AXVisionBridge.swift; sourceTree = "<group>"; };
-		B4C845A599D5FFBC1CD76CDF /* GarmentOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentOutline.swift; sourceTree = "<group>"; };
 		BBEE7AD08B047D2FA3942F97 /* PipelineLaunchSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineLaunchSheet.swift; sourceTree = "<group>"; };
 		BBFBBB5831368FECD08DF846 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		BDF53C5CBC7086C230A40059 /* LANG_EN.jcross */ = {isa = PBXFileReference; path = LANG_EN.jcross; sourceTree = "<group>"; };
@@ -621,6 +648,7 @@
 		D6BE1BECDF78E2EA275FFEF5 /* PermissionsSettingsSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PermissionsSettingsSection.swift; sourceTree = "<group>"; };
 		D73DBEC823822E319BD7F8F8 /* GitPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitPanelView.swift; sourceTree = "<group>"; };
 		D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSetupApprovalSheet.swift; sourceTree = "<group>"; };
+		DA98F60C35122DDC4F46D9D1 /* GarmentFactoryReactController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GarmentFactoryReactController.swift; sourceTree = "<group>"; };
 		DB2086AF6524710D69F75F11 /* JCrossIRPatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossIRPatcher.swift; sourceTree = "<group>"; };
 		DC25A03DB54A65B9B740D72A /* CortexEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CortexEngine.swift; sourceTree = "<group>"; };
 		DD8BBB55D4627EE66EB79331 /* WorkspaceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceManager.swift; sourceTree = "<group>"; };
@@ -804,7 +832,10 @@
 				6A11C0DE00020000AEB0056E /* EngineModeChooserView.swift */,
 				6A11C0DE00020000AEB0057A /* AttentionOverviewView.swift */,
 				35FE8DD8BB2995618445D789 /* PatternRunView.swift */,
+				A5F002000000000000000002 /* GarmentRegionPickerView.swift */,
+				A5F002000000000000000005 /* GarmentSimulationPreview.swift */,
 				20E1002F155248E3B8B1D041 /* AtelierChatPaneView.swift */,
+				A5F002000000000000000010 /* AtelierDynamicFlowView.swift */,
 				A161B5E2B2D44DDC916AD139 /* AtelierNavigator.swift */,
 				C16EFEE23C384F808F798E70 /* AtelierWorkbenchSplitView.swift */,
 				5A11C0DE0002000000000202 /* UnifiedComposerView.swift */,
@@ -873,6 +904,16 @@
 				37B0DCDAD39999CBC0A66718 /* AttachmentManager.swift */,
 				B9FC275F1E0EB46297742664 /* AXVisionBridge.swift */,
 				B4C845A599D5FFBC1CD76CDF /* GarmentOutline.swift */,
+				A5F002000000000000000001 /* RegionPicker.swift */,
+				A5F002000000000000000003 /* GarmentCommandIR.swift */,
+				A5F002000000000000000004 /* GarmentGenerationJob.swift */,
+				A5F002000000000000000006 /* CrossClothMetalBackend.swift */,
+				A5F002000000000000000007 /* CrossClothKernels.metal */,
+				A5F002000000000000000008 /* IntegratedCrossPhysicsGPUCoordinator.swift */,
+				A5F002000000000000000009 /* IntegratedCrossPhysicsAdvancedKernels.swift */,
+				A5F002000000000000000011 /* AtelierGarmentRequestPlanner.swift */,
+				A5F002000000000000000012 /* GarmentModelCompatibility.swift */,
+				D6A200000000000000000001 /* GarmentDesignRequirementProfileBridge.swift */,
 				54EFB20852A1B2E15033CD94 /* BitNetCommanderLoop.swift */,
 				4FDBA7E356F5D044B1D6FB4F /* BitNetEngine.swift */,
 				09CD0706D226099E242BF67F /* BitNetIntentTranslator.swift */,
@@ -1058,6 +1099,7 @@
 				97873491BA99A272B899E86A /* WHYHookInstaller.swift */,
 				6E6A5B698998E7C8A4616F85 /* WorkspaceFileSystem.swift */,
 				DD8BBB55D4627EE66EB79331 /* WorkspaceManager.swift */,
+				DA98F60C35122DDC4F46D9D1 /* GarmentFactoryReactController.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -1278,6 +1320,19 @@
 				68D9E9DDCC49B81DFC97C1C3 /* AIModeLayoutView.swift in Sources */,
 				D3A00B8FC26D5F97539D5871 /* AXVisionBridge.swift in Sources */,
 				969EA83076FF9EA9DB5D75B0 /* GarmentOutline.swift in Sources */,
+				A5F001000000000000000001 /* RegionPicker.swift in Sources */,
+				A5F001000000000000000002 /* GarmentRegionPickerView.swift in Sources */,
+				A5F001000000000000000003 /* GarmentCommandIR.swift in Sources */,
+				A5F001000000000000000004 /* GarmentGenerationJob.swift in Sources */,
+				A5F001000000000000000005 /* GarmentSimulationPreview.swift in Sources */,
+				A5F001000000000000000006 /* CrossClothMetalBackend.swift in Sources */,
+				A5F001000000000000000007 /* CrossClothKernels.metal in Sources */,
+				A5F001000000000000000008 /* IntegratedCrossPhysicsGPUCoordinator.swift in Sources */,
+				A5F001000000000000000009 /* IntegratedCrossPhysicsAdvancedKernels.swift in Sources */,
+				A5F001000000000000000010 /* AtelierDynamicFlowView.swift in Sources */,
+				A5F001000000000000000011 /* AtelierGarmentRequestPlanner.swift in Sources */,
+				A5F001000000000000000012 /* GarmentModelCompatibility.swift in Sources */,
+				D6A100000000000000000001 /* GarmentDesignRequirementProfileBridge.swift in Sources */,
 				F18CCD15A913F15F96F0381A /* ActivityBarView.swift in Sources */,
 				80DE4897A50F014CBA6D329A /* AdversarialNoiseEngine.swift in Sources */,
 				873D3FC00C4F078899FDC94A /* AgentChatView.swift in Sources */,
@@ -1579,6 +1634,7 @@
 				EE363EE394F30B118F9860E1 /* WorkspaceFileSystem.swift in Sources */,
 				582245E341F93D3E1ECE5CBF /* WorkspaceManager.swift in Sources */,
 				9E975B21C056039AB24E5D5E /* PermissionsSettingsSection.swift in Sources */,
+				25DF17844B21E0ED168EF89B /* GarmentFactoryReactController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

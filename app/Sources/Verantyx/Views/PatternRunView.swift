@@ -42,6 +42,14 @@ struct PatternRunSection: View {
         VStack(alignment: .leading, spacing: 14) {
             header
             photoPicker
+            GarmentRegionPickerView(imagePath: selectedClipPath) { outline in
+                if let imagePath = selectedClipPath {
+                    intake.rememberConfirmedOutline(outline, for: imagePath)
+                }
+                Task {
+                    await m.runPatternDecisions(confirmedOutline: outline)
+                }
+            }
             runStatus
             if m.patternRunVerdict == "ANSWER" { decisionList }
             repairTranscriptCard
@@ -50,7 +58,6 @@ struct PatternRunSection: View {
         .task {
             await intake.restore()
             if selectedClipPath == nil { selectedClipPath = intake.clips.first?.path }
-            await m.loadDressedForm()
         }
     }
 
@@ -89,7 +96,6 @@ struct PatternRunSection: View {
                         ForEach(intake.clips) { clip in
                             Button {
                                 selectedClipPath = clip.path
-                                Task { await m.runPatternDecisions(imagePath: clip.path) }
                             } label: {
                                 Text((clip.sourcePath as NSString).lastPathComponent
                                      + (clip.mark.isEmpty ? "" : " · \(clip.mark)"))
@@ -105,7 +111,10 @@ struct PatternRunSection: View {
                             .buttonStyle(.plain)
                         }
                         Button(app.t("+ Add", "+ 追加")) {
-                            Task { await intake.pickAndIngest() }
+                            Task {
+                                await intake.pickAndIngest()
+                                selectedClipPath = intake.selectedClip?.path ?? intake.clips.first?.path
+                            }
                         }
                         .buttonStyle(.plain)
                         .font(.system(size: 10.5))
@@ -133,8 +142,30 @@ struct PatternRunSection: View {
                     .foregroundStyle(Theme.dim)
             }
         } else if !m.patternRunVerdict.isEmpty && m.patternRunVerdict != "ANSWER" {
-            refusalBanner(app.t("The pattern run stopped.", "型紙の実行が止まりました。"),
-                          m.patternRunVerdict, m.patternRunHowToClose, m.patternRunFailedHop)
+            VStack(alignment: .leading, spacing: 8) {
+                refusalBanner(app.t("The pattern run stopped.", "型紙の実行が止まりました。"),
+                              m.patternRunVerdict, m.patternRunHowToClose, m.patternRunFailedHop)
+                if m.patternRunVerdict == "UNKNOWN_MISSING_MEASUREMENTS" {
+                    Button(app.t("Create a preview with a proposed standard mannequin",
+                                 "仮の標準人台でプレビューを作る")) {
+                        Task { await m.retryPatternWithPreviewMannequin() }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    Text(app.t(
+                        "This does not record body measurements. The proposed 88/68/94cm, 140cm body-length mannequin is marked PROPOSED and must be replaced before manufacturing.",
+                        "身体寸法としては保存しません。88/68/94cm・着丈140cmの仮人台をPROPOSEDとして明示し、製造前には実測または選択した人台へ置き換える必要があります。"))
+                        .font(.system(size: 10.5)).foregroundStyle(Theme.warn)
+                }
+            }
+        } else if m.patternRunVerdict == "ANSWER" && m.patternRunUsedPreviewMannequin {
+            Text(app.t(
+                "PREVIEW ONLY — geometry uses a PROPOSED standard mannequin, not measured body dimensions.",
+                "プレビュー限定 — 実測身体寸法ではなく、PROPOSEDの標準人台を使用しています。"))
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(Theme.warn)
+                .padding(9)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Theme.warn.opacity(0.08), in: RoundedRectangle(cornerRadius: 8))
         }
     }
 
@@ -336,23 +367,57 @@ struct PatternRunSection: View {
         .padding(.top, 2)
     }
 
-    // MARK: - Repair transcript (photoloset/repairs.py — not wired yet)
+    // MARK: - Repair transcript
 
     private var repairTranscriptCard: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 6) {
-                Image(systemName: "circle.dashed").font(.system(size: 11, weight: .bold))
-                Text(app.t("NOT CONNECTED", "未接続"))
+                Image(systemName: m.repairVerdict == "ANSWER" ? "checkmark.circle" : "circle.dashed")
+                    .font(.system(size: 11, weight: .bold))
+                Text(m.repairBusy ? app.t("RUNNING", "実行中") :
+                        (m.repairVerdict.isEmpty ? app.t("WAITING", "待機") : m.repairVerdict))
                     .font(.system(size: 9.5, weight: .bold)).tracking(0.4)
             }
-            .foregroundStyle(Theme.faint)
+            .foregroundStyle(m.repairSewable ? Theme.ok : Theme.faint)
             Text(app.t("Repair transcript", "修復の記録"))
                 .font(.system(size: 13, weight: .bold)).foregroundStyle(Theme.fg)
-            Text(app.t(
-                "The engine has a repair catalogue (repairs.py: diagnose / make_sewable) that changes a pattern until it's sewable and records every round it takes — what fired, what changed, what it cost. It isn't exposed as a tool over this app's engine connection yet, so there is nothing real to show here. When it is, each line here will name the round, what changed, and what it cost, in order.",
-                "engine には型紙が縫えるまで変え、その全過程を記録する修復のカタログ(repairs.py の diagnose / make_sewable — 何が発火し、何を変え、何を払ったか)がありますが、このアプリの engine 接続にはまだ扉として出ていません。ここに出す実物はまだありません。配線されたら、各回・変えたこと・払った代償をここに順番に出します。"))
-                .font(.system(size: 11)).foregroundStyle(Theme.dim)
-                .fixedSize(horizontal: false, vertical: true)
+            if m.repairBusy {
+                ProgressView().controlSize(.small)
+            } else if m.repairVerdict.isEmpty {
+                Text(app.t("Runs after a photo pattern is generated.",
+                           "写真由来型紙の生成後に実行します。"))
+                    .font(.system(size: 11)).foregroundStyle(Theme.dim)
+            } else {
+                Text(app.t("Rounds: \(m.repairRounds) · sewable: \(m.repairSewable ? "yes" : "no")",
+                           "反復: \(m.repairRounds)回 · 縫製可能: \(m.repairSewable ? "はい" : "いいえ")"))
+                    .font(.system(size: 10.5, design: .monospaced))
+                    .foregroundStyle(m.repairSewable ? Theme.ok : Theme.warn)
+                if !m.repairStopReason.isEmpty {
+                    Text(m.repairStopReason).font(.system(size: 10.5)).foregroundStyle(Theme.dim)
+                }
+                ForEach(m.repairTranscript) { step in
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("#\(step.round) \(step.repair) · \(step.verdict)")
+                            .font(.system(size: 10.5, weight: .semibold, design: .monospaced))
+                        Text(step.problem).font(.system(size: 10.5)).foregroundStyle(Theme.dim)
+                        if !step.changed.isEmpty {
+                            Text(app.t("Changed: ", "変更: ") + step.changed)
+                                .font(.system(size: 9.5)).foregroundStyle(Theme.faint)
+                        }
+                        if !step.cost.isEmpty {
+                            Text(app.t("Cost: ", "代償: ") + step.cost)
+                                .font(.system(size: 9.5)).foregroundStyle(Theme.faint)
+                        }
+                    }
+                    .padding(7)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 6))
+                }
+                Text(app.t(
+                    "This loop checks geometric sewability only. Strength and comfort still require material, seam and wearer observations.",
+                    "このループが確認するのは幾何的な縫製可能性です。強度と快適性には素材・縫い目・着用者の観測が別途必要です。"))
+                    .font(.system(size: 10)).foregroundStyle(Theme.faint)
+            }
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)

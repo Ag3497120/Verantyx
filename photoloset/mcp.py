@@ -21,14 +21,17 @@ package. They return UNKNOWN_NOT_IN_THIS_BUILD with what would close it.
 from __future__ import annotations
 
 import inspect
+import base64
+import hashlib
 import json
 import json as _json
 import sys
 import traceback
 import typing
 import os
+from dataclasses import asdict
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Mapping, Optional
 
 # Aliased on purpose: several tools are named after the module they call
 # (`garment_draw`, `garment_solid`), and a bare import would be shadowed by the
@@ -64,7 +67,8 @@ from .garment_measure import Measures
 #:
 #: 取り込み時に一度だけ読む。動作中に差し替わらないのは意図で、
 #: 同じ処理の途中で置き場が変わるほうが危ない。
-HOME = Path(os.environ.get("PHOTOLOSET_HOME") or (Path.home() / ".photoloset"))
+_OS_HOME = Path(os.environ.get("HOME") or Path.home())
+HOME = Path(os.environ.get("PHOTOLOSET_HOME") or (_OS_HOME / ".photoloset"))
 PROTOCOL = "2024-11-05"
 
 # ---------------------------------------------------------------------------
@@ -264,6 +268,31 @@ def _ok(obj: Any) -> str:
                           ensure_ascii=False)
 
 
+def _json_safe_export_package(package: Mapping[str, Any]) -> Dict[str, Any]:
+    """Carry exact in-memory artifacts over JSON without writing files."""
+    out = dict(package)
+    files = package.get("files")
+    if not isinstance(files, Mapping):
+        return out
+    encoded: Dict[str, Any] = {}
+    for filename, content in files.items():
+        if isinstance(content, bytes):
+            encoded[str(filename)] = {
+                "representation": "base64",
+                "data": base64.b64encode(content).decode("ascii"),
+                "bytes": len(content),
+            }
+        else:
+            text = str(content)
+            encoded[str(filename)] = {
+                "representation": "text", "text": text,
+                "bytes": len(text.encode("utf-8")),
+            }
+    out["files"] = encoded
+    out["transport"] = "JSON text or base64; no filesystem write performed"
+    return out
+
+
 def _refused(exc: BaseException) -> str:
     """A raised refusal, turned back into the typed value it should have been.
 
@@ -351,7 +380,14 @@ def intake_register(path: str, kind: str = "video", at: str = "",
     except (ValueError, FileNotFoundError) as e:
         return _refused(e)
     i.save(_p("intake.json"))
-    return _ok({"verdict": "ANSWER", "source": s.__dict__})
+    # A source selected for the first time has no clips, so ``s.__dict__``
+    # happened to serialize.  Selecting the same image again returns the
+    # existing Source, whose nested ``clips`` are Clip dataclass instances;
+    # the entire MCP answer then became UNKNOWN_UNIDENTIFIABLE_VALUE and the
+    # Swift composer never published the selection.  Recursively lower the
+    # provenance record to JSON instead of making reselection depend on
+    # whether the source already has clips.
+    return _ok({"verdict": "ANSWER", "source": asdict(s)})
 
 
 @tool
@@ -719,16 +755,82 @@ def mannequin_form() -> str:
     return _ok(_mq.build(_measures()))
 
 
+def _surface_edges(faces):
+    """Unique undirected mesh edges in deterministic first-seen order."""
+    seen = set()
+    edges = []
+    for face in faces:
+        if not isinstance(face, (list, tuple)) or len(face) < 3:
+            continue
+        for index, start in enumerate(face):
+            end = face[(index + 1) % len(face)]
+            if not isinstance(start, int) or not isinstance(end, int):
+                continue
+            if start == end:
+                continue
+            key = (min(start, end), max(start, end))
+            if key not in seen:
+                seen.add(key)
+                edges.append([start, end])
+    return edges
+
+
+def _dress_photo_surface(surface, gap_cm: float):
+    """Preserve a photo-derived silhouette while adding a radial air gap."""
+    if not isinstance(surface, dict) or surface.get("verdict") != "ANSWER":
+        return {"verdict": "UNKNOWN_PHOTO_SURFACE_NOT_ANSWER",
+                "how_to_close": "pass garment_surface from an ANSWER photo_pattern result"}
+    verts = surface.get("verts")
+    faces = surface.get("faces")
+    if not isinstance(verts, list) or not isinstance(faces, list):
+        return {"verdict": "UNKNOWN_PHOTO_SURFACE_GEOMETRY_MISSING",
+                "how_to_close": "photo surface must contain verts and faces"}
+    points = []
+    for point in verts:
+        if not isinstance(point, (list, tuple)) or len(point) != 3:
+            return {"verdict": "UNKNOWN_PHOTO_SURFACE_VERTEX_INVALID"}
+        x, y, z = (float(point[0]), float(point[1]), float(point[2]))
+        radial = (x * x + z * z) ** 0.5
+        if radial > 1e-12:
+            scale = (radial + float(gap_cm)) / radial
+            x, z = x * scale, z * scale
+        points.append([x, y, z])
+    edges = _surface_edges(faces)
+    return {
+        "verdict": "ANSWER",
+        "points": points,
+        "edges": edges,
+        "owner": ["photo_pattern"] * len(points),
+        "gap_cm": float(gap_cm),
+        "source": "photo_pattern.garment_surface",
+        "generated_not_evidence": (
+            "写真由来の投影幅から生成した面です。奥行、背面、素材挙動は"
+            "観測ではなく、photo_pattern が明示した仮定を保ちます"),
+    }
+
+
 @tool
 def mannequin_dress(fabric: str = "wool melton",
-                    iterations: int = 400, gap_cm: float = 1.0) -> str:
+                    iterations: int = 400, gap_cm: float = 1.0,
+                    garment_json: str = "") -> str:
     """Place the garment on the form. **This is a picture, not a fit.**
 
     Every point is pushed out to the form's surface plus an air gap, so the
     clearance of the result is that gap everywhere by construction. Reading
     fit off this output would be a measurement that cannot come out wrong.
     Use `mannequin_clearance` for the fit reading.
+
+    If ``garment_json`` contains ``photo_pattern.garment_surface``, that exact
+    image-derived geometry is used.  An empty value retains the legacy current
+    project pattern route.
     """
+    if garment_json.strip():
+        req, err = _json_arg(garment_json,
+                             '{"garment_surface": photo_pattern surface}')
+        if err:
+            return _ok(err)
+        surface = req.get("garment_surface") if isinstance(req, dict) else None
+        return _ok(_dress_photo_surface(surface, float(gap_cm)))
     pts = _fallen(fabric, int(iterations))
     if isinstance(pts, str):
         return pts
@@ -1357,7 +1459,8 @@ def _outline_record_arg(json_text: str):
 @tool
 def photo_pattern(json_text: str = "", n_panels: int = 4, segments: int = 24,
                   height_steps: int = 16, iterations: int = 3000,
-                  dart_depth_ratio: float = 0.30, image_id: str = "") -> str:
+                  dart_depth_ratio: float = 0.30, image_id: str = "",
+                  preview_mannequin: bool = False) -> str:
     """One call: a photographed outline -> a cut pattern (`panels.to_pieces` shape).
 
     `json_text` is THE OUTLINE CONTRACT, the whole object: `{"outline":
@@ -1381,12 +1484,2161 @@ def photo_pattern(json_text: str = "", n_panels: int = 4, segments: int = 24,
     if err:
         return err
     from . import photo_to_pattern as _p2p
-    return _ok(_p2p.run(record, _measures(), n_panels=int(n_panels),
-                        segments=int(segments),
-                        height_steps=int(height_steps),
-                        iterations=int(iterations),
-                        dart_depth_ratio=float(dart_depth_ratio),
-                        image_id=image_id))
+    measures = _measures()
+    proposed = []
+    if bool(preview_mannequin):
+        # A preview body is an explicitly typed proposal, never persisted and
+        # never promoted into the measurement ledger. These values merely let
+        # a beginner inspect geometry before choosing/entering a mannequin.
+        defaults = {"chest": 88.0, "waist": 68.0, "hip": 94.0,
+                    "body_length": 140.0}
+        preview = Measures(entries=list(measures.entries))
+        measured_spots = {entry.spot for entry in preview.entries
+                          if entry.kind == "measured"}
+        for spot, value in defaults.items():
+            if spot in measured_spots:
+                continue
+            preview.measured(spot, value, "cm",
+                             source="PROPOSED_PREVIEW_MANNEQUIN")
+            proposed.append({
+                "spot": spot, "assumed": {"value": value, "unit": "cm"},
+                "kind": "PROPOSED",
+                "basis": "temporary standard preview mannequin; not measured and not saved",
+                "how_to_close": "choose a mannequin size or enter measured body dimensions",
+            })
+        measures = preview
+    result = _p2p.run(record, measures, n_panels=int(n_panels),
+                      segments=int(segments),
+                      height_steps=int(height_steps),
+                      iterations=int(iterations),
+                      dart_depth_ratio=float(dart_depth_ratio),
+                      image_id=image_id)
+    if proposed:
+        result["preview_mannequin"] = {
+            "state": "PROPOSED", "not_measurement": True,
+            "values": proposed,
+            "must_be_replaced_before_manufacturing": True,
+        }
+        result.setdefault("assumptions_used", []).extend(proposed)
+        # photo_to_pattern collected decisions before this MCP-only preview
+        # proposal existed. Re-collect without recursively walking its old
+        # decision report.
+        result.pop("decisions", None)
+        from . import decisions as _decisions
+        result["decisions"] = _decisions.collect(result)
+    return _ok(result)
+
+
+@tool
+def photo_pattern_repair(json_text: str = "", budget: int = 8) -> str:
+    """Run the bounded deterministic repair catalogue on one photo pattern.
+
+    The transcript preserves every applied/refused repair and its cost. It is
+    a geometry/sewability loop, not a strength or comfort certification.
+    """
+    pattern, err = _json_arg(json_text, "ANSWER photo_pattern result")
+    if err:
+        return _ok(err)
+    if not isinstance(pattern, dict) or pattern.get("verdict") != "ANSWER":
+        return _ok({"verdict": "UNKNOWN_PHOTO_PATTERN_NOT_READY",
+                    "how_to_close": "generate an ANSWER photo_pattern first"})
+    from . import repairs as _repairs
+    out = _repairs.make_sewable(pattern, budget=max(1, int(budget)))
+    out["verdict"] = "ANSWER"
+    out["scope"] = "geometric sewability repair; not strength/comfort certification"
+    return _ok(out)
+
+
+@tool
+def geometric_second_skin(json_text: str = "", garment: str = "dress",
+                          ease_cm: float = 0.0, stretch: float = 0.0,
+                          segments: int = 24, height_steps: int = 16) -> str:
+    """Generate the model-free second-skin garment base on the current mannequin.
+
+    ``json_text`` may contain ``calibrated_views``: front/side polygons with
+    explicit azimuth and scale.  One view is refused rather than inventing
+    depth.  With no views, the measured mannequin plus ``ease_cm`` and
+    ``stretch`` deterministically define the base shell.  ``garment`` is one
+    of dress, skirt, trousers, or leggings; it names shell topology, not a
+    fashion class inferred from an image.
+    """
+    req: Dict[str, Any] = {}
+    if json_text.strip():
+        parsed, err = _json_arg(json_text, "{calibrated_views?: [...]}")
+        if err:
+            return _ok(err)
+        if not isinstance(parsed, dict):
+            return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                        "why": "json_text must be an object"})
+        req = parsed
+    from . import second_skin as _second_skin
+    man = _mq.build(_measures())
+    if man.get("verdict") != "ANSWER":
+        return _ok(man)
+    return _ok(_second_skin.build(
+        man, garment=garment, ease=float(ease_cm), stretch=float(stretch),
+        segments=int(segments), height_steps=int(height_steps),
+        calibrated_views=req.get("calibrated_views")))
+
+
+@tool
+def generation_dependency_report(json_text: str = "") -> str:
+    """Compare the model-free and optional-model generation routes.
+
+    The supplied JSON is evidence only.  This door deliberately installs no
+    LLM and no sewing corpus, so the report shows exactly which deterministic
+    stages can run in this build and which external evidence still blocks a
+    claim.  LLM output, when a caller installs one through the Python API,
+    remains PROPOSED and can never promote itself to OBSERVED evidence.
+    """
+    evidence: Dict[str, Any] = {}
+    if json_text.strip():
+        parsed, err = _json_arg(json_text, "{evidence fields...}")
+        if err:
+            return _ok(err)
+        if not isinstance(parsed, dict):
+            return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                        "why": "json_text must be an object"})
+        evidence = parsed
+    from . import generation_routes as _routes
+    return _ok(_routes.dependency_report(evidence))
+
+
+@tool
+def geometric_garment_overlay(json_text: str = "") -> str:
+    """Run second-skin -> triangle overlay -> structure proposals.
+
+    ``json_text`` supplies ``garment`` and one or more calibrated ``views``.
+    The mannequin always comes from the current measured project; callers
+    cannot replace it with an untracked body. Single-view depth and invisible
+    backs remain typed UNKNOWN/PROPOSED rather than being auto-confirmed.
+    """
+    req, err = _json_arg(json_text, "{garment, views, ease?, stretch?}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    man = _mq.build(_measures())
+    if man.get("verdict") != "ANSWER":
+        return _ok(man)
+    from . import geometric_overlay as _overlay
+    request = dict(req)
+    request["mannequin"] = man
+    return _ok(_overlay.build(request))
+
+
+@tool
+def garment_command(text: str = "", command_id: str = "",
+                    provenance: str = "HUMAN_INPUT") -> str:
+    """Parse beginner natural language into ``garment.command.v1``.
+
+    This is a closed deterministic grammar. Unknown words, missing units and
+    ambiguous targets are typed refusals; no LLM or nearest-intent fallback is
+    used.  Returned commands are previews by default (``commit=false``).
+    """
+    from . import garment_ir as _garment_ir
+    return _ok(_garment_ir.parse(
+        text, command_id=(command_id.strip() or None), provenance=provenance))
+
+
+def _save_generation_job(job: Mapping[str, Any]) -> None:
+    path = _p("generation_job.json")
+    temporary = path.with_suffix(".json.tmp")
+    temporary.write_text(_json.dumps(job, ensure_ascii=False, indent=1,
+                                     sort_keys=True), encoding="utf-8")
+    temporary.replace(path)
+
+
+@tool
+def garment_job(json_text: str = "", job_id: str = "") -> str:
+    """Create, inspect, or advance the append-only garment generation job.
+
+    Empty JSON creates a job when none exists and otherwise returns the active
+    job.  An object with ``event`` applies one typed transition/preview/
+    approval/rejection/Undo.  Callers may supply a full ``job`` for a detached
+    calculation; only ANSWER results become the active persisted snapshot.
+    """
+    from . import generation_job as _job
+    path = _p("generation_job.json")
+    if not json_text.strip():
+        if path.exists():
+            try:
+                return _ok(_json.loads(path.read_text(encoding="utf-8")))
+            except (OSError, ValueError) as exc:
+                return _ok({"verdict": "UNKNOWN_INVALID_JOB_DOCUMENT",
+                            "reason": str(exc)})
+        created = _job.new_job(job_id.strip() or None)
+        _save_generation_job(created)
+        return _ok({"verdict": "ANSWER", **created})
+    req, err = _json_arg(json_text, "{event: {...}, job?: garment.job.v1}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    base = req.get("job")
+    if base is None:
+        if path.exists():
+            try:
+                base = _json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError) as exc:
+                return _ok({"verdict": "UNKNOWN_INVALID_JOB_DOCUMENT",
+                            "reason": str(exc)})
+        else:
+            base = _job.new_job(job_id.strip() or None)
+    if "event" not in req:
+        return _ok({"verdict": "ANSWER", **base})
+    result = _job.apply(base, req["event"])
+    if result.get("verdict") == "ANSWER":
+        _save_generation_job({key: value for key, value in result.items()
+                              if key not in ("verdict", "result")})
+    return _ok(result)
+
+
+def _active_generation_job(job_id: str = "") -> Dict[str, Any]:
+    path = _p("generation_job.json")
+    if path.exists():
+        return _json.loads(path.read_text(encoding="utf-8"))
+    from . import generation_job as _job
+    return _job.new_job(job_id or None)
+
+
+@tool
+def garment_workflow(json_text: str = "", approver: str = "") -> str:
+    """Execute one typed garment command through the shared job/preview gate.
+
+    This is the beginner UI integration door. It currently performs typed
+    span/ease/length/material edits against job IR, approval/rejection/Undo,
+    and read-only span inspection. Commands requiring an image outline,
+    structure graph, candidate evidence, material calibration or cloth mesh
+    return the exact missing typed context and the MCP door that consumes it.
+    """
+    req, err = _json_arg(json_text, "garment.command.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    command = req.get("command", req)
+    context = req.get("context", {}) if isinstance(req, dict) else {}
+    if not isinstance(command, dict) or command.get("schema") != "garment.command.v1":
+        return _ok({"verdict": "UNKNOWN_INVALID_GARMENT_COMMAND",
+                    "why": "a garment.command.v1 object is required"})
+    intent = str(command.get("intent", "")).upper()
+    target = command.get("target") or {}
+    operation = command.get("operation") or {}
+    command_id = str(command.get("command_id", ""))
+    if not command_id or not isinstance(target, dict) or not isinstance(operation, dict):
+        return _ok({"verdict": "UNKNOWN_INVALID_GARMENT_COMMAND",
+                    "why": "command_id, target and operation must be typed objects"})
+    from . import garment_ir as _garment_ir
+    validated = _garment_ir.validate_command_envelope(command)
+    if isinstance(validated, _garment_ir.CommandRefusal):
+        return _ok(validated.as_dict())
+    from . import generation_job as _job
+    try:
+        job = _active_generation_job(str(command.get("job_id", "")))
+    except (OSError, ValueError) as exc:
+        return _ok({"verdict": "UNKNOWN_INVALID_JOB_DOCUMENT", "why": str(exc)})
+
+    pending = job.get("pending_previews", {})
+    preview_digest = str(operation.get("preview_digest",
+                                       operation.get("previewDigest", "")))
+    if intent in {"APPROVE", "REJECT"}:
+        match = next((value for value in pending.values()
+                      if isinstance(value, dict)
+                      and value.get("digest") == preview_digest), None)
+        if match is None:
+            return _ok({"verdict": "UNKNOWN_PREVIEW_APPROVAL_STALE",
+                        "why": "the digest does not identify a pending preview"})
+        event = {"kind": intent, "preview_id": match["preview_id"],
+                 "digest": preview_digest}
+        if intent == "APPROVE":
+            event["approver"] = approver.strip()
+        else:
+            event["reason"] = "rejected in beginner UI"
+        result = _job.apply(job, event)
+    elif intent == "UNDO":
+        result = _job.apply(job, {"kind": "UNDO", "command_id": command_id})
+    elif intent in {"ADJUST_PATTERN_SPAN", "ADD_EASE", "CHANGE_LENGTH",
+                    "CHANGE_MATERIAL"}:
+        value = operation.get("value")
+        unit = operation.get("unit")
+        if intent != "CHANGE_MATERIAL":
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or unit not in {"mm", "cm", "m"}):
+                return _ok({"verdict": "UNKNOWN_DIMENSION_UNIT_REQUIRED",
+                            "why": "the edit needs a numeric mm, cm or m value"})
+        first, last = target.get("first"), target.get("last")
+        if intent == "ADJUST_PATTERN_SPAN" and (not isinstance(first, int)
+                                                  or not isinstance(last, int)
+                                                  or first > last):
+            return _ok({"verdict": "UNKNOWN_AMBIGUOUS_GARMENT_TARGET",
+                        "why": "an ordered integer pattern span is required"})
+        scale = {"mm": 0.1, "cm": 1.0, "m": 100.0}.get(unit, 1.0)
+        edit = {"command_id": command_id, "intent": intent,
+                "target": target, "operation": operation}
+        if value is not None:
+            edit["normalized_value_cm"] = float(value) * scale
+        data = dict(job.get("snapshot", {}).get("data", {}))
+        data["pattern_edits"] = list(data.get("pattern_edits", ())) + [edit]
+        address = (f"pattern.{first}:{last}" if intent == "ADJUST_PATTERN_SPAN"
+                   else str(target.get("kind", "ACTIVE_GARMENT")))
+        result = _job.apply(job, {"kind": "PREVIEW",
+                                  "command_id": command_id,
+                                  "after_data": data,
+                                  "changed_addresses": [address],
+                                  "validation_results": [{"verdict": "PASS",
+                                                          "check": "typed_ir"}],
+                                  "provenance": {"source": command.get("provenance",
+                                                                         "HUMAN_INPUT")}})
+    elif intent == "SET_REQUIREMENTS":
+        requirements = operation.get("requirements", [])
+        # validate_command_envelope above has already bounded the vocabulary,
+        # item count, target strings and units. Store a detached copy in the
+        # preview; approval is still a separate human event.
+        normalized = [dict(item) for item in requirements]
+        data = dict(job.get("snapshot", {}).get("data", {}))
+        data["design_requirements"] = normalized
+        validations = [
+            {"verdict": "PASS", "check": "typed_requirement_ir"},
+            {"verdict": "PASS", "check": "model_has_no_commit_authority"},
+        ]
+        if any(item.get("kind") == "STANDARD_SIZE" for item in normalized):
+            validations.append({
+                "verdict": "REVIEW", "check": "standard_size_chart_required",
+                "why": "S/M/L is a requested label until a size chart or body measurements bind it",
+            })
+        addresses = [
+            "requirements.%s.%s" % (
+                str(item.get("kind", "unknown")).lower(),
+                str(item.get("target", "garment"))[:80])
+            for item in normalized
+        ]
+        result = _job.apply(job, {
+            "kind": "PREVIEW", "command_id": command_id,
+            "after_data": data, "changed_addresses": addresses,
+            "validation_results": validations,
+            "provenance": {
+                "source": command.get("provenance", "MODEL_PROPOSAL"),
+                "proposal_only": True,
+            },
+        })
+    elif intent == "GENERATE_FROM_IMAGE":
+        outline = context.get("confirmed_outline") if isinstance(context, dict) else None
+        if not isinstance(outline, dict):
+            return _ok({
+                "verdict": "UNKNOWN_GARMENT_REGION_CONFIRMATION_REQUIRED",
+                "why": "a human-confirmed clothing outline is not attached",
+                "how_to_close": "confirm Clothing with 3-5 points in Pattern run",
+                "next_tool": "photo_pattern",
+            })
+        from . import photo_to_pattern as _p2p
+        pattern = _p2p.run(
+            outline, _measures(), image_id=str(target.get("reference", "")))
+        if pattern.get("verdict") != "ANSWER":
+            return _ok(pattern)
+        data = dict(job.get("snapshot", {}).get("data", {}))
+        data["photo_pattern"] = pattern
+        data["source_image"] = target.get("reference")
+        result = _job.apply(job, {
+            "kind": "PREVIEW",
+            "command_id": command_id,
+            "after_data": data,
+            "changed_addresses": ["image.confirmed_clothing", "pattern.generated"],
+            "validation_results": [
+                {"verdict": "PASS", "check": "human_confirmed_clothing_region"},
+                {"verdict": "PASS", "check": "deterministic_photo_pattern"},
+            ],
+            "provenance": {
+                "source": command.get("provenance", "HUMAN_INPUT"),
+                "image": target.get("reference"),
+                "outline_source": outline.get("source"),
+            },
+        })
+    elif intent == "INSPECT" and target.get("kind") == "PATTERN_SPAN":
+        return pattern_span(int(target.get("first", -1)), int(target.get("last", -1)))
+    else:
+        requirements = {
+            "PROPOSE_STRUCTURE": ("UNKNOWN_STRUCTURE_SPEC_REQUIRED", "garment_structure"),
+            "RUN_SIMULATION": ("UNKNOWN_HIGH_FIDELITY_CONTEXT_REQUIRED",
+                               "high_fidelity_workflow"),
+            "COMPARE_SIMULATIONS": ("UNKNOWN_CANDIDATE_EVIDENCE", "garment_candidates"),
+            "INSPECT": ("UNKNOWN_CANDIDATE_EVIDENCE", "garment_candidates"),
+        }
+        code, door = requirements.get(intent, ("UNKNOWN_UNSUPPORTED_GARMENT_OPERATION",
+                                                "garment_command"))
+        return _ok({"verdict": code, "why": "typed context is not attached to the command",
+                    "how_to_close": f"supply its typed payload to {door}",
+                    "next_tool": door})
+    if result.get("verdict") == "ANSWER":
+        _save_generation_job({key: value for key, value in result.items()
+                              if key not in ("verdict", "result")})
+    return _ok(result)
+
+
+@tool
+def garment_structure(json_text: str = "") -> str:
+    """Build and validate a corpus-free ``garment.structure.v1`` graph.
+
+    Nodes are geometric primitives such as shells, tubes, gores and gussets;
+    edges are typed construction operations. Missing dimensions, incompatible
+    ports and cyclic construction plans are refused instead of repaired.
+    """
+    req, err = _json_arg(json_text, "garment.structure.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import garment_structure as _structure
+    return _ok(_structure.build(req))
+
+
+@tool
+def garment_construction_route(json_text: str = "") -> str:
+    """Route one typed garment instance graph by construction evidence.
+
+    ``json_text`` must be a ``garment.instance-graph.v1`` object.  This MCP
+    boundary delegates only to the deterministic construction router: garment
+    names remain display metadata, model claims stay PROPOSED/UNKNOWN, and the
+    result never grants manufacturing readiness, certification, or a fact
+    promotion.  Invalid or insufficient graphs return a typed UNKNOWN value.
+    """
+    req, err = _json_arg(json_text, "a garment.instance-graph.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "json_text must be a garment.instance-graph.v1 object",
+        })
+    from . import construction_regime as _construction_regime
+    return _ok(_construction_regime.route_construction(req))
+
+
+@tool
+def garment_image_analysis_ensemble(json_text: str = "") -> str:
+    """Merge bounded VLM and Marqo/FashionSigLIP garment proposals.
+
+    ``json_text`` is a ``garment.image-analysis-ensemble.request.v1`` object
+    containing precomputed ``vision.result`` and/or ``retrieval.result``.
+    Provider model IDs and licenses are configuration metadata only.  Model
+    claims remain PROPOSED, disagreements remain CONTESTED, unavailable
+    providers return typed capability failures, and rear/hidden structure is
+    never promoted to OBSERVED.  Live adapters are injected through the
+    Python API rather than loaded or downloaded by this stdio server.
+    """
+    req, err = _json_arg(
+        json_text, "a garment.image-analysis-ensemble.request.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": (
+                "json_text must be a "
+                "garment.image-analysis-ensemble.request.v1 object"
+            ),
+        })
+    from . import garment_analysis_ensemble as _analysis_ensemble
+    return _ok(_analysis_ensemble.analyze_garment_image(req))
+
+
+@tool
+def marqo_fashion_siglip_runtime(json_text: str = "") -> str:
+    """Probe or run the bounded Marqo/FashionSigLIP retrieval adapter.
+
+    ``json_text`` is ``{action: capability|run, ...adapter request...}``.
+    Capability probing performs no network request, model import, model load,
+    or download.  Inference supports precomputed results/embeddings, an
+    explicitly enabled loopback HTTP endpoint with a bounded timeout, or an
+    existing explicitly configured local model path.  No configured search
+    corpus returns ``UNKNOWN_NO_FASHION_RETRIEVAL_INDEX``.  Every successful
+    nearest item remains ``PROPOSED_RETRIEVAL`` with source, asset, license,
+    rights-review, and provenance metadata; scores/model metadata are never
+    correctness evidence.  The local Python API additionally accepts injected
+    transport/embedder/index implementations.
+    """
+    req, err = _json_arg(
+        json_text, "{action: capability|run, mode?, config?, query?, index?}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "json_text must be a Marqo/FashionSigLIP adapter object",
+        })
+    action = req.get("action", "capability")
+    from . import marqo_fashion_siglip_adapter as _fashion_siglip
+    if action == "capability":
+        return _ok(_fashion_siglip.capability_probe(req))
+    if action == "run":
+        return _ok(_fashion_siglip.run_retrieval(req))
+    return _ok({
+        "verdict": "UNKNOWN_BAD_ARGUMENTS",
+        "why": "action must be capability or run",
+    })
+
+
+@tool
+def garment_parts_ir_complete(json_text: str = "") -> str:
+    """Complete a vision model's small parts IR into typed structure candidates.
+
+    Input is ``{parts_ir, target_measurements?, preview_profile?,
+    use_bounded_preview_profile?, candidate_count?}``.  Selecting the bounded
+    preview profile is explicit: it produces mannequin-relative PROPOSED
+    geometry, never measurements inferred from image pixels or approval to cut.
+    At least two alternatives are retained so a front-only interpretation is
+    not silently collapsed to one asserted garment.
+    """
+    req, err = _json_arg(
+        json_text,
+        "{parts_ir, target_measurements?, preview_profile?, "
+        "use_bounded_preview_profile?, candidate_count?}",
+    )
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or not isinstance(req.get("parts_ir"), dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "parts_ir is required and must be an object",
+        })
+    use_preview = req.get("use_bounded_preview_profile", False)
+    if not isinstance(use_preview, bool):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "use_bounded_preview_profile must be a boolean",
+        })
+    if use_preview and req.get("preview_profile") is not None:
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": (
+                "choose either preview_profile or "
+                "use_bounded_preview_profile, not both"
+            ),
+        })
+    candidate_count = req.get("candidate_count")
+    if candidate_count is not None and (
+            isinstance(candidate_count, bool)
+            or not isinstance(candidate_count, int)):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "candidate_count must be an integer when supplied",
+        })
+    from . import parts_ir_completion as _parts_completion
+    preview_profile = req.get("preview_profile")
+    if use_preview:
+        preview_profile = _parts_completion.bounded_preview_profile()
+    return _ok(_parts_completion.complete_parts_ir(
+        req["parts_ir"],
+        target_measurements=req.get("target_measurements"),
+        preview_profile=preview_profile,
+        candidate_count=candidate_count,
+    ))
+
+
+@tool
+def garment_parts_ir_topology(json_text: str = "") -> str:
+    """Turn completed parts IR candidates into typed PROPOSED topology.
+
+    Input is ``{completion}``, where ``completion`` is an unchanged successful
+    result from :func:`garment_parts_ir_complete`.  The boundary adds ports and
+    construction operations only from explicit ``attached_to`` relations plus
+    the deterministic garment rules.  It never upgrades an image proposal to
+    OBSERVED/APPROVED/ANSWER, and unsupported relations fail closed.
+    """
+    req, err = _json_arg(json_text, "{completion}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or not isinstance(req.get("completion"), dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "completion is required and must be an object",
+        })
+    from . import parts_ir_topology as _parts_topology
+    return _ok(_parts_topology.apply_parts_ir_topology(req["completion"]))
+
+
+@tool
+def garment_parts_ir_pipeline(json_text: str = "") -> str:
+    """Run parts completion, typed topology, 3D, and flat patterns as one gate.
+
+    Input is ``{parts_ir, target_measurements?, preview_profile?,
+    use_bounded_preview_profile?, candidate_count?, radial_segments?,
+    layer_spacing_cm?}``. Every candidate remains PROPOSED and its 3D preview
+    and flat pattern are bound to one structure digest. Any failed candidate
+    makes the aggregate UNRESOLVED instead of being hidden.
+    """
+    req, err = _json_arg(
+        json_text,
+        "{parts_ir, target_measurements?, preview_profile?, "
+        "use_bounded_preview_profile?, candidate_count?, radial_segments?, "
+        "layer_spacing_cm?}",
+    )
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or not isinstance(req.get("parts_ir"), dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "parts_ir is required and must be an object",
+        })
+    use_preview = req.get("use_bounded_preview_profile", False)
+    if not isinstance(use_preview, bool):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "use_bounded_preview_profile must be a boolean"})
+    if use_preview and req.get("preview_profile") is not None:
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "choose either preview_profile or use_bounded_preview_profile, not both",
+        })
+    candidate_count = req.get("candidate_count")
+    radial_segments = req.get("radial_segments", 16)
+    layer_spacing = req.get("layer_spacing_cm", 0.6)
+    if candidate_count is not None and (
+            isinstance(candidate_count, bool)
+            or not isinstance(candidate_count, int)):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "candidate_count must be an integer when supplied"})
+    if (isinstance(radial_segments, bool)
+            or not isinstance(radial_segments, int)
+            or not 8 <= radial_segments <= 128):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "radial_segments must be an integer from 8 through 128"})
+    if (isinstance(layer_spacing, bool)
+            or not isinstance(layer_spacing, (int, float))
+            or not 0.0 < float(layer_spacing) <= 20.0):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "layer_spacing_cm must be a number above 0 and at most 20"})
+    from . import parts_ir_completion as _parts_completion
+    from . import parts_ir_pipeline as _parts_pipeline
+    preview_profile = req.get("preview_profile")
+    if use_preview:
+        preview_profile = _parts_completion.bounded_preview_profile()
+    return _ok(_parts_pipeline.run_parts_ir_pipeline(
+        req["parts_ir"],
+        target_measurements=req.get("target_measurements"),
+        preview_profile=preview_profile,
+        candidate_count=candidate_count,
+        radial_segments=radial_segments,
+        layer_spacing_cm=float(layer_spacing),
+    ))
+
+
+@tool
+def garment_structure_preview(json_text: str = "") -> str:
+    """Build a candidate-specific PROPOSED 3D mesh from a structure graph.
+
+    Input is ``{candidate_id, structure}``.  The result is deterministic and
+    explicitly preview-only; it never establishes fit or manufacturability.
+    """
+    req, err = _json_arg(json_text, "{candidate_id, structure}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import structure_preview as _preview
+    return _ok(_preview.generate_candidate_preview(req))
+
+
+@tool
+def garment_structure_pattern(json_text: str = "") -> str:
+    """Compile a typed structure graph into candidate-specific flat pieces.
+
+    Input is ``{candidate_id, structure}`` for a PROPOSED preview.  An
+    ``APPROVED`` request additionally needs ``approval: {by, digest}``.
+    Output remains a geometric prototype until the listed manufacturing gates
+    are closed.
+    """
+    req, err = _json_arg(json_text, "{candidate_id, structure, candidate_state?, approval?}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or not isinstance(req.get("structure"), dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "candidate_id and structure are required"})
+    from . import structure_to_pattern as _compiler
+    return _ok(_compiler.compile(
+        req["structure"], candidate_id=str(req.get("candidate_id", "")),
+        candidate_state=str(req.get("candidate_state", "PROPOSED")),
+        approval=req.get("approval")))
+
+
+@tool
+def garment_front_outline_hypotheses(json_text: str = "") -> str:
+    """Open three falsifiable structures from one confirmed front outline.
+
+    This is the model-free geometric fallback.  It measures only normalized
+    outline ratios; garment composition, sleeves, layers, decoration, back and
+    all centimetre dimensions remain explicit PROPOSED alternatives.
+    """
+    req, err = _json_arg(json_text, "{outline, source_id?}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or "outline" not in req:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "outline is required"})
+    outline = req["outline"]
+    embedded_regions = (outline.get("regions") if isinstance(outline, Mapping)
+                        else None)
+    regions = req.get("regions", embedded_regions)
+    if isinstance(regions, list) and regions:
+        from . import front_region_structure_cues as _region_front
+        result = _region_front.hypothesize(
+            outline, regions, source_id=str(req.get("source_id", "confirmed-front")))
+        if result.get("verdict") == "PROPOSED":
+            # front_structure_hypotheses returns complete structure graphs.
+            # The resumable factory uses an explicit envelope around each
+            # graph so proposal metadata cannot be mistaken for graph fields.
+            factory_rows = []
+            for candidate in result.get("hypotheses", []):
+                back = candidate.get("back_alternative", {})
+                factory_rows.append({
+                    "candidate_id": candidate.get("candidate_id", ""),
+                    "back_design": back.get("alternative_id", "proposed-back"),
+                    "structure": {
+                        "schema": candidate.get("schema"),
+                        "nodes": candidate.get("nodes", []),
+                        "operations": candidate.get("operations", []),
+                    },
+                    "state": "PROPOSED",
+                    "assumptions": list(candidate.get("basis", [])) + [
+                        str(back.get("basis", "back is not observed"))],
+                    "breaks_when": list(candidate.get("breaks_when", [])) + [
+                        str(back.get("breaks_when", "a rear observation changes the proposal"))],
+                    "front_region_evidence_digest": candidate.get(
+                        "front_region_evidence_digest"),
+                    "front_geometry_digest": candidate.get(
+                        "front_geometry_digest"),
+                    "typed_cue_digest": candidate.get("typed_cue_digest"),
+                    "unobserved": candidate.get("unobserved", {}),
+                    "provenance": candidate.get("provenance", {}),
+                })
+            result["structure_hypotheses"] = result["hypotheses"]
+            result["hypotheses"] = factory_rows
+            result["factory_envelope"] = True
+        return _ok(result)
+    from . import front_geometry_cues as _front
+    return _ok(_front.hypothesize(
+        outline, source_id=str(req.get("source_id", "confirmed-front"))))
+
+
+_FRONT_CANDIDATE_REQUEST_SCHEMA = (
+    "garment.front-candidate-evaluation.request.v1"
+)
+_FRONT_IMAGE_GENERATION_REQUEST_SCHEMA = (
+    "garment.front-image-generation.request.v1"
+)
+
+
+def _front_candidate_review_boundary(result: Mapping[str, Any]) -> Dict[str, Any]:
+    """Keep front-only evaluation below approval and manufacturing authority."""
+    from . import front_candidate_evaluator as _evaluator
+    bounded = dict(result)
+    bounded.setdefault("schema", _evaluator.SCHEMA)
+    bounded["state"] = "REVIEW"
+    bounded["selected_candidate_id"] = None
+    bounded["requires_human_approval"] = True
+    bounded["rear_authority"] = "PROPOSED"
+    bounded["material_authority"] = "PROPOSED"
+    bounded["manufacturing_ready"] = False
+    bounded["manufacturing_certified"] = False
+    return bounded
+
+
+def _front_candidate_refusal(verdict: str, why: str, **details: Any) -> str:
+    from . import front_candidate_evaluator as _evaluator
+    result: Dict[str, Any] = {
+        "schema": _evaluator.SCHEMA,
+        "verdict": verdict,
+        "why": why,
+        "pareto_frontier": [],
+    }
+    result.update(details)
+    return _ok(_front_candidate_review_boundary(result))
+
+
+def _front_candidate_artifact_identity_error(
+        artifacts: Any, *, kind: str,
+        candidate_ids: set[str]) -> Optional[Dict[str, Any]]:
+    if artifacts is None:
+        return None
+    if not isinstance(artifacts, Mapping):
+        return {
+            "verdict": "UNKNOWN_FRONT_CANDIDATE_ARTIFACT_MAP_REQUIRED",
+            "why": f"{kind} must be an object keyed by candidate_id",
+            "artifact_kind": kind,
+        }
+    for key in sorted(artifacts, key=str):
+        artifact = artifacts[key]
+        if not isinstance(key, str) or not key:
+            return {
+                "verdict": "UNKNOWN_FRONT_CANDIDATE_ARTIFACT_ID_REQUIRED",
+                "why": f"every supplied {kind} needs a non-empty candidate-id key",
+                "artifact_kind": kind,
+            }
+        if key not in candidate_ids:
+            return {
+                "verdict": "UNKNOWN_FRONT_CANDIDATE_ARTIFACT_ORPHANED",
+                "why": f"supplied {kind} belongs to no candidate in this request",
+                "artifact_kind": kind,
+                "artifact_candidate_id": key,
+            }
+        if not isinstance(artifact, Mapping):
+            return {
+                "verdict": "UNKNOWN_FRONT_CANDIDATE_ARTIFACT_REQUIRED",
+                "why": f"{kind}[{key}] must be an artifact object",
+                "artifact_kind": kind,
+                "artifact_candidate_id": key,
+            }
+        embedded = artifact.get("candidate_id")
+        if embedded != key:
+            return {
+                "verdict": "UNKNOWN_FRONT_CANDIDATE_ARTIFACT_ID_MISMATCH",
+                "why": (
+                    f"{kind}[{key}] must carry that exact candidate_id; "
+                    "artifacts are never matched by position"
+                ),
+                "artifact_kind": kind,
+                "map_candidate_id": key,
+                "artifact_candidate_id": embedded,
+            }
+    return None
+
+
+@tool
+def garment_front_candidate_evaluate(json_text: str = "") -> str:
+    """Pareto-evaluate typed front-only candidates without selecting one.
+
+    ``json_text`` is a
+    ``garment.front-candidate-evaluation.request.v1`` object containing
+    ``candidates`` and optional ``front_evidence``, candidate-id-keyed
+    ``previews``, and candidate-id-keyed ``patterns``. Rear and material
+    claims remain PROPOSED. Every result requires human approval and keeps
+    ``manufacturing_ready`` and ``manufacturing_certified`` false.
+    """
+    req, err = _json_arg(
+        json_text, f"{_FRONT_CANDIDATE_REQUEST_SCHEMA} object")
+    if err:
+        return _front_candidate_refusal(
+            "UNKNOWN_BAD_ARGUMENTS", str(err.get("why", "invalid JSON")))
+    if not isinstance(req, Mapping):
+        return _front_candidate_refusal(
+            "UNKNOWN_FRONT_CANDIDATE_EVALUATION_REQUEST",
+            "request must be an object with schema "
+            f"{_FRONT_CANDIDATE_REQUEST_SCHEMA}")
+    if req.get("schema") != _FRONT_CANDIDATE_REQUEST_SCHEMA:
+        return _front_candidate_refusal(
+            "UNKNOWN_FRONT_CANDIDATE_EVALUATION_SCHEMA",
+            f"schema must be exactly {_FRONT_CANDIDATE_REQUEST_SCHEMA}",
+            received_schema=req.get("schema"))
+
+    candidates = req.get("candidates")
+    if (not isinstance(candidates, typing.Sequence)
+            or isinstance(candidates, (str, bytes))
+            or not candidates
+            or any(not isinstance(candidate, Mapping)
+                   for candidate in candidates)):
+        return _front_candidate_refusal(
+            "UNKNOWN_FRONT_CANDIDATES_REQUIRED",
+            "candidates must be a non-empty array of candidate objects")
+    ids = [candidate.get("candidate_id") for candidate in candidates]
+    candidate_ids = {
+        value for value in ids if isinstance(value, str) and value.strip()
+    }
+    if len(candidate_ids) != len(candidates):
+        verdict = (
+            "UNKNOWN_DUPLICATE_FRONT_CANDIDATE_ID"
+            if (len(candidate_ids) < len(candidates)
+                and all(isinstance(value, str) and value.strip()
+                        for value in ids))
+            else "UNKNOWN_FRONT_CANDIDATE_ID_REQUIRED"
+        )
+        return _front_candidate_refusal(
+            verdict,
+            "every candidate needs a unique, non-empty candidate_id")
+
+    front_evidence = req.get("front_evidence", {})
+    if not isinstance(front_evidence, Mapping):
+        return _front_candidate_refusal(
+            "UNKNOWN_FRONT_EVIDENCE_OBJECT_REQUIRED",
+            "front_evidence must be an object")
+    for key in ("previews", "patterns"):
+        identity_error = _front_candidate_artifact_identity_error(
+            req.get(key), kind=key, candidate_ids=candidate_ids)
+        if identity_error is not None:
+            details = dict(identity_error)
+            verdict = str(details.pop("verdict"))
+            why = str(details.pop("why"))
+            return _front_candidate_refusal(verdict, why, **details)
+
+    from . import front_candidate_evaluator as _evaluator
+    result = _evaluator.evaluate_candidates(
+        candidates,
+        front_evidence=front_evidence,
+        previews=req.get("previews"),
+        patterns=req.get("patterns"),
+    )
+    if (result.get("requires_human_approval") is not True
+            or result.get("selected_candidate_id") is not None
+            or result.get("manufacturing_ready") is not False
+            or result.get("manufacturing_certified") is not False):
+        return _front_candidate_refusal(
+            "UNKNOWN_FRONT_CANDIDATE_AUTHORITY_BOUNDARY",
+            "the evaluator attempted to cross the MCP approval or "
+            "manufacturing boundary")
+    return _ok(_front_candidate_review_boundary(result))
+
+
+@tool
+def garment_front_image_generation_contract(json_text: str = "") -> str:
+    """Advance the deterministic Vera contract for one front garment image.
+
+    ``json_text`` is a
+    ``garment.front-image-generation.request.v1`` object.  Upstream vision or
+    an LLM may propose typed observations, candidates, and artifacts, but this
+    tool alone owns the deterministic ReAct transition.  Candidate-specific
+    3D, pattern, and manufacturing artifacts remain bound by stable digests;
+    rear and material hypotheses remain PROPOSED; wearer measurements and
+    exact digest-bound human approvals are mandatory gates.  The result never
+    grants manufacturing certification.
+    """
+    req, err = _json_arg(
+        json_text, f"{_FRONT_IMAGE_GENERATION_REQUEST_SCHEMA} object")
+    if err:
+        return _ok(err)
+    from . import front_image_generation_contract as _contract
+    return _ok(_contract.orchestrate(req))
+
+
+@tool
+def garment_wearer_measurement_contract(json_text: str = "") -> str:
+    """Validate the typed target-wearer measurement and ease contract.
+
+    ``json_text`` is a ``garment.wearer-measurement.request.v1`` object.
+    Real wearer dimensions must remain explicit MEASURED values with typed
+    sources; a bounded PROPOSED preview mannequin can never satisfy that gate.
+    The tool normalizes supported lengths to centimetres and does not infer
+    body measurements from a front garment photograph.  READY means only that
+    the typed measurement gate is complete, never manufacturing readiness.
+    """
+    req, err = _json_arg(
+        json_text, "garment.wearer-measurement.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import wearer_measurement_contract as _wearer_measurements
+    return _ok(_wearer_measurements.compile_contract(req))
+
+
+@tool
+def garment_body_proxy_propose(json_text: str = "") -> str:
+    """Propose typed body proxies beneath clothing in one image.
+
+    ``json_text`` must be a ``garment.body-proxy.request.v1`` object with
+    typed measured/requested dimensions and optional camera, 2D pose,
+    exposed-skin contours, and BODY/GARMENT mask candidates.  It returns
+    multiple ``PROPOSED_BODY_PROXY`` alternatives, rear-generation dimension
+    ranges, and preview-avatar bindings.  Clothed-image chest/waist estimates
+    never become measurements.  HUMAN_APPROVAL and AUTO_PROPOSED selection are
+    supported, but neither opens fit, manufacturing, or certification gates.
+    No external model or network access is used by the deterministic fallback.
+    """
+    req, err = _json_arg(json_text, "garment.body-proxy.request.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_BODY_PROXY_REQUEST",
+            "why": "json_text must be a garment.body-proxy.request.v1 object",
+            "fact_promotions": [],
+        })
+    from . import body_proxy as _body_proxy
+    result = _body_proxy.propose_body_proxy(req)
+    result["mcp_request_schema"] = "garment.body-proxy.request.v1"
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_body_image_separation_propose(json_text: str = "") -> str:
+    """Propose typed body/garment separation for one clothed-person image.
+
+    ``json_text`` must be a
+    ``garment.body-image-separation.request.v1`` object.  Supplied external
+    vision output or the local deterministic fallback is normalized into
+    reviewable separation candidates.  The MCP boundary accepts only
+    ``PROPOSED_BODY_GARMENT_SEPARATION`` candidates, keeps the rear
+    ``UNKNOWN_UNOBSERVED``, and never grants manufacturing readiness,
+    certification, or fact promotion.
+    """
+    request_schema = "garment.body-image-separation.request.v1"
+
+    def stopped(verdict: str, why: str) -> str:
+        return _ok({
+            "verdict": verdict,
+            "state": "UNKNOWN",
+            "why": why,
+            "mcp_request_schema": request_schema,
+            "rear_state": "UNKNOWN_UNOBSERVED",
+            "manufacturing_ready": False,
+            "manufacturing_certified": False,
+            "fact_promotions": [],
+        })
+
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return stopped(err["verdict"], err["why"])
+    if not isinstance(req, Mapping):
+        return stopped(
+            "UNKNOWN_BODY_IMAGE_SEPARATION_REQUEST",
+            f"json_text must be a {request_schema} object",
+        )
+
+    from . import body_image_separation as _body_image_separation
+    raw_result = _body_image_separation.separate_body_image(req)
+    if not isinstance(raw_result, Mapping):
+        return stopped(
+            "UNKNOWN_BODY_IMAGE_SEPARATION_AUTHORITY_BOUNDARY",
+            "body-image separation returned a non-object result",
+        )
+    result = dict(raw_result)
+
+    if result.get("verdict") == (
+            "PROPOSED_BODY_GARMENT_SEPARATION_CANDIDATES"):
+        candidates = result.get("candidates")
+        valid_candidates = isinstance(candidates, list) and bool(candidates)
+        bounded_candidates = []
+        if valid_candidates:
+            for candidate in candidates:
+                if not isinstance(candidate, Mapping):
+                    valid_candidates = False
+                    break
+                conditioning = candidate.get("back_generation_conditioning")
+                if (candidate.get("state") !=
+                        "PROPOSED_BODY_GARMENT_SEPARATION"
+                        or candidate.get("authority") !=
+                        "PROPOSED_BODY_GARMENT_SEPARATION"
+                        or candidate.get("manufacturing_ready") is not False
+                        or candidate.get("manufacturing_certified") is not False
+                        or candidate.get("fact_promotions") != []
+                        or not isinstance(conditioning, Mapping)
+                        or conditioning.get("rear_state") !=
+                        "UNKNOWN_UNOBSERVED"):
+                    valid_candidates = False
+                    break
+                bounded_candidate = dict(candidate)
+                bounded_candidate["back_generation_conditioning"] = dict(
+                    conditioning)
+                bounded_candidates.append(bounded_candidate)
+        if (not valid_candidates
+                or result.get("state") !=
+                "PROPOSED_BODY_GARMENT_SEPARATION"
+                or result.get("rear_state") != "UNKNOWN_UNOBSERVED"
+                or result.get("manufacturing_ready") is not False
+                or result.get("manufacturing_certified") is not False
+                or result.get("fact_promotions") != []):
+            return stopped(
+                "UNKNOWN_BODY_IMAGE_SEPARATION_AUTHORITY_BOUNDARY",
+                "body-image separation attempted to cross the proposal, "
+                "rear-observation, manufacturing, or fact-promotion boundary",
+            )
+        result["candidates"] = bounded_candidates
+
+    result["mcp_request_schema"] = request_schema
+    result["rear_state"] = "UNKNOWN_UNOBSERVED"
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_body_image_separation_precomputed(json_text: str = "") -> str:
+    """Probe, normalise, or execute an offline semantic-mask adapter.
+
+    ``json_text`` is ``{action: capability|build|run, ...}``. ``build`` and
+    ``run`` otherwise use
+    ``garment.body-image-separation.precomputed-adapter.request.v1``. The
+    adapter accepts already-produced local polygon/class-mask and pose output
+    from Apple Vision, CoreML, a local VLM, or a human labelling tool. It never
+    downloads a model or opens a network connection. BODY means visible image
+    support beneath/around clothing, never a body measurement; every semantic
+    channel remains proposed, the rear remains unknown, and manufacturing
+    authority is always denied.
+    """
+    req, err = _json_arg(
+        json_text,
+        "{action: capability|build|run, schema?, source?, masks?, pose?}",
+    )
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "json_text must be an offline precomputed adapter object",
+            "rear_state": "UNKNOWN_UNOBSERVED",
+            "manufacturing_ready": False,
+            "manufacturing_certified": False,
+            "fact_promotions": [],
+        })
+    from . import body_image_separation_precomputed_adapter as _adapter
+    action = str(req.get("action", "capability")).lower()
+    payload = dict(req)
+    payload.pop("action", None)
+    if action == "capability":
+        result = _adapter.capability_probe(
+            segmentation_path=payload.get("segmentation_path"))
+    elif action == "build":
+        result = _adapter.build_provider_output(payload)
+    elif action == "run":
+        result = _adapter.adapt_and_separate(payload)
+    else:
+        result = {
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "action must be capability, build, or run",
+        }
+
+    if not isinstance(result, Mapping):
+        result = {
+            "verdict": "UNKNOWN_PRECOMPUTED_SEPARATION_AUTHORITY_BOUNDARY",
+            "why": "precomputed adapter returned a non-object result",
+        }
+    result = dict(result)
+    unsafe = (
+        result.get("rear_state", "UNKNOWN_UNOBSERVED")
+            != "UNKNOWN_UNOBSERVED"
+        or result.get("manufacturing_ready") is True
+        or result.get("manufacturing_certified") is True
+        or bool(result.get("fact_promotions"))
+    )
+    if action == "run" and isinstance(result.get("separation"), Mapping):
+        separation = result["separation"]
+        unsafe = unsafe or (
+            separation.get("rear_state") != "UNKNOWN_UNOBSERVED"
+            or separation.get("manufacturing_ready") is True
+            or separation.get("manufacturing_certified") is True
+            or bool(separation.get("fact_promotions"))
+        )
+    if unsafe:
+        result = {
+            "verdict": "UNKNOWN_PRECOMPUTED_SEPARATION_AUTHORITY_BOUNDARY",
+            "why": "precomputed evidence attempted to cross rear or manufacturing authority",
+        }
+    result["mcp_adapter_schema"] = (
+        "garment.body-image-separation.precomputed-adapter.request.v1")
+    result["rear_state"] = "UNKNOWN_UNOBSERVED"
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_design_requirement_profile(json_text: str = "") -> str:
+    """Lower validated chat requirements to proposal-only preview dimensions.
+
+    ``json_text`` is a
+    ``garment.design-requirement-profile.request.v1`` object containing the
+    typed requirements already accepted by Vera's language boundary.  Explicit
+    units are normalized and specifically targeted body/ease/garment values
+    are mapped to existing geometry primitive fields.  Standard-size labels do
+    not create measurements without a named chart, generic ease is not spread
+    silently, and the result never satisfies manufacturing measurement gates.
+    """
+    req, err = _json_arg(
+        json_text, "garment.design-requirement-profile.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import design_requirement_profile as _requirement_profile
+    return _ok(_requirement_profile.compile_profile(req))
+
+
+@tool
+def garment_front_layered_compose(json_text: str = "") -> str:
+    """Bind front-image candidate parts to layered structure alternatives.
+
+    ``json_text`` is a
+    ``garment.front-layered-composition.request.v1`` object.  The bridge maps
+    typed candidate parts onto existing geometric primitives, preserves
+    ambiguous JOIN/SEPARATE/LAYER/CONTACT/OVERLAP alternatives, and binds each
+    ``garment.structure.v1`` result to its source candidate id and digest.
+    Rear geometry, material, hidden parts, and attachments remain PROPOSED;
+    no result is manufacturing-ready or certified.
+    """
+    req, err = _json_arg(
+        json_text, "garment.front-layered-composition.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import front_layered_composition as _front_layered
+    return _ok(_front_layered.compose(req))
+
+
+@tool
+def garment_front_candidate_artifact_pipeline(json_text: str = "") -> str:
+    """Compile every front-image candidate into bound structure/pattern artifacts.
+
+    ``json_text`` is a
+    ``garment.front-candidate-artifact-pipeline.request.v1`` object.  The
+    deterministic pipeline runs the existing front-image contract, layered
+    geometric composition, and structure-to-pattern compiler independently
+    for every candidate.  Candidate ids and digests remain source-bound; a
+    typed STOPPED alternative remains beside successful siblings.  Selection
+    always requires a human, and no result is manufacturing-ready or
+    manufacturing-certified.
+    """
+    req, err = _json_arg(
+        json_text,
+        "garment.front-candidate-artifact-pipeline.request.v1 object",
+    )
+    if err:
+        return _ok(err)
+    from . import front_candidate_artifact_pipeline as _artifact_pipeline
+    return _ok(_artifact_pipeline.assemble(req))
+
+
+@tool
+def garment_same_camera_projection_prepare(json_text: str = "") -> str:
+    """Bind one cleaned front target and proposed mesh to the same camera.
+
+    ``json_text`` must be a
+    ``garment.same-camera-projection.request.v1`` object.  The deterministic
+    bridge rasterises the target outline and candidate front triangles, then
+    delegates to the independent-axis front projection evaluator.  Alignment
+    remains ``PROPOSED_PREVIEW`` and the result never adopts a design or
+    promotes hidden geometry to fact.
+    """
+    request_schema = "garment.same-camera-projection.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_SAME_CAMERA_PROJECTION_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    from . import same_camera_projection as _same_camera
+    return _ok(_same_camera.prepare_same_camera_projection(req))
+
+
+@tool
+def garment_front_projection_compare(json_text: str = "") -> str:
+    """Compare an OBSERVED front raster with one same-camera 3D render.
+
+    ``json_text`` must be a
+    ``garment.front-projection-compare.request.v1`` object containing
+    ``observation`` and ``candidate_projection`` plus optional
+    ``round_index``, digest-bound ``previous``, and independent-axis
+    ``config`` bounds.  The evaluator never emits an aggregate similarity
+    score: silhouette, typed parts, visible boundaries, colour and front
+    layer/occlusion relations remain separate.  Rear and UNKNOWN pixels are
+    excluded, a converged result remains PROPOSED, and human approval is
+    always required before the garment workflow may adopt it.
+    """
+    request_schema = "garment.front-projection-compare.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_FRONT_PROJECTION_COMPARE_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    if req.get("schema") != request_schema:
+        return _ok({
+            "verdict": "UNKNOWN_FRONT_PROJECTION_COMPARE_SCHEMA",
+            "why": f"schema must be exactly {request_schema}",
+            "received_schema": req.get("schema"),
+            "fact_promotions": [],
+        })
+    observation = req.get("observation")
+    candidate_projection = req.get("candidate_projection")
+    if not isinstance(observation, Mapping) or not isinstance(
+            candidate_projection, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_FRONT_PROJECTION_RASTERS_REQUIRED",
+            "why": (
+                "observation and candidate_projection must both be typed "
+                "front-raster objects"
+            ),
+            "fact_promotions": [],
+        })
+    from . import front_projection_compare as _front_projection
+    result = _front_projection.compare_front_projection(
+        observation,
+        candidate_projection,
+        round_index=req.get("round_index", 1),
+        previous=req.get("previous"),
+        config=req.get("config"),
+    )
+    # Belt-and-suspenders authority guard at the MCP boundary.  The numerical
+    # module already emits these values, but an MCP caller must never infer
+    # manufacturing or fact authority from a passing reprojection bound.
+    result["mcp_request_schema"] = request_schema
+    result["human_approval_required"] = True
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_target_reconstruction_prepare(json_text: str = "") -> str:
+    """Prepare a provider-neutral fused person/garment target for cleanup.
+
+    ``json_text`` must be a
+    ``garment.target-reconstruction.request.v1`` object.  An external
+    single-view mesh is accepted only as a PROPOSED visual target; without
+    one, the same contract carries a deterministic front-silhouette fallback.
+    A digest-bound base avatar and its typed body dimensions must be selected
+    before composition. Background, hair, body and accessory regions can be reversibly excluded.
+    Removing an occluder creates an UNKNOWN hole and a separately labelled
+    PROPOSED backfill, never an observed garment surface.  The result is bound
+    to one camera for later reprojection and is never manufacturing-ready.
+    """
+    request_schema = "garment.target-reconstruction.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_TARGET_RECONSTRUCTION_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    from . import target_reconstruction as _target_reconstruction
+    result = _target_reconstruction.prepare_target_reconstruction(req)
+    result["mcp_request_schema"] = request_schema
+    result["human_approval_required"] = True
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_target_bound_candidate_preview(json_text: str = "") -> str:
+    """Bind a selected source-view front to one candidate-specific rear.
+
+    ``json_text`` must be a
+    ``garment.target-bound-candidate-preview.request.v1`` object containing a
+    cleaned target surface, one deterministic structure preview, and the
+    selected avatar.  Front triangles are preserved exactly; only the hidden
+    rear/rim are generated from the candidate geometry and body envelope.
+    Rear, depth, body fit and all manufacturing claims remain PROPOSED or
+    UNKNOWN.
+    """
+    request_schema = "garment.target-bound-candidate-preview.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_TARGET_BOUND_PREVIEW_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    from . import target_reconstruction as _target_reconstruction
+    result = _target_reconstruction.build_target_bound_candidate_preview(req)
+    result["mcp_request_schema"] = request_schema
+    result["human_approval_required"] = True
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_target_sculpt_clearance_simulate(json_text: str = "") -> str:
+    """Project an edited fused target outside a selected avatar envelope.
+
+    This deterministic tool checks the retained target faces against an
+    avatar envelope derived only from the selected body measurements and the
+    requested cloth thickness.  It returns moved vertices, collision faces
+    and clearance diagnostics as a PROPOSED geometric preview.  It does not
+    claim drape, ease, pressure, comfort, material or manufacturing accuracy.
+    """
+    request_schema = "garment.target-sculpt-clearance.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_TARGET_SCULPT_CLEARANCE_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    from . import target_sculpt_clearance as _target_clearance
+    result = _target_clearance.solve_target_sculpt_clearance(req)
+    result["mcp_request_schema"] = request_schema
+    result["human_approval_required"] = True
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_target_sculpt_modifier(json_text: str = "") -> str:
+    """Apply one bounded, revision-linked fused-target CAD modifier.
+
+    ``json_text`` must be a
+    ``garment.target-sculpt-modifier.request.v1`` object.  PULL moves a named
+    face/vertex selection along deterministic local normals or an explicit
+    vector; STRETCH scales that selection along one axis from a named anchor;
+    WIND_PREVIEW creates a uniform low-fidelity visual displacement candidate.
+    The input mesh is immutable and every accepted edit returns a new revision,
+    digest, and undo-parent digest.  These are PROPOSED CAD edits only: the
+    tool makes no pressure, material, cloth, seam, fit, or manufacturing claim.
+    """
+    request_schema = "garment.target-sculpt-modifier.request.v1"
+    req, err = _json_arg(json_text, f"{request_schema} object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, Mapping):
+        return _ok({
+            "verdict": "UNKNOWN_TARGET_SCULPT_MODIFIER_REQUEST",
+            "why": f"request must be an object with schema {request_schema}",
+            "fact_promotions": [],
+        })
+    from . import target_sculpt_modifiers as _target_modifiers
+    result = _target_modifiers.apply_target_sculpt_modifier(req)
+    result["mcp_request_schema"] = request_schema
+    result["human_approval_required"] = True
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_candidate_pattern_sewing_assemble(json_text: str = "") -> str:
+    """Build digest-bound cutting and topology sewing artifacts per candidate.
+
+    ``json_text`` is the existing
+    ``garment.front-candidate-artifact-pipeline.request.v1`` input.  Every
+    front-derived structure alternative is compiled independently through the
+    candidate pattern, cutting bundle, and topology-derived sewing order.
+    Missing closure, seam method, layer attachment, material or operator
+    choices remain REVIEW; a failed candidate remains as a typed STOPPED
+    sibling.  This route uses no corpus and cannot claim manufacturing
+    readiness or certification.
+    """
+    req, err = _json_arg(
+        json_text,
+        "garment.front-candidate-artifact-pipeline.request.v1 object",
+    )
+    if err:
+        return _ok(err)
+    from . import candidate_pattern_sewing_pipeline as _cut_sew_pipeline
+    return _ok(_cut_sew_pipeline.assemble(req))
+
+
+@tool
+def garment_layered_compose(json_text: str = "") -> str:
+    """Compose front-derived geometric components into layered candidates.
+
+    ``json_text`` is a ``garment.layered-vision.v1`` object.  This tool does
+    not classify the garment by name: it delegates to the deterministic
+    geometry composer and preserves every feasible JOIN, SEPARATE, LAYER,
+    CONTACT, and OVERLAP alternative.  Hidden rear geometry, materials, and
+    attachment topology remain PROPOSED; ambiguous valid topologies require
+    human choice.  No result is manufacturing-ready or certified.
+    """
+    req, err = _json_arg(
+        json_text, "garment.layered-vision.v1 object")
+    if err:
+        return _ok(err)
+    from . import layered_garment_composer as _layered
+    return _ok(_layered.compose(req))
+
+
+@tool
+def garment_candidates(json_text: str = "", action: str = "propose",
+                       digest: str = "", by: str = "") -> str:
+    """Propose or approve back/material alternatives without inventing facts.
+
+    ``action=propose`` accepts ``kind``, shared ``evidence`` and at least two
+    explicit ``candidates``. ``action=approve`` accepts the returned ``sheet``
+    plus a candidate digest and named human approver. Approval is immutable
+    and digest-bound; it does not rewrite a proposal as observed evidence.
+    """
+    req, err = _json_arg(json_text, "candidate request object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import candidate_compare as _candidates
+    selected_action = str(action or req.get("action", "propose")).lower()
+    if selected_action == "propose":
+        return _ok(_candidates.propose(req.get("kind"),
+                                       req.get("evidence", {}),
+                                       req.get("candidates", ())))
+    if selected_action == "approve":
+        sheet = req.get("sheet", req)
+        return _ok(_candidates.approve(
+            sheet, digest or str(req.get("digest", "")),
+            by or str(req.get("by", ""))))
+    return _ok({"verdict": "UNKNOWN_CANDIDATE_ACTION",
+                "why": "action must be propose or approve"})
+
+
+def _factory_path() -> Path:
+    return _p("garment_factory.json")
+
+
+def _load_factory(job_id: str = "") -> Dict[str, Any]:
+    from . import garment_factory as _factory
+    path = _factory_path()
+    if path.exists():
+        try:
+            value = _json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(value, dict) and value.get("schema") == _factory.SCHEMA:
+                return value
+        except (OSError, ValueError):
+            pass
+    return _factory.new_job(job_id or f"{_project()}-garment")
+
+
+def _save_factory(state: Mapping[str, Any]) -> None:
+    _factory_path().write_text(
+        _json.dumps(dict(state), ensure_ascii=False, indent=1, allow_nan=False),
+        encoding="utf-8")
+
+
+@tool
+def garment_hybrid_retrieve(json_text: str = "") -> str:
+    """Create multi-stage structure candidates from confirmed image evidence.
+
+    Input may be ``{image_evidence, request, corpora}``, a saved factory
+    ``{state, request, corpora}``, or ``{outline, regions, request, corpora}``.
+    Each local corpus must carry a ``garment.corpus-manifest.v1`` manifest and
+    records.  Shape, part, layer, opening, topology, and material-range scores
+    remain separate.  With no eligible corpus the tool still returns at least
+    two ``procedural:`` hits and multiple proposed back structures, explicitly
+    marked as generated geometry rather than an existing-garment search.
+    """
+    req, err = _json_arg(json_text, "hybrid garment retrieval request")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "request must be an object"})
+    state = req.get("state")
+    payload = dict(req)
+    if isinstance(state, Mapping):
+        payload["image_evidence"] = state.get("image_evidence")
+    from . import retrieval_hypothesis as _hybrid
+    return _ok(_hybrid.multi_stage_retrieve(payload))
+
+
+@tool
+def garment_factory(json_text: str = "", action: str = "advance") -> str:
+    """Run the resumable image -> candidates -> pattern -> validation loop.
+
+    ``action=start`` creates a fresh per-project ``garment.factory.v1`` job;
+    ``action=inspect`` returns it.  ``action=advance`` accepts one typed
+    ``event`` (or the event object directly).  External SigLIP/multimodal/LLM
+    output enters only through ``SUBMIT_RETRIEVAL`` and
+    ``SUBMIT_HYPOTHESES`` and is forcibly kept ``PROPOSED``.
+    ``HYBRID_RETRIEVE`` runs the same two events using the local rights-gated
+    multi-stage retriever. ``HYBRID_SEWING_SEARCH`` is reachable only after a
+    named digest approval and distinguishes corpus methods from built-in
+    procedural assembly hypotheses. A named human and exact candidate digest
+    are required before pattern, sewing or physics.
+
+    The pattern runner compiles the exact approved ``garment.structure.v1``
+    candidate into candidate-specific pieces and seams.  The old
+    outline-derived second-skin/body-block remains attached only as a visual
+    and calibration baseline; it is no longer the authoritative flat pattern.
+    """
+    from . import garment_factory as _factory
+    req, err = _json_arg(json_text, "garment factory request")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS", "why": "request must be an object"})
+    selected = str(action or req.get("action", "advance")).lower()
+    if selected == "start":
+        try:
+            state = _factory.new_job(str(req.get("job_id") or f"{_project()}-garment"),
+                                     int(req.get("max_iterations", 8)))
+        except (TypeError, ValueError) as exc:
+            return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS", "why": str(exc)})
+        _save_factory(state)
+        return _ok({"verdict": "ANSWER", "state": state})
+    state = _load_factory(str(req.get("job_id", "")))
+    if selected == "inspect":
+        return _ok({"verdict": "ANSWER", "state": state})
+    if selected != "advance":
+        return _ok({"verdict": "UNKNOWN_FACTORY_ACTION",
+                    "why": "action must be start, inspect or advance"})
+    event = req.get("event", req)
+
+    def pattern_runner(current: Dict[str, Any], stage_event: Dict[str, Any]) -> Mapping[str, Any]:
+        from . import garment_export_package as _export_package
+        from . import garment_export_verifier as _export_verifier
+        from . import garment_engineering_review as _engineering_review
+        from . import pattern_manufacturing_bundle as _manufacturing
+        from . import structure_preview as _structure_preview
+        from . import structure_sewing_plan as _sewing_plan
+        from . import structure_to_pattern as _structure_pattern
+        from . import photo_to_pattern as _p2p
+        selected_id = current["shape_approval"]["candidate_id"]
+        selected_candidate = next(row for row in current["hypothesis_sheet"]["candidates"]
+                                  if row["candidate_id"] == selected_id)
+        structure = selected_candidate.get("structure")
+        if not isinstance(structure, Mapping):
+            return {"verdict": "UNKNOWN_APPROVED_STRUCTURE_REQUIRED",
+                    "why": "the approved candidate has no garment.structure.v1 graph",
+                    "candidate_id": selected_id}
+        approval = current["shape_approval"]
+        result = _structure_pattern.compile(
+            structure, candidate_state="APPROVED", candidate_id=selected_id,
+            approval={"by": approval["by"],
+                      "digest": approval["candidate_digest"],
+                      "approval_id": approval["approval_id"]})
+        if result.get("verdict") != "ANSWER":
+            return result
+        # A vision model may name an accessory or construction role for which
+        # no deterministic primitive compiler exists.  The candidate can still
+        # be previewed, but the represented subset must never be exported as if
+        # it covered the whole visible outfit.
+        result["uncompiled_visual_parts"] = _json.loads(_json.dumps(
+            selected_candidate.get("uncompiled_visual_parts", []),
+            ensure_ascii=False, allow_nan=False))
+        result["representation_complete"] = bool(
+            selected_candidate.get("representation_complete", True))
+        options = stage_event.get("options", {})
+        if not isinstance(options, Mapping):
+            options = {}
+
+        # Topology supplies a deterministic dependency order even when no
+        # construction corpus is installed.  Unknown stitch/closure choices
+        # remain typed REVIEW records rather than stopping the whole preview.
+        result["topology_sewing_plan"] = _sewing_plan.plan(result)
+
+        # A front-only beginner run still needs an inspectable cut-line
+        # preview.  When no allowance was supplied we deliberately opt in to
+        # a PROPOSED default; this never promotes manufacturing_ready.
+        seam_allowance = stage_event.get(
+            "seam_allowance_cm", options.get("seam_allowance_cm"))
+        result["manufacturing_preview"] = _manufacturing.build(
+            result,
+            seam_allowance_cm=seam_allowance,
+            allow_proposed_default=seam_allowance is None,
+            proposed_default_cm=options.get("proposed_seam_allowance_cm", 1.0))
+        result["engineering_review"] = _engineering_review.review(
+            result, manufacturing=result["manufacturing_preview"],
+            sewing_plan=result["topology_sewing_plan"])
+        export_package = _export_package.build(
+            result["manufacturing_preview"],
+            result["engineering_review"],
+            result["topology_sewing_plan"])
+        result["export_verification"] = _export_verifier.verify(export_package)
+        result["export_package"] = _json_safe_export_package(export_package)
+        candidate_preview = _structure_preview.generate_preview(
+            structure, candidate_id=selected_id)
+        result["candidate_preview"] = candidate_preview
+        if candidate_preview.get("verdict") == "ANSWER":
+            mesh = candidate_preview["mesh"]
+            result["garment_surface"] = {
+                "verdict": "ANSWER", "units": mesh["units"],
+                "verts": mesh["vertices"], "faces": mesh["faces"],
+                "source": "approved garment.structure.v1 candidate preview",
+                "preview_only": True,
+            }
+
+        # The image-outline path remains useful as an independent body-block
+        # and dressed-surface reference.  It must not replace the candidate
+        # structure that the person actually approved.
+        measures = _measures()
+        proposed = []
+        if bool(stage_event.get("preview_mannequin")):
+            defaults = {"chest": 88.0, "waist": 68.0, "hip": 94.0,
+                        "body_length": 140.0}
+            preview = Measures(entries=list(measures.entries))
+            measured = {entry.spot for entry in preview.entries if entry.kind == "measured"}
+            for spot, value in defaults.items():
+                if spot not in measured:
+                    preview.measured(spot, value, "cm", source="PROPOSED_PREVIEW_MANNEQUIN")
+                    proposed.append({"spot": spot, "value": value, "unit": "cm",
+                                     "state": "PROPOSED", "persisted": False})
+            measures = preview
+        baseline = _p2p.run(
+            current["image_evidence"]["outline"], measures,
+            n_panels=int(options.get("n_panels", 4)),
+            segments=int(options.get("segments", 24)),
+            height_steps=int(options.get("height_steps", 16)),
+            iterations=int(options.get("iterations", 3000)),
+            dart_depth_ratio=float(options.get("dart_depth_ratio", 0.30)),
+            image_id=str(options.get("image_id", "")))
+        result["outline_body_block_baseline"] = baseline
+        if baseline.get("verdict") == "ANSWER":
+            # These fields feed the current mannequin/simulation UI.  Their
+            # provenance remains visibly separate from the compiled pieces.
+            if "garment_surface" in baseline and "garment_surface" not in result:
+                result["garment_surface"] = baseline["garment_surface"]
+            result["outline_baseline_digest"] = hashlib.sha256(
+                _json.dumps(baseline, ensure_ascii=False, sort_keys=True,
+                            separators=(",", ":"), allow_nan=False).encode("utf-8")
+            ).hexdigest()
+        result["approved_hypothesis_binding"] = {
+            "approval_id": approval["approval_id"],
+            "candidate_id": selected_id,
+            "candidate_digest": selected_candidate["digest"],
+            "structure_digest": result["structure_digest"],
+            "structure": structure,
+        }
+        result["pattern_scope"] = {
+            "implemented": ("approved structure graph primitives -> candidate-specific "
+                            "sewing-line pieces, seam topology, dependency-safe sewing order, and "
+                            "validated topology-changing geometry where the compiler returns ANSWER, "
+                            "plus a PROPOSED cut-line/SVG/DXF preview; outline body block is a "
+                            "separate baseline"),
+            "not_yet_claimed": ("manufacturing certification, wearer fit, measured material behaviour, "
+                                "or topology operations outside the exact limits and lineage reported "
+                                "by the compiled-pattern artifact"),
+        }
+        if proposed:
+            result["preview_mannequin"] = {"state": "PROPOSED", "values": proposed,
+                                             "must_be_replaced_before_manufacturing": True}
+        return result
+
+    def repair_runner(current: Dict[str, Any], stage_event: Dict[str, Any]) -> Mapping[str, Any]:
+        from . import garment_export_package as _export_package
+        from . import garment_export_verifier as _export_verifier
+        from . import garment_engineering_review as _engineering_review
+        from . import pattern_manufacturing_bundle as _manufacturing
+        from . import repairs as _repairs
+        from . import structure_sewing_plan as _sewing_plan
+        result = _repairs.make_sewable(current["pattern"],
+                                       budget=max(1, int(stage_event.get("budget", 8))))
+        repaired_pattern = result.get("pattern")
+        if isinstance(repaired_pattern, Mapping):
+            result["topology_sewing_plan"] = _sewing_plan.plan(repaired_pattern)
+            result["manufacturing_preview"] = _manufacturing.build(
+                repaired_pattern,
+                seam_allowance_cm=stage_event.get("seam_allowance_cm"),
+                allow_proposed_default=stage_event.get("seam_allowance_cm") is None,
+                proposed_default_cm=stage_event.get("proposed_seam_allowance_cm", 1.0))
+            result["engineering_review"] = _engineering_review.review(
+                repaired_pattern, repair=result,
+                manufacturing=result["manufacturing_preview"],
+                sewing_plan=result["topology_sewing_plan"])
+            export_package = _export_package.build(
+                result["manufacturing_preview"],
+                result["engineering_review"],
+                result["topology_sewing_plan"])
+            result["export_verification"] = _export_verifier.verify(export_package)
+            result["export_package"] = _json_safe_export_package(export_package)
+        result["verdict"] = ("ANSWER" if bool(result.get("sewable"))
+                             else "UNKNOWN_PATTERN_REPAIR_INCOMPLETE")
+        result["scope"] = "geometric sewability repair; not strength/comfort certification"
+        return result
+
+    def simulation_runner(current: Dict[str, Any], stage_event: Dict[str, Any]) -> Mapping[str, Any]:
+        from . import garment_engineering_review as _engineering_review
+        from . import industrial_solver as _industrial
+        payload = stage_event.get("input")
+        if not isinstance(payload, Mapping):
+            return {"verdict": "UNKNOWN_SIMULATION_INPUT",
+                    "why": "SIMULATE requires a typed industrial solver input"}
+        result = _industrial.simulate(dict(payload))
+        if result.get("verdict") == "ANSWER":
+            repair = current.get("repair")
+            repair_pattern = (repair.get("pattern") if isinstance(repair, Mapping)
+                              else None)
+            pattern = (repair_pattern if isinstance(repair_pattern, Mapping)
+                       else current.get("pattern"))
+            if isinstance(pattern, Mapping):
+                result["engineering_review"] = _engineering_review.review(
+                    pattern,
+                    repair=repair if isinstance(repair, Mapping) else None,
+                    manufacturing=(repair.get("manufacturing_preview")
+                                   if isinstance(repair, Mapping) else None),
+                    sewing_plan=(repair.get("topology_sewing_plan")
+                                 if isinstance(repair, Mapping) else None),
+                    simulation=result)
+        return result
+
+    result = _factory.advance(state, event,
+                              pattern_runner=pattern_runner,
+                              repair_runner=repair_runner,
+                              simulation_runner=simulation_runner)
+    next_state = result.get("state")
+    if isinstance(next_state, Mapping) and next_state.get("schema") == _factory.SCHEMA:
+        _save_factory(next_state)
+    return _ok(result)
+
+
+@tool
+def garment_export_package(json_text: str = "") -> str:
+    """Build an exact, JSON-safe candidate hand-off without writing files.
+
+    Input is ``{manufacturing_bundle, engineering_review, sewing_plan}``.
+    Text files remain text and binary DXF bytes are base64 wrapped.  Candidate,
+    structure and source-pattern digests must agree or the operation refuses.
+    """
+    req, err = _json_arg(json_text, "garment export package request")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "request must be an object"})
+    from . import garment_export_package as _export_package
+    result = _export_package.build(
+        req.get("manufacturing_bundle", {}),
+        req.get("engineering_review", {}),
+        req.get("sewing_plan", {}),
+        filenames=req.get("filenames"))
+    return _ok(_json_safe_export_package(result))
+
+
+@tool
+def garment_verify_export_package(json_text: str = "") -> str:
+    """Verify exact files and candidate lineage after package transport.
+
+    Input is the JSON-safe result of ``garment_export_package``.  Text and
+    base64 DXF are decoded in memory, every manifest/wrapper hash is checked,
+    and lineage embedded in SVG, DXF and JSON artifacts must agree.  An
+    ``ANSWER`` proves transport integrity only, never manufacturing quality.
+    """
+    req, err = _json_arg(json_text, "garment.export-package.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "request must be an object"})
+    from . import garment_export_verifier as _export_verifier
+    return _ok(_export_verifier.verify(req))
+
+
+@tool
+def garment_pattern_transform(json_text: str = "") -> str:
+    """Apply one deterministic pleat, gather, dart or fold operation.
+
+    Input is ``{pattern: {...}, operation: {...}}``. Stable piece/edge
+    addresses and before/after digests make previews and Undo auditable.
+    """
+    req, err = _json_arg(json_text, "{pattern: {...}, operation: {...}}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import pattern_transforms as _transforms
+    return _ok(_transforms.apply(req.get("pattern", {}),
+                                 req.get("operation", {})))
+
+
+@tool
+def corpus_manifest_check(json_text: str = "", purpose: str = "retrieval",
+                          require_commercial: bool = True) -> str:
+    """Validate a future corpus manifest without downloading the corpus.
+
+    Free access is not treated as commercial permission.  The manifest must
+    cite controlling licence text, record commercial/derivative/redistribution
+    rights, preserve generator lineage, and declare construction-bearing
+    modalities before ``purpose=sewing`` can answer.  This is a machine gate,
+    not a legal opinion.
+    """
+    req, err = _json_arg(json_text, "garment.corpus-manifest.v1 object")
+    if err:
+        return _ok(err)
+    from . import corpus_manifest as _manifest
+    return _ok(_manifest.validate(
+        req, require_commercial=bool(require_commercial), purpose=purpose))
+
+
+@tool
+def corpus_record_format(modality: str = "") -> str:
+    """Return the required typed fields for one optional corpus modality."""
+    from . import corpus_manifest as _manifest
+    return _ok(_manifest.expected_record_fields(modality))
+
+
+@tool
+def cross_cloth_simulate(json_text: str = "") -> str:
+    """Run the six-arm cross cloth solver (SI units).
+
+    ``json_text`` requires ``vertices``, ``faces``, ``face_material_ids`` and
+    explicit ``materials``; optional fields include ``fixed_vertices``,
+    ``vertex_layers``, ``constraints``, ``environment``, ``time_step_s``,
+    ``steps``, ``constraint_iterations``, ``speed_tolerance_m_s`` and
+    ``stable_steps_required``. The stages are typed hand-offs: lattice ->
+    forces/wind -> contact/seams/self-collision. No LLM is used.
+    """
+    req, err = _json_arg(json_text, "{vertices, faces, face_material_ids, materials}")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    required = ("vertices", "faces", "face_material_ids", "materials")
+    missing = [key for key in required if key not in req]
+    if missing:
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS", "missing": missing})
+    solver = str(req.get("solver", "legacy")).strip().lower()
+    if solver == "xpbd":
+        from . import cross_xpbd as _xpbd
+        optional = {key: req[key] for key in (
+            "face_warp_directions", "initial_positions", "initial_velocities",
+            "fixed_vertices", "seams", "gravity_m_s2", "time_step_s", "steps",
+            "solver_iterations", "jacobi_relaxation",
+            "max_displacement_fraction", "max_substeps",
+            "convergence_tolerance", "speed_tolerance_m_s",
+            "stable_steps_required") if key in req}
+        return _ok(_xpbd.simulate(
+            req["vertices"], req["faces"],
+            face_material_ids=req["face_material_ids"],
+            materials=req["materials"], **optional))
+    if solver not in ("legacy", "cross"):
+        return _ok({"verdict": "UNKNOWN_CROSS_SOLVER_BACKEND",
+                    "why": "solver must be legacy or xpbd",
+                    "available": ["legacy", "xpbd"]})
+    from . import cross_cloth_solver as _cross_cloth
+    optional = {key: req[key] for key in (
+        "fixed_vertices", "vertex_layers", "constraints", "environment",
+        "time_step_s", "steps", "constraint_iterations",
+        "speed_tolerance_m_s", "stable_steps_required") if key in req}
+    return _ok(_cross_cloth.simulate(
+        req["vertices"], req["faces"],
+        face_material_ids=req["face_material_ids"],
+        materials=req["materials"], **optional))
+
+
+@tool
+def cross_cloth_capabilities() -> str:
+    """Report implemented CPU XPBD features and honest GPU availability."""
+    from . import cross_xpbd as _xpbd
+    report = _xpbd.capabilities()
+    report["metal_app_backend"] = {
+        "implemented": True,
+        "wired_to_python_mcp": False,
+        "why": "the optional Metal backend runs in the macOS app and must "
+               "complete a command buffer before it can claim GPU execution",
+    }
+    return _ok(report)
+
+
+@tool
+def industrial_cloth_simulate(json_text: str = "") -> str:
+    """Run one typed high-fidelity reference workflow without an LLM.
+
+    The request schema is ``garment.industrial-cloth-step.v1``. Numerical
+    layers remain separate: optional measured-material calibration and fluid
+    impulse, XPBD time integration, optional shell residual/correction, CCD
+    contact/seam projection, and optional REVIEW-only comfort screening.
+    This is an inspectable reference workflow, not an industrial-validation
+    claim.
+    """
+    req, err = _json_arg(json_text, "garment.industrial-cloth-step.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import industrial_solver as _industrial
+    return _ok(_industrial.simulate(req))
+
+
+@tool
+def industrial_cloth_capabilities() -> str:
+    """Report integrated numerical kernels and all known industrial gaps."""
+    from . import industrial_solver as _industrial
+    return _ok(_industrial.capabilities())
+
+
+@tool
+def high_fidelity_workflow(json_text: str = "") -> str:
+    """Run requested high-fidelity stages under one verdict-preserving gate.
+
+    The input is ``garment.high-fidelity-workflow.v1``.  Global shell,
+    bounded broad-phase/CCD, incompressible flow, yarn/needle topology,
+    measured seam calibration and wearer-specific comfort stages remain
+    independent: a refusal in one stage is never averaged into another.
+    """
+    req, err = _json_arg(json_text, "garment.high-fidelity-workflow.v1 object")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict):
+        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS",
+                    "why": "json_text must be an object"})
+    from . import high_fidelity_workflow as _workflow
+    return _ok(_workflow.run(req))
+
+
+@tool
+def high_fidelity_capabilities() -> str:
+    """Report implemented kernels, GPU boundary and validation exclusions."""
+    from . import high_fidelity_workflow as _workflow
+    return _ok(_workflow.capabilities())
+
+
+@tool
+def proof_cross_verify(json_text: str = "") -> str:
+    """Verify exact/bounded obligations and land evidence on the six-arm cross."""
+    req, err = _json_arg(json_text, "solver.proof-cross.v1 object")
+    if err:
+        return _ok(err)
+    from . import physics_proof_cross as _proof
+    return _ok(_proof.verify(req))
+
+
+@tool
+def proof_cross_capabilities() -> str:
+    """Report what the proof cross can certify and what it cannot solve."""
+    from . import physics_proof_cross as _proof
+    return _ok(_proof.capabilities())
+
+
+@tool
+def certified_collision_solve(json_text: str = "") -> str:
+    """Run exact predicates and conservative linear-motion CCD certificates."""
+    req, err = _json_arg(json_text, "certified collision request object")
+    if err:
+        return _ok(err)
+    from . import certified_collision as _collision
+    return _ok(_collision.solve(req))
+
+
+@tool
+def implicit_shell_dynamics_solve(json_text: str = "") -> str:
+    """Run implicit Newmark shell dynamics with a numerical residual tangent."""
+    req, err = _json_arg(json_text, "implicit shell dynamics request object")
+    if err:
+        return _ok(err)
+    from . import implicit_shell_dynamics as _shell
+    return _ok(_shell.solve(req))
+
+
+@tool
+def turbulence_validate(json_text: str = "") -> str:
+    """Run manufactured-flow checks and evidence-gated turbulence validation."""
+    req, err = _json_arg(json_text, "turbulence validation request object")
+    if err:
+        return _ok(err)
+    from . import turbulence_validation as _validation
+    return _ok(_validation.validate(req))
+
+
+@tool
+def sewing_topology_simulate(json_text: str = "") -> str:
+    """Run reference yarn torsion, friction, cutting and remeshing events."""
+    req, err = _json_arg(json_text, "sewing topology request object")
+    if err:
+        return _ok(err)
+    from . import sewing_topology as _topology
+    return _ok(_topology.simulate(req))
+
+
+@tool
+def nonlinear_shell_solve(json_text: str = "") -> str:
+    """Solve one deterministic global quasi-Newton shell equilibrium case."""
+    req, err = _json_arg(json_text, "nonlinear shell request object")
+    if err:
+        return _ok(err)
+    from . import nonlinear_shell_fem as _shell
+    return _ok(_shell.solve(req))
+
+
+@tool
+def production_collision_solve(json_text: str = "") -> str:
+    """Run swept broad phase and bounded floating-point CCD checks."""
+    req, err = _json_arg(json_text, "production collision request object")
+    if err:
+        return _ok(err)
+    from . import production_collision as _collision
+    return _ok(_collision.solve(req))
+
+
+@tool
+def incompressible_fluid_step(json_text: str = "") -> str:
+    """Advance one pressure-projected incompressible-grid reference step."""
+    req, err = _json_arg(json_text, "incompressible fluid request object")
+    if err:
+        return _ok(err)
+    from . import incompressible_fluid as _fluid
+    return _ok(_fluid.step(req))
+
+
+@tool
+def yarn_needle_simulate(json_text: str = "") -> str:
+    """Simulate discrete yarn, needle motion and reversible stitch topology."""
+    req, err = _json_arg(json_text, "yarn and needle request object")
+    if err:
+        return _ok(err)
+    from . import yarn_needle as _yarn
+    return _ok(_yarn.simulate(req))
+
+
+@tool
+def seam_calibrate(json_text: str = "") -> str:
+    """Fit seam coefficients only from complete measured seam channels."""
+    req, err = _json_arg(json_text, "measured seam calibration object")
+    if err:
+        return _ok(err)
+    from . import seam_calibration as _seam
+    return _ok(_seam.calibrate(req))
+
+
+@tool
+def wearer_comfort_evaluate(json_text: str = "") -> str:
+    """Evaluate wearer-bound observations as REVIEW, never medical truth."""
+    req, err = _json_arg(json_text, "wearer comfort observation object")
+    if err:
+        return _ok(err)
+    from . import wearer_comfort as _comfort
+    return _ok(_comfort.evaluate(req))
+
+
+@tool
+def material_calibrate(json_text: str = "") -> str:
+    """Calibrate six observed textile channels; never fill missing channels."""
+    req, err = _json_arg(json_text, "material.measurements.v1 object")
+    if err:
+        return _ok(err)
+    from . import material_calibration as _calibration
+    return _ok(_calibration.calibrate(req))
+
+
+@tool
+def comfort_evaluate(json_text: str = "") -> str:
+    """Return a REVIEW-only engineering comfort comparison from observations."""
+    req, err = _json_arg(json_text, "garment.comfort-observations.v1 object")
+    if err:
+        return _ok(err)
+    from . import comfort_model as _comfort
+    return _ok(_comfort.evaluate(req))
+
+
+@tool
+def corpus_catalog_ingest(catalog_path: str = "", index_path: str = "",
+                          commit: bool = False) -> str:
+    """Rights-gate and content-address a local commercial candidate catalog.
+
+    The bundled default catalog contains metadata only. It does not download
+    repositories, images, meshes, GarmentCodeData or generated patterns. Code
+    licences are not transferred to data rights.
+    """
+    from . import corpus_ingest as _ingest
+    catalog = (Path(catalog_path) if catalog_path.strip() else
+               Path(__file__).resolve().parent.parent / "docs" / "corpora" /
+               "candidate-catalog.json")
+    index = (Path(index_path) if index_path.strip() else
+             _p("corpus-content-index"))
+    try:
+        loaded = _ingest.load_catalog(catalog)
+        return _ok(_ingest.ingest(loaded, index, commit=bool(commit)))
+    except (OSError, ValueError) as exc:
+        return _ok({"verdict": "UNKNOWN_CORPUS_INGEST_IO", "why": str(exc),
+                    "catalog_path": str(catalog), "index_path": str(index)})
 
 
 # ---------------------------------------------------------------------------
