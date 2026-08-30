@@ -678,21 +678,32 @@ struct AtelierChatPaneView: View {
                 }
             }
             if factory.visibleFrontInventoryAuditRequired {
-                Button(app.t(
-                    "Confirm visible garments and layers",
-                    "正面の衣服数・重なり・部品を確認")) {
-                    Task { @MainActor in
-                        _ = await factory.confirmVisibleFrontInventoryAudit()
+                if let imagePath = factory.targetSculptSourceImagePath {
+                    GarmentRegionPickerView(
+                        imagePath: imagePath,
+                        allowsAutomaticProposalConfirmation: false
+                    ) { outline in
+                        intake.rememberConfirmedOutline(
+                            outline, for: imagePath)
+                        Task { @MainActor in
+                            _ = await factory.confirmVisibleFrontInventoryAudit(
+                                confirmedOutline: outline,
+                                imagePath: imagePath)
+                        }
                     }
+                    .accessibilityIdentifier(
+                        "atelier.beginner.confirm-visible-front-inventory")
+                    .accessibilityHint(app.t(
+                        "Place 3–5 points on the garment to confirm only its visible front. The rear, material identity, measurements, and sewing remain proposed.",
+                        "衣服に3〜5点を置き、正面で見える領域だけを確認します。背面・素材の正体・寸法・縫製は推測のままです。"))
+                } else {
+                    Label(app.t(
+                        "No source image is available for confirmation",
+                        "確認対象の画像がありません"),
+                          systemImage: "photo.badge.exclamationmark")
+                        .font(.system(size: 8, weight: .semibold))
+                        .foregroundStyle(Theme.bad)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.small)
-                .disabled(factory.busy)
-                .accessibilityIdentifier(
-                    "atelier.beginner.confirm-visible-front-inventory")
-                .accessibilityHint(app.t(
-                    "Confirms only what is visible from the front. The rear, material identity, measurements, and sewing remain proposed.",
-                    "正面で見える内容だけを確認します。背面・素材の正体・寸法・縫製は推測のままです。"))
             } else if factory.visibleFrontInventoryAuditConfirmed &&
                         !factory.targetCleanupConfirmed {
                 Label(app.t(

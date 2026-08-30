@@ -49,13 +49,26 @@ private enum InitialHumanReviewGateAudit {
         require(view.contains(
                     "atelier.beginner.confirm-visible-front-inventory") &&
                 view.contains("confirmVisibleFrontInventoryAudit") &&
+                view.contains("GarmentRegionPickerView") &&
+                view.contains("allowsAutomaticProposalConfirmation: false") &&
+                view.contains("confirmedOutline: outline") &&
                 view.contains("if !factory.visibleFrontInventory.isEmpty") &&
                 view.contains("factoryVisibleFrontInventoryCard") &&
                 dynamicView.contains(
                     "atelier.beginner.confirm-visible-front-inventory") &&
                 dynamicView.contains("confirmVisibleFrontInventoryAudit") &&
+                dynamicView.contains("GarmentRegionPickerView") &&
+                dynamicView.contains(
+                    "allowsAutomaticProposalConfirmation: false") &&
+                dynamicView.contains("confirmedOutline: outline") &&
                 dynamicView.contains("visibleFrontInventoryAuditCard"),
                 "BEGINNER_UI_HAS_NO_VISIBLE_GARMENT_AUDIT_ACTION",
+                &failures)
+        require(controller.contains("humanConfirmedFrontEvidence") &&
+                controller.contains("three_to_five_human_seeds") &&
+                controller.contains("HUMAN_CONFIRMED_REGION_SELECTION") &&
+                controller.contains("humanConfirmed: true"),
+                "HUMAN_REGION_PICKER_DOES_NOT_OPEN_CONFIRMED_GEOMETRY_PATH",
                 &failures)
         require(controller.contains("garment_target_sculpt_modifier") &&
                 controller.contains("applyTargetSculptModifier") &&

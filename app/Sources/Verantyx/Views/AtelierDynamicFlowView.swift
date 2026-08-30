@@ -552,6 +552,7 @@ struct AtelierBeginnerContextCardsView: View {
     @ObservedObject private var factory = GarmentFactoryReactController.shared
     @ObservedObject private var job = GarmentGenerationJob.shared
     @ObservedObject private var context = AtelierContext.shared
+    @ObservedObject private var intake = AtelierIntake.shared
     @State private var selecting: String?
     @State private var undoingFactoryDecision = false
     @State private var previewingCandidate: String?
@@ -1913,18 +1914,29 @@ struct AtelierBeginnerContextCardsView: View {
                         .font(.system(size: 8.5, weight: .semibold))
                         .foregroundStyle(Theme.warn)
                 }
-                Button("正面の衣服数・重なり・部品を確認") {
-                    Task { @MainActor in
-                        _ = await factory.confirmVisibleFrontInventoryAudit()
+                if let imagePath = factory.targetSculptSourceImagePath {
+                    GarmentRegionPickerView(
+                        imagePath: imagePath,
+                        allowsAutomaticProposalConfirmation: false
+                    ) { outline in
+                        intake.rememberConfirmedOutline(
+                            outline, for: imagePath)
+                        Task { @MainActor in
+                            _ = await factory.confirmVisibleFrontInventoryAudit(
+                                confirmedOutline: outline,
+                                imagePath: imagePath)
+                        }
                     }
+                    .accessibilityIdentifier(
+                        "atelier.beginner.confirm-visible-front-inventory")
+                    .accessibilityHint(
+                        "衣服に3〜5点を置いて正面領域を確認します。背面・素材・実寸・縫製は承認しません。")
+                } else {
+                    Label("確認対象の画像がありません",
+                          systemImage: "photo.badge.exclamationmark")
+                        .font(.system(size: 8.5, weight: .semibold))
+                        .foregroundStyle(Theme.bad)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.small)
-                .disabled(factory.busy)
-                .accessibilityIdentifier(
-                    "atelier.beginner.confirm-visible-front-inventory")
-                .accessibilityHint(
-                    "正面の可視内容だけを確認します。背面・素材・実寸・縫製は承認しません。")
             } else if factory.visibleFrontInventoryAuditConfirmed {
                 Label("正面台帳を確認済み — 融合3Dの削除編集を採用してください",
                       systemImage: "checkmark.circle")

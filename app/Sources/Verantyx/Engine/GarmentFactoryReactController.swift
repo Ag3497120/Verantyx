@@ -483,6 +483,7 @@ public final class GarmentFactoryReactController: ObservableObject {
     private var activeShapeDecisionID: String?
     private var consumedImageSelectionRevision: UInt64?
     private var consumedImageSelectionPath: String?
+    private var activeDesignRequirements: [GarmentCommandIR.Requirement] = []
     private var activeDesignRequirementProfile:
         GarmentDesignRequirementProfileBridge.ValidatedProfile?
     private var activeTargetOutline: [String: Any]?
@@ -1528,6 +1529,7 @@ public final class GarmentFactoryReactController: ObservableObject {
         pendingHumanAuditProposer = nil
         initialHumanReviewResumeInFlight = false
         activeVisibleAnalysisDigest = nil
+        activeDesignRequirements = []
         persistedForegroundCleanupDigest = nil
         hasPersistedForegroundCleanup = false
         recordedVeraFrontTargetDigests = []
@@ -1749,6 +1751,7 @@ public final class GarmentFactoryReactController: ObservableObject {
         materialCandidatePayloads = [:]
         canUndoShapeDecision = false
         activeShapeDecisionID = nil
+        activeDesignRequirements = designRequirements
         activeDesignRequirementProfile = nil
         designRequirementReviewItems = []
         visionPipelineReviewItems = []
@@ -2571,12 +2574,64 @@ public final class GarmentFactoryReactController: ObservableObject {
     /// back, hidden construction, material identity, dimensions or sewing
     /// method.  Compilation resumes only when the independently editable
     /// foreground target has also been adopted by the human reviewer.
-    func confirmVisibleFrontInventoryAudit() async -> Report? {
-        guard visibleFrontInventoryAuditRequired,
+    func confirmVisibleFrontInventoryAudit(
+        confirmedOutline: [String: Any], imagePath: String
+    ) async -> Report? {
+        guard !busy else { return lastReport }
+        guard activeAuditMode == .humanAudit,
+              visibleFrontInventoryAuditRequired,
               !pendingHumanAuditedVisionRows.isEmpty,
               !visibleFrontInventory.isEmpty,
               let analysisDigest = activeVisibleAnalysisDigest else {
             return lastReport
+        }
+        guard let humanEvidence = Self.humanConfirmedFrontEvidence(
+                confirmedOutline),
+              let activeImagePath = activeTargetImagePath,
+              URL(fileURLWithPath: activeImagePath).standardizedFileURL.path
+                == URL(fileURLWithPath: imagePath).standardizedFileURL.path else {
+            return finish(
+                "UNKNOWN_HUMAN_CONFIRMED_FRONT_REQUIRED", phase: phase,
+                message: "同じ画像上で人が衣服に3〜5点を置き、正面の衣服領域を確認してください。AIの自動マスクだけでは監査を完了できません。",
+                rounds: 0, modelCalls: totalModelCalls,
+                context: [
+                    "missing_fields": [
+                        "matching_image_path", "observed_clothing_regions",
+                        "three_to_five_human_seeds",
+                    ],
+                    "rear_state": "UNKNOWN_UNOBSERVED",
+                    "material_state": "UNKNOWN_UNOBSERVED",
+                ])
+        }
+
+        busy = true
+        defer { busy = false }
+
+        // Rebuild every image-bound geometric input from the exact seeded
+        // clothing boundary.  This replaces the earlier PROPOSED automatic
+        // mask, but does not observe depth, the rear, material or construction.
+        targetCleanupConfirmed = false
+        persistedForegroundCleanupDigest = nil
+        targetRemovedRegionIDs = []
+        targetSculptRemovedFaces = []
+        targetSculptUndoStack = []
+        targetSculptRevision &+= 1
+        await prepareBodyProxyCandidates(
+            outline: confirmedOutline, imagePath: imagePath,
+            requirements: activeDesignRequirements, evidenceState: "OBSERVED")
+        await prepareTargetReconstruction(
+            outline: confirmedOutline, imagePath: imagePath)
+        guard targetReconstruction?.sculptSurface != nil,
+              targetSculptDigest != nil else {
+            return finish(
+                "UNKNOWN_HUMAN_FRONT_TARGET_RECONSTRUCTION", phase: phase,
+                message: "人が確認した正面輪郭から比較用ターゲットを構成できませんでした。背面を捏造せず停止します。",
+                rounds: 0, modelCalls: totalModelCalls,
+                context: [
+                    "confirmed_region_count": humanEvidence.regions.count,
+                    "human_seed_count": humanEvidence.seeds.count,
+                    "rear_state": "UNKNOWN_UNOBSERVED",
+                ])
         }
         let decisions: [[String: Any]] = visibleFrontInventory.map { row in
             ["assertion_id": row.id, "action": "ACCEPT"]
@@ -2586,6 +2641,9 @@ public final class GarmentFactoryReactController: ObservableObject {
             "reviewer": Self.localHumanReviewer(),
             "analysis_digest": analysisDigest,
             "decisions": decisions,
+            "confirmed_outline": confirmedOutline,
+            "confirmed_regions": humanEvidence.regions,
+            "human_seed_provenance": humanEvidence.seeds,
         ])
         guard let next = state(from: persisted),
               next["phase"] as? String == "FOREGROUND_CLEANUP_REQUIRED" else {
@@ -2604,18 +2662,49 @@ public final class GarmentFactoryReactController: ObservableObject {
         visibleFrontInventoryAuthority = "HUMAN_REVIEWED_VISIBLE_SOURCE"
         trace.append(.init(
             round: 0, actor: "HUMAN_VISIBLE_GARMENT_AUDIT",
-            action: "ACCEPT_VISIBLE_FRONT_INVENTORY_ONLY",
+            action: "ACCEPT_SEEDED_VISIBLE_FRONT_INVENTORY_AND_TARGET",
             verdict: "OBSERVED_BY_HUMAN_REVIEW"))
-        if !targetCleanupConfirmed {
-            phase = next["phase"] as? String ?? "FOREGROUND_CLEANUP_REQUIRED"
-            return finish(
-                "FOREGROUND_CLEANUP_REQUIRED", phase: phase,
-                message: "可視部品台帳を確認しました。融合3Dの不要部分を削り、比較目標として採用すると部品→3D→型紙へ進みます。",
-                rounds: 0, modelCalls: totalModelCalls,
-                context: next)
-        }
+
+        // The seeded picker exported clothing regions only, so the same human
+        // action is an explicit adoption of this initial front comparison
+        // target.  It is not an observation of the generated depth or rear.
+        targetCleanupAuthority = "HUMAN_CONFIRMED_REGION_SELECTION"
+        targetCleanupConfirmed = true
+        trace.append(.init(
+            round: Int(targetSculptRevision), actor: "HUMAN_REGION_PICKER",
+            action: "ADOPT_SEEDED_FRONT_COMPARISON_TARGET",
+            verdict: "HUMAN_EDIT_ACCEPTED_FOR_COMPARISON"))
+        scheduleTargetSameCameraComparison()
         await persistForegroundCleanupAndResume()
         return lastReport
+    }
+
+    /// Accept only the exact RegionPicker export produced from 3–5 human
+    /// labeled points. Automatic proposals have PROPOSED provenance and fail
+    /// this check, even if a model or another caller supplies a reviewer name.
+    private static func humanConfirmedFrontEvidence(
+        _ outline: [String: Any]
+    ) -> (regions: [[String: Any]], seeds: [[String: Any]])? {
+        guard let polygon = outline["outline"] as? [[Double]],
+              polygon.count >= 3,
+              let regions = outline["regions"] as? [[String: Any]],
+              !regions.isEmpty,
+              regions.allSatisfy({ row in
+                  (row["state"] as? String)?.uppercased() == "OBSERVED"
+                    && (row["semantic_label"] as? String)?.lowercased()
+                        == "clothing"
+              }),
+              let provenance = outline["provenance"] as? [String: Any],
+              (provenance["kind"] as? String)?.uppercased() == "OBSERVED",
+              let seeds = provenance["human_seeds"] as? [[String: Any]],
+              (3...5).contains(seeds.count),
+              seeds.allSatisfy({
+                  ($0["kind"] as? String)?.uppercased() == "OBSERVED"
+              }),
+              seeds.contains(where: {
+                  ($0["label"] as? String)?.lowercased() == "clothing"
+              }) else { return nil }
+        return (regions, seeds)
     }
 
     /// Bind the adopted CAD target to the same persisted audit.  A local UI

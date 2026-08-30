@@ -10,6 +10,10 @@ struct GarmentRegionPickerView: View {
     @StateObject private var model = GarmentRegionPickerModel()
 
     let imagePath: String?
+    /// The legacy pattern-run screen may still use a user-selected automatic
+    /// mask as a PROPOSED preview.  A human-audit gate must set this to false:
+    /// only 3–5 explicit human seeds may open that gate.
+    var allowsAutomaticProposalConfirmation = true
     let onConfirm: ([String: Any]) -> Void
 
     var body: some View {
@@ -271,7 +275,8 @@ struct GarmentRegionPickerView: View {
                 .font(.system(size: 10.5, design: .monospaced))
                 .foregroundStyle(model.seeds.count >= 3 ? Theme.fg : Theme.faint)
             Spacer()
-            if !model.automaticCandidates.isEmpty {
+            if allowsAutomaticProposalConfirmation,
+               !model.automaticCandidates.isEmpty {
                 Button(app.t("Use selected proposal & run", "選択した候補で実行")) {
                     if let outline = model.selectedAutomaticOutline() { onConfirm(outline) }
                 }
