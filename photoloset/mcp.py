@@ -2556,6 +2556,111 @@ def garment_body_image_separation_propose(json_text: str = "") -> str:
 
 
 @tool
+def garment_body_avatar_fit(json_text: str = "") -> str:
+    """Fit one of ten bounded preview bodies to typed image evidence.
+
+    ``json_text`` is a ``garment.body-avatar-fit.request.v1`` object.  Image
+    evidence controls only same-camera scale, translation and pose anchors;
+    it never becomes wearer measurements, hidden body, or rear observation.
+    Only dimensions explicitly listed in ``interpolation.allowed_dimensions``
+    may modify the selected preview profile.
+    """
+    req, err = _json_arg(json_text, "garment.body-avatar-fit.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import body_avatar_fit as _fit
+    result = _fit.fit_body_avatar(req)
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_second_skin_triangle_build(json_text: str = "") -> str:
+    """Build a primitive-neutral triangulated second skin on a body proxy.
+
+    Geometry is selected by typed domains, components, layers, sides and
+    ownership relations, not garment names.  All six-arm Cross proposals read
+    the same old state before deterministic reduction.  Rear surfaces and
+    boundary/seam candidates remain PROPOSED; sewability is not claimed.
+    """
+    req, err = _json_arg(json_text, "second-skin triangle request object")
+    if err:
+        return _ok(err)
+    from . import second_skin_triangle_engine as _second_skin
+    result = _second_skin.build(req)
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_rear_candidate_ensemble(json_text: str = "") -> str:
+    """Generate separate PROPOSED rear alternatives for a visible-part graph.
+
+    FashionSigLIP retrieval and multimodal proposals are scored per structure,
+    parts, seams and material axis and are never averaged into one authority.
+    With no corpus the tool still produces two geometry-only alternatives.
+    Sewing search stays closed until a named human approves one exact digest.
+    """
+    req, err = _json_arg(json_text, "garment.rear-candidate-ensemble.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import rear_candidate_ensemble as _rear
+    result = _rear.generate_rear_candidates(req)
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_candidate_3d_repair_loop(json_text: str = "") -> str:
+    """Run a bounded candidate-specific same-camera 3D repair loop.
+
+    Each candidate owns a distinct mesh.  The deterministic loop performs
+    propose -> project/simulate -> compare -> repair while EvidenceCross and
+    PhysicalCross retain separate residuals and provenance.  Non-convergence,
+    generic fallback, stale approval and unobserved authority promotion stop
+    typed; only an exact final-digest approval can emit a pattern hand-off.
+    """
+    req, err = _json_arg(json_text, "garment.candidate-3d-repair-loop.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import candidate_3d_repair_loop as _repair
+    result = _repair.run(req)
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
+def garment_geometric_atelier_workflow(json_text: str = "") -> str:
+    """Run image evidence through the geometry-first Vera Atelier harness.
+
+    ``json_text`` is ``garment.geometric-atelier-workflow.request.v1``.  The
+    tool composes bounded body fitting, typed front regions, second-skin
+    triangles, independent FashionSigLIP/multimodal rear evidence, distinct
+    rear candidate meshes and a finite same-camera repair loop.  It supports
+    HUMAN_AUDIT and AUTO_PROPOSED preview modes.  Names never select a garment
+    generator; hidden rear/material remain proposals and manufacturing is
+    never certified by this orchestration boundary.
+    """
+    req, err = _json_arg(
+        json_text, "garment.geometric-atelier-workflow.request.v1 object")
+    if err:
+        return _ok(err)
+    from . import geometric_atelier_workflow as _workflow
+    result = _workflow.run(req)
+    result["manufacturing_ready"] = False
+    result["manufacturing_certified"] = False
+    result["fact_promotions"] = []
+    return _ok(result)
+
+
+@tool
 def garment_body_image_separation_precomputed(json_text: str = "") -> str:
     """Probe, normalise, or execute an offline semantic-mask adapter.
 

@@ -59,8 +59,12 @@ private enum InitialHumanReviewGateAudit {
                 &failures)
         require(controller.contains("garment_target_sculpt_modifier") &&
                 controller.contains("applyTargetSculptModifier") &&
-                dynamicView.contains("引っ張る") &&
-                dynamicView.contains("縦に伸ばす") &&
+                view.contains("case pull") &&
+                view.contains("case stretch") &&
+                view.contains("onModifierDrag") &&
+                view.contains("polygonPoints") &&
+                dynamicView.contains("輪郭点をドラッグ") &&
+                dynamicView.contains("外側を一周クリック") &&
                 dynamicView.contains("WIND_PREVIEW") &&
                 dynamicView.contains("形状Undo"),
                 "BEGINNER_CAD_HAS_NO_TYPED_PULL_STRETCH_WIND_PATH",

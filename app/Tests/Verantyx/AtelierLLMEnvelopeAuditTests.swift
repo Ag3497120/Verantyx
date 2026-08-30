@@ -44,6 +44,14 @@ private enum AtelierLLMEnvelopeAudit {
         require(router.contains("AtelierGarmentRequestPlanner.plan(") &&
                 !router.contains("let fallback = await resolve(text)"),
                 "BEGINNER_REQUEST_FELL_BACK_TO_FIXED_TEXT_GRAMMAR")
+        require(router.contains("制作モデルの提案（AI生成・未検証）") &&
+                router.contains("以下は作業計画であり、生成結果ではありません") &&
+                router.contains("artifact_status=NOT_GENERATED_WAITING_FOR_HUMAN") &&
+                router.contains("3D・型紙・縫製成果物はまだ生成されていません"),
+                "UNGENERATED_FACTORY_WORK_CAN_BE_PRESENTED_AS_A_RESULT")
+        require(planner.contains("a proposed plan, not a progress or success") &&
+                planner.contains("no 3D, pattern, or sewing output"),
+                "MODEL_PROMPT_CAN_PROMISE_UNGENERATED_ARTIFACTS")
         return failures
     }
 }

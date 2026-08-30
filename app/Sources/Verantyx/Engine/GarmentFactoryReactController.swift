@@ -294,6 +294,10 @@ final class GarmentFactoryReactController: ObservableObject {
     @Published private(set) var baseAvatarProfiles: [BaseAvatarProfile] =
         GarmentFactoryReactController.defaultBaseAvatarProfiles
     @Published private(set) var selectedBaseAvatarID = "preview-balanced-170"
+    /// Digest of the bounded image-relative avatar fit currently used by the
+    /// candidate renderer. Pixels control only pose/scale/translation; this is
+    /// never presented as a measurement of the photographed wearer.
+    @Published private(set) var imageRelativeBodyFitDigest: String?
     @Published private(set) var targetReconstruction: TargetReconstructionArtifact?
     @Published private(set) var targetCleanupAuthority = "UNSELECTED"
     @Published private(set) var targetCleanupConfirmed = false {
@@ -322,6 +326,12 @@ final class GarmentFactoryReactController: ObservableObject {
             }
         }
     }
+    /// The legacy outline -> photo-pattern -> mannequin path is useful as a
+    /// numerical calibration baseline, but it is not a candidate-specific 3D
+    /// reconstruction of the photographed garment. Keep it out of the normal
+    /// preview channel so a generic dress/cape cannot visually replace the
+    /// audited image parts while the vision/rear ensemble is still running.
+    @Published private(set) var outlineCalibrationBaseline: PreviewArtifact?
     /// Compact proposal-only cutting data for the currently previewed image
     /// candidate. Beginner UI reads this directly before human approval.
     @Published private(set) var candidateManufacturingPreview: [String: Any]?
@@ -347,6 +357,13 @@ final class GarmentFactoryReactController: ObservableObject {
     private let liveExternalEffectsEnabled: Bool
     private var pendingProceduralHypotheses: [[String: Any]] = []
     private var pendingVisionHypotheses: [[String: Any]] = []
+    private var activeBodyImageSeparationEnvelope: [String: Any]?
+    private var activeBodyRequestedMeasurements: [String: Any] = [:]
+    private var activeImageRelativeBodyFit: [String: Any]?
+    private var activeInitialFashionRetrieval: [String: Any]?
+    private var activeGeometricAtelierWorkflow: [String: Any]?
+    private var geometricRearCandidateArtifacts: [String: PreviewArtifact] = [:]
+    private var geometricRearCandidateArtifactsInOrder: [PreviewArtifact] = []
     /// Candidate artifacts produced by the same deterministic parts pipeline
     /// that validates the image model proposal.  Keeping these outside the
     /// persisted proposal sheet prevents its authority scrubber from changing
@@ -728,6 +745,7 @@ final class GarmentFactoryReactController: ObservableObject {
             if let value = value as? NSNumber { return value.doubleValue }
             return nil
         }
+        var imageFittedAvatarID: String?
 
         let separation = await prepareBodyImageSeparation(
             outline: outline, imagePath: imagePath,
@@ -777,6 +795,90 @@ final class GarmentFactoryReactController: ObservableObject {
             source["height"] = representation.pixelsHigh
             camera["width_px"] = representation.pixelsWide
             camera["height_px"] = representation.pixelsHigh
+        }
+
+        // Preserve the exact selected separation as the common evidence
+        // envelope for body fitting, second-skin construction and rear
+        // candidates. The fallback contains only a front garment outline and
+        // therefore remains PROPOSED; it never invents a hidden body or rear.
+        var selectedSeparation = separation ?? [
+            "candidate_id": "front-outline-separation",
+            "state": "PROPOSED",
+            "authority": "PROPOSED",
+            "coordinate_space": "PIXELS",
+            "camera": camera,
+            "masks": garmentOutline.count >= 3 ? [[
+                "mask_id": "front-garment-outline",
+                "class": "GARMENT",
+                "mask_digest": outlineDigest,
+                "outline": garmentOutline,
+                "confidence": evidenceState.uppercased() == "OBSERVED" ? 1.0 : 0.55,
+                "authority": evidenceState.uppercased() == "OBSERVED"
+                    ? "OBSERVED" : "PROPOSED",
+            ]] : [],
+        ]
+        let selectedSeparationID = selectedSeparation["candidate_id"] as? String
+            ?? "selected-front-separation"
+        selectedSeparation["candidate_id"] = selectedSeparationID
+        if selectedSeparation["camera"] == nil {
+            selectedSeparation["camera"] = camera
+        }
+        let separationEnvelope: [String: Any] = [
+            "schema": "garment.body-image-separation.v1",
+            "source": source,
+            "candidates": [selectedSeparation],
+            "selection": ["selected_candidate_id": selectedSeparationID],
+            "rear_state": "UNKNOWN_UNOBSERVED",
+            "manufacturing_ready": false,
+        ]
+        activeBodyImageSeparationEnvelope = separationEnvelope
+        activeBodyRequestedMeasurements = dimensions
+
+        var fitRequest: [String: Any] = [
+            "schema": "garment.body-avatar-fit.request.v1",
+            "separation": separationEnvelope,
+            "requested_measurements": dimensions,
+            "interpolation": [
+                "method": "LINEAR_BOUNDED",
+                "allowed_dimensions": dimensions.keys.sorted(),
+            ],
+        ]
+        if let targetDigest = targetSculptDigest {
+            fitRequest["human_edit_digest"] = targetDigest
+        }
+        if let fitText = Self.jsonString(fitRequest) {
+            let fit = await toolDoor(
+                "garment_body_avatar_fit", ["json_text": fitText])
+            let fitVerdict = fit["verdict"] as? String
+                ?? "UNKNOWN_BODY_AVATAR_FIT_MCP"
+            trace.append(.init(
+                round: 0, actor: "VERA_BODY_AVATAR_FIT_MCP",
+                action: "FIT_BOUNDED_AVATAR_TO_FRONT_IMAGE",
+                verdict: fitVerdict))
+            if fitVerdict == "PROPOSED_IMAGE_RELATIVE_BODY_AVATAR_FIT",
+               let avatar = fit["selected_avatar"] as? [String: Any],
+               let avatarID = avatar["avatar_id"] as? String,
+               let geometryDigest = avatar["geometry_digest"] as? String,
+               let controls = avatar["dimensions_cm"] as? [String: Any],
+               let height = number(controls["height"]),
+               let chest = number(controls["chest_bust"]),
+               let waist = number(controls["waist"]),
+               let hip = number(controls["hip"]) {
+                let profile = BaseAvatarProfile(
+                    id: avatarID,
+                    title: String(format: "画像位置合わせ %.0f · %.0f / %.0f / %.0f cm",
+                                  height, chest, waist, hip),
+                    heightCM: height, chestCM: chest, waistCM: waist, hipCM: hip,
+                    geometryDigest: geometryDigest,
+                    authority: "PROPOSED_IMAGE_RELATIVE_PREVIEW")
+                baseAvatarProfiles = [profile] + baseAvatarProfiles.filter {
+                    $0.id != profile.id
+                }
+                selectedBaseAvatarID = profile.id
+                imageFittedAvatarID = profile.id
+                activeImageRelativeBodyFit = fit
+                imageRelativeBodyFitDigest = fit["contract_digest"] as? String
+            }
         }
 
         var request: [String: Any] = [
@@ -898,6 +1000,12 @@ final class GarmentFactoryReactController: ObservableObject {
            let avatarID = avatarForCandidate[candidateID] {
             selectedBaseAvatarID = avatarID
         }
+        // The image-relative fit and the second-skin engine share this exact
+        // avatar geometry. The older body-proxy alternatives remain selectable
+        // but may not silently replace it merely because AUTO_PROPOSED ran.
+        if let imageFittedAvatarID {
+            selectedBaseAvatarID = imageFittedAvatarID
+        }
     }
 
     init(hardRoundLimit: Int = 8, door: Door? = nil, toolDoor: ToolDoor? = nil) {
@@ -978,6 +1086,7 @@ final class GarmentFactoryReactController: ObservableObject {
         hasPersistedForegroundCleanup = false
         recordedVeraFrontTargetDigests = []
         previewArtifact = nil
+        outlineCalibrationBaseline = nil
         candidateManufacturingPreview = nil
         candidateSewingPlan = nil
         candidateMaterialPreview = nil
@@ -987,6 +1096,14 @@ final class GarmentFactoryReactController: ObservableObject {
         materialPreviewBaseArtifact = nil
         pendingProceduralHypotheses = []
         pendingVisionHypotheses = []
+        activeBodyImageSeparationEnvelope = nil
+        activeBodyRequestedMeasurements = [:]
+        activeImageRelativeBodyFit = nil
+        imageRelativeBodyFitDigest = nil
+        activeInitialFashionRetrieval = nil
+        activeGeometricAtelierWorkflow = nil
+        geometricRearCandidateArtifacts = [:]
+        geometricRearCandidateArtifactsInOrder = []
         visionPipelineArtifacts = [:]
         totalModelCalls = 0
         shapeCandidatePayloads = [:]
@@ -1044,12 +1161,12 @@ final class GarmentFactoryReactController: ObservableObject {
         }
         phase = "IMAGE_PREVIEW_READY"
         lastReport = Report(
-            verdict: previewArtifact == nil
+            verdict: outlineCalibrationBaseline == nil
                 ? "UNKNOWN_PREVIEW_GEOMETRY" : "PROPOSED",
             phase: phase,
-            message: previewArtifact == nil
+            message: outlineCalibrationBaseline == nil
                 ? "先行プレビューを構成できませんでした。制作モデルの提案を待っています。"
-                : "未承認の第二皮膚・3D人台・型紙を先に表示しました。背面・素材・実寸は未確定です。",
+                : "輪郭校正ベースラインを内部で準備しました。候補固有3Dは画像部品の監査後に表示します。",
             iterations: previewAttempts, modelCalls: 0)
         busy = false
     }
@@ -1146,6 +1263,7 @@ final class GarmentFactoryReactController: ObservableObject {
         activeAuditMode = selectedAuditMode
         trace.removeAll()
         previewArtifact = nil
+        outlineCalibrationBaseline = nil
         candidateManufacturingPreview = nil
         candidateSewingPlan = nil
         candidateMaterialPreview = nil
@@ -1155,6 +1273,14 @@ final class GarmentFactoryReactController: ObservableObject {
         materialPreviewBaseArtifact = nil
         pendingProceduralHypotheses = []
         pendingVisionHypotheses = []
+        activeBodyImageSeparationEnvelope = nil
+        activeBodyRequestedMeasurements = [:]
+        activeImageRelativeBodyFit = nil
+        imageRelativeBodyFitDigest = nil
+        activeInitialFashionRetrieval = nil
+        activeGeometricAtelierWorkflow = nil
+        geometricRearCandidateArtifacts = [:]
+        geometricRearCandidateArtifactsInOrder = []
         visionPipelineArtifacts = [:]
         totalModelCalls = 0
         shapeCandidatePayloads = [:]
@@ -1324,11 +1450,15 @@ final class GarmentFactoryReactController: ObservableObject {
                     deferForHumanAudit: requiresInitialHumanAudit)
             }
             let retrievalResult = await fashionRetrieval
+            activeInitialFashionRetrieval = retrievalResult
             publishInitialFashionRetrieval(retrievalResult)
             if let compiled = outcome.rows {
                 await publishInitialImageAnalysisEnsemble(
                     hypotheses: compiled, retrieval: retrievalResult,
                     imagePath: imagePath)
+                await prepareGeometricAtelierPreview(
+                    from: compiled, retrieval: retrievalResult,
+                    humanConfirmed: false)
                 var recordEvent: [String: Any] = [
                     "type": "RECORD_AI_VISIBLE_ANALYSIS",
                     "assertions": Self.visibleFrontAssertions(from: compiled),
@@ -1496,6 +1626,7 @@ final class GarmentFactoryReactController: ObservableObject {
         } else {
             let retrievalResult = await resolvedInitialFashionRetrieval(
                 initialFashionRetrieval, imagePath: imagePath)
+            activeInitialFashionRetrieval = retrievalResult
             publishInitialFashionRetrieval(retrievalResult)
             await buildGeometricPreview(outline: outline)
         }
@@ -1636,6 +1767,251 @@ final class GarmentFactoryReactController: ObservableObject {
         trace.append(.init(
             round: 0, actor: "VERA_IMAGE_ANALYSIS_ENSEMBLE",
             action: "MERGE_WITHOUT_FACT_PROMOTION", verdict: verdict))
+    }
+
+    /// Compile the audited/proposed visible ledger into the geometry-first
+    /// second-skin harness. Garment names are copied only as labels: layer,
+    /// side, quantity, ownership and front outlines select geometry. The
+    /// resulting rear alternatives preserve exactly the same front vertices.
+    private func prepareGeometricAtelierPreview(
+        from hypotheses: [[String: Any]], retrieval: [String: Any]?,
+        humanConfirmed: Bool
+    ) async {
+        guard let separation = activeBodyImageSeparationEnvelope,
+              let source = hypotheses.first,
+              let structure = source["structure"] as? [String: Any],
+              let nodes = structure["nodes"] as? [[String: Any]],
+              !nodes.isEmpty else { return }
+
+        func number(_ raw: Any?) -> Double? {
+            if let value = raw as? Double { return value }
+            if let value = raw as? Int { return Double(value) }
+            if let value = raw as? NSNumber { return value.doubleValue }
+            return nil
+        }
+        func pointRows(_ raw: Any?) -> [[Double]]? {
+            guard let rows = raw as? [Any] else { return nil }
+            let parsed = rows.compactMap { row -> [Double]? in
+                guard let values = row as? [Any] else { return nil }
+                let numbers = values.compactMap(number)
+                return numbers.count == values.count ? numbers : nil
+            }
+            return parsed.count == rows.count ? parsed : nil
+        }
+        func indexRows(_ raw: Any?) -> [[Int]]? {
+            guard let rows = raw as? [Any] else { return nil }
+            let parsed = rows.compactMap { row -> [Int]? in
+                guard let values = row as? [Any] else { return nil }
+                let indices = values.compactMap { value -> Int? in
+                    if let value = value as? Int { return value }
+                    if let value = value as? NSNumber { return value.intValue }
+                    return nil
+                }
+                return indices.count == values.count ? indices : nil
+            }
+            return parsed.count == rows.count ? parsed : nil
+        }
+
+        let graphParts: [[String: Any]] = nodes.enumerated().compactMap {
+            index, node in
+            guard let nodeID = node["node_id"] as? String else { return nil }
+            let attributes = node["attributes"] as? [String: Any] ?? [:]
+            var part: [String: Any] = [
+                "part_id": nodeID,
+                "kind": node["kind"] as? String ?? "UNKNOWN_VISIBLE_SURFACE",
+                "layer": node["layer"] as? Int ?? 0,
+                "garment_unit": attributes["garment_unit"] as? String
+                    ?? attributes["instance_id"] as? String
+                    ?? "visible-unit-\(index)",
+                "side": attributes["side"] as? String ?? "CENTER",
+                "state": "PROPOSED",
+            ]
+            if let maskID = attributes["mask_id"] as? String {
+                part["mask_id"] = maskID
+            }
+            if let outline = pointRows(
+                node["outline"] ?? attributes["outline"]
+                    ?? attributes["outline_px"]) {
+                part["outline"] = outline
+                part["coordinate_space"] = attributes["coordinate_space"]
+                    as? String ?? "PIXELS"
+            }
+            if let quantity = attributes["quantity"] as? Int,
+               (1...4).contains(quantity) {
+                part["component_count"] = quantity
+            }
+            return part
+        }
+        guard graphParts.count == nodes.count else { return }
+        let graph: [String: Any] = [
+            "graph_id": structure["structure_digest"] as? String
+                ?? source["candidate_id"] as? String
+                ?? "visible-front-graph",
+            "parts": graphParts,
+            "relations": structure["relations"] as? [[String: Any]] ?? [],
+            "authority": humanConfirmed
+                ? "HUMAN_REVIEWED_VISIBLE_FRONT" : "AI_GENERATED_PROPOSAL",
+        ]
+        let multimodal: [[String: Any]] = hypotheses.enumerated().map {
+            index, row in
+            let candidateID = row["candidate_id"] as? String
+                ?? "multimodal-\(index)"
+            let candidateStructure = row["structure"] as? [String: Any] ?? [:]
+            return [
+                "proposal_id": candidateID,
+                "model_id": "selected-local-or-api-multimodal-model",
+                "rear_structure": [
+                    "back_design": row["back_design"] as? String
+                        ?? "unobserved rear alternative",
+                    "structure": candidateStructure,
+                ],
+                "parts": candidateStructure["nodes"] as? [[String: Any]] ?? [],
+                "seams": candidateStructure["relations"] as? [[String: Any]] ?? [],
+            ]
+        }
+        var request: [String: Any] = [
+            "schema": "garment.geometric-atelier-workflow.request.v1",
+            "separation": separation,
+            "visible_part_graph": graph,
+            "audit_mode": humanConfirmed ? "HUMAN_AUDIT" : "AUTO_PROPOSED",
+            "requested_measurements": activeBodyRequestedMeasurements,
+            "interpolation": [
+                "method": "LINEAR_BOUNDED",
+                "allowed_dimensions": activeBodyRequestedMeasurements.keys.sorted(),
+            ],
+            "multimodal_proposals": ["proposals": multimodal],
+            "resolution": ["angular_segments": 16, "height_steps": 8],
+            "repair_config": ["max_rounds": 3, "repair_gain": 1.0],
+        ]
+        if let retrieval, !(retrieval["matches"] as? [[String: Any]] ?? []).isEmpty {
+            request["fashion_siglip_hits"] = retrieval
+        }
+        if humanConfirmed, let editDigest = targetSculptDigest {
+            request["front_audit"] = [
+                "decision": "ACCEPT",
+                "reviewer": Self.localHumanReviewer(),
+            ]
+            request["human_edit_digest"] = editDigest
+        }
+        guard let requestText = Self.jsonString(request) else { return }
+        let result = await toolDoor(
+            "garment_geometric_atelier_workflow", ["json_text": requestText])
+        let verdict = result["verdict"] as? String
+            ?? "UNKNOWN_GEOMETRIC_ATELIER_WORKFLOW"
+        trace.append(.init(
+            round: 0, actor: "VERA_GEOMETRIC_ATELIER_MCP",
+            action: "FRONT_TO_SECOND_SKIN_REAR_CANDIDATES",
+            verdict: verdict))
+        guard verdict == "PROPOSED" else {
+            visionPipelineReviewItems = Self.uniqueRequirementItems(
+                visionPipelineReviewItems + [[
+                    "code": verdict, "state": "REVIEW",
+                    "why": result["why"] as? String
+                        ?? "第二皮膚・背面候補の統合フローが型付きで停止しました。",
+                    "manufacturing_ready": false,
+                ]])
+            return
+        }
+        activeGeometricAtelierWorkflow = result
+        activeInitialFashionRetrieval = retrieval
+        if let fit = result["body_avatar_fit"] as? [String: Any] {
+            activeImageRelativeBodyFit = fit
+            imageRelativeBodyFitDigest = fit["contract_digest"] as? String
+            if let avatar = fit["selected_avatar"] as? [String: Any],
+               let avatarID = avatar["avatar_id"] as? String,
+               let geometryDigest = avatar["geometry_digest"] as? String,
+               let dimensions = avatar["dimensions_cm"] as? [String: Any],
+               let height = number(dimensions["height"]),
+               let chest = number(dimensions["chest_bust"]),
+               let waist = number(dimensions["waist"]),
+               let hip = number(dimensions["hip"]) {
+                let profile = BaseAvatarProfile(
+                    id: avatarID,
+                    title: String(format: "画像位置合わせ %.0f · %.0f / %.0f / %.0f cm",
+                                  height, chest, waist, hip),
+                    heightCM: height, chestCM: chest, waistCM: waist, hipCM: hip,
+                    geometryDigest: geometryDigest,
+                    authority: "PROPOSED_IMAGE_RELATIVE_PREVIEW")
+                baseAvatarProfiles = [profile] + baseAvatarProfiles.filter {
+                    $0.id != profile.id
+                }
+                selectedBaseAvatarID = profile.id
+            }
+        }
+
+        let repair = result["candidate_3d_repair"] as? [String: Any]
+        let repairedRows = repair?["candidates"] as? [[String: Any]] ?? []
+        let inputRows = result["candidate_inputs"] as? [[String: Any]] ?? []
+        let frontInvariant = (result["candidate_front_invariant"]
+            as? [String: Any])?["all_candidates_preserve_identical_front"]
+            as? Bool ?? false
+        let hypothesisIDs = hypotheses.compactMap { $0["candidate_id"] as? String }
+        var artifactByID: [String: PreviewArtifact] = [:]
+        var orderedArtifacts: [PreviewArtifact] = []
+        // Rear alternatives are owned by the geometry ensemble, not by the
+        // number of VLM front ledgers. A single accepted front hypothesis can
+        // still yield several genuinely different rear candidates; iterating
+        // the front hypotheses here used to drop candidate 2+ and let those
+        // approvals fall back to the old generic semantic preview.
+        let geometryCandidateCount = max(repairedRows.count, inputRows.count)
+        for index in 0..<geometryCandidateCount {
+            let repaired = index < repairedRows.count ? repairedRows[index] : [:]
+            let input = index < inputRows.count ? inputRows[index] : [:]
+            let geometry = repaired["candidate_geometry"] as? [String: Any]
+                ?? input["mesh"] as? [String: Any]
+                ?? [:]
+            guard let points = pointRows(geometry["vertices"]),
+                  let faces = indexRows(geometry["faces"]),
+                  !points.isEmpty, !faces.isEmpty else { continue }
+            let sourceCandidateID = repaired["candidate_id"] as? String
+                ?? input["candidate_id"] as? String ?? "rear-\(index + 1)"
+            let artifact = PreviewArtifact(
+                state: "PROPOSED", attempt: 1,
+                method: "image-relative body → typed second skin → candidate-specific rear \(index + 1)",
+                points: points, faces: faces, edges: Self.meshEdges(faces),
+                pieces: [],
+                assumptions: [
+                    "正面頂点は全候補で同一です: \(frontInvariant ? "YES" : "REVIEW")",
+                    "背面候補 \(sourceCandidateID) はAI・検索・幾何によるPROPOSEDで、写真観測ではありません。",
+                    "部品境界が単一前景マスクを共有する場合はプレビュー足場であり、型紙境界ではありません。",
+                    "素材、縫い目、縫い代、強度、快適性は未確定です。",
+                ],
+                repairSummary: repaired["verdict"] as? String
+                    ?? "PROPOSED_CANDIDATE_PREVIEW_ONLY",
+                preservesSourceFront: frontInvariant)
+            artifactByID[sourceCandidateID] = artifact
+            if index < hypothesisIDs.count {
+                artifactByID[hypothesisIDs[index]] = artifact
+            }
+            orderedArtifacts.append(artifact)
+        }
+        guard !orderedArtifacts.isEmpty else { return }
+        geometricRearCandidateArtifacts = artifactByID
+        geometricRearCandidateArtifactsInOrder = orderedArtifacts
+        previewArtifact = orderedArtifacts[0]
+        previewAttempts = max(1, previewAttempts)
+        if let skin = result["second_skin"] as? [String: Any],
+           var pattern = skin["pattern_interface"] as? [String: Any] {
+            pattern["schema"] = "garment.second-skin-pattern-handoff-preview.v1"
+            pattern["state"] = "PROPOSED"
+            pattern["manufacturing_ready"] = false
+            candidateManufacturingPreview = pattern
+        }
+        let shared = (result["visible_part_graph"] as? [String: Any])?["parts"]
+            as? [[String: Any]] ?? []
+        let sharedCount = shared.filter {
+            $0["outline_binding"] as? String
+                == "SHARED_AGGREGATE_FRONT_MASK_PROPOSAL"
+        }.count
+        if sharedCount > 0 {
+            visionPipelineReviewItems = Self.uniqueRequirementItems(
+                visionPipelineReviewItems + [[
+                    "code": "REVIEW_SHARED_FRONT_MASK_PART_BOUNDARIES",
+                    "state": "REVIEW", "part_count": sharedCount,
+                    "why": "AIの部品台帳は単一の監査前景を共有して3D化されています。見た目比較には使えますが、各部品の境界・縫い目・型紙境界はまだ観測されていません。",
+                    "manufacturing_ready": false,
+                ]])
+        }
     }
 
     private static func visionEnsemblePayload(
@@ -1904,6 +2280,9 @@ final class GarmentFactoryReactController: ObservableObject {
         // recompiles/redresses instead of silently keeping the old pattern.
         pendingVisionHypotheses = compiled
         publishVisionPatternOperations(from: compiled)
+        await prepareGeometricAtelierPreview(
+            from: compiled, retrieval: activeInitialFashionRetrieval,
+            humanConfirmed: true)
         visionPipelineReviewItems = Self.uniqueRequirementItems(
             visionPipelineReviewItems + [[
                 "code": "HUMAN_REVIEWED_FRONT_PARTS_BOUND",
@@ -2417,6 +2796,21 @@ final class GarmentFactoryReactController: ObservableObject {
             || materialCandidatePayloads[candidate.id] != nil {
             return await previewMaterial(candidate)
         }
+        // Prefer the geometry-first artifact bound to the audited image. This
+        // path keeps the same front vertices across rear alternatives and
+        // prevents the older semantic BODY_SHELL/cape preview from replacing
+        // a layered or asymmetric source garment.
+        if let artifact = geometricRearCandidateArtifacts[candidate.id] {
+            previewArtifact = artifact
+            rawPreviewPattern = nil
+            candidateSewingPlan = nil
+            trace.append(.init(
+                round: max(1, previewAttempts),
+                actor: "VERA_GEOMETRIC_ATELIER_MCP",
+                action: "PREVIEW_IMAGE_BOUND_REAR_\(candidate.id)",
+                verdict: "PROPOSED_FRONT_FIXED_REAR_INFERRED"))
+            return true
+        }
         guard let payload = shapeCandidatePayloads[candidate.id],
               let structure = payload["structure"] as? [String: Any] else {
             return false
@@ -2597,14 +2991,17 @@ final class GarmentFactoryReactController: ObservableObject {
         guard (preview["verdict"] as? String) == "ANSWER",
               let binding = preview["binding"] as? [String: Any],
               binding["front_fixed"] as? Bool == true,
-              binding["rear_observed"] as? Bool == false else { return false }
+              binding["rear_observed"] as? Bool == false,
+              let boundFrontAuthority = binding["front_authority"] as? String,
+              boundFrontAuthority == targetCleanupAuthority else { return false }
         let reviews: [[String: Any]] = [[
             "code": "PROPOSED_TARGET_BOUND_REAR_PREVIEW",
             "state": "REVIEW",
-            "why": "正面は採用済み写真由来ターゲット（\(targetCleanupAuthority)）を保持し、背面奥行きだけを選択体型と候補構造から生成しました。体型・背面・縫い目は実測または観測ではありません。",
+            "why": "正面は採用済み写真由来ターゲット（\(boundFrontAuthority)）を保持し、背面奥行きだけを選択体型と候補構造から生成しました。体型・背面・縫い目は実測または観測ではありません。",
             "candidate_id": candidate.id,
             "front_target_fixed": true,
             "front_fixed": true,
+            "front_authority": boundFrontAuthority,
             "rear_observed": false,
             "body_proxy_authority": selectedBaseAvatar.authority,
             "manufacturing_ready": false,
@@ -3439,12 +3836,16 @@ final class GarmentFactoryReactController: ObservableObject {
         ]
         let repairSummary = (best.repair["sewable"] as? Bool == true)
             ? "幾何的な縫製可能性修復を通過" : "修復候補を保持（製造保証ではありません）"
-        previewArtifact = PreviewArtifact(
+        outlineCalibrationBaseline = PreviewArtifact(
             state: "PROPOSED", attempt: best.attempt,
-            method: "second-skin → silhouette → panels → bounded repair → mannequin dress",
+            method: "outline calibration only: second-skin → silhouette → panels → bounded repair",
             points: points, faces: faces, edges: edges, pieces: pieces,
             assumptions: assumptions, repairSummary: repairSummary,
             preservesSourceFront: false)
+        trace.append(.init(
+            round: best.attempt, actor: "VERA_OUTLINE_CALIBRATION_BASELINE",
+            action: "KEEP_OUT_OF_CANDIDATE_3D_CHANNEL",
+            verdict: "PROPOSED_BASELINE_NOT_A_GARMENT_CANDIDATE"))
     }
 
     private func simulationInput(from state: [String: Any]) -> [String: Any]? {
@@ -3616,26 +4017,94 @@ final class GarmentFactoryReactController: ObservableObject {
     /// Apply one bounded proposal-only CAD operation through the typed MCP
     /// modifier.  The operation creates an immutable child mesh revision and
     /// never claims cloth physics, pressure, fit, or manufacturing validity.
-    func applyTargetSculptModifier(_ kind: String) async {
+    func applyTargetSculptModifier(
+        _ kind: String,
+        vertexIndices requestedVertexIndices: [Int]? = nil,
+        pickedVertexIndex: Int? = nil,
+        dragVectorCM requestedDragVectorCM: [Double]? = nil
+    ) async {
         guard let surface = targetReconstruction?.sculptSurface else { return }
         let vertices = targetSculptModifierVertices ?? surface.verticesCM
         let keptFaces = surface.faces.indices.filter {
             !targetSculptRemovedFaces.contains($0)
         }
         guard !vertices.isEmpty, !keptFaces.isEmpty else { return }
+        let keptVertices = Set(keptFaces.flatMap { faceIndex in
+            surface.faces.indices.contains(faceIndex)
+                ? surface.faces[faceIndex] : []
+        })
+        let explicitVertices = Array(Set(requestedVertexIndices ?? []))
+            .filter { vertices.indices.contains($0) && keptVertices.contains($0) }
+            .sorted()
+        let dragVectorCM: [Double]? = {
+            guard let vector = requestedDragVectorCM,
+                  vector.count == 3,
+                  vector.allSatisfy({ $0.isFinite }) else { return nil }
+            let length = sqrt(vector.reduce(0) { $0 + $1 * $1 })
+            guard length > 1.0e-8 else { return nil }
+            let scale = min(8.0 / length, 1.0)
+            return vector.map { $0 * scale }
+        }()
         let upperKind = kind.uppercased()
+        let selection: [String: Any] = explicitVertices.isEmpty
+            ? ["face_indices": keptFaces]
+            : ["vertex_indices": explicitVertices]
         var modifier: [String: Any] = [
             "kind": upperKind,
-            "selection": ["face_indices": keptFaces],
+            "selection": selection,
         ]
         switch upperKind {
         case "PULL":
-            modifier["direction"] = "LOCAL_NORMAL"
-            modifier["distance_cm"] = 0.6
+            if let dragVectorCM {
+                modifier["vector_cm"] = dragVectorCM
+            } else {
+                modifier["direction"] = "LOCAL_NORMAL"
+                modifier["distance_cm"] = 0.6
+            }
         case "STRETCH":
-            modifier["axis_vector"] = [0.0, 1.0, 0.0]
-            modifier["anchor_cm"] = [0.0, 0.0, 0.0]
-            modifier["scale_factor"] = 1.025
+            guard explicitVertices.count >= 2,
+                  let dragVectorCM,
+                  let pickedVertexIndex,
+                  explicitVertices.contains(pickedVertexIndex),
+                  vertices.indices.contains(pickedVertexIndex),
+                  vertices[pickedVertexIndex].count >= 3 else { return }
+
+            var centroid = [0.0, 0.0, 0.0]
+            for vertexIndex in explicitVertices {
+                guard vertices[vertexIndex].count >= 3 else { continue }
+                for axis in 0..<3 {
+                    centroid[axis] += vertices[vertexIndex][axis]
+                }
+            }
+            let count = Double(explicitVertices.count)
+            centroid = centroid.map { $0 / count }
+            let radial = (0..<3).map {
+                vertices[pickedVertexIndex][$0] - centroid[$0]
+            }
+            let radialLength = sqrt(radial.reduce(0) { $0 + $1 * $1 })
+            let dragLength = sqrt(dragVectorCM.reduce(0) { $0 + $1 * $1 })
+            let outwardDot = zip(dragVectorCM, radial)
+                .reduce(0.0) { $0 + $1.0 * $1.1 }
+            let shrinking = radialLength > 1.0e-8 && outwardDot < 0
+            let axisVector = shrinking ? radial : dragVectorCM
+            let axisLength = sqrt(axisVector.reduce(0) { $0 + $1 * $1 })
+            guard axisLength > 1.0e-8 else { return }
+            let unitAxis = axisVector.map { $0 / axisLength }
+            let projected = explicitVertices.compactMap { vertexIndex
+                -> (index: Int, value: Double)? in
+                guard vertices[vertexIndex].count >= 3 else { return nil }
+                return (vertexIndex, (0..<3).reduce(0.0) {
+                    $0 + vertices[vertexIndex][$1] * unitAxis[$1]
+                })
+            }
+            guard let minimum = projected.min(by: { $0.value < $1.value }),
+                  let maximum = projected.max(by: { $0.value < $1.value })
+            else { return }
+            let span = max(maximum.value - minimum.value, 0.5)
+            let delta = min(0.45, max(0.01, dragLength / span))
+            modifier["axis_vector"] = unitAxis
+            modifier["anchor_vertex_index"] = minimum.index
+            modifier["scale_factor"] = shrinking ? 1.0 - delta : 1.0 + delta
         case "WIND_PREVIEW":
             modifier.removeValue(forKey: "selection")
             modifier["wind_vector_m_s"] = [2.5, 0.0, 0.0]
@@ -4292,6 +4761,15 @@ final class GarmentFactoryReactController: ObservableObject {
         }
         shapeCandidates = Self.candidates(
             sheet: state["hypothesis_sheet"], titleKey: "back_design")
+        // The persisted factory sheet owns approval, while the image-bound
+        // geometry harness owns the richer preview. Bind them by original id
+        // when possible and by deterministic candidate order otherwise.
+        for (index, candidate) in shapeCandidates.enumerated()
+            where geometricRearCandidateArtifacts[candidate.id] == nil
+                && index < geometricRearCandidateArtifactsInOrder.count {
+            geometricRearCandidateArtifacts[candidate.id] =
+                geometricRearCandidateArtifactsInOrder[index]
+        }
         materialCandidates = Self.candidates(
             sheet: state["material_sheet"], titleKey: "candidate_id")
 

@@ -52,16 +52,22 @@ private enum AtelierBeginnerFactoryUIAudit {
             report.failures.append("DYNAMIC_CARD_ORDER_UNAUDITABLE")
         }
         require(dynamic.contains("struct AtelierBeginnerContextCardsView") &&
-                dynamic.contains("dismissedRevision") &&
-                dynamic.contains("collapsed.toggle()") &&
-                dynamic.contains("@State private var collapsed = true") &&
-                dynamic.contains("collapsed = true") &&
+                dynamic.contains("generationWaitingCard") &&
+                dynamic.contains("AtelierInlineGenerationField") &&
+                dynamic.contains("atelier.inline-generation-waiting") &&
+                dynamic.contains("inlineArtifactResults") &&
+                dynamic.contains("atelier.inline-generated-artifacts") &&
+                dynamic.contains("inlineHumanActionCard") &&
+                dynamic.contains("3D・型紙・縫製成果物はまだ完成していません") &&
+                dynamic.contains("detailsDisclosure") &&
+                dynamic.contains("atelier.inline-progressive-details") &&
                 dynamic.contains("onChange(of: revision)") &&
-                dynamic.contains("atelier.inline-context-card") &&
-                dynamic.contains("選択して開く") &&
+                !dynamic.contains("@State private var collapsed") &&
+                !dynamic.contains("inlineCardHeader") &&
+                !dynamic.contains("atelier.inline-context-card") &&
                 !dynamic.contains(".background(.ultraThinMaterial") &&
                 !dynamic.contains(".shadow(color: .black.opacity(0.42)"),
-                "BEGINNER_CARD_IS_NOT_INLINE_SELECTABLE_OR_CONTEXTUAL", into: &report)
+                "BEGINNER_RESULTS_ARE_NOT_INLINE_PROGRESSIVE_OR_CONTEXTUAL", into: &report)
         for page in ["case progress", "case threeD", "case pattern",
                      "case manufacturing", "case choices", "case change"] {
             require(dynamic.contains(page),

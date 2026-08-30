@@ -462,6 +462,82 @@ struct AtelierDynamicFlowView: View {
 /// expressed as pages (3D, pattern, manufacturing, Advanced), not as a second
 /// beginner/expert garment model. Every value is read from the same job,
 /// factory controller and Atelier context.
+private struct AtelierInlineGenerationField: View {
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { timeline in
+            Canvas { context, size in
+                let time = timeline.date.timeIntervalSinceReferenceDate
+                let centre = CGPoint(x: size.width / 2, y: size.height / 2)
+                let spacing: CGFloat = 18
+
+                for y in stride(from: spacing / 2,
+                                through: size.height,
+                                by: spacing) {
+                    for x in stride(from: spacing / 2,
+                                    through: size.width,
+                                    by: spacing) {
+                        let distance = hypot(x - centre.x, y - centre.y)
+                        let wave = (sin(distance * 0.055 - time * 2.4) + 1) / 2
+                        let radius = 0.75 + wave * 0.9
+                        let rect = CGRect(x: x - radius, y: y - radius,
+                                          width: radius * 2,
+                                          height: radius * 2)
+                        context.fill(Path(ellipseIn: rect),
+                                     with: .color(Theme.sel.opacity(
+                                        Double(0.08 + wave * 0.18))))
+                    }
+                }
+
+                context.translateBy(x: centre.x, y: centre.y)
+                context.rotate(by: .radians(time * 0.42))
+                let pulse = CGFloat((sin(time * 2.0) + 1) / 2)
+                let arm = min(size.width, size.height) * (0.13 + pulse * 0.018)
+                let inner = arm * 0.24
+                for index in 0..<6 {
+                    let angle = Double(index) * .pi / 3
+                    let dx = CGFloat(cos(angle))
+                    let dy = CGFloat(sin(angle))
+                    var path = Path()
+                    path.move(to: CGPoint(x: dx * inner, y: dy * inner))
+                    path.addLine(to: CGPoint(x: dx * arm, y: dy * arm))
+                    context.stroke(path,
+                                   with: .color(Theme.sel.opacity(0.55)),
+                                   style: StrokeStyle(lineWidth: 2.2,
+                                                      lineCap: .round))
+
+                    let tip = CGPoint(x: dx * arm, y: dy * arm)
+                    context.fill(Path(ellipseIn: CGRect(
+                        x: tip.x - 4, y: tip.y - 4,
+                        width: 8, height: 8)),
+                        with: .color(index.isMultiple(of: 2)
+                                     ? Theme.ok.opacity(0.82)
+                                     : Theme.sel.opacity(0.9)))
+                }
+                context.fill(Path(ellipseIn: CGRect(
+                    x: -8 - pulse * 2, y: -8 - pulse * 2,
+                    width: 16 + pulse * 4, height: 16 + pulse * 4)),
+                    with: .color(Theme.panel2))
+                context.stroke(Path(ellipseIn: CGRect(
+                    x: -8 - pulse * 2, y: -8 - pulse * 2,
+                    width: 16 + pulse * 4, height: 16 + pulse * 4)),
+                    with: .color(Theme.sel.opacity(0.9)), lineWidth: 2)
+            }
+        }
+        .background(
+            LinearGradient(colors: [
+                Theme.panel2,
+                Theme.sel.opacity(0.055),
+                Theme.panel2,
+            ], startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 12,
+                                 style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12)
+            .stroke(Theme.sel.opacity(0.15), lineWidth: 1))
+        .clipped()
+        .accessibilityHidden(true)
+    }
+}
+
 @MainActor
 struct AtelierBeginnerContextCardsView: View {
     @EnvironmentObject private var app: AppState
@@ -473,17 +549,15 @@ struct AtelierBeginnerContextCardsView: View {
     @State private var previewingCandidate: String?
     @State private var feedback = ""
     @State private var page: Page = .progress
-    // 会話に新しい作業が届いた時は、まず一行の選択カードとして見せる。
-    // ユーザーが選んだ時だけ同じ場所で展開し、会話や入力欄を覆わない。
-    @State private var collapsed = true
-    @State private var dismissedRevision = ""
+    // 成果物は会話末尾へ直接置く。詳細な候補・証拠・直接操作だけを
+    // Progressive Disclosure に残し、旧モーダル風の外枠へ戻さない。
+    @State private var detailExpanded = false
     @State private var expandedManufacturingCards: Set<String> = []
     @State private var expandedFailureDiagnostics: Set<String> = []
     @State private var initializedFailureDiagnostics: Set<String> = []
     @State private var directInspectorExpanded = false
     @State private var selectedExportArtifact: ExportArtifact?
     @State private var targetSculptTool: TargetSculptTool = .orbit
-    @State private var targetSculptBrushRings = 2.0
     @FocusState private var candidateControlFocus: CandidateControlFocus?
 
     private enum CandidateControlAction: String, Hashable {
@@ -626,29 +700,66 @@ struct AtelierBeginnerContextCardsView: View {
         return result
     }
 
+    private var generationInFlight: Bool {
+        app.isGenerating || factory.busy
+    }
+
+    private var hasRenderableArtifact: Bool {
+        guard let artifact = factory.previewArtifact else { return false }
+        return artifact.points.contains { $0.count >= 3 }
+            || artifact.pieces.contains { $0.outline.count >= 3 }
+    }
+
+    private var requiresHumanAction: Bool {
+        if factory.visibleFrontInventoryAuditRequired { return true }
+        let phase = factory.lastReport?.phase ?? factory.phase
+        return [
+            "HUMAN_GARMENT_AUDIT_REQUIRED",
+            "FOREGROUND_CLEANUP_REQUIRED",
+            "BACK_CANDIDATES_READY",
+            "STRUCTURE_CANDIDATES_READY",
+            "MATERIAL_CANDIDATES_READY",
+        ].contains(phase)
+    }
+
+    private var hasSupplementalDetails: Bool {
+        !pages.isEmpty && (hasFactoryContext || job.pendingPreview != nil || job.canUndo)
+    }
+
     var body: some View {
-        if (hasFactoryContext || job.pendingPreview != nil || job.canUndo)
-            && dismissedRevision != revision {
-            VStack(spacing: 0) {
-                inlineCardHeader
-                if !collapsed {
-                    Divider().opacity(0.25)
-                    pageBar
-                    Divider().opacity(0.2)
-                    windowContent
-                        .frame(maxHeight: 440)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
+        if generationInFlight || hasFactoryContext
+            || job.pendingPreview != nil || job.canUndo {
+            VStack(spacing: 12) {
+                if generationInFlight {
+                    generationWaitingCard
+                        .transition(.opacity.combined(with: .scale(scale: 0.98)))
+                } else {
+                    if hasRenderableArtifact,
+                       let artifact = factory.previewArtifact {
+                        inlineArtifactResults(artifact)
+                            .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    }
+
+                    if requiresHumanAction {
+                        inlineHumanActionCard
+                            .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    } else if !hasRenderableArtifact,
+                              let report = factory.lastReport {
+                        compactOutcomeCard(report)
+                    }
+
+                    if job.pendingPreview != nil || job.canUndo {
+                        AtelierDynamicFlowView()
+                    }
+
+                    if hasSupplementalDetails {
+                        detailsDisclosure
+                    }
                 }
             }
-            .frame(maxWidth: 880)
-            .background(Theme.panel,
-                        in: RoundedRectangle(cornerRadius: 13,
-                                             style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 13)
-                .stroke(Theme.sel.opacity(0.32), lineWidth: 1))
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier("atelier.inline-context-card")
             .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("atelier.inline-production-results")
             .padding(.horizontal, 18)
             .padding(.vertical, 8)
             .sheet(item: $selectedExportArtifact) { artifact in
@@ -658,13 +769,11 @@ struct AtelierBeginnerContextCardsView: View {
                 selectMostRelevantPage()
             }
             .onChange(of: revision) { _, _ in
-                dismissedRevision = ""
-                collapsed = true
                 candidateControlFocus = nil
                 selectMostRelevantPage()
             }
-            .onChange(of: collapsed) { _, isCollapsed in
-                if isCollapsed {
+            .onChange(of: detailExpanded) { _, isExpanded in
+                if !isExpanded {
                     candidateControlFocus = nil
                     return
                 }
@@ -675,45 +784,263 @@ struct AtelierBeginnerContextCardsView: View {
                     focusFirstPendingCandidateIfNeeded()
                 }
             }
+            .animation(.easeInOut(duration: 0.24), value: generationInFlight)
+            .animation(.easeInOut(duration: 0.24), value: hasRenderableArtifact)
         }
     }
 
-    private var inlineCardHeader: some View {
-        HStack(spacing: 8) {
-            Button {
-                withAnimation(.easeInOut(duration: 0.18)) {
-                    collapsed.toggle()
-                }
-            } label: {
-                HStack(spacing: 8) {
-                    Image(systemName: "sparkles.rectangle.stack")
-                        .foregroundStyle(Theme.sel)
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text("Vera Atelier")
-                            .font(.system(size: 11.5, weight: .semibold))
-                            .foregroundStyle(Theme.fg)
-                        Text(collapsed
-                             ? "選択して候補・3D・型紙・監査内容を開く"
-                             : "チャット内で \(page.rawValue) を表示中")
-                            .font(.system(size: 8.5))
-                            .foregroundStyle(Theme.faint)
-                    }
-                    Spacer(minLength: 12)
-                    Text(collapsed ? "選択して開く" : "閉じる")
-                        .font(.system(size: 8.5, weight: .semibold))
-                        .foregroundStyle(Theme.sel)
-                    Image(systemName: collapsed ? "chevron.up" : "chevron.down")
-                        .font(.system(size: 9, weight: .semibold))
+    private var generationWaitingCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                ProgressView().controlSize(.small)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("画像から服の成果物を準備しています")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.fg)
+                    Text("この動く表示が、候補3D・型紙または確認カードへ置き換わるまでお待ちください")
+                        .font(.system(size: 9))
                         .foregroundStyle(Theme.dim)
                 }
-                .contentShape(Rectangle())
+                Spacer()
+                Text("RUNNING")
+                    .font(.system(size: 7.5, weight: .bold, design: .monospaced))
+                    .foregroundStyle(Theme.sel)
+            }
+
+            AtelierInlineGenerationField()
+                .frame(height: 280)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(factory.lastReport.map { factoryStageTitle($0.phase) }
+                     ?? "制作モデルが画像と要望を解析しています")
+                    .font(.system(size: 9.5, weight: .medium))
+                    .foregroundStyle(Theme.fg)
+                if let message = factory.lastReport?.message {
+                    Text(message)
+                        .font(.system(size: 8.5))
+                        .foregroundStyle(Theme.faint)
+                        .lineLimit(3)
+                }
+            }
+        }
+        .padding(12)
+        .background(Theme.panel2,
+                    in: RoundedRectangle(cornerRadius: 14,
+                                         style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14)
+            .stroke(Theme.sel.opacity(0.24), lineWidth: 1))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("服の候補3Dと型紙を生成中。成果物または確認カードが表示されるまで待機してください。")
+        .accessibilityIdentifier("atelier.inline-generation-waiting")
+    }
+
+    private func inlineArtifactResults(
+        _ artifact: GarmentFactoryReactController.PreviewArtifact
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 7) {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundStyle(Theme.ok)
+                Text("生成された成果物")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Theme.fg)
+                Spacer()
+                Text(artifact.state)
+                    .font(.system(size: 7.5, weight: .bold,
+                                  design: .monospaced))
+                    .foregroundStyle(artifact.state == "PROPOSED"
+                                     ? Theme.warn : Theme.ok)
+            }
+
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .top, spacing: 12) {
+                    inlineThreeDResult(artifact)
+                    inlinePatternResult(artifact)
+                }
+                VStack(spacing: 12) {
+                    inlineThreeDResult(artifact)
+                    inlinePatternResult(artifact)
+                }
+            }
+
+            Text("AI・幾何が生成した比較用成果物です。背面・素材・縫製方法は、承認されるまで観測事実ではありません。")
+                .font(.system(size: 8.5))
+                .foregroundStyle(Theme.warn)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(12)
+        .background(Theme.panel2,
+                    in: RoundedRectangle(cornerRadius: 14,
+                                         style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14)
+            .stroke(Theme.ok.opacity(0.22), lineWidth: 1))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("atelier.inline-generated-artifacts")
+    }
+
+    private func inlineThreeDResult(
+        _ artifact: GarmentFactoryReactController.PreviewArtifact
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Label("3D人台プレビュー", systemImage: "cube.transparent")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(Theme.fg)
+            FactoryProposedDressedSceneView(
+                points: artifact.points, edges: artifact.edges,
+                faces: artifact.faces,
+                manufacturingPreview: factory.candidateManufacturingPreview,
+                fallbackPieces: artifact.pieces,
+                avatarProfile: factory.selectedBaseAvatar,
+                preservesSourceFront: artifact.preservesSourceFront)
+                .frame(minHeight: 220, idealHeight: 260)
+                .clipShape(RoundedRectangle(cornerRadius: 9))
+            Button("3Dの詳細を表示") {
+                page = .threeD
+                detailExpanded = true
             }
             .buttonStyle(.plain)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .accessibilityLabel(collapsed
-                                ? "Vera Atelier の作業カードを開く"
-                                : "Vera Atelier の作業カードを閉じる")
-            .accessibilityIdentifier("atelier.inline-context-card.toggle")
+            .font(.system(size: 8.5, weight: .semibold))
+            .foregroundStyle(Theme.sel)
+        }
+        .padding(8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.black.opacity(0.18),
+                    in: RoundedRectangle(cornerRadius: 10))
+    }
+
+    private func inlinePatternResult(
+        _ artifact: GarmentFactoryReactController.PreviewArtifact
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Label("平面型紙プレビュー", systemImage: "scissors")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundStyle(Theme.fg)
+            FactoryFlatPatternPreview(pieces: artifact.pieces)
+                .frame(minHeight: 220, idealHeight: 260)
+                .clipShape(RoundedRectangle(cornerRadius: 9))
+            Button("型紙の詳細を表示") {
+                page = .pattern
+                detailExpanded = true
+            }
+            .buttonStyle(.plain)
+            .font(.system(size: 8.5, weight: .semibold))
+            .foregroundStyle(Theme.sel)
+        }
+        .padding(8)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.black.opacity(0.18),
+                    in: RoundedRectangle(cornerRadius: 10))
+    }
+
+    private var inlineHumanActionCard: some View {
+        VStack(alignment: .leading, spacing: 9) {
+            HStack(spacing: 7) {
+                Image(systemName: "hand.raised.fill")
+                    .foregroundStyle(Theme.warn)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("生成は一時停止中 — あなたの確認待ち")
+                        .font(.system(size: 11.5, weight: .semibold))
+                        .foregroundStyle(Theme.fg)
+                    Text("3D・型紙・縫製成果物はまだ完成していません")
+                        .font(.system(size: 8.5))
+                        .foregroundStyle(Theme.warn)
+                }
+                Spacer()
+                Text(factory.activeAuditMode.title)
+                    .font(.system(size: 7.5, weight: .bold,
+                                  design: .monospaced))
+                    .foregroundStyle(Theme.warn)
+            }
+            if let report = factory.lastReport {
+                Text(report.message)
+                    .font(.system(size: 9))
+                    .foregroundStyle(Theme.dim)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            if !factory.visibleFrontInventory.isEmpty {
+                visibleFrontInventoryAuditCard
+            }
+            if let target = factory.targetReconstruction {
+                targetReconstructionCard(target)
+            }
+            if !factory.shapeCandidates.isEmpty {
+                candidateCard(title: "形・背面の候補",
+                              candidates: factory.shapeCandidates,
+                              material: false)
+            }
+            if !factory.materialCandidates.isEmpty {
+                candidateCard(title: "素材の候補",
+                              candidates: factory.materialCandidates,
+                              material: true)
+            }
+        }
+        .padding(12)
+        .background(Theme.warn.opacity(0.055),
+                    in: RoundedRectangle(cornerRadius: 13))
+        .overlay(RoundedRectangle(cornerRadius: 13)
+            .stroke(Theme.warn.opacity(0.28), lineWidth: 1))
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("atelier.inline-human-action-required")
+    }
+
+    private func compactOutcomeCard(
+        _ report: GarmentFactoryReactController.Report
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Label(factoryStageTitle(report.phase), systemImage: "info.circle")
+                .font(.system(size: 10.5, weight: .semibold))
+                .foregroundStyle(Theme.fg)
+            Text(report.message)
+                .font(.system(size: 9))
+                .foregroundStyle(Theme.dim)
+            Text(hasRenderableArtifact ? "成果物あり" : "成果物はまだ生成されていません")
+                .font(.system(size: 8, weight: .semibold,
+                              design: .monospaced))
+                .foregroundStyle(hasRenderableArtifact ? Theme.ok : Theme.warn)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.panel2,
+                    in: RoundedRectangle(cornerRadius: 11))
+    }
+
+    private var detailsDisclosure: some View {
+        DisclosureGroup(isExpanded: $detailExpanded) {
+            VStack(spacing: 0) {
+                nextImageAuditModePicker
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 7)
+                Divider().opacity(0.2)
+                pageBar
+                Divider().opacity(0.2)
+                windowContent
+                    .frame(maxHeight: 440)
+            }
+        } label: {
+            Label("候補・証拠・Advanced Inspector", systemImage: "slider.horizontal.3")
+                .font(.system(size: 9.5, weight: .semibold))
+                .foregroundStyle(Theme.dim)
+        }
+        .padding(.horizontal, 10).padding(.vertical, 8)
+        .background(Theme.panel.opacity(0.55),
+                    in: RoundedRectangle(cornerRadius: 10))
+        .accessibilityIdentifier("atelier.inline-progressive-details")
+    }
+
+    /// The active job keeps the audit mode captured when its image was
+    /// ingested. This selector deliberately says "next image" so changing it
+    /// cannot be mistaken for approving or advancing the current job.
+    private var nextImageAuditModePicker: some View {
+        HStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: 1) {
+                Text("次の画像の開始方法")
+                    .font(.system(size: 8.5, weight: .semibold))
+                    .foregroundStyle(Theme.dim)
+                Text("次の画像から適用。\(factory.selectedAuditMode.detail)")
+                    .font(.system(size: 7.5))
+                    .foregroundStyle(Theme.faint)
+            }
+            Spacer()
             Menu {
                 ForEach(GarmentFactoryReactController.InitialAuditMode.allCases) { mode in
                     Button {
@@ -724,27 +1051,15 @@ struct AtelierBeginnerContextCardsView: View {
                                 ? "checkmark.circle.fill" : "circle")
                     }
                 }
-                Divider()
-                Text(factory.selectedAuditMode.detail)
             } label: {
-                Label(factory.selectedAuditMode.title,
-                      systemImage: factory.selectedAuditMode == .humanAudit
-                        ? "person.crop.circle.badge.checkmark"
-                        : "wand.and.stars")
+                Text("次の画像: \(factory.selectedAuditMode.title)")
                     .font(.system(size: 8.5, weight: .semibold))
+                    .foregroundStyle(Theme.sel)
             }
             .menuStyle(.borderlessButton)
-            .fixedSize()
-            .help("画像取り込み時の監査方法。実行中のジョブは変更せず、次の画像から適用します。")
-            .accessibilityIdentifier("atelier.initial-audit-mode")
-            if factory.busy { ProgressView().controlSize(.mini) }
-            Button { dismissedRevision = revision } label: {
-                Image(systemName: "xmark")
-            }
-            .buttonStyle(.plain)
-            .help("この作業カードを閉じる。状態が変わると再表示します。")
         }
-        .padding(.horizontal, 12).padding(.vertical, 8)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("atelier.initial-audit-mode")
     }
 
     private var pageBar: some View {
@@ -772,6 +1087,51 @@ struct AtelierBeginnerContextCardsView: View {
                                  ? Theme.ok : Theme.warn)
         }
         .padding(.horizontal, 10).padding(.vertical, 6)
+    }
+
+    private func factoryStageTitle(_ phase: String) -> String {
+        switch phase {
+        case "EMPTY":
+            return app.t("Waiting for a confirmed photo",
+                         "服領域を確認した写真を待っています")
+        case "HUMAN_GARMENT_AUDIT_REQUIRED":
+            return app.t("Waiting for visible-garment audit",
+                         "可視部品の確認を待っています")
+        case "FOREGROUND_CLEANUP_REQUIRED":
+            return app.t("Waiting for foreground cleanup",
+                         "背景・髪・人体の除去確認を待っています")
+        case "REGIONS_CONFIRMED":
+            return app.t("Finding similar parts and construction",
+                         "類似部位と構造を検索しています")
+        case "RETRIEVAL_READY":
+            return app.t("Composing structural hypotheses",
+                         "検索結果から構造候補を組み立てています")
+        case "BACK_CANDIDATES_READY", "STRUCTURE_CANDIDATES_READY":
+            return app.t("Waiting for your structure choice",
+                         "背面・構造候補の選択を待っています")
+        case "STRUCTURE_APPROVED":
+            return app.t("Generating the base pattern", "基礎型紙を生成しています")
+        case "PATTERN_READY":
+            return app.t("Checking and repairing sewability",
+                         "縫製可能性を検査・修復しています")
+        case "PATTERN_REPAIRED":
+            return app.t("Comparing material behaviour",
+                         "素材の挙動候補を比較しています")
+        case "MATERIAL_CANDIDATES_READY":
+            return app.t("Waiting for your material choice",
+                         "素材候補の選択を待っています")
+        case "MATERIAL_APPROVED":
+            return app.t("Preparing physical simulation",
+                         "物理シミュレーションを準備しています")
+        case "SIMULATION_READY", "SEWING_CANDIDATES_READY", "ITERATING":
+            return app.t("Testing fit, strength, comfort, and construction",
+                         "着心地・強度・快適性・縫製を反復検証しています")
+        case "CONVERGED_REVIEW":
+            return app.t("Ready for engineering review",
+                         "工学レビューの準備ができました")
+        default:
+            return phase
+        }
     }
 
     @ViewBuilder
@@ -1018,26 +1378,60 @@ struct AtelierBeginnerContextCardsView: View {
     ) -> some View {
         let isFrontConformalFallback = target.sculptSurface?.surfaceMode
             == "FRONT_CONFORMAL_SHELL"
+        let interactionGuide: String = {
+            switch targetSculptTool {
+            case .orbit:
+                return "ドラッグ: 回転 · ⌥スクロール/ピンチ: 拡大 · 通常スクロール: ページ"
+            case .erase:
+                return "消したい部分の外側を一周クリック。残す服へ触れず、最初の点を再クリックまたはダブルクリックで確定。Escで取消"
+            case .restore:
+                return "戻したい部分の外側を一周クリック。最初の点を再クリックまたはダブルクリックで確定。Escで取消"
+            case .pull:
+                return "部品ごとに色分けされた輪郭点を選び、変えたい方向へドラッグ。近くの布だけを引っ張ります"
+            case .stretch:
+                return "上下など分離された各部品の輪郭点を選び、任意方向へドラッグ。選んだ部品だけを伸縮します"
+            }
+        }()
         return VStack(alignment: .leading, spacing: 9) {
-            HStack(spacing: 6) {
-                Image(systemName: "figure.stand.dress.line.vertical.figure")
-                    .foregroundStyle(Theme.sel)
-                VStack(alignment: .leading, spacing: 1) {
-                    Text(isFrontConformalFallback
-                         ? "AI生成の融合前景を削って仕上げる"
-                         : "融合立体を直接仕上げる")
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .top, spacing: 6) {
+                    Image(systemName: "figure.stand.dress.line.vertical.figure")
+                        .foregroundStyle(Theme.sel)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(isFrontConformalFallback
+                             ? "AI生成の融合前景を削って仕上げる"
+                             : "融合立体を直接仕上げる")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(Theme.fg)
+                        Text(isFrontConformalFallback
+                             ? "人物＋服の正面2.5Dです。不要な人体・髪・別衣服を削ります"
+                             : "回して確認し、点で囲って削り、部品の輪郭点から形を直します")
+                            .font(.system(size: 8.5))
+                            .foregroundStyle(Theme.faint)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 8)
+                    Text(target.sourceKind)
+                        .font(.system(size: 7, design: .monospaced))
+                        .foregroundStyle(Theme.warn)
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    Label(isFrontConformalFallback
+                          ? "AI生成の融合前景を削って仕上げる"
+                          : "融合立体を直接仕上げる",
+                          systemImage: "figure.stand.dress.line.vertical.figure")
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundStyle(Theme.fg)
                     Text(isFrontConformalFallback
                          ? "人物＋服の正面2.5Dです。不要な人体・髪・別衣服を削ります"
-                         : "回して確認し、消しゴムのように面を削ります")
+                         : "回して確認し、点で囲って削り、部品の輪郭点から形を直します")
                         .font(.system(size: 8.5))
                         .foregroundStyle(Theme.faint)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(target.sourceKind)
+                        .font(.system(size: 7, design: .monospaced))
+                        .foregroundStyle(Theme.warn)
                 }
-                Spacer()
-                Text(target.sourceKind)
-                    .font(.system(size: 7, design: .monospaced))
-                    .foregroundStyle(Theme.warn)
             }
             if factory.targetCleanupAuthority != "UNSELECTED" {
                 Label(factory.targetCleanupAuthority == "AUTO_ACCEPTED_FOR_PREVIEW"
@@ -1052,7 +1446,7 @@ struct AtelierBeginnerContextCardsView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             if let surface = target.sculptSurface {
-                HStack(spacing: 5) {
+                VStack(alignment: .leading, spacing: 6) {
                     Menu {
                         ForEach(factory.baseAvatarProfiles) { profile in
                             Button(profile.title) {
@@ -1067,92 +1461,134 @@ struct AtelierBeginnerContextCardsView: View {
                     }
                     .menuStyle(.borderlessButton)
                     .fixedSize()
-                    Spacer()
-                    ForEach(TargetSculptTool.allCases) { tool in
-                        Button {
-                            targetSculptTool = tool
-                        } label: {
-                            Label(tool.title, systemImage: tool.symbol)
+
+                    LazyVGrid(columns: [GridItem(
+                        .adaptive(minimum: 82, maximum: 140), spacing: 5)],
+                        alignment: .leading, spacing: 5) {
+                        ForEach(TargetSculptTool.allCases) { tool in
+                            Button {
+                                targetSculptTool = tool
+                            } label: {
+                                Label(tool.title, systemImage: tool.symbol)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(targetSculptTool == tool ? Theme.sel : Theme.dim)
+                            .controlSize(.small)
                         }
-                        .buttonStyle(.bordered)
-                        .tint(targetSculptTool == tool ? Theme.sel : Theme.dim)
-                        .controlSize(.small)
                     }
                 }
 
-                TargetSculptSceneRepresentable(
-                    points: factory.targetSculptDisplayVertices,
-                    faces: surface.faces,
-                    faceRegionIDs: surface.faceRegionIDs,
-                    textureCoordinates: surface.textureCoordinates,
-                    removedFaces: factory.targetSculptRemovedFaces,
-                    clearanceBands: Dictionary(uniqueKeysWithValues:
-                        (factory.targetSculptClearancePreview?
-                            .faceClearances ?? []).map {
-                                ($0.faceIndex, $0.band)
-                            }),
-                    sourceImagePath: factory.targetSculptSourceImagePath,
-                    avatarProfile: factory.selectedBaseAvatar,
-                    tool: targetSculptTool,
-                    brushRings: Int(targetSculptBrushRings.rounded()),
-                    onStroke: { faces, removing in
-                        factory.applyTargetSculptFaces(faces, removing: removing)
-                    })
-                    .frame(minHeight: 300, idealHeight: 380)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(alignment: .topLeading) {
-                        Text(targetSculptTool == .orbit
-                             ? "ドラッグ: 回転 · ⌥スクロール/ピンチ: 拡大 · スクロール: ページ"
-                             : "ドラッグして\(targetSculptTool == .erase ? "削る" : "復元")")
-                            .font(.system(size: 7.5, weight: .semibold,
-                                          design: .monospaced))
-                            .padding(6)
-                            .foregroundStyle(Theme.fg)
-                            .background(.black.opacity(0.34), in: Capsule())
-                            .padding(7)
+                Color.clear
+                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .frame(maxWidth: .infinity)
+                    .overlay {
+                    TargetSculptSceneRepresentable(
+                        points: factory.targetSculptDisplayVertices,
+                        faces: surface.faces,
+                        faceRegionIDs: surface.faceRegionIDs,
+                        faceComponentIDs: surface.faceComponentIDs,
+                        textureCoordinates: surface.textureCoordinates,
+                        removedFaces: factory.targetSculptRemovedFaces,
+                        clearanceBands: Dictionary(uniqueKeysWithValues:
+                            (factory.targetSculptClearancePreview?
+                                .faceClearances ?? []).map {
+                                    ($0.faceIndex, $0.band)
+                                }),
+                        sourceImagePath: factory.targetSculptSourceImagePath,
+                        avatarProfile: factory.selectedBaseAvatar,
+                        tool: targetSculptTool,
+                        onStroke: { faces, removing in
+                            factory.applyTargetSculptFaces(
+                                faces, removing: removing)
+                        },
+                        onModifierDrag: { kind, vertices, picked, vectorCM in
+                            Task {
+                                await factory.applyTargetSculptModifier(
+                                    kind, vertexIndices: vertices,
+                                    pickedVertexIndex: picked,
+                                    dragVectorCM: vectorCM)
+                            }
+                        })
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .overlay(alignment: .topLeading) {
+                            Text(interactionGuide)
+                                .font(.system(size: 7.5, weight: .semibold,
+                                              design: .monospaced))
+                                .padding(6)
+                                .foregroundStyle(Theme.fg)
+                                .background(.black.opacity(0.34), in: Capsule())
+                                .padding(7)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                     }
-                    .accessibilityIdentifier("atelier.beginner.target.sculpt-canvas")
+                    .frame(minHeight: 220)
+                    .accessibilityIdentifier(
+                        "atelier.beginner.target.sculpt-canvas")
 
-                HStack(spacing: 8) {
-                    Text("ブラシ")
-                    Slider(value: $targetSculptBrushRings, in: 1...8, step: 1)
-                        .frame(maxWidth: 140)
-                    Text("\(Int(targetSculptBrushRings))")
-                        .font(.system(size: 8, design: .monospaced))
-                    Divider().frame(height: 14)
-                    Text("布厚")
-                    Slider(value: Binding(
-                        get: { factory.targetSculptThicknessMM },
-                        set: { factory.setTargetSculptThickness($0) }
-                    ), in: 0.1...6.0, step: 0.1)
-                        .frame(maxWidth: 150)
-                    Text(String(format: "%.1f mm", factory.targetSculptThicknessMM))
-                        .font(.system(size: 8, design: .monospaced))
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) {
+                        Text("布厚")
+                        Slider(value: Binding(
+                            get: { factory.targetSculptThicknessMM },
+                            set: { factory.setTargetSculptThickness($0) }
+                        ), in: 0.1...6.0, step: 0.1)
+                            .frame(maxWidth: 220)
+                        Text(String(format: "%.1f mm",
+                                           factory.targetSculptThicknessMM))
+                            .font(.system(size: 8, design: .monospaced))
+                        Spacer(minLength: 0)
+                    }
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text("布厚")
+                            Spacer()
+                            Text(String(format: "%.1f mm",
+                                               factory.targetSculptThicknessMM))
+                                .font(.system(size: 8, design: .monospaced))
+                        }
+                        Slider(value: Binding(
+                            get: { factory.targetSculptThicknessMM },
+                            set: { factory.setTargetSculptThickness($0) }
+                        ), in: 0.1...6.0, step: 0.1)
+                    }
                 }
                 .font(.system(size: 8.5, weight: .medium))
                 .foregroundStyle(Theme.dim)
 
-                HStack(spacing: 6) {
-                    Text("形状")
-                        .font(.system(size: 8.5, weight: .semibold))
-                        .foregroundStyle(Theme.dim)
-                    Button("引っ張る") {
-                        Task { await factory.applyTargetSculptModifier("PULL") }
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 6) {
+                        Text("形状")
+                            .font(.system(size: 8.5, weight: .semibold))
+                            .foregroundStyle(Theme.dim)
+                        Button("風 2.5 m/s") {
+                            Task { await factory.applyTargetSculptModifier("WIND_PREVIEW") }
+                        }
+                        Button("形状Undo") {
+                            factory.undoTargetSculptModifier()
+                        }
+                        .disabled(!factory.canUndoTargetSculptModifier)
+                        Spacer()
+                        Text("引っ張る・伸縮は輪郭点をドラッグ · 全操作は未承認の比較候補")
+                            .font(.system(size: 7.5, design: .monospaced))
+                            .foregroundStyle(Theme.warn)
                     }
-                    Button("縦に伸ばす") {
-                        Task { await factory.applyTargetSculptModifier("STRETCH") }
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack(spacing: 6) {
+                            Button("風 2.5 m/s") {
+                                Task { await factory.applyTargetSculptModifier("WIND_PREVIEW") }
+                            }
+                            Button("形状Undo") {
+                                factory.undoTargetSculptModifier()
+                            }
+                            .disabled(!factory.canUndoTargetSculptModifier)
+                        }
+                        Text("引っ張る・伸縮は輪郭点をドラッグ · 全操作は未承認の比較候補")
+                            .font(.system(size: 7.5, design: .monospaced))
+                            .foregroundStyle(Theme.warn)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-                    Button("風 2.5 m/s") {
-                        Task { await factory.applyTargetSculptModifier("WIND_PREVIEW") }
-                    }
-                    Button("形状Undo") {
-                        factory.undoTargetSculptModifier()
-                    }
-                    .disabled(!factory.canUndoTargetSculptModifier)
-                    Spacer()
-                    Text("全操作は未承認の比較候補")
-                        .font(.system(size: 7.5, design: .monospaced))
-                        .foregroundStyle(Theme.warn)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.mini)
@@ -2052,7 +2488,7 @@ struct AtelierBeginnerContextCardsView: View {
     }
 
     private func focusFirstPendingCandidateIfNeeded() {
-        guard !collapsed, page == .choices,
+        guard detailExpanded, page == .choices,
               candidateControlFocus == nil, selecting == nil else { return }
         let phase = factory.lastReport?.phase ?? factory.phase
         if ["BACK_CANDIDATES_READY", "STRUCTURE_CANDIDATES_READY"].contains(phase),

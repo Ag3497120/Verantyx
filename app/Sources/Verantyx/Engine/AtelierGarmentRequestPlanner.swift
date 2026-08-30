@@ -261,7 +261,13 @@ enum AtelierGarmentRequestPlanner {
         under 1200 characters, but discuss design intent, uncertainty,
         alternatives and next steps naturally. It will be displayed with an
         explicit "AI generated / unverified" label, so never claim that a tool
-        ran, a fact was observed, or a design was approved.
+        ran, a fact was observed, a design was approved, or an artifact was
+        generated. Your `speech` is a proposed plan, not a progress or success
+        report. Do not say "作成します", "生成を開始しました", "縫製可能な状態で出力します",
+        or an equivalent promise as though work is underway or complete. State
+        what the request asks for and what Vera must validate next. If no typed
+        tool result exists, say explicitly that no 3D, pattern, or sewing output
+        has been generated yet.
 
         `command` is a separate mandatory semantic route proposal for Vera.
         Use action CONVERSATION with null requirements for ordinary

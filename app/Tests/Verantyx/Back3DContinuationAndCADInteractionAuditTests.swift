@@ -81,6 +81,28 @@ private enum Back3DContinuationAndCADInteractionAudit {
                 scene.contains("nextResponder.scrollWheel") &&
                 scene.contains("override func magnify"),
                 "CAD_CANVAS_CAN_TRAP_ORDINARY_PAGE_SCROLL")
+        require(scene.contains("addPolygonPoint") &&
+                scene.contains("commitPolygon") &&
+                scene.contains("visibleEditableFace") &&
+                !scene.contains("brushRings") &&
+                flow.contains("外側を一周クリック"),
+                "CAD_ERASER_IS_NOT_EXPLICIT_CLOSED_POLYGON")
+        require(scene.contains("refreshBoundaryAnchors") &&
+                scene.contains("faceComponentIDs") &&
+                scene.contains("localDragVectorCM") &&
+                flow.contains("onModifierDrag") &&
+                controller.contains("vertexIndices requestedVertexIndices"),
+                "CAD_PULL_STRETCH_IS_NOT_COMPONENT_POINT_DRIVEN")
+        require(flow.contains("ViewThatFits(in: .horizontal)") &&
+                flow.contains("Color.clear") &&
+                flow.contains(".aspectRatio(16.0 / 9.0") &&
+                flow.contains(".frame(maxWidth: .infinity, maxHeight: .infinity)") &&
+                scene.contains("private var polygonAnchors: [SCNVector3]") &&
+                scene.contains("refreshPolygonOverlay()") &&
+                !flow.contains("targetSculptBrushRings") &&
+                !flow.contains("maxHeight: 520") &&
+                !flow.contains(".frame(maxWidth: 880)"),
+                "INLINE_CAD_DOES_NOT_REFLOW_WITH_WINDOW")
 
         let auditCard = flow.range(of: "visibleFrontInventoryAuditCard")?.lowerBound
         let targetCard = flow.range(of: "targetReconstructionCard(target)")?.lowerBound

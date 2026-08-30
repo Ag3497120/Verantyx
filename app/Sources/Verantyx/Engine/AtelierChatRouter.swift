@@ -1064,7 +1064,8 @@ enum AtelierChatRouter {
     static func transcriptText(for resolution: Resolution) -> String {
         switch resolution {
         case .modelGenerated(let text, let action):
-            var answer = "制作モデル生成（未検証）\n\(text)"
+            var answer = "制作モデルの提案（AI生成・未検証）\n"
+                + "以下は作業計画であり、生成結果ではありません。\n\(text)"
             if let action {
                 answer += "\n\nVera検証・実行結果\n\(transcriptText(for: action))"
             } else {
@@ -1091,7 +1092,14 @@ enum AtelierChatRouter {
             var lines = [report.verdict, report.message,
                          "phase=\(report.phase) / rounds=\(report.iterations) / model=\(report.modelCalls)"]
             if let artifact = GarmentFactoryReactController.shared.previewArtifact {
+                lines.append("artifact_status=PROPOSED_PREVIEW_READY")
                 lines.append("3D着装・型紙プレビュー: \(artifact.method) / attempt \(artifact.attempt)")
+            } else if factoryHumanWaitPhases.contains(report.phase) {
+                lines.append("artifact_status=NOT_GENERATED_WAITING_FOR_HUMAN")
+                lines.append("3D・型紙・縫製成果物はまだ生成されていません。下の確認カードを操作すると続行します。")
+            } else {
+                lines.append("artifact_status=NOT_GENERATED")
+                lines.append("この時点では3D・型紙・縫製成果物はまだ生成されていません。")
             }
             if let destination { lines.append(destination.reasonJA) }
             return lines.joined(separator: "\n")
@@ -1099,6 +1107,14 @@ enum AtelierChatRouter {
             return "UNKNOWN_GARMENT_REQUEST\n服飾命令として解釈できなかったため、何も変更していません。"
         }
     }
+
+    private static let factoryHumanWaitPhases: Set<String> = [
+        "HUMAN_GARMENT_AUDIT_REQUIRED",
+        "FOREGROUND_CLEANUP_REQUIRED",
+        "BACK_CANDIDATES_READY",
+        "STRUCTURE_CANDIDATES_READY",
+        "MATERIAL_CANDIDATES_READY",
+    ]
 
     static func resolve(_ message: String) async -> Resolution {
         #if DEBUG

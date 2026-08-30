@@ -410,6 +410,7 @@ private enum AtelierRealImagePipelineAudit {
             "router": "Sources/Verantyx/Engine/AtelierChatRouter.swift",
             "controller": "Sources/Verantyx/Engine/GarmentFactoryReactController.swift",
             "cards": "Sources/Verantyx/Views/AtelierDynamicFlowView.swift",
+            "scene": "Sources/Verantyx/Views/AtelierChatPaneView.swift",
             "state": "Sources/Verantyx/AppState.swift",
         ]
         var source: [String: String] = [:]
@@ -429,6 +430,7 @@ private enum AtelierRealImagePipelineAudit {
         let router = source["router"].orEmpty
         let controller = source["controller"].orEmpty
         let cards = source["cards"].orEmpty
+        let scene = source["scene"].orEmpty
         let state = source["state"].orEmpty
 
         let ingest = blockBody(in: intake, after: "func ingest(").orEmpty
@@ -475,10 +477,12 @@ private enum AtelierRealImagePipelineAudit {
         require(cards.contains("visibleFrontInventoryAuditCard")
                 && cards.contains("targetReconstructionCard(target)")
                 && cards.contains("pendingBack3DRequest")
-                && cards.contains("applyTargetSculptModifier(\"PULL\")")
-                && cards.contains("applyTargetSculptModifier(\"STRETCH\")")
+                && cards.contains("onModifierDrag")
+                && cards.contains("vertexIndices: vertices")
                 && cards.contains("applyTargetSculptModifier(\"WIND_PREVIEW\")")
-                && cards.contains("targetSculptModifierStatus"),
+                && cards.contains("targetSculptModifierStatus")
+                && scene.contains("sculptTool == .stretch ? \"STRETCH\" : \"PULL\"")
+                && scene.contains("commitPolygon()"),
                 "DYNAMIC_CARD_STATE_IS_NOT_RENDERABLE")
 
         report.trace.append(event(

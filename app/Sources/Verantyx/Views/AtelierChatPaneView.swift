@@ -1430,7 +1430,9 @@ struct AtelierChatPaneView: View {
     private func handle(_ resolution: AtelierChatRouter.Resolution) {
         switch resolution {
         case .modelGenerated(let text, let action):
-            append(.assistant, "制作モデル生成（未検証）\n\(text)")
+            append(.assistant,
+                   "制作モデルの提案（AI生成・未検証）\n"
+                   + "以下は作業計画であり、生成結果ではありません。\n\(text)")
             if let action { handle(action) }
         case .moved(let destination):
             move(destination)
@@ -1445,7 +1447,8 @@ struct AtelierChatPaneView: View {
         case .factory(let report, let destination):
             if let destination { move(destination) }
             append(report.verdict.hasPrefix("UNKNOWN_") ? .refusal : .assistant,
-                   "\(report.verdict)\n\(report.message)")
+                   AtelierChatRouter.transcriptText(
+                    for: .factory(report, nil)))
         case .refused(let why):
             append(.refusal, why)
         case .none:
@@ -2887,6 +2890,8 @@ enum TargetSculptTool: String, CaseIterable, Identifiable {
     case orbit
     case erase
     case restore
+    case pull
+    case stretch
 
     var id: String { rawValue }
     var title: String {
@@ -2894,6 +2899,8 @@ enum TargetSculptTool: String, CaseIterable, Identifiable {
         case .orbit: return "回転"
         case .erase: return "削る"
         case .restore: return "戻す"
+        case .pull: return "引っ張る"
+        case .stretch: return "伸縮"
         }
     }
     var symbol: String {
@@ -2901,30 +2908,200 @@ enum TargetSculptTool: String, CaseIterable, Identifiable {
         case .orbit: return "rotate.3d"
         case .erase: return "eraser.fill"
         case .restore: return "paintbrush.pointed.fill"
+        case .pull: return "arrow.up.and.down.and.arrow.left.and.right"
+        case .stretch: return "arrow.left.and.right.circle"
+        }
+    }
+
+    var usesPolygon: Bool { self == .erase || self == .restore }
+    var usesBoundaryDrag: Bool { self == .pull || self == .stretch }
+}
+
+private struct TargetSculptBoundaryAnchor {
+    let point: CGPoint
+    let depth: CGFloat
+    let vertexIndex: Int
+    let componentID: String
+    let colourIndex: Int
+}
+
+/// A non-intercepting AppKit overlay keeps lasso vertices and component
+/// handles visible while SceneKit continues to receive mouse events.  It is
+/// deliberately local UI state: no mesh changes until a polygon closes or a
+/// boundary drag ends.
+private final class TargetSculptSelectionOverlayView: NSView {
+    var tool: TargetSculptTool = .orbit { didSet { needsDisplay = true } }
+    var polygonPoints: [CGPoint] = [] { didSet { needsDisplay = true } }
+    var boundaryAnchors: [TargetSculptBoundaryAnchor] = [] {
+        didSet { needsDisplay = true }
+    }
+    var activeAnchor: TargetSculptBoundaryAnchor? {
+        didSet { needsDisplay = true }
+    }
+    var dragPoint: CGPoint? { didSet { needsDisplay = true } }
+
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        if tool.usesPolygon { drawPolygon() }
+        if tool.usesBoundaryDrag { drawBoundaryHandles() }
+    }
+
+    private func drawPolygon() {
+        guard !polygonPoints.isEmpty else { return }
+        let colour: NSColor = tool == .erase ? .systemRed : .systemGreen
+        let path = NSBezierPath()
+        path.lineWidth = 2
+        path.lineJoinStyle = .round
+        path.move(to: polygonPoints[0])
+        for point in polygonPoints.dropFirst() { path.line(to: point) }
+        colour.setStroke()
+        path.stroke()
+
+        if polygonPoints.count >= 3 {
+            let fill = path.copy() as! NSBezierPath
+            fill.close()
+            colour.withAlphaComponent(0.10).setFill()
+            fill.fill()
+        }
+        for (index, point) in polygonPoints.enumerated() {
+            let radius: CGFloat = index == 0 ? 5.5 : 4.0
+            let dot = NSBezierPath(ovalIn: NSRect(
+                x: point.x - radius, y: point.y - radius,
+                width: radius * 2, height: radius * 2))
+            (index == 0 ? NSColor.white : colour).setFill()
+            dot.fill()
+            colour.setStroke()
+            dot.lineWidth = 1.5
+            dot.stroke()
+        }
+    }
+
+    private func drawBoundaryHandles() {
+        let palette: [NSColor] = [
+            .systemCyan, .systemOrange, .systemPink, .systemGreen,
+            .systemPurple, .systemYellow, .systemBlue,
+        ]
+        for anchor in boundaryAnchors {
+            let selected = activeAnchor?.componentID == anchor.componentID
+            let colour = palette[anchor.colourIndex % palette.count]
+            let radius: CGFloat = selected ? 4.5 : 3.2
+            let dot = NSBezierPath(ovalIn: NSRect(
+                x: anchor.point.x - radius, y: anchor.point.y - radius,
+                width: radius * 2, height: radius * 2))
+            (selected ? NSColor.white : colour).setFill()
+            dot.fill()
+            colour.setStroke()
+            dot.lineWidth = selected ? 2 : 1
+            dot.stroke()
+        }
+        guard let anchor = activeAnchor, let dragPoint else { return }
+        let colour = palette[anchor.colourIndex % palette.count]
+        let arrow = NSBezierPath()
+        arrow.lineWidth = 2.5
+        arrow.move(to: anchor.point)
+        arrow.line(to: dragPoint)
+        colour.setStroke()
+        arrow.stroke()
+        let angle = atan2(dragPoint.y - anchor.point.y,
+                          dragPoint.x - anchor.point.x)
+        let headLength: CGFloat = 11
+        for offset: CGFloat in [-0.55, 0.55] {
+            let tip = CGPoint(
+                x: dragPoint.x - cos(angle + offset) * headLength,
+                y: dragPoint.y - sin(angle + offset) * headLength)
+            let head = NSBezierPath()
+            head.lineWidth = 2.5
+            head.move(to: dragPoint)
+            head.line(to: tip)
+            head.stroke()
         }
     }
 }
 
 final class TargetSculptSCNView: SCNView {
     var sculptTool: TargetSculptTool = .orbit
-    var brushRings = 1
     var faceMappings: [String: [Int]] = [:]
-    var faceAdjacency: [Int: Set<Int>] = [:]
     var onStroke: ((Set<Int>, Bool) -> Void)?
-    private var strokeFaces = Set<Int>()
+    var onModifierDrag: ((String, [Int], Int, [Double]) -> Void)?
+
+    private let selectionOverlay = TargetSculptSelectionOverlayView(frame: .zero)
+    private var sourcePoints: [SCNVector3] = []
+    private var faces: [[Int]] = []
+    private var faceComponentIDs: [String] = []
+    private var removedFaces = Set<Int>()
+    private var vertexAdjacency: [Int: Set<Int>] = [:]
+    private var componentVertices: [String: Set<Int>] = [:]
+    private var boundaryAnchors: [TargetSculptBoundaryAnchor] = []
+    // Lasso vertices live in the target content's local 3D plane, not in
+    // window pixels. Reprojection keeps them attached to the same garment
+    // locations across resize, camera zoom, and orbit.
+    private var polygonAnchors: [SCNVector3] = []
+    private var activeAnchor: TargetSculptBoundaryAnchor?
+    private var dragStart: CGPoint?
     private var previousOrbitPoint: NSPoint?
 
+    func installSelectionOverlay() {
+        guard selectionOverlay.superview == nil else { return }
+        selectionOverlay.autoresizingMask = [.width, .height]
+        selectionOverlay.frame = bounds
+        addSubview(selectionOverlay)
+    }
+
+    func configureGeometry(
+        points: [[Double]], faces: [[Int]],
+        faceComponentIDs: [String], removedFaces: Set<Int>
+    ) {
+        sourcePoints = points.map { point in
+            guard point.count >= 3 else { return SCNVector3Zero }
+            return SCNVector3(point[0], point[1], point[2])
+        }
+        self.faces = faces
+        self.faceComponentIDs = faceComponentIDs
+        self.removedFaces = removedFaces
+        vertexAdjacency = Self.makeVertexAdjacency(faces)
+        clearTransientSelection()
+        refreshBoundaryAnchors()
+    }
+
+    func setSculptTool(_ tool: TargetSculptTool) {
+        guard sculptTool != tool else {
+            selectionOverlay.tool = tool
+            refreshBoundaryAnchors()
+            return
+        }
+        sculptTool = tool
+        selectionOverlay.tool = tool
+        clearTransientSelection()
+        refreshBoundaryAnchors()
+    }
+
+    override func layout() {
+        super.layout()
+        selectionOverlay.frame = bounds
+        refreshPolygonOverlay()
+        refreshBoundaryAnchors()
+    }
+
+    override var acceptsFirstResponder: Bool { true }
+
     override func mouseDown(with event: NSEvent) {
-        guard sculptTool != .orbit else {
+        window?.makeFirstResponder(self)
+        if sculptTool == .orbit {
             previousOrbitPoint = convert(event.locationInWindow, from: nil)
             return
         }
-        strokeFaces = []
-        collectHit(event)
+        let point = convert(event.locationInWindow, from: nil)
+        if sculptTool.usesPolygon {
+            addPolygonPoint(point, clickCount: event.clickCount)
+        } else if sculptTool.usesBoundaryDrag {
+            beginBoundaryDrag(at: point)
+        }
     }
 
     override func mouseDragged(with event: NSEvent) {
-        guard sculptTool != .orbit else {
+        if sculptTool == .orbit {
             let point = convert(event.locationInWindow, from: nil)
             if let previous = previousOrbitPoint,
                let content = scene?.rootNode.childNode(
@@ -2938,21 +3115,68 @@ final class TargetSculptSCNView: SCNView {
                         content.eulerAngles.x + CGFloat(dy * 0.005)))
             }
             previousOrbitPoint = point
+            refreshPolygonOverlay()
+            refreshBoundaryAnchors()
             return
         }
-        collectHit(event)
+        guard sculptTool.usesBoundaryDrag, activeAnchor != nil else { return }
+        selectionOverlay.dragPoint = convert(event.locationInWindow, from: nil)
     }
 
     override func mouseUp(with event: NSEvent) {
-        guard sculptTool != .orbit else {
+        if sculptTool == .orbit {
             previousOrbitPoint = nil
             return
         }
-        collectHit(event)
-        if !strokeFaces.isEmpty {
-            onStroke?(strokeFaces, sculptTool == .erase)
+        guard sculptTool.usesBoundaryDrag,
+              let anchor = activeAnchor,
+              let start = dragStart else { return }
+        let end = convert(event.locationInWindow, from: nil)
+        let distance = hypot(end.x - start.x, end.y - start.y)
+        defer {
+            activeAnchor = nil
+            dragStart = nil
+            selectionOverlay.activeAnchor = nil
+            selectionOverlay.dragPoint = nil
         }
-        strokeFaces = []
+        guard distance >= 3,
+              let vectorCM = localDragVectorCM(
+                from: start, to: end, depth: anchor.depth) else { return }
+        let component = componentVertices[anchor.componentID]
+            ?? Set([anchor.vertexIndex])
+        let selected: Set<Int>
+        if sculptTool == .stretch {
+            selected = component
+        } else {
+            selected = localPatch(from: anchor.vertexIndex, within: component,
+                                  rings: 3)
+        }
+        onModifierDrag?(
+            sculptTool == .stretch ? "STRETCH" : "PULL",
+            selected.sorted(), anchor.vertexIndex, vectorCM)
+    }
+
+    override func rightMouseDown(with event: NSEvent) {
+        guard sculptTool.usesPolygon, !polygonAnchors.isEmpty else {
+            super.rightMouseDown(with: event)
+            return
+        }
+        polygonAnchors.removeLast()
+        refreshPolygonOverlay()
+    }
+
+    override func keyDown(with event: NSEvent) {
+        if event.keyCode == 53 { // Escape
+            clearTransientSelection()
+            return
+        }
+        if (event.keyCode == 51 || event.keyCode == 117),
+           sculptTool.usesPolygon, !polygonAnchors.isEmpty {
+            polygonAnchors.removeLast()
+            refreshPolygonOverlay()
+            return
+        }
+        super.keyDown(with: event)
     }
 
     override func scrollWheel(with event: NSEvent) {
@@ -2977,20 +3201,52 @@ final class TargetSculptSCNView: SCNView {
         guard let camera = pointOfView?.camera else { return }
         camera.orthographicScale = min(
             1_000, max(4, camera.orthographicScale * exp(logarithmicDelta)))
+        refreshPolygonOverlay()
+        refreshBoundaryAnchors()
     }
 
-    private func collectHit(_ event: NSEvent) {
-        let point = convert(event.locationInWindow, from: nil)
+    private func addPolygonPoint(_ point: CGPoint, clickCount: Int) {
+        let projected = projectedPolygonPoints()
+        if polygonAnchors.count >= 3,
+           (clickCount >= 2 || projected.first.map {
+               Self.distance(point, $0) <= 14
+           } == true) {
+            commitPolygon()
+            return
+        }
+        guard let anchor = polygonLocalAnchor(at: point) else { return }
+        polygonAnchors.append(anchor)
+        refreshPolygonOverlay()
+    }
+
+    private func commitPolygon() {
+        let selectionPolygon = projectedPolygonPoints()
+        guard selectionPolygon.count >= 3 else { return }
+        let removing = sculptTool == .erase
+        var selected = Set<Int>()
+        for faceIndex in faces.indices {
+            guard removedFaces.contains(faceIndex) != removing,
+                  let centroid = projectedFaceCentroid(faceIndex),
+                  Self.contains(centroid, polygon: selectionPolygon),
+                  visibleEditableFace(at: centroid, removing: removing)
+                    == faceIndex else { continue }
+            selected.insert(faceIndex)
+        }
+        polygonAnchors = []
+        selectionOverlay.polygonPoints = []
+        if !selected.isEmpty { onStroke?(selected, removing) }
+    }
+
+    private func visibleEditableFace(at point: CGPoint,
+                                     removing: Bool) -> Int? {
         let hits = hitTest(point, options: [
-            // The translucent body proxy can be geometrically closer than the
-            // garment. Search all hits, then select the first editable surface.
             .searchMode: SCNHitTestSearchMode.all.rawValue,
             .ignoreHiddenNodes: true,
             .backFaceCulling: false,
         ])
         guard let hit = hits.first(where: { hit in
             guard let name = hit.node.name else { return false }
-            if sculptTool == .erase {
+            if removing {
                 return name.hasPrefix("editable-fused-target-")
                     && name != "editable-fused-target-wire"
                     && name != "editable-fused-target-removed"
@@ -2998,18 +3254,216 @@ final class TargetSculptSCNView: SCNView {
             return name == "editable-fused-target-removed"
         }), let name = hit.node.name,
               let mapping = faceMappings[name],
-              mapping.indices.contains(hit.faceIndex) else { return }
-        let seed = mapping[hit.faceIndex]
+              mapping.indices.contains(hit.faceIndex) else { return nil }
+        return mapping[hit.faceIndex]
+    }
+
+    private func beginBoundaryDrag(at point: CGPoint) {
+        refreshBoundaryAnchors()
+        guard let nearest = boundaryAnchors.min(by: {
+            Self.distance($0.point, point) < Self.distance($1.point, point)
+        }), Self.distance(nearest.point, point) <= 20 else { return }
+        activeAnchor = nearest
+        dragStart = nearest.point
+        selectionOverlay.activeAnchor = nearest
+        selectionOverlay.dragPoint = nearest.point
+    }
+
+    private func refreshBoundaryAnchors() {
+        guard sculptTool.usesBoundaryDrag, bounds.width > 1, bounds.height > 1,
+              pointOfView != nil else {
+            boundaryAnchors = []
+            componentVertices = [:]
+            selectionOverlay.boundaryAnchors = []
+            return
+        }
+        var grouped = [String: Set<Int>]()
+        for faceIndex in faces.indices where !removedFaces.contains(faceIndex) {
+            let component = faceComponentIDs.indices.contains(faceIndex)
+                && !faceComponentIDs[faceIndex].isEmpty
+                ? faceComponentIDs[faceIndex] : "garment"
+            grouped[component, default: []].formUnion(
+                faces[faceIndex].filter(sourcePoints.indices.contains))
+        }
+        componentVertices = grouped
+        var next: [TargetSculptBoundaryAnchor] = []
+        for (colourIndex, component) in grouped.keys.sorted().enumerated() {
+            let projected = grouped[component, default: []].compactMap {
+                projectedVertex($0).map { (point: $0.point, depth: $0.depth,
+                                           vertexIndex: $0.vertexIndex) }
+            }
+            let hull = Self.convexHull(projected)
+            let stride = max(1, Int(ceil(Double(hull.count) / 48.0)))
+            for (index, item) in hull.enumerated() where index % stride == 0 {
+                next.append(TargetSculptBoundaryAnchor(
+                    point: item.point, depth: item.depth,
+                    vertexIndex: item.vertexIndex,
+                    componentID: component, colourIndex: colourIndex))
+            }
+        }
+        boundaryAnchors = next
+        selectionOverlay.boundaryAnchors = next
+    }
+
+    private func projectedVertex(_ index: Int)
+        -> (point: CGPoint, depth: CGFloat, vertexIndex: Int)? {
+        guard sourcePoints.indices.contains(index),
+              let content = scene?.rootNode.childNode(
+                withName: "target-sculpt-content", recursively: true) else {
+            return nil
+        }
+        let world = content.convertPosition(sourcePoints[index], to: nil)
+        let projected = projectPoint(world)
+        guard projected.z >= 0, projected.z <= 1 else { return nil }
+        return (CGPoint(x: projected.x, y: projected.y), projected.z, index)
+    }
+
+    private func projectedFaceCentroid(_ faceIndex: Int) -> CGPoint? {
+        guard faces.indices.contains(faceIndex) else { return nil }
+        let projected = faces[faceIndex].compactMap { projectedVertex($0)?.point }
+        guard !projected.isEmpty else { return nil }
+        let count = CGFloat(projected.count)
+        return CGPoint(x: projected.reduce(0) { $0 + $1.x } / count,
+                       y: projected.reduce(0) { $0 + $1.y } / count)
+    }
+
+    private func localDragVectorCM(from start: CGPoint, to end: CGPoint,
+                                   depth: CGFloat) -> [Double]? {
+        guard let content = scene?.rootNode.childNode(
+            withName: "target-sculpt-content", recursively: true) else {
+            return nil
+        }
+        let worldStart = unprojectPoint(SCNVector3(start.x, start.y, depth))
+        let worldEnd = unprojectPoint(SCNVector3(end.x, end.y, depth))
+        let localStart = content.convertPosition(worldStart, from: nil)
+        let localEnd = content.convertPosition(worldEnd, from: nil)
+        return [Double(localEnd.x - localStart.x),
+                Double(localEnd.y - localStart.y),
+                Double(localEnd.z - localStart.z)]
+    }
+
+    private func polygonLocalAnchor(at point: CGPoint) -> SCNVector3? {
+        guard let content = scene?.rootNode.childNode(
+            withName: "target-sculpt-content", recursively: true) else {
+            return nil
+        }
+        // Use the target surface's median screen depth so a point may be
+        // placed just outside its silhouette without accidentally attaching
+        // to the mannequin or the studio floor.
+        let depths = sourcePoints.indices.compactMap {
+            projectedVertex($0)?.depth
+        }.sorted()
+        guard !depths.isEmpty else { return nil }
+        let depth = depths[depths.count / 2]
+        let world = unprojectPoint(SCNVector3(point.x, point.y, depth))
+        return content.convertPosition(world, from: nil)
+    }
+
+    private func projectedPolygonPoints() -> [CGPoint] {
+        guard let content = scene?.rootNode.childNode(
+            withName: "target-sculpt-content", recursively: true) else {
+            return []
+        }
+        return polygonAnchors.map { anchor in
+            let world = content.convertPosition(anchor, to: nil)
+            let projected = projectPoint(world)
+            return CGPoint(x: projected.x, y: projected.y)
+        }
+    }
+
+    private func refreshPolygonOverlay() {
+        selectionOverlay.polygonPoints = projectedPolygonPoints()
+    }
+
+    private func localPatch(from seed: Int, within allowed: Set<Int>,
+                            rings: Int) -> Set<Int> {
         var selected: Set<Int> = [seed]
         var frontier: Set<Int> = [seed]
-        for _ in 0..<max(0, brushRings - 1) {
-            let next = Set(frontier.flatMap { faceAdjacency[$0] ?? [] })
-                .subtracting(selected)
+        for _ in 0..<max(0, rings) {
+            let next = Set(frontier.flatMap { vertexAdjacency[$0] ?? [] })
+                .intersection(allowed).subtracting(selected)
             selected.formUnion(next)
             frontier = next
             if frontier.isEmpty { break }
         }
-        strokeFaces.formUnion(selected)
+        return selected
+    }
+
+    private func clearTransientSelection() {
+        polygonAnchors = []
+        activeAnchor = nil
+        dragStart = nil
+        selectionOverlay.polygonPoints = []
+        selectionOverlay.activeAnchor = nil
+        selectionOverlay.dragPoint = nil
+    }
+
+    private static func makeVertexAdjacency(_ faces: [[Int]])
+        -> [Int: Set<Int>] {
+        var result = [Int: Set<Int>]()
+        for face in faces where face.count >= 2 {
+            for index in face.indices {
+                let vertex = face[index]
+                let previous = face[(index - 1 + face.count) % face.count]
+                let next = face[(index + 1) % face.count]
+                result[vertex, default: []].formUnion([previous, next])
+            }
+        }
+        return result
+    }
+
+    private static func convexHull(
+        _ points: [(point: CGPoint, depth: CGFloat, vertexIndex: Int)]
+    ) -> [(point: CGPoint, depth: CGFloat, vertexIndex: Int)] {
+        let sorted = points.sorted {
+            $0.point.x == $1.point.x
+                ? $0.point.y < $1.point.y : $0.point.x < $1.point.x
+        }
+        guard sorted.count > 2 else { return sorted }
+        func cross(_ a: CGPoint, _ b: CGPoint, _ c: CGPoint) -> CGFloat {
+            (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+        }
+        var lower: [(point: CGPoint, depth: CGFloat, vertexIndex: Int)] = []
+        for point in sorted {
+            while lower.count >= 2,
+                  cross(lower[lower.count - 2].point,
+                        lower[lower.count - 1].point, point.point) <= 0 {
+                lower.removeLast()
+            }
+            lower.append(point)
+        }
+        var upper: [(point: CGPoint, depth: CGFloat, vertexIndex: Int)] = []
+        for point in sorted.reversed() {
+            while upper.count >= 2,
+                  cross(upper[upper.count - 2].point,
+                        upper[upper.count - 1].point, point.point) <= 0 {
+                upper.removeLast()
+            }
+            upper.append(point)
+        }
+        lower.removeLast()
+        upper.removeLast()
+        return lower + upper
+    }
+
+    private static func contains(_ point: CGPoint,
+                                 polygon: [CGPoint]) -> Bool {
+        guard polygon.count >= 3 else { return false }
+        var inside = false
+        var j = polygon.count - 1
+        for i in polygon.indices {
+            let a = polygon[i], b = polygon[j]
+            let crosses = (a.y > point.y) != (b.y > point.y)
+                && point.x < (b.x - a.x) * (point.y - a.y)
+                    / (b.y - a.y) + a.x
+            if crosses { inside.toggle() }
+            j = i
+        }
+        return inside
+    }
+
+    private static func distance(_ lhs: CGPoint, _ rhs: CGPoint) -> CGFloat {
+        hypot(lhs.x - rhs.x, lhs.y - rhs.y)
     }
 }
 
@@ -3017,14 +3471,15 @@ struct TargetSculptSceneRepresentable: NSViewRepresentable {
     let points: [[Double]]
     let faces: [[Int]]
     let faceRegionIDs: [String]
+    let faceComponentIDs: [String]
     let textureCoordinates: [[Double]]
     let removedFaces: Set<Int>
     let clearanceBands: [Int: String]
     let sourceImagePath: String?
     let avatarProfile: GarmentFactoryReactController.BaseAvatarProfile
     let tool: TargetSculptTool
-    let brushRings: Int
     let onStroke: (Set<Int>, Bool) -> Void
+    let onModifierDrag: (String, [Int], Int, [Double]) -> Void
 
     func makeNSView(context: Context) -> TargetSculptSCNView {
         let view = TargetSculptSCNView(frame: .zero)
@@ -3033,6 +3488,7 @@ struct TargetSculptSceneRepresentable: NSViewRepresentable {
         view.rendersContinuously = false
         view.autoenablesDefaultLighting = false
         view.backgroundColor = NSColor(calibratedWhite: 0.035, alpha: 1)
+        view.installSelectionOverlay()
         update(view)
         return view
     }
@@ -3052,28 +3508,17 @@ struct TargetSculptSceneRepresentable: NSViewRepresentable {
         view.pointOfView = built.scene.rootNode.childNode(
             withName: "target-sculpt-camera", recursively: true)
         view.faceMappings = built.faceMappings
-        view.faceAdjacency = Self.adjacency(faces)
-        view.sculptTool = tool
+        view.configureGeometry(
+            points: points, faces: faces,
+            faceComponentIDs: faceComponentIDs,
+            removedFaces: removedFaces)
+        view.setSculptTool(tool)
         built.scene.rootNode.childNode(
             withName: "editable-fused-target-wire", recursively: true)?
             .isHidden = tool == .orbit
-        view.brushRings = max(1, brushRings)
         view.onStroke = onStroke
+        view.onModifierDrag = onModifierDrag
         view.allowsCameraControl = false
-    }
-
-    private static func adjacency(_ faces: [[Int]]) -> [Int: Set<Int>] {
-        var byVertex: [Int: [Int]] = [:]
-        for (faceID, face) in faces.enumerated() {
-            for vertex in face { byVertex[vertex, default: []].append(faceID) }
-        }
-        var result: [Int: Set<Int>] = [:]
-        for rows in byVertex.values {
-            for faceID in rows {
-                result[faceID, default: []].formUnion(rows.filter { $0 != faceID })
-            }
-        }
-        return result
     }
 }
 
