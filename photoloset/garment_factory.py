@@ -1544,6 +1544,42 @@ def advance(state: Mapping[str, Any], event: Mapping[str, Any], *,
         return _accepted(current, event, verdict=str(resolved["verdict"]),
                          record_cross=False,
                          resolution=resolved.get("resolution"))
+    contract_events = {
+        "SUBMIT_PHYSICAL_CALIBRATION_DECISION": "PHYSICAL_CALIBRATION",
+        "SUBMIT_RECONSTRUCTION_CLAIM_DECISION": "RECONSTRUCTION_CLAIM",
+        "SUBMIT_MANUFACTURING_FINISH_DECISION": "MANUFACTURING_FINISH",
+    }
+    if kind in contract_events:
+        admitted = cross_workflow_harness.admit_authoritative_contract(
+            current["cross_workflow"],
+            contract_kind=contract_events[kind],
+            decision=event.get("decision"),
+            approval=event.get("approval"),
+            provenance=(event.get("provenance")
+                        if isinstance(event.get("provenance"), Mapping)
+                        else None))
+        current["cross_workflow"] = admitted["workflow"]
+        if str(admitted["verdict"]).startswith("UNKNOWN_"):
+            request = admitted.get("resolution_request") or {}
+            return {
+                "verdict": str(admitted["verdict"]),
+                "why": str(admitted.get(
+                    "why", request.get("reason", "contract admission failed"))),
+                "state": current,
+                "contract_admission": _plain({
+                    key: value for key, value in admitted.items()
+                    if key != "workflow"}),
+                "resolution_request": request,
+                "resolution_requests": admitted.get("resolution_requests", ()),
+            }
+        return _accepted(
+            current, event, verdict="CONTRACT_ADMITTED", record_cross=False,
+            contract_admission=_plain({
+                key: value for key, value in admitted.items()
+                if key not in {"workflow", "resolution_request",
+                               "resolution_requests"}}),
+            resolution_request=admitted.get("resolution_request"),
+            resolution_requests=admitted.get("resolution_requests", ()))
     if kind == "CONFIRM_IMAGE":
         if "audit_mode" in event:
             try:

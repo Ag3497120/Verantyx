@@ -947,6 +947,9 @@ def _result(job: GarmentGenerationJob, outcome: Any,
                 out["resolution_request"] = recorded["resolution_request"]
                 out["resolution_requests"] = recorded[
                     "resolution_requests"]
+        elif isinstance(resolution_request, Mapping):
+            out["resolution_request"] = dict(resolution_request)
+            out["resolution_requests"] = [dict(resolution_request)]
     return out
 
 
@@ -1047,6 +1050,35 @@ def apply(job: Mapping[str, Any], event: Mapping[str, Any]) -> Dict[str, Any]:
             outcome = current._append(
                 "CROSS_OBLIGATION_RESOLVED", before, before,
                 {"resolution": resolved.get("resolution")}, provenance)
+    elif kind in {
+            "SUBMIT_PHYSICAL_CALIBRATION_DECISION",
+            "SUBMIT_RECONSTRUCTION_CLAIM_DECISION",
+            "SUBMIT_MANUFACTURING_FINISH_DECISION"}:
+        contract_kind = {
+            "SUBMIT_PHYSICAL_CALIBRATION_DECISION": "PHYSICAL_CALIBRATION",
+            "SUBMIT_RECONSTRUCTION_CLAIM_DECISION": "RECONSTRUCTION_CLAIM",
+            "SUBMIT_MANUFACTURING_FINISH_DECISION": "MANUFACTURING_FINISH",
+        }[kind]
+        admitted = cross_workflow_harness.admit_authoritative_contract(
+            current._cross_workflow, contract_kind=contract_kind,
+            decision=event.get("decision"), approval=event.get("approval"),
+            provenance=provenance)
+        current._cross_workflow = admitted["workflow"]
+        cross_already_recorded = True
+        request_from_cross = admitted.get("resolution_request")
+        if str(admitted["verdict"]).startswith("UNKNOWN_"):
+            outcome = JobRefusal(
+                str(admitted["verdict"]),
+                str(admitted.get("why", "contract admission failed")),
+                {"contract_kind": contract_kind})
+        else:
+            before = current.snapshot
+            outcome = current._append(
+                "AUTHORITATIVE_CONTRACT_ADMITTED", before, before,
+                {key: _thaw(value) for key, value in admitted.items()
+                 if key not in {"workflow", "resolution_request",
+                                "resolution_requests"}},
+                provenance)
     elif kind in {"TRANSITION", "STATE_TRANSITION"}:
         outcome = current.transition(event.get("state"),
                                      event.get("artifacts", {}),

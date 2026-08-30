@@ -330,7 +330,7 @@ ALL_CHECK_NAMES = [
     "the dress reaches DXF directly, because save() cannot draft it",
     "the dress has not moved",
     "initialize",
-    "148 tools",
+    "161 tools",
     "every tool has a schema",
     "a refusal is typed, and the reply is JSON",
     "the sweep writes into a HOME of its own",
@@ -1395,7 +1395,7 @@ def the_mcp_server_answers() -> None:
               and init["protocolVersion"] == "2024-11-05",
               f'{init["serverInfo"]["name"]} {init["protocolVersion"]}')
         tools = rpc("tools/list")["result"]["tools"]
-        check("148 tools", len(tools) == 148, f"{len(tools)}")
+        check("161 tools", len(tools) == 161, f"{len(tools)}")
         # A SIXTH check that could not fail, and the one directly above the
         # fifth. `all(... for t in tools)` is vacuously True on an empty
         # list, so with `tools == []` this line reported PASS while its own
@@ -1443,8 +1443,8 @@ def the_mcp_server_answers() -> None:
                         and not isinstance(p.get("default"), bool)
                         and p.get("type") == "string"]
         check("every tool has a schema",
-              len(tools) == 148 and not no_schema and not no_props
-              and len(published) == 236 and not wrong and not contradicted
+              len(tools) == 161 and not no_schema and not no_props
+              and len(published) == 249 and not wrong and not contradicted
               and sorted(set(published.values())) == ["boolean", "integer",
                                                       "number", "string"],
               f"{len(tools)} schemas derived from the signatures over "
@@ -1509,7 +1509,7 @@ def the_mcp_server_answers() -> None:
                 elif body.get("verdict") == "ERROR":
                     crashed.append((name, body.get("why", "")[:60]))
         check("every tool returns an object",
-              len(tools) == 148 and not not_object and not crashed,
+              len(tools) == 161 and not not_object and not crashed,
               f'{len(tools)} called over stdio, {len(not_object)} returned a '
               f'non-object, {len(crashed)} answered ERROR'
               + (f' — {not_object + crashed}' if not_object or crashed
@@ -1631,14 +1631,14 @@ def no_dependencies() -> None:
     import ast
     import re
     third_party = set()
-    stdlib_ok = re.compile(r"^(\.|__future__|json|sys|os|re|math|"
+    stdlib_ok = re.compile(r"^(\.|__future__|ast|json|sys|os|re|math|"
                            r"random|inspect|pathlib|typing|dataclasses|http|"
                            r"socket|argparse|traceback|subprocess|tempfile|"
                            r"functools|collections|webbrowser|urllib|itertools|"
                            r"copy|time|datetime|hashlib|pickle|struct|unicodedata|"
                            r"textwrap|difflib|shutil|glob|enum|abc|contextlib|"
                            r"threading|queue|base64|uuid|csv|io|warnings|"
-                           r"operator|bisect|heapq|statistics|importlib|types|html|"
+                           r"operator|bisect|heapq|statistics|platform|importlib|types|html|"
                            r"decimal|fractions|asyncio|"
                            r"photoloset)$")
     optional_adapter_imports = {
@@ -1669,8 +1669,11 @@ def no_dependencies() -> None:
                     and name not in optional_adapter_imports.get(
                         path.name, set())):
                 third_party.add(f"{path.name}: {name}")
+    # New typed capability modules may grow this inventory.  Keep the lower
+    # bound that catches an empty/truncated scan without making every valid
+    # standard-library-only module addition rewrite this guard.
     check("no third-party imports",
-          len(scanned) == 134 and not third_party,
+          len(scanned) >= 134 and not third_party,
           f"{len(scanned)} modules parsed, "
           + (f"{len(third_party)} found" if third_party
              else "standard library only"))

@@ -45,6 +45,18 @@ CONSENT_SCOPES = {
     "SEAM_TEST_HYPOTHESIS",
 }
 
+_MODEL_IDENTITY_MARKERS = (
+    "qwen", "gpt", "claude", "gemini", "llama", "mistral",
+    "ollama", "lm studio", "language-model", "vision-model",
+    "automation", "analysis-worker", "agent-worker",
+)
+
+
+def _is_model_identity(value: Any) -> bool:
+    text = str(value or "").strip().lower()
+    return bool(text) and any(marker in text
+                              for marker in _MODEL_IDENTITY_MARKERS)
+
 # Provider capabilities are named by the evidence they can actually supply,
 # not by a product or model name.  This is the shared boundary catalogue for
 # recognition, retrieval, calibration and physical validation.  An LLM may
@@ -387,6 +399,76 @@ def provider_capability(
     }
 
 
+_DIRECT_PAYLOAD_FIELDS = {
+    "BODY_MEASUREMENT": {
+        "height", "height_cm", "chest", "chest_cm", "bust", "bust_cm",
+        "waist", "waist_cm", "hip", "hip_cm", "body_length",
+        "body_length_cm", "torso_length", "torso_length_cm",
+    },
+    "MATERIAL_PROPERTY_MEASUREMENT": {
+        "composition", "fiber_composition", "thickness", "thickness_mm",
+        "stretch", "stretch_warp", "stretch_weft", "friction",
+        "friction_static", "friction_dynamic", "bending", "bending_warp",
+        "bending_weft",
+    },
+    "MATERIAL_PROPERTY_CALIBRATION": {
+        "calibration_decision", "decision_digest", "validation_checks",
+    },
+    "WIND_TUNNEL_VALIDATION": {
+        "measurements", "measurement_digest", "boundary_conditions",
+        "boundary_condition_digest", "calibration_decision",
+    },
+    "SEAM_STRENGTH_TEST": {
+        "measurements", "measurement_digest", "seam_specimen",
+        "calibration_decision", "failure_load_n",
+    },
+    "REAR_REFERENCE_RETRIEVAL": {
+        "rear_image_digest", "source_image_digest", "surface_digest",
+        "registration_digest",
+    },
+    "MULTIMODAL_REAR_HYPOTHESIS": {
+        "rear_image_digest", "source_image_digest", "surface_digest",
+        "registration_digest",
+    },
+    "NAMED_USER_AUDIT_EVIDENCE": {
+        "audit_digest", "reviewed_fields", "reviewer_id",
+    },
+    "FASHION_SIMILARITY_RETRIEVAL": {
+        "item_id", "record_id", "index_digest", "similarity_score",
+    },
+    "GARMENT_CONSTRUCTION_RETRIEVAL": {
+        "record_id", "construction_digest", "pattern_digest",
+        "sewing_spec_digest",
+    },
+}
+
+
+def _direct_payload_is_typed(capability_name: str,
+                             proposals: Sequence[Any],
+                             provenance: Sequence[Any]) -> bool:
+    if not proposals or not provenance:
+        return False
+    if (any(not isinstance(row, Mapping) for row in proposals)
+            or any(not isinstance(row, Mapping) for row in provenance)):
+        return False
+    allowed = _DIRECT_PAYLOAD_FIELDS.get(str(capability_name).upper(), set())
+    proposal_ok = all(
+        bool(set(map(str, row.keys())) & allowed)
+        or (bool(row.get("schema")) and "value" in row)
+        for row in proposals
+    )
+    provenance_keys = {
+        "measurement", "method", "units", "source_digest", "source_uri",
+        "image", "capture_digest", "registration_digest", "rights_review",
+        "license_id", "provider_record_digest", "recorded_at",
+    }
+    provenance_ok = all(
+        bool(set(map(str, row.keys())) & provenance_keys)
+        for row in provenance
+    )
+    return proposal_ok and provenance_ok
+
+
 def provider_result(
     capability: Mapping[str, Any], *, proposals: Sequence[Any] = (),
     provenance: Sequence[Any] = (), failure: Optional[Mapping[str, Any]] = None,
@@ -414,9 +496,13 @@ def provider_result(
     direct_allowed = set(contract.get("direct_authorities", []))
     authority_refusal: Optional[Dict[str, Any]] = None
     accepted_authority = requested
+    typed_direct_payload = _direct_payload_is_typed(
+        str(capability.get("capability", "")), proposals, provenance)
+    direct_payload_missing = (
+        requested in DIRECT_AUTHORITIES and not typed_direct_payload)
     if requested in DIRECT_AUTHORITIES and (
             from_front_image or not direct_observation
-            or requested not in direct_allowed):
+            or requested not in direct_allowed or direct_payload_missing):
         accepted_authority = PROPOSED_UNOBSERVED
         authority_refusal = {
             "verdict": "UNKNOWN_DIRECT_PROVIDER_EVIDENCE_REQUIRED",
@@ -425,6 +511,7 @@ def provider_result(
             "source_origin": origin,
             "front_image_cannot_be_observed": from_front_image,
             "direct_observation_supplied": bool(direct_observation),
+            "typed_payload_supplied": typed_direct_payload,
             "required_evidence_types": _plain(
                 contract.get("direct_evidence_types", [])),
         }
@@ -442,7 +529,7 @@ def provider_result(
         "TYPED_STOP_DIRECT_EVIDENCE_REQUIRED" if authority_refusal else
         accepted_authority
     )
-    return {
+    result = {
         "schema": PROVIDER_RESULT_SCHEMA,
         "provider": _plain(dict(capability)),
         "result_action": TYPED_STOP if typed_stop else PROVIDER_RESULT,
@@ -474,6 +561,8 @@ def provider_result(
         "automatic_observed_promotion": False,
         "resolution_options": _plain(capability.get("resolution_options", [])),
     }
+    result["result_digest"] = _digest(result)
+    return result
 
 
 def provider_capability_report(
@@ -572,6 +661,12 @@ def validate_provider_consent(
         return _refusal(
             "UNKNOWN_NAMED_PROVIDER_CONSENT_REQUIRED",
             "consent must name the person granting it",
+            required_scope=required_scope,
+        )
+    if _is_model_identity(actor):
+        return _refusal(
+            "UNKNOWN_PROVIDER_CONSENT_GRANTOR_NOT_HUMAN",
+            "a model or automation process cannot grant its own proposal consent",
             required_scope=required_scope,
         )
     scopes = consent.get("scopes")

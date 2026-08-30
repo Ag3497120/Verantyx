@@ -17,7 +17,8 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 from .cross import CrossStore
 from .cross_lattice import typed_result_digest
-from . import physics_proof_cross
+from . import (manufacturing_finish_contract, physical_calibration_contract,
+               physics_proof_cross, reconstruction_claim_contract)
 
 
 SCHEMA = "garment.cross-workflow-harness.v1"
@@ -25,6 +26,7 @@ RESOLUTION_SCHEMA = "garment.cross-resolution-request.v1"
 CONSENT_SCHEMA = "garment.model-proposal-consent.v1"
 STOP_SCHEMA = "garment.typed-stop.v1"
 CAPABILITY_GATE_SCHEMA = "garment.cross-capability-gate.v1"
+CONTRACT_ADMISSION_SCHEMA = "garment.authoritative-contract-admission.v1"
 
 OBSERVED = "OBSERVED"
 PROPOSED = "PROPOSED"
@@ -937,6 +939,324 @@ def _normal_capability_evidence(raw: Any, gate_id: str,
     return row
 
 
+def _first_mapping(value: Any) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}
+
+
+def _has_any(mapping: Mapping[str, Any], *keys: str) -> bool:
+    return any(key in mapping and mapping.get(key) not in (None, "", [], {})
+               for key in keys)
+
+
+def _embedded_record(value: Mapping[str, Any],
+                     provenance: Mapping[str, Any],
+                     *keys: str) -> Mapping[str, Any]:
+    for container in (provenance, value):
+        for key in keys:
+            candidate = container.get(key)
+            if isinstance(candidate, Mapping):
+                return candidate
+    return {}
+
+
+def _self_digest_valid(record: Mapping[str, Any], digest_key: str) -> bool:
+    supplied = str(record.get(digest_key, "")).strip()
+    if not supplied:
+        return False
+    body = copy.deepcopy(dict(record))
+    body.pop(digest_key, None)
+    return supplied == stable_digest(body)
+
+
+def _physical_decision_rejections(
+        value: Mapping[str, Any], provenance: Mapping[str, Any],
+        expected_claim_kind: str) -> List[str]:
+    decision = _embedded_record(
+        value, provenance, "physical_calibration_decision",
+        "calibration_decision")
+    if not decision:
+        return ["MISSING_AUTHORIZED_CALIBRATION_DECISION"]
+    reasons = []
+    if decision.get("schema") != physical_calibration_contract.DECISION_SCHEMA:
+        reasons.append("INVALID_CALIBRATION_DECISION_SCHEMA")
+    if not _self_digest_valid(decision, "decision_digest"):
+        reasons.append("INVALID_CALIBRATION_DECISION_DIGEST")
+    if (decision.get("verdict") != "CLAIM_AUTHORIZED"
+            or decision.get("claim_authorized") is not True):
+        reasons.append("CALIBRATION_CLAIM_NOT_AUTHORIZED")
+    if decision.get("claim_kind") != expected_claim_kind:
+        reasons.append("CALIBRATION_CLAIM_KIND_MISMATCH")
+    authorized = _first_mapping(decision.get("authorized_claim"))
+    if authorized.get("authority") != "MEASURED":
+        reasons.append("CALIBRATION_AUTHORITY_NOT_MEASURED")
+    if authorized.get("claim_kind") != expected_claim_kind:
+        reasons.append("AUTHORIZED_CALIBRATION_KIND_MISMATCH")
+    checks = decision.get("validation_checks", ())
+    if (not isinstance(checks, Sequence)
+            or isinstance(checks, (str, bytes)) or not checks):
+        reasons.append("MISSING_CALIBRATION_VALIDATION_CHECKS")
+    else:
+        for check in checks:
+            if not isinstance(check, Mapping):
+                reasons.append("INVALID_CALIBRATION_VALIDATION_CHECK")
+                continue
+            counted = check.get("counted_measurement_digests", ())
+            threshold = _first_mapping(check.get("threshold"))
+            if not counted:
+                reasons.append("CALIBRATION_CHECK_HAS_NO_MEASUREMENTS")
+            if threshold.get("is_non_model_approved") is not True:
+                reasons.append("CALIBRATION_THRESHOLD_NOT_HUMAN_APPROVED")
+            if check.get("outside_threshold_digests"):
+                reasons.append("CALIBRATION_CHECK_OUTSIDE_THRESHOLD")
+    return reasons
+
+
+def _reconstruction_decision_rejections(
+        value: Mapping[str, Any], provenance: Mapping[str, Any],
+        expected_claim_kind: str) -> List[str]:
+    decision = _embedded_record(
+        value, provenance, "reconstruction_claim_decision",
+        "reconstruction_decision")
+    if not decision:
+        return ["MISSING_AUTHORIZED_RECONSTRUCTION_DECISION"]
+    reasons = []
+    if decision.get("schema") != reconstruction_claim_contract.DECISION_SCHEMA:
+        reasons.append("INVALID_RECONSTRUCTION_DECISION_SCHEMA")
+    if not _self_digest_valid(decision, "decision_digest"):
+        reasons.append("INVALID_RECONSTRUCTION_DECISION_DIGEST")
+    if decision.get("status") != "CLAIM_AUTHORIZED_SCOPED":
+        reasons.append("RECONSTRUCTION_CLAIM_NOT_AUTHORIZED")
+    if decision.get("claim_kind") != expected_claim_kind:
+        reasons.append("RECONSTRUCTION_CLAIM_KIND_MISMATCH")
+    authorized = _first_mapping(decision.get("authorized_claim"))
+    if not authorized or not authorized.get("scope_item_ids"):
+        reasons.append("RECONSTRUCTION_SCOPE_NOT_BOUND")
+    validations = decision.get("validation", ())
+    if (not isinstance(validations, Sequence)
+            or isinstance(validations, (str, bytes)) or not validations
+            or any(not isinstance(row, Mapping)
+                   or row.get("passed") is not True for row in validations)):
+        reasons.append("RECONSTRUCTION_VALIDATION_NOT_PASSED")
+    return reasons
+
+
+def _finish_decision_rejections(
+        value: Mapping[str, Any],
+        provenance: Mapping[str, Any]) -> List[str]:
+    decision = _embedded_record(
+        value, provenance, "manufacturing_finish_decision",
+        "finish_decision")
+    approval = _embedded_record(
+        value, provenance, "manufacturing_finish_approval",
+        "finish_approval")
+    reasons = []
+    if not decision:
+        reasons.append("MISSING_MANUFACTURING_FINISH_DECISION")
+    else:
+        if decision.get("schema") != manufacturing_finish_contract.SCHEMA:
+            reasons.append("INVALID_MANUFACTURING_FINISH_DECISION_SCHEMA")
+        if not _self_digest_valid(decision, "decision_digest"):
+            reasons.append("INVALID_MANUFACTURING_FINISH_DECISION_DIGEST")
+        if decision.get("verdict") != "CANDIDATES_READY":
+            reasons.append("MANUFACTURING_FINISH_CANDIDATES_NOT_READY")
+    if not approval:
+        reasons.append("MISSING_MANUFACTURING_FINISH_APPROVAL")
+    else:
+        if approval.get("schema") != manufacturing_finish_contract.APPROVAL_SCHEMA:
+            reasons.append("INVALID_MANUFACTURING_FINISH_APPROVAL_SCHEMA")
+        if not _self_digest_valid(approval, "approval_digest"):
+            reasons.append("INVALID_MANUFACTURING_FINISH_APPROVAL_DIGEST")
+        if approval.get("verdict") != "USER_APPROVED":
+            reasons.append("MANUFACTURING_FINISH_NOT_USER_APPROVED")
+        if decision and approval.get("decision_digest") != decision.get(
+                "decision_digest"):
+            reasons.append("MANUFACTURING_FINISH_DECISION_BINDING_MISMATCH")
+        candidates = decision.get("candidates", ()) if decision else ()
+        candidate_digests = {
+            str(row.get("candidate_digest")) for row in candidates
+            if isinstance(row, Mapping) and row.get("candidate_digest")
+        }
+        if approval.get("candidate_digest") not in candidate_digests:
+            reasons.append("MANUFACTURING_FINISH_CANDIDATE_NOT_BOUND")
+    return reasons
+
+
+def _capability_semantic_rejections(
+        gate_id: str, row: Mapping[str, Any]) -> List[str]:
+    """Validate what an evidence payload actually establishes.
+
+    Matching an evidence-type label is intentionally insufficient.  These
+    checks prevent a front image labelled ``REAR_IMAGE``, one material scalar,
+    one toile, or an unlicensed search index from closing a much broader gate.
+    The checks are deliberately structural; domain-specific calibration is
+    performed by the physical/manufacturing contracts before their evidence is
+    admitted here.
+    """
+    value = _first_mapping(row.get("value"))
+    provenance = _first_mapping(row.get("provenance"))
+    reasons: List[str] = []
+
+    if gate_id == "REAR_FROM_SINGLE_FRONT":
+        view = str(provenance.get("view", "")).strip().upper()
+        rear_visible = provenance.get("rear_visible") is True
+        views = provenance.get("views", ())
+        view_tokens = ({str(item).strip().upper() for item in views}
+                       if isinstance(views, Sequence)
+                       and not isinstance(views, (str, bytes)) else set())
+        if not rear_visible and view not in {"REAR", "BACK", "MULTIVIEW"} \
+                and not ({"REAR", "BACK"} & view_tokens):
+            reasons.append("REAR_NOT_VISIBLE_IN_PROVENANCE")
+        if provenance.get("registered") is not True:
+            reasons.append("REAR_VIEW_NOT_REGISTERED")
+        if not _has_any(provenance, "registration_digest"):
+            reasons.append("MISSING_REAR_REGISTRATION_DIGEST")
+        if not _has_any(provenance, "source_image_digest",
+                        "multiview_capture_digest"):
+            reasons.append("MISSING_REAR_SOURCE_IMAGE_DIGEST")
+        if not _has_any(value, "surface_digest", "rear_surface",
+                        "rear_surface_digest"):
+            reasons.append("MISSING_REAR_SURFACE")
+        if not _has_any(value, "construction", "rear_construction",
+                        "construction_digest"):
+            reasons.append("MISSING_REAR_CONSTRUCTION")
+
+    elif gate_id == "MEASURED_MATERIAL":
+        if not _has_any(value, "composition", "fiber_composition"):
+            reasons.append("MISSING_MATERIAL_COMPOSITION")
+        if not _has_any(value, "thickness", "thickness_mm", "thickness_m"):
+            reasons.append("MISSING_MATERIAL_THICKNESS")
+        stretch = _first_mapping(value.get("stretch"))
+        if not ((_has_any(stretch, "warp") and _has_any(stretch, "weft"))
+                or (_has_any(value, "stretch_warp")
+                    and _has_any(value, "stretch_weft"))):
+            reasons.append("MISSING_MATERIAL_STRETCH_AXES")
+        friction = _first_mapping(value.get("friction"))
+        if not (_has_any(value, "friction", "friction_static",
+                         "friction_dynamic")
+                or _has_any(friction, "static", "dynamic")):
+            reasons.append("MISSING_MATERIAL_FRICTION")
+        bending = _first_mapping(value.get("bending"))
+        if not (_has_any(value, "bending", "bending_warp", "bending_weft")
+                or _has_any(bending, "warp", "weft")):
+            reasons.append("MISSING_MATERIAL_BENDING")
+        reasons.extend(_physical_decision_rejections(
+            value, provenance, "MATERIAL_CALIBRATED"))
+
+    elif gate_id == "BODY_DIMENSIONS_FROM_IMAGE":
+        aliases = {
+            "height": ("height", "height_cm"),
+            "chest": ("chest", "chest_cm", "bust", "bust_cm"),
+            "waist": ("waist", "waist_cm"),
+            "hip": ("hip", "hip_cm"),
+            "body_length": ("body_length", "body_length_cm",
+                            "torso_length", "torso_length_cm"),
+        }
+        for name, keys in aliases.items():
+            if not _has_any(value, *keys):
+                reasons.append("MISSING_BODY_" + name.upper())
+        reasons.extend(_reconstruction_decision_rejections(
+            value, provenance, "EXACT_BODY_MEASUREMENTS"))
+
+    elif gate_id == "ARBITRARY_GARMENT_FIDELITY":
+        validation_set = value.get("validation_set", ())
+        finite_scope = str(value.get("scope_kind", "")).upper() in {
+            "FINITE", "FINITE_DECLARED", "DECLARED_FINITE_SCOPE"}
+        if not finite_scope:
+            reasons.append("UNIVERSAL_FIDELITY_SCOPE_NOT_FINITE")
+        if value.get("coverage_complete") is not True:
+            reasons.append("FIDELITY_COVERAGE_NOT_COMPLETE")
+        if (not isinstance(validation_set, Sequence)
+                or isinstance(validation_set, (str, bytes))
+                or not validation_set):
+            reasons.append("MISSING_FIDELITY_VALIDATION_SET")
+        if not _has_any(value, "fidelity_threshold",
+                        "acceptance_threshold"):
+            reasons.append("MISSING_FIDELITY_THRESHOLD")
+        reasons.extend(_reconstruction_decision_rejections(
+            value, provenance, "ARBITRARY_GARMENT_FIDELITY"))
+
+    elif gate_id == "COMPLETE_PATTERN_GUARANTEE":
+        finite_scope = str(value.get("scope_kind", "")).upper() in {
+            "FINITE", "FINITE_DECLARED", "DECLARED_FINITE_SCOPE"}
+        if not finite_scope:
+            reasons.append("UNIVERSAL_PATTERN_SCOPE_NOT_FINITE")
+        if value.get("coverage_complete") is not True:
+            reasons.append("PATTERN_COVERAGE_NOT_COMPLETE")
+        if not _has_any(value, "pattern_digest", "pattern_package_digest"):
+            reasons.append("MISSING_PATTERN_DIGEST")
+        if not _has_any(value, "validation_set_digest",
+                        "physical_toile_validations"):
+            reasons.append("MISSING_PATTERN_VALIDATION_SET")
+        if not _has_any(value, "manufacturability_checks",
+                        "qualified_review_digest"):
+            reasons.append("MISSING_MANUFACTURABILITY_REVIEW")
+        reasons.extend(_reconstruction_decision_rejections(
+            value, provenance,
+            "UNIVERSAL_AUTOMATIC_SEWABLE_PATTERN"))
+
+    elif gate_id == "SEAM_FINISH_CONSTRUCTION":
+        for name in ("seam_finish", "interfacing", "lining",
+                     "machine_setup"):
+            if not _has_any(value, name):
+                reasons.append("MISSING_" + name.upper())
+        reasons.extend(_finish_decision_rejections(value, provenance))
+
+    elif gate_id == "REAL_CLOTH_ERROR_GUARANTEE":
+        if not _has_any(value, "error_percent", "error_metrics"):
+            reasons.append("MISSING_REAL_CLOTH_ERROR_METRIC")
+        sample_count = value.get("sample_count")
+        if isinstance(sample_count, bool) or not isinstance(
+                sample_count, (int, float)) or sample_count < 2:
+            reasons.append("INSUFFICIENT_REAL_CLOTH_SAMPLE_COUNT")
+        if not _has_any(value, "test_population", "validation_set_digest"):
+            reasons.append("MISSING_REAL_CLOTH_TEST_POPULATION")
+        if not _has_any(value, "threshold_percent", "acceptance_threshold"):
+            reasons.append("MISSING_REAL_CLOTH_ACCEPTANCE_THRESHOLD")
+        if not _has_any(value, "calibration_digest"):
+            reasons.append("MISSING_REAL_CLOTH_CALIBRATION_DIGEST")
+        reasons.extend(_physical_decision_rejections(
+            value, provenance, "REAL_CLOTH_ERROR_BOUND"))
+
+    elif gate_id == "WIND_TUNNEL_CALIBRATION":
+        if not _has_any(value, "measurements", "measurement_digest"):
+            reasons.append("MISSING_WIND_MEASUREMENTS")
+        if not _has_any(value, "boundary_conditions",
+                        "boundary_condition_digest"):
+            reasons.append("MISSING_WIND_BOUNDARY_CONDITIONS")
+        if not _has_any(value, "calibration_digest"):
+            reasons.append("MISSING_WIND_CALIBRATION_DIGEST")
+        reasons.extend(_physical_decision_rejections(
+            value, provenance, "WIND_TUNNEL_CALIBRATED"))
+
+    elif gate_id == "CONNECTED_FASHION_SEARCH":
+        rights = _first_mapping(provenance.get("rights_review"))
+        commercial = rights.get("commercial_use", rights.get("commercial"))
+        if commercial is not True and str(commercial).lower() != "allowed":
+            reasons.append("SEARCH_COMMERCIAL_RIGHTS_NOT_ALLOWED")
+        if not _has_any(value, "provider", "provider_id"):
+            reasons.append("MISSING_SEARCH_PROVIDER")
+        if not _has_any(value, "index_digest"):
+            reasons.append("MISSING_SEARCH_INDEX_DIGEST")
+        provider_result = _embedded_record(
+            value, provenance, "provider_result")
+        if not provider_result:
+            reasons.append("MISSING_BOUND_PROVIDER_RESULT")
+        else:
+            if provider_result.get("schema") != "garment.provider-result.v1":
+                reasons.append("INVALID_PROVIDER_RESULT_SCHEMA")
+            if not _self_digest_valid(provider_result, "result_digest"):
+                reasons.append("INVALID_PROVIDER_RESULT_DIGEST")
+            if (provider_result.get("result_action") != "PROVIDER_RESULT"
+                    or provider_result.get("typed_stop") is not False):
+                reasons.append("PROVIDER_RESULT_NOT_ADMITTED")
+            provider = _first_mapping(provider_result.get("provider"))
+            if provider.get("provider_id") not in {
+                    value.get("provider"), value.get("provider_id")}:
+                reasons.append("SEARCH_PROVIDER_BINDING_MISMATCH")
+
+    return sorted(set(reasons))
+
+
 def _evaluate_capability_gate(
         gate_id: str, evidence: Sequence[Any], *, input_digest: str,
         provenance: Optional[Mapping[str, Any]] = None
@@ -956,6 +1276,7 @@ def _evaluate_capability_gate(
     rows.sort(key=lambda row: str(row["evidence_digest"]))
     acceptable_types = set(spec["observed_evidence_types"])
     accepted = []
+    authority_admissible = []
     for row in rows:
         reasons = []
         if row["evidence_state"] != OBSERVED:
@@ -969,8 +1290,12 @@ def _evaluate_capability_gate(
         if (acceptable_types
                 and row["evidence_type"] not in acceptable_types):
             reasons.append("UNACCEPTABLE_EVIDENCE_TYPE")
+        authority_reasons = list(reasons)
+        if not authority_reasons:
+            authority_admissible.append(row)
+        reasons.extend(_capability_semantic_rejections(gate_id, row))
         row["accepted_for_gate"] = not reasons
-        row["rejection_reasons"] = reasons
+        row["rejection_reasons"] = sorted(set(reasons))
         if row["accepted_for_gate"]:
             accepted.append(row)
 
@@ -983,7 +1308,9 @@ def _evaluate_capability_gate(
         state = CONTESTED
         verdict = str(spec["verdict"])
         selected = None
-    elif any(row["evidence_state"] == CONTESTED for row in rows):
+    elif (len({stable_digest(row["value"])
+               for row in authority_admissible}) > 1
+          or any(row["evidence_state"] == CONTESTED for row in rows)):
         state = CONTESTED
         verdict = str(spec["verdict"])
         selected = None
@@ -1087,6 +1414,338 @@ def evaluate_capability_gates(
         "same_old_state": True,
         "reduction": "CANONICAL_ORDER_DETERMINISTIC_REDUCE",
     }
+
+
+def _physical_contract_payload(
+        decision: Mapping[str, Any]) -> Tuple[Optional[str], Dict[str, Any]]:
+    """Derive a gate payload only from an authorized physical decision.
+
+    Callers cannot add missing measurements beside the decision.  If the
+    decision does not carry enough measured detail, the corresponding gate
+    remains open and the UI receives its ordinary typed resolution request.
+    """
+    claim_kind = str(decision.get("claim_kind", ""))
+    value: Dict[str, Any] = {
+        "physical_calibration_decision": _plain(decision),
+        "calibration_digest": str(decision.get("decision_digest", "")),
+    }
+    if claim_kind == physical_calibration_contract.ClaimKind.MATERIAL_CALIBRATED.value:
+        properties: Dict[str, Any] = {}
+        reduction = _first_mapping(decision.get("property_reduction"))
+        entries = reduction.get("entries", ())
+        if isinstance(entries, Sequence) and not isinstance(entries, (str, bytes)):
+            for row in entries:
+                if not isinstance(row, Mapping) or row.get("state") != "MEASURED":
+                    continue
+                supported = _first_mapping(row.get("single_supported_value"))
+                if "value" in supported:
+                    properties[str(row.get("property_name", ""))] = _plain(
+                        supported["value"])
+        value.update({
+            "composition": properties.get("composition"),
+            "thickness_m": properties.get("thickness"),
+            "stretch": {
+                "warp": properties.get("stretch_warp"),
+                "weft": properties.get("stretch_weft"),
+            },
+            "friction": {
+                "static": properties.get("friction_static"),
+                "dynamic": properties.get("friction_dynamic"),
+            },
+            "bending": {
+                "warp": properties.get("bending_warp"),
+                "weft": properties.get("bending_weft"),
+            },
+        })
+        return "MEASURED_MATERIAL", value
+
+    checks = decision.get("validation_checks", ())
+    counted = sorted({
+        str(digest) for check in checks if isinstance(check, Mapping)
+        for digest in check.get("counted_measurement_digests", ())
+        if str(digest)
+    }) if isinstance(checks, Sequence) and not isinstance(
+        checks, (str, bytes)) else []
+    thresholds = [
+        _plain(check.get("threshold")) for check in checks
+        if isinstance(check, Mapping) and isinstance(check.get("threshold"), Mapping)
+    ] if isinstance(checks, Sequence) and not isinstance(
+        checks, (str, bytes)) else []
+    observations = [
+        _plain(row) for check in checks if isinstance(check, Mapping)
+        for row in check.get("all_observations", ()) if isinstance(row, Mapping)
+    ] if isinstance(checks, Sequence) and not isinstance(
+        checks, (str, bytes)) else []
+
+    if claim_kind == physical_calibration_contract.ClaimKind.REAL_CLOTH_ERROR_BOUND.value:
+        authorized = _first_mapping(decision.get("authorized_claim"))
+        maximum_error = authorized.get("maximum_error_percent")
+        threshold_values = [row.get("value") for row in thresholds
+                            if row.get("unit") == "%"]
+        value.update({
+            "error_percent": maximum_error,
+            "sample_count": len(counted),
+            "test_population": counted,
+            "threshold_percent": (threshold_values[0]
+                                  if threshold_values else maximum_error),
+            "validation_set_digest": stable_digest(counted),
+        })
+        return "REAL_CLOTH_ERROR_GUARANTEE", value
+
+    if claim_kind == physical_calibration_contract.ClaimKind.WIND_TUNNEL_CALIBRATED.value:
+        conditions = [row.get("conditions") for row in observations
+                      if row.get("conditions") not in (None, {}, [])]
+        value.update({
+            "measurements": observations or counted,
+            "measurement_digest": stable_digest(observations or counted),
+            "boundary_conditions": conditions,
+            "boundary_condition_digest": (
+                stable_digest(conditions) if conditions else None),
+        })
+        return "WIND_TUNNEL_CALIBRATION", value
+    return None, value
+
+
+def _reconstruction_contract_payload(
+        decision: Mapping[str, Any]) -> Tuple[Optional[str], Dict[str, Any]]:
+    claim_kind = str(decision.get("claim_kind", ""))
+    authorized = _first_mapping(decision.get("authorized_claim"))
+    scope_ids = list(authorized.get("scope_item_ids", ()))
+    validations = [row for row in decision.get("validation", ())
+                   if isinstance(row, Mapping)]
+    value: Dict[str, Any] = {
+        "reconstruction_claim_decision": _plain(decision),
+        "scope_kind": "FINITE_DECLARED",
+        "coverage_complete": bool(scope_ids) and all(
+            row.get("passed") is True for row in validations),
+        "validation_set": _plain(validations),
+        "validation_set_digest": stable_digest(validations),
+    }
+    if claim_kind == reconstruction_claim_contract.ClaimKind.EXACT_BODY_MEASUREMENTS.value:
+        aliases = {
+            "height": {"height", "height_cm", "body.height", "body.height_cm"},
+            "chest": {"chest", "chest_cm", "bust", "bust_cm",
+                      "body.chest", "body.bust"},
+            "waist": {"waist", "waist_cm", "body.waist"},
+            "hip": {"hip", "hip_cm", "body.hip"},
+            "body_length": {"body_length", "body_length_cm", "torso_length",
+                            "torso_length_cm", "body.length", "body.body_length"},
+        }
+        for row in decision.get("hypotheses", ()):
+            if not isinstance(row, Mapping):
+                continue
+            metric = str(row.get("metric", "")).strip().lower()
+            submitted = _first_mapping(row.get("value"))
+            for target, names in aliases.items():
+                if metric in names:
+                    value[target] = _plain(row.get("value"))
+                    continue
+                for name in sorted(names):
+                    if name in submitted and submitted.get(name) not in (
+                            None, "", (), []):
+                        value[target] = _plain(submitted[name])
+                        break
+        return "BODY_DIMENSIONS_FROM_IMAGE", value
+    if claim_kind == reconstruction_claim_contract.ClaimKind.ARBITRARY_GARMENT_FIDELITY.value:
+        value["fidelity_threshold"] = authorized.get("threshold_digests")
+        return "ARBITRARY_GARMENT_FIDELITY", value
+    if claim_kind == (
+            reconstruction_claim_contract.ClaimKind.UNIVERSAL_AUTOMATIC_SEWABLE_PATTERN.value):
+        value.update({
+            "pattern_digest": decision.get("claim_digest"),
+            "manufacturability_checks": validations,
+            "qualified_review_digest": stable_digest(validations),
+        })
+        return "COMPLETE_PATTERN_GUARANTEE", value
+    return None, value
+
+
+def _manufacturing_contract_payload(
+        decision: Mapping[str, Any], approval: Mapping[str, Any]) -> Dict[str, Any]:
+    grouped: Dict[str, Dict[str, Any]] = {
+        "seam_finish": {}, "interfacing": {}, "lining": {},
+    }
+    selections = _first_mapping(approval.get("selections"))
+    for raw_key, selected in selections.items():
+        field, separator, target = str(raw_key).partition(":")
+        if separator and field in grouped:
+            grouped[field][target] = _plain(selected)
+    return {
+        **grouped,
+        # The finish contract intentionally does not infer a machine setup.
+        # Leaving this absent keeps the broader construction gate open.
+        "manufacturing_finish_decision": _plain(decision),
+        "manufacturing_finish_approval": _plain(approval),
+    }
+
+
+def _contract_admission_refusal(
+        workflow: Mapping[str, Any], *, code: str, reason: str,
+        contract_kind: str, details: Optional[Mapping[str, Any]] = None,
+        provenance: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+    recorded = record_stage(
+        workflow, stage="CONTRACT_ADMISSION",
+        event={"type": "ADMIT_AUTHORITATIVE_CONTRACT",
+               "contract_kind": contract_kind},
+        outcome={"verdict": code, "reason": reason,
+                 "details": _plain(details or {})},
+        provenance=provenance)
+    return {
+        "schema": CONTRACT_ADMISSION_SCHEMA,
+        "verdict": code,
+        "why": reason,
+        "contract_kind": contract_kind,
+        "workflow": recorded["workflow"],
+        "resolution_request": recorded["resolution_request"],
+        "resolution_requests": recorded["resolution_requests"],
+    }
+
+
+def admit_authoritative_contract(
+        workflow: Mapping[str, Any], *, contract_kind: str,
+        decision: Mapping[str, Any],
+        approval: Optional[Mapping[str, Any]] = None,
+        provenance: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+    """Admit a strict domain decision into the shared workflow.
+
+    Admission and capability closure are separate.  A valid decision is
+    recorded even when it cannot establish all fields of the wider product
+    claim.  In that case the returned resolution request is the UI resume
+    contract; UNKNOWN is never silently imputed by an LLM.
+    """
+    current = migrate_workflow(workflow, str(workflow.get("owner_id", "job")))
+    kind = str(contract_kind or "").strip().upper()
+    if not isinstance(decision, Mapping):
+        return _contract_admission_refusal(
+            current, code="UNKNOWN_CONTRACT_DECISION_REQUIRED",
+            reason="a typed decision object is required",
+            contract_kind=kind, provenance=provenance)
+
+    gate_id: Optional[str] = None
+    evidence_type = ""
+    source_type = ""
+    state = OBSERVED
+    value: Dict[str, Any] = {}
+    rejection_reasons: List[str] = []
+
+    if kind == "PHYSICAL_CALIBRATION":
+        if decision.get("schema") != physical_calibration_contract.DECISION_SCHEMA:
+            rejection_reasons.append("INVALID_PHYSICAL_CALIBRATION_SCHEMA")
+        if not _self_digest_valid(decision, "decision_digest"):
+            rejection_reasons.append("INVALID_PHYSICAL_CALIBRATION_DIGEST")
+        if (decision.get("verdict") != physical_calibration_contract.CLAIM_AUTHORIZED
+                or decision.get("claim_authorized") is not True):
+            rejection_reasons.append("PHYSICAL_CALIBRATION_NOT_AUTHORIZED")
+        gate_id, value = _physical_contract_payload(decision)
+        evidence_type = {
+            "MEASURED_MATERIAL": "MATERIAL_LAB_MEASUREMENT",
+            "REAL_CLOTH_ERROR_GUARANTEE": "CALIBRATED_REAL_CLOTH_TRIAL",
+            "WIND_TUNNEL_CALIBRATION": "WIND_TUNNEL_MEASUREMENT",
+        }.get(gate_id or "", "")
+        source_type = "LAB"
+    elif kind == "RECONSTRUCTION_CLAIM":
+        if decision.get("schema") != reconstruction_claim_contract.DECISION_SCHEMA:
+            rejection_reasons.append("INVALID_RECONSTRUCTION_CLAIM_SCHEMA")
+        if not _self_digest_valid(decision, "decision_digest"):
+            rejection_reasons.append("INVALID_RECONSTRUCTION_CLAIM_DIGEST")
+        if decision.get("status") != reconstruction_claim_contract.CLAIM_AUTHORIZED_SCOPED:
+            rejection_reasons.append("RECONSTRUCTION_CLAIM_NOT_AUTHORIZED")
+        if decision.get("conflicts"):
+            rejection_reasons.append("RECONSTRUCTION_CLAIM_CONTESTED")
+        gate_id, value = _reconstruction_contract_payload(decision)
+        evidence_type = {
+            "BODY_DIMENSIONS_FROM_IMAGE": "TAPE_MEASUREMENT",
+            "ARBITRARY_GARMENT_FIDELITY": "HUMAN_APPROVED_TARGET",
+            "COMPLETE_PATTERN_GUARANTEE": "QUALIFIED_PATTERN_REVIEW",
+        }.get(gate_id or "", "")
+        source_type = "VALIDATION_REVIEW"
+    elif kind == "MANUFACTURING_FINISH":
+        approval_map = approval if isinstance(approval, Mapping) else {}
+        rejection_reasons.extend(_finish_decision_rejections(
+            {"manufacturing_finish_decision": decision,
+             "manufacturing_finish_approval": approval_map}, {}))
+        gate_id = "SEAM_FINISH_CONSTRUCTION"
+        evidence_type = "APPROVED_SEWING_SPEC"
+        source_type = "HUMAN_APPROVAL"
+        state = INFERRED
+        value = _manufacturing_contract_payload(decision, approval_map)
+    else:
+        rejection_reasons.append("UNKNOWN_AUTHORITATIVE_CONTRACT_KIND")
+
+    if not gate_id:
+        rejection_reasons.append("NO_CAPABILITY_GATE_FOR_CONTRACT_CLAIM")
+    if rejection_reasons:
+        return _contract_admission_refusal(
+            current, code="UNKNOWN_AUTHORITATIVE_CONTRACT_REFUSED",
+            reason="the contract artifact failed typed admission",
+            contract_kind=kind,
+            details={"reason_codes": sorted(set(rejection_reasons))},
+            provenance=provenance)
+
+    decision_digest = str(decision.get("decision_digest", ""))
+    source = "%s:%s" % (kind.lower(), decision_digest[:12])
+    evidence = {
+        "gate": gate_id,
+        "evidence_type": evidence_type,
+        "state": state,
+        "source": source,
+        "source_type": source_type,
+        "value": value,
+        "provenance": {
+            "contract_kind": kind,
+            "decision_digest": decision_digest,
+            **_plain(provenance or {}),
+        },
+    }
+    contract_state = ("USER_APPROVED" if kind == "MANUFACTURING_FINISH"
+                      else OBSERVED)
+    event = {
+        "type": "ADMIT_AUTHORITATIVE_CONTRACT",
+        "contract_kind": kind,
+        "required_capabilities": [gate_id],
+        "capability_evidence": {gate_id: [evidence]},
+        "cross_claims": [{
+            "address": "contract.%s.%s" % (kind.lower(), decision_digest),
+            "value": {"decision_digest": decision_digest,
+                      "gate": gate_id,
+                      "approval_digest": (approval or {}).get(
+                          "approval_digest") if isinstance(approval, Mapping)
+                      else None},
+            "state": state,
+            "source": source,
+            "source_type": source_type,
+            "provenance": _plain(provenance or {}),
+        }],
+    }
+    recorded = record_stage(
+        current, stage="CONTRACT_ADMISSION", event=event,
+        outcome={"verdict": "ANSWER", "contract_kind": kind,
+                 "contract_state": contract_state,
+                 "decision_digest": decision_digest},
+        provenance=provenance)
+    gate = next((row for row in reversed(
+        recorded["workflow"].get("capability_gate_history", ()))
+        if isinstance(row, Mapping) and row.get("gate") == gate_id), None)
+    admission = {
+        "schema": CONTRACT_ADMISSION_SCHEMA,
+        "verdict": "CONTRACT_ADMITTED",
+        "contract_kind": kind,
+        "contract_state": contract_state,
+        "decision_digest": decision_digest,
+        "approval_digest": ((approval or {}).get("approval_digest")
+                            if isinstance(approval, Mapping) else None),
+        "capability_gate": gate_id,
+        "capability_verdict": gate.get("verdict") if gate else None,
+        "capability_state": gate.get("state") if gate else None,
+        "workflow": recorded["workflow"],
+        "resolution_request": recorded["resolution_request"],
+        "resolution_requests": recorded["resolution_requests"],
+    }
+    admission["admission_digest"] = stable_digest({
+        key: value for key, value in admission.items()
+        if key not in {"workflow", "resolution_request", "resolution_requests"}
+    })
+    return admission
 
 
 def record_stage(workflow: Mapping[str, Any], *, stage: str,
@@ -1323,6 +1982,7 @@ def grant_model_consent(workflow: Mapping[str, Any], *, scope: str,
                 "workflow": current, "resolution_request": request}
     consent = {
         "schema": CONSENT_SCHEMA,
+        "owner_id": str(current["owner_id"]),
         "state": OBSERVED,
         "authority": "HUMAN_CONSENT_FOR_MODEL_PROPOSAL_ONLY",
         "authority_ceiling": PROPOSED,
@@ -1335,6 +1995,7 @@ def grant_model_consent(workflow: Mapping[str, Any], *, scope: str,
                    "expires_after_revision": expires_after_revision},
         "bound_workflow_digest": current["workflow_digest"],
         "may_promote_to_observed": False,
+        "maximum_uses": 1,
     }
     consent["consent_digest"] = stable_digest(consent)
     current["consents"].append(consent)
@@ -1356,6 +2017,28 @@ def _valid_consent(workflow: Mapping[str, Any], consent_digest: str,
             key: copy.deepcopy(value) for key, value in consent.items()
             if key != "consent_digest"}):
         return None
+    if consent.get("owner_id") != workflow.get("owner_id"):
+        return None
+    # The consent is issued against the exact pre-consent workflow.  Rebuild
+    # that state rather than trusting a caller-rehashed consent artifact.
+    issued_at = consent.get("issued_at_revision")
+    if isinstance(issued_at, bool) or not isinstance(issued_at, int):
+        return None
+    bound_state = copy.deepcopy(dict(workflow))
+    bound_state["consents"] = [
+        copy.deepcopy(row) for row in workflow.get("consents", ())
+        if isinstance(row, Mapping)
+        and row.get("consent_digest") != consent_digest
+    ]
+    bound_state["revision"] = issued_at
+    _seal(bound_state)
+    if bound_state.get("workflow_digest") != consent.get(
+            "bound_workflow_digest"):
+        return None
+    if any(row.get("consent_digest") == consent_digest
+           for row in workflow.get("resolutions", ())
+           if isinstance(row, Mapping)):
+        return None
     expiry = consent.get("expiry", {})
     if (not isinstance(expiry, Mapping)
             or int(workflow.get("revision", 0)) >
@@ -1363,8 +2046,8 @@ def _valid_consent(workflow: Mapping[str, Any], consent_digest: str,
         return None
     if consent.get("scope") != request.get("stage"):
         return None
-    if request.get("request_id") and consent.get("request_id") not in {
-            "", request.get("request_id")}:
+    if request.get("request_id") and consent.get("request_id") != request.get(
+            "request_id"):
         return None
     return consent if set(fields).issubset(set(consent.get("fields", ()))) else None
 
@@ -1444,6 +2127,27 @@ def resolve_request(workflow: Mapping[str, Any], *, request_id: str,
 
     payload = _plain(values or {})
     fields = sorted(payload)
+    required_fields = sorted({str(field).strip()
+                              for field in request.get("missing_fields", ())
+                              if str(field).strip()})
+    unexpected_fields = sorted(set(fields) - set(required_fields))
+    if unexpected_fields:
+        unresolved = make_resolution_request(
+            stage=str(request.get("stage", "RESOLUTION")),
+            code="UNKNOWN_RESOLUTION_FIELD_MISMATCH",
+            reason="resolution values must address only fields named by this request",
+            details={"missing_fields": required_fields,
+                     "unexpected_fields": unexpected_fields},
+            provenance={"request_id": request_id,
+                        "workflow_digest": current["workflow_digest"]},
+            resolution_paths=[path], recommended_path=path,
+            capability_gate=request.get("capability_gate"))
+        _append_resolution_request(current, unresolved)
+        current["revision"] += 1
+        _seal(current)
+        return {"verdict": "UNKNOWN_RESOLUTION_FIELD_MISMATCH",
+                "workflow": current, "resolution_request": unresolved}
+
     model_actor = _is_model_actor(actor, provenance)
     if path in {MEASURED_INPUT, HUMAN_EDIT} and (
             model_actor or not str(actor or "").strip()):
@@ -1462,6 +2166,59 @@ def resolve_request(workflow: Mapping[str, Any], *, request_id: str,
         _seal(current)
         return {"verdict": "UNKNOWN_MODEL_AUTHORITY_ESCALATION",
                 "workflow": current, "resolution_request": unresolved}
+
+    if path == MEASURED_INPUT and not legacy_human_input:
+        source_type = str((provenance or {}).get(
+            "source_type", "")).strip().upper()
+        trusted_markers = ("HUMAN", "LAB", "MEASURE", "TAPE", "SCAN",
+                           "TEST", "DATASHEET", "INSTRUMENT")
+        untrusted_markers = ("AUTOMATION", "MODEL", "LLM", "AGENT",
+                             "WORKER", "PIPELINE")
+        trusted_measurement = (
+            bool(source_type)
+            and any(marker in source_type for marker in trusted_markers)
+            and not any(marker in source_type for marker in untrusted_markers)
+        )
+        if not trusted_measurement:
+            # Preserve what the automation/model supplied, but never let an
+            # untrusted provenance string promote it to measured authority.
+            # This keeps the proposal auditable and available for comparison
+            # while the capability gate remains open for real measurement.
+            proposed_claims = [{
+                "address": field,
+                "value": value,
+                "state": PROPOSED,
+                "source": str(actor or "untrusted-automation"),
+                "source_type": source_type or "UNTRUSTED_AUTOMATION",
+                "provenance": {
+                    "authority_correction": (
+                        "requested MEASURED_INPUT retained as PROPOSED"
+                    ),
+                    **_plain(provenance or {}),
+                },
+            } for field, value in sorted(payload.items())]
+            current = _ingest_claims(
+                current,
+                proposed_claims,
+                default_source="untrusted-measurement-proposal",
+            )
+            unresolved = make_resolution_request(
+                stage=str(request.get("stage", "RESOLUTION")),
+                code="UNKNOWN_MEASUREMENT_PROVENANCE_REQUIRED",
+                reason=("MEASURED_INPUT needs named human/lab/instrument "
+                        "measurement provenance; automation is not a measurement"),
+                details={"missing_fields": required_fields,
+                         "source_type": source_type},
+                provenance={"actor": str(actor), "request_id": request_id,
+                            **_plain(provenance or {})},
+                resolution_paths=[MEASURED_INPUT, TYPED_STOP],
+                recommended_path=MEASURED_INPUT,
+                capability_gate=request.get("capability_gate"))
+            _append_resolution_request(current, unresolved)
+            current["revision"] += 1
+            _seal(current)
+            return {"verdict": "UNKNOWN_MEASUREMENT_PROVENANCE_REQUIRED",
+                    "workflow": current, "resolution_request": unresolved}
 
     model_values = (path == CONSENTED_LLM_PROPOSAL
                     or (path == BOUNDED_ALTERNATIVES and model_actor))
@@ -1543,13 +2300,16 @@ def resolve_request(workflow: Mapping[str, Any], *, request_id: str,
         current["typed_stops"].append(stop)
         status = "TYPED_STOPPED"
 
+    remaining_fields = sorted(set(required_fields) - set(fields))
     resolution = {
         "request_id": request_id,
         "choice": canonical_choice,
         "resolution_path": path,
         "actor": str(actor),
         "fields": fields,
-        "status": status,
+        "remaining_fields": remaining_fields,
+        "status": ("PARTIALLY_RESOLVED" if remaining_fields
+                   and path != TYPED_STOP else status),
         "consent_digest": consent_digest,
         "provenance": _plain(provenance or {}),
     }
@@ -1557,9 +2317,13 @@ def resolve_request(workflow: Mapping[str, Any], *, request_id: str,
     current["resolutions"].append(resolution)
     for row in current["obligations"]:
         if row.get("request_id") == request_id:
-            row["status"] = status
+            row["status"] = ("OPEN" if remaining_fields
+                             and path != TYPED_STOP else status)
+            row["remaining_fields"] = remaining_fields
             row["resolution_digest"] = resolution["resolution_digest"]
     current["revision"] += 1
     _seal(current)
-    return {"verdict": "ANSWER" if path != TYPED_STOP else "TYPED_STOP",
+    return {"verdict": ("UNKNOWN_PARTIAL_RESOLUTION" if remaining_fields
+                        and path != TYPED_STOP else
+                        "ANSWER" if path != TYPED_STOP else "TYPED_STOP"),
             "workflow": current, "resolution": resolution}

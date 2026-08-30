@@ -820,6 +820,49 @@ for _connection in (
         "next_action": "add only a PROPOSED cutout alternative; do not infer boundary semantics",
     },
     {
+        "component": "physical calibration claim gate",
+        "stage": "PHYSICAL_CALIBRATION",
+        "status": CONNECTED,
+        "module": f"{__package__}.physical_calibration_contract",
+        "tools": (
+            "garment_physical_calibration_capabilities",
+            "garment_physical_calibration_assess",
+        ),
+        "factory_events": ("SUBMIT_PHYSICAL_CALIBRATION_DECISION",),
+        "accepted_evidence": (
+            "strict typed material, seam, wind-tunnel, and real-cloth measurements",
+            "non-model acceptance thresholds with rights and provenance",
+        ),
+        "next_action": (
+            "decode the typed request and authorize a claim only when every "
+            "non-model measurement, right, test, and threshold gate passes"
+        ),
+        "note": (
+            "the gate is connected; external laboratories and measurement "
+            "providers remain optional"
+        ),
+    },
+    {
+        "component": "manufacturing finish decision gate",
+        "stage": "MANUFACTURING_FINISH",
+        "status": CONNECTED,
+        "module": f"{__package__}.manufacturing_finish_contract",
+        "tools": (
+            "garment_manufacturing_finish_decision",
+            "garment_manufacturing_finish_approve",
+        ),
+        "factory_events": ("SUBMIT_MANUFACTURING_FINISH_DECISION",),
+        "accepted_evidence": (
+            "explicit observed, requested, provider-supported, and model-proposed lanes",
+            "named human approval bound to one exact candidate digest",
+        ),
+        "next_action": (
+            "build bounded alternatives without silent selection, then approve "
+            "one exact digest without promoting it to observation"
+        ),
+        "note": "the decision gate is connected; the sewing corpus remains optional",
+    },
+    {
         "component": "sewing-method corpus", "stage": "SEWING_METHODS",
         "status": OPTIONAL_PROVIDER,
         "module": f"{__package__}.sewing_search",
@@ -923,7 +966,11 @@ _CONNECTION_LIMITATIONS: Tuple[Dict[str, Any], ...] = (
             "complete material.measurements.v1 laboratory observations",
             "multiple PROPOSED material ranges plus named human selection",
         ),
-        "mcp_tools": ("material_calibrate", "garment_factory"),
+        "mcp_tools": (
+            "garment_physical_calibration_capabilities",
+            "garment_physical_calibration_assess",
+            "material_calibrate", "garment_factory",
+        ),
         "factory_events": ("SUBMIT_MATERIAL_CANDIDATES", "APPROVE_MATERIAL"),
         "next_action": (
             "calibrate measured channels or submit proposed alternatives and approve "
@@ -1020,7 +1067,10 @@ _CONNECTION_LIMITATIONS: Tuple[Dict[str, Any], ...] = (
             "human-selected finish bound to the approved pattern digest",
         ),
         "mcp_tools": (
-            "garment_structure_sewing_plan", "sewing_methods", "garment_factory",
+            "garment_structure_sewing_plan",
+            "garment_manufacturing_finish_decision",
+            "garment_manufacturing_finish_approve",
+            "sewing_methods", "garment_factory",
         ),
         "factory_events": (
             "HYBRID_SEWING_SEARCH", "SUBMIT_SEWING_METHODS",
@@ -1046,6 +1096,8 @@ _CONNECTION_LIMITATIONS: Tuple[Dict[str, Any], ...] = (
             "solver-versus-experiment residual report with provenance",
         ),
         "mcp_tools": (
+            "garment_physical_calibration_capabilities",
+            "garment_physical_calibration_assess",
             "material_calibrate", "seam_calibrate",
             "industrial_cloth_simulate", "proof_cross_verify", "garment_factory",
         ),
@@ -1069,6 +1121,8 @@ _CONNECTION_LIMITATIONS: Tuple[Dict[str, Any], ...] = (
             "typed validation residuals for the same geometry and flow case",
         ),
         "mcp_tools": (
+            "garment_physical_calibration_capabilities",
+            "garment_physical_calibration_assess",
             "turbulence_validate", "incompressible_fluid_step",
             "proof_cross_verify", "garment_factory",
         ),
@@ -4059,6 +4113,313 @@ def garment_front_cutout_alternative(json_text: str = "") -> str:
         "audit": audit,
     }
     return _ok(_attach_connection_resolution(result))
+
+
+@tool
+def garment_physical_calibration_capabilities(json_text: str = "") -> str:
+    """List the typed physical claim gates and their evidence requirements.
+
+    The optional ``json_text`` must be an empty object.  This tool advertises
+    material, seam, wind-tunnel, and real-cloth validation plans; it does not
+    connect a laboratory or turn a solver/model result into a measurement.
+    """
+    req, err = _json_arg(json_text, "empty physical-calibration capability request")
+    if err:
+        return _ok(err)
+    if not isinstance(req, dict) or req:
+        return _ok({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "physical calibration capabilities accepts only an empty object",
+        })
+    from . import physical_calibration_contract as _physical_contract
+    return _ok(_physical_contract.capabilities())
+
+
+@tool
+def garment_physical_calibration_assess(json_text: str = "") -> str:
+    """Strictly decode and assess one physical calibration claim.
+
+    ``json_text`` is a ``garment.physical-calibration-contract.v1`` request.
+    Every nested rights, provenance, material, dataset, observation, test,
+    threshold, and optional plan object is decoded into the contract's frozen
+    dataclasses.  Unknown fields, wrong units, malformed digests, or malformed
+    JSON return a typed ``CLAIM_BLOCKED`` value rather than crossing the MCP
+    boundary as ``ERROR``.  MODEL and SIMULATION producers remain PROPOSED.
+    """
+    from . import calibration_contract_adapter as _calibration_adapter
+    from . import physical_calibration_contract as _physical_contract
+
+    request, refusal = _calibration_adapter.decode_claim_request_json(json_text)
+    if refusal is not None:
+        return _ok(refusal)
+    try:
+        return _ok(_physical_contract.assess_claim(request))
+    except (TypeError, ValueError) as exc:
+        issue = _calibration_adapter.PhysicalCalibrationDecodeError(
+            "$", str(exc), code="UNKNOWN_TYPED_CALIBRATION_INPUT")
+        return _ok(_calibration_adapter.blocked_decision(
+            issue, claim_kind=request.claim_kind.value))
+
+
+@tool
+def cross_representation_falsification_audit(json_text: str = "") -> str:
+    """Measure which current Cross properties survive ordinary tagged records.
+
+    This is deliberately a falsification audit, not a branding or superiority
+    claim.  It tests current value selection, disagreement preservation,
+    provenance, cause-axis influence, order dependence, and Evidence/Physical
+    schema separation.  Optional positive integer ``benchmark_rounds`` and
+    ``benchmark_iterations`` are bounded to 20 and 500 respectively; volatile
+    timing is excluded from the deterministic report digest.
+    """
+    req, err = _json_arg(json_text, "Cross representation audit request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "Cross representation audit request must be an object",
+        }))
+    allowed = {"benchmark_rounds", "benchmark_iterations"}
+    unknown = sorted(str(key) for key in req if key not in allowed)
+    if unknown:
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "unsupported fields: " + ", ".join(unknown),
+        }))
+
+    def bounded_positive_integer(name: str, default: int, maximum: int) -> Any:
+        value = req.get(name, default)
+        if isinstance(value, bool) or not isinstance(value, int):
+            return {
+                "verdict": "UNKNOWN_BAD_ARGUMENTS",
+                "why": f"{name} must be an integer",
+            }
+        if value < 1 or value > maximum:
+            return {
+                "verdict": "UNKNOWN_BAD_ARGUMENTS",
+                "why": f"{name} must be between 1 and {maximum}",
+            }
+        return value
+
+    rounds = bounded_positive_integer("benchmark_rounds", 3, 20)
+    if isinstance(rounds, dict):
+        return _ok(_attach_connection_resolution(rounds))
+    iterations = bounded_positive_integer("benchmark_iterations", 40, 500)
+    if isinstance(iterations, dict):
+        return _ok(_attach_connection_resolution(iterations))
+    from . import cross_representation_audit as _cross_audit
+    report = _cross_audit.build_audit_report(
+        benchmark_rounds=rounds,
+        benchmark_iterations=iterations,
+    )
+    return _ok(report)
+
+
+register_connection_component(
+    "Cross representation falsification audit",
+    stage="CROSS_HARNESS",
+    status=CONNECTED,
+    module=f"{__package__}.cross_representation_audit",
+    tools=("cross_representation_falsification_audit",),
+    factory_events=(),
+    accepted_evidence=(
+        "executable Cross-versus-tagged-record semantic comparison",
+        "raw bounded timing and object-size observations without a superiority claim",
+    ),
+    next_action=(
+        "retain the measured properties and expose cause as metadata-only until "
+        "an executable decision path demonstrates otherwise"
+    ),
+)
+
+
+@tool
+def garment_reconstruction_claim_capabilities(json_text: str = "") -> str:
+    """List finite-scope reconstruction claims and authority ceilings.
+
+    The tool advertises exact-body, garment-fidelity, and sewable-pattern
+    claim boundaries.  It does not observe a hidden rear, turn image estimates
+    into measurements, or promise success for an unbounded image domain.
+    """
+    from . import reconstruction_contract_adapter as _adapter
+    return _ok(_adapter.capabilities(json_text))
+
+
+@tool
+def garment_reconstruction_claim_assess(json_text: str = "") -> str:
+    """Strictly decode and assess one finite reconstruction claim.
+
+    Unknown fields and malformed nested rights/provenance are returned as
+    typed unresolved decisions.  MODEL and RECONSTRUCTION evidence remains
+    MODEL_PROPOSED even when its input authority field says MEASURED.
+    """
+    from . import reconstruction_contract_adapter as _adapter
+    return _ok(_adapter.assess(json_text))
+
+
+register_connection_component(
+    "finite reconstruction claim gate",
+    stage="RECONSTRUCTION_CLAIMS",
+    status=CONNECTED,
+    module=f"{__package__}.reconstruction_claim_contract",
+    tools=(
+        "garment_reconstruction_claim_capabilities",
+        "garment_reconstruction_claim_assess",
+    ),
+    factory_events=("SUBMIT_RECONSTRUCTION_CLAIM_DECISION",),
+    accepted_evidence=(
+        "finite declared scope with source-view, measurement, and manufacturability thresholds",
+        "rights-cleared non-model validation cases bound to one project and request",
+    ),
+    next_action=(
+        "assess the finite claim and submit its exact decision digest to the "
+        "factory; unbounded any-image guarantees remain a typed stop"
+    ),
+)
+
+
+def _manufacturing_finish_refusal(why: str, *, approval: bool = False) -> str:
+    return _ok({
+        "schema": "garment.manufacturing-finish-mcp-refusal.v1",
+        "verdict": (
+            "UNKNOWN_MANUFACTURING_FINISH_APPROVAL_REQUEST"
+            if approval else "UNKNOWN_MANUFACTURING_FINISH_DECISION_REQUEST"
+        ),
+        "state": "UNKNOWN_UNOBSERVED",
+        "why": str(why),
+        "observed": False,
+        "manufacturing_certified": False,
+        "automatic_selection_allowed": False,
+        "resolution_options": [
+            "CONNECT_PROVIDER", "RECORD_DIRECT_OBSERVATION",
+            "ENTER_REQUESTED_VALUE", "ALLOW_ONE_TIME_LLM_PROPOSAL",
+            "KEEP_UNKNOWN", "TYPED_STOP",
+        ],
+    })
+
+
+def _finish_evidence_rows(value: Any, name: str) -> Optional[str]:
+    if isinstance(value, Mapping):
+        return None
+    if (isinstance(value, list)
+            and all(isinstance(row, Mapping) for row in value)):
+        return None
+    return f"{name} must be an object or an array of objects"
+
+
+@tool
+def garment_manufacturing_finish_decision(json_text: str = "") -> str:
+    """Build bounded seam-finish/interfacing/lining alternatives.
+
+    Input fields are ``subject_digest``, ``seam_topology``, ``sewing_order``,
+    and optional disjoint ``observed``, ``requested``,
+    ``provider_supported``, and ``model_proposed`` lanes.  Geometry contributes
+    topology/order only.  The tool never silently selects a finish and model
+    proposals can never become OBSERVED or MEASURED.
+    """
+    req, err = _json_arg(json_text, "manufacturing-finish decision request")
+    if err:
+        return _manufacturing_finish_refusal(err["why"])
+    if not isinstance(req, dict):
+        return _manufacturing_finish_refusal("request must be an object")
+    allowed = {
+        "schema", "subject_digest", "seam_topology", "sewing_order",
+        "observed", "requested", "provider_supported", "model_proposed",
+        "provider", "max_candidates", "require_commercial_rights",
+    }
+    unknown = sorted(str(key) for key in req if key not in allowed)
+    if unknown:
+        return _manufacturing_finish_refusal(
+            "unsupported fields: " + ", ".join(unknown))
+    schema = req.get("schema")
+    expected_schema = "garment.manufacturing-finish-decision.request.v1"
+    if schema is not None and schema != expected_schema:
+        return _manufacturing_finish_refusal(
+            f"schema must be exactly {expected_schema}")
+    for required in ("subject_digest", "seam_topology", "sewing_order"):
+        if required not in req:
+            return _manufacturing_finish_refusal(
+                f"request is missing required field {required}")
+    for lane in ("observed", "requested", "provider_supported", "model_proposed"):
+        if lane in req:
+            lane_error = _finish_evidence_rows(req[lane], lane)
+            if lane_error:
+                return _manufacturing_finish_refusal(lane_error)
+    provider = req.get("provider", {})
+    if not isinstance(provider, Mapping):
+        return _manufacturing_finish_refusal("provider must be an object")
+    max_candidates = req.get("max_candidates", 8)
+    if (isinstance(max_candidates, bool)
+            or not isinstance(max_candidates, int)):
+        return _manufacturing_finish_refusal("max_candidates must be an integer")
+    require_commercial = req.get("require_commercial_rights", True)
+    if not isinstance(require_commercial, bool):
+        return _manufacturing_finish_refusal(
+            "require_commercial_rights must be a boolean")
+    from . import manufacturing_finish_contract as _finish_contract
+    try:
+        result = _finish_contract.build_manufacturing_finish_decision(
+            subject_digest=req["subject_digest"],
+            seam_topology=req["seam_topology"],
+            sewing_order=req["sewing_order"],
+            observed=req.get("observed", ()),
+            requested=req.get("requested", ()),
+            provider_supported=req.get("provider_supported", ()),
+            model_proposed=req.get("model_proposed", ()),
+            provider=provider,
+            max_candidates=max_candidates,
+            require_commercial_rights=require_commercial,
+        )
+    except (TypeError, ValueError) as exc:
+        return _manufacturing_finish_refusal(str(exc))
+    return _ok(result)
+
+
+@tool
+def garment_manufacturing_finish_approve(json_text: str = "") -> str:
+    """Approve one exact manufacturing-finish candidate digest.
+
+    Input is ``{decision, candidate_digest, approved_by, provenance?}``.
+    Approval records a human choice as ``USER_APPROVED``; it is never an
+    observation, a material measurement, or a manufacturing certification.
+    """
+    req, err = _json_arg(json_text, "manufacturing-finish approval request")
+    if err:
+        return _manufacturing_finish_refusal(err["why"], approval=True)
+    if not isinstance(req, dict):
+        return _manufacturing_finish_refusal(
+            "request must be an object", approval=True)
+    allowed = {"schema", "decision", "candidate_digest", "approved_by", "provenance"}
+    unknown = sorted(str(key) for key in req if key not in allowed)
+    if unknown:
+        return _manufacturing_finish_refusal(
+            "unsupported fields: " + ", ".join(unknown), approval=True)
+    schema = req.get("schema")
+    expected_schema = "garment.manufacturing-finish-approval.request.v1"
+    if schema is not None and schema != expected_schema:
+        return _manufacturing_finish_refusal(
+            f"schema must be exactly {expected_schema}", approval=True)
+    decision = req.get("decision")
+    if not isinstance(decision, Mapping):
+        return _manufacturing_finish_refusal(
+            "decision must be a manufacturing-finish decision object",
+            approval=True)
+    provenance = req.get("provenance", {})
+    if not isinstance(provenance, Mapping):
+        return _manufacturing_finish_refusal(
+            "provenance must be an object", approval=True)
+    from . import manufacturing_finish_contract as _finish_contract
+    try:
+        result = _finish_contract.approve_manufacturing_finish_candidate(
+            decision,
+            candidate_digest=req.get("candidate_digest", ""),
+            approved_by=req.get("approved_by", ""),
+            provenance=provenance,
+        )
+    except (TypeError, ValueError) as exc:
+        return _manufacturing_finish_refusal(str(exc), approval=True)
+    return _ok(result)
 
 
 @tool

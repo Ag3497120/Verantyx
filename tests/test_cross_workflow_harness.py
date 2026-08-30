@@ -285,6 +285,23 @@ class CrossWorkflowHarnessTests(unittest.TestCase):
             "accepted_for_gate"])
         self.assertIsNotNone(model["resolution_request"])
 
+        calibration_decision = {
+            "schema": "garment.physical-calibration-decision.v1",
+            "verdict": "CLAIM_AUTHORIZED",
+            "claim_authorized": True,
+            "claim_kind": "MATERIAL_CALIBRATED",
+            "authorized_claim": {
+                "claim_kind": "MATERIAL_CALIBRATED",
+                "authority": "MEASURED",
+            },
+            "validation_checks": [{
+                "counted_measurement_digests": ["fixture-measurement"],
+                "threshold": {"is_non_model_approved": True},
+                "outside_threshold_digests": [],
+            }],
+        }
+        calibration_decision["decision_digest"] = harness.stable_digest(
+            calibration_decision)
         measured = harness.evaluate_capability_gates(
             harness.new_workflow("capability-measured"),
             ["MEASURED_MATERIAL"],
@@ -293,7 +310,16 @@ class CrossWorkflowHarnessTests(unittest.TestCase):
                 "state": "OBSERVED",
                 "source": "lab-a",
                 "source_type": "MEASUREMENT",
-                "value": {"bending": 0.004},
+                "value": {
+                    "composition": "acrylic",
+                    "thickness_mm": 1.2,
+                    "stretch": {"warp": 0.10, "weft": 0.20},
+                    "friction": 0.35,
+                    "bending": 0.004,
+                },
+                "provenance": {
+                    "calibration_decision": calibration_decision,
+                },
             }]},
         )
         self.assertEqual(measured["verdict"], "ANSWER")
@@ -347,7 +373,10 @@ class CrossWorkflowHarnessTests(unittest.TestCase):
             staged["workflow"],
             request_id=staged["resolution_request"]["request_id"],
             choice=harness.BOUNDED_ALTERNATIVES,
-            values={"rear.surface": ["plain-back", "center-opening"]},
+            values={
+                "rear.surface": ["plain-back", "center-opening"],
+                "rear.construction": ["center-seam", "side-seam"],
+            },
             actor="deterministic-rear-enumerator",
         )
         self.assertEqual(result["verdict"], "ANSWER")
