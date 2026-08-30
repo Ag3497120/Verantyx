@@ -560,11 +560,19 @@ class GeometricAtelierWorkflowTests(unittest.TestCase):
             self.assertGreater(final_iou, initial_iou)
             self.assertEqual(
                 candidate["final_evaluation"]["convergence"]["status"],
-                "CONTINUE",
+                "CONVERGED",
+            )
+            self.assertEqual(
+                candidate["final_evaluation"]["convergence"]["unmet_bounds"],
+                [],
             )
             self.assertIsNone(candidate["non_improvement_stop"])
             self.assertEqual(
-                candidate["verdict"], "HUMAN_REVIEW_REPAIR_UNAVAILABLE")
+                candidate["verdict"], "HUMAN_REVIEW_REQUIRED")
+            self.assertEqual(
+                candidate["human_approval_gate"]["verdict"],
+                "HUMAN_REVIEW_REQUIRED",
+            )
             self.assertIsNone(candidate["pattern_handoff"])
 
         self.assertEqual(len(measurements), 2)

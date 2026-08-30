@@ -181,6 +181,36 @@ class FrontProjectionCompareTests(unittest.TestCase):
         self.assertEqual(result["proposal_limit"], 3)
         self.assertFalse(result["convergence"]["all_independent_bounds_met"])
 
+    def test_single_part_shape_error_is_not_relabelled_as_layer_order_error(self):
+        observed = _observation()
+        rendered = _render()
+        observed["typed_part_masks"].pop("front_overlay")
+        observed["typed_part_masks"].pop("rear_panel")
+        observed["visible_color_swatches"].pop("front_overlay")
+        observed["visible_color_swatches"].pop("rear_panel")
+        rendered["typed_part_masks"].pop("front_overlay")
+        rendered["visible_color_swatches"].pop("front_overlay")
+        rendered["silhouette_mask"]["mask"] = copy.deepcopy(OVERLAY)
+        rendered["typed_part_masks"]["body"]["mask"] = copy.deepcopy(OVERLAY)
+
+        result = compare_front_projection(observed, rendered)
+
+        layer = result["axes"]["layer_occlusion"]
+        self.assertEqual(layer["status"], "NOT_SCORED")
+        self.assertEqual(layer["observation_relations"], [])
+        self.assertEqual(layer["observation_overlap_pixels"], 0)
+        self.assertEqual(layer["evaluated_pixels"], 0)
+        self.assertEqual(layer["pixel_mismatch_count"], 0)
+        self.assertEqual(layer["pixel_mismatch_ratio"], 0.0)
+        self.assertNotIn(
+            "REORDER_VISIBLE_FRONT_LAYERS",
+            {proposal["operation"] for proposal in result["proposals"]},
+        )
+        self.assertIn(
+            "SILHOUETTE_IOU_BELOW_BOUND",
+            result["convergence"]["unmet_bounds"],
+        )
+
     def test_any_regression_rejects_even_when_other_axes_improve(self):
         previous_render = _render("candidate-round-1")
         previous_render["silhouette_mask"]["mask"][1][0] = 0

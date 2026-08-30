@@ -527,18 +527,41 @@ def _layer_relations(parts: Mapping[str, Mapping[str, Any]], valid: Sequence[boo
 def _layer_axis(observation: Mapping[str, Any], rendering: Mapping[str, Any],
                 valid: Sequence[bool]) -> Dict[str, Any]:
     total = len(valid)
-    obs_top, obs_ambiguous = _top_parts(observation["parts"], valid, total)
-    render_top, render_ambiguous = _top_parts(rendering["parts"], valid, total)
+    obs_relations = _layer_relations(observation["parts"], valid)
+    render_relations = _layer_relations(rendering["parts"], valid)
+
+    # A top-visible part id is evidence about layer order only where at least
+    # two observed, integer-layer parts actually overlap.  Comparing it over
+    # every occupied pixel makes an ordinary silhouette/part-mask residual
+    # appear a second time as a layer-order residual.  In particular, a
+    # single confirmed aggregate garment has no observable layer relation at
+    # all, so there is nothing that a REORDER operation can truthfully repair.
+    relation_domain = [False] * total
+    flattened = {
+        part_id: _flatten(part["mask"])
+        for part_id, part in observation["parts"].items()
+    }
+    for lower_id, upper_id in obs_relations:
+        lower = flattened[lower_id]
+        upper = flattened[upper_id]
+        for index, (keep, lower_present, upper_present) in enumerate(zip(
+                valid, lower, upper)):
+            if keep and lower_present and upper_present:
+                relation_domain[index] = True
+
+    obs_top, obs_ambiguous = _top_parts(
+        observation["parts"], relation_domain, total)
+    render_top, render_ambiguous = _top_parts(
+        rendering["parts"], relation_domain, total)
     excluded = obs_ambiguous | render_ambiguous
     evaluated = 0
     mismatches = 0
     for index, (left, right) in enumerate(zip(obs_top, render_top)):
-        if not valid[index] or index in excluded or (left is None and right is None):
+        if (not relation_domain[index] or index in excluded
+                or (left is None and right is None)):
             continue
         evaluated += 1
         mismatches += int(left != right)
-    obs_relations = _layer_relations(observation["parts"], valid)
-    render_relations = _layer_relations(rendering["parts"], valid)
     missing = sorted(obs_relations - render_relations)
     reversed_relations = sorted(
         relation for relation in obs_relations
@@ -550,6 +573,7 @@ def _layer_axis(observation: Mapping[str, Any], rendering: Mapping[str, Any],
         "pixel_mismatch_count": mismatches,
         "evaluated_pixels": evaluated,
         "pixel_mismatch_ratio": ratio,
+        "observation_overlap_pixels": sum(relation_domain),
         "ambiguous_equal_layer_pixels_excluded": len(excluded),
         "observation_relations": [list(row) for row in sorted(obs_relations)],
         "render_relations": [list(row) for row in sorted(render_relations)],
