@@ -11,6 +11,8 @@ from enum import Enum
 from types import MappingProxyType
 from typing import Any, Dict, Iterable, Mapping, Optional, Sequence, Tuple
 
+from . import cross_workflow_harness
+
 
 class JobState(str, Enum):
     IMAGE_RECEIVED = "IMAGE_RECEIVED"
@@ -304,6 +306,8 @@ class GarmentGenerationJob:
         self._events: Tuple[JobEvent, ...] = ()
         self._previews: Dict[str, Preview] = {}
         self._applied: Tuple[JobSnapshot, ...] = ()
+        self._cross_workflow = cross_workflow_harness.new_workflow(
+            job_id, source_schema="garment.job.v1")
 
     @property
     def snapshot(self) -> JobSnapshot:
@@ -829,6 +833,7 @@ class GarmentGenerationJob:
                 "snapshot": self._snapshot.as_dict(),
                 "events": [e.as_dict() for e in self._events],
                 "provenance": _thaw(self._provenance),
+                "cross_workflow": copy.deepcopy(self._cross_workflow),
                 "pending_previews": {key: value.as_dict()
                                      for key, value in sorted(self._previews.items())},
                 "undo_stack": [snapshot.as_dict()
@@ -868,6 +873,9 @@ def _job_from_dict(value: Mapping[str, Any]) -> GarmentGenerationJob:
         raise ValueError("job must be a garment.job.v1 object")
     job = GarmentGenerationJob(str(value.get("job_id", "")),
                                value.get("provenance", {}))
+    job._cross_workflow = cross_workflow_harness.migrate_workflow(
+        value.get("cross_workflow"), job.job_id,
+        source_schema=str(value.get("schema", "garment.job.v1")))
     job._snapshot = _snapshot_from_dict(value.get("snapshot", {}))
     events = []
     for raw in value.get("events", ()):
@@ -894,17 +902,60 @@ def new_job(job_id: Optional[str] = None) -> Dict[str, Any]:
                                 {"source": "HUMAN_INPUT"}).as_dict()
 
 
-def _result(job: GarmentGenerationJob, outcome: Any) -> Dict[str, Any]:
+def _result(job: GarmentGenerationJob, outcome: Any,
+            event: Optional[Mapping[str, Any]] = None, *,
+            record_cross: bool = True,
+            resolution_request: Optional[Mapping[str, Any]] = None
+            ) -> Dict[str, Any]:
+    payload = (outcome.as_dict() if hasattr(outcome, "as_dict")
+               else _plain_result(outcome))
+    recorded = None
+    if record_cross:
+        stage = (job.snapshot.state.value if job.snapshot.state is not None
+                 else str((event or {}).get("kind", (event or {}).get(
+                     "type", "JOB"))).upper())
+        recorded = cross_workflow_harness.record_stage(
+            job._cross_workflow, stage=stage, event=event or {},
+            outcome=payload, provenance={"component": "generation_job"})
+        job._cross_workflow = recorded["workflow"]
     out = job.as_dict()
     if isinstance(outcome, JobRefusal):
-        refusal = outcome.as_dict()
+        refusal = payload
+        request = (dict(resolution_request)
+                   if isinstance(resolution_request, Mapping)
+                   else (recorded["resolution_request"]
+                         if recorded is not None else None))
+        refusal["resolution_request"] = request
         out.update(refusal)
         out["result"] = refusal
+        out["resolution_request"] = request
+        out["resolution_requests"] = (recorded["resolution_requests"]
+                                      if recorded is not None
+                                      else ([request] if request else []))
+        if request is not None and "typed_stop" in request:
+            out["typed_stop"] = request["typed_stop"]
+        elif payload.get("verdict") == "TYPED_STOP" and out[
+                "cross_workflow"].get("typed_stops"):
+            out["typed_stop"] = copy.deepcopy(
+                out["cross_workflow"]["typed_stops"][-1])
     else:
-        payload = outcome.as_dict()
         out["verdict"] = "ANSWER"
         out["result"] = payload
+        if recorded is not None:
+            out["cross_stage_record"] = recorded["stage_record"]
+            if recorded["resolution_request"] is not None:
+                out["resolution_request"] = recorded["resolution_request"]
+                out["resolution_requests"] = recorded[
+                    "resolution_requests"]
     return out
+
+
+def _plain_result(value: Any) -> Dict[str, Any]:
+    if isinstance(value, Mapping):
+        return _thaw(value)
+    return {"verdict": "UNKNOWN_UNTYPED_JOB_RESULT",
+            "reason": "job result has no serialisable contract",
+            "details": {"type": type(value).__name__}}
 
 
 def apply(job: Mapping[str, Any], event: Mapping[str, Any]) -> Dict[str, Any]:
@@ -917,18 +968,86 @@ def apply(job: Mapping[str, Any], event: Mapping[str, Any]) -> Dict[str, Any]:
     try:
         current = _job_from_dict(job)
     except (ValueError, TypeError, KeyError) as exc:
+        owner = (str(job.get("job_id", "invalid-job"))
+                 if isinstance(job, Mapping) else "invalid-job")
+        recorded = cross_workflow_harness.record_stage(
+            cross_workflow_harness.new_workflow(
+                owner or "invalid-job", source_schema="invalid-job-document"),
+            stage="JOB_DOCUMENT_LOAD",
+            outcome={"verdict": "UNKNOWN_INVALID_JOB_DOCUMENT",
+                     "reason": str(exc), "details": {}},
+            provenance={"component": "generation_job"})
         return {"schema": "garment.job.refusal.v1",
                 "verdict": "UNKNOWN_INVALID_JOB_DOCUMENT",
-                "reason": str(exc), "details": {}}
+                "reason": str(exc), "details": {},
+                "cross_workflow": recorded["workflow"],
+                "resolution_request": recorded["resolution_request"],
+                "resolution_requests": recorded["resolution_requests"],
+                "typed_stop": (recorded["resolution_request"] or {}).get(
+                    "typed_stop")}
     if not isinstance(event, Mapping):
         return _result(current, JobRefusal("UNKNOWN_INVALID_JOB_EVENT",
-                                           "event must be an object"))
+                                           "event must be an object"), {})
     kind = str(event.get("kind", event.get("type", ""))).upper()
     provenance = event.get("provenance")
     if provenance is not None and not isinstance(provenance, Mapping):
         return _result(current, JobRefusal("UNKNOWN_INVALID_JOB_EVENT",
-                                           "event provenance must be an object"))
-    if kind in {"TRANSITION", "STATE_TRANSITION"}:
+                                           "event provenance must be an object"),
+                       event)
+    cross_already_recorded = False
+    request_from_cross = None
+    if kind == "GRANT_LLM_PROPOSAL_CONSENT":
+        granted = cross_workflow_harness.grant_model_consent(
+            current._cross_workflow, scope=str(event.get("scope", "")),
+            fields=event.get("fields", ()),
+            granted_by=str(event.get("granted_by", event.get("by", ""))),
+            expires_after_revision=event.get("expires_after_revision"),
+            request_id=event.get("request_id"))
+        current._cross_workflow = granted["workflow"]
+        cross_already_recorded = True
+        if granted["verdict"] != "ANSWER":
+            request = granted.get("resolution_request", {})
+            request_from_cross = request
+            outcome = JobRefusal(
+                str(granted["verdict"]),
+                str(request.get("reason", "invalid model consent")),
+                {"missing_fields": request.get("missing_fields", ())})
+        else:
+            before = current.snapshot
+            outcome = current._append(
+                "MODEL_CONSENT_RECORDED", before, before,
+                {"consent_digest": granted["consent_artifact"][
+                    "consent_digest"],
+                 "scope": granted["consent_artifact"]["scope"]},
+                provenance)
+    elif kind == "RESOLVE_CROSS_OBLIGATION":
+        resolved = cross_workflow_harness.resolve_request(
+            current._cross_workflow,
+            request_id=str(event.get("request_id", "")),
+            choice=str(event.get("choice", "")),
+            values=event.get("values"),
+            actor=str(event.get("actor", event.get("by", ""))),
+            consent_digest=event.get("consent_digest"),
+            provenance=provenance)
+        current._cross_workflow = resolved["workflow"]
+        cross_already_recorded = True
+        if str(resolved["verdict"]).startswith("UNKNOWN_"):
+            request = resolved.get("resolution_request", {})
+            request_from_cross = request
+            outcome = JobRefusal(
+                str(resolved["verdict"]),
+                str(request.get("reason", "invalid Cross resolution")),
+                {"missing_fields": request.get("missing_fields", ())})
+        elif resolved["verdict"] == "TYPED_STOP":
+            outcome = JobRefusal(
+                "TYPED_STOP", "Cross obligation was explicitly stopped",
+                {"resolution": resolved.get("resolution")})
+        else:
+            before = current.snapshot
+            outcome = current._append(
+                "CROSS_OBLIGATION_RESOLVED", before, before,
+                {"resolution": resolved.get("resolution")}, provenance)
+    elif kind in {"TRANSITION", "STATE_TRANSITION"}:
         outcome = current.transition(event.get("state"),
                                      event.get("artifacts", {}),
                                      data=event.get("data"),
@@ -1002,4 +1121,6 @@ def apply(job: Mapping[str, Any], event: Mapping[str, Any]) -> Dict[str, Any]:
         outcome = JobRefusal("UNKNOWN_INVALID_JOB_EVENT",
                              "event kind is outside the closed vocabulary",
                              {"kind": kind})
-    return _result(current, outcome)
+    return _result(current, outcome, event,
+                   record_cross=not cross_already_recorded,
+                   resolution_request=request_from_cross)

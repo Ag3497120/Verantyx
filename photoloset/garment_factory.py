@@ -15,7 +15,8 @@ import json
 import math
 from typing import Any, Callable, Dict, Mapping, Optional, Sequence
 
-from . import corpus_manifest, garment_structure
+from . import (corpus_manifest, cross_workflow_harness,
+               garment_structure)
 
 
 SCHEMA = "garment.factory.v1"
@@ -140,18 +141,52 @@ def _proposal_safe(value: Any) -> Any:
 
 
 def _unknown(state: Mapping[str, Any], code: str, why: str, **detail: Any) -> Dict[str, Any]:
-    return {"verdict": code, "why": why, "state": copy.deepcopy(dict(state)), **detail}
+    current = copy.deepcopy(dict(state))
+    owner = str(current.get("job_id", "factory-job"))
+    workflow = cross_workflow_harness.migrate_workflow(
+        current.get("cross_workflow"), owner,
+        source_schema=str(current.get("schema", SCHEMA)))
+    recorded = cross_workflow_harness.record_stage(
+        workflow, stage=str(current.get("phase", "FACTORY")),
+        outcome={"verdict": code, "why": why, **_plain(detail)},
+        provenance={"component": "garment_factory"})
+    current["cross_workflow"] = recorded["workflow"]
+    result = {"verdict": code, "why": why, "state": current, **detail}
+    result["resolution_request"] = recorded["resolution_request"]
+    result["resolution_requests"] = recorded["resolution_requests"]
+    if (recorded["resolution_request"] is not None
+            and "typed_stop" in recorded["resolution_request"]):
+        result["typed_stop"] = recorded["resolution_request"]["typed_stop"]
+    return result
 
 
-def _accepted(state: Dict[str, Any], event: Mapping[str, Any], verdict: str = ANSWER,
+def _accepted(state: Dict[str, Any], event: Mapping[str, Any],
+              verdict: str = ANSWER, *, record_cross: bool = True,
               **detail: Any) -> Dict[str, Any]:
+    recorded = None
+    if record_cross:
+        owner = str(state.get("job_id", "factory-job"))
+        workflow = cross_workflow_harness.migrate_workflow(
+            state.get("cross_workflow"), owner,
+            source_schema=str(state.get("schema", SCHEMA)))
+        recorded = cross_workflow_harness.record_stage(
+            workflow, stage=str(state.get("phase", "FACTORY")),
+            event=event, outcome={"verdict": verdict, **_plain(detail)},
+            provenance={"component": "garment_factory"})
+        state["cross_workflow"] = recorded["workflow"]
     state["events"].append({
         "sequence": len(state["events"]) + 1,
         "type": str(event.get("type", "")),
         "phase": state["phase"],
         "state_digest": _digest({k: v for k, v in state.items() if k != "events"}),
     })
-    return {"verdict": verdict, "state": state, **detail}
+    result = {"verdict": verdict, "state": state, **detail}
+    if recorded is not None:
+        result["cross_stage_record"] = recorded["stage_record"]
+        if recorded["resolution_request"] is not None:
+            result["resolution_request"] = recorded["resolution_request"]
+            result["resolution_requests"] = recorded["resolution_requests"]
+    return result
 
 
 def _approval_candidate(state: Mapping[str, Any], *, material: bool = False) -> Optional[Mapping[str, Any]]:
@@ -845,6 +880,8 @@ def new_job(job_id: str, max_iterations: int = 8,
         "simulation": None,
         "sewing": None,
         "events": [],
+        "cross_workflow": cross_workflow_harness.new_workflow(
+            job_id.strip(), source_schema=SCHEMA),
         "truth_contract": {
             "model_and_retrieval_outputs": PROPOSED,
             "audit_mode": mode,
@@ -873,6 +910,14 @@ def _validate_state(state: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
             and not isinstance(state.get("foreground_cleanup_history"), list)):
         return {"verdict": "UNKNOWN_FACTORY_STATE",
                 "why": "foreground_cleanup_history must be an append-only list"}
+    if state.get("cross_workflow") is not None:
+        try:
+            cross_workflow_harness.migrate_workflow(
+                state.get("cross_workflow"), str(state.get("job_id", "factory-job")),
+                source_schema=str(state.get("schema", SCHEMA)))
+        except (TypeError, ValueError) as exc:
+            return {"verdict": "UNKNOWN_CROSS_WORKFLOW_DOCUMENT",
+                    "why": str(exc)}
     return None
 
 
@@ -1421,7 +1466,21 @@ def advance(state: Mapping[str, Any], event: Mapping[str, Any], *,
     """Apply one typed event and return a new JSON state plus its verdict."""
     error = _validate_state(state)
     if error:
-        return {**error, "state": copy.deepcopy(dict(state)) if isinstance(state, Mapping) else state}
+        preserved = (copy.deepcopy(dict(state))
+                     if isinstance(state, Mapping) else state)
+        workflow = cross_workflow_harness.new_workflow(
+            str(state.get("job_id", "factory-job"))
+            if isinstance(state, Mapping) else "factory-job",
+            source_schema=str(state.get("schema", "invalid"))
+            if isinstance(state, Mapping) else "invalid")
+        recorded = cross_workflow_harness.record_stage(
+            workflow, stage="FACTORY_DOCUMENT_LOAD", outcome=error,
+            provenance={"component": "garment_factory"})
+        return {**error, "state": preserved,
+                "resolution_request": recorded["resolution_request"],
+                "resolution_requests": recorded["resolution_requests"],
+                "typed_stop": (recorded["resolution_request"] or {}).get(
+                    "typed_stop")}
     current = copy.deepcopy(dict(state))
     # Older persisted garment.factory.v1 documents predate reversible shape
     # decisions.  An empty journal is a lossless migration while no decision
@@ -1436,6 +1495,9 @@ def advance(state: Mapping[str, Any], event: Mapping[str, Any], *,
     current.setdefault("foreground_cleanup", None)
     current.setdefault("foreground_cleanup_history", [])
     current.setdefault("front_compilation", None)
+    current["cross_workflow"] = cross_workflow_harness.migrate_workflow(
+        current.get("cross_workflow"), str(current.get("job_id", "factory-job")),
+        source_schema=str(current.get("schema", SCHEMA)))
     if not isinstance(event, Mapping):
         return _unknown(current, "UNKNOWN_FACTORY_EVENT", "event must be an object")
     try:
@@ -1444,6 +1506,44 @@ def advance(state: Mapping[str, Any], event: Mapping[str, Any], *,
         return _unknown(current, "UNKNOWN_FACTORY_STATE", str(exc))
     _apply_audit_mode(current, mode)
     kind = str(event.get("type", "")).upper()
+    if kind == "GRANT_LLM_PROPOSAL_CONSENT":
+        granted = cross_workflow_harness.grant_model_consent(
+            current["cross_workflow"], scope=str(event.get("scope", "")),
+            fields=event.get("fields", ()),
+            granted_by=str(event.get("granted_by", event.get("by", ""))),
+            expires_after_revision=event.get("expires_after_revision"),
+            request_id=event.get("request_id"))
+        current["cross_workflow"] = granted["workflow"]
+        if granted["verdict"] != ANSWER:
+            request = granted.get("resolution_request", {})
+            return {"verdict": str(granted["verdict"]),
+                    "why": str(request.get(
+                        "reason", "invalid model consent")),
+                    "state": current, "resolution_request": request,
+                    "resolution_requests": [request]}
+        return _accepted(current, event, verdict="CONSENT_RECORDED",
+                         record_cross=False,
+                         consent_artifact=granted["consent_artifact"])
+    if kind == "RESOLVE_CROSS_OBLIGATION":
+        resolved = cross_workflow_harness.resolve_request(
+            current["cross_workflow"],
+            request_id=str(event.get("request_id", "")),
+            choice=str(event.get("choice", "")),
+            values=event.get("values"),
+            actor=str(event.get("actor", event.get("by", ""))),
+            consent_digest=event.get("consent_digest"),
+            provenance=event.get("provenance")
+            if isinstance(event.get("provenance"), Mapping) else None)
+        current["cross_workflow"] = resolved["workflow"]
+        if str(resolved["verdict"]).startswith("UNKNOWN_"):
+            request = resolved.get("resolution_request", {})
+            return {"verdict": str(resolved["verdict"]),
+                    "why": str(request.get("reason", "invalid resolution")),
+                    "state": current, "resolution_request": request,
+                    "resolution_requests": [request]}
+        return _accepted(current, event, verdict=str(resolved["verdict"]),
+                         record_cross=False,
+                         resolution=resolved.get("resolution"))
     if kind == "CONFIRM_IMAGE":
         if "audit_mode" in event:
             try:
