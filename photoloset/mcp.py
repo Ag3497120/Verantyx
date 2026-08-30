@@ -20,6 +20,7 @@ package. They return UNKNOWN_NOT_IN_THIS_BUILD with what would close it.
 """
 from __future__ import annotations
 
+import ast
 import inspect
 import base64
 import hashlib
@@ -325,10 +326,299 @@ def _absent(what: str, needs: str) -> str:
 TOOLS: Dict[str, Callable[..., str]] = {}
 _SCHEMA_TYPE = {str: "string", float: "number", int: "integer", bool: "boolean"}
 
+# A connection audit is deliberately data-driven.  Optional providers (and a
+# future Cross harness) may register a descriptor after importing this module,
+# but the audit itself never imports the named component.  This avoids turning
+# an inventory request into provider startup, dependency installation, or an
+# import-time crash.
+CONNECTED = "CONNECTED"
+OPTIONAL_PROVIDER = "OPTIONAL_PROVIDER"
+HUMAN_RESOLUTION = "HUMAN_RESOLUTION"
+TYPED_STOP = "TYPED_STOP"
+CONNECTION_STATUSES = frozenset({
+    CONNECTED, OPTIONAL_PROVIDER, HUMAN_RESOLUTION, TYPED_STOP,
+})
+_CONNECTION_COMPONENTS: Dict[str, Dict[str, Any]] = {}
+
 
 def tool(fn: Callable[..., str]) -> Callable[..., str]:
     TOOLS[fn.__name__] = fn
     return fn
+
+
+def register_connection_component(
+    component: str,
+    *,
+    stage: str,
+    status: str,
+    module: str = "",
+    tools: Any = (),
+    factory_events: Any = (),
+    accepted_evidence: Any = (),
+    next_action: str,
+    note: str = "",
+) -> str:
+    """Register one inspectable connection without importing its module.
+
+    This is an internal extension point, not an MCP mutation tool.  A provider
+    or optional harness that is already being loaded may call it, while a
+    missing provider is represented by its descriptor and remains absent from
+    ``sys.modules``.  Re-registering the same ``stage/component`` is
+    deterministic replacement, which lets :mod:`photoloset.mcp_server` add its
+    extension after the canonical registry is loaded.
+    """
+    name = str(component).strip()
+    stage_name = str(stage).strip().upper()
+    status_name = str(status).strip().upper()
+    action = str(next_action).strip()
+    if not name or not stage_name:
+        raise ValueError("component and stage must be non-empty")
+    if status_name not in CONNECTION_STATUSES:
+        raise ValueError(f"unsupported connection status {status_name!r}")
+    if not action:
+        raise ValueError("next_action must be non-empty")
+
+    def names(value: Any) -> List[str]:
+        if isinstance(value, str):
+            value = (value,)
+        if not isinstance(value, (tuple, list, set, frozenset)):
+            raise TypeError("connection descriptor lists must be sequences")
+        return sorted({str(item).strip() for item in value
+                       if str(item).strip()})
+
+    evidence = names(accepted_evidence)
+    if not evidence:
+        raise ValueError("accepted_evidence must name at least one artifact")
+    key = f"{stage_name}:{name}"
+    _CONNECTION_COMPONENTS[key] = {
+        "stage": stage_name,
+        "component": name,
+        "configured_status": status_name,
+        "module": str(module).strip(),
+        "tools": names(tools),
+        "factory_events": names(factory_events),
+        "accepted_evidence": evidence,
+        "next_action": action,
+        "note": str(note).strip(),
+    }
+    return key
+
+
+def _module_available_without_import(module: str) -> Optional[bool]:
+    """Probe source/package presence without executing import machinery."""
+    name = str(module).strip()
+    if not name:
+        return None
+    parts = name.split(".")
+    if any(not part or part in (".", "..") for part in parts):
+        return False
+    if parts[0] == __package__:
+        relative = parts[1:]
+        base = Path(__file__).resolve().parent
+        if not relative:
+            return True
+        candidate = base.joinpath(*relative)
+        return candidate.with_suffix(".py").is_file() or (
+            candidate.is_dir() and (candidate / "__init__.py").is_file())
+    # Do not call importlib.find_spec on arbitrary dotted providers: finding a
+    # child can import and execute its parent package.  A source/package scan
+    # is enough for an availability audit and has no code-execution side
+    # effect.
+    relative = Path(*parts)
+    for raw_root in sys.path:
+        try:
+            root = Path(raw_root or os.getcwd())
+            candidate = root / relative
+            if candidate.with_suffix(".py").is_file() or (
+                    candidate.is_dir()
+                    and (candidate / "__init__.py").is_file()):
+                return True
+        except (OSError, RuntimeError, ValueError):
+            continue
+    return False
+
+
+def _source_tree(module: str) -> Optional[ast.Module]:
+    """Parse a local module for inventory only; never import it."""
+    prefix = f"{__package__}."
+    if not module.startswith(prefix):
+        return None
+    relative = module[len(prefix):].replace(".", "/") + ".py"
+    path = Path(__file__).resolve().parent / relative
+    try:
+        return ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    except (OSError, SyntaxError, UnicodeError):
+        return None
+
+
+def _public_module_inventory() -> List[Dict[str, Any]]:
+    """Compare local public symbols with MCP tools and factory references."""
+    package_dir = Path(__file__).resolve().parent
+    factory_tree = _source_tree(f"{__package__}.garment_factory")
+    aliases: Dict[str, str] = {}
+    factory_refs: Dict[str, set[str]] = {}
+    if factory_tree is not None:
+        for node in ast.walk(factory_tree):
+            if isinstance(node, ast.ImportFrom) and node.level:
+                if node.module is None:
+                    for alias in node.names:
+                        aliases[alias.asname or alias.name] = alias.name
+                elif node.module:
+                    module_name = node.module.split(".")[-1]
+                    for alias in node.names:
+                        factory_refs.setdefault(module_name, set()).add(alias.name)
+            elif (isinstance(node, ast.Attribute)
+                  and isinstance(node.value, ast.Name)
+                  and node.value.id in aliases):
+                factory_refs.setdefault(aliases[node.value.id], set()).add(node.attr)
+
+    component_modules: Dict[str, List[str]] = {}
+    for descriptor in _CONNECTION_COMPONENTS.values():
+        module_name = str(descriptor.get("module", ""))
+        if module_name.startswith(f"{__package__}."):
+            component_modules.setdefault(module_name.rsplit(".", 1)[-1], []).append(
+                str(descriptor["component"]))
+
+    inventory: List[Dict[str, Any]] = []
+    for path in sorted(package_dir.glob("*.py")):
+        try:
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        except (OSError, SyntaxError, UnicodeError):
+            continue
+        symbols = sorted({
+            node.name for node in tree.body
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+            and not node.name.startswith("_")
+        })
+        if not symbols:
+            continue
+        module_name = path.stem
+        exact_tools = sorted(set(symbols).intersection(TOOLS))
+        factory_symbols = sorted(set(symbols).intersection(
+            factory_refs.get(module_name, set())))
+        inventory.append({
+            "module": f"{__package__}.{module_name}",
+            "public_symbols": symbols,
+            "mcp_tools_with_exact_symbol_name": exact_tools,
+            "factory_referenced_symbols": factory_symbols,
+            "registered_components": sorted(component_modules.get(module_name, [])),
+            "connection": (
+                CONNECTED if exact_tools or factory_symbols
+                or component_modules.get(module_name) else TYPED_STOP),
+            "note": ("public helper/internal API; no automatic MCP authority"
+                     if not exact_tools and not factory_symbols
+                     and not component_modules.get(module_name) else ""),
+        })
+    return inventory
+
+
+def _factory_unknown_codes() -> List[str]:
+    """Discover literal factory refusal codes without importing the factory."""
+    tree = _source_tree(f"{__package__}.garment_factory")
+    if tree is None:
+        return []
+    return sorted({
+        node.value for node in ast.walk(tree)
+        if isinstance(node, ast.Constant) and isinstance(node.value, str)
+        and node.value.startswith(("UNKNOWN_", "CONTESTED_", "ESCALATE_"))
+    })
+
+
+def _factory_unknown_resolution(verdict: Any, why: Any = "") -> Dict[str, Any]:
+    """Map every factory refusal to one explicit resolution contract.
+
+    Unknown future codes fail closed as ``TYPED_STOP``.  Provider and LLM
+    routes can create only PROPOSED artifacts and require explicit consent;
+    they can never turn an unobserved back, material, body measurement, or
+    manufacturing method into observed evidence.
+    """
+    code = str(verdict or "UNKNOWN_UNSPECIFIED_FACTORY_STOP").strip().upper()
+    reason = str(why or "").strip()
+    human_tokens = (
+        "HUMAN_", "NAMED_HUMAN", "APPROVER", "REVIEWER", "REJECTOR",
+        "IMAGE_CONFIRMATION", "FOREGROUND_CLEANUP_REQUIRED",
+        "SHAPE_APPROVAL_REQUIRED", "MATERIAL_APPROVAL_REQUIRED",
+        "REVIEWED_FRONT_FACTS_REQUIRED",
+    )
+    provider_tokens = (
+        "AI_VISIBLE_ANALYSIS_REQUIRED", "RETRIEVAL_REQUIRED",
+        "RETRIEVAL_HITS", "NO_SEWING_CORPUS", "NO_SEWING_METHOD_HITS",
+        "HYPOTHESES", "BACK_ALTERNATIVES_REQUIRED",
+        "GEOMETRIC_HYPOTHESES_REQUIRED", "MATERIAL_ALTERNATIVES_REQUIRED",
+        "HYBRID_RETRIEVAL", "HYBRID_SEWING_SEARCH",
+    )
+    if code.startswith("ESCALATE_HUMAN") or any(token in code for token in human_tokens):
+        status = HUMAN_RESOLUTION
+        accepted = [
+            "named human decision bound to the current digest and revision",
+            "corrected OBSERVED evidence with source provenance",
+        ]
+        next_action = (
+            "show the inline human-resolution card, collect the named decision "
+            "or corrected observation, then submit the matching typed factory event"
+        )
+        llm_policy = {
+            "allowed": False,
+            "why": "an LLM cannot approve, observe, or review its own proposal",
+        }
+        actionable, terminal = True, False
+    elif any(token in code for token in provider_tokens):
+        status = OPTIONAL_PROVIDER
+        accepted = [
+            "typed provider result with source, rights, and lineage",
+            "explicitly consented LLM proposal retained as PROPOSED",
+            "human-authored typed proposal with provenance",
+        ]
+        next_action = (
+            "connect an eligible provider or request explicit consent for an LLM "
+            "proposal, preserve PROPOSED authority, and resubmit the named stage event"
+        )
+        llm_policy = {
+            "allowed": True,
+            "requires_explicit_consent": True,
+            "output_state": "PROPOSED",
+            "cannot_claim": [
+                "OBSERVED rear geometry", "measured wearer dimensions",
+                "measured material properties", "certified sewing method",
+            ],
+        }
+        actionable, terminal = True, False
+    else:
+        status = TYPED_STOP
+        accepted = [
+            "corrected typed input satisfying the rejected contract",
+            "a fresh state/digest produced by the required preceding stage",
+        ]
+        next_action = (
+            "end this transition without mutation; correct the typed input or "
+            "restart from the named preceding stage, then submit a new event"
+        )
+        llm_policy = {
+            "allowed": False,
+            "why": "invalid, stale, unsupported, or missing deterministic state cannot be guessed",
+        }
+        actionable, terminal = False, True
+    return {
+        "verdict": code,
+        "status": status,
+        "actionable": actionable,
+        "terminal": terminal,
+        "accepted_evidence": accepted,
+        "next_action": next_action,
+        "llm_policy": llm_policy,
+        "why": reason,
+    }
+
+
+def _attach_connection_resolution(result: Any) -> Any:
+    if not isinstance(result, Mapping):
+        return result
+    bounded = dict(result)
+    verdict = str(bounded.get("verdict", ""))
+    if verdict.startswith(("UNKNOWN_", "CONTESTED_", "ESCALATE_")):
+        bounded["connection_resolution"] = _factory_unknown_resolution(
+            verdict, bounded.get("why", ""))
+    return bounded
 
 
 def _schema(fn: Callable[..., str]) -> Dict[str, Any]:
@@ -364,6 +654,480 @@ def _schema(fn: Callable[..., str]) -> Dict[str, Any]:
         else:
             props[name]["default"] = par.default
     return {"type": "object", "properties": props, "required": required}
+
+
+# Canonical stage inventory.  Tool availability is evaluated when the audit
+# runs, after this module and any extension module have finished registering.
+for _connection in (
+    {
+        "component": "multimodal image ensemble", "stage": "IMAGE_ANALYSIS",
+        "status": CONNECTED,
+        "module": f"{__package__}.garment_analysis_ensemble",
+        "tools": ("garment_image_analysis_ensemble",),
+        "factory_events": ("RECORD_AI_VISIBLE_ANALYSIS",),
+        "accepted_evidence": (
+            "typed per-model visible-front analysis with model provenance",
+            "human-authored visible-front inventory",
+        ),
+        "next_action": "submit the typed visible-front inventory to the factory",
+    },
+    {
+        "component": "FashionSigLIP similarity provider", "stage": "RETRIEVAL",
+        "status": OPTIONAL_PROVIDER,
+        "module": f"{__package__}.marqo_fashion_siglip_adapter",
+        "tools": ("marqo_fashion_siglip_runtime",),
+        "factory_events": ("SUBMIT_RETRIEVAL", "HYBRID_RETRIEVE"),
+        "accepted_evidence": (
+            "rights-gated provider hits with source and lineage",
+            "explicitly consented LLM retrieval proposal kept PROPOSED",
+        ),
+        "next_action": "configure a provider or use the procedural retrieval fallback",
+    },
+    {
+        "component": "visible-front garment audit", "stage": "FRONT_AUDIT",
+        "status": HUMAN_RESOLUTION,
+        "module": f"{__package__}.garment_factory",
+        "tools": ("garment_factory",),
+        "factory_events": ("SUBMIT_HUMAN_VISIBLE_AUDIT",),
+        "accepted_evidence": (
+            "named human review of visible garments, layers, and parts",
+        ),
+        "next_action": "show the inline audit card and submit the review bound to its digest",
+    },
+    {
+        "component": "foreground cleanup", "stage": "TARGET_CLEANUP",
+        "status": HUMAN_RESOLUTION,
+        "module": f"{__package__}.garment_factory",
+        "tools": ("garment_factory", "garment_target_sculpt_modifier"),
+        "factory_events": ("SUBMIT_FOREGROUND_CLEANUP",),
+        "accepted_evidence": (
+            "named human cleanup revision bound to the current front audit",
+            "typed polygon/mask edit with source-image coordinates",
+        ),
+        "next_action": "collect cleanup edits and submit the exact target revision",
+    },
+    {
+        "component": "body proxy and avatar fit", "stage": "BODY_FIT",
+        "status": CONNECTED,
+        "module": f"{__package__}.body_avatar_fit",
+        "tools": ("garment_body_proxy_propose", "garment_body_avatar_fit"),
+        "factory_events": (),
+        "accepted_evidence": (
+            "explicit wearer measurements",
+            "PROPOSED image-derived body proxy with uncertainty",
+        ),
+        "next_action": "fit the selected avatar and preserve measured/proposed authority separately",
+    },
+    {
+        "component": "second-skin triangle geometry", "stage": "SECOND_SKIN",
+        "status": CONNECTED,
+        "module": f"{__package__}.second_skin_triangle_engine",
+        "tools": ("garment_second_skin_triangle_build",),
+        "factory_events": (),
+        "accepted_evidence": (
+            "typed fitted body surface and explicit geometric offsets",
+        ),
+        "next_action": "build the deterministic second-skin mesh",
+    },
+    {
+        "component": "rear candidate ensemble", "stage": "REAR_CANDIDATES",
+        "status": CONNECTED,
+        "module": f"{__package__}.rear_candidate_ensemble",
+        "tools": ("garment_rear_candidate_ensemble",),
+        "factory_events": ("SUBMIT_HYPOTHESES", "APPROVE_HYPOTHESIS"),
+        "accepted_evidence": (
+            "PROPOSED rear alternatives with explicit front-only provenance",
+            "observed rear image registered as a separate source",
+        ),
+        "next_action": "compare candidates and require a named digest-bound human approval",
+    },
+    {
+        "component": "candidate-specific 3D repair loop", "stage": "CANDIDATE_3D",
+        "status": CONNECTED,
+        "module": f"{__package__}.candidate_3d_repair_loop",
+        "tools": ("garment_candidate_3d_repair_loop",),
+        "factory_events": ("ITERATE",),
+        "accepted_evidence": (
+            "candidate-bound mesh, target projection, and typed repair budget",
+        ),
+        "next_action": "run bounded repair and preserve each residual and provenance record",
+    },
+    {
+        "component": "structure-to-pattern compiler", "stage": "PATTERN",
+        "status": CONNECTED,
+        "module": f"{__package__}.structure_to_pattern",
+        "tools": ("garment_structure_pattern",),
+        "factory_events": ("GENERATE_PATTERN",),
+        "accepted_evidence": (
+            "approved garment.structure.v1 candidate and exact approval digest",
+        ),
+        "next_action": "compile only represented primitives; leave unsupported parts typed and visible",
+    },
+    {
+        "component": "structure sewing plan", "stage": "SEWING_ORDER",
+        "status": CONNECTED,
+        "module": f"{__package__}.structure_sewing_plan",
+        "tools": ("garment_structure_sewing_plan",),
+        "factory_events": ("GENERATE_PATTERN", "USE_PROCEDURAL_SEWING_PLAN"),
+        "accepted_evidence": (
+            "garment.compiled-pattern.v1 with piece and seam topology",
+        ),
+        "next_action": "derive dependency order and keep seam finishes as REVIEW when unspecified",
+    },
+    {
+        "component": "manufacturing preview bundle", "stage": "MANUFACTURING_PREVIEW",
+        "status": CONNECTED,
+        "module": f"{__package__}.pattern_manufacturing_bundle",
+        "tools": ("garment_manufacturing_preview",),
+        "factory_events": ("GENERATE_PATTERN", "REPAIR_PATTERN"),
+        "accepted_evidence": (
+            "compiled pattern plus explicit seam allowance",
+            "explicit opt-in to a PROPOSED preview allowance",
+        ),
+        "next_action": "build inspectable cut/sew lines without claiming manufacturing certification",
+    },
+    {
+        "component": "engineering gate review", "stage": "ENGINEERING_REVIEW",
+        "status": CONNECTED,
+        "module": f"{__package__}.garment_engineering_review",
+        "tools": ("garment_engineering_review",),
+        "factory_events": ("GENERATE_PATTERN", "REPAIR_PATTERN", "SIMULATE"),
+        "accepted_evidence": (
+            "compiled pattern and independently typed stage artifacts",
+        ),
+        "next_action": "review each gate independently; never average a failed gate into a pass",
+    },
+    {
+        "component": "decorative pattern geometry", "stage": "PATTERN_OPERATIONS",
+        "status": CONNECTED,
+        "module": f"{__package__}.decorative_pattern",
+        "tools": ("garment_decorative_pattern",),
+        "factory_events": (),
+        "accepted_evidence": (
+            "explicit dimensions for ruffle, frill, overlay, or layer order",
+        ),
+        "next_action": "apply the deterministic operation or return its typed missing dimension",
+    },
+    {
+        "component": "front cutout alternative", "stage": "STRUCTURE_CANDIDATES",
+        "status": CONNECTED,
+        "module": f"{__package__}.image_structure_operations",
+        "tools": ("garment_front_cutout_alternative",),
+        "factory_events": ("SUBMIT_HYPOTHESES",),
+        "accepted_evidence": (
+            "observed front outline with internal boundaries and typed candidates",
+        ),
+        "next_action": "add only a PROPOSED cutout alternative; do not infer boundary semantics",
+    },
+    {
+        "component": "sewing-method corpus", "stage": "SEWING_METHODS",
+        "status": OPTIONAL_PROVIDER,
+        "module": f"{__package__}.sewing_search",
+        "tools": ("sewing_methods",),
+        "factory_events": ("SUBMIT_SEWING_METHODS", "HYBRID_SEWING_SEARCH"),
+        "accepted_evidence": (
+            "eligible construction corpus hit with rights and lineage",
+            "human-selected procedural sewing plan bound to an approved pattern",
+        ),
+        "next_action": "connect a corpus or explicitly choose the corpus-free procedural topology plan",
+    },
+    {
+        "component": "shape and material approval", "stage": "APPROVAL",
+        "status": HUMAN_RESOLUTION,
+        "module": f"{__package__}.garment_factory",
+        "tools": ("garment_factory",),
+        "factory_events": ("APPROVE_HYPOTHESIS", "APPROVE_MATERIAL"),
+        "accepted_evidence": (
+            "named human approval bound to candidate and comparison digests",
+        ),
+        "next_action": "show alternatives inline and submit the selected digest with the reviewer name",
+    },
+    {
+        "component": "consented LLM proposal adapter", "stage": "OPTIONAL_INFERENCE",
+        "status": OPTIONAL_PROVIDER,
+        "module": "",
+        "tools": (),
+        "factory_events": ("RECORD_AI_VISIBLE_ANALYSIS", "SUBMIT_HYPOTHESES"),
+        "accepted_evidence": (
+            "explicit user consent plus typed LLM output retained as PROPOSED",
+        ),
+        "next_action": "ask permission, record model provenance, and prevent authority promotion",
+    },
+    {
+        "component": "Cross workflow harness", "stage": "CROSS_HARNESS",
+        "status": CONNECTED,
+        "module": f"{__package__}.cross_workflow_harness",
+        "tools": ("garment_factory",),
+        "factory_events": (
+            "GRANT_LLM_PROPOSAL_CONSENT", "RESOLVE_CROSS_OBLIGATION",
+        ),
+        "accepted_evidence": (
+            "typed resolution request emitted by the factory harness",
+            "named human response or explicit digest-bound LLM proposal consent",
+        ),
+        "next_action": "resolve the typed obligation through garment_factory without promoting proposal authority",
+        "note": "source availability is probed without importing the harness",
+    },
+    {
+        "component": "factory refusal boundary", "stage": "FACTORY_CONTROL",
+        "status": TYPED_STOP,
+        "module": f"{__package__}.garment_factory",
+        "tools": ("garment_factory",),
+        "factory_events": (),
+        "accepted_evidence": (
+            "corrected typed event or fresh digest from the required preceding stage",
+        ),
+        "next_action": "stop without mutation and expose the resolution contract to the caller",
+    },
+):
+    register_connection_component(**_connection)
+del _connection
+
+
+# Product limits that a front photograph cannot close by itself.  These are
+# explicit restart routes, not marketing caveats: every row names the MCP
+# tools that acquire/inspect the missing evidence and the factory event that
+# resumes the bounded workflow.  A terminal status applies to the impossible
+# guarantee, not to the user's ability to continue with a narrower claim.
+_CONNECTION_LIMITATIONS: Tuple[Dict[str, Any], ...] = (
+    {
+        "limitation_id": "rear-not-observed-from-front",
+        "limitation": "a real rear surface cannot be observed from one front image",
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": (
+            "rear geometry is outside the camera evidence and may only be observed "
+            "from another registered view"
+        ),
+        "accepted_evidence": (
+            "registered rear/side image with view provenance",
+            "multiple PROPOSED rear candidates plus named digest-bound human approval",
+        ),
+        "mcp_tools": ("garment_rear_candidate_ensemble", "garment_factory"),
+        "factory_events": ("SUBMIT_HYPOTHESES", "APPROVE_HYPOTHESIS"),
+        "next_action": (
+            "attach another observed view or generate explicit rear alternatives, "
+            "then approve one candidate without promoting it to OBSERVED"
+        ),
+        "authority_ceiling": "PROPOSED",
+        "terminal_claim": "OBSERVED rear geometry from the front image",
+    },
+    {
+        "limitation_id": "material-properties-not-measured-from-image",
+        "limitation": (
+            "composition, thickness, stretch, friction, and bending stiffness "
+            "cannot be measured from pixels"
+        ),
+        "status": HUMAN_RESOLUTION,
+        "why_not_automatic": "appearance is not a calibrated textile test",
+        "accepted_evidence": (
+            "complete material.measurements.v1 laboratory observations",
+            "multiple PROPOSED material ranges plus named human selection",
+        ),
+        "mcp_tools": ("material_calibrate", "garment_factory"),
+        "factory_events": ("SUBMIT_MATERIAL_CANDIDATES", "APPROVE_MATERIAL"),
+        "next_action": (
+            "calibrate measured channels or submit proposed alternatives and approve "
+            "one exact candidate before simulation"
+        ),
+        "authority_ceiling": "PROPOSED",
+        "terminal_claim": "MEASURED material properties from the photograph",
+    },
+    {
+        "limitation_id": "wearer-body-not-measured-from-image",
+        "limitation": "exact wearer dimensions cannot be measured from a clothed image",
+        "status": HUMAN_RESOLUTION,
+        "why_not_automatic": (
+            "pose, camera, ease, clothing thickness, and occlusion make the inverse "
+            "measurement underdetermined"
+        ),
+        "accepted_evidence": (
+            "explicit measure_taken records with source and units",
+            "a PROPOSED body proxy used only for preview",
+        ),
+        "mcp_tools": (
+            "measure_taken", "measure_sheet",
+            "garment_wearer_measurement_contract", "garment_factory",
+        ),
+        "factory_events": ("GENERATE_PATTERN",),
+        "next_action": (
+            "record real wearer measurements, validate their typed contract, and rerun "
+            "the approved candidate's pattern stage"
+        ),
+        "authority_ceiling": "PROPOSED",
+        "terminal_claim": "MEASURED wearer dimensions inferred from pixels",
+    },
+    {
+        "limitation_id": "arbitrary-garment-fidelity-not-guaranteed",
+        "limitation": (
+            "arbitrary layered, frilled, pleated, asymmetric, or fictional garments "
+            "cannot be guaranteed to match faithfully"
+        ),
+        "status": TYPED_STOP,
+        "why_not_automatic": (
+            "one projection does not uniquely determine hidden topology, depth, layers, "
+            "attachments, or deformation"
+        ),
+        "accepted_evidence": (
+            "candidate-bound target comparison with explicit residuals and tolerance",
+            "additional observed views and named human acceptance of one candidate",
+        ),
+        "mcp_tools": (
+            "garment_candidate_3d_repair_loop",
+            "garment_front_candidate_evaluate", "garment_factory",
+        ),
+        "factory_events": ("ITERATE", "APPROVE_HYPOTHESIS"),
+        "next_action": (
+            "replace the universal guarantee with a stated tolerance, iterate bounded "
+            "candidate repairs, and expose remaining mismatches"
+        ),
+        "authority_ceiling": "PROPOSED",
+        "terminal_claim": "faithful conversion of every possible garment image",
+    },
+    {
+        "limitation_id": "finished-pattern-not-guaranteed",
+        "limitation": "every image cannot be guaranteed to produce a finished sewable pattern",
+        "status": TYPED_STOP,
+        "why_not_automatic": (
+            "unsupported topology, missing dimensions, openings, allowances, and "
+            "donning constraints can make the represented structure incomplete"
+        ),
+        "accepted_evidence": (
+            "approved complete garment.structure.v1 with explicit dimensions",
+            "compiled pattern plus engineering gates and export verification",
+        ),
+        "mcp_tools": (
+            "garment_structure_pattern", "garment_manufacturing_preview",
+            "garment_engineering_review", "garment_factory",
+        ),
+        "factory_events": ("GENERATE_PATTERN", "REPAIR_PATTERN"),
+        "next_action": (
+            "compile the represented subset, resolve every typed missing operation, "
+            "then repair and review without claiming universal completion"
+        ),
+        "authority_ceiling": "REVIEW",
+        "terminal_claim": "finished sewable pattern for every input image",
+    },
+    {
+        "limitation_id": "seam-finishes-undetermined",
+        "limitation": (
+            "French/felled/overlock finishes, interfacing, lining, and exact machine "
+            "settings are not determined by seam topology alone"
+        ),
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": "topological sewing order does not identify workshop practice",
+        "accepted_evidence": (
+            "eligible sewing-corpus method with rights and lineage",
+            "human-selected finish bound to the approved pattern digest",
+        ),
+        "mcp_tools": (
+            "garment_structure_sewing_plan", "sewing_methods", "garment_factory",
+        ),
+        "factory_events": (
+            "HYBRID_SEWING_SEARCH", "SUBMIT_SEWING_METHODS",
+            "USE_PROCEDURAL_SEWING_PLAN",
+        ),
+        "next_action": (
+            "use the corpus-free dependency order for preview, then attach an eligible "
+            "method or record a human finish decision"
+        ),
+        "authority_ceiling": "REVIEW",
+        "terminal_claim": "automatically observed workshop finish",
+    },
+    {
+        "limitation_id": "real-cloth-error-not-calibrated",
+        "limitation": "simulation error against a real textile is not calibrated",
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": (
+            "a numerical solver run is not an experiment and has no real-cloth error "
+            "bound without matched measurements"
+        ),
+        "accepted_evidence": (
+            "matched material and seam test measurements with uncertainty",
+            "solver-versus-experiment residual report with provenance",
+        ),
+        "mcp_tools": (
+            "material_calibrate", "seam_calibrate",
+            "industrial_cloth_simulate", "proof_cross_verify", "garment_factory",
+        ),
+        "factory_events": ("SIMULATE", "ITERATE"),
+        "next_action": (
+            "ingest measured channels, rerun the same candidate and record residuals; "
+            "otherwise keep physical results as uncalibrated REVIEW"
+        ),
+        "authority_ceiling": "REVIEW",
+        "terminal_claim": "real-cloth error within a stated percentage",
+    },
+    {
+        "limitation_id": "wind-tunnel-validation-not-connected",
+        "limitation": "wind and turbulence results are not calibrated to wind-tunnel data",
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": (
+            "reference fluid/cloth kernels do not supply external wind-tunnel or DNS truth"
+        ),
+        "accepted_evidence": (
+            "registered wind-tunnel/DNS dataset with boundary conditions and rights",
+            "typed validation residuals for the same geometry and flow case",
+        ),
+        "mcp_tools": (
+            "turbulence_validate", "incompressible_fluid_step",
+            "proof_cross_verify", "garment_factory",
+        ),
+        "factory_events": ("SIMULATE", "ITERATE"),
+        "next_action": (
+            "connect external measurements and validate matching conditions; without "
+            "them report only the uncalibrated reference simulation"
+        ),
+        "authority_ceiling": "REVIEW",
+        "terminal_claim": "wind-tunnel-validated garment motion",
+    },
+    {
+        "limitation_id": "fashion-siglip-index-not-connected",
+        "limitation": "the FashionSigLIP/Marqo similarity index is not a bundled corpus",
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": (
+            "the adapter cannot invent an index, records, commercial rights, or lineage"
+        ),
+        "accepted_evidence": (
+            "configured typed index records with rights and lineage",
+            "procedural geometry hypotheses explicitly marked as non-retrieval",
+        ),
+        "mcp_tools": (
+            "marqo_fashion_siglip_runtime", "garment_siglip_queries",
+            "garment_factory",
+        ),
+        "factory_events": ("HYBRID_RETRIEVE", "SUBMIT_RETRIEVAL"),
+        "next_action": (
+            "connect an eligible index or continue through procedural hypotheses while "
+            "reporting that no real similarity corpus was searched"
+        ),
+        "authority_ceiling": "PROPOSED",
+        "terminal_claim": "real similarity search without a connected index",
+    },
+    {
+        "limitation_id": "sewing-corpus-not-connected",
+        "limitation": "no eligible sewing-method corpus is bundled or silently selected",
+        "status": OPTIONAL_PROVIDER,
+        "why_not_automatic": (
+            "construction references require content, rights, lineage, and an approved "
+            "shape binding"
+        ),
+        "accepted_evidence": (
+            "eligible sewing corpus with manifest, rights, and lineage",
+            "human-approved corpus-free topology plan that makes no finish claim",
+        ),
+        "mcp_tools": ("sewing_methods", "garment_structure_sewing_plan", "garment_factory"),
+        "factory_events": (
+            "HYBRID_SEWING_SEARCH", "SUBMIT_SEWING_METHODS",
+            "USE_PROCEDURAL_SEWING_PLAN",
+        ),
+        "next_action": (
+            "connect an eligible corpus or resume with the procedural seam dependency "
+            "order and keep finish choices unresolved"
+        ),
+        "authority_ceiling": "REVIEW",
+        "terminal_claim": "corpus-derived sewing method without corpus evidence",
+    },
+)
 
 
 # ---------------------------------------------------------------------------
@@ -3143,6 +3907,330 @@ def garment_hybrid_retrieve(json_text: str = "") -> str:
 
 
 @tool
+def garment_structure_sewing_plan(json_text: str = "") -> str:
+    """Expose the corpus-free sewing dependency planner.
+
+    Input is ``{pattern: garment.compiled-pattern.v1}`` (or the compiled
+    pattern itself).  The result orders topology that is actually present;
+    stitch class, seam finish, interfacing and machine settings remain typed
+    REVIEW records instead of being invented.
+    """
+    req, err = _json_arg(json_text, "compiled-pattern sewing-plan request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
+    pattern = req.get("pattern", req)
+    from . import structure_sewing_plan as _sewing_plan
+    return _ok(_attach_connection_resolution(_sewing_plan.plan(pattern)))
+
+
+@tool
+def garment_manufacturing_preview(json_text: str = "") -> str:
+    """Build cut/sew-line preview artifacts from a compiled pattern.
+
+    Input is ``{pattern, seam_allowance_cm}``.  A missing allowance fails
+    closed.  ``allow_proposed_default=true`` is an explicit opt-in to the
+    engine's documented PROPOSED preview value and never makes the result
+    manufacturing-ready or certified.
+    """
+    req, err = _json_arg(json_text, "manufacturing-preview request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
+    pattern = req.get("pattern", req.get("compiled_pattern"))
+    if not isinstance(pattern, Mapping):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_COMPILED_PATTERN",
+            "why": "pattern must be a garment.compiled-pattern.v1 object",
+        }))
+    allow_default = req.get("allow_proposed_default", False)
+    if not isinstance(allow_default, bool):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "allow_proposed_default must be a boolean",
+        }))
+    from . import pattern_manufacturing_bundle as _manufacturing
+    result = _manufacturing.build(
+        pattern,
+        seam_allowance_cm=req.get("seam_allowance_cm"),
+        allow_proposed_default=allow_default,
+        proposed_default_cm=req.get("proposed_default_cm", 1.0),
+    )
+    return _ok(_attach_connection_resolution(result))
+
+
+@tool
+def garment_engineering_review(json_text: str = "") -> str:
+    """Run the existing cross-stage engineering gates directly.
+
+    Input is ``{pattern, repair?, manufacturing?, sewing_plan?, simulation?}``.
+    Stage results stay independent; the review never upgrades a preview or a
+    successful numerical kernel into manufacturing, strength, or comfort
+    certification.
+    """
+    req, err = _json_arg(json_text, "engineering-review request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
+    pattern = req.get("pattern")
+    if not isinstance(pattern, Mapping):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_COMPILED_PATTERN_REQUIRED",
+            "why": "pattern must be a garment.compiled-pattern.v1 object",
+        }))
+    for key in ("repair", "manufacturing", "sewing_plan", "simulation"):
+        if key in req and req[key] is not None and not isinstance(req[key], Mapping):
+            return _ok(_attach_connection_resolution({
+                "verdict": "UNKNOWN_BAD_ARGUMENTS",
+                "why": f"{key} must be an object when supplied",
+            }))
+    from . import garment_engineering_review as _engineering_review
+    result = _engineering_review.review(
+        pattern,
+        repair=req.get("repair"),
+        manufacturing=req.get("manufacturing"),
+        sewing_plan=req.get("sewing_plan"),
+        simulation=req.get("simulation"),
+    )
+    return _ok(_attach_connection_resolution(result))
+
+
+@tool
+def garment_decorative_pattern(json_text: str = "") -> str:
+    """Apply measured ruffle, frill, overlay, or layer-order geometry.
+
+    Input is an operation object, optionally wrapped as ``{operation: ...}``.
+    Every physical dimension remains explicit and a missing value is a typed
+    stop.  The tool does not classify a garment or consult a corpus.
+    """
+    req, err = _json_arg(json_text, "decorative pattern operation")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
+    operation = req.get("operation", req)
+    from . import decorative_pattern as _decorative
+    return _ok(_attach_connection_resolution(_decorative.apply(operation)))
+
+
+@tool
+def garment_front_cutout_alternative(json_text: str = "") -> str:
+    """Project observed internal front boundaries into one candidate option.
+
+    Input is ``{outline, candidates}``.  Boundary semantics and candidate
+    choice remain PROPOSED; this tool only exposes the already implemented
+    deterministic projection and its audit record.
+    """
+    req, err = _json_arg(json_text, "front cutout alternative request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict) or not isinstance(req.get("candidates"), list):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request needs outline and a candidates array",
+        }))
+    if any(not isinstance(row, Mapping) for row in req["candidates"]):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "every candidate must be an object",
+        }))
+    from . import image_structure_operations as _image_operations
+    candidates, audit = _image_operations.apply_cutout_alternative(
+        req.get("outline"), req["candidates"])
+    result = {
+        "schema": "garment.front-cutout-alternative.mcp.v1",
+        "verdict": audit.get("verdict", "UNKNOWN_CUTOUT_AUDIT_VERDICT"),
+        "candidates": candidates,
+        "audit": audit,
+    }
+    return _ok(_attach_connection_resolution(result))
+
+
+@tool
+def garment_connection_audit(json_text: str = "") -> str:
+    """Audit MCP/factory/component connections without importing providers.
+
+    Optional input filters are ``stage`` and ``component``;
+    ``include_inventory=true`` adds the AST-only public symbol inventory.
+    Every row is exactly CONNECTED, OPTIONAL_PROVIDER, HUMAN_RESOLUTION, or
+    TYPED_STOP and names accepted evidence plus the next action.  Every
+    literal factory UNKNOWN/CONTESTED/ESCALATE verdict is mapped to the same
+    actionable-or-terminal contract.
+    """
+    req, err = _json_arg(json_text, "connection-audit request")
+    if err:
+        return _ok(_attach_connection_resolution(err))
+    if not isinstance(req, dict):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
+    include_inventory = req.get("include_inventory", False)
+    if not isinstance(include_inventory, bool):
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "include_inventory must be a boolean",
+        }))
+    stage_filter = str(req.get("stage", "")).strip().upper()
+    component_filter = str(req.get("component", "")).strip().casefold()
+    rows: List[Dict[str, Any]] = []
+    for descriptor in sorted(
+            _CONNECTION_COMPONENTS.values(),
+            key=lambda row: (str(row["stage"]), str(row["component"]))):
+        if stage_filter and descriptor["stage"] != stage_filter:
+            continue
+        if component_filter and component_filter not in str(
+                descriptor["component"]).casefold():
+            continue
+        row = dict(descriptor)
+        module_available = _module_available_without_import(row["module"])
+        available_tools = [name for name in row["tools"] if name in TOOLS]
+        missing_tools = [name for name in row["tools"] if name not in TOOLS]
+        effective = row.pop("configured_status")
+        connection_error = ""
+        if effective == CONNECTED and (
+                module_available is False or missing_tools):
+            effective = TYPED_STOP
+            connection_error = (
+                "configured connection is incomplete: "
+                + (f"module {row['module']} is absent; "
+                   if module_available is False else "")
+                + (f"missing tools {', '.join(missing_tools)}"
+                   if missing_tools else "")
+            ).strip("; ")
+        row.update({
+            "status": effective,
+            "module_available": module_available,
+            "tools_available": available_tools,
+            "tools_missing": missing_tools,
+            "connection_error": connection_error,
+        })
+        rows.append(row)
+
+    unknown_resolutions = [
+        _factory_unknown_resolution(code) for code in _factory_unknown_codes()
+    ]
+    limitations: List[Dict[str, Any]] = []
+    for descriptor in _CONNECTION_LIMITATIONS:
+        row = dict(descriptor)
+        tools = [str(name) for name in row.pop("mcp_tools")]
+        events = [str(name) for name in row.pop("factory_events")]
+        available_tools = [name for name in tools if name in TOOLS]
+        missing_tools = [name for name in tools if name not in TOOLS]
+        configured_status = str(row["status"])
+        effective_status = configured_status
+        connection_error = ""
+        if missing_tools:
+            effective_status = TYPED_STOP
+            connection_error = "missing MCP resolution tools: " + ", ".join(
+                missing_tools)
+        route_retrievable = (
+            "garment_connection_audit" in TOOLS and not missing_tools)
+        resumable = (
+            route_retrievable and "garment_factory" in available_tools
+            and bool(events))
+        row.update({
+            "configured_status": configured_status,
+            "status": effective_status,
+            "actionable": effective_status in {
+                HUMAN_RESOLUTION, OPTIONAL_PROVIDER},
+            "terminal": effective_status == TYPED_STOP,
+            "mcp_tools": tools,
+            "tools_available": available_tools,
+            "tools_missing": missing_tools,
+            "factory_events": events,
+            "resolution_route": {
+                "discover_with": "garment_connection_audit",
+                "acquire_with": [name for name in available_tools
+                                 if name != "garment_factory"],
+                "resume_with": "garment_factory",
+                "action": "advance",
+                "event_types": events,
+                "retrievable": route_retrievable,
+                "resumable": resumable,
+            },
+            "connection_error": connection_error,
+        })
+        limitations.append(row)
+    counts = {status: sum(row["status"] == status for row in rows)
+              for status in sorted(CONNECTION_STATUSES)}
+    limitation_counts = {
+        status: sum(row["status"] == status for row in limitations)
+        for status in sorted(CONNECTION_STATUSES)
+    }
+    factory_plain_dead_ends = sum(
+        not resolution["next_action"] or not resolution["accepted_evidence"]
+        for resolution in unknown_resolutions)
+    limitation_plain_dead_ends = sum(
+        not row["next_action"] or not row["accepted_evidence"]
+        or not row["resolution_route"]["retrievable"]
+        or not row["resolution_route"]["resumable"]
+        for row in limitations)
+    result: Dict[str, Any] = {
+        "schema": "garment.connection-audit.v1",
+        "verdict": "ANSWER",
+        "statuses": sorted(CONNECTION_STATUSES),
+        "components": rows,
+        "known_limitations": limitations,
+        "factory_unknown_resolutions": unknown_resolutions,
+        "dynamic_factory_verdict_policy": _factory_unknown_resolution(
+            "UNKNOWN_DYNAMIC_STAGE_VERDICT",
+            "a delegated stage returned a code not known at audit time"),
+        "summary": {
+            "component_count": len(rows),
+            "status_counts": counts,
+            "known_limitation_count": len(limitations),
+            "limitation_status_counts": limitation_counts,
+            "factory_unknown_count": len(unknown_resolutions),
+            "factory_plain_dead_end_count": factory_plain_dead_ends,
+            "limitation_plain_dead_end_count": limitation_plain_dead_ends,
+            "plain_dead_end_count": (
+                factory_plain_dead_ends + limitation_plain_dead_ends),
+            "provider_imports_performed": 0,
+        },
+    }
+    if include_inventory:
+        inventory = _public_module_inventory()
+        result["public_module_inventory"] = inventory
+        result["unconnected_public_modules"] = [
+            row for row in inventory
+            if not row["mcp_tools_with_exact_symbol_name"]
+            and not row["factory_referenced_symbols"]
+            and not row["registered_components"]
+        ]
+    return _ok(result)
+
+
+register_connection_component(
+    "MCP connection audit",
+    stage="CONTROL_PLANE",
+    status=CONNECTED,
+    module=f"{__package__}.mcp",
+    tools=("garment_connection_audit",),
+    factory_events=(),
+    accepted_evidence=(
+        "AST source inventory and the in-memory MCP/component registries",
+    ),
+    next_action="inspect component rows and resolve only through their typed contracts",
+)
+
+
+@tool
 def garment_factory(json_text: str = "", action: str = "advance") -> str:
     """Run the resumable image -> candidates -> pattern -> validation loop.
 
@@ -3165,24 +4253,31 @@ def garment_factory(json_text: str = "", action: str = "advance") -> str:
     from . import garment_factory as _factory
     req, err = _json_arg(json_text, "garment factory request")
     if err:
-        return _ok(err)
+        return _ok(_attach_connection_resolution(err))
     if not isinstance(req, dict):
-        return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS", "why": "request must be an object"})
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_BAD_ARGUMENTS",
+            "why": "request must be an object",
+        }))
     selected = str(action or req.get("action", "advance")).lower()
     if selected == "start":
         try:
             state = _factory.new_job(str(req.get("job_id") or f"{_project()}-garment"),
                                      int(req.get("max_iterations", 8)))
         except (TypeError, ValueError) as exc:
-            return _ok({"verdict": "UNKNOWN_BAD_ARGUMENTS", "why": str(exc)})
+            return _ok(_attach_connection_resolution({
+                "verdict": "UNKNOWN_BAD_ARGUMENTS", "why": str(exc),
+            }))
         _save_factory(state)
         return _ok({"verdict": "ANSWER", "state": state})
     state = _load_factory(str(req.get("job_id", "")))
     if selected == "inspect":
         return _ok({"verdict": "ANSWER", "state": state})
     if selected != "advance":
-        return _ok({"verdict": "UNKNOWN_FACTORY_ACTION",
-                    "why": "action must be start, inspect or advance"})
+        return _ok(_attach_connection_resolution({
+            "verdict": "UNKNOWN_FACTORY_ACTION",
+            "why": "action must be start, inspect or advance",
+        }))
     event = req.get("event", req)
 
     def pattern_runner(current: Dict[str, Any], stage_event: Dict[str, Any]) -> Mapping[str, Any]:
@@ -3379,7 +4474,7 @@ def garment_factory(json_text: str = "", action: str = "advance") -> str:
     next_state = result.get("state")
     if isinstance(next_state, Mapping) and next_state.get("schema") == _factory.SCHEMA:
         _save_factory(next_state)
-    return _ok(result)
+    return _ok(_attach_connection_resolution(result))
 
 
 @tool

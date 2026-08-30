@@ -189,10 +189,31 @@ def garment_front_candidate_evaluate(json_text: str = "") -> str:
     return _mcp._ok(bounded)
 
 
+# Register only after the tool itself exists.  The canonical audit stores this
+# descriptor without importing any optional sibling modules; importing this
+# extension is the explicit act that makes the evaluator CONNECTED.
+_mcp.register_connection_component(
+    "front candidate Pareto evaluator",
+    stage="CANDIDATE_REVIEW",
+    status=_mcp.CONNECTED,
+    module="photoloset.front_candidate_evaluator",
+    tools=(TOOL_NAME,),
+    factory_events=("APPROVE_HYPOTHESIS",),
+    accepted_evidence=(
+        "typed front-only candidates with candidate-id-bound previews and patterns",
+    ),
+    next_action=(
+        "inspect the Pareto axes and require a named human approval of one exact digest"
+    ),
+    note="rear and material authority remain PROPOSED",
+)
+
+
 # Re-export the canonical protocol surface after registering the extension.
 TOOLS = _mcp.TOOLS
 handle = _mcp.handle
 serve = _mcp.serve
+register_connection_component = _mcp.register_connection_component
 
 
 if __name__ == "__main__":
