@@ -627,7 +627,14 @@ final class AppState: ObservableObject {
     /// Whether tool/system log lines are shown in the transcript. Answers are
     /// always shown; this only folds away the running commentary, which on a
     /// long agent run buries the reply it was working towards.
-    @Published var showSystemLogs: Bool = UserDefaults.standard.object(forKey: "show_system_logs") as? Bool ?? true {
+    ///
+    /// **既定は畳んだ状態。** 開いた状態が既定だと、この旗が守っているはずの
+    /// 「答えだけ読める」が初回起動から一度も効かない — 実機で、ログの列が
+    /// 開いたまま `phase=... / rounds=... / model=...` のような内部状態が
+    /// 会話の主役に見えていた。Claude Desktop の「必要な時だけ開く」に倣う:
+    /// 既存ユーザーが自分で開いた選択(`UserDefaults` にある値)はそのまま
+    /// 尊重し、まだ誰も選んでいない初回起動だけ畳んだ側に倒す。
+    @Published var showSystemLogs: Bool = UserDefaults.standard.object(forKey: "show_system_logs") as? Bool ?? false {
         didSet { UserDefaults.standard.set(showSystemLogs, forKey: "show_system_logs") }
     }
 
@@ -793,7 +800,18 @@ final class AppState: ObservableObject {
 
     // Diff
     @Published var pendingDiff: FileDiff?
-    @Published var showDiff = false
+    // **コード変更が起きたら、Diff タブへ実際にジャンプする。**
+    // `pendingDiff`/`showDiff` を立てる呼び出し口は複数(Shield/Cloud
+    // Direct 経路など)あり、以前はどれも `shell.openTab` を呼んでいな
+    // かった — Apply/Skip 付きの本格 Diff 画面(`DiffPanelView`)は書か
+    // れていたのに、タブとして開く手段がここになかった。呼び出し口を
+    // 増やすたびに個別に追加する代わりに、この一箇所だけが門になる。
+    @Published var showDiff = false {
+        didSet {
+            guard showDiff, !oldValue else { return }
+            shell.openTab(.diff)
+        }
+    }
     @Published var autoApproveDiffs: Bool = false
 
     // Human Mode: file write / create / edit approval
@@ -2401,11 +2419,18 @@ final class AppState: ObservableObject {
                         content: "<think>\n制作モデル: \(model)\n自由応答（AI生成を明示）＋ 任意の型付き提案 → Vera検証\n</think>"))
                 }
                 let resolution = await AtelierChatRouter.resolveFlexible(text)
-                let answer = AtelierChatRouter.transcriptText(for: resolution)
+                let parts = AtelierChatRouter.transcriptParts(for: resolution)
                 await MainActor.run {
                     self.messages.append(ChatMessage(
-                        role: .assistant, content: answer,
+                        role: .assistant, content: parts.summary,
                         isSpotlight: self.currentGenerationIsSpotlight))
+                    // **技術詳細はログの裏へ。** phase / rounds / model 呼び出し
+                    // 回数・verdict の型名は開いた人だけが見る — 答えの本文に
+                    // 混ぜると、状態を書いた本人にしか読めない返答になる。
+                    if let detail = parts.detail, !detail.isEmpty {
+                        self.messages.append(ChatMessage(
+                            role: .system, content: detail))
+                    }
                     self.isGenerating = false
                     self.sessions.updateActiveSession(
                         messages: self.messages,
@@ -2759,7 +2784,13 @@ final class AppState: ObservableObject {
     func ingestArtifact(_ artifact: Artifact) {
         currentArtifact = artifact
         artifactHistory.insert(artifact, at: 0)
+        // **`showArtifactPanel` was set and never read.** The Claude-style
+        // preview (`ArtifactPanelView`, its own file comment names the
+        // reference) existed and worked, but nothing told the shell to open
+        // it — a file appeared in the response text and the reader had no
+        // door to it. This is that door.
         showArtifactPanel = true
+        shell.openTab(.artifact)
     }
 
     // MARK: - Agent Loop (multi-turn, scaffolding)

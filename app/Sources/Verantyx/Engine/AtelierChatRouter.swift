@@ -1017,51 +1017,92 @@ enum AtelierChatRouter {
 
     /// Text shown in the existing full-screen Chat transcript. It reports the
     /// typed result; it never turns a model explanation into a success claim.
-    static func transcriptText(for resolution: Resolution) -> String {
+    /// ユーザーに読ませる要約と、開いた人だけが見る技術詳細を分ける。
+    ///
+    /// **旧 `transcriptText` は両方を1本の文字列に結合していた** ── その
+    /// せいで `phase=... / rounds=... / model=...` のような内部状態が
+    /// `role: .assistant` の返答本文に紛れ込み、`showSystemLogs` の折り
+    /// たたみ(`AgentChatView.logToggleChip`)が一切効かなかった。透明性を
+    /// 消すのではなく、畳める場所へ動かす ── `detail` は捨てず、
+    /// 呼び出し側が `role: .system` として積めば同じ内容が「ログ N件」の
+    /// 裏に入る。
+    struct TranscriptParts {
+        let summary: String
+        let detail: String?
+
+        var combined: String {
+            guard let detail, !detail.isEmpty else { return summary }
+            return summary + "\n\n" + detail
+        }
+    }
+
+    static func transcriptParts(for resolution: Resolution) -> TranscriptParts {
         switch resolution {
         case .modelGenerated(let text, let action):
-            var answer = "制作モデルの提案（AI生成・未検証）\n"
+            let summary = "制作モデルの提案（AI生成・未検証）\n"
                 + "以下は作業計画であり、生成結果ではありません。\n\(text)"
-            if let action {
-                answer += "\n\nVera検証・実行結果\n\(transcriptText(for: action))"
-            } else {
-                answer += "\n\nVera: 状態変更は提案・実行されていません。"
+            guard let action else {
+                return TranscriptParts(
+                    summary: summary,
+                    detail: "Vera: 状態変更は提案・実行されていません。")
             }
-            return answer
+            let inner = transcriptParts(for: action)
+            let detail = "Vera検証・実行結果\n" + inner.combined
+            return TranscriptParts(summary: summary, detail: detail)
         case .moved(let destination):
-            return AppLanguage.shared.isJapanese
+            let text = AppLanguage.shared.isJapanese
                 ? destination.reasonJA : destination.reasonEN
+            return TranscriptParts(summary: text, detail: nil)
         case .refused(let text):
-            return text
+            return TranscriptParts(summary: text, detail: nil)
         case .preview(let preview, let destination):
             let changes = preview.changedAddresses.isEmpty
                 ? "変更箇所は未報告"
                 : preview.changedAddresses.joined(separator: ", ")
             let move = destination.map { "\n\($0.reasonJA)" } ?? ""
-            return "PROPOSED — まだ適用していません\n"
-                + "\(changes)\npreview digest: \(preview.digest)\(move)\n"
-                + "プレビューを確認して承認または却下してください。"
+            return TranscriptParts(
+                summary: "PROPOSED — まだ適用していません\n"
+                    + "プレビューを確認して承認または却下してください。\(move)",
+                detail: "\(changes)\npreview digest: \(preview.digest)")
         case .answered(let answer, let destination):
             let move = destination.map { "\n\($0.reasonJA)" } ?? ""
-            return answer.deterministicText + move
+            return TranscriptParts(
+                summary: answer.deterministicText + move, detail: nil)
         case .factory(let report, let destination):
-            var lines = [report.verdict, report.message,
-                         "phase=\(report.phase) / rounds=\(report.iterations) / model=\(report.modelCalls)"]
+            // **要約はユーザーが今すべきことだけ言う。** verdict の型名
+            // (HUMAN_GARMENT_AUDIT_REQUIRED 等)は開発者向けの識別子で、
+            // 平易な `message` が既に同じ内容を日本語で言っている ──
+            // 両方載せるのは同じことを二度言っているだけで、初見の
+            // ユーザーには verdict の方が読めない。
+            var summaryLines = [report.message]
+            var detailLines = [report.verdict,
+                               "phase=\(report.phase) / rounds=\(report.iterations) / model=\(report.modelCalls)"]
             if let artifact = GarmentFactoryReactController.shared.previewArtifact {
-                lines.append("artifact_status=PROPOSED_PREVIEW_READY")
-                lines.append("3D着装・型紙プレビュー: \(artifact.method) / attempt \(artifact.attempt)")
+                detailLines.append("artifact_status=PROPOSED_PREVIEW_READY")
+                summaryLines.append(
+                    "3D着装・型紙プレビュー: \(artifact.method) / attempt \(artifact.attempt)")
             } else if factoryHumanWaitPhases.contains(report.phase) {
-                lines.append("artifact_status=NOT_GENERATED_WAITING_FOR_HUMAN")
-                lines.append("3D・型紙・縫製成果物はまだ生成されていません。下の確認カードを操作すると続行します。")
+                detailLines.append("artifact_status=NOT_GENERATED_WAITING_FOR_HUMAN")
+                summaryLines.append(
+                    "3D・型紙・縫製成果物はまだ生成されていません。下の確認カードを操作すると続行します。")
             } else {
-                lines.append("artifact_status=NOT_GENERATED")
-                lines.append("この時点では3D・型紙・縫製成果物はまだ生成されていません。")
+                detailLines.append("artifact_status=NOT_GENERATED")
+                summaryLines.append(
+                    "この時点では3D・型紙・縫製成果物はまだ生成されていません。")
             }
-            if let destination { lines.append(destination.reasonJA) }
-            return lines.joined(separator: "\n")
+            if let destination { summaryLines.append(destination.reasonJA) }
+            return TranscriptParts(
+                summary: summaryLines.joined(separator: "\n"),
+                detail: detailLines.joined(separator: "\n"))
         case .none:
-            return "UNKNOWN_GARMENT_REQUEST\n服飾命令として解釈できなかったため、何も変更していません。"
+            return TranscriptParts(
+                summary: "UNKNOWN_GARMENT_REQUEST\n服飾命令として解釈できなかったため、何も変更していません。",
+                detail: nil)
         }
+    }
+
+    static func transcriptText(for resolution: Resolution) -> String {
+        transcriptParts(for: resolution).combined
     }
 
     private static let factoryHumanWaitPhases: Set<String> = [

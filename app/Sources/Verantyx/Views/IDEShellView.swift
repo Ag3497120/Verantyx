@@ -686,20 +686,40 @@ struct IDEShellView: View {
                 case .terminal:
                     TerminalPanelView(terminal: app.terminal).environmentObject(app)
                 case .diff:
-                    ScrollView {
-                        Text(app.stageDiff)
-                            .font(.system(size: 11, design: .monospaced))
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(10)
+                    // **本物の Diff 画面へ差し替え。** 以前ここは
+                    // `app.stageDiff` というプレーン文字列を読むだけで、
+                    // Apply/Skip 付きの本格実装 (`DiffPanelView`、
+                    // `app.pendingDiff`) は書かれてはいたがどこからも
+                    // マウントされていなかった ── 実装済み・未配線。
+                    if app.pendingDiff != nil {
+                        DiffPanelView().environmentObject(app)
+                    } else if !app.stageDiff.isEmpty {
+                        ScrollView {
+                            Text(app.stageDiff)
+                                .font(.system(size: 11, design: .monospaced))
+                                .textSelection(.enabled)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(10)
+                        }
+                    } else {
+                        DiffPanelView().environmentObject(app)   // its own empty state
                     }
                 case .artifact:
-                    ScrollView {
-                        Text(app.stageArtifactText)
-                            .font(.system(size: 12))
-                            .textSelection(.enabled)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(12)
+                    // 同じ理由で ArtifactPanelView へ ── コメント自身が
+                    // 「Claude-style live preview」と書いている実装が、
+                    // このタブの中身としては一度も選ばれていなかった。
+                    if app.currentArtifact != nil {
+                        ArtifactPanelView().environmentObject(app)
+                    } else if !app.stageArtifactText.isEmpty {
+                        ScrollView {
+                            Text(app.stageArtifactText)
+                                .font(.system(size: 12))
+                                .textSelection(.enabled)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(12)
+                        }
+                    } else {
+                        ArtifactPanelView().environmentObject(app)
                     }
                 case .memory:
                     MemoryConsoleView()

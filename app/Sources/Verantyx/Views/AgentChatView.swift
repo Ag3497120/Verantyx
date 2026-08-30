@@ -455,10 +455,28 @@ struct AgentChatView: View {
 
     /// The transcript with tool/system logs folded away when the user has
     /// collapsed them. Replies are never hidden — only the running commentary.
+    ///
+    /// **連続する同一のシステム通知は1つにまとめて読む.** A relaunch bug
+    /// fixed at the source (`AppState.restoreLastSessionOnLaunch`) had
+    /// already written "Restored session" two or three times in a row into
+    /// sessions saved before the fix — measured on disk: two copies in one
+    /// session's JSON. The source is fixed, but that saved data is real
+    /// history and rewriting it on read would be silent revision, not
+    /// repair. Folding identical consecutive system lines here is a display
+    /// choice, not a data change — the JSON keeps every copy.
     private var visibleMessages: [ChatMessage] {
-        app.messages.filter {
+        let filtered = app.messages.filter {
             !$0.isSpotlight && (app.showSystemLogs || $0.role != .system)
         }
+        var deduped: [ChatMessage] = []
+        for msg in filtered {
+            if let last = deduped.last, last.role == .system, msg.role == .system,
+               last.content == msg.content {
+                continue
+            }
+            deduped.append(msg)
+        }
+        return deduped
     }
 
     private var hiddenLogCount: Int {
