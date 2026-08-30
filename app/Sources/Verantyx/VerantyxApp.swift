@@ -272,6 +272,9 @@ struct VerantyxApp: App {
                     Self.enforceMainWindowMinimumContentSize()
                     Self.fillScreenOnce()
                     Self.applyTestFrameIfRequested()
+                    // Runs after the two above so it sees the frame that will
+                    // actually be shown, including a restored one.
+                    Self.rescueWindowOntoAnAttachedScreen()
                 }
                 // The window edge carries the agent's state — put it on the
                 // root so it frames everything, whichever pane is showing.
@@ -428,6 +431,27 @@ struct VerantyxApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {}
 
+            // **A window nobody can see needs a door that is not the window.**
+            // The Window menu carries no window list here and its Zoom / Fill
+            // / Center items were measured disabled, so a frame restored onto
+            // a display that is no longer attached left no way back from the
+            // interface at all — the only recovery was deleting the saved
+            // frame from the defaults database by hand. These two sit in the
+            // Window menu, work whether or not the window is on screen, and
+            // do not depend on being able to click the window first.
+            CommandGroup(after: .windowArrangement) {
+                Button(appState.t("Bring Window to This Screen",
+                                  "ウィンドウをこの画面に戻す")) {
+                    Self.forceWindowOntoMainScreen()
+                }
+                .keyboardShortcut("0", modifiers: [.command, .control])
+
+                Button(appState.t("Fit Window to Screen",
+                                  "ウィンドウを画面に合わせる")) {
+                    Self.fitWindowToScreen()
+                }
+            }
+
             CommandMenu("Session") {
                 Button(appState.t("New Session", "新しいセッション")) {
                     appState.newChatSession()
@@ -556,6 +580,102 @@ extension VerantyxApp {
                 height: BeginnerChatLayout.minimumWindowContentHeight
             )
         }
+    }
+
+    /// **A restored frame is a memory of a screen that may no longer exist.**
+    ///
+    /// AppKit writes the window's last frame to `NSWindow Frame main-ide` and
+    /// restores it verbatim on the next launch. It does not check that the
+    /// frame still lands on an attached display. Measured on this machine
+    /// after the window had been used on a second monitor:
+    ///
+    ///     "NSWindow Frame main-ide" = "2304 -595 1470 923 2304 -595 1470 923"
+    ///
+    /// x=2304, y=-595 is a display that was no longer attached, and 1470x923
+    /// does not fit the 1456x819 built-in screen. Two symptoms came out of
+    /// that one value, and neither looked like a window bug from the inside:
+    ///
+    /// 1. **The app launched with no window at all.** It was restored off
+    ///    screen. `Window` menu carries no window list, so there was no way
+    ///    back from the interface.
+    /// 2. **The layout looked broken.** Forced onto the smaller screen, a
+    ///    frame laid out for 923pt of height clipped at ~690pt, and the
+    ///    clipping took the parts that live at the two ends — the tab strip,
+    ///    the PROJECTS header and the garment selector at the top, the chat
+    ///    input at the bottom. The panes in between looked fine, which is
+    ///    exactly why this reads as "the UI is broken" rather than "the
+    ///    window is the wrong size".
+    ///
+    /// So this runs on every launch, not once: **the frame is checked against
+    /// the screens that are actually attached now.** A window that already
+    /// fits and is reachable is left alone — someone's chosen size and
+    /// position is not ours to overrule.
+    static func rescueWindowOntoAnAttachedScreen() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            guard let win = IDEWindowMonitor.ideWindow() else { return }
+            let frame = win.frame
+            let screens = NSScreen.screens
+            guard !screens.isEmpty else { return }
+
+            // Reachable means a person can still grab the title bar. A window
+            // whose body overlaps a screen but whose title bar sits above the
+            // menu bar cannot be moved, so area alone is not the test.
+            let titleBarStrip = NSRect(
+                x: frame.minX, y: frame.maxY - 28,
+                width: frame.width, height: 28)
+            let host = screens.first { $0.visibleFrame.intersects(titleBarStrip) }
+                ?? screens.first { $0.visibleFrame.intersects(frame) }
+
+            if let host,
+               frame.width <= host.visibleFrame.width,
+               frame.height <= host.visibleFrame.height,
+               host.visibleFrame.intersection(frame).height >= 80 {
+                return   // fits, and can be grabbed — leave it alone
+            }
+
+            let target = host ?? NSScreen.main ?? screens[0]
+            let visible = target.visibleFrame
+            // Shrink before moving: a frame wider or taller than the screen
+            // is the case that clips the two ends of the layout, and moving
+            // it without resizing keeps that defect while hiding the cause.
+            let size = NSSize(
+                width: min(frame.width, visible.width - 12),
+                height: min(frame.height, visible.height - 12))
+            let origin = NSPoint(
+                x: visible.midX - size.width / 2.0,
+                y: visible.midY - size.height / 2.0)
+            win.setFrame(NSRect(origin: origin, size: size),
+                        display: true, animate: false)
+        }
+    }
+
+    /// Put the window on the screen the menu bar is on, keeping its size but
+    /// shrinking it if that screen is smaller. Reachable from the Window menu
+    /// so it works when the window itself cannot be clicked.
+    static func forceWindowOntoMainScreen() {
+        guard let win = IDEWindowMonitor.ideWindow(),
+              let screen = NSScreen.main ?? NSScreen.screens.first else { return }
+        let visible = screen.visibleFrame
+        let size = NSSize(width: min(win.frame.width, visible.width - 12),
+                          height: min(win.frame.height, visible.height - 12))
+        win.setFrame(
+            NSRect(x: visible.midX - size.width / 2.0,
+                   y: visible.midY - size.height / 2.0,
+                   width: size.width, height: size.height),
+            display: true, animate: false)
+        win.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    /// Resize the window to the screen it is on. Separate from the rescue
+    /// above because this one is a request, not a repair — it runs even when
+    /// the current frame is perfectly legal.
+    static func fitWindowToScreen() {
+        guard let win = IDEWindowMonitor.ideWindow(),
+              let screen = win.screen ?? NSScreen.main else { return }
+        win.setFrame(screen.visibleFrame.insetBy(dx: 6, dy: 6),
+                    display: true, animate: false)
+        win.makeKeyAndOrderFront(nil)
     }
 
     static func fillScreenOnce() {

@@ -2008,9 +2008,24 @@ final class AppState: ObservableObject {
     ///
     /// 復号は `Task.detached` なので、`didLoad` が立つまで待つ。待たずに
     /// 読むと「まだ空」を「会話が無い」と取り違える。
+    /// 起動時の復元は一度きり。**`messages.isEmpty` だけでは足りない。**
+    ///
+    /// `Window` の `.onAppear` は再表示で二度目が走ることがあり、復元した
+    /// セッションがまだ空（新規で作って何も書いていない服）だと、二度目の
+    /// `messages.isEmpty` も真のままなので復元がもう一度走る。実機では
+    /// 「セッションを復元しました」が2〜3行並んだ。旗は本文の中身に依らない。
+    /// 走行中と完了は別の旗にする。**片方だけだと、待ちが空振りしたときに
+    /// 二度と復元できなくなる。** 走行中の旗は同時起動を止めるためだけの
+    /// もので、復元しないまま抜けたら降ろす。
+    private var restoreOnLaunchInFlight = false
+    private var didRestoreSessionOnLaunch = false
+
     func restoreLastSessionOnLaunch() {
-        guard messages.isEmpty else { return }
+        guard !didRestoreSessionOnLaunch, !restoreOnLaunchInFlight,
+              messages.isEmpty else { return }
+        restoreOnLaunchInFlight = true
         Task { @MainActor in
+            defer { restoreOnLaunchInFlight = false }
             // 上限つきの待ち。立たないまま抜けたときは**何もしない** —
             // 復元できないことより、空の本文で上書きする方が悪い。
             for _ in 0..<200 {
@@ -2020,6 +2035,7 @@ final class AppState: ObservableObject {
             guard sessions.didLoad,
                   messages.isEmpty,
                   let id = sessions.activeSessionId else { return }
+            didRestoreSessionOnLaunch = true
             restoreSession(id)
         }
     }
