@@ -50,6 +50,10 @@ CANDIDATE_SCHEMA = "garment.candidate-3d-repair-result.v1"
 EVIDENCE_CROSS_SCHEMA = "garment.candidate-evidence-cross.v1"
 PHYSICAL_CROSS_SCHEMA = "garment.candidate-physical-cross.v1"
 PATTERN_HANDOFF_SCHEMA = "garment.candidate-pattern-handoff.v1"
+REAR_HYPOTHESIS_SCHEMA = "garment.typed-rear-hypothesis.v1"
+REAR_HYPOTHESIS_AXES = (
+    "closure", "back_volume", "layer_continuation", "attachment_topology",
+)
 
 ANSWER = "ANSWER"
 PROPOSED = "PROPOSED"
@@ -244,6 +248,39 @@ def _extract_structure(candidate: Mapping[str, Any]) -> Optional[Mapping[str, An
     return graph if isinstance(graph, Mapping) else None
 
 
+def _candidate_rear_hypothesis(candidate: Mapping[str, Any]) -> Dict[str, Any]:
+    raw = candidate.get("rear_hypothesis")
+    if not isinstance(raw, Mapping):
+        nested = candidate.get("rear_candidate")
+        if isinstance(nested, Mapping):
+            raw = nested.get("rear_hypothesis")
+    raw = raw if isinstance(raw, Mapping) else {}
+    raw_axes = raw.get("axes") if isinstance(raw.get("axes"), Mapping) else {}
+    raw_values = (raw.get("axis_values")
+                  if isinstance(raw.get("axis_values"), Mapping) else {})
+    values: Dict[str, Any] = {}
+    for axis in REAR_HYPOTHESIS_AXES:
+        record = raw_axes.get(axis)
+        if isinstance(record, Mapping) and "value" in record:
+            value = record.get("value")
+        else:
+            value = raw_values.get(axis, raw.get(axis, "UNKNOWN_UNOBSERVED"))
+        values[axis] = _plain(value)
+    result = {
+        "schema": REAR_HYPOTHESIS_SCHEMA,
+        "state": PROPOSED,
+        "observation_state": "UNKNOWN_UNOBSERVED",
+        "axis_values": values,
+        "axes_are_independent": True,
+        "conflicts_are_not_averaged": True,
+        "front_mutation_allowed": False,
+        "source_hypothesis_digest": raw.get("hypothesis_digest"),
+        "fact_promotions": [],
+    }
+    result["hypothesis_digest"] = stable_digest(result)
+    return result
+
+
 def _mesh_envelope(candidate: Mapping[str, Any]
                    ) -> Tuple[Optional[Mapping[str, Any]], List[Mapping[str, Any]],
                               str, Optional[str], Optional[Dict[str, Any]]]:
@@ -386,6 +423,43 @@ def _normalise_geometry(candidate: Mapping[str, Any]) -> Dict[str, Any]:
                      if _sequence(vertex_layers_raw)
                      and len(vertex_layers_raw) == len(vertices)
                      else [0] * len(vertices))
+    raw_front_indices = candidate.get(
+        "front_vertex_indices", mesh.get("front_vertex_indices"))
+    if _sequence(raw_front_indices):
+        front_vertex_indices = sorted({
+            int(value) for value in raw_front_indices
+            if (isinstance(value, int) and not isinstance(value, bool)
+                and 0 <= int(value) < len(vertices))
+        })
+        if not front_vertex_indices:
+            raise ValueError("front_vertex_indices did not name any mesh vertex")
+        front_selection_method = "EXPLICIT_FRONT_VERTEX_INDICES"
+    elif "BACK" in str(candidate.get("domain", "")).upper():
+        ordered_z = sorted(float(vertex[2]) for vertex in vertices)
+        median_z = ordered_z[len(ordered_z) // 2]
+        front_vertex_indices = [
+            index for index, vertex in enumerate(vertices)
+            if float(vertex[2]) >= median_z - _EPS
+        ]
+        front_selection_method = "CAMERA_FACING_DEPTH_HALF"
+    else:
+        front_vertex_indices = list(range(len(vertices)))
+        front_selection_method = "WHOLE_CANDIDATE_VISIBLE_DOMAIN"
+    front_set = set(front_vertex_indices)
+    front_faces = [
+        [int(index) for index in face]
+        for face in faces if all(int(index) in front_set for index in face)
+    ]
+    computed_front_digest = stable_digest({
+        "xy_vertices": [[index, vertices[index][0], vertices[index][1]]
+                        for index in front_vertex_indices],
+        "front_faces": front_faces,
+        "face_parts": [face_part_ids[index]
+                       for index, face in enumerate(faces)
+                       if all(int(vertex) in front_set for vertex in face)],
+    })
+    source_front_digest = str(candidate.get("source_front_digest", "")).strip()
+    rear_hypothesis = _candidate_rear_hypothesis(candidate)
     result = {
         "candidate_id": candidate_id,
         "candidate_digest": str(candidate.get("candidate_digest", "")) or None,
@@ -397,6 +471,11 @@ def _normalise_geometry(candidate: Mapping[str, Any]) -> Dict[str, Any]:
         "face_part_ids": face_part_ids,
         "face_layers": face_layers,
         "vertex_layers": vertex_layers,
+        "front_vertex_indices": front_vertex_indices,
+        "front_selection_method": front_selection_method,
+        "computed_front_contract_digest": computed_front_digest,
+        "source_front_digest": source_front_digest or None,
+        "rear_hypothesis": rear_hypothesis,
         "part_layers": part_layers,
         "part_bindings": part_bindings,
         "visible_color_swatches": visible_colours,
@@ -422,12 +501,38 @@ def _shape_payload(geometry: Mapping[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _computed_front_contract_digest(geometry: Mapping[str, Any]) -> str:
+    indices = [int(value) for value in geometry.get(
+        "front_vertex_indices", range(len(geometry["vertices"]))) ]
+    front_set = set(indices)
+    front_faces = []
+    front_parts = []
+    for face, part_id in zip(geometry["faces"], geometry["face_part_ids"]):
+        if all(int(index) in front_set for index in face):
+            front_faces.append([int(index) for index in face])
+            front_parts.append(str(part_id))
+    return stable_digest({
+        "xy_vertices": [[index, geometry["vertices"][index][0],
+                         geometry["vertices"][index][1]]
+                        for index in indices],
+        "front_faces": front_faces,
+        "face_parts": front_parts,
+    })
+
+
 def _seal_geometry(geometry: Dict[str, Any]) -> None:
+    geometry["computed_front_contract_digest"] = (
+        _computed_front_contract_digest(geometry))
     geometry["shape_digest"] = stable_digest(_shape_payload(geometry))
     geometry["geometry_digest"] = stable_digest({
         **_shape_payload(geometry),
         "part_bindings": geometry.get("part_bindings", {}),
         "visible_color_swatches": geometry.get("visible_color_swatches", {}),
+        "front_vertex_indices": geometry.get("front_vertex_indices", []),
+        "computed_front_contract_digest": geometry.get(
+            "computed_front_contract_digest"),
+        "source_front_digest": geometry.get("source_front_digest"),
+        "rear_hypothesis": geometry.get("rear_hypothesis", {}),
     })
 
 
@@ -676,6 +781,84 @@ def _transform_vertices_to_mask(
     return changed
 
 
+def _candidate_specific_proposals(
+    candidate_id: str, rear_hypothesis: Mapping[str, Any], proposals: Any,
+) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    if _sequence(proposals):
+        for source in proposals:
+            if not isinstance(source, Mapping):
+                continue
+            row = copy.deepcopy(dict(source))
+            row["upstream_proposal_id"] = row.get("proposal_id")
+            row["candidate_id"] = candidate_id
+            row["rear_hypothesis_digest"] = rear_hypothesis.get(
+                "hypothesis_digest")
+            row["mutation_domain"] = "VISIBLE_FRONT_ONLY"
+            row["preserve_unobserved_rear_hypothesis"] = True
+            row["proposal_id"] = stable_digest({
+                key: value for key, value in row.items()
+                if key != "proposal_id"
+            })[:20]
+            rows.append(row)
+    return rows
+
+
+def _rear_axis_repair_constraints(
+    candidate_id: str, rear_hypothesis: Mapping[str, Any],
+) -> List[Dict[str, Any]]:
+    values = rear_hypothesis.get("axis_values", {})
+    return [
+        {
+            "candidate_id": candidate_id,
+            "axis": axis,
+            "value": copy.deepcopy(values.get(axis, "UNKNOWN_UNOBSERVED")),
+            "state": PROPOSED,
+            "operation": "PRESERVE_TYPED_REAR_AXIS",
+            "applied_from_front_evidence": False,
+            "why": "same-camera front residual cannot observe or rewrite this rear axis",
+            "rear_hypothesis_digest": rear_hypothesis.get(
+                "hypothesis_digest"),
+        }
+        for axis in REAR_HYPOTHESIS_AXES
+    ]
+
+
+def _comparison_contract(
+    evaluation: Mapping[str, Any], rear_hypothesis: Mapping[str, Any],
+) -> Dict[str, Any]:
+    """Describe the independent residuals that may drive a front repair.
+
+    This is deliberately not a weighted similarity score.  A silhouette gain
+    cannot cancel a typed-part or layer-order regression, and none of these
+    front observations can rewrite an unobserved rear hypothesis.
+    """
+    axes = evaluation.get("axes", {})
+    axes = axes if isinstance(axes, Mapping) else {}
+    return {
+        "camera_binding": copy.deepcopy(evaluation.get("camera_binding")),
+        "same_camera_required": True,
+        "independent_comparisons": {
+            "silhouette": {
+                "present": "silhouette" in axes,
+                "representation": "BINARY_FRONT_MASK",
+            },
+            "typed_part_masks": {
+                "present": "parts" in axes,
+                "representation": "TYPED_FRONT_PART_MASKS",
+            },
+            "layer_order": {
+                "present": "layer_occlusion" in axes,
+                "representation": "VISIBLE_FRONT_LAYER_ORDER",
+            },
+        },
+        "no_aggregate_similarity_score": True,
+        "improvements_never_offset_regressions": True,
+        "rear_hypothesis_digest": rear_hypothesis.get("hypothesis_digest"),
+        "rear_axes_excluded_from_front_scoring": list(REAR_HYPOTHESIS_AXES),
+    }
+
+
 def _apply_repairs(geometry: Mapping[str, Any], target: Mapping[str, Any],
                    proposals: Sequence[Mapping[str, Any]], *, gain: float,
                    limit: int) -> Tuple[Dict[str, Any], Dict[str, Any]]:
@@ -694,7 +877,9 @@ def _apply_repairs(geometry: Mapping[str, Any], target: Mapping[str, Any],
             mask = decode_mask(target.get(
                 "silhouette_mask", target.get("silhouette")))
             changed = _transform_vertices_to_mask(
-                current, target, mask, range(len(current["vertices"])), gain)
+                current, target, mask,
+                current.get("front_vertex_indices",
+                            range(len(current["vertices"]))), gain)
         elif operation == "ALIGN_TYPED_PART_MASK" and target_id in target_parts:
             source_id = str(current.get("part_bindings", {}).get(
                 target_id, target_id))
@@ -702,6 +887,8 @@ def _apply_repairs(geometry: Mapping[str, Any], target: Mapping[str, Any],
             for face, part_id in zip(current["faces"], current["face_part_ids"]):
                 if str(part_id) == source_id:
                     indices.update(int(value) for value in face)
+            indices.intersection_update(set(current.get(
+                "front_vertex_indices", range(len(current["vertices"])))))
             if indices:
                 changed = _transform_vertices_to_mask(
                     current, target, target_parts[target_id], indices, gain)
@@ -741,6 +928,10 @@ def _apply_repairs(geometry: Mapping[str, Any], target: Mapping[str, Any],
         total_changed += changed
         operations.append({
             "proposal_id": proposal.get("proposal_id"),
+            "upstream_proposal_id": proposal.get("upstream_proposal_id"),
+            "candidate_id": proposal.get("candidate_id"),
+            "rear_hypothesis_digest": proposal.get(
+                "rear_hypothesis_digest"),
             "operation": operation,
             "target": target_id,
             "changed_vertices_or_records": changed,
@@ -755,6 +946,8 @@ def _apply_repairs(geometry: Mapping[str, Any], target: Mapping[str, Any],
         "operations": operations,
         "deterministic_order": True,
         "invented_rear_geometry": False,
+        "front_vertex_only_geometry_mutation": True,
+        "rear_hypothesis_preserved": True,
         "material_promoted": False,
     }
 
@@ -1040,25 +1233,36 @@ def _approval_for(request: Mapping[str, Any], candidate: Mapping[str, Any]
 
 
 def _verify_approval(approval: Optional[Mapping[str, Any]], candidate_id: str,
+                     candidate_digest: str,
                      final_geometry_digest: str) -> Dict[str, Any]:
     if approval is None:
         return {"verdict": "HUMAN_REVIEW_REQUIRED",
-                "why": "a named approval bound to the final geometry is required"}
+                "why": (
+                    "a named approval bound to the candidate and final "
+                    "geometry digests is required")}
     by = str(approval.get("by", approval.get("approver", ""))).strip()
     decision = str(approval.get("decision", "APPROVE")).upper()
     bound_id = str(approval.get("candidate_id", "")).strip()
+    bound_candidate_digest = str(approval.get(
+        "candidate_digest", "")).strip()
     bound_digest = str(approval.get(
         "final_geometry_digest",
         approval.get("geometry_digest", ""))).strip()
-    if (not by or decision != "APPROVE" or bound_id != candidate_id
+    if (not candidate_digest or not by or decision != "APPROVE"
+            or bound_id != candidate_id
+            or bound_candidate_digest != candidate_digest
             or bound_digest != final_geometry_digest):
         return {
             "verdict": "HUMAN_REVIEW_STALE_OR_INCOMPLETE",
-            "why": "approval must name an approver and exact candidate/final geometry digest",
+            "why": (
+                "approval must name an approver and bind the exact candidate "
+                "id, candidate digest, and final geometry digest"),
             "expected_candidate_id": candidate_id,
+            "expected_candidate_digest": candidate_digest or None,
             "expected_final_geometry_digest": final_geometry_digest,
         }
     payload = {"candidate_id": candidate_id,
+               "candidate_digest": candidate_digest,
                "final_geometry_digest": final_geometry_digest,
                "approver": by, "decision": decision}
     return {"verdict": ANSWER, "approval": payload,
@@ -1157,11 +1361,17 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
                    config: RepairLoopConfig,
                    projection_config: Mapping[str, Any]) -> Dict[str, Any]:
     candidate_id = str(candidate["candidate_id"])
+    candidate_digest = str(candidate.get("candidate_digest", "")).strip()
     before = copy.deepcopy(dict(initial_geometry))
     current = copy.deepcopy(before)
+    accepted_geometry = copy.deepcopy(before)
+    rear_hypothesis = copy.deepcopy(current["rear_hypothesis"])
+    rear_axis_constraints = _rear_axis_repair_constraints(
+        candidate_id, rear_hypothesis)
     transcript: List[Dict[str, Any]] = []
-    evaluations: List[Dict[str, Any]] = []
+    accepted_evaluations: List[Dict[str, Any]] = []
     previous: Optional[Mapping[str, Any]] = None
+    non_improvement_stop: Optional[Dict[str, Any]] = None
     terminal_code = "UNKNOWN_REPAIR_LOOP_INTERNAL"
     terminal_kind = UNKNOWN
 
@@ -1187,13 +1397,16 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
                 after_geometry_digest=current["geometry_digest"],
                 candidate_geometry=current, repair_transcript=transcript,
                 comparison=evaluation)
-        evaluations.append(evaluation)
         cross = _evidence_cross(evaluation)
         convergence = evaluation["convergence"]["status"]
+        proposals = _candidate_specific_proposals(
+            candidate_id, rear_hypothesis, evaluation.get("proposals", []))
         step: Dict[str, Any] = {
             "round": round_index,
             "stage_order": ["PROPOSAL", "SIMULATE", "COMPARE", "REPAIR"],
             "proposal_state": PROPOSED,
+            "candidate_specific_proposals": copy.deepcopy(proposals),
+            "rear_axis_constraints": copy.deepcopy(rear_axis_constraints),
             "simulation": {
                 "kind": "SAME_CAMERA_FRONT_PROJECTION",
                 "projection_digest": stable_digest(projection),
@@ -1201,19 +1414,40 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
                 "authority": PROPOSED,
             },
             "comparison_digest": evaluation_digest,
+            "comparison_contract": _comparison_contract(
+                evaluation, rear_hypothesis),
             "convergence": convergence,
             "evidence_cross": cross,
             "repair": None,
         }
-        if convergence == "CONVERGED":
-            terminal_code = "HUMAN_REVIEW_REQUIRED"
+        if convergence in {"REJECT_WORSENED", "STALLED_TIE"}:
+            attempted_digest = str(current["geometry_digest"])
+            restored_digest = str(accepted_geometry["geometry_digest"])
+            current = copy.deepcopy(accepted_geometry)
+            non_improvement_stop = {
+                "status": convergence,
+                "attempted_geometry_digest": attempted_digest,
+                "restored_geometry_digest": restored_digest,
+                "attempted_evaluation_digest": evaluation_digest,
+                "accepted_evaluation_digest": (
+                    accepted_evaluations[-1].get("evaluation_digest")
+                    if accepted_evaluations else None),
+                "stopped_without_applying_more_repairs": True,
+            }
+            step["non_improvement_stop"] = True
+            step["rollback"] = copy.deepcopy(non_improvement_stop)
+            terminal_code = "HUMAN_REVIEW_NON_IMPROVEMENT"
             terminal_kind = HUMAN_REVIEW
             transcript.append(step)
             break
-        if convergence in {"REJECT_WORSENED", "STALLED_TIE"}:
-            terminal_code = ("HUMAN_REVIEW_WORSENED" if
-                             convergence == "REJECT_WORSENED" else
-                             "HUMAN_REVIEW_STALLED")
+
+        # The current geometry is accepted only after its independent axes
+        # have not regressed.  A following repair remains provisional until
+        # the next same-camera comparison accepts it.
+        accepted_geometry = copy.deepcopy(current)
+        accepted_evaluations.append(copy.deepcopy(evaluation))
+        if convergence == "CONVERGED":
+            terminal_code = "HUMAN_REVIEW_REQUIRED"
             terminal_kind = HUMAN_REVIEW
             transcript.append(step)
             break
@@ -1222,10 +1456,8 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
             terminal_kind = HUMAN_REVIEW
             transcript.append(step)
             break
-        proposals = evaluation.get("proposals", [])
         repaired, repair_record = _apply_repairs(
-            current, target,
-            proposals if _sequence(proposals) else [],
+            current, target, proposals,
             gain=float(config.repair_gain),
             limit=config.max_repairs_per_round)
         step["repair"] = repair_record
@@ -1240,10 +1472,18 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
         terminal_code = "HUMAN_REVIEW_NON_CONVERGENCE"
         terminal_kind = HUMAN_REVIEW
 
-    final_evaluation = evaluations[-1]
+    if not accepted_evaluations:
+        return _candidate_stop(
+            candidate_id, "UNKNOWN_NO_ACCEPTED_FRONT_EVALUATION",
+            "no same-camera evaluation was accepted",
+            before_geometry_digest=before["geometry_digest"],
+            after_geometry_digest=current["geometry_digest"],
+            candidate_geometry=current, repair_transcript=transcript)
+    final_evaluation = accepted_evaluations[-1]
     scenarios = _scenario_results(current, request.get("scenarios"), config)
     physical = _physical_cross(before, current, scenarios)
-    proof = _proof_cross(candidate_id, evaluations[0], final_evaluation)
+    proof = _proof_cross(
+        candidate_id, accepted_evaluations[0], final_evaluation)
     required_scenarios_pass = all(
         not row.get("required_gate") or row.get("verdict") == ANSWER
         for row in scenarios)
@@ -1255,7 +1495,7 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
         terminal_kind = HUMAN_REVIEW
 
     approval = _verify_approval(
-        _approval_for(request, candidate), candidate_id,
+        _approval_for(request, candidate), candidate_id, candidate_digest,
         str(current["geometry_digest"]))
     pattern_handoff = None
     if final_evaluation["convergence"]["status"] == "CONVERGED":
@@ -1291,9 +1531,13 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
         "state": PROPOSED if terminal_kind in {ANSWER, HUMAN_REVIEW} else UNKNOWN,
         "stop": None if terminal_kind == ANSWER else {
             "kind": terminal_kind, "code": terminal_code,
-            "why": ("visible-front geometry needs a human decision"
-                    if terminal_kind == HUMAN_REVIEW else
-                    "a deterministic handoff prerequisite is unknown"),
+            "why": (
+                "a candidate repair did not improve every independent "
+                "front axis and was rolled back"
+                if non_improvement_stop is not None else
+                "visible-front geometry needs a human decision"
+                if terminal_kind == HUMAN_REVIEW else
+                "a deterministic handoff prerequisite is unknown"),
         },
         "rounds": len(transcript),
         "max_rounds": config.max_rounds,
@@ -1303,7 +1547,13 @@ def _run_candidate(request: Mapping[str, Any], candidate: Mapping[str, Any],
         "before_shape_digest": before["shape_digest"],
         "after_shape_digest": current["shape_digest"],
         "candidate_geometry": current,
-        "initial_evaluation_digest": evaluations[0].get("evaluation_digest"),
+        "rear_hypothesis": rear_hypothesis,
+        "rear_axis_constraints": rear_axis_constraints,
+        "comparison_contract": _comparison_contract(
+            final_evaluation, rear_hypothesis),
+        "non_improvement_stop": non_improvement_stop,
+        "initial_evaluation_digest": accepted_evaluations[0].get(
+            "evaluation_digest"),
         "final_evaluation": final_evaluation,
         "evidence_cross": _evidence_cross(final_evaluation),
         "physical_cross": physical,
@@ -1402,6 +1652,31 @@ def run(request: Mapping[str, Any]) -> Dict[str, Any]:
         domain = str(row.get("domain", "STRUCTURE")).upper()
         if candidate_id in built and "MATERIAL" not in domain:
             structural_ids.append(candidate_id)
+    use_source_front_contract = bool(structural_ids) and all(
+        built[candidate_id].get("source_front_digest")
+        for candidate_id in structural_ids)
+    front_contract_method = (
+        "SOURCE_FRONT_DIGEST_CONTRACT" if use_source_front_contract
+        else "COMPUTED_FRONT_XY_TOPOLOGY_CONTRACT")
+    front_contract_groups: Dict[str, List[str]] = {}
+    for candidate_id in structural_ids:
+        digest = (built[candidate_id].get("source_front_digest")
+                  if use_source_front_contract else built[candidate_id].get(
+                      "computed_front_contract_digest"))
+        front_contract_groups.setdefault(str(digest), []).append(candidate_id)
+    front_mismatch = len(front_contract_groups) > 1
+    if front_mismatch:
+        groups = [sorted(group) for group in front_contract_groups.values()]
+        for candidate_id in list(structural_ids):
+            early[candidate_id] = _candidate_stop(
+                candidate_id, "UNKNOWN_CANDIDATE_FRONT_NOT_PRESERVED",
+                "rear alternatives changed the shared visible-front contract",
+                front_contract_method=front_contract_method,
+                front_contract_candidate_groups=groups,
+                before_geometry_digest=built[candidate_id]["geometry_digest"],
+                after_geometry_digest=built[candidate_id]["geometry_digest"])
+            built.pop(candidate_id, None)
+        structural_ids = []
     by_shape: Dict[str, List[str]] = {}
     for candidate_id in structural_ids:
         by_shape.setdefault(built[candidate_id]["shape_digest"], []).append(candidate_id)
@@ -1454,6 +1729,17 @@ def run(request: Mapping[str, Any]) -> Dict[str, Any]:
             "groups": distinct_rows,
             "generic_fallback_used": False,
         },
+        "front_preservation_check": {
+            "verdict": ("UNKNOWN_CANDIDATE_FRONT_NOT_PRESERVED"
+                        if front_mismatch else ANSWER),
+            "method": front_contract_method,
+            "groups": [
+                {"front_contract_digest": digest,
+                 "candidate_ids": sorted(group)}
+                for digest, group in sorted(front_contract_groups.items())
+            ],
+            "rear_alternatives_may_not_mutate_visible_front": True,
+        },
         "pattern_handoffs": [copy.deepcopy(row["pattern_handoff"])
                              for row in results
                              if isinstance(row.get("pattern_handoff"), Mapping)],
@@ -1491,6 +1777,7 @@ repair_candidates = run
 __all__ = [
     "REQUEST_SCHEMA", "SCHEMA", "CANDIDATE_SCHEMA",
     "EVIDENCE_CROSS_SCHEMA", "PHYSICAL_CROSS_SCHEMA",
-    "PATTERN_HANDOFF_SCHEMA", "RepairLoopConfig", "stable_digest",
+    "PATTERN_HANDOFF_SCHEMA", "REAR_HYPOTHESIS_SCHEMA",
+    "REAR_HYPOTHESIS_AXES", "RepairLoopConfig", "stable_digest",
     "build_candidate_geometry", "run", "execute", "repair_candidates",
 ]

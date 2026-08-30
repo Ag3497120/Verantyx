@@ -10,10 +10,10 @@ sewing authority.  A caller describes surfaces using only:
 * a numeric layer; and
 * explicit parent/child/port/ownership relations.
 
-Consequently, one lower component can express a skirt-like shell, two lower
-components can express trouser-like shells, and one upper/full component can
-express a top or body shell without branching on garment names.  An overlay is
-the same surface representation at a higher layer with an explicit relation.
+Consequently, one continuous lower component and two independent lower tubes
+remain different topologies, while an upper/full component remains a fitted
+body shell without branching on garment names.  An overlay is the same surface
+representation at a higher layer with an explicit relation.
 
 Typed front polygons/triangles constrain only the visible front support.  Their
 requested depth is always a ``PROPOSED`` candidate offset; no front cue can
@@ -308,6 +308,7 @@ class _Surface:
     layer: int
     ease_cm: float
     material_id: str
+    component_basis: str
     components: Tuple[_Component, ...]
 
     def normalized(self) -> Dict[str, Any]:
@@ -317,6 +318,7 @@ class _Surface:
             "layer": self.layer,
             "ease_cm": self.ease_cm,
             "material_id": self.material_id,
+            "component_basis": self.component_basis,
             "components": [component.normalized() for component in self.components],
         }
 
@@ -372,6 +374,9 @@ def _surfaces(raw: Any, body: _BodyProxy) -> Tuple[_Surface, ...]:
         material_id = value.get("material_id", "unmeasured")
         if not isinstance(material_id, str) or not material_id.strip():
             raise _Refusal(UNKNOWN_SURFACE, f"{surface_id}.material_id is invalid")
+        component_basis = value.get("component_basis", "EXPLICIT_RADIAL_DOMAINS")
+        if not isinstance(component_basis, str) or not component_basis.strip():
+            raise _Refusal(UNKNOWN_SURFACE, f"{surface_id}.component_basis is invalid")
         raw_components = value.get("components")
         if (not isinstance(raw_components, Sequence)
                 or isinstance(raw_components, (str, bytes)) or not raw_components):
@@ -416,7 +421,8 @@ def _surfaces(raw: Any, body: _BodyProxy) -> Tuple[_Surface, ...]:
             ))
         components.sort(key=lambda item: item.component_id)
         parsed.append(_Surface(
-            surface_id, lo, hi, layer, ease, material_id, tuple(components),
+            surface_id, lo, hi, layer, ease, material_id,
+            component_basis, tuple(components),
         ))
     parsed.sort(key=lambda item: item.surface_id)
     return tuple(parsed)
@@ -630,6 +636,7 @@ def _cues(raw: Any, surfaces: Sequence[_Surface]) -> Tuple[Dict[str, Any], ...]:
             )
         points = _points(value.get("points_cm", value.get("points")),
                          cue_id, normalized_kind)
+        support_triangles = _triangulate_polygon(points)
         offset = _number(value.get("offset_cm"), f"{cue_id}.offset_cm", minimum=0.0)
         weight = _number(value.get("weight", 1.0), f"{cue_id}.weight",
                          minimum=0.0, strict=True)
@@ -638,6 +645,8 @@ def _cues(raw: Any, surfaces: Sequence[_Surface]) -> Tuple[Dict[str, Any], ...]:
             "surface_id": surface_id,
             "kind": normalized_kind,
             "points_cm": [list(point) for point in points],
+            "support_triangles_cm": support_triangles,
+            "support_triangle_count": len(support_triangles),
             "support_state": normalized_state,
             "geometry_state": PROPOSED,
             "coordinate_space": coordinate_space,
@@ -676,6 +685,123 @@ def _inside_polygon(point: Vec2, points: Sequence[Sequence[float]]) -> bool:
         if x < crossing_x:
             inside = not inside
     return inside
+
+
+def _signed_area(points: Sequence[Sequence[float]]) -> float:
+    return 0.5 * math.fsum(
+        float(a[0]) * float(b[1]) - float(b[0]) * float(a[1])
+        for a, b in zip(points, points[1:] + points[:1])
+    )
+
+
+def _triangle_contains(point: Vec2, triangle: Sequence[Sequence[float]]) -> bool:
+    """Boundary-inclusive 2D triangle membership with no pixel tolerances."""
+    a, b, c = triangle
+
+    def cross(p: Sequence[float], q: Sequence[float], r: Sequence[float]) -> float:
+        return ((float(q[0]) - float(p[0])) * (float(r[1]) - float(p[1]))
+                - (float(q[1]) - float(p[1])) * (float(r[0]) - float(p[0])))
+
+    values = (cross(a, b, point), cross(b, c, point), cross(c, a, point))
+    return not (any(value < -_EPS for value in values)
+                and any(value > _EPS for value in values))
+
+
+def _triangulate_polygon(points: Sequence[Sequence[float]]) -> List[List[List[float]]]:
+    """Deterministically ear-clip a simple polygon.
+
+    The triangles are evidence-support domains only.  They neither create a
+    seam nor assert that the observed polygon is a developable cloth panel.
+    Input order is normalised to counter-clockwise orientation, then the
+    lexicographically smallest valid ear is removed at every step.
+    """
+    polygon = [[float(point[0]), float(point[1])] for point in points]
+    if len(polygon) == 3:
+        return [polygon]
+    if _signed_area(polygon) < 0.0:
+        polygon.reverse()
+    indices = list(range(len(polygon)))
+    triangles: List[List[List[float]]] = []
+    while len(indices) > 3:
+        ears: List[Tuple[Tuple[float, float, int], int, List[List[float]]]] = []
+        for slot, current in enumerate(indices):
+            previous = indices[(slot - 1) % len(indices)]
+            following = indices[(slot + 1) % len(indices)]
+            a, b, c = polygon[previous], polygon[current], polygon[following]
+            cross = ((b[0] - a[0]) * (c[1] - b[1])
+                     - (b[1] - a[1]) * (c[0] - b[0]))
+            if cross <= _EPS:
+                continue
+            triangle = [a, b, c]
+            if any(
+                other not in {previous, current, following}
+                and _triangle_contains(
+                    (polygon[other][0], polygon[other][1]), triangle)
+                for other in indices
+            ):
+                continue
+            ears.append(((b[1], b[0], current), slot, triangle))
+        if not ears:
+            # Fail closed at the geometry boundary instead of silently using
+            # a fan that can cross a concave outline.
+            raise _Refusal(
+                UNKNOWN_CUE,
+                "front polygon is not a simple triangulable boundary",
+            )
+        _, slot, triangle = min(ears, key=lambda row: row[0])
+        triangles.append(triangle)
+        del indices[slot]
+    triangles.append([polygon[index] for index in indices])
+    return triangles
+
+
+def _horizontal_intervals(
+    points: Sequence[Sequence[float]], y: float,
+) -> List[Tuple[float, float]]:
+    """Return polygon interior spans at ``y`` using a scale-free scan line."""
+    intersections: List[float] = []
+    polygon = [[float(point[0]), float(point[1])] for point in points]
+    ys = [point[1] for point in polygon]
+    lower, upper = min(ys), max(ys)
+    if y < lower - _EPS or y > upper + _EPS:
+        return []
+    if y >= upper - _EPS:
+        y = upper - max((upper - lower) * 1.0e-9, _EPS * 10.0)
+    for a, b in zip(polygon, polygon[1:] + polygon[:1]):
+        y1, y2 = a[1], b[1]
+        if abs(y2 - y1) <= _EPS:
+            continue
+        lo, hi = min(y1, y2), max(y1, y2)
+        # Half-open edges avoid counting a shared polygon vertex twice.
+        if y < lo or y >= hi:
+            continue
+        ratio = (y - y1) / (y2 - y1)
+        intersections.append(a[0] + ratio * (b[0] - a[0]))
+    intersections.sort()
+    if len(intersections) % 2:
+        return []
+    return [
+        (intersections[index], intersections[index + 1])
+        for index in range(0, len(intersections), 2)
+        if intersections[index + 1] - intersections[index] > _EPS
+    ]
+
+
+def _nearest_interval(
+    intervals: Sequence[Tuple[float, float]], reference_x: float,
+) -> Optional[Tuple[float, float]]:
+    if not intervals:
+        return None
+    return min(
+        intervals,
+        key=lambda interval: (
+            0.0 if interval[0] <= reference_x <= interval[1]
+            else min(abs(reference_x - interval[0]),
+                     abs(reference_x - interval[1])),
+            abs(reference_x - (interval[0] + interval[1]) * 0.5),
+            interval,
+        ),
+    )
 
 
 def _boundary_record(boundary_id: str, surface_id: str, component_id: str,
@@ -835,6 +961,8 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
         for cue in cues:
             cues_by_surface.setdefault(str(cue["surface_id"]), []).append(cue)
         cue_matches: Dict[str, List[int]] = {str(cue["cue_id"]): [] for cue in cues}
+        cue_triangle_matches: Dict[str, set[str]] = {
+            str(cue["cue_id"]): set() for cue in cues}
         vertices: List[Vec3] = []
         vertex_states: List[Dict[str, Any]] = []
         proposal_rows: List[Dict[str, Any]] = []
@@ -844,20 +972,65 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
             radial_normal = _unit((old[0] - float(meta["center_x_cm"]), 0.0,
                                    old[2] - float(meta["center_z_cm"])))
             layer_offset = int(meta["layer"]) * layer_gap
-            matches: List[Mapping[str, Any]] = []
+            matches: List[Dict[str, Any]] = []
             if bool(meta["front_hemisphere"]):
                 for cue in cues_by_surface.get(str(meta["surface_id"]), []):
-                    if _inside_polygon((old[0], old[1]), cue["points_cm"]):
-                        matches.append(cue)
-                        cue_matches[str(cue["cue_id"])].append(int(meta["vertex_id"]))
+                    intervals = _horizontal_intervals(cue["points_cm"], old[1])
+                    interval = _nearest_interval(
+                        intervals, float(meta["center_x_cm"]))
+                    if interval is None:
+                        continue
+                    center = (interval[0] + interval[1]) * 0.5
+                    half_width = (interval[1] - interval[0]) * 0.5
+                    theta = math.radians(float(meta["theta_deg"]))
+                    target_x = center + half_width * math.cos(theta)
+                    target_point = (target_x, old[1])
+                    triangle_ids = [
+                        "%s/triangle-%03d" % (cue["cue_id"], triangle_index)
+                        for triangle_index, triangle in enumerate(
+                            cue["support_triangles_cm"])
+                        if _triangle_contains(target_point, triangle)
+                    ]
+                    # The polygon scan line is the silhouette constraint.  Its
+                    # deterministic triangles retain local support provenance;
+                    # neither source supplies observed depth.
+                    matches.append({
+                        "cue": cue,
+                        "interval_cm": interval,
+                        "target_x_cm": target_x,
+                        "triangle_ids": triangle_ids,
+                    })
+                    cue_id = str(cue["cue_id"])
+                    cue_matches[cue_id].append(int(meta["vertex_id"]))
+                    cue_triangle_matches[cue_id].update(triangle_ids)
             cue_offset = 0.0
+            silhouette_target_x: Optional[float] = None
             if matches:
-                denominator = math.fsum(float(cue["weight"]) for cue in matches)
+                denominator = math.fsum(
+                    float(match["cue"]["weight"]) for match in matches)
                 cue_offset = math.fsum(
-                    float(cue["weight"]) * float(cue["offset_cm"])
-                    for cue in matches) / denominator
-            total_offset = layer_offset + cue_offset
-            final = _add(old, _mul(radial_normal, total_offset))
+                    float(match["cue"]["weight"])
+                    * float(match["cue"]["offset_cm"])
+                    for match in matches) / denominator
+                silhouette_target_x = math.fsum(
+                    float(match["cue"]["weight"])
+                    * float(match["target_x_cm"])
+                    for match in matches) / denominator
+            total_depth_offset = layer_offset + cue_offset
+            if silhouette_target_x is None:
+                final = _add(old, _mul(radial_normal, total_depth_offset))
+            else:
+                final = (
+                    silhouette_target_x,
+                    old[1],
+                    old[2] + radial_normal[2] * total_depth_offset,
+                )
+            matched_cue_ids = sorted(
+                str(match["cue"]["cue_id"]) for match in matches)
+            matched_triangle_ids = sorted({
+                triangle_id for match in matches
+                for triangle_id in match["triangle_ids"]
+            })
             vertices.append(final)
             proposal_rows.append({
                 "vertex_id": meta["vertex_id"],
@@ -865,7 +1038,12 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
                 "read_state_digest": old_state_digest,
                 "layer_offset_cm": layer_offset,
                 "front_cue_offset_cm": cue_offset,
-                "matched_cue_ids": sorted(str(cue["cue_id"]) for cue in matches),
+                "silhouette_target_x_cm": silhouette_target_x,
+                "silhouette_delta_x_cm": (
+                    None if silhouette_target_x is None
+                    else silhouette_target_x - old[0]),
+                "matched_cue_ids": matched_cue_ids,
+                "matched_triangle_ids": matched_triangle_ids,
                 "reduced_position_cm": list(final),
             })
             if not bool(meta["front_hemisphere"]):
@@ -879,10 +1057,14 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
                 "evidence_state": evidence_state,
                 "geometry_state": PROPOSED,
                 "rear_observed": False,
-                "matched_cue_ids": sorted(str(cue["cue_id"]) for cue in matches),
+                "matched_cue_ids": matched_cue_ids,
+                "matched_triangle_ids": matched_triangle_ids,
             })
 
         proposal_digest = _digest(proposal_rows)
+        front_support_states = sorted({
+            str(cue["support_state"]) for cue in cues
+        })
         jacobi = {
             "aggregation": "JACOBI_SAME_OLD_STATE_THEN_DETERMINISTIC_REDUCE",
             "old_state_digest": old_state_digest,
@@ -891,9 +1073,20 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
             "proposal_count": len(proposal_rows),
             "proposal_digest": proposal_digest,
             "reducer": (
-                "add explicit layer clearance and weighted-mean overlapping "
-                "front cue offsets after all proposals are formed"
+                "reduce scale-free triangle-supported front silhouette X, "
+                "explicit layer clearance and proposed depth only after all "
+                "proposals have read the identical old mesh"
             ),
+            "front_silhouette_axis_constraint": (
+                "X_ONLY" if front_support_states else "NONE"
+            ),
+            "front_silhouette_axis_observed": (
+                "X_ONLY" if front_support_states == ["OBSERVED"] else "NONE"
+            ),
+            "front_silhouette_support_states": front_support_states,
+            "front_depth_state": PROPOSED,
+            "triangle_supported_proposal_count": sum(
+                bool(row["matched_triangle_ids"]) for row in proposal_rows),
             "in_place_updates": False,
         }
 
@@ -905,6 +1098,9 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
                 "matched_vertex_ids": matched,
                 "matched_front_vertex_count": len(matched),
                 "matched_rear_vertex_count": 0,
+                "matched_triangle_ids": sorted(
+                    cue_triangle_matches[str(cue["cue_id"])]),
+                "triangulation_state": "DETERMINISTIC_DERIVED_SUPPORT",
                 "projection_state": PROPOSED,
                 "depth_observed": False,
             })
@@ -1023,6 +1219,23 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
             "triangles": [list(face) for face in triangles],
             "triangle_surface_ids": triangle_surface_ids,
         }
+        front_vertex_ids = [
+            int(row["vertex_id"]) for row in vertex_states
+            if bool(row["front_hemisphere"])
+        ]
+        source_front = [
+            [vertex_id, mesh_payload["vertices_cm"][vertex_id]]
+            for vertex_id in front_vertex_ids
+        ]
+        source_front_contract = {
+            "state": PROPOSED,
+            "vertex_ids": front_vertex_ids,
+            "vertex_count": len(front_vertex_ids),
+            "digest": _digest(source_front),
+            "rear_candidates_may_modify_these_vertices": False,
+            "front_depth_observed": False,
+            "silhouette_support_states": front_support_states,
+        }
         topology = {
             "surface_count": len(surfaces),
             "surfaces": [surface.normalized() for surface in surfaces],
@@ -1049,6 +1262,21 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
             "manufacturing_certified": False,
             "seam_allowance_defined": False,
             "sewing_order_defined": False,
+        }
+        cross_lattice_provenance = {
+            "schema": "garment.second-skin-cross-provenance.v1",
+            "cross_lattice_digest": cross_lattice_digest,
+            "old_state_digest": old_state_digest,
+            "proposal_digest": proposal_digest,
+            "source_front_digest": source_front_contract["digest"],
+            "front_silhouette_support_states": front_support_states,
+            "arms": [
+                "+warp", "-warp", "+weft", "-weft", "+normal", "-normal",
+            ],
+            "same_old_state": True,
+            "deterministic_reduction": True,
+            "disagreement_preserved_until_reduce": True,
+            "is_solver": False,
         }
         provenance = {
             "method": "primitive-neutral smooth second-skin triangulation",
@@ -1077,14 +1305,22 @@ def build(request: Mapping[str, Any], *, radius_at: Optional[RadiusFn] = None
             "vertex_states": vertex_states,
             "topology": topology,
             "front_cue_projections": cue_projection,
+            "source_front_contract": source_front_contract,
             "rear": {
                 "state": PROPOSED,
                 "observed": False,
                 "basis": "body proxy plus generated continuation; no rear pixels",
             },
+            "material": {
+                "state": "UNKNOWN_UNOBSERVED",
+                "proposal_state": PROPOSED,
+                "observed": False,
+                "calibrated": False,
+            },
             "jacobi_reduction": jacobi,
             "cross_lattice": lattice_result["lattice"],
             "cross_lattice_digest": cross_lattice_digest,
+            "cross_lattice_provenance": cross_lattice_provenance,
             "pattern_interface": manufacturing_boundary,
             "authority": {
                 "highest_state": PROPOSED,

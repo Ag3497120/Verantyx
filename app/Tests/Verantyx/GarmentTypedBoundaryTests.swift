@@ -81,6 +81,15 @@ private enum GarmentTypedBoundaryAudit {
                 "ROUTER_BYPASSES_INTEGRATED_WORKFLOW", into: &report)
         require(!router.contains("callDoor(\"garment_job\""),
                 "ROUTER_BYPASSES_INTEGRATED_JOB", into: &report)
+        let imageFactoryBlock = sourceBlock(
+            in: router,
+            from: "// Image generation has exactly one authoritative state machine:",
+            to: "if command.intent == .runSimulation")
+        require(imageFactoryBlock.contains("beginConfirmedImage(") &&
+                imageFactoryBlock.contains("return .factory(report") &&
+                !imageFactoryBlock.contains("callDoor(\"garment_workflow\"") &&
+                !router.contains("confirmedFactoryImage"),
+                "IMAGE_GENERATION_STILL_SPLITS_TWO_STATE_MACHINES", into: &report)
         require(router.contains("if command.requiresPreview"),
                 "MUTATION_PREVIEW_GATE_MISSING", into: &report)
         require(router.contains("previewDigest: digest"),
@@ -95,6 +104,13 @@ private enum GarmentTypedBoundaryAudit {
                 "STALE_PREVIEW_REFUSAL_MISSING", into: &report)
         require(job.contains("UNKNOWN_INVALID_JOB_TRANSITION"),
                 "LOCAL_TRANSITION_REFUSAL_MISSING", into: &report)
+        require(!job.contains(".partSegmentationRequired: []") &&
+                !job.contains(".rearCandidatesRequired: []") &&
+                !job.contains(".cadSculptRequired: []") &&
+                !job.contains(".targetApprovalRequired: []") &&
+                !job.contains(".patternInverseRequired: []") &&
+                !job.contains(".redressComparisonRequired: []"),
+                "GEOMETRY_FIRST_JOB_PHASE_IS_A_DEAD_END", into: &report)
         require(job.contains("committedSnapshots.removeLast()"),
                 "UNDO_IS_NOT_COMPENSATING_SNAPSHOT_RESTORE", into: &report)
         return report

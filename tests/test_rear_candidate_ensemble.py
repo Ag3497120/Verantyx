@@ -8,6 +8,7 @@ import unittest
 
 from photoloset.rear_candidate_ensemble import (
     CONTESTED,
+    HYPOTHESIS_AXES,
     REQUEST_SCHEMA,
     PROPOSED,
     SHAPE_NOT_APPROVED,
@@ -67,6 +68,41 @@ def _layered_separates():
     }
 
 
+def _simple_skirt():
+    return {
+        "graph_id": "skirt-front-1",
+        "parts": [
+            {"part_id": "waistband", "kind": "BAND",
+             "garment_unit": "skirt", "layer": 0},
+            {"part_id": "skirt-body", "kind": "FLARED_SURFACE",
+             "garment_unit": "skirt", "layer": 0,
+             "placement": "waist to calf"},
+        ],
+        "relations": [
+            {"relation_id": "waistband-to-skirt", "kind": "ATTACH",
+             "source": "waistband", "target": "skirt-body"},
+        ],
+    }
+
+
+def _simple_trousers():
+    return {
+        "graph_id": "trousers-front-1",
+        "parts": [
+            {"part_id": "trouser-waist", "kind": "BAND",
+             "garment_unit": "trousers", "layer": 0},
+            {"part_id": "leg-left", "kind": "TUBE",
+             "garment_unit": "trousers", "layer": 0, "side": "left"},
+            {"part_id": "leg-right", "kind": "TUBE",
+             "garment_unit": "trousers", "layer": 0, "side": "right"},
+        ],
+        "relations": [
+            {"relation_id": "crotch-front", "kind": "JOIN",
+             "source": "leg-left", "target": "leg-right"},
+        ],
+    }
+
+
 def _fashion_hits():
     return {
         "schema": "marqo-fashion-siglip.retrieval-result.v1",
@@ -117,6 +153,37 @@ def _multimodal_proposals():
                 "provenance": {"request_id": "vlm-22"},
             },
         ],
+    }
+
+
+def _geometric_rule_evidence():
+    return {
+        "rules": [{
+            "id": "rule-rear-balance",
+            "rule_set_id": "fixture-geometric-rules",
+            "closure": "center back join",
+            "back_volume": "flared volume",
+            "layer_continuation": "continue each visible layer",
+            "attachment_topology": "shoulder yoke anchor",
+            "rear_structure": {
+                "configuration": "center back join",
+                "volume_profile": "flared volume",
+            },
+        }],
+    }
+
+
+def _user_audit_evidence():
+    return {
+        "audits": [{
+            "id": "audit-visible-wrap",
+            "auditor": "fixture reviewer",
+            "closure": "overlapped wrap closure",
+            "back_volume": "asymmetric draped volume",
+            "layer_continuation": "terminate at side anchor",
+            "attachment_topology": "waist anchored",
+            "parts": ["audited visible asymmetric overlay"],
+        }],
     }
 
 
@@ -181,6 +248,51 @@ class RearCandidateEnsembleTests(unittest.TestCase):
                 self.assertIn(relation["value"]["garment_unit"],
                               expected_units)
 
+    def test_typed_rear_hypotheses_are_class_independent_and_front_preserving(self):
+        fixtures = {
+            "skirt": _simple_skirt(),
+            "trousers": _simple_trousers(),
+            "layered-asymmetric": _layered_separates(),
+            "anime-like": _visible_unknown_anime(),
+        }
+
+        for name, graph in fixtures.items():
+            with self.subTest(name=name):
+                result = generate_rear_candidates(graph)
+                self.assertGreaterEqual(result["candidate_count"], 2)
+                self.assertEqual(
+                    result["candidate_count"],
+                    len({candidate["structure_signature"]
+                         for candidate in result["candidates"]}),
+                )
+                visible_digest = result["visible_part_graph_digest"]
+                profiles = set()
+                for candidate in result["candidates"]:
+                    hypothesis = candidate["rear_hypothesis"]
+                    self.assertEqual(
+                        set(HYPOTHESIS_AXES),
+                        set(hypothesis["axis_values"]),
+                    )
+                    self.assertTrue(hypothesis["axes_are_independent"])
+                    self.assertTrue(hypothesis["conflicts_are_not_averaged"])
+                    self.assertFalse(hypothesis["front_mutation_allowed"])
+                    profiles.add(tuple(
+                        hypothesis["axis_values"][axis]
+                        for axis in HYPOTHESIS_AXES))
+                    front = candidate["front_preservation_contract"]
+                    self.assertEqual(front["visible_graph_digest"],
+                                     visible_digest)
+                    self.assertTrue(front[
+                        "visible_front_is_immutable_across_rear_alternatives"])
+                    self.assertEqual(front["allowed_mutation_domain"],
+                                     "UNOBSERVED_REAR_ONLY")
+                    self.assertTrue(candidate[
+                        "candidate_specific_3d_required"])
+                    self.assertFalse(candidate["generic_fallback_used"])
+                    self.assertFalse(candidate["rear_structure"]["value"]
+                                     ["generic_cape_fallback_used"])
+                self.assertGreaterEqual(len(profiles), 2)
+
     def test_no_retrieval_backend_has_two_deterministic_no_corpus_fallbacks(self):
         request = {
             "schema": REQUEST_SCHEMA,
@@ -210,7 +322,9 @@ class RearCandidateEnsembleTests(unittest.TestCase):
         )
 
         fields = {row["field"] for row in result["source_claims"]}
-        self.assertEqual({"structure", "parts", "seams", "material"}, fields)
+        self.assertTrue(
+            {"structure", "parts", "seams", "material"}.issubset(fields))
+        self.assertTrue({"closure", "layer_continuation"}.issubset(fields))
         source_pairs = {
             (row["provenance"]["source_kind"],
              row["provenance"]["source_id"])
@@ -231,6 +345,57 @@ class RearCandidateEnsembleTests(unittest.TestCase):
             )
             self.assertFalse(candidate["ranking_vector"]["source_score_used"])
             self.assertTrue(candidate["rank_only_not_authority"])
+
+    def test_all_four_independent_evidence_channels_preserve_conflicts(self):
+        result = generate_rear_candidates(
+            _layered_separates(),
+            fashion_siglip_hits=_fashion_hits(),
+            multimodal_proposals=_multimodal_proposals(),
+            geometric_rule_evidence=_geometric_rule_evidence(),
+            user_audit_evidence=_user_audit_evidence(),
+        )
+
+        source_kinds = {
+            claim["provenance"]["source_kind"]
+            for claim in result["source_claims"]
+        }
+        self.assertEqual(source_kinds, {
+            "FASHION_SIGLIP_RETRIEVAL",
+            "MULTIMODAL_MODEL_PROPOSAL",
+            "GEOMETRIC_RULE_EVIDENCE",
+            "USER_AUDIT_EVIDENCE",
+        })
+        self.assertTrue(result["provider_status"]["fashion_siglip"]
+                        ["available"])
+        self.assertTrue(result["provider_status"]["multimodal"]
+                        ["available"])
+        self.assertTrue(result["provider_status"]["geometric_rules"]
+                        ["available"])
+        self.assertTrue(result["provider_status"]["user_audit"]
+                        ["available"])
+
+        contested = {row["aspect"]: row for row in result["contested"]}
+        for axis in HYPOTHESIS_AXES:
+            self.assertIn(axis, contested)
+            self.assertEqual(contested[axis]["state"], CONTESTED)
+            self.assertTrue(contested[axis]["no_averaging"])
+            self.assertGreaterEqual(len(contested[axis]["alternatives"]), 2)
+            self.assertTrue(all(
+                alternative["state"] == PROPOSED
+                for alternative in contested[axis]["alternatives"]))
+
+        candidate_source_kinds = {
+            source["source_kind"]
+            for candidate in result["candidates"]
+            if candidate["origin"] != "GEOMETRY_ONLY_FALLBACK"
+            for source in candidate["provenance"]["sources"]
+        }
+        self.assertEqual(candidate_source_kinds, source_kinds)
+        for candidate in result["candidates"]:
+            self.assertTrue(candidate["rear_hypothesis"]
+                            ["conflicts_are_not_averaged"])
+            self.assertFalse(candidate["rear_hypothesis"]
+                             ["front_mutation_allowed"])
 
     def test_contradictory_sources_are_separate_proposals_never_averaged(self):
         result = generate_rear_candidates(

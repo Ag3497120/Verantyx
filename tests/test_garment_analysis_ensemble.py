@@ -153,6 +153,65 @@ def _states(value):
 class GarmentAnalysisEnsembleTests(unittest.TestCase):
     maxDiff = None
 
+    def test_local_api_and_retrieval_remain_independent_in_instance_graph(self):
+        request = _request(None, _layered_retrieval())
+        request["multimodal_sources"] = [
+            {
+                "source_id": "local-vlm", "provider_kind": "LOCAL",
+                "result": _layered_vision(),
+            },
+            {
+                "source_id": "api-vlm", "provider_kind": "API",
+                "result": _layered_vision(),
+            },
+        ]
+
+        result = analyze_garment_image(request)
+
+        self.assertEqual("ANSWER", result["verdict"])
+        graph = result["garment_instance_graph"]
+        self.assertEqual("garment.instance-graph.v1", graph["schema"])
+        self.assertFalse(graph["single_whole_image_class_label"])
+        instances = [row["instance_id"] for row in graph["nodes"]
+                     if row["node_type"] == "GARMENT_INSTANCE"]
+        self.assertEqual(["blouse", "overlay", "trousers", "vest"],
+                         instances)
+        sources = {(row["source_id"], row["provider_kind"])
+                   for row in result["capabilities"]["sources"]}
+        self.assertEqual({
+            ("api-vlm", "API"), ("local-vlm", "LOCAL"),
+            ("retrieval", "RETRIEVAL"),
+        }, sources)
+        self.assertTrue(graph["uncertainty_preserved_per_source"])
+
+    def test_one_multimodal_backend_failure_is_typed_and_does_not_erase_other(self):
+        request = _request(None, _layered_retrieval())
+        request["multimodal_sources"] = [
+            {
+                "source_id": "local-vlm", "provider_kind": "LOCAL",
+                "result": _layered_vision(),
+            },
+            {"source_id": "api-vlm", "provider_kind": "API"},
+        ]
+
+        def unavailable(_request):
+            raise RuntimeError("configured API is offline")
+
+        result = analyze_garment_image(
+            request, multimodal_providers={"api-vlm": unavailable})
+
+        self.assertEqual("ANSWER", result["verdict"])
+        sources = {row["source_id"]: row
+                   for row in result["capabilities"]["sources"]}
+        self.assertFalse(sources["api-vlm"]["available"])
+        self.assertEqual("UNKNOWN_VISION_PROVIDER_FAILED",
+                         sources["api-vlm"]["capability_failure"]["verdict"])
+        self.assertTrue(sources["local-vlm"]["available"])
+        self.assertEqual(1, result["capabilities"]
+                         ["available_multimodal_provider_count"])
+        self.assertTrue(result["capabilities"]["partial_result"])
+        self.assertTrue(result["garment_instance_graph"]["nodes"])
+
     def test_layered_blouse_vest_trousers_and_asymmetric_overlay_stay_separate(self):
         result = analyze_garment_image(_request(
             _layered_vision(), _layered_retrieval()))

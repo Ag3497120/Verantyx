@@ -32,6 +32,11 @@ from urllib.parse import urlparse
 SCHEMA = "marqo-fashion-siglip.runtime.v1"
 RESULT_SCHEMA = "marqo-fashion-siglip.retrieval-result.v1"
 PROPOSAL_STATE = "PROPOSED_RETRIEVAL"
+FEATURE_AXES = ("part", "structure", "seam", "material")
+CANDIDATE_USE_SCOPE = (
+    "PROPOSE_REAR_CANDIDATE",
+    "PROPOSE_CONSTRUCTION_CANDIDATE",
+)
 DEFAULT_MODEL_ID = "Marqo/marqo-fashionSigLIP"
 DEFAULT_MODEL_LICENSE = "Apache-2.0"
 METADATA_ROLE = (
@@ -249,6 +254,38 @@ def _metadata(row: Mapping[str, Any], *keys: str) -> Any:
     return {}
 
 
+def _axis_scores(row: Mapping[str, Any]) -> Dict[str, float]:
+    raw = row.get("axis_scores", row.get("similarity_axes", {}))
+    raw = raw if isinstance(raw, Mapping) else {}
+    out: Dict[str, float] = {}
+    for axis in FEATURE_AXES:
+        value = _finite_score(raw.get(axis))
+        if value is not None:
+            out[axis] = value
+    return out
+
+
+def _feature_profile(row: Mapping[str, Any]) -> Dict[str, Any]:
+    """Keep retrieval evidence split by construction-relevant axis."""
+    candidates = {
+        "part": (
+            "part_features", "target_part", "parts", "components"),
+        "structure": (
+            "structure_features", "construction_features", "structure",
+            "construction_regime", "rear_structure"),
+        "seam": (
+            "seam_features", "seam_topology", "seams", "openings"),
+        "material": (
+            "material_features", "material", "materials"),
+    }
+    out: Dict[str, Any] = {}
+    for axis in FEATURE_AXES:
+        values = {key: _plain(row[key]) for key in candidates[axis]
+                  if key in row and row[key] is not None}
+        out[axis] = values
+    return out
+
+
 def _normalize_match(row: Mapping[str, Any], score: float) -> Optional[Dict[str, Any]]:
     item_id = _item_id(row)
     if not item_id:
@@ -271,12 +308,22 @@ def _normalize_match(row: Mapping[str, Any], score: float) -> Optional[Dict[str,
         "source": source,
         "rights_review": rights_review,
     }
+    axis_scores = _axis_scores(row)
+    feature_profile = _feature_profile(row)
     out: Dict[str, Any] = {
         "item_id": item_id,
         "score": score,
         "state": PROPOSAL_STATE,
         "score_is_not_authority": True,
         "human_confirmation_required": True,
+        "axis_scores": axis_scores,
+        "feature_profile": feature_profile,
+        "missing_feature_axes": [
+            axis for axis in FEATURE_AXES
+            if not feature_profile[axis] and axis not in axis_scores
+        ],
+        "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
+        "not_a_sewing_or_manufacturing_fact": True,
         "provenance": provenance,
         "asset": asset,
         "license": license_metadata,
@@ -288,7 +335,10 @@ def _normalize_match(row: Mapping[str, Any], score: float) -> Optional[Dict[str,
     for key in (
         "label", "name", "garment_name", "instance_id", "garment_id",
         "layer", "parts", "components", "construction_regime", "material",
-        "rear_structure", "visible_observations",
+        "rear_structure", "visible_observations", "target_part",
+        "part_features", "structure_features", "construction_features",
+        "seam_features", "seam_topology", "seams", "openings",
+        "material_features", "rear_candidates", "construction_candidates",
     ):
         if key in row:
             out[key] = _plain(row[key])
@@ -304,8 +354,15 @@ def _rank_matches(rows: Sequence[Mapping[str, Any]], top_k: int) -> List[Dict[st
         match = _normalize_match(row, score)
         if match is not None:
             normalized.append(match)
+    def axis_order(row: Mapping[str, Any]) -> Tuple[int, float]:
+        scores = row.get("axis_scores", {})
+        values = [float(scores[axis]) for axis in FEATURE_AXES
+                  if isinstance(scores, Mapping) and axis in scores]
+        return len(values), (sum(values) / len(values) if values else 0.0)
+
     normalized.sort(key=lambda row: (
-        -float(row["score"]), str(row["item_id"]),
+        -axis_order(row)[0], -axis_order(row)[1], -float(row["score"]),
+        str(row["item_id"]),
         str(row.get("label", row.get("name", row.get("garment_name", "")))),
         _canonical(row.get("source", {})),
     ))
@@ -346,10 +403,15 @@ def _result(matches: Sequence[Mapping[str, Any]], *, mode: str,
         "typed_stop": False,
         "mode": mode,
         "matches": [_plain(row) for row in matches],
+        "feature_axes": list(FEATURE_AXES),
+        "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
         "model_metadata": _model_metadata(config),
         "authority": {
             "retrieval_is_proposal_only": True,
             "scores_are_not_correctness_evidence": True,
+            "axis_scores_remain_separate": True,
+            "single_embedding_winner_is_not_construction_authority": True,
+            "retrieval_may_only_propose_rear_or_construction_candidates": True,
             "automatic_observed_promotion": False,
             "rights_review_required_before_asset_use": True,
         },
@@ -491,6 +553,12 @@ class MarqoFashionSigLIPAdapter:
             "model_loaded": False,
             "downloads_attempted": False,
             "model_metadata": _model_metadata(config),
+            "analysis_contract": {
+                "feature_axes": list(FEATURE_AXES),
+                "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
+                "single_class_label_output": False,
+                "manufacturing_authority": False,
+            },
             "modes": {
                 "precomputed": {
                     "supported": True,
@@ -623,6 +691,9 @@ class MarqoFashionSigLIPAdapter:
             )
         payload = {
             "query": _plain(request.get("query", {})),
+            "query_features": _plain(request.get("query_features", {})),
+            "feature_axes": list(FEATURE_AXES),
+            "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
             "image_ref": _plain(request.get("image_ref")),
             "top_k": top_k,
             "model": _model_metadata(config),

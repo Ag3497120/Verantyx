@@ -720,7 +720,6 @@ enum AtelierChatRouter {
     private static func execute(_ parsed: GarmentCommandIR) async -> Resolution {
         var command = parsed
         var imageSelection: AtelierIntake.AnalysisSelection?
-        var confirmedFactoryImage: (outline: [String: Any], path: String, evidenceState: String)?
 
         // Rear inspection is a continuation of the active audited image job,
         // not another image-generation request. Keep it queued across the
@@ -776,54 +775,39 @@ enum AtelierChatRouter {
                 outline = proposed
                 evidenceState = "PROPOSED"
             }
-            guard let commandData = json.data(using: .utf8),
-                  let commandObject = try? JSONSerialization.jsonObject(with: commandData),
-                  JSONSerialization.isValidJSONObject(outline),
-                  JSONSerialization.isValidJSONObject([
-                    "command": commandObject,
-                    "context": ["confirmed_outline": outline]
-                  ]),
-                  let envelopeData = try? JSONSerialization.data(withJSONObject: [
-                    "command": commandObject,
-                    "context": ["confirmed_outline": outline]
-                  ], options: [.sortedKeys]),
-                  let envelope = String(data: envelopeData, encoding: .utf8) else {
-                return .refused("UNKNOWN_CONFIRMED_OUTLINE_ENCODING\n確定した服領域を型付き命令へ添付できませんでした")
+            // Image generation has exactly one authoritative state machine:
+            // the persisted Vera factory.  The former human-confirmed route
+            // also called `garment_workflow`, creating a second preview,
+            // approval history and pattern result for the same image.  Both
+            // audit policies now enter this ReAct harness; evidenceState only
+            // changes the authority ceiling, never the execution graph.
+            let proposer = GarmentFactoryModelMouth.proposer(
+                for: AtelierAnalyst.shared.pick)
+            let spatialInput = await prepareVisionSpatialInput(
+                outline: outline, imagePath: selected.clip.path,
+                userRequest: factoryRequest(command),
+                pick: AtelierAnalyst.shared.pick)
+            let report = await GarmentFactoryReactController.shared.beginConfirmedImage(
+                outline: spatialInput.outline, imagePath: selected.clip.path,
+                userRequest: factoryRequest(command),
+                designRequirements: command.operation?.requirements ?? [],
+                proposer: proposer, visionProposer: spatialInput.proposer,
+                initialFashionRetrieval: spatialInput.fashionRetrieval,
+                evidenceState: evidenceState)
+            guard intake.isCurrent(selected) else {
+                consumeSelectionRevision(
+                    intake.selectionRevision,
+                    imagePath: intake.selectedClip?.path ?? "")
+                return .refused("UNKNOWN_STALE_IMAGE_SELECTION\n画像が再選択されたため、古い候補プレビューを破棄しました")
             }
-            json = envelope
-            confirmedFactoryImage = (outline, selected.clip.path, evidenceState)
-
-            // A fully automatic region is sufficient for an explicitly
-            // labelled preview, not for the legacy workflow's
-            // `confirmed_outline` manufacturing path.  Start the Vera factory
-            // directly and let its geometric retries produce the 3D/flat
-            // pattern cards without pretending an automatic probe was human
-            // evidence.
-            if evidenceState == "PROPOSED" {
-                let proposer = GarmentFactoryModelMouth.proposer(
-                    for: AtelierAnalyst.shared.pick)
-                let spatialInput = await prepareVisionSpatialInput(
-                    outline: outline, imagePath: selected.clip.path,
-                    userRequest: factoryRequest(command),
-                    pick: AtelierAnalyst.shared.pick)
-                let report = await GarmentFactoryReactController.shared.beginConfirmedImage(
-                    outline: spatialInput.outline, imagePath: selected.clip.path,
-                    userRequest: factoryRequest(command),
-                    designRequirements: command.operation?.requirements ?? [],
-                    proposer: proposer, visionProposer: spatialInput.proposer,
-                    initialFashionRetrieval: spatialInput.fashionRetrieval,
-                    evidenceState: evidenceState)
-                guard intake.isCurrent(selected) else {
-                    consumeSelectionRevision(
-                        intake.selectionRevision,
-                        imagePath: intake.selectedClip?.path ?? "")
-                    return .refused("UNKNOWN_STALE_IMAGE_SELECTION\n画像が再選択されたため、古い候補プレビューを破棄しました")
-                }
-                return .factory(report, Destination(
-                    step: "Structure",
-                    reasonEN: "Automatic proposed outline → geometry factory",
-                    reasonJA: "自動の未確定輪郭 → 幾何縫製工場"))
-            }
+            return .factory(report, Destination(
+                step: "Structure",
+                reasonEN: evidenceState == "OBSERVED"
+                    ? "Human-confirmed front → Vera geometry factory"
+                    : "Automatic proposed front → Vera geometry factory",
+                reasonJA: evidenceState == "OBSERVED"
+                    ? "人が確認した正面 → Vera幾何縫製工場"
+                    : "自動の未確定正面 → Vera幾何縫製工場"))
         }
         if command.intent == .runSimulation {
             switch GarmentGenerationJob.shared.simulationRequestJSON(command: command) {
@@ -843,34 +827,6 @@ enum AtelierChatRouter {
         guard verdict == "ANSWER" else {
             let answer = GarmentGenerationJob.shared.mirrorAnswer(response)
             return .refused(answer.deterministicText)
-        }
-
-        // The existing garment_workflow remains authoritative for its own
-        // preview/Undo path. In parallel, initialise the separate factory
-        // state machine from the same human-confirmed clothing region. The
-        // foreman will stop at retrieval rather than asking an LLM to invent
-        // search hits.
-        if let image = confirmedFactoryImage {
-            let proposer = GarmentFactoryModelMouth.proposer(
-                for: AtelierAnalyst.shared.pick)
-            let spatialInput = await prepareVisionSpatialInput(
-                outline: image.outline, imagePath: image.path,
-                userRequest: factoryRequest(command),
-                pick: AtelierAnalyst.shared.pick)
-            _ = await GarmentFactoryReactController.shared.beginConfirmedImage(
-                outline: spatialInput.outline, imagePath: image.path,
-                userRequest: factoryRequest(command),
-                designRequirements: command.operation?.requirements ?? [],
-                proposer: proposer, visionProposer: spatialInput.proposer,
-                initialFashionRetrieval: spatialInput.fashionRetrieval,
-                evidenceState: image.evidenceState)
-            if let selected = imageSelection,
-               !AtelierIntake.shared.isCurrent(selected) {
-                consumeSelectionRevision(
-                    AtelierIntake.shared.selectionRevision,
-                    imagePath: AtelierIntake.shared.selectedClip?.path ?? "")
-                return .refused("UNKNOWN_STALE_IMAGE_SELECTION\n画像が再選択されたため、古い候補プレビューを破棄しました")
-            }
         }
 
         switch command.intent {

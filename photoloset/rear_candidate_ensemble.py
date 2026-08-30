@@ -4,10 +4,12 @@
 The front image analysis path can tell us which garment parts are visible.  It
 cannot observe the rear, hidden joins, seam topology, or material mechanics.
 This module therefore does not choose a back and does not call
-``sewing_search``.  It combines two *proposal* channels instead:
+``sewing_search``.  It combines four independent proposal/evidence channels:
 
-* FashionSigLIP retrieval hits, treated as visually similar references; and
-* multimodal model proposals, treated as model-authored hypotheses.
+* FashionSigLIP retrieval hits, treated as visually similar references;
+* multimodal model proposals, treated as model-authored hypotheses;
+* deterministic geometric-rule evidence; and
+* named user-audit evidence.
 
 Their claims are normalized independently and retained independently.  Rear
 candidates are ranked on four inspectable axes (structure, parts, seams, and
@@ -37,6 +39,11 @@ CONTESTED = "CONTESTED"
 SHAPE_NOT_APPROVED = "UNKNOWN_SHAPE_NOT_APPROVED"
 APPROVAL_STALE = "UNKNOWN_GEOMETRY_APPROVAL_STALE"
 ASPECTS = ("structure", "parts", "seams", "material")
+HYPOTHESIS_SCHEMA = "garment.typed-rear-hypothesis.v1"
+HYPOTHESIS_AXES = (
+    "closure", "back_volume", "layer_continuation", "attachment_topology",
+)
+CLAIM_FIELDS = ASPECTS + HYPOTHESIS_AXES
 
 _AUTHORITY_KEYS = {
     "approval", "approved", "authority", "fact", "manufacturing_certified",
@@ -56,6 +63,24 @@ _SEAM_KEYS = (
     "relations",
 )
 _MATERIAL_KEYS = ("material", "materials", "material_ranges")
+_HYPOTHESIS_KEYS = {
+    "closure": (
+        "closure", "back_closure", "rear_closure", "opening",
+        "opening_topology", "fastener", "configuration",
+    ),
+    "back_volume": (
+        "back_volume", "rear_volume", "volume", "volume_profile",
+        "back_ease", "rear_ease", "ease",
+    ),
+    "layer_continuation": (
+        "layer_continuation", "rear_layer_continuation",
+        "back_layer_continuation", "layer_order", "rear_layer_order",
+    ),
+    "attachment_topology": (
+        "attachment_topology", "rear_attachment_topology", "attachments",
+        "attachment", "anchor_topology", "joins",
+    ),
+}
 
 
 def _sequence(value: Any) -> bool:
@@ -135,8 +160,19 @@ def _source_provenance(
         provenance["adapter"] = "Marqo/marqo-fashionSigLIP"
         provenance["corpus"] = _proposal_value(
             row.get("source", row.get("asset", {})))
-    else:
+    elif source_kind == "MULTIMODAL_MODEL_PROPOSAL":
         provenance["adapter"] = _text(row.get("model_id")) or "multimodal-model"
+    elif source_kind == "GEOMETRIC_RULE_EVIDENCE":
+        provenance["adapter"] = (
+            _text(row.get("rule_set_id")) or "deterministic-geometric-rules")
+        provenance["rule_evidence_is_not_rear_observation"] = True
+    elif source_kind == "USER_AUDIT_EVIDENCE":
+        provenance["adapter"] = "named-user-audit"
+        provenance["auditor"] = (
+            _text(row.get("auditor")) or _text(row.get("by")) or None)
+        provenance["visible_audit_does_not_observe_hidden_rear"] = True
+    else:
+        provenance["adapter"] = "unknown-proposal-source"
     if native is not None:
         provenance["source_provenance"] = _proposal_value(native)
     score = _finite_score(row.get("score", row.get("similarity")))
@@ -420,12 +456,23 @@ def _source_aspects(row: Mapping[str, Any]) -> Dict[str, Any]:
             parts = _first(structure, _PART_KEYS)
         if seams is None:
             seams = _first(structure, _SEAM_KEYS)
-    return {
+    result = {
         "structure": _proposal_value(structure),
         "parts": _proposal_value(parts),
         "seams": _proposal_value(seams),
         "material": _proposal_value(material),
     }
+    containers = [row]
+    if isinstance(structure, Mapping):
+        containers.append(structure)
+    for axis, keys in _HYPOTHESIS_KEYS.items():
+        value = None
+        for container in containers:
+            value = _first(container, keys)
+            if value not in (None, "", [], {}):
+                break
+        result[axis] = _proposal_value(value)
+    return result
 
 
 def _set_match(observed: Any, candidate: Any) -> Tuple[Optional[float], List[str]]:
@@ -497,6 +544,7 @@ def _expand_alternatives(row: Mapping[str, Any]) -> List[Dict[str, Any]]:
 
 def _normalise_sources(
     fashion_hits: Any, multimodal_proposals: Any,
+    geometric_rule_evidence: Any = None, user_audit_evidence: Any = None,
 ) -> List[Dict[str, Any]]:
     sources: List[Dict[str, Any]] = []
     configurations = (
@@ -504,6 +552,10 @@ def _normalise_sources(
          ("matches", "hits", "nearest_items", "items")),
         ("MULTIMODAL_MODEL_PROPOSAL", multimodal_proposals,
          ("proposals", "rear_candidates", "candidates", "instances")),
+        ("GEOMETRIC_RULE_EVIDENCE", geometric_rule_evidence,
+         ("rules", "evidence", "proposals", "candidates")),
+        ("USER_AUDIT_EVIDENCE", user_audit_evidence,
+         ("audits", "evidence", "decisions", "proposals")),
     )
     for source_kind, value, keys in configurations:
         native_rows = _rows(value, keys)
@@ -533,7 +585,7 @@ def _normalise_sources(
 def _source_claims(sources: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     claims: List[Dict[str, Any]] = []
     for source in sources:
-        for aspect in ASPECTS:
+        for aspect in CLAIM_FIELDS:
             value = source["aspects"].get(aspect)
             if value in (None, "", [], {}):
                 continue
@@ -571,7 +623,7 @@ def _contested(claims: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     for claim in claims:
         grouped[str(claim["field"])].append(claim)
     out: List[Dict[str, Any]] = []
-    for aspect in ASPECTS:
+    for aspect in CLAIM_FIELDS:
         rows = grouped.get(aspect, [])
         values = {stable_digest(row["value"]) for row in rows}
         sources = {
@@ -612,6 +664,108 @@ def _contested(claims: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     return out
 
 
+def _has_token(tokens: Iterable[str], *needles: str) -> bool:
+    return any(any(needle in token for needle in needles) for token in tokens)
+
+
+def _hypothesis_profile(strategy: str, source_payload: Any) -> Dict[str, str]:
+    """Map arbitrary source vocabulary onto four construction coordinates.
+
+    The mapping is intentionally name-independent: it describes how a hidden
+    surface could close, carry volume, continue layers, and attach.  It never
+    turns a garment label into geometry and it never blends two sources.
+    """
+    all_tokens = set(_tokens({
+        "strategy": strategy, "source_payload": source_payload,
+    }))
+
+    if _has_token(all_tokens, "center", "centre") and _has_token(
+            all_tokens, "zip", "open", "fasten"):
+        closure = "CENTER_BACK_OPENING"
+    elif _has_token(all_tokens, "side") and _has_token(
+            all_tokens, "zip", "open", "fasten"):
+        closure = "SIDE_OPENING"
+    elif (_has_token(all_tokens, "split", "center-join", "centre-join")
+          or (_has_token(all_tokens, "center", "centre")
+              and _has_token(all_tokens, "join"))):
+        closure = "CENTER_BACK_JOIN"
+    elif _has_token(all_tokens, "wrap", "overlap"):
+        closure = "OVERLAPPED_WRAP_CLOSURE"
+    else:
+        closure = "CLOSED_OR_UNSEEN"
+
+    if _has_token(all_tokens, "pleat", "gather", "controlled-fullness"):
+        back_volume = "CONTROLLED_FULLNESS"
+    elif _has_token(all_tokens, "flare", "bell", "wide"):
+        back_volume = "FLARED_VOLUME"
+    elif _has_token(all_tokens, "drape", "asym", "wrap"):
+        back_volume = "ASYMMETRIC_DRAPED_VOLUME"
+    elif _has_token(all_tokens, "ease", "loose", "volume", "relaxed"):
+        back_volume = "EASED_VOLUME"
+    else:
+        back_volume = "FITTED_CONTINUATION"
+
+    if _has_token(all_tokens, "terminate", "front-only"):
+        layer_continuation = "TERMINATE_AT_SIDE_OR_ANCHOR"
+    elif _has_token(all_tokens, "detached", "independent-layer"):
+        layer_continuation = "INDEPENDENT_REAR_LAYER"
+    elif _has_token(all_tokens, "asym", "cross-body", "wrap"):
+        layer_continuation = "ASYMMETRIC_REAR_CONTINUATION"
+    else:
+        layer_continuation = "CONTINUE_EACH_VISIBLE_LAYER"
+
+    if _has_token(all_tokens, "waist", "waistband"):
+        attachment = "WAIST_ANCHORED"
+    elif _has_token(all_tokens, "shoulder", "yoke"):
+        attachment = "SHOULDER_OR_YOKE_ANCHORED"
+    elif _has_token(all_tokens, "side-seam", "side seam"):
+        attachment = "SIDE_SEAM_ANCHORED"
+    elif _has_token(all_tokens, "detached", "independent"):
+        attachment = "INDEPENDENT_COMPONENT"
+    else:
+        attachment = "MATCHING_BOUNDARY_SEAM"
+
+    return {
+        "closure": closure,
+        "back_volume": back_volume,
+        "layer_continuation": layer_continuation,
+        "attachment_topology": attachment,
+    }
+
+
+def _typed_rear_hypothesis(
+    *, strategy: str, source_payload: Any, provenance: Mapping[str, Any],
+    basis: str,
+) -> Dict[str, Any]:
+    profile = _hypothesis_profile(strategy, source_payload)
+    axes = {
+        axis: _unobserved_record(
+            profile[axis], basis=basis,
+            breaks_when=(
+                "rear/side evidence, a named human decision, or a failed "
+                "candidate-specific 3D reconstruction contradicts this axis"
+            ),
+            provenance=provenance, field=axis,
+        )
+        for axis in HYPOTHESIS_AXES
+    }
+    result = {
+        "schema": HYPOTHESIS_SCHEMA,
+        "state": PROPOSED,
+        "observation_state": UNKNOWN_UNOBSERVED,
+        "strategy": strategy,
+        "axes": axes,
+        "axis_values": {axis: axes[axis]["value"]
+                        for axis in HYPOTHESIS_AXES},
+        "axes_are_independent": True,
+        "conflicts_are_not_averaged": True,
+        "front_mutation_allowed": False,
+        "fact_promotions": [],
+    }
+    result["hypothesis_digest"] = stable_digest(result)
+    return result
+
+
 def _strategy(value: Any, fallback: str) -> str:
     words = set(_tokens(value))
     if any("center" in word or "centre" in word for word in words) and any(
@@ -631,9 +785,15 @@ def _strategy(value: Any, fallback: str) -> str:
 
 def _hidden_geometry(
     visible: Mapping[str, Any], *, strategy: str,
-    source_payload: Any, provenance: Mapping[str, Any], basis: str,
+    hypothesis: Mapping[str, Any], source_payload: Any,
+    provenance: Mapping[str, Any], basis: str,
 ) -> Dict[str, Any]:
-    split = strategy in {"CENTER_BACK_OPENING", "SPLIT_REAR_WITH_CENTER_JOIN"}
+    axis_values = hypothesis["axis_values"]
+    closure = str(axis_values["closure"])
+    back_volume = str(axis_values["back_volume"])
+    layer_continuation = str(axis_values["layer_continuation"])
+    attachment_topology = str(axis_values["attachment_topology"])
+    split = closure in {"CENTER_BACK_OPENING", "CENTER_BACK_JOIN"}
     rear_parts: List[Dict[str, Any]] = []
     relations: List[Dict[str, Any]] = []
     for part in visible["parts"]:
@@ -650,11 +810,15 @@ def _hidden_geometry(
                     "side": side,
                     "layer": part["layer"],
                     "garment_unit": part["garment_unit"],
+                    "back_volume": back_volume,
+                    "layer_continuation": layer_continuation,
+                    "attachment_topology": attachment_topology,
                     "geometry_operation": (
                         "split geodesic continuation from the visible boundary"
                         if split else
                         "continuous geodesic continuation from the visible boundary"
                     ),
+                    "front_visible_vertices_mutated": False,
                 },
                 basis=basis,
                 breaks_when="rear/side evidence or the 3D comparison rejects this surface",
@@ -662,22 +826,29 @@ def _hidden_geometry(
             ))
             relations.append(_unobserved_record(
                 {
-                    "kind": "CONTINUATION",
+                    "kind": ("INDEPENDENT_ATTACHMENT" if
+                             layer_continuation == "INDEPENDENT_REAR_LAYER"
+                             else "CONTINUATION"),
                     "source": part["part_id"], "target": rear_id,
                     "garment_unit": part["garment_unit"],
+                    "attachment_topology": attachment_topology,
+                    "layer_continuation": layer_continuation,
                 },
                 basis=basis,
                 breaks_when="a boundary, occlusion, or separate garment is confirmed",
                 provenance=provenance, field="hidden_relation",
             ))
-        if split:
+        if closure != "CLOSED_OR_UNSEEN":
+            source = rear_ids[0]
+            target = rear_ids[1] if len(rear_ids) > 1 else rear_ids[0]
             relations.append(_unobserved_record(
                 {
-                    "kind": ("PROPOSED_OPENING" if strategy
-                             == "CENTER_BACK_OPENING" else "PROPOSED_JOIN"),
-                    "source": rear_ids[0], "target": rear_ids[1],
+                    "kind": ("PROPOSED_JOIN" if closure
+                             == "CENTER_BACK_JOIN" else "PROPOSED_OPENING"),
+                    "source": source, "target": target,
                     "garment_unit": part["garment_unit"],
-                    "location": "center-back",
+                    "location": closure.lower().replace("_", "-"),
+                    "closure": closure,
                 },
                 basis=basis,
                 breaks_when="rear evidence or dressability review selects another closure",
@@ -685,6 +856,8 @@ def _hidden_geometry(
             ))
     payload = {
         "strategy": strategy,
+        "rear_hypothesis_digest": hypothesis["hypothesis_digest"],
+        "rear_hypothesis_axes": copy.deepcopy(axis_values),
         "rear_parts": rear_parts,
         "hidden_relations": relations,
         "source_proposal": _proposal_value(source_payload),
@@ -693,6 +866,13 @@ def _hidden_geometry(
         "layers": sorted({row["layer"] for row in visible["parts"]}),
         "cross_garment_unit_joins_added": False,
         "garment_name_used_for_geometry": False,
+        "generic_cape_fallback_used": False,
+        "front_preservation": {
+            "visible_graph_digest": visible["source_digest"],
+            "visible_part_ids": sorted(row["part_id"] for row in visible["parts"]),
+            "visible_front_is_immutable_across_rear_alternatives": True,
+            "allowed_mutation_domain": "UNOBSERVED_REAR_ONLY",
+        },
     }
     return _unobserved_record(
         payload, basis=basis,
@@ -742,9 +922,13 @@ def _candidate(
         basis = ("deterministic continuation of each typed visible part around "
                  "its own garment unit; no corpus or class lookup")
 
-    rear = _hidden_geometry(
-        visible, strategy=strategy, source_payload=source_payload,
+    rear_hypothesis = _typed_rear_hypothesis(
+        strategy=strategy, source_payload=source_payload,
         provenance=provenance, basis=basis,
+    )
+    rear = _hidden_geometry(
+        visible, strategy=strategy, hypothesis=rear_hypothesis,
+        source_payload=source_payload, provenance=provenance, basis=basis,
     )
     source_aspects = {
         aspect: [row["aspects"].get(aspect) for row in supporting_sources
@@ -771,7 +955,7 @@ def _candidate(
         material_claims = [_unknown_material(provenance, basis)]
     structure_signature = stable_digest({
         "strategy": strategy,
-        "source_payload": _proposal_value(source_payload),
+        "rear_hypothesis": rear_hypothesis,
         "rear_geometry": rear["value"],
     })
     candidate_id = "rear-candidate-" + structure_signature[:18]
@@ -783,6 +967,7 @@ def _candidate(
         "origin": origin,
         "strategy": strategy,
         "structure_signature": structure_signature,
+        "rear_hypothesis": rear_hypothesis,
         "rear_structure": rear,
         "material_hypotheses": material_claims,
         "supporting_claim_ids": sorted(
@@ -792,6 +977,10 @@ def _candidate(
         "breaks_when": rear["breaks_when"],
         "provenance": provenance,
         "rank_only_not_authority": True,
+        "front_preservation_contract": copy.deepcopy(
+            rear["value"]["front_preservation"]),
+        "candidate_specific_3d_required": True,
+        "generic_fallback_used": False,
         "auto_approved": False,
         "human_approval_required": True,
         "manufacturing_ready": False,
@@ -893,14 +1082,15 @@ def _unknown(request: Any, code: str, why: str) -> Dict[str, Any]:
 
 def generate_rear_candidates(
     request_or_graph: Mapping[str, Any], *, fashion_siglip_hits: Any = None,
-    multimodal_proposals: Any = None,
+    multimodal_proposals: Any = None, geometric_rule_evidence: Any = None,
+    user_audit_evidence: Any = None,
 ) -> Dict[str, Any]:
     """Generate ranked, unapproved rear candidates from independent sources.
 
     ``request_or_graph`` can be a request envelope containing
     ``visible_part_graph`` or the visible graph itself.  Optional source values
-    may likewise be passed as keyword arguments or embedded under
-    ``fashion_siglip_hits`` and ``multimodal_proposals``.
+    may likewise be passed as keyword arguments or embedded under their
+    FashionSigLIP, multimodal, geometric-rule, and user-audit request fields.
     """
     if not isinstance(request_or_graph, Mapping):
         return _unknown(
@@ -921,6 +1111,12 @@ def generate_rear_candidates(
         if multimodal_proposals is None:
             multimodal_proposals = request.get(
                 "multimodal_proposals", request.get("model_proposals"))
+        if geometric_rule_evidence is None:
+            geometric_rule_evidence = request.get(
+                "geometric_rule_evidence", request.get("geometric_evidence"))
+        if user_audit_evidence is None:
+            user_audit_evidence = request.get(
+                "user_audit_evidence", request.get("human_audit_evidence"))
     else:
         graph = request
     if not isinstance(graph, Mapping):
@@ -937,7 +1133,8 @@ def generate_rear_candidates(
             )
         observed_aspects = _visible_aspects(visible)
         sources = _normalise_sources(
-            fashion_siglip_hits, multimodal_proposals)
+            fashion_siglip_hits, multimodal_proposals,
+            geometric_rule_evidence, user_audit_evidence)
         claims = _source_claims(sources)
         claims_by_source: Dict[Tuple[str, str], List[Dict[str, Any]]] = defaultdict(list)
         for claim in claims:
@@ -948,8 +1145,12 @@ def generate_rear_candidates(
         structural: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
         payloads: Dict[str, Any] = {}
         for source in sources:
-            payload = source["aspects"].get("structure")
-            if payload in (None, "", [], {}):
+            payload = {
+                field: source["aspects"].get(field)
+                for field in ("structure", "parts", "seams") + HYPOTHESIS_AXES
+                if source["aspects"].get(field) not in (None, "", [], {})
+            }
+            if not payload:
                 continue
             signature = stable_digest(_proposal_value(payload))
             structural[signature].append(source)
@@ -982,9 +1183,22 @@ def generate_rear_candidates(
             "CONTINUOUS_REAR_SURFACE",
             "SPLIT_REAR_WITH_CENTER_JOIN",
         ):
+            fallback_payload = ({
+                "strategy": strategy,
+                "closure": "CLOSED_OR_UNSEEN",
+                "back_volume": "FITTED_CONTINUATION",
+                "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+                "attachment_topology": "MATCHING_BOUNDARY_SEAM",
+            } if strategy == "CONTINUOUS_REAR_SURFACE" else {
+                "strategy": strategy,
+                "closure": "CENTER_BACK_JOIN",
+                "back_volume": "EASED_VOLUME",
+                "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+                "attachment_topology": "MATCHING_BOUNDARY_SEAM",
+            })
             candidates.append(_candidate(
                 visible, observed_aspects, strategy=strategy,
-                source_payload={"strategy": strategy},
+                source_payload=fallback_payload,
                 supporting_sources=[], supporting_claims=[],
                 origin="GEOMETRY_ONLY_FALLBACK",
             ))
@@ -1040,6 +1254,16 @@ def generate_rear_candidates(
                                      == "MULTIMODAL_MODEL_PROPOSAL"
                                      for row in sources),
                 },
+                "geometric_rules": {
+                    "available": any(row["source_kind"]
+                                     == "GEOMETRIC_RULE_EVIDENCE"
+                                     for row in sources),
+                },
+                "user_audit": {
+                    "available": any(row["source_kind"]
+                                     == "USER_AUDIT_EVIDENCE"
+                                     for row in sources),
+                },
                 "mode": ("FUSED_PROPOSAL_ENSEMBLE" if sources
                          else "DETERMINISTIC_GEOMETRY_ONLY"),
             },
@@ -1073,7 +1297,8 @@ authorize_sewing_search = sewing_search_gate
 
 
 __all__ = [
-    "REQUEST_SCHEMA", "SCHEMA", "PROPOSED", "UNKNOWN_UNOBSERVED",
+    "REQUEST_SCHEMA", "SCHEMA", "HYPOTHESIS_SCHEMA", "HYPOTHESIS_AXES",
+    "PROPOSED", "UNKNOWN_UNOBSERVED",
     "CONTESTED", "SHAPE_NOT_APPROVED", "APPROVAL_STALE", "ASPECTS",
     "stable_digest", "generate_rear_candidates", "propose", "generate",
     "assemble", "sewing_search_gate", "authorize_sewing_search",

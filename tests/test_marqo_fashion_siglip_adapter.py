@@ -156,6 +156,35 @@ class MarqoFashionSigLIPAdapterTests(unittest.TestCase):
         self.assertEqual(item["provenance"], match["provenance"]["item"])
         self.assertEqual(item["rights_review"], match["provenance"]["rights_review"])
 
+    def test_similarity_axes_stay_separate_and_only_propose_candidate_structure(self):
+        item = _licensed_item("axis-aware", score=0.99)
+        item.update({
+            "target_part": "right-waist overlay",
+            "structure_features": {"regime": "WRAPPED", "layer": 2},
+            "seam_topology": ["waist anchor", "free hanging edge"],
+            "material_features": {"appearance": "sheer"},
+            "axis_scores": {
+                "part": 0.95, "structure": 0.83,
+                "seam": 0.61, "material": 0.72,
+            },
+        })
+
+        result = run_retrieval({
+            "mode": "precomputed",
+            "precomputed_result": {"matches": [item]},
+        })
+        match = result["matches"][0]
+
+        self.assertEqual(item["axis_scores"], match["axis_scores"])
+        self.assertEqual({"part", "structure", "seam", "material"},
+                         set(match["feature_profile"]))
+        self.assertEqual([
+            "PROPOSE_REAR_CANDIDATE",
+            "PROPOSE_CONSTRUCTION_CANDIDATE",
+        ], match["candidate_use_scope"])
+        self.assertTrue(match["not_a_sewing_or_manufacturing_fact"])
+        self.assertEqual([], match["missing_feature_axes"])
+
     def test_empty_index_is_typed_unknown_not_fabricated_label(self):
         result = run_retrieval({
             "mode": "precomputed",

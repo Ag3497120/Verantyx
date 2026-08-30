@@ -73,6 +73,18 @@ final class GarmentGenerationJob: ObservableObject {
 
     enum State: String, Codable, CaseIterable, Sendable {
         case imageReceived = "IMAGE_RECEIVED"
+        case aiAnalysisProposed = "AI_ANALYSIS_PROPOSED"
+        case humanGarmentAuditRequired = "HUMAN_GARMENT_AUDIT_REQUIRED"
+        case foregroundCleanupRequired = "FOREGROUND_CLEANUP_REQUIRED"
+        case cleanupReviewRequired = "CLEANUP_REVIEW_REQUIRED"
+        case frontFactsRecorded = "FRONT_FACTS_RECORDED"
+        case target2_5DReady = "TARGET_2_5D_READY"
+        case partSegmentationRequired = "PART_SEGMENTATION_REQUIRED"
+        case rearCandidatesRequired = "REAR_CANDIDATES_REQUIRED"
+        case cadSculptRequired = "CAD_SCULPT_REQUIRED"
+        case targetApprovalRequired = "TARGET_APPROVAL_REQUIRED"
+        case patternInverseRequired = "PATTERN_INVERSE_REQUIRED"
+        case redressComparisonRequired = "REDRESS_COMPARISON_REQUIRED"
         case regionsConfirmed = "REGIONS_CONFIRMED"
         case geometryContested = "GEOMETRY_CONTESTED"
         case backCandidatesReady = "BACK_CANDIDATES_READY"
@@ -357,7 +369,22 @@ final class GarmentGenerationJob: ObservableObject {
         guard let from else { return to == .imageReceived }
         if from == to { return true }
         let allowed: [State: Set<State>] = [
-            .imageReceived: [.regionsConfirmed, .geometryContested],
+            .imageReceived: [.regionsConfirmed, .geometryContested,
+                             .aiAnalysisProposed],
+            .aiAnalysisProposed: [.humanGarmentAuditRequired],
+            .humanGarmentAuditRequired: [.foregroundCleanupRequired],
+            .foregroundCleanupRequired: [.cleanupReviewRequired, .frontFactsRecorded],
+            .cleanupReviewRequired: [.foregroundCleanupRequired, .frontFactsRecorded],
+            .frontFactsRecorded: [.target2_5DReady, .partSegmentationRequired],
+            .target2_5DReady: [.partSegmentationRequired, .regionsConfirmed],
+            .partSegmentationRequired: [.rearCandidatesRequired, .regionsConfirmed],
+            .rearCandidatesRequired: [.cadSculptRequired, .backCandidatesReady],
+            .cadSculptRequired: [.targetApprovalRequired, .rearCandidatesRequired],
+            .targetApprovalRequired: [.cadSculptRequired, .patternInverseRequired,
+                                      .shapeApproved],
+            .patternInverseRequired: [.redressComparisonRequired, .patternValidated],
+            .redressComparisonRequired: [.cadSculptRequired, .patternInverseRequired,
+                                         .patternValidated, .complete],
             .regionsConfirmed: [.geometryContested, .backCandidatesReady],
             .geometryContested: [.backCandidatesReady],
             .backCandidatesReady: [.structureApproved],

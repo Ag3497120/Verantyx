@@ -114,6 +114,60 @@ def layered_request():
 
 
 class SecondSkinTriangleEngineTests(unittest.TestCase):
+    def test_triangle_supported_front_deformation_is_jacobi_and_bounded(self):
+        silhouette = [[-4.0, 0.0], [4.0, 0.0],
+                      [12.0, 100.0], [-12.0, 100.0]]
+        result = engine.build(request([{
+            "surface_id": "unnamed-visible-domain",
+            "y_range_cm": [0.0, 100.0],
+            "layer": 0,
+            "components": [one_component("unnamed-shell")],
+        }], cues=[{
+            "cue_id": "front-ledger-polygon",
+            "surface_id": "unnamed-visible-domain",
+            "kind": "POLYGON",
+            "points_cm": silhouette,
+            "coordinate_space": "BODY_CM_FRONT",
+            "state": "OBSERVED",
+            "offset_cm": 0.0,
+            "weight": 1.0,
+        }]))
+
+        self.assertEqual(engine.PROPOSED, result["verdict"])
+        projection = result["front_cue_projections"][0]
+        self.assertEqual(2, projection["support_triangle_count"])
+        self.assertGreater(projection["matched_front_vertex_count"], 0)
+        self.assertEqual(0, projection["matched_rear_vertex_count"])
+        self.assertGreater(len(projection["matched_triangle_ids"]), 0)
+        right_edge = []
+        for state in result["vertex_states"]:
+            if (state["surface_id"] == "unnamed-visible-domain"
+                    and state["angular_index"] == 0
+                    and state["matched_triangle_ids"]):
+                vertex = result["mesh"]["vertices_cm"][state["vertex_id"]]
+                right_edge.append((vertex[1], vertex[0]))
+        self.assertGreaterEqual(len(right_edge), 3)
+        right_edge.sort()
+        self.assertLess(right_edge[0][1], right_edge[-1][1])
+        self.assertAlmostEqual(6.0, dict(right_edge)[25.0], places=6)
+        self.assertAlmostEqual(10.0, dict(right_edge)[75.0], places=6)
+        self.assertTrue(result["jacobi_reduction"]
+                        ["all_proposals_read_same_old_state"])
+        self.assertFalse(result["jacobi_reduction"]["in_place_updates"])
+        self.assertEqual("X_ONLY", result["jacobi_reduction"]
+                         ["front_silhouette_axis_observed"])
+        self.assertEqual(["OBSERVED"], result["jacobi_reduction"]
+                         ["front_silhouette_support_states"])
+        self.assertTrue(result["cross_lattice_provenance"]["same_old_state"])
+        self.assertTrue(result["cross_lattice_provenance"]
+                        ["deterministic_reduction"])
+        self.assertEqual(result["source_front_contract"]["digest"],
+                         result["cross_lattice_provenance"]
+                         ["source_front_digest"])
+        self.assertFalse(result["rear"]["observed"])
+        self.assertFalse(result["material"]["observed"])
+        self.assertEqual("UNKNOWN_UNOBSERVED", result["material"]["state"])
+
     def test_two_component_lower_skin_differs_from_single_shell_topology(self):
         paired = request([{
             "surface_id": "neutral-lower-paired",

@@ -29,6 +29,7 @@ SCHEMA = "garment.image-analysis-ensemble.v1"
 
 VISION_SOURCE = "VISION_LANGUAGE_MODEL"
 RETRIEVAL_SOURCE = "MARQO_FASHION_RETRIEVAL"
+INSTANCE_GRAPH_SCHEMA = "garment.instance-graph.v1"
 VISION_STATE = "PROPOSED_VISION_UNCONFIRMED"
 RETRIEVAL_STATE = "PROPOSED_RETRIEVAL"
 HUMAN_AUDIT = "HUMAN_AUDIT"
@@ -241,6 +242,7 @@ def _provider_config(request: Mapping[str, Any], key: str,
     allowed = {
         "provider_id", "model_id", "model_revision", "license",
         "license_id", "endpoint", "index_id", "index_revision",
+        "provider_kind",
     }
     if isinstance(wrapper, Mapping):
         for field in allowed:
@@ -264,6 +266,108 @@ def _embedded(request: Mapping[str, Any], key: str) -> Tuple[Any, Dict[str, Any]
             return _MISSING, config
         return wrapper, config
     return _MISSING, config
+
+
+def _vision_source_name(source_id: str) -> str:
+    """Stable source identity; the legacy provider keeps its public name."""
+    return (VISION_SOURCE if source_id == "vision"
+            else f"{VISION_SOURCE}:{_token(source_id)}")
+
+
+def _multimodal_specs(
+    request: Mapping[str, Any], *, vision_provider: Any = None,
+    multimodal_providers: Optional[Mapping[str, Any]] = None,
+) -> List[Dict[str, Any]]:
+    """Normalize legacy/local/API VLMs into independent source records.
+
+    Executable providers are accepted only through function arguments.  The
+    request may contain precomputed results and identification metadata, but
+    cannot smuggle a callable into the analysis contract.
+    """
+    raw_sources = request.get("multimodal_sources", [])
+    if raw_sources is None:
+        raw_sources = []
+    if not _sequence(raw_sources):
+        raise ValueError("multimodal_sources must be a list of source objects")
+    if multimodal_providers is not None and not isinstance(
+            multimodal_providers, Mapping):
+        raise ValueError("multimodal_providers must map source ids to providers")
+    raw_provider_map = dict(multimodal_providers or {})
+    provider_map: Dict[str, Any] = {}
+    for key, provider in raw_provider_map.items():
+        if not isinstance(key, str) or not key.strip():
+            raise ValueError("multimodal provider keys must be non-empty source ids")
+        token = _token(key)
+        if token in provider_map:
+            raise ValueError(f"duplicate multimodal provider source_id: {token}")
+        provider_map[token] = provider
+
+    specs: List[Dict[str, Any]] = []
+    legacy_requested = (
+        vision_provider is not None
+        or "vision" in request or "vision_result" in request
+        or not raw_sources and not provider_map
+    )
+    if legacy_requested:
+        embedded, config = _embedded(request, "vision")
+        specs.append({
+            "source_id": "vision",
+            "source": VISION_SOURCE,
+            "provider_kind": str(config.get("provider_kind") or "UNSPECIFIED").upper(),
+            "provider": vision_provider,
+            "embedded": embedded,
+            "config": config,
+            "timeout_key": "vision",
+        })
+
+    seen = {"vision"} if legacy_requested else set()
+    raw_by_id: Dict[str, Mapping[str, Any]] = {}
+    for raw in raw_sources:
+        if not isinstance(raw, Mapping):
+            raise ValueError("each multimodal source must be an object")
+        source_id = _text(raw.get("source_id")) or _text(raw.get("provider_id"))
+        if not source_id:
+            raise ValueError("each multimodal source needs source_id")
+        source_id = _token(source_id)
+        if source_id in seen or source_id in raw_by_id:
+            raise ValueError(f"duplicate multimodal source_id: {source_id}")
+        raw_by_id[source_id] = raw
+
+    for source_id in provider_map:
+        token = _token(source_id)
+        if token in seen:
+            raise ValueError(f"duplicate multimodal source_id: {token}")
+        raw_by_id.setdefault(token, {"source_id": token})
+
+    allowed_config = {
+        "provider_id", "model_id", "model_revision", "license",
+        "license_id", "endpoint", "provider_kind",
+    }
+    for source_id, raw in sorted(raw_by_id.items()):
+        seen.add(source_id)
+        configured = raw.get("config")
+        config = dict(_plain(configured)) if isinstance(configured, Mapping) else {}
+        for field in allowed_config:
+            if field in raw:
+                config[field] = _plain(raw[field])
+        config = {key: config[key] for key in sorted(config)
+                  if key in allowed_config}
+        embedded = raw.get("result", _MISSING)
+        kind = str(raw.get("provider_kind", config.get(
+            "provider_kind", "UNSPECIFIED"))).strip().upper()
+        if kind not in {"LOCAL", "API", "UNSPECIFIED"}:
+            kind = "OTHER"
+        specs.append({
+            "source_id": source_id,
+            "source": _vision_source_name(source_id),
+            "provider_kind": kind,
+            "provider": provider_map.get(source_id),
+            "embedded": embedded,
+            "config": config,
+            "timeout_key": source_id,
+            "timeout_seconds": raw.get("timeout_seconds"),
+        })
+    return specs
 
 
 async def _invoke_provider(provider: Any, request: Mapping[str, Any]) -> Any:
@@ -560,7 +664,10 @@ def _claims_from_instance(
     return instance, claims
 
 
-def _vision_claims(result: Mapping[str, Any]) -> Tuple[List[Dict[str, Any]], List[str]]:
+def _vision_claims(
+    result: Mapping[str, Any], *, source: str = VISION_SOURCE,
+    source_id: str = "vision",
+) -> Tuple[List[Dict[str, Any]], List[str]]:
     raw_instances = result.get("garment_instances", result.get("instances", []))
     if not _sequence(raw_instances):
         raw_instances = []
@@ -580,8 +687,8 @@ def _vision_claims(result: Mapping[str, Any]) -> Tuple[List[Dict[str, Any]], Lis
         raw = dict(raw)
         raw.setdefault("provenance", result.get("provenance"))
         instance, rows = _claims_from_instance(
-            raw, index=index, state=VISION_STATE, source=VISION_SOURCE,
-            source_id="vision", prefix="vision",
+            raw, index=index, state=VISION_STATE, source=source,
+            source_id=source_id, prefix=_token(source_id),
         )
         instances.append(instance)
         claims.extend(rows)
@@ -668,17 +775,25 @@ def _retrieval_claims(
             "score": score,
             "state": RETRIEVAL_STATE,
             "score_is_not_authority": True,
+            "axis_scores": _plain(raw.get("axis_scores", {})),
+            "feature_profile": _plain(raw.get("feature_profile", {})),
+            "candidate_use_scope": [
+                "PROPOSE_REAR_CANDIDATE",
+                "PROPOSE_CONSTRUCTION_CANDIDATE",
+            ],
+            "not_a_sewing_or_manufacturing_fact": True,
             "provenance": _plain(raw.get("provenance", raw.get("source"))),
         })
     return claims, instances, candidates
 
 
 def _claim_sort_key(claim: Mapping[str, Any]) -> Tuple[Any, ...]:
-    source_order = 0 if claim.get("source") == VISION_SOURCE else 1
+    source = str(claim.get("source", ""))
+    source_order = 1 if source == RETRIEVAL_SOURCE else 0
     rank = claim.get("candidate_rank")
     return (
         _CATEGORY_ORDER.get(str(claim.get("category")), 99),
-        str(claim.get("subject", "")), source_order,
+        str(claim.get("subject", "")), source_order, source,
         rank if isinstance(rank, int) else 0,
         _canonical(claim.get("value")), str(claim.get("claim_id", "")),
     )
@@ -782,6 +897,135 @@ def _instances(claims: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     return out
 
 
+def _instance_graph(claims: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """Build the typed, source-preserving garment/part graph.
+
+    Garment names remain display proposals.  Identity comes from instance and
+    part ids, so a blouse, vest, trouser and overlay cannot collapse into one
+    whole-image class label.
+    """
+    by_instance: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
+    for claim in claims:
+        subject = str(claim.get("subject", ""))
+        if subject.startswith("instance:"):
+            by_instance[subject.split(":", 1)[1]].append(claim)
+
+    nodes: Dict[str, Dict[str, Any]] = {}
+    edges: Dict[str, Dict[str, Any]] = {}
+    construction_features: Dict[str, Dict[str, Any]] = {}
+
+    def proposal(row: Mapping[str, Any]) -> Dict[str, Any]:
+        out = {
+            "claim_id": row.get("claim_id"),
+            "value": _plain(row.get("value")),
+            "state": row.get("state"),
+            "source": row.get("source"),
+            "observed": False,
+        }
+        if "uncertainty" in row:
+            out["uncertainty"] = _plain(row.get("uncertainty"))
+        return out
+
+    def add_edge(kind: str, source_node: str, target_node: str,
+                 claim: Mapping[str, Any]) -> None:
+        identity = {
+            "kind": kind, "source": source_node, "target": target_node,
+            "claim_id": claim.get("claim_id"),
+        }
+        edge_id = "edge-" + hashlib.sha256(
+            _canonical(identity).encode("utf-8")).hexdigest()[:16]
+        edges[edge_id] = {
+            "edge_id": edge_id, "kind": kind,
+            "source": source_node, "target": target_node,
+            "claim_id": claim.get("claim_id"),
+            "proposal_source": claim.get("source"),
+            "state": claim.get("state"),
+        }
+
+    source_layers: Dict[str, Dict[str, List[Mapping[str, Any]]]] = defaultdict(
+        lambda: defaultdict(list))
+    for instance_id, rows in sorted(by_instance.items()):
+        ordered_rows = sorted(rows, key=_claim_sort_key)
+        instance_node_id = f"instance:{instance_id}"
+        names = [proposal(row) for row in ordered_rows
+                 if row.get("category") == "GARMENT_NAME"]
+        layers = [proposal(row) for row in ordered_rows
+                  if row.get("category") == "LAYER"]
+        nodes[instance_node_id] = {
+            "node_id": instance_node_id,
+            "node_type": "GARMENT_INSTANCE",
+            "instance_id": instance_id,
+            "display_name_proposals": names,
+            "layer_proposals": layers,
+            "state": "PROPOSED_HUMAN_REVIEW_REQUIRED",
+            "single_class_label": False,
+        }
+        construction_features[instance_id] = {
+            "construction": [proposal(row) for row in ordered_rows
+                             if row.get("category") == "CONSTRUCTION_REGIME"],
+            "material": [proposal(row) for row in ordered_rows
+                         if row.get("category") == "MATERIAL"],
+            "rear_hidden": [proposal(row) for row in ordered_rows
+                            if row.get("category") == "REAR_HIDDEN_STRUCTURE"],
+        }
+        for row in ordered_rows:
+            if row.get("category") == "LAYER" and isinstance(row.get("value"), int):
+                source_layers[str(row.get("source"))][instance_id].append(row)
+            if row.get("category") != "VISIBLE_COMPONENT":
+                continue
+            value = row.get("value")
+            value = value if isinstance(value, Mapping) else {"name": value}
+            part_id = (_text(value.get("part_id"))
+                       or f"part-{_token(value.get('name'))}")
+            part_node_id = f"part:{instance_id}:{_token(part_id)}"
+            node = nodes.setdefault(part_node_id, {
+                "node_id": part_node_id,
+                "node_type": "GARMENT_PART",
+                "instance_id": instance_id,
+                "part_id": _token(part_id),
+                "proposals": [],
+                "state": "PROPOSED_HUMAN_REVIEW_REQUIRED",
+            })
+            node["proposals"].append(proposal(row))
+            add_edge("CONTAINS_PART", instance_node_id, part_node_id, row)
+            parent = _text(value.get("parent_part_id"))
+            if parent:
+                add_edge(
+                    "PARENT_CHILD_PART",
+                    f"part:{instance_id}:{_token(parent)}", part_node_id, row)
+
+    # Layer ordering is itself a source-specific proposal.  Conflicting VLMs
+    # therefore produce parallel edges rather than a silently averaged order.
+    for source, instances in sorted(source_layers.items()):
+        ranked: List[Tuple[int, str, Mapping[str, Any]]] = []
+        for instance_id, rows in sorted(instances.items()):
+            values = {int(row["value"]) for row in rows}
+            if len(values) == 1:
+                ranked.append((next(iter(values)), instance_id,
+                               sorted(rows, key=_claim_sort_key)[0]))
+        ranked.sort(key=lambda row: (row[0], row[1]))
+        for left, right in zip(ranked, ranked[1:]):
+            add_edge("INSIDE_TO_OUTSIDE", f"instance:{left[1]}",
+                     f"instance:{right[1]}", right[2])
+
+    for node in nodes.values():
+        if "proposals" in node:
+            node["proposals"].sort(
+                key=lambda row: (str(row["source"]), _canonical(row["value"]),
+                                 str(row["claim_id"])))
+    return {
+        "schema": INSTANCE_GRAPH_SCHEMA,
+        "state": "PROPOSED_HUMAN_REVIEW_REQUIRED",
+        "nodes": [nodes[key] for key in sorted(nodes)],
+        "edges": [edges[key] for key in sorted(edges)],
+        "construction_features": {
+            key: construction_features[key] for key in sorted(construction_features)
+        },
+        "uncertainty_preserved_per_source": True,
+        "single_whole_image_class_label": False,
+    }
+
+
 def _typed_field_views(claims: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
     fields = {
         "visible_parts": "VISIBLE_COMPONENT",
@@ -838,7 +1082,8 @@ def _typed_field_views(claims: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
 
 
 def _source_record(source: str, available: Mapping[str, Any],
-                   config: Mapping[str, Any]) -> Dict[str, Any]:
+                   config: Mapping[str, Any], *, source_id: Optional[str] = None,
+                   provider_kind: Optional[str] = None) -> Dict[str, Any]:
     out: Dict[str, Any] = {
         "source": source,
         "available": bool(available.get("available")),
@@ -847,6 +1092,10 @@ def _source_record(source: str, available: Mapping[str, Any],
             "IDENTIFICATION_AND_LICENSE_CONFIGURATION_ONLY_NOT_CORRECTNESS_EVIDENCE"
         ),
     }
+    if source_id is not None:
+        out["source_id"] = source_id
+    if provider_kind is not None:
+        out["provider_kind"] = provider_kind
     if not out["available"]:
         out["capability_failure"] = _plain(available.get("failure"))
     return out
@@ -893,9 +1142,8 @@ def _review_checklist(contested: Sequence[Mapping[str, Any]],
 
 
 def _merge(
-    request: Mapping[str, Any], vision: Mapping[str, Any],
-    retrieval: Mapping[str, Any], vision_config: Mapping[str, Any],
-    retrieval_config: Mapping[str, Any],
+    request: Mapping[str, Any], vision_sources: Sequence[Mapping[str, Any]],
+    retrieval: Mapping[str, Any], retrieval_config: Mapping[str, Any],
 ) -> Dict[str, Any]:
     audit_mode = _audit_mode(request)
     view_authority = _image_view(request)
@@ -910,11 +1158,28 @@ def _merge(
         "manufacturing_certification": False,
         "industrial_strength_guarantee": False,
     }
-    available_count = int(bool(vision.get("available"))) + int(bool(retrieval.get("available")))
+    vision_sources = sorted(
+        vision_sources,
+        key=lambda row: (0 if row.get("source_id") == "vision" else 1,
+                         str(row.get("source", ""))),
+    )
+    available_vision_count = sum(
+        int(bool(row.get("availability", {}).get("available")))
+        for row in vision_sources)
+    retrieval_available = bool(retrieval.get("available"))
+    available_count = available_vision_count + int(retrieval_available)
     sources = [
-        _source_record(VISION_SOURCE, vision, vision_config),
-        _source_record(RETRIEVAL_SOURCE, retrieval, retrieval_config),
+        _source_record(
+            str(row["source"]), row.get("availability", {}),
+            row.get("config", {}), source_id=str(row["source_id"]),
+            provider_kind=str(row.get("provider_kind", "UNSPECIFIED")),
+        )
+        for row in vision_sources
     ]
+    sources.append(_source_record(
+        RETRIEVAL_SOURCE, retrieval, retrieval_config,
+        source_id="retrieval", provider_kind="RETRIEVAL"))
+    configured_source_failed = any(not row.get("available") for row in sources)
     if available_count == 0:
         return {
             "schema": SCHEMA,
@@ -928,6 +1193,7 @@ def _merge(
             "garment_instances": [], "retrieval_candidates": [],
             "visible_parts": [], "layers": [], "laterality": [],
             "colors": [], "construction_regimes": [], "rear_candidates": [],
+            "garment_instance_graph": _instance_graph([]),
             "audit_contract": audit_contract,
             "authority": {"source_view": view_authority},
             "fact_promotions": [], "manufacturing_ready": False,
@@ -935,18 +1201,28 @@ def _merge(
 
     claims: List[Dict[str, Any]] = []
     retrieval_candidates: List[Dict[str, Any]] = []
-    vision_instances: List[str] = []
+    vision_instances_set: set = set()
     vision_layers: Dict[int, List[str]] = defaultdict(list)
-    if vision.get("available"):
-        rows, vision_instances = _vision_claims(vision["result"])
+    for vision in vision_sources:
+        availability = vision.get("availability", {})
+        if not availability.get("available"):
+            continue
+        rows, source_instances = _vision_claims(
+            availability["result"], source=str(vision["source"]),
+            source_id=str(vision["source_id"]),
+        )
         claims.extend(rows)
+        vision_instances_set.update(source_instances)
         for row in rows:
             if row.get("category") != "LAYER":
                 continue
             layer = row.get("value")
             subject = str(row.get("subject", ""))
             if isinstance(layer, int) and subject.startswith("instance:"):
-                vision_layers[layer].append(subject.split(":", 1)[1])
+                instance_id = subject.split(":", 1)[1]
+                if instance_id not in vision_layers[layer]:
+                    vision_layers[layer].append(instance_id)
+    vision_instances = sorted(vision_instances_set)
     if retrieval.get("available"):
         rows, _, retrieval_candidates = _retrieval_claims(
             retrieval["result"], vision_instances=vision_instances,
@@ -965,7 +1241,8 @@ def _merge(
                 "image": image, "claims": [row["claim_id"] for row in claims],
             }).encode("utf-8")).hexdigest()[:16]
         ),
-        "verdict": "ANSWER" if available_count == 2 else "ANSWER_PARTIAL",
+        "verdict": ("ANSWER" if available_vision_count > 0
+                    and retrieval_available else "ANSWER_PARTIAL"),
         "state": ("PROPOSED_AUTO_ACCEPTED_FOR_PREVIEW"
                   if audit_mode == AUTO_PROPOSED else
                   "PROPOSED_HUMAN_REVIEW_REQUIRED"),
@@ -974,10 +1251,13 @@ def _merge(
         "capabilities": {
             "sources": sources,
             "available_provider_count": available_count,
-            "partial_result": available_count == 1,
+            "available_multimodal_provider_count": available_vision_count,
+            "retrieval_provider_available": retrieval_available,
+            "partial_result": configured_source_failed,
             "partial_result_allowed": True,
         },
         "garment_instances": _instances(claims),
+        "garment_instance_graph": _instance_graph(claims),
         "claims": claims,
         "agreements": agreements,
         "contested": contested,
@@ -989,6 +1269,7 @@ def _merge(
             "provider_native_prose_enters_ir": False,
             "provider_specific_authority_removed": True,
             "merge_order": "CANONICAL_CONTENT_ORDER",
+            "multimodal_sources_are_independent": True,
         },
         "human_review_checklist": _review_checklist(
             contested, has_hidden or bool(claims)),
@@ -1012,6 +1293,7 @@ def _merge(
 async def analyze_garment_image_async(
     request: Mapping[str, Any], *, vision_provider: Any = None,
     retrieval_provider: Any = None,
+    multimodal_providers: Optional[Mapping[str, Any]] = None,
     provider_timeout_seconds: Optional[float] = None,
 ) -> Dict[str, Any]:
     """Run independent providers concurrently and deterministically merge.
@@ -1033,28 +1315,44 @@ async def analyze_garment_image_async(
             "fact_promotions": [],
         }
     try:
-        vision_embedded, vision_config = _embedded(request, "vision")
+        vision_specs = _multimodal_specs(
+            request, vision_provider=vision_provider,
+            multimodal_providers=multimodal_providers)
         retrieval_embedded, retrieval_config = _embedded(request, "retrieval")
-        vision_timeout = _timeout_seconds(
-            request, "vision", provider_timeout_seconds)
         retrieval_timeout = _timeout_seconds(
             request, "retrieval", provider_timeout_seconds)
-        # gather gives actual overlap for async providers while preserving the
-        # fixed result positions regardless of which provider finishes first.
-        vision, retrieval = await asyncio.gather(
-            _resolve_provider(
-                key="vision", provider=vision_provider,
-                embedded=vision_embedded, request=request,
-                timeout_seconds=vision_timeout,
-            ),
-            _resolve_provider(
-                key="retrieval", provider=retrieval_provider,
-                embedded=retrieval_embedded, request=request,
-                timeout_seconds=retrieval_timeout,
-            ),
-        )
+        tasks = []
+        for spec in vision_specs:
+            source_timeout = spec.get("timeout_seconds")
+            if source_timeout is None:
+                source_timeout = provider_timeout_seconds
+            tasks.append(_resolve_provider(
+                key="vision", provider=spec.get("provider"),
+                embedded=spec.get("embedded", _MISSING), request=request,
+                timeout_seconds=_timeout_seconds(
+                    request, str(spec.get("timeout_key", "vision")),
+                    source_timeout),
+            ))
+        tasks.append(_resolve_provider(
+            key="retrieval", provider=retrieval_provider,
+            embedded=retrieval_embedded, request=request,
+            timeout_seconds=retrieval_timeout,
+        ))
+        # gather gives actual overlap for every local/API/retrieval provider;
+        # canonical source sorting below discards completion order.
+        resolved = await asyncio.gather(*tasks)
+        retrieval = resolved[-1]
+        vision_sources = []
+        for spec, availability in zip(vision_specs, resolved[:-1]):
+            vision_sources.append({
+                "source": spec["source"],
+                "source_id": spec["source_id"],
+                "provider_kind": spec["provider_kind"],
+                "config": spec["config"],
+                "availability": availability,
+            })
         return _merge(
-            request, vision, retrieval, vision_config, retrieval_config)
+            request, vision_sources, retrieval, retrieval_config)
     except (TypeError, ValueError) as exc:
         return {
             "schema": SCHEMA, "verdict": "UNKNOWN_GARMENT_ANALYSIS_INPUT",
@@ -1066,6 +1364,7 @@ async def analyze_garment_image_async(
 def analyze_garment_image(
     request: Mapping[str, Any], *, vision_provider: Any = None,
     retrieval_provider: Any = None,
+    multimodal_providers: Optional[Mapping[str, Any]] = None,
     provider_timeout_seconds: Optional[float] = None,
 ) -> Dict[str, Any]:
     """Synchronous boundary for MCP and non-async callers."""
@@ -1088,12 +1387,14 @@ def analyze_garment_image(
         return asyncio.run(analyze_garment_image_async(
             request, vision_provider=vision_provider,
             retrieval_provider=retrieval_provider,
+            multimodal_providers=multimodal_providers,
             provider_timeout_seconds=provider_timeout_seconds,
         ))
-    if vision_provider is None and retrieval_provider is None:
+    if (vision_provider is None and retrieval_provider is None
+            and not multimodal_providers):
         # Avoid nesting an event loop for the common precomputed-result path.
         try:
-            vision_embedded, vision_config = _embedded(request, "vision")
+            vision_specs = _multimodal_specs(request)
             retrieval_embedded, retrieval_config = _embedded(request, "retrieval")
 
             def direct(value: Any, key: str) -> Dict[str, Any]:
@@ -1125,11 +1426,16 @@ def analyze_garment_image(
                     }
                 return {"available": True, "result": _plain(value)}
 
+            vision_sources = [{
+                "source": spec["source"],
+                "source_id": spec["source_id"],
+                "provider_kind": spec["provider_kind"],
+                "config": spec["config"],
+                "availability": direct(spec.get("embedded", _MISSING), "vision"),
+            } for spec in vision_specs]
             return _merge(
-                request, direct(vision_embedded, "vision"),
-                direct(retrieval_embedded, "retrieval"),
-                vision_config, retrieval_config,
-            )
+                request, vision_sources,
+                direct(retrieval_embedded, "retrieval"), retrieval_config)
         except (TypeError, ValueError) as exc:
             return {
                 "schema": SCHEMA,

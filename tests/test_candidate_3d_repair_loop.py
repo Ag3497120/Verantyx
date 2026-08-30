@@ -10,6 +10,7 @@ from photoloset.candidate_3d_repair_loop import (
     ANSWER,
     EVIDENCE_CROSS_SCHEMA,
     PHYSICAL_CROSS_SCHEMA,
+    REAR_HYPOTHESIS_AXES,
     REQUEST_SCHEMA,
     run,
 )
@@ -48,12 +49,28 @@ def _target():
 
 
 def _candidate(candidate_id="candidate-a", *, width=2.0, depth=0.0,
-               authority="PROPOSED"):
+               authority="PROPOSED", rear_profile=None,
+               input_kind="unclassified"):
+    profile = dict(rear_profile or {
+        "closure": "CLOSED_OR_UNSEEN",
+        "back_volume": "FITTED_CONTINUATION",
+        "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+        "attachment_topology": "MATCHING_BOUNDARY_SEAM",
+    })
     return {
         "candidate_id": candidate_id,
         "candidate_digest": "digest-%s" % candidate_id,
         "domain": "BACK_STRUCTURE",
+        "input_kind_for_test_only": input_kind,
         "authority": {"rear": authority, "material": "PROPOSED"},
+        "rear_hypothesis": {
+            "schema": "garment.typed-rear-hypothesis.v1",
+            "state": "PROPOSED",
+            "observation_state": "UNKNOWN_UNOBSERVED",
+            "axis_values": profile,
+            "axes_are_independent": True,
+            "conflicts_are_not_averaged": True,
+        },
         "mesh": {
             "units": "cm",
             "vertices": [
@@ -75,12 +92,13 @@ def _candidate(candidate_id="candidate-a", *, width=2.0, depth=0.0,
     }
 
 
-def _request(*candidates, max_rounds=3):
+def _request(*candidates, max_rounds=3, repair_gain=1.0):
     return {
         "schema": REQUEST_SCHEMA,
         "target_front": _target(),
         "candidates": list(candidates),
-        "config": {"max_rounds": max_rounds, "repair_gain": 1.0},
+        "config": {"max_rounds": max_rounds,
+                   "repair_gain": repair_gain},
         "projection_config": {
             "min_silhouette_iou": 0.95,
             "min_part_iou": 0.95,
@@ -155,6 +173,90 @@ class Candidate3DRepairLoopTests(unittest.TestCase):
         self.assertEqual(row["proof_cross"]["verdict"], ANSWER)
         self.assertIsNone(row["pattern_handoff"])
 
+    def test_repairs_are_candidate_specific_and_preserve_typed_rear_axes(self):
+        flat = _candidate("rear-flat", depth=0.0, rear_profile={
+            "closure": "CENTER_BACK_JOIN",
+            "back_volume": "FITTED_CONTINUATION",
+            "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+            "attachment_topology": "MATCHING_BOUNDARY_SEAM",
+        })
+        deep = _candidate("rear-deep", depth=1.5, rear_profile={
+            "closure": "SIDE_OPENING",
+            "back_volume": "EASED_VOLUME",
+            "layer_continuation": "INDEPENDENT_REAR_LAYER",
+            "attachment_topology": "WAIST_ANCHORED",
+        })
+
+        rows = {row["candidate_id"]: row
+                for row in run(_request(flat, deep))["candidates"]}
+        proposal_ids = []
+        for row in rows.values():
+            self.assertEqual(
+                set(REAR_HYPOTHESIS_AXES),
+                {item["axis"] for item in row["rear_axis_constraints"]})
+            self.assertTrue(all(
+                item["operation"] == "PRESERVE_TYPED_REAR_AXIS"
+                and not item["applied_from_front_evidence"]
+                for item in row["rear_axis_constraints"]))
+            contract = row["comparison_contract"]
+            self.assertTrue(contract["same_camera_required"])
+            self.assertTrue(contract["no_aggregate_similarity_score"])
+            self.assertTrue(all(
+                value["present"]
+                for value in contract["independent_comparisons"].values()))
+            first = row["repair_transcript"][0]
+            self.assertEqual(first["rear_axis_constraints"],
+                             row["rear_axis_constraints"])
+            proposals = first["candidate_specific_proposals"]
+            self.assertTrue(proposals)
+            self.assertTrue(all(
+                proposal["candidate_id"] == row["candidate_id"]
+                and proposal["mutation_domain"] == "VISIBLE_FRONT_ONLY"
+                and proposal["preserve_unobserved_rear_hypothesis"]
+                for proposal in proposals))
+            proposal_ids.extend(proposal["proposal_id"]
+                                for proposal in proposals)
+        self.assertEqual(len(proposal_ids), len(set(proposal_ids)))
+
+    def test_non_improving_attempt_is_rolled_back_and_stops(self):
+        row = _only(run(_request(
+            _candidate(), max_rounds=4, repair_gain=0.001)))
+
+        self.assertEqual(row["verdict"],
+                         "HUMAN_REVIEW_NON_IMPROVEMENT")
+        self.assertEqual(row["rounds"], 2)
+        self.assertEqual(row["before_geometry_digest"],
+                         row["after_geometry_digest"])
+        stop = row["non_improvement_stop"]
+        self.assertEqual(stop["status"], "STALLED_TIE")
+        self.assertNotEqual(stop["attempted_geometry_digest"],
+                            stop["restored_geometry_digest"])
+        self.assertEqual(stop["restored_geometry_digest"],
+                         row["after_geometry_digest"])
+        self.assertTrue(stop["stopped_without_applying_more_repairs"])
+        last = row["repair_transcript"][-1]
+        self.assertTrue(last["non_improvement_stop"])
+        self.assertEqual(last["rollback"], stop)
+        self.assertIsNone(row["pattern_handoff"])
+
+    def test_rear_alternatives_must_preserve_shared_front_contract(self):
+        result = run(_request(
+            _candidate("narrow", width=2.0, depth=0.0),
+            _candidate("wide", width=3.0, depth=1.0),
+        ))
+
+        self.assertEqual(
+            result["front_preservation_check"]["verdict"],
+            "UNKNOWN_CANDIDATE_FRONT_NOT_PRESERVED")
+        self.assertEqual(
+            result["front_preservation_check"]["method"],
+            "COMPUTED_FRONT_XY_TOPOLOGY_CONTRACT")
+        self.assertEqual(
+            {row["verdict"] for row in result["candidates"]},
+            {"UNKNOWN_CANDIDATE_FRONT_NOT_PRESERVED"})
+        self.assertTrue(all(row["pattern_handoff"] is None
+                            for row in result["candidates"]))
+
     def test_non_convergence_is_an_explicit_human_stop_at_budget(self):
         row = _only(run(_request(_candidate(), max_rounds=1)))
 
@@ -194,6 +296,7 @@ class Candidate3DRepairLoopTests(unittest.TestCase):
         approved = _candidate()
         approved["human_approval"] = {
             "candidate_id": "candidate-a",
+            "candidate_digest": "digest-candidate-a",
             "final_geometry_digest": first["after_geometry_digest"],
             "decision": "APPROVE",
             "by": "pattern reviewer",
@@ -207,6 +310,13 @@ class Candidate3DRepairLoopTests(unittest.TestCase):
         self.assertEqual(second["pattern_handoff"]["authority"]["rear"],
                          "PROPOSED")
         self.assertFalse(second["pattern_handoff"]["manufacturing_certified"])
+
+        stale_approval = copy.deepcopy(approved)
+        stale_approval["human_approval"]["candidate_digest"] = "stale"
+        rejected = _only(run(_request(stale_approval)))
+        self.assertEqual(rejected["verdict"],
+                         "HUMAN_REVIEW_STALE_OR_INCOMPLETE")
+        self.assertIsNone(rejected["pattern_handoff"])
 
         stale = copy.deepcopy(approved)
         stale["pattern_handoff"]["candidate_id"] = "another-candidate"
@@ -246,6 +356,51 @@ class Candidate3DRepairLoopTests(unittest.TestCase):
         self.assertFalse(row["physical_cross"]
                          ["scenario_values_are_measurements"])
         self.assertEqual(row["authority"]["material"], "UNKNOWN")
+
+    def test_class_independent_contract_holds_for_non_overfit_input_matrix(self):
+        cases = [
+            ("skirt", {
+                "closure": "SIDE_OPENING",
+                "back_volume": "FLARED_VOLUME",
+                "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+                "attachment_topology": "WAIST_ANCHORED",
+            }),
+            ("trousers", {
+                "closure": "CENTER_BACK_JOIN",
+                "back_volume": "FITTED_CONTINUATION",
+                "layer_continuation": "CONTINUE_EACH_VISIBLE_LAYER",
+                "attachment_topology": "MATCHING_BOUNDARY_SEAM",
+            }),
+            ("layered-asymmetric", {
+                "closure": "OVERLAPPED_WRAP_CLOSURE",
+                "back_volume": "ASYMMETRIC_DRAPED_VOLUME",
+                "layer_continuation": "INDEPENDENT_REAR_LAYER",
+                "attachment_topology": "WAIST_ANCHORED",
+            }),
+            ("anime-like", {
+                "closure": "CLOSED_OR_UNSEEN",
+                "back_volume": "EASED_VOLUME",
+                "layer_continuation": "ASYMMETRIC_REAR_CONTINUATION",
+                "attachment_topology": "SHOULDER_OR_YOKE_ANCHORED",
+            }),
+        ]
+
+        for index, (kind, profile) in enumerate(cases):
+            with self.subTest(kind=kind):
+                row = _only(run(_request(_candidate(
+                    "case-%d" % index, depth=index * 0.1,
+                    rear_profile=profile, input_kind=kind))))
+                self.assertFalse(row["candidate_geometry"]["source"]
+                                 ["generic_fallback_used"])
+                self.assertEqual(
+                    profile, row["rear_hypothesis"]["axis_values"])
+                self.assertEqual(
+                    set(REAR_HYPOTHESIS_AXES),
+                    {item["axis"] for item in row["rear_axis_constraints"]})
+                self.assertTrue(row["comparison_contract"]
+                                ["no_aggregate_similarity_score"])
+                self.assertNotEqual(row["verdict"],
+                                    "UNKNOWN_CANDIDATE_SPECIFIC_GEOMETRY_REQUIRED")
 
     def test_output_is_deterministic_and_candidate_input_order_independent(self):
         request = _request(_candidate("z", depth=1.0),

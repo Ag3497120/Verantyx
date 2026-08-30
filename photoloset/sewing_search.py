@@ -71,6 +71,9 @@ from typing import Any, Dict, List, Optional, Sequence
 
 SHAPE_NOT_APPROVED = "UNKNOWN_SHAPE_NOT_APPROVED"
 APPROVAL_STALE = "UNKNOWN_APPROVAL_STALE"
+CANDIDATE_3D_NOT_APPROVED = "UNKNOWN_CANDIDATE_3D_NOT_APPROVED"
+CANDIDATE_3D_APPROVAL_STALE = "UNKNOWN_CANDIDATE_3D_APPROVAL_STALE"
+SEAM_FINISHING_CORPUS_REQUIRED = "UNKNOWN_SEAM_FINISHING_CORPUS_REQUIRED"
 NO_SEWING_CORPUS = "UNKNOWN_NO_SEWING_CORPUS"
 EMBEDDING_NOT_CONSTRUCTION = "UNKNOWN_EMBEDDING_IS_NOT_CONSTRUCTION"
 SHARED_LINEAGE = "UNKNOWN_SHARED_LINEAGE"
@@ -460,6 +463,162 @@ def _hybrid_query(factory_state: Dict[str, Any], candidate: Dict[str, Any]
     }
 
 
+def _candidate_3d_gate(factory_state: Dict[str, Any],
+                       candidate: Dict[str, Any]) -> Dict[str, Any]:
+    """Require a named human approval for the exact candidate-3D digest.
+
+    Old persisted factory states predate candidate 3D.  They retain their
+    shape-digest gate so existing projects remain readable.  Recognition and
+    retrieval workers opt in explicitly with
+    ``requires_candidate_3d_approval=True``; once opted in, neither a shape
+    approval nor an image-similarity hit can substitute for this gate.
+    """
+    preview = factory_state.get("candidate_3d")
+    if not isinstance(preview, dict):
+        preview = factory_state.get("selected_candidate_3d")
+    explicit_digest = factory_state.get("candidate_3d_digest")
+    approval = factory_state.get("candidate_3d_approval")
+    strict = bool(factory_state.get("requires_candidate_3d_approval")) or any(
+        value is not None for value in (preview, explicit_digest, approval))
+    if not strict:
+        return {
+            "verdict": "ANSWER",
+            "gate_kind": "LEGACY_SHAPE_DIGEST_ONLY",
+            "candidate_3d_digest": None,
+            "approved_by": None,
+            "recognition_worker_contract_active": False,
+            "warning": "legacy state: candidate-3D approval was not part of "
+                       "this persisted factory contract",
+        }
+
+    preview = preview if isinstance(preview, dict) else {}
+    digest = str(explicit_digest or preview.get("geometry_digest")
+                 or preview.get("candidate_3d_digest")
+                 or preview.get("digest") or "").strip()
+    if not digest:
+        return {
+            "verdict": CANDIDATE_3D_NOT_APPROVED,
+            "stage": "CANDIDATE_3D_APPROVAL_GATE",
+            "corpus_search_performed": False,
+            "gate_kind": "HUMAN_APPROVED_CANDIDATE_3D_DIGEST",
+            "why": "the recognition route has no candidate-3D geometry "
+                   "digest. A front-image or similarity result is not a "
+                   "three-dimensional construction candidate",
+            "how_to_close": "render the selected rear/construction candidate, "
+                            "record its geometry digest, then ask a named "
+                            "person to approve that exact digest",
+        }
+    if not isinstance(approval, dict):
+        return {
+            "verdict": CANDIDATE_3D_NOT_APPROVED,
+            "stage": "CANDIDATE_3D_APPROVAL_GATE",
+            "corpus_search_performed": False,
+            "gate_kind": "HUMAN_APPROVED_CANDIDATE_3D_DIGEST",
+            "candidate_3d_digest": digest,
+            "why": "candidate 3D exists, but no named human approval is "
+                   "bound to its geometry digest",
+            "how_to_close": "set candidate_3d_approval to the exact digest "
+                            "and a non-empty reviewer name after the person "
+                            "has inspected the rotatable candidate",
+        }
+    approved_digest = str(approval.get("digest")
+                          or approval.get("candidate_3d_digest") or "").strip()
+    approved_by = str(approval.get("by")
+                      or approval.get("approved_by") or "").strip()
+    if not approved_by or not approved_digest:
+        return {
+            "verdict": CANDIDATE_3D_NOT_APPROVED,
+            "stage": "CANDIDATE_3D_APPROVAL_GATE",
+            "corpus_search_performed": False,
+            "gate_kind": "HUMAN_APPROVED_CANDIDATE_3D_DIGEST",
+            "candidate_3d_digest": digest,
+            "why": "candidate-3D approval must carry both the exact digest "
+                   "and the name of the human reviewer",
+            "how_to_close": "record {digest: <candidate digest>, by: <name>} "
+                            "after review",
+        }
+    if approved_digest != digest:
+        return {
+            "verdict": CANDIDATE_3D_APPROVAL_STALE,
+            "stage": "CANDIDATE_3D_APPROVAL_GATE",
+            "corpus_search_performed": False,
+            "gate_kind": "HUMAN_APPROVED_CANDIDATE_3D_DIGEST",
+            "candidate_3d_digest": digest,
+            "approved_digest": approved_digest,
+            "approved_by": approved_by,
+            "why": "candidate geometry changed after human approval; the "
+                   "approval names a different digest",
+            "how_to_close": "show the changed candidate 3D and approve its "
+                            "current digest",
+        }
+    return {
+        "verdict": "ANSWER",
+        "gate_kind": "HUMAN_APPROVED_CANDIDATE_3D_DIGEST",
+        "candidate_3d_digest": digest,
+        "approved_by": approved_by,
+        "recognition_worker_contract_active": True,
+        "candidate_id": (preview.get("candidate_id")
+                         or candidate.get("candidate_id")),
+    }
+
+
+def _geometric_sewing_order(query: Dict[str, Any], approval_id: str,
+                            candidate_3d_gate: Dict[str, Any]
+                            ) -> Dict[str, Any]:
+    """Derive assembly precedence; deliberately say nothing about finishes."""
+    structure = query.get("structure", {})
+    nodes = [row for row in structure.get("nodes", ())
+             if isinstance(row, dict)] if isinstance(structure, dict) else []
+    operations = [row for row in structure.get("operations", ())
+                  if isinstance(row, dict)] if isinstance(structure, dict) else []
+    ordered = sorted(nodes, key=lambda row: (int(row.get("layer", 0)),
+                                             str(row.get("node_id", ""))))
+    steps = [{
+        "step": index + 1,
+        "operation": "PREPARE_COMPONENT",
+        "node_id": str(row.get("node_id", "")),
+        "kind": str(row.get("kind", "UNKNOWN")),
+        "layer": int(row.get("layer", 0)),
+        "basis": "typed structure node",
+    } for index, row in enumerate(ordered)]
+    for operation in sorted(operations, key=lambda row: (
+            str(row.get("source", "")), str(row.get("target", "")),
+            str(row.get("kind", "")))):
+        steps.append({
+            "step": len(steps) + 1,
+            "operation": str(operation.get("kind") or "JOIN"),
+            "source": operation.get("source"),
+            "target": operation.get("target"),
+            "basis": "typed seam topology",
+        })
+    openings = [row for row in ordered if row.get("kind") == "OPENING"]
+    for row in openings:
+        steps.append({
+            "step": len(steps) + 1,
+            "operation": "CLOSE_OR_FINISH_OPENING_LAST",
+            "node_id": row.get("node_id"),
+            "basis": "dressability precedence only",
+        })
+    return {
+        "verdict": "ANSWER",
+        "state": "DERIVED_GEOMETRY",
+        "for_shape_approval": approval_id,
+        "candidate_3d_gate": dict(candidate_3d_gate),
+        "steps": steps,
+        "authority": "ASSEMBLY_PRECEDENCE_FROM_TYPED_TOPOLOGY_ONLY",
+        "corpus_used": False,
+        "does_not_claim": [
+            "stitch class", "seam finish", "seam allowance",
+            "needle/thread/machine settings", "empirical seam strength",
+        ],
+        "seam_finishing": {
+            "verdict": SEAM_FINISHING_CORPUS_REQUIRED,
+            "why": "topology can order joins; it cannot establish how a "
+                   "tailor should finish those seams",
+        },
+    }
+
+
 def _procedural_methods(query: Dict[str, Any], approval_id: str
                         ) -> List[Dict[str, Any]]:
     """Two inspectable assembly hypotheses, never corpus evidence."""
@@ -478,6 +637,12 @@ def _procedural_methods(query: Dict[str, Any], approval_id: str
         "origin": "BUILTIN_PROCEDURAL_CONSTRUCTION",
         "real_corpus_record": False,
         "manufacturing_validated": False,
+        "knowledge_scope": "GEOMETRIC_ASSEMBLY_ORDER_ONLY",
+        "geometric_order_derivable_without_corpus": True,
+        "seam_finishing": {
+            "verdict": SEAM_FINISHING_CORPUS_REQUIRED,
+            "corpus_evidence_present": False,
+        },
         "requires_human_and_deterministic_validation": True,
         "provenance": {
             "kind": "PROCEDURAL_CONSTRUCTION_HYPOTHESIS",
@@ -497,7 +662,7 @@ def _procedural_methods(query: Dict[str, Any], approval_id: str
          "steps": node_steps[:1] + ["join validated structural operations"]
                   + node_steps[1:] + close,
          "unknowns": ["edge finish", "notions", "interfacing",
-                      "operator-feasible sewing order"]},
+                      "seam-finishing method"]},
     ]
 
 
@@ -524,6 +689,9 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
                 "why": "named digest-bound structure approval is required"}
     approval = factory_state["shape_approval"]
     approval_id = str(approval["approval_id"])
+    candidate_3d_gate = _candidate_3d_gate(factory_state, candidate)
+    if candidate_3d_gate["verdict"] != "ANSWER":
+        return candidate_3d_gate
     raw_packages = (list(packages) if isinstance(packages, (tuple, list))
                     else [])
     eligible, refused = [], []
@@ -573,6 +741,12 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
                                  or f"corpus:{manifest['name']}:{record_id}"),
                 "state": "PROPOSED", "for_approval": approval_id,
                 "fit": scored, "origin": "LOCAL_RIGHTS_GATED_CORPUS",
+                "knowledge_scope": "CORPUS_CONSTRUCTION_RECORD",
+                "seam_finishing_evidence_present": any(
+                    key in method for key in (
+                        "stitches", "stitch_class", "seam_finish",
+                        "seam_finishes", "edge_finish", "finishes",
+                        "seam_allowance", "needle", "thread", "machine")),
                 "real_corpus_record": True,
                 "manufacturing_validated": bool(
                     record.get("manufacturing_validated", False)),
@@ -590,6 +764,24 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
         row["method_id"]))
     procedural = _procedural_methods(query, approval_id)
     methods = corpus_methods + procedural
+    geometric_order = _geometric_sewing_order(
+        query, approval_id, candidate_3d_gate)
+    finishing_methods = [row for row in corpus_methods
+                         if row["seam_finishing_evidence_present"]]
+    seam_finishing = {
+        "verdict": ("PROPOSED" if finishing_methods
+                    else SEAM_FINISHING_CORPUS_REQUIRED),
+        "state": ("PROPOSED_CORPUS_EVIDENCE"
+                  if finishing_methods else "UNKNOWN"),
+        "corpus_evidence_present": bool(finishing_methods),
+        "methods": [row["method_id"] for row in finishing_methods],
+        "why": ("rights-gated records containing explicit seam-finishing "
+                "fields are available as proposals; applicability still "
+                "requires review"
+                if finishing_methods else
+                "geometric topology determines join order, not seam finish, "
+                "stitch class, notions or machine settings"),
+    }
     status = {
         "received": len(raw_packages), "eligible": len(eligible),
         "refused": refused,
@@ -639,11 +831,19 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
     }
     return {
         "verdict": "PROPOSED", "source": source, "methods": methods,
+        "geometric_sewing_order": geometric_order,
+        "seam_finishing_knowledge": seam_finishing,
         "manifest": output_manifest,
         "real_corpus_records_present": bool(corpus_methods),
         "route": {
             "shape_approval_id": approval_id,
-            "query_basis": "approved structure, never image embedding",
+            "candidate_3d_gate": candidate_3d_gate,
+            "query_basis": (
+                "human-approved candidate-3D digest plus approved typed "
+                "structure; never image embedding"
+                if candidate_3d_gate["recognition_worker_contract_active"]
+                else "approved structure, never image embedding "
+                     "(legacy state without candidate-3D contract)"),
             "next": "deterministic sewability/strength/comfort validation",
             "factory_event": factory_event,
         },

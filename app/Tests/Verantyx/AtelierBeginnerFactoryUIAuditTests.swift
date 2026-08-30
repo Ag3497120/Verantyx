@@ -61,10 +61,16 @@ private enum AtelierBeginnerFactoryUIAudit {
                 dynamic.contains("3D・型紙・縫製成果物はまだ完成していません") &&
                 dynamic.contains("detailsDisclosure") &&
                 dynamic.contains("atelier.inline-progressive-details") &&
+                dynamic.contains("pageAuthorityLabels") &&
+                dynamic.contains("inlineExportArtifactPreview") &&
+                dynamic.contains("atelier.inline-export-artifact-preview") &&
                 dynamic.contains("onChange(of: revision)") &&
                 !dynamic.contains("@State private var collapsed") &&
                 !dynamic.contains("inlineCardHeader") &&
                 !dynamic.contains("atelier.inline-context-card") &&
+                !dynamic.contains(".sheet(item:") &&
+                !dynamic.contains(".frame(maxHeight: 440)") &&
+                !dynamic.contains("exportArtifactSheet") &&
                 !dynamic.contains(".background(.ultraThinMaterial") &&
                 !dynamic.contains(".shadow(color: .black.opacity(0.42)"),
                 "BEGINNER_RESULTS_ARE_NOT_INLINE_PROGRESSIVE_OR_CONTEXTUAL", into: &report)
@@ -131,7 +137,7 @@ private enum AtelierBeginnerFactoryUIAudit {
                 dynamic.contains("checkmark.shield") &&
                 dynamic.contains(".disabled(!details.exportVerified)") &&
                 dynamic.contains("selectedExportArtifact") &&
-                dynamic.contains("exportArtifactSheet") &&
+                dynamic.contains("inlineExportArtifactPreview") &&
                 dynamic.contains("NSSavePanel") &&
                 dynamic.contains("Data(base64Encoded:"),
                 "EXPORT_PACKAGE_IS_NOT_CLICKABLE_OR_BYTE_PRESERVING",
@@ -157,6 +163,10 @@ private enum AtelierBeginnerFactoryUIAudit {
                 dynamic.contains("AtelierView()") &&
                 dynamic.contains("atelier.inline-advanced-direct-tools"),
                 "CHAT_FIRST_ATELIER_LOST_PROGRESSIVE_ADVANCED_TOOLS", into: &report)
+        require(agentChat.contains("app.activateGarmentProject(name)") &&
+                !agentChat.contains("app.activeGarment = name"),
+                "CHAT_HEADER_PROJECT_PICKER_DESYNCS_ENGINE_NAMESPACE",
+                into: &report)
         require(shellLayout.contains("case .agentActivity: return false") &&
                 shellLayout.contains("guard case .panel(let kind) = tab.kind") &&
                 shellLayout.contains("return kind.surfaced") &&
@@ -227,6 +237,13 @@ private enum AtelierBeginnerFactoryUIAudit {
         }
         require(source.contains(".frame(maxWidth: 320)"),
                 "COMPOSER_WIDTH_NOT_BOUNDED", into: &report)
+        require(source.contains(
+                    ".frame(minWidth: 320, idealWidth: 380, maxWidth: .infinity)") &&
+                source.contains(".layoutPriority(1)") &&
+                !source.contains(
+                    ".frame(minWidth: 280, idealWidth: 320, maxWidth: 380)"),
+                "ATELIER_CHAT_PANE_STILL_CLIPS_AT_A_FIXED_MAXIMUM",
+                into: &report)
 
         for forbidden in ["MCPEngine.shared", "toolName: \"garment_factory\"",
                           "SUBMIT_HYPOTHESES", "APPROVE_HYPOTHESIS",

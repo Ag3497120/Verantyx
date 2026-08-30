@@ -116,6 +116,26 @@ def _layered_graph():
              "outline": [[0.50, 0.51], [0.72, 0.55],
                          [0.67, 0.87], [0.50, 0.72]]},
         ],
+        "relations": [
+            {
+                "relation_id": "typed-waist-join",
+                "kind": "JOIN",
+                "parent_id": "upper",
+                "child_id": "lower",
+                "attachment_port": "waist-interface",
+                "attachment_side": "FULL",
+                "state": "PROPOSED",
+            },
+            {
+                "relation_id": "typed-right-overlay",
+                "kind": "LAYER",
+                "parent_id": "lower",
+                "child_id": "overlay",
+                "attachment_port": "right-waist-overlay-anchor",
+                "attachment_side": "RIGHT",
+                "state": "PROPOSED",
+            },
+        ],
     }
 
 
@@ -154,6 +174,10 @@ class GeometricAtelierWorkflowTests(unittest.TestCase):
         relation = next(row for row in topology["relations"]
                         if row["child_id"] == "overlay")
         self.assertEqual(relation["kind"], "LAYER")
+        self.assertEqual(relation["relation_id"], "typed-right-overlay")
+        self.assertEqual(relation["attachment_port"],
+                         "right-waist-overlay-anchor")
+        self.assertEqual(relation["attachment_side"], "RIGHT")
         self.assertEqual(relation["ownership"]["owner_id"], relation["parent_id"])
         self.assertEqual(relation["child_layer"], 1)
         self.assertFalse(topology["name_based_branching"])
@@ -181,6 +205,170 @@ class GeometricAtelierWorkflowTests(unittest.TestCase):
             != candidates[1]["mesh"]["vertices"][index]
             for index in rear
         ))
+        source_contract = result["second_skin"]["source_front_contract"]
+        self.assertTrue(result["candidate_front_invariant"]
+                        ["source_front_contract_verified"])
+        self.assertEqual(source_contract["digest"],
+                         result["candidate_front_invariant"]
+                         ["source_front_contract_digest"])
+        self.assertTrue(all(not row["generic_cape_fallback"]
+                            for row in candidates))
+        self.assertTrue(all(row["mesh"]["geometry_source"]
+                            == "SECOND_SKIN_PLUS_CANDIDATE_REAR_PROPOSAL"
+                            for row in candidates))
+        interfaces = [row["pattern_interface"] for row in candidates]
+        self.assertEqual(len({row["digest"] for row in interfaces}),
+                         len(interfaces))
+        self.assertTrue(all(row["candidate_specific"] for row in interfaces))
+        self.assertTrue(all(not row["generic_cape_fallback"]
+                            for row in interfaces))
+        self.assertTrue(all(row["source_front_digest"]
+                            == source_contract["digest"]
+                            for row in interfaces))
+        self.assertTrue(all(
+            boundary["candidate_id"] == interface["candidate_id"]
+            and boundary["candidate_vertices_cm"]
+            for interface in interfaces
+            for boundary in interface["pattern_boundary_candidates"]
+        ))
+        self.assertTrue(all(
+            {row["surface_id"] for row in interface["component_mesh_bindings"]}
+            == {"upper", "lower", "overlay"}
+            for interface in interfaces
+        ))
+        self.assertTrue(all(
+            len([row for row in interface["component_mesh_bindings"]
+                 if row["surface_id"] == "lower"]) == 2
+            for interface in interfaces
+        ))
+        for interface in interfaces:
+            overlay_attachment = next(
+                row for row in interface["attachment_boundary_candidates"]
+                if row["relation_id"] == "typed-right-overlay")
+            self.assertTrue(overlay_attachment["parent_candidate_loops"])
+            self.assertTrue(overlay_attachment["child_candidate_loops"])
+            self.assertTrue(all(not row["closed_loop"]
+                                for row in overlay_attachment
+                                ["child_candidate_loops"]))
+        from photoloset.geometric_atelier_workflow import _candidate_payloads
+        corrupted = copy.deepcopy(result["second_skin"])
+        corrupted["source_front_contract"]["digest"] = "tampered-front"
+        with self.assertRaisesRegex(ValueError, "source-front contract digest"):
+            _candidate_payloads(corrupted, result["rear_ensemble"], {})
+
+    def test_front_geometry_distinguishes_skirt_shell_from_two_leg_tubes(self):
+        skirt_graph = {
+            "graph_id": "continuous-lower-front",
+            "parts": [{
+                "part_id": "shape-alpha",
+                "kind": "UNTRANSLATABLE_SHAPE_ALPHA",
+                "display_name": "not a generator token",
+                "garment_unit": "unit-alpha",
+                "layer": 0,
+                "outline": [[0.36, 0.50], [0.64, 0.50],
+                            [0.69, 0.94], [0.31, 0.94]],
+            }],
+        }
+        trouser_graph = {
+            "graph_id": "split-lower-front",
+            "parts": [{
+                "part_id": "shape-beta",
+                "kind": "UNTRANSLATABLE_SHAPE_BETA",
+                "display_name": "also not a generator token",
+                "garment_unit": "unit-beta",
+                "layer": 0,
+                # One concave front ledger. The centre notch, rather than a
+                # name or a fixture constant, creates two radial domains.
+                "outline": [[0.31, 0.50], [0.69, 0.50],
+                            [0.69, 0.94], [0.54, 0.94],
+                            [0.54, 0.69], [0.46, 0.69],
+                            [0.46, 0.94], [0.31, 0.94]],
+            }],
+        }
+
+        skirt = run(_request(
+            separation=_separation(layered=False),
+            visible_part_graph=skirt_graph,
+        ))
+        trousers = run(_request(
+            separation=_separation(layered=False),
+            visible_part_graph=trouser_graph,
+        ))
+        skirt_surface = skirt["second_skin"]["topology"]["surfaces"][0]
+        trouser_surface = trousers["second_skin"]["topology"]["surfaces"][0]
+        self.assertEqual(1, len(skirt_surface["components"]))
+        self.assertEqual("CONTINUOUS_FRONT_BOUNDARY",
+                         skirt_surface["component_basis"])
+        self.assertEqual(2, len(trouser_surface["components"]))
+        self.assertEqual("SCALE_FREE_CENTRE_NOTCH_TWO_DOMAINS",
+                         trouser_surface["component_basis"])
+        self.assertEqual(2, trousers["second_skin"]["topology"]
+                         ["topological_component_count"])
+        self.assertFalse(skirt["surface_plan"]["name_based_branching"])
+        self.assertFalse(trousers["surface_plan"]["name_based_branching"])
+
+    def test_component_topology_is_affine_scale_invariant_not_fixture_specific(self):
+        from photoloset.geometric_atelier_workflow import (
+            _component_plan, _outline_component_count,
+        )
+
+        canonical = [[-13.0, 60.0], [13.0, 60.0], [13.0, 0.0],
+                     [3.0, 0.0], [3.0, 38.0], [-3.0, 38.0],
+                     [-3.0, 0.0], [-13.0, 0.0]]
+        transformed = [[x * 7.25 + 431.0, y * 2.5 - 917.0]
+                       for x, y in canonical]
+        reversed_order = list(reversed(transformed))
+        upper_cutout = [[-13.0, 0.0], [13.0, 0.0], [13.0, 60.0],
+                        [3.0, 60.0], [3.0, 38.0], [-3.0, 38.0],
+                        [-3.0, 60.0], [-13.0, 60.0]]
+        self.assertEqual(
+            (2, "SCALE_FREE_CENTRE_NOTCH_TWO_DOMAINS"),
+            _outline_component_count(canonical),
+        )
+        self.assertEqual(_outline_component_count(canonical),
+                         _outline_component_count(reversed_order))
+        self.assertEqual((1, "CONTINUOUS_FRONT_BOUNDARY"),
+                         _outline_component_count(upper_cutout))
+        components, basis = _component_plan(
+            {"part_id": "three-domain-ledger", "side": "CENTER",
+             "topology": {"independent_component_count": 3}},
+            unit_size=1, layer=0, world_outline=canonical,
+        )
+        self.assertEqual("TYPED_LEDGER_COMPONENT_COUNT", basis)
+        self.assertEqual(3, len(components))
+        self.assertEqual(
+            [-round(2.0 / 3.0, 8), 0.0, round(2.0 / 3.0, 8)],
+            [row["center_ratio"][0] for row in components],
+        )
+
+    def test_asymmetric_anime_like_part_uses_triangle_support_not_name_dispatch(self):
+        graph = _layered_graph()
+        for index, part in enumerate(graph["parts"]):
+            part["kind"] = "ANIME_UNCLASSIFIED_%d" % index
+            part["display_name"] = "架空部品-%d" % index
+        result = run(_request(visible_part_graph=graph))
+        overlay = next(row for row in result["second_skin"]["topology"]["surfaces"]
+                       if row["surface_id"] == "overlay")
+        projection = next(
+            row for row in result["second_skin"]["front_cue_projections"]
+            if row["surface_id"] == "overlay")
+        relation = next(
+            row for row in result["second_skin"]["topology"]["relations"]
+            if row["child_id"] == "overlay")
+        self.assertEqual([0.0, 90.0],
+                         overlay["components"][0]["angular_coverage_deg"])
+        self.assertGreater(projection["support_triangle_count"], 0)
+        self.assertGreater(projection["matched_front_vertex_count"], 0)
+        self.assertGreater(len(projection["matched_triangle_ids"]), 0)
+        self.assertEqual("right-waist-overlay-anchor",
+                         relation["attachment_port"])
+        self.assertEqual("NONE", result["second_skin"]["jacobi_reduction"]
+                         ["front_silhouette_axis_observed"])
+        self.assertEqual(["PROPOSED"], result["second_skin"]
+                         ["source_front_contract"]
+                         ["silhouette_support_states"])
+        self.assertFalse(result["second_skin"]["provenance"]
+                         ["raw_garment_name_consumed"])
 
     def test_unknown_names_do_not_change_second_skin_geometry(self):
         first = run(_request())

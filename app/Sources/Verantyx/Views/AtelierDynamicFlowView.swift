@@ -81,15 +81,22 @@ struct AtelierDynamicFlowView: View {
 
     private var candidateSection: CandidateSection? {
         switch effectiveState {
-        case .imageReceived:
+        case .imageReceived, .aiAnalysisProposed:
             return CandidateSection(
                 title: "服として扱う範囲の候補",
                 evidenceKeys: ["region_candidates", "proposed_regions", "regions"])
-        case .regionsConfirmed, .geometryContested:
+        case .humanGarmentAuditRequired, .foregroundCleanupRequired,
+             .cleanupReviewRequired, .frontFactsRecorded, .target2_5DReady,
+             .partSegmentationRequired:
+            return CandidateSection(
+                title: "正面の衣服部品候補",
+                evidenceKeys: ["visible_parts", "part_candidates", "garment_instances", "candidates"])
+        case .regionsConfirmed, .geometryContested, .cadSculptRequired,
+             .targetApprovalRequired:
             return CandidateSection(
                 title: "形状の候補",
                 evidenceKeys: ["geometry_candidates", "silhouette_candidates", "shape_candidates", "candidates"])
-        case .backCandidatesReady:
+        case .rearCandidatesRequired, .backCandidatesReady:
             return CandidateSection(
                 title: "背面構造の候補",
                 evidenceKeys: ["back_candidates", "back_structure_candidates", "rear_candidates", "candidates"])
@@ -101,7 +108,8 @@ struct AtelierDynamicFlowView: View {
             return CandidateSection(
                 title: "着用形状の候補",
                 evidenceKeys: ["simulation_candidates", "shape_candidates", "fit_candidates", "candidates"])
-        case .shapeApproved, .patternValidated:
+        case .shapeApproved, .patternInverseRequired, .patternValidated,
+             .redressComparisonRequired:
             return CandidateSection(
                 title: "型紙構成の候補",
                 evidenceKeys: ["pattern_candidates", "transform_candidates", "construction_candidates", "candidates"])
@@ -755,16 +763,19 @@ struct AtelierBeginnerContextCardsView: View {
                     if hasSupplementalDetails {
                         detailsDisclosure
                     }
+
+                    if let selectedExportArtifact {
+                        inlineExportArtifactPreview(selectedExportArtifact)
+                            .transition(.opacity.combined(
+                                with: .move(edge: .bottom)))
+                    }
                 }
             }
             .frame(maxWidth: .infinity)
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("atelier.inline-production-results")
-            .padding(.horizontal, 18)
+            .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .sheet(item: $selectedExportArtifact) { artifact in
-                exportArtifactSheet(artifact)
-            }
             .onAppear {
                 selectMostRelevantPage()
             }
@@ -786,6 +797,8 @@ struct AtelierBeginnerContextCardsView: View {
             }
             .animation(.easeInOut(duration: 0.24), value: generationInFlight)
             .animation(.easeInOut(duration: 0.24), value: hasRenderableArtifact)
+            .animation(.easeInOut(duration: 0.20),
+                       value: selectedExportArtifact?.id)
         }
     }
 
@@ -808,7 +821,8 @@ struct AtelierBeginnerContextCardsView: View {
             }
 
             AtelierInlineGenerationField()
-                .frame(height: 280)
+                .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                .frame(minHeight: 180, maxHeight: 280)
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(factory.lastReport.map { factoryStageTitle($0.phase) }
@@ -855,7 +869,9 @@ struct AtelierBeginnerContextCardsView: View {
             ViewThatFits(in: .horizontal) {
                 HStack(alignment: .top, spacing: 12) {
                     inlineThreeDResult(artifact)
+                        .frame(minWidth: 280)
                     inlinePatternResult(artifact)
+                        .frame(minWidth: 280)
                 }
                 VStack(spacing: 12) {
                     inlineThreeDResult(artifact)
@@ -1014,7 +1030,6 @@ struct AtelierBeginnerContextCardsView: View {
                 pageBar
                 Divider().opacity(0.2)
                 windowContent
-                    .frame(maxHeight: 440)
             }
         } label: {
             Label("候補・証拠・Advanced Inspector", systemImage: "slider.horizontal.3")
@@ -1063,19 +1078,52 @@ struct AtelierBeginnerContextCardsView: View {
     }
 
     private var pageBar: some View {
-        HStack(spacing: 5) {
-            ForEach(pages) { item in
-                Button { page = item } label: {
-                    Text(item.rawValue)
-                        .font(.system(size: 9.5, weight: page == item ? .semibold : .regular))
-                        .foregroundStyle(page == item ? Theme.fg : Theme.dim)
-                        .padding(.horizontal, 9).padding(.vertical, 4)
-                        .background(page == item ? Theme.sel.opacity(0.18) : .clear,
-                                    in: Capsule())
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 5) {
+                ForEach(pages) { item in
+                    Button { page = item } label: {
+                        Text(item.rawValue)
+                            .font(.system(
+                                size: 9.5,
+                                weight: page == item ? .semibold : .regular))
+                            .foregroundStyle(page == item ? Theme.fg : Theme.dim)
+                            .padding(.horizontal, 9).padding(.vertical, 4)
+                            .background(
+                                page == item ? Theme.sel.opacity(0.18) : .clear,
+                                in: Capsule())
+                    }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
+                Spacer(minLength: 8)
+                pageAuthorityLabels
             }
-            Spacer()
+            HStack(spacing: 8) {
+                Menu {
+                    ForEach(pages) { item in
+                        Button {
+                            page = item
+                        } label: {
+                            Label(item.rawValue,
+                                  systemImage: page == item
+                                    ? "checkmark.circle.fill" : "circle")
+                        }
+                    }
+                } label: {
+                    Label("表示: \(page.rawValue)",
+                          systemImage: "rectangle.3.group")
+                        .font(.system(size: 9.5, weight: .semibold))
+                        .foregroundStyle(Theme.sel)
+                }
+                .menuStyle(.borderlessButton)
+                Spacer(minLength: 4)
+                pageAuthorityLabels
+            }
+        }
+        .padding(.horizontal, 10).padding(.vertical, 6)
+    }
+
+    private var pageAuthorityLabels: some View {
+        HStack(spacing: 6) {
             Text(page == .advanced ? "直接検査" : "Chat-first")
                 .font(.system(size: 8, weight: .semibold,
                               design: .monospaced))
@@ -1086,7 +1134,7 @@ struct AtelierBeginnerContextCardsView: View {
                 .foregroundStyle(factory.activeAuditMode == .humanAudit
                                  ? Theme.ok : Theme.warn)
         }
-        .padding(.horizontal, 10).padding(.vertical, 6)
+        .fixedSize()
     }
 
     private func factoryStageTitle(_ phase: String) -> String {
@@ -1136,9 +1184,8 @@ struct AtelierBeginnerContextCardsView: View {
 
     @ViewBuilder
     private var windowContent: some View {
-        ScrollView(.vertical, showsIndicators: true) {
-            VStack(alignment: .leading, spacing: 8) {
-                switch page {
+        VStack(alignment: .leading, spacing: 8) {
+            switch page {
                 case .progress:
                     if let report = factory.lastReport { reportCard(report) }
                 case .threeD:
@@ -1214,16 +1261,15 @@ struct AtelierBeginnerContextCardsView: View {
                     AtelierDynamicFlowView()
                 case .advanced:
                     advancedInspectorCard
-                }
-                if !feedback.isEmpty {
-                    Text(feedback)
-                        .font(.system(size: 9.5))
-                        .foregroundStyle(Theme.dim)
-                        .textSelection(.enabled)
-                }
             }
-            .padding(10)
+            if !feedback.isEmpty {
+                Text(feedback)
+                    .font(.system(size: 9.5))
+                    .foregroundStyle(Theme.dim)
+                    .textSelection(.enabled)
+            }
         }
+        .padding(10)
     }
 
     /// The former separate expert surface, projected as folded inspection
@@ -1482,48 +1528,52 @@ struct AtelierBeginnerContextCardsView: View {
                 Color.clear
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
-                    .overlay {
-                    TargetSculptSceneRepresentable(
-                        points: factory.targetSculptDisplayVertices,
-                        faces: surface.faces,
-                        faceRegionIDs: surface.faceRegionIDs,
-                        faceComponentIDs: surface.faceComponentIDs,
-                        textureCoordinates: surface.textureCoordinates,
-                        removedFaces: factory.targetSculptRemovedFaces,
-                        clearanceBands: Dictionary(uniqueKeysWithValues:
-                            (factory.targetSculptClearancePreview?
-                                .faceClearances ?? []).map {
-                                    ($0.faceIndex, $0.band)
-                                }),
-                        sourceImagePath: factory.targetSculptSourceImagePath,
-                        avatarProfile: factory.selectedBaseAvatar,
-                        tool: targetSculptTool,
-                        onStroke: { faces, removing in
-                            factory.applyTargetSculptFaces(
-                                faces, removing: removing)
-                        },
-                        onModifierDrag: { kind, vertices, picked, vectorCM in
-                            Task {
-                                await factory.applyTargetSculptModifier(
-                                    kind, vertexIndices: vertices,
-                                    pickedVertexIndex: picked,
-                                    dragVectorCM: vectorCM)
-                            }
-                        })
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .overlay(alignment: .topLeading) {
-                            Text(interactionGuide)
-                                .font(.system(size: 7.5, weight: .semibold,
-                                              design: .monospaced))
-                                .padding(6)
-                                .foregroundStyle(Theme.fg)
-                                .background(.black.opacity(0.34), in: Capsule())
-                                .padding(7)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                    }
                     .frame(minHeight: 220)
+                    .overlay {
+                        TargetSculptSceneRepresentable(
+                            points: factory.targetSculptDisplayVertices,
+                            faces: surface.faces,
+                            faceRegionIDs: surface.faceRegionIDs,
+                            faceComponentIDs: surface.faceComponentIDs,
+                            textureCoordinates: surface.textureCoordinates,
+                            removedFaces: factory.targetSculptRemovedFaces,
+                            clearanceBands: Dictionary(uniqueKeysWithValues:
+                                (factory.targetSculptClearancePreview?
+                                    .faceClearances ?? []).map {
+                                        ($0.faceIndex, $0.band)
+                                    }),
+                            sourceImagePath: factory.targetSculptSourceImagePath,
+                            avatarProfile: factory.selectedBaseAvatar,
+                            tool: targetSculptTool,
+                            onStroke: { faces, removing in
+                                factory.applyTargetSculptFaces(
+                                    faces, removing: removing)
+                            },
+                            onModifierDrag: { kind, vertices, picked, vectorCM in
+                                Task {
+                                    await factory.applyTargetSculptModifier(
+                                        kind, vertexIndices: vertices,
+                                        pickedVertexIndex: picked,
+                                        dragVectorCM: vectorCM)
+                                }
+                            })
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text(interactionGuide)
+                            .font(.system(size: 7.5, weight: .semibold,
+                                          design: .monospaced))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 6)
+                            .foregroundStyle(Theme.fg)
+                            .background(.black.opacity(0.48),
+                                        in: RoundedRectangle(cornerRadius: 7))
+                            .padding(7)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .contentShape(Rectangle())
                     .accessibilityIdentifier(
                         "atelier.beginner.target.sculpt-canvas")
 
@@ -2766,7 +2816,9 @@ struct AtelierBeginnerContextCardsView: View {
         .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 9))
     }
 
-    private func exportArtifactSheet(_ artifact: ExportArtifact) -> some View {
+    private func inlineExportArtifactPreview(
+        _ artifact: ExportArtifact
+    ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Label(artifact.id, systemImage: "doc.badge.arrow.up")
@@ -2775,15 +2827,24 @@ struct AtelierBeginnerContextCardsView: View {
                 Text("\(artifact.byteCount) bytes")
                     .font(.system(size: 9, design: .monospaced))
                     .foregroundStyle(Theme.faint)
+                Button {
+                    selectedExportArtifact = nil
+                } label: {
+                    Image(systemName: "xmark")
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("提出物プレビューを閉じる")
             }
             if let text = artifact.text {
-                ScrollView([.horizontal, .vertical]) {
+                ScrollView(.horizontal, showsIndicators: true) {
                     Text(text)
                         .font(.system(size: 9, design: .monospaced))
                         .textSelection(.enabled)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: true, vertical: true)
                 }
-                .background(Theme.panel2)
+                .padding(8)
+                .background(Theme.panel2,
+                            in: RoundedRectangle(cornerRadius: 8))
             } else {
                 Text("DXFの原バイト列です。画面表示用に変換せず、パッケージdigestが対象にした内容をそのまま保存します。")
                     .font(.system(size: 10))
@@ -2799,8 +2860,12 @@ struct AtelierBeginnerContextCardsView: View {
             }
         }
         .padding(14)
-        .frame(minWidth: 620, minHeight: 420)
-        .background(Theme.panel)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.panel2,
+                    in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12)
+            .stroke(Theme.sel.opacity(0.22), lineWidth: 1))
+        .accessibilityIdentifier("atelier.inline-export-artifact-preview")
     }
 
     private func saveExportArtifact(_ artifact: ExportArtifact) {

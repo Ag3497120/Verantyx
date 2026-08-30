@@ -267,7 +267,11 @@ struct AgentChatView: View {
             Menu {
                 ForEach(app.garmentProjects, id: \.self) { name in
                     Button {
-                        app.activeGarment = name
+                        // Project selection is an engine operation, not just a
+                        // label change.  Keep the Python ledger namespace and
+                        // the visible project in lockstep whichever picker the
+                        // user uses (sidebar or chat header).
+                        app.activateGarmentProject(name)
                     } label: {
                         if name == app.activeGarment {
                             Label(name, systemImage: "checkmark")

@@ -40,6 +40,9 @@ rest, so "0 untranslated" keeps covering it.
 from __future__ import annotations
 
 import copy
+import hashlib
+import json
+import math
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 from . import cross as _cross
@@ -70,6 +73,12 @@ ROLES: Tuple[str, ...] = ("center", "parallel")
 #: this set** — that is the rule the contest depends on.
 ASPECTS: Tuple[str, ...] = ("resembles", "family", "variant")
 ASPECT_PREFIXES: Tuple[str, ...] = ("param:", "port:")
+
+# Similarity is not a single whole-garment class.  These axes remain separate
+# all the way to rear/construction candidate review.
+FEATURE_AXES: Tuple[str, ...] = ("part", "structure", "seam", "material")
+CANDIDATE_USE_SCOPE: Tuple[str, ...] = (
+    "PROPOSE_REAR_CANDIDATE", "PROPOSE_CONSTRUCTION_CANDIDATE")
 
 #: Every model id a fixture may be registered under starts with this.
 FIXTURE_PREFIX = "fixture:"
@@ -272,6 +281,64 @@ def _run(chosen: Sequence[Dict[str, Any]], queries: Sequence[Dict[str, Any]]
     return hits, trouble
 
 
+def _candidate_proposals(hits: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Project per-part hits into bounded rear/construction proposals only."""
+    proposals: List[Dict[str, Any]] = []
+    feature_keys = {
+        "part": ("part_features", "target_part", "part"),
+        "structure": ("structure_features", "construction_features",
+                      "structure", "construction_regime", "rear_structure"),
+        "seam": ("seam_features", "seam_topology", "seams", "openings"),
+        "material": ("material_features", "material", "materials"),
+    }
+    for hit in hits:
+        instance = str(hit.get("instance") or "")
+        if not instance:
+            continue
+        raw_scores = hit.get("axis_scores", hit.get("similarity_axes", {}))
+        raw_scores = raw_scores if isinstance(raw_scores, dict) else {}
+        scores: Dict[str, float] = {}
+        for axis in FEATURE_AXES:
+            value = raw_scores.get(axis)
+            if (isinstance(value, (int, float)) and not isinstance(value, bool)
+                    and math.isfinite(float(value))):
+                scores[axis] = float(value)
+        profile = {
+            axis: {key: copy.deepcopy(hit[key]) for key in feature_keys[axis]
+                   if key in hit and hit[key] is not None}
+            for axis in FEATURE_AXES
+        }
+        identity = {
+            "instance": instance,
+            "part": hit.get("part"),
+            "ref": hit.get("ref"),
+            "model_id": hit.get("model_id"),
+            "axis_scores": scores,
+            "feature_profile": profile,
+        }
+        digest = hashlib.sha256(json.dumps(
+            identity, ensure_ascii=False, sort_keys=True, default=str,
+            separators=(",", ":")).encode("utf-8")).hexdigest()[:16]
+        proposals.append({
+            "candidate_id": f"retrieval-candidate-{digest}",
+            "instance": instance,
+            "part": hit.get("part"),
+            "reference": hit.get("ref"),
+            "state": "PROPOSED_RETRIEVAL_UNCONFIRMED",
+            "axis_scores": scores,
+            "feature_profile": profile,
+            "missing_feature_axes": [
+                axis for axis in FEATURE_AXES
+                if axis not in scores and not profile[axis]],
+            "use_scope": list(CANDIDATE_USE_SCOPE),
+            "requires_candidate_3d_and_named_human_approval": True,
+            "not_a_pattern_sewing_or_manufacturing_fact": True,
+            "source": source_of(hit),
+        })
+    return sorted(proposals, key=lambda row: (
+        str(row["instance"]), str(row.get("part")), row["candidate_id"]))
+
+
 def whole(image_ref: Any, *, queries: Sequence[str] = (),
           image_id: str = "") -> Dict[str, Any]:
     """The whole-garment question: which garment is this like.
@@ -370,9 +437,17 @@ def per_part(image_ref: Any, parts: Sequence[Dict[str, Any]], *,
     qs = [{"scope": "part", "image": image_ref, "image_id": image_id,
            "instance": p["instance"], "part": p.get("part"),
            "region": have.get(p["instance"]),
-           "queries": list(queries)} for p in want]
+           "queries": list(queries), "feature_axes": list(FEATURE_AXES),
+           "candidate_use_scope": list(CANDIDATE_USE_SCOPE)} for p in want]
     hits, trouble = _run(per_part_capable, qs)
     return {"verdict": "ANSWER", "hits": hits,
+            "candidate_proposals": _candidate_proposals(hits),
+            "candidate_contract": {
+                "feature_axes": list(FEATURE_AXES),
+                "use_scope": list(CANDIDATE_USE_SCOPE),
+                "single_embedding_winner": False,
+                "manufacturing_authority": False,
+            },
             "searched": {"scope": "part",
                          "backends": [b["model_id"]
                                       for b in per_part_capable],
@@ -606,6 +681,7 @@ def land(store: Any, rights: Any, result: Dict[str, Any], *,
                         "how_to_close": "name what was searched"}
 
     return {"verdict": "ANSWER",
+            "state": "PROPOSED_RETRIEVAL_UNCONFIRMED",
             "landed": landed,
             "refused": refused,
             "not_seated": not_seated,
@@ -711,4 +787,9 @@ def structure_from(result: Dict[str, Any], *, image_id: str = ""
             "port_finish": {},
             "contested": contested,
             "from": "retrieved structure, not pixels",
+            "authority": {
+                "rear_or_construction_candidate_only": True,
+                "requires_candidate_3d_digest_and_named_human_approval": True,
+                "manufacturing_ready": False,
+            },
             "searched": searched}

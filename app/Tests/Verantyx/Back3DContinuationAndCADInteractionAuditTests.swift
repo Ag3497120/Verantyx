@@ -78,7 +78,8 @@ private enum Back3DContinuationAndCADInteractionAudit {
                 "BODY_PROXY_CAN_BLOCK_OR_HIDE_GARMENT_EDITING")
         require(scene.contains("override func scrollWheel") &&
                 scene.contains("modifierFlags.contains(.option)") &&
-                scene.contains("nextResponder.scrollWheel") &&
+                scene.contains("enclosingScrollView") &&
+                scene.contains("scrollView.scrollWheel") &&
                 scene.contains("override func magnify"),
                 "CAD_CANVAS_CAN_TRAP_ORDINARY_PAGE_SCROLL")
         require(scene.contains("addPolygonPoint") &&
@@ -89,6 +90,7 @@ private enum Back3DContinuationAndCADInteractionAudit {
                 "CAD_ERASER_IS_NOT_EXPLICIT_CLOSED_POLYGON")
         require(scene.contains("refreshBoundaryAnchors") &&
                 scene.contains("faceComponentIDs") &&
+                scene.contains("visibleGrouped") &&
                 scene.contains("localDragVectorCM") &&
                 flow.contains("onModifierDrag") &&
                 controller.contains("vertexIndices requestedVertexIndices"),
@@ -99,10 +101,27 @@ private enum Back3DContinuationAndCADInteractionAudit {
                 flow.contains(".frame(maxWidth: .infinity, maxHeight: .infinity)") &&
                 scene.contains("private var polygonAnchors: [SCNVector3]") &&
                 scene.contains("refreshPolygonOverlay()") &&
+                scene.contains("representedSceneRevision") &&
+                scene.contains("requiresSceneUpdate") &&
+                scene.contains("stableGeometryRevision") &&
+                scene.contains("priorContentTransform") &&
+                scene.contains("priorCameraScale") &&
                 !flow.contains("targetSculptBrushRings") &&
                 !flow.contains("maxHeight: 520") &&
                 !flow.contains(".frame(maxWidth: 880)"),
                 "INLINE_CAD_DOES_NOT_REFLOW_WITH_WINDOW")
+        require(scene.contains("private static let fnvOffset") &&
+                scene.contains("removedFaces.sorted()") &&
+                scene.contains("clearanceBands.sorted") &&
+                scene.contains("visibleEditableFace(at: centroid") &&
+                scene.contains("selected.sorted()"),
+                "CAD_EDIT_SELECTION_OR_REVISION_IS_NONDETERMINISTIC")
+        require(flow.contains("inlineExportArtifactPreview") &&
+                flow.contains("atelier.inline-export-artifact-preview") &&
+                !flow.contains(".sheet(item:") &&
+                !flow.contains("exportArtifactSheet") &&
+                !flow.contains(".frame(maxHeight: 440)"),
+                "PROGRESSIVE_RESULTS_CAN_STILL_ESCAPE_TO_A_MODAL_OR_CLIP")
 
         let auditCard = flow.range(of: "visibleFrontInventoryAuditCard")?.lowerBound
         let targetCard = flow.range(of: "targetReconstructionCard(target)")?.lowerBound

@@ -153,10 +153,11 @@ struct AtelierChatPaneView: View {
             inputRow
         }
         .background(Theme.panel)
-        // 中央の workbench を潰さない側の相方として、この帯自体は伸び縮み
-        // しない — HouseRule 2 (clip and constrain) の裏側。
-        .frame(minWidth: 280, idealWidth: 320, maxWidth: 380)
-        .clipped()
+        // The same chat surface is used inline and beside the workbench.
+        // Keep a readable floor, but never hard-clip it at an arbitrary
+        // maximum width: the surrounding split or chat canvas owns width.
+        .frame(minWidth: 320, idealWidth: 380, maxWidth: .infinity)
+        .layoutPriority(1)
     }
 
     // MARK: - Header
@@ -3041,6 +3042,8 @@ final class TargetSculptSCNView: SCNView {
     private var activeAnchor: TargetSculptBoundaryAnchor?
     private var dragStart: CGPoint?
     private var previousOrbitPoint: NSPoint?
+    private var representedSceneRevision: UInt64?
+    private var representedGeometryRevision: UInt64?
 
     func installSelectionOverlay() {
         guard selectionOverlay.superview == nil else { return }
@@ -3049,10 +3052,36 @@ final class TargetSculptSCNView: SCNView {
         addSubview(selectionOverlay)
     }
 
-    func configureGeometry(
+    func requiresSceneUpdate(_ revision: UInt64) -> Bool {
+        representedSceneRevision != revision
+    }
+
+    func installScene(
+        _ nextScene: SCNScene,
+        camera nextCamera: SCNNode?,
+        faceMappings nextMappings: [String: [Int]],
+        sceneRevision: UInt64,
+        geometryRevision: UInt64,
         points: [[Double]], faces: [[Int]],
         faceComponentIDs: [String], removedFaces: Set<Int>
     ) {
+        let priorContentTransform = scene?.rootNode.childNode(
+            withName: "target-sculpt-content", recursively: true)?.simdTransform
+        let priorCameraScale = pointOfView?.camera?.orthographicScale
+        let preservesPolygon = representedGeometryRevision == geometryRevision
+
+        scene = nextScene
+        pointOfView = nextCamera
+        faceMappings = nextMappings
+        if let priorContentTransform,
+           let content = nextScene.rootNode.childNode(
+                withName: "target-sculpt-content", recursively: true) {
+            content.simdTransform = priorContentTransform
+        }
+        if let priorCameraScale, let camera = nextCamera?.camera {
+            camera.orthographicScale = priorCameraScale
+        }
+
         sourcePoints = points.map { point in
             guard point.count >= 3 else { return SCNVector3Zero }
             return SCNVector3(point[0], point[1], point[2])
@@ -3061,8 +3090,19 @@ final class TargetSculptSCNView: SCNView {
         self.faceComponentIDs = faceComponentIDs
         self.removedFaces = removedFaces
         vertexAdjacency = Self.makeVertexAdjacency(faces)
+        let retainedPolygon = preservesPolygon ? polygonAnchors : []
         clearTransientSelection()
+        polygonAnchors = retainedPolygon
+        representedSceneRevision = sceneRevision
+        representedGeometryRevision = geometryRevision
+        refreshPolygonOverlay()
         refreshBoundaryAnchors()
+        needsDisplay = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.refreshPolygonOverlay()
+            self.refreshBoundaryAnchors()
+        }
     }
 
     func setSculptTool(_ tool: TargetSculptTool) {
@@ -3113,6 +3153,7 @@ final class TargetSculptSCNView: SCNView {
                     CGFloat.pi * 0.42,
                     max(-CGFloat.pi * 0.42,
                         content.eulerAngles.x + CGFloat(dy * 0.005)))
+                needsDisplay = true
             }
             previousOrbitPoint = point
             refreshPolygonOverlay()
@@ -3183,7 +3224,9 @@ final class TargetSculptSCNView: SCNView {
         // Ordinary scrolling belongs to the surrounding chat/page. Zoom is an
         // explicit CAD gesture so a large canvas cannot trap the whole page.
         guard event.modifierFlags.contains(.option) else {
-            if let nextResponder {
+            if let scrollView = enclosingScrollView {
+                scrollView.scrollWheel(with: event)
+            } else if let nextResponder {
                 nextResponder.scrollWheel(with: event)
             } else {
                 super.scrollWheel(with: event)
@@ -3201,6 +3244,7 @@ final class TargetSculptSCNView: SCNView {
         guard let camera = pointOfView?.camera else { return }
         camera.orthographicScale = min(
             1_000, max(4, camera.orthographicScale * exp(logarithmicDelta)))
+        needsDisplay = true
         refreshPolygonOverlay()
         refreshBoundaryAnchors()
     }
@@ -3278,17 +3322,25 @@ final class TargetSculptSCNView: SCNView {
             return
         }
         var grouped = [String: Set<Int>]()
+        var visibleGrouped = [String: Set<Int>]()
         for faceIndex in faces.indices where !removedFaces.contains(faceIndex) {
             let component = faceComponentIDs.indices.contains(faceIndex)
                 && !faceComponentIDs[faceIndex].isEmpty
                 ? faceComponentIDs[faceIndex] : "garment"
-            grouped[component, default: []].formUnion(
-                faces[faceIndex].filter(sourcePoints.indices.contains))
+            let vertices = faces[faceIndex].filter(sourcePoints.indices.contains)
+            grouped[component, default: []].formUnion(vertices)
+            if let centroid = projectedFaceCentroid(faceIndex),
+               visibleEditableFace(at: centroid, removing: false) == faceIndex {
+                visibleGrouped[component, default: []].formUnion(vertices)
+            }
         }
         componentVertices = grouped
         var next: [TargetSculptBoundaryAnchor] = []
         for (colourIndex, component) in grouped.keys.sorted().enumerated() {
-            let projected = grouped[component, default: []].compactMap {
+            let handleVertices = visibleGrouped[component]?.isEmpty == false
+                ? visibleGrouped[component, default: []]
+                : grouped[component, default: []]
+            let projected = handleVertices.compactMap {
                 projectedVertex($0).map { (point: $0.point, depth: $0.depth,
                                            vertexIndex: $0.vertexIndex) }
             }
@@ -3498,27 +3550,92 @@ struct TargetSculptSceneRepresentable: NSViewRepresentable {
     }
 
     private func update(_ view: TargetSculptSCNView) {
-        let built = FactoryProposedDressedSceneView.makeTargetSculptScene(
-            points: points, faces: faces, faceRegionIDs: faceRegionIDs,
-            textureCoordinates: textureCoordinates,
-            removedFaces: removedFaces, sourceImagePath: sourceImagePath,
-            clearanceBands: clearanceBands,
-            avatarProfile: avatarProfile)
-        view.scene = built.scene
-        view.pointOfView = built.scene.rootNode.childNode(
-            withName: "target-sculpt-camera", recursively: true)
-        view.faceMappings = built.faceMappings
-        view.configureGeometry(
-            points: points, faces: faces,
-            faceComponentIDs: faceComponentIDs,
-            removedFaces: removedFaces)
+        let geometryRevision = stableGeometryRevision
+        let sceneRevision = stableSceneRevision(geometryRevision: geometryRevision)
+        if view.requiresSceneUpdate(sceneRevision) {
+            let built = FactoryProposedDressedSceneView.makeTargetSculptScene(
+                points: points, faces: faces, faceRegionIDs: faceRegionIDs,
+                textureCoordinates: textureCoordinates,
+                removedFaces: removedFaces, sourceImagePath: sourceImagePath,
+                clearanceBands: clearanceBands,
+                avatarProfile: avatarProfile)
+            view.installScene(
+                built.scene,
+                camera: built.scene.rootNode.childNode(
+                    withName: "target-sculpt-camera", recursively: true),
+                faceMappings: built.faceMappings,
+                sceneRevision: sceneRevision,
+                geometryRevision: geometryRevision,
+                points: points, faces: faces,
+                faceComponentIDs: faceComponentIDs,
+                removedFaces: removedFaces)
+        }
         view.setSculptTool(tool)
-        built.scene.rootNode.childNode(
+        view.scene?.rootNode.childNode(
             withName: "editable-fused-target-wire", recursively: true)?
             .isHidden = tool == .orbit
         view.onStroke = onStroke
         view.onModifierDrag = onModifierDrag
         view.allowsCameraControl = false
+    }
+
+    /// Stable FNV-1a revisions keep SwiftUI refreshes from rebuilding the
+    /// SceneKit graph. Geometry and appearance are separate so a clearance
+    /// recolour can preserve an unfinished polygon in garment-local space.
+    private var stableGeometryRevision: UInt64 {
+        var hash = Self.fnvOffset
+        for point in points {
+            for value in point { Self.mix(value.bitPattern, into: &hash) }
+            Self.mix(0xFF, into: &hash)
+        }
+        for face in faces {
+            for value in face { Self.mix(UInt64(bitPattern: Int64(value)), into: &hash) }
+            Self.mix(0xFE, into: &hash)
+        }
+        for component in faceComponentIDs {
+            Self.mix(component, into: &hash)
+        }
+        return hash
+    }
+
+    private func stableSceneRevision(geometryRevision: UInt64) -> UInt64 {
+        var hash = geometryRevision
+        for region in faceRegionIDs { Self.mix(region, into: &hash) }
+        for coordinate in textureCoordinates {
+            for value in coordinate { Self.mix(value.bitPattern, into: &hash) }
+        }
+        for face in removedFaces.sorted() {
+            Self.mix(UInt64(bitPattern: Int64(face)), into: &hash)
+        }
+        for (face, band) in clearanceBands.sorted(by: { $0.key < $1.key }) {
+            Self.mix(UInt64(bitPattern: Int64(face)), into: &hash)
+            Self.mix(band, into: &hash)
+        }
+        Self.mix(sourceImagePath ?? "", into: &hash)
+        Self.mix(avatarProfile.id, into: &hash)
+        Self.mix(avatarProfile.geometryDigest, into: &hash)
+        return hash
+    }
+
+    private static let fnvOffset: UInt64 = 14_695_981_039_346_656_037
+    private static let fnvPrime: UInt64 = 1_099_511_628_211
+
+    private static func mix(_ value: UInt64, into hash: inout UInt64) {
+        var value = value
+        for _ in 0..<8 {
+            hash ^= value & 0xFF
+            hash &*= fnvPrime
+            value >>= 8
+        }
+    }
+
+    private static func mix(_ value: String, into hash: inout UInt64) {
+        for byte in value.utf8 {
+            hash ^= UInt64(byte)
+            hash &*= fnvPrime
+        }
+        hash ^= 0xFF
+        hash &*= fnvPrime
     }
 }
 

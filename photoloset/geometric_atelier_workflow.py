@@ -316,23 +316,109 @@ def _bounded_range(values: Iterable[float], height: float) -> List[float]:
     return [round(lo, 8), round(hi, 8)]
 
 
+def _declared_component_count(part: Mapping[str, Any]) -> Optional[int]:
+    """Read topology, never a garment name, from the visible-part ledger."""
+    topology = part.get("topology")
+    sources = [part]
+    if isinstance(topology, Mapping):
+        sources.insert(0, topology)
+    for source in sources:
+        for key in (
+            "independent_component_count", "radial_component_count",
+            "component_count",
+        ):
+            value = source.get(key)
+            if (isinstance(value, int) and not isinstance(value, bool)
+                    and 1 <= value <= 4):
+                return value
+        domains = source.get("independent_domains", source.get("side_domains"))
+        if _sequence(domains) and 1 <= len(domains) <= 4:
+            return len(domains)
+    return None
+
+
+def _outline_component_count(
+    world_outline: Sequence[Sequence[float]],
+) -> Tuple[int, str]:
+    """Detect lower split domains without confusing them with an upper cutout.
+
+    Two interior intervals near the lower edge that merge into one interval
+    near the upper edge describe two lower tubes joined by an upper bridge.
+    The inverse shape (one lower interval, two upper intervals) stays one
+    shell, so a neckline-like cutout is not mistaken for two components.  No
+    colour, filename, garment label, resolution or absolute pixel threshold
+    participates in this decision.
+    """
+    if len(world_outline) < 6:
+        return 1, "CONTINUOUS_FRONT_BOUNDARY"
+    xs = [float(point[0]) for point in world_outline]
+    ys = [float(point[1]) for point in world_outline]
+    left, right = min(xs), max(xs)
+    lower, upper = min(ys), max(ys)
+    width, span = right - left, upper - lower
+    if width <= 0.0 or span <= 0.0:
+        return 1, "DEGENERATE_FRONT_BOUNDARY"
+    epsilon = max(width, span) * 1.0e-12
+
+    def intervals(y: float) -> List[Tuple[float, float]]:
+        intersections: List[float] = []
+        polygon = [(float(point[0]), float(point[1]))
+                   for point in world_outline]
+        for a, b in zip(polygon, polygon[1:] + polygon[:1]):
+            if abs(b[1] - a[1]) <= epsilon:
+                continue
+            edge_lower, edge_upper = min(a[1], b[1]), max(a[1], b[1])
+            if y < edge_lower or y >= edge_upper:
+                continue
+            ratio = (y - a[1]) / (b[1] - a[1])
+            intersections.append(a[0] + ratio * (b[0] - a[0]))
+        intersections.sort()
+        if len(intersections) % 2:
+            return []
+        return [
+            (intersections[index], intersections[index + 1])
+            for index in range(0, len(intersections), 2)
+            if intersections[index + 1] - intersections[index] > epsilon
+        ]
+
+    lower_intervals = intervals(lower + span * 0.08)
+    upper_intervals = intervals(upper - span * 0.08)
+    if len(lower_intervals) == 2 and len(upper_intervals) == 1:
+        return 2, "SCALE_FREE_CENTRE_NOTCH_TWO_DOMAINS"
+    return 1, "CONTINUOUS_FRONT_BOUNDARY"
+
+
 def _component_plan(
     part: Mapping[str, Any], *, unit_size: int, layer: int,
-) -> List[Dict[str, Any]]:
+    world_outline: Sequence[Sequence[float]],
+) -> Tuple[List[Dict[str, Any]], str]:
     side = str(part["side"])
-    count_raw = part.get("independent_component_count", part.get("component_count", 1))
-    count = int(count_raw) if isinstance(count_raw, int) and not isinstance(
-        count_raw, bool) and 1 <= count_raw <= 4 else 1
+    declared = _declared_component_count(part)
+    geometric_count, geometric_basis = _outline_component_count(world_outline)
+    count = declared if declared is not None else geometric_count
+    basis = ("TYPED_LEDGER_COMPONENT_COUNT" if declared is not None
+             else geometric_basis)
     if count == 1 and side == "BILATERAL":
         count = 2
+        basis = "TYPED_BILATERAL_DOMAIN"
     paired_side = unit_size >= 2 and side in {"LEFT", "RIGHT"}
-    if count == 2 or paired_side:
-        signs = [-1.0, 1.0] if count == 2 else ([-1.0] if side == "LEFT" else [1.0])
+    if count > 1 or paired_side:
+        if count > 1:
+            if count == 2:
+                centers = [-0.48, 0.48]
+                radius_x = 0.48
+            else:
+                centers = [-1.0 + (2.0 * index + 1.0) / count
+                           for index in range(count)]
+                radius_x = 1.0 / count
+        else:
+            centers = [-0.48] if side == "LEFT" else [0.48]
+            radius_x = 0.48
         return [{
             "component_id": "%s/component-%d" % (part["part_id"], index),
-            "center_ratio": [round(sign * 0.48, 8), 0.0],
-            "radius_ratio": [0.48, 0.62],
-        } for index, sign in enumerate(signs)]
+            "center_ratio": [round(center, 8), 0.0],
+            "radius_ratio": [round(radius_x, 8), 0.62],
+        } for index, center in enumerate(centers)], basis
     component: Dict[str, Any] = {
         "component_id": "%s/component-0" % part["part_id"],
         "center_ratio": [0.0, 0.0],
@@ -344,7 +430,69 @@ def _component_plan(
             [90.0, 180.0] if side == "LEFT" else
             [0.0, 90.0] if side == "RIGHT" else [0.0, 180.0]
         )
-    return [component]
+    return [component], basis
+
+
+def _typed_relation_rows(
+    request: Mapping[str, Any], parts: Sequence[Mapping[str, Any]],
+    records: Mapping[str, Mapping[str, Any]],
+) -> List[Dict[str, Any]]:
+    graph = request.get("visible_part_graph")
+    raw_rows = list(graph.get("relations", [])) if (
+        isinstance(graph, Mapping) and _sequence(graph.get("relations", []))) else []
+    for part in parts:
+        owner = part.get("owner_id", part.get("owner_part_id"))
+        if isinstance(owner, str) and owner:
+            raw_rows.append({
+                "parent_id": owner,
+                "child_id": part["part_id"],
+                "kind": part.get("relation_kind"),
+                "attachment_port": part.get("attachment_port"),
+                "attachment_side": part.get("attachment_side", part.get("side")),
+                "relation_id": part.get("relation_id"),
+                "source_state": part.get("ownership_state", PROPOSED),
+            })
+    result: List[Dict[str, Any]] = []
+    children = set()
+    relation_ids = set()
+    for index, raw in enumerate(raw_rows):
+        if not isinstance(raw, Mapping):
+            raise ValueError("visible relation %d must be a mapping" % index)
+        parent = raw.get("parent_id", raw.get("owner_id"))
+        child = raw.get("child_id", raw.get("owned_id"))
+        if parent not in records or child not in records or parent == child:
+            raise ValueError("visible relation references an unknown/cyclic part")
+        if child in children:
+            raise ValueError("a visible part cannot have multiple owners")
+        parent_layer = int(records[str(parent)]["layer"])
+        child_layer = int(records[str(child)]["layer"])
+        default_kind = "LAYER" if child_layer > parent_layer else "JOIN"
+        kind = str(raw.get("kind") or default_kind).upper()
+        if kind not in {"JOIN", "LAYER", "ATTACH"}:
+            raise ValueError("visible relation kind must be JOIN/LAYER/ATTACH")
+        row = _relation(str(parent), str(child), kind, records[str(child)])
+        relation_id = raw.get("relation_id") or row["relation_id"]
+        if not isinstance(relation_id, str) or not relation_id or relation_id in relation_ids:
+            raise ValueError("visible relation ids must be unique")
+        port = raw.get("attachment_port") or row["attachment_port"]
+        if not isinstance(port, str) or not port:
+            raise ValueError("visible relation attachment_port must be explicit")
+        side = str(raw.get("attachment_side") or row["attachment_side"]).upper()
+        if side not in {"LEFT", "RIGHT", "CENTER", "BILATERAL", "FULL"}:
+            side = "CENTER"
+        row.update({
+            "relation_id": relation_id,
+            "attachment_port": port,
+            "attachment_side": side,
+            "source_relation_state": str(raw.get(
+                "source_state", raw.get("state", PROPOSED))),
+            "ledger_relation_preserved": True,
+        })
+        result.append(row)
+        children.add(str(child))
+        relation_ids.add(relation_id)
+    result.sort(key=lambda row: row["relation_id"])
+    return result
 
 
 def _surface_plan(
@@ -375,9 +523,10 @@ def _surface_plan(
                         if world else body_x)
         ease = max(0.0, min(15.0, desired_half - body_x))
         surface_id = str(part["part_id"])
-        components = _component_plan(
+        components, component_basis = _component_plan(
             part, unit_size=units[(str(part["garment_unit"]), int(part["layer"]))],
             layer=int(part["layer"]),
+            world_outline=world,
         )
         surface = {
             "surface_id": surface_id,
@@ -386,6 +535,7 @@ def _surface_plan(
             "ease_cm": round(ease, 8),
             "material_id": "unmeasured:%s" % part["garment_unit"],
             "components": components,
+            "component_basis": component_basis,
         }
         surfaces.append(surface)
         area = ((max(p[0] for p in world) - min(p[0] for p in world))
@@ -394,6 +544,7 @@ def _surface_plan(
             "unit": str(part["garment_unit"]), "layer": int(part["layer"]),
             "side": str(part["side"]), "area": area,
             "y_range": y_range,
+            "component_basis": component_basis,
         }
         if len(world) >= 3:
             cues.append({
@@ -408,8 +559,8 @@ def _surface_plan(
             })
 
     surfaces.sort(key=lambda row: (int(row["layer"]), str(row["surface_id"])))
-    relations: List[Dict[str, Any]] = []
-    owned = set()
+    relations = _typed_relation_rows(request, parts, records)
+    owned = {str(row["child_id"]) for row in relations}
     grouped: Dict[Tuple[str, int], List[str]] = {}
     for surface_id, record in records.items():
         grouped.setdefault((record["unit"], record["layer"]), []).append(surface_id)
@@ -419,6 +570,8 @@ def _surface_plan(
         ordered = sorted(surface_ids, key=lambda item: (-records[item]["area"], item))
         roots[key] = ordered[0]
         for child in ordered[1:]:
+            if child in owned:
+                continue
             relations.append(_relation(ordered[0], child, "JOIN", records[child]))
             owned.add(child)
 
@@ -622,7 +775,132 @@ def _rear_variant_mesh(
         "face_node_ids": face_ids,
         "face_layers": [layers.get(part_id, 0) for part_id in face_ids],
         "vertex_layers": [int(row.get("layer", 0)) for row in states],
+        "geometry_source": "SECOND_SKIN_PLUS_CANDIDATE_REAR_PROPOSAL",
+        "generic_cape_fallback": False,
     }
+
+
+def _polyline_length(
+    vertices: Sequence[Sequence[float]], vertex_ids: Sequence[int], *, closed: bool,
+) -> float:
+    if len(vertex_ids) < 2:
+        return 0.0
+    pairs = list(zip(vertex_ids, vertex_ids[1:]))
+    if closed:
+        pairs.append((vertex_ids[-1], vertex_ids[0]))
+    return math.fsum(math.sqrt(math.fsum(
+        (float(vertices[left][axis]) - float(vertices[right][axis])) ** 2
+        for axis in range(3)
+    )) for left, right in pairs)
+
+
+def _candidate_pattern_interface(
+    second_skin: Mapping[str, Any], mesh: Mapping[str, Any], candidate_id: str,
+) -> Dict[str, Any]:
+    """Bind proposed pattern boundaries to one exact rear-candidate mesh."""
+    interface = copy.deepcopy(second_skin["pattern_interface"])
+    vertices = mesh["vertices"]
+    boundary_rows = interface.get("pattern_boundary_candidates", [])
+    for boundary in boundary_rows:
+        ids = [int(value) for value in boundary.get("vertex_ids", [])]
+        positions = [copy.deepcopy(vertices[index]) for index in ids]
+        boundary["candidate_id"] = candidate_id
+        boundary["candidate_vertices_cm"] = positions
+        boundary["candidate_polyline_length_cm"] = round(_polyline_length(
+            vertices, ids, closed=bool(boundary.get("closed_loop"))), 12)
+        boundary["candidate_geometry_digest"] = stable_digest({
+            "candidate_id": candidate_id,
+            "boundary_id": boundary.get("boundary_id"),
+            "positions_cm": positions,
+        })
+        boundary["rear_observed"] = False
+        boundary["material_observed"] = False
+    component_rows = second_skin["topology"].get("components", [])
+    component_ranges = [
+        (int(row["vertex_range"][0]), int(row["vertex_range"][1]), row)
+        for row in component_rows
+    ]
+
+    def loop_is_closed(ids: Sequence[int]) -> bool:
+        matching = [row for start, end, row in component_ranges
+                    if ids and all(start <= value < end for value in ids)]
+        if len(matching) != 1:
+            raise ValueError("pattern loop does not belong to one typed component")
+        return bool(matching[0]["closed_radial_shell"])
+
+    attachment_rows = interface.get("attachment_boundary_candidates", [])
+    for boundary in attachment_rows:
+        parent_loops = boundary.get("parent_vertex_loops", [])
+        child_loops = boundary.get("child_vertex_loops", [])
+
+        def bind(loops: Any) -> List[Dict[str, Any]]:
+            if not _sequence(loops):
+                return []
+            rows = []
+            for loop in loops:
+                ids = [int(value) for value in loop]
+                positions = [copy.deepcopy(vertices[index]) for index in ids]
+                closed = loop_is_closed(ids)
+                rows.append({
+                    "vertex_ids": ids,
+                    "vertices_cm": positions,
+                    "closed_loop": closed,
+                    "length_cm": round(_polyline_length(
+                        vertices, ids, closed=closed), 12),
+                })
+            return rows
+
+        boundary["candidate_id"] = candidate_id
+        boundary["parent_candidate_loops"] = bind(parent_loops)
+        boundary["child_candidate_loops"] = bind(child_loops)
+        boundary["candidate_geometry_digest"] = stable_digest({
+            "candidate_id": candidate_id,
+            "parent": boundary["parent_candidate_loops"],
+            "child": boundary["child_candidate_loops"],
+        })
+        boundary["rear_observed"] = False
+        boundary["material_observed"] = False
+    component_bindings = []
+    surface_layers = {
+        row["surface_id"]: int(row["layer"])
+        for row in second_skin["topology"]["surfaces"]
+    }
+    for start, end, component in component_ranges:
+        ids = list(range(start, end))
+        positions = [copy.deepcopy(vertices[index]) for index in ids]
+        component_bindings.append({
+            "candidate_id": candidate_id,
+            "surface_id": component["surface_id"],
+            "component_id": component["component_id"],
+            "layer": surface_layers[component["surface_id"]],
+            "closed_radial_shell": bool(component["closed_radial_shell"]),
+            "vertex_ids": ids,
+            "candidate_geometry_digest": stable_digest({
+                "candidate_id": candidate_id,
+                "surface_id": component["surface_id"],
+                "component_id": component["component_id"],
+                "positions_cm": positions,
+            }),
+        })
+    component_bindings.sort(key=lambda row: (
+        row["layer"], row["surface_id"], row["component_id"]))
+    interface.update({
+        "candidate_id": candidate_id,
+        "candidate_specific": True,
+        "generic_cape_fallback": False,
+        "source_mesh_digest": stable_digest(mesh),
+        "source_topology_digest": stable_digest(second_skin["topology"]),
+        "source_front_digest": second_skin["source_front_contract"]["digest"],
+        "component_mesh_bindings": component_bindings,
+        "rear_state": "PROPOSED_UNOBSERVED",
+        "material_state": "UNKNOWN_UNOBSERVED",
+        "manufacturing_ready": False,
+        "manufacturing_certified": False,
+    })
+    interface["digest"] = stable_digest({
+        key: value for key, value in interface.items() if key != "digest"
+    })
+    return interface
 
 
 def _candidate_payloads(
@@ -630,31 +908,48 @@ def _candidate_payloads(
     approvals: Mapping[str, Any],
 ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
-    front_ids = [index for index, state in enumerate(second_skin["vertex_states"])
-                 if bool(state.get("front_hemisphere"))]
+    front_contract = second_skin.get("source_front_contract")
+    if not isinstance(front_contract, Mapping):
+        raise ValueError("second skin lacks a typed source-front contract")
+    raw_front_ids = front_contract.get("vertex_ids")
+    if not _sequence(raw_front_ids):
+        raise ValueError("second skin source-front ids are unavailable")
+    front_ids = [int(value) for value in raw_front_ids]
     source_front = [[index, second_skin["mesh"]["vertices_cm"][index]]
                     for index in front_ids]
     source_front_digest = stable_digest(source_front)
+    if source_front_digest != front_contract.get("digest"):
+        raise ValueError("second skin source-front contract digest changed")
     for index, rear_row in enumerate(rear.get("candidates", [])):
         candidate_id = str(rear_row["candidate_id"])
+        candidate_mesh = _rear_variant_mesh(second_skin, rear_row, index)
+        pattern_interface = _candidate_pattern_interface(
+            second_skin, candidate_mesh, candidate_id)
         row: Dict[str, Any] = {
             "candidate_id": candidate_id,
             "candidate_digest": rear_row["candidate_digest"],
             "domain": "BACK_STRUCTURE",
-            "authority": {"rear": PROPOSED, "material": "UNKNOWN"},
-            "mesh": _rear_variant_mesh(second_skin, rear_row, index),
+            "authority": {
+                "rear": PROPOSED,
+                "rear_observed": False,
+                "material": "UNKNOWN_UNOBSERVED",
+                "material_observed": False,
+            },
+            "mesh": candidate_mesh,
             "part_bindings": {surface["surface_id"]: surface["surface_id"]
                               for surface in second_skin["topology"]["surfaces"]},
             "pattern_handoff": {
                 "candidate_id": candidate_id,
                 "state": PROPOSED,
-                "boundary_candidates": copy.deepcopy(
-                    second_skin["pattern_interface"]),
+                "boundary_candidates": pattern_interface,
                 "sewing_order": [],
                 "sewability": "NOT_EVALUATED",
             },
+            "pattern_interface": pattern_interface,
             "rear_candidate": copy.deepcopy(rear_row),
             "source_front_digest": source_front_digest,
+            "source_front_invariant": False,
+            "generic_cape_fallback": False,
         }
         approval = approvals.get(candidate_id)
         if isinstance(approval, Mapping):
@@ -664,13 +959,18 @@ def _candidate_payloads(
     for row in rows:
         candidate_front = [[index, row["mesh"]["vertices"][index]]
                            for index in front_ids]
+        identical = candidate_front == source_front
+        row["source_front_invariant"] = identical
         front_checks.append({
             "candidate_id": row["candidate_id"],
             "front_digest": stable_digest(candidate_front),
-            "identical_to_second_skin_front": candidate_front == source_front,
+            "identical_to_second_skin_front": identical,
+            "pattern_interface_digest": row["pattern_interface"]["digest"],
         })
     return rows, {
         "source_front_digest": source_front_digest,
+        "source_front_contract_digest": front_contract["digest"],
+        "source_front_contract_verified": True,
         "front_vertex_count": len(front_ids),
         "candidates": front_checks,
         "all_candidates_preserve_identical_front": bool(front_checks) and all(
