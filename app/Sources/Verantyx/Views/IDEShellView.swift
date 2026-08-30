@@ -52,6 +52,12 @@ struct IDEShellView: View {
     @State private var hasUnsavedChanges = false
     @State private var editorScrollCommand: EditorScrollCommand? = nil
 
+    /// 名前を付け替えている最中の会話と、その入力欄の中身。
+    /// 新規作成は名前を訊かずに作る(押した瞬間に始められる方が速い)ので、
+    /// **名前は後から付ける** — その入口がこれ。
+    @State private var renamingSessionId: UUID? = nil
+    @State private var renameText: String = ""
+
     var body: some View {
         normalLayout
         .onChange(of: app.selectedFile) { _, url in loadFileIntoEditor(url: url) }
@@ -309,7 +315,9 @@ struct IDEShellView: View {
                 .sorted { $0.createdAt > $1.createdAt }
                 .map { s in
                     RailProject(id: s.id.uuidString,
-                               name: s.title.isEmpty ? app.t("New chat", "新しいチャット") : s.title,
+                               name: s.title.isEmpty
+                                     ? app.t("Untitled chat", "名前のないチャット")
+                                     : s.title,
                                kind: .chat, createdAt: s.createdAt,
                                isActive: s.id == app.sessions.activeSessionId)
                 }
@@ -352,6 +360,7 @@ struct IDEShellView: View {
                 }
             }
         }
+        .background(renameSessionAlert)
     }
 
     private func projectRowButton(_ row: RailProject) -> some View {
@@ -381,6 +390,41 @@ struct IDEShellView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .contextMenu {
+            if row.kind == .chat, let id = UUID(uuidString: row.id) {
+                Button(app.t("Rename…", "名前を変更…")) {
+                    let current = app.sessions.sessions.first(where: { $0.id == id })
+                    renameText = current?.title ?? ""
+                    renamingSessionId = id
+                }
+            }
+        }
+    }
+
+    /// 名前を付ける入口。**新規作成では訊かない** — 押した瞬間に会話を
+    /// 始められる方が速く、名前は服を送れば特徴から付く。人が先に付けたい
+    /// ときと、付いた名前を直したいときのために、ここを開けておく。
+    private var renameSessionAlert: some View {
+        EmptyView()
+            .alert(app.t("Rename chat", "チャットの名前を変更"),
+                  isPresented: Binding(
+                      get: { renamingSessionId != nil },
+                      set: { if !$0 { renamingSessionId = nil } }
+                  )) {
+                TextField(app.t("Name", "名前"), text: $renameText)
+                Button(app.t("Cancel", "取消"), role: .cancel) {
+                    renamingSessionId = nil
+                }
+                Button(app.t("Save", "保存")) {
+                    if let id = renamingSessionId {
+                        app.sessions.rename(id, to: renameText)
+                    }
+                    renamingSessionId = nil
+                }
+            } message: {
+                Text(app.t("This name stays — it is not overwritten by the conversation or by the garment.",
+                          "ここで付けた名前は残ります。会話や服の特徴で上書きされません。"))
+            }
     }
 
     /// 一つの行を選ぶ ── 服飾なら前面の名前を替えて服飾タブを開く、

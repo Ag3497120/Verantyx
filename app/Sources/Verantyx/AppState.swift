@@ -1996,6 +1996,34 @@ final class AppState: ObservableObject {
         }
     }
 
+    /// 起動時に、最後に使っていた会話の本文を戻す。
+    ///
+    /// **これが無いのが「アプリを開き直すと会話履歴が消える」の本体だった。**
+    /// `SessionStore.init` はディスクから会話を復号して `sessions` と
+    /// `activeSessionId` を戻していたが、**`messages` は空のまま**だった。
+    /// 画面は `messages` を見るので履歴は消えたように見え、さらに悪いことに
+    /// `activeSessionId` だけが最後の会話に向いているので、次の発言が
+    /// その会話の続きとして保存され、1発言だけの本文で JSON が上書き
+    /// された — 見えないだけでなく、**実際に消えていた**。
+    ///
+    /// 復号は `Task.detached` なので、`didLoad` が立つまで待つ。待たずに
+    /// 読むと「まだ空」を「会話が無い」と取り違える。
+    func restoreLastSessionOnLaunch() {
+        guard messages.isEmpty else { return }
+        Task { @MainActor in
+            // 上限つきの待ち。立たないまま抜けたときは**何もしない** —
+            // 復元できないことより、空の本文で上書きする方が悪い。
+            for _ in 0..<200 {
+                if sessions.didLoad { break }
+                try? await Task.sleep(nanoseconds: 50_000_000)   // 50ms × 200 = 10s
+            }
+            guard sessions.didLoad,
+                  messages.isEmpty,
+                  let id = sessions.activeSessionId else { return }
+            restoreSession(id)
+        }
+    }
+
     /// Restore a past session by its ID (loads messages + memory injection).
     func restoreSession(_ sessionId: UUID) {
         guard let session = sessions.sessions.first(where: { $0.id == sessionId }) else { return }
@@ -3626,31 +3654,68 @@ final class AppState: ObservableObject {
 
     // MARK: - Model actions
 
-    func connectOllama() {
+    /// Ollama に繋ぎにいく。
+    ///
+    /// - Parameter announce: 人が「繋いで」と言ったのか、起動時の下見か。
+    ///
+    /// **起動時に赤い ERROR と警告を出していたのはここだった。** Ollama は
+    /// 11 ある backend の 1 つで、Claude / MLX / LM Studio / JGEN / BitNet
+    /// だけを使う人にも `MainSplitView.onAppear` から無条件で走り、
+    /// `localhost:11434` が居なければ `.error` と橙のトーストを出していた。
+    /// `OllamaClient.listModels()` は接続拒否も空配列で返すので、
+    /// **「入れていない」と「入れたがモデルが無い」が区別できない** —
+    /// 区別できないものを断定して警告するのは、この製品の規律に反する。
+    ///
+    /// `announce == false`(起動時の下見)では:
+    /// - 見つかれば拾う。ただし**まだ何も選ばれていないときだけ** —
+    ///   人が選んだ backend を下見が塗り替えない。
+    /// - 見つからなければ**何も言わず、`modelStatus` にも触らない。**
+    ///   Ollama を使っていない人にとって、それは異常ではない。
+    func connectOllama(announce: Bool = true) {
         // Wire CI/CD error → agent auto-reply loop (once)
         registerCIErrorHook()
         Task {
-            modelStatus = .connecting
+            if announce { modelStatus = .connecting }
             let models = await OllamaClient.shared.listModels()
             await MainActor.run {
                 ollamaModels = models
+                // 下見が上書きしてよいのは「まだ何も決まっていない」状態だけ。
+                let mayTakeOver: Bool = {
+                    if announce { return true }
+                    switch modelStatus {
+                    case .none, .connecting: return true
+                    default:                 return false
+                    }
+                }()
+                var chosen: String? = nil
                 if models.contains(activeOllamaModel) {
-                    modelStatus = .ollamaReady(model: activeOllamaModel)
-                    ToastManager.shared.show("\(activeOllamaModel) ready", icon: "checkmark.circle.fill", color: .green)
+                    chosen = activeOllamaModel
                 } else if models.contains("gemma4:26b") {
                     activeOllamaModel = "gemma4:26b"
-                    modelStatus = .ollamaReady(model: "gemma4:26b")
-                    ToastManager.shared.show("gemma4:26b ready", icon: "checkmark.circle.fill", color: .green)
-                } else if !models.isEmpty {
-                    let m = models.first!
-                    activeOllamaModel = m
-                    modelStatus = .ollamaReady(model: m)
-                    ToastManager.shared.show("\(m) ready", icon: "checkmark.circle.fill", color: .green)
-                } else {
-                    modelStatus = .error("No Ollama models found")
-                    ToastManager.shared.show("No Ollama models. Run: ollama pull gemma4:26b",
-                                            icon: "exclamationmark.triangle.fill", color: .orange, duration: 4.5)
+                    chosen = "gemma4:26b"
+                } else if let first = models.first {
+                    activeOllamaModel = first
+                    chosen = first
                 }
+                if let m = chosen {
+                    if mayTakeOver {
+                        modelStatus = .ollamaReady(model: m)
+                        if announce {
+                            ToastManager.shared.show("\(m) ready",
+                                                    icon: "checkmark.circle.fill", color: .green)
+                        }
+                    }
+                } else if announce {
+                    // 人が明示的に繋ぎにきたときだけ報せる。断定はしない —
+                    // 空配列は「起動していない」と「モデルが無い」の両方で出る。
+                    modelStatus = .error(t("Ollama did not answer",
+                                          "Ollama から応答がありません"))
+                    ToastManager.shared.show(
+                        t("Ollama did not answer on \(ollamaEndpoint). It may not be running, or it may have no models yet.",
+                          "\(ollamaEndpoint) の Ollama から応答がありません。起動していないか、モデルがまだ無い可能性があります。"),
+                        icon: "exclamationmark.triangle.fill", color: .orange, duration: 4.5)
+                }
+                // announce == false でモデルが無い場合は、意図的に何もしない。
             }
         }
     }

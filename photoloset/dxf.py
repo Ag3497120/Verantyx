@@ -89,10 +89,34 @@ LAYER_NOTCH = "NOTCHES"
 LAYER_GRAIN = "GRAIN_LINES"
 LAYER_LABEL = "LABELS"
 
-#: AutoCAD Color Index。7=既定(白/黒)、1=赤、5=青、3=緑。
+#: 出所の判子。**幾何ではなく、幾何の出どころを言う層。**
+#:
+#: 正面一枚から起こした型紙は、裁片ごとに「見えていたから引けた」ものと
+#: 「見えていないので候補から起こした」ものが混ざる。混ざること自体は
+#: 避けられない(背面は観測できない)ので、**混ざっていることが図面の上で
+#: 読めるかどうか**が分かれ目になる。この層は裁片名の下に band を書く
+#: だけで、線は一本も動かさない — 上の「新しい幾何や規則を持ち込まない」
+#: に留まる。
+LAYER_BAND = "PROVENANCE"
+
+#: AutoCAD Color Index。7=既定(白/黒)、1=赤、5=青、3=緑、2=黄。
 _LAYER_COLOR = {LAYER_SEW: 7, LAYER_CUT: 1, LAYER_NOTCH: 5,
-               LAYER_GRAIN: 3, LAYER_LABEL: 7}
-_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_GRAIN, LAYER_LABEL)
+               LAYER_GRAIN: 3, LAYER_LABEL: 7, LAYER_BAND: 2}
+_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_GRAIN, LAYER_LABEL,
+               LAYER_BAND)
+
+#: ``garment.Ledger`` が使う語をそのまま借りる。**ここで新しい band を
+#: 作らない** — 出所を決めるのは台帳であって、書き出しではない。
+BANDS = ("OBSERVED", "CONTESTED", "INFERRED", "PROPOSED",
+        "UNKNOWN_NOT_OBSERVED")
+
+#: 裁片が band を申告してこなかったとき。**断らない。**
+#:
+#: 「型紙は必ず出力される。変わるのはどこに何の判子が押されているか」が
+#: この経路の約束なので、申告が無いことを理由に書き出しを止めると約束の
+#: 方が壊れる。止める代わりに**申告が無いという事実を図面に書く** —
+#: 黙って無印の裁片を出すことだけは、この層を足した意味を消すのでしない。
+BAND_NOT_STATED = "UNKNOWN_BAND_NOT_STATED"
 
 #: TEXT の既定スタイル名と、そこに割り当てるプライマリフォント。
 #: 「文字は正しくても、字形が無ければ描けない」節を参照 — STYLE
@@ -240,6 +264,8 @@ def to_dxf(marked_draft: Dict[str, Any]) -> Dict[str, Any]:
     piece_report: List[Dict[str, Any]] = []
     notch_lines: Dict[str, int] = {}
     cut_line_missing: List[Dict[str, str]] = []
+    band_counts: Dict[str, int] = {}
+    band_unstated: List[Dict[str, Any]] = []
     bbox = [None, None, None, None]  # minx, miny, maxx, maxy
 
     def track(x: float, y: float) -> None:
@@ -325,8 +351,21 @@ def to_dxf(marked_draft: Dict[str, Any]) -> Dict[str, Any]:
         track(lx, ly)
         entities.append(_text(LAYER_LABEL, lx, ly, 3.0, name))
 
+        # 出所の判子。裁片名のすぐ下に、名前より小さい字で置く —
+        # 図面を読む人が名前を読んだ流れでそのまま読める位置。
+        raw_band = p.get("band")
+        band = raw_band if raw_band in BANDS else BAND_NOT_STATED
+        if raw_band is not None and band == BAND_NOT_STATED:
+            band_unstated.append({"piece": name, "stated": str(raw_band)})
+        elif raw_band is None:
+            band_unstated.append({"piece": name, "stated": None})
+        band_counts[band] = band_counts.get(band, 0) + 1
+        by, bh = ly - 2.4, 2.0
+        track(lx, by)
+        entities.append(_text(LAYER_BAND, lx, by, bh, band))
+
         piece_report.append({"piece": name, "vertices": len(outline),
-                             "cut_vertices": len(cut_line)})
+                             "cut_vertices": len(cut_line), "band": band})
         w = max(xs) - min(xs)
         x_cursor += w + GAP_CM
 
@@ -339,7 +378,11 @@ def to_dxf(marked_draft: Dict[str, Any]) -> Dict[str, Any]:
               "DXF-AAMA conformance is claimed (that standard was "
               "withdrawn 2019-01 with no replacement). Units: "
               "centimetres. Layer SEWING_LINE is the finished stitch "
-              "line; CUT_LINE adds the seam allowance. Text is Shift_JIS "
+              "line; CUT_LINE adds the seam allowance. Layer PROVENANCE "
+              "carries, per piece, where that piece came from -- OBSERVED "
+              "was seen in the photograph, PROPOSED/INFERRED was not. A "
+              "piece that stated no band is stamped "
+              f"{BAND_NOT_STATED} rather than left blank. Text is Shift_JIS "
               f"({ENCODING}), declared in $DWGCODEPAGE.\n")
     doc = (comment + _header(tuple(bbox)) + _tables() + body + "0\nEOF\n")
 
@@ -355,7 +398,16 @@ def to_dxf(marked_draft: Dict[str, Any]) -> Dict[str, Any]:
             "この書き出しは規格適合を名乗りません。R12のグループコードを"
             "そのまま書いた素のDXFです",
         "layers": {"sew": LAYER_SEW, "cut": LAYER_CUT, "notch": LAYER_NOTCH,
-                  "grain": LAYER_GRAIN, "label": LAYER_LABEL},
+                  "grain": LAYER_GRAIN, "label": LAYER_LABEL,
+                  "band": LAYER_BAND},
+        "bands": dict(band_counts),
+        "band_unstated": band_unstated,
+        "band_note":
+            "裁片ごとの出所は PROVENANCE 層に、裁片名の下の文字として"
+            "入っています。band を申告しなかった裁片は書き出しを止めずに "
+            f"{BAND_NOT_STATED} と刻んであります — 無印で出すことだけは"
+            "しません。この層は線を一本も動かしていないので、幾何は band "
+            "を足す前と厳密に同じです",
         "placement": placement,
         "placement_note":
             "裁片ごとに X 方向へ平行移動しただけです(重ならないように"

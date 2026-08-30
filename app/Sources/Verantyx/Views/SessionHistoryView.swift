@@ -10,7 +10,6 @@ struct SessionHistoryView: View {
     @State private var editTitle: String = ""
     @State private var confirmDeleteId: UUID? = nil
     @State private var showLayerPickerFor: UUID? = nil
-    @State private var showNewSessionSheet = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,16 +22,11 @@ struct SessionHistoryView: View {
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.95))
                 Spacer()
-                Button {
-                    showNewSessionSheet = true
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 14))
-                        .foregroundStyle(Theme.sel)
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .help(app.t("New session", "新しいセッション"))
+                // 新規作成の「＋」はここには置かない。左レールの PROJECTS
+                // の「＋」に一本化した(2026-08-30) — 同じことをする入口が
+                // 二つあり、片方はモーダルを挟み、片方は挟まないので、
+                // 「新規チャットを押したら何が起きるか」が場所で変わって
+                // いた。ここは**履歴を見る場所**に徹する。
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
@@ -71,9 +65,6 @@ struct SessionHistoryView: View {
             }
         }
         .background(Theme.panel2)
-        .sheet(isPresented: $showNewSessionSheet) {
-            NewSessionSheet().environmentObject(app)
-        }
         .confirmationDialog(
             app.t("Delete this session?", "セッションを削除しますか？"),
             isPresented: Binding(
@@ -163,7 +154,12 @@ struct SessionRowView: View {
                                 editingId = nil
                             }
                     } else {
-                        Text(session.title)
+                        // 名前は作った時点では空。まだ何も無いことを
+                        // 「New Session」と嘘の名前で埋めない — 仮の名前
+                        // だと分かる字で出し、服を送れば特徴が名前になる。
+                        Text(session.title.isEmpty
+                             ? app.t("Untitled chat", "名前のないチャット")
+                             : session.title)
                             .font(.system(size: 12, weight: isActive ? .semibold : .regular))
                             .foregroundStyle(isActive
                                              ? Color.white

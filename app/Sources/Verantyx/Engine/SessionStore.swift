@@ -14,9 +14,22 @@ struct ChatSession: Identifiable, Codable {
     var memoryNodeIds: [String]    // filenames in JCross memory (e.g. "TURN_1234.jcross")
     var activeLayer: JCrossLayer
 
+    /// この名前は**人か AI が意図して付けたもの**か。
+    ///
+    /// `autoTitle()` は最初のユーザー発言の先頭40字で名前を上書きする。
+    /// それ自体は空の名前を埋めるのに要るが、**付け直した名前まで毎ターン
+    /// 上書きしていた** — 名前を変えても次の発言で消えるので、名前を
+    /// 付ける機能が事実上効かなかった。ここが立つと `autoTitle()` は
+    /// 手を引く。
+    ///
+    /// `Optional` なのは既存のセッション JSON にこの鍵が無いため。
+    /// 非 Optional にすると合成された `init(from:)` が `keyNotFound` を
+    /// 投げ、**保存済みの会話が一つも読めなくなる**(既定値は復号に効かない)。
+    var titleLocked: Bool?
+
     init(
         id: UUID = UUID(),
-        title: String = "New Session",
+        title: String = "",
         messages: [ChatMessage] = [],
         workspacePath: String? = nil
     ) {
@@ -28,14 +41,28 @@ struct ChatSession: Identifiable, Codable {
         self.workspacePath = workspacePath
         self.memoryNodeIds = []
         self.activeLayer  = .l2
+        self.titleLocked  = nil
     }
 
     // Auto-title from first user message
     mutating func autoTitle() {
+        if titleLocked == true { return }
         if let first = messages.first(where: { $0.role == .user }) {
-            title = String(first.content.prefix(40))
+            let derived = String(first.content.prefix(40))
                         .trimmingCharacters(in: .whitespacesAndNewlines)
+            // 画像だけを送ったターンは本文が空になる。空で上書きすると
+            // 名無しに戻るので、**空は名前として採らない** — その場合は
+            // 名前が空のまま残り、服の特徴から付ける経路に譲る。
+            if !derived.isEmpty { title = derived }
         }
+    }
+
+    /// 意図して付けた名前。以後 `autoTitle()` は触らない。
+    mutating func setIntentionalTitle(_ newTitle: String) {
+        let t = newTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !t.isEmpty else { return }
+        title = String(t.prefix(60))
+        titleLocked = true
     }
 }
 
@@ -98,6 +125,14 @@ final class SessionStore: ObservableObject {
     @Published var sessions: [ChatSession] = []
     @Published var activeSessionId: UUID? = nil
 
+    /// ディスクからの復号が終わったか。**起動直後は `false`。**
+    ///
+    /// `init` の読み込みは `Task.detached` なので、起動直後に
+    /// `activeSessionId` を同期で読むと「まだ nil」か「もう復元済み」かが
+    /// 区別できない。会話の復元はこの旗が立ってから行う — 立つ前に
+    /// 書き込むと、**読み込み前の空の本文で保存済みの会話を潰す。**
+    @Published private(set) var didLoad: Bool = false
+
     var activeSession: ChatSession? {
         guard let id = activeSessionId else { return nil }
         return sessions.first(where: { $0.id == id })
@@ -136,6 +171,7 @@ final class SessionStore: ObservableObject {
             
             self?.sessions = decoded
             self?.activeSessionId = decoded.first?.id
+            self?.didLoad = true
         }
     }
 
@@ -150,14 +186,42 @@ final class SessionStore: ObservableObject {
         return session
     }
 
-    func updateActiveSession(messages: [ChatMessage], workspacePath: String? = nil) {
-        guard let id = activeSessionId,
-              let idx = sessions.firstIndex(where: { $0.id == id }) else { return }
+    /// 届いた本文は、保存済みの会話の**続き**か、それとも別の会話か。
+    ///
+    /// 保存は追記ではなく `sessions[idx].messages = clean` の**丸ごと
+    /// 置き換え**なので、活きている本文が別の会話だと、保存済みの会話が
+    /// その場で消える。実際に起きていた道筋: 起動時に `activeSessionId`
+    /// だけが最後の会話に向くが `messages` は空のまま → 最初の発言が
+    /// その会話の続きとして採用され → 1発言だけの本文で JSON が上書き
+    /// される。**同じ会話の続きなら最初の発言は同じもののはず**、を
+    /// 判定に使う。
+    private func continuesStored(_ stored: [ChatMessage],
+                                 _ incoming: [ChatMessage]) -> Bool {
+        guard let a = stored.first(where: { $0.role != .system }) else { return true }
+        guard let b = incoming.first(where: { $0.role != .system }) else { return false }
+        return a.id == b.id
+    }
+
+    private func cleaned(_ messages: [ChatMessage]) -> [ChatMessage] {
         // Strip any empty-content assistant bubbles that were created mid-stream
         // (e.g. the placeholder appended before the first token arrives).
         // These appear as blank bubbles when a session is restored.
-        let clean = messages.filter { msg in
+        messages.filter { msg in
             !(msg.role == .assistant && msg.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }
+    }
+
+    func updateActiveSession(messages: [ChatMessage], workspacePath: String? = nil) {
+        guard let id = activeSessionId,
+              let idx = sessions.firstIndex(where: { $0.id == id }) else { return }
+        let clean = cleaned(messages)
+        // 空の本文で保存済みの会話を潰さない。書くものが無いだけで、
+        // 消す理由にはならない。
+        guard !clean.isEmpty else { return }
+        if !continuesStored(sessions[idx].messages, clean) {
+            // 別の会話。潰す代わりに、新しいセッションとして受け止める。
+            _ = newSession(messages: clean, workspacePath: workspacePath)
+            return
         }
         sessions[idx].messages     = clean
         sessions[idx].updatedAt    = Date()
@@ -173,8 +237,14 @@ final class SessionStore: ObservableObject {
     func saveForQuit(messages: [ChatMessage], workspacePath: String? = nil) {
         guard let id = activeSessionId,
               let idx = sessions.firstIndex(where: { $0.id == id }) else { return }
-        let clean = messages.filter { msg in
-            !(msg.role == .assistant && msg.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        let clean = cleaned(messages)
+        // 終了時も同じ規律。**終了は上書きの理由にならない。**
+        guard !clean.isEmpty else { return }
+        guard continuesStored(sessions[idx].messages, clean) else {
+            // 別の会話を抱えたまま終了した。終了経路で新しいセッションを
+            // 起こすと保存順が乱れるので、ここは**書かない**方を選ぶ。
+            // 保存済みの会話はそのまま残る。
+            return
         }
         sessions[idx].messages  = clean
         sessions[idx].updatedAt = Date()
@@ -201,7 +271,20 @@ final class SessionStore: ObservableObject {
 
     func rename(_ sessionId: UUID, to newTitle: String) {
         guard let idx = sessions.firstIndex(where: { $0.id == sessionId }) else { return }
-        sessions[idx].title = newTitle
+        // 付け直した名前は以後 `autoTitle()` に消させない。
+        sessions[idx].setIntentionalTitle(newTitle)
+        save(sessions[idx])
+    }
+
+    /// 服の特徴から付いた名前(例:「緑色のスカート」)を採る。
+    ///
+    /// `rename` と分けてあるのは呼ぶ側の意図が違うから — こちらは人が
+    /// まだ名前を付けていないときだけ効かせたい。**人が付けた名前を
+    /// AI が塗り替えない。**
+    func applyDerivedTitle(_ derived: String, to sessionId: UUID) {
+        guard let idx = sessions.firstIndex(where: { $0.id == sessionId }) else { return }
+        guard sessions[idx].titleLocked != true else { return }
+        sessions[idx].setIntentionalTitle(derived)
         save(sessions[idx])
     }
 

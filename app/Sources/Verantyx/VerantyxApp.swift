@@ -313,6 +313,10 @@ struct VerantyxApp: App {
                     appState.loadPersistedSettings()
                     Self.applyTestScreenIfRequested(appState)
 
+                    // 前回の会話を戻す。SessionStore の復号を待ってから
+                    // 動くので、ここで呼んで順序の心配は要らない。
+                    appState.restoreLastSessionOnLaunch()
+
                     appState.registerCIErrorHook()
                     appState.registerRestartHook()
                     MCPBridgeLauncher.shared.start {

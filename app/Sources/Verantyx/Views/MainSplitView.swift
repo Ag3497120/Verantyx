@@ -66,11 +66,14 @@ struct MainSplitView: View {
         .toolbar { toolbarContent }
         // 自動接続は LLM を使うモードだけ(2026-08-19)。Vera 単体/ぼっとで
         // Ollama の接続警告が出るのは説明と矛盾する。
-        .onAppear { if app.usesLLMBackend { app.connectOllama() } }
+        // どちらも「下見」— 見つかれば拾い、居なければ黙る。Ollama は
+        // 11 ある backend の 1 つなので、居ないことは異常ではない。
+        // 人が明示的に繋ぎにいったときだけ結果を報せる(announce: true)。
+        .onAppear { if app.usesLLMBackend { app.connectOllama(announce: false) } }
         .onChange(of: app.veraEngineMode) { _, _ in
             // モードを LLM 側へ戻したらそこで繋ぐ — 起動時に諦めたままに
             // しない。
-            if app.usesLLMBackend { app.connectOllama() }
+            if app.usesLLMBackend { app.connectOllama(announce: false) }
         }
         // ── Human Mode: file write approval sheet ────────────────────────────
         .sheet(item: $app.pendingFileApproval) { req in
