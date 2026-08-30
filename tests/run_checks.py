@@ -4348,7 +4348,11 @@ def the_dress_walks_every_stage_past_composition() -> None:
                   {"piece": "衿",
                    "verdict": "UNKNOWN_SEAM_ALLOWANCE_NOT_STATED"}]
               and sum(out["notch_lines"].values()) == 0
-              and out["extents_cm"]["min"] == [10.0, -37.1]
+              # y の下端が -37.1 から -39.5cm へ 2.4cm 下がった。増えたのは
+              # PROVENANCE 層の判子で、裁片名の 2.4cm 下に置いてある。
+              # **判子も範囲に数える。** 数えないと、書いた文字が宣言した
+              # 範囲の外に出て、範囲が図面の中身について嘘をつく。
+              and out["extents_cm"]["min"] == [10.0, -39.5]
               # x の右端が 286.026 から 285.865cm へ 0.161cm 縮んだ。
               # 消えたのは衿の裁ち切り線で、0cm でも角の面取りの分だけ
               # 出来上がり線の外に出ていた。
@@ -4378,8 +4382,14 @@ def the_dress_walks_every_stage_past_composition() -> None:
     check("the dress has not moved",
           dd["geometry"] == dress_digest.GEOMETRY_DIGEST
           and not dd["errors"]
+          # Re-pinned 2026-08-30 with dxf.py's PROVENANCE layer. Measured
+          # against a worktree of the parent commit, not eyeballed: 15 of
+          # the 16 sections are byte-identical and only `dxf` moved
+          # (18,244 -> 21,045 bytes). The literal is repeated here on
+          # purpose — editing tests/dress_digest.py alone must not be
+          # enough to move the dress quietly.
           and dress_digest.GEOMETRY_DIGEST
-          == "99eaa1ff3f965812f200731be9eecb9e"
+          == "10c2b18193686a320762f70664bbe965"
           and len(dress_digest.GEOMETRY) == 16,
           f'geometry {dd["geometry"]} over {len(dress_digest.GEOMETRY)} '
           f'sections, recomputable by anyone with '
@@ -6535,7 +6545,7 @@ def pattern_exports_to_a_cad_file() -> None:
                                  if t == "LAYER")
             expected_layers = sorted([_dxf.LAYER_SEW, _dxf.LAYER_CUT,
                                       _dxf.LAYER_NOTCH, _dxf.LAYER_GRAIN,
-                                      _dxf.LAYER_LABEL])
+                                      _dxf.LAYER_LABEL, _dxf.LAYER_BAND])
             header_block = next(
                 (c for t, c in blocks if t == "SECTION"
                 and c.get(2, [""])[0] == "HEADER"), {})
@@ -6554,22 +6564,42 @@ def pattern_exports_to_a_cad_file() -> None:
             # NOT a count on its own: the decoded TEXT strings must equal the
             # real piece names (a writer that labelled every piece "PIECE"
             # would still pass a count-only check but fails this).
-            text_names = sorted(t["text"] for t in texts)
+            # TEXT now comes in two kinds and they are NOT interchangeable:
+            # the piece name on LABELS, and the provenance band on
+            # PROVENANCE. Reading them as one pool would let a writer that
+            # stamped a band where a name belongs still pass, so each is
+            # counted and read on its own layer.
+            label_texts = [t for t in texts if t["layer"] == _dxf.LAYER_LABEL]
+            band_texts = [t for t in texts if t["layer"] == _dxf.LAYER_BAND]
+            text_names = sorted(t["text"] for t in label_texts)
             expected_names = sorted(p["name"] for p in marked["pieces"])
+            # **One name is counted and the same name is iterated.** Reading
+            # the count off `band_texts` while sweeping `band_values` reports
+            # a number the condition never actually asserts on — the exact
+            # shape tests/unfalsifiable.py's T6 exists to catch, and it did.
+            band_values = sorted(t["text"] for t in band_texts)
             check("the DXF file parses as group-code pairs",
                   section_names == ["HEADER", "TABLES", "ENTITIES"]
                   and endsec == 3 and eof == 1
                   and layer_names == expected_layers
                   and dwgcodepage == _dxf.DWGCODEPAGE
                   and total_vertices == expected_vertices > 0
-                  and len(texts) == len(marked["pieces"]) == 3
-                  and text_names == expected_names,
+                  and len(label_texts) == len(marked["pieces"]) == 3
+                  and text_names == expected_names
+                  # Non-emptiness asserted on the very list swept below, so
+                  # the all() cannot pass by being vacuous.
+                  and len(band_values) == 3
+                  and all(b in _dxf.BANDS or b == _dxf.BAND_NOT_STATED
+                          for b in band_values),
                   f'sections {section_names}, {endsec} ENDSEC, {eof} EOF, '
                   f'{len(layer_names)} layers {layer_names}, '
                   f'$DWGCODEPAGE={dwgcodepage}, {total_vertices} POLYLINE '
                   f'vertices == {expected_vertices} expected from the '
-                  f'draft outlines plus the cut lines, {len(texts)} TEXT '
-                  f'labels reading {text_names} for pieces {expected_names}')
+                  f'draft outlines plus the cut lines, {len(label_texts)} '
+                  f'TEXT labels reading {text_names} for pieces '
+                  f'{expected_names}, and {len(band_values)} provenance '
+                  f'stamps reading {band_values} — every one a word the '
+                  f'ledger uses, none blank and none invented')
 
         with guard("every draft vertex survives to its DXF coordinate"):
             n_pieces = len(marked["pieces"])

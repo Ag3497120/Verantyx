@@ -1289,7 +1289,7 @@ WHOLE_SUITE += [
     # generator, checked the same way #22 checks the coat's.
     ("the pinned dress digest is not the one it recomputes",
      "tests/dress_digest.py",
-     [('GEOMETRY_DIGEST = "99eaa1ff3f965812f200731be9eecb9e"',
+     [('GEOMETRY_DIGEST = "10c2b18193686a320762f70664bbe965"',
        'GEOMETRY_DIGEST = "0" * 32')],
      ["the dress has not moved"]),
 
@@ -1821,8 +1821,21 @@ WHOLE_SUITE += [
     ("the DXF layer table drops a layer",
      "photoloset/dxf.py",
      [("_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_GRAIN, "
-       "LAYER_LABEL)",
+       "LAYER_LABEL,\n               LAYER_BAND)",
        "_LAYER_ORDER = (LAYER_SEW, LAYER_CUT, LAYER_NOTCH, LAYER_LABEL)")],
+     ["the DXF file parses as group-code pairs"]),
+
+    # **A piece that stated no band is stamped, not left blank.** The whole
+    # point of the PROVENANCE layer is that a reader can tell an observed
+    # piece from a guessed one; a blank stamp reads as "nothing to say
+    # here" and is indistinguishable, on paper, from a piece nobody
+    # doubted. This mutation writes the blank instead of the typed
+    # UNKNOWN_BAND_NOT_STATED — the drawing still comes out, which is
+    # exactly why a count-only check would not catch it.
+    ("an unstated provenance band is left blank instead of stamped",
+     "photoloset/dxf.py",
+     [("band = raw_band if raw_band in BANDS else BAND_NOT_STATED",
+       "band = raw_band if raw_band in BANDS else \"\"")],
      ["the DXF file parses as group-code pairs"]),
 
     # Every coordinate drifts by a constant 0.3mm. A pure translation moves

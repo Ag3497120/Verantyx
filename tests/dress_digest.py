@@ -102,7 +102,32 @@ sys.path.insert(0, str(ROOT))
 #: どちらも縮まず伸びた(marks 87,909→89,106 / bom 4,986→7,400 バイト)。
 #: 中身は `assumed_by_edge`・`kind`・`alternatives`・`no_assumption` の
 #: 理由文字列 ── 既存の拒否に説明を足しただけで、数値は1つも動いていない。
-GEOMETRY_DIGEST = "99eaa1ff3f965812f200731be9eecb9e"
+#: **Re-pinned 2026-08-30, for one reason, measured rather than assumed:**
+#: ``photoloset/dxf.py`` gained a ``PROVENANCE`` layer — per piece, on the
+#: drawing itself, where that piece came from (``OBSERVED`` was seen in the
+#: photograph; ``PROPOSED``/``INFERRED`` was not; a piece that stated no
+#: band is stamped ``UNKNOWN_BAND_NOT_STATED`` rather than left blank).
+#: Verified against a worktree of the parent commit rather than eyeballed:
+#: **15 of the 16 sections are byte-for-byte identical, and the only one
+#: that moved is ``dxf``, 18,244 -> 21,045 bytes — it GREW.** No geometry
+#: moved: the layer writes TEXT only and not one line changed, which is why
+#: ``compose`` / ``marks`` / built / seams / both drapes / mannequin x4 /
+#: ``marker`` / ``bom`` / ``svg`` / ``headline`` did not move a byte.
+#: ``tests/coat_digest.py`` is unaffected and still PASSes, because its 8
+#: sections do not include a DXF export at all — the two digests
+#: disagreeing in exactly this way is itself the check that the change
+#: touched what it claimed to touch and nothing else. The drawing's y
+#: extent drops 2.4 cm (-37.1 -> -39.5) because the stamp sits below the
+#: piece name AND is counted into the extents; not counting it would let
+#: written text fall outside the declared range, which would make the
+#: range lie about the drawing. A different value from THIS one still
+#: means the dress moved — say so out loud rather than editing this line.
+#: **2026-08-30 に一度だけ動かした。** 前の値は
+#: 99eaa1ff3f965812f200731be9eecb9e。動いたのは 16節のうち ``dxf`` の
+#: 1節だけで、縮まず伸びた(18,244→21,045 バイト)。親コミットの作業木と
+#: 突き合わせて確かめた ── 残り15節は1バイトも動いていない。増えたのは
+#: 裁片ごとの出所の判子(TEXT)で、線は一本も動いていない。
+GEOMETRY_DIGEST = "10c2b18193686a320762f70664bbe965"
 
 #: The sections the geometry digest covers, in this order.
 GEOMETRY = ("compose", "marks", "built", "built.seams", "drape_default",
