@@ -261,9 +261,21 @@ struct AgentChatView: View {
         }
     }
 
+    /// **Atelier では常に nil.** 同じ確認内容(`HUMAN_GARMENT_AUDIT_REQUIRED`
+    /// 等)は `AtelierBeginnerContextCardsView`(トランスクリプト末尾の下部
+    /// カード、`GarmentFactoryReactController`/`GarmentGenerationJob` を
+    /// 直接観測)が既に描いている。かつてこのサイドバーも同じ状態を独立に
+    /// 描いていて、両方が立つと 620pt 本文 + 336pt サイドバー = 956pt を
+    /// `beginnerChatCanvas` の固定 920pt キャンバスへ詰め込もうとし、
+    /// タブ・PROJECTS 一覧・入力欄が画面外へ押し出される崩れが実測された
+    /// (人間確認が要る局面でだけ再現する、という報告どおりの条件)。
+    ///
+    /// `garmentJob.activeResolutionRequest` はこのプロパティ以外どこからも
+    /// 読まれていない — このサイドバーを止めても、状態そのものや下部
+    /// カードの描画には触れない。**同じ物を二箇所で描かない**という、
+    /// このファイル自身が既に一度立てた規律をここにも適用する。
     private var resolutionRequest: GarmentResolutionRequest? {
-        guard app.veraEngineMode == .atelier else { return nil }
-        return garmentJob.activeResolutionRequest
+        nil
     }
 
     // MARK: - Top Chat Button

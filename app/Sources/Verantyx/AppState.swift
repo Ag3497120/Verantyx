@@ -240,6 +240,27 @@ final class AppState: ObservableObject {
                                            forKey: "active_garment") }
     }
 
+    /// 服の名前 → その服のチャット会話が住む Session の id。
+    ///
+    /// **`activateGarmentProject` は台帳(Python側の名前空間)は切り替えて
+    /// いたが、`messages` は一切触っていなかった** — 実測: Garment 12 を
+    /// 作って選んでも画面は Garment 11 の会話のまま。上のコメントが言う
+    /// 「会話の切替より、いま何を作っているかの方が上位」は正しい優先順位
+    /// だが、優先順位が高いことと、切り替えても画面が変わらないことは
+    /// 別の話 — 今どの服を作っているかが上位だからこそ、その服の会話が
+    /// 見えている必要がある。
+    private var garmentSessionID: [String: UUID] = {
+        guard let data = UserDefaults.standard.data(forKey: "garment_session_id_v1"),
+              let decoded = try? JSONDecoder().decode([String: UUID].self, from: data)
+        else { return [:] }
+        return decoded
+    }() {
+        didSet {
+            guard let data = try? JSONEncoder().encode(garmentSessionID) else { return }
+            UserDefaults.standard.set(data, forKey: "garment_session_id_v1")
+        }
+    }
+
     /// 名前だけの一覧に日付を添える。**台帳自体の作成日ではない** —
     /// 服の台帳は Vera 側の共有ストアで、この画面はいつ名前を登録したかしか
     /// 知らない。左レールが「プロジェクト」を服と会話で同じ形式(名前・種類・
@@ -293,11 +314,35 @@ final class AppState: ObservableObject {
     /// UIの選択色だけでなく、Python側の台帳名前空間も同時に切り替える。
     /// 古いUI名だけが残っていて実体が無い場合は、その名前の空プロジェクトを
     /// 一度だけ作る。任意のコードフォルダは開かない。
+    ///
+    /// **会話も一緒に切り替える.** 台帳(GarmentGenerationJob)は服ごとに
+    /// 別なのに `messages` は共有のまま据え置かれていた ── 実測: Garment
+    /// 12 を作って選んでも画面は Garment 11 の会話のまま。台帳とチャット
+    /// が食い違うと、目の前の画像・スレッドがどの服のものか読み手には
+    /// 分からない。
     func activateGarmentProject(_ name: String) {
         guard garmentProjects.contains(name) else { return }
+        let previousGarment = activeGarment
+        // 同じ服へ再度呼ばれる経路がある(.onAppear/.onChange 双方から)。
+        // 既にその服のセッションが開いていれば何もしない ── そうしないと
+        // 呼ばれるたびに保存→復元を繰り返し、"Restored session" が
+        // また積み重なる(今日それを直したばかり)。
+        let alreadyThere = previousGarment == name
+            && sessions.activeSessionId != nil
+            && sessions.activeSessionId == garmentSessionID[name]
+        // **常に紐付ける、切り替えるかどうかに関わらず.** ある服から一度も
+        // ここを経由せず会話を続けた場合、その服には記録が残らない ──
+        // 後で他の服へ行って戻ってきたとき、その会話を見失って新規
+        // セッションに化けてしまう。
+        if let currentID = sessions.activeSessionId {
+            garmentSessionID[previousGarment] = currentID
+        }
         activeGarment = name
         GarmentGenerationJob.shared.activateProject(name)
         garmentResolutionFactory.activateResolutionProject(name)
+        if !alreadyThere {
+            switchChatSession(toGarment: name)
+        }
         Task { @MainActor in
             let raw = await MCPEngine.shared.callTool(
                 serverName: "vera-memory", toolName: "project_open",
@@ -309,6 +354,35 @@ final class AppState: ObservableObject {
                 serverName: "vera-memory", toolName: "project_new",
                 arguments: ["name": name])
         }
+    }
+
+    /// `name` に紐付いたセッションへ実際に切り替える。ある服の会話履歴が
+    /// 既にあれば復元し(`restoreSession` が現在の会話を先に保存してから
+    /// 切り替える)、無ければ空の新規セッションを作って紐付ける ──
+    /// `newChatSession()` と同じく仮の名前のまま作り、服の特徴からの
+    /// 命名は既存の自動命名の規律に譲る。
+    private func switchChatSession(toGarment name: String) {
+        if let targetID = garmentSessionID[name],
+           sessions.sessions.contains(where: { $0.id == targetID }) {
+            restoreSession(targetID)
+            return
+        }
+        // **ディスク読み込みがまだ終わっていないかもしれない.** 起動直後、
+        // AgentChatView.onAppear は SessionStore の非同期読み込みより先に
+        // 発火しうる ── そのタイミングでは「この服にまだ記録が無い」と
+        // 「記録はあるが読み込みが間に合っていない」が区別できない。前者
+        // だと誤判定して空の新規セッションを作ると、その直後に
+        // `restoreLastSessionOnLaunch` が正しい会話を復元しようとしても、
+        // 既に messages.isEmpty が別の空セッションで満たされてしまって
+        // 競合する。読み込み前は何もしない ── 何もしなくても、
+        // `restoreLastSessionOnLaunch` 側が最終的に正しく復元する。
+        guard sessions.didLoad else { return }
+        saveCurrentSession()
+        let fresh = sessions.newSession(messages: [], workspacePath: workspaceURL?.path)
+        garmentSessionID[name] = fresh.id
+        messages = []
+        pendingDiff = nil
+        showDiff = false
     }
 
     /// Select only the presentation route. The obligation remains OPEN until
@@ -2418,7 +2492,11 @@ final class AppState: ObservableObject {
                         role: .system,
                         content: "<think>\n制作モデル: \(model)\n自由応答（AI生成を明示）＋ 任意の型付き提案 → Vera検証\n</think>"))
                 }
-                let resolution = await AtelierChatRouter.resolveFlexible(text)
+                // 通常チャット(runAgentLoop)の previousMessages と同じ規律
+                // ── 今回の発言(既に append 済み)を除いた過去分だけを渡す。
+                let history = Array(self.messages.dropLast())
+                let resolution = await AtelierChatRouter.resolveFlexible(
+                    text, history: history)
                 let parts = AtelierChatRouter.transcriptParts(for: resolution)
                 await MainActor.run {
                     self.messages.append(ChatMessage(

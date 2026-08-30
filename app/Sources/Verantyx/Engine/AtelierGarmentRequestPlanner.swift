@@ -46,7 +46,7 @@ enum AtelierGarmentRequestPlanner {
     }
 
     static func plan(_ request: String, pick: AtelierAnalyst.Pick,
-                     jobID: String) async -> Outcome {
+                     jobID: String, history: [ChatMessage] = []) async -> Outcome {
         guard let proposer = GarmentFactoryModelMouth.proposer(
             for: pick, responseFormat: plannerResponseFormat) else {
             return .refused(
@@ -56,7 +56,7 @@ enum AtelierGarmentRequestPlanner {
         let compatibility = GarmentModelCompatibility.profile(
             sourceName: pick.sourceName)
         guard let raw = await proposer(prompt(
-            for: request, compatibility: compatibility)) else {
+            for: request, compatibility: compatibility, history: history)) else {
             return .refused(
                 "UNKNOWN_GARMENT_MODEL_UNREACHABLE\n制作モデルから応答を受信できませんでした。")
         }
@@ -237,9 +237,35 @@ enum AtelierGarmentRequestPlanner {
         ]
     }
 
+    /// **直近のやりとりを短く畳んで渡す.** 全文はプロンプトを際限なく
+    /// 太らせるので、user/assistant だけを残し、各発言は先頭200字に
+    /// 切り詰め、直近6ターンに絞る。多すぎる履歴より少なすぎる履歴の方が
+    /// 安全な失敗(単に忘れる)なので、切り詰めは沈黙で行い、拒否はしない。
+    private static func historySection(_ history: [ChatMessage]) -> String {
+        let turns = history
+            .filter { $0.role == .user || $0.role == .assistant }
+            .suffix(6)
+        guard !turns.isEmpty else { return "" }
+        let lines = turns.map { msg -> String in
+            let speaker = msg.role == .user ? "User" : "You"
+            let text = msg.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            let clipped = text.count > 200 ? String(text.prefix(200)) + "…" : text
+            return "\(speaker): \(clipped)"
+        }
+        return """
+
+        Recent conversation (most recent last; do not repeat what was
+        already answered, and treat "it"/"that"/"the same" as referring
+        back to this):
+        \(lines.joined(separator: "\n"))
+
+        """
+    }
+
     private static func prompt(
         for request: String,
-        compatibility: GarmentModelCompatibility.Profile
+        compatibility: GarmentModelCompatibility.Profile,
+        history: [ChatMessage] = []
     ) -> String {
         let imageContext = AtelierIntake.shared.selectedClip == nil
             ? "No garment image is currently selected."
@@ -308,7 +334,7 @@ enum AtelierGarmentRequestPlanner {
 
         Current application context:
         \(imageContext)
-
+        \(historySection(history))
         User request:
         \(request)
         """

@@ -941,7 +941,15 @@ enum AtelierChatRouter {
     /// execution. Fixed natural-language grammar is intentionally not a
     /// fallback here; only explicit approval/rejection/Undo controls bypass
     /// the model because their authority must remain directly human-authored.
-    static func resolveFlexible(_ message: String) async -> Resolution {
+    /// `history` は今回の発言より前のターンだけ ── 呼び出し側が
+    /// `Array(messages.dropLast())` と同じ規律で渡す。**通常チャット
+    /// (`runAgentLoop`)は毎ターン `previousMessages: history` を渡すのに、
+    /// Atelier 経路だけが `message` 単体しか受け取らず、直前に言ったこと
+    /// を毎ターン忘れていた** ── 実測で確認された非対称。既定は空配列
+    /// なので、履歴を渡さない既存の呼び出し口を壊さない。
+    static func resolveFlexible(
+        _ message: String, history: [ChatMessage] = []
+    ) async -> Resolution {
         let text = message.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return .none }
         if isExplicitHumanControl(text) {
@@ -963,7 +971,7 @@ enum AtelierChatRouter {
         // no command authority and is discarded by the normal revision gate.
         async let plannedTurn = AtelierGarmentRequestPlanner.plan(
             text, pick: AtelierAnalyst.shared.pick,
-            jobID: GarmentGenerationJob.shared.jobID)
+            jobID: GarmentGenerationJob.shared.jobID, history: history)
         async let previewWarmup: Void = warmProposedImagePreviewIfAvailable()
         let planned = await plannedTurn
         await previewWarmup
