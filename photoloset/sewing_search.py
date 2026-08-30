@@ -666,6 +666,112 @@ def _procedural_methods(query: Dict[str, Any], approval_id: str
     ]
 
 
+def _consented_seam_finishing(
+    factory_state: Dict[str, Any], subject_digest: str, *,
+    require_commercial: bool = False,
+) -> Dict[str, Any]:
+    """Accept an LLM seam-finish hypothesis only for one explicit scope.
+
+    Consent changes whether a proposal may enter the review queue.  It never
+    changes the proposal into observed tailoring evidence or a strength claim.
+    """
+    from . import corpus_manifest
+
+    proposal = factory_state.get("seam_finishing_llm_proposal")
+    supplied = isinstance(proposal, dict)
+    boundary = corpus_manifest.provider_capability(
+        "llm-seam-finishing", "SEAM_FINISHING_HYPOTHESIS",
+        health="READY" if supplied else "UNAVAILABLE",
+        available=supplied,
+        reason="" if supplied else "no LLM seam-finishing proposal was supplied",
+        consent_scope="SEAM_FINISH_HYPOTHESIS",
+        require_commercial=require_commercial,
+        rights=proposal if supplied else None,
+        details={"subject_digest": subject_digest},
+    )
+    if not supplied:
+        return {
+            "accepted": False,
+            "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(boundary),
+            "resolution_options": boundary["resolution_options"],
+        }
+    if not boundary["available"]:
+        failure = {
+            "verdict": "UNKNOWN_SEAM_FINISHING_COMMERCIAL_RIGHTS",
+            "why": boundary["commercial_rights_gate"]["basis"],
+        }
+        return {
+            "accepted": False,
+            "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(
+                boundary, failure=failure),
+            "consent_check": failure,
+            "resolution_options": boundary["resolution_options"],
+        }
+    if proposal.get("subject_digest") != subject_digest:
+        failure = {
+            "verdict": "UNKNOWN_SEAM_FINISHING_PROPOSAL_STALE",
+            "why": "the LLM proposal is not bound to the current approved shape",
+        }
+        return {
+            "accepted": False, "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(
+                boundary, failure=failure),
+            "consent_check": failure,
+            "resolution_options": corpus_manifest.provider_resolution_options(
+                "llm-seam-finishing", "SEAM_FINISHING_HYPOTHESIS",
+                consent_scope="SEAM_FINISH_HYPOTHESIS"),
+        }
+    consent = corpus_manifest.validate_provider_consent(
+        factory_state.get("seam_finishing_llm_consent"),
+        required_scope="SEAM_FINISH_HYPOTHESIS",
+        subject_digest=subject_digest,
+    )
+    if consent.get("verdict") != "ANSWER":
+        return {
+            "accepted": False, "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(
+                boundary, failure=consent),
+            "consent_check": consent,
+            "resolution_options": corpus_manifest.provider_resolution_options(
+                "llm-seam-finishing", "SEAM_FINISHING_HYPOTHESIS",
+                consent_scope="SEAM_FINISH_HYPOTHESIS"),
+        }
+    value = proposal.get("proposal")
+    if not isinstance(value, dict) or not value:
+        failure = {
+            "verdict": "UNKNOWN_SEAM_FINISHING_PROPOSAL_EMPTY",
+            "why": "the consented provider supplied no typed seam-finishing proposal",
+        }
+        return {
+            "accepted": False, "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(
+                boundary, failure=failure),
+            "consent_check": consent, "resolution_options": [],
+        }
+    record = {
+        "state": "PROPOSED_CONSENTED_LLM",
+        "observation_state": "UNKNOWN_UNOBSERVED",
+        "observed": False,
+        "subject_digest": subject_digest,
+        "proposal": json.loads(json.dumps(value, sort_keys=True)),
+        "consent": consent,
+        "manufacturing_validated": False,
+        "strength_evidence": False,
+        "requires_human_review": True,
+    }
+    return {
+        "accepted": True, "record": record,
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary, proposals=[record],
+            provenance=[{"provider_id": proposal.get(
+                "provider_id", "llm-seam-finishing")}]),
+        "consent_check": consent, "resolution_options": [],
+    }
+
+
 def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
                                  require_commercial: bool = True
                                  ) -> Dict[str, Any]:
@@ -768,20 +874,82 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
         query, approval_id, candidate_3d_gate)
     finishing_methods = [row for row in corpus_methods
                          if row["seam_finishing_evidence_present"]]
-    seam_finishing = {
-        "verdict": ("PROPOSED" if finishing_methods
-                    else SEAM_FINISHING_CORPUS_REQUIRED),
-        "state": ("PROPOSED_CORPUS_EVIDENCE"
-                  if finishing_methods else "UNKNOWN"),
-        "corpus_evidence_present": bool(finishing_methods),
-        "methods": [row["method_id"] for row in finishing_methods],
-        "why": ("rights-gated records containing explicit seam-finishing "
-                "fields are available as proposals; applicability still "
-                "requires review"
-                if finishing_methods else
-                "geometric topology determines join order, not seam finish, "
-                "stitch class, notions or machine settings"),
-    }
+    subject_digest = str(candidate_3d_gate.get("candidate_3d_digest")
+                         or approval_id)
+    llm_finishing = _consented_seam_finishing(
+        factory_state, subject_digest,
+        require_commercial=bool(require_commercial))
+    if finishing_methods:
+        seam_finishing = {
+            "verdict": "PROPOSED", "state": "PROPOSED_CORPUS_EVIDENCE",
+            "observation_state": "UNOBSERVED_APPLICABILITY",
+            "observed": False,
+            "corpus_evidence_present": True,
+            "methods": [row["method_id"] for row in finishing_methods],
+            "consented_llm_proposal": None,
+            "why": "rights-gated records containing explicit seam-finishing fields are available as proposals; applicability still requires review",
+            "resolution_options": [],
+        }
+    elif llm_finishing["accepted"]:
+        seam_finishing = {
+            "verdict": "PROPOSED", "state": "PROPOSED_CONSENTED_LLM",
+            "observation_state": "UNKNOWN_UNOBSERVED", "observed": False,
+            "corpus_evidence_present": False, "methods": [],
+            "consented_llm_proposal": llm_finishing["record"],
+            "why": "a scope-limited LLM proposal may be reviewed; it is not tailoring evidence or a manufacturing claim",
+            "resolution_options": [],
+        }
+    else:
+        seam_finishing = {
+            "verdict": SEAM_FINISHING_CORPUS_REQUIRED, "state": "UNKNOWN",
+            "observation_state": "UNKNOWN_UNOBSERVED", "observed": False,
+            "corpus_evidence_present": False, "methods": [],
+            "consented_llm_proposal": None,
+            "why": "geometric topology determines join order, not seam finish, stitch class, notions or machine settings",
+            "resolution_options": llm_finishing["resolution_options"],
+        }
+    corpus_boundary = corpus_manifest.provider_capability(
+        "local-sewing-corpus", "SEWING_CONSTRUCTION_CORPUS",
+        health=("READY" if eligible else
+                "RIGHTS_REFUSED" if raw_packages and refused else "UNAVAILABLE"),
+        available=bool(eligible),
+        reason=("" if eligible else "no rights-cleared sewing corpus is available"),
+        consent_scope="SEAM_FINISH_HYPOTHESIS",
+        require_commercial=bool(require_commercial),
+        rights=({"rights_review": {"commercial_use": "allowed"}}
+                if require_commercial and eligible else None),
+        details={"eligible": len(eligible), "refused": len(refused)},
+    )
+    supplied_provider_states = factory_state.get("provider_states", {})
+    provider_states = (dict(supplied_provider_states)
+                       if isinstance(supplied_provider_states, dict) else {})
+    provider_states.setdefault("SEWING_CONSTRUCTION_CORPUS", {
+        "provider_id": "local-sewing-corpus",
+        "available": bool(eligible),
+        "health": corpus_boundary["health"],
+        "source_origin": "RIGHTS_GATED_CONSTRUCTION_CORPUS",
+        "reason": corpus_boundary["reason"],
+        "rights_review": ({"commercial_use": "allowed"}
+                          if eligible else {}),
+    })
+    llm_rights = factory_state.get("seam_finishing_llm_proposal", {})
+    llm_rights = (llm_rights.get("rights_review", {})
+                  if isinstance(llm_rights, dict) else {})
+    provider_states.setdefault("SEAM_FINISHING_HYPOTHESIS", {
+        "provider_id": ("rights-gated-seam-finishing-corpus"
+                        if finishing_methods else "llm-seam-finishing"),
+        "available": bool(finishing_methods or llm_finishing["accepted"]),
+        "health": ("READY" if finishing_methods or llm_finishing["accepted"]
+                   else "UNAVAILABLE"),
+        "source_origin": ("RIGHTS_GATED_CONSTRUCTION_CORPUS"
+                          if finishing_methods else
+                          "CONSENTED_LLM_PROPOSAL"),
+        "reason": seam_finishing["why"],
+        "rights_review": ({"commercial_use": "allowed"}
+                          if finishing_methods else llm_rights),
+    })
+    provider_report = corpus_manifest.provider_capability_report(
+        provider_states, require_commercial=bool(require_commercial))
     status = {
         "received": len(raw_packages), "eligible": len(eligible),
         "refused": refused,
@@ -792,6 +960,15 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
         "network_used": False,
         "mode": ("LOCAL_RIGHTS_GATED_PLUS_PROCEDURAL" if eligible
                  else "PROCEDURAL_ONLY"),
+        "provider_boundary": corpus_boundary,
+        "provider_result": corpus_manifest.provider_result(
+            corpus_boundary,
+            provenance=[{"manifest_digest": row["manifest_digest"],
+                         "corpus": row["manifest"]["name"]}
+                        for row in eligible],
+            source_origin="RIGHTS_GATED_CONSTRUCTION_CORPUS"),
+        "resolution_options": seam_finishing["resolution_options"],
+        "provider_capability_report": provider_report,
     }
     source = {
         "name": ("hybrid:local-sewing-corpus-plus-procedural"
@@ -833,6 +1010,19 @@ def _hybrid_search_factory_state(factory_state: Any, packages: Any = (), *,
         "verdict": "PROPOSED", "source": source, "methods": methods,
         "geometric_sewing_order": geometric_order,
         "seam_finishing_knowledge": seam_finishing,
+        "seam_finishing_provider": llm_finishing,
+        "resolution_options": seam_finishing["resolution_options"],
+        "provider_capability_report": provider_report,
+        "physical_validation_provider_boundaries": {
+            capability: provider_report["capabilities"][capability]
+            for capability in (
+                "MATERIAL_PROPERTY_MEASUREMENT",
+                "MATERIAL_PROPERTY_CALIBRATION",
+                "BODY_MEASUREMENT",
+                "WIND_TUNNEL_VALIDATION",
+                "SEAM_STRENGTH_TEST",
+            )
+        },
         "manifest": output_manifest,
         "real_corpus_records_present": bool(corpus_methods),
         "route": {
@@ -871,6 +1061,13 @@ def methods_for(approval_id: str, corpus: str = "") -> Dict[str, Any]:
                 "how_to_close": "register it with "
                                 "sewing_search.register_corpus(corpus)"}
     if not chosen:
+        from . import corpus_manifest
+        boundary = corpus_manifest.provider_capability(
+            "sewing-construction-corpus", "SEWING_CONSTRUCTION_CORPUS",
+            health="UNAVAILABLE", available=False,
+            reason="no sewing construction corpus is registered",
+            consent_scope="SEAM_FINISH_HYPOTHESIS",
+        )
         return {
             "verdict": NO_SEWING_CORPUS,
             "approval_id": gate["approval_id"],
@@ -885,6 +1082,9 @@ def methods_for(approval_id: str, corpus: str = "") -> Dict[str, Any]:
                 f"The corpora that would serve: {', '.join(WOULD_SERVE)}. "
                 f"Verify every count and licence from the dataset card — "
                 f"nothing about them has been measured in this tree",
+            "provider_boundary": boundary,
+            "provider_result": corpus_manifest.provider_result(boundary),
+            "resolution_options": boundary["resolution_options"],
         }
 
     queries = _queries(gate["graph"], gate["draft"])

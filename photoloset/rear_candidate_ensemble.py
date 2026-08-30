@@ -30,6 +30,8 @@ from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+from . import corpus_manifest
+
 
 REQUEST_SCHEMA = "garment.rear-candidate-ensemble.request.v1"
 SCHEMA = "garment.rear-candidate-ensemble.v1"
@@ -545,6 +547,7 @@ def _expand_alternatives(row: Mapping[str, Any]) -> List[Dict[str, Any]]:
 def _normalise_sources(
     fashion_hits: Any, multimodal_proposals: Any,
     geometric_rule_evidence: Any = None, user_audit_evidence: Any = None,
+    *, require_commercial: bool = False,
 ) -> List[Dict[str, Any]]:
     sources: List[Dict[str, Any]] = []
     configurations = (
@@ -563,6 +566,21 @@ def _normalise_sources(
                     for child in _expand_alternatives(row)]
         expanded.sort(key=lambda row: stable_digest(_proposal_value(row)))
         for index, row in enumerate(expanded):
+            if source_kind == "FASHION_SIGLIP_RETRIEVAL":
+                gate = row.get("commercial_rights_gate")
+                upstream_refused = (
+                    isinstance(gate, Mapping)
+                    and gate.get("required") is True
+                    and gate.get("allowed") is not True
+                )
+                explicit_rights = corpus_manifest.commercial_rights_status(
+                    row, require_commercial=True)
+                # Preserve an upstream strict refusal.  When this request is
+                # commercial, an absent/ambiguous rights record also fails
+                # closed instead of silently becoming a usable rear source.
+                if upstream_refused or (
+                        require_commercial and not explicit_rights["allowed"]):
+                    continue
             source_id = (
                 _text(row.get("item_id")) or _text(row.get("proposal_id"))
                 or _text(row.get("candidate_id")) or _text(row.get("id"))
@@ -983,6 +1001,15 @@ def _candidate(
         "generic_fallback_used": False,
         "auto_approved": False,
         "human_approval_required": True,
+        "downstream_use_contract": {
+            "rear_scope": "REAR_HYPOTHESIS",
+            "material_scope": "MATERIAL_HYPOTHESIS",
+            "state": PROPOSED,
+            "observation_state": UNKNOWN_UNOBSERVED,
+            "scoped_human_consent_or_approval_required": True,
+            "candidate_digest_bound_approval_required_for_sewing": True,
+            "consent_does_not_promote_to_observed": True,
+        },
         "manufacturing_ready": False,
         "manufacturing_certified": False,
         "fact_promotions": [],
@@ -1018,6 +1045,111 @@ def _blocked_sewing_gate() -> Dict[str, Any]:
         ),
         "required_approval_kind": "HUMAN_APPROVAL",
         "auto_approval": False,
+    }
+
+
+def proposal_use_gate(
+    candidate: Mapping[str, Any], consent: Any, *, scope: str,
+) -> Dict[str, Any]:
+    """Gate a rear/material proposal for scoped review use.
+
+    This does not replace :func:`sewing_search_gate`; even valid consent only
+    permits the unobserved proposal to enter the requested review path.
+    """
+    if scope not in {"REAR_HYPOTHESIS", "MATERIAL_HYPOTHESIS"}:
+        return {
+            "verdict": "UNKNOWN_REAR_PROPOSAL_CONSENT_SCOPE",
+            "allowed": False, "required_scopes": [
+                "REAR_HYPOTHESIS", "MATERIAL_HYPOTHESIS"],
+        }
+    digest = candidate.get("candidate_digest")
+    if not isinstance(digest, str) or not digest:
+        return {
+            "verdict": "UNKNOWN_REAR_PROPOSAL_DIGEST_REQUIRED",
+            "allowed": False, "required_scope": scope,
+        }
+    checked = corpus_manifest.validate_provider_consent(
+        consent, required_scope=scope, subject_digest=digest)
+    if checked.get("verdict") != "ANSWER":
+        return {**checked, "allowed": False,
+                "candidate_digest": digest}
+    return {
+        "verdict": "PROPOSED", "allowed": True,
+        "state": PROPOSED, "observation_state": UNKNOWN_UNOBSERVED,
+        "candidate_digest": digest, "scope": scope,
+        "consent": checked,
+        "automatic_observed_promotion": False,
+        "sewing_search_allowed": False,
+    }
+
+
+def _provider_status_record(
+    provider_id: str, capability: str, source_kind: str,
+    sources: Sequence[Mapping[str, Any]], raw: Any, *, consent_scope: str,
+    allow_llm_proposal: bool = True,
+    require_commercial: bool = False,
+) -> Dict[str, Any]:
+    available = any(row.get("source_kind") == source_kind for row in sources)
+    supplied_rows = _rows(raw, (
+        "matches", "hits", "nearest_items", "items", "proposals",
+        "rear_candidates", "candidates", "instances", "rules", "evidence",
+        "audits", "decisions",
+    ))
+    rights_refused = 0
+    rights_unknown = 0
+    if source_kind == "FASHION_SIGLIP_RETRIEVAL":
+        for row in supplied_rows:
+            upstream = row.get("commercial_rights_gate")
+            upstream_blocked = (
+                isinstance(upstream, Mapping)
+                and upstream.get("required") is True
+                and upstream.get("allowed") is not True
+            )
+            rights = corpus_manifest.commercial_rights_status(
+                row, require_commercial=True)
+            if upstream_blocked or (
+                    require_commercial and not rights["allowed"]):
+                if rights["state"] == "DENIED":
+                    rights_refused += 1
+                else:
+                    rights_unknown += 1
+    rights_blocked = rights_refused + rights_unknown
+    health = ("READY" if available else
+              "RIGHTS_REFUSED" if rights_blocked else "UNAVAILABLE")
+    reason = ("" if available else
+              "no supplied retrieval asset carries usable commercial rights"
+              if rights_blocked else "no provider proposals were supplied")
+    # In strict mode, availability above can only be true after at least one
+    # source row passed an explicit rights record.  This is a typed summary of
+    # that completed gate, not a new asset licence claim.
+    rights_summary = ({
+        "rights_review": {
+            "commercial_use": "allowed",
+            "basis": "accepted source row passed explicit commercial-rights gate",
+        },
+    } if require_commercial and available else None)
+    boundary = corpus_manifest.provider_capability(
+        provider_id, capability, health=health, available=available,
+        reason=reason, consent_scope=consent_scope,
+        allow_llm_proposal=allow_llm_proposal,
+        require_commercial=require_commercial, rights=rights_summary,
+        details={"supplied_rows": len(supplied_rows),
+                 "rights_refused_rows": rights_refused,
+                 "rights_unknown_rows": rights_unknown},
+    )
+    return {
+        "available": available,
+        "supplied": bool(supplied_rows),
+        "rights_refused_rows": rights_refused,
+        "rights_unknown_rows": rights_unknown,
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary, failure=({"verdict": "UNKNOWN_PROVIDER_UNAVAILABLE",
+                                "why": reason} if not available else None),
+            source_origin=("FRONT_IMAGE_RETRIEVAL_QUERY"
+                           if source_kind == "FASHION_SIGLIP_RETRIEVAL"
+                           else "FRONT_IMAGE_DERIVED_PROPOSAL")),
+        "resolution_options": boundary["resolution_options"],
     }
 
 
@@ -1098,6 +1230,11 @@ def generate_rear_candidates(
             "request or visible part graph must be an object",
         )
     request = dict(request_or_graph)
+    require_commercial = bool(request.get(
+        "require_commercial_rights", request.get("require_commercial", False)))
+    raw_provider_states = request.get("provider_states", {})
+    provider_states = (copy.deepcopy(dict(raw_provider_states))
+                       if isinstance(raw_provider_states, Mapping) else {})
     if "visible_part_graph" in request:
         if request.get("schema") not in (None, REQUEST_SCHEMA):
             return _unknown(
@@ -1134,7 +1271,8 @@ def generate_rear_candidates(
         observed_aspects = _visible_aspects(visible)
         sources = _normalise_sources(
             fashion_siglip_hits, multimodal_proposals,
-            geometric_rule_evidence, user_audit_evidence)
+            geometric_rule_evidence, user_audit_evidence,
+            require_commercial=require_commercial)
         claims = _source_claims(sources)
         claims_by_source: Dict[Tuple[str, str], List[Dict[str, Any]]] = defaultdict(list)
         for claim in claims:
@@ -1223,6 +1361,135 @@ def generate_rear_candidates(
                 if key != "candidate_digest"
             })
 
+        fashion_status = _provider_status_record(
+            "fashion-siglip", "FASHION_SIMILARITY_RETRIEVAL",
+            "FASHION_SIGLIP_RETRIEVAL", sources, fashion_siglip_hits,
+            consent_scope="RETRIEVAL_HYPOTHESIS",
+            require_commercial=require_commercial)
+        multimodal_status = _provider_status_record(
+            "multimodal-rear", "MULTIMODAL_REAR_HYPOTHESIS",
+            "MULTIMODAL_MODEL_PROPOSAL", sources, multimodal_proposals,
+            consent_scope="REAR_HYPOTHESIS")
+        geometric_status = _provider_status_record(
+            "geometric-rear-rules", "GEOMETRIC_REAR_EVIDENCE",
+            "GEOMETRIC_RULE_EVIDENCE", sources, geometric_rule_evidence,
+            consent_scope="REAR_HYPOTHESIS", allow_llm_proposal=False)
+        user_status = _provider_status_record(
+            "named-user-audit", "NAMED_USER_AUDIT_EVIDENCE",
+            "USER_AUDIT_EVIDENCE", sources, user_audit_evidence,
+            consent_scope="REAR_HYPOTHESIS", allow_llm_proposal=False)
+        material_available = any(
+            row.get("field") == "material" for row in claims)
+        material_boundary = corpus_manifest.provider_capability(
+            "material-hypothesis-ensemble", "MATERIAL_HYPOTHESIS",
+            health="READY" if material_available else "UNAVAILABLE",
+            available=material_available,
+            reason="" if material_available else
+            "no material evidence or proposal source is connected",
+            consent_scope="MATERIAL_HYPOTHESIS",
+            details={"material_claim_count": sum(
+                1 for row in claims if row.get("field") == "material")},
+        )
+        material_status = {
+            "available": material_available,
+            "provider_boundary": material_boundary,
+            "provider_result": corpus_manifest.provider_result(
+                material_boundary,
+                source_origin="FRONT_IMAGE_VISIBLE_MATERIAL_CUE"),
+            "resolution_options": material_boundary["resolution_options"],
+        }
+        deterministic_boundary = corpus_manifest.provider_capability(
+            "deterministic-rear-geometry", "REAR_GEOMETRY_ALTERNATIVES",
+            health="READY", available=True,
+            consent_scope="REAR_HYPOTHESIS", allow_llm_proposal=False,
+            details={"candidate_count": len(candidates)},
+        )
+
+        # Connected physical/search capabilities are reported independently
+        # from front-image proposals.  In particular, visible material cues do
+        # not make a material-measurement provider available, and a similarity
+        # hit is a rear reference only when it actually carries rear structure.
+        rear_reference_available = any(
+            row.get("source_kind") == "FASHION_SIGLIP_RETRIEVAL"
+            and any(row.get("aspects", {}).get(axis) not in (
+                None, "", [], {}) for axis in ("structure", "parts", "seams"))
+            for row in sources
+        )
+        provider_states.setdefault("FASHION_SIMILARITY_RETRIEVAL", {
+            "provider_id": "fashion-siglip",
+            "available": fashion_status["available"],
+            "health": fashion_status["provider_boundary"]["health"],
+            "source_origin": "FRONT_IMAGE_RETRIEVAL_QUERY",
+            **({"rights_review": {"commercial_use": "allowed"}}
+               if require_commercial and fashion_status["available"] else {}),
+        })
+        provider_states.setdefault("REAR_REFERENCE_RETRIEVAL", {
+            "provider_id": "rear-reference-retrieval",
+            "available": rear_reference_available,
+            "health": "READY" if rear_reference_available else "UNAVAILABLE",
+            "source_origin": "FRONT_IMAGE_TO_REAR_REFERENCE_RETRIEVAL",
+            "reason": ("a rights-gated reference supplied rear structure"
+                       if rear_reference_available else
+                       "no connected reference supplied rear structure"),
+            **({"rights_review": {"commercial_use": "allowed"}}
+               if require_commercial and rear_reference_available else {}),
+        })
+        provider_states.setdefault("MULTIMODAL_REAR_HYPOTHESIS", {
+            "provider_id": "multimodal-rear",
+            "available": multimodal_status["available"],
+            "health": multimodal_status["provider_boundary"]["health"],
+            "source_origin": "FRONT_IMAGE_MULTIMODAL_ANALYSIS",
+        })
+        provider_states.setdefault("MATERIAL_HYPOTHESIS", {
+            "provider_id": "material-hypothesis-ensemble",
+            "available": material_available,
+            "health": "READY" if material_available else "UNAVAILABLE",
+            "source_origin": "FRONT_IMAGE_VISIBLE_MATERIAL_CUE",
+        })
+        provider_report = corpus_manifest.provider_capability_report(
+            provider_states, require_commercial=require_commercial)
+
+        def reported_status(capability_name: str) -> Dict[str, Any]:
+            row = copy.deepcopy(
+                provider_report["capabilities"][capability_name])
+            row["available"] = row["provider_boundary"]["available"]
+            row["resolution_options"] = row[
+                "provider_boundary"]["resolution_options"]
+            return row
+
+        provider_status = {
+            "fashion_siglip": fashion_status,
+            "rear_reference_retrieval": reported_status(
+                "REAR_REFERENCE_RETRIEVAL"),
+            "multimodal": multimodal_status,
+            "geometric_rules": geometric_status,
+            "user_audit": user_status,
+            "material": material_status,
+            "material_property_measurement": reported_status(
+                "MATERIAL_PROPERTY_MEASUREMENT"),
+            "material_property_calibration": reported_status(
+                "MATERIAL_PROPERTY_CALIBRATION"),
+            "body_measurement": reported_status("BODY_MEASUREMENT"),
+            "wind_tunnel_validation": reported_status(
+                "WIND_TUNNEL_VALIDATION"),
+            "seam_strength_test": reported_status("SEAM_STRENGTH_TEST"),
+            "deterministic_rear_geometry": {
+                "available": True,
+                "provider_boundary": deterministic_boundary,
+                "provider_result": corpus_manifest.provider_result(
+                    deterministic_boundary),
+                "resolution_options": [],
+            },
+            "mode": ("FUSED_PROPOSAL_ENSEMBLE" if sources
+                     else "DETERMINISTIC_GEOMETRY_ONLY"),
+        }
+        resolution_options = [
+            option
+            for key, row in provider_status.items()
+            if key != "mode" and isinstance(row, Mapping)
+            for option in row.get("resolution_options", [])
+        ]
+
         result: Dict[str, Any] = {
             "schema": SCHEMA,
             "verdict": PROPOSED,
@@ -1243,30 +1510,9 @@ def generate_rear_candidates(
                 "fashion_siglip_score_is_not_construction_authority": True,
                 "rank_is_not_approval": True,
             },
-            "provider_status": {
-                "fashion_siglip": {
-                    "available": any(row["source_kind"]
-                                     == "FASHION_SIGLIP_RETRIEVAL"
-                                     for row in sources),
-                },
-                "multimodal": {
-                    "available": any(row["source_kind"]
-                                     == "MULTIMODAL_MODEL_PROPOSAL"
-                                     for row in sources),
-                },
-                "geometric_rules": {
-                    "available": any(row["source_kind"]
-                                     == "GEOMETRIC_RULE_EVIDENCE"
-                                     for row in sources),
-                },
-                "user_audit": {
-                    "available": any(row["source_kind"]
-                                     == "USER_AUDIT_EVIDENCE"
-                                     for row in sources),
-                },
-                "mode": ("FUSED_PROPOSAL_ENSEMBLE" if sources
-                         else "DETERMINISTIC_GEOMETRY_ONLY"),
-            },
+            "provider_status": provider_status,
+            "provider_capability_report": provider_report,
+            "resolution_options": resolution_options,
             "authority": {
                 "rear": PROPOSED,
                 "hidden": PROPOSED,
@@ -1301,5 +1547,6 @@ __all__ = [
     "PROPOSED", "UNKNOWN_UNOBSERVED",
     "CONTESTED", "SHAPE_NOT_APPROVED", "APPROVAL_STALE", "ASPECTS",
     "stable_digest", "generate_rear_candidates", "propose", "generate",
-    "assemble", "sewing_search_gate", "authorize_sewing_search",
+    "assemble", "proposal_use_gate", "sewing_search_gate",
+    "authorize_sewing_search",
 ]

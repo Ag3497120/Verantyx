@@ -23,6 +23,8 @@ from collections import defaultdict
 from collections.abc import Mapping, Sequence
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from . import corpus_manifest
+
 
 REQUEST_SCHEMA = "garment.image-analysis-ensemble.request.v1"
 SCHEMA = "garment.image-analysis-ensemble.v1"
@@ -242,7 +244,8 @@ def _provider_config(request: Mapping[str, Any], key: str,
     allowed = {
         "provider_id", "model_id", "model_revision", "license",
         "license_id", "endpoint", "index_id", "index_revision",
-        "provider_kind",
+        "provider_kind", "rights", "rights_review",
+        "require_commercial", "require_commercial_rights",
     }
     if isinstance(wrapper, Mapping):
         for field in allowed:
@@ -341,7 +344,8 @@ def _multimodal_specs(
 
     allowed_config = {
         "provider_id", "model_id", "model_revision", "license",
-        "license_id", "endpoint", "provider_kind",
+        "license_id", "endpoint", "provider_kind", "rights",
+        "rights_review", "require_commercial", "require_commercial_rights",
     }
     for source_id, raw in sorted(raw_by_id.items()):
         seen.add(source_id)
@@ -490,6 +494,14 @@ def _claim(
         "source": source,
         "source_id": source_id,
         "visibility": visibility,
+        # A model/retrieval interpretation of a front image is evidence for a
+        # proposal, not a direct observation of garment construction or
+        # mechanics.  Human region review may later add separate evidence; it
+        # does not retroactively promote this model-authored claim.
+        "observation_state": "UNKNOWN_UNOBSERVED",
+        "observed": False,
+        "source_origin": "FRONT_IMAGE_DERIVED_PROPOSAL",
+        "automatic_observed_promotion": False,
         "human_confirmation_required": True,
     }
     if uncertainty is not None:
@@ -1084,20 +1096,56 @@ def _typed_field_views(claims: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
 def _source_record(source: str, available: Mapping[str, Any],
                    config: Mapping[str, Any], *, source_id: Optional[str] = None,
                    provider_kind: Optional[str] = None) -> Dict[str, Any]:
+    identifier = source_id or source
+    is_retrieval = source == RETRIEVAL_SOURCE or provider_kind == "RETRIEVAL"
+    failure = available.get("failure")
+    failure = failure if isinstance(failure, Mapping) else {}
+    failure_code = str(failure.get("verdict", ""))
+    health = ("READY" if available.get("available") else
+              "FAILED" if any(token in failure_code for token in (
+                  "FAILED", "TIMEOUT")) else "UNAVAILABLE")
+    boundary = corpus_manifest.provider_capability(
+        str(identifier),
+        "FASHION_SIMILARITY_RETRIEVAL" if is_retrieval
+        else "MULTIMODAL_GARMENT_ANALYSIS",
+        health=health,
+        available=bool(available.get("available")),
+        reason=str(failure.get("why", "")),
+        consent_scope=("RETRIEVAL_HYPOTHESIS" if is_retrieval
+                       else "VISIBLE_GARMENT_ANALYSIS"),
+        require_commercial=bool(config.get(
+            "require_commercial_rights",
+            config.get("require_commercial", False))),
+        rights=config,
+        details={
+            "source": source,
+            "provider_kind": provider_kind or "UNSPECIFIED",
+        },
+    )
     out: Dict[str, Any] = {
         "source": source,
-        "available": bool(available.get("available")),
+        "available": bool(boundary["available"]),
         "configuration_metadata": _plain(config),
         "configuration_metadata_role": (
             "IDENTIFICATION_AND_LICENSE_CONFIGURATION_ONLY_NOT_CORRECTNESS_EVIDENCE"
         ),
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary, provenance=[{"source": source}],
+            failure=failure or None,
+            source_origin=("FRONT_IMAGE_RETRIEVAL_QUERY" if is_retrieval
+                           else "FRONT_IMAGE_MULTIMODAL_ANALYSIS")),
+        "resolution_options": _plain(boundary["resolution_options"]),
     }
     if source_id is not None:
         out["source_id"] = source_id
     if provider_kind is not None:
         out["provider_kind"] = provider_kind
     if not out["available"]:
-        out["capability_failure"] = _plain(available.get("failure"))
+        out["capability_failure"] = _plain(failure or {
+            "verdict": "UNKNOWN_PROVIDER_COMMERCIAL_RIGHTS",
+            "why": boundary["commercial_rights_gate"]["basis"],
+        })
     return out
 
 
@@ -1163,11 +1211,6 @@ def _merge(
         key=lambda row: (0 if row.get("source_id") == "vision" else 1,
                          str(row.get("source", ""))),
     )
-    available_vision_count = sum(
-        int(bool(row.get("availability", {}).get("available")))
-        for row in vision_sources)
-    retrieval_available = bool(retrieval.get("available"))
-    available_count = available_vision_count + int(retrieval_available)
     sources = [
         _source_record(
             str(row["source"]), row.get("availability", {}),
@@ -1179,16 +1222,33 @@ def _merge(
     sources.append(_source_record(
         RETRIEVAL_SOURCE, retrieval, retrieval_config,
         source_id="retrieval", provider_kind="RETRIEVAL"))
+    source_by_id = {str(row.get("source_id")): row for row in sources}
+    available_vision_count = sum(
+        int(bool(source_by_id.get(str(row.get("source_id")), {}).get("available")))
+        for row in vision_sources)
+    retrieval_available = bool(source_by_id["retrieval"]["available"])
+    available_count = available_vision_count + int(retrieval_available)
+    resolution_options = [
+        option for source_row in sources
+        for option in source_row.get("resolution_options", [])
+    ]
     configured_source_failed = any(not row.get("available") for row in sources)
     if available_count == 0:
         return {
             "schema": SCHEMA,
             "verdict": "UNKNOWN_GARMENT_ANALYSIS_PROVIDERS_UNAVAILABLE",
-            "state": "UNKNOWN",
+            "state": "AWAITING_PROVIDER_OR_CONSENT",
             "typed_stop": True,
             "why": "neither independent proposal provider is available",
-            "how_to_close": "supply at least one vision or retrieval provider/result",
-            "capabilities": {"sources": sources, "partial_result_allowed": True},
+            "how_to_close": (
+                "connect at least one provider, or explicitly consent to a "
+                "scope-limited LLM proposal"
+            ),
+            "resolution_options": resolution_options,
+            "capabilities": {
+                "sources": sources, "partial_result_allowed": True,
+                "resolution_options": resolution_options,
+            },
             "claims": [], "agreements": [], "contested": [],
             "garment_instances": [], "retrieval_candidates": [],
             "visible_parts": [], "layers": [], "laterality": [],
@@ -1205,7 +1265,7 @@ def _merge(
     vision_layers: Dict[int, List[str]] = defaultdict(list)
     for vision in vision_sources:
         availability = vision.get("availability", {})
-        if not availability.get("available"):
+        if not source_by_id.get(str(vision.get("source_id")), {}).get("available"):
             continue
         rows, source_instances = _vision_claims(
             availability["result"], source=str(vision["source"]),
@@ -1223,7 +1283,10 @@ def _merge(
                 if instance_id not in vision_layers[layer]:
                     vision_layers[layer].append(instance_id)
     vision_instances = sorted(vision_instances_set)
-    if retrieval.get("available"):
+    # Use the effective boundary state, not merely transport availability.
+    # A reachable retrieval provider whose asset rights are refused must not
+    # leak claims into the ensemble.
+    if retrieval_available:
         rows, _, retrieval_candidates = _retrieval_claims(
             retrieval["result"], vision_instances=vision_instances,
             vision_layers=vision_layers,
@@ -1255,7 +1318,9 @@ def _merge(
             "retrieval_provider_available": retrieval_available,
             "partial_result": configured_source_failed,
             "partial_result_allowed": True,
+            "resolution_options": resolution_options,
         },
+        "resolution_options": resolution_options,
         "garment_instances": _instances(claims),
         "garment_instance_graph": _instance_graph(claims),
         "claims": claims,

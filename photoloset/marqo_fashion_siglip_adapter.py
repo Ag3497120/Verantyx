@@ -28,6 +28,8 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 
+from . import corpus_manifest
+
 
 SCHEMA = "marqo-fashion-siglip.runtime.v1"
 RESULT_SCHEMA = "marqo-fashion-siglip.retrieval-result.v1"
@@ -88,14 +90,32 @@ def _finite_score(value: Any) -> Optional[float]:
 
 def _typed_stop(verdict: str, why: str, how_to_close: str,
                 **extra: Any) -> Dict[str, Any]:
+    health = (
+        "RIGHTS_REFUSED" if "RIGHTS" in verdict else
+        "FAILED" if any(token in verdict for token in (
+            "FAILED", "TIMEOUT", "LOAD")) else
+        "UNAVAILABLE"
+    )
+    boundary = corpus_manifest.provider_capability(
+        "marqo-fashion-siglip", "FASHION_SIMILARITY_RETRIEVAL",
+        health=health, available=False, reason=why,
+        consent_scope="RETRIEVAL_HYPOTHESIS",
+        require_commercial=health == "RIGHTS_REFUSED",
+        details={"adapter_schema": SCHEMA},
+    )
     out = {
         "schema": RESULT_SCHEMA,
         "verdict": verdict,
-        "state": "UNKNOWN",
+        "state": "AWAITING_PROVIDER_OR_CONSENT",
         "typed_stop": True,
         "why": why,
         "how_to_close": how_to_close,
         "matches": [],
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary, failure={"verdict": verdict, "why": why},
+            source_origin="FRONT_IMAGE_RETRIEVAL_QUERY"),
+        "resolution_options": boundary["resolution_options"],
     }
     out.update(_plain(extra))
     return out
@@ -109,6 +129,7 @@ def _config(request: Mapping[str, Any]) -> Dict[str, Any]:
         "model_hash", "weights_hash", "endpoint", "allow_http",
         "timeout_seconds", "model_path", "index_id", "index_revision",
         "top_k", "local_adapter", "open_clip_model_name",
+        "require_commercial", "require_commercial_rights",
     ):
         if key in request:
             out[key] = request[key]
@@ -310,6 +331,8 @@ def _normalize_match(row: Mapping[str, Any], score: float) -> Optional[Dict[str,
     }
     axis_scores = _axis_scores(row)
     feature_profile = _feature_profile(row)
+    rights_gate = corpus_manifest.commercial_rights_status(
+        row, require_commercial=True)
     out: Dict[str, Any] = {
         "item_id": item_id,
         "score": score,
@@ -329,6 +352,8 @@ def _normalize_match(row: Mapping[str, Any], score: float) -> Optional[Dict[str,
         "license": license_metadata,
         "source": source,
         "rights_review": rights_review,
+        "commercial_rights_gate": rights_gate,
+        "eligible_for_commercial_asset_use": bool(rights_gate["allowed"]),
     }
     # Labels and garment structure are copied only when the configured index
     # supplied them.  The adapter never guesses a category from an item ID.
@@ -395,7 +420,23 @@ def _top_k(value: Any) -> Optional[int]:
 
 
 def _result(matches: Sequence[Mapping[str, Any]], *, mode: str,
-            config: Mapping[str, Any]) -> Dict[str, Any]:
+            config: Mapping[str, Any],
+            rights_refusals: Sequence[Mapping[str, Any]] = ()) -> Dict[str, Any]:
+    require_commercial = bool(config.get(
+        "require_commercial_rights", config.get("require_commercial", False)))
+    rights_summary = ({
+        "rights_review": {
+            "commercial_use": "allowed",
+            "basis": "every emitted retrieval match passed its asset rights gate",
+        },
+    } if require_commercial else None)
+    boundary = corpus_manifest.provider_capability(
+        "marqo-fashion-siglip", "FASHION_SIMILARITY_RETRIEVAL",
+        health="READY", available=True,
+        consent_scope="RETRIEVAL_HYPOTHESIS",
+        require_commercial=require_commercial, rights=rights_summary,
+        details={"mode": mode, "match_count": len(matches)},
+    )
     return {
         "schema": RESULT_SCHEMA,
         "verdict": "ANSWER",
@@ -406,6 +447,25 @@ def _result(matches: Sequence[Mapping[str, Any]], *, mode: str,
         "feature_axes": list(FEATURE_AXES),
         "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
         "model_metadata": _model_metadata(config),
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary,
+            proposals=[{
+                "item_id": row.get("item_id"),
+                "state": PROPOSAL_STATE,
+                "commercial_rights_gate": row.get("commercial_rights_gate"),
+            } for row in matches],
+            provenance=[row.get("provenance", {}) for row in matches],
+            source_origin="FRONT_IMAGE_RETRIEVAL_QUERY"),
+        "commercial_rights_gate": {
+            "required": bool(config.get(
+                "require_commercial_rights",
+                config.get("require_commercial", False))),
+            "eligible_match_count": len(matches),
+            "refused_match_count": len(rights_refusals),
+            "refused": [_plain(row) for row in rights_refusals],
+            "legal_opinion": False,
+        },
         "authority": {
             "retrieval_is_proposal_only": True,
             "scores_are_not_correctness_evidence": True,
@@ -416,6 +476,37 @@ def _result(matches: Sequence[Mapping[str, Any]], *, mode: str,
             "rights_review_required_before_asset_use": True,
         },
     }
+
+
+def _result_with_rights(
+    matches: Sequence[Mapping[str, Any]], *, mode: str,
+    config: Mapping[str, Any],
+) -> Dict[str, Any]:
+    """Apply the asset-rights gate without changing retrieval scores."""
+    require = bool(config.get(
+        "require_commercial_rights", config.get("require_commercial", False)))
+    refused = [row for row in matches
+               if not row.get("commercial_rights_gate", {}).get("allowed")]
+    eligible = ([row for row in matches
+                 if row.get("commercial_rights_gate", {}).get("allowed")]
+                if require else list(matches))
+    if require and not eligible:
+        return _typed_stop(
+            "UNKNOWN_FASHION_RETRIEVAL_COMMERCIAL_RIGHTS",
+            "retrieval candidates exist, but none carries explicit commercial-use permission",
+            "connect a rights-reviewed index or explicitly consent to an LLM-only proposal that uses no retrieved asset",
+            model_metadata=_model_metadata(config),
+            commercial_rights_gate={
+                "required": True,
+                "eligible_match_count": 0,
+                "refused_match_count": len(refused),
+                "refused": [_plain(row) for row in refused],
+                "legal_opinion": False,
+            },
+        )
+    return _result(
+        eligible, mode=mode, config=config,
+        rights_refusals=refused if require else ())
 
 
 def _invoke_transport(transport: Any, endpoint: str,
@@ -545,6 +636,16 @@ class MarqoFashionSigLIPAdapter:
         has_items = bool(_items_from_request(request))
         has_results = bool(_matches_from_result(_direct_result(request)))
         has_index = self.index is not None or has_items
+        ready = bool(has_results or has_index or (
+            config.get("allow_http") is True and endpoint_valid))
+        boundary = corpus_manifest.provider_capability(
+            "marqo-fashion-siglip", "FASHION_SIMILARITY_RETRIEVAL",
+            health="READY" if ready else "UNAVAILABLE",
+            available=ready,
+            reason="" if ready else "no result, index, or enabled endpoint is configured",
+            consent_scope="RETRIEVAL_HYPOTHESIS",
+            details={"capability_probe_only": True},
+        )
         return {
             "schema": SCHEMA,
             "verdict": "ANSWER",
@@ -553,6 +654,8 @@ class MarqoFashionSigLIPAdapter:
             "model_loaded": False,
             "downloads_attempted": False,
             "model_metadata": _model_metadata(config),
+            "provider_boundary": boundary,
+            "resolution_options": boundary["resolution_options"],
             "analysis_contract": {
                 "feature_axes": list(FEATURE_AXES),
                 "candidate_use_scope": list(CANDIDATE_USE_SCOPE),
@@ -661,7 +764,7 @@ class MarqoFashionSigLIPAdapter:
                 "verify item IDs, finite scores/embeddings, and index dimensions",
                 model_metadata=_model_metadata(config),
             )
-        return _result(matches, mode="precomputed", config=config)
+        return _result_with_rights(matches, mode="precomputed", config=config)
 
     def _run_http(
         self, request: Mapping[str, Any], config: Mapping[str, Any], top_k: int,
@@ -727,7 +830,7 @@ class MarqoFashionSigLIPAdapter:
                 "return item_id plus a finite score for each candidate",
                 model_metadata=_model_metadata(config),
             )
-        return _result(matches, mode="local_http", config=config)
+        return _result_with_rights(matches, mode="local_http", config=config)
 
     def _run_local_model(
         self, request: Mapping[str, Any], config: Mapping[str, Any], top_k: int,
@@ -808,7 +911,7 @@ class MarqoFashionSigLIPAdapter:
                 "verify index embeddings, dimensions, item IDs, and scores",
                 model_metadata=_model_metadata(config),
             )
-        return _result(matches, mode="local_model", config=config)
+        return _result_with_rights(matches, mode="local_model", config=config)
 
 
 def capability_probe(

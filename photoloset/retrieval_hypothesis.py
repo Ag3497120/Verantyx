@@ -897,11 +897,71 @@ def _corpus_packages(payload: Mapping[str, Any], *, purpose: str,
                          "manifest_digest": checked["digest"],
                          "records": [copy.deepcopy(dict(row)) for row in records
                                      if isinstance(row, Mapping)]})
+    if eligible:
+        health, reason = "READY", "rights-gated local corpus is available"
+    elif packages and refused:
+        health, reason = "RIGHTS_REFUSED", (
+            "supplied corpus packages failed schema, lineage, modality, or rights gates")
+    else:
+        health, reason = "UNAVAILABLE", "no local retrieval corpus was supplied"
+    rights_summary = ({
+        "rights_review": {
+            "commercial_use": "allowed",
+            "basis": "eligible corpus manifests passed the commercial-use gate",
+        },
+    } if require_commercial and eligible else None)
+    boundary = corpus_manifest.provider_capability(
+        "local-garment-corpus", "GARMENT_CONSTRUCTION_RETRIEVAL",
+        health=health, available=bool(eligible), reason=reason,
+        consent_scope="RETRIEVAL_HYPOTHESIS",
+        require_commercial=require_commercial, rights=rights_summary,
+        details={"purpose": purpose, "received": len(packages),
+                 "eligible": len(eligible), "refused": len(refused)},
+    )
+    rear_reference_rows = [
+        {"manifest_digest": package["manifest_digest"],
+         "record_id": str(record.get("record_id") or record.get("asset_id")
+                          or f"record-{index}")}
+        for package in eligible
+        for index, record in enumerate(package["records"])
+        if any(record.get(key) not in (None, "", [], {}) for key in (
+            "back_design", "rear_structure", "hidden_structure", "rear", "back"))
+    ]
+    rear_boundary = corpus_manifest.provider_capability(
+        "local-rear-reference-corpus", "REAR_REFERENCE_RETRIEVAL",
+        health="READY" if rear_reference_rows else "UNAVAILABLE",
+        available=bool(rear_reference_rows),
+        reason=("rights-gated corpus records include rear references"
+                if rear_reference_rows else
+                "no rights-gated corpus record includes a rear reference"),
+        consent_scope="REAR_HYPOTHESIS",
+        require_commercial=require_commercial, rights=rights_summary,
+        details={"eligible_rear_reference_records": len(rear_reference_rows)},
+    )
     status = {
         "received": len(packages), "eligible": len(eligible),
         "refused": refused,
         "mode": "LOCAL_RIGHTS_GATED" if eligible else "PROCEDURAL_ONLY",
         "network_used": False,
+        "provider_boundary": boundary,
+        "provider_result": corpus_manifest.provider_result(
+            boundary,
+            provenance=[{
+                "manifest_digest": row["manifest_digest"],
+                "corpus": row["manifest"]["name"],
+            } for row in eligible],
+            failure=({"verdict": "UNKNOWN_CORPUS_PROVIDER_UNAVAILABLE",
+                      "why": reason} if not eligible else None),
+            source_origin="FRONT_IMAGE_TO_CORPUS_RETRIEVAL"),
+        "resolution_options": boundary["resolution_options"],
+        "provider_boundaries": {
+            "construction_retrieval": boundary,
+            "rear_reference_retrieval": rear_boundary,
+        },
+        "rear_reference_provider_result": corpus_manifest.provider_result(
+            rear_boundary, proposals=rear_reference_rows,
+            provenance=rear_reference_rows,
+            source_origin="FRONT_IMAGE_TO_REAR_REFERENCE_RETRIEVAL"),
     }
     return eligible, status
 
@@ -995,6 +1055,8 @@ def multi_stage_retrieve(payload: Mapping[str, Any]) -> Dict[str, Any]:
                 },
             }},
             "provenance": provenance, "state": "PROPOSED",
+            "observation_state": "UNKNOWN_UNOBSERVED", "observed": False,
+            "downstream_use_requires_scoped_approval": True,
         })
         if row["valid_structure"] is not None:
             back = str(row["record"].get("back_design") or "corpus_back_unspecified")
@@ -1006,6 +1068,9 @@ def multi_stage_retrieve(payload: Mapping[str, Any]) -> Dict[str, Any]:
                     "back_design": back,
                     "structure": row["valid_structure"],
                     "fit": row["score"], "state": "PROPOSED",
+                    "observation_state": "UNKNOWN_UNOBSERVED",
+                    "observed": False,
+                    "downstream_use_requires_scoped_approval": True,
                     "provenance": provenance,
                     "assumptions": (["back design supplied by corpus record"]
                                     if row["record"].get("back_design") else
@@ -1042,10 +1107,14 @@ def multi_stage_retrieve(payload: Mapping[str, Any]) -> Dict[str, Any]:
             "visual_cues": {"route": "geometry-first", "back_design": back,
                             "single_embedding_winner": False},
             "provenance": provenance, "state": "PROPOSED",
+            "observation_state": "UNKNOWN_UNOBSERVED", "observed": False,
+            "downstream_use_requires_scoped_approval": True,
         })
         hypotheses.append({
             "candidate_id": candidate_id, "back_design": back,
             "structure": structure, "state": "PROPOSED",
+            "observation_state": "UNKNOWN_UNOBSERVED", "observed": False,
+            "downstream_use_requires_scoped_approval": True,
             "provenance": provenance,
             "assumptions": [
                 "back is unobserved and is presented as an alternative",
@@ -1081,6 +1150,12 @@ def multi_stage_retrieve(payload: Mapping[str, Any]) -> Dict[str, Any]:
     return {
         "verdict": "PROPOSED", "source": source, "hits": hits,
         "hypotheses": hypotheses,
+        "real_corpus_matches": [
+            row for row in hits if row["provenance"]["real_corpus_record"]],
+        "procedural_candidates": [
+            row for row in hypotheses
+            if row["provenance"]["origin"] == "PROCEDURAL_GEOMETRY_COMPOSITION"],
+        "resolution_options": corpus_status["resolution_options"],
         "route": {
             "factory_events": [retrieve_event, hypothesis_event],
             "hypotheses": hypotheses,
