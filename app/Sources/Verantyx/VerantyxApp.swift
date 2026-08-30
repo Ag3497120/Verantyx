@@ -442,7 +442,19 @@ struct VerantyxApp: App {
             CommandGroup(after: .windowArrangement) {
                 Button(appState.t("Bring Window to This Screen",
                                   "ウィンドウをこの画面に戻す")) {
-                    Self.forceWindowOntoMainScreen()
+                    // **"Off screen" and "closed" look identical from the
+                    // outside, and this command has to survive both.** The
+                    // first version only repositioned an existing window, so
+                    // when the window had actually been closed it did
+                    // nothing at all — measured: the shortcut fired, the app
+                    // was frontmost, and no window appeared. Reopen first,
+                    // then place it once the scene has produced a window.
+                    if IDEWindowMonitor.ideWindow() == nil {
+                        openWindow(id: "main-ide")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        Self.forceWindowOntoMainScreen()
+                    }
                 }
                 .keyboardShortcut("0", modifiers: [.command, .control])
 
