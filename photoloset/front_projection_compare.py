@@ -350,6 +350,53 @@ def _normalise_document(document: Mapping[str, Any], *, observation: bool,
             "state": _state(metadata, default_state),
             "layer": layer,
         }
+    has_explicit_layer_relations = "observed_layer_relations" in document
+    explicit_layer_relations: Set[Tuple[str, str]] = set()
+    if has_explicit_layer_relations:
+        if not observation:
+            raise ValueError(
+                "candidate projections cannot assert observed_layer_relations")
+        raw_relations = document.get("observed_layer_relations")
+        if not _is_sequence(raw_relations):
+            raise ValueError("observed_layer_relations must be a sequence")
+        predecessor_by_front: Dict[str, str] = {}
+        relation_ids: Set[str] = set()
+        for index, raw_relation in enumerate(raw_relations):
+            if not isinstance(raw_relation, Mapping):
+                raise ValueError(
+                    "observed_layer_relations[%d] must be an object" % index)
+            relation_id = raw_relation.get("relation_id")
+            behind = raw_relation.get(
+                "behind_part_id", raw_relation.get("parent_id"))
+            front = raw_relation.get(
+                "front_part_id", raw_relation.get("child_id"))
+            if (not isinstance(relation_id, str) or not relation_id
+                    or relation_id in relation_ids):
+                raise ValueError("observed layer relation ids must be unique")
+            if (str(raw_relation.get("kind", "")).upper() != "LAYER"
+                    or _state(raw_relation, "") != OBSERVED
+                    or str(raw_relation.get("source", "")).upper()
+                    != "HUMAN_EXPLICIT_FRONT_ORDER"
+                    or not isinstance(behind, str)
+                    or not isinstance(front, str)
+                    or behind == front
+                    or behind not in parts or front not in parts):
+                raise ValueError(
+                    "observed layer relations require two known distinct parts")
+            if front in predecessor_by_front:
+                raise ValueError(
+                    "an observed front part cannot have multiple predecessors")
+            relation_ids.add(relation_id)
+            predecessor_by_front[front] = behind
+            explicit_layer_relations.add((behind, front))
+        for start in parts:
+            seen: Set[str] = set()
+            current: Optional[str] = start
+            while current is not None:
+                if current in seen:
+                    raise ValueError("observed layer relations must be acyclic")
+                seen.add(current)
+                current = predecessor_by_front.get(current)
     colours, excluded_colours = _swatches(document, parts, observation=observation)
     return {
         "shape": shape,
@@ -360,6 +407,8 @@ def _normalise_document(document: Mapping[str, Any], *, observation: bool,
         "excluded_parts": sorted(set(excluded_parts)),
         "excluded_colours": sorted(set(excluded_colours)),
         "camera_digest": _camera_digest(document),
+        "has_explicit_layer_relations": has_explicit_layer_relations,
+        "explicit_layer_relations": explicit_layer_relations,
     }
 
 
@@ -527,8 +576,31 @@ def _layer_relations(parts: Mapping[str, Mapping[str, Any]], valid: Sequence[boo
 def _layer_axis(observation: Mapping[str, Any], rendering: Mapping[str, Any],
                 valid: Sequence[bool]) -> Dict[str, Any]:
     total = len(valid)
-    obs_relations = _layer_relations(observation["parts"], valid)
-    render_relations = _layer_relations(rendering["parts"], valid)
+    explicit = bool(observation.get("has_explicit_layer_relations"))
+    obs_relations = (set(observation.get("explicit_layer_relations", set()))
+                     if explicit else
+                     _layer_relations(observation["parts"], valid))
+    if explicit:
+        # The person supplied the relation domain.  Candidate order can be
+        # tested from the two typed part layers even when the coarse raster
+        # polygons share no scored pixel; absence of overlap must not erase a
+        # human statement or invent a replacement relation.
+        render_relations: Set[Tuple[str, str]] = set()
+        for behind, front in obs_relations:
+            behind_part = rendering["parts"].get(behind)
+            front_part = rendering["parts"].get(front)
+            if behind_part is None or front_part is None:
+                continue
+            behind_layer = behind_part.get("layer")
+            front_layer = front_part.get("layer")
+            if not isinstance(behind_layer, int) or not isinstance(front_layer, int):
+                continue
+            if behind_layer < front_layer:
+                render_relations.add((behind, front))
+            elif front_layer < behind_layer:
+                render_relations.add((front, behind))
+    else:
+        render_relations = _layer_relations(rendering["parts"], valid)
 
     # A top-visible part id is evidence about layer order only where at least
     # two observed, integer-layer parts actually overlap.  Comparing it over
@@ -569,7 +641,11 @@ def _layer_axis(observation: Mapping[str, Any], rendering: Mapping[str, Any],
     ratio = mismatches / evaluated if evaluated else 0.0
     return {
         "status": "SCORED" if evaluated or obs_relations else "NOT_SCORED",
-        "method": "typed_top_visible_part_and_explicit_integer_layer_order",
+        "method": ("human_explicit_relation_and_typed_candidate_layer_order"
+                   if explicit else
+                   "typed_top_visible_part_and_explicit_integer_layer_order"),
+        "relation_authority": ("HUMAN_EXPLICIT_FRONT_ORDER"
+                               if explicit else "INFERRED_FROM_OVERLAPPING_MASKS"),
         "pixel_mismatch_count": mismatches,
         "evaluated_pixels": evaluated,
         "pixel_mismatch_ratio": ratio,

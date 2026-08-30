@@ -211,6 +211,77 @@ class FrontProjectionCompareTests(unittest.TestCase):
             result["convergence"]["unmet_bounds"],
         )
 
+    def test_human_explicit_order_is_scored_without_inventing_mask_overlap(self):
+        observed = _observation()
+        rendered = _render()
+        left = [[1, 1, 0, 0] for _ in range(4)]
+        right = [[0, 0, 1, 1] for _ in range(4)]
+        union = [[1, 1, 1, 1] for _ in range(4)]
+        for document in (observed, rendered):
+            document["silhouette_mask"]["mask"] = copy.deepcopy(union)
+            document["typed_part_masks"]["body"]["mask"] = copy.deepcopy(left)
+            document["typed_part_masks"]["front_overlay"]["mask"] = copy.deepcopy(
+                right)
+        observed["observed_layer_relations"] = [{
+            "relation_id": "human-layer:body->front_overlay",
+            "kind": "LAYER",
+            "behind_part_id": "body",
+            "front_part_id": "front_overlay",
+            "state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        }]
+
+        result = compare_front_projection(observed, rendered)
+
+        layer = result["axes"]["layer_occlusion"]
+        self.assertEqual(layer["status"], "SCORED")
+        self.assertEqual(layer["relation_authority"],
+                         "HUMAN_EXPLICIT_FRONT_ORDER")
+        self.assertEqual(layer["observation_relations"],
+                         [["body", "front_overlay"]])
+        self.assertEqual(layer["render_relations"],
+                         [["body", "front_overlay"]])
+        self.assertEqual(layer["observation_overlap_pixels"], 0)
+        self.assertEqual(layer["evaluated_pixels"], 0)
+        self.assertEqual(layer["missing_observed_relations"], [])
+        self.assertEqual(layer["reversed_observed_relations"], [])
+
+    def test_explicit_empty_human_order_suppresses_geometric_inference(self):
+        observed = _observation()
+        observed["observed_layer_relations"] = []
+
+        result = compare_front_projection(observed, _render())
+
+        layer = result["axes"]["layer_occlusion"]
+        self.assertEqual(layer["status"], "NOT_SCORED")
+        self.assertEqual(layer["relation_authority"],
+                         "HUMAN_EXPLICIT_FRONT_ORDER")
+        self.assertEqual(layer["observation_relations"], [])
+        self.assertEqual(layer["observation_overlap_pixels"], 0)
+        self.assertEqual(layer["evaluated_pixels"], 0)
+        self.assertNotIn(
+            "REORDER_VISIBLE_FRONT_LAYERS",
+            {proposal["operation"] for proposal in result["proposals"]},
+        )
+
+    def test_observed_order_rejects_non_human_source(self):
+        observed = _observation()
+        observed["observed_layer_relations"] = [{
+            "relation_id": "model-layer:body->front_overlay",
+            "kind": "LAYER",
+            "behind_part_id": "body",
+            "front_part_id": "front_overlay",
+            "state": "OBSERVED",
+            "source": "MODEL_PROPOSAL",
+        }]
+
+        result = compare_front_projection(observed, _render())
+
+        self.assertEqual(result["verdict"], "UNKNOWN_FRONT_PROJECTION_INPUT")
+        self.assertEqual(result["state"], "UNKNOWN")
+        self.assertIn("known distinct parts", result["why"])
+        self.assertEqual(result["proposals"], [])
+
     def test_any_regression_rejects_even_when_other_axes_improve(self):
         previous_render = _render("candidate-round-1")
         previous_render["silhouette_mask"]["mask"][1][0] = 0

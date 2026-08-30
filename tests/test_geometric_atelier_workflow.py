@@ -218,6 +218,102 @@ def _human_confirmed_fixture_request():
     return path, outline_px, request
 
 
+def _human_confirmed_multi_region_fixture_request():
+    """Represent four reviewer-drawn regions without garment-name semantics.
+
+    The polygons are test-only pixel selections on the same real fixture used
+    by ``_human_confirmed_fixture_request``.  Region ids are deliberately
+    opaque.  Only the two rear-to-front edges explicitly recorded by the
+    reviewer receive an OBSERVED source state; the downstream ownership and
+    second-skin relations remain PROPOSED.
+    """
+    path, _, request = _human_confirmed_fixture_request()
+    parts = [
+        {
+            "part_id": "human-part:region-0",
+            "kind": "HUMAN_OBSERVED_VISIBLE_REGION",
+            "garment_unit": "human-visible-unit:region-0",
+            "layer": 0,
+            "side": "CENTER",
+            "state": "OBSERVED",
+            "coordinate_space": "PIXELS",
+            "outline": [
+                [340, 245], [684, 245], [748, 675], [640, 735],
+                [600, 575], [424, 575], [384, 735], [276, 675],
+            ],
+        },
+        {
+            "part_id": "human-part:region-1",
+            "kind": "HUMAN_OBSERVED_VISIBLE_REGION",
+            "garment_unit": "human-visible-unit:region-1",
+            "layer": 1,
+            "side": "CENTER",
+            "state": "OBSERVED",
+            "coordinate_space": "PIXELS",
+            "outline": [
+                [346, 285], [678, 285], [704, 545], [612, 570],
+                [560, 470], [468, 470], [414, 570], [326, 545],
+            ],
+        },
+        {
+            "part_id": "human-part:region-2",
+            "kind": "HUMAN_OBSERVED_VISIBLE_REGION",
+            "garment_unit": "human-visible-unit:region-2",
+            "layer": 0,
+            "side": "CENTER",
+            "state": "OBSERVED",
+            "coordinate_space": "PIXELS",
+            "outline": [
+                [336, 525], [670, 525], [690, 1450], [535, 1450],
+                [512, 755], [489, 1450], [335, 1450],
+            ],
+        },
+        {
+            "part_id": "human-part:region-3",
+            "kind": "HUMAN_OBSERVED_VISIBLE_REGION",
+            "garment_unit": "human-visible-unit:region-3",
+            "layer": 1,
+            "side": "CENTER",
+            "state": "OBSERVED",
+            "coordinate_space": "PIXELS",
+            "outline": [
+                [505, 535], [715, 575], [730, 1215], [600, 1190],
+                [515, 900],
+            ],
+        },
+    ]
+    relations = [
+        {
+            "relation_id": "human-layer:region-0->region-1",
+            "kind": "LAYER",
+            "parent_id": "human-part:region-0",
+            "child_id": "human-part:region-1",
+            "attachment_port": "human-visible-order:region-0->region-1",
+            "attachment_side": "CENTER",
+            "state": "PROPOSED",
+            "source_state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        },
+        {
+            "relation_id": "human-layer:region-2->region-3",
+            "kind": "LAYER",
+            "parent_id": "human-part:region-2",
+            "child_id": "human-part:region-3",
+            "attachment_port": "human-visible-order:region-2->region-3",
+            "attachment_side": "CENTER",
+            "state": "PROPOSED",
+            "source_state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        },
+    ]
+    request["visible_part_graph"] = {
+        "graph_id": "test-only-human-multi-region-front",
+        "parts": parts,
+        "relations": relations,
+    }
+    return path, request
+
+
 class GeometricAtelierWorkflowTests(unittest.TestCase):
     maxDiff = None
 
@@ -579,6 +675,70 @@ class GeometricAtelierWorkflowTests(unittest.TestCase):
         for initial_iou, final_iou in measurements:
             self.assertAlmostEqual(initial_iou, 0.6562841530054645, places=12)
             self.assertAlmostEqual(final_iou, 0.9297676931388439, places=12)
+        self.assertFalse(result["pattern_handoff_ready"])
+        self.assertEqual(result["pattern_handoffs"], [])
+
+    def test_real_fixture_multiple_human_regions_preserve_parts_and_layer_order(self):
+        path, request = _human_confirmed_multi_region_fixture_request()
+        with patch(
+            "photoloset.geometric_atelier_workflow."
+            "candidate_3d_repair_loop.run",
+            wraps=candidate_3d_repair_loop.run,
+        ) as repair_run:
+            result = run(request)
+
+        self.assertTrue(path.is_file())
+        self.assertTrue(result["front_confirmed"])
+        self.assertEqual(repair_run.call_count, 1)
+        repair_target = repair_run.call_args.args[0]["target_front"]
+        self.assertEqual(
+            repair_target["reference_authority"],
+            "HUMAN_CONFIRMED_TARGET",
+        )
+        self.assertEqual(len(repair_target["typed_part_masks"]), 4)
+        self.assertEqual(len(repair_target["observed_layer_relations"]), 2)
+        self.assertTrue(all(
+            row["state"] == "OBSERVED"
+            and row["source"] == "HUMAN_EXPLICIT_FRONT_ORDER"
+            for row in repair_target["observed_layer_relations"]
+        ))
+        self.assertEqual(len(result["visible_part_graph"]["parts"]), 4)
+        self.assertEqual(len(result["second_skin"]["topology"]["surfaces"]), 4)
+        self.assertEqual(len(result["second_skin"]["mesh"]["vertices_cm"]), 285)
+        self.assertEqual(len(result["second_skin"]["mesh"]["triangles"]), 448)
+
+        measurements = []
+        for candidate in result["candidate_3d_repair"]["candidates"]:
+            support = candidate["repair_transcript"][0]["evidence_cross"][
+                "arms"]["support+"]
+            loss = next(
+                row["value"] for row in support
+                if row["path"] == "front/silhouette/iou_loss"
+            )
+            initial_iou = 1.0 - float(loss)
+            final = candidate["final_evaluation"]
+            final_iou = float(final["axes"]["silhouette"]["iou"])
+            layer = final["axes"]["layer_occlusion"]
+            measurements.append((initial_iou, final_iou))
+            self.assertGreater(final_iou, initial_iou)
+            self.assertEqual(layer["status"], "SCORED")
+            self.assertEqual(layer["relation_authority"],
+                             "HUMAN_EXPLICIT_FRONT_ORDER")
+            self.assertEqual(len(layer["observation_relations"]), 2)
+            self.assertEqual(layer["missing_observed_relations"], [])
+            self.assertEqual(layer["reversed_observed_relations"], [])
+            self.assertEqual(candidate["verdict"],
+                             "HUMAN_REVIEW_REPAIR_UNAVAILABLE")
+
+        self.assertEqual(len(measurements), 2)
+        self.assertAlmostEqual(measurements[0][0], 0.6320132013201321,
+                               places=12)
+        self.assertAlmostEqual(measurements[1][0], 0.6311881188118812,
+                               places=12)
+        self.assertTrue(all(
+            abs(final_iou - 0.9228896103896104) < 1.0e-12
+            for _, final_iou in measurements
+        ))
         self.assertFalse(result["pattern_handoff_ready"])
         self.assertEqual(result["pattern_handoffs"], [])
 

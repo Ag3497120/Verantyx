@@ -145,6 +145,60 @@ private enum InitialHumanReviewGateAudit {
 
         require(evaluate(valid, activePath: "/tmp/a-different-image.png") == nil,
                 "MISMATCHED_IMAGE_PATH_OPENED_THE_GATE", &failures)
+
+        let multiple = confirmedMultiRegionOutline(includeRelation: true)
+        if let evidence = evaluate(multiple) {
+            require(evidence.regions.count == 2
+                    && evidence.layerRelations.count == 1,
+                    "VALID_HUMAN_MULTI_REGION_RELATION_WAS_CHANGED",
+                    &failures)
+            require(evidence.layerRelations.first?["source"] as? String
+                    == "HUMAN_EXPLICIT_FRONT_ORDER",
+                    "HUMAN_LAYER_RELATION_LOST_EXPLICIT_SOURCE",
+                    &failures)
+        } else {
+            failures.append("VALID_HUMAN_MULTI_REGION_RELATION_WAS_REFUSED")
+        }
+
+        if let evidence = evaluate(
+            confirmedMultiRegionOutline(includeRelation: false)) {
+            require(evidence.regions.count == 2
+                    && evidence.layerRelations.isEmpty,
+                    "MULTI_REGION_WITHOUT_ORDER_INVENTED_A_RELATION",
+                    &failures)
+        } else {
+            failures.append("MULTI_REGION_WITHOUT_ORDER_WAS_REFUSED")
+        }
+
+        var proposedRelation = multiple
+        var relations = proposedRelation["human_layer_relations"]
+            as! [[String: Any]]
+        relations[0]["state"] = "PROPOSED"
+        proposedRelation["human_layer_relations"] = relations
+        require(evaluate(proposedRelation) == nil,
+                "PROPOSED_LAYER_RELATION_OPENED_THE_GATE", &failures)
+
+        var unknownEndpoint = multiple
+        relations = unknownEndpoint["human_layer_relations"]
+            as! [[String: Any]]
+        relations[0]["front_region_id"] = "region-missing"
+        unknownEndpoint["human_layer_relations"] = relations
+        require(evaluate(unknownEndpoint) == nil,
+                "UNKNOWN_LAYER_ENDPOINT_OPENED_THE_GATE", &failures)
+
+        var cyclic = multiple
+        relations = cyclic["human_layer_relations"] as! [[String: Any]]
+        relations.append([
+            "relation_id": "human-layer:region-front->region-behind",
+            "kind": "LAYER",
+            "behind_region_id": "region-front",
+            "front_region_id": "region-behind",
+            "state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        ])
+        cyclic["human_layer_relations"] = relations
+        require(evaluate(cyclic) == nil,
+                "CYCLIC_HUMAN_LAYER_RELATION_OPENED_THE_GATE", &failures)
         return failures
     }
 
@@ -169,6 +223,39 @@ private enum InitialHumanReviewGateAudit {
                 "human_seeds": seeds,
             ],
         ]
+    }
+
+    private static func confirmedMultiRegionOutline(
+        includeRelation: Bool
+    ) -> [String: Any] {
+        var result = confirmedOutline(seedCount: 3)
+        result["regions"] = [
+            [
+                "region_id": "region-behind",
+                "part_id": "human-part:region-behind",
+                "state": "OBSERVED",
+                "semantic_label": "clothing",
+                "outline": [[0.0, 0.0], [8.0, 0.0], [8.0, 8.0], [0.0, 8.0]],
+                "layer": 0,
+            ],
+            [
+                "region_id": "region-front",
+                "part_id": "human-part:region-front",
+                "state": "OBSERVED",
+                "semantic_label": "clothing",
+                "outline": [[2.0, 2.0], [7.0, 2.0], [7.0, 7.0], [2.0, 7.0]],
+                "layer": 1,
+            ],
+        ]
+        result["human_layer_relations"] = includeRelation ? [[
+            "relation_id": "human-layer:region-behind->region-front",
+            "kind": "LAYER",
+            "behind_region_id": "region-behind",
+            "front_region_id": "region-front",
+            "state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        ]] : []
+        return result
     }
 
     private static func require(_ condition: @autoclosure () -> Bool,

@@ -488,6 +488,10 @@ public final class GarmentFactoryReactController: ObservableObject {
         GarmentDesignRequirementProfileBridge.ValidatedProfile?
     private var activeTargetOutline: [String: Any]?
     private var activeTargetImagePath: String?
+    /// Populated only by HumanConfirmedFrontEvidenceGate.  AI hypotheses may
+    /// describe proposed parts, but cannot create or mutate this evidence.
+    private var activeHumanConfirmedFrontEvidence:
+        HumanConfirmedFrontEvidenceGate.Evidence?
     private var pendingHumanAuditedVisionRows: [[String: Any]] = []
     private var pendingHumanAuditUserRequest = ""
     private var pendingHumanAuditProposer: Proposer?
@@ -1579,6 +1583,7 @@ public final class GarmentFactoryReactController: ObservableObject {
         sewingReferenceSearchStatus = "IDLE"
         activeTargetOutline = nil
         activeTargetImagePath = nil
+        activeHumanConfirmedFrontEvidence = nil
         targetRemovedRegionIDs = []
     }
 
@@ -1743,6 +1748,7 @@ public final class GarmentFactoryReactController: ObservableObject {
         imageRelativeBodyFitDigest = nil
         activeInitialFashionRetrieval = nil
         activeGeometricAtelierWorkflow = nil
+        activeHumanConfirmedFrontEvidence = nil
         geometricRearCandidateArtifacts = [:]
         geometricRearCandidateArtifactsInOrder = []
         visionPipelineArtifacts = [:]
@@ -2288,7 +2294,7 @@ public final class GarmentFactoryReactController: ObservableObject {
             return parsed.count == rows.count ? parsed : nil
         }
 
-        let graphParts: [[String: Any]] = nodes.enumerated().compactMap {
+        let proposedGraphParts: [[String: Any]] = nodes.enumerated().compactMap {
             index, node in
             guard let nodeID = node["node_id"] as? String else { return nil }
             let attributes = node["attributes"] as? [String: Any] ?? [:]
@@ -2318,13 +2324,80 @@ public final class GarmentFactoryReactController: ObservableObject {
             }
             return part
         }
-        guard graphParts.count == nodes.count else { return }
+        guard proposedGraphParts.count == nodes.count else { return }
+
+        let graphParts: [[String: Any]]
+        let graphRelations: [[String: Any]]
+        if humanConfirmed, let evidence = activeHumanConfirmedFrontEvidence {
+            graphParts = evidence.regions.enumerated().compactMap { index, row in
+                guard let regionID = row["region_id"] as? String,
+                      let outline = pointRows(row["outline"]),
+                      outline.count >= 3 else { return nil }
+                let partID = row["part_id"] as? String
+                    ?? "human-part:\(regionID)"
+                return [
+                    "part_id": partID,
+                    "kind": "HUMAN_OBSERVED_VISIBLE_REGION",
+                    "layer": row["layer"] as? Int ?? 0,
+                    "garment_unit": "human-visible-unit:\(regionID)",
+                    "side": "CENTER",
+                    "state": "OBSERVED",
+                    "mask_id": regionID,
+                    "outline": outline,
+                    "coordinate_space": "PIXELS",
+                    "source_region_id": regionID,
+                    "source_region_state": "OBSERVED",
+                    "layer_source": row["layer_source"] as? String
+                        ?? "UNKNOWN_UNORDERED_VISIBLE_REGION",
+                    "human_region_index": index,
+                ]
+            }
+            guard graphParts.count == evidence.regions.count else { return }
+            let partIDByRegionID = Dictionary(uniqueKeysWithValues:
+                graphParts.compactMap { part -> (String, String)? in
+                    guard let regionID = part["source_region_id"] as? String,
+                          let partID = part["part_id"] as? String else {
+                        return nil
+                    }
+                    return (regionID, partID)
+                })
+            graphRelations = evidence.layerRelations.compactMap { row in
+                guard let relationID = row["relation_id"] as? String,
+                      let behindRegionID = row["behind_region_id"] as? String,
+                      let frontRegionID = row["front_region_id"] as? String,
+                      let behindPartID = partIDByRegionID[behindRegionID],
+                      let frontPartID = partIDByRegionID[frontRegionID] else {
+                    return nil
+                }
+                return [
+                    "relation_id": relationID,
+                    "kind": "LAYER",
+                    "parent_id": behindPartID,
+                    "child_id": frontPartID,
+                    "attachment_port": "human-visible-order:\(behindRegionID)->\(frontRegionID)",
+                    "attachment_side": "CENTER",
+                    // The computational relation remains a proposal.  Its
+                    // source relation is the separately preserved human fact.
+                    "state": "PROPOSED",
+                    "source_state": "OBSERVED",
+                    "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+                    "behind_region_id": behindRegionID,
+                    "front_region_id": frontRegionID,
+                ]
+            }
+            guard graphRelations.count == evidence.layerRelations.count else {
+                return
+            }
+        } else {
+            graphParts = proposedGraphParts
+            graphRelations = structure["relations"] as? [[String: Any]] ?? []
+        }
         let graph: [String: Any] = [
             "graph_id": structure["structure_digest"] as? String
                 ?? source["candidate_id"] as? String
                 ?? "visible-front-graph",
             "parts": graphParts,
-            "relations": structure["relations"] as? [[String: Any]] ?? [],
+            "relations": graphRelations,
             "authority": humanConfirmed
                 ? "HUMAN_REVIEWED_VISIBLE_FRONT" : "AI_GENERATED_PROPOSAL",
         ]
@@ -2604,6 +2677,10 @@ public final class GarmentFactoryReactController: ObservableObject {
                 ])
         }
 
+        // Keep the exact gate output for the later parts→second-skin call.
+        // This is cleared at every new image/job and has no AI write path.
+        activeHumanConfirmedFrontEvidence = humanEvidence
+
         busy = true
         defer { busy = false }
 
@@ -2644,6 +2721,7 @@ public final class GarmentFactoryReactController: ObservableObject {
             "confirmed_outline": confirmedOutline,
             "confirmed_regions": humanEvidence.regions,
             "human_seed_provenance": humanEvidence.seeds,
+            "confirmed_layer_relations": humanEvidence.layerRelations,
         ])
         guard let next = state(from: persisted),
               next["phase"] as? String == "FOREGROUND_CLEANUP_REQUIRED" else {

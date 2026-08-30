@@ -486,6 +486,8 @@ def _typed_relation_rows(
             "attachment_side": side,
             "source_relation_state": str(raw.get(
                 "source_state", raw.get("state", PROPOSED))),
+            "source_relation_source": str(raw.get(
+                "source", "UNKNOWN_RELATION_SOURCE")),
             "ledger_relation_preserved": True,
         })
         result.append(row)
@@ -650,7 +652,8 @@ def _raster_polygon(
 
 def _target_front(
     parts: Sequence[Mapping[str, Any]], fit: Mapping[str, Any], *, confirmed: bool,
-    human_edit_digest: Optional[str] = None, size: int = 64,
+    human_edit_digest: Optional[str] = None,
+    relations: Sequence[Mapping[str, Any]] = (), size: int = 64,
 ) -> Dict[str, Any]:
     width, height = _source_dimensions(fit)
     part_masks: Dict[str, Any] = {}
@@ -693,6 +696,34 @@ def _target_front(
         "rear_state": "UNKNOWN_UNOBSERVED",
         "material_state": "UNKNOWN_UNOBSERVED",
     }
+    if confirmed:
+        # Presence of this key is an authority boundary.  An empty list means
+        # the reviewer observed no front/back edge; the comparison layer must
+        # not infer one from mask size, overlap, colour, names or AI layers.
+        observed_relations = []
+        for row in relations:
+            if (str(row.get("kind", "")).upper() != "LAYER"
+                    or str(row.get(
+                        "source_relation_state", row.get("source_state", ""),
+                    )).upper() != "OBSERVED"
+                    or str(row.get(
+                        "source_relation_source", row.get("source", ""),
+                    )).upper() != "HUMAN_EXPLICIT_FRONT_ORDER"):
+                continue
+            behind = str(row.get("parent_id", ""))
+            front = str(row.get("child_id", ""))
+            if behind in part_masks and front in part_masks and behind != front:
+                observed_relations.append({
+                    "relation_id": str(row.get(
+                        "relation_id", "observed:%s->%s" % (behind, front))),
+                    "kind": "LAYER",
+                    "behind_part_id": behind,
+                    "front_part_id": front,
+                    "state": "OBSERVED",
+                    "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+                })
+        observed_relations.sort(key=lambda row: row["relation_id"])
+        result["observed_layer_relations"] = observed_relations
     if reference_authority == "HUMAN_CONFIRMED_TARGET":
         contract_target = (contract.get("target")
                            if isinstance(contract, Mapping) else None)
@@ -1061,6 +1092,7 @@ def run(request: Mapping[str, Any]) -> Dict[str, Any]:
         target = _target_front(
             parts, fit, confirmed=front_confirmed,
             human_edit_digest=edit_digest,
+            relations=plan.get("relations", []),
         )
         repair_request: Dict[str, Any] = {
             "schema": candidate_3d_repair_loop.REQUEST_SCHEMA,

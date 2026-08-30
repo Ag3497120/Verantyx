@@ -40,6 +40,7 @@ struct GarmentRegionPickerView: View {
                         .frame(minHeight: 260, idealHeight: 360, maxHeight: 440)
 
                     keyboardSeedControls
+                    layerRelationEditor
                     controls
                     if let message = model.message, !message.isEmpty {
                         Text(message)
@@ -216,6 +217,26 @@ struct GarmentRegionPickerView: View {
                            with: .color(observedRegion ? color(for: region.semanticLabel) : Theme.sel.opacity(0.7)),
                            style: StrokeStyle(lineWidth: observedRegion ? 2.2 : 1,
                                               dash: observedRegion ? [] : [4, 3]))
+            if region.semanticLabel == .clothing,
+               let choice = model.observedClothingRegions.first(where: {
+                   $0.id == "region-\(region.id)"
+               }) {
+                let box = region.boundingBox
+                let center = CGPoint(
+                    x: fitted.minX + CGFloat(box.x + box.width / 2) * scaleX,
+                    y: fitted.minY + CGFloat(box.y + box.height / 2) * scaleY)
+                let marker = CGRect(x: center.x - 9, y: center.y - 9,
+                                    width: 18, height: 18)
+                context.fill(Path(ellipseIn: marker),
+                             with: .color(Color.green.opacity(0.92)))
+                context.stroke(Path(ellipseIn: marker),
+                               with: .color(.white), lineWidth: 1.2)
+                context.draw(
+                    Text("\(choice.ordinal)")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundColor(.white),
+                    at: center)
+            }
         }
     }
 
@@ -326,6 +347,79 @@ struct GarmentRegionPickerView: View {
         .disabled(model.busy || model.seeds.count >= 5)
     }
 
+    @ViewBuilder
+    private var layerRelationEditor: some View {
+        if model.observedClothingRegions.count >= 2 {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(app.t(
+                    "Optional: record only a front/back relation you can actually see. Region numbers are image regions, not garment names.",
+                    "任意: 実際に見えている前後関係だけを記録してください。領域番号は画像上の領域で、服の名前ではありません。"))
+                    .font(.system(size: 9.5))
+                    .foregroundStyle(Theme.dim)
+                    .fixedSize(horizontal: false, vertical: true)
+                HStack(spacing: 7) {
+                    Picker(app.t("Behind", "奥の領域"),
+                           selection: $model.relationBehindRegionID) {
+                        ForEach(model.observedClothingRegions) { region in
+                            Text(app.t("Region \(region.ordinal)",
+                                       "領域 \(region.ordinal)"))
+                                .tag(region.id)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.menu)
+                    Text(app.t("is behind", "より奥"))
+                        .font(.system(size: 9.5))
+                        .foregroundStyle(Theme.faint)
+                    Picker(app.t("In front", "手前の領域"),
+                           selection: $model.relationFrontRegionID) {
+                        ForEach(model.observedClothingRegions) { region in
+                            Text(app.t("Region \(region.ordinal)",
+                                       "領域 \(region.ordinal)"))
+                                .tag(region.id)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.menu)
+                    Button(app.t("Record visible order", "見える前後関係を記録")) {
+                        model.addSelectedLayerRelation()
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(!model.canAddSelectedLayerRelation || model.busy)
+                    Spacer()
+                }
+                ForEach(model.humanLayerRelations) { relation in
+                    HStack(spacing: 6) {
+                        Image(systemName: "person.2.gobackward")
+                            .foregroundStyle(Theme.ok)
+                        Text(app.t(
+                            model.layerRelationDescription(
+                                relation, japanese: false),
+                            model.layerRelationDescription(
+                                relation, japanese: true)))
+                            .font(.system(size: 9.5, design: .monospaced))
+                            .foregroundStyle(Theme.fg)
+                        Text("OBSERVED · HUMAN_EXPLICIT_FRONT_ORDER")
+                            .font(.system(size: 8, design: .monospaced))
+                            .foregroundStyle(Theme.faint)
+                        Spacer()
+                        Button {
+                            model.removeLayerRelation(relation.id)
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(app.t("Remove visible order",
+                                                  "前後関係を削除"))
+                    }
+                }
+            }
+            .padding(7)
+            .background(Theme.sel.opacity(0.06),
+                        in: RoundedRectangle(cornerRadius: 7))
+        }
+    }
+
     private func labelName(_ label: RegionPicker.SemanticLabel) -> String {
         switch label {
         case .hair: return app.t("Hair", "髪")
@@ -370,6 +464,29 @@ struct GarmentRegionPickerView: View {
     }
 }
 
+struct HumanObservedClothingRegion: Identifiable, Hashable {
+    let id: String
+    let ordinal: Int
+}
+
+struct HumanObservedLayerRelation: Identifiable, Hashable {
+    let behindRegionID: String
+    let frontRegionID: String
+
+    var id: String { "human-layer:\(behindRegionID)->\(frontRegionID)" }
+
+    var evidenceRow: [String: Any] {
+        [
+            "relation_id": id,
+            "kind": "LAYER",
+            "behind_region_id": behindRegionID,
+            "front_region_id": frontRegionID,
+            "state": "OBSERVED",
+            "source": "HUMAN_EXPLICIT_FRONT_ORDER",
+        ]
+    }
+}
+
 @MainActor
 final class GarmentRegionPickerModel: ObservableObject {
     @Published private(set) var image: NSImage?
@@ -381,6 +498,10 @@ final class GarmentRegionPickerModel: ObservableObject {
     @Published private(set) var automaticCandidates: [GarmentOutline.AutomaticClothingMaskCandidate] = []
     @Published private(set) var selectedAutomaticCandidateID: String?
     @Published private(set) var automaticSelectionWasUserInitiated = false
+    @Published var relationBehindRegionID = ""
+    @Published var relationFrontRegionID = ""
+    @Published private(set) var humanLayerRelations:
+        [HumanObservedLayerRelation] = []
 
     private var cgImage: CGImage?
     private var loadedPath: String?
@@ -408,6 +529,47 @@ final class GarmentRegionPickerModel: ObservableObject {
         guard let selectedAutomaticCandidateID else { return nil }
         return automaticGeometryByCandidateID[selectedAutomaticCandidateID]
     }
+    var observedClothingRegions: [HumanObservedClothingRegion] {
+        guard let result else { return [] }
+        return result.regions
+            .filter {
+                $0.status == .observed && $0.semanticLabel == .clothing
+                    && !GarmentRegionPickerView.isLikelyBackground($0, in: result)
+            }
+            .sorted { $0.id < $1.id }
+            .enumerated().map { index, region in
+                HumanObservedClothingRegion(
+                    id: "region-\(region.id)", ordinal: index + 1)
+            }
+    }
+    var canAddSelectedLayerRelation: Bool {
+        guard relationBehindRegionID != relationFrontRegionID,
+              !relationBehindRegionID.isEmpty,
+              !relationFrontRegionID.isEmpty,
+              observedClothingRegions.contains(where: {
+                  $0.id == relationBehindRegionID
+              }),
+              observedClothingRegions.contains(where: {
+                  $0.id == relationFrontRegionID
+              }),
+              !humanLayerRelations.contains(where: {
+                  $0.behindRegionID == relationBehindRegionID
+                    && $0.frontRegionID == relationFrontRegionID
+              }),
+              !humanLayerRelations.contains(where: {
+                  $0.frontRegionID == relationFrontRegionID
+              }) else { return false }
+        var parentByFront = Dictionary(uniqueKeysWithValues:
+            humanLayerRelations.map { ($0.frontRegionID, $0.behindRegionID) })
+        parentByFront[relationFrontRegionID] = relationBehindRegionID
+        var seen = Set<String>()
+        var cursor: String? = relationFrontRegionID
+        while let current = cursor {
+            guard seen.insert(current).inserted else { return false }
+            cursor = parentByFront[current]
+        }
+        return true
+    }
 
     func load(path: String?) async {
         loadedPath = path
@@ -420,6 +582,9 @@ final class GarmentRegionPickerModel: ObservableObject {
         selectedAutomaticCandidateID = nil
         automaticSelectionWasUserInitiated = false
         automaticGeometryByCandidateID = [:]
+        relationBehindRegionID = ""
+        relationFrontRegionID = ""
+        humanLayerRelations = []
         guard let path else { return }
         busy = true
         defer { busy = false }
@@ -514,13 +679,41 @@ final class GarmentRegionPickerModel: ObservableObject {
     func confirmedOutline() -> [String: Any]? {
         guard let result else { return nil }
         let exported = GarmentOutline.extractConfirmedClothing(
-            from: result, seeds: seeds, sourceImage: cgImage)
+            from: result, seeds: seeds, sourceImage: cgImage,
+            layerRelations: humanLayerRelations)
         if let verdict = exported["verdict"] as? String {
             message = "\(verdict): \(exported["how_to_close"] as? String ?? "")"
             return nil
         }
         message = "Confirmed clothing boundary exported with RegionPicker provenance."
         return exported
+    }
+
+    func addSelectedLayerRelation() {
+        guard canAddSelectedLayerRelation else { return }
+        humanLayerRelations.append(.init(
+            behindRegionID: relationBehindRegionID,
+            frontRegionID: relationFrontRegionID))
+        humanLayerRelations.sort { $0.id < $1.id }
+        message = "Visible front order recorded by the human reviewer."
+        reconcileLayerRelations()
+    }
+
+    func removeLayerRelation(_ id: String) {
+        humanLayerRelations.removeAll { $0.id == id }
+        message = "Visible front order removed; no layer fact was retained."
+        reconcileLayerRelations()
+    }
+
+    func layerRelationDescription(_ relation: HumanObservedLayerRelation,
+                                  japanese: Bool) -> String {
+        let lookup = Dictionary(uniqueKeysWithValues:
+            observedClothingRegions.map { ($0.id, $0.ordinal) })
+        let behind = lookup[relation.behindRegionID] ?? 0
+        let front = lookup[relation.frontRegionID] ?? 0
+        return japanese
+            ? "領域 \(behind) → 領域 \(front)（手前）"
+            : "Region \(behind) → Region \(front) (front)"
     }
 
     private func replaceSeeds(_ replacement: [RegionPicker.Seed]) async {
@@ -531,6 +724,7 @@ final class GarmentRegionPickerModel: ObservableObject {
             let newResult = try await Self.analyze(cgImage, seeds: replacement)
             seeds = replacement
             result = newResult
+            reconcileLayerRelations()
             if !newResult.conflicts.isEmpty {
                 message = "Two labels touch the same region. Undo and place the conflicting point elsewhere."
             } else if !newResult.rejectedSeeds.isEmpty {
@@ -549,6 +743,22 @@ final class GarmentRegionPickerModel: ObservableObject {
             }
         } catch {
             message = error.localizedDescription
+        }
+    }
+
+    private func reconcileLayerRelations() {
+        let IDs = Set(observedClothingRegions.map(\.id))
+        humanLayerRelations.removeAll {
+            !IDs.contains($0.behindRegionID) || !IDs.contains($0.frontRegionID)
+        }
+        if !IDs.contains(relationBehindRegionID) {
+            relationBehindRegionID = observedClothingRegions.first?.id ?? ""
+        }
+        if !IDs.contains(relationFrontRegionID)
+            || relationFrontRegionID == relationBehindRegionID {
+            relationFrontRegionID = observedClothingRegions.first(where: {
+                $0.id != relationBehindRegionID
+            })?.id ?? ""
         }
     }
 
@@ -1200,7 +1410,9 @@ extension GarmentOutline {
 
     static func extractConfirmedClothing(from result: RegionPicker.Result,
                                          seeds: [RegionPicker.Seed],
-                                         sourceImage: CGImage? = nil) -> [String: Any] {
+                                         sourceImage: CGImage? = nil,
+                                         layerRelations: [HumanObservedLayerRelation] = [])
+        -> [String: Any] {
         guard (3...5).contains(seeds.count) else {
             return ["verdict": "UNKNOWN_REGION_SEEDS_INCOMPLETE",
                     "how_to_close": "place 3 to 5 human-labeled seeds before exporting a clothing boundary"]
@@ -1221,6 +1433,45 @@ extension GarmentOutline {
             return ["verdict": "UNKNOWN_NO_CONFIRMED_CLOTHING_REGION",
                     "how_to_close": "place at least one seed labeled clothing on the garment"]
         }
+        let clothingRegionIDs = Set(clothing.map { "region-\($0.id)" })
+        var predecessorByFront: [String: String] = [:]
+        for relation in layerRelations {
+            guard relation.behindRegionID != relation.frontRegionID,
+                  clothingRegionIDs.contains(relation.behindRegionID),
+                  clothingRegionIDs.contains(relation.frontRegionID),
+                  predecessorByFront[relation.frontRegionID] == nil else {
+                return [
+                    "verdict": "UNKNOWN_HUMAN_LAYER_RELATION",
+                    "how_to_close": "record each visible front/back relation once, between two currently confirmed clothing regions",
+                ]
+            }
+            predecessorByFront[relation.frontRegionID] = relation.behindRegionID
+        }
+        func layerDepth(for regionID: String) -> Int? {
+            var depth = 0
+            var seen = Set<String>()
+            var cursor: String? = regionID
+            while let current = cursor, let predecessor = predecessorByFront[current] {
+                guard seen.insert(current).inserted else { return nil }
+                depth += 1
+                cursor = predecessor
+            }
+            return depth
+        }
+        var layerByRegionID: [String: Int] = [:]
+        for regionID in clothingRegionIDs {
+            guard let depth = layerDepth(for: regionID) else {
+                return [
+                    "verdict": "UNKNOWN_HUMAN_LAYER_RELATION_CYCLE",
+                    "how_to_close": "remove the cyclic visible front/back relation",
+                ]
+            }
+            layerByRegionID[regionID] = depth
+        }
+        let layerEvidence = layerRelations.map(\.evidenceRow)
+        let layerObservedRegionIDs = Set(layerRelations.flatMap {
+            [$0.behindRegionID, $0.frontRegionID]
+        })
         let outline: [RegionPicker.PixelPoint]
         if clothing.count == 1 {
             let loops = boundaryLoops(from: clothing[0].boundaryEdges)
@@ -1252,6 +1503,9 @@ extension GarmentOutline {
             "human_seeds": seedEvidence,
             "confirmed_clothing_region_ids": clothing.map(\.id),
             "exported_region_ids": clothing.map(\.id),
+            "human_layer_relations": layerEvidence,
+            "human_layer_relation_count": layerEvidence.count,
+            "human_layer_relation_rule": "only a front/back edge explicitly recorded by the human reviewer is OBSERVED; no relation is inferred from names, colours, size, overlap, or AI output",
             "export_rule": "all OBSERVED clothing regions combined as a horizontal outer envelope; no PROPOSED region merged",
             "internal_boundaries_kind": "PROPOSED",
             "internal_boundaries_warning": "human seeds confirm the clothing region only; closed inner loops do not establish seam, overlap, frill, opening, or construction semantics",
@@ -1275,8 +1529,15 @@ extension GarmentOutline {
                 internalLineEvidence($0.element, index: $0.offset)
             },
             "regions": clothing.map {
-                regionEvidence($0, state: "OBSERVED", frame: result.provenance)
+                let regionID = "region-\($0.id)"
+                return regionEvidence(
+                    $0, state: "OBSERVED", frame: result.provenance,
+                    layer: layerByRegionID[regionID] ?? 0,
+                    layerAuthority: layerObservedRegionIDs.contains(regionID)
+                        ? "HUMAN_EXPLICIT_FRONT_ORDER"
+                        : "UNKNOWN_UNORDERED_VISIBLE_REGION")
             },
+            "human_layer_relations": layerEvidence,
             "width_px": result.provenance.width,
             "height_px": result.provenance.height,
             "source": "RegionPicker clothing boundary confirmed by \(seeds.count) human-labeled seeds; automatic regions remained PROPOSED unless seeded",
@@ -1630,7 +1891,10 @@ extension GarmentOutline {
     /// available for overlays, separate tops/bottoms and disconnected frills.
     private static func regionEvidence(_ region: RegionPicker.Region,
                                        state: String,
-                                       frame: RegionPicker.Provenance) -> [String: Any] {
+                                       frame: RegionPicker.Provenance,
+                                       layer: Int = 0,
+                                       layerAuthority: String = "UNKNOWN_UNORDERED_VISIBLE_REGION")
+        -> [String: Any] {
         let loops = boundaryLoops(from: region.boundaryEdges)
         let loop = loops.max(by: {
             abs(polygonArea($0)) < abs(polygonArea($1))
@@ -1639,8 +1903,13 @@ extension GarmentOutline {
         let frameArea = max(1, frame.width * frame.height)
         return [
             "region_id": "region-\(region.id)",
+            "part_id": "human-part:region-\(region.id)",
             "semantic_label": region.semanticLabel?.rawValue ?? "unknown",
             "state": state,
+            "layer": layer,
+            "layer_state": layerAuthority == "HUMAN_EXPLICIT_FRONT_ORDER"
+                ? "OBSERVED" : "UNKNOWN",
+            "layer_source": layerAuthority,
             "pixel_count": region.pixelCount,
             "coverage_fraction": Double(region.pixelCount) / Double(frameArea),
             "bounding_box": ["x": box.x, "y": box.y,
