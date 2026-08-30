@@ -64,6 +64,100 @@ struct GarmentAnswerEnvelope: Equatable, Sendable {
     }
 }
 
+/// Primitive, controller-friendly envelope for every point where the garment
+/// loop cannot proceed without a person, a geometry edit, a provider, or an
+/// explicit grant to ask an LLM for a proposal.  `missingFields` are always
+/// unobserved at this boundary.  `authority` describes the best permitted
+/// authority of the proposed resolution; it never promotes a field to
+/// OBSERVED.
+struct GarmentResolutionRequest: Codable, Equatable, Identifiable, Sendable {
+    static let enterOrMeasure = "ENTER_OR_MEASURE"
+    static let editGeometry = "EDIT_GEOMETRY"
+    static let connectProvider = "CONNECT_PROVIDER"
+    static let allowOneTimeLLMProposal = "ALLOW_ONE_TIME_LLM_PROPOSAL"
+    static let keepUnknownUseBoundedAlternatives = "KEEP_UNKNOWN_USE_BOUNDED_ALTERNATIVES"
+    static let stop = "STOP"
+
+    let id: String
+    let code: String
+    let stage: String
+    let title: String
+    let explanation: String
+    let missingFields: [String]
+    let options: [String]
+    let provenanceDigest: String
+    let authority: String
+    let terminal: Bool
+
+    func allows(_ option: String) -> Bool {
+        options.contains(option)
+    }
+
+    /// Lossless route adapter from the deterministic factory publisher into
+    /// the single request model consumed by AppState and SwiftUI.  The two
+    /// layers use different spelling for the same closed action set; every
+    /// published option is normalized here rather than re-inferred from a
+    /// report string.
+    init(factoryRequest request: GarmentFactoryReactController.FactoryResolutionRequest) {
+        id = request.id
+        code = request.code
+        stage = request.stage
+        title = request.title
+        explanation = request.explanation
+        missingFields = request.missingFields
+        options = request.options.map { option in
+            switch option.kind {
+            case .humanInput: return Self.enterOrMeasure
+            case .humanGeometryEdit: return Self.editGeometry
+            case .connectProvider: return Self.connectProvider
+            case .allowOneTimeLLMProposal: return Self.allowOneTimeLLMProposal
+            case .compareBoundedAlternatives:
+                return Self.keepUnknownUseBoundedAlternatives
+            case .typedStop: return Self.stop
+            }
+        }
+        provenanceDigest = request.provenanceDigest
+        authority = request.authority
+        terminal = request.terminal
+    }
+
+    init(id: String, code: String, stage: String, title: String,
+         explanation: String, missingFields: [String], options: [String],
+         provenanceDigest: String, authority: String, terminal: Bool) {
+        self.id = id
+        self.code = code
+        self.stage = stage
+        self.title = title
+        self.explanation = explanation
+        self.missingFields = missingFields
+        self.options = options
+        self.provenanceDigest = provenanceDigest
+        self.authority = authority
+        self.terminal = terminal
+    }
+}
+
+/// A grant is intentionally narrower than a general "AI allowed" setting:
+/// one request, one project, one immutable field list, and one proposal turn.
+struct GarmentLLMResolutionConsent: Codable, Equatable, Sendable {
+    let requestID: String
+    let projectName: String
+    let fieldKeys: [String]
+    let provenanceDigest: String
+    let engineConsentDigest: String
+    let boundWorkflowDigest: String
+    let authorityCeiling: String
+    let grantedAt: Date
+}
+
+struct GarmentResolutionSubmission: Codable, Equatable, Sendable {
+    let requestID: String
+    let projectName: String
+    let values: [String: String]
+    let authority: String
+    let submittedAt: Date
+}
+
 /// Swift mirror of the append-only Python garment job. The Python tool remains
 /// authoritative; this object only mirrors accepted snapshots for immediate UI
 /// feedback. Preview staging never changes `activeSnapshot`.
@@ -111,15 +205,310 @@ final class GarmentGenerationJob: ObservableObject {
     @Published private(set) var pendingPreview: GarmentPreview?
     @Published private(set) var history: [Event] = []
     @Published private(set) var lastAnswer: GarmentAnswerEnvelope?
+    @Published private(set) var activeResolutionProject = "Black Coat"
+    @Published private(set) var activeResolutionRequest: GarmentResolutionRequest?
+    @Published private(set) var activeLLMResolutionConsent: GarmentLLMResolutionConsent?
+    @Published private(set) var lastResolutionSubmission: GarmentResolutionSubmission?
 
     private var committedSnapshots: [GarmentJobSnapshot] = [.empty]
     private var consumedImageSelectionRevision: UInt64?
+    private struct ResolutionContext {
+        var request: GarmentResolutionRequest?
+        var consent: GarmentLLMResolutionConsent?
+        var submission: GarmentResolutionSubmission?
+    }
+    private var resolutionContexts: [String: ResolutionContext] = [:]
 
     private init(jobID: String = UUID().uuidString.lowercased()) {
         self.jobID = jobID
     }
 
     var canUndo: Bool { committedSnapshots.count > 1 }
+
+    /// Mirrors the canonical project selected by AppState. Resolution state is
+    /// project-scoped so switching garments cannot leak a consent or missing
+    /// measurement into another garment.
+    func activateProject(_ name: String) {
+        guard !name.isEmpty else { return }
+        persistResolutionContext()
+        activeResolutionProject = name
+        let context = resolutionContexts[name]
+        activeResolutionRequest = context?.request
+        activeLLMResolutionConsent = context?.consent
+        lastResolutionSubmission = context?.submission
+    }
+
+    /// Direct adapter for GarmentFactoryReactController's published envelope.
+    /// The controller and local mirror use the same primitive request type.
+    func ingestResolutionEnvelope(_ request: GarmentResolutionRequest?) {
+        guard let request else {
+            clearResolutionRequest()
+            return
+        }
+        let normalizedAuthority: String = {
+            let value = request.authority.uppercased()
+            if value.contains("PROPOS") { return "PROPOSED" }
+            if value.contains("UNKNOWN") || value.contains("UNOBSERVED") {
+                return "UNOBSERVED"
+            }
+            // A request with missing fields cannot itself establish an
+            // observation, even if an upstream label is too optimistic.
+            return request.missingFields.isEmpty ? value : "UNOBSERVED"
+        }()
+        let normalized = GarmentResolutionRequest(
+            id: request.id, code: request.code, stage: request.stage,
+            title: request.title, explanation: request.explanation,
+            missingFields: Self.unique(request.missingFields),
+            options: Self.unique(request.options),
+            provenanceDigest: request.provenanceDigest,
+            authority: normalizedAuthority, terminal: request.terminal)
+        activeResolutionRequest = normalized
+        if activeLLMResolutionConsent?.requestID != normalized.id {
+            activeLLMResolutionConsent = nil
+        }
+        persistResolutionContext()
+    }
+
+    /// Converts old verdict/phase reports into the same typed UI envelope.
+    /// This is also the compatibility path while controller publishers are
+    /// rolled out across every factory branch.
+    func registerResolution(code: String,
+                            stage: String,
+                            title: String? = nil,
+                            explanation: String,
+                            missingFields: [String] = [],
+                            options: [String]? = nil,
+                            provenanceDigest: String? = nil,
+                            authority: String = "UNOBSERVED",
+                            terminal: Bool? = nil) {
+        let upper = "\(code) \(stage)".uppercased()
+        if Self.isExplicitlyResolved(stage: stage, code: code) {
+            clearResolutionRequest()
+            return
+        }
+        guard Self.needsResolution(upper) else { return }
+
+        let inferredTerminal = terminal ?? Self.hasNoAdmissibleRoute(upper)
+        let fields = Self.unique(missingFields.isEmpty
+                                 ? Self.inferredMissingFields(signal: upper,
+                                                              explanation: explanation)
+                                 : missingFields)
+        let allowed = inferredTerminal
+            ? [GarmentResolutionRequest.stop]
+            : Self.unique(options ?? Self.inferredOptions(signal: upper))
+        let actualFields = fields.isEmpty && !inferredTerminal
+            ? ["required_input"] : fields
+        let provenance = provenanceDigest ?? Self.digest(strings: [
+            activeResolutionProject, code, stage, explanation,
+            actualFields.joined(separator: "|")])
+        let requestID = Self.digest(strings: [
+            activeResolutionProject, code, stage, provenance,
+            actualFields.joined(separator: "|")])
+        ingestResolutionEnvelope(GarmentResolutionRequest(
+            id: requestID, code: code, stage: stage,
+            title: title ?? Self.resolutionTitle(signal: upper,
+                                                  terminal: inferredTerminal),
+            explanation: explanation, missingFields: actualFields,
+            options: allowed, provenanceDigest: provenance,
+            authority: authority, terminal: inferredTerminal))
+    }
+
+    func registerResolution(response: [String: Any]) {
+        let code = response["verdict"] as? String ?? "UNKNOWN_ENGINE_RESPONSE"
+        let stage = response["phase"] as? String
+            ?? response["job_state"] as? String
+            ?? response["state"] as? String
+            ?? activeSnapshot.state?.rawValue
+            ?? "UNKNOWN_STAGE"
+        let explanation = response["why"] as? String
+            ?? response["message"] as? String
+            ?? response["how_to_close"] as? String
+            ?? "The deterministic garment loop requires a typed resolution."
+        let fields = Self.resolutionFields(in: response)
+        let explicitOptions = Self.stringArray(response["options"])
+        let terminal = response["terminal"] as? Bool
+        let provenance = response["provenance_digest"] as? String
+            ?? response["evidence_digest"] as? String
+            ?? response["digest"] as? String
+        registerResolution(
+            code: code, stage: stage,
+            title: response["title"] as? String,
+            explanation: explanation, missingFields: fields,
+            options: explicitOptions.isEmpty ? nil : explicitOptions,
+            provenanceDigest: provenance,
+            authority: response["authority"] as? String ?? "UNOBSERVED",
+            terminal: terminal)
+    }
+
+    @discardableResult
+    func recordOneTimeLLMProposalConsent(
+        requestID: String, engineConsentDigest: String,
+        boundWorkflowDigest: String
+    ) -> Bool {
+        guard let request = activeResolutionRequest,
+              request.id == requestID, !request.terminal,
+              request.allows(GarmentResolutionRequest.allowOneTimeLLMProposal),
+              !engineConsentDigest.isEmpty, !boundWorkflowDigest.isEmpty
+        else { return false }
+        activeLLMResolutionConsent = GarmentLLMResolutionConsent(
+            requestID: request.id, projectName: activeResolutionProject,
+            fieldKeys: request.missingFields,
+            provenanceDigest: request.provenanceDigest,
+            engineConsentDigest: engineConsentDigest,
+            boundWorkflowDigest: boundWorkflowDigest,
+            authorityCeiling: "PROPOSED", grantedAt: Date())
+        persistResolutionContext()
+        return true
+    }
+
+    func revokeLLMProposalConsent() {
+        activeLLMResolutionConsent = nil
+        persistResolutionContext()
+    }
+
+    /// Consuming the grant before dispatch guarantees at-most-once use even
+    /// when a provider fails or the user immediately switches projects.
+    func consumeOneTimeLLMProposal(requestID: String) -> GarmentLLMResolutionConsent? {
+        guard let consent = activeLLMResolutionConsent,
+              consent.requestID == requestID,
+              consent.projectName == activeResolutionProject else { return nil }
+        activeLLMResolutionConsent = nil
+        persistResolutionContext()
+        return consent
+    }
+
+    func recordHumanResolution(requestID: String,
+                               values: [String: String],
+                               measured: Bool) -> Bool {
+        guard let request = activeResolutionRequest,
+              request.id == requestID else { return false }
+        return recordAcceptedHumanResolution(
+            request, projectName: activeResolutionProject,
+            values: values, measured: measured)
+    }
+
+    /// Mirror an already accepted engine event. This intentionally accepts
+    /// the immutable source request because the controller's published nil
+    /// may reach SwiftUI before this local history write executes.
+    func recordAcceptedHumanResolution(
+        _ request: GarmentResolutionRequest, projectName: String,
+        values: [String: String], measured: Bool,
+        authorityOverride: String? = nil
+    ) -> Bool {
+        guard projectName == activeResolutionProject,
+              request.allows(GarmentResolutionRequest.enterOrMeasure),
+              !values.isEmpty else { return false }
+        let allowedKeys = Set(request.missingFields)
+        let scoped = values.filter { allowedKeys.contains($0.key) && !$0.value.isEmpty }
+        guard !scoped.isEmpty, Set(scoped.keys) == allowedKeys else { return false }
+        lastResolutionSubmission = GarmentResolutionSubmission(
+            requestID: request.id, projectName: activeResolutionProject,
+            values: scoped,
+            authority: authorityOverride
+                ?? (measured ? "HUMAN_MEASURED" : "HUMAN_ENTERED"),
+            submittedAt: Date())
+        persistResolutionContext()
+        return true
+    }
+
+    /// Mirror a persisted HUMAN_EDIT event. Geometry evidence is deliberately
+    /// distinct from entered or measured body/material values.
+    func recordAcceptedGeometryResolution(
+        _ request: GarmentResolutionRequest, projectName: String,
+        values: [String: String]
+    ) -> Bool {
+        guard projectName == activeResolutionProject,
+              request.allows(GarmentResolutionRequest.editGeometry)
+        else { return false }
+        let allowedKeys = Set(request.missingFields)
+        let scoped = values.filter {
+            allowedKeys.contains($0.key) && !$0.value.isEmpty
+        }
+        guard !scoped.isEmpty, Set(scoped.keys) == allowedKeys else {
+            return false
+        }
+        lastResolutionSubmission = GarmentResolutionSubmission(
+            requestID: request.id, projectName: projectName, values: scoped,
+            authority: "HUMAN_GEOMETRY_EDIT", submittedAt: Date())
+        persistResolutionContext()
+        return true
+    }
+
+    /// Mirror a factory-accepted CONSENTED_LLM_PROPOSAL. This method cannot
+    /// promote model output beyond PROPOSED and consumes the local one-shot
+    /// grant only after the Python ledger accepted the resolution event.
+    func recordAcceptedLLMProposalResolution(
+        _ request: GarmentResolutionRequest, projectName: String,
+        values: [String: String]
+    ) -> Bool {
+        guard projectName == activeResolutionProject,
+              request.allows(
+                GarmentResolutionRequest.allowOneTimeLLMProposal)
+        else { return false }
+        let allowedKeys = Set(request.missingFields)
+        let scoped = values.filter {
+            allowedKeys.contains($0.key) && !$0.value.isEmpty
+        }
+        guard !scoped.isEmpty, Set(scoped.keys) == allowedKeys else {
+            return false
+        }
+        lastResolutionSubmission = GarmentResolutionSubmission(
+            requestID: request.id, projectName: projectName, values: scoped,
+            authority: "PROPOSED", submittedAt: Date())
+        activeLLMResolutionConsent = nil
+        persistResolutionContext()
+        return true
+    }
+
+    func recordBoundedAlternative(requestID: String) -> Bool {
+        guard let request = activeResolutionRequest,
+              request.id == requestID else { return false }
+        return recordAcceptedBoundedAlternative(
+            request, projectName: activeResolutionProject)
+    }
+
+    func recordAcceptedBoundedAlternative(
+        _ request: GarmentResolutionRequest, projectName: String
+    ) -> Bool {
+        guard projectName == activeResolutionProject,
+              request.allows(
+                GarmentResolutionRequest.keepUnknownUseBoundedAlternatives)
+        else { return false }
+        lastResolutionSubmission = GarmentResolutionSubmission(
+            requestID: request.id, projectName: activeResolutionProject,
+            values: Dictionary(uniqueKeysWithValues:
+                request.missingFields.map { ($0, "UNKNOWN") }),
+            authority: "UNKNOWN_BOUNDED", submittedAt: Date())
+        persistResolutionContext()
+        return true
+    }
+
+    func stopResolution(requestID: String) {
+        guard let request = activeResolutionRequest,
+              request.id == requestID else { return }
+        recordAcceptedStop(request, projectName: activeResolutionProject)
+    }
+
+    func recordAcceptedStop(
+        _ request: GarmentResolutionRequest, projectName: String
+    ) {
+        guard projectName == activeResolutionProject else { return }
+        revokeLLMProposalConsent()
+        activeResolutionRequest = GarmentResolutionRequest(
+            id: request.id, code: "STOPPED_BY_USER", stage: request.stage,
+            title: "Generation stopped", explanation: request.explanation,
+            missingFields: request.missingFields,
+            options: [GarmentResolutionRequest.stop],
+            provenanceDigest: request.provenanceDigest,
+            authority: "UNKNOWN", terminal: true)
+        persistResolutionContext()
+    }
+
+    func clearResolutionRequest() {
+        activeResolutionRequest = nil
+        activeLLMResolutionConsent = nil
+        persistResolutionContext()
+    }
 
     /// A newly selected image starts a new local analysis base even when its
     /// path is byte-for-byte equal to the previous selection. This clears UI
@@ -131,6 +520,10 @@ final class GarmentGenerationJob: ObservableObject {
         history.removeAll()
         lastAnswer = nil
         committedSnapshots = [.empty]
+        activeResolutionRequest = nil
+        activeLLMResolutionConsent = nil
+        lastResolutionSubmission = nil
+        persistResolutionContext()
     }
 
     /// Approved design requirements for the factory model's proposal prompt.
@@ -162,9 +555,10 @@ final class GarmentGenerationJob: ObservableObject {
         guard let data = activeSnapshot.resultJSON.data(using: .utf8),
               let root = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
         else {
-            return .failure(.init(verdict: "UNKNOWN_NO_ACTIVE_GARMENT",
-                                  why: "承認済みの服飾artifactがありません",
-                                  howToClose: "先に形状と素材をプレビューして承認してください"))
+            return resolutionFailure(.init(
+                verdict: "UNKNOWN_NO_ACTIVE_GARMENT",
+                why: "承認済みの服飾artifactがありません",
+                howToClose: "先に形状と素材をプレビューして承認してください"))
         }
         let candidates = Self.nestedDictionaries(root)
         let input = candidates.compactMap { dictionary -> [String: Any]? in
@@ -175,7 +569,7 @@ final class GarmentGenerationJob: ObservableObject {
             return required.allSatisfy { dictionary[$0] != nil } ? dictionary : nil
         }.first
         guard var input else {
-            return .failure(.init(
+            return resolutionFailure(.init(
                 verdict: "UNKNOWN_SIMULATION_INPUT_REQUIRED",
                 why: "承認済みartifactにvertices, faces, face_material_ids, materialsが揃っていません",
                 howToClose: "素材係数を確定し、simulation_inputを持つ構造プレビューを承認してください"))
@@ -183,16 +577,20 @@ final class GarmentGenerationJob: ObservableObject {
         input["job_id"] = jobID
         input["command"] = commandDictionary(command)
         guard JSONSerialization.isValidJSONObject(input) else {
-            return .failure(.init(verdict: "UNKNOWN_SIMULATION_INPUT_ENCODING",
-                                  why: "simulation inputをJSONへ変換できません",
-                                  howToClose: "artifactの数値と配列形式を確認してください"))
+            return resolutionFailure(.init(
+                verdict: "UNKNOWN_SIMULATION_INPUT_ENCODING",
+                why: "simulation inputをJSONへ変換できません",
+                howToClose: "artifactの数値と配列形式を確認してください"))
         }
         return .success(Self.canonicalJSONString(input))
     }
 
     func stage(command: GarmentCommandIR, response: [String: Any]) -> Result<GarmentPreview, GarmentCommandRefusal> {
         let verdict = response["verdict"] as? String ?? "UNKNOWN_ENGINE_RESPONSE"
-        guard verdict == "ANSWER" else { return .failure(refusal(from: response)) }
+        guard verdict == "ANSWER" else {
+            registerResolution(response: response)
+            return .failure(refusal(from: response))
+        }
 
         // Prefer the authoritative append-only job preview when garment_job
         // returned one. Its digest is the only value later accepted by the
@@ -207,7 +605,7 @@ final class GarmentGenerationJob: ObservableObject {
             let before = Self.snapshot(in: beforeRaw)
             let after = Self.snapshot(in: afterRaw)
             guard before.state == activeSnapshot.state else {
-                return .failure(.init(
+                return resolutionFailure(.init(
                     verdict: "UNKNOWN_STALE_REMOTE_PREVIEW_BASE",
                     why: "remote previewのbefore stateが現在の承認済み状態と一致しません",
                     howToClose: "現在のjob snapshotからプレビューを作り直してください"))
@@ -215,13 +613,13 @@ final class GarmentGenerationJob: ObservableObject {
             if let nextState = after.state,
                nextState != activeSnapshot.state {
                 guard Self.canTransition(from: activeSnapshot.state, to: nextState) else {
-                    return .failure(.init(
+                    return resolutionFailure(.init(
                         verdict: "UNKNOWN_INVALID_JOB_TRANSITION",
                         why: "remote previewが許可されていない状態遷移を要求しました",
                         howToClose: "不足している前段の状態を先に承認してください"))
                 }
                 guard after.artifactDigest != nil else {
-                    return .failure(.init(
+                    return resolutionFailure(.init(
                         verdict: "UNKNOWN_JOB_EVIDENCE_REQUIRED",
                         why: "remote previewの状態遷移にartifact digestがありません",
                         howToClose: "遷移根拠のartifact digestを添付してください"))
@@ -246,7 +644,7 @@ final class GarmentGenerationJob: ObservableObject {
         let responseJSON = Self.canonicalJSONString(response)
         let nextState = Self.state(in: response)
         if let nextState, !Self.canTransition(from: activeSnapshot.state, to: nextState) {
-            return .failure(.init(
+            return resolutionFailure(.init(
                 verdict: "UNKNOWN_INVALID_JOB_TRANSITION",
                 why: "\(activeSnapshot.state?.rawValue ?? "EMPTY") から \(nextState.rawValue) へは遷移できません",
                 howToClose: "不足している前段の証拠またはartifactを先に作成してください"))
@@ -254,7 +652,7 @@ final class GarmentGenerationJob: ObservableObject {
 
         let artifactDigest = Self.artifactDigest(in: response)
         if let nextState, nextState != activeSnapshot.state, artifactDigest == nil {
-            return .failure(.init(
+            return resolutionFailure(.init(
                 verdict: "UNKNOWN_JOB_EVIDENCE_REQUIRED",
                 why: "状態遷移 \(nextState.rawValue) にartifact digestがありません",
                 howToClose: "engine responseへevidence_digestまたはartifact digestを含めてください"))
@@ -313,17 +711,18 @@ final class GarmentGenerationJob: ObservableObject {
             artifacts: Self.stringArray(response["artifacts"]),
             provenance: provenance)
         lastAnswer = answer
+        registerResolution(response: response)
         return answer
     }
 
     func approve(digest: String) -> Result<GarmentJobSnapshot, GarmentCommandRefusal> {
         guard let preview = pendingPreview else {
-            return .failure(.init(verdict: "UNKNOWN_NO_PENDING_PREVIEW",
+            return resolutionFailure(.init(verdict: "UNKNOWN_NO_PENDING_PREVIEW",
                                   why: "承認待ちのプレビューがありません",
                                   howToClose: "先に変更命令を実行してください"))
         }
         guard preview.digest == digest else {
-            return .failure(.init(verdict: "UNKNOWN_STALE_PREVIEW_DIGEST",
+            return resolutionFailure(.init(verdict: "UNKNOWN_STALE_PREVIEW_DIGEST",
                                   why: "指定されたdigestは現在のプレビューと一致しません",
                                   howToClose: "最新のプレビューを確認して承認してください"))
         }
@@ -331,17 +730,18 @@ final class GarmentGenerationJob: ObservableObject {
         committedSnapshots.append(preview.after)
         pendingPreview = nil
         history.append(Event(kind: .approved, at: Date(), digest: digest, snapshot: activeSnapshot))
+        refreshResolutionForActiveSnapshot()
         return .success(activeSnapshot)
     }
 
     func reject(digest: String) -> Result<GarmentJobSnapshot, GarmentCommandRefusal> {
         guard let preview = pendingPreview else {
-            return .failure(.init(verdict: "UNKNOWN_NO_PENDING_PREVIEW",
+            return resolutionFailure(.init(verdict: "UNKNOWN_NO_PENDING_PREVIEW",
                                   why: "却下するプレビューがありません",
                                   howToClose: "先に変更命令を実行してください"))
         }
         guard preview.digest == digest else {
-            return .failure(.init(verdict: "UNKNOWN_STALE_PREVIEW_DIGEST",
+            return resolutionFailure(.init(verdict: "UNKNOWN_STALE_PREVIEW_DIGEST",
                                   why: "指定されたdigestは現在のプレビューと一致しません",
                                   howToClose: "最新のプレビューを確認してください"))
         }
@@ -352,7 +752,7 @@ final class GarmentGenerationJob: ObservableObject {
 
     func undo() -> Result<GarmentJobSnapshot, GarmentCommandRefusal> {
         guard committedSnapshots.count > 1 else {
-            return .failure(.init(verdict: "UNKNOWN_NOTHING_TO_UNDO",
+            return resolutionFailure(.init(verdict: "UNKNOWN_NOTHING_TO_UNDO",
                                   why: "戻せる承認済み変更がありません",
                                   howToClose: "変更をプレビューし、承認してからUndoしてください"))
         }
@@ -362,7 +762,200 @@ final class GarmentGenerationJob: ObservableObject {
         history.append(Event(kind: .undo, at: Date(),
                              digest: removed.artifactDigest ?? "no-artifact",
                              snapshot: activeSnapshot))
+        refreshResolutionForActiveSnapshot()
         return .success(activeSnapshot)
+    }
+
+    private func refreshResolutionForActiveSnapshot() {
+        guard let state = activeSnapshot.state else { return }
+        if Self.isExplicitlyResolved(stage: state.rawValue, code: "ANSWER") {
+            clearResolutionRequest()
+            return
+        }
+        let requiringHuman: Set<State> = [
+            .humanGarmentAuditRequired, .foregroundCleanupRequired,
+            .cleanupReviewRequired, .partSegmentationRequired,
+            .rearCandidatesRequired, .cadSculptRequired,
+            .targetApprovalRequired, .patternInverseRequired,
+            .redressComparisonRequired, .geometryContested,
+            .backCandidatesReady, .materialContested,
+            .sewingBlockedNoCorpus,
+        ]
+        guard requiringHuman.contains(state) else { return }
+        registerResolution(
+            code: state.rawValue, stage: state.rawValue,
+            explanation: "The approved garment state requires a typed human or bounded proposal route before the loop can continue.")
+    }
+
+    private func persistResolutionContext() {
+        resolutionContexts[activeResolutionProject] = ResolutionContext(
+            request: activeResolutionRequest,
+            consent: activeLLMResolutionConsent,
+            submission: lastResolutionSubmission)
+    }
+
+    private func resolutionFailure<T>(_ refusal: GarmentCommandRefusal) -> Result<T, GarmentCommandRefusal> {
+        registerResolution(
+            code: refusal.verdict,
+            stage: activeSnapshot.state?.rawValue ?? "UNKNOWN_STAGE",
+            explanation: "\(refusal.why)\n\(refusal.howToClose)")
+        return .failure(refusal)
+    }
+
+    private static func unique(_ values: [String]) -> [String] {
+        var seen = Set<String>()
+        return values.compactMap { value in
+            let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty, seen.insert(trimmed).inserted else { return nil }
+            return trimmed
+        }
+    }
+
+    private static func needsResolution(_ signal: String) -> Bool {
+        ["UNKNOWN", "REQUIRED", "CONTESTED", "BLOCKED", "WAIT_FOR_HUMAN",
+         "WAIT_FOR_IMAGE", "WAIT_FOR_RETRIEVAL", "WAIT_FOR_SIMULATION",
+         "WAIT_FOR_SEWING", "MISSING", "NEEDS_HUMAN"].contains {
+            signal.contains($0)
+        }
+    }
+
+    private static func isExplicitlyResolved(stage: String, code: String) -> Bool {
+        let upperStage = stage.uppercased()
+        let upperCode = code.uppercased()
+        let resolvedStages: Set<String> = [
+            State.frontFactsRecorded.rawValue,
+            State.target2_5DReady.rawValue,
+            State.regionsConfirmed.rawValue,
+            State.structureApproved.rawValue,
+            State.simulationReady.rawValue,
+            State.shapeApproved.rawValue,
+            State.patternValidated.rawValue,
+            State.complete.rawValue,
+        ]
+        return resolvedStages.contains(upperStage)
+            || upperCode == "COMPLETE" || upperCode == "CONVERGED"
+    }
+
+    private static func hasNoAdmissibleRoute(_ signal: String) -> Bool {
+        ["NO_ADMISSIBLE_ROUTE", "UNRECOVERABLE", "INVALID_JOB_TRANSITION",
+         "INPUT_ENCODING", "NOTHING_TO_UNDO", "STALE_PREVIEW_DIGEST",
+         "STALE_REMOTE_PREVIEW_BASE"].contains { signal.contains($0) }
+    }
+
+    private static func inferredMissingFields(signal: String,
+                                              explanation: String) -> [String] {
+        let text = signal + " " + explanation.uppercased()
+        if text.contains("HUMAN_GARMENT_AUDIT") || text.contains("VISIBLE_FRONT") {
+            return ["visible_garment_parts", "layer_order"]
+        }
+        if text.contains("FOREGROUND") || text.contains("CLEANUP") {
+            return ["foreground_boundary", "body_hair_background_exclusions"]
+        }
+        if text.contains("SEARCH") || text.contains("RETRIEVAL")
+            || text.contains("FASHIONSIGLIP") {
+            return ["search_provider_connection"]
+        }
+        if text.contains("PROVIDER") || text.contains("CONNECTION") {
+            return ["provider_connection"]
+        }
+        if text.contains("MEASUREMENT") || text.contains("DIMENSION")
+            || text.contains("MANNEQUIN") || text.contains("BODY_SIZE") {
+            return ["height_cm", "chest_cm", "waist_cm", "hip_cm", "body_length_cm"]
+        }
+        if text.contains("REAR") || text.contains("BACK_") || text.contains("背面") {
+            return ["rear_structure", "rear_closure", "rear_seams"]
+        }
+        if text.contains("CALIBRATION") || text.contains("WIND_TUNNEL")
+            || text.contains("PHYSICS_VALIDATION") || text.contains("PHYSICAL_TEST") {
+            return ["physics_calibration", "material_calibration",
+                    "wind_calibration"]
+        }
+        if text.contains("MATERIAL") || text.contains("SIMULATION_INPUT") {
+            return ["material_composition", "thickness_mm", "warp_stretch",
+                    "weft_stretch", "friction", "bending_stiffness"]
+        }
+        if text.contains("SEWING") || text.contains("CORPUS") {
+            return ["sewing_reference_provider", "seam_finish", "lining", "interfacing"]
+        }
+        if text.contains("PATTERN") || text.contains("DXF")
+            || text.contains("MANUFACTURING_PATTERN") {
+            return ["completed_pattern", "pattern_geometry", "pattern_validation"]
+        }
+        if text.contains("GEOMETRY") || text.contains("CAD")
+            || text.contains("SHAPE") || text.contains("SURFACE")
+            || text.contains("TARGET_3D") || text.contains("3D") {
+            return ["arbitrary_3d_target", "approved_target_geometry",
+                    "garment_surface_geometry"]
+        }
+        return []
+    }
+
+    private static func inferredOptions(signal: String) -> [String] {
+        var options: [String] = []
+        if signal.contains("GEOMETRY") || signal.contains("CAD")
+            || signal.contains("SHAPE") || signal.contains("FOREGROUND")
+            || signal.contains("CLEANUP") || signal.contains("HUMAN_GARMENT_AUDIT")
+            || signal.contains("PATTERN") || signal.contains("TARGET_3D")
+            || signal.contains("3D") {
+            options.append(GarmentResolutionRequest.editGeometry)
+        }
+        if signal.contains("PROVIDER") || signal.contains("CONNECTION")
+            || signal.contains("SEARCH") || signal.contains("RETRIEVAL")
+            || signal.contains("CORPUS") || signal.contains("FASHIONSIGLIP") {
+            options.append(GarmentResolutionRequest.connectProvider)
+        }
+        if signal.contains("MEASUREMENT") || signal.contains("DIMENSION")
+            || signal.contains("MANNEQUIN") || signal.contains("BODY_SIZE")
+            || signal.contains("MATERIAL") || signal.contains("CALIBRATION")
+            || signal.contains("SEWING") || signal.contains("FINISH") {
+            options.append(GarmentResolutionRequest.enterOrMeasure)
+        }
+        options.append(GarmentResolutionRequest.allowOneTimeLLMProposal)
+        options.append(GarmentResolutionRequest.keepUnknownUseBoundedAlternatives)
+        options.append(GarmentResolutionRequest.stop)
+        return options
+    }
+
+    private static func resolutionTitle(signal: String, terminal: Bool) -> String {
+        if terminal { return "Typed stop" }
+        if signal.contains("PROVIDER") || signal.contains("CONNECTION")
+            || signal.contains("SEARCH") || signal.contains("RETRIEVAL") {
+            return "Provider connection required"
+        }
+        if signal.contains("PATTERN") || signal.contains("DXF") {
+            return "Pattern resolution required"
+        }
+        if signal.contains("CALIBRATION") || signal.contains("PHYSICS") {
+            return "Physical calibration required"
+        }
+        if signal.contains("GEOMETRY") || signal.contains("CAD")
+            || signal.contains("FOREGROUND") || signal.contains("CLEANUP") {
+            return "Geometry input required"
+        }
+        if signal.contains("LLM") || signal.contains("PROPOSAL") {
+            return "Proposal permission required"
+        }
+        return "Human resolution required"
+    }
+
+    private static func resolutionFields(in response: [String: Any]) -> [String] {
+        let fieldKeys = ["missing_fields", "missingFields", "unobserved_fields",
+                         "unobservedFields", "required_fields", "requiredFields"]
+        var fields: [String] = []
+        for dictionary in nestedDictionaries(response) {
+            for key in fieldKeys {
+                if let strings = dictionary[key] as? [String] {
+                    fields.append(contentsOf: strings)
+                } else if let entries = dictionary[key] as? [[String: Any]] {
+                    fields.append(contentsOf: entries.compactMap {
+                        ($0["key"] ?? $0["field"] ?? $0["name"] ?? $0["id"]) as? String
+                    })
+                } else if let keyed = dictionary[key] as? [String: Any] {
+                    fields.append(contentsOf: keyed.keys.sorted())
+                }
+            }
+        }
+        return unique(fields)
     }
 
     private static func canTransition(from: State?, to: State) -> Bool {

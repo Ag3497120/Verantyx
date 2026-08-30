@@ -10,8 +10,8 @@ import Foundation
 /// model cannot name tools, approve candidates, claim convergence, or extend
 /// the iteration budget.
 @MainActor
-final class GarmentFactoryReactController: ObservableObject {
-    static let shared = GarmentFactoryReactController()
+public final class GarmentFactoryReactController: ObservableObject {
+    public static let shared = GarmentFactoryReactController()
     /// The persisted MCP state is the ReAct harness. The LLM never owns this
     /// state and cannot replace it with conversational memory.
     static let harnessSchema = "garment.factory.v1"
@@ -66,6 +66,97 @@ final class GarmentFactoryReactController: ObservableObject {
         let message: String
         let iterations: Int
         let modelCalls: Int
+    }
+
+    /// A closed set of ways an unresolved factory obligation may be handled.
+    /// UNKNOWN is not an instruction and must never be the only thing exposed
+    /// to the Atelier UI.  Each pause is therefore converted into one or more
+    /// of these typed actions.  Only `typedStop` is terminal.
+    enum ResolutionActionKind: String, Sendable, Codable, CaseIterable, Hashable {
+        case humanInput = "HUMAN_INPUT"
+        case humanGeometryEdit = "HUMAN_GEOMETRY_EDIT"
+        case connectProvider = "CONNECT_PROVIDER"
+        case allowOneTimeLLMProposal = "LLM_PROPOSAL_WITH_CONSENT"
+        case compareBoundedAlternatives = "COMPARE_BOUNDED_ALTERNATIVES"
+        case typedStop = "TYPED_STOP"
+    }
+
+    /// Exact `cross_workflow_harness.resolve_request` vocabulary.  The UI
+    /// action labels above are presentation choices; only these values may be
+    /// sent to Python's RESOLVE_CROSS_OBLIGATION event.
+    public enum CrossResolutionPath: String, Sendable, Equatable, Hashable {
+        case humanInput = "HUMAN_INPUT"
+        case measuredInput = "MEASURED_INPUT"
+        case humanEdit = "HUMAN_EDIT"
+        case connectProvider = "CONNECT_PROVIDER"
+        case consentedLLMProposal = "CONSENTED_LLM_PROPOSAL"
+        case boundedAlternatives = "BOUNDED_ALTERNATIVES"
+        case typedStop = "TYPED_STOP"
+    }
+
+    /// Result returned to AppState after the controller has checked both the
+    /// event response and the persisted cross-workflow ledger.  `accepted`
+    /// never means that a proposal became observed or manufacturing-ready.
+    public struct ResolutionEventOutcome: Sendable, Equatable {
+        public let accepted: Bool
+        public let verdict: String
+        public let requestID: String
+        public let message: String
+        public let consentDigest: String?
+        public let boundWorkflowDigest: String?
+        public let resolutionStatus: String?
+
+        static func rejected(
+            _ verdict: String, requestID: String, message: String
+        ) -> Self {
+            .init(accepted: false, verdict: verdict, requestID: requestID,
+                  message: message, consentDigest: nil,
+                  boundWorkflowDigest: nil, resolutionStatus: nil)
+        }
+    }
+
+    struct ResolutionOption: Identifiable, Sendable, Equatable {
+        let id: String
+        let kind: ResolutionActionKind
+        let title: String
+        let detail: String
+        let requiresExplicitConsent: Bool
+        let resultAuthority: String
+    }
+
+    /// UI-facing continuation request emitted by the deterministic harness.
+    /// The provenance digest binds any later consent to this exact unresolved
+    /// state, so permission from an older image or candidate cannot leak into
+    /// a new run.
+    struct FactoryResolutionRequest: Identifiable, Sendable, Equatable {
+        let id: String
+        let code: String
+        let stage: String
+        let title: String
+        let explanation: String
+        let missingFields: [String]
+        let options: [ResolutionOption]
+        let provenanceDigest: String
+        let authority: String
+        let terminal: Bool
+    }
+
+    /// One-shot, actor-named permission for the model to propose values at a
+    /// single unresolved boundary.  It never authorizes OBSERVED/MEASURED
+    /// promotion, approval, manufacturing certification, or reuse in another
+    /// request.
+    struct LLMProposalConsentArtifact: Sendable, Equatable {
+        let schema: String
+        let requestID: String
+        let projectName: String
+        let stage: String
+        let grantedBy: String
+        let subjectDigest: String
+        let engineConsentDigest: String
+        let boundWorkflowDigest: String
+        let authorityCeiling: String
+        let maximumUses: Int
+        var remainingUses: Int
     }
 
     struct TraceEntry: Identifiable, Sendable, Equatable {
@@ -270,6 +361,17 @@ final class GarmentFactoryReactController: ObservableObject {
     @Published private(set) var busy = false
     @Published private(set) var lastReport: Report?
     @Published private(set) var trace: [TraceEntry] = []
+    /// Non-nil while the deterministic loop is paused for a resolvable
+    /// obligation.  The progressive sidebar observes this property directly;
+    /// no floating window and no conversational string parsing is required.
+    @Published private(set) var pendingResolutionRequest:
+        FactoryResolutionRequest?
+    @Published private(set) var activeLLMProposalConsent:
+        LLMProposalConsentArtifact?
+    /// Resolution permissions are project-scoped even though the Python MCP
+    /// project is selected through a separate canonical activation call.
+    @Published private(set) var activeResolutionProject = "Black Coat"
+    @Published private(set) var resolutionEventInFlight = false
     @Published private(set) var shapeCandidates: [Candidate] = []
     @Published private(set) var materialCandidates: [Candidate] = []
     /// True only when the persisted append-only factory journal has an active
@@ -403,6 +505,8 @@ final class GarmentFactoryReactController: ObservableObject {
     private var targetSameCameraTask: Task<Void, Never>?
     private var referenceSearchTasks: [String: Task<Void, Never>] = [:]
     private var referenceSearchQueries: [String: String] = [:]
+    private var selectedResolutionAction: ResolutionActionKind?
+    private var locallyRevokedConsentDigests = Set<String>()
 
     var selectedBaseAvatar: BaseAvatarProfile {
         baseAvatarProfiles.first { $0.id == selectedBaseAvatarID }
@@ -1042,6 +1146,18 @@ final class GarmentFactoryReactController: ObservableObject {
         }
     }
 
+    /// Canonical project activation hook used by AppState. A pending request
+    /// or consent from one garment must never be actionable in another.
+    func activateResolutionProject(_ name: String) {
+        let normalized = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !normalized.isEmpty else { return }
+        guard normalized != activeResolutionProject else { return }
+        activeResolutionProject = normalized
+        pendingResolutionRequest = nil
+        activeLLMProposalConsent = nil
+        selectedResolutionAction = nil
+    }
+
     /// Selects the review policy for the next image run. An active run keeps
     /// its captured mode so a UI click cannot silently change provenance in
     /// the middle of the append-only factory journal.
@@ -1058,6 +1174,333 @@ final class GarmentFactoryReactController: ObservableObject {
                 ? "HUMAN_REVIEW_REQUIRED" : "AUTO_ACCEPTED_FOR_PREVIEW_ONLY"))
     }
 
+    /// Persist an explicit one-shot proposal grant through Python's
+    /// GRANT_LLM_PROPOSAL_CONSENT event.  A local checkbox is not consent: the
+    /// returned artifact must also exist in the persisted cross-workflow.
+    public func grantOneTimeLLMProposalConsent(
+        requestID: String, provenanceDigest: String, projectName: String,
+        by actor: String
+    ) async -> ResolutionEventOutcome {
+        guard !resolutionEventInFlight else {
+            return .rejected(
+                "UNKNOWN_RESOLUTION_EVENT_IN_FLIGHT", requestID: requestID,
+                message: "別の解決イベントを検証中です。")
+        }
+        guard let request = validatedPendingRequest(
+            requestID: requestID, provenanceDigest: provenanceDigest,
+            projectName: projectName,
+            requiredAction: .allowOneTimeLLMProposal) else {
+            return .rejected(
+                "UNKNOWN_STALE_RESOLUTION_REQUEST", requestID: requestID,
+                message: "request、provenance digest、またはprojectが現在の要求と一致しません。")
+        }
+        let namedActor = actor.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !namedActor.isEmpty, !Self.isModelResolutionActor(namedActor) else {
+            return .rejected(
+                "UNKNOWN_INVALID_CONSENT_GRANTOR", requestID: requestID,
+                message: "一回限りのLLM提案許可には、モデルではない名前付きの許可者が必要です。")
+        }
+
+        resolutionEventInFlight = true
+        defer { resolutionEventInFlight = false }
+        let inspected = await door("inspect", [:])
+        guard let inspectedState = state(from: inspected),
+              let workflow = inspectedState["cross_workflow"] as? [String: Any],
+              let revision = Self.integer(workflow["revision"]),
+              Self.hasOpenObligation(requestID, in: workflow) else {
+            return .rejected(
+                "UNKNOWN_STALE_CROSS_OBLIGATION", requestID: requestID,
+                message: "永続工場に同じOPEN obligationがありません。")
+        }
+        guard requestStillMatches(request, projectName: projectName) else {
+            return .rejected(
+                "UNKNOWN_STALE_RESOLUTION_REQUEST", requestID: requestID,
+                message: "検証中にprojectまたは要求が更新されました。")
+        }
+
+        let event: [String: Any] = [
+            "type": "GRANT_LLM_PROPOSAL_CONSENT",
+            "scope": request.stage,
+            "fields": request.missingFields,
+            "granted_by": namedActor,
+            "expires_after_revision": revision + 1,
+            "request_id": request.id,
+        ]
+        let response = await advance(event: event)
+        let verdict = response["verdict"] as? String
+            ?? "UNKNOWN_FACTORY_ENGINE_RESPONSE"
+        guard verdict == "CONSENT_RECORDED",
+              let artifact = response["consent_artifact"] as? [String: Any],
+              let consentDigest = artifact["consent_digest"] as? String,
+              !consentDigest.isEmpty,
+              let boundWorkflowDigest = artifact["bound_workflow_digest"] as? String,
+              !boundWorkflowDigest.isEmpty,
+              artifact["request_id"] as? String == request.id,
+              artifact["scope"] as? String == request.stage,
+              artifact["granted_by"] as? String == namedActor,
+              (artifact["authority_ceiling"] as? String)?.uppercased() == "PROPOSED",
+              artifact["may_promote_to_observed"] as? Bool == false,
+              Self.stringSet(artifact["fields"]) == Set(request.missingFields),
+              let persisted = state(from: response),
+              Self.persistedConsent(
+                consentDigest, requestID: request.id,
+                projectRequest: request, actor: namedActor, in: persisted) != nil
+        else {
+            return .rejected(
+                verdict, requestID: requestID,
+                message: refusalText(response).isEmpty
+                    ? "工場がdigest付き同意を永続化したことを確認できませんでした。"
+                    : refusalText(response))
+        }
+        guard requestStillMatches(request, projectName: projectName) else {
+            locallyRevokedConsentDigests.insert(consentDigest)
+            return .rejected(
+                "UNKNOWN_STALE_PROJECT_AFTER_CONSENT", requestID: requestID,
+                message: "同意記録中にprojectが切り替わったため、このクライアントでは同意を失効扱いにしました。")
+        }
+
+        locallyRevokedConsentDigests.remove(consentDigest)
+        activeLLMProposalConsent = .init(
+            schema: artifact["schema"] as? String
+                ?? "cross.workflow.consent.v1",
+            requestID: request.id, projectName: projectName,
+            stage: request.stage, grantedBy: namedActor,
+            subjectDigest: request.provenanceDigest,
+            engineConsentDigest: consentDigest,
+            boundWorkflowDigest: boundWorkflowDigest,
+            authorityCeiling: "PROPOSED", maximumUses: 1,
+            remainingUses: 1)
+        selectedResolutionAction = .allowOneTimeLLMProposal
+        trace.append(.init(
+            round: max(1, trace.count), actor: namedActor,
+            action: "GRANT_LLM_PROPOSAL_CONSENT_\(request.stage)",
+            verdict: "CONSENT_RECORDED_PROPOSAL_ONLY"))
+        return .init(
+            accepted: true, verdict: verdict, requestID: request.id,
+            message: "一回限りのPROPOSED権限を永続工場へ記録しました。",
+            consentDigest: consentDigest,
+            boundWorkflowDigest: boundWorkflowDigest,
+            resolutionStatus: nil)
+    }
+
+    func revokeLLMProposalConsent() {
+        guard let consent = activeLLMProposalConsent else { return }
+        locallyRevokedConsentDigests.insert(consent.engineConsentDigest)
+        trace.append(.init(
+            round: max(1, trace.count), actor: consent.grantedBy,
+            action: "REVOKE_LLM_PROPOSAL_CONSENT_\(consent.stage)",
+            verdict: "CONSENT_REVOKED"))
+        activeLLMProposalConsent = nil
+        if selectedResolutionAction == .allowOneTimeLLMProposal {
+            selectedResolutionAction = nil
+        }
+    }
+
+    /// Record a non-LLM resolution route selected in the progressive sidebar.
+    /// Human input/edit routes remain pending until the corresponding typed
+    /// engine event succeeds; choosing a bounded preview may dismiss the card
+    /// without pretending the hidden value became known.
+    @discardableResult
+    func selectResolutionAction(
+        _ kind: ResolutionActionKind, requestID: String, by actor: String
+    ) -> Bool {
+        guard let request = pendingResolutionRequest,
+              request.id == requestID,
+              request.options.contains(where: { $0.kind == kind }),
+              kind != .allowOneTimeLLMProposal else { return false }
+        selectedResolutionAction = kind
+        trace.append(.init(
+            round: max(1, trace.count),
+            actor: actor.trimmingCharacters(in: .whitespacesAndNewlines)
+                .isEmpty ? "HUMAN" : actor,
+            action: "RESOLUTION_\(kind.rawValue)_\(request.stage)",
+            verdict: kind == .typedStop ? request.code : "RESOLUTION_SELECTED"))
+        return true
+    }
+
+    /// Called only after a typed human-input/CAD/provider event has succeeded.
+    /// A UI click by itself must not clear the obligation.
+    func acknowledgeResolvedRequest(_ requestID: String) {
+        guard pendingResolutionRequest?.id == requestID else { return }
+        pendingResolutionRequest = nil
+        selectedResolutionAction = nil
+    }
+
+    /// Persist and verify a typed resolution through Python's
+    /// RESOLVE_CROSS_OBLIGATION event.  This is the only sidebar boundary that
+    /// can close a request.  A UI selection or chat marker cannot call this
+    /// method without the exact request id, provenance digest and project.
+    public func resolveCrossObligation(
+        requestID: String, provenanceDigest: String, projectName: String,
+        path: CrossResolutionPath, values: [String: Any] = [:],
+        actor: String, consentDigest: String? = nil,
+        resumeAfterAcceptance: Bool = true,
+        resumeRequest: String = "Continue the garment factory from the accepted typed resolution."
+    ) async -> ResolutionEventOutcome {
+        guard !resolutionEventInFlight else {
+            return .rejected(
+                "UNKNOWN_RESOLUTION_EVENT_IN_FLIGHT", requestID: requestID,
+                message: "別の解決イベントを検証中です。")
+        }
+        let requiredAction = Self.actionKind(for: path)
+        guard let request = validatedPendingRequest(
+            requestID: requestID, provenanceDigest: provenanceDigest,
+            projectName: projectName, requiredAction: requiredAction) else {
+            return .rejected(
+                "UNKNOWN_STALE_RESOLUTION_REQUEST", requestID: requestID,
+                message: "request、provenance digest、またはprojectが現在の要求と一致しません。")
+        }
+        let namedActor = actor.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !namedActor.isEmpty else {
+            return .rejected(
+                "UNKNOWN_RESOLUTION_ACTOR_REQUIRED", requestID: requestID,
+                message: "解決イベントには名前付きの実行者が必要です。")
+        }
+
+        let valuePaths: Set<CrossResolutionPath> = [
+            .humanInput, .measuredInput, .humanEdit,
+            .consentedLLMProposal, .boundedAlternatives,
+        ]
+        let expectedFields = Set(request.missingFields)
+        let suppliedFields = Set(values.keys)
+        if valuePaths.contains(path) {
+            guard !values.isEmpty, suppliedFields == expectedFields else {
+                return .rejected(
+                    "UNKNOWN_RESOLUTION_FIELD_MISMATCH", requestID: requestID,
+                    message: "値は要求に列挙された全項目だけを埋める必要があります。")
+            }
+        } else if !values.isEmpty {
+            return .rejected(
+                "UNKNOWN_UNEXPECTED_RESOLUTION_VALUES", requestID: requestID,
+                message: "この解決経路は値を受け取りません。")
+        }
+
+        var verifiedConsentDigest: String?
+        var verifiedBoundWorkflowDigest: String?
+        if path == .consentedLLMProposal {
+            guard let consent = activeLLMProposalConsent,
+                  consent.requestID == request.id,
+                  consent.projectName == projectName,
+                  consent.subjectDigest == request.provenanceDigest,
+                  consent.remainingUses > 0,
+                  consent.authorityCeiling == "PROPOSED",
+                  !locallyRevokedConsentDigests.contains(
+                    consent.engineConsentDigest),
+                  consentDigest == nil
+                    || consentDigest == consent.engineConsentDigest else {
+                return .rejected(
+                    "UNKNOWN_MODEL_CONSENT_REQUIRED", requestID: requestID,
+                    message: "このrequest/digest/projectに束縛された未使用の同意がありません。")
+            }
+            verifiedConsentDigest = consent.engineConsentDigest
+            verifiedBoundWorkflowDigest = consent.boundWorkflowDigest
+        } else if Self.isModelResolutionActor(namedActor) {
+            return .rejected(
+                "UNKNOWN_MODEL_RESOLUTION_PATH", requestID: requestID,
+                message: "モデル出力はCONSENTED_LLM_PROPOSAL以外の解決経路を実行できません。")
+        }
+
+        var provenance: [String: Any] = [
+            "request_provenance_digest": request.provenanceDigest,
+            "project_name": projectName,
+            "authority_ceiling": path == .consentedLLMProposal
+                || path == .boundedAlternatives ? "PROPOSED" : "HUMAN_SCOPED",
+            "source_type": Self.sourceType(for: path),
+            "may_promote_model_output_to_observed": false,
+        ]
+        if path == .humanInput {
+            provenance["not_image_observed"] = true
+        }
+        var event: [String: Any] = [
+            "type": "RESOLVE_CROSS_OBLIGATION",
+            "request_id": request.id,
+            "choice": path.rawValue,
+            "actor": namedActor,
+            "provenance": provenance,
+        ]
+        if !values.isEmpty { event["values"] = values }
+        if let verifiedConsentDigest {
+            event["consent_digest"] = verifiedConsentDigest
+        }
+
+        resolutionEventInFlight = true
+        defer { resolutionEventInFlight = false }
+        let response = await advance(event: event)
+        let verdict = response["verdict"] as? String
+            ?? "UNKNOWN_FACTORY_ENGINE_RESPONSE"
+        guard let persistedState = state(from: response),
+              let persistedResolution = Self.persistedResolution(
+                request: request, projectName: projectName, path: path,
+                actor: namedActor, values: values,
+                consentDigest: verifiedConsentDigest, in: persistedState),
+              let status = persistedResolution["status"] as? String else {
+            return .rejected(
+                verdict, requestID: requestID,
+                message: refusalText(response).isEmpty
+                    ? "工場の永続resolutions台帳に一致するイベントがありません。"
+                    : refusalText(response))
+        }
+        let isProviderPartial = path == .connectProvider
+            && status == "PARTIALLY_RESOLVED"
+            && verdict == "UNKNOWN_PARTIAL_RESOLUTION"
+        let expectedVerdict = path == .typedStop ? "TYPED_STOP" : "ANSWER"
+        guard verdict == expectedVerdict || isProviderPartial else {
+            return .rejected(
+                verdict, requestID: requestID,
+                message: refusalText(response).isEmpty
+                    ? "工場は解決イベントを受理しませんでした。" : refusalText(response))
+        }
+        guard requestStillMatches(request, projectName: projectName) else {
+            return .rejected(
+                "UNKNOWN_STALE_PROJECT_AFTER_RESOLUTION", requestID: requestID,
+                message: "イベント記録中にprojectまたは要求が切り替わりました。")
+        }
+
+        trace.append(.init(
+            round: max(1, trace.count), actor: namedActor,
+            action: "RESOLVE_CROSS_OBLIGATION_\(path.rawValue)",
+            verdict: status))
+        selectedResolutionAction = requiredAction
+        if path == .typedStop {
+            pendingResolutionRequest = .init(
+                id: request.id, code: request.code, stage: request.stage,
+                title: "型付き停止", explanation: request.explanation,
+                missingFields: request.missingFields,
+                options: [Self.resolutionOption(
+                    .typedStop, code: request.code, stage: request.stage)],
+                provenanceDigest: request.provenanceDigest,
+                authority: "TYPED_STOP_NO_RESULT_CLAIM", terminal: true)
+            activeLLMProposalConsent = nil
+        } else if isProviderPartial {
+            // Connecting is a recorded action, not fabricated evidence. Keep
+            // the request visible until a provider artifact closes its fields.
+            pendingResolutionRequest = request
+        } else {
+            pendingResolutionRequest = nil
+            selectedResolutionAction = nil
+            activeLLMProposalConsent = nil
+        }
+
+        let baseMessage = isProviderPartial
+            ? "接続要求を永続化しました。資料が届くまで不足項目はOPENのままです。"
+            : "\(path.rawValue)を永続工場へ記録しました。"
+        if resumeAfterAcceptance, !isProviderPartial, path != .typedStop {
+            let resumed = await runUntilPause(
+                userRequest: resumeRequest, proposer: nil)
+            return .init(
+                accepted: true, verdict: verdict, requestID: request.id,
+                message: "\(baseMessage) 次の停止: \(resumed.verdict)",
+                consentDigest: verifiedConsentDigest,
+                boundWorkflowDigest: verifiedBoundWorkflowDigest,
+                resolutionStatus: status)
+        }
+        return .init(
+            accepted: true, verdict: verdict, requestID: request.id,
+            message: baseMessage, consentDigest: verifiedConsentDigest,
+            boundWorkflowDigest: verifiedBoundWorkflowDigest,
+            resolutionStatus: status)
+    }
+
     /// Invalidate only analysis/UI state when the user performs a new image
     /// selection. The intake ledger and source path are deliberately untouched:
     /// selecting the same file again is a new operation, not duplicate evidence.
@@ -1066,6 +1509,9 @@ final class GarmentFactoryReactController: ObservableObject {
         consumedImageSelectionPath = imagePath
         phase = "EMPTY"
         lastReport = nil
+        pendingResolutionRequest = nil
+        activeLLMProposalConsent = nil
+        selectedResolutionAction = nil
         trace.removeAll()
         shapeCandidates.removeAll()
         materialCandidates.removeAll()
@@ -1160,14 +1606,30 @@ final class GarmentFactoryReactController: ObservableObject {
             return
         }
         phase = "IMAGE_PREVIEW_READY"
-        lastReport = Report(
-            verdict: outlineCalibrationBaseline == nil
-                ? "UNKNOWN_PREVIEW_GEOMETRY" : "PROPOSED",
-            phase: phase,
-            message: outlineCalibrationBaseline == nil
-                ? "先行プレビューを構成できませんでした。制作モデルの提案を待っています。"
-                : "輪郭校正ベースラインを内部で準備しました。候補固有3Dは画像部品の監査後に表示します。",
-            iterations: previewAttempts, modelCalls: 0)
+        if outlineCalibrationBaseline == nil {
+            _ = finish(
+                "UNKNOWN_PREVIEW_GEOMETRY", phase: phase,
+                message: "先行プレビューを構成できませんでした。入力画像の確認、前景編集、または今回限りのAI提案許可を選べます。",
+                rounds: previewAttempts, modelCalls: 0,
+                context: [
+                    "stage": "IMAGE_PREVIEW_READY",
+                    "missing_fields": [
+                        "second_skin_preview",
+                        "same_camera_target_geometry",
+                    ],
+                    "allowed_resolution_kinds": [
+                        ResolutionActionKind.humanGeometryEdit.rawValue,
+                        ResolutionActionKind.allowOneTimeLLMProposal.rawValue,
+                        ResolutionActionKind.typedStop.rawValue,
+                    ],
+                    "authority": "UNRESOLVED_FRONT_GEOMETRY",
+                ])
+        } else {
+            lastReport = Report(
+                verdict: "PROPOSED", phase: phase,
+                message: "輪郭校正ベースラインを内部で準備しました。候補固有3Dは画像部品の監査後に表示します。",
+                iterations: previewAttempts, modelCalls: 0)
+        }
         busy = false
     }
 
@@ -1534,12 +1996,23 @@ final class GarmentFactoryReactController: ObservableObject {
                         round: 0, actor: "VERA_INITIAL_HUMAN_REVIEW_GATE",
                         action: "WAIT_FOR_VISIBLE_INVENTORY_AND_FOREGROUND_CLEANUP",
                         verdict: "HUMAN_GARMENT_AUDIT_REQUIRED"))
-                    lastReport = Report(
-                        verdict: "HUMAN_GARMENT_AUDIT_REQUIRED",
-                        phase: phase,
+                    return finish(
+                        "HUMAN_GARMENT_AUDIT_REQUIRED", phase: phase,
                         message: "AIの可視部品台帳を確認し、融合3Dから背景・髪・人体・別衣服を削って比較目標を採用してください。背面と素材は未観測のままです。",
-                        iterations: 0, modelCalls: totalModelCalls)
-                    return lastReport!
+                        rounds: 0, modelCalls: totalModelCalls,
+                        context: [
+                            "stage": "VISIBLE_FRONT_AUDIT",
+                            "missing_fields": [
+                                "human_reviewed_visible_inventory",
+                                "approved_foreground_target",
+                            ],
+                            "allowed_resolution_kinds": [
+                                ResolutionActionKind.humanInput.rawValue,
+                                ResolutionActionKind.humanGeometryEdit.rawValue,
+                                ResolutionActionKind.typedStop.rawValue,
+                            ],
+                            "authority": "AI_GENERATED_PROPOSAL_REQUIRES_HUMAN_REVIEW",
+                        ])
                 }
 
                 guard recordedState["phase"] as? String
@@ -2118,13 +2591,13 @@ final class GarmentFactoryReactController: ObservableObject {
               next["phase"] as? String == "FOREGROUND_CLEANUP_REQUIRED" else {
             let code = persisted["verdict"] as? String
                 ?? "UNKNOWN_HUMAN_GARMENT_AUDIT_PERSISTENCE"
-            lastReport = Report(
-                verdict: code, phase: phase,
+            return finish(
+                code, phase: phase,
                 message: refusalText(persisted).isEmpty
                     ? "正面部品の監査結果をVera状態機械へ記録できませんでした。"
                     : refusalText(persisted),
-                iterations: 0, modelCalls: totalModelCalls)
-            return lastReport
+                rounds: 0, modelCalls: totalModelCalls,
+                context: persisted)
         }
         visibleFrontInventoryAuditRequired = false
         visibleFrontInventoryAuditConfirmed = true
@@ -2135,11 +2608,11 @@ final class GarmentFactoryReactController: ObservableObject {
             verdict: "OBSERVED_BY_HUMAN_REVIEW"))
         if !targetCleanupConfirmed {
             phase = next["phase"] as? String ?? "FOREGROUND_CLEANUP_REQUIRED"
-            lastReport = Report(
-                verdict: "FOREGROUND_CLEANUP_REQUIRED", phase: phase,
+            return finish(
+                "FOREGROUND_CLEANUP_REQUIRED", phase: phase,
                 message: "可視部品台帳を確認しました。融合3Dの不要部分を削り、比較目標として採用すると部品→3D→型紙へ進みます。",
-                iterations: 0, modelCalls: totalModelCalls)
-            return lastReport
+                rounds: 0, modelCalls: totalModelCalls,
+                context: next)
         }
         await persistForegroundCleanupAndResume()
         return lastReport
@@ -2178,12 +2651,13 @@ final class GarmentFactoryReactController: ObservableObject {
               next["phase"] as? String == "FRONT_FACTS_RECORDED" else {
             let code = persisted["verdict"] as? String
                 ?? "UNKNOWN_FOREGROUND_CLEANUP_PERSISTENCE"
-            lastReport = Report(
-                verdict: code, phase: phase,
+            _ = finish(
+                code, phase: phase,
                 message: refusalText(persisted).isEmpty
                     ? "前面ターゲット編集をVera状態機械へ記録できませんでした。"
                     : refusalText(persisted),
-                iterations: 0, modelCalls: totalModelCalls)
+                rounds: 0, modelCalls: totalModelCalls,
+                context: persisted)
             return
         }
         persistedForegroundCleanupDigest = targetDigest
@@ -2243,18 +2717,21 @@ final class GarmentFactoryReactController: ObservableObject {
                     "why": "人が確認した正面部品を候補固有3D・型紙へ結合できませんでした。背面や縫い目を捏造せず停止します。",
                     "manufacturing_ready": false,
                 ]])
-            lastReport = Report(
-                verdict: code, phase: phase,
+            _ = finish(
+                code, phase: phase,
                 message: "確認済みの正面部品を3D・型紙へ結合できないため停止しました。",
-                iterations: 0, modelCalls: totalModelCalls)
+                rounds: 0, modelCalls: totalModelCalls,
+                context: [
+                    "why": "人が確認した正面部品を候補固有3D・型紙へ結合できませんでした。",
+                    "missing_fields": ["candidate_bound_3d", "flat_pattern"],
+                ])
             return
         }
         guard let compiledText = Self.jsonString(compiled) else {
-            lastReport = Report(
-                verdict: "UNKNOWN_REVIEWED_FRONT_COMPILATION_ENCODING",
-                phase: phase,
+            _ = finish(
+                "UNKNOWN_REVIEWED_FRONT_COMPILATION_ENCODING", phase: phase,
                 message: "監査済み正面候補のdigestを生成できませんでした。",
-                iterations: 0, modelCalls: totalModelCalls)
+                rounds: 0, modelCalls: totalModelCalls)
             return
         }
         let opened = await advance(event: [
@@ -2266,12 +2743,13 @@ final class GarmentFactoryReactController: ObservableObject {
               openedState["phase"] as? String == "REGIONS_CONFIRMED" else {
             let code = opened["verdict"] as? String
                 ?? "UNKNOWN_REVIEWED_FRONT_FACTORY_TRANSITION"
-            lastReport = Report(
-                verdict: code, phase: phase,
+            _ = finish(
+                code, phase: phase,
                 message: refusalText(opened).isEmpty
                     ? "監査済み正面部品から検索・背面候補工程を開けませんでした。"
                     : refusalText(opened),
-                iterations: 0, modelCalls: totalModelCalls)
+                rounds: 0, modelCalls: totalModelCalls,
+                context: opened)
             return
         }
         // Retain the audited proposal rows as immutable source lineage. A
@@ -2318,20 +2796,16 @@ final class GarmentFactoryReactController: ObservableObject {
         if let proposer { pendingHumanAuditProposer = proposer }
 
         if visibleFrontInventoryAuditRequired {
-            let report = Report(
-                verdict: "HUMAN_GARMENT_AUDIT_REQUIRED", phase: phase,
+            return finish(
+                "HUMAN_GARMENT_AUDIT_REQUIRED", phase: phase,
                 message: "背面3D要求を保持しました。まず正面の衣服数・重なり・可視部品を確認してください。確認後も要求は失われず、背面だけをPROPOSED候補として生成します。",
-                iterations: 0, modelCalls: totalModelCalls)
-            lastReport = report
-            return report
+                rounds: 0, modelCalls: totalModelCalls)
         }
         if visibleFrontInventoryAuditConfirmed, !targetCleanupConfirmed {
-            let report = Report(
-                verdict: "FOREGROUND_CLEANUP_REQUIRED", phase: phase,
+            return finish(
+                "FOREGROUND_CLEANUP_REQUIRED", phase: phase,
                 message: "背面3D要求を保持しました。正面画像から人体・髪・背景・別衣服を削り、比較目標として採用してください。採用後に承認済み正面を固定して背面候補を表示します。",
-                iterations: 0, modelCalls: totalModelCalls)
-            lastReport = report
-            return report
+                rounds: 0, modelCalls: totalModelCalls)
         }
         if !shapeCandidates.isEmpty {
             await fulfillPendingBack3DRequestIfPossible()
@@ -2352,13 +2826,20 @@ final class GarmentFactoryReactController: ObservableObject {
             return
         }
         guard await previewShape(candidate) else {
-            lastReport = Report(
-                verdict: "REVIEW_BACK_3D_PREVIEW_UNAVAILABLE", phase: phase,
+            _ = finish(
+                "REVIEW_BACK_3D_PREVIEW_UNAVAILABLE", phase: phase,
                 message: "背面候補は得られましたが、承認済み正面に結合した3Dを生成できませんでした。汎用台形への置換は行っていません。",
-                iterations: max(1, previewAttempts), modelCalls: totalModelCalls)
+                rounds: max(1, previewAttempts), modelCalls: totalModelCalls,
+                context: [
+                    "why": "承認済み正面に候補固有の背面サーフェスを結合できませんでした。",
+                    "missing_fields": ["candidate_bound_rear_surface"],
+                ])
             return
         }
         pendingBack3DRequest = false
+        pendingResolutionRequest = nil
+        activeLLMProposalConsent = nil
+        selectedResolutionAction = nil
         let frontAuthority = targetCleanupAuthority
         lastReport = Report(
             verdict: "PROPOSED_BACK_3D_READY", phase: phase,
@@ -2470,7 +2951,8 @@ final class GarmentFactoryReactController: ObservableObject {
             guard let current = state(from: inspected) else {
                 return finish(inspected["verdict"] as? String ?? "UNKNOWN_FACTORY_STATE",
                               phase: phase, message: refusalText(inspected),
-                              rounds: round, modelCalls: modelCalls)
+                              rounds: round, modelCalls: modelCalls,
+                              context: inspected)
             }
             phase = current["phase"] as? String ?? "EMPTY"
             publishCandidates(from: current)
@@ -2489,13 +2971,15 @@ final class GarmentFactoryReactController: ObservableObject {
                                    action: "REGION_GEOMETRY_CORPUS", verdict: verdict))
                 if verdict.hasPrefix("UNKNOWN_") {
                     return finish(verdict, phase: phase, message: refusalText(retrieval),
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: retrieval)
                 }
                 continue
             case .waitForSimulationInput:
                 guard let input = simulationInput(from: current) else {
                     return finish(action.code, phase: phase, message: action.message,
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: current)
                 }
                 let result = await advance(event: ["type": "SIMULATE", "input": input])
                 let verdict = result["verdict"] as? String ?? "UNKNOWN_FACTORY_RESULT"
@@ -2503,7 +2987,8 @@ final class GarmentFactoryReactController: ObservableObject {
                                    action: "SIMULATE", verdict: verdict))
                 if verdict.hasPrefix("UNKNOWN_") {
                     return finish(verdict, phase: phase, message: refusalText(result),
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: result)
                 }
                 continue
             case .waitForSewingCorpus:
@@ -2513,12 +2998,14 @@ final class GarmentFactoryReactController: ObservableObject {
                                    action: "STRUCTURE_TO_SEWING", verdict: verdict))
                 if verdict.hasPrefix("UNKNOWN_") {
                     return finish(verdict, phase: phase, message: refusalText(result),
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: result)
                 }
                 continue
             case .waitForImage, .waitForHuman, .stopped:
                 return finish(action.code, phase: phase, message: action.message,
-                              rounds: round, modelCalls: modelCalls)
+                              rounds: round, modelCalls: modelCalls,
+                              context: current)
             case .converged:
                 return finish("CONVERGED", phase: phase, message: action.message,
                               rounds: round, modelCalls: modelCalls)
@@ -2541,12 +3028,13 @@ final class GarmentFactoryReactController: ObservableObject {
                                    action: eventType, verdict: verdict))
                 if verdict.hasPrefix("UNKNOWN_") || verdict.hasPrefix("ESCALATE_") {
                     return finish(verdict, phase: phase, message: refusalText(result),
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: result)
                 }
                 guard let next = state(from: result) else {
                     return finish("UNKNOWN_FACTORY_ENGINE_RESPONSE", phase: phase,
                                   message: refusalText(result), rounds: round,
-                                  modelCalls: modelCalls)
+                                  modelCalls: modelCalls, context: result)
                 }
                 if eventType == "GENERATE_PATTERN",
                    let pattern = next["pattern"] as? [String: Any] {
@@ -2595,7 +3083,8 @@ final class GarmentFactoryReactController: ObservableObject {
                                   message: reason.isEmpty
                                     ? "\(eventType) は状態を進めませんでした。再試行せず停止します。"
                                     : reason,
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: result)
                 }
             case .askModel:
                 guard let task = action.modelTask, let eventType = action.eventType else {
@@ -2677,11 +3166,12 @@ final class GarmentFactoryReactController: ObservableObject {
                     if !fallbackVerdict.hasPrefix("UNKNOWN_") { continue }
                     return finish(fallbackVerdict, phase: phase,
                                   message: refusalText(fallback), rounds: round,
-                                  modelCalls: modelCalls)
+                                  modelCalls: modelCalls, context: fallback)
                 }
                 if verdict.hasPrefix("UNKNOWN_") {
                     return finish(verdict, phase: phase, message: refusalText(result),
-                                  rounds: round, modelCalls: modelCalls)
+                                  rounds: round, modelCalls: modelCalls,
+                                  context: result)
                 }
             }
         }
@@ -3175,9 +3665,25 @@ final class GarmentFactoryReactController: ObservableObject {
                 "parameter_authority": "PROPOSED_NOT_MEASURED",
             ],
         ]
-        lastReport = Report(
-            verdict: code, phase: phase, message: message,
-            iterations: max(1, previewAttempts), modelCalls: totalModelCalls)
+        _ = finish(
+            code, phase: phase, message: message,
+            rounds: max(1, previewAttempts), modelCalls: totalModelCalls,
+            context: [
+                "stage": "MATERIAL_PREVIEW",
+                "missing_fields": [
+                    "measured_material_properties",
+                    "calibrated_material_binding",
+                ],
+                "allowed_resolution_kinds": [
+                    ResolutionActionKind.humanInput.rawValue,
+                    ResolutionActionKind.connectProvider.rawValue,
+                    ResolutionActionKind.allowOneTimeLLMProposal.rawValue,
+                    ResolutionActionKind.compareBoundedAlternatives.rawValue,
+                    ResolutionActionKind.typedStop.rawValue,
+                ],
+                "authority": "PROPOSED_NOT_MEASURED",
+                "provider_payload": payload ?? [:],
+            ])
         trace.append(.init(
             round: max(1, previewAttempts), actor: "VERA_MATERIAL_PREVIEW",
             action: "MATERIAL_PREVIEW_REVIEW_\(candidate.id)", verdict: code))
@@ -4720,9 +5226,387 @@ final class GarmentFactoryReactController: ObservableObject {
         ]
     }
 
+    /// Consume the consent only when the proposal call is about to be made.
+    /// Returning this envelope does not clear the unresolved request: only a
+    /// validated engine result may acknowledge it.
+    func consumeOneTimeLLMProposalConsent(
+        requestID: String
+    ) -> [String: Any]? {
+        guard var consent = activeLLMProposalConsent,
+              consent.requestID == requestID,
+              consent.projectName == activeResolutionProject,
+              consent.remainingUses > 0,
+              !locallyRevokedConsentDigests.contains(
+                consent.engineConsentDigest),
+              pendingResolutionRequest?.provenanceDigest
+                == consent.subjectDigest else { return nil }
+        consent.remainingUses -= 1
+        activeLLMProposalConsent = consent.remainingUses > 0 ? consent : nil
+        return [
+            "schema": consent.schema,
+            "request_id": consent.requestID,
+            "stage": consent.stage,
+            "by": consent.grantedBy,
+            "subject_digest": consent.subjectDigest,
+            "consent_digest": consent.engineConsentDigest,
+            "bound_workflow_digest": consent.boundWorkflowDigest,
+            "authority_ceiling": consent.authorityCeiling,
+            "maximum_uses": consent.maximumUses,
+            "fact_promotions": [],
+            "may_claim_observed": false,
+            "may_claim_measured": false,
+            "may_approve": false,
+        ]
+    }
+
+    private func validatedPendingRequest(
+        requestID: String, provenanceDigest: String, projectName: String,
+        requiredAction: ResolutionActionKind
+    ) -> FactoryResolutionRequest? {
+        guard projectName == activeResolutionProject,
+              let request = pendingResolutionRequest,
+              request.id == requestID,
+              request.provenanceDigest == provenanceDigest,
+              request.options.contains(where: { $0.kind == requiredAction })
+        else { return nil }
+        return request
+    }
+
+    private func requestStillMatches(
+        _ request: FactoryResolutionRequest, projectName: String
+    ) -> Bool {
+        activeResolutionProject == projectName
+            && pendingResolutionRequest?.id == request.id
+            && pendingResolutionRequest?.provenanceDigest
+                == request.provenanceDigest
+    }
+
+    private static func actionKind(
+        for path: CrossResolutionPath
+    ) -> ResolutionActionKind {
+        switch path {
+        case .humanInput, .measuredInput: return .humanInput
+        case .humanEdit: return .humanGeometryEdit
+        case .connectProvider: return .connectProvider
+        case .consentedLLMProposal: return .allowOneTimeLLMProposal
+        case .boundedAlternatives: return .compareBoundedAlternatives
+        case .typedStop: return .typedStop
+        }
+    }
+
+    private static func sourceType(for path: CrossResolutionPath) -> String {
+        switch path {
+        case .humanInput: return "HUMAN_ENTERED_NOT_IMAGE_OBSERVED"
+        case .measuredInput: return "HUMAN_MEASUREMENT"
+        case .humanEdit: return "HUMAN_GEOMETRY_EDIT"
+        case .connectProvider: return "HUMAN_PROVIDER_CONNECTION_REQUEST"
+        case .consentedLLMProposal: return "LLM"
+        case .boundedAlternatives: return "HUMAN_BOUNDED_ALTERNATIVES"
+        case .typedStop: return "HUMAN_TYPED_STOP"
+        }
+    }
+
+    private static func isModelResolutionActor(_ actor: String) -> Bool {
+        let token = actor.uppercased()
+        return ["LLM", "MODEL", "AGENT", "QWEN", "GPT", "CLAUDE",
+                "GEMINI", "OLLAMA", "LM STUDIO"]
+            .contains { token.contains($0) }
+    }
+
+    private static func integer(_ value: Any?) -> Int? {
+        if let value = value as? Int { return value }
+        if let value = value as? NSNumber { return value.intValue }
+        return nil
+    }
+
+    private static func stringSet(_ value: Any?) -> Set<String> {
+        if let values = value as? [String] { return Set(values) }
+        if let values = value as? [Any] {
+            return Set(values.compactMap { $0 as? String })
+        }
+        return []
+    }
+
+    private static func hasOpenObligation(
+        _ requestID: String, in workflow: [String: Any]
+    ) -> Bool {
+        (workflow["obligations"] as? [[String: Any]] ?? []).contains { row in
+            row["request_id"] as? String == requestID
+                && (row["status"] as? String ?? "OPEN").uppercased() == "OPEN"
+        }
+    }
+
+    private static func persistedConsent(
+        _ consentDigest: String, requestID: String,
+        projectRequest request: FactoryResolutionRequest, actor: String,
+        in state: [String: Any]
+    ) -> [String: Any]? {
+        guard let workflow = state["cross_workflow"] as? [String: Any] else {
+            return nil
+        }
+        return (workflow["consents"] as? [[String: Any]] ?? []).first { row in
+            row["consent_digest"] as? String == consentDigest
+                && row["request_id"] as? String == requestID
+                && row["scope"] as? String == request.stage
+                && row["granted_by"] as? String == actor
+                && (row["authority_ceiling"] as? String)?.uppercased()
+                    == "PROPOSED"
+                && row["may_promote_to_observed"] as? Bool == false
+                && stringSet(row["fields"]) == Set(request.missingFields)
+        }
+    }
+
+    private static func persistedResolution(
+        request: FactoryResolutionRequest, projectName: String,
+        path: CrossResolutionPath, actor: String, values: [String: Any],
+        consentDigest: String?, in state: [String: Any]
+    ) -> [String: Any]? {
+        guard let workflow = state["cross_workflow"] as? [String: Any] else {
+            return nil
+        }
+        return (workflow["resolutions"] as? [[String: Any]] ?? []).last { row in
+            guard row["request_id"] as? String == request.id,
+                  row["resolution_path"] as? String == path.rawValue,
+                  row["actor"] as? String == actor,
+                  let resolutionDigest = row["resolution_digest"] as? String,
+                  !resolutionDigest.isEmpty,
+                  let provenance = row["provenance"] as? [String: Any],
+                  provenance["request_provenance_digest"] as? String
+                    == request.provenanceDigest,
+                  provenance["project_name"] as? String == projectName else {
+                return false
+            }
+            if !values.isEmpty,
+               stringSet(row["fields"]) != Set(values.keys) {
+                return false
+            }
+            guard let consentDigest else { return true }
+            return row["consent_digest"] as? String == consentDigest
+        }
+    }
+
+    private static func resolutionKind(_ raw: Any?) -> ResolutionActionKind? {
+        guard let token = raw as? String else { return nil }
+        switch token.uppercased() {
+        case "HUMAN_INPUT", "MEASURED_INPUT", "MEASURE", "ENTER_VALUE":
+            return .humanInput
+        case "HUMAN_GEOMETRY_EDIT", "HUMAN_EDIT", "CAD_EDIT", "EDIT_GEOMETRY":
+            return .humanGeometryEdit
+        case "CONNECT_PROVIDER", "PROVIDER_CONNECT": return .connectProvider
+        case "LLM_PROPOSAL_WITH_CONSENT", "CONSENTED_LLM_PROPOSAL",
+             "ALLOW_LLM_PROPOSAL": return .allowOneTimeLLMProposal
+        case "COMPARE_BOUNDED_ALTERNATIVES", "BOUNDED_ALTERNATIVES", "KEEP_UNKNOWN",
+             "USE_BOUNDED_CANDIDATES": return .compareBoundedAlternatives
+        case "TYPED_STOP", "STOP": return .typedStop
+        default: return nil
+        }
+    }
+
+    private static func resolutionOption(
+        _ kind: ResolutionActionKind, code: String, stage: String
+    ) -> ResolutionOption {
+        let title: String
+        let detail: String
+        let authority: String
+        switch kind {
+        case .humanInput:
+            title = "値を入力・計測する"
+            detail = "画像から測れない値を人が入力します。入力値は画像実測とは区別して記録されます。"
+            authority = "USER_SUPPLIED_NOT_IMAGE_MEASURED"
+        case .humanGeometryEdit:
+            title = "3D/CADで形を直す"
+            detail = "点・面・輪郭を人が編集し、編集結果を新しい比較目標として再検証します。"
+            authority = "HUMAN_EDITED_TARGET"
+        case .connectProvider:
+            title = "検索・解析プロバイダを接続する"
+            detail = "実在資料や外部解析を使う場合は、到達性・権利・系譜を確認して接続します。"
+            authority = "PROVIDER_EVIDENCE_SUBJECT_TO_RIGHTS_GATE"
+        case .allowOneTimeLLMProposal:
+            title = "今回だけAIの推測案を許可する"
+            detail = "AIは候補だけを生成します。観測・実測・承認・製造保証には昇格しません。"
+            authority = "PROPOSED_UNOBSERVED_ONLY"
+        case .compareBoundedAlternatives:
+            title = "不明のまま候補を比較する"
+            detail = "本当の値を確定せず、範囲付きの複数候補として3D・型紙・シミュレーションを比較します。"
+            authority = "PROPOSED_UNOBSERVED_ALTERNATIVES"
+        case .typedStop:
+            title = "ここで停止する"
+            detail = "解けなかった工程・不足値・根拠を型付きで保存して停止します（\(code) / \(stage)）。"
+            authority = "TYPED_STOP_NO_RESULT_CLAIM"
+        }
+        return .init(
+            id: "\(stage):\(code):\(kind.rawValue)", kind: kind,
+            title: title, detail: detail,
+            requiresExplicitConsent: kind == .allowOneTimeLLMProposal,
+            resultAuthority: authority)
+    }
+
+    private func inferredResolutionKinds(
+        code: String, stage: String
+    ) -> [ResolutionActionKind] {
+        let token = "\(code)_\(stage)".uppercased()
+        let engineFailure = ["SCHEMA", "ENCODING", "ENGINE_RESPONSE",
+                             "FACTORY_PHASE", "NO_PROGRESS", "STALE_DIGEST"]
+            .contains { token.contains($0) }
+        if engineFailure { return [.typedStop] }
+        if token.contains("IMAGE") && token.contains("CONFIRM") {
+            return [.humanInput, .typedStop]
+        }
+        if token.contains("AUDIT") || token.contains("APPROVAL") {
+            return [.humanInput, .compareBoundedAlternatives, .typedStop]
+        }
+        if token.contains("FOREGROUND") || token.contains("CLEANUP")
+            || token.contains("CAD") || token.contains("GEOMETRY")
+            || token.contains("TARGET") {
+            return [.humanGeometryEdit, .allowOneTimeLLMProposal,
+                    .compareBoundedAlternatives, .typedStop]
+        }
+        if token.contains("RETRIEVAL") || token.contains("CORPUS")
+            || token.contains("PROVIDER") || token.contains("SEARCH")
+            || token.contains("FASHION") {
+            return [.connectProvider, .allowOneTimeLLMProposal,
+                    .compareBoundedAlternatives, .typedStop]
+        }
+        if token.contains("MATERIAL") || token.contains("SIMULATION")
+            || token.contains("DIMENSION") || token.contains("MEASUREMENT")
+            || token.contains("UNIT") || token.contains("BODY") {
+            return [.humanInput, .allowOneTimeLLMProposal,
+                    .compareBoundedAlternatives, .typedStop]
+        }
+        if token.contains("MODEL") {
+            return [.connectProvider, .allowOneTimeLLMProposal, .typedStop]
+        }
+        if token.contains("BUDGET") || token.contains("UNSUPPORTED") {
+            return [.typedStop]
+        }
+        return [.humanInput, .allowOneTimeLLMProposal,
+                .compareBoundedAlternatives, .typedStop]
+    }
+
+    private func resolutionRequest(
+        verdict: String, stage: String, message: String,
+        context: [String: Any]?
+    ) -> FactoryResolutionRequest? {
+        let embedded = Self.openResolutionEnvelope(in: context)
+        let shouldPause = verdict.hasPrefix("UNKNOWN_")
+            || verdict.hasPrefix("ESCALATE_")
+            || verdict.hasPrefix("REVIEW_")
+            || verdict.contains("REQUIRED")
+            || embedded != nil
+            || verdict == "FRONT_FACTS_RECORDED"
+        guard shouldPause else { return nil }
+
+        let code = embedded?["verdict"] as? String
+            ?? embedded?["code"] as? String ?? verdict
+        let resolvedStage = embedded?["stage"] as? String ?? stage
+        var missing = Self.stringArray(embedded?["missing_fields"])
+        if missing.isEmpty {
+            missing = Self.stringArray(context?["missing_fields"])
+        }
+        if missing.isEmpty {
+            missing = Self.stringArray(context?["required_fields"])
+        }
+        var kinds = (embedded?["resolution_paths"] as? [[String: Any]] ?? [])
+            .compactMap { Self.resolutionKind($0["path"]) }
+        if kinds.isEmpty {
+            kinds = (embedded?["choices"] as? [[String: Any]] ?? [])
+                .compactMap { Self.resolutionKind($0["choice"]) }
+        }
+        if kinds.isEmpty {
+            kinds = (embedded?["options"] as? [[String: Any]] ?? [])
+            .compactMap { Self.resolutionKind($0["action"] ?? $0["kind"]) }
+        }
+        if kinds.isEmpty {
+            kinds = ((embedded?["allowed_resolution_kinds"] as? [String])
+                ?? (context?["allowed_resolution_kinds"] as? [String]) ?? [])
+                .compactMap { Self.resolutionKind($0) }
+        }
+        if kinds.isEmpty {
+            kinds = inferredResolutionKinds(code: code, stage: resolvedStage)
+        }
+        // Deterministic de-duplication preserves the engine's preferred order.
+        var seen = Set<ResolutionActionKind>()
+        kinds = kinds.filter { seen.insert($0).inserted }
+        if kinds.isEmpty { kinds = [.typedStop] }
+
+        let requestIDSeed = embedded?["request_id"] as? String ?? ""
+        let provenanceText = Self.jsonString(
+            embedded?["provenance"] as? [String: Any] ?? [:]) ?? "{}"
+        let fallbackUpstreamDigest = (context?["provenance_digest"] as? String)
+            ?? (context?["state_digest"] as? String)
+            ?? (context?["digest"] as? String)
+            ?? activeVisibleAnalysisDigest ?? targetSculptDigest
+            ?? "NO_UPSTREAM_DIGEST"
+        let digestInput = [requestIDSeed, resolvedStage, code,
+                           provenanceText, fallbackUpstreamDigest]
+            .joined(separator: "|")
+        let computedDigest = Self.sha256(Data(digestInput.utf8))
+        let digest = embedded?["provenance_digest"] as? String
+            ?? computedDigest
+        let requestID = requestIDSeed.isEmpty
+            ? "resolution-\(computedDigest.prefix(20))" : requestIDSeed
+        let options = kinds.map {
+            Self.resolutionOption($0, code: code, stage: resolvedStage)
+        }
+        return .init(
+            id: requestID,
+            code: code,
+            stage: resolvedStage,
+            title: embedded?["title"] as? String ?? "次の工程に必要な確認",
+            explanation: embedded?["reason"] as? String
+                ?? embedded?["why"] as? String
+                ?? embedded?["explanation"] as? String
+                ?? context?["why"] as? String
+                ?? message,
+            missingFields: missing.sorted(),
+            options: options,
+            provenanceDigest: digest,
+            authority: embedded?["authority"] as? String
+                ?? "UNRESOLVED_WITH_TYPED_CONTINUATIONS",
+            terminal: options.allSatisfy { $0.kind == .typedStop })
+    }
+
+    private static func openResolutionEnvelope(
+        in context: [String: Any]?
+    ) -> [String: Any]? {
+        guard let context else { return nil }
+        for key in ["resolution_request", "typed_resolution_request"] {
+            if let row = context[key] as? [String: Any], !row.isEmpty {
+                return row
+            }
+        }
+        let root = context["state"] as? [String: Any] ?? context
+        guard let workflow = root["cross_workflow"] as? [String: Any] else {
+            return nil
+        }
+        return (workflow["obligations"] as? [[String: Any]] ?? [])
+            .last { row in
+                (row["status"] as? String ?? "OPEN").uppercased() == "OPEN"
+            }
+    }
+
+    private static func stringArray(_ value: Any?) -> [String] {
+        if let values = value as? [String] { return values }
+        if let values = value as? [Any] {
+            return values.compactMap { $0 as? String }
+        }
+        return []
+    }
+
     private func finish(_ verdict: String, phase: String, message: String,
-                        rounds: Int, modelCalls: Int) -> Report {
+                        rounds: Int, modelCalls: Int,
+                        context: [String: Any]? = nil) -> Report {
         self.phase = phase
+        pendingResolutionRequest = resolutionRequest(
+            verdict: verdict, stage: phase, message: message, context: context)
+        if pendingResolutionRequest == nil {
+            activeLLMProposalConsent = nil
+            selectedResolutionAction = nil
+        } else if activeLLMProposalConsent?.subjectDigest
+                    != pendingResolutionRequest?.provenanceDigest {
+            // A one-shot consent is never transferable to another obligation.
+            activeLLMProposalConsent = nil
+        }
         let report = Report(verdict: verdict, phase: phase, message: message,
                             iterations: rounds, modelCalls: modelCalls)
         lastReport = report

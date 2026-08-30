@@ -127,6 +127,20 @@ struct DiffLine: Identifiable {
 @MainActor
 final class AppState: ObservableObject {
 
+    /// Resolution actions are routed through this controller so focused tests
+    /// can exercise the same AppState methods used by the sidebar against an
+    /// injected persisted-factory door. Production keeps the canonical shared
+    /// controller and therefore preserves existing project switching.
+    private let garmentResolutionFactory: GarmentFactoryReactController
+
+    init() {
+        garmentResolutionFactory = .shared
+    }
+
+    init(garmentResolutionFactory: GarmentFactoryReactController) {
+        self.garmentResolutionFactory = garmentResolutionFactory
+    }
+
     // ── Global weak reference — set at launch so AgentToolExecutor can call
     // ingestArtifact() from actor context without importing the full SwiftUI stack.
     @MainActor static weak var shared: AppState?
@@ -270,12 +284,10 @@ final class AppState: ObservableObject {
         }
         garmentProjects.append(name)
         garmentProjectCreatedAt[name] = Date()
-        activeGarment = name
-        Task { @MainActor in
-            _ = await MCPEngine.shared.callTool(
-                serverName: "vera-memory", toolName: "project_new",
-                arguments: ["name": name])
-        }
+        // New and existing selections share one activation path. This keeps
+        // the visible project, Python ledger and project-scoped resolution
+        // consent in lockstep.
+        activateGarmentProject(name)
     }
 
     /// UIの選択色だけでなく、Python側の台帳名前空間も同時に切り替える。
@@ -284,6 +296,8 @@ final class AppState: ObservableObject {
     func activateGarmentProject(_ name: String) {
         guard garmentProjects.contains(name) else { return }
         activeGarment = name
+        GarmentGenerationJob.shared.activateProject(name)
+        garmentResolutionFactory.activateResolutionProject(name)
         Task { @MainActor in
             let raw = await MCPEngine.shared.callTool(
                 serverName: "vera-memory", toolName: "project_open",
@@ -295,6 +309,268 @@ final class AppState: ObservableObject {
                 serverName: "vera-memory", toolName: "project_new",
                 arguments: ["name": name])
         }
+    }
+
+    /// Select only the presentation route. The obligation remains OPEN until
+    /// `resolveCrossObligation` verifies the matching persisted Python event.
+    /// There is intentionally no compatibility success path when the factory
+    /// did not publish the exact request/digest/project tuple.
+    private func selectFactoryResolutionAction(
+        _ kind: GarmentFactoryReactController.ResolutionActionKind,
+        for request: GarmentResolutionRequest
+    ) -> Bool {
+        let factory = garmentResolutionFactory
+        guard factory.activeResolutionProject == activeGarment,
+              let pending = factory.pendingResolutionRequest else {
+            addSystemMessage("永続工場に対応するOPEN解決要求がないため、操作を実行しませんでした。")
+            return false
+        }
+        guard pending.id == request.id,
+              pending.provenanceDigest == request.provenanceDigest else {
+            addSystemMessage("解決要求が更新されたため、古い操作は実行しませんでした。")
+            return false
+        }
+        return factory.selectResolutionAction(kind, requestID: request.id, by: "HUMAN")
+    }
+
+    @discardableResult
+    func beginGarmentHumanInput(_ request: GarmentResolutionRequest) -> Bool {
+        guard request.allows(GarmentResolutionRequest.enterOrMeasure) else { return false }
+        return selectFactoryResolutionAction(.humanInput, for: request)
+    }
+
+    @discardableResult
+    func beginGarmentGeometryEdit(_ request: GarmentResolutionRequest) -> Bool {
+        guard request.allows(GarmentResolutionRequest.editGeometry) else { return false }
+        return selectFactoryResolutionAction(.humanGeometryEdit, for: request)
+    }
+
+    @discardableResult
+    func beginGarmentProviderConnection(_ request: GarmentResolutionRequest) -> Bool {
+        guard request.allows(GarmentResolutionRequest.connectProvider) else { return false }
+        return selectFactoryResolutionAction(.connectProvider, for: request)
+    }
+
+    func openGarmentProviderSettings() {
+        openSettings(tab: "mcp")
+    }
+
+    private var garmentResolutionHumanActor: String {
+        let fullName = NSFullUserName()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return fullName.isEmpty ? "HUMAN_USER" : "HUMAN:\(fullName)"
+    }
+
+    private func reportGarmentResolutionFailure(
+        _ outcome: GarmentFactoryReactController.ResolutionEventOutcome
+    ) {
+        addSystemMessage("\(outcome.verdict): \(outcome.message)")
+    }
+
+    @discardableResult
+    func grantOneTimeGarmentLLMProposal(
+        _ request: GarmentResolutionRequest
+    ) async -> Bool {
+        let factory = garmentResolutionFactory
+        let project = activeGarment
+        let outcome = await factory.grantOneTimeLLMProposalConsent(
+            requestID: request.id,
+            provenanceDigest: request.provenanceDigest,
+            projectName: project,
+            by: garmentResolutionHumanActor)
+        guard outcome.accepted,
+              let consentDigest = outcome.consentDigest,
+              let boundWorkflowDigest = outcome.boundWorkflowDigest,
+              GarmentGenerationJob.shared.recordOneTimeLLMProposalConsent(
+                requestID: request.id,
+                engineConsentDigest: consentDigest,
+                boundWorkflowDigest: boundWorkflowDigest) else {
+            factory.revokeLLMProposalConsent()
+            GarmentGenerationJob.shared.revokeLLMProposalConsent()
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        addSystemMessage(outcome.message)
+        return true
+    }
+
+    func revokeGarmentLLMProposalConsent() {
+        GarmentGenerationJob.shared.revokeLLMProposalConsent()
+        garmentResolutionFactory.revokeLLMProposalConsent()
+    }
+
+    func submitGarmentResolution(
+        _ request: GarmentResolutionRequest,
+        values: [String: String], measured: Bool
+    ) async -> Bool {
+        let scoped = values.mapValues {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter { !$0.value.isEmpty }
+        guard Set(scoped.keys) == Set(request.missingFields) else {
+            addSystemMessage("型付き解決要求に列挙された全項目を入力してください。")
+            return false
+        }
+        let project = activeGarment
+        let path: GarmentFactoryReactController.CrossResolutionPath = measured
+            ? .measuredInput : .humanInput
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: project,
+                path: path,
+                values: scoped,
+                actor: garmentResolutionHumanActor)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        _ = GarmentGenerationJob.shared.recordAcceptedHumanResolution(
+            request, projectName: project, values: scoped,
+            measured: measured)
+        addSystemMessage(outcome.message)
+        return true
+    }
+
+    /// Called by the proposal provider after it has produced values under an
+    /// already persisted one-shot grant. The proposal cannot resolve through
+    /// a chat marker and remains capped at PROPOSED in both ledgers.
+    func submitOneTimeGarmentLLMProposal(
+        _ request: GarmentResolutionRequest,
+        values: [String: String], modelID: String
+    ) async -> Bool {
+        let job = GarmentGenerationJob.shared
+        guard let consent = job.activeLLMResolutionConsent,
+              consent.requestID == request.id,
+              consent.projectName == activeGarment,
+              consent.provenanceDigest == request.provenanceDigest else {
+            addSystemMessage("このrequest/digest/projectに限定したLLM提案許可がありません。")
+            return false
+        }
+        let scoped = values.mapValues {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter { !$0.value.isEmpty }
+        guard Set(scoped.keys) == Set(request.missingFields) else {
+            addSystemMessage("LLM提案は許可された全項目だけを返す必要があります。")
+            return false
+        }
+        let project = activeGarment
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: project,
+                path: .consentedLLMProposal,
+                values: scoped,
+                actor: "LLM:\(modelID)",
+                consentDigest: consent.engineConsentDigest)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        _ = job.recordAcceptedLLMProposalResolution(
+            request, projectName: project, values: scoped)
+        addSystemMessage(outcome.message)
+        return true
+    }
+
+    func submitGarmentGeometryResolution(
+        _ request: GarmentResolutionRequest,
+        editArtifacts: [String: String]
+    ) async -> Bool {
+        let scoped = editArtifacts.mapValues {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter { !$0.value.isEmpty }
+        guard Set(scoped.keys) == Set(request.missingFields) else {
+            addSystemMessage("編集結果は要求された全形状項目へ紐付けてください。")
+            return false
+        }
+        let project = activeGarment
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: project,
+                path: .humanEdit,
+                values: scoped,
+                actor: garmentResolutionHumanActor)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        _ = GarmentGenerationJob.shared.recordAcceptedGeometryResolution(
+            request, projectName: project, values: scoped)
+        addSystemMessage(outcome.message)
+        return true
+    }
+
+    func connectGarmentProvider(
+        _ request: GarmentResolutionRequest
+    ) async -> Bool {
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: activeGarment,
+                path: .connectProvider,
+                actor: garmentResolutionHumanActor,
+                resumeAfterAcceptance: false)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        addSystemMessage(outcome.message)
+        openGarmentProviderSettings()
+        return true
+    }
+
+    func continueGarmentWithBoundedAlternatives(
+        _ request: GarmentResolutionRequest
+    ) async -> Bool {
+        let bounded: [String: Any] = Dictionary(uniqueKeysWithValues:
+            request.missingFields.map {
+                ($0, ["UNKNOWN", "LOW_BOUND", "HIGH_BOUND"])
+            })
+        let project = activeGarment
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: project,
+                path: .boundedAlternatives,
+                values: bounded,
+                actor: garmentResolutionHumanActor)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        _ = GarmentGenerationJob.shared.recordAcceptedBoundedAlternative(
+            request, projectName: project)
+        addSystemMessage(outcome.message)
+        return true
+    }
+
+    func stopGarmentResolution(
+        _ request: GarmentResolutionRequest
+    ) async -> Bool {
+        let project = activeGarment
+        let outcome = await garmentResolutionFactory
+            .resolveCrossObligation(
+                requestID: request.id,
+                provenanceDigest: request.provenanceDigest,
+                projectName: project,
+                path: .typedStop,
+                actor: garmentResolutionHumanActor,
+                resumeAfterAcceptance: false)
+        guard outcome.accepted else {
+            reportGarmentResolutionFailure(outcome)
+            return false
+        }
+        GarmentGenerationJob.shared.recordAcceptedStop(
+            request, projectName: project)
+        if isGenerating { cancelGeneration() }
+        addSystemMessage(outcome.message)
+        return true
     }
 
     @Published var ollamaModels: [String] = []
@@ -3521,6 +3797,11 @@ final class AppState: ObservableObject {
         // まだ既定値のうちに作られるので、そこではまだこのモードを知らない。
         shell.pruneTabs(incompatibleWith: veraEngineMode)
         backfillGarmentProjectDates()
+        if garmentProjects.contains(activeGarment) {
+            activateGarmentProject(activeGarment)
+        } else if let first = garmentProjects.first {
+            activateGarmentProject(first)
+        }
 
         // ── Anthropic ──────────────────────────────────────────────────────
         if let key = ud.string(forKey: "anthropic_api_key"), !key.isEmpty {

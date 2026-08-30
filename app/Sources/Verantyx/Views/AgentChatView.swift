@@ -6,6 +6,8 @@ import SwiftUI
 
 struct AgentChatView: View {
     @EnvironmentObject var app: AppState
+    @ObservedObject private var garmentJob = GarmentGenerationJob.shared
+    @ObservedObject private var garmentFactory = GarmentFactoryReactController.shared
     @State private var showingHistory: Bool = false
     @State private var showingModelPill = false
 
@@ -77,7 +79,23 @@ struct AgentChatView: View {
                 // 込んで画面が崩れた（レール連打で再現）。**同じ物を二箇所で
                 // 描かない。** 会話の画面は会話だけを持つ。
                 VeraSovereignLayout {
-                    chatTranscriptArea
+                    HStack(spacing: 0) {
+                        chatTranscriptArea
+                            .frame(minWidth: resolutionRequest == nil ? 560 : 620)
+                            .layoutPriority(1)
+                        if let request = resolutionRequest {
+                            Divider().opacity(0.35)
+                            GarmentResolutionSidebarView(request: request)
+                                .environmentObject(app)
+                                .frame(width: 336)
+                                .transition(.move(edge: .trailing).combined(with: .opacity))
+                        }
+                    }
+                    // The sidebar keeps a stable reading width. Below this
+                    // minimum the app window stops shrinking instead of
+                    // reflowing controls into an unusable stack.
+                    .frame(minWidth: resolutionRequest == nil ? 560 : 956,
+                           maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .environmentObject(app)
                     .opacity(showingHistory ? 0 : 1)
@@ -180,6 +198,47 @@ struct AgentChatView: View {
                 }
             }
         }
+        .onChange(of: app.activeGarment) { _, name in
+            // Every project change goes through the canonical activation
+            // boundary. Normal picker changes have already activated the job;
+            // this guard catches only restored/legacy direct assignments.
+            if garmentJob.activeResolutionProject != name {
+                app.activateGarmentProject(name)
+            }
+        }
+        .onReceive(garmentFactory.$pendingResolutionRequest) { request in
+            // This typed publisher is authoritative. Do not reconstruct its
+            // missing fields, options, digest or terminal state from prose.
+            garmentJob.ingestResolutionEnvelope(request.map {
+                GarmentResolutionRequest(factoryRequest: $0)
+            })
+        }
+        .onReceive(garmentFactory.$lastReport) { report in
+            // Compatibility adapter for factory paths that have not yet
+            // published GarmentResolutionRequest directly.
+            guard garmentFactory.pendingResolutionRequest == nil,
+                  let report else { return }
+            garmentJob.registerResolution(
+                code: report.verdict, stage: report.phase,
+                explanation: report.message,
+                provenanceDigest: nil,
+                authority: "UNOBSERVED")
+        }
+        .onAppear {
+            if garmentJob.activeResolutionProject != app.activeGarment {
+                app.activateGarmentProject(app.activeGarment)
+            }
+            if let pending = garmentFactory.pendingResolutionRequest {
+                garmentJob.ingestResolutionEnvelope(
+                    GarmentResolutionRequest(factoryRequest: pending))
+            } else if let report = garmentFactory.lastReport {
+                garmentJob.registerResolution(
+                    code: report.verdict, stage: report.phase,
+                    explanation: report.message,
+                    provenanceDigest: nil,
+                    authority: "UNOBSERVED")
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ChatTranscriptClicked"))) { _ in
             // Only offer the Spotlight panel when a Control x3 conversation
             // actually exists in the background — a plain click (or a copy
@@ -200,6 +259,11 @@ struct AgentChatView: View {
                 "現在、Control x3 のエージェントがバックグラウンドで待機しています。Spotlightエージェントを起動してチャットを継続しますか？"
             ))
         }
+    }
+
+    private var resolutionRequest: GarmentResolutionRequest? {
+        guard app.veraEngineMode == .atelier else { return nil }
+        return garmentJob.activeResolutionRequest
     }
 
     // MARK: - Top Chat Button
@@ -926,6 +990,632 @@ struct AgentChatView: View {
               let range = Range(match.range(at: 1), in: text)
         else { return "" }
         return String(text[range]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+// MARK: - Progressive garment resolution sidebar
+
+/// One Atelier surface, progressively disclosed. This is deliberately a
+/// normal right-hand column rather than a sheet, popover or floating window,
+/// so the transcript and the evidence that caused the request remain visible.
+private struct GarmentResolutionSidebarView: View {
+    @EnvironmentObject private var app: AppState
+    @ObservedObject private var job = GarmentGenerationJob.shared
+
+    let request: GarmentResolutionRequest
+
+    @State private var showsEntry = false
+    @State private var showsGeometryHelp = false
+    @State private var showsConnectionHelp = false
+    @State private var values: [String: String] = [:]
+    @State private var geometryValues: [String: String] = [:]
+    @State private var measured = false
+    @State private var isResolving = false
+    @State private var resolutionFeedback: String?
+    @State private var resolutionFailed = false
+
+    private var consent: GarmentLLMResolutionConsent? {
+        guard job.activeLLMResolutionConsent?.requestID == request.id else { return nil }
+        return job.activeLLMResolutionConsent
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                header
+                explanation
+                requirementSummary
+                missingFields
+                authorityBoundary
+                actions
+                if let resolutionFeedback {
+                    Text(resolutionFeedback)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(resolutionFailed ? Theme.bad : Theme.ok)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                provenance
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+        }
+        .frame(width: 336)
+        .frame(maxHeight: .infinity)
+        .background(Theme.panel)
+        .id(request.id)
+        .onChange(of: request.id) { _, _ in
+            showsEntry = false
+            showsGeometryHelp = false
+            showsConnectionHelp = false
+            values = [:]
+            geometryValues = [:]
+            measured = false
+            isResolving = false
+            resolutionFeedback = nil
+            resolutionFailed = false
+        }
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 8) {
+                Image(systemName: request.terminal
+                      ? "stop.circle.fill" : "person.crop.circle.badge.questionmark")
+                    .foregroundStyle(request.terminal ? Theme.bad : Theme.warn)
+                Text(request.terminal
+                     ? app.t("Typed stop", "型付き停止")
+                     : app.t("Input needed", "入力が必要です"))
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(Theme.fg)
+                Spacer(minLength: 0)
+            }
+            Text(request.title)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(Theme.fg)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(spacing: 6) {
+                badge(request.stage, color: Theme.sel)
+                badge(request.authority, color: request.authority == "PROPOSED"
+                      ? Theme.warn : Theme.faint)
+            }
+        }
+    }
+
+    private var explanation: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(app.t("Why this is needed", "なぜ必要か"))
+                .font(.system(size: 10, weight: .bold))
+                .foregroundStyle(Theme.dim)
+            Text(request.explanation)
+                .font(.system(size: 12))
+                .foregroundStyle(Theme.fg)
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(request.code)
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundStyle(request.terminal ? Theme.bad : Theme.warn)
+                .textSelection(.enabled)
+        }
+        .padding(10)
+        .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var missingFields: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(app.t("Unobserved fields", "未観測の項目"))
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(Theme.fg)
+            if request.missingFields.isEmpty {
+                Text(app.t("No field can close this stop.", "この停止を閉じられる入力項目はありません。"))
+                    .font(.system(size: 11))
+                    .foregroundStyle(Theme.bad)
+            } else {
+                ForEach(request.missingFields, id: \.self) { field in
+                    VStack(alignment: .leading, spacing: 3) {
+                        HStack(spacing: 6) {
+                            Text(fieldTitle(field))
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Theme.fg)
+                            Spacer(minLength: 0)
+                            Text("UNOBSERVED")
+                                .font(.system(size: 8, weight: .bold, design: .monospaced))
+                                .foregroundStyle(Theme.warn)
+                        }
+                        Text(field)
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(Theme.dim)
+                            .textSelection(.enabled)
+                        Text(fieldReason(field))
+                            .font(.system(size: 10))
+                            .foregroundStyle(Theme.dim)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(8)
+                    .background(Color.white.opacity(0.025),
+                                in: RoundedRectangle(cornerRadius: 6))
+                    .overlay(RoundedRectangle(cornerRadius: 6)
+                        .strokeBorder(Theme.line, lineWidth: 0.7))
+                }
+            }
+        }
+    }
+
+    private var requirementSummary: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(app.t("Resolution scope", "不足の種類"))
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(Theme.fg)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 122), spacing: 5)],
+                      alignment: .leading, spacing: 5) {
+                ForEach(requirementCategories, id: \.id) { category in
+                    Label(app.t(category.english, category.japanese),
+                          systemImage: category.icon)
+                        .font(.system(size: 9.5, weight: .semibold))
+                        .foregroundStyle(category.color)
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 4)
+                        .background(category.color.opacity(0.10), in: Capsule())
+                }
+            }
+        }
+    }
+
+    private var authorityBoundary: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Label(app.t("LLM authority boundary", "LLMの権限境界"),
+                  systemImage: "lock.shield")
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(Theme.warn)
+            Text(app.t(
+                "An LLM may only create PROPOSED alternatives for the exact fields above. It cannot turn a proposal into an observation, measurement or approval.",
+                "LLMが作れるのは上記項目に限定したPROPOSED候補だけです。提案を観測・実測・承認済みへ昇格させることはできません。"))
+                .font(.system(size: 10.5))
+                .foregroundStyle(Theme.dim)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(10)
+        .background(Theme.warn.opacity(0.08), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8)
+            .strokeBorder(Theme.warn.opacity(0.35), lineWidth: 0.8))
+    }
+
+    private var actions: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            resolutionButton(
+                app.t("Enter or measure", "入力・実測する"),
+                systemImage: "ruler",
+                option: GarmentResolutionRequest.enterOrMeasure,
+                color: Theme.sel) {
+                    guard app.beginGarmentHumanInput(request) else { return }
+                    withAnimation(.easeInOut(duration: 0.18)) { showsEntry.toggle() }
+                }
+            if showsEntry { entryEditor.transition(.opacity) }
+
+            resolutionButton(
+                app.t("Edit geometry", "形状を編集する"),
+                systemImage: "point.3.connected.trianglepath.dotted",
+                option: GarmentResolutionRequest.editGeometry,
+                color: Theme.sel) {
+                    guard app.beginGarmentGeometryEdit(request) else { return }
+                    withAnimation(.easeInOut(duration: 0.18)) {
+                        showsGeometryHelp.toggle()
+                    }
+                }
+            if showsGeometryHelp { geometryHelp.transition(.opacity) }
+
+            resolutionButton(
+                app.t("Connect provider", "検索・プロバイダーを接続"),
+                systemImage: "network.badge.shield.half.filled",
+                option: GarmentResolutionRequest.connectProvider,
+                color: Theme.sel) {
+                    guard app.beginGarmentProviderConnection(request) else { return }
+                    withAnimation(.easeInOut(duration: 0.18)) {
+                        showsConnectionHelp.toggle()
+                    }
+                }
+            if showsConnectionHelp { connectionHelp.transition(.opacity) }
+
+            resolutionButton(
+                app.t("Allow one-time LLM proposal", "LLMの一回限りの提案を許可"),
+                systemImage: "sparkles.rectangle.stack",
+                option: GarmentResolutionRequest.allowOneTimeLLMProposal,
+                color: Theme.warn) {
+                    performResolution(
+                        success: app.t(
+                            "One PROPOSED-only grant was persisted.",
+                            "PROPOSED限定の許可を永続化しました。")) {
+                        await app.grantOneTimeGarmentLLMProposal(request)
+                    }
+                }
+            if let consent { consentCard(consent) }
+
+            resolutionButton(
+                app.t("Keep unknown / use bounded alternatives",
+                      "UNKNOWNを保持して限定候補を使う"),
+                systemImage: "arrow.triangle.branch",
+                option: GarmentResolutionRequest.keepUnknownUseBoundedAlternatives,
+                color: Theme.ok) {
+                    performResolution(
+                        success: app.t(
+                            "Bounded alternatives were persisted; fields remain unobserved.",
+                            "限定候補を永続化しました。項目は未観測のままです。")) {
+                        await app.continueGarmentWithBoundedAlternatives(request)
+                    }
+                }
+
+            resolutionButton(
+                app.t("Stop with reason (\(request.code))",
+                      "理由付きで停止（\(request.code)）"),
+                systemImage: "stop.fill",
+                option: GarmentResolutionRequest.stop,
+                color: Theme.bad) {
+                    performResolution(
+                        success: app.t(
+                            "The typed stop was persisted.",
+                            "理由付き停止を永続化しました。")) {
+                        await app.stopGarmentResolution(request)
+                    }
+                }
+            if isResolving {
+                HStack(spacing: 8) {
+                    ProgressView().controlSize(.small)
+                    Text(app.t(
+                        "Verifying the persisted factory event…",
+                        "工場イベントの永続化を検証中…"))
+                        .font(.system(size: 10))
+                        .foregroundStyle(Theme.dim)
+                }
+            }
+        }
+    }
+
+    private var entryEditor: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Picker("", selection: $measured) {
+                Text(app.t("Entered", "入力値")).tag(false)
+                Text(app.t("Measured", "実測値")).tag(true)
+            }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+            ForEach(request.missingFields, id: \.self) { field in
+                TextField(fieldTitle(field), text: Binding(
+                    get: { values[field, default: ""] },
+                    set: { values[field] = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 11))
+            }
+            Text(app.t(
+                "Include units. Entered values remain HUMAN_ENTERED; choose Measured only for values you actually measured.",
+                "単位も入力してください。通常入力はHUMAN_ENTEREDのままです。実際に測った値だけ「実測値」を選んでください。"))
+                .font(.system(size: 9.5))
+                .foregroundStyle(Theme.dim)
+                .fixedSize(horizontal: false, vertical: true)
+            Button {
+                performResolution(
+                    success: app.t(
+                        "The scoped human values were accepted by the factory.",
+                        "指定範囲の人間入力を工場が受理しました。")) {
+                    await app.submitGarmentResolution(
+                        request, values: values, measured: measured)
+                }
+            } label: {
+                Label(app.t("Submit scoped values", "この項目だけ送信"),
+                      systemImage: "arrow.up.circle.fill")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(isResolving || Set(values.keys.filter {
+                !values[$0, default: ""]
+                    .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            }) != Set(request.missingFields))
+        }
+        .padding(9)
+        .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var geometryHelp: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(app.t("Geometry remains a human edit", "形状は人が編集します"))
+                .font(.system(size: 10.5, weight: .bold))
+                .foregroundStyle(Theme.fg)
+            Text(app.t(
+                "Use the inline Atelier geometry card in the transcript. Its result returns through the same typed request; opening this guide does not approve or alter geometry.",
+                "会話内のAtelier形状カードを操作してください。編集結果は同じ型付き要求へ戻ります。このガイドを開くだけでは形状の変更・承認は行いません。"))
+                .font(.system(size: 10))
+                .foregroundStyle(Theme.dim)
+                .fixedSize(horizontal: false, vertical: true)
+            ForEach(request.missingFields, id: \.self) { field in
+                TextField(
+                    app.t("Edit artifact for \(fieldTitle(field))",
+                          "\(fieldTitle(field))の編集結果/digest"),
+                    text: Binding(
+                        get: { geometryValues[field, default: ""] },
+                        set: { geometryValues[field] = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 11))
+            }
+            Button {
+                performResolution(
+                    success: app.t(
+                        "The human geometry edit was persisted.",
+                        "人による形状編集を永続化しました。")) {
+                    await app.submitGarmentGeometryResolution(
+                        request, editArtifacts: geometryValues)
+                }
+            } label: {
+                Label(app.t("Submit geometry edit", "形状編集を確定"),
+                      systemImage: "point.3.filled.connected.trianglepath.dotted")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(isResolving || Set(geometryValues.keys.filter {
+                !geometryValues[$0, default: ""]
+                    .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            }) != Set(request.missingFields))
+        }
+        .padding(9)
+        .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var connectionHelp: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(app.t("Connection remains explicit", "接続は明示的に行います"))
+                .font(.system(size: 10.5, weight: .bold))
+                .foregroundStyle(Theme.fg)
+            Text(app.t(
+                "Connect only the provider required by this request. Search results remain cited proposals and do not become image observations.",
+                "この要求に必要なプロバイダーだけを接続してください。検索結果は出典付きPROPOSEDのままで、画像の観測事実にはなりません。"))
+                .font(.system(size: 10))
+                .foregroundStyle(Theme.dim)
+                .fixedSize(horizontal: false, vertical: true)
+            Button {
+                performResolution(
+                    success: app.t(
+                        "The connection request was persisted; the missing evidence remains OPEN.",
+                        "接続要求を永続化しました。不足資料はOPENのままです。")) {
+                    await app.connectGarmentProvider(request)
+                }
+            } label: {
+                Label(app.t("Record request and open settings",
+                            "接続要求を記録して設定を開く"),
+                      systemImage: "gearshape")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .disabled(isResolving)
+        }
+        .padding(9)
+        .background(Theme.panel2, in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    private func consentCard(_ consent: GarmentLLMResolutionConsent) -> some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Label(app.t("One proposal turn granted", "提案1回分を許可済み"),
+                  systemImage: "checkmark.shield")
+                .font(.system(size: 10.5, weight: .bold))
+                .foregroundStyle(Theme.warn)
+            Text(consent.fieldKeys.joined(separator: ", "))
+                .font(.system(size: 9, design: .monospaced))
+                .foregroundStyle(Theme.dim)
+                .textSelection(.enabled)
+            Text("authority ≤ \(consent.authorityCeiling)")
+                .font(.system(size: 9, weight: .bold, design: .monospaced))
+                .foregroundStyle(Theme.warn)
+            Text("consent \(consent.engineConsentDigest.prefix(16))")
+                .font(.system(size: 8.5, design: .monospaced))
+                .foregroundStyle(Theme.faint)
+                .textSelection(.enabled)
+            Text("workflow \(consent.boundWorkflowDigest.prefix(16))")
+                .font(.system(size: 8.5, design: .monospaced))
+                .foregroundStyle(Theme.faint)
+                .textSelection(.enabled)
+            Text(app.t(
+                "Permission alone does not resolve this request. A provider must return every scoped field through CONSENTED_LLM_PROPOSAL; all output remains PROPOSED.",
+                "許可だけでは要求は解決しません。プロバイダーがCONSENTED_LLM_PROPOSALとして対象項目を返す必要があり、出力はすべてPROPOSEDのままです。"))
+                .font(.system(size: 9.5))
+                .foregroundStyle(Theme.dim)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack {
+                Button(app.t("Revoke", "取り消す"), role: .destructive) {
+                    app.revokeGarmentLLMProposalConsent()
+                }
+                .buttonStyle(.bordered)
+                .disabled(isResolving)
+            }
+        }
+        .padding(9)
+        .background(Theme.warn.opacity(0.08), in: RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var provenance: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text("request \(request.id.prefix(12))")
+            Text("provenance \(request.provenanceDigest.prefix(12))")
+            Text("project \(job.activeResolutionProject)")
+        }
+        .font(.system(size: 8.5, design: .monospaced))
+        .foregroundStyle(Theme.faint)
+        .textSelection(.enabled)
+    }
+
+    private func performResolution(
+        success: String,
+        operation: @escaping @MainActor () async -> Bool
+    ) {
+        guard !isResolving else { return }
+        isResolving = true
+        resolutionFeedback = nil
+        resolutionFailed = false
+        Task { @MainActor in
+            let accepted = await operation()
+            resolutionFailed = !accepted
+            resolutionFeedback = accepted
+                ? success
+                : app.t(
+                    "The factory rejected this action. The request remains open; see the transcript for its typed reason.",
+                    "工場が操作を拒否しました。要求はOPENのままです。型付き理由は会話欄を確認してください。")
+            isResolving = false
+        }
+    }
+
+    private func resolutionButton(_ title: String,
+                                  systemImage: String,
+                                  option: String,
+                                  color: Color,
+                                  action: @escaping () -> Void) -> some View {
+        let enabled = request.allows(option)
+        return Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: systemImage).frame(width: 16)
+                Text(title)
+                    .font(.system(size: 11, weight: .semibold))
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                if !enabled { Image(systemName: "nosign") }
+            }
+            .foregroundStyle(enabled ? color : Theme.faint)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(color.opacity(enabled ? 0.09 : 0.025),
+                        in: RoundedRectangle(cornerRadius: 7))
+            .overlay(RoundedRectangle(cornerRadius: 7)
+                .strokeBorder(color.opacity(enabled ? 0.35 : 0.10), lineWidth: 0.7))
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled || isResolving)
+    }
+
+    private func badge(_ text: String, color: Color) -> some View {
+        Text(text)
+            .font(.system(size: 8.5, weight: .bold, design: .monospaced))
+            .lineLimit(1)
+            .padding(.horizontal, 6).padding(.vertical, 3)
+            .foregroundStyle(color)
+            .background(color.opacity(0.10), in: Capsule())
+    }
+
+    private func fieldTitle(_ key: String) -> String {
+        let labels: [String: (String, String)] = [
+            "visible_garment_parts": ("Visible garment parts", "正面の服飾部品"),
+            "layer_order": ("Layer order", "重なり順"),
+            "foreground_boundary": ("Foreground boundary", "前景の境界"),
+            "body_hair_background_exclusions": ("Body / hair / background exclusions", "人体・髪・背景の除外"),
+            "provider_connection": ("Provider connection", "プロバイダー接続"),
+            "search_provider_connection": ("Search connection", "検索接続"),
+            "height_cm": ("Height", "身長"),
+            "chest_cm": ("Chest", "胸囲"),
+            "waist_cm": ("Waist", "胴囲"),
+            "hip_cm": ("Hip", "腰囲"),
+            "body_length_cm": ("Body length", "背丈"),
+            "rear_structure": ("Rear structure", "背面構造"),
+            "rear_closure": ("Rear closure", "背面の開閉"),
+            "rear_seams": ("Rear seams", "背面の縫い目"),
+            "material_composition": ("Material composition", "素材組成"),
+            "thickness_mm": ("Thickness", "厚み"),
+            "warp_stretch": ("Warp stretch", "経方向の伸縮"),
+            "weft_stretch": ("Weft stretch", "緯方向の伸縮"),
+            "friction": ("Friction", "摩擦"),
+            "bending_stiffness": ("Bending stiffness", "曲げ剛性"),
+            "garment_surface_geometry": ("Garment surface", "服の表面形状"),
+            "arbitrary_3d_target": ("Arbitrary 3D target", "任意3D目標"),
+            "approved_target_geometry": ("Approved target geometry", "承認対象3D"),
+            "completed_pattern": ("Completed pattern", "完成型紙"),
+            "pattern_geometry": ("Pattern geometry", "型紙形状"),
+            "pattern_validation": ("Pattern validation", "型紙検証"),
+            "sewing_reference_provider": ("Sewing reference", "縫製資料"),
+            "seam_finish": ("Seam finish", "縫製始末"),
+            "lining": ("Lining", "裏地"),
+            "interfacing": ("Interfacing", "芯地"),
+            "physics_calibration": ("Physics calibration", "物理校正"),
+            "material_calibration": ("Material calibration", "素材校正"),
+            "wind_calibration": ("Wind calibration", "風校正"),
+            "required_input": ("Required input", "必要な入力"),
+        ]
+        guard let label = labels[key] else { return key.replacingOccurrences(of: "_", with: " ") }
+        return app.t(label.0, label.1)
+    }
+
+    private func fieldReason(_ key: String) -> String {
+        if key.contains("rear") {
+            return app.t("The rear is not visible in a front image and must remain a candidate.",
+                         "正面画像では背面を観測できないため、候補として扱う必要があります。")
+        }
+        if key.contains("material") || key.contains("stretch")
+            || key == "friction" || key.contains("stiffness") || key.contains("thickness") {
+            return app.t("Required to bound drape and pattern calculations; pixels do not measure it.",
+                         "ドレープと型紙計算の範囲を定める値です。画像画素からは実測できません。")
+        }
+        if key.contains("cm") {
+            return app.t("Required to size the selected wearer; it is not measured from the photo.",
+                         "着用者寸法へ合わせるため必要です。写真からの実測値ではありません。")
+        }
+        if key.contains("provider") {
+            return app.t("The requested evidence or reconstruction route has no connected provider.",
+                         "必要な資料・再構成経路のプロバイダーが接続されていません。")
+        }
+        if key.contains("pattern") {
+            return app.t("A cuttable, validated pattern must be derived from approved geometry.",
+                         "承認済み形状から、裁断可能で検証済みの型紙へ落とす必要があります。")
+        }
+        if key.contains("calibration") {
+            return app.t("A preview can use bounded assumptions; a physical claim needs measured calibration.",
+                         "プレビューは限定仮定で可能ですが、物理的主張には実測校正が必要です。")
+        }
+        if key.contains("finish") || key == "lining" || key == "interfacing" {
+            return app.t("Construction order alone does not determine the real seam finish or support layers.",
+                         "縫製順だけでは、実際の縫製始末・裏地・芯地は確定できません。")
+        }
+        return app.t("The deterministic loop needs this value before the next bounded transition.",
+                     "決定論的ループが次の限定遷移へ進むために必要です。")
+    }
+
+    private struct RequirementCategory: Identifiable {
+        let id: String
+        let english: String
+        let japanese: String
+        let icon: String
+        let color: Color
+        let markers: [String]
+    }
+
+    private var requirementCategories: [RequirementCategory] {
+        let categories: [RequirementCategory] = [
+            .init(id: "rear", english: "Rear", japanese: "背面",
+                  icon: "person.crop.rectangle.stack", color: Theme.warn,
+                  markers: ["rear", "back_"]),
+            .init(id: "material", english: "Material", japanese: "素材",
+                  icon: "swatchpalette", color: Theme.warn,
+                  markers: ["material", "thickness", "stretch", "friction", "stiffness"]),
+            .init(id: "dimensions", english: "Dimensions", japanese: "寸法",
+                  icon: "ruler", color: Theme.sel,
+                  markers: ["_cm", "measurement", "dimension", "body_size"]),
+            .init(id: "3d", english: "Arbitrary 3D", japanese: "任意3D",
+                  icon: "cube.transparent", color: Theme.sel,
+                  markers: ["3d", "geometry", "surface"]),
+            .init(id: "pattern", english: "Completed pattern", japanese: "完成型紙",
+                  icon: "scissors", color: Theme.ok,
+                  markers: ["pattern", "dxf"]),
+            .init(id: "finish", english: "Sewing finish", japanese: "縫製始末",
+                  icon: "point.topleft.down.to.point.bottomright.curvepath", color: Theme.ok,
+                  markers: ["seam_finish", "lining", "interfacing", "sewing_reference"]),
+            .init(id: "calibration", english: "Physics calibration", japanese: "物理校正",
+                  icon: "waveform.path.ecg", color: Theme.warn,
+                  markers: ["calibration", "wind_tunnel", "physical_test"]),
+            .init(id: "search", english: "Search connection", japanese: "検索接続",
+                  icon: "network", color: Theme.sel,
+                  markers: ["provider", "search", "retrieval", "corpus", "fashionsiglip"]),
+        ]
+        let signal = ([request.code, request.stage] + request.missingFields)
+            .joined(separator: " ").lowercased()
+        let matches = categories.filter { category in
+            category.markers.contains { signal.contains($0) }
+        }
+        return matches.isEmpty
+            ? [.init(id: "required", english: "Required input", japanese: "必要な入力",
+                     icon: "questionmark.diamond", color: Theme.warn,
+                     markers: [])]
+            : matches
     }
 }
 
