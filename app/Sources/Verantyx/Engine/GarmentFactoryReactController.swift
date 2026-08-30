@@ -2585,11 +2585,11 @@ public final class GarmentFactoryReactController: ObservableObject {
               let analysisDigest = activeVisibleAnalysisDigest else {
             return lastReport
         }
-        guard let humanEvidence = Self.humanConfirmedFrontEvidence(
-                confirmedOutline),
-              let activeImagePath = activeTargetImagePath,
-              URL(fileURLWithPath: activeImagePath).standardizedFileURL.path
-                == URL(fileURLWithPath: imagePath).standardizedFileURL.path else {
+        guard let humanEvidence =
+                HumanConfirmedFrontEvidenceGate.humanConfirmedFrontEvidence(
+                    confirmedOutline,
+                    activeImagePath: activeTargetImagePath,
+                    submittedImagePath: imagePath) else {
             return finish(
                 "UNKNOWN_HUMAN_CONFIRMED_FRONT_REQUIRED", phase: phase,
                 message: "同じ画像上で人が衣服に3〜5点を置き、正面の衣服領域を確認してください。AIの自動マスクだけでは監査を完了できません。",
@@ -2677,34 +2677,6 @@ public final class GarmentFactoryReactController: ObservableObject {
         scheduleTargetSameCameraComparison()
         await persistForegroundCleanupAndResume()
         return lastReport
-    }
-
-    /// Accept only the exact RegionPicker export produced from 3–5 human
-    /// labeled points. Automatic proposals have PROPOSED provenance and fail
-    /// this check, even if a model or another caller supplies a reviewer name.
-    private static func humanConfirmedFrontEvidence(
-        _ outline: [String: Any]
-    ) -> (regions: [[String: Any]], seeds: [[String: Any]])? {
-        guard let polygon = outline["outline"] as? [[Double]],
-              polygon.count >= 3,
-              let regions = outline["regions"] as? [[String: Any]],
-              !regions.isEmpty,
-              regions.allSatisfy({ row in
-                  (row["state"] as? String)?.uppercased() == "OBSERVED"
-                    && (row["semantic_label"] as? String)?.lowercased()
-                        == "clothing"
-              }),
-              let provenance = outline["provenance"] as? [String: Any],
-              (provenance["kind"] as? String)?.uppercased() == "OBSERVED",
-              let seeds = provenance["human_seeds"] as? [[String: Any]],
-              (3...5).contains(seeds.count),
-              seeds.allSatisfy({
-                  ($0["kind"] as? String)?.uppercased() == "OBSERVED"
-              }),
-              seeds.contains(where: {
-                  ($0["label"] as? String)?.lowercased() == "clothing"
-              }) else { return nil }
-        return (regions, seeds)
     }
 
     /// Bind the adopted CAD target to the same persisted audit.  A local UI

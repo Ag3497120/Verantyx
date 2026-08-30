@@ -4,8 +4,15 @@ from __future__ import annotations
 
 import copy
 import unittest
+from unittest.mock import patch
 
+from photoloset import candidate_3d_repair_loop
 from photoloset.geometric_atelier_workflow import REQUEST_SCHEMA, run
+from tests.test_cross_image_generalization import (
+    FIXTURE_ROOT,
+    _fixture_digest,
+    _pixel_derived_outline,
+)
 
 
 def _mask(mask_id, mask_class, outline, *, unit=None, layer=0,
@@ -149,6 +156,66 @@ def _request(**updates):
     }
     request.update(updates)
     return request
+
+
+def _human_confirmed_fixture_request():
+    """Build a real-pixel confirmation fixture without a product bypass.
+
+    The ACCEPT decision and edit digest are deliberately confined to this
+    test request.  Production still receives them only from the human audit
+    gate; this helper merely measures the post-gate repair path.
+    """
+    path = FIXTURE_ROOT / "layered-separates-overskirt.png"
+    width, height, outline_px = _pixel_derived_outline(path)
+    outline = [[x / width, y / height] for x, y in outline_px]
+    fixture_digest = _fixture_digest(path)
+    separation = _separation(authority="OBSERVED", layered=False)
+    separation["source"] = {
+        "image_digest": "sha256:" + fixture_digest,
+        "image_path": str(path.resolve()),
+        "width": width,
+        "height": height,
+        "orientation": "UP",
+    }
+    candidate = separation["candidates"][0]
+    candidate["camera"].update({
+        "width_px": width,
+        "height_px": height,
+        "camera_digest": "camera:fixture-pixel-derived-front",
+    })
+    for mask in candidate["masks"]:
+        if mask["class"] != "GARMENT":
+            continue
+        mask.update({
+            "outline": copy.deepcopy(outline),
+            "authority": "OBSERVED",
+            "mask_digest": "sha256:" + fixture_digest + ":front-hull",
+            "garment_unit_id": "fixture-visible-unit",
+            "mask_id": "fixture-visible-garment",
+        })
+    graph = {
+        "graph_id": "fixture-pixel-derived-visible-front",
+        "parts": [{
+            "part_id": "fixture-visible-garment",
+            "kind": "UNKNOWN_VISIBLE_GARMENT",
+            "garment_unit": "fixture-visible-unit",
+            "layer": 0,
+            "outline": copy.deepcopy(outline),
+            "coordinate_space": "NORMALIZED",
+        }],
+        "relations": [],
+    }
+    request = _request(
+        separation=separation,
+        visible_part_graph=graph,
+        audit_mode="HUMAN_AUDIT",
+        front_audit={"decision": "ACCEPT", "reviewer": "fixture-human"},
+        human_edit_digest=(
+            "sha256:test-only-human-confirmed-" + fixture_digest
+        ),
+        repair_config={"max_rounds": 3, "repair_gain": 1.0},
+    )
+    return path, outline_px, request
 
 
 class GeometricAtelierWorkflowTests(unittest.TestCase):
@@ -450,6 +517,62 @@ class GeometricAtelierWorkflowTests(unittest.TestCase):
         self.assertFalse(result["manufacturing_ready"])
         self.assertEqual(result["pattern_handoff_ready"],
                          bool(result["pattern_handoffs"]))
+
+    def test_real_fixture_human_confirmation_invokes_repair_and_improves_iou(self):
+        path, outline_px, request = _human_confirmed_fixture_request()
+        with patch(
+            "photoloset.geometric_atelier_workflow."
+            "candidate_3d_repair_loop.run",
+            wraps=candidate_3d_repair_loop.run,
+        ) as repair_run:
+            result = run(request)
+
+        self.assertTrue(path.is_file())
+        self.assertEqual(len(outline_px), 20)
+        self.assertTrue(result["front_confirmed"])
+        self.assertEqual(repair_run.call_count, 1)
+        repair_request = repair_run.call_args.args[0]
+        self.assertEqual(
+            repair_request["target_front"]["reference_authority"],
+            "HUMAN_CONFIRMED_TARGET",
+        )
+        self.assertTrue(
+            repair_request["target_front"]["human_edit_digest"].startswith(
+                "sha256:test-only-human-confirmed-"
+            )
+        )
+        self.assertEqual(result["rear_ensemble"]["candidate_count"], 2)
+        self.assertEqual(len(result["second_skin"]["mesh"]["vertices_cm"]), 40)
+        self.assertEqual(len(result["second_skin"]["mesh"]["triangles"]), 64)
+
+        measurements = []
+        for candidate in result["candidate_3d_repair"]["candidates"]:
+            support = candidate["repair_transcript"][0]["evidence_cross"][
+                "arms"]["support+"]
+            loss = next(
+                row["value"] for row in support
+                if row["path"] == "front/silhouette/iou_loss"
+            )
+            initial_iou = 1.0 - float(loss)
+            final_iou = float(candidate["final_evaluation"]["axes"][
+                "silhouette"]["iou"])
+            measurements.append((initial_iou, final_iou))
+            self.assertGreater(final_iou, initial_iou)
+            self.assertEqual(
+                candidate["final_evaluation"]["convergence"]["status"],
+                "CONTINUE",
+            )
+            self.assertIsNone(candidate["non_improvement_stop"])
+            self.assertEqual(
+                candidate["verdict"], "HUMAN_REVIEW_REPAIR_UNAVAILABLE")
+            self.assertIsNone(candidate["pattern_handoff"])
+
+        self.assertEqual(len(measurements), 2)
+        for initial_iou, final_iou in measurements:
+            self.assertAlmostEqual(initial_iou, 0.6562841530054645, places=12)
+            self.assertAlmostEqual(final_iou, 0.9297676931388439, places=12)
+        self.assertFalse(result["pattern_handoff_ready"])
+        self.assertEqual(result["pattern_handoffs"], [])
 
     def test_single_audited_mask_can_scaffold_unsegmented_vlm_parts(self):
         graph = {
