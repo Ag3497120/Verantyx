@@ -629,7 +629,7 @@ struct ModelSelectorBarView: View {
             case .claudeAgentReady:
                 return ("AGENT SDK", Color(red: 0.85, green: 0.55, blue: 0.95))
             case .chatGPTSubscriptionReady:
-                return ("CHATGPT", Theme.accent)
+                return ("CHATGPT", Color.accentColor)
             case .lmStudioReady:
                 return ("LMSTUDIO", Color(red: 0.35, green: 0.8, blue: 0.85))
             case .anthropicReady:

@@ -21,7 +21,7 @@ jobs:
           xcode-version: latest-stable
 
       - name: Make package script executable
-        run: chmod +x cli/package_dmg.sh
+        run: chmod +x ide/package_dmg.sh
 
       - name: Install Developer ID certificate
         env:
