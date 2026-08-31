@@ -213,6 +213,7 @@
 		9FACB868D7B1ACC2D6C67C17 /* GitHubPREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892959B83A4902F0E159A8D3 /* GitHubPREngine.swift */; };
 		9FB76DC5C4E4B0DF21FDCACD /* MLXRandom in Frameworks */ = {isa = PBXBuildFile; productRef = A68E46F8CFDC14DEF2D55FC5 /* MLXRandom */; };
 		A068BE0BBA45E5C676FE6B0A /* GatekeeperDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43C586B09E48A7D2D0ECF9F /* GatekeeperDashboardView.swift */; };
+		C7A7B61A0B9F4E7FA15E0001 /* ChatGPTSubscriptionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7B61A0B9F4E7FA15E0002 /* ChatGPTSubscriptionClient.swift */; };
 		A305FA7B458D078C9C91C8B9 /* OllamaNEREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD1C95353C3772E36EF6170 /* OllamaNEREngine.swift */; };
 		A531E331E9BA5755DA223AAB /* HybridEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AED536E86FE739129AF444 /* HybridEngine.swift */; };
 		A5350F03EAF2B9602619D5C0 /* MCPEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAA99AF46D25BCBCE4FD6D8 /* MCPEngine.swift */; };
@@ -517,6 +518,7 @@
 		AC366C7E1C379A6EC158AAB9 /* AppDelegationKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegationKit.swift; sourceTree = "<group>"; };
 		AB8C07A2395C323F940350C6 /* Verantyx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Verantyx.entitlements; sourceTree = "<group>"; };
 		ABE4F19CD033EC88CE775297 /* AgentLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentLoop.swift; sourceTree = "<group>"; };
+		C7A7B61A0B9F4E7FA15E0002 /* ChatGPTSubscriptionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTSubscriptionClient.swift; sourceTree = "<group>"; };
 		AC02FA4530EA7E0A7438B5E5 /* SwarmEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwarmEngine.swift; sourceTree = "<group>"; };
 		AD5C5CDDD9AD4603570A6E8E /* JCrossPatchValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossPatchValidator.swift; sourceTree = "<group>"; };
 		ADB9DFCA9C5803699454276A /* SelfUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfUpdater.swift; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 			children = (
 				8900CE64BBFB018EC941426D /* AgentEngine.swift */,
 				ABE4F19CD033EC88CE775297 /* AgentLoop.swift */,
+				C7A7B61A0B9F4E7FA15E0002 /* ChatGPTSubscriptionClient.swift */,
 				0B88FBBD511D4700CD23A354 /* AgentProtocol.swift */,
 				C4FB2130D8251C87DD0E8274 /* AgentTool.swift */,
 				7DD0CF9E9F56A2FF9A6D39DB /* ReasoningTimeline.swift */,
@@ -1233,6 +1236,7 @@
 				873D3FC00C4F078899FDC94A /* AgentChatView.swift in Sources */,
 				BAA142F996EB155712321FA7 /* AgentEngine.swift in Sources */,
 				4F74BBA8D8892CF5A08BFEAC /* AgentLoop.swift in Sources */,
+				C7A7B61A0B9F4E7FA15E0001 /* ChatGPTSubscriptionClient.swift in Sources */,
 				0823DE084BDF1591DC46122E /* AgentProtocol.swift in Sources */,
 				0F2343EF3C5679D871DEC983 /* AgentTool.swift in Sources */,
 				C5F272A828F27292A11ED28B /* ReasoningTimeline.swift in Sources */,
