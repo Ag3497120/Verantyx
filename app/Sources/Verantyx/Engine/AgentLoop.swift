@@ -1956,6 +1956,18 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                     enableThinking: false,
                                     onToken: { _ in }, onThinking: { _ in }
                                 )
+                            case .chatGPTSubscriptionReady(let model):
+                                let sys = msgs.first(where: { $0.role == "system" })?.content
+                                let chat = msgs
+                                    .filter { $0.role != "system" }
+                                    .map { "\($0.role == "user" ? "User" : "Assistant"): \($0.content)" }
+                                    .joined(separator: "\n\n")
+                                let reply = await ChatGPTSubscriptionClient.shared.send(
+                                    prompt: chat,
+                                    systemPrompt: sys,
+                                    model: model
+                                )
+                                return reply.isError ? nil : reply.text
                             default: return nil
                             }
                         },
@@ -2677,6 +2689,21 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let reply = await ClaudeAgentSDKClient.shared.send(
                 prompt: body, systemPrompt: systemText, model: model)
             if reply.isError { return "⚠️ \(reply.text)" }
+            await onProgress(.streamToken(reply.text))
+            return reply.text
+
+        case .chatGPTSubscriptionReady(let model):
+            // ChatGPT subscription billing is separate from the OpenAI API.
+            // The installed Codex CLI owns the login; Verantyx receives only
+            // the final text and keeps tool execution in this verified loop.
+            let systemText = mutableConversation.first(where: { $0.role == "system" })?.content
+            let body = mutableConversation
+                .filter { $0.role != "system" }
+                .map { "\($0.role == "user" ? "User" : "Assistant"): \($0.content)" }
+                .joined(separator: "\n\n")
+            let reply = await ChatGPTSubscriptionClient.shared.send(
+                prompt: body, systemPrompt: systemText, model: model)
+            if reply.isError { return "⚠️ ChatGPT: \(reply.text)" }
             await onProgress(.streamToken(reply.text))
             return reply.text
 

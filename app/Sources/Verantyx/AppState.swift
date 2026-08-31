@@ -1129,6 +1129,7 @@ final class AppState: ObservableObject {
         case .ollamaReady(let model): return model
         case .anthropicReady(let model, _): return model
         case .claudeAgentReady(let model): return model
+        case .chatGPTSubscriptionReady(let model): return model
         case .mlxReady(let model): return model
         case .mlxDownloading(let model): return model
         case .bitnetReady(let model): return model
@@ -1331,6 +1332,10 @@ final class AppState: ObservableObject {
             return Self.cloudModelSeesImages(m)
         case .claudeAgentReady(let m):
             return Self.cloudModelSeesImages(m)
+        case .chatGPTSubscriptionReady:
+            // The CLI bridge currently sends text only. Image attachments are
+            // never silently discarded as if the backend had inspected them.
+            return false
 
         default: return false
         }
@@ -1367,6 +1372,9 @@ final class AppState: ObservableObject {
         /// user's own Claude Code login. Distinct from `.anthropicReady`
         /// because no API key is involved and none is held here.
         case claudeAgentReady(model: String)
+        /// OpenAI reached through the installed Codex CLI using the user's
+        /// ChatGPT login. This is not the separately billed OpenAI API.
+        case chatGPTSubscriptionReady(model: String)
         case mlxReady(model: String)          // MLX server running at localhost:8080
         case mlxDownloading(model: String)    // mlx_lm download in progress
         case bitnetReady(model: String)       // BitNet local subprocess
@@ -1848,7 +1856,8 @@ final class AppState: ObservableObject {
              .bitnetReady(let m), .jcrossReady(let m),
              .ollamaReady(let m), .ready(let m):
             return m
-        case .anthropicReady(let m, _), .claudeAgentReady(let m):
+        case .anthropicReady(let m, _), .claudeAgentReady(let m),
+             .chatGPTSubscriptionReady(let m):
             return m
         case .mlxDownloading(let m):
             return m
@@ -2684,6 +2693,15 @@ final class AppState: ObservableObject {
         modelStatus = .claudeAgentReady(model: model)
         addSystemMessage(t("🧩 Agent SDK: \(model)",
                            "🧩 Agent SDK 経由で \(model) を選択しました（Claude Code のログインを使用）"))
+    }
+
+    /// Use the existing ChatGPT/Codex login without reading or storing its
+    /// credential. `default` delegates model choice to the user's Codex setup.
+    func selectChatGPTSubscriptionModel(_ model: String = "default") {
+        UserDefaults.standard.set(model, forKey: "chatgpt_subscription_model")
+        modelStatus = .chatGPTSubscriptionReady(model: model)
+        addSystemMessage(t("💬 ChatGPT subscription: \(model)",
+                           "💬 ChatGPT サブスク経由を選択しました: \(model)"))
     }
 
     func selectCloudModel(provider: CloudProvider, model: String) {
@@ -4104,7 +4122,8 @@ final class AppState: ObservableObject {
 
     var isReady: Bool {
         switch modelStatus {
-        case .ready, .ollamaReady, .mlxReady, .bitnetReady, .lmStudioReady: return true
+        case .ready, .ollamaReady, .mlxReady, .bitnetReady, .lmStudioReady,
+             .chatGPTSubscriptionReady: return true
         default: return false
         }
     }
@@ -4118,6 +4137,7 @@ final class AppState: ObservableObject {
         case .ollamaReady(let m):            return "Ollama: \(m.components(separatedBy: ":").first ?? m)"
         case .anthropicReady(let m, _):      return "Claude: \(m)"
         case .claudeAgentReady(let m):       return "Agent SDK: \(m)"
+        case .chatGPTSubscriptionReady(let m): return m == "default" ? "ChatGPT" : "ChatGPT: \(m)"
         case .mlxReady(let m):              return "MLX: \(m.components(separatedBy: "/").last ?? m)"
         case .mlxDownloading(let m):        return "⏬ \(m.components(separatedBy: "/").last ?? m)"
         case .bitnetReady(let m):           return "BitNet: \(m)"
@@ -4130,7 +4150,7 @@ final class AppState: ObservableObject {
     var statusColor: Color {
         switch modelStatus {
         case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady, .jcrossReady,
-             .lmStudioReady, .claudeAgentReady: return .green
+             .lmStudioReady, .claudeAgentReady, .chatGPTSubscriptionReady: return .green
         case .error:                           return .red
         case .downloading, .connecting,
              .mlxDownloading:                  return .orange

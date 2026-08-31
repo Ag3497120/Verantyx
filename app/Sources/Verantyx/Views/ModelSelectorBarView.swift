@@ -29,6 +29,7 @@ struct ModelSelectorBarView: View {
     @ObservedObject private var council = CouncilSettingsStore.shared
     @ObservedObject private var cloudCatalog = CloudModelCatalog.shared
     @State private var agentSDKAvailable = false
+    @State private var chatGPTSubscriptionAvailable = false
     @State private var showJGenOptions = false
     @State private var showModelRoles = false
     /// LM Studio's Local Server can be off while the app itself is running,
@@ -60,6 +61,8 @@ struct ModelSelectorBarView: View {
         /// Claude via the Agent SDK, on the user's Claude Code login. No API
         /// key is involved, which is why it is not a `.cloud` case.
         case claudeAgent(String)
+        /// ChatGPT subscription via the user's existing Codex CLI login.
+        case chatGPTSubscription(String)
     }
 
     private var currentSelection: SelectableModel? {
@@ -71,6 +74,7 @@ struct ModelSelectorBarView: View {
         case .lmStudioReady(let m): return .lmStudio(m)
         case .anthropicReady(let m, _): return .cloud(app.activeCloudProvider, m)
         case .claudeAgentReady(let m): return .claudeAgent(m)
+        case .chatGPTSubscriptionReady(let m): return .chatGPTSubscription(m)
         default: return nil
         }
     }
@@ -81,6 +85,8 @@ struct ModelSelectorBarView: View {
             return m
         case .cloud(_, let m), .claudeAgent(let m):
             return m
+        case .chatGPTSubscription(let m):
+            return m == "default" ? "ChatGPT" : m
         case nil:
             // Nothing loaded yet -- fall back to whatever Gatekeeper has
             // configured, matching the old picker's behavior.
@@ -116,6 +122,9 @@ struct ModelSelectorBarView: View {
         case .claudeAgent(let name):
             GatekeeperModeState.shared.commanderModel = name
             app.selectClaudeAgentModel(name)
+        case .chatGPTSubscription(let name):
+            GatekeeperModeState.shared.commanderModel = name
+            app.selectChatGPTSubscriptionModel(name)
         }
     }
 
@@ -242,6 +251,7 @@ struct ModelSelectorBarView: View {
             // Is the claude CLI actually installed? Asked once, so the
             // subscription section appears only when it can be selected.
             agentSDKAvailable = await ClaudeAgentSDKClient.shared.probe()?.usable ?? false
+            chatGPTSubscriptionAvailable = await ChatGPTSubscriptionClient.shared.probe()?.usable ?? false
             // Cheap and bounded (2 s timeout): if LM Studio's Local Server is
             // off this returns nothing and the section simply does not appear,
             // rather than showing a section that fails on click.
@@ -424,6 +434,17 @@ struct ModelSelectorBarView: View {
         }
     }
 
+    @ViewBuilder
+    private var chatGPTSubscriptionSection: some View {
+        if chatGPTSubscriptionAvailable {
+            Section("ChatGPT（サブスク）") {
+                Button("ChatGPT（既定モデル）") {
+                    select(.chatGPTSubscription("default"))
+                }
+            }
+        }
+    }
+
     /// Cloud providers with a key configured. Listing one without a key would
     /// offer a choice that fails the moment it is used.
     @ViewBuilder
@@ -483,6 +504,7 @@ struct ModelSelectorBarView: View {
             }
             lmStudioSection
             agentSDKSection
+            chatGPTSubscriptionSection
             cloudSections
             if app.ollamaModels.isEmpty && jgen.convertedModels.isEmpty && bitnet.installedConfigs.isEmpty {
                 Section("Ollama (Not Connected)") {
@@ -553,6 +575,8 @@ struct ModelSelectorBarView: View {
                 return ("JGEN", Theme.warn)
             case .claudeAgentReady:
                 return ("AGENT SDK", Theme.accent)
+            case .chatGPTSubscriptionReady:
+                return ("CHATGPT", Theme.accent)
             case .lmStudioReady:
                 return ("LMSTUDIO", Theme.sel)
             case .anthropicReady:
